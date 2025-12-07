@@ -16,6 +16,7 @@
 - (void)session:(id)session receivedInvitationAcceptFromID:(id)d;
 - (void)session:(id)session receivedInvitationCancelFromID:(id)d;
 - (void)session:(id)session receivedInvitationDeclineFromID:(id)d;
+- (void)sessionEnded:(id)ended withReason:(unsigned int)reason error:(id)error;
 - (void)sessionStarted:(id)started;
 - (void)setPacketReceiver:(id)receiver;
 @end
@@ -31,23 +32,21 @@
 
   if ([(NRLink *)self state]== 255)
   {
-    nrUUID = self->super._nrUUID;
-    v16 = _NRCopyLogObjectForNRUUID();
+    v13 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (!IsLevelEnabled)
     {
-      goto LABEL_13;
+      goto LABEL_14;
     }
 
-LABEL_11:
-    v19 = self->super._nrUUID;
-    v13 = _NRCopyLogObjectForNRUUID();
+    v11 = _NRCopyLogObjectForNRUUID();
     copyDescription = [(NRLink *)self copyDescription];
-    _NRLogWithArgs();
-
+    _NRLogWithArgs(v11, 1, "%s%.30s:%-4d %@: Ignoring callback as link is cancelled", ", "[NRLinkQuickRelay session:receivedInvitationDeclineFromID:]"", 2779, copyDescription);
 LABEL_12:
-    goto LABEL_13;
+
+LABEL_13:
+    goto LABEL_14;
   }
 
   if (sessionCopy)
@@ -62,47 +61,47 @@ LABEL_12:
       v8 = 0;
     }
 
-    v9 = self->super._nrUUID;
-    v10 = _NRCopyLogObjectForNRUUID();
+    v9 = _NRCopyLogObjectForNRUUID();
     if (v8 != sessionCopy)
     {
-      v11 = _NRLogIsLevelEnabled();
+      v10 = _NRLogIsLevelEnabled();
 
-      if (!v11)
+      if (!v10)
       {
-        goto LABEL_13;
+        goto LABEL_14;
       }
 
-      v12 = self->super._nrUUID;
-      v13 = _NRCopyLogObjectForNRUUID();
+      v11 = _NRCopyLogObjectForNRUUID();
       copyDescription2 = [(NRLink *)self copyDescription];
-      v23 = *(&self->_idsService + 7);
-      _NRLogWithArgs();
+      _NRLogWithArgs(v11, 17, "%@: Sessions do not match: expected %@, started %@", copyDescription2, *(&self->_idsService + 7), sessionCopy);
 
-      goto LABEL_12;
-    }
-
-    v18 = _NRLogIsLevelEnabled();
-
-    if (!v18)
-    {
       goto LABEL_13;
     }
 
-    goto LABEL_11;
-  }
+    v16 = _NRLogIsLevelEnabled();
 
-  v21 = sub_100046E64();
-  v22 = _NRLogIsLevelEnabled();
+    if (!v16)
+    {
+      goto LABEL_14;
+    }
 
-  if (v22)
-  {
-    v13 = sub_100046E64();
-    _NRLogWithArgs();
+    v11 = _NRCopyLogObjectForNRUUID();
+    copyDescription = [(NRLink *)self copyDescription];
+    _NRLogWithArgs(v11, 0, "%s%.30s:%-4d %@: Destination %@ declined invitation for session %@", ", "[NRLinkQuickRelay session:receivedInvitationDeclineFromID:]"", 2785, copyDescription, dCopy, sessionCopy);
     goto LABEL_12;
   }
 
-LABEL_13:
+  v17 = sub_100046E64();
+  v18 = _NRLogIsLevelEnabled();
+
+  if (v18)
+  {
+    v11 = sub_100046E64();
+    _NRLogWithArgs(v11, 17, "%s called with null session", "[NRLinkQuickRelay session:receivedInvitationDeclineFromID:]");
+    goto LABEL_13;
+  }
+
+LABEL_14:
 }
 
 - (void)session:(id)session receivedInvitationCancelFromID:(id)d
@@ -114,23 +113,21 @@ LABEL_13:
 
   if ([(NRLink *)self state]== 255)
   {
-    nrUUID = self->super._nrUUID;
-    v16 = _NRCopyLogObjectForNRUUID();
+    v13 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (!IsLevelEnabled)
     {
-      goto LABEL_13;
+      goto LABEL_14;
     }
 
-LABEL_11:
-    v19 = self->super._nrUUID;
-    v13 = _NRCopyLogObjectForNRUUID();
+    v11 = _NRCopyLogObjectForNRUUID();
     copyDescription = [(NRLink *)self copyDescription];
-    _NRLogWithArgs();
-
+    _NRLogWithArgs(v11, 1, "%s%.30s:%-4d %@: Ignoring callback as link is cancelled", ", "[NRLinkQuickRelay session:receivedInvitationCancelFromID:]"", 2766, copyDescription);
 LABEL_12:
-    goto LABEL_13;
+
+LABEL_13:
+    goto LABEL_14;
   }
 
   if (sessionCopy)
@@ -145,47 +142,47 @@ LABEL_12:
       v8 = 0;
     }
 
-    v9 = self->super._nrUUID;
-    v10 = _NRCopyLogObjectForNRUUID();
+    v9 = _NRCopyLogObjectForNRUUID();
     if (v8 != sessionCopy)
     {
-      v11 = _NRLogIsLevelEnabled();
+      v10 = _NRLogIsLevelEnabled();
 
-      if (!v11)
+      if (!v10)
       {
-        goto LABEL_13;
+        goto LABEL_14;
       }
 
-      v12 = self->super._nrUUID;
-      v13 = _NRCopyLogObjectForNRUUID();
+      v11 = _NRCopyLogObjectForNRUUID();
       copyDescription2 = [(NRLink *)self copyDescription];
-      v23 = *(&self->_idsService + 7);
-      _NRLogWithArgs();
+      _NRLogWithArgs(v11, 17, "%@: Sessions do not match: expected %@, started %@", copyDescription2, *(&self->_idsService + 7), sessionCopy);
 
-      goto LABEL_12;
-    }
-
-    v18 = _NRLogIsLevelEnabled();
-
-    if (!v18)
-    {
       goto LABEL_13;
     }
 
-    goto LABEL_11;
-  }
+    v16 = _NRLogIsLevelEnabled();
 
-  v21 = sub_100046E64();
-  v22 = _NRLogIsLevelEnabled();
+    if (!v16)
+    {
+      goto LABEL_14;
+    }
 
-  if (v22)
-  {
-    v13 = sub_100046E64();
-    _NRLogWithArgs();
+    v11 = _NRCopyLogObjectForNRUUID();
+    copyDescription = [(NRLink *)self copyDescription];
+    _NRLogWithArgs(v11, 0, "%s%.30s:%-4d %@: Destination %@ cancelled invitation for session %@", ", "[NRLinkQuickRelay session:receivedInvitationCancelFromID:]"", 2772, copyDescription, dCopy, sessionCopy);
     goto LABEL_12;
   }
 
-LABEL_13:
+  v17 = sub_100046E64();
+  v18 = _NRLogIsLevelEnabled();
+
+  if (v18)
+  {
+    v11 = sub_100046E64();
+    _NRLogWithArgs(v11, 17, "%s called with null session", "[NRLinkQuickRelay session:receivedInvitationCancelFromID:]");
+    goto LABEL_13;
+  }
+
+LABEL_14:
 }
 
 - (void)session:(id)session receivedInvitationAcceptFromID:(id)d
@@ -197,23 +194,21 @@ LABEL_13:
 
   if ([(NRLink *)self state]== 255)
   {
-    nrUUID = self->super._nrUUID;
-    v16 = _NRCopyLogObjectForNRUUID();
+    v13 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (!IsLevelEnabled)
     {
-      goto LABEL_13;
+      goto LABEL_14;
     }
 
-LABEL_11:
-    v19 = self->super._nrUUID;
-    v13 = _NRCopyLogObjectForNRUUID();
+    v11 = _NRCopyLogObjectForNRUUID();
     copyDescription = [(NRLink *)self copyDescription];
-    _NRLogWithArgs();
-
+    _NRLogWithArgs(v11, 1, "%s%.30s:%-4d %@: Ignoring callback as link is cancelled", ", "[NRLinkQuickRelay session:receivedInvitationAcceptFromID:]"", 2753, copyDescription);
 LABEL_12:
-    goto LABEL_13;
+
+LABEL_13:
+    goto LABEL_14;
   }
 
   if (sessionCopy)
@@ -228,47 +223,47 @@ LABEL_12:
       v8 = 0;
     }
 
-    v9 = self->super._nrUUID;
-    v10 = _NRCopyLogObjectForNRUUID();
+    v9 = _NRCopyLogObjectForNRUUID();
     if (v8 != sessionCopy)
     {
-      v11 = _NRLogIsLevelEnabled();
+      v10 = _NRLogIsLevelEnabled();
 
-      if (!v11)
+      if (!v10)
       {
-        goto LABEL_13;
+        goto LABEL_14;
       }
 
-      v12 = self->super._nrUUID;
-      v13 = _NRCopyLogObjectForNRUUID();
+      v11 = _NRCopyLogObjectForNRUUID();
       copyDescription2 = [(NRLink *)self copyDescription];
-      v23 = *(&self->_idsService + 7);
-      _NRLogWithArgs();
+      _NRLogWithArgs(v11, 17, "%@: Sessions do not match: expected %@, started %@", copyDescription2, *(&self->_idsService + 7), sessionCopy);
 
-      goto LABEL_12;
-    }
-
-    v18 = _NRLogIsLevelEnabled();
-
-    if (!v18)
-    {
       goto LABEL_13;
     }
 
-    goto LABEL_11;
-  }
+    v16 = _NRLogIsLevelEnabled();
 
-  v21 = sub_100046E64();
-  v22 = _NRLogIsLevelEnabled();
+    if (!v16)
+    {
+      goto LABEL_14;
+    }
 
-  if (v22)
-  {
-    v13 = sub_100046E64();
-    _NRLogWithArgs();
+    v11 = _NRCopyLogObjectForNRUUID();
+    copyDescription = [(NRLink *)self copyDescription];
+    _NRLogWithArgs(v11, 0, "%s%.30s:%-4d %@: Destination %@ accepted invitation for session %@", ", "[NRLinkQuickRelay session:receivedInvitationAcceptFromID:]"", 2759, copyDescription, dCopy, sessionCopy);
     goto LABEL_12;
   }
 
-LABEL_13:
+  v17 = sub_100046E64();
+  v18 = _NRLogIsLevelEnabled();
+
+  if (v18)
+  {
+    v11 = sub_100046E64();
+    _NRLogWithArgs(v11, 17, "%s called with null session", "[NRLinkQuickRelay session:receivedInvitationAcceptFromID:]");
+    goto LABEL_13;
+  }
+
+LABEL_14:
 }
 
 - (void)session:(id)session didReceiveData:(id)data
@@ -280,92 +275,266 @@ LABEL_13:
 
   if ([(NRLink *)self state]== 255)
   {
-    nrUUID = self->super._nrUUID;
-    v21 = _NRCopyLogObjectForNRUUID();
+    v20 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (!IsLevelEnabled)
     {
-      goto LABEL_14;
+      goto LABEL_15;
     }
 
-    goto LABEL_12;
-  }
-
-  if (!sessionCopy)
-  {
-    v26 = sub_100046E64();
-    v27 = _NRLogIsLevelEnabled();
-
-    if (!v27)
-    {
-      goto LABEL_14;
-    }
-
-    goto LABEL_20;
-  }
-
-  if (!dataCopy)
-  {
-    v28 = sub_100046E64();
-    v29 = _NRLogIsLevelEnabled();
-
-    if (!v29)
-    {
-      goto LABEL_14;
-    }
-
-LABEL_20:
-    v24 = sub_100046E64();
-    _NRLogWithArgs();
+    v18 = _NRCopyLogObjectForNRUUID();
+    copyDescription = [(NRLink *)self copyDescription];
+    _NRLogWithArgs(v18, 1, "%s%.30s:%-4d %@: Ignoring callback as link is cancelled", ", "[NRLinkQuickRelay session:didReceiveData:]"", 2734, copyDescription);
     goto LABEL_13;
   }
 
-  if (self)
+  if (sessionCopy)
   {
-    v8 = *(&self->_idsService + 7);
+    if (dataCopy)
+    {
+      if (self)
+      {
+        v8 = *(&self->_idsService + 7);
+      }
+
+      else
+      {
+        v8 = 0;
+      }
+
+      sessionID = [v8 sessionID];
+      v10 = [sessionID isEqualToString:sessionCopy];
+
+      if ((v10 & 1) == 0)
+      {
+        v11 = _NRCopyLogObjectForNRUUID();
+        v12 = _NRLogIsLevelEnabled();
+
+        if (v12)
+        {
+          v13 = _NRCopyLogObjectForNRUUID();
+          copyDescription2 = [(NRLink *)self copyDescription];
+          sessionID2 = [*(&self->_idsService + 7) sessionID];
+          _NRLogWithArgs(v13, 17, "%@: Received data from a different session: %@, expected %@", copyDescription2, sessionCopy, sessionID2);
+        }
+      }
+
+      v16 = _NRCopyLogObjectForNRUUID();
+      v17 = _NRLogIsLevelEnabled();
+
+      if (v17)
+      {
+        v18 = _NRCopyLogObjectForNRUUID();
+        copyDescription = [(NRLink *)self copyDescription];
+        _NRLogWithArgs(v18, 0, "%s%.30s:%-4d %@: Session for %@ received data %@", ", "[NRLinkQuickRelay session:didReceiveData:]"", 2746, copyDescription, sessionCopy, dataCopy);
+LABEL_13:
+
+LABEL_14:
+      }
+    }
+
+    else
+    {
+      v24 = sub_100046E64();
+      v25 = _NRLogIsLevelEnabled();
+
+      if (v25)
+      {
+        v18 = sub_100046E64();
+        _NRLogWithArgs(v18, 17, "%s called with null data");
+        goto LABEL_14;
+      }
+    }
   }
 
   else
   {
-    v8 = 0;
-  }
+    v22 = sub_100046E64();
+    v23 = _NRLogIsLevelEnabled();
 
-  sessionID = [v8 sessionID];
-  v10 = [sessionID isEqualToString:sessionCopy];
-
-  if ((v10 & 1) == 0)
-  {
-    v11 = self->super._nrUUID;
-    v12 = _NRCopyLogObjectForNRUUID();
-    v13 = _NRLogIsLevelEnabled();
-
-    if (v13)
+    if (v23)
     {
-      v14 = self->super._nrUUID;
-      v15 = _NRCopyLogObjectForNRUUID();
-      copyDescription = [(NRLink *)self copyDescription];
-      sessionID2 = [*(&self->_idsService + 7) sessionID];
-      _NRLogWithArgs();
+      v18 = sub_100046E64();
+      _NRLogWithArgs(v18, 17, "%s called with null uniqueID");
+      goto LABEL_14;
     }
   }
 
-  v17 = self->super._nrUUID;
-  v18 = _NRCopyLogObjectForNRUUID();
-  v19 = _NRLogIsLevelEnabled();
+LABEL_15:
+}
 
-  if (v19)
+- (void)sessionEnded:(id)ended withReason:(unsigned int)reason error:(id)error
+{
+  v6 = *&reason;
+  endedCopy = ended;
+  errorCopy = error;
+  queue = [(NRLink *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  if ([(NRLink *)self state]== 255)
   {
-LABEL_12:
-    v23 = self->super._nrUUID;
-    v24 = _NRCopyLogObjectForNRUUID();
-    copyDescription2 = [(NRLink *)self copyDescription];
-    _NRLogWithArgs();
+    v16 = _NRCopyLogObjectForNRUUID();
+    IsLevelEnabled = _NRLogIsLevelEnabled();
 
-LABEL_13:
+    if (IsLevelEnabled)
+    {
+      v18 = _NRCopyLogObjectForNRUUID();
+      copyDescription = [(NRLink *)self copyDescription];
+      _NRLogWithArgs(v18, 1, "%s%.30s:%-4d %@: Ignoring callback as link is cancelled", ", "[NRLinkQuickRelay sessionEnded:withReason:error:]"", 2675, copyDescription);
+    }
   }
 
-LABEL_14:
+  else
+  {
+    if (endedCopy)
+    {
+      sessionID = [endedCopy sessionID];
+      sub_100047AF0(self, 10009, sessionID);
+
+      [(NRLink *)self reportEvent:10009 detailsFormat:@"%@, %u, %@", endedCopy, v6, errorCopy];
+      if (self)
+      {
+        v11 = *(&self->_idsService + 7);
+      }
+
+      else
+      {
+        v11 = 0;
+      }
+
+      v12 = _NRCopyLogObjectForNRUUID();
+      if (v11 != endedCopy)
+      {
+        v13 = _NRLogIsLevelEnabled();
+
+        if (v13)
+        {
+          v14 = _NRCopyLogObjectForNRUUID();
+          copyDescription2 = [(NRLink *)self copyDescription];
+          _NRLogWithArgs(v14, 17, "%@: Sessions do not match: expected %@, started %@", copyDescription2, *(&self->_idsService + 7), endedCopy);
+        }
+
+        goto LABEL_37;
+      }
+
+      v20 = _NRLogIsLevelEnabled();
+
+      if (v20)
+      {
+        v21 = _NRCopyLogObjectForNRUUID();
+        copyDescription3 = [(NRLink *)self copyDescription];
+        _NRLogWithArgs(v21, 0, "%s%.30s:%-4d %@: Session ended: %@ with reason %u, error %@", ", "[NRLinkQuickRelay sessionEnded:withReason:error:]"", 2684, copyDescription3, endedCopy, v6, errorCopy);
+      }
+
+      self->_idsSessionStarted = 0;
+      self->_invitationInProgress = 0;
+      v23 = *(&self->_pathEvaluator + 7);
+      if (!v23)
+      {
+        goto LABEL_20;
+      }
+
+      if (*(v23 + 152))
+      {
+        v24 = nr_absolute_time();
+        v25 = *(&self->_pathEvaluator + 7);
+        if (!v25)
+        {
+LABEL_20:
+          v27 = *(&self->_pathEvaluator + 7);
+          if (v27)
+          {
+            *(v27 + 108) = v6;
+          }
+
+          if (self->_dNexusReadSourceSuspended)
+          {
+            dispatch_resume(*(&self->_nexusOutputRing + 7));
+            self->_dNexusReadSourceSuspended = 0;
+          }
+
+          if (v6 == 21 && ([(NRLink *)self ikeClassCEstablished]|| [(NRLink *)self ikeClassDEstablished]))
+          {
+            sub_100047C04(self);
+          }
+
+          else
+          {
+            if ([(NRLink *)self ikeClassCEstablished]|| [(NRLink *)self ikeClassDEstablished])
+            {
+              v28 = _NRCopyLogObjectForNRUUID();
+              v29 = _NRLogIsLevelEnabled();
+
+              if (v29)
+              {
+                v30 = _NRCopyLogObjectForNRUUID();
+                copyDescription4 = [(NRLink *)self copyDescription];
+                _NRLogWithArgs(v30, 0, "%s%.30s:%-4d %@: Not tearing down IKE", ", "[NRLinkQuickRelay sessionEnded:withReason:error:]"", 2714, copyDescription4);
+              }
+
+              sub_100047D2C(self);
+            }
+
+            else
+            {
+              v32 = _NRCopyLogObjectForNRUUID();
+              v33 = _NRLogIsLevelEnabled();
+
+              if (v33)
+              {
+                v34 = _NRCopyLogObjectForNRUUID();
+                copyDescription5 = [(NRLink *)self copyDescription];
+                _NRLogWithArgs(v34, 0, "%s%.30s:%-4d %@: Tearing down everything", ", "[NRLinkQuickRelay sessionEnded:withReason:error:]"", 2719, copyDescription5);
+              }
+
+              sub_100047D2C(self);
+              [(NRLinkQuickRelay *)self invalidateIKESessionForClass:4];
+              [(NRLinkQuickRelay *)self invalidateIKESessionForClass:3];
+            }
+
+            [(NRLinkQuickRelay *)self suspend];
+          }
+
+          goto LABEL_37;
+        }
+
+        v26 = &OBJC_IVAR___NRAnalyticsCmpnLinkQuickRelay__idsSessionEnd;
+      }
+
+      else
+      {
+        if (!*(v23 + 120))
+        {
+          goto LABEL_20;
+        }
+
+        *(v23 + 104) = 1;
+        v24 = nr_absolute_time();
+        v25 = *(&self->_pathEvaluator + 7);
+        if (!v25)
+        {
+          goto LABEL_20;
+        }
+
+        v26 = &OBJC_IVAR___NRAnalyticsCmpnLinkQuickRelay__idsSessionSendInvitationEnd;
+      }
+
+      *(v25 + *v26) = v24;
+      goto LABEL_20;
+    }
+
+    v36 = sub_100046E64();
+    v37 = _NRLogIsLevelEnabled();
+
+    if (v37)
+    {
+      v38 = sub_100046E64();
+      _NRLogWithArgs(v38, 17, "%s called with null session", "[NRLinkQuickRelay sessionEnded:withReason:error:]");
+    }
+  }
+
+LABEL_37:
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
@@ -390,16 +559,14 @@ LABEL_14:
 
   if ([(NRLink *)self state]== 255)
   {
-    nrUUID = self->super._nrUUID;
-    v20 = _NRCopyLogObjectForNRUUID();
+    v16 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v22 = self->super._nrUUID;
-      v17 = _NRCopyLogObjectForNRUUID();
+      v14 = _NRCopyLogObjectForNRUUID();
       copyDescription = [(NRLink *)self copyDescription];
-      _NRLogWithArgs();
+      _NRLogWithArgs(v14, 1, "%s%.30s:%-4d %@: Ignoring callback as link is cancelled", ", "[NRLinkQuickRelay sessionStarted:]"", 2510, copyDescription);
 
 LABEL_24:
       goto LABEL_25;
@@ -410,66 +577,64 @@ LABEL_24:
 
   if (!startedCopy)
   {
-    v34 = sub_100046E64();
-    v35 = _NRLogIsLevelEnabled();
+    v30 = sub_100046E64();
+    v31 = _NRLogIsLevelEnabled();
 
-    if (v35)
+    if (v31)
     {
-      v36 = sub_100046E64();
-      _NRLogWithArgs();
+      v32 = sub_100046E64();
+      _NRLogWithArgs(v32, 17, "%s called with null session", "[NRLinkQuickRelay sessionStarted:]");
     }
 
     goto LABEL_25;
   }
 
-  v7 = self->super._nrUUID;
-  v8 = _NRCopyLogObjectForNRUUID();
-  v9 = _NRLogIsLevelEnabled();
+  v7 = _NRCopyLogObjectForNRUUID();
+  v8 = _NRLogIsLevelEnabled();
 
-  if (v9)
+  if (v8)
   {
-    v10 = self->super._nrUUID;
-    v11 = _NRCopyLogObjectForNRUUID();
+    v9 = _NRCopyLogObjectForNRUUID();
     copyDescription2 = [(NRLink *)self copyDescription];
-    _NRLogWithArgs();
+    _NRLogWithArgs(v9, 0, "%s%.30s:%-4d %@: Session started: %@", ", "[NRLinkQuickRelay sessionStarted:]"", 2515, copyDescription2, startedCopy);
   }
 
-  v12 = &OBJC_IVAR___BTPResolver__sdRefResolve;
+  v11 = &OBJC_IVAR___BTPResolver__sdRefResolve;
   if (*(&self->_idsService + 7) == startedCopy)
   {
     self->_idsSessionStarted = 1;
     self->_invitationInProgress = 0;
     self->_invitationRetryCounter = 0;
-    v17 = +[NSDate date];
-    objc_storeStrong((&self->_idsDestination + 7), v17);
-    v23 = *(&self->_pathEvaluator + 7);
-    if (!v23)
+    v14 = +[NSDate date];
+    objc_storeStrong((&self->_idsDestination + 7), v14);
+    v19 = *(&self->_pathEvaluator + 7);
+    if (!v19)
     {
       goto LABEL_18;
     }
 
-    if (*(v23 + 120))
+    if (*(v19 + 120))
     {
-      v24 = nr_absolute_time();
-      v25 = *(&self->_pathEvaluator + 7);
-      if (!v25)
+      v20 = nr_absolute_time();
+      v21 = *(&self->_pathEvaluator + 7);
+      if (!v21)
       {
         goto LABEL_18;
       }
 
-      v26 = &OBJC_IVAR___NRAnalyticsCmpnLinkQuickRelay__idsSessionSendInvitationEnd;
+      v22 = &OBJC_IVAR___NRAnalyticsCmpnLinkQuickRelay__idsSessionSendInvitationEnd;
     }
 
     else
     {
-      if (!*(v23 + 136) || (v24 = nr_absolute_time(), (v25 = *(&self->_pathEvaluator + 7)) == 0))
+      if (!*(v19 + 136) || (v20 = nr_absolute_time(), (v21 = *(&self->_pathEvaluator + 7)) == 0))
       {
 LABEL_18:
-        v27 = nr_absolute_time();
-        v28 = *(&self->_pathEvaluator + 7);
-        if (v28)
+        v23 = nr_absolute_time();
+        v24 = *(&self->_pathEvaluator + 7);
+        if (v24)
         {
-          *(v28 + 152) = v27;
+          *(v24 + 152) = v23;
         }
 
         sub_100047F74(self);
@@ -481,24 +646,24 @@ LABEL_18:
           sub_100168638(copyDescription3, (&self->_connection + 7));
           sub_100167D5C(copyDescription3, (&self->_localAddrClassD.__u6_addr32[3] + 3));
           nrUUID = *(&self->_ipHeaderOffset + 7);
-          v12 = *(&self->_idsService + 7);
+          v11 = *(&self->_idsService + 7);
           queue2 = [(NRLink *)self queue];
           if (qword_1002292C0 == -1)
           {
 LABEL_22:
-            v30 = qword_1002292C8;
+            v26 = qword_1002292C8;
             block[0] = _NSConcreteStackBlock;
             block[1] = 3221225472;
             block[2] = sub_100050704;
             block[3] = &unk_1001FCE28;
-            v47 = nrUUID;
-            v48 = v12;
-            v49 = queue2;
+            v40 = nrUUID;
+            v41 = v11;
+            v42 = queue2;
             selfCopy = self;
-            v31 = queue2;
-            v32 = v12;
-            v33 = nrUUID;
-            dispatch_async(v30, block);
+            v27 = queue2;
+            v28 = v11;
+            v29 = nrUUID;
+            dispatch_async(v26, block);
 
             goto LABEL_23;
           }
@@ -506,22 +671,22 @@ LABEL_22:
 
         else
         {
-          v37 = sub_100046E64();
-          v38 = _NRLogIsLevelEnabled();
+          v33 = sub_100046E64();
+          v34 = _NRLogIsLevelEnabled();
 
-          v17 = "[NRLinkQuickRelay sessionStarted:]";
-          if (v38)
+          v14 = "[NRLinkQuickRelay sessionStarted:]";
+          if (v34)
           {
-            v39 = sub_100046E64();
-            _NRLogWithArgs();
+            v35 = sub_100046E64();
+            _NRLogWithArgs(v35, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (localDevice) != ((void*)0)", ", "[NRLinkQuickRelay sessionStarted:]"", 2535);
           }
 
           startedCopy = _os_log_pack_size();
           self = (&block[-1] - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0));
-          v40 = *__error();
-          v41 = _os_log_pack_fill();
-          *v41 = 136446210;
-          *(v41 + 4) = "[NRLinkQuickRelay sessionStarted:]";
+          v36 = __error();
+          v37 = _os_log_pack_fill(self, startedCopy, *v36, &_mh_execute_header, "%{public}s Assertion Failed: (localDevice) != ((void*)0)");
+          *v37 = 136446210;
+          *(v37 + 4) = "[NRLinkQuickRelay sessionStarted:]";
           sub_100046E64();
           _NRLogAbortWithPack();
         }
@@ -530,24 +695,21 @@ LABEL_22:
         goto LABEL_22;
       }
 
-      v26 = &OBJC_IVAR___NRAnalyticsCmpnLinkQuickRelay__idsSessionReceiveInvitationEnd;
+      v22 = &OBJC_IVAR___NRAnalyticsCmpnLinkQuickRelay__idsSessionReceiveInvitationEnd;
     }
 
-    *(v25 + *v26) = v24;
+    *(v21 + *v22) = v20;
     goto LABEL_18;
   }
 
-  v13 = self->super._nrUUID;
-  v14 = _NRCopyLogObjectForNRUUID();
-  v15 = _NRLogIsLevelEnabled();
+  v12 = _NRCopyLogObjectForNRUUID();
+  v13 = _NRLogIsLevelEnabled();
 
-  if (v15)
+  if (v13)
   {
-    v16 = self->super._nrUUID;
-    v17 = _NRCopyLogObjectForNRUUID();
+    v14 = _NRCopyLogObjectForNRUUID();
     copyDescription3 = [(NRLink *)self copyDescription];
-    v43 = *(&self->_idsService + 7);
-    _NRLogWithArgs();
+    _NRLogWithArgs(v14, 17, "%@: Sessions do not match: expected %@, started %@", copyDescription3, *(&self->_idsService + 7), startedCopy);
 LABEL_23:
 
     goto LABEL_24;
@@ -574,123 +736,88 @@ LABEL_25:
       {
         if (sessionCopy)
         {
-          nrUUID = self->super._nrUUID;
-          v19 = _NRCopyLogObjectForNRUUID();
+          v18 = _NRCopyLogObjectForNRUUID();
           IsLevelEnabled = _NRLogIsLevelEnabled();
 
           if (IsLevelEnabled)
           {
-            v21 = self->super._nrUUID;
-            v22 = _NRCopyLogObjectForNRUUID();
-            v71 = 2433;
+            v20 = _NRCopyLogObjectForNRUUID();
             copyDescription = [(NRLink *)self copyDescription];
-            v69 = "";
-            v70 = "[NRLinkQuickRelay service:account:inviteReceivedForSession:fromID:withOptions:]";
-            _NRLogWithArgs();
+            _NRLogWithArgs(v20, 1, "%s%.30s:%-4d %@: Invite received", ", "[NRLinkQuickRelay service:account:inviteReceivedForSession:fromID:withOptions:]"", 2433, copyDescription);
           }
 
-          v23 = self->super._nrUUID;
-          v24 = _NRCopyLogObjectForNRUUID();
-          v25 = _NRLogIsLevelEnabled();
+          v22 = _NRCopyLogObjectForNRUUID();
+          v23 = _NRLogIsLevelEnabled();
 
-          if (v25)
+          if (v23)
           {
-            v26 = self->super._nrUUID;
-            v27 = _NRCopyLogObjectForNRUUID();
-            copyDescription = [(NRLink *)self copyDescription];
-            v73 = serviceCopy;
-            v71 = 2434;
-            v69 = "";
-            v70 = "[NRLinkQuickRelay service:account:inviteReceivedForSession:fromID:withOptions:]";
-            _NRLogWithArgs();
+            v24 = _NRCopyLogObjectForNRUUID();
+            copyDescription2 = [(NRLink *)self copyDescription];
+            _NRLogWithArgs(v24, 1, "%s%.30s:%-4d %@: \tservice: %@", ", "[NRLinkQuickRelay service:account:inviteReceivedForSession:fromID:withOptions:]"", 2434, copyDescription2, serviceCopy);
           }
 
-          v28 = self->super._nrUUID;
-          v29 = _NRCopyLogObjectForNRUUID();
-          v30 = _NRLogIsLevelEnabled();
+          v26 = _NRCopyLogObjectForNRUUID();
+          v27 = _NRLogIsLevelEnabled();
 
-          if (v30)
+          if (v27)
           {
-            v31 = self->super._nrUUID;
+            v28 = _NRCopyLogObjectForNRUUID();
+            copyDescription3 = [(NRLink *)self copyDescription];
+            _NRLogWithArgs(v28, 1, "%s%.30s:%-4d %@: \taccount: %@", ", "[NRLinkQuickRelay service:account:inviteReceivedForSession:fromID:withOptions:]"", 2435, copyDescription3, accountCopy);
+          }
+
+          v30 = _NRCopyLogObjectForNRUUID();
+          v31 = _NRLogIsLevelEnabled();
+
+          if (v31)
+          {
             v32 = _NRCopyLogObjectForNRUUID();
-            copyDescription = [(NRLink *)self copyDescription];
-            v73 = accountCopy;
-            v71 = 2435;
-            v69 = "";
-            v70 = "[NRLinkQuickRelay service:account:inviteReceivedForSession:fromID:withOptions:]";
-            _NRLogWithArgs();
+            copyDescription4 = [(NRLink *)self copyDescription];
+            _NRLogWithArgs(v32, 1, "%s%.30s:%-4d %@: \tsession: %@", ", "[NRLinkQuickRelay service:account:inviteReceivedForSession:fromID:withOptions:]"", 2436, copyDescription4, sessionCopy);
           }
 
-          v33 = self->super._nrUUID;
           v34 = _NRCopyLogObjectForNRUUID();
           v35 = _NRLogIsLevelEnabled();
 
           if (v35)
           {
-            v36 = self->super._nrUUID;
-            v37 = _NRCopyLogObjectForNRUUID();
-            copyDescription = [(NRLink *)self copyDescription];
-            v73 = sessionCopy;
-            v71 = 2436;
-            v69 = "";
-            v70 = "[NRLinkQuickRelay service:account:inviteReceivedForSession:fromID:withOptions:]";
-            _NRLogWithArgs();
+            v36 = _NRCopyLogObjectForNRUUID();
+            copyDescription5 = [(NRLink *)self copyDescription];
+            _NRLogWithArgs(v36, 1, "%s%.30s:%-4d %@: \tfrom: %@", ", "[NRLinkQuickRelay service:account:inviteReceivedForSession:fromID:withOptions:]"", 2437, copyDescription5, dCopy);
           }
 
-          v38 = self->super._nrUUID;
-          v39 = _NRCopyLogObjectForNRUUID();
-          v40 = _NRLogIsLevelEnabled();
+          v38 = _NRCopyLogObjectForNRUUID();
+          v39 = _NRLogIsLevelEnabled();
 
-          if (v40)
+          if (v39)
           {
-            v41 = self->super._nrUUID;
-            v42 = _NRCopyLogObjectForNRUUID();
-            copyDescription = [(NRLink *)self copyDescription];
-            v73 = dCopy;
-            v71 = 2437;
-            v69 = "";
-            v70 = "[NRLinkQuickRelay service:account:inviteReceivedForSession:fromID:withOptions:]";
-            _NRLogWithArgs();
-          }
-
-          v43 = self->super._nrUUID;
-          v44 = _NRCopyLogObjectForNRUUID();
-          v45 = _NRLogIsLevelEnabled();
-
-          if (v45)
-          {
-            v46 = self->super._nrUUID;
-            v47 = _NRCopyLogObjectForNRUUID();
-            copyDescription = [(NRLink *)self copyDescription];
-            v73 = optionsCopy;
-            v71 = 2438;
-            v69 = "";
-            v70 = "[NRLinkQuickRelay service:account:inviteReceivedForSession:fromID:withOptions:]";
-            _NRLogWithArgs();
+            v40 = _NRCopyLogObjectForNRUUID();
+            copyDescription6 = [(NRLink *)self copyDescription];
+            _NRLogWithArgs(v40, 1, "%s%.30s:%-4d %@: \toptions: %@", ", "[NRLinkQuickRelay service:account:inviteReceivedForSession:fromID:withOptions:]"", 2438, copyDescription6, optionsCopy);
           }
 
           sessionID = [sessionCopy sessionID];
           sub_100047AF0(self, 10004, sessionID);
 
           [(NRLink *)self reportEvent:10004 detailsFormat:@"%@", sessionCopy];
-          v49 = [*(&self->_ipHeaderOffset + 7) deviceForFromID:dCopy];
-          if ([v49 isDefaultPairedDevice])
+          v43 = [*(&self->_ipHeaderOffset + 7) deviceForFromID:dCopy];
+          if ([v43 isDefaultPairedDevice])
           {
             if (self->_invitationInProgress)
             {
-              v50 = *(&self->_pathEvaluator + 7);
-              if (v50)
+              v44 = *(&self->_pathEvaluator + 7);
+              if (v44)
               {
-                ++v50[14];
+                ++v44[14];
               }
 
               [(NRLink *)self reportEvent:10005 detailsFormat:@"Cancelling sent: %@, keep received: %@", *(&self->_idsService + 7), sessionCopy];
               [(NRLink *)self reportEvent:10007 detailsFormat:@"%@", *(&self->_idsService + 7)];
               [*(&self->_idsService + 7) cancelInvitation];
-              v51 = *(&self->_pathEvaluator + 7);
-              if (v51)
+              v45 = *(&self->_pathEvaluator + 7);
+              if (v45)
               {
-                *(v51 + 120) = 0;
+                *(v45 + 120) = 0;
               }
             }
 
@@ -702,22 +829,22 @@ LABEL_25:
 
             objc_storeStrong((&self->_idsService + 7), session);
             self->_idsSessionIsIncoming = 1;
-            v52 = *(&self->_idsService + 7);
+            v46 = *(&self->_idsService + 7);
             queue2 = [(NRLink *)self queue];
-            [v52 setDelegate:self queue:queue2];
+            [v46 setDelegate:self queue:queue2];
 
-            v74 = IDSSessionForceInternetInvitationKey;
-            v75 = &__kCFBooleanTrue;
-            v54 = [NSDictionary dictionaryWithObjects:&v75 forKeys:&v74 count:1];
-            [sessionCopy setPreferences:v54];
+            v62 = IDSSessionForceInternetInvitationKey;
+            v63 = &__kCFBooleanTrue;
+            v48 = [NSDictionary dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+            [sessionCopy setPreferences:v48];
 
             [sessionCopy acceptInvitation];
             [(NRLink *)self reportEvent:10006 detailsFormat:@"%@", *(&self->_idsService + 7)];
-            v55 = nr_absolute_time();
-            v56 = *(&self->_pathEvaluator + 7);
-            if (v56)
+            v49 = nr_absolute_time();
+            v50 = *(&self->_pathEvaluator + 7);
+            if (v50)
             {
-              *(v56 + 136) = v55;
+              *(v50 + 136) = v49;
             }
           }
 
@@ -730,57 +857,61 @@ LABEL_25:
           goto LABEL_32;
         }
 
-        v66 = sub_100046E64();
-        v67 = _NRLogIsLevelEnabled();
+        v60 = sub_100046E64();
+        v61 = _NRLogIsLevelEnabled();
 
-        if (!v67)
+        if (!v61)
         {
           goto LABEL_32;
         }
+
+        v57 = sub_100046E64();
+        _NRLogWithArgs(v57, 17, "%s called with null session");
       }
 
       else
       {
-        v64 = sub_100046E64();
-        v65 = _NRLogIsLevelEnabled();
+        v58 = sub_100046E64();
+        v59 = _NRLogIsLevelEnabled();
 
-        if (!v65)
+        if (!v59)
         {
           goto LABEL_32;
         }
+
+        v57 = sub_100046E64();
+        _NRLogWithArgs(v57, 17, "%s called with null account");
       }
     }
 
     else
     {
-      v62 = sub_100046E64();
-      v63 = _NRLogIsLevelEnabled();
+      v55 = sub_100046E64();
+      v56 = _NRLogIsLevelEnabled();
 
-      if (!v63)
+      if (!v56)
       {
         goto LABEL_32;
       }
-    }
 
-    v68 = sub_100046E64();
-    _NRLogWithArgs();
+      v57 = sub_100046E64();
+      _NRLogWithArgs(v57, 17, "%s called with null service");
+    }
 
     goto LABEL_32;
   }
 
-  v57 = self->super._nrUUID;
-  v58 = _NRCopyLogObjectForNRUUID();
-  v59 = _NRLogIsLevelEnabled();
+  v51 = _NRCopyLogObjectForNRUUID();
+  v52 = _NRLogIsLevelEnabled();
 
-  if (v59)
+  if (v52)
   {
-    v60 = self->super._nrUUID;
-    v61 = _NRCopyLogObjectForNRUUID();
-    copyDescription = [(NRLink *)self copyDescription];
-    _NRLogWithArgs();
+    v53 = _NRCopyLogObjectForNRUUID();
+    copyDescription7 = [(NRLink *)self copyDescription];
+    _NRLogWithArgs(v53, 1, "%s%.30s:%-4d %@: Declining session invite due to link state", ", "[NRLinkQuickRelay service:account:inviteReceivedForSession:fromID:withOptions:]"", 2422, copyDescription7);
   }
 
-  [(NRLink *)self reportEvent:10026 detailsFormat:@"Link is cancelled: %@/%@/%@", self, sessionCopy, dCopy, copyDescription];
+  [(NRLink *)self reportEvent:10026 detailsFormat:@"Link is cancelled: %@/%@/%@", self, sessionCopy, dCopy];
   [sessionCopy declineInvitation];
 LABEL_32:
 }
@@ -796,7 +927,7 @@ LABEL_32:
   v20 = responseBlockCopy;
   if (!listenerCopy)
   {
-    v111 = sub_100046E64();
+    v105 = sub_100046E64();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (!IsLevelEnabled)
@@ -804,82 +935,88 @@ LABEL_32:
       goto LABEL_23;
     }
 
-LABEL_77:
-    v121 = sub_100046E64();
-    _NRLogWithArgs();
+    v107 = sub_100046E64();
+    _NRLogWithArgs(v107, 17, "%s called with null listener");
+LABEL_78:
 
     goto LABEL_23;
   }
 
   if (!sessionCopy)
   {
-    v113 = sub_100046E64();
-    v114 = _NRLogIsLevelEnabled();
+    v108 = sub_100046E64();
+    v109 = _NRLogIsLevelEnabled();
 
-    if (!v114)
+    if (!v109)
     {
       goto LABEL_23;
     }
 
-    goto LABEL_77;
+    v107 = sub_100046E64();
+    _NRLogWithArgs(v107, 17, "%s called with null session");
+    goto LABEL_78;
   }
 
   if (!configCopy)
   {
-    v115 = sub_100046E64();
-    v116 = _NRLogIsLevelEnabled();
+    v110 = sub_100046E64();
+    v111 = _NRLogIsLevelEnabled();
 
-    if (!v116)
+    if (!v111)
     {
       goto LABEL_23;
     }
 
-    goto LABEL_77;
+    v107 = sub_100046E64();
+    _NRLogWithArgs(v107, 17, "%s called with null sessionConfig");
+    goto LABEL_78;
   }
 
   if (!blockCopy)
   {
-    v117 = sub_100046E64();
-    v118 = _NRLogIsLevelEnabled();
+    v112 = sub_100046E64();
+    v113 = _NRLogIsLevelEnabled();
 
-    if (!v118)
+    if (!v113)
     {
       goto LABEL_23;
     }
 
-    goto LABEL_77;
+    v107 = sub_100046E64();
+    _NRLogWithArgs(v107, 17, "%s called with null validateAuthBlock");
+    goto LABEL_78;
   }
 
   if (!responseBlockCopy)
   {
-    v119 = sub_100046E64();
-    v120 = _NRLogIsLevelEnabled();
+    v114 = sub_100046E64();
+    v115 = _NRLogIsLevelEnabled();
 
-    if (!v120)
+    if (!v115)
     {
       goto LABEL_23;
     }
 
-    goto LABEL_77;
+    v107 = sub_100046E64();
+    _NRLogWithArgs(v107, 17, "%s called with null responseBlock");
+    goto LABEL_78;
   }
 
   queue = [(NRLink *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  nrUUID = self->super._nrUUID;
-  v23 = _NRCopyLogObjectForNRUUID();
-  v24 = _NRLogIsLevelEnabled();
+  v22 = _NRCopyLogObjectForNRUUID();
+  v23 = _NRLogIsLevelEnabled();
 
-  if (v24)
+  if (v23)
   {
-    v25 = self->super._nrUUID;
-    v26 = _NRCopyLogObjectForNRUUID();
+    v24 = _NRCopyLogObjectForNRUUID();
     copyDescription = [(NRLink *)self copyDescription];
-    _NRLogWithArgs();
+    _NRLogWithArgs(v24, 0, "%s%.30s:%-4d %@: Got config request for listener %@ session %@ sessionConfig %@ childConfig %@", ", "[NRLinkQuickRelay requestConfigurationForListener:session:sessionConfig:childConfig:validateAuthBlock:responseBlock:]"", 2263, copyDescription, listenerCopy, sessionCopy, configCopy, childConfigCopy);
   }
 
   state = self->super._state;
-  v158 = childConfigCopy;
+  v142 = childConfigCopy;
   if (state == 255)
   {
     goto LABEL_20;
@@ -898,47 +1035,47 @@ LABEL_77:
       nrUUID = [(NRLink *)self nrUUID];
       localIdentifier4 = sub_100163A30(NRDLocalDevice, nrUUID);
 
-      v157 = localIdentifier4;
+      v141 = localIdentifier4;
       if (!localIdentifier4)
       {
-        v122 = sub_100046E64();
-        v123 = _NRLogIsLevelEnabled();
+        v116 = sub_100046E64();
+        v117 = _NRLogIsLevelEnabled();
 
-        if (v123)
+        if (v117)
         {
-          v124 = sub_100046E64();
-          _NRLogWithArgs();
+          v118 = sub_100046E64();
+          _NRLogWithArgs(v118, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: (localDevice) != ((void*)0)", ", "[NRLinkQuickRelay requestConfigurationForListener:session:sessionConfig:childConfig:validateAuthBlock:responseBlock:]"", 2283);
         }
 
-        _os_log_pack_size();
-        sessionCopy = &v152 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
-        v125 = *__error();
-        v126 = _os_log_pack_fill();
-        *v126 = 136446210;
-        *(v126 + 4) = "[NRLinkQuickRelay requestConfigurationForListener:session:sessionConfig:childConfig:validateAuthBlock:responseBlock:]";
+        v119 = _os_log_pack_size();
+        sessionCopy = &v136 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+        v120 = __error();
+        v121 = _os_log_pack_fill(sessionCopy, v119, *v120, &_mh_execute_header, "%{public}s Assertion Failed: (localDevice) != ((void*)0)");
+        *v121 = 136446210;
+        *(v121 + 4) = "[NRLinkQuickRelay requestConfigurationForListener:session:sessionConfig:childConfig:validateAuthBlock:responseBlock:]";
         sub_100046E64();
         _NRLogAbortWithPack();
-LABEL_81:
+LABEL_82:
         dispatch_once(&qword_1002292E8, &stru_1001FC558);
 LABEL_38:
-        v67 = v158;
-        v68 = qword_1002292E0;
-        v69 = [localIdentifier4 isEqual:v68];
+        v62 = v142;
+        v63 = qword_1002292E0;
+        v64 = [localIdentifier4 isEqual:v63];
 
-        if (v69)
+        if (v64)
         {
-          v70 = nr_absolute_time();
-          v71 = *(&self->_pathEvaluator + 7);
-          if (v71)
+          v65 = nr_absolute_time();
+          v66 = *(&self->_pathEvaluator + 7);
+          if (v66)
           {
-            *(v71 + 56) = v70;
-            v72 = *(&self->_pathEvaluator + 7);
-            if (v72)
+            *(v66 + 56) = v65;
+            v67 = *(&self->_pathEvaluator + 7);
+            if (v67)
             {
-              ++v72[10];
+              ++v67[10];
             }
 
-            if (v67)
+            if (v62)
             {
               goto LABEL_43;
             }
@@ -947,7 +1084,7 @@ LABEL_38:
           else
           {
 
-            if (v67)
+            if (v62)
             {
               goto LABEL_43;
             }
@@ -956,74 +1093,72 @@ LABEL_38:
           if ([(NRLink *)self hasCompanionDatapath])
           {
             [(NRLink *)self reportEvent:3024 detailsFormat:@"ClassD %@", sessionCopy];
-LABEL_100:
-            v37 = childConfigCopy;
-            goto LABEL_93;
+LABEL_101:
+            v36 = childConfigCopy;
+            goto LABEL_94;
           }
 
 LABEL_43:
-          v73 = sub_100003490();
-          dispatch_assert_queue_V2(v73);
+          v68 = sub_100003490();
+          dispatch_assert_queue_V2(v68);
 
-          v74 = sub_1001672A0(childConfigCopy, @"0");
-          v75 = sub_100003490();
-          dispatch_assert_queue_V2(v75);
+          v69 = sub_1001672A0(childConfigCopy, @"0");
+          v70 = sub_100003490();
+          dispatch_assert_queue_V2(v70);
 
-          v76 = sub_1001677D0(childConfigCopy, @"0");
-          v38 = sub_100147400(0, childConfigCopy, 4);
-          v77 = [NEIKEv2ConfigurationMessage alloc];
-          v78 = [NEIKEv2InitiatorTransportIPv6Address alloc];
-          v153 = v76;
-          v79 = [v78 initWithAddress:v76];
-          v160[0] = v79;
-          v80 = [NEIKEv2ResponderTransportIPv6Address alloc];
-          v154 = v74;
-          v81 = [v80 initWithAddress:v74];
-          v160[1] = v81;
-          v82 = [NSArray arrayWithObjects:v160 count:2];
-          v83 = [v77 initWithWithAttributes:v82];
-          [v38 setConfigurationReply:v83];
+          v71 = sub_1001677D0(childConfigCopy, @"0");
+          v37 = sub_100147400(0, childConfigCopy, 4);
+          v72 = [NEIKEv2ConfigurationMessage alloc];
+          v73 = [NEIKEv2InitiatorTransportIPv6Address alloc];
+          v137 = v71;
+          v74 = [v73 initWithAddress:v71];
+          v144[0] = v74;
+          v75 = [NEIKEv2ResponderTransportIPv6Address alloc];
+          v138 = v69;
+          v76 = [v75 initWithAddress:v69];
+          v144[1] = v76;
+          v77 = [NSArray arrayWithObjects:v144 count:2];
+          v78 = [v72 initWithWithAttributes:v77];
+          [v37 setConfigurationReply:v78];
 
-          blockCopy = v155;
-          if (v155[2](v155, v38))
+          blockCopy = v139;
+          if (v139[2](v139, v37))
           {
-            v84 = 4;
+            v79 = 4;
             [(NRLinkQuickRelay *)self invalidateIKESessionForClass:4];
             objc_storeStrong((&self->_ikeListener + 7), session);
-            v85 = @"ClassD %@";
+            v80 = @"ClassD %@";
 LABEL_54:
-            listenerCopy = v156;
-            sub_10004A3CC(self, v84);
-            [(NRLink *)self reportEvent:3016 detailsFormat:v85, sessionCopy];
+            listenerCopy = v140;
+            sub_10004A3CC(self, v79);
+            [(NRLink *)self reportEvent:3016 detailsFormat:v80, sessionCopy];
 
 LABEL_56:
             if (self->super._virtualInterface)
             {
 
               virtualInterface = self->super._virtualInterface;
-              v103 = sub_100146D34(1, 0);
+              v98 = sub_100146D34(1, 0);
               if (![(NRLink *)self hasCompanionDatapath])
               {
 
                 virtualInterface = 0;
-                v103 = 0;
+                v98 = 0;
               }
 
-              (v20)[2](v20, v38, v103, virtualInterface);
+              (v20)[2](v20, v37, v98, virtualInterface);
 
               goto LABEL_22;
             }
 
-            v127 = self->super._nrUUID;
-            v128 = _NRCopyLogObjectForNRUUID();
-            v129 = _NRLogIsLevelEnabled();
+            v122 = _NRCopyLogObjectForNRUUID();
+            v123 = _NRLogIsLevelEnabled();
 
-            if (v129)
+            if (v123)
             {
-              v130 = self->super._nrUUID;
-              v131 = _NRCopyLogObjectForNRUUID();
+              v124 = _NRCopyLogObjectForNRUUID();
               copyDescription2 = [(NRLink *)self copyDescription];
-              _NRLogWithArgs();
+              _NRLogWithArgs(v124, 17, "%@: virtualInterface is NULL", copyDescription2);
             }
 
             goto LABEL_64;
@@ -1040,29 +1175,29 @@ LABEL_56:
           dispatch_once(&qword_1002292F8, &stru_1001FC578);
         }
 
-        v87 = qword_1002292F0;
-        v88 = [localIdentifier2 isEqual:v87];
+        v82 = qword_1002292F0;
+        v83 = [localIdentifier2 isEqual:v82];
 
-        if (!v88)
+        if (!v83)
         {
-          v38 = 0;
-          blockCopy = v155;
-          listenerCopy = v156;
+          v37 = 0;
+          blockCopy = v139;
+          listenerCopy = v140;
           goto LABEL_56;
         }
 
-        v89 = nr_absolute_time();
-        v90 = *(&self->_pathEvaluator + 7);
-        if (v90)
+        v84 = nr_absolute_time();
+        v85 = *(&self->_pathEvaluator + 7);
+        if (v85)
         {
-          *(v90 + 40) = v89;
-          v91 = *(&self->_pathEvaluator + 7);
-          if (v91)
+          *(v85 + 40) = v84;
+          v86 = *(&self->_pathEvaluator + 7);
+          if (v86)
           {
-            ++v91[9];
+            ++v86[9];
           }
 
-          if (v67)
+          if (v62)
           {
             goto LABEL_52;
           }
@@ -1071,7 +1206,7 @@ LABEL_56:
         else
         {
 
-          if (v67)
+          if (v62)
           {
             goto LABEL_52;
           }
@@ -1080,63 +1215,63 @@ LABEL_56:
         if ([(NRLink *)self hasCompanionDatapath])
         {
           [(NRLink *)self reportEvent:3024 detailsFormat:@"ClassC %@", sessionCopy];
-          goto LABEL_100;
+          goto LABEL_101;
         }
 
 LABEL_52:
-        v92 = sub_100003490();
-        dispatch_assert_queue_V2(v92);
+        v87 = sub_100003490();
+        dispatch_assert_queue_V2(v87);
 
-        v93 = sub_1001679E0(childConfigCopy, @"0");
-        v94 = sub_100003490();
-        dispatch_assert_queue_V2(v94);
+        v88 = sub_1001679E0(childConfigCopy, @"0");
+        v89 = sub_100003490();
+        dispatch_assert_queue_V2(v89);
 
-        v95 = sub_100167B9C(childConfigCopy, @"0");
-        v38 = sub_100147400(0, childConfigCopy, 3);
-        v96 = [NEIKEv2ConfigurationMessage alloc];
-        v97 = [[NEIKEv2InitiatorTransportIPv6Address alloc] initWithAddress:v95];
-        v159[0] = v97;
-        v98 = [NEIKEv2ResponderTransportIPv6Address alloc];
-        v154 = v93;
-        v99 = [v98 initWithAddress:v93];
-        v159[1] = v99;
-        v100 = [NSArray arrayWithObjects:v159 count:2];
-        v101 = [v96 initWithWithAttributes:v100];
-        [v38 setConfigurationReply:v101];
+        v90 = sub_100167B9C(childConfigCopy, @"0");
+        v37 = sub_100147400(0, childConfigCopy, 3);
+        v91 = [NEIKEv2ConfigurationMessage alloc];
+        v92 = [[NEIKEv2InitiatorTransportIPv6Address alloc] initWithAddress:v90];
+        v143[0] = v92;
+        v93 = [NEIKEv2ResponderTransportIPv6Address alloc];
+        v138 = v88;
+        v94 = [v93 initWithAddress:v88];
+        v143[1] = v94;
+        v95 = [NSArray arrayWithObjects:v143 count:2];
+        v96 = [v91 initWithWithAttributes:v95];
+        [v37 setConfigurationReply:v96];
 
-        blockCopy = v155;
-        if (v155[2](v155, v38))
+        blockCopy = v139;
+        if (v139[2](v139, v37))
         {
-          v153 = v95;
-          v84 = 3;
+          v137 = v90;
+          v79 = 3;
           [(NRLinkQuickRelay *)self invalidateIKESessionForClass:3];
           sub_1000522F4(self, sessionCopy);
-          v85 = @"ClassC %@";
+          v80 = @"ClassC %@";
           goto LABEL_54;
         }
 
         [(NRLink *)self reportEvent:3021 detailsFormat:@"ClassC %@", sessionCopy];
 
 LABEL_66:
-        listenerCopy = v156;
-        v37 = v157;
+        listenerCopy = v140;
+        v36 = v141;
         goto LABEL_67;
       }
 
       localIdentifier3 = [configCopy localIdentifier];
       remoteIdentifier2 = [configCopy remoteIdentifier];
-      v36 = [localIdentifier3 isEqual:remoteIdentifier2];
+      v35 = [localIdentifier3 isEqual:remoteIdentifier2];
 
-      v155 = blockCopy;
-      v156 = listenerCopy;
-      if (v36)
+      v139 = blockCopy;
+      v140 = listenerCopy;
+      if (v35)
       {
-        childConfigCopy = v157;
-        if ((*(v157 + 49) & 2) != 0)
+        childConfigCopy = v141;
+        if ((*(v141 + 49) & 2) != 0)
         {
-          [(NRLink *)self reportEvent:3022 detailsFormat:@"%@ %@", sessionCopy, v157];
-          v37 = v157;
-          v38 = 0;
+          [(NRLink *)self reportEvent:3022 detailsFormat:@"%@ %@", sessionCopy, v141];
+          v36 = v141;
+          v37 = 0;
 LABEL_67:
 
           goto LABEL_21;
@@ -1149,7 +1284,7 @@ LABEL_37:
           goto LABEL_38;
         }
 
-        goto LABEL_81;
+        goto LABEL_82;
       }
 
       localIdentifier5 = [configCopy localIdentifier];
@@ -1158,8 +1293,8 @@ LABEL_37:
         dispatch_once(&qword_1002292E8, &stru_1001FC558);
       }
 
-      v51 = qword_1002292E0;
-      if ([localIdentifier5 isEqual:v51])
+      v46 = qword_1002292E0;
+      if ([localIdentifier5 isEqual:v46])
       {
       }
 
@@ -1171,170 +1306,156 @@ LABEL_37:
           dispatch_once(&qword_1002292F8, &stru_1001FC578);
         }
 
-        v53 = qword_1002292F0;
-        v54 = [localIdentifier6 isEqual:v53];
+        v48 = qword_1002292F0;
+        v49 = [localIdentifier6 isEqual:v48];
 
-        if ((v54 & 1) == 0)
+        if ((v49 & 1) == 0)
         {
-          v104 = self->super._nrUUID;
-          v105 = _NRCopyLogObjectForNRUUID();
-          v106 = _NRLogIsLevelEnabled();
+          v99 = _NRCopyLogObjectForNRUUID();
+          v100 = _NRLogIsLevelEnabled();
 
-          if (v106)
+          if (v100)
           {
-            v107 = self->super._nrUUID;
-            v108 = _NRCopyLogObjectForNRUUID();
+            v101 = _NRCopyLogObjectForNRUUID();
             copyDescription3 = [(NRLink *)self copyDescription];
             localIdentifier7 = [configCopy localIdentifier];
             remoteIdentifier3 = [configCopy remoteIdentifier];
-            _NRLogWithArgs();
+            _NRLogWithArgs(v101, 16, "%s%.30s:%-4d %@: Local identifier %@ does not match remote identifier %@", ", "[NRLinkQuickRelay requestConfigurationForListener:session:sessionConfig:childConfig:validateAuthBlock:responseBlock:]"", 2291, copyDescription3, localIdentifier7, remoteIdentifier3);
           }
 
-          v38 = 0;
+          v37 = 0;
 LABEL_64:
-          blockCopy = v155;
-          listenerCopy = v156;
-          v37 = v157;
+          blockCopy = v139;
+          listenerCopy = v140;
+          v36 = v141;
           goto LABEL_67;
         }
       }
 
       remoteIdentifier4 = [configCopy remoteIdentifier];
       localIdentifier8 = [configCopy localIdentifier];
-      v57 = sub_1001646B4(NRDLocalDevice, remoteIdentifier4, localIdentifier8, sessionCopy);
+      v52 = sub_1001646B4(NRDLocalDevice, remoteIdentifier4, localIdentifier8, sessionCopy);
 
-      v58 = self->super._nrUUID;
-      v59 = _NRCopyLogObjectForNRUUID();
-      if (v57)
+      v53 = _NRCopyLogObjectForNRUUID();
+      if (v52)
       {
-        v60 = _NRLogIsLevelEnabled();
+        v54 = _NRLogIsLevelEnabled();
 
-        if (v60)
+        if (v54)
         {
-          v61 = self->super._nrUUID;
-          v62 = _NRCopyLogObjectForNRUUID();
+          v55 = _NRCopyLogObjectForNRUUID();
           copyDescription4 = [(NRLink *)self copyDescription];
-          v148 = v57->_identity;
-          _NRLogWithArgs();
+          v57 = v52->_identity;
+          _NRLogWithArgs(v55, 1, "%s%.30s:%-4d %@: Decrypted device identity %@", ", "[NRLinkQuickRelay requestConfigurationForListener:session:sessionConfig:childConfig:validateAuthBlock:responseBlock:]"", 2303, copyDescription4, v57);
         }
 
-        v63 = v57->_nrUUID;
+        v58 = v52->_nrUUID;
 
-        if (v63)
+        if (v58)
         {
-          v64 = v57->_nrUUID;
+          v59 = v52->_nrUUID;
           nrUUID2 = [(NRLink *)self nrUUID];
-          v66 = [(NSUUID *)v64 isEqual:nrUUID2];
+          v61 = [(NSUUID *)v59 isEqual:nrUUID2];
 
-          if (v66)
+          if (v61)
           {
 
-            childConfigCopy = v157;
+            childConfigCopy = v141;
             goto LABEL_37;
           }
 
-          v141 = self->super._nrUUID;
-          v142 = _NRCopyLogObjectForNRUUID();
-          v143 = _NRLogIsLevelEnabled();
+          v132 = _NRCopyLogObjectForNRUUID();
+          v133 = _NRLogIsLevelEnabled();
 
-          if (v143)
+          if (v133)
           {
-            v144 = self->super._nrUUID;
-            v134 = _NRCopyLogObjectForNRUUID();
+            v127 = _NRCopyLogObjectForNRUUID();
             copyDescription5 = [(NRLink *)self copyDescription];
-            v140 = v57->_identity;
-            v145 = v57->_nrUUID;
+            v131 = v52->_identity;
+            v134 = v52->_nrUUID;
             nrUUID3 = [(NRLink *)self nrUUID];
-            _NRLogWithArgs();
+            _NRLogWithArgs(v127, 16, "%s%.30s:%-4d %@: Different device found for identity %@ (%@ != %@)", ", "[NRLinkQuickRelay requestConfigurationForListener:session:sessionConfig:childConfig:validateAuthBlock:responseBlock:]"", 2314, copyDescription5, v131, v134, nrUUID3);
 
-            goto LABEL_90;
+            goto LABEL_91;
           }
         }
 
         else
         {
-          v136 = self->super._nrUUID;
-          v137 = _NRCopyLogObjectForNRUUID();
-          v138 = _NRLogIsLevelEnabled();
+          v129 = _NRCopyLogObjectForNRUUID();
+          v130 = _NRLogIsLevelEnabled();
 
-          if (v138)
+          if (v130)
           {
-            v139 = self->super._nrUUID;
-            v134 = _NRCopyLogObjectForNRUUID();
+            v127 = _NRCopyLogObjectForNRUUID();
             copyDescription5 = [(NRLink *)self copyDescription];
-            v140 = v57->_identity;
-            _NRLogWithArgs();
-LABEL_90:
+            v131 = v52->_identity;
+            _NRLogWithArgs(v127, 16, "%s%.30s:%-4d %@: No device found for identity %@", ", "[NRLinkQuickRelay requestConfigurationForListener:session:sessionConfig:childConfig:validateAuthBlock:responseBlock:]"", 2307, copyDescription5, v131);
+LABEL_91:
 
-            goto LABEL_91;
+            goto LABEL_92;
           }
         }
       }
 
       else
       {
-        v132 = _NRLogIsLevelEnabled();
+        v126 = _NRLogIsLevelEnabled();
 
-        if (v132)
+        if (v126)
         {
-          v133 = self->super._nrUUID;
-          v134 = _NRCopyLogObjectForNRUUID();
+          v127 = _NRCopyLogObjectForNRUUID();
           copyDescription5 = [(NRLink *)self copyDescription];
-          _NRLogWithArgs();
-LABEL_91:
+          _NRLogWithArgs(v127, 16, "%s%.30s:%-4d %@: Failed to decrypt device identity", ", "[NRLinkQuickRelay requestConfigurationForListener:session:sessionConfig:childConfig:validateAuthBlock:responseBlock:]"", 2299, copyDescription5);
+LABEL_92:
         }
       }
 
-      v37 = v157;
-      [(NRLink *)self reportEvent:3023 detailsFormat:@"%@ %@", sessionCopy, v157];
+      v36 = v141;
+      [(NRLink *)self reportEvent:3023 detailsFormat:@"%@ %@", sessionCopy, v141];
 
-LABEL_93:
-      v38 = 0;
-      blockCopy = v155;
-      listenerCopy = v156;
+LABEL_94:
+      v37 = 0;
+      blockCopy = v139;
+      listenerCopy = v140;
       goto LABEL_67;
     }
 
-    v46 = self->super._nrUUID;
-    v47 = _NRCopyLogObjectForNRUUID();
-    v48 = _NRLogIsLevelEnabled();
+    v43 = _NRCopyLogObjectForNRUUID();
+    v44 = _NRLogIsLevelEnabled();
 
-    if (v48)
+    if (v44)
     {
-      v49 = self->super._nrUUID;
-      v43 = _NRCopyLogObjectForNRUUID();
+      v40 = _NRCopyLogObjectForNRUUID();
       copyDescription6 = [(NRLink *)self copyDescription];
       remoteIdentifier5 = [configCopy remoteIdentifier];
-      [remoteIdentifier5 identifierType];
+      _NRLogWithArgs(v40, 16, "%s%.30s:%-4d %@: Remote identifier has wrong type %zu", ", "-[NRLinkQuickRelay requestConfigurationForListener:session:sessionConfig:childConfig:validateAuthBlock:responseBlock:]"", 2278, copyDescription6, [remoteIdentifier5 identifierType]);
       goto LABEL_19;
     }
   }
 
   else
   {
-    v39 = self->super._nrUUID;
-    v40 = _NRCopyLogObjectForNRUUID();
-    v41 = _NRLogIsLevelEnabled();
+    v38 = _NRCopyLogObjectForNRUUID();
+    v39 = _NRLogIsLevelEnabled();
 
-    if (v41)
+    if (v39)
     {
-      v42 = self->super._nrUUID;
-      v43 = _NRCopyLogObjectForNRUUID();
+      v40 = _NRCopyLogObjectForNRUUID();
       copyDescription6 = [(NRLink *)self copyDescription];
       remoteIdentifier5 = [configCopy localIdentifier];
-      [remoteIdentifier5 identifierType];
+      _NRLogWithArgs(v40, 16, "%s%.30s:%-4d %@: Local identifier has wrong type %zu", ", "-[NRLinkQuickRelay requestConfigurationForListener:session:sessionConfig:childConfig:validateAuthBlock:responseBlock:]"", 2274, copyDescription6, [remoteIdentifier5 identifierType]);
 LABEL_19:
-      _NRLogWithArgs();
     }
   }
 
 LABEL_20:
-  v38 = 0;
+  v37 = 0;
 LABEL_21:
   v20[2](v20, 0, 0, 0);
 LABEL_22:
 
-  childConfigCopy = v158;
+  childConfigCopy = v142;
 LABEL_23:
 }
 
@@ -1346,67 +1467,56 @@ LABEL_23:
     queue = [(NRLink *)self queue];
     dispatch_assert_queue_V2(queue);
 
-    nrUUID = self->super._nrUUID;
-    v8 = _NRCopyLogObjectForNRUUID();
+    v7 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v10 = self->super._nrUUID;
-      v11 = _NRCopyLogObjectForNRUUID();
-      v27 = 2221;
+      v9 = _NRCopyLogObjectForNRUUID();
       copyDescription = [(NRLink *)self copyDescription];
-      v25 = "";
-      v26 = "[NRLinkQuickRelay setPacketReceiver:]";
-      _NRLogWithArgs();
+      _NRLogWithArgs(v9, 0, "%s%.30s:%-4d %@: Setting IKEv2 packet receiver", ", "[NRLinkQuickRelay setPacketReceiver:]"", 2221, copyDescription);
     }
 
     objc_storeStrong((&self->_packetNexus + 7), receiver);
     if ([*(&self->_ikeSessionTimeoutSource + 7) count])
     {
-      v12 = self->super._nrUUID;
-      v13 = _NRCopyLogObjectForNRUUID();
-      v14 = _NRLogIsLevelEnabled();
+      v11 = _NRCopyLogObjectForNRUUID();
+      v12 = _NRLogIsLevelEnabled();
 
-      if (v14)
+      if (v12)
       {
-        v15 = self->super._nrUUID;
-        v16 = _NRCopyLogObjectForNRUUID();
-        copyDescription = [(NRLink *)self copyDescription];
-        v29 = [*(&self->_ikeSessionTimeoutSource + 7) count];
-        v27 = 2225;
-        v25 = "";
-        v26 = "[NRLinkQuickRelay setPacketReceiver:]";
-        _NRLogWithArgs();
+        v13 = _NRCopyLogObjectForNRUUID();
+        copyDescription2 = [(NRLink *)self copyDescription];
+        _NRLogWithArgs(v13, 1, "%s%.30s:%-4d %@: processing %llu previously received IKE packets", ", "-[NRLinkQuickRelay setPacketReceiver:]"", 2225, copyDescription2, [*(&self->_ikeSessionTimeoutSource + 7) count]);
       }
     }
 
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v17 = *(&self->_ikeSessionTimeoutSource + 7);
-    v18 = [v17 countByEnumeratingWithState:&v30 objects:v34 count:16];
-    if (v18)
+    v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v15 = *(&self->_ikeSessionTimeoutSource + 7);
+    v16 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    if (v16)
     {
-      v19 = v18;
-      v20 = *v31;
+      v17 = v16;
+      v18 = *v24;
       do
       {
-        for (i = 0; i != v19; i = i + 1)
+        for (i = 0; i != v17; i = i + 1)
         {
-          if (*v31 != v20)
+          if (*v24 != v18)
           {
-            objc_enumerationMutation(v17);
+            objc_enumerationMutation(v15);
           }
 
-          [*(&self->_packetNexus + 7) receivePacketData:{*(*(&v30 + 1) + 8 * i), v25, v26, v27, copyDescription, v29}];
+          [*(&self->_packetNexus + 7) receivePacketData:*(*(&v23 + 1) + 8 * i)];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
-      while (v19);
+      while (v17);
     }
 
     [*(&self->_ikeSessionTimeoutSource + 7) removeAllObjects];
@@ -1414,13 +1524,13 @@ LABEL_23:
 
   else
   {
-    v22 = sub_100046E64();
-    v23 = _NRLogIsLevelEnabled();
+    v20 = sub_100046E64();
+    v21 = _NRLogIsLevelEnabled();
 
-    if (v23)
+    if (v21)
     {
-      v24 = sub_100046E64();
-      _NRLogWithArgs();
+      v22 = sub_100046E64();
+      _NRLogWithArgs(v22, 17, "%s called with null receiver", "[NRLinkQuickRelay setPacketReceiver:]");
     }
   }
 }
@@ -1430,19 +1540,19 @@ LABEL_23:
   dataCopy = data;
   if (!dataCopy)
   {
-    v43 = sub_100046E64();
+    v38 = sub_100046E64();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v45 = sub_100046E64();
-      _NRLogWithArgs();
+      v40 = sub_100046E64();
+      _NRLogWithArgs(v40, 17, "%s called with null data", "[NRLinkQuickRelay sendPacketData:]");
 
-      v18 = 0;
-      goto LABEL_30;
+      v17 = 0;
+      goto LABEL_31;
     }
 
-    goto LABEL_29;
+    goto LABEL_30;
   }
 
   queue = [(NRLink *)self queue];
@@ -1469,155 +1579,153 @@ LABEL_23:
     [(NRLink *)self reportEvent:3006 detailsFormat:@"Sending IKEv2 packet #%llu %@ len %u connection %@ state %@", v6, IKEv2PacketString, v8, connection, v12];
 
     ++*(&self->_nexusOutputAvailableCount + 7);
-    v19 = objc_alloc_init(NSMutableData);
-    v55 = 4;
-    v54 = bswap32([dataCopy length]) >> 16;
-    [v19 appendBytes:&v55 length:1];
-    [v19 appendBytes:&v54 length:2];
-    [v19 appendData:dataCopy];
-    [v19 bytes];
-    if (![v19 length])
+    v18 = objc_alloc_init(NSMutableData);
+    v52 = 4;
+    v51 = bswap32([dataCopy length]) >> 16;
+    [v18 appendBytes:&v52 length:1];
+    [v18 appendBytes:&v51 length:2];
+    [v18 appendData:dataCopy];
+    [v18 bytes];
+    if (![v18 length])
     {
-      v47 = sub_100046E64();
-      v48 = _NRLogIsLevelEnabled();
+      v42 = sub_100046E64();
+      v43 = _NRLogIsLevelEnabled();
 
-      if (v48)
+      if (v43)
       {
-        v49 = sub_100046E64();
-        _NRLogWithArgs();
+        v44 = sub_100046E64();
+        _NRLogWithArgs(v44, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: dataLen > 0", ", "nrChecksumFull"", 109);
       }
 
-      _os_log_pack_size();
-      __chkstk_darwin();
-      v50 = *__error();
-      v51 = _os_log_pack_fill();
-      *v51 = 136446210;
-      *(v51 + 4) = "nrChecksumFull";
+      v45 = _os_log_pack_size();
+      v46 = &v49 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+      v47 = __error();
+      v48 = _os_log_pack_fill(v46, v45, *v47, &_mh_execute_header, "%{public}s Assertion Failed: dataLen > 0");
+      *v48 = 136446210;
+      *(v48 + 4) = "nrChecksumFull";
       sub_100046E64();
       _NRLogAbortWithPack();
     }
 
-    v53 = ~os_inet_checksum();
-    [v19 appendBytes:&v53 length:2];
-    v20 = v19;
+    v50 = ~os_inet_checksum();
+    [v18 appendBytes:&v50 length:2];
+    v19 = v18;
     dispatch_assert_queue_V2(self->super._queue);
     if (self->super._state == 255)
     {
-      nrUUID = self->super._nrUUID;
-      v25 = _NRCopyLogObjectForNRUUID();
-      v26 = _NRLogIsLevelEnabled();
+      v23 = _NRCopyLogObjectForNRUUID();
+      v24 = _NRLogIsLevelEnabled();
 
-      if (!v26)
+      if (!v24)
       {
-        goto LABEL_26;
+        goto LABEL_27;
       }
+
+      v25 = _NRCopyLogObjectForNRUUID();
+      copyDescription = [(NRLink *)self copyDescription];
+      _NRLogWithArgs(v25, 16, "%s%.30s:%-4d %@: Cannot write datagram as link is cancelled", ", "[NRLinkQuickRelay writeDatagramToSession:]"", 1678, copyDescription);
     }
 
     else
     {
-      v21 = *(&self->_linkAnalytics + 7);
-      if (v21)
+      v20 = *(&self->_linkAnalytics + 7);
+      if (v20)
       {
-        if ([v21 connectionState] == 3)
+        if ([v20 connectionState] == 3)
         {
-          *(&self->_lastRecordedSessionInvitationCounter + 7) += [v20 length];
-          v22 = *(&self->_linkAnalytics + 7);
-          v58 = v20;
-          v23 = [NSArray arrayWithObjects:&v58 count:1];
-          v56[0] = _NSConcreteStackBlock;
-          v56[1] = 3221225472;
-          v56[2] = sub_100052CA0;
-          v56[3] = &unk_1001FAA58;
-          v56[4] = self;
-          v57 = v20;
-          [v22 writeDatagrams:v23 completionHandler:v56];
+          *(&self->_lastRecordedSessionInvitationCounter + 7) += [v19 length];
+          v21 = *(&self->_linkAnalytics + 7);
+          v55 = v19;
+          v22 = [NSArray arrayWithObjects:&v55 count:1];
+          v53[0] = _NSConcreteStackBlock;
+          v53[1] = 3221225472;
+          v53[2] = sub_100052CA0;
+          v53[3] = &unk_1001FAA58;
+          v53[4] = self;
+          v54 = v19;
+          [v21 writeDatagrams:v22 completionHandler:v53];
 
-LABEL_26:
-          v18 = 1;
-          goto LABEL_30;
+LABEL_27:
+          v17 = 1;
+          goto LABEL_31;
         }
 
-        v33 = *(&self->_linkAnalytics + 7);
-        connectionState2 = [v33 connectionState];
+        v29 = *(&self->_linkAnalytics + 7);
+        connectionState2 = [v29 connectionState];
         if (connectionState2 >= 6)
         {
-          v35 = [[NSString alloc] initWithFormat:@"Unknown[%lld]", connectionState2];
+          v31 = [[NSString alloc] initWithFormat:@"Unknown[%lld]", connectionState2];
         }
 
         else
         {
-          v35 = *(&off_1001FAB20 + connectionState2);
+          v31 = *(&off_1001FAB20 + connectionState2);
         }
 
-        [(NRLink *)self reportEvent:10022 detailsFormat:@"cannot write to connection %@ state %@", v33, v35];
+        [(NRLink *)self reportEvent:10022 detailsFormat:@"cannot write to connection %@ state %@", v29, v31];
 
-        v36 = self->super._nrUUID;
-        v37 = _NRCopyLogObjectForNRUUID();
-        v38 = _NRLogIsLevelEnabled();
+        v32 = _NRCopyLogObjectForNRUUID();
+        v33 = _NRLogIsLevelEnabled();
 
-        if (!v38)
+        if (!v33)
         {
-          goto LABEL_26;
+          goto LABEL_27;
         }
 
-        v39 = self->super._nrUUID;
-        v31 = _NRCopyLogObjectForNRUUID();
-        copyDescription = [(NRLink *)self copyDescription];
-        connectionState3 = [*(&self->_linkAnalytics + 7) connectionState];
+        v25 = _NRCopyLogObjectForNRUUID();
+        copyDescription2 = [(NRLink *)self copyDescription];
+        v35 = *(&self->_linkAnalytics + 7);
+        connectionState3 = [v35 connectionState];
         if (connectionState3 >= 6)
         {
-          v42 = [[NSString alloc] initWithFormat:@"Unknown[%lld]", connectionState3];
+          v37 = [[NSString alloc] initWithFormat:@"Unknown[%lld]", connectionState3];
         }
 
         else
         {
-          v42 = *(&off_1001FAB20 + connectionState3);
+          v37 = *(&off_1001FAB20 + connectionState3);
         }
 
-        _NRLogWithArgs();
+        _NRLogWithArgs(v25, 16, "%s%.30s:%-4d %@: Cannot write to connection %@ state %@", ", "[NRLinkQuickRelay writeDatagramToSession:]"", 1694, copyDescription2, v35, v37);
 
-LABEL_25:
-        goto LABEL_26;
+LABEL_26:
+        goto LABEL_27;
       }
 
-      v27 = self->super._nrUUID;
-      v28 = _NRCopyLogObjectForNRUUID();
-      v29 = _NRLogIsLevelEnabled();
+      v27 = _NRCopyLogObjectForNRUUID();
+      v28 = _NRLogIsLevelEnabled();
 
-      if (!v29)
+      if (!v28)
       {
-        goto LABEL_26;
+        goto LABEL_27;
       }
+
+      v25 = _NRCopyLogObjectForNRUUID();
+      copyDescription = [(NRLink *)self copyDescription];
+      _NRLogWithArgs(v25, 0, "%s%.30s:%-4d %@: Ignoring writing datagrams as connection does not exist", ", "[NRLinkQuickRelay writeDatagramToSession:]"", 1685, copyDescription);
     }
 
-    v30 = self->super._nrUUID;
-    v31 = _NRCopyLogObjectForNRUUID();
-    copyDescription2 = [(NRLink *)self copyDescription];
-    _NRLogWithArgs();
-
-    goto LABEL_25;
+    goto LABEL_26;
   }
 
-  v13 = self->super._nrUUID;
-  v14 = _NRCopyLogObjectForNRUUID();
-  v15 = _NRLogIsLevelEnabled();
+  v13 = _NRCopyLogObjectForNRUUID();
+  v14 = _NRLogIsLevelEnabled();
 
-  if (!v15)
+  if (!v14)
   {
-LABEL_29:
-    v18 = 0;
-    goto LABEL_30;
+LABEL_30:
+    v17 = 0;
+    goto LABEL_31;
   }
 
-  v16 = self->super._nrUUID;
-  v17 = _NRCopyLogObjectForNRUUID();
+  v15 = _NRCopyLogObjectForNRUUID();
   copyDescription3 = [(NRLink *)self copyDescription];
-  _NRLogWithArgs();
+  _NRLogWithArgs(v15, 16, "%s%.30s:%-4d %@: Asked to send IKEv2 data but cancelled", ", "[NRLinkQuickRelay sendPacketData:]"", 2188, copyDescription3);
 
-  v18 = 0;
-LABEL_30:
+  v17 = 0;
+LABEL_31:
 
-  return v18;
+  return v17;
 }
 
 - (BOOL)sendControlData:(id)data
@@ -1635,42 +1743,42 @@ LABEL_30:
       {
         objc_initWeak(&location, self);
         v8 = *(&self->_ikeListener + 7);
-        v27 = v6;
-        v9 = [NSArray arrayWithObjects:&v27 count:1];
+        v25 = v6;
+        v9 = [NSArray arrayWithObjects:&v25 count:1];
         queue = [(NRLink *)self queue];
-        v24[0] = _NSConcreteStackBlock;
-        v24[1] = 3221225472;
-        v24[2] = sub_100053248;
-        v24[3] = &unk_1001FC018;
-        objc_copyWeak(&v25, &location);
-        [v8 sendPrivateNotifies:v9 maxRetries:10 retryIntervalInMilliseconds:1000 callbackQueue:queue callback:v24];
+        v22[0] = _NSConcreteStackBlock;
+        v22[1] = 3221225472;
+        v22[2] = sub_100053248;
+        v22[3] = &unk_1001FC018;
+        objc_copyWeak(&v23, &location);
+        [v8 sendPrivateNotifies:v9 maxRetries:10 retryIntervalInMilliseconds:1000 callbackQueue:queue callback:v22];
 
-        objc_destroyWeak(&v25);
+        objc_destroyWeak(&v23);
         objc_destroyWeak(&location);
       }
 
       else
       {
-        v20 = sub_100046E64();
+        v19 = sub_100046E64();
         IsLevelEnabled = _NRLogIsLevelEnabled();
 
         if (IsLevelEnabled)
         {
-          v22 = sub_100046E64();
-          _NRLogWithArgs();
+          v21 = sub_100046E64();
+          _NRLogWithArgs(v21, 17, "NEIKEv2PrivateNotify init %u %@ failed", 50702, dataCopy);
         }
       }
     }
 
     else
     {
-      v17 = sub_100046E64();
-      v18 = _NRLogIsLevelEnabled();
+      v16 = sub_100046E64();
+      v17 = _NRLogIsLevelEnabled();
 
-      if (v18)
+      if (v17)
       {
-        v19 = sub_100046E64();
-        _NRLogWithArgs();
+        v18 = sub_100046E64();
+        _NRLogWithArgs(v18, 17, "%s called with null data", "[NRLinkQuickRelay sendControlData:]");
       }
 
       v7 = 0;
@@ -1679,17 +1787,15 @@ LABEL_30:
 
   else
   {
-    nrUUID = self->super._nrUUID;
-    v12 = _NRCopyLogObjectForNRUUID();
+    v11 = _NRCopyLogObjectForNRUUID();
     v7 = 1;
-    v13 = _NRLogIsLevelEnabled();
+    v12 = _NRLogIsLevelEnabled();
 
-    if (v13)
+    if (v12)
     {
-      v14 = self->super._nrUUID;
-      v15 = _NRCopyLogObjectForNRUUID();
+      v13 = _NRCopyLogObjectForNRUUID();
       copyDescription = [(NRLink *)self copyDescription];
-      _NRLogWithArgs();
+      _NRLogWithArgs(v13, 1, "%s%.30s:%-4d %@: Not sending control data as there is no IDS session", ", "[NRLinkQuickRelay sendControlData:]"", 1642, copyDescription);
     }
   }
 
@@ -1699,26 +1805,26 @@ LABEL_30:
 - (void)invalidateIKESessionForClass:(unsigned __int8)class
 {
   classCopy = class;
-  v5.receiver = self;
-  v5.super_class = NRLinkQuickRelay;
-  [(NRLink *)&v5 invalidateIKESessionForClass:?];
-  [(NRLink *)self invalidateIKESession:sub_10004A258(self, classCopy)];
+  v6.receiver = self;
+  v6.super_class = NRLinkQuickRelay;
+  [(NRLink *)&v6 invalidateIKESessionForClass:?];
+  sub_10004A258(self, classCopy);
+  [(NRLink *)self invalidateIKESession:v5];
 }
 
 - (BOOL)resume
 {
   if ([(NRLink *)self state]== 255)
   {
-    nrUUID = self->super._nrUUID;
-    v12 = _NRCopyLogObjectForNRUUID();
+    v9 = _NRCopyLogObjectForNRUUID();
     LOBYTE(idsSessionIsIncoming) = 1;
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v14 = self->super._nrUUID;
-      v9 = _NRCopyLogObjectForNRUUID();
+      v7 = _NRCopyLogObjectForNRUUID();
       copyDescription = [(NRLink *)self copyDescription];
+      _NRLogWithArgs(v7, 1, "%s%.30s:%-4d %@: Already cancelled. Ignoring 'resume'", ", "[NRLinkQuickRelay resume]"", 540, copyDescription);
       goto LABEL_11;
     }
   }
@@ -1746,33 +1852,29 @@ LABEL_15:
       return idsSessionIsIncoming;
     }
 
-    v5 = self->super._nrUUID;
-    v6 = _NRCopyLogObjectForNRUUID();
-    v7 = _NRLogIsLevelEnabled();
+    v5 = _NRCopyLogObjectForNRUUID();
+    v6 = _NRLogIsLevelEnabled();
 
-    if (v7)
+    if (v6)
     {
-      v8 = self->super._nrUUID;
-      v9 = _NRCopyLogObjectForNRUUID();
+      v7 = _NRCopyLogObjectForNRUUID();
       copyDescription = [(NRLink *)self copyDescription];
       LOBYTE(idsSessionIsIncoming) = 1;
+      _NRLogWithArgs(v7, 1, "%s%.30s:%-4d %@: No need to send invitation as we are processing a received invite", ", "[NRLinkQuickRelay resume]"", 561, copyDescription);
 LABEL_11:
-      _NRLogWithArgs();
     }
   }
 
   else
   {
-    v15 = self->super._nrUUID;
-    v16 = _NRCopyLogObjectForNRUUID();
-    v17 = _NRLogIsLevelEnabled();
+    v11 = _NRCopyLogObjectForNRUUID();
+    v12 = _NRLogIsLevelEnabled();
 
-    if (v17)
+    if (v12)
     {
-      v18 = self->super._nrUUID;
-      v19 = _NRCopyLogObjectForNRUUID();
+      v13 = _NRCopyLogObjectForNRUUID();
       copyDescription2 = [(NRLink *)self copyDescription];
-      _NRLogWithArgs();
+      _NRLogWithArgs(v13, 1, "%s%.30s:%-4d %@: link not suspended for resuming", ", "[NRLinkQuickRelay resume]"", 545, copyDescription2);
     }
 
     LOBYTE(idsSessionIsIncoming) = 0;
@@ -1794,16 +1896,14 @@ LABEL_11:
 
   if ([(NRLink *)self state]== 255)
   {
-    nrUUID = self->super._nrUUID;
-    v10 = _NRCopyLogObjectForNRUUID();
+    v8 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v12 = self->super._nrUUID;
-      v13 = _NRCopyLogObjectForNRUUID();
+      v10 = _NRCopyLogObjectForNRUUID();
       copyDescription = [(NRLink *)self copyDescription];
-      _NRLogWithArgs();
+      _NRLogWithArgs(v10, 1, "%s%.30s:%-4d %@: Already cancelled. Ignoring 'suspend'", ", "[NRLinkQuickRelay suspend]"", 481, copyDescription);
     }
   }
 
@@ -1811,19 +1911,14 @@ LABEL_11:
   {
     if (![(NRLink *)self changeStateTo:9])
     {
-      v4 = self->super._nrUUID;
-      v5 = _NRCopyLogObjectForNRUUID();
-      v6 = _NRLogIsLevelEnabled();
+      v4 = _NRCopyLogObjectForNRUUID();
+      v5 = _NRLogIsLevelEnabled();
 
-      if (v6)
+      if (v5)
       {
-        v7 = self->super._nrUUID;
-        v8 = _NRCopyLogObjectForNRUUID();
-        v23 = 486;
+        v6 = _NRCopyLogObjectForNRUUID();
         copyDescription2 = [(NRLink *)self copyDescription];
-        v21 = "";
-        v22 = "[NRLinkQuickRelay suspend]";
-        _NRLogWithArgs();
+        _NRLogWithArgs(v6, 1, "%s%.30s:%-4d %@: link already suspended", ", "[NRLinkQuickRelay suspend]"", 486, copyDescription2);
       }
     }
 
@@ -1833,7 +1928,7 @@ LABEL_11:
       self->_dNexusReadSourceSuspended = 0;
     }
 
-    if (![(NRLink *)self ikeClassDEstablished:v21])
+    if (![(NRLink *)self ikeClassDEstablished])
     {
       [(NRLinkQuickRelay *)self invalidateIKESessionForClass:4];
     }
@@ -1862,27 +1957,27 @@ LABEL_11:
     }
 
     sub_100047D2C(self);
-    v14 = *(&self->_pathEvaluator + 7);
-    if (v14)
+    v12 = *(&self->_pathEvaluator + 7);
+    if (v12)
     {
-      *(v14 + 32) = *(&self->_sentIKEv2PointToPoint + 7) + *(&self->_nexusOutputAvailableCount + 7);
-      v15 = *(&self->_pathEvaluator + 7);
-      if (v15)
+      *(v12 + 32) = *(&self->_sentIKEv2PointToPoint + 7) + *(&self->_nexusOutputAvailableCount + 7);
+      v13 = *(&self->_pathEvaluator + 7);
+      if (v13)
       {
-        *(v15 + 88) = *(&self->_lastRecordedBytesFromQR + 7);
-        v16 = *(&self->_pathEvaluator + 7);
-        if (v16)
+        *(v13 + 88) = *(&self->_lastRecordedBytesFromQR + 7);
+        v14 = *(&self->_pathEvaluator + 7);
+        if (v14)
         {
-          *(v16 + 96) = *(&self->_bytesFromNexus + 7);
+          *(v14 + 96) = *(&self->_bytesFromNexus + 7);
         }
       }
     }
 
     [(NRLink *)self linkTotalReadyTimeInSec];
-    v18 = *(&self->_pathEvaluator + 7);
-    if (v18)
+    v16 = *(&self->_pathEvaluator + 7);
+    if (v16)
     {
-      *(v18 + 24) = v17;
+      *(v16 + 24) = v15;
     }
 
     linkDelegate = [(NRLink *)self linkDelegate];
@@ -1907,16 +2002,14 @@ LABEL_11:
 
   if ([(NRLink *)self state]== 255)
   {
-    nrUUID = self->super._nrUUID;
-    v7 = _NRCopyLogObjectForNRUUID();
+    v6 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v9 = self->super._nrUUID;
-      v10 = _NRCopyLogObjectForNRUUID();
+      v8 = _NRCopyLogObjectForNRUUID();
       copyDescription = [(NRLink *)self copyDescription];
-      _NRLogWithArgs();
+      _NRLogWithArgs(v8, 1, "%s%.30s:%-4d %@: Ignoring start request as link is cancelled", ", "[NRLinkQuickRelay start]"", 431, copyDescription);
     }
 
     LOBYTE(v5) = 0;
@@ -1946,26 +2039,24 @@ LABEL_11:
 
       [(NRLink *)self setStartRequested:1];
       [(NRLink *)self reportEvent:3001];
-      if (!self || (v11 = *(&self->_idsService + 7)) == 0 || (idsSessionIsIncoming = self->_idsSessionIsIncoming, v11, !idsSessionIsIncoming))
+      if (!self || (v10 = *(&self->_idsService + 7)) == 0 || (idsSessionIsIncoming = self->_idsSessionIsIncoming, v10, !idsSessionIsIncoming))
       {
         sub_1000535E8(self);
         goto LABEL_5;
       }
 
-      v13 = self->super._nrUUID;
-      v14 = _NRCopyLogObjectForNRUUID();
-      v15 = _NRLogIsLevelEnabled();
+      v12 = _NRCopyLogObjectForNRUUID();
+      v13 = _NRLogIsLevelEnabled();
 
       LOBYTE(v5) = 1;
-      if (!v15)
+      if (!v13)
       {
         return v5;
       }
 
-      v16 = self->super._nrUUID;
       linkDelegate = _NRCopyLogObjectForNRUUID();
       copyDescription2 = [(NRLink *)self copyDescription];
-      _NRLogWithArgs();
+      _NRLogWithArgs(linkDelegate, 1, "%s%.30s:%-4d %@: No need to send invitation as we are processing a received invite", ", "[NRLinkQuickRelay start]"", 460, copyDescription2);
 
 LABEL_4:
 LABEL_5:
@@ -2179,7 +2270,7 @@ LABEL_5:
     queue = [(NRLink *)self queue];
     dispatch_assert_queue_V2(queue);
 
-    v6 = [[NSString alloc] initWithFormat:reasonCopy arguments:&v24];
+    v6 = [[NSString alloc] initWithFormat:reasonCopy arguments:&v22];
     if ([(NRLink *)self changeStateTo:255 details:v6])
     {
       if (self)
@@ -2229,32 +2320,30 @@ LABEL_5:
 
     else
     {
-      nrUUID = self->super._nrUUID;
-      v15 = _NRCopyLogObjectForNRUUID();
+      v14 = _NRCopyLogObjectForNRUUID();
       IsLevelEnabled = _NRLogIsLevelEnabled();
 
       if (IsLevelEnabled)
       {
-        v17 = self->super._nrUUID;
-        v18 = _NRCopyLogObjectForNRUUID();
+        v16 = _NRCopyLogObjectForNRUUID();
         copyDescription = [(NRLink *)self copyDescription];
-        _NRLogWithArgs();
+        _NRLogWithArgs(v16, 0, "%s%.30s:%-4d %@: link already cancelled", ", "[NRLinkQuickRelay cancelWithReason:]"", 314, copyDescription);
       }
     }
   }
 
   else
   {
-    v20 = sub_100046E64();
-    v21 = _NRLogIsLevelEnabled();
+    v19 = sub_100046E64();
+    v20 = _NRLogIsLevelEnabled();
 
-    if (!v21)
+    if (!v20)
     {
       goto LABEL_15;
     }
 
     v6 = sub_100046E64();
-    _NRLogWithArgs();
+    _NRLogWithArgs(v6, 17, "%s called with null reasonFormat", "[NRLinkQuickRelay cancelWithReason:]");
   }
 
 LABEL_15:
@@ -2415,54 +2504,60 @@ LABEL_15:
 
     if (!IsLevelEnabled)
     {
-      goto LABEL_23;
+      goto LABEL_24;
     }
 
-LABEL_19:
-    v35 = sub_100046E64();
-    _NRLogWithArgs();
+    v29 = sub_100046E64();
+    _NRLogWithArgs(v29, 17, "%s called with null queue");
+LABEL_20:
 
-    goto LABEL_23;
+    goto LABEL_24;
   }
 
   dispatch_assert_queue_V2(queueCopy);
   if (!delegateCopy)
   {
-    v29 = sub_100046E64();
-    v30 = _NRLogIsLevelEnabled();
+    v30 = sub_100046E64();
+    v31 = _NRLogIsLevelEnabled();
 
-    if (!v30)
+    if (!v31)
     {
-      goto LABEL_23;
+      goto LABEL_24;
     }
 
-    goto LABEL_19;
+    v29 = sub_100046E64();
+    _NRLogWithArgs(v29, 17, "%s called with null linkDelegate");
+    goto LABEL_20;
   }
 
   if (!dCopy)
   {
-    v31 = sub_100046E64();
-    v32 = _NRLogIsLevelEnabled();
+    v32 = sub_100046E64();
+    v33 = _NRLogIsLevelEnabled();
 
-    if (!v32)
+    if (!v33)
     {
-      goto LABEL_23;
+      goto LABEL_24;
     }
 
-    goto LABEL_19;
+    v29 = sub_100046E64();
+    _NRLogWithArgs(v29, 17, "%s called with null nrUUID");
+    goto LABEL_20;
   }
 
   if ((_NRIsUUIDNonZero() & 1) == 0)
   {
-    v33 = sub_100046E64();
-    v34 = _NRLogIsLevelEnabled();
+    v34 = sub_100046E64();
+    v35 = _NRLogIsLevelEnabled();
 
-    if (!v34)
+    if (!v35)
     {
-      goto LABEL_23;
+      goto LABEL_24;
     }
 
-    goto LABEL_19;
+    v29 = sub_100046E64();
+    _NRLogWithArgs(v29, 17, "called with all-zero nrUUID");
+    goto LABEL_20;
   }
 
   v40.receiver = self;
@@ -2476,11 +2571,11 @@ LABEL_19:
     if (v37)
     {
       v38 = sub_100046E64();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v38, 17, "[NRLink initLinkWithQueue:] failed");
     }
 
     self = 0;
-    goto LABEL_23;
+    goto LABEL_24;
   }
 
   self = v11;
@@ -2499,9 +2594,9 @@ LABEL_19:
 
   if (!sub_1000539DC(self))
   {
-LABEL_23:
+LABEL_24:
     selfCopy = 0;
-    goto LABEL_24;
+    goto LABEL_25;
   }
 
   if (![(NRLink *)self hasCompanionDatapath])
@@ -2542,7 +2637,7 @@ LABEL_23:
 
   self = self;
   selfCopy = self;
-LABEL_24:
+LABEL_25:
 
   return selfCopy;
 }

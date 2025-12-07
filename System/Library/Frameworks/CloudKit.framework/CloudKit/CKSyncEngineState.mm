@@ -30,6 +30,7 @@
 - (NSArray)zoneState;
 - (NSDate)lastFetchDatabaseChangesDate;
 - (NSString)existingDatabaseSubscriptionID;
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand;
 - (id)fetchChangesZoneConfigurationForZoneID:(id)d;
 - (id)initInternal;
 - (id)serverChangeTokenForZoneID:(id)d exists:(BOOL *)exists;
@@ -46,9 +47,11 @@
 - (void)markAssetSync:(id)sync inFlight:(BOOL)flight;
 - (void)markDatabaseChanges:(id)changes inFlight:(BOOL)flight;
 - (void)markRecordZoneChanges:(id)changes inFlight:(BOOL)flight;
+- (void)mark_assetFetch:(id)fetch inFlight:(BOOL)flight;
 - (void)moveInFlightAssetSyncsToPending;
 - (void)moveInFlightDatabaseChangesToPending;
 - (void)moveInFlightRecordZoneChangesToPending;
+- (void)notifyChangeHandlerWithCoalescing:(BOOL)coalescing scheduleSync:(BOOL)sync;
 - (void)purgeLegacyLastKnownUserRecordIDIfNecessary;
 - (void)purgePendingAutomaticSyncAssetSyncs;
 - (void)purgePendingAutomaticSyncZoneIDs;
@@ -637,13 +640,13 @@
 
 - (CKSyncEngineState)initWithStateSerialization:(id)serialization error:(id *)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v7 = objc_msgSend_data(serialization, a2, serialization);
   if (v7)
   {
-    v18 = 0;
-    self = objc_msgSend_initWithData_error_(self, v6, v7, &v18);
-    v8 = v18;
+    v17 = 0;
+    self = objc_msgSend_initWithData_error_(self, v6, v7, &v17);
+    v8 = v17;
     if (v8)
     {
       if (ck_log_initialization_predicate != -1)
@@ -655,7 +658,7 @@
       if (os_log_type_enabled(ck_log_facility_engine, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v20 = v8;
+        v19 = v8;
         _os_log_fault_impl(&dword_1883EA000, v9, OS_LOG_TYPE_FAULT, "BUG IN CLOUDKIT: Error initializing sync engine state: %@", buf, 0xCu);
       }
     }
@@ -676,13 +679,12 @@
     *error = v8;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 - (CKSyncEngineState)initWithData:(id)data error:(id *)error
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v9 = dataCopy;
   if (dataCopy)
@@ -701,7 +703,7 @@
         v12 = objc_opt_class();
         v13 = NSStringFromClass(v12);
         *buf = 138412290;
-        v76 = v13;
+        v75 = v13;
         v14 = "BUG IN CLIENT OF CLOUDKIT: Initializing %@ with a zero-length state data.";
 LABEL_36:
         _os_log_fault_impl(&dword_1883EA000, v11, OS_LOG_TYPE_FAULT, v14, buf, 0xCu);
@@ -720,16 +722,16 @@ LABEL_36:
     if (os_log_type_enabled(ck_log_facility_engine, OS_LOG_TYPE_FAULT))
     {
       v11 = v15;
-      v71 = objc_opt_class();
-      v13 = NSStringFromClass(v71);
+      v70 = objc_opt_class();
+      v13 = NSStringFromClass(v70);
       *buf = 138412290;
-      v76 = v13;
+      v75 = v13;
       v14 = "BUG IN CLOUDKIT: Initializing %@ with a nil state data.";
       goto LABEL_36;
     }
   }
 
-  v72 = os_transaction_create();
+  v71 = os_transaction_create();
   v16 = objc_autoreleasePoolPush();
   v17 = v9;
   v19 = objc_msgSend_dataUsingEncoding_(@"CompressedStatePrefix-278ba12eed31", v18, 4);
@@ -747,7 +749,7 @@ LABEL_36:
       v35 = v32;
       v38 = objc_msgSend_shortDescription(self, v36, v37);
       *buf = 138543362;
-      v76 = v38;
+      v75 = v38;
       _os_log_impl(&dword_1883EA000, v35, OS_LOG_TYPE_DEFAULT, "%{public}@ decompressing state data", buf, 0xCu);
     }
 
@@ -755,9 +757,9 @@ LABEL_36:
     v42 = objc_msgSend_length(v17, v40, v41);
     v45 = objc_msgSend_length(v19, v43, v44);
     v47 = objc_msgSend_subdataWithRange_(v17, v46, v39, v42 - v45);
-    v74 = 0;
-    v49 = objc_msgSend_decompressedDataUsingAlgorithm_error_(v47, v48, 0, &v74);
-    v50 = v74;
+    v73 = 0;
+    v49 = objc_msgSend_decompressedDataUsingAlgorithm_error_(v47, v48, 0, &v73);
+    v50 = v73;
 
     if (!v49 || v50)
     {
@@ -770,7 +772,7 @@ LABEL_36:
       if (os_log_type_enabled(ck_log_facility_engine, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412290;
-        v76 = v50;
+        v75 = v50;
         _os_log_fault_impl(&dword_1883EA000, v51, OS_LOG_TYPE_FAULT, "BUG IN CLOUDKIT: Failed to decompress sync engine state serialization: %@", buf, 0xCu);
       }
     }
@@ -796,9 +798,9 @@ LABEL_36:
   objc_msgSend_setClass_forClassName_(v59, v61, v60, @"CKSyncEnginePendingRecordChange");
   v62 = MEMORY[0x1E696ACD0];
   v63 = objc_opt_class();
-  v73 = v50;
-  v65 = objc_msgSend_unarchivedObjectOfClass_fromData_error_(v62, v64, v63, v49, &v73);
-  v66 = v73;
+  v72 = v50;
+  v65 = objc_msgSend_unarchivedObjectOfClass_fromData_error_(v62, v64, v63, v49, &v72);
+  v66 = v72;
 
   if (v66 || !v65)
   {
@@ -811,7 +813,7 @@ LABEL_36:
     if (os_log_type_enabled(ck_log_facility_engine, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v76 = v66;
+      v75 = v66;
       _os_log_fault_impl(&dword_1883EA000, v67, OS_LOG_TYPE_FAULT, "Failed to unarchive sync engine state serialization: %@", buf, 0xCu);
     }
   }
@@ -829,7 +831,6 @@ LABEL_36:
     v65 = 0;
   }
 
-  v69 = *MEMORY[0x1E69E9840];
   return v65;
 }
 
@@ -870,7 +871,7 @@ LABEL_36:
 
 - (void)reset
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (ck_log_initialization_predicate != -1)
   {
     dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
@@ -881,15 +882,43 @@ LABEL_36:
   {
     v6 = v3;
     v9 = objc_msgSend_shortDescription(self, v7, v8);
-    v13 = 138543618;
-    v14 = v9;
-    v15 = 2048;
-    v16 = objc_msgSend_weight(self, v10, v11);
-    _os_log_impl(&dword_1883EA000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ resetting state with weight=%tu", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v9;
+    v14 = 2048;
+    v15 = objc_msgSend_weight(self, v10, v11);
+    _os_log_impl(&dword_1883EA000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ resetting state with weight=%tu", &v12, 0x16u);
   }
 
   objc_msgSend_setInitialValues(self, v4, v5);
-  v12 = *MEMORY[0x1E69E9840];
+}
+
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand
+{
+  v9 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], a2, public);
+  if (self)
+  {
+    queue = self->_queue;
+  }
+
+  else
+  {
+    queue = 0;
+  }
+
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_18865B3E0;
+  v14[3] = &unk_1E70C0340;
+  v11 = v9;
+  v15 = v11;
+  selfCopy = self;
+  publicCopy = public;
+  privateCopy = private;
+  expandCopy = expand;
+  ck_call_or_dispatch_sync_if_not_key(queue, &self->_queue, v14);
+  v12 = v11;
+
+  return v11;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -992,11 +1021,11 @@ LABEL_36:
 
 - (CKSyncEngineState)initWithCoder:(id)coder
 {
-  v232 = *MEMORY[0x1E69E9840];
+  v231 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v229.receiver = self;
-  v229.super_class = CKSyncEngineState;
-  v5 = [(CKSyncEngineState *)&v229 init];
+  v228.receiver = self;
+  v228.super_class = CKSyncEngineState;
+  v5 = [(CKSyncEngineState *)&v228 init];
   v6 = v5;
   if (!v5)
   {
@@ -1039,7 +1068,7 @@ LABEL_36:
   v27 = objc_msgSend_setWithObjects_(v23, v26, v24, v25, 0);
   v29 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v28, v27, @"zoneState");
 
-  v220 = v29;
+  v219 = v29;
   if (v29)
   {
     v31 = objc_msgSend_CKMapToDictionary_(v29, v30, &unk_1EFA2FD48);
@@ -1169,32 +1198,32 @@ LABEL_18:
   v106 = objc_msgSend_setWithObjects_(v102, v105, v103, v104, 0);
   v108 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v107, v106, @"recordIDsToSave");
 
-  v227 = 0u;
-  v228 = 0u;
-  v225 = 0u;
   v226 = 0u;
+  v227 = 0u;
+  v224 = 0u;
+  v225 = 0u;
   v109 = v108;
-  v111 = objc_msgSend_countByEnumeratingWithState_objects_count_(v109, v110, &v225, v231, 16);
+  v111 = objc_msgSend_countByEnumeratingWithState_objects_count_(v109, v110, &v224, v230, 16);
   if (v111)
   {
     v112 = v111;
-    v113 = *v226;
+    v113 = *v225;
     do
     {
       for (i = 0; i != v112; ++i)
       {
-        if (*v226 != v113)
+        if (*v225 != v113)
         {
           objc_enumerationMutation(v109);
         }
 
-        v115 = *(*(&v225 + 1) + 8 * i);
+        v115 = *(*(&v224 + 1) + 8 * i);
         v116 = [CKSyncEnginePendingRecordZoneChange alloc];
         v118 = objc_msgSend_initWithRecordID_type_(v116, v117, v115, 0);
         objc_msgSend_addObject_(v6->_pendingRecordZoneChangesSet, v119, v118);
       }
 
-      v112 = objc_msgSend_countByEnumeratingWithState_objects_count_(v109, v120, &v225, v231, 16);
+      v112 = objc_msgSend_countByEnumeratingWithState_objects_count_(v109, v120, &v224, v230, 16);
     }
 
     while (v112);
@@ -1206,38 +1235,38 @@ LABEL_18:
   v125 = objc_msgSend_setWithObjects_(v121, v124, v122, v123, 0);
   v127 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v126, v125, @"recordIDsToDelete");
 
-  v223 = 0u;
-  v224 = 0u;
-  v221 = 0u;
   v222 = 0u;
+  v223 = 0u;
+  v220 = 0u;
+  v221 = 0u;
   v128 = v127;
-  v130 = objc_msgSend_countByEnumeratingWithState_objects_count_(v128, v129, &v221, v230, 16);
+  v130 = objc_msgSend_countByEnumeratingWithState_objects_count_(v128, v129, &v220, v229, 16);
   if (v130)
   {
     v131 = v130;
-    v132 = *v222;
+    v132 = *v221;
     do
     {
       for (j = 0; j != v131; ++j)
       {
-        if (*v222 != v132)
+        if (*v221 != v132)
         {
           objc_enumerationMutation(v128);
         }
 
-        v134 = *(*(&v221 + 1) + 8 * j);
+        v134 = *(*(&v220 + 1) + 8 * j);
         v135 = [CKSyncEnginePendingRecordZoneChange alloc];
         v137 = objc_msgSend_initWithRecordID_type_(v135, v136, v134, 1);
         objc_msgSend_addObject_(v6->_pendingRecordZoneChangesSet, v138, v137);
       }
 
-      v131 = objc_msgSend_countByEnumeratingWithState_objects_count_(v128, v139, &v221, v230, 16);
+      v131 = objc_msgSend_countByEnumeratingWithState_objects_count_(v128, v139, &v220, v229, 16);
     }
 
     while (v131);
   }
 
-  v219 = v55;
+  v218 = v55;
 
   v140 = MEMORY[0x1E695DFD8];
   v141 = objc_opt_class();
@@ -1341,13 +1370,12 @@ LABEL_18:
   v6->_existingDatabaseSubscriptionID = v215;
 
 LABEL_55:
-  v217 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)getDataRepresentation:(id)representation
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   if (ck_log_initialization_predicate != -1)
   {
@@ -1357,25 +1385,25 @@ LABEL_55:
   v5 = ck_log_facility_engine;
   if (os_log_type_enabled(ck_log_facility_engine, OS_LOG_TYPE_DEBUG))
   {
-    v9 = v5;
-    v12 = objc_msgSend_shortDescription(self, v10, v11);
+    v8 = v5;
+    v11 = objc_msgSend_shortDescription(self, v9, v10);
     *buf = 138543618;
-    *&buf[4] = v12;
+    *&buf[4] = v11;
     *&buf[12] = 2112;
     *&buf[14] = self;
-    _os_log_debug_impl(&dword_1883EA000, v9, OS_LOG_TYPE_DEBUG, "%{public}@ serializing sync engine state %@", buf, 0x16u);
+    _os_log_debug_impl(&dword_1883EA000, v8, OS_LOG_TYPE_DEBUG, "%{public}@ serializing sync engine state %@", buf, 0x16u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v19 = sub_1883EE1BC;
-  v20 = sub_1883EF784;
-  v21 = 0;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
-  v17 = 0;
+  v18 = sub_1883EE1BC;
+  v19 = sub_1883EF784;
+  v20 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
   if (self)
   {
     queue = self->_queue;
@@ -1387,20 +1415,46 @@ LABEL_55:
   }
 
   v7 = queue;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = sub_18865CF9C;
-  v13[3] = &unk_1E70C03A8;
-  v13[4] = self;
-  v13[5] = &v14;
-  v13[6] = buf;
-  ck_call_or_dispatch_sync_if_not_key(v7, &self->_queue, v13);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = sub_18865CF9C;
+  v12[3] = &unk_1E70C03A8;
+  v12[4] = self;
+  v12[5] = &v13;
+  v12[6] = buf;
+  ck_call_or_dispatch_sync_if_not_key(v7, &self->_queue, v12);
 
-  representationCopy[2](representationCopy, *(*&buf[8] + 40), v15[3]);
-  _Block_object_dispose(&v14, 8);
+  representationCopy[2](representationCopy, *(*&buf[8] + 40), v14[3]);
+  _Block_object_dispose(&v13, 8);
   _Block_object_dispose(buf, 8);
+}
 
-  v8 = *MEMORY[0x1E69E9840];
+- (void)notifyChangeHandlerWithCoalescing:(BOOL)coalescing scheduleSync:(BOOL)sync
+{
+  syncCopy = sync;
+  coalescingCopy = coalescing;
+  v15 = *MEMORY[0x1E69E9840];
+  if (ck_log_initialization_predicate != -1)
+  {
+    dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
+  }
+
+  v7 = ck_log_facility_engine;
+  if (os_log_type_enabled(ck_log_facility_engine, OS_LOG_TYPE_DEBUG))
+  {
+    v12[0] = 67109376;
+    v12[1] = coalescingCopy;
+    v13 = 1024;
+    v14 = syncCopy;
+    _os_log_debug_impl(&dword_1883EA000, v7, OS_LOG_TYPE_DEBUG, "Calling notifyChangeHandlerWithCoalescing: %d scheduleSync: %d", v12, 0xEu);
+  }
+
+  v10 = objc_msgSend_changeHandler(self, v8, v9);
+  v11 = v10;
+  if (v10)
+  {
+    (*(v10 + 16))(v10, coalescingCopy, syncCopy);
+  }
 }
 
 - (void)addPendingRecordZoneChanges:(NSArray *)changes
@@ -1470,14 +1524,14 @@ LABEL_55:
 
 - (void)removePendingRecordZoneChanges:(NSArray *)changes
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = changes;
   if (objc_msgSend_count(v4, v5, v6))
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v21 = 0x2020000000;
-    v22 = 0;
+    v20 = 0x2020000000;
+    v21 = 0;
     if (self)
     {
       queue = self->_queue;
@@ -1489,14 +1543,14 @@ LABEL_55:
     }
 
     v8 = queue;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = sub_18865DDAC;
-    v16[3] = &unk_1E70BF4B0;
-    v17 = v4;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = sub_18865DDAC;
+    v15[3] = &unk_1E70BF4B0;
+    v16 = v4;
     selfCopy = self;
     p_buf = &buf;
-    ck_call_or_dispatch_sync_if_not_key(v8, &self->_queue, v16);
+    ck_call_or_dispatch_sync_if_not_key(v8, &self->_queue, v15);
 
     if (*(*(&buf + 1) + 24) == 1)
     {
@@ -1516,15 +1570,13 @@ LABEL_55:
     v10 = ck_log_facility_engine;
     if (os_log_type_enabled(ck_log_facility_engine, OS_LOG_TYPE_DEBUG))
     {
-      v12 = v10;
-      v15 = objc_msgSend_shortDescription(self, v13, v14);
+      v11 = v10;
+      v14 = objc_msgSend_shortDescription(self, v12, v13);
       LODWORD(buf) = 138543362;
-      *(&buf + 4) = v15;
-      _os_log_debug_impl(&dword_1883EA000, v12, OS_LOG_TYPE_DEBUG, "%{public}@ no record zone changes to remove", &buf, 0xCu);
+      *(&buf + 4) = v14;
+      _os_log_debug_impl(&dword_1883EA000, v11, OS_LOG_TYPE_DEBUG, "%{public}@ no record zone changes to remove", &buf, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeInFlightRecordZoneChanges:(id)changes
@@ -1623,7 +1675,7 @@ LABEL_55:
 
 - (void)setPendingRecordZoneChanges:(id)changes
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   changesCopy = MEMORY[0x1E695E0F0];
   if (changes)
   {
@@ -1641,11 +1693,11 @@ LABEL_55:
     v8 = ck_log_facility_engine;
     if (os_log_type_enabled(ck_log_facility_engine, OS_LOG_TYPE_DEBUG))
     {
-      v12 = v8;
-      v15 = objc_msgSend_shortDescription(self, v13, v14);
+      v11 = v8;
+      v14 = objc_msgSend_shortDescription(self, v12, v13);
       *buf = 138543362;
-      v19 = v15;
-      _os_log_debug_impl(&dword_1883EA000, v12, OS_LOG_TYPE_DEBUG, "%{public}@ no new pending record zone changes to add", buf, 0xCu);
+      v18 = v14;
+      _os_log_debug_impl(&dword_1883EA000, v11, OS_LOG_TYPE_DEBUG, "%{public}@ no new pending record zone changes to add", buf, 0xCu);
 
       if (self)
       {
@@ -1666,16 +1718,14 @@ LABEL_11:
 LABEL_8:
   queue = self->_queue;
 LABEL_9:
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = sub_18865E6C8;
-  v16[3] = &unk_1E70BEEC0;
-  v16[4] = self;
-  v17 = v5;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = sub_18865E6C8;
+  v15[3] = &unk_1E70BEEC0;
+  v15[4] = self;
+  v16 = v5;
   v10 = v5;
-  ck_call_or_dispatch_sync_if_not_key(queue, &self->_queue, v16);
-
-  v11 = *MEMORY[0x1E69E9840];
+  ck_call_or_dispatch_sync_if_not_key(queue, &self->_queue, v15);
 }
 
 - (NSArray)inFlightRecordChanges
@@ -1908,7 +1958,7 @@ LABEL_9:
 
 - (void)setPendingDatabaseChanges:(id)changes
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   changesCopy = MEMORY[0x1E695E0F0];
   if (changes)
   {
@@ -1926,11 +1976,11 @@ LABEL_9:
     v8 = ck_log_facility_engine;
     if (os_log_type_enabled(ck_log_facility_engine, OS_LOG_TYPE_DEBUG))
     {
-      v12 = v8;
-      v15 = objc_msgSend_shortDescription(self, v13, v14);
+      v11 = v8;
+      v14 = objc_msgSend_shortDescription(self, v12, v13);
       *buf = 138543362;
-      v19 = v15;
-      _os_log_debug_impl(&dword_1883EA000, v12, OS_LOG_TYPE_DEBUG, "%{public}@ no new pending database changes to add", buf, 0xCu);
+      v18 = v14;
+      _os_log_debug_impl(&dword_1883EA000, v11, OS_LOG_TYPE_DEBUG, "%{public}@ no new pending database changes to add", buf, 0xCu);
 
       if (self)
       {
@@ -1951,28 +2001,26 @@ LABEL_11:
 LABEL_8:
   queue = self->_queue;
 LABEL_9:
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = sub_18865F95C;
-  v16[3] = &unk_1E70BEEC0;
-  v16[4] = self;
-  v17 = v5;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = sub_18865F95C;
+  v15[3] = &unk_1E70BEEC0;
+  v15[4] = self;
+  v16 = v5;
   v10 = v5;
-  ck_call_or_dispatch_sync_if_not_key(queue, &self->_queue, v16);
-
-  v11 = *MEMORY[0x1E69E9840];
+  ck_call_or_dispatch_sync_if_not_key(queue, &self->_queue, v15);
 }
 
 - (void)addPendingDatabaseChanges:(NSArray *)changes
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = changes;
   if (objc_msgSend_count(v4, v5, v6))
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v21 = 0x2020000000;
-    v22 = 0;
+    v20 = 0x2020000000;
+    v21 = 0;
     if (self)
     {
       queue = self->_queue;
@@ -1984,14 +2032,14 @@ LABEL_9:
     }
 
     v8 = queue;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = sub_18865FD68;
-    v16[3] = &unk_1E70BF4B0;
-    v17 = v4;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = sub_18865FD68;
+    v15[3] = &unk_1E70BF4B0;
+    v16 = v4;
     selfCopy = self;
     p_buf = &buf;
-    ck_call_or_dispatch_sync_if_not_key(v8, &self->_queue, v16);
+    ck_call_or_dispatch_sync_if_not_key(v8, &self->_queue, v15);
 
     if (*(*(&buf + 1) + 24) == 1)
     {
@@ -2011,27 +2059,25 @@ LABEL_9:
     v10 = ck_log_facility_engine;
     if (os_log_type_enabled(ck_log_facility_engine, OS_LOG_TYPE_DEBUG))
     {
-      v12 = v10;
-      v15 = objc_msgSend_shortDescription(self, v13, v14);
+      v11 = v10;
+      v14 = objc_msgSend_shortDescription(self, v12, v13);
       LODWORD(buf) = 138543362;
-      *(&buf + 4) = v15;
-      _os_log_debug_impl(&dword_1883EA000, v12, OS_LOG_TYPE_DEBUG, "%{public}@ no new pending database changes to add", &buf, 0xCu);
+      *(&buf + 4) = v14;
+      _os_log_debug_impl(&dword_1883EA000, v11, OS_LOG_TYPE_DEBUG, "%{public}@ no new pending database changes to add", &buf, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removePendingDatabaseChanges:(NSArray *)changes
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = changes;
   if (objc_msgSend_count(v4, v5, v6))
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v21 = 0x2020000000;
-    v22 = 0;
+    v20 = 0x2020000000;
+    v21 = 0;
     if (self)
     {
       queue = self->_queue;
@@ -2043,14 +2089,14 @@ LABEL_9:
     }
 
     v8 = queue;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = sub_188660230;
-    v16[3] = &unk_1E70BF4B0;
-    v17 = v4;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = sub_188660230;
+    v15[3] = &unk_1E70BF4B0;
+    v16 = v4;
     selfCopy = self;
     p_buf = &buf;
-    ck_call_or_dispatch_sync_if_not_key(v8, &self->_queue, v16);
+    ck_call_or_dispatch_sync_if_not_key(v8, &self->_queue, v15);
 
     if (*(*(&buf + 1) + 24) == 1)
     {
@@ -2070,15 +2116,13 @@ LABEL_9:
     v10 = ck_log_facility_engine;
     if (os_log_type_enabled(ck_log_facility_engine, OS_LOG_TYPE_DEBUG))
     {
-      v12 = v10;
-      v15 = objc_msgSend_shortDescription(self, v13, v14);
+      v11 = v10;
+      v14 = objc_msgSend_shortDescription(self, v12, v13);
       LODWORD(buf) = 138543362;
-      *(&buf + 4) = v15;
-      _os_log_debug_impl(&dword_1883EA000, v12, OS_LOG_TYPE_DEBUG, "%{public}@ no pending database changes to remove", &buf, 0xCu);
+      *(&buf + 4) = v14;
+      _os_log_debug_impl(&dword_1883EA000, v11, OS_LOG_TYPE_DEBUG, "%{public}@ no pending database changes to remove", &buf, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)markDatabaseChanges:(id)changes inFlight:(BOOL)flight
@@ -2132,27 +2176,27 @@ LABEL_9:
 
 - (BOOL)needsToSaveZoneID:(id)d
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dCopy = d;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v7 = objc_msgSend_pendingDatabaseChanges(self, v5, v6, 0);
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v20, v24, 16);
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v19, v23, 16);
   if (v11)
   {
-    v12 = *v21;
+    v12 = *v20;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
+        v14 = *(*(&v19 + 1) + 8 * i);
         if (!objc_msgSend_type(v14, v9, v10))
         {
           v15 = objc_msgSend_zoneID(v14, v9, v10);
@@ -2166,7 +2210,7 @@ LABEL_9:
         }
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v9, &v20, v24, 16);
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v9, &v19, v23, 16);
       if (v11)
       {
         continue;
@@ -2178,33 +2222,32 @@ LABEL_9:
 
 LABEL_12:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (BOOL)needsToDeleteZoneID:(id)d
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dCopy = d;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v7 = objc_msgSend_pendingDatabaseChanges(self, v5, v6, 0);
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v20, v24, 16);
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v19, v23, 16);
   if (v11)
   {
-    v12 = *v21;
+    v12 = *v20;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
+        v14 = *(*(&v19 + 1) + 8 * i);
         if (objc_msgSend_type(v14, v9, v10) == 1)
         {
           v15 = objc_msgSend_zoneID(v14, v9, v10);
@@ -2218,7 +2261,7 @@ LABEL_12:
         }
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v9, &v20, v24, 16);
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v9, &v19, v23, 16);
       if (v11)
       {
         continue;
@@ -2230,7 +2273,6 @@ LABEL_12:
 
 LABEL_12:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -2298,14 +2340,14 @@ LABEL_12:
 
 - (void)addPendingAssetSyncs:(id)syncs
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   syncsCopy = syncs;
   if (objc_msgSend_count(syncsCopy, v5, v6))
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v21 = 0x2020000000;
-    v22 = 0;
+    v20 = 0x2020000000;
+    v21 = 0;
     if (self)
     {
       queue = self->_queue;
@@ -2317,14 +2359,14 @@ LABEL_12:
     }
 
     v8 = queue;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = sub_1886613C8;
-    v16[3] = &unk_1E70BF4B0;
-    v17 = syncsCopy;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = sub_1886613C8;
+    v15[3] = &unk_1E70BF4B0;
+    v16 = syncsCopy;
     selfCopy = self;
     p_buf = &buf;
-    ck_call_or_dispatch_sync_if_not_key(v8, &self->_queue, v16);
+    ck_call_or_dispatch_sync_if_not_key(v8, &self->_queue, v15);
 
     if (*(*(&buf + 1) + 24) == 1)
     {
@@ -2344,27 +2386,25 @@ LABEL_12:
     v10 = ck_log_facility_engine;
     if (os_log_type_enabled(ck_log_facility_engine, OS_LOG_TYPE_DEBUG))
     {
-      v12 = v10;
-      v15 = objc_msgSend_shortDescription(self, v13, v14);
+      v11 = v10;
+      v14 = objc_msgSend_shortDescription(self, v12, v13);
       LODWORD(buf) = 138543362;
-      *(&buf + 4) = v15;
-      _os_log_debug_impl(&dword_1883EA000, v12, OS_LOG_TYPE_DEBUG, "%{public}@ no new pending asset syncs to add", &buf, 0xCu);
+      *(&buf + 4) = v14;
+      _os_log_debug_impl(&dword_1883EA000, v11, OS_LOG_TYPE_DEBUG, "%{public}@ no new pending asset syncs to add", &buf, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removePendingAssetSyncs:(id)syncs
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   syncsCopy = syncs;
   if (objc_msgSend_count(syncsCopy, v5, v6))
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v21 = 0x2020000000;
-    v22 = 0;
+    v20 = 0x2020000000;
+    v21 = 0;
     if (self)
     {
       queue = self->_queue;
@@ -2376,14 +2416,14 @@ LABEL_12:
     }
 
     v8 = queue;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = sub_1886618BC;
-    v16[3] = &unk_1E70BF4B0;
-    v17 = syncsCopy;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = sub_1886618BC;
+    v15[3] = &unk_1E70BF4B0;
+    v16 = syncsCopy;
     selfCopy = self;
     p_buf = &buf;
-    ck_call_or_dispatch_sync_if_not_key(v8, &self->_queue, v16);
+    ck_call_or_dispatch_sync_if_not_key(v8, &self->_queue, v15);
 
     if (*(*(&buf + 1) + 24) == 1)
     {
@@ -2403,15 +2443,13 @@ LABEL_12:
     v10 = ck_log_facility_engine;
     if (os_log_type_enabled(ck_log_facility_engine, OS_LOG_TYPE_DEBUG))
     {
-      v12 = v10;
-      v15 = objc_msgSend_shortDescription(self, v13, v14);
+      v11 = v10;
+      v14 = objc_msgSend_shortDescription(self, v12, v13);
       LODWORD(buf) = 138543362;
-      *(&buf + 4) = v15;
-      _os_log_debug_impl(&dword_1883EA000, v12, OS_LOG_TYPE_DEBUG, "%{public}@ no pending asset syncs to remove", &buf, 0xCu);
+      *(&buf + 4) = v14;
+      _os_log_debug_impl(&dword_1883EA000, v11, OS_LOG_TYPE_DEBUG, "%{public}@ no pending asset syncs to remove", &buf, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)markAssetSync:(id)sync inFlight:(BOOL)flight
@@ -2441,7 +2479,7 @@ LABEL_12:
 
 - (void)removeInFlightAssetSync:(id)sync
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   syncCopy = sync;
   if (ck_log_initialization_predicate != -1)
   {
@@ -2451,13 +2489,13 @@ LABEL_12:
   v5 = ck_log_facility_engine;
   if (os_log_type_enabled(ck_log_facility_engine, OS_LOG_TYPE_DEBUG))
   {
-    v9 = v5;
-    v12 = objc_msgSend_shortDescription(self, v10, v11);
-    v13 = 138543618;
-    v14 = v12;
-    v15 = 2112;
-    v16 = syncCopy;
-    _os_log_debug_impl(&dword_1883EA000, v9, OS_LOG_TYPE_DEBUG, "%{public}@ removing in flight asset sync: %@", &v13, 0x16u);
+    v8 = v5;
+    v11 = objc_msgSend_shortDescription(self, v9, v10);
+    v12 = 138543618;
+    v13 = v11;
+    v14 = 2112;
+    v15 = syncCopy;
+    _os_log_debug_impl(&dword_1883EA000, v8, OS_LOG_TYPE_DEBUG, "%{public}@ removing in flight asset sync: %@", &v12, 0x16u);
 
     if (self)
     {
@@ -2479,8 +2517,6 @@ LABEL_5:
   ++self->_internalChangeCount;
 LABEL_6:
   objc_msgSend_notifyChangeHandlerWithCoalescing_scheduleSync_(self, v7, 1, 0);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)pendingAutomaticSyncAssetSyncs_fetch_Assets
@@ -2584,89 +2620,126 @@ LABEL_6:
 
 - (void)addPendingAssetSyncs_fetch:(id)syncs_fetch
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   syncs_fetchCopy = syncs_fetch;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v6 = syncs_fetchCopy;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v20, v24, 16);
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v19, v23, 16);
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       v11 = 0;
       do
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * v11);
+        v12 = *(*(&v19 + 1) + 8 * v11);
         v13 = [CKSyncEnginePendingAssetSync alloc];
-        v15 = objc_msgSend_initWithAsset_type_(v13, v14, v12, 0, v20);
+        v15 = objc_msgSend_initWithAsset_type_(v13, v14, v12, 0, v19);
         objc_msgSend_addObject_(v5, v16, v15);
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v17, &v20, v24, 16);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v17, &v19, v23, 16);
     }
 
     while (v9);
   }
 
   objc_msgSend_addPendingAssetSyncs_(self, v18, v5);
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removePendingAssetSyncs_fetch:(id)syncs_fetch
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   syncs_fetchCopy = syncs_fetch;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(syncs_fetchCopy, v5, &v19, v24, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(syncs_fetchCopy, v5, &v18, v23, 16);
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       v9 = 0;
       do
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(syncs_fetchCopy);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * v9);
+        v10 = *(*(&v18 + 1) + 8 * v9);
         v11 = [CKSyncEnginePendingAssetSync alloc];
         v13 = objc_msgSend_initWithAsset_type_(v11, v12, v10, 0);
-        v23 = v13;
-        v15 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v14, &v23, 1);
+        v22 = v13;
+        v15 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v14, &v22, 1);
         objc_msgSend_removePendingAssetSyncs_(self, v16, v15);
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(syncs_fetchCopy, v17, &v19, v24, 16);
+      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(syncs_fetchCopy, v17, &v18, v23, 16);
     }
 
     while (v7);
   }
+}
 
-  v18 = *MEMORY[0x1E69E9840];
+- (void)mark_assetFetch:(id)fetch inFlight:(BOOL)flight
+{
+  flightCopy = flight;
+  v23 = *MEMORY[0x1E69E9840];
+  fetchCopy = fetch;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(fetchCopy, v7, &v18, v22, 16);
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v19;
+    do
+    {
+      v11 = 0;
+      do
+      {
+        if (*v19 != v10)
+        {
+          objc_enumerationMutation(fetchCopy);
+        }
+
+        v12 = *(*(&v18 + 1) + 8 * v11);
+        v13 = [CKSyncEnginePendingAssetSync alloc];
+        v15 = objc_msgSend_initWithAsset_type_(v13, v14, v12, 0);
+        objc_msgSend_markAssetSync_inFlight_(self, v16, v15, flightCopy);
+
+        ++v11;
+      }
+
+      while (v9 != v11);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(fetchCopy, v17, &v18, v22, 16);
+    }
+
+    while (v9);
+  }
 }
 
 - (void)setServerChangeTokenForDatabase:(id)database
@@ -2824,7 +2897,7 @@ LABEL_6:
 {
   dCopy = d;
   v5 = dCopy;
-  if (__sTestOverridesAvailable[0] == 1)
+  if (__sTestOverridesAvailable == 1)
   {
     if (self)
     {

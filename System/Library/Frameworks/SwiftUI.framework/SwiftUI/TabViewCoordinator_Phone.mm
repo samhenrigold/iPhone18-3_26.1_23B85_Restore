@@ -74,7 +74,7 @@
   type metadata accessor for Binding<TabViewCustomization>?(0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UITab);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UITab, 0x1E69DCFE0);
   v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v9 = OBJC_IVAR____TtC7SwiftUI24TabViewCoordinator_Phone_customization;
   swift_beginAccess();

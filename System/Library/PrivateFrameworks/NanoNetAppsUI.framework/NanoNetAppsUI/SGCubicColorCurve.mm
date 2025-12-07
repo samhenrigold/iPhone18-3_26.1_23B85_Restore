@@ -2,8 +2,8 @@
 - (SGCubicColorCurve)initWithColorCurveElements:(id)elements;
 - (SGCubicColorCurve)initWithCubicColorCurveElements:(id)elements;
 - (id)colorForFraction:(float)fraction;
-- (uint64_t)rgbfColorForFraction:(uint64_t)result;
 - (void)dealloc;
+- (void)rgbfColorForFraction:(void *)result;
 @end
 
 @implementation SGCubicColorCurve
@@ -150,50 +150,34 @@ uint64_t __48__SGCubicColorCurve_initWithColorCurveElements___block_invoke(uint6
   return MEMORY[0x28214CCB0](v3);
 }
 
-- (uint64_t)rgbfColorForFraction:(uint64_t)result
+- (void)rgbfColorForFraction:(void *)result
 {
-  v2 = result;
-  v3 = *(result + 40);
-  if (v3 == 1)
+  v2 = *(result + 5);
+  if (v2 != 1)
   {
-LABEL_6:
-    v8 = *(*(result + 24) + 16 * v3 - 16);
-  }
-
-  else
-  {
-    v4 = 0;
-    v5 = *(result + 32);
+    v3 = 0;
+    v4 = *(result + 4);
     while (1)
     {
-      v6 = *(v5 + 4 * v4);
-      if (v6 <= a2)
+      v5 = *(v4 + 4 * v3);
+      if (v5 <= a2)
       {
-        v7 = *(v5 + 4 * v4 + 4);
-        if (v7 > a2)
+        v6 = *(v4 + 4 * v3 + 4);
+        if (v6 > a2)
         {
           break;
         }
       }
 
-      if (v3 - 1 == ++v4)
+      if (v2 - 1 == ++v3)
       {
-        goto LABEL_6;
+        return result;
       }
     }
 
-    v9 = v7 - v6;
-    v10 = (a2 - v6) / (v7 - v6) + v4;
-    *&v10 = v10;
-    result = [*(result + 16) interpolateAt:v10];
-    v12 = fmin(((v11 - v6) / v9), 1.0);
-    if (v12 < 0.0)
-    {
-      v12 = 0.0;
-    }
-
-    v13 = v12;
-    v14 = vmlaq_n_f32(*(*(v2 + 24) + 16 * v4), vsubq_f32(*(*(v2 + 24) + 16 * v4 + 16), *(*(v2 + 24) + 16 * v4)), v13).u64[0];
+    v7 = (a2 - v5) / (v6 - v5) + v3;
+    *&v7 = v7;
+    return [*(result + 2) interpolateAt:v7];
   }
 
   return result;

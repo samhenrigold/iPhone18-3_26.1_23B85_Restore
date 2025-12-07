@@ -21,7 +21,7 @@
   v5 = v7.receiver;
   [(WindowSceneResolver.View *)&v7 willMoveToWindow:windowCopy];
   windowScene = [windowCopy windowScene];
-  sub_10010FC20(&qword_1011B25E8);
+  sub_10010FC20(&qword_1011B25E8, &qword_100F02220);
   Binding.wrappedValue.setter();
 }
 

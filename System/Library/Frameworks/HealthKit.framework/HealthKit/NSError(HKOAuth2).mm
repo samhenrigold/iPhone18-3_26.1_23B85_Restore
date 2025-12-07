@@ -10,7 +10,7 @@
 - (__CFString)hk_OAuth2_errorCode;
 - (id)_hk_OAuth2_errorByAddingItemsToUserInfo:()HKOAuth2;
 - (uint64_t)hk_OAuth2_isOAuth2Error;
-- (uint64_t)hk_OAuth2_isOAuth2ErrorWithCode:()HKOAuth2;
+- (void)hk_OAuth2_isOAuth2ErrorWithCode:()HKOAuth2;
 @end
 
 @implementation NSError(HKOAuth2)
@@ -80,7 +80,7 @@
 
 + (id)hk_OAuth2_errorFromErrorValue:()HKOAuth2
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v4 = a3;
   if ([v4 isEqualToString:@"invalid_request"])
   {
@@ -137,12 +137,10 @@
     v5 = 0;
   }
 
-  v10 = @"HKOAuth2ErrorResponseErrorNameErrorKey";
-  v11[0] = v4;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"HKOAuth2ErrorResponseErrorNameErrorKey";
+  v10[0] = v4;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [self _hk_OAuth2_error:v5 userInfo:v6 underlyingError:0];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -162,15 +160,15 @@
 
 + (id)hk_OAuth2_errorForRequest:()HKOAuth2 response:data:
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v8 = a4;
   v9 = [self _hk_OAuth2_rawErrorForRequest:a3 response:v8 data:a5];
   if (v9)
   {
-    v15 = @"HKOAuth2ErrorHTTPStatusCodeErrorKey";
+    v14 = @"HKOAuth2ErrorHTTPStatusCodeErrorKey";
     v10 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v8, "statusCode")}];
-    v16[0] = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v15[0] = v10;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
 
     v12 = [v9 _hk_OAuth2_errorByAddingItemsToUserInfo:v11];
   }
@@ -179,8 +177,6 @@
   {
     v12 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -244,12 +240,13 @@ LABEL_9:
   v6 = a3;
   v7 = a4;
   v8 = [MEMORY[0x1E696ABC0] hk_OAuth2_error:1];
-  v14 = 0;
-  v9 = [self _hk_OAuth2_errorFromResponseData:v7 defaultError:v8 parseError:&v14];
-  v10 = v14;
+  v16 = 0;
+  v9 = [self _hk_OAuth2_errorFromResponseData:v7 defaultError:v8 parseError:&v16];
+  v10 = v16;
+  v12 = v10;
   if (v10)
   {
-    _HKInitializeLogging();
+    _HKInitializeLogging(v10, v11);
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
     {
       +[NSError(HKOAuth2) _hk_OAuth2_errorForBadRequestStatusWithResponse:data:];
@@ -258,17 +255,17 @@ LABEL_9:
 
   if (v9)
   {
-    v11 = v9;
+    v13 = v9;
   }
 
   else
   {
-    v11 = v8;
+    v13 = v8;
   }
 
-  v12 = v11;
+  v14 = v13;
 
-  return v11;
+  return v13;
 }
 
 + (id)_hk_OAuth2_errorFromResponseData:()HKOAuth2 defaultError:parseError:
@@ -291,54 +288,55 @@ LABEL_9:
         if (v16)
         {
           v17 = objc_opt_class();
-          v25 = 0;
-          v18 = HKSafeObject(v16, v17, @"errorDescription", &v25);
-          v19 = v25;
+          v27 = 0;
+          v18 = HKSafeObject(v16, v17, @"errorDescription", &v27);
+          v19 = v27;
+          v21 = v19;
           if (v19)
           {
-            _HKInitializeLogging();
-            v24 = HKLogDefault;
+            _HKInitializeLogging(v19, v20);
+            v26 = HKLogDefault;
             if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
             {
               +[NSError(HKOAuth2) _hk_OAuth2_errorFromResponseData:defaultError:parseError:];
             }
           }
 
-          [v15 setObject:v18 forKeyedSubscript:{@"HKOAuth2ErrorResponseErrorDescriptionErrorKey", v24}];
+          [v15 setObject:v18 forKeyedSubscript:{@"HKOAuth2ErrorResponseErrorDescriptionErrorKey", v26}];
         }
 
         if (v14)
         {
-          v20 = [self hk_OAuth2_errorFromErrorValue:v14];
+          v22 = [self hk_OAuth2_errorFromErrorValue:v14];
         }
 
         else
         {
-          v20 = v9;
+          v22 = v9;
         }
 
-        v22 = v20;
-        v21 = [v20 _hk_OAuth2_errorByAddingItemsToUserInfo:v15];
+        v24 = v22;
+        v23 = [v22 _hk_OAuth2_errorByAddingItemsToUserInfo:v15];
       }
 
       else
       {
-        v21 = 0;
+        v23 = 0;
       }
     }
 
     else
     {
-      v21 = 0;
+      v23 = 0;
     }
   }
 
   else
   {
-    v21 = 0;
+    v23 = 0;
   }
 
-  return v21;
+  return v23;
 }
 
 - (uint64_t)hk_OAuth2_isOAuth2Error
@@ -349,12 +347,12 @@ LABEL_9:
   return v2;
 }
 
-- (uint64_t)hk_OAuth2_isOAuth2ErrorWithCode:()HKOAuth2
+- (void)hk_OAuth2_isOAuth2ErrorWithCode:()HKOAuth2
 {
   result = [self hk_OAuth2_isOAuth2Error];
   if (result)
   {
-    return [self code] == a3;
+    return ([self code] == a3);
   }
 
   return result;
@@ -372,22 +370,6 @@ LABEL_9:
   v9 = [v7 initWithDomain:domain code:objc_msgSend(self userInfo:{"code"), v6}];
 
   return v9;
-}
-
-+ (void)_hk_OAuth2_errorForBadRequestStatusWithResponse:()HKOAuth2 data:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_25();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "OAuth2: Failed to parse response data %@ for response %@.");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_hk_OAuth2_errorFromResponseData:()HKOAuth2 defaultError:parseError:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_25();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "OAuth2: Failed to parse error_description %@ for response data %@.");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

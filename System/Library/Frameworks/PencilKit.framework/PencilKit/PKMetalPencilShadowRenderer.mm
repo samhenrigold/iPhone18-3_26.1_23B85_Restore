@@ -321,7 +321,7 @@
     v21 = v49;
     v22 = (selfCopy + 40);
     *&v23 = 1.0;
-    *v56 = v23;
+    v56 = v23;
     v24 = 4;
     v52 = v21;
     do
@@ -363,7 +363,7 @@
       [v36 setRenderPipelineState:*(selfCopy + 200)];
       v37.i64[0] = width;
       v37.i64[1] = height;
-      *v58 = vcvt_f32_f64(vdivq_f64(vdupq_lane_s64(*&v56[0], 0), vcvtq_f64_s64(v37)));
+      *v58 = vcvt_f32_f64(vdivq_f64(vdupq_lane_s64(v56, 0), vcvtq_f64_s64(v37)));
       *&v58[8] = 1065353216;
       [v36 setFragmentBytes:v58 length:16 atIndex:0];
       [v36 setVertexBuffer:*(selfCopy + 192) offset:0 atIndex:0];
@@ -372,9 +372,9 @@
       [v36 endEncoding];
 
       ++v22;
-      *(&v38 + 1) = v56[1];
-      *&v38 = v56[0] * 1.2;
-      *v56 = v38;
+      *(&v38 + 1) = *(&v56 + 1);
+      *&v38 = *&v56 * 1.2;
+      v56 = v38;
       width /= 2;
       height /= 2;
       v21 = v27;

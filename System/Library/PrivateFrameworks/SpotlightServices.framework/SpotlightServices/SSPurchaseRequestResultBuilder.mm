@@ -109,7 +109,7 @@
 
 - (id)buildDescriptions
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   appType = [(SSPurchaseRequestResultBuilder *)self appType];
 
@@ -135,8 +135,8 @@
   if ([v3 length])
   {
     v8 = [MEMORY[0x1E69CA3A0] textWithString:v3];
-    v12[0] = v8;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+    v11[0] = v8;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   }
 
   else
@@ -144,14 +144,12 @@
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)buildFootnote
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   requestStatus = [(SSPurchaseRequestResultBuilder *)self requestStatus];
   requestStatus2 = [(SSPurchaseRequestResultBuilder *)self requestStatus];
   if (requestStatus == 3 || requestStatus2 == 2)
@@ -206,13 +204,12 @@
     v12 = [v9 localizedStringWithFormat:@"%@%@", v10, ageRating2];
 
     firstObject = [MEMORY[0x1E69CA0F0] textWithString:v12];
-    v24[0] = firstObject;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+    v23[0] = firstObject;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
     [v5 setFormattedTextPieces:v14];
   }
 
 LABEL_12:
-  v22 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -248,7 +245,7 @@ LABEL_12:
 
 - (id)buildButtonItems
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if ([(SSPurchaseRequestResultBuilder *)self requestStatus]== 3 || [(SSPurchaseRequestResultBuilder *)self requestStatus]== 2)
   {
     v3 = 0;
@@ -263,11 +260,9 @@ LABEL_12:
     [v5 setTitle:v7];
 
     [v5 setCommand:buildCommand];
-    v10[0] = v5;
-    v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+    v9[0] = v5;
+    v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

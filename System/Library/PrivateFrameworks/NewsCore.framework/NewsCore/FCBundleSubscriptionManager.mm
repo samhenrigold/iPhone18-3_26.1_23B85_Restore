@@ -4,8 +4,8 @@
 - (FCBundleSubscriptionManager)init;
 - (FCBundleSubscriptionManager)initWithPrivateDataDirectory:(id)directory configurationManager:(id)manager cloudContext:(id)context contentContext:(id)contentContext appActivityMonitor:(id)monitor entitlementsProvider:(id)provider;
 - (id)bundleSubscriptionLookupEntry;
+- (id)updateHasRunEntitlementOnce:(id *)result;
 - (uint64_t)hasRunEntitlementOnce;
-- (uint64_t)updateHasRunEntitlementOnce:(uint64_t)result;
 - (void)activityObservingApplicationDidEnterBackground;
 - (void)addObserver:(id)observer;
 - (void)bundleChannelProvider:(id)provider bundleChannelIDsDidChangeWithChannelIDs:(id)ds version:(id)version;
@@ -45,12 +45,12 @@
 
 void __54__FCBundleSubscriptionManager_setupCachedSubscription__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = FCPurchaseLog;
   if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v15) = 0;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Cache bundle subscription is initialized as 'not subscribed' state", &v15, 2u);
+    LOWORD(v14) = 0;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "Cache bundle subscription is initialized as 'not subscribed' state", &v14, 2u);
   }
 
   v3 = *(a1 + 32);
@@ -75,12 +75,10 @@ void __54__FCBundleSubscriptionManager_setupCachedSubscription__block_invoke(uin
     v11 = v9;
     v12 = [v10 cachedSubscription];
     v13 = [v12 debugDescription];
-    v15 = 138543362;
-    v16 = v13;
-    _os_log_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_DEFAULT, "Cache bundle subscription is set up: %{public}@", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = v13;
+    _os_log_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_DEFAULT, "Cache bundle subscription is set up: %{public}@", &v14, 0xCu);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)hasRunEntitlementOnce
@@ -153,7 +151,7 @@ void __54__FCBundleSubscriptionManager_setupCachedSubscription__block_invoke(uin
 
 - (FCBundleSubscriptionManager)initWithPrivateDataDirectory:(id)directory configurationManager:(id)manager cloudContext:(id)context contentContext:(id)contentContext appActivityMonitor:(id)monitor entitlementsProvider:(id)provider
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
   managerCopy = manager;
   contextCopy = context;
@@ -162,20 +160,20 @@ void __54__FCBundleSubscriptionManager_setupCachedSubscription__block_invoke(uin
   providerCopy = provider;
   if (!directoryCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v63 = providerCopy;
-    v57 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateDataDirectory != nil"];
+    v62 = providerCopy;
+    v56 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "privateDataDirectory != nil"];
     *buf = 136315906;
     *&buf[4] = "[FCBundleSubscriptionManager initWithPrivateDataDirectory:configurationManager:cloudContext:contentContext:appActivityMonitor:entitlementsProvider:]";
     *&buf[12] = 2080;
     *&buf[14] = "FCBundleSubscriptionManager.m";
     *&buf[22] = 1024;
-    LODWORD(v67) = 78;
-    WORD2(v67) = 2114;
-    *(&v67 + 6) = v57;
+    LODWORD(v66) = 78;
+    WORD2(v66) = 2114;
+    *(&v66 + 6) = v56;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
-    providerCopy = v63;
-    if (v63)
+    providerCopy = v62;
+    if (v62)
     {
       goto LABEL_6;
     }
@@ -188,25 +186,25 @@ void __54__FCBundleSubscriptionManager_setupCachedSubscription__block_invoke(uin
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v64 = providerCopy;
-    v58 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "entitlementsProvider != nil"];
+    v63 = providerCopy;
+    v57 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "entitlementsProvider != nil"];
     *buf = 136315906;
     *&buf[4] = "[FCBundleSubscriptionManager initWithPrivateDataDirectory:configurationManager:cloudContext:contentContext:appActivityMonitor:entitlementsProvider:]";
     *&buf[12] = 2080;
     *&buf[14] = "FCBundleSubscriptionManager.m";
     *&buf[22] = 1024;
-    LODWORD(v67) = 79;
-    WORD2(v67) = 2114;
-    *(&v67 + 6) = v58;
+    LODWORD(v66) = 79;
+    WORD2(v66) = 2114;
+    *(&v66 + 6) = v57;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
-    providerCopy = v64;
+    providerCopy = v63;
   }
 
 LABEL_6:
-  v65.receiver = self;
-  v65.super_class = FCBundleSubscriptionManager;
-  v20 = [(FCBundleSubscriptionManager *)&v65 init];
+  v64.receiver = self;
+  v64.super_class = FCBundleSubscriptionManager;
+  v20 = [(FCBundleSubscriptionManager *)&v64 init];
   v21 = v20;
   if (v20)
   {
@@ -241,14 +239,14 @@ LABEL_6:
 
     bundleSubscriptionLookUpEntry = [(FCBundleSubscriptionLookUpEntryManager *)v21->_bundleSubscriptionLookupEntryManager bundleSubscriptionLookUpEntry];
     v35 = bundleSubscriptionLookUpEntry;
-    v62 = providerCopy;
+    v61 = providerCopy;
     if (!bundleSubscriptionLookUpEntry)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __54__FCBundleSubscriptionManager_setupCachedSubscription__block_invoke;
-      *&v67 = &unk_1E7C36EA0;
-      *(&v67 + 1) = v21;
+      *&v66 = &unk_1E7C36EA0;
+      *(&v66 + 1) = v21;
       __54__FCBundleSubscriptionManager_setupCachedSubscription__block_invoke(buf);
 LABEL_20:
 
@@ -256,7 +254,7 @@ LABEL_20:
       [networkReachability addObserver:v21];
 
       [monitorCopy addObserver:v21];
-      providerCopy = v62;
+      providerCopy = v61;
       goto LABEL_21;
     }
 
@@ -278,8 +276,8 @@ LABEL_20:
       goto LABEL_20;
     }
 
-    v59 = contextCopy;
-    v60 = managerCopy;
+    v58 = contextCopy;
+    v59 = managerCopy;
     purchaseValidationState = [v35 purchaseValidationState];
     v37 = v21->_bundleChannelProvider;
     bundleChannelIDs = [(FCBundleChannelProviderType *)v37 bundleChannelIDs];
@@ -328,20 +326,19 @@ LABEL_18:
       }
     }
 
-    contextCopy = v59;
-    managerCopy = v60;
+    contextCopy = v58;
+    managerCopy = v59;
     goto LABEL_20;
   }
 
 LABEL_21:
 
-  v55 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
 - (void)updateCachedSubscriptionWithSubscription:(uint64_t)subscription
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (subscription)
   {
@@ -352,9 +349,9 @@ LABEL_21:
     {
       v6 = v5;
       v7 = [v4 debugDescription];
-      v15 = 138412290;
-      v16 = v7;
-      _os_log_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_DEFAULT, "updateCachedSubscriptionWithSubscription  bundleSubscription= %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v7;
+      _os_log_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_DEFAULT, "updateCachedSubscriptionWithSubscription  bundleSubscription= %@", &v14, 0xCu);
     }
 
     [*(subscription + 56) unlock];
@@ -368,8 +365,6 @@ LABEL_21:
     LOBYTE(v9) = [v13 unsignedIntegerValue] ^ v12;
     [v8 setBool:v9 & 1 forKey:@"news_url_resolution_subscription_status"];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setEntitlementsOverrideProvider:(id)provider
@@ -408,31 +403,31 @@ LABEL_21:
 
 void __54__FCBundleSubscriptionManager_saveReadableBundleState__block_invoke(uint64_t a1)
 {
-  v37[3] = *MEMORY[0x1E69E9840];
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __54__FCBundleSubscriptionManager_saveReadableBundleState__block_invoke_2;
-  v33[3] = &unk_1E7C371A8;
-  v33[4] = *(a1 + 32);
-  v2 = __54__FCBundleSubscriptionManager_saveReadableBundleState__block_invoke_2(v33);
-  v37[0] = v2;
-  v36[0] = @"state";
-  v36[1] = @"bundleChannels";
+  v36[3] = *MEMORY[0x1E69E9840];
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __54__FCBundleSubscriptionManager_saveReadableBundleState__block_invoke_2;
+  v32[3] = &unk_1E7C371A8;
+  v32[4] = *(a1 + 32);
+  v2 = __54__FCBundleSubscriptionManager_saveReadableBundleState__block_invoke_2(v32);
+  v36[0] = v2;
+  v35[0] = @"state";
+  v35[1] = @"bundleChannels";
   v3 = [*(a1 + 32) bundleSubscription];
   v4 = [v3 bundleChannelIDs];
   v5 = [v4 array];
-  v37[1] = v5;
-  v36[2] = @"lastUpdated";
+  v36[1] = v5;
+  v35[2] = @"lastUpdated";
   v6 = MEMORY[0x1E696AEC0];
   v7 = [MEMORY[0x1E695DF00] date];
   [v7 timeIntervalSince1970];
   v9 = [v6 stringWithFormat:@"%f", v8];
-  v37[2] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:3];
+  v36[2] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:3];
 
-  v32 = 0;
-  v11 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v10 options:1 error:&v32];
-  v12 = v32;
+  v31 = 0;
+  v11 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v10 options:1 error:&v31];
+  v12 = v31;
   v13 = v12;
   if (v11)
   {
@@ -456,9 +451,9 @@ void __54__FCBundleSubscriptionManager_saveReadableBundleState__block_invoke(uin
     if (v20)
     {
       v21 = [v20 path];
-      v29 = v13;
-      v22 = [v11 writeToFile:v21 options:1 error:&v29];
-      v23 = v29;
+      v28 = v13;
+      v22 = [v11 writeToFile:v21 options:1 error:&v28];
+      v23 = v28;
 
       v24 = FCPersonalizationLog;
       if (v22)
@@ -468,7 +463,7 @@ void __54__FCBundleSubscriptionManager_saveReadableBundleState__block_invoke(uin
           v25 = v24;
           v26 = [v20 path];
           *buf = 138412290;
-          v35 = v26;
+          v34 = v26;
           _os_log_debug_impl(&dword_1B63EF000, v25, OS_LOG_TYPE_DEBUG, "Successfully saved readable bundle data at %@.", buf, 0xCu);
         }
       }
@@ -476,7 +471,7 @@ void __54__FCBundleSubscriptionManager_saveReadableBundleState__block_invoke(uin
       else if (os_log_type_enabled(FCPersonalizationLog, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v35 = v23;
+        v34 = v23;
         _os_log_error_impl(&dword_1B63EF000, v24, OS_LOG_TYPE_ERROR, "Error when saving readable bundle data: %@", buf, 0xCu);
       }
 
@@ -498,17 +493,15 @@ void __54__FCBundleSubscriptionManager_saveReadableBundleState__block_invoke(uin
 
   else
   {
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __54__FCBundleSubscriptionManager_saveReadableBundleState__block_invoke_3;
-    v30[3] = &unk_1E7C36EA0;
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __54__FCBundleSubscriptionManager_saveReadableBundleState__block_invoke_3;
+    v29[3] = &unk_1E7C36EA0;
     v13 = v12;
-    v31 = v13;
-    __54__FCBundleSubscriptionManager_saveReadableBundleState__block_invoke_3(v30);
-    v20 = v31;
+    v30 = v13;
+    __54__FCBundleSubscriptionManager_saveReadableBundleState__block_invoke_3(v29);
+    v20 = v30;
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 __CFString *__54__FCBundleSubscriptionManager_saveReadableBundleState__block_invoke_2(uint64_t a1)
@@ -529,22 +522,20 @@ __CFString *__54__FCBundleSubscriptionManager_saveReadableBundleState__block_inv
 
 void __54__FCBundleSubscriptionManager_saveReadableBundleState__block_invoke_3(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = FCPersonalizationLog;
   if (os_log_type_enabled(FCPersonalizationLog, OS_LOG_TYPE_ERROR))
   {
-    v4 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v4;
-    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "Error when saving readable bundle data: %@", &v5, 0xCu);
+    v3 = *(a1 + 32);
+    v4 = 138412290;
+    v5 = v3;
+    _os_log_error_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_ERROR, "Error when saving readable bundle data: %@", &v4, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)bundleChannelProvider:(id)provider bundleChannelIDsDidChangeWithChannelIDs:(id)ds version:(id)version
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   versionCopy = version;
   v9 = FCPurchaseLog;
@@ -553,9 +544,9 @@ void __54__FCBundleSubscriptionManager_saveReadableBundleState__block_invoke_3(u
     v10 = v9;
     cachedSubscription = [(FCBundleSubscriptionManager *)self cachedSubscription];
     v12 = [cachedSubscription debugDescription];
-    v20 = 138412290;
-    v21 = v12;
-    _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "bundleChannelIDsDidChangeWithChannelIDs  bundleSubscription= %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = v12;
+    _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "bundleChannelIDsDidChangeWithChannelIDs  bundleSubscription= %@", &v19, 0xCu);
   }
 
   cachedSubscription2 = [(FCBundleSubscriptionManager *)self cachedSubscription];
@@ -570,12 +561,11 @@ void __54__FCBundleSubscriptionManager_saveReadableBundleState__block_invoke_3(u
   [v14 setBundleChannelIDsVersion:v18];
 
   [(FCBundleSubscriptionManager *)self updateCachedSubscriptionWithSubscription:v14];
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)refreshBundleSubscriptionWithCachePolicy:(unint64_t)policy hideBundleDetectionUI:(BOOL)i completion:(id)completion
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
@@ -595,7 +585,7 @@ void __54__FCBundleSubscriptionManager_saveReadableBundleState__block_invoke_3(u
     if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v34 = uUIDString;
+      v33 = uUIDString;
       _os_log_impl(&dword_1B63EF000, v15, OS_LOG_TYPE_DEFAULT, "Will wait on serial queue for bundle subscription refresh opportunity, id=%{public}@", buf, 0xCu);
     }
 
@@ -609,37 +599,35 @@ void __54__FCBundleSubscriptionManager_saveReadableBundleState__block_invoke_3(u
       refreshQueue = 0;
     }
 
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_78;
-    v20[3] = &unk_1E7C3A778;
-    v21 = date;
-    v22 = uUIDString;
-    v24 = v9;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_78;
+    v19[3] = &unk_1E7C3A778;
+    v20 = date;
+    v21 = uUIDString;
+    v23 = v9;
     policyCopy = policy;
-    v25 = completionCopy;
+    v24 = completionCopy;
     selfCopy = self;
-    v27 = v11;
+    v26 = v11;
     iCopy = i;
     v17 = uUIDString;
     v18 = date;
-    [(FCAsyncSerialQueue *)refreshQueue enqueueBlock:v20];
+    [(FCAsyncSerialQueue *)refreshQueue enqueueBlock:v19];
   }
 
   else
   {
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_75;
-    v29[3] = &unk_1E7C3A700;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_75;
+    v28[3] = &unk_1E7C3A700;
     policyCopy2 = policy;
-    v29[4] = self;
-    v30 = completionCopy;
-    __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_75(v29);
-    v18 = v30;
+    v28[4] = self;
+    v29 = completionCopy;
+    __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_75(v28);
+    v18 = v29;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke(uint64_t a1)
@@ -682,28 +670,26 @@ uint64_t __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePo
 
 uint64_t __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = FCPurchaseLog;
   if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
-    v5 = objc_opt_class();
-    v6 = *(a1 + 40);
-    v9 = 138412546;
+    v3 = v2;
+    v4 = objc_opt_class();
+    v5 = *(a1 + 40);
+    v7 = 138412546;
+    v8 = v4;
+    v9 = 2114;
     v10 = v5;
-    v11 = 2114;
-    v12 = v6;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%@ ignoring bundle entitlement check for bundleID=%{public}@", &v9, 0x16u);
+    _os_log_impl(&dword_1B63EF000, v3, OS_LOG_TYPE_DEFAULT, "%@ ignoring bundle entitlement check for bundleID=%{public}@", &v7, 0x16u);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 void __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_75(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = FCPurchaseLog;
   if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -711,20 +697,18 @@ void __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy
     v4 = v2;
     v5 = FCStringFromBundleSubscriptionCachePolicy(v3);
     *buf = 138543362;
-    v11 = v5;
+    v10 = v5;
     _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "Bundle subscription does not need refresh, policy=%{public}@", buf, 0xCu);
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_76;
-  v8[3] = &unk_1E7C37778;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_76;
+  v7[3] = &unk_1E7C37778;
   v6 = *(a1 + 40);
-  v8[4] = *(a1 + 32);
-  v9 = v6;
-  FCPerformBlockOnMainThread(v8);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7[4] = *(a1 + 32);
+  v8 = v6;
+  FCPerformBlockOnMainThread(v7);
 }
 
 void __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_76(uint64_t a1)
@@ -739,7 +723,7 @@ void __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy
 
 void __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_78(uint64_t a1, void *a2)
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = FCPurchaseLog;
   if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
@@ -773,19 +757,19 @@ void __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy
     }
 
     v15 = *(a1 + 80);
-    v33 = *(a1 + 81);
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_81;
-    v35[3] = &unk_1E7C3A750;
-    v36 = v9;
+    v32 = *(a1 + 81);
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_81;
+    v34[3] = &unk_1E7C3A750;
+    v35 = v9;
     v16 = *(a1 + 48);
-    v37 = *(a1 + 40);
-    v38 = v3;
-    v39 = *(a1 + 64);
+    v36 = *(a1 + 40);
+    v37 = v3;
+    v38 = *(a1 + 64);
     v17 = v3;
     v18 = v9;
-    v34 = v35;
+    v33 = v34;
     if (v16)
     {
       if (([(FCBundleSubscriptionManager *)v16 hasRunEntitlementOnce]& 1) == 0)
@@ -799,60 +783,60 @@ void __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy
       }
 
       v20 = dispatch_group_create();
-      v63[0] = 0;
-      v63[1] = v63;
-      v63[2] = 0x3032000000;
-      v63[3] = __Block_byref_object_copy__18;
-      v63[4] = __Block_byref_object_dispose__18;
-      v64 = 0;
-      v61[0] = 0;
-      v61[1] = v61;
-      v61[2] = 0x3032000000;
-      v61[3] = __Block_byref_object_copy__18;
-      v61[4] = __Block_byref_object_dispose__18;
-      v62 = 0;
+      v62[0] = 0;
+      v62[1] = v62;
+      v62[2] = 0x3032000000;
+      v62[3] = __Block_byref_object_copy__18;
+      v62[4] = __Block_byref_object_dispose__18;
+      v63 = 0;
+      v60[0] = 0;
+      v60[1] = v60;
+      v60[2] = 0x3032000000;
+      v60[3] = __Block_byref_object_copy__18;
+      v60[4] = __Block_byref_object_dispose__18;
+      v61 = 0;
       v21 = [MEMORY[0x1E695DF00] date];
       dispatch_group_enter(v20);
       v22 = v16[8];
-      v56[0] = MEMORY[0x1E69E9820];
-      v56[1] = 3221225472;
-      v56[2] = __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundleDetectionUI_completion___block_invoke;
-      v56[3] = &unk_1E7C3A7A0;
-      v59 = v63;
-      v60 = v61;
-      v56[4] = v16;
+      v55[0] = MEMORY[0x1E69E9820];
+      v55[1] = 3221225472;
+      v55[2] = __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundleDetectionUI_completion___block_invoke;
+      v55[3] = &unk_1E7C3A7A0;
+      v58 = v62;
+      v59 = v60;
+      v55[4] = v16;
       v23 = v21;
-      v57 = v23;
+      v56 = v23;
       v24 = v20;
-      v58 = v24;
-      [v22 loadInitialBundleChannelIDsWithCompletion:v56];
+      v57 = v24;
+      [v22 loadInitialBundleChannelIDsWithCompletion:v55];
 
-      v54[0] = 0;
-      v54[1] = v54;
-      v54[2] = 0x3032000000;
-      v54[3] = __Block_byref_object_copy__18;
-      v54[4] = __Block_byref_object_dispose__18;
-      v55 = 0;
-      v52[0] = 0;
-      v52[1] = v52;
-      v52[2] = 0x3032000000;
-      v52[3] = __Block_byref_object_copy__18;
-      v52[4] = __Block_byref_object_dispose__18;
-      v53 = 0;
+      v53[0] = 0;
+      v53[1] = v53;
+      v53[2] = 0x3032000000;
+      v53[3] = __Block_byref_object_copy__18;
+      v53[4] = __Block_byref_object_dispose__18;
+      v54 = 0;
+      v51[0] = 0;
+      v51[1] = v51;
+      v51[2] = 0x3032000000;
+      v51[3] = __Block_byref_object_copy__18;
+      v51[4] = __Block_byref_object_dispose__18;
+      v52 = 0;
       v25 = [MEMORY[0x1E695DF00] date];
       dispatch_group_enter(v24);
       v26 = v16[2];
-      v47[0] = MEMORY[0x1E69E9820];
-      v47[1] = 3221225472;
-      v47[2] = __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundleDetectionUI_completion___block_invoke_85;
-      v47[3] = &unk_1E7C3A7C8;
-      v50 = v54;
-      v51 = v52;
+      v46[0] = MEMORY[0x1E69E9820];
+      v46[1] = 3221225472;
+      v46[2] = __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundleDetectionUI_completion___block_invoke_85;
+      v46[3] = &unk_1E7C3A7C8;
+      v49 = v53;
+      v50 = v51;
       v27 = v25;
-      v48 = v27;
+      v47 = v27;
       v28 = v24;
-      v49 = v28;
-      [v26 fetchEntitlementsWithIgnoreCache:v15 completion:v47];
+      v48 = v28;
+      [v26 fetchEntitlementsWithIgnoreCache:v15 completion:v46];
 
       objc_initWeak(&location, v16);
       if (FCDispatchGroupIsEmpty(v28))
@@ -860,15 +844,15 @@ void __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundleDetectionUI_completion___block_invoke_87;
-        v66 = &unk_1E7C3A818;
-        objc_copyWeak(&v73, &location);
-        v69 = v54;
-        v67 = v16;
-        v70 = v63;
-        v71 = v61;
-        v74 = v33;
-        v72 = v52;
-        v68 = v34;
+        v65 = &unk_1E7C3A818;
+        objc_copyWeak(&v72, &location);
+        v68 = v53;
+        v66 = v16;
+        v69 = v62;
+        v70 = v60;
+        v73 = v32;
+        v71 = v51;
+        v67 = v33;
         (*&buf[16])(buf);
       }
 
@@ -878,54 +862,52 @@ void __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
         *&buf[16] = __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundleDetectionUI_completion___block_invoke_90;
-        v66 = &unk_1E7C3A818;
-        objc_copyWeak(&v73, &location);
-        v69 = v54;
-        v67 = v16;
-        v70 = v63;
-        v71 = v61;
-        v74 = v33;
-        v72 = v52;
-        v68 = v34;
+        v65 = &unk_1E7C3A818;
+        objc_copyWeak(&v72, &location);
+        v68 = v53;
+        v66 = v16;
+        v69 = v62;
+        v70 = v60;
+        v73 = v32;
+        v71 = v51;
+        v67 = v33;
         dispatch_group_notify(v28, v31, buf);
       }
 
-      objc_destroyWeak(&v73);
+      objc_destroyWeak(&v72);
       objc_destroyWeak(&location);
 
-      _Block_object_dispose(v52, 8);
-      _Block_object_dispose(v54, 8);
+      _Block_object_dispose(v51, 8);
+      _Block_object_dispose(v53, 8);
 
-      _Block_object_dispose(v61, 8);
-      _Block_object_dispose(v63, 8);
+      _Block_object_dispose(v60, 8);
+      _Block_object_dispose(v62, 8);
     }
   }
 
   else
   {
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_79;
-    v40[3] = &unk_1E7C3A728;
-    v45 = *(a1 + 72);
-    v41 = *(a1 + 40);
-    v43 = v3;
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_79;
+    v39[3] = &unk_1E7C3A728;
+    v44 = *(a1 + 72);
+    v40 = *(a1 + 40);
+    v42 = v3;
     v29 = *(a1 + 64);
     v30 = *(a1 + 48);
-    v44 = v29;
-    v42 = v30;
+    v43 = v29;
+    v41 = v30;
     v18 = v3;
-    __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_79(v40);
+    __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_79(v39);
 
-    v17 = v41;
+    v17 = v40;
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_79(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = FCPurchaseLog;
   if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -934,23 +916,21 @@ void __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy
     v5 = FCStringFromBundleSubscriptionCachePolicy(v3);
     v6 = *(a1 + 32);
     *buf = 138543618;
-    v12 = v5;
-    v13 = 2114;
-    v14 = v6;
+    v11 = v5;
+    v12 = 2114;
+    v13 = v6;
     _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "Bundle subscription does not need refresh, policy=%{public}@, id=%{public}@", buf, 0x16u);
   }
 
   (*(*(a1 + 48) + 16))();
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_80;
-  v9[3] = &unk_1E7C37778;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_80;
+  v8[3] = &unk_1E7C37778;
   v7 = *(a1 + 56);
-  v9[4] = *(a1 + 40);
-  v10 = v7;
-  FCPerformBlockOnMainThread(v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8[4] = *(a1 + 40);
+  v9 = v7;
+  FCPerformBlockOnMainThread(v8);
 }
 
 void __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_80(uint64_t a1)
@@ -965,7 +945,7 @@ void __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy
 
 void __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_81(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = FCPurchaseLog;
   if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
@@ -975,24 +955,22 @@ void __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy
     v7 = [v5 fc_millisecondTimeIntervalUntilNow];
     v8 = *(a1 + 40);
     *buf = 134218242;
-    v16 = v7;
-    v17 = 2114;
-    v18 = v8;
+    v15 = v7;
+    v16 = 2114;
+    v17 = v8;
     _os_log_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_DEFAULT, "Did refresh bundle subscription with duration=%llums, id=%{public}@", buf, 0x16u);
   }
 
   (*(*(a1 + 48) + 16))();
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_82;
-  v12[3] = &unk_1E7C37778;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_82;
+  v11[3] = &unk_1E7C37778;
   v9 = *(a1 + 56);
-  v13 = v3;
-  v14 = v9;
+  v12 = v3;
+  v13 = v9;
   v10 = v3;
-  FCPerformBlockOnMainThread(v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  FCPerformBlockOnMainThread(v11);
 }
 
 uint64_t __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePolicy_hideBundleDetectionUI_completion___block_invoke_82(uint64_t a1)
@@ -1008,7 +986,7 @@ uint64_t __105__FCBundleSubscriptionManager_refreshBundleSubscriptionWithCachePo
 
 void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundleDetectionUI_completion___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -1040,18 +1018,17 @@ void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundle
   {
     v15 = *(a1 + 40);
     v16 = v14;
-    v18 = 134217984;
-    v19 = [v15 fc_millisecondTimeIntervalUntilNow];
-    _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEFAULT, "Spent %llums fetching channel IDs for bundle subscription", &v18, 0xCu);
+    v17 = 134217984;
+    v18 = [v15 fc_millisecondTimeIntervalUntilNow];
+    _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEFAULT, "Spent %llums fetching channel IDs for bundle subscription", &v17, 0xCu);
   }
 
   dispatch_group_leave(*(a1 + 48));
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundleDetectionUI_completion___block_invoke_85(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   objc_storeStrong((*(*(a1 + 48) + 8) + 40), a2);
@@ -1061,14 +1038,12 @@ void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundle
   {
     v9 = *(a1 + 32);
     v10 = v8;
-    v12 = 134217984;
-    v13 = [v9 fc_millisecondTimeIntervalUntilNow];
-    _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "Spent %llums fetching entitlements for bundle subscription", &v12, 0xCu);
+    v11 = 134217984;
+    v12 = [v9 fc_millisecondTimeIntervalUntilNow];
+    _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_DEFAULT, "Spent %llums fetching entitlements for bundle subscription", &v11, 0xCu);
   }
 
   dispatch_group_leave(*(a1 + 40));
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundleDetectionUI_completion___block_invoke_87(uint64_t a1)
@@ -1090,7 +1065,7 @@ void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundle
 
 void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundleDetectionUI_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 cachedSubscription];
   v5 = [v4 copy];
@@ -1101,7 +1076,7 @@ void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundle
     [v6 removeObjectForKey:FCEntitlementsNotFoundErrorDateDate];
 
     v7 = *(a1 + 32);
-    v73 = v3;
+    v72 = v3;
     if (v7)
     {
       v8 = *(v7 + 72);
@@ -1117,8 +1092,8 @@ void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundle
     v11 = [v10 vendorAdHocOfferIds];
 
     v12 = [*(*(*(a1 + 48) + 8) + 40) vendorAdHocOfferID];
-    v71 = v11;
-    v72 = v5;
+    v70 = v11;
+    v71 = v5;
     if (v12)
     {
       v13 = [*(*(*(a1 + 48) + 8) + 40) vendorAdHocOfferID];
@@ -1146,13 +1121,13 @@ void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundle
       v31 = v30;
       v32 = [v29 debugDescription];
       *buf = 138412290;
-      v75 = v32;
+      v74 = v32;
       _os_log_impl(&dword_1B63EF000, v31, OS_LOG_TYPE_DEFAULT, "Refresh bundle subscription bundleSubscription= %@", buf, 0xCu);
     }
 
-    v5 = v72;
-    v33 = v72;
-    v34 = objc_getAssociatedObject(v33, (v72 + 1));
+    v5 = v71;
+    v33 = v71;
+    v34 = objc_getAssociatedObject(v33, (v71 + 1));
     v35 = [v34 unsignedIntegerValue];
     v36 = v35;
     v37 = objc_getAssociatedObject(v33, ~v35);
@@ -1170,15 +1145,15 @@ void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundle
           v53 = [v33 debugDescription];
           v54 = [v29 debugDescription];
           *buf = 138543618;
-          v75 = v53;
-          v76 = 2114;
-          v77 = v54;
+          v74 = v53;
+          v75 = 2114;
+          v76 = v54;
           _os_log_impl(&dword_1B63EF000, v52, OS_LOG_TYPE_DEFAULT, "Checked cachedSubscription: %{public}@ is not equal to bundleSubscription: %{public}@", buf, 0x16u);
         }
 
-        if (v73)
+        if (v72)
         {
-          v55 = *(v73 + 40);
+          v55 = *(v72 + 40);
         }
 
         else
@@ -1203,9 +1178,9 @@ void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundle
 
           [v57 setIsAmplifyUser:{objc_msgSend(*(*(*(a1 + 48) + 8) + 40), "isAmplifyUser")}];
           [v57 setIsPaidBundleViaOfferActivated:v50];
-          if (v73)
+          if (v72)
           {
-            v60 = *(v73 + 40);
+            v60 = *(v72 + 40);
           }
 
           else
@@ -1218,8 +1193,8 @@ void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundle
 
         v61 = [v29 copy];
         v62 = [v33 copy];
-        [(FCBundleSubscriptionManager *)v73 updateCachedSubscriptionWithSubscription:v29];
-        [(FCBundleSubscriptionManager *)v73 notifyObserversForChangeStateWithNewSubscription:v61 previousBundleSubscription:v62];
+        [(FCBundleSubscriptionManager *)v72 updateCachedSubscriptionWithSubscription:v29];
+        [(FCBundleSubscriptionManager *)v72 notifyObserversForChangeStateWithNewSubscription:v61 previousBundleSubscription:v62];
       }
     }
 
@@ -1232,11 +1207,11 @@ void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundle
         _os_log_impl(&dword_1B63EF000, v39, OS_LOG_TYPE_INFO, "Bundle subscription did subscribe", buf, 2u);
       }
 
-      v70 = v29;
-      v69 = v14;
-      if (v73)
+      v69 = v29;
+      v68 = v14;
+      if (v72)
       {
-        v40 = *(v73 + 40);
+        v40 = *(v72 + 40);
       }
 
       else
@@ -1244,7 +1219,7 @@ void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundle
         v40 = 0;
       }
 
-      v68 = *(*(*(a1 + 56) + 8) + 40);
+      v67 = *(*(*(a1 + 56) + 8) + 40);
       v41 = *(*(*(a1 + 64) + 8) + 40);
       v42 = *(*(*(a1 + 48) + 8) + 40);
       v43 = v40;
@@ -1254,50 +1229,31 @@ void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundle
       v47 = [*(*(*(a1 + 48) + 8) + 40) servicesBundlePurchaseID];
       v48 = [*(*(*(a1 + 48) + 8) + 40) isAmplifyUser];
       v49 = [*(*(*(a1 + 48) + 8) + 40) initialPurchaseTimestamp];
-      LOBYTE(v67) = v69;
-      LOBYTE(v66) = v48;
-      [v43 addBundleChannelIDs:v68 bundleChannelIDsVersion:v41 purchaseID:v44 inTrialPeriod:v45 isPurchaser:v46 servicesBundlePurchaseID:v47 isAmplifyUser:v66 initialPurchaseTimestamp:v49 isPaidBundleViaOfferActivated:v67];
+      LOBYTE(v66) = v68;
+      LOBYTE(v65) = v48;
+      [v43 addBundleChannelIDs:v67 bundleChannelIDsVersion:v41 purchaseID:v44 inTrialPeriod:v45 isPurchaser:v46 servicesBundlePurchaseID:v47 isAmplifyUser:v65 initialPurchaseTimestamp:v49 isPaidBundleViaOfferActivated:v66];
 
-      v29 = v70;
-      [(FCBundleSubscriptionManager *)v73 updateCachedSubscriptionWithSubscription:v70];
-      [(FCBundleSubscriptionManager *)v73 notifyObserversForSubscribedStateWithSubscription:v70 hideBundleDetectionUI:*(a1 + 80)];
-      v5 = v72;
+      v29 = v69;
+      [(FCBundleSubscriptionManager *)v72 updateCachedSubscriptionWithSubscription:v69];
+      [(FCBundleSubscriptionManager *)v72 notifyObserversForSubscribedStateWithSubscription:v69 hideBundleDetectionUI:*(a1 + 80)];
+      v5 = v71;
     }
 
-    v3 = v73;
+    v3 = v72;
   }
 
-  else
+  else if ([*(*(*(a1 + 72) + 8) + 40) code] == 5002 && (v15 = v5, objc_getAssociatedObject(v15, (v5 + 1)), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "unsignedIntegerValue"), v18 = v17, objc_getAssociatedObject(v15, ~v17), v19 = objc_claimAutoreleasedReturnValue(), v15, LOBYTE(v15) = objc_msgSend(v19, "unsignedIntegerValue") ^ v18, v19, v16, (v15 & 1) != 0))
   {
-    if ([*(*(*(a1 + 72) + 8) + 40) code] != 5002)
-    {
-      goto LABEL_41;
-    }
+    [(FCBundleSubscriptionManager *)v3 expireBundleSubscription];
+  }
 
-    v15 = v5;
-    v16 = objc_getAssociatedObject(v15, (v5 + 1));
-    v17 = [v16 unsignedIntegerValue];
-    v18 = v17;
-    v19 = objc_getAssociatedObject(v15, ~v17);
-
-    LOBYTE(v15) = [v19 unsignedIntegerValue] ^ v18;
-    if (v15)
+  else if ([*(*(*(a1 + 72) + 8) + 40) code] == 3001)
+  {
+    v20 = FCPurchaseLog;
+    if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
     {
-      [(FCBundleSubscriptionManager *)v3 expireBundleSubscription];
-    }
-
-    else
-    {
-LABEL_41:
-      if ([*(*(*(a1 + 72) + 8) + 40) code] == 3001)
-      {
-        v20 = FCPurchaseLog;
-        if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_1B63EF000, v20, OS_LOG_TYPE_DEFAULT, "Refresh bundle subscription failed with timeout error. Maintaining the same state as before", buf, 2u);
-        }
-      }
+      *buf = 0;
+      _os_log_impl(&dword_1B63EF000, v20, OS_LOG_TYPE_DEFAULT, "Refresh bundle subscription failed with timeout error. Maintaining the same state as before", buf, 2u);
     }
   }
 
@@ -1308,8 +1264,6 @@ LABEL_41:
     v64 = [v3 cachedSubscription];
     (*(v63 + 16))(v63, v64);
   }
-
-  v65 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyObserversForSubscribedStateWithSubscription:(char)subscription hideBundleDetectionUI:
@@ -1389,14 +1343,14 @@ LABEL_41:
   }
 }
 
-- (uint64_t)updateHasRunEntitlementOnce:(uint64_t)result
+- (id)updateHasRunEntitlementOnce:(id *)result
 {
   if (result)
   {
     v1 = result;
-    [*(result + 56) lock];
+    [result[7] lock];
     *(v1 + 8) = 1;
-    v2 = *(v1 + 56);
+    v2 = v1[7];
 
     return [v2 unlock];
   }
@@ -1423,7 +1377,7 @@ void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundle
 
 void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundleDetectionUI_completion___block_invoke_2_91(uint64_t a1, void *a2)
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 cachedSubscription];
   v5 = [v4 copy];
@@ -1434,7 +1388,7 @@ void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundle
     [v6 removeObjectForKey:FCEntitlementsNotFoundErrorDateDate];
 
     v7 = *(a1 + 32);
-    v73 = v3;
+    v72 = v3;
     if (v7)
     {
       v8 = *(v7 + 72);
@@ -1450,8 +1404,8 @@ void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundle
     v11 = [v10 vendorAdHocOfferIds];
 
     v12 = [*(*(*(a1 + 48) + 8) + 40) vendorAdHocOfferID];
-    v71 = v11;
-    v72 = v5;
+    v70 = v11;
+    v71 = v5;
     if (v12)
     {
       v13 = [*(*(*(a1 + 48) + 8) + 40) vendorAdHocOfferID];
@@ -1479,13 +1433,13 @@ void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundle
       v31 = v30;
       v32 = [v29 debugDescription];
       *buf = 138412290;
-      v75 = v32;
+      v74 = v32;
       _os_log_impl(&dword_1B63EF000, v31, OS_LOG_TYPE_DEFAULT, "Refresh bundle subscription bundleSubscription= %@", buf, 0xCu);
     }
 
-    v5 = v72;
-    v33 = v72;
-    v34 = objc_getAssociatedObject(v33, (v72 + 1));
+    v5 = v71;
+    v33 = v71;
+    v34 = objc_getAssociatedObject(v33, (v71 + 1));
     v35 = [v34 unsignedIntegerValue];
     v36 = v35;
     v37 = objc_getAssociatedObject(v33, ~v35);
@@ -1503,15 +1457,15 @@ void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundle
           v53 = [v33 debugDescription];
           v54 = [v29 debugDescription];
           *buf = 138543618;
-          v75 = v53;
-          v76 = 2114;
-          v77 = v54;
+          v74 = v53;
+          v75 = 2114;
+          v76 = v54;
           _os_log_impl(&dword_1B63EF000, v52, OS_LOG_TYPE_DEFAULT, "Checked cachedSubscription: %{public}@ is not equal to bundleSubscription: %{public}@", buf, 0x16u);
         }
 
-        if (v73)
+        if (v72)
         {
-          v55 = *(v73 + 40);
+          v55 = *(v72 + 40);
         }
 
         else
@@ -1536,9 +1490,9 @@ void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundle
 
           [v57 setIsAmplifyUser:{objc_msgSend(*(*(*(a1 + 48) + 8) + 40), "isAmplifyUser")}];
           [v57 setIsPaidBundleViaOfferActivated:v50];
-          if (v73)
+          if (v72)
           {
-            v60 = *(v73 + 40);
+            v60 = *(v72 + 40);
           }
 
           else
@@ -1551,8 +1505,8 @@ void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundle
 
         v61 = [v29 copy];
         v62 = [v33 copy];
-        [(FCBundleSubscriptionManager *)v73 updateCachedSubscriptionWithSubscription:v29];
-        [(FCBundleSubscriptionManager *)v73 notifyObserversForChangeStateWithNewSubscription:v61 previousBundleSubscription:v62];
+        [(FCBundleSubscriptionManager *)v72 updateCachedSubscriptionWithSubscription:v29];
+        [(FCBundleSubscriptionManager *)v72 notifyObserversForChangeStateWithNewSubscription:v61 previousBundleSubscription:v62];
       }
     }
 
@@ -1565,11 +1519,11 @@ void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundle
         _os_log_impl(&dword_1B63EF000, v39, OS_LOG_TYPE_INFO, "Bundle subscription did subscribe", buf, 2u);
       }
 
-      v70 = v29;
-      v69 = v14;
-      if (v73)
+      v69 = v29;
+      v68 = v14;
+      if (v72)
       {
-        v40 = *(v73 + 40);
+        v40 = *(v72 + 40);
       }
 
       else
@@ -1577,7 +1531,7 @@ void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundle
         v40 = 0;
       }
 
-      v68 = *(*(*(a1 + 56) + 8) + 40);
+      v67 = *(*(*(a1 + 56) + 8) + 40);
       v41 = *(*(*(a1 + 64) + 8) + 40);
       v42 = *(*(*(a1 + 48) + 8) + 40);
       v43 = v40;
@@ -1587,50 +1541,31 @@ void __95__FCBundleSubscriptionManager__unguardedRefreshIgnoringCache_hideBundle
       v47 = [*(*(*(a1 + 48) + 8) + 40) servicesBundlePurchaseID];
       v48 = [*(*(*(a1 + 48) + 8) + 40) isAmplifyUser];
       v49 = [*(*(*(a1 + 48) + 8) + 40) initialPurchaseTimestamp];
-      LOBYTE(v67) = v69;
-      LOBYTE(v66) = v48;
-      [v43 addBundleChannelIDs:v68 bundleChannelIDsVersion:v41 purchaseID:v44 inTrialPeriod:v45 isPurchaser:v46 servicesBundlePurchaseID:v47 isAmplifyUser:v66 initialPurchaseTimestamp:v49 isPaidBundleViaOfferActivated:v67];
+      LOBYTE(v66) = v68;
+      LOBYTE(v65) = v48;
+      [v43 addBundleChannelIDs:v67 bundleChannelIDsVersion:v41 purchaseID:v44 inTrialPeriod:v45 isPurchaser:v46 servicesBundlePurchaseID:v47 isAmplifyUser:v65 initialPurchaseTimestamp:v49 isPaidBundleViaOfferActivated:v66];
 
-      v29 = v70;
-      [(FCBundleSubscriptionManager *)v73 updateCachedSubscriptionWithSubscription:v70];
-      [(FCBundleSubscriptionManager *)v73 notifyObserversForSubscribedStateWithSubscription:v70 hideBundleDetectionUI:*(a1 + 80)];
-      v5 = v72;
+      v29 = v69;
+      [(FCBundleSubscriptionManager *)v72 updateCachedSubscriptionWithSubscription:v69];
+      [(FCBundleSubscriptionManager *)v72 notifyObserversForSubscribedStateWithSubscription:v69 hideBundleDetectionUI:*(a1 + 80)];
+      v5 = v71;
     }
 
-    v3 = v73;
+    v3 = v72;
   }
 
-  else
+  else if ([*(*(*(a1 + 72) + 8) + 40) code] == 5002 && (v15 = v5, objc_getAssociatedObject(v15, (v5 + 1)), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "unsignedIntegerValue"), v18 = v17, objc_getAssociatedObject(v15, ~v17), v19 = objc_claimAutoreleasedReturnValue(), v15, LOBYTE(v15) = objc_msgSend(v19, "unsignedIntegerValue") ^ v18, v19, v16, (v15 & 1) != 0))
   {
-    if ([*(*(*(a1 + 72) + 8) + 40) code] != 5002)
-    {
-      goto LABEL_41;
-    }
+    [(FCBundleSubscriptionManager *)v3 expireBundleSubscription];
+  }
 
-    v15 = v5;
-    v16 = objc_getAssociatedObject(v15, (v5 + 1));
-    v17 = [v16 unsignedIntegerValue];
-    v18 = v17;
-    v19 = objc_getAssociatedObject(v15, ~v17);
-
-    LOBYTE(v15) = [v19 unsignedIntegerValue] ^ v18;
-    if (v15)
+  else if ([*(*(*(a1 + 72) + 8) + 40) code] == 3001)
+  {
+    v20 = FCPurchaseLog;
+    if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
     {
-      [(FCBundleSubscriptionManager *)v3 expireBundleSubscription];
-    }
-
-    else
-    {
-LABEL_41:
-      if ([*(*(*(a1 + 72) + 8) + 40) code] == 3001)
-      {
-        v20 = FCPurchaseLog;
-        if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 0;
-          _os_log_impl(&dword_1B63EF000, v20, OS_LOG_TYPE_DEFAULT, "Refresh bundle subscription failed with timeout error. Maintaining the same state as before", buf, 2u);
-        }
-      }
+      *buf = 0;
+      _os_log_impl(&dword_1B63EF000, v20, OS_LOG_TYPE_DEFAULT, "Refresh bundle subscription failed with timeout error. Maintaining the same state as before", buf, 2u);
     }
   }
 
@@ -1641,8 +1576,6 @@ LABEL_41:
     v64 = [v3 cachedSubscription];
     (*(v63 + 16))(v63, v64);
   }
-
-  v65 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyObserversForExpiredStateWithSubscription:(uint64_t)subscription
@@ -1663,16 +1596,16 @@ LABEL_41:
 
 - (void)clearBundleSubscription
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = FCPurchaseLog;
   if (os_log_type_enabled(FCPurchaseLog, OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     cachedSubscription = [(FCBundleSubscriptionManager *)self cachedSubscription];
     v6 = [cachedSubscription debugDescription];
-    v26 = 138412290;
-    v27 = v6;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "clearBundleSubscription cachedSubscription=%@", &v26, 0xCu);
+    v25 = 138412290;
+    v26 = v6;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "clearBundleSubscription cachedSubscription=%@", &v25, 0xCu);
   }
 
   cachedSubscription2 = [(FCBundleSubscriptionManager *)self cachedSubscription];
@@ -1739,8 +1672,6 @@ LABEL_41:
     cachedSubscription3 = [(FCBundleSubscriptionManager *)self cachedSubscription];
     [(FCBundleSubscriptionManager *)self notifyObserversForExpiredStateWithSubscription:cachedSubscription3];
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (id)bundleSubscriptionLookupEntry
@@ -1785,11 +1716,11 @@ LABEL_41:
 
 - (void)prewarmBundleTagIDsWithPurchaseID:(id)d
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = [FCPurchaseLookupFetchOperation alloc];
-  v11[0] = dCopy;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = dCopy;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   if (self)
   {
     contentContext = self->_contentContext;
@@ -1806,13 +1737,11 @@ LABEL_41:
   [(FCOperation *)v8 setRelativePriority:1];
   fc_sharedConcurrentQueue = [MEMORY[0x1E696ADC8] fc_sharedConcurrentQueue];
   [fc_sharedConcurrentQueue addOperation:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)forceExpireBundleSubscriptionBasedOnInternalSettings
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (NFInternalBuild())
   {
     v3 = FCPurchaseLog;
@@ -1821,9 +1750,9 @@ LABEL_41:
       v4 = v3;
       cachedSubscription = [(FCBundleSubscriptionManager *)self cachedSubscription];
       v6 = [cachedSubscription debugDescription];
-      v22 = 138412290;
-      v23 = v6;
-      _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "forceExpireBundleSubscriptionBasedOnInternalSettings  cachedSubscription=%@", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = v6;
+      _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "forceExpireBundleSubscriptionBasedOnInternalSettings  cachedSubscription=%@", &v21, 0xCu);
     }
 
     standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
@@ -1886,8 +1815,6 @@ LABEL_41:
       [(FCBundleSubscriptionManager *)self notifyObserversForExpiredStateWithSubscription:cachedSubscription2];
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)silentExpireBundleSubscription
@@ -1946,7 +1873,7 @@ LABEL_41:
 
 - (void)addObserver:(id)observer
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   [MEMORY[0x1E696AF00] isMainThread];
   if (observerCopy)
@@ -1965,13 +1892,13 @@ LABEL_41:
     {
       observerCopy = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%p is already an observer", observerCopy];
       *buf = 136315906;
-      v11 = "[FCBundleSubscriptionManager addObserver:]";
-      v12 = 2080;
-      v13 = "FCBundleSubscriptionManager.m";
-      v14 = 1024;
-      v15 = 614;
-      v16 = 2114;
-      v17 = observerCopy;
+      v10 = "[FCBundleSubscriptionManager addObserver:]";
+      v11 = 2080;
+      v12 = "FCBundleSubscriptionManager.m";
+      v13 = 1024;
+      v14 = 614;
+      v15 = 2114;
+      v16 = observerCopy;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       if (self)
@@ -1995,26 +1922,24 @@ LABEL_8:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "observer != nil"];
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "observer != nil"];
     *buf = 136315906;
-    v11 = "[FCBundleSubscriptionManager addObserver:]";
-    v12 = 2080;
-    v13 = "FCBundleSubscriptionManager.m";
-    v14 = 1024;
-    v15 = 610;
-    v16 = 2114;
-    v17 = v8;
+    v10 = "[FCBundleSubscriptionManager addObserver:]";
+    v11 = 2080;
+    v12 = "FCBundleSubscriptionManager.m";
+    v13 = 1024;
+    v14 = 610;
+    v15 = 2114;
+    v16 = v7;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_11:
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObserver:(id)observer
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   observerCopy = observer;
   [MEMORY[0x1E696AF00] isMainThread];
   if (observerCopy)
@@ -2034,24 +1959,22 @@ LABEL_11:
 
   else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "observer != nil"];
+    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "observer != nil"];
     *buf = 136315906;
-    v9 = "[FCBundleSubscriptionManager removeObserver:]";
-    v10 = 2080;
-    v11 = "FCBundleSubscriptionManager.m";
-    v12 = 1024;
-    v13 = 623;
-    v14 = 2114;
-    v15 = v7;
+    v8 = "[FCBundleSubscriptionManager removeObserver:]";
+    v9 = 2080;
+    v10 = "FCBundleSubscriptionManager.m";
+    v11 = 1024;
+    v12 = 623;
+    v13 = 2114;
+    v14 = v6;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __103__FCBundleSubscriptionManager_notifyObserversForSubscribedStateWithSubscription_hideBundleDetectionUI___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -2063,30 +1986,30 @@ void __103__FCBundleSubscriptionManager_notifyObserversForSubscribedStateWithSub
     v3 = 0;
   }
 
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v4 = [v3 copy];
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         if (objc_opt_respondsToSelector())
         {
-          [v9 bundleSubscriptionDidSubscribe:{*(a1 + 40), v11}];
+          [v9 bundleSubscriptionDidSubscribe:{*(a1 + 40), v10}];
         }
 
         if (objc_opt_respondsToSelector())
@@ -2098,18 +2021,16 @@ void __103__FCBundleSubscriptionManager_notifyObserversForSubscribedStateWithSub
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __78__FCBundleSubscriptionManager_notifyObserversForExpiredStateWithSubscription___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -2121,48 +2042,46 @@ void __78__FCBundleSubscriptionManager_notifyObserversForExpiredStateWithSubscri
     v3 = 0;
   }
 
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v4 = [v3 copy];
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         if (objc_opt_respondsToSelector())
         {
-          [v9 bundleSubscriptionDidExpire:{*(a1 + 40), v11}];
+          [v9 bundleSubscriptionDidExpire:{*(a1 + 40), v10}];
         }
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __107__FCBundleSubscriptionManager_notifyObserversForChangeStateWithNewSubscription_previousBundleSubscription___block_invoke(void *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = a1[4];
   if (v2)
   {
@@ -2174,43 +2093,41 @@ void __107__FCBundleSubscriptionManager_notifyObserversForChangeStateWithNewSubs
     v3 = 0;
   }
 
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v4 = [v3 copy];
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         if (objc_opt_respondsToSelector())
         {
-          [v9 bundleSubscriptionDidChange:a1[5] previousBundleSubscription:{a1[6], v11}];
+          [v9 bundleSubscriptionDidChange:a1[5] previousBundleSubscription:{a1[6], v10}];
         }
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)prepareForUseWithCompletion:(id)completion

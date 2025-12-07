@@ -4,6 +4,7 @@
 - (id)searchForMeCardEmailAddresses;
 - (id)searchForMeCardRegions;
 - (id)searchWithTrigger:(id)trigger searchContext:(id)context timeoutInMilliseconds:(int)milliseconds error:(id *)error;
+- (id)searchWithTriggers:(id)triggers application:(id)application recipient:(id)recipient localeIdentifier:(id)identifier isResponseDenyListed:(BOOL)listed shouldDisableAutoCaps:(BOOL)caps timeoutInMilliseconds:(int)milliseconds resultLimit:(int)self0 error:(id *)self1;
 - (void)hibernate;
 - (void)propogateMetrics:(id)metrics data:(id)data;
 - (void)provideFeedbackForString:(id)string type:(unsigned __int8)type style:(unsigned __int8)style;
@@ -25,7 +26,7 @@
 - (void)warmUp
 {
   v16 = *MEMORY[0x277D85DE8];
-  v3 = _ICProactiveQuickTypeOSLogFacility();
+  v3 = _ICProactiveQuickTypeOSLogFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [_ICPredictionManager warmUp];
@@ -61,63 +62,62 @@
     while (v6);
   }
 
-  v9 = _ICProactiveQuickTypeOSLogFacility();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = _ICProactiveQuickTypeOSLogFacility(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [_ICPredictionManager warmUp];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)searchForMeCardRegions
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v3 = _ICProactiveQuickTypeOSLogFacility();
+  v35 = *MEMORY[0x277D85DE8];
+  v3 = _ICProactiveQuickTypeOSLogFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [_ICPredictionManager searchForMeCardRegions];
   }
 
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy_;
-  v30 = __Block_byref_object_dispose_;
-  v31 = 0;
-  v22 = 0u;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy_;
+  v31 = __Block_byref_object_dispose_;
+  v32 = 0;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
   v4 = self->_predictionSources;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v22 objects:v33 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v23 objects:v34 count:16];
   if (v5)
   {
-    v6 = *v23;
+    v6 = *v24;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v23 != v6)
+        if (*v24 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v22 + 1) + 8 * i);
+        v8 = *(*(&v23 + 1) + 8 * i);
         v9 = dispatch_semaphore_create(0);
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __46___ICPredictionManager_searchForMeCardRegions__block_invoke;
-        v19[3] = &unk_2797ADA90;
-        v21 = &v26;
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __46___ICPredictionManager_searchForMeCardRegions__block_invoke;
+        v20[3] = &unk_2797ADA90;
+        v22 = &v27;
         v10 = v9;
-        v20 = v10;
-        [v8 searchForMeCardRegionsWithTimeout:5000 handler:v19];
+        v21 = v10;
+        [v8 searchForMeCardRegionsWithTimeout:5000 handler:v20];
         v11 = dispatch_time(0, 5500000000);
-        if (dispatch_semaphore_wait(v10, v11))
+        v12 = dispatch_semaphore_wait(v10, v11);
+        if (v12)
         {
-          v15 = _ICProactiveQuickTypeOSLogFacility();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          v17 = _ICProactiveQuickTypeOSLogFacility(v12);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             [_ICPredictionManager searchForMeCardRegions];
           }
@@ -125,15 +125,15 @@
           goto LABEL_22;
         }
 
-        v12 = [v27[5] count] == 0;
+        v13 = [v28[5] count] == 0;
 
-        if (!v12)
+        if (!v13)
         {
           goto LABEL_12;
         }
       }
 
-      v5 = [(NSArray *)v4 countByEnumeratingWithState:&v22 objects:v33 count:16];
+      v5 = [(NSArray *)v4 countByEnumeratingWithState:&v23 objects:v34 count:16];
       if (v5)
       {
         continue;
@@ -145,34 +145,33 @@
 
 LABEL_12:
 
-  if ([v27[5] count])
+  v14 = [v28[5] count];
+  if (v14)
   {
-    v13 = _ICProactiveQuickTypeOSLogFacility();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v15 = _ICProactiveQuickTypeOSLogFacility(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      -[_ICPredictionManager searchForMeCardRegions].cold.3(v32, [v27[5] count], v13);
+      -[_ICPredictionManager searchForMeCardRegions].cold.3(v33, [v28[5] count], v15);
     }
 
-    v14 = v27[5];
+    v16 = v28[5];
   }
 
   else
   {
-    v16 = _ICProactiveQuickTypeOSLogFacility();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v18 = _ICProactiveQuickTypeOSLogFacility(0);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       [_ICPredictionManager _quickTypePredictionWithTrigger:searchContext:timeoutInMilliseconds:error:];
     }
 
 LABEL_22:
-    v14 = MEMORY[0x277CBEBF8];
+    v16 = MEMORY[0x277CBEBF8];
   }
 
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v27, 8);
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v16;
 }
 
 - (_ICPredictionManager)initWithPredictionSources:(id)sources
@@ -222,19 +221,8 @@ LABEL_22:
   v26 = v13;
   millisecondsCopy = milliseconds;
   v14 = MEMORY[0x259C27030](v24);
-  if ([v12 triggerSourceType] == 3)
+  if ([v12 triggerSourceType] == 3 || (objc_msgSend(MEMORY[0x277CBEB68], "null"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "attributedString"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "objectForKeyedSubscript:", *MEMORY[0x277D22F30]), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v15, "isEqual:", v17), v17, v16, v15, !v18))
   {
-    goto LABEL_4;
-  }
-
-  null = [MEMORY[0x277CBEB68] null];
-  attributedString = [v12 attributedString];
-  v17 = [attributedString objectForKeyedSubscript:*MEMORY[0x277D22F30]];
-  v18 = [null isEqual:v17];
-
-  if (!v18)
-  {
-LABEL_4:
     v20 = (v14)[2](v14, error);
   }
 
@@ -254,134 +242,332 @@ LABEL_4:
   return v20;
 }
 
+- (id)searchWithTriggers:(id)triggers application:(id)application recipient:(id)recipient localeIdentifier:(id)identifier isResponseDenyListed:(BOOL)listed shouldDisableAutoCaps:(BOOL)caps timeoutInMilliseconds:(int)milliseconds resultLimit:(int)self0 error:(id *)self1
+{
+  capsCopy = caps;
+  listedCopy = listed;
+  v66 = *MEMORY[0x277D85DE8];
+  triggersCopy = triggers;
+  applicationCopy = application;
+  recipientCopy = recipient;
+  identifierCopy = identifier;
+  if ([applicationCopy length] || objc_msgSend(recipientCopy, "length") || objc_msgSend(identifierCopy, "length"))
+  {
+    array = [MEMORY[0x277CBEB18] array];
+    if ([recipientCopy length])
+    {
+      [array addObject:recipientCopy];
+    }
+
+    v52 = [[_ICSearchContext alloc] initWithLocale:identifierCopy recipients:array applicationBundleIdentifier:applicationCopy isResponseContextDenylisted:listedCopy shouldDisableAutoCaps:capsCopy];
+  }
+
+  else
+  {
+    v52 = 0;
+  }
+
+  v49 = recipientCopy;
+  v50 = applicationCopy;
+  date = [MEMORY[0x277CBEAA8] date];
+  v60 = 0u;
+  v61 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v22 = triggersCopy;
+  v23 = [v22 countByEnumeratingWithState:&v60 objects:v65 count:16];
+  v55 = v22;
+  if (v23)
+  {
+    v24 = v23;
+    v25 = 0;
+    v26 = *v61;
+    do
+    {
+      for (i = 0; i != v24; ++i)
+      {
+        if (*v61 != v26)
+        {
+          objc_enumerationMutation(v22);
+        }
+
+        v28 = [(_ICResultCache *)self->_cache searchWithTrigger:*(*(&v60 + 1) + 8 * i)];
+        v29 = [v28 count];
+        if (v29 >= 1)
+        {
+          v30 = v29;
+          if (!v25)
+          {
+            v25 = [MEMORY[0x277CBEB18] arrayWithCapacity:limit];
+          }
+
+          if (v30 >= limit)
+          {
+            limitCopy = limit;
+          }
+
+          else
+          {
+            limitCopy = v30;
+          }
+
+          if (limit)
+          {
+            v32 = 0;
+            do
+            {
+              v33 = [v28 objectAtIndex:v32];
+              [v25 addObject:v33];
+
+              ++v32;
+            }
+
+            while (limitCopy != v32);
+            v22 = v55;
+          }
+        }
+      }
+
+      v24 = [v22 countByEnumeratingWithState:&v60 objects:v65 count:16];
+    }
+
+    while (v24);
+  }
+
+  else
+  {
+    v25 = 0;
+  }
+
+  if ([v25 count])
+  {
+    v34 = v52;
+  }
+
+  else
+  {
+    [(_ICResultCache *)self->_cache clear];
+    v58 = 0u;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
+    obj = v22;
+    v35 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
+    v34 = v52;
+    if (v35)
+    {
+      v36 = v35;
+      v53 = *v57;
+      while (2)
+      {
+        for (j = 0; j != v36; ++j)
+        {
+          if (*v57 != v53)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v38 = [(_ICPredictionManager *)self searchWithTrigger:*(*(&v56 + 1) + 8 * j) searchContext:v34 timeoutInMilliseconds:milliseconds error:error];
+          v39 = [v38 count];
+          if (v39)
+          {
+            v40 = v39;
+            if (!v25)
+            {
+              v25 = [MEMORY[0x277CBEB18] arrayWithCapacity:limit];
+            }
+
+            if (limit)
+            {
+              v41 = 0;
+              if (v40 >= limit)
+              {
+                limitCopy2 = limit;
+              }
+
+              else
+              {
+                limitCopy2 = v40;
+              }
+
+              if (limitCopy2 <= 1)
+              {
+                v43 = 1;
+              }
+
+              else
+              {
+                v43 = limitCopy2;
+              }
+
+              do
+              {
+                v44 = [v38 objectAtIndex:v41];
+                [v25 addObject:v44];
+
+                ++v41;
+              }
+
+              while (v43 != v41);
+              v34 = v52;
+              v22 = v55;
+            }
+          }
+
+          if ([v25 count] == limit || (objc_msgSend(date, "timeIntervalSinceNow"), v45 * -1000.0 > milliseconds))
+          {
+
+            goto LABEL_51;
+          }
+        }
+
+        v36 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
+        if (v36)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+LABEL_51:
+  }
+
+  v46 = v25;
+
+  return v25;
+}
+
 - (id)_quickTypePredictionWithTrigger:(id)trigger searchContext:(id)context timeoutInMilliseconds:(unint64_t)milliseconds error:(id *)error
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   triggerCopy = trigger;
   contextCopy = context;
   attributedString = [triggerCopy attributedString];
   LOBYTE(context) = attributedString == 0;
 
-  v10 = _ICProactiveQuickTypeOSLogFacility();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
+  v11 = _ICProactiveQuickTypeOSLogFacility(v10);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
   if (context)
   {
-    if (v11)
+    if (v12)
     {
-      [_ICPredictionManager _quickTypePredictionWithTrigger:triggerCopy searchContext:v10 timeoutInMilliseconds:? error:?];
+      [_ICPredictionManager _quickTypePredictionWithTrigger:triggerCopy searchContext:v11 timeoutInMilliseconds:? error:?];
     }
   }
 
-  else if (v11)
+  else if (v12)
   {
-    [_ICPredictionManager _quickTypePredictionWithTrigger:triggerCopy searchContext:v10 timeoutInMilliseconds:? error:?];
+    [_ICPredictionManager _quickTypePredictionWithTrigger:triggerCopy searchContext:v11 timeoutInMilliseconds:? error:?];
   }
 
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x3032000000;
-  v60 = __Block_byref_object_copy_;
-  v61 = __Block_byref_object_dispose_;
-  v62 = 0;
+  v61 = 0;
+  v62 = &v61;
+  v63 = 0x3032000000;
+  v64 = __Block_byref_object_copy_;
+  v65 = __Block_byref_object_dispose_;
+  v66 = 0;
   if (error)
   {
     *error = 0;
   }
 
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x3032000000;
-  v54 = __Block_byref_object_copy_;
-  v55 = __Block_byref_object_dispose_;
-  v56 = 0;
-  v50 = 0;
-  v48 = @"_ICPredictionManager_quickTypePredictionWithTrigger";
-  v31 = mach_absolute_time();
-  v49 = v31;
-  v44 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  v12 = self->_predictionSources;
-  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v44 objects:v65 count:16];
-  if (v13)
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x3032000000;
+  v58 = __Block_byref_object_copy_;
+  v59 = __Block_byref_object_dispose_;
+  v60 = 0;
+  v54 = 0;
+  v52 = @"_ICPredictionManager_quickTypePredictionWithTrigger";
+  v35 = mach_absolute_time();
+  v53 = v35;
+  v48 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v13 = self->_predictionSources;
+  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v48 objects:v69 count:16];
+  if (v14)
   {
-    v15 = *v45;
-    *&v14 = 134217984;
-    v30 = v14;
+    v16 = *v49;
+    *&v15 = 134217984;
+    v34 = v15;
 LABEL_10:
-    v16 = 0;
+    v17 = 0;
     while (1)
     {
-      if (*v45 != v15)
+      if (*v49 != v16)
       {
-        objc_enumerationMutation(v12);
+        objc_enumerationMutation(v13);
       }
 
-      v17 = *(*(&v44 + 1) + 8 * v16);
-      if ([v17 doesSupportTriggerSourceType:{objc_msgSend(triggerCopy, "triggerSourceType", v30)}])
+      v18 = *(*(&v48 + 1) + 8 * v17);
+      if ([v18 doesSupportTriggerSourceType:{objc_msgSend(triggerCopy, "triggerSourceType", v34)}])
       {
-        v18 = dispatch_semaphore_create(0);
+        v19 = dispatch_semaphore_create(0);
         objc_initWeak(&location, self);
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
-        v38[2] = __98___ICPredictionManager__quickTypePredictionWithTrigger_searchContext_timeoutInMilliseconds_error___block_invoke;
-        v38[3] = &unk_2797ADA68;
-        v40 = &v51;
-        v41 = &v57;
-        objc_copyWeak(&v42, &location);
-        v19 = v18;
-        v39 = v19;
-        [v17 predictedItemsWithProactiveTrigger:triggerCopy searchContext:contextCopy limit:10 timeoutInMilliseconds:milliseconds handler:v38];
-        v20 = dispatch_time(0, (milliseconds / 1000.0 * 1.1 * 1000000000.0));
-        if (dispatch_semaphore_wait(v19, v20))
+        v42[0] = MEMORY[0x277D85DD0];
+        v42[1] = 3221225472;
+        v42[2] = __98___ICPredictionManager__quickTypePredictionWithTrigger_searchContext_timeoutInMilliseconds_error___block_invoke;
+        v42[3] = &unk_2797ADA68;
+        v44 = &v55;
+        v45 = &v61;
+        objc_copyWeak(&v46, &location);
+        v20 = v19;
+        v43 = v20;
+        [v18 predictedItemsWithProactiveTrigger:triggerCopy searchContext:contextCopy limit:10 timeoutInMilliseconds:milliseconds handler:v42];
+        v21 = dispatch_time(0, (milliseconds / 1000.0 * 1.1 * 1000000000.0));
+        v22 = dispatch_semaphore_wait(v20, v21);
+        if (v22)
         {
-          v21 = _ICProactiveQuickTypeOSLogFacility();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v23 = _ICProactiveQuickTypeOSLogFacility(v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
-            [_ICPredictionManager _quickTypePredictionWithTrigger:v37 searchContext:v21 timeoutInMilliseconds:? error:?];
+            [_ICPredictionManager _quickTypePredictionWithTrigger:v41 searchContext:v23 timeoutInMilliseconds:? error:?];
           }
 
-          v22 = 0;
+          v24 = 0;
           v6 = 0;
         }
 
-        else if ([v58[5] count])
+        else if ([v62[5] count])
         {
-          name = [v17 name];
+          name = [v18 name];
           [(_ICPredictionManager *)self setLastUsedSource:name];
 
-          v24 = _ICProactiveQuickTypeOSLogFacility();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+          v27 = _ICProactiveQuickTypeOSLogFacility(v26);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
           {
-            v25 = [v58[5] count];
-            *buf = v30;
-            v64 = v25;
-            _os_log_debug_impl(&dword_254BD0000, v24, OS_LOG_TYPE_DEBUG, "DEBUG:IC:Predictions: received prediction source results, count = %lu", buf, 0xCu);
+            v28 = [v62[5] count];
+            *buf = v34;
+            v68 = v28;
+            _os_log_debug_impl(&dword_254BD0000, v27, OS_LOG_TYPE_DEBUG, "DEBUG:IC:Predictions: received prediction source results, count = %lu", buf, 0xCu);
           }
 
-          v6 = v58[5];
-          v22 = 0;
+          v6 = v62[5];
+          v24 = 0;
         }
 
         else
         {
-          v22 = 1;
+          v24 = 1;
         }
 
-        objc_destroyWeak(&v42);
+        objc_destroyWeak(&v46);
         objc_destroyWeak(&location);
 
-        if (!v22)
+        if (!v24)
         {
           break;
         }
       }
 
-      if (v13 == ++v16)
+      if (v14 == ++v17)
       {
-        v13 = [(NSArray *)v12 countByEnumeratingWithState:&v44 objects:v65 count:16];
-        if (v13)
+        v14 = [(NSArray *)v13 countByEnumeratingWithState:&v48 objects:v69 count:16];
+        if (v14)
         {
           goto LABEL_10;
         }
@@ -397,11 +583,12 @@ LABEL_26:
 
     if (error)
     {
-      *error = v52[5];
+      v29 = v56[5];
+      *error = v29;
     }
 
-    v12 = _ICProactiveQuickTypeOSLogFacility();
-    if (os_log_type_enabled(&v12->super, OS_LOG_TYPE_DEBUG))
+    v13 = _ICProactiveQuickTypeOSLogFacility(v29);
+    if (os_log_type_enabled(&v13->super, OS_LOG_TYPE_DEBUG))
     {
       [_ICPredictionManager _quickTypePredictionWithTrigger:searchContext:timeoutInMilliseconds:error:];
     }
@@ -409,70 +596,69 @@ LABEL_26:
     v6 = 0;
   }
 
-  v26 = mach_absolute_time();
-  _ICMachTimeToNanoseconds(v26 - v31);
-  v27 = _ICProactiveQuickTypeOSLogFacility();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+  v30 = mach_absolute_time();
+  v31 = _ICMachTimeToNanoseconds(v30 - v35);
+  v32 = _ICProactiveQuickTypeOSLogFacility(v31);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
   {
     [_ICPredictionManager _quickTypePredictionWithTrigger:searchContext:timeoutInMilliseconds:error:];
   }
 
-  _Block_object_dispose(&v51, 8);
-  _Block_object_dispose(&v57, 8);
-
-  v28 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v55, 8);
+  _Block_object_dispose(&v61, 8);
 
   return v6;
 }
 
 - (id)searchForMeCardEmailAddresses
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v3 = _ICProactiveQuickTypeOSLogFacility();
+  v35 = *MEMORY[0x277D85DE8];
+  v3 = _ICProactiveQuickTypeOSLogFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [_ICPredictionManager searchForMeCardEmailAddresses];
   }
 
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy_;
-  v30 = __Block_byref_object_dispose_;
-  v31 = 0;
-  v22 = 0u;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy_;
+  v31 = __Block_byref_object_dispose_;
+  v32 = 0;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
   v4 = self->_predictionSources;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v22 objects:v33 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v23 objects:v34 count:16];
   if (v5)
   {
-    v6 = *v23;
+    v6 = *v24;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v23 != v6)
+        if (*v24 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v22 + 1) + 8 * i);
+        v8 = *(*(&v23 + 1) + 8 * i);
         v9 = dispatch_semaphore_create(0);
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __53___ICPredictionManager_searchForMeCardEmailAddresses__block_invoke;
-        v19[3] = &unk_2797ADA90;
-        v21 = &v26;
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __53___ICPredictionManager_searchForMeCardEmailAddresses__block_invoke;
+        v20[3] = &unk_2797ADA90;
+        v22 = &v27;
         v10 = v9;
-        v20 = v10;
-        [v8 searchForMeCardEmailAddressesWithTimeout:100 handler:v19];
+        v21 = v10;
+        [v8 searchForMeCardEmailAddressesWithTimeout:100 handler:v20];
         v11 = dispatch_time(0, 110000000);
-        if (dispatch_semaphore_wait(v10, v11))
+        v12 = dispatch_semaphore_wait(v10, v11);
+        if (v12)
         {
-          v15 = _ICProactiveQuickTypeOSLogFacility();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          v17 = _ICProactiveQuickTypeOSLogFacility(v12);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             [_ICPredictionManager searchForMeCardEmailAddresses];
           }
@@ -480,15 +666,15 @@ LABEL_26:
           goto LABEL_22;
         }
 
-        v12 = [v27[5] count] == 0;
+        v13 = [v28[5] count] == 0;
 
-        if (!v12)
+        if (!v13)
         {
           goto LABEL_12;
         }
       }
 
-      v5 = [(NSArray *)v4 countByEnumeratingWithState:&v22 objects:v33 count:16];
+      v5 = [(NSArray *)v4 countByEnumeratingWithState:&v23 objects:v34 count:16];
       if (v5)
       {
         continue;
@@ -500,76 +686,73 @@ LABEL_26:
 
 LABEL_12:
 
-  if ([v27[5] count])
+  v14 = [v28[5] count];
+  if (v14)
   {
-    v13 = _ICProactiveQuickTypeOSLogFacility();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v15 = _ICProactiveQuickTypeOSLogFacility(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      -[_ICPredictionManager searchForMeCardEmailAddresses].cold.3(v32, [v27[5] count], v13);
+      -[_ICPredictionManager searchForMeCardEmailAddresses].cold.3(v33, [v28[5] count], v15);
     }
 
-    v14 = v27[5];
+    v16 = v28[5];
   }
 
   else
   {
-    v16 = _ICProactiveQuickTypeOSLogFacility();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v18 = _ICProactiveQuickTypeOSLogFacility(0);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       [_ICPredictionManager searchForMeCardEmailAddresses];
     }
 
 LABEL_22:
-    v14 = MEMORY[0x277CBEBF8];
+    v16 = MEMORY[0x277CBEBF8];
   }
 
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v27, 8);
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v16;
 }
 
 - (void)hibernate
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = _ICProactiveQuickTypeOSLogFacility();
+  v14 = *MEMORY[0x277D85DE8];
+  v3 = _ICProactiveQuickTypeOSLogFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [_ICPredictionManager hibernate];
   }
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = self->_predictionSources;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) hibernate];
+        [*(*(&v9 + 1) + 8 * v8++) hibernate];
       }
 
       while (v6 != v8);
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLastUsedSource:(id)source
@@ -633,24 +816,20 @@ LABEL_22:
 
 - (void)_quickTypePredictionWithTrigger:(void *)a1 searchContext:(NSObject *)a2 timeoutInMilliseconds:error:.cold.1(void *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = [a1 attributedString];
-  v6 = 138412290;
-  v7 = v3;
-  OUTLINED_FUNCTION_2(&dword_254BD0000, a2, v4, "DEBUG:IC:Predictions: Searching for quicktype prediction with attributes: %@", &v6);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v3;
+  OUTLINED_FUNCTION_2(&dword_254BD0000, a2, v4, "DEBUG:IC:Predictions: Searching for quicktype prediction with attributes: %@", &v5);
 }
 
 - (void)_quickTypePredictionWithTrigger:(void *)a1 searchContext:(NSObject *)a2 timeoutInMilliseconds:error:.cold.2(void *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = [a1 context];
-  v6 = 134217984;
-  v7 = [v3 length];
-  OUTLINED_FUNCTION_2(&dword_254BD0000, a2, v4, "DEBUG:IC:Predictions: Searching for quicktype prediction with context len: %tu", &v6);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 134217984;
+  v6 = [v3 length];
+  OUTLINED_FUNCTION_2(&dword_254BD0000, a2, v4, "DEBUG:IC:Predictions: Searching for quicktype prediction with context len: %tu", &v5);
 }
 
 - (void)_quickTypePredictionWithTrigger:(os_log_t)log searchContext:timeoutInMilliseconds:error:.cold.3(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -662,11 +841,10 @@ LABEL_22:
 
 - (void)_quickTypePredictionWithTrigger:searchContext:timeoutInMilliseconds:error:.cold.5()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 138412546;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 138412546;
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(&dword_254BD0000, v0, OS_LOG_TYPE_DEBUG, "_ICScales: %@ took %f seconds", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_254BD0000, v0, OS_LOG_TYPE_DEBUG, "_ICScales: %@ took %f seconds", v1, 0x16u);
 }
 
 - (void)searchForMeCardRegions

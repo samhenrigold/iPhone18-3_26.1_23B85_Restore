@@ -312,7 +312,7 @@ LABEL_60:
 
 + (id)widgetOverrideDate
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (widgetOverrideDate_onceToken != -1)
   {
     +[MTUtilities widgetOverrideDate];
@@ -329,11 +329,11 @@ LABEL_60:
       v6 = MTLogForCategory(1);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 138543618;
+        v8 = 138543618;
         selfCopy = self;
-        v11 = 2114;
-        v12 = v5;
-        _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: widget override date: %{public}@", &v9, 0x16u);
+        v10 = 2114;
+        v11 = v5;
+        _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: widget override date: %{public}@", &v8, 0x16u);
       }
     }
 
@@ -347,8 +347,6 @@ LABEL_60:
   {
     v5 = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -400,25 +398,25 @@ uint64_t __33__MTUtilities_widgetOverrideDate__block_invoke()
 
 + (BOOL)isCarPlayConnected
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2050000000;
+  v17 = *MEMORY[0x1E69E9840];
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2050000000;
   v3 = getCARSessionStatusClass_softClass;
-  v14 = getCARSessionStatusClass_softClass;
+  v13 = getCARSessionStatusClass_softClass;
   if (!getCARSessionStatusClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getCARSessionStatusClass_block_invoke;
-    v16 = &unk_1E7B0C600;
-    v17 = &v11;
+    v15 = &unk_1E7B0C600;
+    v16 = &v10;
     __getCARSessionStatusClass_block_invoke(buf);
-    v3 = v12[3];
+    v3 = v11[3];
   }
 
   v4 = v3;
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v10, 8);
   v5 = [v3 alloc];
   initAndWaitUntilSessionUpdated = [v5 initAndWaitUntilSessionUpdated];
   currentSession = [initAndWaitUntilSessionUpdated currentSession];
@@ -433,7 +431,6 @@ uint64_t __33__MTUtilities_widgetOverrideDate__block_invoke()
     _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@: is connected to CarPlay: %d", buf, 0x12u);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return currentSession != 0;
 }
 

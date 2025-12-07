@@ -14,7 +14,7 @@
 
 - (void)main
 {
-  v2 = sub_1001C0DF0();
+  v2 = sub_1001C0DF0(Environment);
   v3 = sub_1001C0EC4(v2);
   v4 = sub_100201D44(v3, @"pending_galette_confirmation");
 

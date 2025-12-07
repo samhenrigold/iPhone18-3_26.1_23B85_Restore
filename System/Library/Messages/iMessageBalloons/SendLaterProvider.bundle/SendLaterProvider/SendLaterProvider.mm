@@ -120,191 +120,185 @@ void sub_220C()
   v1 = v0;
   v2 = sub_3E00(&qword_15B80, &qword_90D8);
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v82 = &v80 - v5;
-  v6 = sub_3E00(&qword_15B30, &qword_9068);
-  v7 = *(*(v6 - 8) + 64);
-  __chkstk_darwin(v6 - 8);
-  v9 = &v80 - v8;
-  v10 = sub_7E00();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  v13 = __chkstk_darwin(v10);
-  v15 = &v80 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v13);
-  v17 = &v80 - v16;
-  v18 = type metadata accessor for SendLaterRootViewController();
-  v83.receiver = v0;
-  v83.super_class = v18;
-  objc_msgSendSuper2(&v83, "viewDidLoad");
-  v19 = OBJC_IVAR___SendLaterRootViewController_context;
-  v20 = *&v0[OBJC_IVAR___SendLaterRootViewController_context];
-  if (v20)
+  v75 = &v73 - v4;
+  v5 = sub_3E00(&qword_15B30, &qword_9068);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v73 - v6;
+  v8 = sub_7E00();
+  v9 = *(v8 - 8);
+  v10 = __chkstk_darwin(v8);
+  v12 = &v73 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v10);
+  v14 = &v73 - v13;
+  v15 = type metadata accessor for SendLaterRootViewController();
+  v76.receiver = v0;
+  v76.super_class = v15;
+  objc_msgSendSuper2(&v76, "viewDidLoad");
+  v16 = OBJC_IVAR___SendLaterRootViewController_context;
+  v17 = *&v0[OBJC_IVAR___SendLaterRootViewController_context];
+  if (v17)
   {
     goto LABEL_7;
   }
 
-  v81 = v3;
+  v74 = v3;
   if (qword_15940 != -1)
   {
     swift_once();
   }
 
-  v21 = sub_7EA0();
-  sub_3F18(v21, qword_15E10);
-  v22 = sub_7E80();
-  v23 = sub_8020();
-  if (os_log_type_enabled(v22, v23))
+  v18 = sub_7EA0();
+  sub_3F18(v18, qword_15E10);
+  v19 = sub_7E80();
+  v20 = sub_8020();
+  if (os_log_type_enabled(v19, v20))
   {
-    v24 = swift_slowAlloc();
-    v80 = v2;
-    *v24 = 0;
-    _os_log_impl(&dword_0, v22, v23, "Did not have a plugin context for tracking the selected date. We'll set the current date on the view model as a fallback, but this is programmer error!", v24, 2u);
-    v2 = v80;
+    v21 = swift_slowAlloc();
+    v73 = v2;
+    *v21 = 0;
+    _os_log_impl(&dword_0, v19, v20, "Did not have a plugin context for tracking the selected date. We'll set the current date on the view model as a fallback, but this is programmer error!", v21, 2u);
+    v2 = v73;
   }
 
-  v20 = *&v1[v19];
-  v3 = v81;
-  if (v20)
+  v17 = *&v1[v16];
+  v3 = v74;
+  if (v17)
   {
 LABEL_7:
-    v25 = [v20 selectedDate];
+    v22 = [v17 selectedDate];
     sub_7DD0();
 
-    v26 = *(v11 + 32);
-    v26(v9, v15, v10);
-    (*(v11 + 56))(v9, 0, 1, v10);
-    v26(v17, v9, v10);
+    v23 = *(v9 + 32);
+    v23(v7, v12, v8);
+    (*(v9 + 56))(v7, 0, 1, v8);
+    v23(v14, v7, v8);
   }
 
   else
   {
-    (*(v11 + 56))(v9, 1, 1, v10);
+    (*(v9 + 56))(v7, 1, 1, v8);
     sub_7DF0();
-    if ((*(v11 + 48))(v9, 1, v10) != 1)
+    if ((*(v9 + 48))(v7, 1, v8) != 1)
     {
-      sub_3EB8(v9, &qword_15B30, &qword_9068);
+      sub_3EB8(v7, &qword_15B30, &qword_9068);
     }
   }
 
-  v27 = type metadata accessor for TimePickerViewModel();
-  v28 = *(v27 + 48);
-  v29 = *(v27 + 52);
+  type metadata accessor for TimePickerViewModel(0);
   swift_allocObject();
-  v30 = sub_53F8(v17);
+  v24 = sub_53F8(v14);
   swift_beginAccess();
   sub_3E00(&qword_15B88, &qword_90E0);
-  v31 = v82;
+  v25 = v75;
   sub_7EE0();
   swift_endAccess();
   swift_allocObject();
   swift_unknownObjectWeakInit();
-  sub_4730(&qword_15B90, &qword_15B80, &qword_90D8);
+  sub_4730(&qword_15B90, &qword_15B80, &qword_90D8, &protocol conformance descriptor for Published<A>.Publisher);
   sub_7F20();
 
-  (*(v3 + 8))(v31, v2);
+  (*(v3 + 8))(v25, v2);
   swift_beginAccess();
   sub_7EB0();
   swift_endAccess();
 
-  v32 = *&v1[OBJC_IVAR___SendLaterRootViewController_timePickerViewModel];
-  *&v1[OBJC_IVAR___SendLaterRootViewController_timePickerViewModel] = v30;
+  *&v1[OBJC_IVAR___SendLaterRootViewController_timePickerViewModel] = v24;
 
-  v33 = objc_allocWithZone(type metadata accessor for TimePickerView());
+  v26 = objc_allocWithZone(type metadata accessor for TimePickerView());
 
-  v35 = sub_6258(v34);
-  v36 = objc_opt_self();
-  v37 = v35;
-  v38 = [v36 clearColor];
-  [v37 setBackgroundColor:v38];
+  v28 = sub_6258(v27);
+  v29 = objc_opt_self();
+  v30 = v28;
+  v31 = [v29 clearColor];
+  [v30 setBackgroundColor:v31];
 
-  [v37 setTranslatesAutoresizingMaskIntoConstraints:0];
-  v39 = [v1 view];
-  if (!v39)
+  [v30 setTranslatesAutoresizingMaskIntoConstraints:0];
+  v32 = [v1 view];
+  if (!v32)
   {
     __break(1u);
     goto LABEL_23;
   }
 
-  v40 = v39;
-  [v39 addSubview:v37];
+  v33 = v32;
+  [v32 addSubview:v30];
 
-  v41 = [objc_opt_self() sharedFeatureFlags];
-  v42 = [v41 isEntryViewRefreshEnabled];
+  v34 = [objc_opt_self() sharedFeatureFlags];
+  v35 = [v34 isEntryViewRefreshEnabled];
 
-  v43 = [v1 view];
-  v44 = v43;
-  if (v42)
+  v36 = [v1 view];
+  v37 = v36;
+  if (v35)
   {
-    if (!v43)
+    if (!v36)
     {
 LABEL_28:
       __break(1u);
       goto LABEL_29;
     }
 
-    v45 = &selRef_clearColor;
+    v38 = &selRef_clearColor;
 LABEL_14:
-    v46 = [v36 *v45];
-    [v44 setBackgroundColor:v46];
+    v39 = [v29 *v38];
+    [v37 setBackgroundColor:v39];
 
-    v47 = [v1 view];
-    if (v47)
+    v40 = [v1 view];
+    if (v40)
     {
-      v48 = v47;
-      [v47 bounds];
-      v50 = v49;
-      v52 = v51;
-      v54 = v53;
-      v56 = v55;
+      v41 = v40;
+      [v40 bounds];
+      v43 = v42;
+      v45 = v44;
+      v47 = v46;
+      v49 = v48;
 
-      [v37 setFrame:{v50, v52, v54, v56}];
+      [v30 setFrame:{v43, v45, v47, v49}];
       sub_3E00(&qword_15B98, qword_90E8);
-      v57 = swift_allocObject();
-      *(v57 + 16) = xmmword_9000;
-      v58 = [v37 leadingAnchor];
-      v59 = [v1 view];
-      if (v59)
+      v50 = swift_allocObject();
+      *(v50 + 16) = xmmword_9000;
+      v51 = [v30 leadingAnchor];
+      v52 = [v1 view];
+      if (v52)
       {
-        v60 = v59;
-        v61 = [v59 leadingAnchor];
+        v53 = v52;
+        v54 = [v52 leadingAnchor];
 
-        v62 = [v58 constraintEqualToAnchor:v61 constant:0.0];
-        *(v57 + 32) = v62;
-        v63 = [v37 trailingAnchor];
-        v64 = [v1 view];
-        if (v64)
+        v55 = [v51 constraintEqualToAnchor:v54 constant:0.0];
+        *(v50 + 32) = v55;
+        v56 = [v30 trailingAnchor];
+        v57 = [v1 view];
+        if (v57)
         {
-          v65 = v64;
-          v66 = [v64 trailingAnchor];
+          v58 = v57;
+          v59 = [v57 trailingAnchor];
 
-          v67 = [v63 constraintEqualToAnchor:v66 constant:-0.0];
-          *(v57 + 40) = v67;
-          v68 = [v37 topAnchor];
-          v69 = [v1 view];
-          if (v69)
+          v60 = [v56 constraintEqualToAnchor:v59 constant:-0.0];
+          *(v50 + 40) = v60;
+          v61 = [v30 topAnchor];
+          v62 = [v1 view];
+          if (v62)
           {
-            v70 = v69;
-            v71 = [v69 topAnchor];
+            v63 = v62;
+            v64 = [v62 topAnchor];
 
-            v72 = [v68 constraintEqualToAnchor:v71 constant:0.0];
-            *(v57 + 48) = v72;
-            v73 = [v37 bottomAnchor];
+            v65 = [v61 constraintEqualToAnchor:v64 constant:0.0];
+            *(v50 + 48) = v65;
+            v66 = [v30 bottomAnchor];
 
-            v74 = [v1 view];
-            if (v74)
+            v67 = [v1 view];
+            if (v67)
             {
-              v75 = v74;
-              v76 = objc_opt_self();
-              v77 = [v75 bottomAnchor];
+              v68 = v67;
+              v69 = objc_opt_self();
+              v70 = [v68 bottomAnchor];
 
-              v78 = [v73 constraintEqualToAnchor:v77 constant:-0.0];
-              *(v57 + 56) = v78;
+              v71 = [v66 constraintEqualToAnchor:v70 constant:-0.0];
+              *(v50 + 56) = v71;
               sub_4778(0, &unk_15BA0, NSLayoutConstraint_ptr);
               isa = sub_7FF0().super.isa;
 
-              [v76 activateConstraints:isa];
+              [v69 activateConstraints:isa];
 
               return;
             }
@@ -334,9 +328,9 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  if (v43)
+  if (v36)
   {
-    v45 = &selRef_systemGray4Color;
+    v38 = &selRef_systemGray4Color;
     goto LABEL_14;
   }
 
@@ -344,20 +338,20 @@ LABEL_29:
   __break(1u);
 }
 
-void sub_2B70()
+void sub_2B70(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = *(Strong + OBJC_IVAR___SendLaterRootViewController_context);
-    v2 = Strong;
-    v3 = v1;
+    v3 = *(Strong + OBJC_IVAR___SendLaterRootViewController_context);
+    v4 = Strong;
+    v5 = v3;
 
-    if (v1)
+    if (v3)
     {
       isa = sub_7DC0().super.isa;
-      [v3 setSelectedDate:isa];
+      [v5 setSelectedDate:isa];
     }
   }
 }
@@ -366,20 +360,18 @@ void sub_2C50()
 {
   v1 = sub_7F30();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
   __chkstk_darwin(v1);
-  v5 = &v61 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = sub_7F50();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6);
-  v10 = &v61 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for SendLaterRootViewController();
-  v72.receiver = v0;
-  v72.super_class = v11;
-  objc_msgSendSuper2(&v72, "viewDidLayoutSubviews");
-  v12 = [v0 view];
-  if (!v12)
+  v4 = &v59 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = sub_7F50();
+  v6 = *(v5 - 8);
+  __chkstk_darwin(v5);
+  v8 = &v59 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for SendLaterRootViewController();
+  v70.receiver = v0;
+  v70.super_class = v9;
+  objc_msgSendSuper2(&v70, "viewDidLayoutSubviews");
+  v10 = [v0 view];
+  if (!v10)
   {
     __break(1u);
 LABEL_21:
@@ -387,43 +379,43 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v13 = v12;
-  v14 = [v12 window];
+  v11 = v10;
+  v12 = [v10 window];
 
-  if (!v14)
+  if (!v12)
   {
-    v14 = [objc_opt_self() mainScreen];
+    v12 = [objc_opt_self() mainScreen];
   }
 
-  [v14 bounds];
+  [v12 bounds];
+  v14 = v13;
   v16 = v15;
   v18 = v17;
   v20 = v19;
-  v22 = v21;
 
-  v23 = [v0 view];
-  if (!v23)
+  v21 = [v0 view];
+  if (!v21)
   {
     goto LABEL_21;
   }
 
+  v22 = v21;
+  [v21 frame];
   v24 = v23;
-  [v23 frame];
   v26 = v25;
   v28 = v27;
   v30 = v29;
-  v32 = v31;
 
-  v74.origin.x = v26;
-  v74.origin.y = v28;
-  v74.size.width = v30;
-  v74.size.height = v32;
-  Height = CGRectGetHeight(v74);
-  v75.origin.x = v16;
-  v75.origin.y = v18;
-  v75.size.width = v20;
-  v75.size.height = v22;
-  if (CGRectGetHeight(v75) * 0.5 >= Height)
+  v72.origin.x = v24;
+  v72.origin.y = v26;
+  v72.size.width = v28;
+  v72.size.height = v30;
+  Height = CGRectGetHeight(v72);
+  v73.origin.x = v14;
+  v73.origin.y = v16;
+  v73.size.width = v18;
+  v73.size.height = v20;
+  if (CGRectGetHeight(v73) * 0.5 >= Height)
   {
     return;
   }
@@ -433,112 +425,112 @@ LABEL_21:
     swift_once();
   }
 
-  v34 = sub_7EA0();
-  sub_3F18(v34, qword_15E10);
-  v35 = v0;
-  v36 = sub_7E80();
-  v37 = sub_8030();
+  v32 = sub_7EA0();
+  sub_3F18(v32, qword_15E10);
+  v33 = v0;
+  v34 = sub_7E80();
+  v35 = sub_8030();
 
-  v38 = os_log_type_enabled(v36, v37);
-  v63 = v6;
-  v64 = v2;
-  v62 = v7;
-  if (v38)
+  v36 = os_log_type_enabled(v34, v35);
+  v61 = v5;
+  v62 = v2;
+  v60 = v6;
+  if (v36)
   {
-    v39 = swift_slowAlloc();
-    v40 = swift_slowAlloc();
-    aBlock = v40;
-    *v39 = 136315138;
-    v41 = [v35 sheetPresentationController];
-    if (v41)
+    v37 = swift_slowAlloc();
+    v38 = swift_slowAlloc();
+    aBlock = v38;
+    *v37 = 136315138;
+    v39 = [v33 sheetPresentationController];
+    if (v39)
     {
-      v42 = v41;
-      v43 = [v41 detents];
+      v40 = v39;
+      v41 = [v39 detents];
 
       sub_4778(0, &qword_15B70, UISheetPresentationControllerDetent_ptr);
-      v44 = sub_8000();
+      v42 = sub_8000();
     }
 
     else
     {
-      v44 = 0;
+      v42 = 0;
     }
 
-    v71 = v44;
+    v69 = v42;
     sub_3E00(&qword_15B48, &qword_90C0);
-    v45 = sub_7FB0();
-    v47 = sub_409C(v45, v46, &aBlock);
+    v43 = sub_7FB0();
+    v45 = sub_409C(v43, v44, &aBlock);
 
-    *(v39 + 4) = v47;
-    _os_log_impl(&dword_0, v36, v37, "Detected full-screen presentation of time picker. Dismissing. Detents: %s", v39, 0xCu);
-    sub_4644(v40);
+    *(v37 + 4) = v45;
+    _os_log_impl(&dword_0, v34, v35, "Detected full-screen presentation of time picker. Dismissing. Detents: %s", v37, 0xCu);
+    sub_4644(v38);
   }
 
   else
   {
   }
 
-  v48 = [objc_opt_self() sharedInstance];
-  if (!v48)
+  v46 = [objc_opt_self() sharedInstance];
+  if (!v46)
   {
 LABEL_22:
     __break(1u);
     return;
   }
 
-  v49 = v48;
-  v50 = sub_7F90();
-  v51 = sub_7F90();
+  v47 = v46;
+  v48 = sub_7F90();
+  v49 = sub_7F90();
   aBlock = 0x3A73746E65746544;
-  v66 = 0xE900000000000020;
-  v52 = [v35 sheetPresentationController];
-  if (v52)
+  v64 = 0xE900000000000020;
+  v50 = [v33 sheetPresentationController];
+  if (v50)
   {
-    v53 = v52;
-    v54 = [v52 detents];
+    v51 = v50;
+    v52 = [v50 detents];
 
     sub_4778(0, &qword_15B70, UISheetPresentationControllerDetent_ptr);
-    v55 = sub_8000();
+    v53 = sub_8000();
   }
 
   else
   {
-    v55 = 0;
+    v53 = 0;
   }
 
-  v71 = v55;
+  v69 = v53;
   sub_3E00(&qword_15B48, &qword_90C0);
-  v73._countAndFlagsBits = sub_7FC0();
-  sub_7FD0(v73);
+  v71._countAndFlagsBits = sub_7FC0();
+  sub_7FD0(v71);
 
-  v56 = sub_7F90();
+  v54 = sub_7F90();
 
-  [v49 forceAutoBugCaptureWithSubType:v50 errorPayload:0 type:v51 context:v56];
+  [v47 forceAutoBugCaptureWithSubType:v48 errorPayload:0 type:v49 context:v54];
 
   sub_4778(0, &qword_15B50, OS_dispatch_queue_ptr);
-  v57 = sub_8050();
-  v58 = swift_allocObject();
-  *(v58 + 16) = v35;
-  v69 = sub_3FEC;
-  v70 = v58;
+  v55 = sub_8050();
+  v56 = swift_allocObject();
+  *(v56 + 16) = v33;
+  v67 = sub_3FEC;
+  v68 = v56;
   aBlock = _NSConcreteStackBlock;
-  v66 = 1107296256;
-  v67 = sub_34CC;
-  v68 = &unk_10728;
-  v59 = _Block_copy(&aBlock);
-  v60 = v35;
+  v64 = 1107296256;
+  v65 = sub_34CC;
+  v66 = &unk_10728;
+  v57 = _Block_copy(&aBlock);
+  v58 = v33;
 
   sub_7F40();
   aBlock = &_swiftEmptyArrayStorage;
-  sub_400C(&qword_15B58, &type metadata accessor for DispatchWorkItemFlags);
+  sub_400C(&qword_15B58, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
   sub_3E00(&qword_15B60, &qword_90C8);
-  sub_4730(&qword_15B68, &qword_15B60, &qword_90C8);
+  sub_4730(&qword_15B68, &qword_15B60, &qword_90C8, &protocol conformance descriptor for [A]);
   sub_80A0();
   sub_8060();
-  _Block_release(v59);
+  _Block_release(v57);
 
-  (*(v64 + 8))(v5, v1);
-  (*(v62 + 8))(v10, v63);
+  (*(v62 + 8))(v4, v1);
+  (*(v60 + 8))(v8, v61);
 }
 
 id sub_33C4(uint64_t a1)
@@ -577,9 +569,8 @@ id sub_33C4(uint64_t a1)
 uint64_t sub_34CC(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v1(v3);
+  v1(v2);
 }
 
 void sub_3578(void *a1, uint64_t a2, uint64_t a3, const char **a4, char a5)
@@ -599,41 +590,38 @@ void sub_3578(void *a1, uint64_t a2, uint64_t a3, const char **a4, char a5)
 
 uint64_t sub_36A0(void *a1)
 {
-  v47 = sub_7E00();
-  v49 = *(v47 - 8);
-  v3 = *(v49 + 64);
-  v4 = __chkstk_darwin(v47);
-  v45 = &v42 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v4);
-  v46 = &v42 - v6;
-  v7 = sub_3E00(&qword_15B28, &qword_9060);
-  v8 = *(*(v7 - 8) + 64);
-  __chkstk_darwin(v7);
-  v10 = &v42 - v9;
-  v11 = sub_3E00(&qword_15B30, &qword_9068);
-  v12 = *(*(v11 - 8) + 64);
-  v13 = __chkstk_darwin(v11 - 8);
-  v15 = &v42 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = __chkstk_darwin(v13);
-  v18 = &v42 - v17;
-  result = __chkstk_darwin(v16);
-  v21 = &v42 - v20;
-  v22 = *(v1 + OBJC_IVAR___SendLaterRootViewController_context);
-  v48 = a1;
-  if (v22)
+  v43 = sub_7E00();
+  v45 = *(v43 - 8);
+  v3 = __chkstk_darwin(v43);
+  v41 = &v38 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v3);
+  v42 = &v38 - v5;
+  v6 = sub_3E00(&qword_15B28, &qword_9060);
+  __chkstk_darwin(v6);
+  v8 = &v38 - v7;
+  v9 = sub_3E00(&qword_15B30, &qword_9068);
+  v10 = __chkstk_darwin(v9 - 8);
+  v12 = &v38 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = __chkstk_darwin(v10);
+  v15 = &v38 - v14;
+  result = __chkstk_darwin(v13);
+  v18 = &v38 - v17;
+  v19 = *(v1 + OBJC_IVAR___SendLaterRootViewController_context);
+  v44 = a1;
+  if (v19)
   {
-    v23 = v22 == a1;
+    v20 = v19 == a1;
   }
 
   else
   {
-    v23 = 0;
+    v20 = 0;
   }
 
-  if (v23)
+  if (v20)
   {
-    v43 = OBJC_IVAR___SendLaterRootViewController_timePickerViewModel;
-    v44 = v1;
+    v39 = OBJC_IVAR___SendLaterRootViewController_timePickerViewModel;
+    v40 = v1;
     if (*(v1 + OBJC_IVAR___SendLaterRootViewController_timePickerViewModel))
     {
       swift_getKeyPath();
@@ -641,58 +629,58 @@ uint64_t sub_36A0(void *a1)
 
       sub_7EF0();
 
-      v24 = v49;
-      v25 = *(v49 + 56);
-      v26 = v21;
-      v27 = 0;
+      v21 = v45;
+      v22 = *(v45 + 56);
+      v23 = v18;
+      v24 = 0;
     }
 
     else
     {
-      v24 = v49;
-      v25 = *(v49 + 56);
-      v26 = &v42 - v20;
-      v27 = 1;
+      v21 = v45;
+      v22 = *(v45 + 56);
+      v23 = &v38 - v17;
+      v24 = 1;
     }
 
-    v28 = v47;
-    v25(v26, v27, 1, v47);
-    v29 = [v48 selectedDate];
+    v25 = v43;
+    v22(v23, v24, 1, v43);
+    v26 = [v44 selectedDate];
     sub_7DD0();
 
-    v25(v18, 0, 1, v28);
-    v30 = *(v7 + 48);
-    sub_3E50(v21, v10, &qword_15B30, &qword_9068);
-    sub_3E50(v18, &v10[v30], &qword_15B30, &qword_9068);
-    v31 = *(v24 + 48);
-    if (v31(v10, 1, v28) == 1)
+    v22(v15, 0, 1, v25);
+    v27 = *(v6 + 48);
+    sub_3E50(v18, v8, &qword_15B30, &qword_9068);
+    sub_3E50(v15, &v8[v27], &qword_15B30, &qword_9068);
+    v28 = *(v21 + 48);
+    if (v28(v8, 1, v25) == 1)
     {
+      sub_3EB8(v15, &qword_15B30, &qword_9068);
       sub_3EB8(v18, &qword_15B30, &qword_9068);
-      sub_3EB8(v21, &qword_15B30, &qword_9068);
-      if (v31(&v10[v30], 1, v28) == 1)
+      if (v28(&v8[v27], 1, v25) == 1)
       {
-        return sub_3EB8(v10, &qword_15B30, &qword_9068);
+        return sub_3EB8(v8, &qword_15B30, &qword_9068);
       }
     }
 
     else
     {
-      sub_3E50(v10, v15, &qword_15B30, &qword_9068);
-      if (v31(&v10[v30], 1, v28) != 1)
+      sub_3E50(v8, v12, &qword_15B30, &qword_9068);
+      if (v28(&v8[v27], 1, v25) != 1)
       {
-        v38 = v49;
-        v39 = v46;
-        (*(v49 + 32))(v46, &v10[v30], v28);
-        sub_400C(&qword_15B38, &type metadata accessor for Date);
-        v40 = sub_7F80();
-        v41 = *(v38 + 8);
-        v41(v39, v28);
+        v34 = v45;
+        v35 = v42;
+        (*(v45 + 32))(v42, &v8[v27], v25);
+        sub_400C(&qword_15B38, &type metadata accessor for Date, &protocol conformance descriptor for Date);
+        v36 = sub_7F80();
+        v37 = *(v34 + 8);
+        v37(v35, v25);
+        sub_3EB8(v15, &qword_15B30, &qword_9068);
         sub_3EB8(v18, &qword_15B30, &qword_9068);
-        sub_3EB8(v21, &qword_15B30, &qword_9068);
-        v41(v15, v28);
-        result = sub_3EB8(v10, &qword_15B30, &qword_9068);
-        v32 = v44;
-        if (v40)
+        v37(v12, v25);
+        result = sub_3EB8(v8, &qword_15B30, &qword_9068);
+        v29 = v40;
+        if (v36)
         {
           return result;
         }
@@ -700,40 +688,39 @@ uint64_t sub_36A0(void *a1)
         goto LABEL_15;
       }
 
+      sub_3EB8(v15, &qword_15B30, &qword_9068);
       sub_3EB8(v18, &qword_15B30, &qword_9068);
-      sub_3EB8(v21, &qword_15B30, &qword_9068);
-      (*(v49 + 8))(v15, v28);
+      (*(v45 + 8))(v12, v25);
     }
 
-    result = sub_3EB8(v10, &qword_15B28, &qword_9060);
-    v32 = v44;
+    result = sub_3EB8(v8, &qword_15B28, &qword_9060);
+    v29 = v40;
 LABEL_15:
-    if (*(v32 + v43))
+    if (*(v29 + v39))
     {
-      v33 = *(v32 + v43);
 
-      v34 = [v48 selectedDate];
-      v35 = v46;
+      v30 = [v44 selectedDate];
+      v31 = v42;
       sub_7DD0();
 
       swift_getKeyPath();
       swift_getKeyPath();
-      v36 = v49;
-      v37 = v47;
-      (*(v49 + 16))(v45, v35, v47);
+      v32 = v45;
+      v33 = v43;
+      (*(v45 + 16))(v41, v31, v43);
       sub_7F00();
-      return (*(v36 + 8))(v35, v37);
+      return (*(v32 + 8))(v31, v33);
     }
   }
 
   return result;
 }
 
-id sub_3D0C()
+id sub_3D0C(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for SendLaterRootViewController();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for SendLaterRootViewController();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 uint64_t sub_3E00(uint64_t *a1, uint64_t *a2)
@@ -741,7 +728,6 @@ uint64_t sub_3E00(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -775,14 +761,11 @@ uint64_t sub_3F18(uint64_t a1, uint64_t a2)
 
 uint64_t *sub_3F50(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -801,7 +784,7 @@ uint64_t sub_3FF4(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t sub_400C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_400C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -819,7 +802,6 @@ uint64_t sub_4054(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -827,7 +809,7 @@ uint64_t sub_4054(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_409C(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_409C(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_4168(v11, 0, 0, 1, a1, a2);
@@ -927,11 +909,9 @@ LABEL_8:
 
 char *sub_4274(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_42C0(a1, a2);
+  v3 = sub_42C0(a1, a2);
   sub_43F0(&off_106D8);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_42C0(uint64_t a1, unint64_t a2)
@@ -1031,7 +1011,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -1045,15 +1024,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_4550(result, v12, 1, v3);
+  result = sub_4550(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -1068,15 +1047,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -1085,12 +1064,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -1198,15 +1177,17 @@ char *sub_4550(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-uint64_t sub_4644(uint64_t *a1)
+uint64_t sub_4644(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_4690(uint64_t a1, uint64_t a2)
@@ -1224,7 +1205,7 @@ uint64_t sub_46F0()
   return _swift_deallocObject(v0, 24, 7);
 }
 
-uint64_t sub_4730(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t sub_4730(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -1237,12 +1218,11 @@ uint64_t sub_4730(unint64_t *a1, uint64_t *a2, uint64_t *a3)
   return result;
 }
 
-uint64_t sub_4778(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_4778(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -1283,7 +1263,7 @@ uint64_t sub_4900()
   return sub_7E90();
 }
 
-uint64_t sub_49A8()
+uint64_t sub_49A8(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
   swift_getKeyPath();
@@ -1293,37 +1273,35 @@ uint64_t sub_49A8()
 uint64_t sub_4A18@<X0>(char *a1@<X8>)
 {
   v2 = sub_3E00(&qword_15DD8, &unk_9240);
-  v3 = *(*(v2 - 8) + 64);
-  v4 = __chkstk_darwin(v2);
-  v6 = &v23 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v4);
-  v8 = &v23 - v7;
-  v9 = sub_7E00();
-  v10 = *(v9 - 8);
-  v11 = v10[8];
-  v12 = __chkstk_darwin(v9);
-  v14 = &v23 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v12);
-  v16 = &v23 - v15;
-  sub_4CAC(&v23 - v15);
-  sub_4FF4(v14);
-  sub_7D58(&qword_15DE0, &type metadata accessor for Date);
+  v3 = __chkstk_darwin(v2);
+  v5 = &v21 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v3);
+  v7 = &v21 - v6;
+  v8 = sub_7E00();
+  v9 = *(v8 - 8);
+  v10 = __chkstk_darwin(v8);
+  v12 = &v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v10);
+  v14 = &v21 - v13;
+  sub_4CAC(&v21 - v13);
+  sub_4FF4(v12);
+  sub_7D58(&qword_15DE0, &type metadata accessor for Date, &protocol conformance descriptor for Date);
   result = sub_7F70();
   if (result)
   {
-    v18 = v10[4];
-    v18(v8, v16, v9);
-    v18(&v8[*(v2 + 48)], v14, v9);
-    sub_3E50(v8, v6, &qword_15DD8, &unk_9240);
+    v16 = *(v9 + 32);
+    v16(v7, v14, v8);
+    v16(&v7[*(v2 + 48)], v12, v8);
+    sub_3E50(v7, v5, &qword_15DD8, &unk_9240);
+    v17 = *(v2 + 48);
+    v16(a1, v5, v8);
+    v18 = *(v9 + 8);
+    v18(&v5[v17], v8);
+    sub_79C8(v7, v5);
     v19 = *(v2 + 48);
-    v18(a1, v6, v9);
-    v20 = v10[1];
-    v20(&v6[v19], v9);
-    sub_79C8(v8, v6);
-    v21 = *(v2 + 48);
-    v22 = sub_3E00(&unk_15C70, "6'");
-    v18(&a1[*(v22 + 36)], &v6[v21], v9);
-    return (v20)(v6, v9);
+    v20 = sub_3E00(&unk_15C70, "6'");
+    v16(&a1[*(v20 + 36)], &v5[v19], v8);
+    return (v18)(v5, v8);
   }
 
   else
@@ -1336,42 +1314,38 @@ uint64_t sub_4A18@<X0>(char *a1@<X8>)
 
 uint64_t sub_4CAC@<X0>(uint64_t a1@<X8>)
 {
-  v24 = a1;
-  v27 = sub_7E00();
-  v1 = *(v27 - 8);
-  v2 = *(v1 + 64);
-  __chkstk_darwin(v27);
-  v4 = &v24 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_7E50();
-  v25 = v5;
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  __chkstk_darwin(v5);
-  v9 = &v24 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v26 = sub_7E70();
-  v10 = *(v26 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v26);
-  v13 = &v24 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = sub_3E00(&qword_15B30, &qword_9068);
-  v15 = *(*(v14 - 8) + 64);
-  __chkstk_darwin(v14 - 8);
-  v17 = &v24 - v16;
+  v20 = a1;
+  v23 = sub_7E00();
+  v1 = *(v23 - 8);
+  __chkstk_darwin(v23);
+  v3 = &v20 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_7E50();
+  v21 = v4;
+  v5 = *(v4 - 8);
+  __chkstk_darwin(v4);
+  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = sub_7E70();
+  v8 = *(v22 - 8);
+  __chkstk_darwin(v22);
+  v10 = &v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = sub_3E00(&qword_15B30, &qword_9068);
+  __chkstk_darwin(v11 - 8);
+  v13 = &v20 - v12;
   sub_7E40();
-  (*(v6 + 104))(v9, enum case for Calendar.Component.minute(_:), v5);
-  v18 = sub_7F90();
-  v19 = sub_7F90();
+  (*(v5 + 104))(v7, enum case for Calendar.Component.minute(_:), v4);
+  v14 = sub_7F90();
+  v15 = sub_7F90();
   IMGetCachedDomainIntForKeyWithDefaultValue();
 
   sub_7DE0();
   sub_7E30();
-  v20 = *(v1 + 8);
-  v21 = v4;
-  v22 = v27;
-  v20(v21, v27);
-  (*(v6 + 8))(v9, v25);
-  (*(v10 + 8))(v13, v26);
-  result = (*(v1 + 48))(v17, 1, v22);
+  v16 = *(v1 + 8);
+  v17 = v3;
+  v18 = v23;
+  v16(v17, v23);
+  (*(v5 + 8))(v7, v21);
+  (*(v8 + 8))(v10, v22);
+  result = (*(v1 + 48))(v13, 1, v18);
   if (result == 1)
   {
     __break(1u);
@@ -1379,8 +1353,8 @@ uint64_t sub_4CAC@<X0>(uint64_t a1@<X8>)
 
   else
   {
-    sub_70A8(v24);
-    return (v20)(v17, v22);
+    sub_70A8(v20);
+    return (v16)(v13, v18);
   }
 
   return result;
@@ -1388,31 +1362,27 @@ uint64_t sub_4CAC@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_4FF4@<X0>(uint64_t a1@<X8>)
 {
-  v27 = a1;
-  v30 = sub_7E00();
-  v1 = *(v30 - 8);
-  v2 = *(v1 + 64);
-  __chkstk_darwin(v30);
-  v4 = &v26 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v29 = sub_7E50();
-  v5 = *(v29 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v29);
-  v8 = &v26 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v28 = sub_7E70();
-  v9 = *(v28 - 8);
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v28);
-  v12 = &v26 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = sub_3E00(&qword_15B30, &qword_9068);
-  v14 = *(*(v13 - 8) + 64);
-  __chkstk_darwin(v13 - 8);
-  v16 = &v26 - v15;
-  v17 = [objc_opt_self() sharedInstanceForBagType:1];
-  v18 = sub_7F90();
-  v19 = [v17 objectForKey:v18];
+  v23 = a1;
+  v26 = sub_7E00();
+  v1 = *(v26 - 8);
+  __chkstk_darwin(v26);
+  v3 = &v22 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = sub_7E50();
+  v4 = *(v25 - 8);
+  __chkstk_darwin(v25);
+  v6 = &v22 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = sub_7E70();
+  v7 = *(v24 - 8);
+  __chkstk_darwin(v24);
+  v9 = &v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = sub_3E00(&qword_15B30, &qword_9068);
+  __chkstk_darwin(v10 - 8);
+  v12 = &v22 - v11;
+  v13 = [objc_opt_self() sharedInstanceForBagType:1];
+  v14 = sub_7F90();
+  v15 = [v13 objectForKey:v14];
 
-  if (v19)
+  if (v15)
   {
     sub_8090();
     swift_unknownObjectRelease();
@@ -1420,39 +1390,39 @@ uint64_t sub_4FF4@<X0>(uint64_t a1@<X8>)
 
   else
   {
-    v32 = 0u;
-    v33 = 0u;
+    v28 = 0u;
+    v29 = 0u;
   }
 
-  v34[0] = v32;
-  v34[1] = v33;
-  if (*(&v33 + 1))
+  v30[0] = v28;
+  v30[1] = v29;
+  if (*(&v29 + 1))
   {
     sub_4778(0, &qword_15DE8, NSNumber_ptr);
     if (swift_dynamicCast())
     {
-      v20 = v31;
-      [v31 integerValue];
+      v16 = v27;
+      [v27 integerValue];
     }
   }
 
   else
   {
-    sub_3EB8(v34, &qword_15B40, &qword_9250);
+    sub_3EB8(v30, &qword_15B40, &qword_9250);
   }
 
   sub_7E40();
-  v21 = v29;
-  (*(v5 + 104))(v8, enum case for Calendar.Component.day(_:), v29);
+  v17 = v25;
+  (*(v4 + 104))(v6, enum case for Calendar.Component.day(_:), v25);
   sub_7DE0();
   sub_7E30();
-  v22 = *(v1 + 8);
-  v23 = v4;
-  v24 = v30;
-  v22(v23, v30);
-  (*(v5 + 8))(v8, v21);
-  (*(v9 + 8))(v12, v28);
-  result = (*(v1 + 48))(v16, 1, v24);
+  v18 = *(v1 + 8);
+  v19 = v3;
+  v20 = v26;
+  v18(v19, v26);
+  (*(v4 + 8))(v6, v17);
+  (*(v7 + 8))(v9, v24);
+  result = (*(v1 + 48))(v12, 1, v20);
   if (result == 1)
   {
     __break(1u);
@@ -1460,8 +1430,8 @@ uint64_t sub_4FF4@<X0>(uint64_t a1@<X8>)
 
   else
   {
-    sub_70A8(v27);
-    return (v22)(v16, v24);
+    sub_70A8(v23);
+    return (v18)(v12, v20);
   }
 
   return result;
@@ -1469,72 +1439,67 @@ uint64_t sub_4FF4@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_53F8(char *a1)
 {
-  v57 = a1;
-  v56 = sub_7E50();
-  v54 = *(v56 - 8);
-  v1 = *(v54 + 64);
-  __chkstk_darwin(v56);
-  v52 = &v46 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v55 = sub_7E70();
-  v53 = *(v55 - 8);
-  v3 = *(v53 + 64);
-  __chkstk_darwin(v55);
-  v51 = &v46 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v48 = sub_7E00();
-  v5 = *(v48 - 8);
-  v6 = v5[8];
-  v7 = __chkstk_darwin(v48);
-  v49 = &v46 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  v10 = &v46 - v9;
-  v47 = sub_3E00(&qword_15DC0, &qword_9228);
-  v11 = *(v47 - 8);
-  v12 = *(v11 + 64);
-  __chkstk_darwin(v47);
-  v14 = &v46 - v13;
-  v15 = sub_3E00(&unk_15C70, "6'");
-  v16 = *(*(v15 - 8) + 64);
-  v17 = __chkstk_darwin(v15);
-  v19 = &v46 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v17);
-  v21 = &v46 - v20;
-  v22 = OBJC_IVAR____TtC17SendLaterProvider19TimePickerViewModel__dateClosedRange;
-  type metadata accessor for TimePickerViewModel();
-  sub_4A18(v21);
-  sub_3E50(v21, v19, &unk_15C70, "6'");
+  v52 = a1;
+  v51 = sub_7E50();
+  v49 = *(v51 - 8);
+  __chkstk_darwin(v51);
+  v47 = &v41 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v50 = sub_7E70();
+  v48 = *(v50 - 8);
+  __chkstk_darwin(v50);
+  v46 = &v41 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v43 = sub_7E00();
+  v3 = *(v43 - 8);
+  v4 = __chkstk_darwin(v43);
+  v44 = &v41 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v7 = &v41 - v6;
+  v42 = sub_3E00(&qword_15DC0, &qword_9228);
+  v8 = *(v42 - 8);
+  __chkstk_darwin(v42);
+  v10 = &v41 - v9;
+  v11 = sub_3E00(&unk_15C70, "6'");
+  v12 = __chkstk_darwin(v11);
+  v14 = &v41 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v12);
+  v16 = &v41 - v15;
+  v17 = OBJC_IVAR____TtC17SendLaterProvider19TimePickerViewModel__dateClosedRange;
+  type metadata accessor for TimePickerViewModel(0);
+  sub_4A18(v16);
+  sub_3E50(v16, v14, &unk_15C70, "6'");
   sub_7ED0();
-  v23 = v21;
-  v24 = v48;
-  sub_3EB8(v23, &unk_15C70, "6'");
-  v25 = v50;
-  (*(v11 + 32))(v50 + v22, v14, v47);
-  v26 = v25;
-  v46 = OBJC_IVAR____TtC17SendLaterProvider19TimePickerViewModel_dateRangeUpdateTimer;
-  *(v25 + OBJC_IVAR____TtC17SendLaterProvider19TimePickerViewModel_dateRangeUpdateTimer) = 0;
-  v27 = v5[2];
-  v27(v10, v57, v24);
+  v18 = v16;
+  v19 = v43;
+  sub_3EB8(v18, &unk_15C70, "6'");
+  v20 = v45;
+  (*(v8 + 32))(v45 + v17, v10, v42);
+  v21 = v20;
+  v41 = OBJC_IVAR____TtC17SendLaterProvider19TimePickerViewModel_dateRangeUpdateTimer;
+  *(v20 + OBJC_IVAR____TtC17SendLaterProvider19TimePickerViewModel_dateRangeUpdateTimer) = 0;
+  v22 = *(v3 + 16);
+  v22(v7, v52, v19);
   swift_beginAccess();
-  v28 = v49;
-  v27(v49, v10, v24);
-  v29 = v28;
+  v23 = v44;
+  v22(v44, v7, v19);
+  v24 = v23;
   sub_7ED0();
-  v30 = v5[1];
-  v47 = (v5 + 1);
-  v30(v10, v24);
+  v25 = *(v3 + 8);
+  v42 = v3 + 8;
+  v25(v7, v19);
   swift_endAccess();
   sub_7DF0();
-  v31 = v51;
+  v26 = v46;
   sub_7E40();
-  v32 = v54;
-  v33 = v52;
-  v34 = v56;
-  (*(v54 + 104))(v52, enum case for Calendar.Component.second(_:), v56);
-  v35 = v10;
-  v36 = v31;
-  v37 = sub_7E60();
-  (*(v32 + 8))(v33, v34);
-  result = (*(v53 + 8))(v36, v55);
-  if (__OFSUB__(60, v37))
+  v27 = v49;
+  v28 = v47;
+  v29 = v51;
+  (*(v49 + 104))(v47, enum case for Calendar.Component.second(_:), v51);
+  v30 = v7;
+  v31 = v26;
+  v32 = sub_7E60();
+  (*(v27 + 8))(v28, v29);
+  result = (*(v48 + 8))(v31, v50);
+  if (__OFSUB__(60, v32))
   {
     __break(1u);
   }
@@ -1542,96 +1507,95 @@ uint64_t sub_53F8(char *a1)
   else
   {
     sub_7DB0();
-    v39 = swift_allocObject();
+    v34 = swift_allocObject();
     swift_weakInit();
-    v40 = objc_allocWithZone(NSTimer);
+    v35 = objc_allocWithZone(NSTimer);
 
     isa = sub_7DC0().super.isa;
     aBlock[4] = sub_79A8;
-    aBlock[5] = v39;
+    aBlock[5] = v34;
     aBlock[0] = _NSConcreteStackBlock;
     aBlock[1] = 1107296256;
     aBlock[2] = sub_7690;
     aBlock[3] = &unk_107C8;
-    v42 = _Block_copy(aBlock);
-    v43 = [v40 initWithFireDate:isa interval:1 repeats:v42 block:60.0];
-    _Block_release(v42);
+    v37 = _Block_copy(aBlock);
+    v38 = [v35 initWithFireDate:isa interval:1 repeats:v37 block:60.0];
+    _Block_release(v37);
 
-    v44 = [objc_opt_self() mainRunLoop];
-    [v44 addTimer:v43 forMode:NSDefaultRunLoopMode];
+    v39 = [objc_opt_self() mainRunLoop];
+    [v39 addTimer:v38 forMode:NSDefaultRunLoopMode];
 
-    v30(v57, v24);
-    v30(v29, v24);
-    v30(v35, v24);
-    v45 = *(v26 + v46);
-    *(v26 + v46) = v43;
+    v25(v52, v19);
+    v25(v24, v19);
+    v25(v30, v19);
+    v40 = *(v21 + v41);
+    *(v21 + v41) = v38;
 
-    return v26;
+    return v21;
   }
 
   return result;
 }
 
-uint64_t sub_5A38()
+uint64_t sub_5A38(uint64_t a1, uint64_t a2)
 {
-  v0 = sub_3E00(&unk_15C70, "6'");
-  v1 = *(*(v0 - 8) + 64);
-  v2 = __chkstk_darwin(v0 - 8);
-  v4 = &v23 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = __chkstk_darwin(v2);
-  v7 = &v23 - v6;
-  v8 = __chkstk_darwin(v5);
-  v10 = &v23 - v9;
-  __chkstk_darwin(v8);
-  v12 = &v23 - v11;
-  type metadata accessor for TimePickerViewModel();
-  sub_4A18(v12);
+  v2 = sub_3E00(&unk_15C70, "6'");
+  v3 = __chkstk_darwin(v2 - 8);
+  v5 = &v25[-1] - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __chkstk_darwin(v3);
+  v8 = &v25[-1] - v7;
+  v9 = __chkstk_darwin(v6);
+  v11 = &v25[-1] - v10;
+  __chkstk_darwin(v9);
+  v13 = &v25[-1] - v12;
+  type metadata accessor for TimePickerViewModel(0);
+  sub_4A18(v13);
   if (qword_15948 != -1)
   {
     swift_once();
   }
 
-  v13 = sub_7EA0();
-  sub_3F18(v13, qword_15E28);
-  sub_3E50(v12, v10, &unk_15C70, "6'");
-  v14 = sub_7E80();
-  v15 = sub_8010();
-  if (os_log_type_enabled(v14, v15))
+  v14 = sub_7EA0();
+  sub_3F18(v14, qword_15E28);
+  sub_3E50(v13, v11, &unk_15C70, "6'");
+  v15 = sub_7E80();
+  v16 = sub_8010();
+  if (os_log_type_enabled(v15, v16))
   {
-    v16 = swift_slowAlloc();
     v17 = swift_slowAlloc();
-    v24 = v17;
-    *v16 = 136315138;
-    v18 = sub_5D88();
-    v23 = v12;
-    v20 = v19;
-    sub_3EB8(v10, &unk_15C70, "6'");
-    v21 = sub_409C(v18, v20, &v24);
-    v12 = v23;
+    v18 = swift_slowAlloc();
+    v25[0] = v18;
+    *v17 = 136315138;
+    v19 = sub_5D88();
+    v24 = v13;
+    v21 = v20;
+    sub_3EB8(v11, &unk_15C70, "6'");
+    v22 = sub_409C(v19, v21, v25);
+    v13 = v24;
 
-    *(v16 + 4) = v21;
-    _os_log_impl(&dword_0, v14, v15, "Update timer fired. Updating dateClosedRange to %s", v16, 0xCu);
-    sub_4644(v17);
+    *(v17 + 4) = v22;
+    _os_log_impl(&dword_0, v15, v16, "Update timer fired. Updating dateClosedRange to %s", v17, 0xCu);
+    sub_4644(v18);
   }
 
   else
   {
 
-    sub_3EB8(v10, &unk_15C70, "6'");
+    sub_3EB8(v11, &unk_15C70, "6'");
   }
 
   swift_beginAccess();
   if (swift_weakLoadStrong())
   {
-    sub_3E50(v12, v7, &unk_15C70, "6'");
+    sub_3E50(v13, v8, &unk_15C70, "6'");
     swift_getKeyPath();
     swift_getKeyPath();
-    sub_3E50(v7, v4, &unk_15C70, "6'");
+    sub_3E50(v8, v5, &unk_15C70, "6'");
     sub_7F00();
-    sub_3EB8(v7, &unk_15C70, "6'");
+    sub_3EB8(v8, &unk_15C70, "6'");
   }
 
-  return sub_3EB8(v12, &unk_15C70, "6'");
+  return sub_3EB8(v13, &unk_15C70, "6'");
 }
 
 uint64_t sub_5D88()
@@ -1647,7 +1611,7 @@ uint64_t sub_5D88()
   v12._countAndFlagsBits = 3026478;
   v12._object = 0xE300000000000000;
   sub_7FD0(v12);
-  LODWORD(v3) = *(sub_3E00(&unk_15C70, "6'") + 36);
+  sub_3E00(&unk_15C70, "6'");
   v4 = [objc_allocWithZone(NSDateFormatter) init];
   [v4 setTimeStyle:2];
   [v4 setDateStyle:1];
@@ -1680,13 +1644,10 @@ uint64_t sub_5F14()
   v6 = sub_3E00(&qword_15DC0, &qword_9228);
   (*(*(v6 - 8) + 8))(v0 + v5, v6);
 
-  v7 = *(*v0 + 48);
-  v8 = *(*v0 + 52);
-
   return swift_deallocClassInstance();
 }
 
-uint64_t type metadata accessor for TimePickerViewModel()
+uint64_t type metadata accessor for TimePickerViewModel(uint64_t a1)
 {
   result = qword_15C50;
   if (!qword_15C50)
@@ -1697,52 +1658,50 @@ uint64_t type metadata accessor for TimePickerViewModel()
   return result;
 }
 
-void sub_6088()
+void sub_6088(uint64_t a1)
 {
-  sub_615C();
+  sub_615C(319);
   if (v1 <= 0x3F)
   {
-    v4 = *(v0 - 8) + 64;
-    sub_61B4();
-    if (v3 <= 0x3F)
+    sub_61B4(319);
+    if (v2 <= 0x3F)
     {
-      v5 = *(v2 - 8) + 64;
       swift_updateClassMetadata2();
     }
   }
 }
 
-void sub_615C()
+void sub_615C(uint64_t a1)
 {
   if (!qword_15C60)
   {
     sub_7E00();
-    v0 = sub_7F10();
-    if (!v1)
+    v1 = sub_7F10();
+    if (!v2)
     {
-      atomic_store(v0, &qword_15C60);
+      atomic_store(v1, &qword_15C60);
     }
   }
 }
 
-void sub_61B4()
+void sub_61B4(uint64_t a1)
 {
   if (!qword_15C68)
   {
     sub_4054(&unk_15C70, "6'");
-    v0 = sub_7F10();
-    if (!v1)
+    v1 = sub_7F10();
+    if (!v2)
     {
-      atomic_store(v0, &qword_15C68);
+      atomic_store(v1, &qword_15C68);
     }
   }
 }
 
-uint64_t sub_6218@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_6218@<X0>(uint64_t *a2@<X8>)
 {
-  type metadata accessor for TimePickerViewModel();
+  type metadata accessor for TimePickerViewModel(0);
   result = sub_7EC0();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
@@ -1750,152 +1709,143 @@ char *sub_6258(uint64_t a1)
 {
   v3 = sub_3E00(&qword_15DC8, &unk_9230);
   v4 = *(v3 - 8);
-  v74 = v3;
-  v75 = v4;
-  v5 = *(v4 + 64);
+  v65 = v3;
+  v66 = v4;
   __chkstk_darwin(v3);
-  v73 = &v64 - v6;
-  v76 = sub_7E00();
-  v7 = *(v76 - 8);
-  v8 = v7[8];
-  __chkstk_darwin(v76);
-  v10 = &v64 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = sub_3E00(&unk_15C70, "6'");
-  v12 = *(v11 - 8);
-  v70 = v11 - 8;
-  v13 = *(v12 + 64);
-  __chkstk_darwin(v11 - 8);
-  v15 = &v64 - v14;
+  v64 = &v55 - v5;
+  v67 = sub_7E00();
+  v6 = *(v67 - 8);
+  __chkstk_darwin(v67);
+  v8 = &v55 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v61 = sub_3E00(&unk_15C70, "6'") - 8;
+  __chkstk_darwin(v61);
+  v10 = &v55 - v9;
   *&v1[OBJC_IVAR____TtC17SendLaterProvider14TimePickerView_cancellables] = &_swiftEmptySetSingleton;
-  v72 = a1;
+  v63 = a1;
   *&v1[OBJC_IVAR____TtC17SendLaterProvider14TimePickerView_model] = a1;
-  v16 = objc_allocWithZone(UIDatePicker);
+  v11 = objc_allocWithZone(UIDatePicker);
 
-  v17 = [v16 initWithFrame:{0.0, 0.0, 0.0, 0.0}];
-  *&v1[OBJC_IVAR____TtC17SendLaterProvider14TimePickerView_datePicker] = v17;
-  v18 = type metadata accessor for TimePickerView();
-  v77.receiver = v1;
-  v77.super_class = v18;
-  v19 = objc_msgSendSuper2(&v77, "initWithFrame:", 0.0, 0.0, 0.0, 0.0);
-  v20 = *&v19[OBJC_IVAR____TtC17SendLaterProvider14TimePickerView_datePicker];
-  v21 = OBJC_IVAR____TtC17SendLaterProvider14TimePickerView_datePicker;
-  v67 = OBJC_IVAR____TtC17SendLaterProvider14TimePickerView_datePicker;
-  v69 = OBJC_IVAR____TtC17SendLaterProvider14TimePickerView_model;
-  v22 = *&v19[OBJC_IVAR____TtC17SendLaterProvider14TimePickerView_model];
+  v12 = [v11 initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  *&v1[OBJC_IVAR____TtC17SendLaterProvider14TimePickerView_datePicker] = v12;
+  v13 = type metadata accessor for TimePickerView();
+  v68.receiver = v1;
+  v68.super_class = v13;
+  v14 = objc_msgSendSuper2(&v68, "initWithFrame:", 0.0, 0.0, 0.0, 0.0);
+  v15 = *&v14[OBJC_IVAR____TtC17SendLaterProvider14TimePickerView_datePicker];
+  v16 = OBJC_IVAR____TtC17SendLaterProvider14TimePickerView_datePicker;
+  v58 = OBJC_IVAR____TtC17SendLaterProvider14TimePickerView_datePicker;
+  v60 = OBJC_IVAR____TtC17SendLaterProvider14TimePickerView_model;
   swift_getKeyPath();
   swift_getKeyPath();
-  v71 = v19;
-  v23 = v20;
+  v62 = v14;
+  v17 = v15;
 
   sub_7EF0();
 
-  v68 = v7[2];
-  v24 = v76;
-  v68(v10, v15, v76);
-  sub_3EB8(v15, &unk_15C70, "6'");
+  v59 = *(v6 + 16);
+  v18 = v67;
+  v59(v8, v10, v67);
+  sub_3EB8(v10, &unk_15C70, "6'");
   isa = sub_7DC0().super.isa;
-  v26 = v7 + 1;
-  v27 = v7[1];
-  v66 = v26;
-  v27(v10, v24);
-  v65 = v27;
-  [v23 setMinimumDate:isa];
+  v20 = v6 + 8;
+  v21 = *(v6 + 8);
+  v57 = v20;
+  v21(v8, v18);
+  v56 = v21;
+  [v17 setMinimumDate:isa];
 
-  v28 = *&v19[v21];
-  v29 = v69;
-  v30 = *&v19[v69];
+  v22 = *&v14[v16];
   swift_getKeyPath();
   swift_getKeyPath();
-  v31 = v28;
+  v23 = v22;
 
   sub_7EF0();
 
-  v32 = v76;
-  v68(v10, &v15[*(v70 + 44)], v76);
-  sub_3EB8(v15, &unk_15C70, "6'");
-  v33 = sub_7DC0().super.isa;
-  v27(v10, v32);
-  [v31 setMaximumDate:v33];
+  v24 = v67;
+  v59(v8, &v10[*(v61 + 44)], v67);
+  sub_3EB8(v10, &unk_15C70, "6'");
+  v25 = sub_7DC0().super.isa;
+  v21(v8, v24);
+  [v23 setMaximumDate:v25];
 
-  v34 = v67;
-  v35 = *&v19[v67];
-  v36 = *&v19[v29];
+  v26 = v58;
+  v27 = *&v14[v58];
   swift_getKeyPath();
   swift_getKeyPath();
-  v37 = v35;
+  v28 = v27;
 
   sub_7EF0();
 
-  v38 = sub_7DC0().super.isa;
-  v65(v10, v76);
-  [v37 setDate:v38];
+  v29 = sub_7DC0().super.isa;
+  v56(v8, v67);
+  [v28 setDate:v29];
 
-  [*&v19[v34] setDatePickerMode:2];
-  [*&v19[v34] setPreferredDatePickerStyle:1];
-  v39 = v71;
-  [*&v19[v34] addTarget:v71 action:"dateChanged:" forControlEvents:4096];
-  v40 = *&v19[v34];
-  [v40 addTarget:v39 action:"disableKeypad:" forControlEvents:0x10000];
+  [*&v14[v26] setDatePickerMode:2];
+  [*&v14[v26] setPreferredDatePickerStyle:1];
+  v30 = v62;
+  [*&v14[v26] addTarget:v62 action:"dateChanged:" forControlEvents:4096];
+  v31 = *&v14[v26];
+  [v31 addTarget:v30 action:"disableKeypad:" forControlEvents:0x10000];
 
-  v41 = *&v19[v34];
-  v42 = v39;
-  [v42 addSubview:v41];
-  [*&v19[v34] setTranslatesAutoresizingMaskIntoConstraints:0];
-  v43 = objc_opt_self();
+  v32 = *&v14[v26];
+  v33 = v30;
+  [v33 addSubview:v32];
+  [*&v14[v26] setTranslatesAutoresizingMaskIntoConstraints:0];
+  v34 = objc_opt_self();
   sub_3E00(&qword_15B98, qword_90E8);
-  v44 = swift_allocObject();
-  *(v44 + 16) = xmmword_9000;
-  v45 = [*&v19[v34] leadingAnchor];
-  v46 = [v42 leadingAnchor];
+  v35 = swift_allocObject();
+  *(v35 + 16) = xmmword_9000;
+  v36 = [*&v14[v26] leadingAnchor];
+  v37 = [v33 leadingAnchor];
+  v38 = [v36 constraintEqualToAnchor:v37];
+
+  *(v35 + 32) = v38;
+  v39 = [*&v14[v26] trailingAnchor];
+  v40 = [v33 trailingAnchor];
+
+  v41 = [v39 constraintEqualToAnchor:v40];
+  *(v35 + 40) = v41;
+  v42 = [*&v14[v26] topAnchor];
+  v43 = [v33 topAnchor];
+
+  v44 = [v42 constraintEqualToAnchor:v43];
+  *(v35 + 48) = v44;
+  v45 = [*&v14[v26] bottomAnchor];
+  v46 = [v33 bottomAnchor];
+
   v47 = [v45 constraintEqualToAnchor:v46];
-
-  *(v44 + 32) = v47;
-  v48 = [*&v19[v34] trailingAnchor];
-  v49 = [v42 trailingAnchor];
-
-  v50 = [v48 constraintEqualToAnchor:v49];
-  *(v44 + 40) = v50;
-  v51 = [*&v19[v34] topAnchor];
-  v52 = [v42 topAnchor];
-
-  v53 = [v51 constraintEqualToAnchor:v52];
-  *(v44 + 48) = v53;
-  v54 = [*&v19[v34] bottomAnchor];
-  v55 = [v42 bottomAnchor];
-
-  v56 = [v54 constraintEqualToAnchor:v55];
-  *(v44 + 56) = v56;
+  *(v35 + 56) = v47;
   sub_4778(0, &unk_15BA0, NSLayoutConstraint_ptr);
-  v57 = sub_7FF0().super.isa;
+  v48 = sub_7FF0().super.isa;
 
-  [v43 activateConstraints:v57];
+  [v34 activateConstraints:v48];
 
-  v58 = objc_opt_self();
-  v59 = v42;
-  v60 = [v58 clearColor];
-  [v59 setBackgroundColor:v60];
+  v49 = objc_opt_self();
+  v50 = v33;
+  v51 = [v49 clearColor];
+  [v50 setBackgroundColor:v51];
 
   swift_beginAccess();
   sub_3E00(&qword_15DC0, &qword_9228);
-  v61 = v73;
+  v52 = v64;
   sub_7EE0();
   swift_endAccess();
   swift_allocObject();
   swift_unknownObjectWeakInit();
 
   sub_790C();
-  v62 = v74;
+  v53 = v65;
   sub_7F20();
 
-  (*(v75 + 8))(v61, v62);
+  (*(v66 + 8))(v52, v53);
   swift_beginAccess();
   sub_7EB0();
   swift_endAccess();
 
-  return v59;
+  return v50;
 }
 
-void sub_6B30(uint64_t a1)
+void sub_6B30(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
@@ -1915,109 +1865,103 @@ void sub_6B30(uint64_t a1)
     v7 = v6;
     v8 = *(v6 + OBJC_IVAR____TtC17SendLaterProvider14TimePickerView_datePicker);
 
-    v9 = a1 + *(sub_3E00(&unk_15C70, "6'") + 36);
-    v10 = sub_7DC0().super.isa;
-    [v8 setMaximumDate:v10];
+    sub_3E00(&unk_15C70, "6'");
+    v9 = sub_7DC0().super.isa;
+    [v8 setMaximumDate:v9];
   }
 }
 
 void sub_6D18(void *a1)
 {
-  v2 = v1;
-  v4 = sub_7E00();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = __chkstk_darwin(v4);
-  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  v11 = &v16 - v10;
+  v3 = sub_7E00();
+  v4 = *(v3 - 8);
+  v5 = __chkstk_darwin(v3);
+  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v9 = &v13 - v8;
   sub_4778(0, &qword_15DB8, NSObject_ptr);
-  v12 = *(v1 + OBJC_IVAR____TtC17SendLaterProvider14TimePickerView_datePicker);
-  v13 = sub_8080();
+  v10 = *(v1 + OBJC_IVAR____TtC17SendLaterProvider14TimePickerView_datePicker);
+  v11 = sub_8080();
 
-  if (v13)
+  if (v11)
   {
-    v14 = *(v2 + OBJC_IVAR____TtC17SendLaterProvider14TimePickerView_model);
 
-    v15 = [a1 date];
+    v12 = [a1 date];
     sub_7DD0();
 
     swift_getKeyPath();
     swift_getKeyPath();
-    (*(v5 + 16))(v9, v11, v4);
+    (*(v4 + 16))(v7, v9, v3);
     sub_7F00();
-    (*(v5 + 8))(v11, v4);
+    (*(v4 + 8))(v9, v3);
   }
 }
 
-id sub_6FE8()
+id sub_6FE8(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for TimePickerView();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for TimePickerView();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 uint64_t sub_70A8@<X0>(uint64_t a1@<X8>)
 {
-  v35 = a1;
+  v32 = a1;
   v1 = sub_3E00(&qword_15B30, &qword_9068);
-  v2 = *(*(v1 - 8) + 64);
   __chkstk_darwin(v1 - 8);
-  v29 = &v28 - v3;
-  v4 = sub_7DA0();
-  v33 = *(v4 - 8);
-  v34 = v4;
-  v5 = *(v33 + 64);
-  __chkstk_darwin(v4);
-  v7 = &v28 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_7E70();
-  v31 = *(v8 - 8);
-  v32 = v8;
-  v9 = *(v31 + 64);
-  __chkstk_darwin(v8);
-  v11 = &v28 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v26 = &v25 - v2;
+  v3 = sub_7DA0();
+  v30 = *(v3 - 8);
+  v31 = v3;
+  __chkstk_darwin(v3);
+  v5 = &v25 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_7E70();
+  v28 = *(v6 - 8);
+  v29 = v6;
+  __chkstk_darwin(v6);
+  v8 = &v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_7E40();
   sub_3E00(&qword_15DF0, &qword_9258);
-  v12 = sub_7E50();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 72);
-  v15 = (*(v13 + 80) + 32) & ~*(v13 + 80);
-  v16 = 4 * v14;
-  v17 = swift_allocObject();
-  *(v17 + 16) = xmmword_9100;
-  v18 = v17 + v15;
-  v19 = *(v13 + 104);
-  v19(v18, enum case for Calendar.Component.year(_:), v12);
-  v19(v18 + v14, enum case for Calendar.Component.month(_:), v12);
-  v19(v18 + 2 * v14, enum case for Calendar.Component.day(_:), v12);
-  v20 = 3 * v14;
-  v21 = v30;
-  v19(v18 + v20, enum case for Calendar.Component.hour(_:), v12);
-  v22 = v18 + v16;
-  v23 = v29;
-  v19(v22, enum case for Calendar.Component.minute(_:), v12);
-  sub_7A38(v17);
+  v9 = sub_7E50();
+  v10 = *(v9 - 8);
+  v11 = *(v10 + 72);
+  v12 = (*(v10 + 80) + 32) & ~*(v10 + 80);
+  v13 = 4 * v11;
+  v14 = swift_allocObject();
+  *(v14 + 16) = xmmword_9100;
+  v15 = v14 + v12;
+  v16 = *(v10 + 104);
+  v16(v15, enum case for Calendar.Component.year(_:), v9);
+  v16(v15 + v11, enum case for Calendar.Component.month(_:), v9);
+  v16(v15 + 2 * v11, enum case for Calendar.Component.day(_:), v9);
+  v17 = 3 * v11;
+  v18 = v27;
+  v16(v15 + v17, enum case for Calendar.Component.hour(_:), v9);
+  v19 = v15 + v13;
+  v20 = v26;
+  v16(v19, enum case for Calendar.Component.minute(_:), v9);
+  sub_7A38(v14);
   swift_setDeallocating();
   swift_arrayDestroy();
   swift_deallocClassInstance();
   sub_7E10();
 
   sub_7E20();
-  (*(v33 + 8))(v7, v34);
-  (*(v31 + 8))(v11, v32);
-  v24 = sub_7E00();
-  v25 = *(v24 - 8);
-  v26 = *(v25 + 48);
-  if (v26(v23, 1, v24) != 1)
+  (*(v30 + 8))(v5, v31);
+  (*(v28 + 8))(v8, v29);
+  v21 = sub_7E00();
+  v22 = *(v21 - 8);
+  v23 = *(v22 + 48);
+  if (v23(v20, 1, v21) != 1)
   {
-    return (*(v25 + 32))(v35, v23, v24);
+    return (*(v22 + 32))(v32, v20, v21);
   }
 
-  (*(v25 + 16))(v35, v21, v24);
-  result = (v26)(v23, 1, v24);
+  (*(v22 + 16))(v32, v18, v21);
+  result = (v23)(v20, 1, v21);
   if (result != 1)
   {
-    return sub_3EB8(v23, &qword_15B30, &qword_9068);
+    return sub_3EB8(v20, &qword_15B30, &qword_9068);
   }
 
   return result;
@@ -2025,36 +1969,32 @@ uint64_t sub_70A8@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_751C(uint64_t a1, uint64_t *a2)
 {
-  v4 = sub_7E00();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = __chkstk_darwin(v4);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  v11 = &v15 - v10;
-  v12 = *(v5 + 16);
-  v12(&v15 - v10, a1, v4);
-  v13 = *a2;
+  v3 = sub_7E00();
+  v4 = *(v3 - 8);
+  v5 = __chkstk_darwin(v3);
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v9 = &v12 - v8;
+  v10 = *(v4 + 16);
+  v10(&v12 - v8, a1, v3);
   swift_getKeyPath();
   swift_getKeyPath();
-  v12(v9, v11, v4);
+  v10(v7, v9, v3);
 
   sub_7F00();
-  return (*(v5 + 8))(v11, v4);
+  return (*(v4 + 8))(v9, v3);
 }
 
 void sub_7690(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4();
+  v4 = a2;
+  v3();
 }
 
-uint64_t sub_76F8(uint64_t *a1)
+uint64_t sub_76F8(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v1 = *a1;
   swift_getKeyPath();
   swift_getKeyPath();
   sub_7EF0();
@@ -2062,20 +2002,18 @@ uint64_t sub_76F8(uint64_t *a1)
 
 uint64_t sub_7798(uint64_t a1, uint64_t *a2)
 {
-  v4 = sub_3E00(&unk_15C70, "6'");
-  v5 = *(*(v4 - 8) + 64);
-  v6 = __chkstk_darwin(v4 - 8);
-  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v10 = &v13 - v9;
-  sub_3E50(a1, &v13 - v9, &unk_15C70, "6'");
-  v11 = *a2;
+  v3 = sub_3E00(&unk_15C70, "6'");
+  v4 = __chkstk_darwin(v3 - 8);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v8 = &v10 - v7;
+  sub_3E50(a1, &v10 - v7, &unk_15C70, "6'");
   swift_getKeyPath();
   swift_getKeyPath();
-  sub_3E50(v10, v8, &unk_15C70, "6'");
+  sub_3E50(v8, v6, &unk_15C70, "6'");
 
   sub_7F00();
-  return sub_3EB8(v10, &unk_15C70, "6'");
+  return sub_3EB8(v8, &unk_15C70, "6'");
 }
 
 uint64_t sub_78CC()
@@ -2105,11 +2043,13 @@ uint64_t sub_7970()
   return _swift_deallocObject(v0, 24, 7);
 }
 
-uint64_t sub_79B0(uint64_t a1, uint64_t a2)
+double sub_79B0(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
   *(a1 + 40) = v2;
+
+  return result;
 }
 
 uint64_t sub_79C8(uint64_t a1, uint64_t a2)
@@ -2123,91 +2063,89 @@ void *sub_7A38(uint64_t a1)
 {
   v2 = sub_7E50();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  v5 = (__chkstk_darwin)();
-  v7 = &v32 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v5);
-  v39 = &v32 - v8;
-  v9 = *(a1 + 16);
-  if (v9)
+  v4 = __chkstk_darwin(v2);
+  v6 = &v30 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v37 = &v30 - v7;
+  v8 = *(a1 + 16);
+  if (v8)
   {
     sub_3E00(&qword_15DF8, &qword_9260);
-    v10 = sub_80B0();
-    v11 = 0;
-    v13 = *(v3 + 16);
-    v12 = v3 + 16;
-    v37 = v13;
-    v38 = v10 + 56;
-    v14 = *(v12 + 64);
-    v34 = v9;
-    v35 = a1 + ((v14 + 32) & ~v14);
-    v15 = *(v12 + 56);
-    v16 = (v12 - 8);
-    v33 = (v12 + 16);
+    v9 = sub_80B0();
+    v10 = 0;
+    v12 = *(v3 + 16);
+    v11 = v3 + 16;
+    v35 = v12;
+    v36 = v9 + 56;
+    v13 = *(v11 + 64);
+    v32 = v8;
+    v33 = a1 + ((v13 + 32) & ~v13);
+    v14 = *(v11 + 56);
+    v15 = (v11 - 8);
+    v31 = (v11 + 16);
     while (1)
     {
-      v36 = v11;
-      v37(v39, v35 + v15 * v11, v2);
-      v17 = *(v10 + 40);
-      sub_7D58(&qword_15E00, &type metadata accessor for Calendar.Component);
-      v18 = sub_7F60();
-      v19 = ~(-1 << *(v10 + 32));
-      v20 = v18 & v19;
-      v21 = (v18 & v19) >> 6;
-      v22 = *(v38 + 8 * v21);
-      v23 = 1 << (v18 & v19);
-      if ((v23 & v22) != 0)
+      v34 = v10;
+      v35(v37, v33 + v14 * v10, v2);
+      sub_7D58(&qword_15E00, &type metadata accessor for Calendar.Component, &protocol conformance descriptor for Calendar.Component);
+      v16 = sub_7F60();
+      v17 = ~(-1 << *(v9 + 32));
+      v18 = v16 & v17;
+      v19 = (v16 & v17) >> 6;
+      v20 = *(v36 + 8 * v19);
+      v21 = 1 << (v16 & v17);
+      if ((v21 & v20) != 0)
       {
         while (1)
         {
-          v24 = v12;
-          v37(v7, *(v10 + 48) + v20 * v15, v2);
-          sub_7D58(&qword_15E08, &type metadata accessor for Calendar.Component);
-          v25 = sub_7F80();
-          v26 = *v16;
-          (*v16)(v7, v2);
-          if (v25)
+          v22 = v11;
+          v35(v6, *(v9 + 48) + v18 * v14, v2);
+          sub_7D58(&qword_15E08, &type metadata accessor for Calendar.Component, &protocol conformance descriptor for Calendar.Component);
+          v23 = sub_7F80();
+          v24 = *v15;
+          (*v15)(v6, v2);
+          if (v23)
           {
             break;
           }
 
-          v20 = (v20 + 1) & v19;
-          v21 = v20 >> 6;
-          v22 = *(v38 + 8 * (v20 >> 6));
-          v23 = 1 << v20;
-          v12 = v24;
-          if (((1 << v20) & v22) == 0)
+          v18 = (v18 + 1) & v17;
+          v19 = v18 >> 6;
+          v20 = *(v36 + 8 * (v18 >> 6));
+          v21 = 1 << v18;
+          v11 = v22;
+          if (((1 << v18) & v20) == 0)
           {
             goto LABEL_8;
           }
         }
 
-        v26(v39, v2);
-        v12 = v24;
+        v24(v37, v2);
+        v11 = v22;
       }
 
       else
       {
 LABEL_8:
-        v27 = v39;
-        *(v38 + 8 * v21) = v23 | v22;
-        result = (*v33)(*(v10 + 48) + v20 * v15, v27, v2);
-        v29 = *(v10 + 16);
-        v30 = __OFADD__(v29, 1);
-        v31 = v29 + 1;
-        if (v30)
+        v25 = v37;
+        *(v36 + 8 * v19) = v21 | v20;
+        result = (*v31)(*(v9 + 48) + v18 * v14, v25, v2);
+        v27 = *(v9 + 16);
+        v28 = __OFADD__(v27, 1);
+        v29 = v27 + 1;
+        if (v28)
         {
           __break(1u);
           return result;
         }
 
-        *(v10 + 16) = v31;
+        *(v9 + 16) = v29;
       }
 
-      v11 = v36 + 1;
-      if (v36 + 1 == v34)
+      v10 = v34 + 1;
+      if (v34 + 1 == v32)
       {
-        return v10;
+        return v9;
       }
     }
   }
@@ -2215,7 +2153,7 @@ LABEL_8:
   return &_swiftEmptySetSingleton;
 }
 
-uint64_t sub_7D58(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_7D58(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)

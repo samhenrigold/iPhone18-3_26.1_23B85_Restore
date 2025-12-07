@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)wcdmaBandAsString:(int)string;
 - (int)StringAsWcdmaBand:(id)band;
 - (int)minAcTxLevelDbm;
 - (int)minAdTxLevelDbm;
@@ -97,6 +98,331 @@
   }
 
   *&self->_has = *&self->_has & 0xF7FF | v3;
+}
+
+- (id)wcdmaBandAsString:(int)string
+{
+  v4 = @"SYS_BAND_BC0";
+  switch(string)
+  {
+    case 0:
+      goto LABEL_234;
+    case 1:
+      v4 = @"SYS_BAND_BC1";
+
+      break;
+    case 3:
+      v4 = @"SYS_BAND_BC3";
+
+      break;
+    case 4:
+      v4 = @"SYS_BAND_BC4";
+
+      break;
+    case 5:
+      v4 = @"SYS_BAND_BC5";
+
+      break;
+    case 6:
+      v4 = @"SYS_BAND_BC6";
+
+      break;
+    case 7:
+      v4 = @"SYS_BAND_BC7";
+
+      break;
+    case 8:
+      v4 = @"SYS_BAND_BC8";
+
+      break;
+    case 9:
+      v4 = @"SYS_BAND_BC9";
+
+      break;
+    case 10:
+      v4 = @"SYS_BAND_BC10";
+
+      break;
+    case 11:
+      v4 = @"SYS_BAND_BC11";
+
+      break;
+    case 12:
+      v4 = @"SYS_BAND_BC12";
+
+      break;
+    case 13:
+      v4 = @"SYS_BAND_BC13";
+
+      break;
+    case 14:
+      v4 = @"SYS_BAND_BC14";
+
+      break;
+    case 15:
+      v4 = @"SYS_BAND_BC15";
+
+      break;
+    case 16:
+      v4 = @"SYS_BAND_BC16";
+
+      break;
+    case 17:
+      v4 = @"SYS_BAND_BC17";
+
+      break;
+    case 18:
+      v4 = @"SYS_BAND_BC18";
+
+      break;
+    case 19:
+      v4 = @"SYS_BAND_BC19";
+
+      break;
+    case 40:
+      v4 = @"SYS_BAND_GSM_450";
+
+      break;
+    case 41:
+      v4 = @"SYS_BAND_GSM_480";
+
+      break;
+    case 42:
+      v4 = @"SYS_BAND_GSM_750";
+
+      break;
+    case 43:
+      v4 = @"SYS_BAND_GSM_850";
+
+      break;
+    case 44:
+      v4 = @"SYS_BAND_GSM_EGSM_900";
+
+      break;
+    case 45:
+      v4 = @"SYS_BAND_GSM_PGSM_900";
+
+      break;
+    case 46:
+      v4 = @"SYS_BAND_GSM_RGSM_900";
+
+      break;
+    case 47:
+      v4 = @"SYS_BAND_GSM_DCS_1800";
+
+      break;
+    case 48:
+      v4 = @"SYS_BAND_GSM_PCS_1900";
+
+      break;
+    case 80:
+      v4 = @"SYS_BAND_WCDMA_I_IMT_2000";
+
+      break;
+    case 81:
+      v4 = @"SYS_BAND_WCDMA_II_PCS_1900";
+
+      break;
+    case 82:
+      v4 = @"SYS_BAND_WCDMA_III_1700";
+
+      break;
+    case 83:
+      v4 = @"SYS_BAND_WCDMA_IV_1700";
+
+      break;
+    case 84:
+      v4 = @"SYS_BAND_WCDMA_V_850";
+
+      break;
+    case 85:
+      v4 = @"SYS_BAND_WCDMA_VI_800";
+
+      break;
+    case 86:
+      v4 = @"SYS_BAND_WCDMA_VII_2600";
+
+      break;
+    case 87:
+      v4 = @"SYS_BAND_WCDMA_VIII_900";
+
+      break;
+    case 88:
+      v4 = @"SYS_BAND_WCDMA_IX_1700";
+
+      break;
+    case 90:
+      v4 = @"SYS_BAND_WCDMA_XI_1500";
+
+      break;
+    case 91:
+      v4 = @"SYS_BAND_WCDMA_XIX_850";
+
+      break;
+    case 120:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND1";
+
+      break;
+    case 121:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND2";
+
+      break;
+    case 122:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND3";
+
+      break;
+    case 123:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND4";
+
+      break;
+    case 124:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND5";
+
+      break;
+    case 125:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND6";
+
+      break;
+    case 126:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND7";
+
+      break;
+    case 127:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND8";
+
+      break;
+    case 128:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND9";
+
+      break;
+    case 129:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND10";
+
+      break;
+    case 130:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND11";
+
+      break;
+    case 131:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND12";
+
+      break;
+    case 132:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND13";
+
+      break;
+    case 133:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND14";
+
+      break;
+    case 136:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND17";
+
+      break;
+    case 137:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND18";
+
+      break;
+    case 138:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND19";
+
+      break;
+    case 139:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND20";
+
+      break;
+    case 140:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND21";
+
+      break;
+    case 143:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND24";
+
+      break;
+    case 144:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND25";
+
+      break;
+    case 145:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND26";
+
+      break;
+    case 152:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND33";
+
+      break;
+    case 153:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND34";
+
+      break;
+    case 154:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND35";
+
+      break;
+    case 155:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND36";
+
+      break;
+    case 156:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND37";
+
+      break;
+    case 157:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND38";
+
+      break;
+    case 158:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND39";
+
+      break;
+    case 159:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND40";
+
+      break;
+    case 160:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND41";
+
+      break;
+    case 161:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND42";
+
+      break;
+    case 162:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND43";
+
+      break;
+    case 163:
+      v4 = @"SYS_BAND_UMTS_BAND1";
+
+      break;
+    case 164:
+      v4 = @"SYS_BAND_UMTS_BAND2";
+
+      break;
+    case 165:
+      v4 = @"SYS_BAND_UMTS_BAND3";
+
+      break;
+    case 166:
+      v4 = @"SYS_BAND_UMTS_BAND4";
+
+      break;
+    case 167:
+      v4 = @"SYS_BAND_UMTS_BAND5";
+
+      break;
+    case 168:
+      v4 = @"SYS_BAND_UMTS_BAND6";
+
+      break;
+    default:
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_234:
+
+      break;
+  }
+
+  return v4;
 }
 
 - (int)StringAsWcdmaBand:(id)band
@@ -1247,7 +1573,6 @@ LABEL_7:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -1267,7 +1592,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  duration = self->_duration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -1282,7 +1606,6 @@ LABEL_4:
   }
 
 LABEL_64:
-  wcdmaBand = self->_wcdmaBand;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -1297,12 +1620,10 @@ LABEL_5:
   }
 
 LABEL_65:
-  inVoiceCall = self->_inVoiceCall;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_6:
-    minRxLevelDbm = self->_minRxLevelDbm;
     PBDataWriterWriteSint32Field();
   }
 
@@ -1312,15 +1633,14 @@ LABEL_7:
     PBDataWriterPlaceMark();
     if (self->_rxBins.count)
     {
-      v7 = 0;
+      v6 = 0;
       do
       {
-        v8 = self->_rxBins.list[v7];
         PBDataWriterWriteUint32Field();
-        ++v7;
+        ++v6;
       }
 
-      while (v7 < self->_rxBins.count);
+      while (v6 < self->_rxBins.count);
     }
 
     PBDataWriterRecallMark();
@@ -1328,7 +1648,6 @@ LABEL_7:
 
   if ((*&self->_has & 0x80) != 0)
   {
-    minSecRxLevelDbm = self->_minSecRxLevelDbm;
     PBDataWriterWriteSint32Field();
   }
 
@@ -1337,15 +1656,14 @@ LABEL_7:
     PBDataWriterPlaceMark();
     if (self->_secRxBins.count)
     {
-      v10 = 0;
+      v7 = 0;
       do
       {
-        v11 = self->_secRxBins.list[v10];
         PBDataWriterWriteUint32Field();
-        ++v10;
+        ++v7;
       }
 
-      while (v10 < self->_secRxBins.count);
+      while (v7 < self->_secRxBins.count);
     }
 
     PBDataWriterRecallMark();
@@ -1353,7 +1671,6 @@ LABEL_7:
 
   if ((*&self->_has & 0x400) != 0)
   {
-    minTxLevelDbm = self->_minTxLevelDbm;
     PBDataWriterWriteSint32Field();
   }
 
@@ -1362,15 +1679,14 @@ LABEL_7:
     PBDataWriterPlaceMark();
     if (self->_txBins.count)
     {
-      v13 = 0;
+      v8 = 0;
       do
       {
-        v14 = self->_txBins.list[v13];
         PBDataWriterWriteUint32Field();
-        ++v13;
+        ++v8;
       }
 
-      while (v13 < self->_txBins.count);
+      while (v8 < self->_txBins.count);
     }
 
     PBDataWriterRecallMark();
@@ -1378,7 +1694,6 @@ LABEL_7:
 
   if ((*&self->_has & 0x40) != 0)
   {
-    minRxLevelIdleDbm = self->_minRxLevelIdleDbm;
     PBDataWriterWriteSint32Field();
   }
 
@@ -1387,15 +1702,14 @@ LABEL_7:
     PBDataWriterPlaceMark();
     if (self->_rxBinsIdles.count)
     {
-      v16 = 0;
+      v9 = 0;
       do
       {
-        v17 = self->_rxBinsIdles.list[v16];
         PBDataWriterWriteUint32Field();
-        ++v16;
+        ++v9;
       }
 
-      while (v16 < self->_rxBinsIdles.count);
+      while (v9 < self->_rxBinsIdles.count);
     }
 
     PBDataWriterRecallMark();
@@ -1403,7 +1717,6 @@ LABEL_7:
 
   if ((*&self->_has & 0x100) != 0)
   {
-    minSecRxLevelIdleDbm = self->_minSecRxLevelIdleDbm;
     PBDataWriterWriteSint32Field();
   }
 
@@ -1412,15 +1725,14 @@ LABEL_7:
     PBDataWriterPlaceMark();
     if (self->_secRxBinsIdles.count)
     {
-      v19 = 0;
+      v10 = 0;
       do
       {
-        v20 = self->_secRxBinsIdles.list[v19];
         PBDataWriterWriteUint32Field();
-        ++v19;
+        ++v10;
       }
 
-      while (v19 < self->_secRxBinsIdles.count);
+      while (v10 < self->_secRxBinsIdles.count);
     }
 
     PBDataWriterRecallMark();
@@ -1428,7 +1740,6 @@ LABEL_7:
 
   if ((*&self->_has & 0x200) != 0)
   {
-    minSecTxLevelDbm = self->_minSecTxLevelDbm;
     PBDataWriterWriteSint32Field();
   }
 
@@ -1437,15 +1748,14 @@ LABEL_7:
     PBDataWriterPlaceMark();
     if (self->_secTxBins.count)
     {
-      v22 = 0;
+      v11 = 0;
       do
       {
-        v23 = self->_secTxBins.list[v22];
         PBDataWriterWriteUint32Field();
-        ++v22;
+        ++v11;
       }
 
-      while (v22 < self->_secTxBins.count);
+      while (v11 < self->_secTxBins.count);
     }
 
     PBDataWriterRecallMark();
@@ -1453,7 +1763,6 @@ LABEL_7:
 
   if ((*&self->_has & 8) != 0)
   {
-    minAcTxLevelDbm = self->_minAcTxLevelDbm;
     PBDataWriterWriteSint32Field();
   }
 
@@ -1462,15 +1771,14 @@ LABEL_7:
     PBDataWriterPlaceMark();
     if (self->_acTxBins.count)
     {
-      v25 = 0;
+      v12 = 0;
       do
       {
-        v26 = self->_acTxBins.list[v25];
         PBDataWriterWriteUint32Field();
-        ++v25;
+        ++v12;
       }
 
-      while (v25 < self->_acTxBins.count);
+      while (v12 < self->_acTxBins.count);
     }
 
     PBDataWriterRecallMark();
@@ -1478,7 +1786,6 @@ LABEL_7:
 
   if ((*&self->_has & 0x10) != 0)
   {
-    minAdTxLevelDbm = self->_minAdTxLevelDbm;
     PBDataWriterWriteSint32Field();
   }
 
@@ -1488,15 +1795,14 @@ LABEL_7:
     PBDataWriterPlaceMark();
     if (p_adTxBins->count)
     {
-      v29 = 0;
+      v14 = 0;
       do
       {
-        v30 = p_adTxBins->list[v29];
         PBDataWriterWriteUint32Field();
-        ++v29;
+        ++v14;
       }
 
-      while (v29 < p_adTxBins->count);
+      while (v14 < p_adTxBins->count);
     }
 
     PBDataWriterRecallMark();
@@ -1944,7 +2250,6 @@ LABEL_7:
     goto LABEL_70;
   }
 
-  v8 = *(equalCopy + 126);
   if ((*&self->_has & 0x400) != 0)
   {
     if ((*(equalCopy + 126) & 0x400) == 0 || self->_minTxLevelDbm != *(equalCopy + 61))
@@ -1963,16 +2268,16 @@ LABEL_7:
     goto LABEL_70;
   }
 
-  v9 = *(equalCopy + 126);
+  v8 = *(equalCopy + 126);
   if ((*&self->_has & 0x40) != 0)
   {
-    if ((v9 & 0x40) == 0 || self->_minRxLevelIdleDbm != *(equalCopy + 57))
+    if ((v8 & 0x40) == 0 || self->_minRxLevelIdleDbm != *(equalCopy + 57))
     {
       goto LABEL_70;
     }
   }
 
-  else if ((v9 & 0x40) != 0)
+  else if ((v8 & 0x40) != 0)
   {
     goto LABEL_70;
   }
@@ -1982,7 +2287,6 @@ LABEL_7:
     goto LABEL_70;
   }
 
-  v10 = *(equalCopy + 126);
   if ((*&self->_has & 0x100) != 0)
   {
     if ((*(equalCopy + 126) & 0x100) == 0 || self->_minSecRxLevelIdleDbm != *(equalCopy + 59))
@@ -2001,7 +2305,6 @@ LABEL_7:
     goto LABEL_70;
   }
 
-  v11 = *(equalCopy + 126);
   if ((*&self->_has & 0x200) != 0)
   {
     if ((*(equalCopy + 126) & 0x200) == 0 || self->_minSecTxLevelDbm != *(equalCopy + 60))
@@ -2020,16 +2323,16 @@ LABEL_7:
     goto LABEL_70;
   }
 
-  v12 = *(equalCopy + 126);
+  v9 = *(equalCopy + 126);
   if ((*&self->_has & 8) != 0)
   {
-    if ((v12 & 8) == 0 || self->_minAcTxLevelDbm != *(equalCopy + 54))
+    if ((v9 & 8) == 0 || self->_minAcTxLevelDbm != *(equalCopy + 54))
     {
       goto LABEL_70;
     }
   }
 
-  else if ((v12 & 8) != 0)
+  else if ((v9 & 8) != 0)
   {
     goto LABEL_70;
   }
@@ -2041,16 +2344,16 @@ LABEL_70:
     goto LABEL_71;
   }
 
-  v13 = *(equalCopy + 126);
+  v10 = *(equalCopy + 126);
   if ((*&self->_has & 0x10) != 0)
   {
-    if ((v13 & 0x10) == 0 || self->_minAdTxLevelDbm != *(equalCopy + 55))
+    if ((v10 & 0x10) == 0 || self->_minAdTxLevelDbm != *(equalCopy + 55))
     {
       goto LABEL_70;
     }
   }
 
-  else if ((v13 & 0x10) != 0)
+  else if ((v10 & 0x10) != 0)
   {
     goto LABEL_70;
   }

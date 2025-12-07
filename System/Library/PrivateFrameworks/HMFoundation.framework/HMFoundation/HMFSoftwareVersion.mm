@@ -30,7 +30,7 @@
 
 - (HMFSoftwareVersion)initWithString:(id)string
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   if (stringCopy)
   {
@@ -54,69 +54,69 @@
           v13 = 0;
         }
 
-        if ([v7 numberOfRanges] >= 6 && (v18 = objc_msgSend(v7, "rangeAtIndex:", 5), v19))
+        if ([v7 numberOfRanges] >= 6 && (v19 = objc_msgSend(v7, "rangeAtIndex:", 5), v20))
         {
-          v20 = [stringCopy substringWithRange:{v18, v19}];
+          v21 = [stringCopy substringWithRange:{v19, v20}];
         }
 
         else
         {
-          v20 = 0;
+          v21 = 0;
         }
 
-        if ([v7 numberOfRanges] >= 0xD && (v21 = objc_msgSend(v7, "rangeAtIndex:", 12), v22))
+        if ([v7 numberOfRanges] >= 0xD && (v22 = objc_msgSend(v7, "rangeAtIndex:", 12), v23))
         {
-          v23 = [stringCopy substringWithRange:{v21, v22}];
+          v24 = [stringCopy substringWithRange:{v22, v23}];
         }
 
         else
         {
-          v23 = 0;
+          v24 = 0;
         }
 
         if ([v7 numberOfRanges] >= 0xB)
         {
-          v24 = [v7 rangeAtIndex:10];
-          if (v25)
+          v25 = [v7 rangeAtIndex:10];
+          if (v26)
           {
-            v26 = [stringCopy substringWithRange:{v24, v25}];
+            v27 = [stringCopy substringWithRange:{v25, v26}];
 
-            v23 = v26;
+            v24 = v27;
           }
         }
 
         if ([v7 numberOfRanges] >= 9)
         {
-          v27 = [v7 rangeAtIndex:8];
-          if (v28)
+          v28 = [v7 rangeAtIndex:8];
+          if (v29)
           {
-            v29 = [stringCopy substringWithRange:{v27, v28}];
+            v30 = [stringCopy substringWithRange:{v28, v29}];
 
-            v23 = v29;
+            v24 = v30;
           }
         }
 
-        self = -[HMFSoftwareVersion initWithMajorVersion:minorVersion:updateVersion:buildVersion:](self, "initWithMajorVersion:minorVersion:updateVersion:buildVersion:", [v10 integerValue], objc_msgSend(v13, "integerValue"), objc_msgSend(v20, "integerValue"), v23);
+        self = -[HMFSoftwareVersion initWithMajorVersion:minorVersion:updateVersion:buildVersion:](self, "initWithMajorVersion:minorVersion:updateVersion:buildVersion:", [v10 integerValue], objc_msgSend(v13, "integerValue"), objc_msgSend(v21, "integerValue"), v24);
 
         selfCopy = self;
       }
 
       else
       {
-        v30 = objc_autoreleasePoolPush();
+        v31 = objc_autoreleasePoolPush();
         self = self;
-        v31 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+        v33 = HMFGetOSLogHandle(self, v32);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
         {
-          v32 = HMFGetLogIdentifier(self);
-          v35 = 138543618;
-          v36 = v32;
-          v37 = 2112;
-          v38 = stringCopy;
-          _os_log_impl(&dword_22ADEC000, v31, OS_LOG_TYPE_INFO, "%{public}@Invalid version string: %@", &v35, 0x16u);
+          v34 = HMFGetLogIdentifier(self);
+          v36 = 138543618;
+          v37 = v34;
+          v38 = 2112;
+          v39 = stringCopy;
+          _os_log_impl(&dword_22ADEC000, v33, OS_LOG_TYPE_INFO, "%{public}@Invalid version string: %@", &v36, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v30);
+        objc_autoreleasePoolPop(v31);
         selfCopy = 0;
       }
     }
@@ -125,15 +125,15 @@
     {
       v15 = objc_autoreleasePoolPush();
       self = self;
-      v16 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v17 = HMFGetOSLogHandle(self, v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
-        v17 = HMFGetLogIdentifier(self);
-        v35 = 138543618;
-        v36 = v17;
-        v37 = 2112;
-        v38 = stringCopy;
-        _os_log_impl(&dword_22ADEC000, v16, OS_LOG_TYPE_INFO, "%{public}@Invalid version string: %@", &v35, 0x16u);
+        v18 = HMFGetLogIdentifier(self);
+        v36 = 138543618;
+        v37 = v18;
+        v38 = 2112;
+        v39 = stringCopy;
+        _os_log_impl(&dword_22ADEC000, v17, OS_LOG_TYPE_INFO, "%{public}@Invalid version string: %@", &v36, 0x16u);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -146,7 +146,6 @@
     selfCopy = 0;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -289,9 +288,11 @@
 
 uint64_t __33__HMFSoftwareVersion_logCategory__block_invoke()
 {
-  qword_280AFC310 = HMFCreateOSLogHandle(@"HMFSoftwareVersion", @"com.apple.HomeKit");
+  v0 = HMFCreateOSLogHandle(@"HMFSoftwareVersion", @"com.apple.HomeKit");
+  v1 = qword_280AFC310;
+  qword_280AFC310 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

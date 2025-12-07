@@ -12,6 +12,7 @@
 - (void)registerClientInformation:(id)information onInstantiation:(BOOL)instantiation withReply:(id)reply;
 - (void)requestAccessoryWiFiCredentials:(id)credentials;
 - (void)sendDeviceIdentifierNotification:(id)notification usbIdentifier:(id)identifier forUUID:(id)d;
+- (void)sendGPRMCDataStatus:(BOOL)status ValueV:(BOOL)v ValueX:(BOOL)x forUUID:(id)d;
 - (void)sendNMEAFilterList:(id)list forUUID:(id)d;
 - (void)sendWiredCarPlayAvailable:(id)available usbIdentifier:(id)identifier wirelessAvailable:(id)wirelessAvailable bluetoothIdentifier:(id)bluetoothIdentifier forUUID:(id)d;
 - (void)sendWiredCarPlayAvailable:(id)available usbIdentifier:(id)identifier wirelessAvailable:(id)wirelessAvailable bluetoothIdentifier:(id)bluetoothIdentifier themeAssetsAvailable:(id)assetsAvailable forUUID:(id)d;
@@ -1044,6 +1045,54 @@ LABEL_3:
   }
 
   platform_location_sendNMEAFilterList(dCopy, listCopy);
+}
+
+- (void)sendGPRMCDataStatus:(BOOL)status ValueV:(BOOL)v ValueX:(BOOL)x forUUID:(id)d
+{
+  xCopy = x;
+  vCopy = v;
+  statusCopy = status;
+  dCopy = d;
+  if (gLogObjects)
+  {
+    v10 = gNumLogObjects < 10;
+  }
+
+  else
+  {
+    v10 = 1;
+  }
+
+  if (v10)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      platform_connectionInfo_configStreamGetCategories_cold_2();
+    }
+
+    v12 = &_os_log_default;
+    v11 = &_os_log_default;
+  }
+
+  else
+  {
+    v12 = *(gLogObjects + 72);
+  }
+
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    v13[0] = 67109890;
+    v13[1] = statusCopy;
+    v14 = 1024;
+    v15 = vCopy;
+    v16 = 1024;
+    v17 = xCopy;
+    v18 = 2112;
+    v19 = dCopy;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[#Location] Sending GPRMC Data Status ValueA: %d, ValueV: %d, ValueX: %d to endpoint UUID %@", v13, 0x1Eu);
+  }
+
+  platform_location_sendGPRMCDataStatus(dCopy, statusCopy, vCopy, xCopy);
 }
 
 - (void)stopLocationForUUID:(id)d

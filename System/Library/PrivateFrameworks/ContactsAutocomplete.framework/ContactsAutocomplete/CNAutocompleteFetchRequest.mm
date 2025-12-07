@@ -19,6 +19,7 @@
 - (void)encodeWithCoder:(id)coder;
 - (void)setSearchString:(id)string;
 - (void)setSendingAddress:(id)address;
+- (void)setShouldIncludeGroupResults:(BOOL)results;
 @end
 
 @implementation CNAutocompleteFetchRequest
@@ -72,20 +73,19 @@ uint64_t __50__CNAutocompleteFetchRequest_makeTriageIdentifier__block_invoke()
 
 - (BOOL)isZeroKeywordSearch
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = CNALoggingContextDebug();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = CNALoggingContextDebug(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     searchNames = [(CNAutocompleteFetchRequest *)self searchNames];
-    v9 = 138477827;
-    v10 = searchNames;
-    _os_log_impl(&dword_2155FE000, v3, OS_LOG_TYPE_DEFAULT, "ZKW: %{private}@", &v9, 0xCu);
+    v8 = 138477827;
+    v9 = searchNames;
+    _os_log_impl(&dword_2155FE000, v3, OS_LOG_TYPE_DEFAULT, "ZKW: %{private}@", &v8, 0xCu);
   }
 
   searchNames2 = [(CNAutocompleteFetchRequest *)self searchNames];
   v6 = [searchNames2 _cn_none:*MEMORY[0x277CFBD38]];
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -98,23 +98,20 @@ uint64_t __50__CNAutocompleteFetchRequest_makeTriageIdentifier__block_invoke()
 
 - (void)setSearchString:(id)string
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   if (string)
   {
     v4 = [string copy];
-    v9[0] = v4;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v7[0] = v4;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
     [(CNAutocompleteFetchRequest *)self setSearchNames:v5];
-
-    v6 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v7 = *MEMORY[0x277D85DE8];
-    v8 = MEMORY[0x277CBEBF8];
+    v6 = MEMORY[0x277CBEBF8];
 
-    [(CNAutocompleteFetchRequest *)self setSearchNames:v8];
+    [(CNAutocompleteFetchRequest *)self setSearchNames:v6];
   }
 }
 
@@ -227,14 +224,14 @@ LABEL_21:
 
 - (id)executeWithDelegate:(id)delegate
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
-  v5 = CNALoggingContextDebug();
+  v5 = CNALoggingContextDebug(delegateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412290;
+    v13 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_2155FE000, v5, OS_LOG_TYPE_DEFAULT, "Autocompleting “%@”", &v14, 0xCu);
+    _os_log_impl(&dword_2155FE000, v5, OS_LOG_TYPE_DEFAULT, "Autocompleting “%@”", &v13, 0xCu);
   }
 
   v6 = +[CNAutocompleteSearchProviderFactory nonCachingProvider];
@@ -244,8 +241,6 @@ LABEL_21:
   v10 = [(CNAutocompleteStore *)v8 initWithDelegate:delegateCopy searchProvider:v6 probeProvider:v7 scheduler:globalAsyncScheduler];
 
   v11 = [(CNAutocompleteStore *)v10 executeFetchRequest:self];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -269,7 +264,7 @@ LABEL_21:
 
 + (id)searchablePropertiesForSearchType:(unint64_t)type
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   if (type > 5)
   {
     v8 = MEMORY[0x277CBEBF8];
@@ -280,36 +275,34 @@ LABEL_21:
     if (((1 << type) & 0x32) != 0)
     {
       v3 = *MEMORY[0x277CBD098];
-      v12[0] = *MEMORY[0x277CBCFC0];
-      v12[1] = v3;
-      v12[2] = *MEMORY[0x277CBD038];
+      v11[0] = *MEMORY[0x277CBCFC0];
+      v11[1] = v3;
+      v11[2] = *MEMORY[0x277CBD038];
       v4 = MEMORY[0x277CBEA60];
-      v5 = v12;
+      v5 = v11;
       v6 = 3;
     }
 
     else if (((1 << type) & 9) != 0)
     {
-      v13[0] = *MEMORY[0x277CBCFC0];
+      v12[0] = *MEMORY[0x277CBCFC0];
       v4 = MEMORY[0x277CBEA60];
-      v5 = v13;
+      v5 = v12;
       v6 = 1;
     }
 
     else
     {
       v7 = *MEMORY[0x277CBD098];
-      v11[0] = *MEMORY[0x277CBCFC0];
-      v11[1] = v7;
+      v10[0] = *MEMORY[0x277CBCFC0];
+      v10[1] = v7;
       v4 = MEMORY[0x277CBEA60];
-      v5 = v11;
+      v5 = v10;
       v6 = 2;
     }
 
     v8 = [v4 arrayWithObjects:v5 count:v6];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -501,6 +494,13 @@ LABEL_21:
   }
 
   return [MEMORY[0x277CCACA8] stringWithFormat:@"%@ (%@)", v4, v5];
+}
+
+- (void)setShouldIncludeGroupResults:(BOOL)results
+{
+  self->_shouldIncludeGroupResultsImpl = [MEMORY[0x277CCABB0] numberWithBool:results];
+
+  MEMORY[0x2821F96F8]();
 }
 
 - (void)setSendingAddress:(id)address

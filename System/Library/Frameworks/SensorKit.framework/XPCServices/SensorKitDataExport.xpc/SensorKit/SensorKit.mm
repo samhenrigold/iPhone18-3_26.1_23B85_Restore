@@ -1,24 +1,24 @@
-NSURL *sub_100001750()
+NSURL *sub_100001750(uint64_t a1, uint64_t a2)
 {
   objc_opt_self();
   objc_opt_self();
-  v0 = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, 1uLL, 1);
-  if ([(NSArray *)v0 count])
+  v2 = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, 1uLL, 1);
+  if ([(NSArray *)v2 count])
   {
-    v1 = [NSURL fileURLWithPath:[(NSArray *)v0 firstObject] isDirectory:1];
+    v3 = [NSURL fileURLWithPath:[(NSArray *)v2 firstObject] isDirectory:1];
   }
 
   else
   {
-    v1 = 0;
+    v3 = 0;
   }
 
-  return [NSURL fileURLWithPath:@"com.apple.SensorKitDataExport" isDirectory:1 relativeToURL:v1];
+  return [NSURL fileURLWithPath:@"com.apple.SensorKitDataExport" isDirectory:1 relativeToURL:v3];
 }
 
-void sub_100001944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100001944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -78,7 +78,7 @@ id sub_100002A44(uint64_t a1, void *a2, uint64_t a3)
   }
 }
 
-uint64_t sub_1000037BC()
+uint64_t sub_1000037BC(uint64_t a1)
 {
   if (!qword_100016918)
   {
@@ -90,7 +90,6 @@ uint64_t sub_1000037BC()
 
 uint64_t sub_10000388C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100016918 = result;
   return result;
@@ -98,8 +97,14 @@ uint64_t sub_10000388C(uint64_t a1)
 
 Class sub_10000391C(uint64_t a1)
 {
-  if (sub_1000037BC())
+  v5 = 0;
+  if (sub_1000037BC(&v5))
   {
+    if (v5)
+    {
+      free(v5);
+    }
+
     result = objc_getClass("SRStreamBlockSample");
     *(*(*(a1 + 32) + 8) + 40) = result;
     if (*(*(*(a1 + 32) + 8) + 40))
@@ -113,7 +118,9 @@ Class sub_10000391C(uint64_t a1)
 
   else
   {
-    result = [+[NSAssertionHandler currentHandler](NSAssertionHandler handleFailureInFunction:"handleFailureInFunction:file:lineNumber:description:" file:[NSString stringWithUTF8String:?], @"SRDataExportService.m", 34, @"%s", 0];
+    v3 = +[NSAssertionHandler currentHandler];
+    v4 = [NSString stringWithUTF8String:"void *SensorKitSupportLibrary(void)"];
+    result = [(NSAssertionHandler *)v3 handleFailureInFunction:v4 file:@"SRDataExportService.m" lineNumber:34 description:@"%s", v5];
   }
 
   __break(1u);
@@ -176,7 +183,7 @@ void *sub_100004E68(void *result)
   return result;
 }
 
-BOOL sub_100005104(uint64_t a1, uint64_t a2)
+uint64_t sub_100005104(uint64_t a1, uint64_t a2)
 {
   v2 = a1;
   if (a1)

@@ -9,33 +9,33 @@
 
 - (WFSmartPromptApprovalResult)initWithCoder:(id)coder
 {
-  v29[2] = *MEMORY[0x1E69E9840];
+  v28[2] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
-  v29[0] = objc_opt_class();
-  v29[1] = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+  v28[0] = objc_opt_class();
+  v28[1] = objc_opt_class();
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
   v7 = [v4 setWithArray:v6];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"allowedStates"];
 
   v9 = MEMORY[0x1E695DFD8];
-  v28[0] = objc_opt_class();
-  v28[1] = objc_opt_class();
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
+  v27[0] = objc_opt_class();
+  v27[1] = objc_opt_class();
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
   v11 = [v9 setWithArray:v10];
   v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"deniedStates"];
 
   v13 = MEMORY[0x1E695DFD8];
-  v27[0] = objc_opt_class();
-  v27[1] = objc_opt_class();
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
+  v26[0] = objc_opt_class();
+  v26[1] = objc_opt_class();
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
   v15 = [v13 setWithArray:v14];
   v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"undefinedStates"];
 
   v17 = MEMORY[0x1E695DFD8];
-  v26[0] = objc_opt_class();
-  v26[1] = objc_opt_class();
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+  v25[0] = objc_opt_class();
+  v25[1] = objc_opt_class();
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
   v19 = [v17 setWithArray:v18];
   v20 = [coderCopy decodeObjectOfClasses:v19 forKey:@"restrictedStates"];
 
@@ -43,7 +43,6 @@
   v22 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"previousAttributions"];
 
   v23 = [(WFSmartPromptApprovalResult *)self initWithAllowedStates:v8 deniedStates:v12 undefinedStates:v16 restrictedStates:v20 actionUUID:v21 previousAttributions:v22];
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -71,7 +70,7 @@
 
 - (id)resultByAddingDatabaseResult:(id)result
 {
-  v39[2] = *MEMORY[0x1E69E9840];
+  v38[2] = *MEMORY[0x1E69E9840];
   resultCopy = result;
   previousAttributions = [(WFSmartPromptApprovalResult *)self previousAttributions];
   if (previousAttributions)
@@ -82,20 +81,20 @@
     {
       v7 = MEMORY[0x1E6996D38];
       previousAttributions2 = [(WFSmartPromptApprovalResult *)self previousAttributions];
-      v39[0] = previousAttributions2;
+      v38[0] = previousAttributions2;
       v9 = MEMORY[0x1E6996D38];
       previousAttribution2 = [resultCopy previousAttribution];
-      v38 = previousAttribution2;
-      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
+      v37 = previousAttribution2;
+      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
       v12 = [v9 attributionSetWithAttributions:v11];
-      v39[1] = v12;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
+      v38[1] = v12;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
       v14 = [v7 attributionSetByMergingAttributionSets:v13];
 
       previousAttributions = v11;
 LABEL_6:
 
-      v36 = v14;
+      v35 = v14;
       goto LABEL_8;
     }
   }
@@ -106,13 +105,13 @@ LABEL_6:
   {
     v16 = MEMORY[0x1E6996D38];
     previousAttributions2 = [resultCopy previousAttribution];
-    v37 = previousAttributions2;
-    previousAttribution2 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
+    v36 = previousAttributions2;
+    previousAttribution2 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
     v14 = [v16 attributionSetWithAttributions:previousAttribution2];
     goto LABEL_6;
   }
 
-  v36 = previousAttributions;
+  v35 = previousAttributions;
 LABEL_8:
   selfCopy = self;
   allowedStates = [(WFSmartPromptApprovalResult *)selfCopy allowedStates];
@@ -125,16 +124,14 @@ LABEL_8:
   undefinedStates2 = [resultCopy undefinedStates];
   [undefinedStates arrayByAddingObjectsFromArray:undefinedStates2];
   v22 = resultCopy;
-  v23 = v31 = resultCopy;
+  v23 = v30 = resultCopy;
   restrictedStates = [(WFSmartPromptApprovalResult *)selfCopy restrictedStates];
   restrictedStates2 = [v22 restrictedStates];
   v26 = [restrictedStates arrayByAddingObjectsFromArray:restrictedStates2];
   actionUUID = [(WFSmartPromptApprovalResult *)selfCopy actionUUID];
-  v30 = [(WFSmartPromptApprovalResult *)selfCopy initWithAllowedStates:v18 deniedStates:v19 undefinedStates:v23 restrictedStates:v26 actionUUID:actionUUID previousAttributions:v36];
+  v29 = [(WFSmartPromptApprovalResult *)selfCopy initWithAllowedStates:v18 deniedStates:v19 undefinedStates:v23 restrictedStates:v26 actionUUID:actionUUID previousAttributions:v35];
 
-  v28 = *MEMORY[0x1E69E9840];
-
-  return v30;
+  return v29;
 }
 
 - (WFSmartPromptApprovalResult)initWithAllowedStates:(id)states deniedStates:(id)deniedStates undefinedStates:(id)undefinedStates restrictedStates:(id)restrictedStates actionUUID:(id)d previousAttributions:(id)attributions

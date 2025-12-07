@@ -25,7 +25,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1000D1344();
+  sub_1000D1344(selfCopy, v2);
 }
 
 - (id)hitTest:(CGPoint)test withEvent:(id)event
@@ -34,9 +34,9 @@
   x = test.x;
   eventCopy = event;
   selfCopy = self;
-  v10 = sub_1000D1448(event, x, y);
+  v11 = sub_1000D1448(event, v10, x, y);
 
-  return v10;
+  return v11;
 }
 
 - (_TtC8AppStore42AppPromotionScrollableContentContainerView)initWithFrame:(CGRect)frame

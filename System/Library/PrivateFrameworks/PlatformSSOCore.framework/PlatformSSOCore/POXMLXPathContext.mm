@@ -28,7 +28,7 @@ LABEL_4:
     goto LABEL_8;
   }
 
-  v9 = PO_LOG_POXMLHelper();
+  v9 = PO_LOG_POXMLHelper(0);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     [POXMLXPathContext initWithXMLContext:];
@@ -72,7 +72,7 @@ LABEL_8:
       {
 LABEL_16:
         free(v6);
-        v13 = 1;
+        v14 = 1;
         goto LABEL_21;
       }
 
@@ -92,20 +92,21 @@ LABEL_16:
         v7 = v11 + 1;
       }
 
-      if (xmlXPathRegisterNs([(POXMLXPathContext *)self xpathCtx], i, v10))
+      v12 = xmlXPathRegisterNs([(POXMLXPathContext *)self xpathCtx], i, v10);
+      if (v12)
       {
-        v12 = PO_LOG_POXMLHelper();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = PO_LOG_POXMLHelper(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          [(POXMLXPathContext *)i registerNamespaces:v10, v12];
+          [(POXMLXPathContext *)i registerNamespaces:v10, v13];
         }
 
         goto LABEL_24;
       }
     }
 
-    v12 = PO_LOG_POXMLHelper();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = PO_LOG_POXMLHelper(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [POXMLXPathContext registerNamespaces:];
     }
@@ -117,17 +118,17 @@ LABEL_24:
 
   else
   {
-    v14 = PO_LOG_POXMLHelper();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = PO_LOG_POXMLHelper(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [POXMLXPathContext registerNamespaces:];
     }
   }
 
-  v13 = 0;
+  v14 = 0;
 LABEL_21:
 
-  return v13;
+  return v14;
 }
 
 - (id)evaluateXPath:(id)path
@@ -143,7 +144,7 @@ LABEL_21:
 
   else
   {
-    v7 = PO_LOG_POXMLHelper();
+    v7 = PO_LOG_POXMLHelper(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(POXMLXPathContext *)pathCopy evaluateXPath:v7];
@@ -170,22 +171,20 @@ LABEL_21:
 
 - (void)registerNamespaces:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 136315394;
-  v5 = a1;
-  v6 = 2080;
-  v7 = a2;
-  _os_log_error_impl(&dword_25E8B1000, log, OS_LOG_TYPE_ERROR, "Error: unable to register NS with prefix=%s and href=%s\n", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = a1;
+  v5 = 2080;
+  v6 = a2;
+  _os_log_error_impl(&dword_25E8B1000, log, OS_LOG_TYPE_ERROR, "Error: unable to register NS with prefix=%s and href=%s\n", &v3, 0x16u);
 }
 
 - (void)evaluateXPath:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 136315138;
-  v5 = [a1 UTF8String];
-  _os_log_error_impl(&dword_25E8B1000, a2, OS_LOG_TYPE_ERROR, "Error: unable to evaluate xpath expression %s\n", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 136315138;
+  v4 = [a1 UTF8String];
+  _os_log_error_impl(&dword_25E8B1000, a2, OS_LOG_TYPE_ERROR, "Error: unable to evaluate xpath expression %s\n", &v3, 0xCu);
 }
 
 @end

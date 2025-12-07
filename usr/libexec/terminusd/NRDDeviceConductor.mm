@@ -7,6 +7,7 @@
 - (void)dealloc;
 - (void)deviceHasBTLinkUpgradeRequest:(BOOL)request;
 - (void)deviceHasPhoneCallRelayRequest:(BOOL)request;
+- (void)deviceHasQuickRelayRequest:(id)request hasQuickRelayRequest:(BOOL)relayRequest;
 - (void)didCompleteIncomingResolveRequestForASName:(id)name asClient:(id)client;
 - (void)didStartBrowseRequestForASName:(id)name asClient:(id)client;
 - (void)didStartResolveRequestForASName:(id)name asClient:(id)client;
@@ -15,6 +16,7 @@
 - (void)didStopBrowseRequestForASName:(id)name asClient:(id)client;
 - (void)didStopResolveRequestForASName:(id)name asClient:(id)client;
 - (void)didStopTrackingAllNOIs:(id)is;
+- (void)didUpdateDNSProxyState:(id)state state:(unsigned __int8)a4;
 - (void)directToCloudRequestAvailable;
 - (void)directToCloudRequestUnavailable;
 - (void)linkDidReceiveData:(id)data data:(id)a4;
@@ -40,70 +42,66 @@
   clientCopy = client;
   if (self && self->_isEnabled && nameCopy && self->_asClient == clientCopy)
   {
-    v30 = clientCopy;
+    v26 = clientCopy;
     if (endpointCopy)
     {
-      nrUUID = self->_nrUUID;
-      v11 = _NRCopyLogObjectForNRUUID();
+      v10 = _NRCopyLogObjectForNRUUID();
       IsLevelEnabled = _NRLogIsLevelEnabled();
 
       if (IsLevelEnabled)
       {
-        v13 = self->_nrUUID;
-        v14 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        v12 = _NRCopyLogObjectForNRUUID();
+        _NRLogWithArgs(v12, 0, "%s%.30s:%-4d advertise stopped for %@ : %@", ", "[NRDDeviceConductor didStopAdvertiseRequestForASName:endpoint:asClient:]"", 9647, nameCopy, endpointCopy);
       }
 
-      v15 = nameCopy;
-      v16 = endpointCopy;
-      if (nw_endpoint_get_type(v16) == nw_endpoint_type_address)
+      v13 = nameCopy;
+      v14 = endpointCopy;
+      if (nw_endpoint_get_type(v14) == nw_endpoint_type_address)
       {
-        v17 = objc_alloc_init(NSMutableData);
-        v18 = [v15 dataUsingEncoding:4];
+        v15 = objc_alloc_init(NSMutableData);
+        v16 = [v13 dataUsingEncoding:4];
         NRTLVAddData();
-        v19 = [NWAddressEndpoint endpointWithCEndpoint:v16];
-        port = [v19 port];
-        v21 = sub_10013D308(v19, [port intValue], 0);
+        v17 = [NWAddressEndpoint endpointWithCEndpoint:v14];
+        port = [v17 port];
+        v19 = sub_10013D308(v17, [port intValue], 0);
 
         NRTLVAddData();
-        v22 = objc_alloc_init(NSMutableData);
+        v20 = objc_alloc_init(NSMutableData);
         NRTLVAddData();
-        v23 = sub_10002A50C([NRLinkDirectorMessage alloc], self->_nrUUID);
-        sub_10002AB38(v23, 20, v22);
-        sub_10002C0E8(v23);
+        v21 = sub_10002A50C([NRLinkDirectorMessage alloc], self->_nrUUID);
+        sub_10002AB38(v21, 20, v20);
+        sub_10002C0E8(v21);
       }
 
       else
       {
-        v24 = self->_nrUUID;
-        v25 = _NRCopyLogObjectForNRUUID();
-        v26 = _NRLogIsLevelEnabled();
+        v22 = _NRCopyLogObjectForNRUUID();
+        v23 = _NRLogIsLevelEnabled();
 
-        if (!v26)
+        if (!v23)
         {
 LABEL_13:
 
 LABEL_14:
-          clientCopy = v30;
+          clientCopy = v26;
           goto LABEL_15;
         }
 
-        v27 = self->_nrUUID;
-        v17 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        v15 = _NRCopyLogObjectForNRUUID();
+        _NRLogWithArgs(v15, 17, "invalid endpoint %@", v14);
       }
 
       goto LABEL_13;
     }
 
-    v28 = sub_1000E83DC();
-    v29 = _NRLogIsLevelEnabled();
+    v24 = sub_1000E83DC();
+    v25 = _NRLogIsLevelEnabled();
 
-    clientCopy = v30;
-    if (v29)
+    clientCopy = v26;
+    if (v25)
     {
-      v15 = sub_1000E83DC();
-      _NRLogWithArgs();
+      v13 = sub_1000E83DC();
+      _NRLogWithArgs(v13, 17, "%s called with null advertisedEndpoint", "[NRDDeviceConductor didStopAdvertiseRequestForASName:endpoint:asClient:]");
       goto LABEL_14;
     }
   }
@@ -118,15 +116,13 @@ LABEL_15:
   if (self && self->_isEnabled && nameCopy && self->_asClient == clientCopy)
   {
     v7 = clientCopy;
-    nrUUID = self->_nrUUID;
-    v9 = _NRCopyLogObjectForNRUUID();
+    v8 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v11 = self->_nrUUID;
-      v12 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v10 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v10, 0, "%s%.30s:%-4d resolve completed for %@", ", "[NRDDeviceConductor didCompleteIncomingResolveRequestForASName:asClient:]"", 9639, nameCopy);
     }
 
     sub_1000E8568(self, nameCopy);
@@ -141,22 +137,16 @@ LABEL_15:
   if (self && self->_isEnabled && nameCopy && self->_asClient == clientCopy)
   {
     v7 = clientCopy;
-    nrUUID = self->_nrUUID;
-    v9 = _NRCopyLogObjectForNRUUID();
+    v8 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v11 = self->_nrUUID;
-      v12 = _NRCopyLogObjectForNRUUID();
-      v18 = 9626;
-      v19 = nameCopy;
-      v16 = "";
-      v17 = "[NRDDeviceConductor didStopResolveRequestForASName:asClient:]";
-      _NRLogWithArgs();
+      v10 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v10, 0, "%s%.30s:%-4d stopping resolve for %@", ", "[NRDDeviceConductor didStopResolveRequestForASName:asClient:]"", 9626, nameCopy);
     }
 
-    [(NSMutableDictionary *)self->_asNamesToResolvedEndpoints setObject:0 forKeyedSubscript:nameCopy, v16, v17, v18, v19];
+    [(NSMutableDictionary *)self->_asNamesToResolvedEndpoints setObject:0 forKeyedSubscript:nameCopy];
     [(NSMutableDictionary *)self->_outgoingResolveASNameToToken setObject:0 forKeyedSubscript:nameCopy];
     asClient = self->_asClient;
     if (asClient)
@@ -164,8 +154,8 @@ LABEL_15:
       asClient = asClient->_asNamesForResolving;
     }
 
-    v14 = asClient;
-    if ([(NRApplicationServiceClient *)v14 count])
+    v12 = asClient;
+    if ([(NRApplicationServiceClient *)v12 count])
     {
     }
 
@@ -196,15 +186,13 @@ LABEL_14:
   if (self && self->_isEnabled && nameCopy && self->_asClient == clientCopy)
   {
     v7 = clientCopy;
-    nrUUID = self->_nrUUID;
-    v9 = _NRCopyLogObjectForNRUUID();
+    v8 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v11 = self->_nrUUID;
-      v12 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v10 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v10, 0, "%s%.30s:%-4d starting resolve for %@", ", "[NRDDeviceConductor didStartResolveRequestForASName:asClient:]"", 9618, nameCopy);
     }
 
     sub_1000E8C70(self, 0, 1);
@@ -219,15 +207,13 @@ LABEL_14:
   if (self && self->_isEnabled && nameCopy && self->_asClient == clientCopy)
   {
     v7 = clientCopy;
-    nrUUID = self->_nrUUID;
-    v9 = _NRCopyLogObjectForNRUUID();
+    v8 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v11 = self->_nrUUID;
-      v12 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v10 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v10, 0, "%s%.30s:%-4d stopping browse for %@", ", "[NRDDeviceConductor didStopBrowseRequestForASName:asClient:]"", 9607, nameCopy);
     }
 
     asClient = self->_asClient;
@@ -236,8 +222,8 @@ LABEL_14:
       asClient = asClient->_asNamesForBrowsing;
     }
 
-    v14 = asClient;
-    if ([(NRApplicationServiceClient *)v14 count])
+    v12 = asClient;
+    if ([(NRApplicationServiceClient *)v12 count])
     {
     }
 
@@ -268,15 +254,13 @@ LABEL_14:
   if (self && self->_isEnabled && nameCopy && self->_asClient == clientCopy)
   {
     v7 = clientCopy;
-    nrUUID = self->_nrUUID;
-    v9 = _NRCopyLogObjectForNRUUID();
+    v8 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v11 = self->_nrUUID;
-      v12 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v10 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v10, 0, "%s%.30s:%-4d starting browse for %@", ", "[NRDDeviceConductor didStartBrowseRequestForASName:asClient:]"", 9599, nameCopy);
     }
 
     sub_1000E8C70(self, 1, 0);
@@ -368,13 +352,16 @@ LABEL_13:
   {
     if (self->_disablePreferWiFi)
     {
-      nrUUID = self->_nrUUID;
-      v4 = _NRCopyLogObjectForNRUUID();
+      v3 = _NRCopyLogObjectForNRUUID();
       IsLevelEnabled = _NRLogIsLevelEnabled();
 
       if (IsLevelEnabled)
       {
-        goto LABEL_10;
+        v5 = _NRCopyLogObjectForNRUUID();
+        _NRLogWithArgs(v5, 0, "%s%.30s:%-4d ignoring prefer Wi-Fi request as it is manually disabled");
+LABEL_11:
+
+        return 0;
       }
 
       return 0;
@@ -393,16 +380,14 @@ LABEL_13:
 
       if (v7 == 1)
       {
-        v8 = self->_nrUUID;
-        v9 = _NRCopyLogObjectForNRUUID();
-        v10 = _NRLogIsLevelEnabled();
+        v8 = _NRCopyLogObjectForNRUUID();
+        v9 = _NRLogIsLevelEnabled();
 
-        if (v10)
+        if (v9)
         {
-LABEL_10:
-          v11 = self->_nrUUID;
-          v12 = _NRCopyLogObjectForNRUUID();
-          _NRLogWithArgs();
+          v5 = _NRCopyLogObjectForNRUUID();
+          _NRLogWithArgs(v5, 0, "%s%.30s:%-4d ignoring prefer Wi-Fi request as fixed interface mode is enabled");
+          goto LABEL_11;
         }
 
         return 0;
@@ -412,15 +397,13 @@ LABEL_10:
 
   if (self->_hasPhoneCallRelayRequest)
   {
-    v14 = self->_nrUUID;
-    v15 = _NRCopyLogObjectForNRUUID();
-    v16 = _NRLogIsLevelEnabled();
+    v11 = _NRCopyLogObjectForNRUUID();
+    v12 = _NRLogIsLevelEnabled();
 
-    if (v16)
+    if (v12)
     {
-      v17 = self->_nrUUID;
-      v18 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v13 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v13, 0, "%s%.30s:%-4d ignoring prefer Wi-Fi disable request as we have an active phone call relay request", ", "[NRDDeviceConductor preferWiFiRequestUnavailable]"", 7709);
     }
   }
 
@@ -447,13 +430,16 @@ LABEL_10:
   {
     if (self->_disablePreferWiFi)
     {
-      nrUUID = self->_nrUUID;
-      v4 = _NRCopyLogObjectForNRUUID();
+      v3 = _NRCopyLogObjectForNRUUID();
       IsLevelEnabled = _NRLogIsLevelEnabled();
 
       if (IsLevelEnabled)
       {
-        goto LABEL_13;
+        v5 = _NRCopyLogObjectForNRUUID();
+        _NRLogWithArgs(v5, 0, "%s%.30s:%-4d ignoring prefer Wi-Fi request as it is manually disabled");
+LABEL_14:
+
+        return 0;
       }
 
       return 0;
@@ -472,13 +458,14 @@ LABEL_10:
 
       if (v7 == 1)
       {
-        v8 = self->_nrUUID;
-        v9 = _NRCopyLogObjectForNRUUID();
-        v10 = _NRLogIsLevelEnabled();
+        v8 = _NRCopyLogObjectForNRUUID();
+        v9 = _NRLogIsLevelEnabled();
 
-        if (v10)
+        if (v9)
         {
-          goto LABEL_13;
+          v5 = _NRCopyLogObjectForNRUUID();
+          _NRLogWithArgs(v5, 0, "%s%.30s:%-4d ignoring prefer Wi-Fi request as fixed interface mode is enabled");
+          goto LABEL_14;
         }
 
         return 0;
@@ -488,18 +475,14 @@ LABEL_10:
 
   if (self->_deviceSetupInProgress)
   {
-    v11 = self->_nrUUID;
-    v12 = _NRCopyLogObjectForNRUUID();
-    v13 = _NRLogIsLevelEnabled();
+    v10 = _NRCopyLogObjectForNRUUID();
+    v11 = _NRLogIsLevelEnabled();
 
-    if (v13)
+    if (v11)
     {
-LABEL_13:
-      v14 = self->_nrUUID;
-      v15 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
-
-      return 0;
+      v5 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v5, 0, "%s%.30s:%-4d ignoring prefer Wi-Fi enable request as device setup is in progress");
+      goto LABEL_14;
     }
 
     return 0;
@@ -507,15 +490,13 @@ LABEL_13:
 
   if (self->_hasPhoneCallRelayRequest)
   {
-    v17 = self->_nrUUID;
-    v18 = _NRCopyLogObjectForNRUUID();
-    v19 = _NRLogIsLevelEnabled();
+    v13 = _NRCopyLogObjectForNRUUID();
+    v14 = _NRLogIsLevelEnabled();
 
-    if (v19)
+    if (v14)
     {
-      v20 = self->_nrUUID;
-      v21 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v15 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v15, 0, "%s%.30s:%-4d ignoring prefer Wi-Fi enable request as we have an active phone call relay request", ", "[NRDDeviceConductor preferWiFiRequestAvailable]"", 7616);
     }
   }
 
@@ -529,32 +510,32 @@ LABEL_13:
         dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
       }
 
-      v22 = qword_1002290B8;
-      v23 = v22;
-      if (v22)
+      v16 = qword_1002290B8;
+      v17 = v16;
+      if (v16)
       {
-        v24 = *(v22 + 12);
+        v18 = *(v16 + 12);
       }
 
       else
       {
-        v24 = 0;
+        v18 = 0;
       }
 
-      v25 = v24;
-      self->_p2pRequested = sub_10007401C(v25, 0);
+      v19 = v18;
+      self->_p2pRequested = sub_10007401C(v19, 0);
     }
 
-    v26 = sub_1000F1BC0(self, 2);
-    v33 = v26;
-    if (v26 && [(dispatch_queue_t *)v26 state]!= 255)
+    v20 = sub_1000F1BC0(self, 2);
+    v27 = v20;
+    if (v20 && [(dispatch_queue_t *)v20 state]!= 255)
     {
-      goto LABEL_32;
+      goto LABEL_33;
     }
 
     if (!self->_p2pRequested)
     {
-      goto LABEL_38;
+      goto LABEL_39;
     }
 
     dispatch_assert_queue_V2(self->_queue);
@@ -564,61 +545,59 @@ LABEL_13:
       dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
     }
 
-    v34 = qword_1002290B8;
-    v35 = v34;
-    v36 = v34 ? *(v34 + 6) : 0;
-    v37 = v36;
+    v28 = qword_1002290B8;
+    v29 = v28;
+    v30 = v28 ? *(v28 + 6) : 0;
+    v31 = v30;
 
-    v38 = sub_10017F7C8(v37);
-    if (v38)
+    v32 = sub_10017F7C8(v31);
+    if (v32)
     {
-LABEL_32:
+LABEL_33:
       dispatch_assert_queue_V2(self->_queue);
       if (self->_isAlwaysReachableOverWiFi)
       {
-        v39 = objc_alloc_init(NRLinkDirectorRequest);
-        v40 = v39;
-        if (v39)
+        v33 = objc_alloc_init(NRLinkDirectorRequest);
+        v34 = v33;
+        if (v33)
         {
-          v39->_type = 1;
-          v39->_requiredLinkType = 1;
-          *&v39->_attemptImmediately = 257;
+          v33->_type = 1;
+          v33->_requiredLinkType = 1;
+          *&v33->_attemptImmediately = 257;
         }
 
-        sub_1000EAA20(self, v39);
+        sub_1000EAA20(self, v33);
       }
 
       if (sub_1000EF670(self, 1, 1, 1, 0, 0))
       {
-        [(dispatch_queue_t *)v33 start];
+        [(dispatch_queue_t *)v27 start];
       }
 
       else
       {
         self->_pendingPreferWiFiRequest = 1;
-        v47[0] = _NSConcreteStackBlock;
-        v47[1] = 3221225472;
-        v47[2] = sub_1000F2CB0;
-        v47[3] = &unk_1001FD3C8;
-        v47[4] = self;
-        sub_1000EF670(self, 1, 0, 0, 0, v47);
-        v41 = self->_nrUUID;
-        v42 = _NRCopyLogObjectForNRUUID();
-        v43 = _NRLogIsLevelEnabled();
+        v39[0] = _NSConcreteStackBlock;
+        v39[1] = 3221225472;
+        v39[2] = sub_1000F2CB0;
+        v39[3] = &unk_1001FD3C8;
+        v39[4] = self;
+        sub_1000EF670(self, 1, 0, 0, 0, v39);
+        v35 = _NRCopyLogObjectForNRUUID();
+        v36 = _NRLogIsLevelEnabled();
 
-        if (v43)
+        if (v36)
         {
-          v44 = self->_nrUUID;
-          v45 = _NRCopyLogObjectForNRUUID();
-          _NRLogWithArgs();
+          v37 = _NRCopyLogObjectForNRUUID();
+          _NRLogWithArgs(v37, 1, "%s%.30s:%-4d Enqueued prefer Wi-Fi request to be sent later", ", "[NRDDeviceConductor preferWiFiRequestAvailable]"", 7678);
         }
       }
     }
 
     else
     {
-LABEL_38:
-      sub_1000F2504(self, @"No Wi-Fi link available", v27, v28, v29, v30, v31, v32, v46);
+LABEL_39:
+      sub_1000F2504(self, @"No Wi-Fi link available", v21, v22, v23, v24, v25, v26, v38);
       self->_pendingPreferWiFiRequest = 1;
     }
   }
@@ -653,37 +632,30 @@ LABEL_38:
     }
   }
 
-  if (!self)
+  if (!self || !self->_preferWiFiRequest && !self->_preferWiFiRequestInFlight)
   {
-LABEL_20:
-    v12 = _NRCopyLogObjectForNRUUID();
+    v11 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
+      v13 = _NRCopyLogObjectForNRUUID();
       if (self)
       {
-        nrUUID = self->_nrUUID;
-        v15 = _NRCopyLogObjectForNRUUID();
         preferWiFiRequest = self->_preferWiFiRequest;
         preferWiFiRequestInFlight = self->_preferWiFiRequestInFlight;
       }
 
       else
       {
-        v15 = _NRCopyLogObjectForNRUUID();
+        preferWiFiRequest = 0;
+        preferWiFiRequestInFlight = 0;
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(v13, 0, "%s%.30s:%-4d %d %d", ", "[NRDDeviceConductor preferWiFiP2PRequestUpdated]"", 7575, preferWiFiRequest, preferWiFiRequestInFlight);
     }
 
     return 0;
-  }
-
-  if (!self->_preferWiFiRequest && !self->_preferWiFiRequestInFlight)
-  {
-    v11 = self->_nrUUID;
-    goto LABEL_20;
   }
 
   if (self->_supportsAWDL)
@@ -792,6 +764,178 @@ LABEL_20:
   }
 }
 
+- (void)deviceHasQuickRelayRequest:(id)request hasQuickRelayRequest:(BOOL)relayRequest
+{
+  relayRequestCopy = relayRequest;
+  requestCopy = request;
+  v36 = requestCopy;
+  if (!self)
+  {
+    if ([requestCopy isEqual:0])
+    {
+      goto LABEL_35;
+    }
+
+LABEL_21:
+    v25 = _NRCopyLogObjectForNRUUID();
+    IsLevelEnabled = _NRLogIsLevelEnabled();
+
+    if (!IsLevelEnabled)
+    {
+      goto LABEL_38;
+    }
+
+    if (self)
+    {
+      nrUUID = self->_nrUUID;
+    }
+
+    else
+    {
+      nrUUID = 0;
+    }
+
+    v28 = nrUUID;
+    v29 = _NRCopyLogObjectForNRUUID();
+    v19 = v29;
+    if (self)
+    {
+      v30 = self->_nrUUID;
+    }
+
+    else
+    {
+      v30 = 0;
+    }
+
+    _NRLogWithArgs(v29, 17, "Received quick relay request for incorrect conductor (expected: %@, received: %@", v30, v36);
+
+    goto LABEL_37;
+  }
+
+  if (([requestCopy isEqual:self->_nrUUID] & 1) == 0)
+  {
+    goto LABEL_21;
+  }
+
+  if (self->_isEnabled)
+  {
+    v7 = _NRCopyLogObjectForNRUUID();
+    v8 = _NRLogIsLevelEnabled();
+
+    if (v8)
+    {
+      v9 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v9, 0, "%s%.30s:%-4d deviceHasQuickRelayRequest: %d -> %d", ", "[NRDDeviceConductor deviceHasQuickRelayRequest:hasQuickRelayRequest:]"", 7507, self->_hasQuickRelayRequest, relayRequestCopy);
+    }
+
+    self->_hasQuickRelayRequest = relayRequestCopy;
+    if (self->_hasReceivedFirstAPSIsConnectedUpdate)
+    {
+      goto LABEL_17;
+    }
+
+    objc_opt_self();
+    if (qword_1002290C0 != -1)
+    {
+      dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
+    }
+
+    v10 = qword_1002290B8;
+    v11 = v10;
+    if (v10)
+    {
+      v12 = v10[7];
+      if (v12)
+      {
+        v13 = v12[32];
+        goto LABEL_12;
+      }
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    v13 = 0;
+LABEL_12:
+    self->_apsIsConnected = v13 & 1;
+
+    v14 = _NRCopyLogObjectForNRUUID();
+    v15 = _NRLogIsLevelEnabled();
+
+    if (v15)
+    {
+      v16 = _NRCopyLogObjectForNRUUID();
+      v17 = v16;
+      if (self->_apsIsConnected)
+      {
+        v18 = "YES";
+      }
+
+      else
+      {
+        v18 = "NO";
+      }
+
+      _NRLogWithArgs(v16, 0, "%s%.30s:%-4d force fetching apsIsConnected: %s", ", "[NRDDeviceConductor deviceHasQuickRelayRequest:hasQuickRelayRequest:]"", 7512, v18);
+    }
+
+LABEL_17:
+    v19 = sub_1000F1BC0(self, 4);
+    if (v19)
+    {
+      quickRelayAgent = self->_quickRelayAgent;
+      if (quickRelayAgent && [(NSMutableDictionary *)quickRelayAgent->_quickRelayClientNames count])
+      {
+        v21 = [NSSet alloc];
+        allValues = [(NSMutableDictionary *)quickRelayAgent->_quickRelayClientNames allValues];
+        v23 = [v21 initWithArray:allValues];
+
+        allObjects = [v23 allObjects];
+      }
+
+      else
+      {
+        allObjects = 0;
+      }
+
+      if ([allObjects count])
+      {
+        clients = [v19 clients];
+
+        if (!clients)
+        {
+          v32 = objc_alloc_init(NSMutableSet);
+          [v19 setClients:v32];
+        }
+
+        clients2 = [v19 clients];
+        [clients2 addObjectsFromArray:allObjects];
+      }
+    }
+
+    sub_1000F35C8(self);
+    goto LABEL_37;
+  }
+
+LABEL_35:
+  v34 = _NRCopyLogObjectForNRUUID();
+  v35 = _NRLogIsLevelEnabled();
+
+  if (!v35)
+  {
+    goto LABEL_38;
+  }
+
+  v19 = _NRCopyLogObjectForNRUUID();
+  _NRLogWithArgs(v19, 0, "%s%.30s:%-4d Ignoring quick relay request as conductor is disabled (request: %d)", ", "[NRDDeviceConductor deviceHasQuickRelayRequest:hasQuickRelayRequest:]"", 7503, relayRequestCopy);
+LABEL_37:
+
+LABEL_38:
+}
+
 - (void)apsIsConnected:(BOOL)connected
 {
   connectedCopy = connected;
@@ -803,12 +947,17 @@ LABEL_20:
       return;
     }
 
-    nrUUID = self->_nrUUID;
+    connectedCopy2 = connected;
   }
 
-  else if (!connected)
+  else
   {
-    return;
+    if (!connected)
+    {
+      return;
+    }
+
+    connectedCopy2 = 1;
   }
 
   v6 = _NRCopyLogObjectForNRUUID();
@@ -816,50 +965,39 @@ LABEL_20:
 
   if (IsLevelEnabled)
   {
+    v8 = _NRCopyLogObjectForNRUUID();
     if (self)
     {
-      v8 = self->_nrUUID;
-      v9 = _NRCopyLogObjectForNRUUID();
       apsIsConnected = self->_apsIsConnected;
     }
 
     else
     {
-      v9 = _NRCopyLogObjectForNRUUID();
+      apsIsConnected = 0;
     }
 
-    _NRLogWithArgs();
+    _NRLogWithArgs(v8, 0, "%s%.30s:%-4d apsIsConnected: %d -> %d", ", "[NRDDeviceConductor apsIsConnected:]"", 7442, apsIsConnected, connectedCopy2);
   }
 
-  if (self)
+  if (self && (self->_apsIsConnected = connectedCopy, self->_isEnabled))
   {
-    self->_apsIsConnected = connectedCopy;
-    if (self->_isEnabled)
+    if (connectedCopy)
     {
-      if (connectedCopy)
-      {
 
-        sub_1000F35C8(self);
-      }
-
-      return;
+      sub_1000F35C8(self);
     }
-
-    v11 = self->_nrUUID;
   }
 
-  v12 = _NRCopyLogObjectForNRUUID();
-  v13 = _NRLogIsLevelEnabled();
-
-  if (v13)
+  else
   {
-    if (self)
-    {
-      v14 = self->_nrUUID;
-    }
+    v10 = _NRCopyLogObjectForNRUUID();
+    v11 = _NRLogIsLevelEnabled();
 
-    v15 = _NRCopyLogObjectForNRUUID();
-    _NRLogWithArgs();
+    if (v11)
+    {
+      v12 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v12, 0, "%s%.30s:%-4d Ignoring apsIsConnected callback as conductor is disabled (apsIsConnected: %d)", ", "[NRDDeviceConductor apsIsConnected:]"", 7446, connectedCopy2);
+    }
   }
 }
 
@@ -907,15 +1045,13 @@ LABEL_20:
     self->_phoneCallRelayAnalytics = 0;
   }
 
-  nrUUID = self->_nrUUID;
-  v12 = _NRCopyLogObjectForNRUUID();
+  v11 = _NRCopyLogObjectForNRUUID();
   IsLevelEnabled = _NRLogIsLevelEnabled();
 
   if (IsLevelEnabled)
   {
-    v14 = self->_nrUUID;
-    v15 = _NRCopyLogObjectForNRUUID();
-    _NRLogWithArgs();
+    v13 = _NRCopyLogObjectForNRUUID();
+    _NRLogWithArgs(v13, 0, "%s%.30s:%-4d deviceHasPhoneCallRelayRequest: %d", ", "[NRDDeviceConductor deviceHasPhoneCallRelayRequest:]"", 7403, requestCopy);
   }
 
   self->_hasPhoneCallRelayRequest = requestCopy;
@@ -933,35 +1069,33 @@ LABEL_20:
       dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
     }
 
-    v16 = qword_1002290B8;
-    v17 = v16;
-    if (v16)
+    v14 = qword_1002290B8;
+    v15 = v14;
+    if (v14)
     {
-      v18 = *(v16 + 6);
+      v16 = *(v14 + 6);
     }
 
     else
     {
-      v18 = 0;
+      v16 = 0;
     }
 
-    v19 = v18;
+    v17 = v16;
 
-    if (v19 && (v20 = v19[3], dispatch_assert_queue_V2(v20), v20, *(v19 + 10) >= 1))
+    if (v17 && (v18 = v17[3], dispatch_assert_queue_V2(v18), v18, *(v17 + 10) >= 1))
     {
       preferWiFiRequest = self->_preferWiFiRequest;
 
       if (!preferWiFiRequest)
       {
-        v22 = self->_nrUUID;
-        v23 = _NRCopyLogObjectForNRUUID();
-        v24 = _NRLogIsLevelEnabled();
+        v20 = _NRCopyLogObjectForNRUUID();
+        v21 = _NRLogIsLevelEnabled();
 
-        if (v24)
+        if (v21)
         {
-          v25 = self->_nrUUID;
-          v26 = _NRCopyLogObjectForNRUUID();
-          _NRLogWithArgs();
+          v22 = _NRCopyLogObjectForNRUUID();
+          _NRLogWithArgs(v22, 0, "%s%.30s:%-4d processing outstanding prefer Wi-Fi requests", ", "[NRDDeviceConductor deviceHasPhoneCallRelayRequest:]"", 7410);
         }
 
         [(NRDDeviceConductor *)self preferWiFiRequestAvailable];
@@ -980,40 +1114,38 @@ LABEL_20:
       dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
     }
 
-    v32 = qword_1002290B8;
-    v33 = v32;
-    if (v32)
+    v26 = qword_1002290B8;
+    v27 = v26;
+    if (v26)
     {
-      v34 = *(v32 + 6);
+      v28 = *(v26 + 6);
     }
 
     else
     {
-      v34 = 0;
+      v28 = 0;
     }
 
-    v43 = v34;
+    v35 = v28;
 
-    v35 = v43;
-    if (v43 && (v36 = v43[3], dispatch_assert_queue_V2(v36), v36, v35 = v43, *(v43 + 10) > 0))
+    v29 = v35;
+    if (v35 && (v30 = v35[3], dispatch_assert_queue_V2(v30), v30, v29 = v35, *(v35 + 10) > 0))
     {
     }
 
     else
     {
-      v37 = self->_preferWiFiRequest;
+      v31 = self->_preferWiFiRequest;
 
-      if (v37)
+      if (v31)
       {
-        v38 = self->_nrUUID;
-        v39 = _NRCopyLogObjectForNRUUID();
-        v40 = _NRLogIsLevelEnabled();
+        v32 = _NRCopyLogObjectForNRUUID();
+        v33 = _NRLogIsLevelEnabled();
 
-        if (v40)
+        if (v33)
         {
-          v41 = self->_nrUUID;
-          v42 = _NRCopyLogObjectForNRUUID();
-          _NRLogWithArgs();
+          v34 = _NRCopyLogObjectForNRUUID();
+          _NRLogWithArgs(v34, 0, "%s%.30s:%-4d processing deferred prefer Wi-Fi disable request", ", "[NRDDeviceConductor deviceHasPhoneCallRelayRequest:]"", 7415);
         }
 
         [(NRDDeviceConductor *)self preferWiFiRequestUnavailable];
@@ -1023,15 +1155,13 @@ LABEL_20:
 
   else if (requestCopy && !self->_preferWiFiRequest && self->_pendingPreferWiFiRequest)
   {
-    v27 = self->_nrUUID;
-    v28 = _NRCopyLogObjectForNRUUID();
-    v29 = _NRLogIsLevelEnabled();
+    v23 = _NRCopyLogObjectForNRUUID();
+    v24 = _NRLogIsLevelEnabled();
 
-    if (v29)
+    if (v24)
     {
-      v30 = self->_nrUUID;
-      v31 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v25 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v25, 0, "%s%.30s:%-4d resetting pending bit for prefer Wi-Fi request, as the device has a phone call relay request", ", "[NRDDeviceConductor deviceHasPhoneCallRelayRequest:]"", 7426);
     }
 
     self->_pendingPreferWiFiRequest = 0;
@@ -1047,33 +1177,31 @@ LABEL_20:
   {
     if (([(NSUUID *)self->_nrUUID isEqual:dCopy]& 1) == 0)
     {
-      v11 = sub_1000E83DC();
+      v9 = sub_1000E83DC();
       IsLevelEnabled = _NRLogIsLevelEnabled();
 
       if (IsLevelEnabled)
       {
-        v13 = sub_1000E83DC();
-        _NRLogWithArgs();
+        v11 = sub_1000E83DC();
+        _NRLogWithArgs(v11, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: [self.nrUUID isEqual:nrUUID]", ", "[NRDDeviceConductor peerDidUnpairBluetooth:nrUUID:]"", 7369);
       }
 
-      _os_log_pack_size();
-      v14 = *__error();
-      v15 = _os_log_pack_fill();
-      *v15 = 136446210;
-      *(v15 + 4) = "[NRDDeviceConductor peerDidUnpairBluetooth:nrUUID:]";
+      v12 = _os_log_pack_size();
+      v13 = __error();
+      v14 = _os_log_pack_fill(&dCopy - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0), v12, *v13, &_mh_execute_header, "%{public}s Assertion Failed: [self.nrUUID isEqual:nrUUID]");
+      *v14 = 136446210;
+      *(v14 + 4) = "[NRDDeviceConductor peerDidUnpairBluetooth:nrUUID:]";
       sub_1000E83DC();
       _NRLogAbortWithPack();
     }
 
-    nrUUID = self->_nrUUID;
-    v7 = _NRCopyLogObjectForNRUUID();
-    v8 = _NRLogIsLevelEnabled();
+    v6 = _NRCopyLogObjectForNRUUID();
+    v7 = _NRLogIsLevelEnabled();
 
-    if (v8)
+    if (v7)
     {
-      v9 = self->_nrUUID;
-      v10 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v8 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v8, 1, "%s%.30s:%-4d PeerHasUnregistered: %d", ", "[NRDDeviceConductor peerDidUnpairBluetooth:nrUUID:]"", 7370, bluetoothCopy);
     }
 
     self->_peerDidUnpairBluetooth = bluetoothCopy;
@@ -1088,33 +1216,31 @@ LABEL_20:
   dispatch_assert_queue_V2(self->_queue);
   if (([(NSUUID *)self->_nrUUID isEqual:iDCopy]& 1) == 0)
   {
-    v15 = sub_1000E83DC();
+    v13 = sub_1000E83DC();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v17 = sub_1000E83DC();
-      _NRLogWithArgs();
+      v15 = sub_1000E83DC();
+      _NRLogWithArgs(v15, 16, "%s%.30s:%-4d ABORTING: Assertion Failed: [self.nrUUID isEqual:nrUUID]", ", "[NRDDeviceConductor pipeDidConnectForNRUUID:nrUUID:]"", 7326);
     }
 
-    _os_log_pack_size();
-    v18 = *__error();
-    v19 = _os_log_pack_fill();
-    *v19 = 136446210;
-    *(v19 + 4) = "[NRDDeviceConductor pipeDidConnectForNRUUID:nrUUID:]";
+    v16 = _os_log_pack_size();
+    v17 = __error();
+    v18 = _os_log_pack_fill(&block[-1] - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0), v16, *v17, &_mh_execute_header, "%{public}s Assertion Failed: [self.nrUUID isEqual:nrUUID]");
+    *v18 = 136446210;
+    *(v18 + 4) = "[NRDDeviceConductor pipeDidConnectForNRUUID:nrUUID:]";
     sub_1000E83DC();
     _NRLogAbortWithPack();
   }
 
-  nrUUID = self->_nrUUID;
-  v8 = _NRCopyLogObjectForNRUUID();
-  v9 = _NRLogIsLevelEnabled();
+  v7 = _NRCopyLogObjectForNRUUID();
+  v8 = _NRLogIsLevelEnabled();
 
-  if (v9)
+  if (v8)
   {
-    v10 = self->_nrUUID;
-    v11 = _NRCopyLogObjectForNRUUID();
-    _NRLogWithArgs();
+    v9 = _NRCopyLogObjectForNRUUID();
+    _NRLogWithArgs(v9, 1, "%s%.30s:%-4d PeerIsNearby: %d", ", "[NRDDeviceConductor pipeDidConnectForNRUUID:nrUUID:]"", 7327, dCopy);
   }
 
   self->_peerDeviceIsNearby = dCopy;
@@ -1123,7 +1249,7 @@ LABEL_20:
   {
     sub_10003F7D8(self->_quickRelayAgent);
     peerDeviceIsNearbyUpdateCounter = self->_peerDeviceIsNearbyUpdateCounter;
-    v13 = dispatch_time(0x8000000000000000, 3000000000);
+    v11 = dispatch_time(0x8000000000000000, 3000000000);
     queue = self->_queue;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
@@ -1131,7 +1257,7 @@ LABEL_20:
     block[3] = &unk_1001FBAE8;
     block[4] = self;
     block[5] = peerDeviceIsNearbyUpdateCounter;
-    dispatch_after(v13, queue, block);
+    dispatch_after(v11, queue, block);
   }
 
   sub_1000F4104(self);
@@ -1139,21 +1265,20 @@ LABEL_20:
 
 - (void)linkPeerIsAsleep:(id)asleep isAsleep:(BOOL)isAsleep
 {
+  isAsleepCopy = isAsleep;
   asleepCopy = asleep;
   dispatch_assert_queue_V2(self->_queue);
-  nrUUID = self->_nrUUID;
-  v7 = _NRCopyLogObjectForNRUUID();
+  v6 = _NRCopyLogObjectForNRUUID();
   IsLevelEnabled = _NRLogIsLevelEnabled();
 
   if (IsLevelEnabled)
   {
-    v9 = self->_nrUUID;
-    v10 = _NRCopyLogObjectForNRUUID();
-    _NRLogWithArgs();
+    v8 = _NRCopyLogObjectForNRUUID();
+    _NRLogWithArgs(v8, 1, "%s%.30s:%-4d link: %@, IsAsleep: %d", ", "[NRDDeviceConductor linkPeerIsAsleep:isAsleep:]"", 7154, asleepCopy, isAsleepCopy);
   }
 
-  self->_peerDeviceIsAsleep = isAsleep;
-  if (!isAsleep && self->_peerDeviceIsNearby)
+  self->_peerDeviceIsAsleep = isAsleepCopy;
+  if (!isAsleepCopy && self->_peerDeviceIsNearby)
   {
     netInfo = self->_netInfo;
     if (netInfo)
@@ -1164,9 +1289,9 @@ LABEL_20:
         goto LABEL_11;
       }
 
-      v12 = sub_10001EEBC(netInfo);
+      v10 = sub_10001EEBC(netInfo);
 
-      if (v12)
+      if (v10)
       {
         netInfo = self->_netInfo;
         netInfoGenerationSent = self->_netInfoGenerationSent;
@@ -1203,12 +1328,12 @@ LABEL_12:
 - (void)linkDidReceiveData:(id)data data:(id)a4
 {
   dataCopy = data;
-  v384 = a4;
+  v364 = a4;
   dispatch_assert_queue_V2(self->_queue);
-  v382 = dataCopy;
+  v362 = dataCopy;
   if (self->_isEnabled)
   {
-    if ([dataCopy state]!= 255)
+    if ([dataCopy state] != 255)
     {
       v7 = self->_nrUUID;
       v8 = _NRCopyLogObjectForNRUUID();
@@ -1218,34 +1343,29 @@ LABEL_12:
       {
         v10 = self->_nrUUID;
         v11 = _NRCopyLogObjectForNRUUID();
-        v375 = [v384 length];
-        v376 = v382;
-        v374 = 6627;
-        v372 = "";
-        v373 = "[NRDDeviceConductor linkDidReceiveData:data:]";
-        _NRLogWithArgs();
+        [v364 length];
+        v358 = "";
+        _NRLogWithArgs(v11, 1, "%s%.30s:%-4d Received message of length %llu bytes on link %@");
       }
 
       v12 = self->_nrUUID;
-      v13 = sub_10002A684(NRLinkDirectorMessage, v384, v12);
+      v13 = sub_10002A684(NRLinkDirectorMessage, v364, v12);
 
-      v383 = v13;
+      v363 = v13;
       if (!v13)
       {
-        nrUUID = self->_nrUUID;
-        v44 = _NRCopyLogObjectForNRUUID();
-        v45 = _NRLogIsLevelEnabled();
+        v41 = _NRCopyLogObjectForNRUUID();
+        v42 = _NRLogIsLevelEnabled();
 
-        if (v45)
+        if (v42)
         {
-          v46 = self->_nrUUID;
-          v47 = _NRCopyLogObjectForNRUUID();
-          _NRLogWithArgs();
+          v43 = _NRCopyLogObjectForNRUUID();
+          _NRLogWithArgs(v43, 16, "%s%.30s:%-4d Failed to create message from received data", ", "[NRDDeviceConductor linkDidReceiveData:data:]"", 6631);
         }
 
-LABEL_364:
+LABEL_365:
 
-        goto LABEL_365;
+        goto LABEL_366;
       }
 
       selfCopy = self;
@@ -1262,10 +1382,7 @@ LABEL_364:
         {
           v19 = self->_nrUUID;
           v20 = _NRCopyLogObjectForNRUUID();
-          v374 = 6636;
-          v372 = "";
-          v373 = "[NRDDeviceConductor linkDidReceiveData:data:]";
-          _NRLogWithArgs();
+          _NRLogWithArgs(v20, 1, "%s%.30s:%-4d Received hello message", ", "[NRDDeviceConductor linkDidReceiveData:data:]"", 6636);
         }
 
         if (self->_helloMessageReceivedOnce)
@@ -1278,13 +1395,10 @@ LABEL_364:
           {
             v24 = self->_nrUUID;
             v25 = _NRCopyLogObjectForNRUUID();
-            v374 = 6642;
-            v372 = "";
-            v373 = "[NRDDeviceConductor linkDidReceiveData:data:]";
-            _NRLogWithArgs();
+            _NRLogWithArgs(v25, 1, "%s%.30s:%-4d The other side restarted", ", "[NRDDeviceConductor linkDidReceiveData:data:]"", 6642);
           }
 
-          sub_1000F91EC(self, v382, 1);
+          sub_1000F91EC(self, v362, 1);
           objc_opt_self();
           if (qword_1002294C8 != -1)
           {
@@ -1314,7 +1428,7 @@ LABEL_364:
 
             if (v28 == 1)
             {
-              sub_1000F2504(self, @"Other side restarted", v29, v30, v31, v32, v33, v34, v372);
+              sub_1000F2504(self, @"Other side restarted", v29, v30, v31, v32, v33, v34, v358);
               if (self->_isPreferWiFiProvider)
               {
                 v35 = sub_1000EC630(self);
@@ -1330,58 +1444,58 @@ LABEL_364:
         }
       }
 
-      v48 = sub_10002B210(v383, 3);
-      firstObject2 = [v48 firstObject];
+      v44 = sub_10002B210(v363, 3);
+      firstObject2 = [v44 firstObject];
 
       selfCopy2 = self;
-      if (firstObject2 || (v51 = sub_10002B210(v383, 2), [v51 firstObject], v52 = objc_claimAutoreleasedReturnValue(), v51, v52, selfCopy2 = self, v52))
+      if (firstObject2 || (v47 = sub_10002B210(v363, 2), [v47 firstObject], v48 = objc_claimAutoreleasedReturnValue(), v47, v48, selfCopy2 = self, v48))
       {
-        selfCopy2->_latestWiFiAddressUpdateMsgIdentifier = sub_100029538(v383);
+        selfCopy2->_latestWiFiAddressUpdateMsgIdentifier = sub_100029538(v363);
       }
 
       if (selfCopy2->_supportsAWDL)
       {
-        v53 = sub_10002B210(v383, 10);
-        firstObject3 = [v53 firstObject];
+        v49 = sub_10002B210(v363, 10);
+        firstObject3 = [v49 firstObject];
 
         if (firstObject3)
         {
-          self->_latestAWDLAddressUpdateMsgIdentifier = sub_100029538(v383);
+          self->_latestAWDLAddressUpdateMsgIdentifier = sub_100029538(v363);
         }
       }
 
-      v55 = sub_10002B210(v383, 7);
-      firstObject4 = [v55 firstObject];
+      v51 = sub_10002B210(v363, 7);
+      firstObject4 = [v51 firstObject];
 
-      v57 = v383;
-      if (firstObject4 || (v58 = sub_10002B210(v383, 13), [v58 firstObject], v59 = objc_claimAutoreleasedReturnValue(), v58, v59, v57 = v383, v59))
+      v53 = v363;
+      if (firstObject4 || (v54 = sub_10002B210(v363, 13), [v54 firstObject], v55 = objc_claimAutoreleasedReturnValue(), v54, v55, v53 = v363, v55))
       {
-        self->_latestPreferWiFiAckMsgIdentifier = sub_100029538(v57);
+        self->_latestPreferWiFiAckMsgIdentifier = sub_100029538(v53);
       }
 
-      v60 = sub_10002B210(v57, 5);
-      firstObject5 = [v60 firstObject];
+      v56 = sub_10002B210(v53, 5);
+      firstObject5 = [v56 firstObject];
 
-      v62 = v383;
-      if (firstObject5 || (v63 = sub_10002B210(v383, 13), [v63 firstObject], v64 = objc_claimAutoreleasedReturnValue(), v63, v64, v62 = v383, v64))
+      v58 = v363;
+      if (firstObject5 || (v59 = sub_10002B210(v363, 13), [v59 firstObject], v60 = objc_claimAutoreleasedReturnValue(), v59, v60, v58 = v363, v60))
       {
-        self->_latestPreferWiFiRequestMsgIdentifier = sub_100029538(v62);
+        self->_latestPreferWiFiRequestMsgIdentifier = sub_100029538(v58);
       }
 
-      v65 = sub_10002B210(v62, 6);
-      firstObject6 = [v65 firstObject];
+      v61 = sub_10002B210(v58, 6);
+      firstObject6 = [v61 firstObject];
 
       if (firstObject6)
       {
-        self->_latestDeviceLinkStateMsgIdentifier = sub_100029538(v383);
+        self->_latestDeviceLinkStateMsgIdentifier = sub_100029538(v363);
       }
 
-      v67 = sub_10002B210(v383, 15);
-      firstObject7 = [v67 firstObject];
+      v63 = sub_10002B210(v363, 15);
+      firstObject7 = [v63 firstObject];
 
       if (firstObject7)
       {
-        self->_latestCountryCodeMsgIdentifier = sub_100029538(v383);
+        self->_latestCountryCodeMsgIdentifier = sub_100029538(v363);
       }
 
       objc_opt_self();
@@ -1390,18 +1504,18 @@ LABEL_364:
         dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
       }
 
-      v69 = qword_1002290B8;
-      v443[0] = _NSConcreteStackBlock;
-      v443[1] = 3221225472;
-      v443[2] = sub_1000F92A8;
-      v443[3] = &unk_1001FD060;
-      v443[4] = self;
-      v385 = v383;
-      v444 = v385;
-      sub_1000C95D8(v69, v443);
+      v65 = qword_1002290B8;
+      v423[0] = _NSConcreteStackBlock;
+      v423[1] = 3221225472;
+      v423[2] = sub_1000F92A8;
+      v423[3] = &unk_1001FD060;
+      v423[4] = self;
+      v365 = v363;
+      v424 = v365;
+      sub_1000C95D8(v65, v423);
 
-      v70 = sub_10002B210(v385, 8);
-      firstObject8 = [v70 firstObject];
+      v66 = sub_10002B210(v365, 8);
+      firstObject8 = [v66 firstObject];
 
       if (firstObject8)
       {
@@ -1410,14 +1524,36 @@ LABEL_364:
         {
           if (!self->_forcedWoWUUID)
           {
-            v73 = +[NSUUID UUID];
+            v69 = +[NSUUID UUID];
             forcedWoWUUID = self->_forcedWoWUUID;
-            self->_forcedWoWUUID = v73;
+            self->_forcedWoWUUID = v69;
 
             selfCopy4 = self;
           }
 
           dispatch_assert_queue_V2(selfCopy4->_queue);
+          objc_opt_self();
+          if (qword_1002290C0 != -1)
+          {
+            dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
+          }
+
+          v71 = qword_1002290B8;
+          v72 = v71;
+          if (v71)
+          {
+            v73 = *(v71 + 6);
+          }
+
+          else
+          {
+            v73 = 0;
+          }
+
+          v74 = v73;
+
+          sub_10017EDB4(v74, 1, self->_forcedWoWUUID);
+          dispatch_assert_queue_V2(self->_queue);
           objc_opt_self();
           if (qword_1002290C0 != -1)
           {
@@ -1438,58 +1574,36 @@ LABEL_364:
 
           v78 = v77;
 
-          sub_10017EDB4(v78, 1, self->_forcedWoWUUID);
-          dispatch_assert_queue_V2(self->_queue);
-          objc_opt_self();
-          if (qword_1002290C0 != -1)
-          {
-            dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
-          }
-
-          v79 = qword_1002290B8;
-          v80 = v79;
-          if (v79)
-          {
-            v81 = *(v79 + 6);
-          }
-
-          else
-          {
-            v81 = 0;
-          }
-
-          v82 = v81;
-
-          sub_10017F43C(v82, 16, self->_forcedWoWUUID, &off_10020A0A8);
-          v83 = dispatch_time(0x8000000000000000, 60000000000);
+          sub_10017F43C(v78, 16, self->_forcedWoWUUID, &off_10020A0A8);
+          v79 = dispatch_time(0x8000000000000000, 60000000000);
           queue = self->_queue;
           block = _NSConcreteStackBlock;
           p_block = 3221225472;
-          v478 = sub_100004F08;
-          v479 = &unk_1001FD3C8;
+          v458 = sub_100004F08;
+          v459 = &unk_1001FD3C8;
           selfCopy5 = self;
-          dispatch_after(v83, queue, &block);
+          dispatch_after(v79, queue, &block);
           self->_didForceWoWMode = 1;
           sub_1000059A8(self->_nrUUID, 1029, 0, 0);
         }
       }
 
-      v85 = sub_10002B210(v385, 11);
-      firstObject9 = [v85 firstObject];
+      v81 = sub_10002B210(v365, 11);
+      firstObject9 = [v81 firstObject];
 
       if ([firstObject9 length] < 8)
       {
-LABEL_98:
+LABEL_99:
         if (self->_supportsPathOverrides)
         {
-          v91 = sub_10002B210(v385, 12);
-          firstObject10 = [v91 firstObject];
+          v87 = sub_10002B210(v365, 12);
+          firstObject10 = [v87 firstObject];
 
           if (firstObject10)
           {
-            v93 = sub_10001CD58([NRNetInfo alloc], firstObject10);
-            v416 = v93;
-            if (v93 && (v93[16] | 2) == 3)
+            v89 = sub_10001CD58([NRNetInfo alloc], firstObject10);
+            v396 = v89;
+            if (v89 && (v89[16] | 2) == 3)
             {
               sub_1000FA7F8(self);
             }
@@ -1499,214 +1613,196 @@ LABEL_98:
               sub_1000FA994(self);
             }
 
-            v94 = firstObject10;
-            CC_SHA256([v94 bytes], objc_msgSend(v94, "length"), &block);
+            v90 = firstObject10;
+            CC_SHA256([v90 bytes], objc_msgSend(v90, "length"), &block);
             obj = [[NSData alloc] initWithBytes:&block length:32];
           }
 
           else
           {
             obj = 0;
-            v416 = 0;
+            v396 = 0;
           }
 
-          v95 = self->_lastReceivedNetInfoDataHash;
-          v96 = [obj isEqualToData:v95];
+          v91 = self->_lastReceivedNetInfoDataHash;
+          v92 = [obj isEqualToData:v91];
 
-          if (v96)
+          if (v92)
           {
-            v97 = self->_nrUUID;
-            v98 = _NRCopyLogObjectForNRUUID();
-            v99 = _NRLogIsLevelEnabled();
+            v93 = self->_nrUUID;
+            v94 = _NRCopyLogObjectForNRUUID();
+            v95 = _NRLogIsLevelEnabled();
 
-            if (v99)
+            if (v95)
             {
-              v100 = self->_nrUUID;
-              v101 = _NRCopyLogObjectForNRUUID();
-              v374 = 6880;
-              v372 = "";
-              v373 = "[NRDDeviceConductor linkDidReceiveData:data:]";
-              _NRLogWithArgs();
+              v96 = self->_nrUUID;
+              v97 = _NRCopyLogObjectForNRUUID();
+              _NRLogWithArgs(v97, 1, "%s%.30s:%-4d ignoring unchanged net-info update", ", "[NRDDeviceConductor linkDidReceiveData:data:]"", 6880);
             }
           }
 
           else if (firstObject10)
           {
-            v102 = self->_nrUUID;
-            v103 = _NRCopyLogObjectForNRUUID();
-            v104 = _NRLogIsLevelEnabled();
+            v98 = self->_nrUUID;
+            v99 = _NRCopyLogObjectForNRUUID();
+            v100 = _NRLogIsLevelEnabled();
 
-            if (v104)
+            if (v100)
             {
-              v105 = self->_nrUUID;
-              v106 = _NRCopyLogObjectForNRUUID();
-              v375 = v416;
-              v376 = [firstObject10 length];
-              v374 = 6882;
-              v372 = "";
-              v373 = "[NRDDeviceConductor linkDidReceiveData:data:]";
-              _NRLogWithArgs();
+              v101 = self->_nrUUID;
+              v102 = _NRCopyLogObjectForNRUUID();
+              _NRLogWithArgs(v102, 0, "%s%.30s:%-4d Received net-info: %@ (%lu bytes)", ", "-[NRDDeviceConductor linkDidReceiveData:data:]"", 6882, v396, [firstObject10 length]);
             }
 
-            sub_1000FAA10(self, v416 == 0);
-            if (v416)
+            sub_1000FAA10(self, v396 == 0);
+            if (v396)
             {
               objc_storeStrong(&self->_lastReceivedNetInfoDataHash, obj);
-              v107 = nw_path_override_info_create();
-              v108 = *(v416 + 7);
+              v103 = nw_path_override_info_create();
               nw_path_override_info_set_expensive();
-              v109 = *(v416 + 7);
               nw_path_override_info_set_constrained();
-              v110 = *(v416 + 7);
               nw_path_override_info_set_roaming();
-              v111 = *(v416 + 16);
               nw_path_override_info_set_uses_wifi();
-              v112 = *(v416 + 16);
               nw_path_override_info_set_uses_cellular();
-              v113 = v416[16];
-              v439 = 0u;
-              v440 = 0u;
-              v441 = 0u;
-              v442 = 0u;
-              v114 = v113;
-              v115 = [v114 countByEnumeratingWithState:&v439 objects:v465 count:16];
-              if (v115)
+              v104 = v396[16];
+              v419 = 0u;
+              v420 = 0u;
+              v421 = 0u;
+              v422 = 0u;
+              v105 = v104;
+              v106 = [v105 countByEnumeratingWithState:&v419 objects:v445 count:16];
+              if (v106)
               {
-                v116 = *v440;
+                v107 = *v420;
                 do
                 {
-                  for (i = 0; i != v115; i = i + 1)
+                  for (i = 0; i != v106; ++i)
                   {
-                    if (*v440 != v116)
+                    if (*v420 != v107)
                     {
-                      objc_enumerationMutation(v114);
+                      objc_enumerationMutation(v105);
                     }
 
-                    v118 = *(*(&v439 + 1) + 8 * i);
                     nw_path_override_info_add_resolver_config();
                   }
 
-                  v115 = [v114 countByEnumeratingWithState:&v439 objects:v465 count:16];
+                  v106 = [v105 countByEnumeratingWithState:&v419 objects:v445 count:16];
                 }
 
-                while (v115);
+                while (v106);
               }
 
-              v119 = selfCopy->_queue;
-              v120 = nw_agent_create_with_path_override_info();
-              sub_1000FAB30(selfCopy, v120);
+              v109 = selfCopy->_queue;
+              v110 = nw_agent_create_with_path_override_info();
+              sub_1000FAB30(selfCopy, v110);
 
-              v121 = selfCopy->_pathOverrideAgent;
-              v122 = nw_path_override_info_copy_data();
+              v111 = selfCopy->_pathOverrideAgent;
+              v112 = nw_path_override_info_copy_data();
               nw_agent_change_state();
 
               block = 0;
               p_block = 0;
-              v123 = selfCopy->_pathOverrideAgent;
+              v113 = selfCopy->_pathOverrideAgent;
               nw_agent_get_uuid();
 
-              v405 = [[NSUUID alloc] initWithUUIDBytes:&block];
-              v124 = selfCopy->_nrUUID;
-              v125 = _NRCopyLogObjectForNRUUID();
-              LODWORD(v122) = _NRLogIsLevelEnabled();
+              v385 = [[NSUUID alloc] initWithUUIDBytes:&block];
+              v114 = selfCopy->_nrUUID;
+              v115 = _NRCopyLogObjectForNRUUID();
+              LODWORD(v112) = _NRLogIsLevelEnabled();
 
-              if (v122)
+              if (v112)
               {
-                v126 = selfCopy->_nrUUID;
-                v127 = _NRCopyLogObjectForNRUUID();
-                v374 = 6908;
-                v375 = v405;
-                v372 = "";
-                v373 = "[NRDDeviceConductor linkDidReceiveData:data:]";
-                _NRLogWithArgs();
+                v116 = selfCopy->_nrUUID;
+                v117 = _NRCopyLogObjectForNRUUID();
+                _NRLogWithArgs(v117, 0, "%s%.30s:%-4d Published net-info agent: %@", ", "[NRDDeviceConductor linkDidReceiveData:data:]"", 6908, v385);
               }
 
-              endpoint = [NEPolicyRouteRule routeRuleWithAction:5 forType:6, v372, v373, v374, v375, v376];
-              [endpoint setNetworkAgentUUID:v405];
-              v128 = [NEPolicy alloc];
-              v464 = endpoint;
-              v129 = [NSArray arrayWithObjects:&v464 count:1];
-              v130 = [NEPolicyResult routeRules:v129];
-              v131 = +[NEPolicyCondition allInterfaces];
-              v463 = v131;
-              v132 = [NSArray arrayWithObjects:&v463 count:1];
-              v401 = [v128 initWithOrder:10 result:v130 conditions:v132];
+              endpoint = [NEPolicyRouteRule routeRuleWithAction:5 forType:6];
+              [endpoint setNetworkAgentUUID:v385];
+              v118 = [NEPolicy alloc];
+              v444 = endpoint;
+              v119 = [NSArray arrayWithObjects:&v444 count:1];
+              v120 = [NEPolicyResult routeRules:v119];
+              v121 = +[NEPolicyCondition allInterfaces];
+              v443 = v121;
+              v122 = [NSArray arrayWithObjects:&v443 count:1];
+              v381 = [v118 initWithOrder:10 result:v120 conditions:v122];
 
-              v133 = sub_1001599CC();
-              v134 = selfCopy->_netInfoPolicyIdentifier;
-              v135 = sub_100159E00(v133, v134, v401);
+              v123 = sub_1001599CC(NRDPolicySessionManager);
+              v124 = selfCopy->_netInfoPolicyIdentifier;
+              v125 = sub_100159E00(v123, v124, v381);
 
-              sub_1000FAB40(selfCopy, v416);
-              v136 = sub_1001599CC();
-              sub_10015A52C(v136);
+              sub_1000FAB40(selfCopy, v396);
+              v126 = sub_1001599CC(NRDPolicySessionManager);
+              sub_10015A52C(v126);
 
-              v137 = v416;
-              v138 = selfCopy;
-              if (*(v416 + 9) == 1 && !selfCopy->_hasNonCompanionClients)
+              v127 = v396;
+              v128 = selfCopy;
+              if (*(v396 + 9) == 1 && !selfCopy->_hasNonCompanionClients)
               {
                 sub_1000FAEC0(selfCopy);
-                v138 = selfCopy;
-                v137 = v416;
+                v128 = selfCopy;
+                v127 = v396;
               }
 
-              if (*(v137 + 16) - 1 <= 2)
+              if (*(v127 + 16) - 1 <= 2)
               {
-                v139 = dword_1001965C0[(*(v137 + 16) - 1)];
-                v437 = 0u;
-                v438 = 0u;
-                v435 = 0u;
-                v436 = 0u;
-                v140 = v138->_availableLinks;
-                v141 = [(NSMutableSet *)v140 countByEnumeratingWithState:&v435 objects:v462 count:16];
-                if (v141)
+                v129 = dword_1001965C0[(*(v127 + 16) - 1)];
+                v417 = 0u;
+                v418 = 0u;
+                v415 = 0u;
+                v416 = 0u;
+                v130 = v128->_availableLinks;
+                v131 = [(NSMutableSet *)v130 countByEnumeratingWithState:&v415 objects:v442 count:16];
+                if (v131)
                 {
-                  v142 = *v436;
+                  v132 = *v416;
                   do
                   {
-                    for (j = 0; j != v141; j = j + 1)
+                    for (j = 0; j != v131; j = j + 1)
                     {
-                      if (*v436 != v142)
+                      if (*v416 != v132)
                       {
-                        objc_enumerationMutation(v140);
+                        objc_enumerationMutation(v130);
                       }
 
-                      v144 = *(*(&v435 + 1) + 8 * j);
-                      if ([v144 virtualInterface])
+                      v134 = *(*(&v415 + 1) + 8 * j);
+                      if ([v134 virtualInterface])
                       {
-                        proxyAgentUUID = [v144 proxyAgentUUID];
-                        v146 = proxyAgentUUID == 0;
+                        proxyAgentUUID = [v134 proxyAgentUUID];
+                        v136 = proxyAgentUUID == 0;
 
-                        if (!v146)
+                        if (!v136)
                         {
-                          [v144 setInterfacePeerEgressFunctionalType:v139];
+                          [v134 setInterfacePeerEgressFunctionalType:v129];
                         }
                       }
                     }
 
-                    v141 = [(NSMutableSet *)v140 countByEnumeratingWithState:&v435 objects:v462 count:16];
+                    v131 = [(NSMutableSet *)v130 countByEnumeratingWithState:&v415 objects:v442 count:16];
                   }
 
-                  while (v141);
+                  while (v131);
                 }
 
                 if (selfCopy->_catchAllInterface)
                 {
-                  v147 = selfCopy->_proxyAgentUUID;
-                  v148 = v147 == 0;
+                  v137 = selfCopy->_proxyAgentUUID;
+                  v138 = v137 == 0;
 
-                  if (!v148)
+                  if (!v138)
                   {
                     if (selfCopy->_catchAllInterface)
                     {
-                      v149 = NEVirtualInterfaceCopyName();
+                      v139 = NEVirtualInterfaceCopyName();
                     }
 
                     else
                     {
-                      v149 = 0;
+                      v139 = 0;
                     }
 
-                    sub_10013B488(v149, v139);
+                    sub_10013B488(v139, v129);
                   }
                 }
               }
@@ -1721,303 +1817,329 @@ LABEL_98:
           }
         }
 
-        v150 = sub_10002B210(v385, 6);
-        v151 = v150;
-        if (v150 && [v150 count])
+        v140 = sub_10002B210(v365, 6);
+        v141 = v140;
+        if (v140 && [v140 count])
         {
-          v475 = 0u;
-          v474 = 0u;
-          v473 = 0u;
-          v472 = 0u;
-          v152 = v151;
-          v153 = [v152 countByEnumeratingWithState:&v472 objects:&block count:16];
-          if (v153)
+          v455 = 0u;
+          v454 = 0u;
+          v453 = 0u;
+          v452 = 0u;
+          v142 = v141;
+          v143 = [v142 countByEnumeratingWithState:&v452 objects:&block count:16];
+          if (v143)
           {
-            v406 = 0;
-            v154 = *v473;
+            v386 = 0;
+            v144 = *v453;
             do
             {
-              for (k = 0; k != v153; k = k + 1)
+              for (k = 0; k != v143; k = k + 1)
               {
-                if (*v473 != v154)
+                if (*v453 != v144)
                 {
-                  objc_enumerationMutation(v152);
+                  objc_enumerationMutation(v142);
                 }
 
-                v156 = *(*(&v472 + 1) + 8 * k);
-                LOBYTE(v455) = 0;
-                if ([v156 length] <= 1)
+                v146 = *(*(&v452 + 1) + 8 * k);
+                LOBYTE(v435) = 0;
+                if ([v146 length] <= 1)
                 {
-                  v157 = [v156 length];
-                }
-
-                else
-                {
-                  v157 = 1;
-                }
-
-                [v156 getBytes:&v455 length:v157];
-                if (!v406)
-                {
-                  v406 = objc_alloc_init(NSMutableArray);
-                }
-
-                if (((v455 - 1) & 0xF8) != 0)
-                {
-                  v158 = 0;
+                  v147 = [v146 length];
                 }
 
                 else
                 {
-                  v158 = 0x102020205040201uLL >> (8 * (v455 - 1));
+                  v147 = 1;
                 }
 
-                v159 = [NSNumber numberWithUnsignedChar:v158 & 7];
-                [v406 addObject:v159];
+                [v146 getBytes:&v435 length:v147];
+                if (!v386)
+                {
+                  v386 = objc_alloc_init(NSMutableArray);
+                }
+
+                if (((v435 - 1) & 0xF8) != 0)
+                {
+                  v148 = 0;
+                }
+
+                else
+                {
+                  v148 = 0x102020205040201uLL >> (8 * (v435 - 1));
+                }
+
+                v149 = [NSNumber numberWithUnsignedChar:v148 & 7];
+                [v386 addObject:v149];
               }
 
-              v153 = [v152 countByEnumeratingWithState:&v472 objects:&block count:16];
+              v143 = [v142 countByEnumeratingWithState:&v452 objects:&block count:16];
             }
 
-            while (v153);
+            while (v143);
 
-            if (v406)
+            if (v386)
             {
-              if ([v406 count])
+              if ([v386 count])
               {
-                v433 = 0u;
-                v434 = 0u;
-                v431 = 0u;
-                v432 = 0u;
-                v406 = v406;
-                v160 = [v406 countByEnumeratingWithState:&v431 objects:v461 count:16];
-                if (v160)
+                v413 = 0u;
+                v414 = 0u;
+                v411 = 0u;
+                v412 = 0u;
+                v386 = v386;
+                v150 = [v386 countByEnumeratingWithState:&v411 objects:v441 count:16];
+                if (v150)
                 {
-                  v161 = 0;
-                  v417 = 0;
-                  v162 = *v432;
+                  v151 = 0;
+                  v397 = 0;
+                  v152 = *v412;
                   while (1)
                   {
-                    v163 = 0;
-                    obja = v161;
-                    v164 = -v161;
+                    v153 = 0;
+                    obja = v151;
+                    v154 = -v151;
                     do
                     {
-                      if (*v432 != v162)
+                      if (*v412 != v152)
                       {
-                        objc_enumerationMutation(v406);
+                        objc_enumerationMutation(v386);
                       }
 
-                      unsignedShortValue = [*(*(&v431 + 1) + 8 * v163) unsignedShortValue];
+                      unsignedShortValue = [*(*(&v411 + 1) + 8 * v153) unsignedShortValue];
                       StringFromNRLinkType = createStringFromNRLinkType();
-                      v167 = selfCopy->_nrUUID;
-                      v168 = _NRCopyLogObjectForNRUUID();
-                      v169 = _NRLogIsLevelEnabled();
+                      v157 = selfCopy->_nrUUID;
+                      v158 = _NRCopyLogObjectForNRUUID();
+                      v159 = _NRLogIsLevelEnabled();
 
-                      if (v164 == v163)
+                      if (v154 == v153)
                       {
-                        v417 = unsignedShortValue;
-                        if (!v169)
+                        v397 = unsignedShortValue;
+                        if (!v159)
                         {
-                          goto LABEL_176;
+                          goto LABEL_177;
                         }
 
-                        v170 = selfCopy->_nrUUID;
-                        v171 = _NRCopyLogObjectForNRUUID();
-                        v374 = 6964;
-                        v375 = StringFromNRLinkType;
-                        v372 = "";
-                        v373 = "[NRDDeviceConductor linkDidReceiveData:data:]";
-                        _NRLogWithArgs();
-                        v417 = unsignedShortValue;
+                        v160 = selfCopy->_nrUUID;
+                        v161 = _NRCopyLogObjectForNRUUID();
+                        _NRLogWithArgs(v161, 0, "%s%.30s:%-4d Peer has link: %@ (PRIMARY)", ", "[NRDDeviceConductor linkDidReceiveData:data:]"", 6964, StringFromNRLinkType);
+                        v397 = unsignedShortValue;
                       }
 
                       else
                       {
-                        if (!v169)
+                        if (!v159)
                         {
-                          goto LABEL_176;
+                          goto LABEL_177;
                         }
 
-                        v170 = selfCopy->_nrUUID;
-                        v171 = _NRCopyLogObjectForNRUUID();
-                        v374 = 6966;
-                        v375 = StringFromNRLinkType;
-                        v372 = "";
-                        v373 = "[NRDDeviceConductor linkDidReceiveData:data:]";
-                        _NRLogWithArgs();
+                        v160 = selfCopy->_nrUUID;
+                        v161 = _NRCopyLogObjectForNRUUID();
+                        _NRLogWithArgs(v161, 0, "%s%.30s:%-4d Peer has link: %@", ", "[NRDDeviceConductor linkDidReceiveData:data:]"", 6966, StringFromNRLinkType);
                       }
 
-LABEL_176:
-                      v163 = v163 + 1;
+LABEL_177:
+                      v153 = v153 + 1;
                     }
 
-                    while (v160 != v163);
-                    v172 = [v406 countByEnumeratingWithState:&v431 objects:v461 count:16];
-                    v161 = obja + v160;
-                    v160 = v172;
-                    if (!v172)
+                    while (v150 != v153);
+                    v162 = [v386 countByEnumeratingWithState:&v411 objects:v441 count:16];
+                    v151 = obja + v150;
+                    v150 = v162;
+                    if (!v162)
                     {
-                      goto LABEL_372;
+                      goto LABEL_373;
                     }
                   }
                 }
 
-                v417 = 0;
-LABEL_372:
+                v397 = 0;
+LABEL_373:
 
-                v314 = sub_10002B210(v385, 6);
-                v315 = v314;
-                if (v314 && [v314 count])
+                v297 = sub_10002B210(v365, 6);
+                v298 = v297;
+                if (v297 && [v297 count])
                 {
-                  v475 = 0u;
-                  v474 = 0u;
-                  v473 = 0u;
-                  v472 = 0u;
-                  v316 = v315;
-                  v317 = 0;
-                  v318 = [v316 countByEnumeratingWithState:&v472 objects:&block count:16];
-                  if (v318)
+                  v455 = 0u;
+                  v454 = 0u;
+                  v453 = 0u;
+                  v452 = 0u;
+                  v299 = v298;
+                  v300 = 0;
+                  v301 = [v299 countByEnumeratingWithState:&v452 objects:&block count:16];
+                  if (v301)
                   {
-                    v319 = *v473;
+                    v302 = *v453;
                     do
                     {
-                      for (m = 0; m != v318; m = m + 1)
+                      for (m = 0; m != v301; m = m + 1)
                       {
-                        if (*v473 != v319)
+                        if (*v453 != v302)
                         {
-                          objc_enumerationMutation(v316);
+                          objc_enumerationMutation(v299);
                         }
 
-                        v321 = *(*(&v472 + 1) + 8 * m);
-                        LOBYTE(v455) = 0;
-                        if ([v321 length] <= 1)
+                        v304 = *(*(&v452 + 1) + 8 * m);
+                        LOBYTE(v435) = 0;
+                        if ([v304 length] <= 1)
                         {
-                          v322 = [v321 length];
-                        }
-
-                        else
-                        {
-                          v322 = 1;
-                        }
-
-                        [v321 getBytes:&v455 length:v322];
-                        if (!v317)
-                        {
-                          v317 = objc_alloc_init(NSMutableArray);
-                        }
-
-                        if (v455 > 8uLL)
-                        {
-                          v323 = 0;
+                          v305 = [v304 length];
                         }
 
                         else
                         {
-                          v323 = byte_100196508[v455];
+                          v305 = 1;
                         }
 
-                        v324 = [NSNumber numberWithUnsignedChar:v323];
-                        [v317 addObject:v324];
+                        [v304 getBytes:&v435 length:v305];
+                        if (!v300)
+                        {
+                          v300 = objc_alloc_init(NSMutableArray);
+                        }
+
+                        if (v435 > 8uLL)
+                        {
+                          v306 = 0;
+                        }
+
+                        else
+                        {
+                          v306 = byte_100196508[v435];
+                        }
+
+                        v307 = [NSNumber numberWithUnsignedChar:v306];
+                        [v300 addObject:v307];
                       }
 
-                      v318 = [v316 countByEnumeratingWithState:&v472 objects:&block count:16];
+                      v301 = [v299 countByEnumeratingWithState:&v452 objects:&block count:16];
                     }
 
-                    while (v318);
+                    while (v301);
                   }
                 }
 
                 else
                 {
-                  v317 = 0;
+                  v300 = 0;
                 }
 
-                v427 = 0u;
-                v428 = 0u;
-                v429 = 0u;
-                v430 = 0u;
-                endpointc = v317;
-                v325 = [endpointc countByEnumeratingWithState:&v427 objects:v460 count:16];
-                if (v325)
+                v407 = 0u;
+                v408 = 0u;
+                v409 = 0u;
+                v410 = 0u;
+                endpointc = v300;
+                v308 = [endpointc countByEnumeratingWithState:&v407 objects:v440 count:16];
+                if (v308)
                 {
-                  v326 = 0;
-                  v327 = *v428;
+                  v309 = 0;
+                  v310 = *v408;
                   do
                   {
-                    v328 = 0;
-                    v404 = v326;
-                    v329 = -v326;
+                    v311 = 0;
+                    v384 = v309;
+                    v312 = -v309;
                     do
                     {
-                      if (*v428 != v327)
+                      if (*v408 != v310)
                       {
                         objc_enumerationMutation(endpointc);
                       }
 
-                      unsignedShortValue2 = [*(*(&v427 + 1) + 8 * v328) unsignedShortValue];
+                      unsignedShortValue2 = [*(*(&v407 + 1) + 8 * v311) unsignedShortValue];
                       StringFromNRLinkSubtype = createStringFromNRLinkSubtype();
                       if (unsignedShortValue2)
                       {
-                        v332 = v329 == v328;
+                        v315 = v312 == v311;
                       }
 
                       else
                       {
-                        v332 = 0;
+                        v315 = 0;
                       }
 
-                      v333 = v332;
-                      v334 = selfCopy->_nrUUID;
-                      v335 = _NRCopyLogObjectForNRUUID();
-                      v336 = _NRLogIsLevelEnabled();
+                      v316 = v315;
+                      v317 = selfCopy->_nrUUID;
+                      v318 = _NRCopyLogObjectForNRUUID();
+                      v319 = _NRLogIsLevelEnabled();
 
-                      if (v333)
+                      if (v316)
                       {
-                        if (!v336)
+                        if (!v319)
                         {
-                          goto LABEL_408;
+                          goto LABEL_409;
                         }
 
-                        v337 = selfCopy->_nrUUID;
-                        v338 = _NRCopyLogObjectForNRUUID();
-                        v374 = 6981;
-                        v375 = StringFromNRLinkSubtype;
-                        v372 = "";
-                        v373 = "[NRDDeviceConductor linkDidReceiveData:data:]";
-                        _NRLogWithArgs();
+                        v320 = selfCopy->_nrUUID;
+                        v321 = _NRCopyLogObjectForNRUUID();
+                        _NRLogWithArgs(v321, 0, "%s%.30s:%-4d Peer has link subtype: %@ (PRIMARY)", ", "[NRDDeviceConductor linkDidReceiveData:data:]"", 6981, StringFromNRLinkSubtype);
                       }
 
                       else
                       {
-                        if (!v336)
+                        if (!v319)
                         {
-                          goto LABEL_408;
+                          goto LABEL_409;
                         }
 
-                        v337 = selfCopy->_nrUUID;
-                        v338 = _NRCopyLogObjectForNRUUID();
-                        v374 = 6983;
-                        v375 = StringFromNRLinkSubtype;
-                        v372 = "";
-                        v373 = "[NRDDeviceConductor linkDidReceiveData:data:]";
-                        _NRLogWithArgs();
+                        v320 = selfCopy->_nrUUID;
+                        v321 = _NRCopyLogObjectForNRUUID();
+                        _NRLogWithArgs(v321, 0, "%s%.30s:%-4d Peer has link subtype: %@", ", "[NRDDeviceConductor linkDidReceiveData:data:]"", 6983, StringFromNRLinkSubtype);
                       }
 
-LABEL_408:
-                      v328 = v328 + 1;
+LABEL_409:
+                      v311 = v311 + 1;
                     }
 
-                    while (v325 != v328);
-                    v339 = [endpointc countByEnumeratingWithState:&v427 objects:v460 count:16];
-                    v326 = v404 + v325;
-                    v325 = v339;
+                    while (v308 != v311);
+                    v322 = [endpointc countByEnumeratingWithState:&v407 objects:v440 count:16];
+                    v309 = v384 + v308;
+                    v308 = v322;
                   }
 
-                  while (v339);
+                  while (v322);
                 }
 
-                v340 = selfCopy->_nrUUID;
+                v323 = selfCopy->_nrUUID;
+                v324 = _NRCopyLogObjectForNRUUID();
+                v325 = _NRLogIsLevelEnabled();
+
+                if (v325)
+                {
+                  v326 = selfCopy->_nrUUID;
+                  v327 = _NRCopyLogObjectForNRUUID();
+                  v328 = selfCopy->_primaryLink;
+                  [(NRLink *)v328 type];
+                  v329 = createStringFromNRLinkType();
+                  v330 = selfCopy->_primaryLink;
+                  [(NRLink *)v330 subtype];
+                  v331 = createStringFromNRLinkSubtype();
+                  v332 = createStringFromNRLinkType();
+                  v333 = createStringFromNRLinkSubtype();
+                  _NRLogWithArgs(v327, 0, "%s%.30s:%-4d Our primary link: %@(%@), peer primary link: %@(%@)", ", "[NRDDeviceConductor linkDidReceiveData:data:]"", 6990, v329, v331, v332, v333);
+                }
+
+                v334 = selfCopy;
+                if (!selfCopy->_followsPeerPrimaryLink)
+                {
+                  goto LABEL_434;
+                }
+
+                if (!v397)
+                {
+                  v335 = selfCopy->_nrUUID;
+                  v336 = _NRCopyLogObjectForNRUUID();
+                  v337 = _NRLogIsLevelEnabled();
+
+                  if (v337)
+                  {
+                    v338 = selfCopy->_nrUUID;
+                    v339 = _NRCopyLogObjectForNRUUID();
+                    _NRLogWithArgs(v339, 17, "Received recommended Link type is invalid");
+                  }
+
+                  v397 = 1;
+                  v334 = selfCopy;
+                }
+
+                v340 = v334->_nrUUID;
                 v341 = _NRCopyLogObjectForNRUUID();
                 v342 = _NRLogIsLevelEnabled();
 
@@ -2025,144 +2147,94 @@ LABEL_408:
                 {
                   v343 = selfCopy->_nrUUID;
                   v344 = _NRCopyLogObjectForNRUUID();
-                  v345 = selfCopy->_primaryLink;
-                  [(NRLink *)v345 type];
-                  v346 = createStringFromNRLinkType();
-                  v347 = selfCopy->_primaryLink;
-                  [(NRLink *)v347 subtype];
-                  v348 = createStringFromNRLinkSubtype();
-                  v377 = createStringFromNRLinkType();
-                  v378 = createStringFromNRLinkSubtype();
-                  v375 = v346;
-                  v376 = v348;
-                  v373 = "[NRDDeviceConductor linkDidReceiveData:data:]";
-                  v374 = 6990;
-                  v372 = "";
-                  _NRLogWithArgs();
+                  v345 = createStringFromNRLinkType();
+                  _NRLogWithArgs(v344, 1, "%s%.30s:%-4d Received a primary link recommendation from the peer: %@", ", "[NRDDeviceConductor linkDidReceiveData:data:]"", 7080, v345);
                 }
 
-                v349 = selfCopy;
-                if (!selfCopy->_followsPeerPrimaryLink)
+                v334 = selfCopy;
+                if (v397 != 2)
                 {
-                  goto LABEL_433;
-                }
-
-                if (!v417)
-                {
-                  v350 = selfCopy->_nrUUID;
-                  v351 = _NRCopyLogObjectForNRUUID();
-                  v352 = _NRLogIsLevelEnabled();
-
-                  if (v352)
+                  if (v397 != 1)
                   {
-                    v353 = selfCopy->_nrUUID;
-                    v354 = _NRCopyLogObjectForNRUUID();
-                    _NRLogWithArgs();
-                  }
+LABEL_434:
+                    v405 = 0u;
+                    v406 = 0u;
+                    v403 = 0u;
+                    v404 = 0u;
+                    v349 = v334->_availableLinks;
+                    v350 = [(NSMutableSet *)v349 copy];
 
-                  v417 = 1;
-                  v349 = selfCopy;
-                }
-
-                v355 = v349->_nrUUID;
-                v356 = _NRCopyLogObjectForNRUUID();
-                v357 = _NRLogIsLevelEnabled();
-
-                if (v357)
-                {
-                  v358 = selfCopy->_nrUUID;
-                  v359 = _NRCopyLogObjectForNRUUID();
-                  v374 = 7080;
-                  v375 = createStringFromNRLinkType();
-                  v372 = "";
-                  v373 = "[NRDDeviceConductor linkDidReceiveData:data:]";
-                  _NRLogWithArgs();
-                }
-
-                v349 = selfCopy;
-                if (v417 != 2)
-                {
-                  if (v417 != 1)
-                  {
-LABEL_433:
-                    v425 = 0u;
-                    v426 = 0u;
-                    v423 = 0u;
-                    v424 = 0u;
-                    v363 = v349->_availableLinks;
-                    v364 = [(NSMutableSet *)v363 copy];
-
-                    v365 = [v364 countByEnumeratingWithState:&v423 objects:v459 count:16];
-                    if (v365)
+                    v351 = [v350 countByEnumeratingWithState:&v403 objects:v439 count:16];
+                    if (v351)
                     {
-                      v366 = *v424;
+                      v352 = *v404;
                       do
                       {
-                        for (n = 0; n != v365; n = n + 1)
+                        for (n = 0; n != v351; n = n + 1)
                         {
-                          if (*v424 != v366)
+                          if (*v404 != v352)
                           {
-                            objc_enumerationMutation(v364);
+                            objc_enumerationMutation(v350);
                           }
 
-                          v368 = *(*(&v423 + 1) + 8 * n);
-                          if ([v368 state] == 8)
+                          v354 = *(*(&v403 + 1) + 8 * n);
+                          if ([v354 state] == 8)
                           {
-                            v369 = +[NSNumber numberWithUnsignedChar:](NSNumber, "numberWithUnsignedChar:", [v368 type]);
-                            if (![v406 containsObject:v369] || objc_msgSend(v368, "subtype") && (+[NSNumber numberWithUnsignedChar:](NSNumber, "numberWithUnsignedChar:", objc_msgSend(v368, "subtype")), v370 = objc_claimAutoreleasedReturnValue(), v371 = -[NSObject containsObject:](endpointc, "containsObject:", v370), v370, (v371 & 1) == 0))
+                            v355 = +[NSNumber numberWithUnsignedChar:](NSNumber, "numberWithUnsignedChar:", [v354 type]);
+                            if (![v386 containsObject:v355] || objc_msgSend(v354, "subtype") && (+[NSNumber numberWithUnsignedChar:](NSNumber, "numberWithUnsignedChar:", objc_msgSend(v354, "subtype")), v356 = objc_claimAutoreleasedReturnValue(), v357 = -[NSObject containsObject:](endpointc, "containsObject:", v356), v356, (v357 & 1) == 0))
                             {
-                              [v368 checkPeerAvailabilityWithForceAggressive:1];
+                              [v354 checkPeerAvailabilityWithForceAggressive:1];
                             }
                           }
                         }
 
-                        v365 = [v364 countByEnumeratingWithState:&v423 objects:v459 count:16];
+                        v351 = [v350 countByEnumeratingWithState:&v403 objects:v439 count:16];
                       }
 
-                      while (v365);
+                      while (v351);
                     }
 
-                    goto LABEL_181;
+                    goto LABEL_182;
                   }
 
                   sub_1000FB7E8(selfCopy);
                   sub_1000F0BF8(selfCopy);
-LABEL_432:
-                  v349 = selfCopy;
-                  goto LABEL_433;
+LABEL_433:
+                  v334 = selfCopy;
+                  goto LABEL_434;
                 }
 
-                v360 = sub_1000F1BC0(selfCopy, 2);
-                v361 = v360;
-                if (v360 && [(dispatch_queue_t *)v360 state]== 8)
+                v346 = sub_1000F1BC0(selfCopy, 2);
+                v347 = v346;
+                if (v346 && [(dispatch_queue_t *)v346 state]== 8)
                 {
-                  v362 = v361;
+                  v348 = v347;
                 }
 
                 else
                 {
-                  v362 = sub_1000EA2C8(selfCopy, 2, 102);
+                  v348 = sub_1000EA2C8(selfCopy, 2, 102);
 
-                  if (!v362 || [v362 state] != 8)
+                  if (!v348 || [v348 state] != 8)
                   {
-                    goto LABEL_431;
+                    goto LABEL_432;
                   }
                 }
 
                 sub_1000EFF24(selfCopy);
-LABEL_431:
+LABEL_432:
 
-                goto LABEL_432;
+                goto LABEL_433;
               }
 
-LABEL_181:
-              v173 = sub_10002B210(v385, 14);
-              firstObject11 = [v173 firstObject];
+LABEL_182:
+              v163 = sub_10002B210(v365, 14);
+              firstObject11 = [v163 firstObject];
 
               if (firstObject11)
               {
-                v175 = sub_10002B210(v385, 14);
-                firstObject12 = [v175 firstObject];
+                v165 = sub_10002B210(v365, 14);
+                firstObject12 = [v165 firstObject];
 
                 LOBYTE(block) = 0;
                 if ([firstObject12 length] && (objc_msgSend(firstObject12, "getBytes:length:", &block, 1), block))
@@ -2173,60 +2245,60 @@ LABEL_181:
                     {
                       if (block >= 0x1Fu)
                       {
-                        v177 = block >= 0x29u ? 50 : 40;
+                        v167 = block >= 0x29u ? 50 : 40;
                       }
 
                       else
                       {
-                        v177 = 30;
+                        v167 = 30;
                       }
                     }
 
                     else
                     {
-                      v177 = 20;
+                      v167 = 20;
                     }
                   }
 
                   else
                   {
-                    v177 = 10;
+                    v167 = 10;
                   }
                 }
 
                 else
                 {
-                  v177 = 0;
+                  v167 = 0;
                 }
 
-                selfCopy->_lastSeenPeerThermalPressure = v177;
-                if (selfCopy->_lastReportedPeerThermalPressure != v177)
+                selfCopy->_lastSeenPeerThermalPressure = v167;
+                if (selfCopy->_lastReportedPeerThermalPressure != v167)
                 {
                   sub_1000F4104(selfCopy);
                 }
               }
 
-              v178 = sub_10002B210(v385, 22);
-              firstObject13 = [v178 firstObject];
+              v168 = sub_10002B210(v365, 22);
+              firstObject13 = [v168 firstObject];
 
               if (firstObject13)
               {
-                v180 = sub_10002B210(v385, 22);
-                firstObject14 = [v180 firstObject];
+                v170 = sub_10002B210(v365, 22);
+                firstObject14 = [v170 firstObject];
 
                 if (firstObject14 && [firstObject14 length])
                 {
                   LOBYTE(block) = 0;
                   [firstObject14 getBytes:&block length:1];
-                  v182 = (block & 1) != 0 ? &__kCFBooleanTrue : &__kCFBooleanFalse;
+                  v172 = (block & 1) != 0 ? &__kCFBooleanTrue : &__kCFBooleanFalse;
                 }
 
                 else
                 {
-                  v182 = 0;
+                  v172 = 0;
                 }
 
-                bOOLValue = [v182 BOOLValue];
+                bOOLValue = [v172 BOOLValue];
                 selfCopy->_lastSeenPeerPluggedInState = bOOLValue;
                 if (bOOLValue != selfCopy->_lastReportedPluggedInState)
                 {
@@ -2234,117 +2306,94 @@ LABEL_181:
                 }
               }
 
-              v184 = sub_10002B210(v385, 16);
-              firstObject15 = [v184 firstObject];
+              v174 = sub_10002B210(v365, 16);
+              firstObject15 = [v174 firstObject];
 
-              if (firstObject15)
+              if (firstObject15 || (v176 = sub_10002B210(v365, 18), [v176 firstObject], v177 = objc_claimAutoreleasedReturnValue(), v176, v177, v177) || (v178 = sub_10002B210(v365, 17), objc_msgSend(v178, "firstObject"), v179 = objc_claimAutoreleasedReturnValue(), v178, v179, v179) || (v180 = sub_10002B210(v365, 19), objc_msgSend(v180, "firstObject"), v181 = objc_claimAutoreleasedReturnValue(), v180, v181, v181))
               {
-                goto LABEL_202;
-              }
-
-              v186 = sub_10002B210(v385, 18);
-              firstObject16 = [v186 firstObject];
-
-              if (firstObject16)
-              {
-                goto LABEL_202;
-              }
-
-              v188 = sub_10002B210(v385, 17);
-              firstObject17 = [v188 firstObject];
-
-              if (firstObject17 || (v190 = sub_10002B210(v385, 19), [v190 firstObject], v191 = objc_claimAutoreleasedReturnValue(), v190, v191, v191))
-              {
-LABEL_202:
                 objc_opt_self();
                 if (qword_1002294C8 != -1)
                 {
                   dispatch_once(&qword_1002294C8, &stru_1001FD250);
                 }
 
-                v192 = qword_1002294C0;
-                v421[0] = _NSConcreteStackBlock;
-                v421[1] = 3221225472;
-                v421[2] = sub_1000FBA90;
-                v421[3] = &unk_1001FD060;
-                v421[4] = selfCopy;
-                v422 = v385;
-                sub_1001816DC(v192, v421);
+                v182 = qword_1002294C0;
+                v401[0] = _NSConcreteStackBlock;
+                v401[1] = 3221225472;
+                v401[2] = sub_1000FBA90;
+                v401[3] = &unk_1001FD060;
+                v401[4] = selfCopy;
+                v402 = v365;
+                sub_1001816DC(v182, v401);
               }
 
-              v193 = sub_10002B210(v385, 20);
-              firstObject18 = [v193 firstObject];
+              v183 = sub_10002B210(v365, 20);
+              firstObject16 = [v183 firstObject];
 
-              if (firstObject18)
+              if (firstObject16)
               {
-                v195 = sub_10002B210(v385, 20);
-                firstObject19 = [v195 firstObject];
+                v185 = sub_10002B210(v365, 20);
+                firstObject17 = [v185 firstObject];
 
-                v197 = firstObject19;
+                v187 = firstObject17;
                 if (selfCopy)
                 {
-                  v379 = v197;
-                  v402 = v197;
+                  v359 = v187;
+                  v382 = v187;
                   block = 0;
                   p_block = &block;
-                  v478 = 0x3032000000;
-                  v479 = sub_1000FD2F4;
+                  v458 = 0x3032000000;
+                  v459 = sub_1000FD2F4;
                   selfCopy5 = sub_1000FD304;
-                  v481 = objc_alloc_init(NSMutableDictionary);
-                  *&v472 = _NSConcreteStackBlock;
-                  *(&v472 + 1) = 3221225472;
-                  *&v473 = sub_1000FD874;
-                  *(&v473 + 1) = &unk_1001FC680;
-                  *&v474 = &block;
+                  v461 = objc_alloc_init(NSMutableDictionary);
+                  *&v452 = _NSConcreteStackBlock;
+                  *(&v452 + 1) = 3221225472;
+                  *&v453 = sub_1000FD874;
+                  *(&v453 + 1) = &unk_1001FC680;
+                  *&v454 = &block;
                   NRTLVParse();
-                  v380 = *(p_block + 40);
+                  v360 = *(p_block + 40);
                   _Block_object_dispose(&block, 8);
 
-                  if ([v380 count])
+                  if ([v360 count])
                   {
-                    v198 = selfCopy->_nrUUID;
-                    v199 = _NRCopyLogObjectForNRUUID();
-                    v200 = _NRLogIsLevelEnabled();
+                    v188 = _NRCopyLogObjectForNRUUID();
+                    v189 = _NRLogIsLevelEnabled();
 
-                    if (v200)
+                    if (v189)
                     {
-                      v201 = selfCopy->_nrUUID;
-                      v202 = _NRCopyLogObjectForNRUUID();
-                      v374 = 9505;
-                      v375 = v380;
-                      v372 = "";
-                      v373 = "[NRDDeviceConductor handleIncomingResolveRequest:]";
-                      _NRLogWithArgs();
+                      v190 = _NRCopyLogObjectForNRUUID();
+                      _NRLogWithArgs(v190, 0, "%s%.30s:%-4d removing endpoints %@", ", "[NRDDeviceConductor handleIncomingResolveRequest:]"", 9505, v360);
                     }
 
-                    v447 = 0u;
-                    v448 = 0u;
-                    v445 = 0u;
-                    v446 = 0u;
-                    v389 = v380;
-                    v387 = [v389 countByEnumeratingWithState:&v445 objects:&v472 count:16];
-                    if (v387)
+                    v427 = 0u;
+                    v428 = 0u;
+                    v425 = 0u;
+                    v426 = 0u;
+                    v369 = v360;
+                    v367 = [v369 countByEnumeratingWithState:&v425 objects:&v452 count:16];
+                    if (v367)
                     {
-                      v386 = *v446;
+                      v366 = *v426;
                       do
                       {
-                        v203 = 0;
+                        v191 = 0;
                         do
                         {
-                          if (*v446 != v386)
+                          if (*v426 != v366)
                           {
-                            v204 = v203;
-                            objc_enumerationMutation(v389);
-                            v203 = v204;
+                            v192 = v191;
+                            objc_enumerationMutation(v369);
+                            v191 = v192;
                           }
 
-                          v393 = v203;
-                          v205 = *(*(&v445 + 1) + 8 * v203);
-                          v399 = selfCopy->_asClient;
-                          v206 = [v389 objectForKeyedSubscript:v205];
-                          v395 = v205;
-                          v397 = v206;
-                          if (v399 && !v399->_cancelled)
+                          v373 = v191;
+                          v193 = *(*(&v425 + 1) + 8 * v191);
+                          v379 = selfCopy->_asClient;
+                          v194 = [v369 objectForKeyedSubscript:v193];
+                          v375 = v193;
+                          v377 = v194;
+                          if (v379 && !v379->_cancelled)
                           {
                             objc_opt_self();
                             if (qword_1002291A0 != -1)
@@ -2352,10 +2401,10 @@ LABEL_202:
                               dispatch_once(&qword_1002291A0, &stru_1001FBD88);
                             }
 
-                            v207 = qword_100229198;
-                            v391 = v395;
-                            endpointa = v397;
-                            if (v207)
+                            v195 = qword_100229198;
+                            v371 = v375;
+                            endpointa = v377;
+                            if (v195)
                             {
                               if (qword_1002291B0 != -1)
                               {
@@ -2369,68 +2418,63 @@ LABEL_202:
                                   dispatch_once(&qword_1002291B0, &stru_1001FBE70);
                                 }
 
-                                v375 = v391;
-                                v376 = endpointa;
-                                v374 = 1035;
-                                v372 = "";
-                                v373 = "[NRApplicationServiceManager removeEndpointForASName:endpoint:]";
-                                _NRLogWithArgs();
+                                _NRLogWithArgs(qword_1002291A8, 0, "%s%.30s:%-4d removing endpoint for asName %@ %@", ", "[NRApplicationServiceManager removeEndpointForASName:endpoint:]"", 1035, v371, endpointa);
                               }
 
-                              v457 = 0u;
-                              v458 = 0u;
-                              v455 = 0u;
-                              v456 = 0u;
-                              objb = [*(v207 + 48) objectForKeyedSubscript:{v391, v372, v373, v374, v375, v376}];
-                              v208 = [objb countByEnumeratingWithState:&v455 objects:&block count:16];
-                              if (v208)
+                              v437 = 0u;
+                              v438 = 0u;
+                              v435 = 0u;
+                              v436 = 0u;
+                              objb = [*(v195 + 48) objectForKeyedSubscript:v371];
+                              v196 = [objb countByEnumeratingWithState:&v435 objects:&block count:16];
+                              if (v196)
                               {
-                                v418 = *v456;
+                                v398 = *v436;
                                 do
                                 {
-                                  for (ii = 0; ii != v208; ii = ii + 1)
+                                  for (ii = 0; ii != v196; ii = ii + 1)
                                   {
-                                    if (*v456 != v418)
+                                    if (*v436 != v398)
                                     {
                                       objc_enumerationMutation(objb);
                                     }
 
-                                    v210 = *(*(&v455 + 1) + 8 * ii);
-                                    if (v210)
+                                    v198 = *(*(&v435 + 1) + 8 * ii);
+                                    if (v198)
                                     {
-                                      v211 = *(v210 + 56);
-                                      if (v211)
+                                      v199 = *(v198 + 56);
+                                      if (v199)
                                       {
-                                        v212 = v211[11];
+                                        v200 = v199[11];
 
-                                        if (v212)
+                                        if (v200)
                                         {
-                                          v213 = objc_alloc_init(NSMutableArray);
-                                          v214 = +[NEPolicyCondition allInterfaces];
-                                          [v213 addObject:v214];
+                                          v201 = objc_alloc_init(NSMutableArray);
+                                          v202 = +[NEPolicyCondition allInterfaces];
+                                          [v201 addObject:v202];
 
-                                          v215 = nw_endpoint_copy_port_string(endpointa);
-                                          v216 = [NSString stringWithUTF8String:v215];
-                                          if (v215)
+                                          v203 = nw_endpoint_copy_port_string(endpointa);
+                                          v204 = [NSString stringWithUTF8String:v203];
+                                          if (v203)
                                           {
-                                            free(v215);
+                                            free(v203);
                                           }
 
-                                          v217 = [NWAddressEndpoint endpointWithHostname:@"::" port:v216];
-                                          v218 = [NEPolicyCondition flowRemoteAddress:v217 prefix:0];
+                                          v205 = [NWAddressEndpoint endpointWithHostname:@"::" port:v204];
+                                          v206 = [NEPolicyCondition flowRemoteAddress:v205 prefix:0];
 
-                                          [v213 addObject:v218];
-                                          v219 = [NEPolicyCondition requiredAgentDomain:@"com.apple.networkrelay" agentType:@"ASResolver"];
-                                          [v213 addObject:v219];
-                                          if (*(v210 + 8) >= 1)
+                                          [v201 addObject:v206];
+                                          v207 = [NEPolicyCondition requiredAgentDomain:@"com.apple.networkrelay" agentType:@"ASResolver"];
+                                          [v201 addObject:v207];
+                                          if (*(v198 + 8) >= 1)
                                           {
-                                            v220 = [NEPolicyCondition effectivePID:?];
-                                            [v213 addObject:v220];
+                                            v208 = [NEPolicyCondition effectivePID:?];
+                                            [v201 addObject:v208];
                                           }
 
-                                          v221 = [NEPolicy alloc];
-                                          v222 = [NEPolicyResult dropWithFlags:4];
-                                          v223 = [v221 initWithOrder:10 result:v222 conditions:v213];
+                                          v209 = [NEPolicy alloc];
+                                          v210 = [NEPolicyResult dropWithFlags:4];
+                                          v211 = [v209 initWithOrder:10 result:v210 conditions:v201];
 
                                           objc_opt_self();
                                           if (qword_100229410 != -1)
@@ -2438,9 +2482,9 @@ LABEL_202:
                                             dispatch_once(&qword_100229410, &stru_1001FCD98);
                                           }
 
-                                          v224 = qword_100229408;
-                                          v225 = [v210 description];
-                                          v226 = sub_100159E00(v224, v225, v223);
+                                          v212 = qword_100229408;
+                                          v213 = [v198 description];
+                                          v214 = sub_100159E00(v212, v213, v211);
 
                                           objc_opt_self();
                                           if (qword_100229410 != -1)
@@ -2448,103 +2492,97 @@ LABEL_202:
                                             dispatch_once(&qword_100229410, &stru_1001FCD98);
                                           }
 
-                                          v227 = qword_100229408;
-                                          sub_10015A52C(v227);
+                                          v215 = qword_100229408;
+                                          sub_10015A52C(v215);
 
-                                          v228 = *(v210 + 56);
-                                          if (v228)
+                                          v216 = *(v198 + 56);
+                                          if (v216)
                                           {
-                                            *(v228 + 12) = 1;
+                                            *(v216 + 12) = 1;
                                           }
                                         }
                                       }
                                     }
                                   }
 
-                                  v208 = [objb countByEnumeratingWithState:&v455 objects:&block count:16];
+                                  v196 = [objb countByEnumeratingWithState:&v435 objects:&block count:16];
                                 }
 
-                                while (v208);
+                                while (v196);
                               }
                             }
                           }
 
-                          v203 = v393 + 1;
+                          v191 = v373 + 1;
                         }
 
-                        while ((v393 + 1) != v387);
-                        v387 = [v389 countByEnumeratingWithState:&v445 objects:&v472 count:16];
+                        while ((v373 + 1) != v367);
+                        v367 = [v369 countByEnumeratingWithState:&v425 objects:&v452 count:16];
                       }
 
-                      while (v387);
+                      while (v367);
                     }
                   }
 
-                  v229 = sub_1000FC558(v402);
-                  v230 = selfCopy->_nrUUID;
-                  v231 = _NRCopyLogObjectForNRUUID();
-                  v232 = _NRLogIsLevelEnabled();
+                  v217 = sub_1000FC558(v382);
+                  v218 = _NRCopyLogObjectForNRUUID();
+                  v219 = _NRLogIsLevelEnabled();
 
-                  if (v232)
+                  if (v219)
                   {
-                    v233 = selfCopy->_nrUUID;
-                    v234 = _NRCopyLogObjectForNRUUID();
-                    v374 = 9512;
-                    v375 = v229;
-                    v372 = "";
-                    v373 = "[NRDDeviceConductor handleIncomingResolveRequest:]";
-                    _NRLogWithArgs();
+                    v220 = _NRCopyLogObjectForNRUUID();
+                    _NRLogWithArgs(v220, 1, "%s%.30s:%-4d received resolve request %@", ", "[NRDDeviceConductor handleIncomingResolveRequest:]"", 9512, v217);
                   }
 
-                  v457 = 0u;
-                  v458 = 0u;
-                  v455 = 0u;
-                  v456 = 0u;
-                  v235 = v229;
-                  v236 = [v235 countByEnumeratingWithState:&v455 objects:&block count:16];
-                  if (v236)
+                  v437 = 0u;
+                  v438 = 0u;
+                  v435 = 0u;
+                  v436 = 0u;
+                  v221 = v217;
+                  v222 = [v221 countByEnumeratingWithState:&v435 objects:&block count:16];
+                  if (v222)
                   {
-                    v419 = *v456;
+                    v399 = *v436;
                     do
                     {
-                      v237 = 0;
+                      v223 = 0;
                       do
                       {
-                        if (*v456 != v419)
+                        if (*v436 != v399)
                         {
-                          objc_enumerationMutation(v235);
+                          objc_enumerationMutation(v221);
                         }
 
-                        v238 = *(*(&v455 + 1) + 8 * v237);
-                        v239 = [v235 objectForKeyedSubscript:{v238, v372, v373, v374, v375}];
-                        v240 = objc_alloc_init(NSMutableArray);
-                        v449 = _NSConcreteStackBlock;
-                        v450 = 3221225472;
-                        v451 = sub_1000FD82C;
-                        v452 = &unk_1001FBBF8;
-                        v453 = v240;
-                        v241 = v240;
+                        v224 = *(*(&v435 + 1) + 8 * v223);
+                        v225 = [v221 objectForKeyedSubscript:v224];
+                        v226 = objc_alloc_init(NSMutableArray);
+                        v429 = _NSConcreteStackBlock;
+                        v430 = 3221225472;
+                        v431 = sub_1000FD82C;
+                        v432 = &unk_1001FBBF8;
+                        v433 = v226;
+                        v227 = v226;
                         nw_array_apply();
-                        v467 = 0;
-                        v466 = 0;
-                        v242 = +[NSUUID UUID];
-                        [v242 getUUIDBytes:&v466];
+                        v447 = 0;
+                        v446 = 0;
+                        v228 = +[NSUUID UUID];
+                        [v228 getUUIDBytes:&v446];
 
-                        [v238 UTF8String];
+                        [v224 UTF8String];
                         application_service = nw_endpoint_create_application_service();
                         nw_endpoint_set_public_keys();
-                        v244 = sub_1000FC668(v402, v238);
-                        [(NSMutableDictionary *)selfCopy->_incomingResolveASNameToToken setObject:v244 forKeyedSubscript:v238];
+                        v230 = sub_1000FC668(v382, v224);
+                        [(NSMutableDictionary *)selfCopy->_incomingResolveASNameToToken setObject:v230 forKeyedSubscript:v224];
 
                         sub_1000E9DD8(selfCopy, application_service);
                         asClient = selfCopy->_asClient;
-                        v246 = v238;
-                        v247 = application_service;
+                        v232 = v224;
+                        v233 = application_service;
                         if (asClient && !asClient->_cancelled)
                         {
-                          if (([(NSMutableArray *)asClient->_asNamesForIncomingResolveRequests containsObject:v246]& 1) == 0)
+                          if (([(NSMutableArray *)asClient->_asNamesForIncomingResolveRequests containsObject:v232]& 1) == 0)
                           {
-                            [(NSMutableArray *)asClient->_asNamesForIncomingResolveRequests addObject:v246];
+                            [(NSMutableArray *)asClient->_asNamesForIncomingResolveRequests addObject:v232];
                           }
 
                           objc_opt_self();
@@ -2553,18 +2591,18 @@ LABEL_202:
                             dispatch_once(&qword_1002291A0, &stru_1001FBD88);
                           }
 
-                          v248 = qword_100229198;
-                          v249 = v247;
-                          v250 = v249;
-                          if (v248)
+                          v234 = qword_100229198;
+                          v235 = v233;
+                          v236 = v235;
+                          if (v234)
                           {
-                            if (v249)
+                            if (v235)
                             {
-                              if (nw_endpoint_get_type(v249) == (nw_endpoint_type_url|nw_endpoint_type_host))
+                              if (nw_endpoint_get_type(v235) == (nw_endpoint_type_url|nw_endpoint_type_host))
                               {
-                                v251 = [NSString stringWithUTF8String:nw_endpoint_get_application_service_name()];
-                                [v248[8] setObject:v250 forKeyedSubscript:v251];
-                                sub_10011B75C(v248);
+                                v237 = [NSString stringWithUTF8String:nw_endpoint_get_application_service_name()];
+                                [v234[8] setObject:v236 forKeyedSubscript:v237];
+                                sub_10011B75C(v234);
                               }
 
                               else
@@ -2581,11 +2619,7 @@ LABEL_202:
                                     dispatch_once(&qword_1002291B0, &stru_1001FBE70);
                                   }
 
-                                  v374 = 1024;
-                                  v375 = v250;
-                                  v372 = "";
-                                  v373 = "[NRApplicationServiceManager addIncomingResolveRequestForEndpoint:]";
-                                  _NRLogWithArgs();
+                                  _NRLogWithArgs(qword_1002291A8, 16, "%s%.30s:%-4d invalid endpoint type %@", ", "[NRApplicationServiceManager addIncomingResolveRequestForEndpoint:]"", 1024, v236);
                                 }
                               }
                             }
@@ -2597,96 +2631,89 @@ LABEL_202:
                                 dispatch_once(&qword_1002291B0, &stru_1001FBE70);
                               }
 
-                              v252 = qword_1002291A8;
-                              v253 = _NRLogIsLevelEnabled();
+                              v238 = qword_1002291A8;
+                              v239 = _NRLogIsLevelEnabled();
 
-                              if (v253)
+                              if (v239)
                               {
                                 if (qword_1002291B0 != -1)
                                 {
                                   dispatch_once(&qword_1002291B0, &stru_1001FBE70);
                                 }
 
-                                v254 = qword_1002291A8;
-                                v372 = "[NRApplicationServiceManager addIncomingResolveRequestForEndpoint:]";
-                                _NRLogWithArgs();
+                                v240 = qword_1002291A8;
+                                _NRLogWithArgs(v240, 17, "%s called with null asEndpoint", "[NRApplicationServiceManager addIncomingResolveRequestForEndpoint:]");
                               }
                             }
                           }
                         }
 
-                        v237 = v237 + 1;
+                        v223 = v223 + 1;
                       }
 
-                      while (v236 != v237);
-                      v255 = [v235 countByEnumeratingWithState:&v455 objects:&block count:16];
-                      v236 = v255;
+                      while (v222 != v223);
+                      v241 = [v221 countByEnumeratingWithState:&v435 objects:&block count:16];
+                      v222 = v241;
                     }
 
-                    while (v255);
+                    while (v241);
                   }
 
                   sub_1000FC7D0(selfCopy, 1);
-                  v197 = v379;
+                  v187 = v359;
                 }
 
-                v256 = v197;
+                v242 = v187;
               }
 
-              v257 = sub_10002B210(v385, 21);
-              firstObject20 = [v257 firstObject];
+              v243 = sub_10002B210(v365, 21);
+              firstObject18 = [v243 firstObject];
 
-              if (firstObject20)
+              if (firstObject18)
               {
-                v259 = sub_10002B210(v385, 21);
-                firstObject21 = [v259 firstObject];
+                v245 = sub_10002B210(v365, 21);
+                firstObject19 = [v245 firstObject];
 
-                v261 = firstObject21;
+                v247 = firstObject19;
                 if (selfCopy)
                 {
-                  v388 = v261;
-                  v262 = sub_1000FC558(v261);
-                  v263 = selfCopy->_nrUUID;
-                  v264 = _NRCopyLogObjectForNRUUID();
-                  v265 = _NRLogIsLevelEnabled();
+                  v368 = v247;
+                  v248 = sub_1000FC558(v247);
+                  v249 = _NRCopyLogObjectForNRUUID();
+                  v250 = _NRLogIsLevelEnabled();
 
-                  if (v265)
+                  if (v250)
                   {
-                    v266 = selfCopy->_nrUUID;
-                    v267 = _NRCopyLogObjectForNRUUID();
-                    v374 = 9392;
-                    v375 = v262;
-                    v372 = "";
-                    v373 = "[NRDDeviceConductor handleIncomingResolveResponse:]";
-                    _NRLogWithArgs();
+                    v251 = _NRCopyLogObjectForNRUUID();
+                    _NRLogWithArgs(v251, 1, "%s%.30s:%-4d received resolve response %@", ", "[NRDDeviceConductor handleIncomingResolveResponse:]"", 9392, v248);
                   }
 
-                  v447 = 0u;
-                  v448 = 0u;
-                  v445 = 0u;
-                  v446 = 0u;
-                  v392 = v262;
-                  v396 = [v392 countByEnumeratingWithState:&v445 objects:&v472 count:16];
-                  if (v396)
+                  v427 = 0u;
+                  v428 = 0u;
+                  v425 = 0u;
+                  v426 = 0u;
+                  v372 = v248;
+                  v376 = [v372 countByEnumeratingWithState:&v425 objects:&v452 count:16];
+                  if (v376)
                   {
-                    v394 = *v446;
+                    v374 = *v426;
                     do
                     {
-                      v268 = 0;
+                      v252 = 0;
                       do
                       {
-                        if (*v446 != v394)
+                        if (*v426 != v374)
                         {
-                          objc_enumerationMutation(v392);
+                          objc_enumerationMutation(v372);
                         }
 
-                        v269 = *(*(&v445 + 1) + 8 * v268);
-                        v270 = selfCopy->_asClient;
-                        v271 = v270;
-                        endpointb = v268;
-                        if (v270)
+                        v253 = *(*(&v425 + 1) + 8 * v252);
+                        v254 = selfCopy->_asClient;
+                        v255 = v254;
+                        endpointb = v252;
+                        if (v254)
                         {
-                          asNamesForResolving = v270->_asNamesForResolving;
+                          asNamesForResolving = v254->_asNamesForResolving;
                         }
 
                         else
@@ -2694,46 +2721,38 @@ LABEL_202:
                           asNamesForResolving = 0;
                         }
 
-                        v273 = asNamesForResolving;
-                        v274 = [(NSMutableArray *)v273 containsObject:v269];
+                        v257 = asNamesForResolving;
+                        v258 = [(NSMutableArray *)v257 containsObject:v253];
 
-                        if (v274)
+                        if (v258)
                         {
-                          objc = sub_1000FC668(v388, v269);
-                          v403 = [(NSMutableDictionary *)selfCopy->_outgoingResolveASNameToToken objectForKeyedSubscript:v269];
-                          if (objc && (v275 = objc->_token) != 0 && (v276 = v275, v277 = objc->_token, v278 = [v403 isEqual:v277], v277, v276, (v278 & 1) == 0))
+                          objc = sub_1000FC668(v368, v253);
+                          v383 = [(NSMutableDictionary *)selfCopy->_outgoingResolveASNameToToken objectForKeyedSubscript:v253];
+                          if (objc && (v259 = objc->_token) != 0 && (v260 = v259, v261 = objc->_token, v262 = [v383 isEqual:v261], v261, v260, (v262 & 1) == 0))
                           {
-                            v301 = selfCopy->_nrUUID;
-                            v302 = _NRCopyLogObjectForNRUUID();
-                            v303 = _NRLogIsLevelEnabled();
+                            v285 = _NRCopyLogObjectForNRUUID();
+                            v286 = _NRLogIsLevelEnabled();
 
-                            if (v303)
+                            if (v286)
                             {
-                              v304 = selfCopy->_nrUUID;
-                              v400 = _NRCopyLogObjectForNRUUID();
-                              v398 = objc->_token;
-                              v376 = v403;
-                              v377 = v398;
-                              v374 = 9400;
-                              v375 = v269;
-                              v372 = "";
-                              v373 = "[NRDDeviceConductor handleIncomingResolveResponse:]";
-                              _NRLogWithArgs();
+                              v287 = selfCopy->_nrUUID;
+                              v380 = _NRCopyLogObjectForNRUUID();
+                              v378 = objc->_token;
+                              _NRLogWithArgs(v380, 0, "%s%.30s:%-4d token mismatched for asName %@ sent %@ received %@", ", "[NRDDeviceConductor handleIncomingResolveResponse:]"", 9400, v253, v383, v378);
 
-                              goto LABEL_344;
+                              goto LABEL_345;
                             }
                           }
 
                           else
                           {
-                            v279 = selfCopy->_nrUUID;
-                            v280 = _NRCopyLogObjectForNRUUID();
-                            v281 = _NRLogIsLevelEnabled();
+                            v263 = _NRCopyLogObjectForNRUUID();
+                            v264 = _NRLogIsLevelEnabled();
 
-                            if (v281)
+                            if (v264)
                             {
-                              v282 = selfCopy->_nrUUID;
-                              v283 = _NRCopyLogObjectForNRUUID();
+                              v265 = selfCopy->_nrUUID;
+                              v266 = _NRCopyLogObjectForNRUUID();
                               if (objc)
                               {
                                 token = objc->_token;
@@ -2744,32 +2763,27 @@ LABEL_202:
                                 token = 0;
                               }
 
-                              v376 = v403;
-                              v377 = token;
-                              v374 = 9403;
-                              v375 = v269;
-                              v372 = "";
-                              v373 = "[NRDDeviceConductor handleIncomingResolveResponse:]";
-                              _NRLogWithArgs();
+                              v268 = token;
+                              _NRLogWithArgs(v266, 0, "%s%.30s:%-4d token matched for asName %@ sent %@ received %@", ", "[NRDDeviceConductor handleIncomingResolveResponse:]"", 9403, v253, v383, v268);
                             }
 
-                            [(NSMutableDictionary *)selfCopy->_outgoingResolveASNameToToken setObject:0 forKeyedSubscript:v269, v372, v373, v374, v375, v376, v377];
-                            [(NSMutableDictionary *)selfCopy->_asNamesToResolvedEndpoints setObject:0 forKeyedSubscript:v269];
-                            v285 = objc_alloc_init(NSMutableArray);
-                            v286 = [v392 objectForKeyedSubscript:v269];
-                            v466 = _NSConcreteStackBlock;
-                            v467 = 3221225472;
-                            v468 = sub_1000FC74C;
-                            v469 = &unk_1001FBBD0;
-                            v470 = selfCopy;
-                            v471 = v285;
-                            v398 = v285;
+                            [(NSMutableDictionary *)selfCopy->_outgoingResolveASNameToToken setObject:0 forKeyedSubscript:v253];
+                            [(NSMutableDictionary *)selfCopy->_asNamesToResolvedEndpoints setObject:0 forKeyedSubscript:v253];
+                            v269 = objc_alloc_init(NSMutableArray);
+                            v270 = [v372 objectForKeyedSubscript:v253];
+                            v446 = _NSConcreteStackBlock;
+                            v447 = 3221225472;
+                            v448 = sub_1000FC74C;
+                            v449 = &unk_1001FBBD0;
+                            v450 = selfCopy;
+                            v451 = v269;
+                            v378 = v269;
                             nw_array_apply();
-                            [(NSMutableDictionary *)selfCopy->_asNamesToResolvedEndpoints setObject:v398 forKeyedSubscript:v269];
-                            v287 = selfCopy->_asClient;
-                            v390 = v269;
-                            v400 = v286;
-                            if (v287 && !v287->_cancelled)
+                            [(NSMutableDictionary *)selfCopy->_asNamesToResolvedEndpoints setObject:v378 forKeyedSubscript:v253];
+                            v271 = selfCopy->_asClient;
+                            v370 = v253;
+                            v380 = v270;
+                            if (v271 && !v271->_cancelled)
                             {
                               objc_opt_self();
                               if (qword_1002291A0 != -1)
@@ -2777,47 +2791,47 @@ LABEL_202:
                                 dispatch_once(&qword_1002291A0, &stru_1001FBD88);
                               }
 
-                              v288 = qword_100229198;
-                              v289 = v390;
-                              v290 = v400;
-                              if (v288)
+                              v272 = qword_100229198;
+                              v273 = v370;
+                              v274 = v380;
+                              if (v272)
                               {
-                                v420 = v290;
-                                if (v290)
+                                v400 = v274;
+                                if (v274)
                                 {
-                                  dispatch_assert_queue_V2(*(v288 + 16));
-                                  v291 = [*(v288 + 48) objectForKeyedSubscript:v289];
-                                  if ([v291 count])
+                                  dispatch_assert_queue_V2(*(v272 + 16));
+                                  v275 = [*(v272 + 48) objectForKeyedSubscript:v273];
+                                  if ([v275 count])
                                   {
-                                    v457 = 0u;
-                                    v458 = 0u;
-                                    v455 = 0u;
-                                    v456 = 0u;
-                                    v291 = v291;
-                                    v292 = [v291 countByEnumeratingWithState:&v455 objects:&block count:16];
-                                    if (v292)
+                                    v437 = 0u;
+                                    v438 = 0u;
+                                    v435 = 0u;
+                                    v436 = 0u;
+                                    v275 = v275;
+                                    v276 = [v275 countByEnumeratingWithState:&v435 objects:&block count:16];
+                                    if (v276)
                                     {
-                                      v293 = *v456;
+                                      v277 = *v436;
                                       do
                                       {
-                                        for (jj = 0; jj != v292; jj = jj + 1)
+                                        for (jj = 0; jj != v276; jj = jj + 1)
                                         {
-                                          if (*v456 != v293)
+                                          if (*v436 != v277)
                                           {
-                                            objc_enumerationMutation(v291);
+                                            objc_enumerationMutation(v275);
                                           }
 
-                                          v295 = *(*(&v455 + 1) + 8 * jj);
-                                          if (!v295 || (*(v295 + 64) != 1 || (sub_10011E694(v288, v289) & 1) == 0) && (*(v295 + 65) & 1) == 0)
+                                          v279 = *(*(&v435 + 1) + 8 * jj);
+                                          if (!v279 || (*(v279 + 64) != 1 || (sub_10011E694(v272, v273) & 1) == 0) && (*(v279 + 65) & 1) == 0)
                                           {
-                                            v296 = nw_array_create();
-                                            v449 = _NSConcreteStackBlock;
-                                            v450 = 3221225472;
-                                            v451 = sub_10011E848;
-                                            v452 = &unk_1001FBDB0;
-                                            v453 = v295;
-                                            v297 = v296;
-                                            v454 = v297;
+                                            v280 = nw_array_create();
+                                            v429 = _NSConcreteStackBlock;
+                                            v430 = 3221225472;
+                                            v431 = sub_10011E848;
+                                            v432 = &unk_1001FBDB0;
+                                            v433 = v279;
+                                            v281 = v280;
+                                            v434 = v281;
                                             nw_array_apply();
                                             if (nw_array_get_count())
                                             {
@@ -2833,50 +2847,44 @@ LABEL_202:
                                                   dispatch_once(&qword_1002291B0, &stru_1001FBE70);
                                                 }
 
-                                                if (v295)
+                                                if (v279)
                                                 {
-                                                  v298 = *(v295 + 48);
+                                                  v282 = *(v279 + 48);
                                                 }
 
                                                 else
                                                 {
-                                                  v298 = 0;
+                                                  v282 = 0;
                                                 }
 
-                                                v299 = qword_1002291A8;
-                                                v376 = v298;
-                                                v377 = v297;
-                                                v374 = 544;
-                                                v375 = v289;
-                                                v372 = "";
-                                                v373 = "[NRApplicationServiceManager reportResolveResultForASName:endpoint:]";
-                                                _NRLogWithArgs();
+                                                v283 = qword_1002291A8;
+                                                _NRLogWithArgs(v283, 2, "%s%.30s:%-4d triggering resolve response block for %@ (%p) with endpoints %@", ", "[NRApplicationServiceManager reportResolveResultForASName:endpoint:]"", 544, v273, v282, v281);
                                               }
 
-                                              if (v295)
+                                              if (v279)
                                               {
-                                                *(v295 + 64) = 1;
-                                                v300 = *(v295 + 72);
+                                                *(v279 + 64) = 1;
+                                                v284 = *(v279 + 72);
                                               }
 
                                               else
                                               {
-                                                v300 = 0;
+                                                v284 = 0;
                                               }
 
-                                              (*(v300 + 16))(v300, v297);
+                                              (*(v284 + 16))(v284, v281);
                                             }
                                           }
                                         }
 
-                                        v292 = [v291 countByEnumeratingWithState:&v455 objects:&block count:16];
+                                        v276 = [v275 countByEnumeratingWithState:&v435 objects:&block count:16];
                                       }
 
-                                      while (v292);
+                                      while (v276);
                                     }
                                   }
 
-                                  goto LABEL_341;
+                                  goto LABEL_342;
                                 }
 
                                 if (qword_1002291B0 != -1)
@@ -2884,55 +2892,54 @@ LABEL_202:
                                   dispatch_once(&qword_1002291B0, &stru_1001FBE70);
                                 }
 
-                                v305 = qword_1002291A8;
-                                v306 = _NRLogIsLevelEnabled();
+                                v288 = qword_1002291A8;
+                                v289 = _NRLogIsLevelEnabled();
 
-                                v290 = 0;
-                                if (v306)
+                                v274 = 0;
+                                if (v289)
                                 {
                                   if (qword_1002291B0 != -1)
                                   {
                                     dispatch_once(&qword_1002291B0, &stru_1001FBE70);
                                   }
 
-                                  v291 = qword_1002291A8;
-                                  v372 = "[NRApplicationServiceManager reportResolveResultForASName:endpoint:]";
-                                  _NRLogWithArgs();
-LABEL_341:
+                                  v275 = qword_1002291A8;
+                                  _NRLogWithArgs(v275, 17, "%s called with null resolvedEndpoints", "[NRApplicationServiceManager reportResolveResultForASName:endpoint:]");
+LABEL_342:
 
-                                  v290 = v420;
+                                  v274 = v400;
                                 }
                               }
                             }
 
-LABEL_344:
+LABEL_345:
                           }
                         }
 
-                        v268 = (&endpointb->isa + 1);
+                        v252 = (&endpointb->isa + 1);
                       }
 
-                      while (&endpointb->isa + 1 != v396);
-                      v396 = [v392 countByEnumeratingWithState:&v445 objects:&v472 count:16];
+                      while (&endpointb->isa + 1 != v376);
+                      v376 = [v372 countByEnumeratingWithState:&v425 objects:&v452 count:16];
                     }
 
-                    while (v396);
+                    while (v376);
                   }
 
                   sub_1000FC7D0(selfCopy, 1);
-                  v261 = v388;
+                  v247 = v368;
                 }
 
-                v307 = v261;
+                v290 = v247;
               }
 
-              v308 = sub_10002B210(v385, 23);
-              firstObject22 = [v308 firstObject];
+              v291 = sub_10002B210(v365, 23);
+              firstObject20 = [v291 firstObject];
 
-              if (firstObject22)
+              if (firstObject20)
               {
-                v310 = sub_10002B210(v385, 23);
-                firstObject23 = [v310 firstObject];
+                v293 = sub_10002B210(v365, 23);
+                firstObject21 = [v293 firstObject];
 
                 objc_opt_self();
                 if (qword_1002290C0 != -1)
@@ -2940,12 +2947,12 @@ LABEL_344:
                   dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
                 }
 
-                v312 = qword_1002290B8;
-                v313 = selfCopy->_nrUUID;
-                sub_1000CA918(v312, firstObject23, v313);
+                v295 = qword_1002290B8;
+                v296 = selfCopy->_nrUUID;
+                sub_1000CA918(v295, firstObject21, v296);
               }
 
-              goto LABEL_364;
+              goto LABEL_365;
             }
           }
 
@@ -2958,22 +2965,22 @@ LABEL_344:
         {
         }
 
-        v406 = 0;
-        goto LABEL_181;
+        v386 = 0;
+        goto LABEL_182;
       }
 
       block = 0;
       [firstObject9 getBytes:&block length:8];
-      v86 = block;
-      v87 = sub_100163A30(NRDLocalDevice, self->_nrUUID);
-      v88 = v87;
-      if (v87 && *(v87 + 16) >= 0x16u)
+      v82 = block;
+      v83 = sub_100163A30(NRDLocalDevice, self->_nrUUID);
+      v84 = v83;
+      if (v83 && *(v83 + 16) >= 0x16u)
       {
-        if ((v86 & 4) == 0)
+        if ((v82 & 4) == 0)
         {
-          if ((v86 & 8) == 0)
+          if ((v82 & 8) == 0)
           {
-            goto LABEL_97;
+            goto LABEL_98;
           }
 
           if (qword_100229160 != -1)
@@ -2988,13 +2995,10 @@ LABEL_344:
               dispatch_once(&qword_100229160, &stru_1001FBC40);
             }
 
-            v374 = 4584;
-            v372 = "";
-            v373 = "[NRDDeviceConductor processReceivedRequestFlags:]";
-            _NRLogWithArgs();
+            _NRLogWithArgs(qword_100229158, 1, "%s%.30s:%-4d processing request flag for stopping immediate net-info updates", ", "[NRDDeviceConductor processReceivedRequestFlags:]"", 4584);
           }
 
-          goto LABEL_80;
+          goto LABEL_81;
         }
 
         if (qword_100229160 != -1)
@@ -3009,20 +3013,17 @@ LABEL_344:
             dispatch_once(&qword_100229160, &stru_1001FBC40);
           }
 
-          v374 = 4581;
-          v372 = "";
-          v373 = "[NRDDeviceConductor processReceivedRequestFlags:]";
-          _NRLogWithArgs();
+          _NRLogWithArgs(qword_100229158, 1, "%s%.30s:%-4d processing request flag for starting immediate net-info updates", ", "[NRDDeviceConductor processReceivedRequestFlags:]"", 4581);
         }
       }
 
       else
       {
-        if ((v86 & 2) == 0)
+        if ((v82 & 2) == 0)
         {
-          if ((v86 & 4) == 0)
+          if ((v82 & 4) == 0)
           {
-            goto LABEL_97;
+            goto LABEL_98;
           }
 
           if (qword_100229160 != -1)
@@ -3037,23 +3038,20 @@ LABEL_344:
               dispatch_once(&qword_100229160, &stru_1001FBC40);
             }
 
-            v374 = 4592;
-            v372 = "";
-            v373 = "[NRDDeviceConductor processReceivedRequestFlags:]";
-            _NRLogWithArgs();
+            _NRLogWithArgs(qword_100229158, 1, "%s%.30s:%-4d processing request flag for stopping immediate net-info updates", ", "[NRDDeviceConductor processReceivedRequestFlags:]"", 4592);
           }
 
-LABEL_80:
+LABEL_81:
           netInfo = self->_netInfo;
           if (netInfo)
           {
-            v90 = 0;
-LABEL_96:
-            netInfo->_disableCoalescing = v90;
-            goto LABEL_97;
+            v86 = 0;
+LABEL_97:
+            netInfo->_disableCoalescing = v86;
+            goto LABEL_98;
           }
 
-          goto LABEL_97;
+          goto LABEL_98;
         }
 
         if (qword_100229160 != -1)
@@ -3068,23 +3066,20 @@ LABEL_96:
             dispatch_once(&qword_100229160, &stru_1001FBC40);
           }
 
-          v374 = 4589;
-          v372 = "";
-          v373 = "[NRDDeviceConductor processReceivedRequestFlags:]";
-          _NRLogWithArgs();
+          _NRLogWithArgs(qword_100229158, 1, "%s%.30s:%-4d processing request flag for starting immediate net-info updates", ", "[NRDDeviceConductor processReceivedRequestFlags:]"", 4589);
         }
       }
 
       netInfo = self->_netInfo;
       if (netInfo)
       {
-        v90 = 1;
-        goto LABEL_96;
+        v86 = 1;
+        goto LABEL_97;
       }
 
-LABEL_97:
+LABEL_98:
 
-      goto LABEL_98;
+      goto LABEL_99;
     }
 
     v39 = _NRCopyLogObjectForNRUUID();
@@ -3092,26 +3087,26 @@ LABEL_97:
 
     if (v40)
     {
-      goto LABEL_25;
+      v38 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v38, 16, "%s%.30s:%-4d Ignoring link receive data event as link was cancelled %@", ", "[NRDDeviceConductor linkDidReceiveData:data:]"", 6622, v362);
+      goto LABEL_26;
     }
   }
 
   else
   {
-    v36 = self->_nrUUID;
-    v37 = _NRCopyLogObjectForNRUUID();
-    v38 = _NRLogIsLevelEnabled();
+    v36 = _NRCopyLogObjectForNRUUID();
+    v37 = _NRLogIsLevelEnabled();
 
-    if (v38)
+    if (v37)
     {
-LABEL_25:
-      v41 = self->_nrUUID;
-      v42 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v38 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v38, 1, "%s%.30s:%-4d Ignoring link receive data event as conductor is disabled");
+LABEL_26:
     }
   }
 
-LABEL_365:
+LABEL_366:
 }
 
 - (void)linkIsUnavailable:(id)unavailable
@@ -3120,7 +3115,7 @@ LABEL_365:
   dispatch_assert_queue_V2(self->_queue);
   if (!unavailableCopy)
   {
-    v61 = sub_1000E83DC();
+    v51 = sub_1000E83DC();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (!IsLevelEnabled)
@@ -3128,43 +3123,37 @@ LABEL_365:
       goto LABEL_81;
     }
 
-    v19 = sub_1000E83DC();
+    v16 = sub_1000E83DC();
+    _NRLogWithArgs(v16, 17, "%s called with null link");
     goto LABEL_11;
   }
 
   isEnabled = self->_isEnabled;
-  nrUUID = self->_nrUUID;
-  v7 = _NRCopyLogObjectForNRUUID();
-  v8 = _NRLogIsLevelEnabled();
+  v6 = _NRCopyLogObjectForNRUUID();
+  v7 = _NRLogIsLevelEnabled();
 
   if (!isEnabled)
   {
-    if (!v8)
+    if (!v7)
     {
       goto LABEL_81;
     }
 
-    v18 = self->_nrUUID;
-    v19 = _NRCopyLogObjectForNRUUID();
+    v16 = _NRCopyLogObjectForNRUUID();
+    _NRLogWithArgs(v16, 1, "%s%.30s:%-4d Ignoring link unavailability event as conductor is disabled");
 LABEL_11:
-    _NRLogWithArgs();
 
     goto LABEL_81;
   }
 
-  if (v8)
+  if (v7)
   {
-    v9 = self->_nrUUID;
-    v10 = _NRCopyLogObjectForNRUUID();
-    v67 = 6454;
-    v69 = unavailableCopy;
-    v63 = "";
-    v65 = "[NRDDeviceConductor linkIsUnavailable:]";
-    _NRLogWithArgs();
+    v8 = _NRCopyLogObjectForNRUUID();
+    _NRLogWithArgs(v8, 1, "%s%.30s:%-4d link is unavailable: %@", ", "[NRDDeviceConductor linkIsUnavailable:]"", 6454, unavailableCopy);
   }
 
   copyShortDescription = [unavailableCopy copyShortDescription];
-  sub_1000EC910(self, 1007, @"%@", v12, v13, v14, v15, v16, copyShortDescription);
+  sub_1000EC910(self, 1007, @"%@", v10, v11, v12, v13, v14, copyShortDescription);
 
   [(NSMutableSet *)self->_availableLinks removeObject:unavailableCopy];
   if ([unavailableCopy type] == 1)
@@ -3176,13 +3165,13 @@ LABEL_11:
       dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
     }
 
-    v17 = qword_1002290B8;
-    v75[0] = _NSConcreteStackBlock;
-    v75[1] = 3221225472;
-    v75[2] = sub_1000FFB90;
-    v75[3] = &unk_1001FD3C8;
-    v75[4] = self;
-    sub_1000C95D8(v17, v75);
+    v15 = qword_1002290B8;
+    v58[0] = _NSConcreteStackBlock;
+    v58[1] = 3221225472;
+    v58[2] = sub_1000FFB90;
+    v58[3] = &unk_1001FD3C8;
+    v58[4] = self;
+    sub_1000C95D8(v15, v58);
     goto LABEL_72;
   }
 
@@ -3204,10 +3193,10 @@ LABEL_11:
     goto LABEL_73;
   }
 
-  v20 = [unavailableCopy subtype] == 103 || objc_msgSend(unavailableCopy, "subtype") == 102;
-  v17 = sub_1000EA2C8(self, 2, 102);
-  v22 = sub_1000EA2C8(self, 2, 103);
-  if (v20)
+  v17 = [unavailableCopy subtype] == 103 || objc_msgSend(unavailableCopy, "subtype") == 102;
+  v15 = sub_1000EA2C8(self, 2, 102);
+  v19 = sub_1000EA2C8(self, 2, 103);
+  if (v17)
   {
     if ([unavailableCopy startRequested])
     {
@@ -3222,7 +3211,7 @@ LABEL_11:
 
   else
   {
-    if (([v17 state] == 255 || (objc_msgSend(v17, "startRequested") & 1) == 0) && (objc_msgSend(v22, "state") == 255 || !objc_msgSend(v22, "startRequested")))
+    if (([v15 state] == 255 || (objc_msgSend(v15, "startRequested") & 1) == 0) && (objc_msgSend(v19, "state") == 255 || !objc_msgSend(v19, "startRequested")))
     {
 LABEL_29:
       if (self->_pendingPreferWiFiRequest)
@@ -3234,99 +3223,84 @@ LABEL_29:
       {
         if (self->_preferWiFiRequest && !self->_preferwiFiTimeoutSet)
         {
-          v23 = self->_nrUUID;
-          v24 = _NRCopyLogObjectForNRUUID();
-          v25 = _NRLogIsLevelEnabled();
+          v20 = _NRCopyLogObjectForNRUUID();
+          v21 = _NRLogIsLevelEnabled();
 
-          if (v25)
+          if (v21)
           {
-            v32 = self->_nrUUID;
-            v33 = _NRCopyLogObjectForNRUUID();
-            v68 = 6526;
-            v64 = "";
-            v66 = "[NRDDeviceConductor linkIsUnavailable:]";
-            _NRLogWithArgs();
+            v28 = _NRCopyLogObjectForNRUUID();
+            _NRLogWithArgs(v28, 1, "%s%.30s:%-4d Wi-Fi link went away while servicing prefer Wi-Fi request", ", "[NRDDeviceConductor linkIsUnavailable:]"", 6526);
           }
 
-          sub_1000F2504(self, @"Wi-Fi link went away", v26, v27, v28, v29, v30, v31, v64);
-          v34 = sub_1000EC630(self);
-          self->_pendingPreferWiFiRequest = sub_10017F64C(v34);
+          sub_1000F2504(self, @"Wi-Fi link went away", v22, v23, v24, v25, v26, v27, v53);
+          v29 = sub_1000EC630(self);
+          self->_pendingPreferWiFiRequest = sub_10017F64C(v29);
         }
 
         if (self->_preferwiFiTimeoutSet)
         {
-          v35 = self->_nrUUID;
-          v36 = _NRCopyLogObjectForNRUUID();
-          v37 = _NRLogIsLevelEnabled();
+          v30 = _NRCopyLogObjectForNRUUID();
+          v31 = _NRLogIsLevelEnabled();
 
-          if (v37)
+          if (v31)
           {
-            v38 = self->_nrUUID;
-            v39 = _NRCopyLogObjectForNRUUID();
-            v68 = 6531;
-            v64 = "";
-            v66 = "[NRDDeviceConductor linkIsUnavailable:]";
-            _NRLogWithArgs();
+            v32 = _NRCopyLogObjectForNRUUID();
+            _NRLogWithArgs(v32, 0, "%s%.30s:%-4d Not rejecting prefer wifi request as connection is in progress", ", "[NRDDeviceConductor linkIsUnavailable:]"", 6531);
           }
         }
       }
 
       if (self->_bringUpWiFiImmediately)
       {
-        v40 = self->_nrUUID;
-        v41 = _NRCopyLogObjectForNRUUID();
-        v42 = _NRLogIsLevelEnabled();
+        v33 = _NRCopyLogObjectForNRUUID();
+        v34 = _NRLogIsLevelEnabled();
 
-        if (v42)
+        if (v34)
         {
-          v43 = self->_nrUUID;
-          v44 = _NRCopyLogObjectForNRUUID();
-          v68 = 6537;
-          v64 = "";
-          v66 = "[NRDDeviceConductor linkIsUnavailable:]";
-          _NRLogWithArgs();
+          v35 = _NRCopyLogObjectForNRUUID();
+          _NRLogWithArgs(v35, 1, "%s%.30s:%-4d Wi-Fi link went away when we need it immediately", ", "[NRDDeviceConductor linkIsUnavailable:]"", 6537);
         }
 
         sub_1000F18B4(self);
       }
 
-      v73 = 0u;
-      v74 = 0u;
-      v71 = 0u;
-      v72 = 0u;
-      v45 = self->_availableLinks;
-      v46 = [(NSMutableSet *)v45 countByEnumeratingWithState:&v71 objects:v76 count:16];
-      if (v46)
+      v56 = 0u;
+      v57 = 0u;
+      v54 = 0u;
+      v55 = 0u;
+      v36 = self->_availableLinks;
+      v37 = [(NSMutableSet *)v36 countByEnumeratingWithState:&v54 objects:v59 count:16];
+      if (v37)
       {
-        v47 = v46;
-        v48 = 0;
-        v49 = *v72;
+        v38 = v37;
+        v39 = 0;
+        v40 = *v55;
         while (2)
         {
-          v50 = 0;
-          v51 = v48;
+          v41 = 0;
+          v42 = v39;
           do
           {
-            if (*v72 != v49)
+            if (*v55 != v40)
             {
-              objc_enumerationMutation(v45);
+              objc_enumerationMutation(v36);
             }
 
-            v48 = *(*(&v71 + 1) + 8 * v50);
+            v39 = *(*(&v54 + 1) + 8 * v41);
 
-            if ([v48 type] == 1)
+            if ([v39 type] == 1)
             {
-              v52 = 0;
+              v43 = 0;
               goto LABEL_55;
             }
 
-            v50 = v50 + 1;
-            v51 = v48;
+            v41 = v41 + 1;
+            v42 = v39;
           }
 
-          while (v47 != v50);
-          v47 = [(NSMutableSet *)v45 countByEnumeratingWithState:&v71 objects:v76 count:16];
-          if (v47)
+          while (v38 != v41);
+          v38 = [(NSMutableSet *)v36 countByEnumeratingWithState:&v54 objects:v59 count:16];
+          if (v38)
           {
             continue;
           }
@@ -3335,43 +3309,38 @@ LABEL_29:
         }
       }
 
-      v48 = 0;
-      v52 = 1;
+      v39 = 0;
+      v43 = 1;
 LABEL_55:
 
-      v53 = sub_1000EA2C8(self, 2, 101);
-      if ([v17 state] != 8 && objc_msgSend(v53, "state") != 8)
+      v44 = sub_1000EA2C8(self, 2, 101);
+      if ([v15 state] != 8 && objc_msgSend(v44, "state") != 8)
       {
-        if ([v17 state] != 255 && (objc_msgSend(v17, "startRequested") & 1) != 0 || objc_msgSend(v53, "state", v64, v66, v68) != 255 && objc_msgSend(v53, "startRequested"))
+        if ([v15 state] != 255 && (objc_msgSend(v15, "startRequested") & 1) != 0 || objc_msgSend(v44, "state") != 255 && objc_msgSend(v44, "startRequested"))
         {
           sub_1000EFE54(self);
         }
 
-        if ((v52 & 1) == 0)
+        if ((v43 & 1) == 0)
         {
-          v54 = self->_nrUUID;
-          v55 = _NRCopyLogObjectForNRUUID();
-          v56 = _NRLogIsLevelEnabled();
+          v45 = _NRCopyLogObjectForNRUUID();
+          v46 = _NRLogIsLevelEnabled();
 
-          if (v56)
+          if (v46)
           {
-            v57 = self->_nrUUID;
-            v58 = _NRCopyLogObjectForNRUUID();
-            v68 = 6574;
-            v70 = v48;
-            v64 = "";
-            v66 = "[NRDDeviceConductor linkIsUnavailable:]";
-            _NRLogWithArgs();
+            v47 = self->_nrUUID;
+            v48 = _NRCopyLogObjectForNRUUID();
+            _NRLogWithArgs(v48, 1, "%s%.30s:%-4d Found BT link %@", ", "[NRDDeviceConductor linkIsUnavailable:]"", 6574, v39, v54);
           }
 
-          if ([v48 state] == 9 && !self->_preferwiFiTimeoutSet)
+          if ([v39 state] == 9 && !self->_preferwiFiTimeoutSet)
           {
-            [v48 resume];
+            [v39 resume];
           }
 
-          else if ([v48 state] == 1)
+          else if ([v39 state] == 1)
           {
-            [v48 start];
+            [v39 start];
           }
         }
       }
@@ -3387,18 +3356,18 @@ LABEL_71:
 LABEL_72:
 LABEL_73:
   queue = self->_queue;
-  v60 = unavailableCopy;
+  v50 = unavailableCopy;
   dispatch_assert_queue_V2(queue);
-  [v60 removePolicies];
+  [v50 removePolicies];
 
   sub_1000FFDA8(self);
   sub_1000F4104(self);
-  if ([v60 subtype] != 102 && objc_msgSend(v60, "subtype") != 103 && objc_msgSend(v60, "subtype") != 104 && objc_msgSend(v60, "type") != 4 || objc_msgSend(v60, "startRequested", v64))
+  if ([v50 subtype] != 102 && objc_msgSend(v50, "subtype") != 103 && objc_msgSend(v50, "subtype") != 104 && objc_msgSend(v50, "type") != 4 || objc_msgSend(v50, "startRequested"))
   {
     sub_100100060(self, self->_primaryLink);
   }
 
-  if ([v60 startRequested])
+  if ([v50 startRequested])
   {
     sub_10010047C(self);
   }
@@ -3412,7 +3381,7 @@ LABEL_81:
   dispatch_assert_queue_V2(self->_queue);
   if (!suspendedCopy)
   {
-    v26 = sub_1000E83DC();
+    v21 = sub_1000E83DC();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (!IsLevelEnabled)
@@ -3420,16 +3389,30 @@ LABEL_81:
       goto LABEL_16;
     }
 
-    v25 = sub_1000E83DC();
+    v18 = sub_1000E83DC();
+    _NRLogWithArgs(v18, 17, "%s called with null link");
 LABEL_15:
-    _NRLogWithArgs();
 
     goto LABEL_16;
   }
 
   if (!self->_isEnabled)
   {
-    nrUUID = self->_nrUUID;
+    v16 = _NRCopyLogObjectForNRUUID();
+    v17 = _NRLogIsLevelEnabled();
+
+    if (!v17)
+    {
+      goto LABEL_16;
+    }
+
+    v18 = _NRCopyLogObjectForNRUUID();
+    _NRLogWithArgs(v18, 1, "%s%.30s:%-4d Ignoring link suspended event as conductor is disabled");
+    goto LABEL_15;
+  }
+
+  if ([suspendedCopy state] == 255)
+  {
     v19 = _NRCopyLogObjectForNRUUID();
     v20 = _NRLogIsLevelEnabled();
 
@@ -3438,24 +3421,9 @@ LABEL_15:
       goto LABEL_16;
     }
 
-LABEL_14:
-    v24 = self->_nrUUID;
-    v25 = _NRCopyLogObjectForNRUUID();
+    v18 = _NRCopyLogObjectForNRUUID();
+    _NRLogWithArgs(v18, 16, "%s%.30s:%-4d Ignoring link suspended event as link was cancelled %@", ", "[NRDDeviceConductor linkIsSuspended:]"", 6424, suspendedCopy);
     goto LABEL_15;
-  }
-
-  if ([suspendedCopy state] == 255)
-  {
-    v21 = self->_nrUUID;
-    v22 = _NRCopyLogObjectForNRUUID();
-    v23 = _NRLogIsLevelEnabled();
-
-    if (!v23)
-    {
-      goto LABEL_16;
-    }
-
-    goto LABEL_14;
   }
 
   queue = self->_queue;
@@ -3481,22 +3449,16 @@ LABEL_14:
   copyShortDescription = [v5 copyShortDescription];
   sub_1000EC910(self, 1006, @"%@", v8, v9, v10, v11, v12, copyShortDescription);
 
-  v13 = self->_nrUUID;
-  v14 = _NRCopyLogObjectForNRUUID();
-  v15 = _NRLogIsLevelEnabled();
+  v13 = _NRCopyLogObjectForNRUUID();
+  v14 = _NRLogIsLevelEnabled();
 
-  if (v15)
+  if (v14)
   {
-    v16 = self->_nrUUID;
-    v17 = _NRCopyLogObjectForNRUUID();
-    v30 = 6439;
-    v31 = v5;
-    v28 = "";
-    v29 = "[NRDDeviceConductor linkIsSuspended:]";
-    _NRLogWithArgs();
+    v15 = _NRCopyLogObjectForNRUUID();
+    _NRLogWithArgs(v15, 1, "%s%.30s:%-4d link is suspended: %@", ", "[NRDDeviceConductor linkIsSuspended:]"", 6439, v5);
   }
 
-  [v5 setMigrationInfoAgent:{0, v28, v29, v30, v31}];
+  [v5 setMigrationInfoAgent:0];
 LABEL_16:
 }
 
@@ -3506,711 +3468,668 @@ LABEL_16:
   dispatch_assert_queue_V2(self->_queue);
   if (readyCopy)
   {
-    if (self->_isEnabled)
+    if (!self->_isEnabled)
     {
-      state = [readyCopy state];
-      nrUUID = self->_nrUUID;
-      v6 = _NRCopyLogObjectForNRUUID();
-      if (state != 255)
+      v29 = _NRCopyLogObjectForNRUUID();
+      IsLevelEnabled = _NRLogIsLevelEnabled();
+
+      if (!IsLevelEnabled)
       {
-        IsLevelEnabled = _NRLogIsLevelEnabled();
+        goto LABEL_165;
+      }
 
-        if (IsLevelEnabled)
-        {
-          v8 = self->_nrUUID;
-          v9 = _NRCopyLogObjectForNRUUID();
-          v128 = 6308;
-          v130 = readyCopy;
-          v124 = "";
-          v126 = "[NRDDeviceConductor linkIsReady:]";
-          _NRLogWithArgs();
-        }
+      v31 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v31, 1, "%s%.30s:%-4d Ignoring link ready event as conductor is disabled", ", "[NRDDeviceConductor linkIsReady:]"", 6298);
+      goto LABEL_164;
+    }
 
-        copyShortDescription = [readyCopy copyShortDescription];
-        sub_1000EC910(self, 1005, @"%@", v11, v12, v13, v14, v15, copyShortDescription);
+    state = [readyCopy state];
+    v5 = _NRCopyLogObjectForNRUUID();
+    if (state == 255)
+    {
+      v32 = _NRLogIsLevelEnabled();
 
-        sub_1001033B0(self);
-        sub_100104190(self);
-        if ([readyCopy suspendWhenReady])
-        {
-          v16 = self->_nrUUID;
-          v17 = _NRCopyLogObjectForNRUUID();
-          v18 = _NRLogIsLevelEnabled();
+      if (!v32)
+      {
+        goto LABEL_165;
+      }
 
-          if (v18)
-          {
-            v19 = self->_nrUUID;
-            v20 = _NRCopyLogObjectForNRUUID();
-            v129 = 6314;
-            v131 = readyCopy;
-            v125 = "";
-            v127 = "[NRDDeviceConductor linkIsReady:]";
-            _NRLogWithArgs();
-          }
+      v31 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v31, 16, "%s%.30s:%-4d Ignoring link ready event as link was cancelled %@", ", "[NRDDeviceConductor linkIsReady:]"", 6303, readyCopy);
+      goto LABEL_164;
+    }
 
-          [readyCopy setSuspendWhenReady:{0, v125, v127, v129, v131}];
-          [readyCopy suspend];
-        }
+    v6 = _NRLogIsLevelEnabled();
 
-        selfCopy = self;
-        if ([readyCopy type] == 1)
-        {
-          sub_1000F0BF8(self);
-          sub_10003F7D8(self->_quickRelayAgent);
-          if (self->_alwaysOnWiFiQueryComplete && !self->_alwaysOnWiFiUpdateSent)
-          {
-            dispatch_assert_queue_V2(self->_queue);
-            if (!self->_isAlwaysReachableOverWiFi)
-            {
-              self->_alwaysOnWiFiQueryComplete = 1;
-              dispatch_assert_queue_V2(self->_queue);
-              v21 = sub_100163A30(NRDLocalDevice, self->_nrUUID);
-              v22 = v21;
-              if (v21)
-              {
-                v23 = *(v21 + 144);
-              }
+    if (v6)
+    {
+      v7 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v7, 1, "%s%.30s:%-4d link is ready: %@", ", "[NRDDeviceConductor linkIsReady:]"", 6308, readyCopy);
+    }
 
-              else
-              {
-                v23 = 0;
-              }
+    copyShortDescription = [readyCopy copyShortDescription];
+    sub_1000EC910(self, 1005, @"%@", v9, v10, v11, v12, v13, copyShortDescription);
 
-              v24 = v23;
-              v25 = [v24 getDefaultLinkSubtypeForLinkType:1];
+    sub_1001033B0(&self->super.isa);
+    sub_100104190(self);
+    if ([readyCopy suspendWhenReady])
+    {
+      v14 = _NRCopyLogObjectForNRUUID();
+      v15 = _NRLogIsLevelEnabled();
 
-              v26 = sub_1000EA2C8(self, 1, v25);
-              if (v26)
-              {
-                if ([v26 state] == 255 || !objc_msgSend(v26, "ikeClassDEstablished"))
-                {
-                  v32 = 0;
-                }
+      if (v15)
+      {
+        v16 = _NRCopyLogObjectForNRUUID();
+        _NRLogWithArgs(v16, 1, "%s%.30s:%-4d Suspending link as it is ready: %@", ", "[NRDDeviceConductor linkIsReady:]"", 6314, readyCopy);
+      }
 
-                else
-                {
-                  objc_opt_self();
-                  LOBYTE(v137) = 1;
-                  v27 = [[NSData alloc] initWithBytes:&v137 length:1];
-                  v28 = [[NEIKEv2PrivateNotify alloc] initWithNotifyStatus:51401 notifyData:v27];
-                  objc_initWeak(location, v26);
-                  v29 = *(v26 + 1311);
-                  *&v147 = v28;
-                  v30 = [NSArray arrayWithObjects:&v147 count:1];
-                  queue = [v26 queue];
-                  newValue = _NSConcreteStackBlock;
-                  v143 = 3221225472;
-                  v144 = sub_1000B6F28;
-                  v145 = &unk_1001FC018;
-                  objc_copyWeak(v146, location);
-                  [v29 sendPrivateNotifies:v30 maxRetries:10 retryIntervalInMilliseconds:10000 callbackQueue:queue callback:&newValue];
+      [readyCopy setSuspendWhenReady:0];
+      [readyCopy suspend];
+    }
 
-                  objc_destroyWeak(v146);
-                  objc_destroyWeak(location);
-
-                  v32 = 1;
-                  self = selfCopy;
-                }
-
-                self->_alwaysOnWiFiUpdateSent = v32;
-              }
-            }
-          }
-
-          sub_1000EA900(self);
-        }
-
-        else
-        {
-          if ([readyCopy type] == 2)
-          {
-            if ([readyCopy subtype] != 101)
-            {
-              goto LABEL_50;
-            }
-
-            v39 = sub_1000EA2C8(self, 2, 102);
-            if ([v39 startRequested] && !self->_needsAWDL)
-            {
-              [v39 cancelWithReason:@"not needed anymore"];
-            }
-
-            if (self->_preferWiFiRequest || (self->_effectiveALUAdvice & 4) != 0)
-            {
-              v40 = self->_linkUpgradeReportWiFiInfra;
-              if (v40)
-              {
-                v40->_flags |= 0x800u;
-              }
-
-              if ((self->_effectiveALUAdvice & 4) != 0)
-              {
-                currentALUAdviceID = self->_currentALUAdviceID;
-                v42 = self->_aluMonitor;
-                sub_10007A18C(v42, currentALUAdviceID);
-              }
-            }
-          }
-
-          else
-          {
-            if ([readyCopy type] != 4)
-            {
-              goto LABEL_50;
-            }
-
-            quickRelayAgent = self->_quickRelayAgent;
-            if (quickRelayAgent && quickRelayAgent->_state.state != 2)
-            {
-              quickRelayAgent->_state.state = 2;
-              [(NWNetworkAgentRegistration *)quickRelayAgent->_registrationObject updateNetworkAgent:?];
-            }
-
-            v44 = objc_alloc_init(NRLinkDirectorRequest);
-            v46 = v44;
-            if (v44)
-            {
-              v44->_type = 8;
-              v44->_allowsSuspendedLink = 0;
-              v44->_requiredLinkType = 1;
-            }
-
-            newValue = _NSConcreteStackBlock;
-            v143 = 3221225472;
-            v144 = sub_1000F38BC;
-            v145 = &unk_1001FD3C8;
-            v146[0] = self;
-            if (v44)
-            {
-              objc_setProperty_nonatomic_copy(v44, v45, &newValue, 48);
-            }
-
-            sub_1000EAA20(self, v46);
-
-            v39 = sub_1000F1BC0(self, 2);
-            if ([v39 state] == 8)
-            {
-              [v39 checkPeerAvailabilityWithForceAggressive:1];
-            }
-          }
-        }
-
-LABEL_50:
-        sub_100104434(&self->super.isa);
-        v47 = readyCopy;
+    selfCopy = self;
+    if ([readyCopy type] == 1)
+    {
+      sub_1000F0BF8(self);
+      sub_10003F7D8(self->_quickRelayAgent);
+      if (self->_alwaysOnWiFiQueryComplete && !self->_alwaysOnWiFiUpdateSent)
+      {
         dispatch_assert_queue_V2(self->_queue);
-        v133 = v47;
-        if ([v47 state] == 8)
+        if (!self->_isAlwaysReachableOverWiFi)
         {
-          if (!self->_isExternalDevice)
+          self->_alwaysOnWiFiQueryComplete = 1;
+          dispatch_assert_queue_V2(self->_queue);
+          v17 = sub_100163A30(NRDLocalDevice, self->_nrUUID);
+          v18 = v17;
+          if (v17)
           {
-            localInterfaceName = [v47 localInterfaceName];
-            if ([v47 hasCompanionDatapath])
-            {
-              [v47 virtualInterface];
-              v49 = NEVirtualInterfaceCopyName();
-
-              localInterfaceName = v49;
-            }
-
-            self = selfCopy;
-            sub_100107A24(selfCopy, localInterfaceName);
-            if ([v47 hasCompanionDatapath])
-            {
-              v50 = sub_10010A0D8(selfCopy, v47);
-              v51 = sub_10010A218(selfCopy, v47, v50);
-              [v47 setLinkMTU];
-              if ([v51 count])
-              {
-                objc_opt_self();
-                if (qword_100229410 != -1)
-                {
-                  dispatch_once(&qword_100229410, &stru_1001FCD98);
-                }
-
-                v52 = qword_100229408;
-                sub_10015A52C(v52);
-
-                policyIDs = [v47 policyIDs];
-                v54 = [[NSMutableArray alloc] initWithArray:policyIDs];
-                [v54 addObjectsFromArray:v51];
-                [v47 setPolicyIDs:v54];
-                v55 = selfCopy->_nrUUID;
-                v56 = _NRCopyLogObjectForNRUUID();
-                v57 = _NRLogIsLevelEnabled();
-
-                if (v57)
-                {
-                  v58 = selfCopy->_nrUUID;
-                  v59 = _NRCopyLogObjectForNRUUID();
-                  v129 = 4466;
-                  v131 = v47;
-                  v125 = "";
-                  v127 = "[NRDDeviceConductor setIPTunnelPolicyForLink:]";
-                  _NRLogWithArgs();
-                }
-
-                self = selfCopy;
-              }
-
-              else
-              {
-                self = selfCopy;
-                v64 = selfCopy->_nrUUID;
-                v65 = _NRCopyLogObjectForNRUUID();
-                v66 = _NRLogIsLevelEnabled();
-
-                if (!v66)
-                {
-LABEL_67:
-
-                  goto LABEL_68;
-                }
-
-                v67 = selfCopy->_nrUUID;
-                policyIDs = _NRCopyLogObjectForNRUUID();
-                v129 = 4468;
-                v131 = v47;
-                v125 = "";
-                v127 = "[NRDDeviceConductor setIPTunnelPolicyForLink:]";
-                _NRLogWithArgs();
-              }
-
-              goto LABEL_67;
-            }
-
-            sub_100107B28(&selfCopy->super.isa, v47);
-LABEL_68:
-          }
-        }
-
-        else
-        {
-          v60 = self->_nrUUID;
-          v61 = _NRCopyLogObjectForNRUUID();
-          v62 = _NRLogIsLevelEnabled();
-
-          if (v62)
-          {
-            v63 = self->_nrUUID;
-            localInterfaceName = _NRCopyLogObjectForNRUUID();
-            v129 = 4431;
-            v131 = v47;
-            v125 = "";
-            v127 = "[NRDDeviceConductor setIPTunnelPolicyForLink:]";
-            _NRLogWithArgs();
-            goto LABEL_68;
-          }
-        }
-
-        sub_1000F91EC(self, v47, 0);
-        sub_1000FFDA8(self);
-        sub_100104BB4(self);
-        if ([v47 type] == 1 && (sub_1000EC4F0(self, 1) & 1) == 0)
-        {
-          sub_1000F2BE0(self, 1);
-        }
-
-        else
-        {
-          v68 = self->_nrUUID;
-          v69 = _NRCopyLogObjectForNRUUID();
-          v70 = _NRLogIsLevelEnabled();
-
-          if (v70)
-          {
-            v71 = self->_nrUUID;
-            v72 = _NRCopyLogObjectForNRUUID();
-            v129 = 6374;
-            v125 = "";
-            v127 = "[NRDDeviceConductor linkIsReady:]";
-            _NRLogWithArgs();
-          }
-        }
-
-        sub_100106338(self);
-        sub_1000F4104(self);
-        sub_100100060(self, v47);
-        sub_1000F5B40(self, v47);
-        sub_1000F5768(self, v47);
-        sub_1000F5974(self, v47);
-        if (self->_hasPendingImmediateNetInfoUpdateMessage)
-        {
-          sub_1000FAEC0(self);
-        }
-
-        sub_1000FDFE4(self);
-        sub_1000FDB08(self);
-        isCurrentlyPairing = self->_isCurrentlyPairing;
-        self->_isCurrentlyPairing = 0;
-        if (isCurrentlyPairing && [v47 subtype] != 103)
-        {
-          discoveredEndpoint = self->_discoveredEndpoint;
-          self->_discoveredEndpoint = 0;
-
-          discoveryClient = self->_discoveryClient;
-          if (discoveryClient)
-          {
-            sub_10014F1DC(discoveryClient);
-            v104 = self->_discoveryClient;
-            self->_discoveryClient = 0;
-          }
-
-          sub_1000ECF74(self, [v47 type], objc_msgSend(v47, "subtype"));
-        }
-
-        else if (sub_1000ED8A4(self))
-        {
-          v149 = 0u;
-          v150 = 0u;
-          v147 = 0u;
-          v148 = 0u;
-          obj = self->_availableLinks;
-          v74 = [(NSMutableSet *)obj countByEnumeratingWithState:&v147 objects:&newValue count:16];
-          if (!v74)
-          {
-            goto LABEL_122;
-          }
-
-          v75 = *v148;
-          while (1)
-          {
-            for (i = 0; i != v74; i = i + 1)
-            {
-              if (*v148 != v75)
-              {
-                objc_enumerationMutation(obj);
-              }
-
-              v77 = *(*(&v147 + 1) + 8 * i);
-              if ([v77 state] != 8)
-              {
-                v139 = 0u;
-                v140 = 0u;
-                v137 = 0u;
-                v138 = 0u;
-                v78 = selfCopy->_availableLinks;
-                v79 = [(NSMutableSet *)v78 countByEnumeratingWithState:&v137 objects:location count:16];
-                if (v79)
-                {
-                  v80 = *v138;
-                  do
-                  {
-                    for (j = 0; j != v79; j = j + 1)
-                    {
-                      if (*v138 != v80)
-                      {
-                        objc_enumerationMutation(v78);
-                      }
-
-                      v82 = *(*(&v137 + 1) + 8 * j);
-                      type = [v82 type];
-                      if (type == [v77 type])
-                      {
-                        subtype = [v82 subtype];
-                        if (subtype == [v77 subtype] && objc_msgSend(v82, "state") == 8)
-                        {
-
-                          goto LABEL_82;
-                        }
-                      }
-                    }
-
-                    v79 = [(NSMutableSet *)v78 countByEnumeratingWithState:&v137 objects:location count:16];
-                  }
-
-                  while (v79);
-                }
-
-                type2 = [v77 type];
-                subtype2 = [v77 subtype];
-                if (sub_1000ED8A4(selfCopy))
-                {
-                  if (subtype2 > 103)
-                  {
-                    if (subtype2 == 121)
-                    {
-                      LOBYTE(v88) = 8;
-                      v87 = selfCopy;
-                      goto LABEL_115;
-                    }
-
-                    v87 = selfCopy;
-                    if (subtype2 == 120)
-                    {
-                      LOBYTE(v88) = 1;
-                      goto LABEL_115;
-                    }
-
-                    if (subtype2 == 104)
-                    {
-                      LOBYTE(v88) = 7;
-                      goto LABEL_115;
-                    }
-                  }
-
-                  else
-                  {
-                    if (subtype2 == 101)
-                    {
-                      LOBYTE(v88) = 2;
-                      v87 = selfCopy;
-                      goto LABEL_115;
-                    }
-
-                    v87 = selfCopy;
-                    if (subtype2 == 102)
-                    {
-                      LOBYTE(v88) = 5;
-                      goto LABEL_115;
-                    }
-
-                    if (subtype2 == 103)
-                    {
-                      LOBYTE(v88) = 6;
-LABEL_115:
-                      v94 = v87->_discoveryClient;
-                      if (v94)
-                      {
-                        v95 = *(v94 + 104);
-                        v96 = [NSNumber numberWithUnsignedChar:v88];
-                        [v95 removeObject:v96];
-
-                        if (*(v94 + 19) == 1 && *(v94 + 20) == 1)
-                        {
-                          v97 = *(v94 + 168);
-                          v98 = [NSNumber numberWithUnsignedChar:v88];
-                          v99 = [v97 objectForKeyedSubscript:v98];
-
-                          if (v99)
-                          {
-                            nw_browser_cancel(v99);
-                            v100 = *(v94 + 168);
-                            v101 = [NSNumber numberWithUnsignedChar:v88];
-                            [v100 setObject:0 forKeyedSubscript:v101];
-                          }
-
-                          sub_10015312C(v94, v88);
-                        }
-                      }
-
-                      continue;
-                    }
-                  }
-
-                  if (type2 <= 5)
-                  {
-                    v88 = 0x40300020100uLL >> (8 * (type2 & 0x1Fu));
-                    if (v88)
-                    {
-                      goto LABEL_115;
-                    }
-                  }
-
-                  v89 = v87->_nrUUID;
-                  v90 = _NRCopyLogObjectForNRUUID();
-                  v91 = _NRLogIsLevelEnabled();
-
-                  if (v91)
-                  {
-                    v92 = selfCopy->_nrUUID;
-                    v93 = _NRCopyLogObjectForNRUUID();
-                    v131 = type2;
-                    v132 = subtype2;
-                    v129 = 8197;
-                    v125 = "";
-                    v127 = "[NRDDeviceConductor stopDiscoveryOverLinkType:subtype:]";
-                    _NRLogWithArgs();
-                  }
-                }
-              }
-
-LABEL_82:
-              ;
-            }
-
-            v74 = [(NSMutableSet *)obj countByEnumeratingWithState:&v147 objects:&newValue count:16];
-            if (!v74)
-            {
-LABEL_122:
-
-              self = selfCopy;
-              sub_1001067E0(selfCopy);
-              v47 = v133;
-              if (!selfCopy)
-              {
-                goto LABEL_144;
-              }
-
-              goto LABEL_128;
-            }
-          }
-        }
-
-        sub_1001067E0(self);
-LABEL_128:
-        if (self->_isProxyClient)
-        {
-          v105 = sub_100163A30(NRDLocalDevice, self->_nrUUID);
-          v106 = v105;
-          if (v105)
-          {
-            v107 = *(v105 + 144);
+            v19 = *(v17 + 144);
           }
 
           else
           {
-            v107 = 0;
+            v19 = 0;
           }
 
-          v108 = v107;
-          usesTLS = [v108 usesTLS];
+          v20 = v19;
+          v21 = [v20 getDefaultLinkSubtypeForLinkType:1];
 
-          if (usesTLS)
+          v22 = sub_1000EA2C8(self, 1, v21);
+          if (v22)
           {
-            objc_opt_self();
-            if (qword_1002290C0 != -1)
+            if ([v22 state] == 255 || !objc_msgSend(v22, "ikeClassDEstablished"))
             {
-              dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
-            }
-
-            v110 = qword_1002290B8;
-            v111 = v110;
-            if (v110)
-            {
-              v112 = *(v110 + 13);
+              v28 = 0;
             }
 
             else
             {
-              v112 = 0;
-            }
-
-            v113 = v112;
-
-            if (v113 && [(NRLink *)self->_primaryLink type]!= 4)
-            {
-              v114 = sub_10002A50C([NRLinkDirectorMessage alloc], self->_nrUUID);
               objc_opt_self();
-              if (qword_1002290C0 != -1)
-              {
-                dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
-              }
+              LOBYTE(v112) = 1;
+              v23 = [[NSData alloc] initWithBytes:&v112 length:1];
+              v24 = [[NEIKEv2PrivateNotify alloc] initWithNotifyStatus:51401 notifyData:v23];
+              objc_initWeak(location, v22);
+              v25 = *(v22 + 1311);
+              *&v122 = v24;
+              v26 = [NSArray arrayWithObjects:&v122 count:1];
+              queue = [v22 queue];
+              newValue = _NSConcreteStackBlock;
+              v118 = 3221225472;
+              v119 = sub_1000B6F28;
+              v120 = &unk_1001FC018;
+              objc_copyWeak(v121, location);
+              [v25 sendPrivateNotifies:v26 maxRetries:10 retryIntervalInMilliseconds:10000 callbackQueue:queue callback:&newValue];
 
-              v115 = qword_1002290B8;
-              v116 = v115;
-              if (v115)
-              {
-                v117 = *(v115 + 13);
-              }
+              objc_destroyWeak(v121);
+              objc_destroyWeak(location);
 
-              else
-              {
-                v117 = 0;
-              }
-
-              v118 = v117;
-              sub_10002AB38(v114, 23, v118);
-
-              sub_10002C0E8(v114);
+              v28 = 1;
+              self = selfCopy;
             }
-          }
 
-          v47 = v133;
-        }
-
-LABEL_144:
-        if (self->_hasPendingClassCASNameResolveRequest && [v47 ikeClassCEstablished])
-        {
-          sub_1000E8C70(self, 0, 1);
-          self->_hasPendingClassCASNameResolveRequest = 0;
-        }
-
-        v37 = self->_discoveryClient;
-        type3 = [v47 type];
-        subtype3 = [v47 subtype];
-        if (subtype3 > 103)
-        {
-          switch(subtype3)
-          {
-            case 'y':
-              LOBYTE(v121) = 8;
-              goto LABEL_163;
-            case 'x':
-              LOBYTE(v121) = 1;
-              goto LABEL_163;
-            case 'h':
-              LOBYTE(v121) = 7;
-              goto LABEL_163;
+            self->_alwaysOnWiFiUpdateSent = v28;
           }
         }
-
-        else
-        {
-          switch(subtype3)
-          {
-            case 'e':
-              LOBYTE(v121) = 2;
-              goto LABEL_163;
-            case 'f':
-              LOBYTE(v121) = 5;
-              goto LABEL_163;
-            case 'g':
-              LOBYTE(v121) = 6;
-LABEL_163:
-              sub_10014F754(v37, v121);
-              goto LABEL_164;
-          }
-        }
-
-        if (type3 > 5)
-        {
-          LOBYTE(v121) = 0;
-        }
-
-        else
-        {
-          v121 = 0x40300020100uLL >> (8 * (type3 & 0x1F));
-        }
-
-        goto LABEL_163;
       }
 
-      v38 = _NRLogIsLevelEnabled();
+      sub_1000EA900(self);
+    }
 
-      if (!v38)
+    else
+    {
+      if ([readyCopy type] == 2)
       {
-        goto LABEL_165;
+        if ([readyCopy subtype] != 101)
+        {
+          goto LABEL_50;
+        }
+
+        v33 = sub_1000EA2C8(self, 2, 102);
+        if ([v33 startRequested] && !self->_needsAWDL)
+        {
+          [v33 cancelWithReason:@"not needed anymore"];
+        }
+
+        if (self->_preferWiFiRequest || (self->_effectiveALUAdvice & 4) != 0)
+        {
+          v34 = self->_linkUpgradeReportWiFiInfra;
+          if (v34)
+          {
+            v34->_flags |= 0x800u;
+          }
+
+          if ((self->_effectiveALUAdvice & 4) != 0)
+          {
+            currentALUAdviceID = self->_currentALUAdviceID;
+            v36 = self->_aluMonitor;
+            sub_10007A18C(v36, currentALUAdviceID);
+          }
+        }
+      }
+
+      else
+      {
+        if ([readyCopy type] != 4)
+        {
+          goto LABEL_50;
+        }
+
+        quickRelayAgent = self->_quickRelayAgent;
+        if (quickRelayAgent && quickRelayAgent->_state.state != 2)
+        {
+          quickRelayAgent->_state.state = 2;
+          [(NWNetworkAgentRegistration *)quickRelayAgent->_registrationObject updateNetworkAgent:?];
+        }
+
+        v38 = objc_alloc_init(NRLinkDirectorRequest);
+        v40 = v38;
+        if (v38)
+        {
+          v38->_type = 8;
+          v38->_allowsSuspendedLink = 0;
+          v38->_requiredLinkType = 1;
+        }
+
+        newValue = _NSConcreteStackBlock;
+        v118 = 3221225472;
+        v119 = sub_1000F38BC;
+        v120 = &unk_1001FD3C8;
+        v121[0] = self;
+        if (v38)
+        {
+          objc_setProperty_nonatomic_copy(v38, v39, &newValue, 48);
+        }
+
+        sub_1000EAA20(self, v40);
+
+        v33 = sub_1000F1BC0(self, 2);
+        if ([v33 state] == 8)
+        {
+          [v33 checkPeerAvailabilityWithForceAggressive:1];
+        }
+      }
+    }
+
+LABEL_50:
+    sub_100104434(&self->super.isa);
+    v41 = readyCopy;
+    dispatch_assert_queue_V2(self->_queue);
+    v108 = v41;
+    if ([v41 state] == 8)
+    {
+      if (!self->_isExternalDevice)
+      {
+        localInterfaceName = [v41 localInterfaceName];
+        if ([v41 hasCompanionDatapath])
+        {
+          [v41 virtualInterface];
+          v43 = NEVirtualInterfaceCopyName();
+
+          localInterfaceName = v43;
+        }
+
+        self = selfCopy;
+        sub_100107A24(selfCopy, localInterfaceName);
+        if ([v41 hasCompanionDatapath])
+        {
+          v44 = sub_10010A0D8(selfCopy, v41);
+          v45 = sub_10010A218(selfCopy, v41, v44);
+          [v41 setLinkMTU];
+          if ([v45 count])
+          {
+            objc_opt_self();
+            if (qword_100229410 != -1)
+            {
+              dispatch_once(&qword_100229410, &stru_1001FCD98);
+            }
+
+            v46 = qword_100229408;
+            sub_10015A52C(v46);
+
+            policyIDs = [v41 policyIDs];
+            v48 = [[NSMutableArray alloc] initWithArray:policyIDs];
+            [v48 addObjectsFromArray:v45];
+            [v41 setPolicyIDs:v48];
+            v49 = _NRCopyLogObjectForNRUUID();
+            v50 = _NRLogIsLevelEnabled();
+
+            if (v50)
+            {
+              v51 = _NRCopyLogObjectForNRUUID();
+              _NRLogWithArgs(v51, 0, "%s%.30s:%-4d Successfully set policies for link: %@", ", "[NRDDeviceConductor setIPTunnelPolicyForLink:]"", 4466, v41);
+            }
+
+            self = selfCopy;
+          }
+
+          else
+          {
+            self = selfCopy;
+            v54 = _NRCopyLogObjectForNRUUID();
+            v55 = _NRLogIsLevelEnabled();
+
+            if (!v55)
+            {
+LABEL_67:
+
+              goto LABEL_68;
+            }
+
+            policyIDs = _NRCopyLogObjectForNRUUID();
+            _NRLogWithArgs(policyIDs, 0, "%s%.30s:%-4d No new policies added for link: %@", ", "[NRDDeviceConductor setIPTunnelPolicyForLink:]"", 4468, v41);
+          }
+
+          goto LABEL_67;
+        }
+
+        sub_100107B28(&selfCopy->super.isa, v41);
+LABEL_68:
       }
     }
 
     else
     {
-      v33 = self->_nrUUID;
-      v34 = _NRCopyLogObjectForNRUUID();
-      v35 = _NRLogIsLevelEnabled();
+      v52 = _NRCopyLogObjectForNRUUID();
+      v53 = _NRLogIsLevelEnabled();
 
-      if (!v35)
+      if (v53)
       {
-        goto LABEL_165;
+        localInterfaceName = _NRCopyLogObjectForNRUUID();
+        _NRLogWithArgs(localInterfaceName, 0, "%s%.30s:%-4d Not setting IP tunnel policies because link is not ready %@", ", "[NRDDeviceConductor setIPTunnelPolicyForLink:]"", 4431, v41);
+        goto LABEL_68;
       }
     }
 
-    v36 = self->_nrUUID;
-    v37 = _NRCopyLogObjectForNRUUID();
-    _NRLogWithArgs();
+    sub_1000F91EC(self, v41, 0);
+    sub_1000FFDA8(self);
+    sub_100104BB4(self);
+    if ([v41 type] == 1 && (sub_1000EC4F0(self, 1) & 1) == 0)
+    {
+      sub_1000F2BE0(self, 1);
+    }
+
+    else
+    {
+      v56 = _NRCopyLogObjectForNRUUID();
+      v57 = _NRLogIsLevelEnabled();
+
+      if (v57)
+      {
+        v58 = _NRCopyLogObjectForNRUUID();
+        _NRLogWithArgs(v58, 0, "%s%.30s:%-4d Update WiFi request already present", ", "[NRDDeviceConductor linkIsReady:]"", 6374);
+      }
+    }
+
+    sub_100106338(self);
+    sub_1000F4104(self);
+    sub_100100060(self, v41);
+    sub_1000F5B40(self, v41);
+    sub_1000F5768(self, v41);
+    sub_1000F5974(self, v41);
+    if (self->_hasPendingImmediateNetInfoUpdateMessage)
+    {
+      sub_1000FAEC0(self);
+    }
+
+    sub_1000FDFE4(self);
+    sub_1000FDB08(self);
+    isCurrentlyPairing = self->_isCurrentlyPairing;
+    self->_isCurrentlyPairing = 0;
+    if (isCurrentlyPairing && [v41 subtype] != 103)
+    {
+      discoveredEndpoint = self->_discoveredEndpoint;
+      self->_discoveredEndpoint = 0;
+
+      discoveryClient = self->_discoveryClient;
+      if (discoveryClient)
+      {
+        sub_10014F1DC(discoveryClient);
+        v88 = self->_discoveryClient;
+        self->_discoveryClient = 0;
+      }
+
+      sub_1000ECF74(self, [v41 type], objc_msgSend(v41, "subtype"));
+    }
+
+    else if (sub_1000ED8A4(self))
+    {
+      v124 = 0u;
+      v125 = 0u;
+      v122 = 0u;
+      v123 = 0u;
+      obj = self->_availableLinks;
+      v60 = [(NSMutableSet *)obj countByEnumeratingWithState:&v122 objects:&newValue count:16];
+      if (!v60)
+      {
+        goto LABEL_122;
+      }
+
+      v61 = *v123;
+      while (1)
+      {
+        for (i = 0; i != v60; i = i + 1)
+        {
+          if (*v123 != v61)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v63 = *(*(&v122 + 1) + 8 * i);
+          if ([v63 state] != 8)
+          {
+            v114 = 0u;
+            v115 = 0u;
+            v112 = 0u;
+            v113 = 0u;
+            v64 = selfCopy->_availableLinks;
+            v65 = [(NSMutableSet *)v64 countByEnumeratingWithState:&v112 objects:location count:16];
+            if (v65)
+            {
+              v66 = *v113;
+              do
+              {
+                for (j = 0; j != v65; j = j + 1)
+                {
+                  if (*v113 != v66)
+                  {
+                    objc_enumerationMutation(v64);
+                  }
+
+                  v68 = *(*(&v112 + 1) + 8 * j);
+                  type = [v68 type];
+                  if (type == [v63 type])
+                  {
+                    subtype = [v68 subtype];
+                    if (subtype == [v63 subtype] && objc_msgSend(v68, "state") == 8)
+                    {
+
+                      goto LABEL_82;
+                    }
+                  }
+                }
+
+                v65 = [(NSMutableSet *)v64 countByEnumeratingWithState:&v112 objects:location count:16];
+              }
+
+              while (v65);
+            }
+
+            type2 = [v63 type];
+            subtype2 = [v63 subtype];
+            if (sub_1000ED8A4(selfCopy))
+            {
+              if (subtype2 > 103)
+              {
+                if (subtype2 == 121)
+                {
+                  LOBYTE(v74) = 8;
+                  v73 = selfCopy;
+                  goto LABEL_115;
+                }
+
+                v73 = selfCopy;
+                if (subtype2 == 120)
+                {
+                  LOBYTE(v74) = 1;
+                  goto LABEL_115;
+                }
+
+                if (subtype2 == 104)
+                {
+                  LOBYTE(v74) = 7;
+                  goto LABEL_115;
+                }
+              }
+
+              else
+              {
+                if (subtype2 == 101)
+                {
+                  LOBYTE(v74) = 2;
+                  v73 = selfCopy;
+                  goto LABEL_115;
+                }
+
+                v73 = selfCopy;
+                if (subtype2 == 102)
+                {
+                  LOBYTE(v74) = 5;
+                  goto LABEL_115;
+                }
+
+                if (subtype2 == 103)
+                {
+                  LOBYTE(v74) = 6;
+LABEL_115:
+                  v78 = v73->_discoveryClient;
+                  if (v78)
+                  {
+                    v79 = *(v78 + 104);
+                    v80 = [NSNumber numberWithUnsignedChar:v74];
+                    [v79 removeObject:v80];
+
+                    if (*(v78 + 19) == 1 && *(v78 + 20) == 1)
+                    {
+                      v81 = *(v78 + 168);
+                      v82 = [NSNumber numberWithUnsignedChar:v74];
+                      v83 = [v81 objectForKeyedSubscript:v82];
+
+                      if (v83)
+                      {
+                        nw_browser_cancel(v83);
+                        v84 = *(v78 + 168);
+                        v85 = [NSNumber numberWithUnsignedChar:v74];
+                        [v84 setObject:0 forKeyedSubscript:v85];
+                      }
+
+                      sub_10015312C(v78, v74);
+                    }
+                  }
+
+                  continue;
+                }
+              }
+
+              if (type2 <= 5)
+              {
+                v74 = 0x40300020100uLL >> (8 * (type2 & 0x1F));
+                if (v74)
+                {
+                  goto LABEL_115;
+                }
+              }
+
+              v75 = _NRCopyLogObjectForNRUUID();
+              v76 = _NRLogIsLevelEnabled();
+
+              if (v76)
+              {
+                v77 = _NRCopyLogObjectForNRUUID();
+                _NRLogWithArgs(v77, 16, "%s%.30s:%-4d invalid link type/subtype %u/%u", ", "[NRDDeviceConductor stopDiscoveryOverLinkType:subtype:]"", 8197, type2, subtype2);
+              }
+            }
+          }
+
+LABEL_82:
+          ;
+        }
+
+        v60 = [(NSMutableSet *)obj countByEnumeratingWithState:&v122 objects:&newValue count:16];
+        if (!v60)
+        {
+LABEL_122:
+
+          self = selfCopy;
+          sub_1001067E0(selfCopy);
+          v41 = v108;
+          if (!selfCopy)
+          {
+            goto LABEL_144;
+          }
+
+          goto LABEL_128;
+        }
+      }
+    }
+
+    sub_1001067E0(self);
+LABEL_128:
+    if (self->_isProxyClient)
+    {
+      v89 = sub_100163A30(NRDLocalDevice, self->_nrUUID);
+      v90 = v89;
+      if (v89)
+      {
+        v91 = *(v89 + 144);
+      }
+
+      else
+      {
+        v91 = 0;
+      }
+
+      v92 = v91;
+      usesTLS = [v92 usesTLS];
+
+      if (usesTLS)
+      {
+        objc_opt_self();
+        if (qword_1002290C0 != -1)
+        {
+          dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
+        }
+
+        v94 = qword_1002290B8;
+        v95 = v94;
+        if (v94)
+        {
+          v96 = *(v94 + 13);
+        }
+
+        else
+        {
+          v96 = 0;
+        }
+
+        v97 = v96;
+
+        if (v97 && [(NRLink *)self->_primaryLink type]!= 4)
+        {
+          v98 = sub_10002A50C([NRLinkDirectorMessage alloc], self->_nrUUID);
+          objc_opt_self();
+          if (qword_1002290C0 != -1)
+          {
+            dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
+          }
+
+          v99 = qword_1002290B8;
+          v100 = v99;
+          if (v99)
+          {
+            v101 = *(v99 + 13);
+          }
+
+          else
+          {
+            v101 = 0;
+          }
+
+          v102 = v101;
+          sub_10002AB38(v98, 23, v102);
+
+          sub_10002C0E8(v98);
+        }
+      }
+
+      v41 = v108;
+    }
+
+LABEL_144:
+    if (self->_hasPendingClassCASNameResolveRequest && [v41 ikeClassCEstablished])
+    {
+      sub_1000E8C70(self, 0, 1);
+      self->_hasPendingClassCASNameResolveRequest = 0;
+    }
+
+    v31 = self->_discoveryClient;
+    type3 = [v41 type];
+    subtype3 = [v41 subtype];
+    if (subtype3 > 103)
+    {
+      switch(subtype3)
+      {
+        case 'y':
+          LOBYTE(v105) = 8;
+          goto LABEL_163;
+        case 'x':
+          LOBYTE(v105) = 1;
+          goto LABEL_163;
+        case 'h':
+          LOBYTE(v105) = 7;
+          goto LABEL_163;
+      }
+    }
+
+    else
+    {
+      switch(subtype3)
+      {
+        case 'e':
+          LOBYTE(v105) = 2;
+          goto LABEL_163;
+        case 'f':
+          LOBYTE(v105) = 5;
+          goto LABEL_163;
+        case 'g':
+          LOBYTE(v105) = 6;
+LABEL_163:
+          sub_10014F754(v31, v105);
 LABEL_164:
 
-    goto LABEL_165;
+          goto LABEL_165;
+      }
+    }
+
+    if (type3 > 5)
+    {
+      LOBYTE(v105) = 0;
+    }
+
+    else
+    {
+      v105 = 0x40300020100uLL >> (8 * (type3 & 0x1F));
+    }
+
+    goto LABEL_163;
   }
 
-  v122 = sub_1000E83DC();
-  v123 = _NRLogIsLevelEnabled();
+  v106 = sub_1000E83DC();
+  v107 = _NRLogIsLevelEnabled();
 
-  if (v123)
+  if (v107)
   {
-    v37 = sub_1000E83DC();
-    _NRLogWithArgs();
+    v31 = sub_1000E83DC();
+    _NRLogWithArgs(v31, 17, "%s called with null link", "[NRDDeviceConductor linkIsReady:]");
     goto LABEL_164;
   }
 
@@ -4226,17 +4145,16 @@ LABEL_165:
     if (self->_isEnabled)
     {
       state = [availableCopy state];
-      nrUUID = self->_nrUUID;
-      v7 = _NRCopyLogObjectForNRUUID();
+      v6 = _NRCopyLogObjectForNRUUID();
       if (state != 255)
       {
         IsLevelEnabled = _NRLogIsLevelEnabled();
 
         if (IsLevelEnabled)
         {
-          v9 = self->_nrUUID;
-          v10 = _NRCopyLogObjectForNRUUID();
-          _NRLogWithArgs();
+          v8 = self->_nrUUID;
+          v9 = _NRCopyLogObjectForNRUUID();
+          _NRLogWithArgs(v9, 1, "%s%.30s:%-4d link is available: %@", ", "[NRDDeviceConductor linkIsAvailable:]"", 6068, availableCopy);
         }
 
         copyShortDescription = [availableCopy copyShortDescription];
@@ -4252,8 +4170,8 @@ LABEL_165:
           dispatch_once(&qword_1002290C0, &stru_1001FB2B0);
         }
 
-        v12 = qword_1002290B8;
-        if (v12 && v12[12] == 1)
+        v11 = qword_1002290B8;
+        if (v11 && v11[12] == 1)
         {
           isCompanionLink = self->_isCompanionLink;
 
@@ -4271,7 +4189,7 @@ LABEL_165:
                 dispatch_once(&qword_100229160, &stru_1001FBC40);
               }
 
-              _NRLogWithArgs();
+              _NRLogWithArgs(qword_100229158, 0, "%s%.30s:%-4d not starting link due to pending companion APL toggle", ", "[NRDDeviceConductor linkIsAvailable:]"", 6078);
             }
 
             goto LABEL_61;
@@ -4304,22 +4222,21 @@ LABEL_60:
             goto LABEL_61;
           }
 
-          v25 = self->_nrUUID;
-          v26 = _NRCopyLogObjectForNRUUID();
-          v27 = _NRLogIsLevelEnabled();
+          v22 = _NRCopyLogObjectForNRUUID();
+          v23 = _NRLogIsLevelEnabled();
 
-          if (!v27)
+          if (!v23)
           {
             goto LABEL_60;
           }
 
-          v28 = self->_nrUUID;
-          v29 = _NRCopyLogObjectForNRUUID();
+          v24 = self->_nrUUID;
+          v25 = _NRCopyLogObjectForNRUUID();
           [availableCopy type];
 
           StringFromNRLinkType = createStringFromNRLinkType();
+          _NRLogWithArgs(v25, 17, "%@ link not supported yet", StringFromNRLinkType);
 LABEL_39:
-          _NRLogWithArgs();
 
           goto LABEL_60;
         }
@@ -4331,26 +4248,26 @@ LABEL_39:
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v62 = sub_1000BA648();
-              if (!v62 || (v63 = v62[8], v62, (v63 & 1) == 0))
+              v53 = sub_1000BA648(NRLinkDirector);
+              if (!v53 || (v54 = v53[8], v53, (v54 & 1) == 0))
               {
-                v64 = self->_nrUUID;
-                v65 = _NRCopyLogObjectForNRUUID();
-                v66 = _NRLogIsLevelEnabled();
+                v55 = _NRCopyLogObjectForNRUUID();
+                v56 = _NRLogIsLevelEnabled();
 
-                if (!v66)
+                if (!v56)
                 {
                   goto LABEL_60;
                 }
 
                 StringFromNRLinkType = self->_nrUUID;
-                v29 = _NRCopyLogObjectForNRUUID();
+                v25 = _NRCopyLogObjectForNRUUID();
+                _NRLogWithArgs(v25, 17, "Bad link %@", availableCopy);
                 goto LABEL_39;
               }
             }
 
-            v23 = availableCopy;
-            if ([v23 subtype] == 101)
+            v20 = availableCopy;
+            if ([v20 subtype] == 101)
             {
               sub_1000F2BE0(self, 0);
             }
@@ -4359,26 +4276,26 @@ LABEL_39:
             {
               if (self->_supportsNAN || self->_supportsAWDL)
               {
-                v24 = 5000000000;
+                v21 = 5000000000;
               }
 
               else
               {
-                v24 = 1000000000;
+                v21 = 1000000000;
               }
 
               self->_isCoalescingLinkUpgradeRequest = 1;
-              v45 = dispatch_time(0x8000000000000000, v24);
+              v39 = dispatch_time(0x8000000000000000, v21);
               queue = self->_queue;
               block[0] = _NSConcreteStackBlock;
               block[1] = 3221225472;
               block[2] = sub_10010FA5C;
               block[3] = &unk_1001FD3C8;
               block[4] = self;
-              dispatch_after(v45, queue, block);
+              dispatch_after(v39, queue, block);
             }
 
-            if ([v23 subtype] == 102)
+            if ([v20 subtype] == 102)
             {
               if (self->_isCompanionLink)
               {
@@ -4393,22 +4310,21 @@ LABEL_39:
               goto LABEL_67;
             }
 
-            if ([v23 subtype] == 103 || objc_msgSend(v23, "subtype") == 104)
+            if ([v20 subtype] == 103 || objc_msgSend(v20, "subtype") == 104)
             {
               goto LABEL_70;
             }
 
-            if ([v23 subtype] != 101)
+            if ([v20 subtype] != 101)
             {
-              v54 = self->_nrUUID;
-              v55 = _NRCopyLogObjectForNRUUID();
-              v56 = _NRLogIsLevelEnabled();
+              v46 = _NRCopyLogObjectForNRUUID();
+              v47 = _NRLogIsLevelEnabled();
 
-              if (v56)
+              if (v47)
               {
-                v57 = self->_nrUUID;
-                v58 = _NRCopyLogObjectForNRUUID();
-                _NRLogWithArgs();
+                v48 = self->_nrUUID;
+                v49 = _NRCopyLogObjectForNRUUID();
+                _NRLogWithArgs(v49, 17, "unsupported link subtype %@", v20);
 
                 goto LABEL_60;
               }
@@ -4419,27 +4335,25 @@ LABEL_39:
             if (self->_isAlwaysReachableOverWiFi || !self->_isCompanionLink)
             {
 LABEL_70:
-              [v23 start];
+              [v20 start];
 
               goto LABEL_60;
             }
 
-            v47 = sub_1000BA648();
-            if (v47)
+            v41 = sub_1000BA648(NRLinkDirector);
+            if (v41)
             {
-              v48 = v47[8];
+              v42 = v41[8];
 
-              if (v48 == 1)
+              if (v42 == 1)
               {
-                v49 = self->_nrUUID;
-                v50 = _NRCopyLogObjectForNRUUID();
-                v51 = _NRLogIsLevelEnabled();
+                v43 = _NRCopyLogObjectForNRUUID();
+                v44 = _NRLogIsLevelEnabled();
 
-                if (v51)
+                if (v44)
                 {
-                  v52 = self->_nrUUID;
-                  v53 = _NRCopyLogObjectForNRUUID();
-                  _NRLogWithArgs();
+                  v45 = _NRCopyLogObjectForNRUUID();
+                  _NRLogWithArgs(v45, 0, "%s%.30s:%-4d Starting link for fixed interface mode", ", "[NRDDeviceConductor linkIsAvailable:]"", 6230);
                 }
 
                 goto LABEL_70;
@@ -4448,45 +4362,41 @@ LABEL_70:
 
             if (self->_pendingPreferWiFiRequest || self->_preferWiFiRequest || self->_bringUpWiFiImmediately)
             {
-              v67 = sub_1000EC630(self);
-              v68 = sub_10017E984(v67, self->_nrUUID);
+              v57 = sub_1000EC630(self);
+              v58 = sub_10017E984(v57, self->_nrUUID);
 
-              if (v68)
+              if (v58)
               {
                 sub_1000F03C0(self);
               }
 
               else
               {
-                v69 = self->_nrUUID;
-                v70 = _NRCopyLogObjectForNRUUID();
-                v71 = _NRLogIsLevelEnabled();
+                v59 = _NRCopyLogObjectForNRUUID();
+                v60 = _NRLogIsLevelEnabled();
 
-                if (v71)
+                if (v60)
                 {
-                  v72 = self->_nrUUID;
-                  v73 = _NRCopyLogObjectForNRUUID();
-                  _NRLogWithArgs();
+                  v61 = _NRCopyLogObjectForNRUUID();
+                  _NRLogWithArgs(v61, 1, "%s%.30s:%-4d Enable WiFi without peer address. Ignoring availability", ", "[NRDDeviceConductor linkIsAvailable:]"", 6254);
                 }
               }
             }
 
             else
             {
-              v74 = self->_nrUUID;
-              v75 = _NRCopyLogObjectForNRUUID();
-              v76 = _NRLogIsLevelEnabled();
+              v62 = _NRCopyLogObjectForNRUUID();
+              v63 = _NRLogIsLevelEnabled();
 
-              if (!v76)
+              if (!v63)
               {
 LABEL_67:
 
                 goto LABEL_60;
               }
 
-              v77 = self->_nrUUID;
-              v68 = _NRCopyLogObjectForNRUUID();
-              _NRLogWithArgs();
+              v58 = _NRCopyLogObjectForNRUUID();
+              _NRLogWithArgs(v58, 1, "%s%.30s:%-4d Neither do we have a prefer Wi-Fi request, nor do we need to bring up Wi-Fi immediately. Ignoring availability", ", "[NRDDeviceConductor linkIsAvailable:]"", 6248);
             }
 
             goto LABEL_67;
@@ -4497,23 +4407,23 @@ LABEL_67:
             goto LABEL_60;
           }
 
-          v33 = sub_1000E83DC();
-          v34 = _NRLogIsLevelEnabled();
+          v29 = sub_1000E83DC();
+          v30 = _NRLogIsLevelEnabled();
 
-          if (v34)
+          if (v30)
           {
-            v35 = sub_1000E83DC();
-            _NRLogWithArgs();
+            v31 = sub_1000E83DC();
+            _NRLogWithArgs(v31, 16, "%s%.30s:%-4d ABORTING: %@ is available, but has no type", ", "[NRDDeviceConductor linkIsAvailable:]"", 6284, availableCopy);
           }
 
           self = _os_log_pack_size();
-          v31 = block - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
-          v36 = *__error();
-          v37 = _os_log_pack_fill();
-          *v37 = 136446466;
-          *(v37 + 4) = "[NRDDeviceConductor linkIsAvailable:]";
-          *(v37 + 12) = 2112;
-          *(v37 + 14) = availableCopy;
+          v27 = block - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+          v32 = __error();
+          v33 = _os_log_pack_fill(v27, self, *v32, &_mh_execute_header, "%{public}s %@ is available, but has no type");
+          *v33 = 136446466;
+          *(v33 + 4) = "[NRDDeviceConductor linkIsAvailable:]";
+          *(v33 + 12) = 2112;
+          *(v33 + 14) = availableCopy;
           sub_1000E83DC();
           _NRLogAbortWithPack();
 LABEL_51:
@@ -4531,8 +4441,8 @@ LABEL_51:
           [availableCopy setSuspendWhenReady:1];
         }
 
-        v31 = sub_100180AC4();
-        if (!sub_10018165C(v31))
+        v27 = sub_100180AC4(NRDKeyManager);
+        if (!sub_10018165C(v27))
         {
           goto LABEL_51;
         }
@@ -4553,32 +4463,30 @@ LABEL_51:
 
         if (self->_latestPreferWiFiRequestType == 2)
         {
-          v38 = sub_1000EC630(self);
-          v39 = sub_10017F64C(v38);
+          v34 = sub_1000EC630(self);
+          v35 = sub_10017F64C(v34);
         }
 
         else
         {
-          v39 = 0;
+          v35 = 0;
         }
 
-        v79[0] = _NSConcreteStackBlock;
-        v79[1] = 3221225472;
-        v79[2] = sub_10010F970;
-        v79[3] = &unk_1001FBA98;
-        v79[4] = self;
-        v80 = v39;
-        sub_1000EF670(self, v39, 0, 0, 1, v79);
+        v65[0] = _NSConcreteStackBlock;
+        v65[1] = 3221225472;
+        v65[2] = sub_10010F970;
+        v65[3] = &unk_1001FBA98;
+        v65[4] = self;
+        v66 = v35;
+        sub_1000EF670(self, v35, 0, 0, 1, v65);
 LABEL_57:
-        v40 = self->_nrUUID;
-        v41 = _NRCopyLogObjectForNRUUID();
-        v42 = _NRLogIsLevelEnabled();
+        v36 = _NRCopyLogObjectForNRUUID();
+        v37 = _NRLogIsLevelEnabled();
 
-        if (v42)
+        if (v37)
         {
-          v43 = self->_nrUUID;
-          v44 = _NRCopyLogObjectForNRUUID();
-          _NRLogWithArgs();
+          v38 = _NRCopyLogObjectForNRUUID();
+          _NRLogWithArgs(v38, 1, "%s%.30s:%-4d Starting the Bluetooth link", ", "[NRDDeviceConductor linkIsAvailable:]"", 6126);
         }
 
 LABEL_59:
@@ -4586,40 +4494,38 @@ LABEL_59:
         goto LABEL_60;
       }
 
-      v19 = _NRLogIsLevelEnabled();
-
-      if (v19)
-      {
-        v20 = self->_nrUUID;
-        v21 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
-      }
-    }
-
-    else
-    {
-      v14 = self->_nrUUID;
-      v15 = _NRCopyLogObjectForNRUUID();
       v16 = _NRLogIsLevelEnabled();
 
       if (v16)
       {
         v17 = self->_nrUUID;
         v18 = _NRCopyLogObjectForNRUUID();
-        _NRLogWithArgs();
+        _NRLogWithArgs(v18, 16, "%s%.30s:%-4d Ignoring link availability event as link was cancelled %@", ", "[NRDDeviceConductor linkIsAvailable:]"", 6063, availableCopy);
+      }
+    }
+
+    else
+    {
+      v13 = _NRCopyLogObjectForNRUUID();
+      v14 = _NRLogIsLevelEnabled();
+
+      if (v14)
+      {
+        v15 = _NRCopyLogObjectForNRUUID();
+        _NRLogWithArgs(v15, 1, "%s%.30s:%-4d Ignoring link availability event as conductor is disabled", ", "[NRDDeviceConductor linkIsAvailable:]"", 6058);
       }
     }
   }
 
   else
   {
-    v59 = sub_1000E83DC();
-    v60 = _NRLogIsLevelEnabled();
+    v50 = sub_1000E83DC();
+    v51 = _NRLogIsLevelEnabled();
 
-    if (v60)
+    if (v51)
     {
-      v61 = sub_1000E83DC();
-      _NRLogWithArgs();
+      v52 = sub_1000E83DC();
+      _NRLogWithArgs(v52, 17, "%s called with null link", "[NRDDeviceConductor linkIsAvailable:]");
     }
   }
 
@@ -4628,23 +4534,13 @@ LABEL_61:
 
 - (void)didStopTrackingAllNOIs:(id)is
 {
-  if (self)
-  {
-    nrUUID = self->_nrUUID;
-  }
-
-  v5 = _NRCopyLogObjectForNRUUID();
+  v4 = _NRCopyLogObjectForNRUUID();
   IsLevelEnabled = _NRLogIsLevelEnabled();
 
   if (IsLevelEnabled)
   {
-    if (self)
-    {
-      v7 = self->_nrUUID;
-    }
-
-    v8 = _NRCopyLogObjectForNRUUID();
-    _NRLogWithArgs();
+    v6 = _NRCopyLogObjectForNRUUID();
+    _NRLogWithArgs(v6, 0, "%s%.30s:%-4d AutoLinkUpgrade: Re-submitting start recommendation", ", "[NRDDeviceConductor didStopTrackingAllNOIs:]"", 5668);
   }
 
   if (self)
@@ -4675,61 +4571,57 @@ LABEL_61:
   iCopy = i;
   if (self && self->_isEnabled && self->_aluSupported)
   {
-    v28 = iCopy;
-    nrUUID = self->_nrUUID;
-    v6 = _NRCopyLogObjectForNRUUID();
+    v24 = iCopy;
+    v5 = _NRCopyLogObjectForNRUUID();
     IsLevelEnabled = _NRLogIsLevelEnabled();
 
     if (IsLevelEnabled)
     {
-      v8 = self->_nrUUID;
-      v9 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v7 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v7, 0, "%s%.30s:%-4d AutoLinkUpgrade: Submitting start recommendation", ", "[NRDDeviceConductor createALUMonitorIfNeeded]"", 5863);
     }
 
-    v10 = [NRAutoLinkUpgradeMonitor alloc];
-    v11 = self->_nrUUID;
-    v12 = self->_queue;
-    v13 = sub_100079FE8(&v10->super.isa, v12, v11);
+    v8 = [NRAutoLinkUpgradeMonitor alloc];
+    nrUUID = self->_nrUUID;
+    v10 = self->_queue;
+    v11 = sub_100079FE8(&v8->super.isa, v10, nrUUID);
 
-    v14 = self->_aluMonitor;
-    if (!v14)
+    v12 = self->_aluMonitor;
+    if (!v12)
     {
       goto LABEL_16;
     }
 
+    v13 = v12;
+    v14 = self->_aluMonitor;
     v15 = v14;
-    v16 = self->_aluMonitor;
-    v17 = v16;
-    if (v16 && (v18 = v16->_lastReceivedAdviceID) != 0)
+    if (v14 && (v16 = v14->_lastReceivedAdviceID) != 0)
     {
-      v19 = v18;
+      v17 = v16;
       aluMonitor = self->_aluMonitor;
       if (aluMonitor)
       {
         aluMonitor = aluMonitor->_lastReceivedAdviceID;
       }
 
-      v21 = aluMonitor;
-      unsignedLongLongValue = [(NRAutoLinkUpgradeMonitor *)v21 unsignedLongLongValue];
+      v19 = aluMonitor;
+      unsignedLongLongValue = [(NRAutoLinkUpgradeMonitor *)v19 unsignedLongLongValue];
 
       if (!unsignedLongLongValue)
       {
         goto LABEL_16;
       }
 
-      v23 = self->_nrUUID;
-      v24 = _NRCopyLogObjectForNRUUID();
-      v25 = _NRLogIsLevelEnabled();
+      v21 = _NRCopyLogObjectForNRUUID();
+      v22 = _NRLogIsLevelEnabled();
 
-      if (!v25)
+      if (!v22)
       {
         goto LABEL_16;
       }
 
-      v26 = self->_nrUUID;
-      v15 = _NRCopyLogObjectForNRUUID();
-      _NRLogWithArgs();
+      v13 = _NRCopyLogObjectForNRUUID();
+      _NRLogWithArgs(v13, 1, "%s%.30s:%-4d AutoLinkUpgrade: sending last received ALU advice to symptomsd", ", "[NRDDeviceConductor createALUMonitorIfNeeded]"", 5942);
     }
 
     else
@@ -4737,11 +4629,200 @@ LABEL_61:
     }
 
 LABEL_16:
-    v27 = self->_aluMonitor;
-    self->_aluMonitor = v13;
+    v23 = self->_aluMonitor;
+    self->_aluMonitor = v11;
 
-    iCopy = v28;
+    iCopy = v24;
   }
+}
+
+- (void)didUpdateDNSProxyState:(id)state state:(unsigned __int8)a4
+{
+  v4 = a4;
+  stateCopy = state;
+  if (!stateCopy)
+  {
+    goto LABEL_26;
+  }
+
+  v7 = _NRCopyLogObjectForNRUUID();
+  IsLevelEnabled = _NRLogIsLevelEnabled();
+
+  if (IsLevelEnabled)
+  {
+    v9 = _NRCopyLogObjectForNRUUID();
+    _NRLogWithArgs(v9, 0, "%s%.30s:%-4d received state update for %@ state: %d", ", "[NRDDeviceConductor didUpdateDNSProxyState:state:]"", 5233, stateCopy, v4);
+  }
+
+  if (v4 != 4 && v4 != 2)
+  {
+    goto LABEL_26;
+  }
+
+  if (!self)
+  {
+    v12 = 0;
+    discoveryProxyClient = 0;
+    goto LABEL_11;
+  }
+
+  v10 = self->_dnsProxyServer;
+  if (v10 == stateCopy)
+  {
+
+LABEL_18:
+    v17 = objc_alloc_init(NSMutableData);
+    sub_100110508(self, stateCopy, v17);
+    v18 = sub_10002A5C4([NRLinkDirectorMessage alloc], self->_nrUUID);
+    v19 = v18;
+    if (self->_dnsProxyServer == stateCopy)
+    {
+      sub_10002AB38(v18, 17, v17);
+      if (v4 != 4)
+      {
+LABEL_25:
+        sub_10002C0E8(v19);
+
+        goto LABEL_26;
+      }
+
+      p_dnsProxyServer = &self->_dnsProxyServer;
+    }
+
+    else
+    {
+      if (self->_discoveryProxyServer != stateCopy)
+      {
+        goto LABEL_25;
+      }
+
+      sub_10002AB38(v18, 19, v17);
+      if (v4 != 4)
+      {
+        goto LABEL_25;
+      }
+
+      p_dnsProxyServer = &self->_discoveryProxyServer;
+    }
+
+    [*p_dnsProxyServer cancel];
+    v21 = *p_dnsProxyServer;
+    *p_dnsProxyServer = 0;
+
+    goto LABEL_25;
+  }
+
+  discoveryProxyServer = self->_discoveryProxyServer;
+
+  if (discoveryProxyServer == stateCopy)
+  {
+    goto LABEL_18;
+  }
+
+  v12 = self->_dnsProxyClient;
+  if (v12 != stateCopy)
+  {
+    discoveryProxyClient = self->_discoveryProxyClient;
+LABEL_11:
+
+    if (discoveryProxyClient != stateCopy)
+    {
+      goto LABEL_26;
+    }
+
+    if (v4 != 2)
+    {
+LABEL_13:
+      v14 = [NRLinkDirectorMessage alloc];
+      if (self)
+      {
+        v15 = sub_10002A5C4(&v14->super.isa, self->_nrUUID);
+        v16 = v15;
+        if (self->_dnsProxyClient == stateCopy)
+        {
+          sub_10002AFC8(v15, 16, 0);
+          sub_100110688(self);
+        }
+
+        else if (self->_discoveryProxyClient == stateCopy)
+        {
+          sub_10002AFC8(v15, 18, 0);
+          sub_10011069C(self);
+        }
+      }
+
+      else
+      {
+        v16 = sub_10002A5C4(&v14->super.isa, 0);
+      }
+
+      sub_10002C0E8(v16);
+      [(NRDiscoveryProxyServer *)stateCopy cancel];
+LABEL_44:
+
+      goto LABEL_26;
+    }
+
+    goto LABEL_28;
+  }
+
+  if (v4 != 2)
+  {
+    goto LABEL_13;
+  }
+
+LABEL_28:
+  if (self && self->_dnsProxyClient == stateCopy)
+  {
+    v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v16 = self->_availableLinks;
+    v22 = [(NSMutableSet *)v16 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    if (v22)
+    {
+      v23 = v22;
+      v24 = *v32;
+      do
+      {
+        for (i = 0; i != v23; i = i + 1)
+        {
+          if (*v32 != v24)
+          {
+            objc_enumerationMutation(v16);
+          }
+
+          v28 = *(*(&v31 + 1) + 8 * i);
+          if ([v28 ikeClassDEstablished])
+          {
+            v29 = self->_dnsProxyClient;
+            v30 = v29;
+            if (v29)
+            {
+              serverEndpoint = v29->super._serverEndpoint;
+            }
+
+            else
+            {
+              serverEndpoint = 0;
+            }
+
+            v27 = serverEndpoint;
+            [v28 publishDNSConfig:v27];
+          }
+        }
+
+        v23 = [(NSMutableSet *)v16 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      }
+
+      while (v23);
+    }
+
+    goto LABEL_44;
+  }
+
+LABEL_26:
 }
 
 - (void)processAppStateChanged:(id)changed

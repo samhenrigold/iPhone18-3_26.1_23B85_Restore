@@ -1,4 +1,4 @@
-uint64_t sub_100002328(uint64_t a1, uint64_t *a2)
+uint64_t sub_100002328(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -58,7 +58,7 @@ void sub_1000023B4(uint64_t a1, void *a2)
         v13 = v6;
         v14 = v12;
         _os_log_impl(&_mh_execute_header, v8, v9, "Location updated, Location: %@, lastLocation: %@", v10, 0x16u);
-        sub_100042274(&qword_100085378);
+        sub_100042274(&qword_100085378, &qword_100056EF0);
         swift_arrayDestroy();
       }
     }
@@ -476,7 +476,7 @@ dispatch_queue_t *sub_100003654(dispatch_queue_t *a1, void *a2, void *a3)
   return a1;
 }
 
-char *sub_1000036FC(char *__dst, __int128 *a2)
+int *sub_1000036FC(int *__dst, __int128 *a2)
 {
   if (*(a2 + 23) < 0)
   {
@@ -490,9 +490,9 @@ char *sub_1000036FC(char *__dst, __int128 *a2)
     *__dst = v3;
   }
 
-  *(__dst + 6) = 0;
+  __dst[6] = 0;
   v4 = __dst;
-  if (__dst[23] < 0)
+  if (*(__dst + 23) < 0)
   {
     v4 = *__dst;
   }
@@ -504,7 +504,7 @@ char *sub_1000036FC(char *__dst, __int128 *a2)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = __dst;
-      if (__dst[23] < 0)
+      if (*(__dst + 23) < 0)
       {
         v7 = *__dst;
       }
@@ -517,7 +517,7 @@ char *sub_1000036FC(char *__dst, __int128 *a2)
     }
   }
 
-  notify_set_state(*(__dst + 6), 0);
+  notify_set_state(__dst[6], 0);
   return __dst;
 }
 
@@ -909,13 +909,13 @@ void sub_100004A98(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_100004ABC()
+void sub_100004ABC(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v2 = Strong;
     if (sub_100004DE0())
     {
       if (qword_100085090 != -1)
@@ -923,33 +923,33 @@ void sub_100004ABC()
         swift_once();
       }
 
-      v2 = type metadata accessor for Logger();
-      sub_1000029EC(v2, qword_100085698);
-      v3 = Logger.logObject.getter();
-      v4 = static os_log_type_t.debug.getter();
-      if (os_log_type_enabled(v3, v4))
+      v3 = type metadata accessor for Logger();
+      sub_1000029EC(v3, qword_100085698);
+      v4 = Logger.logObject.getter();
+      v5 = static os_log_type_t.debug.getter();
+      if (os_log_type_enabled(v4, v5))
       {
-        v5 = swift_slowAlloc();
-        *v5 = 0;
-        _os_log_impl(&_mh_execute_header, v3, v4, "startUpdatingSignals", v5, 2u);
+        v6 = swift_slowAlloc();
+        *v6 = 0;
+        _os_log_impl(&_mh_execute_header, v4, v5, "startUpdatingSignals", v6, 2u);
       }
 
-      *(&v1->isa + OBJC_IVAR____TtC12destinationd28MapsSuggestionsWeatherFeeler__active) = 1;
-      v6 = *(&v1->isa + OBJC_IVAR____TtC12destinationd28MapsSuggestionsWeatherFeeler__locationUpdater);
-      if (v6)
+      *(&v2->isa + OBJC_IVAR____TtC12destinationd28MapsSuggestionsWeatherFeeler__active) = 1;
+      v7 = *(&v2->isa + OBJC_IVAR____TtC12destinationd28MapsSuggestionsWeatherFeeler__locationUpdater);
+      if (v7)
       {
         swift_unknownObjectRetain();
-        v7 = v1;
-        v8 = [v6 startLocationUpdatesForDelegate:v7];
+        v8 = v2;
+        v9 = [v7 startLocationUpdatesForDelegate:v8];
         swift_unknownObjectRelease();
       }
 
-      v9 = *(&v1->isa + OBJC_IVAR____TtC12destinationd28MapsSuggestionsWeatherFeeler__weatherConditionsDataProvider);
-      if (v9)
+      v10 = *(&v2->isa + OBJC_IVAR____TtC12destinationd28MapsSuggestionsWeatherFeeler__weatherConditionsDataProvider);
+      if (v10)
       {
-        v10 = *&v9[OBJC_IVAR____TtC12destinationd40MapsSuggestionsWeatherConditionsProvider__observers];
-        v11 = v9;
-        [v10 registerObserver:v1 handler:0];
+        v11 = *&v10[OBJC_IVAR____TtC12destinationd40MapsSuggestionsWeatherConditionsProvider__observers];
+        v12 = v10;
+        [v11 registerObserver:v2 handler:0];
       }
     }
 
@@ -960,18 +960,18 @@ void sub_100004ABC()
         swift_once();
       }
 
-      v15 = type metadata accessor for Logger();
-      sub_1000029EC(v15, qword_100085698);
-      v16 = Logger.logObject.getter();
-      v17 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v16, v17))
+      v16 = type metadata accessor for Logger();
+      sub_1000029EC(v16, qword_100085698);
+      v17 = Logger.logObject.getter();
+      v18 = static os_log_type_t.error.getter();
+      if (os_log_type_enabled(v17, v18))
       {
-        v18 = swift_slowAlloc();
-        *v18 = 0;
-        _os_log_impl(&_mh_execute_header, v16, v17, "_isAllowedToUpdate() == false. Not allowed to update", v18, 2u);
+        v19 = swift_slowAlloc();
+        *v19 = 0;
+        _os_log_impl(&_mh_execute_header, v17, v18, "_isAllowedToUpdate() == false. Not allowed to update", v19, 2u);
       }
 
-      v1 = v16;
+      v2 = v17;
     }
   }
 
@@ -982,88 +982,88 @@ void sub_100004ABC()
       swift_once();
     }
 
-    v12 = type metadata accessor for Logger();
-    sub_1000029EC(v12, qword_100085698);
-    v1 = Logger.logObject.getter();
-    v13 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v1, v13))
+    v13 = type metadata accessor for Logger();
+    sub_1000029EC(v13, qword_100085698);
+    v2 = Logger.logObject.getter();
+    v14 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v2, v14))
     {
-      v14 = swift_slowAlloc();
-      *v14 = 0;
-      _os_log_impl(&_mh_execute_header, v1, v13, "strongSelf could not be initialized", v14, 2u);
+      v15 = swift_slowAlloc();
+      *v15 = 0;
+      _os_log_impl(&_mh_execute_header, v2, v14, "strongSelf could not be initialized", v15, 2u);
     }
   }
 }
 
 uint64_t sub_100004DE0()
 {
-  v90 = type metadata accessor for Date();
-  v92 = *(v90 - 8);
-  (__chkstk_darwin)();
-  v1 = v75 - ((v0 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v89 = type metadata accessor for WeatherMetadata();
-  v86 = *(v89 - 8);
-  (__chkstk_darwin)();
-  v88 = v75 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_100042274(&qword_1000852D8);
-  v3 = (__chkstk_darwin)();
-  v87 = v75 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = __chkstk_darwin(v3);
-  v85 = v75 - v6;
-  v7 = __chkstk_darwin(v5);
-  v9 = v75 - v8;
-  __chkstk_darwin(v7);
-  v91 = v75 - v10;
-  v11 = sub_100042274(&qword_100085108);
-  __chkstk_darwin(v11 - 8);
-  v13 = v75 - v12;
-  v14 = sub_100042274(&qword_1000850A0);
-  v15 = *(v14 - 1);
-  v16 = __chkstk_darwin(v14);
-  v18 = v75 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v16);
-  v93 = v75 - v19;
+  v91 = type metadata accessor for Date();
+  v93 = *(v91 - 8);
+  __chkstk_darwin(v91);
+  v1 = v76 - ((v0 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v90 = type metadata accessor for WeatherMetadata();
+  v87 = *(v90 - 8);
+  __chkstk_darwin(v90);
+  v89 = v76 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = sub_100042274(&qword_1000852D8, &qword_100056E38);
+  v4 = __chkstk_darwin(v3 - 8);
+  v88 = v76 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __chkstk_darwin(v4);
+  v86 = v76 - v7;
+  v8 = __chkstk_darwin(v6);
+  v10 = v76 - v9;
+  __chkstk_darwin(v8);
+  v92 = v76 - v11;
+  v12 = sub_100042274(&qword_100085108, &qword_100056CF8);
+  __chkstk_darwin(v12 - 8);
+  v14 = v76 - v13;
+  v15 = sub_100042274(&qword_1000850A0, &qword_100056CF0);
+  v16 = *(v15 - 1);
+  v17 = __chkstk_darwin(v15);
+  v19 = v76 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v17);
+  v94 = v76 - v20;
   if (qword_100085090 != -1)
   {
     swift_once();
   }
 
-  v20 = type metadata accessor for Logger();
-  sub_1000029EC(v20, qword_100085698);
-  v21 = Logger.logObject.getter();
-  v22 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v21, v22))
+  v21 = type metadata accessor for Logger();
+  sub_1000029EC(v21, qword_100085698);
+  v22 = Logger.logObject.getter();
+  v23 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v22, v23))
   {
-    v23 = swift_slowAlloc();
-    *v23 = 0;
-    _os_log_impl(&_mh_execute_header, v21, v22, "Checking if the feeler is allowed to update", v23, 2u);
+    v24 = swift_slowAlloc();
+    *v24 = 0;
+    _os_log_impl(&_mh_execute_header, v22, v23, "Checking if the feeler is allowed to update", v24, 2u);
   }
 
-  v24 = MapsSuggestionsCurrentBestLocation();
-  if (!v24)
+  v25 = MapsSuggestionsCurrentBestLocation();
+  if (!v25)
   {
     goto LABEL_27;
   }
 
-  v25 = v24;
+  v26 = v25;
   GEOConfigGetDouble();
-  v27 = v26;
-  [v25 speed];
-  if (v27 < v28)
+  v28 = v27;
+  [v26 speed];
+  if (v28 < v29)
   {
-    v29 = v25;
-    v30 = Logger.logObject.getter();
-    v31 = static os_log_type_t.debug.getter();
+    v30 = v26;
+    v31 = Logger.logObject.getter();
+    v32 = static os_log_type_t.debug.getter();
 
-    if (os_log_type_enabled(v30, v31))
+    if (os_log_type_enabled(v31, v32))
     {
-      v32 = swift_slowAlloc();
-      *v32 = 134218240;
-      [v29 speed];
-      *(v32 + 4) = v33;
-      *(v32 + 12) = 2048;
-      *(v32 + 14) = v27;
-      _os_log_impl(&_mh_execute_header, v30, v31, "speed thresholds crossed:%f. Our limit is: %f. Not requesting new weather update", v32, 0x16u);
+      v33 = swift_slowAlloc();
+      *v33 = 134218240;
+      [v30 speed];
+      *(v33 + 4) = v34;
+      *(v33 + 12) = 2048;
+      *(v33 + 14) = v28;
+      _os_log_impl(&_mh_execute_header, v31, v32, "speed thresholds crossed:%f. Our limit is: %f. Not requesting new weather update", v33, 0x16u);
     }
 
     else
@@ -1073,129 +1073,129 @@ uint64_t sub_100004DE0()
     return 0;
   }
 
-  v84 = v1;
-  v35 = v94;
-  v36 = *(v94 + OBJC_IVAR____TtC12destinationd28MapsSuggestionsWeatherFeeler__lastLocation);
-  if (!v36)
+  v85 = v1;
+  v36 = v95;
+  v37 = *(v95 + OBJC_IVAR____TtC12destinationd28MapsSuggestionsWeatherFeeler__lastLocation);
+  if (!v37)
   {
     goto LABEL_26;
   }
 
-  v37 = OBJC_IVAR____TtC12destinationd28MapsSuggestionsWeatherFeeler__weatherDataModel;
+  v38 = OBJC_IVAR____TtC12destinationd28MapsSuggestionsWeatherFeeler__weatherDataModel;
   swift_beginAccess();
-  sub_100005DD8(v35 + v37, v13, &qword_100085108);
-  if ((*(v15 + 48))(v13, 1, v14) == 1)
+  sub_100005DD8(v36 + v38, v14, &qword_100085108, &qword_100056CF8);
+  if ((*(v16 + 48))(v14, 1, v15) == 1)
   {
 
-    sub_100005EA8(v13, &qword_100085108);
+    sub_100005EA8(v14, &qword_100085108, &qword_100056CF8);
 LABEL_27:
-    v72 = Logger.logObject.getter();
-    v73 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v72, v73))
+    v73 = Logger.logObject.getter();
+    v74 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v73, v74))
     {
-      v74 = swift_slowAlloc();
-      *v74 = 0;
-      _os_log_impl(&_mh_execute_header, v72, v73, "Ok to update", v74, 2u);
+      v75 = swift_slowAlloc();
+      *v75 = 0;
+      _os_log_impl(&_mh_execute_header, v73, v74, "Ok to update", v75, 2u);
     }
 
     return 1;
   }
 
-  v38 = v13;
-  v39 = v93;
-  sub_100005E40(v38, v93, &qword_1000850A0);
-  v40 = v36;
-  [v25 distanceFromLocation:v40];
-  if (v41 >= *(v35 + OBJC_IVAR____TtC12destinationd28MapsSuggestionsWeatherFeeler__distanceThreshold))
+  v39 = v14;
+  v40 = v94;
+  sub_100005E40(v39, v94, &qword_1000850A0, &qword_100056CF0);
+  v41 = v37;
+  [v26 distanceFromLocation:v41];
+  if (v42 >= *(v36 + OBJC_IVAR____TtC12destinationd28MapsSuggestionsWeatherFeeler__distanceThreshold))
   {
-    sub_100005EA8(v39, &qword_1000850A0);
+    sub_100005EA8(v40, &qword_1000850A0, &qword_100056CF0);
 
 LABEL_26:
     goto LABEL_27;
   }
 
-  v81 = v40;
-  sub_100005DD8(v39, v18, &qword_1000850A0);
-  v42 = v14[12];
-  v82 = v14[16];
-  v83 = v42;
-  v43 = v14[20];
-  v44 = v88;
+  v82 = v41;
+  sub_100005DD8(v40, v19, &qword_1000850A0, &qword_100056CF0);
+  v43 = v15[12];
+  v83 = v15[16];
+  v84 = v43;
+  v44 = v15[20];
+  v45 = v89;
   CurrentWeather.metadata.getter();
-  v45 = type metadata accessor for CurrentWeather();
-  v46 = *(v45 - 8);
-  v79 = *(v46 + 8);
-  v80 = v45;
-  v78 = v46 + 8;
-  v79(v18);
-  v47 = v91;
-  WeatherMetadata.expirationDate.getter();
-  v77 = *(v86 + 8);
-  v77(v44, v89);
+  v46 = type metadata accessor for CurrentWeather();
+  v47 = *(v46 - 8);
+  v80 = *(v47 + 8);
+  v81 = v46;
+  v79 = v47 + 8;
+  v80(v19);
   v48 = v92;
-  v49 = *(v92 + 56);
-  v50 = v90;
-  v75[1] = v92 + 56;
-  v75[0] = v49;
-  v49(v47, 0, 1, v90);
-  sub_100005EA8(&v18[v43], &qword_1000852E0);
-  v51 = sub_100042274(&qword_100085118);
-  v52 = *(v51 - 8);
-  v53 = *(v52 + 8);
-  v54 = &v18[v82];
-  v82 = v51;
-  v76 = v53;
-  v75[2] = v52 + 8;
-  (v53)(v54);
-  sub_100005EA8(v83 + v18, &qword_1000852E8);
-  sub_100005DD8(v47, v9, &qword_1000852D8);
-  v55 = *(v48 + 48);
-  v86 = v48 + 48;
-  v83 = v55;
-  LODWORD(v48) = v55(v9, 1, v50);
-  sub_100005EA8(v9, &qword_1000852D8);
-  if (v48 == 1)
+  WeatherMetadata.expirationDate.getter();
+  v78 = *(v87 + 8);
+  v78(v45, v90);
+  v49 = v93;
+  v50 = *(v93 + 56);
+  v51 = v91;
+  v76[1] = v93 + 56;
+  v76[0] = v50;
+  v50(v48, 0, 1, v91);
+  sub_100005EA8(&v19[v44], &qword_1000852E0, &qword_100056E40);
+  v52 = sub_100042274(&qword_100085118, &qword_100056D08);
+  v53 = *(v52 - 8);
+  v54 = *(v53 + 8);
+  v55 = &v19[v83];
+  v83 = v52;
+  v77 = v54;
+  v76[2] = v53 + 8;
+  (v54)(v55);
+  sub_100005EA8(v84 + v19, &qword_1000852E8, &qword_100056E48);
+  sub_100005DD8(v48, v10, &qword_1000852D8, &qword_100056E38);
+  v56 = *(v49 + 48);
+  v87 = v49 + 48;
+  v84 = v56;
+  LODWORD(v49) = v56(v10, 1, v51);
+  sub_100005EA8(v10, &qword_1000852D8, &qword_100056E38);
+  if (v49 == 1)
   {
-    v56 = Logger.logObject.getter();
-    v57 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v56, v57))
+    v57 = Logger.logObject.getter();
+    v58 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v57, v58))
     {
-      v58 = swift_slowAlloc();
-      *v58 = 0;
-      _os_log_impl(&_mh_execute_header, v56, v57, "metadata.expirationDate is nil. Checking conditions time to form our own expiration time", v58, 2u);
+      v59 = swift_slowAlloc();
+      *v59 = 0;
+      _os_log_impl(&_mh_execute_header, v57, v58, "metadata.expirationDate is nil. Checking conditions time to form our own expiration time", v59, 2u);
     }
 
-    sub_100005DD8(v93, v18, &qword_1000850A0);
-    v59 = v14[12];
-    v60 = v14[16];
-    v61 = v14[20];
-    v62 = v88;
+    sub_100005DD8(v94, v19, &qword_1000850A0, &qword_100056CF0);
+    v60 = v15[12];
+    v61 = v15[16];
+    v62 = v15[20];
+    v63 = v89;
     CurrentWeather.metadata.getter();
-    (v79)(v18, v80);
-    v63 = v84;
+    (v80)(v19, v81);
+    v64 = v85;
     WeatherMetadata.date.getter();
-    v77(v62, v89);
-    sub_100005EA8(&v18[v61], &qword_1000852E0);
-    v76(&v18[v60], v82);
-    result = sub_100005EA8(&v18[v59], &qword_1000852E8);
-    if (*(v94 + OBJC_IVAR____TtC12destinationd28MapsSuggestionsWeatherFeeler__expireTimeDefault + 8))
+    v78(v63, v90);
+    sub_100005EA8(&v19[v62], &qword_1000852E0, &qword_100056E40);
+    v77(&v19[v61], v83);
+    result = sub_100005EA8(&v19[v60], &qword_1000852E8, &qword_100056E48);
+    if (*(v95 + OBJC_IVAR____TtC12destinationd28MapsSuggestionsWeatherFeeler__expireTimeDefault + 8))
     {
       goto LABEL_32;
     }
 
-    v64 = v85;
+    v65 = v86;
     Date.addingTimeInterval(_:)();
-    v50 = v90;
-    (*(v92 + 8))(v63, v90);
-    v47 = v91;
-    sub_100005EA8(v91, &qword_1000852D8);
-    (v75[0])(v64, 0, 1, v50);
-    sub_100005E40(v64, v47, &qword_1000852D8);
+    v51 = v91;
+    (*(v93 + 8))(v64, v91);
+    v48 = v92;
+    sub_100005EA8(v92, &qword_1000852D8, &qword_100056E38);
+    (v76[0])(v65, 0, 1, v51);
+    sub_100005E40(v65, v48, &qword_1000852D8, &qword_100056E38);
   }
 
-  v65 = v87;
-  sub_100005DD8(v47, v87, &qword_1000852D8);
-  result = v83(v65, 1, v50);
+  v66 = v88;
+  sub_100005DD8(v48, v88, &qword_1000852D8, &qword_100056E38);
+  result = v84(v66, 1, v51);
   if (result == 1)
   {
     __break(1u);
@@ -1205,29 +1205,29 @@ LABEL_32:
   }
 
   isa = Date._bridgeToObjectiveC()().super.isa;
-  (*(v92 + 8))(v65, v50);
-  v67 = MapsSuggestionsIsInTheFuture();
+  (*(v93 + 8))(v66, v51);
+  v68 = MapsSuggestionsIsInTheFuture();
 
-  v68 = v93;
-  if (!v67)
+  v69 = v94;
+  if (!v68)
   {
 
-    sub_100005EA8(v47, &qword_1000852D8);
-    sub_100005EA8(v68, &qword_1000850A0);
+    sub_100005EA8(v48, &qword_1000852D8, &qword_100056E38);
+    sub_100005EA8(v69, &qword_1000850A0, &qword_100056CF0);
     goto LABEL_27;
   }
 
-  v69 = Logger.logObject.getter();
-  v70 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v69, v70))
+  v70 = Logger.logObject.getter();
+  v71 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v70, v71))
   {
-    v71 = swift_slowAlloc();
-    *v71 = 0;
-    _os_log_impl(&_mh_execute_header, v69, v70, "No update: we still have valid weather", v71, 2u);
+    v72 = swift_slowAlloc();
+    *v72 = 0;
+    _os_log_impl(&_mh_execute_header, v70, v71, "No update: we still have valid weather", v72, 2u);
   }
 
-  sub_100005EA8(v47, &qword_1000852D8);
-  sub_100005EA8(v68, &qword_1000850A0);
+  sub_100005EA8(v48, &qword_1000852D8, &qword_100056E38);
+  sub_100005EA8(v69, &qword_1000850A0, &qword_100056CF0);
   return 0;
 }
 
@@ -1288,24 +1288,24 @@ id sub_100005B00(NSObject **a1, void *a2)
   return v6;
 }
 
-uint64_t sub_100005DD8(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t sub_100005DD8(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = sub_100042274(a3);
-  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  v6 = sub_100042274(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
   return a2;
 }
 
-uint64_t sub_100005E40(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t sub_100005E40(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = sub_100042274(a3);
-  (*(*(v5 - 8) + 32))(a2, a1, v5);
+  v6 = sub_100042274(a3, a4);
+  (*(*(v6 - 8) + 32))(a2, a1, v6);
   return a2;
 }
 
-uint64_t sub_100005EA8(uint64_t a1, uint64_t *a2)
+uint64_t sub_100005EA8(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = sub_100042274(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = sub_100042274(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
@@ -2024,18 +2024,18 @@ void sub_100007ED4(uint64_t a1)
 
 uint64_t sub_100007F94()
 {
-  v1 = *(sub_100042274(&qword_100085108) - 8);
+  v1 = *(sub_100042274(&qword_100085108, &qword_100056CF8) - 8);
   v2 = *(v1 + 80);
   v3 = (v2 + 16) & ~v2;
   v4 = *(v1 + 64);
   v5 = v0 + v3;
-  v6 = sub_100042274(&qword_1000850A0);
+  v6 = sub_100042274(&qword_1000850A0, &qword_100056CF0);
   if (!(*(*(v6 - 1) + 48))(v0 + v3, 1, v6))
   {
     v7 = type metadata accessor for CurrentWeather();
     (*(*(v7 - 8) + 8))(v0 + v3, v7);
     v8 = v6[12];
-    v9 = sub_100042274(&qword_100085110);
+    v9 = sub_100042274(&qword_100085110, &qword_100056D00);
     v10 = *(v9 - 8);
     if (!(*(v10 + 48))(v5 + v8, 1, v9))
     {
@@ -2043,7 +2043,7 @@ uint64_t sub_100007F94()
     }
 
     v11 = v6[16];
-    v12 = sub_100042274(&qword_100085118);
+    v12 = sub_100042274(&qword_100085118, &qword_100056D08);
     (*(*(v12 - 8) + 8))(v5 + v11, v12);
     v13 = v6[20];
     v14 = type metadata accessor for AirQuality();
@@ -2085,19 +2085,19 @@ uint64_t sub_1000082A4()
 
 uint64_t sub_1000082E4()
 {
-  v1 = *(sub_100042274(&qword_100085108) - 8);
+  v1 = *(sub_100042274(&qword_100085108, &qword_100056CF8) - 8);
   v2 = *(v1 + 80);
   v3 = (v2 + 24) & ~v2;
   v4 = *(v1 + 64);
 
   v5 = v0 + v3;
-  v6 = sub_100042274(&qword_1000850A0);
+  v6 = sub_100042274(&qword_1000850A0, &qword_100056CF0);
   if (!(*(*(v6 - 1) + 48))(v0 + v3, 1, v6))
   {
     v7 = type metadata accessor for CurrentWeather();
     (*(*(v7 - 8) + 8))(v0 + v3, v7);
     v8 = v6[12];
-    v9 = sub_100042274(&qword_100085110);
+    v9 = sub_100042274(&qword_100085110, &qword_100056D00);
     v10 = *(v9 - 8);
     if (!(*(v10 + 48))(v5 + v8, 1, v9))
     {
@@ -2105,7 +2105,7 @@ uint64_t sub_1000082E4()
     }
 
     v11 = v6[16];
-    v12 = sub_100042274(&qword_100085118);
+    v12 = sub_100042274(&qword_100085118, &qword_100056D08);
     (*(*(v12 - 8) + 8))(v5 + v11, v12);
     v13 = v6[20];
     v14 = type metadata accessor for AirQuality();
@@ -2121,19 +2121,19 @@ uint64_t sub_1000082E4()
 
 uint64_t sub_10000856C()
 {
-  v1 = *(sub_100042274(&qword_100085108) - 8);
+  v1 = *(sub_100042274(&qword_100085108, &qword_100056CF8) - 8);
   v2 = *(v1 + 80);
   v3 = (v2 + 32) & ~v2;
   v4 = *(v1 + 64);
 
   v5 = v0 + v3;
-  v6 = sub_100042274(&qword_1000850A0);
+  v6 = sub_100042274(&qword_1000850A0, &qword_100056CF0);
   if (!(*(*(v6 - 1) + 48))(v0 + v3, 1, v6))
   {
     v7 = type metadata accessor for CurrentWeather();
     (*(*(v7 - 8) + 8))(v0 + v3, v7);
     v8 = v6[12];
-    v9 = sub_100042274(&qword_100085110);
+    v9 = sub_100042274(&qword_100085110, &qword_100056D00);
     v10 = *(v9 - 8);
     if (!(*(v10 + 48))(v5 + v8, 1, v9))
     {
@@ -2141,7 +2141,7 @@ uint64_t sub_10000856C()
     }
 
     v11 = v6[16];
-    v12 = sub_100042274(&qword_100085118);
+    v12 = sub_100042274(&qword_100085118, &qword_100056D08);
     (*(*(v12 - 8) + 8))(v5 + v11, v12);
     v13 = v6[20];
     v14 = type metadata accessor for AirQuality();
@@ -2347,34 +2347,34 @@ id sub_10000921C(NSObject **a1, void *a2)
 
 id sub_100009328(uint64_t a1)
 {
-  v10 = 0u;
-  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v2 = *(*(a1 + 32) + 8);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
-    v4 = *v11;
+    v4 = *v13;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v11 != v4)
+        if (*v13 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * i);
-        [v6 couldContainEntry:{*(a1 + 40), v10}];
-        if (v7 > MapsSuggestionsConfidenceDontKnow())
+        v6 = *(*(&v12 + 1) + 8 * i);
+        v7 = [v6 couldContainEntry:{*(a1 + 40), v12}];
+        if (v9 > MapsSuggestionsConfidenceDontKnow(v7, v8))
         {
-          v8 = v6;
+          v10 = v6;
           goto LABEL_11;
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v3)
       {
         continue;
@@ -2384,42 +2384,42 @@ id sub_100009328(uint64_t a1)
     }
   }
 
-  v8 = 0;
+  v10 = 0;
 LABEL_11:
 
-  return v8;
+  return v10;
 }
 
 id sub_1000097B8(uint64_t a1)
 {
-  v10 = 0u;
-  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v2 = *(*(a1 + 32) + 8);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
-    v4 = *v11;
+    v4 = *v13;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v11 != v4)
+        if (*v13 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * i);
-        [v6 couldContainLocation:{*(a1 + 40), v10}];
-        if (v7 > MapsSuggestionsConfidenceDontKnow())
+        v6 = *(*(&v12 + 1) + 8 * i);
+        v7 = [v6 couldContainLocation:{*(a1 + 40), v12}];
+        if (v9 > MapsSuggestionsConfidenceDontKnow(v7, v8))
         {
-          v8 = v6;
+          v10 = v6;
           goto LABEL_11;
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v3)
       {
         continue;
@@ -2429,10 +2429,10 @@ id sub_1000097B8(uint64_t a1)
     }
   }
 
-  v8 = 0;
+  v10 = 0;
 LABEL_11:
 
-  return v8;
+  return v10;
 }
 
 id sub_100009AA8(NSObject **a1, void *a2)
@@ -2463,41 +2463,41 @@ id sub_100009AA8(NSObject **a1, void *a2)
 id sub_100009BB4(uint64_t a1)
 {
   v2 = objc_alloc_init(NSMutableArray);
-  v11 = 0u;
-  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v3 = *(*(a1 + 32) + 8);
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
-    v5 = *v12;
+    v5 = *v14;
     do
     {
       for (i = 0; i != v4; i = i + 1)
       {
-        if (*v12 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
-        [v7 couldContainTime:{*(a1 + 40), v11}];
-        if (v8 > MapsSuggestionsConfidenceDontKnow())
+        v7 = *(*(&v13 + 1) + 8 * i);
+        v8 = [v7 couldContainTime:{*(a1 + 40), v13}];
+        if (v10 > MapsSuggestionsConfidenceDontKnow(v8, v9))
         {
           [v2 addObject:v7];
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
   }
 
-  v9 = [v2 copy];
+  v11 = [v2 copy];
 
-  return v9;
+  return v11;
 }
 
 id sub_100009ECC(uint64_t a1)
@@ -2597,25 +2597,25 @@ void sub_10000A504(uint64_t a1)
   v3 = WeakRetained;
   if (WeakRetained)
   {
+    v18 = 0u;
+    v19 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
     v4 = WeakRetained[2];
-    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v5)
     {
-      v6 = *v15;
+      v6 = *v17;
       do
       {
         for (i = 0; i != v5; i = i + 1)
         {
-          if (*v15 != v6)
+          if (*v17 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          v8 = *(*(&v14 + 1) + 8 * i);
+          v8 = *(*(&v16 + 1) + 8 * i);
           v9 = *(a1 + 32);
           v10 = [v8 to];
           LOBYTE(v9) = [v9 isEqualToDestination:v10];
@@ -2623,17 +2623,17 @@ void sub_10000A504(uint64_t a1)
           if (v9)
           {
             v11 = [*(a1 + 40) location];
-            [v8 containsLocation:v11];
-            v13 = v12 > MapsSuggestionsConfidenceDontKnow();
+            v12 = [v8 containsLocation:v11];
+            v15 = v14 > MapsSuggestionsConfidenceDontKnow(v12, v13);
 
-            if (v13)
+            if (v15)
             {
               [v8 addETA:*(a1 + 40)];
             }
           }
         }
 
-        v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v5);
@@ -2646,11 +2646,11 @@ void sub_10000A504(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446722;
-      v20 = "MapsSuggestionsDestinationGraph.mm";
-      v21 = 1026;
-      v22 = 194;
-      v23 = 2082;
-      v24 = "[MapsSuggestionsDestinationGraph addETA:to:]_block_invoke";
+      v22 = "MapsSuggestionsDestinationGraph.mm";
+      v23 = 1026;
+      v24 = 194;
+      v25 = 2082;
+      v26 = "[MapsSuggestionsDestinationGraph addETA:to:]_block_invoke";
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: strongSelf went away in %{public}s", buf, 0x1Cu);
     }
   }
@@ -2897,12 +2897,12 @@ uint64_t sub_10000B4C0(uint64_t a1, void *a2)
   v5 = [v3 to];
   if (!v5 || ([*(*(a1 + 32) + 8) containsObject:v5] & 1) == 0)
   {
-    v7 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v9 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 138412290;
-      v16 = v3;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "ELIMINATE %@ (Its Arrival has been eliminated)", &v15, 0xCu);
+      v17 = 138412290;
+      v18 = v3;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "ELIMINATE %@ (Its Arrival has been eliminated)", &v17, 0xCu);
     }
 
     goto LABEL_12;
@@ -2910,55 +2910,55 @@ uint64_t sub_10000B4C0(uint64_t a1, void *a2)
 
   if ((!v4 || ([*(*(a1 + 32) + 8) containsObject:v4] & 1) == 0) && (objc_msgSend(v3, "hasLinkOptions") & 1) == 0)
   {
-    [v3 confidenceOfHavingBeenOnDestinationLink];
-    if (v6 < MapsSuggestionsConfidenceDontKnow())
+    v6 = [v3 confidenceOfHavingBeenOnDestinationLink];
+    if (v8 < MapsSuggestionsConfidenceDontKnow(v6, v7))
     {
-      v7 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v9 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v15 = 138412290;
-        v16 = v3;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "ELIMINATE %@ (We've left, but have no evidence of using this Link)", &v15, 0xCu);
+        v17 = 138412290;
+        v18 = v3;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "ELIMINATE %@ (We've left, but have no evidence of using this Link)", &v17, 0xCu);
       }
 
 LABEL_12:
 
-      v8 = 0;
+      v10 = 0;
       *(*(*(a1 + 40) + 8) + 24) = 1;
       goto LABEL_21;
     }
   }
 
-  v9 = [v4 latestKnownTime];
-  v10 = [v5 earliestKnownTime];
-  v11 = v10;
-  v8 = 1;
-  if (v9 && v10)
+  v11 = [v4 latestKnownTime];
+  v12 = [v5 earliestKnownTime];
+  v13 = v12;
+  v10 = 1;
+  if (v11 && v12)
   {
-    v12 = [v9 earlierDate:v10];
+    v14 = [v11 earlierDate:v12];
 
-    if (v12 == v11)
+    if (v14 == v13)
     {
-      v13 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v15 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        v15 = 138412290;
-        v16 = v3;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "ELIMINATE %@ (We'd need a time machine)", &v15, 0xCu);
+        v17 = 138412290;
+        v18 = v3;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "ELIMINATE %@ (We'd need a time machine)", &v17, 0xCu);
       }
 
-      v8 = 0;
+      v10 = 0;
       *(*(*(a1 + 40) + 8) + 24) = 1;
     }
 
     else
     {
-      v8 = 1;
+      v10 = 1;
     }
   }
 
 LABEL_21:
-  return v8;
+  return v10;
 }
 
 void sub_10000B870(uint64_t a1)
@@ -3152,7 +3152,7 @@ id sub_10000C230(uint64_t a1)
   return v1;
 }
 
-uint64_t MapsSuggestionsIsDestinationGraphEnabled()
+uint64_t MapsSuggestionsIsDestinationGraphEnabled(uint64_t a1, uint64_t a2)
 {
   if (qword_100085518 != -1)
   {
@@ -3271,12 +3271,12 @@ void sub_10000E200(uint64_t a1)
   }
 }
 
-void sub_10000E37C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_10000E37C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = MapsSuggestionsSignalPipeline;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -3975,9 +3975,9 @@ void sub_100010CF4(uint64_t a1)
   }
 }
 
-void sub_100011048(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100011048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
@@ -4048,7 +4048,7 @@ Class sub_1000113E8(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -4066,7 +4066,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t sub_10001152C()
+uint64_t sub_10001152C(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_100085528 = result;
@@ -4087,10 +4087,11 @@ uint64_t sub_1000115B8(uint64_t a1)
   return result;
 }
 
-void sub_100011634(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100011634(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0x26u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0x26u);
 }
 
 BOOL sub_100011660(NSObject *a1)
@@ -4099,13 +4100,14 @@ BOOL sub_100011660(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_FAULT);
 }
 
-void sub_100011678(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100011678(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0x26u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0x26u);
 }
 
-double MapsSuggestionsDistanceToRouteConfidenceFactor()
+double MapsSuggestionsDistanceToRouteConfidenceFactor(uint64_t a1, uint64_t a2)
 {
   if (qword_100085568 != -1)
   {
@@ -4115,7 +4117,7 @@ double MapsSuggestionsDistanceToRouteConfidenceFactor()
   return *&qword_100085530;
 }
 
-double MapsSuggestionsConfidenceDefinitelyTrue()
+double MapsSuggestionsConfidenceDefinitelyTrue(uint64_t a1, uint64_t a2)
 {
   if (qword_100085568 != -1)
   {
@@ -4125,7 +4127,7 @@ double MapsSuggestionsConfidenceDefinitelyTrue()
   return *&qword_100085538;
 }
 
-double MapsSuggestionsConfidenceDefinitelyFalse()
+double MapsSuggestionsConfidenceDefinitelyFalse(uint64_t a1, uint64_t a2)
 {
   if (qword_100085568 != -1)
   {
@@ -4135,7 +4137,7 @@ double MapsSuggestionsConfidenceDefinitelyFalse()
   return *&qword_100085540;
 }
 
-double MapsSuggestionsConfidenceDontKnow()
+double MapsSuggestionsConfidenceDontKnow(uint64_t a1, uint64_t a2)
 {
   if (qword_100085568 != -1)
   {
@@ -4145,32 +4147,32 @@ double MapsSuggestionsConfidenceDontKnow()
   return *&qword_100085558;
 }
 
-double MapsSuggestionsBestConfidence(double a1, double a2)
+double MapsSuggestionsBestConfidence(uint64_t a1, uint64_t a2, double a3, double a4)
 {
   if (qword_100085568 != -1)
   {
     sub_10004C6E0();
   }
 
-  if (*&qword_100085558 != a1)
+  if (*&qword_100085558 != a3)
   {
-    if (*&qword_100085558 == a2)
+    if (*&qword_100085558 == a4)
     {
-      return a1;
+      return a3;
     }
 
-    else if (a1 > a2)
+    else if (a3 > a4)
     {
-      return a1;
+      return a3;
     }
   }
 
-  return a2;
+  return a4;
 }
 
-void MapsSuggestionsConfidenceLevelFromPrecent(double a1)
+void MapsSuggestionsConfidenceLevelFromPrecent(uint64_t result, uint64_t a2, double a3)
 {
-  if (a1 <= 0.0)
+  if (a3 <= 0.0)
   {
     if (qword_100085568 == -1)
     {
@@ -4276,46 +4278,47 @@ void sub_100012250(void *a1, void *a2)
   v3 = a2;
   if (a1)
   {
-    v4 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v4 = MapsSuggestionsLoggingSubsystem;
+    v5 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "updateTouristInfo", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "updateTouristInfo", buf, 2u);
     }
 
     if ((+[MapsSuggestionsSiri isEnabled]& 1) != 0)
     {
-      v5 = MapsSuggestionsCurrentBestLocation();
-      if (v5)
+      v6 = MapsSuggestionsCurrentBestLocation();
+      if (v6)
       {
         dispatch_group_enter(v3);
         objc_initWeak(buf, a1);
-        v6 = +[RTRoutineManager defaultManager];
-        v7[0] = _NSConcreteStackBlock;
-        v7[1] = 3221225472;
-        v7[2] = sub_100012DB8;
-        v7[3] = &unk_100075490;
-        objc_copyWeak(&v9, buf);
-        v8 = v3;
-        [v6 fetchRoutineModeFromLocation:v5 withHandler:v7];
+        v7 = +[RTRoutineManager defaultManager];
+        v8[0] = _NSConcreteStackBlock;
+        v8[1] = 3221225472;
+        v8[2] = sub_100012DB8;
+        v8[3] = &unk_100075490;
+        objc_copyWeak(&v10, buf);
+        v9 = v3;
+        [v7 fetchRoutineModeFromLocation:v6 withHandler:v8];
 
-        objc_destroyWeak(&v9);
+        objc_destroyWeak(&v10);
         objc_destroyWeak(buf);
       }
 
       else
       {
-        sub_10004CA1C();
+        sub_10004CA1C(v4);
       }
     }
 
     else
     {
-      v5 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v6 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "User turned off Siri Suggestions for maps. Not fetching tourist mode", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "User turned off Siri Suggestions for maps. Not fetching tourist mode", buf, 2u);
       }
     }
   }
@@ -5006,9 +5009,10 @@ void sub_1000144EC(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_100014FF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id location, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_100014FF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id location, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  _Block_object_dispose(&a17, 8);
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
   objc_destroyWeak(&location);
   _Unwind_Resume(a1);
 }
@@ -5063,7 +5067,7 @@ Class sub_100015370(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -5081,7 +5085,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t sub_1000154B4()
+uint64_t sub_1000154B4(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_100085578 = result;
@@ -5097,11 +5101,11 @@ void sub_10001556C(id a1)
   qword_100085580 = v1;
 }
 
-uint64_t sub_10001563C(uint64_t a1)
+uint64_t sub_10001563C(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = NSStringFromMapsSuggestionsSignalType();
-  [v1 addObject:v2];
+  v2 = *(a1 + 32);
+  v3 = NSStringFromMapsSuggestionsSignalType();
+  [v2 addObject:v3];
 
   return 1;
 }
@@ -5524,10 +5528,10 @@ void sub_10001A5F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_10001A770(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_10001A770(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MapsSuggestionsPredictionsXPCPeer;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -5989,10 +5993,10 @@ void sub_10001D6BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_10001D834(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_10001D834(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = MapsSuggestionsFeelerXPCPeer;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -6458,23 +6462,24 @@ void sub_100020E20(uint64_t a1)
   }
 }
 
-void sub_100020F34(void *a1, unsigned int a2)
+void sub_100020F34(void *result, uint64_t a2)
 {
-  if (a1)
+  if (result)
   {
+    v2 = a2;
     v4 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       v6 = 136315394;
       v7 = "[MapsSuggestionsVehicleBluetoothFeeler _updateAndSendSignalPack:]";
       v8 = 1024;
-      v9 = a2;
+      v9 = v2;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "bluetoothFeeler: %s: %d", &v6, 0x12u);
     }
 
-    v5 = a1;
+    v5 = result;
     objc_sync_enter(v5);
-    sub_10004CCF8(v5, a2, [v5[3] mutableCopy]);
+    sub_10004CCF8(v5, v2, [v5[3] mutableCopy]);
   }
 }
 
@@ -6488,53 +6493,54 @@ void sub_10002117C(id a1)
 void sub_100021934(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = sub_1000225D8();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_1000225D8(WeakRetained);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = objc_opt_class();
-      v5 = NSStringFromClass(v4);
-      v6 = NSStringFromSelector(*(a1 + 56));
-      v7 = *(a1 + 40);
+      v5 = objc_opt_class();
+      v6 = NSStringFromClass(v5);
+      v7 = NSStringFromSelector(*(a1 + 56));
+      v8 = *(a1 + 40);
       *buf = 138412802;
-      v19 = v5;
-      v20 = 2112;
-      v21 = v6;
-      v22 = 2112;
-      v23 = v7;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%@ %@, weather location = %@", buf, 0x20u);
+      v20 = v6;
+      v21 = 2112;
+      v22 = v7;
+      v23 = 2112;
+      v24 = v8;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@ %@, weather location = %@", buf, 0x20u);
     }
 
-    v15 = 0u;
     v16 = 0u;
-    v13 = 0u;
+    v17 = 0u;
     v14 = 0u;
-    v8 = [WeakRetained[1] copy];
-    v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v9)
+    v15 = 0u;
+    v9 = [v3[1] copy];
+    v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    if (v10)
     {
-      v10 = v9;
-      v11 = *v14;
+      v11 = v10;
+      v12 = *v15;
       do
       {
-        v12 = 0;
+        v13 = 0;
         do
         {
-          if (*v14 != v11)
+          if (*v15 != v12)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v9);
           }
 
-          [*(*(&v13 + 1) + 8 * v12) weatherLocationDataProvider:WeakRetained didChangeLocation:*(a1 + 40)];
-          v12 = v12 + 1;
+          [*(*(&v14 + 1) + 8 * v13) weatherLocationDataProvider:v3 didChangeLocation:*(a1 + 40)];
+          v13 = v13 + 1;
         }
 
-        while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        while (v11 != v13);
+        v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
-      while (v10);
+      while (v11);
     }
   }
 }
@@ -6590,16 +6596,16 @@ void sub_100022478(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
   [v6 addObject:v9];
 }
 
-id sub_1000225D8()
+id sub_1000225D8(uint64_t a1)
 {
   if (qword_1000855C0 != -1)
   {
     sub_10004CD88();
   }
 
-  v1 = qword_1000855B8;
+  v2 = qword_1000855B8;
 
-  return v1;
+  return v2;
 }
 
 void sub_10002261C(id a1)
@@ -7822,16 +7828,17 @@ LABEL_32:
 LABEL_35:
 }
 
-void sub_100028F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100028F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_100029B08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25)
+void sub_100029B08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  _Block_object_dispose(&a25, 8);
+  va_start(va, a24);
+  _Block_object_dispose(va, 8);
   objc_destroyWeak(&location);
   _Unwind_Resume(a1);
 }
@@ -8019,7 +8026,7 @@ void sub_10002A7D0(uint64_t a1)
   }
 }
 
-id sub_10002A9B0(int a1)
+NSMutableArray *sub_10002A9B0(int a1)
 {
   v2 = objc_opt_new();
   v3 = v2;
@@ -8163,9 +8170,9 @@ void sub_10002B604(id a1)
   qword_1000855F0 = &off_1000793B0;
 }
 
-uint64_t sub_10002B91C(uint64_t a1)
+uint64_t sub_10002B91C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(a1 + 32);
+  v4 = *(a1 + 32);
   GEOConfigGetPropertiesForKey();
 
   return 1;
@@ -8183,16 +8190,16 @@ void sub_10002B9B8(uint64_t a1, void *a2)
   }
 }
 
-id sub_10002BB88()
+id sub_10002BB88(uint64_t a1)
 {
   if (qword_100085640 != -1)
   {
     sub_10004CDD8();
   }
 
-  v1 = qword_100085638;
+  v2 = qword_100085638;
 
-  return v1;
+  return v2;
 }
 
 void sub_10002C304(id a1)
@@ -8700,7 +8707,7 @@ void sub_100030584(uint64_t a1)
   }
 }
 
-void sub_1000306E8(int64x2_t *a1, void *a2, void *a3)
+void sub_1000306E8(void *a1, void *a2, void *a3)
 {
   v28 = a2;
   v5 = a3;
@@ -8716,9 +8723,9 @@ void sub_1000306E8(int64x2_t *a1, void *a2, void *a3)
         v6 = dispatch_group_create();
         dispatch_group_enter(v6);
         v7 = a1;
-        if (a1[7].i64[1])
+        if (a1[15])
         {
-          v8 = *(a1[5].i64[1] + 8 * (a1[7].i64[0] / 0xAAuLL)) + 24 * (a1[7].i64[0] % 0xAAuLL);
+          v8 = *(a1[11] + 8 * (a1[14] / 0xAAuLL)) + 24 * (a1[14] % 0xAAuLL);
           v41 = *v8;
           v9 = *(v8 + 8);
           v10 = *(v8 + 16);
@@ -8729,13 +8736,13 @@ void sub_1000306E8(int64x2_t *a1, void *a2, void *a3)
           v11 = [NSDateInterval alloc];
           GEOConfigGetDouble();
           v12 = [v11 initWithStartDate:v41 duration:?];
-          sub_1000321B4(&v7[2].i64[1], &v41);
+          sub_1000321B4(v7 + 10, &v41, &v41);
           v39 = 0u;
           v40 = 0u;
           v37 = 0u;
           v38 = 0u;
           v26 = v12;
-          v13 = [v7[2].i64[0] allValues];
+          v13 = [v7[4] allValues];
           obj = v13;
           v14 = [v13 countByEnumeratingWithState:&v37 objects:v45 count:16];
           if (v14)
@@ -8784,7 +8791,7 @@ void sub_1000306E8(int64x2_t *a1, void *a2, void *a3)
         }
 
         dispatch_group_leave(v6);
-        v21 = v7[1].i64[0];
+        v21 = v7[2];
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_100031360;
@@ -9064,17 +9071,17 @@ void sub_1000319A4(id *a1)
   v3 = WeakRetained;
   if (WeakRetained)
   {
-    v4 = WeakRetained[5];
-    v5 = WeakRetained[6];
-    v6 = WeakRetained[7];
-    WeakRetained[5] = 0u;
-    WeakRetained[6] = 0u;
+    v4 = *(WeakRetained + 5);
+    v5 = *(WeakRetained + 6);
+    v6 = *(WeakRetained + 7);
+    *(WeakRetained + 5) = 0u;
+    *(WeakRetained + 6) = 0u;
     *buf = v4;
     *&buf[16] = v5;
-    WeakRetained[7] = 0u;
+    *(WeakRetained + 7) = 0u;
     v12 = v6;
-    sub_100032FA0(&WeakRetained[2].i64[1]);
-    sub_100032890(v3[5].i64, (a1 + 7));
+    sub_100032FA0((WeakRetained + 5));
+    sub_100032890(v3 + 10, (a1 + 7));
     v7 = [a1[4] endDate];
     v9[0] = _NSConcreteStackBlock;
     v9[1] = 3221225472;

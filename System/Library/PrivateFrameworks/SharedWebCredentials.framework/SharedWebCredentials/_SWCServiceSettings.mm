@@ -127,7 +127,7 @@ LABEL_3:
 
 - (id)objectForKey:(id)key ofClass:(Class)class valuesOfClass:(Class)ofClass
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if (!ofClass)
   {
@@ -138,39 +138,38 @@ LABEL_3:
   v10 = [(_SWCServiceSettings *)self objectForKey:keyCopy ofClass:class];
   if (v10)
   {
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x2020000000;
-    v27 = 1;
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x2020000000;
+    v25 = 1;
     if (_NSIsNSArray())
     {
-      v22 = 0u;
-      v23 = 0u;
       v20 = 0u;
       v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
       v11 = v10;
-      v12 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
       if (v12)
       {
-        v13 = *v21;
+        v13 = *v19;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v21 != v13)
+            if (*v19 != v13)
             {
               objc_enumerationMutation(v11);
             }
 
-            v15 = *(*(&v20 + 1) + 8 * i);
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              *(v25 + 24) = 0;
+              *(v23 + 24) = 0;
               goto LABEL_17;
             }
           }
 
-          v12 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
+          v12 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
           if (v12)
           {
             continue;
@@ -185,25 +184,23 @@ LABEL_17:
 
     else if (_NSIsNSDictionary())
     {
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __58___SWCServiceSettings_objectForKey_ofClass_valuesOfClass___block_invoke;
-      v19[3] = &unk_279BBDEC0;
-      v19[4] = &v24;
-      v19[5] = ofClass;
-      [v10 enumerateKeysAndObjectsUsingBlock:v19];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __58___SWCServiceSettings_objectForKey_ofClass_valuesOfClass___block_invoke;
+      v17[3] = &unk_279BBDEC0;
+      v17[4] = &v22;
+      v17[5] = ofClass;
+      [v10 enumerateKeysAndObjectsUsingBlock:v17];
     }
 
-    if ((v25[3] & 1) == 0)
+    if ((v23[3] & 1) == 0)
     {
 
       v10 = 0;
     }
 
-    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v22, 8);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -345,15 +342,15 @@ LABEL_17:
 
 + (void)serviceSettingsDidChange:(id)change
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   userInfo = [change userInfo];
   v5 = [userInfo objectForKeyedSubscript:@"serviceSpecifierData"];
 
   if (v5 && _NSIsNSData())
   {
-    v11 = 0;
-    v6 = [MEMORY[0x277CCAAC8] swc_unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v11];
-    v7 = v11;
+    v10 = 0;
+    v6 = [MEMORY[0x277CCAAC8] swc_unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v10];
+    v7 = v10;
     if (v6)
     {
       notificationCenter = [self notificationCenter];
@@ -371,29 +368,27 @@ LABEL_17:
       if (os_log_type_enabled(qword_280B21820, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v13 = v7;
+        v12 = v7;
         _os_log_error_impl(&dword_265F54000, v9, OS_LOG_TYPE_ERROR, "Failed to decode service specifier for posting change notification: %@", buf, 0xCu);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (void)postChangeNotificationForServiceSpecifier:(id)specifier
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   if (specifierCopy)
   {
-    v14 = 0;
-    v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:specifierCopy requiringSecureCoding:1 error:&v14];
-    v5 = v14;
+    v13 = 0;
+    v4 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:specifierCopy requiringSecureCoding:1 error:&v13];
+    v5 = v13;
     if (v4)
     {
-      v17 = @"serviceSpecifierData";
-      v18[0] = v4;
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+      v16 = @"serviceSpecifierData";
+      v17[0] = v4;
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
       if (qword_280B21818 != -1)
       {
         dispatch_once(&qword_280B21818, &__block_literal_global_0);
@@ -404,8 +399,8 @@ LABEL_17:
       block[1] = 3221225472;
       block[2] = __65___SWCServiceSettings_postChangeNotificationForServiceSpecifier___block_invoke_2;
       block[3] = &unk_279BBDF10;
-      v12 = v6;
-      v13 = 3;
+      v11 = v6;
+      v12 = 3;
       v8 = v6;
       dispatch_async(v7, block);
     }
@@ -421,13 +416,11 @@ LABEL_17:
       if (os_log_type_enabled(qword_280B21820, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v16 = v5;
+        v15 = v5;
         _os_log_error_impl(&dword_265F54000, v9, OS_LOG_TYPE_ERROR, "Failed to encode service specifier for posting change notification: %@", buf, 0xCu);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -469,19 +462,19 @@ LABEL_17:
 
 - (_SWCServiceSettings)initWithCoder:(id)coder
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy swc_decodeObjectOfClass:objc_opt_class() forKey:@"serviceSpecifier"];
   v6 = v5;
   if (!v5 || ([v5 serviceType], v7 = objc_claimAutoreleasedReturnValue(), v7, !v7))
   {
     v8 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v36[0] = @"Line";
-    v36[1] = @"Function";
-    v37[0] = &unk_2877A7318;
+    v35[0] = @"Line";
+    v35[1] = @"Function";
+    v36[0] = &unk_2877A7318;
     v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[_SWCServiceSettings initWithCoder:]"];
-    v37[1] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
+    v36[1] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:2];
     v11 = [v8 initWithDomain:*MEMORY[0x277CCA050] code:4865 userInfo:v10];
     [coderCopy failWithError:v11];
 
@@ -489,25 +482,25 @@ LABEL_17:
   }
 
   v12 = objc_alloc(MEMORY[0x277CBEB98]);
-  v35[0] = objc_opt_class();
-  v35[1] = objc_opt_class();
-  v35[2] = objc_opt_class();
-  v35[3] = objc_opt_class();
-  v35[4] = objc_opt_class();
-  v35[5] = objc_opt_class();
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:6];
+  v34[0] = objc_opt_class();
+  v34[1] = objc_opt_class();
+  v34[2] = objc_opt_class();
+  v34[3] = objc_opt_class();
+  v34[4] = objc_opt_class();
+  v34[5] = objc_opt_class();
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:6];
   v14 = [v12 initWithArray:v13];
 
   v15 = [coderCopy swc_decodeObjectOfClasses:v14 forKey:@"dictionaryRepresentation"];
   if (!v15)
   {
     v20 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v33[0] = @"Line";
-    v33[1] = @"Function";
-    v34[0] = &unk_2877A7330;
+    v32[0] = @"Line";
+    v32[1] = @"Function";
+    v33[0] = &unk_2877A7330;
     v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[_SWCServiceSettings initWithCoder:]"];
-    v34[1] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
+    v33[1] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
     v19 = [v20 initWithDomain:*MEMORY[0x277CCA050] code:4865 userInfo:v18];
     [coderCopy failWithError:v19];
     goto LABEL_9;
@@ -516,12 +509,12 @@ LABEL_17:
   if (!_NSIsNSDictionary() || ([MEMORY[0x277CCAC58] propertyList:v15 isValidForFormat:200] & 1) == 0)
   {
     v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v31[0] = @"Line";
-    v31[1] = @"Function";
-    v32[0] = &unk_2877A7348;
+    v30[0] = @"Line";
+    v30[1] = @"Function";
+    v31[0] = &unk_2877A7348;
     v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[_SWCServiceSettings initWithCoder:]"];
-    v32[1] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
+    v31[1] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
     v19 = [v16 initWithDomain:*MEMORY[0x277CCA050] code:4864 userInfo:v18];
     [coderCopy failWithError:v19];
 LABEL_9:
@@ -534,8 +527,8 @@ LABEL_9:
   {
     v22 = objc_alloc(MEMORY[0x277CCA9B8]);
     v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"-[_SWCServiceSettings initWithCoder:]", @"Line", @"Function", &unk_2877A7360}];
-    v30[1] = v23;
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:2];
+    v29[1] = v23;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:2];
     v25 = [v22 initWithDomain:*MEMORY[0x277CCA050] code:4865 userInfo:v24];
     [coderCopy failWithError:v25];
 
@@ -544,7 +537,6 @@ LABEL_9:
 
   v26 = [(_SWCServiceSettings *)self _initWithServiceSpecifier:v6 dictionary:v15 generation:v21];
 
-  v27 = *MEMORY[0x277D85DE8];
   return v26;
 }
 

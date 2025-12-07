@@ -92,55 +92,56 @@
 - (BKEpubCFILocation)initWithCFI:(id)i error:(id *)error
 {
   iCopy = i;
-  v20.receiver = self;
-  v20.super_class = BKEpubCFILocation;
-  v7 = [(BKEpubCFILocation *)&v20 init];
+  v21.receiver = self;
+  v21.super_class = BKEpubCFILocation;
+  v7 = [(BKEpubCFILocation *)&v21 init];
   if (v7)
   {
     if ([BCCFI isFragmentEpubCFIFunction:iCopy])
     {
-      v19 = 0;
-      v8 = [BCCFI cfiWithString:iCopy error:&v19];
-      v9 = v19;
+      v20 = 0;
+      v8 = [BCCFI cfiWithString:iCopy error:&v20];
+      v9 = v20;
       cfi = v7->_cfi;
       v7->_cfi = v8;
     }
 
     else
     {
-      v11 = [iCopy rangeOfString:@"epubcfi"];
-      if (v11 == 0x7FFFFFFFFFFFFFFFLL)
+      v12 = [iCopy rangeOfString:@"epubcfi"];
+      if (v12 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v9 = [NSError errorWithDomain:@"BKEpubCFIErrorDomain" code:1 userInfo:0];
+        v11 = [NSError errorWithDomain:@"BKEpubCFIErrorDomain" code:1 userInfo:0];
+        v9 = v11;
       }
 
       else
       {
-        v12 = [iCopy substringFromIndex:v11];
-        v18 = 0;
-        v13 = [BCCFI cfiWithString:v12 error:&v18];
-        v9 = v18;
-        v14 = v7->_cfi;
-        v7->_cfi = v13;
+        v13 = [iCopy substringFromIndex:v12];
+        v19 = 0;
+        v14 = [BCCFI cfiWithString:v13 error:&v19];
+        v9 = v19;
+        v15 = v7->_cfi;
+        v7->_cfi = v14;
       }
     }
 
     v7->_pageOffset = 0x7FFFFFFFFFFFFFFFLL;
     if (v9)
     {
-      v15 = _AELog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = _AELog(v11);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v22 = v9;
-        v23 = 2112;
-        v24 = iCopy;
-        _os_log_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "Error %@ forming BCCFI from string %@", buf, 0x16u);
+        v23 = v9;
+        v24 = 2112;
+        v25 = iCopy;
+        _os_log_impl(&dword_0, v16, OS_LOG_TYPE_ERROR, "Error %@ forming BCCFI from string %@", buf, 0x16u);
       }
 
       if (error)
       {
-        v16 = v9;
+        v17 = v9;
         *error = v9;
       }
 
@@ -155,29 +156,29 @@
 {
   dictionaryCopy = dictionary;
   v5 = [dictionaryCopy objectForKey:@"super"];
-  v14.receiver = self;
-  v14.super_class = BKEpubCFILocation;
-  v6 = [(BKLocation *)&v14 initWithLocationDictionary:v5];
+  v15.receiver = self;
+  v15.super_class = BKEpubCFILocation;
+  v6 = [(BKLocation *)&v15 initWithLocationDictionary:v5];
 
   if (v6)
   {
     v7 = [dictionaryCopy objectForKey:@"cfi"];
-    v13 = 0;
-    v8 = [[BCCFI alloc] initWithCFI:v7 error:&v13];
-    v9 = v13;
+    v14 = 0;
+    v8 = [[BCCFI alloc] initWithCFI:v7 error:&v14];
+    v9 = v14;
     cfi = v6->_cfi;
     v6->_cfi = v8;
 
     if (v9)
     {
-      v11 = _AELog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = _AELog(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v16 = v9;
-        v17 = 2112;
-        v18 = v7;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "Error %@ forming BCCFI from string %@", buf, 0x16u);
+        v17 = v9;
+        v18 = 2112;
+        v19 = v7;
+        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "Error %@ forming BCCFI from string %@", buf, 0x16u);
       }
 
       v6 = 0;
@@ -190,28 +191,28 @@
 - (BKEpubCFILocation)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v13.receiver = self;
-  v13.super_class = BKEpubCFILocation;
-  v5 = [(BKLocation *)&v13 initWithCoder:coderCopy];
+  v14.receiver = self;
+  v14.super_class = BKEpubCFILocation;
+  v5 = [(BKLocation *)&v14 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"cfi"];
-    v12 = 0;
-    v7 = [[BCCFI alloc] initWithCFI:v6 error:&v12];
-    v8 = v12;
+    v13 = 0;
+    v7 = [[BCCFI alloc] initWithCFI:v6 error:&v13];
+    v8 = v13;
     cfi = v5->_cfi;
     v5->_cfi = v7;
 
     if (v8)
     {
-      v10 = _AELog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = _AELog(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v15 = v8;
-        v16 = 2112;
-        v17 = v6;
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "Error %@ forming BCCFI from string %@", buf, 0x16u);
+        v16 = v8;
+        v17 = 2112;
+        v18 = v6;
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "Error %@ forming BCCFI from string %@", buf, 0x16u);
       }
 
       v5 = 0;

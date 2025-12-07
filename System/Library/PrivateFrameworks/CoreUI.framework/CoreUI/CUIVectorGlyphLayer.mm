@@ -925,8 +925,8 @@ LABEL_15:
         if ([@"erase" caseInsensitiveCompare:v19])
         {
           v20 = [@"draw" caseInsensitiveCompare:v19];
-          v51 = 0;
-          v52 = 0;
+          v45 = 0;
+          v46 = 0;
           v13 = 0;
           Boolean = 0;
           if (v20)
@@ -942,8 +942,8 @@ LABEL_15:
 
         else
         {
-          v51 = 0;
-          v52 = 0;
+          v45 = 0;
+          v46 = 0;
           v13 = 0;
           v9 = 0.0;
           Boolean = 1;
@@ -962,24 +962,24 @@ LABEL_15:
             v22 = 0;
           }
 
-          v52 = v22;
+          v46 = v22;
         }
 
         else
         {
-          v52 = 0;
+          v46 = 0;
         }
 
         +[CUIVectorGlyphLayer _alwaysPulsesAtom];
         if (CGSVGAttributeMapGetAttribute() && CGSVGAttributeGetAtom())
         {
           v23 = CGSVGAtomCopyString();
-          BYTE4(v51) = [v23 BOOLValue];
+          BYTE4(v45) = [v23 BOOLValue];
         }
 
         else
         {
-          BYTE4(v51) = 0;
+          BYTE4(v45) = 0;
         }
 
         +[CUIVectorGlyphLayer _alwaysRotatesAtom];
@@ -1000,20 +1000,20 @@ LABEL_15:
         if (CGSVGAttributeMapGetAttribute() && CGSVGAttributeGetAtom())
         {
           v26 = CGSVGAtomCopyString();
-          LOBYTE(v51) = [v26 BOOLValue];
+          LOBYTE(v45) = [v26 BOOLValue];
         }
 
         else
         {
-          LOBYTE(v51) = 0;
+          LOBYTE(v45) = 0;
         }
       }
     }
 
     else
     {
-      v51 = 0;
-      v52 = 0;
+      v45 = 0;
+      v46 = 0;
       v13 = 0;
     }
 
@@ -1050,7 +1050,7 @@ LABEL_15:
         v37 = vdupq_n_s64(0x7FF0000000000000uLL);
       }
 
-      v50 = v37;
+      v44 = v37;
       if (v10)
       {
         [(CUIVectorGlyphLayer *)self delegate];
@@ -1072,7 +1072,7 @@ LABEL_15:
       {
         if ([@"none" caseInsensitiveCompare:v41])
         {
-          _CUILog(4, "CoreUI: Symbol SVG contains an unexpected gradient type: %@", v42, v43, v44, v45, v46, v47, v41);
+          _CUILog(4, "CoreUI: Symbol SVG contains an unexpected gradient type: %@", v41);
         }
 
         LOBYTE(styleAttributes) = 0;
@@ -1086,8 +1086,8 @@ LABEL_15:
         {
           if (CGSVGAttributeGetAtom())
           {
-            v48 = CGSVGAtomCopyString();
-            LOBYTE(styleAttributes) = [v48 BOOLValue];
+            v42 = CGSVGAtomCopyString();
+            LOBYTE(styleAttributes) = [v42 BOOLValue];
           }
 
           else
@@ -1104,7 +1104,7 @@ LABEL_15:
         v12 = 0;
       }
 
-      v15 = v50;
+      v15 = v44;
       if (attributes)
       {
         goto LABEL_46;
@@ -1132,8 +1132,8 @@ LABEL_68:
   v10 = 0;
   v11 = 0;
   v12 = 0;
-  v51 = 0;
-  v52 = 0;
+  v45 = 0;
+  v46 = 0;
   v13 = 0;
   v14 = 0;
   v15 = vdupq_n_s64(0x7FF0000000000000uLL);
@@ -1144,20 +1144,20 @@ LABEL_68:
   }
 
 LABEL_46:
-  v49 = v15;
+  v43 = v15;
   v29 = [objc_opt_class() _lineCapFromStyle:attributes];
   v30 = [objc_opt_class() _lineJoinFromStyle:attributes];
-  v15 = v49;
+  v15 = v43;
 LABEL_69:
   self->_lineCap = v29;
   self->_lineJoin = v30;
   self->_isEraserLayer = v14;
   self->_opacity = v9;
   self->_valueThreshold = INFINITY;
-  self->_motionGroup = v52;
-  self->_alwaysPulses = BYTE4(v51);
+  self->_motionGroup = v46;
+  self->_alwaysPulses = BYTE4(v45);
   self->_alwaysRotates = v13;
-  self->_alwaysBreathes = v51;
+  self->_alwaysBreathes = v45;
   *&self->_variableDrawOffset = v15;
   self->_gradientType = v12;
   self->_gradientAlignsToLayer = styleAttributes;
@@ -2120,91 +2120,93 @@ LABEL_66:
   width = size.width;
   v16 = size.width * factor;
   v17 = size.height * factor;
-  SRGB = _CUIColorSpaceGetSRGB();
-  v21 = CUICGBitmapContextCreate(vcvtpd_u64_f64(v16), vcvtpd_u64_f64(v17), 8uLL, 0, SRGB, 8193, v19, v20);
+  SRGB = _CUIColorSpaceGetSRGB(self, a2);
+  v19 = CUICGBitmapContextCreate(vcvtpd_u64_f64(v16), vcvtpd_u64_f64(v17), 8uLL, 0, SRGB, 0x2001u);
+  v27 = 0u;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
   sublayers = [(CUIVectorGlyphLayer *)self sublayers];
-  v23 = [(NSArray *)sublayers countByEnumeratingWithState:&v29 objects:v33 count:16];
-  if (v23)
+  v21 = [(NSArray *)sublayers countByEnumeratingWithState:&v27 objects:v31 count:16];
+  if (v21)
   {
-    v24 = v23;
-    v25 = *v30;
+    v22 = v21;
+    v23 = *v28;
     do
     {
-      v26 = 0;
+      v24 = 0;
       do
       {
-        if (*v30 != v25)
+        if (*v28 != v23)
         {
           objc_enumerationMutation(sublayers);
         }
 
-        [*(*(&v29 + 1) + 8 * v26) drawInContext:v21 scaleFactor:color targetSize:fillColor variableMinValue:factor variableMaxValue:width onFillColor:height offFillColor:{value, maxValue}];
-        v26 = v26 + 1;
+        [*(*(&v27 + 1) + 8 * v24) drawInContext:v19 scaleFactor:color targetSize:fillColor variableMinValue:factor variableMaxValue:width onFillColor:height offFillColor:{value, maxValue}];
+        v24 = v24 + 1;
       }
 
-      while (v24 != v26);
-      v24 = [(NSArray *)sublayers countByEnumeratingWithState:&v29 objects:v33 count:16];
+      while (v22 != v24);
+      v22 = [(NSArray *)sublayers countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
-    while (v24);
+    while (v22);
   }
 
-  Image = CGBitmapContextCreateImage(v21);
-  CGContextRelease(v21);
+  Image = CGBitmapContextCreateImage(v19);
+  CGContextRelease(v19);
   return Image;
 }
 
 - (CGImage)createSublayerMaskUsingScaleFactor:(double)factor targetSize:(CGSize)size maskColor:(CGColor *)color
 {
-  SRGBBlack = color;
+  selfCopy2 = color;
   height = size.height;
   width = size.width;
+  selfCopy = self;
   v10 = size.width * factor;
   v11 = size.height * factor;
   if (!color)
   {
-    SRGBBlack = _CUIColorGetSRGBBlack();
+    self = _CUIColorGetSRGBBlack(self, a2);
+    selfCopy2 = self;
   }
 
-  SRGB = _CUIColorSpaceGetSRGB();
-  v15 = CUICGBitmapContextCreate(vcvtpd_u64_f64(v10), vcvtpd_u64_f64(v11), 8uLL, 0, SRGB, 8193, v13, v14);
+  SRGB = _CUIColorSpaceGetSRGB(self, a2);
+  v13 = CUICGBitmapContextCreate(vcvtpd_u64_f64(v10), vcvtpd_u64_f64(v11), 8uLL, 0, SRGB, 0x2001u);
+  v21 = 0u;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  sublayers = [(CUIVectorGlyphLayer *)self sublayers];
-  v17 = [(NSArray *)sublayers countByEnumeratingWithState:&v23 objects:v27 count:16];
-  if (v17)
+  sublayers = [(CUIVectorGlyphLayer *)selfCopy sublayers];
+  v15 = [(NSArray *)sublayers countByEnumeratingWithState:&v21 objects:v25 count:16];
+  if (v15)
   {
-    v18 = v17;
-    v19 = *v24;
+    v16 = v15;
+    v17 = *v22;
     do
     {
-      v20 = 0;
+      v18 = 0;
       do
       {
-        if (*v24 != v19)
+        if (*v22 != v17)
         {
           objc_enumerationMutation(sublayers);
         }
 
-        [*(*(&v23 + 1) + 8 * v20) drawInContext:v15 scaleFactor:SRGBBlack targetSize:0 variableMinValue:factor variableMaxValue:width onFillColor:height offFillColor:{INFINITY, INFINITY}];
-        v20 = v20 + 1;
+        [*(*(&v21 + 1) + 8 * v18) drawInContext:v13 scaleFactor:selfCopy2 targetSize:0 variableMinValue:factor variableMaxValue:width onFillColor:height offFillColor:{INFINITY, INFINITY}];
+        v18 = v18 + 1;
       }
 
-      while (v18 != v20);
-      v18 = [(NSArray *)sublayers countByEnumeratingWithState:&v23 objects:v27 count:16];
+      while (v16 != v18);
+      v16 = [(NSArray *)sublayers countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
-    while (v18);
+    while (v16);
   }
 
-  Image = CGBitmapContextCreateImage(v15);
-  CGContextRelease(v15);
+  Image = CGBitmapContextCreateImage(v13);
+  CGContextRelease(v13);
   return Image;
 }
 

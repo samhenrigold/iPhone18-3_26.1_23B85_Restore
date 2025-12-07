@@ -75,13 +75,13 @@ LABEL_3:
 
 LABEL_4:
   type metadata accessor for NSKeyValueChangeKey(0);
-  sub_100030948(&qword_1002062B0, type metadata accessor for NSKeyValueChangeKey);
+  sub_100030948(&qword_1002062B0, type metadata accessor for NSKeyValueChangeKey, &unk_100199E2C);
   v15 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
 LABEL_8:
   sub_10002F19C(v10, v12, v18, v15, context);
 
-  sub_100007710(v18, &qword_100206500);
+  sub_100007710(v18, &qword_100206500, &qword_10019A9D0);
 }
 
 - (void)viewDidLoad
@@ -95,7 +95,7 @@ LABEL_8:
   }
 
   selfCopy = self;
-  sub_10002F96C();
+  sub_10002F96C(selfCopy, v3);
 }
 
 - (_TtC7Preview23DownloadAlertController)initWithNibName:(id)name bundle:(id)bundle
@@ -135,9 +135,10 @@ LABEL_8:
     swift_task_reportUnexpectedExecutor();
   }
 
-  v4 = sub_10003022C(coder);
+  coderCopy = coder;
+  v6 = sub_10003022C(coderCopy, v5);
 
-  return v4;
+  return v6;
 }
 
 @end

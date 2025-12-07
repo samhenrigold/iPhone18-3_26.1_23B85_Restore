@@ -99,8 +99,6 @@
   else
   {
     [inactivityCopy count];
-
-    numLongThreshold = self->_numLongThreshold;
   }
 
   return 0;

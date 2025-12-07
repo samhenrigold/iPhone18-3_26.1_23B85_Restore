@@ -7,6 +7,7 @@
 - (void)clearInputFields;
 - (void)dismissKeyboard;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -61,6 +62,13 @@
   [(WFNANSubscribeTableViewController *)self _configureDataSource];
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = WFNANSubscribeTableViewController;
+  [(WFNANSubscribeTableViewController *)&v3 viewDidDisappear:disappear];
+}
+
 - (void)dismissKeyboard
 {
   view = [(WFNANSubscribeTableViewController *)self view];
@@ -69,17 +77,17 @@
 
 - (void)_configureDataSource
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   v3 = [WFNANSubscribeTableViewDataSource alloc];
   tableView = [(WFNANSubscribeTableViewController *)self tableView];
   context = [(WFNANSubscribeTableViewController *)self context];
   sections = [(WFNANSubscribeTableViewController *)self sections];
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __57__WFNANSubscribeTableViewController__configureDataSource__block_invoke;
-  v27[3] = &unk_279EC5440;
-  v27[4] = self;
-  v7 = [(WFNANSubscribeTableViewDataSource *)v3 initWithTableView:tableView context:context sections:sections cellProvider:v27];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __57__WFNANSubscribeTableViewController__configureDataSource__block_invoke;
+  v26[3] = &unk_279EC5440;
+  v26[4] = self;
+  v7 = [(WFNANSubscribeTableViewDataSource *)v3 initWithTableView:tableView context:context sections:sections cellProvider:v26];
   [(WFNANSubscribeTableViewController *)self setDataSource:v7];
 
   v8 = objc_alloc_init(MEMORY[0x277CFB890]);
@@ -108,20 +116,20 @@
   }
 
   [v8 appendSectionsWithIdentifiers:array];
-  v30[0] = @"WFNANSubscribeServiceNameIdentifier";
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+  v29[0] = @"WFNANSubscribeServiceNameIdentifier";
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
   v20 = [(WFNANSubscribeTableViewController *)self _identifierForSection:0];
   [v8 appendItemsWithIdentifiers:v19 intoSectionWithIdentifier:v20];
 
-  v29 = @"WFNANSubscribeAddIdentifier";
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+  v28 = @"WFNANSubscribeAddIdentifier";
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
   v22 = [(WFNANSubscribeTableViewController *)self _identifierForSection:0];
   [v8 appendItemsWithIdentifiers:v21 intoSectionWithIdentifier:v22];
 
   if ([(WFNANTableViewContext *)self->_context getSubscribersCount]<= 0)
   {
-    v28 = @"WFNANSubscribeNoSubscribersIdentifier";
-    [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+    v27 = @"WFNANSubscribeNoSubscribersIdentifier";
+    [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
   }
 
   else
@@ -134,8 +142,6 @@
 
   dataSource = [(WFNANSubscribeTableViewController *)self dataSource];
   [dataSource applySnapshot:v8 animatingDifferences:1];
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 id __57__WFNANSubscribeTableViewController__configureDataSource__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -174,11 +180,10 @@ LABEL_13:
       goto LABEL_16;
     }
 
-    v29 = *(a1 + 32);
-    v30 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v31 = [v30 localizedStringForKey:@"kWFLocNANNoSubscribers" value:&stru_288308678 table:@"WiFiKitUILocalizableStrings"];
-    v32 = [v13 textLabel];
-    [v32 setText:v31];
+    v28 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v29 = [v28 localizedStringForKey:@"kWFLocNANNoSubscribers" value:&stru_288308678 table:@"WiFiKitUILocalizableStrings"];
+    v30 = [v13 textLabel];
+    [v30 setText:v29];
 
     [v13 setSelectionStyle:0];
   }
@@ -226,20 +231,19 @@ LABEL_8:
     v24 = [v13 textField];
     [v24 setText:v23];
 
-    v25 = *(a1 + 32);
-    v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v27 = [v26 localizedStringForKey:@"kWFLocNANServiceName" value:&stru_288308678 table:@"WiFiKitUILocalizableStrings"];
-    v28 = [v13 textField];
-    [v28 setPlaceholder:v27];
+    v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v26 = [v25 localizedStringForKey:@"kWFLocNANServiceName" value:&stru_288308678 table:@"WiFiKitUILocalizableStrings"];
+    v27 = [v13 textField];
+    [v27 setPlaceholder:v26];
 
     objc_initWeak(&location, *(a1 + 32));
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __57__WFNANSubscribeTableViewController__configureDataSource__block_invoke_2;
-    v34[3] = &unk_279EC5418;
-    objc_copyWeak(&v35, &location);
-    [v13 setTextChangeHandler:v34];
-    objc_destroyWeak(&v35);
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __57__WFNANSubscribeTableViewController__configureDataSource__block_invoke_2;
+    v32[3] = &unk_279EC5418;
+    objc_copyWeak(&v33, &location);
+    [v13 setTextChangeHandler:v32];
+    objc_destroyWeak(&v33);
     objc_destroyWeak(&location);
   }
 
@@ -257,7 +261,7 @@ void __57__WFNANSubscribeTableViewController__configureDataSource__block_invoke_
 
 - (void)_handleSubscribersChangedNotification:(id)notification
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   dataSource = [(WFNANSubscribeTableViewController *)self dataSource];
   snapshot = [dataSource snapshot];
@@ -284,16 +288,16 @@ void __57__WFNANSubscribeTableViewController__configureDataSource__block_invoke_
     unsignedIntegerValue = [v10 unsignedIntegerValue];
     if (unsignedIntegerValue == 1)
     {
-      v23 = v8;
-      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+      v22 = v8;
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
       [snapshot deleteItemsWithIdentifiers:v16];
 
       if ([(WFNANTableViewContext *)self->_context getSubscribersCount])
       {
 LABEL_12:
         [(WFNANSubscribeTableViewController *)self clearInputFields];
-        v21 = @"WFNANSubscribeServiceNameIdentifier";
-        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+        v20 = @"WFNANSubscribeServiceNameIdentifier";
+        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
         [snapshot reconfigureItemsWithIdentifiers:v18];
 
         dataSource2 = [(WFNANSubscribeTableViewController *)self dataSource];
@@ -302,8 +306,8 @@ LABEL_12:
         goto LABEL_13;
       }
 
-      v22 = @"WFNANSubscribeNoSubscribersIdentifier";
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+      v21 = @"WFNANSubscribeNoSubscribersIdentifier";
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
       v17 = [(WFNANSubscribeTableViewController *)self _identifierForSection:1];
       [snapshot appendItemsWithIdentifiers:v15 intoSectionWithIdentifier:v17];
     }
@@ -315,8 +319,8 @@ LABEL_12:
         goto LABEL_12;
       }
 
-      v25[0] = v8;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+      v24[0] = v8;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
       v14 = [(WFNANSubscribeTableViewController *)self _identifierForSection:1];
       [snapshot appendItemsWithIdentifiers:v13 intoSectionWithIdentifier:v14];
 
@@ -325,8 +329,8 @@ LABEL_12:
         goto LABEL_12;
       }
 
-      v24 = @"WFNANSubscribeNoSubscribersIdentifier";
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+      v23 = @"WFNANSubscribeNoSubscribersIdentifier";
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
       [snapshot deleteItemsWithIdentifiers:v15];
     }
 
@@ -334,13 +338,11 @@ LABEL_12:
   }
 
 LABEL_13:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleDiscoveryResultsChangedNotification:(id)notification
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   dataSource = [(WFNANSubscribeTableViewController *)self dataSource];
   snapshot = [dataSource snapshot];
@@ -351,22 +353,20 @@ LABEL_13:
 
   if (v8)
   {
-    v12[0] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
     [snapshot reconfigureItemsWithIdentifiers:v9];
 
     dataSource2 = [(WFNANSubscribeTableViewController *)self dataSource];
     [dataSource2 applySnapshot:snapshot animatingDifferences:1];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearInputFields
 {
   serviceName = self->_serviceName;
   self->_serviceName = &stru_288308678;
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](self, serviceName);
 }
 
 - (void)_handleAddSubscriber

@@ -1,9 +1,31 @@
 @interface OSSystemExtensionProperties
+- (OSSystemExtensionProperties)initWithBundleIdentifier:(id)identifier isEnabled:(BOOL)enabled displayName:(id)name usageDescription:(id)description;
 - (OSSystemExtensionProperties)initWithCoder:(id)coder;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation OSSystemExtensionProperties
+
+- (OSSystemExtensionProperties)initWithBundleIdentifier:(id)identifier isEnabled:(BOOL)enabled displayName:(id)name usageDescription:(id)description
+{
+  enabledCopy = enabled;
+  identifierCopy = identifier;
+  nameCopy = name;
+  descriptionCopy = description;
+  v16.receiver = self;
+  v16.super_class = OSSystemExtensionProperties;
+  v13 = [(OSSystemExtensionProperties *)&v16 init];
+  v14 = v13;
+  if (v13)
+  {
+    [(OSSystemExtensionProperties *)v13 setBundleIdentifier:identifierCopy];
+    [(OSSystemExtensionProperties *)v14 setIsEnabled:enabledCopy];
+    [(OSSystemExtensionProperties *)v14 setDisplayName:nameCopy];
+    [(OSSystemExtensionProperties *)v14 setUsageDescription:descriptionCopy];
+  }
+
+  return v14;
+}
 
 - (void)encodeWithCoder:(id)coder
 {

@@ -114,7 +114,7 @@
     if (v6)
     {
       selfCopy = self;
-      v15 = sub_10007FAA0();
+      v15 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         v16 = sub_10007FAFC(selfCopy);
@@ -138,7 +138,7 @@
   }
 
   selfCopy2 = self;
-  v15 = sub_10007FAA0();
+  v15 = sub_10007FAA0(selfCopy2);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     v18 = sub_10007FAFC(selfCopy2);
@@ -161,7 +161,7 @@ LABEL_17:
   if ([(DataStreamStreamProtocol *)self isActive]!= value)
   {
     selfCopy = self;
-    v5 = sub_10007FAA0();
+    v5 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = sub_10007FAFC(selfCopy);
@@ -253,7 +253,7 @@ LABEL_17:
   if (!v11)
   {
     selfCopy2 = self;
-    v14 = sub_10007FAA0();
+    v14 = sub_10007FAA0(selfCopy2);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       v15 = sub_10007FAFC(selfCopy2);
@@ -280,7 +280,7 @@ LABEL_9:
   if (!v12)
   {
     selfCopy2 = self;
-    v14 = sub_10007FAA0();
+    v14 = sub_10007FAA0(selfCopy2);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = sub_10007FAFC(selfCopy2);
@@ -310,7 +310,7 @@ LABEL_10:
   headerCopy = header;
   payloadCopy = payload;
   selfCopy = self;
-  v13 = sub_10007FAA0();
+  v13 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     v14 = sub_10007FAFC(selfCopy);
@@ -332,7 +332,7 @@ LABEL_10:
   headerCopy = header;
   payloadCopy = payload;
   selfCopy = self;
-  v13 = sub_10007FAA0();
+  v13 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     v14 = sub_10007FAFC(selfCopy);

@@ -347,7 +347,7 @@
         }
 
 LABEL_11:
-        if ([v7 isEqualToString:*off_1E798A0D8])
+        if (objc_msgSend_isEqualToString_(v7))
         {
 LABEL_12:
           v15 = &OBJC_IVAR___BWStillImageBufferRouterNode__bravoTelephotoOutput;
@@ -356,7 +356,7 @@ LABEL_12:
 
 LABEL_33:
         OUTLINED_FUNCTION_33();
-        if (v14 && ([v7 isEqualToString:*off_1E798A0E8] & 1) != 0)
+        if (v14 && (objc_msgSend_isEqualToString_(v7) & 1) != 0)
         {
 LABEL_36:
           v15 = &OBJC_IVAR___BWStillImageBufferRouterNode__pearlInfraredOutput;
@@ -371,13 +371,13 @@ LABEL_37:
       if (((1 << captureType) & 0x30) != 0)
       {
         OUTLINED_FUNCTION_33();
-        if (v14 && ([v7 isEqualToString:*off_1E798A0D8] & 1) != 0)
+        if (v14 && (objc_msgSend_isEqualToString_(v7) & 1) != 0)
         {
           goto LABEL_12;
         }
 
         OUTLINED_FUNCTION_33();
-        if (v14 && ([v7 isEqualToString:*off_1E798A0E8] & 1) != 0)
+        if (v14 && (objc_msgSend_isEqualToString_(v7) & 1) != 0)
         {
           goto LABEL_36;
         }
@@ -410,9 +410,9 @@ LABEL_37:
 
           if ((v18 | v21))
           {
-            v22 = [v7 isEqualToString:*off_1E798A0C0];
+            isEqualToString = objc_msgSend_isEqualToString_(v7);
             v15 = &OBJC_IVAR___BWStillImageBufferRouterNode__bravoTelephotoOutput;
-            if (v22)
+            if (isEqualToString)
             {
               v15 = &OBJC_IVAR___BWStillImageBufferRouterNode__defaultOutput;
             }
@@ -436,7 +436,7 @@ LABEL_37:
           goto LABEL_11;
         }
 
-        if (*(v6 + 128) && [v7 isEqualToString:*off_1E798A0D8])
+        if (*(v6 + 128) && objc_msgSend_isEqualToString_(v7))
         {
           result = *(v6 + 160);
           if (result)
@@ -448,7 +448,7 @@ LABEL_37:
         }
 
         OUTLINED_FUNCTION_33();
-        if (v14 && ([v7 isEqualToString:*off_1E798A0E8] & 1) != 0)
+        if (v14 && (objc_msgSend_isEqualToString_(v7) & 1) != 0)
         {
           goto LABEL_36;
         }
@@ -478,7 +478,7 @@ LABEL_37:
 
   v3 = [*(input + 136) objectAtIndexedSubscript:{objc_msgSend(a2, "index")}];
   array = [MEMORY[0x1E695DF70] array];
-  if (*(input + 128) == 1 && [v3 isEqualToString:*off_1E798A0D8])
+  if (*(input + 128) == 1 && objc_msgSend_isEqualToString_(v3))
   {
     v5 = 176;
 LABEL_8:
@@ -488,7 +488,7 @@ LABEL_12:
     return array;
   }
 
-  if (*(input + 129) == 1 && [v3 isEqualToString:*off_1E798A0E8])
+  if (*(input + 129) == 1 && objc_msgSend_isEqualToString_(v3))
   {
     v5 = 184;
     goto LABEL_8;

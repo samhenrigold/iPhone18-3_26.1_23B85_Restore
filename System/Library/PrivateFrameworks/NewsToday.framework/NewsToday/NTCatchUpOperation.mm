@@ -325,7 +325,7 @@ void __38__NTCatchUpOperation_performOperation__block_invoke_2(void *a1, void *a
 void __38__NTCatchUpOperation_performOperation__block_invoke_3(uint64_t a1)
 {
   v21 = *MEMORY[0x277D85DE8];
-  v2 = NTSharedLog();
+  v2 = NTSharedLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(*(*(a1 + 40) + 8) + 40) count];
@@ -352,51 +352,50 @@ void __38__NTCatchUpOperation_performOperation__block_invoke_3(uint64_t a1)
   if (v8)
   {
     v9 = v8;
+    v10 = v9;
   }
 
   else
   {
     v9 = *(*(*(a1 + 80) + 8) + 40);
+    v10 = v9;
     if (!v9)
     {
       goto LABEL_9;
     }
   }
 
-  v10 = NTSharedLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = NTSharedLog(v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    v11 = [v9 localizedDescription];
+    v12 = [v10 localizedDescription];
     v13 = 138412290;
-    v14 = v11;
-    _os_log_impl(&dword_25BF21000, v10, OS_LOG_TYPE_ERROR, "Encountered error %@ while attempting to catch up", &v13, 0xCu);
+    v14 = v12;
+    _os_log_impl(&dword_25BF21000, v11, OS_LOG_TYPE_ERROR, "Encountered error %@ while attempting to catch up", &v13, 0xCu);
   }
 
 LABEL_9:
-  [*(a1 + 32) finishedPerformingOperationWithError:v9];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [*(a1 + 32) finishedPerformingOperationWithError:v10];
 }
 
 - (void)operationWillFinishWithError:(id)error
 {
   v10 = *MEMORY[0x277D85DE8];
   errorCopy = error;
+  v5 = errorCopy;
   if (errorCopy)
   {
-    v5 = NTSharedLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = NTSharedLog(errorCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = 138543362;
-      v9 = errorCopy;
-      _os_log_impl(&dword_25BF21000, v5, OS_LOG_TYPE_ERROR, "Catch up operation failed with error: %{public}@", &v8, 0xCu);
+      v9 = v5;
+      _os_log_impl(&dword_25BF21000, v6, OS_LOG_TYPE_ERROR, "Catch up operation failed with error: %{public}@", &v8, 0xCu);
     }
   }
 
   catchUpCompletionHandler = [(NTCatchUpOperation *)self catchUpCompletionHandler];
-  (catchUpCompletionHandler)[2](catchUpCompletionHandler, self, errorCopy);
-
-  v7 = *MEMORY[0x277D85DE8];
+  (catchUpCompletionHandler)[2](catchUpCompletionHandler, self, v5);
 }
 
 - (void)_fetchForYouResultsIfNeededWithCompletion:(id)completion
@@ -482,7 +481,7 @@ uint64_t __64__NTCatchUpOperation__fetchForYouResultsIfNeededWithCompletion___bl
   return result;
 }
 
-id __64__NTCatchUpOperation__fetchForYouResultsIfNeededWithCompletion___block_invoke_2(uint64_t a1)
+NTProxyForYouService *__64__NTCatchUpOperation__fetchForYouResultsIfNeededWithCompletion___block_invoke_2(uint64_t a1)
 {
   if (*(a1 + 40) == 1)
   {
@@ -549,34 +548,28 @@ void __64__NTCatchUpOperation__fetchForYouResultsIfNeededWithCompletion___block_
 
 uint64_t __64__NTCatchUpOperation__fetchForYouResultsIfNeededWithCompletion___block_invoke_4(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (*(a1 + 56) == 1)
   {
-    v2 = NTSharedLog();
+    v2 = NTSharedLog(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v3;
-      _os_log_impl(&dword_25BF21000, v2, OS_LOG_TYPE_DEFAULT, "NTCatchUpOperation falling back to in-process For You request due to error: %{public}@", &v10, 0xCu);
+      v6 = 138543362;
+      v7 = v3;
+      _os_log_impl(&dword_25BF21000, v2, OS_LOG_TYPE_DEFAULT, "NTCatchUpOperation falling back to in-process For You request due to error: %{public}@", &v6, 0xCu);
     }
 
     [*(a1 + 40) setForYouSource:1];
-    result = [*(a1 + 40) _fetchForYouResultsIfNeededWithCompletion:*(a1 + 48)];
-    v5 = *MEMORY[0x277D85DE8];
+    return [*(a1 + 40) _fetchForYouResultsIfNeededWithCompletion:*(a1 + 48)];
   }
 
   else
   {
-    v6 = *(a1 + 48);
-    v7 = *(a1 + 32);
-    v8 = *(*(a1 + 48) + 16);
-    v9 = *MEMORY[0x277D85DE8];
+    v5 = *(*(a1 + 48) + 16);
 
-    return v8();
+    return v5();
   }
-
-  return result;
 }
 
 uint64_t __64__NTCatchUpOperation__fetchForYouResultsIfNeededWithCompletion___block_invoke_90(uint64_t a1, void *a2)
@@ -592,7 +585,7 @@ uint64_t __64__NTCatchUpOperation__fetchForYouResultsIfNeededWithCompletion___bl
 
 - (void)_fetchArticleListAndArticleIDsResultsIfNeededWithCompletion:(id)completion
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (!completionCopy && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
@@ -604,51 +597,51 @@ uint64_t __64__NTCatchUpOperation__fetchForYouResultsIfNeededWithCompletion___bl
   if ([articleListRequests count] || objc_msgSend(articleIDsRequests, "count"))
   {
     v7 = objc_opt_new();
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
-    v25 = articleIDsRequests;
+    v24 = articleIDsRequests;
     v8 = articleIDsRequests;
-    v9 = [v8 countByEnumeratingWithState:&v31 objects:v43 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v30 objects:v42 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v32;
+      v11 = *v31;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v32 != v11)
+          if (*v31 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          articleIDs = [*(*(&v31 + 1) + 8 * i) articleIDs];
+          articleIDs = [*(*(&v30 + 1) + 8 * i) articleIDs];
           v14 = [articleIDs set];
           [v7 unionSet:v14];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v31 objects:v43 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v30 objects:v42 count:16];
       }
 
       while (v10);
     }
 
     v15 = [articleListRequests fc_arrayByTransformingWithBlock:&__block_literal_global_5];
-    v16 = NTSharedLog();
+    v16 = NTSharedLog(v15);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       v17 = [v15 count];
       v18 = [v7 count];
       *buf = 134218754;
-      v36 = v17;
-      v37 = 2112;
-      v38 = v15;
-      v39 = 2048;
-      v40 = v18;
-      v41 = 2112;
-      v42 = v7;
+      v35 = v17;
+      v36 = 2112;
+      v37 = v15;
+      v38 = 2048;
+      v39 = v18;
+      v40 = 2112;
+      v41 = v7;
       _os_log_impl(&dword_25BF21000, v16, OS_LOG_TYPE_INFO, "NTCatchUpOperation fetching headlines for articleListIDs (%lu): %@  articleIDs (%lu): %@", buf, 0x2Au);
     }
 
@@ -666,27 +659,25 @@ uint64_t __64__NTCatchUpOperation__fetchForYouResultsIfNeededWithCompletion___bl
     todayConfigOperationHeldRecordsByType = [(NTCatchUpOperation *)self todayConfigOperationHeldRecordsByType];
     [v20 setHeldRecordsByType:todayConfigOperationHeldRecordsByType];
 
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __82__NTCatchUpOperation__fetchArticleListAndArticleIDsResultsIfNeededWithCompletion___block_invoke_96;
-    v26[3] = &unk_279983048;
-    v27 = articleListRequests;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __82__NTCatchUpOperation__fetchArticleListAndArticleIDsResultsIfNeededWithCompletion___block_invoke_96;
+    v25[3] = &unk_279983048;
+    v26 = articleListRequests;
     selfCopy = self;
-    v29 = v8;
-    v30 = completionCopy;
-    [v20 setHeadlinesCompletionHandler:v26];
+    v28 = v8;
+    v29 = completionCopy;
+    [v20 setHeadlinesCompletionHandler:v25];
     [(FCOperation *)self associateChildOperation:v20];
     [v20 start];
 
-    articleIDsRequests = v25;
+    articleIDsRequests = v24;
   }
 
   else
   {
     (*(completionCopy + 2))(completionCopy, 0, 0, 0);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __82__NTCatchUpOperation__fetchArticleListAndArticleIDsResultsIfNeededWithCompletion___block_invoke_96(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -833,74 +824,57 @@ void __82__NTCatchUpOperation__fetchArticleListAndArticleIDsResultsIfNeededWithC
 
 - (void)addArticleListRequest:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "articleListRequest"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "articleListRequest", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)addArticleIDsRequest:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "articleIDsRequest"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "articleIDsRequest", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)addArticleIDsToExclude:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "articleIDs"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "articleIDs", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)validateOperation
 {
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Catch up operation must have a completion handler"];
+  v6 = 136315906;
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3_0(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)_fetchForYouResultsIfNeededWithCompletion:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "completion", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)_fetchArticleListAndArticleIDsResultsIfNeededWithCompletion:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "completion"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, "completion", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_25BF21000, MEMORY[0x277D86220], v1, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 @end

@@ -10,6 +10,7 @@
 - (void)didRecognizePartialResults:(id)results;
 - (void)setJitProfileData:(id)data;
 - (void)setLeftContextText:(id)text;
+- (void)setRecognitionReplacements:(BOOL)replacements;
 - (void)setUserProfileData:(id)data;
 @end
 
@@ -48,48 +49,48 @@
   self->_speechAnalyzerAudioBuffer = v9;
 
   v11 = self->_speechAnalyzerAudioBuffer;
-  v12 = RXOSLog();
-  v13 = v12;
+  v13 = RXOSLog(v12);
+  v14 = v13;
   if (v11)
   {
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_7;
+    }
+
+    v22 = 0;
+    v15 = "SpeechAnalyzerObjC transcriber initialized";
+    v16 = &v22;
+    v17 = v14;
+    v18 = OS_LOG_TYPE_DEFAULT;
+  }
+
+  else
+  {
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_7;
     }
 
     v21 = 0;
-    v14 = "SpeechAnalyzerObjC transcriber initialized";
-    v15 = &v21;
-    v16 = v13;
-    v17 = OS_LOG_TYPE_DEFAULT;
+    v15 = "SpeechAnalyzerObjC transcriber could not be initialized";
+    v16 = &v21;
+    v17 = v14;
+    v18 = OS_LOG_TYPE_ERROR;
   }
 
-  else
-  {
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_7;
-    }
-
-    v20 = 0;
-    v14 = "SpeechAnalyzerObjC transcriber could not be initialized";
-    v15 = &v20;
-    v16 = v13;
-    v17 = OS_LOG_TYPE_ERROR;
-  }
-
-  _os_log_impl(&_mh_execute_header, v16, v17, v14, v15, 2u);
+  _os_log_impl(&_mh_execute_header, v17, v18, v15, v16, 2u);
 LABEL_7:
 
-  v18 = self->_speechAnalyzerAudioBuffer;
+  v19 = self->_speechAnalyzerAudioBuffer;
 
-  return v18;
+  return v19;
 }
 
 - (void)didRecognizeFinalResults:(id)results
 {
   resultsCopy = results;
-  v5 = RXOSLog();
+  v5 = RXOSLog(resultsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *v6 = 0;
@@ -116,7 +117,7 @@ LABEL_7:
 - (void)didRecognizePartialResults:(id)results
 {
   resultsCopy = results;
-  v5 = RXOSLog();
+  v5 = RXOSLog(resultsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *v6 = 0;
@@ -131,7 +132,7 @@ LABEL_7:
 
 - (void)didFinishRecognitionWithError:(id)error
 {
-  v4 = RXOSLog();
+  v4 = RXOSLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *v6 = 0;
@@ -182,9 +183,16 @@ LABEL_7:
   [swiftSpeechAnalyzer setContextWithJitProfileData:dataCopy];
 }
 
+- (void)setRecognitionReplacements:(BOOL)replacements
+{
+  replacementsCopy = replacements;
+  speechAnalyzerAudioBuffer = [(RDSAPIObjCSpeechAnalyzer *)self speechAnalyzerAudioBuffer];
+  [speechAnalyzerAudioBuffer setRecognitionReplacements:replacementsCopy];
+}
+
 - (void)dealloc
 {
-  v3 = RXOSLog();
+  v3 = RXOSLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

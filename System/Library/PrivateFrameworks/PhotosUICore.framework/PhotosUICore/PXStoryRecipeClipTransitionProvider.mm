@@ -139,7 +139,7 @@ LABEL_24:
     v27 = v42;
     if (v32)
     {
-      [v32 motionInfo];
+      objc_msgSend_motionInfo(v32);
     }
 
     v49 = 0uLL;
@@ -152,14 +152,14 @@ LABEL_24:
 
     else if (v42)
     {
-      [v42 motionInfo];
+      objc_msgSend_motionInfo(v42);
     }
 
     v47 = v43;
     v48 = v44;
     v45 = v49;
     v46 = v50;
-    [(PXStoryRecipeClipTransitionProvider *)self _nextTransitionFromTable:v28 currentMotion:&v47 nextMotion:&v45];
+    objc_msgSend__nextTransitionFromTable_currentMotion_nextMotion_(self);
 
     goto LABEL_31;
   }
@@ -174,7 +174,7 @@ LABEL_3:
   retstr->var2 = 0u;
   memset(v6, 0, sizeof(v6));
   memset(v5, 0, sizeof(v5));
-  return [(PXStoryRecipeClipTransitionProvider *)self _nextTransitionFromTable:baseTransitionTable currentMotion:v6 nextMotion:v5];
+  return objc_msgSend__nextTransitionFromTable_currentMotion_nextMotion_(self, a3, baseTransitionTable, v6, v5);
 }
 
 - ($7B05257DCED3654557744F96476E9D8A)_nextTransitionFromTable:(SEL)table currentMotion:(id)motion nextMotion:(id *)nextMotion

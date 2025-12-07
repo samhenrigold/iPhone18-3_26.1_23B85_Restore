@@ -18,20 +18,20 @@
 - (_HKXPCConnection)initWithServiceName:(id)name
 {
   nameCopy = name;
-  v5 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithServiceName:nameCopy];
-  if (v5)
+  v6 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithServiceName:nameCopy];
+  if (v6)
   {
-    self = [(_HKXPCConnection *)self initWithUnderlyingConnection:v5];
+    self = [(_HKXPCConnection *)self initWithUnderlyingConnection:v6];
     selfCopy = self;
   }
 
   else
   {
-    _HKInitializeLogging();
-    v7 = HKLogDefault;
+    _HKInitializeLogging(0, v5);
+    v8 = HKLogDefault;
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
     {
-      [(_HKXPCConnection *)nameCopy initWithServiceName:v7];
+      [(_HKXPCConnection *)nameCopy initWithServiceName:v8];
     }
 
     selfCopy = 0;
@@ -43,20 +43,20 @@
 - (_HKXPCConnection)initWithMachServiceName:(id)name options:(unint64_t)options
 {
   nameCopy = name;
-  v7 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:nameCopy options:options];
-  if (v7)
+  v8 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:nameCopy options:options];
+  if (v8)
   {
-    self = [(_HKXPCConnection *)self initWithUnderlyingConnection:v7];
+    self = [(_HKXPCConnection *)self initWithUnderlyingConnection:v8];
     selfCopy = self;
   }
 
   else
   {
-    _HKInitializeLogging();
-    v9 = HKLogDefault;
+    _HKInitializeLogging(0, v7);
+    v10 = HKLogDefault;
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
     {
-      [(_HKXPCConnection *)nameCopy initWithServiceName:v9];
+      [(_HKXPCConnection *)nameCopy initWithServiceName:v10];
     }
 
     selfCopy = 0;
@@ -265,11 +265,10 @@
 
 - (void)initWithServiceName:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Could not establish connection with %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Could not establish connection with %@", &v2, 0xCu);
 }
 
 - (void)initWithListenerEndpoint:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

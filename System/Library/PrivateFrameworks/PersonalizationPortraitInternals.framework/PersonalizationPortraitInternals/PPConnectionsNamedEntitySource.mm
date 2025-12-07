@@ -8,14 +8,14 @@
 
 - (id)locationItemsWithCriteria:(id)criteria earliest:(id)earliest latest:(id)latest limit:(unint64_t)limit consumer:(unint64_t)consumer explanationSet:(id)set
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   criteriaCopy = criteria;
   earliestCopy = earliest;
   latestCopy = latest;
   setCopy = set;
   if ([criteriaCopy locationField] == 1)
   {
-    v58 = setCopy;
+    v57 = setCopy;
     v16 = objc_opt_new();
     v17 = objc_opt_new();
     v18 = objc_opt_new();
@@ -32,52 +32,52 @@
 
     [v18 setFromDate:earliestCopy];
     namedEntityStore = self->_namedEntityStore;
-    v78 = 0;
-    v73[0] = MEMORY[0x277D85DD0];
-    v73[1] = 3221225472;
-    v73[2] = __106__PPConnectionsNamedEntitySource_locationItemsWithCriteria_earliest_latest_limit_consumer_explanationSet___block_invoke;
-    v73[3] = &unk_278977E08;
-    v74 = criteriaCopy;
-    v62 = v17;
-    v75 = v62;
+    v77 = 0;
+    v72[0] = MEMORY[0x277D85DD0];
+    v72[1] = 3221225472;
+    v72[2] = __106__PPConnectionsNamedEntitySource_locationItemsWithCriteria_earliest_latest_limit_consumer_explanationSet___block_invoke;
+    v72[3] = &unk_278977E08;
+    v73 = criteriaCopy;
+    v61 = v17;
+    v74 = v61;
     selfCopy = self;
     v25 = v16;
-    v77 = v25;
-    v57 = v18;
-    LOBYTE(v16) = [(PPLocalNamedEntityStore *)namedEntityStore iterNamedEntityRecordsWithQuery:v18 error:&v78 block:v73];
-    v26 = v78;
-    v59 = v25;
-    v56 = v26;
+    v76 = v25;
+    v56 = v18;
+    LOBYTE(v16) = [(PPLocalNamedEntityStore *)namedEntityStore iterNamedEntityRecordsWithQuery:v18 error:&v77 block:v72];
+    v26 = v77;
+    v58 = v25;
+    v55 = v26;
     if (v16)
     {
-      v53 = latestCopy;
-      v54 = earliestCopy;
-      v55 = criteriaCopy;
-      v71 = 0u;
-      v72 = 0u;
-      v69 = 0u;
+      v52 = latestCopy;
+      v53 = earliestCopy;
+      v54 = criteriaCopy;
       v70 = 0u;
+      v71 = 0u;
+      v68 = 0u;
+      v69 = 0u;
       v27 = v25;
-      v28 = [v27 countByEnumeratingWithState:&v69 objects:v80 count:16];
-      v29 = v62;
+      v28 = [v27 countByEnumeratingWithState:&v68 objects:v79 count:16];
+      v29 = v61;
       if (v28)
       {
         v30 = v28;
-        v31 = *v70;
-        v60 = *v70;
-        v61 = v27;
+        v31 = *v69;
+        v59 = *v69;
+        v60 = v27;
         do
         {
           v32 = 0;
-          v63 = v30;
+          v62 = v30;
           do
           {
-            if (*v70 != v31)
+            if (*v69 != v31)
             {
               objc_enumerationMutation(v27);
             }
 
-            v33 = *(*(&v69 + 1) + 8 * v32);
+            v33 = *(*(&v68 + 1) + 8 * v32);
             v34 = objc_autoreleasePoolPush();
             documentID = [v33 documentID];
 
@@ -88,27 +88,27 @@
 
               if (v37)
               {
-                v67 = 0u;
-                v68 = 0u;
-                v65 = 0u;
                 v66 = 0u;
+                v67 = 0u;
+                v64 = 0u;
+                v65 = 0u;
                 v38 = v37;
-                v39 = [v38 countByEnumeratingWithState:&v65 objects:v79 count:16];
+                v39 = [v38 countByEnumeratingWithState:&v64 objects:v78 count:16];
                 if (v39)
                 {
                   v40 = v39;
-                  v64 = v34;
-                  v41 = *v66;
+                  v63 = v34;
+                  v41 = *v65;
                   while (2)
                   {
                     for (i = 0; i != v40; ++i)
                     {
-                      if (*v66 != v41)
+                      if (*v65 != v41)
                       {
                         objc_enumerationMutation(v38);
                       }
 
-                      v43 = *(*(&v65 + 1) + 8 * i);
+                      v43 = *(*(&v64 + 1) + 8 * i);
                       value = [v33 value];
                       v45 = [value containsString:v43];
 
@@ -120,7 +120,7 @@
                       }
                     }
 
-                    v40 = [v38 countByEnumeratingWithState:&v65 objects:v79 count:16];
+                    v40 = [v38 countByEnumeratingWithState:&v64 objects:v78 count:16];
                     if (v40)
                     {
                       continue;
@@ -130,11 +130,11 @@
                   }
 
 LABEL_20:
-                  v27 = v61;
-                  v29 = v62;
-                  v31 = v60;
-                  v30 = v63;
-                  v34 = v64;
+                  v27 = v60;
+                  v29 = v61;
+                  v31 = v59;
+                  v30 = v62;
+                  v34 = v63;
                 }
               }
 
@@ -145,7 +145,7 @@ LABEL_20:
                 {
                   originatingBundleID = [v33 originatingBundleID];
                   *buf = 138412290;
-                  v82 = originatingBundleID;
+                  v81 = originatingBundleID;
                   _os_log_impl(&dword_23224A000, v38, OS_LOG_TYPE_DEFAULT, "PPConnectionsNamedEntitySource found a full address from %@ with no corresponding street value", buf, 0xCu);
                 }
               }
@@ -156,17 +156,17 @@ LABEL_20:
           }
 
           while (v32 != v30);
-          v30 = [v27 countByEnumeratingWithState:&v69 objects:v80 count:16];
+          v30 = [v27 countByEnumeratingWithState:&v68 objects:v79 count:16];
         }
 
         while (v30);
       }
 
       v47 = [v27 sortedArrayUsingComparator:&__block_literal_global_22245];
-      earliestCopy = v54;
-      criteriaCopy = v55;
-      latestCopy = v53;
-      setCopy = v58;
+      earliestCopy = v53;
+      criteriaCopy = v54;
+      latestCopy = v52;
+      setCopy = v57;
     }
 
     else
@@ -176,38 +176,36 @@ LABEL_20:
       if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v82 = v49;
+        v81 = v49;
         _os_log_error_impl(&dword_23224A000, v50, OS_LOG_TYPE_ERROR, "PPConnectionsNamedEntitySource failed to load named entity records: %@", buf, 0xCu);
       }
 
       v47 = 0;
-      setCopy = v58;
-      v29 = v62;
+      setCopy = v57;
+      v29 = v61;
     }
   }
 
   else
   {
     v48 = pp_connections_log_handle();
-    v59 = v48;
+    v58 = v48;
     if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v82) = [criteriaCopy locationField];
+      LODWORD(v81) = [criteriaCopy locationField];
       _os_log_impl(&dword_23224A000, v48, OS_LOG_TYPE_DEFAULT, "PPConnectionsNamedEntitySource: ignoring query for %hhu", buf, 8u);
     }
 
     v47 = MEMORY[0x277CBEBF8];
   }
 
-  v51 = *MEMORY[0x277D85DE8];
-
   return v47;
 }
 
 void __106__PPConnectionsNamedEntitySource_locationItemsWithCriteria_earliest_latest_limit_consumer_explanationSet___block_invoke(uint64_t a1, void *a2)
 {
-  v81[1] = *MEMORY[0x277D85DE8];
+  v80[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 source];
   v5 = [v4 bundleId];
@@ -311,40 +309,40 @@ LABEL_4:
     [v31 setLifetime:v46];
 
     v47 = *(a1 + 48);
-    v66 = [v3 source];
-    v48 = [v66 documentId];
+    v65 = [v3 source];
+    v48 = [v65 documentId];
     v49 = [v3 source];
     v50 = [v49 bundleId];
     v51 = v48;
     v52 = v50;
     if (v47)
     {
-      v68 = 0;
-      v69 = &v68;
-      v70 = 0x3032000000;
-      v71 = __Block_byref_object_copy__22254;
-      v72 = __Block_byref_object_dispose__22255;
-      v73 = 0;
+      v67 = 0;
+      v68 = &v67;
+      v69 = 0x3032000000;
+      v70 = __Block_byref_object_copy__22254;
+      v71 = __Block_byref_object_dispose__22255;
+      v72 = 0;
       v53 = dispatch_semaphore_create(0);
       v54 = [MEMORY[0x277CC34A8] defaultSearchableIndex];
-      v81[0] = *MEMORY[0x277CC24B0];
-      v55 = [MEMORY[0x277CBEA60] arrayWithObjects:v81 count:1];
-      v80 = v51;
-      v56 = [MEMORY[0x277CBEA60] arrayWithObjects:&v80 count:1];
+      v80[0] = *MEMORY[0x277CC24B0];
+      v55 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:1];
+      v79 = v51;
+      v56 = [MEMORY[0x277CBEA60] arrayWithObjects:&v79 count:1];
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v75 = __96__PPConnectionsNamedEntitySource__authorHandleForDocumentWithUniqueIdentifier_bundleIdentifier___block_invoke;
-      v76 = &unk_278978170;
-      v77 = v51;
-      v79 = &v68;
+      v74 = __96__PPConnectionsNamedEntitySource__authorHandleForDocumentWithUniqueIdentifier_bundleIdentifier___block_invoke;
+      v75 = &unk_278978170;
+      v76 = v51;
+      v78 = &v67;
       v57 = v53;
-      v78 = v57;
+      v77 = v57;
       [v54 slowFetchAttributes:v55 protectionClass:0 bundleID:v52 identifiers:v56 completionHandler:&buf];
 
       dispatch_semaphore_wait(v57, 0xFFFFFFFFFFFFFFFFLL);
-      v58 = v69[5];
+      v58 = v68[5];
 
-      _Block_object_dispose(&v68, 8);
+      _Block_object_dispose(&v67, 8);
     }
 
     else
@@ -355,9 +353,9 @@ LABEL_4:
     [v31 setAuthorHandle:v58];
     v59 = *(*(a1 + 48) + 24);
     v60 = [v3 source];
-    v67 = 0;
-    v61 = [v59 contactHandlesForSource:v60 error:&v67];
-    v62 = v67;
+    v66 = 0;
+    v61 = [v59 contactHandlesForSource:v60 error:&v66];
+    v62 = v66;
     [v31 setContactHandles:v61];
 
     v63 = [v31 contactHandles];
@@ -378,8 +376,6 @@ LABEL_4:
   }
 
 LABEL_20:
-
-  v65 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __106__PPConnectionsNamedEntitySource_locationItemsWithCriteria_earliest_latest_limit_consumer_explanationSet___block_invoke_20(uint64_t a1, void *a2, void *a3)
@@ -394,18 +390,18 @@ uint64_t __106__PPConnectionsNamedEntitySource_locationItemsWithCriteria_earlies
 
 void __96__PPConnectionsNamedEntitySource__authorHandleForDocumentWithUniqueIdentifier_bundleIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = pp_connections_log_handle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [v3 count];
     v6 = *(a1 + 32);
-    v20 = 134218242;
-    v21 = v5;
-    v22 = 2112;
-    v23 = v6;
-    _os_log_impl(&dword_23224A000, v4, OS_LOG_TYPE_DEFAULT, "PPConnectionsNamedEntitySource: Spotlight returned %tu attribute values for %@", &v20, 0x16u);
+    v19 = 134218242;
+    v20 = v5;
+    v21 = 2112;
+    v22 = v6;
+    _os_log_impl(&dword_23224A000, v4, OS_LOG_TYPE_DEFAULT, "PPConnectionsNamedEntitySource: Spotlight returned %tu attribute values for %@", &v19, 0x16u);
   }
 
   v7 = [v3 firstObject];
@@ -420,9 +416,9 @@ void __96__PPConnectionsNamedEntitySource__authorHandleForDocumentWithUniqueIden
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v17 = *(a1 + 32);
-        v20 = 138412290;
-        v21 = v17;
-        _os_log_impl(&dword_23224A000, v9, OS_LOG_TYPE_DEFAULT, "PPConnectionsNamedEntitySource: Spotlight returned unexpected data for %@", &v20, 0xCu);
+        v19 = 138412290;
+        v20 = v17;
+        _os_log_impl(&dword_23224A000, v9, OS_LOG_TYPE_DEFAULT, "PPConnectionsNamedEntitySource: Spotlight returned unexpected data for %@", &v19, 0xCu);
       }
 
       goto LABEL_16;
@@ -438,15 +434,15 @@ void __96__PPConnectionsNamedEntitySource__authorHandleForDocumentWithUniqueIden
       {
         v11 = [*(*(*(a1 + 48) + 8) + 40) length];
         v12 = *(a1 + 32);
-        v20 = 134218242;
-        v21 = v11;
-        v22 = 2112;
-        v23 = v12;
+        v19 = 134218242;
+        v20 = v11;
+        v21 = 2112;
+        v22 = v12;
         v13 = "PPConnectionsNamedEntitySource: found author handle length %tu for %@";
         v14 = v10;
         v15 = 22;
 LABEL_14:
-        _os_log_impl(&dword_23224A000, v14, OS_LOG_TYPE_DEFAULT, v13, &v20, v15);
+        _os_log_impl(&dword_23224A000, v14, OS_LOG_TYPE_DEFAULT, v13, &v19, v15);
       }
     }
 
@@ -456,8 +452,8 @@ LABEL_14:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         v18 = *(a1 + 32);
-        v20 = 138412290;
-        v21 = v18;
+        v19 = 138412290;
+        v20 = v18;
         v13 = "PPConnectionsNamedEntitySource: Spotlight returned unexpected data for %@";
         v14 = v10;
         v15 = 12;
@@ -473,15 +469,14 @@ LABEL_16:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v16 = *(a1 + 32);
-    v20 = 138412290;
-    v21 = v16;
-    _os_log_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEFAULT, "PPConnectionsNamedEntitySource: Spotlight returned unexpected data for %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = v16;
+    _os_log_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEFAULT, "PPConnectionsNamedEntitySource: Spotlight returned unexpected data for %@", &v19, 0xCu);
   }
 
 LABEL_17:
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (PPConnectionsNamedEntitySource)initWithNamedEntityStore:(id)store contactStore:(id)contactStore

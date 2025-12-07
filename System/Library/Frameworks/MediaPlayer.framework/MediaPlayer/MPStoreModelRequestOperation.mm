@@ -275,7 +275,7 @@ void __87__MPStoreModelRequestOperation__executeURLLoadWithRequests_storeURLBag_
   _Block_object_dispose(&v27, 8);
 }
 
-uint64_t __87__MPStoreModelRequestOperation__executeURLLoadWithRequests_storeURLBag_requestContext___block_invoke_4(uint64_t a1)
+void *__87__MPStoreModelRequestOperation__executeURLLoadWithRequests_storeURLBag_requestContext___block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -438,7 +438,7 @@ void __58__MPStoreModelRequestOperation__finishWithResponse_error___block_invoke
   return v5;
 }
 
-uint64_t __53__MPStoreModelRequestOperation_remainingTimeInterval__block_invoke(void *a1)
+void *__53__MPStoreModelRequestOperation_remainingTimeInterval__block_invoke(void *a1)
 {
   *(*(a1[5] + 8) + 24) = *(a1[4] + 296);
   v2 = a1[4];

@@ -116,12 +116,12 @@ uint64_t __46__PKCalendarIconView_initWithDate_isDisabled___block_invoke()
   v3.super_class = PKCalendarIconView;
   [(PKCalendarIconView *)&v3 layoutSubviews];
   [(PKCalendarIconView *)self bounds];
-  [(PKCalendarIconView *)self _layoutWithBounds:0 isTemplateLayout:?];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  [(PKCalendarIconView *)self _layoutWithBounds:1 isTemplateLayout:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self, a2, 1, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height);
   result.height = v4;
   result.width = v3;
   return result;

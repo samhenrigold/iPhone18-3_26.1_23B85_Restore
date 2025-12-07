@@ -1,15 +1,13 @@
 BOOL isFsType(int a1, const char *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  bzero(&v6, 0x878uLL);
-  result = !fstatfs(a1, &v6) && !strcmp(v6.f_fstypename, a2);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = *MEMORY[0x277D85DE8];
+  bzero(&v5, 0x878uLL);
+  return !fstatfs(a1, &v5) && !strcmp(v5.f_fstypename, a2);
 }
 
 void _MDItemSetPrivateAttributesForURL(const __CFURL *a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = objc_autoreleasePoolPush();
   v7 = +[MDPrivateXattrServices defaultServices];
@@ -35,11 +33,11 @@ LABEL_8:
   v8 = open(buffer, 2);
   if ((v8 & 0x80000000) != 0)
   {
-    v18 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v19 = *MEMORY[0x277CCA5B8];
+    v17 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v18 = *MEMORY[0x277CCA5B8];
     v15 = *__error();
-    v13 = v18;
-    v14 = v19;
+    v13 = v17;
+    v14 = v18;
     goto LABEL_8;
   }
 
@@ -57,8 +55,6 @@ LABEL_8:
 
 LABEL_9:
   objc_autoreleasePoolPop(v6);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 id copyConnection()
@@ -176,21 +172,21 @@ void _MDItemDecrypt(uint64_t a1, void *a2)
 
 void _MDItemFetchPrivateAttributesForURL(const __CFURL *a1, void *a2)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _MDItemCopyXattrsForURL(a1);
   v5 = [(__CFString *)v4 objectForKey:@"_kMDItemEncryptedData"];
   v6 = v5;
   if (v5)
   {
-    v13[0] = v5;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = ___MDItemFetchPrivateAttributesForURL_block_invoke;
-    v11[3] = &unk_278D63398;
-    v12 = v3;
-    _MDItemDecrypt(v7, v11);
+    v12[0] = v5;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = ___MDItemFetchPrivateAttributesForURL_block_invoke;
+    v10[3] = &unk_278D63398;
+    v11 = v3;
+    _MDItemDecrypt(v7, v10);
   }
 
   else
@@ -200,8 +196,6 @@ void _MDItemFetchPrivateAttributesForURL(const __CFURL *a1, void *a2)
     (*(v3 + 2))(v3, v9, 0);
     CFRelease(v9);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 const __CFNumber *MDFSOnlyMDNumberGetInt64(const __CFNumber *result)
@@ -240,9 +234,9 @@ const __CFNumber *MDFSOnlyMDNumberGetBool(const __CFNumber *result)
   return result;
 }
 
-uint64_t MDCopyDecodedXattrFromData(void *a1, CFTypeRef cf)
+void *MDCopyDecodedXattrFromData(void *a1, CFTypeRef cf)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277CBEEE8];
   result = *MEMORY[0x277CBEEE8];
   if (*MEMORY[0x277CBEEE8] == cf)
@@ -250,7 +244,7 @@ uint64_t MDCopyDecodedXattrFromData(void *a1, CFTypeRef cf)
 LABEL_4:
     if (result)
     {
-      goto LABEL_37;
+      return result;
     }
 
     goto LABEL_5;
@@ -266,8 +260,7 @@ LABEL_4:
 LABEL_5:
   if (![a1 isEqualToString:@"com.apple.metadata:_kMDItemUserTags"])
   {
-    result = 0;
-    goto LABEL_37;
+    return 0;
   }
 
   if (MDCopyDecodedXattrFromData_onceToken != -1)
@@ -275,34 +268,52 @@ LABEL_5:
     MDCopyDecodedXattrFromData_cold_1();
   }
 
-  v28 = 0;
-  v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:MDCopyDecodedXattrFromData_sUserTagsUnarchiveValidClasses fromData:cf error:&v28];
-  v8 = v28;
-  if (v28)
+  v26 = 0;
+  v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:MDCopyDecodedXattrFromData_sUserTagsUnarchiveValidClasses fromData:cf error:&v26];
+  v8 = v26;
+  if (v26)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v30 = v8;
-      v31 = 2112;
-      v32 = a1;
+      v28 = v8;
+      v29 = 2112;
+      v30 = a1;
       _os_log_impl(&dword_242636000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Decoding error: %@ for %@", buf, 0x16u);
     }
 
-    goto LABEL_36;
+    return v4;
   }
 
   v9 = v7;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || ![objc_msgSend(v9 objectForKeyedSubscript:{@"v", "isEqual:", &unk_2854F4FC8}] || (v10 = objc_msgSend(v9, "objectForKeyedSubscript:", @"t"), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (v11 = objc_msgSend(v10, "count"), v12 = v11, v11 > 99))
+  if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v4 = 0;
-    goto LABEL_36;
+    return 0;
+  }
+
+  if (![objc_msgSend(v9 objectForKeyedSubscript:{@"v", "isEqual:", &unk_2854F4FC8}])
+  {
+    return 0;
+  }
+
+  v10 = [v9 objectForKeyedSubscript:@"t"];
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    return 0;
+  }
+
+  v11 = [v10 count];
+  v12 = v11;
+  if (v11 > 99)
+  {
+    return 0;
   }
 
   v13 = 8 * v11;
-  (MEMORY[0x28223BE20])();
-  v14 = (&v27 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x28223BE20](v11);
+  v14 = (&v25 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
   bzero(v14, 8 * v12);
   v15 = [v10 getObjects:v14 range:{0, v12}];
   MEMORY[0x28223BE20](v15);
@@ -310,16 +321,15 @@ LABEL_5:
   bzero(v14, 8 * v12);
   if (v12 < 1)
   {
-    goto LABEL_38;
+    return 0;
   }
 
   v17 = 0;
   do
   {
-    v18 = *v14;
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
-    v20 = *v14;
+    v19 = *v14;
     if ((isKindOfClass & 1) == 0)
     {
       objc_opt_class();
@@ -328,51 +338,51 @@ LABEL_5:
         goto LABEL_32;
       }
 
-      v23 = *v14;
+      v22 = *v14;
       goto LABEL_31;
     }
 
-    v21 = [*v14 count];
-    if (v21 == 2)
+    v20 = [*v14 count];
+    if (v20 == 2)
     {
-      [v20 objectAtIndexedSubscript:0];
+      [v19 objectAtIndexedSubscript:0];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         goto LABEL_32;
       }
 
-      v23 = [v20 objectAtIndexedSubscript:0];
-      v24 = [v20 objectAtIndexedSubscript:1];
+      v22 = [v19 objectAtIndexedSubscript:0];
+      v23 = [v19 objectAtIndexedSubscript:1];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v25 = [v24 intValue];
-        if ((v25 - 1) <= 6)
+        v24 = [v23 intValue];
+        if ((v24 - 1) <= 6)
         {
-          v22 = [v23 stringByAppendingFormat:@"\n%d", v25];
+          v21 = [v22 stringByAppendingFormat:@"\n%d", v24];
 LABEL_23:
-          v23 = v22;
+          v22 = v21;
         }
       }
 
-      if (!v23)
+      if (!v22)
       {
         goto LABEL_32;
       }
 
 LABEL_31:
-      v16[v17++] = v23;
+      v16[v17++] = v22;
       goto LABEL_32;
     }
 
-    if (v21 == 1)
+    if (v20 == 1)
     {
-      [v20 objectAtIndexedSubscript:0];
+      [v19 objectAtIndexedSubscript:0];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v22 = [v20 objectAtIndexedSubscript:0];
+        v21 = [v19 objectAtIndexedSubscript:0];
         goto LABEL_23;
       }
     }
@@ -385,17 +395,10 @@ LABEL_32:
   while (v12);
   if (v17 > 0)
   {
-    v4 = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:v16 count:v17];
-    goto LABEL_36;
+    return [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:v16 count:v17];
   }
 
-LABEL_38:
-  v4 = 0;
-LABEL_36:
-  result = v4;
-LABEL_37:
-  v26 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 void sub_24263815C(void *exc_buf, int a2)
@@ -425,7 +428,7 @@ void sub_2426381C0(_Unwind_Exception *a1, int a2)
   sub_242638150(a1);
 }
 
-uint64_t __MDCopyDecodedXattrFromData_block_invoke()
+void *__MDCopyDecodedXattrFromData_block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x277CBEB98]);
   v1 = objc_opt_class();
@@ -436,13 +439,13 @@ uint64_t __MDCopyDecodedXattrFromData_block_invoke()
   return result;
 }
 
-uint64_t MDFSOnlyCopyExtendedAttributesFromFd(uint64_t a1)
+void *MDFSOnlyCopyExtendedAttributesFromFd(uint64_t a1)
 {
   v1 = MEMORY[0x28223BE20](a1);
   v3 = v2;
   v5 = v4;
   v6 = v1;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = value;
   bzero(value, 0x1000uLL);
   v8 = fgetxattr(v6, v5, value, 0x1000uLL, 0, 0);
@@ -450,8 +453,7 @@ uint64_t MDFSOnlyCopyExtendedAttributesFromFd(uint64_t a1)
   {
     if (*__error() != 34)
     {
-      v10 = 0;
-      goto LABEL_12;
+      return 0;
     }
 
     v9 = fgetxattr(v6, v5, 0, 0, 0, 0);
@@ -479,10 +481,10 @@ LABEL_8:
       goto LABEL_9;
     }
 
-    v16 = *v7;
-    if ((v16 - 241) >= 2)
+    v15 = *v7;
+    if ((v15 - 241) >= 2)
     {
-      if (v16 != 129)
+      if (v15 != 129)
       {
         goto LABEL_8;
       }
@@ -517,18 +519,16 @@ LABEL_9:
     free(v7);
   }
 
-LABEL_12:
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
-__CFDictionary *MDFSOnlyMDCopyXattrsDictionaryForFD(uint64_t a1)
+CFMutableDictionaryRef MDFSOnlyMDCopyXattrsDictionaryForFD(uint64_t a1)
 {
   v1 = MEMORY[0x28223BE20](a1);
   v3 = v2;
   v5 = v4;
   v6 = v1;
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v7 = namebuff;
   bzero(namebuff, 0x1000uLL);
   v8 = flistxattr(v6, namebuff, 0x1000uLL, 0);
@@ -536,16 +536,20 @@ __CFDictionary *MDFSOnlyMDCopyXattrsDictionaryForFD(uint64_t a1)
   {
     if (*__error() != 34)
     {
-      Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      goto LABEL_65;
+      return CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     }
 
     v9 = flistxattr(v6, 0, 0, 0);
     v39 = malloc_type_malloc(v9, 0x7C8DE1E7uLL);
-    if (!v39 || (v7 = v39, flistxattr(v6, v39, v9, 0) < 0))
+    if (!v39)
     {
-      Mutable = 0;
-      goto LABEL_65;
+      return 0;
+    }
+
+    v7 = v39;
+    if (flistxattr(v6, v39, v9, 0) < 0)
+    {
+      return 0;
     }
   }
 
@@ -558,13 +562,13 @@ __CFDictionary *MDFSOnlyMDCopyXattrsDictionaryForFD(uint64_t a1)
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (v9 >= 1)
   {
-    v42 = v3;
+    v41 = v3;
     __s1 = v7;
     v12 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:&kMDLabelPrivateXattrUUIDBytes];
     v13 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v12, 0}];
 
-    v44 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v43 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v42 = objc_alloc_init(MEMORY[0x277CBEB18]);
     if (v9 >= 3)
     {
       v14 = *MEMORY[0x277CBECD0];
@@ -600,8 +604,8 @@ LABEL_32:
               {
                 bzero(&value, 0x400uLL);
                 snprintf(&value, 0x400uLL, "%s.%s", "com.apple.metadata", v15 + 28);
-                [v43 addObject:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", &value)}];
-                [v44 addObject:v19];
+                [v42 addObject:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithUTF8String:", &value)}];
+                [v43 addObject:v19];
               }
 
               if (!v19)
@@ -635,8 +639,8 @@ LABEL_32:
           if (!strcmp(v15, "com.apple.lastuseddate#PS"))
           {
             value = 0;
+            v55 = 0;
             v56 = 0;
-            v57 = 0;
             if (v6 == -1)
             {
               goto LABEL_45;
@@ -654,7 +658,7 @@ LABEL_45:
 
               if (value)
               {
-                v19 = CFDateCreate(v10, v56 / 1000000000.0 + value - v14);
+                v19 = CFDateCreate(v10, v55 / 1000000000.0 + value - v14);
                 v20 = Mutable;
                 v21 = @"kMDItemLastUsedDate";
 LABEL_30:
@@ -739,9 +743,9 @@ LABEL_46:
       while (v9 > 2);
     }
 
-    if ([v43 count])
+    if ([v42 count])
     {
-      if (v42)
+      if (v41)
       {
         v31 = _MDPlistContainerCreateMutable();
         _MDPlistContainerBeginContainer();
@@ -750,29 +754,29 @@ LABEL_46:
         _MDPlistContainerAddObject();
         _MDPlistContainerAddCString();
         _MDPlistContainerBeginArray();
-        v48 = 0u;
-        v49 = 0u;
-        v46 = 0u;
         v47 = 0u;
-        v32 = [v13 countByEnumeratingWithState:&v46 objects:v54 count:16];
+        v48 = 0u;
+        v45 = 0u;
+        v46 = 0u;
+        v32 = [v13 countByEnumeratingWithState:&v45 objects:v53 count:16];
         if (v32)
         {
           v33 = v32;
-          v34 = *v47;
+          v34 = *v46;
           do
           {
             for (i = 0; i != v33; ++i)
             {
-              if (*v47 != v34)
+              if (*v46 != v34)
               {
                 objc_enumerationMutation(v13);
               }
 
-              [*(*(&v46 + 1) + 8 * i) UUIDString];
+              [*(*(&v45 + 1) + 8 * i) UUIDString];
               _MDPlistContainerAddObject();
             }
 
-            v33 = [v13 countByEnumeratingWithState:&v46 objects:v54 count:16];
+            v33 = [v13 countByEnumeratingWithState:&v45 objects:v53 count:16];
           }
 
           while (v33);
@@ -793,13 +797,13 @@ LABEL_46:
 
       else
       {
-        v52[0] = @"xids";
-        v52[1] = @"uuids";
-        v53[0] = v43;
-        v53[1] = v13;
-        v52[2] = @"datas";
-        v53[2] = v44;
-        CFDictionarySetValue(Mutable, @"_kMDItemEncryptedDataDictionary", [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:3]);
+        v51[0] = @"xids";
+        v51[1] = @"uuids";
+        v52[0] = v42;
+        v52[1] = v13;
+        v51[2] = @"datas";
+        v52[2] = v43;
+        CFDictionarySetValue(Mutable, @"_kMDItemEncryptedDataDictionary", [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:3]);
       }
     }
 
@@ -809,12 +813,10 @@ LABEL_46:
     }
   }
 
-LABEL_65:
-  v40 = *MEMORY[0x277D85DE8];
   return Mutable;
 }
 
-__CFDictionary *MDFSOnlyMDCopyXattrsDictionary(const char *a1)
+CFMutableDictionaryRef MDFSOnlyMDCopyXattrsDictionary(const char *a1)
 {
   v1 = open(a1, 33024);
   if (v1 == -1)
@@ -877,22 +879,22 @@ LABEL_5:
   }
 }
 
-void sub_242639710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_242639710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 CFDataRef _copyCryptedDataWithKey(CCOperation a1, const void *a2, size_t a3, void *a4, int a5, int a6)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dataOutAvailable = a3 + 16;
   v13 = [objc_alloc(MEMORY[0x277CBEB28]) initWithCapacity:a3 + 16];
   length = 0;
   iv[0] = a5;
   iv[1] = a6;
-  v23 = 0;
+  v22 = 0;
   v14 = CCCrypt(a1, 0, 1u, [a4 bytes], objc_msgSend(a4, "length"), iv, a2, a3, objc_msgSend(v13, "bytes"), dataOutAvailable, &length);
   if (v14)
   {
@@ -912,14 +914,14 @@ CFDataRef _copyCryptedDataWithKey(CCOperation a1, const void *a2, size_t a3, voi
     v16 = CFDataCreate(v17, v18, length);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 unint64_t _MDLabelUUIDEncode(unint64_t result, unint64_t a2, uint64_t a3)
@@ -953,7 +955,7 @@ unint64_t _MDLabelUUIDEncode(unint64_t result, unint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t _MDPrivateXattrUUIDsGetter()
+uint64_t _MDPrivateXattrUUIDsGetter(uint64_t a1, uint64_t a2)
 {
   if (_MDPrivateXattrUUIDsGetter_once != -1)
   {
@@ -983,27 +985,27 @@ uint64_t __MDLabelGetTypeID_block_invoke()
 uint64_t copyUpdatedData(uint64_t a1)
 {
   v1 = MEMORY[0x28223BE20](a1);
-  v153 = v2;
-  v154 = v3;
+  v151 = v2;
+  v152 = v3;
   v5 = v4;
   v7 = v6;
   v9 = v8;
   v11 = v10;
   v13 = v12;
   v14 = v1;
-  v194 = *MEMORY[0x277D85DE8];
+  v192 = *MEMORY[0x277D85DE8];
   v15 = [v10 objectForKey:@"keys"];
   v16 = [v11 objectForKey:@"values"];
-  v164 = 0;
+  v162 = 0;
   if (v13)
   {
     v17 = [+[MDPrivateXattrServices defaultServices](MDPrivateXattrServices "defaultServices")];
     if ([v17 count])
     {
       v18 = objc_alloc(MEMORY[0x277CBEB38]);
-      v186[0] = [v17 allKeys];
-      v186[1] = [v17 allValues];
-      v19 = [v18 initWithObjects:objc_msgSend(MEMORY[0x277CBEA60] forKeys:{"arrayWithObjects:count:", v186, 2), &unk_2854F4FE0}];
+      v184[0] = [v17 allKeys];
+      v184[1] = [v17 allValues];
+      v19 = [v18 initWithObjects:objc_msgSend(MEMORY[0x277CBEA60] forKeys:{"arrayWithObjects:count:", v184, 2), &unk_2854F4FE0}];
 
       if (v19)
       {
@@ -1020,12 +1022,12 @@ uint64_t copyUpdatedData(uint64_t a1)
 LABEL_7:
   v20 = [+[MDKeyRing defaultKeyRing](MDKeyRing "defaultKeyRing")];
   v21 = [v11 objectForKey:@"uuid"];
-  v157 = v20;
-  v155 = v9;
+  v155 = v20;
+  v153 = v9;
   if (!v9)
   {
-    v72 = [v19 objectForKey:@"uuid"];
-    if (!v72 || ![v21 isEqual:v72])
+    v71 = [v19 objectForKey:@"uuid"];
+    if (!v71 || ![v21 isEqual:v71])
     {
       goto LABEL_84;
     }
@@ -1051,47 +1053,47 @@ LABEL_83:
     goto LABEL_83;
   }
 
-  v150 = v19;
+  v148 = v19;
   v23 = [v22 objectForKey:@"keys"];
-  v151 = [v22 objectForKey:@"values"];
-  v149 = [v22 objectForKey:@"mod_date"];
+  v149 = [v22 objectForKey:@"values"];
+  v147 = [v22 objectForKey:@"mod_date"];
   if (![v15 count])
   {
     goto LABEL_143;
   }
 
   v24 = [v23 count];
-  if (v24 != [v151 count] || !objc_msgSend(v23, "count"))
+  if (v24 != [v149 count] || !objc_msgSend(v23, "count"))
   {
     goto LABEL_143;
   }
 
-  v142 = v21;
-  v143 = v11;
-  v144 = v14;
-  v158 = v22;
-  v147 = v23;
-  v25 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjects:v151 forKeys:v23];
+  v140 = v21;
+  v141 = v11;
+  v142 = v14;
+  v156 = v22;
+  v145 = v23;
+  v25 = [objc_alloc(MEMORY[0x277CBEB38]) initWithObjects:v149 forKeys:v23];
+  v179 = 0u;
+  v180 = 0u;
   v181 = 0u;
   v182 = 0u;
-  v183 = 0u;
-  v184 = 0u;
-  v26 = [v15 countByEnumeratingWithState:&v181 objects:v193 count:16];
+  v26 = [v15 countByEnumeratingWithState:&v179 objects:v191 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v182;
+    v28 = *v180;
     v29 = -1;
 LABEL_17:
     v30 = 0;
     while (1)
     {
-      if (*v182 != v28)
+      if (*v180 != v28)
       {
         objc_enumerationMutation(v15);
       }
 
-      v31 = [v25 objectForKeyedSubscript:*(*(&v181 + 1) + 8 * v30)];
+      v31 = [v25 objectForKeyedSubscript:*(*(&v179 + 1) + 8 * v30)];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -1115,7 +1117,7 @@ LABEL_17:
 
       if (v27 == ++v30)
       {
-        v27 = [v15 countByEnumeratingWithState:&v181 objects:v193 count:16];
+        v27 = [v15 countByEnumeratingWithState:&v179 objects:v191 count:16];
         if (v27)
         {
           goto LABEL_17;
@@ -1127,25 +1129,24 @@ LABEL_17:
   }
 
   v33 = [v25 objectForKeyedSubscript:{objc_msgSend(v15, "objectAtIndexedSubscript:", 0)}];
+  v175 = 0u;
+  v176 = 0u;
   v177 = 0u;
   v178 = 0u;
-  v179 = 0u;
-  v180 = 0u;
-  v34 = [v33 countByEnumeratingWithState:&v177 objects:v191 count:16];
+  v34 = [v33 countByEnumeratingWithState:&v175 objects:v189 count:16];
   if (v34)
   {
     v35 = v34;
-    v36 = *v178;
+    v36 = *v176;
 LABEL_29:
     v37 = 0;
     while (1)
     {
-      if (*v178 != v36)
+      if (*v176 != v36)
       {
         objc_enumerationMutation(v33);
       }
 
-      v38 = *(*(&v177 + 1) + 8 * v37);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -1154,7 +1155,7 @@ LABEL_29:
 
       if (v35 == ++v37)
       {
-        v35 = [v33 countByEnumeratingWithState:&v177 objects:v191 count:16];
+        v35 = [v33 countByEnumeratingWithState:&v175 objects:v189 count:16];
         if (v35)
         {
           goto LABEL_29;
@@ -1166,210 +1167,210 @@ LABEL_29:
 
 LABEL_142:
 
-    v22 = v158;
-    v11 = v143;
-    v14 = v144;
-    v21 = v142;
+    v22 = v156;
+    v11 = v141;
+    v14 = v142;
+    v21 = v140;
     goto LABEL_143;
   }
 
 LABEL_35:
-  v140 = v5;
-  v141 = [MEMORY[0x277CBEA80] calendarWithIdentifier:*MEMORY[0x277CBE5C0]];
-  v39 = [v33 count];
-  v146 = [v33 lastObject];
-  v148 = [MEMORY[0x277CBEB58] set];
-  v40 = [MEMORY[0x277CBEB38] dictionary];
-  if (v39)
+  v138 = v5;
+  v139 = [MEMORY[0x277CBEA80] calendarWithIdentifier:*MEMORY[0x277CBE5C0]];
+  v38 = [v33 count];
+  v144 = [v33 lastObject];
+  v146 = [MEMORY[0x277CBEB58] set];
+  v39 = [MEMORY[0x277CBEB38] dictionary];
+  if (v38)
   {
-    v145 = v33;
+    v143 = v33;
     do
     {
-      v41 = [v33 objectAtIndexedSubscript:--v39];
-      [v146 timeIntervalSinceDate:v41];
-      if (v42 > 0.0)
+      v40 = [v33 objectAtIndexedSubscript:--v38];
+      [v144 timeIntervalSinceDate:v40];
+      if (v41 > 0.0)
       {
-        if (v42 >= *"")
+        if (v41 >= *"")
         {
-          if (v42 >= 2678400.0)
+          if (v41 >= 2678400.0)
           {
-            if (v42 >= 94867200.0)
+            if (v41 >= 94867200.0)
             {
-              v43 = 4;
+              v42 = 4;
             }
 
             else
             {
-              v43 = 12;
+              v42 = 12;
             }
           }
 
           else
           {
-            v43 = 28;
+            v42 = 28;
           }
         }
 
         else
         {
-          v43 = 60;
+          v42 = 60;
         }
 
-        v41 = [v141 dateFromComponents:{objc_msgSend(v141, "components:fromDate:", v43, v41)}];
+        v40 = [v139 dateFromComponents:{objc_msgSend(v139, "components:fromDate:", v42, v40)}];
       }
 
-      v44 = [MEMORY[0x277CBEB38] dictionary];
+      v43 = [MEMORY[0x277CBEB38] dictionary];
+      v171 = 0u;
+      v172 = 0u;
       v173 = 0u;
       v174 = 0u;
-      v175 = 0u;
-      v176 = 0u;
-      v45 = [v15 countByEnumeratingWithState:&v173 objects:&v189 count:16];
-      if (v45)
+      v44 = [v15 countByEnumeratingWithState:&v171 objects:&v187 count:16];
+      if (v44)
       {
-        v46 = v45;
-        v47 = *v174;
+        v45 = v44;
+        v46 = *v172;
         do
         {
-          for (i = 0; i != v46; ++i)
+          for (i = 0; i != v45; ++i)
           {
-            if (*v174 != v47)
+            if (*v172 != v46)
             {
               objc_enumerationMutation(v15);
             }
 
-            v49 = *(*(&v173 + 1) + 8 * i);
-            v50 = [v15 objectAtIndexedSubscript:0];
-            v51 = v41;
-            if (v49 != v50)
+            v48 = *(*(&v171 + 1) + 8 * i);
+            v49 = [v15 objectAtIndexedSubscript:0];
+            v50 = v40;
+            if (v48 != v49)
             {
-              v51 = [objc_msgSend(v25 objectForKeyedSubscript:{v49), "objectAtIndexedSubscript:", v39}];
+              v50 = [objc_msgSend(v25 objectForKeyedSubscript:{v48), "objectAtIndexedSubscript:", v38}];
             }
 
-            [v44 setObject:v51 forKeyedSubscript:v49];
+            [v43 setObject:v50 forKeyedSubscript:v48];
           }
 
-          v46 = [v15 countByEnumeratingWithState:&v173 objects:&v189 count:16];
+          v45 = [v15 countByEnumeratingWithState:&v171 objects:&v187 count:16];
         }
 
-        while (v46);
+        while (v45);
       }
 
-      if (([v148 containsObject:v44] & 1) == 0)
+      if (([v146 containsObject:v43] & 1) == 0)
       {
-        [v148 addObject:v44];
-        v171 = 0u;
-        v172 = 0u;
+        [v146 addObject:v43];
         v169 = 0u;
         v170 = 0u;
-        v52 = [v15 countByEnumeratingWithState:&v169 objects:v188 count:16];
-        if (v52)
+        v167 = 0u;
+        v168 = 0u;
+        v51 = [v15 countByEnumeratingWithState:&v167 objects:v186 count:16];
+        if (v51)
         {
-          v53 = v52;
-          v54 = *v170;
+          v52 = v51;
+          v53 = *v168;
           do
           {
-            for (j = 0; j != v53; ++j)
+            for (j = 0; j != v52; ++j)
             {
-              if (*v170 != v54)
+              if (*v168 != v53)
               {
                 objc_enumerationMutation(v15);
               }
 
-              v56 = *(*(&v169 + 1) + 8 * j);
-              v57 = [v40 objectForKeyedSubscript:v56];
-              if (!v57)
+              v55 = *(*(&v167 + 1) + 8 * j);
+              v56 = [v39 objectForKeyedSubscript:v55];
+              if (!v56)
               {
-                v57 = [MEMORY[0x277CBEB18] array];
-                [v40 setObject:v57 forKeyedSubscript:v56];
+                v56 = [MEMORY[0x277CBEB18] array];
+                [v39 setObject:v56 forKeyedSubscript:v55];
               }
 
-              [v57 addObject:{objc_msgSend(v44, "objectForKeyedSubscript:", v56)}];
+              [v56 addObject:{objc_msgSend(v43, "objectForKeyedSubscript:", v55)}];
             }
 
-            v53 = [v15 countByEnumeratingWithState:&v169 objects:v188 count:16];
+            v52 = [v15 countByEnumeratingWithState:&v167 objects:v186 count:16];
           }
 
-          while (v53);
+          while (v52);
         }
       }
 
-      v33 = v145;
+      v33 = v143;
     }
 
-    while (v39);
+    while (v38);
   }
 
+  v57 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v58 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v59 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v163 = 0u;
+  v164 = 0u;
   v165 = 0u;
   v166 = 0u;
-  v167 = 0u;
-  v168 = 0u;
-  v60 = [v15 countByEnumeratingWithState:&v165 objects:v187 count:16];
-  if (v60)
+  v59 = [v15 countByEnumeratingWithState:&v163 objects:v185 count:16];
+  if (v59)
   {
-    v61 = v60;
-    v62 = *v166;
+    v60 = v59;
+    v61 = *v164;
     do
     {
-      for (k = 0; k != v61; ++k)
+      for (k = 0; k != v60; ++k)
       {
-        if (*v166 != v62)
+        if (*v164 != v61)
         {
           objc_enumerationMutation(v15);
         }
 
-        v64 = *(*(&v165 + 1) + 8 * k);
-        v65 = [v40 objectForKeyedSubscript:v64];
-        [v58 addObject:v64];
-        [v59 addObject:{objc_msgSend(objc_msgSend(v65, "reverseObjectEnumerator"), "allObjects")}];
+        v63 = *(*(&v163 + 1) + 8 * k);
+        v64 = [v39 objectForKeyedSubscript:v63];
+        [v57 addObject:v63];
+        [v58 addObject:{objc_msgSend(objc_msgSend(v64, "reverseObjectEnumerator"), "allObjects")}];
       }
 
-      v61 = [v15 countByEnumeratingWithState:&v165 objects:v187 count:16];
+      v60 = [v15 countByEnumeratingWithState:&v163 objects:v185 count:16];
     }
 
-    while (v61);
+    while (v60);
   }
 
-  v66 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v15];
-  v67 = [v147 count];
-  v20 = v157;
-  v9 = v155;
-  v21 = v142;
-  if (v67)
+  v65 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v15];
+  v66 = [v145 count];
+  v20 = v155;
+  v9 = v153;
+  v21 = v140;
+  if (v66)
   {
-    v68 = v67;
-    for (m = 0; m != v68; ++m)
+    v67 = v66;
+    for (m = 0; m != v67; ++m)
     {
-      v70 = [v147 objectAtIndexedSubscript:m];
-      if (([v66 containsObject:v70] & 1) == 0)
+      v69 = [v145 objectAtIndexedSubscript:m];
+      if (([v65 containsObject:v69] & 1) == 0)
       {
-        [v58 addObject:v70];
-        [v59 addObject:{objc_msgSend(v151, "objectAtIndexedSubscript:", m)}];
+        [v57 addObject:v69];
+        [v58 addObject:{objc_msgSend(v149, "objectAtIndexedSubscript:", m)}];
       }
     }
   }
 
-  v71 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  [v71 setObject:v58 forKeyedSubscript:@"keys"];
-  [v71 setObject:v59 forKeyedSubscript:@"values"];
+  v70 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  [v70 setObject:v57 forKeyedSubscript:@"keys"];
+  [v70 setObject:v58 forKeyedSubscript:@"values"];
 
-  v22 = v158;
-  v5 = v140;
-  v11 = v143;
-  v14 = v144;
-  if (v71)
+  v22 = v156;
+  v5 = v138;
+  v11 = v141;
+  v14 = v142;
+  if (v70)
   {
-    [v71 setObject:v149 forKey:@"mod_date"];
+    [v70 setObject:v147 forKey:@"mod_date"];
     goto LABEL_144;
   }
 
 LABEL_143:
-  v71 = [v22 copy];
+  v70 = [v22 copy];
 LABEL_144:
 
-  v22 = v71;
-  v19 = v150;
+  v22 = v70;
+  v19 = v148;
   if (!v22)
   {
 LABEL_84:
@@ -1379,262 +1380,261 @@ LABEL_84:
   }
 
 LABEL_85:
-  v159 = v22;
+  v157 = v22;
 
-  memset(v191, 0, sizeof(v191));
-  v192 = 0;
+  memset(v189, 0, sizeof(v189));
+  v190 = 0;
   if (v9)
   {
-    v73 = v20;
+    v72 = v20;
   }
 
   else
   {
-    v73 = v21;
+    v72 = v21;
   }
 
-  v190 = 0;
-  v189 = 0;
-  [v14 digestUUIDBytesWithKey:v20 forUUID:v73 uuidBytes:&v189];
-  _MDLabelUUIDEncode(v189, v190, v191);
-  v74 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%s%s", "com.apple.metadata:kMDLabel_", v191];
-  *v5 = v74;
-  [v74 UTF8String];
-  v75 = objc_alloc(MEMORY[0x277CBEB18]);
-  v76 = [v75 initWithCapacity:{objc_msgSend(v164, "count")}];
+  v188 = 0;
+  v187 = 0;
+  [v14 digestUUIDBytesWithKey:v20 forUUID:v72 uuidBytes:&v187];
+  _MDLabelUUIDEncode(v187, v188, v189);
+  v73 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%s%s", "com.apple.metadata:kMDLabel_", v189];
+  *v5 = v73;
+  [v73 UTF8String];
+  v74 = objc_alloc(MEMORY[0x277CBEB18]);
+  v75 = [v74 initWithCapacity:{objc_msgSend(v162, "count")}];
+  v158 = 0u;
+  v159 = 0u;
   v160 = 0u;
   v161 = 0u;
-  v162 = 0u;
-  v163 = 0u;
-  v77 = v164;
-  v78 = [v164 countByEnumeratingWithState:&v160 objects:v185 count:16];
-  if (v78)
+  v76 = v162;
+  v77 = [v162 countByEnumeratingWithState:&v158 objects:v183 count:16];
+  if (v77)
   {
-    v79 = v78;
-    v80 = *v161;
+    v78 = v77;
+    v79 = *v159;
     do
     {
-      for (n = 0; n != v79; ++n)
+      for (n = 0; n != v78; ++n)
       {
-        if (*v161 != v80)
+        if (*v159 != v79)
         {
-          objc_enumerationMutation(v77);
+          objc_enumerationMutation(v76);
         }
 
-        v82 = *(*(&v160 + 1) + 8 * n);
-        if ([v82 hasPrefix:@"com.apple.metadata:kMDLabel_"])
+        v81 = *(*(&v158 + 1) + 8 * n);
+        if ([v81 hasPrefix:@"com.apple.metadata:kMDLabel_"])
         {
-          v83 = v82;
+          v82 = v81;
 LABEL_97:
-          v88 = v83;
+          v87 = v82;
           goto LABEL_99;
         }
 
-        if ([v82 hasPrefix:@"com.apple.metadata"])
+        if ([v81 hasPrefix:@"com.apple.metadata"])
         {
-          v84 = v76;
-          v85 = v5;
-          v86 = objc_alloc(MEMORY[0x277CCACA8]);
-          v139 = [v82 substringFromIndex:19];
-          v87 = v86;
-          v5 = v85;
-          v76 = v84;
-          v83 = [v87 initWithFormat:@"%s%@", "com.apple.metadata:kMDLabel_", v139];
+          v83 = v75;
+          v84 = v5;
+          v85 = objc_alloc(MEMORY[0x277CCACA8]);
+          v137 = [v81 substringFromIndex:19];
+          v86 = v85;
+          v5 = v84;
+          v75 = v83;
+          v82 = [v86 initWithFormat:@"%s%@", "com.apple.metadata:kMDLabel_", v137];
           goto LABEL_97;
         }
 
-        v88 = 0;
+        v87 = 0;
 LABEL_99:
-        if (([v88 isEqual:*v5] & 1) == 0)
+        if (([v87 isEqual:*v5] & 1) == 0)
         {
-          [v76 addObject:v88];
+          [v75 addObject:v87];
         }
       }
 
-      v79 = [v77 countByEnumeratingWithState:&v160 objects:v185 count:16];
+      v78 = [v76 countByEnumeratingWithState:&v158 objects:v183 count:16];
     }
 
-    while (v79);
+    while (v78);
   }
 
-  v89 = v22;
+  v88 = v22;
   if (![objc_msgSend(v22 objectForKey:{@"keys", "count"}])
   {
-    [v76 addObject:*v5];
-    v109 = 0;
-    v95 = v157;
+    [v75 addObject:*v5];
+    v108 = 0;
+    v94 = v155;
     goto LABEL_138;
   }
 
-  bzero(v193, 0x2000uLL);
-  if (v155)
+  bzero(v191, 0x2000uLL);
+  if (v153)
   {
-    v90 = -14;
+    v89 = -14;
   }
 
   else
   {
-    v90 = -15;
+    v89 = -15;
   }
 
+  v90 = arc4random();
   v91 = arc4random();
-  v92 = arc4random();
-  v93 = v92;
-  v187[0] = 0;
-  if (v155)
+  v92 = v91;
+  v185[0] = 0;
+  if (v153)
   {
-    v94 = storePrivateMDAttributeData(v22, v193, 0x2000uLL, v187);
-    v95 = v157;
-    if (!v94)
+    v93 = storePrivateMDAttributeData(v22, v191, 0x2000uLL, v185);
+    v94 = v155;
+    if (!v93)
     {
-      v96 = malloc_type_malloc(0x10000uLL, 0x5D37A958uLL);
-      v94 = storePrivateMDAttributeData(v22, v96, 0x10000uLL, v187);
-      if (!v94)
+      v95 = malloc_type_malloc(0x10000uLL, 0x5D37A958uLL);
+      v93 = storePrivateMDAttributeData(v22, v95, 0x10000uLL, v185);
+      if (!v93)
       {
-        copyUpdatedData_cold_3(0, v97, v98, v99, v100, v101, v102, v103);
+        copyUpdatedData_cold_3(0, v96, v97, v98, v99, v100, v101, v102);
       }
     }
 
-    v104 = v94;
-    v105 = v187[0];
-    if (v187[0])
+    v103 = v93;
+    v104 = v185[0];
+    if (v185[0])
     {
       goto LABEL_111;
     }
 
 LABEL_127:
-    if (v104 != v193)
+    if (v103 != v191)
     {
-      free(v104);
+      free(v103);
     }
 
     goto LABEL_135;
   }
 
-  v152 = v92;
-  v156 = v90;
-  v110 = v91;
-  v111 = [v22 objectForKey:@"uuid"];
-  v112 = [v22 objectForKey:@"keys"];
-  v113 = [v22 objectForKey:@"values"];
+  v150 = v91;
+  v154 = v89;
+  v109 = v90;
+  v110 = [v22 objectForKey:@"uuid"];
+  v111 = [v22 objectForKey:@"keys"];
+  v112 = [v22 objectForKey:@"values"];
+  v113 = [v111 count];
   v114 = [v112 count];
-  v115 = [v113 count];
-  v116 = 24 * v114 + 20;
-  if (v116 <= 0x2000)
+  v115 = 24 * v113 + 20;
+  if (v115 <= 0x2000)
   {
-    v104 = v193;
+    v103 = v191;
   }
 
   else
   {
-    v104 = malloc_type_malloc(v116, 0x900D5E5DuLL);
+    v103 = malloc_type_malloc(v115, 0x900D5E5DuLL);
   }
 
-  *v104 = 1279345228;
-  v188[0] = v104 + 1;
-  UUIDBytes = getUUIDBytes(v111, v188);
+  *v103 = 1279345228;
+  v186[0] = v103 + 1;
+  UUIDBytes = getUUIDBytes(v110, v186);
   if (!UUIDBytes)
   {
-    copyUpdatedData_cold_2(UUIDBytes, v118, v119, v120, v121, v122, v123, v124);
+    copyUpdatedData_cold_2(UUIDBytes, v117, v118, v119, v120, v121, v122, v123);
   }
 
-  if (v114 >= 1)
+  if (v113 >= 1)
   {
-    for (ii = 0; ii != v114; ++ii)
+    for (ii = 0; ii != v113; ++ii)
     {
-      if (getUUIDBytes([v112 objectAtIndex:ii], v188))
+      if (getUUIDBytes([v111 objectAtIndex:ii], v186))
       {
-        v126 = 0.0;
-        if (ii < v115)
+        v125 = 0.0;
+        if (ii < v114)
         {
-          v127 = [v113 objectAtIndex:ii];
-          v128 = CFGetTypeID(v127);
-          if (v128 == CFDateGetTypeID())
+          v126 = [v112 objectAtIndex:ii];
+          v127 = CFGetTypeID(v126);
+          if (v127 == CFDateGetTypeID())
           {
-            v126 = MEMORY[0x245D12EC0](v127);
+            v125 = MEMORY[0x245D12EC0](v126);
           }
         }
 
-        v129 = v188[0];
-        *v188[0] = v126;
-        v188[0] = v129 + 8;
+        v128 = v186[0];
+        *v186[0] = v125;
+        v186[0] = v128 + 8;
       }
     }
   }
 
-  v105 = v188[0] - v104;
-  v187[0] = v188[0] - v104;
-  v95 = v157;
-  v89 = v159;
-  v91 = v110;
-  v90 = v156;
-  v93 = v152;
-  if (v188[0] == v104)
+  v104 = v186[0] - v103;
+  v185[0] = v186[0] - v103;
+  v94 = v155;
+  v88 = v157;
+  v90 = v109;
+  v89 = v154;
+  v92 = v150;
+  if (v186[0] == v103)
   {
     goto LABEL_127;
   }
 
 LABEL_111:
-  v106 = objc_alloc(MEMORY[0x277CBEA90]);
-  v107 = v105 + 9;
-  if (v104 == v193)
+  v105 = objc_alloc(MEMORY[0x277CBEA90]);
+  v106 = v104 + 9;
+  if (v103 == v191)
   {
-    v108 = [v106 initWithBytes:v104 length:v107];
+    v107 = [v105 initWithBytes:v103 length:v106];
   }
 
   else
   {
-    v108 = [v106 initWithBytesNoCopy:v104 length:v107 freeWhenDone:1];
+    v107 = [v105 initWithBytesNoCopy:v103 length:v106 freeWhenDone:1];
   }
 
-  v130 = v108;
-  v131 = (*(v153 + 16))(v153, v95, v91, v93, v108, 1);
+  v129 = v107;
+  v130 = (*(v151 + 16))(v151, v94, v90, v92, v107, 1);
 
-  if (!v131)
+  if (!v130)
   {
 LABEL_135:
-    v109 = 0;
+    v108 = 0;
     goto LABEL_138;
   }
 
-  v132 = [v131 length];
-  v133 = v132 + 9;
-  v134 = v193;
-  if ((v132 + 9) > 0x2000)
+  v131 = [v130 length];
+  v132 = v131 + 9;
+  v133 = v191;
+  if ((v131 + 9) > 0x2000)
   {
-    v134 = malloc_type_malloc(v132 + 9, 0xF05C1A0FuLL);
+    v133 = malloc_type_malloc(v131 + 9, 0xF05C1A0FuLL);
   }
 
-  *v134 = v90;
-  *(v134 + 1) = v91;
-  *(v134 + 5) = v93;
-  memcpy(v134 + 9, [v131 bytes], objc_msgSend(v131, "length"));
-  v135 = objc_alloc(MEMORY[0x277CBEA90]);
-  if (v134 == v193)
+  *v133 = v89;
+  *(v133 + 1) = v90;
+  *(v133 + 5) = v92;
+  memcpy(v133 + 9, [v130 bytes], objc_msgSend(v130, "length"));
+  v134 = objc_alloc(MEMORY[0x277CBEA90]);
+  if (v133 == v191)
   {
-    v136 = [v135 initWithBytes:v134 length:v133];
+    v135 = [v134 initWithBytes:v133 length:v132];
   }
 
   else
   {
-    v136 = [v135 initWithBytesNoCopy:v134 length:v133 freeWhenDone:1];
+    v135 = [v134 initWithBytesNoCopy:v133 length:v132 freeWhenDone:1];
   }
 
-  v109 = v136;
+  v108 = v135;
 
-  v89 = v159;
+  v88 = v157;
 LABEL_138:
-  if ([v76 count])
+  if ([v75 count])
   {
-    *v154 = v76;
+    *v152 = v75;
   }
 
   else
   {
   }
 
-  v137 = *MEMORY[0x277D85DE8];
-  return v109;
+  return v108;
 }
 
 id copyUpdatedXattrDictionary(void *a1, void *a2, void *a3, char a4)
@@ -1674,77 +1674,74 @@ id copyUpdatedXattrDictionary(void *a1, void *a2, void *a3, char a4)
 
 uint64_t digestOneInternal(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  memset(v10, 0, sizeof(v10));
-  v11 = 0;
+  v11 = *MEMORY[0x277D85DE8];
+  memset(v9, 0, sizeof(v9));
+  v10 = 0;
+  v7 = 0;
   v8 = 0;
-  v9 = 0;
-  [a1 digestUUIDBytesWithKey:a2 forUUID:a3 uuidBytes:&v8];
-  _MDLabelUUIDEncode(v8, v9, v10);
-  result = [a4 setObject:a2 forKey:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"com.apple.metadata.%s", v10)}];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  [a1 digestUUIDBytesWithKey:a2 forUUID:a3 uuidBytes:&v7];
+  _MDLabelUUIDEncode(v7, v8, v9);
+  return [a4 setObject:a2 forKey:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"com.apple.metadata.%s", v9)}];
 }
 
-uint64_t __copyUpdatedXattrDictionary_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__copyUpdatedXattrDictionary_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v6 = [*(a1 + 32) indexOfObject:a2];
-  if (v6 != 0x7FFFFFFFFFFFFFFFLL)
+  if (v6 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v11 = v6;
-    v12 = [*(a1 + 40) objectAtIndex:v6];
-    if (v12 != *MEMORY[0x277CBEEE8])
+    result = [*(a1 + 48) objectAtIndex:a3];
+    if (result != *MEMORY[0x277CBEEE8])
     {
-      v13 = v12;
+      v8 = result;
+      [*(a1 + 56) addObject:a2];
+      v9 = *(a1 + 64);
+
+      return [v9 addObject:v8];
+    }
+  }
+
+  else
+  {
+    v10 = v6;
+    v11 = [*(a1 + 40) objectAtIndex:v6];
+    if (v11 != *MEMORY[0x277CBEEE8])
+    {
+      v12 = v11;
       if (*(a1 + 72) == 1)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v14 = [*(a1 + 48) objectAtIndex:a3];
+          v13 = [*(a1 + 48) objectAtIndex:a3];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v15 = v14;
+            v14 = v13;
           }
 
           else
           {
-            v17[0] = v14;
-            v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+            v15[0] = v13;
+            v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
           }
 
-          v13 = [v15 arrayByAddingObjectsFromArray:v13];
+          v12 = [v14 arrayByAddingObjectsFromArray:v12];
         }
       }
 
       [*(a1 + 56) addObject:a2];
-      [*(a1 + 64) addObject:v13];
+      [*(a1 + 64) addObject:v12];
     }
 
-    [*(a1 + 32) removeObjectAtIndex:v11];
-    result = [*(a1 + 40) removeObjectAtIndex:v11];
-    goto LABEL_15;
+    [*(a1 + 32) removeObjectAtIndex:v10];
+    return [*(a1 + 40) removeObjectAtIndex:v10];
   }
 
-  result = [*(a1 + 48) objectAtIndex:a3];
-  if (result == *MEMORY[0x277CBEEE8])
-  {
-LABEL_15:
-    v16 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
-  v8 = result;
-  [*(a1 + 56) addObject:a2];
-  v9 = *(a1 + 64);
-  v10 = *MEMORY[0x277D85DE8];
-
-  return [v9 addObject:v8];
+  return result;
 }
 
-uint64_t __copyUpdatedXattrDictionary_block_invoke_2(uint64_t a1, uint64_t a2)
+void *__copyUpdatedXattrDictionary_block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) objectAtIndex:?];
   if (result != *MEMORY[0x277CBEEE8])
@@ -1759,19 +1756,18 @@ uint64_t __copyUpdatedXattrDictionary_block_invoke_2(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t __eligbleToThin_block_invoke()
+void *__eligbleToThin_block_invoke()
 {
-  v3[6] = *MEMORY[0x277D85DE8];
+  v2[6] = *MEMORY[0x277D85DE8];
   v0 = objc_alloc(MEMORY[0x277CBEB98]);
-  v3[0] = @"kMDItemUserSharedSentDate";
-  v3[1] = @"kMDItemUserSharedReceivedDate";
-  v3[2] = @"kMDItemUserPrintedDate";
-  v3[3] = @"kMDItemUserDownloadedDate";
-  v3[4] = @"kMDItemUserModifiedDate";
-  v3[5] = @"kMDItemUserCreatedDate";
-  result = [v0 initWithArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v3, 6)}];
+  v2[0] = @"kMDItemUserSharedSentDate";
+  v2[1] = @"kMDItemUserSharedReceivedDate";
+  v2[2] = @"kMDItemUserPrintedDate";
+  v2[3] = @"kMDItemUserDownloadedDate";
+  v2[4] = @"kMDItemUserModifiedDate";
+  v2[5] = @"kMDItemUserCreatedDate";
+  result = [v0 initWithArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v2, 6)}];
   eligbleToThin_sThinnableKeys = result;
-  v2 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1832,21 +1828,21 @@ uint64_t storePrivateMDAttributeData(void *a1, uint64_t a2, unint64_t a3, void *
   return a2;
 }
 
-void __message_assert(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void __message_assert(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v10[0] = 0;
-  v10[1] = &a9;
-  vasprintf(v10, "%s:%u: failed assertion '%s' %s ", &a9);
+  va_start(va, a8);
+  v11 = *MEMORY[0x277D85DE8];
+  v8[0] = 0;
+  va_copy(&v8[1], va);
+  vasprintf(v8, "%s:%u: failed assertion '%s' %s ", va);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v12 = v10[0];
+    v10 = v8[0];
     _os_log_error_impl(&dword_242636000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s", buf, 0xCu);
   }
 
-  free(v10[0]);
-  v9 = *MEMORY[0x277D85DE8];
+  free(v8[0]);
 }
 
 uint64_t getUUIDBytes(void *a1, void *a2)
@@ -1875,145 +1871,142 @@ LABEL_5:
 
 uint64_t serializeCFString(uint64_t a1, unint64_t *a2, unint64_t a3, const __CFString *key)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = *a2;
-  if (*a2 < a3)
+  if (*a2 >= a3)
   {
-    Value = CFDictionaryGetValue(sStringIDMappings, key);
-    if (Value)
+    return 0;
+  }
+
+  Value = CFDictionaryGetValue(sStringIDMappings, key);
+  if (!Value)
+  {
+    *(a1 + v4) = 1;
+    Length = CFStringGetLength(key);
+    MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
+    v15 = MaximumSizeForEncoding;
+    if (MaximumSizeForEncoding < 1024)
     {
-      v10 = *a2;
-      if (*a2 < a3)
+      v16 = v25;
+    }
+
+    else
+    {
+      v16 = malloc_type_malloc(MaximumSizeForEncoding + 1, 0x8FCC2362uLL);
+    }
+
+    v17 = v4 + 1;
+    bzero(v25, 0x400uLL);
+    if (!CFStringGetCString(key, v16, v15 + 1, 0x8000100u))
+    {
+      *v16 = 0;
+    }
+
+    v18 = strlen(v16) + 1;
+    v19 = v18 + v17;
+    if (v18 + v17 < a3)
+    {
+      memcpy((a1 + v17), v16, v18);
+      if (v16 != v25)
       {
-        v11 = v10 + 1;
-        *(a1 + v10) = 4;
-        if (Value >= 0x80)
+        free(v16);
+      }
+
+      *a2 = v19;
+      return 1;
+    }
+
+    if (v16 != v25)
+    {
+      free(v16);
+    }
+
+    return 0;
+  }
+
+  v10 = *a2;
+  if (*a2 >= a3)
+  {
+    return 0;
+  }
+
+  v11 = v10 + 1;
+  *(a1 + v10) = 4;
+  if (Value >= 0x80)
+  {
+    if (Value >= 0x4000)
+    {
+      v21 = 4;
+      if (Value >> 28)
+      {
+        v21 = 5;
+      }
+
+      if (Value < 0x200000)
+      {
+        v21 = 3;
+      }
+
+      if (v11 + v21 < a3)
+      {
+        if (Value >> 21)
         {
-          if (Value >= 0x4000)
+          v24 = a1 + v11;
+          if (Value >> 28)
           {
-            v21 = 4;
-            if (Value >> 28)
-            {
-              v21 = 5;
-            }
-
-            if (Value < 0x200000)
-            {
-              v21 = 3;
-            }
-
-            if (v11 + v21 < a3)
-            {
-              if (Value >> 21)
-              {
-                v25 = a1 + v11;
-                if (Value >> 28)
-                {
-                  *v25 = -16;
-                  *(v25 + 1) = Value;
-                  v12 = v10 + 6;
-                }
-
-                else
-                {
-                  *v25 = BYTE3(Value) | 0xE0;
-                  *(v25 + 1) = BYTE2(Value);
-                  *(v25 + 2) = BYTE1(Value);
-                  v12 = v10 + 5;
-                  *(v25 + 3) = Value;
-                }
-              }
-
-              else
-              {
-                v22 = (a1 + v11);
-                *v22 = BYTE2(Value) | 0xC0;
-                v22[1] = BYTE1(Value);
-                v12 = v10 + 4;
-                v22[2] = Value;
-              }
-
-              goto LABEL_33;
-            }
+            *v24 = -16;
+            *(v24 + 1) = Value;
+            v12 = v10 + 6;
           }
 
           else
           {
-            v12 = v10 + 3;
-            if (v12 < a3)
-            {
-              v20 = (a1 + v11);
-              *v20 = BYTE1(Value) | 0x80;
-              v20[1] = Value;
-              goto LABEL_33;
-            }
+            *v24 = BYTE3(Value) | 0xE0;
+            *(v24 + 1) = BYTE2(Value);
+            *(v24 + 2) = BYTE1(Value);
+            v12 = v10 + 5;
+            *(v24 + 3) = Value;
           }
         }
 
         else
         {
-          v12 = v10 + 2;
-          if (v12 < a3)
-          {
-            *(a1 + v11) = Value;
-LABEL_33:
-            *a2 = v12;
-LABEL_34:
-            result = 1;
-            goto LABEL_29;
-          }
+          v22 = (a1 + v11);
+          *v22 = BYTE2(Value) | 0xC0;
+          v22[1] = BYTE1(Value);
+          v12 = v10 + 4;
+          v22[2] = Value;
         }
+
+        goto LABEL_32;
       }
     }
 
     else
     {
-      *(a1 + v4) = 1;
-      Length = CFStringGetLength(key);
-      MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-      v15 = MaximumSizeForEncoding;
-      if (MaximumSizeForEncoding < 1024)
+      v12 = v10 + 3;
+      if (v12 < a3)
       {
-        v16 = v26;
-      }
-
-      else
-      {
-        v16 = malloc_type_malloc(MaximumSizeForEncoding + 1, 0x8FCC2362uLL);
-      }
-
-      v17 = v4 + 1;
-      bzero(v26, 0x400uLL);
-      if (!CFStringGetCString(key, v16, v15 + 1, 0x8000100u))
-      {
-        *v16 = 0;
-      }
-
-      v18 = strlen(v16) + 1;
-      v19 = v18 + v17;
-      if (v18 + v17 < a3)
-      {
-        memcpy((a1 + v17), v16, v18);
-        if (v16 != v26)
-        {
-          free(v16);
-        }
-
-        *a2 = v19;
-        goto LABEL_34;
-      }
-
-      if (v16 != v26)
-      {
-        free(v16);
+        v20 = (a1 + v11);
+        *v20 = BYTE1(Value) | 0x80;
+        v20[1] = Value;
+        goto LABEL_32;
       }
     }
+
+    return 0;
   }
 
-  result = 0;
-LABEL_29:
-  v24 = *MEMORY[0x277D85DE8];
-  return result;
+  v12 = v10 + 2;
+  if (v12 >= a3)
+  {
+    return 0;
+  }
+
+  *(a1 + v11) = Value;
+LABEL_32:
+  *a2 = v12;
+  return 1;
 }
 
 uint64_t serializeCFType(uint64_t a1, unint64_t *a2, unint64_t a3, const __CFString *a4)
@@ -2868,11 +2861,10 @@ void OUTLINED_FUNCTION_0_0()
 
 void _copyCryptedDataWithKey_cold_1(int a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 67109120;
-  v2[1] = a1;
-  _os_log_error_impl(&dword_242636000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "_copyCryptedDataWithKey() failed. CCCrypt() returned %d.", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109120;
+  v1[1] = a1;
+  _os_log_error_impl(&dword_242636000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "_copyCryptedDataWithKey() failed. CCCrypt() returned %d.", v1, 8u);
 }
 
 CFUUIDBytes CFUUIDGetUUIDBytes(CFUUIDRef uuid)

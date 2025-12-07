@@ -267,7 +267,7 @@ LABEL_23:
   return pthread_mutex_unlock(v6);
 }
 
-uint64_t FindHandle(unsigned int a1, unsigned int (*a2)(void, uint64_t, unint64_t), uint64_t a3)
+unint64_t FindHandle(unsigned int a1, unsigned int (*a2)(void, uint64_t, unint64_t), uint64_t a3)
 {
   if (!a2)
   {

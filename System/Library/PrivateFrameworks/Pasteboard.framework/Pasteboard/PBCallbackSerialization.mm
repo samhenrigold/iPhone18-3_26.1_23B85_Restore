@@ -60,10 +60,7 @@ uint64_t __40__PBCallbackSerialization_sendEndBlock___block_invoke(uint64_t a1)
 
   else
   {
-    v6 = MEMORY[0x25F8AC430](v2);
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 8);
-    *(v7 + 8) = v6;
+    *(*(a1 + 32) + 8) = MEMORY[0x25F8AC430](v2);
 
     return MEMORY[0x2821F96F8]();
   }

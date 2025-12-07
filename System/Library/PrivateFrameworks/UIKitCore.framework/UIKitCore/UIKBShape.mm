@@ -247,19 +247,19 @@
   if (isKindOfClass)
   {
     v6 = otherCopy;
-    geometry = [(UIKBShape *)self geometry];
+    v7 = objc_msgSend_geometry(self);
 
-    if (!geometry)
+    if (!v7)
     {
-      geometry2 = [v6 geometry];
-      v9 = [geometry2 copy];
+      v8 = objc_msgSend_geometry(v6);
+      v9 = [v8 copy];
       [(UIKBShape *)self setGeometry:v9];
 
-      geometry3 = [v6 geometry];
-      name = [geometry3 name];
+      v10 = objc_msgSend_geometry(v6);
+      name = [v10 name];
       v12 = [name copy];
-      geometry4 = [(UIKBShape *)self geometry];
-      [geometry4 setName:v12];
+      v13 = objc_msgSend_geometry(self);
+      [v13 setName:v12];
     }
 
     v14 = *MEMORY[0x1E695F058];
@@ -350,28 +350,28 @@
     v35 = v34;
     v37 = v36;
     [v5 concaveCornerOffset];
-    v40 = 0;
+    isEqual = 0;
     if (v18 && v31 && concaveCorner == concaveCorner2 && v35 == v38 && v37 == v39)
     {
-      geometry = [(UIKBShape *)self geometry];
-      geometry2 = [v5 geometry];
-      v40 = [geometry isEqual:geometry2];
+      v41 = objc_msgSend_geometry(self);
+      v42 = objc_msgSend_geometry(v5);
+      isEqual = objc_msgSend_isEqual_(v41);
     }
   }
 
   else
   {
-    v40 = 0;
+    isEqual = 0;
   }
 
-  return v40;
+  return isEqual;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc_init(UIKBShape);
-  geometry = [(UIKBShape *)self geometry];
-  v6 = [geometry copy];
+  v5 = objc_msgSend_geometry(self);
+  v6 = [v5 copy];
   [(UIKBShape *)v4 setGeometry:v6];
 
   [(UIKBShape *)self frame];
@@ -406,16 +406,16 @@
   m_geometry = self->m_geometry;
   if (m_geometry)
   {
-    v10 = +[UIKBGeometry geometry];
-    v11 = [(UIKBGeometry *)m_geometry isEqual:v10];
+    v10 = objc_msgSend_geometry(UIKBGeometry);
+    isEqual = objc_msgSend_isEqual_(m_geometry);
   }
 
   else
   {
-    v11 = 1;
+    isEqual = 1;
   }
 
-  return (v7 && v8) & v11;
+  return (v7 && v8) & isEqual;
 }
 
 - (BOOL)shouldUseGeometry
@@ -439,12 +439,12 @@
 
 - (id)description
 {
-  geometry = [(UIKBShape *)self geometry];
+  v3 = objc_msgSend_geometry(self, a2);
 
-  if (geometry)
+  if (v3)
   {
-    geometry2 = [(UIKBShape *)self geometry];
-    shortDescription = [geometry2 shortDescription];
+    v4 = objc_msgSend_geometry(self);
+    shortDescription = [v4 shortDescription];
   }
 
   else

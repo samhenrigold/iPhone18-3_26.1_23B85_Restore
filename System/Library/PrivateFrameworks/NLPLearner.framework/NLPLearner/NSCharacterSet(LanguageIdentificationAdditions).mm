@@ -11,9 +11,9 @@
     +[NSCharacterSet(LanguageIdentificationAdditions) vietnameseCharacterSet];
   }
 
-  v1 = vietnameseCharacterSet___vietnameseCharset;
+  v2 = vietnameseCharacterSet___vietnameseCharset;
 
-  return v1;
+  return v2;
 }
 
 @end

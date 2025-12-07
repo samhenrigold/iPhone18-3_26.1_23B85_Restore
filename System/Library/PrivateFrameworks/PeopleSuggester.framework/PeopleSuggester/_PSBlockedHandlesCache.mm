@@ -2,7 +2,6 @@
 + (id)sharedBlockedHandlesCache;
 - (BOOL)isHandleBlocked:(id)blocked;
 - (_PSBlockedHandlesCache)init;
-- (uint64_t)beginSyncingWithTU;
 - (void)beginSyncingWithTU;
 - (void)handlePrivacyManagerChangeNotification:(id)notification;
 - (void)rebuildCacheFromPrivacyManager;
@@ -53,43 +52,9 @@
 
 - (void)beginSyncingWithTU
 {
-  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
-  v4 = getTUPrivacyRulesChangedNotificationSymbolLoc_ptr;
-  v13 = getTUPrivacyRulesChangedNotificationSymbolLoc_ptr;
-  if (!getTUPrivacyRulesChangedNotificationSymbolLoc_ptr)
-  {
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __getTUPrivacyRulesChangedNotificationSymbolLoc_block_invoke;
-    v8[3] = &unk_1E7C23BF0;
-    v9 = &v10;
-    v5 = TelephonyUtilitiesLibrary();
-    v11[3] = dlsym(v5, "TUPrivacyRulesChangedNotification");
-    getTUPrivacyRulesChangedNotificationSymbolLoc_ptr = *(v9[1] + 24);
-    v4 = v11[3];
-  }
-
-  _Block_object_dispose(&v10, 8);
-  if (!v4)
-  {
-    beginSyncingWithTU = [_PSBlockedHandlesCache beginSyncingWithTU];
-    _Block_object_dispose(&v10, 8);
-    _Unwind_Resume(beginSyncingWithTU);
-  }
-
-  [defaultCenter addObserver:self selector:sel_handlePrivacyManagerChangeNotification_ name:*v4 object:0];
-
-  v6 = +[_PSLogging generalChannel];
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    LOWORD(v8[0]) = 0;
-    _os_log_impl(&dword_1B5ED1000, v6, OS_LOG_TYPE_DEFAULT, "_PSBlockedHandlesCache will perform initial fetch from TU", v8, 2u);
-  }
-
-  [(_PSBlockedHandlesCache *)self rebuildCacheFromPrivacyManager];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  [_PSBlockedHandlesCache handlePrivacyManagerChangeNotification:];
 }
 
 - (void)handlePrivacyManagerChangeNotification:(id)notification
@@ -145,7 +110,7 @@
 
 - (void)rebuildCacheWithBlockedHandles:(id)handles
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   handlesCopy = handles;
   if ([handlesCopy count])
   {
@@ -155,29 +120,29 @@
       v14 = [handlesCopy count];
       LODWORD(v15) = 897988541;
       v16 = [v13 bloomFilterInMemoryWithNumberOfValuesN:v14 errorRateP:v15];
+      v34 = 0u;
       v35 = 0u;
       v36 = 0u;
       v37 = 0u;
-      v38 = 0u;
       v17 = handlesCopy;
-      v18 = [v17 countByEnumeratingWithState:&v35 objects:v45 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v34 objects:v44 count:16];
       if (v18)
       {
         v19 = v18;
         v20 = 0;
-        v21 = *v36;
+        v21 = *v35;
         do
         {
           v22 = 0;
           v23 = v20;
           do
           {
-            if (*v36 != v21)
+            if (*v35 != v21)
             {
               objc_enumerationMutation(v17);
             }
 
-            v24 = *(*(&v35 + 1) + 8 * v22);
+            v24 = *(*(&v34 + 1) + 8 * v22);
             v25 = objc_autoreleasePoolPush();
             v20 = [v16 computeHashesForString:v24 reuse:v23];
 
@@ -188,7 +153,7 @@
           }
 
           while (v19 != v22);
-          v19 = [v17 countByEnumeratingWithState:&v35 objects:v45 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v34 objects:v44 count:16];
         }
 
         while (v19);
@@ -196,13 +161,13 @@
 
       selfCopy = self;
       objc_sync_enter(selfCopy);
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = __57___PSBlockedHandlesCache_rebuildCacheWithBlockedHandles___block_invoke_3;
-      v33[3] = &unk_1E7C242D0;
-      v34 = v16;
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = __57___PSBlockedHandlesCache_rebuildCacheWithBlockedHandles___block_invoke_3;
+      v32[3] = &unk_1E7C242D0;
+      v33 = v16;
       v27 = v16;
-      v28 = MEMORY[0x1B8C8C060](v33);
+      v28 = MEMORY[0x1B8C8C060](v32);
       isHandleBlocked = selfCopy->_isHandleBlocked;
       selfCopy->_isHandleBlocked = v28;
 
@@ -215,13 +180,13 @@
       v5 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:handlesCopy];
       selfCopy2 = self;
       objc_sync_enter(selfCopy2);
-      v39[0] = MEMORY[0x1E69E9820];
-      v39[1] = 3221225472;
-      v39[2] = __57___PSBlockedHandlesCache_rebuildCacheWithBlockedHandles___block_invoke_2;
-      v39[3] = &unk_1E7C242D0;
-      v40 = v5;
+      v38[0] = MEMORY[0x1E69E9820];
+      v38[1] = 3221225472;
+      v38[2] = __57___PSBlockedHandlesCache_rebuildCacheWithBlockedHandles___block_invoke_2;
+      v38[3] = &unk_1E7C242D0;
+      v39 = v5;
       v7 = v5;
-      v8 = MEMORY[0x1B8C8C060](v39);
+      v8 = MEMORY[0x1B8C8C060](v38);
       v9 = selfCopy2->_isHandleBlocked;
       selfCopy2->_isHandleBlocked = v8;
 
@@ -246,31 +211,21 @@
   {
     v31 = [handlesCopy count];
     *buf = 134218242;
-    v42 = v31;
-    v43 = 2112;
-    v44 = v10;
+    v41 = v31;
+    v42 = 2112;
+    v43 = v10;
     _os_log_impl(&dword_1B5ED1000, v30, OS_LOG_TYPE_DEFAULT, "_PSBlockedHandlesCache rebuilt cache with %tu blocked handles using %@ path", buf, 0x16u);
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isHandleBlocked:(os_log_t)log .cold.1(uint64_t a1, char a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138478083;
-  v5 = a1;
-  v6 = 1024;
-  v7 = a2 & 1;
-  _os_log_debug_impl(&dword_1B5ED1000, log, OS_LOG_TYPE_DEBUG, "_PSBlockedHandlesCache _isHandleBlocked:%{private}@ result:%d", &v4, 0x12u);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (uint64_t)beginSyncingWithTU
-{
-  dlerror();
-  v0 = abort_report_np();
-  return [_PSBlockedHandlesCache handlePrivacyManagerChangeNotification:v0];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138478083;
+  v4 = a1;
+  v5 = 1024;
+  v6 = a2 & 1;
+  _os_log_debug_impl(&dword_1B5ED1000, log, OS_LOG_TYPE_DEBUG, "_PSBlockedHandlesCache _isHandleBlocked:%{private}@ result:%d", &v3, 0x12u);
 }
 
 @end

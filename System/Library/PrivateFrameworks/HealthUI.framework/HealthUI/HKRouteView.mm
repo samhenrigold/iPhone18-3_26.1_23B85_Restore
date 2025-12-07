@@ -99,7 +99,7 @@
   v4 = v3;
   v6 = v5;
   mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
-  [mainScreen scale];
+  objc_msgSend_scale(mainScreen);
   v9 = v8;
   v14.width = v4;
   v14.height = v6;

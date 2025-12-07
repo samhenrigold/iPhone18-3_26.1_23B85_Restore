@@ -122,12 +122,13 @@ void __54__WBSCloudHistoryMergeOperation__updateClientVersions__block_invoke(uin
 void __54__WBSCloudHistoryMergeOperation__updateClientVersions__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __54__WBSCloudHistoryMergeOperation__updateClientVersions__block_invoke_2_cold_1(v3);
+      __54__WBSCloudHistoryMergeOperation__updateClientVersions__block_invoke_2_cold_1(v5);
     }
   }
 }
@@ -244,27 +245,28 @@ void __63__WBSCloudHistoryMergeOperation__loadTombstonesWithCompletion___block_i
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __63__WBSCloudHistoryMergeOperation__loadTombstonesWithCompletion___block_invoke_cold_1(v7);
+      __63__WBSCloudHistoryMergeOperation__loadTombstonesWithCompletion___block_invoke_cold_1(v9);
     }
   }
 
-  v9 = *(a1 + 32);
-  v8 = *(a1 + 40);
-  v10 = *(v9 + 8);
+  v11 = *(a1 + 32);
+  v10 = *(a1 + 40);
+  v12 = *(v11 + 8);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __63__WBSCloudHistoryMergeOperation__loadTombstonesWithCompletion___block_invoke_6;
   block[3] = &unk_1E7FB6E08;
-  block[4] = v9;
+  block[4] = v11;
+  v15 = v5;
+  v16 = v10;
   v13 = v5;
-  v14 = v8;
-  v11 = v5;
-  dispatch_async(v10, block);
+  dispatch_async(v12, block);
 }
 
 uint64_t __63__WBSCloudHistoryMergeOperation__loadTombstonesWithCompletion___block_invoke_6(uint64_t a1)
@@ -516,27 +518,28 @@ void __68__WBSCloudHistoryMergeOperation__lookUpExistingItemsWithCompletion___bl
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __68__WBSCloudHistoryMergeOperation__lookUpExistingItemsWithCompletion___block_invoke_cold_1(v7);
+      __68__WBSCloudHistoryMergeOperation__lookUpExistingItemsWithCompletion___block_invoke_cold_1(v9);
     }
   }
 
-  v9 = *(a1 + 32);
-  v8 = *(a1 + 40);
-  v10 = *(v9 + 8);
+  v11 = *(a1 + 32);
+  v10 = *(a1 + 40);
+  v12 = *(v11 + 8);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __68__WBSCloudHistoryMergeOperation__lookUpExistingItemsWithCompletion___block_invoke_11;
   block[3] = &unk_1E7FB6E08;
-  block[4] = v9;
+  block[4] = v11;
+  v15 = v5;
+  v16 = v10;
   v13 = v5;
-  v14 = v8;
-  v11 = v5;
-  dispatch_async(v10, block);
+  dispatch_async(v12, block);
 }
 
 uint64_t __68__WBSCloudHistoryMergeOperation__lookUpExistingItemsWithCompletion___block_invoke_11(uint64_t a1)
@@ -752,12 +755,13 @@ uint64_t __60__WBSCloudHistoryMergeOperation__mergeVisitsWithCompletion___block_
 void __60__WBSCloudHistoryMergeOperation__mergeVisitsWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __60__WBSCloudHistoryMergeOperation__mergeVisitsWithCompletion___block_invoke_2_cold_1(v4);
+      __60__WBSCloudHistoryMergeOperation__mergeVisitsWithCompletion___block_invoke_2_cold_1(v6);
     }
   }
 
@@ -769,7 +773,7 @@ void __54__WBSCloudHistoryMergeOperation__updateClientVersions__block_invoke_2_c
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2_0() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Failed to update cloud client version table: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Failed to update cloud client version table: %{public}@", v6, v7, v8, v9);
 }
 
 void __63__WBSCloudHistoryMergeOperation__loadTombstonesWithCompletion___block_invoke_cold_1(void *a1)
@@ -777,7 +781,7 @@ void __63__WBSCloudHistoryMergeOperation__loadTombstonesWithCompletion___block_i
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2_0() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Failed to fetch all tombstones: %{private}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Failed to fetch all tombstones: %{private}@", v6, v7, v8, v9);
 }
 
 void __68__WBSCloudHistoryMergeOperation__lookUpExistingItemsWithCompletion___block_invoke_cold_1(void *a1)
@@ -785,7 +789,7 @@ void __68__WBSCloudHistoryMergeOperation__lookUpExistingItemsWithCompletion___bl
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2_0() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Failed to find matching existing visits: %{private}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Failed to find matching existing visits: %{private}@", v6, v7, v8, v9);
 }
 
 void __60__WBSCloudHistoryMergeOperation__mergeVisitsWithCompletion___block_invoke_2_cold_1(void *a1)
@@ -793,7 +797,7 @@ void __60__WBSCloudHistoryMergeOperation__mergeVisitsWithCompletion___block_invo
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_2_0() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_6();
-  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Failed to record visit: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0_1(&dword_1BB6F3000, v4, v5, "Failed to record visit: %{public}@", v6, v7, v8, v9);
 }
 
 @end

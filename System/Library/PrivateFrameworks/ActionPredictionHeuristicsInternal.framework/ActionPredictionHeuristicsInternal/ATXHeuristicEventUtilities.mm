@@ -8,7 +8,7 @@
 
 + (BOOL)allowSuggestionsForEvent:(id)event
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v4 = objc_alloc(MEMORY[0x277CCACA8]);
   title = [eventCopy title];
@@ -19,16 +19,17 @@
   v10 = [v4 initWithFormat:@"title.hash: %lu, start: %@, end: %@, id: %@", v6, startDate, endDate, eventIdentifier];
 
   calendar = [eventCopy calendar];
-  if ([calendar isSubscribed])
+  isSubscribed = [calendar isSubscribed];
+  if (isSubscribed)
   {
-    v12 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = __atxlog_handle_context_heuristic(isSubscribed);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v25 = v10;
-      v13 = "Skipping Event: from a calendar subscription [%@]";
+      v28 = v10;
+      v14 = "Skipping Event: from a calendar subscription [%@]";
 LABEL_22:
-      _os_log_impl(&dword_23E3EA000, v12, OS_LOG_TYPE_DEFAULT, v13, buf, 0xCu);
+      _os_log_impl(&dword_23E3EA000, v13, OS_LOG_TYPE_DEFAULT, v14, buf, 0xCu);
       goto LABEL_23;
     }
 
@@ -37,73 +38,83 @@ LABEL_22:
 
   if ([eventCopy status] == 3)
   {
-    v12 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = __atxlog_handle_context_heuristic(3);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v25 = v10;
-      v13 = "Skipping Event: is cancelled [%@]";
+      v28 = v10;
+      v14 = "Skipping Event: is cancelled [%@]";
       goto LABEL_22;
     }
 
 LABEL_23:
-    v20 = 0;
+    v23 = 0;
     goto LABEL_24;
   }
 
-  if ([eventCopy participationStatus] != 2 && objc_msgSend(eventCopy, "participationStatus") != 4)
+  if ([eventCopy participationStatus] != 2)
   {
-    v12 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    participationStatus = [eventCopy participationStatus];
+    if (participationStatus != 4)
     {
-      *buf = 138412290;
-      v25 = v10;
-      v13 = "Skipping Event: is not accepted [%@]";
-      goto LABEL_22;
-    }
+      v13 = __atxlog_handle_context_heuristic(participationStatus);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v28 = v10;
+        v14 = "Skipping Event: is not accepted [%@]";
+        goto LABEL_22;
+      }
 
-    goto LABEL_23;
+      goto LABEL_23;
+    }
   }
 
   endDate2 = [eventCopy endDate];
   startDate2 = [eventCopy startDate];
   [endDate2 timeIntervalSinceDate:startDate2];
-  v17 = v16;
+  v19 = v18;
 
-  if (v17 > 54000.0)
+  if (v19 > 54000.0)
   {
-    v12 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = __atxlog_handle_context_heuristic(v20);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v25 = v10;
-      v13 = "Skipping Event: is more than 15 hour long [%@]";
+      v28 = v10;
+      v14 = "Skipping Event: is more than 15 hour long [%@]";
       goto LABEL_22;
     }
 
     goto LABEL_23;
   }
 
-  v12 = [eventCopy customObjectForKey:@"SGEventMetadataKey"];
-  v18 = [v12 objectForKeyedSubscript:@"SGEventMetadataCategoryDescriptionKey"];
-  v19 = v18;
-  v20 = 1;
-  if (v12 && v18 && (([v18 isEqualToString:@"Lodging"] & 1) != 0 || objc_msgSend(v19, "isEqualToString:", @"Flight")))
+  v13 = [eventCopy customObjectForKey:@"SGEventMetadataKey"];
+  v21 = [v13 objectForKeyedSubscript:@"SGEventMetadataCategoryDescriptionKey"];
+  v22 = v21;
+  v23 = 1;
+  if (v13)
   {
-    v21 = __atxlog_handle_context_heuristic();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    if (v21)
     {
-      *buf = 138412290;
-      v25 = v10;
-      _os_log_impl(&dword_23E3EA000, v21, OS_LOG_TYPE_DEFAULT, "Skipping Event: is hotel or flight [%@]", buf, 0xCu);
-    }
+      v24 = [v21 isEqualToString:@"Lodging"];
+      if ((v24 & 1) != 0 || (v24 = [v22 isEqualToString:@"Flight"], v24))
+      {
+        v25 = __atxlog_handle_context_heuristic(v24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v28 = v10;
+          _os_log_impl(&dword_23E3EA000, v25, OS_LOG_TYPE_DEFAULT, "Skipping Event: is hotel or flight [%@]", buf, 0xCu);
+        }
 
-    v20 = 0;
+        v23 = 0;
+      }
+    }
   }
 
 LABEL_24:
-  v22 = *MEMORY[0x277D85DE8];
-  return v20;
+  return v23;
 }
 
 + (BOOL)isEventAtOneWithTimestamp:(id)timestamp

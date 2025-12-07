@@ -33,7 +33,7 @@ void __45__SGLexicon__lexiconTokenForToken_inLexicon___block_invoke(uint64_t a1,
 
 + (BOOL)profanityInTokens:(id)tokens forLocaleIdentifier:(id)identifier
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   tokensCopy = tokens;
   identifierCopy = identifier;
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
@@ -43,32 +43,32 @@ void __45__SGLexicon__lexiconTokenForToken_inLexicon___block_invoke(uint64_t a1,
   CFRelease(Mutable);
   if (v9)
   {
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v10 = tokensCopy;
-    v11 = [v10 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v25;
+      v13 = *v24;
 LABEL_4:
       v14 = 0;
       while (1)
       {
-        if (*v25 != v13)
+        if (*v24 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v24 + 1) + 8 * v14);
-        if (!CFStringGetCStringPtr(v15, 4u) && ![(__CFString *)v15 lengthOfBytesUsingEncoding:4, v24])
+        v15 = *(*(&v23 + 1) + 8 * v14);
+        if (!CFStringGetCStringPtr(v15, 4u) && ![(__CFString *)v15 lengthOfBytesUsingEncoding:4, v23])
         {
           break;
         }
 
-        if ([self _lexiconTokenForToken:v15 inLexicon:{v9, v24}])
+        if ([self _lexiconTokenForToken:v15 inLexicon:{v9, v23}])
         {
           v16 = LXLexiconCopyEntryForTokenID();
           MetaFlags = LXEntryGetMetaFlags();
@@ -90,7 +90,7 @@ LABEL_24:
 
         if (v12 == ++v14)
         {
-          v12 = [v10 countByEnumeratingWithState:&v24 objects:v29 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v23 objects:v28 count:16];
           if (v12)
           {
             goto LABEL_4;
@@ -125,7 +125,7 @@ LABEL_24:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v31 = v9;
+      v30 = v9;
       _os_log_error_impl(&dword_231E60000, v10, OS_LOG_TYPE_ERROR, "SGLexicon: Unable to load lexicon, %@", buf, 0xCu);
     }
   }
@@ -137,7 +137,6 @@ LABEL_25:
   CFRelease(v9);
 LABEL_26:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

@@ -66,60 +66,58 @@ LABEL_14:
 
 + (BOOL)createError:(id)error error:(id *)a4
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   if (a4)
   {
     v5 = MEMORY[0x277CCA9B8];
-    v13 = *MEMORY[0x277CCA450];
-    v14[0] = error;
+    v12 = *MEMORY[0x277CCA450];
+    v13[0] = error;
     v6 = MEMORY[0x277CBEAC0];
     errorCopy = error;
-    v8 = [v6 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v8 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v9 = [v5 errorWithDomain:@"FSFCurareInteractionStreamErrorDomain" code:1 userInfo:v8];
 
     v10 = v9;
     *a4 = v9;
   }
 
-  result = a4 != 0;
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return a4 != 0;
 }
 
 - (id)retrieveWithInteractionWrapper:(id)wrapper
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   wrapperCopy = wrapper;
   if (+[FSFUtils isSupportedPlatform])
   {
     v5 = [(FSFFeatureStoreStream *)self->_biomeStream retrieveEvents:0 startDate:0 endDate:0];
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
     obj = v5;
-    v7 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
+    v7 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
     if (!v7)
     {
       goto LABEL_23;
     }
 
     v9 = v7;
-    v46 = *v48;
+    v45 = *v47;
     *&v8 = 138412546;
-    v41 = v8;
-    v42 = dictionary;
+    v40 = v8;
+    v41 = dictionary;
     while (1)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v48 != v46)
+        if (*v47 != v45)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v47 + 1) + 8 * i);
+        v11 = *(*(&v46 + 1) + 8 * i);
         eventBody = [v11 eventBody];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
@@ -127,7 +125,7 @@ LABEL_14:
         eventBody2 = [v11 eventBody];
         if (isKindOfClass)
         {
-          v44 = [FSFFeatureStoreBiomeEvent alloc];
+          v43 = [FSFFeatureStoreBiomeEvent alloc];
           content = [eventBody2 content];
           v15 = [content objectForKeyedSubscript:@"interactionId"];
           content2 = [eventBody2 content];
@@ -140,9 +138,9 @@ LABEL_14:
           v22 = dataVersion;
           wrapperCopy = v20;
           v9 = v19;
-          eventBody3 = [(FSFFeatureStoreBiomeEvent *)v44 initWithInteractionId:v15 featureData:v18 dataVersion:v22 timestamp:?];
+          eventBody3 = [(FSFFeatureStoreBiomeEvent *)v43 initWithInteractionId:v15 featureData:v18 dataVersion:v22 timestamp:?];
 
-          dictionary = v42;
+          dictionary = v41;
           if (wrapperCopy)
           {
             goto LABEL_16;
@@ -172,10 +170,10 @@ LABEL_14:
               v36 = NSStringFromClass(v35);
               [v11 eventBody];
               v38 = v37 = v9;
-              *buf = v41;
-              v52 = v36;
-              v53 = 2112;
-              v54 = v38;
+              *buf = v40;
+              v51 = v36;
+              v52 = 2112;
+              v53 = v38;
               _os_log_error_impl(&dword_223066000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Fetched event body is unexpected class %@. Skipping. Event body:\n%@", buf, 0x16u);
 
               v9 = v37;
@@ -218,7 +216,7 @@ LABEL_16:
 LABEL_21:
       }
 
-      v9 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
+      v9 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
       if (!v9)
       {
 LABEL_23:
@@ -231,8 +229,6 @@ LABEL_23:
   [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:@"This method is not implemented for the current platform"];
   dictionary = 0;
 LABEL_25:
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -249,56 +245,56 @@ LABEL_25:
 
 - (id)retrieve:(id)retrieve
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = [(FSFCurareInteractionFeatureStoreStream *)self retrieveWithInteractionWrapper:retrieve];
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
   if (v3)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
-    v18 = v3;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v17 = v3;
     v5 = v3;
-    v20 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
-    if (v20)
+    v19 = [v5 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    if (v19)
     {
-      v19 = *v26;
+      v18 = *v25;
       do
       {
-        for (i = 0; i != v20; ++i)
+        for (i = 0; i != v19; ++i)
         {
-          if (*v26 != v19)
+          if (*v25 != v18)
           {
             objc_enumerationMutation(v5);
           }
 
-          v7 = *(*(&v25 + 1) + 8 * i);
+          v7 = *(*(&v24 + 1) + 8 * i);
           v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          v20 = 0u;
           v21 = 0u;
           v22 = 0u;
           v23 = 0u;
-          v24 = 0u;
           v9 = [v5 objectForKeyedSubscript:v7];
-          v10 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
+          v10 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
           if (v10)
           {
             v11 = v10;
-            v12 = *v22;
+            v12 = *v21;
             do
             {
               for (j = 0; j != v11; ++j)
               {
-                if (*v22 != v12)
+                if (*v21 != v12)
                 {
                   objc_enumerationMutation(v9);
                 }
 
-                featureData = [*(*(&v21 + 1) + 8 * j) featureData];
+                featureData = [*(*(&v20 + 1) + 8 * j) featureData];
                 [v8 addObject:featureData];
               }
 
-              v11 = [v9 countByEnumeratingWithState:&v21 objects:v29 count:16];
+              v11 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
             }
 
             while (v11);
@@ -307,22 +303,20 @@ LABEL_25:
           [v4 setObject:v8 forKeyedSubscript:v7];
         }
 
-        v20 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v19 = [v5 countByEnumeratingWithState:&v24 objects:v29 count:16];
       }
 
-      while (v20);
+      while (v19);
     }
 
     v15 = v4;
-    v3 = v18;
+    v3 = v17;
   }
 
   else
   {
     v15 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

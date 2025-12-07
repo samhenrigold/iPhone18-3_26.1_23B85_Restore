@@ -24,12 +24,12 @@
 
   *(v7 + 16) = *size.var0.var0;
   *(v7 + 20) = *(*&size + 4);
-  v20 = objc_msgSend_transform(TSCH3DTransform, v15, v16, v17, v18);
+  v19 = objc_msgSend_transform(TSCH3DTransform, v15, v16, v17);
   if (v8 >= 1)
   {
     do
     {
-      objc_msgSend_addObject_(*(v7 + 8), v19, v21, v22, v23, v20);
+      objc_msgSend_addObject_(*(v7 + 8), v18, v20, v21, v22, v19);
       --v8;
     }
 

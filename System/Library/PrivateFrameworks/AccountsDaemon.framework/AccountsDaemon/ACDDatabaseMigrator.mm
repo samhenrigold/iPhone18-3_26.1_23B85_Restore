@@ -47,7 +47,7 @@
 - (BOOL)runReturningError:(id *)error
 {
   v34 = *MEMORY[0x277D85DE8];
-  v5 = _ACDLogSystem();
+  v5 = _ACDLogSystem(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [ACDDatabaseMigrator runReturningError:];
@@ -60,7 +60,7 @@
   v8 = self->_migrationContext;
   if (!v8)
   {
-    v16 = 0;
+    v17 = 0;
     goto LABEL_15;
   }
 
@@ -83,8 +83,7 @@
   v23[6] = &v24;
   [(NSManagedObjectContext *)v8 performBlockAndWait:v23];
   v9 = [(NSDictionary *)self->_storeOptions mutableCopy];
-  [v9 setObject:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277CBE1D8]];
-  v10 = _ACDLogSystem();
+  v10 = _ACDLogSystem([v9 setObject:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277CBE1D8]]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [ACDDatabaseMigrator runReturningError:];
@@ -96,11 +95,12 @@
   v22 = 0;
   v14 = [(NSPersistentStoreCoordinator *)persistentStoreCoordinator addPersistentStoreWithType:v11 configuration:0 URL:databaseURL options:v9 error:&v22];
   v15 = v22;
+  v16 = v15;
   if (v14)
   {
 
     [(ACDDatabaseMigrator *)self _postProcessMigrationFromVersion:v31[3] migrationData:v25[5]];
-    v16 = 1;
+    v17 = 1;
     if (!error)
     {
       goto LABEL_14;
@@ -109,201 +109,198 @@
 
   else
   {
-    v17 = _ACDLogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = _ACDLogSystem(v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [ACDDatabaseMigrator runReturningError:];
     }
 
-    v16 = 0;
+    v17 = 0;
     if (!error)
     {
       goto LABEL_14;
     }
   }
 
-  v18 = v15;
-  *error = v15;
+  v19 = v16;
+  *error = v16;
 LABEL_14:
 
   _Block_object_dispose(&v24, 8);
   _Block_object_dispose(&v30, 8);
 LABEL_15:
-  v19 = _ACDLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v20 = _ACDLogSystem(v8);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
-    [ACDDatabaseMigrator runReturningError:v16];
+    [ACDDatabaseMigrator runReturningError:v17];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v16;
+  return v17;
 }
 
 void __41__ACDDatabaseMigrator_runReturningError___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v39 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [v2[2] managedObjectModel];
   *(*(*(v1 + 40) + 8) + 24) = [v2 _versionForModel:v3];
 
-  v4 = _ACDLogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = _ACDLogSystem(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __41__ACDDatabaseMigrator_runReturningError___block_invoke_cold_1(v1 + 40);
   }
 
-  v5 = *(*(*(v1 + 40) + 8) + 24);
-  v6 = v5 < 9;
-  if (v5 <= 8)
+  v7 = *(*(*(v1 + 40) + 8) + 24);
+  v8 = v7 < 9;
+  if (v7 <= 8)
   {
-    [*(v1 + 32) _migrateAccessAuthorizationsToTCCFromModelVersion:?];
-    v5 = *(*(*(v1 + 40) + 8) + 24);
+    v6 = [*(v1 + 32) _migrateAccessAuthorizationsToTCCFromModelVersion:?];
+    v7 = *(*(*(v1 + 40) + 8) + 24);
   }
 
-  if (v5 == 2401802)
+  if (v7 == 2401802)
   {
-    v7 = _ACDLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = _ACDLogSystem(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_221D2F000, v7, OS_LOG_TYPE_DEFAULT, "Performing bridge migration on a database that was created on 6.1 or earlier. Pray to the deity of your choosing that this will work.", buf, 2u);
+      _os_log_impl(&dword_221D2F000, v9, OS_LOG_TYPE_DEFAULT, "Performing bridge migration on a database that was created on 6.1 or earlier. Pray to the deity of your choosing that this will work.", buf, 2u);
     }
 
     [*(v1 + 32) _migrateNameAttributeOfDataclassEntities];
-    [*(v1 + 32) _migrateOptionsAttributeOfAuthorizatinEntitiesFromModelVersion:*(*(*(v1 + 40) + 8) + 24)];
-    v5 = *(*(*(v1 + 40) + 8) + 24);
-    v6 = 1;
+    v6 = [*(v1 + 32) _migrateOptionsAttributeOfAuthorizatinEntitiesFromModelVersion:*(*(*(v1 + 40) + 8) + 24)];
+    v7 = *(*(*(v1 + 40) + 8) + 24);
+    v8 = 1;
   }
 
-  if (v5 < 18 || v5 == 2401802)
+  if (v7 < 18 || v7 == 2401802)
   {
-    v9 = [MEMORY[0x277CBE408] entityForName:@"Account" inManagedObjectContext:*(*(v1 + 32) + 8)];
-    v10 = objc_alloc_init(MEMORY[0x277CBE428]);
-    [v10 setEntity:v9];
-    [v10 setReturnsObjectsAsFaults:0];
-    v11 = [*(*(v1 + 32) + 8) executeFetchRequest:v10 error:0];
-    v12 = _ACDLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v11 = [MEMORY[0x277CBE408] entityForName:@"Account" inManagedObjectContext:*(*(v1 + 32) + 8)];
+    v12 = objc_alloc_init(MEMORY[0x277CBE428]);
+    [v12 setEntity:v11];
+    [v12 setReturnsObjectsAsFaults:0];
+    v13 = [*(*(v1 + 32) + 8) executeFetchRequest:v12 error:0];
+    v14 = _ACDLogSystem(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      __41__ACDDatabaseMigrator_runReturningError___block_invoke_cold_2(v11);
+      __41__ACDDatabaseMigrator_runReturningError___block_invoke_cold_2(v13);
     }
 
-    if ([v11 count])
+    if ([v13 count])
     {
-      v28 = v10;
-      v29 = v9;
-      v30 = v1;
-      v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v11, "count")}];
-      v31 = 0u;
+      v29 = v12;
+      v30 = v11;
+      v31 = v1;
+      v15 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v13, "count")}];
       v32 = 0u;
       v33 = 0u;
       v34 = 0u;
-      v27 = v11;
-      v14 = v11;
-      v15 = [v14 countByEnumeratingWithState:&v31 objects:v38 count:16];
-      if (v15)
+      v35 = 0u;
+      v28 = v13;
+      v16 = v13;
+      v17 = [v16 countByEnumeratingWithState:&v32 objects:v39 count:16];
+      if (v17)
       {
-        v16 = v15;
-        v17 = *v32;
+        v18 = v17;
+        v19 = *v33;
         do
         {
-          for (i = 0; i != v16; ++i)
+          for (i = 0; i != v18; ++i)
           {
-            if (*v32 != v17)
+            if (*v33 != v19)
             {
-              objc_enumerationMutation(v14);
+              objc_enumerationMutation(v16);
             }
 
-            v19 = *(*(&v31 + 1) + 8 * i);
-            v20 = [v19 valueForKey:@"accountProperties"];
-            if (v20)
+            v21 = *(*(&v32 + 1) + 8 * i);
+            v22 = [v21 valueForKey:@"accountProperties"];
+            if (v22)
             {
-              v36[0] = @"objectID";
-              v21 = [v19 objectID];
-              v36[1] = @"properties";
-              v37[0] = v21;
-              v37[1] = v20;
-              v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
-              [v13 addObject:v22];
+              v37[0] = @"objectID";
+              v23 = [v21 objectID];
+              v37[1] = @"properties";
+              v38[0] = v23;
+              v38[1] = v22;
+              v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
+              [v15 addObject:v24];
             }
           }
 
-          v16 = [v14 countByEnumeratingWithState:&v31 objects:v38 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v32 objects:v39 count:16];
         }
 
-        while (v16);
+        while (v18);
       }
 
-      v1 = v30;
-      v23 = *(*(v30 + 48) + 8);
-      v24 = *(v23 + 40);
-      *(v23 + 40) = v13;
+      v1 = v31;
+      v25 = *(*(v31 + 48) + 8);
+      v26 = *(v25 + 40);
+      *(v25 + 40) = v15;
 
-      v10 = v28;
-      v9 = v29;
-      v11 = v27;
+      v12 = v29;
+      v11 = v30;
+      v13 = v28;
     }
   }
 
-  v25 = _ACDLogSystem();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+  v27 = _ACDLogSystem(v6);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
   {
     __41__ACDDatabaseMigrator_runReturningError___block_invoke_cold_3();
   }
 
-  if (v6)
+  if (v8)
   {
     [*(*(v1 + 32) + 8) save:0];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_migrateAccessAuthorizationsToTCCFromModelVersion:(int64_t)version
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v5 = _ACDLogSystem();
+  v32 = *MEMORY[0x277D85DE8];
+  v5 = _ACDLogSystem(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [ACDDatabaseMigrator _migrateAccessAuthorizationsToTCCFromModelVersion:];
   }
 
   v6 = [(ACDDatabaseMigrator *)self _fetchAllAuthorizationEntitiesForModelVersion:version];
-  v7 = _ACDLogSystem();
+  v7 = _ACDLogSystem(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [ACDDatabaseMigrator _migrateAccessAuthorizationsToTCCFromModelVersion:v6];
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v9)
   {
     v11 = v9;
-    v12 = *v27;
+    v12 = *v26;
     *&v10 = 138412290;
-    v25 = v10;
+    v24 = v10;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v27 != v12)
+        if (*v26 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v26 + 1) + 8 * i);
+        v14 = *(*(&v25 + 1) + 8 * i);
         bundleID = [v14 bundleID];
-        v16 = _ACDLogSystem();
+        v16 = _ACDLogSystem(bundleID);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v25;
-          v31 = bundleID;
+          *buf = v24;
+          v30 = bundleID;
           _os_log_debug_impl(&dword_221D2F000, v16, OS_LOG_TYPE_DEBUG, "Found authorization for client: %@", buf, 0xCu);
         }
 
@@ -322,13 +319,11 @@ void __41__ACDDatabaseMigrator_runReturningError___block_invoke(uint64_t a1)
         }
       }
 
-      v11 = [v8 countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v11 = [v8 countByEnumeratingWithState:&v25 objects:v31 count:16];
     }
 
     while (v11);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_migrateOptionsAttributeOfAuthorizatinEntitiesFromModelVersion:(int64_t)version
@@ -368,7 +363,7 @@ void __41__ACDDatabaseMigrator_runReturningError___block_invoke(uint64_t a1)
         {
           v20 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v19 error:0];
           v21 = [v20 decodeObjectOfClasses:v11 forKey:@"options"];
-          [v20 finishDecoding];
+          finishDecoding = [v20 finishDecoding];
           if (v21)
           {
             [v17 setValue:v21 forKey:@"newOptions"];
@@ -376,10 +371,10 @@ void __41__ACDDatabaseMigrator_runReturningError___block_invoke(uint64_t a1)
 
           else
           {
-            v22 = _ACDLogSystem();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+            v23 = _ACDLogSystem(finishDecoding);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
-              [(ACDDatabaseMigrator *)&buf _migrateOptionsAttributeOfAuthorizatinEntitiesFromModelVersion:v25, v22];
+              [(ACDDatabaseMigrator *)&buf _migrateOptionsAttributeOfAuthorizatinEntitiesFromModelVersion:v25, v23];
             }
           }
         }
@@ -390,33 +385,31 @@ void __41__ACDDatabaseMigrator_runReturningError___block_invoke(uint64_t a1)
 
     while (v14);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_migrateNameAttributeOfDataclassEntities
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   _fetchAllDataclassEntitles = [(ACDDatabaseMigrator *)self _fetchAllDataclassEntitles];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v3 = [_fetchAllDataclassEntitles countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [_fetchAllDataclassEntitles countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(_fetchAllDataclassEntitles);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
+        v7 = *(*(&v9 + 1) + 8 * i);
         v8 = [v7 valueForKey:@"oldName"];
         if (v8)
         {
@@ -424,13 +417,11 @@ void __41__ACDDatabaseMigrator_runReturningError___block_invoke(uint64_t a1)
         }
       }
 
-      v4 = [_fetchAllDataclassEntitles countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [_fetchAllDataclassEntitles countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_fetchAllDataclassEntitles
@@ -461,7 +452,7 @@ void __41__ACDDatabaseMigrator_runReturningError___block_invoke(uint64_t a1)
 
   else
   {
-    v6 = _ACDLogSystem();
+    v6 = _ACDLogSystem(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [ACDDatabaseMigrator _fetchAllDataclassEntitles];
@@ -476,10 +467,7 @@ void __41__ACDDatabaseMigrator_runReturningError___block_invoke(uint64_t a1)
 
 uint64_t __49__ACDDatabaseMigrator__fetchAllDataclassEntitles__block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 8) executeFetchRequest:a1[5] error:0];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 8) executeFetchRequest:a1[5] error:0];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -528,7 +516,7 @@ uint64_t __49__ACDDatabaseMigrator__fetchAllDataclassEntitles__block_invoke(void
 
   else
   {
-    v9 = _ACDLogSystem();
+    v9 = _ACDLogSystem(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       [ACDDatabaseMigrator _fetchAllAuthorizationEntitiesForModelVersion:];
@@ -543,18 +531,15 @@ uint64_t __49__ACDDatabaseMigrator__fetchAllDataclassEntitles__block_invoke(void
 
 uint64_t __69__ACDDatabaseMigrator__fetchAllAuthorizationEntitiesForModelVersion___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 8) executeFetchRequest:a1[5] error:0];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 8) executeFetchRequest:a1[5] error:0];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (id)_setUpContextForMigration
 {
-  v25[2] = *MEMORY[0x277D85DE8];
-  v3 = _ACDLogSystem();
+  v26[2] = *MEMORY[0x277D85DE8];
+  v3 = _ACDLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(ACDDatabaseMigrator *)self _setUpContextForMigration];
@@ -563,7 +548,7 @@ uint64_t __69__ACDDatabaseMigrator__fetchAllAuthorizationEntitiesForModelVersion
   v4 = [(ACDDatabaseMigrator *)self _compatibleModelForStoreAtURL:self->_databaseURL];
   if (!v4)
   {
-    v8 = _ACDLogSystem();
+    v8 = _ACDLogSystem(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [ACDDatabaseMigrator _setUpContextForMigration];
@@ -577,53 +562,52 @@ uint64_t __69__ACDDatabaseMigrator__fetchAllAuthorizationEntitiesForModelVersion
   self->_privateCoordinator = v5;
 
   v7 = *MEMORY[0x277CBE178];
-  v24[0] = *MEMORY[0x277CBE1D8];
-  v24[1] = v7;
-  v25[0] = MEMORY[0x277CBEC38];
-  v25[1] = MEMORY[0x277CBEC38];
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+  v25[0] = *MEMORY[0x277CBE1D8];
+  v25[1] = v7;
+  v26[0] = MEMORY[0x277CBEC38];
+  v26[1] = MEMORY[0x277CBEC38];
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
   v9 = self->_privateCoordinator;
   v10 = *MEMORY[0x277CBE2E8];
   databaseURL = self->_databaseURL;
-  v23 = 0;
-  v12 = [(NSPersistentStoreCoordinator *)v9 addPersistentStoreWithType:v10 configuration:0 URL:databaseURL options:v8 error:&v23];
-  v13 = v23;
+  v24 = 0;
+  v12 = [(NSPersistentStoreCoordinator *)v9 addPersistentStoreWithType:v10 configuration:0 URL:databaseURL options:v8 error:&v24];
+  v13 = v24;
+  v14 = v13;
   if (v13)
   {
-    v14 = _ACDLogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _ACDLogSystem(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [ACDDatabaseMigrator _setUpContextForMigration];
     }
 
 LABEL_10:
-    v15 = 0;
+    v16 = 0;
     goto LABEL_14;
   }
 
-  v16 = [objc_alloc(MEMORY[0x277CBE440]) initWithConcurrencyType:1];
+  v17 = [objc_alloc(MEMORY[0x277CBE440]) initWithConcurrencyType:1];
   migrationContext = self->_migrationContext;
-  self->_migrationContext = v16;
+  self->_migrationContext = v17;
 
-  v18 = _ACDLogSystem();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v20 = _ACDLogSystem(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     [ACDDatabaseMigrator _setUpContextForMigration];
   }
 
-  v19 = self->_migrationContext;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __48__ACDDatabaseMigrator__setUpContextForMigration__block_invoke;
-  v22[3] = &unk_27848BF78;
-  v22[4] = self;
-  [(NSManagedObjectContext *)v19 performBlockAndWait:v22];
-  v15 = self->_migrationContext;
+  v21 = self->_migrationContext;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __48__ACDDatabaseMigrator__setUpContextForMigration__block_invoke;
+  v23[3] = &unk_27848BF78;
+  v23[4] = self;
+  [(NSManagedObjectContext *)v21 performBlockAndWait:v23];
+  v16 = self->_migrationContext;
 LABEL_14:
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v15;
+  return v16;
 }
 
 - (id)_compatibleModelForStoreAtURL:(id)l
@@ -641,7 +625,7 @@ LABEL_14:
     v10 = [v9 pathForResource:@"accounts" ofType:@"momd"];
 
     v11 = [MEMORY[0x277CCA8D8] pathsForResourcesOfType:@"mom" inDirectory:v10];
-    v12 = _ACDLogSystem();
+    v12 = _ACDLogSystem(v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       [ACDDatabaseMigrator _compatibleModelForStoreAtURL:v11];
@@ -660,15 +644,16 @@ LABEL_14:
       v16 = *v33;
       while (2)
       {
-        for (i = 0; i != v15; ++i)
+        v17 = 0;
+        do
         {
           if (*v33 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v32 + 1) + 8 * i);
-          v19 = _ACDLogSystem();
+          v18 = *(*(&v32 + 1) + 8 * v17);
+          v19 = _ACDLogSystem(v14);
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
@@ -680,20 +665,25 @@ LABEL_14:
           v21 = [MEMORY[0x277CBEBC0] fileURLWithPath:v18];
           v8 = [v20 initWithContentsOfURL:v21];
 
-          if ([v8 isConfiguration:0 compatibleWithStoreMetadata:v6])
+          v22 = [v8 isConfiguration:0 compatibleWithStoreMetadata:v6];
+          if (v22)
           {
-            v22 = _ACDLogSystem();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+            v23 = _ACDLogSystem(v22);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
             {
               [ACDDatabaseMigrator _compatibleModelForStoreAtURL:];
             }
 
             goto LABEL_18;
           }
+
+          ++v17;
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v32 objects:v39 count:16];
-        if (v15)
+        while (v15 != v17);
+        v14 = [v13 countByEnumeratingWithState:&v32 objects:v39 count:16];
+        v15 = v14;
+        if (v14)
         {
           continue;
         }
@@ -715,17 +705,15 @@ LABEL_18:
     if ([(ACDDatabaseMigrator *)selfCopy _versionForModel:v8]== 9)
     {
       [MEMORY[0x277CCA8D8] pathForResource:@"accounts-brighton-bridge" ofType:@"mom" inDirectory:v10];
-      v24 = v23 = v10;
-      v25 = objc_alloc(MEMORY[0x277CBE450]);
-      v26 = [MEMORY[0x277CBEBC0] fileURLWithPath:v24];
-      v27 = [v25 initWithContentsOfURL:v26];
+      v25 = v24 = v10;
+      v26 = objc_alloc(MEMORY[0x277CBE450]);
+      v27 = [MEMORY[0x277CBEBC0] fileURLWithPath:v25];
+      v28 = [v26 initWithContentsOfURL:v27];
 
-      v10 = v23;
-      v8 = v27;
+      v10 = v24;
+      v8 = v28;
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -742,7 +730,7 @@ LABEL_18:
 - (void)_postProcessMigrationFromVersion:(int64_t)version migrationData:(id)data
 {
   dataCopy = data;
-  v7 = _ACDLogSystem();
+  v7 = _ACDLogSystem(dataCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [ACDDatabaseMigrator _postProcessMigrationFromVersion:migrationData:];
@@ -846,72 +834,43 @@ void __70__ACDDatabaseMigrator__postProcessMigrationFromVersion_migrationData___
   v26 = 0;
   [v18 save:&v26];
   v19 = v26;
+  v20 = v19;
   if (v19)
   {
-    v20 = _ACDLogSystem();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = _ACDLogSystem(v19);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       __70__ACDDatabaseMigrator__postProcessMigrationFromVersion_migrationData___block_invoke_cold_1();
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
-}
-
-- (void)runReturningError:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_15(&dword_221D2F000, v0, v1, "Caught an exception while opening the persistent store post-migration: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)runReturningError:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_15(&dword_221D2F000, v0, v1, "Unable to open database post-migration: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)runReturningError:(char)a1 .cold.5(char a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCABB0] numberWithBool:a1 & 1];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5_2(&dword_221D2F000, v2, v3, "ACDDatabaseMigrator finished running! Result: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5_2(&dword_221D2F000, v2, v3, "ACDDatabaseMigrator finished running! Result: %@", v4, v5, v6, v7);
 }
 
 void __41__ACDDatabaseMigrator_runReturningError___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCABB0] numberWithInteger:*(*(*a1 + 8) + 24)];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5_2(&dword_221D2F000, v2, v3, "The model version compatible with the pre-migration store is: %@.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5_2(&dword_221D2F000, v2, v3, "The model version compatible with the pre-migration store is: %@.", v4, v5, v6, v7);
 }
 
 void __41__ACDDatabaseMigrator_runReturningError___block_invoke_cold_2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(a1, "count")}];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5_2(&dword_221D2F000, v2, v3, "There are %@ accounts.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5_2(&dword_221D2F000, v2, v3, "There are %@ accounts.", v4, v5, v6, v7);
 }
 
 - (void)_migrateAccessAuthorizationsToTCCFromModelVersion:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(a1, "count")}];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5_2(&dword_221D2F000, v2, v3, "Found %@ authorization entities.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5_2(&dword_221D2F000, v2, v3, "Found %@ authorization entities.", v4, v5, v6, v7);
 }
 
 - (void)_migrateOptionsAttributeOfAuthorizatinEntitiesFromModelVersion:(os_log_t)log .cold.1(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -923,36 +882,25 @@ void __41__ACDDatabaseMigrator_runReturningError___block_invoke_cold_2(void *a1)
 
 - (void)_fetchAllAuthorizationEntitiesForModelVersion:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(&dword_221D2F000, v0, OS_LOG_TYPE_DEBUG, "No entity was found with name: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_221D2F000, v0, OS_LOG_TYPE_DEBUG, "No entity was found with name: %@", v1, 0xCu);
 }
 
 - (void)_setUpContextForMigration
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_15(&dword_221D2F000, v0, v1, "Could not add the store to the persistent store coordinator. %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v2 = *(self + 24);
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_221D2F000, a2, OS_LOG_TYPE_DEBUG, "Setting up a context to migrate DB at path: %@", &v3, 0xCu);
 }
 
 - (void)_compatibleModelForStoreAtURL:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(a1, "count")}];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_5_2(&dword_221D2F000, v2, v3, "Found %@ MOMs. Looking for match...", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __70__ACDDatabaseMigrator__postProcessMigrationFromVersion_migrationData___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_15(&dword_221D2F000, v0, v1, "Unable to save database post-migration: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5_2(&dword_221D2F000, v2, v3, "Found %@ MOMs. Looking for match...", v4, v5, v6, v7);
 }
 
 @end

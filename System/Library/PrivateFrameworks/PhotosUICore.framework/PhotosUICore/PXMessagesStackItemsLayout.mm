@@ -424,31 +424,31 @@
 
 - (void)_updateSprites
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   loadedItems = [(PXGItemsLayout *)self loadedItems];
   v6 = v5;
   numberOfAccessoryItems = [(PXGItemsLayout *)self numberOfAccessoryItems];
   if (loadedItems != 0x7FFFFFFFFFFFFFFFLL && v6 != 0 || numberOfAccessoryItems != 0)
   {
-    v76 = loadedItems;
+    v74 = loadedItems;
     [(PXMessagesStackItemsLayout *)self visibleRect];
     v11 = v10;
     v13 = v12;
     v15 = v14;
     v17 = v16;
     stackedItemsCount = [(PXMessagesStackItemsLayout *)self stackedItemsCount];
-    v84 = 2 * stackedItemsCount;
+    v82 = 2 * stackedItemsCount;
     v18 = 2 * stackedItemsCount + 23;
-    v73 = v18 - v6;
-    v71 = a2;
+    v71 = v18 - v6;
+    v69 = a2;
     if (v18 < v6)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      [currentHandler handleFailureInMethod:v71 object:self file:@"PXMessagesStackItemsLayout.m" lineNumber:581 description:@"We should never have more loaded item sprites than geometries"];
+      [currentHandler handleFailureInMethod:v69 object:self file:@"PXMessagesStackItemsLayout.m" lineNumber:581 description:@"We should never have more loaded item sprites than geometries"];
     }
 
     userInterfaceDirection = [(PXMessagesStackItemsLayout *)self userInterfaceDirection];
-    v77 = userInterfaceDirection == 1;
+    v75 = userInterfaceDirection == 1;
     if (v18 > self->_decorationInfoBySpriteIndexSize)
     {
       self->_decorationInfoBySpriteIndexSize = v18;
@@ -457,7 +457,7 @@
       if (!v20)
       {
         currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-        [currentHandler2 handleFailureInMethod:v71 object:self file:@"PXMessagesStackItemsLayout.m" lineNumber:587 description:@"Unable to reallocate memory for overlay alphas"];
+        [currentHandler2 handleFailureInMethod:v69 object:self file:@"PXMessagesStackItemsLayout.m" lineNumber:587 description:@"Unable to reallocate memory for overlay alphas"];
       }
     }
 
@@ -506,17 +506,17 @@
     presentationType = [(PXMessagesStackItemsLayout *)self presentationType];
     mediaKind = [(PXMessagesStackItemsLayout *)self mediaKind];
     [(PXMessagesStackItemsLayout *)self displayScale];
-    v78 = v26;
-    v81 = pageFocus;
+    v76 = v26;
+    v79 = pageFocus;
     if (v11 >= 0.0)
     {
       v27 = v11;
-      v94.origin.x = v11;
+      v92.origin.x = v11;
       v28 = v13;
-      v94.origin.y = v13;
-      v94.size.width = v15;
-      v94.size.height = v17;
-      MaxX = CGRectGetMaxX(v94);
+      v92.origin.y = v13;
+      v92.size.width = v15;
+      v92.size.height = v17;
+      MaxX = CGRectGetMaxX(v92);
       [(PXMessagesStackItemsLayout *)self contentSize];
       if (MaxX <= v30)
       {
@@ -524,13 +524,13 @@
         v32 = v15;
         archSide = self->_archSide;
 LABEL_31:
-        v33 = v84 + 3;
+        v33 = v82 + 3;
         [(PXMessagesStackItemsLayout *)self desiredLayoutRect];
-        x = v95.origin.x;
-        y = v95.origin.y;
-        width = v95.size.width;
-        height = v95.size.height;
-        IsNull = CGRectIsNull(v95);
+        x = v93.origin.x;
+        y = v93.origin.y;
+        width = v93.size.width;
+        height = v93.size.height;
+        IsNull = CGRectIsNull(v93);
         v39 = v28 + y;
         if (IsNull)
         {
@@ -582,7 +582,7 @@ LABEL_31:
           primaryItemIndex = v24 - primaryItemIndex;
         }
 
-        v44 = v81;
+        v44 = v79;
         if (v43 <= 3)
         {
           PXClamp();
@@ -596,7 +596,7 @@ LABEL_31:
         }
 
         rightEdgeInternalHorizontalAlignment = [(PXMessagesStackItemsLayout *)self rightEdgeInternalHorizontalAlignment];
-        v72 = &currentHandler3;
+        v70 = &currentHandler3;
         v49 = v46 + v48 * 0.0;
         self->_desiredVisibleRect.origin.x = v49;
         self->_desiredVisibleRect.origin.y = v42;
@@ -604,7 +604,16 @@ LABEL_31:
         self->_desiredVisibleRect.size.height = v40;
         MEMORY[0x1EEE9AC00](rightEdgeInternalHorizontalAlignment);
         v51 = &currentHandler3 - 2 * v50;
-        v52 = v84 + 2;
+        if (userInterfaceDirection == 1)
+        {
+          v52 = 20;
+        }
+
+        else
+        {
+          v52 = v82 + 2;
+        }
+
         if (userInterfaceDirection == 1)
         {
           v53 = 20;
@@ -612,122 +621,102 @@ LABEL_31:
 
         else
         {
-          v53 = v84 + 2;
+          v53 = 0;
         }
 
         if (userInterfaceDirection == 1)
-        {
-          v54 = 20;
-        }
-
-        else
         {
           v54 = 0;
         }
 
-        if (userInterfaceDirection == 1)
-        {
-          v55 = 0;
-        }
-
         else
         {
-          v55 = v33;
+          v54 = v33;
         }
 
-        v92.location = v54;
-        v92.length = v33;
-        v93.location = v55;
-        v93.length = 20;
-        if (NSIntersectionRange(v92, v93).length)
+        v90.location = v53;
+        v90.length = v33;
+        v91.location = v54;
+        v91.length = 20;
+        if (NSIntersectionRange(v90, v91).length)
         {
           currentHandler3 = [MEMORY[0x1E696AAA8] currentHandler];
-          [currentHandler3 handleFailureInMethod:v71 object:self file:@"PXMessagesStackItemsLayout.m" lineNumber:662 description:{@"Invalid parameter not satisfying: %@", @"NSIntersectionRange(mainItemsGeometryRange, trailingHiddenItemGeometryRange).length == 0"}];
+          [currentHandler3 handleFailureInMethod:v69 object:self file:@"PXMessagesStackItemsLayout.m" lineNumber:662 description:{@"Invalid parameter not satisfying: %@", @"NSIntersectionRange(mainItemsGeometryRange, trailingHiddenItemGeometryRange).length == 0"}];
         }
 
-        v56 = v54 + v33;
-        if (v54 + v33 <= v55 + 20)
+        v55 = v53 + v33;
+        if (v53 + v33 <= v54 + 20)
         {
-          v56 = v55 + 20;
+          v55 = v54 + 20;
         }
 
-        if (v56 > v18)
+        if (v55 > v18)
         {
           currentHandler3 = [MEMORY[0x1E696AAA8] currentHandler];
-          [currentHandler3 handleFailureInMethod:v71 object:self file:@"PXMessagesStackItemsLayout.m" lineNumber:664 description:{@"Invalid parameter not satisfying: %@", @"MAX(NSMaxRange(mainItemsGeometryRange), NSMaxRange(trailingHiddenItemGeometryRange)) <= geometriesCount"}];
+          [currentHandler3 handleFailureInMethod:v69 object:self file:@"PXMessagesStackItemsLayout.m" lineNumber:664 description:{@"Invalid parameter not satisfying: %@", @"MAX(NSMaxRange(mainItemsGeometryRange), NSMaxRange(trailingHiddenItemGeometryRange)) <= geometriesCount"}];
         }
 
-        if (v53 >= v18)
+        if (v52 >= v18)
         {
           currentHandler4 = [MEMORY[0x1E696AAA8] currentHandler];
-          [currentHandler4 handleFailureInMethod:v71 object:self file:@"PXMessagesStackItemsLayout.m" lineNumber:665 description:{@"Invalid parameter not satisfying: %@", @"mainItemToCopy < geometriesCount"}];
+          [currentHandler4 handleFailureInMethod:v69 object:self file:@"PXMessagesStackItemsLayout.m" lineNumber:665 description:{@"Invalid parameter not satisfying: %@", @"mainItemToCopy < geometriesCount"}];
         }
 
-        [(PXMessagesStackItemsLayoutHelper *)self->_layoutHelper getGeometries:&v51[10 * v54] count:v33 forVisibleRect:archSide focus:currentHandler5 archSide:v49 keyframeOverride:v42, v41, v40, v44];
-        v89 = 0u;
-        v90 = 0u;
+        [(PXMessagesStackItemsLayoutHelper *)self->_layoutHelper getGeometries:&v51[10 * v53] count:v33 forVisibleRect:archSide focus:currentHandler5 archSide:v49 keyframeOverride:v42, v41, v40, v44];
         v87 = 0u;
         v88 = 0u;
+        v85 = 0u;
         v86 = 0u;
+        v84 = 0u;
         layoutHelper = self->_layoutHelper;
         if (layoutHelper)
         {
-          if (userInterfaceDirection == 1)
-          {
-            v58 = 0;
-          }
-
-          else
-          {
-            v58 = v52;
-          }
-
-          [(PXMessagesStackItemsLayoutHelper *)layoutHelper baseGeometryForIndex:v58 visibleRect:v49, v42, v41, v40];
+          objc_msgSend_baseGeometryForIndex_visibleRect_(layoutHelper, v49, v42, v41, v40);
         }
 
-        if (v55 <= 0xFFFFFFFFFFFFFFEBLL)
+        if (v54 <= 0xFFFFFFFFFFFFFFEBLL)
         {
-          v59 = 0;
-          v60 = &v51[10 * v55];
-          v61 = 0x1E696A000uLL;
+          v57 = 0;
+          v58 = &v51[10 * v54];
+          v59 = 0x1E696A000uLL;
           do
           {
-            if (v55 >= v18)
+            if (v54 >= v18)
             {
-              currentHandler5 = [*(v61 + 2728) currentHandler];
-              [currentHandler5 handleFailureInMethod:v71 object:self file:@"PXMessagesStackItemsLayout.m" lineNumber:673 description:{@"Invalid parameter not satisfying: %@", @"i < geometriesCount"}];
+              currentHandler5 = [*(v59 + 2728) currentHandler];
+              [currentHandler5 handleFailureInMethod:v69 object:self file:@"PXMessagesStackItemsLayout.m" lineNumber:673 description:{@"Invalid parameter not satisfying: %@", @"i < geometriesCount"}];
 
-              v61 = 0x1E696A000;
+              v59 = 0x1E696A000;
             }
 
-            v62 = &v60[v59];
-            v63 = v89;
-            *(v62 + 2) = v88;
-            *(v62 + 3) = v63;
-            *(v62 + 4) = v90;
-            v64 = v87;
-            *v62 = v86;
-            *(v62 + 1) = v64;
-            ++v55;
-            v59 += 10;
+            v60 = &v58[v57];
+            v61 = v87;
+            *(v60 + 2) = v86;
+            *(v60 + 3) = v61;
+            *(v60 + 4) = v88;
+            v62 = v85;
+            *v60 = v84;
+            *(v60 + 1) = v62;
+            ++v54;
+            v57 += 10;
           }
 
-          while (v59 != 200);
+          while (v57 != 200);
         }
 
-        v65 = v84 - (stackedItemsCount - length) + 21;
+        v63 = v82 - (stackedItemsCount - length) + 21;
         if (userInterfaceDirection != 1)
         {
-          v65 = stackedItemsCount - length + 1;
+          v63 = stackedItemsCount - length + 1;
         }
 
-        v85[0] = 0;
-        v85[1] = v85;
-        v85[2] = 0x2020000000;
-        v85[3] = &v51[10 * v65];
-        v66 = self->_layoutHelper;
+        v83[0] = 0;
+        v83[1] = v83;
+        v83[2] = 0x2020000000;
+        v83[3] = &v51[10 * v63];
+        v64 = self->_layoutHelper;
         [(PXMessagesStackItemsLayout *)self referenceSize];
-        [(PXMessagesStackItemsLayoutHelper *)v66 maxItemSizeForReferenceSize:?];
+        [(PXMessagesStackItemsLayoutHelper *)v64 maxItemSizeForReferenceSize:?];
         PXSizeScale();
       }
     }
@@ -745,34 +734,31 @@ LABEL_31:
   }
 }
 
-void *__44__PXMessagesStackItemsLayout__updateSprites__block_invoke(void *result, unint64_t a2)
+void __44__PXMessagesStackItemsLayout__updateSprites__block_invoke(void *a1, unint64_t a2, uint64_t a3, uint64_t a4, int8x8_t *a5)
 {
-  v2 = result;
   if (HIDWORD(a2))
   {
     __asm { FMOV            V10.2S, #1.0 }
 
-    v8 = result[8];
-    v9 = result[4];
-    if (v9)
+    v11 = a1[8];
+    v12 = a1[4];
+    if (v12)
     {
-      [v9 itemsLayout:v2[5] aspectRatioForItem:{v8 + a2, *(off_1E7722048 + 1), *off_1E7722048, *(off_1E7722048 + 6), *(off_1E7722048 + 7), *(off_1E7722048 + 8), *(off_1E7722048 + 9), *(off_1E7722048 + 2), *(off_1E7722048 + 3), *(off_1E7722048 + 4), *(off_1E7722048 + 5), *off_1E7721FE0}];
+      [v12 itemsLayout:a1[5] aspectRatioForItem:{v11 + a2, a5, *(off_1E7722048 + 1), *off_1E7722048, *(off_1E7722048 + 6), *(off_1E7722048 + 7), *(off_1E7722048 + 8), *(off_1E7722048 + 9), *(off_1E7722048 + 2), *(off_1E7722048 + 3), *(off_1E7722048 + 4), *(off_1E7722048 + 5), *off_1E7721FE0}];
     }
 
     PXClamp();
   }
 
-  *(*(result[6] + 8) + 24) = result[7];
-  return result;
+  *(*(a1[6] + 8) + 24) = a1[7];
 }
 
-uint64_t __44__PXMessagesStackItemsLayout__updateSprites__block_invoke_2(uint64_t result, unint64_t a2, float32x2_t *a3, uint64_t a4, uint64_t a5)
+void __44__PXMessagesStackItemsLayout__updateSprites__block_invoke_2(uint64_t a1, unint64_t a2, float32x2_t *a3, uint64_t a4, uint64_t a5)
 {
   v5 = HIDWORD(a2);
   if (HIDWORD(a2))
   {
-    v7 = result;
-    v8 = *(*(*(result + 40) + 8) + 24);
+    v8 = *(*(*(a1 + 40) + 8) + 24);
     v9 = a3 + 3;
     v10 = a5 + 8;
     v38 = *(off_1E7722040 + 1);
@@ -790,15 +776,15 @@ uint64_t __44__PXMessagesStackItemsLayout__updateSprites__block_invoke_2(uint64_
       *(v10 - 8) = v39;
       *(v10 + 8) = v38;
       *(v10 + 24) = v11;
-      *(v10 - 8) = *(v7 + 58);
-      *(v10 - 7) = *(v7 + 59);
-      *(v10 + 24) = *(v7 + 56);
-      v18 = *(*(v7 + 48) + 8);
+      *(v10 - 8) = *(a1 + 58);
+      *(v10 - 7) = *(a1 + 59);
+      *(v10 + 24) = *(a1 + 56);
+      v18 = *(*(a1 + 48) + 8);
       v19 = *(v18 + 24);
       if (v19)
       {
         *(v18 + 24) = v19 - 1;
-        v20.f64[0] = MEMORY[0x1A590D300](*(*(v7 + 32) + 1352), *(v8 + 16), *(v8 + 24));
+        v20.f64[0] = MEMORY[0x1A590D300](*(*(a1 + 32) + 1352), *(v8 + 16), *(v8 + 24));
         v20.f64[1] = v21;
         *&v21 = *(v8 + 32);
         *v9[-3].f32 = *v8;
@@ -821,7 +807,7 @@ uint64_t __44__PXMessagesStackItemsLayout__updateSprites__block_invoke_2(uint64_
         *a4 = *off_1E7722048;
         *(a4 + 16) = v26;
         *(a4 + 36) = v37;
-        result = PFMessagesStackLayoutGeometryGetScale();
+        PFMessagesStackLayoutGeometryGetScale();
         *&v27 = v27;
         v28 = *(v8 + 48);
         v29 = *(v8 + 40);
@@ -852,7 +838,7 @@ uint64_t __44__PXMessagesStackItemsLayout__updateSprites__block_invoke_2(uint64_
 
       *a4 = v30;
       a4 += 160;
-      if (*(v7 + 60))
+      if (*(a1 + 60))
       {
         v36 = -80;
       }
@@ -870,8 +856,6 @@ uint64_t __44__PXMessagesStackItemsLayout__updateSprites__block_invoke_2(uint64_
 
     while (v5);
   }
-
-  return result;
 }
 
 - (void)_invalidateSprites

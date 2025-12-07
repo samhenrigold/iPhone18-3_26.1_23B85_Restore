@@ -99,58 +99,52 @@
 
 - (unint64_t)hash
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if ([(MTLLinkedFunctionsInternal *)self isEmpty])
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  p_private = &self->_private;
+  bzero(v14, 0x20uLL);
+  v5 = 1;
+  v14[0] = MTLHashArray(p_private->functions, 1, 1);
+  v14[1] = MTLHashArray(p_private->privateFunctions, 1, 1);
+  v14[2] = MTLHashArray(p_private->binaryFunctions, 1, 1);
+  groups = p_private->groups;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v7 = [(NSDictionary *)groups countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v7)
   {
-    p_private = &self->_private;
-    bzero(v15, 0x20uLL);
+    v8 = v7;
+    v9 = *v16;
     v5 = 1;
-    v15[0] = MTLHashArray(p_private->functions, 1, 1);
-    v15[1] = MTLHashArray(p_private->privateFunctions, 1, 1);
-    v15[2] = MTLHashArray(p_private->binaryFunctions, 1, 1);
-    groups = p_private->groups;
-    v16 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    v7 = [(NSDictionary *)groups countByEnumeratingWithState:&v16 objects:v20 count:16];
-    if (v7)
+    do
     {
-      v8 = v7;
-      v9 = *v17;
-      v5 = 1;
-      do
+      for (i = 0; i != v8; ++i)
       {
-        for (i = 0; i != v8; ++i)
+        if (*v16 != v9)
         {
-          if (*v17 != v9)
-          {
-            objc_enumerationMutation(groups);
-          }
-
-          v11 = *(*(&v16 + 1) + 8 * i);
-          v12 = [v11 hash];
-          v13 = MTLHashArray([(NSDictionary *)groups objectForKeyedSubscript:v11], 1, 1);
-          v5 ^= v12 ^ ((v13 >> (v12 & 0x3F ^ 0x3F)) | (v13 << v12));
+          objc_enumerationMutation(groups);
         }
 
-        v8 = [(NSDictionary *)groups countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v11 = *(*(&v15 + 1) + 8 * i);
+        v12 = [v11 hash];
+        v13 = MTLHashArray([(NSDictionary *)groups objectForKeyedSubscript:v11], 1, 1);
+        v5 ^= v12 ^ ((v13 >> (v12 & 0x3F ^ 0x3F)) | (v13 << v12));
       }
 
-      while (v8);
+      v8 = [(NSDictionary *)groups countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
-    v15[3] = v5;
-    result = _MTLHashState(v15, 0x20uLL);
+    while (v8);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  v14[3] = v5;
+  return _MTLHashState(v14, 0x20uLL);
 }
 
 - (BOOL)isEqual:(id)equal
@@ -196,14 +190,14 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v15[12] = *MEMORY[0x1E69E9840];
+  v14[12] = *MEMORY[0x1E69E9840];
   v4 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v5 = MEMORY[0x1E696AEC0];
-  v14.receiver = self;
-  v14.super_class = MTLLinkedFunctionsInternal;
-  v6 = [(MTLLinkedFunctionsInternal *)&v14 description];
-  v15[0] = v4;
-  v15[1] = @"functions =";
+  v13.receiver = self;
+  v13.super_class = MTLLinkedFunctionsInternal;
+  v6 = [(MTLLinkedFunctionsInternal *)&v13 description];
+  v14[0] = v4;
+  v14[1] = @"functions =";
   p_private = &self->_private;
   functions = p_private->functions;
   if (!p_private->functions)
@@ -211,37 +205,35 @@
     functions = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[2] = functions;
-  v15[3] = v4;
-  v15[4] = @"privateFunctions =";
+  v14[2] = functions;
+  v14[3] = v4;
+  v14[4] = @"privateFunctions =";
   privateFunctions = p_private->privateFunctions;
   if (!privateFunctions)
   {
     privateFunctions = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[5] = privateFunctions;
-  v15[6] = v4;
-  v15[7] = @"binaryFunctions =";
+  v14[5] = privateFunctions;
+  v14[6] = v4;
+  v14[7] = @"binaryFunctions =";
   binaryFunctions = p_private->binaryFunctions;
   if (!binaryFunctions)
   {
     binaryFunctions = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[8] = binaryFunctions;
-  v15[9] = v4;
-  v15[10] = @"groups =";
+  v14[8] = binaryFunctions;
+  v14[9] = v4;
+  v14[10] = @"groups =";
   groups = p_private->groups;
   if (!groups)
   {
     groups = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[11] = groups;
-  result = [v5 stringWithFormat:@"%@%@", v6, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v15, 12), "componentsJoinedByString:", @" "];
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  v14[11] = groups;
+  return [v5 stringWithFormat:@"%@%@", v6, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v14, 12), "componentsJoinedByString:", @" "];
 }
 
 @end

@@ -5,6 +5,7 @@
 - (AAURLSessionContext)initWithCoder:(id)coder;
 - (id)_initRequiringSigning:(BOOL)signing appleIDSession:(id)session;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)initRequiringSigning:(BOOL)signing;
 - (id)relevantHTTPStatusCodes;
 - (void)URLSession:(id)session task:(id)task getAppleIDHeadersForResponse:(id)response completionHandler:(id)handler;
 - (void)_additionalAbsintheHeadersForData:(id)data completion:(id)completion;
@@ -45,6 +46,18 @@ uint64_t __47__AAURLSessionContext__relevantHTTPStatusCodes__block_invoke()
   _relevantHTTPStatusCodes_relevantStatusCodes = [MEMORY[0x1E695DFD8] set];
 
   return MEMORY[0x1EEE66BB8]();
+}
+
+- (id)initRequiringSigning:(BOOL)signing
+{
+  signingCopy = signing;
+  v5 = objc_alloc(MEMORY[0x1E698DCC8]);
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  v8 = [v5 initWithIdentifier:v7];
+
+  v9 = [(AAURLSessionContext *)self _initRequiringSigning:signingCopy appleIDSession:v8];
+  return v9;
 }
 
 - (id)_initRequiringSigning:(BOOL)signing appleIDSession:(id)session

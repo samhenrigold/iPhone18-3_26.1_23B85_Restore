@@ -99,7 +99,7 @@
 
   if (v3)
   {
-    sub_100002FC4(0, &unk_1001026A0);
+    sub_100002FC4(0, &unk_1001026A0, UIKeyCommand_ptr);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -145,7 +145,7 @@
 {
   senderCopy = sender;
   selfCopy = self;
-  sub_10003A6D8(senderCopy);
+  sub_10003A6D8();
 }
 
 - (void)switchToFolderWithSender:(id)sender
@@ -191,7 +191,7 @@
 
   sub_10003B87C();
 
-  sub_1000069B0(v6, &unk_100100140);
+  sub_1000069B0(v6, &unk_100100140, &qword_1000C5DC0);
 }
 
 - (void)beginSearching
@@ -231,7 +231,7 @@
   sub_10003BB2C();
   v8 = v7;
 
-  sub_1000069B0(v10, &unk_100100140);
+  sub_1000069B0(v10, &unk_100100140, &qword_1000C5DC0);
   return v8 & 1;
 }
 
@@ -283,7 +283,7 @@
   databaseCopy = database;
   controllerCopy = controller;
   selfCopy = self;
-  sub_10003D714();
+  sub_10003D714(selfCopy, workflowCopy, databaseCopy, controllerCopy);
 }
 
 - (void)runCoordinator:(id)coordinator accessibilityAnnounce:(id)announce

@@ -111,7 +111,7 @@
 
 - (FCPuzzleType)initWithPuzzleTypeRecord:(id)record assetManager:(id)manager context:(id)context interestToken:(id)token
 {
-  v136 = *MEMORY[0x1E69E9840];
+  v135 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   managerCopy = manager;
   contextCopy = context;
@@ -121,21 +121,21 @@
 
   if (!identifier && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v114 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "identifier != 0"];
+    v113 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "identifier != 0"];
     *buf = 136315906;
-    v129 = "[FCPuzzleType initWithPuzzleTypeRecord:assetManager:context:interestToken:]";
-    v130 = 2080;
-    v131 = "FCPuzzleType.m";
-    v132 = 1024;
-    v133 = 177;
-    v134 = 2114;
-    v135 = v114;
+    v128 = "[FCPuzzleType initWithPuzzleTypeRecord:assetManager:context:interestToken:]";
+    v129 = 2080;
+    v130 = "FCPuzzleType.m";
+    v131 = 1024;
+    v132 = 177;
+    v133 = 2114;
+    v134 = v113;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v127.receiver = self;
-  v127.super_class = FCPuzzleType;
-  v17 = [(FCPuzzleType *)&v127 init];
+  v126.receiver = self;
+  v126.super_class = FCPuzzleType;
+  v17 = [(FCPuzzleType *)&v126 init];
   if (v17)
   {
     if ([identifier length])
@@ -256,49 +256,49 @@
       if (v75)
       {
         [MEMORY[0x1E696ACB0] JSONObjectWithData:v75 options:0 error:0];
-        v76 = v122 = contextCopy;
-        v121 = [v76 objectForKeyedSubscript:@"exploreTileBackgroundColor"];
-        v77 = [FCColor colorWithHexString:v121];
+        v76 = v121 = contextCopy;
+        v120 = [v76 objectForKeyedSubscript:@"exploreTileBackgroundColor"];
+        v77 = [FCColor colorWithHexString:v120];
         themeColor = v17->_themeColor;
         v17->_themeColor = v77;
 
-        v120 = [v76 objectForKeyedSubscript:@"darkStyleExploreTileBackgroundColor"];
-        v79 = [FCColor colorWithHexString:v120];
+        v119 = [v76 objectForKeyedSubscript:@"darkStyleExploreTileBackgroundColor"];
+        v79 = [FCColor colorWithHexString:v119];
         darkStyleThemeColor = v17->_darkStyleThemeColor;
         v17->_darkStyleThemeColor = v79;
 
-        v119 = [v76 objectForKeyedSubscript:@"puzzlePrimaryColor"];
-        v81 = [FCColor colorWithHexString:v119];
+        v118 = [v76 objectForKeyedSubscript:@"puzzlePrimaryColor"];
+        v81 = [FCColor colorWithHexString:v118];
         puzzlePrimaryColor = v17->_puzzlePrimaryColor;
         v17->_puzzlePrimaryColor = v81;
 
-        v118 = [v76 objectForKeyedSubscript:@"darkStylePuzzlePrimaryColor"];
-        v83 = [FCColor colorWithHexString:v118];
+        v117 = [v76 objectForKeyedSubscript:@"darkStylePuzzlePrimaryColor"];
+        v83 = [FCColor colorWithHexString:v117];
         darkStylePuzzlePrimaryColor = v17->_darkStylePuzzlePrimaryColor;
         v17->_darkStylePuzzlePrimaryColor = v83;
 
-        v117 = [v76 objectForKeyedSubscript:@"groupTitleColor"];
-        v85 = [FCColor colorWithHexString:v117];
+        v116 = [v76 objectForKeyedSubscript:@"groupTitleColor"];
+        v85 = [FCColor colorWithHexString:v116];
         groupTitleColor = v17->_groupTitleColor;
         v17->_groupTitleColor = v85;
 
-        v116 = [v76 objectForKeyedSubscript:@"darkStyleGroupTitleColor"];
-        v87 = [FCColor colorWithHexString:v116];
+        v115 = [v76 objectForKeyedSubscript:@"darkStyleGroupTitleColor"];
+        v87 = [FCColor colorWithHexString:v115];
         groupDarkStyleTitleColor = v17->_groupDarkStyleTitleColor;
         v17->_groupDarkStyleTitleColor = v87;
 
         dictionary = [MEMORY[0x1E695DF90] dictionary];
-        v115 = [v76 objectForKeyedSubscript:@"navigationBarTheme"];
+        v114 = [v76 objectForKeyedSubscript:@"navigationBarTheme"];
         array = [MEMORY[0x1E695DF70] array];
-        v124[0] = MEMORY[0x1E69E9820];
-        v124[1] = 3221225472;
-        v124[2] = __76__FCPuzzleType_initWithPuzzleTypeRecord_assetManager_context_interestToken___block_invoke;
-        v124[3] = &unk_1E7C38AA8;
+        v123[0] = MEMORY[0x1E69E9820];
+        v123[1] = 3221225472;
+        v123[2] = __76__FCPuzzleType_initWithPuzzleTypeRecord_assetManager_context_interestToken___block_invoke;
+        v123[3] = &unk_1E7C38AA8;
         v91 = dictionary;
-        v125 = v91;
+        v124 = v91;
         v92 = array;
-        v126 = v92;
-        [v115 enumerateObjectsUsingBlock:v124];
+        v125 = v92;
+        [v114 enumerateObjectsUsingBlock:v123];
         v93 = v75;
         v94 = identifier;
         v95 = tokenCopy;
@@ -314,7 +314,7 @@
         identifier = v94;
         v75 = v93;
 
-        contextCopy = v122;
+        contextCopy = v121;
       }
 
       imagesResourceID = [recordCopy imagesResourceID];
@@ -352,7 +352,6 @@
     }
   }
 
-  v112 = *MEMORY[0x1E69E9840];
   return v17;
 }
 

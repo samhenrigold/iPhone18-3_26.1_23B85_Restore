@@ -55,25 +55,23 @@
 
 - (id)withCaseSensitiveAttribute
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  v14 = *MEMORY[0x277D74338];
+  v14[1] = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D74338];
   v2 = *MEMORY[0x277D74388];
-  v11[0] = *MEMORY[0x277D74398];
-  v11[1] = v2;
-  v12[0] = &unk_285537D10;
-  v12[1] = &unk_285537D28;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
-  v13 = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
-  v15[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v10[0] = *MEMORY[0x277D74398];
+  v10[1] = v2;
+  v11[0] = &unk_285537D10;
+  v11[1] = &unk_285537D28;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v12 = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+  v14[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
 
   fontDescriptor = [self fontDescriptor];
   v7 = [fontDescriptor fontDescriptorByAddingAttributes:v5];
 
   v8 = [MEMORY[0x277D74300] fontWithDescriptor:v7 size:0.0];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

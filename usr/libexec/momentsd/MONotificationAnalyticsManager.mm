@@ -1192,11 +1192,20 @@ NSNumber *__cdecl __56__MONotificationAnalyticsManager_fieldExtractorForName___b
   return v10;
 }
 
+- (void)fetchAllNotificationEvents:(uint64_t)a3 toEndDate:(uint64_t)a4 error:(uint64_t)a5 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*a1 + 40);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, a2, a3, "Failed to fetch biome events: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)filterDNUGatedEvents:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  [a1 count];
-  [a2 count];
-  OUTLINED_FUNCTION_2(&_mh_execute_header, v3, v4, "Filtered DNU events: %lu -> %lu", v5, v6, v7, v8, 0);
+  *v9 = 134218240;
+  *&v9[4] = [a1 count];
+  *&v9[12] = 2048;
+  *&v9[14] = [a2 count];
+  OUTLINED_FUNCTION_2(&_mh_execute_header, v3, v4, "Filtered DNU events: %lu -> %lu", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
 }
 
 - (void)getAvailabilityProbabilityThreshold

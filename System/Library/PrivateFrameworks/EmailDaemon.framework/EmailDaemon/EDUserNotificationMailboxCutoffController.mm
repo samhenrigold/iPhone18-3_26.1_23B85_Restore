@@ -86,29 +86,29 @@ void __48__EDUserNotificationMailboxCutoffController_log__block_invoke(uint64_t 
 
 - (void)updateCutoffForMailboxesWithMessages:(id)messages
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   [(EDUserNotificationMailboxCutoffController *)self _initializeIfNeeded];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v4 = messagesCopy;
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v5)
   {
     v6 = 0;
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         if ([(EDUserNotificationMailboxCutoffController *)self _shouldUpdateCutoffForMessage:v9])
         {
           mailbox = [v9 mailbox];
@@ -129,13 +129,13 @@ void __48__EDUserNotificationMailboxCutoffController_log__block_invoke(uint64_t 
             if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
               remoteID = [v9 remoteID];
-              [(EDUserNotificationMailboxCutoffController *)remoteID updateCutoffForMailboxesWithMessages:buf, &v24, v15];
+              [(EDUserNotificationMailboxCutoffController *)remoteID updateCutoffForMailboxesWithMessages:buf, &v23, v15];
             }
           }
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v5);
@@ -149,8 +149,6 @@ void __48__EDUserNotificationMailboxCutoffController_log__block_invoke(uint64_t 
   else
   {
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearCutoffForMailbox:(id)mailbox

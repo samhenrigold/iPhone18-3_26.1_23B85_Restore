@@ -100,7 +100,7 @@ void __77__PLMomentShare_momentSharesReferencedInUploadBatchContainer_inPhotoLib
 {
   v8 = [MEMORY[0x1E696AE18] predicateWithFormat:@"scopeIdentifier IN %@", *(a1 + 32)];
   v2 = [*(a1 + 40) batch];
-  v3 = [v2 count];
+  v3 = objc_msgSend_count(v2);
   v4 = [*(a1 + 48) managedObjectContext];
   v5 = [(PLShare *)PLMomentShare sharesWithPredicate:v8 fetchLimit:v3 inManagedObjectContext:v4];
   v6 = *(*(a1 + 56) + 8);
@@ -203,7 +203,7 @@ void __77__PLMomentShare_momentSharesReferencedInUploadBatchContainer_inPhotoLib
     if (v12)
     {
       v29 = _contactStore;
-      v13 = [v9 count];
+      v13 = objc_msgSend_count(v9);
       v17 = PLBackendSharingGetLog();
       v14 = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
       if (v13)
@@ -272,7 +272,7 @@ LABEL_30:
     v9 = v22;
     if (v17 || !v22)
     {
-      v24 = [v17 count];
+      v24 = objc_msgSend_count(v17);
       compactDescription = PLBackendSharingGetLog();
       v25 = os_log_type_enabled(compactDescription, OS_LOG_TYPE_INFO);
       if (v24)
@@ -936,7 +936,7 @@ LABEL_6:
   v14 = v7;
   v15 = &v16;
   [libraryCopy performTransactionAndWait:&v10];
-  if ([v17[5] count])
+  if (objc_msgSend_count(v17[5], v10, v11, v12, v13))
   {
     libraryServicesManager = [libraryCopy libraryServicesManager];
     cloudPhotoLibraryManager = [libraryServicesManager cloudPhotoLibraryManager];

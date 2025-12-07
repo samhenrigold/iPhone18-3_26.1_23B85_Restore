@@ -64,14 +64,14 @@ void __44__ATXStackStateTracker_persistInternalState__block_invoke(uint64_t a1, 
 {
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
-  v15 = 0;
-  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v15];
-  v6 = v15;
+  v17 = 0;
+  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v17];
+  v6 = v17;
   objc_autoreleasePoolPop(v4);
   if (!v5)
   {
-    v12 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_blending(v7);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       __44__ATXStackStateTracker_persistInternalState__block_invoke_cold_3();
     }
@@ -79,45 +79,46 @@ void __44__ATXStackStateTracker_persistInternalState__block_invoke(uint64_t a1, 
     goto LABEL_12;
   }
 
-  v7 = open([*(*(a1 + 32) + 40) UTF8String], 514, 384);
-  if (v7 == -1)
+  v8 = open([*(*(a1 + 32) + 40) UTF8String], 514, 384);
+  if (v8 == -1)
   {
-    v13 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = __atxlog_handle_blending(v8);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      __44__ATXStackStateTracker_persistInternalState__block_invoke_cold_2(a1 + 32);
+      __44__ATXStackStateTracker_persistInternalState__block_invoke_cold_2();
     }
 
 LABEL_12:
-    LOBYTE(v9) = 0;
+    LOBYTE(v11) = 0;
     goto LABEL_17;
   }
 
-  v8 = v7;
-  v9 = ATXCacheFileWrite();
-  v10 = __atxlog_handle_blending();
+  v9 = v8;
+  v10 = ATXCacheFileWrite();
   v11 = v10;
-  if (v9)
+  v12 = __atxlog_handle_blending(v10);
+  v13 = v12;
+  if (v11)
   {
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "ATXStackStateTracker: Done persisting internal state.", buf, 2u);
+      _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEFAULT, "ATXStackStateTracker: Done persisting internal state.", buf, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     __44__ATXStackStateTracker_persistInternalState__block_invoke_cold_1();
   }
 
-  if ((v8 & 0x80000000) == 0)
+  if ((v9 & 0x80000000) == 0)
   {
-    close(v8);
+    close(v9);
   }
 
 LABEL_17:
-  *(*(*(a1 + 40) + 8) + 24) = v9;
+  *(*(*(a1 + 40) + 8) + 24) = v11;
 }
 
 - (void)coalescedPersistInternalState
@@ -134,7 +135,7 @@ LABEL_17:
 - (void)updateStackRotationEvents
 {
   v3 = objc_autoreleasePoolPush();
-  v4 = __atxlog_handle_blending();
+  v4 = __atxlog_handle_blending(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -143,18 +144,19 @@ LABEL_17:
 
   v5 = dispatch_semaphore_create(0);
   v6 = objc_opt_new();
-  v9 = MEMORY[0x277D85DD0];
-  v10 = 3221225472;
-  v11 = __49__ATXStackStateTracker_updateStackRotationEvents__block_invoke;
-  v12 = &unk_27859D6D8;
+  v10 = MEMORY[0x277D85DD0];
+  v11 = 3221225472;
+  v12 = __49__ATXStackStateTracker_updateStackRotationEvents__block_invoke;
+  v13 = &unk_27859D6D8;
   selfCopy = self;
   v7 = v5;
-  v14 = v7;
-  [v6 getCurrentSuggestionsWidgetAndAppPredictionPanelLayoutsWithCompletionHandler:&v9];
-  if ([MEMORY[0x277D425A0] waitForSemaphore:v7 timeoutSeconds:{1.0, v9, v10, v11, v12, selfCopy}] == 1)
+  v15 = v7;
+  [v6 getCurrentSuggestionsWidgetAndAppPredictionPanelLayoutsWithCompletionHandler:&v10];
+  v8 = [MEMORY[0x277D425A0] waitForSemaphore:v7 timeoutSeconds:{1.0, v10, v11, v12, v13, selfCopy}];
+  if (v8 == 1)
   {
-    v8 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = __atxlog_handle_blending(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [ATXStackStateTracker updateStackRotationEvents];
     }
@@ -170,27 +172,28 @@ void __49__ATXStackStateTracker_updateStackRotationEvents__block_invoke(uint64_t
 {
   v7 = a3;
   v8 = a4;
+  v9 = v8;
   if (v8)
   {
-    v9 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = __atxlog_handle_blending(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __49__ATXStackStateTracker_updateStackRotationEvents__block_invoke_cold_1();
     }
 
     [*(a1 + 32) setCurrentSuggestionsWidgetLayouts:0];
-    v10 = *(a1 + 32);
-    v11 = 0;
+    v11 = *(a1 + 32);
+    v12 = 0;
   }
 
   else
   {
     [*(a1 + 32) setCurrentSuggestionsWidgetLayouts:a2];
-    v10 = *(a1 + 32);
-    v11 = v7;
+    v11 = *(a1 + 32);
+    v12 = v7;
   }
 
-  [v10 setCurrentAppPredictionPanelLayouts:v11];
+  [v11 setCurrentAppPredictionPanelLayouts:v12];
   dispatch_semaphore_signal(*(a1 + 40));
 }
 
@@ -246,7 +249,7 @@ void __64__ATXStackStateTracker_updateStackRotationEventsByQueryingBiome__block_
   v6 = a3;
   if ([v5 state] == 1)
   {
-    v7 = __atxlog_handle_blending();
+    v7 = __atxlog_handle_blending(1);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       __64__ATXStackStateTracker_updateStackRotationEventsByQueryingBiome__block_invoke_181_cold_1(v5, v7);
@@ -424,42 +427,44 @@ void __42__ATXStackStateTracker_jsonRepresentation__block_invoke(uint64_t a1, vo
 void __37__ATXStackStateTracker_stackIsStale___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_blending();
+  v4 = __atxlog_handle_blending(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __37__ATXStackStateTracker_stackIsStale___block_invoke_cold_1(a1, v3, v4);
   }
 
-  if ([*(a1 + 40) stackWasCreatedALongTimeAgo:*(a1 + 32)])
+  v5 = [*(a1 + 40) stackWasCreatedALongTimeAgo:*(a1 + 32)];
+  if (v5)
   {
-    if (![*(a1 + 40) lastStackRotationWasALongTimeAgoForStackId:*(a1 + 32)])
+    v6 = [*(a1 + 40) lastStackRotationWasALongTimeAgoForStackId:*(a1 + 32)];
+    if (!v6)
     {
-      v6 = 0;
+      v8 = 0;
       goto LABEL_13;
     }
 
-    v5 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v7 = __atxlog_handle_blending(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      __37__ATXStackStateTracker_stackIsStale___block_invoke_cold_3((a1 + 32), v5);
+      __37__ATXStackStateTracker_stackIsStale___block_invoke_cold_3((a1 + 32), v7);
     }
 
-    v6 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v5 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v7 = __atxlog_handle_blending(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      __37__ATXStackStateTracker_stackIsStale___block_invoke_cold_2((a1 + 32), v5);
+      __37__ATXStackStateTracker_stackIsStale___block_invoke_cold_2((a1 + 32), v7);
     }
 
-    v6 = 0;
+    v8 = 0;
   }
 
 LABEL_13:
-  *(*(*(a1 + 48) + 8) + 24) = v6;
+  *(*(*(a1 + 48) + 8) + 24) = v8;
 }
 
 - (BOOL)mostRecentRotationOfStackIsSystemInitiated:(id)initiated
@@ -692,7 +697,7 @@ void __49__ATXStackStateTracker_topWidgetUniqueIdOfStack___block_invoke(uint64_t
 {
   v3 = a2;
   v4 = [v3 stackStateByStackId];
-  v5 = (a1 + 32);
+  v5 = a1 + 32;
   v6 = [v4 objectForKeyedSubscript:*(a1 + 32)];
 
   v7 = [v6 lastStackShownEvent];
@@ -700,39 +705,39 @@ void __49__ATXStackStateTracker_topWidgetUniqueIdOfStack___block_invoke(uint64_t
   {
 
 LABEL_4:
-    v9 = [v6 lastStackShownEvent];
-    v10 = [v9 date];
-    v11 = v10;
-    if (v10)
+    v10 = [v6 lastStackShownEvent];
+    v11 = [v10 date];
+    v12 = v11;
+    if (v11)
     {
-      v12 = v10;
+      v13 = v11;
     }
 
     else
     {
-      v12 = [MEMORY[0x277CBEAA8] distantPast];
+      v13 = [MEMORY[0x277CBEAA8] distantPast];
     }
 
-    v13 = v12;
+    v14 = v13;
 
-    v14 = [v6 lastStackRotationEvent];
-    v15 = [v14 date];
-    v16 = v15;
-    if (v15)
+    v15 = [v6 lastStackRotationEvent];
+    v16 = [v15 date];
+    v17 = v16;
+    if (v16)
     {
-      v17 = v15;
+      v18 = v16;
     }
 
     else
     {
-      v17 = [MEMORY[0x277CBEAA8] distantPast];
+      v18 = [MEMORY[0x277CBEAA8] distantPast];
     }
 
-    v18 = v17;
+    v19 = v18;
 
-    v19 = [v13 laterDate:v18];
+    v20 = [v14 laterDate:v19];
 
-    if (v13 == v19)
+    if (v14 == v20)
     {
       [v6 lastStackShownEvent];
     }
@@ -741,11 +746,11 @@ LABEL_4:
     {
       [v6 lastStackRotationEvent];
     }
-    v20 = ;
-    v21 = [v20 widgetUniqueId];
-    v22 = *(*(a1 + 40) + 8);
-    v23 = *(v22 + 40);
-    *(v22 + 40) = v21;
+    v21 = ;
+    v22 = [v21 widgetUniqueId];
+    v23 = *(*(a1 + 40) + 8);
+    v24 = *(v23 + 40);
+    *(v23 + 40) = v22;
 
     goto LABEL_14;
   }
@@ -757,8 +762,8 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v24 = __atxlog_handle_blending();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+  v25 = __atxlog_handle_blending(v9);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
     __49__ATXStackStateTracker_topWidgetUniqueIdOfStack___block_invoke_cold_1(v5, v3);
   }
@@ -915,7 +920,7 @@ void __54__ATXStackStateTracker_lastThreeUserVisitDatesOfPage___block_invoke(uin
 
 uint64_t __64__ATXStackStateTracker_updateStackRotationEventsByQueryingBiome__block_invoke_2(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 eventBody];
   objc_opt_class();
@@ -948,18 +953,18 @@ uint64_t __64__ATXStackStateTracker_updateStackRotationEventsByQueryingBiome__bl
       v16 = objc_alloc(MEMORY[0x277CBEAA8]);
       [v3 timestamp];
       v17 = [v16 initWithTimeIntervalSinceReferenceDate:?];
-      v18 = __atxlog_handle_blending();
+      v18 = __atxlog_handle_blending(v17);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         v19 = [v7 date];
         v20 = *(a1 + 32);
-        v26 = 138543874;
-        v27 = v19;
-        v28 = 2114;
-        v29 = v20;
-        v30 = 2114;
-        v31 = v17;
-        _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, "Encountered a BiomeEvent that has a date before the queryStartDate. ATXHomeScreenEvent Date: %{public}@, Query Start Date: %{public}@, Biome Event Date: %{public}@", &v26, 0x20u);
+        v25 = 138543874;
+        v26 = v19;
+        v27 = 2114;
+        v28 = v20;
+        v29 = 2114;
+        v30 = v17;
+        _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, "Encountered a BiomeEvent that has a date before the queryStartDate. ATXHomeScreenEvent Date: %{public}@, Query Start Date: %{public}@, Biome Event Date: %{public}@", &v25, 0x20u);
       }
 
       goto LABEL_16;
@@ -982,11 +987,11 @@ LABEL_17:
 
       if (v14 == 3)
       {
-        v23 = [v7 reason];
-        v24 = NSStringForATXHomeScreenStackChangeReason();
-        v25 = [v23 isEqualToString:v24];
+        v22 = [v7 reason];
+        v23 = NSStringForATXHomeScreenStackChangeReason();
+        v24 = [v22 isEqualToString:v23];
 
-        v15 = v25 ^ 1u;
+        v15 = v24 ^ 1u;
         goto LABEL_17;
       }
 
@@ -1131,7 +1136,6 @@ LABEL_16:
   v15 = 0;
 LABEL_18:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -1159,11 +1163,11 @@ void __64__ATXStackStateTracker_updateStackRotationEventsByQueryingBiome__block_
       if ([v8 isEqualToString:@"HomeScreenPageShown"])
       {
 
-        v23 = *(a1 + 32);
+        v24 = *(a1 + 32);
         v12 = [v7 metadata];
-        v24 = [v12 pageIndex];
-        v25 = [v7 date];
-        [v23 updateLastThreeUserVisitDatesIfNecessaryForPage:v24 date:v25];
+        v25 = [v12 pageIndex];
+        v26 = [v7 date];
+        [v24 updateLastThreeUserVisitDatesIfNecessaryForPage:v25 date:v26];
 LABEL_13:
 
 LABEL_14:
@@ -1239,8 +1243,8 @@ LABEL_32:
 
           v54 = *(a1 + 32);
           v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*MEMORY[0x277CEBAE8]];
-          v24 = [v7 date];
-          [v54 updateLastThreeUserVisitDatesIfNecessaryForPage:v12 date:v24];
+          v25 = [v7 date];
+          [v54 updateLastThreeUserVisitDatesIfNecessaryForPage:v12 date:v25];
           goto LABEL_14;
         }
 
@@ -1308,36 +1312,36 @@ LABEL_32:
     if (!v12)
     {
       v12 = objc_opt_new();
-      v13 = [*(a1 + 32) stackStateByStackId];
-      v14 = [v7 stackId];
-      [v13 setObject:v12 forKeyedSubscript:v14];
+      v14 = [*(a1 + 32) stackStateByStackId];
+      v15 = [v7 stackId];
+      [v14 setObject:v12 forKeyedSubscript:v15];
     }
 
-    v15 = __atxlog_handle_blending();
-    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+    v16 = __atxlog_handle_blending(v13);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
     if (v9 == 14)
     {
-      if (v16)
+      if (v17)
       {
-        v26 = [v7 stackId];
-        v27 = [v7 date];
-        v28 = [v7 stackId];
-        v29 = [v7 eventTypeString];
-        v30 = [v7 widgetBundleId];
-        v31 = [v7 reason];
+        v27 = [v7 stackId];
+        v28 = [v7 date];
+        v29 = [v7 stackId];
+        v30 = [v7 eventTypeString];
+        v31 = [v7 widgetBundleId];
+        v32 = [v7 reason];
         *buf = 138544642;
-        v60 = v26;
+        v60 = v27;
         v61 = 2114;
-        v62 = v27;
+        v62 = v28;
         v63 = 2112;
-        v64 = v28;
+        v64 = v29;
         v65 = 2112;
-        v66 = v29;
+        v66 = v30;
         v67 = 2112;
-        v68 = v30;
+        v68 = v31;
         v69 = 2114;
-        v70 = v31;
-        _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, "Found a stack shown event for stack %{public}@: %{public}@ - %@: %@ - %@ - %{public}@", buf, 0x3Eu);
+        v70 = v32;
+        _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "Found a stack shown event for stack %{public}@: %{public}@ - %@: %@ - %@ - %{public}@", buf, 0x3Eu);
       }
 
       [v12 setLastStackShownEvent:v7];
@@ -1346,112 +1350,110 @@ LABEL_32:
 
     if (v9 == 16)
     {
-      if (v16)
+      if (v17)
       {
-        v17 = [v7 stackId];
-        v18 = [v7 date];
-        v19 = [v7 stackId];
-        v20 = [v7 eventTypeString];
-        v21 = [v7 widgetBundleId];
-        v22 = [v7 reason];
+        v18 = [v7 stackId];
+        v19 = [v7 date];
+        v20 = [v7 stackId];
+        v21 = [v7 eventTypeString];
+        v22 = [v7 widgetBundleId];
+        v23 = [v7 reason];
         *buf = 138544642;
-        v60 = v17;
+        v60 = v18;
         v61 = 2114;
-        v62 = v18;
+        v62 = v19;
         v63 = 2112;
-        v64 = v19;
+        v64 = v20;
         v65 = 2112;
-        v66 = v20;
+        v66 = v21;
         v67 = 2112;
-        v68 = v21;
+        v68 = v22;
         v69 = 2114;
-        v70 = v22;
-        _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, "Found a stack creation event for stack %{public}@: %{public}@ - %@: %@ - %@ - %{public}@", buf, 0x3Eu);
+        v70 = v23;
+        _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "Found a stack creation event for stack %{public}@: %{public}@ - %@: %@ - %@ - %{public}@", buf, 0x3Eu);
       }
 
       [v12 setStackCreationEvent:v7];
       goto LABEL_31;
     }
 
-    if (v16)
+    if (v17)
     {
       v57 = [v7 stackId];
-      v32 = [v7 date];
+      v33 = [v7 date];
       v55 = [v7 stackId];
       [v7 eventTypeString];
-      v33 = v58 = a1;
-      v34 = [v7 widgetBundleId];
-      v35 = [v7 reason];
+      v34 = v58 = a1;
+      v35 = [v7 widgetBundleId];
+      v36 = [v7 reason];
       v56 = [v7 metadata];
-      v36 = [v56 isStalenessRotation];
-      v37 = [v36 BOOLValue];
+      v37 = [v56 isStalenessRotation];
+      v38 = [v37 BOOLValue];
       *buf = 138544898;
-      v38 = @"NO";
+      v39 = @"NO";
       v60 = v57;
       v61 = 2114;
-      if (v37)
+      if (v38)
       {
-        v38 = @"YES";
+        v39 = @"YES";
       }
 
-      v62 = v32;
+      v62 = v33;
       v63 = 2112;
       v64 = v55;
       v65 = 2112;
-      v66 = v33;
+      v66 = v34;
       v67 = 2112;
-      v68 = v34;
+      v68 = v35;
       v69 = 2114;
-      v70 = v35;
+      v70 = v36;
       v71 = 2114;
-      v72 = v38;
-      _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, "Found a stack rotation event for stack %{public}@: %{public}@ - %@: %@ - %@ - %{public}@ - isStalenessRotation %{public}@", buf, 0x48u);
+      v72 = v39;
+      _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "Found a stack rotation event for stack %{public}@: %{public}@ - %@: %@ - %@ - %{public}@ - isStalenessRotation %{public}@", buf, 0x48u);
 
       a1 = v58;
     }
 
     [v12 setLastStackRotationEvent:v7];
-    v39 = [v7 reason];
-    v40 = NSStringForATXHomeScreenStackChangeReason();
-    v41 = [v39 isEqualToString:v40];
+    v40 = [v7 reason];
+    v41 = NSStringForATXHomeScreenStackChangeReason();
+    v42 = [v40 isEqualToString:v41];
 
-    if (v41)
+    if (v42)
     {
       [v12 setLastUserScrollStackRotationEvent:v7];
       goto LABEL_31;
     }
 
-    v42 = [v7 reason];
-    v43 = NSStringForATXHomeScreenStackChangeReason();
-    v44 = [v42 isEqualToString:v43];
+    v43 = [v7 reason];
+    v44 = NSStringForATXHomeScreenStackChangeReason();
+    v45 = [v43 isEqualToString:v44];
 
-    if (!v44)
+    if (!v45)
     {
       goto LABEL_31;
     }
 
-    v45 = [v7 metadata];
-    v46 = [v45 isStalenessRotation];
-    v47 = [v46 BOOLValue];
+    v46 = [v7 metadata];
+    v47 = [v46 isStalenessRotation];
+    v48 = [v47 BOOLValue];
 
-    if (!v47)
+    if (!v48)
     {
       goto LABEL_31;
     }
 
-    v48 = [v7 date];
-    [v12 setDateOfLastStalenessRotation:v48];
+    v49 = [v7 date];
+    [v12 setDateOfLastStalenessRotation:v49];
 
-    v24 = [v7 blendingCacheId];
-    v49 = *(a1 + 40);
-    v25 = [v7 stackId];
-    [v49 setObject:v24 forKeyedSubscript:v25];
+    v25 = [v7 blendingCacheId];
+    v50 = *(a1 + 40);
+    v26 = [v7 stackId];
+    [v50 setObject:v25 forKeyedSubscript:v26];
     goto LABEL_13;
   }
 
 LABEL_33:
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_blendingCacheIdToStackIdMap:(id)map
@@ -1485,9 +1487,9 @@ void __53__ATXStackStateTracker__blendingCacheIdToStackIdMap___block_invoke(uint
 
 - (void)cleanupOldDataWithHomeScreenPages:(id)pages
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   pagesCopy = pages;
-  v4 = __atxlog_handle_blending();
+  v4 = __atxlog_handle_blending(pagesCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1495,51 +1497,51 @@ void __53__ATXStackStateTracker__blendingCacheIdToStackIdMap___block_invoke(uint
   }
 
   v5 = objc_opt_new();
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = pagesCopy;
-  v6 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v6 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (v6)
   {
     v7 = v6;
-    v26 = *v35;
+    v25 = *v34;
     do
     {
       v8 = 0;
       do
       {
-        if (*v35 != v26)
+        if (*v34 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v34 + 1) + 8 * v8);
+        v9 = *(*(&v33 + 1) + 8 * v8);
         v10 = objc_autoreleasePoolPush();
+        v29 = 0u;
         v30 = 0u;
         v31 = 0u;
         v32 = 0u;
-        v33 = 0u;
         config = [v9 config];
         stacks = [config stacks];
 
-        v13 = [stacks countByEnumeratingWithState:&v30 objects:v39 count:16];
+        v13 = [stacks countByEnumeratingWithState:&v29 objects:v38 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v31;
+          v15 = *v30;
           do
           {
             v16 = 0;
             do
             {
-              if (*v31 != v15)
+              if (*v30 != v15)
               {
                 objc_enumerationMutation(stacks);
               }
 
-              v17 = *(*(&v30 + 1) + 8 * v16);
+              v17 = *(*(&v29 + 1) + 8 * v16);
               v18 = objc_autoreleasePoolPush();
               identifier = [v17 identifier];
               [v5 addObject:identifier];
@@ -1549,7 +1551,7 @@ void __53__ATXStackStateTracker__blendingCacheIdToStackIdMap___block_invoke(uint
             }
 
             while (v14 != v16);
-            v14 = [stacks countByEnumeratingWithState:&v30 objects:v39 count:16];
+            v14 = [stacks countByEnumeratingWithState:&v29 objects:v38 count:16];
           }
 
           while (v14);
@@ -1560,29 +1562,26 @@ void __53__ATXStackStateTracker__blendingCacheIdToStackIdMap___block_invoke(uint
       }
 
       while (v8 != v7);
-      v7 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v7 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
     }
 
     while (v7);
   }
 
   internalStateLock = self->_internalStateLock;
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __58__ATXStackStateTracker_cleanupOldDataWithHomeScreenPages___block_invoke;
-  v27[3] = &unk_27859D770;
-  v28 = v5;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __58__ATXStackStateTracker_cleanupOldDataWithHomeScreenPages___block_invoke;
+  v26[3] = &unk_27859D770;
+  v27 = v5;
   selfCopy = self;
   v21 = v5;
-  [(_PASLock *)internalStateLock runWithLockAcquired:v27];
-  v22 = __atxlog_handle_blending();
+  v22 = __atxlog_handle_blending([(_PASLock *)internalStateLock runWithLockAcquired:v26]);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_2263AA000, v22, OS_LOG_TYPE_DEFAULT, "Done cleaning up state in ATXStackStateTracker.", buf, 2u);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __58__ATXStackStateTracker_cleanupOldDataWithHomeScreenPages___block_invoke(uint64_t a1, void *a2)
@@ -1594,8 +1593,7 @@ void __58__ATXStackStateTracker_cleanupOldDataWithHomeScreenPages___block_invoke
   v6 = [v5 allKeys];
   v7 = [v4 initWithArray:v6];
 
-  [v7 minusSet:*(a1 + 32)];
-  v8 = __atxlog_handle_blending();
+  v8 = __atxlog_handle_blending([v7 minusSet:*(a1 + 32)]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v15 = 138412290;
@@ -1607,18 +1605,17 @@ void __58__ATXStackStateTracker_cleanupOldDataWithHomeScreenPages___block_invoke
   v10 = [v7 allObjects];
   [v9 removeObjectsForKeys:v10];
 
-  v11 = __atxlog_handle_blending();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = __atxlog_handle_blending(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = [v3 stackStateByStackId];
-    v13 = [v12 count];
+    v13 = [v3 stackStateByStackId];
+    v14 = [v13 count];
     v15 = 134217984;
-    v16 = v13;
-    _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "Entries for %lu stacks remain in ATXStackStateTracker", &v15, 0xCu);
+    v16 = v14;
+    _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_DEFAULT, "Entries for %lu stacks remain in ATXStackStateTracker", &v15, 0xCu);
   }
 
   [*(a1 + 40) coalescedPersistInternalState];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleSigterm
@@ -1632,9 +1629,9 @@ void __58__ATXStackStateTracker_cleanupOldDataWithHomeScreenPages___block_invoke
   dispatch_async(queue, block);
 }
 
-uint64_t __37__ATXStackStateTracker_handleSigterm__block_invoke(uint64_t result)
+void *__37__ATXStackStateTracker_handleSigterm__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 8))
   {
     return [*(v1 + 24) runImmediately];
@@ -1652,247 +1649,219 @@ void __44__ATXStackStateTracker_persistInternalState__block_invoke_196(uint64_t 
 
 - (BOOL)loadInternalState
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   dataFromDisk = [(ATXStackStateTracker *)self dataFromDisk];
   if (dataFromDisk)
   {
     v5 = objc_autoreleasePoolPush();
-    v21 = 0;
-    v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:dataFromDisk error:&v21];
-    v7 = v21;
+    v22 = 0;
+    v6 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:dataFromDisk error:&v22];
+    v7 = v22;
     objc_autoreleasePoolPop(v5);
     if (v7)
     {
-      v8 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v8 = v6 == 0;
+      v9 = v6 == 0;
     }
 
-    v9 = !v8;
-    if (v8)
+    v10 = !v9;
+    if (v9)
     {
-      v15 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = __atxlog_handle_blending(v8);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [(ATXStackStateTracker *)v7 loadInternalState];
       }
 
-      v16 = objc_alloc(MEMORY[0x277D425F8]);
-      v12 = objc_opt_new();
-      v17 = [v16 initWithGuardedData:v12];
+      v18 = objc_alloc(MEMORY[0x277D425F8]);
+      v14 = objc_opt_new();
+      v19 = [v18 initWithGuardedData:v14];
       internalStateLock = self->_internalStateLock;
-      self->_internalStateLock = v17;
+      self->_internalStateLock = v19;
     }
 
     else
     {
-      v10 = [objc_alloc(MEMORY[0x277D425F8]) initWithGuardedData:v6];
-      v11 = self->_internalStateLock;
-      self->_internalStateLock = v10;
+      v11 = [objc_alloc(MEMORY[0x277D425F8]) initWithGuardedData:v6];
+      v12 = self->_internalStateLock;
+      self->_internalStateLock = v11;
 
-      v12 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = __atxlog_handle_blending(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v23 = "[ATXStackStateTracker loadInternalState]";
-        _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_DEFAULT, "%{public}s: Success", buf, 0xCu);
+        v24 = "[ATXStackStateTracker loadInternalState]";
+        _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "%{public}s: Success", buf, 0xCu);
       }
     }
   }
 
   else
   {
-    v13 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = __atxlog_handle_blending(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [ATXStackStateTracker loadInternalState];
     }
 
     v7 = objc_opt_new();
-    v14 = [objc_alloc(MEMORY[0x277D425F8]) initWithGuardedData:v7];
-    v9 = 0;
+    v16 = [objc_alloc(MEMORY[0x277D425F8]) initWithGuardedData:v7];
+    v10 = 0;
     v6 = self->_internalStateLock;
-    self->_internalStateLock = v14;
+    self->_internalStateLock = v16;
   }
 
   objc_autoreleasePoolPop(v3);
-  v19 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v10;
 }
 
 - (id)dataFromDisk
 {
-  v19 = *MEMORY[0x277D85DE8];
-  memset(&v15.st_size, 0, 48);
+  v20 = *MEMORY[0x277D85DE8];
+  memset(&v16.st_size, 0, 48);
   p_path = &self->_path;
-  if (!lstat([(NSString *)self->_path fileSystemRepresentation:0], &v15) && v15.st_size > 0x200000)
+  v3 = lstat([(NSString *)self->_path fileSystemRepresentation:0], &v16);
+  if (!v3 && v16.st_size > 0x200000)
   {
-    v3 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v4 = __atxlog_handle_blending(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      [(ATXStackStateTracker *)v3 dataFromDisk];
+      [(ATXStackStateTracker *)v4 dataFromDisk];
     }
 
 LABEL_16:
-    v6 = 0;
+    v7 = 0;
     goto LABEL_17;
   }
 
-  v4 = open([(NSString *)*p_path UTF8String], 0);
-  if (v4 == -1)
+  v5 = open([(NSString *)*p_path UTF8String], 0);
+  if (v5 == -1)
   {
-    v7 = *__error();
-    v8 = __atxlog_handle_blending();
-    v9 = v8;
-    if (v7 == 2)
+    v8 = __error();
+    v9 = *v8;
+    v10 = __atxlog_handle_blending(v8);
+    v11 = v10;
+    if (v9 == 2)
     {
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = *p_path;
-        v11 = __error();
-        v12 = strerror(*v11);
+        v12 = *p_path;
+        v13 = __error();
+        v14 = strerror(*v13);
         *buf = 138543618;
-        *&buf[4] = v10;
-        v17 = 2082;
-        v18 = v12;
-        _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "Stack state tracker file at path %{public}@ exists but we were unable to read it. Error: %{public}s", buf, 0x16u);
+        *&buf[4] = v12;
+        v18 = 2082;
+        v19 = v14;
+        _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "Stack state tracker file at path %{public}@ exists but we were unable to read it. Error: %{public}s", buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(ATXStackStateTracker *)p_path dataFromDisk];
+      [ATXStackStateTracker dataFromDisk];
     }
 
     goto LABEL_16;
   }
 
-  v5 = v4;
+  v6 = v5;
   *buf = 0;
   ATXCacheFileRead();
-  if ((v5 & 0x80000000) == 0)
+  if ((v6 & 0x80000000) == 0)
   {
-    close(v5);
+    close(v6);
   }
 
-  v6 = *buf;
+  v7 = *buf;
 
 LABEL_17:
-  v13 = *MEMORY[0x277D85DE8];
 
-  return v6;
+  return v7;
 }
 
 void __37__ATXStackStateTracker_stackIsStale___block_invoke_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 32);
   v6 = [a2 stackStateByStackId];
   v7 = [v6 objectForKeyedSubscript:*(a1 + 32)];
-  v9 = 138543618;
-  v10 = v5;
-  v11 = 2114;
-  v12 = v7;
-  _os_log_debug_impl(&dword_2263AA000, a3, OS_LOG_TYPE_DEBUG, "Stack state for stackId %{public}@:\n%{public}@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138543618;
+  v9 = v5;
+  v10 = 2114;
+  v11 = v7;
+  _os_log_debug_impl(&dword_2263AA000, a3, OS_LOG_TYPE_DEBUG, "Stack state for stackId %{public}@:\n%{public}@", &v8, 0x16u);
 }
 
 void __37__ATXStackStateTracker_stackIsStale___block_invoke_cold_2(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Stack %{public}@ is not stale because it was created recently.", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Stack %{public}@ is not stale because it was created recently.", &v3, 0xCu);
 }
 
 void __37__ATXStackStateTracker_stackIsStale___block_invoke_cold_3(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Stack %{public}@ is stale because no rotations have happened recently.", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void __49__ATXStackStateTracker_topWidgetUniqueIdOfStack___block_invoke_cold_1(uint64_t *a1, void *a2)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = [a2 stackStateByStackId];
-  v10 = [v3 allKeys];
-  OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-void __49__ATXStackStateTracker_updateStackRotationEvents__block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
   v5 = *MEMORY[0x277D85DE8];
+  v2 = *a1;
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Stack %{public}@ is stale because no rotations have happened recently.", &v3, 0xCu);
+}
+
+void __49__ATXStackStateTracker_topWidgetUniqueIdOfStack___block_invoke_cold_1(uint64_t a1, void *a2)
+{
+  v2 = [a2 stackStateByStackId];
+  v8 = [v2 allKeys];
+  OUTLINED_FUNCTION_2_3();
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 void __64__ATXStackStateTracker_updateStackRotationEventsByQueryingBiome__block_invoke_181_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Biome query for HomeScreen UI events completed with failure. Error: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Biome query for HomeScreen UI events completed with failure. Error: %@", &v4, 0xCu);
 }
 
-void __44__ATXStackStateTracker_persistInternalState__block_invoke_cold_2(uint64_t a1)
+void __44__ATXStackStateTracker_persistInternalState__block_invoke_cold_2()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(*a1 + 40);
-  v2 = *__error();
-  v3 = __error();
-  strerror(*v3);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_2_7();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x1Cu);
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-void __44__ATXStackStateTracker_persistInternalState__block_invoke_cold_3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
 }
 
 - (void)loadInternalState
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 136446722;
+  v4 = "[ATXStackStateTracker loadInternalState]";
+  v5 = 2112;
+  selfCopy = self;
+  v7 = 2112;
+  v8 = a2;
+  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "%{public}s: Using empty internal state because loadInternalState failed (unarchiveErr %@, internalState %@)", &v3, 0x20u);
 }
 
 - (void)dataFromDisk
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *self;
-  v2 = *__error();
-  v3 = __error();
-  strerror(*v3);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_2_7();
   OUTLINED_FUNCTION_2_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x1Cu);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
 }
 
 @end

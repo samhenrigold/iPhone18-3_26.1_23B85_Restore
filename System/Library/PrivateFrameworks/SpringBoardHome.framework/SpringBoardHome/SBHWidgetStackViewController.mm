@@ -198,8 +198,8 @@
 
 - (void)_updateWidgetViewHitTesting
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v3 = SBLogWidgets();
+  v21 = *MEMORY[0x1E69E9840];
+  v3 = SBLogWidgets(self);
   if (os_signpost_enabled(v3))
   {
     *buf = 0;
@@ -207,45 +207,45 @@
   }
 
   isWidgetHitTestingDisabled = [(SBHWidgetStackViewController *)self isWidgetHitTestingDisabled];
-  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
   _effectiveWidgetContainerViewControllers = [(SBHWidgetStackViewController *)self _effectiveWidgetContainerViewControllers];
   allValues = [_effectiveWidgetContainerViewControllers allValues];
 
-  v7 = [allValues countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         view = [v11 view];
         [view bs_setHitTestingDisabled:isWidgetHitTestingDisabled];
 
         [v11 setInteractionDisabled:isWidgetHitTestingDisabled];
       }
 
-      v8 = [allValues countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v8);
   }
 
-  v13 = SBLogWidgets();
-  if (os_signpost_enabled(v13))
+  v14 = SBLogWidgets(v13);
+  if (os_signpost_enabled(v14))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v13, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_UPDATE_WIDGET_VIEW_HIT_TESTING", " isAnimation=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v14, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_UPDATE_WIDGET_VIEW_HIT_TESTING", " isAnimation=YES ", buf, 2u);
   }
 }
 
@@ -259,7 +259,7 @@
   [layer setAllowsGroupOpacity:1];
 
   view2 = [(SBHWidgetStackViewController *)self view];
-  [view2 bounds];
+  objc_msgSend_bounds(view2);
   v7 = v6;
   v9 = v8;
   v11 = v10;
@@ -407,34 +407,35 @@
 - (void)_updateWidgetViewClippingAndBackgroundView
 {
   WeakRetained = objc_loadWeakRetained(&self->_dataSource);
-  if ([(NSHashTable *)self->_imageUpdateDisableAssertions count])
+  v4 = [(NSHashTable *)self->_imageUpdateDisableAssertions count];
+  if (v4)
   {
-    v4 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v4 = WeakRetained == 0;
+    v5 = WeakRetained == 0;
   }
 
-  if (!v4)
+  if (!v5)
   {
-    v5 = SBLogWidgets();
-    if (os_signpost_enabled(v5))
+    v6 = SBLogWidgets(v4);
+    if (os_signpost_enabled(v6))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1BEB18000, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_WIDGET_VIEWS_CLIPPING_AND_BACKGROUND_VIEW", " isAnimation=YES ", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1BEB18000, v6, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_WIDGET_VIEWS_CLIPPING_AND_BACKGROUND_VIEW", " isAnimation=YES ", buf, 2u);
     }
 
     if (self->_widgetScaleAnimationCount || self->_backgroundAnimationCount || [(BSUIScrollView *)self->_scrollView isScrolling]|| self->_overlapping || [(SBHWidgetStackViewController *)self _alwaysShowStackBorder]|| [(SBHWidgetStackViewController *)self _insetWidgetsForTrackingAppearance])
     {
       [(SBHWidgetStackViewController *)self _createBackgroundViewIfNecessary:1];
-      v6 = 0;
+      v7 = 0;
     }
 
     else
     {
-      v6 = 1;
+      v7 = 1;
     }
 
     clipsWidgetsToViewBounds = [(SBHWidgetStackViewController *)self clipsWidgetsToViewBounds];
@@ -442,21 +443,20 @@
     _isContentViewExtendingOutsideBounds = [(SBHWidgetStackViewController *)self _isContentViewExtendingOutsideBounds];
     if (clipsWidgetsToViewBounds)
     {
-      v10 = _showAdjacentWidgets | (_isContentViewExtendingOutsideBounds && self->_widgetSnapshotAnimationCount == 0);
+      v11 = _showAdjacentWidgets | (_isContentViewExtendingOutsideBounds && self->_widgetSnapshotAnimationCount == 0);
     }
 
     else
     {
-      v10 = 0;
+      v11 = 0;
     }
 
-    [(UIView *)self->_containerView setClipsToBounds:v10];
-    [(UIView *)self->_backgroundView setHidden:v6];
-    v11 = SBLogWidgets();
-    if (os_signpost_enabled(v11))
+    [(UIView *)self->_containerView setClipsToBounds:v11];
+    v12 = SBLogWidgets([(UIView *)self->_backgroundView setHidden:v7]);
+    if (os_signpost_enabled(v12))
     {
-      *v12 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1BEB18000, v11, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_WIDGET_VIEWS_CLIPPING_AND_BACKGROUND_VIEW", " isAnimation=YES ", v12, 2u);
+      *v13 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1BEB18000, v12, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_WIDGET_VIEWS_CLIPPING_AND_BACKGROUND_VIEW", " isAnimation=YES ", v13, 2u);
     }
   }
 }
@@ -467,9 +467,9 @@
   [traitCollection displayScale];
 
   view = [(SBHWidgetStackViewController *)self view];
-  [view bounds];
+  objc_msgSend_bounds(view);
 
-  [(SBHWidgetStackViewController *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self);
   BSRectWithSize();
   UIRectIntegralWithScale();
   v6 = v5;
@@ -517,49 +517,49 @@
 
 - (CGPoint)_restingContentOffset
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   [(SBHWidgetStackViewController *)self _pageSize];
   v4 = v3;
   v6 = v5;
-  [(SBHWidgetStackViewController *)self _scrollViewContentSize];
-  v8 = v7;
-  v10 = v9;
-  v11 = v6 * round((v9 - v6) * 0.5 / v6);
-  v12 = SBLogWidgets();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  _scrollViewContentSize = [(SBHWidgetStackViewController *)self _scrollViewContentSize];
+  v9 = v8;
+  v11 = v10;
+  v12 = v6 * round((v10 - v6) * 0.5 / v6);
+  v13 = SBLogWidgets(_scrollViewContentSize);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     logIdentifier = self->_logIdentifier;
-    v28.x = 0.0;
-    v28.y = v11;
-    v14 = NSStringFromCGPoint(v28);
-    v29.width = v4;
-    v29.height = v6;
-    v15 = NSStringFromCGSize(v29);
-    v30.width = v8;
-    v30.height = v10;
+    v29.x = 0.0;
+    v29.y = v12;
+    v15 = NSStringFromCGPoint(v29);
+    v30.width = v4;
+    v30.height = v6;
     v16 = NSStringFromCGSize(v30);
-    v19 = 138544130;
-    v20 = logIdentifier;
-    v21 = 2112;
-    v22 = v14;
-    v23 = 2112;
-    v24 = v15;
-    v25 = 2112;
-    v26 = v16;
-    _os_log_impl(&dword_1BEB18000, v12, OS_LOG_TYPE_DEFAULT, "<%{public}@> Scroll view _restingContentOffset:%@ for pageSize:%@ contentSize:%@", &v19, 0x2Au);
+    v31.width = v9;
+    v31.height = v11;
+    v17 = NSStringFromCGSize(v31);
+    v20 = 138544130;
+    v21 = logIdentifier;
+    v22 = 2112;
+    v23 = v15;
+    v24 = 2112;
+    v25 = v16;
+    v26 = 2112;
+    v27 = v17;
+    _os_log_impl(&dword_1BEB18000, v13, OS_LOG_TYPE_DEFAULT, "<%{public}@> Scroll view _restingContentOffset:%@ for pageSize:%@ contentSize:%@", &v20, 0x2Au);
   }
 
-  v17 = 0.0;
-  v18 = v11;
-  result.y = v18;
-  result.x = v17;
+  v18 = 0.0;
+  v19 = v12;
+  result.y = v19;
+  result.x = v18;
   return result;
 }
 
 - (void)_updateVisiblySettledForWidgetViewControllers
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v3 = SBLogWidgets();
+  v19 = *MEMORY[0x1E69E9840];
+  v3 = SBLogWidgets(self);
   if (os_signpost_enabled(v3))
   {
     *buf = 0;
@@ -580,41 +580,41 @@
     }
   }
 
-  v14 = 0u;
   v15 = 0u;
-  v12 = 0u;
+  v16 = 0u;
   v13 = 0u;
+  v14 = 0u;
   _effectiveWidgetContainerViewControllers = [(SBHWidgetStackViewController *)self _effectiveWidgetContainerViewControllers];
   allValues = [_effectiveWidgetContainerViewControllers allValues];
 
-  v7 = [allValues countByEnumeratingWithState:&v12 objects:v17 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v13 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v12 + 1) + 8 * i) setUserVisibilityStatus:userVisibilityStatus];
+        [*(*(&v13 + 1) + 8 * i) setUserVisibilityStatus:userVisibilityStatus];
       }
 
-      v8 = [allValues countByEnumeratingWithState:&v12 objects:v17 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v13 objects:v18 count:16];
     }
 
     while (v8);
   }
 
-  v11 = SBLogWidgets();
-  if (os_signpost_enabled(v11))
+  v12 = SBLogWidgets(v11);
+  if (os_signpost_enabled(v12))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v11, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_UPDATE_VISIBLY_SETTLED_FOR_WIDGET_VIEW_CONTROLLERS", " isAnimation=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v12, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_UPDATE_VISIBLY_SETTLED_FOR_WIDGET_VIEW_CONTROLLERS", " isAnimation=YES ", buf, 2u);
   }
 }
 
@@ -644,7 +644,7 @@
         }
 
         v9 = *(*(&v14 + 1) + 8 * v8);
-        v10 = SBLogWidgets();
+        v10 = SBLogWidgets(v5);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           logIdentifier = self->_logIdentifier;
@@ -659,15 +659,16 @@
           _os_log_debug_impl(&dword_1BEB18000, v10, OS_LOG_TYPE_DEBUG, "<%{public}@> Update presentation mode (%@) for widget view controllers: %@", buf, 0x20u);
         }
 
-        [v9 setPresentationMode:self->_presentationMode];
+        v5 = [v9 setPresentationMode:self->_presentationMode];
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [allValues countByEnumeratingWithState:&v14 objects:v24 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v14 objects:v24 count:16];
+      v6 = v5;
     }
 
-    while (v6);
+    while (v5);
   }
 }
 
@@ -798,7 +799,7 @@
 - (void)_updateWidgetViewEdgeAntialiasing
 {
   v28 = *MEMORY[0x1E69E9840];
-  v3 = SBLogWidgets();
+  v3 = SBLogWidgets(self);
   if (os_signpost_enabled(v3))
   {
     *buf = 0;
@@ -874,8 +875,7 @@
 
   [layer2 setAllowsEdgeAntialiasing:v4 & 1];
   [layer2 setShouldRasterize:v4 & 1];
-  [layer2 setRasterizationScale:v16];
-  v21 = SBLogWidgets();
+  v21 = SBLogWidgets([layer2 setRasterizationScale:v16]);
   if (os_signpost_enabled(v21))
   {
     *buf = 0;
@@ -892,7 +892,7 @@
   v6 = [iconDataSources count];
   if (v5 < v6)
   {
-    v7 = [iconDataSources objectAtIndex:v5];
+    v7 = objc_msgSend_objectAtIndex_(iconDataSources);
     activeWidget = self->_activeWidget;
     self->_activeWidget = v7;
   }
@@ -1166,7 +1166,7 @@ void __63__SBHWidgetStackViewController_discardAllWidgetViewControllers__block_i
 {
   appearCopy = appear;
   v10 = *MEMORY[0x1E69E9840];
-  v5 = SBLogWidgets();
+  v5 = SBLogWidgets(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     logIdentifier = self->_logIdentifier;
@@ -1184,7 +1184,7 @@ void __63__SBHWidgetStackViewController_discardAllWidgetViewControllers__block_i
 {
   appearingCopy = appearing;
   v20 = *MEMORY[0x1E69E9840];
-  v5 = SBLogWidgets();
+  v5 = SBLogWidgets(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     logIdentifier = self->_logIdentifier;
@@ -1237,7 +1237,7 @@ void __63__SBHWidgetStackViewController_discardAllWidgetViewControllers__block_i
 {
   appearCopy = appear;
   v20 = *MEMORY[0x1E69E9840];
-  v5 = SBLogWidgets();
+  v5 = SBLogWidgets(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     logIdentifier = self->_logIdentifier;
@@ -1295,7 +1295,7 @@ void __63__SBHWidgetStackViewController_discardAllWidgetViewControllers__block_i
 {
   disappearCopy = disappear;
   v20 = *MEMORY[0x1E69E9840];
-  v5 = SBLogWidgets();
+  v5 = SBLogWidgets(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     logIdentifier = self->_logIdentifier;
@@ -1347,7 +1347,7 @@ void __63__SBHWidgetStackViewController_discardAllWidgetViewControllers__block_i
 {
   disappearCopy = disappear;
   v21 = *MEMORY[0x1E69E9840];
-  v5 = SBLogWidgets();
+  v5 = SBLogWidgets(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     logIdentifier = self->_logIdentifier;
@@ -1406,7 +1406,7 @@ void __63__SBHWidgetStackViewController_discardAllWidgetViewControllers__block_i
   disappearCopy = disappear;
   v14 = *MEMORY[0x1E69E9840];
   windowCopy = window;
-  v7 = SBLogWidgets();
+  v7 = SBLogWidgets(windowCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = @"YES";
@@ -1607,7 +1607,7 @@ void __73__SBHWidgetStackViewController_enumerateWidgetViewControllersUsingBlock
   v23 = *MEMORY[0x1E69E9840];
   iconCopy = icon;
   sourceCopy = source;
-  v8 = SBLogWidgets();
+  v8 = SBLogWidgets(sourceCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     logIdentifier = self->_logIdentifier;
@@ -1777,7 +1777,7 @@ LABEL_12:
     v24 = providerCopy;
     v12 = _Block_copy(&v19);
     v13 = [(NSMutableDictionary *)self->_widgetContainerViewControllersToRemove count:v19];
-    v14 = SBLogWidgets();
+    v14 = SBLogWidgets(v13);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       logIdentifier = self->_logIdentifier;
@@ -1817,7 +1817,7 @@ LABEL_12:
 void __54__SBHWidgetStackViewController_setListLayoutProvider___block_invoke(uint64_t a1)
 {
   v9 = *MEMORY[0x1E69E9840];
-  v2 = SBLogWidgets();
+  v2 = SBLogWidgets(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
@@ -1837,7 +1837,7 @@ void __54__SBHWidgetStackViewController_setListLayoutProvider___block_invoke(uin
   v20 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   controllersCopy = controllers;
-  v10 = SBLogWidgets();
+  v10 = SBLogWidgets(controllersCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     logIdentifier = self->_logIdentifier;
@@ -1914,7 +1914,7 @@ uint64_t __101__SBHWidgetStackViewController_resizeSnapshotsForWidgetContainerVi
 
 - (void)setShowingContextMenu:(BOOL)menu
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (self->_showingContextMenu != menu)
   {
     menuCopy = menu;
@@ -1936,33 +1936,33 @@ LABEL_10:
       imageUpdatesDisabledForContextMenuAssertion = self->_imageUpdatesDisabledForContextMenuAssertion;
       self->_imageUpdatesDisabledForContextMenuAssertion = v5;
 
-      v7 = SBLogWidgets();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = SBLogWidgets(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         logIdentifier = self->_logIdentifier;
-        v12 = 138543618;
-        v13 = logIdentifier;
-        v14 = 2082;
-        v15 = "[SBHWidgetStackViewController setShowingContextMenu:]";
-        _os_log_impl(&dword_1BEB18000, v7, OS_LOG_TYPE_DEFAULT, "<%{public}@> %{public}s; acquiring _imageUpdatesDisabledForContextMenuAssertion", &v12, 0x16u);
+        v13 = 138543618;
+        v14 = logIdentifier;
+        v15 = 2082;
+        v16 = "[SBHWidgetStackViewController setShowingContextMenu:]";
+        _os_log_impl(&dword_1BEB18000, v8, OS_LOG_TYPE_DEFAULT, "<%{public}@> %{public}s; acquiring _imageUpdatesDisabledForContextMenuAssertion", &v13, 0x16u);
       }
     }
 
     else
     {
-      v9 = SBLogWidgets();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = SBLogWidgets(self);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = self->_logIdentifier;
-        v12 = 138543618;
-        v13 = v10;
-        v14 = 2082;
-        v15 = "[SBHWidgetStackViewController setShowingContextMenu:]";
-        _os_log_impl(&dword_1BEB18000, v9, OS_LOG_TYPE_DEFAULT, "<%{public}@> %{public}s; invalidating _imageUpdatesDisabledForContextMenuAssertion", &v12, 0x16u);
+        v11 = self->_logIdentifier;
+        v13 = 138543618;
+        v14 = v11;
+        v15 = 2082;
+        v16 = "[SBHWidgetStackViewController setShowingContextMenu:]";
+        _os_log_impl(&dword_1BEB18000, v10, OS_LOG_TYPE_DEFAULT, "<%{public}@> %{public}s; invalidating _imageUpdatesDisabledForContextMenuAssertion", &v13, 0x16u);
       }
 
       [(BSInvalidatable *)self->_imageUpdatesDisabledForContextMenuAssertion invalidate];
-      v7 = self->_imageUpdatesDisabledForContextMenuAssertion;
+      v8 = self->_imageUpdatesDisabledForContextMenuAssertion;
       self->_imageUpdatesDisabledForContextMenuAssertion = 0;
     }
 
@@ -1980,7 +1980,7 @@ LABEL_10:
     v8 = v7;
     v10 = v9;
     view = [(SBHWidgetStackViewController *)self view];
-    [view bounds];
+    objc_msgSend_bounds(view);
     v13 = v12;
     v15 = v14;
     v17 = v16;
@@ -2141,7 +2141,7 @@ LABEL_10:
     if (brightness < 1.0 && !self->_dimmingView)
     {
       v5 = objc_alloc(MEMORY[0x1E69DD250]);
-      [(UIView *)self->_containerView bounds];
+      objc_msgSend_bounds(self->_containerView);
       v6 = [v5 initWithFrame:?];
       dimmingView = self->_dimmingView;
       self->_dimmingView = v6;
@@ -2380,7 +2380,7 @@ LABEL_13:
   invalidationCopy = invalidation;
   selfCopy = self;
   v10 = [v9 initWithIdentifier:@"widgetStack.disableImageUpdates" forReason:reasonCopy invalidationBlock:&v14];
-  v11 = SBLogWidgets();
+  v11 = SBLogWidgets(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     logIdentifier = self->_logIdentifier;
@@ -2413,10 +2413,10 @@ void __93__SBHWidgetStackViewController__disableImageUpdatesForReason_animateCha
 
     [v5 updateImageAnimated:*(a1 + 48)];
     [v5 _updateWidgetViewsWithAnimationUpdateMode:2];
-    [v5 _updateWidgetViewClippingAndBackgroundView];
+    WeakRetained = [v5 _updateWidgetViewClippingAndBackgroundView];
   }
 
-  v7 = SBLogWidgets();
+  v7 = SBLogWidgets(WeakRetained);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(*(a1 + 32) + 1024);
@@ -2648,7 +2648,7 @@ uint64_t __62__SBHWidgetStackViewController__scrollToActiveWidgetAnimated___bloc
     if (animatedCopy)
     {
       v14 = objc_alloc(MEMORY[0x1E69DD250]);
-      [(UIView *)self->_containerView bounds];
+      objc_msgSend_bounds(self->_containerView);
       v15 = [v14 initWithFrame:?];
       [(UIView *)self->_containerView center];
       [v15 setCenter:?];
@@ -2661,8 +2661,8 @@ uint64_t __62__SBHWidgetStackViewController__scrollToActiveWidgetAnimated___bloc
       [view addSubview:v15];
 
       view2 = [(SBHWidgetStackViewController *)self view];
-      [view2 bounds];
-      [v15 bounds];
+      objc_msgSend_bounds(view2);
+      objc_msgSend_bounds(v15);
       UIRectCenteredIntegralRect();
       v20 = v19;
       v22 = v21;
@@ -2697,7 +2697,7 @@ uint64_t __62__SBHWidgetStackViewController__scrollToActiveWidgetAnimated___bloc
 void __106__SBHWidgetStackViewController__removeWidgetWithUniqueIdentifier_widgetContainerViewControllers_animated___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
-  v2 = SBLogWidgets();
+  v2 = SBLogWidgets(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
@@ -2835,12 +2835,12 @@ uint64_t __106__SBHWidgetStackViewController__removeWidgetWithUniqueIdentifier_w
 
 - (id)sourceView
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   uniqueIdentifier = [(SBLeafIconDataSource *)self->_activeWidget uniqueIdentifier];
   activeWidget = self->_activeWidget;
   if (activeWidget)
   {
-    [(SBHWidgetStackViewController *)self iconImageInfo];
+    objc_msgSend_iconImageInfo(self);
     v5 = ![(SBHWidgetStackViewController *)self _createViewControllerForWidgetIfNecessary:activeWidget usingIconImageInfo:?];
   }
 
@@ -2862,24 +2862,29 @@ uint64_t __106__SBHWidgetStackViewController__removeWidgetWithUniqueIdentifier_w
   }
 
   v9 = [v8 snapshotViewExcludingGlassBackgroundEffects:1];
-  if (v9 && [(SBHWidgetStackViewController *)self _shouldDrawSystemBackgroundMaterialForWidget:self->_activeWidget])
+  v10 = v9;
+  if (v9)
   {
-    objc_setAssociatedObject(v9, "SBHTransparentWidgetKey", MEMORY[0x1E695E118], 3);
+    v9 = [(SBHWidgetStackViewController *)self _shouldDrawSystemBackgroundMaterialForWidget:self->_activeWidget];
+    if (v9)
+    {
+      objc_setAssociatedObject(v10, "SBHTransparentWidgetKey", MEMORY[0x1E695E118], 3);
+    }
   }
 
   if ((v5 & 1) == 0)
   {
-    v10 = SBLogWidgets();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = SBLogWidgets(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       logIdentifier = self->_logIdentifier;
-      v18 = 138543874;
-      v19 = logIdentifier;
-      v20 = 2082;
-      v21 = "[SBHWidgetStackViewController sourceView]";
-      v22 = 2114;
-      v23 = v8;
-      _os_log_impl(&dword_1BEB18000, v10, OS_LOG_TYPE_DEFAULT, "<%{public}@> %{public}s; view controller '%{public}@' didn't exist; we need to remove it now.", &v18, 0x20u);
+      v20 = 138543874;
+      v21 = logIdentifier;
+      v22 = 2082;
+      v23 = "[SBHWidgetStackViewController sourceView]";
+      v24 = 2114;
+      v25 = v8;
+      _os_log_impl(&dword_1BEB18000, v11, OS_LOG_TYPE_DEFAULT, "<%{public}@> %{public}s; view controller '%{public}@' didn't exist; we need to remove it now.", &v20, 0x20u);
     }
 
     [(SBHWidgetStackViewController *)self bs_removeChildViewController:v8];
@@ -2890,50 +2895,49 @@ uint64_t __106__SBHWidgetStackViewController__removeWidgetWithUniqueIdentifier_w
     [v7 removeObjectForKey:uniqueIdentifier];
   }
 
-  if (!v9)
+  if (!v10)
   {
-    v9 = objc_alloc_init(MEMORY[0x1E69DD250]);
+    v10 = objc_alloc_init(MEMORY[0x1E69DD250]);
     systemBackgroundColor = [MEMORY[0x1E69DC888] systemBackgroundColor];
-    [v9 setBackgroundColor:systemBackgroundColor];
+    [v10 setBackgroundColor:systemBackgroundColor];
 
-    v15 = SBLogWidgets();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = SBLogWidgets(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = self->_logIdentifier;
-      v18 = 138543618;
-      v19 = v16;
-      v20 = 2082;
-      v21 = "[SBHWidgetStackViewController sourceView]";
-      _os_log_impl(&dword_1BEB18000, v15, OS_LOG_TYPE_DEFAULT, "<%{public}@> %{public}s; returning blank source view", &v18, 0x16u);
+      v18 = self->_logIdentifier;
+      v20 = 138543618;
+      v21 = v18;
+      v22 = 2082;
+      v23 = "[SBHWidgetStackViewController sourceView]";
+      _os_log_impl(&dword_1BEB18000, v17, OS_LOG_TYPE_DEFAULT, "<%{public}@> %{public}s; returning blank source view", &v20, 0x16u);
     }
   }
 
-  return v9;
+  return v10;
 }
 
 - (id)sourceBackgroundView:(id)view
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   viewCopy = view;
   v5 = viewCopy;
   if (viewCopy && (objc_getAssociatedObject(viewCopy, "SBHTransparentWidgetKey"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 BOOLValue], v6, v7))
   {
-    v8 = SBLogWidgets();
-    if (os_signpost_enabled(v8))
+    v9 = SBLogWidgets(v8);
+    if (os_signpost_enabled(v9))
     {
       logIdentifier = self->_logIdentifier;
-      v13 = 138543362;
-      v14 = logIdentifier;
-      _os_signpost_emit_with_name_impl(&dword_1BEB18000, v8, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_CREATE_BACKGROUND", "%{public}@", &v13, 0xCu);
+      v14 = 138543362;
+      v15 = logIdentifier;
+      _os_signpost_emit_with_name_impl(&dword_1BEB18000, v9, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_CREATE_BACKGROUND", "%{public}@", &v14, 0xCu);
     }
 
     _createBackgroundView = [(SBHWidgetStackViewController *)self _createBackgroundView];
-    [(SBHWidgetStackViewController *)self _configureBackgroundViewIfNecessary:_createBackgroundView];
-    v11 = SBLogWidgets();
-    if (os_signpost_enabled(v11))
+    v12 = SBLogWidgets([(SBHWidgetStackViewController *)self _configureBackgroundViewIfNecessary:_createBackgroundView]);
+    if (os_signpost_enabled(v12))
     {
-      LOWORD(v13) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1BEB18000, v11, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_CREATE_BACKGROUND", " isAnimation=YES ", &v13, 2u);
+      LOWORD(v14) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1BEB18000, v12, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_CREATE_BACKGROUND", " isAnimation=YES ", &v14, 2u);
     }
   }
 
@@ -2964,7 +2968,7 @@ uint64_t __106__SBHWidgetStackViewController__removeWidgetWithUniqueIdentifier_w
 
 - (CGRect)visibleBounds
 {
-  [(SBHWidgetStackViewController *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self, a2);
   v3 = v2;
   v5 = v4;
   v6 = 0.0;
@@ -3081,14 +3085,13 @@ uint64_t __106__SBHWidgetStackViewController__removeWidgetWithUniqueIdentifier_w
     self->_scrollingTouchCancellationAssertion = 0;
   }
 
-  v9 = [(SBHWidgetStackViewController *)self _newActiveWidgetIndexForContentOffset:offset->x, offset->y];
-  [(UIPageControl *)self->_pageControl setCurrentPage:v9];
+  [(UIPageControl *)self->_pageControl setCurrentPage:[(SBHWidgetStackViewController *)self _newActiveWidgetIndexForContentOffset:offset->x, offset->y]];
   delegate = [(SBHWidgetStackViewController *)self delegate];
   if (objc_opt_respondsToSelector())
   {
     iconDataSources = [(SBLeafIcon *)self->_icon iconDataSources];
-    v12 = [iconDataSources objectAtIndex:v9];
-    [delegate widgetStackViewController:self didActivateDataSource:v12 fromUserInteraction:1];
+    v11 = objc_msgSend_objectAtIndex_(iconDataSources);
+    [delegate widgetStackViewController:self didActivateDataSource:v11 fromUserInteraction:1];
   }
 }
 
@@ -3113,7 +3116,7 @@ uint64_t __106__SBHWidgetStackViewController__removeWidgetWithUniqueIdentifier_w
 - (void)customImageViewControllerWantsLabelHiddenDidChange:(id)change
 {
   v21 = *MEMORY[0x1E69E9840];
-  v4 = SBLogWidgets();
+  v4 = SBLogWidgets(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     logIdentifier = self->_logIdentifier;
@@ -3165,7 +3168,7 @@ uint64_t __106__SBHWidgetStackViewController__removeWidgetWithUniqueIdentifier_w
 {
   v14 = *MEMORY[0x1E69E9840];
   activateCopy = activate;
-  v5 = SBLogWidgets();
+  v5 = SBLogWidgets(activateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     logIdentifier = self->_logIdentifier;
@@ -3195,7 +3198,7 @@ uint64_t __106__SBHWidgetStackViewController__removeWidgetWithUniqueIdentifier_w
   readyCopy = ready;
   v21 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
-  v7 = SBLogWidgets();
+  v7 = SBLogWidgets(changedCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     logIdentifier = self->_logIdentifier;
@@ -3321,7 +3324,7 @@ void __119__SBHWidgetStackViewController_widgetContainerViewControllerInitialWid
   v17 = v48[5];
   if (!v17)
   {
-    v20 = SBLogWidgets();
+    v20 = SBLogWidgets(0);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       [SBHWidgetStackViewController _createViewControllerForWidgetIfNecessary:usingIconImageInfo:];
@@ -3524,7 +3527,7 @@ uint64_t __93__SBHWidgetStackViewController__createViewControllerForWidgetIfNece
   BSRectWithSize();
   [v2 setBounds:?];
   v3 = *(a1 + 32);
-  [*(a1 + 40) bounds];
+  objc_msgSend_bounds(*(a1 + 40));
   UIRectGetCenter();
   [v3 setCenter:?];
   [*(a1 + 32) _setContinuousCornerRadius:*(a1 + 72)];
@@ -3537,34 +3540,41 @@ uint64_t __93__SBHWidgetStackViewController__createViewControllerForWidgetIfNece
 - (void)_createBackgroundViewIfNecessary:(BOOL)necessary
 {
   necessaryCopy = necessary;
-  v12 = *MEMORY[0x1E69E9840];
-  if ([(SBHWidgetStackViewController *)self _appearState]&& !self->_backgroundView && (!necessaryCopy || self->_overlapping || [(BSUIScrollView *)self->_scrollView isScrolling]|| [(SBHWidgetStackViewController *)self _alwaysShowStackBorder]))
+  v14 = *MEMORY[0x1E69E9840];
+  _appearState = [(SBHWidgetStackViewController *)self _appearState];
+  if (_appearState)
   {
-    v5 = SBLogWidgets();
-    if (os_signpost_enabled(v5))
+    if (!self->_backgroundView)
     {
-      logIdentifier = self->_logIdentifier;
-      v10 = 138543362;
-      v11 = logIdentifier;
-      _os_signpost_emit_with_name_impl(&dword_1BEB18000, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_CREATE_BACKGROUND", "%{public}@", &v10, 0xCu);
-    }
+      if (!necessaryCopy || self->_overlapping || (_appearState = [(BSUIScrollView *)self->_scrollView isScrolling], (_appearState & 1) != 0) || (_appearState = [(SBHWidgetStackViewController *)self _alwaysShowStackBorder], _appearState))
+      {
+        v6 = SBLogWidgets(_appearState);
+        if (os_signpost_enabled(v6))
+        {
+          logIdentifier = self->_logIdentifier;
+          v12 = 138543362;
+          v13 = logIdentifier;
+          _os_signpost_emit_with_name_impl(&dword_1BEB18000, v6, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_CREATE_BACKGROUND", "%{public}@", &v12, 0xCu);
+        }
 
-    _createBackgroundView = [(SBHWidgetStackViewController *)self _createBackgroundView];
-    backgroundView = self->_backgroundView;
-    self->_backgroundView = _createBackgroundView;
+        _createBackgroundView = [(SBHWidgetStackViewController *)self _createBackgroundView];
+        backgroundView = self->_backgroundView;
+        self->_backgroundView = _createBackgroundView;
 
-    if (self->_backgroundView)
-    {
-      [(SBHWidgetStackViewController *)self _configureBackgroundViewIfNecessary];
-      [(UIView *)self->_containerView insertSubview:self->_backgroundView atIndex:0];
-      [(SBHWidgetStackViewController *)self _updateBackgroundViewWithAnimationUpdateMode:1 allowingOutsetting:0];
-    }
+        if (self->_backgroundView)
+        {
+          [(SBHWidgetStackViewController *)self _configureBackgroundViewIfNecessary];
+          [(UIView *)self->_containerView insertSubview:self->_backgroundView atIndex:0];
+          v10 = [(SBHWidgetStackViewController *)self _updateBackgroundViewWithAnimationUpdateMode:1 allowingOutsetting:0];
+        }
 
-    v9 = SBLogWidgets();
-    if (os_signpost_enabled(v9))
-    {
-      LOWORD(v10) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1BEB18000, v9, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_CREATE_BACKGROUND", " isAnimation=YES ", &v10, 2u);
+        v11 = SBLogWidgets(v10);
+        if (os_signpost_enabled(v11))
+        {
+          LOWORD(v12) = 0;
+          _os_signpost_emit_with_name_impl(&dword_1BEB18000, v11, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_CREATE_BACKGROUND", " isAnimation=YES ", &v12, 2u);
+        }
+      }
     }
   }
 }
@@ -3647,7 +3657,7 @@ LABEL_12:
 - (void)_layoutWithAnimationUpdateMode:(int64_t)mode
 {
   v13 = *MEMORY[0x1E69E9840];
-  v5 = SBLogWidgets();
+  v5 = SBLogWidgets(self);
   if (os_signpost_enabled(v5))
   {
     v6 = MEMORY[0x1E696AEC0];
@@ -3670,8 +3680,7 @@ LABEL_12:
   [(SBHWidgetStackViewController *)self _updateWidgetViewHitTesting];
   [(SBHWidgetStackViewController *)self _updateWidgetViewEdgeAntialiasing];
   [(SBHWidgetStackViewController *)self _updateScrollViewDelaysContentTouches];
-  [(SBHWidgetStackViewController *)self _updatePageControlWithAnimationUpdateMode:mode];
-  v10 = SBLogWidgets();
+  v10 = SBLogWidgets([(SBHWidgetStackViewController *)self _updatePageControlWithAnimationUpdateMode:mode]);
   if (os_signpost_enabled(v10))
   {
     *buf = 0;
@@ -3682,10 +3691,10 @@ LABEL_12:
 - (void)_updateWidgetViewsWithAnimationUpdateMode:(int64_t)mode
 {
   selfCopy = self;
-  v130 = *MEMORY[0x1E69E9840];
+  v133 = *MEMORY[0x1E69E9840];
   if (![(NSHashTable *)self->_imageUpdateDisableAssertions count])
   {
-    v5 = SBLogWidgets();
+    v5 = SBLogWidgets(0);
     if (os_signpost_enabled(v5))
     {
       v6 = MEMORY[0x1E696AEC0];
@@ -3697,288 +3706,291 @@ LABEL_12:
       _os_signpost_emit_with_name_impl(&dword_1BEB18000, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_WIDGET_VIEWS", "updateMode=%{public}@", &buf, 0xCu);
     }
 
-    [(SBHWidgetStackViewController *)selfCopy iconImageInfo];
-    v97 = v11;
-    v98 = v10;
-    v99 = v13;
-    v100 = v12;
+    objc_msgSend_iconImageInfo(selfCopy);
+    v100 = v11;
+    v101 = v10;
+    v102 = v13;
+    v103 = v12;
     BSRectWithSize();
     v15 = v14;
     v17 = v16;
     iconDataSources = [(SBLeafIcon *)selfCopy->_icon iconDataSources];
-    v111 = [iconDataSources indexOfObject:selfCopy->_activeWidget];
+    v114 = [iconDataSources indexOfObject:selfCopy->_activeWidget];
 
     [(SBHWidgetStackScrollView *)selfCopy->_scrollView contentOffset];
-    v101 = v19;
+    v104 = v19;
     [(SBHWidgetStackViewController *)selfCopy _restingContentOffset];
     v21 = v20;
     BSRectWithSize();
-    v109 = v23;
-    v110 = v22;
-    v107 = v25;
-    v108 = v24;
+    v112 = v23;
+    v113 = v22;
+    v110 = v25;
+    v111 = v24;
     continuousCornerRadius = selfCopy->_iconImageInfo.continuousCornerRadius;
     _effectiveWidgetContainerViewControllers = [(SBHWidgetStackViewController *)selfCopy _effectiveWidgetContainerViewControllers];
     iconDataSources2 = [(SBLeafIcon *)selfCopy->_icon iconDataSources];
     v26 = [iconDataSources2 count];
+    _appearState = [(SBHWidgetStackViewController *)selfCopy _appearState];
     modeCopy = mode;
-    if ([(SBHWidgetStackViewController *)selfCopy _appearState])
+    if (_appearState)
     {
-      v114 = 0;
+      v117 = 0;
     }
 
     else
     {
-      v114 = ![(SBHWidgetStackViewController *)selfCopy forcesVisible];
+      _appearState = [(SBHWidgetStackViewController *)selfCopy forcesVisible];
+      v117 = _appearState ^ 1;
     }
 
-    v27 = SBLogWidgets();
-    v28 = _effectiveWidgetContainerViewControllers;
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    v28 = SBLogWidgets(_appearState);
+    v29 = _effectiveWidgetContainerViewControllers;
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
-      [(SBHWidgetStackViewController *)selfCopy _updateWidgetViewsWithAnimationUpdateMode:v111];
+      [(SBHWidgetStackViewController *)selfCopy _updateWidgetViewsWithAnimationUpdateMode:v114];
     }
 
     if (v26)
     {
-      v29 = -46.0 / v15 + 1.0;
-      v92 = v26 - 1;
-      v30 = -1;
-      if (v101 > v21)
+      v30 = -46.0 / v15 + 1.0;
+      v95 = v26 - 1;
+      v31 = -1;
+      if (v104 > v21)
       {
-        v30 = 1;
+        v31 = 1;
       }
 
-      v113 = v30;
-      v31 = v15 * 0.5;
-      v96 = v17 * 0.5 + v21;
-      v90 = -6.0 / v15 + 1.0;
-      v91 = (v15 + -1.0) / v15;
-      v32 = 0;
-      v33 = fabs(fmod(v101, v21));
-      v34 = vabdd_f64(v33, v21);
-      if (v33 > v21 * 0.5)
+      v116 = v31;
+      v32 = v15 * 0.5;
+      v99 = v17 * 0.5 + v21;
+      v93 = -6.0 / v15 + 1.0;
+      v94 = (v15 + -1.0) / v15;
+      v33 = 0;
+      v34 = fabs(fmod(v104, v21));
+      v35 = vabdd_f64(v34, v21);
+      if (v34 > v21 * 0.5)
       {
-        v33 = v34;
+        v34 = v35;
       }
 
-      v95 = v33;
-      v35 = v26;
-      v112 = selfCopy;
-      v102 = v26;
+      v98 = v34;
+      v36 = v26;
+      v115 = selfCopy;
+      v105 = v26;
       while (1)
       {
-        v36 = v32 - v111;
+        v37 = v33 - v114;
         if (v26 != 1)
         {
-          if (v111 || v35 != 1)
+          if (v114 || v36 != 1)
           {
-            if (v32)
+            if (v33)
             {
-              v37 = 0;
+              v38 = 0;
             }
 
             else
             {
-              v37 = v111 == v92;
+              v38 = v114 == v95;
             }
 
-            if (v37)
+            if (v38)
             {
-              v36 = 1;
+              v37 = 1;
             }
           }
 
           else
           {
-            v36 = -1;
+            v37 = -1;
           }
         }
 
-        if (v36)
+        if (v37)
         {
-          v38 = v26 == 2;
+          v39 = v26 == 2;
         }
 
         else
         {
-          v38 = 0;
+          v39 = 0;
         }
 
-        if (v38)
+        if (v39)
         {
-          v39 = v113;
+          v40 = v116;
         }
 
         else
         {
-          v39 = v36;
+          v40 = v37;
         }
 
         _showAdjacentWidgets = [(SBHWidgetStackViewController *)selfCopy _showAdjacentWidgets];
-        v41 = _showAdjacentWidgets;
-        v42 = _showAdjacentWidgets << 63 >> 63;
-        v43 = SBLogWidgets();
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+        v42 = _showAdjacentWidgets;
+        v43 = _showAdjacentWidgets << 63 >> 63;
+        v44 = SBLogWidgets(_showAdjacentWidgets);
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
         {
-          v79 = selfCopy->_logIdentifier;
-          v80 = [MEMORY[0x1E696AD98] numberWithInteger:v39];
-          v81 = [MEMORY[0x1E696AD98] numberWithInteger:v42];
-          v82 = [MEMORY[0x1E696AD98] numberWithInteger:v41];
+          v82 = selfCopy->_logIdentifier;
+          v83 = [MEMORY[0x1E696AD98] numberWithInteger:v40];
+          v84 = [MEMORY[0x1E696AD98] numberWithInteger:v43];
+          v85 = [MEMORY[0x1E696AD98] numberWithInteger:v42];
           LODWORD(buf.a) = 138544130;
-          *(&buf.a + 4) = v79;
-          v28 = _effectiveWidgetContainerViewControllers;
+          *(&buf.a + 4) = v82;
+          v29 = _effectiveWidgetContainerViewControllers;
           WORD2(buf.b) = 2112;
-          *(&buf.b + 6) = v80;
+          *(&buf.b + 6) = v83;
           HIWORD(buf.c) = 2112;
-          *&buf.d = v81;
+          *&buf.d = v84;
           LOWORD(buf.tx) = 2112;
-          *(&buf.tx + 2) = v82;
-          _os_log_debug_impl(&dword_1BEB18000, v43, OS_LOG_TYPE_DEBUG, "<%{public}@> _updateWidgetViewsWithAnimationUpdateMode: relativeIndex: %@, minRelativeIndex: %@, maxRelativeIndex: %@", &buf, 0x2Au);
+          *(&buf.tx + 2) = v85;
+          _os_log_debug_impl(&dword_1BEB18000, v44, OS_LOG_TYPE_DEBUG, "<%{public}@> _updateWidgetViewsWithAnimationUpdateMode: relativeIndex: %@, minRelativeIndex: %@, maxRelativeIndex: %@", &buf, 0x2Au);
 
-          selfCopy = v112;
-          v26 = v102;
+          selfCopy = v115;
+          v26 = v105;
         }
 
-        v44 = [iconDataSources2 objectAtIndex:v32];
-        uniqueIdentifier = [v44 uniqueIdentifier];
-        v46 = uniqueIdentifier;
-        v47 = v39 >= v42 && v39 <= v41;
-        v48 = !v47;
-        v116 = uniqueIdentifier;
-        if (((v48 | v114) & 1) == 0)
+        v45 = objc_msgSend_objectAtIndex_(iconDataSources2);
+        uniqueIdentifier = [v45 uniqueIdentifier];
+        v47 = uniqueIdentifier;
+        v48 = v40 >= v43 && v40 <= v42;
+        v49 = !v48;
+        v119 = uniqueIdentifier;
+        if (((v49 | v117) & 1) == 0)
         {
           break;
         }
 
-        v49 = [v28 objectForKey:uniqueIdentifier];
-        if (!v49)
+        v50 = [v29 objectForKey:uniqueIdentifier];
+        v51 = v50;
+        if (!v50)
         {
           goto LABEL_80;
         }
 
-        v50 = SBLogWidgets();
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+        v52 = SBLogWidgets(v50);
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
         {
-          v84 = selfCopy->_logIdentifier;
+          v87 = selfCopy->_logIdentifier;
           LODWORD(buf.a) = 138543874;
-          *(&buf.a + 4) = v84;
+          *(&buf.a + 4) = v87;
           WORD2(buf.b) = 2112;
-          *(&buf.b + 6) = v49;
+          *(&buf.b + 6) = v51;
           HIWORD(buf.c) = 2112;
-          *&buf.d = v44;
-          _os_log_debug_impl(&dword_1BEB18000, v50, OS_LOG_TYPE_DEBUG, "<%{public}@> _updateWidgetViewsWithAnimationUpdateMode: REMOVE container VC: %@, widget=%@", &buf, 0x20u);
+          *&buf.d = v45;
+          _os_log_debug_impl(&dword_1BEB18000, v52, OS_LOG_TYPE_DEBUG, "<%{public}@> _updateWidgetViewsWithAnimationUpdateMode: REMOVE container VC: %@, widget=%@", &buf, 0x20u);
         }
 
-        [v49 setUserVisibilityStatus:1];
-        [v49 setPresentationMode:2];
-        [(SBHWidgetStackViewController *)selfCopy bs_removeChildViewController:v49];
+        [v51 setUserVisibilityStatus:1];
+        [v51 setPresentationMode:2];
+        [(SBHWidgetStackViewController *)selfCopy bs_removeChildViewController:v51];
         if ([(BSUIScrollView *)selfCopy->_scrollView isScrolling])
         {
           goto LABEL_80;
         }
 
-        [v28 removeObjectForKey:v116];
+        [v29 removeObjectForKey:v119];
         delegate = [(SBHWidgetStackViewController *)selfCopy delegate];
         if (objc_opt_respondsToSelector())
         {
-          widgetViewController = [v49 widgetViewController];
+          widgetViewController = [v51 widgetViewController];
           [delegate widgetStackViewController:selfCopy didRemoveViewController:widgetViewController];
 LABEL_78:
         }
 
 LABEL_80:
-        ++v32;
-        if (!--v35)
+        ++v33;
+        if (!--v36)
         {
           goto LABEL_81;
         }
       }
 
-      v53 = [(SBHWidgetStackViewController *)selfCopy _createViewControllerForWidgetIfNecessary:v44 usingIconImageInfo:v100, v99, v98, v97];
-      v54 = modeCopy;
-      if (v53)
+      v100 = [(SBHWidgetStackViewController *)selfCopy _createViewControllerForWidgetIfNecessary:v45 usingIconImageInfo:v103, v102, v101, v100];
+      v56 = modeCopy;
+      if (v100)
       {
-        v54 = 1;
+        v56 = 1;
       }
 
-      v105 = v54;
-      v49 = [v28 objectForKey:v46];
-      delegate = [v49 view];
-      v55 = v96 + v17 * v39;
-      v56 = [(SBHWidgetStackViewController *)selfCopy _containerRequiresClippingToBoundsForWidget:v44];
+      v108 = v56;
+      v51 = [v29 objectForKey:v47];
+      delegate = [v51 view];
+      v57 = v99 + v17 * v40;
+      v58 = [(SBHWidgetStackViewController *)selfCopy _containerRequiresClippingToBoundsForWidget:v45];
       [delegate center];
-      v58 = v57;
       v60 = v59;
-      [delegate bounds];
-      v132.origin.y = v109;
-      v132.origin.x = v110;
-      v132.size.height = v107;
-      v132.size.width = v108;
-      v61 = CGRectEqualToRect(v131, v132);
+      v62 = v61;
+      objc_msgSend_bounds(delegate);
+      v135.origin.y = v112;
+      v135.origin.x = v113;
+      v135.size.height = v110;
+      v135.size.width = v111;
+      v63 = CGRectEqualToRect(v134, v135);
       [delegate _continuousCornerRadius];
-      v63 = v62;
-      requiresClippingToBounds = [v49 requiresClippingToBounds];
-      if (v58 != v31 || v60 != v55)
+      v65 = v64;
+      requiresClippingToBounds = [v51 requiresClippingToBounds];
+      if (v60 != v32 || v62 != v57)
       {
-        [delegate setCenter:{v31, v55}];
+        [delegate setCenter:{v32, v57}];
       }
 
-      if (!v61)
+      if (!v63)
       {
-        [delegate setBounds:{v110, v109, v108, v107}];
+        [delegate setBounds:{v113, v112, v111, v110}];
       }
 
-      if (vabdd_f64(v63, continuousCornerRadius) >= 2.22044605e-16)
+      if (vabdd_f64(v65, continuousCornerRadius) >= 2.22044605e-16)
       {
         [delegate _setContinuousCornerRadius:continuousCornerRadius];
       }
 
-      if (v56 != requiresClippingToBounds)
+      if (v58 != requiresClippingToBounds)
       {
-        [v49 setRequiresClippingToBounds:v56];
+        [v51 setRequiresClippingToBounds:v58];
       }
 
-      v65 = (v29 + -1.0) * vabdd_f64(v55 - v17 * 0.5, v101) / v17 + 1.0;
-      if (v29 >= v65)
+      v67 = (v30 + -1.0) * vabdd_f64(v57 - v17 * 0.5, v104) / v17 + 1.0;
+      if (v30 >= v67)
       {
-        v65 = v29;
+        v67 = v30;
       }
 
-      v66 = fmin(v65, 1.0);
+      v68 = fmin(v67, 1.0);
       if ([(SBHWidgetStackViewController *)selfCopy _insetWidgetsForTrackingAppearance])
       {
-        v67 = v90 * v66;
+        v69 = v93 * v68;
       }
 
       else if (selfCopy->_overlapping)
       {
-        v67 = v91;
+        v69 = v94;
       }
 
       else
       {
-        v67 = v66;
+        v69 = v68;
       }
 
       if ([(SBHWidgetStackViewController *)selfCopy isOverlapping])
       {
-        v68 = 0.75;
+        v70 = 0.75;
       }
 
       else
       {
-        v68 = 1.0;
+        v70 = 1.0;
       }
 
-      widgetViewController = [(SBHWidgetStackViewController *)selfCopy _backgroundColorForWidgetWithDistanceFromRestingContentOffset:v95];
+      widgetViewController = [(SBHWidgetStackViewController *)selfCopy _backgroundColorForWidgetWithDistanceFromRestingContentOffset:v98];
       [widgetViewController alphaComponent];
-      v70 = v69;
+      v72 = v71;
       memset(&buf, 0, sizeof(buf));
-      CGAffineTransformMakeScale(&buf, v67, v67);
+      CGAffineTransformMakeScale(&buf, v69, v69);
       if (delegate)
       {
-        [delegate transform];
+        objc_msgSend_transform(delegate);
       }
 
       else
@@ -3987,76 +3999,75 @@ LABEL_80:
       }
 
       t1 = buf;
-      v71 = CGAffineTransformEqualToTransform(&t1, &t2);
-      v72 = v71;
-      v73 = !v71;
-      [delegate alpha];
-      v75 = vabdd_f64(v74, v70);
-      v76 = v75 >= 2.22044605e-16;
-      if (v75 >= 2.22044605e-16 || v73)
+      v73 = CGAffineTransformEqualToTransform(&t1, &t2);
+      v74 = v73;
+      v75 = !v73;
+      alpha = [delegate alpha];
+      v78 = vabdd_f64(v77, v72);
+      v79 = v78 >= 2.22044605e-16;
+      if (v78 >= 2.22044605e-16 || v75)
       {
-        if (!v72)
+        if (!v74)
         {
-          [(SBHWidgetStackViewController *)v112 _incrementWidgetScaleAnimationCount];
+          [(SBHWidgetStackViewController *)v115 _incrementWidgetScaleAnimationCount];
         }
 
-        animationSettings = v112->_animationSettings;
-        v94 = MEMORY[0x1E69DD250];
-        v121[0] = MEMORY[0x1E69E9820];
-        v121[1] = 3221225472;
-        v121[2] = __74__SBHWidgetStackViewController__updateWidgetViewsWithAnimationUpdateMode___block_invoke;
-        v121[3] = &unk_1E808F858;
-        v125 = v73;
-        v77 = delegate;
-        v123 = buf;
-        v122 = v77;
-        v126 = v76;
-        v124 = v68;
-        v119[0] = MEMORY[0x1E69E9820];
-        v119[1] = 3221225472;
-        v119[2] = __74__SBHWidgetStackViewController__updateWidgetViewsWithAnimationUpdateMode___block_invoke_2;
-        v119[3] = &unk_1E808F880;
-        v120 = v73;
-        v119[4] = v112;
-        [v94 sb_animateWithSettings:animationSettings mode:v105 animations:v121 completion:v119];
+        animationSettings = v115->_animationSettings;
+        v97 = MEMORY[0x1E69DD250];
+        v124[0] = MEMORY[0x1E69E9820];
+        v124[1] = 3221225472;
+        v124[2] = __74__SBHWidgetStackViewController__updateWidgetViewsWithAnimationUpdateMode___block_invoke;
+        v124[3] = &unk_1E808F858;
+        v128 = v75;
+        v80 = delegate;
+        v126 = buf;
+        v125 = v80;
+        v129 = v79;
+        v127 = v70;
+        v122[0] = MEMORY[0x1E69E9820];
+        v122[1] = 3221225472;
+        v122[2] = __74__SBHWidgetStackViewController__updateWidgetViewsWithAnimationUpdateMode___block_invoke_2;
+        v122[3] = &unk_1E808F880;
+        v123 = v75;
+        v122[4] = v115;
+        [v97 sb_animateWithSettings:animationSettings mode:v108 animations:v124 completion:v122];
       }
 
-      v78 = SBLogWidgets();
-      selfCopy = v112;
-      if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
+      v81 = SBLogWidgets(alpha);
+      selfCopy = v115;
+      if (os_log_type_enabled(v81, OS_LOG_TYPE_DEBUG))
       {
-        v83 = v112->_logIdentifier;
+        v86 = v115->_logIdentifier;
         LODWORD(t2.a) = 138543874;
-        *(&t2.a + 4) = v83;
+        *(&t2.a + 4) = v86;
         WORD2(t2.b) = 2112;
-        *(&t2.b + 6) = v44;
+        *(&t2.b + 6) = v45;
         HIWORD(t2.c) = 2112;
-        *&t2.d = v49;
-        _os_log_debug_impl(&dword_1BEB18000, v78, OS_LOG_TYPE_DEBUG, "<%{public}@> _updateWidgetViewsWithAnimationUpdateMode: CREATED widget VC in stack: widget=%@, %@", &t2, 0x20u);
+        *&t2.d = v51;
+        _os_log_debug_impl(&dword_1BEB18000, v81, OS_LOG_TYPE_DEBUG, "<%{public}@> _updateWidgetViewsWithAnimationUpdateMode: CREATED widget VC in stack: widget=%@, %@", &t2, 0x20u);
       }
 
-      v28 = _effectiveWidgetContainerViewControllers;
-      v26 = v102;
+      v29 = _effectiveWidgetContainerViewControllers;
+      v26 = v105;
       goto LABEL_78;
     }
 
 LABEL_81:
-    v85 = [iconDataSources2 bs_map:&__block_literal_global_63];
-    v117[0] = MEMORY[0x1E69E9820];
-    v117[1] = 3221225472;
-    v117[2] = __74__SBHWidgetStackViewController__updateWidgetViewsWithAnimationUpdateMode___block_invoke_2_126;
-    v117[3] = &unk_1E808F8C8;
-    v118 = v85;
-    v86 = v85;
-    v87 = [v28 bs_filter:v117];
-    v88 = [v87 mutableCopy];
+    v88 = [iconDataSources2 bs_map:&__block_literal_global_63];
+    v120[0] = MEMORY[0x1E69E9820];
+    v120[1] = 3221225472;
+    v120[2] = __74__SBHWidgetStackViewController__updateWidgetViewsWithAnimationUpdateMode___block_invoke_2_126;
+    v120[3] = &unk_1E808F8C8;
+    v121 = v88;
+    v89 = v88;
+    v90 = [v29 bs_filter:v120];
+    v91 = [v90 mutableCopy];
 
-    [(SBHWidgetStackViewController *)selfCopy _removeWidgetContainerViewControllers:v88 animated:modeCopy != 2];
-    v89 = SBLogWidgets();
-    if (os_signpost_enabled(v89))
+    v92 = SBLogWidgets([(SBHWidgetStackViewController *)selfCopy _removeWidgetContainerViewControllers:v91 animated:modeCopy != 2]);
+    if (os_signpost_enabled(v92))
     {
       LOWORD(buf.a) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1BEB18000, v89, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_WIDGET_VIEWS", " isAnimation=YES ", &buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1BEB18000, v92, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_WIDGET_VIEWS", " isAnimation=YES ", &buf, 2u);
     }
 
     [(SBHWidgetStackViewController *)selfCopy _updateVisiblySettledForWidgetViewControllers];
@@ -4067,32 +4078,32 @@ LABEL_81:
   }
 }
 
-uint64_t __74__SBHWidgetStackViewController__updateWidgetViewsWithAnimationUpdateMode___block_invoke(uint64_t result)
+void *__74__SBHWidgetStackViewController__updateWidgetViewsWithAnimationUpdateMode___block_invoke(void *result)
 {
   v1 = result;
   if (*(result + 96) == 1)
   {
-    v2 = *(result + 32);
-    v3 = *(v1 + 56);
-    v4[0] = *(v1 + 40);
+    v2 = result[4];
+    v3 = *(v1 + 7);
+    v4[0] = *(v1 + 5);
     v4[1] = v3;
-    v4[2] = *(v1 + 72);
+    v4[2] = *(v1 + 9);
     result = [v2 setTransform:v4];
   }
 
   if (*(v1 + 97) == 1)
   {
-    return [*(v1 + 32) setAlpha:*(v1 + 88)];
+    return [v1[4] setAlpha:*(v1 + 11)];
   }
 
   return result;
 }
 
-uint64_t __74__SBHWidgetStackViewController__updateWidgetViewsWithAnimationUpdateMode___block_invoke_2(uint64_t result)
+id *__74__SBHWidgetStackViewController__updateWidgetViewsWithAnimationUpdateMode___block_invoke_2(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) _decrementWidgetScaleAnimationCount];
+    return [result[4] _decrementWidgetScaleAnimationCount];
   }
 
   return result;
@@ -4101,8 +4112,8 @@ uint64_t __74__SBHWidgetStackViewController__updateWidgetViewsWithAnimationUpdat
 - (void)_updateBackgroundViewWithAnimationUpdateMode:(int64_t)mode allowingOutsetting:(BOOL)outsetting
 {
   outsettingCopy = outsetting;
-  v153 = *MEMORY[0x1E69E9840];
-  v7 = SBLogWidgets();
+  v154 = *MEMORY[0x1E69E9840];
+  v7 = SBLogWidgets(self);
   if (os_signpost_enabled(v7))
   {
     v8 = MEMORY[0x1E696AEC0];
@@ -4110,7 +4121,7 @@ uint64_t __74__SBHWidgetStackViewController__updateWidgetViewsWithAnimationUpdat
     v10 = SBStringFromAnimationUpdateMode();
     v11 = [v8 stringWithFormat:@"<%@> updateMode: %@", logIdentifier, v10];
     *buf = 138543362;
-    v148 = v11;
+    v149 = v11;
     _os_signpost_emit_with_name_impl(&dword_1BEB18000, v7, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_BACKGROUND", "updateMode=%{public}@", buf, 0xCu);
   }
 
@@ -4118,25 +4129,25 @@ uint64_t __74__SBHWidgetStackViewController__updateWidgetViewsWithAnimationUpdat
   _alwaysShowStackBorder = [(SBHWidgetStackViewController *)self _alwaysShowStackBorder];
   isOverlapping = [(SBHWidgetStackViewController *)self isOverlapping];
   view = [(SBHWidgetStackViewController *)self view];
-  [view bounds];
+  objc_msgSend_bounds(view);
   v16 = v15;
   v18 = v17;
   v20 = v19;
   v22 = v21;
 
-  [(SBHWidgetStackViewController *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self);
   BSRectWithSize();
-  v101 = v24;
-  v102 = v23;
-  v111 = v25;
-  v118 = v26;
-  [(SBHWidgetStackViewController *)self iconImageInfo];
+  v102 = v24;
+  v103 = v23;
+  v112 = v25;
+  v119 = v26;
+  objc_msgSend_iconImageInfo(self);
   v28 = v27;
   imageViewAlignment = [(SBHWidgetStackViewController *)self imageViewAlignment];
   v30 = self->_containerView;
   v31 = self->_backgroundView;
-  v117 = self->_scrollView;
-  v116 = self->_dimmingView;
+  v118 = self->_scrollView;
+  v117 = self->_dimmingView;
   v32 = !outsettingCopy;
   if (isOverlapping && outsettingCopy)
   {
@@ -4196,36 +4207,36 @@ uint64_t __74__SBHWidgetStackViewController__updateWidgetViewsWithAnimationUpdat
     v39 = v33 + 6.0;
   }
 
-  v115 = 1.0;
+  v116 = 1.0;
   if (outsettingCopy && self->_backgroundViewFadeAnimationEnabled)
   {
-    v155.origin.x = v16;
-    v155.origin.y = v18;
-    v155.size.width = v39;
-    v155.size.height = v38;
-    v160.origin.x = v16;
-    v160.origin.y = v18;
-    v160.size.width = v20;
-    v160.size.height = v22;
-    v115 = 0.0;
-    if (CGRectContainsRect(v155, v160))
+    v156.origin.x = v16;
+    v156.origin.y = v18;
+    v156.size.width = v39;
+    v156.size.height = v38;
+    v161.origin.x = v16;
+    v161.origin.y = v18;
+    v161.size.width = v20;
+    v161.size.height = v22;
+    v116 = 0.0;
+    if (CGRectContainsRect(v156, v161))
     {
-      v156.origin.x = v16;
-      v156.origin.y = v18;
-      v156.size.width = v39;
-      v156.size.height = v38;
-      v161.origin.x = v16;
-      v161.origin.y = v18;
-      v161.size.width = v20;
-      v161.size.height = v22;
-      v40 = CGRectEqualToRect(v156, v161);
+      v157.origin.x = v16;
+      v157.origin.y = v18;
+      v157.size.width = v39;
+      v157.size.height = v38;
+      v162.origin.x = v16;
+      v162.origin.y = v18;
+      v162.size.width = v20;
+      v162.size.height = v22;
+      v40 = CGRectEqualToRect(v157, v162);
       v41 = 1.0;
       if (v40)
       {
         v41 = 0.0;
       }
 
-      v115 = v41;
+      v116 = v41;
     }
   }
 
@@ -4241,15 +4252,15 @@ uint64_t __74__SBHWidgetStackViewController__updateWidgetViewsWithAnimationUpdat
 
   modeCopy = mode;
   UIRectGetCenter();
-  v114 = v45;
-  v110 = v46;
-  v47 = -((v22 - v118) * 0.5);
+  v115 = v45;
+  v111 = v46;
+  v47 = -((v22 - v119) * 0.5);
   if (imageViewAlignment)
   {
-    v47 = (v22 - v118) * 0.5;
+    v47 = (v22 - v119) * 0.5;
   }
 
-  v109 = v47;
+  v110 = v47;
   if ([(SBHWidgetStackViewController *)self showsSquareCorners])
   {
     v48 = 0.0;
@@ -4267,38 +4278,38 @@ uint64_t __74__SBHWidgetStackViewController__updateWidgetViewsWithAnimationUpdat
   v54 = v53;
   UIRectGetCenter();
   v56 = v55;
-  v108 = v57;
+  v109 = v57;
   [(UIView *)v30 center];
-  v105 = v50;
+  v106 = v50;
   v59 = v58 != v50;
   if (v60 != v54)
   {
     v59 = 1;
   }
 
-  v113 = v59;
-  [(UIView *)v30 bounds];
-  v162.origin.x = v52;
-  v162.origin.y = v51;
-  v162.size.width = v39;
-  v162.size.height = v38;
-  v112 = !CGRectEqualToRect(v157, v162);
+  v114 = v59;
+  objc_msgSend_bounds(v30);
+  v163.origin.x = v52;
+  v163.origin.y = v51;
+  v163.size.width = v39;
+  v163.size.height = v38;
+  v113 = !CGRectEqualToRect(v158, v163);
   v61 = v30;
   [(UIView *)v30 _continuousCornerRadius];
   v63 = vabdd_f64(v62, v48);
-  v106 = v56;
+  v107 = v56;
   if (v31)
   {
     [(UIView *)v31 center];
     v65 = v64 != v56;
-    v66 = v108;
-    v68 = v67 != v108 || v65;
-    [(UIView *)v31 bounds];
-    v163.origin.x = v52;
-    v163.origin.y = v51;
-    v163.size.width = v39;
-    v163.size.height = v38;
-    v69 = CGRectEqualToRect(v158, v163);
+    v66 = v109;
+    v68 = v67 != v109 || v65;
+    objc_msgSend_bounds(v31);
+    v164.origin.x = v52;
+    v164.origin.y = v51;
+    v164.size.width = v39;
+    v164.size.height = v38;
+    v69 = CGRectEqualToRect(v159, v164);
     v70 = v31;
     LOBYTE(v31) = !v69;
     v71 = v70;
@@ -4306,22 +4317,22 @@ uint64_t __74__SBHWidgetStackViewController__updateWidgetViewsWithAnimationUpdat
     v73 = vabdd_f64(v72, v48) > 2.22044605e-16;
     [(UIView *)self->_backgroundView alpha];
     v74 = BSFloatEqualToFloat() ^ 1;
-    BYTE4(v103) = v73;
-    v104 = v68;
-    LOBYTE(v103) = v31;
-    v75 = v116;
+    BYTE4(v104) = v73;
+    v105 = v68;
+    LOBYTE(v104) = v31;
+    v75 = v117;
   }
 
   else
   {
     v71 = 0;
-    v103 = 0;
-    v73 = 0;
     v104 = 0;
+    v73 = 0;
+    v105 = 0;
     v68 = 0;
     v74 = 0;
-    v75 = v116;
-    v66 = v108;
+    v75 = v117;
+    v66 = v109;
   }
 
   if (v75)
@@ -4335,81 +4346,81 @@ uint64_t __74__SBHWidgetStackViewController__updateWidgetViewsWithAnimationUpdat
     v77 = 0;
   }
 
-  [(SBHWidgetStackScrollView *)v117 center];
-  v80 = v79 != v110 + v109 || v78 != v114;
-  v81 = v73 | (v113 || v112) | v68 | v31 | (v63 > 2.22044605e-16);
+  [(SBHWidgetStackScrollView *)v118 center];
+  v80 = v79 != v111 + v110 || v78 != v115;
+  v81 = v73 | (v114 || v113) | v68 | v31 | (v63 > 2.22044605e-16);
   v82 = v71;
-  v83 = v116;
+  v83 = v117;
   if ((v81 & 1) != 0 || (v74 & 1) != 0 || v77 || v80)
   {
     [(SBHWidgetStackViewController *)self _incrementBackgroundAnimationCount];
     v84 = MEMORY[0x1E69DD250];
     animationSettings = self->_animationSettings;
+    v121[0] = MEMORY[0x1E69E9820];
+    v121[1] = 3221225472;
+    v121[2] = __96__SBHWidgetStackViewController__updateBackgroundViewWithAnimationUpdateMode_allowingOutsetting___block_invoke;
+    v121[3] = &unk_1E808F8F0;
+    v139 = v114;
+    v127 = v106;
+    v128 = v54;
+    v140 = v113;
+    v129 = v52;
+    v130 = v51;
+    v131 = v39;
+    v132 = v38;
+    v122 = v61;
+    selfCopy = self;
+    v141 = v63 > 2.22044605e-16;
+    v133 = v48;
+    v142 = v105;
+    v124 = v82;
+    v134 = v107;
+    v135 = v66;
+    v143 = v104;
+    v144 = BYTE4(v104);
+    v145 = v74;
+    v136 = v116;
+    v146 = v77;
+    v125 = v117;
+    v147 = v80;
+    v126 = v118;
+    v137 = v115;
+    v138 = v111 + v110;
     v120[0] = MEMORY[0x1E69E9820];
     v120[1] = 3221225472;
-    v120[2] = __96__SBHWidgetStackViewController__updateBackgroundViewWithAnimationUpdateMode_allowingOutsetting___block_invoke;
-    v120[3] = &unk_1E808F8F0;
-    v138 = v113;
-    v126 = v105;
-    v127 = v54;
-    v139 = v112;
-    v128 = v52;
-    v129 = v51;
-    v130 = v39;
-    v131 = v38;
-    v121 = v61;
-    selfCopy = self;
-    v140 = v63 > 2.22044605e-16;
-    v132 = v48;
-    v141 = v104;
-    v123 = v82;
-    v133 = v106;
-    v134 = v66;
-    v142 = v103;
-    v143 = BYTE4(v103);
-    v144 = v74;
-    v135 = v115;
-    v145 = v77;
-    v124 = v116;
-    v146 = v80;
-    v125 = v117;
-    v136 = v114;
-    v137 = v110 + v109;
-    v119[0] = MEMORY[0x1E69E9820];
-    v119[1] = 3221225472;
-    v119[2] = __96__SBHWidgetStackViewController__updateBackgroundViewWithAnimationUpdateMode_allowingOutsetting___block_invoke_131;
-    v119[3] = &unk_1E808BF28;
-    v119[4] = self;
-    [v84 sb_animateWithSettings:animationSettings mode:modeCopy animations:v120 completion:v119];
+    v120[2] = __96__SBHWidgetStackViewController__updateBackgroundViewWithAnimationUpdateMode_allowingOutsetting___block_invoke_131;
+    v120[3] = &unk_1E808BF28;
+    v120[4] = self;
+    [v84 sb_animateWithSettings:animationSettings mode:modeCopy animations:v121 completion:v120];
   }
 
-  [(SBHWidgetStackScrollView *)self->_scrollView bounds];
-  if (v87 != v111 || v86 != v118)
+  objc_msgSend_bounds(self->_scrollView);
+  if (v87 != v112 || v86 != v119)
   {
-    [(SBHWidgetStackScrollView *)self->_scrollView bounds];
-    if ((*&v111 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL || (*&v118 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL || v111 <= 0.0 || v118 <= 0.0 || v111 > 10000.0 || v118 > 10000.0)
+    v88 = objc_msgSend_bounds(self->_scrollView);
+    if ((*&v112 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL || (*&v119 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL || v112 <= 0.0 || v119 <= 0.0 || v112 > 10000.0 || v119 > 10000.0)
     {
-      v88 = SBLogWidgets();
-      if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
+      v89 = SBLogWidgets(v88);
+      if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
       {
-        v98 = self->_logIdentifier;
-        v154.width = v111;
-        v154.height = v118;
-        v99 = NSStringFromCGSize(v154);
-        v159.origin.y = v101;
-        v159.origin.x = v102;
-        v159.size.width = v111;
-        v159.size.height = v118;
-        v100 = NSStringFromCGRect(v159);
+        v99 = self->_logIdentifier;
+        v155.width = v112;
+        v155.height = v119;
+        v100 = NSStringFromCGSize(v155);
+        v160.origin.y = v102;
+        v160.origin.x = v103;
+        v160.size.width = v112;
+        v160.size.height = v119;
+        v101 = NSStringFromCGRect(v160);
         *buf = 138543874;
-        v148 = v98;
-        v149 = 2112;
-        v150 = v99;
-        v151 = 2112;
-        v152 = v100;
-        _os_log_error_impl(&dword_1BEB18000, v88, OS_LOG_TYPE_ERROR, "<%{public}@> Invalid SBHWidgetStackScrollView bounds size: %@, widget bounds: %@", buf, 0x20u);
+        v149 = v99;
+        v150 = 2112;
+        v151 = v100;
+        v152 = 2112;
+        v153 = v101;
+        _os_log_error_impl(&dword_1BEB18000, v89, OS_LOG_TYPE_ERROR, "<%{public}@> Invalid SBHWidgetStackScrollView bounds size: %@, widget bounds: %@", buf, 0x20u);
 
-        v83 = v116;
+        v83 = v117;
       }
     }
 
@@ -4420,12 +4431,12 @@ uint64_t __74__SBHWidgetStackViewController__updateWidgetViewsWithAnimationUpdat
   }
 
   [(SBHWidgetStackViewController *)self _scrollViewContentSize];
-  v90 = v89;
-  v92 = v91;
+  v91 = v90;
+  v93 = v92;
   [(SBHWidgetStackScrollView *)self->_scrollView contentSize];
-  if (v94 != v90 || v93 != v92)
+  if (v95 != v91 || v94 != v93)
   {
-    [(SBHWidgetStackScrollView *)self->_scrollView setContentSize:v90, v92];
+    [(SBHWidgetStackScrollView *)self->_scrollView setContentSize:v91, v93];
     scrollView = self->_scrollView;
     [(SBHWidgetStackViewController *)self _restingContentOffset];
     [(SBHWidgetStackScrollView *)scrollView setContentOffset:?];
@@ -4438,35 +4449,35 @@ uint64_t __74__SBHWidgetStackViewController__updateWidgetViewsWithAnimationUpdat
   }
 
   [(SBHWidgetStackViewController *)self _configureBackgroundViewIfNecessary];
-  [(SBHWidgetStackViewController *)self _updateWidgetGlassGrouping];
-  v97 = SBLogWidgets();
-  if (os_signpost_enabled(v97))
+  v98 = SBLogWidgets([(SBHWidgetStackViewController *)self _updateWidgetGlassGrouping]);
+  if (os_signpost_enabled(v98))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v97, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_BACKGROUND", " isAnimation=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1BEB18000, v98, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_BACKGROUND", " isAnimation=YES ", buf, 2u);
   }
 }
 
-void __96__SBHWidgetStackViewController__updateBackgroundViewWithAnimationUpdateMode_allowingOutsetting___block_invoke(uint64_t a1)
+void __96__SBHWidgetStackViewController__updateBackgroundViewWithAnimationUpdateMode_allowingOutsetting___block_invoke(id *a1)
 {
+  v1 = a1;
   v42 = *MEMORY[0x1E69E9840];
   if (*(a1 + 168) == 1)
   {
-    [*(a1 + 32) setCenter:{*(a1 + 72), *(a1 + 80)}];
+    a1 = [a1[4] setCenter:{*(a1 + 9), *(a1 + 10)}];
   }
 
-  if (*(a1 + 169) == 1)
+  if (*(v1 + 169) == 1)
   {
-    v3 = *(a1 + 88);
-    v2 = *(a1 + 96);
-    v4 = *(a1 + 104);
-    v5 = *(a1 + 112);
+    v3 = *(v1 + 11);
+    v2 = *(v1 + 12);
+    v4 = *(v1 + 13);
+    v5 = *(v1 + 14);
     if ((*&v4 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL || v4 > 10000.0 || (v4 > 0.0 ? (v7 = (*&v5 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000) : (v7 = 1), v7 || v5 <= 0.0 || v5 > 10000.0))
     {
-      v6 = SBLogWidgets();
+      v6 = SBLogWidgets(a1);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v36 = *(*(a1 + 40) + 1024);
+        v36 = *(v1[5] + 128);
         v44.origin.x = v3;
         v44.origin.y = v2;
         v44.size.width = v4;
@@ -4482,13 +4493,13 @@ void __96__SBHWidgetStackViewController__updateBackgroundViewWithAnimationUpdate
 
     else
     {
-      [*(a1 + 32) setBounds:{*(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 112)}];
+      a1 = [v1[4] setBounds:{*(v1 + 11), *(v1 + 12), *(v1 + 13), *(v1 + 14)}];
     }
   }
 
-  if (*(a1 + 170) == 1)
+  if (*(v1 + 170) == 1)
   {
-    v8 = *(a1 + 120);
+    v8 = v1[15];
     v9 = v8 & 0x7FFFFFFFFFFFFFFFLL;
     v10 = (v8 & 0x7FFFFFFFFFFFFFFFuLL) - 1 < 0xFFFFFFFFFFFFFLL;
     v11 = v8 < 0;
@@ -4507,27 +4518,27 @@ void __96__SBHWidgetStackViewController__updateBackgroundViewWithAnimationUpdate
 
     if (((v14 | v12) & 1) == 0)
     {
-      [*(a1 + 32) _setContinuousCornerRadius:?];
+      a1 = [v1[4] _setContinuousCornerRadius:?];
     }
   }
 
-  if (*(a1 + 171) == 1)
+  if (*(v1 + 171) == 1)
   {
-    [*(a1 + 48) setCenter:{*(a1 + 128), *(a1 + 136)}];
+    a1 = [v1[6] setCenter:{*(v1 + 16), *(v1 + 17)}];
   }
 
-  if (*(a1 + 172) == 1)
+  if (*(v1 + 172) == 1)
   {
-    v16 = *(a1 + 88);
-    v15 = *(a1 + 96);
-    v17 = *(a1 + 104);
-    v18 = *(a1 + 112);
+    v16 = *(v1 + 11);
+    v15 = *(v1 + 12);
+    v17 = *(v1 + 13);
+    v18 = *(v1 + 14);
     if ((*&v17 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL || v17 > 10000.0 || v17 <= 0.0 || (*&v18 & 0x7FFFFFFFFFFFFFFFuLL) >= 0x7FF0000000000000 || v18 <= 0.0 || v18 > 10000.0)
     {
-      v19 = SBLogWidgets();
+      v19 = SBLogWidgets(a1);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        v34 = *(*(a1 + 40) + 1024);
+        v34 = *(v1[5] + 128);
         v43.origin.x = v16;
         v43.origin.y = v15;
         v43.size.width = v17;
@@ -4543,13 +4554,13 @@ void __96__SBHWidgetStackViewController__updateBackgroundViewWithAnimationUpdate
 
     else
     {
-      [*(a1 + 48) setBounds:{*(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 112)}];
+      [v1[6] setBounds:{*(v1 + 11), *(v1 + 12), *(v1 + 13), *(v1 + 14)}];
     }
   }
 
-  if (*(a1 + 173) == 1)
+  if (*(v1 + 173) == 1)
   {
-    v20 = *(a1 + 120);
+    v20 = v1[15];
     v21 = v20 & 0x7FFFFFFFFFFFFFFFLL;
     v22 = (v20 & 0x7FFFFFFFFFFFFFFFuLL) - 1 < 0xFFFFFFFFFFFFFLL;
     v23 = v20 < 0;
@@ -4568,18 +4579,18 @@ void __96__SBHWidgetStackViewController__updateBackgroundViewWithAnimationUpdate
 
     if (((v26 | v24) & 1) == 0)
     {
-      [*(a1 + 48) _setContinuousCornerRadius:?];
+      [v1[6] _setContinuousCornerRadius:?];
     }
   }
 
-  if (*(a1 + 174) == 1)
+  if (*(v1 + 174) == 1)
   {
-    [*(a1 + 48) setAlpha:*(a1 + 144)];
+    [v1[6] setAlpha:*(v1 + 18)];
   }
 
-  if (*(a1 + 175) == 1)
+  if (*(v1 + 175) == 1)
   {
-    v27 = *(a1 + 120);
+    v27 = v1[15];
     v28 = v27 & 0x7FFFFFFFFFFFFFFFLL;
     v29 = (v27 & 0x7FFFFFFFFFFFFFFFuLL) - 1 < 0xFFFFFFFFFFFFFLL;
     v30 = v27 < 0;
@@ -4598,31 +4609,32 @@ void __96__SBHWidgetStackViewController__updateBackgroundViewWithAnimationUpdate
 
     if (((v33 | v31) & 1) == 0)
     {
-      [*(a1 + 56) _setContinuousCornerRadius:?];
+      [v1[7] _setContinuousCornerRadius:?];
     }
   }
 
-  if (*(a1 + 176) == 1)
+  if (*(v1 + 176) == 1)
   {
-    [*(a1 + 64) setCenter:{*(a1 + 152), *(a1 + 160)}];
+    [v1[8] setCenter:{*(v1 + 19), *(v1 + 20)}];
   }
 }
 
 - (void)_updatePageControlWithAnimationUpdateMode:(int64_t)mode
 {
-  v66 = *MEMORY[0x1E69E9840];
-  if ([(SBHWidgetStackViewController *)self _appearState])
+  v68 = *MEMORY[0x1E69E9840];
+  _appearState = [(SBHWidgetStackViewController *)self _appearState];
+  if (_appearState)
   {
-    v5 = SBLogWidgets();
-    if (os_signpost_enabled(v5))
+    v6 = SBLogWidgets(_appearState);
+    if (os_signpost_enabled(v6))
     {
-      v6 = MEMORY[0x1E696AEC0];
+      v7 = MEMORY[0x1E696AEC0];
       logIdentifier = self->_logIdentifier;
-      v8 = SBStringFromAnimationUpdateMode();
-      v9 = [v6 stringWithFormat:@"<%@> updateMode: %@", logIdentifier, v8];
+      v9 = SBStringFromAnimationUpdateMode();
+      v10 = [v7 stringWithFormat:@"<%@> updateMode: %@", logIdentifier, v9];
       LODWORD(buf.a) = 138543362;
-      *(&buf.a + 4) = v9;
-      _os_signpost_emit_with_name_impl(&dword_1BEB18000, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_PAGE_CONTROL", "updateMode=%{public}@", &buf, 0xCu);
+      *(&buf.a + 4) = v10;
+      _os_signpost_emit_with_name_impl(&dword_1BEB18000, v6, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_PAGE_CONTROL", "updateMode=%{public}@", &buf, 0xCu);
     }
 
     iconDataSourceCount = [(SBLeafIcon *)self->_icon iconDataSourceCount];
@@ -4636,68 +4648,68 @@ void __96__SBHWidgetStackViewController__updateBackgroundViewWithAnimationUpdate
       modeCopy = 2;
     }
 
-    v12 = self->_pageControl;
+    v13 = self->_pageControl;
     [(SBHWidgetSettings *)self->_widgetSettings stackPageControlScale];
-    v14 = v13;
+    v15 = v14;
     _pageControlIsHorizontallyConstrained = [(SBHWidgetStackViewController *)self _pageControlIsHorizontallyConstrained];
     _alwaysShowStackBorder = [(SBHWidgetStackViewController *)self _alwaysShowStackBorder];
     view = [(SBHWidgetStackViewController *)self view];
-    [view bounds];
-    v19 = v18;
-    v21 = v20;
+    objc_msgSend_bounds(view);
+    v20 = v19;
+    v22 = v21;
 
-    v22 = MEMORY[0x1E695EFF8];
-    [(UIPageControl *)v12 sizeForNumberOfPages:iconDataSourceCount];
-    v24 = v23;
-    v26 = v25;
+    v23 = MEMORY[0x1E695EFF8];
+    [(UIPageControl *)v13 sizeForNumberOfPages:iconDataSourceCount];
+    v25 = v24;
+    v27 = v26;
     fixedPageControlOffset = self->_fixedPageControlOffset;
     if (fixedPageControlOffset)
     {
       [(NSNumber *)fixedPageControlOffset floatValue];
-      v29 = v28;
+      v30 = v29;
     }
 
     else
     {
-      v30 = 0.0;
-      v31 = 3.0;
+      v31 = 0.0;
+      v32 = 3.0;
       if (!_alwaysShowStackBorder)
       {
-        v31 = 0.0;
+        v32 = 0.0;
       }
 
-      v32 = v31 + v23 * 0.25;
+      v33 = v32 + v24 * 0.25;
       if (_pageControlIsHorizontallyConstrained)
       {
-        v30 = 2.0;
+        v31 = 2.0;
       }
 
-      v29 = v32 - v30;
+      v30 = v33 - v31;
     }
 
-    v33 = *v22;
-    v34 = v22[1];
+    v34 = *v23;
+    v35 = v23[1];
     if ([*MEMORY[0x1E69DDA98] userInterfaceLayoutDirection] == 1)
     {
-      v35 = -v29;
+      v36 = -v30;
     }
 
     else
     {
-      v35 = v19 + v29;
+      v36 = v20 + v30;
     }
 
-    v36 = v21 * 0.5;
+    v37 = v22 * 0.5;
     memset(&buf, 0, sizeof(buf));
-    CGAffineTransformMakeScale(&buf, v14, v14);
+    CGAffineTransformMakeScale(&buf, v15, v15);
     [(UIPageControl *)self->_pageControl center];
-    v39 = v36 != v38 || v35 != v37;
+    v40 = v37 != v39 || v36 != v38;
     numberOfPages = [(UIPageControl *)self->_pageControl numberOfPages];
-    v41 = numberOfPages != iconDataSourceCount;
+    v42 = numberOfPages != iconDataSourceCount;
     pageControl = self->_pageControl;
     if (pageControl)
     {
-      [(UIPageControl *)pageControl transform];
+      objc_msgSend_transform(pageControl);
     }
 
     else
@@ -4706,48 +4718,48 @@ void __96__SBHWidgetStackViewController__updateBackgroundViewWithAnimationUpdate
     }
 
     t1 = buf;
-    v43 = !CGAffineTransformEqualToTransform(&t1, &t2);
-    [(UIPageControl *)v12 bounds];
-    v68.origin.x = v33;
-    v68.origin.y = v34;
-    v68.size.width = v24;
-    v68.size.height = v26;
-    v44 = !CGRectEqualToRect(v67, v68);
-    if (v39 || numberOfPages != iconDataSourceCount || v43 || v44)
+    v44 = !CGAffineTransformEqualToTransform(&t1, &t2);
+    objc_msgSend_bounds(v13);
+    v70.origin.x = v34;
+    v70.origin.y = v35;
+    v70.size.width = v25;
+    v70.size.height = v27;
+    v45 = CGRectEqualToRect(v69, v70);
+    v46 = !v45;
+    if (v40 || numberOfPages != iconDataSourceCount || v44 || !v45)
     {
-      v46 = MEMORY[0x1E69DD250];
+      v48 = MEMORY[0x1E69DD250];
       animationSettings = self->_animationSettings;
-      v49[0] = MEMORY[0x1E69E9820];
-      v49[1] = 3221225472;
-      v49[2] = __74__SBHWidgetStackViewController__updatePageControlWithAnimationUpdateMode___block_invoke;
-      v49[3] = &unk_1E808F918;
-      v59 = v41;
-      v50 = v12;
-      v51 = iconDataSourceCount;
-      v60 = v44;
-      v52 = v33;
-      v53 = v34;
-      v54 = v24;
-      v55 = v26;
-      v61 = v43;
-      v56 = buf;
-      v62 = v39;
-      v57 = v35;
-      v58 = v36;
-      [v46 sb_animateWithSettings:animationSettings mode:modeCopy animations:v49 completion:0];
-      v48 = SBLogWidgets();
-      if (os_signpost_enabled(v48))
+      v51[0] = MEMORY[0x1E69E9820];
+      v51[1] = 3221225472;
+      v51[2] = __74__SBHWidgetStackViewController__updatePageControlWithAnimationUpdateMode___block_invoke;
+      v51[3] = &unk_1E808F918;
+      v61 = v42;
+      v52 = v13;
+      v53 = iconDataSourceCount;
+      v62 = v46;
+      v54 = v34;
+      v55 = v35;
+      v56 = v25;
+      v57 = v27;
+      v63 = v44;
+      v58 = buf;
+      v64 = v40;
+      v59 = v36;
+      v60 = v37;
+      v50 = SBLogWidgets([v48 sb_animateWithSettings:animationSettings mode:modeCopy animations:v51 completion:0]);
+      if (os_signpost_enabled(v50))
       {
         LOWORD(t2.a) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1BEB18000, v48, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_PAGE_CONTROL", " isAnimation=YES ", &t2, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1BEB18000, v50, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SBH_HOME_LAYOUT_STACK_PAGE_CONTROL", " isAnimation=YES ", &t2, 2u);
       }
 
-      p_super = &v50->super.super.super.super;
+      p_super = &v52->super.super.super.super;
     }
 
     else
     {
-      p_super = SBLogWidgets();
+      p_super = SBLogWidgets(v45);
       if (os_signpost_enabled(p_super))
       {
         LOWORD(t2.a) = 0;
@@ -5315,7 +5327,7 @@ void __54__SBHWidgetStackViewController__logAllViewControllers__block_invoke(uin
 {
   v5 = a2;
   v6 = a3;
-  v7 = SBLogCommon();
+  v7 = SBLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __54__SBHWidgetStackViewController__logAllViewControllers__block_invoke_cold_1(a1, v5);
@@ -5332,7 +5344,7 @@ void __54__SBHWidgetStackViewController__logAllViewControllers__block_invoke(uin
 void __54__SBHWidgetStackViewController__logAllViewControllers__block_invoke_155(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = SBLogCommon();
+  v3 = SBLogCommon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __54__SBHWidgetStackViewController__logAllViewControllers__block_invoke_155_cold_1();
@@ -5420,8 +5432,22 @@ void __50__SBHWidgetStackViewController__setupStateCapture__block_invoke_2(uint6
 
 - (void)_updateWidgetViewsWithAnimationUpdateMode:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v8 = [MEMORY[0x1E696AD98] numberWithInteger:a2];
-  OUTLINED_FUNCTION_3_3(&dword_1BEB18000, v2, v3, "<%{public}@> _updateWidgetViewsWithAnimationUpdateMode: activeWidgetIndex: %@", v4, v5, v6, v7, 2u);
+  v2 = *(a1 + 1024);
+  v3 = [MEMORY[0x1E696AD98] numberWithInteger:a2];
+  *v10 = 138543618;
+  *&v10[4] = v2;
+  *&v10[12] = 2112;
+  *&v10[14] = v3;
+  OUTLINED_FUNCTION_3_3(&dword_1BEB18000, v4, v5, "<%{public}@> _updateWidgetViewsWithAnimationUpdateMode: activeWidgetIndex: %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
+}
+
+void __54__SBHWidgetStackViewController__logAllViewControllers__block_invoke_cold_1(uint64_t a1, void *a2)
+{
+  *v8 = 138543618;
+  *&v8[4] = *(*(a1 + 32) + 1024);
+  *&v8[12] = 2048;
+  *&v8[14] = [a2 unsignedIntegerValue];
+  OUTLINED_FUNCTION_3_3(&dword_1BEB18000, v2, v3, "<%{public}@> [ViewControllerDebug] layout options %lu", v4, v5, v6, v7, *v8, *&v8[8], *&v8[16]);
 }
 
 @end

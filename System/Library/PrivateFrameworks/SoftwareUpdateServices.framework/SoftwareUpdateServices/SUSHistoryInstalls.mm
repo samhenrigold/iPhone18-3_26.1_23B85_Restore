@@ -114,7 +114,7 @@ uint64_t __45__SUSHistoryInstalls_sharedInstanceWithPath___block_invoke(uint64_t
 
 - (id)queryAllLogs
 {
-  v28[4] = *MEMORY[0x277D85DE8];
+  v27[4] = *MEMORY[0x277D85DE8];
   [(SUSHistoryInstalls *)self initializeDatabase];
   array = [MEMORY[0x277CBEB18] array];
   ppStmt = 0;
@@ -131,16 +131,16 @@ uint64_t __45__SUSHistoryInstalls_sharedInstanceWithPath___block_invoke(uint64_t
       v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:{sqlite3_column_text(ppStmt, 1)}];
       v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:{sqlite3_column_text(ppStmt, 2)}];
       v14 = sqlite3_column_int64(ppStmt, 3);
-      v27[0] = @"name";
-      v27[1] = @"build";
-      v28[0] = v11;
-      v28[1] = v12;
-      v28[2] = v13;
-      v27[2] = @"date";
-      v27[3] = @"operationType";
+      v26[0] = @"name";
+      v26[1] = @"build";
+      v27[0] = v11;
+      v27[1] = v12;
+      v27[2] = v13;
+      v26[2] = @"date";
+      v26[3] = @"operationType";
       v15 = [MEMORY[0x277CCABB0] numberWithInteger:v14];
-      v28[3] = v15;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:4];
+      v27[3] = v15;
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
       [array addObject:v16];
     }
 
@@ -148,14 +148,12 @@ uint64_t __45__SUSHistoryInstalls_sharedInstanceWithPath___block_invoke(uint64_t
     SULogDebug(@"%s: query database success", v17, v18, v19, v20, v21, v22, v23, "[SUSHistoryInstalls queryAllLogs]");
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
 - (id)queryLogsFromDate:(id)date toDate:(id)toDate
 {
-  v30[4] = *MEMORY[0x277D85DE8];
+  v29[4] = *MEMORY[0x277D85DE8];
   dateCopy = date;
   toDateCopy = toDate;
   [(SUSHistoryInstalls *)self initializeDatabase];
@@ -172,7 +170,7 @@ uint64_t __45__SUSHistoryInstalls_sharedInstanceWithPath___block_invoke(uint64_t
 
   else
   {
-    v27 = dateCopy;
+    v26 = dateCopy;
     sqlite3_bind_text(ppStmt, 1, [v10 UTF8String], -1, 0xFFFFFFFFFFFFFFFFLL);
     sqlite3_bind_text(ppStmt, 2, [v11 UTF8String], -1, 0xFFFFFFFFFFFFFFFFLL);
     while (sqlite3_step(ppStmt) == 100)
@@ -181,24 +179,22 @@ uint64_t __45__SUSHistoryInstalls_sharedInstanceWithPath___block_invoke(uint64_t
       v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:{sqlite3_column_text(ppStmt, 1)}];
       v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:{sqlite3_column_text(ppStmt, 2)}];
       v22 = sqlite3_column_int64(ppStmt, 3);
-      v29[0] = @"name";
-      v29[1] = @"build";
-      v30[0] = v19;
-      v30[1] = v20;
-      v30[2] = v21;
-      v29[2] = @"date";
-      v29[3] = @"operationType";
+      v28[0] = @"name";
+      v28[1] = @"build";
+      v29[0] = v19;
+      v29[1] = v20;
+      v29[2] = v21;
+      v28[2] = @"date";
+      v28[3] = @"operationType";
       v23 = [MEMORY[0x277CCABB0] numberWithInteger:v22];
-      v30[3] = v23;
-      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:4];
+      v29[3] = v23;
+      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:4];
       [array addObject:v24];
     }
 
     sqlite3_finalize(ppStmt);
-    dateCopy = v27;
+    dateCopy = v26;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return array;
 }

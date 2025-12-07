@@ -1,5 +1,6 @@
 @interface PGCuratorInvestigationItem
 + (id)itemWithUUID:(id)d itemInfo:(id)info curationModel:(id)model;
+- (BOOL)clsAvoidIfPossibleAsKeyItemForMemories:(BOOL)memories allowGuestAsset:(BOOL)asset reason:(id *)reason;
 - (BOOL)clsHasCustomPlaybackVariation;
 - (BOOL)clsHasInterestingAudioClassification;
 - (BOOL)clsHasInterestingScenes;
@@ -273,6 +274,21 @@
   v5 = self->_clsHasPoorResolution;
 
   return [(NSNumber *)v5 BOOLValue];
+}
+
+- (BOOL)clsAvoidIfPossibleAsKeyItemForMemories:(BOOL)memories allowGuestAsset:(BOOL)asset reason:(id *)reason
+{
+  clsAvoidIfPossibleForKeyItem = self->_clsAvoidIfPossibleForKeyItem;
+  null = [MEMORY[0x277CBEB68] null];
+
+  if (clsAvoidIfPossibleForKeyItem == null)
+  {
+    return 0;
+  }
+
+  v8 = self->_clsAvoidIfPossibleForKeyItem;
+
+  return [(NSNumber *)v8 BOOLValue];
 }
 
 - (BOOL)clsIsInhabited
@@ -1284,17 +1300,13 @@ void __66__PGCuratorInvestigationItem_initWithUUID_itemInfo_curationModel___bloc
   {
     v10 = [v5 substringWithRange:{v7 + 1, v8 + ~v7}];
     v11 = [MEMORY[0x277CCAC80] scannerWithString:v10];
-    v19 = 0;
-    [v11 scanUnsignedLongLong:&v19];
+    v15 = 0;
+    [v11 scanUnsignedLongLong:&v15];
     v12 = objc_alloc(MEMORY[0x277CD9990]);
-    v13 = v19;
+    v13 = v15;
     [v6 doubleValue];
-    v14 = *MEMORY[0x277CBF398];
-    v15 = *(MEMORY[0x277CBF398] + 8);
-    v16 = *(MEMORY[0x277CBF398] + 16);
-    v17 = *(MEMORY[0x277CBF398] + 24);
-    v18 = [v12 initWithExtendedSceneIdentifier:v13 confidence:0 boundingBox:0 startTime:? duration:? classificationType:? thumbnailIdentifier:?];
-    [*(a1 + 32) addObject:v18];
+    v14 = [v12 initWithExtendedSceneIdentifier:v13 confidence:0 boundingBox:0 startTime:? duration:? classificationType:? thumbnailIdentifier:?];
+    [*(a1 + 32) addObject:v14];
   }
 }
 

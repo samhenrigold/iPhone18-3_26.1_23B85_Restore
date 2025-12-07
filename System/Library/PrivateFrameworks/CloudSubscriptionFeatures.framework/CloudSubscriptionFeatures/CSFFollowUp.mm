@@ -50,85 +50,86 @@
 
 + (BOOL)hasEngagedWithCFU
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = +[CSFFollowUp hasEngagedWithCFUDate];
   if (!v2)
   {
-    v7 = +[CSFFollowUp hasDSID];
-    v4 = _CSFGetLogSystem();
-    v8 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-    if (v7)
+    v8 = +[CSFFollowUp hasDSID];
+    v9 = v8;
+    v4 = _CSFGetLogSystem(v8);
+    v10 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+    if (v9)
     {
-      if (v8)
+      if (v10)
       {
-        LOWORD(v16) = 0;
-        v9 = "No existing value for hasEngagedWithCFU. Returning NO.";
+        LOWORD(v18) = 0;
+        v11 = "No existing value for hasEngagedWithCFU. Returning NO.";
 LABEL_16:
-        _os_log_impl(&dword_1DF47C000, v4, OS_LOG_TYPE_DEFAULT, v9, &v16, 2u);
+        _os_log_impl(&dword_1DF47C000, v4, OS_LOG_TYPE_DEFAULT, v11, &v18, 2u);
       }
     }
 
     else
     {
-      if (v8)
+      if (v10)
       {
-        v10 = +[CSFFollowUp userDefaultsKey];
-        v11 = +[CSFFollowUp persistentDomain];
-        v16 = 138412546;
-        v17 = v10;
-        v18 = 2112;
-        v19 = v11;
-        _os_log_impl(&dword_1DF47C000, v4, OS_LOG_TYPE_DEFAULT, "No existing value for key %@ (no DSID included). Checking if any users have seen the CFU in persistent domain %@.", &v16, 0x16u);
+        v12 = +[CSFFollowUp userDefaultsKey];
+        v13 = +[CSFFollowUp persistentDomain];
+        v18 = 138412546;
+        v19 = v12;
+        v20 = 2112;
+        v21 = v13;
+        _os_log_impl(&dword_1DF47C000, v4, OS_LOG_TYPE_DEFAULT, "No existing value for key %@ (no DSID included). Checking if any users have seen the CFU in persistent domain %@.", &v18, 0x16u);
       }
 
-      v12 = +[CSFFollowUp anyUserHasEngagedWithCFU];
-      v4 = _CSFGetLogSystem();
-      v13 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-      if (v12)
+      v14 = +[CSFFollowUp anyUserHasEngagedWithCFU];
+      v15 = v14;
+      v4 = _CSFGetLogSystem(v14);
+      v16 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+      if (v15)
       {
-        if (v13)
+        if (v16)
         {
-          LOWORD(v16) = 0;
-          _os_log_impl(&dword_1DF47C000, v4, OS_LOG_TYPE_DEFAULT, "Previous DSID has engaged with CFU. Returning YES.", &v16, 2u);
+          LOWORD(v18) = 0;
+          _os_log_impl(&dword_1DF47C000, v4, OS_LOG_TYPE_DEFAULT, "Previous DSID has engaged with CFU. Returning YES.", &v18, 2u);
         }
 
         goto LABEL_5;
       }
 
-      if (v13)
+      if (v16)
       {
-        LOWORD(v16) = 0;
-        v9 = "No user on this device has ever engaged with CFU. Returning NO.";
+        LOWORD(v18) = 0;
+        v11 = "No user on this device has ever engaged with CFU. Returning NO.";
         goto LABEL_16;
       }
     }
 
-    v6 = 0;
+    v7 = 0;
     goto LABEL_18;
   }
 
   v3 = objc_alloc_init(MEMORY[0x1E696AC80]);
   v4 = [v3 stringFromDate:v2];
 
-  v5 = _CSFGetLogSystem();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _CSFGetLogSystem(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412290;
-    v17 = v4;
-    _os_log_impl(&dword_1DF47C000, v5, OS_LOG_TYPE_DEFAULT, "User has engaged with CFU? YES - on Date %@", &v16, 0xCu);
+    v18 = 138412290;
+    v19 = v4;
+    _os_log_impl(&dword_1DF47C000, v6, OS_LOG_TYPE_DEFAULT, "User has engaged with CFU? YES - on Date %@", &v18, 0xCu);
   }
 
 LABEL_5:
-  v6 = 1;
+  v7 = 1;
 LABEL_18:
 
-  v14 = *MEMORY[0x1E69E9840];
-  return v6;
+  return v7;
 }
 
 + (void)setHasEngagedWithCFU:(BOOL)u
 {
-  v5 = _CSFGetLogSystem();
+  v5 = _CSFGetLogSystem(self);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (u)
   {
@@ -151,7 +152,7 @@ LABEL_18:
 
 + (NSDate)hasEngagedWithCFUDate
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = +[CSFFollowUp defaults];
   v3 = +[CSFFollowUp userDefaultsKey];
   v4 = [v2 objectForKey:v3];
@@ -159,17 +160,18 @@ LABEL_18:
   if (v4)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v5 = v4;
+      v7 = v4;
       goto LABEL_11;
     }
 
-    v8 = _CSFGetLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = _CSFGetLogSystem(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_1DF47C000, v8, OS_LOG_TYPE_DEFAULT, "Existing value is not NSDate. Resetting to nil.", &v11, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_1DF47C000, v10, OS_LOG_TYPE_DEFAULT, "Existing value is not NSDate. Resetting to nil.", &v12, 2u);
     }
 
     [CSFFollowUp setHasEngagedWithCFU:0];
@@ -177,22 +179,20 @@ LABEL_18:
 
   else
   {
-    v6 = _CSFGetLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = _CSFGetLogSystem(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = +[CSFFollowUp userDefaultsKey];
-      v11 = 138412290;
-      v12 = v7;
-      _os_log_impl(&dword_1DF47C000, v6, OS_LOG_TYPE_DEFAULT, "No existing value for key %@, returning nil.", &v11, 0xCu);
+      v9 = +[CSFFollowUp userDefaultsKey];
+      v12 = 138412290;
+      v13 = v9;
+      _os_log_impl(&dword_1DF47C000, v8, OS_LOG_TYPE_DEFAULT, "No existing value for key %@, returning nil.", &v12, 0xCu);
     }
   }
 
-  v5 = 0;
+  v7 = 0;
 LABEL_11:
 
-  v9 = *MEMORY[0x1E69E9840];
-
-  return v5;
+  return v7;
 }
 
 + (void)setHasEngagedWithCFUDate:(id)date
@@ -206,18 +206,16 @@ LABEL_11:
   v6 = objc_alloc_init(MEMORY[0x1E696AC80]);
   v7 = [v6 stringFromDate:dateCopy];
 
-  v8 = _CSFGetLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _CSFGetLogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = +[CSFFollowUp userDefaultsKey];
+    v10 = +[CSFFollowUp userDefaultsKey];
     v11 = 138412546;
-    v12 = v9;
+    v12 = v10;
     v13 = 2112;
     v14 = v7;
-    _os_log_impl(&dword_1DF47C000, v8, OS_LOG_TYPE_DEFAULT, "Set hasEngagedWithCFUDate (key %@) to value: %@", &v11, 0x16u);
+    _os_log_impl(&dword_1DF47C000, v9, OS_LOG_TYPE_DEFAULT, "Set hasEngagedWithCFUDate (key %@) to value: %@", &v11, 0x16u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)anyUserHasEngagedWithCFU
@@ -245,9 +243,10 @@ LABEL_11:
         v7 = *(*(&v11 + 1) + 8 * i);
         v8 = [v2 objectForKeyedSubscript:v7];
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          v4 = _CSFGetLogSystem();
+          v4 = _CSFGetLogSystem(isKindOfClass);
           if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
@@ -272,7 +271,6 @@ LABEL_11:
 
 LABEL_13:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

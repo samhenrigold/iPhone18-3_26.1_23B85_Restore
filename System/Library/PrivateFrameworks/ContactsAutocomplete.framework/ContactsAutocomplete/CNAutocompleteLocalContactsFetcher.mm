@@ -72,7 +72,7 @@ id __111__CNAutocompleteLocalContactsFetcher_autocompleteResultsForProperties_fe
 {
   v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  v6 = CNALoggingContextDebug();
+  v6 = CNALoggingContextDebug(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -88,47 +88,45 @@ id __111__CNAutocompleteLocalContactsFetcher_autocompleteResultsForProperties_fe
   v10 = [*(a1 + 32) identifier];
   v11 = [v9 unifiedContactWithIdentifier:v10 keysToFetch:v5 error:a3];
 
-  v12 = CNALoggingContextDebug();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = CNALoggingContextDebug(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v15 = 138412290;
     v16 = v11;
-    _os_log_impl(&dword_2155FE000, v12, OS_LOG_TYPE_DEFAULT, "Got full contact: %@", &v15, 0xCu);
+    _os_log_impl(&dword_2155FE000, v13, OS_LOG_TYPE_DEFAULT, "Got full contact: %@", &v15, 0xCu);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)transformWithProperties:(id)properties factory:(id)factory
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   v6 = [CNAutocompleteLocalContactResultTransformBuilder localContactBuilderWithResultFactory:factory];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = propertiesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [v6 addTransformForProperty:{*(*(&v15 + 1) + 8 * i), v15}];
+        [v6 addTransformForProperty:{*(*(&v14 + 1) + 8 * i), v14}];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
@@ -136,14 +134,12 @@ id __111__CNAutocompleteLocalContactsFetcher_autocompleteResultsForProperties_fe
 
   build = [v6 build];
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return build;
 }
 
 - (id)autocompleteResultsForProperties:(id)properties contactPredicate:(id)predicate contactStore:(id)store resultFactory:(id)factory error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   storeCopy = store;
   factoryCopy = factory;
@@ -155,7 +151,7 @@ id __111__CNAutocompleteLocalContactsFetcher_autocompleteResultsForProperties_fe
 
   else
   {
-    v17 = CNALoggingContextDebug();
+    v17 = CNALoggingContextDebug(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       if (error)
@@ -168,15 +164,13 @@ id __111__CNAutocompleteLocalContactsFetcher_autocompleteResultsForProperties_fe
         v18 = 0;
       }
 
-      v21 = 138412290;
-      v22 = v18;
-      _os_log_impl(&dword_2155FE000, v17, OS_LOG_TYPE_DEFAULT, "Got nil contacts from Contacts, error: %@", &v21, 0xCu);
+      v20 = 138412290;
+      v21 = v18;
+      _os_log_impl(&dword_2155FE000, v17, OS_LOG_TYPE_DEFAULT, "Got nil contacts from Contacts, error: %@", &v20, 0xCu);
     }
 
     v16 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -211,7 +205,7 @@ id __111__CNAutocompleteLocalContactsFetcher_autocompleteResultsForProperties_fe
 
 - (id)resultsForSearchString:(id)string terms:(id)terms properties:(id)properties contactStore:(id)store error:(id *)error
 {
-  v39[11] = *MEMORY[0x277D85DE8];
+  v38[11] = *MEMORY[0x277D85DE8];
   v11 = MEMORY[0x277CBDA70];
   storeCopy = store;
   propertiesCopy = properties;
@@ -226,47 +220,45 @@ id __111__CNAutocompleteLocalContactsFetcher_autocompleteResultsForProperties_fe
   [v17 setUnifyResults:0];
   array = [MEMORY[0x277CBEB18] array];
   v20 = *MEMORY[0x277CBD058];
-  v39[0] = *MEMORY[0x277CBD000];
-  v39[1] = v20;
+  v38[0] = *MEMORY[0x277CBD000];
+  v38[1] = v20;
   v21 = *MEMORY[0x277CBD0B0];
-  v39[2] = *MEMORY[0x277CBCFF8];
-  v39[3] = v21;
+  v38[2] = *MEMORY[0x277CBCFF8];
+  v38[3] = v21;
   v22 = *MEMORY[0x277CBD0A8];
-  v39[4] = *MEMORY[0x277CBD0B8];
-  v39[5] = v22;
+  v38[4] = *MEMORY[0x277CBD0B8];
+  v38[5] = v22;
   v23 = *MEMORY[0x277CBD090];
-  v39[6] = *MEMORY[0x277CBD078];
-  v39[7] = v23;
+  v38[6] = *MEMORY[0x277CBD078];
+  v38[7] = v23;
   v24 = *MEMORY[0x277CBD068];
-  v39[8] = *MEMORY[0x277CBD0E0];
-  v39[9] = v24;
-  v39[10] = *MEMORY[0x277CBD070];
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:11];
+  v38[8] = *MEMORY[0x277CBD0E0];
+  v38[9] = v24;
+  v38[10] = *MEMORY[0x277CBD070];
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:11];
   v26 = [MEMORY[0x277CBEB98] setWithArray:propertiesCopy];
 
   v27 = [v26 setByAddingObjectsFromArray:v25];
 
   v28 = objc_alloc_init(MEMORY[0x277CFBEE0]);
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __97__CNAutocompleteLocalContactsFetcher_resultsForSearchString_terms_properties_contactStore_error___block_invoke;
-  v35[3] = &unk_2781C43C8;
-  v35[4] = self;
-  v36 = v27;
-  v37 = v28;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __97__CNAutocompleteLocalContactsFetcher_resultsForSearchString_terms_properties_contactStore_error___block_invoke;
+  v34[3] = &unk_2781C43C8;
+  v34[4] = self;
+  v35 = v27;
+  v36 = v28;
   v29 = array;
-  v38 = v29;
+  v37 = v29;
   v30 = v28;
   v31 = v27;
-  LODWORD(v26) = [storeCopy enumerateContactsAndMatchInfoWithFetchRequest:v17 error:error usingBlock:v35];
+  LODWORD(v26) = [storeCopy enumerateContactsAndMatchInfoWithFetchRequest:v17 error:error usingBlock:v34];
 
   v32 = 0;
   if (v26)
   {
     v32 = [v29 copy];
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v32;
 }

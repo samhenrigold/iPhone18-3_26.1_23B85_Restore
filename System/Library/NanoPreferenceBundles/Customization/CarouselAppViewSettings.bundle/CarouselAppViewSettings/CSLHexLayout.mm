@@ -62,7 +62,7 @@
   v4 = vabs_f32(v3);
   if (fmaxf(v4.f32[0], v4.f32[1]) > 0.0)
   {
-    [(float32x2_t *)center configuration];
+    objc_msgSend_configuration(center);
     __asm
     {
       FMOV            V10.2S, #-1.0

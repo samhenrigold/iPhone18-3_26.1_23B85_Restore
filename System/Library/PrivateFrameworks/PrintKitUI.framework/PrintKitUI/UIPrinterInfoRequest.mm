@@ -44,7 +44,7 @@ void __42__UIPrinterInfoRequest_requestPrinterInfo__block_invoke(uint64_t a1)
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __42__UIPrinterInfoRequest_requestPrinterInfo__block_invoke_2(uint64_t a1)
+void *__42__UIPrinterInfoRequest_requestPrinterInfo__block_invoke_2(uint64_t a1)
 {
   v2 = [*(a1 + 32) printerInfo];
   if ([v2 count])
@@ -60,10 +60,10 @@ uint64_t __42__UIPrinterInfoRequest_requestPrinterInfo__block_invoke_2(uint64_t 
   *(*(a1 + 32) + 16) = v3;
 
   result = *(a1 + 32);
-  v5 = *(result + 24);
+  v5 = result[3];
   if (v5)
   {
-    v6 = *(result + 16);
+    v6 = *(result + 4);
     v7 = [result printerInfo];
     (*(v5 + 16))(v5, v6, v7);
 

@@ -10,6 +10,7 @@
 - (void)dealloc;
 - (void)dispatchNetworkWithIntermediatesHeap:(id)heap;
 - (void)endEncoding;
+- (void)filterCounterRangeWithFirstBatch:(unsigned int)batch lastBatch:(unsigned int)lastBatch filterIndex:(unsigned int)index;
 - (void)insertDebugSignpost:(id)signpost;
 - (void)popDebugGroup;
 - (void)pushDebugGroup:(id)group;
@@ -36,34 +37,33 @@
     }
   }
 
-  v23 = 0u;
-  v24 = 0u;
   v22 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v22);
+  v23 = 0u;
+  v21 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v21);
   baseObject = self->_baseObject;
   baseObject = [fenceCopy baseObject];
   [(MTL4MachineLearningCommandEncoder *)baseObject waitForFence:baseObject beforeEncoderStages:stages];
 
-  v11 = v23;
-  *(v23 + 8) = -14885;
-  v12 = BYTE9(v24);
-  if (BYTE9(v24) > 0x28uLL)
+  v10 = v22;
+  *(v22 + 8) = -14885;
+  v11 = BYTE9(v23);
+  if (BYTE9(v23) > 0x28uLL)
   {
-    v14 = *(*(&v22 + 1) + 24);
-    v15 = BYTE10(v24);
-    ++BYTE10(v24);
-    v13 = GTTraceMemPool_allocateBytes(v14, *(&v23 + 1), v15 | 0x1800000000) + 16;
-    v12 = v15;
+    v13 = *(*(&v21 + 1) + 24);
+    v14 = BYTE10(v23);
+    ++BYTE10(v23);
+    v12 = GTTraceMemPool_allocateBytes(v13, *(&v22 + 1), v14 | 0x1800000000) + 16;
+    v11 = v14;
   }
 
   else
   {
-    v13 = (v11 + BYTE9(v24));
-    BYTE9(v24) += 24;
+    v12 = (v10 + BYTE9(v23));
+    BYTE9(v23) += 24;
   }
 
-  *(v11 + 13) = v12;
+  *(v10 + 13) = v11;
   traceStream = [(CaptureMTL4MachineLearningCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -78,21 +78,21 @@
   traceStream2 = [fenceCopy traceStream];
   if (traceStream2)
   {
-    v19 = *traceStream2;
+    v18 = *traceStream2;
   }
 
   else
   {
-    v19 = 0;
+    v18 = 0;
   }
 
-  *v13 = var0;
-  *(v13 + 1) = v19;
-  *(v13 + 2) = stages;
+  *v12 = var0;
+  *(v12 + 1) = v18;
+  *(v12 + 2) = stages;
   s();
-  *v20 = v21;
-  *(v20 + 8) = BYTE8(v24);
-  *(v23 + 15) |= 8u;
+  *v19 = v20;
+  *(v19 + 8) = BYTE8(v23);
+  *(v22 + 15) |= 8u;
 }
 
 - (void)updateFence:(id)fence afterEncoderStages:(unint64_t)stages
@@ -108,34 +108,33 @@
     }
   }
 
-  v23 = 0u;
-  v24 = 0u;
   v22 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v22);
+  v23 = 0u;
+  v21 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v21);
   baseObject = self->_baseObject;
   baseObject = [fenceCopy baseObject];
   [(MTL4MachineLearningCommandEncoder *)baseObject updateFence:baseObject afterEncoderStages:stages];
 
-  v11 = v23;
-  *(v23 + 8) = -14886;
-  v12 = BYTE9(v24);
-  if (BYTE9(v24) > 0x28uLL)
+  v10 = v22;
+  *(v22 + 8) = -14886;
+  v11 = BYTE9(v23);
+  if (BYTE9(v23) > 0x28uLL)
   {
-    v14 = *(*(&v22 + 1) + 24);
-    v15 = BYTE10(v24);
-    ++BYTE10(v24);
-    v13 = GTTraceMemPool_allocateBytes(v14, *(&v23 + 1), v15 | 0x1800000000) + 16;
-    v12 = v15;
+    v13 = *(*(&v21 + 1) + 24);
+    v14 = BYTE10(v23);
+    ++BYTE10(v23);
+    v12 = GTTraceMemPool_allocateBytes(v13, *(&v22 + 1), v14 | 0x1800000000) + 16;
+    v11 = v14;
   }
 
   else
   {
-    v13 = (v11 + BYTE9(v24));
-    BYTE9(v24) += 24;
+    v12 = (v10 + BYTE9(v23));
+    BYTE9(v23) += 24;
   }
 
-  *(v11 + 13) = v12;
+  *(v10 + 13) = v11;
   traceStream = [(CaptureMTL4MachineLearningCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -150,21 +149,21 @@
   traceStream2 = [fenceCopy traceStream];
   if (traceStream2)
   {
-    v19 = *traceStream2;
+    v18 = *traceStream2;
   }
 
   else
   {
-    v19 = 0;
+    v18 = 0;
   }
 
-  *v13 = var0;
-  *(v13 + 1) = v19;
-  *(v13 + 2) = stages;
+  *v12 = var0;
+  *(v12 + 1) = v18;
+  *(v12 + 2) = stages;
   s();
-  *v20 = v21;
-  *(v20 + 8) = BYTE8(v24);
-  *(v23 + 15) |= 8u;
+  *v19 = v20;
+  *(v19 + 8) = BYTE8(v23);
+  *(v22 + 15) |= 8u;
 }
 
 - (void)setPipelineState:(id)state
@@ -180,34 +179,33 @@
     }
   }
 
-  v21 = 0u;
-  v22 = 0u;
   v20 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v20);
+  v21 = 0u;
+  v19 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v19);
   baseObject = self->_baseObject;
   baseObject = [stateCopy baseObject];
   [(MTL4MachineLearningCommandEncoder *)baseObject setPipelineState:baseObject];
 
-  v9 = v21;
-  *(v21 + 8) = -14887;
-  v10 = BYTE9(v22);
-  if (BYTE9(v22) > 0x30uLL)
+  v8 = v20;
+  *(v20 + 8) = -14887;
+  v9 = BYTE9(v21);
+  if (BYTE9(v21) > 0x30uLL)
   {
-    v12 = *(*(&v20 + 1) + 24);
-    v13 = BYTE10(v22);
-    ++BYTE10(v22);
-    v11 = GTTraceMemPool_allocateBytes(v12, *(&v21 + 1), v13 | 0x1000000000) + 16;
-    v10 = v13;
+    v11 = *(*(&v19 + 1) + 24);
+    v12 = BYTE10(v21);
+    ++BYTE10(v21);
+    v10 = GTTraceMemPool_allocateBytes(v11, *(&v20 + 1), v12 | 0x1000000000) + 16;
+    v9 = v12;
   }
 
   else
   {
-    v11 = (v9 + BYTE9(v22));
-    BYTE9(v22) += 16;
+    v10 = (v8 + BYTE9(v21));
+    BYTE9(v21) += 16;
   }
 
-  *(v9 + 13) = v10;
+  *(v8 + 13) = v9;
   traceStream = [(CaptureMTL4MachineLearningCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -222,20 +220,20 @@
   traceStream2 = [stateCopy traceStream];
   if (traceStream2)
   {
-    v17 = *traceStream2;
+    v16 = *traceStream2;
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
-  *v11 = var0;
-  *(v11 + 1) = v17;
+  *v10 = var0;
+  *(v10 + 1) = v16;
   s();
-  *v18 = v19;
-  *(v18 + 8) = BYTE8(v22);
-  *(v21 + 15) |= 8u;
+  *v17 = v18;
+  *(v17 + 8) = BYTE8(v21);
+  *(v20 + 15) |= 8u;
 }
 
 - (void)setArgumentTable:(id)table
@@ -251,34 +249,33 @@
     }
   }
 
-  v21 = 0u;
-  v22 = 0u;
   v20 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v20);
+  v21 = 0u;
+  v19 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v19);
   baseObject = self->_baseObject;
   baseObject = [tableCopy baseObject];
   [(MTL4MachineLearningCommandEncoder *)baseObject setArgumentTable:baseObject];
 
-  v9 = v21;
-  *(v21 + 8) = -14888;
-  v10 = BYTE9(v22);
-  if (BYTE9(v22) > 0x30uLL)
+  v8 = v20;
+  *(v20 + 8) = -14888;
+  v9 = BYTE9(v21);
+  if (BYTE9(v21) > 0x30uLL)
   {
-    v12 = *(*(&v20 + 1) + 24);
-    v13 = BYTE10(v22);
-    ++BYTE10(v22);
-    v11 = GTTraceMemPool_allocateBytes(v12, *(&v21 + 1), v13 | 0x1000000000) + 16;
-    v10 = v13;
+    v11 = *(*(&v19 + 1) + 24);
+    v12 = BYTE10(v21);
+    ++BYTE10(v21);
+    v10 = GTTraceMemPool_allocateBytes(v11, *(&v20 + 1), v12 | 0x1000000000) + 16;
+    v9 = v12;
   }
 
   else
   {
-    v11 = (v9 + BYTE9(v22));
-    BYTE9(v22) += 16;
+    v10 = (v8 + BYTE9(v21));
+    BYTE9(v21) += 16;
   }
 
-  *(v9 + 13) = v10;
+  *(v8 + 13) = v9;
   traceStream = [(CaptureMTL4MachineLearningCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -293,20 +290,31 @@
   traceStream2 = [tableCopy traceStream];
   if (traceStream2)
   {
-    v17 = *traceStream2;
+    v16 = *traceStream2;
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
-  *v11 = var0;
-  *(v11 + 1) = v17;
+  *v10 = var0;
+  *(v10 + 1) = v16;
   s();
-  *v18 = v19;
-  *(v18 + 8) = BYTE8(v22);
-  *(v21 + 15) |= 8u;
+  *v17 = v18;
+  *(v17 + 8) = BYTE8(v21);
+  *(v20 + 15) |= 8u;
+}
+
+- (void)filterCounterRangeWithFirstBatch:(unsigned int)batch lastBatch:(unsigned int)lastBatch filterIndex:(unsigned int)index
+{
+  v5 = *&index;
+  v6 = *&lastBatch;
+  v7 = *&batch;
+  GTMTLCaptureManager_notifyUnsupportedFenumWithMsg("kDYFEMTL4MachineLearningCommandEncoder_filterCounterRangeWithFirstBatch_lastBatch_filterIndex", "Metal 4 Profiling SPI", 0, 0);
+  baseObject = self->_baseObject;
+
+  [(MTL4MachineLearningCommandEncoder *)baseObject filterCounterRangeWithFirstBatch:v7 lastBatch:v6 filterIndex:v5];
 }
 
 - (id)endEncodingAndRetrieveProgramAddressTable
@@ -319,31 +327,30 @@
 
 - (void)endEncoding
 {
-  v14 = 0u;
-  v15 = 0u;
   v13 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v13);
+  v14 = 0u;
+  v12 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v12);
   [(MTL4MachineLearningCommandEncoder *)self->_baseObject endEncoding];
-  v4 = v14;
-  *(v14 + 8) = -14892;
-  v5 = BYTE9(v15);
-  if (BYTE9(v15) > 0x38uLL)
+  v3 = v13;
+  *(v13 + 8) = -14892;
+  v4 = BYTE9(v14);
+  if (BYTE9(v14) > 0x38uLL)
   {
-    v7 = *(*(&v13 + 1) + 24);
-    v8 = BYTE10(v15);
-    ++BYTE10(v15);
-    v6 = GTTraceMemPool_allocateBytes(v7, *(&v14 + 1), v8 | 0x800000000) + 16;
-    v5 = v8;
+    v6 = *(*(&v12 + 1) + 24);
+    v7 = BYTE10(v14);
+    ++BYTE10(v14);
+    v5 = GTTraceMemPool_allocateBytes(v6, *(&v13 + 1), v7 | 0x800000000) + 16;
+    v4 = v7;
   }
 
   else
   {
-    v6 = (v4 + BYTE9(v15));
-    BYTE9(v15) += 8;
+    v5 = (v3 + BYTE9(v14));
+    BYTE9(v14) += 8;
   }
 
-  *(v4 + 13) = v5;
+  *(v3 + 13) = v4;
   traceStream = [(CaptureMTL4MachineLearningCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -355,11 +362,11 @@
     var0 = 0;
   }
 
-  *v6 = var0;
+  *v5 = var0;
   s();
-  *v11 = v12;
-  *(v11 + 8) = BYTE8(v15);
-  *(v14 + 15) |= 8u;
+  *v10 = v11;
+  *(v10 + 8) = BYTE8(v14);
+  *(v13 + 15) |= 8u;
 }
 
 - (void)dispatchNetworkWithIntermediatesHeap:(id)heap
@@ -375,34 +382,33 @@
     }
   }
 
-  v21 = 0u;
-  v22 = 0u;
   v20 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v20);
+  v21 = 0u;
+  v19 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v19);
   baseObject = self->_baseObject;
   baseObject = [heapCopy baseObject];
   [(MTL4MachineLearningCommandEncoder *)baseObject dispatchNetworkWithIntermediatesHeap:baseObject];
 
-  v9 = v21;
-  *(v21 + 8) = -14893;
-  v10 = BYTE9(v22);
-  if (BYTE9(v22) > 0x30uLL)
+  v8 = v20;
+  *(v20 + 8) = -14893;
+  v9 = BYTE9(v21);
+  if (BYTE9(v21) > 0x30uLL)
   {
-    v12 = *(*(&v20 + 1) + 24);
-    v13 = BYTE10(v22);
-    ++BYTE10(v22);
-    v11 = GTTraceMemPool_allocateBytes(v12, *(&v21 + 1), v13 | 0x1000000000) + 16;
-    v10 = v13;
+    v11 = *(*(&v19 + 1) + 24);
+    v12 = BYTE10(v21);
+    ++BYTE10(v21);
+    v10 = GTTraceMemPool_allocateBytes(v11, *(&v20 + 1), v12 | 0x1000000000) + 16;
+    v9 = v12;
   }
 
   else
   {
-    v11 = (v9 + BYTE9(v22));
-    BYTE9(v22) += 16;
+    v10 = (v8 + BYTE9(v21));
+    BYTE9(v21) += 16;
   }
 
-  *(v9 + 13) = v10;
+  *(v8 + 13) = v9;
   traceStream = [(CaptureMTL4MachineLearningCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -417,48 +423,47 @@
   traceStream2 = [heapCopy traceStream];
   if (traceStream2)
   {
-    v17 = *traceStream2;
+    v16 = *traceStream2;
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
-  *v11 = var0;
-  *(v11 + 1) = v17;
+  *v10 = var0;
+  *(v10 + 1) = v16;
   s();
-  *v18 = v19;
-  *(v18 + 8) = BYTE8(v22);
-  *(v21 + 15) |= 8u;
+  *v17 = v18;
+  *(v17 + 8) = BYTE8(v21);
+  *(v20 + 15) |= 8u;
 }
 
 - (void)dealloc
 {
-  v15 = 0u;
-  v16 = 0u;
   v14 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v14);
-  v4 = v15;
-  *(v15 + 8) = -14894;
-  v5 = BYTE9(v16);
-  if (BYTE9(v16) > 0x38uLL)
+  v15 = 0u;
+  v13 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v13);
+  v3 = v14;
+  *(v14 + 8) = -14894;
+  v4 = BYTE9(v15);
+  if (BYTE9(v15) > 0x38uLL)
   {
-    v7 = *(*(&v14 + 1) + 24);
-    v8 = BYTE10(v16);
-    ++BYTE10(v16);
-    v6 = GTTraceMemPool_allocateBytes(v7, *(&v15 + 1), v8 | 0x800000000) + 16;
-    v5 = v8;
+    v6 = *(*(&v13 + 1) + 24);
+    v7 = BYTE10(v15);
+    ++BYTE10(v15);
+    v5 = GTTraceMemPool_allocateBytes(v6, *(&v14 + 1), v7 | 0x800000000) + 16;
+    v4 = v7;
   }
 
   else
   {
-    v6 = (v4 + BYTE9(v16));
-    BYTE9(v16) += 8;
+    v5 = (v3 + BYTE9(v15));
+    BYTE9(v15) += 8;
   }
 
-  *(v4 + 13) = v5;
+  *(v3 + 13) = v4;
   traceStream = [(CaptureMTL4MachineLearningCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -470,44 +475,43 @@
     var0 = 0;
   }
 
-  *v6 = var0;
+  *v5 = var0;
   s();
-  *v11 = v12;
-  *(v11 + 8) = BYTE8(v16);
-  *(v15 + 15) |= 8u;
+  *v10 = v11;
+  *(v10 + 8) = BYTE8(v15);
+  *(v14 + 15) |= 8u;
   GTTraceContext_closeStream(self->_traceContext, &self->_traceStream->var0);
-  v13.receiver = self;
-  v13.super_class = CaptureMTL4MachineLearningCommandEncoder;
-  [(CaptureMTL4MachineLearningCommandEncoder *)&v13 dealloc];
+  v12.receiver = self;
+  v12.super_class = CaptureMTL4MachineLearningCommandEncoder;
+  [(CaptureMTL4MachineLearningCommandEncoder *)&v12 dealloc];
 }
 
 - (void)barrierAfterStages:(unint64_t)stages beforeQueueStages:(unint64_t)queueStages visibilityOptions:(unint64_t)options
 {
-  v20 = 0u;
-  v21 = 0u;
   v19 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v19);
+  v20 = 0u;
+  v18 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v18);
   [(MTL4MachineLearningCommandEncoder *)self->_baseObject barrierAfterStages:stages beforeQueueStages:queueStages visibilityOptions:options];
-  v10 = v20;
-  *(v20 + 8) = -14809;
-  v11 = BYTE9(v21);
-  if (BYTE9(v21) > 0x20uLL)
+  v9 = v19;
+  *(v19 + 8) = -14809;
+  v10 = BYTE9(v20);
+  if (BYTE9(v20) > 0x20uLL)
   {
-    v13 = *(*(&v19 + 1) + 24);
-    v14 = BYTE10(v21);
-    ++BYTE10(v21);
-    v12 = GTTraceMemPool_allocateBytes(v13, *(&v20 + 1), v14 | 0x2000000000) + 16;
-    v11 = v14;
+    v12 = *(*(&v18 + 1) + 24);
+    v13 = BYTE10(v20);
+    ++BYTE10(v20);
+    v11 = GTTraceMemPool_allocateBytes(v12, *(&v19 + 1), v13 | 0x2000000000) + 16;
+    v10 = v13;
   }
 
   else
   {
-    v12 = (v10 + BYTE9(v21));
-    BYTE9(v21) += 32;
+    v11 = (v9 + BYTE9(v20));
+    BYTE9(v20) += 32;
   }
 
-  *(v10 + 13) = v11;
+  *(v9 + 13) = v10;
   traceStream = [(CaptureMTL4MachineLearningCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -519,43 +523,42 @@
     var0 = 0;
   }
 
-  *v12 = var0;
-  *(v12 + 1) = stages;
-  *(v12 + 2) = queueStages;
-  *(v12 + 3) = options;
+  *v11 = var0;
+  *(v11 + 1) = stages;
+  *(v11 + 2) = queueStages;
+  *(v11 + 3) = options;
   s();
-  *v17 = v18;
-  *(v17 + 8) = BYTE8(v21);
-  *(v20 + 15) |= 8u;
+  *v16 = v17;
+  *(v16 + 8) = BYTE8(v20);
+  *(v19 + 15) |= 8u;
 }
 
 - (void)barrierAfterQueueStages:(unint64_t)stages beforeStages:(unint64_t)beforeStages visibilityOptions:(unint64_t)options
 {
-  v20 = 0u;
-  v21 = 0u;
   v19 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v19);
+  v20 = 0u;
+  v18 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v18);
   [(MTL4MachineLearningCommandEncoder *)self->_baseObject barrierAfterQueueStages:stages beforeStages:beforeStages visibilityOptions:options];
-  v10 = v20;
-  *(v20 + 8) = -14810;
-  v11 = BYTE9(v21);
-  if (BYTE9(v21) > 0x20uLL)
+  v9 = v19;
+  *(v19 + 8) = -14810;
+  v10 = BYTE9(v20);
+  if (BYTE9(v20) > 0x20uLL)
   {
-    v13 = *(*(&v19 + 1) + 24);
-    v14 = BYTE10(v21);
-    ++BYTE10(v21);
-    v12 = GTTraceMemPool_allocateBytes(v13, *(&v20 + 1), v14 | 0x2000000000) + 16;
-    v11 = v14;
+    v12 = *(*(&v18 + 1) + 24);
+    v13 = BYTE10(v20);
+    ++BYTE10(v20);
+    v11 = GTTraceMemPool_allocateBytes(v12, *(&v19 + 1), v13 | 0x2000000000) + 16;
+    v10 = v13;
   }
 
   else
   {
-    v12 = (v10 + BYTE9(v21));
-    BYTE9(v21) += 32;
+    v11 = (v9 + BYTE9(v20));
+    BYTE9(v20) += 32;
   }
 
-  *(v10 + 13) = v11;
+  *(v9 + 13) = v10;
   traceStream = [(CaptureMTL4MachineLearningCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -567,43 +570,42 @@
     var0 = 0;
   }
 
-  *v12 = var0;
-  *(v12 + 1) = stages;
-  *(v12 + 2) = beforeStages;
-  *(v12 + 3) = options;
+  *v11 = var0;
+  *(v11 + 1) = stages;
+  *(v11 + 2) = beforeStages;
+  *(v11 + 3) = options;
   s();
-  *v17 = v18;
-  *(v17 + 8) = BYTE8(v21);
-  *(v20 + 15) |= 8u;
+  *v16 = v17;
+  *(v16 + 8) = BYTE8(v20);
+  *(v19 + 15) |= 8u;
 }
 
 - (void)barrierAfterEncoderStages:(unint64_t)stages beforeEncoderStages:(unint64_t)encoderStages visibilityOptions:(unint64_t)options
 {
-  v20 = 0u;
-  v21 = 0u;
   v19 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v19);
+  v20 = 0u;
+  v18 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v18);
   [(MTL4MachineLearningCommandEncoder *)self->_baseObject barrierAfterEncoderStages:stages beforeEncoderStages:encoderStages visibilityOptions:options];
-  v10 = v20;
-  *(v20 + 8) = -14811;
-  v11 = BYTE9(v21);
-  if (BYTE9(v21) > 0x20uLL)
+  v9 = v19;
+  *(v19 + 8) = -14811;
+  v10 = BYTE9(v20);
+  if (BYTE9(v20) > 0x20uLL)
   {
-    v13 = *(*(&v19 + 1) + 24);
-    v14 = BYTE10(v21);
-    ++BYTE10(v21);
-    v12 = GTTraceMemPool_allocateBytes(v13, *(&v20 + 1), v14 | 0x2000000000) + 16;
-    v11 = v14;
+    v12 = *(*(&v18 + 1) + 24);
+    v13 = BYTE10(v20);
+    ++BYTE10(v20);
+    v11 = GTTraceMemPool_allocateBytes(v12, *(&v19 + 1), v13 | 0x2000000000) + 16;
+    v10 = v13;
   }
 
   else
   {
-    v12 = (v10 + BYTE9(v21));
-    BYTE9(v21) += 32;
+    v11 = (v9 + BYTE9(v20));
+    BYTE9(v20) += 32;
   }
 
-  *(v10 + 13) = v11;
+  *(v9 + 13) = v10;
   traceStream = [(CaptureMTL4MachineLearningCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -615,44 +617,43 @@
     var0 = 0;
   }
 
-  *v12 = var0;
-  *(v12 + 1) = stages;
-  *(v12 + 2) = encoderStages;
-  *(v12 + 3) = options;
+  *v11 = var0;
+  *(v11 + 1) = stages;
+  *(v11 + 2) = encoderStages;
+  *(v11 + 3) = options;
   s();
-  *v17 = v18;
-  *(v17 + 8) = BYTE8(v21);
-  *(v20 + 15) |= 8u;
+  *v16 = v17;
+  *(v16 + 8) = BYTE8(v20);
+  *(v19 + 15) |= 8u;
 }
 
 - (void)setLabel:(id)label
 {
   labelCopy = label;
-  v19 = 0u;
-  v20 = 0u;
   v18 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v18);
+  v19 = 0u;
+  v17 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v17);
   [(MTL4MachineLearningCommandEncoder *)self->_baseObject setLabel:labelCopy];
-  v6 = v19;
-  *(v19 + 8) = -14905;
-  v7 = BYTE9(v20);
-  if (BYTE9(v20) > 0x30uLL)
+  v5 = v18;
+  *(v18 + 8) = -14905;
+  v6 = BYTE9(v19);
+  if (BYTE9(v19) > 0x30uLL)
   {
-    v9 = *(*(&v18 + 1) + 24);
-    v10 = BYTE10(v20);
-    ++BYTE10(v20);
-    v8 = GTTraceMemPool_allocateBytes(v9, *(&v19 + 1), v10 | 0x1000000000) + 16;
-    v7 = v10;
+    v8 = *(*(&v17 + 1) + 24);
+    v9 = BYTE10(v19);
+    ++BYTE10(v19);
+    v7 = GTTraceMemPool_allocateBytes(v8, *(&v18 + 1), v9 | 0x1000000000) + 16;
+    v6 = v9;
   }
 
   else
   {
-    v8 = (v6 + BYTE9(v20));
-    BYTE9(v20) += 16;
+    v7 = (v5 + BYTE9(v19));
+    BYTE9(v19) += 16;
   }
 
-  *(v6 + 13) = v7;
+  *(v5 + 13) = v6;
   traceStream = [(CaptureMTL4MachineLearningCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -668,18 +669,18 @@
   if (uTF8String)
   {
     uTF8String2 = [labelCopy UTF8String];
-    v15 = strlen([labelCopy UTF8String]);
-    LOBYTE(uTF8String) = GTTraceEncoder_storeBytes(&v18, uTF8String2, v15 + 1);
+    v14 = strlen([labelCopy UTF8String]);
+    LOBYTE(uTF8String) = GTTraceEncoder_storeBytes(&v17, uTF8String2, v14 + 1);
   }
 
-  *v8 = var0;
-  v8[8] = uTF8String;
-  *(v8 + 9) = 0;
-  *(v8 + 3) = 0;
+  *v7 = var0;
+  v7[8] = uTF8String;
+  *(v7 + 9) = 0;
+  *(v7 + 3) = 0;
   s();
-  *v16 = v17;
-  *(v16 + 8) = BYTE8(v20);
-  *(v19 + 15) |= 8u;
+  *v15 = v16;
+  *(v15 + 8) = BYTE8(v19);
+  *(v18 + 15) |= 8u;
 }
 
 - (BOOL)conformsToProtocol:(id)protocol
@@ -746,30 +747,29 @@
 - (void)pushDebugGroup:(id)group
 {
   groupCopy = group;
-  v19 = 0u;
-  v20 = 0u;
   v18 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v18);
-  v6 = v19;
-  *(v19 + 8) = -14889;
-  v7 = BYTE9(v20);
-  if (BYTE9(v20) > 0x30uLL)
+  v19 = 0u;
+  v17 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v17);
+  v5 = v18;
+  *(v18 + 8) = -14889;
+  v6 = BYTE9(v19);
+  if (BYTE9(v19) > 0x30uLL)
   {
-    v9 = *(*(&v18 + 1) + 24);
-    v10 = BYTE10(v20);
-    ++BYTE10(v20);
-    v8 = GTTraceMemPool_allocateBytes(v9, *(&v19 + 1), v10 | 0x1000000000) + 16;
-    v7 = v10;
+    v8 = *(*(&v17 + 1) + 24);
+    v9 = BYTE10(v19);
+    ++BYTE10(v19);
+    v7 = GTTraceMemPool_allocateBytes(v8, *(&v18 + 1), v9 | 0x1000000000) + 16;
+    v6 = v9;
   }
 
   else
   {
-    v8 = (v6 + BYTE9(v20));
-    BYTE9(v20) += 16;
+    v7 = (v5 + BYTE9(v19));
+    BYTE9(v19) += 16;
   }
 
-  *(v6 + 13) = v7;
+  *(v5 + 13) = v6;
   traceStream = [(CaptureMTL4MachineLearningCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -785,46 +785,45 @@
   if (uTF8String)
   {
     uTF8String2 = [groupCopy UTF8String];
-    v15 = strlen([groupCopy UTF8String]);
-    LOBYTE(uTF8String) = GTTraceEncoder_storeBytes(&v18, uTF8String2, v15 + 1);
+    v14 = strlen([groupCopy UTF8String]);
+    LOBYTE(uTF8String) = GTTraceEncoder_storeBytes(&v17, uTF8String2, v14 + 1);
   }
 
-  *v8 = var0;
-  v8[8] = uTF8String;
-  *(v8 + 9) = 0;
-  *(v8 + 3) = 0;
+  *v7 = var0;
+  v7[8] = uTF8String;
+  *(v7 + 9) = 0;
+  *(v7 + 3) = 0;
   s();
-  *v16 = v17;
-  *(v16 + 8) = BYTE8(v20);
-  *(v19 + 15) |= 8u;
+  *v15 = v16;
+  *(v15 + 8) = BYTE8(v19);
+  *(v18 + 15) |= 8u;
 }
 
 - (void)popDebugGroup
 {
-  v14 = 0u;
-  v15 = 0u;
   v13 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v13);
-  v4 = v14;
-  *(v14 + 8) = -14890;
-  v5 = BYTE9(v15);
-  if (BYTE9(v15) > 0x38uLL)
+  v14 = 0u;
+  v12 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v12);
+  v3 = v13;
+  *(v13 + 8) = -14890;
+  v4 = BYTE9(v14);
+  if (BYTE9(v14) > 0x38uLL)
   {
-    v7 = *(*(&v13 + 1) + 24);
-    v8 = BYTE10(v15);
-    ++BYTE10(v15);
-    v6 = GTTraceMemPool_allocateBytes(v7, *(&v14 + 1), v8 | 0x800000000) + 16;
-    v5 = v8;
+    v6 = *(*(&v12 + 1) + 24);
+    v7 = BYTE10(v14);
+    ++BYTE10(v14);
+    v5 = GTTraceMemPool_allocateBytes(v6, *(&v13 + 1), v7 | 0x800000000) + 16;
+    v4 = v7;
   }
 
   else
   {
-    v6 = (v4 + BYTE9(v15));
-    BYTE9(v15) += 8;
+    v5 = (v3 + BYTE9(v14));
+    BYTE9(v14) += 8;
   }
 
-  *(v4 + 13) = v5;
+  *(v3 + 13) = v4;
   traceStream = [(CaptureMTL4MachineLearningCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -836,40 +835,39 @@
     var0 = 0;
   }
 
-  *v6 = var0;
+  *v5 = var0;
   s();
-  *v11 = v12;
-  *(v11 + 8) = BYTE8(v15);
-  *(v14 + 15) |= 8u;
+  *v10 = v11;
+  *(v10 + 8) = BYTE8(v14);
+  *(v13 + 15) |= 8u;
 }
 
 - (void)insertDebugSignpost:(id)signpost
 {
   signpostCopy = signpost;
-  v19 = 0u;
-  v20 = 0u;
   v18 = 0u;
-  traceStream = self->_traceStream;
-  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v18);
-  v6 = v19;
-  *(v19 + 8) = -14891;
-  v7 = BYTE9(v20);
-  if (BYTE9(v20) > 0x30uLL)
+  v19 = 0u;
+  v17 = 0u;
+  GTTraceContext_pushEncoderWithStream(self->_traceContext, &v17);
+  v5 = v18;
+  *(v18 + 8) = -14891;
+  v6 = BYTE9(v19);
+  if (BYTE9(v19) > 0x30uLL)
   {
-    v9 = *(*(&v18 + 1) + 24);
-    v10 = BYTE10(v20);
-    ++BYTE10(v20);
-    v8 = GTTraceMemPool_allocateBytes(v9, *(&v19 + 1), v10 | 0x1000000000) + 16;
-    v7 = v10;
+    v8 = *(*(&v17 + 1) + 24);
+    v9 = BYTE10(v19);
+    ++BYTE10(v19);
+    v7 = GTTraceMemPool_allocateBytes(v8, *(&v18 + 1), v9 | 0x1000000000) + 16;
+    v6 = v9;
   }
 
   else
   {
-    v8 = (v6 + BYTE9(v20));
-    BYTE9(v20) += 16;
+    v7 = (v5 + BYTE9(v19));
+    BYTE9(v19) += 16;
   }
 
-  *(v6 + 13) = v7;
+  *(v5 + 13) = v6;
   traceStream = [(CaptureMTL4MachineLearningCommandEncoder *)self traceStream];
   if (traceStream)
   {
@@ -885,18 +883,18 @@
   if (uTF8String)
   {
     uTF8String2 = [signpostCopy UTF8String];
-    v15 = strlen([signpostCopy UTF8String]);
-    LOBYTE(uTF8String) = GTTraceEncoder_storeBytes(&v18, uTF8String2, v15 + 1);
+    v14 = strlen([signpostCopy UTF8String]);
+    LOBYTE(uTF8String) = GTTraceEncoder_storeBytes(&v17, uTF8String2, v14 + 1);
   }
 
-  *v8 = var0;
-  v8[8] = uTF8String;
-  *(v8 + 9) = 0;
-  *(v8 + 3) = 0;
+  *v7 = var0;
+  v7[8] = uTF8String;
+  *(v7 + 9) = 0;
+  *(v7 + 3) = 0;
   s();
-  *v16 = v17;
-  *(v16 + 8) = BYTE8(v20);
-  *(v19 + 15) |= 8u;
+  *v15 = v16;
+  *(v15 + 8) = BYTE8(v19);
+  *(v18 + 15) |= 8u;
 }
 
 - (CaptureMTL4MachineLearningCommandEncoder)initWithBaseObject:(id)object captureCommandBuffer:(id)buffer

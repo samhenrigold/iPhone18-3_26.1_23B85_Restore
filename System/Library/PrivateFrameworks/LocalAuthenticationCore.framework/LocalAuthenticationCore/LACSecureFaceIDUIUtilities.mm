@@ -20,9 +20,11 @@
 
 uint64_t __44__LACSecureFaceIDUIUtilities_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance_11 = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedInstance_sharedInstance_11;
+  sharedInstance_sharedInstance_11 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (BOOL)isActive

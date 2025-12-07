@@ -38,16 +38,16 @@
 void __53__NPKStandaloneFirstUnlockCoordinator_initWithQueue___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = pk_General_log();
+  v2 = pk_General_log(WeakRetained);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: First unlock detected", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: First unlock detected", v6, 2u);
     }
   }
 
@@ -85,7 +85,8 @@ void __53__NPKStandaloneFirstUnlockCoordinator_initWithQueue___block_invoke(uint
   v7 = _Block_copy(unlockCopy);
 
   [blocksToPerformAfterFirstDeviceUnlock addObject:v7];
-  if (NPKProtectedDataAvailable())
+  v8 = NPKProtectedDataAvailable();
+  if (v8)
   {
 
     [(NPKStandaloneFirstUnlockCoordinator *)self _performFirstUnlockWork];
@@ -93,16 +94,16 @@ void __53__NPKStandaloneFirstUnlockCoordinator_initWithQueue___block_invoke(uint
 
   else
   {
-    v8 = pk_General_log();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v9 = pk_General_log(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-    if (v9)
+    if (v10)
     {
-      v10 = pk_General_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = pk_General_log(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        *v11 = 0;
-        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Deferring work until first device unlock", v11, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Deferring work until first device unlock", v13, 2u);
       }
     }
   }

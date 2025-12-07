@@ -132,7 +132,7 @@ void __84__PXPeopleDetailSettingsAssetsViewController_collectionView_cellForItem
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __84__PXPeopleDetailSettingsAssetsViewController_collectionView_cellForItemAtIndexPath___block_invoke_2(uint64_t a1)
+void *__84__PXPeopleDetailSettingsAssetsViewController_collectionView_cellForItemAtIndexPath___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) tag];
   if (result == *(a1 + 48))

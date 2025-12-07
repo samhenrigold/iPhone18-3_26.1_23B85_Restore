@@ -1773,7 +1773,7 @@ void BNNS.AdamOptimizer.learningRate.setter(float a1)
   *(v1 + 52) = v2;
 }
 
-_DWORD *(*BNNS.AdamOptimizer.learningRate.modify(uint64_t a1))(_DWORD *result, char a2)
+uint64_t (*BNNS.AdamOptimizer.learningRate.modify(uint64_t a1))()
 {
   *a1 = v1;
   *(a1 + 8) = *v1;
@@ -1801,7 +1801,7 @@ void BNNS.AdamOptimizer.beta1.setter(float a1)
   *(v1 + 52) = v2;
 }
 
-_DWORD *(*BNNS.AdamOptimizer.beta1.modify(uint64_t a1))(_DWORD *result, char a2)
+uint64_t (*BNNS.AdamOptimizer.beta1.modify(uint64_t a1))()
 {
   *a1 = v1;
   *(a1 + 8) = *(v1 + 4);
@@ -1829,7 +1829,7 @@ void BNNS.AdamOptimizer.beta2.setter(float a1)
   *(v1 + 52) = v2;
 }
 
-_DWORD *(*BNNS.AdamOptimizer.beta2.modify(uint64_t a1))(_DWORD *result, char a2)
+uint64_t (*BNNS.AdamOptimizer.beta2.modify(uint64_t a1))()
 {
   *a1 = v1;
   *(a1 + 8) = *(v1 + 8);
@@ -1857,7 +1857,7 @@ void BNNS.AdamOptimizer.timeStep.setter(float a1)
   *(v1 + 52) = v2;
 }
 
-_DWORD *(*BNNS.AdamOptimizer.timeStep.modify(uint64_t a1))(_DWORD *result, char a2)
+uint64_t (*BNNS.AdamOptimizer.timeStep.modify(uint64_t a1))()
 {
   *a1 = v1;
   *(a1 + 8) = *(v1 + 12);
@@ -1885,7 +1885,7 @@ void BNNS.AdamOptimizer.epsilon.setter(float a1)
   *(v1 + 52) = v2;
 }
 
-_DWORD *(*BNNS.AdamOptimizer.epsilon.modify(uint64_t a1))(_DWORD *result, char a2)
+uint64_t (*BNNS.AdamOptimizer.epsilon.modify(uint64_t a1))()
 {
   *a1 = v1;
   *(a1 + 8) = *(v1 + 16);
@@ -1913,7 +1913,7 @@ void BNNS.AdamOptimizer.gradientScale.setter(float a1)
   *(v1 + 52) = v2;
 }
 
-_DWORD *(*BNNS.AdamOptimizer.gradientScale.modify(uint64_t a1))(_DWORD *result, char a2)
+uint64_t (*BNNS.AdamOptimizer.gradientScale.modify(uint64_t a1))()
 {
   *a1 = v1;
   *(a1 + 8) = *(v1 + 20);
@@ -1941,7 +1941,7 @@ void BNNS.AdamOptimizer.regularizationScale.setter(float a1)
   *(v1 + 52) = v2;
 }
 
-_DWORD *(*BNNS.AdamOptimizer.regularizationScale.modify(uint64_t a1))(_DWORD *result, char a2)
+uint64_t (*BNNS.AdamOptimizer.regularizationScale.modify(uint64_t a1))()
 {
   *a1 = v1;
   *(a1 + 8) = *(v1 + 24);
@@ -2735,7 +2735,7 @@ uint64_t BNNS.RMSPropOptimizer.centered.setter(uint64_t result)
   return result;
 }
 
-_BYTE *(*BNNS.RMSPropOptimizer.centered.modify(uint64_t a1))(_BYTE *result)
+uint64_t (*BNNS.RMSPropOptimizer.centered.modify(uint64_t a1))()
 {
   *a1 = v1;
   *(a1 + 8) = *(v1 + 12) & 1;
@@ -3370,7 +3370,7 @@ uint64_t BNNS.RMSPropOptimizer.regularizationFunction.setter(uint64_t result)
   return result;
 }
 
-unint64_t (*BNNS.RMSPropOptimizer.regularizationFunction.modify(uint64_t a1))(uint64_t **a1)
+uint64_t **(*BNNS.RMSPropOptimizer.regularizationFunction.modify(uint64_t a1))(uint64_t **a1)
 {
   *a1 = v1;
   if ((*(v1 + 8) & 0x8000000000000000) != 0)
@@ -3387,11 +3387,11 @@ unint64_t (*BNNS.RMSPropOptimizer.regularizationFunction.modify(uint64_t a1))(ui
   return BNNS.RMSPropOptimizer.regularizationFunction.modify;
 }
 
-unint64_t BNNS.RMSPropOptimizer.regularizationFunction.modify(uint64_t **a1)
+uint64_t **BNNS.RMSPropOptimizer.regularizationFunction.modify(uint64_t **a1)
 {
   v1 = *a1;
   v4 = *(a1 + 2);
-  result = (a1 + 1);
+  result = a1 + 1;
   v3 = v4;
   v6 = *v1;
   v5 = v1[1];
@@ -3961,7 +3961,7 @@ uint64_t **BNNS.SGDMomentumOptimizer.regularizationScale.modify(uint64_t **a1)
   return result;
 }
 
-uint64_t BNNS.SGDMomentumOptimizer.gradientBounds.getter()
+unint64_t BNNS.SGDMomentumOptimizer.gradientBounds.getter()
 {
   v2 = v0[2];
   v1 = v0[3];
@@ -4198,13 +4198,13 @@ unsigned __int8 *BNNS.SGDMomentumOptimizer.usesNestrovMomentum.modify(unsigned _
   {
     if ((v6 & 0x80000000) != 0)
     {
-      v7 = v2[4];
-      v8 = v2[5];
+      v7 = *(v2 + 32);
+      v8 = *(v2 + 40);
       *v2 = v5;
-      v2[1] = v4;
-      v2[2] = v6 & 0xFFFFFFFF00000000 | v3 | 0x80000000;
-      v2[4] = v7;
-      v2[5] = v8;
+      *(v2 + 8) = v4;
+      *(v2 + 16) = v6 & 0xFFFFFFFF00000000 | v3 | 0x80000000;
+      *(v2 + 32) = v7;
+      *(v2 + 40) = v8;
       return result;
     }
 
@@ -4214,24 +4214,24 @@ unsigned __int8 *BNNS.SGDMomentumOptimizer.usesNestrovMomentum.modify(unsigned _
   if ((v6 & 0x80000000) == 0)
   {
 LABEL_5:
-    v9 = v2[3];
+    v9 = *(v2 + 24);
     v10 = *(*result + 16) & 1;
     *v2 = v5;
-    *(v2 + 4) = v10;
-    *(v2 + 5) = HIDWORD(v6);
-    *(v2 + 6) = v9;
+    *(v2 + 16) = v10;
+    *(v2 + 20) = HIDWORD(v6);
+    *(v2 + 24) = v9;
     *(v2 + 28) = v3;
-    v2[1] = v4;
+    *(v2 + 8) = v4;
     return result;
   }
 
-  v11 = v2[4];
-  v12 = v2[5];
+  v11 = *(v2 + 32);
+  v12 = *(v2 + 40);
   *v2 = v5;
-  v2[1] = v4;
-  v2[2] = v6 & 0xFFFFFFFF00000000 | v3 | 0x80000000;
-  v2[4] = v11;
-  v2[5] = v12;
+  *(v2 + 8) = v4;
+  *(v2 + 16) = v6 & 0xFFFFFFFF00000000 | v3 | 0x80000000;
+  *(v2 + 32) = v11;
+  *(v2 + 40) = v12;
   return result;
 }
 
@@ -4350,28 +4350,28 @@ unsigned int *BNNS.SGDMomentumOptimizer.regularizationFunction.modify(unsigned i
   v7 = *(*result + 32);
   if ((v6 & 0x80000000) != 0)
   {
-    v11 = *(v2 + 5);
+    v11 = *(v2 + 40);
     *v2 = v4;
-    v2[1] = v3;
-    *(v2 + 1) = v5;
-    *(v2 + 2) = v6 & 1 | (v1 << 32) | 0x80000000;
-    *(v2 + 4) = v7;
-    *(v2 + 5) = v11;
+    *(v2 + 4) = v3;
+    *(v2 + 8) = v5;
+    *(v2 + 16) = v6 & 1 | (v1 << 32) | 0x80000000;
+    *(v2 + 32) = v7;
+    *(v2 + 40) = v11;
   }
 
   else
   {
-    v8 = *(v2 + 3);
+    v8 = *(v2 + 24);
     v9 = v7 & 0xFFFFFFFF00000000 | v1;
     v10 = *(*result + 16) & 1;
     *v2 = v4;
-    v2[1] = v3;
-    v2[4] = v10;
-    v2[5] = HIDWORD(v6);
-    v2[6] = v8;
+    *(v2 + 4) = v3;
+    *(v2 + 16) = v10;
+    *(v2 + 20) = HIDWORD(v6);
+    *(v2 + 24) = v8;
     *(v2 + 28) = BYTE4(v8) & 1;
-    *(v2 + 4) = v9;
-    *(v2 + 1) = v5;
+    *(v2 + 32) = v9;
+    *(v2 + 8) = v5;
   }
 
   return result;
@@ -4483,25 +4483,25 @@ unsigned int *BNNS.SGDMomentumOptimizer.sgdMomentumVariant.modify(unsigned int *
   v7 = *(*result + 32);
   if ((v5 & 0x80000000) != 0)
   {
-    v8 = v2[5];
+    v8 = *(v2 + 40);
     *v2 = v4;
-    v2[2] = v5 & 0xFFFFFFFF80000001;
-    v2[3] = v6 & 0xFFFFFFFF00000000 | v1;
-    v2[4] = v7;
-    v2[5] = v8;
+    *(v2 + 16) = v5 & 0xFFFFFFFF80000001;
+    *(v2 + 24) = v6 & 0xFFFFFFFF00000000 | v1;
+    *(v2 + 32) = v7;
+    *(v2 + 40) = v8;
   }
 
   else
   {
     *v2 = v4;
-    *(v2 + 4) = v5 & 1;
-    *(v2 + 5) = HIDWORD(v5);
-    *(v2 + 6) = v6;
+    *(v2 + 16) = v5 & 1;
+    *(v2 + 20) = HIDWORD(v5);
+    *(v2 + 24) = v6;
     *(v2 + 28) = BYTE4(v6) & 1;
-    v2[4] = v7 | (v1 << 32);
+    *(v2 + 32) = v7 | (v1 << 32);
   }
 
-  v2[1] = v3;
+  *(v2 + 8) = v3;
   return result;
 }
 
@@ -4823,8 +4823,8 @@ uint64_t specialized static BNNS.optimizerStep(function:parameters:gradients:acc
     }
 
     outlined init with copy of BNNSGraph.Builder.SliceIndex(v79, &v87);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Accelerate13BNNSOptimizer_pMd);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Accelerate22WithOptimizerAlgFields_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Accelerate13BNNSOptimizer_pMd, &_s10Accelerate13BNNSOptimizer_pMR);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Accelerate22WithOptimizerAlgFields_pMd, &_s10Accelerate22WithOptimizerAlgFields_pMR);
     swift_dynamicCast();
     v66 = v86[4];
     v67 = __swift_project_boxed_opaque_existential_1(v86, v86[3]);
@@ -5172,56 +5172,56 @@ void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t BNNSGraph.Builder.Tensor.pooling(_:kernelSize:strides:padding:ceilingMode:)@<X0>(unsigned __int8 *a1@<X0>, unint64_t *a2@<X3>, uint64_t a3@<X5>, uint64_t a4@<X8>)
+uint64_t BNNSGraph.Builder.Tensor.pooling(_:kernelSize:strides:padding:ceilingMode:)@<X0>(unsigned __int8 *a1@<X0>, unint64_t *a4@<X3>, uint64_t a6@<X5>, uint64_t a7@<X8>)
 {
-  v6 = *a1;
-  v7 = *a2;
-  v17 = *v4;
-  v8 = v17;
-  v10 = *(a3 + 16);
-  v9 = *(a3 + 24);
+  v9 = *a1;
+  v10 = *a4;
+  v20 = *v7;
+  v11 = v20;
+  v13 = *(a6 + 16);
+  v12 = *(a6 + 24);
 
-  LOBYTE(v20) = 1;
-  v15 = *(v4 + 8);
-  v16 = *(v4 + 24);
-  v11 = *(v4 + 8);
-  *&v18 = v11;
-  BNNSGraph.Builder.Tensor.init(_:intent:dataType:shape:builder:)(0, 0xE000000000000000, 0x100000000uLL, MEMORY[0x1E69E7CC0], &v17, v10, v9, &v20);
-  v17 = v8;
-  v18 = v15;
-  v19 = v16;
+  LOBYTE(v23) = 1;
+  v18 = *(v7 + 8);
+  v19 = *(v7 + 24);
+  v14 = *(v7 + 8);
+  *&v21 = v14;
+  BNNSGraph.Builder.Tensor.init(_:intent:dataType:shape:builder:)(0, 0xE000000000000000, 0x100000000uLL, MEMORY[0x1E69E7CC0], &v20, v13, v12, &v23);
+  v20 = v11;
+  v21 = v18;
+  v22 = v19;
   result = BNNSGraph.Builder.Tensor.tensorData.getter();
   if (!result)
   {
     goto LABEL_11;
   }
 
-  if (v6 == 2)
+  if (v9 == 2)
   {
-    if (v11)
+    if (v14)
     {
-      outlined copy of BNNSGraph.Builder.ConvolutionPadding(v7);
-      v13 = _bnns_graph_builder_register_l2_pool();
+      outlined copy of BNNSGraph.Builder.ConvolutionPadding(v10);
+      v16 = _bnns_graph_builder_register_l2_pool();
       goto LABEL_10;
     }
 
     goto LABEL_13;
   }
 
-  if (v6 == 3)
+  if (v9 == 3)
   {
-    if (v11)
+    if (v14)
     {
-      outlined copy of BNNSGraph.Builder.ConvolutionPadding(v7);
-      v13 = _bnns_graph_builder_register_max_pool();
+      outlined copy of BNNSGraph.Builder.ConvolutionPadding(v10);
+      v16 = _bnns_graph_builder_register_max_pool();
 LABEL_10:
-      v14 = v13;
+      v17 = v16;
 
-      result = BNNSGraph.Builder.Tensor.setTensorData(_:operationName:)(v14, 0xD000000000000032, 0x80000001B7E7D280);
+      result = BNNSGraph.Builder.Tensor.setTensorData(_:operationName:)(v17, 0xD000000000000032, 0x80000001B7E7D280);
 LABEL_11:
-      *a4 = v20;
-      *(a4 + 8) = v21;
-      *(a4 + 24) = v22;
+      *a7 = v23;
+      *(a7 + 8) = v24;
+      *(a7 + 24) = v25;
       return result;
     }
 
@@ -5231,10 +5231,10 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  if (v11)
+  if (v14)
   {
-    outlined copy of BNNSGraph.Builder.ConvolutionPadding(v7);
-    v13 = _bnns_graph_builder_register_avg_pool();
+    outlined copy of BNNSGraph.Builder.ConvolutionPadding(v10);
+    v16 = _bnns_graph_builder_register_avg_pool();
     goto LABEL_10;
   }
 
@@ -5400,13 +5400,13 @@ uint64_t BNNS.FusedParametersLayer.__allocating_init(inputA:inputB:inputC:output
   }
 
   outlined init with copy of BNNSGraph.Builder.SliceIndex(a5 + 32, __src);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Accelerate22FusableLayerParameters_pMd);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Accelerate41FusableTernaryInputLayerParametersWrapper_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Accelerate22FusableLayerParameters_pMd, &_s10Accelerate22FusableLayerParameters_pMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Accelerate41FusableTernaryInputLayerParametersWrapper_pMd, &_s10Accelerate41FusableTernaryInputLayerParametersWrapper_pMR);
   if ((swift_dynamicCast() & 1) == 0)
   {
 
     memset(__dst, 0, 40);
-    outlined destroy of FusableTernaryInputLayerParametersWrapper?(__dst, &_s10Accelerate41FusableTernaryInputLayerParametersWrapper_pSgMd);
+    outlined destroy of FusableTernaryInputLayerParametersWrapper?(__dst, &_s10Accelerate41FusableTernaryInputLayerParametersWrapper_pSgMd, &_s10Accelerate41FusableTernaryInputLayerParametersWrapper_pSgMR);
     return 0;
   }
 
@@ -5419,11 +5419,11 @@ LABEL_23:
 
   outlined init with copy of BNNSGraph.Builder.SliceIndex(a5 + 72, __src);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Accelerate29FusableLayerParametersWrapper_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Accelerate29FusableLayerParametersWrapper_pMd, &_s10Accelerate29FusableLayerParametersWrapper_pMR);
   if ((swift_dynamicCast() & 1) == 0)
   {
     memset(__dst, 0, 40);
-    outlined destroy of FusableTernaryInputLayerParametersWrapper?(__dst, &_s10Accelerate29FusableLayerParametersWrapper_pSgMd);
+    outlined destroy of FusableTernaryInputLayerParametersWrapper?(__dst, &_s10Accelerate29FusableLayerParametersWrapper_pSgMd, &_s10Accelerate29FusableLayerParametersWrapper_pSgMR);
 LABEL_19:
     __swift_destroy_boxed_opaque_existential_1(v48);
     return 0;
@@ -5453,7 +5453,7 @@ LABEL_18:
 
   v24 = v23;
   outlined init with copy of BNNSGraph.Builder.SliceIndex(v44, v42);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Accelerate26BNNSFusableLayerParameters_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Accelerate26BNNSFusableLayerParameters_pMd, &_s10Accelerate26BNNSFusableLayerParameters_pMR);
   type metadata accessor for BNNSLayerParametersArithmetic(0);
   swift_dynamicCast();
   *v41 = *&v41[9];
@@ -5464,7 +5464,7 @@ LABEL_18:
   type metadata accessor for BNNSLayerParametersNormalization(0);
   swift_dynamicCast();
   memcpy(__dst, __src, 0x468uLL);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySVGMd, &_ss23_ContiguousArrayStorageCySVGMR);
   v25 = swift_allocObject();
   *(v25 + 16) = xmmword_1B7E77850;
   *(v25 + 32) = v41;
@@ -5472,7 +5472,7 @@ LABEL_18:
   *(v25 + 40) = __dst;
   if (a8 == 1)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo14BNNSFilterTypeaGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo14BNNSFilterTypeaGMd, &_ss23_ContiguousArrayStorageCySo14BNNSFilterTypeaGMR);
     v27 = swift_allocObject();
     *(v27 + 32) = 8;
     v28 = (v27 + 32);
@@ -5487,7 +5487,7 @@ LABEL_18:
     filter_params.n_threads = a7;
     filter_params.alloc_memory = a8;
     filter_params.free_memory = a9;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo14BNNSFilterTypeaGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo14BNNSFilterTypeaGMd, &_ss23_ContiguousArrayStorageCySo14BNNSFilterTypeaGMR);
     v31 = swift_allocObject();
     *(v31 + 32) = 8;
     v28 = (v31 + 32);
@@ -5512,12 +5512,12 @@ LABEL_18:
 
   *(v33 + 16) = FusedLayer;
   v34 = v33;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate42FusableLayerParametersWrapperDeallocatable_pSgGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Accelerate42FusableLayerParametersWrapperDeallocatable_pSgGMd, &_ss23_ContiguousArrayStorageCy10Accelerate42FusableLayerParametersWrapperDeallocatable_pSgGMR);
   v35 = swift_allocObject();
   *(v35 + 16) = xmmword_1B7E77850;
   outlined init with copy of BNNSGraph.Builder.SliceIndex(v48, __src);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Accelerate42FusableLayerParametersWrapperDeallocatable_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Accelerate42FusableLayerParametersWrapperDeallocatable_pMd, &_s10Accelerate42FusableLayerParametersWrapperDeallocatable_pMR);
   if ((swift_dynamicCast() & 1) == 0)
   {
     *(v35 + 64) = 0;
@@ -5547,8 +5547,8 @@ uint64_t BNNS.FusedParametersLayer.apply(batchSize:inputA:inputB:inputC:output:f
   v7 = *(a2 + 136);
   if (v7 && (v8 = *(a3 + 136)) != 0 && (v9 = *(a4 + 136)) != 0 && (v10 = *(a5 + 136)) != 0)
   {
-    v24 = a1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySVGMd);
+    v27 = a1;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySVGMd, &_ss23_ContiguousArrayStorageCySVGMR);
     v11 = swift_allocObject();
     *(v11 + 16) = xmmword_1B7E76E00;
     *(v11 + 32) = v7;
@@ -5556,36 +5556,39 @@ uint64_t BNNS.FusedParametersLayer.apply(batchSize:inputA:inputB:inputC:output:f
     *(v11 + 40) = v8;
     *(v11 + 48) = v9;
     v13 = *(v6 + 16);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
     v14 = swift_allocObject();
-    BNNSNDArrayDescriptor.shape.getter(v23);
-    *(v14 + 32) = BNNS.Shape.batchStride.getter();
-    BNNSNDArrayDescriptor.shape.getter(v22);
-    *(v14 + 40) = BNNS.Shape.batchStride.getter();
-    BNNSNDArrayDescriptor.shape.getter(v21);
-    *(v14 + 48) = BNNS.Shape.batchStride.getter();
-    BNNSNDArrayDescriptor.shape.getter(v23);
-    v15 = BNNS.Shape.batchStride.getter();
-    v16 = BNNSFusedFilterApplyMultiInputBatch(v13, v24, 3uLL, v12, (v14 + 32), v10, v15, (a6 & 1) == 0);
+    BNNSNDArrayDescriptor.shape.getter(v26);
+    BNNS.Shape.batchStride.getter();
+    *(v14 + 32) = v15;
+    BNNSNDArrayDescriptor.shape.getter(v25);
+    BNNS.Shape.batchStride.getter();
+    *(v14 + 40) = v16;
+    BNNSNDArrayDescriptor.shape.getter(v24);
+    BNNS.Shape.batchStride.getter();
+    *(v14 + 48) = v17;
+    BNNSNDArrayDescriptor.shape.getter(v26);
+    BNNS.Shape.batchStride.getter();
+    v19 = BNNSFusedFilterApplyMultiInputBatch(v13, v27, 3uLL, v12, (v14 + 32), v10, v18, (a6 & 1) == 0);
     swift_setDeallocating();
     swift_deallocClassInstance();
 
-    if (!v16)
+    if (!v19)
     {
       return result;
     }
 
-    v18 = 0;
+    v21 = 0;
   }
 
   else
   {
-    v18 = 2;
+    v21 = 2;
   }
 
   lazy protocol witness table accessor for type BNNS.Error and conformance BNNS.Error();
   swift_allocError();
-  *v19 = v18;
+  *v22 = v21;
   return swift_willThrow();
 }
 
@@ -5594,59 +5597,59 @@ uint64_t BNNS.FusedParametersLayer.applyBackward(batchSize:inputA:inputB:inputC:
   v10 = a8;
   v12 = a6;
   v13 = a2;
-  v104 = *MEMORY[0x1E69E9840];
+  v112 = *MEMORY[0x1E69E9840];
   v14 = *(a10 + 16);
   v15 = MEMORY[0x1E69E7CC0];
   if (v14)
   {
-    *&v92[0] = MEMORY[0x1E69E7CC0];
+    *&v100[0] = MEMORY[0x1E69E7CC0];
     specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v14, 0);
-    v15 = *&v92[0];
+    v15 = *&v100[0];
     v16 = (a10 + 32);
     do
     {
       v17 = v16[9];
-      v101 = v16[8];
-      v102 = v17;
-      v103 = v16[10];
+      v109 = v16[8];
+      v110 = v17;
+      v111 = v16[10];
       v18 = v16[5];
-      v97 = v16[4];
-      v98 = v18;
+      v105 = v16[4];
+      v106 = v18;
       v19 = v16[7];
-      v99 = v16[6];
-      v100 = v19;
+      v107 = v16[6];
+      v108 = v19;
       v20 = v16[1];
-      v93 = *v16;
-      v94 = v20;
+      v101 = *v16;
+      v102 = v20;
       v21 = v16[3];
-      v95 = v16[2];
-      v96 = v21;
+      v103 = v16[2];
+      v104 = v21;
       v22 = swift_slowAlloc();
-      v23 = v102;
-      v22[8] = v101;
+      v23 = v110;
+      v22[8] = v109;
       v22[9] = v23;
-      v22[10] = v103;
-      v24 = v98;
-      v22[4] = v97;
+      v22[10] = v111;
+      v24 = v106;
+      v22[4] = v105;
       v22[5] = v24;
-      v25 = v100;
-      v22[6] = v99;
+      v25 = v108;
+      v22[6] = v107;
       v22[7] = v25;
-      v26 = v94;
-      *v22 = v93;
+      v26 = v102;
+      *v22 = v101;
       v22[1] = v26;
-      v27 = v96;
-      v22[2] = v95;
+      v27 = v104;
+      v22[2] = v103;
       v22[3] = v27;
       v29 = *(v15 + 2);
       v28 = *(v15 + 3);
-      *&v92[0] = v15;
+      *&v100[0] = v15;
       if (v29 >= v28 >> 1)
       {
         v30 = v22;
         specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v28 > 1), v29 + 1, 1);
         v22 = v30;
-        v15 = *&v92[0];
+        v15 = *&v100[0];
       }
 
       *(v15 + 2) = v29 + 1;
@@ -5664,119 +5667,127 @@ uint64_t BNNS.FusedParametersLayer.applyBackward(batchSize:inputA:inputB:inputC:
   v31 = a7[8];
   v32 = a7[9];
   v33 = a7[6];
-  v100 = a7[7];
-  v101 = v31;
+  v108 = a7[7];
+  v109 = v31;
   v34 = a7[10];
-  v102 = v32;
-  v103 = v34;
+  v110 = v32;
+  v111 = v34;
   v35 = a7[4];
   v36 = a7[5];
   v37 = a7[2];
-  v96 = a7[3];
-  v97 = v35;
-  v98 = v36;
-  v99 = v33;
+  v104 = a7[3];
+  v105 = v35;
+  v106 = v36;
+  v107 = v33;
   v38 = *a7;
-  v94 = a7[1];
-  v95 = v37;
+  v102 = a7[1];
+  v103 = v37;
   v39 = v10[9];
-  v92[8] = v10[8];
-  v92[9] = v39;
-  v92[10] = v10[10];
-  v93 = v38;
+  v100[8] = v10[8];
+  v100[9] = v39;
+  v100[10] = v10[10];
+  v101 = v38;
   v40 = v10[5];
-  v92[4] = v10[4];
-  v92[5] = v40;
+  v100[4] = v10[4];
+  v100[5] = v40;
   v41 = v10[7];
-  v92[6] = v10[6];
-  v92[7] = v41;
+  v100[6] = v10[6];
+  v100[7] = v41;
   v42 = v10[1];
-  v92[0] = *v10;
-  v92[1] = v42;
+  v100[0] = *v10;
+  v100[1] = v42;
   v43 = v10[3];
-  v92[2] = v10[2];
-  v92[3] = v43;
+  v100[2] = v10[2];
+  v100[3] = v43;
   v44 = a9[8];
   v45 = a9[9];
   v46 = a9[6];
-  v91[7] = a9[7];
-  v91[8] = v44;
+  v99[7] = a9[7];
+  v99[8] = v44;
   v47 = a9[10];
-  v91[9] = v45;
-  v91[10] = v47;
+  v99[9] = v45;
+  v99[10] = v47;
   v48 = a9[4];
   v49 = a9[5];
   v50 = a9[2];
-  v91[3] = a9[3];
-  v91[4] = v48;
-  v91[5] = v49;
-  v91[6] = v46;
+  v99[3] = a9[3];
+  v99[4] = v48;
+  v99[5] = v49;
+  v99[6] = v46;
   v51 = *a9;
-  v91[1] = a9[1];
-  v91[2] = v50;
+  v99[1] = a9[1];
+  v99[2] = v50;
   v52 = v12[9];
-  *&v90.stride[7] = v12[8];
-  *&v90.data_type = v52;
-  *&v90.table_data_type = v12[10];
-  v91[0] = v51;
+  *&v98.stride[7] = v12[8];
+  *&v98.data_type = v52;
+  *&v98.table_data_type = v12[10];
+  v99[0] = v51;
   v53 = v12[5];
-  *&v90.size[7] = v12[4];
-  *&v90.stride[1] = v53;
+  *&v98.size[7] = v12[4];
+  *&v98.stride[1] = v53;
   v54 = v12[7];
-  *&v90.stride[3] = v12[6];
-  *&v90.stride[5] = v54;
+  *&v98.stride[3] = v12[6];
+  *&v98.stride[5] = v54;
   v55 = v12[1];
-  *&v90.flags = *v12;
-  *&v90.size[1] = v55;
+  *&v98.flags = *v12;
+  *&v98.size[1] = v55;
   v56 = v12[3];
-  *&v90.size[3] = v12[2];
-  *&v90.size[5] = v56;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySVSgGMd);
+  *&v98.size[3] = v12[2];
+  *&v98.size[5] = v56;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySVSgGMd, &_ss23_ContiguousArrayStorageCySVSgGMR);
   v57 = swift_allocObject();
   *(v57 + 16) = xmmword_1B7E76E00;
   *(v57 + 32) = *(v13 + 136);
-  v80 = (v57 + 32);
+  v88 = (v57 + 32);
   v58 = *(a4 + 136);
   *(v57 + 40) = *(a3 + 136);
   *(v57 + 48) = v58;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySpySo21BNNSNDArrayDescriptoraGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySpySo21BNNSNDArrayDescriptoraGGMd, &_ss23_ContiguousArrayStorageCySpySo21BNNSNDArrayDescriptoraGGMR);
   v59 = swift_allocObject();
-  *(v59 + 32) = &v93;
+  *(v59 + 32) = &v101;
   in_deltaa = (v59 + 32);
   *(v59 + 16) = xmmword_1B7E76E00;
-  *(v59 + 40) = v92;
-  *(v59 + 48) = v91;
-  v82 = *(v81 + 16);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+  *(v59 + 40) = v100;
+  *(v59 + 48) = v99;
+  v90 = *(v89 + 16);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
   v60 = swift_allocObject();
-  BNNSNDArrayDescriptor.shape.getter(v89);
-  v60[4] = BNNS.Shape.batchStride.getter();
+  BNNSNDArrayDescriptor.shape.getter(v97);
+  BNNS.Shape.batchStride.getter();
+  v60[4] = v61;
   in_stridea = v60 + 4;
-  BNNSNDArrayDescriptor.shape.getter(v88);
-  v60[5] = BNNS.Shape.batchStride.getter();
-  BNNSNDArrayDescriptor.shape.getter(v87);
-  v60[6] = BNNS.Shape.batchStride.getter();
-  v61 = swift_allocObject();
-  BNNSNDArrayDescriptor.shape.getter(v89);
-  *(v61 + 32) = BNNS.Shape.batchStride.getter();
-  BNNSNDArrayDescriptor.shape.getter(v88);
-  *(v61 + 40) = BNNS.Shape.batchStride.getter();
-  BNNSNDArrayDescriptor.shape.getter(v87);
-  *(v61 + 48) = BNNS.Shape.batchStride.getter();
-  v62 = *(a5 + 136);
-  BNNSNDArrayDescriptor.shape.getter(v89);
-  out_stride = BNNS.Shape.batchStride.getter();
-  BNNSNDArrayDescriptor.shape.getter(v88);
-  out_delta_stride = BNNS.Shape.batchStride.getter();
+  BNNSNDArrayDescriptor.shape.getter(v96);
+  BNNS.Shape.batchStride.getter();
+  v60[5] = v62;
+  BNNSNDArrayDescriptor.shape.getter(v95);
+  BNNS.Shape.batchStride.getter();
+  v60[6] = v63;
+  v64 = swift_allocObject();
+  BNNSNDArrayDescriptor.shape.getter(v97);
+  BNNS.Shape.batchStride.getter();
+  *(v64 + 32) = v65;
+  BNNSNDArrayDescriptor.shape.getter(v96);
+  BNNS.Shape.batchStride.getter();
+  *(v64 + 40) = v66;
+  BNNSNDArrayDescriptor.shape.getter(v95);
+  BNNS.Shape.batchStride.getter();
+  *(v64 + 48) = v67;
+  v68 = *(a5 + 136);
+  BNNSNDArrayDescriptor.shape.getter(v97);
+  BNNS.Shape.batchStride.getter();
+  out_stride = v69;
+  BNNSNDArrayDescriptor.shape.getter(v96);
+  BNNS.Shape.batchStride.getter();
+  out_delta_stride = v71;
 
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
   {
     v15 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v15 + 2), 0, v15);
   }
 
-  v65 = (v15 + 32);
+  v73 = (v15 + 32);
 
-  v66 = BNNSFusedFilterApplyBackwardMultiInputBatch(v82, a1, 3uLL, v80, in_stridea, in_deltaa, (v61 + 32), v62, out_stride, &v90, out_delta_stride, v15 + 4);
+  v74 = BNNSFusedFilterApplyBackwardMultiInputBatch(v90, a1, 3uLL, v88, in_stridea, in_deltaa, (v64 + 32), v68, out_stride, &v98, out_delta_stride, v15 + 4);
 
   swift_setDeallocating();
   swift_deallocClassInstance();
@@ -5786,19 +5797,19 @@ uint64_t BNNS.FusedParametersLayer.applyBackward(batchSize:inputA:inputB:inputC:
   swift_deallocClassInstance();
   swift_setDeallocating();
   swift_deallocClassInstance();
-  if (v66)
+  if (v74)
   {
     lazy protocol witness table accessor for type BNNS.Error and conformance BNNS.Error();
     swift_allocError();
-    *v67 = 0;
+    *v75 = 0;
     swift_willThrow();
     for (i = *(v15 + 2); i; --i)
     {
-      v70 = *v65++;
-      v69 = v70;
-      if (v70)
+      v78 = *v73++;
+      v77 = v78;
+      if (v78)
       {
-        MEMORY[0x1B8CB2C50](v69, -1, -1);
+        MEMORY[0x1B8CB2C50](v77, -1, -1);
       }
     }
   }
@@ -5807,24 +5818,24 @@ uint64_t BNNS.FusedParametersLayer.applyBackward(batchSize:inputA:inputB:inputC:
   {
     for (j = *(v15 + 2); j; --j)
     {
-      v74 = *v65++;
-      v73 = v74;
-      if (v74)
+      v82 = *v73++;
+      v81 = v82;
+      if (v82)
       {
-        MEMORY[0x1B8CB2C50](v73, -1, -1);
+        MEMORY[0x1B8CB2C50](v81, -1, -1);
       }
     }
   }
 }
 
-uint64_t outlined destroy of FusableTernaryInputLayerParametersWrapper?(uint64_t a1, uint64_t *a2)
+uint64_t outlined destroy of FusableTernaryInputLayerParametersWrapper?(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  (*(*(v3 - 8) + 8))(a1, v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
   return a1;
 }
 
-uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_t a2)
+uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t result, uint64_t a2)
 {
   if ((*(*(a2 - 8) + 80) & 0x20000) != 0)
   {
@@ -5832,7 +5843,7 @@ uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_
     return v2;
   }
 
-  return result;
+  return v3;
 }
 
 uint64_t dispatch thunk of FusableTernaryInputLayerParametersWrapper.layerParameters(inputA:inputB:inputC:output:)(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t a6)
@@ -6356,7 +6367,7 @@ uint64_t BNNS.NormalizationLayer.__allocating_init(type:input:output:beta:gamma:
   return result;
 }
 
-uint64_t BNNS.NormalizationLayer.apply(batchSize:input:output:for:)(uint64_t result, uint64_t a2, uint64_t a3, char a4)
+void BNNS.NormalizationLayer.apply(batchSize:input:output:for:)(size_t result, uint64_t a2, uint64_t a3, char a4)
 {
   v5 = *(a2 + 136);
   if (!v5)
@@ -6365,36 +6376,32 @@ uint64_t BNNS.NormalizationLayer.apply(batchSize:input:output:for:)(uint64_t res
     goto LABEL_7;
   }
 
-  v8 = result;
   v9 = *(v4 + 16);
-  BNNSNDArrayDescriptor.shape.getter(v15);
-  result = BNNS.Shape.batchStride.getter();
-  v10 = *(a3 + 136);
-  if (!v10)
+  BNNSNDArrayDescriptor.shape.getter(v16);
+  BNNS.Shape.batchStride.getter();
+  v11 = *(a3 + 136);
+  if (!v11)
   {
 LABEL_7:
     __break(1u);
-    return result;
+    return;
   }
 
-  v11 = result;
-  BNNSNDArrayDescriptor.shape.getter(v14);
-  v12 = BNNS.Shape.batchStride.getter();
-  result = BNNSNormalizationFilterApplyBatch(v9, v8, v5, v11, v10, v12, (a4 & 1) == 0);
-  if (result)
+  v12 = v10;
+  BNNSNDArrayDescriptor.shape.getter(v15);
+  BNNS.Shape.batchStride.getter();
+  if (BNNSNormalizationFilterApplyBatch(v9, result, v5, v12, v11, v13, (a4 & 1) == 0))
   {
     lazy protocol witness table accessor for type BNNS.Error and conformance BNNS.Error();
     swift_allocError();
-    *v13 = 0;
-    return swift_willThrow();
+    *v14 = 0;
+    swift_willThrow();
   }
-
-  return result;
 }
 
 uint64_t BNNS.NormalizationLayer.applyBackward(batchSize:input:output:outputGradient:generatingInputGradient:generatingBetaGradient:generatingGammaGradient:)(size_t a1, uint64_t a2, uint64_t a3, _OWORD *a4, __int128 *a5, uint64_t a6, uint64_t a7)
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   v11 = a5[8];
   v12 = a5[9];
   v13 = a5[6];
@@ -6431,114 +6438,122 @@ uint64_t BNNS.NormalizationLayer.applyBackward(batchSize:input:output:outputGrad
   *&out_delta.size[3] = a4[2];
   *&out_delta.size[5] = v23;
   v24 = *(a6 + 144);
-  *&v72.stride[7] = *(a6 + 128);
-  *&v72.data_type = v24;
-  *&v72.table_data_type = *(a6 + 160);
+  *&v80.stride[7] = *(a6 + 128);
+  *&v80.data_type = v24;
+  *&v80.table_data_type = *(a6 + 160);
   v25 = *(a6 + 80);
-  *&v72.size[7] = *(a6 + 64);
-  *&v72.stride[1] = v25;
+  *&v80.size[7] = *(a6 + 64);
+  *&v80.stride[1] = v25;
   v26 = *(a6 + 112);
-  *&v72.stride[3] = *(a6 + 96);
-  *&v72.stride[5] = v26;
+  *&v80.stride[3] = *(a6 + 96);
+  *&v80.stride[5] = v26;
   v27 = *(a6 + 16);
-  *&v72.flags = *a6;
-  *&v72.size[1] = v27;
+  *&v80.flags = *a6;
+  *&v80.size[1] = v27;
   v28 = *(a6 + 48);
-  *&v72.size[3] = *(a6 + 32);
-  v73 = *(a6 + 176);
-  *&v72.size[5] = v28;
-  if (_sSo21BNNSNDArrayDescriptoraSgWOg(&v72) == 1)
+  *&v80.size[3] = *(a6 + 32);
+  v81 = *(a6 + 176);
+  *&v80.size[5] = v28;
+  if (_sSo21BNNSNDArrayDescriptoraSgWOg(&v80) == 1)
   {
     v29 = *(a7 + 144);
-    *&v70.stride[7] = *(a7 + 128);
-    *&v70.data_type = v29;
-    *&v70.table_data_type = *(a7 + 160);
+    *&v78.stride[7] = *(a7 + 128);
+    *&v78.data_type = v29;
+    *&v78.table_data_type = *(a7 + 160);
     v30 = *(a7 + 80);
-    *&v70.size[7] = *(a7 + 64);
-    *&v70.stride[1] = v30;
+    *&v78.size[7] = *(a7 + 64);
+    *&v78.stride[1] = v30;
     v31 = *(a7 + 112);
-    *&v70.stride[3] = *(a7 + 96);
-    *&v70.stride[5] = v31;
+    *&v78.stride[3] = *(a7 + 96);
+    *&v78.stride[5] = v31;
     v32 = *(a7 + 16);
-    *&v70.flags = *a7;
-    *&v70.size[1] = v32;
+    *&v78.flags = *a7;
+    *&v78.size[1] = v32;
     v33 = *(a7 + 48);
-    *&v70.size[3] = *(a7 + 32);
-    v71 = *(a7 + 176);
-    *&v70.size[5] = v33;
-    if (_sSo21BNNSNDArrayDescriptoraSgWOg(&v70) == 1)
+    *&v78.size[3] = *(a7 + 32);
+    v79 = *(a7 + 176);
+    *&v78.size[5] = v33;
+    if (_sSo21BNNSNDArrayDescriptoraSgWOg(&v78) == 1)
     {
       v34 = *(v7 + 16);
       BNNSNDArrayDescriptor.shape.getter(&beta_delta);
-      v35 = BNNS.Shape.batchStride.getter();
-      v36 = *(a3 + 136);
-      BNNSNDArrayDescriptor.shape.getter(&v62);
-      v37 = BNNS.Shape.batchStride.getter();
-      BNNSNDArrayDescriptor.shape.getter(v65);
-      v38 = BNNS.Shape.batchStride.getter();
-      result = BNNSNormalizationFilterApplyBackwardBatch(v34, a1, &in_delta, v35, v36, v37, &out_delta, v38, 0, 0);
+      BNNS.Shape.batchStride.getter();
+      v36 = v35;
+      v37 = *(a3 + 136);
+      BNNSNDArrayDescriptor.shape.getter(&v70);
+      BNNS.Shape.batchStride.getter();
+      v39 = v38;
+      BNNSNDArrayDescriptor.shape.getter(v73);
+      BNNS.Shape.batchStride.getter();
+      result = BNNSNormalizationFilterApplyBackwardBatch(v34, a1, &in_delta, v36, v37, v39, &out_delta, v40, 0, 0);
     }
 
     else
     {
-      beta_delta = v70;
-      v50 = *(v7 + 16);
-      BNNSNDArrayDescriptor.shape.getter(&v62);
-      v51 = BNNS.Shape.batchStride.getter();
-      v52 = *(a3 + 136);
-      BNNSNDArrayDescriptor.shape.getter(v65);
-      v53 = BNNS.Shape.batchStride.getter();
-      BNNSNDArrayDescriptor.shape.getter(v63);
-      v54 = BNNS.Shape.batchStride.getter();
-      result = BNNSNormalizationFilterApplyBackwardBatch(v50, a1, &in_delta, v51, v52, v53, &out_delta, v54, 0, &beta_delta);
+      beta_delta = v78;
+      v54 = *(v7 + 16);
+      BNNSNDArrayDescriptor.shape.getter(&v70);
+      BNNS.Shape.batchStride.getter();
+      v56 = v55;
+      v57 = *(a3 + 136);
+      BNNSNDArrayDescriptor.shape.getter(v73);
+      BNNS.Shape.batchStride.getter();
+      v59 = v58;
+      BNNSNDArrayDescriptor.shape.getter(v71);
+      BNNS.Shape.batchStride.getter();
+      result = BNNSNormalizationFilterApplyBackwardBatch(v54, a1, &in_delta, v56, v57, v59, &out_delta, v60, 0, &beta_delta);
     }
   }
 
   else
   {
-    beta_delta = v72;
-    v40 = *(a7 + 144);
-    *&v68.stride[7] = *(a7 + 128);
-    *&v68.data_type = v40;
-    *&v68.table_data_type = *(a7 + 160);
-    v41 = *(a7 + 80);
-    *&v68.size[7] = *(a7 + 64);
-    *&v68.stride[1] = v41;
-    v42 = *(a7 + 112);
-    *&v68.stride[3] = *(a7 + 96);
-    *&v68.stride[5] = v42;
-    v43 = *(a7 + 16);
-    *&v68.flags = *a7;
-    *&v68.size[1] = v43;
-    v44 = *(a7 + 48);
-    *&v68.size[3] = *(a7 + 32);
-    v69 = *(a7 + 176);
-    *&v68.size[5] = v44;
-    if (_sSo21BNNSNDArrayDescriptoraSgWOg(&v68) == 1)
+    beta_delta = v80;
+    v42 = *(a7 + 144);
+    *&v76.stride[7] = *(a7 + 128);
+    *&v76.data_type = v42;
+    *&v76.table_data_type = *(a7 + 160);
+    v43 = *(a7 + 80);
+    *&v76.size[7] = *(a7 + 64);
+    *&v76.stride[1] = v43;
+    v44 = *(a7 + 112);
+    *&v76.stride[3] = *(a7 + 96);
+    *&v76.stride[5] = v44;
+    v45 = *(a7 + 16);
+    *&v76.flags = *a7;
+    *&v76.size[1] = v45;
+    v46 = *(a7 + 48);
+    *&v76.size[3] = *(a7 + 32);
+    v77 = *(a7 + 176);
+    *&v76.size[5] = v46;
+    if (_sSo21BNNSNDArrayDescriptoraSgWOg(&v76) == 1)
     {
-      v45 = *(v7 + 16);
-      BNNSNDArrayDescriptor.shape.getter(&v62);
-      v46 = BNNS.Shape.batchStride.getter();
-      v47 = *(a3 + 136);
-      BNNSNDArrayDescriptor.shape.getter(v65);
-      v48 = BNNS.Shape.batchStride.getter();
-      BNNSNDArrayDescriptor.shape.getter(v63);
-      v49 = BNNS.Shape.batchStride.getter();
-      result = BNNSNormalizationFilterApplyBackwardBatch(v45, a1, &in_delta, v46, v47, v48, &out_delta, v49, &beta_delta, 0);
+      v47 = *(v7 + 16);
+      BNNSNDArrayDescriptor.shape.getter(&v70);
+      BNNS.Shape.batchStride.getter();
+      v49 = v48;
+      v50 = *(a3 + 136);
+      BNNSNDArrayDescriptor.shape.getter(v73);
+      BNNS.Shape.batchStride.getter();
+      v52 = v51;
+      BNNSNDArrayDescriptor.shape.getter(v71);
+      BNNS.Shape.batchStride.getter();
+      result = BNNSNormalizationFilterApplyBackwardBatch(v47, a1, &in_delta, v49, v50, v52, &out_delta, v53, &beta_delta, 0);
     }
 
     else
     {
-      v62 = v68;
-      v55 = *(v7 + 16);
-      BNNSNDArrayDescriptor.shape.getter(v65);
-      v56 = BNNS.Shape.batchStride.getter();
-      v57 = *(a3 + 136);
-      BNNSNDArrayDescriptor.shape.getter(v63);
-      v58 = BNNS.Shape.batchStride.getter();
-      BNNSNDArrayDescriptor.shape.getter(v61);
-      v59 = BNNS.Shape.batchStride.getter();
-      result = BNNSNormalizationFilterApplyBackwardBatch(v55, a1, &in_delta, v56, v57, v58, &out_delta, v59, &beta_delta, &v62);
+      v70 = v76;
+      v61 = *(v7 + 16);
+      BNNSNDArrayDescriptor.shape.getter(v73);
+      BNNS.Shape.batchStride.getter();
+      v63 = v62;
+      v64 = *(a3 + 136);
+      BNNSNDArrayDescriptor.shape.getter(v71);
+      BNNS.Shape.batchStride.getter();
+      v66 = v65;
+      BNNSNDArrayDescriptor.shape.getter(v69);
+      BNNS.Shape.batchStride.getter();
+      result = BNNSNormalizationFilterApplyBackwardBatch(v61, a1, &in_delta, v63, v64, v66, &out_delta, v67, &beta_delta, &v70);
     }
   }
 
@@ -6546,7 +6561,7 @@ uint64_t BNNS.NormalizationLayer.applyBackward(batchSize:input:output:outputGrad
   {
     lazy protocol witness table accessor for type BNNS.Error and conformance BNNS.Error();
     swift_allocError();
-    *v60 = 0;
+    *v68 = 0;
     return swift_willThrow();
   }
 
@@ -6910,11 +6925,11 @@ uint64_t static vDSP.convert<A, B>(rectangularCoordinates:toPolarCoordinates:)(u
   return static vDSP.convert<A, B>(rectangularCoordinates:toPolarCoordinates:)(a1, a2, a3, a4, a5, a6, partial apply for closure #1 in static vDSP.convert<A, B>(rectangularCoordinates:toPolarCoordinates:));
 }
 
-uint64_t closure #1 in static vDSP.rectangularToPolar<A>(_:)(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7, unint64_t *a8, void (*a9)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
+uint64_t closure #1 in static vDSP.rectangularToPolar<A>(_:)(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t *a7, unint64_t *a8, void (*a9)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t))
 {
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(a6);
-  v16 = lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>(a8, a6);
-  a9(a3, a1, a4, v15, a5, v16);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(a6, a7);
+  v17 = lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>(a8, a6, a7);
+  a9(a3, a1, a4, v16, a5, v17);
   result = (*(a5 + 16))(a4, a5);
   *a2 = result;
   return result;
@@ -7069,10 +7084,10 @@ uint64_t vDSP.DFT.init(previous:count:direction:transformType:ofType:)(uint64_t 
   v10 = *(*v5 + 88);
   v11 = *(*v5 + 80);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v17 = v8;
-  v16 = v9;
+  v18 = v8;
+  v17 = v9;
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v14 = (*(AssociatedConformanceWitness + 16))(a1, a2, &v17, &v16, v11, v10, AssociatedTypeWitness, AssociatedConformanceWitness);
+  v14 = (*(AssociatedConformanceWitness + 16))(a1, a2, &v18, &v17, v11, v10, AssociatedTypeWitness, AssociatedConformanceWitness);
 
   if (v14)
   {
@@ -7082,7 +7097,7 @@ uint64_t vDSP.DFT.init(previous:count:direction:transformType:ofType:)(uint64_t 
 
   else
   {
-    type metadata accessor for vDSP.DFT();
+    type metadata accessor for vDSP.DFT(0, v11, v10, v15);
     swift_deallocPartialClassInstance();
     return 0;
   }
@@ -7123,7 +7138,7 @@ uint64_t vDSP.DFT.transform<A, B>(inputReal:inputImaginary:outputReal:outputImag
   return (*(AssociatedConformanceWitness + 24))(v15, a1, a2, a3, a4, a5, a6, a7, a8, AssociatedTypeWitness, AssociatedConformanceWitness);
 }
 
-uint64_t vDSP.DFT.deinit()
+uint64_t *vDSP.DFT.deinit()
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v2 = *(v0 + 16);
@@ -7278,19 +7293,27 @@ Swift::Int vDSP.IntegrationRule.hashValue.getter()
 
 uint64_t static vDSP.integrate<A>(_:using:stepSize:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = (*(a4 + 16))(a3, a4);
-  return _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSf_Tt1gq5(v4, partial apply for closure #1 in static vDSP.integrate<A>(_:using:stepSize:));
+  v8 = (*(a4 + 16))(a3, a4);
+  v10[2] = a3;
+  v10[3] = a4;
+  v10[4] = a1;
+  v10[5] = a2;
+  return _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSf_Tt1gq5(v8, partial apply for closure #1 in static vDSP.integrate<A>(_:using:stepSize:), v10);
 }
 
 {
-  v4 = (*(a4 + 16))(a3, a4);
-  return _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSd_Tt1gq5(v4, partial apply for closure #1 in static vDSP.integrate<A>(_:using:stepSize:));
+  v8 = (*(a4 + 16))(a3, a4);
+  v10[2] = a3;
+  v10[3] = a4;
+  v10[4] = a1;
+  v10[5] = a2;
+  return _sSa28_unsafeUninitializedCapacity16initializingWithSayxGSi_ySryxGz_SiztKXEtKcfCSd_Tt1gq5(v8, partial apply for closure #1 in static vDSP.integrate<A>(_:using:stepSize:), v10);
 }
 
 uint64_t closure #1 in static vDSP.integrate<A>(_:using:stepSize:)(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSrySfGMd);
-  v13 = lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Float> and conformance UnsafeMutableBufferPointer<A>, &_sSrySfGMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSrySfGMd, &_sSrySfGMR);
+  v13 = lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Float> and conformance UnsafeMutableBufferPointer<A>, &_sSrySfGMd, &_sSrySfGMR);
   static vDSP.integrate<A, B>(_:using:stepSize:result:)(a3, a4, a1, a5, v12, a6, v13);
   result = (*(a6 + 16))(a5, a6);
   *a2 = result;
@@ -7298,8 +7321,8 @@ uint64_t closure #1 in static vDSP.integrate<A>(_:using:stepSize:)(uint64_t a1, 
 }
 
 {
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSrySdGMd);
-  v13 = lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>, &_sSrySdGMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSrySdGMd, &_sSrySdGMR);
+  v13 = lazy protocol witness table accessor for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>(&lazy protocol witness table cache variable for type UnsafeMutableBufferPointer<Double> and conformance UnsafeMutableBufferPointer<A>, &_sSrySdGMd, &_sSrySdGMR);
   static vDSP.integrate<A, B>(_:using:stepSize:result:)(a3, a4, a1, a5, v12, a6, v13);
   result = (*(a6 + 16))(a5, a6);
   *a2 = result;
@@ -8235,7 +8258,7 @@ uint64_t BNNS.AdamWOptimizer.gradientClipping.modify(uint64_t result)
   return result;
 }
 
-uint64_t BNNS.AdamWOptimizer.init(learningRate:beta1:beta2:timeStep:epsilon:gradientScale:weightDecay:gradientClipping:usesAMSGrad:)@<X0>(uint64_t *a1@<X0>, char a2@<W1>, uint64_t a3@<X8>, float a4@<S0>, float a5@<S1>, float a6@<S2>, float a7@<S3>, float a8@<S4>, float a9@<S5>, float a10@<S6>)
+uint64_t BNNS.AdamWOptimizer.init(learningRate:beta1:beta2:timeStep:epsilon:gradientScale:weightDecay:gradientClipping:usesAMSGrad:)@<X0>(unint64_t *a1@<X0>, char a2@<W1>, uint64_t a3@<X8>, float a4@<S0>, float a5@<S1>, float a6@<S2>, float a7@<S3>, float a8@<S4>, float a9@<S5>, float a10@<S6>)
 {
   v10 = *a1;
   v11 = *(a1 + 8);
@@ -8411,7 +8434,7 @@ uint64_t protocol witness for WithOptimizerAlgFields.withOptimizerAlgFields(body
   return a1(v4);
 }
 
-uint64_t BNNS.AdamOptimizer.init(learningRate:beta1:beta2:timeStep:epsilon:gradientScale:regularizationScale:gradientClipping:regularizationFunction:usesAMSGrad:)@<X0>(uint64_t *a1@<X0>, int a2@<W1>, char a3@<W2>, uint64_t a4@<X8>, float a5@<S0>, float a6@<S1>, float a7@<S2>, float a8@<S3>, float a9@<S4>, float a10@<S5>, float a11@<S6>)
+uint64_t BNNS.AdamOptimizer.init(learningRate:beta1:beta2:timeStep:epsilon:gradientScale:regularizationScale:gradientClipping:regularizationFunction:usesAMSGrad:)@<X0>(unint64_t *a1@<X0>, int a2@<W1>, char a3@<W2>, uint64_t a4@<X8>, float a5@<S0>, float a6@<S1>, float a7@<S2>, float a8@<S3>, float a9@<S4>, float a10@<S5>, float a11@<S6>)
 {
   v11 = *a1;
   v12 = *(a1 + 8);
@@ -8538,7 +8561,7 @@ uint64_t BNNS.AdamOptimizer.init(learningRate:beta1:beta2:timeStep:epsilon:gradi
   return result;
 }
 
-_BYTE *(*BNNS.AdamOptimizer.usesAMSGrad.modify(uint64_t a1))(_BYTE *result)
+uint64_t (*BNNS.AdamOptimizer.usesAMSGrad.modify(uint64_t a1))()
 {
   *a1 = v1;
   *(a1 + 8) = *(v1 + 53);
@@ -8756,7 +8779,7 @@ uint64_t BNNS.AdamOptimizer.gradientClipping.modify(uint64_t a1)
   return BNNS.AdamOptimizer.gradientClipping.setter(&v3);
 }
 
-uint64_t BNNS.SGDMomentumOptimizer.init(learningRate:momentum:gradientScale:regularizationScale:gradientClipping:usesNesterovMomentum:regularizationFunction:sgdMomentumVariant:)@<X0>(uint64_t *a1@<X0>, char a2@<W1>, uint64_t a3@<X2>, unsigned int a4@<W3>, uint64_t a5@<X8>, float a6@<S0>, float a7@<S1>, float a8@<S2>, float a9@<S3>)
+uint64_t BNNS.SGDMomentumOptimizer.init(learningRate:momentum:gradientScale:regularizationScale:gradientClipping:usesNesterovMomentum:regularizationFunction:sgdMomentumVariant:)@<X0>(unint64_t *a1@<X0>, char a2@<W1>, uint64_t a3@<X2>, unsigned int a4@<W3>, uint64_t a5@<X8>, float a6@<S0>, float a7@<S1>, float a8@<S2>, float a9@<S3>)
 {
   v9 = *a1;
   v10 = *(a1 + 8);
@@ -9874,45 +9897,6 @@ void BNNSGraph.Builder.Padding.hash(into:)()
 }
 
 Swift::Int BNNSGraph.Builder.Padding.hashValue.getter()
-{
-  v1 = *v0;
-  v2 = *(v0 + 4);
-  Hasher.init(_seed:)();
-  if (v2 == 1)
-  {
-    if (v1)
-    {
-      v3 = 2;
-    }
-
-    else
-    {
-      v3 = 1;
-    }
-
-    MEMORY[0x1B8CB1810](v3);
-  }
-
-  else
-  {
-    MEMORY[0x1B8CB1810](0);
-    if ((v1 & 0x7FFFFFFF) != 0)
-    {
-      v4 = v1;
-    }
-
-    else
-    {
-      v4 = 0;
-    }
-
-    Hasher._combine(_:)(v4);
-  }
-
-  return Hasher._finalize()();
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance BNNSGraph.Builder.Padding()
 {
   v1 = *v0;
   v2 = *(v0 + 4);

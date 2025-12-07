@@ -27,25 +27,25 @@
     {
       cps_fallbackBundleIdentifier = [webpageURL cps_fallbackBundleIdentifier];
       v9 = cps_fallbackBundleIdentifier != 0;
-      v10 = sub_100001374();
-      v11 = v10;
+      v11 = sub_100001374(cps_fallbackBundleIdentifier, v10);
+      v12 = v11;
       if (cps_fallbackBundleIdentifier)
       {
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           LODWORD(buf) = 138739971;
           *(&buf + 4) = v7;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Received out-of-box app clip URL: %{sensitive}@", &buf, 0xCu);
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Received out-of-box app clip URL: %{sensitive}@", &buf, 0xCu);
         }
 
         *&buf = 0;
         *(&buf + 1) = &buf;
-        v21 = 0x3032000000;
-        v22 = sub_100001260;
-        v23 = sub_100001270;
-        v12 = [CPSClipRequest alloc];
+        v22 = 0x3032000000;
+        v23 = sub_100001260;
+        v24 = sub_100001270;
+        v13 = [CPSClipRequest alloc];
         _wp_urlByRemovingTrackingInformation = [v7 _wp_urlByRemovingTrackingInformation];
-        v24 = [v12 initWithURL:_wp_urlByRemovingTrackingInformation];
+        v25 = [v13 initWithURL:_wp_urlByRemovingTrackingInformation];
 
         sessionProxy = [*(*(&buf + 1) + 40) sessionProxy];
         configuration = [sessionProxy configuration];
@@ -54,20 +54,20 @@
         [configuration setReferrerBundleID:_sourceApplication];
 
         [configuration setLaunchReason:CPSSessionLaunchReasonInApp];
-        v17 = *(*(&buf + 1) + 40);
-        v19[0] = _NSConcreteStackBlock;
-        v19[1] = 3221225472;
-        v19[2] = sub_100001278;
-        v19[3] = &unk_100008268;
-        v19[4] = &buf;
-        [v17 requestClipWithCompletion:v19];
+        v18 = *(*(&buf + 1) + 40);
+        v20[0] = _NSConcreteStackBlock;
+        v20[1] = 3221225472;
+        v20[2] = sub_100001278;
+        v20[3] = &unk_100008268;
+        v20[4] = &buf;
+        [v18 requestClipWithCompletion:v20];
 
         _Block_object_dispose(&buf, 8);
       }
 
-      else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        sub_1000026E4(v7, v11);
+        sub_1000026E4(v7, v12);
       }
     }
 

@@ -4,7 +4,10 @@
 - (id)specifiers;
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path;
 - (void)_setDomainsList:(id)list withSpecifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation SafeDomainsPane
@@ -17,6 +20,41 @@
   v3 = [NSBundle bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"HIGHLIGHT_ADDRESSES_EDIT_TITLE" value:&stru_3D2B0 table:@"Preferences"];
   [(SafeDomainsPane *)self setTitle:v4];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = SafeDomainsPane;
+  [(SafeDomainsPane *)&v6 viewDidAppear:appear];
+  parentController = [(SafeDomainsPane *)self parentController];
+  [(SafeDomainsPane *)self setParentListController:parentController];
+
+  textField = self->_textField;
+  if (textField)
+  {
+    [(UITextField *)textField becomeFirstResponder];
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = SafeDomainsPane;
+  [(SafeDomainsPane *)&v6 viewWillDisappear:disappear];
+  delegate = [(UITextField *)self->_textField delegate];
+  [delegate textFieldDidEndEditing:self->_textField];
+
+  parentListController = [(SafeDomainsPane *)self parentListController];
+  [parentListController reloadSpecifier:*&self->PSListController_opaque[OBJC_IVAR___PSViewController__specifier]];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = SafeDomainsPane;
+  [(SafeDomainsPane *)&v4 viewDidDisappear:disappear];
+  [(SafeDomainsPane *)self setParentListController:0];
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path

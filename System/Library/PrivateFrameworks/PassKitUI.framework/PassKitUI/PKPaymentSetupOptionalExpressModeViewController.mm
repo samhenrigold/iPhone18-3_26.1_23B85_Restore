@@ -35,13 +35,13 @@
   return v12;
 }
 
-void __108__PKPaymentSetupOptionalExpressModeViewController_initWithProvisioningController_secureElementPass_context___block_invoke()
+void __108__PKPaymentSetupOptionalExpressModeViewController_initWithProvisioningController_secureElementPass_context___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1BD026000, v0, OS_LOG_TYPE_DEFAULT, "PKPaymentSetupOptionalExpressModeViewController: front face for pass loaded", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "PKPaymentSetupOptionalExpressModeViewController: front face for pass loaded", v3, 2u);
   }
 }
 

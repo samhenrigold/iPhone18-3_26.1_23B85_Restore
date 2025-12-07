@@ -98,57 +98,58 @@ LABEL_12:
   v4 = +[CKUIBehavior sharedBehaviors];
   transcriptRegularFontAttributes = [v4 transcriptRegularFontAttributes];
 
-  v5 = CKFrameworkBundle();
-  v6 = [v5 localizedStringForKey:@"PLACEHOLDER_TEXT_VIEW_SATELLITE_MESSAGE_SMS" value:&stru_1F04268F8 table:@"ChatKit-CarrierPigeon"];
+  v6 = CKFrameworkBundle(v5);
+  v7 = [v6 localizedStringForKey:@"PLACEHOLDER_TEXT_VIEW_SATELLITE_MESSAGE_SMS" value:&stru_1F04268F8 table:@"ChatKit-CarrierPigeon"];
 
-  v7 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v6 attributes:transcriptEmphasizedFontAttributes];
+  v8 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v7 attributes:transcriptEmphasizedFontAttributes];
   iMChatItem = [(CKChatItem *)self IMChatItem];
   handle = [iMChatItem handle];
   _displayNameWithAbbreviation = [handle _displayNameWithAbbreviation];
 
-  LODWORD(handle) = [iMChatItem canSMSReply];
-  v11 = MEMORY[0x1E696AEC0];
-  v12 = CKFrameworkBundle();
-  v13 = v12;
+  canSMSReply = [iMChatItem canSMSReply];
+  LODWORD(handle) = canSMSReply;
+  v13 = MEMORY[0x1E696AEC0];
+  v14 = CKFrameworkBundle(canSMSReply);
+  v15 = v14;
   if (handle)
   {
-    v14 = @"SMS_FALLBACK_STATUS_MESSAGE";
+    v16 = @"SMS_FALLBACK_STATUS_MESSAGE";
   }
 
   else
   {
-    v14 = @"SMS_FALLBACK_STATUS_MESSAGE_NO_REPLY";
+    v16 = @"SMS_FALLBACK_STATUS_MESSAGE_NO_REPLY";
   }
 
-  v15 = [v12 localizedStringForKey:v14 value:&stru_1F04268F8 table:@"ChatKit-CarrierPigeon"];
-  v16 = [v11 localizedStringWithFormat:v15, _displayNameWithAbbreviation];
+  v17 = [v14 localizedStringForKey:v16 value:&stru_1F04268F8 table:@"ChatKit-CarrierPigeon"];
+  v18 = [v13 localizedStringWithFormat:v17, _displayNameWithAbbreviation];
 
   mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
   userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
   if (userInterfaceLayoutDirection == 1)
   {
-    v19 = @"\u200F";
+    v21 = @"\u200F";
   }
 
   else
   {
-    v19 = @"\u200E";
+    v21 = @"\u200E";
   }
 
-  v20 = [(__CFString *)v19 stringByAppendingString:v16];
+  v22 = [(__CFString *)v21 stringByAppendingString:v18];
 
-  v21 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v20 attributes:transcriptRegularFontAttributes];
-  v22 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:@"\n"];
-  [(NSAttributedString *)v7 appendLocalizedFormat:v22];
-  [(NSAttributedString *)v7 appendLocalizedFormat:v21];
+  v23 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v22 attributes:transcriptRegularFontAttributes];
+  v24 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:@"\n"];
+  [(NSAttributedString *)v8 appendLocalizedFormat:v24];
+  [(NSAttributedString *)v8 appendLocalizedFormat:v23];
   smsFallbackStatusTitleLabelAttributedText = self->_smsFallbackStatusTitleLabelAttributedText;
-  self->_smsFallbackStatusTitleLabelAttributedText = v7;
-  v24 = v7;
+  self->_smsFallbackStatusTitleLabelAttributedText = v8;
+  v26 = v8;
 
-  v25 = [(NSAttributedString *)v24 copy];
+  v27 = [(NSAttributedString *)v26 copy];
 
-  return v25;
+  return v27;
 }
 
 - (UIEdgeInsets)contentInsets

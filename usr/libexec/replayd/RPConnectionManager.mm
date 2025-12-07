@@ -1,6 +1,7 @@
 @interface RPConnectionManager
 + (BOOL)hasUnitTestEntitlement;
 + (RPConnectionManager)sharedInstance;
++ (id)uniqueClientIdentifierWithPID:(int)d;
 - (BOOL)hasBroadcastEntitlements;
 - (BOOL)hasSystemRecordingEntitlements;
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
@@ -115,6 +116,63 @@
 
   LOBYTE(self) = bOOLValue | [(RPConnectionManager *)self hasSystemRecordingEntitlements];
   return self & 1;
+}
+
++ (id)uniqueClientIdentifierWithPID:(int)d
+{
+  v3 = *&d;
+  v4 = [NSBundle bundleWithPID:?];
+  v5 = v4;
+  if (v4 && ([v4 bundleIdentifier], v6 = objc_claimAutoreleasedReturnValue(), v6, v6))
+  {
+    bundleIdentifier = [v5 bundleIdentifier];
+    v8 = [NSMutableString stringWithString:bundleIdentifier];
+
+    if (!dword_1000B6840 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136446466;
+      v13 = "+[RPConnectionManager uniqueClientIdentifierWithPID:]";
+      v14 = 1024;
+      v15 = 127;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d using identifier from bundle", buf, 0x12u);
+    }
+  }
+
+  else
+  {
+    v9 = [NSBundle executablePathWithPID:v3];
+    if ([v9 length])
+    {
+      if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136446466;
+        v13 = "+[RPConnectionManager uniqueClientIdentifierWithPID:]";
+        v14 = 1024;
+        v15 = 135;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d using identifier from executablePath", buf, 0x12u);
+      }
+
+      v10 = v9;
+    }
+
+    else
+    {
+      if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136446466;
+        v13 = "+[RPConnectionManager uniqueClientIdentifierWithPID:]";
+        v14 = 1024;
+        v15 = 145;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d using identifier from processIdentifier", buf, 0x12u);
+      }
+
+      v10 = [NSString stringWithFormat:@"com.apple.replaykit.client-with-pid.%d", v3];
+    }
+
+    v8 = v10;
+  }
+
+  return v8;
 }
 
 + (BOOL)hasUnitTestEntitlement

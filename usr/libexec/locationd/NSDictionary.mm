@@ -20,7 +20,7 @@
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v4 = [(NSDictionary *)self countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(self, 0);
   if (v4)
   {
     v5 = v4;
@@ -39,11 +39,11 @@
         v9 = [-[NSDictionary objectForKeyedSubscript:](self objectForKeyedSubscript:{cl_deepCopy), "cl_deepCopy"}];
         [v3 setObject:v9 forKeyedSubscript:cl_deepCopy];
 
-        ++v7;
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);
-      v5 = [(NSDictionary *)self countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(self);
     }
 
     while (v5);

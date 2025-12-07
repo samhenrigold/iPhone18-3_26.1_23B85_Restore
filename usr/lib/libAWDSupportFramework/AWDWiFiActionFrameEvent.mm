@@ -455,7 +455,6 @@ LABEL_19:
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -467,7 +466,6 @@ LABEL_19:
   has = self->_has;
   if ((has & 0x1000) != 0)
   {
-    environmentType = self->_environmentType;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x400) == 0)
@@ -487,7 +485,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  categoryCode = self->_categoryCode;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -502,7 +499,6 @@ LABEL_8:
   }
 
 LABEL_22:
-  actionCode = self->_actionCode;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -517,7 +513,6 @@ LABEL_9:
   }
 
 LABEL_23:
-  dialogToken = self->_dialogToken;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x4000) == 0)
@@ -532,7 +527,6 @@ LABEL_10:
   }
 
 LABEL_24:
-  status = self->_status;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x2000) == 0)
@@ -547,7 +541,6 @@ LABEL_11:
   }
 
 LABEL_25:
-  frameType = self->_frameType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -562,7 +555,6 @@ LABEL_12:
   }
 
 LABEL_26:
-  btmDisassociationTimeout = self->_btmDisassociationTimeout;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -577,7 +569,6 @@ LABEL_13:
   }
 
 LABEL_27:
-  btmValidityInterval = self->_btmValidityInterval;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -592,7 +583,6 @@ LABEL_14:
   }
 
 LABEL_28:
-  btmTerminationDuration = self->_btmTerminationDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -607,7 +597,6 @@ LABEL_15:
   }
 
 LABEL_29:
-  btmHasPreferredCandidateList = self->_btmHasPreferredCandidateList;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -622,7 +611,6 @@ LABEL_16:
   }
 
 LABEL_30:
-  btmAbridged = self->_btmAbridged;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -634,7 +622,6 @@ LABEL_17:
     }
 
 LABEL_32:
-    btmBssTerminationIncluded = self->_btmBssTerminationIncluded;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 0x40) == 0)
     {
@@ -645,7 +632,6 @@ LABEL_32:
   }
 
 LABEL_31:
-  btmDisassociationImminent = self->_btmDisassociationImminent;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) != 0)
@@ -660,7 +646,6 @@ LABEL_18:
   }
 
 LABEL_33:
-  btmEssTerminationIncluded = self->_btmEssTerminationIncluded;
 
   PBDataWriterWriteUint32Field();
 }

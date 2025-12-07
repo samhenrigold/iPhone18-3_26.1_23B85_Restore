@@ -7,13 +7,13 @@
 
 - (uint64_t)msv_mediaAssetPersistentID
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v23 = 0;
+  v24 = *MEMORY[0x1E69E9840];
+  v22 = 0;
   scheme = [self scheme];
   if (([scheme isEqualToString:@"ipod-library"] & 1) == 0)
   {
 
-    goto LABEL_16;
+    return 0;
   }
 
   host = [self host];
@@ -21,34 +21,32 @@
 
   if (!v4)
   {
-LABEL_16:
-    result = 0;
-    goto LABEL_19;
+    return 0;
   }
 
   query = [self query];
   v6 = [query componentsSeparatedByString:@"&"];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [*(*(&v19 + 1) + 8 * i) componentsSeparatedByString:{@"=", v19}];
+        v12 = [*(*(&v18 + 1) + 8 * i) componentsSeparatedByString:{@"=", v18}];
         if ([v12 count] >= 2)
         {
           v13 = [v12 objectAtIndex:0];
@@ -56,9 +54,9 @@ LABEL_16:
           {
             v14 = [v12 objectAtIndex:1];
             v15 = [MEMORY[0x1E696AE88] scannerWithString:v14];
-            [v15 scanLongLong:&v23];
+            [v15 scanLongLong:&v22];
 
-            v16 = v23;
+            v16 = v22;
             if (v16)
             {
 
@@ -68,7 +66,7 @@ LABEL_16:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v18 objects:v23 count:16];
       if (v9)
       {
         continue;
@@ -80,10 +78,7 @@ LABEL_16:
 
 LABEL_18:
 
-  result = v23;
-LABEL_19:
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  return v22;
 }
 
 + (id)msv_urlForMediaAssetWithPersistentID:()MSVAdditions pathExtension:

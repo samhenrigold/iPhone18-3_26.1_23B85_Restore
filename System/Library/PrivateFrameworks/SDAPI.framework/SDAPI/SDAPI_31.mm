@@ -1,168 +1,6 @@
-uint64_t *MultiLanguageModel::createContextData(MultiLanguageModel *this)
+void sub_26272105C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  v2 = MemChunkAlloc(0x20uLL, 0);
-  MultiLMContextData::MultiLMContextData(v2, *(this + 29));
-  v3 = *(this + 29);
-  if (v3 >= 1)
-  {
-    v4 = v3 - 1;
-    do
-    {
-      v5 = *(*(this + 5) + 8 * v4);
-      if (v5)
-      {
-        *(v2[2] + 8 * v4) = (*(*v5 + 464))(v5);
-      }
-
-      v6 = v4-- + 1;
-    }
-
-    while (v6 > 1);
-  }
-
-  return v2;
-}
-
-uint64_t MultiLanguageModel::setContext(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  if (*(a1 + 116))
-  {
-    for (i = 0; i < *(a1 + 116); ++i)
-    {
-      if (*(a1 + 112) == 1)
-      {
-        v13 = *(a2 + 8);
-        v32 = 0;
-        v33 = 0;
-        if (v13)
-        {
-          v34 = 0;
-          v14 = realloc_array(0, &v34, 4 * v13, 0, 0, 1);
-          v15 = v34;
-          v32 = v34;
-          v16 = *(a2 + 8);
-          LODWORD(v33) = v13;
-          HIDWORD(v33) = v14 >> 2;
-          if (v16)
-          {
-            v17 = 0;
-            v18 = *a2;
-            do
-            {
-              v19 = *(v18 + 4 * v17);
-              if (v19 <= 0xFFFFF3)
-              {
-                v20 = *(a1 + 116);
-                if (v20)
-                {
-                  v21 = 0;
-                  while (*(*(a1 + 568) + 4 * v21) > v19 || *(*(a1 + 584) + 4 * v21) < v19)
-                  {
-                    if (v20 == ++v21)
-                    {
-                      goto LABEL_13;
-                    }
-                  }
-
-                  v22 = v21;
-                }
-
-                else
-                {
-LABEL_13:
-                  v22 = *(a1 + 560);
-                }
-
-                if (i != v22)
-                {
-                  v19 = 0xFFFFFF;
-                }
-              }
-
-              v15[v17++] = v19;
-            }
-
-            while (v17 < *(a2 + 8));
-          }
-        }
-
-        else
-        {
-          LODWORD(v33) = 0;
-        }
-
-        if (i == *(a1 + 560))
-        {
-          v30 = a3;
-        }
-
-        else
-        {
-          v30 = 0;
-        }
-
-        v29 = *(*(a1 + 40) + 8 * i);
-        (*(*v29 + 472))(v29, &v32, v30, a4, a5, *(*(a6 + 16) + 8 * i));
-        DgnPrimArray<unsigned int>::~DgnPrimArray(&v32);
-        continue;
-      }
-
-      v23 = *(*(a1 + 40) + 8 * i);
-      if (v23)
-      {
-        if (*(a1 + 113) == 1 && *(*(a1 + 544) + i) == 1 && *(*(a1 + 496) + 8 * i) != 0.0)
-        {
-          goto LABEL_39;
-        }
-
-        if (*(a1 + 114) == 1)
-        {
-          if (a3)
-          {
-            v24 = *(a3 + 8);
-            if (v24)
-            {
-              v25 = *a3;
-              while (1)
-              {
-                v27 = *v25++;
-                v26 = v27;
-                v28 = v27 == 0xFFFF ? *(a1 + 384) : *(*(a1 + 200) + 16 * (v26 - 1));
-                if (*(v28 + 8 * i) != 0.0)
-                {
-                  break;
-                }
-
-                if (!--v24)
-                {
-                  goto LABEL_40;
-                }
-              }
-
-LABEL_39:
-              (*(*v23 + 472))(v23, a2, a3, a4, a5, *(*(a6 + 16) + 8 * i));
-              continue;
-            }
-          }
-
-          if (*(*(a1 + 384) + 8 * i) != 0.0)
-          {
-            goto LABEL_39;
-          }
-        }
-      }
-
-LABEL_40:
-      ;
-    }
-  }
-
-  return LanguageModel::setContext(a1, a2, a3, a4, a5, a6);
-}
-
-void sub_26272105C(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a3);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -336,15 +174,15 @@ uint64_t MultiLanguageModel::getDefaultRestrictRange(uint64_t this, unsigned int
   return this;
 }
 
-uint64_t MultiLanguageModel::getValidTopicLmSlots(uint64_t a1, uint64_t a2)
+uint64_t MultiLanguageModel::getValidTopicLmSlots(uint64_t a1, _DWORD *a2)
 {
   v2 = *(a1 + 104);
   if (a2)
   {
-    v4 = *(a2 + 12);
+    v4 = a2[3];
     if (v2 <= v4)
     {
-      *(a2 + 8) = v2;
+      a2[2] = v2;
       if (!v2)
       {
         return v2;
@@ -354,7 +192,7 @@ uint64_t MultiLanguageModel::getValidTopicLmSlots(uint64_t a1, uint64_t a2)
     else
     {
       DgnPrimArray<unsigned int>::reallocElts(a2, v2 - v4, 0);
-      *(a2 + 8) = v2;
+      a2[2] = v2;
     }
 
     v5 = vdupq_n_s64(v2 - 1);
@@ -397,54 +235,56 @@ uint64_t MultiLanguageModel::getValidTopicLmSlots(uint64_t a1, uint64_t a2)
   return v2;
 }
 
-DgnString *MultiLanguageModel::getTopicLmSlotNames(DgnString *result, unsigned int *a2)
+void MultiLanguageModel::getTopicLmSlotNames(uint64_t a1, unsigned int *a2)
 {
-  if (*(result + 29))
+  if (*(a1 + 116))
   {
-    v3 = result;
     v4 = 0;
-    for (i = 0; i < *(v3 + 29); ++i)
+    for (i = 0; i < *(a1 + 116); ++i)
     {
-      v6 = *(*(v3 + 17) + 4 * i);
+      v6 = *(*(a1 + 136) + 4 * i);
       if (v6 == 1)
       {
-        v7 = DgnArray<DgnString>::find(a2, *(v3 + 44) + v4);
+        v7 = DgnArray<DgnString>::find(a2, *(a1 + 352) + v4);
         if (v7 != -1)
         {
-          v10 = (*(v3 + 44) + v4);
-          if (*(v10 + 2))
+          v8 = *(a1 + 352) + v4;
+          if (*(v8 + 8))
           {
-            v11 = *v10;
+            v9 = *v8;
           }
 
-          v17 = a2[2];
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1319, "lm/multilm", 93, "%u %u %.500s", v8, v9, v7);
+          else
+          {
+            v9 = &unk_26288BEF0;
+          }
+
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1319, "lm/multilm", 93, "%u %u %.500s", v7, a2[2], v9);
         }
 
-        v15 = *(v3 + 44);
-        v16 = a2[2];
-        if (v16 == a2[3])
+        v12 = *(a1 + 352);
+        v13 = a2[2];
+        if (v13 == a2[3])
         {
           DgnArray<DgnPrimArray<double>>::reallocElts(a2, 1, 1);
-          v16 = a2[2];
+          v13 = a2[2];
         }
 
-        result = DgnString::DgnString((*a2 + 16 * v16), (v15 + v4));
+        DgnString::DgnString((*a2 + 16 * v13), (v12 + v4));
         ++a2[2];
       }
 
-      else if (*(v3 + 112) == 1)
+      else if (*(a1 + 112) == 1)
       {
-        if (v6 == 3 && i == *(v3 + 140))
+        if (v6 == 3 && i == *(a1 + 560))
         {
 LABEL_14:
-          v13 = *(*(v3 + 5) + 8 * i);
-          if (v13)
+          v11 = *(*(a1 + 40) + 8 * i);
+          if (v11)
           {
-            v14 = **v13;
           }
 
-          result = MultiLanguageModel::getTopicLmSlotNames(v13, a2);
+          MultiLanguageModel::getTopicLmSlotNames(v11, a2);
         }
       }
 
@@ -456,8 +296,6 @@ LABEL_14:
       v4 += 16;
     }
   }
-
-  return result;
 }
 
 uint64_t MultiLanguageModel::getTopicLmSlotId(MultiLanguageModel *this, const DgnString *a2)
@@ -490,95 +328,104 @@ DgnString *MultiLanguageModel::setTopicLmSlotName(MultiLanguageModel *this, int 
   {
     if (*(a3 + 2))
     {
-      v9 = *a3;
+      v7 = *a3;
     }
 
     else
     {
-      v9 = &unk_26288BEF0;
+      v7 = &unk_26288BEF0;
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1357, "lm/multilm", 92, "%.500s", v7, v8, v9);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1357, "lm/multilm", 92, "%.500s", v7);
   }
 
-  v10 = (a2 - 1);
-  if (v10 >= *(this + 26))
+  v8 = (a2 - 1);
+  if (v8 >= *(this + 26))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1365, "lm/multilm", 95, "%u", v7, v8, a2);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1365, "lm/multilm", 95, "%u", a2);
   }
 
-  v11 = *(this + 12) + 16 * v10;
-  if (*v11)
+  v9 = *(this + 12) + 16 * v8;
+  if (*v9)
   {
-    MemChunkFree(*v11, 0);
-    *v11 = 0;
+    MemChunkFree(*v9, 0);
+    *v9 = 0;
   }
 
-  *(v11 + 8) = 0;
-  v12 = DgnArray<DgnString>::find(this + 24, a3);
+  *(v9 + 8) = 0;
+  v10 = DgnArray<DgnString>::find(this + 24, a3);
+  if (v10 != -1)
+  {
+    if (*(a3 + 2))
+    {
+      v11 = *a3;
+    }
+
+    else
+    {
+      v11 = &unk_26288BEF0;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1370, "lm/multilm", 93, "%u %u %.500s", v10, a2 - 1, v11);
+  }
+
+  v12 = DgnArray<DgnString>::find(this + 20, a3);
   if (v12 != -1)
   {
     if (*(a3 + 2))
     {
-      v15 = *a3;
+      v13 = *a3;
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1370, "lm/multilm", 93, "%u %u %.500s", v13, v14, v12);
-  }
-
-  v16 = DgnArray<DgnString>::find(this + 20, a3);
-  if (v16 != -1)
-  {
-    if (*(a3 + 2))
+    else
     {
-      v19 = *a3;
+      v13 = &unk_26288BEF0;
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1374, "lm/multilm", 94, "%u %u %.500s", v17, v18, v16);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1374, "lm/multilm", 94, "%u %u %.500s", v12, a2 - 1, v13);
   }
 
-  DgnString::operator=((*(this + 12) + 16 * v10), a3);
-  v26 = 0;
-  v27 = a2 - 1;
-  v28 = 0;
-  MultiLanguageModel::getInternalTopicLmSlot(this, &v27, &v28, &v26);
-  v22 = v28;
-  v23 = v26;
-  if (v26 == -1)
+  DgnString::operator=((*(this + 12) + 16 * v8), a3);
+  v18 = 0;
+  v19 = a2 - 1;
+  v20 = 0;
+  MultiLanguageModel::getInternalTopicLmSlot(this, &v19, &v20, &v18);
+  v14 = v20;
+  v15 = v18;
+  if (v18 == -1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1384, "lm/multilm", 95, "%u", v20, v21, a2);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1384, "lm/multilm", 95, "%u", a2);
   }
 
-  v24 = (*(v22 + 44) + 16 * v23);
+  v16 = (*(v14 + 44) + 16 * v15);
 
-  return DgnString::operator=(v24, a3);
+  return DgnString::operator=(v16, a3);
 }
 
-uint64_t MultiLanguageModel::getTopicLmSlotName(MultiLanguageModel *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t MultiLanguageModel::getTopicLmSlotName(MultiLanguageModel *this, int a2)
 {
-  v9 = a2 - 1;
+  v3 = a2 - 1;
   if ((a2 - 1) >= *(this + 26))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1400, "lm/multilm", 95, "%u", a7, a8, a2);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1400, "lm/multilm", 95, "%u", a2);
   }
 
-  return *(this + 12) + 16 * v9;
+  return *(this + 12) + 16 * v3;
 }
 
 BOOL MultiLanguageModel::hasTopicLM(MultiLanguageModel *this, int a2)
 {
-  v2 = a2;
-  v9 = a2 - 1;
-  v8 = 0;
-  v7 = 0;
-  MultiLanguageModel::getInternalTopicLmSlot(this, &v9, &v8, &v7);
-  v5 = v7;
-  if (v7 == -1)
+  v7 = a2 - 1;
+  v6 = 0;
+  v5 = 0;
+  MultiLanguageModel::getInternalTopicLmSlot(this, &v7, &v6, &v5);
+  v3 = v5;
+  if (v5 == -1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1414, "lm/multilm", 95, "%u", v3, v4, v2);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1414, "lm/multilm", 95, "%u", a2);
   }
 
-  return *(*(v8 + 5) + 8 * v5) != 0;
+  return *(*(v6 + 5) + 8 * v3) != 0;
 }
 
 uint64_t MultiLanguageModel::getInternalTopicLmSlot(uint64_t this, unsigned int *a2, const MultiLanguageModel **a3, unsigned int *a4)
@@ -621,7 +468,6 @@ uint64_t MultiLanguageModel::getInternalTopicLmSlot(uint64_t this, unsigned int 
         v11 = *(*(v7 + 40) + 8 * i);
         if (v11)
         {
-          v12 = **v11;
         }
 
         this = MultiLanguageModel::getInternalTopicLmSlot(v11, a2, a3, a4);
@@ -636,105 +482,105 @@ uint64_t MultiLanguageModel::getInternalTopicLmSlot(uint64_t this, unsigned int 
   return this;
 }
 
-uint64_t MultiLanguageModel::deleteTopicLMs(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t MultiLanguageModel::deleteTopicLMs(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 616))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1424, "lm/multilm", 20, "%.500s", a7, a8, "deleteTopicLMs");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1424, "lm/multilm", 20, "%.500s", "deleteTopicLMs");
   }
 
-  v10 = *(a1 + 104);
-  DgnPrimArray<unsigned char>::DgnPrimArray(v22, *(a1 + 104));
-  if (v10)
+  v4 = *(a1 + 104);
+  DgnPrimArray<unsigned char>::DgnPrimArray(v11, *(a1 + 104));
+  if (v4)
   {
-    bzero(v22[0], v10);
+    bzero(v11[0], v4);
   }
 
   if (*(a2 + 8))
   {
-    v17 = 0;
+    v6 = 0;
     do
     {
-      v18 = *(*a2 + 4 * v17) - 1;
-      if (v18 >= v10)
+      v7 = *(*a2 + 4 * v6) - 1;
+      if (v7 >= v4)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1439, "lm/multilm", 95, "%u", v14, v15, *(*a2 + 4 * v17));
+        v5.n128_f64[0] = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1439, "lm/multilm", 95, "%u", *(*a2 + 4 * v6));
       }
 
-      v19 = v22[0];
-      if (*(v22[0] + v18) == 1)
+      v8 = v11[0];
+      if (*(v11[0] + v7) == 1)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1442, "lm/multilm", 96, "%u", v14, v15, *(*a2 + 4 * v17));
-        v19 = v22[0];
+        v5.n128_f64[0] = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1442, "lm/multilm", 96, "%u", *(*a2 + 4 * v6));
+        v8 = v11[0];
       }
 
-      v19[v18] = 1;
-      ++v17;
+      v8[v7] = 1;
+      ++v6;
     }
 
-    while (v17 < *(a2 + 8));
+    while (v6 < *(a2 + 8));
   }
 
-  v21 = 0;
-  MultiLanguageModel::deleteTopicLMsInternal(a1, v22, &v21, v16, v11, v12, v13, v14, v15);
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(v22);
+  v10 = 0;
+  MultiLanguageModel::deleteTopicLMsInternal(a1, v11, &v10, v5);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(v11);
 }
 
-void sub_262721D58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_262721D58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t MultiLanguageModel::deleteTopicLMsInternal(uint64_t a1, uint64_t a2, _DWORD *a3, __n128 a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t MultiLanguageModel::deleteTopicLMsInternal(uint64_t a1, uint64_t a2, unsigned int *a3, __n128 a4)
 {
-  v28[0] = 0;
-  v28[1] = 0;
+  v15[0] = 0;
+  v15[1] = 0;
   if (*(a1 + 114) == 1)
   {
-    a4.n128_f64[0] = DgnPrimArray<double>::copyArraySlice(v28, (a1 + 384), 0, *(a1 + 392));
+    a4.n128_f64[0] = DgnPrimArray<double>::copyArraySlice(v15, (a1 + 384), 0, *(a1 + 392));
   }
 
   if (*(a1 + 116))
   {
-    v12 = 0;
-    v13 = 0;
+    v7 = 0;
+    v8 = 0;
     while (1)
     {
-      v14 = *a3;
-      if (v14 >= *(a2 + 8))
+      v9 = *a3;
+      if (v9 >= *(a2 + 8))
       {
 LABEL_25:
-        if (*(a1 + 114) == 1 && (v13 & 1) != 0)
+        if (*(a1 + 114) == 1 && (v8 & 1) != 0)
         {
-          (*(*a1 + 496))(a1, v28, a4);
-          MultiLanguageModel::adjustNamedWeightsSets(a1, v20, v21, v22, v23, v24, v25, v26);
+          (*(*a1 + 496))(a1, v15, a4);
+          MultiLanguageModel::adjustNamedWeightsSets(a1);
         }
 
-        return DgnPrimArray<unsigned int>::~DgnPrimArray(v28);
+        return DgnPrimArray<unsigned int>::~DgnPrimArray(v15);
       }
 
-      v15 = *(*(a1 + 136) + 4 * v12);
-      if (v15 == 1)
+      v10 = *(*(a1 + 136) + 4 * v7);
+      if (v10 == 1)
       {
-        if (*(*a2 + v14) == 1)
+        if (*(*a2 + v9) == 1)
         {
-          v16 = *(*(a1 + 40) + 8 * v12);
-          if (!v16)
+          v11 = *(*(a1 + 40) + 8 * v7);
+          if (!v11)
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1474, "lm/multilm", 22, "%u", a8, a9, *a3);
-            v16 = *(*(a1 + 40) + 8 * v12);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1474, "lm/multilm", 22, "%u", *a3);
+            v11 = *(*(a1 + 40) + 8 * v7);
           }
 
-          DgnDelete<LanguageModel>(v16);
-          *(*(a1 + 40) + 8 * v12) = 0;
+          DgnDelete<LanguageModel>(v11);
+          *(*(a1 + 40) + 8 * v7) = 0;
           if (*(a1 + 114) == 1)
           {
-            *(v28[0] + 8 * v12) = 0;
+            *(v15[0] + 8 * v7) = 0;
           }
 
-          v13 = 1;
+          v8 = 1;
         }
 
         ++*a3;
@@ -742,76 +588,75 @@ LABEL_25:
 
       else if (*(a1 + 112) == 1)
       {
-        if (v15 == 3 && v12 == *(a1 + 560))
+        if (v10 == 3 && v7 == *(a1 + 560))
         {
 LABEL_21:
-          v18 = *(*(a1 + 40) + 8 * v12);
-          if (v18)
+          v13 = *(*(a1 + 40) + 8 * v7);
+          if (v13)
           {
-            v19 = **v18;
           }
 
-          MultiLanguageModel::deleteTopicLMsInternal(v18, a2, a3, a4);
+          MultiLanguageModel::deleteTopicLMsInternal(v13, a2, a3, a4);
         }
       }
 
-      else if (v15 == 3)
+      else if (v10 == 3)
       {
         goto LABEL_21;
       }
 
-      if (++v12 >= *(a1 + 116))
+      if (++v7 >= *(a1 + 116))
       {
         goto LABEL_25;
       }
     }
   }
 
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(v28);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(v15);
 }
 
-void sub_262721F8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_262721F8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t MultiLanguageModel::adjustNamedWeightsSets(uint64_t this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t MultiLanguageModel::adjustNamedWeightsSets(uint64_t this)
 {
-  v8 = *(this + 176);
-  if (v8)
+  v1 = *(this + 176);
+  if (v1)
   {
-    v9 = this;
-    v10 = 0;
-    v11 = 8;
+    v2 = this;
+    v3 = 0;
+    v4 = 8;
     do
     {
-      if (*(*(v9 + 168) + v11) >= 2u)
+      if (*(*(v2 + 168) + v4) >= 2u)
       {
-        this = MultiLanguageModel::adjustNamedWeightsSet(v9, v10, a3, a4, a5, a6, a7, a8);
-        v8 = *(v9 + 176);
+        this = MultiLanguageModel::adjustNamedWeightsSet(v2, v3);
+        v1 = *(v2 + 176);
       }
 
-      ++v10;
-      v11 += 16;
+      ++v3;
+      v4 += 16;
     }
 
-    while (v10 < v8);
+    while (v3 < v1);
   }
 
   return this;
 }
 
-uint64_t MultiLanguageModel::getValidFactoryCorrectiveLms(uint64_t a1, uint64_t a2)
+uint64_t MultiLanguageModel::getValidFactoryCorrectiveLms(uint64_t a1, _DWORD *a2)
 {
   v2 = *(a1 + 88);
   if (a2)
   {
-    v4 = *(a2 + 12);
+    v4 = a2[3];
     if (v2 <= v4)
     {
-      *(a2 + 8) = v2;
+      a2[2] = v2;
       if (!v2)
       {
         return v2;
@@ -821,7 +666,7 @@ uint64_t MultiLanguageModel::getValidFactoryCorrectiveLms(uint64_t a1, uint64_t 
     else
     {
       DgnPrimArray<unsigned int>::reallocElts(a2, v2 - v4, 0);
-      *(a2 + 8) = v2;
+      a2[2] = v2;
     }
 
     v5 = vdupq_n_s64(v2 - 1);
@@ -864,54 +709,56 @@ uint64_t MultiLanguageModel::getValidFactoryCorrectiveLms(uint64_t a1, uint64_t 
   return v2;
 }
 
-DgnString *MultiLanguageModel::getFactoryCorrectiveLmNames(DgnString *result, unsigned int *a2)
+void MultiLanguageModel::getFactoryCorrectiveLmNames(uint64_t a1, unsigned int *a2)
 {
-  if (*(result + 29))
+  if (*(a1 + 116))
   {
-    v3 = result;
     v4 = 0;
-    for (i = 0; i < *(v3 + 29); ++i)
+    for (i = 0; i < *(a1 + 116); ++i)
     {
-      v6 = *(*(v3 + 17) + 4 * i);
+      v6 = *(*(a1 + 136) + 4 * i);
       if (v6 == 2)
       {
-        v7 = DgnArray<DgnString>::find(a2, *(v3 + 64) + v4);
+        v7 = DgnArray<DgnString>::find(a2, *(a1 + 512) + v4);
         if (v7 != -1)
         {
-          v10 = (*(v3 + 64) + v4);
-          if (*(v10 + 2))
+          v8 = *(a1 + 512) + v4;
+          if (*(v8 + 8))
           {
-            v11 = *v10;
+            v9 = *v8;
           }
 
-          v17 = a2[2];
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1539, "lm/multilm", 88, "%u %u %.500s", v8, v9, v7);
+          else
+          {
+            v9 = &unk_26288BEF0;
+          }
+
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1539, "lm/multilm", 88, "%u %u %.500s", v7, a2[2], v9);
         }
 
-        v15 = *(v3 + 64);
-        v16 = a2[2];
-        if (v16 == a2[3])
+        v12 = *(a1 + 512);
+        v13 = a2[2];
+        if (v13 == a2[3])
         {
           DgnArray<DgnPrimArray<double>>::reallocElts(a2, 1, 1);
-          v16 = a2[2];
+          v13 = a2[2];
         }
 
-        result = DgnString::DgnString((*a2 + 16 * v16), (v15 + v4));
+        DgnString::DgnString((*a2 + 16 * v13), (v12 + v4));
         ++a2[2];
       }
 
-      else if (*(v3 + 112) == 1)
+      else if (*(a1 + 112) == 1)
       {
-        if (v6 == 3 && i == *(v3 + 140))
+        if (v6 == 3 && i == *(a1 + 560))
         {
 LABEL_14:
-          v13 = *(*(v3 + 5) + 8 * i);
-          if (v13)
+          v11 = *(*(a1 + 40) + 8 * i);
+          if (v11)
           {
-            v14 = **v13;
           }
 
-          result = MultiLanguageModel::getFactoryCorrectiveLmNames(v13, a2);
+          MultiLanguageModel::getFactoryCorrectiveLmNames(v11, a2);
         }
       }
 
@@ -923,8 +770,6 @@ LABEL_14:
       v4 += 16;
     }
   }
-
-  return result;
 }
 
 uint64_t MultiLanguageModel::getFactoryCorrectiveLmId(MultiLanguageModel *this, const DgnString *a2)
@@ -957,66 +802,77 @@ DgnString *MultiLanguageModel::setFactoryCorrectiveLmName(MultiLanguageModel *th
   {
     if (*(a3 + 2))
     {
-      v9 = *a3;
+      v7 = *a3;
     }
 
     else
     {
-      v9 = &unk_26288BEF0;
+      v7 = &unk_26288BEF0;
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1579, "lm/multilm", 99, "%.500s", v7, v8, v9);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1579, "lm/multilm", 99, "%.500s", v7);
   }
 
-  v10 = (a2 - 1);
-  if (v10 >= *(this + 22))
+  v8 = (a2 - 1);
+  if (v8 >= *(this + 22))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1587, "lm/multilm", 89, "%u", v7, v8, a2);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1587, "lm/multilm", 89, "%u", a2);
   }
 
-  v11 = *(this + 10) + 16 * v10;
-  if (*v11)
+  v9 = *(this + 10) + 16 * v8;
+  if (*v9)
   {
-    MemChunkFree(*v11, 0);
-    *v11 = 0;
+    MemChunkFree(*v9, 0);
+    *v9 = 0;
   }
 
-  *(v11 + 8) = 0;
-  v12 = DgnArray<DgnString>::find(this + 20, a3);
+  *(v9 + 8) = 0;
+  v10 = DgnArray<DgnString>::find(this + 20, a3);
+  if (v10 != -1)
+  {
+    if (*(a3 + 2))
+    {
+      v11 = *a3;
+    }
+
+    else
+    {
+      v11 = &unk_26288BEF0;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1592, "lm/multilm", 88, "%u %u %.500s", v10, a2 - 1, v11);
+  }
+
+  v12 = DgnArray<DgnString>::find(this + 24, a3);
   if (v12 != -1)
   {
     if (*(a3 + 2))
     {
-      v15 = *a3;
+      v13 = *a3;
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1592, "lm/multilm", 88, "%u %u %.500s", v13, v14, v12);
-  }
-
-  if (DgnArray<DgnString>::find(this + 24, a3) != -1)
-  {
-    if (*(a3 + 2))
+    else
     {
-      v18 = *a3;
+      v13 = &unk_26288BEF0;
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1596, "lm/multilm", 94, "%u %u %.500s", v16, v17, a2 - 1);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1596, "lm/multilm", 94, "%u %u %.500s", a2 - 1, v12, v13);
   }
 
-  DgnString::operator=((*(this + 10) + 16 * v10), a3);
-  v26 = a2 - 1;
-  v25 = 0;
-  v24 = 0;
-  MultiLanguageModel::getInternalFactoryCorrectiveLm(this, &v26, &v25, &v24);
-  v21 = v24;
-  if (v24 == -1)
+  DgnString::operator=((*(this + 10) + 16 * v8), a3);
+  v19 = a2 - 1;
+  v18 = 0;
+  v17 = 0;
+  MultiLanguageModel::getInternalFactoryCorrectiveLm(this, &v19, &v18, &v17);
+  v14 = v17;
+  if (v17 == -1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1607, "lm/multilm", 89, "%u", v19, v20, a2);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1607, "lm/multilm", 89, "%u", a2);
   }
 
-  v22 = (*(v25 + 64) + 16 * v21);
+  v15 = (*(v18 + 64) + 16 * v14);
 
-  return DgnString::operator=(v22, a3);
+  return DgnString::operator=(v15, a3);
 }
 
 uint64_t MultiLanguageModel::getInternalFactoryCorrectiveLm(uint64_t this, unsigned int *a2, MultiLanguageModel **a3, unsigned int *a4)
@@ -1064,66 +920,66 @@ LABEL_13:
   return this;
 }
 
-uint64_t MultiLanguageModel::getFactoryCorrectiveLmName(MultiLanguageModel *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t MultiLanguageModel::getFactoryCorrectiveLmName(MultiLanguageModel *this, int a2)
 {
-  v9 = a2 - 1;
+  v3 = a2 - 1;
   if ((a2 - 1) >= *(this + 22))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1660, "lm/multilm", 89, "%u", a7, a8, a2);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1660, "lm/multilm", 89, "%u", a2);
   }
 
-  return *(this + 10) + 16 * v9;
+  return *(this + 10) + 16 * v3;
 }
 
-uint64_t MultiLanguageModel::getActiveFactoryCorrectiveLms(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t MultiLanguageModel::getActiveFactoryCorrectiveLms(uint64_t a1, uint64_t a2, void *a3)
 {
   if (*(a1 + 616))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1671, "lm/multilm", 20, "%.500s", a7, a8, "getActiveFactoryCorrectiveLms");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1671, "lm/multilm", 20, "%.500s", "getActiveFactoryCorrectiveLms");
   }
 
-  v11 = *(a1 + 88);
-  DgnPrimArray<unsigned char>::DgnPrimArray(v20, *(a1 + 88));
-  v19 = 0;
-  (*(*a1 + 704))(a1, v20, &v19);
-  DgnPrimArray<unsigned char>::DgnPrimArray(v18, v11);
-  if (v11)
+  v6 = *(a1 + 88);
+  DgnPrimArray<unsigned char>::DgnPrimArray(v13, *(a1 + 88));
+  v12 = 0;
+  (*(*a1 + 704))(a1, v13, &v12);
+  DgnPrimArray<unsigned char>::DgnPrimArray(v11, v6);
+  if (v6)
   {
-    bzero(v18[0], v11);
+    bzero(v11[0], v6);
   }
 
   if (*(a2 + 8))
   {
-    v14 = 0;
+    v7 = 0;
     do
     {
-      v15 = *(*a2 + 4 * v14) - 1;
-      if (v15 >= v11)
+      v8 = *(*a2 + 4 * v7) - 1;
+      if (v8 >= v6)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1693, "lm/multilm", 89, "%u", v12, v13, *(*a2 + 4 * v14));
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1693, "lm/multilm", 89, "%u", *(*a2 + 4 * v7));
       }
 
-      v16 = v18[0];
-      if (*(v18[0] + v15) == 1)
+      v9 = v11[0];
+      if (*(v11[0] + v8) == 1)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1696, "lm/multilm", 90, "%u", v12, v13, *(*a2 + 4 * v14));
-        v16 = v18[0];
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1696, "lm/multilm", 90, "%u", *(*a2 + 4 * v7));
+        v9 = v11[0];
       }
 
-      v16[v15] = 1;
-      *(*a3 + v14++) = *(v20[0] + v15);
+      v9[v8] = 1;
+      *(*a3 + v7++) = *(v13[0] + v8);
     }
 
-    while (v14 < *(a2 + 8));
+    while (v7 < *(a2 + 8));
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v18);
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(v20);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v11);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(v13);
 }
 
-void sub_262722844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_262722844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -1161,10 +1017,9 @@ LABEL_13:
           v10 = *(*(v5 + 40) + 8 * i);
           if (v10)
           {
-            v11 = **v10;
           }
 
-          result = (*(*v10 + 88))(v10, a2, a3);
+          result = (*(*v10 + 704))(v10, a2, a3);
           continue;
         }
 
@@ -1179,66 +1034,66 @@ LABEL_13:
   return result;
 }
 
-uint64_t MultiLanguageModel::setActiveFactoryCorrectiveLms(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t MultiLanguageModel::setActiveFactoryCorrectiveLms(uint64_t a1, uint64_t a2, void *a3)
 {
   if (*(a1 + 616))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1736, "lm/multilm", 20, "%.500s", a7, a8, "setActiveFactoryCorrectiveLms");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1736, "lm/multilm", 20, "%.500s", "setActiveFactoryCorrectiveLms");
   }
 
-  v11 = *(a1 + 88);
-  v18 = 0;
-  v19 = 0;
-  v17 = a1;
-  if (v11)
+  v6 = *(a1 + 88);
+  v13 = 0;
+  v14 = 0;
+  v12 = a1;
+  if (v6)
   {
     __b = 0;
-    v12 = realloc_array(0, &__b, 4 * v11, 0, 0, 1);
+    v7 = realloc_array(0, &__b, 4 * v6, 0, 0, 1);
+    v8 = __b;
     v13 = __b;
-    v18 = __b;
-    LODWORD(v19) = v11;
-    HIDWORD(v19) = v12 >> 2;
-    memset(__b, 255, 4 * v11);
+    LODWORD(v14) = v6;
+    HIDWORD(v14) = v7 >> 2;
+    memset(__b, 255, 4 * v6);
   }
 
   else
   {
-    v13 = 0;
-    LODWORD(v19) = 0;
+    v8 = 0;
+    LODWORD(v14) = 0;
   }
 
   if (*(a2 + 8))
   {
-    v14 = 0;
+    v9 = 0;
     do
     {
-      v15 = *(*a2 + 4 * v14) - 1;
-      if (v15 >= v11)
+      v10 = *(*a2 + 4 * v9) - 1;
+      if (v10 >= v6)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1752, "lm/multilm", 89, "%u", a7, a8, *(*a2 + 4 * v14));
-        v13 = v18;
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1752, "lm/multilm", 89, "%u", *(*a2 + 4 * v9));
+        v8 = v13;
       }
 
-      if (v13[v15] != -1)
+      if (v8[v10] != -1)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1755, "lm/multilm", 90, "%u", a7, a8, *(*a2 + 4 * v14));
-        v13 = v18;
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1755, "lm/multilm", 90, "%u", *(*a2 + 4 * v9));
+        v8 = v13;
       }
 
-      v13[v15] = *(*a3 + v14++);
+      v8[v10] = *(*a3 + v9++);
     }
 
-    while (v14 < *(a2 + 8));
+    while (v9 < *(a2 + 8));
   }
 
   LODWORD(__b) = 0;
-  MultiLanguageModel::setActiveFactoryCorrectiveLmsInternal(v17, &v18, &__b);
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v18);
+  MultiLanguageModel::setActiveFactoryCorrectiveLmsInternal(v12, &v13, &__b);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v13);
 }
 
-void sub_262722B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_262722B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -1271,7 +1126,6 @@ LABEL_14:
           v11 = *(*(v5 + 40) + 8 * i);
           if (v11)
           {
-            v12 = **v11;
           }
 
           result = MultiLanguageModel::setActiveFactoryCorrectiveLmsInternal(v11, a2, a3);
@@ -1288,28 +1142,28 @@ LABEL_14:
   return result;
 }
 
-WordNgramTemplate **MultiLanguageModel::addWord(MultiLanguageModel *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+WordLanguageModel *MultiLanguageModel::addWord(MultiLanguageModel *this, uint64_t a2, uint64_t a3)
 {
   if (*(this + 112) == 1)
   {
-    v11 = *(*(*(this + 2) + 256) + 4 * a2);
-    if (v11 != a2)
+    v6 = *(*(*(this + 2) + 256) + 4 * a2);
+    if (v6 != a2)
     {
-      v12 = *(this + 29);
-      if (v12)
+      v7 = *(this + 29);
+      if (v7)
       {
-        v13 = 0;
-        while (*(*(this + 71) + 4 * v13) > v11 || *(*(this + 73) + 4 * v13) < v11)
+        v8 = 0;
+        while (*(*(this + 71) + 4 * v8) > v6 || *(*(this + 73) + 4 * v8) < v6)
         {
-          if (v12 == ++v13)
+          if (v7 == ++v8)
           {
             goto LABEL_11;
           }
         }
 
-        if (*(this + 140) != v13)
+        if (*(this + 140) != v8)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1803, "lm/multilm", 116, "%u", a7, a8, *(*(*(this + 2) + 256) + 4 * a2));
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1803, "lm/multilm", 116, "%u", *(*(*(this + 2) + 256) + 4 * a2));
         }
       }
     }
@@ -1317,21 +1171,21 @@ WordNgramTemplate **MultiLanguageModel::addWord(MultiLanguageModel *this, uint64
 LABEL_11:
     if (a3 != 0xFFFFFF)
     {
-      v14 = *(this + 29);
-      if (v14)
+      v9 = *(this + 29);
+      if (v9)
       {
-        v15 = 0;
-        while (*(*(this + 71) + 4 * v15) > a3 || *(*(this + 73) + 4 * v15) < a3)
+        v10 = 0;
+        while (*(*(this + 71) + 4 * v10) > a3 || *(*(this + 73) + 4 * v10) < a3)
         {
-          if (v14 == ++v15)
+          if (v9 == ++v10)
           {
             goto LABEL_20;
           }
         }
 
-        if (*(this + 140) != v15)
+        if (*(this + 140) != v10)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1808, "lm/multilm", 38, "%u", a7, a8, a3);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1808, "lm/multilm", 38, "%u", a3);
         }
       }
     }
@@ -1340,27 +1194,27 @@ LABEL_11:
 LABEL_20:
   if (*(this + 29))
   {
-    v16 = 0;
+    v11 = 0;
     do
     {
-      v17 = *(*(this + 5) + 8 * v16);
-      if (v17)
+      v12 = *(*(this + 5) + 8 * v11);
+      if (v12)
       {
-        if (*(this + 112) == 1 && v16 != *(this + 140))
+        if (*(this + 112) == 1 && v11 != *(this + 140))
         {
-          (*(*v17 + 368))(v17, a2);
+          (*(*v12 + 368))(v12, a2);
         }
 
         else
         {
-          (*(*v17 + 360))(v17, a2, a3);
+          (*(*v12 + 360))(v12, a2, a3);
         }
       }
 
-      ++v16;
+      ++v11;
     }
 
-    while (v16 < *(this + 29));
+    while (v11 < *(this + 29));
   }
 
   result = *(this + 77);
@@ -1393,63 +1247,63 @@ unsigned int *MultiLanguageModel::addUnmappedWord(unsigned int *this, uint64_t a
   return this;
 }
 
-void MultiLanguageModel::deleteWord(MultiLanguageModel *this, uint64_t a2, BOOL *a3, BOOL *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void MultiLanguageModel::deleteWord(MultiLanguageModel *this, uint64_t a2, BOOL *a3, BOOL *a4)
 {
   if (*(this + 112) == 1)
   {
-    v12 = *(this + 29);
-    if (v12)
+    v8 = *(this + 29);
+    if (v8)
     {
-      v13 = 0;
-      while (*(*(this + 71) + 4 * v13) > a2 || *(*(this + 73) + 4 * v13) < a2)
+      v9 = 0;
+      while (*(*(this + 71) + 4 * v9) > a2 || *(*(this + 73) + 4 * v9) < a2)
       {
-        if (v12 == ++v13)
+        if (v8 == ++v9)
         {
           goto LABEL_10;
         }
       }
 
-      if (*(this + 140) != v13)
+      if (*(this + 140) != v9)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1856, "lm/multilm", 39, "%u", a7, a8, a2);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1856, "lm/multilm", 39, "%u", a2);
       }
     }
 
 LABEL_10:
-    v14 = *(*(*(this + 2) + 256) + 4 * a2);
-    if (v14 != a2)
+    v10 = *(*(*(this + 2) + 256) + 4 * a2);
+    if (v10 != a2)
     {
-      v15 = *(this + 29);
-      if (v15)
+      v11 = *(this + 29);
+      if (v11)
       {
-        v16 = 0;
-        while (*(*(this + 71) + 4 * v16) > v14 || *(*(this + 73) + 4 * v16) < v14)
+        v12 = 0;
+        while (*(*(this + 71) + 4 * v12) > v10 || *(*(this + 73) + 4 * v12) < v10)
         {
-          if (v15 == ++v16)
+          if (v11 == ++v12)
           {
             goto LABEL_19;
           }
         }
 
-        if (*(this + 140) != v16)
+        if (*(this + 140) != v12)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1861, "lm/multilm", 40, "%u", a7, a8, *(*(*(this + 2) + 256) + 4 * a2));
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1861, "lm/multilm", 40, "%u", *(*(*(this + 2) + 256) + 4 * a2));
         }
       }
     }
   }
 
 LABEL_19:
-  v17 = *(this + 29);
-  if (v17)
+  v13 = *(this + 29);
+  if (v13)
   {
-    for (i = 0; i < v17; ++i)
+    for (i = 0; i < v13; ++i)
     {
-      v19 = *(*(this + 5) + 8 * i);
-      if (v19 && (*(this + 112) != 1 || i == *(this + 140)))
+      v15 = *(*(this + 5) + 8 * i);
+      if (v15 && (*(this + 112) != 1 || i == *(this + 140)))
       {
-        (*(*v19 + 376))(v19, a2, a3, a4);
-        v17 = *(this + 29);
+        (*(*v15 + 376))(v15, a2, a3, a4);
+        v13 = *(this + 29);
       }
     }
   }
@@ -1544,84 +1398,97 @@ void MultiLanguageModel::loadUnsTable(uint64_t a1, uint64_t a2, const char *a3, 
     {
       if ((DgnTextFileParser::parseNextLine(this) & 1) == 0)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1953, "lm/multilm", 65, "%.500s", v21, v22, v16);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1953, "lm/multilm", 65, "%.500s", v16);
       }
 
       LineFieldString = DgnTextFileParser::getLineFieldString(this, a8);
       if (strcmp(LineFieldString, a3))
       {
-        v51 = *(this + 25);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1959, "lm/multilm", 68, "%.500s %u %.500s %.500s", v24, v25, v16);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1959, "lm/multilm", 68, "%.500s %u %.500s %.500s", v16, *(this + 25), a3, LineFieldString);
       }
 
-      if (*DgnTextFileParser::getLineFieldString(this, a9))
+      v22 = DgnTextFileParser::getLineFieldString(this, a9);
+      if (*v22)
       {
-        v52 = *(this + 25);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1965, "lm/multilm", 69, "%.500s %u %.500s", v26, v27, v16);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1965, "lm/multilm", 69, "%.500s %u %.500s", v16, *(this + 25), v22);
       }
 
-      v28 = DgnTextFileParser::getLineFieldString(this, a10);
-      DgnString::DgnString(&v60);
-      v59[0] = 1;
-      v59[1] = v20;
-      SubDirExtension::appendToString(v59, &v60);
-      if (v61)
+      v23 = DgnTextFileParser::getLineFieldString(this, a10);
+      DgnString::DgnString(&v38);
+      v37[0] = 1;
+      v37[1] = v20;
+      SubDirExtension::appendToString(v37, &v38);
+      if (v39)
       {
-        v29 = v60;
+        v24 = v38;
       }
 
       else
       {
-        v29 = &unk_26288BEF0;
+        v24 = &unk_26288BEF0;
       }
 
-      if (strcmp(v29, v28))
+      if (strcmp(v24, v23))
       {
-        v53 = *(this + 25);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1973, "lm/multilm", 70, "%.500s %u %.500s %.500s", v34, v35, v16);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1973, "lm/multilm", 70, "%.500s %u %.500s %.500s", v16, *(this + 25), v24, v23);
       }
 
-      LineFieldInteger = DgnTextFileParser::getLineFieldInteger(this, a11, v30, v31, v32, v33, v34, v35);
+      LineFieldInteger = DgnTextFileParser::getLineFieldInteger(this, a11);
       if ((LineFieldInteger & 0x80000000) != 0)
       {
         CurrentLine = DgnTextFile::getCurrentLine(this);
         if (*(CurrentLine + 8))
         {
-          v42 = *CurrentLine;
+          v27 = *CurrentLine;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1979, "lm/multilm", 7, "%.500s %.500s", v40, v41, v16);
+        else
+        {
+          v27 = &unk_26288BEF0;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1979, "lm/multilm", 7, "%.500s %.500s", v16, v27);
       }
 
       if (LineFieldInteger != a4 && (LineFieldInteger < a5 || LineFieldInteger > a6))
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1984, "lm/multilm", 71, "%.500s %.500s %u %u", v36, v37, v16);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1984, "lm/multilm", 71, "%.500s %.500s %u %u", v16, a3, v20, LineFieldInteger);
       }
 
       *(*a2 + 4 * v20) = LineFieldInteger;
       if (DgnTextFileParser::getLineFieldReal(this, a12) != 0.0)
       {
-        v43 = DgnTextFile::getCurrentLine(this);
-        if (*(v43 + 8))
+        v28 = DgnTextFile::getCurrentLine(this);
+        if (*(v28 + 8))
         {
-          v46 = *v43;
+          v29 = *v28;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1991, "lm/multilm", 7, "%.500s %.500s", v44, v45, v16);
+        else
+        {
+          v29 = &unk_26288BEF0;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1991, "lm/multilm", 7, "%.500s %.500s", v16, v29);
       }
 
       if (*DgnTextFileParser::getLineFieldString(this, a13))
       {
-        v47 = DgnTextFile::getCurrentLine(this);
-        if (*(v47 + 8))
+        v30 = DgnTextFile::getCurrentLine(this);
+        if (*(v30 + 8))
         {
-          v50 = *v47;
+          v31 = *v30;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1996, "lm/multilm", 7, "%.500s %.500s", v48, v49, v16);
+        else
+        {
+          v31 = &unk_26288BEF0;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 1996, "lm/multilm", 7, "%.500s %.500s", v16, v31);
       }
 
-      DgnString::~DgnString(&v60);
+      DgnString::~DgnString(&v38);
       ++v20;
     }
 
@@ -1629,9 +1496,9 @@ void MultiLanguageModel::loadUnsTable(uint64_t a1, uint64_t a2, const char *a3, 
   }
 }
 
-void sub_262723624(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_262723624(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -1645,7 +1512,7 @@ DgnString *SubDirExtension::appendToString(DgnString *this, DgnString *a2)
     this = DgnString::operator+=(a2, off_279B3E908[v2]);
     if (*(v4 + 1) != -1)
     {
-      return DgnString::printfAppend(a2, "%d", v5, v6, v7, *(v4 + 1));
+      return DgnString::printfAppend(a2, "%d", *(v4 + 1));
     }
   }
 
@@ -1674,7 +1541,7 @@ void MultiLanguageModel::loadIntTable(uint64_t a1, uint64_t a2, const char *a3, 
     v19 = *(a1 + 116);
   }
 
-  *(v15 + 2) = v17;
+  *(v15 + 8) = v17;
   if (v19)
   {
     v20 = 0;
@@ -1682,76 +1549,84 @@ void MultiLanguageModel::loadIntTable(uint64_t a1, uint64_t a2, const char *a3, 
     {
       if ((DgnTextFileParser::parseNextLine(this) & 1) == 0)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2023, "lm/multilm", 65, "%.500s", v21, v22, v16);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2023, "lm/multilm", 65, "%.500s", v16);
       }
 
       LineFieldString = DgnTextFileParser::getLineFieldString(this, a8);
       if (strcmp(LineFieldString, a3))
       {
-        v49 = *(this + 25);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2029, "lm/multilm", 68, "%.500s %u %.500s %.500s", v24, v25, v16);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2029, "lm/multilm", 68, "%.500s %u %.500s %.500s", v16, *(this + 25), a3, LineFieldString);
       }
 
-      if (*DgnTextFileParser::getLineFieldString(this, a9))
+      v22 = DgnTextFileParser::getLineFieldString(this, a9);
+      if (*v22)
       {
-        v50 = *(this + 25);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2035, "lm/multilm", 69, "%.500s %u %.500s", v26, v27, v16);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2035, "lm/multilm", 69, "%.500s %u %.500s", v16, *(this + 25), v22);
       }
 
-      v28 = v15;
-      v29 = DgnTextFileParser::getLineFieldString(this, a10);
-      DgnString::DgnString(&v58);
-      v57[0] = 1;
-      v57[1] = v20;
-      SubDirExtension::appendToString(v57, &v58);
-      if (v59)
+      v23 = v15;
+      v24 = DgnTextFileParser::getLineFieldString(this, a10);
+      DgnString::DgnString(&v38);
+      v37[0] = 1;
+      v37[1] = v20;
+      SubDirExtension::appendToString(v37, &v38);
+      if (v39)
       {
-        v30 = v58;
+        v25 = v38;
       }
 
       else
       {
-        v30 = &unk_26288BEF0;
+        v25 = &unk_26288BEF0;
       }
 
-      if (strcmp(v30, v29))
+      if (strcmp(v25, v24))
       {
-        v51 = *(this + 25);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2043, "lm/multilm", 70, "%.500s %u %.500s %.500s", v35, v36, v16);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2043, "lm/multilm", 70, "%.500s %u %.500s %.500s", v16, *(this + 25), v25, v24);
       }
 
-      LineFieldInteger = DgnTextFileParser::getLineFieldInteger(this, a11, v31, v32, v33, v34, v35, v36);
-      v40 = LineFieldInteger;
+      LineFieldInteger = DgnTextFileParser::getLineFieldInteger(this, a11);
+      v27 = LineFieldInteger;
       if (LineFieldInteger != a4 && (LineFieldInteger < a5 || LineFieldInteger > a6))
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2050, "lm/multilm", 72, "%.500s %.500s %u %d", v38, v39, v16);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2050, "lm/multilm", 72, "%.500s %.500s %u %d", v16, a3, v20, LineFieldInteger);
       }
 
-      v15 = v28;
-      *(*v28 + 4 * v20) = v40;
+      v15 = v23;
+      *(*v23 + 4 * v20) = v27;
       if (DgnTextFileParser::getLineFieldReal(this, a12) != 0.0)
       {
         CurrentLine = DgnTextFile::getCurrentLine(this);
         if (*(CurrentLine + 8))
         {
-          v44 = *CurrentLine;
+          v29 = *CurrentLine;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2057, "lm/multilm", 7, "%.500s %.500s", v42, v43, v16);
+        else
+        {
+          v29 = &unk_26288BEF0;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2057, "lm/multilm", 7, "%.500s %.500s", v16, v29);
       }
 
       if (*DgnTextFileParser::getLineFieldString(this, a13))
       {
-        v45 = DgnTextFile::getCurrentLine(this);
-        if (*(v45 + 8))
+        v30 = DgnTextFile::getCurrentLine(this);
+        if (*(v30 + 8))
         {
-          v48 = *v45;
+          v31 = *v30;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2062, "lm/multilm", 7, "%.500s %.500s", v46, v47, v16);
+        else
+        {
+          v31 = &unk_26288BEF0;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2062, "lm/multilm", 7, "%.500s %.500s", v16, v31);
       }
 
-      DgnString::~DgnString(&v58);
+      DgnString::~DgnString(&v38);
       ++v20;
     }
 
@@ -1759,9 +1634,9 @@ void MultiLanguageModel::loadIntTable(uint64_t a1, uint64_t a2, const char *a3, 
   }
 }
 
-void sub_2627239F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2627239F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -1778,7 +1653,7 @@ void MultiLanguageModel::loadRealTable(uint64_t a1, uint64_t a2, DgnString *a3, 
     v20 = &unk_26288BEF0;
   }
 
-  DgnString::DgnString(&v69);
+  DgnString::DgnString(&v46);
   v21 = *(a1 + 116);
   v22 = *(a2 + 12);
   v23 = v21;
@@ -1796,113 +1671,129 @@ void MultiLanguageModel::loadRealTable(uint64_t a1, uint64_t a2, DgnString *a3, 
     {
       if ((DgnTextFileParser::parseNextLine(a5) & 1) == 0)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2091, "lm/multilm", 65, "%.500s", v25, v26, v20);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2091, "lm/multilm", 65, "%.500s", v20);
       }
 
       LineFieldString = DgnTextFileParser::getLineFieldString(a5, a6);
       if (strcmp(LineFieldString, a4))
       {
-        v57 = *(a5 + 100);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2097, "lm/multilm", 68, "%.500s %u %.500s %.500s", v28, v29, v20);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2097, "lm/multilm", 68, "%.500s %u %.500s %.500s", v20, *(a5 + 100), a4, LineFieldString);
       }
 
-      v30 = DgnTextFileParser::getLineFieldString(a5, a7);
-      v31 = v30;
+      v26 = DgnTextFileParser::getLineFieldString(a5, a7);
+      v27 = v26;
       if (!a3 || v24)
       {
-        if (v70)
+        if (v47)
         {
-          v34 = v69;
+          v28 = v46;
         }
 
         else
         {
-          v34 = &unk_26288BEF0;
+          v28 = &unk_26288BEF0;
         }
 
-        if (strcmp(v34, v31))
+        if (strcmp(v28, v27))
         {
-          v59 = *(a5 + 100);
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2121, "lm/multilm", 69, "%.500s %u %.500s", v35, v36, v20);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2121, "lm/multilm", 69, "%.500s %u %.500s", v20, *(a5 + 100), v27);
         }
       }
 
       else
       {
-        if ((isValidName(v30) & 1) == 0)
+        if ((isValidName(v26) & 1) == 0)
         {
-          v58 = *(a5 + 100);
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2106, "lm/multilm", 69, "%.500s %u %.500s", v32, v33, v20);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2106, "lm/multilm", 69, "%.500s %u %.500s", v20, *(a5 + 100), v27);
         }
 
-        DgnString::operator=(a3, v31);
-        DgnString::operator=(&v69, v31);
+        DgnString::operator=(a3, v27);
+        DgnString::operator=(&v46, v27);
       }
 
-      v37 = DgnTextFileParser::getLineFieldString(a5, a8);
-      DgnString::DgnString(&v67);
-      v66[0] = 1;
-      v66[1] = v24;
-      SubDirExtension::appendToString(v66, &v67);
-      if (v68)
+      v29 = DgnTextFileParser::getLineFieldString(a5, a8);
+      DgnString::DgnString(&v44);
+      v43[0] = 1;
+      v43[1] = v24;
+      SubDirExtension::appendToString(v43, &v44);
+      if (v45)
       {
-        v38 = v67;
+        v30 = v44;
       }
 
       else
       {
-        v38 = &unk_26288BEF0;
+        v30 = &unk_26288BEF0;
       }
 
-      if (strcmp(v38, v37))
+      if (strcmp(v30, v29))
       {
-        v60 = *(a5 + 100);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2130, "lm/multilm", 70, "%.500s %u %.500s %.500s", v43, v44, v20);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2130, "lm/multilm", 70, "%.500s %u %.500s %.500s", v20, *(a5 + 100), v30, v29);
       }
 
-      if (DgnTextFileParser::getLineFieldInteger(a5, a12, v39, v40, v41, v42, v43, v44))
+      if (DgnTextFileParser::getLineFieldInteger(a5, a12))
       {
         CurrentLine = DgnTextFile::getCurrentLine(a5);
         if (*(CurrentLine + 8))
         {
-          v48 = *CurrentLine;
+          v32 = *CurrentLine;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2135, "lm/multilm", 7, "%.500s %.500s", v46, v47, v20);
+        else
+        {
+          v32 = &unk_26288BEF0;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2135, "lm/multilm", 7, "%.500s %.500s", v20, v32);
       }
 
       LineFieldReal = DgnTextFileParser::getLineFieldReal(a5, a13);
-      v52 = LineFieldReal;
+      v34 = LineFieldReal;
       if (LineFieldReal != a9 && (LineFieldReal < a10 || LineFieldReal > a11))
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2143, "lm/multilm", 73, "%.500s %.500s %.500s %u %f", v49, v50, v20);
-      }
-
-      *(*a2 + 8 * v24) = v52;
-      if (*DgnTextFileParser::getLineFieldString(a5, a14))
-      {
-        v53 = DgnTextFile::getCurrentLine(a5);
-        if (*(v53 + 8))
+        if (v47)
         {
-          v56 = *v53;
+          v35 = v46;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2150, "lm/multilm", 7, "%.500s %.500s", v54, v55, v20);
+        else
+        {
+          v35 = &unk_26288BEF0;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2143, "lm/multilm", 73, "%.500s %.500s %.500s %u %f", v20, a4, v35, v24, LineFieldReal);
       }
 
-      DgnString::~DgnString(&v67);
+      *(*a2 + 8 * v24) = v34;
+      if (*DgnTextFileParser::getLineFieldString(a5, a14))
+      {
+        v36 = DgnTextFile::getCurrentLine(a5);
+        if (*(v36 + 8))
+        {
+          v37 = *v36;
+        }
+
+        else
+        {
+          v37 = &unk_26288BEF0;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2150, "lm/multilm", 7, "%.500s %.500s", v20, v37);
+      }
+
+      DgnString::~DgnString(&v44);
       ++v24;
     }
 
     while (v24 < *(a1 + 116));
   }
 
-  DgnString::~DgnString(&v69);
+  DgnString::~DgnString(&v46);
 }
 
-void sub_262723DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_262723DE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -1947,7 +1838,7 @@ void MultiLanguageModel::loadStringTable(uint64_t a1, uint64_t a2, const char *a
     do
     {
       --v17;
-      DgnString::~DgnString((*a2 + v18));
+      DgnString::~DgnString(*a2 + v18);
       v18 -= 16;
     }
 
@@ -1964,64 +1855,72 @@ void MultiLanguageModel::loadStringTable(uint64_t a1, uint64_t a2, const char *a
     {
       if ((DgnTextFileParser::parseNextLine(this) & 1) == 0)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2174, "lm/multilm", 65, "%.500s", v24, v25, v13);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2174, "lm/multilm", 65, "%.500s", v13);
       }
 
       LineFieldString = DgnTextFileParser::getLineFieldString(this, a5);
       if (strcmp(LineFieldString, a3))
       {
-        v47 = *(this + 25);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2180, "lm/multilm", 68, "%.500s %u %.500s %.500s", v27, v28, v13);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2180, "lm/multilm", 68, "%.500s %u %.500s %.500s", v13, *(this + 25), a3, LineFieldString);
       }
 
-      if (*DgnTextFileParser::getLineFieldString(this, a6))
+      v25 = DgnTextFileParser::getLineFieldString(this, a6);
+      if (*v25)
       {
-        v48 = *(this + 25);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2186, "lm/multilm", 69, "%.500s %u %.500s", v29, v30, v13);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2186, "lm/multilm", 69, "%.500s %u %.500s", v13, *(this + 25), v25);
       }
 
-      v31 = DgnTextFileParser::getLineFieldString(this, a7);
-      DgnString::DgnString(&v56);
-      v55[0] = 1;
-      v55[1] = v23;
-      SubDirExtension::appendToString(v55, &v56);
-      if (v57)
+      v26 = DgnTextFileParser::getLineFieldString(this, a7);
+      DgnString::DgnString(&v38);
+      v37[0] = 1;
+      v37[1] = v23;
+      SubDirExtension::appendToString(v37, &v38);
+      if (v39)
       {
-        v21 = v56;
+        v21 = v38;
       }
 
-      if (strcmp(v21, v31))
+      if (strcmp(v21, v26))
       {
-        v49 = *(this + 25);
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2194, "lm/multilm", 70, "%.500s %u %.500s %.500s", v36, v37, v13);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2194, "lm/multilm", 70, "%.500s %u %.500s %.500s", v13, *(this + 25), v21, v26);
       }
 
       v21 = &unk_26288BEF0;
-      if (DgnTextFileParser::getLineFieldInteger(this, a8, v32, v33, v34, v35, v36, v37))
+      if (DgnTextFileParser::getLineFieldInteger(this, a8))
       {
         CurrentLine = DgnTextFile::getCurrentLine(this);
         if (*(CurrentLine + 8))
         {
-          v41 = *CurrentLine;
+          v28 = *CurrentLine;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2199, "lm/multilm", 7, "%.500s %.500s", v39, v40, v13);
+        else
+        {
+          v28 = &unk_26288BEF0;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2199, "lm/multilm", 7, "%.500s %.500s", v13, v28);
       }
 
       if (DgnTextFileParser::getLineFieldReal(this, a9) != 0.0)
       {
-        v42 = DgnTextFile::getCurrentLine(this);
-        if (*(v42 + 8))
+        v29 = DgnTextFile::getCurrentLine(this);
+        if (*(v29 + 8))
         {
-          v45 = *v42;
+          v30 = *v29;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2204, "lm/multilm", 7, "%.500s %.500s", v43, v44, v13);
+        else
+        {
+          v30 = &unk_26288BEF0;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2204, "lm/multilm", 7, "%.500s %.500s", v13, v30);
       }
 
-      v46 = DgnTextFileParser::getLineFieldString(this, a10);
-      DgnString::operator=((*a2 + v22), v46);
-      DgnString::~DgnString(&v56);
+      v31 = DgnTextFileParser::getLineFieldString(this, a10);
+      DgnString::operator=((*a2 + v22), v31);
+      DgnString::~DgnString(&v38);
       ++v23;
       v22 += 16;
     }
@@ -2030,155 +1929,155 @@ void MultiLanguageModel::loadStringTable(uint64_t a1, uint64_t a2, const char *a
   }
 }
 
-void sub_26272416C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_26272416C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
 
-void MultiLanguageModel::loadLM(MultiLanguageModel *this, DFile *a2, DFile *a3, DFileChecksums *a4, DgnSharedMemStream *a5, uint64_t a6, uint64_t a7, BOOL a8, unsigned int a9, unsigned int a10, __int16 a11, BOOL *a12, BOOL *a13, double *a14)
+void MultiLanguageModel::loadLM(MultiLanguageModel *this, char **a2, DFile *a3, DFileChecksums *a4, DgnSharedMemStream *a5, unsigned int a6, _BOOL8 a7, BOOL a8, unsigned int a9, unsigned int a10, __int16 a11, BOOL *a13, BOOL *a14, double *a15)
 {
+  v14 = a7;
   if (a7 && ((DFile::subFileExists(a2, 0x4Au) & 1) != 0 || DFile::subFileExists(a2, 0x49u)))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2236, "lm/multilm", 118, "%s", v19, v20, &errStr_lm_multilm_E_RECENT_BUFFER_WITH_FIXED_SCORING);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2236, "lm/multilm", 118, "%s", &errStr_lm_multilm_E_RECENT_BUFFER_WITH_FIXED_SCORING);
   }
 
-  v52 = 0;
+  v41 = 0;
   if (DFile::subFileExists(a2, 0x28u))
   {
     if (a6)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2242, "lm/multilm", 98, "%s", v21, v22, &errStr_lm_multilm_E_LOADING_MIXED_TEXT_AND_BINARY_SUBFILES);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2242, "lm/multilm", 98, "%s", &errStr_lm_multilm_E_LOADING_MIXED_TEXT_AND_BINARY_SUBFILES);
     }
 
-    MultiLanguageModel::loadMultiBinary(this, a2, a4, &v52);
-    v54 = v52;
+    MultiLanguageModel::loadMultiBinary(this, a2, a4, &v41);
+    v43 = v41;
 
-    MultiLanguageModel::loadComponentLMSubFiles(this, 1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, v54);
+    MultiLanguageModel::loadComponentLMSubFiles(this, 1, a2, a3, a4, a5, a6, v14, v19, a8, a9, a10, a11, a13, a14, v43);
   }
 
   else if (DFile::subFileExists(a2, 0x29u))
   {
     if (*(this + 24) == 1)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2262, "lm/multilm", 119, "%.500s", v23, v24, "found mls text file");
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2262, "lm/multilm", 119, "%.500s", "found mls text file");
     }
 
-    v51[0] = 0;
-    v51[1] = 0;
-    MultiLanguageModel::loadMultiText(this, a2, a7, v51, &v52);
-    MultiLanguageModel::loadComponentLMSubFiles(this, 0, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, v52);
+    v40[0] = 0;
+    v40[1] = 0;
+    MultiLanguageModel::loadMultiText(this, a2, v14, v40, &v41);
+    MultiLanguageModel::loadComponentLMSubFiles(this, 0, a2, a3, a4, a5, a6, v14, v20, a8, a9, a10, a11, a13, a14, v41);
     if ((*(this + 113) & 1) != 0 || *(this + 114) == 1)
     {
-      (*(*this + 496))(this, v51);
-      if (*(this + 114) == 1 && (a7 & 1) == 0)
+      (*(*this + 496))(this, v40);
+      if (*(this + 114) == 1 && !v14)
       {
-        v31 = *(this + 44);
-        v32 = *(this + 53);
-        if (v31 > v32)
+        v21 = *(this + 44);
+        v22 = *(this + 53);
+        if (v21 > v22)
         {
-          DgnArray<DgnPrimArray<double>>::reallocElts(this + 200, v31 - v32, 0);
+          DgnArray<DgnPrimArray<double>>::reallocElts(this + 200, v21 - v22, 0);
         }
 
-        v33 = *(this + 52);
-        if (v33 <= v31)
+        v23 = *(this + 52);
+        if (v23 <= v21)
         {
-          if (v33 < v31)
+          if (v23 < v21)
           {
-            v36 = v31 - v33;
-            v37 = 16 * v33;
+            v26 = v21 - v23;
+            v27 = 16 * v23;
             do
             {
-              v38 = (*(this + 25) + v37);
-              *v38 = 0;
-              v38[1] = 0;
-              v37 += 16;
-              --v36;
+              v28 = (*(this + 25) + v27);
+              *v28 = 0;
+              v28[1] = 0;
+              v27 += 16;
+              --v26;
             }
 
-            while (v36);
+            while (v26);
           }
         }
 
-        else if (v33 > v31)
+        else if (v23 > v21)
         {
-          v34 = v33;
-          v35 = 16 * v33 - 16;
+          v24 = v23;
+          v25 = 16 * v23 - 16;
           do
           {
-            --v34;
-            DgnPrimArray<unsigned int>::~DgnPrimArray(*(this + 25) + v35);
-            v35 -= 16;
+            --v24;
+            DgnPrimArray<unsigned int>::~DgnPrimArray(*(this + 25) + v25);
+            v25 -= 16;
           }
 
-          while (v34 > v31);
+          while (v24 > v21);
         }
 
-        *(this + 52) = v31;
-        v39 = *(this + 44);
-        v40 = *(this + 57);
-        v41 = v39 - v40;
-        if (v39 > v40)
+        *(this + 52) = v21;
+        v29 = *(this + 44);
+        v30 = *(this + 57);
+        if (v29 > v30)
         {
-          DgnArray<DgnPrimArray<double>>::reallocElts(this + 216, v41, 0);
+          DgnArray<DgnPrimArray<double>>::reallocElts(this + 216, v29 - v30, 0);
         }
 
-        v42 = *(this + 56);
-        if (v42 <= v39)
+        v31 = *(this + 56);
+        if (v31 <= v29)
         {
-          if (v42 < v39)
+          if (v31 < v29)
           {
-            v45 = v39 - v42;
-            v46 = 16 * v42;
+            v34 = v29 - v31;
+            v35 = 16 * v31;
             do
             {
-              v47 = (*(this + 27) + v46);
-              *v47 = 0;
-              v47[1] = 0;
-              v46 += 16;
-              --v45;
+              v36 = (*(this + 27) + v35);
+              *v36 = 0;
+              v36[1] = 0;
+              v35 += 16;
+              --v34;
             }
 
-            while (v45);
+            while (v34);
           }
         }
 
-        else if (v42 > v39)
+        else if (v31 > v29)
         {
-          v43 = v42;
-          v44 = 16 * v42 - 16;
+          v32 = v31;
+          v33 = 16 * v31 - 16;
           do
           {
-            --v43;
-            DgnPrimArray<unsigned int>::~DgnPrimArray(*(this + 27) + v44);
-            v44 -= 16;
+            --v32;
+            DgnPrimArray<unsigned int>::~DgnPrimArray(*(this + 27) + v33);
+            v33 -= 16;
           }
 
-          while (v43 > v39);
+          while (v32 > v29);
         }
 
-        *(this + 56) = v39;
-        MultiLanguageModel::adjustNamedWeightsSets(this, v41, v25, v26, v27, v28, v29, v30);
+        *(this + 56) = v29;
+        MultiLanguageModel::adjustNamedWeightsSets(this);
       }
     }
 
-    DgnPrimArray<unsigned int>::~DgnPrimArray(v51);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(v40);
   }
 }
 
-void sub_262724560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_262724560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
 
-void MultiLanguageModel::loadMultiBinary(MultiLanguageModel *this, DFile *a2, DFileChecksums *a3, BOOL *a4)
+void MultiLanguageModel::loadMultiBinary(MultiLanguageModel *this, char **a2, DFileChecksums *a3, BOOL *a4)
 {
-  v25 = 0;
-  v8 = OpenAndReadMrecHeader(a2, 0x28u, 1, "LMMULBIN", &v25 + 1, &v25);
-  DgnString::DgnString(v24);
+  v23 = 0;
+  v8 = OpenAndReadMrecHeader(a2, 0x28u, 1, "LMMULBIN", &v23 + 1, &v23);
+  DgnString::DgnString(v22);
   if (*(v8 + 24))
   {
     v9 = *(v8 + 16);
@@ -2189,11 +2088,11 @@ void MultiLanguageModel::loadMultiBinary(MultiLanguageModel *this, DFile *a2, DF
     v9 = &unk_26288BEF0;
   }
 
-  DgnString::operator=(v24, v9);
-  DgnString::operator+=(v24, " subfile of ");
+  DgnString::operator=(v22, v9);
+  DgnString::operator+=(v22, " subfile of ");
   if (*(a2 + 6))
   {
-    v10 = *(a2 + 2);
+    v10 = a2[2];
   }
 
   else
@@ -2201,158 +2100,156 @@ void MultiLanguageModel::loadMultiBinary(MultiLanguageModel *this, DFile *a2, DF
     v10 = &unk_26288BEF0;
   }
 
-  DgnString::operator+=(v24, v10);
+  DgnString::operator+=(v22, v10);
   *a4 = 0;
-  v13 = v25;
-  if (v25 == 0x1300000005)
+  v11 = v23;
+  if (v23 == 0x1300000005)
   {
     *a4 = 1;
-    v14 = 19;
+    v12 = 19;
   }
 
   else
   {
     if (*(a2 + 6))
     {
-      v15 = *(a2 + 2);
+      v13 = a2[2];
     }
 
     else
     {
-      v15 = &unk_26288BEF0;
+      v13 = &unk_26288BEF0;
     }
 
-    MrecHeaderCheckVersions(v15, "LMMULBIN", HIDWORD(v25), v25, 0x18u, 6u);
-    v13 = v25;
-    v14 = HIDWORD(v25);
+    MrecHeaderCheckVersions(v13, "LMMULBIN", HIDWORD(v23), v23, 0x18u, 6u);
+    v11 = v23;
+    v12 = HIDWORD(v23);
   }
 
-  MrecHeaderCheckLatestVersionIfShared(a2, "LMMULBIN", v14, v13, 24, 6, v11, v12);
-  *v23 = 0;
-  readObject(v8, v23, &v23[1]);
-  v16 = v23[0];
-  v17 = *(this + 37);
-  v18 = v23[0];
-  if (v23[0] > v17)
+  MrecHeaderCheckLatestVersionIfShared(a2, "LMMULBIN", v12, v11, 24, 6);
+  *v21 = 0;
+  readObject(v8, v21, &v21[1]);
+  v14 = v21[0];
+  v15 = *(this + 37);
+  v16 = v21[0];
+  if (v21[0] > v15)
   {
-    DgnPrimArray<unsigned int>::reallocElts(this + 136, v23[0] - v17, 0);
-    v18 = v23[0];
+    DgnPrimArray<unsigned int>::reallocElts(this + 136, v21[0] - v15, 0);
+    v16 = v21[0];
   }
 
-  *(this + 36) = v16;
-  if (v18)
+  *(this + 36) = v14;
+  if (v16)
   {
-    v19 = 0;
+    v17 = 0;
     do
     {
-      v22 = 0;
-      readObject(v8, &v22, &v23[1]);
-      v20 = v22 - 1;
-      if ((v22 - 2) >= 4)
+      v20 = 0;
+      readObject(v8, &v20, &v21[1]);
+      v18 = v20 - 1;
+      if ((v20 - 2) >= 4)
       {
-        v20 = 0;
+        v18 = 0;
       }
 
-      *(*(this + 17) + 4 * v19++) = v20;
+      *(*(this + 17) + 4 * v17++) = v18;
     }
 
-    while (v19 < v23[0]);
+    while (v17 < v21[0]);
   }
 
-  readObject(v8, this + 29, &v23[1]);
-  readObject(v8, this + 112, &v23[1]);
-  readObject(v8, this + 113, &v23[1]);
-  readObject(v8, this + 114, &v23[1]);
-  readObject(v8, (this + 120), &v23[1]);
-  readObject(v8, this + 152, &v23[1]);
-  readObject(v8, this + 39, &v23[1]);
-  readObject(v8, this + 40, &v23[1]);
-  readObject<DgnString>(v8, this + 168, &v23[1]);
-  readObject<DgnPrimArray<double>>(v8, this + 184, &v23[1]);
-  readObject<DgnPrimArray<double>>(v8, this + 200, &v23[1]);
-  readObject<DgnPrimArray<short>>(v8, this + 216, &v23[1]);
-  readObject<unsigned int>(v8, this + 232, &v23[1]);
-  readObject(v8, this + 70, &v23[1]);
-  readObject(v8, this + 71, &v23[1]);
+  readObject(v8, this + 29, &v21[1]);
+  readObject(v8, this + 112, &v21[1]);
+  readObject(v8, this + 113, &v21[1]);
+  readObject(v8, this + 114, &v21[1]);
+  readObject(v8, (this + 120), &v21[1]);
+  readObject(v8, this + 152, &v21[1]);
+  readObject(v8, this + 39, &v21[1]);
+  readObject(v8, this + 40, &v21[1]);
+  readObject<DgnString>(v8, this + 168, &v21[1]);
+  readObject<DgnPrimArray<double>>(v8, this + 184, &v21[1]);
+  readObject<DgnPrimArray<double>>(v8, this + 200, &v21[1]);
+  readObject<DgnPrimArray<short>>(v8, this + 216, &v21[1]);
+  readObject<unsigned int>(v8, this + 232, &v21[1]);
+  readObject(v8, this + 70, &v21[1]);
+  readObject(v8, this + 71, &v21[1]);
   if (*a4)
   {
-    readObject<WordDummySpec>(v8, this + 288, &v23[1]);
+    readObject<WordDummySpec>(v8, this + 288, &v21[1]);
   }
 
-  readObject<DgnString>(v8, this + 352, &v23[1]);
-  if (!*a4 || (readObject<DgnString>(v8, this + 368, &v23[1]), !*a4))
+  readObject<DgnString>(v8, this + 352, &v21[1]);
+  if (!*a4 || (readObject<DgnString>(v8, this + 368, &v21[1]), !*a4))
   {
-    readObject<DgnString>(v8, this + 320, &v23[1]);
+    readObject<DgnString>(v8, this + 320, &v21[1]);
   }
 
-  readObject<double>(v8, this + 384, &v23[1]);
-  readObject<double>(v8, this + 400, &v23[1]);
-  readObject<double>(v8, this + 416, &v23[1]);
-  readObject<double>(v8, this + 432, &v23[1]);
-  readObject<double>(v8, this + 448, &v23[1]);
-  readObject<short>(v8, this + 464, &v23[1]);
-  readObject<short>(v8, this + 480, &v23[1]);
-  readObject<double>(v8, this + 496, &v23[1]);
-  readObject<DgnString>(v8, this + 512, &v23[1]);
-  readObject<int>(v8, this + 528, &v23[1]);
-  readObject<BOOL>(v8, this + 544, &v23[1]);
-  readObject(v8, this + 140, &v23[1]);
-  readObject<unsigned int>(v8, this + 568, &v23[1]);
-  readObject<unsigned int>(v8, this + 584, &v23[1]);
-  readObject<unsigned int>(v8, this + 600, &v23[1]);
-  readObjectChecksumAndVerify(v8, v23[1]);
+  readObject<double>(v8, this + 384, &v21[1]);
+  readObject<double>(v8, this + 400, &v21[1]);
+  readObject<double>(v8, this + 416, &v21[1]);
+  readObject<double>(v8, this + 432, &v21[1]);
+  readObject<double>(v8, this + 448, &v21[1]);
+  readObject<short>(v8, this + 464, &v21[1]);
+  readObject<short>(v8, this + 480, &v21[1]);
+  readObject<double>(v8, this + 496, &v21[1]);
+  readObject<DgnString>(v8, this + 512, &v21[1]);
+  readObject<int>(v8, this + 528, &v21[1]);
+  readObject<BOOL>(v8, this + 544, &v21[1]);
+  readObject(v8, this + 140, &v21[1]);
+  readObject<unsigned int>(v8, this + 568, &v21[1]);
+  readObject<unsigned int>(v8, this + 584, &v21[1]);
+  readObject<unsigned int>(v8, this + 600, &v21[1]);
+  readObjectChecksumAndVerify(v8, v21[1]);
   CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
-  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 0x28u, v23[1]);
+  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 40, v21[1]);
   DgnDelete<DgnStream>(v8);
-  DgnString::~DgnString(v24);
+  DgnString::~DgnString(v22);
 }
 
-void sub_2627249A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2627249A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
 
-void MultiLanguageModel::loadComponentLMSubFiles(MultiLanguageModel *this, int a2, DFile *a3, DFile *a4, DFileChecksums *a5, DgnSharedMemStream *a6, uint64_t a7, uint64_t a8, BOOL a9, unsigned int a10, unsigned int a11, __int16 a12, BOOL *a13, BOOL *a14, BOOL a15)
+void MultiLanguageModel::loadComponentLMSubFiles(MultiLanguageModel *this, int a2, DFile *a3, DFile *a4, DFileChecksums *a5, DgnSharedMemStream *a6, unsigned int a7, unsigned int a8, __n128 a9, BOOL a10, unsigned int a11, unsigned int a12, __int16 a13, BOOL *a15, BOOL *a16, BOOL a17)
 {
-  v95 = a7;
   if (*(this + 29))
   {
-    v17 = a8;
-    v20 = 0;
+    v18 = a8;
     v21 = 0;
-    v22 = a15;
-    v94 = a2 & a15;
-    v92 = a8;
+    v22 = 0;
+    v23 = a17;
+    v66 = a2 & a17;
     while (1)
     {
-      v100[0] = 1;
-      v100[1] = v20;
-      DFile::pushCurrentSubDirComponent(a3, v100, a3, a4, a5, a6, a7, a8);
+      v72[0] = 1;
+      v72[1] = v21;
+      DFile::pushCurrentSubDirComponent(a3, v72);
       if (a4)
       {
-        DFile::pushCurrentSubDirComponent(a4, v100, v23, v24, v25, v26, v27, v28);
+        DFile::pushCurrentSubDirComponent(a4, v72);
       }
 
-      MultiLanguageModel::verifySubdirContents(this, a3, v20, a2, v22);
+      MultiLanguageModel::verifySubdirContents(this, a3, v21, a2, v23);
       if ((DFile::subFileExists(a3, 0x6Du) & 1) == 0 && (DFile::subFileExists(a3, 0x6Bu) & 1) == 0 && !DFile::subFileExists(a3, 0x6Au))
       {
         break;
       }
 
-      if ((v21 & 1) == 0)
+      if ((v22 & 1) == 0)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3081, "lm/multilm", 34, "%s", v29, v30, &errStr_lm_multilm_E_FIRST_LM_WORDNGRAMBUILDSPEC);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3081, "lm/multilm", 34, "%s", &errStr_lm_multilm_E_FIRST_LM_WORDNGRAMBUILDSPEC);
       }
 
-      if (v22)
+      if (v23)
       {
-        v31 = MemChunkAlloc(0x20uLL, 0);
-        WordDummySpec::WordDummySpec(v31);
+        v24 = MemChunkAlloc(0x20uLL, 0);
+        WordDummySpec::WordDummySpec(v24);
         if (DFile::subFileExists(a3, 0x6Du))
         {
-          WordNgramBuildSpec::loadWordDummySpecText(v31, a3);
+          WordNgramBuildSpec::loadWordDummySpecText(v24, a3);
         }
       }
 
@@ -2363,72 +2260,72 @@ void MultiLanguageModel::loadComponentLMSubFiles(MultiLanguageModel *this, int a
           break;
         }
 
-        v31 = MemChunkAlloc(0x20uLL, 0);
-        WordDummySpec::WordDummySpec(v31);
-        WordNgramBuildSpec::loadWordNgramBuildSpec(v32, a3, a5, a2 ^ 1);
+        v24 = MemChunkAlloc(0x20uLL, 0);
+        WordDummySpec::WordDummySpec(v24);
+        WordNgramBuildSpec::loadWordNgramBuildSpec(v25, a3, a5, a2 ^ 1);
       }
 
 LABEL_17:
       if ((*(this + 112) & 1) != 0 || (DFile::subFileExists(a3, 0x73u) & 1) != 0 || (DFile::subFileExists(a3, 0x6Fu) & 1) != 0 || (DFile::subFileExists(a3, 0x70u) & 1) != 0 || (DFile::subFileExists(a3, 0x29u) & 1) != 0 || DFile::subFileExists(a3, 0x28u))
       {
-        v33 = *(this + 112);
-        v34 = a9;
-        v35 = a10;
-        v36 = a11;
-        if (v33 == 1)
+        v26 = *(this + 112);
+        v27 = a10;
+        v28 = a11;
+        v29 = a12;
+        if (v26 == 1)
         {
-          v34 = a9;
-          v35 = a10;
-          v36 = a11;
+          v27 = a10;
+          v28 = a11;
+          v29 = a12;
           if (*(this + 144) >= 2u)
           {
-            v34 = v20 != 0;
-            v37 = *(this + 71);
-            if (v20)
+            v27 = v21 != 0;
+            v30 = *(this + 71);
+            if (v21)
             {
-              v38 = (v37 + 4 * v20);
-              v39 = (*(this + 73) + 4 * v20);
+              v31 = (v30 + 4 * v21);
+              v32 = (*(this + 73) + 4 * v21);
             }
 
             else
             {
-              v38 = (v37 + 4);
-              v39 = (*(this + 73) + 4 * (*(this + 148) - 1));
+              v31 = (v30 + 4);
+              v32 = (*(this + 73) + 4 * (*(this + 148) - 1));
             }
 
-            v35 = *v38;
-            v36 = *v39;
+            v28 = *v31;
+            v29 = *v32;
           }
         }
 
-        v40 = *(*(this + 17) + 4 * v20);
-        if (v40 > 3 || v40 == 1)
+        v33 = *(*(this + 17) + 4 * v21);
+        if (v33 > 3 || v33 == 1)
         {
-          v42 = 0;
-          v41 = 0;
-          v99 = -1.0;
+          v35 = 0;
+          v34 = 0;
+          v71 = -1.0;
         }
 
         else
         {
-          v99 = -1.0;
-          v41 = *(this + 24);
-          v42 = a6;
+          v71 = -1.0;
+          v34 = *(this + 24);
+          v35 = a6;
         }
 
-        v43 = v17;
-        if (v33)
+        v36 = v18;
+        if (v26)
         {
-          v43 = v17;
-          if ((v17 & 1) == 0)
+          v36 = v18;
+          if ((v18 & 1) == 0)
           {
-            v43 = v20 != *(this + 140);
+            v36 = v21 != *(this + 140);
           }
         }
 
-        v44 = LanguageModel::CreateAndLoadLanguageModel(a3, a4, a5, v42, (v41 & 1), v95, v33, v43, *(this + 8), v91, *(this + 2), v34, v35, v36, a12, a13, a14, &v99);
-        v45 = v44;
-        if (v20)
+        v37 = LanguageModel::CreateAndLoadLanguageModel(a3, a4, a5, v35, (v34 & 1), a7, v26, v36, *(this + 8), v63, *(this + 2), v27, v28, v29, a13, a15, a16, &v71);
+        v38 = v37;
+        if (v21)
         {
           if (a2)
           {
@@ -2436,165 +2333,159 @@ LABEL_17:
           }
 
 LABEL_42:
-          if ((*(*v45 + 608))(v45))
+          if ((*(*v38 + 608))(v38))
           {
-            v97[0].n128_u64[0] = 0;
-            v98 = 0;
-            (*(*v45 + 616))(v45, v97, &v98 + 4, &v98);
+            v69[0].n128_u64[0] = 0;
+            v70 = 0;
+            (*(*v38 + 616))(v38, v69, &v70 + 4, &v70);
             if (*(this + 152))
             {
-              if (!DgnArray<DgnString>::operator==(this + 168, v97[0].n128_u64[0]) || __PAIR64__(*(this + 39), *(this + 40)) != v98)
+              if (!DgnArray<DgnString>::operator==(this + 168, v69[0].n128_u64[0]) || __PAIR64__(*(this + 39), *(this + 40)) != v70)
               {
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3188, "lm/multilm", 51, "%s", v47, v48, &errStr_lm_multilm_E_NAMED_WEIGHTS_MISMATCH);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3188, "lm/multilm", 51, "%s", &errStr_lm_multilm_E_NAMED_WEIGHTS_MISMATCH);
               }
             }
 
             else
             {
               *(this + 152) = 1;
-              DgnArray<DgnString>::copyArraySlice(this + 168, v97[0].n128_u64[0], 0, *(v97[0].n128_u64[0] + 8));
-              v49 = v98;
-              *(this + 39) = HIDWORD(v98);
-              *(this + 40) = v49;
+              DgnArray<DgnString>::copyArraySlice(this + 168, v69[0].n128_u64[0], 0, *(v69[0].n128_u64[0] + 8));
+              v40 = v70;
+              *(this + 39) = HIDWORD(v70);
+              *(this + 40) = v40;
               if (*(this + 44))
               {
-                v50 = 0;
+                v41 = 0;
                 do
                 {
                   IdMgr<unsigned int>::getNextId(this + 58);
-                  ++v50;
+                  ++v41;
                 }
 
-                while (v50 < *(this + 44));
+                while (v41 < *(this + 44));
               }
             }
           }
 
-          v51 = *v45;
-          v52 = **v45;
-          v54 = *v51;
-          if (v53)
           {
-            v62 = *(*(this + 17) + 4 * v20);
-            if (v62 >= 3)
+            v44 = *(*(this + 17) + 4 * v21);
+            if (v44 >= 3)
             {
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3204, "lm/multilm", 21, "%u", v59, v60, v20);
-              v62 = *(*(this + 17) + 4 * v20);
+              v43.n128_f64[0] = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3204, "lm/multilm", 21, "%u", v21);
+              v44 = *(*(this + 17) + 4 * v21);
             }
 
-            if (v62 == 1)
+            if (v44 == 1)
             {
-              if (a15)
+              if (a17)
               {
-                (*(*v61 + 704))(v61);
-                WordDummySpec::WordDummySpec(v97);
-                WordLanguageModel::fillInWordDummySpec(v61, v97);
-                v31 = MemChunkAlloc(0x20uLL, 0);
-                WordNgramBuildSpec::WordNgramBuildSpec(v31, v97);
-                *v63 = v99;
+                (*(*v42 + 704))(v42, v43);
+                WordDummySpec::WordDummySpec(v69);
+                WordLanguageModel::fillInWordDummySpec(v42, v69);
+                v24 = MemChunkAlloc(0x20uLL, 0);
+                WordNgramBuildSpec::WordNgramBuildSpec(v24, v69);
+                *v45 = v71;
               }
 
               else
               {
-                WordLanguageModel::verifyConsistentWithWordNgramBuildSpec(v61, v31, v55, v56, v57, v58, v59, v60);
+                WordLanguageModel::verifyConsistentWithWordNgramBuildSpec(v42, v24);
               }
 
-              v22 = a15;
-              v17 = v92;
+              v23 = a17;
+              v18 = a8;
             }
 
             else
             {
-              v17 = v92;
-              v22 = a15;
+              v18 = a8;
+              v23 = a17;
             }
 
             goto LABEL_71;
           }
 
-          v65 = *v51;
-          if (v64)
           {
-            if (*(*(this + 17) + 4 * v20) != 3)
+            if (*(*(this + 17) + 4 * v21) != 3)
             {
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3232, "lm/multilm", 21, "%u", v66, v67, v20);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3232, "lm/multilm", 21, "%u", v21);
             }
 
             if (*(this + 112) == 1)
             {
-              v22 = a15;
-              if (v20 != *(this + 140))
+              v23 = a17;
+              if (v21 != *(this + 140))
               {
-                v17 = v92;
-                if (v68[114] == 1)
+                v18 = a8;
+                if (v46[114] == 1)
                 {
-                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3242, "lm/multilm", 97, "%s", v66, v67, &errStr_lm_multilm_E_NO_INTERPOLATED_IN_NON_DEFAULT_DISPATCH);
+                  errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3242, "lm/multilm", 97, "%s", &errStr_lm_multilm_E_NO_INTERPOLATED_IN_NON_DEFAULT_DISPATCH);
                 }
 
                 goto LABEL_71;
               }
 
 LABEL_70:
-              v17 = v92;
+              v18 = a8;
 LABEL_71:
-              v21 = 1;
+              v22 = 1;
               goto LABEL_72;
             }
           }
 
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3248, "lm/multilm", 21, "%u", v69, v70, v20);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3248, "lm/multilm", 21, "%u", v21);
           }
 
-          v22 = a15;
+          v23 = a17;
           goto LABEL_70;
         }
 
-        v46 = *(v44 + 8);
-        *(this + 8) = v46;
-        CombineTable::initCombineTable(this + 704, v46);
+        v39 = *(v37 + 8);
+        *(this + 8) = v39;
+        CombineTable::initCombineTable(this + 704, v39);
         if ((a2 & 1) == 0)
         {
           goto LABEL_42;
         }
 
 LABEL_38:
-        if (v31 && v22)
+        if (v24 && v23)
         {
-          *v31 = *&v99;
+          *v24 = *&v71;
         }
 
         goto LABEL_71;
       }
 
-      v45 = 0;
+      v38 = 0;
 LABEL_72:
-      if (v94 && *(*(this + 17) + 4 * v20) == 1)
+      if (v66 && *(*(this + 17) + 4 * v21) == 1)
       {
-        v31 = MemChunkAlloc(0x20uLL, 0);
-        WordNgramBuildSpec::WordNgramBuildSpec(v31, (*(this + 36) + 32 * v20));
+        v24 = MemChunkAlloc(0x20uLL, 0);
+        WordNgramBuildSpec::WordNgramBuildSpec(v24, (*(this + 36) + 32 * v21));
       }
 
-      v71 = *(this + 12);
-      if (v71 == *(this + 13))
+      v47 = *(this + 12);
+      if (v47 == *(this + 13))
       {
         DgnPrimArray<unsigned long long>::reallocElts(this + 40, 1, 1);
-        v71 = *(this + 12);
+        v47 = *(this + 12);
       }
 
-      *(*(this + 5) + 8 * v71) = v45;
-      *(this + 12) = v71 + 1;
+      *(*(this + 5) + 8 * v47) = v38;
+      *(this + 12) = v47 + 1;
       if ((*(this + 112) & 1) == 0)
       {
-        v72 = *(this + 78);
-        if (v72 == *(this + 79))
+        v48 = *(this + 78);
+        if (v48 == *(this + 79))
         {
           DgnPrimArray<unsigned long long>::reallocElts(this + 304, 1, 1);
-          v72 = *(this + 78);
+          v48 = *(this + 78);
         }
 
-        *(*(this + 38) + 8 * v72) = v31;
-        *(this + 78) = v72 + 1;
+        *(*(this + 38) + 8 * v48) = v24;
+        *(this + 78) = v48 + 1;
       }
 
       DFile::popCurrentSubDirComponent(a3);
@@ -2603,232 +2494,238 @@ LABEL_72:
         DFile::popCurrentSubDirComponent(a4);
       }
 
-      if (++v20 >= *(this + 29))
+      if (++v21 >= *(this + 29))
       {
         goto LABEL_87;
       }
     }
 
-    v31 = 0;
+    v24 = 0;
     goto LABEL_17;
   }
 
-  v21 = 0;
+  v22 = 0;
 LABEL_87:
-  v73 = *(this + 36);
-  if (v73)
+  v49 = *(this + 36);
+  if (v49)
   {
-    MemChunkFree(v73, 0);
+    MemChunkFree(v49, 0);
     *(this + 36) = 0;
   }
 
-  v74 = a2;
+  v50 = a2;
   *(this + 37) = 0;
-  if ((v21 & 1) == 0)
+  if ((v22 & 1) == 0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3286, "lm/multilm", 31, "%s", a7, a8, &errStr_lm_multilm_E_NO_SUB_LANGUAGE_MODELS);
+    a9.n128_f64[0] = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3286, "lm/multilm", 31, "%s", &errStr_lm_multilm_E_NO_SUB_LANGUAGE_MODELS);
   }
 
   if ((*(this + 112) & 1) == 0 && *(this + 29))
   {
-    v75 = 0;
+    v51 = 0;
     do
     {
-      if ((v74 & 1) == 0)
+      if ((v50 & 1) == 0)
       {
         if (*(this + 113) == 1)
         {
-          v76 = *(this + 126);
-          if (v76 == *(this + 127))
+          v52 = *(this + 126);
+          if (v52 == *(this + 127))
           {
             DgnPrimArray<unsigned long long>::reallocElts(this + 496, 1, 1);
-            v76 = *(this + 126);
+            v52 = *(this + 126);
           }
 
-          *(*(this + 62) + 8 * v76) = 0;
-          v77 = this + 504;
+          *(*(this + 62) + 8 * v52) = 0;
+          v53 = this + 504;
         }
 
         else
         {
-          v78 = *(this + 98);
-          if (v78 == *(this + 99))
+          v54 = *(this + 98);
+          if (v54 == *(this + 99))
           {
             DgnPrimArray<unsigned long long>::reallocElts(this + 384, 1, 1);
-            v78 = *(this + 98);
+            v54 = *(this + 98);
           }
 
-          *(*(this + 48) + 8 * v78) = 0;
-          *(this + 98) = v78 + 1;
-          v79 = *(this + 118);
-          if (v79 == *(this + 119))
+          *(*(this + 48) + 8 * v54) = 0;
+          *(this + 98) = v54 + 1;
+          v55 = *(this + 118);
+          if (v55 == *(this + 119))
           {
             DgnPrimArray<short>::reallocElts(this + 464, 1, 1);
-            v79 = *(this + 118);
+            v55 = *(this + 118);
           }
 
-          *(*(this + 58) + 2 * v79) = 2000;
-          *(this + 118) = v79 + 1;
-          v80 = *(*(this + 54) + 8 * v75);
-          if (v80 == -1.0)
+          *(*(this + 58) + 2 * v55) = 2000;
+          *(this + 118) = v55 + 1;
+          a9.n128_u64[0] = *(*(this + 54) + 8 * v51);
+          if (a9.n128_f64[0] == -1.0)
           {
-            LOWORD(v81) = 20000;
+            LOWORD(v56) = 20000;
           }
 
-          else if (v80 == 0.0)
+          else if (a9.n128_f64[0] == 0.0)
           {
-            LOWORD(v81) = 2000;
+            LOWORD(v56) = 2000;
           }
 
           else
           {
-            v82 = DgnLog(v80);
-            LODWORD(v83) = *(this + 8);
-            v81 = (0.5 - v82 * v83);
+            a9.n128_f64[0] = DgnLog(a9.n128_f64[0]);
+            LODWORD(v57) = *(this + 8);
+            a9.n128_f64[0] = 0.5 - a9.n128_f64[0] * v57;
+            v56 = a9.n128_f64[0];
           }
 
-          v76 = *(this + 122);
-          if (v76 == *(this + 123))
+          v52 = *(this + 122);
+          if (v52 == *(this + 123))
           {
             DgnPrimArray<short>::reallocElts(this + 480, 1, 1);
-            v76 = *(this + 122);
+            v52 = *(this + 122);
           }
 
-          *(*(this + 60) + 2 * v76) = v81;
-          v77 = this + 488;
+          *(*(this + 60) + 2 * v52) = v56;
+          v53 = this + 488;
         }
 
-        *v77 = v76 + 1;
+        *v53 = v52 + 1;
       }
 
-      ++v75;
+      ++v51;
     }
 
-    while (v75 < *(this + 29));
+    while (v51 < *(this + 29));
   }
 
   if (!*(this + 7))
   {
     if (*(this + 152) == 1)
     {
-      (*(*this + 624))(this);
+      (*(*this + 624))(this, a9);
     }
 
     MultiLanguageModel::getFactoryCorrectiveLmNames(this, this + 20);
     MultiLanguageModel::getTopicLmSlotNames(this, this + 24);
     if (*(this + 26))
     {
-      v84 = 0;
-      v85 = 0;
+      v58 = 0;
+      v59 = 0;
       do
       {
-        v86 = DgnArray<DgnString>::find(this + 20, *(this + 12) + v84);
-        if (v86 != -1)
+        v60 = DgnArray<DgnString>::find(this + 20, *(this + 12) + v58);
+        if (v60 != -1)
         {
-          v89 = (*(this + 12) + v84);
-          if (*(v89 + 2))
+          v61 = *(this + 12) + v58;
+          if (*(v61 + 8))
           {
-            v90 = *v89;
+            v62 = *v61;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3337, "lm/multilm", 94, "%u %u %.500s", v87, v88, v86);
+          else
+          {
+            v62 = &unk_26288BEF0;
+          }
+
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3337, "lm/multilm", 94, "%u %u %.500s", v60, v59, v62);
         }
 
-        ++v85;
-        v84 += 16;
+        ++v59;
+        v58 += 16;
       }
 
-      while (v85 < *(this + 26));
+      while (v59 < *(this + 26));
     }
   }
 }
 
-void MultiLanguageModel::loadMultiText(uint64_t a1, uint64_t a2, int a3, uint64_t a4, BOOL *a5)
+void MultiLanguageModel::loadMultiText(uint64_t a1, FileSpec **a2, int a3, uint64_t a4, BOOL *a5)
 {
-  DgnTextFileParser::DgnTextFileParser(v232);
-  v219 = a2;
-  DgnTextFileParser::openDgnTextFileParser(v232, a2, 0x29u, 1);
-  DgnTextFileParser::verifyMatchingFileType(v232, "MultiLanguageModelSpec");
-  v230 = 0;
-  v231 = 0;
-  DgnTextFile::legalDgnTextFileVersions(v232, sMLS_Versions, &v230, v8, v9, v10, v11, v12);
-  DgnTextFileParser::verifyFileVersionInRange(v232, &v230, v13, v14, v15, v16, v17, v18);
-  DgnIArray<Utterance *>::~DgnIArray(&v230);
-  FileVersion = DgnTextFile::getFileVersion(v232);
-  v212 = a4;
-  if (v233)
+  DgnTextFileParser::DgnTextFileParser(v173);
+  v160 = a2;
+  DgnTextFileParser::openDgnTextFileParser(v173, a2, 41, 1);
+  DgnTextFileParser::verifyMatchingFileType(v173, "MultiLanguageModelSpec");
+  v171 = 0;
+  v172 = 0;
+  DgnTextFile::legalDgnTextFileVersions(v173, sMLS_Versions, &v171);
+  DgnTextFileParser::verifyFileVersionInRange(v173, &v171);
+  DgnIArray<Utterance *>::~DgnIArray(&v171);
+  FileVersion = DgnTextFile::getFileVersion(v173);
+  v153 = a4;
+  if (v174)
   {
-    LOBYTE(v20) = v232[32];
+    v9 = v173[4];
   }
 
   else
   {
-    v20 = &unk_26288BEF0;
+    v9 = &unk_26288BEF0;
   }
 
-  v220 = v20;
-  DgnString::DgnString(&v230);
-  DgnTextFile::getHeaderField(v232, "MultiLMType", &v230, 1);
-  if (v231)
+  v161 = v9;
+  DgnString::DgnString(&v171);
+  DgnTextFile::getHeaderField(v173, "MultiLMType", &v171, 1);
+  if (v172)
   {
-    v21 = v230;
+    v10 = v171;
   }
 
   else
   {
-    v21 = &unk_26288BEF0;
+    v10 = &unk_26288BEF0;
   }
 
-  v22 = strcmp(v21, "Dispatch");
-  *(a1 + 112) = v22 == 0;
-  v23 = strcmp(v21, "LogLinear");
-  *(a1 + 113) = v23 == 0;
-  v24 = strcmp(v21, "InterpolatedLinear");
-  *(a1 + 114) = v24 == 0;
-  if (v22 && v23 && v24)
+  v11 = strcmp(v10, "Dispatch");
+  *(a1 + 112) = v11 == 0;
+  v12 = strcmp(v10, "LogLinear");
+  *(a1 + 113) = v12 == 0;
+  v13 = strcmp(v10, "InterpolatedLinear");
+  *(a1 + 114) = v13 == 0;
+  if (v11 && v12 && v13)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2416, "lm/multilm", 66, "%.500s %.500s", v25, v26, v220);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2416, "lm/multilm", 66, "%.500s %.500s", v161, v10);
   }
 
-  DgnString::~DgnString(&v230);
+  DgnString::~DgnString(&v171);
   if (*(a1 + 112) == 1 && *(a1 + 28))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2420, "lm/multilm", 67, "%.500s", v27, v28, v220);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2420, "lm/multilm", 67, "%.500s", v161);
   }
 
-  v29 = HIDWORD(FileVersion);
+  v14 = HIDWORD(FileVersion);
   *(a1 + 152) = (a3 ^ 1) & *(a1 + 114);
-  v30 = "PrefiltererPerWordPenalty";
+  v15 = "PrefiltererPerWordPenalty";
   if (FileVersion == 19)
   {
-    v31 = v29 == 5;
-    if (v31)
+    v16 = v14 == 5;
+    if (v16)
     {
-      v30 = "TreeLMPerWordPenalty";
+      v15 = "TreeLMPerWordPenalty";
     }
   }
 
   else
   {
-    v31 = FileVersion == 22 && v29 == 6;
+    v16 = FileVersion == 22 && v14 == 6;
   }
 
-  *a5 = v31;
-  DgnTextFile::getHeaderFieldUnsigned(v232, "NumberOfSubDirectories", (a1 + 116), 1, 1u, 0x3E8u);
-  DgnTextFile::getHeaderFieldUnsigned(v232, "NumberOfFactoryWeightsNames", (a1 + 156), 1, 0, 0x3E8u);
-  v229 = 0;
-  DgnTextFile::getHeaderFieldUnsigned(v232, "NumberOfClientWeightsNames", &v229, 1, 0, 0x3E8u);
-  v34 = v229 + *(a1 + 156);
-  *(a1 + 160) = v34;
-  if (a3 && v34)
+  *a5 = v16;
+  DgnTextFile::getHeaderFieldUnsigned(v173, "NumberOfSubDirectories", (a1 + 116), 1, 1u, 0x3E8u);
+  DgnTextFile::getHeaderFieldUnsigned(v173, "NumberOfFactoryWeightsNames", (a1 + 156), 1, 0, 0x3E8u);
+  v170 = 0;
+  DgnTextFile::getHeaderFieldUnsigned(v173, "NumberOfClientWeightsNames", &v170, 1, 0, 0x3E8u);
+  v17 = v170 + *(a1 + 156);
+  *(a1 + 160) = v17;
+  if (a3 && v17)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2441, "lm/multilm", 76, "%.500s", v32, v33, v220);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2441, "lm/multilm", 76, "%.500s", v161);
   }
 
-  HeaderField = DgnTextFile::getHeaderField(v232, "RecentBufferLMPath", (a1 + 120), 0);
-  if (!DFile::subFileExists(v219, 0x4Au))
+  HeaderField = DgnTextFile::getHeaderField(v173, "RecentBufferLMPath", (a1 + 120), 0);
+  if (!DFile::subFileExists(v160, 0x4Au))
   {
-    if (HeaderField == DFile::subFileExists(v219, 0x49u))
+    if (HeaderField == DFile::subFileExists(v160, 0x49u))
     {
       goto LABEL_29;
     }
@@ -2839,624 +2736,674 @@ void MultiLanguageModel::loadMultiText(uint64_t a1, uint64_t a2, int a3, uint64_
   if ((HeaderField & 1) == 0)
   {
 LABEL_28:
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2451, "lm/multilm", 54, "%s", v41, v42, &errStr_lm_multilm_E_RECENT_BUFFER_MISMATCH);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2451, "lm/multilm", 54, "%s", &errStr_lm_multilm_E_RECENT_BUFFER_MISMATCH);
   }
 
 LABEL_29:
-  DgnTextFileParser::verifyNoUnknownHeaderFields(v232, v36, v37, v38, v39, v40, v41, v42);
-  v230 = 0;
-  v231 = 0;
-  DgnTextFile::getLineFieldNames(v232, &v230);
-  v215 = v30;
-  v228[0] = 0;
-  v228[1] = 0;
-  DgnTextFile::getLineFieldFormats(v232, v228);
-  DgnTextFileParser::verifyMatchingNumFieldSpecs(v232, 6, v43, v44, v45, v46, v47, v48);
-  v49 = v230;
-  if (*(v230 + 2))
+  DgnTextFileParser::verifyNoUnknownHeaderFields(v173);
+  v171 = 0;
+  v172 = 0;
+  DgnTextFile::getLineFieldNames(v173, &v171);
+  v156 = v15;
+  v169[0] = 0;
+  v169[1] = 0;
+  DgnTextFile::getLineFieldFormats(v173, v169);
+  DgnTextFileParser::verifyMatchingNumFieldSpecs(v173, 6);
+  v19 = v171;
+  if (*(v171 + 8))
   {
-    v50 = *v230;
+    v20 = *v171;
   }
 
   else
   {
-    v50 = &unk_26288BEF0;
+    v20 = &unk_26288BEF0;
   }
 
-  if (strcmp(v50, "TableName"))
+  if (strcmp(v20, "TableName"))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2481, "lm/multilm", 5, "%.500s %.500s %.500s", v51, v52, v220);
-    v49 = v230;
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2481, "lm/multilm", 5, "%.500s %.500s %.500s", v161, "TableName", v20);
+    v19 = v171;
   }
 
-  if (*v228[0])
+  if (*v169[0])
   {
-    if (*(v49 + 2))
+    if (*(v19 + 8))
     {
-      v53 = *v49;
-    }
-
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2484, "lm/multilm", 6, "%.500s %.500s %.500s", v51, v52, v220);
-    v49 = v230;
-  }
-
-  if (*(v49 + 6))
-  {
-    v54 = *(v49 + 2);
-  }
-
-  else
-  {
-    v54 = &unk_26288BEF0;
-  }
-
-  if (strcmp(v54, "WeightsName"))
-  {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2489, "lm/multilm", 5, "%.500s %.500s %.500s", v55, v56, v220);
-    v49 = v230;
-  }
-
-  if (*(v228[0] + 4))
-  {
-    if (*(v49 + 6))
-    {
-      v57 = *(v49 + 2);
-    }
-
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2492, "lm/multilm", 6, "%.500s %.500s %.500s", v55, v56, v220);
-    v49 = v230;
-  }
-
-  if (*(v49 + 10))
-  {
-    v58 = *(v49 + 4);
-  }
-
-  else
-  {
-    v58 = &unk_26288BEF0;
-  }
-
-  if (strcmp(v58, "SubDirectory"))
-  {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2497, "lm/multilm", 5, "%.500s %.500s %.500s", v59, v60, v220);
-    v49 = v230;
-  }
-
-  if (*(v228[0] + 8))
-  {
-    if (*(v49 + 10))
-    {
-      v61 = *(v49 + 4);
-    }
-
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2500, "lm/multilm", 6, "%.500s %.500s %.500s", v59, v60, v220);
-    v49 = v230;
-  }
-
-  if (*(v49 + 14))
-  {
-    v62 = *(v49 + 6);
-  }
-
-  else
-  {
-    v62 = &unk_26288BEF0;
-  }
-
-  if (strcmp(v62, "IntValue"))
-  {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2505, "lm/multilm", 5, "%.500s %.500s %.500s", v63, v64, v220);
-    v49 = v230;
-  }
-
-  if (*(v228[0] + 12) != 1)
-  {
-    if (*(v49 + 14))
-    {
-      v65 = *(v49 + 6);
-    }
-
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2508, "lm/multilm", 6, "%.500s %.500s %.500s", v63, v64, v220);
-    v49 = v230;
-  }
-
-  if (*(v49 + 18))
-  {
-    v66 = *(v49 + 8);
-  }
-
-  else
-  {
-    v66 = &unk_26288BEF0;
-  }
-
-  if (strcmp(v66, "RealValue"))
-  {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2513, "lm/multilm", 5, "%.500s %.500s %.500s", v67, v68, v220);
-    v49 = v230;
-  }
-
-  if (*(v228[0] + 16) != 2)
-  {
-    if (*(v49 + 18))
-    {
-      v69 = *(v49 + 8);
-    }
-
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2516, "lm/multilm", 6, "%.500s %.500s %.500s", v67, v68, v220);
-    v49 = v230;
-  }
-
-  if (*(v49 + 22))
-  {
-    v70 = *(v49 + 10);
-  }
-
-  else
-  {
-    v70 = &unk_26288BEF0;
-  }
-
-  if (strcmp(v70, "StrValue"))
-  {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2521, "lm/multilm", 5, "%.500s %.500s %.500s", v71, v72, v220);
-  }
-
-  if (*(v228[0] + 20))
-  {
-    if (*(v230 + 22))
-    {
-      v73 = *(v230 + 10);
-    }
-
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2524, "lm/multilm", 6, "%.500s %.500s %.500s", v71, v72, v220);
-  }
-
-  v227[0] = 0;
-  v227[1] = 0;
-  MultiLanguageModel::loadStringTable(a1, v227, "SlotType", v232, 0, 1u, 2u, 3u, 4u, 5u);
-  if (*(a1 + 113) == 1)
-  {
-    v76 = (a1 + 512);
-    MultiLanguageModel::loadStringTable(a1, a1 + 512, "CorrectiveName", v232, 0, 1u, 2u, 3u, 4u, 5u);
-    if (*(a1 + 116))
-    {
-      v77 = 0;
-      for (i = 0; i < *(a1 + 116); ++i)
-      {
-        v79 = *(v227[0] + v77);
-        if (*(v227[0] + v77 + 8))
-        {
-          v80 = *(v227[0] + v77);
-        }
-
-        else
-        {
-          v80 = &unk_26288BEF0;
-        }
-
-        v81 = strcmp(v80, "FactoryCorrectiveWord");
-        v82 = *v76;
-        if (v81)
-        {
-          if (*(v82 + v77 + 8) >= 2u)
-          {
-            goto LABEL_97;
-          }
-        }
-
-        else
-        {
-          v83 = v82 + v77;
-          if (*(v83 + 8))
-          {
-            v84 = *v83;
-          }
-
-          else
-          {
-            v84 = &unk_26288BEF0;
-          }
-
-          if ((isValidName(v84) & 1) == 0)
-          {
-            v82 = *v76;
-LABEL_97:
-            v85 = (v82 + v77);
-            if (*(v85 + 2))
-            {
-              v86 = *v85;
-            }
-
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2558, "lm/multilm", 87, "%.500s %u %.500s", v74, v75, v220);
-          }
-        }
-
-        v77 += 16;
-      }
-    }
-  }
-
-  if ((*(a1 + 112) & 1) == 0)
-  {
-    MultiLanguageModel::loadStringTable(a1, a1 + 352, "TopicName", v232, 0, 1u, 2u, 3u, 4u, 5u);
-    if (*(a1 + 116))
-    {
-      v87 = 0;
-      for (j = 0; j < *(a1 + 116); ++j)
-      {
-        v89 = *(v227[0] + v87);
-        if (*(v227[0] + v87 + 8))
-        {
-          v90 = *(v227[0] + v87);
-        }
-
-        else
-        {
-          v90 = &unk_26288BEF0;
-        }
-
-        v91 = strcmp(v90, "TopicWord");
-        v92 = *(a1 + 352);
-        if (v91)
-        {
-          if (*(v92 + v87 + 8) >= 2u)
-          {
-            goto LABEL_115;
-          }
-        }
-
-        else
-        {
-          v93 = v92 + v87;
-          if (*(v93 + 8))
-          {
-            v94 = *v93;
-          }
-
-          else
-          {
-            v94 = &unk_26288BEF0;
-          }
-
-          if ((isValidName(v94) & 1) == 0)
-          {
-            v92 = *(a1 + 352);
-LABEL_115:
-            v95 = (v92 + v87);
-            if (*(v95 + 2))
-            {
-              v96 = *v95;
-            }
-
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2580, "lm/multilm", 91, "%.500s %u %.500s", v74, v75, v220);
-          }
-        }
-
-        v87 += 16;
-      }
-    }
-  }
-
-  if ((*(a1 + 112) & 1) == 0)
-  {
-    v97 = 320;
-    if (*a5)
-    {
-      v97 = 368;
-      v98 = "TemplateLMPath";
+      v21 = *v19;
     }
 
     else
     {
-      v98 = "TemplatePath";
+      v21 = &unk_26288BEF0;
     }
 
-    MultiLanguageModel::loadStringTable(a1, a1 + v97, v98, v232, 0, 1u, 2u, 3u, 4u, 5u);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2484, "lm/multilm", 6, "%.500s %.500s %.500s", v161, v21, "String");
+    v19 = v171;
   }
 
-  v225 = 0;
-  v226 = 0;
-  if (*(a1 + 114) == 1)
+  if (*(v19 + 24))
   {
-    MultiLanguageModel::loadRealTable(a1, a1 + 400, 0, "WeightFloor", v232, 0, 1u, 2u, 0.0, 0.0, 1.0, 3u, 4u, 5u);
-    MultiLanguageModel::loadRealTable(a1, a1 + 416, 0, "WeightCeiling", v232, 0, 1u, 2u, 0.0, 0.0, 1.0, 3u, 4u, 5u);
-    MultiLanguageModel::loadRealTable(a1, a1 + 432, 0, "PrefiltererFixedWeight", v232, 0, 1u, 2u, -1.0, 0.0, 1.0, 3u, 4u, 5u);
-    MultiLanguageModel::loadRealTable(a1, &v225, 0, "CurrentWeight", v232, 0, 1u, 2u, 0.0, 0.0, 1.0, 3u, 4u, 5u);
-    if (*(a1 + 114) == 1)
+    v22 = *(v19 + 16);
+  }
+
+  else
+  {
+    v22 = &unk_26288BEF0;
+  }
+
+  if (strcmp(v22, "WeightsName"))
+  {
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2489, "lm/multilm", 5, "%.500s %.500s %.500s", v161, "WeightsName", v22);
+    v19 = v171;
+  }
+
+  if (*(v169[0] + 4))
+  {
+    if (*(v19 + 24))
     {
-      MultiLanguageModel::loadRealTable(a1, a1 + 448, 0, "DefaultTopicWeight", v232, 0, 1u, 2u, 0.0, 0.0, 1.0, 3u, 4u, 5u);
+      v23 = *(v19 + 16);
     }
-  }
 
-  v99 = *(a1 + 160);
-  v100 = *(a1 + 180);
-  if (v99 > v100)
-  {
-    DgnArray<DgnPrimArray<double>>::reallocElts(a1 + 168, v99 - v100, 0);
-  }
-
-  v101 = *(a1 + 176);
-  v102 = v101;
-  if (v99 >= v101)
-  {
-    if (v99 > v101)
+    else
     {
-      v104 = v99 - v101;
-      v105 = 16 * v101;
-      do
+      v23 = &unk_26288BEF0;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2492, "lm/multilm", 6, "%.500s %.500s %.500s", v161, v23, "String");
+    v19 = v171;
+  }
+
+  if (*(v19 + 40))
+  {
+    v24 = *(v19 + 32);
+  }
+
+  else
+  {
+    v24 = &unk_26288BEF0;
+  }
+
+  if (strcmp(v24, "SubDirectory"))
+  {
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2497, "lm/multilm", 5, "%.500s %.500s %.500s", v161, "SubDirectory", v24);
+    v19 = v171;
+  }
+
+  if (*(v169[0] + 8))
+  {
+    if (*(v19 + 40))
+    {
+      v25 = *(v19 + 32);
+    }
+
+    else
+    {
+      v25 = &unk_26288BEF0;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2500, "lm/multilm", 6, "%.500s %.500s %.500s", v161, v25, "String");
+    v19 = v171;
+  }
+
+  if (*(v19 + 56))
+  {
+    v26 = *(v19 + 48);
+  }
+
+  else
+  {
+    v26 = &unk_26288BEF0;
+  }
+
+  if (strcmp(v26, "IntValue"))
+  {
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2505, "lm/multilm", 5, "%.500s %.500s %.500s", v161, "IntValue", v26);
+    v19 = v171;
+  }
+
+  if (*(v169[0] + 12) != 1)
+  {
+    if (*(v19 + 56))
+    {
+      v27 = *(v19 + 48);
+    }
+
+    else
+    {
+      v27 = &unk_26288BEF0;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2508, "lm/multilm", 6, "%.500s %.500s %.500s", v161, v27, "Integer");
+    v19 = v171;
+  }
+
+  if (*(v19 + 72))
+  {
+    v28 = *(v19 + 64);
+  }
+
+  else
+  {
+    v28 = &unk_26288BEF0;
+  }
+
+  if (strcmp(v28, "RealValue"))
+  {
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2513, "lm/multilm", 5, "%.500s %.500s %.500s", v161, "RealValue", v28);
+    v19 = v171;
+  }
+
+  if (*(v169[0] + 16) != 2)
+  {
+    if (*(v19 + 72))
+    {
+      v29 = *(v19 + 64);
+    }
+
+    else
+    {
+      v29 = &unk_26288BEF0;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2516, "lm/multilm", 6, "%.500s %.500s %.500s", v161, v29, "Real");
+    v19 = v171;
+  }
+
+  if (*(v19 + 88))
+  {
+    v30 = *(v19 + 80);
+  }
+
+  else
+  {
+    v30 = &unk_26288BEF0;
+  }
+
+  if (strcmp(v30, "StrValue"))
+  {
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2521, "lm/multilm", 5, "%.500s %.500s %.500s", v161, "StrValue", v30);
+  }
+
+  if (*(v169[0] + 20))
+  {
+    if (*(v171 + 88))
+    {
+      v31 = *(v171 + 80);
+    }
+
+    else
+    {
+      v31 = &unk_26288BEF0;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2524, "lm/multilm", 6, "%.500s %.500s %.500s", v161, v31, "String");
+  }
+
+  v168[0] = 0;
+  v168[1] = 0;
+  MultiLanguageModel::loadStringTable(a1, v168, "SlotType", v173, 0, 1u, 2u, 3u, 4u, 5u);
+  if (*(a1 + 113) == 1)
+  {
+    v32 = (a1 + 512);
+    MultiLanguageModel::loadStringTable(a1, a1 + 512, "CorrectiveName", v173, 0, 1u, 2u, 3u, 4u, 5u);
+    if (*(a1 + 116))
+    {
+      v33 = 0;
+      v34 = 0;
+      while (1)
       {
-        DgnString::DgnString((*(a1 + 168) + v105));
-        v105 += 16;
-        --v104;
+        v35 = *(v168[0] + v33 + 8) ? *(v168[0] + v33) : &unk_26288BEF0;
+        v36 = strcmp(v35, "FactoryCorrectiveWord");
+        v37 = *v32;
+        if (!v36)
+        {
+          break;
+        }
+
+        if (*(v37 + v33 + 8) >= 2u)
+        {
+          goto LABEL_103;
+        }
+
+LABEL_107:
+        ++v34;
+        v33 += 16;
+        if (v34 >= *(a1 + 116))
+        {
+          goto LABEL_108;
+        }
       }
 
-      while (v104);
-    }
-  }
-
-  else if (v101 > v99)
-  {
-    v103 = 16 * v101 - 16;
-    do
-    {
-      --v102;
-      DgnString::~DgnString((*(a1 + 168) + v103));
-      v103 -= 16;
-    }
-
-    while (v102 > v99);
-  }
-
-  *(a1 + 176) = v99;
-  v106 = *(a1 + 160);
-  v107 = *(a1 + 196);
-  if (v106 > v107)
-  {
-    DgnArray<DgnPrimArray<double>>::reallocElts(a1 + 184, v106 - v107, 0);
-  }
-
-  v108 = *(a1 + 192);
-  if (v108 <= v106)
-  {
-    if (v108 < v106)
-    {
-      v111 = v106 - v108;
-      v112 = 16 * v108;
-      do
+      v38 = v37 + v33;
+      if (*(v38 + 8))
       {
-        v113 = (*(a1 + 184) + v112);
-        *v113 = 0;
-        v113[1] = 0;
-        v112 += 16;
-        --v111;
-      }
-
-      while (v111);
-    }
-  }
-
-  else if (v108 > v106)
-  {
-    v109 = v108;
-    v110 = 16 * v108 - 16;
-    do
-    {
-      --v109;
-      DgnPrimArray<unsigned int>::~DgnPrimArray(*(a1 + 184) + v110);
-      v110 -= 16;
-    }
-
-    while (v109 > v106);
-  }
-
-  *(a1 + 192) = v106;
-  if (*(a1 + 176))
-  {
-    v114 = 0;
-    do
-    {
-      IdMgr<unsigned int>::getNextId((a1 + 232));
-      if (v114 >= *(a1 + 156))
-      {
-        v115 = "ClientWeight";
+        v39 = *v38;
       }
 
       else
       {
-        v115 = "FactoryWeight";
+        v39 = &unk_26288BEF0;
       }
 
-      MultiLanguageModel::loadRealTable(a1, *(a1 + 184) + 16 * v114, (*(a1 + 168) + 16 * v114), v115, v232, 0, 1u, 2u, -1.0, 0.0, 1.0, 3u, 4u, 5u);
-      if (v114)
+      if (isValidName(v39))
       {
-        v116 = 0;
-        v117 = *(a1 + 168);
-        v118 = v117 + 16 * v114;
-        v119 = *(v118 + 8);
-        v120 = *v118;
-        if (v119)
+        goto LABEL_107;
+      }
+
+      v37 = *v32;
+LABEL_103:
+      v40 = v37 + v33;
+      if (*(v40 + 8))
+      {
+        v41 = *v40;
+      }
+
+      else
+      {
+        v41 = &unk_26288BEF0;
+      }
+
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2558, "lm/multilm", 87, "%.500s %u %.500s", v161, v34, v41);
+      goto LABEL_107;
+    }
+  }
+
+LABEL_108:
+  if ((*(a1 + 112) & 1) == 0)
+  {
+    MultiLanguageModel::loadStringTable(a1, a1 + 352, "TopicName", v173, 0, 1u, 2u, 3u, 4u, 5u);
+    if (*(a1 + 116))
+    {
+      v42 = 0;
+      v43 = 0;
+      while (1)
+      {
+        v44 = *(v168[0] + v42 + 8) ? *(v168[0] + v42) : &unk_26288BEF0;
+        v45 = strcmp(v44, "TopicWord");
+        v46 = *(a1 + 352);
+        if (!v45)
         {
-          v121 = v120;
+          break;
+        }
+
+        if (*(v46 + v42 + 8) >= 2u)
+        {
+          goto LABEL_122;
+        }
+
+LABEL_126:
+        ++v43;
+        v42 += 16;
+        if (v43 >= *(a1 + 116))
+        {
+          goto LABEL_127;
+        }
+      }
+
+      v47 = v46 + v42;
+      if (*(v47 + 8))
+      {
+        v48 = *v47;
+      }
+
+      else
+      {
+        v48 = &unk_26288BEF0;
+      }
+
+      if (isValidName(v48))
+      {
+        goto LABEL_126;
+      }
+
+      v46 = *(a1 + 352);
+LABEL_122:
+      v49 = v46 + v42;
+      if (*(v49 + 8))
+      {
+        v50 = *v49;
+      }
+
+      else
+      {
+        v50 = &unk_26288BEF0;
+      }
+
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2580, "lm/multilm", 91, "%.500s %u %.500s", v161, v43, v50);
+      goto LABEL_126;
+    }
+  }
+
+LABEL_127:
+  if ((*(a1 + 112) & 1) == 0)
+  {
+    v51 = 320;
+    if (*a5)
+    {
+      v51 = 368;
+      v52 = "TemplateLMPath";
+    }
+
+    else
+    {
+      v52 = "TemplatePath";
+    }
+
+    MultiLanguageModel::loadStringTable(a1, a1 + v51, v52, v173, 0, 1u, 2u, 3u, 4u, 5u);
+  }
+
+  v166 = 0;
+  v167 = 0;
+  if (*(a1 + 114) == 1)
+  {
+    MultiLanguageModel::loadRealTable(a1, a1 + 400, 0, "WeightFloor", v173, 0, 1u, 2u, 0.0, 0.0, 1.0, 3u, 4u, 5u);
+    MultiLanguageModel::loadRealTable(a1, a1 + 416, 0, "WeightCeiling", v173, 0, 1u, 2u, 0.0, 0.0, 1.0, 3u, 4u, 5u);
+    MultiLanguageModel::loadRealTable(a1, a1 + 432, 0, "PrefiltererFixedWeight", v173, 0, 1u, 2u, -1.0, 0.0, 1.0, 3u, 4u, 5u);
+    MultiLanguageModel::loadRealTable(a1, &v166, 0, "CurrentWeight", v173, 0, 1u, 2u, 0.0, 0.0, 1.0, 3u, 4u, 5u);
+    if (*(a1 + 114) == 1)
+    {
+      MultiLanguageModel::loadRealTable(a1, a1 + 448, 0, "DefaultTopicWeight", v173, 0, 1u, 2u, 0.0, 0.0, 1.0, 3u, 4u, 5u);
+    }
+  }
+
+  v53 = *(a1 + 160);
+  v54 = *(a1 + 180);
+  if (v53 > v54)
+  {
+    DgnArray<DgnPrimArray<double>>::reallocElts(a1 + 168, v53 - v54, 0);
+  }
+
+  v55 = *(a1 + 176);
+  v56 = v55;
+  if (v53 >= v55)
+  {
+    if (v53 > v55)
+    {
+      v58 = v53 - v55;
+      v59 = 16 * v55;
+      do
+      {
+        DgnString::DgnString((*(a1 + 168) + v59));
+        v59 += 16;
+        --v58;
+      }
+
+      while (v58);
+    }
+  }
+
+  else if (v55 > v53)
+  {
+    v57 = 16 * v55 - 16;
+    do
+    {
+      --v56;
+      DgnString::~DgnString(*(a1 + 168) + v57);
+      v57 -= 16;
+    }
+
+    while (v56 > v53);
+  }
+
+  *(a1 + 176) = v53;
+  v60 = *(a1 + 160);
+  v61 = *(a1 + 196);
+  if (v60 > v61)
+  {
+    DgnArray<DgnPrimArray<double>>::reallocElts(a1 + 184, v60 - v61, 0);
+  }
+
+  v62 = *(a1 + 192);
+  if (v62 <= v60)
+  {
+    if (v62 < v60)
+    {
+      v65 = v60 - v62;
+      v66 = 16 * v62;
+      do
+      {
+        v67 = (*(a1 + 184) + v66);
+        *v67 = 0;
+        v67[1] = 0;
+        v66 += 16;
+        --v65;
+      }
+
+      while (v65);
+    }
+  }
+
+  else if (v62 > v60)
+  {
+    v63 = v62;
+    v64 = 16 * v62 - 16;
+    do
+    {
+      --v63;
+      DgnPrimArray<unsigned int>::~DgnPrimArray(*(a1 + 184) + v64);
+      v64 -= 16;
+    }
+
+    while (v63 > v60);
+  }
+
+  *(a1 + 192) = v60;
+  if (*(a1 + 176))
+  {
+    v68 = 0;
+    do
+    {
+      IdMgr<unsigned int>::getNextId((a1 + 232));
+      if (v68 >= *(a1 + 156))
+      {
+        v69 = "ClientWeight";
+      }
+
+      else
+      {
+        v69 = "FactoryWeight";
+      }
+
+      MultiLanguageModel::loadRealTable(a1, *(a1 + 184) + 16 * v68, (*(a1 + 168) + 16 * v68), v69, v173, 0, 1u, 2u, -1.0, 0.0, 1.0, 3u, 4u, 5u);
+      if (v68)
+      {
+        v70 = 0;
+        v71 = *(a1 + 168);
+        v72 = v71 + 16 * v68;
+        v73 = *(v72 + 8);
+        v74 = *v72;
+        if (v73)
+        {
+          v75 = v74;
         }
 
         else
         {
-          v121 = &unk_26288BEF0;
+          v75 = &unk_26288BEF0;
         }
 
-        v122 = (v117 + 8);
+        v76 = (v71 + 8);
         while (1)
         {
-          v123 = *v122 ? *(v122 - 1) : &unk_26288BEF0;
-          if (!strcmp(v123, v121))
+          v77 = *v76 ? *(v76 - 1) : &unk_26288BEF0;
+          if (!strcmp(v77, v75))
           {
             break;
           }
 
-          ++v116;
-          v122 += 4;
-          if (v114 == v116)
+          ++v70;
+          v76 += 4;
+          if (v68 == v70)
           {
-            goto LABEL_165;
+            goto LABEL_173;
           }
         }
 
-        if (v116 != 0xFFFFFFFFLL)
+        if (v70 != 0xFFFFFFFFLL)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2663, "lm/multilm", 75, "%.500s %u %u %.500s", v74, v75, v220);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2663, "lm/multilm", 75, "%.500s %u %u %.500s", v161, v68, v70, v75);
         }
       }
 
-LABEL_165:
-      ++v114;
+LABEL_173:
+      ++v68;
     }
 
-    while (v114 < *(a1 + 176));
+    while (v68 < *(a1 + 176));
   }
 
   if (*(a1 + 113))
   {
-    MultiLanguageModel::loadRealTable(a1, &v225, 0, "LogLinearWeight", v232, 0, 1u, 2u, 0.0, -100.0, 100.0, 3u, 4u, 5u);
-    MultiLanguageModel::loadIntTable(a1, a1 + 528, "LogLinearOffset", 0, -20 * *(a1 + 32), 20 * *(a1 + 32), v232, 0, 1u, 2u, 3u, 4u, 5u);
-    v223 = 0;
-    v224 = 0;
-    MultiLanguageModel::loadUnsTable(a1, &v223, "IsActive", 0, 0, 1u, v232, 0, 1u, 2u, 3u, 4u, 5u);
-    v124 = *(a1 + 116);
-    LODWORD(v125) = v124;
-    if (*(a1 + 556) < v124)
+    MultiLanguageModel::loadRealTable(a1, &v166, 0, "LogLinearWeight", v173, 0, 1u, 2u, 0.0, -100.0, 100.0, 3u, 4u, 5u);
+    MultiLanguageModel::loadIntTable(a1, a1 + 528, "LogLinearOffset", 0, -20 * *(a1 + 32), 20 * *(a1 + 32), v173, 0, 1u, 2u, 3u, 4u, 5u);
+    v164 = 0;
+    v165 = 0;
+    MultiLanguageModel::loadUnsTable(a1, &v164, "IsActive", 0, 0, 1u, v173, 0, 1u, 2u, 3u, 4u, 5u);
+    v78 = *(a1 + 116);
+    LODWORD(v79) = v78;
+    if (*(a1 + 556) < v78)
     {
-      v221 = 0;
-      *(a1 + 556) = realloc_array(*(a1 + 544), &v221, v124, *(a1 + 552), *(a1 + 552), 1);
-      *(a1 + 544) = v221;
-      LODWORD(v125) = *(a1 + 116);
+      v162 = 0;
+      *(a1 + 556) = realloc_array(*(a1 + 544), &v162, v78, *(a1 + 552), *(a1 + 552), 1);
+      *(a1 + 544) = v162;
+      LODWORD(v79) = *(a1 + 116);
     }
 
-    *(a1 + 552) = v124;
-    if (v125)
+    *(a1 + 552) = v78;
+    if (v79)
     {
-      v126 = v223;
-      v127 = *(a1 + 544);
-      v125 = v125;
+      v80 = v164;
+      v81 = *(a1 + 544);
+      v79 = v79;
       do
       {
-        v128 = *v126++;
-        *v127++ = v128 != 0;
-        --v125;
+        v82 = *v80++;
+        *v81++ = v82 != 0;
+        --v79;
       }
 
-      while (v125);
+      while (v79);
     }
 
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v223);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v164);
   }
 
   if (*(a1 + 112) == 1)
   {
-    v223 = 0;
-    v224 = 0;
-    v221 = 0;
-    v222 = 0;
-    MultiLanguageModel::loadIntTable(a1, &v223, "MinWordId", -1, 0, *(*(a1 + 16) + 388), v232, 0, 1u, 2u, 3u, 4u, 5u);
-    MultiLanguageModel::loadIntTable(a1, &v221, "MaxWordId", -1, 0, *(*(a1 + 16) + 388), v232, 0, 1u, 2u, 3u, 4u, 5u);
-    v131 = (a1 + 568);
-    v132 = *(a1 + 116);
-    v133 = *(a1 + 580);
-    v134 = v132;
-    if (v132 > v133)
+    v164 = 0;
+    v165 = 0;
+    v162 = 0;
+    v163 = 0;
+    MultiLanguageModel::loadIntTable(a1, &v164, "MinWordId", -1, 0, *(*(a1 + 16) + 388), v173, 0, 1u, 2u, 3u, 4u, 5u);
+    MultiLanguageModel::loadIntTable(a1, &v162, "MaxWordId", -1, 0, *(*(a1 + 16) + 388), v173, 0, 1u, 2u, 3u, 4u, 5u);
+    v83 = (a1 + 568);
+    v84 = *(a1 + 116);
+    v85 = *(a1 + 580);
+    v86 = v84;
+    if (v84 > v85)
     {
-      DgnPrimArray<unsigned int>::reallocElts(a1 + 568, v132 - v133, 0);
-      v134 = *(a1 + 116);
+      DgnPrimArray<unsigned int>::reallocElts(a1 + 568, v84 - v85, 0);
+      v86 = *(a1 + 116);
     }
 
-    *(a1 + 576) = v132;
-    v135 = (a1 + 584);
-    v136 = *(a1 + 596);
-    v137 = v134;
-    if (v134 > v136)
+    *(a1 + 576) = v84;
+    v87 = (a1 + 584);
+    v88 = *(a1 + 596);
+    v89 = v86;
+    if (v86 > v88)
     {
-      DgnPrimArray<unsigned int>::reallocElts(a1 + 584, v134 - v136, 0);
-      v137 = *(a1 + 116);
+      DgnPrimArray<unsigned int>::reallocElts(a1 + 584, v86 - v88, 0);
+      v89 = *(a1 + 116);
     }
 
-    *(a1 + 592) = v134;
-    if (v137)
+    *(a1 + 592) = v86;
+    if (v89)
     {
-      v138 = 0;
+      v90 = 0;
       do
       {
-        if (v138)
+        if (v90)
         {
-          v139 = v223[v138];
-          if (v139 == -1 || (v140 = v221, v141 = *(v221 + v138), v141 == -1))
+          v91 = v164[v90];
+          if (v91 == -1 || (v92 = v162, v93 = *(v162 + v90), v93 == -1))
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2738, "lm/multilm", 100, "%.500s %u %.500s", v129, v130, v220);
-            v139 = v223[v138];
-            v140 = v221;
-            v141 = *(v221 + v138);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2738, "lm/multilm", 100, "%.500s %u %.500s", v161, v90, "neither");
+            v91 = v164[v90];
+            v92 = v162;
+            v93 = *(v162 + v90);
           }
 
-          if (v139 > v141)
+          if (v91 > v93)
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2741, "lm/multilm", 101, "%.500s %u", v129, v130, v220);
-            v139 = v223[v138];
-            v140 = v221;
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2741, "lm/multilm", 101, "%.500s %u", v161, v90);
+            v91 = v164[v90];
+            v92 = v162;
           }
 
-          v142 = *v131;
-          *(*v131 + 4 * v138) = v139;
-          v143 = v140[v138];
-          v144 = *v135;
-          *(*v135 + 4 * v138) = v143;
-          if (v138 != 1 && *(v142 + 4 * v138) != *(v144 + 4 * (v138 - 1)) + 1)
+          v94 = *v83;
+          *(*v83 + 4 * v90) = v91;
+          v95 = v92[v90];
+          v96 = *v87;
+          *(*v87 + 4 * v90) = v95;
+          if (v90 != 1 && *(v94 + 4 * v90) != *(v96 + 4 * (v90 - 1)) + 1)
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2752, "lm/multilm", 102, "%.500s %u", v129, v130, v220);
-            v142 = *v131;
-            v143 = *(*v135 + 4 * v138);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2752, "lm/multilm", 102, "%.500s %u", v161, v90);
+            v94 = *v83;
+            v95 = *(*v87 + 4 * v90);
           }
 
-          for (k = *(v142 + 4 * v138); k <= v143; ++k)
+          for (i = *(v94 + 4 * v90); i <= v95; ++i)
           {
-            v146 = *(a1 + 16);
-            if (*(v146 + 388) <= k || !*(*(v146 + 104) + k) || ((*(*(v146 + 640) + 4 * (k >> 5)) >> k) & 1) == 0)
+            v98 = *(a1 + 16);
+            if (*(v98 + 388) <= i || !*(*(v98 + 104) + i) || ((*(*(v98 + 640) + 4 * (i >> 5)) >> i) & 1) == 0)
             {
-              CurrentLine = DgnTextFile::getCurrentLine(v232);
+              CurrentLine = DgnTextFile::getCurrentLine(v173);
               if (*(CurrentLine + 8))
               {
-                v150 = *CurrentLine;
+                v100 = *CurrentLine;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2763, "lm/multilm", 63, "%u %.500s %.500s", v148, v149, k);
-              v146 = *(a1 + 16);
+              else
+              {
+                v100 = &unk_26288BEF0;
+              }
+
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2763, "lm/multilm", 63, "%u %.500s %.500s", i, v161, v100);
+              v98 = *(a1 + 16);
             }
 
-            v151 = *(*(v146 + 256) + 4 * k);
-            if (v151 >= *(*v131 + 4 * v138))
+            v101 = *(*(v98 + 256) + 4 * i);
+            if (v101 >= *(*v83 + 4 * v90))
             {
-              v143 = *(*v135 + 4 * v138);
-              if (v151 <= v143)
+              v95 = *(*v87 + 4 * v90);
+              if (v101 <= v95)
               {
                 continue;
               }
             }
 
-            v152 = DgnTextFile::getCurrentLine(v232);
-            if (*(v152 + 8))
+            v102 = DgnTextFile::getCurrentLine(v173);
+            if (*(v102 + 8))
             {
-              v155 = *v152;
+              v103 = *v102;
             }
 
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2770, "lm/multilm", 64, "%u %u %.500s %.500s", v153, v154, k);
-            v143 = *(*v135 + 4 * v138);
+            else
+            {
+              v103 = &unk_26288BEF0;
+            }
+
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2770, "lm/multilm", 64, "%u %u %.500s %.500s", i, v101, v161, v103);
+            v95 = *(*v87 + 4 * v90);
           }
         }
 
         else
         {
-          if (*v223 != -1 || *v221 != -1)
+          if (*v164 != -1 || *v162 != -1)
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2722, "lm/multilm", 100, "%.500s %u %.500s", v129, v130, v220);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2722, "lm/multilm", 100, "%.500s %u %.500s", v161, 0, "both");
           }
 
           **(a1 + 568) = 0xFFFFFF;
@@ -3464,455 +3411,473 @@ LABEL_165:
           *(a1 + 560) = 0;
         }
 
-        ++v138;
+        ++v90;
       }
 
-      while (v138 < *(a1 + 116));
+      while (v90 < *(a1 + 116));
     }
 
-    MultiLanguageModel::loadUnsTable(a1, a1 + 600, v215, 0, 0, 0x3E8u, v232, 0, 1u, 2u, 3u, 4u, 5u);
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v221);
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v223);
+    MultiLanguageModel::loadUnsTable(a1, a1 + 600, v156, 0, 0, 0x3E8u, v173, 0, 1u, 2u, 3u, 4u, 5u);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v162);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v164);
   }
 
-  v156 = *(a1 + 176);
-  v223 = 0;
-  v224 = 0;
-  if (v156)
+  v104 = *(a1 + 176);
+  v164 = 0;
+  v165 = 0;
+  if (v104)
   {
-    v221 = 0;
-    v157 = realloc_array(0, &v221, 8 * v156, 0, 0, 1);
-    v222 = 0;
-    v223 = v221;
-    v158 = *(a1 + 176);
-    LODWORD(v224) = v156;
-    HIDWORD(v224) = v157 >> 3;
-    v221 = 0;
-    if (v158)
+    v162 = 0;
+    v105 = realloc_array(0, &v162, 8 * v104, 0, 0, 1);
+    v163 = 0;
+    v164 = v162;
+    v106 = *(a1 + 176);
+    LODWORD(v165) = v104;
+    HIDWORD(v165) = v105 >> 3;
+    v162 = 0;
+    if (v106)
     {
-      v234[0] = 0;
-      v159 = realloc_array(0, v234, 8 * v158, 0, 0, 1);
-      v160 = v234[0];
-      v221 = v234[0];
-      v161 = *(a1 + 176);
-      LODWORD(v222) = v158;
-      HIDWORD(v222) = v159 >> 3;
-      if (v161)
+      v175[0] = 0;
+      v107 = realloc_array(0, v175, 8 * v106, 0, 0, 1);
+      v108 = v175[0];
+      v162 = v175[0];
+      v109 = *(a1 + 176);
+      LODWORD(v163) = v106;
+      HIDWORD(v163) = v107 >> 3;
+      if (v109)
       {
-        v162 = v223;
+        v110 = v164;
         do
         {
-          *v162 = 0;
-          v162 += 2;
-          *v160++ = 0;
-          --v161;
+          *v110 = 0;
+          v110 += 2;
+          *v108++ = 0;
+          --v109;
         }
 
-        while (v161);
+        while (v109);
       }
 
-      goto LABEL_217;
+      goto LABEL_227;
     }
   }
 
   else
   {
-    v221 = 0;
-    v222 = 0;
+    v162 = 0;
+    v163 = 0;
   }
 
-  LODWORD(v222) = 0;
-LABEL_217:
-  v163 = *(a1 + 116);
-  v164 = *(a1 + 148);
-  v165 = v163;
-  if (v163 > v164)
+  LODWORD(v163) = 0;
+LABEL_227:
+  v111 = *(a1 + 116);
+  v112 = *(a1 + 148);
+  v113 = v111;
+  if (v111 > v112)
   {
-    DgnPrimArray<unsigned int>::reallocElts(a1 + 136, v163 - v164, 0);
-    v165 = *(a1 + 116);
+    DgnPrimArray<unsigned int>::reallocElts(a1 + 136, v111 - v112, 0);
+    v113 = *(a1 + 116);
   }
 
-  *(a1 + 144) = v163;
-  if (!v165)
+  *(a1 + 144) = v111;
+  if (!v113)
   {
     if ((*(a1 + 114) & 1) == 0)
     {
-      goto LABEL_339;
+      goto LABEL_352;
     }
 
-    v204 = 1;
-    v169 = 0.0;
-    v168 = 0.0;
-    v167 = 0.0;
-    goto LABEL_319;
+    v145 = 1;
+    v146 = 0.0;
+    v117 = 0.0;
+    v116 = 0.0;
+    v115 = 0.0;
+    goto LABEL_330;
   }
 
-  v166 = 0;
-  v167 = 0.0;
-  v168 = 0.0;
-  v214 = 0.0;
-  v216 = 0.0;
-  v169 = 0.0;
-  v213 = 0.0;
-  v170 = 0.0;
+  v114 = 0;
+  v115 = 0.0;
+  v116 = 0.0;
+  v155 = 0.0;
+  v157 = 0.0;
+  v117 = 0.0;
+  v154 = 0.0;
+  v118 = 0.0;
   do
   {
-    v171 = 1;
-    LODWORD(v234[0]) = 1;
-    HIDWORD(v234[0]) = v166;
-    v172 = v227[0] + 16 * v166;
-    v173 = *(v172 + 8);
-    v174 = *v172;
-    if (v173)
+    v119 = 1;
+    LODWORD(v175[0]) = 1;
+    HIDWORD(v175[0]) = v114;
+    v120 = v168[0] + 16 * v114;
+    v121 = *(v120 + 8);
+    v122 = *v120;
+    if (v121)
     {
-      v175 = v174;
+      v123 = v122;
     }
 
     else
     {
-      v175 = &unk_26288BEF0;
+      v123 = &unk_26288BEF0;
     }
 
-    if (strcmp(v175, "FactoryWord"))
+    if (strcmp(v123, "FactoryWord"))
     {
       if ((a3 & 1) == 0)
       {
-        if ((*(a1 + 112) & 1) == 0 && !strcmp(v175, "TopicWord"))
+        if ((*(a1 + 112) & 1) == 0 && !strcmp(v123, "TopicWord"))
         {
-          v182 = 0;
-          v180 = 1;
-          v181 = 1;
-          goto LABEL_240;
+          v126 = 0;
+          v124 = 1;
+          v125 = 1;
+          goto LABEL_250;
         }
 
-        if (*(a1 + 113) == 1 && !strcmp(v175, "FactoryCorrectiveWord"))
+        if (*(a1 + 113) == 1 && !strcmp(v123, "FactoryCorrectiveWord"))
         {
-          v180 = 0;
-          v171 = 0;
-          v181 = 2;
-          goto LABEL_239;
+          v124 = 0;
+          v119 = 0;
+          v125 = 2;
+          goto LABEL_249;
         }
       }
 
-      if (!strcmp(v175, "Multi"))
+      if (!strcmp(v123, "Multi"))
       {
-        v180 = 0;
-        v181 = 3;
-        goto LABEL_239;
+        v124 = 0;
+        v125 = 3;
+        goto LABEL_249;
       }
 
-      if (*(a1 + 112) == 1 && !strcmp(v175, "Dummy"))
+      if (*(a1 + 112) == 1 && !strcmp(v123, "Dummy"))
       {
-        v180 = 0;
-        v181 = 4;
-        goto LABEL_239;
+        v124 = 0;
+        v125 = 4;
+        goto LABEL_249;
       }
 
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2857, "lm/multilm", 103, "%.500s %u", v74, v75, v220);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2857, "lm/multilm", 103, "%.500s %u", v161, v114);
     }
 
-    v180 = 0;
-    v181 = 0;
-LABEL_239:
-    v182 = 1;
-LABEL_240:
-    *(*(a1 + 136) + 4 * v166) = v181;
+    v124 = 0;
+    v125 = 0;
+LABEL_249:
+    v126 = 1;
+LABEL_250:
+    *(*(a1 + 136) + 4 * v114) = v125;
     if (*(a1 + 112))
     {
-      goto LABEL_250;
+      goto LABEL_260;
     }
 
     if (*a5)
     {
-      v183 = *(*(a1 + 368) + 16 * v166 + 8);
-      if (!v180)
+      v127 = *(*(a1 + 368) + 16 * v114 + 8);
+      if (!v124)
       {
-        if (v183 > 1)
+        if (v127 > 1)
         {
-          goto LABEL_249;
+          goto LABEL_259;
         }
 
-        goto LABEL_250;
+        goto LABEL_260;
       }
     }
 
     else
     {
-      v183 = *(*(a1 + 320) + 16 * v166 + 8);
-      if (!v180)
+      v127 = *(*(a1 + 320) + 16 * v114 + 8);
+      if (!v124)
       {
-        if (v183 < 2)
+        if (v127 < 2)
         {
-          goto LABEL_250;
+          goto LABEL_260;
         }
 
-LABEL_249:
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2883, "lm/multilm", 104, "%.500s %u", v74, v75, v220);
-        goto LABEL_250;
+LABEL_259:
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2883, "lm/multilm", 104, "%.500s %u", v161, v114);
+        goto LABEL_260;
       }
     }
 
-    if (v183 < 2)
+    if (v127 < 2)
     {
-      goto LABEL_249;
+      goto LABEL_259;
     }
 
-LABEL_250:
+LABEL_260:
     if (*(a1 + 114) != 1)
     {
-      goto LABEL_306;
+      goto LABEL_317;
     }
 
-    v184 = *(*(a1 + 400) + 8 * v166);
-    if (v180)
+    v128 = *(*(a1 + 400) + 8 * v114);
+    if (v124)
     {
-      v213 = v213 + v184;
-      v185 = *(v225 + 8 * v166);
-      v186 = *(*(a1 + 416) + 8 * v166);
+      v154 = v154 + v128;
+      v129 = *(v166 + 8 * v114);
+      v130 = *(*(a1 + 416) + 8 * v114);
     }
 
     else
     {
-      v186 = *(*(a1 + 416) + 8 * v166);
-      v185 = *(v225 + 8 * v166);
-      v214 = v214 + v186;
-      v216 = v216 + v185;
+      v130 = *(*(a1 + 416) + 8 * v114);
+      v129 = *(v166 + 8 * v114);
+      v155 = v155 + v130;
+      v157 = v157 + v129;
     }
 
-    v187 = *(*(a1 + 432) + 8 * v166);
-    if (v187 != -1.0)
+    v131 = *(*(a1 + 432) + 8 * v114);
+    if (v131 != -1.0)
     {
-      v169 = v169 + v187;
+      v117 = v117 + v131;
     }
 
-    v188 = *(*(a1 + 448) + 8 * v166);
-    if (v184 > v186)
+    v132 = *(*(a1 + 448) + 8 * v114);
+    if (v128 > v130)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2907, "lm/multilm", 105, "%.500s %u", v74, v75, v220);
-      v187 = *(*(a1 + 432) + 8 * v166);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2907, "lm/multilm", 105, "%.500s %u", v161, v114);
+      v131 = *(*(a1 + 432) + 8 * v114);
     }
 
-    if (v187 != -1.0 && v187 != 0.0 && (v187 < *(*(a1 + 400) + 8 * v166) || v187 > *(*(a1 + 416) + 8 * v166)))
+    if (v131 != -1.0 && v131 != 0.0 && (v131 < *(*(a1 + 400) + 8 * v114) || v131 > *(*(a1 + 416) + 8 * v114)))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2913, "lm/multilm", 106, "%.500s %u", v74, v75, v220);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2913, "lm/multilm", 106, "%.500s %u", v161, v114);
     }
 
-    v189 = *(v225 + 8 * v166);
-    if (v189 != 0.0 || v189 < *(*(a1 + 400) + 8 * v166) || v189 > *(*(a1 + 416) + 8 * v166))
+    v133 = *(v166 + 8 * v114);
+    if (v133 != 0.0 || v133 < *(*(a1 + 400) + 8 * v114) || v133 > *(*(a1 + 416) + 8 * v114))
     {
-      DFile::pushCurrentSubDirComponent(v219, v234, v176, v177, v178, v179, v74, v75);
+      DFile::pushCurrentSubDirComponent(v160, v175);
       if (*a5)
       {
-        v190 = DFile::subFileExists(v219, 0x6Du);
+        v134 = DFile::subFileExists(v160, 0x6Du);
       }
 
-      else if (DFile::subFileExists(v219, 0x6Bu))
+      else if (DFile::subFileExists(v160, 0x6Bu))
       {
-        v190 = DFile::subFileExists(v219, 0x73u) ^ 1;
+        v134 = DFile::subFileExists(v160, 0x73u) ^ 1;
       }
 
       else
       {
-        v190 = 0;
+        v134 = 0;
       }
 
-      DFile::popCurrentSubDirComponent(v219);
-      v191 = *(v225 + 8 * v166);
-      if (v190)
+      DFile::popCurrentSubDirComponent(v160);
+      v135 = *(v166 + 8 * v114);
+      if (v134)
       {
-        if (v191 == 0.0)
+        if (v135 != 0.0)
         {
-          goto LABEL_279;
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2939, "lm/multilm", 107, "%.500s %u");
         }
-
-        v192 = 107;
-        v193 = 2939;
-        v194 = "%.500s %u";
-        goto LABEL_278;
       }
 
-      if (v191 != 0.0 && (v191 < *(*(a1 + 400) + 8 * v166) || v191 > *(*(a1 + 416) + 8 * v166)))
+      else if (v135 != 0.0 && (v135 < *(*(a1 + 400) + 8 * v114) || v135 > *(*(a1 + 416) + 8 * v114)))
       {
-        v192 = 108;
-        v193 = 2945;
-        v194 = "%.500s %u";
-LABEL_278:
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", v193, "lm/multilm", v192, v194, v74, v75, v220);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2945, "lm/multilm", 108, "%.500s %u");
       }
     }
 
-LABEL_279:
-    v195 = *(*(a1 + 448) + 8 * v166);
-    if (!v180)
+    v136 = *(*(a1 + 448) + 8 * v114);
+    if (!v124)
     {
-      if (v195 == 0.0)
+      if (v136 == 0.0)
       {
-        goto LABEL_286;
+        goto LABEL_295;
       }
 
-LABEL_285:
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2960, "lm/multilm", 109, "%.500s %u", v74, v75, v220);
-      goto LABEL_286;
+LABEL_294:
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2960, "lm/multilm", 109, "%.500s %u", v161, v114);
+      goto LABEL_295;
     }
 
-    if (v195 != 0.0 && (v195 < *(*(a1 + 400) + 8 * v166) || v195 > *(*(a1 + 416) + 8 * v166)))
+    if (v136 != 0.0 && (v136 < *(*(a1 + 400) + 8 * v114) || v136 > *(*(a1 + 416) + 8 * v114)))
     {
-      goto LABEL_285;
+      goto LABEL_294;
     }
 
-LABEL_286:
-    v170 = v170 + v184;
-    v168 = v168 + v185;
-    v167 = v167 + v188;
+LABEL_295:
+    v118 = v118 + v128;
+    v116 = v116 + v129;
+    v115 = v115 + v132;
     if (*(a1 + 176))
     {
-      v196 = 0;
-      v197 = 0;
+      v137 = 0;
+      v138 = 0;
       do
       {
-        v198 = *(*(*(a1 + 184) + v196) + 8 * v166);
-        v199 = v182 ^ 1;
-        if (v198 != -1.0)
+        v139 = *(*(*(a1 + 184) + v137) + 8 * v114);
+        v140 = v126 ^ 1;
+        if (v139 != -1.0)
         {
-          v199 = 1;
+          v140 = 1;
         }
 
-        if ((v199 & 1) == 0)
+        if ((v140 & 1) == 0)
         {
-          v200 = (*(a1 + 168) + v196);
-          if (*(v200 + 2))
+          v141 = *(a1 + 168) + v137;
+          if (*(v141 + 8))
           {
-            v201 = *v200;
+            v142 = *v141;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2969, "lm/multilm", 110, "%.500s %.500s %u", v74, v75, v220);
-        }
-
-        if (v198 != -1.0 && v198 != 0.0 && (v198 < *(*(a1 + 400) + 8 * v166) || v198 > *(*(a1 + 416) + 8 * v166)))
-        {
-          v202 = (*(a1 + 168) + v196);
-          if (*(v202 + 2))
+          else
           {
-            v203 = *v202;
+            v142 = &unk_26288BEF0;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2975, "lm/multilm", 111, "%.500s %.500s %u", v74, v75, v220);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2969, "lm/multilm", 110, "%.500s %.500s %u", v161, v142, v114);
         }
 
-        if (v198 != -1.0)
+        if (v139 != -1.0 && v139 != 0.0 && (v139 < *(*(a1 + 400) + 8 * v114) || v139 > *(*(a1 + 416) + 8 * v114)))
         {
-          *&v223[2 * v197] = v198 + *&v223[2 * v197];
+          v143 = *(a1 + 168) + v137;
+          if (*(v143 + 8))
+          {
+            v144 = *v143;
+          }
+
+          else
+          {
+            v144 = &unk_26288BEF0;
+          }
+
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2975, "lm/multilm", 111, "%.500s %.500s %u", v161, v144, v114);
         }
 
-        if (v182)
+        if (v139 != -1.0)
         {
-          *(v221 + v197) = v198 + *(v221 + v197);
+          *&v164[2 * v138] = v139 + *&v164[2 * v138];
         }
 
-        ++v197;
-        v196 += 16;
+        if (v126)
+        {
+          *(v162 + v138) = v139 + *(v162 + v138);
+        }
+
+        ++v138;
+        v137 += 16;
       }
 
-      while (v197 < *(a1 + 176));
+      while (v138 < *(a1 + 176));
     }
 
-LABEL_306:
-    if ((v171 & *(a1 + 113)) == 1 && (*(*(a1 + 544) + v166) & 1) == 0)
+LABEL_317:
+    if ((v119 & *(a1 + 113)) == 1 && (*(*(a1 + 544) + v114) & 1) == 0)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2993, "lm/multilm", 112, "%.500s %u", v74, v75, v220);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 2993, "lm/multilm", 112, "%.500s %u", v161, v114);
     }
 
-    ++v166;
+    ++v114;
   }
 
-  while (v166 < *(a1 + 116));
-  v204 = v216 == 0.0;
+  while (v114 < *(a1 + 116));
+  v145 = v157 == 0.0;
   if ((*(a1 + 114) & 1) == 0)
   {
-    goto LABEL_339;
+    goto LABEL_352;
   }
 
-  if (v170 > 1.0)
+  v146 = v155;
+  if (v118 > 1.0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3001, "lm/multilm", 13, "%.500s %f", v74, v75, v220);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3001, "lm/multilm", 13, "%.500s %f", v161, v118);
   }
 
-  if (v213 >= 1.0)
+  if (v154 >= 1.0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3004, "lm/multilm", 117, "%.500s %f", v74, v75, v220);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3004, "lm/multilm", 117, "%.500s %f", v161, v154);
   }
 
-  if (v214 < 1.0)
+  if (v155 < 1.0)
   {
-LABEL_319:
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3007, "lm/multilm", 14, "%.500s %f", v74, v75, v220);
+LABEL_330:
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3007, "lm/multilm", 14, "%.500s %f", v161, v146);
   }
 
-  if (v169 >= 1.0001)
+  if (v117 >= 1.0001)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3011, "lm/multilm", 29, "%.500s %f", v74, v75, v220);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3011, "lm/multilm", 29, "%.500s %f", v161, v117);
   }
 
-  if (v204)
+  if (v145)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3014, "lm/multilm", 78, "%.500s", v74, v75, v220);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3014, "lm/multilm", 78, "%.500s", v161);
   }
 
-  if (fabs(v168 + -1.0) >= 0.0001)
+  if (fabs(v116 + -1.0) >= 0.0001)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3017, "lm/multilm", 49, "%.500s %f", v74, v75, v220);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3017, "lm/multilm", 49, "%.500s %f", v161, v116);
   }
 
-  if (v167 >= 1.0)
+  if (v115 >= 1.0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3020, "lm/multilm", 77, "%.500s %f", v74, v75, v220);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3020, "lm/multilm", 77, "%.500s %f", v161, v115);
   }
 
   if (*(a1 + 176))
   {
-    v205 = 0;
-    v206 = 0;
+    v147 = 0;
+    v148 = 0;
     do
     {
-      if (fabs(*&v223[2 * v206] + -1.0) >= 0.0001)
+      if (fabs(*&v164[2 * v148] + -1.0) >= 0.0001)
       {
-        v207 = (*(a1 + 168) + v205);
-        if (*(v207 + 2))
+        v149 = *(a1 + 168) + v147;
+        if (*(v149 + 8))
         {
-          v208 = *v207;
+          v150 = *v149;
         }
 
-        *v211 = *&v223[2 * v206];
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3027, "lm/multilm", 50, "%.500s %.500s %f", v74, v75, v220);
-      }
-
-      if (*(v221 + v206) == 0.0)
-      {
-        v209 = (*(a1 + 168) + v205);
-        if (*(v209 + 2))
+        else
         {
-          v210 = *v209;
+          v150 = &unk_26288BEF0;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3030, "lm/multilm", 79, "%.500s %.500s", v74, v75, v220);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3027, "lm/multilm", 50, "%.500s %.500s %f", v161, v150, *&v164[2 * v148]);
       }
 
-      ++v206;
-      v205 += 16;
+      if (*(v162 + v148) == 0.0)
+      {
+        v151 = *(a1 + 168) + v147;
+        if (*(v151 + 8))
+        {
+          v152 = *v151;
+        }
+
+        else
+        {
+          v152 = &unk_26288BEF0;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3030, "lm/multilm", 79, "%.500s %.500s", v161, v152);
+      }
+
+      ++v148;
+      v147 += 16;
     }
 
-    while (v206 < *(a1 + 176));
+    while (v148 < *(a1 + 176));
   }
 
-LABEL_339:
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v221);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v223);
-  DgnPrimArray<double>::copyArraySlice(v212, &v225, 0, v226);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v225);
-  DgnArray<DgnString>::releaseAll(v227);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v228);
-  DgnArray<DgnString>::releaseAll(&v230);
-  DgnTextFileParser::~DgnTextFileParser(v232);
+LABEL_352:
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v162);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v164);
+  DgnPrimArray<double>::copyArraySlice(v153, &v166, 0, v167);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v166);
+  DgnArray<DgnString>::releaseAll(v168);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v169);
+  DgnArray<DgnString>::releaseAll(&v171);
+  DgnTextFileParser::~DgnTextFileParser(v173);
+}
+
+void sub_262727394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
+{
+  va_start(va, a33);
+  DgnTextFileParser::~DgnTextFileParser(va);
+  _Unwind_Resume(a1);
 }
 
 void readObject<DgnPrimArray<double>>(DgnStream *a1, uint64_t a2, unsigned int *a3)
@@ -3994,7 +3959,7 @@ uint64_t readObject<unsigned int>(DgnStream *a1, uint64_t a2, unsigned int *a3)
   *a2 = v15;
   *(a2 + 4) = v6;
   *(a2 + 8) = v7;
-  DgnPrimArray<int>::copyArraySlice(a2 + 16, &v9, 0, v10);
+  DgnPrimArray<int>::copyArraySlice((a2 + 16), &v9, 0, v10);
   *(a2 + 40) = v12;
   *(a2 + 32) = v11;
   return DgnPrimArray<unsigned int>::~DgnPrimArray(&v9);
@@ -4042,7 +4007,7 @@ void readObject<WordDummySpec>(DgnStream *a1, uint64_t a2, unsigned int *a3)
   }
 }
 
-void (***MultiLanguageModel::saveMultiBinary(MultiLanguageModel *this, DFile *a2, DFileChecksums *a3, int a4))(void)
+void (***MultiLanguageModel::saveMultiBinary(MultiLanguageModel *this, DFile *a2, DFileChecksums *a3, uint64_t a4))(void)
 {
   v7 = OpenAndWriteMrecHeader(a2, 0x28u, a4, "LMMULBIN", 24, 6);
   v14 = *(this + 36);
@@ -4102,7 +4067,7 @@ void (***MultiLanguageModel::saveMultiBinary(MultiLanguageModel *this, DFile *a2
   writeObject<unsigned int>(v7, this + 600, &v15);
   writeObjectChecksum(v7, &v15);
   CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
-  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 0x28u, v15);
+  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 40, v15);
   return DgnDelete<DgnStream>(v7);
 }
 
@@ -4159,7 +4124,7 @@ uint64_t writeObject<unsigned int>(uint64_t a1, int *a2, _DWORD *a3)
   return writeObject<unsigned int,DgnPrimArray<unsigned int>>(a1, (a2 + 4), a3);
 }
 
-void MultiLanguageModel::verifySubdirContents(MultiLanguageModel *this, const DFile *a2, unsigned int a3, int a4, int a5)
+double MultiLanguageModel::verifySubdirContents(MultiLanguageModel *this, const DFile *a2, uint64_t a3, int a4, int a5)
 {
   if (!a5)
   {
@@ -4167,127 +4132,125 @@ void MultiLanguageModel::verifySubdirContents(MultiLanguageModel *this, const DF
     {
       if (DFile::subFileExists(a2, 0x73u))
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3478, "lm/multilm", 128, "%.500s %u", v10, v11, ".wns");
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3478, "lm/multilm", 128, "%.500s %u", ".wns", a3);
       }
 
       if (DFile::subFileExists(a2, 0x29u))
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3482, "lm/multilm", 128, "%.500s %u", v12, v13, ".mls");
+        result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3482, "lm/multilm", 128, "%.500s %u", ".mls", a3);
       }
 
-      v14 = *(*(this + 17) + 4 * a3);
-      if (v14 == 4)
+      v11 = *(*(this + 17) + 4 * a3);
+      if (v11 == 4)
       {
-        return;
+        return result;
       }
 
-      if (v14 == 1)
+      if (v11 == 1)
       {
         if ((DFile::subFileExists(a2, 0x6Au) & 1) == 0)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3488, "lm/multilm", 126, "%u", v15, v16, a3);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3488, "lm/multilm", 126, "%u", a3);
         }
 
-        v17 = DFile::subFileExists(a2, 0x6Fu);
-        v18 = DFile::subFileExists(a2, 0x70u);
-        if (v17 && v18)
+        v12 = DFile::subFileExists(a2, 0x6Fu);
+        v13 = DFile::subFileExists(a2, 0x70u);
+        if (v12 && v13)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3497, "lm/multilm", 130, "%u", v19, v20, a3);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3497, "lm/multilm", 130, "%u", a3);
         }
 
         if (!DFile::subFileExists(a2, 0x28u))
         {
-          return;
+          return result;
         }
 
-        v46 = a3;
-        v23 = "%u";
-        v24 = 3502;
+        v27 = a3;
+        v14 = "%u";
+        v15 = 3502;
 LABEL_31:
-        v34 = 131;
-LABEL_51:
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", v24, "lm/multilm", v34, v23, v21, v22, v46);
-        return;
+        v17 = 131;
+        return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", v15, "lm/multilm", v17, v14, v27);
       }
 
-      v41 = DFile::subFileExists(a2, 0x28u);
-      v42 = DFile::subFileExists(a2, 0x6Fu) + v41;
-      v43 = v42 + DFile::subFileExists(a2, 0x70u);
+      v22 = DFile::subFileExists(a2, 0x28u);
+      v23 = DFile::subFileExists(a2, 0x6Fu) + v22;
+      v24 = v23 + DFile::subFileExists(a2, 0x70u);
       if (DFile::subFileExists(a2, 0x6Au))
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3514, "lm/multilm", 15, "%u", v21, v22, a3);
+        result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3514, "lm/multilm", 15, "%u", a3);
       }
 
-      if (v43 == 1)
+      if (v24 == 1)
       {
-        return;
+        return result;
       }
 
-      v46 = a3;
-      v23 = "%u";
-      v24 = 3516;
+      v27 = a3;
+      v14 = "%u";
+      v15 = 3516;
     }
 
     else
     {
       if (DFile::subFileExists(a2, 0x6Fu))
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3525, "lm/multilm", 127, "%.500s %u", v25, v26, ".wnb");
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3525, "lm/multilm", 127, "%.500s %u", ".wnb", a3);
       }
 
       if (DFile::subFileExists(a2, 0x70u))
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3529, "lm/multilm", 127, "%.500s %u", v27, v28, ".wnd");
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3529, "lm/multilm", 127, "%.500s %u", ".wnd", a3);
       }
 
       if (DFile::subFileExists(a2, 0x28u))
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3533, "lm/multilm", 127, "%.500s %u", v29, v30, ".mlb");
+        result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3533, "lm/multilm", 127, "%.500s %u", ".mlb", a3);
       }
 
-      v31 = *(*(this + 17) + 4 * a3);
-      if (v31 == 4)
+      v16 = *(*(this + 17) + 4 * a3);
+      if (v16 == 4)
       {
-        return;
+        return result;
       }
 
-      if (v31 == 1)
+      if (v16 == 1)
       {
         if ((DFile::subFileExists(a2, 0x6Bu) & 1) == 0)
         {
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3538, "lm/multilm", 126, "%u", v32, v33, a3);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3538, "lm/multilm", 126, "%u", a3);
         }
 
         if (!DFile::subFileExists(a2, 0x29u))
         {
-          return;
+          return result;
         }
 
-        v46 = a3;
-        v23 = "%u";
-        v24 = 3543;
+        v27 = a3;
+        v14 = "%u";
+        v15 = 3543;
         goto LABEL_31;
       }
 
-      v44 = DFile::subFileExists(a2, 0x29u);
-      v45 = DFile::subFileExists(a2, 0x73u);
+      v25 = DFile::subFileExists(a2, 0x29u);
+      v26 = DFile::subFileExists(a2, 0x73u);
       if (DFile::subFileExists(a2, 0x6Bu))
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3554, "lm/multilm", 15, "%u", v21, v22, a3);
+        result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3554, "lm/multilm", 15, "%u", a3);
       }
 
-      if (v44 != v45)
+      if (v25 != v26)
       {
-        return;
+        return result;
       }
 
-      v46 = a3;
-      v23 = "%u";
-      v24 = 3556;
+      v27 = a3;
+      v14 = "%u";
+      v15 = 3556;
     }
 
-    v34 = 129;
-    goto LABEL_51;
+    v17 = 129;
+    return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", v15, "lm/multilm", v17, v14, v27);
   }
 
   if (DFile::subFileExists(a2, 0x73u) & 1) != 0 || (DFile::subFileExists(a2, 0x6Fu))
@@ -4300,33 +4263,35 @@ LABEL_51:
     v8 = DFile::subFileExists(a2, 0x70u);
   }
 
-  v35 = v8 + DFile::subFileExists(a2, 0x29u);
-  v36 = DFile::subFileExists(a2, 0x28u);
-  v39 = v35 + v36 + DFile::subFileExists(a2, 0x6Du);
-  v40 = *(this + 112);
-  if ((v40 & 1) == 0)
+  v18 = v8 + DFile::subFileExists(a2, 0x29u);
+  v19 = DFile::subFileExists(a2, 0x28u);
+  v20 = v18 + v19 + DFile::subFileExists(a2, 0x6Du);
+  v21 = *(this + 112);
+  if ((v21 & 1) == 0)
   {
     if (a4)
     {
-      if (v39 <= 1)
+      if (v20 <= 1)
       {
-        return;
+        return result;
       }
     }
 
-    else if (v39 == 1)
+    else if (v20 == 1)
     {
-      return;
+      return result;
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3466, "lm/multilm", 9, "%s", v37, v38, &errStr_lm_multilm_E_BAD_NUM_SPEC_SUBFILES);
-    v40 = *(this + 112);
+    result = errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3466, "lm/multilm", 9, "%s", &errStr_lm_multilm_E_BAD_NUM_SPEC_SUBFILES);
+    v21 = *(this + 112);
   }
 
-  if ((v40 & 1) != 0 && v39 >= 2)
+  if ((v21 & 1) != 0 && v20 >= 2)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3468, "lm/multilm", 42, "%s", v37, v38, &errStr_lm_multilm_E_MULTIPLE_SPEC_SUBFILES);
+    return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3468, "lm/multilm", 42, "%s");
   }
+
+  return result;
 }
 
 uint64_t MultiLanguageModel::getTotalPreloadableBytes(MultiLanguageModel *this)
@@ -4381,9 +4346,8 @@ uint64_t MultiLanguageModel::computeTotalPreloadableBytes(MultiLanguageModel *th
   return v4;
 }
 
-void MultiLanguageModel::finalizeLM(uint64_t a1, char **a2, DFile *a3, DFileChecksums *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9, unsigned __int8 a10, uint64_t a11, unsigned __int8 a12, uint64_t a13, uint64_t a14)
+void MultiLanguageModel::finalizeLM(uint64_t a1, LanguageModel *a2, DFile *a3, DFileChecksums *a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, int a9, unsigned __int8 a10, uint64_t a11, BOOL a12, uint64_t a13, uint64_t a14)
 {
-  v34 = a6;
   v18 = *(a1 + 116);
   if (v18)
   {
@@ -4423,12 +4387,12 @@ void MultiLanguageModel::finalizeLM(uint64_t a1, char **a2, DFile *a3, DFileChec
 
         v36[0] = 1;
         v36[1] = i;
-        DFile::pushCurrentSubDirComponent(a3, v36, a3, a4, a5, a6, a7, a8);
+        DFile::pushCurrentSubDirComponent(a3, v36);
         v27 = *(*(a1 + 40) + 8 * i);
         LOBYTE(v31) = a12;
         BYTE4(v30) = a10;
         LODWORD(v30) = v23;
-        (*(*v27 + 48))(v27, a2, a3, a4, a5, v34, v21, v22, v30, a11, v31, a13, a14);
+        (*(*v27 + 48))(v27, a2, a3, a4, a5, a6, v21, v22, v30, a11, v31, a13, a14);
         DFile::popCurrentSubDirComponent(a3);
         v18 = *(a1 + 116);
       }
@@ -4439,7 +4403,7 @@ void MultiLanguageModel::finalizeLM(uint64_t a1, char **a2, DFile *a3, DFileChec
 
   if ((*(a1 + 112) & 1) == 0)
   {
-    v28 = MultiLanguageModel::maybeUpgradeToWordNgramTemplates(a1, a2, a3, a8, a9, a10, a11, a8);
+    v28 = MultiLanguageModel::maybeUpgradeToWordNgramTemplates(a1, a2, a3, a8, a9, a10, a11);
     MultiLanguageModel::setWordNgramTemplates(a1, a11, v28);
   }
 
@@ -4461,73 +4425,73 @@ void MultiLanguageModel::finalizeLM(uint64_t a1, char **a2, DFile *a3, DFileChec
 
   BYTE4(v30) = a10;
   LODWORD(v30) = a9;
-  LanguageModel::finalizeLM(a1, a2, a3, a4, a5, v34, a7, a8, v30, a11, a12);
+  LanguageModel::finalizeLM(a1, a2, a3, a4, a5, a6, a7, a8, v30, a11, a12);
 }
 
-BOOL MultiLanguageModel::maybeUpgradeToWordNgramTemplates(uint64_t a1, char **a2, DFile *a3, unsigned int a4, unsigned int a5, int a6, uint64_t a7, uint64_t a8)
+BOOL MultiLanguageModel::maybeUpgradeToWordNgramTemplates(uint64_t a1, LanguageModel *a2, DFile *a3, int a4, int a5, int a6, uint64_t a7)
 {
-  v8 = *(a1 + 376);
-  if (v8)
+  v7 = *(a1 + 376);
+  if (v7)
   {
-    v28 = *(a1 + 376);
+    v27 = *(a1 + 376);
     if (a6)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3891, "lm/multilm", 132, "%s", a7, a8, &errStr_lm_multilm_E_TOPICLMPATHS_WITH_WORDNGRAMTEMPLATES);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3891, "lm/multilm", 132, "%s", &errStr_lm_multilm_E_TOPICLMPATHS_WITH_WORDNGRAMTEMPLATES);
     }
 
     if (*(a1 + 116))
     {
-      v15 = 0;
+      v14 = 0;
       do
       {
-        if (*(*(a1 + 136) + 4 * v15) == 1)
+        if (*(*(a1 + 136) + 4 * v14) == 1)
         {
-          v16 = *(a1 + 368);
-          if (*(v16 + 16 * v15 + 8) <= 1u)
+          v15 = *(a1 + 368);
+          if (*(v15 + 16 * v14 + 8) <= 1u)
           {
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3901, "lm/multilm", 120, "%s", a7, a8, &errStr_lm_multilm_E_NO_LEGACY_PATH);
-            v16 = *(a1 + 368);
+            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3901, "lm/multilm", 120, "%s", &errStr_lm_multilm_E_NO_LEGACY_PATH);
+            v15 = *(a1 + 368);
           }
 
-          LMForDirPathVerify = MultiLanguageModel::getLMForDirPathVerify(a1, "TemplateLMPath", (v16 + 16 * v15), a2, a3, 1);
-          v18 = LMForDirPathVerify;
-          v19 = 0;
-          v20 = -1;
-          while (*(a7 + 8) != v19)
+          LMForDirPathVerify = MultiLanguageModel::getLMForDirPathVerify(a1, "TemplateLMPath", (v15 + 16 * v14), a2, a3, 1);
+          v17 = LMForDirPathVerify;
+          v18 = 0;
+          v19 = -1;
+          while (*(a7 + 8) != v18)
           {
-            v21 = *(*a7 + 8 * v19);
-            v22 = *(v21 + 168);
-            if (v22 == LMForDirPathVerify)
+            v20 = *(*a7 + 8 * v18);
+            v21 = *(v20 + 168);
+            if (v21 == LMForDirPathVerify)
             {
-              v20 = v19;
+              v19 = v18;
             }
 
-            ++v19;
-            if (v22 == LMForDirPathVerify && v21 != 0)
+            ++v18;
+            if (v21 == LMForDirPathVerify && v20 != 0)
             {
-              DgnString::DgnString(v30);
+              DgnString::DgnString(v29);
 LABEL_22:
-              v29[0] = 4;
-              v29[1] = v20;
-              SubDirExtension::appendToString(v29, v30);
+              v28[0] = 4;
+              v28[1] = v19;
+              SubDirExtension::appendToString(v28, v29);
               goto LABEL_23;
             }
           }
 
-          v24 = MemChunkAlloc(0xB0uLL, 0);
-          WordNgramTemplate::WordNgramTemplate(v24, *(a1 + 16), a4, a5, v18);
-          v20 = *(a7 + 8);
-          v25 = v20;
-          if (v20 == *(a7 + 12))
+          v23 = MemChunkAlloc(0xB0uLL, 0);
+          WordNgramTemplate::WordNgramTemplate(v23, *(a1 + 16), a4, a5, v17);
+          v19 = *(a7 + 8);
+          v24 = v19;
+          if (v19 == *(a7 + 12))
           {
             DgnPrimArray<unsigned long long>::reallocElts(a7, 1, 1);
-            v25 = *(a7 + 8);
+            v24 = *(a7 + 8);
           }
 
-          *(*a7 + 8 * v25) = v24;
-          *(a7 + 8) = v25 + 1;
-          DgnString::DgnString(v30);
-          if (v24)
+          *(*a7 + 8 * v24) = v23;
+          *(a7 + 8) = v24 + 1;
+          DgnString::DgnString(v29);
+          if (v23)
           {
             goto LABEL_22;
           }
@@ -4535,36 +4499,36 @@ LABEL_22:
 
         else
         {
-          DgnString::DgnString(v30);
+          DgnString::DgnString(v29);
         }
 
 LABEL_23:
-        v26 = *(a1 + 328);
-        if (v26 == *(a1 + 332))
+        v25 = *(a1 + 328);
+        if (v25 == *(a1 + 332))
         {
           DgnArray<DgnPrimArray<double>>::reallocElts(a1 + 320, 1, 1);
-          v26 = *(a1 + 328);
+          v25 = *(a1 + 328);
         }
 
-        DgnString::DgnString((*(a1 + 320) + 16 * v26), v30);
+        DgnString::DgnString((*(a1 + 320) + 16 * v25), v29);
         ++*(a1 + 328);
-        DgnString::~DgnString(v30);
-        ++v15;
+        DgnString::~DgnString(v29);
+        ++v14;
       }
 
-      while (v15 < *(a1 + 116));
+      while (v14 < *(a1 + 116));
     }
 
     DgnArray<DgnString>::releaseAll(a1 + 368);
-    v8 = v28;
+    v7 = v27;
   }
 
-  return v8 != 0;
+  return v7 != 0;
 }
 
-void sub_262728784(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_262728784(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -4595,14 +4559,14 @@ LABEL_36:
       }
     }
 
-    v30 = 0;
-    DgnString::DgnString(&v28);
-    v27 = 0xFFFFFFFF00000004;
-    SubDirExtension::appendToString(&v27, &v28);
-    DgnString::operator+=(&v28, "%u");
-    if (v29)
+    v26 = 0;
+    DgnString::DgnString(&v24);
+    v23 = 0xFFFFFFFF00000004;
+    SubDirExtension::appendToString(&v23, &v24);
+    DgnString::operator+=(&v24, "%u");
+    if (v25)
     {
-      v9 = v28;
+      v9 = v24;
     }
 
     else
@@ -4622,104 +4586,101 @@ LABEL_36:
       v12 = &unk_26288BEF0;
     }
 
-    if (sscanf(v12, v10, &v30, v26) != 1)
+    if (sscanf(v12, v10, &v26) != 1)
     {
-      v15 = *(a1 + 320) + v6;
-      if (*(v15 + 8))
+      v13 = *(a1 + 320) + v6;
+      if (*(v13 + 8))
       {
-        v16 = *v15;
+        v14 = *v13;
       }
 
       else
       {
-        v16 = &unk_26288BEF0;
+        v14 = &unk_26288BEF0;
       }
 
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3977, "lm/multilm", 124, "%.500s", v13, v14, v16);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3977, "lm/multilm", 124, "%.500s", v14);
     }
 
-    v17 = v30;
-    if (*(a2 + 8) <= v30)
+    v15 = v26;
+    if (*(a2 + 8) <= v26)
     {
-      v18 = *(a1 + 320) + v6;
-      if (*(v18 + 8))
+      v16 = *(a1 + 320) + v6;
+      if (*(v16 + 8))
       {
-        v19 = *v18;
+        v17 = *v16;
       }
 
       else
       {
-        v19 = &unk_26288BEF0;
+        v17 = &unk_26288BEF0;
       }
 
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3980, "lm/multilm", 125, "%.500s", v13, v14, v19);
-      v17 = v30;
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3980, "lm/multilm", 125, "%.500s", v17);
+      v15 = v26;
     }
 
-    v20 = *(*a2 + 8 * v17);
-    v21 = *(*(a1 + 304) + 8 * v7);
-    v22 = *(v21 + 13);
+    v18 = *(*a2 + 8 * v15);
+    v19 = *(*(a1 + 304) + 8 * v7);
     if (a3)
     {
-      if ((*(v21 + 13) & 1) == 0)
+      if ((*(v19 + 13) & 1) == 0)
       {
 LABEL_33:
-        v25 = *(a1 + 344);
-        if (v25 == *(a1 + 348))
+        v22 = *(a1 + 344);
+        if (v22 == *(a1 + 348))
         {
           DgnPrimArray<unsigned long long>::reallocElts(a1 + 336, 1, 1);
-          v25 = *(a1 + 344);
+          v22 = *(a1 + 344);
         }
 
-        *(*(a1 + 336) + 8 * v25) = v20;
-        *(a1 + 344) = v25 + 1;
-        DgnString::~DgnString(&v28);
+        *(*(a1 + 336) + 8 * v22) = v18;
+        *(a1 + 344) = v22 + 1;
+        DgnString::~DgnString(&v24);
         goto LABEL_36;
       }
 
-      if (*(v20 + 12) == 16777212)
+      if (*(v18 + 12) == 16777212)
       {
-        *(v21 + 13) = 0;
+        *(v19 + 13) = 0;
         goto LABEL_33;
       }
     }
 
-    else if ((*(v21 + 13) & 1) == 0)
+    else if ((*(v19 + 13) & 1) == 0)
     {
       goto LABEL_33;
     }
 
-    if (*(v20 + 12) == 16777212)
+    if (*(v18 + 12) == 16777212)
     {
-      v23 = *(a1 + 320) + v6;
-      if (*(v23 + 8))
+      v20 = *(a1 + 320) + v6;
+      if (*(v20 + 8))
       {
-        v24 = *v23;
+        v21 = *v20;
       }
 
       else
       {
-        v24 = &unk_26288BEF0;
+        v21 = &unk_26288BEF0;
       }
 
-      v26 = v24;
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3999, "lm/multilm", 44, "%u %.500s", v13, v14, v7);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3999, "lm/multilm", 44, "%u %.500s", v7, v21);
     }
 
     goto LABEL_33;
   }
 }
 
-void sub_262728A58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_262728A58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
 
-MultiLanguageModel *MultiLanguageModel::getLMForDirPathVerify(char **this, const char *a2, const DgnString *a3, char **a4, DFile *a5, int a6)
+MultiLanguageModel *MultiLanguageModel::getLMForDirPathVerify(MultiLanguageModel *this, const char *a2, const DgnString *a3, LanguageModel *a4, DFile *a5, int a6)
 {
-  v53 = a2;
   v57 = 0;
   v58 = 0;
   v55 = 0;
@@ -4736,271 +4697,387 @@ MultiLanguageModel *MultiLanguageModel::getLMForDirPathVerify(char **this, const
 
   DgnSplitStringIntoTokens(v11, "/", &v57, 0);
   CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a5);
-  DgnString::DgnString(&v54);
-  DFile::makeSubFileName(CurrentSubDirComponents, &unk_26288BEF0, &v54);
-  v15 = *v57;
+  DgnString::DgnString(&v53);
+  DFile::makeSubFileName(CurrentSubDirComponents, &unk_26288BEF0, &v53);
+  v13 = *v57;
   if (!*(v57 + 8))
   {
-    v15 = &unk_26288BEF0;
+    v13 = &unk_26288BEF0;
   }
 
-  if (*v15 == 46 && v15[1] == 46 && !v15[2])
+  if (*v13 == 46 && v13[1] == 46 && !v13[2])
   {
     this = a4;
     if (*(CurrentSubDirComponents + 8))
     {
-      v16 = 0;
-      v17 = v56;
-      v18 = 4;
+      v14 = 0;
+      v15 = v56;
+      v16 = 4;
       do
       {
-        v19 = *(*CurrentSubDirComponents + v18);
-        if (v17 == HIDWORD(v56))
+        v17 = *(*CurrentSubDirComponents + v16);
+        if (v15 == HIDWORD(v56))
         {
           DgnPrimArray<unsigned int>::reallocElts(&v55, 1, 1);
-          v17 = v56;
+          v15 = v56;
         }
 
-        *(v55 + 4 * v17) = v19;
-        v17 = v56 + 1;
+        *(v55 + 4 * v15) = v17;
+        v15 = v56 + 1;
         LODWORD(v56) = v56 + 1;
-        ++v16;
-        v18 += 8;
+        ++v14;
+        v16 += 8;
       }
 
-      while (v16 < *(CurrentSubDirComponents + 8));
+      while (v14 < *(CurrentSubDirComponents + 8));
       this = a4;
     }
   }
 
   if (v58)
   {
+    v18 = 0;
+    v19 = 0;
     v20 = 0;
-    v21 = 0;
-    v22 = 0;
-    v23 = a6 ^ 1;
-    v52 = v23;
+    v21 = a6 ^ 1;
+    v51 = v21;
     do
     {
-      if (*(v57 + v20 + 8))
+      if (*(v57 + v18 + 8))
       {
-        v24 = *(v57 + v20);
+        v22 = *(v57 + v18);
       }
 
       else
       {
-        v24 = &unk_26288BEF0;
+        v22 = &unk_26288BEF0;
       }
 
-      if (*v24 == 46 && v24[1] == 46 && !v24[2])
+      if (*v22 == 46 && v22[1] == 46 && !v22[2])
       {
-        if ((v23 | v22))
+        if ((v21 | v20))
         {
           if (*(a3 + 2))
           {
-            v27 = *a3;
+            v25 = *a3;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3805, "lm/multilm", 55, "%.500s %.500s %.500s", v13, v14, v53);
+          else
+          {
+            v25 = &unk_26288BEF0;
+          }
+
+          if (v54)
+          {
+            v26 = v53;
+          }
+
+          else
+          {
+            v26 = &unk_26288BEF0;
+          }
+
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3805, "lm/multilm", 55, "%.500s %.500s %.500s", a2, v25, v26);
         }
 
-        v28 = v56;
+        v27 = v56;
         if (!v56)
         {
           if (*(a3 + 2))
           {
-            v29 = *a3;
+            v28 = *a3;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3809, "lm/multilm", 56, "%.500s %.500s %.500s", v13, v14, v53);
-          v28 = v56;
+          else
+          {
+            v28 = &unk_26288BEF0;
+          }
+
+          if (v54)
+          {
+            v29 = v53;
+          }
+
+          else
+          {
+            v29 = &unk_26288BEF0;
+          }
+
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3809, "lm/multilm", 56, "%.500s %.500s %.500s", a2, v28, v29);
+          v27 = v56;
         }
 
-        v30 = v28 - 1;
+        v30 = v27 - 1;
         LODWORD(v56) = v30;
         if (a4 && !v30)
         {
-          v31 = *a4;
-          v32 = **a4;
           {
-            v33 = *v31;
             {
               if (*(a3 + 2))
               {
-                v34 = *a3;
+                v31 = *a3;
               }
 
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3816, "lm/multilm", 57, "%.500s %.500s %.500s", v13, v14, v53);
-              v23 = v52;
+              else
+              {
+                v31 = &unk_26288BEF0;
+              }
+
+              if (v54)
+              {
+                v32 = v53;
+              }
+
+              else
+              {
+                v32 = &unk_26288BEF0;
+              }
+
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3816, "lm/multilm", 57, "%.500s %.500s %.500s", a2, v31, v32);
+              v21 = v51;
             }
 
             else
             {
-              v23 = v52;
+              v21 = v51;
             }
           }
 
           else
           {
-            v23 = v52;
+            v21 = v51;
           }
         }
       }
 
       else
       {
-        IndexForLMSubDirExtensionString = GetIndexForLMSubDirExtensionString(v24);
-        v26 = v56;
+        IndexForLMSubDirExtensionString = GetIndexForLMSubDirExtensionString(v22);
+        v24 = v56;
         if (v56 == HIDWORD(v56))
         {
           DgnPrimArray<unsigned int>::reallocElts(&v55, 1, 1);
-          v26 = v56;
+          v24 = v56;
         }
 
-        *(v55 + 4 * v26) = IndexForLMSubDirExtensionString;
+        *(v55 + 4 * v24) = IndexForLMSubDirExtensionString;
         LODWORD(v56) = v56 + 1;
-        v22 = 1;
+        v20 = 1;
       }
 
-      ++v21;
-      v20 += 16;
+      ++v19;
+      v18 += 16;
     }
 
-    while (v21 < v58);
+    while (v19 < v58);
   }
 
   if (v56)
   {
-    v35 = 0;
+    v33 = 0;
     do
     {
-      v36 = *(v55 + 4 * v35);
+      v34 = *(v55 + 4 * v33);
       {
-        v39 = *v37;
-        v41 = v40;
-        if (v40[112] == 1 && v36 != *(v40 + 140))
+        v36 = v35;
+        if (v35[112] == 1 && v34 != *(v35 + 140))
         {
           if (*(a3 + 2))
           {
-            v42 = *a3;
+            v37 = *a3;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3841, "lm/multilm", 58, "%.500s %.500s %.500s", v13, v14, v53);
+          else
+          {
+            v37 = &unk_26288BEF0;
+          }
+
+          if (v54)
+          {
+            v38 = v53;
+          }
+
+          else
+          {
+            v38 = &unk_26288BEF0;
+          }
+
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3841, "lm/multilm", 58, "%.500s %.500s %.500s", a2, v37, v38);
         }
 
-        if (v36 > *(v41 + 29) - 1)
+        if (v34 > *(v36 + 29) - 1)
+        {
+          if (*(a3 + 2))
+          {
+            v39 = *a3;
+          }
+
+          else
+          {
+            v39 = &unk_26288BEF0;
+          }
+
+          if (v54)
+          {
+            v40 = v53;
+          }
+
+          else
+          {
+            v40 = &unk_26288BEF0;
+          }
+
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3845, "lm/multilm", 59, "%.500s %.500s %.500s", a2, v39, v40);
+        }
+
+        v41 = *(*(v36 + 17) + 4 * v34);
+        if (v41)
+        {
+          v42 = v41 == 3;
+        }
+
+        else
+        {
+          v42 = 1;
+        }
+
+        if (!v42)
         {
           if (*(a3 + 2))
           {
             v43 = *a3;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3845, "lm/multilm", 59, "%.500s %.500s %.500s", v13, v14, v53);
+          else
+          {
+            v43 = &unk_26288BEF0;
+          }
+
+          if (v54)
+          {
+            v44 = v53;
+          }
+
+          else
+          {
+            v44 = &unk_26288BEF0;
+          }
+
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3851, "lm/multilm", 60, "%.500s %.500s %.500s", a2, v43, v44);
         }
 
-        v44 = *(*(v41 + 17) + 4 * v36);
-        if (v44)
-        {
-          v45 = v44 == 3;
-        }
+        v45 = (*(v36 + 5) + 8 * v34);
+      }
 
-        else
-        {
-          v45 = 1;
-        }
-
-        if (!v45)
+      else
+      {
+        if (v34 || !*(this + 29))
         {
           if (*(a3 + 2))
           {
             v46 = *a3;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3851, "lm/multilm", 60, "%.500s %.500s %.500s", v13, v14, v53);
-        }
-
-        v47 = (*(v41 + 5) + 8 * v36);
-      }
-
-      else
-      {
-        if (v36 || !this[29])
-        {
-          if (*(a3 + 2))
+          else
           {
-            v48 = *a3;
+            v46 = &unk_26288BEF0;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3862, "lm/multilm", 61, "%.500s %.500s %.500s", v13, v14, v53);
+          if (v54)
+          {
+            v47 = v53;
+          }
+
+          else
+          {
+            v47 = &unk_26288BEF0;
+          }
+
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3862, "lm/multilm", 61, "%.500s %.500s %.500s", a2, v46, v47);
         }
 
-        v47 = (this + 29);
+        v45 = (this + 232);
       }
 
-      this = *v47;
-      ++v35;
+      this = *v45;
+      ++v33;
     }
 
-    while (v35 < v56);
+    while (v33 < v56);
   }
 
   {
     if (*(a3 + 2))
     {
-      v50 = *a3;
+      v48 = *a3;
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3869, "lm/multilm", 62, "%.500s %.500s %.500s", v13, v14, v53);
+    else
+    {
+      v48 = &unk_26288BEF0;
+    }
+
+    if (v54)
+    {
+      v49 = v53;
+    }
+
+    else
+    {
+      v49 = &unk_26288BEF0;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3869, "lm/multilm", 62, "%.500s %.500s %.500s", a2, v48, v49);
   }
 
-  DgnString::~DgnString(&v54);
+  DgnString::~DgnString(&v53);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&v55);
   DgnArray<DgnString>::releaseAll(&v57);
   return this;
 }
 
-void sub_262729148(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_262729148(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va2, a7);
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
+  va_start(va2, a13);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
   va_copy(va2, va1);
-  v11 = va_arg(va2, void);
-  v13 = va_arg(va2, void);
+  v17 = va_arg(va2, void);
+  v19 = va_arg(va2, void);
   DgnString::~DgnString(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   DgnArray<DgnString>::releaseAll(va2);
   _Unwind_Resume(a1);
 }
 
-uint64_t MultiLanguageModel::getLMWithLegacyPath(MultiLanguageModel *this, DgnString *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t MultiLanguageModel::getLMWithLegacyPath(MultiLanguageModel *this, DgnString *a2)
 {
   if ((*(this + 112) & 1) == 0)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3746, "lm/multilm", 120, "%s", a7, a8, &errStr_lm_multilm_E_NO_LEGACY_PATH);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 3746, "lm/multilm", 120, "%s", &errStr_lm_multilm_E_NO_LEGACY_PATH);
   }
 
-  v10 = *(this + 140);
+  v4 = *(this + 140);
   if (*(a2 + 2) >= 2u)
   {
     DgnString::operator+=(a2, "/");
   }
 
-  DgnString::DgnString(v15);
-  v14[0] = 1;
-  v14[1] = v10;
-  SubDirExtension::appendToString(v14, a2);
-  v11 = *(*(this + 5) + 8 * v10);
-  v12 = (*(*v11 + 56))(v11, a2);
-  DgnString::~DgnString(v15);
-  return v12;
+  DgnString::DgnString(v9);
+  v8[0] = 1;
+  v8[1] = v4;
+  SubDirExtension::appendToString(v8, a2);
+  v5 = *(*(this + 5) + 8 * v4);
+  v6 = (*(*v5 + 56))(v5, a2);
+  DgnString::~DgnString(v9);
+  return v6;
 }
 
-void sub_262729288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_262729288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -5067,9 +5144,9 @@ void MultiLanguageModel::saveUnsTable(uint64_t a1, void *a2, char *a3, DgnTextFi
   }
 }
 
-void sub_262729444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_262729444(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -5110,9 +5187,9 @@ void MultiLanguageModel::saveIntTable(uint64_t a1, void *a2, char *a3, DgnTextFi
   }
 }
 
-void sub_262729584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_262729584(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -5163,9 +5240,9 @@ void MultiLanguageModel::saveRealTable(uint64_t a1, void *a2, uint64_t a3, char 
   }
 }
 
-void sub_2627296D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2627296D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -5219,205 +5296,205 @@ void MultiLanguageModel::saveStringTable(uint64_t a1, void *a2, char *a3, DgnTex
   }
 }
 
-void sub_262729828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_262729828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
 
 void MultiLanguageModel::saveMultiText(MultiLanguageModel *this, DFile *a2, int a3)
 {
-  DgnTextFileWriter::DgnTextFileWriter(v71);
-  DgnTextFileWriter::openDgnTextFileWriter(v71, a2, 0x29u, a3);
-  v69 = 0;
-  v70 = 0;
-  DgnTextFile::legalDgnTextFileVersions(v71, sMLS_Versions, &v69, v6, v7, v8, v9, v10);
-  DgnTextFileWriter::setFileType(v71, "MultiLanguageModelSpec", (v69 + 8 * (v70 - 1)));
+  DgnTextFileWriter::DgnTextFileWriter(v66);
+  DgnTextFileWriter::openDgnTextFileWriter(v66, a2, 41, a3);
+  v64 = 0;
+  v65 = 0;
+  DgnTextFile::legalDgnTextFileVersions(v66, sMLS_Versions, &v64);
+  DgnTextFileWriter::setFileType(v66, "MultiLanguageModelSpec", (v64 + 8 * (v65 - 1)));
   if (*(this + 112))
   {
-    v11 = "Dispatch";
+    v6 = "Dispatch";
   }
 
   else if (*(this + 113))
   {
-    v11 = "LogLinear";
+    v6 = "LogLinear";
   }
 
   else
   {
-    v11 = "InterpolatedLinear";
+    v6 = "InterpolatedLinear";
   }
 
-  DgnTextFileWriter::setHeaderField(v71, "MultiLMType", v11);
-  DgnTextFileWriter::setHeaderFieldUnsigned(v71, "NumberOfSubDirectories", *(this + 29));
+  DgnTextFileWriter::setHeaderField(v66, "MultiLMType", v6);
+  DgnTextFileWriter::setHeaderFieldUnsigned(v66, "NumberOfSubDirectories", *(this + 29));
   if (*(this + 114) == 1)
   {
-    v12 = *(this + 39);
-    v13 = (*(this + 40) - v12);
+    v7 = *(this + 39);
+    v8 = (*(this + 40) - v7);
   }
 
   else
   {
-    v12 = 0;
-    v13 = 0;
+    v7 = 0;
+    v8 = 0;
   }
 
-  DgnTextFileWriter::setHeaderFieldUnsigned(v71, "NumberOfFactoryWeightsNames", v12);
-  DgnTextFileWriter::setHeaderFieldUnsigned(v71, "NumberOfClientWeightsNames", v13);
+  DgnTextFileWriter::setHeaderFieldUnsigned(v66, "NumberOfFactoryWeightsNames", v7);
+  DgnTextFileWriter::setHeaderFieldUnsigned(v66, "NumberOfClientWeightsNames", v8);
   if (*(this + 32) >= 2u)
   {
-    DgnTextFileWriter::setHeaderField(v71, "RecentBufferLMPath", *(this + 15));
+    DgnTextFileWriter::setHeaderField(v66, "RecentBufferLMPath", *(this + 15));
   }
 
-  v67 = 0;
-  v68 = 0;
-  v65 = 0;
-  v66 = 0;
-  DgnString::DgnString(&v63, "TableName");
-  v14 = v66;
-  if (v66 == HIDWORD(v66))
-  {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v65, 1, 1);
-    v14 = v66;
-  }
-
-  DgnString::DgnString((v65 + 16 * v14), &v63);
-  LODWORD(v66) = v66 + 1;
-  DgnString::~DgnString(&v63);
-  v15 = v68;
-  if (v68 == HIDWORD(v68))
-  {
-    DgnPrimArray<unsigned int>::reallocElts(&v67, 1, 1);
-    v15 = v68;
-  }
-
-  *(v67 + 4 * v15) = 0;
-  LODWORD(v68) = v15 + 1;
-  DgnString::DgnString(&v63, "WeightsName");
-  v16 = v66;
-  if (v66 == HIDWORD(v66))
-  {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v65, 1, 1);
-    v16 = v66;
-  }
-
-  DgnString::DgnString((v65 + 16 * v16), &v63);
-  LODWORD(v66) = v66 + 1;
-  DgnString::~DgnString(&v63);
-  v17 = v68;
-  if (v68 == HIDWORD(v68))
-  {
-    DgnPrimArray<unsigned int>::reallocElts(&v67, 1, 1);
-    v17 = v68;
-  }
-
-  *(v67 + 4 * v17) = 0;
-  LODWORD(v68) = v17 + 1;
-  DgnString::DgnString(&v63, "SubDirectory");
-  v18 = v66;
-  if (v66 == HIDWORD(v66))
-  {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v65, 1, 1);
-    v18 = v66;
-  }
-
-  DgnString::DgnString((v65 + 16 * v18), &v63);
-  LODWORD(v66) = v66 + 1;
-  DgnString::~DgnString(&v63);
-  v19 = v68;
-  if (v68 == HIDWORD(v68))
-  {
-    DgnPrimArray<unsigned int>::reallocElts(&v67, 1, 1);
-    v19 = v68;
-  }
-
-  *(v67 + 4 * v19) = 0;
-  LODWORD(v68) = v19 + 1;
-  DgnString::DgnString(&v63, "IntValue");
-  v20 = v66;
-  if (v66 == HIDWORD(v66))
-  {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v65, 1, 1);
-    v20 = v66;
-  }
-
-  DgnString::DgnString((v65 + 16 * v20), &v63);
-  LODWORD(v66) = v66 + 1;
-  DgnString::~DgnString(&v63);
-  v21 = v68;
-  if (v68 == HIDWORD(v68))
-  {
-    DgnPrimArray<unsigned int>::reallocElts(&v67, 1, 1);
-    v21 = v68;
-  }
-
-  *(v67 + 4 * v21) = 1;
-  LODWORD(v68) = v21 + 1;
-  DgnString::DgnString(&v63, "RealValue");
-  v22 = v66;
-  if (v66 == HIDWORD(v66))
-  {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v65, 1, 1);
-    v22 = v66;
-  }
-
-  DgnString::DgnString((v65 + 16 * v22), &v63);
-  LODWORD(v66) = v66 + 1;
-  DgnString::~DgnString(&v63);
-  v23 = v68;
-  if (v68 == HIDWORD(v68))
-  {
-    DgnPrimArray<unsigned int>::reallocElts(&v67, 1, 1);
-    v23 = v68;
-  }
-
-  *(v67 + 4 * v23) = 2;
-  LODWORD(v68) = v23 + 1;
-  DgnString::DgnString(&v63, "StrValue");
-  v24 = v66;
-  if (v66 == HIDWORD(v66))
-  {
-    DgnArray<DgnPrimArray<double>>::reallocElts(&v65, 1, 1);
-    v24 = v66;
-  }
-
-  DgnString::DgnString((v65 + 16 * v24), &v63);
-  LODWORD(v66) = v66 + 1;
-  DgnString::~DgnString(&v63);
-  v25 = v68;
-  if (v68 == HIDWORD(v68))
-  {
-    DgnPrimArray<unsigned int>::reallocElts(&v67, 1, 1);
-    v25 = v68;
-  }
-
-  *(v67 + 4 * v25) = 0;
-  LODWORD(v68) = v25 + 1;
-  DgnTextFileWriter::setLineFieldFormat(v71, &v67, &v65);
-  v26 = *(this + 29);
+  v62 = 0;
   v63 = 0;
-  v64 = 0;
-  if (v26)
+  v60 = 0;
+  v61 = 0;
+  DgnString::DgnString(&v58, "TableName");
+  v9 = v61;
+  if (v61 == HIDWORD(v61))
   {
-    v61 = 0;
-    HIDWORD(v64) = realloc_array(0, &v61, 16 * v26, 0, 0, 1) >> 4;
-    v63 = v61;
-    v27 = v64;
-    if (v64 > v26)
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v60, 1, 1);
+    v9 = v61;
+  }
+
+  DgnString::DgnString((v60 + 16 * v9), &v58);
+  LODWORD(v61) = v61 + 1;
+  DgnString::~DgnString(&v58);
+  v10 = v63;
+  if (v63 == HIDWORD(v63))
+  {
+    DgnPrimArray<unsigned int>::reallocElts(&v62, 1, 1);
+    v10 = v63;
+  }
+
+  *(v62 + 4 * v10) = 0;
+  LODWORD(v63) = v10 + 1;
+  DgnString::DgnString(&v58, "WeightsName");
+  v11 = v61;
+  if (v61 == HIDWORD(v61))
+  {
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v60, 1, 1);
+    v11 = v61;
+  }
+
+  DgnString::DgnString((v60 + 16 * v11), &v58);
+  LODWORD(v61) = v61 + 1;
+  DgnString::~DgnString(&v58);
+  v12 = v63;
+  if (v63 == HIDWORD(v63))
+  {
+    DgnPrimArray<unsigned int>::reallocElts(&v62, 1, 1);
+    v12 = v63;
+  }
+
+  *(v62 + 4 * v12) = 0;
+  LODWORD(v63) = v12 + 1;
+  DgnString::DgnString(&v58, "SubDirectory");
+  v13 = v61;
+  if (v61 == HIDWORD(v61))
+  {
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v60, 1, 1);
+    v13 = v61;
+  }
+
+  DgnString::DgnString((v60 + 16 * v13), &v58);
+  LODWORD(v61) = v61 + 1;
+  DgnString::~DgnString(&v58);
+  v14 = v63;
+  if (v63 == HIDWORD(v63))
+  {
+    DgnPrimArray<unsigned int>::reallocElts(&v62, 1, 1);
+    v14 = v63;
+  }
+
+  *(v62 + 4 * v14) = 0;
+  LODWORD(v63) = v14 + 1;
+  DgnString::DgnString(&v58, "IntValue");
+  v15 = v61;
+  if (v61 == HIDWORD(v61))
+  {
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v60, 1, 1);
+    v15 = v61;
+  }
+
+  DgnString::DgnString((v60 + 16 * v15), &v58);
+  LODWORD(v61) = v61 + 1;
+  DgnString::~DgnString(&v58);
+  v16 = v63;
+  if (v63 == HIDWORD(v63))
+  {
+    DgnPrimArray<unsigned int>::reallocElts(&v62, 1, 1);
+    v16 = v63;
+  }
+
+  *(v62 + 4 * v16) = 1;
+  LODWORD(v63) = v16 + 1;
+  DgnString::DgnString(&v58, "RealValue");
+  v17 = v61;
+  if (v61 == HIDWORD(v61))
+  {
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v60, 1, 1);
+    v17 = v61;
+  }
+
+  DgnString::DgnString((v60 + 16 * v17), &v58);
+  LODWORD(v61) = v61 + 1;
+  DgnString::~DgnString(&v58);
+  v18 = v63;
+  if (v63 == HIDWORD(v63))
+  {
+    DgnPrimArray<unsigned int>::reallocElts(&v62, 1, 1);
+    v18 = v63;
+  }
+
+  *(v62 + 4 * v18) = 2;
+  LODWORD(v63) = v18 + 1;
+  DgnString::DgnString(&v58, "StrValue");
+  v19 = v61;
+  if (v61 == HIDWORD(v61))
+  {
+    DgnArray<DgnPrimArray<double>>::reallocElts(&v60, 1, 1);
+    v19 = v61;
+  }
+
+  DgnString::DgnString((v60 + 16 * v19), &v58);
+  LODWORD(v61) = v61 + 1;
+  DgnString::~DgnString(&v58);
+  v20 = v63;
+  if (v63 == HIDWORD(v63))
+  {
+    DgnPrimArray<unsigned int>::reallocElts(&v62, 1, 1);
+    v20 = v63;
+  }
+
+  *(v62 + 4 * v20) = 0;
+  LODWORD(v63) = v20 + 1;
+  DgnTextFileWriter::setLineFieldFormat(v66, &v62, &v60);
+  v21 = *(this + 29);
+  v58 = 0;
+  v59 = 0;
+  if (v21)
+  {
+    v56 = 0;
+    HIDWORD(v59) = realloc_array(0, &v56, 16 * v21, 0, 0, 1) >> 4;
+    v58 = v56;
+    v22 = v59;
+    if (v59 > v21)
     {
-      if (v64 > v26)
+      if (v59 > v21)
       {
-        v28 = v64;
-        v29 = 16 * v64 - 16;
+        v23 = v59;
+        v24 = 16 * v59 - 16;
         do
         {
-          --v28;
-          DgnString::~DgnString(&v63[v29]);
-          v29 -= 16;
+          --v23;
+          DgnString::~DgnString(&v58[v24]);
+          v24 -= 16;
         }
 
-        while (v28 > v26);
+        while (v23 > v21);
       }
 
       goto LABEL_45;
@@ -5426,97 +5503,97 @@ void MultiLanguageModel::saveMultiText(MultiLanguageModel *this, DFile *a2, int 
 
   else
   {
-    v27 = 0;
+    v22 = 0;
   }
 
-  v30 = v26 - v27;
-  if (v26 > v27)
+  v25 = v21 - v22;
+  if (v21 > v22)
   {
-    v31 = 16 * v27;
+    v26 = 16 * v22;
     do
     {
-      DgnString::DgnString(&v63[v31]);
-      v31 += 16;
-      --v30;
+      DgnString::DgnString(&v58[v26]);
+      v26 += 16;
+      --v25;
     }
 
-    while (v30);
+    while (v25);
   }
 
 LABEL_45:
-  LODWORD(v64) = v26;
+  LODWORD(v59) = v21;
   if (*(this + 29))
   {
-    v32 = 0;
-    v33 = 0;
+    v27 = 0;
+    v28 = 0;
     do
     {
-      v34 = *(*(this + 17) + 4 * v33);
-      if (v34 >= 5)
+      v29 = *(*(this + 17) + 4 * v28);
+      if (v29 >= 5)
       {
-        v35 = 0;
+        v30 = 0;
       }
 
       else
       {
-        v35 = off_279B3E928[v34];
+        v30 = off_279B3E928[v29];
       }
 
-      DgnString::operator=(&v63[v32], v35);
-      ++v33;
-      v32 += 16;
+      DgnString::operator=(&v58[v27], v30);
+      ++v28;
+      v27 += 16;
     }
 
-    while (v33 < *(this + 29));
+    while (v28 < *(this + 29));
   }
 
-  MultiLanguageModel::saveStringTable(this, &v63, "SlotType", v71, 0, 1u, 2u, 3u, 4u, 5u);
+  MultiLanguageModel::saveStringTable(this, &v58, "SlotType", v66, 0, 1u, 2u, 3u, 4u, 5u);
   if (*(this + 113) == 1)
   {
-    MultiLanguageModel::saveStringTable(this, this + 64, "CorrectiveName", v71, 0, 1u, 2u, 3u, 4u, 5u);
+    MultiLanguageModel::saveStringTable(this, this + 64, "CorrectiveName", v66, 0, 1u, 2u, 3u, 4u, 5u);
   }
 
   if ((*(this + 112) & 1) == 0)
   {
-    MultiLanguageModel::saveStringTable(this, this + 44, "TopicName", v71, 0, 1u, 2u, 3u, 4u, 5u);
-    MultiLanguageModel::saveStringTable(this, this + 40, "TemplatePath", v71, 0, 1u, 2u, 3u, 4u, 5u);
+    MultiLanguageModel::saveStringTable(this, this + 44, "TopicName", v66, 0, 1u, 2u, 3u, 4u, 5u);
+    MultiLanguageModel::saveStringTable(this, this + 40, "TemplatePath", v66, 0, 1u, 2u, 3u, 4u, 5u);
   }
 
   if (*(this + 114) == 1)
   {
-    DgnString::DgnString(&v61);
-    MultiLanguageModel::saveRealTable(this, this + 50, &v61, "WeightFloor", v71, 0, 1u, 2u, 3u, 4u, 5u);
-    MultiLanguageModel::saveRealTable(this, this + 52, &v61, "WeightCeiling", v71, 0, 1u, 2u, 3u, 4u, 5u);
-    MultiLanguageModel::saveRealTable(this, this + 54, &v61, "PrefiltererFixedWeight", v71, 0, 1u, 2u, 3u, 4u, 5u);
-    MultiLanguageModel::saveRealTable(this, this + 48, &v61, "CurrentWeight", v71, 0, 1u, 2u, 3u, 4u, 5u);
-    MultiLanguageModel::saveRealTable(this, this + 56, &v61, "DefaultTopicWeight", v71, 0, 1u, 2u, 3u, 4u, 5u);
-    DgnString::~DgnString(&v61);
+    DgnString::DgnString(&v56);
+    MultiLanguageModel::saveRealTable(this, this + 50, &v56, "WeightFloor", v66, 0, 1u, 2u, 3u, 4u, 5u);
+    MultiLanguageModel::saveRealTable(this, this + 52, &v56, "WeightCeiling", v66, 0, 1u, 2u, 3u, 4u, 5u);
+    MultiLanguageModel::saveRealTable(this, this + 54, &v56, "PrefiltererFixedWeight", v66, 0, 1u, 2u, 3u, 4u, 5u);
+    MultiLanguageModel::saveRealTable(this, this + 48, &v56, "CurrentWeight", v66, 0, 1u, 2u, 3u, 4u, 5u);
+    MultiLanguageModel::saveRealTable(this, this + 56, &v56, "DefaultTopicWeight", v66, 0, 1u, 2u, 3u, 4u, 5u);
+    DgnString::~DgnString(&v56);
     if (*(this + 114))
     {
-      v36 = *(this + 44);
-      if (v36)
+      v31 = *(this + 44);
+      if (v31)
       {
-        v37 = 0;
-        for (i = 0; i < v36; ++i)
+        v32 = 0;
+        for (i = 0; i < v31; ++i)
         {
-          v39 = *(this + 21) + v37;
-          if (*(v39 + 8) >= 2u)
+          v34 = *(this + 21) + v32;
+          if (*(v34 + 8) >= 2u)
           {
             if (i >= *(this + 39))
             {
-              v40 = "ClientWeight";
+              v35 = "ClientWeight";
             }
 
             else
             {
-              v40 = "FactoryWeight";
+              v35 = "FactoryWeight";
             }
 
-            MultiLanguageModel::saveRealTable(this, (*(this + 23) + v37), v39, v40, v71, 0, 1u, 2u, 3u, 4u, 5u);
-            v36 = *(this + 44);
+            MultiLanguageModel::saveRealTable(this, (*(this + 23) + v32), v34, v35, v66, 0, 1u, 2u, 3u, 4u, 5u);
+            v31 = *(this + 44);
           }
 
-          v37 += 16;
+          v32 += 16;
         }
       }
     }
@@ -5524,94 +5601,94 @@ LABEL_45:
 
   if (*(this + 113) == 1)
   {
-    DgnString::DgnString(&v61);
-    MultiLanguageModel::saveRealTable(this, this + 62, &v61, "LogLinearWeight", v71, 0, 1u, 2u, 3u, 4u, 5u);
-    MultiLanguageModel::saveIntTable(this, this + 66, "LogLinearOffset", v71, 0, 1u, 2u, 3u, 4u, 5u);
-    v41 = *(this + 29);
-    v59 = 0;
-    v60 = 0;
-    if (v41)
+    DgnString::DgnString(&v56);
+    MultiLanguageModel::saveRealTable(this, this + 62, &v56, "LogLinearWeight", v66, 0, 1u, 2u, 3u, 4u, 5u);
+    MultiLanguageModel::saveIntTable(this, this + 66, "LogLinearOffset", v66, 0, 1u, 2u, 3u, 4u, 5u);
+    v36 = *(this + 29);
+    v54 = 0;
+    v55 = 0;
+    if (v36)
     {
-      v72 = 0;
-      v42 = realloc_array(0, &v72, 4 * v41, 0, 0, 1);
-      v43 = v72;
-      v59 = v72;
-      v44 = *(this + 29);
-      LODWORD(v60) = v41;
-      HIDWORD(v60) = v42 >> 2;
-      if (v44)
+      v67 = 0;
+      v37 = realloc_array(0, &v67, 4 * v36, 0, 0, 1);
+      v38 = v67;
+      v54 = v67;
+      v39 = *(this + 29);
+      LODWORD(v55) = v36;
+      HIDWORD(v55) = v37 >> 2;
+      if (v39)
       {
-        v45 = 0;
-        v46 = *(this + 68);
+        v40 = 0;
+        v41 = *(this + 68);
         do
         {
-          v43[v45] = *(v46 + v45);
-          ++v45;
+          v38[v40] = *(v41 + v40);
+          ++v40;
         }
 
-        while (v45 < *(this + 29));
+        while (v40 < *(this + 29));
       }
     }
 
     else
     {
-      LODWORD(v60) = 0;
+      LODWORD(v55) = 0;
     }
 
-    MultiLanguageModel::saveUnsTable(this, &v59, "IsActive", v71, 0, 1u, 2u, 3u, 4u, 5u);
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v59);
-    DgnString::~DgnString(&v61);
+    MultiLanguageModel::saveUnsTable(this, &v54, "IsActive", v66, 0, 1u, 2u, 3u, 4u, 5u);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v54);
+    DgnString::~DgnString(&v56);
   }
 
   if (*(this + 112) == 1)
   {
-    v47 = *(this + 29);
-    v61 = 0;
-    v62 = 0;
-    if (v47)
+    v42 = *(this + 29);
+    v56 = 0;
+    v57 = 0;
+    if (v42)
     {
-      v59 = 0;
-      v48 = realloc_array(0, &v59, 4 * v47, 0, 0, 1);
-      v60 = 0;
-      v61 = v59;
-      v49 = *(this + 29);
-      LODWORD(v62) = v47;
-      HIDWORD(v62) = v48 >> 2;
-      v59 = 0;
-      if (v49)
+      v54 = 0;
+      v43 = realloc_array(0, &v54, 4 * v42, 0, 0, 1);
+      v55 = 0;
+      v56 = v54;
+      v44 = *(this + 29);
+      LODWORD(v57) = v42;
+      HIDWORD(v57) = v43 >> 2;
+      v54 = 0;
+      if (v44)
       {
-        v72 = 0;
-        v50 = realloc_array(0, &v72, 4 * v49, 0, 0, 1);
-        v51 = v72;
-        v59 = v72;
-        v52 = *(this + 29);
-        LODWORD(v60) = v49;
-        HIDWORD(v60) = v50 >> 2;
-        if (v52)
+        v67 = 0;
+        v45 = realloc_array(0, &v67, 4 * v44, 0, 0, 1);
+        v46 = v67;
+        v54 = v67;
+        v47 = *(this + 29);
+        LODWORD(v55) = v44;
+        HIDWORD(v55) = v45 >> 2;
+        if (v47)
         {
-          v53 = 0;
-          v54 = *(this + 71);
-          v55 = v61;
-          v56 = *(this + 73);
+          v48 = 0;
+          v49 = *(this + 71);
+          v50 = v56;
+          v51 = *(this + 73);
           do
           {
-            v57 = *(v54 + 4 * v53);
-            if (v57 == 0xFFFFFF)
+            v52 = *(v49 + 4 * v48);
+            if (v52 == 0xFFFFFF)
             {
-              v57 = -1;
+              v52 = -1;
             }
 
-            v55[v53] = v57;
-            v58 = *(v56 + 4 * v53);
-            if (v58 == 0xFFFFFF)
+            v50[v48] = v52;
+            v53 = *(v51 + 4 * v48);
+            if (v53 == 0xFFFFFF)
             {
-              v58 = -1;
+              v53 = -1;
             }
 
-            v51[v53++] = v58;
+            v46[v48++] = v53;
           }
 
-          while (v53 < *(this + 29));
+          while (v48 < *(this + 29));
         }
 
         goto LABEL_86;
@@ -5620,48 +5697,48 @@ LABEL_45:
 
     else
     {
-      v59 = 0;
-      v60 = 0;
+      v54 = 0;
+      v55 = 0;
     }
 
-    LODWORD(v60) = 0;
+    LODWORD(v55) = 0;
 LABEL_86:
-    MultiLanguageModel::saveIntTable(this, &v61, "MinWordId", v71, 0, 1u, 2u, 3u, 4u, 5u);
-    MultiLanguageModel::saveIntTable(this, &v59, "MaxWordId", v71, 0, 1u, 2u, 3u, 4u, 5u);
-    MultiLanguageModel::saveUnsTable(this, this + 75, "PrefiltererPerWordPenalty", v71, 0, 1u, 2u, 3u, 4u, 5u);
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v59);
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v61);
+    MultiLanguageModel::saveIntTable(this, &v56, "MinWordId", v66, 0, 1u, 2u, 3u, 4u, 5u);
+    MultiLanguageModel::saveIntTable(this, &v54, "MaxWordId", v66, 0, 1u, 2u, 3u, 4u, 5u);
+    MultiLanguageModel::saveUnsTable(this, this + 75, "PrefiltererPerWordPenalty", v66, 0, 1u, 2u, 3u, 4u, 5u);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v54);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v56);
   }
 
-  DgnArray<DgnString>::releaseAll(&v63);
-  DgnArray<DgnString>::releaseAll(&v65);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v67);
-  DgnIArray<Utterance *>::~DgnIArray(&v69);
-  DgnTextFileWriter::~DgnTextFileWriter(v71);
+  DgnArray<DgnString>::releaseAll(&v58);
+  DgnArray<DgnString>::releaseAll(&v60);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v62);
+  DgnIArray<Utterance *>::~DgnIArray(&v64);
+  DgnTextFileWriter::~DgnTextFileWriter(v66);
 }
 
-void sub_26272A334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_26272A334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va5, a5);
-  va_start(va4, a5);
-  va_start(va3, a5);
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
+  va_start(va5, a9);
+  va_start(va4, a9);
+  va_start(va3, a9);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   va_copy(va2, va1);
-  v9 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
+  v13 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
   va_copy(va3, va2);
-  v12 = va_arg(va3, void);
-  v14 = va_arg(va3, void);
+  v16 = va_arg(va3, void);
+  v18 = va_arg(va3, void);
   va_copy(va4, va3);
-  v15 = va_arg(va4, void);
-  v17 = va_arg(va4, void);
+  v19 = va_arg(va4, void);
+  v21 = va_arg(va4, void);
   va_copy(va5, va4);
-  v18 = va_arg(va5, void);
-  v20 = va_arg(va5, void);
+  v22 = va_arg(va5, void);
+  v24 = va_arg(va5, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnArray<DgnString>::releaseAll(va1);
   DgnArray<DgnString>::releaseAll(va2);
@@ -5671,7 +5748,7 @@ void sub_26272A334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-RecentBuffer *MultiLanguageModel::saveLM(RecentBuffer **this, DFile *a2, DFileChecksums *a3, uint64_t a4, DFileChecksums *a5)
+RecentBuffer *MultiLanguageModel::saveLM(RecentBuffer **this, DFile *a2, DFileChecksums *a3, _BOOL8 a4, DFileChecksums *a5)
 {
   if (a4)
   {
@@ -5685,32 +5762,32 @@ RecentBuffer *MultiLanguageModel::saveLM(RecentBuffer **this, DFile *a2, DFileCh
 
   if (*(this + 29))
   {
-    v16 = 0;
+    v10 = 0;
     do
     {
-      v20[0] = 1;
-      v20[1] = v16;
-      DFile::pushCurrentSubDirComponent(a2, v20, v10, v11, v12, v13, v14, v15);
-      v17 = *(this[5] + v16);
-      if (v17)
+      v14[0] = 1;
+      v14[1] = v10;
+      DFile::pushCurrentSubDirComponent(a2, v14);
+      v11 = *(this[5] + v10);
+      if (v11)
       {
-        (*(*v17 + 72))(v17, a2, a3, a4, a5);
+        (*(*v11 + 72))(v11, a2, a3, a4, a5);
       }
 
       if ((this[14] & 1) == 0)
       {
-        v18 = *(this[38] + v16);
-        if (v18)
+        v12 = *(this[38] + v10);
+        if (v12)
         {
-          WordNgramBuildSpec::saveWordNgramBuildSpec(v18, a2, a3, a4, a5);
+          WordNgramBuildSpec::saveWordNgramBuildSpec(v12, a2, a3, a4, a5);
         }
       }
 
       DFile::popCurrentSubDirComponent(a2);
-      ++v16;
+      ++v10;
     }
 
-    while (v16 < *(this + 29));
+    while (v10 < *(this + 29));
   }
 
   result = this[1];
@@ -5775,45 +5852,45 @@ RecentBuffer *MultiLanguageModel::saveVocAndSvc(uint64_t a1, DFile *a2, DFile *a
   MultiLanguageModel::saveMultiBinary(a1, a2, a4, a6);
   if (*(a1 + 116))
   {
-    v21 = 0;
+    v15 = 0;
     do
     {
-      v32 = 1;
-      v33 = v21;
-      DFile::pushCurrentSubDirComponent(a2, &v32, v15, v16, v17, v18, v19, v20);
-      v32 = 1;
-      v33 = v21;
-      DFile::pushCurrentSubDirComponent(a3, &v32, v22, v23, v24, v25, v26, v27);
-      v28 = *(*(a1 + 40) + 8 * v21);
-      if (v28)
+      v20 = 1;
+      v21 = v15;
+      DFile::pushCurrentSubDirComponent(a2, &v20);
+      v20 = 1;
+      v21 = v15;
+      DFile::pushCurrentSubDirComponent(a3, &v20);
+      v16 = *(*(a1 + 40) + 8 * v15);
+      if (v16)
       {
-        v29 = *v28;
-        if (*(*(a1 + 136) + 4 * v21) == 1)
+        v17 = *v16;
+        if (*(*(a1 + 136) + 4 * v15) == 1)
         {
-          (*(v29 + 72))();
+          (*(v17 + 72))();
         }
 
         else
         {
-          (*(v29 + 96))(v28);
+          (*(v17 + 96))(v16);
         }
       }
 
       if ((*(a1 + 112) & 1) == 0)
       {
-        v30 = *(*(a1 + 304) + 8 * v21);
-        if (v30)
+        v18 = *(*(a1 + 304) + 8 * v15);
+        if (v18)
         {
-          WordNgramBuildSpec::saveWordNgramBuildSpec(v30, a2, a4, 0, a6);
+          WordNgramBuildSpec::saveWordNgramBuildSpec(v18, a2, a4, 0, a6);
         }
       }
 
       DFile::popCurrentSubDirComponent(a2);
       DFile::popCurrentSubDirComponent(a3);
-      ++v21;
+      ++v15;
     }
 
-    while (v21 < *(a1 + 116));
+    while (v15 < *(a1 + 116));
   }
 
   result = *(a1 + 8);
@@ -5946,7 +6023,7 @@ uint64_t MultiLanguageModel::getRecentBufferLength(MultiLanguageModel *this)
   }
 }
 
-WordLanguageModel ***MultiLanguageModel::addToRecent(uint64_t a1, uint64_t *a2, uint64_t a3)
+RecentBuffer **MultiLanguageModel::addToRecent(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   v6 = *(a1 + 116);
   if (v6)
@@ -5984,122 +6061,123 @@ void MultiLanguageModel::clearRecent(MultiLanguageModel *this)
   LanguageModel::clearRecent(this);
 }
 
-uint64_t MultiLanguageModel::setWeights(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t MultiLanguageModel::setWeights(uint64_t a1, uint64_t a2)
 {
-  v10 = *(a2 + 8);
-  if (v10 != *(a1 + 116))
+  v4 = *(a2 + 8);
+  v5 = *(a1 + 116);
+  if (v4 != v5)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4634, "lm/multilm", 3, "%d %d", a7, a8, *(a2 + 8));
-    v10 = *(a2 + 8);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4634, "lm/multilm", 3, "%d %d", *(a2 + 8), v5);
+    v4 = *(a2 + 8);
   }
 
-  v34[0] = 0;
-  v34[1] = 0;
-  DgnPrimArray<double>::copyArraySlice(v34, a2, 0, v10);
-  v13 = *(a1 + 116);
-  if (!v13)
+  v27[0] = 0;
+  v27[1] = 0;
+  DgnPrimArray<double>::copyArraySlice(v27, a2, 0, v4);
+  v6 = *(a1 + 116);
+  if (!v6)
   {
     goto LABEL_10;
   }
 
-  v14 = 0;
-  v15 = *(a1 + 114);
-  v16 = v34[0];
-  v17 = 8 * v13;
-  v18 = 1;
+  v7 = 0;
+  v8 = *(a1 + 114);
+  v9 = v27[0];
+  v10 = 8 * v6;
+  v11 = 1;
   do
   {
-    if (v15 && !*(*(a1 + 40) + v14))
+    if (v8 && !*(*(a1 + 40) + v7))
     {
-      *(v16 + v14) = 0;
+      *(v9 + v7) = 0;
     }
 
-    v18 &= *(v16 + v14) == 0.0;
-    v14 += 8;
+    v11 &= *(v9 + v7) == 0.0;
+    v7 += 8;
   }
 
-  while (v17 != v14);
-  if (v18)
+  while (v10 != v7);
+  if (v11)
   {
 LABEL_10:
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4650, "lm/multilm", 45, "%s", v11, v12, &errStr_lm_multilm_E_ALL_WEIGHTS_ZERO);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4650, "lm/multilm", 45, "%s", &errStr_lm_multilm_E_ALL_WEIGHTS_ZERO);
   }
 
   if (*(a1 + 113) == 1)
   {
-    v19 = *(a1 + 116);
-    v20 = *(a1 + 508);
-    LODWORD(v21) = v19;
-    if (v19 > v20)
+    v12 = *(a1 + 116);
+    v13 = *(a1 + 508);
+    LODWORD(v14) = v12;
+    if (v12 > v13)
     {
-      DgnPrimArray<unsigned long long>::reallocElts(a1 + 496, v19 - v20, 0);
-      LODWORD(v21) = *(a1 + 116);
+      DgnPrimArray<unsigned long long>::reallocElts(a1 + 496, v12 - v13, 0);
+      LODWORD(v14) = *(a1 + 116);
     }
 
-    *(a1 + 504) = v19;
-    if (v21)
+    *(a1 + 504) = v12;
+    if (v14)
     {
-      v22 = v34[0];
-      v23 = *(a1 + 496);
-      v21 = v21;
+      v15 = v27[0];
+      v16 = *(a1 + 496);
+      v14 = v14;
       do
       {
-        v24 = *v22++;
-        *v23++ = v24;
-        --v21;
+        v17 = *v15++;
+        *v16++ = v17;
+        --v14;
       }
 
-      while (v21);
+      while (v14);
     }
   }
 
   else
   {
-    v32 = 0;
-    v33 = 0;
-    MultiLanguageModel::fitWeightsToFloorAndCeiling(a1, v34, &v32);
-    if (v33)
+    v25 = 0;
+    v26 = 0;
+    MultiLanguageModel::fitWeightsToFloorAndCeiling(a1, v27, &v25);
+    if (v26)
     {
-      DgnPrimArray<double>::copyArraySlice(a1 + 384, &v32, 0, v33);
+      DgnPrimArray<double>::copyArraySlice(a1 + 384, &v25, 0, v26);
     }
 
     else
     {
-      MultiLanguageModel::failsafeFitWeightsToFloorAndCeiling(a1, v34, a1 + 384);
+      MultiLanguageModel::failsafeFitWeightsToFloorAndCeiling(a1, v27, a1 + 384);
     }
 
-    v25 = *(a1 + 116);
-    if (v25)
+    v18 = *(a1 + 116);
+    if (v18)
     {
-      for (i = 0; i < v25; ++i)
+      for (i = 0; i < v18; ++i)
       {
-        v27 = *(*(a1 + 384) + 8 * i);
-        if (v27 == 0.0)
+        v20 = *(*(a1 + 384) + 8 * i);
+        if (v20 == 0.0)
         {
-          LOWORD(v28) = 2000;
+          LOWORD(v21) = 2000;
         }
 
         else
         {
-          v29 = DgnLog(v27);
-          LODWORD(v30) = *(a1 + 32);
-          v28 = (0.5 - v29 * v30);
-          v25 = *(a1 + 116);
+          v22 = DgnLog(v20);
+          LODWORD(v23) = *(a1 + 32);
+          v21 = (0.5 - v22 * v23);
+          v18 = *(a1 + 116);
         }
 
-        *(*(a1 + 464) + 2 * i) = v28;
+        *(*(a1 + 464) + 2 * i) = v21;
       }
     }
 
-    DgnPrimArray<unsigned int>::~DgnPrimArray(&v32);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(&v25);
   }
 
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(v34);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(v27);
 }
 
-void sub_26272AD90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_26272AD90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -6430,121 +6508,122 @@ LABEL_93:
   return DgnPrimArray<unsigned int>::~DgnPrimArray(&v68);
 }
 
-void sub_26272B250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, char a15)
+void sub_26272B250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a9);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a11);
   DgnPrimArray<unsigned int>::~DgnPrimArray(&a13);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&a15);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t MultiLanguageModel::failsafeFitWeightsToFloorAndCeiling(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = *(a1 + 116);
-  v22 = 0;
+  v5 = *(a1 + 116);
   v23 = 0;
-  if (v4)
+  v24 = 0;
+  if (v5)
   {
-    v24 = 0;
-    v7 = realloc_array(0, &v24, 8 * v4, 0, 0, 1);
-    v8 = v24;
-    v22 = v24;
-    v9 = *(a1 + 116);
-    LODWORD(v23) = v4;
-    HIDWORD(v23) = v7 >> 3;
-    if (v9)
+    v25 = 0;
+    v8 = realloc_array(0, &v25, 8 * v5, 0, 0, 1);
+    v9 = v25;
+    v23 = v25;
+    v10 = *(a1 + 116);
+    LODWORD(v24) = v5;
+    HIDWORD(v24) = v8 >> 3;
+    if (v10)
     {
-      v10 = 0;
-      v11 = *a2;
-      v12 = 8 * v9;
-      v13 = 0.0;
+      v11 = 0;
+      v12 = *a2;
+      v13 = 8 * v10;
+      v14 = 0.0;
       do
       {
-        v14 = *(v11 + v10);
-        if (v14 == 0.0)
+        v15 = *(v12 + v11);
+        if (v15 == 0.0)
         {
-          *&v8[v10] = 0;
+          *&v9[v11] = 0;
         }
 
         else
         {
-          v15 = *(*(a1 + 400) + v10);
-          if (v14 >= v15 && (v15 = *(*(a1 + 416) + v10), v14 <= v15))
+          v16 = *(*(a1 + 400) + v11);
+          if (v15 >= v16 && (v16 = *(*(a1 + 416) + v11), v15 <= v16))
           {
-            *&v8[v10] = v14;
-            v15 = v14;
+            *&v9[v11] = v15;
+            v16 = v15;
           }
 
           else
           {
-            *&v8[v10] = v15;
+            *&v9[v11] = v16;
           }
 
-          v13 = v13 + v15;
+          v14 = v14 + v16;
         }
 
-        v10 += 8;
+        v11 += 8;
       }
 
-      while (v12 != v10);
-      for (i = 0; v12 != i; i += 8)
+      while (v13 != v11);
+      for (i = 0; v13 != i; i += 8)
       {
-        v17 = *&v8[i];
-        if (v17 != 0.0)
+        v18 = *&v9[i];
+        if (v18 != 0.0)
         {
-          if (v13 <= 1.0)
+          if (v14 <= 1.0)
           {
-            v18 = *(*(a1 + 416) + i) - v17;
-            if (v18 <= 0.0)
+            v19 = *(*(a1 + 416) + i) - v18;
+            if (v19 <= 0.0)
             {
               continue;
             }
 
-            v19 = 1.0 - v13;
-            if (1.0 - v13 <= v18)
+            v20 = 1.0 - v14;
+            if (1.0 - v14 <= v19)
             {
-              v18 = 1.0 - v13;
+              v19 = 1.0 - v14;
             }
 
-            v20 = v17 + v18;
+            v21 = v18 + v19;
           }
 
           else
           {
-            v18 = v17 - *(*(a1 + 400) + i);
-            if (v18 <= 0.0)
+            v19 = v18 - *(*(a1 + 400) + i);
+            if (v19 <= 0.0)
             {
               continue;
             }
 
-            v19 = v13 + -1.0;
-            if (v13 + -1.0 <= v18)
+            v20 = v14 + -1.0;
+            if (v14 + -1.0 <= v19)
             {
-              v18 = v13 + -1.0;
+              v19 = v14 + -1.0;
             }
 
-            v20 = v17 - v18;
+            v21 = v18 - v19;
           }
 
-          *&v8[i] = v20;
-          if (v20 == 0.0)
+          *&v9[i] = v21;
+          if (v21 == 0.0)
           {
-            *&v8[i] = 0x3EE4F8B588E368F1;
-            v18 = v18 + -0.00001;
+            *&v9[i] = 0x3EE4F8B588E368F1;
+            v19 = v19 + -0.00001;
           }
 
-          if (v18 == v19)
+          if (v19 == v20)
           {
             break;
           }
 
-          if (v13 > 1.0)
+          if (v14 > 1.0)
           {
-            v18 = -v18;
+            v19 = -v19;
           }
 
-          v13 = v13 + v18;
+          v14 = v14 + v19;
         }
       }
     }
@@ -6552,16 +6631,16 @@ uint64_t MultiLanguageModel::failsafeFitWeightsToFloorAndCeiling(uint64_t a1, ui
 
   else
   {
-    LODWORD(v23) = 0;
+    LODWORD(v24) = 0;
   }
 
-  DgnPrimArray<double>::copyArraySlice(a3, &v22, 0, v4);
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v22);
+  DgnPrimArray<double>::copyArraySlice(a3, &v23, 0, v5);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v23);
 }
 
-void sub_26272B450(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26272B450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -6581,14 +6660,15 @@ uint64_t MultiLanguageModel::getNumDispatchComponents(MultiLanguageModel *this)
 
 void MultiLanguageModel::setDispatchPrefiltererPerWordPenalty(MultiLanguageModel *this, unsigned int a2, unsigned int a3)
 {
-  if ((*(*this + 544))(this) <= a2)
+  v6 = (*(*this + 544))(this);
+  if (v6 <= a2)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4720, "lm/multilm", 133, "%u %u", v6, v7, a2);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4720, "lm/multilm", 133, "%u %u", a2, v6);
   }
 
   if (a3 >= 0x3E9)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4722, "lm/multilm", 134, "%u", v6, v7, a3);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4722, "lm/multilm", 134, "%u", a3);
   }
 
   *(*(this + 75) + 4 * a2) = a3;
@@ -6596,9 +6676,10 @@ void MultiLanguageModel::setDispatchPrefiltererPerWordPenalty(MultiLanguageModel
 
 uint64_t MultiLanguageModel::getDispatchPrefiltererPerWordPenalty(MultiLanguageModel *this, unsigned int a2)
 {
-  if ((*(*this + 544))(this) <= a2)
+  v4 = (*(*this + 544))(this);
+  if (v4 <= a2)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4734, "lm/multilm", 133, "%u %u", v4, v5, a2);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4734, "lm/multilm", 133, "%u %u", a2, v4);
   }
 
   return *(*(this + 75) + 4 * a2);
@@ -6692,55 +6773,55 @@ uint64_t MultiLanguageModel::getInterpolatedLmWeights(MultiLanguageModel *this, 
   return 0;
 }
 
-uint64_t MultiLanguageModel::getActiveTopicLmSlots(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t MultiLanguageModel::getActiveTopicLmSlots(uint64_t a1, uint64_t a2, void *a3)
 {
   if (*(a1 + 616))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4833, "lm/multilm", 20, "%.500s", a7, a8, "getActiveTopicLmSlots");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4833, "lm/multilm", 20, "%.500s", "getActiveTopicLmSlots");
   }
 
-  v11 = *(a1 + 104);
-  DgnPrimArray<unsigned char>::DgnPrimArray(v20, *(a1 + 104));
-  v19 = 0;
-  MultiLanguageModel::getActiveTopicLmSlotsInternal(a1, v20, &v19);
-  DgnPrimArray<unsigned char>::DgnPrimArray(v18, v11);
-  if (v11)
+  v6 = *(a1 + 104);
+  DgnPrimArray<unsigned char>::DgnPrimArray(v13, *(a1 + 104));
+  v12 = 0;
+  MultiLanguageModel::getActiveTopicLmSlotsInternal(a1, v13, &v12);
+  DgnPrimArray<unsigned char>::DgnPrimArray(v11, v6);
+  if (v6)
   {
-    bzero(v18[0], v11);
+    bzero(v11[0], v6);
   }
 
   if (*(a2 + 8))
   {
-    v14 = 0;
+    v7 = 0;
     do
     {
-      v15 = *(*a2 + 4 * v14) - 1;
-      if (v15 >= v11)
+      v8 = *(*a2 + 4 * v7) - 1;
+      if (v8 >= v6)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4854, "lm/multilm", 95, "%u", v12, v13, *(*a2 + 4 * v14));
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4854, "lm/multilm", 95, "%u", *(*a2 + 4 * v7));
       }
 
-      v16 = v18[0];
-      if (*(v18[0] + v15) == 1)
+      v9 = v11[0];
+      if (*(v11[0] + v8) == 1)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4857, "lm/multilm", 96, "%u", v12, v13, *(*a2 + 4 * v14));
-        v16 = v18[0];
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4857, "lm/multilm", 96, "%u", *(*a2 + 4 * v7));
+        v9 = v11[0];
       }
 
-      v16[v15] = 1;
-      *(*a3 + v14++) = *(v20[0] + v15);
+      v9[v8] = 1;
+      *(*a3 + v7++) = *(v13[0] + v8);
     }
 
-    while (v14 < *(a2 + 8));
+    while (v7 < *(a2 + 8));
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v18);
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(v20);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v11);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(v13);
 }
 
-void sub_26272B9AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_26272B9AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -6789,7 +6870,6 @@ LABEL_18:
           v11 = *(*(v5 + 40) + 8 * i);
           if (v11)
           {
-            v12 = **v11;
           }
 
           result = MultiLanguageModel::getActiveTopicLmSlotsInternal(v11, a2, a3);
@@ -6806,80 +6886,80 @@ LABEL_18:
   return result;
 }
 
-uint64_t MultiLanguageModel::setTopicLmSlotWeights(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t MultiLanguageModel::setTopicLmSlotWeights(uint64_t a1, uint64_t a2, void *a3)
 {
   if (*(a1 + 616))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4903, "lm/multilm", 20, "%.500s", a7, a8, "setTopicLmSlotWeights");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4903, "lm/multilm", 20, "%.500s", "setTopicLmSlotWeights");
   }
 
-  v11 = *(a1 + 104);
-  v18 = 0;
-  v19 = 0;
-  v17 = a1;
-  if (v11)
+  v6 = *(a1 + 104);
+  v13 = 0;
+  v14 = 0;
+  v12 = a1;
+  if (v6)
   {
     __b = 0;
-    v12 = realloc_array(0, &__b, 8 * v11, 0, 0, 1);
+    v7 = realloc_array(0, &__b, 8 * v6, 0, 0, 1);
+    v8 = __b;
     v13 = __b;
-    v18 = __b;
-    LODWORD(v19) = v11;
-    HIDWORD(v19) = v12 >> 3;
-    memset_pattern16(__b, &unk_26288BEE0, 8 * v11);
+    LODWORD(v14) = v6;
+    HIDWORD(v14) = v7 >> 3;
+    memset_pattern16(__b, &unk_26288BEE0, 8 * v6);
   }
 
   else
   {
-    v13 = 0;
-    LODWORD(v19) = 0;
+    v8 = 0;
+    LODWORD(v14) = 0;
   }
 
   if (*(a2 + 8))
   {
-    v14 = 0;
+    v9 = 0;
     do
     {
-      v15 = *(*a2 + 4 * v14) - 1;
-      if (v15 >= v11)
+      v10 = *(*a2 + 4 * v9) - 1;
+      if (v10 >= v6)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4919, "lm/multilm", 95, "%u", a7, a8, *(*a2 + 4 * v14));
-        v13 = v18;
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4919, "lm/multilm", 95, "%u", *(*a2 + 4 * v9));
+        v8 = v13;
       }
 
-      if (v13[v15] != -2.0)
+      if (v8[v10] != -2.0)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4922, "lm/multilm", 96, "%u", a7, a8, *(*a2 + 4 * v14));
-        v13 = v18;
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4922, "lm/multilm", 96, "%u", *(*a2 + 4 * v9));
+        v8 = v13;
       }
 
-      v13[v15] = *(*a3 + 8 * v14++);
+      v8[v10] = *(*a3 + 8 * v9++);
     }
 
-    while (v14 < *(a2 + 8));
+    while (v9 < *(a2 + 8));
   }
 
   LODWORD(__b) = 0;
-  MultiLanguageModel::setTopicLmSlotWeightsInternal(v17, &v18, &__b);
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v18);
+  MultiLanguageModel::setTopicLmSlotWeightsInternal(v12, &v13, &__b);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v13);
 }
 
-void sub_26272BCEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_26272BCEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t MultiLanguageModel::setTopicLmSlotWeightsInternal(uint64_t a1, uint64_t a2, unsigned int *a3)
 {
-  v31[0] = 0;
-  v31[1] = 0;
+  v28[0] = 0;
+  v28[1] = 0;
   if (*(a1 + 114) == 1)
   {
-    DgnPrimArray<double>::copyArraySlice(v31, (a1 + 384), 0, *(a1 + 392));
+    DgnPrimArray<double>::copyArraySlice(v28, (a1 + 384), 0, *(a1 + 392));
   }
 
-  DgnPrimArray<unsigned char>::DgnPrimArray(v30, *(a1 + 116));
+  DgnPrimArray<unsigned char>::DgnPrimArray(v27, *(a1 + 116));
   v6 = *(a1 + 116);
   if (!v6)
   {
@@ -6891,76 +6971,75 @@ uint64_t MultiLanguageModel::setTopicLmSlotWeightsInternal(uint64_t a1, uint64_t
     goto LABEL_52;
   }
 
-  bzero(v30[0], *(a1 + 116));
-  v9 = *a3;
+  bzero(v27[0], *(a1 + 116));
+  v7 = *a3;
   if (*a3 < *(a2 + 8))
   {
-    v10 = 0;
-    v11 = 0.0;
+    v8 = 0;
+    v9 = 0.0;
     while (1)
     {
-      v12 = *(*(a1 + 136) + 4 * v10);
-      if (v12 == 1)
+      v10 = *(*(a1 + 136) + 4 * v8);
+      if (v10 == 1)
       {
         if (*(a1 + 114) == 1)
         {
-          v13 = *(*a2 + 8 * v9);
-          if (v13 != -2.0)
+          v11 = *(*a2 + 8 * v7);
+          if (v11 != -2.0)
           {
-            if (v13 == -1.0)
+            if (v11 == -1.0)
             {
-              v13 = *(*(a1 + 448) + 8 * v10);
+              v11 = *(*(a1 + 448) + 8 * v8);
             }
 
-            if (!*(*(a1 + 40) + 8 * v10))
+            if (!*(*(a1 + 40) + 8 * v8))
             {
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4970, "lm/multilm", 80, "%u", v7, v8, v9);
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 4970, "lm/multilm", 80, "%u", v7);
             }
 
-            if (v13 == 0.0 || (v14 = *(*(a1 + 400) + 8 * v10), v13 >= v14))
+            if (v11 == 0.0 || (v12 = *(*(a1 + 400) + 8 * v8), v11 >= v12))
             {
-              v14 = v13;
-              if (v13 > *(*(a1 + 416) + 8 * v10))
+              v12 = v11;
+              if (v11 > *(*(a1 + 416) + 8 * v8))
               {
-                v14 = *(*(a1 + 416) + 8 * v10);
+                v12 = *(*(a1 + 416) + 8 * v8);
               }
             }
 
-            v11 = v11 + v14;
-            *(v31[0] + 8 * v10) = v14;
-            *(v30[0] + v10) = 1;
-            v9 = *a3;
+            v9 = v9 + v12;
+            *(v28[0] + 8 * v8) = v12;
+            *(v27[0] + v8) = 1;
+            v7 = *a3;
           }
         }
 
-        *a3 = v9 + 1;
+        *a3 = v7 + 1;
       }
 
       else if (*(a1 + 112) == 1)
       {
-        if (v12 == 3 && v10 == *(a1 + 560))
+        if (v10 == 3 && v8 == *(a1 + 560))
         {
 LABEL_26:
-          v16 = *(*(a1 + 40) + 8 * v10);
-          if (v16)
+          v14 = *(*(a1 + 40) + 8 * v8);
+          if (v14)
           {
-            v17 = **v16;
           }
 
-          MultiLanguageModel::setTopicLmSlotWeightsInternal(v16, a2, a3);
+          MultiLanguageModel::setTopicLmSlotWeightsInternal(v14, a2, a3);
         }
       }
 
-      else if (v12 == 3)
+      else if (v10 == 3)
       {
         goto LABEL_26;
       }
 
-      ++v10;
-      v18 = *(a1 + 116);
-      if (v10 < v18)
+      ++v8;
+      v15 = *(a1 + 116);
+      if (v8 < v15)
       {
-        v9 = *a3;
+        v7 = *a3;
         if (*a3 < *(a2 + 8))
         {
           continue;
@@ -6971,82 +7050,82 @@ LABEL_26:
     }
   }
 
-  v11 = 0.0;
-  LODWORD(v18) = v6;
+  v9 = 0.0;
+  LODWORD(v15) = v6;
 LABEL_35:
   if (*(a1 + 114))
   {
-    if (v18)
+    if (v15)
     {
-      v19 = 0;
-      v20 = v18;
-      v21 = 0.0;
+      v16 = 0;
+      v17 = v15;
+      v18 = 0.0;
       do
       {
-        if ((*(v30[0] + v19) & 1) == 0)
+        if ((*(v27[0] + v16) & 1) == 0)
         {
-          v21 = v21 + *(*(a1 + 384) + 8 * v19);
+          v18 = v18 + *(*(a1 + 384) + 8 * v16);
         }
 
-        ++v19;
+        ++v16;
       }
 
-      while (v18 != v19);
-      v22 = 0.9999 / v11;
-      v23 = 1.0;
-      if (v11 <= 0.9999)
+      while (v15 != v16);
+      v19 = 0.9999 / v9;
+      v20 = 1.0;
+      if (v9 <= 0.9999)
       {
-        v22 = 1.0;
+        v19 = 1.0;
       }
 
-      if (v21 != 0.0)
+      if (v18 != 0.0)
       {
-        v24 = 1.0 - v11;
-        if (v11 > 0.9999)
+        v21 = 1.0 - v9;
+        if (v9 > 0.9999)
         {
-          v24 = 0.0001;
+          v21 = 0.0001;
         }
 
-        v23 = v24 / v21;
+        v20 = v21 / v18;
       }
 
-      v25 = v30[0];
-      v26 = v31[0];
+      v22 = v27[0];
+      v23 = v28[0];
       do
       {
-        if (*v25++)
+        if (*v22++)
         {
-          v28 = v22;
+          v25 = v19;
         }
 
         else
         {
-          v28 = v23;
+          v25 = v20;
         }
 
-        *v26 = *v26 * v28;
-        ++v26;
-        --v20;
+        *v23 = *v23 * v25;
+        ++v23;
+        --v17;
       }
 
-      while (v20);
+      while (v17);
     }
 
 LABEL_52:
-    (*(*a1 + 496))(a1, v31);
+    (*(*a1 + 496))(a1, v28);
   }
 
 LABEL_53:
-  DgnPrimArray<unsigned int>::~DgnPrimArray(v30);
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(v31);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(v27);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(v28);
 }
 
-void sub_26272C040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26272C040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   _Unwind_Resume(a1);
@@ -7119,259 +7198,260 @@ uint64_t MultiLanguageModel::makeNewWeights(MultiLanguageModel *this, const char
     {
       if (*(a2 + 2))
       {
-        v8 = *a2;
+        v6 = *a2;
       }
 
       else
       {
-        v8 = &unk_26288BEF0;
+        v6 = &unk_26288BEF0;
       }
 
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 5137, "lm/multilm", 81, "%.500s", v6, v7, v8);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 5137, "lm/multilm", 81, "%.500s", v6);
     }
 
     NextId = IdMgr<unsigned int>::getNextId(this + 58);
     if (NextId >= 0xFFFF)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 5141, "lm/multilm", 83, "%s", v9, v10, &errStr_lm_multilm_E_TOO_MANY_WEIGHTSIDS);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 5141, "lm/multilm", 83, "%s", &errStr_lm_multilm_E_TOO_MANY_WEIGHTSIDS);
     }
 
-    v11 = *(this + 40);
-    if (v11 - *(this + 39) == 1000)
+    v7 = *(this + 40);
+    if (v7 - *(this + 39) == 1000)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 5146, "lm/multilm", 84, "%u", v9, v10, 232);
-      v11 = *(this + 40);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 5146, "lm/multilm", 84, "%u", 1000);
+      v7 = *(this + 40);
     }
 
-    *(this + 40) = v11 + 1;
-    if (DgnArray<DgnString>::find(this + 42, a2) != -1)
+    *(this + 40) = v7 + 1;
+    v8 = DgnArray<DgnString>::find(this + 42, a2);
+    if (v8 != -1)
     {
       if (*(a2 + 2))
       {
-        v14 = *a2;
+        v9 = *a2;
       }
 
       else
       {
-        v14 = &unk_26288BEF0;
+        v9 = &unk_26288BEF0;
       }
 
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 5153, "lm/multilm", 82, "%.500s %u", v12, v13, v14);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 5153, "lm/multilm", 82, "%.500s %u", v9, v8);
     }
 
-    v15 = (NextId - 1);
-    v16 = *(this + 44);
-    if (NextId > v16)
+    v10 = (NextId - 1);
+    v11 = *(this + 44);
+    if (NextId > v11)
     {
-      v17 = *(this + 45);
-      if (NextId > v17)
+      v12 = *(this + 45);
+      if (NextId > v12)
       {
-        DgnArray<DgnPrimArray<double>>::reallocElts(this + 168, NextId - v17, 0);
-        v16 = *(this + 44);
+        DgnArray<DgnPrimArray<double>>::reallocElts(this + 168, NextId - v12, 0);
+        v11 = *(this + 44);
       }
 
-      v18 = NextId - v16;
-      if (NextId >= v16)
+      v13 = NextId - v11;
+      if (NextId >= v11)
       {
-        if (NextId > v16)
+        if (NextId > v11)
         {
-          v21 = 16 * v16;
+          v16 = 16 * v11;
           do
           {
-            DgnString::DgnString((*(this + 21) + v21));
-            v21 += 16;
-            --v18;
+            DgnString::DgnString((*(this + 21) + v16));
+            v16 += 16;
+            --v13;
           }
 
-          while (v18);
+          while (v13);
         }
       }
 
-      else if (NextId < v16)
+      else if (NextId < v11)
       {
-        v19 = v16;
-        v20 = 16 * v16 - 16;
+        v14 = v11;
+        v15 = 16 * v11 - 16;
         do
         {
-          --v19;
-          DgnString::~DgnString((*(this + 21) + v20));
-          v20 -= 16;
+          --v14;
+          DgnString::~DgnString(*(this + 21) + v15);
+          v15 -= 16;
         }
 
-        while (v19 > NextId);
+        while (v14 > NextId);
       }
 
       *(this + 44) = NextId;
     }
 
-    DgnString::operator=((*(this + 21) + 16 * v15), a2);
+    DgnString::operator=((*(this + 21) + 16 * v10), a2);
     if (*(this + 114) == 1)
     {
-      v28 = *(this + 48);
-      if (NextId > v28)
+      v17 = *(this + 48);
+      if (NextId > v17)
       {
-        v29 = *(this + 49);
-        if (NextId > v29)
+        v18 = *(this + 49);
+        if (NextId > v18)
         {
-          DgnArray<DgnPrimArray<double>>::reallocElts(this + 184, NextId - v29, 0);
-          v28 = *(this + 48);
+          DgnArray<DgnPrimArray<double>>::reallocElts(this + 184, NextId - v18, 0);
+          v17 = *(this + 48);
         }
 
-        if (v28 <= NextId)
+        if (v17 <= NextId)
         {
-          if (v28 < NextId)
+          if (v17 < NextId)
           {
-            v32 = NextId - v28;
-            v33 = 16 * v28;
+            v21 = NextId - v17;
+            v22 = 16 * v17;
             do
             {
-              v34 = (*(this + 23) + v33);
-              *v34 = 0;
-              v34[1] = 0;
-              v33 += 16;
-              --v32;
+              v23 = (*(this + 23) + v22);
+              *v23 = 0;
+              v23[1] = 0;
+              v22 += 16;
+              --v21;
             }
 
-            while (v32);
+            while (v21);
           }
         }
 
-        else if (v28 > NextId)
+        else if (v17 > NextId)
         {
-          v30 = v28;
-          v31 = 16 * v28 - 16;
+          v19 = v17;
+          v20 = 16 * v17 - 16;
           do
           {
-            --v30;
-            DgnPrimArray<unsigned int>::~DgnPrimArray(*(this + 23) + v31);
-            v31 -= 16;
+            --v19;
+            DgnPrimArray<unsigned int>::~DgnPrimArray(*(this + 23) + v20);
+            v20 -= 16;
           }
 
-          while (v30 > NextId);
+          while (v19 > NextId);
         }
 
         *(this + 48) = NextId;
-        v35 = *(this + 53);
-        if (NextId > v35)
+        v24 = *(this + 53);
+        if (NextId > v24)
         {
-          DgnArray<DgnPrimArray<double>>::reallocElts(this + 200, NextId - v35, 0);
+          DgnArray<DgnPrimArray<double>>::reallocElts(this + 200, NextId - v24, 0);
         }
 
-        v36 = *(this + 52);
-        if (v36 <= NextId)
+        v25 = *(this + 52);
+        if (v25 <= NextId)
         {
-          if (v36 < NextId)
+          if (v25 < NextId)
           {
-            v39 = NextId - v36;
-            v40 = 16 * v36;
+            v28 = NextId - v25;
+            v29 = 16 * v25;
             do
             {
-              v41 = (*(this + 25) + v40);
-              *v41 = 0;
-              v41[1] = 0;
-              v40 += 16;
-              --v39;
+              v30 = (*(this + 25) + v29);
+              *v30 = 0;
+              v30[1] = 0;
+              v29 += 16;
+              --v28;
             }
 
-            while (v39);
+            while (v28);
           }
         }
 
-        else if (v36 > NextId)
+        else if (v25 > NextId)
         {
-          v37 = v36;
-          v38 = 16 * v36 - 16;
+          v26 = v25;
+          v27 = 16 * v25 - 16;
           do
           {
-            --v37;
-            DgnPrimArray<unsigned int>::~DgnPrimArray(*(this + 25) + v38);
-            v38 -= 16;
+            --v26;
+            DgnPrimArray<unsigned int>::~DgnPrimArray(*(this + 25) + v27);
+            v27 -= 16;
           }
 
-          while (v37 > NextId);
+          while (v26 > NextId);
         }
 
         *(this + 52) = NextId;
-        v42 = *(this + 57);
-        if (NextId > v42)
+        v31 = *(this + 57);
+        if (NextId > v31)
         {
-          DgnArray<DgnPrimArray<double>>::reallocElts(this + 216, NextId - v42, 0);
+          DgnArray<DgnPrimArray<double>>::reallocElts(this + 216, NextId - v31, 0);
         }
 
-        v43 = *(this + 56);
-        if (v43 <= NextId)
+        v32 = *(this + 56);
+        if (v32 <= NextId)
         {
-          if (v43 < NextId)
+          if (v32 < NextId)
           {
-            v46 = NextId - v43;
-            v47 = 16 * v43;
+            v35 = NextId - v32;
+            v36 = 16 * v32;
             do
             {
-              v48 = (*(this + 27) + v47);
-              *v48 = 0;
-              v48[1] = 0;
-              v47 += 16;
-              --v46;
+              v37 = (*(this + 27) + v36);
+              *v37 = 0;
+              v37[1] = 0;
+              v36 += 16;
+              --v35;
             }
 
-            while (v46);
+            while (v35);
           }
         }
 
-        else if (v43 > NextId)
+        else if (v32 > NextId)
         {
-          v44 = v43;
-          v45 = 16 * v43 - 16;
+          v33 = v32;
+          v34 = 16 * v32 - 16;
           do
           {
-            --v44;
-            DgnPrimArray<unsigned int>::~DgnPrimArray(*(this + 27) + v45);
-            v45 -= 16;
+            --v33;
+            DgnPrimArray<unsigned int>::~DgnPrimArray(*(this + 27) + v34);
+            v34 -= 16;
           }
 
-          while (v44 > NextId);
+          while (v33 > NextId);
         }
 
         *(this + 56) = NextId;
       }
 
-      v49 = *(this + 23) + 16 * v15;
-      v50 = *(this + 29);
-      v51 = *(v49 + 12);
-      v52 = v50;
-      if (v50 > v51)
+      v38 = *(this + 23) + 16 * v10;
+      v39 = *(this + 29);
+      v40 = *(v38 + 12);
+      v41 = v39;
+      if (v39 > v40)
       {
-        DgnPrimArray<unsigned long long>::reallocElts(*(this + 23) + 16 * v15, v50 - v51, 0);
-        v52 = *(this + 29);
+        DgnPrimArray<unsigned long long>::reallocElts(*(this + 23) + 16 * v10, v39 - v40, 0);
+        v41 = *(this + 29);
       }
 
-      *(v49 + 8) = v50;
-      if (v52)
+      *(v38 + 8) = v39;
+      if (v41)
       {
-        v53 = 0;
-        v54 = *(this + 5);
-        v55 = *(*(this + 23) + 16 * v15);
-        v56 = 8 * v52;
+        v42 = 0;
+        v43 = *(this + 5);
+        v44 = *(*(this + 23) + 16 * v10);
+        v45 = 8 * v41;
         do
         {
-          if (*(v54 + v53))
+          if (*(v43 + v42))
           {
-            v57 = *(*(this + 48) + v53);
+            v46 = *(*(this + 48) + v42);
           }
 
           else
           {
-            v57 = -1.0;
+            v46 = -1.0;
           }
 
-          *(v55 + v53) = v57;
-          v53 += 8;
+          *(v44 + v42) = v46;
+          v42 += 8;
         }
 
-        while (v56 != v53);
+        while (v45 != v42);
       }
 
-      MultiLanguageModel::adjustNamedWeightsSet(this, NextId - 1, v22, v23, v24, v25, v26, v27);
+      MultiLanguageModel::adjustNamedWeightsSet(this, NextId - 1);
     }
   }
 
@@ -7382,19 +7462,19 @@ uint64_t MultiLanguageModel::makeNewWeights(MultiLanguageModel *this, const char
 
   if (*(this + 29))
   {
-    v58 = 0;
+    v47 = 0;
     do
     {
-      if ((*(this + 112) != 1 || v58 == *(this + 140)) && *(*(this + 17) + 4 * v58) == 3)
+      if ((*(this + 112) != 1 || v47 == *(this + 140)) && *(*(this + 17) + 4 * v47) == 3)
       {
-        v59 = *(*(this + 5) + 8 * v58);
-        if ((*(*v59 + 608))(v59))
+        v48 = *(*(this + 5) + 8 * v47);
+        if ((*(*v48 + 608))(v48))
         {
-          v60 = *(*(this + 5) + 8 * v58);
-          v61 = (*(*v60 + 632))(v60, a2);
+          v49 = *(*(this + 5) + 8 * v47);
+          v50 = (*(*v49 + 632))(v49, a2);
           if (NextId == 0xFFFF)
           {
-            NextId = v61;
+            NextId = v50;
           }
 
           else
@@ -7404,248 +7484,248 @@ uint64_t MultiLanguageModel::makeNewWeights(MultiLanguageModel *this, const char
         }
       }
 
-      ++v58;
+      ++v47;
     }
 
-    while (v58 < *(this + 29));
+    while (v47 < *(this + 29));
   }
 
   return NextId;
 }
 
-uint64_t MultiLanguageModel::adjustNamedWeightsSet(MultiLanguageModel *this, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t MultiLanguageModel::adjustNamedWeightsSet(MultiLanguageModel *this, unsigned int a2)
 {
-  v10 = *(this + 29);
-  v39 = 0;
-  v40 = 0;
-  if (!v10)
+  v5 = *(this + 29);
+  v34 = 0;
+  v35 = 0;
+  if (!v5)
   {
-    LODWORD(v40) = 0;
+    LODWORD(v35) = 0;
     goto LABEL_22;
   }
 
-  v37 = 0;
-  v11 = realloc_array(0, &v37, 8 * v10, 0, 0, 1);
-  v12 = v37;
-  v39 = v37;
-  v13 = *(this + 29);
-  LODWORD(v40) = v10;
-  HIDWORD(v40) = v11 >> 3;
-  if (!v13)
+  v32 = 0;
+  v6 = realloc_array(0, &v32, 8 * v5, 0, 0, 1);
+  v7 = v32;
+  v34 = v32;
+  v8 = *(this + 29);
+  LODWORD(v35) = v5;
+  HIDWORD(v35) = v6 >> 3;
+  if (!v8)
   {
 LABEL_22:
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 5489, "lm/multilm", 45, "%s", a7, a8, &errStr_lm_multilm_E_ALL_WEIGHTS_ZERO);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 5489, "lm/multilm", 45, "%s", &errStr_lm_multilm_E_ALL_WEIGHTS_ZERO);
     goto LABEL_23;
   }
 
-  v14 = 0;
-  v15 = *(this + 5);
-  v16 = 8 * v13;
-  v17 = 0.0;
-  v18 = 0.0;
+  v9 = 0;
+  v10 = *(this + 5);
+  v11 = 8 * v8;
+  v12 = 0.0;
+  v13 = 0.0;
   do
   {
-    if (*(v15 + v14))
+    if (*(v10 + v9))
     {
-      v19 = *(*(*(this + 23) + 16 * a2) + v14);
-      if (v19 == -1.0)
+      v14 = *(*(*(this + 23) + 16 * a2) + v9);
+      if (v14 == -1.0)
       {
-        v20 = *(*(this + 56) + v14);
-        v12[v14 / 8] = v20;
-        v18 = v18 + v20;
+        v15 = *(*(this + 56) + v9);
+        v7[v9 / 8] = v15;
+        v13 = v13 + v15;
       }
 
       else
       {
-        v12[v14 / 8] = v19;
-        v17 = v17 + v19;
+        v7[v9 / 8] = v14;
+        v12 = v12 + v14;
       }
     }
 
     else
     {
-      v12[v14 / 8] = 0.0;
+      v7[v9 / 8] = 0.0;
     }
 
-    v14 += 8;
+    v9 += 8;
   }
 
-  while (v16 != v14);
-  if (v17 != 0.0 && v18 != 0.0)
+  while (v11 != v9);
+  if (v12 != 0.0 && v13 != 0.0)
   {
-    v21 = 0;
-    v22 = *(this + 5);
-    v23 = (1.0 - v18) / v17;
+    v16 = 0;
+    v17 = *(this + 5);
+    v18 = (1.0 - v13) / v12;
     do
     {
-      if (*(v22 + v21) && *(*(*(this + 23) + 16 * a2) + v21) != -1.0)
+      if (*(v17 + v16) && *(*(*(this + 23) + 16 * a2) + v16) != -1.0)
       {
-        v12[v21 / 8] = v23 * v12[v21 / 8];
+        v7[v16 / 8] = v18 * v7[v16 / 8];
       }
 
-      v21 += 8;
+      v16 += 8;
     }
 
-    while (v16 != v21);
+    while (v11 != v16);
   }
 
-  while (*v12 == 0.0)
+  while (*v7 == 0.0)
   {
-    ++v12;
-    if (!--v13)
+    ++v7;
+    if (!--v8)
     {
       goto LABEL_22;
     }
   }
 
 LABEL_23:
-  v37 = 0;
-  v38 = 0;
-  MultiLanguageModel::fitWeightsToFloorAndCeiling(this, &v39, &v37);
-  v24 = *(this + 25);
-  if (v38)
+  v32 = 0;
+  v33 = 0;
+  MultiLanguageModel::fitWeightsToFloorAndCeiling(this, &v34, &v32);
+  v19 = *(this + 25);
+  if (v33)
   {
-    DgnPrimArray<double>::copyArraySlice(v24 + 16 * a2, &v37, 0, v38);
+    DgnPrimArray<double>::copyArraySlice(v19 + 16 * a2, &v32, 0, v33);
   }
 
   else
   {
-    MultiLanguageModel::failsafeFitWeightsToFloorAndCeiling(this, &v39, v24 + 16 * a2);
+    MultiLanguageModel::failsafeFitWeightsToFloorAndCeiling(this, &v34, v19 + 16 * a2);
   }
 
-  v25 = a2;
-  v26 = *(this + 27) + 16 * a2;
-  v27 = *(this + 29);
-  v28 = *(v26 + 12);
-  v29 = v27;
-  if (v27 > v28)
+  v20 = a2;
+  v21 = *(this + 27) + 16 * a2;
+  v22 = *(this + 29);
+  v23 = *(v21 + 12);
+  v24 = v22;
+  if (v22 > v23)
   {
-    DgnPrimArray<short>::reallocElts(v26, v27 - v28, 0);
-    v29 = *(this + 29);
+    DgnPrimArray<short>::reallocElts(v21, v22 - v23, 0);
+    v24 = *(this + 29);
   }
 
-  *(v26 + 8) = v27;
-  if (v29)
+  *(v21 + 8) = v22;
+  if (v24)
   {
-    v30 = 0;
-    v31 = 16 * v25;
+    v25 = 0;
+    v26 = 16 * v20;
     do
     {
-      v32 = *(*(*(this + 25) + v31) + 8 * v30);
-      if (v32 == 0.0)
+      v27 = *(*(*(this + 25) + v26) + 8 * v25);
+      if (v27 == 0.0)
       {
-        LOWORD(v33) = 2000;
+        LOWORD(v28) = 2000;
       }
 
       else
       {
-        v34 = DgnLog(v32);
-        LODWORD(v35) = *(this + 8);
-        v33 = (0.5 - v34 * v35);
-        v29 = *(this + 29);
+        v29 = DgnLog(v27);
+        LODWORD(v30) = *(this + 8);
+        v28 = (0.5 - v29 * v30);
+        v24 = *(this + 29);
       }
 
-      *(*(*(this + 27) + v31) + 2 * v30++) = v33;
+      *(*(*(this + 27) + v26) + 2 * v25++) = v28;
     }
 
-    while (v30 < v29);
+    while (v25 < v24);
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v37);
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v39);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v32);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v34);
 }
 
-void sub_26272C940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_26272C940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
 
-void MultiLanguageModel::deleteWeights(MultiLanguageModel *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void MultiLanguageModel::deleteWeights(uint64_t this, uint64_t a2)
 {
-  if ((*(this + 114) & 1) != 0 || !*(this + 7))
+  if ((*(this + 114) & 1) != 0 || !*(this + 28))
   {
-    v10 = (a2 - 1);
-    if (v10 >= *(this + 44) || *(*(this + 21) + 16 * v10 + 8) <= 1u)
+    v4 = (a2 - 1);
+    if (v4 >= *(this + 176) || *(*(this + 168) + 16 * v4 + 8) <= 1u)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 5250, "lm/multilm", 85, "%u", a7, a8, a2 - 1);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 5250, "lm/multilm", 85, "%u", a2 - 1);
     }
 
-    if (v10 < *(this + 39))
+    if (v4 < *(this + 156))
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 5252, "lm/multilm", 86, "%s", a7, a8, &errStr_lm_multilm_E_CANT_DELETE_FACTORY_WEIGHTS);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 5252, "lm/multilm", 86, "%s", &errStr_lm_multilm_E_CANT_DELETE_FACTORY_WEIGHTS);
     }
 
-    v11 = *(this + 21) + 16 * v10;
-    if (*v11)
+    v5 = *(this + 168) + 16 * v4;
+    if (*v5)
     {
-      MemChunkFree(*v11, 0);
-      *v11 = 0;
+      MemChunkFree(*v5, 0);
+      *v5 = 0;
     }
 
-    *(v11 + 8) = 0;
-    --*(this + 40);
-    IdMgr<unsigned int>::recycleId(this + 58, a2);
+    *(v5 + 8) = 0;
+    --*(this + 160);
+    IdMgr<unsigned int>::recycleId((this + 232), a2);
     if (*(this + 114) == 1)
     {
-      v12 = *(this + 23) + 16 * v10;
-      if (*v12)
+      v6 = *(this + 184) + 16 * v4;
+      if (*v6)
       {
-        MemChunkFree(*v12, 0);
-        *v12 = 0;
+        MemChunkFree(*v6, 0);
+        *v6 = 0;
       }
 
-      *(v12 + 8) = 0;
-      v13 = *(this + 25) + 16 * v10;
-      if (*v13)
+      *(v6 + 8) = 0;
+      v7 = *(this + 200) + 16 * v4;
+      if (*v7)
       {
-        MemChunkFree(*v13, 0);
-        *v13 = 0;
+        MemChunkFree(*v7, 0);
+        *v7 = 0;
       }
 
-      *(v13 + 8) = 0;
-      v14 = *(this + 27) + 16 * v10;
-      if (*v14)
+      *(v7 + 8) = 0;
+      v8 = *(this + 216) + 16 * v4;
+      if (*v8)
       {
-        MemChunkFree(*v14, 0);
-        *v14 = 0;
+        MemChunkFree(*v8, 0);
+        *v8 = 0;
       }
 
-      *(v14 + 8) = 0;
+      *(v8 + 8) = 0;
     }
   }
 
-  if (*(this + 29))
+  if (*(this + 116))
   {
-    v15 = 0;
+    v9 = 0;
     do
     {
-      if ((*(this + 112) != 1 || v15 == *(this + 140)) && *(*(this + 17) + 4 * v15) == 3)
+      if ((*(this + 112) != 1 || v9 == *(this + 560)) && *(*(this + 136) + 4 * v9) == 3)
       {
-        v16 = *(*(this + 5) + 8 * v15);
-        if ((*(*v16 + 608))(v16))
+        v10 = *(*(this + 40) + 8 * v9);
+        if ((*(*v10 + 608))(v10))
         {
-          v17 = *(*(this + 5) + 8 * v15);
-          (*(*v17 + 640))(v17, a2);
+          v11 = *(*(this + 40) + 8 * v9);
+          (*(*v11 + 640))(v11, a2);
         }
       }
 
-      ++v15;
+      ++v9;
     }
 
-    while (v15 < *(this + 29));
+    while (v9 < *(this + 116));
   }
 }
 
-void MultiLanguageModel::applyWeights(MultiLanguageModel *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void MultiLanguageModel::applyWeights(MultiLanguageModel *this, uint64_t a2)
 {
   if ((*(this + 114) & 1) != 0 || !*(this + 7))
   {
-    v10 = a2 - 1;
-    if ((a2 - 1) >= *(this + 44) || *(*(this + 21) + 16 * v10 + 8) <= 1u)
+    v4 = a2 - 1;
+    if ((a2 - 1) >= *(this + 44) || *(*(this + 21) + 16 * v4 + 8) <= 1u)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 5294, "lm/multilm", 85, "%u", a7, a8, a2 - 1);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 5294, "lm/multilm", 85, "%u", a2 - 1);
       if ((*(this + 114) & 1) == 0)
       {
         goto LABEL_7;
@@ -7657,33 +7737,33 @@ void MultiLanguageModel::applyWeights(MultiLanguageModel *this, uint64_t a2, uin
     if (*(this + 114))
     {
 LABEL_6:
-      v11 = *(this + 25) + 16 * v10;
-      DgnPrimArray<double>::copyArraySlice(this + 384, v11, 0, *(v11 + 8));
-      v12 = *(this + 27) + 16 * v10;
-      DgnPrimArray<unsigned short>::copyArraySlice(this + 464, v12, 0, *(v12 + 8));
+      v5 = *(this + 25) + 16 * v4;
+      DgnPrimArray<double>::copyArraySlice(this + 384, v5, 0, *(v5 + 8));
+      v6 = *(this + 27) + 16 * v4;
+      DgnPrimArray<unsigned short>::copyArraySlice(this + 58, v6, 0, *(v6 + 8));
     }
   }
 
 LABEL_7:
   if (*(this + 29))
   {
-    v13 = 0;
+    v7 = 0;
     do
     {
-      if ((*(this + 112) != 1 || v13 == *(this + 140)) && *(*(this + 17) + 4 * v13) == 3)
+      if ((*(this + 112) != 1 || v7 == *(this + 140)) && *(*(this + 17) + 4 * v7) == 3)
       {
-        v14 = *(*(this + 5) + 8 * v13);
-        if ((*(*v14 + 608))(v14))
+        v8 = *(*(this + 5) + 8 * v7);
+        if ((*(*v8 + 608))(v8))
         {
-          v15 = *(*(this + 5) + 8 * v13);
-          (*(*v15 + 648))(v15, a2);
+          v9 = *(*(this + 5) + 8 * v7);
+          (*(*v9 + 648))(v9, a2);
         }
       }
 
-      ++v13;
+      ++v7;
     }
 
-    while (v13 < *(this + 29));
+    while (v7 < *(this + 29));
   }
 }
 
@@ -7745,42 +7825,44 @@ uint64_t MultiLanguageModel::getWeightsId(MultiLanguageModel *this, const DgnStr
   }
 }
 
-uint64_t MultiLanguageModel::getWeightsName(MultiLanguageModel *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t MultiLanguageModel::getWeightsName(MultiLanguageModel *this, int a2)
 {
-  v9 = (a2 - 1);
-  if (v9 >= *(this + 44) || (v10 = *(this + 21), *(v10 + 16 * v9 + 8) <= 1u))
+  v3 = (a2 - 1);
+  if (v3 >= *(this + 44) || (v4 = *(this + 21), *(v4 + 16 * v3 + 8) <= 1u))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 5388, "lm/multilm", 85, "%u", a7, a8, a2 - 1);
-    v10 = *(this + 21);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 5388, "lm/multilm", 85, "%u", a2 - 1);
+    v4 = *(this + 21);
   }
 
-  return v10 + 16 * v9;
+  return v4 + 16 * v3;
 }
 
-BOOL MultiLanguageModel::isFactoryWeights(MultiLanguageModel *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL MultiLanguageModel::isFactoryWeights(MultiLanguageModel *this, int a2)
 {
-  v9 = a2 - 1;
-  if ((a2 - 1) >= *(this + 44) || *(*(this + 21) + 16 * v9 + 8) <= 1u)
+  v3 = a2 - 1;
+  if ((a2 - 1) >= *(this + 44) || *(*(this + 21) + 16 * v3 + 8) <= 1u)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 5404, "lm/multilm", 85, "%u", a7, a8, a2 - 1);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 5404, "lm/multilm", 85, "%u", a2 - 1);
   }
 
-  return v9 < *(this + 39);
+  return v3 < *(this + 39);
 }
 
-void MultiLanguageModel::checkWeightsId(MultiLanguageModel *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double MultiLanguageModel::checkWeightsId(MultiLanguageModel *this, int a2)
 {
   if ((a2 - 1) >= *(this + 44) || *(*(this + 21) + 16 * (a2 - 1) + 8) <= 1u)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 5420, "lm/multilm", 85, "%u", a7, a8, a2 - 1);
+    return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 5420, "lm/multilm", 85, "%u", a2 - 1);
   }
+
+  return result;
 }
 
 uint64_t MultiLanguageModel::languageScore(MultiLanguageModel *this, uint64_t a2, uint64_t a3, LMStats *a4, LMContextData *a5, LMScoreDetails *a6, uint64_t a7, unsigned int a8, BOOL *a9)
 {
   v9 = a7;
   ++*(a4 + 1);
-  v52 = a3;
+  v51 = a3;
   if (a7 && a6 && *(this + 1))
   {
     v15 = *(a6 + 2);
@@ -7789,7 +7871,7 @@ LABEL_6:
     v16 = *(a6 + 2);
     LMScoreDetails::addDetails(a6, 0, 5, 0);
     v17 = 0;
-    a3 = v52;
+    a3 = v51;
     goto LABEL_8;
   }
 
@@ -7806,7 +7888,7 @@ LABEL_8:
   {
     if (*(this + 113) == 1)
     {
-      v48 = v17;
+      v47 = v17;
       v21 = v15;
       *a9 = 0;
       v22 = *(this + 29);
@@ -7823,9 +7905,9 @@ LABEL_8:
             v27 = *(*(this + 17) + 4 * v23) == 2 && a8 == 0;
             if (!v27 && *(*(this + 62) + 8 * v23) != 0.0)
             {
-              v54 = 0;
-              v28 = (*(*v26 + 504))(v26, a2, a3, a4, *(*(a5 + 2) + 8 * v23), a6, v9, a8, &v54);
-              if (v54 == 1)
+              v53 = 0;
+              v28 = (*(*v26 + 504))(v26, a2, a3, a4, *(*(a5 + 2) + 8 * v23), a6, v9, a8, &v53);
+              if (v53 == 1)
               {
                 v25 = v25 + v28 * *(*(this + 62) + 8 * v23) + *(*(this + 66) + 4 * v23);
                 *a9 = 1;
@@ -7833,7 +7915,7 @@ LABEL_8:
 
               ++v24;
               v22 = *(this + 29);
-              a3 = v52;
+              a3 = v51;
             }
           }
 
@@ -7849,25 +7931,25 @@ LABEL_8:
         v25 = 0.0;
       }
 
-      v44 = (40 * *(this + 8));
-      if (v25 <= v44)
+      v43 = (40 * *(this + 8));
+      if (v25 <= v43)
       {
-        v44 = v25;
+        v43 = v25;
       }
 
-      if (v44 < 0.0)
+      if (v43 < 0.0)
       {
-        v44 = 0.0;
+        v43 = 0.0;
       }
 
-      v42 = (v44 + 0.5);
+      v41 = (v43 + 0.5);
       v15 = v21;
     }
 
     else
     {
-      v50 = v9;
-      v51 = a5;
+      v49 = v9;
+      v50 = a5;
       if (a3 == 0xFFFF)
       {
         v29 = (this + 384);
@@ -7880,25 +7962,25 @@ LABEL_8:
         v30 = (*(this + 27) + 16 * (a3 - 1));
       }
 
-      v49 = v30;
+      v48 = v30;
       *a9 = 0;
       v31 = *(this + 29);
       if (!v31)
       {
         v24 = 0;
-        LOWORD(v42) = 0;
-        LODWORD(v9) = v50;
+        LOWORD(v41) = 0;
+        v9 = v49;
         if (v17)
         {
-          return LanguageModel::languageScoreFinish(this, a2, v42, a6, v9, v15, a5);
+          return LanguageModel::languageScoreFinish(this, a2, v41, a6, v9, v15, a5);
         }
 
         goto LABEL_63;
       }
 
-      v47 = v15;
-      v48 = v17;
-      v46 = v16;
+      v46 = v15;
+      v47 = v17;
+      v45 = v16;
       v32 = 0;
       v33 = 0;
       v24 = 0;
@@ -7909,37 +7991,36 @@ LABEL_8:
         v36 = *(*(this + 5) + 8 * v32);
         if (v36 && *(*v29 + 8 * v32) != 0.0)
         {
-          v37 = *(*(v51 + 2) + 8 * v32);
-          v38 = (*(*v36 + 504))(v36, a2);
-          LOWORD(v39) = *(*v49 + 2 * v32) + v38;
+          v37 = (*(*v36 + 504))(v36, a2);
+          LOWORD(v38) = *(*v48 + 2 * v32) + v37;
           if (v34)
           {
-            v39 = v39;
-            v40 = v39 - v33;
-            if (v40 < 0)
+            v38 = v38;
+            v39 = v38 - v33;
+            if (v39 < 0)
             {
-              v41 = v33 - v39;
+              v40 = v33 - v38;
             }
 
             else
             {
-              v39 = v33;
-              v41 = v40;
+              v38 = v33;
+              v40 = v39;
             }
 
-            if (v41 < *(this + 178))
+            if (v40 < *(this + 178))
             {
-              v39 -= *(*(this + 88) + 4 * v41);
+              v38 -= *(*(this + 88) + 4 * v40);
             }
 
-            v39 &= ~(v39 >> 31);
+            v38 &= ~(v38 >> 31);
           }
 
           ++v24;
-          v35 &= v38 == 0;
+          v35 &= v37 == 0;
           v31 = *(this + 29);
           v34 = 1;
-          v33 = v39;
+          v33 = v38;
         }
 
         ++v32;
@@ -7948,29 +8029,29 @@ LABEL_8:
       while (v32 < v31);
       if (v35)
       {
-        LOWORD(v42) = 0;
+        LOWORD(v41) = 0;
       }
 
       else
       {
-        LOWORD(v42) = v33;
+        LOWORD(v41) = v33;
       }
 
-      a5 = v51;
-      LODWORD(v9) = v50;
-      v15 = v47;
-      v16 = v46;
+      a5 = v50;
+      v9 = v49;
+      v15 = v46;
+      v16 = v45;
     }
 
-    if (v48)
+    if (v47)
     {
-      return LanguageModel::languageScoreFinish(this, a2, v42, a6, v9, v15, a5);
+      return LanguageModel::languageScoreFinish(this, a2, v41, a6, v9, v15, a5);
     }
 
 LABEL_63:
-    *(*a6 + 2 * v16) = v42;
+    *(*a6 + 2 * v16) = v41;
     *(*(a6 + 4) + 4 * v16) = v24;
-    return LanguageModel::languageScoreFinish(this, a2, v42, a6, v9, v15, a5);
+    return LanguageModel::languageScoreFinish(this, a2, v41, a6, v9, v15, a5);
   }
 
   v18 = *(this + 29);
@@ -8005,47 +8086,47 @@ LABEL_14:
     a3 = 0xFFFFLL;
   }
 
-  v43 = *(*(this + 5) + 8 * v19);
-  LOWORD(v42) = (*(*v43 + 504))(v43, a2, a3, a4, *(*(a5 + 2) + 8 * v19), a6, v9, a8, a9);
+  v42 = *(*(this + 5) + 8 * v19);
+  LOWORD(v41) = (*(*v42 + 504))(v42, a2, a3, a4, *(*(a5 + 2) + 8 * v19), a6, v9, a8, a9);
   v24 = 0;
   if ((v17 & 1) == 0)
   {
     goto LABEL_63;
   }
 
-  return LanguageModel::languageScoreFinish(this, a2, v42, a6, v9, v15, a5);
+  return LanguageModel::languageScoreFinish(this, a2, v41, a6, v9, v15, a5);
 }
 
-unint64_t LMScoreDetails::addDetails(unint64_t result, __int16 a2, int a3, int a4)
+uint64_t *LMScoreDetails::addDetails(uint64_t *result, __int16 a2, int a3, int a4)
 {
   v7 = result;
-  v8 = *(result + 8);
-  if (v8 == *(result + 12))
+  v8 = *(result + 2);
+  if (v8 == *(result + 3))
   {
     result = DgnPrimArray<short>::reallocElts(result, 1, 1);
-    v8 = *(v7 + 8);
+    v8 = *(v7 + 2);
   }
 
   *(*v7 + 2 * v8) = a2;
-  *(v7 + 8) = v8 + 1;
-  v9 = *(v7 + 24);
-  if (v9 == *(v7 + 28))
+  *(v7 + 2) = v8 + 1;
+  v9 = *(v7 + 6);
+  if (v9 == *(v7 + 7))
   {
-    result = DgnPrimArray<unsigned int>::reallocElts(v7 + 16, 1, 1);
-    v9 = *(v7 + 24);
+    result = DgnPrimArray<unsigned int>::reallocElts((v7 + 2), 1, 1);
+    v9 = *(v7 + 6);
   }
 
-  *(*(v7 + 16) + 4 * v9) = a3;
-  *(v7 + 24) = v9 + 1;
-  v10 = *(v7 + 40);
-  if (v10 == *(v7 + 44))
+  *(v7[2] + 4 * v9) = a3;
+  *(v7 + 6) = v9 + 1;
+  v10 = *(v7 + 10);
+  if (v10 == *(v7 + 11))
   {
-    result = DgnPrimArray<unsigned int>::reallocElts(v7 + 32, 1, 1);
-    v10 = *(v7 + 40);
+    result = DgnPrimArray<unsigned int>::reallocElts((v7 + 4), 1, 1);
+    v10 = *(v7 + 10);
   }
 
-  *(*(v7 + 32) + 4 * v10) = a4;
-  ++*(v7 + 40);
+  *(v7[4] + 4 * v10) = a4;
+  ++*(v7 + 10);
   return result;
 }
 
@@ -8224,7 +8305,7 @@ LABEL_7:
   return LanguageModel::languageScoreFinishForSearch(this, a2, v24, a5);
 }
 
-uint64_t MultiLanguageModel::languageScoreForPrefilterer(uint64_t a1, uint64_t a2, unint64_t a3)
+uint64_t MultiLanguageModel::languageScoreForPrefilterer(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = 40 * *(a1 + 32);
   if (*(a1 + 112) == 1)
@@ -8816,20 +8897,20 @@ LABEL_152:
   return DgnPrimArray<unsigned int>::~DgnPrimArray(&__b);
 }
 
-void sub_26272E15C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26272E15C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   _Unwind_Resume(a1);
 }
 
-void *MultiLanguageModel::adaptLMFromTranscripts(void *result, uint64_t *a2, uint64_t *a3, void *a4, unsigned int a5, unsigned int a6)
+_BYTE *MultiLanguageModel::adaptLMFromTranscripts(_BYTE *result, uint64_t *a2, uint64_t *a3, void *a4, int a5, unsigned int a6)
 {
-  if (*(result + 152) != 1)
+  if (result[152] != 1)
   {
     return result;
   }
@@ -8837,7 +8918,7 @@ void *MultiLanguageModel::adaptLMFromTranscripts(void *result, uint64_t *a2, uin
   v8 = result;
   if (!*(result + 29))
   {
-    if (*(result + 114) != 1)
+    if (result[114] != 1)
     {
       return result;
     }
@@ -8870,9 +8951,9 @@ LABEL_54:
   v9 = 0;
   do
   {
-    if (*(v8 + 112) == 1)
+    if (v8[112] == 1)
     {
-      if (v9 == *(v8 + 560) && *(*(v8 + 136) + 4 * v9) == 3)
+      if (v9 == *(v8 + 140) && *(*(v8 + 17) + 4 * v9) == 3)
       {
         DgnArray<DgnPrimArray<unsigned int>>::DgnArray(v128, *(a2 + 2));
         DgnArray<DgnPrimArray<unsigned int>>::DgnArray(&v125, *(a3 + 2));
@@ -8903,11 +8984,11 @@ LABEL_54:
                 v19 = *(v17 + 4 * v16);
                 if (v19 <= 0xFFFFF3)
                 {
-                  v20 = *(v8 + 116);
+                  v20 = *(v8 + 29);
                   if (v20)
                   {
                     v21 = 0;
-                    while (*(*(v8 + 568) + 4 * v21) > v19 || *(*(v8 + 584) + 4 * v21) < v19)
+                    while (*(*(v8 + 71) + 4 * v21) > v19 || *(*(v8 + 73) + 4 * v21) < v19)
                     {
                       if (v20 == ++v21)
                       {
@@ -8921,7 +9002,7 @@ LABEL_54:
                   else
                   {
 LABEL_19:
-                    v22 = *(v8 + 560);
+                    v22 = *(v8 + 140);
                   }
 
                   if (v9 != v22)
@@ -8958,11 +9039,11 @@ LABEL_19:
                 v31 = *(v29 + 4 * v28);
                 if (v31 <= 0xFFFFF3)
                 {
-                  v32 = *(v8 + 116);
+                  v32 = *(v8 + 29);
                   if (v32)
                   {
                     v33 = 0;
-                    while (*(*(v8 + 568) + 4 * v33) > v31 || *(*(v8 + 584) + 4 * v33) < v31)
+                    while (*(*(v8 + 71) + 4 * v33) > v31 || *(*(v8 + 73) + 4 * v33) < v31)
                     {
                       if (v32 == ++v33)
                       {
@@ -8976,7 +9057,7 @@ LABEL_19:
                   else
                   {
 LABEL_34:
-                    v34 = *(v8 + 560);
+                    v34 = *(v8 + 140);
                   }
 
                   if (v9 != v34)
@@ -8997,25 +9078,25 @@ LABEL_34:
           while (v10 < *(a2 + 2));
         }
 
-        v35 = *(*(v8 + 40) + 8 * v9);
+        v35 = *(*(v8 + 5) + 8 * v9);
         (*(*v35 + 536))(v35, v128, &v125, a4, a5, a6);
         DgnArray<DgnPrimArray<unsigned char>>::releaseAll(&v125);
         result = DgnArray<DgnPrimArray<unsigned char>>::releaseAll(v128);
       }
     }
 
-    else if (*(*(v8 + 136) + 4 * v9) == 3)
+    else if (*(*(v8 + 17) + 4 * v9) == 3)
     {
-      v36 = *(*(v8 + 40) + 8 * v9);
+      v36 = *(*(v8 + 5) + 8 * v9);
       result = (*(*v36 + 536))(v36, a2, a3, a4, a5, a6);
     }
 
     ++v9;
-    v37 = *(v8 + 116);
+    v37 = *(v8 + 29);
   }
 
   while (v9 < v37);
-  if ((*(v8 + 114) & 1) == 0)
+  if ((v8[114] & 1) == 0)
   {
     return result;
   }
@@ -9065,7 +9146,7 @@ LABEL_57:
   v116 = (*(*v8 + 464))(v8);
   v123 = 0;
   v124 = 0;
-  if (*(v8 + 116))
+  if (*(v8 + 29))
   {
     v44 = 0;
     while (1)
@@ -9113,16 +9194,16 @@ LABEL_57:
       }
 
       *(v45 + 2) = v46;
-      if (*(*(v8 + 40) + 8 * v44))
+      if (*(*(v8 + 5) + 8 * v44))
       {
-        if (*(*(v8 + 384) + 8 * v44) != 0.0 && *(a2 + 2) != 0)
+        if (*(*(v8 + 48) + 8 * v44) != 0.0 && *(a2 + 2) != 0)
         {
           break;
         }
       }
 
 LABEL_103:
-      if (++v44 >= *(v8 + 116))
+      if (++v44 >= *(v8 + 29))
       {
         goto LABEL_104;
       }
@@ -9202,13 +9283,13 @@ LABEL_86:
       else
       {
         v67 = *(*(v116 + 16) + 8 * v44);
-        v68 = *(*(v8 + 40) + 8 * v44);
+        v68 = *(*(v8 + 5) + 8 * v44);
         (*(*v68 + 472))(v68, &v123, 0, v128, &v125, v67);
         LOBYTE(v121) = 0;
-        v69 = *(*(v8 + 40) + 8 * v44);
+        v69 = *(*(v8 + 5) + 8 * v44);
         v70 = (*(*v69 + 504))(v69, v66, 0xFFFFLL, v128, v67, 0, 0, 0, &v121);
         *(*(v135[2 * v44] + 16 * v55) + 2 * v65) = v70;
-        (*(**(*(v8 + 40) + 8 * v44) + 480))();
+        (*(**(*(v8 + 5) + 8 * v44) + 480))();
         if (v66 == 16777213)
         {
           v71 = v123;
@@ -9264,8 +9345,8 @@ LABEL_101:
 
 LABEL_104:
   DgnDelete<LMContextData>(v116);
-  LODWORD(v6) = *(v8 + 32);
-  v78 = *(v8 + 116);
+  LODWORD(v6) = *(v8 + 8);
+  v78 = *(v8 + 29);
   v121 = 0;
   v122 = 0;
   if (v78)
@@ -9274,7 +9355,7 @@ LABEL_104:
     v79 = realloc_array(0, &v119, 8 * v78, 0, 0, 1);
     v120 = 0;
     v121 = v119;
-    v80 = *(v8 + 116);
+    v80 = *(v8 + 29);
     LODWORD(v122) = v78;
     HIDWORD(v122) = v79 >> 3;
     v119 = 0;
@@ -9296,12 +9377,12 @@ LABEL_104:
   LODWORD(v120) = v80;
   v117 = 0;
   v118 = 0;
-  DgnPrimArray<double>::copyArraySlice(&v117, (v8 + 384), 0, *(v8 + 392));
+  DgnPrimArray<double>::copyArraySlice(&v117, v8 + 48, 0, *(v8 + 98));
   v81 = 0;
   v82 = v6;
   while (2)
   {
-    v83 = *(v8 + 116);
+    v83 = *(v8 + 29);
     if (v83)
     {
       bzero(v121, 8 * v83);
@@ -9337,7 +9418,7 @@ LABEL_104:
         v92 = 0.0;
         do
         {
-          if (!*(*(v8 + 40) + 8 * v91) || *(v117 + v91) == 0.0)
+          if (!*(*(v8 + 5) + 8 * v91) || *(v117 + v91) == 0.0)
           {
             *(v119 + v91) = 0;
           }
@@ -9354,7 +9435,7 @@ LABEL_104:
             v95 = v94 * *(v117 + v91);
             *(v119 + v91) = v95;
             v92 = v92 + v95;
-            v83 = *(v8 + 116);
+            v83 = *(v8 + 29);
           }
 
           ++v91;
@@ -9411,7 +9492,7 @@ LABEL_132:
         v104 = 1.0 / v102;
         do
         {
-          if (*(*(v8 + 40) + 8 * v103) && *(*(v8 + 384) + 8 * v103) != 0.0)
+          if (*(*(v8 + 5) + 8 * v103) && *(*(v8 + 48) + 8 * v103) != 0.0)
           {
             v105 = fround(v104 * *(v121 + v103), 15) <= 1.0e-17;
             v106 = 1.0e-17;
@@ -9421,7 +9502,7 @@ LABEL_132:
             }
 
             *(v121 + v103) = v106;
-            v83 = *(v8 + 116);
+            v83 = *(v8 + 29);
           }
 
           ++v103;
@@ -9442,18 +9523,18 @@ LABEL_132:
           }
         }
 
-        v107 = *(v8 + 116);
+        v107 = *(v8 + 29);
         if (v107)
         {
           v108 = 0;
-          v109 = *(v8 + 40);
+          v109 = *(v8 + 5);
           v110 = v117;
           v111 = 8 * v107;
           do
           {
             if (*(v109 + v108))
             {
-              *&v110[v108] = (*&v110[v108] * v102 + a5 * *(*(v8 + 384) + v108)) / (v86 + a5);
+              *&v110[v108] = (*&v110[v108] * v102 + a5 * *(*(v8 + 48) + v108)) / (v86 + a5);
             }
 
             else
@@ -9481,25 +9562,25 @@ LABEL_132:
   return DgnArray<DgnArray<DgnPrimArray<unsigned int>>>::releaseAll(&v135);
 }
 
-void sub_26272EDB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26272EDB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va3, a7);
-  va_start(va2, a7);
-  va_start(va1, a7);
-  va_start(va, a7);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  va_start(va3, a13);
+  va_start(va2, a13);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v15 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
   va_copy(va2, va1);
-  v12 = va_arg(va2, void);
-  v14 = va_arg(va2, void);
+  v18 = va_arg(va2, void);
+  v20 = va_arg(va2, void);
   va_copy(va3, va2);
-  v15 = va_arg(va3, void);
-  v17 = va_arg(va3, void);
+  v21 = va_arg(va3, void);
+  v23 = va_arg(va3, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va2);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va3);
-  DgnArray<DgnArray<DgnPrimArray<unsigned int>>>::releaseAll(v7 - 160);
+  DgnArray<DgnArray<DgnPrimArray<unsigned int>>>::releaseAll(v13 - 160);
   _Unwind_Resume(a1);
 }
 
@@ -9530,15 +9611,15 @@ uint64_t MultiLanguageModel::setWeightsForNewTopicLM(MultiLanguageModel *this, u
   }
 
   v8 = *(*(this + 56) + 8 * a2);
-  v22[0] = 0;
-  v22[1] = 0;
-  v9.n128_f64[0] = DgnPrimArray<double>::copyArraySlice(v22, this + 48, 0, *(this + 98));
+  v15[0] = 0;
+  v15[1] = 0;
+  v9.n128_f64[0] = DgnPrimArray<double>::copyArraySlice(v15, this + 48, 0, *(this + 98));
   v10 = *(this + 29);
-  v11 = v22[0];
+  v11 = v15[0];
   if (v10)
   {
     v12 = *(this + 5);
-    v13 = v22[0];
+    v13 = v15[0];
     v9.n128_f64[0] = (1.0 - v8) / v7;
     do
     {
@@ -9556,99 +9637,99 @@ uint64_t MultiLanguageModel::setWeightsForNewTopicLM(MultiLanguageModel *this, u
   }
 
   *(v11 + 8 * a2) = v8;
-  (*(*this + 496))(this, v22, v9);
-  MultiLanguageModel::adjustNamedWeightsSets(this, v14, v15, v16, v17, v18, v19, v20);
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(v22);
+  (*(*this + 496))(this, v15, v9);
+  MultiLanguageModel::adjustNamedWeightsSets(this);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(v15);
 }
 
-void MultiLanguageModel::startBuildingTopicLM(MultiLanguageModel *this, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void MultiLanguageModel::startBuildingTopicLM(MultiLanguageModel *this, int a2)
 {
   if (*(this + 77))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 6904, "lm/multilm", 20, "%.500s", a7, a8, "startBuildingTopicLM");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 6904, "lm/multilm", 20, "%.500s", "startBuildingTopicLM");
   }
 
-  v21 = 0;
-  v22 = a2 - 1;
-  v23 = 0;
-  MultiLanguageModel::getInternalTopicLmSlot(this, &v22, &v23, &v21);
-  v12 = v23;
-  v13 = v21;
-  if (v21 == -1)
+  v13 = 0;
+  v14 = a2 - 1;
+  v15 = 0;
+  MultiLanguageModel::getInternalTopicLmSlot(this, &v14, &v15, &v13);
+  v4 = v15;
+  v5 = v13;
+  if (v13 == -1)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 6914, "lm/multilm", 95, "%u", v10, v11, a2);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 6914, "lm/multilm", 95, "%u", a2);
   }
 
-  if (*(*(v12 + 5) + 8 * v13))
+  if (*(*(v4 + 5) + 8 * v5))
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 6918, "lm/multilm", 12, "%s", v10, v11, &errStr_lm_multilm_E_BAD_INPLACE_BUILD);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 6918, "lm/multilm", 12, "%s", &errStr_lm_multilm_E_BAD_INPLACE_BUILD);
   }
 
-  v14 = *(*(v12 + 38) + 8 * v13);
-  v15 = *(*(v12 + 42) + 8 * v13);
-  *(this + 78) = v12;
-  *(this + 158) = v13;
+  v6 = *(*(v4 + 38) + 8 * v5);
+  v7 = *(*(v4 + 42) + 8 * v5);
+  *(this + 78) = v4;
+  *(this + 158) = v5;
   *(this + 159) = a2;
-  v16 = MemChunkAlloc(0x728uLL, 0);
-  v17 = WordLanguageModel::WordLanguageModel(v16, *(this + 8), *(this + 2));
-  *(this + 77) = v17;
-  WordLanguageModel::initForBuild(v17, v14, v15, v18, v19);
-  v20 = *(this + 77);
+  v8 = MemChunkAlloc(0x728uLL, 0);
+  WordLanguageModel::WordLanguageModel(v8, *(this + 8), *(this + 2));
+  *(this + 77) = v9;
+  WordLanguageModel::initForBuild(v9, v6, v7, v10, v11);
+  v12 = *(this + 77);
 
-  WordLanguageModel::startBuildingNgramLM(v20, this + 640, this + 82, this + 83, this + 672);
+  WordLanguageModel::startBuildingNgramLM(v12, this + 640, this + 82, this + 83, this + 672);
 }
 
-uint64_t MultiLanguageModel::addBuildTopicLM(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t MultiLanguageModel::addBuildTopicLM(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
+  v8 = *(a1 + 616);
+  if (!v8)
+  {
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 6944, "lm/multilm", 19, "%s", errStr_lm_multilm_E_NOTBUILDINGLM);
+    v8 = *(a1 + 616);
+  }
+
+  return WordLanguageModel::addBuildNgramLM(v8, a2, a3, a4);
+}
+
+void *MultiLanguageModel::endBuildingTopicLM(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5)
+{
+  v10 = *(a1 + 616);
+  if (!v10)
+  {
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 6959, "lm/multilm", 19, "%s", errStr_lm_multilm_E_NOTBUILDINGLM);
+    v10 = *(a1 + 616);
+  }
+
+  v11 = WordLanguageModel::endBuildingNgramLM(v10);
   v12 = *(a1 + 616);
-  if (!v12)
+  if (!v11)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 6944, "lm/multilm", 19, "%s", a7, a8, &errStr_lm_multilm_E_NOTBUILDINGLM);
-    v12 = *(a1 + 616);
-  }
-
-  return WordLanguageModel::addBuildNgramLM(v12, a2, a3, a4);
-}
-
-void *MultiLanguageModel::endBuildingTopicLM(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v13 = *(a1 + 616);
-  if (!v13)
-  {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 6959, "lm/multilm", 19, "%s", a7, a8, &errStr_lm_multilm_E_NOTBUILDINGLM);
-    v13 = *(a1 + 616);
-  }
-
-  v14 = WordLanguageModel::endBuildingNgramLM(v13);
-  v15 = *(a1 + 616);
-  if (!v14)
-  {
-    DgnDelete<LanguageModel>(v15);
+    DgnDelete<LanguageModel>(v12);
     goto LABEL_9;
   }
 
-  v16 = *(a1 + 632);
-  *(*(*(a1 + 624) + 40) + 8 * v16) = v15;
+  v13 = *(a1 + 632);
+  *(*(*(a1 + 624) + 40) + 8 * v13) = v12;
   *(a1 + 616) = 0;
-  v17 = *(a1 + 624);
-  if (*(v17 + 114) == 1)
+  v14 = *(a1 + 624);
+  if (*(v14 + 114) == 1)
   {
-    MultiLanguageModel::setWeightsForNewTopicLM(v17, v16);
+    MultiLanguageModel::setWeightsForNewTopicLM(v14, v13);
   }
 
   if (*(a2 + 8))
   {
     (*(*a1 + 536))(a1, a2, a3, a4, a5, 1);
     DgnDelete<LanguageModel>(*(*(*(a1 + 624) + 40) + 8 * *(a1 + 632)));
-    v18 = *(a1 + 632);
-    *(*(*(a1 + 624) + 40) + 8 * v18) = 0;
-    v19 = *(a1 + 624);
-    v20 = *(*(v19 + 336) + 8 * v18);
-    v21 = *(*(v19 + 304) + 8 * v18);
-    v22 = MemChunkAlloc(0x728uLL, 0);
-    v23 = WordLanguageModel::WordLanguageModel(v22, *(a1 + 32), *(a1 + 16));
-    *(a1 + 616) = v23;
-    WordLanguageModel::initForBuild(v23, v21, v20, v24, v25);
+    v15 = *(a1 + 632);
+    *(*(*(a1 + 624) + 40) + 8 * v15) = 0;
+    v16 = *(a1 + 624);
+    v17 = *(*(v16 + 336) + 8 * v15);
+    v18 = *(*(v16 + 304) + 8 * v15);
+    v19 = MemChunkAlloc(0x728uLL, 0);
+    WordLanguageModel::WordLanguageModel(v19, *(a1 + 32), *(a1 + 16));
+    *(a1 + 616) = v20;
+    WordLanguageModel::initForBuild(v20, v18, v17, v21, v22);
     WordLanguageModel::startBuildingNgramLM(*(a1 + 616), a1 + 640, (a1 + 656), (a1 + 664), a1 + 672);
     WordLanguageModel::addBuildNgramLM(*(a1 + 616), a2, a3, a4);
     WordLanguageModel::endBuildingNgramLM(*(a1 + 616));
@@ -9659,10 +9740,10 @@ LABEL_9:
 
   *(a1 + 624) = 0;
   *(a1 + 632) = 0xFFFFFFFFFFFFLL;
-  v26 = *(a1 + 640);
-  if (v26)
+  v23 = *(a1 + 640);
+  if (v23)
   {
-    MemChunkFree(v26, 0);
+    MemChunkFree(v23, 0);
     *(a1 + 640) = 0;
   }
 
@@ -9672,107 +9753,28 @@ LABEL_9:
   return DgnIOwnArray<HashKEV<unsigned int,unsigned int,StateIdScope> *>::releaseAll(a1 + 672);
 }
 
-void *MultiLanguageModel::abortBuildingTopicLM(MultiLanguageModel *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *MultiLanguageModel::abortBuildingTopicLM(MultiLanguageModel *this)
 {
-  v9 = this + 616;
-  v10 = *(this + 77);
-  if (!v10)
+  v2 = this + 616;
+  v3 = *(this + 77);
+  if (!v3)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 7035, "lm/multilm", 19, "%s", a7, a8, &errStr_lm_multilm_E_NOTBUILDINGLM);
-    v10 = *v9;
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/lm/multilm.cpp", 7035, "lm/multilm", 19, "%s", errStr_lm_multilm_E_NOTBUILDINGLM);
+    v3 = *v2;
   }
 
-  DgnDelete<LanguageModel>(v10);
-  *v9 = 0;
-  *(v9 + 1) = 0;
+  DgnDelete<LanguageModel>(v3);
+  *v2 = 0;
+  *(v2 + 1) = 0;
   *(this + 79) = 0xFFFFFFFFFFFFLL;
-  v11 = *(this + 80);
-  if (v11)
+  v4 = *(this + 80);
+  if (v4)
   {
-    MemChunkFree(v11, 0);
+    MemChunkFree(v4, 0);
     *(this + 80) = 0;
   }
 
   *(this + 648) = 0u;
 
   return DgnIOwnArray<HashKEV<unsigned int,unsigned int,StateIdScope> *>::releaseAll(this + 672);
-}
-
-void MultiLMContextData::MultiLMContextData(MultiLMContextData *this, uint64_t a2)
-{
-  v2 = a2;
-  *(this + 2) = 16777212;
-  *this = &unk_287526590;
-  *(this + 2) = 0;
-  v4 = (this + 16);
-  *(this + 3) = 0;
-  if (a2)
-  {
-    DgnPrimArray<unsigned long long>::reallocElts(this + 16, a2, 0);
-    LODWORD(v5) = *(this + 6);
-    if (v5 > v2)
-    {
-      DgnIOwnArray<LMContextData *>::destructAt(v4, v2, v5 - v2);
-      goto LABEL_8;
-    }
-  }
-
-  else
-  {
-    LODWORD(v5) = 0;
-  }
-
-  if (v5 < v2)
-  {
-    v5 = v5;
-    do
-    {
-      (*v4)[v5++] = 0;
-    }
-
-    while (v2 != v5);
-  }
-
-LABEL_8:
-  *(this + 6) = v2;
-}
-
-void MultiLMContextData::~MultiLMContextData(MultiLMContextData *this)
-{
-  *this = &unk_287526590;
-  DgnIOwnArray<LMContextData *>::releaseAll(this + 16);
-}
-
-{
-  *this = &unk_287526590;
-  DgnIOwnArray<LMContextData *>::releaseAll(this + 16);
-
-  JUMPOUT(0x26672B1B0);
-}
-
-void *DgnIOwnArray<LanguageModel *>::releaseAll(uint64_t a1)
-{
-  v2 = *(a1 + 8);
-  if (v2 >= 1)
-  {
-    v3 = 8 * v2 - 8;
-    do
-    {
-      DgnDelete<LanguageModel>(*(*a1 + v3));
-      *(*a1 + v3) = 0;
-      v3 -= 8;
-    }
-
-    while (v3 != -8);
-  }
-
-  result = *a1;
-  if (*a1)
-  {
-    result = MemChunkFree(result, 0);
-    *a1 = 0;
-  }
-
-  *(a1 + 8) = 0;
-  return result;
 }

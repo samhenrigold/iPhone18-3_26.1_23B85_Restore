@@ -189,37 +189,38 @@
     [(SCNRenderer *)self->_renderer lock];
     isOpaque = [(SCNView *)self isOpaque];
     [(SCNMTLRenderContext *)[(SCNRenderer *)self->_renderer _renderContextMetal] setIsOpaque:isOpaque];
-    if (C3DWideGamutIsUsed())
+    if (C3DWideGamutIsUsed(v5, v6))
     {
-      v5 = [objc_msgSend(-[SCNView window](self "window")] == 1;
-      v6 = v5;
+      v7 = [objc_msgSend(-[SCNView window](self "window")];
+      v8 = v7 == 1;
+      v9 = v7 == 1;
     }
 
     else
     {
-      v5 = 0;
-      v6 = 0;
+      v8 = 0;
+      v9 = 0;
     }
 
     _antialiasingMode = [(SCNRenderer *)self->_renderer _antialiasingMode];
-    v8 = v6 | 8;
+    v11 = v9 | 8;
     if (!_antialiasingMode)
     {
-      v8 = v6;
+      v11 = v9;
     }
 
     if (isOpaque)
     {
-      v9 = v8;
+      v12 = v11;
     }
 
     else
     {
-      v9 = v8 | 0x10;
+      v12 = v11 | 0x10;
     }
 
-    v10 = v9 & 0xDF | (32 * ((*(self + 457) & 2) != 0));
-    [(SCNMTLRenderContext *)[(SCNRenderer *)self->_renderer _renderContextMetal] setWantsWideGamut:v5];
+    v13 = v12 & 0xDF | (32 * ((*(self + 457) & 2) != 0));
+    [(SCNMTLRenderContext *)[(SCNRenderer *)self->_renderer _renderContextMetal] setWantsWideGamut:v8];
     [(SCNMTLRenderContext *)[(SCNRenderer *)self->_renderer _renderContextMetal] setDisableLinearRendering:?];
     [-[SCNView layer](self "layer")];
     [(SCNRenderer *)self->_renderer unlock];
@@ -279,7 +280,8 @@
     {
       usleep(0x2710u);
       v4 = v3 + 1;
-      if ([-[SCNView displayLink](self "displayLink")] < 1)
+      v5 = [-[SCNView displayLink](self "displayLink")];
+      if (v5 < 1)
       {
         break;
       }
@@ -288,10 +290,10 @@
     while (v3++ < 0x12B);
     if (v4 == 300)
     {
-      v6 = scn_default_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = scn_default_log(v5, v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [(SCNView *)v6 _flushDisplayLink];
+        [(SCNView *)v8 _flushDisplayLink];
       }
     }
   }
@@ -345,19 +347,20 @@
 
 void __85__SCNView_SCNDisplayLink___initializeDisplayLinkWithScreen_policy_completionHandler___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   memset(&token_out, 0, sizeof(token_out));
   if (WeakRetained)
   {
     v3 = [objc_opt_class() usesSeparateWorkGroup];
+    v5 = v3;
     if (v3)
     {
-      v4 = scn_default_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v6 = scn_default_log(v3, v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        *v16 = 0;
-        _os_log_impl(&dword_21BEF7000, v4, OS_LOG_TYPE_INFO, "Info: [SCNView] Using separate work group", v16, 2u);
+        *v18 = 0;
+        _os_log_impl(&dword_21BEF7000, v6, OS_LOG_TYPE_INFO, "Info: [SCNView] Using separate work group", v18, 2u);
       }
 
       if (os_workgroup_attr_set_flags())
@@ -365,14 +368,14 @@ void __85__SCNView_SCNDisplayLink___initializeDisplayLinkWithScreen_policy_compl
         __85__SCNView_SCNDisplayLink___initializeDisplayLinkWithScreen_policy_completionHandler___block_invoke_cold_1();
       }
 
-      v5 = os_workgroup_create();
-      if (!v5)
+      v7 = os_workgroup_create();
+      if (!v7)
       {
         __85__SCNView_SCNDisplayLink___initializeDisplayLinkWithScreen_policy_completionHandler___block_invoke_cold_3();
       }
 
-      v6 = v5;
-      if (os_workgroup_join(v5, &token_out))
+      v8 = v7;
+      if (os_workgroup_join(v7, &token_out))
       {
         __85__SCNView_SCNDisplayLink___initializeDisplayLinkWithScreen_policy_completionHandler___block_invoke_cold_2();
       }
@@ -380,46 +383,46 @@ void __85__SCNView_SCNDisplayLink___initializeDisplayLinkWithScreen_policy_compl
 
     else
     {
-      v6 = 0;
+      v8 = 0;
     }
 
-    v7 = [WeakRetained renderer];
-    v8 = [v7 _renderingQueue];
-    v9 = [WeakRetained SCN_setupDisplayLinkWithQueue:v8 screen:*(a1 + 32) policy:*(a1 + 56)];
+    v9 = [WeakRetained renderer];
+    v10 = [v9 _renderingQueue];
+    v11 = [WeakRetained SCN_setupDisplayLinkWithQueue:v10 screen:*(a1 + 32) policy:*(a1 + 56)];
 
     (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    v6 = 0;
-    v3 = 0;
+    v8 = 0;
+    v5 = 0;
   }
 
-  v10 = [MEMORY[0x277CBEB88] currentRunLoop];
+  v12 = [MEMORY[0x277CBEB88] currentRunLoop];
   pthread_setname_np("com.apple.scenekit.scnview-renderer");
   pthread_set_fixedpriority_self();
-  v11 = objc_loadWeakRetained((a1 + 48));
+  v13 = objc_loadWeakRetained((a1 + 48));
 
-  if (v11)
+  if (v13)
   {
-    v12 = *MEMORY[0x277CBE640];
+    v14 = *MEMORY[0x277CBE640];
     do
     {
-      v13 = objc_autoreleasePoolPush();
-      v14 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:1.0];
-      [v10 runMode:v12 beforeDate:v14];
+      v15 = objc_autoreleasePoolPush();
+      v16 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:1.0];
+      [v12 runMode:v14 beforeDate:v16];
 
-      objc_autoreleasePoolPop(v13);
-      v15 = objc_loadWeakRetained((a1 + 48));
+      objc_autoreleasePoolPop(v15);
+      v17 = objc_loadWeakRetained((a1 + 48));
     }
 
-    while (v15);
+    while (v17);
   }
 
-  if (v3)
+  if (v5)
   {
-    os_workgroup_leave(v6, &token_out);
+    os_workgroup_leave(v8, &token_out);
   }
 }
 
@@ -430,60 +433,61 @@ void __85__SCNView_SCNDisplayLink___initializeDisplayLinkWithScreen_policy_compl
     return 1;
   }
 
-  if (C3DPreferencesGetBool(1))
+  Bool = C3DPreferencesGetBool(1);
+  if (Bool)
   {
     return 0;
   }
 
-  v5 = C3DWasLinkedBeforeMajorOSYear2015();
-  v6 = [options objectForKey:@"SCNPreferredRenderingAPIKey"];
+  v7 = C3DWasLinkedBeforeMajorOSYear2015(Bool, v5);
+  v8 = [options objectForKey:@"SCNPreferredRenderingAPIKey"];
   if (C3DGetInfoPlistFlagIsSet(@"PrefersOpenGL", 0))
   {
-    if (v6 && ![v6 integerValue])
+    if (v8 && ![v8 integerValue])
     {
-      v8 = scn_default_log();
-      v4 = 1;
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v11 = scn_default_log(0, v9);
+      v6 = 1;
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        *v9 = 0;
-        v4 = 1;
-        _os_log_impl(&dword_21BEF7000, v8, OS_LOG_TYPE_INFO, "Info: PrefersOpenGL key is set in the plist but Metal is requested programmatically. GL will be used", v9, 2u);
+        *v12 = 0;
+        v6 = 1;
+        _os_log_impl(&dword_21BEF7000, v11, OS_LOG_TYPE_INFO, "Info: PrefersOpenGL key is set in the plist but Metal is requested programmatically. GL will be used", v12, 2u);
       }
 
-      return v4;
+      return v6;
     }
 
     return 1;
   }
 
-  if (!v6)
+  if (!v8)
   {
-    return v5;
+    return v7;
   }
 
-  return [v6 integerValue];
+  return [v8 integerValue];
 }
 
 + (id)deviceForOptions:(id)options
 {
-  v3 = MTLCreateSystemDefaultDevice();
-  if (!v3 && (deviceForOptions__done & 1) == 0)
+  v4 = MTLCreateSystemDefaultDevice();
+  if (!v4 && (deviceForOptions__done & 1) == 0)
   {
     deviceForOptions__done = 1;
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = scn_default_log(0, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [SCNView deviceForOptions:v4];
+      [SCNView deviceForOptions:v5];
     }
   }
 
-  return v3;
+  return v4;
 }
 
 - (void)_commonInit:(id)init
 {
   v20[2] = *MEMORY[0x277D85DE8];
-  SCNGetPerformanceStatisticsEnabled();
+  SCNGetPerformanceStatisticsEnabled(self, a2);
   *(self + 456) |= 1u;
   *(self + 456) |= 0x10u;
   self->_currentSystemTime = CACurrentMediaTime();
@@ -677,23 +681,24 @@ LABEL_9:
 
 - (SCNView)initWithCoder:(id)coder
 {
-  v27[1] = *MEMORY[0x277D85DE8];
-  if ([coder containsValueForKey:@"ibPreferredRenderingAPI"])
+  v28[1] = *MEMORY[0x277D85DE8];
+  v5 = [coder containsValueForKey:@"ibPreferredRenderingAPI"];
+  if (v5)
   {
     v5 = [coder decodeIntegerForKey:@"ibPreferredRenderingAPI"];
-    v6 = v5;
+    v7 = v5;
     if (v5 == 2)
     {
-      v7 = 1;
+      v8 = 1;
 LABEL_10:
-      if (C3DWasLinkedBeforeMajorOSYear2015())
+      if (C3DWasLinkedBeforeMajorOSYear2015(v5, v6))
       {
-        v8 = 1;
+        v9 = 1;
       }
 
       else
       {
-        v8 = v7;
+        v9 = v8;
       }
 
       goto LABEL_13;
@@ -701,125 +706,125 @@ LABEL_10:
 
     if (v5 == 1)
     {
-      v7 = 0;
+      v8 = 0;
       goto LABEL_10;
     }
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  if (!C3DWasLinkedBeforeMajorOSYear2015())
+  if (!C3DWasLinkedBeforeMajorOSYear2015(v5, v6))
   {
-    v9 = 0;
+    v10 = 0;
     goto LABEL_14;
   }
 
-  v8 = 1;
+  v9 = 1;
 LABEL_13:
-  v26 = @"SCNPreferredRenderingAPIKey";
-  v27[0] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v8];
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+  v27 = @"SCNPreferredRenderingAPIKey";
+  v28[0] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v9];
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
 LABEL_14:
-  [(SCNView *)self _selectRenderingAPIWithOptions:v9];
-  v23.receiver = self;
-  v23.super_class = SCNView;
-  v10 = [(SCNView *)&v23 initWithCoder:coder];
-  v11 = v10;
-  if (v10)
+  [(SCNView *)self _selectRenderingAPIWithOptions:v10];
+  v24.receiver = self;
+  v24.super_class = SCNView;
+  v11 = [(SCNView *)&v24 initWithCoder:coder];
+  v12 = v11;
+  if (v11)
   {
-    p_boundsSize = &v10->_boundsSize;
-    [(SCNView *)v10 bounds];
-    *&p_boundsSize->width = v13;
-    v11->_boundsSize.height = v14;
-    [(SCNView *)v11 set_ibPreferredRenderingAPI:v6];
+    p_boundsSize = &v11->_boundsSize;
+    [(SCNView *)v11 bounds];
+    *&p_boundsSize->width = v14;
+    v12->_boundsSize.height = v15;
+    [(SCNView *)v12 set_ibPreferredRenderingAPI:v7];
     if ([coder containsValueForKey:@"ibWantsMultisampling"])
     {
-      v15 = [coder decodeBoolForKey:@"ibWantsMultisampling"];
+      v16 = [coder decodeBoolForKey:@"ibWantsMultisampling"];
     }
 
     else
     {
-      v15 = 0;
+      v16 = 0;
     }
 
-    [(SCNView *)v11 set_ibWantsMultisampling:v15];
-    [(SCNView *)v11 _commonInit:v9];
-    if ([(SCNView *)v11 _ibWantsMultisampling])
+    [(SCNView *)v12 set_ibWantsMultisampling:v16];
+    [(SCNView *)v12 _commonInit:v10];
+    if ([(SCNView *)v12 _ibWantsMultisampling])
     {
-      [(SCNView *)v11 setAntialiasingMode:2];
+      [(SCNView *)v12 setAntialiasingMode:2];
     }
 
     if ([coder containsValueForKey:@"loops"])
     {
-      -[SCNView setLoops:](v11, "setLoops:", [coder decodeBoolForKey:@"loops"]);
+      -[SCNView setLoops:](v12, "setLoops:", [coder decodeBoolForKey:@"loops"]);
     }
 
     if ([coder containsValueForKey:@"playing"])
     {
-      -[SCNView setPlaying:](v11, "setPlaying:", [coder decodeBoolForKey:@"playing"]);
+      -[SCNView setPlaying:](v12, "setPlaying:", [coder decodeBoolForKey:@"playing"]);
     }
 
     if ([coder containsValueForKey:@"autoenablesDefaultLighting"])
     {
-      -[SCNView setAutoenablesDefaultLighting:](v11, "setAutoenablesDefaultLighting:", [coder decodeBoolForKey:@"autoenablesDefaultLighting"]);
+      -[SCNView setAutoenablesDefaultLighting:](v12, "setAutoenablesDefaultLighting:", [coder decodeBoolForKey:@"autoenablesDefaultLighting"]);
     }
 
     if ([coder containsValueForKey:@"jitteringEnabled"])
     {
-      -[SCNView setJitteringEnabled:](v11, "setJitteringEnabled:", [coder decodeBoolForKey:@"jitteringEnabled"]);
+      -[SCNView setJitteringEnabled:](v12, "setJitteringEnabled:", [coder decodeBoolForKey:@"jitteringEnabled"]);
     }
 
     if ([coder containsValueForKey:@"temporalAntialiasingEnabled"])
     {
-      -[SCNView setTemporalAntialiasingEnabled:](v11, "setTemporalAntialiasingEnabled:", [coder decodeBoolForKey:@"temporalAntialiasingEnabled"]);
+      -[SCNView setTemporalAntialiasingEnabled:](v12, "setTemporalAntialiasingEnabled:", [coder decodeBoolForKey:@"temporalAntialiasingEnabled"]);
     }
 
     if ([coder containsValueForKey:@"allowsCameraControl"])
     {
-      -[SCNView setAllowsCameraControl:](v11, "setAllowsCameraControl:", [coder decodeBoolForKey:@"allowsCameraControl"]);
+      -[SCNView setAllowsCameraControl:](v12, "setAllowsCameraControl:", [coder decodeBoolForKey:@"allowsCameraControl"]);
     }
 
     if ([coder containsValueForKey:@"backgroundColor"])
     {
-      -[SCNView setBackgroundColor:](v11, "setBackgroundColor:", [coder decodeObjectOfClass:objc_opt_class() forKey:@"backgroundColor"]);
+      -[SCNView setBackgroundColor:](v12, "setBackgroundColor:", [coder decodeObjectOfClass:objc_opt_class() forKey:@"backgroundColor"]);
     }
 
-    -[SCNView set_ibSceneName:](v11, "set_ibSceneName:", [coder decodeObjectOfClass:objc_opt_class() forKey:@"ibSceneName"]);
-    if ([(NSString *)v11->__ibSceneName length])
+    -[SCNView set_ibSceneName:](v12, "set_ibSceneName:", [coder decodeObjectOfClass:objc_opt_class() forKey:@"ibSceneName"]);
+    if ([(NSString *)v12->__ibSceneName length])
     {
-      pathExtension = [(NSString *)v11->__ibSceneName pathExtension];
-      v17 = SCNGetResourceBundle();
-      stringByDeletingPathExtension = [(NSString *)v11->__ibSceneName stringByDeletingPathExtension];
-      if ([(__CFString *)pathExtension isEqualToString:&stru_282DCC058])
+      pathExtension = [(NSString *)v12->__ibSceneName pathExtension];
+      v18 = SCNGetResourceBundle();
+      stringByDeletingPathExtension = [(NSString *)v12->__ibSceneName stringByDeletingPathExtension];
+      if (objc_msgSend_isEqualToString_(pathExtension))
       {
-        v19 = @"dae";
+        v20 = @"dae";
       }
 
       else
       {
-        v19 = pathExtension;
+        v20 = pathExtension;
       }
 
-      v20 = [v17 URLForResource:stringByDeletingPathExtension withExtension:v19];
-      if (v20)
+      v21 = [v18 URLForResource:stringByDeletingPathExtension withExtension:v20];
+      if (v21)
       {
-        v24[0] = @"kSceneSourceCreateCameraIfAbsent";
-        v24[1] = @"kSceneSourceCreateNormalsIfAbsent";
-        v25[0] = MEMORY[0x277CBEC38];
-        v25[1] = MEMORY[0x277CBEC38];
-        v21 = +[SCNScene sceneWithURL:options:error:](SCNScene, "sceneWithURL:options:error:", v20, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2], 0);
-        if (v21)
+        v25[0] = @"kSceneSourceCreateCameraIfAbsent";
+        v25[1] = @"kSceneSourceCreateNormalsIfAbsent";
+        v26[0] = MEMORY[0x277CBEC38];
+        v26[1] = MEMORY[0x277CBEC38];
+        v22 = +[SCNScene sceneWithURL:options:error:](SCNScene, "sceneWithURL:options:error:", v21, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2], 0);
+        if (v22)
         {
-          [(SCNView *)v11 setScene:v21];
+          [(SCNView *)v12 setScene:v22];
         }
       }
     }
   }
 
-  return v11;
+  return v12;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -938,7 +943,7 @@ LABEL_14:
   result = self->_renderer;
   if (result)
   {
-    return [(SCNMatrix4 *)result _screenTransform];
+    return objc_msgSend__screenTransform(result, a3);
   }
 
   *&retstr->m31 = 0u;
@@ -1014,17 +1019,17 @@ LABEL_14:
       LOBYTE(RendererContextGL) = 0;
     }
 
-    else if (C3DEngineContextGetRenderContext(v3))
+    else if (C3DEngineContextGetRenderContext(v3, v4))
     {
       LOBYTE(RendererContextGL) = 1;
     }
 
     else
     {
-      RendererContextGL = C3DEngineContextGetRendererContextGL(v3);
+      RendererContextGL = C3DEngineContextGetRendererContextGL(v3, v6);
       if (RendererContextGL)
       {
-        LOBYTE(RendererContextGL) = C3DRendererContextGetGLContext(RendererContextGL) != 0;
+        LOBYTE(RendererContextGL) = C3DRendererContextGetGLContext(RendererContextGL, v7) != 0;
       }
     }
   }
@@ -1426,7 +1431,7 @@ LABEL_14:
 {
   if (context == @"kSCNViewObservingContext")
   {
-    if ([path isEqualToString:{@"background.contents", object, change}])
+    if (objc_msgSend_isEqualToString_(path, a2, @"background.contents", object, change))
     {
 
       [(SCNView *)self _updateOpacity];
@@ -1663,13 +1668,13 @@ void __37__SCNView__createDisplayLinkIfNeeded__block_invoke(uint64_t a1, uint64_
   objc_destroyWeak(&v4);
 }
 
-id __37__SCNView__createDisplayLinkIfNeeded__block_invoke_2(uint64_t a1)
+uint64_t *__37__SCNView__createDisplayLinkIfNeeded__block_invoke_2(uint64_t a1)
 {
   result = objc_loadWeak((a1 + 40));
   if (result)
   {
     v4 = result;
-    *&v3 = *(result + 63);
+    *&v3 = result[63];
     [*(a1 + 32) setPreferredFrameRate:v3];
     [v4 setDisplayLink:*(a1 + 32)];
 
@@ -1733,7 +1738,7 @@ id __37__SCNView__createDisplayLinkIfNeeded__block_invoke_2(uint64_t a1)
   [(SCNMTLRenderContext *)v7 setPreferredFramesPerSecond:?];
 }
 
-uint64_t __27__SCNView__setNeedsDisplay__block_invoke_2(uint64_t a1)
+void *__27__SCNView__setNeedsDisplay__block_invoke_2(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 496) isPaused];
   if (result)
@@ -1806,10 +1811,10 @@ uint64_t __27__SCNView__setNeedsDisplay__block_invoke_2(uint64_t a1)
 
   else
   {
-    v6 = scn_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = scn_default_log(0, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(SCNView *)named switchToCameraNamed:v6];
+      [(SCNView *)named switchToCameraNamed:v7];
     }
   }
 }

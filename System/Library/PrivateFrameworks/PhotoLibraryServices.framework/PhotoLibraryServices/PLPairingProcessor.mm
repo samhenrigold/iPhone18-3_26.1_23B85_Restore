@@ -414,7 +414,7 @@ LABEL_5:
         v19 = *(*(&v38 + 1) + 8 * i);
         v20 = objc_autoreleasePoolPush();
         v21 = [v14 objectForKeyedSubscript:v19];
-        if ([v21 count] >= 2)
+        if (objc_msgSend_count(v21) >= 2)
         {
           v22 = v17;
           while (1)
@@ -439,7 +439,7 @@ LABEL_5:
             [v21 removeObjectsInArray:allValues];
 
             v22 = v17;
-            if ([v21 count] <= 1)
+            if (objc_msgSend_count(v21) <= 1)
             {
               goto LABEL_18;
             }

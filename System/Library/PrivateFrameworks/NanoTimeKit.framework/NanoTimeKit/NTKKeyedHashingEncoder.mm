@@ -146,7 +146,7 @@
   v8 = sub_22DCB612C();
   v10 = v9;
   selfCopy = self;
-  NTKKeyedHashingEncoder.encodeBytes(_:length:forKey:)(bytes, length, v8, v10);
+  NTKKeyedHashingEncoder.encodeBytes(_:length:forKey:)(bytes, length, v8, v10, v12);
 }
 
 - (void)encodeConditionalObject:(id)object forKey:(id)key

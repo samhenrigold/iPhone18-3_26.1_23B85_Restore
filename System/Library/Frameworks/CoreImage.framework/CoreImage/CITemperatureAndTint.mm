@@ -253,11 +253,11 @@
   v58[0] = CMatrix::operator[](v65, 2u);
   v58[1] = v24;
   v25 = CMatrixRow::operator[](v58, 0);
-  CMatrix::diagonalMatrix(3, v15 / v17, v63, COERCE__INT64(v19 / v21), v23 / *v25);
+  CMatrix::diagonalMatrix(v63, 3, v15 / v17, COERCE__INT64(v19 / v21), v23 / *v25);
   CMatrix::operator*(v66, v63, &v56);
   CMatrix::operator*(&v56, v67, v53);
   CMatrix::CMatrix(v67, 3u, 3u, 0.454268, v26, v27, 0x3FD69CBAA49EB5D9, 0x3FC40C03BE7630B2, 0x3FCEF689906AD933, 0x3FE58E8E5F4360FFLL, 0x3FB59E6D9AB61B65, 0x3F8E7F0ABDCF9CFALL, 0x3FB73315A5A6D043, 0x3FE7053603937997);
-  CMatrix::inverse(v67, v66);
+  CMatrix::inverse(v66, v67);
   CMatrix::operator*(v66, v53, v65);
   CMatrix::operator*(v65, v67, v46);
   inputImage = self->inputImage;

@@ -13,63 +13,49 @@
 
 - (void)setAlertTopic:(id)topic
 {
-  v4 = [topic copy];
-  alertTopic = self->super._alertTopic;
-  self->super._alertTopic = v4;
+  self->super._alertTopic = [topic copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setAudioCategory:(id)category
 {
-  v4 = [category copy];
-  audioCategory = self->super._audioCategory;
-  self->super._audioCategory = v4;
+  self->super._audioCategory = [category copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setToneFileName:(id)name
 {
-  v4 = [name copy];
-  toneFileName = self->super._toneFileName;
-  self->super._toneFileName = v4;
+  self->super._toneFileName = [name copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setToneFileURL:(id)l
 {
-  v4 = [l copy];
-  toneFileURL = self->super._toneFileURL;
-  self->super._toneFileURL = v4;
+  self->super._toneFileURL = [l copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setToneIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  toneIdentifier = self->super._toneIdentifier;
-  self->super._toneIdentifier = v4;
+  self->super._toneIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setVibrationIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  vibrationIdentifier = self->super._vibrationIdentifier;
-  self->super._vibrationIdentifier = v4;
+  self->super._vibrationIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setVibrationPatternFileURL:(id)l
 {
-  v4 = [l copy];
-  vibrationPatternFileURL = self->super._vibrationPatternFileURL;
-  self->super._vibrationPatternFileURL = v4;
+  self->super._vibrationPatternFileURL = [l copy];
 
   MEMORY[0x1EEE66BB8]();
 }

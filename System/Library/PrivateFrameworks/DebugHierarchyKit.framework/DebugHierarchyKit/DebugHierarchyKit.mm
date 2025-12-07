@@ -6,16 +6,16 @@ id _DBGDictionaryDescribesDebugHierarchyObjectReference(void *a1)
   return v2;
 }
 
-id DebugHierarchySnapshotModelOSLog()
+id DebugHierarchySnapshotModelOSLog(uint64_t a1)
 {
   if (DebugHierarchySnapshotModelOSLog___dvt_lazy_init_predicate != -1)
   {
     DebugHierarchySnapshotModelOSLog_cold_1();
   }
 
-  v1 = DebugHierarchySnapshotModelOSLog___dvt_lazy_init_variable;
+  v2 = DebugHierarchySnapshotModelOSLog___dvt_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 void *DBGValueClassForPropertyWith(void *a1, void *a2)
@@ -58,9 +58,9 @@ LABEL_57:
   return v5;
 }
 
-void sub_9E9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_9E9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

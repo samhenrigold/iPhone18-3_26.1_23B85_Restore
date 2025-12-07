@@ -96,7 +96,7 @@
     localizedName = v7->_localizedName;
     v7->_localizedName = v16;
 
-    if (v7->_hasVoIPBackgroundMode || [(CXXPCCallSource *)v7 isPermittedToUsePrivateAPI])
+    if (v7->_hasVoIPBackgroundMode || (v18 = [(CXXPCCallSource *)v7 isPermittedToUsePrivateAPI], v18))
     {
       objc_storeStrong(&v7->_connection, connection);
       [(NSXPCConnection *)v7->_connection setExportedObject:v7];
@@ -119,31 +119,30 @@
       v37[3] = &unk_1E7C06E50;
       objc_copyWeak(&v38, &location);
       [(NSXPCConnection *)v7->_connection setInvalidationHandler:v37];
-      [(NSXPCConnection *)v7->_connection resume];
-      v20 = CXDefaultLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v21 = CXDefaultLog([(NSXPCConnection *)v7->_connection resume]);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = objc_opt_class();
+        v22 = objc_opt_class();
         identifier = [(CXCallSource *)v7 identifier];
-        v23 = v7->_bundleIdentifier;
-        v24 = v7->_bundleURL;
+        v24 = v7->_bundleIdentifier;
+        v25 = v7->_bundleURL;
         hasVoIPBackgroundMode = v7->_hasVoIPBackgroundMode;
-        v26 = v7->_capabilities;
+        v27 = v7->_capabilities;
         *buf = 138413826;
-        v44 = v21;
+        v44 = v22;
         v45 = 2112;
         v46 = identifier;
         v47 = 2112;
-        v48 = v23;
+        v48 = v24;
         v49 = 2112;
-        v50 = v24;
+        v50 = v25;
         v51 = 1024;
         v52 = hasVoIPBackgroundMode;
         v53 = 2112;
-        v54 = v26;
+        v54 = v27;
         v55 = 2112;
         v56 = connectionCopy;
-        _os_log_impl(&dword_1B47F3000, v20, OS_LOG_TYPE_DEFAULT, "Created %@ with identifier: %@ bundleIdentifier: %@ bundleURL: %@ hasVoIPBackgroundMode: %d capabilities: %@ connection: %@", buf, 0x44u);
+        _os_log_impl(&dword_1B47F3000, v21, OS_LOG_TYPE_DEFAULT, "Created %@ with identifier: %@ bundleIdentifier: %@ bundleURL: %@ hasVoIPBackgroundMode: %d capabilities: %@ connection: %@", buf, 0x44u);
       }
 
       objc_destroyWeak(&v38);
@@ -153,8 +152,8 @@
 
     else
     {
-      v27 = CXDefaultLog();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v28 = CXDefaultLog(v18);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         v30 = objc_opt_class();
         v31 = v30;
@@ -177,14 +176,13 @@
         v54 = v36;
         v55 = 2112;
         v56 = connectionCopy;
-        _os_log_error_impl(&dword_1B47F3000, v27, OS_LOG_TYPE_ERROR, "Denying creation of %@ with identifier: %@ bundleIdentifier: %@ bundleURL: %@ hasVoIPBackgroundMode: %d capabilities: %@ connection: %@", buf, 0x44u);
+        _os_log_error_impl(&dword_1B47F3000, v28, OS_LOG_TYPE_ERROR, "Denying creation of %@ with identifier: %@ bundleIdentifier: %@ bundleURL: %@ hasVoIPBackgroundMode: %d capabilities: %@ connection: %@", buf, 0x44u);
       }
 
       v7 = 0;
     }
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -192,48 +190,46 @@ void __38__CXXPCCallSource_initWithConnection___block_invoke(uint64_t a1)
 {
   v7 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = CXDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = CXDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v5 = 138412290;
-      v6 = WeakRetained;
-      _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Connection interrupted for XPC call source %@", &v5, 0xCu);
+      v6 = v2;
+      _os_log_impl(&dword_1B47F3000, v3, OS_LOG_TYPE_DEFAULT, "Connection interrupted for XPC call source %@", &v5, 0xCu);
     }
 
-    v3 = [WeakRetained connection];
-    [v3 invalidate];
+    v4 = [v2 connection];
+    [v4 invalidate];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __38__CXXPCCallSource_initWithConnection___block_invoke_3(uint64_t a1)
 {
   v9 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = CXDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = CXDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v8 = WeakRetained;
-      _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Connection invalidated for XPC call source %@", buf, 0xCu);
+      v8 = v2;
+      _os_log_impl(&dword_1B47F3000, v3, OS_LOG_TYPE_DEFAULT, "Connection invalidated for XPC call source %@", buf, 0xCu);
     }
 
-    [WeakRetained setConnection:0];
-    v3 = [WeakRetained queue];
+    [v2 setConnection:0];
+    v4 = [v2 queue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __38__CXXPCCallSource_initWithConnection___block_invoke_4;
     block[3] = &unk_1E7C06CA8;
-    v6 = WeakRetained;
-    dispatch_async(v3, block);
+    v6 = v2;
+    dispatch_async(v4, block);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __38__CXXPCCallSource_initWithConnection___block_invoke_4(uint64_t a1)
@@ -268,7 +264,7 @@ void __38__CXXPCCallSource_initWithConnection___block_invoke_4(uint64_t a1)
   if (connection)
   {
     v6 = connection;
-    [connection auditToken];
+    objc_msgSend_auditToken(connection);
     connection = v6;
   }
 
@@ -285,18 +281,17 @@ void __38__CXXPCCallSource_initWithConnection___block_invoke_4(uint64_t a1)
 {
   Mutable = CFDictionaryCreateMutable(0, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   CFDictionaryAddValue(Mutable, *MEMORY[0x1E69D54D0], *MEMORY[0x1E695E4C0]);
-  v4 = *MEMORY[0x1E69D5508];
   connection = [(CXXPCCallSource *)self connection];
-  v6 = connection;
+  v5 = connection;
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
-  v7 = TCCAccessCheckAuditToken() != 0;
+  v6 = TCCAccessCheckAuditToken() != 0;
 
   CFRelease(Mutable);
-  return v7;
+  return v6;
 }
 
 @end

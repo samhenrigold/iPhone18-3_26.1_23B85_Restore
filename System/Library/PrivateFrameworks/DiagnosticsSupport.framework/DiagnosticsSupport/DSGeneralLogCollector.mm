@@ -75,7 +75,7 @@ LABEL_10:
 
 - (void)getLogFiles
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v5 = [MEMORY[0x277CBEBC0] URLWithString:@"/private/var/logs/AppleSupport"];
@@ -92,92 +92,88 @@ LABEL_10:
   [array addObjectsFromArray:v11];
 
   v12 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"logStartDate" ascending:1];
-  v17[0] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v16[0] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   v14 = [array sortedArrayUsingDescriptors:v13];
   logFiles = self->_logFiles;
   self->_logFiles = v14;
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logFilesFromEnumerator:(id)enumerator
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   enumeratorCopy = enumerator;
   array = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = enumeratorCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = [DSGeneralLogFile alloc];
-        v12 = [(DSGeneralLogFile *)v11 initWithURL:v10, v15];
+        v12 = [(DSGeneralLogFile *)v11 initWithURL:v10, v14];
         if (v12)
         {
           [array addObject:v12];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (void)enumerateLogLinesWithBlock:(id)block
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v5 = DiagnosticLogHandleForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     logIDs = [(DSGeneralLogCollector *)self logIDs];
     *buf = 138412290;
-    v21 = logIDs;
+    v20 = logIDs;
     _os_log_impl(&dword_248BD5000, v5, OS_LOG_TYPE_DEFAULT, "Requesting log lines for: %@", buf, 0xCu);
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   logFiles = [(DSGeneralLogCollector *)self logFiles];
-  v8 = [logFiles countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [logFiles countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
 LABEL_5:
     v11 = 0;
     while (1)
     {
-      if (*v16 != v10)
+      if (*v15 != v10)
       {
         objc_enumerationMutation(logFiles);
       }
 
-      v12 = *(*(&v15 + 1) + 8 * v11);
+      v12 = *(*(&v14 + 1) + 8 * v11);
       logIDs2 = [(DSGeneralLogCollector *)self logIDs];
       LOBYTE(v12) = [v12 enumerateLogLinesWithIDs:logIDs2 usingBlock:blockCopy];
 
@@ -188,7 +184,7 @@ LABEL_5:
 
       if (v9 == ++v11)
       {
-        v9 = [logFiles countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [logFiles countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v9)
         {
           goto LABEL_5;
@@ -198,8 +194,6 @@ LABEL_5:
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -90,7 +90,7 @@
   controllerCopy = controller;
   selfCopy = self;
   sub_1C05F4(controllerCopy, animated, v8, v9);
-  sub_1EBD0(v8);
+  sub_1EBD0(v8, v9);
 }
 
 - (void)_bridgedUpdateContentUnavailableConfigurationUsingState:(id)state
@@ -124,7 +124,7 @@
 
   sub_1C0E44();
 
-  sub_EB68(v6, &unk_3FBB70);
+  sub_EB68(v6, &unk_3FBB70, &unk_3174C0);
 }
 
 - (void)highlightParagraph:(id)paragraph
@@ -145,14 +145,14 @@
 {
   scrollCopy = scroll;
   selfCopy = self;
-  sub_1C4EC4();
+  sub_1C4EC4(scrollCopy);
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(id)animation
 {
   animationCopy = animation;
   selfCopy = self;
-  sub_1C52A4();
+  sub_1C52A4(animationCopy);
 }
 
 - (BOOL)textView:(id)view shouldInteractWithURL:(id)l inRange:(_NSRange)range interaction:(int64_t)interaction
@@ -172,7 +172,7 @@
     v19 = v18;
     sub_2D6B88(_swiftEmptyArrayStorage);
     type metadata accessor for OpenExternalURLOptionsKey(0);
-    sub_1C8AD8(&unk_404010, 255, type metadata accessor for OpenExternalURLOptionsKey);
+    sub_1C8AD8(&unk_404010, 255, type metadata accessor for OpenExternalURLOptionsKey, &unk_31729C);
     isa = sub_30BF88().super.isa;
 
     [sharedApplication openURL:v19 options:isa completionHandler:0];
@@ -193,7 +193,7 @@
 {
   length = range.length;
   location = range.location;
-  sub_124C4(0, &qword_408010);
+  sub_124C4(0, &qword_408010, UIMenuElement_ptr);
   v9 = sub_30C368();
   viewCopy = view;
   selfCopy = self;
@@ -224,7 +224,7 @@
   sub_1C7AE4();
 
   swift_unknownObjectRelease();
-  sub_124C4(0, &unk_408048);
+  sub_124C4(0, &unk_408048, UIDragItem_ptr);
   v7.super.isa = sub_30C358().super.isa;
 
   return v7.super.isa;

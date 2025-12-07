@@ -52,35 +52,31 @@
     [v4 removeListenerWithWeakReference:self->_weakObserver callback:AVFigRouteDiscovererRouteServerDied name:*MEMORY[0x1E69AF300] object:self->_discoverer];
     [v4 removeListenerWithWeakReference:self->_weakObserver callback:AVFigRouteDiscovererEndpointDescriptorChanged name:*MEMORY[0x1E69AF2F0] object:self->_discoverer];
     discoverer = self->_discoverer;
-    VTable = CMBaseObjectGetVTable();
-    v7 = *(*(VTable + 8) + 56);
-    if (v7)
+    v6 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+    if (v6)
     {
-      v8 = *(VTable + 8) + 56;
-      v7(discoverer, *MEMORY[0x1E69AF328], *MEMORY[0x1E69AF2D8]);
+      v6(discoverer, *MEMORY[0x1E69AF328], *MEMORY[0x1E69AF2D8]);
     }
 
-    v9 = self->_discoverer;
-    if (v9)
+    v7 = self->_discoverer;
+    if (v7)
     {
-      CFRelease(v9);
+      CFRelease(v7);
     }
   }
 
-  v10.receiver = self;
-  v10.super_class = AVFigRouteDiscovererInputDeviceDiscoverySessionImpl;
-  [(AVFigRouteDiscovererInputDeviceDiscoverySessionImpl *)&v10 dealloc];
+  v8.receiver = self;
+  v8.super_class = AVFigRouteDiscovererInputDeviceDiscoverySessionImpl;
+  [(AVFigRouteDiscovererInputDeviceDiscoverySessionImpl *)&v8 dealloc];
 }
 
 - (void)setAudioSessionId:(id)id
 {
   discoverer = self->_discoverer;
-  VTable = CMBaseObjectGetVTable();
-  v6 = *(*(VTable + 8) + 56);
-  if (v6)
+  v5 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+  if (v5)
   {
-    v7 = *(VTable + 8) + 56;
-    v6(discoverer, *MEMORY[0x1E69AF308], id);
+    v5(discoverer, *MEMORY[0x1E69AF308], id);
   }
 
   if (id)
@@ -92,7 +88,7 @@
 
 - (NSArray)availableInputDevices
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   cf = 0;
   discoverer = self->_discoverer;
@@ -104,28 +100,28 @@
     cf = v8;
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
-  v10 = [v8 countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v10 = [v8 countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        [(NSArray *)array addObject:[AVInputDevice inputDeviceWithRouteDescriptor:*(*(&v16 + 1) + 8 * i) routeDiscoverer:self->_discoverer]];
+        [(NSArray *)array addObject:[AVInputDevice inputDeviceWithRouteDescriptor:*(*(&v15 + 1) + 8 * i) routeDiscoverer:self->_discoverer]];
       }
 
-      v11 = [v8 countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v11 = [v8 countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v11);
@@ -136,7 +132,6 @@
     CFRelease(cf);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return array;
 }
 
@@ -163,7 +158,7 @@
 
 - (void)inputDeviceDiscoverySessionDidChangeDiscoveryMode:(id)mode forClientIdentifiers:(id)identifiers
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   discoveryMode = [mode discoveryMode];
   switch(discoveryMode)
   {
@@ -183,62 +178,56 @@ LABEL_7:
   v8 = 0;
 LABEL_9:
   discoverer = self->_discoverer;
-  VTable = CMBaseObjectGetVTable();
-  v11 = *(*(VTable + 8) + 56);
-  if (v11)
+  v10 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+  if (v10)
   {
-    v12 = *(VTable + 8) + 56;
-    v11(discoverer, *MEMORY[0x1E69AF328], v8);
+    v10(discoverer, *MEMORY[0x1E69AF328], v8);
   }
 
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E528], MEMORY[0x1E695E9E8]);
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v14 = [identifiers countByEnumeratingWithState:&v23 objects:v27 count:16];
-  if (v14)
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v12 = [identifiers countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v12)
   {
-    v15 = v14;
-    v16 = *v24;
+    v13 = v12;
+    v14 = *v19;
     do
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v13; ++i)
       {
-        if (*v24 != v16)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(identifiers);
         }
 
-        CFDictionarySetValue(Mutable, *(*(&v23 + 1) + 8 * i), v8);
+        CFDictionarySetValue(Mutable, *(*(&v18 + 1) + 8 * i), v8);
       }
 
-      v15 = [identifiers countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v13 = [identifiers countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
-    while (v15);
+    while (v13);
   }
 
-  v18 = self->_discoverer;
-  v19 = CMBaseObjectGetVTable();
-  v20 = *(*(v19 + 8) + 56);
-  if (v20)
+  v16 = self->_discoverer;
+  v17 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+  if (v17)
   {
-    v21 = *(v19 + 8) + 56;
-    v20(v18, *MEMORY[0x1E69AF330], Mutable);
+    v17(v16, *MEMORY[0x1E69AF330], Mutable);
   }
 
   if (Mutable)
   {
     CFRelease(Mutable);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)inputDeviceDiscoverySessionFastDiscoveryDidChange:(id)change
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   fastDiscoveryEnabled = [change fastDiscoveryEnabled];
   if (dword_1ED6F6BA8)
   {
@@ -263,8 +252,6 @@ LABEL_9:
   {
     v8(discoverer, @"FastDiscoveryEnabled", *v7);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (AVFigRouteDiscovererInputDeviceDiscoverySessionImpl)initWithFigRouteDiscovererCreator:(id)creator
@@ -391,37 +378,34 @@ LABEL_5:
 
 - (AVInputDevice)fallbackInputDevice
 {
-  v9 = 0;
+  v8 = 0;
   discoverer = self->_discoverer;
-  VTable = CMBaseObjectGetVTable();
-  v5 = *(*(VTable + 8) + 48);
-  if (!v5 || (v6 = *(VTable + 8) + 48, v5(discoverer, @"fallbackRouteDescriptor", *MEMORY[0x1E695E480], &v9)))
+  v4 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (!v4 || v4(discoverer, @"fallbackRouteDescriptor", *MEMORY[0x1E695E480], &v8))
   {
-    FigSignalErrorAtGM();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v7, v8, v9);
+    goto LABEL_6;
+  }
+
+  if (!v8)
+  {
+LABEL_6:
+    v5 = 0;
     goto LABEL_7;
   }
 
-  if (!v9)
-  {
+  v5 = [AVInputDevice inputDeviceWithRouteDescriptor:v8 routeDiscoverer:self->_discoverer];
 LABEL_7:
-    v7 = 0;
-    goto LABEL_8;
-  }
 
-  v7 = [AVInputDevice inputDeviceWithRouteDescriptor:v9 routeDiscoverer:self->_discoverer];
-LABEL_8:
-
-  return v7;
+  return v5;
 }
 
 - (uint64_t)_serverDied
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
   os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-  result = fig_log_call_emit_and_clean_up_after_send_and_compose();
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return fig_log_call_emit_and_clean_up_after_send_and_compose();
 }
 
 @end

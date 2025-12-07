@@ -1,4 +1,5 @@
 @interface IPLanguage
++ (id)IPLanguagesWithLanguages:(id)languages normalize:(BOOL)normalize;
 + (id)languageWithIdentifier:(id)identifier normalize:(BOOL)normalize;
 - (BOOL)isEqual:(id)equal;
 - (IPLanguage)minimizedLanguage;
@@ -112,6 +113,44 @@
   }
 
   return selfCopy;
+}
+
++ (id)IPLanguagesWithLanguages:(id)languages normalize:(BOOL)normalize
+{
+  normalizeCopy = normalize;
+  v19 = *MEMORY[0x277D85DE8];
+  languagesCopy = languages;
+  v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(languagesCopy, "count")}];
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v7 = languagesCopy;
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v15;
+    do
+    {
+      for (i = 0; i != v9; ++i)
+      {
+        if (*v15 != v10)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        v12 = [IPLanguage languageWithIdentifier:*(*(&v14 + 1) + 8 * i) normalize:normalizeCopy, v14];
+        [v6 addObject:v12];
+      }
+
+      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    }
+
+    while (v9);
+  }
+
+  return v6;
 }
 
 @end

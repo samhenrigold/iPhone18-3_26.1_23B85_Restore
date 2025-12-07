@@ -1,6 +1,7 @@
 @interface NTKFaceEditPageViewAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (id)accessibilityElements;
+- (void)addKeyline:(id)keyline forKey:(id)key tappable:(BOOL)tappable;
 - (void)layoutSubviews;
 - (void)removeAllKeylines;
 @end
@@ -55,6 +56,14 @@
   v3.receiver = self;
   v3.super_class = NTKFaceEditPageViewAccessibility;
   [(NTKFaceEditPageViewAccessibility *)&v3 layoutSubviews];
+  [(NTKFaceEditPageViewAccessibility *)self _axClearCachedElements];
+}
+
+- (void)addKeyline:(id)keyline forKey:(id)key tappable:(BOOL)tappable
+{
+  v6.receiver = self;
+  v6.super_class = NTKFaceEditPageViewAccessibility;
+  [(NTKFaceEditPageViewAccessibility *)&v6 addKeyline:keyline forKey:key tappable:tappable];
   [(NTKFaceEditPageViewAccessibility *)self _axClearCachedElements];
 }
 

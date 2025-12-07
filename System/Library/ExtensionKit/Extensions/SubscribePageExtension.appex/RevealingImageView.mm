@@ -6,11 +6,11 @@
 
 - (void)layoutSubviews
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for RevealingImageView();
-  v2 = v3.receiver;
-  [(RevealingImageView *)&v3 layoutSubviews];
-  sub_100526E10();
+  v4.receiver = self;
+  v4.super_class = type metadata accessor for RevealingImageView(0);
+  v2 = v4.receiver;
+  [(RevealingImageView *)&v4 layoutSubviews];
+  sub_100526E10(v3);
 }
 
 @end

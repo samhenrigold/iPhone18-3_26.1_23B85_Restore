@@ -159,50 +159,50 @@ id __46__BMItemType_Intents__appIntentAutomationHash__block_invoke(uint64_t a1, 
 
   if (v25)
   {
-    v5 = [v27 intent];
-    v6 = INIntentWithTypedIntent();
+    v6 = [v27 intent];
+    v7 = INIntentWithTypedIntent();
 
-    if ([v6 _isEligibleForSuggestions])
+    if ([v7 _isEligibleForSuggestions])
     {
-      v7 = [v6 _parameterCombinations];
-      v8 = [v7 count];
+      v8 = [v7 _parameterCombinations];
+      v9 = [v8 count];
 
-      if (v8)
+      if (v9)
       {
-        v9 = objc_alloc_init(MEMORY[0x277CBEB58]);
+        v10 = objc_alloc_init(MEMORY[0x277CBEB58]);
         v48 = 0u;
         v49 = 0u;
         v50 = 0u;
         v51 = 0u;
-        v10 = [v6 _validParameterCombinations];
-        v11 = 0;
-        v12 = [v10 countByEnumeratingWithState:&v48 objects:v52 count:16];
-        if (v12)
+        v11 = [v7 _validParameterCombinations];
+        v12 = 0;
+        v13 = [v11 countByEnumeratingWithState:&v48 objects:v52 count:16];
+        if (v13)
         {
-          v13 = *v49;
+          v14 = *v49;
           do
           {
-            for (i = 0; i != v12; ++i)
+            for (i = 0; i != v13; ++i)
             {
-              if (*v49 != v13)
+              if (*v49 != v14)
               {
-                objc_enumerationMutation(v10);
+                objc_enumerationMutation(v11);
               }
 
-              v15 = *(*(&v48 + 1) + 8 * i);
-              v16 = [v6 _validParameterCombinations];
-              v17 = [v16 objectForKey:v15];
+              v16 = *(*(&v48 + 1) + 8 * i);
+              v17 = [v7 _validParameterCombinations];
+              v18 = [v17 objectForKey:v16];
 
-              [v9 unionSet:v15];
-              LOBYTE(v15) = [v17 isPrimary];
+              [v10 unionSet:v16];
+              LOBYTE(v16) = [v18 isPrimary];
 
-              v11 |= v15;
+              v12 |= v16;
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v48 objects:v52 count:16];
+            v13 = [v11 countByEnumeratingWithState:&v48 objects:v52 count:16];
           }
 
-          while (v12);
+          while (v13);
         }
 
         v42 = 0;
@@ -220,26 +220,26 @@ id __46__BMItemType_Intents__appIntentAutomationHash__block_invoke(uint64_t a1, 
         v34[0] = 0;
         v34[1] = v34;
         v34[2] = 0x2020000000;
-        v35 = (v11 & 1) == 0;
-        v18 = [v6 _validParameterCombinations];
+        v35 = (v12 & 1) == 0;
+        v19 = [v7 _validParameterCombinations];
         v28[0] = MEMORY[0x277D85DD0];
         v28[1] = 3221225472;
         v28[2] = __46__BMItemType_Intents__appIntentAutomationHash__block_invoke_17;
         v28[3] = &unk_278D06648;
         v30 = v34;
         v31 = &v42;
-        v6 = v6;
-        v29 = v6;
+        v7 = v7;
+        v29 = v7;
         v32 = &v36;
-        v33 = v11 & 1;
-        [v18 enumerateKeysAndObjectsUsingBlock:v28];
+        v33 = v12 & 1;
+        [v19 enumerateKeysAndObjectsUsingBlock:v28];
         if (v43[5] && v37[5])
         {
-          v19 = MEMORY[0x277CCACA8];
-          v20 = [v26 source];
-          v21 = [v20 bundleID];
-          v22 = [v43[5] debugDescription];
-          v2 = [v19 stringWithFormat:@"%@:%@:%@", v21, v22, v37[5]];
+          v20 = MEMORY[0x277CCACA8];
+          v21 = [v26 source];
+          v22 = [v21 bundleID];
+          v23 = [v43[5] debugDescription];
+          v2 = [v20 stringWithFormat:@"%@:%@:%@", v22, v23, v37[5]];
         }
 
         else
@@ -258,10 +258,10 @@ id __46__BMItemType_Intents__appIntentAutomationHash__block_invoke(uint64_t a1, 
 
   else
   {
-    v6 = BMLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = BMLog(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __46__BMItemType_Intents__appIntentAutomationHash__block_invoke_cold_1(v26, v6);
+      __46__BMItemType_Intents__appIntentAutomationHash__block_invoke_cold_1(v26, v7);
     }
   }
 
@@ -269,7 +269,6 @@ id __46__BMItemType_Intents__appIntentAutomationHash__block_invoke(uint64_t a1, 
 LABEL_19:
 
 LABEL_20:
-  v23 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -278,7 +277,7 @@ void __46__BMItemType_Intents__appIntentAutomationHash__block_invoke_17(uint64_t
 {
   v30 = *MEMORY[0x277D85DE8];
   v8 = a2;
-  if (([a3 isPrimary] & 1) != 0 || *(*(*(a1 + 40) + 8) + 24) == 1 && (!objc_msgSend(*(*(*(a1 + 48) + 8) + 40), "count") || (v22 = objc_msgSend(v8, "count"), v22 > objc_msgSend(*(*(*(a1 + 48) + 8) + 40), "count"))))
+  if (([a3 isPrimary] & 1) != 0 || *(*(*(a1 + 40) + 8) + 24) == 1 && (!objc_msgSend(*(*(*(a1 + 48) + 8) + 40), "count") || (v23 = objc_msgSend(v8, "count"), v23 > objc_msgSend(*(*(*(a1 + 48) + 8) + 40), "count"))))
   {
     objc_storeStrong((*(*(a1 + 48) + 8) + 40), a2);
     v9 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v8, "count")}];
@@ -321,10 +320,10 @@ void __46__BMItemType_Intents__appIntentAutomationHash__block_invoke_17(uint64_t
 
     if (v18)
     {
-      v21 = BMLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v22 = BMLog(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        __46__BMItemType_Intents__appIntentAutomationHash__block_invoke_17_cold_1(a1, v21);
+        __46__BMItemType_Intents__appIntentAutomationHash__block_invoke_17_cold_1(a1, v22);
       }
     }
 
@@ -338,8 +337,6 @@ void __46__BMItemType_Intents__appIntentAutomationHash__block_invoke_17(uint64_t
       *a4 = 1;
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 + (BMItemType)relevanceIntentHash
@@ -439,23 +436,13 @@ id __42__BMItemType_AppActivity__appActivityType__block_invoke(uint64_t a1, void
     v9 = [MEMORY[0x277CFE170] isEligibleForPrediction];
     v10 = [v8 objectForKeyedSubscript:v9];
 
-    if (![v10 BOOLValue])
-    {
-      goto LABEL_11;
-    }
-
-    v11 = [v2 metadata];
-    v12 = [MEMORY[0x277CFE170] activityType];
-    v13 = [v11 objectForKeyedSubscript:v12];
-
-    if (v13)
+    if ([v10 BOOLValue] && (objc_msgSend(v2, "metadata"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CFE170], "activityType"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "objectForKeyedSubscript:", v12), v13 = objc_claimAutoreleasedReturnValue(), v12, v11, v13))
     {
       v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@", v5, v13];
     }
 
     else
     {
-LABEL_11:
       v6 = 0;
     }
   }
@@ -1585,7 +1572,7 @@ LABEL_9:
 
 void __26__BMItemType_allItemTypes__block_invoke(uint64_t a1)
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [v2 hourOfDay];
   [v2 registerItemType:v3];
@@ -1734,73 +1721,70 @@ void __26__BMItemType_allItemTypes__block_invoke(uint64_t a1)
   v75 = [v74 alarmSnoozedWithID];
   [v74 registerItemType:v75];
 
-  v84 = 0u;
-  v85 = 0u;
-  v82 = 0u;
   v83 = 0u;
+  v84 = 0u;
+  v81 = 0u;
+  v82 = 0u;
   v76 = +[BMItemType interactionItemTypes];
-  v77 = [v76 countByEnumeratingWithState:&v82 objects:v86 count:16];
+  v77 = [v76 countByEnumeratingWithState:&v81 objects:v85 count:16];
   if (v77)
   {
     v78 = v77;
-    v79 = *v83;
+    v79 = *v82;
     do
     {
       for (i = 0; i != v78; ++i)
       {
-        if (*v83 != v79)
+        if (*v82 != v79)
         {
           objc_enumerationMutation(v76);
         }
 
-        [*(a1 + 32) registerItemType:*(*(&v82 + 1) + 8 * i)];
+        [*(a1 + 32) registerItemType:*(*(&v81 + 1) + 8 * i)];
       }
 
-      v78 = [v76 countByEnumeratingWithState:&v82 objects:v86 count:16];
+      v78 = [v76 countByEnumeratingWithState:&v81 objects:v85 count:16];
     }
 
     while (v78);
   }
-
-  v81 = *MEMORY[0x277D85DE8];
 }
 
 + (id)allItemTypesDictionary
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   allItemTypes = [self allItemTypes];
-  v5 = [allItemTypes countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [allItemTypes countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(allItemTypes);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         identifier = [v9 identifier];
         [v3 setObject:v9 forKeyedSubscript:identifier];
       }
 
-      v6 = [allItemTypes countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [allItemTypes countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
   v11 = [v3 copy];
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -1906,22 +1890,19 @@ id __41__BMItemType_WiFi__wifiIsConnectedToSSID__block_invoke(uint64_t a1, void 
 
 void __46__BMItemType_Intents__appIntentAutomationHash__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_241ACA000, a2, OS_LOG_TYPE_ERROR, "No intentClass found on intent considered for mining: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_241ACA000, a2, OS_LOG_TYPE_ERROR, "No intentClass found on intent considered for mining: %@", &v2, 0xCu);
 }
 
 void __46__BMItemType_Intents__appIntentAutomationHash__block_invoke_17_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [*(a1 + 32) _className];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_241ACA000, a2, OS_LOG_TYPE_ERROR, "Error hashing combinations for intent %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_241ACA000, a2, OS_LOG_TYPE_ERROR, "Error hashing combinations for intent %@", &v4, 0xCu);
 }
 
 @end

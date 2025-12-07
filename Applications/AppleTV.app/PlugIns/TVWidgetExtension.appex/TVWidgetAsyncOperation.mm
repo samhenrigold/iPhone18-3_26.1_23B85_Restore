@@ -38,7 +38,7 @@
 - (void)start
 {
   selfCopy = self;
-  sub_100017F48();
+  sub_100017F48(selfCopy);
 }
 
 @end

@@ -21,9 +21,11 @@
 
 uint64_t __35__RCAppGroupStorage_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance = objc_alloc_init(RCAppGroupStorage);
+  v0 = objc_alloc_init(RCAppGroupStorage);
+  v1 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (RCAppGroupStorage)init
@@ -52,7 +54,7 @@ uint64_t __35__RCAppGroupStorage_sharedInstance__block_invoke()
 
 - (BOOL)enableOverdubForAllDevices
 {
-  v3 = RCIsInternalInstall();
+  v3 = RCIsInternalInstall(self, a2);
   if (v3)
   {
     userDefaults = self->_userDefaults;
@@ -65,11 +67,10 @@ uint64_t __35__RCAppGroupStorage_sharedInstance__block_invoke()
 
 - (void)init
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[RCAppGroupStorage init]";
-  _os_log_fault_impl(&dword_272442000, log, OS_LOG_TYPE_FAULT, "%s -- app group user defaults are nil", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[RCAppGroupStorage init]";
+  _os_log_fault_impl(&dword_272442000, log, OS_LOG_TYPE_FAULT, "%s -- app group user defaults are nil", &v1, 0xCu);
 }
 
 @end

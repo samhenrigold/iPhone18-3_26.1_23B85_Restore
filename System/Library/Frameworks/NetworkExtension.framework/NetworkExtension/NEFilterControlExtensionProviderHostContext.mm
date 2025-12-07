@@ -24,9 +24,11 @@
 
 uint64_t __78__NEFilterControlExtensionProviderHostContext__extensionAuxiliaryHostProtocol__block_invoke()
 {
-  _extensionAuxiliaryHostProtocol_protocol_3749 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C2628];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C2628];
+  v1 = _extensionAuxiliaryHostProtocol_protocol_3749;
+  _extensionAuxiliaryHostProtocol_protocol_3749 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)_extensionAuxiliaryVendorProtocol
@@ -43,9 +45,11 @@ uint64_t __78__NEFilterControlExtensionProviderHostContext__extensionAuxiliaryHo
 
 uint64_t __80__NEFilterControlExtensionProviderHostContext__extensionAuxiliaryVendorProtocol__block_invoke()
 {
-  _extensionAuxiliaryVendorProtocol_protocol_3754 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C2560];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C2560];
+  v1 = _extensionAuxiliaryVendorProtocol_protocol_3754;
+  _extensionAuxiliaryVendorProtocol_protocol_3754 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)provideURLAppendStringMap:(id)map

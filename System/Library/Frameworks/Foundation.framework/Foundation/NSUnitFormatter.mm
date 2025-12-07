@@ -735,9 +735,13 @@ LABEL_4:
   if (self->_prules)
   {
     v8 = localeIdentifier;
-    if (![(NSNumberFormatter *)numberFormatter checkLocaleChange]&& [(NSString *)v8 isEqualToString:[(NSLocale *)[(NSNumberFormatter *)numberFormatter locale] localeIdentifier]])
+    if (![(NSNumberFormatter *)numberFormatter checkLocaleChange])
     {
-      goto LABEL_9;
+      [(NSLocale *)[(NSNumberFormatter *)numberFormatter locale] localeIdentifier];
+      if (objc_msgSend_isEqualToString_(v8))
+      {
+        goto LABEL_9;
+      }
     }
 
     if (self->_prules)

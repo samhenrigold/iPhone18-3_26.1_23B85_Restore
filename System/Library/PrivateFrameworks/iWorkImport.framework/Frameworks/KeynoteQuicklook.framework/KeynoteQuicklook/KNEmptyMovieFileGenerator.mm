@@ -8,19 +8,19 @@
 - (KNEmptyMovieFileGenerator)initWithGeneratedFileURL:(id)l duration:(double)duration
 {
   lCopy = l;
-  v13.receiver = self;
-  v13.super_class = KNEmptyMovieFileGenerator;
-  v9 = [(KNEmptyMovieFileGenerator *)&v13 init];
-  if (v9)
+  v11.receiver = self;
+  v11.super_class = KNEmptyMovieFileGenerator;
+  v7 = [(KNEmptyMovieFileGenerator *)&v11 init];
+  if (v7)
   {
-    v10 = objc_msgSend_copy(lCopy, v7, v8);
-    generatedFileURL = v9->_generatedFileURL;
-    v9->_generatedFileURL = v10;
+    v8 = [lCopy copy];
+    generatedFileURL = v7->_generatedFileURL;
+    v7->_generatedFileURL = v8;
 
-    v9->_duration = duration;
+    v7->_duration = duration;
   }
 
-  return v9;
+  return v7;
 }
 
 - (void)generateFileWithCompletionHandler:(id)handler

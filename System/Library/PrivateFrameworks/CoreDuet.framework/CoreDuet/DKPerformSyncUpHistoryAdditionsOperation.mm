@@ -3,12 +3,12 @@
 
 @implementation DKPerformSyncUpHistoryAdditionsOperation
 
-void __100___DKPerformSyncUpHistoryAdditionsOperation_performSyncUpHistoryAdditionsWithPreviousHighWaterMark___block_invoke(uint64_t a1, void *a2)
+void __100___DKPerformSyncUpHistoryAdditionsOperation_performSyncUpHistoryAdditionsWithPreviousHighWaterMark___block_invoke(void *a1, void *a2)
 {
-  v3 = *(a1 + 32);
+  v3 = a1[4];
   v4 = a2;
-  +[_DKPerformSyncUpHistoryAdditionsOperation _updateEventStatsWithTotal:streamNameCounts:transportType:](_DKPerformSyncUpHistoryAdditionsOperation, [v3 count], *(a1 + 40), objc_msgSend(*(*(a1 + 48) + 304), "transportType"));
-  [(_DKPerformSyncUpHistoryAdditionsOperation *)*(a1 + 48) handleUpdateStorageWithFetchedWindow:*(a1 + 64) eventsCount:v4 error:?];
+  +[_DKPerformSyncUpHistoryAdditionsOperation _updateEventStatsWithTotal:streamNameCounts:transportType:](_DKPerformSyncUpHistoryAdditionsOperation, [v3 count], a1[5], objc_msgSend(*(a1[6] + 304), "transportType"));
+  [(_DKPerformSyncUpHistoryAdditionsOperation *)a1[6] handleUpdateStorageWithFetchedWindow:a1[8] eventsCount:v4 error:?];
 }
 
 uint64_t __97___DKPerformSyncUpHistoryAdditionsOperation__updateEventStatsWithPreviousSyncDate_transportType___block_invoke()

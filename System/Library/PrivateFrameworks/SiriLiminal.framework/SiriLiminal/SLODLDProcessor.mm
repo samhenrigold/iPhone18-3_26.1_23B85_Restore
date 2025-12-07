@@ -12,7 +12,7 @@
 
 - (id)_getTokenizerForType:(unint64_t)type withConfig:(id)config
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (type == 1)
   {
     configCopy = config;
@@ -29,13 +29,13 @@
       v11 = SLLogContextFacilityCoreSpeech;
       if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 136315650;
-        v15 = "[SLODLDProcessor _getTokenizerForType:withConfig:]";
-        v16 = 2112;
-        v17 = getSPMEncoderOptions;
-        v18 = 2048;
-        v19 = v10;
-        _os_log_impl(&dword_26754E000, v11, OS_LOG_TYPE_DEFAULT, "%s Setting SPM encoder options %@ with status %ld", &v14, 0x20u);
+        v13 = 136315650;
+        v14 = "[SLODLDProcessor _getTokenizerForType:withConfig:]";
+        v15 = 2112;
+        v16 = getSPMEncoderOptions;
+        v17 = 2048;
+        v18 = v10;
+        _os_log_impl(&dword_26754E000, v11, OS_LOG_TYPE_DEFAULT, "%s Setting SPM encoder options %@ with status %ld", &v13, 0x20u);
       }
     }
   }
@@ -44,8 +44,6 @@
   {
     v8 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -71,50 +69,48 @@
 
 - (id)processInputContext:(id)context
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   inputUtt = [contextCopy inputUtt];
   v6 = [(SLODLDProcessor *)self getEncodedTokensForUtt:inputUtt];
 
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__645;
-  v25 = __Block_byref_object_dispose__646;
-  v26 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__645;
+  v24 = __Block_byref_object_dispose__646;
+  v25 = 0;
   model = self->_model;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __39__SLODLDProcessor_processInputContext___block_invoke;
-  v18[3] = &unk_279C0EA10;
-  v20 = &v21;
-  v18[4] = self;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __39__SLODLDProcessor_processInputContext___block_invoke;
+  v17[3] = &unk_279C0EA10;
+  v19 = &v20;
+  v17[4] = self;
   v8 = v6;
-  v19 = v8;
-  [(SLODLDClassifierV1 *)model processEncodedTokens:v8 withContext:contextCopy withCompletion:v18];
+  v18 = v8;
+  [(SLODLDClassifierV1 *)model processEncodedTokens:v8 withContext:contextCopy withCompletion:v17];
   v9 = SLLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    [v22[5] odldScore];
+    [v21[5] odldScore];
     v11 = v10;
-    [v22[5] outputAnchor];
+    [v21[5] outputAnchor];
     v13 = v12;
-    [v22[5] conversationalScore];
+    [v21[5] conversationalScore];
     *buf = 136315906;
-    v28 = "[SLODLDProcessor processInputContext:]";
-    v29 = 2048;
-    v30 = v11;
-    v31 = 2048;
-    v32 = v13;
-    v33 = 2048;
-    v34 = v14;
+    v27 = "[SLODLDProcessor processInputContext:]";
+    v28 = 2048;
+    v29 = v11;
+    v30 = 2048;
+    v31 = v13;
+    v32 = 2048;
+    v33 = v14;
     _os_log_impl(&dword_26754E000, v9, OS_LOG_TYPE_DEFAULT, "%s output %f, social score %f conversationalScore %f", buf, 0x2Au);
   }
 
-  v15 = v22[5];
-  _Block_object_dispose(&v21, 8);
-
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = v21[5];
+  _Block_object_dispose(&v20, 8);
 
   return v15;
 }
@@ -134,7 +130,7 @@ void __39__SLODLDProcessor_processInputContext___block_invoke(void *a1, float a2
 
 - (id)getEncodedTokensForUtt:(id)utt
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   uttCopy = utt;
   if (uttCopy || ![0 length])
   {
@@ -155,37 +151,34 @@ void __39__SLODLDProcessor_processInputContext___block_invoke(void *a1, float a2
     v9 = SLLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = "[SLODLDProcessor getEncodedTokensForUtt:]";
-      _os_log_error_impl(&dword_26754E000, v9, OS_LOG_TYPE_ERROR, "%s Empty input", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[SLODLDProcessor getEncodedTokensForUtt:]";
+      _os_log_error_impl(&dword_26754E000, v9, OS_LOG_TYPE_ERROR, "%s Empty input", &v11, 0xCu);
     }
 
     v8 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)processInputUtterance:(id)utterance
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = SLLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315138;
-    v7 = "[SLODLDProcessor processInputUtterance:]";
-    _os_log_error_impl(&dword_26754E000, v3, OS_LOG_TYPE_ERROR, "%s Unimplemented method called", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SLODLDProcessor processInputUtterance:]";
+    _os_log_error_impl(&dword_26754E000, v3, OS_LOG_TYPE_ERROR, "%s Unimplemented method called", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (id)_setupPipelineComponentsUsingConfig:(id)config
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   configCopy = config;
   getPreProcessorType = [configCopy getPreProcessorType];
   v6 = [(SLODLDProcessor *)self _getPreprocessorForType:getPreProcessorType withConfig:configCopy];
@@ -196,13 +189,13 @@ void __39__SLODLDProcessor_processInputContext___block_invoke(void *a1, float a2
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     v9 = self->_preprocessor;
-    v26 = 136315650;
-    v27 = "[SLODLDProcessor _setupPipelineComponentsUsingConfig:]";
-    v28 = 2048;
-    v29 = getPreProcessorType;
-    v30 = 2112;
-    v31 = v9;
-    _os_log_impl(&dword_26754E000, v8, OS_LOG_TYPE_DEFAULT, "%s PreProcessorType: %lu PreProcessor %@", &v26, 0x20u);
+    v25 = 136315650;
+    v26 = "[SLODLDProcessor _setupPipelineComponentsUsingConfig:]";
+    v27 = 2048;
+    v28 = getPreProcessorType;
+    v29 = 2112;
+    v30 = v9;
+    _os_log_impl(&dword_26754E000, v8, OS_LOG_TYPE_DEFAULT, "%s PreProcessorType: %lu PreProcessor %@", &v25, 0x20u);
   }
 
   getTokenizerType = [configCopy getTokenizerType];
@@ -214,13 +207,13 @@ void __39__SLODLDProcessor_processInputContext___block_invoke(void *a1, float a2
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     v14 = self->_tokenizer;
-    v26 = 136315650;
-    v27 = "[SLODLDProcessor _setupPipelineComponentsUsingConfig:]";
-    v28 = 2048;
-    v29 = getTokenizerType;
-    v30 = 2112;
-    v31 = v14;
-    _os_log_impl(&dword_26754E000, v13, OS_LOG_TYPE_DEFAULT, "%s TokenizerType: %lu Tokenizer %@", &v26, 0x20u);
+    v25 = 136315650;
+    v26 = "[SLODLDProcessor _setupPipelineComponentsUsingConfig:]";
+    v27 = 2048;
+    v28 = getTokenizerType;
+    v29 = 2112;
+    v30 = v14;
+    _os_log_impl(&dword_26754E000, v13, OS_LOG_TYPE_DEFAULT, "%s TokenizerType: %lu Tokenizer %@", &v25, 0x20u);
   }
 
   if (self->_tokenizer)
@@ -248,11 +241,11 @@ void __39__SLODLDProcessor_processInputContext___block_invoke(void *a1, float a2
     if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       model = self->_model;
-      v26 = 136315394;
-      v27 = "[SLODLDProcessor _setupPipelineComponentsUsingConfig:]";
-      v28 = 2112;
-      v29 = model;
-      _os_log_impl(&dword_26754E000, v21, OS_LOG_TYPE_DEFAULT, "%s Classifier %@", &v26, 0x16u);
+      v25 = 136315394;
+      v26 = "[SLODLDProcessor _setupPipelineComponentsUsingConfig:]";
+      v27 = 2112;
+      v28 = model;
+      _os_log_impl(&dword_26754E000, v21, OS_LOG_TYPE_DEFAULT, "%s Classifier %@", &v25, 0x16u);
     }
 
     if (self->_model)
@@ -273,18 +266,16 @@ void __39__SLODLDProcessor_processInputContext___block_invoke(void *a1, float a2
     v19 = [SLUtils createErrorWithMsg:getBertModelFile code:112];
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 - (SLODLDProcessor)initWithConfigFile:(id)file error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   fileCopy = file;
-  v19.receiver = self;
-  v19.super_class = SLODLDProcessor;
-  v7 = [(SLODLDProcessor *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = SLODLDProcessor;
+  v7 = [(SLODLDProcessor *)&v18 init];
   if (!v7)
   {
 LABEL_17:
@@ -301,9 +292,9 @@ LABEL_17:
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v21 = "[SLODLDProcessor initWithConfigFile:error:]";
-    v22 = 2112;
-    v23 = fileCopy;
+    v20 = "[SLODLDProcessor initWithConfigFile:error:]";
+    v21 = 2112;
+    v22 = fileCopy;
     _os_log_impl(&dword_26754E000, v8, OS_LOG_TYPE_INFO, "%s Reading from configFile %@", buf, 0x16u);
   }
 
@@ -332,7 +323,7 @@ LABEL_17:
     if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v21 = "[SLODLDProcessor initWithConfigFile:error:]";
+      v20 = "[SLODLDProcessor initWithConfigFile:error:]";
       _os_log_impl(&dword_26754E000, v16, OS_LOG_TYPE_DEFAULT, "%s Created ODLD Processor Pipelines", buf, 0xCu);
     }
 
@@ -346,7 +337,6 @@ LABEL_13:
   v15 = 0;
 LABEL_18:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

@@ -227,7 +227,7 @@ LABEL_33:
   dataSource = self->_dataSource;
   if (dataSource)
   {
-    [(PXAssetsDataSource *)dataSource indexPathForAssetReference:referenceCopy];
+    objc_msgSend_indexPathForAssetReference_(dataSource);
     v6 = v11;
   }
 

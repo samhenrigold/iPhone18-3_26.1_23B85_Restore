@@ -42,7 +42,7 @@
     v4->_label = v6;
 
     v8 = v4->_label;
-    [(NTKCircularComplicationView *)v4 _layoutConstants];
+    objc_msgSend__layoutConstants(v4);
     [(CLKUIColoringLabel *)v8 setMaxWidth:v10];
   }
 
@@ -51,11 +51,12 @@
 
 - (void)layoutSubviews
 {
-  v21.receiver = self;
-  v21.super_class = NTKCircularSmallStackImageComplicationView;
-  [(NTKCircularComplicationView *)&v21 layoutSubviews];
+  v22.receiver = self;
+  v22.super_class = NTKCircularSmallStackImageComplicationView;
+  [(NTKCircularComplicationView *)&v22 layoutSubviews];
   [(NTKCircularSmallStackImageComplicationView *)self bounds];
-  memset(v20, 0, 152);
+  v21 = 0;
+  memset(v20, 0, sizeof(v20));
   device = [(NTKCircularComplicationView *)self device];
   _LayoutConstants_11(device, [(NTKCircularComplicationView *)self usesMediumLayout], v20);
 
@@ -80,7 +81,7 @@
   CGAffineTransformMakeScale(&v19, v5, v5);
   [(CDComplicationImageView *)v9 setTransform:&v19];
   [(CLKUIColoringLabel *)self->_label frame];
-  [(NTKCircularComplicationView *)self _layoutConstants];
+  objc_msgSend__layoutConstants(self);
   [(CLKUIColoringLabel *)self->_label _lastLineBaseline];
   device3 = [(NTKCircularComplicationView *)self device];
   CLKRectCenteredXInRectForDevice();
@@ -154,7 +155,7 @@ uint64_t __69__NTKCircularSmallStackImageComplicationView__imageScaleForTemplate
   return 1;
 }
 
-uint64_t __69__NTKCircularSmallStackImageComplicationView__imageScaleForTemplate___block_invoke_3(uint64_t a1)
+void *__69__NTKCircularSmallStackImageComplicationView__imageScaleForTemplate___block_invoke_3(uint64_t a1)
 {
   v5 = 0uLL;
   [*(a1 + 32) maxSDKSize:0 deviceSize:&v5 forImageProviderKey:@"line1ImageProvider"];
@@ -228,7 +229,7 @@ uint64_t __69__NTKCircularSmallStackImageComplicationView__imageScaleForTemplate
 
   [(CLKUIColoringLabel *)self->_label setFont:v4];
   label = self->_label;
-  [(NTKCircularComplicationView *)self _layoutConstants];
+  objc_msgSend__layoutConstants(self);
   [(CLKUIColoringLabel *)label setMaxWidth:v6];
 }
 

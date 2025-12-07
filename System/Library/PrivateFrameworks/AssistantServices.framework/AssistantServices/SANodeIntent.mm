@@ -51,7 +51,7 @@
 
           else
           {
-            v16 = [v36 objectForKey:kTCCServiceAddressBook];
+            v16 = objc_msgSend_objectForKey_(v36);
             bOOLValue = [v16 BOOLValue];
           }
         }
@@ -169,8 +169,8 @@ LABEL_19:
           }
 
           v13 = *(*(&v18 + 1) + 8 * i);
-          v14 = [v13 objectForKey:kTCCInfoService];
-          v15 = [v13 objectForKey:kTCCInfoGranted];
+          v14 = objc_msgSend_objectForKey_(v13);
+          v15 = objc_msgSend_objectForKey_(v13);
           [v7 setObject:v15 forKey:v14];
         }
 

@@ -24,13 +24,14 @@
   return v2;
 }
 
-uint64_t __39__IKAppUserDefaults_sharedUserDefaults__block_invoke(uint64_t a1)
+uint64_t __39__IKAppUserDefaults_sharedUserDefaults__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   objc_opt_class();
-  sharedUserDefaults_userDefaults = objc_opt_new();
+  v2 = objc_opt_new();
+  v3 = sharedUserDefaults_userDefaults;
+  sharedUserDefaults_userDefaults = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 - (id)dataForKey:(id)key

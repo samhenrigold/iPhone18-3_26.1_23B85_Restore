@@ -50,7 +50,7 @@
   return v8;
 }
 
-uint64_t __50__PTTestRecipeInfo_initWithTestRecipe_domainInfo___block_invoke(uint64_t a1, uint64_t a2)
+void *__50__PTTestRecipeInfo_initWithTestRecipe_domainInfo___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) _wantsEvent:a2];
   if (result)

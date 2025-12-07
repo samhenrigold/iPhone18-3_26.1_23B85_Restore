@@ -69,25 +69,25 @@
 
 - (BOOL)_shouldBegin
 {
-  v37.receiver = self;
-  v37.super_class = SBCornerFingerPanGestureRecognizer;
-  if (![(SBCornerFingerPanGestureRecognizer *)&v37 _shouldBegin])
+  v39.receiver = self;
+  v39.super_class = SBCornerFingerPanGestureRecognizer;
+  if (![(SBCornerFingerPanGestureRecognizer *)&v39 _shouldBegin])
   {
-    LOBYTE(v7) = 0;
-    v8 = @"rejected by super";
+    LOBYTE(v9) = 0;
+    v10 = @"rejected by super";
     goto LABEL_24;
   }
 
-  v35 = 0.0;
-  v36 = 0.0;
-  memset(&v34, 0, sizeof(v34));
-  [(SBCornerFingerPanGestureRecognizer *)self _convertReferenceLocation:&v35 toOrientedLocation:&v34 orientedBounds:self->_firstTouchReferenceLocation.x, self->_firstTouchReferenceLocation.y];
+  v37 = 0.0;
+  v38 = 0.0;
+  memset(&v36, 0, sizeof(v36));
+  v4 = [(SBCornerFingerPanGestureRecognizer *)self _convertReferenceLocation:&v37 toOrientedLocation:&v36 orientedBounds:self->_firstTouchReferenceLocation.x, self->_firstTouchReferenceLocation.y];
   corner = self->_corner;
   if (corner > 3)
   {
     if (corner == 4)
     {
-      MinX = CGRectGetMinX(v34);
+      MinX = CGRectGetMinX(v36);
     }
 
     else
@@ -103,11 +103,11 @@ LABEL_10:
         goto LABEL_14;
       }
 
-      MinX = CGRectGetMaxX(v34);
+      MinX = CGRectGetMaxX(v36);
     }
 
     MaxX = MinX;
-    MaxY = CGRectGetMaxY(v34);
+    MaxY = CGRectGetMaxY(v36);
     goto LABEL_14;
   }
 
@@ -123,60 +123,60 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  MaxX = CGRectGetMaxX(v34);
-  MaxY = CGRectGetMinY(v34);
+  MaxX = CGRectGetMaxX(v36);
+  MaxY = CGRectGetMinY(v36);
 LABEL_14:
-  v11 = vabdd_f64(v35, MaxX);
-  v12 = vabdd_f64(v36, MaxY);
-  if (v11 >= v12)
+  v13 = vabdd_f64(v37, MaxX);
+  v14 = vabdd_f64(v38, MaxY);
+  if (v13 >= v14)
   {
-    v13 = v11;
+    v15 = v13;
   }
 
   else
   {
-    v13 = v12;
+    v15 = v14;
   }
 
-  v14 = SBMainScreenPointsPerMillimeter();
+  v16 = SBMainScreenPointsPerMillimeter(v4, v5);
   [(SBTouchHistory *)self->_touchHistory averageTouchVelocityOverTimeDuration:0.0416666667];
-  [(SBCornerFingerPanGestureRecognizer *)self _convertReferenceVector:self->_corner toCorner:[(SBCornerFingerPanGestureRecognizer *)self _touchInterfaceOrientation] orientation:v15, v16];
+  [(SBCornerFingerPanGestureRecognizer *)self _convertReferenceVector:self->_corner toCorner:[(SBCornerFingerPanGestureRecognizer *)self _touchInterfaceOrientation] orientation:v17, v18];
     ;
   }
 
     ;
   }
 
-  v7 = [(SBCornerFingerGestureClassifier *)self->_classifier classifySwipeWithOffsettedAngle:([(SBCornerFingerPanGestureRecognizer *)self _touchInterfaceOrientation]- 1) < 2 distanceToCorner:i portrait:j];
-  if (v7)
+  v9 = [(SBCornerFingerGestureClassifier *)self->_classifier classifySwipeWithOffsettedAngle:([(SBCornerFingerPanGestureRecognizer *)self _touchInterfaceOrientation]- 1) < 2 distanceToCorner:i portrait:j];
+  if (v9)
   {
-    v8 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v8 = @"rejected by classifier";
+    v10 = @"rejected by classifier";
   }
 
 LABEL_24:
   touchedEdges = [(UIScreenEdgePanGestureRecognizer *)self touchedEdges];
   [(SBTouchHistory *)self->_touchHistory averageTouchVelocityOverTimeDuration:0.0416666667];
-  v23 = v22;
   v25 = v24;
+  v27 = v26;
   mEMORY[0x277D6A798] = [MEMORY[0x277D6A798] sharedInstance];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __50__SBCornerFingerPanGestureRecognizer__shouldBegin__block_invoke;
-  v28[3] = &unk_2783C50A8;
-  v33 = v7;
-  v28[4] = self;
-  v29 = v8;
-  v30 = touchedEdges;
-  v31 = v23;
-  v32 = v25;
-  [mEMORY[0x277D6A798] logBlock:v28];
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __50__SBCornerFingerPanGestureRecognizer__shouldBegin__block_invoke;
+  v30[3] = &unk_2783C50A8;
+  v35 = v9;
+  v30[4] = self;
+  v31 = v10;
+  v32 = touchedEdges;
+  v33 = v25;
+  v34 = v27;
+  [mEMORY[0x277D6A798] logBlock:v30];
 
-  return v7;
+  return v9;
 }
 
 id __50__SBCornerFingerPanGestureRecognizer__shouldBegin__block_invoke(uint64_t a1)

@@ -257,20 +257,23 @@
 - (void)_setUserUtterance:(id)utterance
 {
   utteranceCopy = utterance;
+  v6 = utteranceCopy;
   if (utteranceCopy)
   {
-    v7 = utteranceCopy;
+    v8 = utteranceCopy;
     _userUtterance = [(SRUserUtteranceViewController *)self _userUtterance];
 
-    if (_userUtterance != v7)
+    v6 = v8;
+    if (_userUtterance != v8)
     {
       self->_forceBestTextInterpretation = 0;
-      [(SRUserUtteranceViewController *)self _updateViewWithUserUtterance:v7];
+      [(SRUserUtteranceViewController *)self _updateViewWithUserUtterance:v8];
       objc_storeStrong(&self->_userUtterance, utterance);
+      v6 = v8;
     }
   }
 
-  _objc_release_x1();
+  _objc_release_x1(utteranceCopy, v6);
 }
 
 - (id)_correctionIdentifier

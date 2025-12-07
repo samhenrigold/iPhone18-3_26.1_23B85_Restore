@@ -16,7 +16,7 @@
 
 - (SearchUIRFCardSectionRowModel)init
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA33C0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA33C0, &qword_1DA273B60);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1DA273A50;
   *(v3 + 32) = [objc_allocWithZone(MEMORY[0x1E69C9F08]) init];

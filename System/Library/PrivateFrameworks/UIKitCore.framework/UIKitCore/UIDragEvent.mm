@@ -355,7 +355,7 @@ void __39__UIDragEvent__updateFromCurrentSample__block_invoke(uint64_t a1)
       v14 = 0u;
       if (v3)
       {
-        [(_UIDragEventSample *)v3 sampleFlags];
+        objc_msgSend_sampleFlags(v3);
       }
 
       BYTE4(v17) = 0;

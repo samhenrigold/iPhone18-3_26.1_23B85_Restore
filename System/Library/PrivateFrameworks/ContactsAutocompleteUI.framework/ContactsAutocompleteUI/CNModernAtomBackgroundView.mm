@@ -400,7 +400,7 @@ LABEL_13:
     {
       v10 = objc_alloc(MEMORY[0x1E69DCC10]);
       v8 = [v10 initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
-      v11 = CNAUILocalizedAddressSeparator();
+      v11 = CNAUILocalizedAddressSeparator(v8);
       [(UIView *)v8 setText:v11];
 
       v12 = +[CNAtomView defaultFont];

@@ -6,13 +6,13 @@
 
 - (uint64_t)_pb_isDirectory
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  v2 = *MEMORY[0x277CBE868];
+  v16 = *MEMORY[0x277D85DE8];
   v11 = 0;
-  v3 = [self getResourceValue:&v12 forKey:v2 error:&v11];
-  v4 = v12;
-  v5 = v11;
+  v2 = *MEMORY[0x277CBE868];
+  v10 = 0;
+  v3 = [self getResourceValue:&v11 forKey:v2 error:&v10];
+  v4 = v11;
+  v5 = v10;
   if (v3)
   {
     bOOLValue = [v4 BOOLValue];
@@ -25,8 +25,8 @@
     {
       *buf = 138412546;
       selfCopy = self;
-      v15 = 2112;
-      v16 = v5;
+      v14 = 2112;
+      v15 = v5;
       _os_log_impl(&dword_25E138000, v7, OS_LOG_TYPE_INFO, "Warning: Cannot stat file at %@. Error: %@. Using [NSURL hasDirectoryPath] instead.", buf, 0x16u);
     }
 
@@ -35,7 +35,6 @@
 
   v8 = bOOLValue;
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

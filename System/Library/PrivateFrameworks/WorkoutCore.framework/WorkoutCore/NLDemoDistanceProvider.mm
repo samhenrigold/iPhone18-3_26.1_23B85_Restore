@@ -35,39 +35,39 @@
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, statistics);
-  v6 = objc_alloc(MEMORY[0x277CCDA50]);
+  v9 = objc_alloc(MEMORY[0x277CCDA50]);
   quantityType = [location[0] quantityType];
   startDate = [location[0] startDate];
   endDate = [location[0] endDate];
-  v20 = [v6 initWithDataType:quantityType startDate:startDate endDate:?];
+  v23 = [v9 initWithDataType:quantityType startDate:startDate endDate:?];
   MEMORY[0x277D82BD8](endDate);
   MEMORY[0x277D82BD8](startDate);
-  MEMORY[0x277D82BD8](quantityType);
+  *&v3 = MEMORY[0x277D82BD8](quantityType).n128_u64[0];
   [(NLDemoDistanceProvider *)selfCopy adjustedDistanceInMeters];
-  v11 = v3;
+  v14 = v4;
   sumQuantity = [location[0] sumQuantity];
   meterUnit = [MEMORY[0x277CCDAB0] meterUnit];
   [sumQuantity doubleValueForUnit:?];
-  v13 = v11 + v4;
+  v16 = v14 + v5;
   MEMORY[0x277D82BD8](meterUnit);
   MEMORY[0x277D82BD8](sumQuantity);
-  v14 = MEMORY[0x277CCD7E8];
+  v17 = MEMORY[0x277CCD7E8];
   meterUnit2 = [MEMORY[0x277CCDAB0] meterUnit];
-  v15 = [v14 quantityWithUnit:v13 doubleValue:?];
-  [v20 setSumQuantity:?];
-  MEMORY[0x277D82BD8](v15);
-  MEMORY[0x277D82BD8](meterUnit2);
+  v18 = [v17 quantityWithUnit:v16 doubleValue:?];
+  [v23 setSumQuantity:?];
+  MEMORY[0x277D82BD8](v18);
+  *&v6 = MEMORY[0x277D82BD8](meterUnit2).n128_u64[0];
   mostRecentQuantity = [location[0] mostRecentQuantity];
-  [v20 setMostRecentQuantity:?];
-  MEMORY[0x277D82BD8](mostRecentQuantity);
+  [v23 setMostRecentQuantity:?];
+  *&v7 = MEMORY[0x277D82BD8](mostRecentQuantity).n128_u64[0];
   mostRecentQuantityDateInterval = [location[0] mostRecentQuantityDateInterval];
-  [v20 setMostRecentQuantityDateInterval:?];
+  [v23 setMostRecentQuantityDateInterval:?];
   MEMORY[0x277D82BD8](mostRecentQuantityDateInterval);
-  v19 = MEMORY[0x277D82BE0](v20);
-  objc_storeStrong(&v20, 0);
+  v22 = MEMORY[0x277D82BE0](v23);
+  objc_storeStrong(&v23, 0);
   objc_storeStrong(location, 0);
 
-  return v19;
+  return v22;
 }
 
 @end

@@ -45,7 +45,6 @@ id sub_25473828C()
 
 uint64_t sub_254738334(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_2814138C0 = CSDBCreateThreadedRecordStoreWithQOSClassAndLookAsideBufferConfig();
 
   return MEMORY[0x2821F96F8]();
@@ -198,14 +197,14 @@ uint64_t sub_2547388E4()
   return v1;
 }
 
-uint64_t sub_254738A24()
+uint64_t sub_254738A24(uint64_t a1, uint64_t a2)
 {
   CSDBRecordStoreCreateTablesForClass();
-  v0 = OSLogHandleForIDSCategory();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v2 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_254737000, v0, OS_LOG_TYPE_DEBUG, "Creating indexes on message_hash_data and expiration_date", v2, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_254737000, v2, OS_LOG_TYPE_DEBUG, "Creating indexes on message_hash_data and expiration_date", v4, 2u);
   }
 
   if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
@@ -217,39 +216,39 @@ uint64_t sub_254738A24()
   return CSDBSqliteConnectionPerformSQL();
 }
 
-uint64_t sub_254738B1C()
+uint64_t sub_254738B1C(uint64_t a1, uint64_t a2)
 {
-  v0 = OSLogHandleForIDSCategory();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_254737000, v0, OS_LOG_TYPE_DEBUG, "Enabling auto vacuum.", buf, 2u);
-  }
-
-  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
-  {
-    _IDSLogV();
-  }
-
-  CSDBSqliteConnectionPerformSQL();
-  v1 = OSLogHandleForIDSCategory();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
-  {
-    *v5 = 0;
-    _os_log_impl(&dword_254737000, v1, OS_LOG_TYPE_DEBUG, "Enabling WAL journal mode.", v5, 2u);
-  }
-
-  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
-  {
-    _IDSLogV();
-  }
-
-  CSDBSqliteConnectionPerformSQL();
   v2 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_254737000, v2, OS_LOG_TYPE_DEBUG, "Enabling Foreign Key support.", v4, 2u);
+    *buf = 0;
+    _os_log_impl(&dword_254737000, v2, OS_LOG_TYPE_DEBUG, "Enabling auto vacuum.", buf, 2u);
+  }
+
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+  {
+    _IDSLogV();
+  }
+
+  CSDBSqliteConnectionPerformSQL();
+  v3 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    *v7 = 0;
+    _os_log_impl(&dword_254737000, v3, OS_LOG_TYPE_DEBUG, "Enabling WAL journal mode.", v7, 2u);
+  }
+
+  if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+  {
+    _IDSLogV();
+  }
+
+  CSDBSqliteConnectionPerformSQL();
+  v4 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    *v6 = 0;
+    _os_log_impl(&dword_254737000, v4, OS_LOG_TYPE_DEBUG, "Enabling Foreign Key support.", v6, 2u);
   }
 
   if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
@@ -310,9 +309,7 @@ uint64_t sub_254738DF0(uint64_t a1, uint64_t a2)
 
 uint64_t sub_254738E68(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = *(a1 + 32);
   CSDBSqliteBindBlobFromCFData();
-  v7 = *(a1 + 40);
   CSDBSqliteBindInt64();
 
   return MEMORY[0x2821569D0](a4);
@@ -345,16 +342,15 @@ uint64_t sub_254738EB8(uint64_t a1)
   return v1 & 1;
 }
 
-void sub_254738F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_254738F70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_254738F88(uint64_t a1)
+uint64_t sub_254738F88(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 40);
   CSDBSqliteBindBlobFromCFData();
   result = CSDBSqliteStep();
   if (result)
@@ -382,9 +378,7 @@ void sub_254738FE4(uint64_t a1, uint64_t a2)
 
 uint64_t sub_254739060(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = *(a1 + 32);
   CSDBSqliteBindInt64();
-  v7 = *(a1 + 40);
   CSDBSqliteBindBlobFromCFData();
 
   return MEMORY[0x2821569D0](a4);
@@ -402,9 +396,7 @@ void sub_2547390B0(uint64_t a1)
 
 uint64_t sub_254739124(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = *(a1 + 32);
   CSDBSqliteBindInt64();
-  v7 = *(a1 + 32);
   CSDBSqliteBindInt64();
 
   return MEMORY[0x2821569D0](a4);
@@ -422,7 +414,6 @@ void sub_254739174(uint64_t a1)
 
 uint64_t sub_2547391E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5 = *(a1 + 32);
   CSDBSqliteBindInt64();
 
   return MEMORY[0x2821569D0](a4);
@@ -456,7 +447,7 @@ uint64_t sub_254739714(void *a1)
 
 uint64_t sub_254739874(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 48);
   if (!v2)
   {
@@ -479,7 +470,7 @@ uint64_t sub_254739874(uint64_t a1)
   {
     v7 = *(*(a1 + 32) + 48);
     *buf = 138412290;
-    v12 = v7;
+    v10 = v7;
     _os_log_impl(&dword_254737000, v6, OS_LOG_TYPE_DEBUG, "Storing temporarily %@", buf, 0xCu);
   }
 
@@ -489,48 +480,43 @@ uint64_t sub_254739874(uint64_t a1)
     result = _IDSShouldLog();
     if (result)
     {
-      v10 = *(*(a1 + 32) + 48);
-      result = _IDSLogV();
+      return _IDSLogV();
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void sub_2547399DC(int8x16_t *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[2].i64[0];
     *buf = 138412290;
-    v11 = v3;
+    v9 = v3;
     _os_log_impl(&dword_254737000, v2, OS_LOG_TYPE_DEFAULT, "Adding message hash %@ to the database", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
   {
-    v6 = a1[2].i64[0];
     _IDSLogV();
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = sub_254739B58;
-  v8[3] = &unk_279782480;
-  v7 = a1[2];
-  v4 = v7.i64[0];
-  v9 = vextq_s8(v7, v7, 8uLL);
-  sub_254738470(v8);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = sub_254739B58;
+  v6[3] = &unk_279782480;
+  v5 = a1[2];
+  v4 = v5.i64[0];
+  v7 = vextq_s8(v5, v5, 8uLL);
+  sub_254738470(v6);
 }
 
 uint64_t sub_254739B58(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   sub_254738DF0([*(a1 + 32) _currentLocalTime], *(a1 + 40));
   [*(*(a1 + 32) + 48) removeObject:*(a1 + 40)];
   if (![*(*(a1 + 32) + 48) count])
@@ -545,20 +531,17 @@ uint64_t sub_254739B58(uint64_t a1)
   {
     v5 = *(*(a1 + 32) + 48);
     *buf = 138412290;
-    v10 = v5;
+    v8 = v5;
     _os_log_impl(&dword_254737000, v4, OS_LOG_TYPE_DEBUG, "Updating local cache %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
   {
-    v8 = *(*(a1 + 32) + 48);
     _IDSLogV();
   }
 
   sub_254738848();
-  result = [*(a1 + 32) _setDatabaseCloseTimerOnIvarQueue];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _setDatabaseCloseTimerOnIvarQueue];
 }
 
 void sub_254739D4C(uint64_t a1)
@@ -661,7 +644,7 @@ void sub_25473A384(uint64_t a1)
 
 void sub_25473A684(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   sub_2547390B0([*(a1 + 32) _currentLocalTime]);
   v2 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:{objc_msgSend(*(a1 + 32), "_currentLocalTime")}];
   v3 = [v2 dateByAddingTimeInterval:-2592000.0];
@@ -669,13 +652,13 @@ void sub_25473A684(uint64_t a1)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v9 = v3;
+    v8 = v3;
     _os_log_impl(&dword_254737000, v4, OS_LOG_TYPE_DEBUG, "Removing messages older than %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
   {
-    v7 = v3;
+    v6 = v3;
     _IDSLogV();
   }
 
@@ -683,6 +666,4 @@ void sub_25473A684(uint64_t a1)
   sub_254739174(v5);
   sub_254738848();
   [*(a1 + 32) _setDatabaseCloseTimerOnIvarQueue];
-
-  v6 = *MEMORY[0x277D85DE8];
 }

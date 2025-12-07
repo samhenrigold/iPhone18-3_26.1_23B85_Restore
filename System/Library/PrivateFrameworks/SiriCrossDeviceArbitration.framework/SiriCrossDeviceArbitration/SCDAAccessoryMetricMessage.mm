@@ -26,7 +26,7 @@
 
 - (BOOL)_decodeMetricDataPayload:(id)payload decodedPayload:(MyriadMetricsDataV2 *)decodedPayload
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   v7 = payloadCopy;
   if (!payloadCopy || ![payloadCopy length])
@@ -35,9 +35,9 @@
     if (os_log_type_enabled(SCDALogContextAnalytics, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[SCDAAccessoryMetricMessage _decodeMetricDataPayload:decodedPayload:]";
-      v21 = 2112;
-      v22 = v7;
+      v19 = "[SCDAAccessoryMetricMessage _decodeMetricDataPayload:decodedPayload:]";
+      v20 = 2112;
+      v21 = v7;
       v13 = "%s Invalid analytics data payload: %@";
       v14 = v10;
       v15 = 22;
@@ -49,18 +49,18 @@ LABEL_7:
     goto LABEL_12;
   }
 
-  v18 = 0;
-  [v7 getBytes:&v18 range:{0, 1}];
-  v8 = v18;
-  if (!v18)
+  v17 = 0;
+  [v7 getBytes:&v17 range:{0, 1}];
+  v8 = v17;
+  if (!v17)
   {
     v12 = SCDALogContextAnalytics;
     if (os_log_type_enabled(SCDALogContextAnalytics, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[SCDAAccessoryMetricMessage _decodeMetricDataPayload:decodedPayload:]";
-      v21 = 1024;
-      LODWORD(v22) = 0;
+      v19 = "[SCDAAccessoryMetricMessage _decodeMetricDataPayload:decodedPayload:]";
+      v20 = 1024;
+      LODWORD(v21) = 0;
       v13 = "%s Analytics data has a invalid version %d";
       v14 = v12;
       v15 = 18;
@@ -86,7 +86,6 @@ LABEL_14:
   v11 = [(SCDAAccessoryMetricMessage *)self _decodeMetricDataPayload:v7 into:decodedPayload expectedPayloadSize:v9];
 LABEL_12:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

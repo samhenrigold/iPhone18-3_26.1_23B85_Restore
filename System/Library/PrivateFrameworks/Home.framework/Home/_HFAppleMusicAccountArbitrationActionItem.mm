@@ -71,7 +71,7 @@
 
 + (id)loginActionItemForAccessories:(id)accessories account:(id)account contextGenerator:(id)generator
 {
-  v58[1] = *MEMORY[0x277D85DE8];
+  v57[1] = *MEMORY[0x277D85DE8];
   accessoriesCopy = accessories;
   accountCopy = account;
   generatorCopy = generator;
@@ -121,62 +121,62 @@
   [v16 setAccessories:accessoriesCopy];
   v17 = objc_opt_new();
   v18 = objc_opt_new();
-  v57 = @"accessoryUUIDToAuthKitContext";
-  v58[0] = v18;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:&v57 count:1];
+  v56 = @"accessoryUUIDToAuthKitContext";
+  v57[0] = v18;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:&v56 count:1];
   [v16 setUserInfo:v19];
 
   if (generatorCopy)
   {
-    v39 = v15;
-    v40 = v16;
+    v38 = v15;
+    v39 = v16;
     v20 = generatorCopy;
-    v41 = accessoriesCopy;
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
+    v40 = accessoriesCopy;
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     obj = [v16 accessories];
-    v21 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
+    v21 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v53;
+      v23 = *v52;
       do
       {
         for (i = 0; i != v22; ++i)
         {
           v25 = v17;
-          if (*v53 != v23)
+          if (*v52 != v23)
           {
             objc_enumerationMutation(obj);
           }
 
-          v26 = *(*(&v52 + 1) + 8 * i);
+          v26 = *(*(&v51 + 1) + 8 * i);
           v27 = MEMORY[0x277D2C900];
-          v48[0] = MEMORY[0x277D85DD0];
-          v48[1] = 3221225472;
-          v48[2] = __100___HFAppleMusicAccountArbitrationActionItem_loginActionItemForAccessories_account_contextGenerator___block_invoke;
-          v48[3] = &unk_277E01318;
-          v51 = v20;
-          v48[4] = v26;
-          v49 = accountCopy;
-          v50 = v18;
-          v28 = [v27 lazyFutureWithBlock:v48];
+          v47[0] = MEMORY[0x277D85DD0];
+          v47[1] = 3221225472;
+          v47[2] = __100___HFAppleMusicAccountArbitrationActionItem_loginActionItemForAccessories_account_contextGenerator___block_invoke;
+          v47[3] = &unk_277E01318;
+          v50 = v20;
+          v47[4] = v26;
+          v48 = accountCopy;
+          v49 = v18;
+          v28 = [v27 lazyFutureWithBlock:v47];
           v17 = v25;
           [v25 addObject:v28];
         }
 
-        v22 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
+        v22 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
       }
 
       while (v22);
     }
 
-    v16 = v40;
-    accessoriesCopy = v41;
+    v16 = v39;
+    accessoriesCopy = v40;
     generatorCopy = v20;
-    v15 = v39;
+    v15 = v38;
   }
 
   v29 = MEMORY[0x277CCACA8];
@@ -188,18 +188,18 @@
   v33 = MEMORY[0x277D2C900];
   if (v32)
   {
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __100___HFAppleMusicAccountArbitrationActionItem_loginActionItemForAccessories_account_contextGenerator___block_invoke_4;
-    v43[3] = &unk_277DFD1F8;
-    v44 = accountCopy;
-    v45 = accessoriesCopy;
-    v46 = v17;
-    v47 = v18;
-    v34 = [v33 lazyFutureWithBlock:v43];
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __100___HFAppleMusicAccountArbitrationActionItem_loginActionItemForAccessories_account_contextGenerator___block_invoke_4;
+    v42[3] = &unk_277DFD1F8;
+    v43 = accountCopy;
+    v44 = accessoriesCopy;
+    v45 = v17;
+    v46 = v18;
+    v34 = [v33 lazyFutureWithBlock:v42];
     [v16 setFuture:v34];
 
-    v35 = v44;
+    v35 = v43;
   }
 
   else
@@ -207,8 +207,6 @@
     v35 = [MEMORY[0x277D2C900] lazyFutureWithBlock:&__block_literal_global_87_0];
     [v16 setFuture:v35];
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

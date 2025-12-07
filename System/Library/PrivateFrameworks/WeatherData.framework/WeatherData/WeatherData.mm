@@ -23,7 +23,7 @@ double FlatBufferBuilder.init(initialSize:serializeDefaults:)@<D0>(int a1@<W0>, 
   v10 = sub_272B46564(a1);
   type metadata accessor for ByteBuffer.Storage();
   swift_allocObject();
-  v11 = ByteBuffer.Storage.init(count:alignment:)(v10);
+  v11 = ByteBuffer.Storage.init(count:alignment:)(v10, 1);
 
   ByteBuffer.Storage.initialize(for:)(v10);
 
@@ -40,7 +40,7 @@ double FlatBufferBuilder.init(initialSize:serializeDefaults:)@<D0>(int a1@<W0>, 
   return result;
 }
 
-uint64_t sub_272B46564(uint64_t result)
+unint64_t sub_272B46564(unint64_t result)
 {
   if (result < 1)
   {
@@ -73,243 +73,236 @@ uint64_t sub_272B46564(uint64_t result)
   return result;
 }
 
-uint64_t ByteBuffer.Storage.init(count:alignment:)(uint64_t a1)
+uint64_t ByteBuffer.Storage.init(count:alignment:)(uint64_t a1, uint64_t a2)
 {
-  *(v1 + 24) = swift_slowAlloc();
-  *(v1 + 32) = a1;
-  *(v1 + 16) = 0;
-  return v1;
+  *(v2 + 24) = swift_slowAlloc();
+  *(v2 + 32) = a1;
+  *(v2 + 16) = 0;
+  return v2;
 }
 
 uint64_t sub_272B46620@<X0>(void (*a1)(char *, char *)@<X0>, uint64_t a2@<X3>, uint64_t a3@<X4>, uint64_t a4@<X6>, uint64_t a5@<X8>)
 {
-  v28 = a4;
-  v29 = a1;
-  v30 = a3;
-  v26 = *(a2 - 8);
-  v27 = a2;
-  v7 = *(v26 + 64);
-  v8 = (MEMORY[0x28223BE20])();
-  v10 = &v26 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = *(v11 + 16);
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  v15 = MEMORY[0x28223BE20](v8);
-  v17 = &v26 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = *(*(v18 - 8) + 64);
-  MEMORY[0x28223BE20](v15);
-  v21 = &v26 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v22 + 16))(v21, v23);
-  v24 = 1;
-  if (__swift_getEnumTagSinglePayload(v21, 1, v12) != 1)
+  v24 = a4;
+  v25 = a1;
+  v26 = a3;
+  v22 = *(a2 - 8);
+  v23 = a2;
+  v7 = MEMORY[0x28223BE20](a1);
+  v9 = &v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = *(v10 + 16);
+  v12 = *(v11 - 8);
+  v13 = MEMORY[0x28223BE20](v7);
+  v15 = &v22 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v13);
+  v17 = &v22 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v18 + 16))(v17, v19);
+  v20 = 1;
+  if (__swift_getEnumTagSinglePayload(v17, 1, v11) != 1)
   {
-    (*(v13 + 32))(v17, v21, v12);
-    v29(v17, v10);
-    (*(v13 + 8))(v17, v12);
+    (*(v12 + 32))(v15, v17, v11);
+    v25(v15, v9);
+    (*(v12 + 8))(v15, v11);
     if (v5)
     {
-      return (*(v26 + 32))(v28, v10, v27);
+      return (*(v22 + 32))(v24, v9, v23);
     }
 
-    v24 = 0;
+    v20 = 0;
   }
 
-  return __swift_storeEnumTagSinglePayload(a5, v24, 1, v30);
+  return __swift_storeEnumTagSinglePayload(a5, v20, 1, v26);
 }
 
-void FlatBufferBuilder.create(string:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, unint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28)
+void FlatBufferBuilder.create(string:)(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_76_0();
-  a27 = v29;
-  a28 = v32;
-  v33 = v28;
-  v35 = v34;
-  a16 = *MEMORY[0x277D85DE8];
-  if (v31)
+  v5 = v2;
+  v7 = v6;
+  if (v4)
   {
-    v36 = v31;
-    v37 = v30;
-    v38 = HIBYTE(v31) & 0xF;
-    if ((v31 & 0x1000000000000000) != 0)
+    v8 = v4;
+    v9 = v3;
+    v10 = HIBYTE(v4) & 0xF;
+    if ((v4 & 0x1000000000000000) != 0)
     {
-      goto LABEL_74;
+      goto LABEL_73;
     }
 
-    if ((v31 & 0x2000000000000000) != 0)
+    if ((v4 & 0x2000000000000000) != 0)
     {
-      v39 = HIBYTE(v31) & 0xF;
+      v11 = HIBYTE(v4) & 0xF;
     }
 
     else
     {
-      v39 = v30 & 0xFFFFFFFFFFFFLL;
+      v11 = v3 & 0xFFFFFFFFFFFFLL;
     }
 
 LABEL_6:
     OUTLINED_FUNCTION_57_0();
-    if (v41 ^ v42 | v40)
+    if (v13 ^ v14 | v12)
     {
       OUTLINED_FUNCTION_18_0();
     }
 
-    v43 = v33[2];
+    v15 = v5[2];
     OUTLINED_FUNCTION_65_0();
-    if (!(v41 ^ v42 | v40))
+    if (!(v13 ^ v14 | v12))
     {
+      __break(1u);
+LABEL_74:
       __break(1u);
 LABEL_75:
       __break(1u);
-LABEL_76:
-      __break(1u);
-      goto LABEL_77;
+      goto LABEL_76;
     }
 
-    if (((v43 | (v39 + 1)) & 0x8000000000000000) != 0)
+    if (((v15 | (v11 + 1)) & 0x8000000000000000) != 0)
+    {
+      goto LABEL_74;
+    }
+
+    OUTLINED_FUNCTION_30_0();
+    if (!(v13 ^ v14 | v12))
     {
       goto LABEL_75;
     }
 
-    OUTLINED_FUNCTION_30_0();
-    if (!(v41 ^ v42 | v40))
-    {
-      goto LABEL_76;
-    }
-
-    v86 = v35;
-    v44 = (~(v43 + v39) & 3) + v43;
-    v35 = v33[1];
+    v52 = v7;
+    v16 = (~(v15 + v11) & 3) + v15;
+    v7 = v5[1];
     OUTLINED_FUNCTION_5_1();
-    if (v41 != v42)
+    if (v13 != v14)
     {
-      v45 = v33[3];
+      v17 = v5[3];
 
-      v46 = OUTLINED_FUNCTION_39_0();
-      ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v46, v47, v45);
+      v18 = OUTLINED_FUNCTION_39_0();
+      ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v18, v19, v17);
     }
 
     else
     {
     }
 
-    v33[2] = v44;
+    v5[2] = v16;
     OUTLINED_FUNCTION_5_1();
-    if (v41 ^ v42 | v40)
+    if (v13 ^ v14 | v12)
     {
-      v48 = OUTLINED_FUNCTION_34_1();
-      ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v48, v44, v49);
+      v20 = OUTLINED_FUNCTION_34_1();
+      ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v20, v16, v21);
     }
 
-    v33[2] = v44 + 1;
+    v5[2] = v16 + 1;
     OUTLINED_FUNCTION_38_0();
-    if (v41 != v42)
+    if (v13 != v14)
     {
-      ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v39, v44 + 1, v33[3]);
+      ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v16 + 1, v5[3]);
     }
 
-    v50 = OUTLINED_FUNCTION_69_0();
-    sub_272B46F44(v50, v51, v52, v39);
+    v22 = OUTLINED_FUNCTION_69_0();
+    sub_272B46F44(v22, v23, v24, v11);
     OUTLINED_FUNCTION_67_0();
-    if (!v40)
+    if (!v12)
     {
-      goto LABEL_60;
+      goto LABEL_59;
     }
 
-    v53 = (v36 & 0x2000000000000000) != 0 ? v38 : v37 & 0xFFFFFFFFFFFFLL;
-    if (!v53)
+    v25 = (v8 & 0x2000000000000000) != 0 ? v10 : v9 & 0xFFFFFFFFFFFFLL;
+    if (!v25)
     {
-      goto LABEL_60;
+      goto LABEL_59;
     }
 
-    v54 = (v37 >> 59) & 1;
-    if ((v36 & 0x1000000000000000) == 0)
+    v26 = (v9 >> 59) & 1;
+    if ((v8 & 0x1000000000000000) == 0)
     {
-      LODWORD(v54) = 1;
+      LODWORD(v26) = 1;
     }
 
-    v55 = 11;
-    if (v54)
+    v27 = 11;
+    if (v26)
     {
-      v55 = 7;
+      v27 = 7;
     }
 
-    v56 = v55 | (v53 << 16);
-    v38 = 4 << v54;
+    v28 = v27 | (v25 << 16);
+    v10 = 4 << v26;
 
     while (1)
     {
-      if ((v56 & 0xC) == v38)
+      if ((v28 & 0xC) == v10)
       {
         OUTLINED_FUNCTION_28_0();
-        v60 = sub_272B73308(v57, v58, v59);
-        if (v60 < 0x4000)
+        v32 = sub_272B73308(v29, v30, v31);
+        if (v32 < 0x4000)
         {
           __break(1u);
-LABEL_58:
+LABEL_57:
           __break(1u);
+LABEL_58:
+
 LABEL_59:
 
-LABEL_60:
-
-          if ((v39 & 0x8000000000000000) == 0)
+          if ((v11 & 0x8000000000000000) == 0)
           {
-            if (!HIDWORD(v39))
+            if (!HIDWORD(v11))
             {
-              v74 = v33[2];
-              if ((v74 & 0x8000000000000000) == 0)
+              v42 = v5[2];
+              if ((v42 & 0x8000000000000000) == 0)
               {
-                if (!HIDWORD(v74))
+                if (!HIDWORD(v42))
                 {
-                  v75 = OUTLINED_FUNCTION_10_0(v73, v74);
-                  v77 = v75 + v76;
+                  v43 = OUTLINED_FUNCTION_10_0(v41, v42);
+                  v45 = v43 + v44;
                   OUTLINED_FUNCTION_5_1();
-                  if (v41 != v42)
+                  if (v13 != v14)
                   {
-                    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v78, v79, v33[3]);
+                    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v46, v47, v5[3]);
                   }
 
                   OUTLINED_FUNCTION_19();
-                  if (v41 != v42)
+                  if (v13 != v14)
                   {
-                    v81 = OUTLINED_FUNCTION_21_0();
-                    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v81, v77, v82);
-                    v80 = *(v35 + 32);
+                    v48 = OUTLINED_FUNCTION_21_0();
+                    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v48, v45, v49);
                   }
 
-                  OUTLINED_FUNCTION_7_1(v80);
-                  *(v83 - 4) = v39;
+                  OUTLINED_FUNCTION_7_1();
+                  *(v50 - 4) = v11;
                   OUTLINED_FUNCTION_42_0();
-                  if (!(!v40 & v84))
+                  if (!(!v12 & v51))
                   {
-                    v35 = v86;
-                    goto LABEL_72;
+                    v7 = v52;
+                    goto LABEL_71;
                   }
 
-LABEL_81:
+LABEL_80:
                   __break(1u);
                 }
 
-LABEL_80:
+LABEL_79:
                 __break(1u);
-                goto LABEL_81;
+                goto LABEL_80;
               }
 
-LABEL_79:
+LABEL_78:
               __break(1u);
-              goto LABEL_80;
+              goto LABEL_79;
             }
 
-LABEL_78:
+LABEL_77:
             __break(1u);
-            goto LABEL_79;
+            goto LABEL_78;
           }
 
-LABEL_77:
+LABEL_76:
           __break(1u);
-          goto LABEL_78;
+          goto LABEL_77;
         }
 
-        v56 = v60;
-        if ((v36 & 0x1000000000000000) == 0)
+        v28 = v32;
+        if ((v8 & 0x1000000000000000) == 0)
         {
 LABEL_37:
           OUTLINED_FUNCTION_44_0();
@@ -317,83 +310,68 @@ LABEL_37:
         }
       }
 
-      else if ((v36 & 0x1000000000000000) == 0)
+      else if ((v8 & 0x1000000000000000) == 0)
       {
         goto LABEL_37;
       }
 
-      if (v53 < v56 >> 16)
+      if (v25 < v28 >> 16)
       {
         __break(1u);
-LABEL_74:
+LABEL_73:
         OUTLINED_FUNCTION_69_0();
-        v39 = sub_272B87760();
+        v11 = sub_272B87760();
         goto LABEL_6;
       }
 
       OUTLINED_FUNCTION_28_0();
-      v56 = sub_272B87770();
+      v28 = sub_272B87770();
 LABEL_42:
-      v61 = v56;
-      if ((v56 & 0xC) == v38)
+      v33 = v28;
+      if ((v28 & 0xC) == v10)
       {
         OUTLINED_FUNCTION_28_0();
-        v61 = sub_272B73308(v70, v71, v72);
+        v33 = sub_272B73308(v38, v39, v40);
       }
 
-      v62 = v61 >> 16;
-      if (v61 >> 16 >= v53)
+      if (v33 >> 16 >= v25)
       {
-        goto LABEL_58;
+        goto LABEL_57;
       }
 
-      if ((v36 & 0x1000000000000000) != 0)
+      if ((v8 & 0x1000000000000000) != 0)
       {
         OUTLINED_FUNCTION_28_0();
         sub_272B87790();
       }
 
-      else if ((v36 & 0x2000000000000000) != 0)
+      else if ((v8 & 0x2000000000000000) == 0 && (v9 & 0x1000000000000000) == 0)
       {
-        a13 = v37;
-        a14 = v36 & 0xFFFFFFFFFFFFFFLL;
-        v65 = *(&a13 + v62);
+        OUTLINED_FUNCTION_69_0();
+        sub_272B878E0();
       }
 
-      else
-      {
-        v63 = (v36 & 0xFFFFFFFFFFFFFFFLL) + 32;
-        if ((v37 & 0x1000000000000000) == 0)
-        {
-          OUTLINED_FUNCTION_69_0();
-          v63 = sub_272B878E0();
-        }
-
-        v64 = *(v63 + v62);
-      }
-
-      v66 = v33[2];
+      v34 = v5[2];
       OUTLINED_FUNCTION_105();
-      if (v41 != v42)
+      if (v13 != v14)
       {
-        v68 = OUTLINED_FUNCTION_34_1();
-        ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v68, v66, v69);
-        v67 = *(v35 + 32);
+        v36 = OUTLINED_FUNCTION_34_1();
+        ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v36, v34, v37);
+        v35 = *(v7 + 32);
       }
 
-      OUTLINED_FUNCTION_60_0(v67);
-      v33[2] = v66 + 1;
-      if (!(v56 >> 14))
+      OUTLINED_FUNCTION_60_0(v35);
+      v5[2] = v34 + 1;
+      if (!(v28 >> 14))
       {
-        goto LABEL_59;
+        goto LABEL_58;
       }
     }
   }
 
-  LODWORD(v38) = 0;
-LABEL_72:
-  *v35 = v38;
-  v85 = *MEMORY[0x277D85DE8];
+  LODWORD(v10) = 0;
+LABEL_71:
+  *v7 = v10;
   OUTLINED_FUNCTION_75_0();
 }
 
@@ -401,20 +379,6 @@ void OUTLINED_FUNCTION_61(int a1, int a2, int a3, int a4, int a5, int a6, int a7
 {
 
   Verifier.rangeInBuffer(position:size:)(v22, 2);
-}
-
-uint64_t OUTLINED_FUNCTION_15()
-{
-  result = -v1 & 3;
-  v3 = *(v0 + 32);
-  return result;
-}
-
-_BYTE *OUTLINED_FUNCTION_25(_BYTE *result)
-{
-  result[40] = 1;
-  v1 = *(*result + 80);
-  return result;
 }
 
 void OUTLINED_FUNCTION_32(Swift::Int a1)
@@ -427,7 +391,6 @@ int64x2_t OUTLINED_FUNCTION_33@<Q0>(uint64_t a1@<X8>, int64x2_t a2@<Q0>, int64x2
 {
   result = vaddq_s64(a2, a3);
   *(a1 + 72) = result;
-  v4 = *(a1 + 64);
   return result;
 }
 
@@ -437,7 +400,7 @@ void OUTLINED_FUNCTION_62()
   Verifier.rangeInBuffer(position:size:)(v0, 2);
 }
 
-uint64_t OUTLINED_FUNCTION_177()
+uint64_t OUTLINED_FUNCTION_177(uint64_t a1, uint64_t a2)
 {
 
   return swift_allocError();
@@ -526,13 +489,6 @@ void OUTLINED_FUNCTION_186(Swift::Int a1)
   ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(a1, v2, v4);
 }
 
-uint64_t OUTLINED_FUNCTION_6(uint64_t a1, int a2)
-{
-  result = -a2 & 3;
-  v4 = *(*(v2 + 8) + 32);
-  return result;
-}
-
 unint64_t OUTLINED_FUNCTION_204()
 {
 
@@ -552,26 +508,12 @@ uint64_t OUTLINED_FUNCTION_7(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
   return swift_willThrow();
 }
 
-uint64_t OUTLINED_FUNCTION_6_0()
+__n128 OUTLINED_FUNCTION_6_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a12, uint64_t a9, uint64_t a10, __int128 a11, __n128 a13, uint64_t a14)
 {
-  result = -v1 & 3;
-  v3 = *(v0 + 32);
-  return result;
-}
-
-__n128 OUTLINED_FUNCTION_6_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 a11, __n128 a12, uint64_t a13)
-{
-  result = a12;
+  result = a13;
   *(a2 + 24) = a11;
-  *(a2 + 40) = a12;
-  *(a2 + 56) = a13;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_10()
-{
-  result = *v0;
-  v2 = *(*(*v0 + 24) + v0[6]);
+  *(a2 + 40) = a13;
+  *(a2 + 56) = a14;
   return result;
 }
 
@@ -583,68 +525,58 @@ uint64_t OUTLINED_FUNCTION_51(uint64_t result, __n128 a2)
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_10_1()
-{
-  result = -v1 & 3;
-  v3 = *(v0 + 32);
-  return result;
-}
-
-void static WK2_Metadata.add(readTime:_:)()
+void static WK2_Metadata.add(readTime:_:)(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_219();
-  v2 = v1;
-  v4 = v3;
-  v21 = *MEMORY[0x277D85DE8];
-  if (!v3)
+  v3 = v2;
+  v5 = v4;
+  if (!v4)
   {
     OUTLINED_FUNCTION_79();
-    if (!v5)
+    if (!v6)
     {
 LABEL_22:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_95();
-  if (v7 ^ v8 | v5)
+  if (v8 ^ v9 | v6)
   {
     OUTLINED_FUNCTION_38();
   }
 
-  v9 = *(v2 + 16);
-  if ((v9 & 0x8000000000000000) != 0)
+  v10 = *(v3 + 16);
+  if ((v10 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_24;
   }
 
-  if (HIDWORD(v9))
+  if (HIDWORD(v10))
   {
 LABEL_24:
     __break(1u);
     goto LABEL_25;
   }
 
-  v10 = OUTLINED_FUNCTION_6(v6, v9);
-  if (v7 != v8)
+  v11 = OUTLINED_FUNCTION_6(v7, v10);
+  if (v8 != v9)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v11, *(v2 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v12, *(v3 + 24));
   }
 
   OUTLINED_FUNCTION_26();
-  if (v7 != v8)
+  if (v8 != v9)
   {
     OUTLINED_FUNCTION_9();
-    v12 = *(v0 + 32);
   }
 
-  OUTLINED_FUNCTION_43(v12);
-  *(v13 - 4) = v4;
+  OUTLINED_FUNCTION_43();
+  *(v13 - 4) = v5;
   OUTLINED_FUNCTION_55();
-  if (!v5 & v14)
+  if (!v6 & v14)
   {
 LABEL_25:
     __break(1u);
@@ -684,61 +616,58 @@ void OUTLINED_FUNCTION_53_0(uint64_t a1@<X8>, uint64_t a2, uint64_t a3, uint64_t
   Verifier.rangeInBuffer(position:size:)(a17 + a1, 1);
 }
 
-void static WK2_Metadata.add(expireTime:_:)()
+void static WK2_Metadata.add(expireTime:_:)(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_219();
-  v2 = v1;
-  v4 = v3;
-  v21 = *MEMORY[0x277D85DE8];
-  if (!v3)
+  v3 = v2;
+  v5 = v4;
+  if (!v4)
   {
     OUTLINED_FUNCTION_79();
-    if (!v5)
+    if (!v6)
     {
 LABEL_22:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_95();
-  if (v7 ^ v8 | v5)
+  if (v8 ^ v9 | v6)
   {
     OUTLINED_FUNCTION_38();
   }
 
-  v9 = *(v2 + 16);
-  if ((v9 & 0x8000000000000000) != 0)
+  v10 = *(v3 + 16);
+  if ((v10 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_24;
   }
 
-  if (HIDWORD(v9))
+  if (HIDWORD(v10))
   {
 LABEL_24:
     __break(1u);
     goto LABEL_25;
   }
 
-  v10 = OUTLINED_FUNCTION_6(v6, v9);
-  if (v7 != v8)
+  v11 = OUTLINED_FUNCTION_6(v7, v10);
+  if (v8 != v9)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v11, *(v2 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v12, *(v3 + 24));
   }
 
   OUTLINED_FUNCTION_26();
-  if (v7 != v8)
+  if (v8 != v9)
   {
     OUTLINED_FUNCTION_9();
-    v12 = *(v0 + 32);
   }
 
-  OUTLINED_FUNCTION_43(v12);
-  *(v13 - 4) = v4;
+  OUTLINED_FUNCTION_43();
+  *(v13 - 4) = v5;
   OUTLINED_FUNCTION_55();
-  if (!v5 & v14)
+  if (!v6 & v14)
   {
 LABEL_25:
     __break(1u);
@@ -768,14 +697,11 @@ LABEL_25:
 
 void static WK2_Metadata.add(latitude:_:)(uint64_t a1, float a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
   if (a2 == 0.0)
   {
     OUTLINED_FUNCTION_79();
     if (!v5)
     {
-LABEL_22:
-      v19 = *MEMORY[0x277D85DE8];
       return;
     }
   }
@@ -790,14 +716,14 @@ LABEL_22:
   if ((v9 & 0x8000000000000000) != 0)
   {
     __break(1u);
-    goto LABEL_24;
+    goto LABEL_23;
   }
 
   if (HIDWORD(v9))
   {
-LABEL_24:
+LABEL_23:
     __break(1u);
-    goto LABEL_25;
+    goto LABEL_24;
   }
 
   v10 = OUTLINED_FUNCTION_3(v6, v9);
@@ -817,16 +743,21 @@ LABEL_24:
   OUTLINED_FUNCTION_1_0(v12);
   if (!v5 & v13)
   {
-LABEL_25:
+LABEL_24:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v15 & 1) == 0)
+  if (v15)
+  {
+    __break(1u);
+  }
+
+  else
   {
     if (*(v14 + 32))
     {
-      OUTLINED_FUNCTION_12_0(v14);
+      OUTLINED_FUNCTION_12_0();
       *v16 = v3 + 4;
       *(v16 + 4) = 10;
     }
@@ -838,22 +769,16 @@ LABEL_25:
     }
 
     *(v17 + 64) = v18;
-    goto LABEL_22;
   }
-
-  __break(1u);
 }
 
 void static WK2_Metadata.add(longitude:_:)(uint64_t a1, float a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
   if (a2 == 0.0)
   {
     OUTLINED_FUNCTION_79();
     if (!v5)
     {
-LABEL_22:
-      v19 = *MEMORY[0x277D85DE8];
       return;
     }
   }
@@ -868,14 +793,14 @@ LABEL_22:
   if ((v9 & 0x8000000000000000) != 0)
   {
     __break(1u);
-    goto LABEL_24;
+    goto LABEL_23;
   }
 
   if (HIDWORD(v9))
   {
-LABEL_24:
+LABEL_23:
     __break(1u);
-    goto LABEL_25;
+    goto LABEL_24;
   }
 
   v10 = OUTLINED_FUNCTION_3(v6, v9);
@@ -895,16 +820,21 @@ LABEL_24:
   OUTLINED_FUNCTION_1_0(v12);
   if (!v5 & v13)
   {
-LABEL_25:
+LABEL_24:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v15 & 1) == 0)
+  if (v15)
+  {
+    __break(1u);
+  }
+
+  else
   {
     if (*(v14 + 32))
     {
-      OUTLINED_FUNCTION_12_0(v14);
+      OUTLINED_FUNCTION_12_0();
       *v16 = v3 + 4;
       *(v16 + 4) = 12;
     }
@@ -916,17 +846,7 @@ LABEL_25:
     }
 
     *(v17 + 64) = v18;
-    goto LABEL_22;
   }
-
-  __break(1u);
-}
-
-uint64_t OUTLINED_FUNCTION_3(uint64_t a1, int a2)
-{
-  result = -a2 & 3;
-  v4 = *(*(v2 + 8) + 32);
-  return result;
 }
 
 uint64_t OUTLINED_FUNCTION_157(uint64_t a1, uint64_t a2)
@@ -936,25 +856,10 @@ uint64_t OUTLINED_FUNCTION_157(uint64_t a1, uint64_t a2)
   return swift_willThrow();
 }
 
-uint64_t OUTLINED_FUNCTION_3_3(uint64_t a1, int a2)
-{
-  result = -a2 & 3;
-  v4 = *(*(v2 + 8) + 32);
-  return result;
-}
-
 void OUTLINED_FUNCTION_2_1()
 {
 
   Verifier.rangeInBuffer(position:size:)(v0, 2);
-}
-
-uint64_t OUTLINED_FUNCTION_2_3()
-{
-  v4 = *(v1 + 4 * v3 + 28);
-  result = -v2 & 3;
-  v6 = *(v0 + 32);
-  return result;
 }
 
 void OUTLINED_FUNCTION_173(Swift::Int a1)
@@ -970,19 +875,20 @@ void OUTLINED_FUNCTION_12_2(Swift::Int a1)
   ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(a1, v2, v4);
 }
 
-__n128 OUTLINED_FUNCTION_17(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, __n128 a10, uint64_t a11)
+__n128 OUTLINED_FUNCTION_17(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a10, __int128 a9, __n128 a11, uint64_t a12)
 {
-  result = a10;
+  result = a11;
   *(a2 + 24) = a9;
-  *(a2 + 40) = a10;
-  *(a2 + 56) = a11;
+  *(a2 + 40) = a11;
+  *(a2 + 56) = a12;
   return result;
 }
 
-void OUTLINED_FUNCTION_92(int a1, unint64_t position, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, unint64_t a22)
+void OUTLINED_FUNCTION_92(int a1, unint64_t position, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
+  va_start(va, a21);
 
-  Verifier.visitTable(at:)(position, &a22);
+  Verifier.visitTable(at:)(position, va);
 }
 
 void OUTLINED_FUNCTION_9()
@@ -992,30 +898,29 @@ void OUTLINED_FUNCTION_9()
   ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(4, v1, v3);
 }
 
-void static WK2_Metadata.add(providerName:_:)()
+void static WK2_Metadata.add(providerName:_:)(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_219();
-  v4 = *MEMORY[0x277D85DE8];
-  v6 = OUTLINED_FUNCTION_120(v5);
-  if (!v3)
+  OUTLINED_FUNCTION_120();
+  if (!v5)
   {
     goto LABEL_28;
   }
 
-  OUTLINED_FUNCTION_58(v6, v7);
-  if (v9 != v10)
+  OUTLINED_FUNCTION_58();
+  if (v7 != v8)
   {
     OUTLINED_FUNCTION_38();
   }
 
-  v11 = *(v0 + 16);
-  if ((v11 & 0x8000000000000000) != 0)
+  v9 = *(v2 + 16);
+  if ((v9 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_30;
   }
 
-  if (HIDWORD(v11))
+  if (HIDWORD(v9))
   {
 LABEL_30:
     __break(1u);
@@ -1024,68 +929,67 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v12 = OUTLINED_FUNCTION_3(v8, v11);
-  if (v9 != v10)
+  v10 = OUTLINED_FUNCTION_3(v6, v9);
+  if (v7 != v8)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v13, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v11, *(v2 + 24));
   }
 
   OUTLINED_FUNCTION_119();
-  if (v14)
+  if (v12)
   {
     goto LABEL_31;
   }
 
   OUTLINED_FUNCTION_118();
-  if (v15)
+  if (v13)
   {
     OUTLINED_FUNCTION_79();
-    if (!v15)
+    if (!v13)
     {
 LABEL_28:
-      v24 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
-  v16 = OUTLINED_FUNCTION_15();
-  if (v9 != v10)
+  v14 = OUTLINED_FUNCTION_15();
+  if (v7 != v8)
   {
-    OUTLINED_FUNCTION_186(v16);
+    OUTLINED_FUNCTION_186(v14);
   }
 
   OUTLINED_FUNCTION_27();
-  if (v9 != v10)
+  if (v7 != v8)
   {
     OUTLINED_FUNCTION_9();
-    v17 = *(v1 + 32);
+    v15 = *(v3 + 32);
   }
 
-  OUTLINED_FUNCTION_4(v17);
-  if (!v15 & v18)
+  OUTLINED_FUNCTION_4(v15);
+  if (!v13 & v16)
   {
 LABEL_32:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v20 & 1) == 0)
+  if ((v18 & 1) == 0)
   {
-    if (*(v19 + 32))
+    if (*(v17 + 32))
     {
-      OUTLINED_FUNCTION_12_0(v19);
-      *v21 = v2;
-      *(v21 + 4) = 16;
+      OUTLINED_FUNCTION_12_0();
+      *v19 = v4;
+      *(v19 + 4) = 16;
     }
 
-    OUTLINED_FUNCTION_33(v19, *(v19 + 72), xmmword_272B87CB0);
-    if (v23 <= 0x10)
+    OUTLINED_FUNCTION_33(v17, *(v17 + 72), xmmword_272B87CB0);
+    if (v21 <= 0x10)
     {
-      LOWORD(v23) = 16;
+      LOWORD(v21) = 16;
     }
 
-    *(v22 + 64) = v23;
+    *(v20 + 64) = v21;
     goto LABEL_28;
   }
 
@@ -1099,27 +1003,17 @@ uint64_t OUTLINED_FUNCTION_56@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>, __n128 a3
   *(a2 + 24) = v3;
 }
 
-uint64_t OUTLINED_FUNCTION_4_3(uint64_t result)
-{
-  v2 = *(result + 16);
-  *(v1 + 40) = 1;
-  v3 = *(v1 + 64);
-  return result;
-}
-
 void static WK2_Metadata.add(temporarilyUnavailable:_:)()
 {
   OUTLINED_FUNCTION_219();
   v1 = v0;
   v3 = v2;
-  v16 = *MEMORY[0x277D85DE8];
   if ((v2 & 1) == 0)
   {
     OUTLINED_FUNCTION_79();
     if (!v4)
     {
 LABEL_21:
-      v15 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
@@ -1192,8 +1086,6 @@ LABEL_24:
 
 void static WK2_Metadata.add(attributionUrl:_:)()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = *MEMORY[0x277D85DE8];
 
   sub_272B7E91C();
 }
@@ -1203,7 +1095,6 @@ Swift::UInt32 __swiftcall FlatBufferBuilder.endTable(at:)(Swift::UInt32 at)
   OUTLINED_FUNCTION_73_0();
   v2 = v1;
   v4 = v3;
-  v49 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_27_0();
   if (v7 ^ v8 | v6)
   {
@@ -1244,36 +1135,35 @@ LABEL_42:
   if (v7 != v8)
   {
     ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(4, v12, v2[3]);
-    v17 = *(v13 + 32);
   }
 
-  OUTLINED_FUNCTION_3_2(v17);
-  *(v18 - 4) = 0;
+  OUTLINED_FUNCTION_3_2();
+  *(v17 - 4) = 0;
   v2[2] = v16;
   OUTLINED_FUNCTION_58_0();
-  if (!v6 & v19)
+  if (!v6 & v18)
   {
     goto LABEL_41;
   }
 
-  v20 = v16 - v4;
-  v21 = *v2;
-  v22 = *(*v2 + 64);
-  v23 = v22 + 2 + v16;
+  v19 = v16 - v4;
+  v20 = *v2;
+  v21 = *(*v2 + 64);
+  v22 = v21 + 2 + v16;
   OUTLINED_FUNCTION_17_0();
   if (v7 != v8)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v22 + 2, v16, v2[3]);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v21 + 2, v16, v2[3]);
   }
 
-  v2[2] = v23;
-  if (HIWORD(v20))
+  v2[2] = v22;
+  if (HIWORD(v19))
   {
     goto LABEL_42;
   }
 
-  *(*(v13 + 24) + *(v13 + 32) - (v22 + v16)) = v20;
-  if (v22 > 0xFFFD)
+  *(*(v13 + 24) + *(v13 + 32) - (v21 + v16)) = v19;
+  if (v21 > 0xFFFD)
   {
 LABEL_43:
     __break(1u);
@@ -1282,84 +1172,84 @@ LABEL_44:
     goto LABEL_45;
   }
 
-  v24 = 0;
-  *(*(v13 + 24) + *(v13 + 32) - v23) = v22 + 2;
-  v25 = *(v21 + 80);
-  while (v24 < v25)
+  v23 = 0;
+  *(*(v13 + 24) + *(v13 + 32) - v22) = v21 + 2;
+  v24 = *(v20 + 80);
+  while (v23 < v24)
   {
-    if (*(v21 + 48))
+    if (*(v20 + 48))
     {
       goto LABEL_48;
     }
 
-    v26 = *(v21 + 32);
-    if (!v26)
+    v25 = *(v20 + 32);
+    if (!v25)
     {
       goto LABEL_49;
     }
 
-    v27 = *(v26 + v24);
-    if (v27)
+    v26 = *(v25 + v23);
+    if (v26)
     {
-      v28 = v16 - v27;
-      if (HIWORD(v28))
+      v27 = v16 - v26;
+      if (HIWORD(v27))
       {
         __break(1u);
         goto LABEL_39;
       }
 
-      *(*(v13 + 24) + *(v13 + 32) - v23 + *(v26 + v24 + 4)) = v28;
+      *(*(v13 + 24) + *(v13 + 32) - v22 + *(v25 + v23 + 4)) = v27;
     }
 
-    v24 += 8;
+    v23 += 8;
   }
 
-  *(v21 + 64) = 0;
-  *(v21 + 72) = 0;
-  *(v21 + 80) = 0;
-  if (v23 > 0xFFFFFFFFLL)
+  *(v20 + 64) = 0;
+  *(v20 + 72) = 0;
+  *(v20 + 80) = 0;
+  if (v22 > 0xFFFFFFFFLL)
   {
     goto LABEL_44;
   }
 
-  v29 = *(v13 + 24);
-  v30 = *(v13 + 32);
-  v48 = v2;
-  v31 = v2[4];
-  v47 = v2 + 4;
-  v32 = *(v31 + 16);
-  if (v32)
+  v28 = *(v13 + 24);
+  v29 = *(v13 + 32);
+  v46 = v2;
+  v30 = v2[4];
+  v45 = v2 + 4;
+  v31 = *(v30 + 16);
+  if (v31)
   {
-    v33 = *(v29 + v30 - v23);
-    v34 = (v31 + 32);
+    v32 = *(v28 + v29 - v22);
+    v33 = (v30 + 32);
     while (1)
     {
-      v36 = *v34++;
-      v35 = v36;
-      v37 = v30 - v36;
-      if (*(v29 + v37) == v33 && !memcmp((v29 + v37), (v29 + v30 - v23), v33))
+      v35 = *v33++;
+      v34 = v35;
+      v36 = v29 - v35;
+      if (*(v28 + v36) == v32 && !memcmp((v28 + v36), (v28 + v29 - v22), v32))
       {
         break;
       }
 
-      if (!--v32)
+      if (!--v31)
       {
         goto LABEL_32;
       }
     }
 
-    v41 = v35 - v16;
-    if (v41 >= 0xFFFFFFFF80000000)
+    v40 = v34 - v16;
+    if (v40 >= 0xFFFFFFFF80000000)
     {
-      if (v41 <= 0x7FFFFFFF)
+      if (v40 <= 0x7FFFFFFF)
       {
-        v42 = v30 - v16;
-        *(v29 + v42) = v41;
-        v43 = *(v13 + 32);
-        v44 = v43 - v42;
-        bzero((*(v13 + 24) + v43 - v23), v23 - (v43 - v42));
-        v40 = v48;
-        v48[2] = v44;
+        v41 = v29 - v16;
+        *(v28 + v41) = v40;
+        v42 = *(v13 + 32);
+        v43 = v42 - v41;
+        bzero((*(v13 + 24) + v42 - v22), v22 - (v42 - v41));
+        v39 = v46;
+        v46[2] = v43;
         goto LABEL_37;
       }
 
@@ -1377,25 +1267,24 @@ LABEL_46:
   }
 
 LABEL_32:
-  if (v23 - v16 < 0)
+  if (v22 - v16 < 0)
   {
 LABEL_45:
     __break(1u);
     goto LABEL_46;
   }
 
-  *(v29 + v30 - v16) = v23 - v16;
+  *(v28 + v29 - v16) = v22 - v16;
   sub_272B48220();
-  v38 = *(*v47 + 16);
-  sub_272B48270(v38);
-  v39 = *v47;
-  *(v39 + 16) = v38 + 1;
-  *(v39 + 4 * v38 + 32) = v23;
-  *v47 = v39;
-  v40 = v48;
+  v37 = *(*v45 + 16);
+  sub_272B48270(v37);
+  v38 = *v45;
+  *(v38 + 16) = v37 + 1;
+  *(v38 + 4 * v37 + 32) = v22;
+  *v45 = v38;
+  v39 = v46;
 LABEL_37:
-  *(v40 + 40) = 0;
-  v45 = *MEMORY[0x277D85DE8];
+  *(v39 + 40) = 0;
   OUTLINED_FUNCTION_74_0();
   return result;
 }
@@ -1473,16 +1362,16 @@ char *sub_272B48058(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-uint64_t OUTLINED_FUNCTION_26_2()
+uint64_t OUTLINED_FUNCTION_26_2(uint64_t a1, uint64_t a2, uint64_t a3, ...)
 {
 
   return sub_272B87730();
 }
 
-uint64_t OUTLINED_FUNCTION_41_1()
+void OUTLINED_FUNCTION_41_1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
 
-  return sub_272B5D6A8();
+  sub_272B5D6A8();
 }
 
 uint64_t static WK2_Metadata.endMetadata(_:start:)@<X0>(Swift::UInt32 at@<W1>, _DWORD *a2@<X8>)
@@ -1511,7 +1400,7 @@ char *sub_272B48220()
   *v0 = v1;
   if (!result)
   {
-    result = sub_272B48058(result, *(v1 + 2) + 1, 1, v1);
+    result = sub_272B48058(result, *(v1 + 16) + 1, 1, v1);
     *v0 = result;
   }
 
@@ -1532,76 +1421,71 @@ char *sub_272B48270(char *result)
 
 uint64_t sub_272B482D0(void (*a1)(char *, char *), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v36 = a8;
-  v45 = a1;
-  v46 = a2;
-  v11 = *(a5 - 8);
-  v12 = *(v11 + 64);
+  v29 = a8;
+  v38 = a1;
+  v39 = a2;
+  v10 = *(a5 - 8);
   MEMORY[0x28223BE20](a1);
-  v47 = &v34 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = *(v14 + 8);
+  v40 = &v27 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v49 = *(AssociatedTypeWitness - 8);
-  v16 = *(v49 + 64);
-  v17 = MEMORY[0x28223BE20](AssociatedTypeWitness);
-  v19 = &v34 - v18;
-  v20 = *(*(a4 - 8) + 64);
-  MEMORY[0x28223BE20](v17);
-  v43 = &v34 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = swift_getAssociatedTypeWitness();
-  v37 = *(v22 - 8);
-  v38 = v22;
-  v23 = *(v37 + 64);
-  MEMORY[0x28223BE20](v22);
-  v25 = &v34 - v24;
-  v26 = sub_272B87870();
-  if (!v26)
+  v42 = *(AssociatedTypeWitness - 8);
+  v12 = MEMORY[0x28223BE20](AssociatedTypeWitness);
+  v14 = &v27 - v13;
+  MEMORY[0x28223BE20](v12);
+  v36 = &v27 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = swift_getAssociatedTypeWitness();
+  v30 = *(v16 - 8);
+  v31 = v16;
+  MEMORY[0x28223BE20](v16);
+  v18 = &v27 - v17;
+  v19 = sub_272B87870();
+  if (!v19)
   {
     return sub_272B877F0();
   }
 
-  v48 = v26;
-  v52 = sub_272B87910();
-  v39 = sub_272B87920();
+  v41 = v19;
+  v45 = sub_272B87910();
+  v32 = sub_272B87920();
   sub_272B878F0();
   result = sub_272B87860();
-  if ((v48 & 0x8000000000000000) == 0)
+  if ((v41 & 0x8000000000000000) == 0)
   {
-    v34 = v11;
-    v35 = a5;
-    v28 = 0;
-    v40 = (v49 + 16);
-    v41 = (v49 + 8);
-    v42 = v8;
-    while (!__OFADD__(v28, 1))
+    v27 = v10;
+    v28 = a5;
+    v21 = 0;
+    v33 = (v42 + 16);
+    v34 = (v42 + 8);
+    v35 = v8;
+    while (!__OFADD__(v21, 1))
     {
-      v49 = v28 + 1;
-      v29 = sub_272B87890();
-      v30 = v19;
-      v31 = v19;
-      v32 = AssociatedTypeWitness;
-      (*v40)(v30);
-      v29(v51, 0);
-      v33 = v50;
-      v45(v31, v47);
-      if (v33)
+      v42 = v21 + 1;
+      v22 = sub_272B87890();
+      v23 = v14;
+      v24 = v14;
+      v25 = AssociatedTypeWitness;
+      (*v33)(v23);
+      v22(v44, 0);
+      v26 = v43;
+      v38(v24, v40);
+      if (v26)
       {
-        (*v41)(v31, v32);
-        (*(v37 + 8))(v25, v38);
+        (*v34)(v24, v25);
+        (*(v30 + 8))(v18, v31);
 
-        return (*(v34 + 32))(v36, v47, v35);
+        return (*(v27 + 32))(v29, v40, v28);
       }
 
-      v50 = 0;
-      (*v41)(v31, v32);
+      v43 = 0;
+      (*v34)(v24, v25);
       sub_272B87900();
       result = sub_272B87880();
-      ++v28;
-      v19 = v31;
-      if (v49 == v48)
+      ++v21;
+      v14 = v24;
+      if (v42 == v41)
       {
-        (*(v37 + 8))(v25, v38);
-        return v52;
+        (*(v30 + 8))(v18, v31);
+        return v45;
       }
     }
 
@@ -1658,7 +1542,6 @@ LABEL_10:
 
 uint64_t OUTLINED_FUNCTION_20_1()
 {
-  v2 = *(v0 - 128);
 
   return sub_272B87960();
 }
@@ -1667,34 +1550,32 @@ void sub_272B48810()
 {
   OUTLINED_FUNCTION_219();
   v3 = v2;
-  v4 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_140(v5);
+  OUTLINED_FUNCTION_140();
   if (!v1)
   {
     OUTLINED_FUNCTION_79();
-    if (!v6)
+    if (!v4)
     {
 LABEL_22:
-      v21 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_100();
-  if (v7 ^ v8 | v6)
+  if (v5 ^ v6 | v4)
   {
     OUTLINED_FUNCTION_50();
   }
 
-  v9 = *(v3 + 16);
-  if ((v9 & 0x8000000000000000) != 0)
+  v7 = *(v3 + 16);
+  if ((v7 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_24;
   }
 
-  if (HIDWORD(v9))
+  if (HIDWORD(v7))
   {
 LABEL_24:
     __break(1u);
@@ -1702,44 +1583,44 @@ LABEL_24:
   }
 
   OUTLINED_FUNCTION_39();
-  if (v7 != v8)
+  if (v5 != v6)
   {
-    v10 = OUTLINED_FUNCTION_98();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v9, v11);
+    v8 = OUTLINED_FUNCTION_98();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v8, v7, v9);
   }
 
   OUTLINED_FUNCTION_40();
-  if (v7 ^ v8 | v6)
+  if (v5 ^ v6 | v4)
   {
-    v13 = OUTLINED_FUNCTION_99();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v9, v14);
-    v12 = *(v0 + 32);
+    v11 = OUTLINED_FUNCTION_99();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v7, v12);
+    v10 = *(v0 + 32);
   }
 
-  OUTLINED_FUNCTION_12(v12);
-  if (v6)
+  OUTLINED_FUNCTION_12(v10);
+  if (v4)
   {
 LABEL_25:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v16 & 1) == 0)
+  if ((v14 & 1) == 0)
   {
-    if (*(v15 + 32))
+    if (*(v13 + 32))
     {
-      OUTLINED_FUNCTION_41(v15);
+      OUTLINED_FUNCTION_41(v13);
       OUTLINED_FUNCTION_216();
     }
 
-    OUTLINED_FUNCTION_33(v15, *(v15 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_33(v13, *(v13 + 72), xmmword_272B87CB0);
     OUTLINED_FUNCTION_206();
-    if (!(!v6 & v20))
+    if (!(!v4 & v18))
     {
-      v18 = v19;
+      v16 = v17;
     }
 
-    *(v17 + 64) = v18;
+    *(v15 + 64) = v16;
     goto LABEL_22;
   }
 
@@ -1752,7 +1633,7 @@ void OUTLINED_FUNCTION_81()
   Verifier.rangeInBuffer(position:size:)(v0, 2);
 }
 
-uint64_t OUTLINED_FUNCTION_199()
+uint64_t OUTLINED_FUNCTION_199(uint64_t a1, uint64_t a2, ...)
 {
 
   return sub_272B87730();
@@ -1810,7 +1691,7 @@ uint64_t OUTLINED_FUNCTION_0_7@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 
 void String.encode(using:)(void *a1@<X0>, unint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v44[3] = *MEMORY[0x277D85DE8];
+  v43[3] = *MEMORY[0x277D85DE8];
   v8 = HIBYTE(a3) & 0xF;
   if ((a3 & 0x1000000000000000) != 0)
   {
@@ -1856,7 +1737,7 @@ LABEL_69:
     goto LABEL_70;
   }
 
-  v43 = a4;
+  v42 = a4;
   v11 = ~(v10 + v9) & 3;
   v12 = v11 + v10;
   a4 = a1[1];
@@ -1969,9 +1850,9 @@ LABEL_35:
 
     else if ((a3 & 0x2000000000000000) != 0)
     {
-      v44[0] = a2;
-      v44[1] = a3 & 0xFFFFFFFFFFFFFFLL;
-      v29 = *(v44 + v27);
+      v43[0] = a2;
+      v43[1] = a3 & 0xFFFFFFFFFFFFFFLL;
+      v29 = *(v43 + v27);
     }
 
     else
@@ -2058,33 +1939,32 @@ LABEL_73:
     __break(1u);
   }
 
-  *v43 = v8;
-  v42 = *MEMORY[0x277D85DE8];
+  *v42 = v8;
 }
 
 void Collection<>.encode(using:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X7>, _DWORD *a6@<X8>)
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v35 = a2;
-  v36 = a3;
-  v37 = a4;
-  v38 = a1;
-  v12 = sub_272B482D0(sub_272B486EC, v34, a2, &type metadata for Offset, MEMORY[0x277D84A98], a3, MEMORY[0x277D84AC0], a5);
-  v13 = OUTLINED_FUNCTION_4_3(v12);
-  if (v15 ^ v16 | v14)
+  v37 = *MEMORY[0x277D85DE8];
+  v33 = a2;
+  v34 = a3;
+  v35 = a4;
+  v36 = a1;
+  sub_272B482D0(sub_272B486EC, v32, a2, &type metadata for Offset, MEMORY[0x277D84A98], a3, MEMORY[0x277D84AC0], a5);
+  OUTLINED_FUNCTION_4_3();
+  if (v14 ^ v15 | v13)
   {
     OUTLINED_FUNCTION_18_0();
   }
 
-  v17 = *(a1 + 16);
-  if (v17 > 0xFFFFFFFFLL)
+  v16 = *(a1 + 16);
+  if (v16 > 0xFFFFFFFFLL)
   {
 LABEL_47:
     __break(1u);
     goto LABEL_48;
   }
 
-  if ((v17 | (4 * v7)) < 0)
+  if ((v16 | (4 * v7)) < 0)
   {
 LABEL_48:
     __break(1u);
@@ -2100,10 +1980,10 @@ LABEL_50:
     goto LABEL_51;
   }
 
-  v18 = OUTLINED_FUNCTION_3_3(v13, v17);
-  if (v15 != v16)
+  v17 = OUTLINED_FUNCTION_3_3(v12, v16);
+  if (v14 != v15)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v18, v19, *(a1 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v17, v18, *(a1 + 24));
   }
 
   *(a1 + 16) = v8;
@@ -2114,33 +1994,33 @@ LABEL_50:
 
   if (!HIDWORD(v8))
   {
-    v32 = a6;
-    v33 = v7;
-    v20 = OUTLINED_FUNCTION_10_1();
-    if (v15 != v16)
+    v30 = a6;
+    v31 = v7;
+    v19 = OUTLINED_FUNCTION_10_1();
+    if (v14 != v15)
     {
-      OUTLINED_FUNCTION_12_2(v20);
+      OUTLINED_FUNCTION_12_2(v19);
     }
 
     *(a1 + 16) = v7;
-    v21 = MEMORY[0x10];
+    v20 = MEMORY[0x10];
     if (!MEMORY[0x10])
     {
       goto LABEL_52;
     }
 
     LODWORD(a6) = -1;
-    while (v21 <= MEMORY[0x10])
+    while (v20 <= MEMORY[0x10])
     {
       if (v7 > 0xFFFFFFFFLL)
       {
         goto LABEL_44;
       }
 
-      v22 = OUTLINED_FUNCTION_2_3();
-      if (v15 != v16)
+      v21 = OUTLINED_FUNCTION_2_3();
+      if (v14 != v15)
       {
-        OUTLINED_FUNCTION_13_2(v22);
+        OUTLINED_FUNCTION_13_2(v21);
       }
 
       if (v8 > 0xFFFFFFFFLL)
@@ -2148,28 +2028,28 @@ LABEL_50:
         goto LABEL_45;
       }
 
-      v23 = OUTLINED_FUNCTION_11_1();
-      if (v15 != v16)
+      v22 = OUTLINED_FUNCTION_11_1();
+      if (v14 != v15)
       {
-        OUTLINED_FUNCTION_12_2(v23);
-        v24 = *(v6 + 32);
+        OUTLINED_FUNCTION_12_2(v22);
+        v23 = *(v6 + 32);
       }
 
       v7 = v9 + 4;
-      if (v24 < v9 + 4)
+      if (v23 < v9 + 4)
       {
-        v25 = OUTLINED_FUNCTION_21_0();
-        ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v25, v9, v26);
-        v24 = *(v6 + 32);
+        v24 = OUTLINED_FUNCTION_21_0();
+        ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v24, v9, v25);
+        v23 = *(v6 + 32);
       }
 
-      OUTLINED_FUNCTION_1_3(v24);
-      if (!(v15 ^ v16 | v14))
+      OUTLINED_FUNCTION_1_3(v23);
+      if (!(v14 ^ v15 | v13))
       {
         goto LABEL_46;
       }
 
-      if (!--v21)
+      if (!--v20)
       {
 
         *(a1 + 16) = v7;
@@ -2193,7 +2073,7 @@ LABEL_52:
 
 LABEL_32:
   *(a1 + 40) = 0;
-  if (v33 >> 31)
+  if (v31 >> 31)
   {
     __break(1u);
     goto LABEL_54;
@@ -2207,68 +2087,54 @@ LABEL_54:
   }
 
   OUTLINED_FUNCTION_5_1();
-  if (v15 != v16)
+  if (v14 != v15)
   {
-    OUTLINED_FUNCTION_13_2(v27);
+    OUTLINED_FUNCTION_13_2(v26);
   }
 
   OUTLINED_FUNCTION_19();
-  if (v15 != v16)
+  if (v14 != v15)
   {
-    v29 = OUTLINED_FUNCTION_21_0();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v29, (-v7 & 3) + v7, v30);
-    v28 = *(v6 + 32);
+    v28 = OUTLINED_FUNCTION_21_0();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v28, (-v7 & 3) + v7, v29);
+    v27 = *(v6 + 32);
   }
 
-  OUTLINED_FUNCTION_5_2(v28);
-  if (!(v15 ^ v16 | v14))
+  OUTLINED_FUNCTION_5_2(v27);
+  if (!(v14 ^ v15 | v13))
   {
 LABEL_55:
     __break(1u);
   }
 
-  *v32 = a6;
-  v31 = *MEMORY[0x277D85DE8];
+  *v30 = a6;
 }
 
 uint64_t sub_272B49154(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v7 = *(a5 + 8);
-  v8 = *(a4 + 8);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   return v7(a2, AssociatedTypeWitness, a5);
 }
 
 void static WK2_Pollutant.add(pollutantType:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B48810();
 }
 
 void static WK2_Pollutant.add(amount:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_HourTide.add(height:_:)();
 }
 
-uint64_t OUTLINED_FUNCTION_8_0()
-{
-  result = -v1 & 3;
-  v3 = *(v0 + 32);
-  return result;
-}
-
-void sub_272B492EC()
+void sub_272B492EC(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -2276,7 +2142,6 @@ void sub_272B492EC()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -2288,7 +2153,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -2305,15 +2170,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -2350,34 +2215,32 @@ void sub_272B493FC()
 {
   OUTLINED_FUNCTION_219();
   v3 = v2;
-  v4 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_140(v5);
+  OUTLINED_FUNCTION_140();
   if ((v1 & 1) == 0)
   {
     OUTLINED_FUNCTION_79();
-    if (!v6)
+    if (!v4)
     {
 LABEL_22:
-      v21 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_100();
-  if (v7 ^ v8 | v6)
+  if (v5 ^ v6 | v4)
   {
     OUTLINED_FUNCTION_50();
   }
 
-  v9 = *(v3 + 16);
-  if ((v9 & 0x8000000000000000) != 0)
+  v7 = *(v3 + 16);
+  if ((v7 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_24;
   }
 
-  if (HIDWORD(v9))
+  if (HIDWORD(v7))
   {
 LABEL_24:
     __break(1u);
@@ -2385,44 +2248,44 @@ LABEL_24:
   }
 
   OUTLINED_FUNCTION_39();
-  if (v7 != v8)
+  if (v5 != v6)
   {
-    v10 = OUTLINED_FUNCTION_98();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v9, v11);
+    v8 = OUTLINED_FUNCTION_98();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v8, v7, v9);
   }
 
   OUTLINED_FUNCTION_40();
-  if (v7 ^ v8 | v6)
+  if (v5 ^ v6 | v4)
   {
-    v13 = OUTLINED_FUNCTION_99();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v9, v14);
-    v12 = *(v0 + 32);
+    v11 = OUTLINED_FUNCTION_99();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v7, v12);
+    v10 = *(v0 + 32);
   }
 
-  OUTLINED_FUNCTION_12(v12);
-  if (v6)
+  OUTLINED_FUNCTION_12(v10);
+  if (v4)
   {
 LABEL_25:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v16 & 1) == 0)
+  if ((v14 & 1) == 0)
   {
-    if (*(v15 + 32))
+    if (*(v13 + 32))
     {
-      OUTLINED_FUNCTION_41(v15);
+      OUTLINED_FUNCTION_41(v13);
       OUTLINED_FUNCTION_193();
     }
 
-    OUTLINED_FUNCTION_33(v15, *(v15 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_33(v13, *(v13 + 72), xmmword_272B87CB0);
     OUTLINED_FUNCTION_191();
-    if (!(!v6 & v20))
+    if (!(!v4 & v18))
     {
-      v18 = v19;
+      v16 = v17;
     }
 
-    *(v17 + 64) = v18;
+    *(v15 + 64) = v16;
     goto LABEL_22;
   }
 
@@ -2431,9 +2294,7 @@ LABEL_25:
 
 void static WK2_Pollutant.add(units:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B493FC();
 }
@@ -2466,13 +2327,13 @@ uint64_t OUTLINED_FUNCTION_1_5()
 void OUTLINED_FUNCTION_1_6(void *a1, uint64_t a2, uint64_t a3, double a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, double a17, int a18, char a19)
 {
   a17 = a4;
-  a18 = v12;
-  a19 = v13;
+  a18 = v19;
+  a19 = v20;
 
   getCheckedRoot<A>(byteBuffer:fileId:options:)(a1, a2, a3, &a17, a6, a7, a8);
 }
 
-void static WK2_AirQuality.startAirQuality(_:)(_BYTE *a1)
+void static WK2_AirQuality.startAirQuality(_:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_25(a1);
   OUTLINED_FUNCTION_141();
@@ -2511,9 +2372,7 @@ LABEL_11:
 
 void static WK2_CurrentWeather.add(metadata:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B49730();
 }
@@ -2521,27 +2380,26 @@ void static WK2_CurrentWeather.add(metadata:_:)()
 void sub_272B49730()
 {
   OUTLINED_FUNCTION_219();
-  v3 = *MEMORY[0x277D85DE8];
-  v5 = OUTLINED_FUNCTION_120(v4);
+  OUTLINED_FUNCTION_120();
   if (!v2)
   {
     goto LABEL_28;
   }
 
-  OUTLINED_FUNCTION_58(v5, v6);
-  if (v8 != v9)
+  OUTLINED_FUNCTION_58();
+  if (v4 != v5)
   {
     OUTLINED_FUNCTION_38();
   }
 
-  v10 = *(v0 + 16);
-  if ((v10 & 0x8000000000000000) != 0)
+  v6 = *(v0 + 16);
+  if ((v6 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_30;
   }
 
-  if (HIDWORD(v10))
+  if (HIDWORD(v6))
   {
 LABEL_30:
     __break(1u);
@@ -2550,69 +2408,68 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v11 = OUTLINED_FUNCTION_3(v7, v10);
-  if (v8 != v9)
+  v7 = OUTLINED_FUNCTION_3(v3, v6);
+  if (v4 != v5)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v12, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v8, *(v0 + 24));
   }
 
   OUTLINED_FUNCTION_119();
-  if (v13)
+  if (v9)
   {
     goto LABEL_31;
   }
 
   OUTLINED_FUNCTION_118();
-  if (v14)
+  if (v10)
   {
     OUTLINED_FUNCTION_79();
-    if (!v14)
+    if (!v10)
     {
 LABEL_28:
-      v25 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
-  v15 = OUTLINED_FUNCTION_15();
-  if (v8 != v9)
+  v11 = OUTLINED_FUNCTION_15();
+  if (v4 != v5)
   {
-    OUTLINED_FUNCTION_186(v15);
+    OUTLINED_FUNCTION_186(v11);
   }
 
   OUTLINED_FUNCTION_27();
-  if (v8 != v9)
+  if (v4 != v5)
   {
-    v17 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v17, v2, v18);
-    v16 = *(v1 + 32);
+    v13 = OUTLINED_FUNCTION_83();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v2, v14);
+    v12 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_4(v16);
-  if (!v14 & v19)
+  OUTLINED_FUNCTION_4(v12);
+  if (!v10 & v15)
   {
 LABEL_32:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v21 & 1) == 0)
+  if ((v17 & 1) == 0)
   {
-    if (*(v20 + 32))
+    if (*(v16 + 32))
     {
-      OUTLINED_FUNCTION_57(v20);
+      OUTLINED_FUNCTION_57(v16);
       OUTLINED_FUNCTION_216();
     }
 
-    OUTLINED_FUNCTION_33(v20, *(v20 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_33(v16, *(v16 + 72), xmmword_272B87CB0);
     OUTLINED_FUNCTION_206();
-    if (!(!v14 & v19))
+    if (!(!v10 & v15))
     {
-      v23 = v24;
+      v19 = v20;
     }
 
-    *(v22 + 64) = v23;
+    *(v18 + 64) = v19;
     goto LABEL_28;
   }
 
@@ -2621,9 +2478,7 @@ LABEL_32:
 
 void static WK2_AirQuality.add(metadata:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(metadata:_:)();
 }
@@ -2631,27 +2486,26 @@ void static WK2_AirQuality.add(metadata:_:)()
 void sub_272B49898()
 {
   OUTLINED_FUNCTION_219();
-  v3 = *MEMORY[0x277D85DE8];
-  v5 = OUTLINED_FUNCTION_120(v4);
+  OUTLINED_FUNCTION_120();
   if (!v2)
   {
     goto LABEL_28;
   }
 
-  OUTLINED_FUNCTION_58(v5, v6);
-  if (v8 != v9)
+  OUTLINED_FUNCTION_58();
+  if (v4 != v5)
   {
     OUTLINED_FUNCTION_38();
   }
 
-  v10 = *(v0 + 16);
-  if ((v10 & 0x8000000000000000) != 0)
+  v6 = *(v0 + 16);
+  if ((v6 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_30;
   }
 
-  if (HIDWORD(v10))
+  if (HIDWORD(v6))
   {
 LABEL_30:
     __break(1u);
@@ -2660,69 +2514,68 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v11 = OUTLINED_FUNCTION_3(v7, v10);
-  if (v8 != v9)
+  v7 = OUTLINED_FUNCTION_3(v3, v6);
+  if (v4 != v5)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v12, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v8, *(v0 + 24));
   }
 
   OUTLINED_FUNCTION_119();
-  if (v13)
+  if (v9)
   {
     goto LABEL_31;
   }
 
   OUTLINED_FUNCTION_118();
-  if (v14)
+  if (v10)
   {
     OUTLINED_FUNCTION_79();
-    if (!v14)
+    if (!v10)
     {
 LABEL_28:
-      v25 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
-  v15 = OUTLINED_FUNCTION_15();
-  if (v8 != v9)
+  v11 = OUTLINED_FUNCTION_15();
+  if (v4 != v5)
   {
-    OUTLINED_FUNCTION_186(v15);
+    OUTLINED_FUNCTION_186(v11);
   }
 
   OUTLINED_FUNCTION_27();
-  if (v8 != v9)
+  if (v4 != v5)
   {
-    v17 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v17, v2, v18);
-    v16 = *(v1 + 32);
+    v13 = OUTLINED_FUNCTION_83();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v2, v14);
+    v12 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_4(v16);
-  if (!v14 & v19)
+  OUTLINED_FUNCTION_4(v12);
+  if (!v10 & v15)
   {
 LABEL_32:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v21 & 1) == 0)
+  if ((v17 & 1) == 0)
   {
-    if (*(v20 + 32))
+    if (*(v16 + 32))
     {
-      OUTLINED_FUNCTION_57(v20);
+      OUTLINED_FUNCTION_57(v16);
       OUTLINED_FUNCTION_211();
     }
 
-    OUTLINED_FUNCTION_33(v20, *(v20 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_33(v16, *(v16 + 72), xmmword_272B87CB0);
     OUTLINED_FUNCTION_238();
-    if (!(!v14 & v19))
+    if (!(!v10 & v15))
     {
-      v23 = v24;
+      v19 = v20;
     }
 
-    *(v22 + 64) = v23;
+    *(v18 + 64) = v19;
     goto LABEL_28;
   }
 
@@ -2731,18 +2584,14 @@ LABEL_32:
 
 void static WK2_Weather.add(forecastNextHour:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B49898();
 }
 
 void static WK2_AirQuality.addVectorOf(pollutants:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_Weather.add(forecastNextHour:_:)();
 }
@@ -2751,34 +2600,32 @@ void static WK2_AirQuality.add(index:_:)()
 {
   OUTLINED_FUNCTION_219();
   OUTLINED_FUNCTION_106();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_265();
-  if (v4)
+  if (v2)
   {
     OUTLINED_FUNCTION_79();
-    if (!v4)
+    if (!v2)
     {
 LABEL_23:
-      v18 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_250();
-  if (v5 ^ v6 | v4)
+  if (v3 ^ v4 | v2)
   {
     OUTLINED_FUNCTION_78(2);
   }
 
-  v7 = *(v0 + 16);
-  if ((v7 & 0x8000000000000000) != 0)
+  v5 = *(v0 + 16);
+  if ((v5 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_25;
   }
 
-  if (HIDWORD(v7))
+  if (HIDWORD(v5))
   {
 LABEL_25:
     __break(1u);
@@ -2786,44 +2633,43 @@ LABEL_25:
   }
 
   OUTLINED_FUNCTION_22();
-  if (v5 != v6)
+  if (v3 != v4)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v8, v9, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v6, v7, *(v0 + 24));
   }
 
-  *(v0 + 16) = v2;
+  *(v0 + 16) = v1;
   OUTLINED_FUNCTION_105();
-  if (v5 != v6)
+  if (v3 != v4)
   {
     OUTLINED_FUNCTION_208();
-    v10 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_43(v10);
-  OUTLINED_FUNCTION_117(v11);
-  if (!v4 & v12)
+  OUTLINED_FUNCTION_43();
+  OUTLINED_FUNCTION_117(v8);
+  if (!v2 & v9)
   {
 LABEL_26:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v14 & 1) == 0)
+  if ((v11 & 1) == 0)
   {
-    if (*(v13 + 32))
+    if (*(v10 + 32))
     {
-      OUTLINED_FUNCTION_41(v13);
+      OUTLINED_FUNCTION_41(v10);
       OUTLINED_FUNCTION_193();
     }
 
-    OUTLINED_FUNCTION_33(v13, *(v13 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_33(v10, *(v10 + 72), xmmword_272B87CB0);
     OUTLINED_FUNCTION_191();
-    if (!(!v4 & v12))
+    if (!(!v2 & v9))
     {
-      v16 = v17;
+      v13 = v14;
     }
 
-    *(v15 + 64) = v16;
+    *(v12 + 64) = v13;
     goto LABEL_23;
   }
 
@@ -2838,54 +2684,48 @@ void OUTLINED_FUNCTION_278()
 
 void static WK2_HourWeatherConditions.add(cloudCover:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B49C9C();
 }
 
 void static WK2_HourTide.add(height:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
-  sub_272B492EC();
+  sub_272B492EC(v0);
 }
 
 void sub_272B49C9C()
 {
   OUTLINED_FUNCTION_219();
   OUTLINED_FUNCTION_106();
-  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_125();
-  if (v3)
+  if (v2)
   {
     OUTLINED_FUNCTION_79();
-    if (!v3)
+    if (!v2)
     {
 LABEL_23:
-      v18 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_100();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
     OUTLINED_FUNCTION_50();
   }
 
-  v6 = *(v0 + 16);
-  if ((v6 & 0x8000000000000000) != 0)
+  v5 = *(v0 + 16);
+  if ((v5 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_25;
   }
 
-  if (HIDWORD(v6))
+  if (HIDWORD(v5))
   {
 LABEL_25:
     __break(1u);
@@ -2893,44 +2733,44 @@ LABEL_25:
   }
 
   OUTLINED_FUNCTION_44();
-  if (v4 != v5)
+  if (v3 != v4)
   {
-    v7 = OUTLINED_FUNCTION_98();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v6, v8);
+    v6 = OUTLINED_FUNCTION_98();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v6, v5, v7);
   }
 
   OUTLINED_FUNCTION_29();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
-    v10 = OUTLINED_FUNCTION_99();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v6, v11);
-    v9 = *(v1 + 32);
+    v9 = OUTLINED_FUNCTION_99();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v5, v10);
+    v8 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_8(v9);
-  if (v3)
+  OUTLINED_FUNCTION_8(v8);
+  if (v2)
   {
 LABEL_26:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v13 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    if (*(v12 + 32))
+    if (*(v11 + 32))
     {
-      OUTLINED_FUNCTION_41(v12);
+      OUTLINED_FUNCTION_41(v11);
       OUTLINED_FUNCTION_235();
     }
 
-    OUTLINED_FUNCTION_33(v12, *(v12 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_33(v11, *(v11 + 72), xmmword_272B87CB0);
     OUTLINED_FUNCTION_284();
-    if (!(!v3 & v17))
+    if (!(!v2 & v16))
     {
-      v15 = v16;
+      v14 = v15;
     }
 
-    *(v14 + 64) = v15;
+    *(v13 + 64) = v14;
     goto LABEL_23;
   }
 
@@ -2939,9 +2779,7 @@ LABEL_26:
 
 void static WK2_AirQuality.add(categoryIndex:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_HourWeatherConditions.add(cloudCover:_:)();
 }
@@ -2950,34 +2788,32 @@ void sub_272B49E64()
 {
   OUTLINED_FUNCTION_219();
   OUTLINED_FUNCTION_106();
-  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_125();
-  if (v3)
+  if (v2)
   {
     OUTLINED_FUNCTION_79();
-    if (!v3)
+    if (!v2)
     {
 LABEL_23:
-      v18 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_100();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
     OUTLINED_FUNCTION_50();
   }
 
-  v6 = *(v0 + 16);
-  if ((v6 & 0x8000000000000000) != 0)
+  v5 = *(v0 + 16);
+  if ((v5 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_25;
   }
 
-  if (HIDWORD(v6))
+  if (HIDWORD(v5))
   {
 LABEL_25:
     __break(1u);
@@ -2985,44 +2821,44 @@ LABEL_25:
   }
 
   OUTLINED_FUNCTION_44();
-  if (v4 != v5)
+  if (v3 != v4)
   {
-    v7 = OUTLINED_FUNCTION_98();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v6, v8);
+    v6 = OUTLINED_FUNCTION_98();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v6, v5, v7);
   }
 
   OUTLINED_FUNCTION_29();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
-    v10 = OUTLINED_FUNCTION_99();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v6, v11);
-    v9 = *(v1 + 32);
+    v9 = OUTLINED_FUNCTION_99();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v5, v10);
+    v8 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_8(v9);
-  if (v3)
+  OUTLINED_FUNCTION_8(v8);
+  if (v2)
   {
 LABEL_26:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v13 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    if (*(v12 + 32))
+    if (*(v11 + 32))
     {
-      OUTLINED_FUNCTION_41(v12);
+      OUTLINED_FUNCTION_41(v11);
       OUTLINED_FUNCTION_193();
     }
 
-    OUTLINED_FUNCTION_33(v12, *(v12 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_33(v11, *(v11 + 72), xmmword_272B87CB0);
     OUTLINED_FUNCTION_191();
-    if (!(!v3 & v17))
+    if (!(!v2 & v16))
     {
-      v15 = v16;
+      v14 = v15;
     }
 
-    *(v14 + 64) = v15;
+    *(v13 + 64) = v14;
     goto LABEL_23;
   }
 
@@ -3031,18 +2867,14 @@ LABEL_26:
 
 void static WK2_CurrentWeather.add(cloudCoverLowAltPct:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B4C6B4();
 }
 
 void static WK2_CurrentWeather.add(cloudCoverHighAltPct:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B4C900();
 }
@@ -3051,14 +2883,12 @@ void static WK2_CurrentWeather.add(daylight:_:)()
 {
   OUTLINED_FUNCTION_219();
   OUTLINED_FUNCTION_106();
-  v18 = *MEMORY[0x277D85DE8];
   if ((v3 & 1) == 0)
   {
     OUTLINED_FUNCTION_79();
     if (!v4)
     {
 LABEL_22:
-      v17 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
@@ -3133,34 +2963,32 @@ void sub_272B4A140()
 {
   OUTLINED_FUNCTION_219();
   OUTLINED_FUNCTION_106();
-  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_125();
-  if (v3)
+  if (v2)
   {
     OUTLINED_FUNCTION_79();
-    if (!v3)
+    if (!v2)
     {
 LABEL_23:
-      v18 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_100();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
     OUTLINED_FUNCTION_50();
   }
 
-  v6 = *(v0 + 16);
-  if ((v6 & 0x8000000000000000) != 0)
+  v5 = *(v0 + 16);
+  if ((v5 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_25;
   }
 
-  if (HIDWORD(v6))
+  if (HIDWORD(v5))
   {
 LABEL_25:
     __break(1u);
@@ -3168,44 +2996,44 @@ LABEL_25:
   }
 
   OUTLINED_FUNCTION_44();
-  if (v4 != v5)
+  if (v3 != v4)
   {
-    v7 = OUTLINED_FUNCTION_98();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v6, v8);
+    v6 = OUTLINED_FUNCTION_98();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v6, v5, v7);
   }
 
   OUTLINED_FUNCTION_29();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
-    v10 = OUTLINED_FUNCTION_99();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v6, v11);
-    v9 = *(v1 + 32);
+    v9 = OUTLINED_FUNCTION_99();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v5, v10);
+    v8 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_8(v9);
-  if (v3)
+  OUTLINED_FUNCTION_8(v8);
+  if (v2)
   {
 LABEL_26:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v13 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    if (*(v12 + 32))
+    if (*(v11 + 32))
     {
-      OUTLINED_FUNCTION_41(v12);
+      OUTLINED_FUNCTION_41(v11);
       OUTLINED_FUNCTION_260();
     }
 
-    OUTLINED_FUNCTION_33(v12, *(v12 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_33(v11, *(v11 + 72), xmmword_272B87CB0);
     OUTLINED_FUNCTION_256();
-    if (!(!v3 & v17))
+    if (!(!v2 & v16))
     {
-      v15 = v16;
+      v14 = v15;
     }
 
-    *(v14 + 64) = v15;
+    *(v13 + 64) = v14;
     goto LABEL_23;
   }
 
@@ -3214,27 +3042,22 @@ LABEL_26:
 
 void static WK2_CurrentWeather.add(humidity:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B4A140();
 }
 
 void static WK2_CurrentWeather.add(precipitationAmount1h:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
-  sub_272B4C9FC();
+  sub_272B4C9FC(v0);
 }
 
-void static WK2_CurrentWeather.add(precipitationAmount24h:_:)()
+void static WK2_CurrentWeather.add(precipitationAmount24h:_:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -3242,7 +3065,6 @@ void static WK2_CurrentWeather.add(precipitationAmount24h:_:)()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -3254,7 +3076,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -3271,15 +3093,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -3312,11 +3134,10 @@ LABEL_26:
   __break(1u);
 }
 
-void sub_272B4A3DC()
+void sub_272B4A3DC(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -3324,7 +3145,6 @@ void sub_272B4A3DC()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -3336,7 +3156,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -3353,15 +3173,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -3395,37 +3215,34 @@ LABEL_26:
 
 void static WK2_CurrentWeather.add(precipitationAmountNext24h:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
-  sub_272B4A3DC();
+  sub_272B4A3DC(v0);
 }
 
 void static WK2_CurrentWeather.addVectorOf(precipitationAmountPrevious1hByType:_:)()
 {
   OUTLINED_FUNCTION_219();
-  v3 = *MEMORY[0x277D85DE8];
-  v5 = OUTLINED_FUNCTION_120(v4);
+  OUTLINED_FUNCTION_120();
   if (!v2)
   {
     goto LABEL_28;
   }
 
-  OUTLINED_FUNCTION_58(v5, v6);
-  if (v8 != v9)
+  OUTLINED_FUNCTION_58();
+  if (v4 != v5)
   {
     OUTLINED_FUNCTION_38();
   }
 
-  v10 = *(v0 + 16);
-  if ((v10 & 0x8000000000000000) != 0)
+  v6 = *(v0 + 16);
+  if ((v6 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_30;
   }
 
-  if (HIDWORD(v10))
+  if (HIDWORD(v6))
   {
 LABEL_30:
     __break(1u);
@@ -3434,69 +3251,68 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v11 = OUTLINED_FUNCTION_3(v7, v10);
-  if (v8 != v9)
+  v7 = OUTLINED_FUNCTION_3(v3, v6);
+  if (v4 != v5)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v12, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v8, *(v0 + 24));
   }
 
   OUTLINED_FUNCTION_119();
-  if (v13)
+  if (v9)
   {
     goto LABEL_31;
   }
 
   OUTLINED_FUNCTION_118();
-  if (v14)
+  if (v10)
   {
     OUTLINED_FUNCTION_79();
-    if (!v14)
+    if (!v10)
     {
 LABEL_28:
-      v25 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
-  v15 = OUTLINED_FUNCTION_15();
-  if (v8 != v9)
+  v11 = OUTLINED_FUNCTION_15();
+  if (v4 != v5)
   {
-    OUTLINED_FUNCTION_186(v15);
+    OUTLINED_FUNCTION_186(v11);
   }
 
   OUTLINED_FUNCTION_27();
-  if (v8 != v9)
+  if (v4 != v5)
   {
-    v17 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v17, v2, v18);
-    v16 = *(v1 + 32);
+    v13 = OUTLINED_FUNCTION_83();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v2, v14);
+    v12 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_4(v16);
-  if (!v14 & v19)
+  OUTLINED_FUNCTION_4(v12);
+  if (!v10 & v15)
   {
 LABEL_32:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v21 & 1) == 0)
+  if ((v17 & 1) == 0)
   {
-    if (*(v20 + 32))
+    if (*(v16 + 32))
     {
-      OUTLINED_FUNCTION_57(v20);
+      OUTLINED_FUNCTION_57(v16);
       OUTLINED_FUNCTION_270();
     }
 
-    OUTLINED_FUNCTION_33(v20, *(v20 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_33(v16, *(v16 + 72), xmmword_272B87CB0);
     OUTLINED_FUNCTION_269();
-    if (!(!v14 & v19))
+    if (!(!v10 & v15))
     {
-      v23 = v24;
+      v19 = v20;
     }
 
-    *(v22 + 64) = v23;
+    *(v18 + 64) = v19;
     goto LABEL_28;
   }
 
@@ -3506,27 +3322,26 @@ LABEL_32:
 void static WK2_CurrentWeather.addVectorOf(precipitationAmountNext6hByType:_:)()
 {
   OUTLINED_FUNCTION_219();
-  v3 = *MEMORY[0x277D85DE8];
-  v5 = OUTLINED_FUNCTION_120(v4);
+  OUTLINED_FUNCTION_120();
   if (!v2)
   {
     goto LABEL_28;
   }
 
-  OUTLINED_FUNCTION_58(v5, v6);
-  if (v8 != v9)
+  OUTLINED_FUNCTION_58();
+  if (v4 != v5)
   {
     OUTLINED_FUNCTION_38();
   }
 
-  v10 = *(v0 + 16);
-  if ((v10 & 0x8000000000000000) != 0)
+  v6 = *(v0 + 16);
+  if ((v6 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_30;
   }
 
-  if (HIDWORD(v10))
+  if (HIDWORD(v6))
   {
 LABEL_30:
     __break(1u);
@@ -3535,68 +3350,67 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v11 = OUTLINED_FUNCTION_3(v7, v10);
-  if (v8 != v9)
+  v7 = OUTLINED_FUNCTION_3(v3, v6);
+  if (v4 != v5)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v12, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v8, *(v0 + 24));
   }
 
   OUTLINED_FUNCTION_119();
-  if (v13)
+  if (v9)
   {
     goto LABEL_31;
   }
 
   OUTLINED_FUNCTION_118();
-  if (v14)
+  if (v10)
   {
     OUTLINED_FUNCTION_79();
-    if (!v14)
+    if (!v10)
     {
 LABEL_28:
-      v25 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
-  v15 = OUTLINED_FUNCTION_15();
-  if (v8 != v9)
+  v11 = OUTLINED_FUNCTION_15();
+  if (v4 != v5)
   {
-    OUTLINED_FUNCTION_186(v15);
+    OUTLINED_FUNCTION_186(v11);
   }
 
   OUTLINED_FUNCTION_27();
-  if (v8 != v9)
+  if (v4 != v5)
   {
-    v17 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v17, v2, v18);
-    v16 = *(v1 + 32);
+    v13 = OUTLINED_FUNCTION_83();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v2, v14);
+    v12 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_4(v16);
-  if (!v14 & v19)
+  OUTLINED_FUNCTION_4(v12);
+  if (!v10 & v15)
   {
 LABEL_32:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v21 & 1) == 0)
+  if ((v17 & 1) == 0)
   {
-    if (*(v20 + 32))
+    if (*(v16 + 32))
     {
-      OUTLINED_FUNCTION_57(v20);
-      *(v22 + 4) = 38;
+      OUTLINED_FUNCTION_57(v16);
+      *(v18 + 4) = 38;
     }
 
-    OUTLINED_FUNCTION_33(v20, *(v20 + 72), xmmword_272B87CB0);
-    if (v24 <= 0x26)
+    OUTLINED_FUNCTION_33(v16, *(v16 + 72), xmmword_272B87CB0);
+    if (v20 <= 0x26)
     {
-      LOWORD(v24) = 38;
+      LOWORD(v20) = 38;
     }
 
-    *(v23 + 64) = v24;
+    *(v19 + 64) = v20;
     goto LABEL_28;
   }
 
@@ -3612,27 +3426,26 @@ uint64_t OUTLINED_FUNCTION_283()
 void static WK2_CurrentWeather.addVectorOf(precipitationAmountNext1hByType:_:)()
 {
   OUTLINED_FUNCTION_219();
-  v3 = *MEMORY[0x277D85DE8];
-  v5 = OUTLINED_FUNCTION_120(v4);
+  OUTLINED_FUNCTION_120();
   if (!v2)
   {
     goto LABEL_28;
   }
 
-  OUTLINED_FUNCTION_58(v5, v6);
-  if (v8 != v9)
+  OUTLINED_FUNCTION_58();
+  if (v4 != v5)
   {
     OUTLINED_FUNCTION_38();
   }
 
-  v10 = *(v0 + 16);
-  if ((v10 & 0x8000000000000000) != 0)
+  v6 = *(v0 + 16);
+  if ((v6 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_30;
   }
 
-  if (HIDWORD(v10))
+  if (HIDWORD(v6))
   {
 LABEL_30:
     __break(1u);
@@ -3641,68 +3454,67 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v11 = OUTLINED_FUNCTION_3(v7, v10);
-  if (v8 != v9)
+  v7 = OUTLINED_FUNCTION_3(v3, v6);
+  if (v4 != v5)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v12, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v8, *(v0 + 24));
   }
 
   OUTLINED_FUNCTION_119();
-  if (v13)
+  if (v9)
   {
     goto LABEL_31;
   }
 
   OUTLINED_FUNCTION_118();
-  if (v14)
+  if (v10)
   {
     OUTLINED_FUNCTION_79();
-    if (!v14)
+    if (!v10)
     {
 LABEL_28:
-      v25 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
-  v15 = OUTLINED_FUNCTION_15();
-  if (v8 != v9)
+  v11 = OUTLINED_FUNCTION_15();
+  if (v4 != v5)
   {
-    OUTLINED_FUNCTION_186(v15);
+    OUTLINED_FUNCTION_186(v11);
   }
 
   OUTLINED_FUNCTION_27();
-  if (v8 != v9)
+  if (v4 != v5)
   {
-    v17 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v17, v2, v18);
-    v16 = *(v1 + 32);
+    v13 = OUTLINED_FUNCTION_83();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v2, v14);
+    v12 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_4(v16);
-  if (!v14 & v19)
+  OUTLINED_FUNCTION_4(v12);
+  if (!v10 & v15)
   {
 LABEL_32:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v21 & 1) == 0)
+  if ((v17 & 1) == 0)
   {
-    if (*(v20 + 32))
+    if (*(v16 + 32))
     {
-      OUTLINED_FUNCTION_57(v20);
-      *(v22 + 4) = 36;
+      OUTLINED_FUNCTION_57(v16);
+      *(v18 + 4) = 36;
     }
 
-    OUTLINED_FUNCTION_33(v20, *(v20 + 72), xmmword_272B87CB0);
-    if (v24 <= 0x24)
+    OUTLINED_FUNCTION_33(v16, *(v16 + 72), xmmword_272B87CB0);
+    if (v20 <= 0x24)
     {
-      LOWORD(v24) = 36;
+      LOWORD(v20) = 36;
     }
 
-    *(v23 + 64) = v24;
+    *(v19 + 64) = v20;
     goto LABEL_28;
   }
 
@@ -3711,18 +3523,15 @@ LABEL_32:
 
 void static WK2_CurrentWeather.add(precipitationIntensity:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
-  sub_272B4A924();
+  sub_272B4A924(v0);
 }
 
-void sub_272B4A924()
+void sub_272B4A924(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -3730,7 +3539,6 @@ void sub_272B4A924()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -3742,7 +3550,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -3759,15 +3567,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -3799,11 +3607,10 @@ LABEL_26:
   __break(1u);
 }
 
-void sub_272B4AA24()
+void sub_272B4AA24(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -3811,7 +3618,6 @@ void sub_272B4AA24()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -3823,7 +3629,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -3840,15 +3646,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -3882,18 +3688,15 @@ LABEL_26:
 
 void static WK2_CurrentWeather.add(perceivedPrecipitationIntensity:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
-  sub_272B4AA24();
+  sub_272B4AA24(v0);
 }
 
-void sub_272B4AB78()
+void sub_272B4AB78(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -3901,7 +3704,6 @@ void sub_272B4AB78()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -3913,7 +3715,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -3930,15 +3732,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -3972,18 +3774,15 @@ LABEL_26:
 
 void static WK2_CurrentWeather.add(snowfallAmount1h:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
-  sub_272B4AB78();
+  sub_272B4AB78(v0);
 }
 
-void sub_272B4ACCC()
+void sub_272B4ACCC(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -3991,7 +3790,6 @@ void sub_272B4ACCC()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -4003,7 +3801,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -4020,15 +3818,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -4060,11 +3858,10 @@ LABEL_26:
   __break(1u);
 }
 
-void sub_272B4ADCC()
+void sub_272B4ADCC(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -4072,7 +3869,6 @@ void sub_272B4ADCC()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -4084,7 +3880,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -4101,15 +3897,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -4143,36 +3939,29 @@ LABEL_26:
 
 void static WK2_CurrentWeather.add(snowfallAmount6h:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
-  sub_272B4ACCC();
+  sub_272B4ACCC(v0);
 }
 
 void static WK2_CurrentWeather.add(snowfallAmount24h:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
-  sub_272B4ADCC();
+  sub_272B4ADCC(v0);
 }
 
 void static WK2_CurrentWeather.add(temperature:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
-  sub_272B4AFC8();
+  sub_272B4AFC8(v0);
 }
 
-void sub_272B4AFC8()
+void sub_272B4AFC8(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -4180,7 +3969,6 @@ void sub_272B4AFC8()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -4192,7 +3980,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -4209,15 +3997,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -4253,34 +4041,32 @@ void static WK2_CurrentWeather.add(uvIndex:_:)()
 {
   OUTLINED_FUNCTION_219();
   OUTLINED_FUNCTION_106();
-  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_125();
-  if (v3)
+  if (v2)
   {
     OUTLINED_FUNCTION_79();
-    if (!v3)
+    if (!v2)
     {
 LABEL_23:
-      v17 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_100();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
     OUTLINED_FUNCTION_50();
   }
 
-  v6 = *(v0 + 16);
-  if ((v6 & 0x8000000000000000) != 0)
+  v5 = *(v0 + 16);
+  if ((v5 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_25;
   }
 
-  if (HIDWORD(v6))
+  if (HIDWORD(v5))
   {
 LABEL_25:
     __break(1u);
@@ -4288,43 +4074,43 @@ LABEL_25:
   }
 
   OUTLINED_FUNCTION_44();
-  if (v4 != v5)
+  if (v3 != v4)
   {
-    v7 = OUTLINED_FUNCTION_98();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v6, v8);
+    v6 = OUTLINED_FUNCTION_98();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v6, v5, v7);
   }
 
   OUTLINED_FUNCTION_29();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
-    v10 = OUTLINED_FUNCTION_99();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v6, v11);
-    v9 = *(v1 + 32);
+    v9 = OUTLINED_FUNCTION_99();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v5, v10);
+    v8 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_8(v9);
-  if (v3)
+  OUTLINED_FUNCTION_8(v8);
+  if (v2)
   {
 LABEL_26:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v13 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    if (*(v12 + 32))
+    if (*(v11 + 32))
     {
-      OUTLINED_FUNCTION_41(v12);
-      *(v14 + 4) = 74;
+      OUTLINED_FUNCTION_41(v11);
+      *(v13 + 4) = 74;
     }
 
-    OUTLINED_FUNCTION_33(v12, *(v12 + 72), xmmword_272B87CB0);
-    if (v16 <= 0x4A)
+    OUTLINED_FUNCTION_33(v11, *(v11 + 72), xmmword_272B87CB0);
+    if (v15 <= 0x4A)
     {
-      LOWORD(v16) = 74;
+      LOWORD(v15) = 74;
     }
 
-    *(v15 + 64) = v16;
+    *(v14 + 64) = v15;
     goto LABEL_23;
   }
 
@@ -4335,34 +4121,32 @@ void static WK2_CurrentWeather.add(windDirection:_:)()
 {
   OUTLINED_FUNCTION_219();
   OUTLINED_FUNCTION_106();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_265();
-  if (v4)
+  if (v2)
   {
     OUTLINED_FUNCTION_79();
-    if (!v4)
+    if (!v2)
     {
 LABEL_23:
-      v18 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_250();
-  if (v5 ^ v6 | v4)
+  if (v3 ^ v4 | v2)
   {
     OUTLINED_FUNCTION_78(2);
   }
 
-  v7 = *(v0 + 16);
-  if ((v7 & 0x8000000000000000) != 0)
+  v5 = *(v0 + 16);
+  if ((v5 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_25;
   }
 
-  if (HIDWORD(v7))
+  if (HIDWORD(v5))
   {
 LABEL_25:
     __break(1u);
@@ -4370,43 +4154,42 @@ LABEL_25:
   }
 
   OUTLINED_FUNCTION_22();
-  if (v5 != v6)
+  if (v3 != v4)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v8, v9, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v6, v7, *(v0 + 24));
   }
 
-  *(v0 + 16) = v2;
+  *(v0 + 16) = v1;
   OUTLINED_FUNCTION_105();
-  if (v5 != v6)
+  if (v3 != v4)
   {
     OUTLINED_FUNCTION_208();
-    v10 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_43(v10);
-  OUTLINED_FUNCTION_117(v11);
-  if (!v4 & v12)
+  OUTLINED_FUNCTION_43();
+  OUTLINED_FUNCTION_117(v8);
+  if (!v2 & v9)
   {
 LABEL_26:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v14 & 1) == 0)
+  if ((v11 & 1) == 0)
   {
-    if (*(v13 + 32))
+    if (*(v10 + 32))
     {
-      OUTLINED_FUNCTION_41(v13);
-      *(v15 + 4) = 78;
+      OUTLINED_FUNCTION_41(v10);
+      *(v12 + 4) = 78;
     }
 
-    OUTLINED_FUNCTION_33(v13, *(v13 + 72), xmmword_272B87CB0);
-    if (v17 <= 0x4E)
+    OUTLINED_FUNCTION_33(v10, *(v10 + 72), xmmword_272B87CB0);
+    if (v14 <= 0x4E)
     {
-      LOWORD(v17) = 78;
+      LOWORD(v14) = 78;
     }
 
-    *(v16 + 64) = v17;
+    *(v13 + 64) = v14;
     goto LABEL_23;
   }
 
@@ -4415,27 +4198,21 @@ LABEL_26:
 
 void static WK2_DayPartForecast.add(cloudCoverLowAltPct:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(cloudCoverLowAltPct:_:)();
 }
 
 void static WK2_DayPartForecast.add(cloudCoverMidAltPct:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(cloudCoverMidAltPct:_:)();
 }
 
 void static WK2_DayPartForecast.add(visibilityMax:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_HourWeatherConditions.add(temperature:_:)();
 }
@@ -4444,34 +4221,32 @@ void static WK2_DayPartForecast.add(precipitationChance:_:)()
 {
   OUTLINED_FUNCTION_219();
   OUTLINED_FUNCTION_106();
-  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_125();
-  if (v3)
+  if (v2)
   {
     OUTLINED_FUNCTION_79();
-    if (!v3)
+    if (!v2)
     {
 LABEL_23:
-      v18 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_100();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
     OUTLINED_FUNCTION_50();
   }
 
-  v6 = *(v0 + 16);
-  if ((v6 & 0x8000000000000000) != 0)
+  v5 = *(v0 + 16);
+  if ((v5 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_25;
   }
 
-  if (HIDWORD(v6))
+  if (HIDWORD(v5))
   {
 LABEL_25:
     __break(1u);
@@ -4479,55 +4254,54 @@ LABEL_25:
   }
 
   OUTLINED_FUNCTION_44();
-  if (v4 != v5)
+  if (v3 != v4)
   {
-    v7 = OUTLINED_FUNCTION_98();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v6, v8);
+    v6 = OUTLINED_FUNCTION_98();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v6, v5, v7);
   }
 
   OUTLINED_FUNCTION_29();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
-    v10 = OUTLINED_FUNCTION_99();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v6, v11);
-    v9 = *(v1 + 32);
+    v9 = OUTLINED_FUNCTION_99();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v5, v10);
+    v8 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_8(v9);
-  if (v3)
+  OUTLINED_FUNCTION_8(v8);
+  if (v2)
   {
 LABEL_26:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v13 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    if (*(v12 + 32))
+    if (*(v11 + 32))
     {
-      OUTLINED_FUNCTION_41(v12);
+      OUTLINED_FUNCTION_41(v11);
       OUTLINED_FUNCTION_254();
     }
 
-    OUTLINED_FUNCTION_33(v12, *(v12 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_33(v11, *(v11 + 72), xmmword_272B87CB0);
     OUTLINED_FUNCTION_252();
-    if (!(!v3 & v17))
+    if (!(!v2 & v16))
     {
-      v15 = v16;
+      v14 = v15;
     }
 
-    *(v14 + 64) = v15;
+    *(v13 + 64) = v14;
     goto LABEL_23;
   }
 
   __break(1u);
 }
 
-void sub_272B4B4D0()
+void sub_272B4B4D0(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -4535,7 +4309,6 @@ void sub_272B4B4D0()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -4547,7 +4320,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -4564,15 +4337,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -4606,18 +4379,15 @@ LABEL_26:
 
 void static WK2_HourWeatherConditions.add(temperature:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
-  sub_272B4B4D0();
+  sub_272B4B4D0(v0);
 }
 
-void sub_272B4B624()
+void sub_272B4B624(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -4625,7 +4395,6 @@ void sub_272B4B624()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -4637,7 +4406,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -4654,15 +4423,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -4696,27 +4465,22 @@ LABEL_26:
 
 void static WK2_HourWeatherConditions.add(temperatureApparent:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
-  sub_272B4B624();
+  sub_272B4B624(v0);
 }
 
 void static WK2_DayPartForecast.add(visibilityMin:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_HourWeatherConditions.add(temperatureApparent:_:)();
 }
 
-void static WK2_DayPartForecast.add(windSpeed:_:)()
+void static WK2_DayPartForecast.add(windSpeed:_:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -4724,7 +4488,6 @@ void static WK2_DayPartForecast.add(windSpeed:_:)()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -4736,7 +4499,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -4753,15 +4516,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -4796,45 +4559,35 @@ LABEL_26:
 
 void static WK2_HourWeatherConditions.add(temperatureDewPoint:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
-  sub_272B4DA54();
+  sub_272B4DA54(v0);
 }
 
 void static WK2_DayPartForecast.add(windGustSpeedMax:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_HourWeatherConditions.add(temperatureDewPoint:_:)();
 }
 
 void static WK2_Weather.add(tideEvents:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B4BA68();
 }
 
 void static WK2_DayPartForecast.add(windSpeedMax:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(precipitationIntensity:_:)();
 }
 
 void static WK2_DayPartForecast.addVectorOf(precipitationAmountByType:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_Weather.add(tideEvents:_:)();
 }
@@ -4842,27 +4595,26 @@ void static WK2_DayPartForecast.addVectorOf(precipitationAmountByType:_:)()
 void sub_272B4BA68()
 {
   OUTLINED_FUNCTION_219();
-  v3 = *MEMORY[0x277D85DE8];
-  v5 = OUTLINED_FUNCTION_120(v4);
+  OUTLINED_FUNCTION_120();
   if (!v2)
   {
     goto LABEL_28;
   }
 
-  OUTLINED_FUNCTION_58(v5, v6);
-  if (v8 != v9)
+  OUTLINED_FUNCTION_58();
+  if (v4 != v5)
   {
     OUTLINED_FUNCTION_38();
   }
 
-  v10 = *(v0 + 16);
-  if ((v10 & 0x8000000000000000) != 0)
+  v6 = *(v0 + 16);
+  if ((v6 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_30;
   }
 
-  if (HIDWORD(v10))
+  if (HIDWORD(v6))
   {
 LABEL_30:
     __break(1u);
@@ -4871,68 +4623,67 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v11 = OUTLINED_FUNCTION_3(v7, v10);
-  if (v8 != v9)
+  v7 = OUTLINED_FUNCTION_3(v3, v6);
+  if (v4 != v5)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v12, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v8, *(v0 + 24));
   }
 
   OUTLINED_FUNCTION_119();
-  if (v13)
+  if (v9)
   {
     goto LABEL_31;
   }
 
   OUTLINED_FUNCTION_118();
-  if (v14)
+  if (v10)
   {
     OUTLINED_FUNCTION_79();
-    if (!v14)
+    if (!v10)
     {
 LABEL_28:
-      v25 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
-  v15 = OUTLINED_FUNCTION_15();
-  if (v8 != v9)
+  v11 = OUTLINED_FUNCTION_15();
+  if (v4 != v5)
   {
-    OUTLINED_FUNCTION_186(v15);
+    OUTLINED_FUNCTION_186(v11);
   }
 
   OUTLINED_FUNCTION_27();
-  if (v8 != v9)
+  if (v4 != v5)
   {
-    v17 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v17, v2, v18);
-    v16 = *(v1 + 32);
+    v13 = OUTLINED_FUNCTION_83();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v2, v14);
+    v12 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_4(v16);
-  if (!v14 & v19)
+  OUTLINED_FUNCTION_4(v12);
+  if (!v10 & v15)
   {
 LABEL_32:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v21 & 1) == 0)
+  if ((v17 & 1) == 0)
   {
-    if (*(v20 + 32))
+    if (*(v16 + 32))
     {
-      OUTLINED_FUNCTION_57(v20);
-      *(v22 + 4) = 26;
+      OUTLINED_FUNCTION_57(v16);
+      *(v18 + 4) = 26;
     }
 
-    OUTLINED_FUNCTION_33(v20, *(v20 + 72), xmmword_272B87CB0);
-    if (v24 <= 0x1A)
+    OUTLINED_FUNCTION_33(v16, *(v16 + 72), xmmword_272B87CB0);
+    if (v20 <= 0x1A)
     {
-      LOWORD(v24) = 26;
+      LOWORD(v20) = 26;
     }
 
-    *(v23 + 64) = v24;
+    *(v19 + 64) = v20;
     goto LABEL_28;
   }
 
@@ -4941,18 +4692,15 @@ LABEL_32:
 
 void static WK2_DayPartForecast.add(snowfallAmount:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(precipitationAmountNext6h:_:)();
 }
 
-void sub_272B4BBD8()
+void sub_272B4BBD8(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -4960,7 +4708,6 @@ void sub_272B4BBD8()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -4972,7 +4719,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -4989,15 +4736,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -5033,79 +4780,76 @@ void sub_272B4BCD8()
 {
   OUTLINED_FUNCTION_219();
   OUTLINED_FUNCTION_106();
-  v23 = *MEMORY[0x277D85DE8];
-  if (!v4)
+  if (!v3)
   {
     OUTLINED_FUNCTION_79();
-    if (!v5)
+    if (!v4)
     {
 LABEL_22:
-      v22 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_95();
-  if (v7 ^ v8 | v5)
+  if (v6 ^ v7 | v4)
   {
     OUTLINED_FUNCTION_38();
   }
 
-  v9 = *(v0 + 16);
-  if ((v9 & 0x8000000000000000) != 0)
+  v8 = *(v0 + 16);
+  if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_24;
   }
 
-  if (HIDWORD(v9))
+  if (HIDWORD(v8))
   {
 LABEL_24:
     __break(1u);
     goto LABEL_25;
   }
 
-  v10 = OUTLINED_FUNCTION_6(v6, v9);
-  if (v7 != v8)
+  v9 = OUTLINED_FUNCTION_6(v5, v8);
+  if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v11, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
   }
 
   OUTLINED_FUNCTION_26();
-  if (v7 != v8)
+  if (v6 != v7)
   {
-    v13 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v3, v14);
-    v12 = *(v1 + 32);
+    v11 = OUTLINED_FUNCTION_83();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v2, v12);
   }
 
-  OUTLINED_FUNCTION_43(v12);
-  *(v15 - 4) = v2;
+  OUTLINED_FUNCTION_43();
+  *(v13 - 4) = v1;
   OUTLINED_FUNCTION_55();
-  if (!v5 & v16)
+  if (!v4 & v14)
   {
 LABEL_25:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v18 & 1) == 0)
+  if ((v16 & 1) == 0)
   {
-    if (*(v17 + 32))
+    if (*(v15 + 32))
     {
-      OUTLINED_FUNCTION_41(v17);
+      OUTLINED_FUNCTION_41(v15);
       OUTLINED_FUNCTION_216();
     }
 
-    OUTLINED_FUNCTION_33(v17, *(v17 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_33(v15, *(v15 + 72), xmmword_272B87CB0);
     OUTLINED_FUNCTION_206();
-    if (!(!v5 & v16))
+    if (!(!v4 & v14))
     {
-      v20 = v21;
+      v18 = v19;
     }
 
-    *(v19 + 64) = v20;
+    *(v17 + 64) = v18;
     goto LABEL_22;
   }
 
@@ -5114,18 +4858,14 @@ LABEL_25:
 
 void static WK2_DayWeatherConditions.add(forecastStart:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B4BCD8();
 }
 
 void static WK2_DayWeatherConditions.add(maxUvIndex:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(cloudCoverHighAltPct:_:)();
 }
@@ -5133,27 +4873,26 @@ void static WK2_DayWeatherConditions.add(maxUvIndex:_:)()
 void sub_272B4BE80()
 {
   OUTLINED_FUNCTION_219();
-  v3 = *MEMORY[0x277D85DE8];
-  v5 = OUTLINED_FUNCTION_120(v4);
+  OUTLINED_FUNCTION_120();
   if (!v2)
   {
     goto LABEL_28;
   }
 
-  OUTLINED_FUNCTION_58(v5, v6);
-  if (v8 != v9)
+  OUTLINED_FUNCTION_58();
+  if (v4 != v5)
   {
     OUTLINED_FUNCTION_38();
   }
 
-  v10 = *(v0 + 16);
-  if ((v10 & 0x8000000000000000) != 0)
+  v6 = *(v0 + 16);
+  if ((v6 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_30;
   }
 
-  if (HIDWORD(v10))
+  if (HIDWORD(v6))
   {
 LABEL_30:
     __break(1u);
@@ -5162,68 +4901,67 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v11 = OUTLINED_FUNCTION_3(v7, v10);
-  if (v8 != v9)
+  v7 = OUTLINED_FUNCTION_3(v3, v6);
+  if (v4 != v5)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v12, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v8, *(v0 + 24));
   }
 
   OUTLINED_FUNCTION_119();
-  if (v13)
+  if (v9)
   {
     goto LABEL_31;
   }
 
   OUTLINED_FUNCTION_118();
-  if (v14)
+  if (v10)
   {
     OUTLINED_FUNCTION_79();
-    if (!v14)
+    if (!v10)
     {
 LABEL_28:
-      v25 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
-  v15 = OUTLINED_FUNCTION_15();
-  if (v8 != v9)
+  v11 = OUTLINED_FUNCTION_15();
+  if (v4 != v5)
   {
-    OUTLINED_FUNCTION_186(v15);
+    OUTLINED_FUNCTION_186(v11);
   }
 
   OUTLINED_FUNCTION_27();
-  if (v8 != v9)
+  if (v4 != v5)
   {
-    v17 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v17, v2, v18);
-    v16 = *(v1 + 32);
+    v13 = OUTLINED_FUNCTION_83();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v2, v14);
+    v12 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_4(v16);
-  if (!v14 & v19)
+  OUTLINED_FUNCTION_4(v12);
+  if (!v10 & v15)
   {
 LABEL_32:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v21 & 1) == 0)
+  if ((v17 & 1) == 0)
   {
-    if (*(v20 + 32))
+    if (*(v16 + 32))
     {
-      OUTLINED_FUNCTION_57(v20);
-      *(v22 + 4) = 24;
+      OUTLINED_FUNCTION_57(v16);
+      *(v18 + 4) = 24;
     }
 
-    OUTLINED_FUNCTION_33(v20, *(v20 + 72), xmmword_272B87CB0);
-    if (v24 <= 0x18)
+    OUTLINED_FUNCTION_33(v16, *(v16 + 72), xmmword_272B87CB0);
+    if (v20 <= 0x18)
     {
-      LOWORD(v24) = 24;
+      LOWORD(v20) = 24;
     }
 
-    *(v23 + 64) = v24;
+    *(v19 + 64) = v20;
     goto LABEL_28;
   }
 
@@ -5232,18 +4970,14 @@ LABEL_32:
 
 void static WK2_Weather.add(marineForecast:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B4BE80();
 }
 
 void static WK2_DayWeatherConditions.addVectorOf(precipitationAmountByType:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_Weather.add(marineForecast:_:)();
 }
@@ -5252,14 +4986,12 @@ void static WK2_AirQuality.add(isSignificant:_:)()
 {
   OUTLINED_FUNCTION_219();
   OUTLINED_FUNCTION_106();
-  v20 = *MEMORY[0x277D85DE8];
   if ((v3 & 1) == 0)
   {
     OUTLINED_FUNCTION_79();
     if (!v4)
     {
 LABEL_22:
-      v19 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
@@ -5334,27 +5066,26 @@ LABEL_25:
 void sub_272B4C160()
 {
   OUTLINED_FUNCTION_219();
-  v3 = *MEMORY[0x277D85DE8];
-  v5 = OUTLINED_FUNCTION_120(v4);
+  OUTLINED_FUNCTION_120();
   if (!v2)
   {
     goto LABEL_28;
   }
 
-  OUTLINED_FUNCTION_58(v5, v6);
-  if (v8 != v9)
+  OUTLINED_FUNCTION_58();
+  if (v4 != v5)
   {
     OUTLINED_FUNCTION_38();
   }
 
-  v10 = *(v0 + 16);
-  if ((v10 & 0x8000000000000000) != 0)
+  v6 = *(v0 + 16);
+  if ((v6 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_30;
   }
 
-  if (HIDWORD(v10))
+  if (HIDWORD(v6))
   {
 LABEL_30:
     __break(1u);
@@ -5363,68 +5094,67 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v11 = OUTLINED_FUNCTION_3(v7, v10);
-  if (v8 != v9)
+  v7 = OUTLINED_FUNCTION_3(v3, v6);
+  if (v4 != v5)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v12, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v8, *(v0 + 24));
   }
 
   OUTLINED_FUNCTION_119();
-  if (v13)
+  if (v9)
   {
     goto LABEL_31;
   }
 
   OUTLINED_FUNCTION_118();
-  if (v14)
+  if (v10)
   {
     OUTLINED_FUNCTION_79();
-    if (!v14)
+    if (!v10)
     {
 LABEL_28:
-      v24 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
-  v15 = OUTLINED_FUNCTION_15();
-  if (v8 != v9)
+  v11 = OUTLINED_FUNCTION_15();
+  if (v4 != v5)
   {
-    OUTLINED_FUNCTION_186(v15);
+    OUTLINED_FUNCTION_186(v11);
   }
 
   OUTLINED_FUNCTION_27();
-  if (v8 != v9)
+  if (v4 != v5)
   {
-    v17 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v17, v2, v18);
-    v16 = *(v1 + 32);
+    v13 = OUTLINED_FUNCTION_83();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v2, v14);
+    v12 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_4(v16);
-  if (!v14 & v19)
+  OUTLINED_FUNCTION_4(v12);
+  if (!v10 & v15)
   {
 LABEL_32:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v21 & 1) == 0)
+  if ((v17 & 1) == 0)
   {
-    if (*(v20 + 32))
+    if (*(v16 + 32))
     {
-      OUTLINED_FUNCTION_57(v20);
+      OUTLINED_FUNCTION_57(v16);
       OUTLINED_FUNCTION_271();
     }
 
-    OUTLINED_FUNCTION_33(v20, *(v20 + 72), xmmword_272B87CB0);
-    if (v23 <= 0x12)
+    OUTLINED_FUNCTION_33(v16, *(v16 + 72), xmmword_272B87CB0);
+    if (v19 <= 0x12)
     {
-      LOWORD(v23) = 18;
+      LOWORD(v19) = 18;
     }
 
-    *(v22 + 64) = v23;
+    *(v18 + 64) = v19;
     goto LABEL_28;
   }
 
@@ -5433,36 +5163,28 @@ LABEL_32:
 
 void static WK2_Weather.add(weatherChanges:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B4C160();
 }
 
 void static WK2_AirQuality.add(scale:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_Weather.add(weatherChanges:_:)();
 }
 
 void static WK2_AirQuality.add(primaryPollutant:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(conditionCode:_:)();
 }
 
 void static WK2_CurrentWeather.add(conditionCode:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B4C3C8();
 }
@@ -5471,34 +5193,32 @@ void sub_272B4C3C8()
 {
   OUTLINED_FUNCTION_219();
   v3 = v2;
-  v4 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_140(v5);
+  OUTLINED_FUNCTION_140();
   if (!v1)
   {
     OUTLINED_FUNCTION_79();
-    if (!v6)
+    if (!v4)
     {
 LABEL_22:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_100();
-  if (v7 ^ v8 | v6)
+  if (v5 ^ v6 | v4)
   {
     OUTLINED_FUNCTION_50();
   }
 
-  v9 = *(v3 + 16);
-  if ((v9 & 0x8000000000000000) != 0)
+  v7 = *(v3 + 16);
+  if ((v7 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_24;
   }
 
-  if (HIDWORD(v9))
+  if (HIDWORD(v7))
   {
 LABEL_24:
     __break(1u);
@@ -5506,43 +5226,43 @@ LABEL_24:
   }
 
   OUTLINED_FUNCTION_39();
-  if (v7 != v8)
+  if (v5 != v6)
   {
-    v10 = OUTLINED_FUNCTION_98();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v9, v11);
+    v8 = OUTLINED_FUNCTION_98();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v8, v7, v9);
   }
 
   OUTLINED_FUNCTION_40();
-  if (v7 ^ v8 | v6)
+  if (v5 ^ v6 | v4)
   {
-    v13 = OUTLINED_FUNCTION_99();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v9, v14);
-    v12 = *(v0 + 32);
+    v11 = OUTLINED_FUNCTION_99();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v7, v12);
+    v10 = *(v0 + 32);
   }
 
-  OUTLINED_FUNCTION_12(v12);
-  if (v6)
+  OUTLINED_FUNCTION_12(v10);
+  if (v4)
   {
 LABEL_25:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v16 & 1) == 0)
+  if ((v14 & 1) == 0)
   {
-    if (*(v15 + 32))
+    if (*(v13 + 32))
     {
-      OUTLINED_FUNCTION_41(v15);
-      *(v17 + 4) = 16;
+      OUTLINED_FUNCTION_41(v13);
+      *(v15 + 4) = 16;
     }
 
-    OUTLINED_FUNCTION_33(v15, *(v15 + 72), xmmword_272B87CB0);
-    if (v19 <= 0x10)
+    OUTLINED_FUNCTION_33(v13, *(v13 + 72), xmmword_272B87CB0);
+    if (v17 <= 0x10)
     {
-      LOWORD(v19) = 16;
+      LOWORD(v17) = 16;
     }
 
-    *(v18 + 64) = v19;
+    *(v16 + 64) = v17;
     goto LABEL_22;
   }
 
@@ -5645,7 +5365,7 @@ LABEL_18:
   return result;
 }
 
-void static WK2_CurrentWeather.startCurrentWeather(_:)(_BYTE *a1)
+void static WK2_CurrentWeather.startCurrentWeather(_:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_25(a1);
   OUTLINED_FUNCTION_141();
@@ -5684,9 +5404,7 @@ LABEL_11:
 
 void static WK2_CurrentWeather.add(cloudCover:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B49E64();
 }
@@ -5695,34 +5413,32 @@ void sub_272B4C6B4()
 {
   OUTLINED_FUNCTION_219();
   OUTLINED_FUNCTION_106();
-  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_125();
-  if (v3)
+  if (v2)
   {
     OUTLINED_FUNCTION_79();
-    if (!v3)
+    if (!v2)
     {
 LABEL_23:
-      v18 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_100();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
     OUTLINED_FUNCTION_50();
   }
 
-  v6 = *(v0 + 16);
-  if ((v6 & 0x8000000000000000) != 0)
+  v5 = *(v0 + 16);
+  if ((v5 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_25;
   }
 
-  if (HIDWORD(v6))
+  if (HIDWORD(v5))
   {
 LABEL_25:
     __break(1u);
@@ -5730,44 +5446,44 @@ LABEL_25:
   }
 
   OUTLINED_FUNCTION_44();
-  if (v4 != v5)
+  if (v3 != v4)
   {
-    v7 = OUTLINED_FUNCTION_98();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v6, v8);
+    v6 = OUTLINED_FUNCTION_98();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v6, v5, v7);
   }
 
   OUTLINED_FUNCTION_29();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
-    v10 = OUTLINED_FUNCTION_99();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v6, v11);
-    v9 = *(v1 + 32);
+    v9 = OUTLINED_FUNCTION_99();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v5, v10);
+    v8 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_8(v9);
-  if (v3)
+  OUTLINED_FUNCTION_8(v8);
+  if (v2)
   {
 LABEL_26:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v13 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    if (*(v12 + 32))
+    if (*(v11 + 32))
     {
-      OUTLINED_FUNCTION_41(v12);
+      OUTLINED_FUNCTION_41(v11);
       OUTLINED_FUNCTION_203();
     }
 
-    OUTLINED_FUNCTION_33(v12, *(v12 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_33(v11, *(v11 + 72), xmmword_272B87CB0);
     OUTLINED_FUNCTION_201();
-    if (!(!v3 & v17))
+    if (!(!v2 & v16))
     {
-      v15 = v16;
+      v14 = v15;
     }
 
-    *(v14 + 64) = v15;
+    *(v13 + 64) = v14;
     goto LABEL_23;
   }
 
@@ -5776,9 +5492,7 @@ LABEL_26:
 
 void static WK2_CurrentWeather.add(cloudCoverMidAltPct:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B4C804();
 }
@@ -5787,34 +5501,32 @@ void sub_272B4C804()
 {
   OUTLINED_FUNCTION_219();
   OUTLINED_FUNCTION_106();
-  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_125();
-  if (v3)
+  if (v2)
   {
     OUTLINED_FUNCTION_79();
-    if (!v3)
+    if (!v2)
     {
 LABEL_23:
-      v18 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_100();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
     OUTLINED_FUNCTION_50();
   }
 
-  v6 = *(v0 + 16);
-  if ((v6 & 0x8000000000000000) != 0)
+  v5 = *(v0 + 16);
+  if ((v5 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_25;
   }
 
-  if (HIDWORD(v6))
+  if (HIDWORD(v5))
   {
 LABEL_25:
     __break(1u);
@@ -5822,44 +5534,44 @@ LABEL_25:
   }
 
   OUTLINED_FUNCTION_44();
-  if (v4 != v5)
+  if (v3 != v4)
   {
-    v7 = OUTLINED_FUNCTION_98();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v6, v8);
+    v6 = OUTLINED_FUNCTION_98();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v6, v5, v7);
   }
 
   OUTLINED_FUNCTION_29();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
-    v10 = OUTLINED_FUNCTION_99();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v6, v11);
-    v9 = *(v1 + 32);
+    v9 = OUTLINED_FUNCTION_99();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v5, v10);
+    v8 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_8(v9);
-  if (v3)
+  OUTLINED_FUNCTION_8(v8);
+  if (v2)
   {
 LABEL_26:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v13 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    if (*(v12 + 32))
+    if (*(v11 + 32))
     {
-      OUTLINED_FUNCTION_41(v12);
+      OUTLINED_FUNCTION_41(v11);
       OUTLINED_FUNCTION_211();
     }
 
-    OUTLINED_FUNCTION_33(v12, *(v12 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_33(v11, *(v11 + 72), xmmword_272B87CB0);
     OUTLINED_FUNCTION_238();
-    if (!(!v3 & v17))
+    if (!(!v2 & v16))
     {
-      v15 = v16;
+      v14 = v15;
     }
 
-    *(v14 + 64) = v15;
+    *(v13 + 64) = v14;
     goto LABEL_23;
   }
 
@@ -5870,34 +5582,32 @@ void sub_272B4C900()
 {
   OUTLINED_FUNCTION_219();
   OUTLINED_FUNCTION_106();
-  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_125();
-  if (v3)
+  if (v2)
   {
     OUTLINED_FUNCTION_79();
-    if (!v3)
+    if (!v2)
     {
 LABEL_23:
-      v18 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_100();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
     OUTLINED_FUNCTION_50();
   }
 
-  v6 = *(v0 + 16);
-  if ((v6 & 0x8000000000000000) != 0)
+  v5 = *(v0 + 16);
+  if ((v5 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_25;
   }
 
-  if (HIDWORD(v6))
+  if (HIDWORD(v5))
   {
 LABEL_25:
     __break(1u);
@@ -5905,55 +5615,54 @@ LABEL_25:
   }
 
   OUTLINED_FUNCTION_44();
-  if (v4 != v5)
+  if (v3 != v4)
   {
-    v7 = OUTLINED_FUNCTION_98();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v6, v8);
+    v6 = OUTLINED_FUNCTION_98();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v6, v5, v7);
   }
 
   OUTLINED_FUNCTION_29();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
-    v10 = OUTLINED_FUNCTION_99();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v6, v11);
-    v9 = *(v1 + 32);
+    v9 = OUTLINED_FUNCTION_99();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v5, v10);
+    v8 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_8(v9);
-  if (v3)
+  OUTLINED_FUNCTION_8(v8);
+  if (v2)
   {
 LABEL_26:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v13 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    if (*(v12 + 32))
+    if (*(v11 + 32))
     {
-      OUTLINED_FUNCTION_41(v12);
+      OUTLINED_FUNCTION_41(v11);
       OUTLINED_FUNCTION_261();
     }
 
-    OUTLINED_FUNCTION_33(v12, *(v12 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_33(v11, *(v11 + 72), xmmword_272B87CB0);
     OUTLINED_FUNCTION_259();
-    if (!(!v3 & v17))
+    if (!(!v2 & v16))
     {
-      v15 = v16;
+      v14 = v15;
     }
 
-    *(v14 + 64) = v15;
+    *(v13 + 64) = v14;
     goto LABEL_23;
   }
 
   __break(1u);
 }
 
-void sub_272B4C9FC()
+void sub_272B4C9FC(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -5961,7 +5670,6 @@ void sub_272B4C9FC()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -5973,7 +5681,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -5990,15 +5698,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -6030,11 +5738,10 @@ LABEL_26:
   __break(1u);
 }
 
-void static WK2_CurrentWeather.add(precipitationAmount6h:_:)()
+void static WK2_CurrentWeather.add(precipitationAmount6h:_:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -6042,7 +5749,6 @@ void static WK2_CurrentWeather.add(precipitationAmount6h:_:)()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -6054,7 +5760,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -6071,15 +5777,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -6114,27 +5820,26 @@ LABEL_26:
 void static WK2_CurrentWeather.addVectorOf(precipitationAmountPrevious24hByType:_:)()
 {
   OUTLINED_FUNCTION_219();
-  v3 = *MEMORY[0x277D85DE8];
-  v5 = OUTLINED_FUNCTION_120(v4);
+  OUTLINED_FUNCTION_120();
   if (!v2)
   {
     goto LABEL_28;
   }
 
-  OUTLINED_FUNCTION_58(v5, v6);
-  if (v8 != v9)
+  OUTLINED_FUNCTION_58();
+  if (v4 != v5)
   {
     OUTLINED_FUNCTION_38();
   }
 
-  v10 = *(v0 + 16);
-  if ((v10 & 0x8000000000000000) != 0)
+  v6 = *(v0 + 16);
+  if ((v6 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_30;
   }
 
-  if (HIDWORD(v10))
+  if (HIDWORD(v6))
   {
 LABEL_30:
     __break(1u);
@@ -6143,69 +5848,68 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v11 = OUTLINED_FUNCTION_3(v7, v10);
-  if (v8 != v9)
+  v7 = OUTLINED_FUNCTION_3(v3, v6);
+  if (v4 != v5)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v12, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v8, *(v0 + 24));
   }
 
   OUTLINED_FUNCTION_119();
-  if (v13)
+  if (v9)
   {
     goto LABEL_31;
   }
 
   OUTLINED_FUNCTION_118();
-  if (v14)
+  if (v10)
   {
     OUTLINED_FUNCTION_79();
-    if (!v14)
+    if (!v10)
     {
 LABEL_28:
-      v25 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
-  v15 = OUTLINED_FUNCTION_15();
-  if (v8 != v9)
+  v11 = OUTLINED_FUNCTION_15();
+  if (v4 != v5)
   {
-    OUTLINED_FUNCTION_186(v15);
+    OUTLINED_FUNCTION_186(v11);
   }
 
   OUTLINED_FUNCTION_27();
-  if (v8 != v9)
+  if (v4 != v5)
   {
-    v17 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v17, v2, v18);
-    v16 = *(v1 + 32);
+    v13 = OUTLINED_FUNCTION_83();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v2, v14);
+    v12 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_4(v16);
-  if (!v14 & v19)
+  OUTLINED_FUNCTION_4(v12);
+  if (!v10 & v15)
   {
 LABEL_32:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v21 & 1) == 0)
+  if ((v17 & 1) == 0)
   {
-    if (*(v20 + 32))
+    if (*(v16 + 32))
     {
-      OUTLINED_FUNCTION_57(v20);
+      OUTLINED_FUNCTION_57(v16);
       OUTLINED_FUNCTION_268();
     }
 
-    OUTLINED_FUNCTION_33(v20, *(v20 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_33(v16, *(v16 + 72), xmmword_272B87CB0);
     OUTLINED_FUNCTION_267();
-    if (!(!v14 & v19))
+    if (!(!v10 & v15))
     {
-      v23 = v24;
+      v19 = v20;
     }
 
-    *(v22 + 64) = v23;
+    *(v18 + 64) = v19;
     goto LABEL_28;
   }
 
@@ -6215,27 +5919,26 @@ LABEL_32:
 void static WK2_CurrentWeather.addVectorOf(precipitationAmountPrevious6hByType:_:)()
 {
   OUTLINED_FUNCTION_219();
-  v3 = *MEMORY[0x277D85DE8];
-  v5 = OUTLINED_FUNCTION_120(v4);
+  OUTLINED_FUNCTION_120();
   if (!v2)
   {
     goto LABEL_28;
   }
 
-  OUTLINED_FUNCTION_58(v5, v6);
-  if (v8 != v9)
+  OUTLINED_FUNCTION_58();
+  if (v4 != v5)
   {
     OUTLINED_FUNCTION_38();
   }
 
-  v10 = *(v0 + 16);
-  if ((v10 & 0x8000000000000000) != 0)
+  v6 = *(v0 + 16);
+  if ((v6 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_30;
   }
 
-  if (HIDWORD(v10))
+  if (HIDWORD(v6))
   {
 LABEL_30:
     __break(1u);
@@ -6244,68 +5947,67 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v11 = OUTLINED_FUNCTION_3(v7, v10);
-  if (v8 != v9)
+  v7 = OUTLINED_FUNCTION_3(v3, v6);
+  if (v4 != v5)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v12, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v8, *(v0 + 24));
   }
 
   OUTLINED_FUNCTION_119();
-  if (v13)
+  if (v9)
   {
     goto LABEL_31;
   }
 
   OUTLINED_FUNCTION_118();
-  if (v14)
+  if (v10)
   {
     OUTLINED_FUNCTION_79();
-    if (!v14)
+    if (!v10)
     {
 LABEL_28:
-      v25 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
-  v15 = OUTLINED_FUNCTION_15();
-  if (v8 != v9)
+  v11 = OUTLINED_FUNCTION_15();
+  if (v4 != v5)
   {
-    OUTLINED_FUNCTION_186(v15);
+    OUTLINED_FUNCTION_186(v11);
   }
 
   OUTLINED_FUNCTION_27();
-  if (v8 != v9)
+  if (v4 != v5)
   {
-    v17 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v17, v2, v18);
-    v16 = *(v1 + 32);
+    v13 = OUTLINED_FUNCTION_83();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v2, v14);
+    v12 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_4(v16);
-  if (!v14 & v19)
+  OUTLINED_FUNCTION_4(v12);
+  if (!v10 & v15)
   {
 LABEL_32:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v21 & 1) == 0)
+  if ((v17 & 1) == 0)
   {
-    if (*(v20 + 32))
+    if (*(v16 + 32))
     {
-      OUTLINED_FUNCTION_57(v20);
-      *(v22 + 4) = 44;
+      OUTLINED_FUNCTION_57(v16);
+      *(v18 + 4) = 44;
     }
 
-    OUTLINED_FUNCTION_33(v20, *(v20 + 72), xmmword_272B87CB0);
-    if (v24 <= 0x2C)
+    OUTLINED_FUNCTION_33(v16, *(v16 + 72), xmmword_272B87CB0);
+    if (v20 <= 0x2C)
     {
-      LOWORD(v24) = 44;
+      LOWORD(v20) = 44;
     }
 
-    *(v23 + 64) = v24;
+    *(v19 + 64) = v20;
     goto LABEL_28;
   }
 
@@ -6315,27 +6017,26 @@ LABEL_32:
 void static WK2_CurrentWeather.addVectorOf(precipitationAmountNext24hByType:_:)()
 {
   OUTLINED_FUNCTION_219();
-  v3 = *MEMORY[0x277D85DE8];
-  v5 = OUTLINED_FUNCTION_120(v4);
+  OUTLINED_FUNCTION_120();
   if (!v2)
   {
     goto LABEL_28;
   }
 
-  OUTLINED_FUNCTION_58(v5, v6);
-  if (v8 != v9)
+  OUTLINED_FUNCTION_58();
+  if (v4 != v5)
   {
     OUTLINED_FUNCTION_38();
   }
 
-  v10 = *(v0 + 16);
-  if ((v10 & 0x8000000000000000) != 0)
+  v6 = *(v0 + 16);
+  if ((v6 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_30;
   }
 
-  if (HIDWORD(v10))
+  if (HIDWORD(v6))
   {
 LABEL_30:
     __break(1u);
@@ -6344,79 +6045,77 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v11 = OUTLINED_FUNCTION_3(v7, v10);
-  if (v8 != v9)
+  v7 = OUTLINED_FUNCTION_3(v3, v6);
+  if (v4 != v5)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v12, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v8, *(v0 + 24));
   }
 
   OUTLINED_FUNCTION_119();
-  if (v13)
+  if (v9)
   {
     goto LABEL_31;
   }
 
   OUTLINED_FUNCTION_118();
-  if (v14)
+  if (v10)
   {
     OUTLINED_FUNCTION_79();
-    if (!v14)
+    if (!v10)
     {
 LABEL_28:
-      v25 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
-  v15 = OUTLINED_FUNCTION_15();
-  if (v8 != v9)
+  v11 = OUTLINED_FUNCTION_15();
+  if (v4 != v5)
   {
-    OUTLINED_FUNCTION_186(v15);
+    OUTLINED_FUNCTION_186(v11);
   }
 
   OUTLINED_FUNCTION_27();
-  if (v8 != v9)
+  if (v4 != v5)
   {
-    v17 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v17, v2, v18);
-    v16 = *(v1 + 32);
+    v13 = OUTLINED_FUNCTION_83();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v2, v14);
+    v12 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_4(v16);
-  if (!v14 & v19)
+  OUTLINED_FUNCTION_4(v12);
+  if (!v10 & v15)
   {
 LABEL_32:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v21 & 1) == 0)
+  if ((v17 & 1) == 0)
   {
-    if (*(v20 + 32))
+    if (*(v16 + 32))
     {
-      OUTLINED_FUNCTION_57(v20);
-      *(v22 + 4) = 40;
+      OUTLINED_FUNCTION_57(v16);
+      *(v18 + 4) = 40;
     }
 
-    OUTLINED_FUNCTION_33(v20, *(v20 + 72), xmmword_272B87CB0);
-    if (v24 <= 0x28)
+    OUTLINED_FUNCTION_33(v16, *(v16 + 72), xmmword_272B87CB0);
+    if (v20 <= 0x28)
     {
-      LOWORD(v24) = 40;
+      LOWORD(v20) = 40;
     }
 
-    *(v23 + 64) = v24;
+    *(v19 + 64) = v20;
     goto LABEL_28;
   }
 
   __break(1u);
 }
 
-void static WK2_CurrentWeather.add(windSpeed:_:)()
+void static WK2_CurrentWeather.add(windSpeed:_:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -6424,7 +6123,6 @@ void static WK2_CurrentWeather.add(windSpeed:_:)()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -6436,7 +6134,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -6453,15 +6151,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -6493,11 +6191,10 @@ LABEL_26:
   __break(1u);
 }
 
-void static WK2_CurrentWeather.add(visibility:_:)()
+void static WK2_CurrentWeather.add(visibility:_:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -6505,7 +6202,6 @@ void static WK2_CurrentWeather.add(visibility:_:)()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -6517,7 +6213,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -6534,15 +6230,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -6578,108 +6274,13 @@ void sub_272B4D16C()
 {
   OUTLINED_FUNCTION_219();
   OUTLINED_FUNCTION_106();
-  v23 = *MEMORY[0x277D85DE8];
-  if (!v4)
-  {
-    OUTLINED_FUNCTION_79();
-    if (!v5)
-    {
-LABEL_22:
-      v22 = *MEMORY[0x277D85DE8];
-      OUTLINED_FUNCTION_218();
-      return;
-    }
-  }
-
-  OUTLINED_FUNCTION_95();
-  if (v7 ^ v8 | v5)
-  {
-    OUTLINED_FUNCTION_38();
-  }
-
-  v9 = *(v0 + 16);
-  if ((v9 & 0x8000000000000000) != 0)
-  {
-    __break(1u);
-    goto LABEL_24;
-  }
-
-  if (HIDWORD(v9))
-  {
-LABEL_24:
-    __break(1u);
-    goto LABEL_25;
-  }
-
-  v10 = OUTLINED_FUNCTION_6(v6, v9);
-  if (v7 != v8)
-  {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v11, *(v0 + 24));
-  }
-
-  OUTLINED_FUNCTION_26();
-  if (v7 != v8)
-  {
-    v13 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v3, v14);
-    v12 = *(v1 + 32);
-  }
-
-  OUTLINED_FUNCTION_43(v12);
-  *(v15 - 4) = v2;
-  OUTLINED_FUNCTION_55();
-  if (!v5 & v16)
-  {
-LABEL_25:
-    __break(1u);
-  }
-
-  OUTLINED_FUNCTION_77();
-  if ((v18 & 1) == 0)
-  {
-    if (*(v17 + 32))
-    {
-      OUTLINED_FUNCTION_41(v17);
-      OUTLINED_FUNCTION_235();
-    }
-
-    OUTLINED_FUNCTION_33(v17, *(v17 + 72), xmmword_272B87CB0);
-    OUTLINED_FUNCTION_284();
-    if (!(!v5 & v16))
-    {
-      v20 = v21;
-    }
-
-    *(v19 + 64) = v20;
-    goto LABEL_22;
-  }
-
-  __break(1u);
-}
-
-void static WK2_CurrentWeather.add(asOf:_:)()
-{
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
-
-  sub_272B4D16C();
-}
-
-void sub_272B4D2C0()
-{
-  OUTLINED_FUNCTION_226();
-  OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_96();
-  if (v4)
+  if (!v3)
   {
     OUTLINED_FUNCTION_79();
     if (!v4)
     {
-LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
-      OUTLINED_FUNCTION_225();
+LABEL_22:
+      OUTLINED_FUNCTION_218();
       return;
     }
   }
@@ -6691,6 +6292,94 @@ LABEL_23:
   }
 
   v8 = *(v0 + 16);
+  if ((v8 & 0x8000000000000000) != 0)
+  {
+    __break(1u);
+    goto LABEL_24;
+  }
+
+  if (HIDWORD(v8))
+  {
+LABEL_24:
+    __break(1u);
+    goto LABEL_25;
+  }
+
+  v9 = OUTLINED_FUNCTION_6(v5, v8);
+  if (v6 != v7)
+  {
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+  }
+
+  OUTLINED_FUNCTION_26();
+  if (v6 != v7)
+  {
+    v11 = OUTLINED_FUNCTION_83();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v2, v12);
+  }
+
+  OUTLINED_FUNCTION_43();
+  *(v13 - 4) = v1;
+  OUTLINED_FUNCTION_55();
+  if (!v4 & v14)
+  {
+LABEL_25:
+    __break(1u);
+  }
+
+  OUTLINED_FUNCTION_77();
+  if ((v16 & 1) == 0)
+  {
+    if (*(v15 + 32))
+    {
+      OUTLINED_FUNCTION_41(v15);
+      OUTLINED_FUNCTION_235();
+    }
+
+    OUTLINED_FUNCTION_33(v15, *(v15 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_284();
+    if (!(!v4 & v14))
+    {
+      v18 = v19;
+    }
+
+    *(v17 + 64) = v18;
+    goto LABEL_22;
+  }
+
+  __break(1u);
+}
+
+void static WK2_CurrentWeather.add(asOf:_:)()
+{
+  OUTLINED_FUNCTION_75();
+
+  sub_272B4D16C();
+}
+
+void sub_272B4D2C0(uint64_t a1)
+{
+  OUTLINED_FUNCTION_226();
+  OUTLINED_FUNCTION_97();
+  OUTLINED_FUNCTION_96();
+  if (v4)
+  {
+    OUTLINED_FUNCTION_79();
+    if (!v4)
+    {
+LABEL_23:
+      OUTLINED_FUNCTION_225();
+      return;
+    }
+  }
+
+  OUTLINED_FUNCTION_95();
+  if (v6 ^ v7 | v4)
+  {
+    OUTLINED_FUNCTION_38();
+  }
+
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -6707,15 +6396,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -6749,45 +6438,41 @@ LABEL_26:
 
 void static WK2_CurrentWeather.add(pressure:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
-  sub_272B4D2C0();
+  sub_272B4D2C0(v0);
 }
 
 void static WK2_CurrentWeather.add(pressureTrend:_:)()
 {
   OUTLINED_FUNCTION_219();
   v3 = v2;
-  v4 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_140(v5);
+  OUTLINED_FUNCTION_140();
   if (!v1)
   {
     OUTLINED_FUNCTION_79();
-    if (!v6)
+    if (!v4)
     {
 LABEL_22:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_100();
-  if (v7 ^ v8 | v6)
+  if (v5 ^ v6 | v4)
   {
     OUTLINED_FUNCTION_50();
   }
 
-  v9 = *(v3 + 16);
-  if ((v9 & 0x8000000000000000) != 0)
+  v7 = *(v3 + 16);
+  if ((v7 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_24;
   }
 
-  if (HIDWORD(v9))
+  if (HIDWORD(v7))
   {
 LABEL_24:
     __break(1u);
@@ -6795,54 +6480,53 @@ LABEL_24:
   }
 
   OUTLINED_FUNCTION_39();
-  if (v7 != v8)
+  if (v5 != v6)
   {
-    v10 = OUTLINED_FUNCTION_98();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v9, v11);
+    v8 = OUTLINED_FUNCTION_98();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v8, v7, v9);
   }
 
   OUTLINED_FUNCTION_40();
-  if (v7 ^ v8 | v6)
+  if (v5 ^ v6 | v4)
   {
-    v13 = OUTLINED_FUNCTION_99();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v9, v14);
-    v12 = *(v0 + 32);
+    v11 = OUTLINED_FUNCTION_99();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v7, v12);
+    v10 = *(v0 + 32);
   }
 
-  OUTLINED_FUNCTION_12(v12);
-  if (v6)
+  OUTLINED_FUNCTION_12(v10);
+  if (v4)
   {
 LABEL_25:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v16 & 1) == 0)
+  if ((v14 & 1) == 0)
   {
-    if (*(v15 + 32))
+    if (*(v13 + 32))
     {
-      OUTLINED_FUNCTION_41(v15);
-      *(v17 + 4) = 52;
+      OUTLINED_FUNCTION_41(v13);
+      *(v15 + 4) = 52;
     }
 
-    OUTLINED_FUNCTION_33(v15, *(v15 + 72), xmmword_272B87CB0);
-    if (v19 <= 0x34)
+    OUTLINED_FUNCTION_33(v13, *(v13 + 72), xmmword_272B87CB0);
+    if (v17 <= 0x34)
     {
-      LOWORD(v19) = 52;
+      LOWORD(v17) = 52;
     }
 
-    *(v18 + 64) = v19;
+    *(v16 + 64) = v17;
     goto LABEL_22;
   }
 
   __break(1u);
 }
 
-void sub_272B4D518()
+void sub_272B4D518(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -6850,7 +6534,6 @@ void sub_272B4D518()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -6862,7 +6545,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -6879,15 +6562,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -6921,18 +6604,15 @@ LABEL_26:
 
 void static WK2_CurrentWeather.add(temperatureApparent:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
-  sub_272B4D518();
+  sub_272B4D518(v0);
 }
 
-void static WK2_CurrentWeather.add(temperatureDewPoint:_:)()
+void static WK2_CurrentWeather.add(temperatureDewPoint:_:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -6940,7 +6620,6 @@ void static WK2_CurrentWeather.add(temperatureDewPoint:_:)()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -6952,7 +6631,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -6969,15 +6648,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -7009,7 +6688,7 @@ LABEL_26:
   __break(1u);
 }
 
-void static WK2_DayPartForecast.startDayPartForecast(_:)(_BYTE *a1)
+void static WK2_DayPartForecast.startDayPartForecast(_:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_25(a1);
   OUTLINED_FUNCTION_141();
@@ -7048,36 +6727,28 @@ LABEL_11:
 
 void static WK2_DayPartForecast.add(cloudCover:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(cloudCover:_:)();
 }
 
 void static WK2_DayPartForecast.add(cloudCoverHighAltPct:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(cloudCoverHighAltPct:_:)();
 }
 
 void static WK2_DayPartForecast.add(conditionCode:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(conditionCode:_:)();
 }
 
 void static WK2_DayPartForecast.add(humidityMax:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(humidity:_:)();
 }
@@ -7086,34 +6757,32 @@ void static WK2_DayPartForecast.add(humidityMin:_:)()
 {
   OUTLINED_FUNCTION_219();
   OUTLINED_FUNCTION_106();
-  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_125();
-  if (v3)
+  if (v2)
   {
     OUTLINED_FUNCTION_79();
-    if (!v3)
+    if (!v2)
     {
 LABEL_23:
-      v17 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_100();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
     OUTLINED_FUNCTION_50();
   }
 
-  v6 = *(v0 + 16);
-  if ((v6 & 0x8000000000000000) != 0)
+  v5 = *(v0 + 16);
+  if ((v5 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_25;
   }
 
-  if (HIDWORD(v6))
+  if (HIDWORD(v5))
   {
 LABEL_25:
     __break(1u);
@@ -7121,54 +6790,53 @@ LABEL_25:
   }
 
   OUTLINED_FUNCTION_44();
-  if (v4 != v5)
+  if (v3 != v4)
   {
-    v7 = OUTLINED_FUNCTION_98();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v6, v8);
+    v6 = OUTLINED_FUNCTION_98();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v6, v5, v7);
   }
 
   OUTLINED_FUNCTION_29();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
-    v10 = OUTLINED_FUNCTION_99();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v6, v11);
-    v9 = *(v1 + 32);
+    v9 = OUTLINED_FUNCTION_99();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v5, v10);
+    v8 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_8(v9);
-  if (v3)
+  OUTLINED_FUNCTION_8(v8);
+  if (v2)
   {
 LABEL_26:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v13 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    if (*(v12 + 32))
+    if (*(v11 + 32))
     {
-      OUTLINED_FUNCTION_41(v12);
-      *(v14 + 4) = 22;
+      OUTLINED_FUNCTION_41(v11);
+      *(v13 + 4) = 22;
     }
 
-    OUTLINED_FUNCTION_33(v12, *(v12 + 72), xmmword_272B87CB0);
-    if (v16 <= 0x16)
+    OUTLINED_FUNCTION_33(v11, *(v11 + 72), xmmword_272B87CB0);
+    if (v15 <= 0x16)
     {
-      LOWORD(v16) = 22;
+      LOWORD(v15) = 22;
     }
 
-    *(v15 + 64) = v16;
+    *(v14 + 64) = v15;
     goto LABEL_23;
   }
 
   __break(1u);
 }
 
-void sub_272B4DA54()
+void sub_272B4DA54(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -7176,7 +6844,6 @@ void sub_272B4DA54()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -7188,7 +6855,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -7205,15 +6872,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -7249,34 +6916,32 @@ void static WK2_DayPartForecast.add(precipitationType:_:)()
 {
   OUTLINED_FUNCTION_219();
   v3 = v2;
-  v4 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_140(v5);
+  OUTLINED_FUNCTION_140();
   if (!v1)
   {
     OUTLINED_FUNCTION_79();
-    if (!v6)
+    if (!v4)
     {
 LABEL_22:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_100();
-  if (v7 ^ v8 | v6)
+  if (v5 ^ v6 | v4)
   {
     OUTLINED_FUNCTION_50();
   }
 
-  v9 = *(v3 + 16);
-  if ((v9 & 0x8000000000000000) != 0)
+  v7 = *(v3 + 16);
+  if ((v7 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_24;
   }
 
-  if (HIDWORD(v9))
+  if (HIDWORD(v7))
   {
 LABEL_24:
     __break(1u);
@@ -7284,115 +6949,24 @@ LABEL_24:
   }
 
   OUTLINED_FUNCTION_39();
-  if (v7 != v8)
+  if (v5 != v6)
   {
-    v10 = OUTLINED_FUNCTION_98();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v9, v11);
+    v8 = OUTLINED_FUNCTION_98();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v8, v7, v9);
   }
 
   OUTLINED_FUNCTION_40();
-  if (v7 ^ v8 | v6)
-  {
-    v13 = OUTLINED_FUNCTION_99();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v9, v14);
-    v12 = *(v0 + 32);
-  }
-
-  OUTLINED_FUNCTION_12(v12);
-  if (v6)
-  {
-LABEL_25:
-    __break(1u);
-  }
-
-  OUTLINED_FUNCTION_77();
-  if ((v16 & 1) == 0)
-  {
-    if (*(v15 + 32))
-    {
-      OUTLINED_FUNCTION_41(v15);
-      *(v17 + 4) = 30;
-    }
-
-    OUTLINED_FUNCTION_33(v15, *(v15 + 72), xmmword_272B87CB0);
-    if (v19 <= 0x1E)
-    {
-      LOWORD(v19) = 30;
-    }
-
-    *(v18 + 64) = v19;
-    goto LABEL_22;
-  }
-
-  __break(1u);
-}
-
-void static WK2_CurrentWeather.add(precipitationAmountNext6h:_:)()
-{
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
-
-  sub_272B4BBD8();
-}
-
-void static WK2_DayPartForecast.add(windDirection:_:)()
-{
-  OUTLINED_FUNCTION_219();
-  OUTLINED_FUNCTION_106();
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_265();
-  if (v4)
-  {
-    OUTLINED_FUNCTION_79();
-    if (!v4)
-    {
-LABEL_23:
-      v18 = *MEMORY[0x277D85DE8];
-      OUTLINED_FUNCTION_218();
-      return;
-    }
-  }
-
-  OUTLINED_FUNCTION_250();
   if (v5 ^ v6 | v4)
   {
-    OUTLINED_FUNCTION_78(2);
+    v11 = OUTLINED_FUNCTION_99();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v7, v12);
+    v10 = *(v0 + 32);
   }
 
-  v7 = *(v0 + 16);
-  if ((v7 & 0x8000000000000000) != 0)
-  {
-    __break(1u);
-    goto LABEL_25;
-  }
-
-  if (HIDWORD(v7))
+  OUTLINED_FUNCTION_12(v10);
+  if (v4)
   {
 LABEL_25:
-    __break(1u);
-    goto LABEL_26;
-  }
-
-  OUTLINED_FUNCTION_22();
-  if (v5 != v6)
-  {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v8, v9, *(v0 + 24));
-  }
-
-  *(v0 + 16) = v2;
-  OUTLINED_FUNCTION_105();
-  if (v5 != v6)
-  {
-    OUTLINED_FUNCTION_208();
-    v10 = *(v1 + 32);
-  }
-
-  OUTLINED_FUNCTION_43(v10);
-  OUTLINED_FUNCTION_117(v11);
-  if (!v4 & v12)
-  {
-LABEL_26:
     __break(1u);
   }
 
@@ -7402,24 +6976,110 @@ LABEL_26:
     if (*(v13 + 32))
     {
       OUTLINED_FUNCTION_41(v13);
-      OUTLINED_FUNCTION_270();
+      *(v15 + 4) = 30;
     }
 
     OUTLINED_FUNCTION_33(v13, *(v13 + 72), xmmword_272B87CB0);
-    OUTLINED_FUNCTION_269();
-    if (!(!v4 & v12))
+    if (v17 <= 0x1E)
     {
-      v16 = v17;
+      LOWORD(v17) = 30;
     }
 
-    *(v15 + 64) = v16;
+    *(v16 + 64) = v17;
+    goto LABEL_22;
+  }
+
+  __break(1u);
+}
+
+void static WK2_CurrentWeather.add(precipitationAmountNext6h:_:)()
+{
+  OUTLINED_FUNCTION_75();
+
+  sub_272B4BBD8(v0);
+}
+
+void static WK2_DayPartForecast.add(windDirection:_:)()
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_106();
+  OUTLINED_FUNCTION_265();
+  if (v2)
+  {
+    OUTLINED_FUNCTION_79();
+    if (!v2)
+    {
+LABEL_23:
+      OUTLINED_FUNCTION_218();
+      return;
+    }
+  }
+
+  OUTLINED_FUNCTION_250();
+  if (v3 ^ v4 | v2)
+  {
+    OUTLINED_FUNCTION_78(2);
+  }
+
+  v5 = *(v0 + 16);
+  if ((v5 & 0x8000000000000000) != 0)
+  {
+    __break(1u);
+    goto LABEL_25;
+  }
+
+  if (HIDWORD(v5))
+  {
+LABEL_25:
+    __break(1u);
+    goto LABEL_26;
+  }
+
+  OUTLINED_FUNCTION_22();
+  if (v3 != v4)
+  {
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v6, v7, *(v0 + 24));
+  }
+
+  *(v0 + 16) = v1;
+  OUTLINED_FUNCTION_105();
+  if (v3 != v4)
+  {
+    OUTLINED_FUNCTION_208();
+  }
+
+  OUTLINED_FUNCTION_43();
+  OUTLINED_FUNCTION_117(v8);
+  if (!v2 & v9)
+  {
+LABEL_26:
+    __break(1u);
+  }
+
+  OUTLINED_FUNCTION_77();
+  if ((v11 & 1) == 0)
+  {
+    if (*(v10 + 32))
+    {
+      OUTLINED_FUNCTION_41(v10);
+      OUTLINED_FUNCTION_270();
+    }
+
+    OUTLINED_FUNCTION_33(v10, *(v10 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_269();
+    if (!(!v2 & v9))
+    {
+      v13 = v14;
+    }
+
+    *(v12 + 64) = v13;
     goto LABEL_23;
   }
 
   __break(1u);
 }
 
-void static WK2_DayWeatherConditions.startDayWeatherConditions(_:)(_BYTE *a1)
+void static WK2_DayWeatherConditions.startDayWeatherConditions(_:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_25(a1);
   OUTLINED_FUNCTION_141();
@@ -7458,18 +7118,14 @@ LABEL_11:
 
 void static WK2_DayWeatherConditions.add(precipitationChance:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B4DEE4();
 }
 
 void static WK2_DayWeatherConditions.add(precipitationAmount:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(perceivedPrecipitationIntensity:_:)();
 }
@@ -7478,34 +7134,32 @@ void sub_272B4DEE4()
 {
   OUTLINED_FUNCTION_219();
   OUTLINED_FUNCTION_106();
-  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_125();
-  if (v3)
+  if (v2)
   {
     OUTLINED_FUNCTION_79();
-    if (!v3)
+    if (!v2)
     {
 LABEL_23:
-      v17 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_100();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
     OUTLINED_FUNCTION_50();
   }
 
-  v6 = *(v0 + 16);
-  if ((v6 & 0x8000000000000000) != 0)
+  v5 = *(v0 + 16);
+  if ((v5 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_25;
   }
 
-  if (HIDWORD(v6))
+  if (HIDWORD(v5))
   {
 LABEL_25:
     __break(1u);
@@ -7513,43 +7167,43 @@ LABEL_25:
   }
 
   OUTLINED_FUNCTION_44();
-  if (v4 != v5)
+  if (v3 != v4)
   {
-    v7 = OUTLINED_FUNCTION_98();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v6, v8);
+    v6 = OUTLINED_FUNCTION_98();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v6, v5, v7);
   }
 
   OUTLINED_FUNCTION_29();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
-    v10 = OUTLINED_FUNCTION_99();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v6, v11);
-    v9 = *(v1 + 32);
+    v9 = OUTLINED_FUNCTION_99();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v5, v10);
+    v8 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_8(v9);
-  if (v3)
+  OUTLINED_FUNCTION_8(v8);
+  if (v2)
   {
 LABEL_26:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v13 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    if (*(v12 + 32))
+    if (*(v11 + 32))
     {
-      OUTLINED_FUNCTION_41(v12);
-      *(v14 + 4) = 26;
+      OUTLINED_FUNCTION_41(v11);
+      *(v13 + 4) = 26;
     }
 
-    OUTLINED_FUNCTION_33(v12, *(v12 + 72), xmmword_272B87CB0);
-    if (v16 <= 0x1A)
+    OUTLINED_FUNCTION_33(v11, *(v11 + 72), xmmword_272B87CB0);
+    if (v15 <= 0x1A)
     {
-      LOWORD(v16) = 26;
+      LOWORD(v15) = 26;
     }
 
-    *(v15 + 64) = v16;
+    *(v14 + 64) = v15;
     goto LABEL_23;
   }
 
@@ -7558,18 +7212,15 @@ LABEL_26:
 
 void static WK2_DayWeatherConditions.add(snowfallAmount:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(precipitationAmountNext1h:_:)();
 }
 
-void sub_272B4E03C()
+void sub_272B4E03C(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -7577,7 +7228,6 @@ void sub_272B4E03C()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -7589,7 +7239,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -7606,15 +7256,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -7648,18 +7298,15 @@ LABEL_26:
 
 void static WK2_CurrentWeather.add(precipitationAmountNext1h:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
-  sub_272B4E03C();
+  sub_272B4E03C(v0);
 }
 
-void sub_272B4E190()
+void sub_272B4E190(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -7667,7 +7314,6 @@ void sub_272B4E190()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -7679,7 +7325,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -7696,15 +7342,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -7738,18 +7384,14 @@ LABEL_26:
 
 void static WK2_DayWeatherConditions.add(temperatureMax:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
-  sub_272B4E190();
+  sub_272B4E190(v0);
 }
 
 void static WK2_DayWeatherConditions.add(temperatureMin:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(snowfallAmount6h:_:)();
 }
@@ -7757,27 +7399,26 @@ void static WK2_DayWeatherConditions.add(temperatureMin:_:)()
 void static WK2_DayWeatherConditions.add(daytimeForecast:_:)()
 {
   OUTLINED_FUNCTION_219();
-  v3 = *MEMORY[0x277D85DE8];
-  v5 = OUTLINED_FUNCTION_120(v4);
+  OUTLINED_FUNCTION_120();
   if (!v2)
   {
     goto LABEL_28;
   }
 
-  OUTLINED_FUNCTION_58(v5, v6);
-  if (v8 != v9)
+  OUTLINED_FUNCTION_58();
+  if (v4 != v5)
   {
     OUTLINED_FUNCTION_38();
   }
 
-  v10 = *(v0 + 16);
-  if ((v10 & 0x8000000000000000) != 0)
+  v6 = *(v0 + 16);
+  if ((v6 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_30;
   }
 
-  if (HIDWORD(v10))
+  if (HIDWORD(v6))
   {
 LABEL_30:
     __break(1u);
@@ -7786,68 +7427,67 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v11 = OUTLINED_FUNCTION_3(v7, v10);
-  if (v8 != v9)
+  v7 = OUTLINED_FUNCTION_3(v3, v6);
+  if (v4 != v5)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v12, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v8, *(v0 + 24));
   }
 
   OUTLINED_FUNCTION_119();
-  if (v13)
+  if (v9)
   {
     goto LABEL_31;
   }
 
   OUTLINED_FUNCTION_118();
-  if (v14)
+  if (v10)
   {
     OUTLINED_FUNCTION_79();
-    if (!v14)
+    if (!v10)
     {
 LABEL_28:
-      v25 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
-  v15 = OUTLINED_FUNCTION_15();
-  if (v8 != v9)
+  v11 = OUTLINED_FUNCTION_15();
+  if (v4 != v5)
   {
-    OUTLINED_FUNCTION_186(v15);
+    OUTLINED_FUNCTION_186(v11);
   }
 
   OUTLINED_FUNCTION_27();
-  if (v8 != v9)
+  if (v4 != v5)
   {
-    v17 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v17, v2, v18);
-    v16 = *(v1 + 32);
+    v13 = OUTLINED_FUNCTION_83();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v2, v14);
+    v12 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_4(v16);
-  if (!v14 & v19)
+  OUTLINED_FUNCTION_4(v12);
+  if (!v10 & v15)
   {
 LABEL_32:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v21 & 1) == 0)
+  if ((v17 & 1) == 0)
   {
-    if (*(v20 + 32))
+    if (*(v16 + 32))
     {
-      OUTLINED_FUNCTION_57(v20);
-      *(v22 + 4) = 70;
+      OUTLINED_FUNCTION_57(v16);
+      *(v18 + 4) = 70;
     }
 
-    OUTLINED_FUNCTION_33(v20, *(v20 + 72), xmmword_272B87CB0);
-    if (v24 <= 0x46)
+    OUTLINED_FUNCTION_33(v16, *(v16 + 72), xmmword_272B87CB0);
+    if (v20 <= 0x46)
     {
-      LOWORD(v24) = 70;
+      LOWORD(v20) = 70;
     }
 
-    *(v23 + 64) = v24;
+    *(v19 + 64) = v20;
     goto LABEL_28;
   }
 
@@ -7857,27 +7497,26 @@ LABEL_32:
 void static WK2_DayWeatherConditions.add(overnightForecast:_:)()
 {
   OUTLINED_FUNCTION_219();
-  v3 = *MEMORY[0x277D85DE8];
-  v5 = OUTLINED_FUNCTION_120(v4);
+  OUTLINED_FUNCTION_120();
   if (!v2)
   {
     goto LABEL_28;
   }
 
-  OUTLINED_FUNCTION_58(v5, v6);
-  if (v8 != v9)
+  OUTLINED_FUNCTION_58();
+  if (v4 != v5)
   {
     OUTLINED_FUNCTION_38();
   }
 
-  v10 = *(v0 + 16);
-  if ((v10 & 0x8000000000000000) != 0)
+  v6 = *(v0 + 16);
+  if ((v6 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_30;
   }
 
-  if (HIDWORD(v10))
+  if (HIDWORD(v6))
   {
 LABEL_30:
     __break(1u);
@@ -7886,142 +7525,48 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v11 = OUTLINED_FUNCTION_3(v7, v10);
-  if (v8 != v9)
+  v7 = OUTLINED_FUNCTION_3(v3, v6);
+  if (v4 != v5)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v12, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v8, *(v0 + 24));
   }
 
   OUTLINED_FUNCTION_119();
-  if (v13)
+  if (v9)
   {
     goto LABEL_31;
   }
 
   OUTLINED_FUNCTION_118();
-  if (v14)
+  if (v10)
   {
     OUTLINED_FUNCTION_79();
-    if (!v14)
+    if (!v10)
     {
 LABEL_28:
-      v25 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
-  v15 = OUTLINED_FUNCTION_15();
-  if (v8 != v9)
+  v11 = OUTLINED_FUNCTION_15();
+  if (v4 != v5)
   {
-    OUTLINED_FUNCTION_186(v15);
+    OUTLINED_FUNCTION_186(v11);
   }
 
   OUTLINED_FUNCTION_27();
-  if (v8 != v9)
-  {
-    v17 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v17, v2, v18);
-    v16 = *(v1 + 32);
-  }
-
-  OUTLINED_FUNCTION_4(v16);
-  if (!v14 & v19)
-  {
-LABEL_32:
-    __break(1u);
-  }
-
-  OUTLINED_FUNCTION_77();
-  if ((v21 & 1) == 0)
-  {
-    if (*(v20 + 32))
-    {
-      OUTLINED_FUNCTION_57(v20);
-      *(v22 + 4) = 72;
-    }
-
-    OUTLINED_FUNCTION_33(v20, *(v20 + 72), xmmword_272B87CB0);
-    if (v24 <= 0x48)
-    {
-      LOWORD(v24) = 72;
-    }
-
-    *(v23 + 64) = v24;
-    goto LABEL_28;
-  }
-
-  __break(1u);
-}
-
-void static WK2_DayWeatherConditions.add(humidityMax:_:)()
-{
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
-
-  static WK2_CurrentWeather.add(cloudCoverLowAltPct:_:)();
-}
-
-void static WK2_DayWeatherConditions.add(moonPhase:_:)()
-{
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
-
-  static WK2_CurrentWeather.add(conditionCode:_:)();
-}
-
-void static WK2_DayWeatherConditions.add(solarNoon:_:)()
-{
-  OUTLINED_FUNCTION_219();
-  v22 = *MEMORY[0x277D85DE8];
-  if ((v3 & 0x100000000) != 0)
-  {
-LABEL_20:
-    v21 = *MEMORY[0x277D85DE8];
-    OUTLINED_FUNCTION_218();
-    return;
-  }
-
-  OUTLINED_FUNCTION_30(v3, v4);
-  if (v7 ^ v8 | v6)
-  {
-    OUTLINED_FUNCTION_38();
-  }
-
-  v9 = *(v0 + 16);
-  if ((v9 & 0x8000000000000000) != 0)
-  {
-    __break(1u);
-    goto LABEL_22;
-  }
-
-  if (HIDWORD(v9))
-  {
-LABEL_22:
-    __break(1u);
-    goto LABEL_23;
-  }
-
-  v10 = OUTLINED_FUNCTION_6(v5, v9);
-  if (v7 != v8)
-  {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v11, *(v0 + 24));
-  }
-
-  OUTLINED_FUNCTION_26();
-  if (v7 != v8)
+  if (v4 != v5)
   {
     v13 = OUTLINED_FUNCTION_83();
     ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v2, v14);
     v12 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_5(v12);
-  if (!v6 & v15)
+  OUTLINED_FUNCTION_4(v12);
+  if (!v10 & v15)
   {
-LABEL_23:
+LABEL_32:
     __break(1u);
   }
 
@@ -8030,17 +7575,104 @@ LABEL_23:
   {
     if (*(v16 + 32))
     {
-      OUTLINED_FUNCTION_41(v16);
-      *(v18 + 4) = 34;
+      OUTLINED_FUNCTION_57(v16);
+      *(v18 + 4) = 72;
     }
 
     OUTLINED_FUNCTION_33(v16, *(v16 + 72), xmmword_272B87CB0);
-    if (v20 <= 0x22)
+    if (v20 <= 0x48)
     {
-      LOWORD(v20) = 34;
+      LOWORD(v20) = 72;
     }
 
     *(v19 + 64) = v20;
+    goto LABEL_28;
+  }
+
+  __break(1u);
+}
+
+void static WK2_DayWeatherConditions.add(humidityMax:_:)()
+{
+  OUTLINED_FUNCTION_75();
+
+  static WK2_CurrentWeather.add(cloudCoverLowAltPct:_:)();
+}
+
+void static WK2_DayWeatherConditions.add(moonPhase:_:)()
+{
+  OUTLINED_FUNCTION_75();
+
+  static WK2_CurrentWeather.add(conditionCode:_:)();
+}
+
+void static WK2_DayWeatherConditions.add(solarNoon:_:)()
+{
+  OUTLINED_FUNCTION_219();
+  if ((v3 & 0x100000000) != 0)
+  {
+LABEL_20:
+    OUTLINED_FUNCTION_218();
+    return;
+  }
+
+  OUTLINED_FUNCTION_30();
+  if (v6 ^ v7 | v5)
+  {
+    OUTLINED_FUNCTION_38();
+  }
+
+  v8 = *(v0 + 16);
+  if ((v8 & 0x8000000000000000) != 0)
+  {
+    __break(1u);
+    goto LABEL_22;
+  }
+
+  if (HIDWORD(v8))
+  {
+LABEL_22:
+    __break(1u);
+    goto LABEL_23;
+  }
+
+  v9 = OUTLINED_FUNCTION_6(v4, v8);
+  if (v6 != v7)
+  {
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+  }
+
+  OUTLINED_FUNCTION_26();
+  if (v6 != v7)
+  {
+    v12 = OUTLINED_FUNCTION_83();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
+    v11 = *(v1 + 32);
+  }
+
+  OUTLINED_FUNCTION_5(v11);
+  if (!v5 & v14)
+  {
+LABEL_23:
+    __break(1u);
+  }
+
+  OUTLINED_FUNCTION_77();
+  if ((v16 & 1) == 0)
+  {
+    if (*(v15 + 32))
+    {
+      OUTLINED_FUNCTION_41(v15);
+      *(v17 + 4) = 34;
+    }
+
+    OUTLINED_FUNCTION_33(v15, *(v15 + 72), xmmword_272B87CB0);
+    if (v19 <= 0x22)
+    {
+      LOWORD(v19) = 34;
+    }
+
+    *(v18 + 64) = v19;
     goto LABEL_20;
   }
 
@@ -8050,72 +7682,70 @@ LABEL_23:
 void static WK2_DayWeatherConditions.add(solarMidnight:_:)()
 {
   OUTLINED_FUNCTION_219();
-  v22 = *MEMORY[0x277D85DE8];
   if ((v3 & 0x100000000) != 0)
   {
 LABEL_20:
-    v21 = *MEMORY[0x277D85DE8];
     OUTLINED_FUNCTION_218();
     return;
   }
 
-  OUTLINED_FUNCTION_30(v3, v4);
-  if (v7 ^ v8 | v6)
+  OUTLINED_FUNCTION_30();
+  if (v6 ^ v7 | v5)
   {
     OUTLINED_FUNCTION_38();
   }
 
-  v9 = *(v0 + 16);
-  if ((v9 & 0x8000000000000000) != 0)
+  v8 = *(v0 + 16);
+  if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_22;
   }
 
-  if (HIDWORD(v9))
+  if (HIDWORD(v8))
   {
 LABEL_22:
     __break(1u);
     goto LABEL_23;
   }
 
-  v10 = OUTLINED_FUNCTION_6(v5, v9);
-  if (v7 != v8)
+  v9 = OUTLINED_FUNCTION_6(v4, v8);
+  if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v11, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
   }
 
   OUTLINED_FUNCTION_26();
-  if (v7 != v8)
+  if (v6 != v7)
   {
-    v13 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v2, v14);
-    v12 = *(v1 + 32);
+    v12 = OUTLINED_FUNCTION_83();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
+    v11 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_5(v12);
-  if (!v6 & v15)
+  OUTLINED_FUNCTION_5(v11);
+  if (!v5 & v14)
   {
 LABEL_23:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v17 & 1) == 0)
+  if ((v16 & 1) == 0)
   {
-    if (*(v16 + 32))
+    if (*(v15 + 32))
     {
-      OUTLINED_FUNCTION_41(v16);
-      *(v18 + 4) = 32;
+      OUTLINED_FUNCTION_41(v15);
+      *(v17 + 4) = 32;
     }
 
-    OUTLINED_FUNCTION_33(v16, *(v16 + 72), xmmword_272B87CB0);
-    if (v20 <= 0x20)
+    OUTLINED_FUNCTION_33(v15, *(v15 + 72), xmmword_272B87CB0);
+    if (v19 <= 0x20)
     {
-      LOWORD(v20) = 32;
+      LOWORD(v19) = 32;
     }
 
-    *(v19 + 64) = v20;
+    *(v18 + 64) = v19;
     goto LABEL_20;
   }
 
@@ -8124,27 +7754,22 @@ LABEL_23:
 
 void static WK2_DayWeatherConditions.add(visibilityMax:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(temperature:_:)();
 }
 
 void static WK2_DayWeatherConditions.add(visibilityMin:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(temperatureApparent:_:)();
 }
 
-void sub_272B4E8E0()
+void sub_272B4E8E0(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -8152,7 +7777,6 @@ void sub_272B4E8E0()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -8164,7 +7788,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -8181,15 +7805,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -8223,27 +7847,22 @@ LABEL_26:
 
 void static WK2_DayWeatherConditions.add(windGustSpeedMax:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(snowfallAmountNext1h:_:)();
 }
 
 void static WK2_CurrentWeather.add(snowfallAmountNext1h:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
-  sub_272B4E8E0();
+  sub_272B4E8E0(v0);
 }
 
-void sub_272B4EA88()
+void sub_272B4EA88(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -8251,7 +7870,6 @@ void sub_272B4EA88()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -8263,7 +7881,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -8280,15 +7898,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -8322,27 +7940,22 @@ LABEL_26:
 
 void static WK2_DayWeatherConditions.add(windSpeedAvg:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(snowfallAmountNext6h:_:)();
 }
 
 void static WK2_CurrentWeather.add(snowfallAmountNext6h:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
-  sub_272B4EA88();
+  sub_272B4EA88(v0);
 }
 
-void sub_272B4EC30()
+void sub_272B4EC30(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -8350,7 +7963,6 @@ void sub_272B4EC30()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -8362,7 +7974,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -8379,15 +7991,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -8421,18 +8033,14 @@ LABEL_26:
 
 void static WK2_CurrentWeather.add(snowfallAmountNext24h:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
-  sub_272B4EC30();
+  sub_272B4EC30(v0);
 }
 
 void static WK2_DayWeatherConditions.add(windSpeedMax:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(snowfallAmountNext24h:_:)();
 }
@@ -8446,7 +8054,7 @@ Swift::Void __swiftcall ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(S
   {
     do
     {
-      v8 = v6 < 2 * v7;
+      v8 = v6 < (2 * v7);
       v7 *= 2;
     }
 
@@ -8465,7 +8073,7 @@ Swift::Void __swiftcall ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(S
   *(v3 + 24) = v10;
 }
 
-void _s11WeatherData12WK2_HourTideV05startdE0ys6UInt32VAA17FlatBufferBuilderVzFZ_0(_BYTE *a1)
+void _s11WeatherData12WK2_HourTideV05startdE0ys6UInt32VAA17FlatBufferBuilderVzFZ_0(uint64_t a1)
 {
   OUTLINED_FUNCTION_25(a1);
   OUTLINED_FUNCTION_141();
@@ -8504,27 +8112,21 @@ LABEL_11:
 
 void static WK2_DailyForecast.add(metadata:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(metadata:_:)();
 }
 
 void static WK2_Weather.add(currentWeather:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B4F00C();
 }
 
 void static WK2_DailyForecast.addVectorOf(days:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_Weather.add(currentWeather:_:)();
 }
@@ -8532,27 +8134,26 @@ void static WK2_DailyForecast.addVectorOf(days:_:)()
 void sub_272B4F00C()
 {
   OUTLINED_FUNCTION_219();
-  v3 = *MEMORY[0x277D85DE8];
-  v5 = OUTLINED_FUNCTION_120(v4);
+  OUTLINED_FUNCTION_120();
   if (!v2)
   {
     goto LABEL_28;
   }
 
-  OUTLINED_FUNCTION_58(v5, v6);
-  if (v8 != v9)
+  OUTLINED_FUNCTION_58();
+  if (v4 != v5)
   {
     OUTLINED_FUNCTION_38();
   }
 
-  v10 = *(v0 + 16);
-  if ((v10 & 0x8000000000000000) != 0)
+  v6 = *(v0 + 16);
+  if ((v6 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_30;
   }
 
-  if (HIDWORD(v10))
+  if (HIDWORD(v6))
   {
 LABEL_30:
     __break(1u);
@@ -8561,69 +8162,68 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v11 = OUTLINED_FUNCTION_3(v7, v10);
-  if (v8 != v9)
+  v7 = OUTLINED_FUNCTION_3(v3, v6);
+  if (v4 != v5)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v12, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v8, *(v0 + 24));
   }
 
   OUTLINED_FUNCTION_119();
-  if (v13)
+  if (v9)
   {
     goto LABEL_31;
   }
 
   OUTLINED_FUNCTION_118();
-  if (v14)
+  if (v10)
   {
     OUTLINED_FUNCTION_79();
-    if (!v14)
+    if (!v10)
     {
 LABEL_28:
-      v25 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
-  v15 = OUTLINED_FUNCTION_15();
-  if (v8 != v9)
+  v11 = OUTLINED_FUNCTION_15();
+  if (v4 != v5)
   {
-    OUTLINED_FUNCTION_186(v15);
+    OUTLINED_FUNCTION_186(v11);
   }
 
   OUTLINED_FUNCTION_27();
-  if (v8 != v9)
+  if (v4 != v5)
   {
-    v17 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v17, v2, v18);
-    v16 = *(v1 + 32);
+    v13 = OUTLINED_FUNCTION_83();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v2, v14);
+    v12 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_4(v16);
-  if (!v14 & v19)
+  OUTLINED_FUNCTION_4(v12);
+  if (!v10 & v15)
   {
 LABEL_32:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v21 & 1) == 0)
+  if ((v17 & 1) == 0)
   {
-    if (*(v20 + 32))
+    if (*(v16 + 32))
     {
-      OUTLINED_FUNCTION_57(v20);
+      OUTLINED_FUNCTION_57(v16);
       OUTLINED_FUNCTION_235();
     }
 
-    OUTLINED_FUNCTION_33(v20, *(v20 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_33(v16, *(v16 + 72), xmmword_272B87CB0);
     OUTLINED_FUNCTION_284();
-    if (!(!v14 & v19))
+    if (!(!v10 & v15))
     {
-      v23 = v24;
+      v19 = v20;
     }
 
-    *(v22 + 64) = v23;
+    *(v18 + 64) = v19;
     goto LABEL_28;
   }
 
@@ -8632,14 +8232,12 @@ LABEL_32:
 
 void static WK2_HourWeatherConditions.add(forecastStart:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_DayWeatherConditions.add(forecastStart:_:)();
 }
 
-void static WK2_HourWeatherConditions.startHourWeatherConditions(_:)(_BYTE *a1)
+void static WK2_HourWeatherConditions.startHourWeatherConditions(_:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_25(a1);
   OUTLINED_FUNCTION_141();
@@ -8678,27 +8276,21 @@ LABEL_11:
 
 void static WK2_HourWeatherConditions.add(cloudCoverMidAltPct:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(cloudCoverLowAltPct:_:)();
 }
 
 void static WK2_HourWeatherConditions.add(cloudCoverLowAltPct:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(cloudCover:_:)();
 }
 
 void static WK2_HourWeatherConditions.add(cloudCoverHighAltPct:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(cloudCoverMidAltPct:_:)();
 }
@@ -8707,34 +8299,32 @@ void sub_272B4F2F0()
 {
   OUTLINED_FUNCTION_219();
   v3 = v2;
-  v4 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_140(v5);
+  OUTLINED_FUNCTION_140();
   if (!v1)
   {
     OUTLINED_FUNCTION_79();
-    if (!v6)
+    if (!v4)
     {
 LABEL_22:
-      v21 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_100();
-  if (v7 ^ v8 | v6)
+  if (v5 ^ v6 | v4)
   {
     OUTLINED_FUNCTION_50();
   }
 
-  v9 = *(v3 + 16);
-  if ((v9 & 0x8000000000000000) != 0)
+  v7 = *(v3 + 16);
+  if ((v7 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_24;
   }
 
-  if (HIDWORD(v9))
+  if (HIDWORD(v7))
   {
 LABEL_24:
     __break(1u);
@@ -8742,44 +8332,44 @@ LABEL_24:
   }
 
   OUTLINED_FUNCTION_39();
-  if (v7 != v8)
+  if (v5 != v6)
   {
-    v10 = OUTLINED_FUNCTION_98();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v9, v11);
+    v8 = OUTLINED_FUNCTION_98();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v8, v7, v9);
   }
 
   OUTLINED_FUNCTION_40();
-  if (v7 ^ v8 | v6)
+  if (v5 ^ v6 | v4)
   {
-    v13 = OUTLINED_FUNCTION_99();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v9, v14);
-    v12 = *(v0 + 32);
+    v11 = OUTLINED_FUNCTION_99();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v7, v12);
+    v10 = *(v0 + 32);
   }
 
-  OUTLINED_FUNCTION_12(v12);
-  if (v6)
+  OUTLINED_FUNCTION_12(v10);
+  if (v4)
   {
 LABEL_25:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v16 & 1) == 0)
+  if ((v14 & 1) == 0)
   {
-    if (*(v15 + 32))
+    if (*(v13 + 32))
     {
-      OUTLINED_FUNCTION_41(v15);
+      OUTLINED_FUNCTION_41(v13);
       OUTLINED_FUNCTION_261();
     }
 
-    OUTLINED_FUNCTION_33(v15, *(v15 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_33(v13, *(v13 + 72), xmmword_272B87CB0);
     OUTLINED_FUNCTION_259();
-    if (!(!v6 & v20))
+    if (!(!v4 & v18))
     {
-      v18 = v19;
+      v16 = v17;
     }
 
-    *(v17 + 64) = v18;
+    *(v15 + 64) = v16;
     goto LABEL_22;
   }
 
@@ -8788,9 +8378,7 @@ LABEL_25:
 
 void static WK2_HourWeatherConditions.add(conditionCode:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B4F2F0();
 }
@@ -8799,14 +8387,12 @@ void static WK2_HourWeatherConditions.add(daylight:_:)()
 {
   OUTLINED_FUNCTION_219();
   OUTLINED_FUNCTION_106();
-  v19 = *MEMORY[0x277D85DE8];
   if ((v3 & 1) == 0)
   {
     OUTLINED_FUNCTION_79();
     if (!v4)
     {
 LABEL_22:
-      v18 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
@@ -8881,34 +8467,32 @@ void sub_272B4F558()
 {
   OUTLINED_FUNCTION_219();
   OUTLINED_FUNCTION_106();
-  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_125();
-  if (v3)
+  if (v2)
   {
     OUTLINED_FUNCTION_79();
-    if (!v3)
+    if (!v2)
     {
 LABEL_23:
-      v16 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_100();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
     OUTLINED_FUNCTION_50();
   }
 
-  v6 = *(v0 + 16);
-  if ((v6 & 0x8000000000000000) != 0)
+  v5 = *(v0 + 16);
+  if ((v5 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_25;
   }
 
-  if (HIDWORD(v6))
+  if (HIDWORD(v5))
   {
 LABEL_25:
     __break(1u);
@@ -8916,43 +8500,43 @@ LABEL_25:
   }
 
   OUTLINED_FUNCTION_44();
-  if (v4 != v5)
+  if (v3 != v4)
   {
-    v7 = OUTLINED_FUNCTION_98();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v6, v8);
+    v6 = OUTLINED_FUNCTION_98();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v6, v5, v7);
   }
 
   OUTLINED_FUNCTION_29();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
-    v10 = OUTLINED_FUNCTION_99();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v6, v11);
-    v9 = *(v1 + 32);
+    v9 = OUTLINED_FUNCTION_99();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v5, v10);
+    v8 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_8(v9);
-  if (v3)
+  OUTLINED_FUNCTION_8(v8);
+  if (v2)
   {
 LABEL_26:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v13 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    if (*(v12 + 32))
+    if (*(v11 + 32))
     {
-      OUTLINED_FUNCTION_41(v12);
+      OUTLINED_FUNCTION_41(v11);
       OUTLINED_FUNCTION_271();
     }
 
-    OUTLINED_FUNCTION_33(v12, *(v12 + 72), xmmword_272B87CB0);
-    if (v15 <= 0x12)
+    OUTLINED_FUNCTION_33(v11, *(v11 + 72), xmmword_272B87CB0);
+    if (v14 <= 0x12)
     {
-      LOWORD(v15) = 18;
+      LOWORD(v14) = 18;
     }
 
-    *(v14 + 64) = v15;
+    *(v13 + 64) = v14;
     goto LABEL_23;
   }
 
@@ -8961,36 +8545,29 @@ LABEL_26:
 
 void static WK2_HourWeatherConditions.add(humidity:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B4F558();
 }
 
 void static WK2_HourWeatherConditions.add(precipitationChance:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_DayWeatherConditions.add(precipitationChance:_:)();
 }
 
 void static WK2_HourWeatherConditions.add(precipitationAmount:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(perceivedPrecipitationIntensity:_:)();
 }
 
-void static WK2_HourWeatherConditions.add(perceivedPrecipitationIntensity:_:)()
+void static WK2_HourWeatherConditions.add(perceivedPrecipitationIntensity:_:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -8998,7 +8575,6 @@ void static WK2_HourWeatherConditions.add(perceivedPrecipitationIntensity:_:)()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -9010,7 +8586,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -9027,15 +8603,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -9072,34 +8648,32 @@ void static WK2_HourWeatherConditions.add(uvIndex:_:)()
 {
   OUTLINED_FUNCTION_219();
   OUTLINED_FUNCTION_106();
-  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_125();
-  if (v3)
+  if (v2)
   {
     OUTLINED_FUNCTION_79();
-    if (!v3)
+    if (!v2)
     {
 LABEL_23:
-      v18 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_100();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
     OUTLINED_FUNCTION_50();
   }
 
-  v6 = *(v0 + 16);
-  if ((v6 & 0x8000000000000000) != 0)
+  v5 = *(v0 + 16);
+  if ((v5 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_25;
   }
 
-  if (HIDWORD(v6))
+  if (HIDWORD(v5))
   {
 LABEL_25:
     __break(1u);
@@ -9107,44 +8681,44 @@ LABEL_25:
   }
 
   OUTLINED_FUNCTION_44();
-  if (v4 != v5)
+  if (v3 != v4)
   {
-    v7 = OUTLINED_FUNCTION_98();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v6, v8);
+    v6 = OUTLINED_FUNCTION_98();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v6, v5, v7);
   }
 
   OUTLINED_FUNCTION_29();
-  if (v4 ^ v5 | v3)
+  if (v3 ^ v4 | v2)
   {
-    v10 = OUTLINED_FUNCTION_99();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v6, v11);
-    v9 = *(v1 + 32);
+    v9 = OUTLINED_FUNCTION_99();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v5, v10);
+    v8 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_8(v9);
-  if (v3)
+  OUTLINED_FUNCTION_8(v8);
+  if (v2)
   {
 LABEL_26:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v13 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    if (*(v12 + 32))
+    if (*(v11 + 32))
     {
-      OUTLINED_FUNCTION_41(v12);
+      OUTLINED_FUNCTION_41(v11);
       OUTLINED_FUNCTION_268();
     }
 
-    OUTLINED_FUNCTION_33(v12, *(v12 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_33(v11, *(v11 + 72), xmmword_272B87CB0);
     OUTLINED_FUNCTION_267();
-    if (!(!v3 & v17))
+    if (!(!v2 & v16))
     {
-      v15 = v16;
+      v14 = v15;
     }
 
-    *(v14 + 64) = v15;
+    *(v13 + 64) = v14;
     goto LABEL_23;
   }
 
@@ -9153,36 +8727,28 @@ LABEL_26:
 
 void static WK2_HourWeatherConditions.add(visibility:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(precipitationIntensity:_:)();
 }
 
 void static WK2_HourWeatherConditions.add(windSpeed:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(snowfallAmount1h:_:)();
 }
 
 void static WK2_DayWeatherConditions.add(precipitationType:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B4FA98();
 }
 
 void static WK2_HourWeatherConditions.add(precipitationType:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_DayWeatherConditions.add(precipitationType:_:)();
 }
@@ -9191,34 +8757,32 @@ void sub_272B4FA98()
 {
   OUTLINED_FUNCTION_219();
   v3 = v2;
-  v4 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_140(v5);
+  OUTLINED_FUNCTION_140();
   if (!v1)
   {
     OUTLINED_FUNCTION_79();
-    if (!v6)
+    if (!v4)
     {
 LABEL_22:
-      v21 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_100();
-  if (v7 ^ v8 | v6)
+  if (v5 ^ v6 | v4)
   {
     OUTLINED_FUNCTION_50();
   }
 
-  v9 = *(v3 + 16);
-  if ((v9 & 0x8000000000000000) != 0)
+  v7 = *(v3 + 16);
+  if ((v7 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_24;
   }
 
-  if (HIDWORD(v9))
+  if (HIDWORD(v7))
   {
 LABEL_24:
     __break(1u);
@@ -9226,44 +8790,44 @@ LABEL_24:
   }
 
   OUTLINED_FUNCTION_39();
-  if (v7 != v8)
+  if (v5 != v6)
   {
-    v10 = OUTLINED_FUNCTION_98();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v9, v11);
+    v8 = OUTLINED_FUNCTION_98();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v8, v7, v9);
   }
 
   OUTLINED_FUNCTION_40();
-  if (v7 ^ v8 | v6)
+  if (v5 ^ v6 | v4)
   {
-    v13 = OUTLINED_FUNCTION_99();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v9, v14);
-    v12 = *(v0 + 32);
+    v11 = OUTLINED_FUNCTION_99();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v7, v12);
+    v10 = *(v0 + 32);
   }
 
-  OUTLINED_FUNCTION_12(v12);
-  if (v6)
+  OUTLINED_FUNCTION_12(v10);
+  if (v4)
   {
 LABEL_25:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v16 & 1) == 0)
+  if ((v14 & 1) == 0)
   {
-    if (*(v15 + 32))
+    if (*(v13 + 32))
     {
-      OUTLINED_FUNCTION_41(v15);
+      OUTLINED_FUNCTION_41(v13);
       OUTLINED_FUNCTION_254();
     }
 
-    OUTLINED_FUNCTION_33(v15, *(v15 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_33(v13, *(v13 + 72), xmmword_272B87CB0);
     OUTLINED_FUNCTION_252();
-    if (!(!v6 & v20))
+    if (!(!v4 & v18))
     {
-      v18 = v19;
+      v16 = v17;
     }
 
-    *(v17 + 64) = v18;
+    *(v15 + 64) = v16;
     goto LABEL_22;
   }
 
@@ -9274,34 +8838,32 @@ void static WK2_HourWeatherConditions.add(windDirection:_:)()
 {
   OUTLINED_FUNCTION_219();
   OUTLINED_FUNCTION_106();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_265();
-  if (v4)
+  if (v2)
   {
     OUTLINED_FUNCTION_79();
-    if (!v4)
+    if (!v2)
     {
 LABEL_23:
-      v18 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_250();
-  if (v5 ^ v6 | v4)
+  if (v3 ^ v4 | v2)
   {
     OUTLINED_FUNCTION_78(2);
   }
 
-  v7 = *(v0 + 16);
-  if ((v7 & 0x8000000000000000) != 0)
+  v5 = *(v0 + 16);
+  if ((v5 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_25;
   }
 
-  if (HIDWORD(v7))
+  if (HIDWORD(v5))
   {
 LABEL_25:
     __break(1u);
@@ -9309,43 +8871,42 @@ LABEL_25:
   }
 
   OUTLINED_FUNCTION_22();
-  if (v5 != v6)
+  if (v3 != v4)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v8, v9, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v6, v7, *(v0 + 24));
   }
 
-  *(v0 + 16) = v2;
+  *(v0 + 16) = v1;
   OUTLINED_FUNCTION_105();
-  if (v5 != v6)
+  if (v3 != v4)
   {
     OUTLINED_FUNCTION_208();
-    v10 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_43(v10);
-  OUTLINED_FUNCTION_117(v11);
-  if (!v4 & v12)
+  OUTLINED_FUNCTION_43();
+  OUTLINED_FUNCTION_117(v8);
+  if (!v2 & v9)
   {
 LABEL_26:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v14 & 1) == 0)
+  if ((v11 & 1) == 0)
   {
-    if (*(v13 + 32))
+    if (*(v10 + 32))
     {
-      OUTLINED_FUNCTION_41(v13);
-      *(v15 + 4) = 50;
+      OUTLINED_FUNCTION_41(v10);
+      *(v12 + 4) = 50;
     }
 
-    OUTLINED_FUNCTION_33(v13, *(v13 + 72), xmmword_272B87CB0);
-    if (v17 <= 0x32)
+    OUTLINED_FUNCTION_33(v10, *(v10 + 72), xmmword_272B87CB0);
+    if (v14 <= 0x32)
     {
-      LOWORD(v17) = 50;
+      LOWORD(v14) = 50;
     }
 
-    *(v16 + 64) = v17;
+    *(v13 + 64) = v14;
     goto LABEL_23;
   }
 
@@ -9354,32 +8915,26 @@ LABEL_26:
 
 void static WK2_HourWeatherConditions.add(windGust:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_DayWeatherConditions.add(temperatureMax:_:)();
 }
 
 void static WK2_HourlyForecast.add(metadata:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_CurrentWeather.add(metadata:_:)();
 }
 
 void static WK2_HourlyForecast.addVectorOf(hours:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_Weather.add(currentWeather:_:)();
 }
 
-void sub_272B4FDC4(_BYTE *a1)
+void sub_272B4FDC4(uint64_t a1)
 {
   OUTLINED_FUNCTION_25(a1);
   OUTLINED_FUNCTION_141();
@@ -9418,27 +8973,21 @@ LABEL_11:
 
 void static WK2_ForecastCondition.add(startTime:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_DayWeatherConditions.add(forecastStart:_:)();
 }
 
 void static WK2_Weather.add(news:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B4FF40();
 }
 
 void static WK2_ForecastCondition.addVectorOf(parameters:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_Weather.add(news:_:)();
 }
@@ -9446,27 +8995,26 @@ void static WK2_ForecastCondition.addVectorOf(parameters:_:)()
 void sub_272B4FF40()
 {
   OUTLINED_FUNCTION_219();
-  v3 = *MEMORY[0x277D85DE8];
-  v5 = OUTLINED_FUNCTION_120(v4);
+  OUTLINED_FUNCTION_120();
   if (!v2)
   {
     goto LABEL_28;
   }
 
-  OUTLINED_FUNCTION_58(v5, v6);
-  if (v8 != v9)
+  OUTLINED_FUNCTION_58();
+  if (v4 != v5)
   {
     OUTLINED_FUNCTION_38();
   }
 
-  v10 = *(v0 + 16);
-  if ((v10 & 0x8000000000000000) != 0)
+  v6 = *(v0 + 16);
+  if ((v6 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_30;
   }
 
-  if (HIDWORD(v10))
+  if (HIDWORD(v6))
   {
 LABEL_30:
     __break(1u);
@@ -9475,69 +9023,68 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  v11 = OUTLINED_FUNCTION_3(v7, v10);
-  if (v8 != v9)
+  v7 = OUTLINED_FUNCTION_3(v3, v6);
+  if (v4 != v5)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v12, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v8, *(v0 + 24));
   }
 
   OUTLINED_FUNCTION_119();
-  if (v13)
+  if (v9)
   {
     goto LABEL_31;
   }
 
   OUTLINED_FUNCTION_118();
-  if (v14)
+  if (v10)
   {
     OUTLINED_FUNCTION_79();
-    if (!v14)
+    if (!v10)
     {
 LABEL_28:
-      v25 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
-  v15 = OUTLINED_FUNCTION_15();
-  if (v8 != v9)
+  v11 = OUTLINED_FUNCTION_15();
+  if (v4 != v5)
   {
-    OUTLINED_FUNCTION_186(v15);
+    OUTLINED_FUNCTION_186(v11);
   }
 
   OUTLINED_FUNCTION_27();
-  if (v8 != v9)
+  if (v4 != v5)
   {
-    v17 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v17, v2, v18);
-    v16 = *(v1 + 32);
+    v13 = OUTLINED_FUNCTION_83();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v2, v14);
+    v12 = *(v1 + 32);
   }
 
-  OUTLINED_FUNCTION_4(v16);
-  if (!v14 & v19)
+  OUTLINED_FUNCTION_4(v12);
+  if (!v10 & v15)
   {
 LABEL_32:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v21 & 1) == 0)
+  if ((v17 & 1) == 0)
   {
-    if (*(v20 + 32))
+    if (*(v16 + 32))
     {
-      OUTLINED_FUNCTION_57(v20);
+      OUTLINED_FUNCTION_57(v16);
       OUTLINED_FUNCTION_261();
     }
 
-    OUTLINED_FUNCTION_33(v20, *(v20 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_33(v16, *(v16 + 72), xmmword_272B87CB0);
     OUTLINED_FUNCTION_259();
-    if (!(!v14 & v19))
+    if (!(!v10 & v15))
     {
-      v23 = v24;
+      v19 = v20;
     }
 
-    *(v22 + 64) = v23;
+    *(v18 + 64) = v19;
     goto LABEL_28;
   }
 
@@ -9546,9 +9093,7 @@ LABEL_32:
 
 void static WK2_ForecastCondition.add(forecastToken:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_DayWeatherConditions.add(conditionCode:_:)();
 }
@@ -9557,34 +9102,32 @@ void sub_272B500A8()
 {
   OUTLINED_FUNCTION_219();
   v3 = v2;
-  v4 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_140(v5);
+  OUTLINED_FUNCTION_140();
   if (!v1)
   {
     OUTLINED_FUNCTION_79();
-    if (!v6)
+    if (!v4)
     {
 LABEL_22:
-      v21 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_100();
-  if (v7 ^ v8 | v6)
+  if (v5 ^ v6 | v4)
   {
     OUTLINED_FUNCTION_50();
   }
 
-  v9 = *(v3 + 16);
-  if ((v9 & 0x8000000000000000) != 0)
+  v7 = *(v3 + 16);
+  if ((v7 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_24;
   }
 
-  if (HIDWORD(v9))
+  if (HIDWORD(v7))
   {
 LABEL_24:
     __break(1u);
@@ -9592,44 +9135,44 @@ LABEL_24:
   }
 
   OUTLINED_FUNCTION_39();
-  if (v7 != v8)
+  if (v5 != v6)
   {
-    v10 = OUTLINED_FUNCTION_98();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v9, v11);
+    v8 = OUTLINED_FUNCTION_98();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v8, v7, v9);
   }
 
   OUTLINED_FUNCTION_40();
-  if (v7 ^ v8 | v6)
+  if (v5 ^ v6 | v4)
   {
-    v13 = OUTLINED_FUNCTION_99();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v9, v14);
-    v12 = *(v0 + 32);
+    v11 = OUTLINED_FUNCTION_99();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v7, v12);
+    v10 = *(v0 + 32);
   }
 
-  OUTLINED_FUNCTION_12(v12);
-  if (v6)
+  OUTLINED_FUNCTION_12(v10);
+  if (v4)
   {
 LABEL_25:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v16 & 1) == 0)
+  if ((v14 & 1) == 0)
   {
-    if (*(v15 + 32))
+    if (*(v13 + 32))
     {
-      OUTLINED_FUNCTION_41(v15);
+      OUTLINED_FUNCTION_41(v13);
       OUTLINED_FUNCTION_193();
     }
 
-    OUTLINED_FUNCTION_33(v15, *(v15 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_33(v13, *(v13 + 72), xmmword_272B87CB0);
     OUTLINED_FUNCTION_191();
-    if (!(!v6 & v20))
+    if (!(!v4 & v18))
     {
-      v18 = v19;
+      v16 = v17;
     }
 
-    *(v17 + 64) = v18;
+    *(v15 + 64) = v16;
     goto LABEL_22;
   }
 
@@ -9638,18 +9181,14 @@ LABEL_25:
 
 void static WK2_DayWeatherConditions.add(conditionCode:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B500A8();
 }
 
 void static WK2_TrendDeviation.add(minTemperatureChange:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B5024C();
 }
@@ -9658,34 +9197,32 @@ void sub_272B5024C()
 {
   OUTLINED_FUNCTION_219();
   v3 = v2;
-  v4 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_140(v5);
+  OUTLINED_FUNCTION_140();
   if (!v1)
   {
     OUTLINED_FUNCTION_79();
-    if (!v6)
+    if (!v4)
     {
 LABEL_22:
-      v21 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_100();
-  if (v7 ^ v8 | v6)
+  if (v5 ^ v6 | v4)
   {
     OUTLINED_FUNCTION_50();
   }
 
-  v9 = *(v3 + 16);
-  if ((v9 & 0x8000000000000000) != 0)
+  v7 = *(v3 + 16);
+  if ((v7 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_24;
   }
 
-  if (HIDWORD(v9))
+  if (HIDWORD(v7))
   {
 LABEL_24:
     __break(1u);
@@ -9693,44 +9230,44 @@ LABEL_24:
   }
 
   OUTLINED_FUNCTION_39();
-  if (v7 != v8)
+  if (v5 != v6)
   {
-    v10 = OUTLINED_FUNCTION_98();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v9, v11);
+    v8 = OUTLINED_FUNCTION_98();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v8, v7, v9);
   }
 
   OUTLINED_FUNCTION_40();
-  if (v7 ^ v8 | v6)
+  if (v5 ^ v6 | v4)
   {
-    v13 = OUTLINED_FUNCTION_99();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v9, v14);
-    v12 = *(v0 + 32);
+    v11 = OUTLINED_FUNCTION_99();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v7, v12);
+    v10 = *(v0 + 32);
   }
 
-  OUTLINED_FUNCTION_12(v12);
-  if (v6)
+  OUTLINED_FUNCTION_12(v10);
+  if (v4)
   {
 LABEL_25:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v16 & 1) == 0)
+  if ((v14 & 1) == 0)
   {
-    if (*(v15 + 32))
+    if (*(v13 + 32))
     {
-      OUTLINED_FUNCTION_41(v15);
+      OUTLINED_FUNCTION_41(v13);
       OUTLINED_FUNCTION_203();
     }
 
-    OUTLINED_FUNCTION_33(v15, *(v15 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_33(v13, *(v13 + 72), xmmword_272B87CB0);
     OUTLINED_FUNCTION_201();
-    if (!(!v6 & v20))
+    if (!(!v4 & v18))
     {
-      v18 = v19;
+      v16 = v17;
     }
 
-    *(v17 + 64) = v18;
+    *(v15 + 64) = v16;
     goto LABEL_22;
   }
 
@@ -9739,18 +9276,14 @@ LABEL_25:
 
 void static WK2_ForecastCondition.add(beginCondition:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_TrendDeviation.add(minTemperatureChange:_:)();
 }
 
 void static WK2_TrendDeviation.add(dayPrecipitationChange:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   sub_272B503F0();
 }
@@ -9759,34 +9292,32 @@ void sub_272B503F0()
 {
   OUTLINED_FUNCTION_219();
   v3 = v2;
-  v4 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_140(v5);
+  OUTLINED_FUNCTION_140();
   if (!v1)
   {
     OUTLINED_FUNCTION_79();
-    if (!v6)
+    if (!v4)
     {
 LABEL_22:
-      v21 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_218();
       return;
     }
   }
 
   OUTLINED_FUNCTION_100();
-  if (v7 ^ v8 | v6)
+  if (v5 ^ v6 | v4)
   {
     OUTLINED_FUNCTION_50();
   }
 
-  v9 = *(v3 + 16);
-  if ((v9 & 0x8000000000000000) != 0)
+  v7 = *(v3 + 16);
+  if ((v7 & 0x8000000000000000) != 0)
   {
     __break(1u);
     goto LABEL_24;
   }
 
-  if (HIDWORD(v9))
+  if (HIDWORD(v7))
   {
 LABEL_24:
     __break(1u);
@@ -9794,44 +9325,44 @@ LABEL_24:
   }
 
   OUTLINED_FUNCTION_39();
-  if (v7 != v8)
+  if (v5 != v6)
   {
-    v10 = OUTLINED_FUNCTION_98();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v10, v9, v11);
+    v8 = OUTLINED_FUNCTION_98();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v8, v7, v9);
   }
 
   OUTLINED_FUNCTION_40();
-  if (v7 ^ v8 | v6)
+  if (v5 ^ v6 | v4)
   {
-    v13 = OUTLINED_FUNCTION_99();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v9, v14);
-    v12 = *(v0 + 32);
+    v11 = OUTLINED_FUNCTION_99();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v11, v7, v12);
+    v10 = *(v0 + 32);
   }
 
-  OUTLINED_FUNCTION_12(v12);
-  if (v6)
+  OUTLINED_FUNCTION_12(v10);
+  if (v4)
   {
 LABEL_25:
     __break(1u);
   }
 
   OUTLINED_FUNCTION_77();
-  if ((v16 & 1) == 0)
+  if ((v14 & 1) == 0)
   {
-    if (*(v15 + 32))
+    if (*(v13 + 32))
     {
-      OUTLINED_FUNCTION_41(v15);
+      OUTLINED_FUNCTION_41(v13);
       OUTLINED_FUNCTION_211();
     }
 
-    OUTLINED_FUNCTION_33(v15, *(v15 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_33(v13, *(v13 + 72), xmmword_272B87CB0);
     OUTLINED_FUNCTION_238();
-    if (!(!v6 & v20))
+    if (!(!v4 & v18))
     {
-      v18 = v19;
+      v16 = v17;
     }
 
-    *(v17 + 64) = v18;
+    *(v15 + 64) = v16;
     goto LABEL_22;
   }
 
@@ -9840,14 +9371,12 @@ LABEL_25:
 
 void static WK2_ForecastCondition.add(endCondition:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_TrendDeviation.add(dayPrecipitationChange:_:)();
 }
 
-void _s11WeatherData04WK2_A7ChangesV05startaD0ys6UInt32VAA17FlatBufferBuilderVzFZ_0(_BYTE *a1)
+void _s11WeatherData04WK2_A7ChangesV05startaD0ys6UInt32VAA17FlatBufferBuilderVzFZ_0(uint64_t a1)
 {
   OUTLINED_FUNCTION_25(a1);
   OUTLINED_FUNCTION_141();
@@ -9886,18 +9415,15 @@ LABEL_11:
 
 void static WK2_ForecastMinute.add(precipitationChance:_:)()
 {
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_75();
-  v1 = *MEMORY[0x277D85DE8];
 
   static WK2_HourWeatherConditions.add(cloudCover:_:)();
 }
 
-void sub_272B5061C()
+void sub_272B5061C(uint64_t a1)
 {
   OUTLINED_FUNCTION_226();
   OUTLINED_FUNCTION_97();
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   if (v4)
   {
@@ -9905,7 +9431,6 @@ void sub_272B5061C()
     if (!v4)
     {
 LABEL_23:
-      v20 = *MEMORY[0x277D85DE8];
       OUTLINED_FUNCTION_225();
       return;
     }
@@ -9917,7 +9442,7 @@ LABEL_23:
     OUTLINED_FUNCTION_38();
   }
 
-  v8 = *(v0 + 16);
+  v8 = *(v1 + 16);
   if ((v8 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -9934,15 +9459,15 @@ LABEL_25:
   v9 = OUTLINED_FUNCTION_3(v5, v8);
   if (v6 != v7)
   {
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
   }
 
   OUTLINED_FUNCTION_20_0();
   if (v6 != v7)
   {
     v12 = OUTLINED_FUNCTION_83();
-    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
-    v11 = *(v1 + 32);
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
   }
 
   OUTLINED_FUNCTION_1_0(v11);
@@ -9970,6 +9495,435 @@ LABEL_26:
 
     *(v17 + 64) = v18;
     goto LABEL_23;
+  }
+
+  __break(1u);
+}
+
+void static WK2_ForecastMinute.add(precipitationIntensity:_:)()
+{
+  OUTLINED_FUNCTION_75();
+
+  sub_272B5061C(v0);
+}
+
+void sub_272B50768(uint64_t a1)
+{
+  OUTLINED_FUNCTION_226();
+  OUTLINED_FUNCTION_97();
+  OUTLINED_FUNCTION_96();
+  if (v4)
+  {
+    OUTLINED_FUNCTION_79();
+    if (!v4)
+    {
+LABEL_23:
+      OUTLINED_FUNCTION_225();
+      return;
+    }
+  }
+
+  OUTLINED_FUNCTION_95();
+  if (v6 ^ v7 | v4)
+  {
+    OUTLINED_FUNCTION_38();
+  }
+
+  v8 = *(v1 + 16);
+  if ((v8 & 0x8000000000000000) != 0)
+  {
+    __break(1u);
+    goto LABEL_25;
+  }
+
+  if (HIDWORD(v8))
+  {
+LABEL_25:
+    __break(1u);
+    goto LABEL_26;
+  }
+
+  v9 = OUTLINED_FUNCTION_3(v5, v8);
+  if (v6 != v7)
+  {
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v1 + 24));
+  }
+
+  OUTLINED_FUNCTION_20_0();
+  if (v6 != v7)
+  {
+    v12 = OUTLINED_FUNCTION_83();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v3, v13);
+    v11 = *(v2 + 32);
+  }
+
+  OUTLINED_FUNCTION_1_0(v11);
+  if (!v4 & v14)
+  {
+LABEL_26:
+    __break(1u);
+  }
+
+  OUTLINED_FUNCTION_77();
+  if ((v16 & 1) == 0)
+  {
+    if (*(v15 + 32))
+    {
+      OUTLINED_FUNCTION_48(v15);
+      OUTLINED_FUNCTION_203();
+    }
+
+    OUTLINED_FUNCTION_33(v15, *(v15 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_201();
+    if (!(!v4 & v14))
+    {
+      v18 = v19;
+    }
+
+    *(v17 + 64) = v18;
+    goto LABEL_23;
+  }
+
+  __break(1u);
+}
+
+void static WK2_ForecastMinute.add(perceivedPrecipitationIntensity:_:)()
+{
+  OUTLINED_FUNCTION_75();
+
+  sub_272B50768(v0);
+}
+
+void static WK2_ForecastMinute.add(startTime:_:)()
+{
+  OUTLINED_FUNCTION_75();
+
+  static WK2_DayWeatherConditions.add(forecastStart:_:)();
+}
+
+void static WK2_NextHourForecast.add(metadata:_:)()
+{
+  OUTLINED_FUNCTION_75();
+
+  static WK2_CurrentWeather.add(metadata:_:)();
+}
+
+void static WK2_NextHourForecast.addVectorOf(condition:_:)()
+{
+  OUTLINED_FUNCTION_75();
+
+  static WK2_Weather.add(currentWeather:_:)();
+}
+
+void static WK2_Weather.add(forecastDaily:_:)()
+{
+  OUTLINED_FUNCTION_75();
+
+  sub_272B50A44();
+}
+
+void sub_272B50A44()
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_120();
+  if (!v2)
+  {
+    goto LABEL_28;
+  }
+
+  OUTLINED_FUNCTION_58();
+  if (v4 != v5)
+  {
+    OUTLINED_FUNCTION_38();
+  }
+
+  v6 = *(v0 + 16);
+  if ((v6 & 0x8000000000000000) != 0)
+  {
+    __break(1u);
+    goto LABEL_30;
+  }
+
+  if (HIDWORD(v6))
+  {
+LABEL_30:
+    __break(1u);
+LABEL_31:
+    __break(1u);
+    goto LABEL_32;
+  }
+
+  v7 = OUTLINED_FUNCTION_3(v3, v6);
+  if (v4 != v5)
+  {
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v8, *(v0 + 24));
+  }
+
+  OUTLINED_FUNCTION_119();
+  if (v9)
+  {
+    goto LABEL_31;
+  }
+
+  OUTLINED_FUNCTION_118();
+  if (v10)
+  {
+    OUTLINED_FUNCTION_79();
+    if (!v10)
+    {
+LABEL_28:
+      OUTLINED_FUNCTION_218();
+      return;
+    }
+  }
+
+  v11 = OUTLINED_FUNCTION_15();
+  if (v4 != v5)
+  {
+    OUTLINED_FUNCTION_186(v11);
+  }
+
+  OUTLINED_FUNCTION_27();
+  if (v4 != v5)
+  {
+    v13 = OUTLINED_FUNCTION_83();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v2, v14);
+    v12 = *(v1 + 32);
+  }
+
+  OUTLINED_FUNCTION_4(v12);
+  if (!v10 & v15)
+  {
+LABEL_32:
+    __break(1u);
+  }
+
+  OUTLINED_FUNCTION_77();
+  if ((v17 & 1) == 0)
+  {
+    if (*(v16 + 32))
+    {
+      OUTLINED_FUNCTION_57(v16);
+      OUTLINED_FUNCTION_193();
+    }
+
+    OUTLINED_FUNCTION_33(v16, *(v16 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_191();
+    if (!(!v10 & v15))
+    {
+      v19 = v20;
+    }
+
+    *(v18 + 64) = v19;
+    goto LABEL_28;
+  }
+
+  __break(1u);
+}
+
+void static WK2_NextHourForecast.addVectorOf(summary:_:)()
+{
+  OUTLINED_FUNCTION_75();
+
+  static WK2_Weather.add(forecastDaily:_:)();
+}
+
+void static WK2_NextHourForecast.addVectorOf(minutes:_:)()
+{
+  OUTLINED_FUNCTION_75();
+
+  static WK2_Weather.add(news:_:)();
+}
+
+void static WK2_NextHourForecast.add(forecastStart:_:)()
+{
+  OUTLINED_FUNCTION_219();
+  if ((v3 & 0x100000000) != 0)
+  {
+LABEL_20:
+    OUTLINED_FUNCTION_218();
+    return;
+  }
+
+  OUTLINED_FUNCTION_30();
+  if (v6 ^ v7 | v5)
+  {
+    OUTLINED_FUNCTION_38();
+  }
+
+  v8 = *(v0 + 16);
+  if ((v8 & 0x8000000000000000) != 0)
+  {
+    __break(1u);
+    goto LABEL_22;
+  }
+
+  if (HIDWORD(v8))
+  {
+LABEL_22:
+    __break(1u);
+    goto LABEL_23;
+  }
+
+  v9 = OUTLINED_FUNCTION_6(v4, v8);
+  if (v6 != v7)
+  {
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v9, v10, *(v0 + 24));
+  }
+
+  OUTLINED_FUNCTION_26();
+  if (v6 != v7)
+  {
+    v12 = OUTLINED_FUNCTION_83();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v12, v2, v13);
+    v11 = *(v1 + 32);
+  }
+
+  OUTLINED_FUNCTION_5(v11);
+  if (!v5 & v14)
+  {
+LABEL_23:
+    __break(1u);
+  }
+
+  OUTLINED_FUNCTION_77();
+  if ((v16 & 1) == 0)
+  {
+    if (*(v15 + 32))
+    {
+      OUTLINED_FUNCTION_41(v15);
+      OUTLINED_FUNCTION_203();
+    }
+
+    OUTLINED_FUNCTION_33(v15, *(v15 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_201();
+    if (!(!v5 & v14))
+    {
+      v18 = v19;
+    }
+
+    *(v17 + 64) = v18;
+    goto LABEL_20;
+  }
+
+  __break(1u);
+}
+
+void static WK2_LocationInfo.add(primaryName:_:)()
+{
+  OUTLINED_FUNCTION_75();
+
+  static WK2_Weather.add(forecastNextHour:_:)();
+}
+
+void static WK2_LocationInfo.add(metadata:_:)()
+{
+  OUTLINED_FUNCTION_75();
+
+  static WK2_CurrentWeather.add(metadata:_:)();
+}
+
+void static WK2_Weather.add(forecastHourly:_:)()
+{
+  OUTLINED_FUNCTION_75();
+
+  sub_272B50DEC();
+}
+
+void sub_272B50DEC()
+{
+  OUTLINED_FUNCTION_219();
+  OUTLINED_FUNCTION_120();
+  if (!v2)
+  {
+    goto LABEL_28;
+  }
+
+  OUTLINED_FUNCTION_58();
+  if (v4 != v5)
+  {
+    OUTLINED_FUNCTION_38();
+  }
+
+  v6 = *(v0 + 16);
+  if ((v6 & 0x8000000000000000) != 0)
+  {
+    __break(1u);
+    goto LABEL_30;
+  }
+
+  if (HIDWORD(v6))
+  {
+LABEL_30:
+    __break(1u);
+LABEL_31:
+    __break(1u);
+    goto LABEL_32;
+  }
+
+  v7 = OUTLINED_FUNCTION_3(v3, v6);
+  if (v4 != v5)
+  {
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v7, v8, *(v0 + 24));
+  }
+
+  OUTLINED_FUNCTION_119();
+  if (v9)
+  {
+    goto LABEL_31;
+  }
+
+  OUTLINED_FUNCTION_118();
+  if (v10)
+  {
+    OUTLINED_FUNCTION_79();
+    if (!v10)
+    {
+LABEL_28:
+      OUTLINED_FUNCTION_218();
+      return;
+    }
+  }
+
+  v11 = OUTLINED_FUNCTION_15();
+  if (v4 != v5)
+  {
+    OUTLINED_FUNCTION_186(v11);
+  }
+
+  OUTLINED_FUNCTION_27();
+  if (v4 != v5)
+  {
+    v13 = OUTLINED_FUNCTION_83();
+    ByteBuffer.Storage.reallocate(_:writerSize:alignment:)(v13, v2, v14);
+    v12 = *(v1 + 32);
+  }
+
+  OUTLINED_FUNCTION_4(v12);
+  if (!v10 & v15)
+  {
+LABEL_32:
+    __break(1u);
+  }
+
+  OUTLINED_FUNCTION_77();
+  if ((v17 & 1) == 0)
+  {
+    if (*(v16 + 32))
+    {
+      OUTLINED_FUNCTION_57(v16);
+      OUTLINED_FUNCTION_203();
+    }
+
+    OUTLINED_FUNCTION_33(v16, *(v16 + 72), xmmword_272B87CB0);
+    OUTLINED_FUNCTION_201();
+    if (!(!v10 & v15))
+    {
+      v19 = v20;
+    }
+
+    *(v18 + 64) = v19;
+    goto LABEL_28;
   }
 
   __break(1u);

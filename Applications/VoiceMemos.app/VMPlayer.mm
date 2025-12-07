@@ -142,8 +142,8 @@
     v3 = &off_10028D9E8;
   }
 
-  swift_getObjectType();
-  (v3[19])();
+  ObjectType = swift_getObjectType();
+  (v3[19])(ObjectType);
   swift_unknownObjectRelease();
 }
 

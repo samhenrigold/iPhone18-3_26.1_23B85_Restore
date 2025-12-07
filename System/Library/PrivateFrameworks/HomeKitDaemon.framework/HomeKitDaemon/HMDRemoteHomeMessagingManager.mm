@@ -9,7 +9,7 @@
 
 - (BOOL)sendMessage:(id)message completionHandler:(id)handler
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   handlerCopy = handler;
   destination = [messageCopy destination];
@@ -44,9 +44,9 @@
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v28 = v18;
-        v29 = 2114;
-        v30 = homeUUID;
+        v27 = v18;
+        v28 = 2114;
+        v29 = homeUUID;
         _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEBUG, "%{public}@Dispatching to handler for home UUID: %{public}@", buf, 0x16u);
       }
 
@@ -60,11 +60,11 @@
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v28 = v19;
-        v29 = 2114;
-        v30 = homeUUID;
-        v31 = 2112;
-        v32 = messageCopy;
+        v27 = v19;
+        v28 = 2114;
+        v29 = homeUUID;
+        v30 = 2112;
+        v31 = messageCopy;
         _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Handler not found for home UUID: %{public}@, message: %@", buf, 0x20u);
       }
 
@@ -83,13 +83,12 @@
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v10 != 0;
 }
 
 - (void)registerHandler:(id)handler
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -98,11 +97,11 @@
   {
     v8 = HMFGetLogIdentifier();
     homeUUID = [handlerCopy homeUUID];
-    v13 = 138543618;
-    v14 = v8;
-    v15 = 2114;
-    v16 = homeUUID;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Registering handler for home UUID: %{public}@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v8;
+    v14 = 2114;
+    v15 = homeUUID;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Registering handler for home UUID: %{public}@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -112,7 +111,6 @@
   [homeUUIDToHandlerMap setObject:handlerCopy forKey:homeUUID2];
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDRemoteHomeMessagingManager)init
@@ -146,10 +144,9 @@
 
 void __44__HMDRemoteHomeMessagingManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v8_231874;
-  logCategory__hmf_once_v8_231874 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v8_231874;
+  logCategory__hmf_once_v8_231874 = v0;
 }
 
 @end

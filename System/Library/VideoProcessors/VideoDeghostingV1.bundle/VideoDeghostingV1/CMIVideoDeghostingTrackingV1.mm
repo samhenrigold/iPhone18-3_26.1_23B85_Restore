@@ -11,6 +11,7 @@
 - (float)_getRadialMagnificationAtDistanceMM:(float)m WithPolynomial:(float *)polynomial;
 - (int)_extractAndCheckTuningParameters:(id)parameters;
 - (int)_extractCalibrationData;
+- (int)process;
 - (int)resetState;
 - (void)_calibrateGhostSizeWithAngle:(float)angle;
 - (void)_extractCameraInfo;
@@ -114,12 +115,259 @@ LABEL_8:
   self->_currentCameraInfo = 0;
 
   v8 = sub_A090(&self->_centerQuaternion.w);
+  v9 = v8;
   if (v8)
   {
-    sub_24188();
+    sub_24188(v8);
   }
 
-  return v8;
+  return v9;
+}
+
+- (int)process
+{
+  p_adjustedPrincipalPoint = &self->_adjustedPrincipalPoint;
+  [(NSMutableArray *)self->_ghostBoundingBoxPredictions removeAllObjects];
+  origin = CGRectZero.origin;
+  size = CGRectZero.size;
+  self->_ghostRectImageBased.origin = CGRectZero.origin;
+  self->_ghostRectImageBased.size = size;
+  p_adjustedPrincipalPoint[29] = origin;
+  p_adjustedPrincipalPoint[30] = size;
+  self->_lightSourceRect.origin = origin;
+  self->_lightSourceRect.size = size;
+  [(CMIVideoDeghostingTrackingV1 *)self _extractCameraInfo];
+  v107 = 0.0;
+  v6 = sub_9F08(self->_metadataDictionary, &v107, 0.5);
+  if (v6)
+  {
+    v25 = v6;
+    sub_24208();
+    return v25;
+  }
+
+  [(CMIMotionSampleRingBufferV1 *)self->_motionSampleRingBuffer computeQuaternionForTimeStamp:v107];
+  self->_centerQuaternion.w = v7;
+  self->_centerQuaternion.x = v8;
+  self->_centerQuaternion.y = v9;
+  self->_centerQuaternion.z = v10;
+  if ([CMIMotionSampleRingBufferV1 isUnitQuaternion:&self->_centerQuaternion])
+  {
+    goto LABEL_23;
+  }
+
+  if ([(CMIVideoDeghostingTrackingV1 *)self _extractCalibrationData])
+  {
+    sub_24284(&rect);
+    return LODWORD(rect.origin.x);
+  }
+
+  if (self->_resetTrackerWithInputGhostBoundingBoxes)
+  {
+    [(NSMutableArray *)self->_greenGhostRectangles removeAllObjects];
+    v105 = 0u;
+    v106 = 0u;
+    v103 = 0u;
+    v104 = 0u;
+    v11 = self->_detectedGhostBoundingBoxes;
+    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v103 objects:v102 count:16];
+    if (v12)
+    {
+      v13 = v12;
+      v14 = *v104;
+      __asm { FMOV            V0.2D, #0.5 }
+
+      v82 = _Q0;
+      do
+      {
+        for (i = 0; i != v13; i = i + 1)
+        {
+          if (*v104 != v14)
+          {
+            objc_enumerationMutation(v11);
+          }
+
+          v21 = *(*(&v103 + 1) + 8 * i);
+          [(NSMutableArray *)self->_greenGhostRectangles addObject:v21];
+          memset(&rect, 0, sizeof(rect));
+          CGRectMakeWithDictionaryRepresentation(v21, &rect);
+          v22 = vmulq_f64(rect.size, v82);
+          v23 = vaddq_f64(rect.origin, v22);
+          v100[0] = v23;
+          *v23.f64 = self->_shapeScore;
+          *v22.f64 = self->_lensPosition;
+          [(CMIVideoDeghostingTrackingV1 *)self _pushGhostToHistory:v100 shapeScore:&self->_adjustedPrincipalPoint lensPosition:&self->_centerQuaternion adjustedPrincipalPoint:v23.f64[0] quaternion:v22.f64[0]];
+        }
+
+        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v103 objects:v102 count:16];
+      }
+
+      while (v13);
+    }
+
+    self->_ghostSizeBias = 0.0;
+    self->_prevGhostSizeBias = 0.0;
+    self->_prevShapeScore = self->_shapeScore;
+    goto LABEL_13;
+  }
+
+  LODWORD(p_adjustedPrincipalPoint[24].x) = 0;
+  HIDWORD(p_adjustedPrincipalPoint[23].y) = 0;
+  self->_trajectoryScore = 0.0;
+  self->_contextScore = 0.0;
+  v26 = sub_A044(&self->_previousCameraInfo.quaternion.w, &self->_centerQuaternion);
+  __x = v26;
+  v97 = v27;
+  v98 = v28;
+  v99 = v29;
+  sub_A348(&__x, 0, &rect);
+  adjustedPrincipalPoint = self->_previousCameraInfo.adjustedPrincipalPoint;
+  v30 = acos(v26);
+  v31 = 3.14159265;
+  v94 = 0;
+  *&v94 = self->_previousCameraInfo.lensPosition;
+  v95 = adjustedPrincipalPoint;
+  v92 = 0;
+  *&v92 = self->_lensPosition;
+  v93 = *p_adjustedPrincipalPoint;
+  sub_A2B8(&v92, &v94, &rect, v100);
+  v91 = CGPointZero;
+  v32 = 0.0;
+  if (self->_ghostHistoryCount)
+  {
+    v89[0] = self->_ghostHistory[0].ghostLoc;
+    [(CMIVideoDeghostingTrackingV1 *)self _reflectPoint:v89 pivotPoint:&self->_previousCameraInfo.adjustedPrincipalPoint];
+    *&v33 = v33;
+    *&v34 = v34;
+    v87.f64[0] = 0.0;
+    sub_A7D0(v100, &v87, v87.f64 + 1, *&v33, *&v34);
+    v90 = vcvtq_f64_f32(*&v87.f64[0]);
+    [(CMIVideoDeghostingTrackingV1 *)self _reflectPoint:&v90 pivotPoint:p_adjustedPrincipalPoint];
+    v91.x = v35;
+    v91.y = v36;
+    [(CMIVideoDeghostingTrackingV1 *)self _applyDistortionPolynomial:self->_lensDistortionCoefficients.inverseOrders ToPoint:&v91];
+    v91.x = v37;
+    v91.y = v38;
+    adjustedGhostSize = self->_adjustedGhostSize;
+    v40 = v37 - (adjustedGhostSize / 2);
+    v41 = v38 - (adjustedGhostSize / 2);
+    self->_ghostRectMetadataBased.origin.x = v40;
+    self->_ghostRectMetadataBased.origin.y = v41;
+    self->_ghostRectMetadataBased.size.width = adjustedGhostSize;
+    self->_ghostRectMetadataBased.size.height = adjustedGhostSize;
+    *&v40 = self->_shapeScoreLambda;
+    *&v41 = self->_contextScoreLambda;
+    LODWORD(v81) = self->_contextPaddingInPixel;
+    [(VDGMetalUtilsV1 *)self->_vdgMetalUtils updateGhostPositionsUsingSourceImageFeatureMatching:&p_adjustedPrincipalPoint[29] shapeScore:&self->_shapeScore contextScore:&self->_contextScore confidenceOut:&p_adjustedPrincipalPoint[23].y + 4 pixelBuffer:self->_inputPixelBuffer searchRangeInPixel:self->_adjustedSearchRange shapeScoreLambda:v40 contextScoreLambda:v41 contextPaddingInPixel:v81];
+    self->_ghostRectImageBased.origin.x = v42.f64[0];
+    self->_ghostRectImageBased.origin.y = v43;
+    self->_ghostRectImageBased.size.width = v44;
+    self->_ghostRectImageBased.size.height = v45;
+    v42.f64[1] = v43;
+    __asm { FMOV            V1.2D, #0.5 }
+
+    v47.f64[0] = v44;
+    v47.f64[1] = v45;
+    v48 = vmulq_f64(vaddq_f64(v42, p_adjustedPrincipalPoint[29]), _Q1);
+    v91 = vaddq_f64(vmulq_f64(v47, _Q1), v48);
+    greenGhostRectangles = self->_greenGhostRectangles;
+    _Q1.f64[0] = v48.f64[1];
+    DictionaryRepresentation = CGRectCreateDictionaryRepresentation(*(&v44 - 2));
+    [(NSMutableArray *)greenGhostRectangles replaceObjectAtIndex:0 withObject:DictionaryRepresentation];
+
+    if (self->_ghostHistoryCount)
+    {
+      v84 = v30;
+      v51 = 0;
+      p_shapeScore = &self->_ghostHistory[0].shapeScore;
+      do
+      {
+        __x = sub_A044(p_shapeScore - 6, &self->_centerQuaternion);
+        v97 = v53;
+        v98 = v54;
+        v99 = v55;
+        sub_A348(&__x, 0, &rect);
+        *&v89[0] = 0;
+        *v89 = *(p_shapeScore - 18);
+        *(v89 + 8) = *(p_shapeScore - 4);
+        sub_A2B8(&v92, v89, &rect, v100);
+        v90 = *(p_shapeScore - 4);
+        [(CMIVideoDeghostingTrackingV1 *)self _reflectPoint:&v90 pivotPoint:p_shapeScore - 16];
+        *&v56 = v56;
+        *&v57 = v57;
+        v88 = 0;
+        sub_A7D0(v100, &v88, &v88 + 1, *&v56, *&v57);
+        v58 = acos(__x);
+        *&v58 = (v58 + v58) / v31 * 180.0;
+        v59 = (((*&v58 + -18.0) / 15.0) * 15.0) + 18.0;
+        if (v59 > 10.0)
+        {
+          v59 = 10.0;
+        }
+
+        v87 = vcvtq_f64_f32(v88);
+        v60 = v31;
+        v61 = (self->_lensPosition / -1630.0) * fmaxf(v59, 5.0);
+        v85 = 0.0;
+        v86 = 0.0;
+        [(CMIVideoDeghostingTrackingV1 *)self _reflectPoint:&v87 pivotPoint:p_adjustedPrincipalPoint];
+        v85 = v62;
+        v86 = v63;
+        [(CMIVideoDeghostingTrackingV1 *)self _applyDistortionPolynomial:self->_lensDistortionCoefficients.inverseOrders ToPoint:&v85];
+        v85 = v64;
+        v86 = v65;
+        v66 = v64 - v91.x;
+        v67 = v65 - v91.y;
+        v68 = sqrtf((v67 * v67) + (v66 * v66));
+        v108.origin.x = v64 + -1.0;
+        v108.origin.y = v65 + -1.0;
+        ghostBoundingBoxPredictions = self->_ghostBoundingBoxPredictions;
+        v108.size.width = 2.0;
+        v108.size.height = 2.0;
+        v70 = CGRectCreateDictionaryRepresentation(v108);
+        [(NSMutableArray *)ghostBoundingBoxPredictions addObject:v70];
+
+        v71 = v68 / v61;
+        v31 = v60;
+        v72 = *p_shapeScore;
+        p_shapeScore += 20;
+        self->_trajectoryScore = self->_trajectoryScore + (v72 * (v71 + 1.0));
+        ++v51;
+        ghostHistoryCount = self->_ghostHistoryCount;
+      }
+
+      while (v51 < ghostHistoryCount);
+      v32 = ghostHistoryCount;
+      v30 = v84;
+    }
+  }
+
+  minShapeScore = self->_minShapeScore;
+  shapeScore = self->_shapeScore;
+  if (shapeScore < (((v32 / -10.0) + 1.0) * minShapeScore) || (shapeScore + self->_trajectoryScore) < minShapeScore)
+  {
+LABEL_23:
+    [(CMIVideoDeghostingTrackingV1 *)self resetState];
+    return 0;
+  }
+
+  v77 = (v30 + v30) / v31 * 180.0;
+  objc_storeStrong(&self->_detectedGhostBoundingBoxes, self->_greenGhostRectangles);
+  *&v78 = self->_shapeScore;
+  *&v79 = self->_lensPosition;
+  [(CMIVideoDeghostingTrackingV1 *)self _pushGhostToHistory:&v91 shapeScore:p_adjustedPrincipalPoint lensPosition:&self->_centerQuaternion adjustedPrincipalPoint:v78 quaternion:v79];
+  *&v80 = v77;
+  [(CMIVideoDeghostingTrackingV1 *)self _calibrateGhostSizeWithAngle:v80];
+LABEL_13:
+  self->_previousCameraInfo.lensPosition = self->_lensPosition;
+  self->_previousCameraInfo.adjustedPrincipalPoint = self->_adjustedPrincipalPoint;
+  v24 = *&self->_centerQuaternion.y;
+  *&self->_previousCameraInfo.quaternion.w = *&self->_centerQuaternion.w;
+  *&self->_previousCameraInfo.quaternion.y = v24;
+  objc_storeStrong(&self->_previousPortType, self->_currentPortType);
+  v25 = 0;
+  self->_resetTrackerWithInputGhostBoundingBoxes = 0;
+  return v25;
 }
 
 - (void)_calibrateGhostSizeWithAngle:(float)angle
@@ -653,9 +901,9 @@ LABEL_16:
   {
     sub_150CC();
     sub_4C48();
-    FigDebugAssert3();
-    sub_150CC();
-    return FigSignalErrorAtGM();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v71, v72, v73, v75, LODWORD(rect.origin.x), *&rect.origin.y, *&rect.size.width, LODWORD(rect.size.height));
+    v69 = sub_150CC();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v69, 4294954516, "<<<< CMIVideoDeghostingTrackingV1 >>>>", 524);
   }
 
   self->_pixelBufferWidth = CVPixelBufferGetWidth(self->_inputPixelBuffer);
@@ -728,12 +976,10 @@ LABEL_16:
   if (v38 && !CGRectIsEmpty(rect) && !CGRectContainsPoint(rect, self->_adjustedPrincipalPoint))
   {
     fig_log_get_emitter();
-    v70 = v2;
-    LODWORD(v69) = 0;
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v2, v73, v75, LODWORD(rect.origin.x), *&rect.origin.y, *&rect.size.width, LODWORD(rect.size.height));
   }
 
-  v39 = [(NSDictionary *)self->_metadataDictionary objectForKeyedSubscript:kFigCaptureStreamMetadata_Fnumber, v69, v70];
+  v39 = [(NSDictionary *)self->_metadataDictionary objectForKeyedSubscript:kFigCaptureStreamMetadata_Fnumber];
   [v39 floatValue];
   v41 = v40;
 
@@ -749,9 +995,9 @@ LABEL_16:
   {
     sub_150CC();
     sub_4C48();
-    FigDebugAssert3();
-    sub_150CC();
-    return FigSignalErrorAtGM();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v71, v72, v73, v75, LODWORD(rect.origin.x), *&rect.origin.y, *&rect.size.width, LODWORD(rect.size.height));
+    v70 = sub_150CC();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v70, 4294954516, "<<<< CMIVideoDeghostingTrackingV1 >>>>", 566);
   }
 
   v48 = (vabds_f32(v44, v47) * self->_scalingFactor) * self->_pixelsPerMicron;
@@ -777,9 +1023,9 @@ LABEL_16:
   {
     v57 = [(NSDictionary *)self->_metadataDictionary objectForKeyedSubscript:v55];
     [v57 floatValue];
-    v71 = v58;
+    v74 = v58;
 
-    v59 = v71;
+    v59 = v74;
   }
 
   else

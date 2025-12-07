@@ -27,7 +27,7 @@
 
 + (void)prewarmEffectAndKeepItInMemory:(BOOL)memory withCompletion:(id)completion
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D8E60);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC6D8E60, &qword_1D28811F0);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v15 - v7;
   v9 = _Block_copy(completion);

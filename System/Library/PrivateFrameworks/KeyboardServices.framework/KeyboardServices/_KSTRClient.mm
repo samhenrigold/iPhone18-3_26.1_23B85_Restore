@@ -96,7 +96,8 @@
 {
   v16 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
-  if ([(_KSTRClient *)self hasReadAccess])
+  hasReadAccess = [(_KSTRClient *)self hasReadAccess];
+  if (hasReadAccess)
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
@@ -118,18 +119,16 @@
 
   else
   {
-    v6 = KSCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = KSCategory(hasReadAccess);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       LODWORD(buf) = 136315138;
       *(&buf + 4) = "[_KSTRClient queryTextReplacementEntriesWithReply:]";
-      _os_log_impl(&dword_2557E2000, v6, OS_LOG_TYPE_INFO, "%s  Client does not have read access", &buf, 0xCu);
+      _os_log_impl(&dword_2557E2000, v7, OS_LOG_TYPE_INFO, "%s  Client does not have read access", &buf, 0xCu);
     }
 
     (*(replyCopy + 2))(replyCopy, MEMORY[0x277CBEBF8], 1);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queryTextReplacementsWithPredicate:(id)predicate reply:(id)reply
@@ -137,7 +136,8 @@
   v19 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   replyCopy = reply;
-  if ([(_KSTRClient *)self hasReadAccess])
+  hasReadAccess = [(_KSTRClient *)self hasReadAccess];
+  if (hasReadAccess)
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
@@ -159,18 +159,16 @@
 
   else
   {
-    v9 = KSCategory();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = KSCategory(hasReadAccess);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       LODWORD(buf) = 136315138;
       *(&buf + 4) = "[_KSTRClient queryTextReplacementsWithPredicate:reply:]";
-      _os_log_impl(&dword_2557E2000, v9, OS_LOG_TYPE_INFO, "%s  Client does not have read access", &buf, 0xCu);
+      _os_log_impl(&dword_2557E2000, v10, OS_LOG_TYPE_INFO, "%s  Client does not have read access", &buf, 0xCu);
     }
 
     (*(replyCopy + 2))(replyCopy, MEMORY[0x277CBEBF8], 1);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

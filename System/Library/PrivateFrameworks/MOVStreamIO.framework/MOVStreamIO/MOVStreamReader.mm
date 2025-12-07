@@ -1725,7 +1725,7 @@ LABEL_23:
     m_assetReader = self->m_assetReader;
     if (m_assetReader)
     {
-      [(AVAssetReader *)m_assetReader timeRange];
+      objc_msgSend_timeRange(m_assetReader, a2);
     }
 
     else
@@ -1751,7 +1751,7 @@ LABEL_23:
     m_assetReader = self->m_assetReader;
     if (m_assetReader)
     {
-      [(AVAssetReader *)m_assetReader timeRange];
+      objc_msgSend_timeRange(m_assetReader, a2);
     }
 
     else
@@ -1777,7 +1777,7 @@ LABEL_23:
     m_assetReader = self->m_assetReader;
     if (m_assetReader)
     {
-      [(AVAssetReader *)m_assetReader timeRange];
+      objc_msgSend_timeRange(m_assetReader, a2);
     }
 
     else
@@ -1803,7 +1803,7 @@ LABEL_23:
     m_assetReader = self->m_assetReader;
     if (m_assetReader)
     {
-      [(AVAssetReader *)m_assetReader timeRange];
+      objc_msgSend_timeRange(m_assetReader, a2);
     }
 
     else
@@ -1828,7 +1828,7 @@ LABEL_23:
     v7 = v6;
     if (v6)
     {
-      [v6 transform];
+      objc_msgSend_transform(v6);
     }
 
     else
@@ -2556,7 +2556,7 @@ LABEL_10:
     v8 = assetTrack;
     if (assetTrack)
     {
-      [assetTrack minFrameDuration];
+      objc_msgSend_minFrameDuration(assetTrack);
     }
 
     else
@@ -2623,7 +2623,7 @@ LABEL_10:
   m_asset = self->m_asset;
   if (m_asset)
   {
-    [(AVURLAsset *)m_asset duration];
+    objc_msgSend_duration(m_asset, a2);
   }
 
   else
@@ -2665,7 +2665,7 @@ LABEL_10:
 
         if (v8)
         {
-          [*(*(&v15 + 1) + 8 * v7) timeRange];
+          objc_msgSend_timeRange(*(*(&v15 + 1) + 8 * v7));
         }
 
         else
@@ -2683,7 +2683,7 @@ LABEL_10:
 LABEL_11:
           if (v8)
           {
-            [v8 timeRange];
+            objc_msgSend_timeRange(v8);
           }
 
           else
@@ -3370,7 +3370,7 @@ LABEL_11:
         v17 = v16;
         if (v16)
         {
-          [v16 timeCode];
+          objc_msgSend_timeCode(v16);
           *&code->subframes = v20;
           *&code->hours = v21;
         }
@@ -3405,7 +3405,7 @@ LABEL_11:
     *&retstr->type = 0;
     *&retstr->hours = 0;
     *&retstr->subframes = 0;
-    [MOVStreamIOUtility timecode32ForSampleBuffer:result dropFrame:&v9];
+    objc_msgSend_timecode32ForSampleBuffer_dropFrame_(MOVStreamIOUtility);
     CFRelease(v8);
   }
 
@@ -3508,7 +3508,7 @@ LABEL_40:
               {
                 if (v23)
                 {
-                  [v23 valueAsTimeCode];
+                  objc_msgSend_valueAsTimeCode(v23);
                 }
 
                 else
@@ -3572,7 +3572,7 @@ LABEL_40:
             {
               if (v38)
               {
-                [v38 timeRange];
+                objc_msgSend_timeRange(v38);
               }
 
               else

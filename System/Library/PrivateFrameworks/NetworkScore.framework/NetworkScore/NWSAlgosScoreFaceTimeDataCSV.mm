@@ -45,30 +45,30 @@
 
 - (BOOL)validMethod:(int64_t)method
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   methods = [(NWSAlgosScoreFaceTimeDataCSV *)self methods];
   allValues = [methods allValues];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = allValues;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
-        v11 = [MEMORY[0x277CCABB0] numberWithLongLong:{method, v15}];
+        v10 = *(*(&v14 + 1) + 8 * i);
+        v11 = [MEMORY[0x277CCABB0] numberWithLongLong:{method, v14}];
         LOBYTE(v10) = [v10 containsObject:v11];
 
         if (v10)
@@ -78,7 +78,7 @@
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -91,7 +91,6 @@
   v12 = 0;
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -112,7 +111,7 @@ LABEL_11:
 
 - (int)transformer
 {
-  v106 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   rawStreamData = [(NWSAlgosScoreDataCSV *)self rawStreamData];
   [rawStreamData sortOnColumn:@"eventTime" ascending:1];
 
@@ -122,18 +121,18 @@ LABEL_11:
   rows = [rawStreamData3 rows];
   v6 = [rows objectAtIndexedSubscript:0];
   [rawStreamData2 doubleAtRow:v6 col:@"eventTime" defaultValue:0.0];
-  v91 = v7;
+  v90 = v7;
 
   csvData = self->super.csvData;
+  v97 = 0u;
+  v98 = 0u;
   v99 = 0u;
   v100 = 0u;
-  v101 = 0u;
-  v102 = 0u;
   rawStreamData4 = [(NWSAlgosScoreDataCSV *)self rawStreamData];
   rows2 = [rawStreamData4 rows];
 
   obj = rows2;
-  v10 = [rows2 countByEnumeratingWithState:&v99 objects:v105 count:16];
+  v10 = [rows2 countByEnumeratingWithState:&v97 objects:v103 count:16];
   if (!v10)
   {
 
@@ -143,39 +142,39 @@ LABEL_11:
 
   v11 = 0;
   v12 = 0;
-  v85 = 0;
-  v89 = *v100;
-  v88 = 0.0;
+  v84 = 0;
+  v88 = *v98;
+  v87 = 0.0;
   v13 = 0.0;
   v14 = 0.0;
-  v86 = 0.0;
+  v85 = 0.0;
   v15 = 0.0;
   do
   {
-    v93 = 0;
-    v90 = v10;
-    v92 = v11;
-    v84 = v11 + v10;
+    v92 = 0;
+    v89 = v10;
+    v91 = v11;
+    v83 = v11 + v10;
     v16 = v12;
     v17 = v15;
     do
     {
-      if (*v100 != v89)
+      if (*v98 != v88)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = *(*(&v99 + 1) + 8 * v93);
+      v18 = *(*(&v97 + 1) + 8 * v92);
       rawStreamData5 = [(NWSAlgosScoreDataCSV *)self rawStreamData];
       [rawStreamData5 doubleAtRow:v18 col:@"eventTime" defaultValue:0.0];
       v21 = v20;
 
       rawStreamData6 = [(NWSAlgosScoreDataCSV *)self rawStreamData];
-      v94 = [rawStreamData6 intAtRow:v18 col:@"TTxR" defaultValue:v16];
+      v93 = [rawStreamData6 intAtRow:v18 col:@"TTxR" defaultValue:v16];
 
-      if (v94)
+      if (v93)
       {
-        v23 = fmin(v94 / 1949.0, 1.0);
+        v23 = fmin(v93 / 1949.0, 1.0);
       }
 
       else
@@ -202,24 +201,24 @@ LABEL_11:
       array = [MEMORY[0x277CBEB18] array];
       array2 = [MEMORY[0x277CBEB18] array];
       array3 = [MEMORY[0x277CBEB18] array];
-      v15 = v21 - v91;
+      v15 = v21 - v90;
       v39 = (v15 - v17) * 1000.0;
-      if (v92)
+      if (v91)
       {
         goto LABEL_10;
       }
 
-      std::string::basic_string[abi:ne200100]<0>(v97, "start");
-      AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, v97, 0, v27 != 0, v39, 0.0, v15, 1.0, v23);
+      std::string::basic_string[abi:ne200100]<0>(&v96, "start");
+      AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, &v96, 0, v27 != 0, v39, 0.0, v15, 1.0, v23);
       std::vector<AlgosScoreStreamCSVFrameRow>::push_back[abi:ne200100](csvData, __p);
-      if (v104 < 0)
+      if (v102 < 0)
       {
         operator delete(__p[0]);
       }
 
-      if (v98 < 0)
+      if (SHIBYTE(v96.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v97[0]);
+        operator delete(v96.__r_.__value_.__l.__data_);
       }
 
       if (v31 == 0.0)
@@ -230,7 +229,7 @@ LABEL_10:
 
       else
       {
-        v91 = v91 - v31;
+        v90 = v90 - v31;
         v39 = v31;
         v40 = v31;
       }
@@ -243,7 +242,7 @@ LABEL_10:
         v35 = 0.0;
         v43 = @"end";
         v31 = 0.0;
-        v86 = v44 / 10000.0;
+        v85 = v44 / 10000.0;
 LABEL_66:
 
         v13 = v35;
@@ -265,8 +264,8 @@ LABEL_66:
           v51 = [rawStreamData11 componentsSeparatedByString:@":"];
           if ([v51 count] <= 3)
           {
-            v83 = [MEMORY[0x277CBEAD8] exceptionWithName:@"Not enough components for CONFIG" reason:0 userInfo:0];
-            objc_exception_throw(v83);
+            v82 = [MEMORY[0x277CBEAD8] exceptionWithName:@"Not enough components for CONFIG" reason:0 userInfo:0];
+            objc_exception_throw(v82);
           }
 
           v52 = [v51 objectAtIndexedSubscript:0];
@@ -283,12 +282,12 @@ LABEL_66:
         }
 
         v54 = 0x8E38E38E38E38E39 * ((csvData[1] - *csvData) >> 3);
-        v55 = v54 - v85;
-        if (v54 > v85)
+        v55 = v54 - v84;
+        if (v54 > v84)
         {
           v56 = 0;
           v57 = vdupq_n_s64(v55 - 1);
-          v58 = (*csvData + 72 * v85);
+          v58 = (*csvData + 72 * v84);
           do
           {
             v59 = vdupq_n_s64(v56);
@@ -367,7 +366,7 @@ LABEL_66:
           while (((v55 + 15) & 0xFFFFFFFFFFFFFFF0) != v56);
         }
 
-        v85 = v54 + 1;
+        v84 = v54 + 1;
 LABEL_65:
         v43 = &stru_286D2DF20;
         goto LABEL_66;
@@ -415,14 +414,14 @@ LABEL_65:
       v43 = &stru_286D2DF20;
 LABEL_67:
       v14 = v31;
-      if (v16 && v16 == v94)
+      if (v16 && v16 == v93)
       {
-        v94 = v16;
+        v93 = v16;
       }
 
       else if (-[__CFString isEqualToString:](v43, "isEqualToString:", &stru_286D2DF20) && ![array count])
       {
-        v88 = v40;
+        v87 = v40;
       }
 
       else
@@ -438,11 +437,11 @@ LABEL_67:
         }
 
         [array addObject:@"rate"];
-        v66 = [MEMORY[0x277CCABB0] numberWithDouble:(v40 - v88) * 1000.0];
+        v66 = [MEMORY[0x277CCABB0] numberWithDouble:(v40 - v87) * 1000.0];
         [array2 addObject:v66];
 
         [array3 addObject:&unk_286D2F838];
-        v88 = v40;
+        v87 = v40;
       }
 
       v67 = [array count];
@@ -455,22 +454,22 @@ LABEL_67:
         {
           v71 = [array objectAtIndexedSubscript:v69];
           v72 = v71;
-          std::string::basic_string[abi:ne200100]<0>(v97, [v71 cStringUsingEncoding:4]);
+          std::string::basic_string[abi:ne200100]<0>(&v96, [v71 cStringUsingEncoding:4]);
           v73 = [array2 objectAtIndexedSubscript:v69];
           [v73 doubleValue];
           v75 = v74;
           v76 = [array3 objectAtIndexedSubscript:v69];
           [v76 doubleValue];
-          AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, v97, v42, v70, v39, v75, v68, v77, v23);
+          AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, &v96, v42, v70, v39, v75, v68, v77, v23);
           std::vector<AlgosScoreStreamCSVFrameRow>::push_back[abi:ne200100](csvData, __p);
-          if (v104 < 0)
+          if (v102 < 0)
           {
             operator delete(__p[0]);
           }
 
-          if (v98 < 0)
+          if (SHIBYTE(v96.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v97[0]);
+            operator delete(v96.__r_.__value_.__l.__data_);
           }
 
           ++v69;
@@ -481,57 +480,56 @@ LABEL_67:
 
       else
       {
-        std::string::basic_string[abi:ne200100]<0>(v97, -[__CFString cStringUsingEncoding:](v43, "cStringUsingEncoding:", 4));
-        AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, v97, v42, v27 != 0, v39, 0.0, v68, 1.0, v23);
+        std::string::basic_string[abi:ne200100]<0>(&v96, -[__CFString cStringUsingEncoding:](v43, "cStringUsingEncoding:", 4));
+        AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, &v96, v42, v27 != 0, v39, 0.0, v68, 1.0, v23);
         std::vector<AlgosScoreStreamCSVFrameRow>::push_back[abi:ne200100](csvData, __p);
-        if (v104 < 0)
+        if (v102 < 0)
         {
           operator delete(__p[0]);
         }
 
-        if (v98 < 0)
+        if (SHIBYTE(v96.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v97[0]);
+          operator delete(v96.__r_.__value_.__l.__data_);
         }
       }
 
-      ++v92;
-      v12 = v94;
-      v16 = v94;
+      ++v91;
+      v12 = v93;
+      v16 = v93;
       v17 = v15;
-      ++v93;
+      ++v92;
     }
 
-    while (v93 != v90);
-    v10 = [obj countByEnumeratingWithState:&v99 objects:v105 count:16];
-    v11 = v84;
+    while (v92 != v89);
+    v10 = [obj countByEnumeratingWithState:&v97 objects:v103 count:16];
+    v11 = v83;
   }
 
   while (v10);
 
-  if (v86 != 0.0)
+  if (v85 != 0.0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v97, "fixed-penalty");
-    AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, v97, 0, 0, 0.0, 0.0, v68, v86 * 35.0, 0.0);
+    std::string::basic_string[abi:ne200100]<0>(&v96, "fixed-penalty");
+    AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(__p, &v96, 0, 0, 0.0, 0.0, v68, v85 * 35.0, 0.0);
     std::vector<AlgosScoreStreamCSVFrameRow>::push_back[abi:ne200100](csvData, __p);
-    if (v104 < 0)
+    if (v102 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v98 < 0)
+    if (SHIBYTE(v96.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v97[0]);
+      operator delete(v96.__r_.__value_.__l.__data_);
     }
   }
 
-  v78 = v86;
+  v78 = v85;
 LABEL_98:
   v79 = [MEMORY[0x277CCABB0] numberWithDouble:v78];
   statsDict = [(NWSAlgosScoreDataCSV *)self statsDict];
   [statsDict setObject:v79 forKeyedSubscript:@"audio-erasure"];
 
-  v81 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

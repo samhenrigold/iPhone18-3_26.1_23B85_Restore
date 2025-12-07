@@ -1801,7 +1801,7 @@ void __30__SKNode_insertChild_atIndex___block_invoke(uint64_t a1, void *a2)
         }
       }
 
-      std::__tree<SKNode * {__strong}>::__emplace_unique_key_args<SKNode * {__strong},SKNode * const {__strong}&>(visited, &v111);
+      std::__tree<SKNode * {__strong}>::__emplace_unique_key_args<SKNode * {__strong},SKNode * const {__strong}&>(visited, &v111, &v111);
       v10[2](v10, v111, block);
       goto LABEL_125;
     }
@@ -1861,7 +1861,7 @@ void __30__SKNode_insertChild_atIndex___block_invoke(uint64_t a1, void *a2)
 LABEL_128:
                 if (SKNodeNameMatches(v69, v75))
                 {
-                  std::__tree<SKNode * {__strong}>::__emplace_unique_key_args<SKNode * {__strong},SKNode * const {__strong}&>(visited, &v112);
+                  std::__tree<SKNode * {__strong}>::__emplace_unique_key_args<SKNode * {__strong},SKNode * const {__strong}&>(visited, &v112, &v112);
                   std::vector<SKNode * {__strong}>::push_back[abi:ne200100](&v108, &v112);
                 }
               }
@@ -1949,7 +1949,7 @@ LABEL_128:
 LABEL_66:
               if (SKNodeNameMatches(v39, v45) || (objc_opt_isKindOfClass() & 1) != 0)
               {
-                std::__tree<SKNode * {__strong}>::__emplace_unique_key_args<SKNode * {__strong},SKNode * const {__strong}&>(visited, &v112);
+                std::__tree<SKNode * {__strong}>::__emplace_unique_key_args<SKNode * {__strong},SKNode * const {__strong}&>(visited, &v112, &v112);
                 std::vector<SKNode * {__strong}>::push_back[abi:ne200100](&v108, &v112);
               }
             }
@@ -2843,7 +2843,7 @@ LABEL_8:
   v11 = 0;
   v4.i32[2] = 0;
   v4.i32[3] = 1.0;
-  SKCNode::sortedNodesAtPoint(skcNode, v4);
+  SKCNode::sortedNodesAtPoint(skcNode, &v9, v4);
   array = [MEMORY[0x277CBEB18] array];
   for (i = v10; i != &v9; i = i[1])
   {
@@ -3015,7 +3015,7 @@ LABEL_8:
   self->_attributeValues = v7;
 
   skcNode = self->_skcNode;
-  *(skcNode + 16) = 1;
+  skcNode[16] = 1;
   SKCNode::setFlags(skcNode, 2, 1);
 }
 
@@ -3056,7 +3056,7 @@ LABEL_8:
 
   [(NSMutableDictionary *)attributeValues setObject:v7 forKey:v8];
   skcNode = self->_skcNode;
-  *(skcNode + 16) = 1;
+  skcNode[16] = 1;
   SKCNode::setFlags(skcNode, 64, 1);
 }
 

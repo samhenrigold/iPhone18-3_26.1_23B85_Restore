@@ -29,18 +29,18 @@
 
 + (id)cachedInstallationIDWithMaxAge:(double)age
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   installationID = [self installationID];
   creationDate = [self creationDate];
-  [creationDate timeIntervalSinceNow];
-  if (installationID && creationDate && ((v8 = fabs(v7), v7 < 0.0) ? (v9 = v8 > age) : (v9 = 1), !v9))
+  timeIntervalSinceNow = [creationDate timeIntervalSinceNow];
+  if (installationID && creationDate && ((v9 = fabs(v8), v8 < 0.0) ? (v10 = v9 > age) : (v10 = 1), !v10))
   {
-    v14 = sh_log_object();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v16 = sh_log_object(timeIntervalSinceNow);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      v18 = 138412290;
-      v19 = installationID;
-      _os_log_impl(&dword_230F52000, v14, OS_LOG_TYPE_DEBUG, "Using cached installation ID: %@", &v18, 0xCu);
+      v19 = 138412290;
+      v20 = installationID;
+      _os_log_impl(&dword_230F52000, v16, OS_LOG_TYPE_DEBUG, "Using cached installation ID: %@", &v19, 0xCu);
     }
 
     uUIDString = installationID;
@@ -51,20 +51,18 @@
     uUID = [MEMORY[0x277CCAD78] UUID];
     uUIDString = [uUID UUIDString];
 
-    v12 = sh_log_object();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v14 = sh_log_object(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v18 = 138412290;
-      v19 = uUIDString;
-      _os_log_impl(&dword_230F52000, v12, OS_LOG_TYPE_DEBUG, "Using new installation ID: %@", &v18, 0xCu);
+      v19 = 138412290;
+      v20 = uUIDString;
+      _os_log_impl(&dword_230F52000, v14, OS_LOG_TYPE_DEBUG, "Using new installation ID: %@", &v19, 0xCu);
     }
 
     [self setInstallationID:uUIDString];
     date = [MEMORY[0x277CBEAA8] date];
     [self setCreationDate:date];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return uUIDString;
 }

@@ -89,25 +89,23 @@ LABEL_7:
 
 - (id)accessibilityCustomActions
 {
-  v10[1] = *MEMORY[0x29EDCA608];
+  v9[1] = *MEMORY[0x29EDCA608];
   if ([(HUGridCellAccessibility *)self _axIsActiveGridCell])
   {
     v3 = objc_alloc(MEMORY[0x29EDC78E0]);
     v4 = accessibilityHomeUILocalizedString(@"grid.cell.open.controls");
     v5 = [v3 initWithName:v4 target:self selector:sel__axOpenQuickControls];
 
-    v10[0] = v5;
-    accessibilityCustomActions = [MEMORY[0x29EDB8D80] arrayWithObjects:v10 count:1];
+    v9[0] = v5;
+    accessibilityCustomActions = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:1];
   }
 
   else
   {
-    v9.receiver = self;
-    v9.super_class = HUGridCellAccessibility;
-    accessibilityCustomActions = [(HUGridCellAccessibility *)&v9 accessibilityCustomActions];
+    v8.receiver = self;
+    v8.super_class = HUGridCellAccessibility;
+    accessibilityCustomActions = [(HUGridCellAccessibility *)&v8 accessibilityCustomActions];
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 
   return accessibilityCustomActions;
 }
@@ -152,16 +150,14 @@ LABEL_7:
 
 - (id)_accessibilitySupportGesturesAttributes
 {
-  v8[1] = *MEMORY[0x29EDCA608];
-  v6[0] = @"AXSupportedGestureTypeKey";
-  v6[1] = @"AXOrbGestureMode";
-  v7[0] = &unk_2A21CEBB0;
-  v7[1] = &unk_2A21CEBC8;
-  v2 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-  v8[0] = v2;
-  v3 = [MEMORY[0x29EDB8D80] arrayWithObjects:v8 count:1];
-
-  v4 = *MEMORY[0x29EDCA608];
+  v7[1] = *MEMORY[0x29EDCA608];
+  v5[0] = @"AXSupportedGestureTypeKey";
+  v5[1] = @"AXOrbGestureMode";
+  v6[0] = &unk_2A21CEBB0;
+  v6[1] = &unk_2A21CEBC8;
+  v2 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
+  v7[0] = v2;
+  v3 = [MEMORY[0x29EDB8D80] arrayWithObjects:v7 count:1];
 
   return v3;
 }

@@ -6,7 +6,7 @@
 
 - (void)main
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   configuration = [(HDCloudSyncOperation *)self configuration];
   repository = [configuration repository];
   syncAvailability = [repository syncAvailability];
@@ -16,34 +16,34 @@
     taskGroup = [(HDCloudSyncUpdateCachedRecordsOperation *)self taskGroup];
     [taskGroup beginTask];
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     configuration2 = [(HDCloudSyncOperation *)self configuration];
     repository2 = [configuration2 repository];
     allCKContainers = [repository2 allCKContainers];
 
-    v10 = [allCKContainers countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [allCKContainers countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v20;
+      v12 = *v19;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(allCKContainers);
           }
 
-          v14 = *(*(&v19 + 1) + 8 * i);
+          v14 = *(*(&v18 + 1) + 8 * i);
           sharedCloudDatabase = [v14 sharedCloudDatabase];
           [(HDCloudSyncUpdateCachedRecordsOperation *)self fetchRecordZoneChangesForContainer:v14 database:sharedCloudDatabase];
         }
 
-        v11 = [allCKContainers countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [allCKContainers countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v11);
@@ -66,8 +66,6 @@
 
     [(HDCloudSyncOperation *)self finishWithSuccess:1 error:0];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

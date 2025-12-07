@@ -32,30 +32,33 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_opt_class() allocWithZone:zone];
+  v5 = objc_opt_class();
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
   exportDir = self->_exportDir;
   fileName = self->_fileName;
-  sandboxExtensionTok = self->_sandboxExtensionTok;
 
-  return MEMORY[0x1EEE66B58](v4, sel_initWithExportDir_fileName_sandboxExtensionTok_);
+  return MEMORY[0x1EEE66B58](v8, sel_initWithExportDir_fileName_sandboxExtensionTok_, exportDir, fileName);
 }
 
 - (CLMiLoExportDatabaseTableResult)initWithCoder:(id)coder
 {
-  [coder decodeObjectOfClass:objc_opt_class() forKey:@"kCLMiLoConnectionCodingKeyExportDatabaseTableResultExportDir"];
-  [coder decodeObjectOfClass:objc_opt_class() forKey:@"kCLMiLoConnectionCodingKeyExportDatabaseTableResultFileName"];
-  [coder decodeObjectOfClass:objc_opt_class() forKey:@"kCLMiLoConnectionCodingKeyExportDatabaseTableResultsandboxExtensionTok"];
+  v5 = objc_opt_class();
+  v7 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v6, v5, @"kCLMiLoConnectionCodingKeyExportDatabaseTableResultExportDir");
+  v8 = objc_opt_class();
+  v10 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v9, v8, @"kCLMiLoConnectionCodingKeyExportDatabaseTableResultFileName");
+  v11 = objc_opt_class();
+  objc_msgSend_decodeObjectOfClass_forKey_(coder, v12, v11, @"kCLMiLoConnectionCodingKeyExportDatabaseTableResultsandboxExtensionTok");
 
-  return MEMORY[0x1EEE66B58](self, sel_initWithExportDir_fileName_sandboxExtensionTok_);
+  return MEMORY[0x1EEE66B58](self, sel_initWithExportDir_fileName_sandboxExtensionTok_, v7, v10);
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  [coder encodeObject:self->_exportDir forKey:@"kCLMiLoConnectionCodingKeyExportDatabaseTableResultExportDir"];
-  [coder encodeObject:self->_fileName forKey:@"kCLMiLoConnectionCodingKeyExportDatabaseTableResultFileName"];
+  objc_msgSend_encodeObject_forKey_(coder, a2, self->_exportDir, @"kCLMiLoConnectionCodingKeyExportDatabaseTableResultExportDir");
+  objc_msgSend_encodeObject_forKey_(coder, v5, self->_fileName, @"kCLMiLoConnectionCodingKeyExportDatabaseTableResultFileName");
   sandboxExtensionTok = self->_sandboxExtensionTok;
 
-  [coder encodeObject:sandboxExtensionTok forKey:@"kCLMiLoConnectionCodingKeyExportDatabaseTableResultsandboxExtensionTok"];
+  objc_msgSend_encodeObject_forKey_(coder, v6, sandboxExtensionTok, @"kCLMiLoConnectionCodingKeyExportDatabaseTableResultsandboxExtensionTok");
 }
 
 @end

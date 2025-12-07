@@ -42,27 +42,23 @@ void __60__WDVideoURLManager_fetchURLForVideoWithIdentifier_handler___block_invo
   dispatch_async(MEMORY[0x277D85CD0], v10);
 }
 
-uint64_t __60__WDVideoURLManager_fetchURLForVideoWithIdentifier_handler___block_invoke_2(void *a1)
+uint64_t __60__WDVideoURLManager_fetchURLForVideoWithIdentifier_handler___block_invoke_2(void *a1, uint64_t a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
-  v2 = HKLogWellnessDashboard();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = HKLogWellnessDashboard();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v4 = a1[5];
-    v9 = 138412546;
-    v10 = v3;
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_251E85000, v2, OS_LOG_TYPE_DEFAULT, "Fetched URL for %@: %@", &v9, 0x16u);
+    v5 = a1[4];
+    v6 = a1[5];
+    v8 = 138412546;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_251E85000, v4, OS_LOG_TYPE_DEFAULT, "Fetched URL for %@: %@", &v8, 0x16u);
   }
 
-  v5 = a1[6];
-  v6 = a1[5];
-  result = (*(a1[7] + 16))();
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[7] + 16))();
 }
 
 + (void)_fetchPreferredURLForIdentifier:(id)identifier completion:(id)completion
@@ -83,7 +79,7 @@ uint64_t __60__WDVideoURLManager_fetchURLForVideoWithIdentifier_handler___block_
 
 void __64__WDVideoURLManager__fetchPreferredURLForIdentifier_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = [*(a1 + 48) _parseJSON:a2];
@@ -92,11 +88,11 @@ void __64__WDVideoURLManager__fetchPreferredURLForIdentifier_completion___block_
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 32);
-      v18 = 138543618;
-      v19 = v5;
-      v20 = 2114;
-      v21 = v3;
-      _os_log_impl(&dword_251E85000, v4, OS_LOG_TYPE_DEFAULT, "Received JSON dictionary for identifier %{public}@: %{public}@", &v18, 0x16u);
+      v15 = 138543618;
+      v16 = v5;
+      v17 = 2114;
+      v18 = v3;
+      _os_log_impl(&dword_251E85000, v4, OS_LOG_TYPE_DEFAULT, "Received JSON dictionary for identifier %{public}@: %{public}@", &v15, 0x16u);
     }
 
     v6 = [v3 objectForKeyedSubscript:@"languages"];
@@ -108,9 +104,9 @@ void __64__WDVideoURLManager__fetchPreferredURLForIdentifier_completion___block_
     v10 = HKLogWellnessDashboard();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138543362;
-      v19 = v9;
-      _os_log_impl(&dword_251E85000, v10, OS_LOG_TYPE_DEFAULT, "Chose language code %{public}@", &v18, 0xCu);
+      v15 = 138543362;
+      v16 = v9;
+      _os_log_impl(&dword_251E85000, v10, OS_LOG_TYPE_DEFAULT, "Chose language code %{public}@", &v15, 0xCu);
     }
 
     v11 = [*(a1 + 48) _baseURLForIdentifier:*(a1 + 32)];
@@ -118,22 +114,19 @@ void __64__WDVideoURLManager__fetchPreferredURLForIdentifier_completion___block_
     v13 = [v12 URLByAppendingPathComponent:@"stream.m3u8"];
 
     (*(*(a1 + 40) + 16))();
-    v14 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v15 = *(a1 + 40);
-    v16 = *(*(a1 + 40) + 16);
-    v17 = *MEMORY[0x277D85DE8];
+    v14 = *(*(a1 + 40) + 16);
 
-    v16();
+    v14();
   }
 }
 
 + (id)preferredLanguageFromLanguages:(id)languages languagePreferences:(id)preferences
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   languagesCopy = languages;
   preferencesCopy = preferences;
   if ([languagesCopy count] && objc_msgSend(preferencesCopy, "count"))
@@ -148,15 +141,13 @@ void __64__WDVideoURLManager__fetchPreferredURLForIdentifier_completion___block_
     v9 = HKLogWellnessDashboard();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543362;
-      v13 = @"en";
-      _os_log_impl(&dword_251E85000, v9, OS_LOG_TYPE_DEFAULT, "Received empty array of languages, returning %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = @"en";
+      _os_log_impl(&dword_251E85000, v9, OS_LOG_TYPE_DEFAULT, "Received empty array of languages, returning %{public}@", &v11, 0xCu);
     }
 
     firstObject = @"en";
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -197,7 +188,7 @@ void __63__WDVideoURLManager__fetchRawManifestForIdentifier_completion___block_i
 
 + (id)_baseURLForIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEBD0];
   identifierCopy = identifier;
   standardUserDefaults = [v3 standardUserDefaults];
@@ -224,12 +215,10 @@ void __63__WDVideoURLManager__fetchRawManifestForIdentifier_completion___block_i
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     absoluteString = [v11 absoluteString];
-    v16 = 138412290;
-    v17 = absoluteString;
-    _os_log_impl(&dword_251E85000, v12, OS_LOG_TYPE_DEFAULT, "Server base URL: %@", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = absoluteString;
+    _os_log_impl(&dword_251E85000, v12, OS_LOG_TYPE_DEFAULT, "Server base URL: %@", &v15, 0xCu);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

@@ -1,51 +1,3 @@
-uint64_t AppleLIFSUserClient::methodCreateMapping(AppleLIFSUserClient *this, AppleLIFSUserClient *a2, void *a3, IOExternalMethodArguments *a4)
-{
-  v4 = a3[6];
-  v5 = a3[11];
-  *(&v14.__vftable + 4) = 0;
-  LODWORD(v14.__vftable) = 0;
-  v6 = current_task();
-  v8 = IOUserClient::copyObjectForPortNameInTask(v6, *v4, &v14.__vftable + 4, v7);
-  if (!v8)
-  {
-    v10 = OSMetaClassBase::safeMetaCast(*(&v14.__vftable + 4), &IOWrappedMemoryDescriptor::gMetaClass);
-    if (v10)
-    {
-      v11 = v10;
-      MappingInTask = IOWrappedMemoryDescriptor::createMappingInTask(v10, v6, *(v4 + 1), v4[4], *(v4 + 3), *(v4 + 4));
-      (v11->release_0)(v11);
-      if (MappingInTask)
-      {
-        *v5 = (MappingInTask->getVirtualAddress)(MappingInTask);
-        v5[1] = (MappingInTask->getLength)(MappingInTask);
-        v8 = IOUserClient::copyPortNameForObjectInTask(v6, MappingInTask, &v14, v13);
-        if (v8)
-        {
-          (MappingInTask->release_0)(MappingInTask);
-        }
-
-        else
-        {
-          v5[2] = LODWORD(v14.__vftable);
-        }
-      }
-
-      else
-      {
-        return 3758097096;
-      }
-    }
-
-    else
-    {
-      (*(**(&v14.__vftable + 4) + 40))(*(&v14.__vftable + 4));
-      return 3758096385;
-    }
-  }
-
-  return v8;
-}
-
 uint64_t AppleLIFSUserClient::methodSetClientDomain(AppleLIFSUserClient *this, AppleLIFSUserClient *a2, void *a3, IOExternalMethodArguments *a4)
 {
   v5 = a3[6];
@@ -143,7 +95,7 @@ uint64_t AppleLIFSUserClient::methodXattrReply(AppleLIFSUserClient *this, AppleL
   if (v5)
   {
     v6 = 0;
-    LODWORD(v7) = 0;
+    v7 = 0;
   }
 
   else
@@ -191,8 +143,6 @@ uint64_t AppleLIFSUserClient::methodOpenKernelFD(AppleLIFSUserClient *this, Appl
   if (!lifs_containers_list)
   {
 LABEL_9:
-    v23 = *(this + 69);
-    v24 = *(this + 70);
     IOLog("%s: no container found (pid %d pidversion %d)\n");
 LABEL_10:
     lck_mtx_unlock(&lifs_containers_list_lock);
@@ -364,7 +314,6 @@ uint64_t AppleLIFSUserClient::methodCloseKernelFD(AppleLIFSUserClient *this, App
     else
     {
 LABEL_14:
-      v10 = *v6;
       IOLog("%s: no volume found for client %p in container %p with fd %d\n");
     }
   }
@@ -372,8 +321,6 @@ LABEL_14:
   else
   {
 LABEL_6:
-    v11 = *(this + 69);
-    v12 = *(this + 70);
     IOLog("%s: no container found for pid %d pidversion %d\n");
   }
 
@@ -558,8 +505,7 @@ uint64_t AppleLIFSUserClient::methodWriteMetaSubBlock(AppleLIFSUserClient *this,
     v8 = lifs_write_meta_subblock(volume_by_fd[4], *(volume_by_fd + 18), *(v5 + 8), *(v5 + 16), *(v5 + 24), *(v5 + 32), *(v5 + 40));
     if (v8)
     {
-      v9 = *(v5 + 32);
-      IOLog("%s: write_meta_subblock failed with err %d (device: %s blockOffset: 0x%llx blockLength: 0x%lx buffer: %p offset: 0x%llx length: 0x%lx)\n", "methodWriteMetaSubBlock", v8, (v7 + 40), *(v5 + 8), *(v5 + 16), *(v5 + 24), v9, *(v5 + 40));
+      IOLog("%s: write_meta_subblock failed with err %d (device: %s blockOffset: 0x%llx blockLength: 0x%lx buffer: %p offset: 0x%llx length: 0x%lx)\n", "methodWriteMetaSubBlock", v8, (v7 + 40), *(v5 + 8), *(v5 + 16), *(v5 + 24), *(v5 + 32), *(v5 + 40));
       v4 = 3758097098;
     }
 
@@ -680,10 +626,10 @@ uint64_t AppleLIFSUserClient::methodFlushMetaBlocks(AppleLIFSUserClient *this, A
   if (volume_by_fd)
   {
     v7 = volume_by_fd;
-    v8 = lifs_flush_meta_blocks(volume_by_fd[4], *(volume_by_fd + 18), v5 + 8, *(v5 + 136), *(v5 + 140));
+    v8 = lifs_flush_meta_blocks(volume_by_fd[4], *(volume_by_fd + 18), (v5 + 2), v5[34], v5[35]);
     if (v8)
     {
-      IOLog("%s: flush_meta_blocks failed with err %d (device: %s wait: %d)\n", "methodFlushMetaBlocks", v8, (v7 + 40), *(v5 + 140));
+      IOLog("%s: flush_meta_blocks failed with err %d (device: %s wait: %d)\n", "methodFlushMetaBlocks", v8, (v7 + 40), v5[35]);
       v4 = 3758097098;
     }
 
@@ -711,10 +657,10 @@ uint64_t AppleLIFSUserClient::methodClearMetaBlocks(AppleLIFSUserClient *this, A
   if (volume_by_fd)
   {
     v7 = volume_by_fd;
-    v8 = lifs_clear_meta_blocks(volume_by_fd[4], *(volume_by_fd + 18), v5 + 8, *(v5 + 136), *(v5 + 140));
+    v8 = lifs_clear_meta_blocks(volume_by_fd[4], *(volume_by_fd + 18), (v5 + 2), v5[34], v5[35]);
     if (v8)
     {
-      IOLog("%s: clear_meta_blocks failed with err %d (device: %s wait: %d)\n", "methodClearMetaBlocks", v8, (v7 + 40), *(v5 + 140));
+      IOLog("%s: clear_meta_blocks failed with err %d (device: %s wait: %d)\n", "methodClearMetaBlocks", v8, (v7 + 40), v5[35]);
       v4 = 3758097098;
     }
 
@@ -742,7 +688,7 @@ uint64_t AppleLIFSUserClient::methodPurgeMetaBlocks(AppleLIFSUserClient *this, A
   if (volume_by_fd)
   {
     v7 = volume_by_fd;
-    v8 = lifs_purge_meta_blocks(volume_by_fd[4], *(volume_by_fd + 18), v5 + 8, *(v5 + 136));
+    v8 = lifs_purge_meta_blocks(volume_by_fd[4], *(volume_by_fd + 18), (v5 + 2), v5[34]);
     if (v8)
     {
       IOLog("%s: purge_meta_blocks failed with err %d (device: %s)\n", "methodPurgeMetaBlocks", v8, (v7 + 40));
@@ -1201,8 +1147,6 @@ uint64_t *lifs_get_volume_by_fd(AppleLIFSUserClient *a1, int a2)
   {
 LABEL_5:
     lck_mtx_unlock(&lifs_containers_list_lock);
-    v5 = *(a1 + 69);
-    v8 = *(a1 + 70);
     IOLog("%s: no container found for pid %d pidversion %d\n");
     return 0;
   }
@@ -1216,8 +1160,8 @@ LABEL_5:
     }
   }
 
-  v6 = *(v4 + 16);
-  if (!v6)
+  v5 = *(v4 + 16);
+  if (!v5)
   {
 LABEL_12:
     lck_mtx_unlock(&lifs_containers_list_lock);
@@ -1225,20 +1169,20 @@ LABEL_12:
     return 0;
   }
 
-  while (v6[2] != a1 || *(v6 + 19) != a2)
+  while (v5[2] != a1 || *(v5 + 19) != a2)
   {
-    v6 = *v6;
-    if (!v6)
+    v5 = *v5;
+    if (!v5)
     {
       goto LABEL_12;
     }
   }
 
-  lck_mtx_lock((v6 + 11));
-  os_ref_retain_external(v6 + 21, 0);
-  lck_mtx_unlock((v6 + 11));
+  lck_mtx_lock((v5 + 11));
+  os_ref_retain_external(v5 + 21, 0);
+  lck_mtx_unlock((v5 + 11));
   lck_mtx_unlock(&lifs_containers_list_lock);
-  return v6;
+  return v5;
 }
 
 void lifs_volume_rele(uint64_t a1)
@@ -1766,7 +1710,7 @@ unint64_t *koio_extent_tree_RB_REMOVE_COLOR(unint64_t *result, unint64_t a2, uni
         *(a2 + 16) = v14;
         if (v15)
         {
-          if (v15[2])
+          if (*(v15 + 16))
           {
             v16 = a2 | 1;
           }
@@ -1776,7 +1720,7 @@ unint64_t *koio_extent_tree_RB_REMOVE_COLOR(unint64_t *result, unint64_t a2, uni
             v16 = a2;
           }
 
-          v15[2] = v16;
+          *(v15 + 16) = v16;
           v14 = *(a2 + 16);
         }
 
@@ -1897,7 +1841,7 @@ LABEL_60:
         *(a2 + 8) = *v6;
         if (v40)
         {
-          if (v40[2])
+          if (*(v40 + 16))
           {
             v41 = a2 | 1;
           }
@@ -1907,7 +1851,7 @@ LABEL_60:
             v41 = a2;
           }
 
-          v40[2] = v41;
+          *(v40 + 16) = v41;
         }
 
         v42 = *(a2 + 16);
@@ -1959,7 +1903,7 @@ LABEL_60:
         *a2 = v9;
         if (v9)
         {
-          if (v9[2])
+          if (*(v9 + 16))
           {
             v10 = a2 | 1;
           }
@@ -1969,7 +1913,7 @@ LABEL_60:
             v10 = a2;
           }
 
-          v9[2] = v10;
+          *(v9 + 16) = v10;
           v8 = *(a2 + 16);
         }
 
@@ -2010,7 +1954,7 @@ LABEL_60:
       v19 = *v6;
       if (*v6)
       {
-        v20 = v19[2];
+        v20 = *(v19 + 16);
         if (v20)
         {
           goto LABEL_45;
@@ -2025,7 +1969,7 @@ LABEL_60:
           goto LABEL_47;
         }
 
-        v20 = v19[2];
+        v20 = *(v19 + 16);
 LABEL_45:
         if (v20)
         {
@@ -2099,7 +2043,7 @@ LABEL_47:
         *(a2 + 16) &= ~1uLL;
         if (v19)
         {
-          v19[2] &= ~1uLL;
+          *(v19 + 16) &= ~1uLL;
         }
 
         v6 = v29 + 8;
@@ -2462,14 +2406,14 @@ void *koio_extent_tree_RB_PREV(void *a1)
     {
       do
       {
-        result = (*(v3 + 16) & 0xFFFFFFFFFFFFFFFELL);
+        result = (v3[2] & 0xFFFFFFFFFFFFFFFELL);
         if (!result)
         {
           break;
         }
 
         v4 = v3 == *result;
-        v3 = *(v3 + 16) & 0xFFFFFFFFFFFFFFFELL;
+        v3 = (v3[2] & 0xFFFFFFFFFFFFFFFELL);
       }
 
       while (v4);
@@ -2563,7 +2507,7 @@ uint64_t lifs_add_extent(uint64_t a1, unint64_t a2, unsigned int a3, int *a4)
   return result;
 }
 
-unint64_t lifs_remove_overlapping_extents(uint64_t a1, unint64_t a2, unint64_t a3)
+uint64_t lifs_remove_overlapping_extents(uint64_t a1, unint64_t a2, unint64_t a3)
 {
   result = lifs_find_first_overlapping_extent(a1, a2, a3 - a2);
   if (result)
@@ -2771,18 +2715,18 @@ uint64_t lifs_mount(mount *arg1, uint64_t a2, const void *a3)
     kernel_debug_filtered(0x3140005u, arg1, 0, 0, 0);
   }
 
-  v45 = 0;
-  v43 = 0u;
-  v44 = 0u;
+  v43 = 0;
   v41 = 0u;
   v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   data = 0u;
   __dst = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  memset(v50, 0, sizeof(v50));
-  v51 = 0;
+  memset(v48, 0, sizeof(v48));
+  v49 = 0;
   if (!arg1)
   {
     v12 = 22;
@@ -2821,13 +2765,13 @@ LABEL_40:
 
   *&data = arg1;
   DWORD2(data) = 2;
-  *&v41 = "lifs";
-  *(&v41 + 1) = 0;
-  *(&v42 + 1) = lifs_vnodeop_p;
-  *&v43 = 1;
-  DWORD2(v43) = 0;
-  v44 = 0uLL;
-  LODWORD(v45) = 4;
+  *&v39 = "lifs";
+  *(&v39 + 1) = 0;
+  *(&v40 + 1) = lifs_vnodeop_p;
+  *&v41 = 1;
+  DWORD2(v41) = 0;
+  v42 = 0uLL;
+  LODWORD(v43) = 4;
   v6 = kalloc_type_impl();
   v7 = kalloc_type_impl();
   *(v7 + 424) = 0u;
@@ -2840,7 +2784,7 @@ LABEL_40:
   lck_rw_init((v7 + 696), lifs_node_grp, 0);
   lck_rw_init((v7 + 944), lifs_node_grp, 0);
   lck_rw_init((v7 + 512), lifs_node_grp, 0);
-  *&v42 = v7;
+  *&v40 = v7;
   v6[56] = arg1;
   *(v6 + 6) = *v5;
   v6[4] = 0;
@@ -2930,13 +2874,13 @@ LABEL_54:
     goto LABEL_14;
   }
 
-  v29 = v47;
+  v29 = v45;
   *(v7 + 360) = __dst;
   *(v7 + 376) = v29;
-  v30 = v49;
-  *(v7 + 392) = v48;
+  v30 = v47;
+  *(v7 + 392) = v46;
   *(v7 + 408) = v30;
-  update_lnode_attr(v7, v50);
+  update_lnode_attr(v7, v48);
   *(v7 + 592) = 0;
   *(v7 + 600) = v7 + 592;
   if ((kdebug_enable & 0xFFFFFFF7) != 0)
@@ -2962,12 +2906,10 @@ LABEL_54:
   v6[72] = hashinit(1024, 80, v6 + 73);
   v6[19] = 0;
   v6[18] = 0;
-  v33 = *(v6 + 140);
-  v34 = *(v6 + 141);
   vfs_setowner();
-  v35 = vfs_statfs(arg1);
-  init_statfs(v35, v5 + 88, v5 + 1112);
-  v35->f_owner = *(v6 + 140);
+  v33 = vfs_statfs(arg1);
+  init_statfs(v33, v5 + 88, v5 + 1112);
+  v33->f_owner = *(v6 + 140);
   lifs_mntfromname(v6, v7);
   vfs_setfsprivate(arg1, v6);
   vfs_setfskit();
@@ -2980,11 +2922,11 @@ LABEL_54:
     goto LABEL_54;
   }
 
-  lifs_setup_fsid(v6, v35);
+  lifs_setup_fsid(v6, v33);
   if ((v6[4] & 8) == 0)
   {
-    v37 = lifs_io_thread_start(v6);
-    if (!v37)
+    v35 = lifs_io_thread_start(v6);
+    if (!v35)
     {
       if ((*(v6 + 34) & 1) == 0)
       {
@@ -2997,11 +2939,11 @@ LABEL_54:
     goto LABEL_60;
   }
 
-  v37 = lifs_endio_thread_start(v6);
-  if (v37)
+  v35 = lifs_endio_thread_start(v6);
+  if (v35)
   {
 LABEL_60:
-    v12 = v37;
+    v12 = v35;
     v14 = 0;
     v13 = 1;
 LABEL_61:
@@ -3094,9 +3036,9 @@ LABEL_70:
   }
 
   v13 = 1;
-  v38 = thread_call_allocate_with_options(lifs_meta_sync_call, v6, THREAD_CALL_PRIORITY_KERNEL, 1u);
-  v6[108] = v38;
-  if (!v38)
+  v36 = thread_call_allocate_with_options(lifs_meta_sync_call, v6, THREAD_CALL_PRIORITY_KERNEL, 1u);
+  v6[108] = v36;
+  if (!v36)
   {
     v12 = 0;
     v14 = 1;
@@ -3107,10 +3049,10 @@ LABEL_63:
   os_ref_init_count_external(v6 + 212, 0, 1u);
   lck_mtx_lock(&lifs_mount_list_lock);
   atomic_load(v6 + 99);
-  v39 = vfs_setdevvp();
-  if (v39)
+  v37 = vfs_setdevvp();
+  if (v37)
   {
-    _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "Failed to set mnt_devvp on the mount point: %d", v39);
+    _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "Failed to set mnt_devvp on the mount point: %d", v37);
   }
 
   lifs_set_ioattr(v6);
@@ -3124,7 +3066,7 @@ LABEL_63:
   return 0;
 }
 
-uint64_t lifs_unmount(mount *a1, int a2, vfs_context *a3)
+uint64_t lifs_unmount(mount *a1, uint64_t a2, vfs_context *a3)
 {
   if (!a1)
   {
@@ -3143,16 +3085,16 @@ uint64_t lifs_unmount(mount *a1, int a2, vfs_context *a3)
   v8 = vnode_fsnode(v7[2]);
   v9 = *(v8 + 376);
   *arg4 = *(v8 + 360);
-  v27 = v9;
+  v26 = v9;
   v10 = *(v8 + 408);
-  v28 = *(v8 + 392);
-  v29 = v10;
+  v27 = *(v8 + 392);
+  v28 = v10;
   if ((kdebug_enable & 0xFFFFFFF7) != 0)
   {
     kernel_debug_filtered(0x3140009u, a1, v7, a2, LODWORD(arg4[0]));
   }
 
-  v11 = vflush(a1, v7[2], (a2 & 0x80000u) >> 18);
+  v11 = vflush(a1, v7[2], (a2 & 0x80000) >> 18);
   if ((a2 & 0x80000) == 0)
   {
     v12 = v11;
@@ -3166,52 +3108,51 @@ uint64_t lifs_unmount(mount *a1, int a2, vfs_context *a3)
   v14 = vnode_isinuse(v7[2], 0);
   if ((a2 & 0x80000) == 0 && v14)
   {
-    v15 = v7[2];
-    v16 = vnode_usecount();
-    _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%s (lmp %p) is busy (usecount: %d)", "lifs_unmount", v7, v16);
+    v15 = vnode_usecount();
+    _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%s (lmp %p) is busy (usecount: %d)", "lifs_unmount", v7, v15);
     return 16;
   }
 
-  v17 = v7[107];
-  if (v17)
+  v16 = v7[107];
+  if (v16)
   {
-    thread_call_cancel_wait(v17);
+    thread_call_cancel_wait(v16);
     thread_call_free(v7[107]);
     v7[107] = 0;
   }
 
   lck_mtx_lock((v7 + 12));
-  v18 = v7[108];
-  if (v18)
+  v17 = v7[108];
+  if (v17)
   {
     if ((*(v7 + 33) & 8) != 0)
     {
       lck_mtx_unlock((v7 + 12));
       thread_call_cancel_wait(v7[108]);
       lck_mtx_lock((v7 + 12));
-      v18 = v7[108];
+      v17 = v7[108];
     }
 
-    thread_call_free(v18);
+    thread_call_free(v17);
     v7[108] = 0;
   }
 
   lck_mtx_unlock((v7 + 12));
-  v19 = lifs_unmount_request(v7, a2, arg4);
-  if (v19 == -1)
+  v18 = lifs_unmount_request(v7, a2, arg4);
+  if (v18 == -1)
   {
     vnode_mount(v7[2]);
-    v20 = vfs_vnodecovered();
-    VNOP_IOCTL(v20, 0x20006E04uLL, 0, 0, a3);
-    vnode_put(v20);
-    v19 = 0;
+    v19 = vfs_vnodecovered();
+    VNOP_IOCTL(v19, 0x20006E04uLL, 0, 0, a3);
+    vnode_put(v19);
+    v18 = 0;
   }
 
   vnode_put(v7[2]);
   vflush(a1, 0, 2);
-  if (v19)
+  if (v18)
   {
-    _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "lifs_unmount_request returned err %d", v19);
+    _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "lifs_unmount_request returned err %d", v18);
   }
 
   else
@@ -3230,20 +3171,20 @@ uint64_t lifs_unmount(mount *a1, int a2, vfs_context *a3)
   else
   {
     lifs_io_thread_stop(v7);
-    v21 = atomic_load(v7 + 99);
-    if (v21 && (*(v7 + 34) & 1) == 0)
+    v20 = atomic_load(v7 + 99);
+    if (v20 && (*(v7 + 34) & 1) == 0)
     {
-      v22 = atomic_load(v7 + 99);
-      lifs_close_device(v22, 1);
+      v21 = atomic_load(v7 + 99);
+      lifs_close_device(v21, 1);
     }
   }
 
   lck_mtx_lock(&lifs_mount_list_lock);
-  v23 = *v7;
+  v22 = *v7;
   if (!*v7)
   {
-    v25 = v7[1];
-    if (*v25 == v7)
+    v24 = v7[1];
+    if (*v24 == v7)
     {
       qword_28658 = v7[1];
       goto LABEL_36;
@@ -3252,13 +3193,13 @@ uint64_t lifs_unmount(mount *a1, int a2, vfs_context *a3)
     goto LABEL_39;
   }
 
-  if (*(v23 + 8) != v7)
+  if (*(v22 + 8) != v7)
   {
     goto LABEL_40;
   }
 
-  v24 = v7[1];
-  if (*v24 != v7)
+  v23 = v7[1];
+  if (*v23 != v7)
   {
 LABEL_39:
     __break(0xBFFDu);
@@ -3266,10 +3207,10 @@ LABEL_40:
     __break(0xBFFDu);
   }
 
-  *(v23 + 8) = v24;
-  v25 = v7[1];
+  *(v22 + 8) = v23;
+  v24 = v7[1];
 LABEL_36:
-  *v25 = v23;
+  *v24 = v22;
   lck_mtx_unlock(&lifs_mount_list_lock);
   vfs_setfsprivate(a1, 0);
   hashdestroy(v7[72], 80, v7[73]);
@@ -3731,7 +3672,7 @@ LABEL_13:
   return v7;
 }
 
-vnode_t lifs_open_device(const char *a1, int a2)
+vnode_t lifs_open_device(char *a1, int a2)
 {
   v3 = a1;
   *__str = 0u;
@@ -3766,7 +3707,7 @@ vnode_t lifs_open_device(const char *a1, int a2)
   return vpp;
 }
 
-uint64_t *lifs_get_mount_with_devvp(uint64_t a1)
+unint64_t *lifs_get_mount_with_devvp(uint64_t a1)
 {
   result = &lifs_mount_list;
   do
@@ -3813,7 +3754,6 @@ void lifs_close_device(vnode *a1, int a2)
 
         lck_mtx_unlock((v4 + 12));
         buf_flushdirtyblks(a1, 1, 0, "lifs_close_device");
-        v6 = v4[56];
         vfs_setdevvp();
         break;
       }
@@ -3821,8 +3761,8 @@ void lifs_close_device(vnode *a1, int a2)
 
     vnode_clearmountedon(a1);
     vnode_getwithref(a1);
-    v7 = vfs_context_kernel();
-    vnode_close(a1, a2, v7);
+    v6 = vfs_context_kernel();
+    vnode_close(a1, a2, v6);
   }
 
   lck_mtx_unlock(&lifs_mount_list_lock);
@@ -4164,7 +4104,7 @@ void lifs_set_ioattr(uint64_t a1)
   v3 = (a1 + 792);
   if (!atomic_load((a1 + 792)))
   {
-    v13 = 0;
+    v11 = 0;
     goto LABEL_27;
   }
 
@@ -4184,31 +4124,29 @@ void lifs_set_ioattr(uint64_t a1)
   *(a1 + 808) = v8;
   if ((*(a1 + 32) & 8) == 0)
   {
-    *v32 = 0;
-    *v33 = 0;
+    *v30 = 0;
     *v31 = 0;
+    *v29 = 0;
     v9 = atomic_load(v3);
-    if (!VNOP_IOCTL(v9, 0x40046418uLL, v32, 0, v5))
+    if (!VNOP_IOCTL(v9, 0x40046418uLL, v30, 0, v5))
     {
-      ioattrp.io_devblocksize = *v32;
+      ioattrp.io_devblocksize = *v30;
     }
 
     v10 = atomic_load(v3);
-    v11 = VNOP_IOCTL(v10, 0x4004644EuLL, &v32[4], 0, v5);
-    v12 = *(a1 + 808);
-    if (v11 || (*(a1 + 808) & 1) == 0 || *&v32[4] > 0x20u)
+    if (VNOP_IOCTL(v10, 0x4004644EuLL, &v30[4], 0, v5) || (*(a1 + 808) & 1) == 0 || *&v30[4] > 0x20u)
     {
       if (*(a1 + 808))
       {
 LABEL_20:
-        v15 = atomic_load(v3);
-        if (!VNOP_IOCTL(v15, 0x40046448uLL, v31, 0, v5) && *v31)
+        v13 = atomic_load(v3);
+        if (!VNOP_IOCTL(v13, 0x40046448uLL, v29, 0, v5) && *v29)
         {
           vfs_setflags(*(a1 + 448), 0x200uLL);
         }
 
-        v16 = atomic_load(v3);
-        if (!VNOP_IOCTL(v16, 0x40086421uLL, v33, 0, v5) && (v33[0] & 1) != 0)
+        v14 = atomic_load(v3);
+        if (!VNOP_IOCTL(v14, 0x40086421uLL, v31, 0, v5) && (v31[0] & 1) != 0)
         {
           ioattrp.io_flags = 64;
           vfs_setflags(*(a1 + 448), 0x200uLL);
@@ -4230,8 +4168,8 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v14 = atomic_load(v3);
-  vfs_init_io_attributes(v14, *(a1 + 448));
+  v12 = atomic_load(v3);
+  vfs_init_io_attributes(v12, *(a1 + 448));
   vfs_ioattr(*(a1 + 448), &ioattrp);
   *(a1 + 800) = vmin_u32(*&ioattrp.io_maxreadcnt, __PAIR64__(lifs_max_dev_write_size, lifs_max_dev_read_size));
   ioattrp.io_maxreadcnt = ubc_upl_maxbufsize();
@@ -4239,32 +4177,32 @@ LABEL_20:
   ioattrp.io_maxwritecnt = ubc_upl_maxbufsize();
   ioattrp.io_segwritecnt = ioattrp.io_maxwritecnt >> PAGE_SHIFT_CONST;
 LABEL_26:
-  v17 = atomic_load(v3);
-  v13 = vnode_getname(v17);
+  v15 = atomic_load(v3);
+  v11 = vnode_getname(v15);
 LABEL_27:
-  v18 = "unknown";
-  if (v13)
+  v16 = "unknown";
+  if (v11)
   {
-    v18 = v13;
+    v16 = v11;
   }
 
-  v30 = v18;
-  v19 = *(a1 + 808) & 1;
-  v20 = *(a1 + 448);
+  v28 = v16;
+  v17 = *(a1 + 808) & 1;
+  v18 = *(a1 + 448);
   io_devblocksize = ioattrp.io_devblocksize;
-  v22 = *(a1 + 800);
-  v23 = *(a1 + 804);
+  v20 = *(a1 + 800);
+  v21 = *(a1 + 804);
   io_maxreadcnt = ioattrp.io_maxreadcnt;
   io_maxwritecnt = ioattrp.io_maxwritecnt;
-  v26 = a1;
+  v24 = a1;
   io_segreadcnt = ioattrp.io_segreadcnt;
   io_segwritecnt = ioattrp.io_segwritecnt;
-  v29 = vfs_flags(v20);
-  _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%s: isssd %u devblksize %u devreadsize %d devwritesize %d maxreadcnt %u segreadcnt %u maxwritecnt %u segwritecnt %u mnt_flags 0x%llx\n", v30, v19, io_devblocksize, v22, v23, io_maxreadcnt, io_segreadcnt, io_maxwritecnt, io_segwritecnt, v29);
-  vfs_setioattr(*(v26 + 448), &ioattrp);
-  if (v13)
+  v27 = vfs_flags(v18);
+  _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%s: isssd %u devblksize %u devreadsize %d devwritesize %d maxreadcnt %u segreadcnt %u maxwritecnt %u segwritecnt %u mnt_flags 0x%llx\n", v28, v17, io_devblocksize, v20, v21, io_maxreadcnt, io_segreadcnt, io_maxwritecnt, io_segwritecnt, v27);
+  vfs_setioattr(*(v24 + 448), &ioattrp);
+  if (v11)
   {
-    vnode_putname(v13);
+    vnode_putname(v11);
   }
 }
 
@@ -4975,11 +4913,11 @@ uint64_t init_statfs(uint64_t a1, const char *a2, const char *a3)
   return 0;
 }
 
-uint64_t lifs_lookup_node(uint64_t a1, void *a2)
+uint64_t lifs_lookup_node(lck_mtx_t *a1, void *a2)
 {
   v4 = crc32(0xFFF1u, a2, 0x40uLL);
-  v5 = 8 * (*(a1 + 584) & v4);
-  v6 = *(a1 + 576);
+  v5 = 8 * (*(a1 + 73) & v4);
+  v6 = *(a1 + 72);
   v7 = (v6 + v5);
   if (v5 != v5)
   {
@@ -5296,14 +5234,13 @@ uintptr_t lifs_mirror_mount_trigger_resolve(vnode *a1, uint64_t a2, unsigned int
 
   if ((*(a2 + 5) & 0x80) != 0 && a3 <= 0x1D && (((1 << a3) & 0x24713CEF) != 0 || a3 == 25 && is_machport_proc()))
   {
-    v11 = *(v6 + 140);
-    v12 = vfs_resolver_result();
+    v11 = vfs_resolver_result();
     if ((kdebug_enable & 0xFFFFFFF7) != 0)
     {
-      kernel_debug_filtered(0x31400D6u, 1uLL, *(v6 + 140), v12, 0);
+      kernel_debug_filtered(0x31400D6u, 1uLL, *(v6 + 140), v11, 0);
     }
 
-    return v12;
+    return v11;
   }
 
   if (vnode_mountedhere(a1))
@@ -5311,10 +5248,10 @@ uintptr_t lifs_mirror_mount_trigger_resolve(vnode *a1, uint64_t a2, unsigned int
     goto LABEL_5;
   }
 
-  v13 = lifs_set_busy(v6);
-  if (v13)
+  v12 = lifs_set_busy(v6);
+  if (v12)
   {
-    v9 = v13;
+    v9 = v12;
     v7 = 0;
     goto LABEL_14;
   }
@@ -5338,9 +5275,9 @@ LABEL_6:
   }
 
   lck_mtx_lock(v6);
-  v16 = *(v6 + 88);
+  v14 = *(v6 + 88);
   lck_mtx_unlock(v6);
-  if ((v16 & 0x10) != 0)
+  if ((v14 & 0x10) != 0)
   {
     v7 = 0;
     v9 = 89;
@@ -5366,11 +5303,10 @@ LABEL_32:
 LABEL_14:
   v10 = 3;
 LABEL_15:
-  v14 = *(v6 + 140);
-  v12 = vfs_resolver_result();
+  v11 = vfs_resolver_result();
   if ((kdebug_enable & 0xFFFFFFF7) != 0)
   {
-    kernel_debug_filtered(0x31400D6u, v10, *(v6 + 140), v12, v9);
+    kernel_debug_filtered(0x31400D6u, v10, *(v6 + 140), v11, v9);
   }
 
   if (v7)
@@ -5378,10 +5314,10 @@ LABEL_15:
     vnode_put(v7);
   }
 
-  return v12;
+  return v11;
 }
 
-uint64_t lifs_mirror_mount_trigger_unresolve(vnode *a1, int a2, uint64_t a3, vfs_context *a4)
+uintptr_t lifs_mirror_mount_trigger_unresolve(vnode *a1, int a2, uint64_t a3, vfs_context *a4)
 {
   vnode_mount(a1);
   if (!a1)
@@ -5427,7 +5363,6 @@ uint64_t lifs_mirror_mount_trigger_unresolve(vnode *a1, int a2, uint64_t a3, vfs
     v11 = 2;
   }
 
-  v15 = *(v7 + 140);
   v13 = vfs_resolver_result();
   if ((kdebug_enable & 0xFFFFFFF7) != 0)
   {
@@ -5438,7 +5373,7 @@ uint64_t lifs_mirror_mount_trigger_unresolve(vnode *a1, int a2, uint64_t a3, vfs
   return v13;
 }
 
-uint64_t lifs_mirror_mount_trigger_rearm(vnode *a1)
+uintptr_t lifs_mirror_mount_trigger_rearm(vnode *a1)
 {
   if (!a1)
   {
@@ -5572,7 +5507,7 @@ LABEL_8:
   lck_mtx_unlock(v2);
 }
 
-uint64_t convert_va_active_to_requested_attributes(uint64_t a1)
+unint64_t convert_va_active_to_requested_attributes(uint64_t a1)
 {
   v1 = *(a1 + 8);
   v2 = (16 * v1) & 0x40;
@@ -6121,77 +6056,77 @@ LABEL_6:
   return v4;
 }
 
-uint64_t lifs_mirror_mount_domount(int a1, vnode_t vp, uint64_t a3)
+uint64_t lifs_mirror_mount_domount(uint64_t a1, vnode_t vp, uint64_t a3)
 {
-  v5 = vnode_fsnode(vp);
-  v22 = 0;
+  v6 = vnode_fsnode(vp);
+  v24 = 0;
   len = 1024;
-  v6 = kalloc_type_impl();
-  v7 = kalloc_data();
-  lifs_mount_from_node = get_lifs_mount_from_node(v5, &v22);
+  v7 = kalloc_type_impl();
+  v8 = kalloc_data();
+  lifs_mount_from_node = get_lifs_mount_from_node(v6, &v24);
   if (!lifs_mount_from_node)
   {
-    if (vn_getpath(vp, v7, &len))
+    if (vn_getpath(vp, v8, &len))
     {
       lifs_mount_from_node = 12;
     }
 
     else
     {
-      strlcpy((v6 + 1112), v7, 0x400uLL);
-      v9 = *(a3 + 48);
-      v10 = strlen("lifs:/");
-      strlcpy((v6 + 88), "lifs:/", 0x400uLL);
+      strlcpy((v7 + 1112), v8, 0x400uLL);
+      v10 = *(a3 + 48);
       v11 = strlen("lifs:/");
-      v12 = (v6 + 88 + v11);
-      if (v11 != v11)
+      strlcpy((v7 + 88), "lifs:/", 0x400uLL);
+      v12 = strlen("lifs:/");
+      v13 = (v7 + 88 + v12);
+      if (v12 != v12)
       {
-        v12 = ((v6 + 88 + v11) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
+        v13 = ((v7 + 88 + v12) & 0xFFFFFFFFFFFFLL | 0x2BAD000000000000);
       }
 
-      if (v10 + v9 + 1 <= 0x3FF)
+      if (v11 + v10 + 1 <= 0x3FF)
       {
-        v13 = v9 + 1;
+        v14 = v10 + 1;
       }
 
       else
       {
-        v13 = 1024 - v10;
+        v14 = 1024 - v11;
       }
 
-      strlcpy(v12, *(a3 + 40), v13);
-      v14 = v22;
-      *v6 = *(v22 + 24);
-      *(v6 + 4) = 0x10000000100000;
-      *(v6 + 20) = 0;
-      v15 = *(v14 + 568);
-      *(v6 + 12) = 0;
-      *(v6 + 16) = v15;
-      *(v6 + 2204) = *(v14 + 560);
-      v17 = *(v5 + 392);
-      v16 = *(v5 + 408);
-      v18 = *(v5 + 376);
-      *(v6 + 2136) = *(v5 + 360);
-      *(v6 + 2152) = v18;
-      *(v6 + 2168) = v17;
-      *(v6 + 2184) = v16;
-      *(v6 + 2200) = 64;
-      vfs_flags(*(v14 + 448));
-      v19 = vfs_mount_at_path();
-      lifs_mount_from_node = v19;
-      if (v19)
+      strlcpy(v13, *(a3 + 40), v14);
+      v15 = v24;
+      *v7 = *(v24 + 24);
+      *(v7 + 4) = 0x10000000100000;
+      *(v7 + 20) = 0;
+      v16 = *(v15 + 568);
+      *(v7 + 12) = 0;
+      *(v7 + 16) = v16;
+      *(v7 + 2204) = *(v15 + 560);
+      v18 = *(v6 + 392);
+      v17 = *(v6 + 408);
+      v19 = *(v6 + 376);
+      *(v7 + 2136) = *(v6 + 360);
+      *(v7 + 2152) = v19;
+      *(v7 + 2168) = v18;
+      *(v7 + 2184) = v17;
+      *(v7 + 2200) = 64;
+      vfs_flags(*(v15 + 448));
+      v20 = vfs_mount_at_path("lifs", v7 + 1112, a1, vp, v7, "r: %d\n", v22);
+      lifs_mount_from_node = v20;
+      if (v20)
       {
-        _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "Failed to mirror mount - error %d", v19);
+        _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_ERROR, "Failed to mirror mount - error %d", v20);
       }
     }
   }
 
-  if (v7)
+  if (v8)
   {
     kfree_data();
   }
 
-  if (v6)
+  if (v7)
   {
     kfree_type_impl();
   }
@@ -6379,7 +6314,6 @@ uint64_t lifs_free_supported_xattrs(uint64_t a1)
   result = *(a1 + 920);
   if (result)
   {
-    v3 = *(a1 + 928);
     *(a1 + 920) = 0;
     result = kfree_data();
   }
@@ -6556,10 +6490,11 @@ LABEL_32:
   return 12;
 }
 
-void lifs_invalidate_dirattrcache_ext(lck_mtx_t *a1, int a2)
+void lifs_invalidate_dirattrcache_ext(lck_mtx_t *a1, uint64_t a2)
 {
+  v2 = a2;
   lck_mtx_lock(a1);
-  v4 = lifs_invalidate_dirattrcache_locked(a1, a2);
+  v4 = lifs_invalidate_dirattrcache_locked(a1, v2);
   lck_mtx_unlock(a1);
   if (v4)
   {
@@ -6605,7 +6540,7 @@ LABEL_5:
   return v5;
 }
 
-uint64_t lifs_readdir_cached(uint64_t a1, uintptr_t a2, unint64_t a3, unint64_t *a4, void *a5, uint64_t a6, vnode_attr *a7)
+uint64_t lifs_readdir_cached(uint64_t a1, uintptr_t a2, unint64_t a3, off_t *a4, void *a5, uint64_t a6, vnode_attr *a7)
 {
   v14 = uio_offset(*(a6 + 32));
   v15 = lifs_cache_dirattr(a1, a2, v14, a7);
@@ -6807,7 +6742,7 @@ uint64_t lifs_pack_attrlist_entry(vnode_attr *vap, uint64_t a2, unsigned int a3,
   v11 = *(a2 + 12) + v8;
   if (v11 >= a3 || (v15 = *(a4 + 32), v16 = *(a4 + 8), *(a2 + 8)) && v11 >= *(a2 + 8))
   {
-    _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_FAULT, "Directory Entry name not within entry bounds");
+    _os_log_internal(&dword_0, &_os_log_default, OS_LOG_TYPE_FAULT, "Directory Entry name not within entry bounds", a5);
     return 14;
   }
 
@@ -6870,30 +6805,27 @@ LABEL_25:
       return 4294967294;
     }
 
-    v21 = vap->va_name;
-    v22 = *(a2 + 10);
-    *(a2 + 12);
     __strncpy_chk();
-    v23 = *(a2 + 12);
-    if (v23 >= 0x3FF)
+    v21 = *(a2 + 12);
+    if (v21 >= 0x3FF)
     {
-      v23 = 1023;
+      v21 = 1023;
     }
 
-    vap->va_name[v23] = 0;
+    vap->va_name[v21] = 0;
     vap->va_supported |= 0x2000000uLL;
   }
 
+  v22 = uio_resid(v15);
+  v23 = vnode_mount(v16);
+  v9 = vfs_attr_pack_ext(v23, 0, v15, *(a4 + 16), *(a4 + 48), vap, 0, *(a4 + 72));
   v24 = uio_resid(v15);
-  v25 = vnode_mount(v16);
-  v9 = vfs_attr_pack_ext(v25, 0, v15, *(a4 + 16), *(a4 + 48), vap, 0, *(a4 + 72));
-  v26 = uio_resid(v15);
   if (v9)
   {
     goto LABEL_25;
   }
 
-  if (v24 == v26)
+  if (v22 == v24)
   {
     return 0xFFFFFFFFLL;
   }
@@ -7423,7 +7355,7 @@ LABEL_19:
   return v17;
 }
 
-uint64_t lifs_flush_meta_blocks(vnode *arg1, unsigned int a2, uintptr_t arg2, unsigned int a4, int a5)
+uint64_t lifs_flush_meta_blocks(vnode *arg1, unsigned int a2, uintptr_t arg2, int a4, int a5)
 {
   v7 = arg2;
   if ((kdebug_enable & 0xFFFFFFF7) != 0)
@@ -7433,7 +7365,7 @@ uint64_t lifs_flush_meta_blocks(vnode *arg1, unsigned int a2, uintptr_t arg2, un
 
   v10 = 0;
   v11 = 22;
-  if (v7 && a4 - 9 >= 0xFFFFFFF8)
+  if (v7 && (a4 - 9) >= 0xFFFFFFF8)
   {
     v12 = 0;
     v13 = 0;
@@ -7518,7 +7450,7 @@ LABEL_23:
   return v11;
 }
 
-uint64_t lifs_clear_meta_blocks(vnode *arg1, unsigned int a2, uintptr_t arg2, unsigned int a4, int a5)
+uint64_t lifs_clear_meta_blocks(vnode *arg1, unsigned int a2, uintptr_t arg2, int a4, int a5)
 {
   v7 = arg2;
   if ((kdebug_enable & 0xFFFFFFF7) != 0)
@@ -7528,7 +7460,7 @@ uint64_t lifs_clear_meta_blocks(vnode *arg1, unsigned int a2, uintptr_t arg2, un
 
   v10 = 0;
   v11 = 22;
-  if (v7 && a4 - 9 >= 0xFFFFFFF8)
+  if (v7 && (a4 - 9) >= 0xFFFFFFF8)
   {
     v12 = 0;
     v13 = a2;
@@ -7602,7 +7534,7 @@ LABEL_21:
   return v11;
 }
 
-uint64_t lifs_purge_meta_blocks(vnode *arg1, unsigned int a2, uintptr_t arg2, unsigned int a4)
+uint64_t lifs_purge_meta_blocks(vnode *arg1, unsigned int a2, uintptr_t arg2, int a4)
 {
   if ((kdebug_enable & 0xFFFFFFF7) != 0)
   {
@@ -7611,7 +7543,7 @@ uint64_t lifs_purge_meta_blocks(vnode *arg1, unsigned int a2, uintptr_t arg2, un
 
   v8 = 0;
   v9 = 22;
-  if (arg2 && a4 - 9 >= 0xFFFFFFF8)
+  if (arg2 && (a4 - 9) >= 0xFFFFFFF8)
   {
     v10 = 0;
     v11 = 0;
@@ -9456,7 +9388,7 @@ void lifs_schedule_meta_flush(uint64_t a1)
   lck_mtx_unlock(&lifs_mount_list_lock);
 }
 
-uint64_t lifs_write_meta_subblock(vnode *arg1, unsigned int a2, int64_t arg2, uint64_t size, user_addr_t a5, uintptr_t arg3, uintptr_t arg4)
+uint64_t lifs_write_meta_subblock(vnode *arg1, unsigned int a2, uintptr_t arg2, uint64_t size, user_addr_t a5, uintptr_t arg3, uintptr_t arg4)
 {
   v13 = arg2 / a2;
   if ((kdebug_enable & 0xFFFFFFF7) != 0)

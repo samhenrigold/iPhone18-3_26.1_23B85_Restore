@@ -42,7 +42,7 @@
 
   v6 = sub_100A13268(v8);
 
-  sub_10000CAAC(v8, &unk_1019F4D00);
+  sub_10000CAAC(v8, &unk_1019F4D00, &unk_10146E7F0);
   return v6 & 1;
 }
 
@@ -63,7 +63,7 @@
   type metadata accessor for JSONDecoder();
   swift_allocObject();
   JSONDecoder.init()();
-  sub_100A178C8(&unk_101A0CAF8, type metadata accessor for CRLBoardLibraryViewModelWrappedNode);
+  sub_100A178C8(&unk_101A0CAF8, type metadata accessor for CRLBoardLibraryViewModelWrappedNode, "!W:");
   dispatch thunk of JSONDecoder.decode<A>(_:from:)();
   sub_10002640C(v7, v9);
 

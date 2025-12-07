@@ -39,10 +39,10 @@
 + (id)sharedCalloutWorkloop
 {
   objc_opt_self();
-  v0 = +[RBSWorkloop sharedInstance];
-  v1 = v0[1];
+  v2 = +[RBSWorkloop sharedInstance];
+  v3 = v2[1];
 
-  return v1;
+  return v3;
 }
 
 uint64_t __29__RBSWorkloop_sharedInstance__block_invoke()
@@ -59,9 +59,9 @@ uint64_t __29__RBSWorkloop_sharedInstance__block_invoke()
     return 0;
   }
 
-  v12.receiver = self;
-  v12.super_class = RBSWorkloop;
-  v1 = objc_msgSendSuper2(&v12, sel_init);
+  v9.receiver = self;
+  v9.super_class = RBSWorkloop;
+  v1 = objc_msgSendSuper2(&v9, sel_init);
   if (v1)
   {
     inactive = dispatch_workloop_create_inactive("com.apple.runningboardservices.callout-workloop");
@@ -69,21 +69,18 @@ uint64_t __29__RBSWorkloop_sharedInstance__block_invoke()
     v1[1] = inactive;
 
     dispatch_workloop_set_autorelease_frequency(v1[1], DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v4 = v1[1];
     dispatch_set_qos_class_fallback();
-    v5 = dispatch_workloop_create_inactive("com.apple.runningboardservices.background-workloop");
-    v6 = v1[2];
-    v1[2] = v5;
+    v4 = dispatch_workloop_create_inactive("com.apple.runningboardservices.background-workloop");
+    v5 = v1[2];
+    v1[2] = v4;
 
     dispatch_workloop_set_autorelease_frequency(v1[2], DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v7 = v1[2];
     dispatch_set_qos_class_fallback();
-    v8 = dispatch_workloop_create_inactive("com.apple.runningboardservices.syncing-workloop");
-    v9 = v1[3];
-    v1[3] = v8;
+    v6 = dispatch_workloop_create_inactive("com.apple.runningboardservices.syncing-workloop");
+    v7 = v1[3];
+    v1[3] = v6;
 
     dispatch_workloop_set_autorelease_frequency(v1[3], DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v10 = v1[3];
     dispatch_set_qos_class_fallback();
     dispatch_activate(v1[1]);
     dispatch_activate(v1[2]);
@@ -104,30 +101,30 @@ uint64_t __29__RBSWorkloop_sharedInstance__block_invoke()
 + (dispatch_queue_t)createCalloutQueue:(uint64_t)queue
 {
   v2 = a2;
-  objc_opt_self();
+  v3 = objc_opt_self();
   uTF8String = [v2 UTF8String];
 
-  v4 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v5 = +[RBSWorkloop sharedCalloutWorkloop];
-  v6 = dispatch_queue_create_with_target_V2(uTF8String, v4, v5);
+  v5 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v7 = +[(RBSWorkloop *)v3];
+  v8 = dispatch_queue_create_with_target_V2(uTF8String, v5, v7);
 
-  return v6;
+  return v8;
 }
 
 + (void)performCallout:(uint64_t)callout
 {
   v2 = a2;
-  objc_opt_self();
-  v3 = +[RBSWorkloop sharedCalloutWorkloop];
-  dispatch_async(v3, v2);
+  v3 = objc_opt_self();
+  v5 = +[(RBSWorkloop *)v3];
+  dispatch_async(v5, v2);
 }
 
 + (void)performCalloutWithServiceClass:(void *)class block:
 {
   classCopy = class;
-  objc_opt_self();
-  v5 = +[RBSWorkloop sharedCalloutWorkloop];
-  RBSDispatchAsyncWithQoS(v5, a2, classCopy);
+  v5 = objc_opt_self();
+  v7 = +[(RBSWorkloop *)v5];
+  RBSDispatchAsyncWithQoS(v7, a2, classCopy);
 }
 
 + (id)createBackgroundQueue:(id)queue

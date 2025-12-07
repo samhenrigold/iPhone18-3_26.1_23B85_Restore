@@ -13,7 +13,7 @@ void IOHIDEventProcessor::unscheduleFromDispatchQueue(IOHIDEventProcessor *this,
   }
 }
 
-void IOHIDEventProcessor::setPropertyForClient(IOHIDEventProcessor *this, CFStringRef theString1, const void *a3, const void *a4)
+void IOHIDEventProcessor::setPropertyForClient(uint64_t this, CFStringRef theString1, const void *a3, const void *a4)
 {
   valuePtr = 0;
   if (theString1 && a3)
@@ -24,10 +24,10 @@ void IOHIDEventProcessor::setPropertyForClient(IOHIDEventProcessor *this, CFStri
       v7 = _IOHIDLogCategory();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        sub_29D423D10(this + 64);
+        sub_29D423D10();
       }
 
-      if (*(this + 64) == 1 && !*(this + 18))
+      if (*(this + 64) == 1 && !*(this + 144))
       {
         operator new();
       }
@@ -35,51 +35,51 @@ void IOHIDEventProcessor::setPropertyForClient(IOHIDEventProcessor *this, CFStri
 
     if (CFStringCompare(theString1, @"PressCountUsagePairs", 0) == kCFCompareEqualTo)
     {
-      v8 = *(this + 9);
+      v8 = *(this + 72);
       if (v8)
       {
         CFRelease(v8);
       }
 
-      *(this + 9) = a3;
+      *(this + 72) = a3;
       CFRetain(a3);
       v9 = _IOHIDLogCategory();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        sub_29D423D94(this + 9);
+        sub_29D423D94();
       }
     }
 
     if (CFStringCompare(theString1, @"PressCountDoublePressTimeout", 0) == kCFCompareEqualTo)
     {
       CFNumberGetValue(a3, kCFNumberLongLongType, &valuePtr);
-      *(this + 10) = valuePtr;
+      *(this + 80) = valuePtr;
       v10 = _IOHIDLogCategory();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        sub_29D423DFC(this + 10);
+        sub_29D423DFC();
       }
     }
 
     if (CFStringCompare(theString1, @"PressCountTriplePressTimeout", 0) == kCFCompareEqualTo)
     {
       CFNumberGetValue(a3, kCFNumberLongLongType, &valuePtr);
-      *(this + 11) = valuePtr;
+      *(this + 88) = valuePtr;
       v11 = _IOHIDLogCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        sub_29D423E64(this + 11);
+        sub_29D423E64();
       }
     }
 
     if (CFStringCompare(theString1, @"LongPressTimeout", 0) == kCFCompareEqualTo)
     {
       CFNumberGetValue(a3, kCFNumberLongLongType, &valuePtr);
-      *(this + 16) = valuePtr;
+      *(this + 128) = valuePtr;
       v12 = _IOHIDLogCategory();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        sub_29D423ECC(this + 16);
+        sub_29D423ECC();
       }
     }
 
@@ -89,7 +89,7 @@ void IOHIDEventProcessor::setPropertyForClient(IOHIDEventProcessor *this, CFStri
       v13 = _IOHIDLogCategory();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        sub_29D423F34(this + 120);
+        sub_29D423F34();
       }
     }
 
@@ -99,10 +99,10 @@ void IOHIDEventProcessor::setPropertyForClient(IOHIDEventProcessor *this, CFStri
       v14 = _IOHIDLogCategory();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        sub_29D423FB8(this + 96);
+        sub_29D423FB8();
       }
 
-      if (*(this + 96) == 1 && !*(this + 19))
+      if (*(this + 96) == 1 && !*(this + 152))
       {
         operator new();
       }
@@ -111,23 +111,22 @@ void IOHIDEventProcessor::setPropertyForClient(IOHIDEventProcessor *this, CFStri
     if (CFStringCompare(theString1, @"DoubleTapTimeout", 0) == kCFCompareEqualTo)
     {
       CFNumberGetValue(a3, kCFNumberLongLongType, &valuePtr);
-      *(this + 13) = valuePtr;
+      *(this + 104) = valuePtr;
       v15 = _IOHIDLogCategory();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        sub_29D42403C(this + 13);
+        sub_29D42403C();
       }
     }
 
     if (CFStringCompare(theString1, @"TripleTapTimeout", 0) == kCFCompareEqualTo)
     {
       CFNumberGetValue(a3, kCFNumberLongLongType, &valuePtr);
-      *(this + 14) = valuePtr;
-      v16 = (this + 112);
-      v17 = _IOHIDLogCategory();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+      *(this + 112) = valuePtr;
+      v16 = _IOHIDLogCategory();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        sub_29D4240A4(v16);
+        sub_29D4240A4();
       }
     }
   }
@@ -135,10 +134,10 @@ void IOHIDEventProcessor::setPropertyForClient(IOHIDEventProcessor *this, CFStri
 
 uint64_t IOHIDEventProcessor::filter(uint64_t a1, uint64_t a2)
 {
-  v38 = *MEMORY[0x29EDCA608];
+  v37 = *MEMORY[0x29EDCA608];
   if (!*(a1 + 24))
   {
-    goto LABEL_45;
+    return a2;
   }
 
   Type = IOHIDEventGetType();
@@ -147,10 +146,10 @@ uint64_t IOHIDEventProcessor::filter(uint64_t a1, uint64_t a2)
   {
     if ((*(a1 + 64) & 1) == 0)
     {
-      goto LABEL_45;
+      return a2;
     }
 
-    v32 = 144;
+    v31 = 144;
     v6 = 88;
     v7 = 80;
   }
@@ -159,10 +158,10 @@ uint64_t IOHIDEventProcessor::filter(uint64_t a1, uint64_t a2)
   {
     if (Type != 29 || *(a1 + 96) != 1)
     {
-      goto LABEL_45;
+      return a2;
     }
 
-    v32 = 152;
+    v31 = 152;
     v6 = 112;
     v7 = 104;
   }
@@ -176,10 +175,10 @@ uint64_t IOHIDEventProcessor::filter(uint64_t a1, uint64_t a2)
   {
     LODWORD(valuePtr) = 67109632;
     HIDWORD(valuePtr) = v5;
-    v34 = 1024;
-    v35 = IntegerValue;
-    v36 = 1024;
-    v37 = v11;
+    v33 = 1024;
+    v34 = IntegerValue;
+    v35 = 1024;
+    v36 = v11;
     _os_log_debug_impl(&dword_29D420000, v12, OS_LOG_TYPE_DEBUG, "filter: type = %d p = %d u = %d\n", &valuePtr, 0x14u);
   }
 
@@ -201,7 +200,7 @@ uint64_t IOHIDEventProcessor::filter(uint64_t a1, uint64_t a2)
   }
 
   v15 = Count;
-  v31 = v8;
+  v30 = v8;
   v16 = 0;
   for (i = 0; i != v15; ++i)
   {
@@ -211,7 +210,7 @@ uint64_t IOHIDEventProcessor::filter(uint64_t a1, uint64_t a2)
     v16 |= (v11 | (IntegerValue << 16)) == valuePtr;
   }
 
-  v8 = v31;
+  v8 = v30;
   if ((v16 & 1) == 0)
   {
 LABEL_22:
@@ -244,7 +243,7 @@ LABEL_16:
           sub_29D424224();
         }
 
-        goto LABEL_45;
+        return a2;
       }
 
       v22 = *(a1 + 136);
@@ -273,8 +272,8 @@ LABEL_36:
           {
             v28 = 0;
 LABEL_44:
-            Event::stateHandler(v22, v28 ^ 1, a2);
-            goto LABEL_45;
+            Event::stateHandler(v22, v28 ^ 1u, a2);
+            return a2;
           }
 
           v26 = IOHIDEventGetIntegerValue() == 1;
@@ -285,10 +284,10 @@ LABEL_44:
       }
 
 LABEL_29:
-      v22 = *(a1 + v32);
+      v22 = *(a1 + v31);
       if (v22)
       {
-        *(a1 + v32) = *(v22 + 16);
+        *(a1 + v31) = *(v22 + 16);
         if (v5 == 3)
         {
           v23 = *(a1 + 128);
@@ -313,8 +312,6 @@ LABEL_29:
     }
   }
 
-LABEL_45:
-  v29 = *MEMORY[0x29EDCA608];
   return a2;
 }
 
@@ -429,7 +426,7 @@ void IOHIDEventProcessor::~IOHIDEventProcessor(IOHIDEventProcessor *this)
   CFRelease(*(this + 1));
 }
 
-uint64_t IOHIDEventProcessorFactory(uint64_t a1, const void *a2)
+IOHIDEventProcessor *IOHIDEventProcessorFactory(uint64_t a1, const void *a2)
 {
   v3 = *MEMORY[0x29EDB8EF0];
   v4 = CFUUIDGetConstantUUIDWithBytes(*MEMORY[0x29EDB8EF0], 0x6Bu, 3u, 0x40u, 0xD3u, 0x57u, 0x98u, 0x40u, 0x64u, 0xAAu, 0x17u, 0x92u, 4u, 0xC7u, 0xB0u, 0x6Fu, 0xFDu);
@@ -517,17 +514,17 @@ uint64_t IOHIDEventProcessor::match(uint64_t a1, uint64_t a2)
   return *(a1 + 20);
 }
 
-void IOHIDEventProcessor::open(IOHIDEventProcessor *a1)
+void IOHIDEventProcessor::open(uint64_t a1, uint64_t a2)
 {
   for (i = 0; i != 9; ++i)
   {
-    v3 = off_29F34EE10[i];
-    v4 = IOHIDServiceCopyProperty();
-    if (v4)
+    v4 = off_29F34EE10[i];
+    v5 = IOHIDServiceCopyProperty();
+    if (v5)
     {
-      v6 = v4;
-      IOHIDEventProcessor::setPropertyForClient(a1, v3, v4, v5);
-      CFRelease(v6);
+      v7 = v5;
+      IOHIDEventProcessor::setPropertyForClient(a1, v4, v5, v6);
+      CFRelease(v7);
     }
   }
 }
@@ -623,7 +620,7 @@ void *IOHIDEventProcessor::serialize(IOHIDEventProcessor *this, __CFDictionary *
 
 void Event::init(Event *this, IOHIDEventProcessor *a2, Timer *a3, int a4, int a5, int a6, unint64_t a7, unint64_t a8, unint64_t a9, BOOL a10)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   *(this + 11) = a4;
   *(this + 12) = a5;
   *(this + 13) = a6;
@@ -660,30 +657,29 @@ void Event::init(Event *this, IOHIDEventProcessor *a2, Timer *a3, int a4, int a5
     v11 = _IOHIDLogCategory();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v13 = *(this + 13);
-      v14 = *(this + 10);
-      v15 = *(this + 11);
-      v16 = 134218496;
-      v17 = v13;
-      v18 = 2048;
-      v19 = v14;
-      v20 = 2048;
-      v21 = v15;
-      _os_log_debug_impl(&dword_29D420000, v11, OS_LOG_TYPE_DEBUG, "long %llu second %llu third %llu\n\n", &v16, 0x20u);
+      v12 = *(this + 13);
+      v13 = *(this + 10);
+      v14 = *(this + 11);
+      v15 = 134218496;
+      v16 = v12;
+      v17 = 2048;
+      v18 = v13;
+      v19 = 2048;
+      v20 = v14;
+      _os_log_debug_impl(&dword_29D420000, v11, OS_LOG_TYPE_DEBUG, "long %llu second %llu third %llu\n\n", &v15, 0x20u);
     }
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 }
 
-BOOL Event::stateHandler(uint64_t a1, unsigned int a2, uint64_t a3)
+BOOL Event::stateHandler(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   Timer::checkEventTimeouts(*(a1 + 56));
-  v6 = *(&_stateMap[3 * *(a1 + 64)] + a2);
+  v6 = *(&_stateMap[3 * *(a1 + 64)] + v4);
   v7 = _IOHIDLogCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    sub_29D424298((a1 + 64), a2);
+    sub_29D424298();
     if (v6)
     {
 LABEL_3:
@@ -691,7 +687,7 @@ LABEL_3:
       v8 = _IOHIDLogCategory();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        sub_29D4243B4((a1 + 64));
+        sub_29D4243B4();
       }
 
       return v6 != 0;
@@ -706,7 +702,7 @@ LABEL_3:
   v9 = _IOHIDLogCategory();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    sub_29D424330((a1 + 64));
+    sub_29D424330();
   }
 
   return v6 != 0;
@@ -774,7 +770,7 @@ void sub_29D421E84(uint64_t a1)
   v3 = _IOHIDLogCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    sub_29D424494(a1);
+    sub_29D424494();
   }
 
   (*(v2 + 40))(*(v2 + 48), *(v2 + 56), *(v2 + 32), *(a1 + 40), 0);
@@ -835,7 +831,7 @@ LABEL_13:
   }
 }
 
-void *sub_29D421FDC(uint64_t a1, const void *a2, char a3)
+void *sub_29D421FDC(uint64_t a1, const void *a2, uint64_t a3)
 {
   sub_29D423ADC(&v6, a3);
   if (a2 && value)
@@ -872,7 +868,7 @@ void Event::Event(Event *this)
 
 void Timer::checkEventTimeouts(Timer *this)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v2 = *(this + 2);
   v3 = mach_absolute_time();
   if (v2)
@@ -892,9 +888,9 @@ void Timer::checkEventTimeouts(Timer *this)
             v7 = *(v5 + 8);
             v8 = (v4 - *(v5 + 96)) * dword_2A1A130C8 / dword_2A1A130CC / 0x3E8;
             *buf = 134218240;
-            v11 = v5;
-            v12 = 2048;
-            v13 = v8 - v7;
+            v10 = v5;
+            v11 = 2048;
+            v12 = v8 - v7;
             _os_log_debug_impl(&dword_29D420000, v6, OS_LOG_TYPE_DEBUG, "%p past deadline %lld us\n", buf, 0x16u);
           }
 
@@ -913,22 +909,21 @@ void Timer::checkEventTimeouts(Timer *this)
   }
 
   Timer::updateTimeout(this);
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t ButtonEvent::setMultiEventCount(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   v6 = _IOHIDLogCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 134218496;
-    v10 = a1;
-    v11 = 2048;
-    v12 = a2;
-    v13 = 1024;
-    v14 = a3;
-    _os_log_debug_impl(&dword_29D420000, v6, OS_LOG_TYPE_DEBUG, "%p %p setting multi count = %d\n", &v9, 0x1Cu);
+    v8 = 134218496;
+    v9 = a1;
+    v10 = 2048;
+    v11 = a2;
+    v12 = 1024;
+    v13 = a3;
+    _os_log_debug_impl(&dword_29D420000, v6, OS_LOG_TYPE_DEBUG, "%p %p setting multi count = %d\n", &v8, 0x1Cu);
   }
 
   result = IOHIDEventSetIntegerValue();
@@ -938,57 +933,50 @@ uint64_t ButtonEvent::setMultiEventCount(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   *(a1 + 72) = a3;
-  v8 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t ButtonEvent::createSyntheticEvent(ButtonEvent *this, int a2)
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   mach_absolute_time();
-  v4 = *MEMORY[0x29EDB8ED8];
-  v5 = *(this + 12);
-  v6 = *(this + 13);
-  v7 = *(this + 16);
   KeyboardEvent = IOHIDEventCreateKeyboardEvent();
   if (KeyboardEvent)
   {
-    v9 = a2 == 0;
+    v5 = a2 == 0;
   }
 
   else
   {
-    v9 = 1;
+    v5 = 1;
   }
 
-  if (!v9)
+  if (!v5)
   {
     (*(*this + 24))(this, KeyboardEvent, *(this + 18));
     IOHIDEventGetPhase();
     IOHIDEventSetPhase();
     if (*(this + 78) == 1)
     {
-      v10 = *(this + 77);
       IOHIDEventSetIntegerValue();
     }
 
     *(this + 76) = 1;
   }
 
-  v11 = _IOHIDLogCategory();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v6 = _IOHIDLogCategory();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v14 = *(this + 11);
-    v15[0] = 67109632;
-    v15[1] = a2;
-    v16 = 2048;
-    v17 = KeyboardEvent;
-    v18 = 1024;
-    v19 = v14;
-    _os_log_debug_impl(&dword_29D420000, v11, OS_LOG_TYPE_DEBUG, "created terminal(%d) event %p type %d\n", v15, 0x18u);
+    v8 = *(this + 11);
+    v9[0] = 67109632;
+    v9[1] = a2;
+    v10 = 2048;
+    v11 = KeyboardEvent;
+    v12 = 1024;
+    v13 = v8;
+    _os_log_debug_impl(&dword_29D420000, v6, OS_LOG_TYPE_DEBUG, "created terminal(%d) event %p type %d\n", v9, 0x18u);
   }
 
-  v12 = *MEMORY[0x29EDCA608];
   return KeyboardEvent;
 }
 
@@ -1310,17 +1298,17 @@ LABEL_23:
 
 uint64_t TapEvent::setMultiEventCount(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   v6 = _IOHIDLogCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 134218496;
-    v10 = a1;
-    v11 = 2048;
-    v12 = a2;
-    v13 = 1024;
-    v14 = a3;
-    _os_log_debug_impl(&dword_29D420000, v6, OS_LOG_TYPE_DEBUG, "%p %p setting multi count = %d\n", &v9, 0x1Cu);
+    v8 = 134218496;
+    v9 = a1;
+    v10 = 2048;
+    v11 = a2;
+    v12 = 1024;
+    v13 = a3;
+    _os_log_debug_impl(&dword_29D420000, v6, OS_LOG_TYPE_DEBUG, "%p %p setting multi count = %d\n", &v8, 0x1Cu);
   }
 
   result = IOHIDEventSetIntegerValue();
@@ -1330,22 +1318,17 @@ uint64_t TapEvent::setMultiEventCount(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   *(a1 + 72) = a3;
-  v8 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t TapEvent::createSyntheticEvent(TapEvent *this, int a2)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   mach_absolute_time();
-  v4 = *MEMORY[0x29EDB8ED8];
-  *(this + 16);
   BiometricEvent = IOHIDEventCreateBiometricEvent();
   if (BiometricEvent)
   {
-    v6 = *(this + 12);
     IOHIDEventSetIntegerValue();
-    v7 = *(this + 13);
     IOHIDEventSetIntegerValue();
     if (a2)
     {
@@ -1354,7 +1337,6 @@ uint64_t TapEvent::createSyntheticEvent(TapEvent *this, int a2)
       IOHIDEventSetPhase();
       if (*(this + 78) == 1)
       {
-        v8 = *(this + 77);
         IOHIDEventSetIntegerValue();
       }
 
@@ -1362,20 +1344,19 @@ uint64_t TapEvent::createSyntheticEvent(TapEvent *this, int a2)
     }
   }
 
-  v9 = _IOHIDLogCategory();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v5 = _IOHIDLogCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v12 = *(this + 11);
-    v13[0] = 67109632;
-    v13[1] = a2;
-    v14 = 2048;
-    v15 = BiometricEvent;
-    v16 = 1024;
-    v17 = v12;
-    _os_log_debug_impl(&dword_29D420000, v9, OS_LOG_TYPE_DEBUG, "created terminal(%d) event %p type %d\n", v13, 0x18u);
+    v7 = *(this + 11);
+    v8[0] = 67109632;
+    v8[1] = a2;
+    v9 = 2048;
+    v10 = BiometricEvent;
+    v11 = 1024;
+    v12 = v7;
+    _os_log_debug_impl(&dword_29D420000, v5, OS_LOG_TYPE_DEBUG, "created terminal(%d) event %p type %d\n", v8, 0x18u);
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return BiometricEvent;
 }
 
@@ -1697,184 +1678,88 @@ void *sub_29D423C1C(void *a1, uint64_t a2)
   return a1;
 }
 
-void sub_29D423C98(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_29D423C98(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-uint64_t *sub_29D423CC0@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+void sub_29D423CDC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
+  va_start(va, a8);
+
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
-void sub_29D423CDC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_29D423D94()
 {
-
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
-}
-
-void sub_29D423D10(_BYTE *a1)
-{
-  v9 = *MEMORY[0x29EDCA608];
-  *a1;
+  sub_29D423CC0(*MEMORY[0x29EDCA608]);
   sub_29D423CB4();
-  sub_29D423C98(&dword_29D420000, v1, v2, "Press Count %s\n", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x29EDCA608];
+  sub_29D423C98(&dword_29D420000, v0, v1, "Press Count Usage Pairs %@\n", v2, v3, v4, v5);
 }
 
-void sub_29D423D94(uint64_t *a1)
+void sub_29D423DFC()
 {
-  sub_29D423CC0(a1, *MEMORY[0x29EDCA608]);
+  sub_29D423CC0(*MEMORY[0x29EDCA608]);
   sub_29D423CB4();
-  sub_29D423C98(&dword_29D420000, v1, v2, "Press Count Usage Pairs %@\n", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x29EDCA608];
+  sub_29D423C98(&dword_29D420000, v0, v1, "doublePressTimeout now %llu\n", v2, v3, v4, v5);
 }
 
-void sub_29D423DFC(uint64_t *a1)
+void sub_29D423E64()
 {
-  sub_29D423CC0(a1, *MEMORY[0x29EDCA608]);
+  sub_29D423CC0(*MEMORY[0x29EDCA608]);
   sub_29D423CB4();
-  sub_29D423C98(&dword_29D420000, v1, v2, "doublePressTimeout now %llu\n", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x29EDCA608];
+  sub_29D423C98(&dword_29D420000, v0, v1, "triplePressTimeout now %llu\n", v2, v3, v4, v5);
 }
 
-void sub_29D423E64(uint64_t *a1)
+void sub_29D423ECC()
 {
-  sub_29D423CC0(a1, *MEMORY[0x29EDCA608]);
+  sub_29D423CC0(*MEMORY[0x29EDCA608]);
   sub_29D423CB4();
-  sub_29D423C98(&dword_29D420000, v1, v2, "triplePressTimeout now %llu\n", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x29EDCA608];
+  sub_29D423C98(&dword_29D420000, v0, v1, "LongPress now %llu\n", v2, v3, v4, v5);
 }
 
-void sub_29D423ECC(uint64_t *a1)
+void sub_29D42403C()
 {
-  sub_29D423CC0(a1, *MEMORY[0x29EDCA608]);
+  sub_29D423CC0(*MEMORY[0x29EDCA608]);
   sub_29D423CB4();
-  sub_29D423C98(&dword_29D420000, v1, v2, "LongPress now %llu\n", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x29EDCA608];
+  sub_29D423C98(&dword_29D420000, v0, v1, "double tap timeout now %llu\n", v2, v3, v4, v5);
 }
 
-void sub_29D423F34(_BYTE *a1)
+void sub_29D4240A4()
 {
-  v9 = *MEMORY[0x29EDCA608];
-  *a1;
+  sub_29D423CC0(*MEMORY[0x29EDCA608]);
   sub_29D423CB4();
-  sub_29D423C98(&dword_29D420000, v1, v2, "Alternate Long Press %s\n", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29D423FB8(_BYTE *a1)
-{
-  v9 = *MEMORY[0x29EDCA608];
-  *a1;
-  sub_29D423CB4();
-  sub_29D423C98(&dword_29D420000, v1, v2, "Tap Count %s\n", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29D42403C(uint64_t *a1)
-{
-  sub_29D423CC0(a1, *MEMORY[0x29EDCA608]);
-  sub_29D423CB4();
-  sub_29D423C98(&dword_29D420000, v1, v2, "double tap timeout now %llu\n", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29D4240A4(uint64_t *a1)
-{
-  sub_29D423CC0(a1, *MEMORY[0x29EDCA608]);
-  sub_29D423CB4();
-  sub_29D423C98(&dword_29D420000, v1, v2, "triple tap timeout now %llu\n", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x29EDCA608];
+  sub_29D423C98(&dword_29D420000, v0, v1, "triple tap timeout now %llu\n", v2, v3, v4, v5);
 }
 
 void sub_29D42410C(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   RegistryID = IOHIDServiceGetRegistryID();
   v6 = *(a1 + 20);
-  v8 = 134218498;
-  v9 = a1;
-  v10 = 2112;
-  v11 = RegistryID;
-  v12 = 1024;
-  v13 = v6;
-  _os_log_debug_impl(&dword_29D420000, a3, OS_LOG_TYPE_DEBUG, "(%p) for ServiceID %@ with score %d\n", &v8, 0x1Cu);
-  v7 = *MEMORY[0x29EDCA608];
+  v7 = 134218498;
+  v8 = a1;
+  v9 = 2112;
+  v10 = RegistryID;
+  v11 = 1024;
+  v12 = v6;
+  _os_log_debug_impl(&dword_29D420000, a3, OS_LOG_TYPE_DEBUG, "(%p) for ServiceID %@ with score %d\n", &v7, 0x1Cu);
 }
 
-void sub_29D424298(unsigned int *a1, uint64_t a2)
+void sub_29D424298()
 {
-  v10 = *MEMORY[0x29EDCA608];
-  v2 = off_29F34EE78[*a1];
-  v3 = off_29F34EEC0[a2];
   sub_29D423CB4();
   sub_29D423CCC();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-  v9 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29D424330(int *a1)
-{
-  v8 = *MEMORY[0x29EDCA608];
-  v7 = *a1;
-  sub_29D423CCC();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xEu);
-  v6 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29D4243B4(unsigned int *a1)
-{
-  v10 = *MEMORY[0x29EDCA608];
-  v1 = off_29F34EE78[*a1];
-  sub_29D423CB4();
-  sub_29D423C98(&dword_29D420000, v2, v3, "new state = %s\n", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29D42442C()
-{
-  v8 = *MEMORY[0x29EDCA608];
-  sub_29D423CF8();
-  sub_29D423C98(&dword_29D420000, v0, v1, "synchronously dispatching event = %p\n", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29D424494(uint64_t a1)
-{
-  v10 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 40);
-  sub_29D423CB4();
-  sub_29D423C98(&dword_29D420000, v2, v3, "asynchronously dispatching event = %p\n", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29D424500()
-{
-  v8 = *MEMORY[0x29EDCA608];
-  sub_29D423CF8();
-  sub_29D423C98(&dword_29D420000, v0, v1, "returning event %p to free pool\n", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x29EDCA608];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_29D424568()
 {
-  v6 = *MEMORY[0x29EDCA608];
   sub_29D423CF8();
   sub_29D423CCC();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29D4245E4()
-{
-  v8 = *MEMORY[0x29EDCA608];
-  sub_29D423CF8();
-  sub_29D423C98(&dword_29D420000, v0, v1, "%p timeout occurred\n", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 void operator delete()

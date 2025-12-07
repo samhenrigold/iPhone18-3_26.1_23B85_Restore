@@ -7,7 +7,7 @@
 
 - (void)allowPacket:(NEPacket *)packet
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = packet;
   if (v3)
   {
@@ -33,11 +33,11 @@
           {
             if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
             {
-              v21 = *(context + 4);
+              v20 = *(context + 4);
               *buf = 138412546;
-              v24 = v7;
-              v25 = 1024;
-              v26 = v21;
+              v23 = v7;
+              v24 = 1024;
+              v25 = v20;
               _os_log_debug_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_DEBUG, "%@: allowPacket: %d bytes", buf, 0x12u);
             }
 
@@ -49,20 +49,20 @@
               v16 = 104;
             }
 
-            if (*(context + 3))
+            v17 = *(context + 3);
+            if (v17)
             {
-              v17 = *&v14[v16];
-              if (v17)
+              v18 = *&v14[v16];
+              if (v18)
               {
-                sendDataOnRing(v14, v17, *context);
-                v18 = *(v7 + 16);
+                sendDataOnRing(v14, v18, *context, v17);
                 if (os_channel_sync())
                 {
                   v19 = ne_log_obj();
                   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    v24 = v15;
+                    v23 = v15;
                     _os_log_error_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_ERROR, "%@: allowPacket: failed to sync channel TX", buf, 0xCu);
                   }
                 }
@@ -81,7 +81,7 @@
             if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v24 = v7;
+              v23 = v7;
               _os_log_error_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_ERROR, "%@: allowPacket: no channel", buf, 0xCu);
             }
 
@@ -94,13 +94,11 @@
       v3 = selfa;
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (NEPacket)delayCurrentPacket:(NEFilterPacketContext *)context
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = context;
   v5 = v3;
   if (!v3 || !objc_getProperty(v3, v4, 8, 1))
@@ -129,11 +127,11 @@ LABEL_21:
       goto LABEL_22;
     }
 
-    LODWORD(v25.receiver) = 138412290;
-    *(&v25.receiver + 4) = v8;
+    LODWORD(v24.receiver) = 138412290;
+    *(&v24.receiver + 4) = v8;
     v22 = "%@: delayCurrentPacket: no channel / input_queue";
 LABEL_26:
-    _os_log_error_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_ERROR, v22, &v25, 0xCu);
+    _os_log_error_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_ERROR, v22, &v24, 0xCu);
     goto LABEL_20;
   }
 
@@ -146,8 +144,8 @@ LABEL_26:
       goto LABEL_20;
     }
 
-    LODWORD(v25.receiver) = 138412290;
-    *(&v25.receiver + 4) = v8;
+    LODWORD(v24.receiver) = 138412290;
+    *(&v24.receiver + 4) = v8;
     v22 = "%@: delayCurrentPacket: no current frame";
     goto LABEL_26;
   }
@@ -180,9 +178,9 @@ LABEL_26:
   v18 = v8;
   if (v15)
   {
-    v25.receiver = v15;
-    v25.super_class = NEPacket;
-    v19 = [(NEProvider *)&v25 init];
+    v24.receiver = v15;
+    v24.super_class = NEPacket;
+    v19 = [(NEProvider *)&v24 init];
     v15 = v19;
     if (v19)
     {
@@ -196,16 +194,15 @@ LABEL_26:
   v20 = ne_log_obj();
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
-    LODWORD(v25.receiver) = 138412290;
-    *(&v25.receiver + 4) = v18;
-    _os_log_debug_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_DEBUG, "%@: delayCurrentPacket: retained packet", &v25, 0xCu);
+    LODWORD(v24.receiver) = 138412290;
+    *(&v24.receiver + 4) = v18;
+    _os_log_debug_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_DEBUG, "%@: delayCurrentPacket: retained packet", &v24, 0xCu);
   }
 
   os_unfair_lock_unlock(v8 + 2);
   v8 = v15;
 
 LABEL_22:
-  v23 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

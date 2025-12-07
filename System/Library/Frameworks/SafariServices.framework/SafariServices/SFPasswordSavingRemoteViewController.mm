@@ -64,20 +64,21 @@
 
 - (void)accountAuthenticationModificationController:(id)controller didSuccessfullyCompleteRequest:(id)request withUserInfo:(id)info
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v9 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension(isKindOfClass, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v8 = v7;
+      v10 = v9;
       serviceIdentifier = [requestCopy serviceIdentifier];
       identifier = [serviceIdentifier identifier];
       *buf = 138477827;
-      v23 = identifier;
-      _os_log_impl(&dword_1D4644000, v8, OS_LOG_TYPE_INFO, "Completed Sign in with Apple upgrade for %{private}@", buf, 0xCu);
+      v25 = identifier;
+      _os_log_impl(&dword_1D4644000, v10, OS_LOG_TYPE_INFO, "Completed Sign in with Apple upgrade for %{private}@", buf, 0xCu);
     }
 
     delegate = [(SFPasswordRemoteViewController *)self delegate];
@@ -91,23 +92,23 @@
     mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
     delegate = [mainBundle objectForInfoDictionaryKey:*MEMORY[0x1E695E4F8]];
 
-    v13 = MEMORY[0x1E69DC650];
-    v14 = MEMORY[0x1E696AEC0];
-    v15 = _WBSLocalizedString();
-    v16 = [v14 stringWithFormat:v15, delegate];
-    v17 = [v13 alertControllerWithTitle:0 message:v16 preferredStyle:1];
+    v15 = MEMORY[0x1E69DC650];
+    v16 = MEMORY[0x1E696AEC0];
+    v17 = _WBSLocalizedString();
+    v18 = [v16 stringWithFormat:v17, delegate];
+    v19 = [v15 alertControllerWithTitle:0 message:v18 preferredStyle:1];
 
-    v18 = MEMORY[0x1E69DC648];
-    v19 = _WBSLocalizedString();
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __128__SFPasswordSavingRemoteViewController_accountAuthenticationModificationController_didSuccessfullyCompleteRequest_withUserInfo___block_invoke;
-    v21[3] = &unk_1E848FBF8;
-    v21[4] = self;
-    v20 = [v18 actionWithTitle:v19 style:0 handler:v21];
-    [v17 addAction:v20];
+    v20 = MEMORY[0x1E69DC648];
+    v21 = _WBSLocalizedString();
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __128__SFPasswordSavingRemoteViewController_accountAuthenticationModificationController_didSuccessfullyCompleteRequest_withUserInfo___block_invoke;
+    v23[3] = &unk_1E848FBF8;
+    v23[4] = self;
+    v22 = [v20 actionWithTitle:v21 style:0 handler:v23];
+    [v19 addAction:v22];
 
-    [(SFPasswordSavingRemoteViewController *)self presentViewController:v17 animated:1 completion:0];
+    [(SFPasswordSavingRemoteViewController *)self presentViewController:v19 animated:1 completion:0];
 LABEL_7:
   }
 }

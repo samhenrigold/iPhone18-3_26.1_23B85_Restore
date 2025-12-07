@@ -19,7 +19,7 @@
 {
   sub_100007C5C(self + OBJC_IVAR____TtC10FitnessApp24TrophyCaseViewController_achievementDataProvider, v6);
   sub_1000066AC(v6, v6[3]);
-  sub_100045D40(&unk_1008E7FA0, v3, type metadata accessor for TrophyCaseViewController);
+  sub_100045D40(&unk_1008E7FA0, v3, type metadata accessor for TrophyCaseViewController, &unk_1006E86C8);
   selfCopy = self;
   dispatch thunk of AAUIAwardsDataProviding.remove(observer:)();
 

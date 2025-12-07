@@ -2,6 +2,8 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_reloadToolbarButtonsIfNeeded;
+- (void)_updateMainActionButtonAnimated:(BOOL)animated;
+- (void)_updateToolbarsAnimated:(BOOL)animated;
 - (void)viewDidLoad;
 @end
 
@@ -106,6 +108,22 @@ uint64_t __84__PUPhotoEditViewControllerAccessibility__accessibilityLoadAccessib
   v3.super_class = PUPhotoEditViewControllerAccessibility;
   [(PUPhotoEditViewControllerAccessibility *)&v3 viewDidLoad];
   [(PUPhotoEditViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)_updateToolbarsAnimated:(BOOL)animated
+{
+  v3.receiver = self;
+  v3.super_class = PUPhotoEditViewControllerAccessibility;
+  [(PUPhotoEditViewControllerAccessibility *)&v3 _updateToolbarsAnimated:animated];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7F10], 0);
+}
+
+- (void)_updateMainActionButtonAnimated:(BOOL)animated
+{
+  v3.receiver = self;
+  v3.super_class = PUPhotoEditViewControllerAccessibility;
+  [(PUPhotoEditViewControllerAccessibility *)&v3 _updateMainActionButtonAnimated:animated];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
 }
 
 @end

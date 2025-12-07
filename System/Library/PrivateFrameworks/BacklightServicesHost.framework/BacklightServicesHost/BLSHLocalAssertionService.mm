@@ -29,27 +29,27 @@
 
 void __55__BLSHLocalAssertionService_activeAssertionDescription__block_invoke_2(void *a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
+  v21 = *MEMORY[0x277D85DE8];
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v2 = [*(a1[4] + 16) objectEnumerator];
-  v3 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v18;
+    v5 = *v17;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v18 != v5)
+        if (*v17 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * i);
+        v7 = *(*(&v16 + 1) + 8 * i);
         v8 = a1[5];
         v9 = [v7 identifier];
         LODWORD(v8) = [v8 containsObject:v9];
@@ -66,13 +66,11 @@ void __55__BLSHLocalAssertionService_activeAssertionDescription__block_invoke_2(
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v4);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)activeAssertionDescription
@@ -131,27 +129,27 @@ void __55__BLSHLocalAssertionService_activeAssertionDescription__block_invoke_2(
 
 void __55__BLSHLocalAssertionService_activeAssertionDescription__block_invoke(void *a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
+  v21 = *MEMORY[0x277D85DE8];
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v2 = [*(a1[4] + 16) objectEnumerator];
-  v3 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v18;
+    v5 = *v17;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v18 != v5)
+        if (*v17 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * i);
+        v7 = *(*(&v16 + 1) + 8 * i);
         v8 = a1[5];
         v9 = [v7 identifier];
         LOBYTE(v8) = [v8 containsObject:v9];
@@ -168,39 +166,37 @@ void __55__BLSHLocalAssertionService_activeAssertionDescription__block_invoke(vo
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v4);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __55__BLSHLocalAssertionService_activeAssertionDescription__block_invoke_3(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
+  v19 = *MEMORY[0x277D85DE8];
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v2 = *(a1[4] + 32);
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     do
     {
       v6 = 0;
       do
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * v6);
+        v7 = *(*(&v14 + 1) + 8 * v6);
         v8 = MEMORY[0x277CCACA8];
         v9 = a1[5];
         v10 = *(a1[6] + 8);
@@ -213,21 +209,19 @@ void __55__BLSHLocalAssertionService_activeAssertionDescription__block_invoke_3(
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BLSHLocalAssertionService)initWithOSInterfaceProvider:(id)provider
 {
   providerCopy = provider;
-  v31.receiver = self;
-  v31.super_class = BLSHLocalAssertionService;
-  v6 = [(BLSHLocalAssertionService *)&v31 init];
+  v29.receiver = self;
+  v29.super_class = BLSHLocalAssertionService;
+  v6 = [(BLSHLocalAssertionService *)&v29 init];
   v7 = v6;
   if (v6)
   {
@@ -265,31 +259,29 @@ void __55__BLSHLocalAssertionService_activeAssertionDescription__block_invoke_3(
     rootWorkloop = v7->_rootWorkloop;
     v7->_rootWorkloop = inactive;
 
-    v24 = v7->_rootWorkloop;
     dispatch_workloop_set_scheduler_priority();
     dispatch_activate(v7->_rootWorkloop);
-    v25 = dispatch_queue_create_with_target_V2("BLSHLocalAssertionService queue", 0, v7->_rootWorkloop);
+    v24 = dispatch_queue_create_with_target_V2("BLSHLocalAssertionService queue", 0, v7->_rootWorkloop);
     queue = v7->_queue;
-    v7->_queue = v25;
+    v7->_queue = v24;
 
     objc_initWeak(&location, v7);
-    v27 = v7->_queue;
-    objc_copyWeak(&v29, &location);
+    objc_copyWeak(&v27, &location);
     v7->_stateHandler = os_state_add_handler();
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(&location);
   }
 
   return v7;
 }
 
-uint64_t __57__BLSHLocalAssertionService_initWithOSInterfaceProvider___block_invoke(uint64_t a1)
+uint64_t __57__BLSHLocalAssertionService_initWithOSInterfaceProvider___block_invoke(uint64_t a1, uint64_t a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = [(BLSHLocalAssertionService *)WeakRetained activeAssertionDescription];
-  v3 = BLSStateDataWithTitleDescriptionAndHints();
+  v3 = [(BLSHLocalAssertionService *)WeakRetained activeAssertionDescription];
+  v4 = BLSStateDataWithTitleDescriptionAndHints();
 
-  return v3;
+  return v4;
 }
 
 - (os_unfair_lock_s)existingAttributeHandlerForClasses:(os_unfair_lock_s *)classes
@@ -382,7 +374,7 @@ void __64__BLSHLocalAssertionService_existingAttributeHandlerForClasses___block_
 
 void __50__BLSHLocalAssertionService_queue_pauseAssertion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [*(a1 + 32) attributesOfClasses:a2];
   v7 = [v6 indexesOfObjectsPassingTest:&__block_literal_global_37];
@@ -393,24 +385,21 @@ void __50__BLSHLocalAssertionService_queue_pauseAssertion___block_invoke(uint64_
     v9 = bls_assertions_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v12 = *(a1 + 40);
-      v11 = *(a1 + 48);
-      v13 = NSStringFromBLSAssertingObject();
-      v14 = 134218754;
-      v15 = v12;
+      v10 = *(a1 + 40);
+      v11 = NSStringFromBLSAssertingObject();
+      v12 = 134218754;
+      v13 = v10;
+      v14 = 2114;
+      v15 = v5;
       v16 = 2114;
-      v17 = v5;
+      v17 = v8;
       v18 = 2114;
-      v19 = v8;
-      v20 = 2114;
-      v21 = v13;
-      _os_log_debug_impl(&dword_21FD11000, v9, OS_LOG_TYPE_DEBUG, "%p handler:%{public}@ will deactivate (pause) attributes:%{public}@ from assertion:%{public}@", &v14, 0x2Au);
+      v19 = v11;
+      _os_log_debug_impl(&dword_21FD11000, v9, OS_LOG_TYPE_DEBUG, "%p handler:%{public}@ will deactivate (pause) attributes:%{public}@ from assertion:%{public}@", &v12, 0x2Au);
     }
 
     [v5 deactivateAttributes:v8 fromAssertion:*(a1 + 48) forService:*(a1 + 40)];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __50__BLSHLocalAssertionService_queue_pauseAssertion___block_invoke_38(uint64_t a1, void *a2)
@@ -489,7 +478,7 @@ void __55__BLSHLocalAssertionService_queue_willCancelAssertion___block_invoke(ui
 
 - (void)queue_acquireAssertion:(char)assertion skipSleepCheck:
 {
-  v63[1] = *MEMORY[0x277D85DE8];
+  v62[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (self)
@@ -508,7 +497,7 @@ void __55__BLSHLocalAssertionService_queue_willCancelAssertion___block_invoke(ui
         *&buf[12] = 2114;
         *&buf[14] = identifier;
         *&buf[22] = 2114;
-        v58 = v6;
+        v57 = v6;
         _os_log_debug_impl(&dword_21FD11000, v10, OS_LOG_TYPE_DEBUG, "%p created identifer:%{public}@ for local assertion:%{public}@", buf, 0x20u);
       }
 
@@ -521,9 +510,9 @@ void __55__BLSHLocalAssertionService_queue_willCancelAssertion___block_invoke(ui
     if (v12)
     {
       descriptor = [v6 descriptor];
-      v61[0] = objc_opt_class();
-      v61[1] = objc_opt_class();
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
+      v60[0] = objc_opt_class();
+      v60[1] = objc_opt_class();
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:2];
       v19 = [descriptor attributesOfClasses:v18];
       v20 = [v19 count];
 
@@ -547,17 +536,17 @@ void __55__BLSHLocalAssertionService_queue_willCancelAssertion___block_invoke(ui
         attributes = [descriptor attributes];
         v26 = [attributes mutableCopy];
 
-        v39[0] = MEMORY[0x277D85DD0];
-        v39[1] = 3221225472;
-        v39[2] = __67__BLSHLocalAssertionService_queue_acquireAssertion_skipSleepCheck___block_invoke_69;
-        v39[3] = &unk_27841F328;
-        v40 = descriptor;
+        v38[0] = MEMORY[0x277D85DD0];
+        v38[1] = 3221225472;
+        v38[2] = __67__BLSHLocalAssertionService_queue_acquireAssertion_skipSleepCheck___block_invoke_69;
+        v38[3] = &unk_27841F328;
+        v39 = descriptor;
         selfCopy = self;
         v27 = v6;
-        v42 = v27;
+        v41 = v27;
         v28 = v26;
-        v43 = v28;
-        [v24 enumerateKeysAndObjectsUsingBlock:v39];
+        v42 = v28;
+        [v24 enumerateKeysAndObjectsUsingBlock:v38];
         if ([v28 count])
         {
           v29 = bls_assertions_log();
@@ -569,19 +558,19 @@ void __55__BLSHLocalAssertionService_queue_willCancelAssertion___block_invoke(ui
             *&buf[12] = 2114;
             *&buf[14] = v28;
             *&buf[22] = 2114;
-            v58 = v30;
+            v57 = v30;
             _os_log_impl(&dword_21FD11000, v29, OS_LOG_TYPE_INFO, "%p (no handler) will delay activation of attributes:%{public}@ for assertion:%{public}@", buf, 0x20u);
           }
         }
 
         [v27 serviceDidAcquire];
-        v37[0] = MEMORY[0x277D85DD0];
-        v37[1] = 3221225472;
-        v37[2] = __67__BLSHLocalAssertionService_queue_acquireAssertion_skipSleepCheck___block_invoke_70;
-        v37[3] = &unk_27841F260;
-        v37[4] = self;
-        v38 = v27;
-        [(BLSHLocalAssertionService *)self notifyObserversWithBlock:v37];
+        v36[0] = MEMORY[0x277D85DD0];
+        v36[1] = 3221225472;
+        v36[2] = __67__BLSHLocalAssertionService_queue_acquireAssertion_skipSleepCheck___block_invoke_70;
+        v36[3] = &unk_27841F260;
+        v36[4] = self;
+        v37 = v27;
+        [(BLSHLocalAssertionService *)self notifyObserversWithBlock:v36];
       }
 
       else
@@ -592,36 +581,36 @@ void __55__BLSHLocalAssertionService_queue_willCancelAssertion___block_invoke(ui
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
-        v58 = __Block_byref_object_copy__4;
-        v59 = __Block_byref_object_dispose__4;
+        v57 = __Block_byref_object_copy__4;
+        v58 = __Block_byref_object_dispose__4;
         v33 = NSStringFromBLSAssertingObject();
-        v60 = [BLSHSystemWaker wakerWithIdentifier:v33 osInterfaceProvider:v32];
+        v59 = [BLSHSystemWaker wakerWithIdentifier:v33 osInterfaceProvider:v32];
 
         objc_initWeak(&location, self);
         v34 = bls_assertions_log();
         if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
         {
-          *v53 = 134218242;
+          *v52 = 134218242;
           selfCopy2 = self;
-          v55 = 2114;
-          v56 = v6;
-          _os_log_impl(&dword_21FD11000, v34, OS_LOG_TYPE_INFO, "%p system about to sleep - will defer acquiring assertion:%{public}@", v53, 0x16u);
+          v54 = 2114;
+          v55 = v6;
+          _os_log_impl(&dword_21FD11000, v34, OS_LOG_TYPE_INFO, "%p system about to sleep - will defer acquiring assertion:%{public}@", v52, 0x16u);
         }
 
         v35 = *(*&buf[8] + 40);
-        v44[0] = MEMORY[0x277D85DD0];
-        v44[1] = 3221225472;
-        v44[2] = __67__BLSHLocalAssertionService_queue_acquireAssertion_skipSleepCheck___block_invoke_61;
-        v44[3] = &unk_27841F300;
-        objc_copyWeak(v48, &location);
-        v45 = v6;
-        v48[1] = v31;
+        v43[0] = MEMORY[0x277D85DD0];
+        v43[1] = 3221225472;
+        v43[2] = __67__BLSHLocalAssertionService_queue_acquireAssertion_skipSleepCheck___block_invoke_61;
+        v43[3] = &unk_27841F300;
+        objc_copyWeak(v47, &location);
+        v44 = v6;
+        v47[1] = v31;
         v24 = v32;
-        v46 = v24;
-        v47 = buf;
-        [v35 wakeWithCompletion:v44];
+        v45 = v24;
+        v46 = buf;
+        [v35 wakeWithCompletion:v43];
 
-        objc_destroyWeak(v48);
+        objc_destroyWeak(v47);
         objc_destroyWeak(&location);
         _Block_object_dispose(buf, 8);
       }
@@ -636,25 +625,23 @@ void __55__BLSHLocalAssertionService_queue_willCancelAssertion___block_invoke(ui
       }
 
       v14 = MEMORY[0x277CCA9B8];
-      v62 = *MEMORY[0x277CCA450];
-      v63[0] = @"already acquired assertion";
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:&v62 count:1];
+      v61 = *MEMORY[0x277CCA450];
+      v62[0] = @"already acquired assertion";
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:&v61 count:1];
       v16 = [v14 errorWithDomain:*MEMORY[0x277CF0828] code:2 userInfo:v15];
 
       [v6 serviceFailedToAcquireWithError:v16];
-      v50[0] = MEMORY[0x277D85DD0];
-      v50[1] = 3221225472;
-      v50[2] = __67__BLSHLocalAssertionService_queue_acquireAssertion_skipSleepCheck___block_invoke;
-      v50[3] = &unk_27841F288;
-      v50[4] = self;
-      v51 = v6;
-      v52 = v16;
+      v49[0] = MEMORY[0x277D85DD0];
+      v49[1] = 3221225472;
+      v49[2] = __67__BLSHLocalAssertionService_queue_acquireAssertion_skipSleepCheck___block_invoke;
+      v49[3] = &unk_27841F288;
+      v49[4] = self;
+      v50 = v6;
+      v51 = v16;
       descriptor = v16;
-      [(BLSHLocalAssertionService *)self notifyObserversWithBlock:v50];
+      [(BLSHLocalAssertionService *)self notifyObserversWithBlock:v49];
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __67__BLSHLocalAssertionService_queue_acquireAssertion_skipSleepCheck___block_invoke(void *a1, void *a2)
@@ -717,7 +704,7 @@ void __67__BLSHLocalAssertionService_queue_acquireAssertion_skipSleepCheck___blo
 
 void __67__BLSHLocalAssertionService_queue_acquireAssertion_skipSleepCheck___block_invoke_3(uint64_t a1, int a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v4 = bls_assertions_log();
   v5 = v4;
   if (a2)
@@ -742,33 +729,29 @@ void __67__BLSHLocalAssertionService_queue_acquireAssertion_skipSleepCheck___blo
       v7 = @"but assertion was already canceled";
     }
 
-    v9 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v10 = NSStringFromBLSAssertingObject();
-    v11 = *(a1 + 64);
+    v8 = *(a1 + 32);
+    v9 = NSStringFromBLSAssertingObject();
     mach_continuous_time();
     BSTimeDifferenceFromMachTimeToMachTime();
-    v13 = v12;
-    v14 = [*(a1 + 48) systemSleepMonitor];
-    v18 = 134219010;
-    v19 = v9;
-    v20 = 2112;
-    v21 = v7;
-    v22 = 2114;
-    v23 = v10;
-    v24 = 2048;
-    v25 = v13;
-    v26 = 1024;
-    v27 = [v14 hasSleepBeenRequested];
-    _os_log_impl(&dword_21FD11000, v5, v6, "%p system awoke  %@:%{public}@ elapsed:%.4lfs hasSleepBeenRequested:%{BOOL}u", &v18, 0x30u);
+    v11 = v10;
+    v12 = [*(a1 + 48) systemSleepMonitor];
+    v15 = 134219010;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v7;
+    v19 = 2114;
+    v20 = v9;
+    v21 = 2048;
+    v22 = v11;
+    v23 = 1024;
+    v24 = [v12 hasSleepBeenRequested];
+    _os_log_impl(&dword_21FD11000, v5, v6, "%p system awoke  %@:%{public}@ elapsed:%.4lfs hasSleepBeenRequested:%{BOOL}u", &v15, 0x30u);
   }
 
   [*(*(*(a1 + 56) + 8) + 40) invalidate];
-  v15 = *(*(a1 + 56) + 8);
-  v16 = *(v15 + 40);
-  *(v15 + 40) = 0;
-
-  v17 = *MEMORY[0x277D85DE8];
+  v13 = *(*(a1 + 56) + 8);
+  v14 = *(v13 + 40);
+  *(v13 + 40) = 0;
 }
 
 void __67__BLSHLocalAssertionService_queue_acquireAssertion_skipSleepCheck___block_invoke_69(uint64_t a1, uint64_t a2, void *a3)
@@ -816,7 +799,7 @@ void __67__BLSHLocalAssertionService_queue_acquireAssertion_skipSleepCheck___blo
 
 void __61__BLSHLocalAssertionService_queue_cancelAssertion_withError___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [*(a1 + 32) attributesOfClasses:a2];
   v7 = v6;
@@ -833,25 +816,22 @@ void __61__BLSHLocalAssertionService_queue_cancelAssertion_withError___block_inv
     v10 = bls_assertions_log();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v13 = *(a1 + 40);
-      v12 = *(a1 + 48);
-      v14 = NSStringFromBLSAssertingObject();
-      v15 = 134218754;
-      v16 = v13;
+      v11 = *(a1 + 40);
+      v12 = NSStringFromBLSAssertingObject();
+      v13 = 134218754;
+      v14 = v11;
+      v15 = 2114;
+      v16 = v5;
       v17 = 2114;
-      v18 = v5;
+      v18 = v7;
       v19 = 2114;
-      v20 = v7;
-      v21 = 2114;
-      v22 = v14;
-      _os_log_debug_impl(&dword_21FD11000, v10, OS_LOG_TYPE_DEBUG, "%p handler:%{public}@ will deactivate (cancel) attributes:%{public}@ from assertion:%{public}@", &v15, 0x2Au);
+      v20 = v12;
+      _os_log_debug_impl(&dword_21FD11000, v10, OS_LOG_TYPE_DEBUG, "%p handler:%{public}@ will deactivate (cancel) attributes:%{public}@ from assertion:%{public}@", &v13, 0x2Au);
     }
 
     [v5 deactivateAttributes:v7 fromAssertion:*(a1 + 48) forService:*(a1 + 40)];
     [*(a1 + 56) removeObjectsInArray:v7];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __61__BLSHLocalAssertionService_queue_cancelAssertion_withError___block_invoke_77(void *a1, void *a2)
@@ -879,7 +859,7 @@ void __61__BLSHLocalAssertionService_queue_cancelAssertion_withError___block_inv
 
 - (void)queue_restartAssertionTimeoutTimer:(uint64_t)timer
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (timer)
   {
@@ -889,52 +869,52 @@ void __61__BLSHLocalAssertionService_queue_cancelAssertion_withError___block_inv
 
     if (v6)
     {
-      v7 = [(BLSHLocalAssertionService *)v3 queue_restartAssertionTimeoutTimer:timer, &v18];
-      v8 = v18;
+      v7 = [(BLSHLocalAssertionService *)v3 queue_restartAssertionTimeoutTimer:timer, &v17];
+      v8 = v17;
       if (v7)
       {
         os_unfair_lock_lock((timer + 88));
-        v18 = 0;
-        v19 = &v18;
-        v20 = 0x3032000000;
-        v21 = __Block_byref_object_copy__4;
-        v22 = __Block_byref_object_dispose__4;
-        v23 = 0;
+        v17 = 0;
+        v18 = &v17;
+        v19 = 0x3032000000;
+        v20 = __Block_byref_object_copy__4;
+        v21 = __Block_byref_object_dispose__4;
+        v22 = 0;
         v9 = *(timer + 8);
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 3221225472;
-        v17[2] = __64__BLSHLocalAssertionService_queue_restartAssertionTimeoutTimer___block_invoke;
-        v17[3] = &unk_27841F378;
-        v17[4] = &v18;
-        v17[5] = v4;
-        [v9 enumerateKeysAndObjectsUsingBlock:v17];
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __64__BLSHLocalAssertionService_queue_restartAssertionTimeoutTimer___block_invoke;
+        v16[3] = &unk_27841F378;
+        v16[4] = &v17;
+        v16[5] = v4;
+        [v9 enumerateKeysAndObjectsUsingBlock:v16];
         os_unfair_lock_unlock((timer + 88));
-        if (v19[5])
+        if (v18[5])
         {
           v10 = bls_assertions_log();
           if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
           {
             *buf = 134218498;
             timerCopy2 = timer;
-            v27 = 2114;
-            v28 = v6;
-            v29 = 2114;
-            v30 = v3;
+            v26 = 2114;
+            v27 = v6;
+            v28 = 2114;
+            v29 = v3;
             _os_log_impl(&dword_21FD11000, v10, OS_LOG_TYPE_INFO, "%p will restart timer:%{public}@ for assertion:%{public}@", buf, 0x20u);
           }
 
-          v11 = v19[5];
-          v24 = v6;
-          v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+          v11 = v18[5];
+          v23 = v6;
+          v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
           [v11 activateAttributes:v12 fromAssertion:v3 forService:timer];
 
-          v15[0] = MEMORY[0x277D85DD0];
-          v15[1] = 3221225472;
-          v15[2] = __64__BLSHLocalAssertionService_queue_restartAssertionTimeoutTimer___block_invoke_83;
-          v15[3] = &unk_27841F260;
-          v15[4] = timer;
-          v16 = v3;
-          [(BLSHLocalAssertionService *)timer notifyObserversWithBlock:v15];
+          v14[0] = MEMORY[0x277D85DD0];
+          v14[1] = 3221225472;
+          v14[2] = __64__BLSHLocalAssertionService_queue_restartAssertionTimeoutTimer___block_invoke_83;
+          v14[3] = &unk_27841F260;
+          v14[4] = timer;
+          v15 = v3;
+          [(BLSHLocalAssertionService *)timer notifyObserversWithBlock:v14];
         }
 
         else
@@ -944,15 +924,15 @@ void __61__BLSHLocalAssertionService_queue_cancelAssertion_withError___block_inv
           {
             *buf = 134218498;
             timerCopy2 = timer;
-            v27 = 2114;
-            v28 = v6;
-            v29 = 2114;
-            v30 = v3;
+            v26 = 2114;
+            v27 = v6;
+            v28 = 2114;
+            v29 = v3;
             _os_log_impl(&dword_21FD11000, v13, OS_LOG_TYPE_INFO, "%p (no handler) will not restart timeout:%{public}@ for assertion:%{public}@", buf, 0x20u);
           }
         }
 
-        _Block_object_dispose(&v18, 8);
+        _Block_object_dispose(&v17, 8);
       }
     }
 
@@ -965,8 +945,6 @@ void __61__BLSHLocalAssertionService_queue_cancelAssertion_withError___block_inv
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __64__BLSHLocalAssertionService_queue_restartAssertionTimeoutTimer___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
@@ -1021,8 +999,8 @@ void __64__BLSHLocalAssertionService_queue_restartAssertionTimeoutTimer___block_
 
 - (void)queue_registerAttributeHandler:(void *)handler forAttributeClasses:
 {
-  v40 = *MEMORY[0x277D85DE8];
-  v26 = a2;
+  v39 = *MEMORY[0x277D85DE8];
+  v25 = a2;
   handlerCopy = handler;
   if (self)
   {
@@ -1035,7 +1013,7 @@ void __64__BLSHLocalAssertionService_queue_restartAssertionTimeoutTimer___block_
     else
     {
       os_unfair_lock_lock((self + 88));
-      [*(self + 8) setObject:v26 forKey:handlerCopy];
+      [*(self + 8) setObject:v25 forKey:handlerCopy];
       v7 = NSAllMapTableValues(*(self + 16));
       v8 = [*(self + 24) copy];
       os_unfair_lock_unlock((self + 88));
@@ -1044,33 +1022,33 @@ void __64__BLSHLocalAssertionService_queue_restartAssertionTimeoutTimer___block_
       {
         *buf = 134218242;
         selfCopy = self;
-        v33 = 2114;
-        v34 = handlerCopy;
+        v32 = 2114;
+        v33 = handlerCopy;
         _os_log_debug_impl(&dword_21FD11000, v9, OS_LOG_TYPE_DEBUG, "%p registered handler for attributes:%{public}@", buf, 0x16u);
       }
 
       selfCopy2 = self;
 
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       obj = v7;
-      v10 = [obj countByEnumeratingWithState:&v27 objects:v39 count:16];
+      v10 = [obj countByEnumeratingWithState:&v26 objects:v38 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v28;
+        v12 = *v27;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v28 != v12)
+            if (*v27 != v12)
             {
               objc_enumerationMutation(obj);
             }
 
-            v14 = *(*(&v27 + 1) + 8 * i);
+            v14 = *(*(&v26 + 1) + 8 * i);
             descriptor = [v14 descriptor];
             v16 = [descriptor attributesOfClasses:handlerCopy];
             identifier = [v14 identifier];
@@ -1092,20 +1070,20 @@ void __64__BLSHLocalAssertionService_queue_restartAssertionTimeoutTimer___block_
                 v22 = NSStringFromBLSAssertingObject();
                 *buf = 134218754;
                 selfCopy = selfCopy2;
-                v33 = 2114;
-                v34 = v26;
-                v35 = 2114;
-                v36 = v16;
-                v37 = 2114;
-                v38 = v22;
+                v32 = 2114;
+                v33 = v25;
+                v34 = 2114;
+                v35 = v16;
+                v36 = 2114;
+                v37 = v22;
                 _os_log_debug_impl(&dword_21FD11000, v21, OS_LOG_TYPE_DEBUG, "%p will now activate (registered handler:%{public}@) attributes:%{public}@ from assertion:%{public}@", buf, 0x2Au);
               }
 
-              [v26 activateAttributes:v16 fromAssertion:v14 forService:selfCopy2];
+              [v25 activateAttributes:v16 fromAssertion:v14 forService:selfCopy2];
             }
           }
 
-          v11 = [obj countByEnumeratingWithState:&v27 objects:v39 count:16];
+          v11 = [obj countByEnumeratingWithState:&v26 objects:v38 count:16];
         }
 
         while (v11);
@@ -1114,13 +1092,11 @@ void __64__BLSHLocalAssertionService_queue_restartAssertionTimeoutTimer___block_
       v6 = 0;
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queue_pauseAssertion:(uint64_t)assertion
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (assertion)
@@ -1151,7 +1127,7 @@ void __64__BLSHLocalAssertionService_queue_restartAssertionTimeoutTimer___block_
         {
           OUTLINED_FUNCTION_0_7(3.8521e-34);
           OUTLINED_FUNCTION_6_2();
-          _os_log_impl(v16, v17, OS_LOG_TYPE_DEFAULT, v18, v19, 0x16u);
+          _os_log_impl(v15, v16, OS_LOG_TYPE_DEFAULT, v17, v18, 0x16u);
         }
 
         os_unfair_lock_lock((assertion + 88));
@@ -1161,23 +1137,23 @@ void __64__BLSHLocalAssertionService_queue_restartAssertionTimeoutTimer___block_
         [v4 descriptor];
         objc_claimAutoreleasedReturnValue();
         OUTLINED_FUNCTION_3_3();
-        v34 = 3221225472;
-        v35 = __50__BLSHLocalAssertionService_queue_pauseAssertion___block_invoke;
-        v36 = &unk_27841F238;
-        v37 = v20;
+        v33 = 3221225472;
+        v34 = __50__BLSHLocalAssertionService_queue_pauseAssertion___block_invoke;
+        v35 = &unk_27841F238;
+        v36 = v19;
         assertionCopy = assertion;
-        v21 = v4;
-        v39 = v21;
-        v22 = v7;
-        [v9 enumerateKeysAndObjectsUsingBlock:v33];
-        [v21 serviceDidPause];
+        v20 = v4;
+        v38 = v20;
+        v21 = v7;
+        [v9 enumerateKeysAndObjectsUsingBlock:v32];
+        [v20 serviceDidPause];
         OUTLINED_FUNCTION_0_5();
-        v28 = 3221225472;
-        v29 = __50__BLSHLocalAssertionService_queue_pauseAssertion___block_invoke_38;
-        v30 = &unk_27841F260;
+        v27 = 3221225472;
+        v28 = __50__BLSHLocalAssertionService_queue_pauseAssertion___block_invoke_38;
+        v29 = &unk_27841F260;
         assertionCopy2 = assertion;
-        v32 = v21;
-        [(BLSHLocalAssertionService *)assertion notifyObserversWithBlock:v27];
+        v31 = v20;
+        [(BLSHLocalAssertionService *)assertion notifyObserversWithBlock:v26];
       }
     }
 
@@ -1188,60 +1164,56 @@ void __64__BLSHLocalAssertionService_queue_restartAssertionTimeoutTimer___block_
       {
         OUTLINED_FUNCTION_0_7(3.8521e-34);
         OUTLINED_FUNCTION_6_2();
-        _os_log_debug_impl(v23, v24, OS_LOG_TYPE_DEBUG, v25, v26, 0x16u);
+        _os_log_debug_impl(v22, v23, OS_LOG_TYPE_DEBUG, v24, v25, 0x16u);
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyObserversWithBlock:(uint64_t)block
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (block)
   {
     os_unfair_lock_lock((block + 88));
     allObjects = [*(block + 48) allObjects];
     os_unfair_lock_unlock((block + 88));
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v5 = allObjects;
-    v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v12;
+      v8 = *v11;
       do
       {
         v9 = 0;
         do
         {
-          if (*v12 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v3[2](v3, *(*(&v11 + 1) + 8 * v9++));
+          v3[2](v3, *(*(&v10 + 1) + 8 * v9++));
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v7);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queue_resumeAssertion:(uint64_t)assertion
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (assertion)
@@ -1262,7 +1234,7 @@ void __64__BLSHLocalAssertionService_queue_restartAssertionTimeoutTimer___block_
         {
           OUTLINED_FUNCTION_0_7(3.8521e-34);
           OUTLINED_FUNCTION_6_2();
-          _os_log_impl(v16, v17, OS_LOG_TYPE_DEFAULT, v18, v19, 0x16u);
+          _os_log_impl(v15, v16, OS_LOG_TYPE_DEFAULT, v17, v18, 0x16u);
         }
 
         os_unfair_lock_lock((assertion + 88));
@@ -1272,23 +1244,23 @@ void __64__BLSHLocalAssertionService_queue_restartAssertionTimeoutTimer___block_
         [v4 descriptor];
         objc_claimAutoreleasedReturnValue();
         OUTLINED_FUNCTION_3_3();
-        v34 = 3221225472;
-        v35 = __51__BLSHLocalAssertionService_queue_resumeAssertion___block_invoke;
-        v36 = &unk_27841F238;
-        v37 = v20;
+        v33 = 3221225472;
+        v34 = __51__BLSHLocalAssertionService_queue_resumeAssertion___block_invoke;
+        v35 = &unk_27841F238;
+        v36 = v19;
         assertionCopy = assertion;
-        v21 = v4;
-        v39 = v21;
-        v22 = v7;
-        [v9 enumerateKeysAndObjectsUsingBlock:v33];
-        [v21 serviceDidResume];
+        v20 = v4;
+        v38 = v20;
+        v21 = v7;
+        [v9 enumerateKeysAndObjectsUsingBlock:v32];
+        [v20 serviceDidResume];
         OUTLINED_FUNCTION_0_5();
-        v28 = 3221225472;
-        v29 = __51__BLSHLocalAssertionService_queue_resumeAssertion___block_invoke_44;
-        v30 = &unk_27841F260;
+        v27 = 3221225472;
+        v28 = __51__BLSHLocalAssertionService_queue_resumeAssertion___block_invoke_44;
+        v29 = &unk_27841F260;
         assertionCopy2 = assertion;
-        v32 = v21;
-        [(BLSHLocalAssertionService *)assertion notifyObserversWithBlock:v27];
+        v31 = v20;
+        [(BLSHLocalAssertionService *)assertion notifyObserversWithBlock:v26];
       }
 
       else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -1306,12 +1278,10 @@ void __64__BLSHLocalAssertionService_queue_restartAssertionTimeoutTimer___block_
       {
         OUTLINED_FUNCTION_0_7(3.8521e-34);
         OUTLINED_FUNCTION_6_2();
-        _os_log_debug_impl(v23, v24, OS_LOG_TYPE_DEBUG, v25, v26, 0x16u);
+        _os_log_debug_impl(v22, v23, OS_LOG_TYPE_DEBUG, v24, v25, 0x16u);
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queue_willCancelAssertion:(uint64_t)assertion
@@ -1368,7 +1338,7 @@ void __64__BLSHLocalAssertionService_queue_restartAssertionTimeoutTimer___block_
 
 - (void)queue_cancelAssertion:(void *)assertion withError:
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v5 = a2;
   assertionCopy = assertion;
   if (self)
@@ -1380,8 +1350,8 @@ void __64__BLSHLocalAssertionService_queue_restartAssertionTimeoutTimer___block_
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         OUTLINED_FUNCTION_2_6();
-        v56 = v5;
-        OUTLINED_FUNCTION_14_0(&dword_21FD11000, v9, v10, "%p removing deferred assertion and notifying observers %{public}@", v11, v12, v13, v14, v36, v37, v39, v40, v41, v42, selfCopy2, v44, v45, v46, v47, v48, v49, v50, selfCopy, v52, v53, v54, buf[0]);
+        v55 = v5;
+        OUTLINED_FUNCTION_14_0(&dword_21FD11000, v9, v10, "%p removing deferred assertion and notifying observers %{public}@", v11, v12, v13, v14, v35, v36, v38, v39, v40, v41, selfCopy2, v43, v44, v45, v46, v47, v48, v49, selfCopy, v51, v52, v53);
       }
 
       [*(self + 40) removeObject:identifier];
@@ -1397,81 +1367,79 @@ void __64__BLSHLocalAssertionService_queue_restartAssertionTimeoutTimer___block_
         if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
           OUTLINED_FUNCTION_2_6();
-          v56 = v5;
-          OUTLINED_FUNCTION_14_0(&dword_21FD11000, v17, v18, "%p already cancelled assertion %{public}@", v19, v20, v21, v22, v36, v37, v39, v40, v41, v42, selfCopy2, v44, v45, v46, v47, v48, v49, v50, selfCopy, v52, v53, v54, buf[0]);
+          v55 = v5;
+          OUTLINED_FUNCTION_14_0(&dword_21FD11000, v17, v18, "%p already cancelled assertion %{public}@", v19, v20, v21, v22, v35, v36, v38, v39, v40, v41, selfCopy2, v43, v44, v45, v46, v47, v48, v49, selfCopy, v51, v52, v53);
         }
 
         goto LABEL_11;
       }
 
       os_unfair_lock_lock((self + 88));
-      v24 = [*(self + 24) containsObject:identifier];
+      v23 = [*(self + 24) containsObject:identifier];
       [*(self + 16) removeObjectForKey:identifier];
       [*(self + 24) removeObject:identifier];
       [(BLSHLocalAssertionService *)self lock_addPotentialLongHeldAssertionToHistory:v5];
-      v38 = [*(self + 8) copy];
+      v37 = [*(self + 8) copy];
       os_unfair_lock_unlock((self + 88));
-      v25 = bls_assertions_log();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v24 = bls_assertions_log();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         OUTLINED_FUNCTION_2_6();
-        v56 = v5;
-        v57 = 1024;
-        LODWORD(v58) = v24;
-        _os_log_impl(&dword_21FD11000, v25, OS_LOG_TYPE_DEFAULT, "%p will cancel assertion:%{public}@ wasPaused:%{BOOL}u", buf, 0x1Cu);
+        v55 = v5;
+        v56 = 1024;
+        LODWORD(v57) = v23;
+        _os_log_impl(&dword_21FD11000, v24, OS_LOG_TYPE_DEFAULT, "%p will cancel assertion:%{public}@ wasPaused:%{BOOL}u", buf, 0x1Cu);
       }
 
       descriptor = [v5 descriptor];
       attributes = [descriptor attributes];
-      v28 = [attributes mutableCopy];
+      v27 = [attributes mutableCopy];
 
-      if (v24)
+      if (v23)
       {
-        v29 = [v28 indexesOfObjectsPassingTest:&__block_literal_global_74];
-        [v28 removeObjectsAtIndexes:v29];
+        v28 = [v27 indexesOfObjectsPassingTest:&__block_literal_global_74];
+        [v27 removeObjectsAtIndexes:v28];
       }
 
-      v46 = MEMORY[0x277D85DD0];
-      v47 = 3221225472;
-      v48 = __61__BLSHLocalAssertionService_queue_cancelAssertion_withError___block_invoke_2;
-      v49 = &unk_27841F350;
-      LOBYTE(v54) = v24;
-      v50 = descriptor;
+      v45 = MEMORY[0x277D85DD0];
+      v46 = 3221225472;
+      v47 = __61__BLSHLocalAssertionService_queue_cancelAssertion_withError___block_invoke_2;
+      v48 = &unk_27841F350;
+      LOBYTE(v53) = v23;
+      v49 = descriptor;
       selfCopy = self;
-      v52 = v5;
-      v30 = v28;
-      v53 = v30;
-      v31 = descriptor;
-      [v38 enumerateKeysAndObjectsUsingBlock:&v46];
-      if ([v30 count])
+      v51 = v5;
+      v29 = v27;
+      v52 = v29;
+      v30 = descriptor;
+      [v37 enumerateKeysAndObjectsUsingBlock:&v45];
+      if ([v29 count])
       {
-        v32 = bls_assertions_log();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+        v31 = bls_assertions_log();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
         {
-          v33 = NSStringFromBLSAssertingObject();
+          v32 = NSStringFromBLSAssertingObject();
           OUTLINED_FUNCTION_2_6();
-          v56 = v30;
+          v55 = v29;
+          v56 = v33;
           v57 = v34;
-          v58 = v35;
-          _os_log_impl(&dword_21FD11000, v32, OS_LOG_TYPE_INFO, "%p (still no handler) will not cancel attributes:%{public}@ for assertion:%{public}@", buf, 0x20u);
+          _os_log_impl(&dword_21FD11000, v31, OS_LOG_TYPE_INFO, "%p (still no handler) will not cancel attributes:%{public}@ for assertion:%{public}@", buf, 0x20u);
         }
       }
     }
 
     [v5 serviceDidCancelWithError:assertionCopy];
-    v39 = MEMORY[0x277D85DD0];
-    v40 = 3221225472;
-    v41 = __61__BLSHLocalAssertionService_queue_cancelAssertion_withError___block_invoke_77;
-    v42 = &unk_27841F288;
+    v38 = MEMORY[0x277D85DD0];
+    v39 = 3221225472;
+    v40 = __61__BLSHLocalAssertionService_queue_cancelAssertion_withError___block_invoke_77;
+    v41 = &unk_27841F288;
     selfCopy2 = self;
-    v44 = v5;
-    v45 = assertionCopy;
+    v43 = v5;
+    v44 = assertionCopy;
     [(BLSHLocalAssertionService *)self notifyObserversWithBlock:?];
 
 LABEL_11:
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)lock_addPotentialLongHeldAssertionToHistory:(uint64_t)history
@@ -1503,73 +1471,55 @@ LABEL_11:
 
 void __51__BLSHLocalAssertionService_queue_resumeAssertion___block_invoke_cold_1(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 40);
-  v1 = *(a1 + 48);
-  v3 = NSStringFromBLSAssertingObject();
+  v1 = NSStringFromBLSAssertingObject();
   OUTLINED_FUNCTION_5_3();
-  OUTLINED_FUNCTION_13_0(&dword_21FD11000, v4, v5, "%p will activate (resume) attributes:%{public}@ from assertion:%{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_13_0(&dword_21FD11000, v2, v3, "%p will activate (resume) attributes:%{public}@ from assertion:%{public}@", v4, v5, v6, v7);
 }
 
 - (void)queue_acquireAssertion:skipSleepCheck:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_11_0(&dword_21FD11000, v0, v0, "%p already acquired assertion %{public}@", v2);
-  v1 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_11_0(&dword_21FD11000, v0, v0, "%p already acquired assertion %{public}@", v1);
 }
 
 void __67__BLSHLocalAssertionService_queue_acquireAssertion_skipSleepCheck___block_invoke_69_cold_1(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 40);
-  v1 = *(a1 + 48);
-  v3 = NSStringFromBLSAssertingObject();
+  v1 = NSStringFromBLSAssertingObject();
   OUTLINED_FUNCTION_5_3();
-  OUTLINED_FUNCTION_13_0(&dword_21FD11000, v4, v5, "%p will activate (acquire) attributes:%{public}@ from assertion:%{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_13_0(&dword_21FD11000, v2, v3, "%p will activate (acquire) attributes:%{public}@ from assertion:%{public}@", v4, v5, v6, v7);
 }
 
 - (uint64_t)queue_restartAssertionTimeoutTimer:(void *)a3 .cold.1(void *a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = [a1 identifier];
   *a3 = v6;
   v7 = [(BLSHLocalAssertionService *)a2 activeAssertionForIdentifier:v6];
 
   if (v7)
   {
-    result = 1;
+    return 1;
   }
 
-  else
+  v9 = bls_assertions_log();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v9 = bls_assertions_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-    {
-      v12 = 134218242;
-      v13 = a2;
-      v14 = 2114;
-      v15 = a1;
-      OUTLINED_FUNCTION_11_0(&dword_21FD11000, v9, v10, "%p cannot restart timer for unacquired assertion %{public}@", &v12);
-    }
-
-    result = 0;
+    v11 = 134218242;
+    v12 = a2;
+    v13 = 2114;
+    v14 = a1;
+    OUTLINED_FUNCTION_11_0(&dword_21FD11000, v9, v10, "%p cannot restart timer for unacquired assertion %{public}@", &v11);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (void)queue_restartAssertionTimeoutTimer:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_11_0(&dword_21FD11000, v0, v0, "%p cannot restart timer without BLSTimeoutDurationAttribute for assertion %{public}@", v2);
-  v1 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_11_0(&dword_21FD11000, v0, v0, "%p cannot restart timer without BLSTimeoutDurationAttribute for assertion %{public}@", v1);
 }
 
 @end

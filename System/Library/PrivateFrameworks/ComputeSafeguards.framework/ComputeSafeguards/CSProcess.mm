@@ -1,14 +1,20 @@
 @interface CSProcess
 - (BOOL)checkKnownViolationStartTime:(double)time endTime:(double)endTime;
 - (CSProcess)initWithIdentifier:(id)identifier;
+- (CSProcess)initWithIdentifier:(id)identifier andPID:(int)d;
 - (double)computeEnergyDiff:(id)diff;
 - (id)getPidsForCoalitionID:(unint64_t)d;
 - (int)lastPid;
 - (unint64_t)lastCoalitionID;
+- (void)addMitigationEvent:(unsigned __int8)event startTime:(double)time;
+- (void)addNewTrackedPID:(int)d;
 - (void)addPenaltyBoxCoalitionID:(unint64_t)d;
+- (void)addViolationEvent:(unsigned __int8)event startTime:(double)time endTime:(double)endTime;
 - (void)dealloc;
 - (void)incrementCPUViolationCounter:(BOOL)counter;
 - (void)monitorForExitWithPID:(int)d;
+- (void)performCleanupOnExitOnPID:(int)d;
+- (void)removeTrackedPID:(int)d;
 - (void)snapshotCPUEnergy;
 @end
 
@@ -87,22 +93,30 @@
   return v7;
 }
 
+- (CSProcess)initWithIdentifier:(id)identifier andPID:(int)d
+{
+  v4 = *&d;
+  v5 = [(CSProcess *)self initWithIdentifier:identifier];
+  [(CSProcess *)v5 addNewTrackedPID:v4];
+  return v5;
+}
+
 - (void)dealloc
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   [(NSMutableDictionary *)self->_trackedPIDs removeAllObjects];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v3 = self->_exitMonitors;
-  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
     v7 = 0;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       v9 = 0;
@@ -110,12 +124,12 @@
       v11 = v7;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v3);
         }
 
-        v6 = *(*(&v15 + 1) + 8 * v9);
+        v6 = *(*(&v14 + 1) + 8 * v9);
 
         v7 = [(NSMutableDictionary *)self->_exitMonitors objectForKey:v6];
 
@@ -130,7 +144,7 @@
       }
 
       while (v5 != v9);
-      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [(NSMutableDictionary *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
@@ -139,10 +153,25 @@
   v12 = objc_autoreleasePoolPush();
   [(NSMutableDictionary *)self->_exitMonitors removeAllObjects];
   objc_autoreleasePoolPop(v12);
-  v14.receiver = self;
-  v14.super_class = CSProcess;
-  [(CSProcess *)&v14 dealloc];
-  v13 = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = CSProcess;
+  [(CSProcess *)&v13 dealloc];
+}
+
+- (void)performCleanupOnExitOnPID:(int)d
+{
+  v3 = *&d;
+  v5 = [MEMORY[0x277CCABB0] numberWithInt:?];
+  [(CSProcess *)self incrementExitCounter];
+  [(CSProcess *)self setCpuNonFatalCnt:0];
+  [(CSProcess *)self removeTrackedPID:v3];
+  if (![(NSMutableDictionary *)self->_trackedPIDs count])
+  {
+    [(CSProcess *)self setInPenaltyBox:0];
+    [(CSProcess *)self setNeedClearRestrictions:1];
+    [(CSProcess *)self setEnergySnapshot:0];
+    [(CSProcess *)self setEnergySnapshotNew:0];
+  }
 }
 
 - (void)incrementCPUViolationCounter:(BOOL)counter
@@ -165,16 +194,16 @@
   if (v6)
   {
     v7 = v6;
-    v8 = processLogger();
+    v8 = processLogger(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [CSProcess monitorForExitWithPID:?];
+      [CSProcess monitorForExitWithPID:];
     }
   }
 
   else
   {
-    v9 = getMainQueue();
+    v9 = getMainQueue(0);
     v10 = dispatch_source_create(MEMORY[0x277D85D20], d, 0x80000000uLL, v9);
 
     if (v10)
@@ -184,31 +213,31 @@
       handler[1] = 3221225472;
       handler[2] = __35__CSProcess_monitorForExitWithPID___block_invoke;
       handler[3] = &unk_278DF5230;
-      v11 = v10;
-      v19 = v11;
-      dispatch_source_set_event_handler(v11, handler);
-      v13 = MEMORY[0x277D85DD0];
-      v14 = 3221225472;
-      v15 = __35__CSProcess_monitorForExitWithPID___block_invoke_2;
-      v16 = &unk_278DF5230;
-      v7 = v11;
-      v17 = v7;
-      dispatch_source_set_cancel_handler(v7, &v13);
-      [(NSMutableDictionary *)self->_exitMonitors setObject:v7 forKey:v5, v13, v14, v15, v16];
+      v12 = v10;
+      v21 = v12;
+      dispatch_source_set_event_handler(v12, handler);
+      v15 = MEMORY[0x277D85DD0];
+      v16 = 3221225472;
+      v17 = __35__CSProcess_monitorForExitWithPID___block_invoke_2;
+      v18 = &unk_278DF5230;
+      v7 = v12;
+      v19 = v7;
+      dispatch_source_set_cancel_handler(v7, &v15);
+      [(NSMutableDictionary *)self->_exitMonitors setObject:v7 forKey:v5, v15, v16, v17, v18];
       dispatch_resume(v7);
-      v12 = processLogger();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v14 = processLogger(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        [CSProcess monitorForExitWithPID:?];
+        [CSProcess monitorForExitWithPID:];
       }
     }
 
     else
     {
-      v7 = processLogger();
+      v7 = processLogger(v11);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        [CSProcess monitorForExitWithPID:?];
+        [CSProcess monitorForExitWithPID:];
       }
     }
   }
@@ -229,6 +258,61 @@ void __35__CSProcess_monitorForExitWithPID___block_invoke_2(uint64_t a1)
   v7 = v6;
 
   return v7;
+}
+
+- (void)addNewTrackedPID:(int)d
+{
+  v3 = *&d;
+  v5 = [MEMORY[0x277CCABB0] numberWithLongLong:getCoalitionID(*&d)];
+  v6 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+  [(NSMutableDictionary *)self->_trackedPIDs setObject:v5 forKey:v6];
+  [(NSMutableArray *)self->_trackedPIDkeys addObject:v6];
+  if ([(NSMutableArray *)self->_trackedPIDkeys count]>= 0x15)
+  {
+    v7 = [(NSMutableArray *)self->_trackedPIDkeys objectAtIndex:0];
+    [(NSMutableArray *)self->_trackedPIDkeys removeObjectAtIndex:0];
+    [(NSMutableDictionary *)self->_trackedPIDs removeObjectForKey:v7];
+    v8 = [(NSMutableDictionary *)self->_exitMonitors objectForKey:v7];
+    v9 = v8;
+    if (v8)
+    {
+      dispatch_source_cancel(v8);
+    }
+
+    v10 = objc_autoreleasePoolPush();
+    [(NSMutableDictionary *)self->_exitMonitors removeObjectForKey:v7];
+    objc_autoreleasePoolPop(v10);
+    v12 = processLogger(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    {
+      [(CSProcess *)v7 addNewTrackedPID:?];
+    }
+  }
+
+  [(CSProcess *)self monitorForExitWithPID:v3];
+}
+
+- (void)removeTrackedPID:(int)d
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithInt:*&d];
+  v5 = [(NSMutableDictionary *)self->_trackedPIDs objectForKey:v4];
+  [(NSMutableDictionary *)self->_trackedPIDs removeObjectForKey:v4];
+  [(NSMutableDictionary *)self->_previousPIDs setObject:v5 forKey:v4];
+  [(NSMutableArray *)self->_previousPIDkeys addObject:v4];
+  if ([(NSMutableArray *)self->_previousPIDkeys count]>= 0x15)
+  {
+    v6 = [(NSMutableArray *)self->_previousPIDkeys objectAtIndex:0];
+    [(NSMutableArray *)self->_previousPIDkeys removeObjectAtIndex:0];
+    v7 = processLogger([(NSMutableDictionary *)self->_previousPIDs removeObjectForKey:v6]);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      [(CSProcess *)v6 removeTrackedPID:?];
+    }
+  }
+
+  v8 = objc_autoreleasePoolPush();
+  [(NSMutableDictionary *)self->_exitMonitors removeObjectForKey:v4];
+  objc_autoreleasePoolPop(v8);
 }
 
 - (int)lastPid
@@ -333,124 +417,141 @@ LABEL_9:
   [(NSMutableDictionary *)self->_penaltyBoxCoalitionIDs setObject:v6 forKey:v5];
 }
 
+- (void)addViolationEvent:(unsigned __int8)event startTime:(double)time endTime:(double)endTime
+{
+  eventCopy = event;
+  v16[3] = *MEMORY[0x277D85DE8];
+  if (!self->_eventHistory)
+  {
+    array = [MEMORY[0x277CBEB18] array];
+    eventHistory = self->_eventHistory;
+    self->_eventHistory = array;
+  }
+
+  v15[0] = @"StartTime";
+  v11 = [MEMORY[0x277CCABB0] numberWithDouble:time];
+  v16[0] = v11;
+  v15[1] = @"EndTime";
+  v12 = [MEMORY[0x277CCABB0] numberWithDouble:endTime];
+  v16[1] = v12;
+  v15[2] = @"ViolationType";
+  v13 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:eventCopy];
+  v16[2] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+
+  [(NSMutableArray *)self->_eventHistory addObject:v14];
+}
+
 - (BOOL)checkKnownViolationStartTime:(double)time endTime:(double)endTime
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   eventHistory = self->_eventHistory;
-  if (eventHistory)
+  if (!eventHistory)
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    v7 = eventHistory;
-    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
-    if (v8)
+    return 0;
+  }
+
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v7 = eventHistory;
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v26;
+    while (2)
     {
-      v9 = v8;
-      v10 = *v27;
-      while (2)
+      for (i = 0; i != v9; ++i)
       {
-        for (i = 0; i != v9; ++i)
+        if (*v26 != v10)
         {
-          if (*v27 != v10)
-          {
-            objc_enumerationMutation(v7);
-          }
-
-          v12 = *(*(&v26 + 1) + 8 * i);
-          v13 = [v12 objectForKeyedSubscript:{@"ViolationType", v26}];
-
-          if (v13)
-          {
-            v14 = [v12 objectForKeyedSubscript:@"StartTime"];
-            [v14 doubleValue];
-            v16 = v15;
-
-            v17 = [v12 objectForKeyedSubscript:@"EndTime"];
-            [v17 doubleValue];
-            v19 = v18;
-
-            v20 = v16 >= time ? v16 : time;
-            v21 = v19 >= endTime ? endTime : v19;
-            if (v20 < v21 && v19 + 1200.0 > endTime)
-            {
-              v23 = 1;
-              goto LABEL_23;
-            }
-          }
+          objc_enumerationMutation(v7);
         }
 
-        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
-        if (v9)
-        {
-          continue;
-        }
+        v12 = *(*(&v25 + 1) + 8 * i);
+        v13 = [v12 objectForKeyedSubscript:{@"ViolationType", v25}];
 
-        break;
+        if (v13)
+        {
+          v14 = [v12 objectForKeyedSubscript:@"StartTime"];
+          [v14 doubleValue];
+          v16 = v15;
+
+          v17 = [v12 objectForKeyedSubscript:@"EndTime"];
+          [v17 doubleValue];
+          v19 = v18;
+
+          v20 = v16 >= time ? v16 : time;
+          v21 = v19 >= endTime ? endTime : v19;
+          if (v20 < v21 && v19 + 1200.0 > endTime)
+          {
+            v23 = 1;
+            goto LABEL_23;
+          }
+        }
       }
+
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      if (v9)
+      {
+        continue;
+      }
+
+      break;
     }
+  }
 
-    v23 = 0;
+  v23 = 0;
 LABEL_23:
-  }
 
-  else
-  {
-    v23 = 0;
-  }
-
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
-- (void)monitorForExitWithPID:(uint64_t)a1 .cold.1(uint64_t a1)
+- (void)addMitigationEvent:(unsigned __int8)event startTime:(double)time
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 48);
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_4_1(&dword_243DC3000, v2, v3, "monitorForExitWithPID: Monitor for process %@ (%d) already exists");
-  v4 = *MEMORY[0x277D85DE8];
+  eventCopy = event;
+  v13[2] = *MEMORY[0x277D85DE8];
+  if (!self->_eventHistory)
+  {
+    array = [MEMORY[0x277CBEB18] array];
+    eventHistory = self->_eventHistory;
+    self->_eventHistory = array;
+  }
+
+  v12[0] = @"StartTime";
+  v9 = [MEMORY[0x277CCABB0] numberWithDouble:time];
+  v12[1] = @"MitigationType";
+  v13[0] = v9;
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:eventCopy];
+  v13[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+
+  [(NSMutableArray *)self->_eventHistory addObject:v11];
 }
 
-- (void)monitorForExitWithPID:(uint64_t)a1 .cold.2(uint64_t a1)
+- (void)monitorForExitWithPID:.cold.2()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 56);
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_4();
-  _os_log_debug_impl(&dword_243DC3000, v2, OS_LOG_TYPE_DEBUG, "monitorForExitWithPID: Started monitoring process %@ (%d) for exit.", v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)monitorForExitWithPID:(uint64_t)a1 .cold.3(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 56);
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_4_1(&dword_243DC3000, v2, v3, "monitorForExitWithPID: Failed to start monitoring process %@ (%d) for exit.");
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_243DC3000, v0, OS_LOG_TYPE_DEBUG, "monitorForExitWithPID: Started monitoring process %@ (%d) for exit.", v1, 0x12u);
 }
 
 - (void)addNewTrackedPID:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   [a1 intValue];
   v3 = [a2 processName];
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_3_1(&dword_243DC3000, v4, v5, "addNewTrackedPID: Too many pids (> %d) so remove tracked pid %d from process %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(&dword_243DC3000, v4, v5, "addNewTrackedPID: Too many pids (> %d) so remove tracked pid %d from process %@", v6, v7, v8, v9);
 }
 
 - (void)removeTrackedPID:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   [a1 intValue];
   v3 = [a2 processName];
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_3_1(&dword_243DC3000, v4, v5, "removeTrackedPID: Too many pids (> %d) so remove previous pid %d from process %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(&dword_243DC3000, v4, v5, "removeTrackedPID: Too many pids (> %d) so remove previous pid %d from process %@", v6, v7, v8, v9);
 }
 
 @end

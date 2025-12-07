@@ -36,7 +36,7 @@
 
 void __63__ISWrappedMemoriesAppleMusicPlayer_playWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_storeStrong((*(a1 + 32) + 40), a2);
   if (v4)
@@ -45,19 +45,19 @@ void __63__ISWrappedMemoriesAppleMusicPlayer_playWithCompletionHandler___block_i
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v18 = v4;
+      v17 = v4;
       _os_log_error_impl(&dword_25E667000, v5, OS_LOG_TYPE_ERROR, "Apple Music Stopped prepareWithCompletionHandler failed. error=%@", buf, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 48));
     v7 = [WeakRetained appleMusicPlayerQueue];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __63__ISWrappedMemoriesAppleMusicPlayer_playWithCompletionHandler___block_invoke_13;
-    v13[3] = &unk_279A2A3C0;
-    v8 = &v14;
-    objc_copyWeak(&v14, (a1 + 48));
-    v9 = v13;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __63__ISWrappedMemoriesAppleMusicPlayer_playWithCompletionHandler___block_invoke_13;
+    v12[3] = &unk_279A2A3C0;
+    v8 = &v13;
+    objc_copyWeak(&v13, (a1 + 48));
+    v9 = v12;
   }
 
   else
@@ -68,8 +68,8 @@ void __63__ISWrappedMemoriesAppleMusicPlayer_playWithCompletionHandler___block_i
     block[1] = 3221225472;
     block[2] = __63__ISWrappedMemoriesAppleMusicPlayer_playWithCompletionHandler___block_invoke_2;
     block[3] = &unk_279A2A3C0;
-    v8 = &v16;
-    objc_copyWeak(&v16, (a1 + 48));
+    v8 = &v15;
+    objc_copyWeak(&v15, (a1 + 48));
     v9 = block;
   }
 
@@ -77,8 +77,6 @@ void __63__ISWrappedMemoriesAppleMusicPlayer_playWithCompletionHandler___block_i
 
   objc_destroyWeak(v8);
   (*(*(a1 + 40) + 16))(*(a1 + 40), v4 == 0, v10, v11);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __63__ISWrappedMemoriesAppleMusicPlayer_playWithCompletionHandler___block_invoke_2(uint64_t a1)
@@ -173,28 +171,26 @@ LABEL_7:
 
 - (void)_modifyAudioSessionToMixWithOthers
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (+[ISWrappedMemoriesAppleMusicPlayer isFeatureEnabled])
   {
     v2 = +[ISWrappedAVAudioSession sharedVideoPlaybackInstance];
     category = [v2 category];
     mode = [v2 mode];
-    v9 = 0;
-    v5 = [v2 setCategory:category mode:mode routeSharingPolicy:0 options:1 error:&v9];
-    v6 = v9;
+    v8 = 0;
+    v5 = [v2 setCategory:category mode:mode routeSharingPolicy:0 options:1 error:&v8];
+    v6 = v8;
     if ((v5 & 1) == 0)
     {
       v7 = ISGetLog();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v11 = v6;
+        v10 = v6;
         _os_log_error_impl(&dword_25E667000, v7, OS_LOG_TYPE_ERROR, "ISWrappedMemoriesAppleMusicPlayer Failed to set MixWithOthers video playback audio session option. %@", buf, 0xCu);
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
@@ -308,63 +304,63 @@ void __42__ISWrappedMemoriesAppleMusicPlayer_pause__block_invoke(uint64_t a1)
 
 void __62__ISWrappedMemoriesAppleMusicPlayer_initWithPlayerItem_queue___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v54 = *MEMORY[0x277D85DE8];
-  v27 = a2;
-  v26 = a3;
-  v28 = a1;
+  v53 = *MEMORY[0x277D85DE8];
+  v26 = a2;
+  v25 = a3;
+  v27 = a1;
   objc_initWeak(&location, *(a1 + 32));
-  if (v27)
+  if (v26)
   {
     objc_storeStrong((*(a1 + 32) + 24), a2);
-    [v27 options];
+    [v26 options];
+    v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
-    obj = v45 = 0u;
-    v6 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
+    v43 = 0u;
+    obj = v44 = 0u;
+    v6 = [obj countByEnumeratingWithState:&v43 objects:v52 count:16];
     if (!v6)
     {
       goto LABEL_29;
     }
 
-    v29 = *v45;
-    v36 = *MEMORY[0x277CE5FD0];
-    v35 = *MEMORY[0x277CE5FD8];
+    v28 = *v44;
+    v35 = *MEMORY[0x277CE5FD0];
+    v34 = *MEMORY[0x277CE5FD8];
     while (1)
     {
       v7 = 0;
-      v30 = v6;
+      v29 = v6;
       do
       {
-        if (*v45 != v29)
+        if (*v44 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v32 = *(*(&v44 + 1) + 8 * v7);
-        v8 = [v32 commonMetadata];
-        v42 = 0u;
-        v43 = 0u;
-        v40 = 0u;
+        v31 = *(*(&v43 + 1) + 8 * v7);
+        v8 = [v31 commonMetadata];
         v41 = 0u;
+        v42 = 0u;
+        v39 = 0u;
+        v40 = 0u;
         v9 = v8;
-        v10 = [v9 countByEnumeratingWithState:&v40 objects:v52 count:16];
-        v31 = v7;
+        v10 = [v9 countByEnumeratingWithState:&v39 objects:v51 count:16];
+        v30 = v7;
         if (v10)
         {
-          v34 = 0;
+          v33 = 0;
           v11 = 0;
-          v12 = *v41;
+          v12 = *v40;
           do
           {
             for (i = 0; i != v10; ++i)
             {
-              if (*v41 != v12)
+              if (*v40 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v14 = [*(*(&v40 + 1) + 8 * i) mutableCopy];
+              v14 = [*(*(&v39 + 1) + 8 * i) mutableCopy];
               v15 = [v14 key];
               objc_opt_class();
               isKindOfClass = objc_opt_isKindOfClass();
@@ -373,53 +369,53 @@ void __62__ISWrappedMemoriesAppleMusicPlayer_initWithPlayerItem_queue___block_in
               {
                 v17 = [v14 key];
                 v18 = [v14 stringValue];
-                if ([v17 isEqualToString:v36])
+                if ([v17 isEqualToString:v35])
                 {
                   v19 = v18;
 
                   v11 = v19;
                 }
 
-                if ([v17 isEqualToString:v35] && objc_msgSend(v18, "length") && -[NSObject count](obj, "count") >= 2)
+                if ([v17 isEqualToString:v34] && objc_msgSend(v18, "length") && -[NSObject count](obj, "count") >= 2)
                 {
-                  v20 = v32;
+                  v20 = v31;
 
-                  v34 = v20;
+                  v33 = v20;
                 }
               }
             }
 
-            v10 = [v9 countByEnumeratingWithState:&v40 objects:v52 count:16];
+            v10 = [v9 countByEnumeratingWithState:&v39 objects:v51 count:16];
           }
 
           while (v10);
 
           if (v11)
           {
-            v21 = v34;
-            if (!v34)
+            v21 = v33;
+            if (!v33)
             {
               goto LABEL_27;
             }
 
-            objc_storeStrong((*(v28 + 32) + 16), v11);
-            objc_storeStrong((*(v28 + 32) + 32), v34);
-            v51 = v11;
-            v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
-            v23 = *(*(v28 + 32) + 48);
+            objc_storeStrong((*(v27 + 32) + 16), v11);
+            objc_storeStrong((*(v27 + 32) + 32), v33);
+            v50 = v11;
+            v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
+            v23 = *(*(v27 + 32) + 48);
             block[0] = MEMORY[0x277D85DD0];
             block[1] = 3221225472;
             block[2] = __62__ISWrappedMemoriesAppleMusicPlayer_initWithPlayerItem_queue___block_invoke_2;
             block[3] = &unk_279A2A1A8;
-            objc_copyWeak(&v39, &location);
-            v38 = v22;
+            objc_copyWeak(&v38, &location);
+            v37 = v22;
             v24 = v22;
             dispatch_async(v23, block);
 
-            objc_destroyWeak(&v39);
+            objc_destroyWeak(&v38);
           }
 
-          v21 = v34;
+          v21 = v33;
         }
 
         else
@@ -431,11 +427,11 @@ void __62__ISWrappedMemoriesAppleMusicPlayer_initWithPlayerItem_queue___block_in
 
 LABEL_27:
 
-        v7 = v31 + 1;
+        v7 = v30 + 1;
       }
 
-      while (v31 + 1 != v30);
-      v6 = [obj countByEnumeratingWithState:&v44 objects:v53 count:16];
+      while (v30 + 1 != v29);
+      v6 = [obj countByEnumeratingWithState:&v43 objects:v52 count:16];
       if (!v6)
       {
 LABEL_29:
@@ -449,17 +445,15 @@ LABEL_29:
   if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v50 = v26;
+    v49 = v25;
     _os_log_error_impl(&dword_25E667000, obj, OS_LOG_TYPE_ERROR, "ISWrappedMemoriesAppleMusicPlayer  loadMediaSelectionGroupForMediaCharacteristic. error=%@", buf, 0xCu);
   }
 
 LABEL_32:
 
-  *(*(v28 + 32) + 8) = 0;
-  dispatch_semaphore_signal(*(*(v28 + 32) + 56));
+  *(*(v27 + 32) + 8) = 0;
+  dispatch_semaphore_signal(*(*(v27 + 32) + 56));
   objc_destroyWeak(&location);
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __62__ISWrappedMemoriesAppleMusicPlayer_initWithPlayerItem_queue___block_invoke_2(uint64_t a1)

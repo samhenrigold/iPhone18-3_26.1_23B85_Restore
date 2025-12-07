@@ -183,25 +183,23 @@
   v5 = 0;
   v6 = *(field + 1);
   valueSet = self->_valueSet;
-  values = self->_values;
-  v9 = 1;
+  v8 = 1;
   do
   {
-    v10 = v9;
+    v9 = v8;
     if (valueSet[v3])
     {
       ++v4;
-      v11 = sub_1000C14A8(1);
-      v12 = values[v3];
-      v13 = sub_1000C14A8(2) + v11;
-      v5 += v13 + sub_1000BF820(v13);
+      v10 = sub_1000C14A8(1);
+      v11 = sub_1000C14A8(2) + v10;
+      v5 += v11 + sub_1000BF820(v11);
     }
 
-    v9 = 0;
+    v8 = 0;
     v3 = 1;
   }
 
-  while ((v10 & 1) != 0);
+  while ((v9 & 1) != 0);
   return v5 + sub_1000C1A04(*(v6 + 16), 15) * v4;
 }
 
@@ -220,7 +218,6 @@
     {
       [stream writeInt32NoTag:v6];
       v13 = sub_1000C14A8(1);
-      v14 = values[v8];
       [stream writeInt32NoTag:sub_1000C14A8(2) + v13];
       [stream writeBool:1 value:v7 & 1];
       [stream writeBool:2 value:values[v8]];

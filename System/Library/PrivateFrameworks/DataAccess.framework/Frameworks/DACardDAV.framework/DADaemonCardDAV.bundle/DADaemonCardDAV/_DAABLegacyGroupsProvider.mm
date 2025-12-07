@@ -72,62 +72,60 @@
 {
   fsCopy = fs;
   containerCopy = container;
-  v8 = +[NSMutableArray array];
+  v7 = +[NSMutableArray array];
   if ([fsCopy count])
   {
-    addressBook = self->_addressBook;
     [containerCopy asSource];
-    v10 = ABAddressBookCopyArrayOfAllGroupsWithExternalIdentifiersInSource();
-    if (v10)
+    v8 = ABAddressBookCopyArrayOfAllGroupsWithExternalIdentifiersInSource();
+    if (v8)
     {
-      v11 = v10;
-      Count = CFArrayGetCount(v10);
+      v9 = v8;
+      Count = CFArrayGetCount(v8);
       if (Count >= 1)
       {
-        v13 = Count;
-        for (i = 0; i != v13; ++i)
+        v11 = Count;
+        for (i = 0; i != v11; ++i)
         {
-          v15 = [[DAABLegacyGroup alloc] initWithGroup:{CFArrayGetValueAtIndex(v11, i)}];
-          [v8 addObject:v15];
+          v13 = [[DAABLegacyGroup alloc] initWithGroup:{CFArrayGetValueAtIndex(v9, i)}];
+          [v7 addObject:v13];
         }
       }
 
-      CFRelease(v11);
+      CFRelease(v9);
     }
   }
 
-  return v8;
+  return v7;
 }
 
 - (id)groupsWithExternalUUIDs:(id)ds container:(id)container
 {
   dsCopy = ds;
   containerCopy = container;
-  v8 = +[NSMutableArray array];
+  v7 = +[NSMutableArray array];
   if ([dsCopy count])
   {
-    addressBook = self->_addressBook;
     [containerCopy asSource];
-    v10 = ABAddressBookCopyArrayOfAllGroupsWithExternalUUIDsInSource();
-    if (v10)
+    v8 = ABAddressBookCopyArrayOfAllGroupsWithExternalUUIDsInSource();
+    if (v8)
     {
-      v11 = v10;
-      Count = CFArrayGetCount(v10);
+      v9 = v8;
+      Count = CFArrayGetCount(v8);
       if (Count >= 1)
       {
-        v13 = Count;
-        for (i = 0; i != v13; ++i)
+        v11 = Count;
+        for (i = 0; i != v11; ++i)
         {
-          v15 = [[DAABLegacyGroup alloc] initWithGroup:{CFArrayGetValueAtIndex(v11, i)}];
-          [v8 addObject:v15];
+          v13 = [[DAABLegacyGroup alloc] initWithGroup:{CFArrayGetValueAtIndex(v9, i)}];
+          [v7 addObject:v13];
         }
       }
 
-      CFRelease(v11);
+      CFRelease(v9);
     }
   }
 
-  return v8;
+  return v7;
 }
 
 @end

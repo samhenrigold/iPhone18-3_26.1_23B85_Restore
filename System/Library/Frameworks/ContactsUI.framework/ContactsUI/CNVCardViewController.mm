@@ -20,8 +20,8 @@
 {
   [(CNVCardViewController *)self view];
 
-  contacts = [(CNVCardViewController *)self contacts];
-  if ([contacts count] < 2)
+  childViewControllers2 = objc_msgSend_contacts(self);
+  if ([childViewControllers2 count] < 2)
   {
     firstObject = 0;
     goto LABEL_5;
@@ -32,8 +32,8 @@
 
   if (v5 == 1)
   {
-    contacts = [(CNVCardViewController *)self childViewControllers];
-    firstObject = [contacts firstObject];
+    childViewControllers2 = [(CNVCardViewController *)self childViewControllers];
+    firstObject = [childViewControllers2 firstObject];
 LABEL_5:
 
     goto LABEL_7;
@@ -75,8 +75,8 @@ LABEL_7:
   v30.receiver = self;
   v30.super_class = CNVCardViewController;
   [(CNVCardViewController *)&v30 viewDidLoad];
-  contacts = [(CNVCardViewController *)self contacts];
-  v4 = [contacts count];
+  v3 = objc_msgSend_contacts(self);
+  v4 = [v3 count];
 
   if (!v4)
   {
@@ -130,8 +130,8 @@ LABEL_7:
 
   if (v4 == 1)
   {
-    contacts2 = [(CNVCardViewController *)self contacts];
-    firstObject = [contacts2 firstObject];
+    v5 = objc_msgSend_contacts(self);
+    firstObject = [v5 firstObject];
     v7 = [CNContactViewController viewControllerForUnknownContact:firstObject];
 
     v8 = objc_alloc_init(MEMORY[0x1E695CE18]);
@@ -141,11 +141,11 @@ LABEL_7:
   else
   {
     v26 = [CNContactCustomDataSource alloc];
-    contacts3 = [(CNVCardViewController *)self contacts];
+    v27 = objc_msgSend_contacts(self);
     v28 = +[CNContactViewController descriptorForRequiredKeys];
     v31 = v28;
     v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
-    v8 = [(CNContactCustomDataSource *)v26 initWithContacts:contacts3 keysToFetch:v29];
+    v8 = [(CNContactCustomDataSource *)v26 initWithContacts:v27 keysToFetch:v29];
 
     [(CNContactCustomDataSource *)v8 setAutoUpdateContacts:0];
     v7 = [[CNContactNavigationController alloc] initWithDataSource:v8];
@@ -174,7 +174,7 @@ LABEL_9:
 
   if (v6)
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNVCardViewController.m", 36, 3, @"Error parsing vCard data: %@", v7, v8, v9, v10, v6);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNVCardViewController.m", 36, 3u, @"Error parsing vCard data: %@", v7, v8, v9, v10, v6);
   }
 
   return v4;

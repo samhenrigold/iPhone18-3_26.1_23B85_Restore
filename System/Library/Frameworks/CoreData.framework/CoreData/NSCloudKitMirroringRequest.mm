@@ -4,10 +4,10 @@
 - (NSCloudKitMirroringRequest)initWithOptions:(id)options completionBlock:(id)block;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
-- (uint64_t)_invokeContainerBlocksWithResult:(uint64_t)result;
-- (uint64_t)invokeCompletionBlockWithResult:(uint64_t)result;
+- (void)_invokeContainerBlocksWithResult:(void *)result;
 - (void)addContainerBlock:(uint64_t)block;
 - (void)dealloc;
+- (void)invokeCompletionBlockWithResult:(void *)result;
 @end
 
 @implementation NSCloudKitMirroringRequest
@@ -69,10 +69,11 @@
   v3 = objc_autoreleasePoolPush();
   v4 = MEMORY[0x1E696AEC0];
   v5 = objc_opt_class();
-  v6 = [v4 stringWithFormat:@"<%@: %p> %@", NSStringFromClass(v5), self, self->_requestIdentifier];
+  v6 = NSStringFromClass(v5);
+  v7 = objc_msgSend_stringWithFormat_(v4, v6, self, self->_requestIdentifier);
   objc_autoreleasePoolPop(v3);
 
-  return v6;
+  return v7;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -90,12 +91,12 @@
   return v4;
 }
 
-- (uint64_t)invokeCompletionBlockWithResult:(uint64_t)result
+- (void)invokeCompletionBlockWithResult:(void *)result
 {
   if (result)
   {
     v2 = result;
-    v3 = *(result + 32);
+    v3 = result[4];
     if (v3)
     {
       (*(v3 + 16))(v3, a2);
@@ -107,36 +108,37 @@
   return result;
 }
 
-- (uint64_t)_invokeContainerBlocksWithResult:(uint64_t)result
+- (void)_invokeContainerBlocksWithResult:(void *)result
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (result)
   {
-    v8 = 0u;
-    v9 = 0u;
-    v6 = 0u;
     v7 = 0u;
-    v1 = *(result + 48);
-    result = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
+    v8 = 0u;
+    v5 = 0u;
+    v6 = 0u;
+    v1 = result[6];
+    result = [v1 countByEnumeratingWithState:&v5 objects:v9 count:16];
     if (result)
     {
       v2 = result;
-      v3 = *v7;
+      v3 = *v6;
       do
       {
         v4 = 0;
         do
         {
-          if (*v7 != v3)
+          if (*v6 != v3)
           {
             objc_enumerationMutation(v1);
           }
 
-          (*(*(*(&v6 + 1) + 8 * v4++) + 16))();
+          (*(*(*(&v5 + 1) + 8 * v4) + 16))();
+          v4 = (v4 + 1);
         }
 
         while (v2 != v4);
-        result = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
+        result = [v1 countByEnumeratingWithState:&v5 objects:v9 count:16];
         v2 = result;
       }
 
@@ -144,7 +146,6 @@
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -162,8 +163,9 @@
 
 + (id)allRequestClasses
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
+  v5 = objc_opt_class();
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
@@ -174,11 +176,8 @@
   v13 = objc_opt_class();
   v14 = objc_opt_class();
   v15 = objc_opt_class();
-  v16 = objc_opt_class();
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v6 count:11];
-  result = [v2 setWithArray:{v3, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15}];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v5 count:11];
+  return [v2 setWithArray:{v3, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14}];
 }
 
 @end

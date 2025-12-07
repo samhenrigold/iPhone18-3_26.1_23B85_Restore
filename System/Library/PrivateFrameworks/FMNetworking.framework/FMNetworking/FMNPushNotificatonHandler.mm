@@ -54,7 +54,7 @@
     v11 = 0xF000000000000000;
   }
 
-  sub_24A8B5F3C();
+  sub_24A8B5F3C(v9);
   sub_24A88C814(v9, v11);
 }
 
@@ -105,7 +105,7 @@ LABEL_4:
   }
 
 LABEL_7:
-  sub_24A8B62F0();
+  sub_24A8B62F0(tokenCopy);
 
   sub_24A88C814(tokenCopy, v16);
 }
@@ -125,8 +125,8 @@ LABEL_7:
   selfCopy = self;
 
   v9 = sub_24A8BB464();
-  sub_24A8BB3D4();
-  sub_24A8BB0A4();
+  v10 = sub_24A8BB3D4();
+  sub_24A8BB0A4("FMNPushNotificatonHandler: didReceiveMessageForTopic %@.", 56, 2, &dword_24A881000, v9, v10, v6);
 }
 
 @end

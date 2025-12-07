@@ -11,20 +11,19 @@
 {
   v3 = sub_100008A28();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  __chkstk_darwin();
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v3);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100008A68();
   selfCopy = self;
   sub_1000089F8();
-  (*(v4 + 104))(v7, enum case for ClockLogger.Role.update(_:), v3);
+  (*(v4 + 104))(v6, enum case for ClockLogger.Role.update(_:), v3);
   sub_100008A48();
 
-  (*(v4 + 8))(v7, v3);
-  v9 = type metadata accessor for ClockUpdater();
-  v10.receiver = selfCopy;
-  v10.super_class = v9;
-  [(ClockUpdater *)&v10 dealloc];
+  (*(v4 + 8))(v6, v3);
+  v8 = type metadata accessor for ClockUpdater();
+  v9.receiver = selfCopy;
+  v9.super_class = v8;
+  [(ClockUpdater *)&v9 dealloc];
 }
 
 - (void)updateDescriptors:(id)descriptors withSessionInfo:(id)info completion:(id)completion

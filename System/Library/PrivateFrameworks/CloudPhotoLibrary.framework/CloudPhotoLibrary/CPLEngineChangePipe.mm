@@ -25,121 +25,115 @@
 
 - (void)_notifyQueueRemovedChanges
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = self->_dequeueObservers;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        changePipeDidRemoveChanges = [*(*(&v10 + 1) + 8 * v7) changePipeDidRemoveChanges];
+        changePipeDidRemoveChanges = [*(*(&v9 + 1) + 8 * v7) changePipeDidRemoveChanges];
         (changePipeDidRemoveChanges)[2](changePipeDidRemoveChanges, self);
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyClientDidAcknowledgeBatch:(id)batch
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = self->_dequeueObservers;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        clientDidAcknowledgeBatchBlock = [*(*(&v12 + 1) + 8 * v9) clientDidAcknowledgeBatchBlock];
+        clientDidAcknowledgeBatchBlock = [*(*(&v11 + 1) + 8 * v9) clientDidAcknowledgeBatchBlock];
         (clientDidAcknowledgeBatchBlock)[2](clientDidAcknowledgeBatchBlock, self, batchCopy);
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyClientWillAcknowledgeBatch:(id)batch
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = self->_dequeueObservers;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        clientWillAcknowledgeBatchBlock = [*(*(&v12 + 1) + 8 * v9) clientWillAcknowledgeBatchBlock];
+        clientWillAcknowledgeBatchBlock = [*(*(&v11 + 1) + 8 * v9) clientWillAcknowledgeBatchBlock];
         (clientWillAcknowledgeBatchBlock)[2](clientWillAcknowledgeBatchBlock, self, batchCopy);
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)addDequeueObserverWithDequeueSignalBlock:(id)block
@@ -180,15 +174,15 @@
 
 - (BOOL)compactChangeBatchesWithError:(id *)error
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v5 = __CPLStorageOSLogDomain_9255();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 138412290;
+      v9 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "%@ compacting batches", &v10, 0xCu);
+      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "%@ compacting batches", &v9, 0xCu);
     }
   }
 
@@ -200,7 +194,6 @@
     [(CPLEngineChangePipe *)self _notifyQueueRemovedChanges];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -220,15 +213,15 @@
 
 - (BOOL)deleteAllChangeBatchesWithError:(id *)error
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v5 = __CPLStorageOSLogDomain_9255();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 138412290;
+      v9 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "%@ deleting all batches", &v10, 0xCu);
+      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "%@ deleting all batches", &v9, 0xCu);
     }
   }
 
@@ -240,7 +233,6 @@
     [(CPLEngineChangePipe *)self _notifyQueueRemovedChanges];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -273,7 +265,7 @@
 
 - (BOOL)popNextBatchWithError:(id *)error
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   platformObject = [(CPLEngineStorage *)self platformObject];
   v6 = [platformObject popNextBatchWithError:error];
 
@@ -282,19 +274,18 @@
     v7 = __CPLStorageOSLogDomain_9255();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 138412290;
+      v9 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, "%@ popped next batch", &v10, 0xCu);
+      _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, "%@ popped next batch", &v9, 0xCu);
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (id)nextBatch
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   platformObject = [(CPLEngineStorage *)self platformObject];
   nextBatch = [platformObject nextBatch];
 
@@ -303,22 +294,20 @@
     v5 = __CPLStorageOSLogDomain_9255();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v8 = 138412546;
+      v7 = 138412546;
       selfCopy = self;
-      v10 = 2048;
-      v11 = [nextBatch count];
-      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "%@ getting %lu changes", &v8, 0x16u);
+      v9 = 2048;
+      v10 = [nextBatch count];
+      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "%@ getting %lu changes", &v7, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return nextBatch;
 }
 
 - (BOOL)popChangeBatch:(id *)batch error:(id *)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   platformObject = [(CPLEngineStorage *)self platformObject];
   v8 = [platformObject popChangeBatch:batch error:error];
 
@@ -328,39 +317,37 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       v10 = [*batch count];
-      v13 = 138412546;
+      v12 = 138412546;
       selfCopy = self;
-      v15 = 2048;
-      v16 = v10;
-      _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEBUG, "%@ popped %lu changes", &v13, 0x16u);
+      v14 = 2048;
+      v15 = v10;
+      _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEBUG, "%@ popped %lu changes", &v12, 0x16u);
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (BOOL)appendChangeBatch:(id)batch error:(id *)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
   if ((_CPLSilentLogging & 1) == 0)
   {
     v7 = __CPLStorageOSLogDomain_9255();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v12 = 138412546;
+      v11 = 138412546;
       selfCopy = self;
-      v14 = 2048;
-      v15 = [batchCopy count];
-      _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, "%@ appending %lu changes", &v12, 0x16u);
+      v13 = 2048;
+      v14 = [batchCopy count];
+      _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEBUG, "%@ appending %lu changes", &v11, 0x16u);
     }
   }
 
   platformObject = [(CPLEngineStorage *)self platformObject];
   v9 = [platformObject appendChangeBatch:batchCopy error:error];
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

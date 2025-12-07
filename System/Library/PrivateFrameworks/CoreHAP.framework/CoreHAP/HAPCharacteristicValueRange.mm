@@ -96,28 +96,28 @@ LABEL_15:
 
 - (id)serializeWithError:(id *)error
 {
-  v49 = *MEMORY[0x277D85DE8];
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
+  v48 = *MEMORY[0x277D85DE8];
   v46 = 0u;
-  v43 = 0u;
+  v47 = 0u;
   v44 = 0u;
-  v41 = 0u;
+  v45 = 0u;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
+  v31 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v27 = 0u;
   TLV8BufferInit();
   lowerBound = [(HAPCharacteristicValueRange *)self lowerBound];
 
@@ -129,9 +129,9 @@ LABEL_10:
     if (upperBound)
     {
       upperBound2 = [(HAPCharacteristicValueRange *)self upperBound];
-      v26 = 0;
-      v7 = [upperBound2 serializeWithError:&v26];
-      v8 = v26;
+      v25 = 0;
+      v7 = [upperBound2 serializeWithError:&v25];
+      v8 = v25;
 
       if (v8)
       {
@@ -194,15 +194,15 @@ LABEL_28:
       }
     }
 
-    v16 = [MEMORY[0x277CBEA90] dataWithBytes:v28 length:?];
+    v16 = [MEMORY[0x277CBEA90] dataWithBytes:v27 length:?];
     v8 = 0;
     goto LABEL_33;
   }
 
   lowerBound2 = [(HAPCharacteristicValueRange *)self lowerBound];
-  v27 = 0;
-  v7 = [lowerBound2 serializeWithError:&v27];
-  v8 = v27;
+  v26 = 0;
+  v7 = [lowerBound2 serializeWithError:&v26];
+  v8 = v26;
 
   if (!v8)
   {
@@ -244,8 +244,6 @@ LABEL_32:
   v16 = 0;
 LABEL_33:
   TLV8BufferFree();
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

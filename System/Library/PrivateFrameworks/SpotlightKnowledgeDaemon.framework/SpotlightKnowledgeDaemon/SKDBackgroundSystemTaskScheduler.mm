@@ -28,7 +28,7 @@
 {
   requestCopy = request;
   selfCopy = self;
-  sub_231C0B4CC(requestCopy);
+  sub_231C0B4CC(requestCopy, v7);
 
   return 1;
 }

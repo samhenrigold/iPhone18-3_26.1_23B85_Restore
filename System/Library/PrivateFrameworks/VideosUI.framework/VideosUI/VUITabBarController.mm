@@ -109,10 +109,10 @@
 - (void)updateWithTabBarItems:(id)items setSelectedIdentifierFromDefaults:(BOOL)defaults appContext:(id)context
 {
   defaultsCopy = defaults;
-  v138 = *MEMORY[0x1E69E9840];
+  v140 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   contextCopy = context;
-  v9 = VUISignpostLogObject();
+  v9 = VUISignpostLogObject(contextCopy);
   if (os_signpost_enabled(v9))
   {
     *buf = 0;
@@ -152,8 +152,8 @@ LABEL_11:
   }
 
   vuiSelectedIndex = [(VUITabBarController *)self vuiSelectedIndex];
-  v84 = itemsCopy;
-  v92 = v11;
+  v86 = itemsCopy;
+  v94 = v11;
   selfCopy = self;
   if (!v11 || (v16 = vuiSelectedIndex, vuiSelectedIndex == 0x7FFFFFFFFFFFFFFFLL) || vuiSelectedIndex >= [itemsCopy count])
   {
@@ -161,30 +161,30 @@ LABEL_11:
     dropOnTabConfig = [v17 dropOnTabConfig];
     dropOnTabIdentifier = [dropOnTabConfig dropOnTabIdentifier];
 
+    v126 = 0u;
+    v127 = 0u;
     v124 = 0u;
     v125 = 0u;
-    v122 = 0u;
-    v123 = 0u;
     v20 = itemsCopy;
-    v21 = [v20 countByEnumeratingWithState:&v122 objects:v137 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v124 objects:v139 count:16];
     if (v21)
     {
       v22 = v21;
-      v104 = tabBarItems;
+      v106 = tabBarItems;
       v23 = 0;
-      v24 = *v123;
+      v24 = *v125;
 LABEL_17:
       v25 = 0;
       v16 = v23;
       v23 += v22;
       while (1)
       {
-        if (*v123 != v24)
+        if (*v125 != v24)
         {
           objc_enumerationMutation(v20);
         }
 
-        v26 = [*(*(&v122 + 1) + 8 * v25) vui_stringForKey:@"identifier"];
+        v26 = [*(*(&v124 + 1) + 8 * v25) vui_stringForKey:@"identifier"];
         v27 = [v26 isEqualToString:dropOnTabIdentifier];
 
         if (v27)
@@ -195,7 +195,7 @@ LABEL_17:
         ++v16;
         if (v22 == ++v25)
         {
-          v22 = [v20 countByEnumeratingWithState:&v122 objects:v137 count:16];
+          v22 = [v20 countByEnumeratingWithState:&v124 objects:v139 count:16];
           if (v22)
           {
             goto LABEL_17;
@@ -206,9 +206,9 @@ LABEL_17:
         }
       }
 
-      itemsCopy = v84;
+      itemsCopy = v86;
       self = selfCopy;
-      tabBarItems = v104;
+      tabBarItems = v106;
     }
 
     else
@@ -217,59 +217,59 @@ LABEL_17:
     }
   }
 
-  v94 = v16;
-  v102 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v118 = 0u;
-  v119 = 0u;
+  v96 = v16;
+  v104 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v120 = 0u;
   v121 = 0u;
+  v122 = 0u;
+  v123 = 0u;
   obj = tabBarItems;
-  v28 = [obj countByEnumeratingWithState:&v118 objects:v136 count:16];
+  v28 = [obj countByEnumeratingWithState:&v120 objects:v138 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v119;
+    v30 = *v121;
     do
     {
       for (i = 0; i != v29; ++i)
       {
-        if (*v119 != v30)
+        if (*v121 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v32 = *(*(&v118 + 1) + 8 * i);
+        v32 = *(*(&v120 + 1) + 8 * i);
         v33 = [v32 vui_stringForKey:@"identifier"];
-        [v102 setObject:v32 forKey:v33];
+        [v104 setObject:v32 forKey:v33];
       }
 
-      v29 = [obj countByEnumeratingWithState:&v118 objects:v136 count:16];
+      v29 = [obj countByEnumeratingWithState:&v120 objects:v138 count:16];
     }
 
     while (v29);
   }
 
   v34 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v114 = 0u;
-  v115 = 0u;
   v116 = 0u;
   v117 = 0u;
+  v118 = 0u;
+  v119 = 0u;
   vuiViewControllers = [(VUITabBarController *)self vuiViewControllers];
-  v36 = [vuiViewControllers countByEnumeratingWithState:&v114 objects:v135 count:16];
+  v36 = [vuiViewControllers countByEnumeratingWithState:&v116 objects:v137 count:16];
   if (v36)
   {
     v37 = v36;
-    v38 = *v115;
+    v38 = *v117;
     do
     {
       for (j = 0; j != v37; ++j)
       {
-        if (*v115 != v38)
+        if (*v117 != v38)
         {
           objc_enumerationMutation(vuiViewControllers);
         }
 
-        v40 = *(*(&v114 + 1) + 8 * j);
+        v40 = *(*(&v116 + 1) + 8 * j);
         vuiViewControllerIdentifier = [v40 vuiViewControllerIdentifier];
 
         if (vuiViewControllerIdentifier)
@@ -279,269 +279,273 @@ LABEL_17:
         }
       }
 
-      v37 = [vuiViewControllers countByEnumeratingWithState:&v114 objects:v135 count:16];
+      v37 = [vuiViewControllers countByEnumeratingWithState:&v116 objects:v137 count:16];
     }
 
     while (v37);
   }
 
-  v91 = v34;
+  v93 = v34;
 
-  v89 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v86 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v91 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v88 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v87 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v90 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v89 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v43 = [objc_alloc(MEMORY[0x1E695DF70]) initWithArray:itemsCopy];
   mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
   if (![mEMORY[0x1E69DC668] launchedToTest])
   {
-    v47 = v92;
+    v47 = v94;
     goto LABEL_47;
   }
 
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
   v46 = [standardUserDefaults BOOLForKey:@"DoNotAddPPTTabs"];
 
-  v47 = v92;
+  v47 = v94;
   if ((v46 & 1) == 0)
   {
+    v135[0] = @"identifier";
+    v135[1] = @"documentRef";
+    v136[0] = @"pptstack";
+    v136[1] = @"PPTStackScroll";
+    v135[2] = @"title";
+    v136[2] = @"pptstack";
+    v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v136 forKeys:v135 count:3];
+    [v43 addObject:v48];
+
     v133[0] = @"identifier";
     v133[1] = @"documentRef";
-    v134[0] = @"pptstack";
-    v134[1] = @"PPTStackScroll";
+    v134[0] = @"pptsports";
+    v134[1] = @"PPTSportsScroll";
     v133[2] = @"title";
-    v134[2] = @"pptstack";
-    v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v134 forKeys:v133 count:3];
-    [v43 addObject:v48];
+    v134[2] = @"pptsports";
+    v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v134 forKeys:v133 count:3];
+    [v43 addObject:v49];
 
     v131[0] = @"identifier";
     v131[1] = @"documentRef";
-    v132[0] = @"pptsports";
-    v132[1] = @"PPTSportsScroll";
+    v132[0] = @"pptshowproduct";
+    v132[1] = @"PPTShowScrollController";
     v131[2] = @"title";
-    v132[2] = @"pptsports";
-    v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v132 forKeys:v131 count:3];
-    [v43 addObject:v49];
-
-    v129[0] = @"identifier";
-    v129[1] = @"documentRef";
-    v130[0] = @"pptshowproduct";
-    v130[1] = @"PPTShowScrollController";
-    v129[2] = @"title";
-    v47 = v92;
-    v130[2] = @"pptshowproduct";
-    mEMORY[0x1E69DC668] = [MEMORY[0x1E695DF20] dictionaryWithObjects:v130 forKeys:v129 count:3];
+    v47 = v94;
+    v132[2] = @"pptshowproduct";
+    mEMORY[0x1E69DC668] = [MEMORY[0x1E695DF20] dictionaryWithObjects:v132 forKeys:v131 count:3];
     [v43 addObject:mEMORY[0x1E69DC668]];
 LABEL_47:
   }
 
+  v114 = 0u;
+  v115 = 0u;
   v112 = 0u;
   v113 = 0u;
-  v110 = 0u;
-  v111 = 0u;
-  v97 = v43;
-  v101 = [v97 countByEnumeratingWithState:&v110 objects:v128 count:16];
-  if (!v101)
+  v99 = v43;
+  v103 = [v99 countByEnumeratingWithState:&v112 objects:v130 count:16];
+  if (!v103)
   {
-    v96 = 0x7FFFFFFFFFFFFFFFLL;
+    v98 = 0x7FFFFFFFFFFFFFFFLL;
     goto LABEL_87;
   }
 
-  v99 = 0;
-  v100 = *v111;
-  v96 = 0x7FFFFFFFFFFFFFFFLL;
+  v101 = 0;
+  v102 = *v113;
+  v98 = 0x7FFFFFFFFFFFFFFFLL;
   do
   {
-    for (k = 0; k != v101; ++k)
+    for (k = 0; k != v103; ++k)
     {
-      if (*v111 != v100)
+      if (*v113 != v102)
       {
-        objc_enumerationMutation(v97);
+        objc_enumerationMutation(v99);
       }
 
-      v51 = *(*(&v110 + 1) + 8 * k);
+      v51 = *(*(&v112 + 1) + 8 * k);
       v52 = [v51 vui_stringForKey:@"identifier"];
       v53 = [v51 vui_stringForKey:@"documentRef"];
       v54 = [v51 vui_BOOLForKey:@"isNonServerTab" defaultValue:0];
-      v105 = [v51 vui_dictionaryForKey:@"contextData"];
+      v107 = [v51 vui_dictionaryForKey:@"contextData"];
       v55 = [v51 vui_stringForKey:@"title"];
       v56 = [v51 vui_stringForKey:@"iconResource"];
-      v103 = [v51 vui_dictionaryForKey:@"uiConfiguration"];
-      v57 = VUIDefaultLogObject();
+      v105 = [v51 vui_dictionaryForKey:@"uiConfiguration"];
+      v57 = VUIDefaultLogObject(v105);
       if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v127 = v52;
+        v129 = v52;
         _os_log_impl(&dword_1E323F000, v57, OS_LOG_TYPE_INFO, "VUITabBarController - Making tab: %@", buf, 0xCu);
       }
 
-      if (![v52 length] || !objc_msgSend(v53, "length") || !objc_msgSend(v55, "length"))
+      v58 = [v52 length];
+      if (!v58 || (v58 = [v53 length]) == 0 || (v58 = objc_msgSend(v55, "length")) == 0)
       {
-        v60 = VUIDefaultLogObject();
-        if (!os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
+        v62 = VUIDefaultLogObject(v58);
+        if (!os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
         {
           goto LABEL_83;
         }
 
         *buf = 138412290;
-        v127 = v51;
-        v61 = v60;
-        v62 = "VUITabBarController - Tab bar item has a zero length identifier, documentRef or title. Will ignore. TabBarItem: %@";
+        v129 = v51;
+        v63 = v62;
+        v64 = "VUITabBarController - Tab bar item has a zero length identifier, documentRef or title. Will ignore. TabBarItem: %@";
         goto LABEL_64;
       }
 
       mEMORY[0x1E69DC668]2 = [MEMORY[0x1E69DC668] sharedApplication];
       isRunningTest = [mEMORY[0x1E69DC668]2 isRunningTest];
 
-      if (isRunningTest && [v51 vui_BOOLForKey:@"isSideBarItem" defaultValue:0])
+      if (isRunningTest)
       {
-        v60 = VUIDefaultLogObject();
-        if (!os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
+        v61 = [v51 vui_BOOLForKey:@"isSideBarItem" defaultValue:0];
+        if (v61)
         {
+          v62 = VUIDefaultLogObject(v61);
+          if (!os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+          {
+            goto LABEL_83;
+          }
+
+          *buf = 138412290;
+          v129 = v51;
+          v63 = v62;
+          v64 = "VUITabBarController - Tab bar item is a sidebar item. Will ignore when running PPT. TabBarItem: %@";
+LABEL_64:
+          _os_log_impl(&dword_1E323F000, v63, OS_LOG_TYPE_INFO, v64, buf, 0xCu);
           goto LABEL_83;
         }
-
-        *buf = 138412290;
-        v127 = v51;
-        v61 = v60;
-        v62 = "VUITabBarController - Tab bar item is a sidebar item. Will ignore when running PPT. TabBarItem: %@";
-LABEL_64:
-        _os_log_impl(&dword_1E323F000, v61, OS_LOG_TYPE_INFO, v62, buf, 0xCu);
-        goto LABEL_83;
       }
 
-      v95 = v53;
-      v63 = [v47 isEqualToString:v52];
-      v64 = v94;
-      if (v63)
+      v97 = v53;
+      v65 = [v47 isEqualToString:v52];
+      v66 = v96;
+      if (v65)
       {
-        v64 = v99;
+        v66 = v101;
       }
 
-      v94 = v64;
-      v65 = v96;
-      if (v63)
+      v96 = v66;
+      v67 = v98;
+      if (v65)
       {
-        v65 = v99;
+        v67 = v101;
       }
 
-      v96 = v65;
-      v66 = [v102 objectForKey:v52];
-      v60 = [v66 mutableCopy];
+      v98 = v67;
+      v68 = [v104 objectForKey:v52];
+      v62 = [v68 mutableCopy];
 
-      if (!v60)
+      if (!v62)
       {
-        v60 = [v51 mutableCopy];
+        v62 = [v51 mutableCopy];
       }
 
-      v67 = [objc_opt_class() _tabBarImageForResource:v56];
-      v68 = [v91 objectForKey:v52];
-      if (v68)
+      v69 = [objc_opt_class() _tabBarImageForResource:v56];
+      v70 = [v93 objectForKey:v52];
+      if (v70)
       {
-        v69 = v68;
-        v70 = v56;
-        [v60 setObject:v55 forKey:@"title"];
-        v71 = [v69 tab];
-        [v71 setImage:v67];
-        [v71 setTitle:v55];
-        v72 = v67;
-        v47 = v92;
+        v71 = v70;
+        v72 = v56;
+        [v62 setObject:v55 forKey:@"title"];
+        v73 = [v71 tab];
+        [v73 setImage:v69];
+        [v73 setTitle:v55];
+        v74 = v69;
+        v47 = v94;
       }
 
       else
       {
-        v90 = v67;
-        v73 = [(VUITabBarController *)selfCopy _tabBarChildViewControllerWithIdentifier:v52 documentRef:v53 isNonServerTab:v54 title:v55 isSelectedTab:v96 == v99 appContext:contextCopy iconResource:v56 contextData:v105 uiConfigDict:v103];
-        if (!v73)
+        v92 = v69;
+        v75 = [(VUITabBarController *)selfCopy _tabBarChildViewControllerWithIdentifier:v52 documentRef:v53 isNonServerTab:v54 title:v55 isSelectedTab:v98 == v101 appContext:contextCopy iconResource:v56 contextData:v107 uiConfigDict:v105];
+        if (!v75)
         {
-          v70 = v56;
-          v71 = VUIDefaultLogObject();
-          v47 = v92;
-          if (os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
+          v72 = v56;
+          v73 = VUIDefaultLogObject(0);
+          v47 = v94;
+          if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v127 = v51;
-            _os_log_impl(&dword_1E323F000, v71, OS_LOG_TYPE_INFO, "VUITabBarController - Unable to create view controller for tab bar item. Will ignore: TabBarItem: %@", buf, 0xCu);
+            v129 = v51;
+            _os_log_impl(&dword_1E323F000, v73, OS_LOG_TYPE_INFO, "VUITabBarController - Unable to create view controller for tab bar item. Will ignore: TabBarItem: %@", buf, 0xCu);
           }
 
-          v72 = v90;
+          v74 = v92;
           goto LABEL_82;
         }
 
-        v69 = v73;
-        v47 = v92;
-        v70 = v56;
+        v71 = v75;
+        v47 = v94;
+        v72 = v56;
         if ([v52 isEqualToString:@"search"])
         {
-          v74 = objc_alloc(MEMORY[0x1E69DCF20]);
-          v108[0] = MEMORY[0x1E69E9820];
-          v108[1] = 3221225472;
-          v108[2] = __90__VUITabBarController_updateWithTabBarItems_setSelectedIdentifierFromDefaults_appContext___block_invoke;
-          v108[3] = &unk_1E87348F0;
-          v109 = v69;
-          v71 = [v74 initWithTitle:v55 image:v90 identifier:v52 viewControllerProvider:v108];
-          v75 = &v109;
+          v76 = objc_alloc(MEMORY[0x1E69DCF20]);
+          v110[0] = MEMORY[0x1E69E9820];
+          v110[1] = 3221225472;
+          v110[2] = __90__VUITabBarController_updateWithTabBarItems_setSelectedIdentifierFromDefaults_appContext___block_invoke;
+          v110[3] = &unk_1E87348F0;
+          v111 = v71;
+          v73 = [v76 initWithTitle:v55 image:v92 identifier:v52 viewControllerProvider:v110];
+          v77 = &v111;
         }
 
         else
         {
-          v76 = objc_alloc(MEMORY[0x1E69DCFE0]);
-          v106[0] = MEMORY[0x1E69E9820];
-          v106[1] = 3221225472;
-          v106[2] = __90__VUITabBarController_updateWithTabBarItems_setSelectedIdentifierFromDefaults_appContext___block_invoke_2;
-          v106[3] = &unk_1E87348F0;
-          v107 = v69;
-          v71 = [v76 initWithTitle:v55 image:v90 identifier:v52 viewControllerProvider:v106];
-          v75 = &v107;
+          v78 = objc_alloc(MEMORY[0x1E69DCFE0]);
+          v108[0] = MEMORY[0x1E69E9820];
+          v108[1] = 3221225472;
+          v108[2] = __90__VUITabBarController_updateWithTabBarItems_setSelectedIdentifierFromDefaults_appContext___block_invoke_2;
+          v108[3] = &unk_1E87348F0;
+          v109 = v71;
+          v73 = [v78 initWithTitle:v55 image:v92 identifier:v52 viewControllerProvider:v108];
+          v77 = &v109;
         }
 
-        v77 = [@"UIA.TV.Tab." stringByAppendingString:v52];
-        [v71 setAccessibilityIdentifier:v77];
+        v79 = [@"UIA.TV.Tab." stringByAppendingString:v52];
+        [v73 setAccessibilityIdentifier:v79];
 
-        v72 = v90;
+        v74 = v92;
       }
 
-      [v89 addObject:v60];
-      [v86 addObject:v69];
-      [v88 addObject:v69];
-      [v87 addObject:v71];
-      ++v99;
+      [v91 addObject:v62];
+      [v88 addObject:v71];
+      [v90 addObject:v71];
+      [v89 addObject:v73];
+      ++v101;
 
 LABEL_82:
-      v56 = v70;
-      v53 = v95;
+      v56 = v72;
+      v53 = v97;
 LABEL_83:
     }
 
-    v101 = [v97 countByEnumeratingWithState:&v110 objects:v128 count:16];
+    v103 = [v99 countByEnumeratingWithState:&v112 objects:v130 count:16];
   }
 
-  while (v101);
+  while (v103);
 LABEL_87:
 
-  v78 = [v89 copy];
-  [(VUITabBarController *)selfCopy setTabBarItems:v78];
+  v80 = [v91 copy];
+  [(VUITabBarController *)selfCopy setTabBarItems:v80];
 
-  v79 = [v88 copy];
-  [(VUITabBarController *)selfCopy setStoredViewControllers:v79];
+  v81 = [v90 copy];
+  [(VUITabBarController *)selfCopy setStoredViewControllers:v81];
 
-  v80 = [v87 copy];
-  [(VUITabBarController *)selfCopy setTabs:v80];
+  v82 = [v89 copy];
+  [(VUITabBarController *)selfCopy setTabs:v82];
 
-  [(VUITabBarController *)selfCopy setPreviousSelectedIndex:v96];
-  [(VUITabBarController *)selfCopy setVuiSelectedIndex:v94];
+  [(VUITabBarController *)selfCopy setPreviousSelectedIndex:v98];
+  [(VUITabBarController *)selfCopy setVuiSelectedIndex:v96];
   tabBar = [(VUITabBarController *)selfCopy tabBar];
   [tabBar setNeedsLayout];
 
   updatingDelegate = [(VUITabBarController *)selfCopy updatingDelegate];
   [updatingDelegate tabBarControllerDidUpdateTabBarItems:selfCopy];
 
-  [(VUITabBarController *)selfCopy _addAndPresentBubbleTipIfAny:v84];
-  v83 = VUISignpostLogObject();
-  if (os_signpost_enabled(v83))
+  v85 = VUISignpostLogObject([(VUITabBarController *)selfCopy _addAndPresentBubbleTipIfAny:v86]);
+  if (os_signpost_enabled(v85))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v83, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "TabBarUpdateItems", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v85, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "TabBarUpdateItems", "", buf, 2u);
   }
 }
 
@@ -687,7 +691,7 @@ LABEL_5:
 
       else
       {
-        v32 = VUIDefaultLogObject();
+        v32 = VUIDefaultLogObject(0);
         if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
@@ -706,18 +710,18 @@ LABEL_5:
 
 - (void)messageViewController:(id)controller didSelectActionWithDialogResult:(id)result
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   resultCopy = result;
-  v8 = VUIDefaultLogObject();
+  v8 = VUIDefaultLogObject(resultCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     originalRequest = [resultCopy originalRequest];
-    v16 = 138412546;
-    v17 = resultCopy;
-    v18 = 2112;
-    v19 = originalRequest;
-    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_INFO, "VUITabBarController - UnifiedMessaging::Action dialogResult: %@, request: %@", &v16, 0x16u);
+    v17 = 138412546;
+    v18 = resultCopy;
+    v19 = 2112;
+    v20 = originalRequest;
+    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_INFO, "VUITabBarController - UnifiedMessaging::Action dialogResult: %@, request: %@", &v17, 0x16u);
   }
 
   [(VUITabBarController *)self dismissViewControllerAnimated:1 completion:0];
@@ -735,11 +739,11 @@ LABEL_5:
 
     else
     {
-      v15 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v16 = VUIDefaultLogObject(0);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v16) = 0;
-        _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_INFO, "VUITabBarController - UnifiedMessaging::Action Deeplink does not exist", &v16, 2u);
+        LOWORD(v17) = 0;
+        _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_INFO, "VUITabBarController - UnifiedMessaging::Action Deeplink does not exist", &v17, 2u);
       }
     }
 
@@ -748,13 +752,13 @@ LABEL_5:
 
   else
   {
-    deepLink = VUIDefaultLogObject();
+    deepLink = VUIDefaultLogObject(v13);
     if (os_log_type_enabled(deepLink, OS_LOG_TYPE_INFO))
     {
       selectedActionIdentifier2 = [resultCopy selectedActionIdentifier];
-      v16 = 138412290;
-      v17 = selectedActionIdentifier2;
-      _os_log_impl(&dword_1E323F000, deepLink, OS_LOG_TYPE_INFO, "VUITabBarController - UnifiedMessaging::Action Could not find action for %@", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = selectedActionIdentifier2;
+      _os_log_impl(&dword_1E323F000, deepLink, OS_LOG_TYPE_INFO, "VUITabBarController - UnifiedMessaging::Action Could not find action for %@", &v17, 0xCu);
     }
   }
 }
@@ -968,7 +972,7 @@ LABEL_10:
   dataCopy = data;
   dictCopy = dict;
   contextCopy = context;
-  v21 = VUISignpostLogObject();
+  v21 = VUISignpostLogObject(contextCopy);
   if (os_signpost_enabled(v21))
   {
     *buf = 138412290;
@@ -1028,8 +1032,7 @@ LABEL_11:
 
   v31 = [[VUIAppNavigationController alloc] initWithRootViewController:v30];
   [(_VUITVAppNavigationController *)v31 setMaxNavControllerStackDepth:6];
-  [(VUIAppNavigationController *)v31 setVuiViewControllerIdentifier:identifierCopy];
-  v32 = VUISignpostLogObject();
+  v32 = VUISignpostLogObject([(VUIAppNavigationController *)v31 setVuiViewControllerIdentifier:identifierCopy]);
   if (os_signpost_enabled(v32))
   {
     *buf = 0;
@@ -1114,11 +1117,11 @@ LABEL_7:
       goto LABEL_17;
     }
 
-    v11 = v9;
-    viewControllers = [v11 viewControllers];
+    v12 = v9;
+    viewControllers = [v12 viewControllers];
     if ([viewControllers count] == 1)
     {
-      visibleViewController = [v11 visibleViewController];
+      visibleViewController = [v12 visibleViewController];
       view = [visibleViewController view];
       window = [view window];
 
@@ -1129,24 +1132,25 @@ LABEL_12:
         goto LABEL_17;
       }
 
-      viewControllers = [v11 visibleViewController];
-      v16 = +[VUIInterfaceFactory sharedInstance];
-      documentCreator = [v16 documentCreator];
+      viewControllers = [v12 visibleViewController];
+      v17 = +[VUIInterfaceFactory sharedInstance];
+      documentCreator = [v17 documentCreator];
       [documentCreator scrollViewControllerToTop:viewControllers animated:1 needsFocusUpdate:1];
 
-      [_TtC8VideosUI8VideosUI notifyAppearingViewControllerOfTabSelection:v11];
+      [_TtC8VideosUI8VideosUI notifyAppearingViewControllerOfTabSelection:v12];
     }
 
     goto LABEL_12;
   }
 
   tabBarItems = [(VUITabBarController *)self tabBarItems];
-  if ([tabBarItems count] <= index)
+  v11 = [tabBarItems count];
+  if (v11 <= index)
   {
-    v18 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = VUIDefaultLogObject(v11);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [VUITabBarController _saveLastSelectedAndScrollToTop:index selectedIndex:v18 previousSelectedIndex:?];
+      [VUITabBarController _saveLastSelectedAndScrollToTop:index selectedIndex:v19 previousSelectedIndex:?];
     }
   }
 
@@ -1160,124 +1164,128 @@ LABEL_17:
 
 + (BOOL)shouldIgnoreLastSelectedTabIndex
 {
-  v33 = *MEMORY[0x1E69E9840];
-  if (+[VUIUtilities isStoreOrPressDemoMode])
+  v38 = *MEMORY[0x1E69E9840];
+  v2 = +[VUIUtilities isStoreOrPressDemoMode];
+  if (v2)
   {
-    v2 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = VUIDefaultLogObject(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v2, OS_LOG_TYPE_DEFAULT, "DropOnTab: shouldIgnoreLastSelectedTabIndex isTest isStore NO", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v3, OS_LOG_TYPE_DEFAULT, "DropOnTab: shouldIgnoreLastSelectedTabIndex isTest isStore NO", buf, 2u);
     }
 
-    v3 = 0;
-    return v3 & 1;
+    v4 = 0;
+    return v4 & 1;
   }
 
-  if ([objc_opt_class() _hasSeenTVPlusTabForCurrentUser])
+  _hasSeenTVPlusTabForCurrentUser = [objc_opt_class() _hasSeenTVPlusTabForCurrentUser];
+  if (_hasSeenTVPlusTabForCurrentUser)
   {
     standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
-    v5 = [standardUserDefaults objectForKey:@"lastActiveDate"];
+    v7 = [standardUserDefaults objectForKey:@"lastActiveDate"];
 
     standardUserDefaults2 = [MEMORY[0x1E695E000] standardUserDefaults];
-    v7 = [standardUserDefaults2 objectForKey:@"lastPlaybackDate"];
+    v9 = [standardUserDefaults2 objectForKey:@"lastPlaybackDate"];
 
     date = [MEMORY[0x1E695DF00] date];
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __55__VUITabBarController_shouldIgnoreLastSelectedTabIndex__block_invoke;
     aBlock[3] = &unk_1E8734918;
-    v9 = date;
-    v28 = v9;
-    v10 = _Block_copy(aBlock);
-    v11 = +[VUIFeaturesConfiguration sharedInstance];
-    dropOnTabConfig = [v11 dropOnTabConfig];
+    v11 = date;
+    v33 = v11;
+    v12 = _Block_copy(aBlock);
+    v13 = +[VUIFeaturesConfiguration sharedInstance];
+    dropOnTabConfig = [v13 dropOnTabConfig];
 
     daysWithoutPlaybackThreshold = [dropOnTabConfig daysWithoutPlaybackThreshold];
     daysWithoutOpeningThreshold = [dropOnTabConfig daysWithoutOpeningThreshold];
-    v26 = v7;
-    v15 = v10[2](v10, v7, daysWithoutPlaybackThreshold);
-    v16 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v31 = v9;
+    v17 = v12[2](v12, v9, daysWithoutPlaybackThreshold);
+    v18 = v17;
+    v19 = VUIDefaultLogObject(v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109634;
-      *v30 = v15;
-      *&v30[4] = 2112;
-      *&v30[6] = daysWithoutPlaybackThreshold;
-      v31 = 2112;
-      v32 = v7;
-      _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_DEFAULT, "DropOnTab: isPastPlaybackThreshold = %i for %@ days since date of %@ ", buf, 0x1Cu);
+      *v35 = v18;
+      *&v35[4] = 2112;
+      *&v35[6] = daysWithoutPlaybackThreshold;
+      v36 = 2112;
+      v37 = v9;
+      _os_log_impl(&dword_1E323F000, v19, OS_LOG_TYPE_DEFAULT, "DropOnTab: isPastPlaybackThreshold = %i for %@ days since date of %@ ", buf, 0x1Cu);
     }
 
-    v17 = v10[2](v10, v5, daysWithoutOpeningThreshold);
-    v18 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = v12[2](v12, v7, daysWithoutOpeningThreshold);
+    v21 = v20;
+    v22 = VUIDefaultLogObject(v20);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109634;
-      *v30 = v17;
-      *&v30[4] = 2112;
-      *&v30[6] = daysWithoutOpeningThreshold;
-      v31 = 2112;
-      v32 = v5;
-      _os_log_impl(&dword_1E323F000, v18, OS_LOG_TYPE_DEFAULT, "DropOnTab: isPastAppOpeningThreshold = %i for %@ days since date of %@ ", buf, 0x1Cu);
+      *v35 = v21;
+      *&v35[4] = 2112;
+      *&v35[6] = daysWithoutOpeningThreshold;
+      v36 = 2112;
+      v37 = v7;
+      _os_log_impl(&dword_1E323F000, v22, OS_LOG_TYPE_DEFAULT, "DropOnTab: isPastAppOpeningThreshold = %i for %@ days since date of %@ ", buf, 0x1Cu);
     }
 
-    v19 = v15 | v17;
-    v3 = (v5 == 0) | v15 | v17;
+    v23 = v18 | v21;
+    v4 = (v7 == 0) | v18 | v21;
     standardUserDefaults3 = [MEMORY[0x1E695E000] standardUserDefaults];
-    [standardUserDefaults3 setObject:v9 forKey:@"lastActiveDate"];
+    [standardUserDefaults3 setObject:v11 forKey:@"lastActiveDate"];
 
-    standardUserDefaults4 = VUIDefaultLogObject();
-    v22 = os_log_type_enabled(standardUserDefaults4, OS_LOG_TYPE_DEFAULT);
-    if (v5)
+    standardUserDefaults4 = VUIDefaultLogObject(v25);
+    v27 = os_log_type_enabled(standardUserDefaults4, OS_LOG_TYPE_DEFAULT);
+    if (v7)
     {
-      if ((v19 & 1) == 0)
+      if ((v23 & 1) == 0)
       {
-        if (v22)
+        if (v27)
         {
           *buf = 138412290;
-          *v30 = v9;
+          *v35 = v11;
           _os_log_impl(&dword_1E323F000, standardUserDefaults4, OS_LOG_TYPE_DEFAULT, "DropOnTab: shouldIgnoreLastSelectedTabIndex=NO. Updating lastActiveDate to %@", buf, 0xCu);
         }
 
         goto LABEL_21;
       }
 
-      if (v22)
+      if (v27)
       {
         *buf = 138412290;
-        *v30 = v9;
-        v23 = "DropOnTab: shouldIgnoreLastSelectedTabIndex=YES. Updating lastActiveDate and lastPlaybackDate to %@";
+        *v35 = v11;
+        v28 = "DropOnTab: shouldIgnoreLastSelectedTabIndex=YES. Updating lastActiveDate and lastPlaybackDate to %@";
 LABEL_19:
-        _os_log_impl(&dword_1E323F000, standardUserDefaults4, OS_LOG_TYPE_DEFAULT, v23, buf, 0xCu);
+        _os_log_impl(&dword_1E323F000, standardUserDefaults4, OS_LOG_TYPE_DEFAULT, v28, buf, 0xCu);
       }
     }
 
-    else if (v22)
+    else if (v27)
     {
       *buf = 138412290;
-      *v30 = v9;
-      v23 = "DropOnTab: shouldIgnoreLastSelectedTabIndex=YES. no lastActiveDate, setting lastActiveDate and lastPlaybackDate to %@";
+      *v35 = v11;
+      v28 = "DropOnTab: shouldIgnoreLastSelectedTabIndex=YES. no lastActiveDate, setting lastActiveDate and lastPlaybackDate to %@";
       goto LABEL_19;
     }
 
     standardUserDefaults4 = [MEMORY[0x1E695E000] standardUserDefaults];
-    [standardUserDefaults4 setObject:v9 forKey:@"lastPlaybackDate"];
+    [standardUserDefaults4 setObject:v11 forKey:@"lastPlaybackDate"];
 LABEL_21:
 
-    return v3 & 1;
+    return v4 & 1;
   }
 
-  v24 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v29 = VUIDefaultLogObject(_hasSeenTVPlusTabForCurrentUser);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1E323F000, v24, OS_LOG_TYPE_DEFAULT, "DropOnTab: shouldIgnoreLastSelectedTabIndex first TV app entry for this user", buf, 2u);
+    _os_log_impl(&dword_1E323F000, v29, OS_LOG_TYPE_DEFAULT, "DropOnTab: shouldIgnoreLastSelectedTabIndex first TV app entry for this user", buf, 2u);
   }
 
-  v3 = 1;
+  v4 = 1;
   [objc_opt_class() _setHasSeenTVPlusTabForCurrentUser:1];
-  return v3 & 1;
+  return v4 & 1;
 }
 
 BOOL __55__VUITabBarController_shouldIgnoreLastSelectedTabIndex__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1323,7 +1331,7 @@ BOOL __55__VUITabBarController_shouldIgnoreLastSelectedTabIndex__block_invoke(ui
 + (void)_setHasSeenTVPlusTabForCurrentUser:(BOOL)user
 {
   userCopy = user;
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   activeAccount = [MEMORY[0x1E69D5920] activeAccount];
   ams_DSID = [activeAccount ams_DSID];
   v6 = ams_DSID;
@@ -1353,20 +1361,20 @@ BOOL __55__VUITabBarController_shouldIgnoreLastSelectedTabIndex__block_invoke(ui
   v13 = [v10 copy];
   [standardUserDefaults2 setObject:v13 forKey:@"hasSeenTVPlusTab"];
 
-  v14 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = VUIDefaultLogObject(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = @"NO";
+    v16 = @"NO";
     if (userCopy)
     {
-      v15 = @"YES";
+      v16 = @"YES";
     }
 
-    v16 = 138412546;
-    v17 = v15;
-    v18 = 2112;
-    v19 = stringValue;
-    _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_DEFAULT, "DropOnTab: Setting hasSeenTVPlusTab to %@ for account key: %@", &v16, 0x16u);
+    v17 = 138412546;
+    v18 = v16;
+    v19 = 2112;
+    v20 = stringValue;
+    _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_DEFAULT, "DropOnTab: Setting hasSeenTVPlusTab to %@ for account key: %@", &v17, 0x16u);
   }
 }
 

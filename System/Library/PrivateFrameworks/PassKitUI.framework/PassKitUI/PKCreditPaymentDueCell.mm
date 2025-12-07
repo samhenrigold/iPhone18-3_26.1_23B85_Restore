@@ -129,156 +129,204 @@
     v10 = 8.0;
   }
 
-  v11 = y + v8;
-  v12 = width - (v7 + v7);
-  v45 = v8 + v10;
-  v13 = height - (v8 + v10);
+  v11 = x + v7;
+  v12 = y + v8;
+  v13 = width - (v7 + v7);
+  v99 = v8 + v10;
+  v14 = height - (v8 + v10);
   [(PKCreditPaymentDueCell *)self _shouldReverseLayoutDirection];
   memset(&slice, 0, sizeof(slice));
   remainder.origin.x = x + v7;
-  remainder.origin.y = v11;
-  remainder.size.width = v12;
-  remainder.size.height = v13;
-  [(UILabel *)self->_paymentDueLabel sizeThatFits:v12, v13];
-  v15 = v14 + 0.0;
-  v50.origin.x = x + v7;
-  v50.origin.y = v11;
-  v50.size.width = remainder.size.width;
-  v50.size.height = v13;
-  v44 = v15;
-  CGRectDivide(v50, &slice, &remainder, v15, CGRectMinYEdge);
+  remainder.origin.y = v12;
+  remainder.size.width = v13;
+  remainder.size.height = v14;
+  [(UILabel *)self->_paymentDueLabel sizeThatFits:v13, v14];
+  v16 = v15;
+  v18 = *&v17;
+  v19 = v17 + 0.0;
+  v104.origin.x = v11;
+  v104.origin.y = v12;
+  v104.size.width = remainder.size.width;
+  v104.size.height = v14;
+  v98 = v19;
+  CGRectDivide(v104, &slice, &remainder, v19, CGRectMinYEdge);
   if (!self->_isTemplateLayout)
   {
     paymentDueLabel = self->_paymentDueLabel;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v21 = PKContentAlignmentMake();
+    v22.n128_u64[0] = *&slice.origin.x;
+    v23.n128_u64[0] = *&slice.origin.y;
+    v24.n128_u64[0] = *&slice.size.width;
+    v25.n128_u64[0] = *&slice.size.height;
+    v26.n128_u64[0] = fmin(v13, v16);
+    v27.n128_u64[0] = v18;
+    PKSizeAlignedInRect(v21, v26, v27, v22, v23, v24, v25, v28);
     [(UILabel *)paymentDueLabel setFrame:?];
   }
 
   [(UILabel *)self->_dateLabel sizeThatFits:remainder.size.width, remainder.size.height];
-  v18 = v17 + 0.0;
-  CGRectDivide(remainder, &slice, &remainder, v17 + 0.0, CGRectMinYEdge);
+  v30 = v29;
+  v32 = *&v31;
+  v33 = v31 + 0.0;
+  v34 = remainder.size.width;
+  CGRectDivide(remainder, &slice, &remainder, v31 + 0.0, CGRectMinYEdge);
   if (!self->_isTemplateLayout)
   {
     dateLabel = self->_dateLabel;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v36 = PKContentAlignmentMake();
+    v37.n128_u64[0] = *&slice.origin.x;
+    v38.n128_u64[0] = *&slice.origin.y;
+    v39.n128_u64[0] = *&slice.size.width;
+    v40.n128_u64[0] = *&slice.size.height;
+    v41.n128_u64[0] = fmin(v34, v30);
+    v42.n128_u64[0] = v32;
+    PKSizeAlignedInRect(v36, v41, v42, v37, v38, v39, v40, v43);
     [(UILabel *)dateLabel setFrame:?];
   }
 
   [(UILabel *)self->_detailLabel sizeThatFits:remainder.size.width, remainder.size.height];
-  v21 = v20;
+  v45 = v44;
+  v47 = v46;
+  v48 = remainder.size.width;
   if (self->_usingCircleButton)
   {
-    v22 = 90.0;
+    v49 = 90.0;
     if (self->_isCompactUI)
     {
-      v22 = 80.0;
+      v49 = 80.0;
     }
 
-    v23 = 64.0;
-    v24 = 60.0;
+    v50 = 64.0;
+    v51 = 60.0;
     if (!self->_isCompactUI)
     {
-      v24 = 64.0;
+      v51 = 64.0;
     }
 
     if (!self->_useAccessibilityLayout)
     {
-      v23 = 48.0;
-      v22 = v24;
+      v50 = 48.0;
+      v49 = v51;
     }
 
-    v25 = remainder.size.height;
-    v26 = fmin(fmax(v23, remainder.size.height + -3.0 - v21), v22);
-    v27 = remainder.size.width;
+    v52 = remainder.size.height;
+    v53 = fmin(fmax(v50, remainder.size.height + -3.0 - v47), v49);
+    v54 = remainder.size.width;
+    *&v55 = v53;
   }
 
   else
   {
     [(PKContinuousButton *)self->_payButton sizeThatFits:remainder.size.width, remainder.size.height];
-    v26 = v28;
-    v27 = remainder.size.width;
-    v25 = remainder.size.height;
+    v55 = v56;
+    v53 = v57;
+    v54 = remainder.size.width;
+    v52 = remainder.size.height;
   }
 
-  v29 = fmin(v21, v25 - v26 + -3.0);
+  v58 = fmin(v47, v52 - v53 + -3.0);
   if (!self->_isTemplateLayout)
   {
-    v21 = v29;
+    v47 = v58;
   }
 
-  v30 = remainder.origin.x;
-  v31 = remainder.origin.y;
-  CGRectDivide(*(&v27 - 2), &slice, &remainder, v21, CGRectMinYEdge);
+  v59 = remainder.origin.x;
+  v60 = remainder.origin.y;
+  CGRectDivide(*(&v54 - 2), &slice, &remainder, v47, CGRectMinYEdge);
   if (!self->_isTemplateLayout)
   {
     detailLabel = self->_detailLabel;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v62 = PKContentAlignmentMake();
+    v63.n128_u64[0] = *&slice.origin.x;
+    v64.n128_u64[0] = *&slice.origin.y;
+    v65.n128_u64[0] = *&slice.size.width;
+    v66.n128_u64[0] = *&slice.size.height;
+    v67.n128_u64[0] = fmin(v48, v45);
+    v68.n128_f64[0] = v47;
+    PKSizeAlignedInRect(v62, v67, v68, v63, v64, v65, v66, v69);
     [(UILabel *)detailLabel setFrame:?];
   }
 
   useAccessibilityLayout = self->_useAccessibilityLayout;
   if (self->_usingCircleButton)
   {
-    v34 = v26 + 3.0;
-    CGRectDivide(remainder, &slice, &remainder, v26 + 3.0, CGRectMaxYEdge);
+    v71 = v53 + 3.0;
+    CGRectDivide(remainder, &slice, &remainder, v53 + 3.0, CGRectMaxYEdge);
     if (useAccessibilityLayout)
     {
       if (!self->_isTemplateLayout)
       {
         payButton = self->_payButton;
-LABEL_35:
-        PKContentAlignmentMake();
-        PKSizeAlignedInRect();
-        goto LABEL_36;
+LABEL_38:
+        v82 = PKContentAlignmentMake();
+        v83.n128_u64[0] = *&slice.origin.x;
+        v84.n128_u64[0] = *&slice.origin.y;
+        v85.n128_u64[0] = *&slice.size.width;
+        v86.n128_u64[0] = *&slice.size.height;
+        v87.n128_u64[0] = v55;
+        v88.n128_f64[0] = v53;
+        PKSizeAlignedInRect(v82, v87, v88, v83, v84, v85, v86, v89);
+LABEL_39:
+        [(PKContinuousButton *)payButton setFrame:?];
       }
     }
 
     else if (!self->_isTemplateLayout)
     {
       payButton = self->_payButton;
-      goto LABEL_35;
+      goto LABEL_38;
     }
 
-LABEL_37:
-    v26 = v34;
-    goto LABEL_38;
+    v53 = v71;
+    goto LABEL_41;
   }
 
-  CGRectDivide(remainder, &slice, &remainder, v26 + 3.0, CGRectMaxYEdge);
+  CGRectDivide(remainder, &slice, &remainder, v53 + 3.0, CGRectMaxYEdge);
   if (!self->_isTemplateLayout)
   {
+    if (useAccessibilityLayout)
+    {
+      v73 = v55;
+    }
+
+    else
+    {
+      *&v73 = v13;
+    }
+
     payButton = self->_payButton;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
-    v34 = v26;
-LABEL_36:
-    [(PKContinuousButton *)payButton setFrame:?];
-    goto LABEL_37;
+    v74 = PKContentAlignmentMake();
+    v75.n128_u64[0] = *&slice.origin.x;
+    v76.n128_u64[0] = *&slice.origin.y;
+    v77.n128_u64[0] = *&slice.size.width;
+    v78.n128_u64[0] = *&slice.size.height;
+    v79.n128_u64[0] = v73;
+    v80.n128_f64[0] = v53;
+    PKSizeAlignedInRect(v74, v79, v80, v75, v76, v77, v78, v81);
+    v71 = v53;
+    goto LABEL_39;
   }
 
-LABEL_38:
+LABEL_41:
   if (self->_fallbackButtonTitle)
   {
     titleLabel = [(PKContinuousButton *)self->_payButton titleLabel];
-    [titleLabel pkui_sizeThatFits:{v12, v13}];
-    v38 = v37;
+    [titleLabel pkui_sizeThatFits:{v13, v14}];
+    v92 = v91;
 
     [(PKContinuousButton *)self->_payButton contentEdgeInsets];
-    v40 = v39;
+    v94 = v93;
     [(PKContinuousButton *)self->_payButton contentEdgeInsets];
-    if (v38 >= v12 - (v40 + v41))
+    if (v92 >= v13 - (v94 + v95))
     {
       [(PKCreditPaymentDueCell *)self setButtonTitle:self->_fallbackButtonTitle];
     }
   }
 
-  v42 = v45 + v44 + v18 + v21 + 0.0 + 3.0 + v26;
-  v43 = width;
-  result.height = v42;
-  result.width = v43;
+  v96 = v99 + v98 + v33 + v47 + 0.0 + 3.0 + v53;
+  v97 = width;
+  result.height = v96;
+  result.width = v97;
   return result;
 }
 

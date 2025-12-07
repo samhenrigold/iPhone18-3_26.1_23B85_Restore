@@ -57,7 +57,7 @@
 
 - (void)activateWithCompletion:(id)completion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = _DDUICoreLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -69,20 +69,18 @@
 
   objc_initWeak(buf, self);
   rDiscovery = self->_rDiscovery;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __59___DDUIRemoteDisplaySessionHandler_activateWithCompletion___block_invoke;
-  v9[3] = &unk_2788F5C90;
-  v9[4] = self;
-  objc_copyWeak(&v11, buf);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __59___DDUIRemoteDisplaySessionHandler_activateWithCompletion___block_invoke;
+  v8[3] = &unk_2788F5C90;
+  v8[4] = self;
+  objc_copyWeak(&v10, buf);
   v7 = completionCopy;
-  v10 = v7;
-  [(RPRemoteDisplayDiscovery *)rDiscovery activateWithCompletion:v9];
+  v9 = v7;
+  [(RPRemoteDisplayDiscovery *)rDiscovery activateWithCompletion:v8];
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(buf);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isWifiStateOn
@@ -108,7 +106,7 @@
 
 - (void)enterSessionWithRemoteDeviceID:(id)d reason:(id)reason
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dCopy = d;
   reasonCopy = reason;
   v8 = _DDUICoreLog();
@@ -116,10 +114,10 @@
   {
     *buf = 138412802;
     selfCopy = self;
-    v16 = 2112;
-    v17 = dCopy;
-    v18 = 2112;
-    v19 = reasonCopy;
+    v15 = 2112;
+    v16 = dCopy;
+    v17 = 2112;
+    v18 = reasonCopy;
     _os_log_impl(&dword_230EF9000, v8, OS_LOG_TYPE_DEFAULT, "{self: %@} Enter session with remoteDeviceID: %@ reason: %@", buf, 0x20u);
   }
 
@@ -131,20 +129,18 @@
   else
   {
     objc_initWeak(buf, self);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __74___DDUIRemoteDisplaySessionHandler_enterSessionWithRemoteDeviceID_reason___block_invoke;
-    v10[3] = &unk_2788F5CB8;
-    objc_copyWeak(&v13, buf);
-    v11 = dCopy;
-    v12 = reasonCopy;
-    [(_DDUIRemoteDisplaySessionHandler *)self activateWithCompletion:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __74___DDUIRemoteDisplaySessionHandler_enterSessionWithRemoteDeviceID_reason___block_invoke;
+    v9[3] = &unk_2788F5CB8;
+    objc_copyWeak(&v12, buf);
+    v10 = dCopy;
+    v11 = reasonCopy;
+    [(_DDUIRemoteDisplaySessionHandler *)self activateWithCompletion:v9];
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(buf);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldByPassConfirmationForRemoteDeviceID:(id)d
@@ -192,23 +188,23 @@
   completionCopy = completion;
   if ((_os_feature_enabled_impl() & 1) == 0)
   {
-    v13 = @"Disabled";
+    v14 = @"Disabled";
 LABEL_10:
-    v15 = UnsupportedErrorWithDescription(v13);
-    completionCopy[2](completionCopy, v15);
+    v16 = UnsupportedErrorWithDescription(v14);
+    completionCopy[2](completionCopy, v16);
 
     goto LABEL_11;
   }
 
   if (SFDeviceClassCodeGet() != 1)
   {
-    v14 = _DDUICoreLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _DDUICoreLog();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [_DDUIRemoteDisplaySessionHandler presentProxCardForDevice:v14 completion:?];
+      [_DDUIRemoteDisplaySessionHandler presentProxCardForDevice:v15 completion:?];
     }
 
-    v13 = @"Dedicated cameras can only be setup on iPhones";
+    v14 = @"Dedicated cameras can only be setup on iPhones";
     goto LABEL_10;
   }
 
@@ -221,22 +217,22 @@ LABEL_10:
     [v8 setDeviceType:1];
   }
 
-  [(_DDUIRemoteDisplaySessionHandler *)self cancelCurrentProxCard];
-  v10 = [objc_alloc(getCPSAuthenticationSessionClass()) initWithRequest:v8];
+  cancelCurrentProxCard = [(_DDUIRemoteDisplaySessionHandler *)self cancelCurrentProxCard];
+  v11 = [objc_alloc(getCPSAuthenticationSessionClass(cancelCurrentProxCard)) initWithRequest:v8];
   objc_initWeak(&location, self);
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __72___DDUIRemoteDisplaySessionHandler_presentProxCardForDevice_completion___block_invoke;
-  v16[3] = &unk_2788F5CE0;
-  objc_copyWeak(&v18, &location);
-  v17 = completionCopy;
-  [v10 setSessionCompletionHandler:v16];
-  [v10 start];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __72___DDUIRemoteDisplaySessionHandler_presentProxCardForDevice_completion___block_invoke;
+  v17[3] = &unk_2788F5CE0;
+  objc_copyWeak(&v19, &location);
+  v18 = completionCopy;
+  [v11 setSessionCompletionHandler:v17];
+  [v11 start];
   proxSession = self->_proxSession;
-  self->_proxSession = v10;
-  v12 = v10;
+  self->_proxSession = v11;
+  v13 = v11;
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(&location);
 
 LABEL_11:
@@ -251,7 +247,7 @@ LABEL_11:
 
 - (void)saveDedicatedDeviceInformation:(id)information
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   informationCopy = information;
   if (informationCopy)
   {
@@ -265,11 +261,11 @@ LABEL_11:
     v11 = _DDUICoreLog();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412546;
+      v13 = 138412546;
       selfCopy2 = self;
-      v16 = 2112;
-      v17 = v10;
-      _os_log_impl(&dword_230EF9000, v11, OS_LOG_TYPE_DEFAULT, "{self: %@} Saving dedicated device: %@", &v14, 0x16u);
+      v15 = 2112;
+      v16 = v10;
+      _os_log_impl(&dword_230EF9000, v11, OS_LOG_TYPE_DEFAULT, "{self: %@} Saving dedicated device: %@", &v13, 0x16u);
     }
 
     [(RPRemoteDisplayDiscovery *)self->_rDiscovery saveDedicatedDevice:v10];
@@ -280,24 +276,21 @@ LABEL_11:
     v12 = _DDUICoreLog();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
+      v13 = 138412290;
       selfCopy2 = self;
-      _os_log_impl(&dword_230EF9000, v12, OS_LOG_TYPE_DEFAULT, "{self: %@} Removing dedicated device", &v14, 0xCu);
+      _os_log_impl(&dword_230EF9000, v12, OS_LOG_TYPE_DEFAULT, "{self: %@} Removing dedicated device", &v13, 0xCu);
     }
 
     [(RPRemoteDisplayDiscovery *)self->_rDiscovery saveDedicatedDevice:0];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentProxCardForDevice:(uint64_t)a1 completion:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_230EF9000, a2, OS_LOG_TYPE_ERROR, "{self: %@} ignoring prox card request on device since this is not an iPhone", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_230EF9000, a2, OS_LOG_TYPE_ERROR, "{self: %@} ignoring prox card request on device since this is not an iPhone", &v2, 0xCu);
 }
 
 @end

@@ -20,27 +20,27 @@
 
 - (id)ef_flatten
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   orderedSet = [MEMORY[0x1E695DFA0] orderedSet];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   selfCopy = self;
-  v4 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -51,24 +51,22 @@
 
         else
         {
-          [orderedSet addObject:{v7, v12}];
+          [orderedSet addObject:{v7, v11}];
         }
       }
 
-      v4 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return orderedSet;
 }
 
 - (id)ef_compactMap:()EmailFoundationAdditions
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (!v5)
   {
@@ -77,45 +75,43 @@
   }
 
   orderedSet = [MEMORY[0x1E695DFA0] orderedSet];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   selfCopy = self;
-  v8 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v11 = v5[2](v5, *(*(&v15 + 1) + 8 * i));
+        v11 = v5[2](v5, *(*(&v14 + 1) + 8 * i));
         if (v11)
         {
           [orderedSet addObject:v11];
         }
       }
 
-      v8 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return orderedSet;
 }
 
 - (id)ef_flatMap:()EmailFoundationAdditions
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (!v5)
   {
@@ -124,25 +120,25 @@
   }
 
   orderedSet = [MEMORY[0x1E695DFA0] orderedSet];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   selfCopy = self;
-  v8 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v11 = v5[2](v5, *(*(&v15 + 1) + 8 * i));
+        v11 = v5[2](v5, *(*(&v14 + 1) + 8 * i));
         if (v11)
         {
           objc_opt_class();
@@ -153,20 +149,18 @@
         }
       }
 
-      v8 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return orderedSet;
 }
 
 - (id)ef_filter:()EmailFoundationAdditions
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (!v5)
   {
@@ -175,38 +169,36 @@
   }
 
   orderedSet = [MEMORY[0x1E695DFA0] orderedSet];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   selfCopy = self;
-  v8 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         if (v5[2](v5, v11))
         {
           [orderedSet addObject:v11];
         }
       }
 
-      v8 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return orderedSet;
 }
@@ -243,12 +235,12 @@
 
 - (id)ef_subsetWithRange:()EmailFoundationAdditions
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   if (a4 > 0xC80000)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[NSOrderedSet(EmailFoundationAdditions) ef_subsetWithRange:]"];
-    [currentHandler handleFailureInFunction:v16 file:@"EFNSOrderedSetAdditions.m" lineNumber:82 description:{@"Temporary buffer too large or with a negative count (%zu).", a4}];
+    v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[NSOrderedSet(EmailFoundationAdditions) ef_subsetWithRange:]"];
+    [currentHandler handleFailureInFunction:v15 file:@"EFNSOrderedSetAdditions.m" lineNumber:82 description:{@"Temporary buffer too large or with a negative count (%zu).", a4}];
   }
 
   if (a4 <= 1)
@@ -261,9 +253,9 @@
     v7 = a4;
   }
 
-  MEMORY[0x1EEE9AC00]();
-  v9 = v17 - v8;
-  bzero(v17 - v8, v10);
+  MEMORY[0x1EEE9AC00](self);
+  v9 = v16 - v8;
+  bzero(v16 - v8, v10);
   if (a4 > 0x100)
   {
     v9 = malloc_type_calloc(v7, 8uLL, 0x80040B8603338uLL);
@@ -279,19 +271,18 @@
   [self getObjects:v9 range:{a3, a4}];
   v12 = [objc_alloc(MEMORY[0x1E695DFB8]) initWithObjects:v9 count:a4];
   free(v11);
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (id)ef_subarrayWithRange:()EmailFoundationAdditions
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   if (a4 > 0xC80000)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[NSOrderedSet(EmailFoundationAdditions) ef_subarrayWithRange:]"];
-    [currentHandler handleFailureInFunction:v16 file:@"EFNSOrderedSetAdditions.m" lineNumber:88 description:{@"Temporary buffer too large or with a negative count (%zu).", a4}];
+    v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[NSOrderedSet(EmailFoundationAdditions) ef_subarrayWithRange:]"];
+    [currentHandler handleFailureInFunction:v15 file:@"EFNSOrderedSetAdditions.m" lineNumber:88 description:{@"Temporary buffer too large or with a negative count (%zu).", a4}];
   }
 
   if (a4 <= 1)
@@ -304,9 +295,9 @@
     v7 = a4;
   }
 
-  MEMORY[0x1EEE9AC00]();
-  v9 = v17 - v8;
-  bzero(v17 - v8, v10);
+  MEMORY[0x1EEE9AC00](self);
+  v9 = v16 - v8;
+  bzero(v16 - v8, v10);
   if (a4 > 0x100)
   {
     v9 = malloc_type_calloc(v7, 8uLL, 0x80040B8603338uLL);
@@ -322,34 +313,33 @@
   [self getObjects:v9 range:{a3, a4}];
   v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:a4];
   free(v11);
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (id)ef_anyPassingTest:()EmailFoundationAdditions
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   selfCopy = self;
-  v6 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if (v4[2](v4, v9))
         {
           v6 = v9;
@@ -357,7 +347,7 @@
         }
       }
 
-      v6 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -368,8 +358,6 @@
   }
 
 LABEL_11:
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -399,67 +387,66 @@ LABEL_11:
 
 - (uint64_t)ef_countObjectsPassingTest:()EmailFoundationAdditions
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   selfCopy = self;
   v6 = 0;
-  v7 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v6 += v4[2](v4, *(*(&v12 + 1) + 8 * v9++));
+        v6 += v4[2](v4, *(*(&v11 + 1) + 8 * v9++));
       }
 
       while (v7 != v9);
-      v7 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (id)ef_partition:()EmailFoundationAdditions
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = a3;
   orderedSet = [MEMORY[0x1E695DFA0] orderedSet];
   orderedSet2 = [MEMORY[0x1E695DFA0] orderedSet];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   selfCopy = self;
-  v8 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         if (v4[2](v4, v11))
         {
           v12 = orderedSet;
@@ -470,18 +457,16 @@ LABEL_11:
           v12 = orderedSet2;
         }
 
-        [v12 addObject:{v11, v16}];
+        [v12 addObject:{v11, v15}];
       }
 
-      v8 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
 
   v13 = [EFPair pairWithFirst:orderedSet second:orderedSet2];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

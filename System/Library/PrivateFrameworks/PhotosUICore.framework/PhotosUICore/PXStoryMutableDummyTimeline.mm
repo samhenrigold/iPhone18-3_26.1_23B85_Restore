@@ -20,7 +20,7 @@
   v21 = 0u;
   v19 = 0u;
   resourcesCopy = resources;
-  [(PXStoryDummyTimeline *)self timeRange];
+  objc_msgSend_timeRange(self);
   memset(&v18, 0, sizeof(v18));
   *&v14[1] = 0;
   v14[0] = PXStoryTimeZero;

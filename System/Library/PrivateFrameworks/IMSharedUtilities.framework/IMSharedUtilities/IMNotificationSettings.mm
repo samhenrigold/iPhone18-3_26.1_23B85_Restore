@@ -22,7 +22,7 @@
 {
   swift_getObjCClassMetadata();
   sub_1A85F1D94();
-  sub_1A85E9718(0, &qword_1ED8C9450);
+  sub_1A85E9718(0, &qword_1ED8C9450, 0x1E696AD98);
   v2 = sub_1A88C85E8();
 
   return v2;

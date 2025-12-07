@@ -18,14 +18,14 @@
   if (v7)
   {
     v8 = [EKUIClearButton alloc];
-    v9 = ClearButtonImageColor();
+    v9 = ClearButtonImageColor(v8);
     v10 = [(EKUIClearButton *)v8 initWithColor:v9];
     clearButton = v7->_clearButton;
     v7->_clearButton = v10;
 
     [(UIButton *)v7->_clearButton setTranslatesAutoresizingMaskIntoConstraints:0];
-    contentView = [(EKUIClearButtonCell *)v7 contentView];
-    [contentView addSubview:v7->_clearButton];
+    v12 = objc_msgSend_contentView(v7);
+    [v12 addSubview:v7->_clearButton];
 
     defaultContentConfiguration = [(EKUIClearButtonCell *)v7 defaultContentConfiguration];
     v14 = [objc_alloc(MEMORY[0x1E69DCC30]) initWithConfiguration:defaultContentConfiguration];
@@ -33,8 +33,8 @@
     v7->_listContentView = v14;
 
     [(UIListContentView *)v7->_listContentView setTranslatesAutoresizingMaskIntoConstraints:0];
-    contentView2 = [(EKUIClearButtonCell *)v7 contentView];
-    [contentView2 addSubview:v7->_listContentView];
+    v16 = objc_msgSend_contentView(v7);
+    [v16 addSubview:v7->_listContentView];
 
     [(EKUIClearButtonCell *)v7 _updateConstraints];
     objc_initWeak(&location, v7);
@@ -77,34 +77,34 @@ void __53__EKUIClearButtonCell_initWithStyle_reuseIdentifier___block_invoke(uint
   }
 
   leadingAnchor = [(UIListContentView *)self->_listContentView leadingAnchor];
-  contentView = [(EKUIClearButtonCell *)self contentView];
-  leadingAnchor2 = [contentView leadingAnchor];
+  v28 = objc_msgSend_contentView(self);
+  leadingAnchor2 = [v28 leadingAnchor];
   v25 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
   v29[0] = v25;
   topAnchor = [(UIListContentView *)self->_listContentView topAnchor];
-  contentView2 = [(EKUIClearButtonCell *)self contentView];
-  topAnchor2 = [contentView2 topAnchor];
+  v24 = objc_msgSend_contentView(self);
+  topAnchor2 = [v24 topAnchor];
   v21 = [topAnchor constraintEqualToAnchor:topAnchor2];
   v29[1] = v21;
   bottomAnchor = [(UIListContentView *)self->_listContentView bottomAnchor];
-  contentView3 = [(EKUIClearButtonCell *)self contentView];
-  bottomAnchor2 = [contentView3 bottomAnchor];
+  v20 = objc_msgSend_contentView(self);
+  bottomAnchor2 = [v20 bottomAnchor];
   v17 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
   v29[2] = v17;
   leadingAnchor3 = [(UIButton *)self->_clearButton leadingAnchor];
   trailingAnchor = [(UIListContentView *)self->_listContentView trailingAnchor];
   v14 = [leadingAnchor3 constraintGreaterThanOrEqualToAnchor:trailingAnchor];
   v29[3] = v14;
-  contentView4 = [(EKUIClearButtonCell *)self contentView];
-  layoutMarginsGuide = [contentView4 layoutMarginsGuide];
+  v13 = objc_msgSend_contentView(self);
+  layoutMarginsGuide = [v13 layoutMarginsGuide];
   trailingAnchor2 = [layoutMarginsGuide trailingAnchor];
   trailingAnchor3 = [(UIButton *)self->_clearButton trailingAnchor];
   +[EKUIClearButton trailingOffsetToMarginForTextFieldClearButtonAlignment];
   v6 = [trailingAnchor2 constraintEqualToAnchor:trailingAnchor3 constant:?];
   v29[4] = v6;
   centerYAnchor = [(UIButton *)self->_clearButton centerYAnchor];
-  contentView5 = [(EKUIClearButtonCell *)self contentView];
-  centerYAnchor2 = [contentView5 centerYAnchor];
+  v8 = objc_msgSend_contentView(self);
+  centerYAnchor2 = [v8 centerYAnchor];
   v10 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
   v29[5] = v10;
   v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:6];

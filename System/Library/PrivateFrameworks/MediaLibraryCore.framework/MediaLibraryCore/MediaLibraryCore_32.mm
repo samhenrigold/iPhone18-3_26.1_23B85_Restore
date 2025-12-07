@@ -218,7 +218,7 @@ uint64_t mlcore::MediaTable<long long,std::string,std::string,int,int,double,int
     v255 = *(a14 + 8);
   }
 
-  v58 = (v56 + 36);
+  v58 = v56 + 36;
   v57 = *(v56 + 36);
   v256 = *(v56 + 32);
   v254 = &unk_1F50D8958;
@@ -485,7 +485,7 @@ uint64_t mlcore::MediaTable<long long,std::string,std::string,int,int,double,int
     v190 = *(a28 + 8);
   }
 
-  v64 = (v62 + 36);
+  v64 = v62 + 36;
   v63 = *(v62 + 36);
   v191 = *(v62 + 32);
   v189 = &unk_1F50D8958;
@@ -1790,7 +1790,7 @@ uint64_t mlcore::MediaTable<long long,std::string,std::string,int,int,double,int
   *(v50 + 2592) = *(v90 + 32);
   *(v50 + 2560) = &unk_1F50D8958;
   v93 = *v58;
-  *(v50 + 2604) = *(v58 + 2);
+  *(v50 + 2604) = *(v58 + 8);
   *(v50 + 2596) = v93;
   *(v50 + 2560) = &unk_1F50D7AC0;
   *(v50 + 2608) = &unk_1F50D86E0;
@@ -2125,7 +2125,7 @@ uint64_t mlcore::MediaTable<long long,std::string,std::string,int,int,double,int
   *(v50 + 3360) = *(v128 + 32);
   *(v50 + 3328) = &unk_1F50D8958;
   v130 = *v64;
-  *(v50 + 3372) = *(v64 + 2);
+  *(v50 + 3372) = *(v64 + 8);
   *(v50 + 3364) = v130;
   *(v50 + 3328) = &unk_1F50D7AC0;
   *(v50 + 3376) = &unk_1F50D86E0;
@@ -2481,9 +2481,16 @@ void sub_1D5A6469C()
   JUMPOUT(0x1D5A645C8);
 }
 
-void sub_1D5A64734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void mediaplatform::DatabaseTable<long long,std::string,std::string,int,int,double,int,std::string,long long,mediaplatform::Data,int,long long,int,int,int,int,int,long long,std::string,std::string,std::string,std::string,std::string,std::string,long long,long long,int,std::string,std::string,std::string,std::string,int,int,int>::targetColumnExpression(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  va_start(va, a4);
+  v3 = a1 + 8;
+  (*(*a1 + 24))(v4);
+  std::allocate_shared[abi:ne200100]<mediaplatform::SQLColumnNameExpression,std::allocator<mediaplatform::SQLColumnNameExpression>,std::string &,std::string const&,0>(a2, v4[0], v3);
+}
+
+void sub_1D5A64734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2529,9 +2536,9 @@ void mediaplatform::DatabaseTable<long long,std::string,std::string,int,int,doub
   mediaplatform::ColumnNamesApplier::operator()<int>(a2, a1 + 80);
 }
 
-void sub_1D5A64918(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1D5A64918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }

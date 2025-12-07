@@ -158,7 +158,7 @@ LABEL_15:
     v22 = [propertyCopy key];
     v23 = [dictionaryCopy objectForKeyedSubscript:v22];
 
-    if ([v23 count])
+    if (objc_msgSend_count(v23))
     {
       v81 = dictionaryCopy;
       v24 = updateCopy;
@@ -219,7 +219,7 @@ LABEL_15:
     v40 = [propertyCopy key];
     v41 = [dictionaryCopy objectForKeyedSubscript:v40];
 
-    if ([v41 count])
+    if (objc_msgSend_count(v41))
     {
       v78 = managedObjectContext;
       v80 = updateCopy;

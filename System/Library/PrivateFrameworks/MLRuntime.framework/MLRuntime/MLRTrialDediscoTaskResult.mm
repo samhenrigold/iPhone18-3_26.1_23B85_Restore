@@ -13,13 +13,13 @@
 
 + (id)baseKeyFromFormat:(id)format variables:(id)variables
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   formatCopy = format;
   variablesCopy = variables;
   if (!formatCopy)
   {
-    v35 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"format cannot be nil" userInfo:0];
-    objc_exception_throw(v35);
+    v34 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"format cannot be nil" userInfo:0];
+    objc_exception_throw(v34);
   }
 
   v7 = variablesCopy;
@@ -124,7 +124,7 @@ LABEL_31:
     if (os_log_type_enabled(coreChannel2, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v37 = v23;
+      v36 = v23;
       _os_log_debug_impl(&dword_2577CB000, coreChannel2, OS_LOG_TYPE_DEBUG, "Expanding var=%@", buf, 0xCu);
     }
 
@@ -161,8 +161,6 @@ LABEL_19:
 LABEL_32:
   v30 = 0;
 LABEL_33:
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -254,29 +252,27 @@ LABEL_10:
 
 - (id)variablesFromTrialClient:(id)client
 {
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   v3 = [client experimentIdentifiersWithNamespaceName:self->_namespaceName];
   v4 = v3;
   if (v3)
   {
-    v11[0] = @"experimentId";
+    v10[0] = @"experimentId";
     experimentId = [v3 experimentId];
-    v12[0] = experimentId;
-    v11[1] = @"deploymentId";
+    v11[0] = experimentId;
+    v10[1] = @"deploymentId";
     v6 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v4, "deploymentId")}];
-    v12[1] = v6;
-    v11[2] = @"treatmentId";
+    v11[1] = v6;
+    v10[2] = @"treatmentId";
     treatmentId = [v4 treatmentId];
-    v12[2] = treatmentId;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+    v11[2] = treatmentId;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
   }
 
   else
   {
     v8 = MEMORY[0x277CBEC10];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -288,40 +284,33 @@ LABEL_10:
   dataCopy = data;
   recordCopy = record;
   v15 = [schemaCopy objectForKeyedSubscript:@"type"];
-  v16 = [v15 isEqual:@"decimal"];
+  [v15 isEqual:@"decimal"];
 
-  v17 = 0x277D05608;
-  if (!v16)
-  {
-    v17 = 0x277D055F8;
-  }
+  v16 = objc_opt_new();
+  LOBYTE(out) = [v16 record:recordCopy data:dataCopy encodingSchema:schemaCopy metadata:metadataCopy errorOut:out];
 
-  v18 = *v17;
-  v19 = objc_opt_new();
-  v20 = [v19 record:recordCopy data:dataCopy encodingSchema:schemaCopy metadata:metadataCopy errorOut:out];
-
-  return v20;
+  return out;
 }
 
 - (BOOL)submitWithTRIClient:(id)client error:(id *)error
 {
-  v73[1] = *MEMORY[0x277D85DE8];
+  v71[1] = *MEMORY[0x277D85DE8];
   clientCopy = client;
   if (!objc_opt_class())
   {
-    v53 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"Trial Framework is not loaded" userInfo:0];
-    objc_exception_throw(v53);
+    v51 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"Trial Framework is not loaded" userInfo:0];
+    objc_exception_throw(v51);
   }
 
   if (!clientCopy)
   {
-    v54 = MEMORY[0x277CBEAD8];
-    v55 = *MEMORY[0x277CBE660];
-    v56 = [MEMORY[0x277CCACA8] stringWithFormat:@"Trial client must not be nil"];
-    v57 = [v54 exceptionWithName:v55 reason:v56 userInfo:0];
-    v58 = v57;
+    v52 = MEMORY[0x277CBEAD8];
+    v53 = *MEMORY[0x277CBE660];
+    v54 = [MEMORY[0x277CCACA8] stringWithFormat:@"Trial client must not be nil"];
+    v55 = [v52 exceptionWithName:v53 reason:v54 userInfo:0];
+    v56 = v55;
 
-    objc_exception_throw(v57);
+    objc_exception_throw(v55);
   }
 
   [clientCopy refresh];
@@ -336,9 +325,9 @@ LABEL_10:
     path = [fileValue2 path];
     v13 = [v10 fileURLWithPath:path isDirectory:0];
 
-    v62 = 0;
-    v14 = [[MLRTrialDediscoRecipe alloc] initWithAssetURL:v13 configOverride:0 error:&v62];
-    v15 = v62;
+    v60 = 0;
+    v14 = [[MLRTrialDediscoRecipe alloc] initWithAssetURL:v13 configOverride:0 error:&v60];
+    v15 = v60;
     if (v14)
     {
       errorCopy = error;
@@ -360,8 +349,8 @@ LABEL_10:
       v23 = v22 = v16;
 
       v24 = v23;
-      v59 = v22;
-      v60 = v13;
+      v57 = v22;
+      v58 = v13;
       if (v23)
       {
         coreChannel = [MEMORY[0x277D05600] coreChannel];
@@ -370,17 +359,17 @@ LABEL_10:
           jSONResult = [(MLRTrialTaskResult *)self JSONResult];
           encodingSchema = [(MLRTrialDediscoRecipe *)v14 encodingSchema];
           *buf = 138412802;
-          v65 = jSONResult;
+          v63 = jSONResult;
+          v64 = 2112;
+          v65 = v24;
           v66 = 2112;
-          v67 = v24;
-          v68 = 2112;
-          v69 = encodingSchema;
+          v67 = encodingSchema;
           _os_log_debug_impl(&dword_2577CB000, coreChannel, OS_LOG_TYPE_DEBUG, "Recording data=%@, key=%@, encodingSchema=%@", buf, 0x20u);
         }
 
         jSONResult2 = [(MLRTrialTaskResult *)self JSONResult];
-        v63 = jSONResult2;
-        v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v63 count:1];
+        v61 = jSONResult2;
+        v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
         encodingSchema2 = [(MLRTrialDediscoRecipe *)v14 encodingSchema];
         mlrDediscoMetadata = [(MLRTrialDediscoRecipe *)v14 mlrDediscoMetadata];
         v30 = [(MLRTrialDediscoTaskResult *)self record:v24 data:v27 encodingSchema:encodingSchema2 metadata:mlrDediscoMetadata errorOut:errorCopy];
@@ -388,15 +377,15 @@ LABEL_10:
 
       else
       {
-        v40 = MEMORY[0x277CCA9B8];
-        v41 = *MEMORY[0x277D05640];
-        v70 = *MEMORY[0x277CCA450];
-        v42 = MEMORY[0x277CCACA8];
+        v39 = MEMORY[0x277CCA9B8];
+        v40 = *MEMORY[0x277D05640];
+        v68 = *MEMORY[0x277CCA450];
+        v41 = MEMORY[0x277CCACA8];
         baseKeyFormat2 = [(MLRTrialDediscoRecipe *)v14 baseKeyFormat];
-        v44 = [v42 stringWithFormat:@"Fail to compute baseKey with format string=%@, variables=%@", baseKeyFormat2, v22];
-        v71 = v44;
-        v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
-        v46 = [v40 errorWithDomain:v41 code:5007 userInfo:v45];
+        v43 = [v41 stringWithFormat:@"Fail to compute baseKey with format string=%@, variables=%@", baseKeyFormat2, v22];
+        v69 = v43;
+        v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
+        v45 = [v39 errorWithDomain:v40 code:5007 userInfo:v44];
 
         coreChannel2 = [MEMORY[0x277D05600] coreChannel];
         if (os_log_type_enabled(coreChannel2, OS_LOG_TYPE_ERROR))
@@ -406,9 +395,9 @@ LABEL_10:
 
         if (errorCopy)
         {
-          v48 = v46;
+          v47 = v45;
           v30 = 0;
-          *errorCopy = v46;
+          *errorCopy = v45;
         }
 
         else
@@ -416,10 +405,10 @@ LABEL_10:
           v30 = 0;
         }
 
-        v15 = v46;
+        v15 = v45;
       }
 
-      v13 = v60;
+      v13 = v58;
     }
 
     else
@@ -432,7 +421,7 @@ LABEL_10:
 
       if (error)
       {
-        v39 = v15;
+        v38 = v15;
         v30 = 0;
         *error = v15;
       }
@@ -448,12 +437,11 @@ LABEL_10:
   {
     v31 = MEMORY[0x277CCA9B8];
     v32 = *MEMORY[0x277D05640];
-    v72 = *MEMORY[0x277CCA450];
-    namespaceName = self->_namespaceName;
-    v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"Nil fileValue for TRILevel=%@, namespace=%@, factor=%@", v7, namespaceName, self->_recipeFactorName];
-    v73[0] = v34;
-    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:&v72 count:1];
-    v15 = [v31 errorWithDomain:v32 code:5007 userInfo:v35];
+    v70 = *MEMORY[0x277CCA450];
+    v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"Nil fileValue for TRILevel=%@, namespace=%@, factor=%@", v7, self->_namespaceName, self->_recipeFactorName];
+    v71[0] = v33;
+    v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v71 forKeys:&v70 count:1];
+    v15 = [v31 errorWithDomain:v32 code:5007 userInfo:v34];
 
     coreChannel4 = [MEMORY[0x277D05600] coreChannel];
     if (os_log_type_enabled(coreChannel4, OS_LOG_TYPE_ERROR))
@@ -463,7 +451,7 @@ LABEL_10:
 
     if (error)
     {
-      v37 = v15;
+      v36 = v15;
       v30 = 0;
       *error = v15;
     }
@@ -474,7 +462,6 @@ LABEL_10:
     }
   }
 
-  v49 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
@@ -484,62 +471,6 @@ LABEL_10:
   LOBYTE(error) = [(MLRTrialDediscoTaskResult *)self submitWithTRIClient:triClient error:error];
 
   return error;
-}
-
-+ (void)baseKeyFromFormat:variables:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_2577CB000, v0, v1, "Invalid format=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)baseKeyFromFormat:variables:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_2577CB000, v0, v1, "Find unsupported variable=%@, variables=%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)baseKeyFromFormat:variables:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_2577CB000, v0, v1, "Empty variable=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)baseKeyFromFormat:variables:.cold.5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_2577CB000, v0, v1, "No matching } in format=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)baseKeyFromFormat:variables:.cold.6()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_2577CB000, v0, v1, "No starting mark in format=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)submitWithTRIClient:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_1(&dword_2577CB000, v0, v1, "%{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)submitWithTRIClient:error:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_2577CB000, v0, v1, "Fail to read configuration from URL=%@, error=%@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

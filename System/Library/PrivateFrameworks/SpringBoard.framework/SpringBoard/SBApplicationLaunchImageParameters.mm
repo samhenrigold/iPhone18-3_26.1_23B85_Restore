@@ -79,7 +79,7 @@
               }
 
               objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) == 0 || (+[SBApplicationLaunchImageParameters validInfoPlistOrientationKeys](SBApplicationLaunchImageParameters, "validInfoPlistOrientationKeys"), v23 = objc_claimAutoreleasedReturnValue(), v24 = [v23 containsObject:v22], v23, (v24 & 1) == 0))
+              if ((objc_opt_isKindOfClass() & 1) == 0 || (+[SBApplicationLaunchImageParameters validInfoPlistOrientationKeys], v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend_containsObject_(v23), v23, (v24 & 1) == 0))
               {
                 v25 = XBLogCapture();
                 if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))

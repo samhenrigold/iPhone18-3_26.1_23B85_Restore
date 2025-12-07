@@ -69,14 +69,14 @@ void __33__CKSOSUtilities_sharedUtilities__block_invoke()
   return v3;
 }
 
-void *__65__CKSOSUtilities_isMobileKeyBagDisabledOrDeviceUnlockedSinceBoot__block_invoke()
+uint64_t (*__65__CKSOSUtilities_isMobileKeyBagDisabledOrDeviceUnlockedSinceBoot__block_invoke())(void)
 {
   result = MEMORY[0x193AF5ED0]("MKBGetDeviceLockState", @"MobileKeyBag");
   isMobileKeyBagDisabledOrDeviceUnlockedSinceBoot__MKBGetDeviceLockState = result;
   return result;
 }
 
-void *__65__CKSOSUtilities_isMobileKeyBagDisabledOrDeviceUnlockedSinceBoot__block_invoke_2()
+uint64_t (*__65__CKSOSUtilities_isMobileKeyBagDisabledOrDeviceUnlockedSinceBoot__block_invoke_2())(void)
 {
   result = MEMORY[0x193AF5ED0]("MKBDeviceUnlockedSinceBoot", @"MobileKeyBag");
   isMobileKeyBagDisabledOrDeviceUnlockedSinceBoot__MKBDeviceUnlockedSinceBoot = result;

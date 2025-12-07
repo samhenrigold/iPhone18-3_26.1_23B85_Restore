@@ -3,6 +3,8 @@
 - (id)deserializeGameFromData:(id)data;
 - (void)configureWithContext:(id)context completion:(id)completion;
 - (void)dismiss;
+- (void)dismissExistingAndInvokeDashboardWithHostPID:(int)d game:(id)game byPassPreAuthentication:(BOOL)authentication deepLink:(id)link launchContext:(id)context;
+- (void)invokeDashboardWithHostPID:(int)d game:(id)game byPassPreAuthentication:(BOOL)authentication deepLink:(id)link launchContext:(id)context;
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion;
 - (void)showGreenBuddyWithCompletionHandler:(id)handler;
 @end
@@ -228,6 +230,87 @@ LABEL_25:
   v8 = handlerCopy;
   v6 = handlerCopy;
   [GKAccountRemoteUIController accountRemoteUIControllerForPlayer:v5 mode:1 url:0 postBody:0 completionHandler:v7];
+}
+
+- (void)dismissExistingAndInvokeDashboardWithHostPID:(int)d game:(id)game byPassPreAuthentication:(BOOL)authentication deepLink:(id)link launchContext:(id)context
+{
+  authenticationCopy = authentication;
+  v10 = *&d;
+  gameCopy = game;
+  linkCopy = link;
+  contextCopy = context;
+  gameCenterViewController = [(GKRemoteAlertViewController *)self gameCenterViewController];
+
+  if (gameCenterViewController)
+  {
+    gameCenterViewController2 = [(GKRemoteAlertViewController *)self gameCenterViewController];
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_100001C00;
+    v17[3] = &unk_1000082C8;
+    v17[4] = self;
+    v21 = v10;
+    v18 = gameCopy;
+    v22 = authenticationCopy;
+    v19 = linkCopy;
+    v20 = contextCopy;
+    [gameCenterViewController2 dismissViewControllerAnimated:0 completion:v17];
+  }
+
+  else
+  {
+    [(GKRemoteAlertViewController *)self invokeDashboardWithHostPID:v10 game:gameCopy byPassPreAuthentication:authenticationCopy deepLink:linkCopy launchContext:contextCopy];
+  }
+}
+
+- (void)invokeDashboardWithHostPID:(int)d game:(id)game byPassPreAuthentication:(BOOL)authentication deepLink:(id)link launchContext:(id)context
+{
+  authenticationCopy = authentication;
+  v10 = *&d;
+  gameCopy = game;
+  linkCopy = link;
+  contextCopy = context;
+  if (!os_log_GKGeneral)
+  {
+    v15 = GKOSLoggers();
+  }
+
+  v16 = os_log_GKDaemon;
+  if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
+  {
+    v17 = v16;
+    v18 = [NSNumber numberWithInt:v10];
+    v23 = 138413314;
+    v24 = gameCopy;
+    v25 = 2112;
+    v26 = v18;
+    v27 = 1024;
+    v28 = authenticationCopy;
+    v29 = 2112;
+    v30 = linkCopy;
+    v31 = 2112;
+    v32 = contextCopy;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "RemoteAlert: invokeDashboardWithHostPID: game=%@\n hostPID=%@\n byPassPreAuthentication=%d\n deeplink=%@\n launchContext=%@", &v23, 0x30u);
+  }
+
+  if (authenticationCopy)
+  {
+    v19 = 3;
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  v20 = [[GKGameCenterViewController alloc] initWithGame:gameCopy hostPID:v10 restrictionMode:v19 deeplink:linkCopy launchContext:contextCopy];
+  [(GKRemoteAlertViewController *)self setGameCenterViewController:v20];
+
+  gameCenterViewController = [(GKRemoteAlertViewController *)self gameCenterViewController];
+  [gameCenterViewController setGameCenterDelegate:self];
+
+  gameCenterViewController2 = [(GKRemoteAlertViewController *)self gameCenterViewController];
+  [(GKRemoteAlertViewController *)self presentViewController:gameCenterViewController2 animated:1 completion:&stru_100008308];
 }
 
 - (void)dismiss

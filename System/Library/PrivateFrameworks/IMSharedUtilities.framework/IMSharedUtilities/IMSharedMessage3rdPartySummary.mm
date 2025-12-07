@@ -90,25 +90,27 @@
     return 0;
   }
 
-  if ([payload isFromMe])
+  isFromMe = [payload isFromMe];
+  if (isFromMe)
   {
-    v6 = IMSharedUtilitiesFrameworkBundle();
-    v7 = @"POLL_VOTE_SELF_MESSAGE";
+    v8 = IMSharedUtilitiesFrameworkBundle(isFromMe, v7);
+    v9 = @"POLL_VOTE_SELF_MESSAGE";
 LABEL_11:
 
-    return [v6 localizedStringForKey:v7 value:&stru_1F1BB91F0 table:@"IMSharedUtilities"];
+    return [v8 localizedStringForKey:v9 value:&stru_1F1BB91F0 table:@"IMSharedUtilities"];
   }
 
-  if (![objc_msgSend(payload "sender")])
+  v11 = [objc_msgSend(payload "sender")];
+  if (!v11)
   {
-    v6 = IMSharedUtilitiesFrameworkBundle();
-    v7 = @"POLL_VOTE_MESSAGE";
+    v8 = IMSharedUtilitiesFrameworkBundle(0, v12);
+    v9 = @"POLL_VOTE_MESSAGE";
     goto LABEL_11;
   }
 
-  v9 = [MEMORY[0x1E696AEC0] localizedStringWithFormat:objc_msgSend(IMSharedUtilitiesFrameworkBundle(), "localizedStringForKey:value:table:", @"POLL_VOTE_OTHER_MESSAGE", &stru_1F1BB91F0, @"IMSharedUtilities", objc_msgSend(payload, "sender")];
+  v13 = [MEMORY[0x1E696AEC0] localizedStringWithFormat:objc_msgSend(IMSharedUtilitiesFrameworkBundle(v11, v12), "localizedStringForKey:value:table:", @"POLL_VOTE_OTHER_MESSAGE", &stru_1F1BB91F0, @"IMSharedUtilities", objc_msgSend(payload, "sender")];
 
-  return [self _replaceHandleWithContactNameInString:v9];
+  return [self _replaceHandleWithContactNameInString:v13];
 }
 
 + (id)_replaceHandleWithContactNameInString:(id)string
@@ -231,9 +233,9 @@ LABEL_11:
 + (id)_appNameSummary:(id)summary
 {
   v3 = [summary objectForKey:@"an"];
-  if (v3 && (v4 = v3, ([v3 isEqualToString:&stru_1F1BB91F0] & 1) == 0))
+  if (v3 && (v4 = v3, v5 = [v3 isEqualToString:&stru_1F1BB91F0], (v5 & 1) == 0))
   {
-    return [MEMORY[0x1E696AEC0] localizedStringWithFormat:objc_msgSend(IMSharedUtilitiesFrameworkBundle(), "localizedStringForKey:value:table:", @"1 %@ Message", &stru_1F1BB91F0, @"IMSharedUtilities", v4];
+    return [MEMORY[0x1E696AEC0] localizedStringWithFormat:objc_msgSend(IMSharedUtilitiesFrameworkBundle(v5, v6), "localizedStringForKey:value:table:", @"1 %@ Message", &stru_1F1BB91F0, @"IMSharedUtilities", v4];
   }
 
   else

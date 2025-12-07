@@ -3,6 +3,7 @@
 - (CDRichComplicationRingView)initWithCurveWidth:(double)width padding:(double)padding forDevice:(id)device withFilterStyle:(int64_t)style;
 - (CGPath)_generatePath;
 - (CGPoint)_pointAtProgress:(float)progress;
+- (id)_createHeadTailViewWithStartAngle:(double)angle endAngle:(double)endAngle clockwise:(BOOL)clockwise additionalWidth:(double)width;
 - (void)_layoutHeadTailView:(id)view forProgress:(double)progress;
 - (void)_setupGradientLayer:(id)layer;
 - (void)_updateGradient;
@@ -204,6 +205,21 @@
   -[CAShapeLayer setFillColor:](tailLayer, "setFillColor:", [lastObject CGColor]);
 }
 
+- (id)_createHeadTailViewWithStartAngle:(double)angle endAngle:(double)endAngle clockwise:(BOOL)clockwise additionalWidth:(double)width
+{
+  v7 = self->_curveWidth + width;
+  v8 = [MEMORY[0x277D75208] bezierPathWithArcCenter:clockwise radius:v7 * 0.5 startAngle:v7 * 0.5 endAngle:v7 * 0.5 clockwise:{angle, endAngle}];
+  _disabledLayerActions = [objc_opt_class() _disabledLayerActions];
+  v10 = objc_alloc_init(MEMORY[0x277CD9F90]);
+  [v10 setPath:{objc_msgSend(v8, "CGPath")}];
+  [v10 setBounds:{0.0, 0.0, v7, v7}];
+  [v10 setActions:_disabledLayerActions];
+  layer = [(UIView *)self->_foregroundView layer];
+  [layer addSublayer:v10];
+
+  return v10;
+}
+
 - (void)_layoutHeadTailView:(id)view forProgress:(double)progress
 {
   v14 = *(MEMORY[0x277CBF2C0] + 16);
@@ -251,31 +267,29 @@
 
 void __51__CDRichComplicationRingView__disabledLayerActions__block_invoke()
 {
-  v5[9] = *MEMORY[0x277D85DE8];
+  v4[9] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CBEB68] null];
-  v4[0] = @"instanceTransform";
-  v4[1] = @"contentsMultiplyColor";
-  v5[0] = v0;
-  v5[1] = v0;
-  v4[2] = @"transform";
-  v4[3] = @"hidden";
-  v5[2] = v0;
-  v5[3] = v0;
-  v4[4] = @"position";
-  v4[5] = @"opacity";
-  v5[4] = v0;
-  v5[5] = v0;
-  v4[6] = @"instanceCount";
-  v4[7] = @"instanceDelay";
-  v5[6] = v0;
-  v5[7] = v0;
-  v4[8] = @"backgroundColor";
-  v5[8] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:9];
+  v3[0] = @"instanceTransform";
+  v3[1] = @"contentsMultiplyColor";
+  v4[0] = v0;
+  v4[1] = v0;
+  v3[2] = @"transform";
+  v3[3] = @"hidden";
+  v4[2] = v0;
+  v4[3] = v0;
+  v3[4] = @"position";
+  v3[5] = @"opacity";
+  v4[4] = v0;
+  v4[5] = v0;
+  v3[6] = @"instanceCount";
+  v3[7] = @"instanceDelay";
+  v4[6] = v0;
+  v4[7] = v0;
+  v3[8] = @"backgroundColor";
+  v4[8] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:9];
   v2 = _disabledLayerActions__dictionary;
   _disabledLayerActions__dictionary = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

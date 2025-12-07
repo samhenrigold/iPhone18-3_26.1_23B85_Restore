@@ -41,7 +41,7 @@
     v5->_detectionOrientation = [coderCopy decodeIntegerForKey:@"detectionOrientation"];
     if (coderCopy)
     {
-      [coderCopy decodeCMTimeForKey:@"time"];
+      objc_msgSend_decodeCMTimeForKey_(coderCopy);
     }
 
     else
@@ -72,10 +72,10 @@
   v5 = [(ARHWFaceDetection *)self ID];
   if (v5 == [detectionCopy ID] && (-[ARHWFaceDetection rollAngleInDegrees](self, "rollAngleInDegrees"), v7 = v6, objc_msgSend(detectionCopy, "rollAngleInDegrees"), v7 == v8) && (-[ARHWFaceDetection boundingBox](self, "boundingBox"), v10 = v9, v12 = v11, v14 = v13, v16 = v15, objc_msgSend(detectionCopy, "boundingBox"), v27.origin.x = v17, v27.origin.y = v18, v27.size.width = v19, v27.size.height = v20, v26.origin.x = v10, v26.origin.y = v12, v26.size.width = v14, v26.size.height = v16, CGRectEqualToRect(v26, v27)) && (v21 = -[ARHWFaceDetection detectionOrientation](self, "detectionOrientation"), v21 == objc_msgSend(detectionCopy, "detectionOrientation")))
   {
-    [(ARHWFaceDetection *)self time];
+    objc_msgSend_time(self);
     if (detectionCopy)
     {
-      [detectionCopy time];
+      objc_msgSend_time(detectionCopy);
     }
 
     else

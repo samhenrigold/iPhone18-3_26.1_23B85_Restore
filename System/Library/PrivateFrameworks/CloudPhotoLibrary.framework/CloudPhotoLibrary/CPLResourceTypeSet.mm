@@ -103,7 +103,6 @@ uint64_t __54__CPLResourceTypeSet_enumerateResourceTypesWithBlock___block_invoke
     {
       if (v3)
       {
-        v6 = *(*(v5 + 40) + 8);
         result = (*(*(v5 + 32) + 16))();
         if (*(*(*(v5 + 40) + 8) + 24))
         {
@@ -112,11 +111,11 @@ uint64_t __54__CPLResourceTypeSet_enumerateResourceTypesWithBlock___block_invoke
       }
 
       ++a2;
-      v7 = v3 > 1;
+      v6 = v3 > 1;
       v3 >>= 1;
     }
 
-    while (v7);
+    while (v6);
   }
 
   return result;

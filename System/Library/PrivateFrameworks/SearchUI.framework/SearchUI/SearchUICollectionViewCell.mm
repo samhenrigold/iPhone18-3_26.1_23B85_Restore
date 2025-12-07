@@ -238,7 +238,7 @@
   [(SearchUICollectionViewCell *)self tlk_updateWithCurrentAppearance];
 }
 
-uint64_t __49__SearchUICollectionViewCell_updateWithRowModel___block_invoke()
+uint64_t __49__SearchUICollectionViewCell_updateWithRowModel___block_invoke(uint64_t a1)
 {
   if (objc_opt_respondsToSelector())
   {
@@ -896,7 +896,7 @@ LABEL_44:
 
   if (v12)
   {
-    [(SearchUICollectionViewCell *)v12 transform];
+    objc_msgSend_transform(v12);
   }
 
   else

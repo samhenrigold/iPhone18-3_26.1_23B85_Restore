@@ -1,5 +1,6 @@
 @interface OrgApacheLuceneIndexSortedDocValues
 - (OrgApacheLuceneIndexSortedDocValues)init;
+- (id)getWithInt:(int)int;
 - (id)termsEnum;
 - (int)lookupTermWithOrgApacheLuceneUtilBytesRef:(id)ref;
 - (void)dealloc;
@@ -9,10 +10,21 @@
 
 - (OrgApacheLuceneIndexSortedDocValues)init
 {
-  OrgApacheLuceneIndexBinaryDocValues_init(self, a2);
+  OrgApacheLuceneIndexBinaryDocValues_init();
   v3 = new_OrgApacheLuceneUtilBytesRef_init();
   JreStrongAssignAndConsume(&self->empty_, v3);
   return self;
+}
+
+- (id)getWithInt:(int)int
+{
+  v4 = [(OrgApacheLuceneIndexSortedDocValues *)self getOrdWithInt:*&int];
+  if (v4 == -1)
+  {
+    return self->empty_;
+  }
+
+  return [(OrgApacheLuceneIndexSortedDocValues *)self lookupOrdWithInt:v4];
 }
 
 - (int)lookupTermWithOrgApacheLuceneUtilBytesRef:(id)ref

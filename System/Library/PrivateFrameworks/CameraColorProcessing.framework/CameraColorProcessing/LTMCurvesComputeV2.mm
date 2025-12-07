@@ -1,7 +1,6 @@
 @interface LTMCurvesComputeV2
 - (LTMCurvesComputeV2)initWith:(sRefDriverInputs_SOFTISP *)with HITH:(sCLRProcHITHStat_SOFTISP *)h geometryData:(id)data statsObj:(id)obj optimized:(BOOL)optimized digitalFlash:(BOOL)flash computeHDRCurves:(BOOL)curves computeCurvesWoFaceBoost:(BOOL)self0 computeHDRCurvesWoFaceBoost:(BOOL)self1 enhancedLocalHistogram:(BOOL)self2 enableCB:(BOOL)self3 enableFATE:(BOOL)self4;
 - (id)compute;
-- (void)compute;
 @end
 
 @implementation LTMCurvesComputeV2
@@ -211,58 +210,70 @@ LABEL_23:
 - (void)initWith:HITH:geometryData:statsObj:optimized:digitalFlash:computeHDRCurves:computeCurvesWoFaceBoost:computeHDRCurvesWoFaceBoost:enhancedLocalHistogram:enableCB:enableFATE:.cold.1()
 {
   OUTLINED_FUNCTION_1();
-  LODWORD(v10) = 0;
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v26, v29, v32, v38, v40, v41, v42);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v27, v30, v33, v35, v36, v37);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMCurvesComputeV2 initWith:HITH:geometryData:statsObj:optimized:digitalFlash:computeHDRCurves:computeCurvesWoFaceBoost:computeHDRCurvesWoFaceBoost:enhancedLocalHistogram:enableCB:enableFATE:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithmV2 >>>> %s: _driverLTM is nil", v25, v28, v31, v34);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v25, v28, v31, v34, SHIDWORD(v34), v39);
 }
 
 - (void)initWith:HITH:geometryData:statsObj:optimized:digitalFlash:computeHDRCurves:computeCurvesWoFaceBoost:computeHDRCurvesWoFaceBoost:enhancedLocalHistogram:enableCB:enableFATE:.cold.2()
 {
   OUTLINED_FUNCTION_1();
-  LODWORD(v10) = 0;
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v26, v29, v32, v38, v40, v41, v42);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v27, v30, v33, v35, v36, v37);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMCurvesComputeV2 initWith:HITH:geometryData:statsObj:optimized:digitalFlash:computeHDRCurves:computeCurvesWoFaceBoost:computeHDRCurvesWoFaceBoost:enhancedLocalHistogram:enableCB:enableFATE:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithmV2 >>>> %s: _computeLTM is nil", v25, v28, v31, v34);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v25, v28, v31, v34, SHIDWORD(v34), v39);
 }
 
 - (void)initWith:HITH:geometryData:statsObj:optimized:digitalFlash:computeHDRCurves:computeCurvesWoFaceBoost:computeHDRCurvesWoFaceBoost:enhancedLocalHistogram:enableCB:enableFATE:.cold.3()
 {
   OUTLINED_FUNCTION_1();
-  LODWORD(v10) = 0;
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v26, v29, v32, v38, v40, v41, v42);
   OUTLINED_FUNCTION_2();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_9(v9))
+  v9 = OUTLINED_FUNCTION_5(v1, v2, v3, v4, v5, v6, v7, v8, v24, v27, v30, v33, v35, v36, v37);
+  v10 = OUTLINED_FUNCTION_9(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_3("[LTMCurvesComputeV2 initWith:HITH:geometryData:statsObj:optimized:digitalFlash:computeHDRCurves:computeCurvesWoFaceBoost:computeHDRCurvesWoFaceBoost:enhancedLocalHistogram:enableCB:enableFATE:]");
-    OUTLINED_FUNCTION_4();
+    v10 = OUTLINED_FUNCTION_4(v17, v18, v19, v20, &dword_1C92CA000, v21, v22, "<<<< LTMAlgorithmV2 >>>> %s: LTMCurvesCompute is nil", v25, v28, v31, v34);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_0();
-}
+  else
+  {
+    v23 = 0;
+  }
 
-- (void)compute
-{
-  OUTLINED_FUNCTION_3_0();
-  FigDebugAssert3();
+  OUTLINED_FUNCTION_0(v10, v11, v12, v23, v13, v14, v15, v16, v25, v28, v31, v34, SHIDWORD(v34), v39);
 }
 
 @end

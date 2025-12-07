@@ -58,18 +58,16 @@
 
 - (void)_logStringAtProperLevel:(id)level
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   levelCopy = level;
   categoryLog = [(AXSSRateLimitingLogger *)self categoryLog];
   logLevel = [(AXSSRateLimitingLogger *)self logLevel];
   if (os_log_type_enabled(categoryLog, logLevel))
   {
-    v8 = 138412290;
-    v9 = levelCopy;
-    _os_log_impl(&dword_1C0E8A000, categoryLog, logLevel, "%@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = levelCopy;
+    _os_log_impl(&dword_1C0E8A000, categoryLog, logLevel, "%@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -26,6 +26,7 @@
 - (void)_retryVoiceTriggerEnable:(id)enable;
 - (void)_safeAssetChangeHandler;
 - (void)_sendSELFMetricsForCachedVoiceTriggerEvents:(id)events secondPassRejectEvents:(id)rejectEvents secondPassCancelledEvents:(id)cancelledEvents;
+- (void)_sendSelfTriggerEnabledToRemote:(BOOL)remote force:(BOOL)force;
 - (void)_startMonitoringSystemUserActivity;
 - (void)_startPreventSleepAssertionTimer;
 - (void)_startRetryTimer;
@@ -38,6 +39,7 @@
 - (void)_updateRemoteSupportedVoiceTriggerPhraseType:(unint64_t)type;
 - (void)_updateSystemSleepPowerAssertionState;
 - (void)_wakeSiriIfNeededFromFullWake:(BOOL)wake completion:(id)completion;
+- (void)_wakeSiriWithVoiceTriggerInfo:(id)info myriadPHash:(id)hash deviceId:(id)id isTriggeredFromFullWake:(BOOL)wake;
 - (void)_writeMyriadHashFile:(id)file;
 - (void)dealloc;
 - (void)didReceiveConnectionInvalidated:(id)invalidated;
@@ -190,6 +192,57 @@
   }
 
   [(CSDarwinVoiceTriggerHandler *)self handleAssetChange];
+}
+
+- (void)_sendSelfTriggerEnabledToRemote:(BOOL)remote force:(BOOL)force
+{
+  forceCopy = force;
+  remoteCopy = remote;
+  v7 = CSLogCategoryVT;
+  if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = @"NO";
+    *&v12[4] = "[CSDarwinVoiceTriggerHandler _sendSelfTriggerEnabledToRemote:force:]";
+    if (remoteCopy)
+    {
+      v9 = @"YES";
+    }
+
+    else
+    {
+      v9 = @"NO";
+    }
+
+    *v12 = 136315650;
+    *&v12[14] = v9;
+    *&v12[12] = 2114;
+    if (forceCopy)
+    {
+      v8 = @"YES";
+    }
+
+    *&v12[22] = 2114;
+    v13 = v8;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s enable : %{public}@, force : %{public}@", v12, 0x20u);
+  }
+
+  if (self->_isUserSessionActive || forceCopy)
+  {
+    v11 = [(CSDarwinVoiceTriggerHandler *)self _connectRemoteCoreSpeechIfNeeded:*v12];
+    self->_selfTriggerEnabled = remoteCopy;
+    [(CSRemoteControlClient *)self->_remoteControlClient setSelfTriggerEnable:remoteCopy withCompletion:&stru_10024E440];
+  }
+
+  else
+  {
+    v10 = CSLogCategoryVT;
+    if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
+    {
+      *v12 = 136315138;
+      *&v12[4] = "[CSDarwinVoiceTriggerHandler _sendSelfTriggerEnabledToRemote:force:]";
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s Ignore sending remote SelfTrigger enable request since user session is deactivated", v12, 0xCu);
+    }
+  }
 }
 
 - (void)_switchSelfTriggerStatus:(BOOL)status
@@ -1047,6 +1100,26 @@ LABEL_10:
   }
 
 LABEL_11:
+}
+
+- (void)_wakeSiriWithVoiceTriggerInfo:(id)info myriadPHash:(id)hash deviceId:(id)id isTriggeredFromFullWake:(BOOL)wake
+{
+  wakeCopy = wake;
+  infoCopy = info;
+  hashCopy = hash;
+  idCopy = id;
+  objc_initWeak(&location, self);
+  v15 = _NSConcreteStackBlock;
+  v16 = 3221225472;
+  v17 = sub_100011454;
+  v18 = &unk_100253510;
+  objc_copyWeak(&v19, &location);
+  v13 = objc_retainBlock(&v15);
+  WeakRetained = objc_loadWeakRetained(&self->_voiceTriggerEventsCoordinator);
+  [WeakRetained voiceTriggerDidDetectKeyword:infoCopy myriadHash:hashCopy remoteTriggerType:2 remoteDeviceId:idCopy isTriggeredFromFullWake:wakeCopy completion:{v13, v15, v16, v17, v18}];
+
+  objc_destroyWeak(&v19);
+  objc_destroyWeak(&location);
 }
 
 - (void)_wakeSiriIfNeededFromFullWake:(BOOL)wake completion:(id)completion

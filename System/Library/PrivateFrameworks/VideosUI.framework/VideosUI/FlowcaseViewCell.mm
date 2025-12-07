@@ -11,15 +11,16 @@
 - (void)vui_prepareForReuse
 {
   selfCopy = self;
-  sub_1E3DEB4A0();
+  sub_1E3DEB4A0(selfCopy);
 }
 
 - (CGSize)vui_layoutSubviews:(CGSize)subviews computationOnly:(BOOL)only
 {
+  onlyCopy = only;
   height = subviews.height;
   width = subviews.width;
   selfCopy = self;
-  sub_1E3DEB6E4(only, width, height);
+  sub_1E3DEB6E4(onlyCopy, width, height);
 
   v8 = OUTLINED_FUNCTION_17_4();
   result.height = v9;
@@ -44,13 +45,13 @@
 - (void)vui_cellWillBeDisplayed
 {
   selfCopy = self;
-  sub_1E3DEE79C();
+  sub_1E3DEE79C(selfCopy);
 }
 
 - (void)vui_cellDidEndDisplaying
 {
   selfCopy = self;
-  sub_1E3DEEA90();
+  sub_1E3DEEA90(selfCopy);
 }
 
 @end

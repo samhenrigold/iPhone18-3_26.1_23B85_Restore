@@ -45,7 +45,7 @@
 
 + (id)sectionTitle
 {
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"SEARCH_COLLABORATION_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
   return v3;
@@ -70,7 +70,7 @@
 
 + (id)indexingString
 {
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"COLLABORATION_INDEXING_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
 
   return v3;
@@ -256,51 +256,51 @@ LABEL_7:
     v15 = [viewCopy dequeueReusableSupplementaryViewOfKind:v13 withReuseIdentifier:v14 forIndexPath:pathCopy];
 
     v16 = MEMORY[0x1E696AEC0];
-    v17 = CKFrameworkBundle();
-    v18 = [v17 localizedStringForKey:@"SEE_ALL_LINKS_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-    v19 = [v16 stringWithFormat:v18];
+    v18 = CKFrameworkBundle(v17);
+    v19 = [v18 localizedStringForKey:@"SEE_ALL_LINKS_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v20 = [v16 stringWithFormat:v19];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v22 = @"\u200F";
+      v23 = @"\u200F";
     }
 
     else
     {
-      v22 = @"\u200E";
+      v23 = @"\u200E";
     }
 
-    v23 = [(__CFString *)v22 stringByAppendingString:v19];
+    v24 = [(__CFString *)v23 stringByAppendingString:v20];
 
-    [v15 setTitle:v23];
+    [v15 setTitle:v24];
     sectionIdentifier = [objc_opt_class() sectionIdentifier];
     [v15 setSectionIdentifier:sectionIdentifier];
     goto LABEL_6;
   }
 
-  v25 = +[CKSearchAvatarSupplementryView supplementaryViewType];
-  v26 = [kindCopy isEqualToString:v25];
+  v26 = +[CKSearchAvatarSupplementryView supplementaryViewType];
+  v27 = [kindCopy isEqualToString:v26];
 
-  if (v26)
+  if (v27)
   {
-    v27 = +[CKSearchAvatarSupplementryView supplementaryViewType];
-    v28 = +[CKSearchAvatarSupplementryView reuseIdentifier];
-    v15 = [viewCopy dequeueReusableSupplementaryViewOfKind:v27 withReuseIdentifier:v28 forIndexPath:pathCopy];
+    v28 = +[CKSearchAvatarSupplementryView supplementaryViewType];
+    v29 = +[CKSearchAvatarSupplementryView reuseIdentifier];
+    v15 = [viewCopy dequeueReusableSupplementaryViewOfKind:v28 withReuseIdentifier:v29 forIndexPath:pathCopy];
 
-    v29 = [pathCopy row];
+    v30 = [pathCopy row];
     results = [(CKSearchController *)self results];
-    v31 = [results count];
+    v32 = [results count];
 
-    if (v29 < v31)
+    if (v30 < v32)
     {
       results2 = [(CKSearchController *)self results];
       sectionIdentifier = [results2 objectAtIndex:{objc_msgSend(pathCopy, "row")}];
 
-      v33 = [CKSpotlightQueryResultUtilities contactForResult:sectionIdentifier];
-      [v15 setContact:v33];
+      v34 = [CKSpotlightQueryResultUtilities contactForResult:sectionIdentifier];
+      [v15 setContact:v34];
       [v15 setAssociatedResult:sectionIdentifier];
       [v15 setParentContentType:2];
 
@@ -435,30 +435,30 @@ LABEL_6:
     v7 = MEMORY[0x1E695E0F0];
   }
 
-  objc_initWeak(&location, self);
-  v8 = MEMORY[0x1E69DC628];
-  v9 = CKFrameworkBundle();
-  v10 = [v9 localizedStringForKey:@"HIDE_DETAILS" value:&stru_1F04268F8 table:@"ChatKit"];
-  v11 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"minus.circle"];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __68__CKCollaborationSearchController__additionalMenuElementsForResult___block_invoke;
-  v18[3] = &unk_1E72EBF48;
-  objc_copyWeak(&v20, &location);
-  v12 = resultCopy;
-  v19 = v12;
-  v13 = [v8 actionWithTitle:v10 image:v11 identifier:@"ckHideMenuItem" handler:v18];
+  inited = objc_initWeak(&location, self);
+  v9 = MEMORY[0x1E69DC628];
+  v10 = CKFrameworkBundle(inited);
+  v11 = [v10 localizedStringForKey:@"HIDE_DETAILS" value:&stru_1F04268F8 table:@"ChatKit"];
+  v12 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"minus.circle"];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __68__CKCollaborationSearchController__additionalMenuElementsForResult___block_invoke;
+  v20[3] = &unk_1E72EBF48;
+  objc_copyWeak(&v22, &location);
+  v13 = resultCopy;
+  v21 = v13;
+  v14 = [v9 actionWithTitle:v11 image:v12 identifier:@"ckHideMenuItem" handler:v20];
 
-  v14 = CKFrameworkBundle();
-  v15 = [v14 localizedStringForKey:@"HIDE_DETAILS" value:&stru_1F04268F8 table:@"ChatKit"];
-  [v13 setTitle:v15];
+  v16 = CKFrameworkBundle(v15);
+  v17 = [v16 localizedStringForKey:@"HIDE_DETAILS" value:&stru_1F04268F8 table:@"ChatKit"];
+  [v14 setTitle:v17];
 
-  v16 = [v7 arrayByAddingObject:v13];
+  v18 = [v7 arrayByAddingObject:v14];
 
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(&location);
 
-  return v16;
+  return v18;
 }
 
 void __68__CKCollaborationSearchController__additionalMenuElementsForResult___block_invoke(uint64_t a1)

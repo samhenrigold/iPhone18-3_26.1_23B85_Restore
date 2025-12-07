@@ -296,17 +296,17 @@ CFTypeID __51__HMDStructuredDataFoundationReader_tokenForValue___block_invoke()
 
 - (void)initWithInput:(void *)input
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (input)
   {
-    v11.receiver = input;
-    v11.super_class = HMDStructuredDataFoundationReader;
-    input = objc_msgSendSuper2(&v11, sel_init);
+    v10.receiver = input;
+    v10.super_class = HMDStructuredDataFoundationReader;
+    input = objc_msgSendSuper2(&v10, sel_init);
     if (input)
     {
-      v12[0] = v3;
-      v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+      v11[0] = v3;
+      v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
       objectEnumerator = [v4 objectEnumerator];
       v6 = input[3];
       input[3] = objectEnumerator;
@@ -317,7 +317,6 @@ CFTypeID __51__HMDStructuredDataFoundationReader_tokenForValue___block_invoke()
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return input;
 }
 

@@ -2,6 +2,7 @@
 - (WFSecureTextTableViewCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier;
 - (void)awakeFromNib;
 - (void)setHideSecureText:(BOOL)text;
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 @end
 
 @implementation WFSecureTextTableViewCell
@@ -52,10 +53,9 @@
     placeholderFont = [contentConfiguration secondaryTextProperties];
     secondaryTextProperties = [placeholderFont font];
     [secondaryTextProperties pointSize];
-    v12 = *MEMORY[0x277D74418];
-    v13 = [v11 monospacedSystemFontOfSize:? weight:?];
+    v12 = [v11 monospacedSystemFontOfSize:? weight:?];
     secondaryTextProperties3 = [contentConfiguration secondaryTextProperties];
-    [secondaryTextProperties3 setFont:v13];
+    [secondaryTextProperties3 setFont:v12];
   }
 
   [(WFSecureTextTableViewCell *)self setContentConfiguration:contentConfiguration];
@@ -66,6 +66,13 @@
   v2.receiver = self;
   v2.super_class = WFSecureTextTableViewCell;
   [(WFSecureTextTableViewCell *)&v2 awakeFromNib];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = WFSecureTextTableViewCell;
+  [(WFSecureTextTableViewCell *)&v4 setSelected:selected animated:animated];
 }
 
 @end

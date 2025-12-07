@@ -75,8 +75,8 @@ LABEL_9:
       }
 
       accessory = [self accessory];
-      home = [accessory home];
-      hf_currentUserIsRestrictedGuest = [home hf_currentUserIsRestrictedGuest];
+      v7 = objc_msgSend_home(accessory);
+      hf_currentUserIsRestrictedGuest = [v7 hf_currentUserIsRestrictedGuest];
 
       if (hf_currentUserIsRestrictedGuest & 1) != 0 || ([self accessory], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "hf_isCamera"), v9, (v10))
       {
@@ -87,8 +87,8 @@ LABEL_9:
 
 LABEL_10:
     accessory2 = [self accessory];
-    home2 = [accessory2 home];
-    hf_currentUserIsRestrictedGuest2 = [home2 hf_currentUserIsRestrictedGuest];
+    v11 = objc_msgSend_home(accessory2);
+    hf_currentUserIsRestrictedGuest2 = [v11 hf_currentUserIsRestrictedGuest];
 
     goto LABEL_11;
   }

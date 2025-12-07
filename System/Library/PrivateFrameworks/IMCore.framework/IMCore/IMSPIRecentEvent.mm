@@ -10,49 +10,49 @@
 {
   handleCopy = handle;
   dateCopy = date;
-  v14.receiver = self;
-  v14.super_class = IMSPIRecentEvent;
-  v10 = [(IMSPIRecentEvent *)&v14 init];
-  if (v10)
+  v12.receiver = self;
+  v12.super_class = IMSPIRecentEvent;
+  v8 = [(IMSPIRecentEvent *)&v12 init];
+  if (v8)
   {
-    v11 = objc_msgSend_copy(handleCopy, v8, v9);
-    handle = v10->_handle;
-    v10->_handle = v11;
+    v9 = [handleCopy copy];
+    handle = v8->_handle;
+    v8->_handle = v9;
 
-    objc_storeStrong(&v10->_date, date);
+    objc_storeStrong(&v8->_date, date);
   }
 
-  return v10;
+  return v8;
 }
 
 - (IMSPIRecentEvent)initWithLabelID:(id)d date:(id)date
 {
   dCopy = d;
   dateCopy = date;
-  v14.receiver = self;
-  v14.super_class = IMSPIRecentEvent;
-  v10 = [(IMSPIRecentEvent *)&v14 init];
-  if (v10)
+  v12.receiver = self;
+  v12.super_class = IMSPIRecentEvent;
+  v8 = [(IMSPIRecentEvent *)&v12 init];
+  if (v8)
   {
-    v11 = objc_msgSend_copy(dCopy, v8, v9);
-    labelID = v10->_labelID;
-    v10->_labelID = v11;
+    v9 = [dCopy copy];
+    labelID = v8->_labelID;
+    v8->_labelID = v9;
 
-    objc_storeStrong(&v10->_date, date);
+    objc_storeStrong(&v8->_date, date);
   }
 
-  return v10;
+  return v8;
 }
 
 - (id)description
 {
-  v4 = MEMORY[0x1E696AEC0];
-  v5 = objc_msgSend_handle(self, a2, v2);
-  v8 = objc_msgSend_labelID(self, v6, v7);
-  v11 = objc_msgSend_date(self, v9, v10);
-  v13 = objc_msgSend_stringWithFormat_(v4, v12, @"IMSPIRecentEvent: %p [Handle: %@  LabelID: %@ Date: %@]", self, v5, v8, v11);
+  v3 = MEMORY[0x1E696AEC0];
+  handle = [(IMSPIRecentEvent *)self handle];
+  labelID = [(IMSPIRecentEvent *)self labelID];
+  date = [(IMSPIRecentEvent *)self date];
+  v7 = [v3 stringWithFormat:@"IMSPIRecentEvent: %p [Handle: %@  LabelID: %@ Date: %@]", self, handle, labelID, date];
 
-  return v13;
+  return v7;
 }
 
 @end

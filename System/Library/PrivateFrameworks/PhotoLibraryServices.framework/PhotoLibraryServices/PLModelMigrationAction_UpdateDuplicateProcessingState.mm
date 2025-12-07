@@ -22,10 +22,10 @@
   v40 = 0;
   v17 = [contextCopy executeFetchRequest:requestCopy error:&v40];
   v18 = v40;
-  if ([v17 count])
+  if (objc_msgSend_count(v17))
   {
     context = objc_autoreleasePoolPush();
-    v19 = -[PLModelMigrationActionCore cancellableDiscreteProgressWithTotalUnitCount:pendingParentUnitCount:](self, "cancellableDiscreteProgressWithTotalUnitCount:pendingParentUnitCount:", [v17 count], count);
+    v19 = [(PLModelMigrationActionCore *)self cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(v17) pendingParentUnitCount:count];
     v20 = [MEMORY[0x1E695DFD8] setWithArray:v17];
     v21 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:stateCopy];
     [mapCopy setObject:v20 forKeyedSubscript:v21];
@@ -72,25 +72,33 @@
         v49 = 0u;
         memset(buf, 0, sizeof(buf));
         v24 = PLMigrationGetLog();
-        os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
-        v25 = objc_opt_class();
-        v26 = NSStringFromClass(v25);
-        v27 = [v17 count];
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        {
+          v25 = 3;
+        }
+
+        else
+        {
+          v25 = 2;
+        }
+
+        v26 = objc_opt_class();
+        v27 = NSStringFromClass(v26);
+        v28 = objc_msgSend_count(v17);
         v41 = 138543874;
-        v42 = v26;
+        v42 = v27;
         v43 = 2050;
-        v44 = v27;
+        v44 = v28;
         v45 = 1024;
         v46 = stateCopy;
-        LODWORD(v37) = 28;
-        v28 = _os_log_send_and_compose_impl();
+        v29 = _os_log_send_and_compose_impl(v25, 0, buf, 512, &dword_19BF1F000, v24, 0, "%{public}@: Found %{public}td assets for duplicate processing state: %u", &v41, 28);
 
-        v29 = [(PLModelMigrationActionCore *)self logger:&v41];
-        [v29 logWithMessage:v28 fromCodeLocation:"PLModelMigrationActions_16000.m" type:{1371, 0}];
+        logger2 = [(PLModelMigrationActionCore *)self logger];
+        [logger2 logWithMessage:v29 fromCodeLocation:"PLModelMigrationActions_16000.m" type:{1371, 0}];
 
-        if (v28 != buf)
+        if (v29 != buf)
         {
-          free(v28);
+          free(v29);
         }
 
         v18 = v38;
@@ -98,19 +106,19 @@
 
       else
       {
-        v32 = PLMigrationGetLog();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        v33 = PLMigrationGetLog();
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
-          v33 = objc_opt_class();
-          v34 = NSStringFromClass(v33);
-          v35 = [v17 count];
+          v34 = objc_opt_class();
+          v35 = NSStringFromClass(v34);
+          v36 = objc_msgSend_count(v17);
           *buf = 138543874;
-          *&buf[4] = v34;
+          *&buf[4] = v35;
           *&buf[12] = 2050;
-          *&buf[14] = v35;
+          *&buf[14] = v36;
           *&buf[22] = 1024;
           *&buf[24] = stateCopy;
-          _os_log_impl(&dword_19BF1F000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@: Found %{public}td assets for duplicate processing state: %u", buf, 0x1Cu);
+          _os_log_impl(&dword_19BF1F000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@: Found %{public}td assets for duplicate processing state: %u", buf, 0x1Cu);
         }
       }
     }
@@ -118,26 +126,26 @@
     [v19 setCompletedUnitCount:{objc_msgSend(v19, "totalUnitCount")}];
 
     objc_autoreleasePoolPop(context);
-    goto LABEL_15;
+    goto LABEL_18;
   }
 
   if (v17)
   {
-LABEL_15:
-    v31 = 1;
-    goto LABEL_16;
+LABEL_18:
+    v32 = 1;
+    goto LABEL_19;
   }
 
   if (error)
   {
-    v30 = v18;
+    v31 = v18;
     *error = v18;
   }
 
-  v31 = 3;
-LABEL_16:
+  v32 = 3;
+LABEL_19:
 
-  return v31;
+  return v32;
 }
 
 - (int64_t)updateSceneClassificationDuplicateProcessingStateWithProcessingState:(unsigned __int16)state pendingParentUnitCount:(int64_t)count assetProcessingStateMap:(id)map context:(id)context request:(id)request error:(id *)error
@@ -150,7 +158,7 @@ LABEL_16:
   v57 = 0;
   v17 = [contextCopy executeFetchRequest:requestCopy error:&v57];
   v18 = v57;
-  if ([v17 count])
+  if (objc_msgSend_count(v17))
   {
     v50 = v18;
     v51 = requestCopy;
@@ -158,7 +166,7 @@ LABEL_16:
     v47 = mapCopy;
     context = objc_autoreleasePoolPush();
     selfCopy = self;
-    v48 = -[PLModelMigrationActionCore cancellableDiscreteProgressWithTotalUnitCount:pendingParentUnitCount:](self, "cancellableDiscreteProgressWithTotalUnitCount:pendingParentUnitCount:", [v17 count], count);
+    v48 = [(PLModelMigrationActionCore *)self cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(v17) pendingParentUnitCount:count];
     v19 = objc_alloc_init(MEMORY[0x1E695DFA8]);
     v53 = 0u;
     v54 = 0u;
@@ -240,43 +248,51 @@ LABEL_16:
         v66 = 0u;
         memset(buf, 0, sizeof(buf));
         v32 = PLMigrationGetLog();
-        os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
-        v33 = objc_opt_class();
-        v34 = NSStringFromClass(v33);
-        v35 = [v20 count];
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        {
+          v33 = 3;
+        }
+
+        else
+        {
+          v33 = 2;
+        }
+
+        v34 = objc_opt_class();
+        v35 = NSStringFromClass(v34);
+        v36 = objc_msgSend_count(v20);
         v58 = 138543874;
-        v59 = v34;
+        v59 = v35;
         v60 = 2050;
-        v61 = v35;
+        v61 = v36;
         v62 = 1024;
         v63 = stateCopy;
-        LODWORD(v45) = 28;
-        v36 = _os_log_send_and_compose_impl();
+        v37 = _os_log_send_and_compose_impl(v33, 0, buf, 512, &dword_19BF1F000, v32, 0, "%{public}@: Found %{public}td assets for duplicate processing state: %u", &v58, 28);
 
-        v37 = [(PLModelMigrationActionCore *)selfCopy logger:&v58];
-        [v37 logWithMessage:v36 fromCodeLocation:"PLModelMigrationActions_16000.m" type:{1351, 0}];
+        logger2 = [(PLModelMigrationActionCore *)selfCopy logger];
+        [logger2 logWithMessage:v37 fromCodeLocation:"PLModelMigrationActions_16000.m" type:{1351, 0}];
 
-        if (v36 != buf)
+        if (v37 != buf)
         {
-          free(v36);
+          free(v37);
         }
       }
 
       else
       {
-        v40 = PLMigrationGetLog();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+        v41 = PLMigrationGetLog();
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
         {
-          v41 = objc_opt_class();
-          v42 = NSStringFromClass(v41);
-          v43 = [v20 count];
+          v42 = objc_opt_class();
+          v43 = NSStringFromClass(v42);
+          v44 = objc_msgSend_count(v20);
           *buf = 138543874;
-          *&buf[4] = v42;
+          *&buf[4] = v43;
           *&buf[12] = 2050;
-          *&buf[14] = v43;
+          *&buf[14] = v44;
           *&buf[22] = 1024;
           *&buf[24] = stateCopy;
-          _os_log_impl(&dword_19BF1F000, v40, OS_LOG_TYPE_DEFAULT, "%{public}@: Found %{public}td assets for duplicate processing state: %u", buf, 0x1Cu);
+          _os_log_impl(&dword_19BF1F000, v41, OS_LOG_TYPE_DEFAULT, "%{public}@: Found %{public}td assets for duplicate processing state: %u", buf, 0x1Cu);
         }
       }
     }
@@ -284,7 +300,7 @@ LABEL_16:
     [v48 setCompletedUnitCount:{objc_msgSend(v48, "totalUnitCount")}];
 
     objc_autoreleasePoolPop(context);
-    v38 = 1;
+    v39 = 1;
     requestCopy = v51;
     contextCopy = v52;
     v18 = v50;
@@ -292,98 +308,98 @@ LABEL_16:
 
   else if (v17)
   {
-    v38 = 1;
+    v39 = 1;
   }
 
   else
   {
     if (error)
     {
-      v39 = v18;
+      v40 = v18;
       *error = v18;
     }
 
-    v38 = 3;
+    v39 = 3;
   }
 
-  return v38;
+  return v39;
 }
 
 - (int64_t)processAssetStateMap:(id)map pendingParentUnitCount:(int64_t)count context:(id)context error:(id *)error
 {
-  v129 = *MEMORY[0x1E69E9840];
+  v131 = *MEMORY[0x1E69E9840];
   mapCopy = map;
   contextCopy = context;
-  v88 = 0;
-  v89 = &v88;
-  v90 = 0x2020000000;
-  v91 = 1;
-  v82 = 0;
-  v83 = &v82;
-  v84 = 0x3032000000;
-  v85 = __Block_byref_object_copy__23792;
-  v86 = __Block_byref_object_dispose__23793;
-  v87 = 0;
-  v64 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v90 = 0;
+  v91 = &v90;
+  v92 = 0x2020000000;
+  v93 = 1;
+  v84 = 0;
+  v85 = &v84;
+  v86 = 0x3032000000;
+  v87 = __Block_byref_object_copy__23792;
+  v88 = __Block_byref_object_dispose__23793;
+  v89 = 0;
+  v66 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   selfCopy = self;
+  v82 = 0u;
+  v83 = 0u;
   v80 = 0u;
   v81 = 0u;
-  v78 = 0u;
-  v79 = 0u;
   obj = mapCopy;
-  v9 = [obj countByEnumeratingWithState:&v78 objects:v128 count:16];
+  v9 = [obj countByEnumeratingWithState:&v80 objects:v130 count:16];
   if (v9)
   {
-    v65 = *v79;
+    v67 = *v81;
     do
     {
       v10 = 0;
-      v66 = v9;
+      v68 = v9;
       do
       {
-        if (*v79 != v65)
+        if (*v81 != v67)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v78 + 1) + 8 * v10);
+        v11 = *(*(&v80 + 1) + 8 * v10);
         v12 = objc_autoreleasePoolPush();
         v13 = [obj objectForKeyedSubscript:v11];
         v14 = +[PLManagedAsset fetchRequest];
         v15 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self IN %@", v13];
         [v14 setPredicate:v15];
 
-        v127 = @"additionalAttributes";
-        v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v127 count:1];
+        v129 = @"additionalAttributes";
+        v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v129 count:1];
         [v14 setRelationshipKeyPathsForPrefetching:v16];
 
         [v14 setFetchBatchSize:100];
-        v17 = v83 + 5;
-        v77 = v83[5];
-        v18 = [contextCopy executeFetchRequest:v14 error:&v77];
-        objc_storeStrong(v17, v77);
-        if ([v18 count])
+        v17 = v85 + 5;
+        v79 = v85[5];
+        v18 = [contextCopy executeFetchRequest:v14 error:&v79];
+        objc_storeStrong(v17, v79);
+        if (objc_msgSend_count(v18))
         {
-          v19 = -[PLModelMigrationActionCore cancellableDiscreteProgressWithTotalUnitCount:pendingParentUnitCount:](selfCopy, "cancellableDiscreteProgressWithTotalUnitCount:pendingParentUnitCount:", [v18 count], count);
-          v71[0] = MEMORY[0x1E69E9820];
-          v71[1] = 3221225472;
-          v71[2] = __115__PLModelMigrationAction_UpdateDuplicateProcessingState_processAssetStateMap_pendingParentUnitCount_context_error___block_invoke;
-          v71[3] = &unk_1E7569CD0;
-          v71[4] = v11;
-          v72 = v64;
-          v73 = selfCopy;
-          v75 = &v82;
-          v76 = &v88;
+          v19 = [(PLModelMigrationActionCore *)selfCopy cancellableDiscreteProgressWithTotalUnitCount:objc_msgSend_count(v18) pendingParentUnitCount:count];
+          v73[0] = MEMORY[0x1E69E9820];
+          v73[1] = 3221225472;
+          v73[2] = __115__PLModelMigrationAction_UpdateDuplicateProcessingState_processAssetStateMap_pendingParentUnitCount_context_error___block_invoke;
+          v73[3] = &unk_1E7569CD0;
+          v73[4] = v11;
+          v74 = v66;
+          v75 = selfCopy;
+          v77 = &v84;
+          v78 = &v90;
           v20 = v19;
-          v74 = v20;
-          v21 = [contextCopy enumerateWithIncrementalSaveUsingObjects:v18 withBlock:v71];
+          v76 = v20;
+          v21 = [contextCopy enumerateWithIncrementalSaveUsingObjects:v18 withBlock:v73];
           v22 = v21;
-          v23 = v89[3];
+          v23 = v91[3];
           if (v23 != 2 && v21)
           {
-            objc_storeStrong(v83 + 5, v21);
-            v89[3] = 3;
-            goto LABEL_17;
+            objc_storeStrong(v85 + 5, v21);
+            v91[3] = 3;
+            goto LABEL_20;
           }
 
           if (v23 == 1)
@@ -398,22 +414,24 @@ LABEL_16:
 
               if (v27)
               {
-                v49 = PLMigrationGetLog();
-                if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+                v51 = PLMigrationGetLog();
+                if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
                 {
-                  v50 = objc_opt_class();
-                  v51 = NSStringFromClass(v50);
-                  v52 = [v18 count];
+                  v52 = objc_opt_class();
+                  v53 = NSStringFromClass(v52);
+                  v54 = objc_msgSend_count(v18);
                   *buf = 138543618;
-                  *&buf[4] = v51;
+                  *&buf[4] = v53;
                   *&buf[12] = 2050;
-                  *&buf[14] = v52;
-                  _os_log_impl(&dword_19BF1F000, v49, OS_LOG_TYPE_DEFAULT, "%{public}@: Updated processing state for %{public}td assets.", buf, 0x16u);
+                  *&buf[14] = v54;
+                  _os_log_impl(&dword_19BF1F000, v51, OS_LOG_TYPE_DEFAULT, "%{public}@: Updated processing state for %{public}td assets.", buf, 0x16u);
                 }
               }
 
               else
               {
+                v127 = 0u;
+                v128 = 0u;
                 v125 = 0u;
                 v126 = 0u;
                 v123 = 0u;
@@ -442,64 +460,73 @@ LABEL_16:
                 v102 = 0u;
                 v99 = 0u;
                 v100 = 0u;
-                v97 = 0u;
-                v98 = 0u;
                 memset(buf, 0, sizeof(buf));
                 v28 = PLMigrationGetLog();
-                os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
-                v29 = objc_opt_class();
-                v30 = NSStringFromClass(v29);
-                v31 = [v18 count];
-                v92 = 138543618;
-                v93 = v30;
-                v94 = 2050;
-                v95 = v31;
-                LODWORD(v61) = 22;
-                v32 = _os_log_send_and_compose_impl();
-
-                v33 = [(PLModelMigrationActionCore *)selfCopy logger:&v92];
-                [v33 logWithMessage:v32 fromCodeLocation:"PLModelMigrationActions_16000.m" type:{1316, 0}];
-
-                if (v32 != buf)
+                if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
                 {
-                  free(v32);
+                  v29 = 3;
+                }
+
+                else
+                {
+                  v29 = 2;
+                }
+
+                v30 = objc_opt_class();
+                v31 = NSStringFromClass(v30);
+                v32 = objc_msgSend_count(v18);
+                v94 = 138543618;
+                v95 = v31;
+                v96 = 2050;
+                v97 = v32;
+                LODWORD(v63) = 22;
+                v33 = _os_log_send_and_compose_impl(v29, 0, buf, 512, &dword_19BF1F000, v28, 0, "%{public}@: Updated processing state for %{public}td assets.", &v94, v63);
+
+                logger2 = [(PLModelMigrationActionCore *)selfCopy logger];
+                [logger2 logWithMessage:v33 fromCodeLocation:"PLModelMigrationActions_16000.m" type:{1316, 0}];
+
+                if (v33 != buf)
+                {
+                  free(v33);
                 }
               }
             }
 
-            v48 = 0;
-            LOBYTE(v35) = 1;
+            v50 = 0;
+            LOBYTE(v36) = 1;
           }
 
           else
           {
-LABEL_17:
-            v34 = PLMigrationGetLog();
-            v35 = os_log_type_enabled(v34, OS_LOG_TYPE_ERROR);
+LABEL_20:
+            v35 = PLMigrationGetLog();
+            v36 = os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
 
-            if (v35)
+            if (v36)
             {
-              logger2 = [(PLModelMigrationActionCore *)selfCopy logger];
-              v37 = logger2 == 0;
+              logger3 = [(PLModelMigrationActionCore *)selfCopy logger];
+              v38 = logger3 == 0;
 
-              if (v37)
+              if (v38)
               {
-                v44 = PLMigrationGetLog();
-                if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+                v46 = PLMigrationGetLog();
+                if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
                 {
-                  v45 = objc_opt_class();
-                  v46 = NSStringFromClass(v45);
-                  v47 = v83[5];
+                  v47 = objc_opt_class();
+                  v48 = NSStringFromClass(v47);
+                  v49 = v85[5];
                   *buf = 138543618;
-                  *&buf[4] = v46;
+                  *&buf[4] = v48;
                   *&buf[12] = 2114;
-                  *&buf[14] = v47;
-                  _os_log_impl(&dword_19BF1F000, v44, OS_LOG_TYPE_ERROR, "Failed to save managed object context for %{public}@. Error: %{public}@", buf, 0x16u);
+                  *&buf[14] = v49;
+                  _os_log_impl(&dword_19BF1F000, v46, OS_LOG_TYPE_ERROR, "Failed to save managed object context for %{public}@. Error: %{public}@", buf, 0x16u);
                 }
               }
 
               else
               {
+                v127 = 0u;
+                v128 = 0u;
                 v125 = 0u;
                 v126 = 0u;
                 v123 = 0u;
@@ -528,98 +555,105 @@ LABEL_17:
                 v102 = 0u;
                 v99 = 0u;
                 v100 = 0u;
-                v97 = 0u;
-                v98 = 0u;
                 memset(buf, 0, sizeof(buf));
-                v38 = PLMigrationGetLog();
-                os_log_type_enabled(v38, OS_LOG_TYPE_ERROR);
-                v39 = objc_opt_class();
-                v40 = NSStringFromClass(v39);
-                v41 = v83[5];
-                v92 = 138543618;
-                v93 = v40;
-                v94 = 2114;
-                v95 = v41;
-                LODWORD(v61) = 22;
-                v42 = _os_log_send_and_compose_impl();
-
-                v43 = [(PLModelMigrationActionCore *)selfCopy logger:&v92];
-                [v43 logWithMessage:v42 fromCodeLocation:"PLModelMigrationActions_16000.m" type:{1318, 16}];
-
-                if (v42 != buf)
+                v39 = PLMigrationGetLog();
+                if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
                 {
-                  free(v42);
+                  v40 = 3;
+                }
+
+                else
+                {
+                  v40 = 2;
+                }
+
+                v41 = objc_opt_class();
+                v42 = NSStringFromClass(v41);
+                v43 = v85[5];
+                v94 = 138543618;
+                v95 = v42;
+                v96 = 2114;
+                v97 = v43;
+                LODWORD(v63) = 22;
+                v44 = _os_log_send_and_compose_impl(v40, 0, buf, 512, &dword_19BF1F000, v39, 16, "Failed to save managed object context for %{public}@. Error: %{public}@", &v94, v63);
+
+                logger4 = [(PLModelMigrationActionCore *)selfCopy logger];
+                [logger4 logWithMessage:v44 fromCodeLocation:"PLModelMigrationActions_16000.m" type:{1318, 16}];
+
+                if (v44 != buf)
+                {
+                  free(v44);
                 }
               }
 
-              LOBYTE(v35) = 0;
+              LOBYTE(v36) = 0;
             }
 
-            v48 = 2;
+            v50 = 2;
           }
 
-          if (!v35)
+          if (!v36)
           {
-            goto LABEL_32;
+            goto LABEL_38;
           }
 
-          goto LABEL_31;
+          goto LABEL_37;
         }
 
         if (!v18)
         {
-          v89[3] = 3;
+          v91[3] = 3;
         }
 
-LABEL_31:
-        v48 = 0;
-LABEL_32:
+LABEL_37:
+        v50 = 0;
+LABEL_38:
 
         objc_autoreleasePoolPop(v12);
-        if (v48)
+        if (v50)
         {
-          goto LABEL_35;
+          goto LABEL_41;
         }
 
         ++v10;
       }
 
-      while (v66 != v10);
-      v9 = [obj countByEnumeratingWithState:&v78 objects:v128 count:16];
+      while (v68 != v10);
+      v9 = [obj countByEnumeratingWithState:&v80 objects:v130 count:16];
     }
 
     while (v9);
   }
 
-LABEL_35:
+LABEL_41:
 
-  if (v89[3] == 1 && [v64 count])
+  if (v91[3] == 1 && objc_msgSend_count(v66))
   {
-    v53 = +[PLManagedAsset fetchRequest];
-    v54 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self IN %@", v64];
-    [v53 setPredicate:v54];
+    v55 = +[PLManagedAsset fetchRequest];
+    v56 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self IN %@", v66];
+    [v55 setPredicate:v56];
 
-    [v53 setFetchBatchSize:100];
-    v55 = v83 + 5;
-    v70 = v83[5];
-    v56 = [PLModelMigrationActionUtility removeFromDuplicatesWithAction:selfCopy managedObjectContext:contextCopy fetchRequest:v53 requiresLibraryReprocessing:1 error:&v70];
-    objc_storeStrong(v55, v70);
-    v89[3] = v56;
+    [v55 setFetchBatchSize:100];
+    v57 = v85 + 5;
+    v72 = v85[5];
+    v58 = [PLModelMigrationActionUtility removeFromDuplicatesWithAction:selfCopy managedObjectContext:contextCopy fetchRequest:v55 requiresLibraryReprocessing:1 error:&v72];
+    objc_storeStrong(v57, v72);
+    v91[3] = v58;
   }
 
-  v57 = v89[3];
-  v58 = v83[5];
-  if (v57 != 1 && error)
+  v59 = v91[3];
+  v60 = v85[5];
+  if (v59 != 1 && error)
   {
-    v58 = v58;
-    *error = v58;
+    v60 = v60;
+    *error = v60;
   }
 
-  v59 = v89[3];
-  _Block_object_dispose(&v82, 8);
+  v61 = v91[3];
+  _Block_object_dispose(&v84, 8);
 
-  _Block_object_dispose(&v88, 8);
-  return v59;
+  _Block_object_dispose(&v90, 8);
+  return v61;
 }
 
 - (id)fetchRequestForDocument
@@ -755,7 +789,7 @@ LABEL_35:
 
     if (v11 == 1)
     {
-      if ([v9 count])
+      if (objc_msgSend_count(v9))
       {
         v18 = objc_autoreleasePoolPush();
         v25 = v12;

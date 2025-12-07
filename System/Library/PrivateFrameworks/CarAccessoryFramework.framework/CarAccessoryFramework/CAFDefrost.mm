@@ -14,7 +14,9 @@
 - (id)name;
 - (unint64_t)types;
 - (unsigned)level;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setLevel:(unsigned __int8)level;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -163,6 +165,13 @@
   return uint8Value;
 }
 
+- (void)setLevel:(unsigned __int8)level
+{
+  levelCopy = level;
+  levelCharacteristic = [(CAFDefrost *)self levelCharacteristic];
+  [levelCharacteristic setUint8Value:levelCopy];
+}
+
 - (CAFUInt8Range)levelRange
 {
   levelCharacteristic = [(CAFDefrost *)self levelCharacteristic];
@@ -211,6 +220,82 @@
   stringValue = [vehicleLayoutKeyCharacteristic stringValue];
 
   return stringValue;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000031000014"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    typesCharacteristic = [(CAFDefrost *)self typesCharacteristic];
+    uniqueIdentifier2 = [typesCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers defrostService:self didUpdateTypes:{-[CAFDefrost types](self, "types")}];
+LABEL_12:
+
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000030000004"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    levelCharacteristic = [(CAFDefrost *)self levelCharacteristic];
+    uniqueIdentifier4 = [levelCharacteristic uniqueIdentifier];
+    v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v17)
+    {
+      observers = [(CAFService *)self observers];
+      [observers defrostService:self didUpdateLevel:{-[CAFDefrost level](self, "level")}];
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000036000065"])
+  {
+    goto LABEL_12;
+  }
+
+  uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+  vehicleLayoutKeyCharacteristic = [(CAFDefrost *)self vehicleLayoutKeyCharacteristic];
+  uniqueIdentifier6 = [vehicleLayoutKeyCharacteristic uniqueIdentifier];
+  v21 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+  if (v21)
+  {
+    observers2 = [(CAFService *)self observers];
+    vehicleLayoutKey = [(CAFDefrost *)self vehicleLayoutKey];
+    [observers2 defrostService:self didUpdateVehicleLayoutKey:vehicleLayoutKey];
+
+    observers = [(CAFService *)self observers];
+    name = [(CAFDefrost *)self name];
+    [observers defrostService:self didUpdateName:name];
+
+    goto LABEL_12;
+  }
+
+LABEL_13:
+  v25.receiver = self;
+  v25.super_class = CAFDefrost;
+  [(CAFService *)&v25 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForDefrostTypes

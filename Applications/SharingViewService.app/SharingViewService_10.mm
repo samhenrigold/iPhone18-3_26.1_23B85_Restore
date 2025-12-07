@@ -8,7 +8,7 @@ id sub_1000F1698(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController _sessionStart:]_block_invoke_2", 30, "Prompt for PIN: 0x%X, %d throttle seconds\n", a2, a3);
   }
 
   v6 = *(a1 + 32);
@@ -18,14 +18,13 @@ id sub_1000F1698(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void sub_1000F2054(uint64_t a1, void *a2)
 {
-  v4 = a2;
+  v3 = a2;
   if (dword_1001BE6C8 <= 50 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    v3 = v4;
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController _handleMigrateStartDemo]_block_invoke", 50, "FileTransfer completed: %{error}\n", v3);
   }
 
-  [*(*(a1 + 32) + 192) sendAppEvent:{&off_10019AF78, v3}];
+  [*(*(a1 + 32) + 192) sendAppEvent:&off_10019AF78];
 }
 
 void sub_1000F210C(uint64_t a1, void *a2)
@@ -38,13 +37,13 @@ void sub_1000F210C(uint64_t a1, void *a2)
       v3 = [*(a1 + 32) targetID];
       v4 = [*(a1 + 32) peerPublicKey];
       v5 = [*(a1 + 32) selfPublicKey];
-      LogPrintF();
+      LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController _handleMigrateStartDemo]_block_invoke_2", 50, "FileTransfer session start: TargetID %@, PPK <%.8@>, SPK <%.8@>\n", v3, v4, v5);
     }
   }
 
   else if (dword_1001BE6C8 <= 50 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController _handleMigrateStartDemo]_block_invoke_2", 50, "FileTransfer progress: %@\n", v6);
   }
 }
 
@@ -54,7 +53,7 @@ void sub_1000F224C(id a1, RPFileTransferItem *a2, id a3)
   v4 = a3;
   if (dword_1001BE6C8 <= 50 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupMainController _handleMigrateStartDemo]_block_invoke_3", 50, "FileTransfer received item: %@\n", v5);
   }
 
   v4[2](v4, 0);
@@ -65,7 +64,7 @@ void sub_1000F3020(uint64_t a1, void *a2)
   v3 = a2;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupBaseViewController dismissWithType:]_block_invoke_2", 30, "Exit Setup alert exit button\n");
   }
 
   [*(*(a1 + 32) + 24) dismiss:*(a1 + 40)];
@@ -80,7 +79,7 @@ void sub_1000F30CC(id a1, UIAlertAction *a2)
     v4 = v2;
     if (dword_1001BE6C8 != -1 || (v2 = _LogCategory_Initialize(), v3 = v4, v2))
     {
-      v2 = LogPrintF();
+      v2 = LogPrintF(&dword_1001BE6C8, "[iOSSetupBaseViewController dismissWithType:]_block_invoke", 30, "Exit Setup alert cancel button\n");
       v3 = v4;
     }
   }
@@ -94,7 +93,7 @@ void sub_1000F36C0(uint64_t a1, int a2)
   {
     if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE6C8, "[iOSSetupStartViewController handleStartButton:]_block_invoke_2", 30, "Start button asking daemon to restart us after unlock\n");
     }
 
     v3 = objc_alloc_init(SFClient);
@@ -113,7 +112,7 @@ void sub_1000F36C0(uint64_t a1, int a2)
   {
     if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE6C8, "[iOSSetupStartViewController handleStartButton:]_block_invoke_2", 30, "Start button unlock canceled\n");
     }
 
     [*(*(a1 + 32) + 24) dismiss:10];
@@ -134,11 +133,10 @@ id sub_1000F385C(uint64_t a1)
 
 void sub_1000F38B0(uint64_t a1, void *a2)
 {
-  v4 = a2;
+  v3 = a2;
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
-    v3 = v4;
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupStartViewController handleStartButton:]_block_invoke_3", 30, "Retrigger completed: %{error}\n", v3);
   }
 
   [*(a1 + 32) invalidate];
@@ -150,7 +148,7 @@ void sub_1000F3968(id a1)
   if (dword_1001BE6C8 <= 30 && (dword_1001BE6C8 != -1 || _LogCategory_Initialize()))
   {
 
-    LogPrintF();
+    LogPrintF(&dword_1001BE6C8, "[iOSSetupStartViewController handleStartButton:]_block_invoke", 30, "Unlock background task expired\n");
   }
 }
 
@@ -224,38 +222,51 @@ void sub_1000F795C(uint64_t a1)
 {
   if (*(a1 + 48) == 1)
   {
-    v8 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v9 = 0u;
-    v6 = 0u;
-    v7 = 0u;
-    v1 = *(a1 + 32);
-    v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
-    if (v2)
+    v10 = 0u;
+    v2 = *(a1 + 32);
+    v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+    if (v3)
     {
-      v3 = v2;
-      v4 = *v7;
+      v4 = v3;
+      v5 = *v10;
       do
       {
-        for (i = 0; i != v3; i = i + 1)
+        for (i = 0; i != v4; i = i + 1)
         {
-          if (*v7 != v4)
+          if (*v10 != v5)
           {
-            objc_enumerationMutation(v1);
+            objc_enumerationMutation(v2);
           }
 
-          [*(*(&v6 + 1) + 8 * i) animationDidStart];
+          [*(*(&v9 + 1) + 8 * i) animationDidStart];
         }
 
-        v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
-      while (v3);
+      while (v4);
     }
   }
 
-  if (dword_1001BE738 <= 10 && (dword_1001BE738 != -1 || _LogCategory_Initialize()))
+  if (dword_1001BE738 <= 10)
   {
-    LogPrintF();
+    v7 = *(a1 + 40);
+    v8 = *(v7 + 104);
+    if (dword_1001BE738 != -1)
+    {
+LABEL_12:
+      LogPrintF(&dword_1001BE738, "[BroadwayCardView notifyObserversWithCommandBuffer:]_block_invoke", 10, "%s _videoCurrentFrame:%d, videoLastFrame:%d", "[BroadwayCardView notifyObserversWithCommandBuffer:]_block_invoke", *(v7 + 112), v8 - 1);
+      return;
+    }
+
+    if (_LogCategory_Initialize())
+    {
+      v7 = *(a1 + 40);
+      goto LABEL_12;
+    }
   }
 }
 
@@ -315,30 +326,30 @@ void sub_1000F7D80(uint64_t a1)
 void sub_1000F83BC(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v21 = 0u;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
   obj = [v3 animationKeys];
-  v4 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v4 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v24;
+    v6 = *v22;
     do
     {
       v7 = 0;
       do
       {
-        if (*v24 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v23 + 1) + 8 * v7);
+        v8 = *(*(&v21 + 1) + 8 * v7);
         v9 = [v3 animationPlayerForKey:v8];
         v10 = [v9 animation];
-        [v10 duration];
+        objc_msgSend_duration(v10);
         v12 = v11;
         v13 = *(*(a1 + 32) + 96);
         if (v13 != v12 && dword_1001BE738 <= 50)
@@ -352,13 +363,11 @@ void sub_1000F83BC(uint64_t a1, void *a2)
           {
             v13 = *(*(a1 + 32) + 96);
 LABEL_9:
-            v19 = v12;
-            v20 = v13;
-            LogPrintF();
+            LogPrintF(&dword_1001BE738, "[BroadwayCardView setVideoURL:sceneURL:]_block_invoke", 50, "Model animation is %.3fs long (compared to %.3fs for the video)", v12, v13);
           }
         }
 
-        [v10 setUsesSceneTimeBase:{1, *&v19, *&v20}];
+        [v10 setUsesSceneTimeBase:1];
         [v10 setRepeatCount:0.0];
         [v3 removeAnimationForKey:v8];
         [v3 addAnimation:v10 forKey:v8];
@@ -367,7 +376,7 @@ LABEL_9:
       }
 
       while (v5 != v7);
-      v14 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v14 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
       v5 = v14;
     }
 
@@ -395,11 +404,10 @@ LABEL_9:
 
 void sub_1000F953C(uint64_t a1, void *a2)
 {
-  v4 = a2;
+  v3 = a2;
   if (dword_1001BE808 <= 60 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
   {
-    v3 = v4;
-    LogPrintF();
+    LogPrintF(&dword_1001BE808, "[NFCTagReaderMainController viewDidDisappear:]_block_invoke", 60, "### XPC agent UI invalidate XPC error: %{error}\n", v3);
   }
 
   [*(a1 + 32) invalidate];
@@ -407,11 +415,10 @@ void sub_1000F953C(uint64_t a1, void *a2)
 
 void sub_1000F95E0(uint64_t a1, void *a2)
 {
-  v4 = a2;
+  v3 = a2;
   if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
   {
-    v3 = v4;
-    LogPrintF();
+    LogPrintF(&dword_1001BE808, "[NFCTagReaderMainController viewDidDisappear:]_block_invoke_2", 30, "XPC agent UI invalidated: %{error}\n", v3);
   }
 
   [*(a1 + 32) invalidate];
@@ -422,7 +429,7 @@ void sub_1000F997C(uint64_t a1, void *a2)
   v3 = a2;
   if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE808, "[NFCTagReaderScanViewController updateButtonText:]_block_invoke", 30, "Main button\n");
   }
 
   [*(a1 + 32) dismiss:8];
@@ -451,7 +458,7 @@ void sub_1000F9E30(uint64_t a1)
 {
   if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE808, "[NFCTagReaderScanViewController nfcTagScanned]_block_invoke", 30, "Finished playing nfc sound\n");
   }
 
   block[0] = _NSConcreteStackBlock;
@@ -523,7 +530,7 @@ void sub_1000FA484(id a1)
   if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
   {
 
-    LogPrintF();
+    LogPrintF(&dword_1001BE808, "[NFCTagReaderScanViewController showFailureUI]_block_invoke", 30, "Finished playing nfc sound\n");
   }
 }
 
@@ -532,7 +539,7 @@ void sub_1000FAC00(uint64_t a1, void *a2)
   v3 = a2;
   if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE808, "[NFCTagReaderScanViewController viewWillAppear:]_block_invoke", 30, "Main button\n");
   }
 
   [*(a1 + 32) dismiss:8];
@@ -542,7 +549,7 @@ id sub_1000FB12C(uint64_t a1)
 {
   if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE808, "[NFCTagReaderMainController configureWithContext:completion:]_block_invoke", 30, "XPC interrupted\n");
   }
 
   v2 = *(a1 + 32);
@@ -554,7 +561,7 @@ id sub_1000FB1B0(uint64_t a1)
 {
   if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE808, "[NFCTagReaderMainController configureWithContext:completion:]_block_invoke_2", 30, "XPC invalidated\n");
   }
 
   v2 = *(a1 + 32);
@@ -564,14 +571,13 @@ id sub_1000FB1B0(uint64_t a1)
 
 void sub_1000FB234(uint64_t a1, void *a2)
 {
-  v5 = a2;
+  v4 = a2;
   if (dword_1001BE808 <= 30 && (dword_1001BE808 != -1 || _LogCategory_Initialize()))
   {
-    v4 = v5;
-    LogPrintF();
+    LogPrintF(&dword_1001BE808, "[NFCTagReaderMainController configureWithContext:completion:]_block_invoke_3", 30, "XPC agent started: %{error}\n", v4);
   }
 
-  v3 = [*(*(a1 + 32) + 56) remoteObjectProxyWithErrorHandler:{&stru_100194ED0, v4}];
+  v3 = [*(*(a1 + 32) + 56) remoteObjectProxyWithErrorHandler:&stru_100194ED0];
   [v3 uiActivatedWithCompletion:&stru_100194EF0];
 }
 
@@ -586,8 +592,8 @@ void sub_1000FB31C(id a1, NSError *a2)
       v4 = v2;
       if (dword_1001BE808 != -1 || (v2 = _LogCategory_Initialize(), v3 = v4, v2))
       {
-LABEL_7:
-        v2 = LogPrintF();
+        v2 = LogPrintF(&dword_1001BE808, "[NFCTagReaderMainController configureWithContext:completion:]_block_invoke_5", 60, "### UI activate failed: %{error}\n", v3);
+LABEL_8:
         v3 = v4;
       }
     }
@@ -596,16 +602,10 @@ LABEL_7:
   else if (dword_1001BE808 <= 30)
   {
     v4 = 0;
-    if (dword_1001BE808 != -1)
+    if (dword_1001BE808 != -1 || (v2 = _LogCategory_Initialize(), v3 = 0, v2))
     {
-      goto LABEL_7;
-    }
-
-    v2 = _LogCategory_Initialize();
-    v3 = 0;
-    if (v2)
-    {
-      goto LABEL_7;
+      v2 = LogPrintF(&dword_1001BE808, "[NFCTagReaderMainController configureWithContext:completion:]_block_invoke_5", 30, "UI activated\n");
+      goto LABEL_8;
     }
   }
 
@@ -621,7 +621,7 @@ void sub_1000FB404(id a1, NSError *a2)
     v4 = v2;
     if (dword_1001BE808 != -1 || (v2 = _LogCategory_Initialize(), v3 = v4, v2))
     {
-      v2 = LogPrintF();
+      v2 = LogPrintF(&dword_1001BE808, "[NFCTagReaderMainController configureWithContext:completion:]_block_invoke_4", 60, "### UI activate failed: %{error}\n", v3);
       v3 = v4;
     }
   }
@@ -633,7 +633,7 @@ id sub_1000FBF64(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy _sessionStart]_block_invoke_2", 30, "Prompt for PIN: 0x%X, %d throttle seconds\n", a2, a3);
   }
 
   v6 = *(a1 + 32);
@@ -648,7 +648,7 @@ void sub_1000FC5E4(uint64_t a1, void *a2)
   {
     if (dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy _deviceDiscoveryEnsureStarted]_block_invoke_4", 30, "### Discovery start failed: %@\n", v3);
     }
 
     goto LABEL_38;
@@ -656,7 +656,7 @@ void sub_1000FC5E4(uint64_t a1, void *a2)
 
   if (dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy _deviceDiscoveryEnsureStarted]_block_invoke_4", 30, "Discovery started\n");
   }
 
   v10[0] = @"scanRate";
@@ -756,7 +756,7 @@ id sub_1000FD560(uint64_t a1)
 {
   if (dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy activateTouchDelayTimer]_block_invoke", 30, "Disabling touch delay timer\n");
   }
 
   *(*(a1 + 32) + 131) = 0;
@@ -780,7 +780,7 @@ void sub_1000FDDC8(uint64_t a1, void *a2, int a3, void *a4)
   {
     if (dword_1001BE938 <= 60 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy viewWillAppear:]_block_invoke", 60, "### Error getting display string: %@\n", v8);
     }
   }
 
@@ -852,7 +852,7 @@ void sub_100102BC4(uint64_t a1, void *a2)
   v4 = a2;
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupTryAgainViewController viewDidLoad]_block_invoke_2", 30, "User selected to cancel color balance\n");
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -889,7 +889,7 @@ void sub_10010378C(uint64_t a1, void *a2)
   v4 = a2;
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupProgressViewController viewDidLoad]_block_invoke", 30, "User selected to cancel color balance\n");
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -908,7 +908,7 @@ void sub_100103FB8(uint64_t a1, void *a2)
   v4 = a2;
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupPreparingViewController viewDidLoad]_block_invoke", 30, "User selected to cancel color balance\n");
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -932,7 +932,7 @@ id sub_100105058(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupMainController _sessionStart:]_block_invoke_2", 30, "Prompt for PIN: 0x%X, %d throttle seconds\n", a2, a3);
   }
 
   v6 = *(a1 + 32);
@@ -942,11 +942,10 @@ id sub_100105058(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void sub_10010540C(uint64_t a1, void *a2)
 {
-  v4 = a2;
+  v3 = a2;
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    v3 = v4;
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupMainController dismissAnimated:reenableProxCard:completion:]_block_invoke", 30, "Re-enable prox card: TVColorCalibration, %{error}\n", v3);
   }
 
   [*(a1 + 32) invalidate];
@@ -977,7 +976,7 @@ void sub_1001060D4(uint64_t a1, void *a2)
   v4 = a2;
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupUnsupportedViewController viewDidLoad]_block_invoke", 30, "User selected to cancel color balance\n");
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -1003,7 +1002,7 @@ void sub_100106D2C(uint64_t a1, void *a2)
   v4 = a2;
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupStartViewController viewDidLoad]_block_invoke_2", 30, "User selected not now for color balance\n");
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -1043,11 +1042,10 @@ void sub_10010780C(uint64_t a1, void *a2)
 
 void sub_100107AF8(uint64_t a1, void *a2)
 {
-  v6 = a2;
+  v5 = a2;
   if (dword_1001BEAD8 <= 30 && (dword_1001BEAD8 != -1 || _LogCategory_Initialize()))
   {
-    v5 = v6;
-    LogPrintF();
+    LogPrintF(&dword_1001BEAD8, "[PINPairMainController _startPairing:]_block_invoke", 30, "Pairing completed: %{error}\n", v5);
   }
 
   [*(*(a1 + 32) + 72) invalidate];
@@ -1062,7 +1060,7 @@ id sub_100107BD0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_1001BEAD8 <= 30 && (dword_1001BEAD8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEAD8, "[PINPairMainController _startPairing:]_block_invoke_2", 30, "Prompt for PIN: 0x%X, %d throttle seconds\n", a2, a3);
   }
 
   v6 = *(a1 + 32);
@@ -1145,16 +1143,22 @@ void *sub_10010BC4C(void *result, int a2)
   {
     if (dword_1001BEB48 != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF();
+      v4 = "no";
+      if (a2)
+      {
+        v4 = "yes";
+      }
+
+      result = LogPrintF(&dword_1001BEB48, "[PasswordPickerMainController viewDidAppear:]_block_invoke", 30, "Password picker authenticate to present: %s", v4);
     }
   }
 
   if (a2)
   {
-    v4 = v3[4];
-    v5 = v4[11];
+    v5 = v3[4];
+    v6 = v5[11];
 
-    return [v4 presentViewController:v5 animated:1 completion:&stru_100194FE0];
+    return [v5 presentViewController:v6 animated:1 completion:&stru_100194FE0];
   }
 
   return result;
@@ -1165,7 +1169,7 @@ void sub_10010BD24(id a1)
   if (dword_1001BEB48 <= 30 && (dword_1001BEB48 != -1 || _LogCategory_Initialize()))
   {
 
-    LogPrintF();
+    LogPrintF(&dword_1001BEB48, "[PasswordPickerMainController viewDidAppear:]_block_invoke_2", 30, "Password picker completed presentation\n");
   }
 }
 
@@ -1193,8 +1197,8 @@ void sub_10010C21C(id a1, NSError *a2)
       v4 = v2;
       if (dword_1001BEB48 != -1 || (v2 = _LogCategory_Initialize(), v3 = v4, v2))
       {
-LABEL_7:
-        v2 = LogPrintF();
+        v2 = LogPrintF(&dword_1001BEB48, "[PasswordPickerMainController configureWithContext:completion:]_block_invoke", 60, "### Helper activate: %@\n", v3);
+LABEL_8:
         v3 = v4;
       }
     }
@@ -1203,16 +1207,10 @@ LABEL_7:
   else if (dword_1001BEB48 <= 30)
   {
     v4 = 0;
-    if (dword_1001BEB48 != -1)
+    if (dword_1001BEB48 != -1 || (v2 = _LogCategory_Initialize(), v3 = 0, v2))
     {
-      goto LABEL_7;
-    }
-
-    v2 = _LogCategory_Initialize();
-    v3 = 0;
-    if (v2)
-    {
-      goto LABEL_7;
+      v2 = LogPrintF(&dword_1001BEB48, "[PasswordPickerMainController configureWithContext:completion:]_block_invoke", 30, "Helper activated\n");
+      goto LABEL_8;
     }
   }
 
@@ -1326,8 +1324,8 @@ void sub_10010D9C0(id a1, NSError *a2)
       v4 = v2;
       if (dword_1001BEBC0 != -1 || (v2 = _LogCategory_Initialize(), v3 = v4, v2))
       {
-LABEL_7:
-        v2 = LogPrintF();
+        v2 = LogPrintF(&dword_1001BEBC0, "[ProfileDevicePickerMainController _discoveryStart]_block_invoke_3", 60, "### Discovery start failed: %@\n", v3);
+LABEL_8:
         v3 = v4;
       }
     }
@@ -1336,16 +1334,10 @@ LABEL_7:
   else if (dword_1001BEBC0 <= 30)
   {
     v4 = 0;
-    if (dword_1001BEBC0 != -1)
+    if (dword_1001BEBC0 != -1 || (v2 = _LogCategory_Initialize(), v3 = 0, v2))
     {
-      goto LABEL_7;
-    }
-
-    v2 = _LogCategory_Initialize();
-    v3 = 0;
-    if (v2)
-    {
-      goto LABEL_7;
+      v2 = LogPrintF(&dword_1001BEBC0, "[ProfileDevicePickerMainController _discoveryStart]_block_invoke_3", 30, "Discovery started\n");
+      goto LABEL_8;
     }
   }
 
@@ -1450,8 +1442,8 @@ void sub_10010F2F8(id a1, NSError *a2)
       v4 = v2;
       if (dword_1001BEC30 != -1 || (v2 = _LogCategory_Initialize(), v3 = v4, v2))
       {
-LABEL_7:
-        v2 = LogPrintF();
+        v2 = LogPrintF(&dword_1001BEC30, "[ProximityAutoFillMainController deviceDiscoveryStart]_block_invoke_4", 60, "### Discovery activate failed: %@\n", v3);
+LABEL_8:
         v3 = v4;
       }
     }
@@ -1460,16 +1452,10 @@ LABEL_7:
   else if (dword_1001BEC30 <= 30)
   {
     v4 = 0;
-    if (dword_1001BEC30 != -1)
+    if (dword_1001BEC30 != -1 || (v2 = _LogCategory_Initialize(), v3 = 0, v2))
     {
-      goto LABEL_7;
-    }
-
-    v2 = _LogCategory_Initialize();
-    v3 = 0;
-    if (v2)
-    {
-      goto LABEL_7;
+      v2 = LogPrintF(&dword_1001BEC30, "[ProximityAutoFillMainController deviceDiscoveryStart]_block_invoke_4", 30, "Discovery activated\n");
+      goto LABEL_8;
     }
   }
 
@@ -1483,17 +1469,23 @@ void *sub_10010F64C(void *result, int a2)
   {
     if (dword_1001BEC30 != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF();
+      v4 = "no";
+      if (a2)
+      {
+        v4 = "yes";
+      }
+
+      result = LogPrintF(&dword_1001BEC30, "[ProximityAutoFillMainController showPasswordPickerUI]_block_invoke", 30, "Password picker authenticate to present: %s", v4);
     }
   }
 
   if (a2)
   {
-    v4 = v3[4];
-    v5 = *(v4 + 160);
-    v6 = *(v4 + 168);
+    v5 = v3[4];
+    v6 = *(v5 + 160);
+    v7 = *(v5 + 168);
 
-    return [v5 presentViewController:v6 animated:1 completion:&stru_100195168];
+    return [v6 presentViewController:v7 animated:1 completion:&stru_100195168];
   }
 
   return result;
@@ -1504,7 +1496,7 @@ void sub_10010F730(id a1)
   if (dword_1001BEC30 <= 30 && (dword_1001BEC30 != -1 || _LogCategory_Initialize()))
   {
 
-    LogPrintF();
+    LogPrintF(&dword_1001BEC30, "[ProximityAutoFillMainController showPasswordPickerUI]_block_invoke_2", 30, "Password picker completed presentation\n");
   }
 }
 
@@ -1532,8 +1524,8 @@ void sub_1001103F4(uint64_t a1, int a2, void *a3)
   v5 = a3;
   if (v5 && dword_1001BEC30 <= 60 && (dword_1001BEC30 != -1 || _LogCategory_Initialize()))
   {
-    v7 = [v5 localizedDescription];
-    LogPrintF();
+    v6 = [v5 localizedDescription];
+    LogPrintF(&dword_1001BEC30, "[ProximityAutoFillMainController showAuthenticateUI]_block_invoke_2", 60, "### Auth error: %@\n", v6);
   }
 
   if (a2)
@@ -1543,9 +1535,9 @@ void sub_1001103F4(uint64_t a1, int a2, void *a3)
     block[1] = 3221225472;
     block[2] = sub_100110540;
     block[3] = &unk_1001955E8;
-    v6 = *(a1 + 40);
+    v7 = *(a1 + 40);
     block[4] = *(a1 + 32);
-    block[5] = v6;
+    block[5] = v7;
     dispatch_async(&_dispatch_main_q, block);
   }
 
@@ -1570,7 +1562,7 @@ void sub_100110588(id a1)
   if (dword_1001BEC30 <= 30 && (dword_1001BEC30 != -1 || _LogCategory_Initialize()))
   {
 
-    LogPrintF();
+    LogPrintF(&dword_1001BEC30, "[ProximityAutoFillMainController showAuthenticateUI]_block_invoke", 30, "Auth background task expired\n");
   }
 }
 
@@ -1685,7 +1677,7 @@ void sub_100116C34(uint64_t a1)
   v1 = [NSURL URLWithString:*(a1 + 32)];
   if (dword_1001BED68 <= 30 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BED68, "[RepairDoneViewController handleActionButton:]_block_invoke", 30, "Open settings: '%@'\n", v1);
   }
 
   if (v1)
@@ -1708,7 +1700,7 @@ void sub_100116C34(uint64_t a1)
 
   if (dword_1001BED68 <= 90 && (dword_1001BED68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BED68, "[RepairDoneViewController handleActionButton:]_block_invoke", 90, "### Open settings failed (%@), %{error}\n", v1, v4);
   }
 
 LABEL_13:
@@ -2051,7 +2043,7 @@ void sub_10011A900(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
-    NSLog(@"Failed to mark terms as agreed in iCloud: %@", a4);
+    NSLog(@"Failed to mark terms as agreed in iCloud: %@", a2, a3, a4);
   }
 
   block[0] = _NSConcreteStackBlock;
@@ -2121,19 +2113,18 @@ void sub_10011B120(uint64_t a1, void *a2)
       v5 = off_100195508[v4];
     }
 
-    v9 = v5;
-    LogPrintF();
+    LogPrintF(&dword_1001BEE38, "[ShareAudioAcceptMainController dismissWithAction:]_block_invoke", 30, "PerformAction complete: %s\n", v5);
   }
 
   v6 = [*(a1 + 32) _remoteViewControllerProxy];
   v7 = *(a1 + 32);
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_10011B258;
-  v10[3] = &unk_100195AC0;
-  v11 = v6;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_10011B258;
+  v9[3] = &unk_100195AC0;
+  v10 = v6;
   v8 = v6;
-  [v7 dismissViewControllerAnimated:1 completion:v10];
+  [v7 dismissViewControllerAnimated:1 completion:v9];
 }
 
 id sub_10011B40C(uint64_t a1)
@@ -2175,24 +2166,22 @@ uint64_t sub_10011B788(uint64_t a1, void *a2)
 void sub_10011C478(uint64_t a1)
 {
   v1 = [*(a1 + 32) mainController];
-  v7 = [v1 appContent];
+  v5 = [v1 appContent];
 
   if (dword_1001BEEA8 <= 50 && (dword_1001BEEA8 != -1 || _LogCategory_Initialize()))
   {
-    v2 = [v7 adamIDs];
-    v3 = [v7 installed];
+    v2 = [v5 adamIDs];
+    v3 = [v5 installed];
     v4 = "no";
     if (v3)
     {
       v4 = "yes";
     }
 
-    v5 = v2;
-    v6 = v4;
-    LogPrintF();
+    LogPrintF(&dword_1001BEEA8, "[SVSSubCredentialActivationStartViewController _handleOpenApp]_block_invoke", 50, "Opening app (ADAM IDs %@, installed %s)", v2, v4);
   }
 
-  [v7 launchWithCompletion:{&stru_100195570, v5, v6}];
+  [v5 launchWithCompletion:&stru_100195570];
 }
 
 void sub_10011C568(id a1, NSError *a2)
@@ -2206,7 +2195,7 @@ void sub_10011C568(id a1, NSError *a2)
       v4 = v2;
       if (dword_1001BEEA8 != -1 || (v2 = _LogCategory_Initialize(), v3 = v4, v2))
       {
-        v2 = LogPrintF();
+        v2 = LogPrintF(&dword_1001BEEA8, "[SVSSubCredentialActivationStartViewController _handleOpenApp]_block_invoke_2", 90, "### Error opening App Store: %@", v3);
         v3 = v4;
       }
     }
@@ -2231,13 +2220,13 @@ void sub_10011C6EC(uint64_t a1)
 
       v7 = +[LSApplicationWorkspace defaultWorkspace];
       v8 = [NSURL URLWithString:v6];
-      v10 = 0;
-      [v7 openURL:v8 withOptions:&off_10019B0B8 error:&v10];
-      v9 = v10;
+      v11 = 0;
+      [v7 openURL:v8 withOptions:&off_10019B0B8 error:&v11];
+      v9 = v11;
 
       if (dword_1001BEEA8 <= 30 && (dword_1001BEEA8 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1001BEEA8, "[SVSSubCredentialActivationStartViewController _handleEnterCode]_block_invoke", 30, "Launched Wallet app with URL %@, error: %{error}", v6, v9);
       }
 
       return;
@@ -2247,14 +2236,21 @@ void sub_10011C6EC(uint64_t a1)
     {
       return;
     }
+
+    v10 = "### No Issuer ID to launch Wallet.";
   }
 
-  else if (dword_1001BEEA8 > 90 || dword_1001BEEA8 == -1 && !_LogCategory_Initialize())
+  else
   {
-    return;
+    if (dword_1001BEEA8 > 90 || dword_1001BEEA8 == -1 && !_LogCategory_Initialize())
+    {
+      return;
+    }
+
+    v10 = "### No URL to launch Wallet.";
   }
 
-  LogPrintF();
+  LogPrintF(&dword_1001BEEA8, "[SVSSubCredentialActivationStartViewController _handleEnterCode]_block_invoke", 90, v10);
 }
 
 void sub_10011D514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, id a60, uint64_t a61, uint64_t a62, uint64_t a63)
@@ -2298,19 +2294,17 @@ void sub_10011DFBC(uint64_t a1, void *a2, void *a3, void *a4)
   v8 = a4;
   if (v8)
   {
-    if (dword_1001BEEA8 > 90 || dword_1001BEEA8 == -1 && !_LogCategory_Initialize())
+    if (dword_1001BEEA8 <= 90 && (dword_1001BEEA8 != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_11;
+      LogPrintF(&dword_1001BEEA8, "[SubCredentialActivationMainController viewFetchContent]_block_invoke", 90, "### Error fetching icon %@", v8);
     }
   }
 
-  else if (dword_1001BEEA8 > 50 || dword_1001BEEA8 == -1 && !_LogCategory_Initialize())
+  else if (dword_1001BEEA8 <= 50 && (dword_1001BEEA8 != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_11;
+    LogPrintF(&dword_1001BEEA8, "[SubCredentialActivationMainController viewFetchContent]_block_invoke", 50, "Received icon %@", v17);
   }
 
-  LogPrintF();
-LABEL_11:
   v9 = *(a1 + 32);
   v10 = *(v9 + 32);
   *(v9 + 32) = v7;
@@ -2493,21 +2487,97 @@ id sub_100121330(uint64_t a1)
   *(*(a1 + 32) + 121) = v2;
   if (v2)
   {
-    if (dword_1001BEFE8 <= 90 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
+    if (dword_1001BEFE8 > 90)
     {
-LABEL_11:
-      LogPrintF();
+      goto LABEL_32;
     }
+
+    if (dword_1001BEFE8 == -1)
+    {
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_32;
+      }
+
+      v2 = *(a1 + 40);
+    }
+
+    if (v2 <= 3)
+    {
+      if (v2 > 1)
+      {
+        if (v2 == 2)
+        {
+          v3 = "NoPhysicalCardError";
+        }
+
+        else
+        {
+          v3 = "ServicesUnavailableError";
+        }
+
+        goto LABEL_31;
+      }
+
+      if (!v2)
+      {
+        v3 = "Success";
+        goto LABEL_31;
+      }
+
+      if (v2 == 1)
+      {
+        v3 = "UnknownError";
+        goto LABEL_31;
+      }
+    }
+
+    else
+    {
+      if (v2 <= 5)
+      {
+        if (v2 == 4)
+        {
+          v3 = "NoInternetConnectionError";
+        }
+
+        else
+        {
+          v3 = "NotYetShippedError";
+        }
+
+        goto LABEL_31;
+      }
+
+      switch(v2)
+      {
+        case 6:
+          v3 = "AlreadyActivatedError";
+          goto LABEL_31;
+        case 7:
+          v3 = "IncorrectActivationCodeError";
+          goto LABEL_31;
+        case 999:
+          v3 = "Uninitialized";
+LABEL_31:
+          LogPrintF(&dword_1001BEFE8, "[BroadwayActivationStartViewController handleActivateButton:]_block_invoke_3", 90, "Failed activation with activation code %@ with result %s", *(*(a1 + 32) + 105), v3);
+          goto LABEL_32;
+      }
+    }
+
+    v3 = "?";
+    goto LABEL_31;
   }
 
-  else if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
+  if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_11;
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationStartViewController handleActivateButton:]_block_invoke_3", 30, "Completed activation with activation code %@", *(*(a1 + 32) + 105));
   }
 
-  v3 = *(a1 + 32);
+LABEL_32:
+  v4 = *(a1 + 32);
 
-  return [v3 handleCompletedIfReady];
+  return [v4 handleCompletedIfReady];
 }
 
 id sub_1001218CC(void *a1)
@@ -2571,7 +2641,7 @@ void sub_100122244(id a1)
 
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationDoneViewController handleDoneButton:]_block_invoke", 30, "Launched Wallet app, error: %{error}", v4);
   }
 }
 
@@ -2586,7 +2656,7 @@ void sub_1001231D0(id a1)
 
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationNoCardViewController handleOrderPhysicalCardButton:]_block_invoke", 30, "Launched Wallet app for order physical card, error: %{error}", v4);
   }
 }
 
@@ -2601,7 +2671,7 @@ void sub_1001237AC(id a1)
 
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationAlreadyActivatedViewController handleContactSupportButton:]_block_invoke", 30, "Launched Wallet app for contact support, error: %{error}", v4);
   }
 }
 
@@ -2748,12 +2818,12 @@ id sub_100126C04(void *a1, const char *a2)
 
 void sub_100126C30(unsigned int a1, uint64_t a2, uint64_t a3, id *a4, id *a5, id *a6, id *a7)
 {
-  v74 = 0;
-  v75 = &v74;
-  v76 = 0x3032000000;
-  v77 = sub_10012778C;
-  v78 = sub_10012779C;
-  v79 = 0;
+  v70 = 0;
+  v71 = &v70;
+  v72 = 0x3032000000;
+  v73 = sub_10012778C;
+  v74 = sub_10012779C;
+  v75 = 0;
   if (a1 == 8207)
   {
     v10 = 8194;
@@ -2768,22 +2838,18 @@ void sub_100126C30(unsigned int a1, uint64_t a2, uint64_t a3, id *a4, id *a5, id
   {
     if (dword_1001BF128 <= 30 && (dword_1001BF128 != -1 || _LogCategory_Initialize()))
     {
-      v62 = a3;
-      v63 = &unk_100170F20;
-      v60 = v10;
-      v61 = a2;
-      LogPrintF();
+      LogPrintF(&dword_1001BF128, "void SVSBluetoothDeviceInfoToUIInfoEx(uint32_t, SFBluetoothColorCode, SVSBluetoothDeviceInfoFlags, NSString * _Nonnull __strong * _Nullable, UIColor * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSBundle * _Nonnull __strong * _Nullable)", 30, "Looking up assets for product ID %u, color code %u, %#{flags}\n", v10, a2, a3, &unk_100170F20);
     }
 
     v18 = mach_absolute_time();
     if ((a3 & 8) != 0)
     {
-      v64 = [[SFDeviceAssetQuery alloc] initWithHomePodColor:a2 version:v10];
+      v60 = [[SFDeviceAssetQuery alloc] initWithHomePodColor:a2 version:v10];
     }
 
     else
     {
-      v64 = [[SFDeviceAssetQuery alloc] initWithBluetoothProductIdentifier:v10 color:a2];
+      v60 = [[SFDeviceAssetQuery alloc] initWithBluetoothProductIdentifier:v10 color:a2];
     }
 
     v19 = a7;
@@ -2794,19 +2860,19 @@ void sub_100126C30(unsigned int a1, uint64_t a2, uint64_t a3, id *a4, id *a5, id
 
     [v21 activate];
     v23 = [SFDeviceAssetRequestConfiguration alloc];
-    v68[0] = _NSConcreteStackBlock;
-    v68[1] = 3221225472;
-    v68[2] = sub_1001277A4;
-    v68[3] = &unk_1001956B8;
-    v72 = v10;
-    v73 = a2;
-    v70 = &v74;
-    v71 = v18;
+    v64[0] = _NSConcreteStackBlock;
+    v64[1] = 3221225472;
+    v64[2] = sub_1001277A4;
+    v64[3] = &unk_1001956B8;
+    v68 = v10;
+    v69 = a2;
+    v66 = &v70;
+    v67 = v18;
     v24 = v20;
-    v69 = v24;
-    v25 = [v23 initWithQueryResultHandler:v68];
+    v65 = v24;
+    v25 = [v23 initWithQueryResultHandler:v64];
     [v25 setTimeout:3.0];
-    [v21 getAssetBundleForDeviceQuery:v64 withRequestConfiguration:v25];
+    [v21 getAssetBundleForDeviceQuery:v60 withRequestConfiguration:v25];
     v26 = dispatch_time(0, 5000000000);
     v27 = dispatch_semaphore_wait(v24, v26);
     a7 = v19;
@@ -2817,13 +2883,12 @@ void sub_100126C30(unsigned int a1, uint64_t a2, uint64_t a3, id *a4, id *a5, id
         v28 = v27;
         if (dword_1001BF128 != -1 || _LogCategory_Initialize())
         {
-          v60 = v28;
-          LogPrintF();
+          LogPrintF(&dword_1001BF128, "void SVSBluetoothDeviceInfoToUIInfoEx(uint32_t, SFBluetoothColorCode, SVSBluetoothDeviceInfoFlags, NSString * _Nonnull __strong * _Nullable, UIColor * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSBundle * _Nonnull __strong * _Nullable)", 60, "### Get MobileAsset timeout (%ld)\n", v28);
         }
       }
     }
 
-    v29 = v75[5];
+    v29 = v71[5];
     if (v29)
     {
       if ((a3 & 8) == 0)
@@ -2831,22 +2896,22 @@ void sub_100126C30(unsigned int a1, uint64_t a2, uint64_t a3, id *a4, id *a5, id
         v12 = [v29 pathForResource:SFDeviceAssetNameMovieConnectIntro ofType:0];
         if (v10 == 8203 || (+[SFHeadphoneProduct b507](SFHeadphoneProduct, "b507"), v30 = objc_claimAutoreleasedReturnValue(), v31 = [v30 productID], v30, v10 == v31) || (+[SFHeadphoneProduct b494](SFHeadphoneProduct, "b494"), v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(v32, "productID"), v32, v10 == v33) || (+[SFHeadphoneProduct b607](SFHeadphoneProduct, "b607"), v36 = objc_claimAutoreleasedReturnValue(), v37 = objc_msgSend(v36, "productID"), v36, v10 == 0x10000) || v10 == v37)
         {
-          v38 = [v75[5] pathForResource:SFDeviceAssetNameMovieStatusLoopCharged ofType:{0, v60, v61, v62, v63}];
+          v38 = [v71[5] pathForResource:SFDeviceAssetNameMovieStatusLoopCharged ofType:0];
         }
 
         else
         {
-          v38 = [v75[5] pathForResource:SFDeviceAssetNameMovieLoop ofType:0];
+          v38 = [v71[5] pathForResource:SFDeviceAssetNameMovieLoop ofType:0];
         }
 
-        v67 = v38;
+        v63 = v38;
         v39 = SFDeviceAssetNameMovieConnectLoop;
-        v11 = [v75[5] pathForResource:v39 ofType:0];
+        v11 = [v71[5] pathForResource:v39 ofType:0];
 
         if (!v11)
         {
-          v11 = v67;
-          v67 = v11;
+          v11 = v63;
+          v63 = v11;
         }
 
         a7 = v19;
@@ -2863,24 +2928,24 @@ LABEL_46:
       v12 = [v29 pathForResource:@"ProxCard_connect-engage.mov" ofType:0];
       if (v12)
       {
-        v67 = 0;
+        v63 = 0;
         v11 = 0;
         goto LABEL_46;
       }
 
       if (dword_1001BF128 <= 90 && (dword_1001BF128 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1001BF128, "void SVSBluetoothDeviceInfoToUIInfoEx(uint32_t, SFBluetoothColorCode, SVSBluetoothDeviceInfoFlags, NSString * _Nonnull __strong * _Nullable, UIColor * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSBundle * _Nonnull __strong * _Nullable)", 90, "### HomePod intro movie asset missing\n");
       }
     }
 
-    v67 = 0;
+    v63 = 0;
     v11 = 0;
     v12 = 0;
     goto LABEL_46;
   }
 
-  v67 = 0;
+  v63 = 0;
   v11 = 0;
   v12 = 0;
   if ((a3 & 8) != 0)
@@ -2889,12 +2954,12 @@ LABEL_6:
     v13 = GestaltCopyAnswer();
     v14 = a6;
     v15 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"ProxCard_Setup@%dx.png", [v13 intValue]);
-    v16 = [v75[5] pathForResource:v15 ofType:0];
+    v16 = [v71[5] pathForResource:v15 ofType:0];
     if (!v16)
     {
       if (dword_1001BF128 <= 90 && (dword_1001BF128 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1001BF128, "void SVSBluetoothDeviceInfoToUIInfoEx(uint32_t, SFBluetoothColorCode, SVSBluetoothDeviceInfoFlags, NSString * _Nonnull __strong * _Nullable, UIColor * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSBundle * _Nonnull __strong * _Nullable)", 90, "### HomePod setup asset missing\n");
       }
 
       v16 = @"UnsupportedAccessory.png";
@@ -2938,7 +3003,7 @@ LABEL_47:
         [NSString stringWithFormat:@"ProxCard_case-closed@%dx.png", v43];
       }
       v15 = ;
-      v44 = [v75[5] pathForResource:v15 ofType:0];
+      v44 = [v71[5] pathForResource:v15 ofType:0];
       if (v44)
       {
         v16 = v44;
@@ -3084,10 +3149,17 @@ LABEL_66:
 
   if (a7)
   {
-    objc_storeStrong(a7, v75[5]);
+    objc_storeStrong(a7, v71[5]);
   }
 
-  _Block_object_dispose(&v74, 8);
+  _Block_object_dispose(&v70, 8);
+}
+
+void sub_100127714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t sub_10012778C(uint64_t result, uint64_t a2)
@@ -3097,31 +3169,37 @@ uint64_t sub_10012778C(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1001277A4(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
+void sub_1001277A4(uint64_t a1, void *a2, void *a3, int a4, void *a5)
 {
-  v8 = a2;
-  v13 = a3;
-  v9 = a5;
+  v9 = a2;
+  v17 = a3;
+  v10 = a5;
   mach_absolute_time();
   UpTicksToSecondsF();
-  if (v9)
+  v12 = v11 * 1000.0;
+  if (v10)
   {
     if (dword_1001BF128 <= 60 && (dword_1001BF128 != -1 || _LogCategory_Initialize()))
     {
-LABEL_7:
-      LogPrintF();
+      LogPrintF(&dword_1001BF128, "void SVSBluetoothDeviceInfoToUIInfoEx(uint32_t, SFBluetoothColorCode, SVSBluetoothDeviceInfoFlags, NSString * _Nonnull __strong * _Nullable, UIColor * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSBundle * _Nonnull __strong * _Nullable)_block_invoke", 60, "### Look up assets for product ID %u (aka %@), color code %u failed after %f ms: %{error}\n", *(a1 + 56), v17, *(a1 + 60), *&v12, v10);
     }
   }
 
   else if (dword_1001BF128 <= 30 && (dword_1001BF128 != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_7;
+    v13 = "no";
+    if (a4)
+    {
+      v13 = "yes";
+    }
+
+    LogPrintF(&dword_1001BF128, "void SVSBluetoothDeviceInfoToUIInfoEx(uint32_t, SFBluetoothColorCode, SVSBluetoothDeviceInfoFlags, NSString * _Nonnull __strong * _Nullable, UIColor * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSString * _Nonnull __strong * _Nullable, NSBundle * _Nonnull __strong * _Nullable)_block_invoke", 30, "Found assets for product ID %u (aka %@), color code %u, fallback %s, %f ms\n", *(a1 + 56), v17, *(a1 + 60), v13, *&v12);
   }
 
-  v10 = *(*(a1 + 40) + 8);
-  v11 = *(v10 + 40);
-  *(v10 + 40) = v8;
-  v12 = v8;
+  v14 = *(*(a1 + 40) + 8);
+  v15 = *(v14 + 40);
+  *(v14 + 40) = v9;
+  v16 = v9;
 
   dispatch_semaphore_signal(*(a1 + 32));
 }
@@ -3486,7 +3564,7 @@ id sub_100128F3C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupMainController _sessionStart:]_block_invoke_2", 30, "Prompt for PIN: 0x%X, %d throttle seconds\n", a2, a3);
   }
 
   v6 = *(a1 + 32);
@@ -3496,11 +3574,10 @@ id sub_100128F3C(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void sub_1001292E0(uint64_t a1, void *a2)
 {
-  v4 = a2;
+  v3 = a2;
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    v3 = v4;
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupMainController dismiss:completion:]_block_invoke", 30, "Re-enable prox card: TVLatency, %{error}\n", v3);
   }
 
   [*(a1 + 32) invalidate];
@@ -3619,7 +3696,7 @@ void sub_10012C90C(uint64_t a1, void *a2)
   {
     if (dword_1001BF328 <= 90 && (dword_1001BF328 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BF328, "[SVSWatchSetupInitialViewController _restoreWatchApp]_block_invoke", 90, "### Restore Watch app failed: %{error}\n", v3);
     }
 
     block[0] = _NSConcreteStackBlock;
@@ -3632,7 +3709,7 @@ void sub_10012C90C(uint64_t a1, void *a2)
 
   else if (dword_1001BF328 <= 30 && (dword_1001BF328 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF328, "[SVSWatchSetupInitialViewController _restoreWatchApp]_block_invoke", 30, "Restored Watch app\n");
   }
 }
 
@@ -3664,7 +3741,7 @@ void sub_10012CB94(id a1)
 {
   if (dword_1001BF328 <= 60 && (dword_1001BF328 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF328, "[SVSWatchSetupInitialViewController _launchWatchAppForPairing]_block_invoke", 60, "Launching Watch app\n");
   }
 
   v1 = objc_alloc_init(SFClient);
@@ -3680,20 +3757,18 @@ void sub_10012CB94(id a1)
 
 void sub_10012CCA0(uint64_t a1, void *a2)
 {
-  v4 = a2;
-  if (v4)
+  v3 = a2;
+  if (v3)
   {
     if (dword_1001BF328 <= 60 && (dword_1001BF328 != -1 || _LogCategory_Initialize()))
     {
-      v3 = v4;
-LABEL_7:
-      LogPrintF();
+      LogPrintF(&dword_1001BF328, "[SVSWatchSetupInitialViewController _launchWatchAppForPairing]_block_invoke_2", 60, "### Open setup URL failed: %{error}\n", v3);
     }
   }
 
   else if (dword_1001BF328 <= 60 && (dword_1001BF328 != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_7;
+    LogPrintF(&dword_1001BF328, "[SVSWatchSetupInitialViewController _launchWatchAppForPairing]_block_invoke_2", 60, "Launched Watch app\n");
   }
 
   [*(a1 + 32) invalidate];
@@ -3728,25 +3803,24 @@ Class sub_10012D91C()
 void sub_10012F120(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
-  v8 = v5;
+  v7 = v5;
   if (dword_1001BF408 <= 30)
   {
-    if (dword_1001BF408 != -1 || (v6 = _LogCategory_Initialize(), v5 = v8, v6))
+    if (dword_1001BF408 != -1 || (v6 = _LogCategory_Initialize(), v5 = v7, v6))
     {
-      v7 = [v5 count];
-      LogPrintF();
-      v5 = v8;
+      LogPrintF(&dword_1001BF408, "-[WHASetupMainController _sessionStart]_block_invoke_2", 30, "Prompt for home (%ld homes)\n", [v5 count]);
+      v5 = v7;
     }
   }
 
-  [*(a1 + 32) showHomePickerUI:v5 defaultIndex:{a3, v7}];
+  [*(a1 + 32) showHomePickerUI:v5 defaultIndex:a3];
 }
 
 id sub_10012F1DC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupMainController _sessionStart]_block_invoke_3", 30, "Prompt for PIN: 0x%X, %d throttle seconds\n", a2, a3);
   }
 
   v6 = *(a1 + 32);
@@ -3757,18 +3831,17 @@ id sub_10012F1DC(uint64_t a1, uint64_t a2, uint64_t a3)
 void sub_10012F284(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
-  v8 = v5;
+  v7 = v5;
   if (dword_1001BF408 <= 30)
   {
-    if (dword_1001BF408 != -1 || (v6 = _LogCategory_Initialize(), v5 = v8, v6))
+    if (dword_1001BF408 != -1 || (v6 = _LogCategory_Initialize(), v5 = v7, v6))
     {
-      v7 = [v5 count];
-      LogPrintF();
-      v5 = v8;
+      LogPrintF(&dword_1001BF408, "-[WHASetupMainController _sessionStart]_block_invoke_4", 30, "Prompt for room (%ld rooms)\n", [v5 count]);
+      v5 = v7;
     }
   }
 
-  [*(a1 + 32) showRoomPickerUI:v5 firstSuggestedIndex:{a3, v7}];
+  [*(a1 + 32) showRoomPickerUI:v5 firstSuggestedIndex:a3];
 }
 
 id sub_10012FB80(uint64_t a1)
@@ -3922,7 +3995,7 @@ void sub_100133054(uint64_t a1)
   v1 = [NSURL URLWithString:*(a1 + 32)];
   if (dword_1001BF408 <= 30 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupDoneViewController handleActionButton:]_block_invoke", 30, "Open settings: '%@'\n", v1);
   }
 
   if (v1)
@@ -3945,7 +4018,7 @@ void sub_100133054(uint64_t a1)
 
   if (dword_1001BF408 <= 90 && (dword_1001BF408 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF408, "[WHASetupDoneViewController handleActionButton:]_block_invoke", 90, "### Open settings failed (%@), %{error}\n", v1, v4);
   }
 
 LABEL_13:

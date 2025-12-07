@@ -69,10 +69,10 @@
 
 - (void)run
 {
-  v27 = 0;
+  v29 = 0;
   if (self->_tokenData)
   {
-    v3 = [(PostPushNotificationTokenOperation *)self loadedURLBagWithContext:[SSURLBagContext returningError:"contextWithBagType:" contextWithBagType:?], &v27];
+    v3 = [(PostPushNotificationTokenOperation *)self loadedURLBagWithContext:[SSURLBagContext returningError:"contextWithBagType:" contextWithBagType:?], &v29];
     if (v3)
     {
       v4 = [v3 valueForKey:@"push-notifications"];
@@ -86,42 +86,46 @@
       objc_opt_class();
       if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()) && ![(NSString *)self->_environmentName isEqualToString:v5])
       {
-        v18 = +[SSLogConfig sharedDaemonConfig];
-        if (!v18)
+        v20 = +[SSLogConfig sharedDaemonConfig];
+        if (!v20)
         {
-          v18 = +[SSLogConfig sharedConfig];
+          v20 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog = [v18 shouldLog];
-        if ([v18 shouldLogToDisk])
+        shouldLog = [v20 shouldLog];
+        if ([v20 shouldLogToDisk])
         {
-          v20 = shouldLog | 2;
+          LODWORD(v22) = shouldLog | 2;
         }
 
         else
         {
-          v20 = shouldLog;
+          LODWORD(v22) = shouldLog;
         }
 
-        if (!os_log_type_enabled([v18 OSLogObject], OS_LOG_TYPE_INFO))
+        oSLogObject = [v20 OSLogObject];
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
         {
-          v20 &= 2u;
+          v22 = v22;
         }
 
-        if (v20)
+        else
         {
-          v21 = objc_opt_class();
-          v28 = 138412290;
-          v29 = v21;
-          LODWORD(v26) = 12;
-          v25 = &v28;
-          v22 = _os_log_send_and_compose_impl();
-          if (v22)
+          v22 &= 2u;
+        }
+
+        if (v22)
+        {
+          v24 = objc_opt_class();
+          v30 = 138412290;
+          v31 = v24;
+          v25 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Environment name mismatch, skipping token POST", &v30, 12);
+          if (v25)
           {
-            v23 = v22;
-            v24 = [NSString stringWithCString:v22 encoding:4, &v28, v26];
-            free(v23);
-            v25 = v24;
+            v26 = v25;
+            v27 = [NSString stringWithCString:v25 encoding:4];
+            free(v26);
+            v28 = v27;
             SSFileLog();
           }
         }
@@ -145,102 +149,110 @@ LABEL_9:
           shouldLog2 = [v8 shouldLog];
           if ([v8 shouldLogToDisk])
           {
-            v10 = shouldLog2 | 2;
+            LODWORD(v10) = shouldLog2 | 2;
           }
 
           else
           {
-            v10 = shouldLog2;
+            LODWORD(v10) = shouldLog2;
           }
 
-          if (!os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_DEFAULT))
+          oSLogObject2 = [v8 OSLogObject];
+          if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+          {
+            v10 = v10;
+          }
+
+          else
           {
             v10 &= 2u;
           }
 
           if (v10)
           {
-            v11 = objc_opt_class();
-            v28 = 138412546;
-            v29 = v11;
-            v30 = 2112;
-            v31 = @"register-success";
-            LODWORD(v26) = 22;
-            v25 = &v28;
-            v12 = _os_log_send_and_compose_impl();
-            if (!v12)
+            v12 = objc_opt_class();
+            v30 = 138412546;
+            v31 = v12;
+            v32 = 2112;
+            v33 = @"register-success";
+            v13 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: No URL for %@", &v30, 22);
+            if (!v13)
             {
               v7 = 0;
-              goto LABEL_44;
+              goto LABEL_47;
             }
 
-            v13 = [NSString stringWithCString:v12 encoding:4, &v28, v26];
-            free(v12);
-            v25 = v13;
+            v14 = [NSString stringWithCString:v13 encoding:4];
+            free(v13);
+            v28 = v14;
             SSFileLog();
           }
 
           v7 = 0;
-          v12 = 0;
-LABEL_44:
+          v13 = 0;
+LABEL_47:
 
-          goto LABEL_45;
+          goto LABEL_48;
         }
       }
 
-      v12 = [(PostPushNotificationTokenOperation *)self _postTokenToURL:v7 error:&v27, v25];
-      goto LABEL_44;
+      v13 = [(PostPushNotificationTokenOperation *)self _postTokenToURL:v7 error:&v29, v28];
+      goto LABEL_47;
     }
 
-    goto LABEL_30;
+    goto LABEL_32;
   }
 
-  v14 = +[SSLogConfig sharedDaemonConfig];
-  if (!v14)
+  v15 = +[SSLogConfig sharedDaemonConfig];
+  if (!v15)
   {
-    v14 = +[SSLogConfig sharedConfig];
+    v15 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog3 = [v14 shouldLog];
-  if ([v14 shouldLogToDisk])
+  shouldLog3 = [v15 shouldLog];
+  if ([v15 shouldLogToDisk])
   {
-    v16 = shouldLog3 | 2;
+    LODWORD(v17) = shouldLog3 | 2;
   }
 
   else
   {
-    v16 = shouldLog3;
+    LODWORD(v17) = shouldLog3;
   }
 
-  if (!os_log_type_enabled([v14 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject3 = [v15 OSLogObject];
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
   {
-    v16 &= 2u;
+    v17 = v17;
   }
 
-  if (!v16)
+  else
   {
-LABEL_30:
-    v12 = 0;
-    goto LABEL_45;
+    v17 &= 2u;
   }
 
-  v28 = 138412290;
-  v29 = objc_opt_class();
-  LODWORD(v26) = 12;
-  v25 = &v28;
-  v12 = _os_log_send_and_compose_impl();
-  if (v12)
+  if (!v17)
   {
-    v17 = [NSString stringWithCString:v12 encoding:4, &v28, v26];
-    free(v12);
-    v25 = v17;
+LABEL_32:
+    v13 = 0;
+    goto LABEL_48;
+  }
+
+  v30 = 138412290;
+  v31 = objc_opt_class();
+  v13 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: No token to push", &v30, 12);
+  if (v13)
+  {
+    v19 = [NSString stringWithCString:v13 encoding:4];
+    free(v13);
+    v28 = v19;
     SSFileLog();
-    goto LABEL_30;
+    goto LABEL_32;
   }
 
-LABEL_45:
-  [(PostPushNotificationTokenOperation *)self setError:v27, v25];
-  [(PostPushNotificationTokenOperation *)self setSuccess:v12];
+LABEL_48:
+  [(PostPushNotificationTokenOperation *)self setError:v29, v28];
+  [(PostPushNotificationTokenOperation *)self setSuccess:v13];
 }
 
 - (BOOL)_postTokenToURL:(id)l error:(id *)error
@@ -260,86 +272,90 @@ LABEL_45:
   shouldLog = [v8 shouldLog];
   if ([v8 shouldLogToDisk])
   {
-    v10 = shouldLog | 2;
+    LODWORD(v10) = shouldLog | 2;
   }
 
   else
   {
-    v10 = shouldLog;
+    LODWORD(v10) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [v8 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = v10;
+  }
+
+  else
   {
     v10 &= 2u;
   }
 
   if (v10)
   {
-    v11 = objc_opt_class();
+    v12 = objc_opt_class();
     environmentName = self->_environmentName;
     tokenData = self->_tokenData;
     v31 = 138543874;
-    v32 = v11;
+    v32 = v12;
     v33 = 2114;
     v34 = environmentName;
     v35 = 2112;
     v36 = tokenData;
-    LODWORD(v29) = 32;
-    v28 = &v31;
-    v14 = _os_log_send_and_compose_impl();
-    if (v14)
+    v15 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Posting APS token for %{public}@. Token: %@", &v31, 32);
+    if (v15)
     {
-      v15 = v14;
-      v16 = [NSString stringWithCString:v14 encoding:4, &v31, v29];
-      free(v15);
-      v28 = v16;
+      v16 = v15;
+      v17 = [NSString stringWithCString:v15 encoding:4];
+      free(v16);
+      v29 = v17;
       SSFileLog();
     }
   }
 
-  v17 = [[SSMutableURLRequestProperties alloc] initWithURL:l];
-  [v17 setHTTPMethod:@"POST"];
-  [v17 setValue:@"application/x-apple-plist" forHTTPHeaderField:@"Content-Type"];
-  v18 = objc_alloc_init(NSMutableDictionary);
-  v19 = +[ISDevice sharedInstance];
-  v20 = self->_environmentName;
-  if (v20)
-  {
-    [v18 setObject:v20 forKey:@"environment"];
-  }
-
-  v21 = self->_tokenData;
+  v18 = [[SSMutableURLRequestProperties alloc] initWithURL:l];
+  [v18 setHTTPMethod:@"POST"];
+  [v18 setValue:@"application/x-apple-plist" forHTTPHeaderField:@"Content-Type"];
+  v19 = objc_alloc_init(NSMutableDictionary);
+  v20 = +[ISDevice sharedInstance];
+  v21 = self->_environmentName;
   if (v21)
   {
-    [v18 setObject:v21 forKey:@"token"];
+    [v19 setObject:v21 forKey:@"environment"];
   }
 
-  deviceName = [(ISDevice *)v19 deviceName];
+  v22 = self->_tokenData;
+  if (v22)
+  {
+    [v19 setObject:v22 forKey:@"token"];
+  }
+
+  deviceName = [(ISDevice *)v20 deviceName];
   if (deviceName)
   {
-    v23 = [deviceName dataUsingEncoding:4 allowLossyConversion:1];
-    if (v23)
+    v24 = [deviceName dataUsingEncoding:4 allowLossyConversion:1];
+    if (v24)
     {
-      [v18 setObject:v23 forKey:@"device-name-data"];
+      [v19 setObject:v24 forKey:@"device-name-data"];
     }
   }
 
-  serialNumber = [(ISDevice *)v19 serialNumber];
+  serialNumber = [(ISDevice *)v20 serialNumber];
   if (serialNumber)
   {
-    [v18 setObject:serialNumber forKey:@"serial-number"];
+    [v19 setObject:serialNumber forKey:@"serial-number"];
   }
 
-  guid = [(ISDevice *)v19 guid];
+  guid = [(ISDevice *)v20 guid];
   if (guid)
   {
-    [v18 setObject:guid forKey:@"guid"];
+    [v19 setObject:guid forKey:@"guid"];
   }
 
-  [v17 setRequestParameters:v18];
+  [v18 setRequestParameters:v19];
 
-  [v7 setRequestProperties:v17];
-  v26 = [(PostPushNotificationTokenOperation *)self runSubOperation:v7 returningError:&v30];
+  [v7 setRequestProperties:v18];
+  v27 = [(PostPushNotificationTokenOperation *)self runSubOperation:v7 returningError:&v30];
   [v7 setDelegate:0];
 
   if (error)
@@ -347,7 +363,7 @@ LABEL_45:
     *error = v30;
   }
 
-  return v26;
+  return v27;
 }
 
 @end

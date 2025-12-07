@@ -29,10 +29,10 @@
     v4->_separatorView = v10;
 
     v12 = v4->_separatorView;
-    primaryTextColor = [(SUUIColorScheme *)v4->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v13 = objc_msgSend_primaryTextColor(v4->_colorScheme);
+    if (v13)
     {
-      [(UIView *)v12 setBackgroundColor:primaryTextColor];
+      [(UIView *)v12 setBackgroundColor:v13];
     }
 
     else
@@ -208,9 +208,9 @@
           v71[0] = v52;
           v71[1] = v51;
           v72[0] = v35;
-          primaryTextColor = [(SUUIColorScheme *)self->_colorScheme primaryTextColor];
-          v37 = primaryTextColor;
-          if (!primaryTextColor)
+          v36 = objc_msgSend_primaryTextColor(self->_colorScheme);
+          v37 = v36;
+          if (!v36)
           {
             i = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.8];
             v37 = i;
@@ -218,7 +218,7 @@
 
           v72[1] = v37;
           v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:2];
-          if (!primaryTextColor)
+          if (!v36)
           {
           }
 
@@ -343,10 +343,10 @@ LABEL_43:
           }
 
           v19 = *(*(&v29 + 1) + 8 * j);
-          primaryTextColor = [(SUUIColorScheme *)self->_colorScheme primaryTextColor];
-          if (primaryTextColor)
+          v20 = objc_msgSend_primaryTextColor(self->_colorScheme);
+          if (v20)
           {
-            [v19 setTextColor:primaryTextColor];
+            [v19 setTextColor:v20];
           }
 
           else
@@ -363,10 +363,10 @@ LABEL_43:
     }
 
     separatorView = self->_separatorView;
-    primaryTextColor2 = [(SUUIColorScheme *)self->_colorScheme primaryTextColor];
-    if (primaryTextColor2)
+    v23 = objc_msgSend_primaryTextColor(self->_colorScheme);
+    if (v23)
     {
-      [(UIView *)separatorView setBackgroundColor:primaryTextColor2];
+      [(UIView *)separatorView setBackgroundColor:v23];
     }
 
     else
@@ -396,7 +396,7 @@ LABEL_43:
 {
   titleCopy = title;
   text = [(UILabel *)self->_titleLabel text];
-  if (text != titleCopy && ([text isEqualToString:titleCopy] & 1) == 0)
+  if (text != titleCopy && (objc_msgSend_isEqualToString_(text) & 1) == 0)
   {
     titleLabel = self->_titleLabel;
     if (titleCopy)

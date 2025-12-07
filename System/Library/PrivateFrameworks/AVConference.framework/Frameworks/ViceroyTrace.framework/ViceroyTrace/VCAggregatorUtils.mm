@@ -113,36 +113,36 @@
 
 + (void)safeRoundOffNumber:(void *)a1 toSignificantDigits:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
-    VRTraceErrorLogLevelToCSTR(3u);
+    v2 = VRTraceErrorLogLevelToCSTR(3u);
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v9) = 136315650;
+      *(&v9 + 4) = v2;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_5(&dword_23D4DF000, v3, v4, " [%s] %s:%d Number passed is nil", v5, v6, v7, v8, 2u);
+      OUTLINED_FUNCTION_1_5(&dword_23D4DF000, v3, v4, " [%s] %s:%d Number passed is nil", v5, v6, v7, v8, v9, DWORD2(v9));
     }
   }
 
   *a1 = 0;
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (void)safeRoundOffNumber:(void *)a1 toSignificantDigits:maxAllowedValue:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
-    VRTraceErrorLogLevelToCSTR(3u);
+    v2 = VRTraceErrorLogLevelToCSTR(3u);
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v9) = 136315650;
+      *(&v9 + 4) = v2;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_1_5(&dword_23D4DF000, v3, v4, " [%s] %s:%d Number passed is nil", v5, v6, v7, v8, 2u);
+      OUTLINED_FUNCTION_1_5(&dword_23D4DF000, v3, v4, " [%s] %s:%d Number passed is nil", v5, v6, v7, v8, v9, DWORD2(v9));
     }
   }
 
   *a1 = 0;
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

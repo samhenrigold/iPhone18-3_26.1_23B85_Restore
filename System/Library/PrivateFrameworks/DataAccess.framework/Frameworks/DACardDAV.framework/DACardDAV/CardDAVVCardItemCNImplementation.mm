@@ -5,6 +5,7 @@
 - (BOOL)deleteFromContainer:(void *)container;
 - (BOOL)deleteFromContainer:(void *)container account:(id)account;
 - (BOOL)loadLocalItemWithAccount:(id)account;
+- (BOOL)saveWithLocalObject:(void *)object toContainer:(void *)container shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account;
 - (CardDAVVCardItemCNImplementation)initWithDACardDAVRecord:(id)record contactStore:(id)store outNeedsDBSave:(BOOL *)save maxImageSize:(int64_t)size maxResourceSize:(int64_t)resourceSize inContainerWithURL:(id)l;
 - (CardDAVVCardItemCNImplementation)initWithURL:(id)l eTag:(id)tag dataPayload:(id)payload inContainerWithURL:(id)rL withAccountInfoProvider:(id)provider;
 - (id)_contactFromDataPayload;
@@ -39,36 +40,34 @@
 
 void __47__CardDAVVCardItemCNImplementation_keysToFetch__block_invoke()
 {
-  v8[8] = *MEMORY[0x277D85DE8];
+  v7[8] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CBDAC8] descriptorForRequiredKeys];
   v1 = *MEMORY[0x277CBCFD0];
-  v8[0] = v0;
-  v8[1] = v1;
+  v7[0] = v0;
+  v7[1] = v1;
   v2 = *MEMORY[0x277CBCFE0];
-  v8[2] = *MEMORY[0x277CBCFE8];
-  v8[3] = v2;
+  v7[2] = *MEMORY[0x277CBCFE8];
+  v7[3] = v2;
   v3 = *MEMORY[0x277CBCFD8];
-  v8[4] = *MEMORY[0x277CBCFF0];
-  v8[5] = v3;
+  v7[4] = *MEMORY[0x277CBCFF0];
+  v7[5] = v3;
   v4 = *MEMORY[0x277CBD010];
-  v8[6] = *MEMORY[0x277CBD018];
-  v8[7] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:8];
+  v7[6] = *MEMORY[0x277CBD018];
+  v7[7] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:8];
   v6 = keysToFetch_sharedKeysToFetch;
   keysToFetch_sharedKeysToFetch = v5;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (CardDAVVCardItemCNImplementation)initWithDACardDAVRecord:(id)record contactStore:(id)store outNeedsDBSave:(BOOL *)save maxImageSize:(int64_t)size maxResourceSize:(int64_t)resourceSize inContainerWithURL:(id)l
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   recordCopy = record;
   storeCopy = store;
   lCopy = l;
-  v33.receiver = self;
-  v33.super_class = CardDAVVCardItemCNImplementation;
-  v15 = [(CardDAVVCardItemCNImplementation *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = CardDAVVCardItemCNImplementation;
+  v15 = [(CardDAVVCardItemCNImplementation *)&v32 init];
   v16 = v15;
   if (v15)
   {
@@ -87,11 +86,11 @@ void __47__CardDAVVCardItemCNImplementation_keysToFetch__block_invoke()
       [v18 setIncludePhotos:1];
       [v18 setIncludePrivateFields:1];
       v19 = MEMORY[0x277CBDAC8];
-      v36[0] = _localItemAsContact;
-      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
-      v32 = 0;
-      v21 = [v19 dataWithContacts:v20 options:v18 error:&v32];
-      v22 = v32;
+      v35[0] = _localItemAsContact;
+      v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
+      v31 = 0;
+      v21 = [v19 dataWithContacts:v20 options:v18 error:&v31];
+      v22 = v31;
       [(CardDAVVCardItemCNImplementation *)v16 setDataPayload:v21];
 
       v23 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(_localItemAsContact, "iOSLegacyIdentifier")}];
@@ -115,7 +114,7 @@ void __47__CardDAVVCardItemCNImplementation_keysToFetch__block_invoke()
         if (os_log_type_enabled(v28, v29))
         {
           *buf = 138412290;
-          v35 = v22;
+          v34 = v22;
           _os_log_impl(&dword_24850D000, v28, v29, "Serialization error %@", buf, 0xCu);
         }
       }
@@ -127,7 +126,6 @@ void __47__CardDAVVCardItemCNImplementation_keysToFetch__block_invoke()
     }
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -169,12 +167,12 @@ void __47__CardDAVVCardItemCNImplementation_keysToFetch__block_invoke()
 
 - (id)_contactFromDataPayload
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBDAC8];
   dataPayload = [(CardDAVVCardItemCNImplementation *)self dataPayload];
-  v16 = 0;
-  v5 = [v3 contactsWithData:dataPayload error:&v16];
-  v6 = v16;
+  v15 = 0;
+  v5 = [v3 contactsWithData:dataPayload error:&v15];
+  v6 = v15;
 
   if (v6)
   {
@@ -183,7 +181,7 @@ void __47__CardDAVVCardItemCNImplementation_keysToFetch__block_invoke()
     if (os_log_type_enabled(v7, v8))
     {
       *buf = 138412290;
-      v18 = v6;
+      v17 = v6;
       _os_log_impl(&dword_24850D000, v7, v8, "Unexpected error %@", buf, 0xCu);
     }
 
@@ -198,7 +196,7 @@ void __47__CardDAVVCardItemCNImplementation_keysToFetch__block_invoke()
     {
       dataPayload2 = [(CardDAVVCardItemCNImplementation *)self dataPayload];
       *buf = 138412290;
-      v18 = dataPayload2;
+      v17 = dataPayload2;
       v11 = "Unable to parse the contact with this data %@";
       goto LABEL_10;
     }
@@ -216,7 +214,7 @@ LABEL_11:
     {
       dataPayload2 = [(CardDAVVCardItemCNImplementation *)self dataPayload];
       *buf = 138412290;
-      v18 = dataPayload2;
+      v17 = dataPayload2;
       v11 = "Unexpected multiple contacts with this data %@";
 LABEL_10:
       _os_log_impl(&dword_24850D000, v7, v9, v11, buf, 0xCu);
@@ -228,11 +226,10 @@ LABEL_10:
   }
 
   v7 = +[CardDAVVCardItemCNImplementation keysToFetch];
-  v15 = [v5 objectAtIndexedSubscript:0];
-  v12 = [v15 copyWithPropertyKeys:v7];
+  v14 = [v5 objectAtIndexedSubscript:0];
+  v12 = [v14 copyWithPropertyKeys:v7];
 
 LABEL_12:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -300,39 +297,39 @@ LABEL_12:
 
 - (void)_setPhoneNumbers:(id)numbers contact:(id)contact
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   numbersCopy = numbers;
   phoneNumbers = [contact phoneNumbers];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v7 = [phoneNumbers countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v7 = [phoneNumbers countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v29;
+    v10 = *v28;
     v11 = *MEMORY[0x277CBD940];
     v12 = *MEMORY[0x277CBD908];
-    v27 = *MEMORY[0x277CBD8E0];
-    v26 = *MEMORY[0x277CBD928];
-    v25 = *MEMORY[0x277CBD900];
-    v24 = *MEMORY[0x277CBD8F8];
-    v23 = *MEMORY[0x277CBD920];
-    v22 = *MEMORY[0x277CBD918];
+    v26 = *MEMORY[0x277CBD8E0];
+    v25 = *MEMORY[0x277CBD928];
+    v24 = *MEMORY[0x277CBD900];
+    v23 = *MEMORY[0x277CBD8F8];
+    v22 = *MEMORY[0x277CBD920];
+    v21 = *MEMORY[0x277CBD918];
     type = *(MEMORY[0x277D03988] + 3);
     *&v8 = 138412290;
-    v20 = v8;
+    v19 = v8;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v29 != v10)
+        if (*v28 != v10)
         {
           objc_enumerationMutation(phoneNumbers);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * i);
+        v14 = *(*(&v27 + 1) + 8 * i);
         label = [v14 label];
         value = [v14 value];
         stringValue = [value stringValue];
@@ -347,32 +344,32 @@ LABEL_12:
           [numbersCopy setMobilePhone:stringValue];
         }
 
-        else if ([label isEqualToString:v27])
+        else if ([label isEqualToString:v26])
         {
           [numbersCopy setHomePhone:stringValue];
         }
 
-        else if ([label isEqualToString:v26])
+        else if ([label isEqualToString:v25])
         {
           [numbersCopy setIPhone:stringValue];
         }
 
-        else if ([label isEqualToString:v25])
+        else if ([label isEqualToString:v24])
         {
           [numbersCopy setMainPhone:stringValue];
         }
 
-        else if ([label isEqualToString:v24])
+        else if ([label isEqualToString:v23])
         {
           [numbersCopy setFaxPhone:stringValue];
         }
 
-        else if ([label isEqualToString:v23])
+        else if ([label isEqualToString:v22])
         {
           [numbersCopy setWorkFaxPhone:stringValue];
         }
 
-        else if ([label isEqualToString:v22])
+        else if ([label isEqualToString:v21])
         {
           [numbersCopy setPagerNumber:stringValue];
         }
@@ -382,20 +379,18 @@ LABEL_12:
           v18 = DALoggingwithCategory();
           if (os_log_type_enabled(v18, type))
           {
-            *buf = v20;
-            v33 = label;
+            *buf = v19;
+            v32 = label;
             _os_log_impl(&dword_24850D000, v18, type, "Unknown phone number label %@", buf, 0xCu);
           }
         }
       }
 
-      v9 = [phoneNumbers countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v9 = [phoneNumbers countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
     while (v9);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)convertToDAContactSearchResultElement
@@ -512,7 +507,7 @@ LABEL_12:
 - (unint64_t)saveWithLocalObject:(id)object toContainer:(id)container containerURL:(id)l shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account shouldSaveGroups:(BOOL)groups
 {
   propertiesCopy = properties;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   lCopy = l;
   accountCopy = account;
@@ -550,9 +545,9 @@ LABEL_12:
 
   [(CardDAVVCardItemCNImplementation *)self setLocalItem:objectCopy];
   asContact = [objectCopy asContact];
-  v38 = 0;
-  v21 = [NSClassFromString(&cfstr_Cncontactdiff.isa) diffContact:asContact to:v18 error:&v38];
-  v22 = v38;
+  v37 = 0;
+  v21 = [NSClassFromString(&cfstr_Cncontactdiff.isa) diffContact:asContact to:v18 error:&v37];
+  v22 = v37;
   if (!v22)
   {
     if (v21)
@@ -606,7 +601,7 @@ LABEL_11:
   if (os_log_type_enabled(v24, v25))
   {
     *buf = 138412290;
-    v40 = v23;
+    v39 = v23;
     _os_log_impl(&dword_24850D000, v24, v25, "Unexpected result comparing local and server contacts: error=%@", buf, 0xCu);
   }
 
@@ -614,7 +609,6 @@ LABEL_11:
 LABEL_16:
 
 LABEL_18:
-  v35 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
@@ -700,6 +694,14 @@ void __61__CardDAVVCardItemCNImplementation_loadLocalItemWithAccount___block_inv
   *(v7 + 40) = v6;
 
   *a3 = 1;
+}
+
+- (BOOL)saveWithLocalObject:(void *)object toContainer:(void *)container shouldMergeProperties:(BOOL)properties outMergeDidChooseLocalProperties:(BOOL *)localProperties account:(id)account
+{
+  currentHandler = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler handleFailureInMethod:a2 object:self file:@"CardDAVVCardItemCNImplementation.m" lineNumber:479 description:{@"Please read CardDAVVCardItem.h, and try again"}];
+
+  return 0;
 }
 
 - (void)setLocalItem:(void *)item

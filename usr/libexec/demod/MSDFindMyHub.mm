@@ -43,7 +43,7 @@
   device = [(MSDFindMyHub *)self device];
   typeOfDemoDevice = [device typeOfDemoDevice];
 
-  v24 = 0;
+  v27 = 0;
   device2 = [(MSDFindMyHub *)self device];
   isDemoEligible = [device2 isDemoEligible];
 
@@ -52,15 +52,15 @@
   v9 = [getDemoEnrollmentFlag isEqualToString:@"enrollmentSuccess"];
 
   v10 = +[MSDDemoUpdateController sharedInstance];
-  [v10 getDemoUpdateInProgress:&v24 + 1 operationAllowed:&v24];
+  [v10 getDemoUpdateInProgress:&v27 + 1 operationAllowed:&v27];
 
   if ((isDemoEligible & 1) == 0)
   {
-    v11 = sub_100063A54();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100063A54(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v23 = 0;
-      v12 = "Device is not demo eligible, skipping enrollment retry";
+      *v26 = 0;
+      v13 = "Device is not demo eligible, skipping enrollment retry";
       goto LABEL_7;
     }
 
@@ -71,13 +71,13 @@ LABEL_8:
 
   if (typeOfDemoDevice == 3)
   {
-    v11 = sub_100063A54();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100063A54(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v23 = 0;
-      v12 = "Device is factory demo SKU device; skipping enrollment retry";
+      *v26 = 0;
+      v13 = "Device is factory demo SKU device; skipping enrollment retry";
 LABEL_7:
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v12, v23, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v13, v26, 2u);
       goto LABEL_8;
     }
 
@@ -86,39 +86,39 @@ LABEL_7:
 
   if (v9)
   {
-    v11 = sub_100063A54();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100063A54(v11);
+    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_8;
     }
 
-    *v23 = 0;
-    v12 = "Device is already enrolled; skipping enrollment retry";
+    *v26 = 0;
+    v13 = "Device is already enrolled; skipping enrollment retry";
     goto LABEL_7;
   }
 
-  if (HIBYTE(v24) == 1)
+  if (HIBYTE(v27) == 1)
   {
-    v11 = sub_100063A54();
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100063A54(v11);
+    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_8;
     }
 
-    *v23 = 0;
-    v12 = "Content update is in progress, skipping enrollment retry";
+    *v26 = 0;
+    v13 = "Content update is in progress, skipping enrollment retry";
     goto LABEL_7;
   }
 
   if (typeOfDemoDevice != 5)
   {
-    v21 = sub_100063A54();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v24 = sub_100063A54(v11);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      *v23 = 0;
-      v22 = "Unconditionally retry enrollment upon first launch!";
+      *v26 = 0;
+      v25 = "Unconditionally retry enrollment upon first launch!";
 LABEL_25:
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, v22, v23, 2u);
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, v25, v26, 2u);
     }
 
 LABEL_26:
@@ -132,30 +132,30 @@ LABEL_26:
 
   if (findMyHubRetryAtTime <= 0)
   {
-    v21 = sub_100063A54();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v24 = sub_100063A54(v16);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      *v23 = 0;
-      v22 = "No FMH retry time set? Retry enrollment anyways.";
+      *v26 = 0;
+      v25 = "No FMH retry time set? Retry enrollment anyways.";
       goto LABEL_25;
     }
 
     goto LABEL_26;
   }
 
-  v15 = [NSDate dateWithTimeIntervalSinceReferenceDate:findMyHubRetryAtTime];
-  v16 = +[NSDate date];
-  [v15 timeIntervalSinceDate:v16];
-  v18 = v17;
+  v17 = [NSDate dateWithTimeIntervalSinceReferenceDate:findMyHubRetryAtTime];
+  v18 = +[NSDate date];
+  [v17 timeIntervalSinceDate:v18];
+  v20 = v19;
 
-  v19 = sub_100063A54();
-  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
-  if (v18 <= 300.0)
+  v22 = sub_100063A54(v21);
+  v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+  if (v20 <= 300.0)
   {
-    if (v20)
+    if (v23)
     {
-      *v23 = 0;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "FMH retry timer is already expired or is about to expire. Retry now!", v23, 2u);
+      *v26 = 0;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "FMH retry timer is already expired or is about to expire. Retry now!", v26, 2u);
     }
 
     [(MSDFindMyHub *)self retryEnrollmentWithHub:1];
@@ -163,13 +163,13 @@ LABEL_26:
 
   else
   {
-    if (v20)
+    if (v23)
     {
-      *v23 = 0;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "FMH retry timer will be scheduled.", v23, 2u);
+      *v26 = 0;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "FMH retry timer will be scheduled.", v26, 2u);
     }
 
-    [(MSDFindMyHub *)self scheduleRetryTimerForEnrollmentAtDate:v15 isFirstLaunch:1];
+    [(MSDFindMyHub *)self scheduleRetryTimerForEnrollmentAtDate:v17 isFirstLaunch:1];
   }
 }
 
@@ -249,26 +249,26 @@ LABEL_26:
     [v7 setObject:v20 forKey:@"AutoEnrollmentWiFiSSID"];
   }
 
+  v50 = 0;
   v49 = 0;
-  v48 = 0;
-  v21 = [(MSDFindMyHub *)self verifyDeviceEligibility:&v49 error:&v48];
-  v22 = v48;
+  v21 = [(MSDFindMyHub *)self verifyDeviceEligibility:&v50 error:&v49];
+  v22 = v49;
   v23 = v22;
   if (!v21)
   {
     goto LABEL_26;
   }
 
-  if ((v49 & 1) == 0)
+  if ((v50 & 1) == 0)
   {
-    sub_1000D4BD8(v22, &v47, buf);
+    sub_1000D4BD8(v22, &v48, buf);
     v23 = *buf;
     goto LABEL_26;
   }
 
-  v46 = v22;
-  v24 = [(MSDFindMyHub *)self askFindMyHubForHubInfo:&v46];
-  v25 = v46;
+  v47 = v22;
+  v24 = [(MSDFindMyHub *)self askFindMyHubForHubInfo:&v47];
+  v25 = v47;
 
   if (!v24)
   {
@@ -276,9 +276,9 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v45 = v25;
-  v26 = [(MSDFindMyHub *)self enrollAndSetup:&v45];
-  v23 = v45;
+  v46 = v25;
+  v26 = [(MSDFindMyHub *)self enrollAndSetup:&v46];
+  v23 = v46;
 
   if (!v26)
   {
@@ -310,11 +310,11 @@ LABEL_26:
 
       else
       {
-        v41 = sub_100063A54();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        v42 = sub_100063A54(v39);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Installing cached bundle from enrollment failure", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Installing cached bundle from enrollment failure", buf, 2u);
         }
 
         device5 = [(MSDFindMyHub *)self device];
@@ -328,11 +328,11 @@ LABEL_26:
       goto LABEL_23;
     }
 
-    v43 = [NSNumber numberWithBool:0];
-    [v7 setObject:v43 forKey:@"AutoEnrollmentStatus"];
+    v44 = [NSNumber numberWithBool:0];
+    [v7 setObject:v44 forKey:@"AutoEnrollmentStatus"];
 
-    v44 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v23 code]);
-    [v7 setObject:v44 forKey:@"ErrorCode"];
+    v45 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v23 code]);
+    [v7 setObject:v45 forKey:@"ErrorCode"];
 
     v27 = 0;
 LABEL_20:
@@ -373,7 +373,7 @@ LABEL_23:
 - (void)checkInWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -534,15 +534,15 @@ LABEL_23:
 
   if ((v4 & 1) == 0)
   {
-    v5 = sub_100063A54();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100063A54(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Starting cellular plan monitor for enrollment retry", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Starting cellular plan monitor for enrollment retry", v8, 2u);
     }
 
-    v6 = +[MSDCellularHelper sharedInstance];
-    [v6 addObserver:selfCopy];
+    v7 = +[MSDCellularHelper sharedInstance];
+    [v7 addObserver:selfCopy];
   }
 
   objc_sync_exit(selfCopy);
@@ -563,12 +563,12 @@ LABEL_23:
     return 3600;
   }
 
-  v4 = sub_100063A54();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100063A54(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 134217984;
-    v7 = findMyHubRetryDelay;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Overriding FMH retry delay to: %ld", &v6, 0xCu);
+    v7 = 134217984;
+    v8 = findMyHubRetryDelay;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Overriding FMH retry delay to: %ld", &v7, 0xCu);
   }
 
   return findMyHubRetryDelay;
@@ -576,98 +576,98 @@ LABEL_23:
 
 - (BOOL)verifyDeviceEligibility:(BOOL *)eligibility error:(id *)error
 {
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = sub_10005810C;
-  v31 = sub_10005811C;
-  v32 = 0;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = sub_10005810C;
-  v25 = sub_10005811C;
-  v26 = dispatch_semaphore_create(0);
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = sub_10005810C;
+  v35 = sub_10005811C;
+  v36 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = sub_10005810C;
+  v29 = sub_10005811C;
+  v30 = dispatch_semaphore_create(0);
   v7 = +[MSDPreferencesFile sharedInstance];
   v8 = [v7 objectForKey:@"DemoEligible"];
 
-  v9 = sub_100063A54();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100063A54(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Verifying device eligibility...", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Verifying device eligibility...", buf, 2u);
   }
 
   if (v8)
   {
-    *eligibility = [v8 BOOLValue];
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    bOOLValue = [v8 BOOLValue];
+    *eligibility = bOOLValue;
+    v12 = sub_100063A54(bOOLValue);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *eligibility;
+      v13 = *eligibility;
       *buf = 67109120;
-      LODWORD(v34) = v11;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "DU CheckIn completed, eligibility is %d", buf, 8u);
+      LODWORD(v38) = v13;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "DU CheckIn completed, eligibility is %d", buf, 8u);
     }
   }
 
   else
   {
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_100058124;
-    v20[3] = &unk_10016AF60;
-    v20[4] = &v27;
-    v20[5] = &v21;
-    v20[6] = eligibility;
-    [(MSDFindMyHub *)self checkInWithCompletion:v20];
-    v12 = sub_100063A54();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_100058124;
+    v24[3] = &unk_10016AF60;
+    v24[4] = &v31;
+    v24[5] = &v25;
+    v24[6] = eligibility;
+    v14 = sub_100063A54([(MSDFindMyHub *)self checkInWithCompletion:v24]);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Waiting for CheckIn to complete...", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Waiting for CheckIn to complete...", buf, 2u);
     }
 
-    dispatch_semaphore_wait(v22[5], 0xFFFFFFFFFFFFFFFFLL);
-    v13 = sub_100063A54();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = dispatch_semaphore_wait(v26[5], 0xFFFFFFFFFFFFFFFFLL);
+    v16 = sub_100063A54(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *eligibility;
+      v17 = *eligibility;
       *buf = 67109120;
-      LODWORD(v34) = v14;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "CheckIn to completed; eligibility is %{BOOL}d", buf, 8u);
+      LODWORD(v38) = v17;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "CheckIn to completed; eligibility is %{BOOL}d", buf, 8u);
     }
 
-    if (v28[5])
+    if (v32[5])
     {
-      v15 = sub_100063A54();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v19 = sub_100063A54(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = v28[5];
+        v20 = v32[5];
         *buf = 136315394;
-        v34 = "[MSDFindMyHub verifyDeviceEligibility:error:]";
-        v35 = 2114;
-        v36 = v16;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%s: checkIn failed with error: %{public}@", buf, 0x16u);
+        v38 = "[MSDFindMyHub verifyDeviceEligibility:error:]";
+        v39 = 2114;
+        v40 = v20;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%s: checkIn failed with error: %{public}@", buf, 0x16u);
       }
 
       [(MSDFindMyHub *)self tryScheduleDefaultEnrollmentRetry];
     }
   }
 
-  v17 = v28;
+  v21 = v32;
   if (error)
   {
-    *error = v28[5];
-    v17 = v28;
+    *error = v32[5];
+    v21 = v32;
   }
 
-  v18 = v17[5] == 0;
+  v22 = v21[5] == 0;
 
-  _Block_object_dispose(&v21, 8);
-  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v31, 8);
 
-  return v18;
+  return v22;
 }
 
 - (BOOL)askFindMyHubForHubInfo:(id *)info
@@ -716,11 +716,12 @@ LABEL_23:
   v19 = +[MSDServerRequestHandler sharedInstance];
   v20 = [v19 handleRequestSync:v5];
 
-  error = [v20 error];
-  if (error || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  isKindOfClass = [v20 error];
+  v22 = isKindOfClass;
+  if (isKindOfClass || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v39 = sub_100063A54();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    v42 = sub_100063A54(isKindOfClass);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
       sub_1000D4C84();
     }
@@ -731,149 +732,155 @@ LABEL_23:
 
   retryAfter = [v20 retryAfter];
   fmhDict = [v20 fmhDict];
-  v24 = sub_100063A54();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v25 = sub_100063A54(fmhDict);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v54 = fmhDict;
-    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "FindMyHub returned: %{public}@", buf, 0xCu);
+    v60 = fmhDict;
+    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "FindMyHub returned: %{public}@", buf, 0xCu);
   }
 
   if (!fmhDict)
   {
-    if (retryAfter && [retryAfter integerValue] >= 1)
+    if (retryAfter)
     {
-      v45 = sub_100063A54();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+      integerValue = [retryAfter integerValue];
+      if (integerValue >= 1)
       {
-        *buf = 138543362;
-        v54 = retryAfter;
-        _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "FindMyHub asked for retry in %{public}@ seconds.", buf, 0xCu);
-      }
-
-      v46 = +[NSDate dateWithTimeIntervalSinceNow:](NSDate, "dateWithTimeIntervalSinceNow:", [retryAfter integerValue]);
-      if (![(MSDFindMyHub *)self isLogicSync])
-      {
-        [(MSDFindMyHub *)self scheduleRetryTimerForEnrollmentAtDate:v46 isFirstLaunch:0];
-      }
-
-      device2 = [(MSDFindMyHub *)self device];
-      [v46 timeIntervalSinceReferenceDate];
-      [device2 saveFindMyHubRetryAtTime:v48];
-
-      if ([retryAfter integerValue] >= 31536000)
-      {
-        v49 = sub_100063A54();
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+        v50 = sub_100063A54(integerValue);
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
         {
-          integerValue = [retryAfter integerValue];
-          *buf = 134218240;
-          v54 = 31536000;
-          v55 = 2048;
-          v56 = integerValue;
-          _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "FindMyHub retry value %lu is greater than or equal to threshold %lu, returning unrecoverable error", buf, 0x16u);
+          *buf = 138543362;
+          v60 = retryAfter;
+          _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "FindMyHub asked for retry in %{public}@ seconds.", buf, 0xCu);
         }
 
-        error = 0;
-      }
+        v51 = +[NSDate dateWithTimeIntervalSinceNow:](NSDate, "dateWithTimeIntervalSinceNow:", [retryAfter integerValue]);
+        if (![(MSDFindMyHub *)self isLogicSync])
+        {
+          [(MSDFindMyHub *)self scheduleRetryTimerForEnrollmentAtDate:v51 isFirstLaunch:0];
+        }
 
-      else
-      {
-        v52 = 0;
-        sub_1000C1390(&v52, 3727740936, @"Server requested retry at a later time.");
-        error = v52;
-      }
+        device2 = [(MSDFindMyHub *)self device];
+        [v51 timeIntervalSinceReferenceDate];
+        [device2 saveFindMyHubRetryAtTime:v53];
 
-      goto LABEL_26;
+        integerValue2 = [retryAfter integerValue];
+        if (integerValue2 >= 31536000)
+        {
+          v55 = sub_100063A54(integerValue2);
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+          {
+            integerValue3 = [retryAfter integerValue];
+            *buf = 134218240;
+            v60 = 31536000;
+            v61 = 2048;
+            v62 = integerValue3;
+            _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "FindMyHub retry value %lu is greater than or equal to threshold %lu, returning unrecoverable error", buf, 0x16u);
+          }
+
+          v22 = 0;
+        }
+
+        else
+        {
+          v58 = 0;
+          sub_1000C1390(&v58, 3727740936, @"Server requested retry at a later time.");
+          v22 = v58;
+        }
+
+        goto LABEL_26;
+      }
     }
 
 LABEL_25:
-    [(MSDFindMyHub *)self tryScheduleDefaultEnrollmentRetry];
+    tryScheduleDefaultEnrollmentRetry = [(MSDFindMyHub *)self tryScheduleDefaultEnrollmentRetry];
 LABEL_26:
-    v40 = sub_100063A54();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v44 = sub_100063A54(tryScheduleDefaultEnrollmentRetry);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
       sub_1000D4E3C();
     }
 
     fmhDict = 0;
-    v35 = 0;
-    v26 = 0;
+    v37 = 0;
     v28 = 0;
+    v30 = 0;
     goto LABEL_29;
   }
 
   device3 = [(MSDFindMyHub *)self device];
   [device3 saveFindMyHubRetryAtTime:0];
 
-  v26 = [fmhDict objectForKeyedSubscript:@"URL"];
-  if (!v26 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  v27 = [fmhDict objectForKeyedSubscript:@"URL"];
+  v28 = v27;
+  if (!v27 || (objc_opt_class(), v27 = objc_opt_isKindOfClass(), (v27 & 1) == 0))
   {
-    v40 = sub_100063A54();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v44 = sub_100063A54(v27);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
       sub_1000D4DBC();
     }
 
-    v35 = 0;
-    v28 = 0;
+    v37 = 0;
+    v30 = 0;
     goto LABEL_45;
   }
 
-  v27 = [NSURL URLWithString:v26];
-  v28 = v27;
-  if (!v27 || ([v27 host], v29 = objc_claimAutoreleasedReturnValue(), v29, !v29))
+  v29 = [NSURL URLWithString:v28];
+  v30 = v29;
+  if (!v29 || ([v29 host], v31 = objc_claimAutoreleasedReturnValue(), v31, !v31))
   {
-    v40 = sub_100063A54();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v44 = sub_100063A54(v29);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
       sub_1000D4D34();
     }
 
-    v35 = 0;
+    v37 = 0;
     goto LABEL_45;
   }
 
-  host2 = [v28 host];
+  host2 = [v30 host];
   [(MSDFindMyHub *)self setHubHostName:host2];
 
   hubHostName = [(MSDFindMyHub *)self hubHostName];
-  v32 = [NSArray arrayWithObject:hubHostName];
-  [(MSDFindMyHub *)self setServerList:v32];
+  v34 = [NSArray arrayWithObject:hubHostName];
+  [(MSDFindMyHub *)self setServerList:v34];
 
-  port2 = [v28 port];
+  port2 = [v30 port];
   stringValue2 = [port2 stringValue];
   [(MSDFindMyHub *)self setHubPort:stringValue2];
 
-  v35 = [fmhDict objectForKeyedSubscript:@"device_info"];
+  v37 = [fmhDict objectForKeyedSubscript:@"device_info"];
   hubHostName2 = [(MSDFindMyHub *)self hubHostName];
 
   if (!hubHostName2)
   {
-    v40 = sub_100063A54();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v44 = sub_100063A54(v39);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
       sub_1000D4CF8();
     }
 
 LABEL_45:
-    error = 0;
+    v22 = 0;
 LABEL_29:
 
     if (info)
     {
-      v51 = error;
-      sub_1000C1424(&v51, 3727744512, @"Cannot enroll the device with DemoUnit.");
-      v41 = v51;
+      v57 = v22;
+      sub_1000C1424(&v57, 3727744512, @"Cannot enroll the device with DemoUnit.");
+      v45 = v57;
 
-      v42 = v41;
-      *info = v41;
-      error = v41;
+      v46 = v45;
+      *info = v45;
+      v22 = v45;
     }
 
-    v43 = +[MSDAnalyticsEventHandler sharedInstance];
-    [v43 sendFMHFailureEvent:error];
-    v38 = 0;
+    v47 = +[MSDAnalyticsEventHandler sharedInstance];
+    [v47 sendFMHFailureEvent:v22];
+    v41 = 0;
     goto LABEL_32;
   }
 
@@ -884,46 +891,47 @@ LABEL_29:
     [(MSDFindMyHub *)self setHubPort:@"443"];
   }
 
-  if (v35)
+  if (v37)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v43 = +[MSDNPIMaskValues sharedInstance];
-      [v43 saveDeviceInfo:v35];
-      error = 0;
-      v38 = 1;
+      v47 = +[MSDNPIMaskValues sharedInstance];
+      [v47 saveDeviceInfo:v37];
+      v22 = 0;
+      v41 = 1;
 LABEL_32:
 
       goto LABEL_33;
     }
   }
 
-  error = 0;
-  v38 = 1;
+  v22 = 0;
+  v41 = 1;
 LABEL_33:
 
-  return v38;
+  return v41;
 }
 
 - (id)prepareBundleInfoDictionary
 {
   v3 = objc_alloc_init(NSDictionary);
-  if (![(MSDFindMyHub *)self isLogicSync])
+  isLogicSync = [(MSDFindMyHub *)self isLogicSync];
+  if ((isLogicSync & 1) == 0)
   {
     device = [(MSDFindMyHub *)self device];
     typeOfDemoDevice = [device typeOfDemoDevice];
 
     if (typeOfDemoDevice == 5)
     {
-      v6 = +[MSDHelperAgent sharedInstance];
-      v7 = [v6 readPlistFile:@"/private/var/demo_backup/Metadata/Content.plist"];
+      v7 = +[MSDHelperAgent sharedInstance];
+      v8 = [v7 readPlistFile:@"/private/var/demo_backup/Metadata/Content.plist"];
 
-      v3 = v7;
-      if (!v7)
+      v3 = v8;
+      if (!v8)
       {
-        v8 = sub_100063A54();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v10 = sub_100063A54(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           sub_1000D4E78();
         }
@@ -931,26 +939,27 @@ LABEL_33:
         v3 = objc_alloc_init(NSDictionary);
       }
 
-      if (![NSJSONSerialization isValidJSONObject:v3])
+      isLogicSync = [NSJSONSerialization isValidJSONObject:v3];
+      if ((isLogicSync & 1) == 0)
       {
-        v9 = sub_100063A54();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v11 = sub_100063A54(isLogicSync);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           sub_1000D4EB4();
         }
 
-        v10 = objc_alloc_init(NSDictionary);
-        v3 = v10;
+        v12 = objc_alloc_init(NSDictionary);
+        v3 = v12;
       }
     }
   }
 
-  v11 = sub_100063A54();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_100063A54(isLogicSync);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138543362;
-    v14 = v3;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Bundle Info for FindMyHub: %{public}@", &v13, 0xCu);
+    v15 = 138543362;
+    v16 = v3;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Bundle Info for FindMyHub: %{public}@", &v15, 0xCu);
   }
 
   return v3;
@@ -967,36 +976,36 @@ LABEL_33:
     [v5 timeIntervalSinceReferenceDate];
     v7 = v6;
 
-    if (hubLastOnlineTime < 1 || (v8 = v7 - hubLastOnlineTime, v7 <= hubLastOnlineTime))
+    if (hubLastOnlineTime < 1 || (v9 = v7 - hubLastOnlineTime, v7 <= hubLastOnlineTime))
     {
-      v9 = sub_100063A54();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_100063A54(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Unable to calculate hub last online time. Use system-up time instead.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Unable to calculate hub last online time. Use system-up time instead.", buf, 2u);
       }
 
-      v10 = +[NSProcessInfo processInfo];
-      [v10 systemUptime];
-      v8 = v11;
+      v11 = +[NSProcessInfo processInfo];
+      [v11 systemUptime];
+      v9 = v12;
     }
 
-    v12 = [NSString stringWithFormat:@"%ld", v8];
-    v13 = sub_100063A54();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v13 = [NSString stringWithFormat:@"%ld", v9];
+    v14 = sub_100063A54(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v16 = v12;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Hub has been offline for %{public}@ seconds.", buf, 0xCu);
+      v17 = v13;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Hub has been offline for %{public}@ seconds.", buf, 0xCu);
     }
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 - (void)scheduleRetryTimerForEnrollmentAtDate:(id)date isFirstLaunch:(BOOL)launch
@@ -1040,13 +1049,14 @@ LABEL_33:
   device2 = [(MSDFindMyHub *)selfCopy device];
   getDemoEnrollmentFlag = [device2 getDemoEnrollmentFlag];
 
-  if ([getDemoEnrollmentFlag isEqualToString:@"enrollmentSuccess"])
+  v9 = [getDemoEnrollmentFlag isEqualToString:@"enrollmentSuccess"];
+  if (v9)
   {
-    v9 = sub_100063A54();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100063A54(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Enrollment successful, ignoring enrollment retry", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Enrollment successful, ignoring enrollment retry", buf, 2u);
     }
   }
 
@@ -1054,8 +1064,8 @@ LABEL_33:
   {
     if ((isOfflineMode & 1) == 0)
     {
-      v10 = +[MSDUIHelper sharedInstance];
-      [v10 startFullScreenUIWith:@"IN_PROGRESS" allowCancel:0];
+      v11 = +[MSDUIHelper sharedInstance];
+      [v11 startFullScreenUIWith:@"IN_PROGRESS" allowCancel:0];
     }
 
     if (hubCopy)
@@ -1067,22 +1077,22 @@ LABEL_33:
       [device4 waitForNetworkReachability];
     }
 
-    v13 = sub_100063A54();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100063A54(v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       device5 = [(MSDFindMyHub *)selfCopy device];
       getDemoEnrollmentFlag2 = [device5 getDemoEnrollmentFlag];
       *buf = 136315394;
-      v23 = "[MSDFindMyHub retryEnrollmentWithHub:]";
-      v24 = 2114;
-      v25 = getDemoEnrollmentFlag2;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%s: requesting discoverAndEnrollWithHub, currentEnrollFlag:%{public}@", buf, 0x16u);
+      v25 = "[MSDFindMyHub retryEnrollmentWithHub:]";
+      v26 = 2114;
+      v27 = getDemoEnrollmentFlag2;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%s: requesting discoverAndEnrollWithHub, currentEnrollFlag:%{public}@", buf, 0x16u);
     }
 
-    v21 = 0;
-    v16 = [(MSDFindMyHub *)selfCopy discoverAndEnrollWithHub:&v21];
-    v9 = v21;
-    if (v16)
+    v23 = 0;
+    v17 = [(MSDFindMyHub *)selfCopy discoverAndEnrollWithHub:&v23];
+    v10 = v23;
+    if (v17)
     {
       [(MSDFindMyHub *)selfCopy cancelOfflineModeEnrollmentRetry];
       device6 = [(MSDFindMyHub *)selfCopy device];
@@ -1096,16 +1106,16 @@ LABEL_33:
 
       if ((isOfflineMode & 1) == 0)
       {
-        v19 = +[MSDUIHelper sharedInstance];
-        [v19 stopFullScreenUI:v9];
+        v21 = +[MSDUIHelper sharedInstance];
+        [v21 stopFullScreenUI:v10];
       }
 
-      v20 = sub_100063A54();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v22 = sub_100063A54(v20);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v23 = v9;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Enrollment retry failed with error: %{public}@", buf, 0xCu);
+        v25 = v10;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Enrollment retry failed with error: %{public}@", buf, 0xCu);
       }
     }
   }
@@ -1127,9 +1137,9 @@ LABEL_33:
 
     hubHostName2 = [(MSDFindMyHub *)self hubHostName];
     hubPort = [(MSDFindMyHub *)self hubPort];
-    v24 = 0;
-    v13 = [v8 enrollForDeviceName:0 pairingCredential:0 hubHostName:hubHostName2 hubPort:hubPort error:&v24];
-    v14 = v24;
+    v25 = 0;
+    v13 = [v8 enrollForDeviceName:0 pairingCredential:0 hubHostName:hubHostName2 hubPort:hubPort error:&v25];
+    v14 = v25;
 
     if (v13)
     {
@@ -1137,58 +1147,58 @@ LABEL_33:
       serverList = [(MSDFindMyHub *)self serverList];
       [device3 saveHubHostNameList:serverList];
 
-      v17 = 1;
+      v18 = 1;
       goto LABEL_14;
     }
 
-    v19 = sub_100063A54();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_100063A54(v15);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v26 = "[MSDFindMyHub enrollAndSetup:]";
-      v27 = 2114;
-      v28 = v14;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%s: enrollment failed with error: %{public}@", buf, 0x16u);
+      v27 = "[MSDFindMyHub enrollAndSetup:]";
+      v28 = 2114;
+      v29 = v14;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%s: enrollment failed with error: %{public}@", buf, 0x16u);
     }
 
     [(MSDFindMyHub *)self tryScheduleDefaultEnrollmentRetry];
-    v18 = [NSError errorDomainMSDWithCode:3727741088 message:@"Cannot enroll the device with vHub."];
+    v19 = [NSError errorDomainMSDWithCode:3727741088 message:@"Cannot enroll the device with vHub."];
   }
 
   else
   {
-    v14 = sub_100063A54();
+    v14 = sub_100063A54(hubHostName);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_1000D4EF0(self, v14);
     }
 
     v8 = 0;
-    v18 = 0;
+    v19 = 0;
   }
 
-  v23 = v18;
-  sub_1000C1424(&v23, 3727744512, @"Cannot enroll the device with vHub.");
-  v14 = v23;
+  v24 = v19;
+  sub_1000C1424(&v24, 3727744512, @"Cannot enroll the device with vHub.");
+  v14 = v24;
 
-  v20 = +[MSDAnalyticsEventHandler sharedInstance];
-  [v20 sendEnrollmentFailureEvent:v14];
+  v21 = +[MSDAnalyticsEventHandler sharedInstance];
+  [v21 sendEnrollmentFailureEvent:v14];
 
   if (setup)
   {
-    v21 = v14;
-    v17 = 0;
+    v22 = v14;
+    v18 = 0;
     *setup = v14;
   }
 
   else
   {
-    v17 = 0;
+    v18 = 0;
   }
 
 LABEL_14:
 
-  return v17;
+  return v18;
 }
 
 - (BOOL)compareSavedHubHostNameWithNewHostName
@@ -1362,36 +1372,40 @@ LABEL_15:
     [(MSDFindMyHub *)self setupOfflineModeEnrollmentRetry];
   }
 
-  else if ([(MSDFindMyHub *)self isLogicSync])
-  {
-    v5 = sub_100063A54();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-    {
-      v12 = 136315138;
-      v13 = "[MSDFindMyHub tryScheduleDefaultEnrollmentRetry]";
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s: not scheduling default enrollment retry for logic sync", &v12, 0xCu);
-    }
-  }
-
   else
   {
-    getDefaultRetryDelay = [(MSDFindMyHub *)self getDefaultRetryDelay];
-    v7 = sub_100063A54();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    isLogicSync = [(MSDFindMyHub *)self isLogicSync];
+    if (isLogicSync)
     {
-      v12 = 136315394;
-      v13 = "[MSDFindMyHub tryScheduleDefaultEnrollmentRetry]";
-      v14 = 2048;
-      v15 = getDefaultRetryDelay;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s: retrying enrollment in %ld seconds", &v12, 0x16u);
+      v6 = sub_100063A54(isLogicSync);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        v13 = 136315138;
+        v14 = "[MSDFindMyHub tryScheduleDefaultEnrollmentRetry]";
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%s: not scheduling default enrollment retry for logic sync", &v13, 0xCu);
+      }
     }
 
-    v8 = [NSDate dateWithTimeIntervalSinceNow:getDefaultRetryDelay];
-    [(MSDFindMyHub *)self scheduleRetryTimerForEnrollmentAtDate:v8 isFirstLaunch:0];
-    device2 = [(MSDFindMyHub *)self device];
-    v10 = +[NSDate date];
-    [v10 timeIntervalSinceReferenceDate];
-    [device2 saveFindMyHubRetryAtTime:v11];
+    else
+    {
+      getDefaultRetryDelay = [(MSDFindMyHub *)self getDefaultRetryDelay];
+      v8 = sub_100063A54(getDefaultRetryDelay);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        v13 = 136315394;
+        v14 = "[MSDFindMyHub tryScheduleDefaultEnrollmentRetry]";
+        v15 = 2048;
+        v16 = getDefaultRetryDelay;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s: retrying enrollment in %ld seconds", &v13, 0x16u);
+      }
+
+      v9 = [NSDate dateWithTimeIntervalSinceNow:getDefaultRetryDelay];
+      [(MSDFindMyHub *)self scheduleRetryTimerForEnrollmentAtDate:v9 isFirstLaunch:0];
+      device2 = [(MSDFindMyHub *)self device];
+      v11 = +[NSDate date];
+      [v11 timeIntervalSinceReferenceDate];
+      [device2 saveFindMyHubRetryAtTime:v12];
+    }
   }
 }
 
@@ -1404,15 +1418,15 @@ LABEL_15:
 
   if (v4)
   {
-    v5 = sub_100063A54();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100063A54(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Terminating cellular plan monitor for enrollment retry", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Terminating cellular plan monitor for enrollment retry", v8, 2u);
     }
 
-    v6 = +[MSDCellularHelper sharedInstance];
-    [v6 removeObserver:selfCopy];
+    v7 = +[MSDCellularHelper sharedInstance];
+    [v7 removeObserver:selfCopy];
   }
 
   objc_sync_exit(selfCopy);
@@ -1421,43 +1435,45 @@ LABEL_15:
 - (unint64_t)queryFindMyHubAndDetermineLogicSyncResult
 {
   [(MSDFindMyHub *)self setIsLogicSync:1];
-  if ([(MSDFindMyHub *)self askFindMyHubForHubInfo:0])
+  compareSavedHubHostsWithNewHosts = [(MSDFindMyHub *)self askFindMyHubForHubInfo:0];
+  if (compareSavedHubHostsWithNewHosts)
   {
     if ([(MSDFindMyHub *)self compareSavedHubHostNameWithNewHostName])
     {
-      v3 = 0;
+      v4 = 0;
     }
 
     else
     {
-      v3 = 2;
+      v4 = 2;
     }
 
-    if ([(MSDFindMyHub *)self compareSavedHubHostsWithNewHosts])
+    compareSavedHubHostsWithNewHosts = [(MSDFindMyHub *)self compareSavedHubHostsWithNewHosts];
+    if (compareSavedHubHostsWithNewHosts)
     {
-      v4 = v3;
+      v5 = v4;
     }
 
     else
     {
-      v4 = v3 | 4;
+      v5 = v4 | 4;
     }
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  v5 = sub_100063A54();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100063A54(compareSavedHubHostsWithNewHosts);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
-    v8 = v4;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Logic sync completed with result - %lu", &v7, 0xCu);
+    v8 = 134217984;
+    v9 = v5;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Logic sync completed with result - %lu", &v8, 0xCu);
   }
 
-  return v4;
+  return v5;
 }
 
 - (void)cellularPlanDidChange:(id)change

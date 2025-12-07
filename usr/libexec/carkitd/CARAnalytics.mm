@@ -15,6 +15,8 @@
 - (void)reconnectEndedOnTransport:(unint64_t)transport;
 - (void)sendEvent:(unint64_t)event withDictionary:(id)dictionary;
 - (void)sendPreviousSessionData:(id)data;
+- (void)userChangedAutoReplyFromAudience:(id)audience toAudience:(id)toAudience messageChanged:(BOOL)changed;
+- (void)userChangedFromTriggerMethod:(id)method toMethod:(id)toMethod withMechanism:(id)mechanism fromPreviousInterval:(double)interval activateWithCarPlay:(BOOL)play;
 - (void)userCreatedWirelessPairingWithSource:(id)source payload:(id)payload;
 - (void)userIndicatedNotDrivingWithReason:(id)reason;
 - (void)wiredSessionEnded;
@@ -292,6 +294,58 @@ LABEL_18:
   }
 
 LABEL_30:
+}
+
+- (void)userChangedAutoReplyFromAudience:(id)audience toAudience:(id)toAudience messageChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  v12[0] = @"Previous";
+  v12[1] = @"New";
+  v13[0] = audience;
+  v13[1] = toAudience;
+  v12[2] = @"MessageChanged";
+  toAudienceCopy = toAudience;
+  audienceCopy = audience;
+  v10 = [NSNumber numberWithBool:changedCopy];
+  v13[2] = v10;
+  v11 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:3];
+
+  [(CARAnalytics *)self sendEvent:2 withDictionary:v11];
+}
+
+- (void)userChangedFromTriggerMethod:(id)method toMethod:(id)toMethod withMechanism:(id)mechanism fromPreviousInterval:(double)interval activateWithCarPlay:(BOOL)play
+{
+  playCopy = play;
+  methodCopy = method;
+  toMethodCopy = toMethod;
+  mechanismCopy = mechanism;
+  if (interval >= 1.0)
+  {
+    v16 = objc_opt_class();
+    v17 = [NSDate dateWithTimeIntervalSinceReferenceDate:interval];
+    v18 = +[NSDate date];
+    v15 = [v16 calendarUnitsOfType:16 fromDate:v17 toDate:v18];
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  v22[0] = @"Previous";
+  v22[1] = @"New";
+  v23[0] = methodCopy;
+  v23[1] = toMethodCopy;
+  v23[2] = mechanismCopy;
+  v22[2] = @"Trigger";
+  v22[3] = @"Interval (Days)";
+  v19 = [NSNumber numberWithInteger:v15];
+  v23[3] = v19;
+  v22[4] = @"ActivateWithCarPlay";
+  v20 = [NSNumber numberWithBool:playCopy];
+  v23[4] = v20;
+  v21 = [NSDictionary dictionaryWithObjects:v23 forKeys:v22 count:5];
+  [(CARAnalytics *)self sendEvent:3 withDictionary:v21];
 }
 
 - (void)wirelessReconnectStarted

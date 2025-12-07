@@ -3,7 +3,7 @@
 
 @implementation DistanceSampleTypes
 
-uint64_t ___DistanceSampleTypes_block_invoke()
+double ___DistanceSampleTypes_block_invoke()
 {
   v14[9] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CBEB98]);
@@ -39,8 +39,7 @@ uint64_t ___DistanceSampleTypes_block_invoke()
   MEMORY[0x277D82BD8](v10);
   MEMORY[0x277D82BD8](v11);
   MEMORY[0x277D82BD8](v12);
-  result = MEMORY[0x277D82BD8](v13);
-  *MEMORY[0x277D85DE8];
+  *&result = MEMORY[0x277D82BD8](v13).n128_u64[0];
   return result;
 }
 

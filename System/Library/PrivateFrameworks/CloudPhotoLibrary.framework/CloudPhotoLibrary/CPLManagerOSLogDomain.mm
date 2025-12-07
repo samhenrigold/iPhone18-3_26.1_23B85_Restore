@@ -6,9 +6,11 @@
 uint64_t ____CPLManagerOSLogDomain_block_invoke()
 {
   v0 = _CPLOSLogSubsystem();
-  __CPLManagerOSLogDomain_result = os_log_create(v0, "client.librarymanager.proxy");
+  v1 = os_log_create(v0, "client.librarymanager.proxy");
+  v2 = __CPLManagerOSLogDomain_result;
+  __CPLManagerOSLogDomain_result = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 uint64_t ____CPLManagerOSLogDomain_block_invoke_0()

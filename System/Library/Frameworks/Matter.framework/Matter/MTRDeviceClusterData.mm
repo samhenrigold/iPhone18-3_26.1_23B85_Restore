@@ -35,14 +35,16 @@
 
 - (MTRDeviceClusterData)initWithCoder:(id)coder
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v24.receiver = self;
-  v24.super_class = MTRDeviceClusterData;
-  v5 = [(MTRDeviceClusterData *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = MTRDeviceClusterData;
+  v5 = [(MTRDeviceClusterData *)&v23 init];
   if (!v5)
   {
-    goto LABEL_16;
+LABEL_16:
+    v12 = 0;
+    goto LABEL_17;
   }
 
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"dataVersion"];
@@ -55,26 +57,21 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v12 = sub_2393D9044(0);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = sub_2393D9044(0);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v13 = *p_dataVersion;
+        v14 = *p_dataVersion;
         *buf = 138412290;
-        v26 = v13;
-        _os_log_impl(&dword_238DAE000, v12, OS_LOG_TYPE_ERROR, "MTRDeviceClusterData got %@ for data version, not NSNumber.", buf, 0xCu);
+        v25 = v14;
+        _os_log_impl(&dword_238DAE000, v13, OS_LOG_TYPE_ERROR, "MTRDeviceClusterData got %@ for data version, not NSNumber.", buf, 0xCu);
       }
 
-      if (!sub_2393D5398(1u))
+      if (sub_2393D5398(1u))
       {
-        goto LABEL_16;
+        sub_2393D5320(0, 1, "MTRDeviceClusterData got %@ for data version, not NSNumber.", *p_dataVersion);
       }
 
-LABEL_15:
-      v23 = *p_dataVersion;
-      sub_2393D5320(0, 1);
-LABEL_16:
-      v11 = 0;
-      goto LABEL_17;
+      goto LABEL_16;
     }
   }
 
@@ -90,7 +87,7 @@ LABEL_16:
   }
 
   v9 = [coderCopy decodeObjectOfClasses:qword_27DF775D8 forKey:@"attributes"];
-  p_dataVersion = &v5->_attributes;
+  p_attributes = &v5->_attributes;
   attributes = v5->_attributes;
   v5->_attributes = v9;
 
@@ -99,29 +96,28 @@ LABEL_16:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v14 = sub_2393D9044(0);
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = sub_2393D9044(0);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v15 = *p_dataVersion;
+        v16 = *p_attributes;
         *buf = 138412290;
-        v26 = v15;
-        _os_log_impl(&dword_238DAE000, v14, OS_LOG_TYPE_ERROR, "MTRDeviceClusterData got %@ for attributes, not NSDictionary.", buf, 0xCu);
+        v25 = v16;
+        _os_log_impl(&dword_238DAE000, v15, OS_LOG_TYPE_ERROR, "MTRDeviceClusterData got %@ for attributes, not NSDictionary.", buf, 0xCu);
       }
 
-      if (!sub_2393D5398(1u))
+      if (sub_2393D5398(1u))
       {
-        goto LABEL_16;
+        sub_2393D5320(0, 1, "MTRDeviceClusterData got %@ for attributes, not NSDictionary.", *p_attributes);
       }
 
-      goto LABEL_15;
+      goto LABEL_16;
     }
   }
 
-  v11 = v5;
+  v12 = v5;
 LABEL_17:
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -136,11 +132,9 @@ LABEL_17:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [MTRDeviceClusterData alloc];
-  attributes = self->_attributes;
-  dataVersion = self->_dataVersion;
+  v3 = [MTRDeviceClusterData alloc];
 
-  return MEMORY[0x2821F9670](v4, sel_initWithDataVersion_attributes_);
+  return MEMORY[0x2821F9670](v3, sel_initWithDataVersion_attributes_);
 }
 
 - (BOOL)isEqualToClusterData:(id)data

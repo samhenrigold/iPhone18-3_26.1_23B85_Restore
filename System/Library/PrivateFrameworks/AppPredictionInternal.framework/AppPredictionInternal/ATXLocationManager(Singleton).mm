@@ -11,9 +11,9 @@
     +[ATXLocationManager(Singleton) sharedInstance];
   }
 
-  v1 = sharedInstance_instance_1;
+  v2 = sharedInstance_instance_1;
 
-  return v1;
+  return v2;
 }
 
 @end

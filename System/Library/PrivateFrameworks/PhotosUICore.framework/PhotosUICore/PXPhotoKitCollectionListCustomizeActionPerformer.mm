@@ -10,7 +10,7 @@
 - (void)performUserInteractionTask
 {
   selfCopy = self;
-  sub_1A4616B84();
+  sub_1A4616B84(v2);
 }
 
 + (id)localizedTitleForActionType:(id)type collectionList:(id)list
@@ -34,7 +34,7 @@
 - (_TtC12PhotosUICore48PXPhotoKitCollectionListCustomizeActionPerformer)initWithActionType:(id)type collectionList:(id)list parameters:(id)parameters
 {
   type metadata accessor for PXActionParameterKey();
-  sub_1A4617164(&unk_1EB1356B0, type metadata accessor for PXActionParameterKey);
+  sub_1A4617164(&unk_1EB1356B0, type metadata accessor for PXActionParameterKey, &unk_1A5377DC0);
   sub_1A524C3E4();
   typeCopy = type;
   listCopy = list;

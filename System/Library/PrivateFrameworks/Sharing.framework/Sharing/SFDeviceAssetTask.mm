@@ -1,5 +1,7 @@
 @interface SFDeviceAssetTask
 - (BOOL)completeIfPossible;
+- (BOOL)updateTaskWithAssetBundleURL:(id)l error:(id)error isFallback:(BOOL)fallback isImperfectMatch:(BOOL)match isCached:(BOOL)cached;
+- (BOOL)updateTaskWithAssetURL:(id)l error:(id)error isFallback:(BOOL)fallback isImperfectMatch:(BOOL)match isCached:(BOOL)cached;
 - (BOOL)updateTaskWithBundle:(id)bundle error:(id)error isFallback:(BOOL)fallback isImperfectMatch:(BOOL)match isCached:(BOOL)cached;
 - (SFDeviceAssetTask)initWithDeviceQuery:(id)query requestConfiguration:(id)configuration dispatchQueue:(id)queue useProcessLocalCache:(BOOL)cache;
 - (id)bundleAtURL:(id)l error:(id *)error;
@@ -77,8 +79,7 @@ uint64_t __97__SFDeviceAssetTask_initWithDeviceQuery_requestConfiguration_dispat
     }
 
     v2 = [*(a1 + 32) deviceAssetQuery];
-    [v2 ucat];
-    LogPrintF();
+    LogPrintF([v2 ucat], "-[SFDeviceAssetTask initWithDeviceQuery:requestConfiguration:dispatchQueue:useProcessLocalCache:]_block_invoke", 50, "Timeout triggered");
   }
 
 LABEL_7:
@@ -122,6 +123,32 @@ LABEL_7:
   SFDeviceAssetAddKeyValuePairsForStrictMatch(v11, maQuery2);
 
   [(NSMutableArray *)self->_deviceQueryParameters addObject:v13];
+}
+
+- (BOOL)updateTaskWithAssetURL:(id)l error:(id)error isFallback:(BOOL)fallback isImperfectMatch:(BOOL)match isCached:(BOOL)cached
+{
+  cachedCopy = cached;
+  matchCopy = match;
+  fallbackCopy = fallback;
+  errorCopy = error;
+  v13 = [(SFDeviceAssetTask *)self bundleURLFromAssetURL:l];
+  LOBYTE(cachedCopy) = [(SFDeviceAssetTask *)self updateTaskWithAssetBundleURL:v13 error:errorCopy isFallback:fallbackCopy isImperfectMatch:matchCopy isCached:cachedCopy];
+
+  return cachedCopy;
+}
+
+- (BOOL)updateTaskWithAssetBundleURL:(id)l error:(id)error isFallback:(BOOL)fallback isImperfectMatch:(BOOL)match isCached:(BOOL)cached
+{
+  cachedCopy = cached;
+  matchCopy = match;
+  fallbackCopy = fallback;
+  errorCopy = error;
+  errorCopy2 = error;
+  v13 = [(SFDeviceAssetTask *)self bundleAtURL:l error:&errorCopy];
+  v14 = errorCopy;
+
+  LOBYTE(cachedCopy) = [(SFDeviceAssetTask *)self updateTaskWithBundle:v13 error:v14 isFallback:fallbackCopy isImperfectMatch:matchCopy isCached:cachedCopy];
+  return cachedCopy;
 }
 
 - (BOOL)updateTaskWithBundle:(id)bundle error:(id)error isFallback:(BOOL)fallback isImperfectMatch:(BOOL)match isCached:(BOOL)cached
@@ -181,8 +208,7 @@ LABEL_17:
 
 LABEL_16:
       deviceAssetQuery = [(SFDeviceAssetTask *)self deviceAssetQuery];
-      [deviceAssetQuery ucat];
-      LogPrintF();
+      LogPrintF([deviceAssetQuery ucat], "-[SFDeviceAssetTask updateTaskWithBundle:error:isFallback:isImperfectMatch:isCached:]", 90, "Failed to find existing asset (%@)", errorCopy);
       goto LABEL_17;
     }
 
@@ -238,9 +264,9 @@ LABEL_18:
 
         cachedBundle2 = [(SFDeviceAssetTask *)self cachedBundle];
         selfCopy3 = self;
-        v17 = cachedBundle2;
-        v18 = 0;
-        v19 = 1;
+        v19 = cachedBundle2;
+        v20 = 0;
+        v21 = 1;
         goto LABEL_18;
       }
 
@@ -261,9 +287,9 @@ LABEL_18:
         {
           deviceAssetQuery2 = [(SFDeviceAssetTask *)self deviceAssetQuery];
           [deviceAssetQuery2 ucat];
-          v24 = _LogCategory_Initialize();
+          v26 = _LogCategory_Initialize();
 
-          if (!v24)
+          if (!v26)
           {
             return matchBundle == 0;
           }
@@ -274,8 +300,7 @@ LABEL_18:
         }
 
         cachedBundle2 = [(SFDeviceAssetTask *)self deviceAssetQuery];
-        [cachedBundle2 ucat];
-        LogPrintF();
+        LogPrintF([cachedBundle2 ucat], "-[SFDeviceAssetTask completeIfPossible]", 50, "Updated with fallback asset bundle, but waiting a bit longer to see if we get a perfect match");
       }
 
       goto LABEL_19;
@@ -288,15 +313,15 @@ LABEL_18:
       {
         deviceAssetQuery4 = [(SFDeviceAssetTask *)self deviceAssetQuery];
         [deviceAssetQuery4 ucat];
-        v26 = _LogCategory_Initialize();
+        v28 = _LogCategory_Initialize();
 
-        if (!v26)
+        if (!v28)
         {
 LABEL_31:
           cachedBundle2 = [(SFDeviceAssetTask *)self fallbackBundle];
           selfCopy3 = self;
-          v17 = cachedBundle2;
-          v18 = 1;
+          v19 = cachedBundle2;
+          v20 = 1;
           goto LABEL_17;
         }
       }
@@ -306,8 +331,7 @@ LABEL_31:
       }
 
       cachedBundle2 = [(SFDeviceAssetTask *)self deviceAssetQuery];
-      [cachedBundle2 ucat];
-      LogPrintF();
+      LogPrintF([cachedBundle2 ucat], "-[SFDeviceAssetTask completeIfPossible]", 50, "Updated with fallback asset bundle");
     }
 
     goto LABEL_31;
@@ -327,10 +351,10 @@ LABEL_14:
 
 LABEL_13:
     deviceAssetQuery5 = [(SFDeviceAssetTask *)self deviceAssetQuery];
-    [deviceAssetQuery5 ucat];
+    ucat = [deviceAssetQuery5 ucat];
     matchBundle2 = [(SFDeviceAssetTask *)self matchBundle];
     bundlePath = [matchBundle2 bundlePath];
-    LogPrintF();
+    LogPrintF(ucat, "[SFDeviceAssetTask completeIfPossible]", 50, "Updated with matching asset bundle at %@", bundlePath);
 
     goto LABEL_14;
   }
@@ -349,12 +373,12 @@ LABEL_15:
 LABEL_16:
   cachedBundle2 = imperfectMatchBundle2;
   selfCopy3 = self;
-  v17 = cachedBundle2;
-  v18 = 0;
+  v19 = cachedBundle2;
+  v20 = 0;
 LABEL_17:
-  v19 = 0;
+  v21 = 0;
 LABEL_18:
-  [(SFDeviceAssetTask *)selfCopy3 completeWithBundle:v17 isFallback:v18 isCached:v19];
+  [(SFDeviceAssetTask *)selfCopy3 completeWithBundle:v19 isFallback:v20 isCached:v21];
 LABEL_19:
 
   return matchBundle == 0;
@@ -399,7 +423,7 @@ void __60__SFDeviceAssetTask_completeWithBundle_isFallback_isCached___block_invo
     v2 = @"matching";
   }
 
-  v30 = v2;
+  v35 = v2;
   if (([*(a1 + 32) queryResultCalled] & 1) == 0)
   {
     v3 = [*(a1 + 32) configuration];
@@ -422,21 +446,21 @@ void __60__SFDeviceAssetTask_completeWithBundle_isFallback_isCached___block_invo
           {
 LABEL_29:
             v9 = [*(a1 + 32) configuration];
-            v18 = [v9 queryResultHandler];
-            v19 = v18;
-            v20 = *(a1 + 40);
-            v21 = *(a1 + 48);
-            v22 = *(a1 + 57);
-            if (v20)
+            v22 = [v9 queryResultHandler];
+            v23 = v22;
+            v24 = *(a1 + 40);
+            v25 = *(a1 + 48);
+            v26 = *(a1 + 57);
+            if (v24)
             {
-              (*(v18 + 16))(v18, v20, *(a1 + 48), *(a1 + 57), 0);
+              (*(v22 + 16))(v22, v24, *(a1 + 48), *(a1 + 57), 0);
 LABEL_33:
 
               goto LABEL_34;
             }
 
-            v23 = [*(a1 + 32) error];
-            (v19)[2](v19, 0, v21, v22, v23);
+            v27 = [*(a1 + 32) error];
+            (v23)[2](v23, 0, v25, v26, v27);
 LABEL_32:
 
             goto LABEL_33;
@@ -448,19 +472,18 @@ LABEL_32:
         }
 
         v5 = [*(a1 + 32) deviceAssetQuery];
-        [v5 ucat];
-        if (*(a1 + 40))
+        v18 = [v5 ucat];
+        v19 = v18;
+        v20 = *(a1 + 40);
+        if (v20)
         {
-          v28 = v30;
-          v29 = *(a1 + 40);
-          LogPrintF();
+          LogPrintF(v18, "[SFDeviceAssetTask completeWithBundle:isFallback:isCached:]_block_invoke", 50, "Completing task with %@ bundle %@", v35, v20);
         }
 
         else
         {
-          v29 = [*(a1 + 32) error];
-          v28 = v30;
-          LogPrintF();
+          v21 = [*(a1 + 32) error];
+          LogPrintF(v19, "[SFDeviceAssetTask completeWithBundle:isFallback:isCached:]_block_invoke", 50, "Completing task with %@ bundle %@", v35, v21);
         }
       }
 
@@ -488,25 +511,25 @@ LABEL_32:
         v15 = [*(a1 + 32) deviceAssetQuery];
         if (*[v15 ucat] == -1)
         {
-          v24 = [*(a1 + 32) deviceAssetQuery];
-          [v24 ucat];
-          v25 = _LogCategory_Initialize();
+          v28 = [*(a1 + 32) deviceAssetQuery];
+          [v28 ucat];
+          v29 = _LogCategory_Initialize();
 
-          if (!v25)
+          if (!v29)
           {
 LABEL_43:
             v9 = [*(a1 + 32) configuration];
-            v26 = [v9 downloadCompletionHandler];
-            v19 = v26;
-            v27 = *(a1 + 40);
-            if (v27)
+            v33 = [v9 downloadCompletionHandler];
+            v23 = v33;
+            v34 = *(a1 + 40);
+            if (v34)
             {
-              (*(v26 + 16))(v26, v27, 0);
+              (*(v33 + 16))(v33, v34, 0);
               goto LABEL_33;
             }
 
-            v23 = [*(a1 + 32) error];
-            (v19[2])(v19, 0, v23);
+            v27 = [*(a1 + 32) error];
+            (v23[2])(v23, 0, v27);
             goto LABEL_32;
           }
         }
@@ -516,17 +539,17 @@ LABEL_43:
         }
 
         v14 = [*(a1 + 32) deviceAssetQuery];
-        [v14 ucat];
+        v30 = [v14 ucat];
+        v31 = v30;
         if (*(a1 + 40))
         {
-          v28 = *(a1 + 40);
-          LogPrintF();
+          LogPrintF(v30, "[SFDeviceAssetTask completeWithBundle:isFallback:isCached:]_block_invoke", 50, "Completing download task with bundle %@", *(a1 + 40));
         }
 
         else
         {
-          v28 = [*(a1 + 32) error];
-          LogPrintF();
+          v32 = [*(a1 + 32) error];
+          LogPrintF(v31, "[SFDeviceAssetTask completeWithBundle:isFallback:isCached:]_block_invoke", 50, "Completing download task with bundle %@", v32);
         }
       }
 
@@ -556,8 +579,7 @@ LABEL_15:
     }
 
     v9 = [*(a1 + 32) deviceAssetQuery];
-    [v9 ucat];
-    LogPrintF();
+    LogPrintF([v9 ucat], "-[SFDeviceAssetTask completeWithBundle:isFallback:isCached:]_block_invoke", 50, "No handlers (left) for %@ bundle", v35);
   }
 
 LABEL_34:
@@ -600,9 +622,9 @@ LABEL_35:
 
 LABEL_10:
         deviceAssetQuery3 = [(SFDeviceAssetTask *)self deviceAssetQuery];
-        [deviceAssetQuery3 ucat];
+        ucat = [deviceAssetQuery3 ucat];
         path = [lCopy path];
-        LogPrintF();
+        LogPrintF(ucat, "[SFDeviceAssetTask bundleURLFromAssetURL:]", 90, "Failed to get contents of asset bundle at path %@ (%@)", path, v9);
 
         goto LABEL_11;
       }
@@ -626,7 +648,6 @@ LABEL_11:
 LABEL_12:
 
 LABEL_13:
-  v16 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
@@ -646,9 +667,9 @@ LABEL_13:
 
   if (firstObject)
   {
-    v21 = 0;
-    CanAccessURL = SFDeviceAssetProcessCanAccessURL(firstObject, &v21);
-    v11 = v21;
+    v22 = 0;
+    CanAccessURL = SFDeviceAssetProcessCanAccessURL(firstObject, &v22);
+    v11 = v22;
     if (CanAccessURL)
     {
       v12 = [MEMORY[0x1E696AAE8] bundleWithURL:lCopy];
@@ -686,9 +707,9 @@ LABEL_13:
 
 LABEL_14:
     deviceAssetQuery = [(SFDeviceAssetTask *)self deviceAssetQuery];
-    [deviceAssetQuery ucat];
+    ucat = [deviceAssetQuery ucat];
     path = [lCopy path];
-    LogPrintF();
+    LogPrintF(ucat, "[SFDeviceAssetTask bundleAtURL:error:]", 90, "Failed to create bundle for path %@ (%@)", path, v11);
 
 LABEL_15:
     goto LABEL_16;

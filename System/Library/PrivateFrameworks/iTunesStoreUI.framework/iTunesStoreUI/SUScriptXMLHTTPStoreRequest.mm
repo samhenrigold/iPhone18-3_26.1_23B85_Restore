@@ -240,12 +240,12 @@ void __52__SUScriptXMLHTTPStoreRequest_getAllResponseHeaders__block_invoke(uint6
 
       ams_sharedAccountStore = [MEMORY[0x1E6959A48] ams_sharedAccountStore];
       ams_activeiCloudAccount = [ams_sharedAccountStore ams_activeiCloudAccount];
-      v42 = [ams_sharedAccountStore aida_accountForiCloudAccount:ams_activeiCloudAccount];
+      v41 = [ams_sharedAccountStore aida_accountForiCloudAccount:ams_activeiCloudAccount];
       if (ams_activeiCloudAccount)
       {
-        if (v42)
+        if (v41)
         {
-          v13 = [(SUScriptXMLHTTPStoreRequest *)self _gsTokenForAIDAAccount:v42 accountStore:ams_sharedAccountStore];
+          v13 = [(SUScriptXMLHTTPStoreRequest *)self _gsTokenForAIDAAccount:v41 accountStore:ams_sharedAccountStore];
           if (v13)
           {
             [(SSMutableURLRequestProperties *)self->_requestProperties setValue:v13 forHTTPHeaderField:*MEMORY[0x1E69D4C58]];
@@ -282,13 +282,11 @@ void __52__SUScriptXMLHTTPStoreRequest_getAllResponseHeaders__block_invoke(uint6
             LODWORD(location[0]) = 138412290;
             *(location + 4) = objc_opt_class();
             v27 = *(location + 4);
-            LODWORD(v41) = 12;
-            v40 = location;
-            v28 = _os_log_send_and_compose_impl();
+            v28 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &dword_1C21AF000, oSLogObject, 16, "%@: Failed to find an active AIDA account", location, 12);
 
             if (v28)
             {
-              v29 = [MEMORY[0x1E696AEC0] stringWithCString:v28 encoding:{4, location, v41}];
+              v29 = [MEMORY[0x1E696AEC0] stringWithCString:v28 encoding:4];
               free(v28);
               v40 = v29;
               SSFileLog();
@@ -337,13 +335,11 @@ void __52__SUScriptXMLHTTPStoreRequest_getAllResponseHeaders__block_invoke(uint6
           LODWORD(location[0]) = 138543362;
           *(location + 4) = objc_opt_class();
           v19 = *(location + 4);
-          LODWORD(v41) = 12;
-          v40 = location;
-          v20 = _os_log_send_and_compose_impl();
+          v20 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 0, "%{public}@: Failed to find an active iCloud account", location, 12);
 
           if (v20)
           {
-            v21 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:{4, location, v41}];
+            v21 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:4];
             free(v20);
             v40 = v21;
             SSFileLog();
@@ -381,16 +377,16 @@ void __52__SUScriptXMLHTTPStoreRequest_getAllResponseHeaders__block_invoke(uint6
 
       objc_initWeak(location, self);
       v38 = self->_operation;
-      v43[0] = MEMORY[0x1E69E9820];
-      v43[1] = 3221225472;
-      v43[2] = __48__SUScriptXMLHTTPStoreRequest_sendWithBodyData___block_invoke;
-      v43[3] = &unk_1E8165038;
-      objc_copyWeak(&v44, location);
-      [(SUXMLHTTPStoreRequestOperation *)v38 setOutputBlock:v43];
+      v42[0] = MEMORY[0x1E69E9820];
+      v42[1] = 3221225472;
+      v42[2] = __48__SUScriptXMLHTTPStoreRequest_sendWithBodyData___block_invoke;
+      v42[3] = &unk_1E8165038;
+      objc_copyWeak(&v43, location);
+      [(SUXMLHTTPStoreRequestOperation *)v38 setOutputBlock:v42];
       mainQueue = [MEMORY[0x1E69E4798] mainQueue];
       [mainQueue addOperation:self->_operation];
 
-      objc_destroyWeak(&v44);
+      objc_destroyWeak(&v43);
       objc_destroyWeak(location);
     }
   }
@@ -606,71 +602,80 @@ void __48__SUScriptXMLHTTPStoreRequest_sendWithBodyData___block_invoke(uint64_t 
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v5 = shouldLog | 2;
+      LODWORD(v5) = shouldLog | 2;
     }
 
     else
     {
-      v5 = shouldLog;
+      LODWORD(v5) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v5 = v5;
+    }
+
+    else
     {
       v5 &= 2u;
     }
 
     if (v5)
     {
-      LODWORD(v11) = 138543362;
-      *(&v11 + 4) = objc_opt_class();
-      v7 = *(&v11 + 4);
-      LODWORD(v10) = 12;
-      v8 = _os_log_send_and_compose_impl();
+      v10 = 138543362;
+      v11 = objc_opt_class();
+      v7 = v11;
+      v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1C21AF000, oSLogObject, 16, "%{public}@: Failed to retrieve client info header", &v10, 12);
 
       if (!v8)
       {
-LABEL_11:
+LABEL_12:
 
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v11, v10, v11}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
       free(v8);
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
+LABEL_13:
 
   return clientInfoHeader;
 }
 
 - (id)_gsTokenForAIDAAccount:(id)account accountStore:(id)store
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = *MEMORY[0x1E698C240];
-  v18 = 0;
-  v6 = [store credentialForAccount:account serviceID:v5 error:&v18];
-  v7 = v18;
+  v17 = 0;
+  v6 = [store credentialForAccount:account serviceID:v5 error:&v17];
+  v7 = v17;
   if (v7)
   {
     mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      LODWORD(v10) = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      LODWORD(v10) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
@@ -678,32 +683,31 @@ LABEL_12:
     if (v10)
     {
       v12 = objc_opt_class();
-      v19 = 138543618;
-      v20 = v12;
-      v21 = 2114;
-      v22 = v7;
+      v18 = 138543618;
+      v19 = v12;
+      v20 = 2114;
+      v21 = v7;
       v13 = v12;
-      LODWORD(v17) = 22;
-      v14 = _os_log_send_and_compose_impl();
+      v14 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1C21AF000, oSLogObject, 16, "%{public}@: GS-Token: Failed to fetch account credential with error: %{public}@", &v18, 22);
 
       if (!v14)
       {
-LABEL_11:
+LABEL_12:
 
         token = 0;
-        goto LABEL_13;
+        goto LABEL_14;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, &v19, v17}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
       free(v14);
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
   token = [v6 token];
-LABEL_13:
+LABEL_14:
 
   return token;
 }
@@ -778,44 +782,48 @@ LABEL_13:
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v5 = shouldLog | 2;
+      LODWORD(v5) = shouldLog | 2;
     }
 
     else
     {
-      v5 = shouldLog;
+      LODWORD(v5) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v5 = v5;
+    }
+
+    else
     {
       v5 &= 2u;
     }
 
     if (v5)
     {
-      LODWORD(v11) = 138543362;
-      *(&v11 + 4) = objc_opt_class();
-      v7 = *(&v11 + 4);
-      LODWORD(v10) = 12;
-      v8 = _os_log_send_and_compose_impl();
+      v10 = 138543362;
+      v11 = objc_opt_class();
+      v7 = v11;
+      v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1C21AF000, oSLogObject, 16, "%{public}@: Failed to retrieve unique device ID", &v10, 12);
 
       if (!v8)
       {
-LABEL_11:
+LABEL_12:
 
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v11, v10, v11}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
       free(v8);
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
+LABEL_13:
 
   return uniqueDeviceId;
 }

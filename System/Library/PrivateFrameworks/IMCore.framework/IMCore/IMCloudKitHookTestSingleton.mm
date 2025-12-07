@@ -7,8 +7,12 @@
 - (void)sendSyncChangedEvent;
 - (void)setControllerSyncState:(unint64_t)state;
 - (void)setControllerSyncType:(int64_t)type;
+- (void)setEligibleForTruthZone:(BOOL)zone;
+- (void)setEnabled:(BOOL)enabled;
 - (void)setIMCloudKitSyncErrors:(id)errors;
+- (void)setIsInExitState:(BOOL)state;
 - (void)setLastSyncDate:(id)date;
+- (void)setSyncing:(BOOL)syncing;
 - (void)setTestState:(id)state;
 @end
 
@@ -16,23 +20,23 @@
 
 - (IMCloudKitHookTestSingleton)init
 {
-  v13.receiver = self;
-  v13.super_class = IMCloudKitHookTestSingleton;
-  v2 = [(IMCloudKitHookTestSingleton *)&v13 init];
+  v10.receiver = self;
+  v10.super_class = IMCloudKitHookTestSingleton;
+  v2 = [(IMCloudKitHookTestSingleton *)&v10 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x1E695DF20]);
     v4 = objc_alloc_init(MEMORY[0x1E695DF20]);
-    v6 = objc_msgSend__createSyncStatisticsDictionary_messageSyncCount_messageUnresolvedCount_chatCount_chatSyncCount_chatUnresolvedCount_attachmentCount_attachmentSyncCount_attachmentUnresolvedCount_serverRecordCounts_syncStoreCounts_(IMCloudKitSyncStatistics, v5, 0, 0, 0, 0, 0, 0, 0, 0, 0, v3, v4);
+    v5 = [IMCloudKitSyncStatistics _createSyncStatisticsDictionary:0 messageSyncCount:0 messageUnresolvedCount:0 chatCount:0 chatSyncCount:0 chatUnresolvedCount:0 attachmentCount:0 attachmentSyncCount:0 attachmentUnresolvedCount:0 serverRecordCounts:v3 syncStoreCounts:v4];
     syncStats = v2->_syncStats;
-    v2->_syncStats = v6;
+    v2->_syncStats = v5;
 
-    v8 = objc_alloc_init(IMCloudKitMockSyncState);
+    v7 = objc_alloc_init(IMCloudKitMockSyncState);
     testState = v2->_testState;
-    v2->_testState = v8;
+    v2->_testState = v7;
 
-    objc_msgSend_setIMCloudKitSyncingEnabled_(v2->_testState, v10, 1);
-    objc_msgSend_setIMCloudKitIsEligibleForTruthZone_(v2->_testState, v11, 1);
+    [(IMCloudKitMockSyncState *)v2->_testState setIMCloudKitSyncingEnabled:1];
+    [(IMCloudKitMockSyncState *)v2->_testState setIMCloudKitIsEligibleForTruthZone:1];
   }
 
   return v2;
@@ -54,14 +58,14 @@
 {
   v2 = objc_opt_class();
 
-  return objc_msgSend_logHandle(v2, v3, v4);
+  return [v2 logHandle];
 }
 
 - (void)setTestState:(id)state
 {
   objc_storeStrong(&self->_testState, state);
 
-  objc_msgSend_sendSyncChangedEvent(self, v4, v5);
+  [(IMCloudKitHookTestSingleton *)self sendSyncChangedEvent];
 }
 
 - (void)fetchSyncStateStatistics
@@ -76,62 +80,93 @@
 
 - (void)sendSyncChangedEvent
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v4 = objc_msgSend_sharedInstance(IMCloudKitHooks, a2, v2);
-  v7 = objc_msgSend_syncStateDictionary(v4, v5, v6);
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = +[IMCloudKitHooks sharedInstance];
+  syncStateDictionary = [v3 syncStateDictionary];
 
-  v10 = objc_msgSend_logHandle(self, v8, v9);
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  logHandle = [(IMCloudKitHookTestSingleton *)self logHandle];
+  if (os_log_type_enabled(logHandle, OS_LOG_TYPE_INFO))
   {
-    v16 = 138412290;
-    v17 = v7;
-    _os_log_impl(&dword_1A823F000, v10, OS_LOG_TYPE_INFO, "Sending fake state: %@ from IMCloudKitHooksTestSingleton", &v16, 0xCu);
+    v7 = 138412290;
+    v8 = syncStateDictionary;
+    _os_log_impl(&dword_1A823F000, logHandle, OS_LOG_TYPE_INFO, "Sending fake state: %@ from IMCloudKitHooksTestSingleton", &v7, 0xCu);
   }
 
-  v13 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v11, v12);
-  objc_msgSend_postNotificationName_object_userInfo_(v13, v14, @"com.apple.IMCore.IMCloudKitHooks.ValuesChanged", 0, v7);
+  defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
+  [defaultCenter postNotificationName:@"com.apple.IMCore.IMCloudKitHooks.ValuesChanged" object:0 userInfo:syncStateDictionary];
+}
 
-  v15 = *MEMORY[0x1E69E9840];
+- (void)setEnabled:(BOOL)enabled
+{
+  [(IMCloudKitMockSyncState *)self->_testState setIMCloudKitSyncingEnabled:?];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = sub_1A83955AC;
+  block[3] = &unk_1E7813DC0;
+  enabledCopy = enabled;
+  dispatch_async(MEMORY[0x1E69E96A0], block);
+  [(IMCloudKitHookTestSingleton *)self sendSyncChangedEvent];
+}
+
+- (void)setEligibleForTruthZone:(BOOL)zone
+{
+  [(IMCloudKitMockSyncState *)self->_testState setIMCloudKitIsEligibleForTruthZone:zone];
+
+  [(IMCloudKitHookTestSingleton *)self sendSyncChangedEvent];
+}
+
+- (void)setSyncing:(BOOL)syncing
+{
+  [(IMCloudKitMockSyncState *)self->_testState setIMCloudKitIsSyncing:syncing];
+
+  [(IMCloudKitHookTestSingleton *)self sendSyncChangedEvent];
 }
 
 - (BOOL)isStartingSync
 {
-  if (objc_msgSend_IMCloudKitStartingInitialSync(self->_testState, a2, v2))
+  if ([(IMCloudKitMockSyncState *)self->_testState IMCloudKitStartingInitialSync])
   {
     return 1;
   }
 
   testState = self->_testState;
 
-  return objc_msgSend_IMCloudKitStartingPeriodicSync(testState, v4, v5);
+  return [(IMCloudKitMockSyncState *)testState IMCloudKitStartingPeriodicSync];
 }
 
 - (void)setLastSyncDate:(id)date
 {
-  objc_msgSend_setIMCloudKitSyncDate_(self->_testState, a2, date);
+  [(IMCloudKitMockSyncState *)self->_testState setIMCloudKitSyncDate:date];
 
-  objc_msgSend_sendSyncChangedEvent(self, v4, v5);
+  [(IMCloudKitHookTestSingleton *)self sendSyncChangedEvent];
+}
+
+- (void)setIsInExitState:(BOOL)state
+{
+  [(IMCloudKitMockSyncState *)self->_testState setIMCloudKitIsInExitState:state];
+
+  [(IMCloudKitHookTestSingleton *)self sendSyncChangedEvent];
 }
 
 - (void)setControllerSyncState:(unint64_t)state
 {
-  objc_msgSend_setIMCloudKitSyncControllerSyncState_(self->_testState, a2, state);
+  [(IMCloudKitMockSyncState *)self->_testState setIMCloudKitSyncControllerSyncState:?];
 
-  MEMORY[0x1EEE66B58](self, sel_setSyncing_, state == 0);
+  MEMORY[0x1EEE66B58](self, sel_setSyncing_);
 }
 
 - (void)setControllerSyncType:(int64_t)type
 {
-  objc_msgSend_setIMCloudKitSyncControllerSyncType_(self->_testState, a2, type);
+  [(IMCloudKitMockSyncState *)self->_testState setIMCloudKitSyncControllerSyncType:type];
 
-  objc_msgSend_sendSyncChangedEvent(self, v4, v5);
+  [(IMCloudKitHookTestSingleton *)self sendSyncChangedEvent];
 }
 
 - (void)setIMCloudKitSyncErrors:(id)errors
 {
-  objc_msgSend_setIMCloudKitSyncErrors_(self->_testState, a2, errors);
+  [(IMCloudKitMockSyncState *)self->_testState setIMCloudKitSyncErrors:errors];
 
-  objc_msgSend_sendSyncChangedEvent(self, v4, v5);
+  [(IMCloudKitHookTestSingleton *)self sendSyncChangedEvent];
 }
 
 @end

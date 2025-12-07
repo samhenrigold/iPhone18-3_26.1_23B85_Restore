@@ -3,7 +3,6 @@
 - (SVXSynthesisManager)initWithPerformer:(id)performer remoteDelegateSupplier:(id)supplier;
 - (id)_createGroup;
 - (void)startWithModuleInstanceProvider:(id)provider platformDependencies:(id)dependencies;
-- (void)stopWithModuleInstanceProvider:(id)provider;
 - (void)synthesizeRequest:(id)request xpcConnection:(id)connection handlerUUID:(id)d completion:(id)completion;
 @end
 
@@ -48,7 +47,7 @@
 
 void __78__SVXSynthesisManager_synthesizeRequest_xpcConnection_handlerUUID_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 audioChunkIndex];
   v5 = [v3 audioChunkData];
@@ -60,39 +59,39 @@ void __78__SVXSynthesisManager_synthesizeRequest_xpcConnection_handlerUUID_compl
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315906;
-      v25 = "[SVXSynthesisManager synthesizeRequest:xpcConnection:handlerUUID:completion:]_block_invoke";
-      v26 = 2112;
-      v27 = v6;
-      v28 = 2048;
-      v29 = v4;
-      v30 = 2112;
-      v31 = v5;
+      v24 = "[SVXSynthesisManager synthesizeRequest:xpcConnection:handlerUUID:completion:]_block_invoke";
+      v25 = 2112;
+      v26 = v6;
+      v27 = 2048;
+      v28 = v4;
+      v29 = 2112;
+      v30 = v5;
       _os_log_debug_impl(&dword_2695B9000, v7, OS_LOG_TYPE_DEBUG, "%s handlerUUID = %@, audioChunkIndex = %tu, audioChunkData = %@", buf, 0x2Au);
     }
 
     dispatch_group_enter(*(a1 + 40));
     v8 = objc_alloc(MEMORY[0x277CEF380]);
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __78__SVXSynthesisManager_synthesizeRequest_xpcConnection_handlerUUID_completion___block_invoke_2;
-    v22[3] = &unk_279C67CB0;
-    v23 = *(a1 + 40);
-    v9 = [v8 initWithBlock:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __78__SVXSynthesisManager_synthesizeRequest_xpcConnection_handlerUUID_completion___block_invoke_2;
+    v21[3] = &unk_279C67CB0;
+    v22 = *(a1 + 40);
+    v9 = [v8 initWithBlock:v21];
     v11 = *(a1 + 48);
     v10 = *(a1 + 56);
     v12 = *(v11 + 8);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __78__SVXSynthesisManager_synthesizeRequest_xpcConnection_handlerUUID_completion___block_invoke_2;
-    v16[3] = &unk_279C67CD8;
-    v16[4] = v11;
-    v17 = v10;
-    v18 = v9;
-    v19 = *(a1 + 32);
-    v20 = v5;
-    v21 = v4;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __78__SVXSynthesisManager_synthesizeRequest_xpcConnection_handlerUUID_completion___block_invoke_2;
+    v15[3] = &unk_279C67CD8;
+    v15[4] = v11;
+    v16 = v10;
+    v17 = v9;
+    v18 = *(a1 + 32);
+    v19 = v5;
+    v20 = v4;
     v13 = v9;
-    [v12 performBlock:v16];
+    [v12 performBlock:v15];
   }
 
   else if (!v4)
@@ -101,26 +100,24 @@ void __78__SVXSynthesisManager_synthesizeRequest_xpcConnection_handlerUUID_compl
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v25 = "[SVXSynthesisManager synthesizeRequest:xpcConnection:handlerUUID:completion:]_block_invoke";
+      v24 = "[SVXSynthesisManager synthesizeRequest:xpcConnection:handlerUUID:completion:]_block_invoke";
       _os_log_debug_impl(&dword_2695B9000, v14, OS_LOG_TYPE_DEBUG, "%s Not sending audio chunks to client because the handler UUID is nil.", buf, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __78__SVXSynthesisManager_synthesizeRequest_xpcConnection_handlerUUID_completion___block_invoke_8(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x277CEF098];
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v14 = "[SVXSynthesisManager synthesizeRequest:xpcConnection:handlerUUID:completion:]_block_invoke";
-    v15 = 2112;
-    v16 = v3;
+    v13 = "[SVXSynthesisManager synthesizeRequest:xpcConnection:handlerUUID:completion:]_block_invoke";
+    v14 = 2112;
+    v15 = v3;
     _os_log_debug_impl(&dword_2695B9000, v5, OS_LOG_TYPE_DEBUG, "%s result = %@", buf, 0x16u);
   }
 
@@ -130,18 +127,18 @@ void __78__SVXSynthesisManager_synthesizeRequest_xpcConnection_handlerUUID_compl
     if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v14 = "[SVXSynthesisManager synthesizeRequest:xpcConnection:handlerUUID:completion:]_block_invoke";
+      v13 = "[SVXSynthesisManager synthesizeRequest:xpcConnection:handlerUUID:completion:]_block_invoke";
       _os_log_debug_impl(&dword_2695B9000, v6, OS_LOG_TYPE_DEBUG, "%s Waiting for pending audio chunks to be sent to the client and acknowledged by the client...", buf, 0xCu);
     }
 
     v7 = *(*(a1 + 40) + 8);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __78__SVXSynthesisManager_synthesizeRequest_xpcConnection_handlerUUID_completion___block_invoke_9;
-    v10[3] = &unk_279C68EF8;
-    v12 = *(a1 + 48);
-    v11 = v3;
-    [v7 performBlock:v10 afterGroup:*(a1 + 32)];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __78__SVXSynthesisManager_synthesizeRequest_xpcConnection_handlerUUID_completion___block_invoke_9;
+    v9[3] = &unk_279C68EF8;
+    v11 = *(a1 + 48);
+    v10 = v3;
+    [v7 performBlock:v9 afterGroup:*(a1 + 32)];
   }
 
   else
@@ -152,28 +149,25 @@ void __78__SVXSynthesisManager_synthesizeRequest_xpcConnection_handlerUUID_compl
       (*(v8 + 16))(v8, v3);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __78__SVXSynthesisManager_synthesizeRequest_xpcConnection_handlerUUID_completion___block_invoke_9(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315138;
-    v6 = "[SVXSynthesisManager synthesizeRequest:xpcConnection:handlerUUID:completion:]_block_invoke";
-    _os_log_debug_impl(&dword_2695B9000, v2, OS_LOG_TYPE_DEBUG, "%s Finished waiting for pending audio chunks to be sent to the client and acknowledged by the client.", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SVXSynthesisManager synthesizeRequest:xpcConnection:handlerUUID:completion:]_block_invoke";
+    _os_log_debug_impl(&dword_2695B9000, v2, OS_LOG_TYPE_DEBUG, "%s Finished waiting for pending audio chunks to be sent to the client and acknowledged by the client.", &v4, 0xCu);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, *(a1 + 32));
+    return (*(result + 16))(result, *(a1 + 32));
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -184,53 +178,40 @@ void __78__SVXSynthesisManager_synthesizeRequest_xpcConnection_handlerUUID_compl
 
 void __78__SVXSynthesisManager_synthesizeRequest_xpcConnection_handlerUUID_completion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315394;
-    v7 = "[SVXSynthesisManager synthesizeRequest:xpcConnection:handlerUUID:completion:]_block_invoke_3";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s error = %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SVXSynthesisManager synthesizeRequest:xpcConnection:handlerUUID:completion:]_block_invoke_3";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s error = %@", &v5, 0x16u);
   }
 
   [*(a1 + 32) invokeWithSignal:-4];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __78__SVXSynthesisManager_synthesizeRequest_xpcConnection_handlerUUID_completion___block_invoke_4(uint64_t a1, int a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
   {
-    v7 = 136315394;
-    v8 = "[SVXSynthesisManager synthesizeRequest:xpcConnection:handlerUUID:completion:]_block_invoke";
-    v9 = 1024;
-    v10 = a2;
-    _os_log_debug_impl(&dword_2695B9000, v4, OS_LOG_TYPE_DEBUG, "%s handled = %d", &v7, 0x12u);
+    v6 = 136315394;
+    v7 = "[SVXSynthesisManager synthesizeRequest:xpcConnection:handlerUUID:completion:]_block_invoke";
+    v8 = 1024;
+    v9 = a2;
+    _os_log_debug_impl(&dword_2695B9000, v4, OS_LOG_TYPE_DEBUG, "%s handled = %d", &v6, 0x12u);
   }
 
-  result = [*(a1 + 32) invokeWithSignal:0];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-- (void)stopWithModuleInstanceProvider:(id)provider
-{
-  speechSynthesizer = self->_speechSynthesizer;
-  self->_speechSynthesizer = 0;
-  MEMORY[0x2821F96F8]();
+  return [*(a1 + 32) invokeWithSignal:0];
 }
 
 - (void)startWithModuleInstanceProvider:(id)provider platformDependencies:(id)dependencies
 {
-  speechSynthesizer = [provider speechSynthesizer];
-  speechSynthesizer = self->_speechSynthesizer;
-  self->_speechSynthesizer = speechSynthesizer;
+  self->_speechSynthesizer = [provider speechSynthesizer];
 
   MEMORY[0x2821F96F8]();
 }

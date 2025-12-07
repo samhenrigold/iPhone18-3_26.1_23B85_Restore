@@ -54,7 +54,7 @@
   }
 
   selfCopy = self;
-  sub_100062AD0();
+  sub_100062AD0(selfCopy);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear

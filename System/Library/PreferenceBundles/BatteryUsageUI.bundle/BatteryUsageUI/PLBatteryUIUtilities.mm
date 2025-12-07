@@ -478,18 +478,19 @@ LABEL_17:
   }
 
   v6 = v5;
-  v7 = @"com.apple.graphic-icon.auto-brightness";
+  v7 = v6;
+  v8 = @"com.apple.graphic-icon.auto-brightness";
   if (suggestion > 7)
   {
     switch(suggestion)
     {
       case 8:
-        v7 = @"com.apple.graphic-icon.recent-usage";
+        v8 = @"com.apple.graphic-icon.recent-usage";
         break;
       case 9:
         goto LABEL_5;
       case 10:
-        v7 = [NSString stringWithFormat:@"com.apple.graphic-icon.%@.battery-ongoing-restore", v6];
+        v8 = [NSString stringWithFormat:@"com.apple.graphic-icon.%@.battery-ongoing-restore", v6];
         break;
     }
   }
@@ -499,36 +500,36 @@ LABEL_17:
     if ((suggestion - 3) < 5)
     {
 LABEL_5:
-      v8 = BUILogCommon();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+      v9 = BUILogCommon(v6);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
-        sub_114980(suggestion, v8);
+        sub_114980(suggestion, v9);
       }
 
-      v7 = 0;
+      v8 = 0;
       goto LABEL_18;
     }
 
-    v9 = @"com.apple.graphic-icon.display";
+    v10 = @"com.apple.graphic-icon.display";
     if (suggestion != 2)
     {
-      v9 = @"com.apple.graphic-icon.auto-brightness";
+      v10 = @"com.apple.graphic-icon.auto-brightness";
     }
 
     if (suggestion == 1)
     {
-      v7 = @"com.apple.graphic-icon.auto-lock";
+      v8 = @"com.apple.graphic-icon.auto-lock";
     }
 
     else
     {
-      v7 = v9;
+      v8 = v10;
     }
   }
 
 LABEL_18:
 
-  return v7;
+  return v8;
 }
 
 + (id)iconUTTypeIdentifierForNonApp:(id)app
@@ -587,20 +588,24 @@ LABEL_18:
       v7 = @"com.apple.graphic-icon.personal-hotspot";
     }
 
-    else if ([appCopy isEqualToString:@"DeletedApp"])
-    {
-      v7 = @"com.apple.graphic-icon.uninstalled-apps";
-    }
-
     else
     {
-      v9 = BUILogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v9 = [appCopy isEqualToString:@"DeletedApp"];
+      if (v9)
       {
-        sub_1149F8(appCopy, v9);
+        v7 = @"com.apple.graphic-icon.uninstalled-apps";
       }
 
-      v7 = 0;
+      else
+      {
+        v10 = BUILogCommon(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+        {
+          sub_1149F8(appCopy, v10);
+        }
+
+        v7 = 0;
+      }
     }
   }
 
@@ -648,25 +653,26 @@ LABEL_10:
 
 + (id)specFromDictionary:(id)dictionary
 {
-  v14 = 0;
-  v3 = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:&v14];
-  if (v14)
+  v15 = 0;
+  v3 = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:&v15];
+  v4 = v3;
+  if (v15)
   {
-    v4 = BUILogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = BUILogCommon(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_115100(v4, v5, v6, v7, v8, v9, v10, v11);
+      sub_115100(v5, v6, v7, v8, v9, v10, v11, v12);
     }
 
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v12 = [[NSString alloc] initWithData:v3 encoding:4];
+    v13 = [[NSString alloc] initWithData:v3 encoding:4];
   }
 
-  return v12;
+  return v13;
 }
 
 + (id)loadDataFromJSONResource:(id)resource
@@ -677,33 +683,33 @@ LABEL_10:
 
   if (v5)
   {
-    v6 = [NSData dataWithContentsOfFile:v5];
-    if (v6)
+    v7 = [NSData dataWithContentsOfFile:v5];
+    if (v7)
     {
-      v7 = [NSJSONSerialization JSONObjectWithData:v6 options:0 error:0];
+      v8 = [NSJSONSerialization JSONObjectWithData:v7 options:0 error:0];
       goto LABEL_10;
     }
 
-    v15 = BUILogCommon();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = BUILogCommon(0);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_11514C(v15, v16, v17, v18, v19, v20, v21, v22);
+      sub_11514C(v16, v17, v18, v19, v20, v21, v22, v23);
     }
   }
 
   else
   {
-    v6 = BUILogCommon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = BUILogCommon(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_115184(v6, v8, v9, v10, v11, v12, v13, v14);
+      sub_115184(v7, v9, v10, v11, v12, v13, v14, v15);
     }
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_10:
 
-  return v7;
+  return v8;
 }
 
 + (double)millisecondsFromMachTime:(unint64_t)time
@@ -915,15 +921,14 @@ LABEL_13:
     if ([v8 isDate:dateCopy inSameDayAsDate:v4])
     {
       [v9 setDateStyle:0];
-      [v9 setTimeStyle:1];
-      v11 = BUILogCommon();
+      v11 = BUILogCommon([v9 setTimeStyle:1]);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         sub_1152B0(dateCopy, v11);
       }
 
       v12 = [v9 stringFromDate:dateCopy];
-      v13 = BUILogCommon();
+      v13 = BUILogCommon(v12);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         sub_115328(v12, v13);

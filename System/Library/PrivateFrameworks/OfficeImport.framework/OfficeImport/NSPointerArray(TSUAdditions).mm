@@ -1,12 +1,12 @@
 @interface NSPointerArray(TSUAdditions)
-- (uint64_t)tsu_enumerateNonNullPointersUsingBlock:()TSUAdditions;
+- (char)tsu_insertRange:()TSUAdditions;
 - (uint64_t)tsu_indexOfPointer:()TSUAdditions;
-- (uint64_t)tsu_insertRange:()TSUAdditions;
+- (void)tsu_enumerateNonNullPointersUsingBlock:()TSUAdditions;
 @end
 
 @implementation NSPointerArray(TSUAdditions)
 
-- (uint64_t)tsu_enumerateNonNullPointersUsingBlock:()TSUAdditions
+- (void)tsu_enumerateNonNullPointersUsingBlock:()TSUAdditions
 {
   v8 = 0;
   result = [self count];
@@ -36,7 +36,7 @@
   return result;
 }
 
-- (uint64_t)tsu_insertRange:()TSUAdditions
+- (char)tsu_insertRange:()TSUAdditions
 {
   result = [self count];
   v8 = result - a3;
@@ -45,7 +45,7 @@
     v9 = result;
     if (result == a3)
     {
-      v10 = [self count] + a4;
+      v10 = &a4[[self count]];
 
       return [self setCount:v10];
     }
@@ -69,7 +69,7 @@
       }
 
       while (v9 != a3);
-      [self setCount:{objc_msgSend(self, "count") + a4}];
+      [self setCount:{&a4[objc_msgSend(self, "count")]}];
       v14 = 0;
       v15 = [self count] - v8;
       do

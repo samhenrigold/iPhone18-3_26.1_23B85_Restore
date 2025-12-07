@@ -90,33 +90,33 @@ void __82__ATXSuggestedPagesIntentMetadataAppDataSource__appsMatchingShortcutAva
   v6 = objc_opt_class();
   v7 = [v3 eventBody];
   v8 = [v7 interaction];
-  v18 = 0;
-  v9 = [v5 unarchivedObjectOfClass:v6 fromData:v8 error:&v18];
-  v10 = v18;
+  v19 = 0;
+  v9 = [v5 unarchivedObjectOfClass:v6 fromData:v8 error:&v19];
+  v10 = v19;
 
   objc_autoreleasePoolPop(v4);
   if (!v9)
   {
-    v15 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = __atxlog_handle_modes(v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      __82__ATXSuggestedPagesIntentMetadataAppDataSource__appsMatchingShortcutAvailability___block_invoke_3_cold_1(v10, v15);
+      __82__ATXSuggestedPagesIntentMetadataAppDataSource__appsMatchingShortcutAvailability___block_invoke_3_cold_1(v10, v16);
     }
 
     goto LABEL_6;
   }
 
-  v11 = [v9 intent];
-  v12 = *(a1 + 40) & [v11 shortcutAvailability];
+  v12 = [v9 intent];
+  v13 = *(a1 + 40) & [v12 shortcutAvailability];
 
-  if (v12)
+  if (v13)
   {
-    v13 = *(a1 + 32);
-    v14 = objc_alloc(MEMORY[0x277CEB560]);
-    v15 = [v3 eventBody];
-    v16 = [v15 bundleID];
-    v17 = [v14 initWithBundleId:v16 predictionSource:@"Intent Metadata"];
-    [v13 addObject:v17];
+    v14 = *(a1 + 32);
+    v15 = objc_alloc(MEMORY[0x277CEB560]);
+    v16 = [v3 eventBody];
+    v17 = [v16 bundleID];
+    v18 = [v15 initWithBundleId:v17 predictionSource:@"Intent Metadata"];
+    [v14 addObject:v18];
 
 LABEL_6:
   }
@@ -124,11 +124,10 @@ LABEL_6:
 
 void __82__ATXSuggestedPagesIntentMetadataAppDataSource__appsMatchingShortcutAvailability___block_invoke_3_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXSuggestedPagesIntentMetadataAppDataSource: Could not unarchive interaction: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXSuggestedPagesIntentMetadataAppDataSource: Could not unarchive interaction: %@", &v2, 0xCu);
 }
 
 @end

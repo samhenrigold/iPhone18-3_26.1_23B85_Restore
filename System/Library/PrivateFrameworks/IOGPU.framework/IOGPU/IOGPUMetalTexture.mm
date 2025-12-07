@@ -19,6 +19,7 @@
 - (__IOSurface)iosurface;
 - (id)formattedDescription:(unint64_t)description;
 - (id)newSharedTextureHandle;
+- (int)setOwnerWithIdentity:(unsigned int)identity;
 - (unint64_t)allocatedSize;
 - (unint64_t)bufferBytesPerRow;
 - (unint64_t)bufferOffset;
@@ -194,15 +195,15 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v26[84] = *MEMORY[0x1E69E9840];
+  v18[84] = *MEMORY[0x1E69E9840];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   retainedLabel = [(IOGPUMetalResource *)self retainedLabel];
   v7 = MEMORY[0x1E696AEC0];
-  v25.receiver = self;
-  v25.super_class = IOGPUMetalTexture;
-  v8 = [(IOGPUMetalTexture *)&v25 description];
-  v26[0] = v5;
-  v26[1] = @"label =";
+  v17.receiver = self;
+  v17.super_class = IOGPUMetalTexture;
+  v8 = [(IOGPUMetalTexture *)&v17 description];
+  v18[0] = v5;
+  v18[1] = @"label =";
   if (retainedLabel)
   {
     v9 = retainedLabel;
@@ -213,129 +214,121 @@
     v9 = @"<none>";
   }
 
-  v26[2] = v9;
-  v26[3] = v5;
-  v26[4] = @"textureType =";
-  textureType = self->_textureType;
-  v26[5] = MTLTextureTypeString();
-  v26[6] = v5;
-  v26[7] = @"pixelFormat =";
-  pixelFormat = self->_pixelFormat;
-  v26[8] = [MEMORY[0x1E696AEC0] stringWithUTF8String:MTLPixelFormatGetName()];
-  v26[9] = v5;
-  v26[10] = @"width =";
-  v26[11] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_width];
-  v26[12] = v5;
-  v26[13] = @"height =";
-  v26[14] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_height];
-  v26[15] = v5;
-  v26[16] = @"depth =";
-  v26[17] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_depth];
-  v26[18] = v5;
-  v26[19] = @"arrayLength =";
-  v26[20] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_arrayLength];
-  v26[21] = v5;
-  v26[22] = @"mipmapLevelCount =";
-  v26[23] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_mipmapLevelCount];
-  v26[24] = v5;
-  v26[25] = @"sampleCount =";
-  v26[26] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_sampleCount];
-  v26[27] = v5;
-  v26[28] = @"cpuCacheMode =";
-  v12 = *&self->super._anon_50[104];
-  v26[29] = MTLCPUCacheModeString();
-  v26[30] = v5;
-  v26[31] = @"storageMode =";
-  v13 = *&self->super._anon_50[96];
-  v26[32] = MTLStorageModeString();
-  v26[33] = v5;
-  v26[34] = @"hazardTrackingMode =";
+  v18[2] = v9;
+  v18[3] = v5;
+  v18[4] = @"textureType =";
+  v18[5] = MTLTextureTypeString();
+  v18[6] = v5;
+  v18[7] = @"pixelFormat =";
+  v18[8] = [MEMORY[0x1E696AEC0] stringWithUTF8String:MTLPixelFormatGetName()];
+  v18[9] = v5;
+  v18[10] = @"width =";
+  v18[11] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_width];
+  v18[12] = v5;
+  v18[13] = @"height =";
+  v18[14] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_height];
+  v18[15] = v5;
+  v18[16] = @"depth =";
+  v18[17] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_depth];
+  v18[18] = v5;
+  v18[19] = @"arrayLength =";
+  v18[20] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_arrayLength];
+  v18[21] = v5;
+  v18[22] = @"mipmapLevelCount =";
+  v18[23] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_mipmapLevelCount];
+  v18[24] = v5;
+  v18[25] = @"sampleCount =";
+  v18[26] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_sampleCount];
+  v18[27] = v5;
+  v18[28] = @"cpuCacheMode =";
+  v18[29] = MTLCPUCacheModeString();
+  v18[30] = v5;
+  v18[31] = @"storageMode =";
+  v18[32] = MTLStorageModeString();
+  v18[33] = v5;
+  v18[34] = @"hazardTrackingMode =";
   [(IOGPUMetalTexture *)self hazardTrackingMode];
-  v26[35] = MTLHazardTrackingModeString();
-  v26[36] = v5;
-  v26[37] = @"resourceOptions =";
+  v18[35] = MTLHazardTrackingModeString();
+  v18[36] = v5;
+  v18[37] = @"resourceOptions =";
   [(IOGPUMetalResource *)self resourceOptions];
-  v26[38] = MTLResourceOptionsString();
-  v26[39] = v5;
-  v26[40] = @"usage =";
-  usage = self->_usage;
-  v26[41] = MTLTextureUsageString();
-  v26[42] = v5;
-  v26[43] = @"shareable =";
-  v26[44] = [MEMORY[0x1E696AD98] numberWithBool:self->_shareable];
-  v26[45] = v5;
-  v26[46] = @"framebufferOnly =";
-  v26[47] = [MEMORY[0x1E696AD98] numberWithBool:self->_framebufferOnly];
-  v26[48] = v5;
-  v26[49] = @"purgeableState =";
-  v15 = *&self->super._anon_50[120];
-  v26[50] = MTLPurgeableStateString();
-  v26[51] = v5;
-  v26[52] = @"swizzle =";
-  swizzle = self->_swizzle;
-  v26[53] = MTLTextureSwizzleString();
-  v26[54] = v5;
-  v26[55] = @"isCompressed =";
-  v26[56] = [MEMORY[0x1E696AD98] numberWithBool:self->_isCompressed];
-  v26[57] = v5;
-  v26[58] = @"parentTexture =";
+  v18[38] = MTLResourceOptionsString();
+  v18[39] = v5;
+  v18[40] = @"usage =";
+  v18[41] = MTLTextureUsageString();
+  v18[42] = v5;
+  v18[43] = @"shareable =";
+  v18[44] = [MEMORY[0x1E696AD98] numberWithBool:self->_shareable];
+  v18[45] = v5;
+  v18[46] = @"framebufferOnly =";
+  v18[47] = [MEMORY[0x1E696AD98] numberWithBool:self->_framebufferOnly];
+  v18[48] = v5;
+  v18[49] = @"purgeableState =";
+  v18[50] = MTLPurgeableStateString();
+  v18[51] = v5;
+  v18[52] = @"swizzle =";
+  v18[53] = MTLTextureSwizzleString();
+  v18[54] = v5;
+  v18[55] = @"isCompressed =";
+  v18[56] = [MEMORY[0x1E696AD98] numberWithBool:self->_isCompressed];
+  v18[57] = v5;
+  v18[58] = @"parentTexture =";
   parentTexture = self->_parentTexture;
   if (parentTexture)
   {
-    v18 = [(IOGPUMetalTexture *)parentTexture formattedDescription:description + 4];
+    v11 = [(IOGPUMetalTexture *)parentTexture formattedDescription:description + 4];
   }
 
   else
   {
-    v18 = @"<null>";
+    v11 = @"<null>";
   }
 
-  v26[59] = v18;
-  v26[60] = v5;
-  v26[61] = @"parentRelativeLevel =";
-  v26[62] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_parentRelativeLevel];
-  v26[63] = v5;
-  v26[64] = @"parentRelativeSlice =";
-  v26[65] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_parentRelativeSlice];
-  v26[66] = v5;
-  v26[67] = @"buffer =";
+  v18[59] = v11;
+  v18[60] = v5;
+  v18[61] = @"parentRelativeLevel =";
+  v18[62] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_parentRelativeLevel];
+  v18[63] = v5;
+  v18[64] = @"parentRelativeSlice =";
+  v18[65] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_parentRelativeSlice];
+  v18[66] = v5;
+  v18[67] = @"buffer =";
   buffer = [(IOGPUMetalTexture *)self buffer];
   if (!buffer)
   {
     buffer = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[68] = buffer;
-  v26[69] = v5;
-  v26[70] = @"bufferOffset =";
-  v26[71] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[IOGPUMetalTexture bufferOffset](self, "bufferOffset")}];
-  v26[72] = v5;
-  v26[73] = @"bufferBytesPerRow =";
-  v26[74] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[IOGPUMetalTexture bufferBytesPerRow](self, "bufferBytesPerRow")}];
-  v26[75] = v5;
-  v26[76] = @"iosurface =";
-  v26[77] = [MEMORY[0x1E696AEC0] stringWithFormat:@"%p", self->_iosurface];
-  v26[78] = v5;
-  v26[79] = @"iosurfacePlane =";
-  v26[80] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_iosurfacePlane];
-  v26[81] = v5;
+  v18[68] = buffer;
+  v18[69] = v5;
+  v18[70] = @"bufferOffset =";
+  v18[71] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[IOGPUMetalTexture bufferOffset](self, "bufferOffset")}];
+  v18[72] = v5;
+  v18[73] = @"bufferBytesPerRow =";
+  v18[74] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[IOGPUMetalTexture bufferBytesPerRow](self, "bufferBytesPerRow")}];
+  v18[75] = v5;
+  v18[76] = @"iosurface =";
+  v18[77] = [MEMORY[0x1E696AEC0] stringWithFormat:@"%p", self->_iosurface];
+  v18[78] = v5;
+  v18[79] = @"iosurfacePlane =";
+  v18[80] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_iosurfacePlane];
+  v18[81] = v5;
   allowGPUOptimizedContents = self->_allowGPUOptimizedContents;
-  v26[82] = @"allowGPUOptimizedContents =";
+  v18[82] = @"allowGPUOptimizedContents =";
   if (allowGPUOptimizedContents)
   {
-    v21 = @"YES";
+    v14 = @"YES";
   }
 
   else
   {
-    v21 = @"NO";
+    v14 = @"NO";
   }
 
-  v26[83] = v21;
-  v22 = [v7 stringWithFormat:@"%@%@", v8, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v26, 84), "componentsJoinedByString:", @" "];
+  v18[83] = v14;
+  v15 = [v7 stringWithFormat:@"%@%@", v8, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v18, 84), "componentsJoinedByString:", @" "];
 
-  v23 = *MEMORY[0x1E69E9840];
-  return v22;
+  return v15;
 }
 
 - (void)_setLabel:(id)label
@@ -456,20 +449,19 @@ LABEL_11:
   args->var0.var6 = v15;
   args->var0.var7 = *(descriptorPrivate + 40);
   args->var0.var9 = 1;
-  v16 = *(descriptorPrivate + 8);
   MTLPixelFormatGetInfoForDevice();
   args->var0.var9 = 0;
   if (*(descriptorPrivate + 64))
   {
-    v17 = 64;
+    v16 = 64;
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
-  args->var0.var10 = v17;
+  args->var0.var10 = v16;
   *&args->var0.var16.var0.var0 = 0uLL;
   args->var0.var16.var0.var2 = size;
 }
@@ -477,7 +469,7 @@ LABEL_11:
 - (IOGPUMetalTexture)initWithDevice:(id)device descriptor:(id)descriptor sysMemSize:(unint64_t)size sysMemRowBytes:(unint64_t)bytes vidMemSize:(unint64_t)memSize vidMemRowBytes:(unint64_t)rowBytes args:(IOGPUNewResourceArgs *)args argsSize:(unsigned int)self0
 {
   descriptorPrivate = [descriptor descriptorPrivate];
-  v25 = *descriptorPrivate;
+  v22 = *descriptorPrivate;
   [IOGPUMetalTexture initNewTextureDataWithDevice:device descriptor:descriptor sysMemSize:size sysMemRowBytes:bytes vidMemSize:memSize vidMemRowBytes:rowBytes args:args];
   v18 = [(IOGPUMetalResource *)self initWithDevice:device options:*(descriptorPrivate + 112) args:args argsSize:argsSize];
   v19 = v18;
@@ -486,7 +478,7 @@ LABEL_11:
     v18->_textureType = *descriptorPrivate;
     v20 = 6;
     v18->_width = *(descriptorPrivate + 16);
-    if (v25 - 5 >= 2)
+    if (v22 - 5 >= 2)
     {
       v20 = 1;
     }
@@ -520,12 +512,7 @@ LABEL_11:
     v18->_placementSparsePageSize = *(descriptorPrivate + 184);
     if (*__globalGPUCommPage)
     {
-      [device deviceRef];
-      v21 = *&v19->super._anon_50[48];
-      v22 = v19->_height | (v19->_width << 32);
-      v23 = ((v19->_placementSparsePageSize != 0) << 52) | ((v19->_textureType & 0xF) << 48) | (v19->_pixelFormat << 32);
-      [device registryID];
-      IOGPUDeviceTraceEvent();
+      IOGPUDeviceTraceEvent([device deviceRef], 8, 15, *&v18->super._anon_50[48], v18->_height | (v18->_width << 32), ((v18->_placementSparsePageSize != 0) << 52) | ((v18->_textureType & 0xF) << 48) | (v18->_pixelFormat << 32) | objc_msgSend(device, "registryID"), 0);
     }
   }
 
@@ -536,12 +523,11 @@ LABEL_11:
 {
   descriptorPrivate = [descriptor descriptorPrivate];
   v18 = *(descriptorPrivate + 112);
-  v28 = *descriptorPrivate;
+  v24 = *descriptorPrivate;
   [IOGPUMetalTexture initNewTextureDataWithDevice:device descriptor:descriptor sysMemSize:size sysMemRowBytes:bytes vidMemSize:0 vidMemRowBytes:0 args:args];
   args->var0.var0 = 128;
   args->var0.var16.var0.var0 = pointer;
   args->var0.var16.var0.var1 = pointer;
-  deviceCopy = device;
   v19 = [(IOGPUMetalResource *)self initWithDevice:device options:v18 args:args argsSize:argsSize];
   v20 = v19;
   if (v19)
@@ -549,7 +535,7 @@ LABEL_11:
     v19->_textureType = *descriptorPrivate;
     v21 = 6;
     v19->_width = *(descriptorPrivate + 16);
-    if (v28 - 5 >= 2)
+    if (v24 - 5 >= 2)
     {
       v21 = 1;
     }
@@ -593,12 +579,7 @@ LABEL_11:
 
     if (*__globalGPUCommPage)
     {
-      [device deviceRef];
-      v22 = *&v20->super._anon_50[48];
-      v23 = v20->_height | (v20->_width << 32);
-      v24 = ((v20->_textureType & 0xF) << 48) | (v20->_pixelFormat << 32);
-      [deviceCopy registryID];
-      IOGPUDeviceTraceEvent();
+      IOGPUDeviceTraceEvent([device deviceRef], 8, 15, *&v20->super._anon_50[48], v20->_height | (v20->_width << 32), ((v20->_textureType & 0xF) << 48) | (v20->_pixelFormat << 32) | objc_msgSend(device, "registryID"), 0);
     }
   }
 
@@ -617,7 +598,7 @@ LABEL_11:
   v14 = descriptorPrivate;
   if (*(descriptorPrivate + 72) >= 5uLL)
   {
-    v38 = *(descriptorPrivate + 72);
+    v30 = *(descriptorPrivate + 72);
     MTLReportFailure();
   }
 
@@ -633,28 +614,21 @@ LABEL_11:
     v17 = 0;
   }
 
-  v18 = *(v14 + 8);
   MTLPixelFormatGetInfoForDevice();
-  v19 = *(v14 + 72);
+  v18 = *(v14 + 72);
   deviceCopy = device;
-  if (v19 <= 4 && ((1 << v19) & 0x1A) != 0)
+  if (v18 <= 4 && ((1 << v18) & 0x1A) != 0)
   {
-    v20 = (v14 + 16);
-    v21 = (v14 + 24);
-    v22 = (v14 + 24);
-    v23 = (v14 + 16);
+    v19 = (v14 + 16);
+    v20 = (v14 + 24);
   }
 
   else
   {
-    v21 = (v14 + 16);
-    v22 = (v14 + 24);
-    v20 = (v14 + 16);
-    v23 = (v14 + 24);
+    v20 = (v14 + 24);
+    v19 = (v14 + 16);
   }
 
-  v24 = *v21;
-  v25 = *v23;
   if (!iosurface)
   {
     [IOGPUMetalTexture initWithDevice:descriptor:iosurface:plane:field:args:argsSize:];
@@ -675,7 +649,6 @@ LABEL_11:
     IOSurfaceGetBytesPerRow(iosurface);
     IOSurfaceGetAllocSize(iosurface);
     IOSurfaceGetBytesPerRow(iosurface);
-    *(v14 + 56);
     IOSurfaceGetHeight(iosurface);
     IOSurfaceGetElementHeight(iosurface);
     if (!IOSurfaceAllowsPixelSizeCasting(iosurface) && IOSurfaceGetBytesPerElement(iosurface))
@@ -684,100 +657,100 @@ LABEL_11:
     }
   }
 
-  v26 = *v14;
+  v21 = *v14;
   if ((*v14 - 7) < 0xFFFFFFFFFFFFFFFELL)
   {
-    v27 = 1;
+    v22 = 1;
   }
 
   else
   {
-    v27 = 6;
+    v22 = 6;
   }
 
-  v28 = (*v14 - 7) < 0xFFFFFFFFFFFFFFFELL || v17;
-  if ((v28 & 1) == 0)
+  v23 = (*v14 - 7) < 0xFFFFFFFFFFFFFFFELL || v17;
+  if ((v23 & 1) == 0)
   {
     [IOGPUMetalTexture initWithDevice:descriptor:iosurface:plane:field:args:argsSize:];
   }
 
   *&args->var0.var0 = 130;
-  args->var0.var2 = *v20;
-  args->var0.var3 = *v22;
-  if (v26 == 6)
+  args->var0.var2 = *v19;
+  args->var0.var3 = *v20;
+  if (v21 == 6)
   {
     args->var0.var4 = 6 * *(v14 + 56);
-    v29 = deviceCopy;
+    v24 = deviceCopy;
   }
 
   else
   {
-    v29 = deviceCopy;
-    if (v26 == 3)
+    v24 = deviceCopy;
+    if (v21 == 3)
     {
-      v30 = *(v14 + 56);
+      v25 = *(v14 + 56);
     }
 
     else
     {
-      if (v26 == 1)
+      if (v21 == 1)
       {
         args->var0.var3 = *(v14 + 56);
         goto LABEL_33;
       }
 
-      v30 = *(v14 + 32);
+      v25 = *(v14 + 32);
     }
 
-    args->var0.var4 = v30;
+    args->var0.var4 = v25;
   }
 
 LABEL_33:
-  args->var0.var6 = v27;
+  args->var0.var6 = v22;
   args->var0.var7 = *(v14 + 40);
   args->var0.var9 = 0;
   args->var0.var10 = 0;
   args->var0.var16.var1.var0 = IOSurfaceGetID(iosurface);
   args->var0.var16.var1.var1 = plane;
   args->var0.var16.var0.var1 = field;
-  v31 = [(IOGPUMetalResource *)self initWithDevice:v29 options:*(v14 + 112) args:args argsSize:size];
-  v32 = v31;
-  if (v31)
+  v26 = [(IOGPUMetalResource *)self initWithDevice:v24 options:*(v14 + 112) args:args argsSize:size];
+  v27 = v26;
+  if (v26)
   {
-    v31->_textureType = *v14;
-    v31->_width = *(v14 + 16);
-    v31->_height = *(v14 + 24);
-    v31->_depth = *(v14 + 32);
-    v31->_mipmapLevelCount = *(v14 + 40);
-    v31->_sampleCount = *(v14 + 48);
-    v31->_arrayLength = *(v14 + 56);
-    v31->_numFaces = v27;
-    v31->_pixelFormat = *(v14 + 8);
-    v31->_usage = *(v14 + 192);
-    v33 = *(v14 + 72);
-    if (v33 && (*(v14 + 80) & 1) == 0)
+    v26->_textureType = *v14;
+    v26->_width = *(v14 + 16);
+    v26->_height = *(v14 + 24);
+    v26->_depth = *(v14 + 32);
+    v26->_mipmapLevelCount = *(v14 + 40);
+    v26->_sampleCount = *(v14 + 48);
+    v26->_arrayLength = *(v14 + 56);
+    v26->_numFaces = v22;
+    v26->_pixelFormat = *(v14 + 8);
+    v26->_usage = *(v14 + 192);
+    v28 = *(v14 + 72);
+    if (v28 && (*(v14 + 80) & 1) == 0)
     {
       [IOGPUMetalTexture initWithDevice:descriptor:iosurface:plane:field:args:argsSize:];
     }
 
-    v31->_rotation = v33;
-    v31->_swizzle = *(v14 + 84);
-    v31->_writeSwizzleEnabled = *(v14 + 88);
-    v31->_shareable = v17;
+    v26->_rotation = v28;
+    v26->_swizzle = *(v14 + 84);
+    v26->_writeSwizzleEnabled = *(v14 + 88);
+    v26->_shareable = v17;
     if (v17)
     {
-      *&v31->super._anon_50[40] = IOSurfaceCopyValue(iosurface, *MEMORY[0x1E696CF98]);
+      *&v26->super._anon_50[40] = IOSurfaceCopyValue(iosurface, *MEMORY[0x1E696CF98]);
     }
 
-    v32->_framebufferOnly = *(v14 + 80);
+    v27->_framebufferOnly = *(v14 + 80);
     CFRetain(iosurface);
-    v32->_iosurface = iosurface;
-    v32->_iosurfacePlane = plane;
-    v32->_isDrawable = *(v14 + 81);
-    v32->super._res.info.iosurface = iosurface;
-    *(&v32->super._res.var1 + 3) = field;
-    *&v32->super._res.var0 = IOSurfaceGetAllocSize(iosurface) & 0xFFFFFFFFFFFFFFLL | (*(&v32->super._res.var1 + 3) << 56);
-    v32->_allowGPUOptimizedContents = *(v14 + 128);
+    v27->_iosurface = iosurface;
+    v27->_iosurfacePlane = plane;
+    v27->_isDrawable = *(v14 + 81);
+    v27->super._res.info.iosurface = iosurface;
+    *(&v27->super._res.var1 + 3) = field;
+    *&v27->super._res.var0 = IOSurfaceGetAllocSize(iosurface) & 0xFFFFFFFFFFFFFFLL | (*(&v27->super._res.var1 + 3) << 56);
+    v27->_allowGPUOptimizedContents = *(v14 + 128);
     if (*(v14 + 184))
     {
       [IOGPUMetalTexture initWithDevice:descriptor:iosurface:plane:field:args:argsSize:];
@@ -785,16 +758,11 @@ LABEL_33:
 
     if (*__globalGPUCommPage)
     {
-      [v29 deviceRef];
-      v34 = *&v32->super._anon_50[48];
-      v35 = v32->_height | (v32->_width << 32);
-      v36 = ((v32->_textureType & 0xF) << 48) | (v32->_pixelFormat << 32);
-      [v29 registryID];
-      IOGPUDeviceTraceEvent();
+      IOGPUDeviceTraceEvent([v24 deviceRef], 8, 15, *&v27->super._anon_50[48], v27->_height | (v27->_width << 32), ((v27->_textureType & 0xF) << 48) | (v27->_pixelFormat << 32) | objc_msgSend(v24, "registryID"), 0);
     }
   }
 
-  return v32;
+  return v27;
 }
 
 - (IOGPUMetalTexture)initWithDevice:(id)device descriptor:(id)descriptor placementSparseBytes:(unint64_t)bytes placementSparsePageSize:(int64_t)size placementSparseMetaDataBytes:(unint64_t)dataBytes placementSparseResidencyBytes:(unint64_t)residencyBytes args:(IOGPUNewResourceArgs *)args argsSize:(unsigned int)self0
@@ -863,13 +831,7 @@ LABEL_33:
     v21->_placementSparsePageSize = *(descriptorPrivate + 184);
     if (*__globalGPUCommPage)
     {
-      [device deviceRef];
-      v23 = *&v22->super._anon_50[48];
-      v24 = v22->_height | (v22->_width << 32);
-      textureType = v22->_textureType;
-      v26 = v22->_pixelFormat << 32;
-      [device registryID];
-      IOGPUDeviceTraceEvent();
+      IOGPUDeviceTraceEvent([device deviceRef], 8, 15, *&v21->super._anon_50[48], v21->_height | (v21->_width << 32), (v21->_pixelFormat << 32) & 0xFFF0FFFF00000000 | ((v21->_textureType & 0xF) << 48) | objc_msgSend(device, "registryID") | 0x10000000000000, 0);
     }
   }
 
@@ -894,9 +856,9 @@ LABEL_33:
   v15 = MTLTextureSwizzleChannelsToKey();
   _mtlValidateMTLTextureSwizzleKey();
   [internal device];
-  LOBYTE(v30) = view;
+  LOBYTE(v25) = view;
   _mtlValidateArgumentsForTextureViewOnDevice();
-  v16 = [(IOGPUMetalResource *)self initWithResource:internal, v30];
+  v16 = [(IOGPUMetalResource *)self initWithResource:internal, v25];
   if (v16)
   {
     v16->_parentTexture = internal;
@@ -963,7 +925,6 @@ LABEL_33:
       }
 
       [internal device];
-      writeSwizzleEnabled = v16->_writeSwizzleEnabled;
       v16->_usage &= ~MTLGetDisallowedTextureUsagesWhenSwizzling();
       _mtlValidateTextureUsage();
     }
@@ -974,10 +935,10 @@ LABEL_33:
     v16->_iosurfacePlane = *(internal + 45);
     v16->_isDrawable = *(internal + 458);
     v16->_allowGPUOptimizedContents = *(internal + 512);
-    v22 = *(internal + 27);
-    v23 = *(internal + 28);
-    *&v16->super._anon_50[136] = v22;
-    *&v16->super._anon_50[144] = v23;
+    v21 = *(internal + 27);
+    v22 = *(internal + 28);
+    *&v16->super._anon_50[136] = v21;
+    *&v16->super._anon_50[144] = v22;
     *&v16->super._anon_50[152] = *(internal + 232);
     v16->super._anon_50[168] = *(internal + 248);
     *&v16->super._anon_50[80] = *(internal + 20);
@@ -996,13 +957,7 @@ LABEL_33:
     v16->_placementSparsePageSize = *(internal + 65);
     if (*__globalGPUCommPage)
     {
-      [*&v16->super._anon_50[32] deviceRef];
-      v25 = *&v16->super._anon_50[48];
-      v26 = v16->_height | (v16->_width << 32);
-      v27 = ((v16->_textureType & 0xF) << 48) | (v16->_pixelFormat << 32);
-      [*&v16->super._anon_50[32] registryID];
-      v28 = *&v16->_parentTexture->super._anon_50[48];
-      IOGPUDeviceTraceEvent();
+      IOGPUDeviceTraceEvent([*&v16->super._anon_50[32] deviceRef], 8, 15, *&v16->super._anon_50[48], v16->_height | (v16->_width << 32), ((v16->_textureType & 0xF) << 48) | (v16->_pixelFormat << 32) | objc_msgSend(*&v16->super._anon_50[32], "registryID"), *&v16->_parentTexture->super._anon_50[48]);
     }
   }
 
@@ -1046,91 +1001,88 @@ LABEL_33:
 
   if (texture)
   {
-    v23 = descriptorPrivate[2];
-    v24 = *(buffer + 20);
     _mtlValidateStrideTextureParameters();
-    v25 = [(IOGPUMetalResource *)self initWithResource:buffer];
-    v26 = v25;
-    if (!v25)
+    v23 = [(IOGPUMetalResource *)self initWithResource:buffer];
+    v24 = v23;
+    if (!v23)
     {
-      return v26;
+      return v24;
     }
 
-    *&v25->super._anon_50[24] += offset;
+    *&v23->super._anon_50[24] += offset;
     goto LABEL_27;
   }
 
   if (descriptorPrivate[9])
   {
-    v40 = descriptorPrivate[9];
+    v37 = descriptorPrivate[9];
     MTLReportFailure();
     v21 = *v20;
   }
 
   args->var0.var0 = (v20[26] != 2) << 7;
   args->var0.var1 = 0;
-  v27 = v20[3];
+  v25 = v20[3];
   args->var0.var2 = v20[2];
-  args->var0.var3 = v27;
+  args->var0.var3 = v25;
   switch(v21)
   {
     case 6:
-      LODWORD(v28) = *(v20 + 14) * v22;
+      LODWORD(v26) = *(v20 + 14) * v22;
       break;
     case 3:
-      v28 = v20[7];
+      v26 = v20[7];
       break;
     case 1:
       args->var0.var3 = v20[7];
       goto LABEL_19;
     default:
-      v28 = v20[4];
+      v26 = v20[4];
       break;
   }
 
-  args->var0.var4 = v28;
+  args->var0.var4 = v26;
 LABEL_19:
   args->var0.var6 = v22;
   args->var0.var7 = v20[5];
   args->var0.var9 = 1;
-  v46 = 0;
-  v44 = 0u;
-  v45 = 0u;
-  v43 = 0u;
-  v29 = v20[1];
+  v43 = 0;
+  v41 = 0u;
+  v42 = 0u;
+  v40 = 0u;
   MTLPixelFormatGetInfoForDevice();
   args->var0.var9 = 0;
   if (*(v20 + 64))
   {
-    v30 = 64;
+    v27 = 64;
   }
 
   else
   {
-    v30 = 0;
+    v27 = 0;
   }
 
-  args->var0.var10 = v30;
-  v31 = *(buffer + 20);
-  args->var0.var16.var0.var0 = v31 + offset;
-  args->var0.var16.var0.var1 = v31;
+  args->var0.var10 = v27;
+  v28 = *(buffer + 20);
+  args->var0.var16.var0.var0 = v28 + offset;
+  args->var0.var16.var0.var1 = v28;
   args->var0.var16.var0.var2 = [buffer resourceSize];
-  v32 = *(buffer + 20);
-  if (v32)
+  v29 = *(buffer + 20);
+  if (v29)
   {
-    args->var0.var16.var0.var3.var0 = v32;
+    args->var0.var16.var0.var3.var0 = v29;
     args->var0.var10 |= 0x800u;
   }
 
-  v33 = *(buffer + 23) | (16 * *(buffer + 22));
-  v34 = *(buffer + 21) & 0x300;
-  v42.receiver = self;
-  v42.super_class = IOGPUMetalTexture;
-  v35 = [(IOGPUMetalResource *)&v42 initWithDevice:device options:v33 | v34 args:args argsSize:argsSize];
-  v26 = v35;
-  if (v35)
+  v30 = *(buffer + 23) | (16 * *(buffer + 22));
+  v31 = *(buffer + 21) & 0x300;
+  v39.receiver = self;
+  v39.super_class = IOGPUMetalTexture;
+  v32 = [(IOGPUMetalResource *)&v39 initWithDevice:device options:v30 | v31 args:args argsSize:argsSize];
+  v24 = v32;
+  if (v32)
   {
-    v35->super._anon_50[128] = 0;
+    v32->super._anon_50[128] = 0;
     if (!sizeCopy)
     {
       bufferCopy = 0;
@@ -1142,52 +1094,52 @@ LABEL_19:
 LABEL_27:
     bufferCopy = buffer;
 LABEL_28:
-    v26->_buffer = bufferCopy;
-    v26->_bufferOffset = offset;
-    v26->_bufferBytesPerRow = bytes;
-    v26->_textureType = *v20;
-    v26->_width = v20[2];
-    v26->_height = v20[3];
-    v26->_depth = v20[4];
-    v26->_mipmapLevelCount = v20[5];
-    v26->_sampleCount = v20[6];
-    v26->_arrayLength = v20[7];
-    v26->_numFaces = v22;
-    v26->_pixelFormat = v20[1];
-    v26->_usage = v20[24];
+    v24->_buffer = bufferCopy;
+    v24->_bufferOffset = offset;
+    v24->_bufferBytesPerRow = bytes;
+    v24->_textureType = *v20;
+    v24->_width = v20[2];
+    v24->_height = v20[3];
+    v24->_depth = v20[4];
+    v24->_mipmapLevelCount = v20[5];
+    v24->_sampleCount = v20[6];
+    v24->_arrayLength = v20[7];
+    v24->_numFaces = v22;
+    v24->_pixelFormat = v20[1];
+    v24->_usage = v20[24];
     if (v20[9])
     {
       [IOGPUMetalTexture initWithBuffer:descriptor:sysMemOffset:sysMemRowBytes:vidMemSize:vidMemRowBytes:args:argsSize:isStrideTexture:];
     }
 
-    v26->_rotation = 0;
-    v26->_swizzle = *(v20 + 21);
-    v26->_writeSwizzleEnabled = *(v20 + 88);
-    v26->_shareable = 0;
+    v24->_rotation = 0;
+    v24->_swizzle = *(v20 + 21);
+    v24->_writeSwizzleEnabled = *(v20 + 88);
+    v24->_shareable = 0;
     if (*(v20 + 80))
     {
       [IOGPUMetalTexture initWithBuffer:descriptor:sysMemOffset:sysMemRowBytes:vidMemSize:vidMemRowBytes:args:argsSize:isStrideTexture:];
     }
 
-    v26->_framebufferOnly = 0;
-    v26->_isDrawable = *(v20 + 81);
-    v26->_allowGPUOptimizedContents = *(v20 + 128);
-    v37 = *(buffer + 27);
-    v38 = *(buffer + 28);
-    *&v26->super._anon_50[136] = v37;
-    *&v26->super._anon_50[144] = v38;
-    *&v26->super._anon_50[152] = *(buffer + 232);
-    v26->super._anon_50[168] = *(buffer + 248);
-    if (textureCopy && v37)
+    v24->_framebufferOnly = 0;
+    v24->_isDrawable = *(v20 + 81);
+    v24->_allowGPUOptimizedContents = *(v20 + 128);
+    v34 = *(buffer + 27);
+    v35 = *(buffer + 28);
+    *&v24->super._anon_50[136] = v34;
+    *&v24->super._anon_50[144] = v35;
+    *&v24->super._anon_50[152] = *(buffer + 232);
+    v24->super._anon_50[168] = *(buffer + 248);
+    if (textureCopy && v34)
     {
-      *&v26->super._anon_50[24] = *(buffer + 13) + offset;
+      *&v24->super._anon_50[24] = *(buffer + 13) + offset;
     }
 
-    *&v26->super._anon_50[80] = *(buffer + 20) + offset;
-    v26->_placementSparsePageSize = [buffer placementSparsePageSize];
+    *&v24->super._anon_50[80] = *(buffer + 20) + offset;
+    v24->_placementSparsePageSize = [buffer placementSparsePageSize];
   }
 
-  return v26;
+  return v24;
 }
 
 - (IOGPUMetalTexture)initWithBuffer:(id)buffer descriptor:(id)descriptor sysMemOffset:(unint64_t)offset sysMemRowBytes:(unint64_t)bytes vidMemSize:(unint64_t)size vidMemRowBytes:(unint64_t)rowBytes args:(IOGPUNewResourceArgs *)args argsSize:(unsigned int)self0
@@ -1212,70 +1164,68 @@ LABEL_28:
 
   [buffer device];
   descriptorPrivate = [descriptor descriptorPrivate];
-  v12 = *(descriptorPrivate + 16);
-  v13 = *(buffer + 20);
   _mtlValidateStrideTextureParameters();
-  v14 = [(IOGPUMetalResource *)self initWithResource:buffer];
-  if (v14)
+  v12 = [(IOGPUMetalResource *)self initWithResource:buffer];
+  if (v12)
   {
-    v14->_buffer = buffer;
-    v14->_bufferOffset = offset;
-    v14->_bufferBytesPerRow = row;
-    v14->_textureType = *descriptorPrivate;
-    v14->_width = *(descriptorPrivate + 16);
-    v14->_height = *(descriptorPrivate + 24);
-    v14->_depth = *(descriptorPrivate + 32);
-    v14->_mipmapLevelCount = *(descriptorPrivate + 40);
-    v14->_sampleCount = *(descriptorPrivate + 48);
-    v14->_arrayLength = *(descriptorPrivate + 56);
-    v15 = 6;
+    v12->_buffer = buffer;
+    v12->_bufferOffset = offset;
+    v12->_bufferBytesPerRow = row;
+    v12->_textureType = *descriptorPrivate;
+    v12->_width = *(descriptorPrivate + 16);
+    v12->_height = *(descriptorPrivate + 24);
+    v12->_depth = *(descriptorPrivate + 32);
+    v12->_mipmapLevelCount = *(descriptorPrivate + 40);
+    v12->_sampleCount = *(descriptorPrivate + 48);
+    v12->_arrayLength = *(descriptorPrivate + 56);
+    v13 = 6;
     if ((*descriptorPrivate - 5) >= 2)
     {
-      v15 = 1;
+      v13 = 1;
     }
 
-    v14->_numFaces = v15;
-    v14->_pixelFormat = *(descriptorPrivate + 8);
-    v14->_usage = *(descriptorPrivate + 192);
+    v12->_numFaces = v13;
+    v12->_pixelFormat = *(descriptorPrivate + 8);
+    v12->_usage = *(descriptorPrivate + 192);
     if (*(descriptorPrivate + 72))
     {
       [IOGPUMetalTexture initWithBuffer:descriptor:offset:bytesPerRow:];
     }
 
-    v14->_rotation = 0;
-    v14->_swizzle = *(descriptorPrivate + 84);
-    v14->_writeSwizzleEnabled = *(descriptorPrivate + 88);
-    v14->_shareable = 0;
+    v12->_rotation = 0;
+    v12->_swizzle = *(descriptorPrivate + 84);
+    v12->_writeSwizzleEnabled = *(descriptorPrivate + 88);
+    v12->_shareable = 0;
     if (*(descriptorPrivate + 80))
     {
       [IOGPUMetalTexture initWithBuffer:descriptor:offset:bytesPerRow:];
     }
 
-    v14->_framebufferOnly = 0;
-    v14->_isDrawable = *(descriptorPrivate + 81);
-    v14->_allowGPUOptimizedContents = *(descriptorPrivate + 128);
-    v16 = *(buffer + 27);
-    v17 = *(buffer + 28);
-    *&v14->super._anon_50[136] = v16;
-    *&v14->super._anon_50[144] = v17;
-    *&v14->super._anon_50[152] = *(buffer + 232);
-    v14->super._anon_50[168] = *(buffer + 248);
-    if (v16)
+    v12->_framebufferOnly = 0;
+    v12->_isDrawable = *(descriptorPrivate + 81);
+    v12->_allowGPUOptimizedContents = *(descriptorPrivate + 128);
+    v14 = *(buffer + 27);
+    v15 = *(buffer + 28);
+    *&v12->super._anon_50[136] = v14;
+    *&v12->super._anon_50[144] = v15;
+    *&v12->super._anon_50[152] = *(buffer + 232);
+    v12->super._anon_50[168] = *(buffer + 248);
+    if (v14)
     {
-      v18 = *(buffer + 13);
+      v16 = *(buffer + 13);
     }
 
     else
     {
-      v18 = *&v14->super._anon_50[24];
+      v16 = *&v12->super._anon_50[24];
     }
 
-    *&v14->super._anon_50[24] = v18 + offset;
-    *&v14->super._anon_50[80] = *(buffer + 20) + offset;
-    v14->_placementSparsePageSize = [buffer placementSparsePageSize];
+    *&v12->super._anon_50[24] = v16 + offset;
+    *&v12->super._anon_50[80] = *(buffer + 20) + offset;
+    v12->_placementSparsePageSize = [buffer placementSparsePageSize];
   }
 
-  return v14;
+  return v12;
 }
 
 - (IOGPUMetalTexture)initWithHeap:(id)heap resource:(id)resource offset:(unint64_t)offset length:(unint64_t)length device:(id)device descriptor:(id)descriptor
@@ -1475,13 +1425,12 @@ LABEL_13:
       goto LABEL_17;
     default:
 LABEL_59:
-      v28 = MTLReleaseAssertionFailure();
-      return [(IOGPUMetalTexture *)v28 isSparse];
+      v25 = MTLReleaseAssertionFailure();
+      return [(IOGPUMetalTexture *)v25 isSparse];
   }
 
   CFStringAppendFormat(v6, 0, @", %ld x %ld x %ld", self->_width, self->_height, depth);
 LABEL_17:
-  pixelFormat = self->_pixelFormat;
   Name = MTLPixelFormatGetName();
   CFStringAppendFormat(v6, 0, @", %s", Name + 14);
   if (self->_mipmapLevelCount >= 2)
@@ -1510,7 +1459,7 @@ LABEL_17:
   }
 
   string = [MEMORY[0x1E696AD60] string];
-  v14 = string;
+  v13 = string;
   usage = self->_usage;
   if (!usage)
   {
@@ -1520,42 +1469,42 @@ LABEL_17:
 
   if ((~usage & 3) == 0)
   {
-    v16 = @" srw";
+    v15 = @" srw";
 LABEL_34:
-    [v14 appendString:v16];
+    [v13 appendString:v15];
     goto LABEL_35;
   }
 
   if (usage)
   {
-    [v14 appendString:@" sr"];
+    [v13 appendString:@" sr"];
     usage = self->_usage;
   }
 
   if ((usage & 2) != 0)
   {
-    v16 = @" sw";
+    v15 = @" sw";
     goto LABEL_34;
   }
 
 LABEL_35:
-  v17 = self->_usage;
-  if ((v17 & 4) != 0)
+  v16 = self->_usage;
+  if ((v16 & 4) != 0)
   {
-    [v14 appendString:@" rt"];
-    v17 = self->_usage;
-    if ((v17 & 0x10) == 0)
+    [v13 appendString:@" rt"];
+    v16 = self->_usage;
+    if ((v16 & 0x10) == 0)
     {
 LABEL_37:
-      if ((v17 & 0x4000) == 0)
+      if ((v16 & 0x4000) == 0)
       {
         goto LABEL_38;
       }
 
 LABEL_57:
-      [v14 appendString:@" nca"];
-      v17 = self->_usage;
-      if ((v17 & 0x10000) == 0)
+      [v13 appendString:@" nca"];
+      v16 = self->_usage;
+      if ((v16 & 0x10000) == 0)
       {
         goto LABEL_40;
       }
@@ -1564,28 +1513,28 @@ LABEL_57:
     }
   }
 
-  else if ((v17 & 0x10) == 0)
+  else if ((v16 & 0x10) == 0)
   {
     goto LABEL_37;
   }
 
-  [v14 appendString:@" pfv"];
-  v17 = self->_usage;
-  if ((v17 & 0x4000) != 0)
+  [v13 appendString:@" pfv"];
+  v16 = self->_usage;
+  if ((v16 & 0x4000) != 0)
   {
     goto LABEL_57;
   }
 
 LABEL_38:
-  if ((v17 & 0x10000) != 0)
+  if ((v16 & 0x10000) != 0)
   {
 LABEL_39:
-    [v14 appendString:@" bwo"];
-    v17 = self->_usage;
+    [v13 appendString:@" bwo"];
+    v16 = self->_usage;
   }
 
 LABEL_40:
-  CFStringAppendFormat(v6, 0, @", usage (%05x)%@", v17, v14);
+  CFStringAppendFormat(v6, 0, @", usage (%05x)%@", v16, v13);
   CFStringAppendFormat(v6, 0, @", handle (%05llx)", [(IOGPUMetalTexture *)self gpuResourceID]);
   if (self->_length)
   {
@@ -1617,27 +1566,25 @@ LABEL_40:
   buffer = self->_buffer;
   if (buffer)
   {
-    gpuAddress = [(IOGPUMetalResource *)buffer gpuAddress];
-    bufferOffset = self->_bufferOffset;
-    CFStringAppendFormat(v6, 0, @", buffer (parent %012llx, offset %lluB, stride %lluB)", gpuAddress, bufferOffset, self->_bufferBytesPerRow);
+    CFStringAppendFormat(v6, 0, @", buffer (parent %012llx, offset %lluB, stride %lluB)", [(IOGPUMetalResource *)buffer gpuAddress], self->_bufferOffset, self->_bufferBytesPerRow);
   }
 
   retainedLabel = [(IOGPUMetalResource *)self retainedLabel];
   if (retainedLabel)
   {
-    v24 = retainedLabel;
+    v21 = retainedLabel;
     CFStringAppendFormat(v6, 0, @", %s", [retainedLabel UTF8String]);
   }
 
   CFDictionaryAddValue(Mutable, @"Description", v6);
   CFRelease(v6);
   objc_autoreleasePoolPop(v5);
-  v25 = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
-  v26 = [(IOGPUMetalResource *)self copyAnnotationDictionary:*&self->super._anon_50[8] obj_key_name:@"OpenGLObjects" obj_dict:Mutable];
-  CFArrayAppendValue(v25, v26);
-  CFRelease(v26);
+  v22 = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
+  v23 = [(IOGPUMetalResource *)self copyAnnotationDictionary:*&self->super._anon_50[8] obj_key_name:@"OpenGLObjects" obj_dict:Mutable];
+  CFArrayAppendValue(v22, v23);
+  CFRelease(v23);
   CFRelease(Mutable);
-  return v25;
+  return v22;
 }
 
 - (BOOL)isSparse
@@ -1651,24 +1598,47 @@ LABEL_40:
   return heap;
 }
 
+- (int)setOwnerWithIdentity:(unsigned int)identity
+{
+  if (self->_iosurface)
+  {
+    iosurface = self->_iosurface;
+
+    return MEMORY[0x1EEDC89F0](iosurface, *&identity, 4, 0);
+  }
+
+  else
+  {
+    v8 = v3;
+    v9 = v4;
+    v7.receiver = self;
+    v7.super_class = IOGPUMetalTexture;
+    return [(IOGPUMetalResource *)&v7 setOwnerWithIdentity:*&identity];
+  }
+}
+
 - (void)emitResourceInfoTraceEvent
 {
   if (*&self->super._anon_50[32])
   {
-    if (!self->_buffer)
+    buffer = self->_buffer;
+    if (!buffer)
     {
-      v2 = *&self->super._anon_50[136];
-      if (v2)
+      v3 = *&self->super._anon_50[136];
+      if (v3)
       {
-        v3 = *(v2 + 56);
+        buffer = *(v3 + 56);
+      }
+
+      else
+      {
+        buffer = 0;
       }
     }
 
     if (*__globalGPUCommPage)
     {
-      v4 = *&self->super._anon_50[48];
-      v5 = *&self->super._res.var0;
-      IOGPUDeviceTraceEvent();
+      IOGPUDeviceTraceEvent(0, 8, 44, *&self->super._anon_50[48], *&self->super._res.var0 & 0xFFFFFFFFFFFFFFLL, 2, buffer);
     }
   }
 }

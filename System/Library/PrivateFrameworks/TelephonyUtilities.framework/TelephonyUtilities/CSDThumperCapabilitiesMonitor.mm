@@ -19,6 +19,7 @@
 - (void)enrollDefaultPairedDeviceForAccountID:(id)d;
 - (void)handleIDSDeviceListChangedNotification:(id)notification;
 - (void)saveThumperCapabilitiesStates:(id)states forPreferenceKey:(__CFString *)key;
+- (void)setThumperCallingAllowedOnDefaultPairedDeviceDefault:(BOOL)default;
 - (void)showEmergencyAddressDisclaimerOnSecondaryDevice;
 - (void)showReminderNotificationOnSecondaryDevice;
 - (void)unenrollDefaultPairedDeviceForAccountID:(id)d;
@@ -79,27 +80,56 @@
 
 - (BOOL)thumperCallingAllowedOnDefaultPairedDeviceDefault
 {
-  v6 = 0;
+  v7 = 0;
   domainAccessor = [(CSDThumperCapabilitiesMonitor *)self domainAccessor];
-  v3 = [domainAccessor BOOLForKey:@"thumperCallingAllowedOnDefaultPairedDevice" keyExistsAndHasValidFormat:&v6];
+  v3 = [domainAccessor BOOLForKey:@"thumperCallingAllowedOnDefaultPairedDevice" keyExistsAndHasValidFormat:&v7];
 
-  v4 = sub_100004778();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100004778(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
-    v8 = v6;
-    v9 = 1024;
-    v10 = v3;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "thumperCallingAllowedOnDefaultPairedDeviceDefault keyExists: %d isAllowed: %d", buf, 0xEu);
+    v9 = v7;
+    v10 = 1024;
+    v11 = v3;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "thumperCallingAllowedOnDefaultPairedDeviceDefault keyExists: %d isAllowed: %d", buf, 0xEu);
   }
 
-  return v3 & 1 | ((v6 & 1) == 0);
+  return v3 & 1 | ((v7 & 1) == 0);
+}
+
+- (void)setThumperCallingAllowedOnDefaultPairedDeviceDefault:(BOOL)default
+{
+  defaultCopy = default;
+  v5 = sub_100004778(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = 138412546;
+    v12 = @"thumperCallingAllowedOnDefaultPairedDevice";
+    v13 = 1024;
+    v14 = defaultCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Setting %@ default to %d", &v11, 0x12u);
+  }
+
+  domainAccessor = [(CSDThumperCapabilitiesMonitor *)self domainAccessor];
+  [domainAccessor setBool:defaultCopy forKey:@"thumperCallingAllowedOnDefaultPairedDevice"];
+
+  domainAccessor2 = [(CSDThumperCapabilitiesMonitor *)self domainAccessor];
+  synchronize = [domainAccessor2 synchronize];
+
+  if (synchronize)
+  {
+    v10 = sub_100004778(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      sub_100473B30(synchronize, v10);
+    }
+  }
 }
 
 - (void)_thumperIsNoLongerSupportedForAccountID:(id)d
 {
   dCopy = d;
-  v5 = sub_100004778();
+  v5 = sub_100004778(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -113,7 +143,7 @@
 - (void)_thumperIsNowEnabledForAccountID:(id)d
 {
   dCopy = d;
-  v5 = sub_100004778();
+  v5 = sub_100004778(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -127,7 +157,7 @@
 - (void)_thumperIsNoLongerEnabledForAccountID:(id)d
 {
   dCopy = d;
-  v5 = sub_100004778();
+  v5 = sub_100004778(dCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -146,120 +176,120 @@
     dataSource = [(CSDThumperCapabilitiesMonitor *)self dataSource];
     thumperCallingCapabilitiesStateByUUID = [dataSource thumperCallingCapabilitiesStateByUUID];
 
-    v51 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [thumperCallingCapabilitiesStateByUUID count]);
-    v60 = 0u;
+    v52 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [thumperCallingCapabilitiesStateByUUID count]);
     v61 = 0u;
     v62 = 0u;
     v63 = 0u;
-    v44 = thumperCallingCapabilitiesStateByUUID;
+    v64 = 0u;
+    v45 = thumperCallingCapabilitiesStateByUUID;
     allKeys = [thumperCallingCapabilitiesStateByUUID allKeys];
-    v6 = [allKeys countByEnumeratingWithState:&v60 objects:v70 count:16];
+    v6 = [allKeys countByEnumeratingWithState:&v61 objects:v71 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v61;
+      v8 = *v62;
       do
       {
         for (i = 0; i != v7; i = i + 1)
         {
-          if (*v61 != v8)
+          if (*v62 != v8)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v10 = *(*(&v60 + 1) + 8 * i);
-          v11 = [v44 objectForKeyedSubscript:v10];
+          v10 = *(*(&v61 + 1) + 8 * i);
+          v11 = [v45 objectForKeyedSubscript:v10];
           publiclyAccessibleCopy = [v11 publiclyAccessibleCopy];
 
           accountID = [publiclyAccessibleCopy accountID];
           if (accountID)
           {
-            [v51 setObject:publiclyAccessibleCopy forKeyedSubscript:accountID];
+            [v52 setObject:publiclyAccessibleCopy forKeyedSubscript:accountID];
           }
 
           else
           {
-            v14 = sub_100004778();
+            v14 = sub_100004778(0);
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v67 = v10;
-              v68 = 2112;
-              v69 = publiclyAccessibleCopy;
+              v68 = v10;
+              v69 = 2112;
+              v70 = publiclyAccessibleCopy;
               _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Could not obtain Thumper account identifier for sender identity UUID %@ from data source capabilities state %@", buf, 0x16u);
             }
           }
         }
 
-        v7 = [allKeys countByEnumeratingWithState:&v60 objects:v70 count:16];
+        v7 = [allKeys countByEnumeratingWithState:&v61 objects:v71 count:16];
       }
 
       while (v7);
     }
 
-    v43 = +[TUCallCapabilities supportsPrimaryCalling];
+    v44 = +[TUCallCapabilities supportsPrimaryCalling];
     v15 = selfCopy;
-    v45 = [(CSDThumperCapabilitiesMonitor *)selfCopy thumperCapabilitiesStatesForPreferenceKey:@"thumperCallingCapabilitiesStates"];
-    v16 = sub_100004778();
+    v46 = [(CSDThumperCapabilitiesMonitor *)selfCopy thumperCapabilitiesStatesForPreferenceKey:@"thumperCallingCapabilitiesStates"];
+    v16 = sub_100004778(v46);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v67 = v45;
-      v68 = 2112;
-      v69 = v51;
+      v68 = v46;
+      v69 = 2112;
+      v70 = v52;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Comparing cached Thumper capabilities state %@ with data source capabilities state %@", buf, 0x16u);
     }
 
-    v58 = 0u;
     v59 = 0u;
-    v56 = 0u;
+    v60 = 0u;
     v57 = 0u;
-    allKeys2 = [v51 allKeys];
-    v46 = [allKeys2 countByEnumeratingWithState:&v56 objects:v65 count:16];
-    if (v46)
+    v58 = 0u;
+    allKeys2 = [v52 allKeys];
+    v47 = [allKeys2 countByEnumeratingWithState:&v57 objects:v66 count:16];
+    if (v47)
     {
-      v41 = 0;
-      v38 = 0;
-      v42 = *v57;
+      v42 = 0;
+      v39 = 0;
+      v43 = *v58;
       *&v18 = 138412290;
-      v37 = v18;
-      v40 = allKeys2;
+      v38 = v18;
+      v41 = allKeys2;
       do
       {
-        for (j = 0; j != v46; j = j + 1)
+        for (j = 0; j != v47; j = j + 1)
         {
-          if (*v57 != v42)
+          if (*v58 != v43)
           {
             objc_enumerationMutation(allKeys2);
           }
 
-          v20 = *(*(&v56 + 1) + 8 * j);
-          v21 = [v51 objectForKeyedSubscript:{v20, v37}];
+          v20 = *(*(&v57 + 1) + 8 * j);
+          v21 = [v52 objectForKeyedSubscript:{v20, v38}];
           isAssociated = [v21 isAssociated];
           isSupported = [v21 isSupported];
           isEnabled = [v21 isEnabled];
           supportsDefaultPairedDevice = [v21 supportsDefaultPairedDevice];
-          v52 = 0u;
           v53 = 0u;
           v54 = 0u;
           v55 = 0u;
-          v24 = v45;
-          v25 = [v24 countByEnumeratingWithState:&v52 objects:v64 count:16];
+          v56 = 0u;
+          v24 = v46;
+          v25 = [v24 countByEnumeratingWithState:&v53 objects:v65 count:16];
           if (v25)
           {
-            v47 = isSupported;
-            v48 = isAssociated;
-            v26 = *v53;
+            v48 = isSupported;
+            v49 = isAssociated;
+            v26 = *v54;
             while (2)
             {
               for (k = 0; k != v25; k = k + 1)
               {
-                if (*v53 != v26)
+                if (*v54 != v26)
                 {
                   objc_enumerationMutation(v24);
                 }
 
-                v28 = *(*(&v52 + 1) + 8 * k);
+                v28 = *(*(&v53 + 1) + 8 * k);
                 accountID2 = [v28 accountID];
                 v30 = TUStringsAreCaseInsensitiveEqual();
 
@@ -272,7 +302,7 @@
                 }
               }
 
-              v25 = [v24 countByEnumeratingWithState:&v52 objects:v64 count:16];
+              v25 = [v24 countByEnumeratingWithState:&v53 objects:v65 count:16];
               if (v25)
               {
                 continue;
@@ -284,9 +314,9 @@
             supportsDefaultPairedDevice2 = 0;
             isSupported2 = 0;
 LABEL_31:
-            allKeys2 = v40;
-            isSupported = v47;
-            isAssociated = v48;
+            allKeys2 = v41;
+            isSupported = v48;
+            isAssociated = v49;
           }
 
           else
@@ -295,7 +325,7 @@ LABEL_31:
             isSupported2 = 0;
           }
 
-          if (v43)
+          if (v44)
           {
             if (supportsDefaultPairedDevice2 != supportsDefaultPairedDevice)
             {
@@ -313,37 +343,37 @@ LABEL_31:
 
           else
           {
-            v34 = v25 == isAssociated && isSupported2 == isSupported;
-            if ((v34 || (isAssociated & 1) == 0 || (isSupported & 1) == 0) | isEnabled & 1)
+            v35 = v25 == isAssociated && isSupported2 == isSupported;
+            if ((v35 || (isAssociated & 1) == 0 || (isSupported & 1) == 0) | isEnabled & 1)
             {
-              v41 |= !v34;
+              v42 |= !v35;
             }
 
             else
             {
-              v35 = sub_100004778();
-              if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+              v36 = sub_100004778(v33);
+              if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
               {
-                *buf = v37;
-                v67 = v20;
-                _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Should show Thumper available notification for account ID %@", buf, 0xCu);
+                *buf = v38;
+                v68 = v20;
+                _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Should show Thumper available notification for account ID %@", buf, 0xCu);
               }
 
-              v41 = 1;
-              v38 = 1;
+              v42 = 1;
+              v39 = 1;
             }
           }
         }
 
-        v46 = [allKeys2 countByEnumeratingWithState:&v56 objects:v65 count:16];
+        v47 = [allKeys2 countByEnumeratingWithState:&v57 objects:v66 count:16];
       }
 
-      while (v46);
+      while (v47);
 
       v15 = selfCopy;
-      if (!(v43 & 1 | ((v41 & 1) == 0)))
+      if (!(v44 & 1 | ((v42 & 1) == 0)))
       {
-        if (v38)
+        if (v39)
         {
           [(CSDThumperCapabilitiesMonitor *)selfCopy showReminderNotificationOnSecondaryDevice];
         }
@@ -359,7 +389,7 @@ LABEL_31:
     {
     }
 
-    allValues = [v51 allValues];
+    allValues = [v52 allValues];
     [(CSDThumperCapabilitiesMonitor *)v15 saveThumperCapabilitiesStates:allValues forPreferenceKey:@"thumperCallingCapabilitiesStates"];
   }
 }
@@ -372,14 +402,14 @@ LABEL_31:
   defaultPairedDevice = [v5 defaultPairedDevice];
   uniqueIDOverride = [defaultPairedDevice uniqueIDOverride];
 
-  v8 = sub_100004778();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100004778(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
-    v12 = v4;
-    v13 = 2112;
-    v14 = uniqueIDOverride;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Default paired device unique ID was %@ and is now %@", &v11, 0x16u);
+    v13 = 138412546;
+    v14 = v4;
+    v15 = 2112;
+    v16 = uniqueIDOverride;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Default paired device unique ID was %@ and is now %@", &v13, 0x16u);
   }
 
   if (!v4 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -387,12 +417,12 @@ LABEL_31:
     if ((TUStringsAreEqualOrNil() & 1) == 0)
     {
       CFPreferencesSetAppValue(@"PreviousDefaultPairedDeviceUniqueID", uniqueIDOverride, v3);
-      CFPreferencesAppSynchronize(v3);
-      v9 = sub_100004778();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = CFPreferencesAppSynchronize(v3);
+      v11 = sub_100004778(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v11) = 0;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Check if devices should be enrolled now that the default paired device changed.", &v11, 2u);
+        LOWORD(v13) = 0;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Check if devices should be enrolled now that the default paired device changed.", &v13, 2u);
       }
 
       if ([v4 length])
@@ -414,91 +444,93 @@ LABEL_31:
   if (+[TUCallCapabilities supportsPrimaryCalling])
   {
     dataSource = [(CSDThumperCapabilitiesMonitor *)self dataSource];
+    v4 = dataSource;
     if (dataSource)
     {
-      v4 = sub_100004778();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = sub_100004778(dataSource);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Checking to see if any devices have been removed from this iCloud account.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Checking to see if any devices have been removed from this iCloud account.", buf, 2u);
       }
 
-      v5 = +[CSDThumperIDSService sharedInstance];
-      devices = [v5 devices];
-      v7 = [devices valueForKey:@"uniqueIDOverride"];
-      v8 = [NSSet setWithArray:v7];
+      v6 = +[CSDThumperIDSService sharedInstance];
+      devices = [v6 devices];
+      v8 = [devices valueForKey:@"uniqueIDOverride"];
+      v9 = [NSSet setWithArray:v8];
 
-      if ([v8 count])
+      if ([v9 count])
       {
-        [dataSource localThumperAccounts];
-        v26 = 0u;
-        v27 = 0u;
+        [v4 localThumperAccounts];
         v28 = 0u;
-        obj = v29 = 0u;
-        v20 = [obj countByEnumeratingWithState:&v26 objects:v33 count:16];
-        if (v20)
+        v29 = 0u;
+        v30 = 0u;
+        obj = v31 = 0u;
+        v22 = [obj countByEnumeratingWithState:&v28 objects:v35 count:16];
+        if (v22)
         {
-          v19 = *v27;
+          v21 = *v29;
           do
           {
-            v9 = 0;
+            v10 = 0;
             do
             {
-              if (*v27 != v19)
+              if (*v29 != v21)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v21 = v9;
-              v10 = *(*(&v26 + 1) + 8 * v9);
-              v22 = 0u;
-              v23 = 0u;
+              v23 = v10;
+              v11 = *(*(&v28 + 1) + 8 * v10);
               v24 = 0u;
               v25 = 0u;
-              allowedSecondaryDeviceIDs = [v10 allowedSecondaryDeviceIDs];
-              v12 = [allowedSecondaryDeviceIDs countByEnumeratingWithState:&v22 objects:v32 count:16];
-              if (v12)
+              v26 = 0u;
+              v27 = 0u;
+              allowedSecondaryDeviceIDs = [v11 allowedSecondaryDeviceIDs];
+              v13 = [allowedSecondaryDeviceIDs countByEnumeratingWithState:&v24 objects:v34 count:16];
+              if (v13)
               {
-                v13 = v12;
-                v14 = *v23;
+                v14 = v13;
+                v15 = *v25;
                 do
                 {
-                  for (i = 0; i != v13; i = i + 1)
+                  for (i = 0; i != v14; i = i + 1)
                   {
-                    if (*v23 != v14)
+                    if (*v25 != v15)
                     {
                       objc_enumerationMutation(allowedSecondaryDeviceIDs);
                     }
 
-                    v16 = *(*(&v22 + 1) + 8 * i);
-                    if (([v8 containsObject:v16] & 1) == 0)
+                    v17 = *(*(&v24 + 1) + 8 * i);
+                    v18 = [v9 containsObject:v17];
+                    if ((v18 & 1) == 0)
                     {
-                      v17 = sub_100004778();
-                      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+                      v19 = sub_100004778(v18);
+                      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
                       {
                         *buf = 138412290;
-                        v31 = v16;
-                        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Device with the uniqueID %@ will be unpaired from Thumper because it is no longer on the IDSService.", buf, 0xCu);
+                        v33 = v17;
+                        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Device with the uniqueID %@ will be unpaired from Thumper because it is no longer on the IDSService.", buf, 0xCu);
                       }
 
-                      [dataSource removeThumperRegisteredDeviceID:v16 forThumperAccountID:0];
+                      [v4 removeThumperRegisteredDeviceID:v17 forThumperAccountID:0];
                     }
                   }
 
-                  v13 = [allowedSecondaryDeviceIDs countByEnumeratingWithState:&v22 objects:v32 count:16];
+                  v14 = [allowedSecondaryDeviceIDs countByEnumeratingWithState:&v24 objects:v34 count:16];
                 }
 
-                while (v13);
+                while (v14);
               }
 
-              v9 = v21 + 1;
+              v10 = v23 + 1;
             }
 
-            while ((v21 + 1) != v20);
-            v20 = [obj countByEnumeratingWithState:&v26 objects:v33 count:16];
+            while ((v23 + 1) != v22);
+            v22 = [obj countByEnumeratingWithState:&v28 objects:v35 count:16];
           }
 
-          while (v20);
+          while (v22);
         }
       }
     }
@@ -512,30 +544,31 @@ LABEL_31:
   dispatch_assert_queue_V2(queue);
 
   dataSource = [(CSDThumperCapabilitiesMonitor *)self dataSource];
+  v7 = dataSource;
   if (dataSource)
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(dataSource);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412546;
+      v14 = 138412546;
       selfCopy = self;
-      v14 = 2112;
-      v15 = dCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ is handling add capabilities for sender identity UUID %@", &v12, 0x16u);
+      v16 = 2112;
+      v17 = dCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@ is handling add capabilities for sender identity UUID %@", &v14, 0x16u);
     }
 
-    thumperCallingCapabilitiesStateByUUID = [dataSource thumperCallingCapabilitiesStateByUUID];
-    v9 = [thumperCallingCapabilitiesStateByUUID objectForKeyedSubscript:dCopy];
+    thumperCallingCapabilitiesStateByUUID = [v7 thumperCallingCapabilitiesStateByUUID];
+    v10 = [thumperCallingCapabilitiesStateByUUID objectForKeyedSubscript:dCopy];
 
-    v10 = sub_100004778();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-    if (v9)
+    v12 = sub_100004778(v11);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+    if (v10)
     {
-      if (v11)
+      if (v13)
       {
-        v12 = 138412290;
+        v14 = 138412290;
         selfCopy = dCopy;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Thumper calling preferences update initiated by add capabilities for sender identity UUID %@", &v12, 0xCu);
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Thumper calling preferences update initiated by add capabilities for sender identity UUID %@", &v14, 0xCu);
       }
 
       [(CSDThumperCapabilitiesMonitor *)self _updateThumperCallingPreferences];
@@ -543,11 +576,11 @@ LABEL_31:
 
     else
     {
-      if (v11)
+      if (v13)
       {
-        v12 = 138412290;
+        v14 = 138412290;
         selfCopy = dCopy;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Skipping Thumper preferences update; Thumper capabilities state does not exist for UUID %@", &v12, 0xCu);
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Skipping Thumper preferences update; Thumper capabilities state does not exist for UUID %@", &v14, 0xCu);
       }
     }
   }
@@ -560,58 +593,59 @@ LABEL_31:
   dispatch_assert_queue_V2(queue);
 
   dataSource = [(CSDThumperCapabilitiesMonitor *)self dataSource];
+  v7 = dataSource;
   if (dataSource)
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(dataSource);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       selfCopy = self;
-      v28 = 2112;
-      v29 = dCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ is handling remove capabilities for sender identity UUID %@", buf, 0x16u);
+      v31 = 2112;
+      v32 = dCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@ is handling remove capabilities for sender identity UUID %@", buf, 0x16u);
     }
 
     selfCopy2 = self;
 
-    [dataSource secondaryThumperAccounts];
-    v21 = 0u;
-    v22 = 0u;
-    v23 = 0u;
-    v8 = v24 = 0u;
-    v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
-    if (v9)
+    [v7 secondaryThumperAccounts];
+    v24 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v9 = v27 = 0u;
+    v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    if (v10)
     {
-      v10 = v9;
-      v11 = *v22;
+      v11 = v10;
+      v12 = *v25;
       while (2)
       {
-        for (i = 0; i != v10; i = i + 1)
+        for (i = 0; i != v11; i = i + 1)
         {
-          if (*v22 != v11)
+          if (*v25 != v12)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v9);
           }
 
-          accountID = [*(*(&v21 + 1) + 8 * i) accountID];
+          accountID = [*(*(&v24 + 1) + 8 * i) accountID];
           if (accountID)
           {
-            v14 = [CTXPCContextInfo csd_unknownContextInfoForAccountID:accountID];
-            v15 = v14;
-            if (v14)
+            v15 = [CTXPCContextInfo csd_unknownContextInfoForAccountID:accountID];
+            v16 = v15;
+            if (v15)
             {
-              uuid = [v14 uuid];
-              v17 = [uuid isEqual:dCopy];
+              uuid = [v15 uuid];
+              v18 = [uuid isEqual:dCopy];
 
-              if (v17)
+              if (v18)
               {
 
-                v19 = sub_100004778();
-                if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+                v22 = sub_100004778(v21);
+                if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
                   selfCopy = dCopy;
-                  _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Skipping Thumper calling preferences update; unknown context info found for sender identity UUID %@", buf, 0xCu);
+                  _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Skipping Thumper calling preferences update; unknown context info found for sender identity UUID %@", buf, 0xCu);
                 }
 
                 goto LABEL_21;
@@ -620,8 +654,8 @@ LABEL_31:
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
-        if (v10)
+        v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        if (v11)
         {
           continue;
         }
@@ -630,12 +664,12 @@ LABEL_31:
       }
     }
 
-    v18 = sub_100004778();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_100004778(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       selfCopy = dCopy;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Thumper calling preferences update initiated by remove capabilities for sender identity UUID %@", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Thumper calling preferences update initiated by remove capabilities for sender identity UUID %@", buf, 0xCu);
     }
 
     [(CSDThumperCapabilitiesMonitor *)selfCopy2 _updateThumperCallingPreferences];
@@ -649,14 +683,14 @@ LABEL_21:
   queue = [(CSDThumperCapabilitiesMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = sub_100004778();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
+    v8 = 138412546;
     selfCopy = self;
-    v9 = 2112;
-    v10 = dCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@ is handling change Thumper calling capabilities for sender identity with UUID %@", &v7, 0x16u);
+    v10 = 2112;
+    v11 = dCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ is handling change Thumper calling capabilities for sender identity with UUID %@", &v8, 0x16u);
   }
 
   [(CSDThumperCapabilitiesMonitor *)self _updateThumperCallingPreferences];
@@ -675,7 +709,7 @@ LABEL_21:
 
 - (void)showReminderNotificationOnSecondaryDevice
 {
-  v2 = sub_100004778();
+  v2 = sub_100004778(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -721,7 +755,7 @@ LABEL_21:
 
 - (void)showEmergencyAddressDisclaimerOnSecondaryDevice
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -794,7 +828,7 @@ LABEL_21:
 
           else if (v16)
           {
-            v18 = sub_100004778();
+            v18 = sub_100004778(v16);
             if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
@@ -834,101 +868,104 @@ LABEL_21:
   if (v5)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v6 = +[NSMutableArray array];
-      v7 = v5;
-      v20 = 0u;
-      v21 = 0u;
-      v22 = 0u;
+      v7 = +[NSMutableArray array];
+      v8 = v5;
       v23 = 0u;
-      v8 = [v7 countByEnumeratingWithState:&v20 objects:v28 count:16];
-      if (!v8)
+      v24 = 0u;
+      v25 = 0u;
+      v26 = 0u;
+      v9 = [v8 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      if (!v9)
       {
         goto LABEL_24;
       }
 
-      v9 = v8;
-      v10 = *v21;
+      v10 = v9;
+      v11 = *v24;
       while (1)
       {
-        for (i = 0; i != v9; i = i + 1)
+        for (i = 0; i != v10; i = i + 1)
         {
-          if (*v21 != v10)
+          if (*v24 != v11)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v20 + 1) + 8 * i);
+          v13 = *(*(&v23 + 1) + 8 * i);
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          v14 = objc_opt_isKindOfClass();
+          if (v14)
           {
-            v19 = 0;
-            v13 = [TUThumperCTCapabilitiesState unarchivedObjectFromData:v12 error:&v19];
-            v14 = v19;
-            if (v13)
+            v22 = 0;
+            v15 = [TUThumperCTCapabilitiesState unarchivedObjectFromData:v13 error:&v22];
+            v16 = v22;
+            v17 = v16;
+            if (v15)
             {
-              [v6 addObject:v13];
+              [v7 addObject:v15];
             }
 
             else
             {
-              v16 = sub_100004778();
-              if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+              v19 = sub_100004778(v16);
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v25 = v14;
-                _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Unarchiving Thumper capabilities state object failed with error %@", buf, 0xCu);
+                v28 = v17;
+                _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Unarchiving Thumper capabilities state object failed with error %@", buf, 0xCu);
               }
             }
           }
 
           else
           {
-            v14 = sub_100004778();
-            if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+            v17 = sub_100004778(v14);
+            if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_17;
             }
 
-            v15 = objc_opt_class();
+            v18 = objc_opt_class();
             *buf = 138412546;
-            v25 = v15;
-            v26 = 2112;
-            v27 = v12;
-            v13 = v15;
-            _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Archived object was of unexpected class %@: %@", buf, 0x16u);
+            v28 = v18;
+            v29 = 2112;
+            v30 = v13;
+            v15 = v18;
+            _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Archived object was of unexpected class %@: %@", buf, 0x16u);
           }
 
 LABEL_17:
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v20 objects:v28 count:16];
-        if (!v9)
+        v10 = [v8 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        if (!v10)
         {
           goto LABEL_24;
         }
       }
     }
 
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100004778(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_100473BA8(v5, v7);
+      sub_100473BA8(v5, v8);
     }
 
-    v6 = 0;
+    v7 = 0;
 LABEL_24:
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v17 = [v6 copy];
+  v20 = [v7 copy];
 
-  return v17;
+  return v20;
 }
 
 - (void)enrollDefaultPairedDevice

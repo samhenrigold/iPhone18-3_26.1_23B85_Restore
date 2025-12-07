@@ -1,12 +1,28 @@
 @interface CMGestureManager
 + (BOOL)isGestureServiceAvailable;
 + (BOOL)isGestureServiceEnabled;
+- (CMGestureManager)initWithPriority:(int)priority;
 - (id)gestureHandler;
 - (void)dealloc;
 - (void)setGestureHandler:(id)handler;
 @end
 
 @implementation CMGestureManager
+
+- (CMGestureManager)initWithPriority:(int)priority
+{
+  v3 = *&priority;
+  v8.receiver = self;
+  v8.super_class = CMGestureManager;
+  v4 = [(CMGestureManager *)&v8 init];
+  if (v4)
+  {
+    v5 = [CMGestureManagerInternal alloc];
+    v4->_internal = objc_msgSend_initWithPriority_(v5, v6, v3);
+  }
+
+  return v4;
+}
 
 - (void)dealloc
 {

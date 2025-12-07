@@ -1166,7 +1166,7 @@
 {
   selfCopy = self;
   sub_100600740(&v5);
-  v3 = objc_allocWithZone(sub_1001F1160(&qword_100AF0278));
+  v3 = objc_allocWithZone(sub_1001F1160(&qword_100AF0278, &qword_100839F08));
   v4 = sub_10079CBC4();
   [(BKDebugViewController *)selfCopy presentViewController:v4 animated:1 completion:0];
 }
@@ -1196,7 +1196,7 @@
   sub_10065F5BC();
   v3 = objc_allocWithZone(BKDebugViewSection);
   v4 = sub_1007A2214();
-  sub_10000A7C4(0, &qword_100AD8B50);
+  sub_10000A7C4(0, &qword_100AD8B50, off_1009F8550);
   isa = sub_1007A25D4().super.isa;
 
   v6 = [v3 initWithHeaderTitle:v4 entries:isa footerTitle:0];
@@ -1210,7 +1210,7 @@
   v1 = *(v0 - 8);
   __chkstk_darwin(v0);
   v3 = v14 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = sub_1001F1160(&qword_100AF0260);
+  v4 = sub_1001F1160(&qword_100AF0260, &qword_100839F00);
   __chkstk_darwin(v4 - 8);
   v6 = v14 - v5;
   v7 = sub_100796594();
@@ -1218,14 +1218,14 @@
   __chkstk_darwin(v7);
   v10 = v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1007986A4();
-  sub_10065FB1C(&qword_100AF0268, &type metadata accessor for ReadingHistory.Notification.ClearToday);
+  sub_10065FB1C(&qword_100AF0268, &type metadata accessor for ReadingHistory.Notification.ClearToday, &protocol conformance descriptor for ReadingHistory.Notification.ClearToday);
   memset(v14, 0, sizeof(v14));
   sub_100799124();
-  sub_100007840(v14, &unk_100AD5B40);
+  sub_100007840(v14, &unk_100AD5B40, &unk_100811300);
   (*(v1 + 8))(v3, v0);
   if ((*(v8 + 48))(v6, 1, v7) == 1)
   {
-    return sub_100007840(v6, &qword_100AF0260);
+    return sub_100007840(v6, &qword_100AF0260, &qword_100839F00);
   }
 
   (*(v8 + 32))(v10, v6, v7);

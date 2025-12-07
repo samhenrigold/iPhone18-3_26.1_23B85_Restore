@@ -38,7 +38,7 @@ void __41__TVRDLaunchEventHandlers_sharedInstance__block_invoke(id a1)
 
 - (void)_setupNotificationHandlers
 {
-  v3 = _TVRDXPCLog();
+  v3 = _TVRDXPCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -51,7 +51,7 @@ void __41__TVRDLaunchEventHandlers_sharedInstance__block_invoke(id a1)
 
 - (void)_setupDistnotedHandlers
 {
-  v3 = _TVRDXPCLog();
+  v3 = _TVRDXPCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -75,86 +75,93 @@ void __50__TVRDLaunchEventHandlers__setupDistnotedHandlers__block_invoke(uint64_
 {
   v3 = a2;
   string = xpc_dictionary_get_string(v3, _xpc_event_key_name);
-  if (string && !strcmp("tvremote.applicationRegistered", string))
+  if (string)
   {
-    v5 = _TVRDXPCLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v5 = strcmp("tvremote.applicationRegistered", string);
+    if (!v5)
     {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Received an application registered LaunchEvent", buf, 2u);
-    }
+      v6 = _TVRDXPCLog(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Received an application registered LaunchEvent", buf, 2u);
+      }
 
-    v6 = xpc_dictionary_get_value(v3, "UserInfo");
-    v7 = v6;
-    if (!v6 || xpc_get_type(v6) != &_xpc_type_dictionary)
-    {
-      goto LABEL_23;
-    }
+      v7 = xpc_dictionary_get_value(v3, "UserInfo");
+      v8 = v7;
+      if (!v7 || xpc_get_type(v7) != &_xpc_type_dictionary)
+      {
+        goto LABEL_23;
+      }
 
-    v8 = _CFXPCCreateCFObjectFromXPCObject();
-    v9 = v8;
-    if (!v8)
-    {
+      v9 = _CFXPCCreateCFObjectFromXPCObject();
+      v10 = v9;
+      if (!v9)
+      {
 LABEL_22:
 
 LABEL_23:
-      goto LABEL_24;
-    }
-
-    v10 = [v8 objectForKeyedSubscript:@"bundleIDs"];
-    objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      WeakRetained = _TVRDXPCLog();
-      if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_ERROR))
-      {
-        __50__TVRDLaunchEventHandlers__setupDistnotedHandlers__block_invoke_cold_1(WeakRetained);
+        goto LABEL_24;
       }
 
-      goto LABEL_20;
-    }
-
-    v11 = [v9 objectForKeyedSubscript:@"isPlaceholder"];
-    v12 = [v11 BOOLValue];
-
-    if ((v12 & 1) == 0)
-    {
-      if ([v10 containsObject:@"com.apple.TVRemote"])
+      v11 = [v9 objectForKeyedSubscript:@"bundleIDs"];
+      objc_opt_class();
+      isKindOfClass = objc_opt_isKindOfClass();
+      if ((isKindOfClass & 1) == 0)
       {
-        v13 = _TVRDXPCLog();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        WeakRetained = _TVRDXPCLog(isKindOfClass);
+        if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_ERROR))
         {
-          v18 = 0;
-          v14 = "TVRemote application registered";
-          v15 = &v18;
+          __50__TVRDLaunchEventHandlers__setupDistnotedHandlers__block_invoke_cold_1(WeakRetained);
+        }
+
+        goto LABEL_20;
+      }
+
+      v13 = [v10 objectForKeyedSubscript:@"isPlaceholder"];
+      v14 = [v13 BOOLValue];
+
+      if ((v14 & 1) == 0)
+      {
+        v15 = [v11 containsObject:@"com.apple.TVRemote"];
+        if (v15)
+        {
+          v16 = _TVRDXPCLog(v15);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          {
+            v22 = 0;
+            v17 = "TVRemote application registered";
+            v18 = &v22;
 LABEL_18:
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v14, v15, 2u);
+            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, v17, v18, 2u);
+            goto LABEL_19;
+          }
+
           goto LABEL_19;
         }
 
-        goto LABEL_19;
-      }
-
-      if ([v10 containsObject:@"com.apple.Remote"])
-      {
-        v13 = _TVRDXPCLog();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v20 = [v11 containsObject:@"com.apple.Remote"];
+        if (v20)
         {
-          v17 = 0;
-          v14 = "iTunes Remote application registered";
-          v15 = &v17;
-          goto LABEL_18;
-        }
+          v16 = _TVRDXPCLog(v20);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          {
+            v21 = 0;
+            v17 = "iTunes Remote application registered";
+            v18 = &v21;
+            goto LABEL_18;
+          }
 
 LABEL_19:
 
-        WeakRetained = objc_loadWeakRetained((a1 + 32));
-        [WeakRetained _enableTVRemoteControlCenterModule];
+          WeakRetained = objc_loadWeakRetained((a1 + 32));
+          [WeakRetained _enableTVRemoteControlCenterModule];
 LABEL_20:
+        }
       }
-    }
 
-    goto LABEL_22;
+      goto LABEL_22;
+    }
   }
 
 LABEL_24:
@@ -162,7 +169,7 @@ LABEL_24:
 
 - (void)_setupNotifydHandlers
 {
-  v3 = _TVRDXPCLog();
+  v3 = _TVRDXPCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -183,51 +190,17 @@ void __48__TVRDLaunchEventHandlers__setupNotifydHandlers__block_invoke(uint64_t 
   if (string)
   {
     v4 = string;
-    if (!strcmp("tvremote.TapToSetupUsed", string))
+    v5 = strcmp("tvremote.TapToSetupUsed", string);
+    if (v5)
     {
-      v12 = _TVRDXPCLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v6 = strcmp("tvremote.ContinuityKeyBoardEnabled", v4);
+      if (!v6)
       {
-        *v24 = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Received tvremote.TapToSetupUsed LaunchEvent", v24, 2u);
-      }
-
-      v13 = CFPreferencesCopyValue(@"atvSetupCompleted", @"com.apple.Sharing", @"mobile", kCFPreferencesCurrentHost);
-      if (v13)
-      {
-        v14 = v13;
-        v15 = CFGetInt64() != 0;
-        CFRelease(v14);
-      }
-
-      else
-      {
-        v15 = 0;
-      }
-
-      v16 = _TVRDXPCLog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-      {
-        *v24 = 67109120;
-        *&v24[4] = v15;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Value for atvSetupCompleted is %d", v24, 8u);
-      }
-
-      if (v15)
-      {
-        goto LABEL_37;
-      }
-    }
-
-    else
-    {
-      if (!strcmp("tvremote.ContinuityKeyBoardEnabled", v4))
-      {
-        v9 = _TVRDXPCLog();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v16 = _TVRDXPCLog(v6);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          *v24 = 0;
-          v11 = "Received tvremote.ContinuityKeyBoardEnabled LaunchEvent";
+          *v32 = 0;
+          v18 = "Received tvremote.ContinuityKeyBoardEnabled LaunchEvent";
           goto LABEL_22;
         }
 
@@ -238,105 +211,145 @@ LABEL_37:
         return;
       }
 
-      if (!strcmp("tvremote.connectionRequested", v4))
+      v7 = strcmp("tvremote.connectionRequested", v4);
+      if (!v7)
       {
-        v9 = _TVRDXPCLog();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v16 = _TVRDXPCLog(v7);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          *v24 = 0;
-          v11 = "Received tvremote.connectionRequested LaunchEvent";
+          *v32 = 0;
+          v18 = "Received tvremote.connectionRequested LaunchEvent";
           goto LABEL_22;
         }
 
         goto LABEL_23;
       }
 
-      if (!strcmp("tvremote.dataMigrationFinished", v4))
+      v8 = strcmp("tvremote.dataMigrationFinished", v4);
+      if (v8)
       {
-        v18 = _TVRDXPCLog();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v9 = strcmp("tvremote.airplayTVAdded", v4);
+        if (!v9 || (v9 = strcmp("tvremote.appleTVAdded", v4), !v9))
         {
-          *v24 = 0;
-          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Received tvremote.dataMigrationFinished LaunchEvent", v24, 2u);
-        }
-
-        v19 = +[LSApplicationWorkspace defaultWorkspace];
-        v20 = [v19 applicationIsInstalled:@"com.apple.TVRemote"];
-
-        v21 = +[LSApplicationWorkspace defaultWorkspace];
-        v22 = [v21 applicationIsInstalled:@"com.apple.Remote"];
-
-        v23 = _TVRDXPCLog();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
-        {
-          *v24 = 67109376;
-          *&v24[4] = v20;
-          *&v24[8] = 1024;
-          *&v24[10] = v22;
-          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Value for remoteAppInstalled is %d, iTunesRemoteAppInstalled is %d", v24, 0xEu);
-        }
-
-        if ((v20 | v22))
-        {
-          goto LABEL_37;
-        }
-      }
-
-      else
-      {
-        if (!strcmp("tvremote.airplayTVAdded", v4) || !strcmp("tvremote.appleTVAdded", v4))
-        {
-          v17 = _TVRDXPCLog();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          v24 = _TVRDXPCLog(v9);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
-            *v24 = 136446210;
-            *&v24[4] = v4;
-            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Received %{public}s LaunchEvent", v24, 0xCu);
+            *v32 = 136446210;
+            *&v32[4] = v4;
+            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Received %{public}s LaunchEvent", v32, 0xCu);
           }
 
           goto LABEL_37;
         }
 
-        if (strcmp("tvremote.mdmProfileInstalled", v4))
+        v10 = strcmp("tvremote.mdmProfileInstalled", v4);
+        if (v10)
         {
           return;
         }
 
-        v5 = _TVRDXPCLog();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+        v11 = _TVRDXPCLog(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          *v24 = 136446210;
-          *&v24[4] = v4;
-          _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Received %{public}s LaunchEvent", v24, 0xCu);
+          *v32 = 136446210;
+          *&v32[4] = v4;
+          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Received %{public}s LaunchEvent", v32, 0xCu);
         }
 
-        v6 = +[TVRXManagedConfigManager sharedInstance];
-        [v6 refreshState];
+        v12 = +[TVRXManagedConfigManager sharedInstance];
+        [v12 refreshState];
 
-        v7 = +[TVRXManagedConfigManager sharedInstance];
-        v8 = [v7 isManagedConfigProfileInstalled];
+        v13 = +[TVRXManagedConfigManager sharedInstance];
+        v14 = [v13 isManagedConfigProfileInstalled];
 
-        v9 = _TVRDXPCLog();
-        v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-        if (v8)
+        v16 = _TVRDXPCLog(v15);
+        v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+        if (v14)
         {
-          if (v10)
+          if (v17)
           {
-            *v24 = 0;
-            v11 = "MDM Profile installed with MCFeatureTVRemoteAllowedTVs";
+            *v32 = 0;
+            v18 = "MDM Profile installed with MCFeatureTVRemoteAllowedTVs";
 LABEL_22:
-            _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, v11, v24, 2u);
+            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, v18, v32, 2u);
             goto LABEL_23;
           }
 
           goto LABEL_23;
         }
 
-        if (v10)
+        if (v17)
         {
-          *v24 = 0;
-          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "MDM Profile installed but did not include MCFeatureTVRemoteAllowedTVs", v24, 2u);
+          *v32 = 0;
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "MDM Profile installed but did not include MCFeatureTVRemoteAllowedTVs", v32, 2u);
         }
+      }
+
+      else
+      {
+        v25 = _TVRDXPCLog(v8);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        {
+          *v32 = 0;
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Received tvremote.dataMigrationFinished LaunchEvent", v32, 2u);
+        }
+
+        v26 = +[LSApplicationWorkspace defaultWorkspace];
+        v27 = [v26 applicationIsInstalled:@"com.apple.TVRemote"];
+
+        v28 = +[LSApplicationWorkspace defaultWorkspace];
+        v29 = [v28 applicationIsInstalled:@"com.apple.Remote"];
+
+        v31 = _TVRDXPCLog(v30);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        {
+          *v32 = 67109376;
+          *&v32[4] = v27;
+          *&v32[8] = 1024;
+          *&v32[10] = v29;
+          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Value for remoteAppInstalled is %d, iTunesRemoteAppInstalled is %d", v32, 0xEu);
+        }
+
+        if ((v27 | v29))
+        {
+          goto LABEL_37;
+        }
+      }
+    }
+
+    else
+    {
+      v19 = _TVRDXPCLog(v5);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      {
+        *v32 = 0;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Received tvremote.TapToSetupUsed LaunchEvent", v32, 2u);
+      }
+
+      v20 = CFPreferencesCopyValue(@"atvSetupCompleted", @"com.apple.Sharing", @"mobile", kCFPreferencesCurrentHost);
+      if (v20)
+      {
+        v21 = v20;
+        v22 = CFGetInt64() != 0;
+        CFRelease(v21);
+      }
+
+      else
+      {
+        v22 = 0;
+      }
+
+      v23 = _TVRDXPCLog(v20);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      {
+        *v32 = 67109120;
+        *&v32[4] = v22;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Value for atvSetupCompleted is %d", v32, 8u);
+      }
+
+      if (v22)
+      {
+        goto LABEL_37;
       }
     }
   }
@@ -344,7 +357,7 @@ LABEL_22:
 
 - (void)_enableTVRemoteControlCenterModule
 {
-  v3 = _TVRDXPCLog();
+  v3 = _TVRDXPCLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -352,53 +365,55 @@ LABEL_22:
   }
 
   v4 = +[NSUserDefaults standardUserDefaults];
-  if ([v4 BOOLForKey:@"AppleTVDetectionRanOnce"])
+  v5 = [v4 BOOLForKey:@"AppleTVDetectionRanOnce"];
+  if (v5)
   {
-    v5 = _TVRDXPCLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _TVRDXPCLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Module already enabled once, bailing out without doing anything.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Module already enabled once, bailing out without doing anything.", buf, 2u);
     }
   }
 
   else
   {
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = __61__TVRDLaunchEventHandlers__enableTVRemoteControlCenterModule__block_invoke;
-    v6[3] = &unk_100020820;
-    v6[4] = self;
-    v7 = v4;
-    dispatch_async(&_dispatch_main_q, v6);
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = __61__TVRDLaunchEventHandlers__enableTVRemoteControlCenterModule__block_invoke;
+    v7[3] = &unk_100020820;
+    v7[4] = self;
+    v8 = v4;
+    dispatch_async(&_dispatch_main_q, v7);
   }
 }
 
 void __61__TVRDLaunchEventHandlers__enableTVRemoteControlCenterModule__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) requestedModuleEnablement];
-  v3 = _TVRDXPCLog();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-  if (v2)
+  v3 = v2;
+  v4 = _TVRDXPCLog(v2);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
-    if (v4)
+    if (v5)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "There is an existing request to enable TVRemote CC module in progress. Ignoring this request", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "There is an existing request to enable TVRemote CC module in progress. Ignoring this request", buf, 2u);
     }
 
     goto LABEL_12;
   }
 
-  if (v4)
+  if (v5)
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Client requested enabling TVRemote module in Control Center", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Client requested enabling TVRemote module in Control Center", buf, 2u);
   }
 
   if (GestaltGetDeviceClass() == 3)
   {
-    v5 = [[CCSIconElementRequest alloc] initWithIntent:2 moduleIdentifier:@"com.apple.control-center.AppleTVRemoteModule" containerBundleIdentifier:@"com.apple.TVRemoteUIService" moduleSize:0];
+    v6 = [[CCSIconElementRequest alloc] initWithIntent:2 moduleIdentifier:@"com.apple.control-center.AppleTVRemoteModule" containerBundleIdentifier:@"com.apple.TVRemoteUIService" moduleSize:0];
   }
 
   else
@@ -408,22 +423,22 @@ void __61__TVRDLaunchEventHandlers__enableTVRemoteControlCenterModule__block_inv
       return;
     }
 
-    v5 = [[CCSIconElementRequest alloc] initWithIntent:2 controlKind:@"com.apple.TVRemoteUIService.widget.button" controlType:2 extensionBundleIdentifier:@"com.apple.TVRemoteUIService.TVRemoteWidget" containerBundleIdentifier:@"com.apple.TVRemoteUIService" size:0];
+    v6 = [[CCSIconElementRequest alloc] initWithIntent:2 controlKind:@"com.apple.TVRemoteUIService.widget.button" controlType:2 extensionBundleIdentifier:@"com.apple.TVRemoteUIService.TVRemoteWidget" containerBundleIdentifier:@"com.apple.TVRemoteUIService" size:0];
   }
 
-  v3 = v5;
-  if (v5)
+  v4 = v6;
+  if (v6)
   {
     [*(a1 + 32) setRequestedModuleEnablement:1];
-    v6 = +[CCSControlCenterService sharedInstance];
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = __61__TVRDLaunchEventHandlers__enableTVRemoteControlCenterModule__block_invoke_57;
-    v8[3] = &unk_1000207F8;
-    v7 = *(a1 + 40);
-    v8[4] = *(a1 + 32);
-    v9 = v7;
-    [v6 handleIconElementRequest:v3 completionHandler:v8];
+    v7 = +[CCSControlCenterService sharedInstance];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = __61__TVRDLaunchEventHandlers__enableTVRemoteControlCenterModule__block_invoke_57;
+    v9[3] = &unk_1000207F8;
+    v8 = *(a1 + 40);
+    v9[4] = *(a1 + 32);
+    v10 = v8;
+    [v7 handleIconElementRequest:v4 completionHandler:v9];
 
 LABEL_12:
   }
@@ -435,7 +450,7 @@ void __61__TVRDLaunchEventHandlers__enableTVRemoteControlCenterModule__block_inv
   v6 = v5;
   if (a2)
   {
-    v7 = _TVRDXPCLog();
+    v7 = _TVRDXPCLog(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v13 = 0;
@@ -449,7 +464,7 @@ LABEL_7:
   else
   {
     v10 = [v5 code];
-    v11 = _TVRDXPCLog();
+    v11 = _TVRDXPCLog(v10);
     v7 = v11;
     if (v10 == 5)
     {

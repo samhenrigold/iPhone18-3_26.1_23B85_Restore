@@ -12,6 +12,7 @@
 - (void)_configurePage:(id)page forIndex:(unint64_t)index;
 - (void)_dismissIfAppropriate;
 - (void)_handleDidReceiveSuccessfulTransaction:(id)transaction;
+- (void)_jumpToPage:(unint64_t)page animated:(BOOL)animated;
 - (void)_refreshBrightnessForFrontmostPass;
 - (void)_tilePagesEagerly:(BOOL)eagerly;
 - (void)_updateAlphasAndBacklight;
@@ -351,7 +352,7 @@
   verticalScrollView = self->_verticalScrollView;
   if (verticalScrollView)
   {
-    [(UIScrollView *)verticalScrollView transform];
+    objc_msgSend_transform(verticalScrollView);
     verticalScrollView = self->_verticalScrollView;
   }
 
@@ -624,6 +625,20 @@
   [(WLLockScreenView *)self setNeedsLayout];
 }
 
+- (void)_jumpToPage:(unint64_t)page animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v7 = [(WLLockScreenView *)self _visiblePageForIndex:[(WLLockScreenView *)self currentIndex]];
+  passView = [v7 passView];
+  [passView setModalShadowVisibility:!self->_animatingPresentation animated:1.0];
+
+  [(UIScrollView *)self->_pageScrollView bounds];
+  [(UIScrollView *)self->_pageScrollView setContentOffset:animatedCopy animated:v9 * page, 0.0];
+  v11 = [(WLLockScreenView *)self _visiblePageForIndex:page];
+  passView2 = [v11 passView];
+  [passView2 setModalShadowVisibility:!self->_animatingPresentation animated:1.0];
+}
+
 - (void)_updatePageScrollViewContentSize
 {
   [(UIScrollView *)self->_pageScrollView bounds];
@@ -879,26 +894,8 @@ LABEL_11:
   v63.size.width = width;
   v63.size.height = height;
   v13 = MinX / CGRectGetWidth(v63);
-  if (floorf(v13) < 0.0)
+  if (floorf(v13) < 0.0 || (v64.origin.x = x, v64.origin.y = y, v64.size.width = width, v64.size.height = height, v14 = CGRectGetMinX(v64), v65.origin.x = x, v65.origin.y = y, v65.size.width = width, v65.size.height = height, v15 = v14 / CGRectGetWidth(v65), v16 = floorf(v15) <= v11, v17 = v6, v16))
   {
-    goto LABEL_50;
-  }
-
-  v64.origin.x = x;
-  v64.origin.y = y;
-  v64.size.width = width;
-  v64.size.height = height;
-  v14 = CGRectGetMinX(v64);
-  v65.origin.x = x;
-  v65.origin.y = y;
-  v65.size.width = width;
-  v65.size.height = height;
-  v15 = v14 / CGRectGetWidth(v65);
-  v16 = floorf(v15) <= v11;
-  v17 = v6;
-  if (v16)
-  {
-LABEL_50:
     v66.origin.x = x;
     v66.origin.y = y;
     v66.size.width = width;
@@ -938,24 +935,8 @@ LABEL_50:
   v71.size.width = width;
   v71.size.height = height;
   v25 = v24 / CGRectGetWidth(v71);
-  if (floorf(v25) < 0.0)
+  if (floorf(v25) < 0.0 || (v72.origin.x = x, v72.origin.y = y, v72.size.width = width, v72.size.height = height, v26 = CGRectGetMaxX(v72) + -1.0, v73.origin.x = x, v73.origin.y = y, v73.size.width = width, v73.size.height = height, v27 = v26 / CGRectGetWidth(v73), floorf(v27) <= v11))
   {
-    goto LABEL_51;
-  }
-
-  v72.origin.x = x;
-  v72.origin.y = y;
-  v72.size.width = width;
-  v72.size.height = height;
-  v26 = CGRectGetMaxX(v72) + -1.0;
-  v73.origin.x = x;
-  v73.origin.y = y;
-  v73.size.width = width;
-  v73.size.height = height;
-  v27 = v26 / CGRectGetWidth(v73);
-  if (floorf(v27) <= v11)
-  {
-LABEL_51:
     v74.origin.x = x;
     v74.origin.y = y;
     v74.size.width = width;

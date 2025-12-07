@@ -14,7 +14,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (*(fromCopy + 3))
   {
@@ -46,29 +46,29 @@
     [(SGStructuredAddress *)self setLocality:?];
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = *(fromCopy + 5);
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(SGStructuredAddress *)self addDependentLocality:*(*(&v11 + 1) + 8 * i), v11];
+        [(SGStructuredAddress *)self addDependentLocality:*(*(&v10 + 1) + 8 * i), v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -88,8 +88,6 @@
   {
     [(SGStructuredAddress *)self setPostCode:?];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)hash
@@ -109,27 +107,7 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
-  {
-    goto LABEL_22;
-  }
-
-  country = self->_country;
-  if (country | equalCopy[3])
-  {
-    if (![(NSString *)country isEqual:?])
-    {
-      goto LABEL_22;
-    }
-  }
-
-  countryCode = self->_countryCode;
-  if (countryCode | equalCopy[4] && ![(NSString *)countryCode isEqual:?])
-  {
-    goto LABEL_22;
-  }
-
-  if (((administrativeArea = self->_administrativeArea, !(administrativeArea | equalCopy[1])) || [(NSString *)administrativeArea isEqual:?]) && ((administrativeAreaCode = self->_administrativeAreaCode, !(administrativeAreaCode | equalCopy[2])) || [(NSString *)administrativeAreaCode isEqual:?]) && ((subAdministrativeArea = self->_subAdministrativeArea, !(subAdministrativeArea | equalCopy[8])) || [(NSString *)subAdministrativeArea isEqual:?]) && ((locality = self->_locality, !(locality | equalCopy[6])) || [(NSString *)locality isEqual:?]) && ((dependentLocalitys = self->_dependentLocalitys, !(dependentLocalitys | equalCopy[5])) || [(NSMutableArray *)dependentLocalitys isEqual:?]) && ((thoroughfare = self->_thoroughfare, !(thoroughfare | equalCopy[10])) || [(NSString *)thoroughfare isEqual:?]) && ((subThroughfare = self->_subThroughfare, !(subThroughfare | equalCopy[9])) || [(NSString *)subThroughfare isEqual:?]))
+  if ([equalCopy isMemberOfClass:objc_opt_class()] && ((country = self->_country, !(country | equalCopy[3])) || -[NSString isEqual:](country, "isEqual:")) && ((countryCode = self->_countryCode, !(countryCode | equalCopy[4])) || -[NSString isEqual:](countryCode, "isEqual:")) && ((administrativeArea = self->_administrativeArea, !(administrativeArea | equalCopy[1])) || -[NSString isEqual:](administrativeArea, "isEqual:")) && ((administrativeAreaCode = self->_administrativeAreaCode, !(administrativeAreaCode | equalCopy[2])) || -[NSString isEqual:](administrativeAreaCode, "isEqual:")) && ((subAdministrativeArea = self->_subAdministrativeArea, !(subAdministrativeArea | equalCopy[8])) || -[NSString isEqual:](subAdministrativeArea, "isEqual:")) && ((locality = self->_locality, !(locality | equalCopy[6])) || -[NSString isEqual:](locality, "isEqual:")) && ((dependentLocalitys = self->_dependentLocalitys, !(dependentLocalitys | equalCopy[5])) || -[NSMutableArray isEqual:](dependentLocalitys, "isEqual:")) && ((thoroughfare = self->_thoroughfare, !(thoroughfare | equalCopy[10])) || -[NSString isEqual:](thoroughfare, "isEqual:")) && ((subThroughfare = self->_subThroughfare, !(subThroughfare | equalCopy[9])) || -[NSString isEqual:](subThroughfare, "isEqual:")))
   {
     postCode = self->_postCode;
     if (postCode | equalCopy[7])
@@ -145,7 +123,6 @@
 
   else
   {
-LABEL_22:
     v15 = 0;
   }
 
@@ -154,7 +131,7 @@ LABEL_22:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_country copyWithZone:zone];
   v7 = v5[3];
@@ -180,34 +157,34 @@ LABEL_22:
   v17 = v5[6];
   v5[6] = v16;
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v18 = self->_dependentLocalitys;
-  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v33;
+    v21 = *v32;
     do
     {
       v22 = 0;
       do
       {
-        if (*v33 != v21)
+        if (*v32 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = [*(*(&v32 + 1) + 8 * v22) copyWithZone:{zone, v32}];
+        v23 = [*(*(&v31 + 1) + 8 * v22) copyWithZone:{zone, v31}];
         [v5 addDependentLocality:v23];
 
         ++v22;
       }
 
       while (v20 != v22);
-      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v20);
@@ -225,7 +202,6 @@ LABEL_22:
   v29 = v5[7];
   v5[7] = v28;
 
-  v30 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -298,7 +274,7 @@ LABEL_22:
 
 - (void)writeTo:(id)to
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_country)
   {
@@ -330,33 +306,32 @@ LABEL_22:
     PBDataWriterWriteStringField();
   }
 
-  v14 = 0u;
-  v15 = 0u;
   v12 = 0u;
   v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = self->_dependentLocalitys;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
         PBDataWriterWriteStringField();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -376,8 +351,6 @@ LABEL_22:
   {
     PBDataWriterWriteStringField();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dictionaryRepresentation

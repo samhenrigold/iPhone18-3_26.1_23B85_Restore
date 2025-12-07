@@ -155,28 +155,28 @@ LABEL_5:
 
 - (NSSet)locales
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = +[BRLTTableEnumerator tableEnumeratorWithSystemBundlePath];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   translatorBundles = [v3 translatorBundles];
-  v5 = [translatorBundles countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [translatorBundles countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(translatorBundles);
         }
 
-        bundleIdentifier = [*(*(&v15 + 1) + 8 * i) bundleIdentifier];
+        bundleIdentifier = [*(*(&v14 + 1) + 8 * i) bundleIdentifier];
         serviceIdentifier = [(BRLTTable *)self serviceIdentifier];
         v11 = [bundleIdentifier isEqualToString:serviceIdentifier];
 
@@ -188,7 +188,7 @@ LABEL_5:
         }
       }
 
-      v6 = [translatorBundles countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [translatorBundles countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -200,8 +200,6 @@ LABEL_5:
 
   v12 = objc_opt_new();
 LABEL_11:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -541,7 +539,7 @@ LABEL_25:
 
 - (NSArray)replacements
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   _brailleTableDictionary = [(BRLTTable *)self _brailleTableDictionary];
   v3 = _brailleTableDictionary;
   if (_brailleTableDictionary)
@@ -552,30 +550,30 @@ LABEL_25:
 
     if (isKindOfClass)
     {
-      v21 = v3;
+      v20 = v3;
       v7 = objc_opt_new();
       v8 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"."];
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
       v25 = 0u;
-      v26 = 0u;
-      v20 = v4;
+      v19 = v4;
       v9 = v4;
-      v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v24;
+        v12 = *v23;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v24 != v12)
+            if (*v23 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = *(*(&v23 + 1) + 8 * i);
+            v14 = *(*(&v22 + 1) + 8 * i);
             if ([v14 rangeOfCharacterFromSet:v8 options:4] == 0x7FFFFFFFFFFFFFFFLL)
             {
               v15 = MEMORY[0x277CCACA8];
@@ -590,14 +588,14 @@ LABEL_25:
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
         }
 
         while (v11);
       }
 
-      v4 = v20;
-      v3 = v21;
+      v4 = v19;
+      v3 = v20;
     }
 
     else
@@ -610,8 +608,6 @@ LABEL_25:
   {
     v7 = MEMORY[0x277CBEBF8];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -757,32 +753,32 @@ LABEL_12:
 
 - (NSBundle)_bundle
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   p_bundle = &self->_bundle;
   bundle = self->_bundle;
   if (!bundle)
   {
     +[BRLTTableEnumerator tableEnumeratorWithSystemBundlePath];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
-    v16 = v20 = 0u;
-    translatorBundles = [v16 translatorBundles];
-    v6 = [translatorBundles countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v15 = v19 = 0u;
+    translatorBundles = [v15 translatorBundles];
+    v6 = [translatorBundles countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v18;
+      v8 = *v17;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(translatorBundles);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * i);
+          v10 = *(*(&v16 + 1) + 8 * i);
           bundleIdentifier = [v10 bundleIdentifier];
           serviceIdentifier = [(BRLTTable *)self serviceIdentifier];
           v13 = [bundleIdentifier isEqualToString:serviceIdentifier];
@@ -794,7 +790,7 @@ LABEL_12:
           }
         }
 
-        v7 = [translatorBundles countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [translatorBundles countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v7)
         {
           continue;
@@ -808,8 +804,6 @@ LABEL_12:
 
     bundle = *p_bundle;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return bundle;
 }

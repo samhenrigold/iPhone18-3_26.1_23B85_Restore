@@ -24,27 +24,25 @@
 
 void __45__MCAppWhitelistPayloadBase_knownOptionsKeys__block_invoke()
 {
-  v5[13] = *MEMORY[0x1E69E9840];
+  v4[13] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = @"DisableTouch";
-  v5[1] = @"DisableDeviceRotation";
-  v5[2] = @"DisableVolumeButtons";
-  v5[3] = @"DisableRingerSwitch";
-  v5[4] = @"DisableSleepWakeButton";
-  v5[5] = @"DisableAutoLock";
-  v5[6] = @"EnableVoiceOver";
-  v5[7] = @"EnableZoom";
-  v5[8] = @"EnableInvertColors";
-  v5[9] = @"EnableAssistiveTouch";
-  v5[10] = @"EnableSpeakSelection";
-  v5[11] = @"EnableMonoAudio";
-  v5[12] = @"EnableVoiceControl";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:13];
+  v4[0] = @"DisableTouch";
+  v4[1] = @"DisableDeviceRotation";
+  v4[2] = @"DisableVolumeButtons";
+  v4[3] = @"DisableRingerSwitch";
+  v4[4] = @"DisableSleepWakeButton";
+  v4[5] = @"DisableAutoLock";
+  v4[6] = @"EnableVoiceOver";
+  v4[7] = @"EnableZoom";
+  v4[8] = @"EnableInvertColors";
+  v4[9] = @"EnableAssistiveTouch";
+  v4[10] = @"EnableSpeakSelection";
+  v4[11] = @"EnableMonoAudio";
+  v4[12] = @"EnableVoiceControl";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:13];
   v2 = [v0 setWithArray:v1];
   v3 = knownOptionsKeys_keys;
   knownOptionsKeys_keys = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (id)knownUserEnabledOptionKeys
@@ -61,19 +59,17 @@ void __45__MCAppWhitelistPayloadBase_knownOptionsKeys__block_invoke()
 
 void __55__MCAppWhitelistPayloadBase_knownUserEnabledOptionKeys__block_invoke()
 {
-  v5[5] = *MEMORY[0x1E69E9840];
+  v4[5] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = @"Zoom";
-  v5[1] = @"InvertColors";
-  v5[2] = @"AssistiveTouch";
-  v5[3] = @"VoiceOver";
-  v5[4] = @"VoiceControl";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:5];
+  v4[0] = @"Zoom";
+  v4[1] = @"InvertColors";
+  v4[2] = @"AssistiveTouch";
+  v4[3] = @"VoiceOver";
+  v4[4] = @"VoiceControl";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:5];
   v2 = [v0 setWithArray:v1];
   v3 = knownUserEnabledOptionKeys_keys;
   knownUserEnabledOptionKeys_keys = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (MCAppWhitelistPayloadBase)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
@@ -105,26 +101,26 @@ void __55__MCAppWhitelistPayloadBase_knownUserEnabledOptionKeys__block_invoke()
 
 - (id)restrictions
 {
-  v33[2] = *MEMORY[0x1E69E9840];
+  v32[2] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:2];
   v4 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:2];
   if (![(MCAppWhitelistPayloadBase *)self allowAccessWithoutPasscode])
   {
-    v32[0] = @"value";
-    v32[1] = @"preference";
-    v33[0] = MEMORY[0x1E695E110];
-    v33[1] = MEMORY[0x1E695E110];
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:2];
+    v31[0] = @"value";
+    v31[1] = @"preference";
+    v32[0] = MEMORY[0x1E695E110];
+    v32[1] = MEMORY[0x1E695E110];
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:2];
     [v4 setObject:v5 forKeyedSubscript:@"allowAccessWithoutPasscodeInAppLock"];
   }
 
   if ([(MCAppWhitelistPayloadBase *)self forceAllowSupervisorAccess])
   {
-    v30[0] = @"value";
-    v30[1] = @"preference";
-    v31[0] = MEMORY[0x1E695E118];
-    v31[1] = MEMORY[0x1E695E118];
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:2];
+    v29[0] = @"value";
+    v29[1] = @"preference";
+    v30[0] = MEMORY[0x1E695E118];
+    v30[1] = MEMORY[0x1E695E118];
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:2];
     [v4 setObject:v6 forKeyedSubscript:@"forceGrantSupervisorAccessInAppLock"];
   }
 
@@ -137,48 +133,46 @@ void __55__MCAppWhitelistPayloadBase_knownUserEnabledOptionKeys__block_invoke()
     whitelistedAppsAndOptions2 = [(MCAppWhitelistPayloadBase *)self whitelistedAppsAndOptions];
     v10 = [v8 arrayWithCapacity:{objc_msgSend(whitelistedAppsAndOptions2, "count")}];
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     whitelistedAppsAndOptions3 = [(MCAppWhitelistPayloadBase *)self whitelistedAppsAndOptions];
-    v12 = [whitelistedAppsAndOptions3 countByEnumeratingWithState:&v21 objects:v29 count:16];
+    v12 = [whitelistedAppsAndOptions3 countByEnumeratingWithState:&v20 objects:v28 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v22;
+      v14 = *v21;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v22 != v14)
+          if (*v21 != v14)
           {
             objc_enumerationMutation(whitelistedAppsAndOptions3);
           }
 
-          v16 = [*(*(&v21 + 1) + 8 * i) objectForKey:@"Identifier"];
+          v16 = [*(*(&v20 + 1) + 8 * i) objectForKey:@"Identifier"];
           if (v16)
           {
             [v10 addObject:v16];
           }
         }
 
-        v13 = [whitelistedAppsAndOptions3 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v13 = [whitelistedAppsAndOptions3 countByEnumeratingWithState:&v20 objects:v28 count:16];
       }
 
       while (v13);
     }
 
-    v27 = @"appLockBundleIDs";
-    v25 = @"values";
-    v26 = v10;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-    v28 = v17;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    v26 = @"appLockBundleIDs";
+    v24 = @"values";
+    v25 = v10;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v27 = v17;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
     [v3 setObject:v18 forKeyedSubscript:@"intersection"];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -223,7 +217,7 @@ void __55__MCAppWhitelistPayloadBase_knownUserEnabledOptionKeys__block_invoke()
 
 - (id)payloadDescriptionKeyValueSections
 {
-  v38[2] = *MEMORY[0x1E69E9840];
+  v37[2] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   v4 = [MCKeyValue alloc];
   v5 = MCLocalizedStringForBool([(MCAppWhitelistPayloadBase *)self allowAccessWithoutPasscode]);
@@ -235,9 +229,9 @@ void __55__MCAppWhitelistPayloadBase_knownUserEnabledOptionKeys__block_invoke()
   v10 = MCLocalizedString(@"ALLOW_SUPERVISOR_ACCESS");
   v11 = [(MCKeyValue *)v8 initWithLocalizedString:v9 localizedKey:v10];
 
-  v38[0] = v7;
-  v38[1] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
+  v37[0] = v7;
+  v37[1] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2];
   v13 = [MCKeyValueSection sectionWithKeyValues:v12];
 
   v14 = v3;
@@ -246,29 +240,29 @@ void __55__MCAppWhitelistPayloadBase_knownUserEnabledOptionKeys__block_invoke()
 
   if (whitelistedAppsAndOptions)
   {
-    v29 = v13;
-    v30 = v11;
-    v31 = v7;
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
+    v28 = v13;
+    v29 = v11;
+    v30 = v7;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     obj = [(MCAppWhitelistPayloadBase *)self whitelistedAppsAndOptions];
-    v16 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v16 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v34;
+      v18 = *v33;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v34 != v18)
+          if (*v33 != v18)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v33 + 1) + 8 * i);
+          v20 = *(*(&v32 + 1) + 8 * i);
           v21 = objc_opt_new();
           v22 = [v20 objectForKey:@"Identifier"];
           v23 = [MCKeyValue alloc];
@@ -280,18 +274,16 @@ void __55__MCAppWhitelistPayloadBase_knownUserEnabledOptionKeys__block_invoke()
           [v14 addObject:v26];
         }
 
-        v17 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v17 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v17);
     }
 
-    v11 = v30;
-    v7 = v31;
-    v13 = v29;
+    v11 = v29;
+    v7 = v30;
+    v13 = v28;
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

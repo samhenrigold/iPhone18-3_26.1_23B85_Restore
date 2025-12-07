@@ -2,13 +2,21 @@
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (ReverseSiphonDelegate)init;
 - (void)AudioAvailabilityCallback:(unint64_t)callback atSample:(unint64_t)sample with:(id)with;
+- (void)LapseCallback:(int)callback with:(id)with;
 @end
 
 @implementation ReverseSiphonDelegate
 
+- (void)LapseCallback:(int)callback with:(id)with
+{
+  v4 = *&callback;
+  withCopy = with;
+  (self->mLapseCallback)(v4, self->mLapseData);
+  withCopy[2](withCopy, 0);
+}
+
 - (void)AudioAvailabilityCallback:(unint64_t)callback atSample:(unint64_t)sample with:(id)with
 {
-  v11 = *MEMORY[0x277D85DE8];
   withCopy = with;
   mAvailabilityCallback = self->mAvailabilityCallback;
   if (mAvailabilityCallback)
@@ -17,8 +25,6 @@
   }
 
   withCopy[2](withCopy, 0);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection

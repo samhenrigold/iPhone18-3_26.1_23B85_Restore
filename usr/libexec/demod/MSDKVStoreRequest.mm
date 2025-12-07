@@ -73,9 +73,9 @@
 {
   errorCopy = error;
   payloadCopy = payload;
-  v48.receiver = self;
-  v48.super_class = MSDKVStoreRequest;
-  v8 = [(MSDServerRequest *)&v48 parseResponseForError:errorCopy andPayload:payloadCopy];
+  v52.receiver = self;
+  v52.super_class = MSDKVStoreRequest;
+  v8 = [(MSDServerRequest *)&v52 parseResponseForError:errorCopy andPayload:payloadCopy];
   error = [v8 error];
 
   if (error)
@@ -87,12 +87,12 @@ LABEL_31:
 
     if (!error2)
     {
-      v46 = v11;
-      sub_1000C1390(&v46, 3727744512, @"Unexpected server response.");
-      v45 = v46;
+      v50 = v11;
+      sub_1000C1390(&v50, 3727744512, @"Unexpected server response.");
+      v49 = v50;
 
-      [v8 setError:v45];
-      v11 = v45;
+      [v8 setError:v49];
+      v11 = v49;
     }
 
     goto LABEL_26;
@@ -103,9 +103,9 @@ LABEL_31:
     goto LABEL_27;
   }
 
-  v47 = errorCopy;
-  v10 = [(MSDCommandServerRequest *)self getDataDictFromPayload:payloadCopy error:&v47];
-  v11 = v47;
+  v51 = errorCopy;
+  v10 = [(MSDCommandServerRequest *)self getDataDictFromPayload:payloadCopy error:&v51];
+  v11 = v51;
 
   if (!v10)
   {
@@ -135,8 +135,8 @@ LABEL_31:
 
     if ((v21 & 1) == 0)
     {
-      v22 = sub_100063A54();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v23 = sub_100063A54(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         sub_1000CA1F8();
       }
@@ -145,22 +145,22 @@ LABEL_31:
     }
   }
 
-  v23 = [v10 objectForKeyedSubscript:@"setBy"];
-  v24 = [v23 objectForKeyedSubscript:@"serial"];
-  [v8 setCreatorSN:v24];
+  v24 = [v10 objectForKeyedSubscript:@"setBy"];
+  v25 = [v24 objectForKeyedSubscript:@"serial"];
+  [v8 setCreatorSN:v25];
 
   creatorSN = [v8 creatorSN];
   if (creatorSN)
   {
-    v26 = creatorSN;
+    v27 = creatorSN;
     creationDate3 = [v8 creationDate];
     objc_opt_class();
-    v28 = objc_opt_isKindOfClass();
+    v29 = objc_opt_isKindOfClass();
 
-    if ((v28 & 1) == 0)
+    if ((v29 & 1) == 0)
     {
-      v29 = sub_100063A54();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v31 = sub_100063A54(v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         sub_1000CA298();
       }
@@ -169,22 +169,22 @@ LABEL_31:
     }
   }
 
-  v30 = [v10 objectForKeyedSubscript:@"setBy"];
-  v31 = [v30 objectForKeyedSubscript:@"udid"];
-  [v8 setCreatorUDID:v31];
+  v32 = [v10 objectForKeyedSubscript:@"setBy"];
+  v33 = [v32 objectForKeyedSubscript:@"udid"];
+  [v8 setCreatorUDID:v33];
 
   creatorUDID = [v8 creatorUDID];
   if (creatorUDID)
   {
-    v33 = creatorUDID;
+    v35 = creatorUDID;
     creationDate4 = [v8 creationDate];
     objc_opt_class();
-    v35 = objc_opt_isKindOfClass();
+    v37 = objc_opt_isKindOfClass();
 
-    if ((v35 & 1) == 0)
+    if ((v37 & 1) == 0)
     {
-      v36 = sub_100063A54();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v39 = sub_100063A54(v38);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         sub_1000CA338();
       }
@@ -193,21 +193,21 @@ LABEL_31:
     }
   }
 
-  v37 = [v10 objectForKeyedSubscript:@"modificationDate"];
-  [v8 setModificationDate:v37];
+  v40 = [v10 objectForKeyedSubscript:@"modificationDate"];
+  [v8 setModificationDate:v40];
 
   modificationDate = [v8 modificationDate];
   if (modificationDate)
   {
-    v39 = modificationDate;
+    v42 = modificationDate;
     modificationDate2 = [v8 modificationDate];
     objc_opt_class();
-    v41 = objc_opt_isKindOfClass();
+    v44 = objc_opt_isKindOfClass();
 
-    if ((v41 & 1) == 0)
+    if ((v44 & 1) == 0)
     {
-      v42 = sub_100063A54();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v46 = sub_100063A54(v45);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
         sub_1000CA3D8();
       }

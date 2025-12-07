@@ -145,11 +145,11 @@ LABEL_7:
 
   if ((isUsingICloud & 1) == 0)
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXPasswordManager();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v13 = WBS_LOG_CHANNEL_PREFIXPasswordManager(v7, v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_1B1C8D000, v11, OS_LOG_TYPE_INFO, "Skipping iCloud Keychain tip because no primary iCloud account is present", v13, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_1B1C8D000, v13, OS_LOG_TYPE_INFO, "Skipping iCloud Keychain tip because no primary iCloud account is present", v15, 2u);
     }
 
     goto LABEL_9;

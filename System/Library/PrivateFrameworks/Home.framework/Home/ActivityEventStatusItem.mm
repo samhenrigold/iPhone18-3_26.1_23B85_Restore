@@ -8,24 +8,22 @@
 
 - (HFActivityLogCoordinator_Swift)activityLogCoordinator
 {
-  v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC4Home23ActivityEventStatusItem_activityLogCoordinator);
 
-  return v3;
+  return v2;
 }
 
 - (_TtC4Home23ActivityEventStatusItem)initWithHome:(id)home room:(id)room valueSource:(id)source
 {
   v6 = sub_20DD636C4();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = OBJC_IVAR____TtC4Home23ActivityEventStatusItem_midnightToday;
-  v12 = [objc_allocWithZone(MEMORY[0x277CBEAA8]) init];
-  hf_startOfDay = [v12 hf_startOfDay];
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = OBJC_IVAR____TtC4Home23ActivityEventStatusItem_midnightToday;
+  v11 = [objc_allocWithZone(MEMORY[0x277CBEAA8]) init];
+  hf_startOfDay = [v11 hf_startOfDay];
 
   sub_20DD63674();
-  (*(v7 + 32))(self + v11, v10, v6);
+  (*(v7 + 32))(self + v10, v9, v6);
   result = sub_20DD65814();
   __break(1u);
   return result;

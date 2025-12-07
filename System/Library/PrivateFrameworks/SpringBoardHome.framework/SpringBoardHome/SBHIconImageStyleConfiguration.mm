@@ -52,9 +52,11 @@
 
   if (v3 == self)
   {
-    reusablePlaceholderStyleConfiguration = [SBHPlaceholderIconImageStyleConfiguration alloc];
+    v4 = [SBHPlaceholderIconImageStyleConfiguration alloc];
+    v5 = reusablePlaceholderStyleConfiguration;
+    reusablePlaceholderStyleConfiguration = v4;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v4, v5);
   }
 }
 

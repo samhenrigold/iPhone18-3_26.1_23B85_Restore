@@ -1,10 +1,24 @@
 @interface NPTMetadataEvent
 - (NPTMetadataEvent)initWithCoder:(id)coder;
+- (NPTMetadataEvent)initWithType:(Class)type eventType:(int)eventType timeStamp:(id)stamp data:(id)data;
 - (NSDictionary)asDictionary;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation NPTMetadataEvent
+
+- (NPTMetadataEvent)initWithType:(Class)type eventType:(int)eventType timeStamp:(id)stamp data:(id)data
+{
+  v7 = *&eventType;
+  dataCopy = data;
+  stampCopy = stamp;
+  [(NPTMetadataEvent *)self setCollectorType:type];
+  [(NPTMetadataEvent *)self setEventType:v7];
+  [(NPTMetadataEvent *)self setTimeStamp:stampCopy];
+
+  [(NPTMetadataEvent *)self setData:dataCopy];
+  return self;
+}
 
 - (NSDictionary)asDictionary
 {

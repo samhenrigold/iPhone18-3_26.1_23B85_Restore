@@ -15,7 +15,7 @@
 + (id)policyCriteriaWithPredicates:(id)predicates
 {
   predicatesCopy = predicates;
-  v4 = [predicatesCopy count];
+  v4 = objc_msgSend_count(predicatesCopy);
   v5 = [NSMutableArray arrayWithCapacity:v4];
   if (v4)
   {

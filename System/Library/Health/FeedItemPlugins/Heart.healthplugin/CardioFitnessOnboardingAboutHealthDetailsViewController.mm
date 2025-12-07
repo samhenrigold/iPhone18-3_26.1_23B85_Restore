@@ -9,7 +9,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_29D7B42E0();
+  sub_29D7B42E0(selfCopy);
 }
 
 - (_TtC5Heart55CardioFitnessOnboardingAboutHealthDetailsViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

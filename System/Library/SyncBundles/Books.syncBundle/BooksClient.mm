@@ -44,6 +44,7 @@
 - (void)_updateATAssetTotalBytes:(id)bytes plistEntry:(id)entry restoreFlag:(BOOL)flag;
 - (void)addKnownAccountInfo:(id)info;
 - (void)appendIconUrlForPersistentID:(id)d toAsset:(id)asset;
+- (void)appendPlistEntries:(id)entries toAssetArray:(id)array withRestoreFlag:(BOOL)flag;
 - (void)assetDownloadCompleted:(id)completed;
 - (void)assetInstallFailed:(id)failed withError:(id)error;
 - (void)assetInstallSucceeded:(id)succeeded;
@@ -85,42 +86,43 @@
 
 - (BooksClient)init
 {
-  v7.receiver = self;
-  v7.super_class = BooksClient;
-  v2 = [(BooksClient *)&v7 init];
+  v9.receiver = self;
+  v9.super_class = BooksClient;
+  v2 = [(BooksClient *)&v9 init];
+  v4 = v2;
   if (v2)
   {
-    v3 = BCDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v5 = BCDefaultLog(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v11 = v2;
-      v12 = 2080;
-      v13 = "Oct 10 2025";
+      v13 = v4;
       v14 = 2080;
-      v15 = "21:43:53";
-      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "initialized %@ -- %s; %s", buf, 0x20u);
+      v15 = "Oct 10 2025";
+      v16 = 2080;
+      v17 = "21:43:53";
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "initialized %@ -- %s; %s", buf, 0x20u);
     }
 
-    [(BooksClient *)v2 generateDirectories];
-    v4 = objc_alloc_init(BCLockout);
-    v2->_lockout = v4;
-    [(BCLockout *)v4 setPath:@"/var/mobile/Media/Books/Sync/.bookSync.lock"];
-    v9 = @"com.apple.sync.books.began";
-    [(BCLockout *)v2->_lockout setStartNotifications:[NSArray arrayWithObjects:&v9 count:1]];
-    v8[0] = @"com.apple.sync.books.finished";
-    v8[1] = @"com.apple.books.plist.changed";
-    [(BCLockout *)v2->_lockout setEndNotifications:[NSArray arrayWithObjects:v8 count:2]];
-    v2->_plistsByPath = objc_alloc_init(NSMutableDictionary);
-    v2->_plist_queue = dispatch_queue_create("com.apple.atc.Books.BooksClient.plists", 0);
-    v5 = objc_alloc_init(NSFileCoordinator);
-    v2->_relativePathsToBackup = 0;
-    v2->_fileCoord = v5;
-    v2->_appleIDs = 0;
-    v2->_accountInfos = 0;
+    [(BooksClient *)v4 generateDirectories];
+    v6 = objc_alloc_init(BCLockout);
+    v4->_lockout = v6;
+    [(BCLockout *)v6 setPath:@"/var/mobile/Media/Books/Sync/.bookSync.lock"];
+    v11 = @"com.apple.sync.books.began";
+    [(BCLockout *)v4->_lockout setStartNotifications:[NSArray arrayWithObjects:&v11 count:1]];
+    v10[0] = @"com.apple.sync.books.finished";
+    v10[1] = @"com.apple.books.plist.changed";
+    [(BCLockout *)v4->_lockout setEndNotifications:[NSArray arrayWithObjects:v10 count:2]];
+    v4->_plistsByPath = objc_alloc_init(NSMutableDictionary);
+    v4->_plist_queue = dispatch_queue_create("com.apple.atc.Books.BooksClient.plists", 0);
+    v7 = objc_alloc_init(NSFileCoordinator);
+    v4->_relativePathsToBackup = 0;
+    v4->_fileCoord = v7;
+    v4->_appleIDs = 0;
+    v4->_accountInfos = 0;
   }
 
-  return v2;
+  return v4;
 }
 
 - (void)dealloc
@@ -141,20 +143,20 @@
   self->_plist_queue = 0;
 
   self->_fileCoord = 0;
-  v3 = BCDefaultLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v5 = BCDefaultLog(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_11EEC();
   }
 
-  v4.receiver = self;
-  v4.super_class = BooksClient;
-  [(BooksClient *)&v4 dealloc];
+  v6.receiver = self;
+  v6.super_class = BooksClient;
+  [(BooksClient *)&v6 dealloc];
 }
 
 - (BOOL)raiseLockout
 {
-  v3 = BCDefaultLog();
+  v3 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;
@@ -167,19 +169,19 @@
 
 - (void)lowerLockout
 {
-  [(BCLockout *)self->_lockout unlock];
-  v3 = BCDefaultLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  unlock = [(BCLockout *)self->_lockout unlock];
+  v5 = BCDefaultLog(unlock, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 138412290;
+    v6 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "lowerLockout %@", &v4, 0xCu);
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "lowerLockout %@", &v6, 0xCu);
   }
 }
 
 - (id)supportedDataclasses
 {
-  v2 = BCDefaultLog();
+  v2 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     sub_11F5C();
@@ -190,7 +192,7 @@
 
 - (id)currentSyncAnchor
 {
-  v2 = BCDefaultLog();
+  v2 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     sub_11FCC();
@@ -203,7 +205,7 @@
 {
   if (sync)
   {
-    v9 = BCDefaultLog();
+    v9 = BCDefaultLog(self, a2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -221,7 +223,7 @@
 
   else
   {
-    v11 = BCDefaultLog();
+    v11 = BCDefaultLog(self, a2);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -235,7 +237,7 @@
 - (void)syncEndedWithSuccess:(BOOL)success
 {
   successCopy = success;
-  v4 = BCDefaultLog();
+  v4 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5[0] = 67109120;
@@ -249,26 +251,27 @@
   v4 = objc_alloc_init(NSDate);
   v5 = [[NSDictionary alloc] initWithObjectsAndKeys:{v4, NSFileModificationDate, 0}];
 
-  v9 = 0;
-  v6 = [+[NSFileManager defaultManager](NSFileManager setAttributes:"setAttributes:ofItemAtPath:error:" ofItemAtPath:v5 error:date, &v9];
-  if (!v6)
+  v11 = 0;
+  v6 = [+[NSFileManager defaultManager](NSFileManager setAttributes:"setAttributes:ofItemAtPath:error:" ofItemAtPath:v5 error:date, &v11];
+  v8 = v6;
+  if ((v6 & 1) == 0)
   {
-    if (v9)
+    if (v11)
     {
-      v7 = BCDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = BCDefaultLog(v6, v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        sub_1207C(date, &v9);
+        sub_1207C();
       }
     }
   }
 
-  return v6;
+  return v8;
 }
 
 - (BOOL)reconcileRestoreOfType:(int)type withError:(id *)error
 {
-  v6 = BCDefaultLog();
+  v6 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -281,26 +284,28 @@
   v9 = [BooksClient alternatePathForPlist:@"/var/mobile/Media/Books/Books.plist" withNamePrefix:@"Backup-"];
   v10 = [BooksClient alternatePathForPlist:@"/var/mobile/Media/Books/Purchases/Purchases.plist" withNamePrefix:@"Backup-"];
   v11 = [BooksClient alternatePathForPlist:@"/var/mobile/Media/Books/Managed/Managed.plist" withNamePrefix:@"Backup-"];
-  if ([(NSFileManager *)v7 fileExistsAtPath:v9])
+  v12 = [(NSFileManager *)v7 fileExistsAtPath:v9];
+  if (v12)
   {
-    v12 = BCDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = BCDefaultLog(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Restoring Books.plist from Backup-Books.plist.", buf, 2u);
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Restoring Books.plist from Backup-Books.plist.", buf, 2u);
     }
 
     [(BooksClient *)self removeItemAtPath:@"/var/mobile/Media/Books/Books.plist"];
     [(NSFileManager *)v7 copyItemAtPath:v9 toPath:@"/var/mobile/Media/Books/Books.plist" error:0];
   }
 
-  if ([(NSFileManager *)v7 fileExistsAtPath:v10])
+  v15 = [(NSFileManager *)v7 fileExistsAtPath:v10];
+  if (v15)
   {
-    v13 = BCDefaultLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v17 = BCDefaultLog(v15, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Restoring Purchases.plist from Backup-Purchases.plist.", buf, 2u);
+      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "Restoring Purchases.plist from Backup-Purchases.plist.", buf, 2u);
     }
 
     [(BooksClient *)self removeItemAtPath:@"/var/mobile/Media/Books/Purchases/Purchases.plist"];
@@ -308,96 +313,102 @@
     [(BooksClient *)self bumpModificationDate:@"/var/mobile/Media/Books/Purchases/Purchases.plist"];
   }
 
-  if (-[NSFileManager fileExistsAtPath:](v7, "fileExistsAtPath:", v11) && [+[MCProfileConnection sharedConnection](MCProfileConnection "sharedConnection")])
+  if ([(NSFileManager *)v7 fileExistsAtPath:v11])
   {
-    v14 = BCDefaultLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v18 = [+[MCProfileConnection sharedConnection](MCProfileConnection "sharedConnection")];
+    if (v18)
     {
-      *buf = 0;
-      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Restoring Managed.plist from Backup-Managed.plist.", buf, 2u);
-    }
+      v20 = BCDefaultLog(v18, v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "Restoring Managed.plist from Backup-Managed.plist.", buf, 2u);
+      }
 
-    [(BooksClient *)self removeItemAtPath:@"/var/mobile/Media/Books/Managed/Managed.plist"];
-    [(NSFileManager *)v7 copyItemAtPath:v11 toPath:@"/var/mobile/Media/Books/Managed/Managed.plist" error:0];
-    [(BooksClient *)self bumpModificationDate:@"/var/mobile/Media/Books/Managed/Managed.plist"];
+      [(BooksClient *)self removeItemAtPath:@"/var/mobile/Media/Books/Managed/Managed.plist"];
+      [(NSFileManager *)v7 copyItemAtPath:v11 toPath:@"/var/mobile/Media/Books/Managed/Managed.plist" error:0];
+      [(BooksClient *)self bumpModificationDate:@"/var/mobile/Media/Books/Managed/Managed.plist"];
+    }
   }
 
   [-[BooksClient plistByPath:](self plistByPath:{@"/var/mobile/Media/Books/Books.plist", "resetPaths"}];
   [(BooksClient *)self bumpModificationDate:@"/var/mobile/Media/Books/Books.plist"];
   [-[BooksClient plistByPath:](self plistByPath:{@"/var/mobile/Media/Books/Purchases/Purchases.plist", "resetPaths"}];
   [(BooksClient *)self bumpModificationDate:@"/var/mobile/Media/Books/Purchases/Purchases.plist"];
-  if ([(NSFileManager *)v7 fileExistsAtPath:@"/var/mobile/Media/Books/Sync/Books.plist"])
+  v21 = [(NSFileManager *)v7 fileExistsAtPath:@"/var/mobile/Media/Books/Sync/Books.plist"];
+  if (v21)
   {
-    v15 = BCDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v23 = BCDefaultLog(v21, v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Removing Sync/Books.plist.", buf, 2u);
+      _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "Removing Sync/Books.plist.", buf, 2u);
     }
 
-    [(NSFileManager *)v7 removeItemAtPath:@"/var/mobile/Media/Books/Sync/Books.plist" error:0];
+    v21 = [(NSFileManager *)v7 removeItemAtPath:@"/var/mobile/Media/Books/Sync/Books.plist" error:0];
   }
 
-  v16 = BCDefaultLog();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v24 = BCDefaultLog(v21, v22);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     selfCopy = @"/var/mobile/Media/Books/Sync/Books.plist";
-    _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Creating Sync: %@", buf, 0xCu);
+    _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "Creating Sync: %@", buf, 0xCu);
   }
 
-  v17 = objc_alloc_init(NSMutableArray);
-  v18 = [-[BooksClient plistByPath:](self plistByPath:{@"/var/mobile/Media/Books/Books.plist", "books"}];
-  v19 = BCDefaultLog();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v25 = objc_alloc_init(NSMutableArray);
+  v26 = [-[BooksClient plistByPath:](self plistByPath:{@"/var/mobile/Media/Books/Books.plist", "books"}];
+  v28 = BCDefaultLog(v26, v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = [v18 count];
+    v29 = [v26 count];
     *buf = 134217984;
-    selfCopy = v20;
-    _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "Found %lu books in Books.plist.", buf, 0xCu);
+    selfCopy = v29;
+    _os_log_impl(&dword_0, v28, OS_LOG_TYPE_DEFAULT, "Found %lu books in Books.plist.", buf, 0xCu);
   }
 
-  if ([v18 count])
+  if ([v26 count])
   {
-    [v17 addObjectsFromArray:v18];
+    [v25 addObjectsFromArray:v26];
   }
 
-  v21 = [-[BooksClient plistByPath:](self plistByPath:{@"/var/mobile/Media/Books/Purchases/Purchases.plist", "books"}];
-  v22 = BCDefaultLog();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v30 = [-[BooksClient plistByPath:](self plistByPath:{@"/var/mobile/Media/Books/Purchases/Purchases.plist", "books"}];
+  v32 = BCDefaultLog(v30, v31);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = [v21 count];
+    v33 = [v30 count];
     *buf = 134217984;
-    selfCopy = v23;
-    _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "Found %lu books in Purchases.plist.", buf, 0xCu);
+    selfCopy = v33;
+    _os_log_impl(&dword_0, v32, OS_LOG_TYPE_DEFAULT, "Found %lu books in Purchases.plist.", buf, 0xCu);
   }
 
-  if ([v21 count])
+  v34 = [v30 count];
+  if (v34)
   {
-    [v17 addObjectsFromArray:v21];
+    v34 = [v25 addObjectsFromArray:v30];
   }
 
-  v24 = BCDefaultLog();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v36 = BCDefaultLog(v34, v35);
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = [v17 count];
+    v37 = [v25 count];
     *buf = 134217984;
-    selfCopy = v25;
-    _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "Merging two backups: Total entries: %lu", buf, 0xCu);
+    selfCopy = v37;
+    _os_log_impl(&dword_0, v36, OS_LOG_TYPE_DEFAULT, "Merging two backups: Total entries: %lu", buf, 0xCu);
   }
 
-  if ([v17 count])
+  if ([v25 count])
   {
-    [-[BooksClient plistByPath:](self plistByPath:{@"/var/mobile/Media/Books/Sync/Books.plist", "addItems:", v17}];
+    [-[BooksClient plistByPath:](self plistByPath:{@"/var/mobile/Media/Books/Sync/Books.plist", "addItems:", v25}];
   }
 
   objc_autoreleasePoolPop(v8);
-  v26 = BCDefaultLog();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v40 = BCDefaultLog(v38, v39);
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "reconcileRestoreWithError %@", buf, 0xCu);
+    _os_log_impl(&dword_0, v40, OS_LOG_TYPE_DEFAULT, "reconcileRestoreWithError %@", buf, 0xCu);
   }
 
   [(BooksClient *)self setRestoreSession:1];
@@ -406,7 +417,7 @@
 
 - (void)restoreEndedWithError:(id)error
 {
-  v4 = BCDefaultLog();
+  v4 = BCDefaultLog(self, a2);
   v5 = v4;
   if (error)
   {
@@ -429,12 +440,12 @@
   [(BooksClient *)self trimOutstandingAssetList];
   v4 = objc_alloc_init(NSMutableArray);
   reverseSyncAssets = [(BooksClient *)self reverseSyncAssets];
-  v6 = BCDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = BCDefaultLog(reverseSyncAssets, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v15 = [reverseSyncAssets count];
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Reverse Sync %lu items", buf, 0xCu);
+    v19 = [reverseSyncAssets count];
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Reverse Sync %lu items", buf, 0xCu);
   }
 
   if ([reverseSyncAssets count])
@@ -443,13 +454,13 @@
   }
 
   forwardSyncAssets = [(BooksClient *)self forwardSyncAssets];
-  v8 = BCDefaultLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v10 = BCDefaultLog(forwardSyncAssets, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = [forwardSyncAssets count];
+    v11 = [forwardSyncAssets count];
     *buf = 134217984;
-    v15 = v9;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Forward Sync %lu items", buf, 0xCu);
+    v19 = v11;
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Forward Sync %lu items", buf, 0xCu);
   }
 
   if ([forwardSyncAssets count])
@@ -458,12 +469,12 @@
   }
 
   objc_autoreleasePoolPop(v3);
-  v10 = BCDefaultLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v14 = BCDefaultLog(v12, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = v4;
-    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "ATAssets: %@", &v12, 0xCu);
+    v16 = 138412290;
+    v17 = v4;
+    _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "ATAssets: %@", &v16, 0xCu);
   }
 
   return v4;
@@ -471,7 +482,7 @@
 
 - (id)outstandingAssetTransfersWithDownloadManager:(id)manager
 {
-  v5 = BCDefaultLog();
+  v5 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -481,55 +492,55 @@
   outstandingAssetTransfers = [(BooksClient *)self outstandingAssetTransfers];
   if ([outstandingAssetTransfers count])
   {
+    v19 = 0u;
+    v20 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v7 = [outstandingAssetTransfers countByEnumeratingWithState:&v15 objects:v21 count:16];
-    if (v7)
+    v8 = [outstandingAssetTransfers countByEnumeratingWithState:&v17 objects:v23 count:16];
+    if (v8)
     {
-      v8 = *v16;
+      v9 = *v18;
       do
       {
-        v9 = 0;
+        v10 = 0;
         do
         {
-          if (*v16 != v8)
+          if (*v18 != v9)
           {
             objc_enumerationMutation(outstandingAssetTransfers);
           }
 
-          [*(*(&v15 + 1) + 8 * v9) setVariantOptions:&off_21878];
-          v9 = v9 + 1;
+          [*(*(&v17 + 1) + 8 * v10) setVariantOptions:&off_21878];
+          v10 = v10 + 1;
         }
 
-        while (v7 != v9);
-        v7 = [outstandingAssetTransfers countByEnumeratingWithState:&v15 objects:v21 count:16];
+        while (v8 != v10);
+        v8 = [outstandingAssetTransfers countByEnumeratingWithState:&v17 objects:v23 count:16];
       }
 
-      while (v7);
+      while (v8);
     }
 
-    v10 = [(BooksClient *)self filteredDownloads:manager];
+    v11 = [(BooksClient *)self filteredDownloads:manager];
     downloadCompletePathMap = [(BCAssetDatabase *)[(BooksClient *)self database] downloadCompletePathMap];
-    v12 = BCDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = BCDefaultLog(downloadCompletePathMap, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = v10;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "filteredDownloads: %@", buf, 0xCu);
+      v22 = v11;
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "filteredDownloads: %@", buf, 0xCu);
     }
 
-    [(BooksClient *)self updateAssets:outstandingAssetTransfers withSSDownloads:v10 andDownloadCompletePathMap:downloadCompletePathMap];
+    [(BooksClient *)self updateAssets:outstandingAssetTransfers withSSDownloads:v11 andDownloadCompletePathMap:downloadCompletePathMap];
   }
 
   else
   {
-    v13 = BCDefaultLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = BCDefaultLog(0, v7);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "No assets, not filtering downloads.", buf, 2u);
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "No assets, not filtering downloads.", buf, 2u);
     }
   }
 
@@ -538,7 +549,7 @@
 
 - (void)clearSyncData
 {
-  v3 = BCDefaultLog();
+  v3 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -561,16 +572,17 @@
 - (void)assetTransfer:(id)transfer succeeded:(BOOL)succeeded withError:(id)error
 {
   succeededCopy = succeeded;
-  v9 = BCDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v9 = BCDefaultLog(self, a2);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  if (v10)
   {
-    v12 = 138412802;
+    v14 = 138412802;
     transferCopy = transfer;
-    v14 = 1024;
-    *v15 = succeededCopy;
-    *&v15[4] = 2112;
-    *&v15[6] = error;
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "assetTransfer: %@ success:%d error:%@", &v12, 0x1Cu);
+    v16 = 1024;
+    *v17 = succeededCopy;
+    *&v17[4] = 2112;
+    *&v17[6] = error;
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "assetTransfer: %@ success:%d error:%@", &v14, 0x1Cu);
   }
 
   if (succeededCopy)
@@ -588,34 +600,34 @@
 
   else
   {
-    v10 = BCDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = BCDefaultLog(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v11 = @"Not Recoverable";
+      v13 = @"Not Recoverable";
       if (error)
       {
         if (![objc_msgSend(error "domain")] || objc_msgSend(error, "code") == &dword_4 + 3 || objc_msgSend(error, "code") == &dword_8 || objc_msgSend(error, "code") == &dword_C + 2 || objc_msgSend(error, "code") == &dword_10 || objc_msgSend(error, "code") == &dword_8 + 1 || objc_msgSend(error, "code") == &dword_10 + 2 || objc_msgSend(error, "code") == &dword_4 || objc_msgSend(error, "code") == &dword_10 + 3 || objc_msgSend(error, "code") == &dword_14 || objc_msgSend(error, "code") == &dword_18 + 1 || objc_msgSend(error, "code") == &dword_18 + 3 || objc_msgSend(error, "code") == &dword_18 || objc_msgSend(error, "code") == &dword_1C + 3 || objc_msgSend(error, "code") == &stru_20 || objc_msgSend(error, "code") == &stru_20.cmd + 1)
         {
-          v11 = @"Recoverable";
+          v13 = @"Recoverable";
         }
 
         else
         {
-          v11 = @"Recoverable";
+          v13 = @"Recoverable";
           if ([error code] != &stru_20.cmd + 2 && objc_msgSend(error, "code") != &stru_20.cmd + 3)
           {
-            v11 = @"Not Recoverable";
+            v13 = @"Not Recoverable";
           }
         }
       }
 
-      v12 = 138412802;
-      transferCopy = v11;
-      v14 = 2112;
-      *v15 = transfer;
-      *&v15[8] = 2112;
-      *&v15[10] = error;
-      _os_log_error_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "%@ Error -- Asset: %@; Transfer Error: %@", &v12, 0x20u);
+      v14 = 138412802;
+      transferCopy = v13;
+      v16 = 2112;
+      *v17 = transfer;
+      *&v17[8] = 2112;
+      *&v17[10] = error;
+      _os_log_error_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "%@ Error -- Asset: %@; Transfer Error: %@", &v14, 0x20u);
     }
 
     [(BooksClient *)self handleError:error forAsset:transfer];
@@ -625,7 +637,7 @@
 - (void)assetTransferEndedWithSuccess:(BOOL)success
 {
   successCopy = success;
-  v5 = BCDefaultLog();
+  v5 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6[0] = 67109120;
@@ -641,28 +653,29 @@
 
 - (void)assetInstallSucceeded:(id)succeeded
 {
-  v5 = BCDefaultLog();
+  v5 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412802;
+    v10 = 138412802;
     succeededCopy3 = [succeeded identifier];
-    v10 = 1024;
+    v12 = 1024;
     isDownload = [succeeded isDownload];
-    v12 = 2112;
+    v14 = 2112;
     succeededCopy = succeeded;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "assetInstallSucceeded -- %@ [isDownload: %d] Asset: %@", &v8, 0x1Cu);
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "assetInstallSucceeded -- %@ [isDownload: %d] Asset: %@", &v10, 0x1Cu);
   }
 
   if ([succeeded isDownload])
   {
-    if ([succeeded isRestore])
+    isRestore = [succeeded isRestore];
+    if (isRestore)
     {
-      v6 = BCDefaultLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = BCDefaultLog(isRestore, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 138412290;
+        v10 = 138412290;
         succeededCopy3 = succeeded;
-        _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "assetInstallSucceeded -- %@ [isRestore: YES] now installing the asset", &v8, 0xCu);
+        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "assetInstallSucceeded -- %@ [isRestore: YES] now installing the asset", &v10, 0xCu);
       }
 
       [(BooksClient *)self assetDownloadCompleted:succeeded];
@@ -670,12 +683,12 @@
 
     else
     {
-      v7 = BCDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = BCDefaultLog(isRestore, v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 138412290;
+        v10 = 138412290;
         succeededCopy3 = succeeded;
-        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "assetInstallSucceeded -- %@ [isRestore: NO] just removing this asset from the outstanding database", &v8, 0xCu);
+        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "assetInstallSucceeded -- %@ [isRestore: NO] just removing this asset from the outstanding database", &v10, 0xCu);
       }
 
       if ([objc_msgSend(succeeded "identifier")])
@@ -688,7 +701,7 @@
 
 - (void)assetInstallFailed:(id)failed withError:(id)error
 {
-  v7 = BCDefaultLog();
+  v7 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     if (error)
@@ -724,7 +737,7 @@
 
 - (id)installedAssetMetrics
 {
-  v3 = BCDefaultLog();
+  v3 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_12494();
@@ -732,175 +745,183 @@
 
   [(BooksClient *)self processDeletesFiles];
   v4 = [NSArray arrayWithObjects:@"/var/mobile/Media/Books/Purchases/Purchases.plist", @"/var/mobile/Media/Books/Books.plist", @"/var/mobile/Media/Books/Managed/Managed.plist", 0];
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v39 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v39 objects:v43 count:16];
   if (v5)
   {
-    v6 = v5;
-    v7 = 0;
+    v7 = v5;
     v8 = 0;
-    v9 = *v29;
+    v9 = 0;
+    v10 = *v40;
     do
     {
-      for (i = 0; i != v6; i = i + 1)
+      for (i = 0; i != v7; i = i + 1)
       {
-        if (*v29 != v9)
+        if (*v40 != v10)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = *(*(&v28 + 1) + 8 * i);
-        v26 = 0;
-        v27 = 0;
-        [(BooksClient *)self installedAssetMetrics:&v26 forPlistPath:v11];
-        v8 += v26;
-        v7 += v27;
+        v12 = *(*(&v39 + 1) + 8 * i);
+        v37 = 0;
+        v38 = 0;
+        [(BooksClient *)self installedAssetMetrics:&v37 forPlistPath:v12];
+        v9 += v37;
+        v8 += v38;
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v7 = [(NSArray *)v4 countByEnumeratingWithState:&v39 objects:v43 count:16];
     }
 
-    while (v6);
+    while (v7);
   }
 
   else
   {
-    v7 = 0;
     v8 = 0;
+    v9 = 0;
   }
 
-  v12 = BCDefaultLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = BCDefaultLog(0, v6);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     sub_124D0();
   }
 
-  v26 = 0;
-  v27 = 0;
-  [(BooksClient *)self nonAssetDiskSpaceMetrics:&v26 directory:@"/var/mobile/Media/Books/" recursive:0];
-  v13 = BCDefaultLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v37 = 0;
+  v38 = 0;
+  v14 = [(BooksClient *)self nonAssetDiskSpaceMetrics:&v37 directory:@"/var/mobile/Media/Books/" recursive:0];
+  v16 = BCDefaultLog(v14, v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    sub_12538(&v26);
+    sub_12538();
   }
 
-  v14 = v26;
-  v26 = 0;
-  v27 = 0;
-  [(BooksClient *)self nonAssetDiskSpaceMetrics:&v26 directory:@"/var/mobile/Media/Books/Purchases/" recursive:0];
-  v15 = BCDefaultLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v17 = v37;
+  v37 = 0;
+  v38 = 0;
+  v18 = [(BooksClient *)self nonAssetDiskSpaceMetrics:&v37 directory:@"/var/mobile/Media/Books/Purchases/" recursive:0];
+  v20 = BCDefaultLog(v18, v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
-    sub_125A8(&v26);
+    sub_125A8();
   }
 
-  v16 = v14 + v8;
-  v17 = v26;
-  v26 = 0;
-  v27 = 0;
-  [(BooksClient *)self nonAssetDiskSpaceMetrics:&v26 directory:@"/var/mobile/Media/Books/Sync/" recursive:1];
-  v18 = BCDefaultLog();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v21 = v17 + v9;
+  v22 = v37;
+  v37 = 0;
+  v38 = 0;
+  v23 = [(BooksClient *)self nonAssetDiskSpaceMetrics:&v37 directory:@"/var/mobile/Media/Books/Sync/" recursive:1];
+  v25 = BCDefaultLog(v23, v24);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
   {
-    sub_12618(&v26);
+    sub_12618();
   }
 
-  v19 = v16 + v17;
-  v20 = v26;
-  v26 = 0;
-  v27 = 0;
-  [(BooksClient *)self nonAssetDiskSpaceMetrics:&v26 directory:@"/var/mobile/Media/Books/Managed/" recursive:1];
-  v21 = BCDefaultLog();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+  v26 = v21 + v22;
+  v27 = v37;
+  v37 = 0;
+  v38 = 0;
+  v28 = [(BooksClient *)self nonAssetDiskSpaceMetrics:&v37 directory:@"/var/mobile/Media/Books/Managed/" recursive:1];
+  v30 = BCDefaultLog(v28, v29);
+  v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG);
+  if (v31)
   {
-    sub_12688(&v26);
+    sub_12688();
   }
 
-  v22 = v19 + v20;
-  v23 = v26;
-  v24 = BCDefaultLog();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+  v33 = v26 + v27;
+  v34 = v37;
+  v35 = BCDefaultLog(v31, v32);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
   {
     sub_126F8();
   }
 
-  return [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithLongLong:v7], @"_Count", [NSNumber numberWithLongLong:v22 + v23], @"_PhysicalSize", 0];
+  return [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithLongLong:v8], @"_Count", [NSNumber numberWithLongLong:v33 + v34], @"_PhysicalSize", 0];
 }
 
 - (BOOL)shouldBackgroundRestoreFile:(id)file backupManager:(id)manager
 {
   path = [file path];
-  if (([path hasPrefix:@"/var/mobile/Media/Books/Sync"] & 1) == 0 && !objc_msgSend(path, "hasPrefix:", @"/var/mobile/Media/Books/Managed"))
+  v5 = [path hasPrefix:@"/var/mobile/Media/Books/Sync"];
+  if ((v5 & 1) == 0)
   {
-    v6 = [path hasPrefix:@"/var/mobile/Media/Books"];
-    if (!v6)
+    v5 = [path hasPrefix:@"/var/mobile/Media/Books/Managed"];
+    if (!v5)
     {
-      return v6;
-    }
-
-    if ([+[BooksClient foregroundRestoreWhitelist](BooksClient "foregroundRestoreWhitelist")])
-    {
-      v5 = BCDefaultLog();
-      v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-      if (!v6)
+      v8 = [path hasPrefix:@"/var/mobile/Media/Books"];
+      if (!v8)
       {
-        return v6;
+        return v8;
       }
 
-      v13 = 138412290;
-      v14 = path;
-      v7 = "Restoring in foreground: %@";
-      goto LABEL_5;
-    }
-
-    v8 = [+[BooksClient bookExtensions](BooksClient "bookExtensions")];
-    v9 = BCDefaultLog();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-    if (v8)
-    {
+      v10 = [+[BooksClient foregroundRestoreWhitelist](BooksClient "foregroundRestoreWhitelist")];
       if (v10)
       {
-        v13 = 138412290;
-        v14 = path;
-        v11 = "Found book in backup, restoring in background: %@";
-LABEL_15:
-        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, v11, &v13, 0xCu);
+        v7 = BCDefaultLog(v10, v11);
+        v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+        if (!v8)
+        {
+          return v8;
+        }
+
+        v19 = 138412290;
+        v20 = path;
+        v9 = "Restoring in foreground: %@";
+        goto LABEL_5;
       }
-    }
 
-    else if (v10)
-    {
-      v13 = 138412290;
-      v14 = path;
-      v11 = "Restoring in background: %@";
-      goto LABEL_15;
-    }
+      v12 = [+[BooksClient bookExtensions](BooksClient "bookExtensions")];
+      v13 = v12;
+      v15 = BCDefaultLog(v12, v14);
+      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+      if (v13)
+      {
+        if (v16)
+        {
+          v19 = 138412290;
+          v20 = path;
+          v17 = "Found book in backup, restoring in background: %@";
+LABEL_15:
+          _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, v17, &v19, 0xCu);
+        }
+      }
 
-    LOBYTE(v6) = 1;
-    return v6;
+      else if (v16)
+      {
+        v19 = 138412290;
+        v20 = path;
+        v17 = "Restoring in background: %@";
+        goto LABEL_15;
+      }
+
+      LOBYTE(v8) = 1;
+      return v8;
+    }
   }
 
-  v5 = BCDefaultLog();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-  if (v6)
+  v7 = BCDefaultLog(v5, v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  if (v8)
   {
-    v13 = 138412290;
-    v14 = path;
-    v7 = "Restoring managed or sync file in foreground: %@";
+    v19 = 138412290;
+    v20 = path;
+    v9 = "Restoring managed or sync file in foreground: %@";
 LABEL_5:
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, v7, &v13, 0xCu);
-    LOBYTE(v6) = 0;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, v9, &v19, 0xCu);
+    LOBYTE(v8) = 0;
   }
 
-  return v6;
+  return v8;
 }
 
 - (void)assetDownloadCompleted:(id)completed
 {
-  v5 = BCDefaultLog();
+  v5 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -908,13 +929,22 @@ LABEL_5:
     _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Asset downloaded successfully: %@", buf, 0xCu);
   }
 
-  if (([objc_msgSend(completed "path")] & 1) == 0 && objc_msgSend(objc_msgSend(completed, "path"), "length") && (objc_msgSend(objc_msgSend(completed, "path"), "hasPrefix:", @"/var/mobile/Media/") & 1) == 0)
+  v6 = [objc_msgSend(completed "path")];
+  if ((v6 & 1) == 0)
   {
-    [completed setPath:{objc_msgSend(@"/var/mobile/Media/", "stringByAppendingString:", objc_msgSend(completed, "path"))}];
+    v6 = [objc_msgSend(completed "path")];
+    if (v6)
+    {
+      v6 = [objc_msgSend(completed "path")];
+      if ((v6 & 1) == 0)
+      {
+        v6 = [completed setPath:{objc_msgSend(@"/var/mobile/Media/", "stringByAppendingString:", objc_msgSend(completed, "path"))}];
+      }
+    }
   }
 
-  v6 = BCDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v8 = BCDefaultLog(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     isRestore = [completed isRestore];
     bypassStore = [completed bypassStore];
@@ -922,13 +952,14 @@ LABEL_5:
     *&buf[4] = isRestore;
     *&buf[8] = 1024;
     *&buf[10] = bypassStore;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "isRestore: %d; BypassStore: %d", buf, 0xEu);
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "isRestore: %d; BypassStore: %d", buf, 0xEu);
   }
 
-  if ([objc_msgSend(completed "path")] && objc_msgSend(objc_msgSend(completed, "identifier"), "length"))
+  v11 = [objc_msgSend(completed "path")];
+  if (v11 && (v11 = [objc_msgSend(completed "identifier")]) != 0)
   {
-    v9 = BCDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v13 = BCDefaultLog(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       path = [completed path];
       identifier = [completed identifier];
@@ -936,7 +967,7 @@ LABEL_5:
       *&buf[4] = path;
       *&buf[12] = 2112;
       *&buf[14] = identifier;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "assetDownloadCompleted -- Updating OustandingAsset database %@ -> %@", buf, 0x16u);
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "assetDownloadCompleted -- Updating OustandingAsset database %@ -> %@", buf, 0x16u);
     }
 
     -[BCAssetDatabase setDownloadPath:forOutstandingAssetsByPersistentID:](-[BooksClient database](self, "database"), "setDownloadPath:forOutstandingAssetsByPersistentID:", [completed path], objc_msgSend(completed, "identifier"));
@@ -944,75 +975,78 @@ LABEL_5:
 
   else
   {
-    v12 = BCDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v16 = BCDefaultLog(v11, v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_12760();
     }
   }
 
-  v13 = [objc_msgSend(completed "path")];
-  if (([v13 hasSuffix:@"/"] & 1) == 0)
+  v17 = [objc_msgSend(completed "path")];
+  if (([v17 hasSuffix:@"/"] & 1) == 0)
   {
-    v13 = [v13 stringByAppendingString:@"/"];
+    v17 = [v17 stringByAppendingString:@"/"];
   }
 
-  if ([v13 isEqualToString:@"/var/mobile/Media/Books/"])
+  v18 = [v17 isEqualToString:@"/var/mobile/Media/Books/"];
+  if (v18)
   {
-    v14 = BooksPlistPath;
+    v20 = BooksPlistPath;
   }
 
   else
   {
-    if (![v13 isEqualToString:@"/var/mobile/Media/Books/Purchases/"])
+    v18 = [v17 isEqualToString:@"/var/mobile/Media/Books/Purchases/"];
+    if (!v18)
     {
       goto LABEL_25;
     }
 
-    v14 = PurchasesPlistPath;
+    v20 = PurchasesPlistPath;
   }
 
-  v15 = *v14;
-  if (*v14)
+  v21 = *v20;
+  if (*v20)
   {
-    v16 = objc_autoreleasePoolPush();
-    v17 = [(BooksClient *)self plistByPath:v15];
-    v18 = +[NSMutableArray arrayWithArray:](NSMutableArray, "arrayWithArray:", [v17 books]);
+    v22 = objc_autoreleasePoolPush();
+    v23 = [(BooksClient *)self plistByPath:v21];
+    v24 = +[NSMutableArray arrayWithArray:](NSMutableArray, "arrayWithArray:", [v23 books]);
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v30 = 0;
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_53F8;
-    v22[3] = &unk_204D0;
-    v22[4] = completed;
-    v22[5] = v18;
-    v22[6] = buf;
-    [(NSMutableArray *)v18 enumerateObjectsUsingBlock:v22];
+    v40 = 0;
+    v32[0] = _NSConcreteStackBlock;
+    v32[1] = 3221225472;
+    v32[2] = sub_53F8;
+    v32[3] = &unk_204D0;
+    v32[4] = completed;
+    v32[5] = v24;
+    v32[6] = buf;
+    v25 = [(NSMutableArray *)v24 enumerateObjectsUsingBlock:v32];
     if (*(*&buf[8] + 24) == 1)
     {
-      [v17 replaceItems:v18];
+      [v23 replaceItems:v24];
     }
 
     else
     {
-      v20 = BCDefaultLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v28 = BCDefaultLog(v25, v26);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        *v23 = 138412802;
+        *v33 = 138412802;
         completedCopy = completed;
-        v25 = 2112;
-        v26 = v15;
-        v27 = 2112;
-        v28 = v18;
-        _os_log_error_impl(&dword_0, v20, OS_LOG_TYPE_ERROR, "assetDownloadCompleted -- Couldn't find entry in plist for asset %@.  PlistPath: %@ Entries: %@", v23, 0x20u);
+        v35 = 2112;
+        v36 = v21;
+        v37 = 2112;
+        v38 = v24;
+        _os_log_error_impl(&dword_0, v28, OS_LOG_TYPE_ERROR, "assetDownloadCompleted -- Couldn't find entry in plist for asset %@.  PlistPath: %@ Entries: %@", v33, 0x20u);
       }
 
-      if ([objc_msgSend(completed "identifier")])
+      v29 = [objc_msgSend(completed "identifier")];
+      if (v29)
       {
-        v21 = BCDefaultLog();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v31 = BCDefaultLog(v29, v30);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           sub_127C8();
         }
@@ -1022,13 +1056,13 @@ LABEL_5:
     }
 
     _Block_object_dispose(buf, 8);
-    objc_autoreleasePoolPop(v16);
+    objc_autoreleasePoolPop(v22);
     return;
   }
 
 LABEL_25:
-  v19 = BCDefaultLog();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  v27 = BCDefaultLog(v18, v19);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
   {
     sub_12830();
   }
@@ -1036,7 +1070,7 @@ LABEL_25:
 
 - (void)assetUploadCompleted:(id)completed
 {
-  v4 = BCDefaultLog();
+  v4 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;
@@ -1047,217 +1081,225 @@ LABEL_25:
 
 - (void)prepareForBackup
 {
-  v3 = BCDefaultLog();
+  selfCopy = self;
+  v3 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Preparing for backup.", buf, 2u);
   }
 
-  self->_appleIDs = 0;
-  self->_accountInfos = 0;
+  selfCopy->_appleIDs = 0;
+  selfCopy->_accountInfos = 0;
 
-  self->_relativePathsToBackup = 0;
-  [(BooksClient *)self setPathsForDevice2DeviceRestoreRedownloadable:+[NSMutableArray array]];
-  [(BooksClient *)self setPathsForDevice2DeviceRestoreLocal:+[NSMutableArray array]];
-  v39 = objc_autoreleasePoolPush();
+  selfCopy->_relativePathsToBackup = 0;
+  [(BooksClient *)selfCopy setPathsForDevice2DeviceRestoreRedownloadable:+[NSMutableArray array]];
+  [(BooksClient *)selfCopy setPathsForDevice2DeviceRestoreLocal:+[NSMutableArray array]];
+  v55 = objc_autoreleasePoolPush();
   v4 = +[NSMutableArray array];
   v5 = +[NSMutableArray array];
   v6 = +[NSFileManager defaultManager];
-  [(BooksClient *)self processDeletesFiles];
-  [(BooksClient *)self regeneratePersistentIDsForPlist:@"/var/mobile/Media/Books/Books.plist"];
-  [(BooksClient *)self regeneratePersistentIDsForPlist:@"/var/mobile/Media/Books/Purchases/Purchases.plist"];
-  [(BooksClient *)self regenerateEstimatedDownloadSizesForPlist:@"/var/mobile/Media/Books/Books.plist"];
-  [(BooksClient *)self regenerateEstimatedDownloadSizesForPlist:@"/var/mobile/Media/Books/Purchases/Purchases.plist"];
+  [(BooksClient *)selfCopy processDeletesFiles];
+  [(BooksClient *)selfCopy regeneratePersistentIDsForPlist:@"/var/mobile/Media/Books/Books.plist"];
+  [(BooksClient *)selfCopy regeneratePersistentIDsForPlist:@"/var/mobile/Media/Books/Purchases/Purchases.plist"];
+  [(BooksClient *)selfCopy regenerateEstimatedDownloadSizesForPlist:@"/var/mobile/Media/Books/Books.plist"];
+  [(BooksClient *)selfCopy regenerateEstimatedDownloadSizesForPlist:@"/var/mobile/Media/Books/Purchases/Purchases.plist"];
   v7 = [BooksClient alternatePathForPlist:@"/var/mobile/Media/Books/Books.plist" withNamePrefix:@"Backup-"];
-  [(BooksClient *)self removeItemAtPath:v7];
+  [(BooksClient *)selfCopy removeItemAtPath:v7];
   [(NSFileManager *)v6 copyItemAtPath:@"/var/mobile/Media/Books/Books.plist" toPath:v7 error:0];
   v8 = [BooksClient alternatePathForPlist:@"/var/mobile/Media/Books/Purchases/Purchases.plist" withNamePrefix:@"Backup-"];
-  [(BooksClient *)self removeItemAtPath:v8];
+  [(BooksClient *)selfCopy removeItemAtPath:v8];
   [(NSFileManager *)v6 copyItemAtPath:@"/var/mobile/Media/Books/Purchases/Purchases.plist" toPath:v8 error:0];
   v9 = [NSArray arrayWithObjects:@"/var/mobile/Media/Books/iBooksData.plist", @"/var/mobile/Media/Books/iBooksData2.plist", @"/var/mobile/Media/Books/Sync/Artwork/", v7, v8, 0];
   obj = v5;
   [v5 addObjectsFromArray:v9];
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v46 objects:v53 count:16];
+  v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v62 objects:v69 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v47;
+    v12 = *v63;
     do
     {
       for (i = 0; i != v11; i = i + 1)
       {
-        if (*v47 != v12)
+        if (*v63 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v46 + 1) + 8 * i);
-        if ([(NSFileManager *)v6 fileExistsAtPath:v14])
+        v14 = *(*(&v62 + 1) + 8 * i);
+        v15 = [(NSFileManager *)v6 fileExistsAtPath:v14];
+        if (v15)
         {
-          selfCopy = self;
-          v16 = BCDefaultLog();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v17 = selfCopy;
+          v18 = BCDefaultLog(v15, v16);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v52 = v14;
-            _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "#D2D: Adding potential D2D Local path: %@", buf, 0xCu);
+            v68 = v14;
+            _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "#D2D: Adding potential D2D Local path: %@", buf, 0xCu);
           }
 
-          self = selfCopy;
-          [(NSMutableArray *)selfCopy->_pathsForDevice2DeviceRestoreLocal addObject:v14];
+          selfCopy = v17;
+          [(NSMutableArray *)v17->_pathsForDevice2DeviceRestoreLocal addObject:v14];
         }
       }
 
-      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v46 objects:v53 count:16];
+      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v62 objects:v69 count:16];
     }
 
     while (v11);
   }
 
-  v45[0] = _NSConcreteStackBlock;
-  v45[1] = 3221225472;
-  v45[2] = sub_5CEC;
-  v45[3] = &unk_204F8;
-  v45[4] = self;
-  v45[5] = obj;
-  [(BooksClient *)self iteratePathsForPlist:@"/var/mobile/Media/Books/Purchases/Purchases.plist" processingBlock:v45];
-  [(BooksClient *)self iteratePathsForPlist:@"/var/mobile/Media/Books/Books.plist" processingBlock:v45];
-  v17 = [+[MCProfileConnection sharedConnection](MCProfileConnection "sharedConnection")];
-  v18 = BCDefaultLog();
-  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
-  if (v17)
+  v61[0] = _NSConcreteStackBlock;
+  v61[1] = 3221225472;
+  v61[2] = sub_5CEC;
+  v61[3] = &unk_204F8;
+  v61[4] = selfCopy;
+  v61[5] = obj;
+  [(BooksClient *)selfCopy iteratePathsForPlist:@"/var/mobile/Media/Books/Purchases/Purchases.plist" processingBlock:v61];
+  [(BooksClient *)selfCopy iteratePathsForPlist:@"/var/mobile/Media/Books/Books.plist" processingBlock:v61];
+  v19 = [+[MCProfileConnection sharedConnection](MCProfileConnection "sharedConnection")];
+  v20 = v19;
+  v22 = BCDefaultLog(v19, v21);
+  v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+  if (v20)
   {
-    v20 = v39;
-    if (v19)
+    v24 = v55;
+    if (v23)
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Backing up managed content.", buf, 2u);
+      _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "Backing up managed content.", buf, 2u);
     }
 
-    v21 = [BooksClient alternatePathForPlist:@"/var/mobile/Media/Books/Managed/Managed.plist" withNamePrefix:@"Backup-"];
-    [(BooksClient *)self removeItemAtPath:v21];
-    [(NSFileManager *)v6 copyItemAtPath:@"/var/mobile/Media/Books/Managed/Managed.plist" toPath:v21 error:0];
-    [obj addObject:v21];
-    if ([(NSFileManager *)v6 fileExistsAtPath:v21])
+    v25 = [BooksClient alternatePathForPlist:@"/var/mobile/Media/Books/Managed/Managed.plist" withNamePrefix:@"Backup-"];
+    [(BooksClient *)selfCopy removeItemAtPath:v25];
+    [(NSFileManager *)v6 copyItemAtPath:@"/var/mobile/Media/Books/Managed/Managed.plist" toPath:v25 error:0];
+    [obj addObject:v25];
+    v26 = [(NSFileManager *)v6 fileExistsAtPath:v25];
+    if (v26)
     {
-      v22 = BCDefaultLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v28 = BCDefaultLog(v26, v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v52 = v21;
-        _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "#D2D: Adding potential D2D Local path: %@", buf, 0xCu);
+        v68 = v25;
+        _os_log_impl(&dword_0, v28, OS_LOG_TYPE_DEFAULT, "#D2D: Adding potential D2D Local path: %@", buf, 0xCu);
       }
 
-      [(NSMutableArray *)self->_pathsForDevice2DeviceRestoreLocal addObject:v21];
+      [(NSMutableArray *)selfCopy->_pathsForDevice2DeviceRestoreLocal addObject:v25];
     }
 
-    [(BooksClient *)self iteratePathsForPlist:@"/var/mobile/Media/Books/Managed/Managed.plist" processingBlock:v45];
+    [(BooksClient *)selfCopy iteratePathsForPlist:@"/var/mobile/Media/Books/Managed/Managed.plist" processingBlock:v61];
   }
 
   else
   {
-    v20 = v39;
-    if (v19)
+    v24 = v55;
+    if (v23)
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Enterprise backup is not allowed - skipping managed content.", buf, 2u);
+      _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "Enterprise backup is not allowed - skipping managed content.", buf, 2u);
     }
   }
 
-  v23 = [@"/var/mobile/Media/Books/" length];
-  v41 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v24 = [obj countByEnumeratingWithState:&v41 objects:v50 count:16];
-  if (v24)
+  v29 = [@"/var/mobile/Media/Books/" length];
+  v57 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  v30 = [obj countByEnumeratingWithState:&v57 objects:v66 count:16];
+  if (v30)
   {
-    v25 = v24;
-    v26 = *v42;
+    v31 = v30;
+    v32 = *v58;
     do
     {
-      for (j = 0; j != v25; j = j + 1)
+      for (j = 0; j != v31; j = j + 1)
       {
-        if (*v42 != v26)
+        if (*v58 != v32)
         {
           objc_enumerationMutation(obj);
         }
 
-        v28 = *(*(&v41 + 1) + 8 * j);
-        if ([v28 hasPrefix:@"/var/mobile/Media/Books/"])
+        v34 = *(*(&v57 + 1) + 8 * j);
+        if ([v34 hasPrefix:@"/var/mobile/Media/Books/"])
         {
-          v28 = [v28 substringFromIndex:v23];
-          if (![v28 length])
+          v34 = [v34 substringFromIndex:v29];
+          if (![v34 length])
           {
             continue;
           }
         }
 
-        [v4 addObject:v28];
+        [v4 addObject:v34];
       }
 
-      v25 = [obj countByEnumeratingWithState:&v41 objects:v50 count:16];
+      v31 = [obj countByEnumeratingWithState:&v57 objects:v66 count:16];
     }
 
-    while (v25);
+    while (v31);
   }
 
-  self->_relativePathsToBackup = [[NSArray alloc] initWithArray:v4];
-  objc_autoreleasePoolPop(v20);
-  v29 = BCDefaultLog();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+  selfCopy->_relativePathsToBackup = [[NSArray alloc] initWithArray:v4];
+  objc_autoreleasePoolPop(v24);
+  v37 = BCDefaultLog(v35, v36);
+  v38 = os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT);
+  if (v38)
   {
-    relativePathsToBackup = self->_relativePathsToBackup;
+    relativePathsToBackup = selfCopy->_relativePathsToBackup;
     *buf = 138412290;
-    v52 = relativePathsToBackup;
-    _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, "computed pathsToBackup %@", buf, 0xCu);
+    v68 = relativePathsToBackup;
+    _os_log_impl(&dword_0, v37, OS_LOG_TYPE_DEFAULT, "computed pathsToBackup %@", buf, 0xCu);
   }
 
-  v31 = BCDefaultLog();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+  v41 = BCDefaultLog(v38, v39);
+  v42 = os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT);
+  if (v42)
   {
-    pathsForDevice2DeviceRestoreRedownloadable = [(BooksClient *)self pathsForDevice2DeviceRestoreRedownloadable];
+    pathsForDevice2DeviceRestoreRedownloadable = [(BooksClient *)selfCopy pathsForDevice2DeviceRestoreRedownloadable];
     *buf = 138412290;
-    v52 = pathsForDevice2DeviceRestoreRedownloadable;
-    _os_log_impl(&dword_0, v31, OS_LOG_TYPE_DEFAULT, "#D2D: computed pathsForDevice2DeviceRestoreRedownloadable %@", buf, 0xCu);
+    v68 = pathsForDevice2DeviceRestoreRedownloadable;
+    _os_log_impl(&dword_0, v41, OS_LOG_TYPE_DEFAULT, "#D2D: computed pathsForDevice2DeviceRestoreRedownloadable %@", buf, 0xCu);
   }
 
-  v33 = BCDefaultLog();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  v45 = BCDefaultLog(v42, v43);
+  v46 = os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT);
+  if (v46)
   {
-    pathsForDevice2DeviceRestoreLocal = [(BooksClient *)self pathsForDevice2DeviceRestoreLocal];
+    pathsForDevice2DeviceRestoreLocal = [(BooksClient *)selfCopy pathsForDevice2DeviceRestoreLocal];
     *buf = 138412290;
-    v52 = pathsForDevice2DeviceRestoreLocal;
-    _os_log_impl(&dword_0, v33, OS_LOG_TYPE_DEFAULT, "#D2D: computed pathsForDevice2DeviceRestoreLocal %@", buf, 0xCu);
+    v68 = pathsForDevice2DeviceRestoreLocal;
+    _os_log_impl(&dword_0, v45, OS_LOG_TYPE_DEFAULT, "#D2D: computed pathsForDevice2DeviceRestoreLocal %@", buf, 0xCu);
   }
 
-  v35 = BCDefaultLog();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+  v49 = BCDefaultLog(v46, v47);
+  v50 = os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT);
+  if (v50)
   {
-    appleIDs = self->_appleIDs;
+    appleIDs = selfCopy->_appleIDs;
     *buf = 138412290;
-    v52 = appleIDs;
-    _os_log_impl(&dword_0, v35, OS_LOG_TYPE_DEFAULT, "computed AppleIDs %@", buf, 0xCu);
+    v68 = appleIDs;
+    _os_log_impl(&dword_0, v49, OS_LOG_TYPE_DEFAULT, "computed AppleIDs %@", buf, 0xCu);
   }
 
-  v37 = BCDefaultLog();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+  v53 = BCDefaultLog(v50, v51);
+  if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
   {
-    accountInfos = self->_accountInfos;
+    accountInfos = selfCopy->_accountInfos;
     *buf = 138412290;
-    v52 = accountInfos;
-    _os_log_impl(&dword_0, v37, OS_LOG_TYPE_DEFAULT, "computed accountInfos %@", buf, 0xCu);
+    v68 = accountInfos;
+    _os_log_impl(&dword_0, v53, OS_LOG_TYPE_DEFAULT, "computed accountInfos %@", buf, 0xCu);
   }
 }
 
 - (void)backupEnded
 {
-  v3 = BCDefaultLog();
+  v3 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -1274,28 +1316,30 @@ LABEL_25:
 
 - (void)pathsToBackup:(id *)backup pathsNotToBackup:(id *)toBackup
 {
+  selfCopy = self;
   if (!self->_relativePathsToBackup)
   {
-    [(BooksClient *)self prepareForBackup];
+    self = [(BooksClient *)self prepareForBackup];
   }
 
   if (backup)
   {
-    v7 = BCDefaultLog();
+    v7 = BCDefaultLog(self, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      relativePathsToBackup = self->_relativePathsToBackup;
+      relativePathsToBackup = selfCopy->_relativePathsToBackup;
       v10 = 138412290;
       v11 = relativePathsToBackup;
       _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "pathsToBackup %@", &v10, 0xCu);
     }
 
-    *backup = self->_relativePathsToBackup;
+    self = selfCopy->_relativePathsToBackup;
+    *backup = self;
   }
 
   if (toBackup)
   {
-    v9 = BCDefaultLog();
+    v9 = BCDefaultLog(self, a2);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 67109120;
@@ -1309,7 +1353,7 @@ LABEL_25:
 
 - (id)enumeratePathsForBackupType:(int)type usingBlock:(id)block
 {
-  v7 = BCDefaultLog();
+  v7 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -1350,7 +1394,7 @@ LABEL_25:
   appleIDs = self->_appleIDs;
   if (!appleIDs)
   {
-    v4 = BCDefaultLog();
+    v4 = BCDefaultLog(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v6 = 0;
@@ -1369,7 +1413,7 @@ LABEL_25:
   accountInfos = self->_accountInfos;
   if (!accountInfos)
   {
-    v4 = BCDefaultLog();
+    v4 = BCDefaultLog(self, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v6 = 0;
@@ -1386,12 +1430,12 @@ LABEL_25:
 - (void)trimOutstandingAssetList
 {
   v3 = [(BooksClient *)self persistentIDsMerged:1];
-  v4 = BCDefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = BCDefaultLog(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 134217984;
-    v6 = [v3 count];
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Trimming Outstanding Asset List: %lu known items", &v5, 0xCu);
+    v6 = 134217984;
+    v7 = [v3 count];
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Trimming Outstanding Asset List: %lu known items", &v6, 0xCu);
   }
 
   [(BCAssetDatabase *)[(BooksClient *)self database] removeOutstandingAssetsByPersistentIDs:v3];
@@ -1409,10 +1453,10 @@ LABEL_25:
     v9 = 0;
     if (*error)
     {
-      v10 = BCDefaultLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = BCDefaultLog(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        sub_12898(error, v10, v11, v12, v13, v14, v15, v16);
+        sub_12898(error, v11, v12, v13, v14, v15, v16, v17);
       }
 
       return v8;
@@ -1421,12 +1465,12 @@ LABEL_25:
 
   else
   {
-    v17 = 0;
+    v9 = 0;
   }
 
   if (!v8)
   {
-    v18 = BCDefaultLog();
+    v18 = BCDefaultLog(v9, v10);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_12908();
@@ -1457,116 +1501,120 @@ LABEL_25:
   }
 
   v7 = [(BooksClient *)self persistentIDsFromBookRecords:v6];
-  [(BCAssetDatabase *)[(BooksClient *)self database] removeOutstandingAssetMissingFromPersistentIDs:v7];
-  v8 = BCDefaultLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v8 = [(BCAssetDatabase *)[(BooksClient *)self database] removeOutstandingAssetMissingFromPersistentIDs:v7];
+  v10 = BCDefaultLog(v8, v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
+  if (v11)
   {
     sub_12948();
   }
 
-  v9 = BCDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v13 = BCDefaultLog(v11, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     sub_129B8();
   }
 
   callbackCopy->invoke(callbackCopy, 0.166666667);
-  v10 = [(BooksClient *)self persistentIDsMerged:1];
-  v11 = BCDefaultLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138412290;
-    v28 = v10;
-    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Assets we have: %@", buf, 0xCu);
-  }
-
-  [(BCAssetDatabase *)[(BooksClient *)self database] removeOutstandingAssetsByPersistentIDs:v10];
-  v12 = [objc_msgSend(v7 presortedArrayRemovingMatchingPresortedStrings:{v10), "presortedArrayRemovingMatchingPresortedStrings:", reverseSyncPersistentIDs}];
-  if (![(BooksClient *)self isRestoreSession])
-  {
-    v13 = [-[BCAssetDatabase outstandingAssetsByRestoreFlag:](-[BooksClient database](self "database")];
-    if ([v13 count])
-    {
-      v12 = [v12 presortedArrayRemovingMatchingPresortedStrings:{objc_msgSend(v13, "sortedArrayUsingSelector:", "compare:")}];
-    }
-  }
-
-  v14 = BCDefaultLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138412290;
-    v28 = v12;
-    _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Assets we need: %@", buf, 0xCu);
-  }
-
-  callbackCopy->invoke(callbackCopy, 0.333333333);
-  v15 = [(BooksClient *)self persistentIDsMerged:0];
-  v16 = BCDefaultLog();
+  v14 = [(BooksClient *)self persistentIDsMerged:1];
+  v16 = BCDefaultLog(v14, v15);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v28 = v15;
-    _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Assets we've seen: %@", buf, 0xCu);
+    v38 = v14;
+    _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Assets we have: %@", buf, 0xCu);
   }
 
-  v26 = reverseSyncPersistentIDs;
-  v17 = [objc_msgSend(v15 presortedArrayRemovingMatchingPresortedStrings:{v7), "presortedArrayRemovingMatchingPresortedStrings:", reverseSyncPersistentIDs}];
-  v18 = BCDefaultLog();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  [(BCAssetDatabase *)[(BooksClient *)self database] removeOutstandingAssetsByPersistentIDs:v14];
+  v17 = [objc_msgSend(v7 presortedArrayRemovingMatchingPresortedStrings:{v14), "presortedArrayRemovingMatchingPresortedStrings:", reverseSyncPersistentIDs}];
+  isRestoreSession = [(BooksClient *)self isRestoreSession];
+  if ((isRestoreSession & 1) == 0)
+  {
+    v20 = [-[BCAssetDatabase outstandingAssetsByRestoreFlag:](-[BooksClient database](self "database")];
+    isRestoreSession = [v20 count];
+    if (isRestoreSession)
+    {
+      isRestoreSession = [v17 presortedArrayRemovingMatchingPresortedStrings:{objc_msgSend(v20, "sortedArrayUsingSelector:", "compare:")}];
+      v17 = isRestoreSession;
+    }
+  }
+
+  v21 = BCDefaultLog(isRestoreSession, v19);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v28 = v17;
-    _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Assets to exclude: %@", buf, 0xCu);
+    v38 = v17;
+    _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "Assets we need: %@", buf, 0xCu);
   }
 
-  if ([v12 count])
+  callbackCopy->invoke(callbackCopy, 0.333333333);
+  v22 = [(BooksClient *)self persistentIDsMerged:0];
+  v24 = BCDefaultLog(v22, v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = -[BooksClient commitOutstandingAssets:](self, "commitOutstandingAssets:", [v6 presortedArrayOfObjectsContainingMatchingKey:@"Persistent ID" matchingPresortedStrings:v12]);
-    v20 = [v12 presortedArrayRemovingMatchingPresortedStrings:v15];
-    v21 = BCDefaultLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    *buf = 138412290;
+    v38 = v22;
+    _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "Assets we've seen: %@", buf, 0xCu);
+  }
+
+  v36 = reverseSyncPersistentIDs;
+  v25 = [objc_msgSend(v22 presortedArrayRemovingMatchingPresortedStrings:{v7), "presortedArrayRemovingMatchingPresortedStrings:", reverseSyncPersistentIDs}];
+  v27 = BCDefaultLog(v25, v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v38 = v25;
+    _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "Assets to exclude: %@", buf, 0xCu);
+  }
+
+  if ([v17 count])
+  {
+    v28 = -[BooksClient commitOutstandingAssets:](self, "commitOutstandingAssets:", [v6 presortedArrayOfObjectsContainingMatchingKey:@"Persistent ID" matchingPresortedStrings:v17]);
+    v29 = [v17 presortedArrayRemovingMatchingPresortedStrings:v22];
+    v31 = BCDefaultLog(v29, v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v28 = v20;
-      _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "Assets To append: %@", buf, 0xCu);
+      v38 = v29;
+      _os_log_impl(&dword_0, v31, OS_LOG_TYPE_DEFAULT, "Assets To append: %@", buf, 0xCu);
     }
 
-    v22 = [v6 presortedArrayOfObjectsContainingMatchingKey:@"Persistent ID" matchingPresortedStrings:v20];
+    v32 = [v6 presortedArrayOfObjectsContainingMatchingKey:@"Persistent ID" matchingPresortedStrings:v29];
   }
 
   else
   {
-    v22 = 0;
-    v19 = 1;
+    v32 = 0;
+    v28 = 1;
   }
 
-  v23 = [v7 arrayByAddingObjectsFromArray:v26];
+  v33 = [v7 arrayByAddingObjectsFromArray:v36];
   callbackCopy->invoke(callbackCopy, 0.5);
-  v24 = [BCPlist promisableItemsFromItems:v22];
-  if (![v24 count] && !objc_msgSend(v17, "count"))
+  v34 = [BCPlist promisableItemsFromItems:v32];
+  if (![v34 count] && !objc_msgSend(v25, "count"))
   {
-    v19 = 1;
+    v28 = 1;
     goto LABEL_32;
   }
 
   if ([(BooksClient *)self raiseLockout])
   {
-    [(BooksClient *)self removeKnownItems:v17];
-    [(BooksClient *)self addItems:v24 toPlist:@"/var/mobile/Media/Books/Books.plist"];
+    [(BooksClient *)self removeKnownItems:v25];
+    [(BooksClient *)self addItems:v34 toPlist:@"/var/mobile/Media/Books/Books.plist"];
     [(BooksClient *)self lowerLockout];
 LABEL_32:
     callbackCopy->invoke(callbackCopy, 0.666666667);
     [(BooksClient *)self deleteOrphanedFiles];
-    [(BooksClient *)self deleteArtworkExcludingFileNames:v23];
-    [(BCAssetDatabase *)[(BooksClient *)self database] removeInstalledAssetsExcluding:v23];
+    [(BooksClient *)self deleteArtworkExcludingFileNames:v33];
+    [(BCAssetDatabase *)[(BooksClient *)self database] removeInstalledAssetsExcluding:v33];
     callbackCopy->invoke(callbackCopy, 0.833333333);
     goto LABEL_33;
   }
 
-  v19 = 0;
+  v28 = 0;
 LABEL_33:
   callbackCopy->invoke(callbackCopy, 1.0);
-  return v19;
+  return v28;
 }
 
 - (void)regeneratePersistentIDsForPlist:(id)plist
@@ -1588,14 +1636,14 @@ LABEL_33:
   v5 = objc_alloc_init(NSAutoreleasePool);
   v6 = [(BooksClient *)self plistByPath:path];
   v7 = [objc_msgSend(v6 "unfilteredPersistentIDs")];
-  v8 = BCDefaultLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = BCDefaultLog(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
+    v10 = 138412546;
     pathCopy = path;
-    v11 = 1024;
-    v12 = [v7 count];
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "removePromisedAssetsByPath: %@ -- %d assets", &v9, 0x12u);
+    v12 = 1024;
+    v13 = [v7 count];
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "removePromisedAssetsByPath: %@ -- %d assets", &v10, 0x12u);
   }
 
   if ([v7 count])
@@ -1606,19 +1654,19 @@ LABEL_33:
 
 - (void)removePromisedAssets
 {
-  v3 = BCDefaultLog();
+  v3 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Removing promised assets by Books.plist.", buf, 2u);
   }
 
-  [(BooksClient *)self removePromisedAssetsByPath:@"/var/mobile/Media/Books/Books.plist"];
-  v4 = BCDefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v4 = [(BooksClient *)self removePromisedAssetsByPath:@"/var/mobile/Media/Books/Books.plist"];
+  v6 = BCDefaultLog(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Removing promised assets by Purchases.plist.", v5, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Removing promised assets by Purchases.plist.", v7, 2u);
   }
 
   [(BooksClient *)self removePromisedAssetsByPath:@"/var/mobile/Media/Books/Purchases/Purchases.plist"];
@@ -1642,12 +1690,12 @@ LABEL_33:
 
 - (void)handleError:(id)error forAsset:(id)asset
 {
-  if (error && (![objc_msgSend(error "domain")] || objc_msgSend(error, "code") == &dword_4 + 3 || objc_msgSend(error, "code") == &dword_8 || objc_msgSend(error, "code") == &dword_C + 2 || objc_msgSend(error, "code") == &dword_10 || objc_msgSend(error, "code") == &dword_8 + 1 || objc_msgSend(error, "code") == &dword_10 + 2 || objc_msgSend(error, "code") == &dword_4 || objc_msgSend(error, "code") == &dword_10 + 3 || objc_msgSend(error, "code") == &dword_14 || objc_msgSend(error, "code") == &dword_18 + 1 || objc_msgSend(error, "code") == &dword_18 + 3 || objc_msgSend(error, "code") == &dword_18 || objc_msgSend(error, "code") == &dword_1C + 3 || objc_msgSend(error, "code") == &stru_20 || objc_msgSend(error, "code") == &stru_20.cmd + 1 || objc_msgSend(error, "code") == &stru_20.cmd + 2 || objc_msgSend(error, "code") == &stru_20.cmd + 3))
+  if (error && ((v7 = [objc_msgSend(error "domain")], !v7) || (v7 = objc_msgSend(error, "code"), v7 == (&dword_4 + 3)) || (v7 = objc_msgSend(error, "code"), v7 == &dword_8) || (v7 = objc_msgSend(error, "code"), v7 == (&dword_C + 2)) || (v7 = objc_msgSend(error, "code"), v7 == &dword_10) || (v7 = objc_msgSend(error, "code"), v7 == (&dword_8 + 1)) || (v7 = objc_msgSend(error, "code"), v7 == (&dword_10 + 2)) || (v7 = objc_msgSend(error, "code"), v7 == &dword_4) || (v7 = objc_msgSend(error, "code"), v7 == (&dword_10 + 3)) || (v7 = objc_msgSend(error, "code"), v7 == &dword_14) || (v7 = objc_msgSend(error, "code"), v7 == (&dword_18 + 1)) || (v7 = objc_msgSend(error, "code"), v7 == (&dword_18 + 3)) || (v7 = objc_msgSend(error, "code"), v7 == &dword_18) || (v7 = objc_msgSend(error, "code"), v7 == (&dword_1C + 3)) || (v7 = objc_msgSend(error, "code"), v7 == &stru_20) || (v7 = objc_msgSend(error, "code"), v7 == (&stru_20.cmd + 1)) || (v7 = objc_msgSend(error, "code"), v7 == (&stru_20.cmd + 2)) || (v7 = objc_msgSend(error, "code"), v7 == (&stru_20.cmd + 3))))
   {
-    v7 = BCDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = BCDefaultLog(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_12A28(asset, v7);
+      sub_12A28(asset, v9);
     }
   }
 
@@ -1657,19 +1705,20 @@ LABEL_33:
     if ([identifier length])
     {
       isDownload = [asset isDownload];
-      v10 = BCDefaultLog();
-      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
-      if (isDownload)
+      v13 = isDownload;
+      v15 = BCDefaultLog(isDownload, v14);
+      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+      if (v13)
       {
-        if (v11)
+        if (v16)
         {
-          sub_12B18(identifier, self, v10);
+          sub_12B18(identifier, self, v15);
         }
 
         [(BooksClient *)self removeAssetByPersistentID:identifier];
       }
 
-      else if (v11)
+      else if (v16)
       {
         sub_12AB0();
       }
@@ -1677,8 +1726,8 @@ LABEL_33:
 
     else
     {
-      v12 = BCDefaultLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v17 = BCDefaultLog(0, v11);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         sub_12BAC();
       }
@@ -1696,7 +1745,7 @@ LABEL_33:
 
 - (void)iteratePathsForPlist:(id)plist processingBlock:(id)block
 {
-  v7 = BCDefaultLog();
+  v7 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     sub_12C14();
@@ -1764,10 +1813,11 @@ LABEL_33:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v5 = BCDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = BCDefaultLog(isKindOfClass, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_12C84();
     }
@@ -1836,8 +1886,8 @@ LABEL_25:
 
   if (![objc_msgSend(v6 "adamID")])
   {
-    v9 = BCDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = BCDefaultLog(0, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_12D10();
     }
@@ -1845,8 +1895,8 @@ LABEL_25:
 
   if (![objc_msgSend(v6 "storefrontID")])
   {
-    v10 = BCDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = BCDefaultLog(0, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_12D78();
     }
@@ -1854,8 +1904,8 @@ LABEL_25:
 
   if (![objc_msgSend(v6 "appleID")])
   {
-    v11 = BCDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = BCDefaultLog(0, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_12DE0();
     }
@@ -1863,8 +1913,8 @@ LABEL_25:
 
   if (![objc_msgSend(v6 "flavor")] && !objc_msgSend(v6, "drmFree"))
   {
-    v12 = BCDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v16 = BCDefaultLog(0, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_12E48();
     }
@@ -1876,22 +1926,23 @@ LABEL_25:
 - (void)appendIconUrlForPersistentID:(id)d toAsset:(id)asset
 {
   v5 = [@"/var/mobile/Media/Books/Sync/Artwork/" stringByAppendingPathComponent:d];
-  if ([+[NSFileManager fileExistsAtPath:"fileExistsAtPath:"]
+  v6 = [+[NSFileManager defaultManager](NSFileManager fileExistsAtPath:"fileExistsAtPath:", v5];
+  if (v6)
   {
-    v6 = [NSURL fileURLWithPath:v5 isDirectory:0];
-    v7 = BCDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = [NSURL fileURLWithPath:v5 isDirectory:0];
+    v10 = BCDefaultLog(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       sub_12F18();
     }
 
-    [asset setIcon:v6];
+    [asset setIcon:v8];
   }
 
   else
   {
-    v8 = BCDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v11 = BCDefaultLog(v6, v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_12EB0();
     }
@@ -1936,18 +1987,18 @@ LABEL_25:
   v10 = [(BooksClient *)self _bookEstimatedDownloadSizeForPlistEntry:entry];
   if (v10 || (v10 = [(BooksClient *)self _bookSizeOnDiskForPlistEntry:entry]) != 0)
   {
-    v11 = v10;
-    v12 = BCDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v12 = v10;
+    v13 = BCDefaultLog(v10, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 138412546;
-      v25 = v9;
-      v26 = 2112;
-      v27 = v11;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Set totalBytes for asset '%@' to %@", &v24, 0x16u);
+      v27 = 138412546;
+      v28 = v9;
+      v29 = 2112;
+      v30 = v12;
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Set totalBytes for asset '%@' to %@", &v27, 0x16u);
     }
 
-    unsignedLongLongValue = [(__CFString *)v11 unsignedLongLongValue];
+    unsignedLongLongValue = [(__CFString *)v12 unsignedLongLongValue];
 LABEL_6:
     [bytes setTotalBytes:unsignedLongLongValue];
     return;
@@ -1955,72 +2006,73 @@ LABEL_6:
 
   if (flagCopy)
   {
-    v14 = objc_opt_class();
-    v15 = BCDynamicCast(v14, [entry objectForKeyedSubscript:@"Backup-Path"]);
-    if (!v15)
+    v15 = objc_opt_class();
+    v16 = BCDynamicCast(v15, [entry objectForKeyedSubscript:@"Backup-Path"]);
+    if (!v16)
     {
-      v16 = objc_opt_class();
-      v15 = BCDynamicCast(v16, [entry objectForKeyedSubscript:@"Path"]);
+      v17 = objc_opt_class();
+      v16 = BCDynamicCast(v17, [entry objectForKeyedSubscript:@"Path"]);
     }
 
-    pathExtension = [v15 pathExtension];
+    pathExtension = [v16 pathExtension];
     if (!pathExtension)
     {
-      v18 = objc_opt_class();
-      pathExtension = BCDynamicCast(v18, [entry objectForKeyedSubscript:@"Extension"]);
+      v19 = objc_opt_class();
+      pathExtension = BCDynamicCast(v19, [entry objectForKeyedSubscript:@"Extension"]);
     }
 
-    v19 = objc_opt_class();
-    if ([BCDynamicCast(v19 objc_msgSend(entry])
+    v20 = objc_opt_class();
+    if ([BCDynamicCast(v20 objc_msgSend(entry])
     {
-      v20 = 25;
+      v21 = 25;
     }
 
     else
     {
-      v20 = 5;
+      v21 = 5;
     }
 
-    if ([(__CFString *)pathExtension caseInsensitiveCompare:@"ibooks"])
+    v22 = [(__CFString *)pathExtension caseInsensitiveCompare:@"ibooks"];
+    if (v22)
     {
-      v21 = v20;
+      v24 = v21;
     }
 
     else
     {
-      v21 = 100;
+      v24 = 100;
     }
 
-    v22 = BCDefaultLog();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v25 = BCDefaultLog(v22, v23);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 138413314;
-      v25 = v9;
-      v26 = 2114;
-      v27 = pathExtension;
-      v28 = 2114;
-      v29 = @"Estimated Download Size";
-      v30 = 2114;
-      v31 = @"Size On Disk";
-      v32 = 2048;
-      v33 = v21;
-      _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "Asset '%@' (%{public}@) is missing both '%{public}@' and '%{public}@', use guesstimate of %lluMB", &v24, 0x34u);
+      v27 = 138413314;
+      v28 = v9;
+      v29 = 2114;
+      v30 = pathExtension;
+      v31 = 2114;
+      v32 = @"Estimated Download Size";
+      v33 = 2114;
+      v34 = @"Size On Disk";
+      v35 = 2048;
+      v36 = v24;
+      _os_log_impl(&dword_0, v25, OS_LOG_TYPE_DEFAULT, "Asset '%@' (%{public}@) is missing both '%{public}@' and '%{public}@', use guesstimate of %lluMB", &v27, 0x34u);
     }
 
-    unsignedLongLongValue = (v21 << 20);
+    unsignedLongLongValue = (v24 << 20);
     goto LABEL_6;
   }
 
-  v23 = BCDefaultLog();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v26 = BCDefaultLog(0, v11);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 138412802;
-    v25 = v9;
-    v26 = 2114;
-    v27 = @"Estimated Download Size";
-    v28 = 2114;
-    v29 = @"Size On Disk";
-    _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "Asset '%@' is missing both '%{public}@' and '%{public}@' and not restore, skip guesstimate", &v24, 0x20u);
+    v27 = 138412802;
+    v28 = v9;
+    v29 = 2114;
+    v30 = @"Estimated Download Size";
+    v31 = 2114;
+    v32 = @"Size On Disk";
+    _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "Asset '%@' is missing both '%{public}@' and '%{public}@' and not restore, skip guesstimate", &v27, 0x20u);
   }
 }
 
@@ -2094,51 +2146,156 @@ LABEL_6:
   reverseSyncPersistentIDs = [(BooksClient *)self reverseSyncPersistentIDs];
   if ([reverseSyncPersistentIDs count])
   {
-    v6 = [(BooksClient *)self assetsRequestedByPersistentIDs:reverseSyncPersistentIDs fromPlist:@"/var/mobile/Media/Books/Purchases/Purchases.plist"];
-    v7 = BCDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      v13 = 138412546;
-      v14 = @"/var/mobile/Media/Books/Purchases/Purchases.plist";
-      v15 = 2048;
-      v16 = [v6 count];
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Reverse Sync from: %@ -- %lu items", &v13, 0x16u);
-    }
-
-    if ([v6 count])
-    {
-      [v4 addObjectsFromArray:v6];
-    }
-
-    v8 = [(BooksClient *)self assetsRequestedByPersistentIDs:reverseSyncPersistentIDs fromPlist:@"/var/mobile/Media/Books/Books.plist"];
-    v9 = BCDefaultLog();
+    v7 = [(BooksClient *)self assetsRequestedByPersistentIDs:reverseSyncPersistentIDs fromPlist:@"/var/mobile/Media/Books/Purchases/Purchases.plist"];
+    v9 = BCDefaultLog(v7, v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [v8 count];
-      v13 = 138412546;
-      v14 = @"/var/mobile/Media/Books/Books.plist";
-      v15 = 2048;
-      v16 = v10;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Reverse Sync from: %@ -- %lu items", &v13, 0x16u);
+      v16 = 138412546;
+      v17 = @"/var/mobile/Media/Books/Purchases/Purchases.plist";
+      v18 = 2048;
+      v19 = [v7 count];
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Reverse Sync from: %@ -- %lu items", &v16, 0x16u);
     }
 
-    if ([v8 count])
+    if ([v7 count])
     {
-      [v4 addObjectsFromArray:v8];
+      [v4 addObjectsFromArray:v7];
+    }
+
+    v10 = [(BooksClient *)self assetsRequestedByPersistentIDs:reverseSyncPersistentIDs fromPlist:@"/var/mobile/Media/Books/Books.plist"];
+    v12 = BCDefaultLog(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = [v10 count];
+      v16 = 138412546;
+      v17 = @"/var/mobile/Media/Books/Books.plist";
+      v18 = 2048;
+      v19 = v13;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Reverse Sync from: %@ -- %lu items", &v16, 0x16u);
+    }
+
+    if ([v10 count])
+    {
+      [v4 addObjectsFromArray:v10];
     }
   }
 
   else
   {
-    v11 = BCDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v14 = BCDefaultLog(0, v6);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "No Reverse Sync items requested.", &v13, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "No Reverse Sync items requested.", &v16, 2u);
     }
   }
 
   return v4;
+}
+
+- (void)appendPlistEntries:(id)entries toAssetArray:(id)array withRestoreFlag:(BOOL)flag
+{
+  flagCopy = flag;
+  v32 = +[NSDate date];
+  v36 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  obj = entries;
+  v8 = [entries countByEnumeratingWithState:&v36 objects:v44 count:16];
+  if (!v8)
+  {
+    goto LABEL_19;
+  }
+
+  v10 = v8;
+  v35 = *v37;
+  do
+  {
+    v11 = 0;
+    do
+    {
+      if (*v37 != v35)
+      {
+        objc_enumerationMutation(obj);
+      }
+
+      v12 = *(*(&v36 + 1) + 8 * v11);
+      v13 = objc_opt_class();
+      v14 = BCDynamicCast(v13, v12);
+      v15 = -[BooksClient _stringFromObject:](self, "_stringFromObject:", [v14 objectForKey:@"Persistent ID"]);
+      if ([v15 length])
+      {
+        v16 = [(BooksClient *)self bookTitleForPlistEntry:v14];
+        v17 = [(BooksClient *)self storeInfoForItem:v14];
+        v18 = v17;
+        if (!flagCopy || v17)
+        {
+          v20 = [ATAsset downloadAssetWithIdentifier:v15 dataclass:@"Book" prettyName:v16];
+          [v20 setIsRestore:flagCopy];
+          v27 = [v20 setStoreInfo:v18];
+          if (flagCopy)
+          {
+            v27 = [v20 setPath:{-[BooksClient _stringFromObject:](self, "_stringFromObject:", objc_msgSend(v14, "objectForKey:", @"Backup-Path"}];
+          }
+
+          v29 = BCDefaultLog(v27, v28);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412546;
+            v41 = v20;
+            v42 = 1024;
+            LODWORD(v43) = flagCopy;
+            v24 = v29;
+            v25 = "Constructing download asset: %@, isRestore: %d";
+            v26 = 18;
+LABEL_15:
+            _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, v25, buf, v26);
+          }
+        }
+
+        else
+        {
+          v19 = objc_opt_class();
+          v20 = +[ATAsset iCloudRestoreAssetWithIdentifier:dataclass:assetType:restorePath:displayName:](ATAsset, "iCloudRestoreAssetWithIdentifier:dataclass:assetType:restorePath:displayName:", v15, @"Book", 0, BCDynamicCast(v19, [v14 objectForKey:@"Backup-Path"]), v16);
+          v22 = BCDefaultLog(v20, v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          {
+            v23 = [v14 objectForKey:@"Backup-Path"];
+            *buf = 138412546;
+            v41 = v20;
+            v42 = 2112;
+            v43 = v23;
+            v24 = v22;
+            v25 = "Constructing iCloud Restore Asset: %@, from path %@";
+            v26 = 22;
+            goto LABEL_15;
+          }
+        }
+
+        [(BooksClient *)self _updateATAssetTotalBytes:v20 plistEntry:v14 restoreFlag:flagCopy];
+        [(BooksClient *)self appendIconUrlForPersistentID:v15 toAsset:v20];
+        [array addObject:v20];
+      }
+
+      v11 = v11 + 1;
+    }
+
+    while (v10 != v11);
+    v8 = [obj countByEnumeratingWithState:&v36 objects:v44 count:16];
+    v10 = v8;
+  }
+
+  while (v8);
+LABEL_19:
+  v30 = BCDefaultLog(v8, v9);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  {
+    [+[NSDate date](NSDate timeIntervalSinceDate:"timeIntervalSinceDate:", v32];
+    *buf = 134217984;
+    v41 = v31;
+    _os_log_impl(&dword_0, v30, OS_LOG_TYPE_DEFAULT, "BOOKSCLIENT: Finished to build up the ATAssets to be restored in %.4f ms", buf, 0xCu);
+  }
 }
 
 - (id)forwardSyncAssets
@@ -2146,26 +2303,26 @@ LABEL_6:
   v3 = objc_alloc_init(NSMutableArray);
   v4 = objc_alloc_init(NSAutoreleasePool);
   v5 = [(BCAssetDatabase *)[(BooksClient *)self database] outstandingAssetsByRestoreFlag:1];
-  v6 = BCDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = BCDefaultLog(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 134217984;
-    v12 = [v5 count];
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Forward Sync as Restore %lu items", &v11, 0xCu);
+    v13 = 134217984;
+    v14 = [v5 count];
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Forward Sync as Restore %lu items", &v13, 0xCu);
   }
 
   [(BooksClient *)self appendPlistEntries:v5 toAssetArray:v3 withRestoreFlag:1];
-  v7 = [(BCAssetDatabase *)[(BooksClient *)self database] outstandingAssetsByRestoreFlag:0];
-  v8 = BCDefaultLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v8 = [(BCAssetDatabase *)[(BooksClient *)self database] outstandingAssetsByRestoreFlag:0];
+  v10 = BCDefaultLog(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = [v7 count];
-    v11 = 134217984;
-    v12 = v9;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Forward Sync as Sync %lu items", &v11, 0xCu);
+    v11 = [v8 count];
+    v13 = 134217984;
+    v14 = v11;
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Forward Sync as Sync %lu items", &v13, 0xCu);
   }
 
-  [(BooksClient *)self appendPlistEntries:v7 toAssetArray:v3 withRestoreFlag:0];
+  [(BooksClient *)self appendPlistEntries:v8 toAssetArray:v3 withRestoreFlag:0];
 
   return v3;
 }
@@ -2208,23 +2365,23 @@ LABEL_6:
 
 - (BOOL)addItems:(id)items toPlist:(id)plist
 {
-  if ([items count] && (objc_msgSend(-[BooksClient plistByPath:](self, "plistByPath:", plist), "addItems:", items) & 1) == 0)
+  if ([items count] && (v7 = objc_msgSend(-[BooksClient plistByPath:](self, "plistByPath:", plist), "addItems:", items), (v7 & 1) == 0))
   {
-    v8 = BCDefaultLog();
-    v7 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-    if (v7)
+    v10 = BCDefaultLog(v7, v8);
+    v9 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+    if (v9)
     {
       sub_12F88();
-      LOBYTE(v7) = 0;
+      LOBYTE(v9) = 0;
     }
   }
 
   else
   {
-    LOBYTE(v7) = 1;
+    LOBYTE(v9) = 1;
   }
 
-  return v7;
+  return v9;
 }
 
 - (id)persistentIDsMerged:(BOOL)merged
@@ -2337,8 +2494,8 @@ LABEL_6:
 
 - (id)filesInPath:(id)path
 {
-  v8 = 0;
-  v4 = BCDefaultLog();
+  v10 = 0;
+  v4 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -2346,19 +2503,20 @@ LABEL_6:
     _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "filesInPath: %@", buf, 0xCu);
   }
 
-  v5 = [+[NSFileManager defaultManager](NSFileManager contentsOfDirectoryAtPath:"contentsOfDirectoryAtPath:error:" error:path, &v8];
-  if (v8)
+  v5 = [+[NSFileManager defaultManager](NSFileManager contentsOfDirectoryAtPath:"contentsOfDirectoryAtPath:error:" error:path, &v10];
+  v7 = v5;
+  if (v10)
   {
-    v6 = BCDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = BCDefaultLog(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      pathCopy = v8;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "error: %@", buf, 0xCu);
+      pathCopy = v10;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "error: %@", buf, 0xCu);
     }
   }
 
-  return v5;
+  return v7;
 }
 
 + (id)bookExtensions
@@ -2389,78 +2547,81 @@ LABEL_6:
 - (id)booksInPath:(id)path
 {
   v4 = +[NSMutableArray array];
-  v20 = 0;
-  v5 = [+[NSFileManager defaultManager](NSFileManager contentsOfDirectoryAtPath:"contentsOfDirectoryAtPath:error:" error:path, &v20];
-  v6 = BCDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v24 = 0;
+  v5 = [+[NSFileManager defaultManager](NSFileManager contentsOfDirectoryAtPath:"contentsOfDirectoryAtPath:error:" error:path, &v24];
+  v7 = BCDefaultLog(v5, v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  if (v8)
   {
     *buf = 138412290;
     pathCopy2 = path;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "In Path: %@", buf, 0xCu);
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "In Path: %@", buf, 0xCu);
   }
 
-  if (v20)
+  if (v24)
   {
-    v7 = BCDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v10 = BCDefaultLog(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      pathCopy2 = v20;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "error: %@", buf, 0xCu);
+      pathCopy2 = v24;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "error: %@", buf, 0xCu);
     }
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v8 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v25 count:16];
-  if (v8)
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v11 = [(NSArray *)v5 countByEnumeratingWithState:&v20 objects:v29 count:16];
+  if (v11)
   {
-    v9 = v8;
-    v10 = *v17;
+    v13 = v11;
+    v14 = *v21;
     do
     {
-      v11 = 0;
+      v15 = 0;
       do
       {
-        if (*v17 != v10)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * v11);
-        v13 = BCDefaultLog();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        v16 = *(*(&v20 + 1) + 8 * v15);
+        v17 = BCDefaultLog(v11, v12);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          pathCopy2 = v12;
-          _os_log_debug_impl(&dword_0, v13, OS_LOG_TYPE_DEBUG, "booksInPath Iterating: %@", buf, 0xCu);
+          pathCopy2 = v16;
+          _os_log_debug_impl(&dword_0, v17, OS_LOG_TYPE_DEBUG, "booksInPath Iterating: %@", buf, 0xCu);
         }
 
-        if ([+[BooksClient bookExtensions](BooksClient "bookExtensions")])
+        v11 = [+[BooksClient bookExtensions](BooksClient "bookExtensions")];
+        if (v11)
         {
-          [v4 addObject:v12];
+          v11 = [v4 addObject:v16];
         }
 
-        v11 = v11 + 1;
+        v15 = v15 + 1;
       }
 
-      while (v9 != v11);
-      v9 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v25 count:16];
+      while (v13 != v15);
+      v11 = [(NSArray *)v5 countByEnumeratingWithState:&v20 objects:v29 count:16];
+      v13 = v11;
     }
 
-    while (v9);
+    while (v11);
   }
 
-  v14 = BCDefaultLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v18 = BCDefaultLog(v11, v12);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     pathCopy2 = path;
-    v23 = 2112;
-    v24 = v4;
-    _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "booksInPath %@ - %@", buf, 0x16u);
+    v27 = 2112;
+    v28 = v4;
+    _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "booksInPath %@ - %@", buf, 0x16u);
   }
 
   return v4;
@@ -2469,62 +2630,64 @@ LABEL_6:
 - (id)knownBooksInPlist:(id)plist
 {
   v3 = [-[BooksClient plistByPath:](self plistByPath:{plist), "sortedPaths"}];
-  if ([v3 count])
+  v4 = [v3 count];
+  if (v4)
   {
     v4 = [[NSMutableArray alloc] initWithArray:v3];
+    v6 = v4;
   }
 
   else
   {
-    v4 = 0;
+    v6 = 0;
   }
 
-  v5 = BCDefaultLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v7 = BCDefaultLog(v4, v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "knownBooksInPlist %@", &v7, 0xCu);
+    v9 = 138412290;
+    v10 = v6;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "knownBooksInPlist %@", &v9, 0xCu);
   }
 
-  return v4;
+  return v6;
 }
 
 - (void)deleteArtworkExcludingFileNames:(id)names
 {
-  v12 = objc_alloc_init(NSAutoreleasePool);
+  v13 = objc_alloc_init(NSAutoreleasePool);
   v5 = [-[BooksClient filesInPath:](self filesInPath:{@"/var/mobile/Media/Books/Sync/Artwork/", "arrayRemovingMatchingStrings:", names}];
-  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v17 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v14 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [@"/var/mobile/Media/Books/Sync/Artwork/" stringByAppendingPathComponent:*(*(&v13 + 1) + 8 * i)];
-        v11 = BCDefaultLog();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v10 = [@"/var/mobile/Media/Books/Sync/Artwork/" stringByAppendingPathComponent:*(*(&v14 + 1) + 8 * i)];
+        v12 = BCDefaultLog(v10, v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v18 = v10;
-          _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "deleting [%@]", buf, 0xCu);
+          v19 = v10;
+          _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "deleting [%@]", buf, 0xCu);
         }
 
         [(BooksClient *)self removeItemAtPath:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v7);
@@ -2533,31 +2696,31 @@ LABEL_6:
 
 - (void)deleteOrphanedFilesInPath:(id)path knownToPlist:(id)plist
 {
-  v23 = objc_alloc_init(NSAutoreleasePool);
+  v27 = objc_alloc_init(NSAutoreleasePool);
   v7 = [-[BooksClient booksInPath:](self booksInPath:{path), "arrayRemovingMatchingStrings:", -[BooksClient knownBooksInPlist:](self, "knownBooksInPlist:", plist)}];
   v8 = +[NSMutableArray array];
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v9 = [v7 countByEnumeratingWithState:&v28 objects:v35 count:16];
+  v32 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v9 = [v7 countByEnumeratingWithState:&v32 objects:v39 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v29;
+    v11 = *v33;
     do
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v29 != v11)
+        if (*v33 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        [v8 addObject:{objc_msgSend(path, "stringByAppendingPathComponent:", *(*(&v28 + 1) + 8 * i))}];
+        [v8 addObject:{objc_msgSend(path, "stringByAppendingPathComponent:", *(*(&v32 + 1) + 8 * i))}];
       }
 
-      v10 = [v7 countByEnumeratingWithState:&v28 objects:v35 count:16];
+      v10 = [v7 countByEnumeratingWithState:&v32 objects:v39 count:16];
     }
 
     while (v10);
@@ -2565,56 +2728,61 @@ LABEL_6:
 
   v13 = [(BCAssetDatabase *)[(BooksClient *)self database] outstandingAssetDownloadCompletePathsMatchingArray:v8];
   v14 = [v8 arrayRemovingMatchingStrings:v13];
-  v15 = BCDefaultLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138412290;
-    v34 = v13;
-    _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "pendingInstall %@", buf, 0xCu);
-  }
-
-  v16 = BCDefaultLog();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138412290;
-    v34 = v14;
-    _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "orphanedPaths %@", buf, 0xCu);
-  }
-
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v17 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v16 = BCDefaultLog(v14, v15);
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
   if (v17)
   {
-    v18 = v17;
-    v19 = *v25;
+    *buf = 138412290;
+    v38 = v13;
+    _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "pendingInstall %@", buf, 0xCu);
+  }
+
+  v19 = BCDefaultLog(v17, v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v38 = v14;
+    _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "orphanedPaths %@", buf, 0xCu);
+  }
+
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v20 = [v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  if (v20)
+  {
+    v22 = v20;
+    v23 = *v29;
     do
     {
-      for (j = 0; j != v18; j = j + 1)
+      v24 = 0;
+      do
       {
-        if (*v25 != v19)
+        if (*v29 != v23)
         {
           objc_enumerationMutation(v14);
         }
 
-        v21 = *(*(&v24 + 1) + 8 * j);
-        v22 = BCDefaultLog();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v25 = *(*(&v28 + 1) + 8 * v24);
+        v26 = BCDefaultLog(v20, v21);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v34 = v21;
-          _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "deleting [%@]", buf, 0xCu);
+          v38 = v25;
+          _os_log_impl(&dword_0, v26, OS_LOG_TYPE_DEFAULT, "deleting [%@]", buf, 0xCu);
         }
 
-        [(BooksClient *)self removeItemAtPath:v21];
+        v20 = [(BooksClient *)self removeItemAtPath:v25];
+        v24 = v24 + 1;
       }
 
-      v18 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      while (v22 != v24);
+      v20 = [v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v22 = v20;
     }
 
-    while (v18);
+    while (v20);
   }
 }
 
@@ -2627,26 +2795,27 @@ LABEL_6:
 
 - (void)removeItemAtPath:(id)path
 {
-  v10 = 0;
+  v12 = 0;
   v5 = +[NSFileManager defaultManager];
-  if ([(NSFileManager *)v5 fileExistsAtPath:path])
+  v6 = [(NSFileManager *)v5 fileExistsAtPath:path];
+  if (v6)
   {
-    v6 = [NSURL fileURLWithPath:path];
+    v8 = [NSURL fileURLWithPath:path];
     fileCoord = self->_fileCoord;
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_9BA4;
-    v9[3] = &unk_20618;
-    v9[4] = 0;
-    v9[5] = v5;
-    v9[6] = path;
-    [(NSFileCoordinator *)fileCoord coordinateWritingItemAtURL:v6 options:1 error:&v10 byAccessor:v9];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_9BA4;
+    v11[3] = &unk_20618;
+    v11[4] = 0;
+    v11[5] = v5;
+    v11[6] = path;
+    [(NSFileCoordinator *)fileCoord coordinateWritingItemAtURL:v8 options:1 error:&v12 byAccessor:v11];
   }
 
   else
   {
-    v8 = BCDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v10 = BCDefaultLog(v6, v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       sub_130BC();
     }
@@ -2659,125 +2828,127 @@ LABEL_6:
   [(BooksClient *)self regeneratePersistentIDsForPlist:path];
   selfCopy = self;
   v8 = [-[BooksClient plistByPath:](self plistByPath:{path), "entriesWithPath"}];
-  if ([v8 count])
+  v9 = [v8 count];
+  if (v9)
   {
-    v34 = v7;
+    v39 = v7;
     metricsCopy = metrics;
-    v9 = BCDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v11 = BCDefaultLog(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       sub_131A8();
     }
 
-    v43[0] = 0;
-    v43[1] = 0;
-    v10 = -[BCAssetDatabase cachedInstalledAssetsByPersistentIDs:metrics:](-[BooksClient database](self, "database"), "cachedInstalledAssetsByPersistentIDs:metrics:", +[NSSet setWithArray:](NSSet, "setWithArray:", [objc_msgSend(v8 valueForKeyPath:{@"Persistent ID", "arrayRemovingNonStrings"}]), v43);
-    v11 = v43[0];
-    v12 = [v8 arrayRemovingObjectsByKey:@"Persistent ID" matchingStrings:v10];
-    v13 = [v12 count];
-    v14 = &v13[[v10 count]];
-    v38 = v12;
-    if (v14 != [v8 count])
+    v48[0] = 0;
+    v48[1] = 0;
+    v12 = -[BCAssetDatabase cachedInstalledAssetsByPersistentIDs:metrics:](-[BooksClient database](self, "database"), "cachedInstalledAssetsByPersistentIDs:metrics:", +[NSSet setWithArray:](NSSet, "setWithArray:", [objc_msgSend(v8 valueForKeyPath:{@"Persistent ID", "arrayRemovingNonStrings"}]), v48);
+    v13 = v48[0];
+    v14 = [v8 arrayRemovingObjectsByKey:@"Persistent ID" matchingStrings:v12];
+    v15 = [v14 count];
+    v16 = &v15[[v12 count]];
+    v17 = [v8 count];
+    v43 = v14;
+    if (v16 != v17)
     {
-      v15 = BCDefaultLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v19 = BCDefaultLog(v17, v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        v30 = [v10 count];
-        v31 = [v12 count];
-        v32 = [v8 count];
+        v35 = [v12 count];
+        v36 = [v14 count];
+        v37 = [v8 count];
         *buf = 138413058;
         pathCopy = path;
-        v47 = 2048;
-        v48 = v30;
-        v49 = 2048;
-        v50 = v31;
-        v12 = v38;
-        v51 = 2048;
-        v52 = v32;
-        _os_log_error_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "Unexpected count mismatch: %@ -- Cached: %lu; Uncached: %lu; Total: %lu", buf, 0x2Au);
+        v52 = 2048;
+        v53 = v35;
+        v54 = 2048;
+        v55 = v36;
+        v14 = v43;
+        v56 = 2048;
+        v57 = v37;
+        _os_log_error_impl(&dword_0, v19, OS_LOG_TYPE_ERROR, "Unexpected count mismatch: %@ -- Cached: %lu; Uncached: %lu; Total: %lu", buf, 0x2Au);
       }
     }
 
-    v33 = v8;
-    if ([v12 count])
+    v38 = v8;
+    if ([v14 count])
     {
       stringByDeletingLastPathComponent = [path stringByDeletingLastPathComponent];
-      v39 = 0u;
-      v40 = 0u;
-      v41 = 0u;
-      v42 = 0u;
-      v16 = [v12 countByEnumeratingWithState:&v39 objects:v44 count:16];
-      if (v16)
+      v44 = 0u;
+      v45 = 0u;
+      v46 = 0u;
+      v47 = 0u;
+      v20 = [v14 countByEnumeratingWithState:&v44 objects:v49 count:16];
+      if (v20)
       {
-        v17 = v16;
-        v18 = 0;
-        v19 = *v40;
+        v21 = v20;
+        v22 = 0;
+        v23 = *v45;
         do
         {
-          v20 = 0;
+          v24 = 0;
           do
           {
-            if (*v40 != v19)
+            if (*v45 != v23)
             {
-              objc_enumerationMutation(v12);
+              objc_enumerationMutation(v14);
             }
 
-            v21 = *(*(&v39 + 1) + 8 * v20);
-            v22 = objc_opt_class();
-            v23 = BCDynamicCast(v22, v21);
-            v24 = objc_opt_class();
-            v25 = BCDynamicCast(v24, [v23 objectForKey:@"Persistent ID"]);
-            if (([v25 isEqualToString:v18] & 1) == 0)
+            v25 = *(*(&v44 + 1) + 8 * v24);
+            v26 = objc_opt_class();
+            v27 = BCDynamicCast(v26, v25);
+            v28 = objc_opt_class();
+            v29 = BCDynamicCast(v28, [v27 objectForKey:@"Persistent ID"]);
+            if (([v29 isEqualToString:v22] & 1) == 0)
             {
-              v18 = v25;
-              v26 = objc_opt_class();
-              v27 = [stringByDeletingLastPathComponent stringByAppendingPathComponent:{BCDynamicCast(v26, objc_msgSend(v23, "objectForKey:", @"Path"}];
-              v28 = ATGetDiskUsageForPath();
-              if (v28)
+              v22 = v29;
+              v30 = objc_opt_class();
+              v31 = [stringByDeletingLastPathComponent stringByAppendingPathComponent:{BCDynamicCast(v30, objc_msgSend(v27, "objectForKey:", @"Path"}];
+              v33 = ATGetDiskUsageForPath();
+              if (v33)
               {
-                if ([v18 length])
+                if ([v22 length])
                 {
-                  [(BCAssetDatabase *)[(BooksClient *)selfCopy database] insertInstalledAssetByPersistentID:v18 withSize:v28];
+                  [(BCAssetDatabase *)[(BooksClient *)selfCopy database] insertInstalledAssetByPersistentID:v22 withSize:v33];
                 }
               }
 
               else
               {
-                v29 = BCDefaultLog();
-                if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+                v34 = BCDefaultLog(0, v32);
+                if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  pathCopy = v27;
-                  _os_log_error_impl(&dword_0, v29, OS_LOG_TYPE_ERROR, "expected non-zero from ATGetDiskUsageForPath: %@", buf, 0xCu);
+                  pathCopy = v31;
+                  _os_log_error_impl(&dword_0, v34, OS_LOG_TYPE_ERROR, "expected non-zero from ATGetDiskUsageForPath: %@", buf, 0xCu);
                 }
               }
 
-              v11 += v28;
-              v12 = v38;
+              v13 += v33;
+              v14 = v43;
             }
 
-            v20 = v20 + 1;
+            v24 = v24 + 1;
           }
 
-          while (v17 != v20);
-          v17 = [v12 countByEnumeratingWithState:&v39 objects:v44 count:16];
+          while (v21 != v24);
+          v21 = [v14 countByEnumeratingWithState:&v44 objects:v49 count:16];
         }
 
-        while (v17);
+        while (v21);
       }
     }
 
-    v7 = v34;
+    v7 = v39;
     metrics = metricsCopy;
-    v8 = v33;
+    v8 = v38;
   }
 
   else
   {
-    v11 = 0;
+    v13 = 0;
   }
 
-  metrics->var0 = v11;
+  metrics->var0 = v13;
   metrics->var1 = [v8 count];
 }
 
@@ -2867,36 +3038,38 @@ LABEL_6:
 - (BOOL)commitOutstandingAssets:(id)assets
 {
   assetsCopy = assets;
-  if ([assets count])
+  v5 = [assets count];
+  if (v5)
   {
-    v5 = -[BCAssetDatabase cachedOutstandingAssetsByPersistentIDs:](-[BooksClient database](self, "database"), "cachedOutstandingAssetsByPersistentIDs:", [objc_msgSend(assetsCopy valueForKeyPath:{@"Persistent ID", "arrayRemovingNonStrings"}]);
-    if ([v5 count])
+    v7 = -[BCAssetDatabase cachedOutstandingAssetsByPersistentIDs:](-[BooksClient database](self, "database"), "cachedOutstandingAssetsByPersistentIDs:", [objc_msgSend(assetsCopy valueForKeyPath:{@"Persistent ID", "arrayRemovingNonStrings"}]);
+    if ([v7 count])
     {
-      v6 = [assetsCopy arrayRemovingObjectsByKey:@"Persistent ID" matchingStrings:v5];
-      v7 = [assetsCopy arrayOfObjectsContainingMatchingKey:@"Persistent ID" matchingStrings:v5];
-      v8 = [v6 count];
-      v9 = &v8[[v5 count]];
-      if (v9 != [assetsCopy count])
+      v8 = [assetsCopy arrayRemovingObjectsByKey:@"Persistent ID" matchingStrings:v7];
+      v9 = [assetsCopy arrayOfObjectsContainingMatchingKey:@"Persistent ID" matchingStrings:v7];
+      v10 = [v8 count];
+      v11 = &v10[[v7 count]];
+      v12 = [assetsCopy count];
+      if (v11 != v12)
       {
-        v10 = BCDefaultLog();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v14 = BCDefaultLog(v12, v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          v13 = 134218496;
-          v14 = [v5 count];
-          v15 = 2048;
-          v16 = [v6 count];
-          v17 = 2048;
-          v18 = [assetsCopy count];
-          _os_log_error_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "Unexpected count mismatch: Cached: %lu; Uncached: %lu; Total: %lu", &v13, 0x20u);
+          v17 = 134218496;
+          v18 = [v7 count];
+          v19 = 2048;
+          v20 = [v8 count];
+          v21 = 2048;
+          v22 = [assetsCopy count];
+          _os_log_error_impl(&dword_0, v14, OS_LOG_TYPE_ERROR, "Unexpected count mismatch: Cached: %lu; Uncached: %lu; Total: %lu", &v17, 0x20u);
         }
       }
 
-      assetsCopy = v6;
+      assetsCopy = v8;
     }
 
     else
     {
-      v7 = 0;
+      v9 = 0;
     }
 
     if ([assetsCopy count])
@@ -2904,17 +3077,18 @@ LABEL_6:
       [(BCAssetDatabase *)[(BooksClient *)self database] insertOutstandingAssetDictionaries:assetsCopy isRestore:[(BooksClient *)self isRestoreSession]];
     }
 
-    if ([v7 count])
+    v5 = [v9 count];
+    if (v5)
     {
-      [(BCAssetDatabase *)[(BooksClient *)self database] updateOutstandingAssetDictionaries:v7 isRestore:[(BooksClient *)self isRestoreSession]];
+      v5 = [(BCAssetDatabase *)[(BooksClient *)self database] updateOutstandingAssetDictionaries:v9 isRestore:[(BooksClient *)self isRestoreSession]];
     }
   }
 
-  v11 = BCDefaultLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v15 = BCDefaultLog(v5, v6);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v13) = 0;
-    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "commit Assets To Request Succeeded", &v13, 2u);
+    LOWORD(v17) = 0;
+    _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "commit Assets To Request Succeeded", &v17, 2u);
   }
 
   return 1;
@@ -2922,7 +3096,7 @@ LABEL_6:
 
 - (void)removeItemByPersistentID:(id)d fromPlist:(id)plist
 {
-  v7 = BCDefaultLog();
+  v7 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412546;
@@ -2937,7 +3111,7 @@ LABEL_6:
 
 - (void)removeItemsByPersistentID:(id)d fromPlist:(id)plist
 {
-  v7 = BCDefaultLog();
+  v7 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412546;
@@ -2952,7 +3126,7 @@ LABEL_6:
 
 - (void)removeKnownItems:(id)items
 {
-  v5 = BCDefaultLog();
+  v5 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -3055,7 +3229,7 @@ LABEL_12:
 
 - (void)removeDatabase
 {
-  v3 = BCDefaultLog();
+  v3 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_131E4();
@@ -3070,7 +3244,7 @@ LABEL_12:
   result = self->_database;
   if (!result)
   {
-    v4 = BCDefaultLog();
+    v4 = BCDefaultLog(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       sub_13220();
@@ -3132,44 +3306,44 @@ LABEL_12:
 
 - (void)updateAssets:(id)assets withSSDownloads:(id)downloads andDownloadCompletePathMap:(id)map
 {
-  v7 = BCDefaultLog();
+  v7 = BCDefaultLog(self, a2);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
-    *v32 = [assets count];
-    *&v32[4] = 1024;
-    *&v32[6] = [downloads count];
+    *v39 = [assets count];
+    *&v39[4] = 1024;
+    *&v39[6] = [downloads count];
     _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "%d assets; %d downloads", buf, 0xEu);
   }
 
   if ([assets count] && (objc_msgSend(downloads, "count") || objc_msgSend(map, "count")))
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    v8 = [assets countByEnumeratingWithState:&v27 objects:v36 count:16];
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v8 = [assets countByEnumeratingWithState:&v34 objects:v43 count:16];
     if (v8)
     {
       v10 = v8;
-      v11 = *v28;
+      v11 = *v35;
       *&v9 = 138412290;
-      v25 = v9;
+      v32 = v9;
       do
       {
         for (i = 0; i != v10; i = i + 1)
         {
-          if (*v28 != v11)
+          if (*v35 != v11)
           {
             objc_enumerationMutation(assets);
           }
 
-          v13 = *(*(&v27 + 1) + 8 * i);
+          v13 = *(*(&v34 + 1) + 8 * i);
           identifier = [v13 identifier];
           if ([identifier length])
           {
             v15 = [downloads objectForKey:identifier];
-            v16 = v15;
+            v17 = v15;
             if (v15)
             {
               [v13 setStorePID:{objc_msgSend(v15, "persistentIdentifier")}];
@@ -3177,71 +3351,76 @@ LABEL_12:
 
             else
             {
-              v17 = BCDefaultLog();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+              v18 = BCDefaultLog(0, v16);
+              if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
               {
-                *buf = v25;
-                *v32 = identifier;
-                _os_log_error_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "ATAsset with no matching SSDownload [My PID: %@]", buf, 0xCu);
+                *buf = v32;
+                *v39 = identifier;
+                _os_log_error_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "ATAsset with no matching SSDownload [My PID: %@]", buf, 0xCu);
               }
             }
 
-            v18 = objc_opt_class();
-            v19 = BCDynamicCast(v18, [map objectForKey:identifier]);
-            if (v19)
+            v19 = objc_opt_class();
+            isKindOfClass = BCDynamicCast(v19, [map objectForKey:identifier]);
+            v22 = isKindOfClass;
+            if (isKindOfClass)
             {
               objc_opt_class();
-              if (objc_opt_isKindOfClass())
+              isKindOfClass = objc_opt_isKindOfClass();
+              if (isKindOfClass)
               {
-                if ([v19 length])
+                isKindOfClass = [v22 length];
+                if (isKindOfClass)
                 {
-                  if ([+[NSFileManager fileExistsAtPath:"fileExistsAtPath:"]
+                  v23 = [+[NSFileManager defaultManager](NSFileManager fileExistsAtPath:"fileExistsAtPath:", v22];
+                  if (v23)
                   {
-                    [v13 setPath:v19];
-                    v20 = BCDefaultLog();
-                    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+                    v25 = [v13 setPath:v22];
+                    v27 = BCDefaultLog(v25, v26);
+                    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
                     {
                       path = [v13 path];
                       *buf = 138412546;
-                      *v32 = identifier;
-                      *&v32[8] = 2112;
-                      v33 = path;
-                      _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "Setting installOnly : [identifier: %@] -- [Asset path: %@]", buf, 0x16u);
+                      *v39 = identifier;
+                      *&v39[8] = 2112;
+                      v40 = path;
+                      _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "Setting installOnly : [identifier: %@] -- [Asset path: %@]", buf, 0x16u);
                     }
 
                     [v13 setInstallOnly:1];
                     continue;
                   }
 
-                  v22 = BCDefaultLog();
-                  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+                  v29 = BCDefaultLog(v23, v24);
+                  isKindOfClass = os_log_type_enabled(v29, OS_LOG_TYPE_ERROR);
+                  if (isKindOfClass)
                   {
                     *buf = 138412546;
-                    *v32 = identifier;
-                    *&v32[8] = 2112;
-                    v33 = v19;
-                    _os_log_error_impl(&dword_0, v22, OS_LOG_TYPE_ERROR, "Cannot set installOnly : [identifier: %@] -- [Asset path: %@] [Path does not exist]", buf, 0x16u);
+                    *v39 = identifier;
+                    *&v39[8] = 2112;
+                    v40 = v22;
+                    _os_log_error_impl(&dword_0, v29, OS_LOG_TYPE_ERROR, "Cannot set installOnly : [identifier: %@] -- [Asset path: %@] [Path does not exist]", buf, 0x16u);
                   }
                 }
               }
             }
 
-            v23 = BCDefaultLog();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+            v30 = BCDefaultLog(isKindOfClass, v21);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
             {
-              downloadPhaseIdentifier = [v16 downloadPhaseIdentifier];
+              downloadPhaseIdentifier = [v17 downloadPhaseIdentifier];
               *buf = 138412802;
-              *v32 = identifier;
-              *&v32[8] = 2112;
-              v33 = downloadPhaseIdentifier;
-              v34 = 2112;
-              v35 = v19;
-              _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "Have Asset for Download : [identifier: %@] -- [DownloadPhase: %@] [DownloadCompletePath: %@]", buf, 0x20u);
+              *v39 = identifier;
+              *&v39[8] = 2112;
+              v40 = downloadPhaseIdentifier;
+              v41 = 2112;
+              v42 = v22;
+              _os_log_impl(&dword_0, v30, OS_LOG_TYPE_DEFAULT, "Have Asset for Download : [identifier: %@] -- [DownloadPhase: %@] [DownloadCompletePath: %@]", buf, 0x20u);
             }
           }
         }
 
-        v10 = [assets countByEnumeratingWithState:&v27 objects:v36 count:16];
+        v10 = [assets countByEnumeratingWithState:&v34 objects:v43 count:16];
       }
 
       while (v10);

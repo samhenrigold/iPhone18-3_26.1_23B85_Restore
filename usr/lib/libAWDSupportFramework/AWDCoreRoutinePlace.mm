@@ -42,7 +42,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   mapItem = self->_mapItem;
   if (mapItem)
@@ -53,29 +53,29 @@
   if ([(NSMutableArray *)self->_distanceToOtherPlaces count])
   {
     v5 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_distanceToOtherPlaces, "count")}];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     distanceToOtherPlaces = self->_distanceToOtherPlaces;
-    v7 = [(NSMutableArray *)distanceToOtherPlaces countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [(NSMutableArray *)distanceToOtherPlaces countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(distanceToOtherPlaces);
           }
 
-          [v5 addObject:{objc_msgSend(*(*(&v13 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v5 addObject:{objc_msgSend(*(*(&v12 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v8 = [(NSMutableArray *)distanceToOtherPlaces countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [(NSMutableArray *)distanceToOtherPlaces countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
@@ -84,51 +84,47 @@
     [dictionary setObject:v5 forKey:@"distanceToOtherPlaces"];
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   if (self->_mapItem)
   {
     PBDataWriterWriteSubmessage();
   }
 
-  v13 = 0u;
-  v14 = 0u;
   v11 = 0u;
   v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   distanceToOtherPlaces = self->_distanceToOtherPlaces;
-  v5 = [(NSMutableArray *)distanceToOtherPlaces countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [(NSMutableArray *)distanceToOtherPlaces countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(distanceToOtherPlaces);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
         PBDataWriterWriteSubmessage();
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableArray *)distanceToOtherPlaces countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [(NSMutableArray *)distanceToOtherPlaces countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -155,44 +151,43 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
 
   v5[2] = [(AWDCoreRoutineMapItem *)self->_mapItem copyWithZone:zone];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   distanceToOtherPlaces = self->_distanceToOtherPlaces;
-  v7 = [(NSMutableArray *)distanceToOtherPlaces countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [(NSMutableArray *)distanceToOtherPlaces countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(distanceToOtherPlaces);
         }
 
-        v11 = [*(*(&v14 + 1) + 8 * v10) copyWithZone:zone];
+        v11 = [*(*(&v13 + 1) + 8 * v10) copyWithZone:zone];
         [v5 addDistanceToOtherPlaces:v11];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [(NSMutableArray *)distanceToOtherPlaces countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSMutableArray *)distanceToOtherPlaces countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
-  v12 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
@@ -223,7 +218,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   mapItem = self->_mapItem;
   v6 = *(from + 2);
   if (mapItem)
@@ -239,35 +234,33 @@
     [(AWDCoreRoutinePlace *)self setMapItem:?];
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = *(from + 1);
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(AWDCoreRoutinePlace *)self addDistanceToOtherPlaces:*(*(&v13 + 1) + 8 * i)];
+        [(AWDCoreRoutinePlace *)self addDistanceToOtherPlaces:*(*(&v12 + 1) + 8 * i)];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 @end

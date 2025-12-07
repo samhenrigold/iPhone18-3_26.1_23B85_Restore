@@ -2304,14 +2304,14 @@ NSMutableSet *__cdecl __119__MOEngagementHistoryManager_getInterfaceTypeCountFor
 
 void __119__MOEngagementHistoryManager_getInterfaceTypeCountForSuggestionEngagmentEvent_from_to_onceForEachBundle_skipForEvents___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = [a2 error];
+  v2 = [a2 error];
 
-  if (v3)
+  if (v2)
   {
-    v4 = _mo_log_facility_get_os_log(&MOLogFacilityEngagement);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = _mo_log_facility_get_os_log(&MOLogFacilityEngagement);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __119__MOEngagementHistoryManager_getInterfaceTypeCountForSuggestionEngagmentEvent_from_to_onceForEachBundle_skipForEvents___block_invoke_3_cold_1(a1);
+      __119__MOEngagementHistoryManager_getInterfaceTypeCountForSuggestionEngagmentEvent_from_to_onceForEachBundle_skipForEvents___block_invoke_3_cold_1();
     }
   }
 }
@@ -2408,14 +2408,14 @@ id __119__MOEngagementHistoryManager_getInterfaceTypeCountForSuggestionEngagment
 
 void __119__MOEngagementHistoryManager_getInterfaceTypeCountForSuggestionEngagmentEvent_from_to_onceForEachBundle_skipForEvents___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = [a2 error];
+  v2 = [a2 error];
 
-  if (v3)
+  if (v2)
   {
-    v4 = _mo_log_facility_get_os_log(&MOLogFacilityEngagement);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = _mo_log_facility_get_os_log(&MOLogFacilityEngagement);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __119__MOEngagementHistoryManager_getInterfaceTypeCountForSuggestionEngagmentEvent_from_to_onceForEachBundle_skipForEvents___block_invoke_4_cold_1(a1);
+      __119__MOEngagementHistoryManager_getInterfaceTypeCountForSuggestionEngagmentEvent_from_to_onceForEachBundle_skipForEvents___block_invoke_4_cold_1();
     }
   }
 }
@@ -2756,14 +2756,14 @@ NSMutableSet *__cdecl __119__MOEngagementHistoryManager_getEvergreenTypeCountFor
 
 void __119__MOEngagementHistoryManager_getEvergreenTypeCountForSuggestionEngagmentEvent_from_to_onceForEachBundle_skipForEvents___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = [a2 error];
+  v2 = [a2 error];
 
-  if (v3)
+  if (v2)
   {
-    v4 = _mo_log_facility_get_os_log(&MOLogFacilityEngagement);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = _mo_log_facility_get_os_log(&MOLogFacilityEngagement);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __119__MOEngagementHistoryManager_getEvergreenTypeCountForSuggestionEngagmentEvent_from_to_onceForEachBundle_skipForEvents___block_invoke_3_cold_1(a1);
+      __119__MOEngagementHistoryManager_getEvergreenTypeCountForSuggestionEngagmentEvent_from_to_onceForEachBundle_skipForEvents___block_invoke_3_cold_1();
     }
   }
 }
@@ -2862,14 +2862,14 @@ id __119__MOEngagementHistoryManager_getEvergreenTypeCountForSuggestionEngagment
 
 void __119__MOEngagementHistoryManager_getEvergreenTypeCountForSuggestionEngagmentEvent_from_to_onceForEachBundle_skipForEvents___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = [a2 error];
+  v2 = [a2 error];
 
-  if (v3)
+  if (v2)
   {
-    v4 = _mo_log_facility_get_os_log(&MOLogFacilityEngagement);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = _mo_log_facility_get_os_log(&MOLogFacilityEngagement);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __119__MOEngagementHistoryManager_getEvergreenTypeCountForSuggestionEngagmentEvent_from_to_onceForEachBundle_skipForEvents___block_invoke_4_cold_1(a1);
+      __119__MOEngagementHistoryManager_getEvergreenTypeCountForSuggestionEngagmentEvent_from_to_onceForEachBundle_skipForEvents___block_invoke_4_cold_1();
     }
   }
 }
@@ -3160,14 +3160,14 @@ NSMutableSet *__cdecl __177__MOEngagementHistoryManager_getInterfaceTypeCountFor
 
 void __177__MOEngagementHistoryManager_getInterfaceTypeCountForAppEntryEvent_withMinAddedCharacterCount_andMaxAddedCharacterCount_fromStartDate_toEndDate_onceForEachBundle_skipForEvents___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = [a2 error];
+  v2 = [a2 error];
 
-  if (v3)
+  if (v2)
   {
-    v4 = _mo_log_facility_get_os_log(&MOLogFacilityEngagement);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = _mo_log_facility_get_os_log(&MOLogFacilityEngagement);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __119__MOEngagementHistoryManager_getEvergreenTypeCountForSuggestionEngagmentEvent_from_to_onceForEachBundle_skipForEvents___block_invoke_3_cold_1(a1);
+      __119__MOEngagementHistoryManager_getEvergreenTypeCountForSuggestionEngagmentEvent_from_to_onceForEachBundle_skipForEvents___block_invoke_3_cold_1();
     }
   }
 }
@@ -3301,14 +3301,14 @@ id __177__MOEngagementHistoryManager_getInterfaceTypeCountForAppEntryEvent_withM
 
 void __177__MOEngagementHistoryManager_getInterfaceTypeCountForAppEntryEvent_withMinAddedCharacterCount_andMaxAddedCharacterCount_fromStartDate_toEndDate_onceForEachBundle_skipForEvents___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = [a2 error];
+  v2 = [a2 error];
 
-  if (v3)
+  if (v2)
   {
-    v4 = _mo_log_facility_get_os_log(&MOLogFacilityEngagement);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = _mo_log_facility_get_os_log(&MOLogFacilityEngagement);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __177__MOEngagementHistoryManager_getInterfaceTypeCountForAppEntryEvent_withMinAddedCharacterCount_andMaxAddedCharacterCount_fromStartDate_toEndDate_onceForEachBundle_skipForEvents___block_invoke_4_cold_1(a1);
+      __177__MOEngagementHistoryManager_getInterfaceTypeCountForAppEntryEvent_withMinAddedCharacterCount_andMaxAddedCharacterCount_fromStartDate_toEndDate_onceForEachBundle_skipForEvents___block_invoke_4_cold_1();
     }
   }
 }
@@ -3608,14 +3608,14 @@ NSMutableSet *__cdecl __177__MOEngagementHistoryManager_getEvergreenTypeCountFor
 
 void __177__MOEngagementHistoryManager_getEvergreenTypeCountForAppEntryEvent_withMinAddedCharacterCount_andMaxAddedCharacterCount_fromStartDate_toEndDate_onceForEachBundle_skipForEvents___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = [a2 error];
+  v2 = [a2 error];
 
-  if (v3)
+  if (v2)
   {
-    v4 = _mo_log_facility_get_os_log(&MOLogFacilityEngagement);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = _mo_log_facility_get_os_log(&MOLogFacilityEngagement);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __177__MOEngagementHistoryManager_getEvergreenTypeCountForAppEntryEvent_withMinAddedCharacterCount_andMaxAddedCharacterCount_fromStartDate_toEndDate_onceForEachBundle_skipForEvents___block_invoke_3_cold_1(a1);
+      __177__MOEngagementHistoryManager_getEvergreenTypeCountForAppEntryEvent_withMinAddedCharacterCount_andMaxAddedCharacterCount_fromStartDate_toEndDate_onceForEachBundle_skipForEvents___block_invoke_3_cold_1();
     }
   }
 }
@@ -3749,14 +3749,14 @@ id __177__MOEngagementHistoryManager_getEvergreenTypeCountForAppEntryEvent_withM
 
 void __177__MOEngagementHistoryManager_getEvergreenTypeCountForAppEntryEvent_withMinAddedCharacterCount_andMaxAddedCharacterCount_fromStartDate_toEndDate_onceForEachBundle_skipForEvents___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = [a2 error];
+  v2 = [a2 error];
 
-  if (v3)
+  if (v2)
   {
-    v4 = _mo_log_facility_get_os_log(&MOLogFacilityEngagement);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = _mo_log_facility_get_os_log(&MOLogFacilityEngagement);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __177__MOEngagementHistoryManager_getEvergreenTypeCountForAppEntryEvent_withMinAddedCharacterCount_andMaxAddedCharacterCount_fromStartDate_toEndDate_onceForEachBundle_skipForEvents___block_invoke_4_cold_1(a1);
+      __177__MOEngagementHistoryManager_getEvergreenTypeCountForAppEntryEvent_withMinAddedCharacterCount_andMaxAddedCharacterCount_fromStartDate_toEndDate_onceForEachBundle_skipForEvents___block_invoke_4_cold_1();
     }
   }
 }
@@ -5252,7 +5252,7 @@ void __101__MOEngagementHistoryManager_writeEngagementLightStreamForDevices_stor
     v2 = _mo_log_facility_get_os_log(&MOLogFacilityEngagement);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      __101__MOEngagementHistoryManager_writeEngagementLightStreamForDevices_storedBookmarks_completionHandler___block_invoke_2_cold_1(a1 + 5);
+      __101__MOEngagementHistoryManager_writeEngagementLightStreamForDevices_storedBookmarks_completionHandler___block_invoke_2_cold_1();
     }
 
     v3 = a1[5];
@@ -5262,20 +5262,18 @@ void __101__MOEngagementHistoryManager_writeEngagementLightStreamForDevices_stor
   }
 }
 
-uint64_t __101__MOEngagementHistoryManager_writeEngagementLightStreamForDevices_storedBookmarks_completionHandler___block_invoke_508(void *a1)
+uint64_t __101__MOEngagementHistoryManager_writeEngagementLightStreamForDevices_storedBookmarks_completionHandler___block_invoke_508(uint64_t a1)
 {
   v2 = _mo_log_facility_get_os_log(&MOLogFacilityEngagement);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v3 = [*(*(a1[5] + 8) + 40) count];
-    v7 = 134217984;
-    v8 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Updated bookmarks count %lu", &v7, 0xCu);
+    v3 = [*(*(*(a1 + 40) + 8) + 40) count];
+    v5 = 134217984;
+    v6 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Updated bookmarks count %lu", &v5, 0xCu);
   }
 
-  v4 = *(*(a1[5] + 8) + 40);
-  v5 = *(*(a1[6] + 8) + 40);
-  return (*(a1[4] + 16))();
+  return (*(*(a1 + 32) + 16))();
 }
 
 - (void)writeEngagementLightStreamForDevice:(id)device storedBookmarks:(id)bookmarks handler:(id)handler
@@ -6048,22 +6046,22 @@ LABEL_41:
 
 - (id)momentsEngagmentDataFromLocalDeviceWithError:(id *)error
 {
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__33;
-  v25 = __Block_byref_object_dispose__33;
-  v26 = objc_opt_new();
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__33;
+  v28 = __Block_byref_object_dispose__33;
+  v29 = objc_opt_new();
   v5 = [(BMBookmarkablePublisher *)self->_stream_publisher filterWithIsIncluded:&__block_literal_global_529];
   v6 = objc_opt_new();
   v7 = [v5 reduceWithInitial:v6 nextPartialResult:&__block_literal_global_532];
 
   v18 = 0;
-  v19[0] = &v18;
-  v19[1] = 0x3032000000;
-  v19[2] = __Block_byref_object_copy__33;
-  v19[3] = __Block_byref_object_dispose__33;
-  v20 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__33;
+  v22 = __Block_byref_object_dispose__33;
+  v23 = 0;
   v17[0] = _NSConcreteStackBlock;
   v17[1] = 3221225472;
   v17[2] = __75__MOEngagementHistoryManager_momentsEngagmentDataFromLocalDeviceWithError___block_invoke_3;
@@ -6073,33 +6071,33 @@ LABEL_41:
   v16[1] = 3221225472;
   v16[2] = __75__MOEngagementHistoryManager_momentsEngagmentDataFromLocalDeviceWithError___block_invoke_4;
   v16[3] = &unk_100338B88;
-  v16[4] = &v21;
+  v16[4] = &v24;
   v8 = [v7 sinkWithCompletion:v17 receiveInput:v16];
-  v9 = *(v19[0] + 40);
+  v9 = v19[5];
   if (v9)
   {
     *error = v9;
     v10 = _mo_log_facility_get_os_log(&MOLogFacilityEngagement);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [MOEngagementHistoryManager momentsEngagmentDataFromLocalDeviceWithError:v19];
+      [MOEngagementHistoryManager momentsEngagmentDataFromLocalDeviceWithError:];
     }
   }
 
   v11 = _mo_log_facility_get_os_log(&MOLogFacilityEngagement);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    allKeys = [v22[5] allKeys];
+    allKeys = [v25[5] allKeys];
     v13 = [allKeys count];
     *buf = 134217984;
-    v28 = v13;
+    v31 = v13;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "fetch engagement data from local device, data count %lu", buf, 0xCu);
   }
 
-  v14 = v22[5];
+  v14 = v25[5];
   _Block_object_dispose(&v18, 8);
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v24, 8);
 
   return v14;
 }
@@ -6182,22 +6180,22 @@ uint64_t __75__MOEngagementHistoryManager_momentsEngagmentDataFromLocalDeviceWit
 
 - (id)momentsEngagmentLightDataFromLocalDeviceWithError:(id *)error
 {
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__33;
-  v25 = __Block_byref_object_dispose__33;
-  v26 = objc_opt_new();
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__33;
+  v28 = __Block_byref_object_dispose__33;
+  v29 = objc_opt_new();
   v5 = [(BMBookmarkablePublisher *)self->_stream_publisher_light filterWithIsIncluded:&__block_literal_global_535];
   v6 = objc_opt_new();
   v7 = [v5 reduceWithInitial:v6 nextPartialResult:&__block_literal_global_537];
 
   v18 = 0;
-  v19[0] = &v18;
-  v19[1] = 0x3032000000;
-  v19[2] = __Block_byref_object_copy__33;
-  v19[3] = __Block_byref_object_dispose__33;
-  v20 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__33;
+  v22 = __Block_byref_object_dispose__33;
+  v23 = 0;
   v17[0] = _NSConcreteStackBlock;
   v17[1] = 3221225472;
   v17[2] = __80__MOEngagementHistoryManager_momentsEngagmentLightDataFromLocalDeviceWithError___block_invoke_3;
@@ -6207,33 +6205,33 @@ uint64_t __75__MOEngagementHistoryManager_momentsEngagmentDataFromLocalDeviceWit
   v16[1] = 3221225472;
   v16[2] = __80__MOEngagementHistoryManager_momentsEngagmentLightDataFromLocalDeviceWithError___block_invoke_4;
   v16[3] = &unk_100338B88;
-  v16[4] = &v21;
+  v16[4] = &v24;
   v8 = [v7 sinkWithCompletion:v17 receiveInput:v16];
-  v9 = *(v19[0] + 40);
+  v9 = v19[5];
   if (v9)
   {
     *error = v9;
     v10 = _mo_log_facility_get_os_log(&MOLogFacilityEngagement);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [MOEngagementHistoryManager momentsEngagmentLightDataFromLocalDeviceWithError:v19];
+      [MOEngagementHistoryManager momentsEngagmentLightDataFromLocalDeviceWithError:];
     }
   }
 
   v11 = _mo_log_facility_get_os_log(&MOLogFacilityEngagement);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
-    allKeys = [v22[5] allKeys];
+    allKeys = [v25[5] allKeys];
     v13 = [allKeys count];
     *buf = 134217984;
-    v28 = v13;
+    v31 = v13;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "fetch engagement light data from local device, data count %lu", buf, 0xCu);
   }
 
-  v14 = v22[5];
+  v14 = v25[5];
   _Block_object_dispose(&v18, 8);
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v24, 8);
 
   return v14;
 }
@@ -6671,7 +6669,7 @@ void __108__MOEngagementHistoryManager_fetchAppEntryEngagementLightEventsWithTyp
 {
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "[MOEngagementHistoryManager.initWithUniverse] Can't fetch remote devices for Engagement stream(error= %@). Setting mergedStreamPublisher to nil.", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "[MOEngagementHistoryManager.initWithUniverse] Can't fetch remote devices for Engagement stream(error= %@). Setting mergedStreamPublisher to nil.", v4, v5, v6, v7);
 }
 
 - (void)initWithUniverse:.cold.2()
@@ -6695,12 +6693,11 @@ void __108__MOEngagementHistoryManager_fetchAppEntryEngagementLightEventsWithTyp
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "didAppEntryEventPosted: Ignoring invalid bundle (no id)", buf, 2u);
 }
 
-- (void)submitSuggestionEngagementEventAnalyticsFor:(unsigned __int8 *)a1 suggestionEngagementType:(uint64_t)a2 timestamp:withContext:onboardingStatus:AndTrialExperimentIDs:.cold.1(unsigned __int8 *a1, uint64_t a2)
+- (void)submitSuggestionEngagementEventAnalyticsFor:(uint64_t)a1 suggestionEngagementType:(uint64_t)a2 timestamp:withContext:onboardingStatus:AndTrialExperimentIDs:.cold.1(uint64_t a1, uint64_t a2)
 {
-  v2 = *a1;
-  v8 = [NSNumber numberWithUnsignedInteger:a2];
+  v7 = [NSNumber numberWithUnsignedInteger:a2];
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
 }
 
 - (void)updateBundle:forSuggestionEvent:withSummary:.cold.1()
@@ -6739,57 +6736,53 @@ void __108__MOEngagementHistoryManager_fetchAppEntryEngagementLightEventsWithTyp
   _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
 }
 
-void __119__MOEngagementHistoryManager_getInterfaceTypeCountForSuggestionEngagmentEvent_from_to_onceForEachBundle_skipForEvents___block_invoke_3_cold_1(uint64_t a1)
+void __119__MOEngagementHistoryManager_getInterfaceTypeCountForSuggestionEngagmentEvent_from_to_onceForEachBundle_skipForEvents___block_invoke_3_cold_1()
 {
-  OUTLINED_FUNCTION_12(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_12(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "Couldn't sink suggestionIDs for suggestion sheet events %@'", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Couldn't sink suggestionIDs for suggestion sheet events %@'", v2, v3, v4, v5);
 }
 
-void __119__MOEngagementHistoryManager_getInterfaceTypeCountForSuggestionEngagmentEvent_from_to_onceForEachBundle_skipForEvents___block_invoke_4_cold_1(uint64_t a1)
+void __119__MOEngagementHistoryManager_getInterfaceTypeCountForSuggestionEngagmentEvent_from_to_onceForEachBundle_skipForEvents___block_invoke_4_cold_1()
 {
-  OUTLINED_FUNCTION_12(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_12(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "Couldn't count engagement by inteface type for '%@'", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Couldn't count engagement by inteface type for '%@'", v2, v3, v4, v5);
 }
 
-void __119__MOEngagementHistoryManager_getEvergreenTypeCountForSuggestionEngagmentEvent_from_to_onceForEachBundle_skipForEvents___block_invoke_3_cold_1(uint64_t a1)
+void __119__MOEngagementHistoryManager_getEvergreenTypeCountForSuggestionEngagmentEvent_from_to_onceForEachBundle_skipForEvents___block_invoke_3_cold_1()
 {
-  OUTLINED_FUNCTION_12(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_12(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "Couldn't count engagement for inteface type for '%@'", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Couldn't count engagement for inteface type for '%@'", v2, v3, v4, v5);
 }
 
-void __119__MOEngagementHistoryManager_getEvergreenTypeCountForSuggestionEngagmentEvent_from_to_onceForEachBundle_skipForEvents___block_invoke_4_cold_1(uint64_t a1)
+void __119__MOEngagementHistoryManager_getEvergreenTypeCountForSuggestionEngagmentEvent_from_to_onceForEachBundle_skipForEvents___block_invoke_4_cold_1()
 {
-  OUTLINED_FUNCTION_12(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_12(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "Couldn't count engagement by evergreen type for '%@'", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Couldn't count engagement by evergreen type for '%@'", v2, v3, v4, v5);
 }
 
-void __177__MOEngagementHistoryManager_getInterfaceTypeCountForAppEntryEvent_withMinAddedCharacterCount_andMaxAddedCharacterCount_fromStartDate_toEndDate_onceForEachBundle_skipForEvents___block_invoke_4_cold_1(uint64_t a1)
+void __177__MOEngagementHistoryManager_getInterfaceTypeCountForAppEntryEvent_withMinAddedCharacterCount_andMaxAddedCharacterCount_fromStartDate_toEndDate_onceForEachBundle_skipForEvents___block_invoke_4_cold_1()
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __177__MOEngagementHistoryManager_getEvergreenTypeCountForAppEntryEvent_withMinAddedCharacterCount_andMaxAddedCharacterCount_fromStartDate_toEndDate_onceForEachBundle_skipForEvents___block_invoke_3_cold_1(uint64_t a1)
+void __177__MOEngagementHistoryManager_getEvergreenTypeCountForAppEntryEvent_withMinAddedCharacterCount_andMaxAddedCharacterCount_fromStartDate_toEndDate_onceForEachBundle_skipForEvents___block_invoke_3_cold_1()
 {
-  OUTLINED_FUNCTION_12(a1, __stack_chk_guard);
+  OUTLINED_FUNCTION_12(__stack_chk_guard);
   OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v1, v2, "Couldn't count evergreen type for app entry engagement type '%@'", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0(&_mh_execute_header, v0, v1, "Couldn't count evergreen type for app entry engagement type '%@'", v2, v3, v4, v5);
 }
 
-void __177__MOEngagementHistoryManager_getEvergreenTypeCountForAppEntryEvent_withMinAddedCharacterCount_andMaxAddedCharacterCount_fromStartDate_toEndDate_onceForEachBundle_skipForEvents___block_invoke_4_cold_1(uint64_t a1)
+void __177__MOEngagementHistoryManager_getEvergreenTypeCountForAppEntryEvent_withMinAddedCharacterCount_andMaxAddedCharacterCount_fromStartDate_toEndDate_onceForEachBundle_skipForEvents___block_invoke_4_cold_1()
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)eventBundleStore:(uint64_t)a1 needsEngagementInfoForBundles:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
@@ -6857,39 +6850,18 @@ void __84__MOEngagementHistoryManager_writeEngagementLightStreamForRemoteDevices
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __101__MOEngagementHistoryManager_writeEngagementLightStreamForDevices_storedBookmarks_completionHandler___block_invoke_2_cold_1(uint64_t *a1)
-{
-  v1 = *a1;
-  OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v2, v3, "write engagement light stream hit error %@", v4, v5, v6, v7, v8);
-}
-
 - (void)updatedBookmarkWithNewBookMark:(void *)a1 deviceID:.cold.1(void *a1)
 {
   v1 = [a1 description];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "Failed to serialize bookmark, error: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "Failed to serialize bookmark, error: %@", v4, v5, v6, v7);
 }
 
 - (void)convertBookmark:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 description];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "Failed to deserialize bookmark, error: %@", v4, v5, v6, v7, v8);
-}
-
-- (void)momentsEngagmentDataFromLocalDeviceWithError:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  v1 = *(*a1 + 40);
-  OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v2, v3, "fetch engagement data hit error %@", v4, v5, v6, v7, v8);
-}
-
-- (void)momentsEngagmentLightDataFromLocalDeviceWithError:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  v1 = *(*a1 + 40);
-  OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_0(&_mh_execute_header, v2, v3, "fetch engagement light data hit error %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "Failed to deserialize bookmark, error: %@", v4, v5, v6, v7);
 }
 
 @end

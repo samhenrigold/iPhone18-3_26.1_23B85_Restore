@@ -33,7 +33,7 @@
 
 - (CKRecord)record
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   record = self->_record;
   if (!record)
   {
@@ -44,11 +44,11 @@
     {
       v7 = HMFGetLogIdentifier();
       recordType = [(HMDCloudRecord *)selfCopy recordType];
-      v16 = 138543618;
-      v17 = v7;
-      v18 = 2112;
-      v19 = recordType;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Allocating new %@ record since we don't have one", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v7;
+      v17 = 2112;
+      v18 = recordType;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Allocating new %@ record since we don't have one", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -62,8 +62,6 @@
     selfCopy->_recordCreated = 1;
     record = self->_record;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return record;
 }
@@ -93,7 +91,7 @@
 
 - (BOOL)encodeObjectChange:(id)change
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v5 = changeCopy;
   if (self)
@@ -130,9 +128,9 @@
           {
             v16 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v56 = v16;
-            v57 = 2112;
-            v58 = v8;
+            v55 = v16;
+            v56 = 2112;
+            v57 = v8;
             _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to encode software update model object change for cloud due to invalid download size %@ - This change will not go to the cloud", buf, 0x16u);
           }
 
@@ -144,9 +142,9 @@
           {
             v20 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v56 = v20;
-            v57 = 2112;
-            v58 = v6;
+            v55 = v20;
+            v56 = 2112;
+            v57 = v6;
             _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Model object is blocked from being pushed to the cloud %@", buf, 0x16u);
           }
 
@@ -159,9 +157,9 @@ LABEL_18:
     }
   }
 
-  v50 = 0;
-  v21 = [v5 encodeWithEncoding:1 error:&v50];
-  v22 = v50;
+  v49 = 0;
+  v21 = [v5 encodeWithEncoding:1 error:&v49];
+  v22 = v49;
   [(HMDCloudRecord *)self setCachedData:v21];
 
   if (v22)
@@ -173,9 +171,9 @@ LABEL_18:
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v56 = v26;
-      v57 = 2112;
-      v58 = v22;
+      v55 = v26;
+      v56 = 2112;
+      v57 = v22;
       _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to encode object change with %@", buf, 0x16u);
     }
 
@@ -186,9 +184,9 @@ LABEL_18:
   cachedData = [(HMDCloudRecord *)self cachedData];
   hmd_compressedData = [cachedData hmd_compressedData];
 
-  v49 = 0;
-  v30 = [HMDPersistentStore encryptDataWithControllerKey:hmd_compressedData error:&v49];
-  v31 = v49;
+  v48 = 0;
+  v30 = [HMDPersistentStore encryptDataWithControllerKey:hmd_compressedData error:&v48];
+  v31 = v48;
   v27 = v30 != 0;
   if (v30)
   {
@@ -196,30 +194,30 @@ LABEL_18:
 
     if (v32)
     {
-      v53[0] = @"HM.encoding";
+      v52[0] = @"HM.encoding";
       v33 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDCloudRecord objectEncoding](self, "objectEncoding")}];
-      v53[1] = @"HM.device";
-      v54[0] = v33;
+      v52[1] = @"HM.device";
+      v53[0] = v33;
       v34 = +[HMDBackingStore currentDevice];
       [v34 identifier];
-      v48 = hmd_compressedData;
+      v47 = hmd_compressedData;
       v36 = v35 = v31;
       uUIDString = [v36 UUIDString];
-      v54[1] = uUIDString;
-      v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:2];
+      v53[1] = uUIDString;
+      v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:2];
 
       v31 = v35;
-      hmd_compressedData = v48;
+      hmd_compressedData = v47;
     }
 
     else
     {
-      v51[0] = @"HM.encoding";
+      v50[0] = @"HM.encoding";
       v33 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDCloudRecord objectEncoding](self, "objectEncoding")}];
-      v51[1] = @"HM.device";
-      v52[0] = v33;
-      v52[1] = @"<unknown device>";
-      v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:2];
+      v50[1] = @"HM.device";
+      v51[0] = v33;
+      v51[1] = @"<unknown device>";
+      v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:2];
     }
 
     v43 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v38 requiringSecureCoding:1 error:0];
@@ -239,9 +237,9 @@ LABEL_18:
     {
       v42 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v56 = v42;
-      v57 = 2112;
-      v58 = v31;
+      v55 = v42;
+      v56 = 2112;
+      v57 = v31;
       _os_log_impl(&dword_2531F8000, v41, OS_LOG_TYPE_ERROR, "%{public}@Failed to encrypt object change data with %@", buf, 0x16u);
     }
 
@@ -250,13 +248,12 @@ LABEL_18:
   }
 
 LABEL_28:
-  v46 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
 - (id)extractObjectChange
 {
-  v82[3] = *MEMORY[0x277D85DE8];
+  v81[3] = *MEMORY[0x277D85DE8];
   cachedData = [(HMDCloudRecord *)self cachedData];
   if (cachedData)
   {
@@ -273,16 +270,16 @@ LABEL_17:
 
   v4 = MEMORY[0x277CCAAC8];
   v5 = MEMORY[0x277CBEB98];
-  v82[0] = objc_opt_class();
-  v82[1] = objc_opt_class();
-  v82[2] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:3];
+  v81[0] = objc_opt_class();
+  v81[1] = objc_opt_class();
+  v81[2] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v81 count:3];
   v7 = [v5 setWithArray:v6];
   record = [(HMDCloudRecord *)self record];
   v9 = [record objectForKeyedSubscript:@"k00"];
-  v71 = 0;
-  v10 = [v4 unarchivedObjectOfClasses:v7 fromData:v9 error:&v71];
-  v11 = v71;
+  v70 = 0;
+  v10 = [v4 unarchivedObjectOfClasses:v7 fromData:v9 error:&v70];
+  v11 = v70;
 
   if (!v10)
   {
@@ -293,9 +290,9 @@ LABEL_17:
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v73 = v15;
-      v74 = 2114;
-      v75 = v11;
+      v72 = v15;
+      v73 = 2114;
+      v74 = v11;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive cloud record version dictionary from record data: %{public}@", buf, 0x16u);
     }
 
@@ -328,7 +325,7 @@ LABEL_17:
     {
       v57 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v73 = v57;
+      v72 = v57;
       _os_log_impl(&dword_2531F8000, v56, OS_LOG_TYPE_ERROR, "%{public}@Cannot find data in record", buf, 0xCu);
     }
 
@@ -344,16 +341,16 @@ LABEL_17:
     v24 = HMFGetLogIdentifier();
     v25 = [v20 length];
     *buf = 138543618;
-    v73 = v24;
-    v74 = 2048;
-    v75 = v25;
+    v72 = v24;
+    v73 = 2048;
+    v74 = v25;
     _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@[HomeKit Data Usage Metric Log] Object changed record encrypted data size (extractObjectChange): %lu", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v21);
-  v70 = 0;
-  v26 = [HMDPersistentStore decryptDataWithControllerKey:v20 totalKeysFound:0 deleteExtraKeys:0 allowControllerIdentifierToChange:0 controllerIdentifierChanged:0 successfulKeyUserName:0 error:&v70];
-  v27 = v70;
+  v69 = 0;
+  v26 = [HMDPersistentStore decryptDataWithControllerKey:v20 totalKeysFound:0 deleteExtraKeys:0 allowControllerIdentifierToChange:0 controllerIdentifierChanged:0 successfulKeyUserName:0 error:&v69];
+  v27 = v69;
   if (v26)
   {
     hmd_uncompressedData = [v26 hmd_uncompressedData];
@@ -368,27 +365,27 @@ LABEL_17:
 
   else
   {
-    v60 = objc_autoreleasePoolPush();
-    v61 = selfCopy3;
-    v62 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+    v59 = objc_autoreleasePoolPush();
+    v60 = selfCopy3;
+    v61 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v63 = v68 = v27;
-      [v68 shortDescription];
-      v64 = v66 = v60;
+      v62 = v67 = v27;
+      [v67 shortDescription];
+      v63 = v65 = v59;
       *buf = 138543618;
-      v73 = v63;
-      v74 = 2112;
-      v75 = v64;
-      _os_log_impl(&dword_2531F8000, v62, OS_LOG_TYPE_INFO, "%{public}@Failed to decrypt data in object record due to error: %@", buf, 0x16u);
+      v72 = v62;
+      v73 = 2112;
+      v74 = v63;
+      _os_log_impl(&dword_2531F8000, v61, OS_LOG_TYPE_INFO, "%{public}@Failed to decrypt data in object record due to error: %@", buf, 0x16u);
 
-      v60 = v66;
-      v27 = v68;
+      v59 = v65;
+      v27 = v67;
     }
 
-    objc_autoreleasePoolPop(v60);
-    [(HMDCloudRecord *)v61 setDecryptionFailed:1];
+    objc_autoreleasePoolPop(v59);
+    [(HMDCloudRecord *)v60 setDecryptionFailed:1];
   }
 
   if (!v26)
@@ -410,7 +407,7 @@ LABEL_18:
     {
       v44 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v73 = v44;
+      v72 = v44;
       _os_log_impl(&dword_2531F8000, v43, OS_LOG_TYPE_ERROR, "%{public}@Cloud record was not loaded from disk or fetch from cloud, no cached data", buf, 0xCu);
     }
 
@@ -419,9 +416,9 @@ LABEL_18:
   }
 
   cachedData3 = [(HMDCloudRecord *)self cachedData];
-  v69 = 0;
-  v33 = [HMDBackingStoreModelObject objectFromData:cachedData3 encoding:1 error:&v69];
-  v34 = v69;
+  v68 = 0;
+  v33 = [HMDBackingStoreModelObject objectFromData:cachedData3 encoding:1 error:&v68];
+  v34 = v68;
 
   v35 = objc_autoreleasePoolPush();
   selfCopy5 = self;
@@ -433,9 +430,9 @@ LABEL_18:
     {
       v39 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v73 = v39;
-      v74 = 2112;
-      v75 = v34;
+      v72 = v39;
+      v73 = 2112;
+      v74 = v34;
       _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode object change with %@", buf, 0x16u);
     }
 
@@ -445,7 +442,7 @@ LABEL_18:
 
   else
   {
-    v67 = v18;
+    v66 = v18;
     if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
       v45 = HMFGetLogIdentifier();
@@ -453,24 +450,24 @@ LABEL_18:
       v46 = [record5 size];
       record6 = [(HMDCloudRecord *)selfCopy5 record];
       recordID = [record6 recordID];
-      v49 = [v67 hmf_stringForKey:@"HM.device"];
+      v49 = [v66 hmf_stringForKey:@"HM.device"];
       v50 = v49;
       *buf = 138544386;
       v51 = @"<UNKNOWN>";
-      v73 = v45;
+      v72 = v45;
       if (v49)
       {
         v51 = v49;
       }
 
-      v74 = 2048;
-      v75 = v46;
-      v76 = 2112;
-      v77 = recordID;
-      v78 = 2112;
-      v79 = v33;
-      v80 = 2112;
-      v81 = v51;
+      v73 = 2048;
+      v74 = v46;
+      v75 = 2112;
+      v76 = recordID;
+      v77 = 2112;
+      v78 = v33;
+      v79 = 2112;
+      v80 = v51;
       _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_DEFAULT, "%{public}@fetched cloud record (%lu bytes) %@ (%@) from %@", buf, 0x34u);
     }
 
@@ -487,11 +484,10 @@ LABEL_18:
     }
 
     v40 = v33;
-    v18 = v67;
+    v18 = v66;
   }
 
 LABEL_39:
-  v58 = *MEMORY[0x277D85DE8];
 
   return v40;
 }
@@ -582,12 +578,11 @@ LABEL_39:
 
 uint64_t __29__HMDCloudRecord_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_155458;
-  logCategory__hmf_once_v1_155458 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_155458;
+  logCategory__hmf_once_v1_155458 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)shortDescription

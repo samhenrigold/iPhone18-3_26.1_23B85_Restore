@@ -198,14 +198,14 @@ uint64_t QLPreviewControllerSupportsContentType(void *a1)
   return v4 & 1;
 }
 
-void sub_26165F2F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26165F2F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __QLPreviewControllerSupportsContentType_block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__QLPreviewControllerSupportsContentType_block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) conformsToType:a2];
   if (result)
@@ -266,13 +266,13 @@ id QLItemViewControllerVendorForItem(void *a1)
 
 void *_getIWorkImportLibrary()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   result = __lib;
   if (!__lib)
   {
     if (__loaded)
     {
-      result = 0;
+      return 0;
     }
 
     else
@@ -284,17 +284,17 @@ void *_getIWorkImportLibrary()
         v1 = *MEMORY[0x277D43EF8];
         if (!*MEMORY[0x277D43EF8])
         {
-          v4 = MEMORY[0x277D43EF8];
+          v3 = MEMORY[0x277D43EF8];
           QLSInitLogging();
-          v1 = *v4;
+          v1 = *v3;
         }
 
         if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
         {
           v2 = v1;
-          v5 = 136315138;
-          v6 = dlerror();
-          _os_log_impl(&dword_261653000, v2, OS_LOG_TYPE_ERROR, "Cannot load iWorkImport: %s #Conversion", &v5, 0xCu);
+          v4 = 136315138;
+          v5 = dlerror();
+          _os_log_impl(&dword_261653000, v2, OS_LOG_TYPE_ERROR, "Cannot load iWorkImport: %s #Conversion", &v4, 0xCu);
         }
 
         result = __lib;
@@ -304,7 +304,6 @@ void *_getIWorkImportLibrary()
     }
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -397,7 +396,7 @@ LABEL_2:
   return v11;
 }
 
-uint64_t IWGenerateAtomicPreviewForURL(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
+uint64_t IWGenerateAtomicPreviewForURL(uint64_t a1, __QLPreviewRequest *a2, uint64_t a3, uint64_t a4, void *a5)
 {
   properties = 0;
   cf = 0;
@@ -457,7 +456,7 @@ uint64_t IWGenerateAtomicPreviewForURL(uint64_t a1, void *a2, uint64_t a3, uint6
 
 uint64_t QLIWorkCalculatePreview(uint64_t a1, uint64_t a2, uint64_t a3, CFTypeRef *a4, CFTypeRef *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, CFErrorRef *a10)
 {
-  v73[1] = *MEMORY[0x277D85DE8];
+  v72[1] = *MEMORY[0x277D85DE8];
   v16 = QLIWorkCalculatePreview_CopyHTMLForIWorkDataWithUTIAndPassword_functionPointer;
   if (!QLIWorkCalculatePreview_CopyHTMLForIWorkDataWithUTIAndPassword_functionPointer)
   {
@@ -485,9 +484,7 @@ uint64_t QLIWorkCalculatePreview(uint64_t a1, uint64_t a2, uint64_t a3, CFTypeRe
 
       if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-LABEL_58:
-        v29 = 0;
-        goto LABEL_59;
+        return 0;
       }
 
       LOWORD(err[0]) = 0;
@@ -506,7 +503,7 @@ LABEL_58:
 
       if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_58;
+        return 0;
       }
 
       LOWORD(err[0]) = 0;
@@ -514,7 +511,7 @@ LABEL_58:
     }
 
     _os_log_impl(&dword_261653000, v23, OS_LOG_TYPE_DEFAULT, v24, err, 2u);
-    goto LABEL_58;
+    return 0;
   }
 
   v17 = QLIWorkCalculatePreview_CopyHTMLForIWorkFileAtURLWithPassword_functionPointer;
@@ -522,7 +519,7 @@ LABEL_3:
   err[0] = 0;
   if (a1 && v16)
   {
-    v18 = v16(a1, a6, a3, a9, err);
+    v18 = v16(a1, a6, a3, a9, err, a6, a7, a8);
   }
 
   else
@@ -532,7 +529,7 @@ LABEL_3:
       goto LABEL_46;
     }
 
-    v18 = v17(a2, a6, a3, a9, err);
+    v18 = v17(a2, a6, a3, a9, err, a6, a7, a8);
   }
 
   v25 = v18;
@@ -554,35 +551,35 @@ LABEL_69:
       [v30 setObject:@"UTF-8" forKey:?];
       v31 = [v25 objectForKey:@"HTMLResources"];
       [MEMORY[0x277CBEB38] dictionary];
-      v64 = v62 = v31;
+      v63 = v61 = v31;
       if (v31 && [v31 count])
       {
-        v60 = v25;
-        v61 = v30;
-        v57 = v28;
-        v58 = v28 != 0;
-        v59 = a5;
-        v67 = 0u;
-        v68 = 0u;
-        v65 = 0u;
+        v59 = v25;
+        v60 = v30;
+        v56 = v28;
+        v57 = v28 != 0;
+        v58 = a5;
         v66 = 0u;
+        v67 = 0u;
+        v64 = 0u;
+        v65 = 0u;
         v32 = v31;
-        v33 = [v32 countByEnumeratingWithState:&v65 objects:v71 count:16];
+        v33 = [v32 countByEnumeratingWithState:&v64 objects:v70 count:16];
         if (v33)
         {
           v34 = v33;
-          v63 = 0;
-          v35 = *v66;
+          v62 = 0;
+          v35 = *v65;
           do
           {
             for (i = 0; i != v34; ++i)
             {
-              if (*v66 != v35)
+              if (*v65 != v35)
               {
                 objc_enumerationMutation(v32);
               }
 
-              v37 = *(*(&v65 + 1) + 8 * i);
+              v37 = *(*(&v64 + 1) + 8 * i);
               v38 = [v32 objectForKey:v37];
               if ([v37 hasSuffix:@".html"])
               {
@@ -629,17 +626,17 @@ LABEL_69:
                 {
                   v43 = v38;
 
-                  v63 = v43;
+                  v62 = v43;
                 }
               }
 
               v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{v38, @"AttachmentData", v40, @"MimeType", v39, @"TextEncoding", 0}];
               v45 = [MEMORY[0x277CCA900] URLPathAllowedCharacterSet];
               v46 = [v37 stringByAddingPercentEncodingWithAllowedCharacters:v45];
-              [v64 setObject:v44 forKey:v46];
+              [v63 setObject:v44 forKey:v46];
             }
 
-            v34 = [v32 countByEnumeratingWithState:&v65 objects:v71 count:16];
+            v34 = [v32 countByEnumeratingWithState:&v64 objects:v70 count:16];
           }
 
           while (v34);
@@ -647,25 +644,25 @@ LABEL_69:
 
         else
         {
-          v63 = 0;
+          v62 = 0;
         }
 
-        v30 = v61;
-        v55 = v64;
-        [v61 setObject:v64 forKey:@"Attachments"];
-        v56 = v63;
-        if (v63)
+        v30 = v60;
+        v54 = v63;
+        [v60 setObject:v63 forKey:@"Attachments"];
+        v55 = v62;
+        if (v62)
         {
-          a5 = v59;
-          v25 = v60;
-          v29 = v58;
-          v28 = v57;
-          if ([v64 count] == 1)
+          a5 = v58;
+          v25 = v59;
+          v29 = v57;
+          v28 = v56;
+          if ([v63 count] == 1)
           {
-            [v61 setObject:@"application/pdf" forKey:@"MimeType"];
-            [v61 removeObjectForKey:@"Attachments"];
-            *a4 = CFRetain(v63);
-            *v59 = CFRetain(v61);
+            [v60 setObject:@"application/pdf" forKey:@"MimeType"];
+            [v60 removeObjectForKey:@"Attachments"];
+            *a4 = CFRetain(v62);
+            *v58 = CFRetain(v60);
 LABEL_68:
 
             goto LABEL_69;
@@ -674,26 +671,26 @@ LABEL_68:
 
         else
         {
-          v63 = 0;
-          a5 = v59;
-          v25 = v60;
-          v29 = v58;
-          v28 = v57;
+          v62 = 0;
+          a5 = v58;
+          v25 = v59;
+          v29 = v57;
+          v28 = v56;
         }
       }
 
       else
       {
-        v63 = 0;
+        v62 = 0;
       }
 
       [v30 setObject:*MEMORY[0x277CBED28] forKey:@"AllowJavascript"];
-      v52 = [v25 objectForKey:@"Width"];
-      v53 = [v25 objectForKey:@"Height"];
-      v54 = v53;
-      if (v52)
+      v51 = [v25 objectForKey:@"Width"];
+      v52 = [v25 objectForKey:@"Height"];
+      v53 = v52;
+      if (v51)
       {
-        if (v53)
+        if (v52)
         {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
@@ -701,8 +698,8 @@ LABEL_68:
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              [v30 setObject:v52 forKey:@"Width"];
-              [v30 setObject:v54 forKey:@"Height"];
+              [v30 setObject:v51 forKey:@"Width"];
+              [v30 setObject:v53 forKey:@"Height"];
             }
           }
         }
@@ -711,8 +708,8 @@ LABEL_68:
       *a4 = CFRetain(v28);
       *a5 = CFRetain(v30);
 
-      v55 = v64;
-      v56 = v63;
+      v54 = v63;
+      v55 = v62;
       goto LABEL_68;
     }
 
@@ -737,9 +734,9 @@ LABEL_46:
 
   if (a10)
   {
-    v72 = *MEMORY[0x277CCA7E8];
-    v73[0] = err[0];
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:&v72 count:1];
+    v71 = *MEMORY[0x277CCA7E8];
+    v72[0] = err[0];
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:&v71 count:1];
     if (CFErrorGetCode(err[0]) == 1)
     {
       v27 = 4;
@@ -757,8 +754,6 @@ LABEL_51:
   v29 = 0;
 LABEL_52:
 
-LABEL_59:
-  v50 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
@@ -930,9 +925,9 @@ __CFString *NSStringFromQLNetworkState(unint64_t a1)
   }
 }
 
-void sub_261665228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_261665228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1057,9 +1052,9 @@ LABEL_25:
   return 0;
 }
 
-void sub_26166BE94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_26166BE94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1071,9 +1066,9 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_26166D3B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26166D3B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1104,23 +1099,20 @@ LABEL_6:
         CFRelease(v6);
         CFRelease(v8);
         CFRelease(v2);
-LABEL_15:
-        v14 = *MEMORY[0x277D85DE8];
         return v9;
       }
 
       CFRelease(v2);
-      v13 = v6;
+      v12 = v6;
     }
 
     else
     {
-      v13 = v2;
+      v12 = v2;
     }
 
-    CFRelease(v13);
-    v9 = 0;
-    goto LABEL_15;
+    CFRelease(v12);
+    return 0;
   }
 
   v3 = CFURLCopyFileSystemPath(a1, kCFURLPOSIXPathStyle);
@@ -1136,10 +1128,9 @@ LABEL_15:
   }
 
 LABEL_9:
-  v10 = *MEMORY[0x277D85DE8];
-  v11 = MEMORY[0x277CBF128];
+  v10 = MEMORY[0x277CBF128];
 
-  return CFArrayCreate(0, 0, 0, v11);
+  return CFArrayCreate(0, 0, 0, v10);
 }
 
 CFTypeRef QLPackageCopyFirstURLMatchingPrefix(const __CFArray *a1, const __CFString *a2, const __CFString *a3, CFTypeRef *a4)
@@ -1235,16 +1226,16 @@ void sub_261671720(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2616717CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2616717CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   objc_destroyWeak(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t RTFGeneratePreviewForURL(uint64_t a1, __QLPreviewRequest *a2, uint64_t a3, void *a4)
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v6 = a4;
   v7 = [*MEMORY[0x277CE1E50] identifier];
   if ([v6 isEqualToString:v7])
@@ -1280,12 +1271,12 @@ LABEL_5:
   if (v10)
   {
     v11 = objc_alloc(MEMORY[0x277CCA898]);
-    v24 = *MEMORY[0x277D74090];
-    v25[0] = v10;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
-    v21 = 0;
-    v13 = [v11 initWithURL:a3 options:v12 documentAttributes:0 error:&v21];
-    v14 = v21;
+    v23 = *MEMORY[0x277D74090];
+    v24[0] = v10;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v20 = 0;
+    v13 = [v11 initWithURL:a3 options:v12 documentAttributes:0 error:&v20];
+    v14 = v20;
 
     if (v13)
     {
@@ -1312,33 +1303,32 @@ LABEL_12:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v23 = v14;
+    v22 = v14;
     _os_log_impl(&dword_261653000, v18, OS_LOG_TYPE_ERROR, "Could not load RTF file: %@ #Conversion", buf, 0xCu);
   }
 
 LABEL_16:
 
-  v19 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 void RTFGeneratePreviewForAttributedString(__QLPreviewRequest *a1, void *a2)
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 length];
-  v18 = *MEMORY[0x277D74090];
-  v19[0] = @"NSWebArchive";
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
-  v13 = 0;
-  v6 = [v3 dataFromRange:0 documentAttributes:v4 error:{v5, &v13}];
+  v17 = *MEMORY[0x277D74090];
+  v18[0] = @"NSWebArchive";
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v12 = 0;
+  v6 = [v3 dataFromRange:0 documentAttributes:v4 error:{v5, &v12}];
 
-  v7 = v13;
+  v7 = v12;
   if (v6)
   {
-    v16 = @"MimeType";
-    v17 = @"application/x-webarchive";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+    v15 = @"MimeType";
+    v16 = @"application/x-webarchive";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
     v9 = [*MEMORY[0x277CE1ED8] identifier];
     QLPreviewRequestSetDataRepresentation(a1, v6, v9, v8);
   }
@@ -1356,20 +1346,18 @@ void RTFGeneratePreviewForAttributedString(__QLPreviewRequest *a1, void *a2)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v15 = v7;
+      v14 = v7;
       _os_log_impl(&dword_261653000, v11, OS_LOG_TYPE_ERROR, "Could not load RTF file: %@ #Conversion", buf, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t RTFGeneratePreviewForData(uint64_t a1, __QLPreviewRequest *a2, uint64_t a3, uint64_t a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v11 = 0;
-  v5 = [QLTextItemTransformer attributedStringFromData:a3 encoding:0 typeIdentifier:a4 error:&v11];
-  v6 = v11;
+  v13 = *MEMORY[0x277D85DE8];
+  v10 = 0;
+  v5 = [QLTextItemTransformer attributedStringFromData:a3 encoding:0 typeIdentifier:a4 error:&v10];
+  v6 = v10;
   if (v5)
   {
     RTFGeneratePreviewForAttributedString(a2, v5);
@@ -1388,16 +1376,15 @@ uint64_t RTFGeneratePreviewForData(uint64_t a1, __QLPreviewRequest *a2, uint64_t
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = v6;
+      v12 = v6;
       _os_log_impl(&dword_261653000, v8, OS_LOG_TYPE_ERROR, "Could not load RTF file: %@ #Conversion", buf, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-uint64_t OIGenerateAtomicPreviewForURL(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
+uint64_t OIGenerateAtomicPreviewForURL(uint64_t a1, __QLPreviewRequest *a2, void *a3, void *a4, void *a5)
 {
   result = _QLGetOfficeFileTypeFromUTI(a4);
   if (result)
@@ -1446,7 +1433,7 @@ uint64_t OIGenerateAtomicPreviewForURL(uint64_t a1, void *a2, void *a3, void *a4
 
 void QLOfficeCalculatePreview(void *a1, uint64_t a2, uint64_t a3, void *a4, CFTypeRef *a5, CFTypeRef *a6, uint64_t a7, int a8)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   _QLGetOfficeFileTypeFromUTI(a4);
   if (a8)
   {
@@ -1492,116 +1479,116 @@ void QLOfficeCalculatePreview(void *a1, uint64_t a2, uint64_t a3, void *a4, CFTy
 
     else
     {
-      v19 = [v16 objectForKey:@"HTMLMainContent"];
-      v20 = [v19 dataUsingEncoding:4];
-      if (v20 && [v19 length] >= 0xA)
+      v18 = [v16 objectForKey:@"HTMLMainContent"];
+      v19 = [v18 dataUsingEncoding:4];
+      if (v19 && [v18 length] >= 0xA)
       {
-        v21 = [MEMORY[0x277CBEB38] dictionary];
-        [v21 setObject:@"text/html" forKey:?];
-        [v21 setObject:@"UTF-8" forKey:?];
-        v22 = [v16 objectForKey:@"HTMLResources"];
-        v47 = v22;
-        if (v22)
+        v20 = [MEMORY[0x277CBEB38] dictionary];
+        [v20 setObject:@"text/html" forKey:?];
+        [v20 setObject:@"UTF-8" forKey:?];
+        v21 = [v16 objectForKey:@"HTMLResources"];
+        v45 = v21;
+        if (v21)
         {
-          v23 = v22;
-          if ([v22 count])
+          v22 = v21;
+          if ([v21 count])
           {
-            v41 = v21;
-            v42 = v20;
-            v43 = v19;
-            v44 = v16;
-            v45 = a5;
-            v46 = a6;
-            v48 = [MEMORY[0x277CBEB38] dictionary];
+            v39 = v20;
+            v40 = v19;
+            v41 = v18;
+            v42 = v16;
+            v43 = a5;
+            v44 = a6;
+            v46 = [MEMORY[0x277CBEB38] dictionary];
+            v48 = 0u;
+            v49 = 0u;
             v50 = 0u;
             v51 = 0u;
-            v52 = 0u;
-            v53 = 0u;
-            v24 = v23;
-            v25 = [v24 countByEnumeratingWithState:&v50 objects:v54 count:16];
-            if (v25)
+            v23 = v22;
+            v24 = [v23 countByEnumeratingWithState:&v48 objects:v52 count:16];
+            if (v24)
             {
-              v26 = v25;
-              v27 = *v51;
+              v25 = v24;
+              v26 = *v49;
               do
               {
-                for (i = 0; i != v26; ++i)
+                for (i = 0; i != v25; ++i)
                 {
-                  if (*v51 != v27)
+                  if (*v49 != v26)
                   {
-                    objc_enumerationMutation(v24);
+                    objc_enumerationMutation(v23);
                   }
 
-                  v29 = *(*(&v50 + 1) + 8 * i);
-                  v30 = [v24 objectForKey:v29];
-                  if ([v29 hasSuffix:@".html"])
+                  v28 = *(*(&v48 + 1) + 8 * i);
+                  v29 = [v23 objectForKey:v28];
+                  if ([v28 hasSuffix:@".html"])
                   {
-                    v31 = @"UTF-8";
-                    v32 = @"text/html";
+                    v30 = @"UTF-8";
+                    v31 = @"text/html";
                   }
 
                   else
                   {
-                    v33 = [v29 hasSuffix:@".css"];
-                    if (v33)
+                    v32 = [v28 hasSuffix:@".css"];
+                    if (v32)
                     {
-                      v32 = @"text/css";
-                    }
-
-                    else
-                    {
-                      v32 = 0;
-                    }
-
-                    if (v33)
-                    {
-                      v31 = @"UTF-8";
+                      v31 = @"text/css";
                     }
 
                     else
                     {
                       v31 = 0;
                     }
+
+                    if (v32)
+                    {
+                      v30 = @"UTF-8";
+                    }
+
+                    else
+                    {
+                      v30 = 0;
+                    }
                   }
 
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v34 = [v30 dataUsingEncoding:4];
+                    v33 = [v29 dataUsingEncoding:4];
 
-                    v30 = v34;
+                    v29 = v33;
                   }
 
-                  v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{v30, @"AttachmentData", v32, @"MimeType", v31, @"TextEncoding", 0}];
-                  [v48 setObject:v35 forKey:v29];
+                  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{v29, @"AttachmentData", v31, @"MimeType", v30, @"TextEncoding", 0}];
+                  [v46 setObject:v34 forKey:v28];
                 }
 
-                v26 = [v24 countByEnumeratingWithState:&v50 objects:v54 count:16];
+                v25 = [v23 countByEnumeratingWithState:&v48 objects:v52 count:16];
               }
 
-              while (v26);
+              while (v25);
             }
 
-            v21 = v41;
-            [v41 setObject:v48 forKey:@"Attachments"];
+            v20 = v39;
+            [v39 setObject:v46 forKey:@"Attachments"];
 
-            a5 = v45;
-            a6 = v46;
+            a5 = v43;
+            a6 = v44;
             v17 = 0;
-            v16 = v44;
-            v20 = v42;
-            v19 = v43;
+            v16 = v42;
+            v19 = v40;
+            v18 = v41;
           }
         }
 
-        v36 = v21;
-        [v21 setObject:*MEMORY[0x277CBED28] forKey:@"AllowJavascript"];
-        v37 = [v16 objectForKey:@"HTMLWidth"];
-        v38 = [v16 objectForKey:@"HTMLHeight"];
-        v39 = v38;
-        if (v37)
+        v35 = v20;
+        [v20 setObject:*MEMORY[0x277CBED28] forKey:@"AllowJavascript"];
+        v36 = [v16 objectForKey:@"HTMLWidth"];
+        v37 = [v16 objectForKey:@"HTMLHeight"];
+        v38 = v37;
+        if (v36)
         {
-          if (v38)
+          if (v37)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
@@ -1609,31 +1596,29 @@ void QLOfficeCalculatePreview(void *a1, uint64_t a2, uint64_t a3, void *a4, CFTy
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                [v36 setObject:v37 forKey:@"Width"];
-                [v36 setObject:v39 forKey:@"Height"];
+                [v35 setObject:v36 forKey:@"Width"];
+                [v35 setObject:v38 forKey:@"Height"];
               }
             }
           }
         }
 
-        *a5 = CFRetain(v20);
-        *a6 = CFRetain(v36);
+        *a5 = CFRetain(v19);
+        *a6 = CFRetain(v35);
       }
     }
 
-    v40 = *MEMORY[0x277D85DE8];
     return;
   }
 
 LABEL_13:
-  v49 = [MEMORY[0x277CCA9B8] errorWithDomain:@"QuickLookDomain" code:897 userInfo:0];
-  QLPreviewRequestSetError(a1, v49);
-  v18 = *MEMORY[0x277D85DE8];
+  v47 = [MEMORY[0x277CCA9B8] errorWithDomain:@"QuickLookDomain" code:897 userInfo:0];
+  QLPreviewRequestSetError(a1, v47);
 }
 
 uint64_t OIGeneratePreviewForURLIfWrongContent(uint64_t a1, __QLPreviewRequest *a2, void *a3, void *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v8 = MEMORY[0x277CCA9F8];
   v9 = [a3 path];
   v10 = [v8 fileHandleForReadingAtPath:v9];
@@ -1650,18 +1635,18 @@ uint64_t OIGeneratePreviewForURLIfWrongContent(uint64_t a1, __QLPreviewRequest *
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20[0]) = 0;
-      _os_log_impl(&dword_261653000, v12, OS_LOG_TYPE_DEFAULT, " #Conversion", v20, 2u);
+      LOWORD(v19[0]) = 0;
+      _os_log_impl(&dword_261653000, v12, OS_LOG_TYPE_DEFAULT, " #Conversion", v19, 2u);
     }
 
     v13 = [v10 readDataOfLength:5];
     v14 = v13;
     if (v13 && [v13 length] == 5)
     {
-      v21 = 0;
-      memset(v20, 0, sizeof(v20));
-      [v14 getBytes:v20 length:5];
-      if (!strncasecmp(v20, "<html", 5uLL))
+      v20 = 0;
+      memset(v19, 0, sizeof(v19));
+      [v14 getBytes:v19 length:5];
+      if (!strncasecmp(v19, "<html", 5uLL))
       {
         v16 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:a3 options:1 error:0];
         if (v16)
@@ -1671,7 +1656,7 @@ uint64_t OIGeneratePreviewForURLIfWrongContent(uint64_t a1, __QLPreviewRequest *
         }
       }
 
-      else if (!strncasecmp(v20, "{\\rtf", 5uLL))
+      else if (!strncasecmp(v19, "{\\rtf", 5uLL))
       {
         v15 = RTFGeneratePreviewForURL(a1, a2, a3, a4);
 LABEL_16:
@@ -1688,7 +1673,6 @@ LABEL_16:
   v15 = 0;
 LABEL_17:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -1704,7 +1688,7 @@ void sub_261673B20(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-const void *OIGenerateAtomicPreviewForData(uint64_t a1, void *a2, const __CFData *a3, void *a4, void *a5)
+CFDictionaryRef OIGenerateAtomicPreviewForData(uint64_t a1, void *a2, const __CFData *a3, void *a4, void *a5)
 {
   if (!_QLGetOfficeFileTypeFromUTI(a4))
   {
@@ -1758,12 +1742,10 @@ const void *OIGenerateAtomicPreviewForData(uint64_t a1, void *a2, const __CFData
 
 uint64_t OIGeneratePreviewForDataIfWrongContent(uint64_t a1, __QLPreviewRequest *a2, CFDataRef theData, uint64_t a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (CFDataGetLength(theData) < 5)
   {
-LABEL_2:
-    result = 0xFFFFFFFFLL;
-    goto LABEL_23;
+    return 0xFFFFFFFFLL;
   }
 
   v9 = MEMORY[0x277D43EF8];
@@ -1780,9 +1762,9 @@ LABEL_2:
     _os_log_impl(&dword_261653000, v10, OS_LOG_TYPE_DEFAULT, " #Conversion", buf, 2u);
   }
 
-  v19 = 0;
+  v18 = 0;
   *buf = 0u;
-  v18 = 0u;
+  v17 = 0u;
   [(__CFData *)theData getBytes:buf length:5];
   if (!strncasecmp(buf, "<html", 5uLL))
   {
@@ -1795,14 +1777,14 @@ LABEL_2:
 
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_261653000, v13, OS_LOG_TYPE_DEFAULT, "It's an HTML #Conversion", v16, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_261653000, v13, OS_LOG_TYPE_DEFAULT, "It's an HTML #Conversion", v15, 2u);
     }
 
     v14 = [*MEMORY[0x277CE1DA0] identifier];
     QLPreviewRequestSetDataRepresentation(a2, theData, v14, 0);
 
-    result = 0;
+    return 0;
   }
 
   else
@@ -1819,11 +1801,11 @@ LABEL_2:
 
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        *v16 = 0;
-        _os_log_impl(&dword_261653000, v12, OS_LOG_TYPE_DEFAULT, "Returning false #Conversion", v16, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_261653000, v12, OS_LOG_TYPE_DEFAULT, "Returning false #Conversion", v15, 2u);
       }
 
-      goto LABEL_2;
+      return 0xFFFFFFFFLL;
     }
 
     if (!v12)
@@ -1834,16 +1816,12 @@ LABEL_2:
 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_261653000, v12, OS_LOG_TYPE_DEFAULT, "It's an RTF #Conversion", v16, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_261653000, v12, OS_LOG_TYPE_DEFAULT, "It's an RTF #Conversion", v15, 2u);
     }
 
-    result = RTFGeneratePreviewForData(a1, a2, theData, a4);
+    return RTFGeneratePreviewForData(a1, a2, theData, a4);
   }
-
-LABEL_23:
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t _QLGetOfficeFileTypeFromUTI(void *a1)
@@ -2030,7 +2008,7 @@ id _QLRemoveSpaces(void *a1)
 
 uint64_t QLTypeCopyUTIForURLAndMimeType(void *a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = [v3 path];
@@ -2065,22 +2043,21 @@ uint64_t QLTypeCopyUTIForURLAndMimeType(void *a1, void *a2)
   {
     v17 = v16;
     v18 = [v3 description];
-    v21 = 138412802;
-    v22 = v18;
-    v23 = 2112;
-    v24 = v4;
-    v25 = 2112;
-    v26 = v14;
-    _os_log_impl(&dword_261653000, v17, OS_LOG_TYPE_INFO, "(%@, %@) -> %@ #UTI", &v21, 0x20u);
+    v20 = 138412802;
+    v21 = v18;
+    v22 = 2112;
+    v23 = v4;
+    v24 = 2112;
+    v25 = v14;
+    _os_log_impl(&dword_261653000, v17, OS_LOG_TYPE_INFO, "(%@, %@) -> %@ #UTI", &v20, 0x20u);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 uint64_t _QLTypeCopyUTIForFileNameAndMimeType(void *a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = [v3 pathExtension];
@@ -2239,24 +2216,23 @@ LABEL_38:
 
   if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
-    v29 = 138412802;
-    v30 = v3;
-    v31 = 2112;
-    v32 = v4;
-    v33 = 2112;
-    v34 = v16;
-    _os_log_impl(&dword_261653000, v25, OS_LOG_TYPE_INFO, "(%@, %@) -> %@ #UTI", &v29, 0x20u);
+    v28 = 138412802;
+    v29 = v3;
+    v30 = 2112;
+    v31 = v4;
+    v32 = 2112;
+    v33 = v16;
+    _os_log_impl(&dword_261653000, v25, OS_LOG_TYPE_INFO, "(%@, %@) -> %@ #UTI", &v28, 0x20u);
   }
 
   v26 = [v16 identifier];
 
-  v27 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
 __CFString *QLTypeCopyBestMimeTypeForFileNameAndMimeType(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = _QLTypeCopyUTIForFileNameAndMimeType(v3, v4);
@@ -2271,22 +2247,21 @@ __CFString *QLTypeCopyBestMimeTypeForFileNameAndMimeType(void *a1, void *a2)
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v11 = 138412802;
-    v12 = v3;
-    v13 = 2112;
-    v14 = v4;
-    v15 = 2112;
-    v16 = v6;
-    _os_log_impl(&dword_261653000, v8, OS_LOG_TYPE_INFO, "(%@, %@) -> %@ #UTI", &v11, 0x20u);
+    v10 = 138412802;
+    v11 = v3;
+    v12 = 2112;
+    v13 = v4;
+    v14 = 2112;
+    v15 = v6;
+    _os_log_impl(&dword_261653000, v8, OS_LOG_TYPE_INFO, "(%@, %@) -> %@ #UTI", &v10, 0x20u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 __CFString *_QLTypeCopyBestMimeTypeForUTI(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if ([v1 isEqualToString:@"public.data"])
   {
@@ -2316,21 +2291,20 @@ __CFString *_QLTypeCopyBestMimeTypeForUTI(void *a1)
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v8 = 138412546;
-      v9 = v1;
-      v10 = 2112;
-      v11 = v2;
-      _os_log_impl(&dword_261653000, v5, OS_LOG_TYPE_INFO, "(%@) -> %@ #UTI", &v8, 0x16u);
+      v7 = 138412546;
+      v8 = v1;
+      v9 = 2112;
+      v10 = v2;
+      _os_log_impl(&dword_261653000, v5, OS_LOG_TYPE_INFO, "(%@) -> %@ #UTI", &v7, 0x16u);
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 __CFString *QLTypeCopyBestMimeTypeForURLAndMimeType(void *a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = QLTypeCopyUTIForURLAndMimeType(v3, v4);
@@ -2347,16 +2321,15 @@ __CFString *QLTypeCopyBestMimeTypeForURLAndMimeType(void *a1, void *a2)
   {
     v9 = v8;
     v10 = [v3 description];
-    v13 = 138412802;
-    v14 = v10;
-    v15 = 2112;
-    v16 = v4;
-    v17 = 2112;
-    v18 = v6;
-    _os_log_impl(&dword_261653000, v9, OS_LOG_TYPE_INFO, "(%@, %@) -> %@ #UTI", &v13, 0x20u);
+    v12 = 138412802;
+    v13 = v10;
+    v14 = 2112;
+    v15 = v4;
+    v16 = 2112;
+    v17 = v6;
+    _os_log_impl(&dword_261653000, v9, OS_LOG_TYPE_INFO, "(%@, %@) -> %@ #UTI", &v12, 0x20u);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -2455,7 +2428,7 @@ uint64_t _QLTypeCopyPrivateUTIFromFileNameAndMimeType(void *a1, void *a2)
   v5 = v4;
   if (!v3)
   {
-    v14 = 0;
+    v13 = 0;
     if (!v4)
     {
       goto LABEL_15;
@@ -2468,62 +2441,63 @@ uint64_t _QLTypeCopyPrivateUTIFromFileNameAndMimeType(void *a1, void *a2)
   if (v6)
   {
     v7 = _QLCopyPackageExtensionIfIsArchiveFileName(v3);
-    if ([v7 length] && (v8 = objc_msgSend(v3, "rangeOfString:options:", v7, 4), v8 != 0x7FFFFFFFFFFFFFFFLL) && (objc_msgSend(v3, "substringFromIndex:", v8), (v9 = objc_claimAutoreleasedReturnValue()) != 0))
+    v8 = [v7 length];
+    if (v8 && (v8 = [v3 rangeOfString:v7 options:4], v8 != 0x7FFFFFFFFFFFFFFFLL) && (objc_msgSend(v3, "substringFromIndex:", v8), (v8 = objc_claimAutoreleasedReturnValue()) != 0))
     {
-      v10 = v9;
-      v11 = _QLTypeGetKnownExtensions();
-      v12 = v11;
-      v13 = v10;
+      v9 = v8;
+      v10 = _QLTypeGetKnownExtensions(v8);
+      v11 = v10;
+      v12 = v9;
     }
 
     else
     {
-      v10 = _QLTypeGetKnownExtensions();
-      v12 = [v6 lowercaseString];
-      v11 = v10;
-      v13 = v12;
+      v9 = _QLTypeGetKnownExtensions(v8);
+      v11 = [v6 lowercaseString];
+      v10 = v9;
+      v12 = v11;
     }
 
-    v14 = [v11 objectForKeyedSubscript:v13];
+    v13 = [v10 objectForKeyedSubscript:v12];
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
   if (v5)
   {
 LABEL_13:
-    if (!v14)
+    if (!v13)
     {
-      v15 = [v5 lowercaseString];
-      v16 = _QLTypeGetKnownMimeTypes();
-      v14 = [v16 objectForKeyedSubscript:v15];
+      v14 = [v5 lowercaseString];
+      v15 = _QLTypeGetKnownMimeTypes(v14);
+      v13 = [v15 objectForKeyedSubscript:v14];
     }
   }
 
 LABEL_15:
 
-  return v14;
+  return v13;
 }
 
-id _QLToolsGetKnownUTIs()
+id _QLToolsGetKnownUTIs(uint64_t a1)
 {
   if (_QLToolsGetKnownUTIs_onceToken != -1)
   {
     _QLToolsGetKnownUTIs_cold_1();
   }
 
-  v1 = _QLToolsGetKnownUTIs__knownUTIs;
+  v2 = _QLToolsGetKnownUTIs__knownUTIs;
 
-  return v1;
+  return v2;
 }
 
 id _QLGetMimeTypeForContentType(void *a1)
 {
   v1 = a1;
-  v2 = _QLToolsGetKnownUTIs();
+  v2 = _QLToolsGetKnownUTIs(v1);
   v3 = [v1 lowercaseString];
 
   v4 = [v2 objectForKey:v3];
@@ -2532,28 +2506,28 @@ id _QLGetMimeTypeForContentType(void *a1)
   return v5;
 }
 
-id _QLTypeGetKnownExtensions()
+id _QLTypeGetKnownExtensions(uint64_t a1)
 {
   if (_QLTypeGetKnownExtensions_onceToken != -1)
   {
     _QLTypeGetKnownExtensions_cold_1();
   }
 
-  v1 = _QLTypeGetKnownExtensions__knownExtensions;
+  v2 = _QLTypeGetKnownExtensions__knownExtensions;
 
-  return v1;
+  return v2;
 }
 
-id _QLTypeGetKnownMimeTypes()
+id _QLTypeGetKnownMimeTypes(uint64_t a1)
 {
   if (_QLTypeGetKnownMimeTypes_onceToken != -1)
   {
     _QLTypeGetKnownMimeTypes_cold_1();
   }
 
-  v1 = _QLTypeGetKnownMimeTypes__knownMimeTypes;
+  v2 = _QLTypeGetKnownMimeTypes__knownMimeTypes;
 
-  return v1;
+  return v2;
 }
 
 uint64_t _QLContentTypeConformsToContentTypeInSet(void *a1, void *a2)
@@ -2578,9 +2552,9 @@ uint64_t _QLContentTypeConformsToContentTypeInSet(void *a1, void *a2)
   return v6;
 }
 
-void sub_2616756C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2616756C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2675,21 +2649,21 @@ double gotLoadHelper_x8__kOIPreviewOptionsPassphrase(double result)
   return result;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_CloudDocs(double a1)
+double dlopenHelper_CloudDocs(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/CloudDocs.framework/CloudDocs", 0);
   atomic_store(1u, &dlopenHelperFlag_CloudDocs);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_OfficeImport(double a1)
+double dlopenHelper_OfficeImport(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/OfficeImport.framework/OfficeImport", 0);
   atomic_store(1u, &dlopenHelperFlag_OfficeImport);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_PhotosUIPrivate(double a1)
+double dlopenHelper_PhotosUIPrivate(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/PhotosUIPrivate.framework/PhotosUIPrivate", 0);
   atomic_store(1u, &dlopenHelperFlag_PhotosUIPrivate);

@@ -25,7 +25,7 @@
 
 - (NSArray)actions
 {
-  sub_18B4AC60C(0, &qword_1EA9C3980);
+  sub_18B4AC60C(0, &qword_1EA9C3980, 0x1E69DC628);
   sub_18B6C450C();
   v2 = sub_18B6C575C();
 
@@ -34,7 +34,7 @@
 
 - (void)setActions:(id)actions
 {
-  sub_18B4AC60C(0, &qword_1EA9C3980);
+  sub_18B4AC60C(0, &qword_1EA9C3980, 0x1E69DC628);
   v4 = sub_18B6C576C();
   selfCopy = self;
   sub_18B4AC2FC(v4);
@@ -42,7 +42,7 @@
 
 - (AVInfoTabCoordinator)initWithPlayerItem:(id)item actions:(id)actions
 {
-  sub_18B4AC60C(0, &qword_1EA9C3980);
+  sub_18B4AC60C(0, &qword_1EA9C3980, 0x1E69DC628);
   v5 = sub_18B6C576C();
   return sub_18B4AC3EC(item, v5);
 }

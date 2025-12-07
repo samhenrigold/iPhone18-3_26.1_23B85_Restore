@@ -23,7 +23,7 @@
 {
   v14[2] = *MEMORY[0x1E69E9840];
   v13[0] = @"PXCuratedLibraryZoomLevelChangeFromKey";
-  v8 = [MEMORY[0x1E696AD98] numberWithInteger:?];
+  v8 = [MEMORY[0x1E696AD98] numberWithInteger:a3];
   v13[1] = @"PXCuratedLibraryZoomLevelChangeToKey";
   v14[0] = v8;
   v9 = [MEMORY[0x1E696AD98] numberWithInteger:a4];

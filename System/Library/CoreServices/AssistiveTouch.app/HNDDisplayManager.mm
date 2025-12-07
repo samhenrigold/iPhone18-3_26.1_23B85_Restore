@@ -1317,7 +1317,7 @@ LABEL_32:
 - (void)_updateRockerReachability
 {
   memset(&v5, 0, sizeof(v5));
-  [(HNDDisplayManager *)self _transformForOrientation];
+  objc_msgSend__transformForOrientation(self, a2);
   [(HNDDisplayManager *)self _currentRockerTranslateY];
   CGAffineTransformTranslate(&v5, &v4, 0.0, v3);
   v4 = v5;
@@ -1375,7 +1375,7 @@ LABEL_32:
 {
   v3 = -1.0;
   v4 = -1.0;
-  if (sub_100042C64())
+  if (sub_100042C64(self, a2))
   {
     handManager = [(HNDDisplayManager *)self handManager];
     systemPointerController = [handManager systemPointerController];
@@ -1420,7 +1420,7 @@ LABEL_32:
 - (void)_resetReachabilityOffset
 {
   [(HNDDisplayManager *)self setReachabilityOffset:0.0];
-  [(HNDDisplayManager *)self _transformForOrientation];
+  objc_msgSend__transformForOrientation(self);
   contentView = self->_contentView;
   v4[0] = v4[3];
   v4[1] = v4[4];
@@ -1438,13 +1438,13 @@ LABEL_32:
   contentView = self->_contentView;
   if (contentView)
   {
-    [(UIView *)contentView transform];
+    objc_msgSend_transform(contentView);
   }
 
   [(HNDDisplayManager *)self reachabilityOffset];
   if (v7 == 0.0)
   {
-    [(HNDDisplayManager *)self _transformForOrientation];
+    objc_msgSend__transformForOrientation(self);
     v18 = v17;
   }
 
@@ -1840,183 +1840,191 @@ LABEL_35:
 
 - (double)_yNubbitPadding:(double)padding y:(double)y
 {
-  if ((sub_100043C74() & 1) == 0)
+  v7 = sub_100043C74(self, a2);
+  if ((v7 & 1) == 0)
   {
-    v7 = 2.0;
-    if (!sub_100043C20())
+    v9 = 2.0;
+    if (!sub_100043C20(v7, v8))
     {
-      return v7;
+      return v9;
     }
   }
 
-  [(HNDDisplayManager *)self screenBounds];
-  v9 = v8;
-  v11 = v10;
-  v12 = sub_100043C74();
-  v13 = 2.0;
-  if (sub_100043C74())
+  screenBounds = [(HNDDisplayManager *)self screenBounds];
+  v12 = v11;
+  v14 = v13;
+  v16 = sub_100043C74(screenBounds, v15);
+  v17 = v16;
+  v18 = 2.0;
+  if (sub_100043C74(v16, v19))
   {
-    if (v12)
+    if (v17)
     {
-      v14 = 10.0;
+      v20 = 10.0;
     }
 
     else
     {
-      v14 = 0.0;
+      v20 = 0.0;
     }
 
     [(HNDDisplayManager *)self safeAreaInsets];
-    v13 = v15 - v14;
+    v18 = v21 - v20;
   }
 
-  if (AXDeviceHasJindo())
+  HasJindo = AXDeviceHasJindo();
+  if (HasJindo)
   {
-    v7 = self->_foreheadRect.origin.y + self->_foreheadRect.size.height + 9.0;
+    v9 = self->_foreheadRect.origin.y + self->_foreheadRect.size.height + 9.0;
   }
 
   else
   {
-    v16 = sub_100043C20();
-    v7 = 2.0;
-    if (sub_100043C20())
+    v24 = sub_100043C20(HasJindo, v23);
+    v25 = v24;
+    v9 = 2.0;
+    if (sub_100043C20(v24, v26))
     {
-      if (v16)
+      if (v25)
       {
-        v17 = 10.0;
+        v27 = 10.0;
       }
 
       else
       {
-        v17 = 0.0;
+        v27 = 0.0;
       }
 
       [(HNDDisplayManager *)self safeAreaInsets];
-      v7 = v18 - v17;
+      v9 = v28 - v27;
     }
   }
 
   orientation = [(HNDDisplayManager *)self orientation];
-  if ((sub_100043C20() & (orientation != 1)) != 0)
+  v30 = orientation;
+  v32 = sub_100043C20(orientation, v31);
+  if ((v32 & (v30 != 1)) != 0)
   {
-    v7 = 9.0;
+    v9 = 9.0;
   }
 
-  if (v7 >= y && sub_100043C20())
+  if (v9 >= y && sub_100043C20(v32, v33))
   {
     x = self->_foreheadRect.origin.x;
     +[HNDRocker nubbitSize];
-    if (x - v21 < padding && self->_foreheadRect.origin.x + self->_foreheadRect.size.width > padding && (AXDeviceHasJindo() & 1) != 0)
+    if (x - v35 < padding && self->_foreheadRect.origin.x + self->_foreheadRect.size.width > padding && (AXDeviceHasJindo() & 1) != 0)
     {
-      return v7;
+      return v9;
     }
 
     +[HNDRocker nubbitSize];
-    if (88.0 - v22 < padding && v9 + -88.0 > padding)
+    if (88.0 - v36 < padding && v12 + -88.0 > padding)
     {
-      return v7;
+      return v9;
     }
 
     return 10.0;
   }
 
+  v38 = +[HNDRocker nubbitSize];
+  if (v40 + y < v14 - v18 || !sub_100043C74(v38, v39))
+  {
+    return 10.0;
+  }
+
+  v41 = v12 * 0.5;
   +[HNDRocker nubbitSize];
-  if (v24 + y < v11 - v13 || !sub_100043C74())
+  v43 = v42 + padding;
+  v44 = AXDeviceIsPhone() ? 67.0 : 170.0;
+  if (v43 <= v41 - v44)
   {
     return 10.0;
   }
 
-  v25 = v9 * 0.5;
-  +[HNDRocker nubbitSize];
-  v27 = v26 + padding;
-  v28 = AXDeviceIsPhone() ? 67.0 : 170.0;
-  if (v27 <= v25 - v28)
+  v45 = AXDeviceIsPhone() ? 67.0 : 170.0;
+  v9 = v18;
+  if (v41 + v45 <= padding)
   {
     return 10.0;
   }
 
-  v29 = AXDeviceIsPhone() ? 67.0 : 170.0;
-  v7 = v13;
-  if (v25 + v29 <= padding)
-  {
-    return 10.0;
-  }
-
-  return v7;
+  return v9;
 }
 
 - (double)_xNubbitPadding:(double)padding x:(double)x
 {
-  if ((sub_100043C74() & 1) == 0)
+  v7 = sub_100043C74(self, a2);
+  if ((v7 & 1) == 0)
   {
-    v7 = 2.0;
-    if (!sub_100043C20())
+    v9 = 2.0;
+    if (!sub_100043C20(v7, v8))
     {
-      return v7;
+      return v9;
     }
   }
 
   +[HNDRocker nubbitSize];
-  v9 = v8;
   v11 = v10;
-  [(HNDDisplayManager *)self _yNubbitPadding:x y:padding];
   v13 = v12;
-  [(HNDDisplayManager *)self screenBounds];
+  [(HNDDisplayManager *)self _yNubbitPadding:x y:padding];
   v15 = v14;
-  v17 = v16;
-  v18 = v14 - v9;
-  if (sub_100043C20())
+  screenBounds = [(HNDDisplayManager *)self screenBounds];
+  v18 = v17;
+  v20 = v19;
+  v21 = v17 - v11;
+  if (sub_100043C20(screenBounds, v22))
   {
-    v19 = 10.0;
+    v23 = 10.0;
   }
 
   else
   {
-    v19 = 0.0;
+    v23 = 0.0;
   }
 
   orientation = [(HNDDisplayManager *)self orientation];
-  if (v13 >= padding && (sub_100043C74() & 1) != 0 || v17 - v11 - v13 <= padding && sub_100043C20())
+  v26 = orientation;
+  if (v15 >= padding && (orientation = sub_100043C74(orientation, v25), (orientation & 1) != 0) || v20 - v13 - v15 <= padding && sub_100043C20(orientation, v25))
   {
-    v7 = 10.0;
+    v9 = 10.0;
     if (x > 9.0)
     {
-      v7 = 9.0;
-      if (v18 + -9.0 <= x)
+      v9 = 9.0;
+      if (v21 + -9.0 <= x)
       {
-        return v18 + -10.0;
+        return v21 + -10.0;
       }
     }
 
-    return v7;
+    return v9;
   }
 
-  v7 = 9.0;
-  if (orientation != 4)
+  v9 = 9.0;
+  if (v26 != 4)
   {
-    if (orientation != 3)
+    if (v26 != 3)
     {
-      return v7;
+      return v9;
     }
 
     HasJindo = AXDeviceHasJindo();
-    [(HNDDisplayManager *)self safeAreaInsets];
-    v23 = v22;
+    safeAreaInsets = [(HNDDisplayManager *)self safeAreaInsets];
+    v31 = v30;
     if (HasJindo)
     {
-      if (v22 == 0.0)
+      if (v30 == 0.0)
       {
-        v24 = v19 + self->_foreheadRect.origin.x + self->_foreheadRect.size.width + 9.0;
+        v32 = v23 + self->_foreheadRect.origin.x + self->_foreheadRect.size.width + 9.0;
 LABEL_27:
-        if (sub_100043C20())
+        if (sub_100043C20(safeAreaInsets, v29))
         {
-          v34 = v24 - v19;
-          if (v34 > x)
+          v44 = v32 - v23;
+          if (v44 > x)
           {
             +[HNDRocker nubbitSize];
-            if (v17 + -88.0 > padding && 88.0 - v35 < padding)
+            if (v20 + -88.0 > padding && 88.0 - v45 < padding)
             {
-              return v34;
+              return v44;
             }
 
             else
@@ -2026,65 +2034,65 @@ LABEL_27:
           }
         }
 
-        return v7;
+        return v9;
       }
 
-      [(HNDDisplayManager *)self safeAreaInsets];
+      safeAreaInsets = [(HNDDisplayManager *)self safeAreaInsets];
     }
 
     else
     {
-      [(HNDDisplayManager *)self safeAreaInsets];
-      if (v23 == 0.0)
+      safeAreaInsets = [(HNDDisplayManager *)self safeAreaInsets];
+      if (v31 == 0.0)
       {
-        v24 = v30;
+        v32 = v40;
         goto LABEL_27;
       }
     }
 
-    v24 = v31;
+    v32 = v41;
     goto LABEL_27;
   }
 
-  v42 = v19;
-  v25 = AXDeviceHasJindo();
-  [(HNDDisplayManager *)self safeAreaInsets];
-  v27 = v26;
-  if (!v25)
+  v52 = v23;
+  v33 = AXDeviceHasJindo();
+  safeAreaInsets2 = [(HNDDisplayManager *)self safeAreaInsets];
+  v37 = v36;
+  if (!v33)
   {
-    [(HNDDisplayManager *)self safeAreaInsets];
-    if (v27 == 0.0)
+    safeAreaInsets2 = [(HNDDisplayManager *)self safeAreaInsets];
+    if (v37 == 0.0)
     {
-      v29 = v32;
+      v39 = v42;
 LABEL_37:
-      v28 = v42;
+      v38 = v52;
       goto LABEL_38;
     }
 
 LABEL_36:
-    v29 = v33;
+    v39 = v43;
     goto LABEL_37;
   }
 
-  if (v26 != 0.0)
+  if (v36 != 0.0)
   {
-    [(HNDDisplayManager *)self safeAreaInsets];
+    safeAreaInsets2 = [(HNDDisplayManager *)self safeAreaInsets];
     goto LABEL_36;
   }
 
-  v28 = v42;
-  v29 = v42 + v15 - self->_foreheadRect.origin.x + 18.0;
+  v38 = v52;
+  v39 = v52 + v18 - self->_foreheadRect.origin.x + 18.0;
 LABEL_38:
-  if (sub_100043C20())
+  if (sub_100043C20(safeAreaInsets2, v35))
   {
-    v37 = v29 - v28;
+    v47 = v39 - v38;
     +[HNDRocker nubbitSize];
-    if (v38 + x > v15 - v37)
+    if (v48 + x > v18 - v47)
     {
       +[HNDRocker nubbitSize];
-      if (v17 + -88.0 > padding && 88.0 - v39 < padding)
+      if (v20 + -88.0 > padding && 88.0 - v49 < padding)
       {
-        return v18 - v37;
+        return v21 - v47;
       }
 
       else
@@ -2094,7 +2102,7 @@ LABEL_38:
     }
   }
 
-  return v7;
+  return v9;
 }
 
 - (CGPoint)_validateNubbitPosition:(CGPoint)position forKeyboard:(BOOL)keyboard
@@ -2502,40 +2510,40 @@ LABEL_7:
   v9 = v8;
   [(UIWindow *)self->_window convertRect:self->_contentView toView:x, y, width, height];
   v11 = v10;
-  +[HNDRocker nubbitSize];
-  v13 = v11 - v12;
-  if (sub_100043C74() && AXDeviceIsPhone() && [(HNDDisplayManager *)self orientation]== 1)
+  v12 = +[HNDRocker nubbitSize];
+  v14 = v11 - v13;
+  if (sub_100043C74(v12, v15) && AXDeviceIsPhone() && [(HNDDisplayManager *)self orientation]== 1)
   {
     self->_nubbitPositionEdge = 2;
     [(HNDDisplayManager *)self _nubbitPointForEdgePosition];
-    v15 = v14;
-    v13 = v16;
-    v17 = width - v14;
+    v17 = v16;
+    v14 = v18;
+    v19 = width - v16;
     [(HNDDisplayManager *)self screenBounds];
-    v19 = v18;
+    v21 = v20;
     IsPhone = AXDeviceIsPhone();
-    v21 = 340.0;
+    v23 = 340.0;
     if (IsPhone)
     {
-      v21 = 134.0;
+      v23 = 134.0;
     }
 
-    v22 = (v19 - v21) * 0.5;
-    if (v15 >= v17)
+    v24 = (v21 - v23) * 0.5;
+    if (v17 >= v19)
     {
-      v9 = width - v22;
+      v9 = width - v24;
     }
 
     else
     {
       +[HNDRocker nubbitSize];
-      v9 = v22 - v23;
+      v9 = v24 - v25;
     }
   }
 
-  [(HNDDisplayManager *)self _validateNubbitPosition:1 forKeyboard:v9, v13];
-  result.y = v25;
-  result.x = v24;
+  [(HNDDisplayManager *)self _validateNubbitPosition:1 forKeyboard:v9, v14];
+  result.y = v27;
+  result.x = v26;
   return result;
 }
 
@@ -6462,7 +6470,7 @@ LABEL_6:
 
   selfCopy = self;
   sub_100110DBC(v7, v6);
-  sub_100103294(v7);
+  sub_100103294(v7, v6);
 }
 
 @end

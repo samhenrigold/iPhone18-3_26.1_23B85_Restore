@@ -6,6 +6,7 @@
 - (NSMutableDictionary)originalValues;
 - (NSMutableDictionary)values;
 - (NSMutableSet)changedKeysSet;
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand;
 - (id)allKeys;
 - (id)allRawValues;
 - (id)changedKeys;
@@ -30,13 +31,11 @@
 
 + (void)initialize
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
-  v7[0] = objc_opt_class();
-  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v4, v7, 1);
+  v6[0] = objc_opt_class();
+  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v4, v6, 1);
   sub_1886CEE50(self, v3, v5, 0, 1);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)allKeys
@@ -679,12 +678,12 @@ LABEL_53:
 - (BOOL)containsValueOfClasses:(id)classes options:(unint64_t)options passingTest:(id)test
 {
   optionsCopy = options;
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   classesCopy = classes;
   testCopy = test;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v51 = selfCopy;
+  v50 = selfCopy;
   if (optionsCopy)
   {
     objc_msgSend_changedKeys(selfCopy, v11, v12);
@@ -695,31 +694,31 @@ LABEL_53:
     objc_msgSend_allKeys(selfCopy, v11, v12);
   }
 
+  v69 = 0u;
   v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
-  v13 = v69 = 0u;
-  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v68, v75, 16);
+  v67 = 0u;
+  v13 = v68 = 0u;
+  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v67, v74, 16);
   if (!v15)
   {
     v47 = 0;
     goto LABEL_61;
   }
 
-  v55 = *v69;
-  v50 = classesCopy;
-  v52 = v13;
+  v54 = *v68;
+  v49 = classesCopy;
+  v51 = v13;
   do
   {
-    v54 = v15;
-    for (i = 0; i != v54; ++i)
+    v53 = v15;
+    for (i = 0; i != v53; ++i)
     {
-      if (*v69 != v55)
+      if (*v68 != v54)
       {
         objc_enumerationMutation(v13);
       }
 
-      v19 = *(*(&v68 + 1) + 8 * i);
+      v19 = *(*(&v67 + 1) + 8 * i);
       v20 = objc_msgSend_values(selfCopy, v16, v17);
       v22 = objc_msgSend_objectForKeyedSubscript_(v20, v21, v19);
 
@@ -741,39 +740,39 @@ LABEL_53:
         v28 = objc_msgSend_firstObject(v24, v25, v26);
         if (v28)
         {
-          v53 = v28;
+          v52 = v28;
           if (classesCopy)
           {
             v29 = objc_opt_class();
-            v62 = 0u;
-            v63 = 0u;
-            v60 = 0u;
             v61 = 0u;
+            v62 = 0u;
+            v59 = 0u;
+            v60 = 0u;
             v30 = classesCopy;
-            v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v31, &v60, v73, 16);
+            v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v31, &v59, v72, 16);
             if (v33)
             {
-              v34 = *v61;
+              v34 = *v60;
               while (2)
               {
                 for (j = 0; j != v33; ++j)
                 {
-                  if (*v61 != v34)
+                  if (*v60 != v34)
                   {
                     objc_enumerationMutation(v30);
                   }
 
-                  if (objc_msgSend_isSubclassOfClass_(v29, v32, *(*(&v60 + 1) + 8 * j)))
+                  if (objc_msgSend_isSubclassOfClass_(v29, v32, *(*(&v59 + 1) + 8 * j)))
                   {
 
-                    classesCopy = v50;
-                    selfCopy = v51;
-                    v13 = v52;
+                    classesCopy = v49;
+                    selfCopy = v50;
+                    v13 = v51;
                     goto LABEL_35;
                   }
                 }
 
-                v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v32, &v60, v73, 16);
+                v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v32, &v59, v72, 16);
                 if (v33)
                 {
                   continue;
@@ -782,46 +781,46 @@ LABEL_53:
                 break;
               }
 
-              selfCopy = v51;
+              selfCopy = v50;
 LABEL_44:
-              classesCopy = v50;
+              classesCopy = v49;
             }
 
-            v13 = v52;
+            v13 = v51;
           }
 
           else
           {
 LABEL_35:
-            v58 = 0u;
-            v59 = 0u;
-            v56 = 0u;
             v57 = 0u;
+            v58 = 0u;
+            v55 = 0u;
+            v56 = 0u;
             v30 = v27;
-            v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v42, &v56, v72, 16);
+            v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v42, &v55, v71, 16);
             if (v43)
             {
-              v44 = *v57;
+              v44 = *v56;
               while (2)
               {
                 for (k = 0; k != v43; ++k)
                 {
-                  if (*v57 != v44)
+                  if (*v56 != v44)
                   {
                     objc_enumerationMutation(v30);
                   }
 
-                  if (testCopy[2](testCopy, v19, *(*(&v56 + 1) + 8 * k)))
+                  if (testCopy[2](testCopy, v19, *(*(&v55 + 1) + 8 * k)))
                   {
 
-                    classesCopy = v50;
-                    v13 = v52;
+                    classesCopy = v49;
+                    v13 = v51;
 
                     goto LABEL_59;
                   }
                 }
 
-                v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v46, &v56, v72, 16);
+                v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v46, &v55, v71, 16);
                 if (v43)
                 {
                   continue;
@@ -837,7 +836,7 @@ LABEL_35:
             v27 = v30;
           }
 
-          v28 = v53;
+          v28 = v52;
         }
 
 LABEL_52:
@@ -847,35 +846,35 @@ LABEL_52:
       if (classesCopy)
       {
         v36 = objc_opt_class();
-        v66 = 0u;
-        v67 = 0u;
-        v64 = 0u;
         v65 = 0u;
+        v66 = 0u;
+        v63 = 0u;
+        v64 = 0u;
         v27 = classesCopy;
-        v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v37, &v64, v74, 16);
+        v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v37, &v63, v73, 16);
         if (v39)
         {
-          v40 = *v65;
+          v40 = *v64;
           while (2)
           {
             for (m = 0; m != v39; ++m)
             {
-              if (*v65 != v40)
+              if (*v64 != v40)
               {
                 objc_enumerationMutation(v27);
               }
 
-              if (objc_msgSend_isSubclassOfClass_(v36, v38, *(*(&v64 + 1) + 8 * m)))
+              if (objc_msgSend_isSubclassOfClass_(v36, v38, *(*(&v63 + 1) + 8 * m)))
               {
 
-                classesCopy = v50;
-                selfCopy = v51;
-                v13 = v52;
+                classesCopy = v49;
+                selfCopy = v50;
+                v13 = v51;
                 goto LABEL_47;
               }
             }
 
-            v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v38, &v64, v74, 16);
+            v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v38, &v63, v73, 16);
             if (v39)
             {
               continue;
@@ -884,14 +883,14 @@ LABEL_52:
             break;
           }
 
-          classesCopy = v50;
-          selfCopy = v51;
-          v13 = v52;
+          classesCopy = v49;
+          selfCopy = v50;
+          v13 = v51;
         }
 
         else
         {
-          selfCopy = v51;
+          selfCopy = v50;
         }
 
         goto LABEL_52;
@@ -909,7 +908,7 @@ LABEL_59:
 LABEL_53:
     }
 
-    v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v68, v75, 16);
+    v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v16, &v67, v74, 16);
     v47 = 0;
   }
 
@@ -917,7 +916,6 @@ LABEL_53:
 LABEL_61:
 
   objc_sync_exit(selfCopy);
-  v48 = *MEMORY[0x1E69E9840];
   return v47;
 }
 
@@ -998,18 +996,18 @@ LABEL_61:
 
 - (CKRecordValueStore)initWithCoder:(id)coder
 {
-  v47[2] = *MEMORY[0x1E69E9840];
+  v46[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v45.receiver = self;
-  v45.super_class = CKRecordValueStore;
-  v5 = [(CKRecordValueStore *)&v45 init];
+  v44.receiver = self;
+  v44.super_class = CKRecordValueStore;
+  v5 = [(CKRecordValueStore *)&v44 init];
   if (v5)
   {
     v6 = objc_autoreleasePoolPush();
     v7 = CKAcceptableValueClasses();
-    v47[0] = objc_opt_class();
-    v47[1] = objc_opt_class();
-    v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v8, v47, 2);
+    v46[0] = objc_opt_class();
+    v46[1] = objc_opt_class();
+    v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v8, v46, 2);
     v11 = objc_msgSend_setByAddingObjectsFromArray_(v7, v10, v9);
     v13 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v12, v11, @"RecordValues");
     v16 = objc_msgSend_mutableCopy(v13, v14, v15);
@@ -1017,10 +1015,10 @@ LABEL_61:
     v5->_values = v16;
 
     v18 = CKAcceptableValueClasses();
-    v46[0] = objc_opt_class();
-    v46[1] = objc_opt_class();
-    v46[2] = objc_opt_class();
-    v20 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v19, v46, 3);
+    v45[0] = objc_opt_class();
+    v45[1] = objc_opt_class();
+    v45[2] = objc_opt_class();
+    v20 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v19, v45, 3);
     v22 = objc_msgSend_setByAddingObjectsFromArray_(v18, v21, v20);
     v24 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v23, v22, @"OriginalValues");
     v27 = objc_msgSend_mutableCopy(v24, v25, v26);
@@ -1060,8 +1058,138 @@ LABEL_61:
     objc_autoreleasePoolPop(v6);
   }
 
-  v43 = *MEMORY[0x1E69E9840];
   return v5;
+}
+
+- (id)CKDescriptionPropertiesWithPublic:(BOOL)public private:(BOOL)private shouldExpand:(BOOL)expand
+{
+  expandCopy = expand;
+  privateCopy = private;
+  publicCopy = public;
+  v69 = *MEMORY[0x1E69E9840];
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v51 = selfCopy;
+  v55 = objc_msgSend_values(selfCopy, v9, v10);
+  if (expandCopy)
+  {
+    v56 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(v55, v11, publicCopy, privateCopy, 1);
+    goto LABEL_31;
+  }
+
+  v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
+  v13 = objc_msgSend_allKeys(v55, v11, v12);
+  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v63, v68, 16);
+  if (!v15)
+  {
+
+    goto LABEL_30;
+  }
+
+  v56 = 0;
+  obj = v13;
+  v53 = *v64;
+  do
+  {
+    v54 = v15;
+    for (i = 0; i != v54; ++i)
+    {
+      if (*v64 != v53)
+      {
+        objc_enumerationMutation(obj);
+      }
+
+      v57 = *(*(&v63 + 1) + 8 * i);
+      v58 = objc_msgSend_objectForKeyedSubscript_(v55, v16, v57);
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        if (!v56)
+        {
+          v56 = objc_msgSend_mutableCopy(v55, v18, v19);
+        }
+
+        v20 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(v58, v18, publicCopy, privateCopy, 0);
+        v23 = objc_msgSend_CKPropertiesStyleString(v20, v21, v22);
+        objc_msgSend_setObject_forKeyedSubscript_(v56, v24, v23, v57);
+
+LABEL_12:
+        goto LABEL_25;
+      }
+
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v27 = objc_msgSend_firstObject(v58, v25, v26);
+        objc_opt_class();
+        isKindOfClass = objc_opt_isKindOfClass();
+
+        if (isKindOfClass)
+        {
+          if (!v56)
+          {
+            v56 = objc_msgSend_mutableCopy(v55, v29, v30);
+          }
+
+          v31 = objc_alloc(MEMORY[0x1E695DF70]);
+          v34 = objc_msgSend_count(v58, v32, v33);
+          v20 = objc_msgSend_initWithCapacity_(v31, v35, v34);
+          v61 = 0u;
+          v62 = 0u;
+          v59 = 0u;
+          v60 = 0u;
+          v36 = v58;
+          v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v37, &v59, v67, 16);
+          if (v39)
+          {
+            v40 = *v60;
+            do
+            {
+              for (j = 0; j != v39; ++j)
+              {
+                if (*v60 != v40)
+                {
+                  objc_enumerationMutation(v36);
+                }
+
+                v42 = objc_msgSend_CKDescriptionPropertiesWithPublic_private_shouldExpand_(*(*(&v59 + 1) + 8 * j), v38, publicCopy, privateCopy, 0);
+                v45 = objc_msgSend_CKPropertiesStyleString(v42, v43, v44);
+                objc_msgSend_addObject_(v20, v46, v45);
+              }
+
+              v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v38, &v59, v67, 16);
+            }
+
+            while (v39);
+          }
+
+          objc_msgSend_setObject_forKeyedSubscript_(v56, v47, v20, v57);
+          goto LABEL_12;
+        }
+      }
+
+LABEL_25:
+    }
+
+    v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, &v63, v68, 16);
+  }
+
+  while (v15);
+
+  if (!v56)
+  {
+LABEL_30:
+    v56 = objc_msgSend_copy(v55, v48, v49);
+  }
+
+LABEL_31:
+
+  objc_sync_exit(v51);
+
+  return v56;
 }
 
 @end

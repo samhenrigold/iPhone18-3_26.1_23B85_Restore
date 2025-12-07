@@ -348,7 +348,7 @@ uint64_t __81__MRNotificationServiceClient__processOriginInvalidationHandlersFor
   [(MRMediaRemoteServiceClient *)serviceClient processPlayerPathInvalidationHandlersWithBlock:v15];
 }
 
-uint64_t __86__MRNotificationServiceClient__processApplicationInvalidationHandlersForNotification___block_invoke(id *a1, void *a2)
+BOOL __86__MRNotificationServiceClient__processApplicationInvalidationHandlersForNotification___block_invoke(id *a1, void *a2)
 {
   v3 = a2;
   v4 = [v3 origin];
@@ -357,28 +357,21 @@ uint64_t __86__MRNotificationServiceClient__processApplicationInvalidationHandle
     v4 = [a1[4] origin];
   }
 
-  if (![a1[5] isEqual:v4])
+  v10 = 0;
+  if ([a1[5] isEqual:v4])
   {
-    goto LABEL_6;
-  }
+    v5 = [v3 client];
+    v6 = +[MRNowPlayingOriginClientManager sharedManager];
+    v7 = [v6 existingOriginClientRequestsForPlayerPath:v3];
 
-  v5 = [v3 client];
-  v6 = +[MRNowPlayingOriginClientManager sharedManager];
-  v7 = [v6 existingOriginClientRequestsForPlayerPath:v3];
+    v8 = [v7 deviceInfo];
+    [v5 resolvePlaceholdersForDeviceInfo:v8];
 
-  v8 = [v7 deviceInfo];
-  [v5 resolvePlaceholdersForDeviceInfo:v8];
-
-  v9 = [a1[6] isEqual:v5];
-  if (v9)
-  {
-    v10 = 1;
-  }
-
-  else
-  {
-LABEL_6:
-    v10 = 0;
+    v9 = [a1[6] isEqual:v5];
+    if (v9)
+    {
+      v10 = 1;
+    }
   }
 
   return v10;
@@ -523,7 +516,7 @@ uint64_t __81__MRNotificationServiceClient__processPlayerInvalidationHandlersFor
 
 - (void)_notificationFired:(id)fired playerPathNotifcation:(id)notifcation originNotification:(id)notification nowPlayingNotification:(id)playingNotification
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   firedCopy = fired;
   notificationCopy = notification;
   playingNotificationCopy = playingNotification;
@@ -551,27 +544,25 @@ uint64_t __81__MRNotificationServiceClient__processPlayerInvalidationHandlersFor
 
     if (v23)
     {
-      if (MRProcessIsMediaRemoteDaemon())
+      if (MRProcessIsMediaRemoteDaemon(v24, v25))
       {
-        v24 = _MRLogForCategory(0);
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v26 = _MRLogForCategory(0);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v28 = playingNotificationCopy;
-          v29 = 2114;
-          v30 = v14;
-          _os_log_impl(&dword_1A2860000, v24, OS_LOG_TYPE_DEFAULT, "Posted Active Now Playing Notification %{public}@ for path %{public}@", buf, 0x16u);
+          v29 = playingNotificationCopy;
+          v30 = 2114;
+          v31 = v14;
+          _os_log_impl(&dword_1A2860000, v26, OS_LOG_TYPE_DEFAULT, "Posted Active Now Playing Notification %{public}@ for path %{public}@", buf, 0x16u);
         }
       }
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notificationFired:(id)fired clientNotification:(id)notification originNotification:(id)originNotification nowPlayingNotification:(id)playingNotification
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   firedCopy = fired;
   originNotificationCopy = originNotification;
   playingNotificationCopy = playingNotification;
@@ -608,27 +599,25 @@ uint64_t __81__MRNotificationServiceClient__processPlayerInvalidationHandlersFor
 
     if (v26)
     {
-      if (MRProcessIsMediaRemoteDaemon())
+      if (MRProcessIsMediaRemoteDaemon(v27, v28))
       {
-        v27 = _MRLogForCategory(0);
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        v29 = _MRLogForCategory(0);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v31 = playingNotificationCopy;
-          v32 = 2114;
-          v33 = v15;
-          _os_log_impl(&dword_1A2860000, v27, OS_LOG_TYPE_DEFAULT, "Posted Active Now Playing Notification %{public}@ for path %{public}@", buf, 0x16u);
+          v32 = playingNotificationCopy;
+          v33 = 2114;
+          v34 = v15;
+          _os_log_impl(&dword_1A2860000, v29, OS_LOG_TYPE_DEFAULT, "Posted Active Now Playing Notification %{public}@ for path %{public}@", buf, 0x16u);
         }
       }
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notificationFired:(id)fired originNotification:(id)notification nowPlayingNotification:(id)playingNotification
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   firedCopy = fired;
   playingNotificationCopy = playingNotification;
   notificationCopy = notification;
@@ -649,22 +638,20 @@ uint64_t __81__MRNotificationServiceClient__processPlayerInvalidationHandlersFor
 
     if (v20)
     {
-      if (MRProcessIsMediaRemoteDaemon())
+      if (MRProcessIsMediaRemoteDaemon(v21, v22))
       {
-        v21 = _MRLogForCategory(0);
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v23 = _MRLogForCategory(0);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
-          v23 = 138543618;
-          v24 = playingNotificationCopy;
-          v25 = 2114;
-          v26 = v12;
-          _os_log_impl(&dword_1A2860000, v21, OS_LOG_TYPE_DEFAULT, "Posted Active Now Playing Notification %{public}@ for path %{public}@", &v23, 0x16u);
+          v24 = 138543618;
+          v25 = playingNotificationCopy;
+          v26 = 2114;
+          v27 = v12;
+          _os_log_impl(&dword_1A2860000, v23, OS_LOG_TYPE_DEFAULT, "Posted Active Now Playing Notification %{public}@ for path %{public}@", &v24, 0x16u);
         }
       }
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleActiveOriginDidChangeNotification:(id)notification
@@ -1076,7 +1063,7 @@ LABEL_6:
 
 - (void)_handlePlayerContentItemsDidChangeNotification:(id)notification
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v7 = MRGetPlayerPathFromUserInfo(userInfo, v6);
@@ -1088,7 +1075,7 @@ LABEL_6:
   v11 = [userInfo2 objectForKey:@"kMRMediaRemoteUpdatedContentItemsUserInfoKey"];
 
   [v9 updateContentItems:v11];
-  v27 = v7;
+  v26 = v7;
   if ([v7 isLocal])
   {
     v12 = 0;
@@ -1101,26 +1088,26 @@ LABEL_6:
 
   [(MRNotificationServiceClient *)self _notificationFired:notificationCopy playerPathNotifcation:v12 originNotification:@"kMROriginPlaybackQueueContentItemsChangedNotification" nowPlayingNotification:@"kMRPlaybackQueueContentItemsChangedNotification", self];
   v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v14 = v11;
-  v15 = [v14 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v29;
+    v17 = *v28;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v29 != v17)
+        if (*v28 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v28 + 1) + 8 * i);
+        v19 = *(*(&v27 + 1) + 8 * i);
         RequestIdentifier = MRContentItemGetRequestIdentifier(v19);
         subscriptionController = [v9 subscriptionController];
         LOBYTE(RequestIdentifier) = [subscriptionController hasRequest:RequestIdentifier];
@@ -1131,7 +1118,7 @@ LABEL_6:
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v16);
@@ -1139,13 +1126,11 @@ LABEL_6:
 
   if ([v13 count])
   {
-    notificationClient = [*(v26 + 8) notificationClient];
+    notificationClient = [*(v25 + 8) notificationClient];
     userInfo3 = [notificationCopy userInfo];
     object = [notificationCopy object];
     [notificationClient postNotification:@"_MRMediaRemotePlayerNowPlayingInfoDidChangeNotification" userInfo:userInfo3 object:object];
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handlePlayerContentItemArtworkDidChangeNotification:(id)notification
@@ -1455,30 +1440,30 @@ LABEL_6:
   v5 = [userInfo objectForKeyedSubscript:@"_MRMediaRemoteIsImplicitNowPlayingNotificationUserInfoKey"];
   bOOLValue = [v5 BOOLValue];
 
-  if ((bOOLValue & 1) == 0 && (MRProcessIsMediaRemoteDaemon() & 1) == 0)
+  if ((bOOLValue & 1) == 0 && (MRProcessIsMediaRemoteDaemon(v7, v8) & 1) == 0)
   {
     userInfo2 = [notificationCopy userInfo];
-    v9 = MRGetPlayerPathFromUserInfo(userInfo2, v8);
+    v11 = MRGetPlayerPathFromUserInfo(userInfo2, v10);
 
-    v10 = +[MRNowPlayingOriginClientManager sharedManager];
-    v11 = [v10 existingOriginClientRequestsForPlayerPath:v9];
+    v12 = +[MRNowPlayingOriginClientManager sharedManager];
+    v13 = [v12 existingOriginClientRequestsForPlayerPath:v11];
 
     userInfo3 = [notificationCopy userInfo];
-    v14 = MRGetDeviceInfoFromUserInfo(userInfo3, v13);
-    [v11 setDeviceInfo:v14];
+    v16 = MRGetDeviceInfoFromUserInfo(userInfo3, v15);
+    [v13 setDeviceInfo:v16];
   }
 
   if (bOOLValue)
   {
-    v15 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v15 = @"kMRDeviceInfoDidChangeNotification";
+    v17 = @"kMRDeviceInfoDidChangeNotification";
   }
 
-  [(MRNotificationServiceClient *)self _notificationFired:notificationCopy originNotification:v15 nowPlayingNotification:@"kMRActiveDeviceInfoDidChangeNotification"];
+  [(MRNotificationServiceClient *)self _notificationFired:notificationCopy originNotification:v17 nowPlayingNotification:@"kMRActiveDeviceInfoDidChangeNotification"];
 }
 
 - (void)_handleVolumeControlCapabilitiesDidChangeNotification:(id)notification
@@ -1523,7 +1508,7 @@ LABEL_6:
 
 - (void)_handleActiveSystemEndpointDidChangeNotification:(id)notification
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:@"kMRAVEndpointOutputDeviceIdentifierUserInfoKey"];
@@ -1543,9 +1528,9 @@ LABEL_6:
     {
       active = MRMediaRemoteActiveEndpointTypeCopyDescription(intValue);
       *buf = 138412546;
-      v23 = active;
-      v24 = 2112;
-      v25 = v6;
+      v22 = active;
+      v23 = 2112;
+      v24 = v6;
       _os_log_impl(&dword_1A2860000, v13, OS_LOG_TYPE_DEFAULT, "Restoring %@SystemEndpoint with UID=%@", buf, 0x16u);
     }
 
@@ -1565,13 +1550,11 @@ LABEL_6:
   userInfo4 = [notificationCopy userInfo];
   object = [notificationCopy object];
   [notificationClient postNotification:@"kMRMediaRemoteActiveSystemEndpointDidChangeNotification" userInfo:userInfo4 object:object];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleActiveGroupSessionInfoDidChangeNotification:(id)notification
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:@"MRActiveGroupSessionInfoUserInfoKey"];
@@ -1587,12 +1570,10 @@ LABEL_6:
 
   [notificationClient postNotification:@"MRActiveGroupSessionInfoDidChangeNotification" userInfo:v9 object:object];
   notificationClient2 = [(MRMediaRemoteServiceClient *)self->_serviceClient notificationClient];
-  v15 = @"kMRMediaRemoteActiveEndpointTypeUserInfoKey";
-  v16[0] = &unk_1F1577878;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v14 = @"kMRMediaRemoteActiveEndpointTypeUserInfoKey";
+  v15[0] = &unk_1F1577878;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   [notificationClient2 postNotification:@"kMRMediaRemoteActiveSystemEndpointDidChangeNotification" userInfo:v13 object:0];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleLocalGroupSessionEligibilityDidChangeNotification:(id)notification

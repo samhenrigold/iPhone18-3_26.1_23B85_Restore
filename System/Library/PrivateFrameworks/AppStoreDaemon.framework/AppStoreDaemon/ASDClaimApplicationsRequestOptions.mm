@@ -69,20 +69,20 @@
 
 - (ASDClaimApplicationsRequestOptions)initWithCoder:(id)coder
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v23.receiver = self;
-  v23.super_class = ASDClaimApplicationsRequestOptions;
-  v5 = [(ASDRequestOptions *)&v23 initWithCoder:coderCopy];
+  v22.receiver = self;
+  v22.super_class = ASDClaimApplicationsRequestOptions;
+  v5 = [(ASDRequestOptions *)&v22 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"accountIDKey"];
     accountID = v5->_accountID;
     v5->_accountID = v6;
 
-    v25[0] = objc_opt_class();
-    v25[1] = objc_opt_class();
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
+    v24[0] = objc_opt_class();
+    v24[1] = objc_opt_class();
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
     v9 = [MEMORY[0x1E695DFD8] setWithArray:v8];
     v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"bundleIdentifiersKey"];
     bundleIdentifiers = v5->_bundleIdentifiers;
@@ -96,9 +96,9 @@
     v5->_clientAuditTokenData = v13;
 
     v5->_establishesActiveAccount = [coderCopy decodeBoolForKey:@"establishesActiveAccountKey"];
-    v24[0] = objc_opt_class();
-    v24[1] = objc_opt_class();
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+    v23[0] = objc_opt_class();
+    v23[1] = objc_opt_class();
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
     v16 = [MEMORY[0x1E695DFD8] setWithArray:v15];
     v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"httpHeadersKey"];
     httpHeaders = v5->_httpHeaders;
@@ -112,7 +112,6 @@
     v5->_suppressErrorDialogs = [coderCopy decodeBoolForKey:@"supressErrorDialogsKey"];
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

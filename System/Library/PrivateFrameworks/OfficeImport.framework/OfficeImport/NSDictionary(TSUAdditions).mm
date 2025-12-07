@@ -1,7 +1,7 @@
 @interface NSDictionary(TSUAdditions)
 - (uint64_t)tsu_BOOLValueForKey:()TSUAdditions;
 - (uint64_t)tsu_allKeysAsSet;
-- (uint64_t)tsu_objectOfClass:()TSUAdditions forKey:;
+- (void)tsu_objectOfClass:()TSUAdditions forKey:;
 @end
 
 @implementation NSDictionary(TSUAdditions)
@@ -23,7 +23,7 @@
   return [v2 BOOLValue];
 }
 
-- (uint64_t)tsu_objectOfClass:()TSUAdditions forKey:
+- (void)tsu_objectOfClass:()TSUAdditions forKey:
 {
   result = [self objectForKey:a4];
   if (result)

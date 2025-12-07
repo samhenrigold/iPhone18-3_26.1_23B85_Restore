@@ -36,10 +36,11 @@
 
 - (id)_accessibilityScannerCurrentFocusContext
 {
-  if (UIAccessibilityIsSwitchControlRunning())
+  IsSwitchControlRunning = UIAccessibilityIsSwitchControlRunning();
+  if (IsSwitchControlRunning)
   {
-    v2 = +[SCATScannerManager sharedManager];
-    activeScannerDriver = [v2 activeScannerDriver];
+    v3 = +[SCATScannerManager sharedManager];
+    activeScannerDriver = [v3 activeScannerDriver];
 
     if ([activeScannerDriver isActive])
     {
@@ -48,14 +49,14 @@
 
     else
     {
-      _AXLogWithFacility();
+      _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Someone tried to get info about the current Switch Control loop, but the scanner was not active.");
       focusContext = 0;
     }
   }
 
   else
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(IsSwitchControlRunning, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Someone tried to get info about the current Switch Control loop, but it was not running!");
     focusContext = 0;
   }
 

@@ -96,9 +96,9 @@ LABEL_22:
         goto LABEL_31;
       }
 
-      v14 = [v11 isEqualToString:v12];
+      isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-      if (!v14)
+      if (!isEqualToString)
       {
         goto LABEL_31;
       }
@@ -832,9 +832,9 @@ LABEL_36:
                 goto LABEL_36;
               }
 
-              v31 = [v28 isEqualToString:v29];
+              isEqualToString = objc_msgSend_isEqualToString_(v28);
 
-              if (v31)
+              if (isEqualToString)
               {
                 goto LABEL_28;
               }
@@ -934,7 +934,7 @@ LABEL_52:
 
               v44 = *(*(&v155 + 1) + 8 * m);
               v45 = [v44 key];
-              v46 = [v45 isEqualToString:@"amountRemaining"];
+              v46 = objc_msgSend_isEqualToString_(v45);
 
               if (v46)
               {

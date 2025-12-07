@@ -110,7 +110,7 @@
   if (self->_needsUpdateFlags.output)
   {
     self->_needsUpdateFlags.output = 0;
-    [(QLPXNumberFilter *)self currentTime];
+    objc_msgSend_currentTime(self, a2);
     v5 = v4;
     [(QLPXNumberFilter *)self updatedOutput];
     [(QLPXNumberFilter *)self _setOutput:?];

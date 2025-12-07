@@ -3,6 +3,7 @@
 - (float)score;
 - (id)asTwoPhaseIterator;
 - (id)lesserWithOrgApacheLuceneSearchPhrasePositions:(id)positions withOrgApacheLuceneSearchPhrasePositions:(id)phrasePositions;
+- (int)advanceWithInt:(int)int;
 - (int)docID;
 - (int)nextDoc;
 - (int)tpPosWithOrgApacheLuceneSearchPhrasePositions:(id)positions;
@@ -79,13 +80,13 @@
   }
 
   nextDoc = [(OrgApacheLuceneSearchConjunctionDISI *)conjunction nextDoc];
-  v5 = 0x7FFFFFFF;
+  v6 = 0x7FFFFFFF;
   if (nextDoc != 0x7FFFFFFF)
   {
-    v6 = nextDoc;
-    v7 = sub_1000C38E8(self);
-    self->sloppyFreq_ = v7;
-    if (v7 == 0.0)
+    v7 = nextDoc;
+    v8 = sub_1000C38E8(self, v5);
+    self->sloppyFreq_ = v8;
+    if (v8 == 0.0)
     {
       while (1)
       {
@@ -95,12 +96,12 @@
           break;
         }
 
-        v5 = nextDoc2;
-        v8 = sub_1000C38E8(self);
-        self->sloppyFreq_ = v8;
-        if (v8 != 0.0)
+        v6 = nextDoc2;
+        v9 = sub_1000C38E8(self, v11);
+        self->sloppyFreq_ = v9;
+        if (v9 != 0.0)
         {
-          return v5;
+          return v6;
         }
       }
 
@@ -109,11 +110,11 @@
 
     else
     {
-      return v6;
+      return v7;
     }
   }
 
-  return v5;
+  return v6;
 }
 
 - (float)score
@@ -129,6 +130,52 @@
 
   [(OrgApacheLuceneSearchSimilaritiesSimilarity_SimScorer *)docScorer scoreWithInt:docID withFloat:v5];
   return result;
+}
+
+- (int)advanceWithInt:(int)int
+{
+  conjunction = self->conjunction_;
+  if (!conjunction)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v5 = [(OrgApacheLuceneSearchConjunctionDISI *)conjunction advanceWithInt:*&int];
+  v7 = 0x7FFFFFFF;
+  if (v5 != 0x7FFFFFFF)
+  {
+    v8 = v5;
+    v9 = sub_1000C38E8(self, v6);
+    self->sloppyFreq_ = v9;
+    if (v9 == 0.0)
+    {
+      while (1)
+      {
+        nextDoc = [(OrgApacheLuceneSearchConjunctionDISI *)self->conjunction_ nextDoc];
+        if (nextDoc == 0x7FFFFFFF)
+        {
+          break;
+        }
+
+        v7 = nextDoc;
+        v10 = sub_1000C38E8(self, v12);
+        self->sloppyFreq_ = v10;
+        if (v10 != 0.0)
+        {
+          return v7;
+        }
+      }
+
+      return 0x7FFFFFFF;
+    }
+
+    else
+    {
+      return v8;
+    }
+  }
+
+  return v7;
 }
 
 - (int64_t)cost

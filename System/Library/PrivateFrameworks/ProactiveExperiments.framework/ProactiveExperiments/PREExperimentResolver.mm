@@ -120,10 +120,7 @@
 
 uint64_t __85__PREExperimentResolver_getResponseSuggestionsExperimentConfig_shouldDownloadAssets___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 objectForKey:*(a1 + 32)];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [a2 objectForKey:*(a1 + 32)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -168,20 +165,17 @@ void __85__PREExperimentResolver_getResponseSuggestionsExperimentConfig_shouldDo
 
 uint64_t __85__PREExperimentResolver_getResponseSuggestionsExperimentConfig_shouldDownloadAssets___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = [a2 objectForKey:*(a1 + 32)];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [a2 objectForKey:*(a1 + 32)];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (PREExperimentResolver)init
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v27.receiver = self;
-  v27.super_class = PREExperimentResolver;
-  v2 = [(PREExperimentResolver *)&v27 init];
+  v31 = *MEMORY[0x277D85DE8];
+  v26.receiver = self;
+  v26.super_class = PREExperimentResolver;
+  v2 = [(PREExperimentResolver *)&v26 init];
   if (v2)
   {
     v3 = [MEMORY[0x277D73660] clientWithIdentifier:101];
@@ -196,21 +190,21 @@ uint64_t __85__PREExperimentResolver_getResponseSuggestionsExperimentConfig_shou
       _os_log_impl(&dword_260CE3000, v5, OS_LOG_TYPE_DEFAULT, "PREExperimentResolver -- setting up trial client for client id %d", buf, 8u);
     }
 
-    v29[0] = @"en";
-    v29[1] = @"es";
-    v30[0] = @"SMART_REPLY_EN";
-    v30[1] = @"SMART_REPLY_ES";
-    v29[2] = @"fr";
-    v29[3] = @"hi";
-    v30[2] = @"SMART_REPLY_FR";
-    v30[3] = @"SMART_REPLY_HI";
-    v29[4] = @"hi-Latn";
-    v29[5] = @"ja";
-    v30[4] = @"SMART_REPLY_HI_LATN";
-    v30[5] = @"SMART_REPLY_JP";
-    v29[6] = @"zh-Hans";
-    v30[6] = @"SMART_REPLY_ZH_HANS";
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:7];
+    v28[0] = @"en";
+    v28[1] = @"es";
+    v29[0] = @"SMART_REPLY_EN";
+    v29[1] = @"SMART_REPLY_ES";
+    v28[2] = @"fr";
+    v28[3] = @"hi";
+    v29[2] = @"SMART_REPLY_FR";
+    v29[3] = @"SMART_REPLY_HI";
+    v28[4] = @"hi-Latn";
+    v28[5] = @"ja";
+    v29[4] = @"SMART_REPLY_HI_LATN";
+    v29[5] = @"SMART_REPLY_JP";
+    v28[6] = @"zh-Hans";
+    v29[6] = @"SMART_REPLY_ZH_HANS";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:7];
     smartReplyLangAndNamespaces = v2->_smartReplyLangAndNamespaces;
     v2->_smartReplyLangAndNamespaces = v6;
 
@@ -221,40 +215,40 @@ uint64_t __85__PREExperimentResolver_getResponseSuggestionsExperimentConfig_shou
     v2->_guardedSmartReplyConfig = v10;
 
     objc_initWeak(buf, v2);
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     allValues = [(NSDictionary *)v2->_smartReplyLangAndNamespaces allValues];
-    v13 = [allValues countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v13 = [allValues countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v13)
     {
-      v14 = *v24;
+      v14 = *v23;
       do
       {
         v15 = 0;
         do
         {
-          if (*v24 != v14)
+          if (*v23 != v14)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v16 = *(*(&v23 + 1) + 8 * v15);
+          v16 = *(*(&v22 + 1) + 8 * v15);
           v17 = v2->_trialClient;
-          v21[0] = MEMORY[0x277D85DD0];
-          v21[1] = 3221225472;
-          v21[2] = __29__PREExperimentResolver_init__block_invoke;
-          v21[3] = &unk_279ABAF98;
-          objc_copyWeak(&v22, buf);
-          v21[4] = v16;
-          v18 = [(TRIClient *)v17 addUpdateHandlerForNamespaceName:v16 usingBlock:v21];
-          objc_destroyWeak(&v22);
+          v20[0] = MEMORY[0x277D85DD0];
+          v20[1] = 3221225472;
+          v20[2] = __29__PREExperimentResolver_init__block_invoke;
+          v20[3] = &unk_279ABAF98;
+          objc_copyWeak(&v21, buf);
+          v20[4] = v16;
+          v18 = [(TRIClient *)v17 addUpdateHandlerForNamespaceName:v16 usingBlock:v20];
+          objc_destroyWeak(&v21);
           ++v15;
         }
 
         while (v13 != v15);
-        v13 = [allValues countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v13 = [allValues countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v13);
@@ -263,7 +257,6 @@ uint64_t __85__PREExperimentResolver_getResponseSuggestionsExperimentConfig_shou
     objc_destroyWeak(buf);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -355,13 +348,12 @@ void __36__PREExperimentResolver_sharedQueue__block_invoke()
 
 void __39__PREExperimentResolver_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = sharedInstance__pasExprOnceResult_1331;
-  sharedInstance__pasExprOnceResult_1331 = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = sharedInstance__pasExprOnceResult_1331;
+  sharedInstance__pasExprOnceResult_1331 = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 @end

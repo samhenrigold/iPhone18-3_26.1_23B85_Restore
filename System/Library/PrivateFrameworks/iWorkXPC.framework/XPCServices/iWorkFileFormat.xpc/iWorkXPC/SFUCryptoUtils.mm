@@ -79,12 +79,12 @@
   else
   {
     v7 = +[NSMutableData data];
-    v21 = 0;
+    v22 = 0;
     v8 = [[SFUMemoryOutputStream alloc] initWithData:v7];
-    v20 = versionCopy;
-    v19 = 1;
+    v21 = versionCopy;
+    v20 = 1;
+    [(SFUMemoryOutputStream *)v8 writeBuffer:&v21 size:2];
     [(SFUMemoryOutputStream *)v8 writeBuffer:&v20 size:2];
-    [(SFUMemoryOutputStream *)v8 writeBuffer:&v19 size:2];
     iterationCount = [key iterationCount];
     [(SFUMemoryOutputStream *)v8 writeBuffer:&iterationCount size:4];
     if (versionCopy >= 2)
@@ -93,16 +93,17 @@
     }
 
     v9 = [self ivLengthForKey:key];
-    __chkstk_darwin();
-    v11 = &v16 - v10;
-    if (SecRandomCopyBytes(kSecRandomDefault, v9, &v16 - v10))
+    v10 = v9;
+    __chkstk_darwin(v9);
+    v12 = &v17 - v11;
+    if (SecRandomCopyBytes(kSecRandomDefault, v10, &v17 - v11))
     {
 
       [NSException raise:NSGenericException format:@"SFUCryptor failed to copy random bytes."];
       v8 = 0;
     }
 
-    [(SFUMemoryOutputStream *)v8 writeBuffer:v11 size:v9];
+    [(SFUMemoryOutputStream *)v8 writeBuffer:v12 size:v10];
     if (SecRandomCopyBytes(kSecRandomDefault, 0x20uLL, bytes))
     {
 
@@ -110,24 +111,24 @@
       v8 = 0;
     }
 
-    v12 = [[SFUCryptor alloc] initWithKey:key operation:0 iv:v11 ivLength:v9 usePKCS7Padding:versionCopy == 1];
-    if (![(SFUCryptor *)v12 cryptDataFromBuffer:bytes length:32 toStream:v8 finished:0 error:&v21])
+    v13 = [[SFUCryptor alloc] initWithKey:key operation:0 iv:v12 ivLength:v10 usePKCS7Padding:versionCopy == 1];
+    if (![(SFUCryptor *)v13 cryptDataFromBuffer:bytes length:32 toStream:v8 finished:0 error:&v22])
     {
 
-      localizedDescription = [v21 localizedDescription];
-      +[NSException raise:format:](NSException, "raise:format:", NSGenericException, @"SFUCryptor failed. %@: %@", localizedDescription, [v21 localizedFailureReason]);
-      v12 = 0;
+      localizedDescription = [v22 localizedDescription];
+      +[NSException raise:format:](NSException, "raise:format:", NSGenericException, @"SFUCryptor failed. %@: %@", localizedDescription, [v22 localizedFailureReason]);
+      v13 = 0;
       v8 = 0;
     }
 
     if (CC_SHA256_Init(&c) && CC_SHA256_Update(&c, bytes, 0x20u) && CC_SHA256_Final(md, &c))
     {
-      if (![(SFUCryptor *)v12 cryptDataFromBuffer:md length:32 toStream:v8 finished:1 error:&v21])
+      if (![(SFUCryptor *)v13 cryptDataFromBuffer:md length:32 toStream:v8 finished:1 error:&v22])
       {
 
-        localizedDescription2 = [v21 localizedDescription];
-        +[NSException raise:format:](NSException, "raise:format:", NSGenericException, @"SFUCryptor failed. %@: %@", localizedDescription2, [v21 localizedFailureReason]);
-        v12 = 0;
+        localizedDescription2 = [v22 localizedDescription];
+        +[NSException raise:format:](NSException, "raise:format:", NSGenericException, @"SFUCryptor failed. %@: %@", localizedDescription2, [v22 localizedFailureReason]);
+        v13 = 0;
         v8 = 0;
       }
     }

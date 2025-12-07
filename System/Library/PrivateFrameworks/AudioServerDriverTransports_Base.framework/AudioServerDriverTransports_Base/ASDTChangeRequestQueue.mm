@@ -15,9 +15,9 @@
   objectCopy = object;
   nameCopy = name;
   managerCopy = manager;
-  v18.receiver = self;
-  v18.super_class = ASDTChangeRequestQueue;
-  v11 = [(ASDTChangeRequestQueue *)&v18 init];
+  v20.receiver = self;
+  v20.super_class = ASDTChangeRequestQueue;
+  v11 = [(ASDTChangeRequestQueue *)&v20 init];
   v12 = v11;
   if (!v11)
   {
@@ -42,10 +42,10 @@ LABEL_6:
       goto LABEL_7;
     }
 
-    v17 = ASDTBaseLogType();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = ASDTBaseLogType(v16, v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [ASDTChangeRequestQueue initForObject:v17 withName:? andManager:?];
+      [ASDTChangeRequestQueue initForObject:v19 withName:? andManager:?];
     }
 
     v13 = 0;
@@ -68,7 +68,7 @@ LABEL_7:
 
 - (BOOL)addChangeRequest:(id)request
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   if (([(ASDTChangeRequestQueue *)self flags]& 2) != 0 && (v5 = pthread_self(), v5 == [(ASDTChangeRequestQueue *)self executionThread]))
   {
@@ -76,19 +76,19 @@ LABEL_7:
     changeRequestLock = [manager changeRequestLock];
     [changeRequestLock unlock];
 
-    v12 = ASDTBaseLogType();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = ASDTBaseLogType(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       manager2 = [(ASDTChangeRequestQueue *)self manager];
       bundleID = [manager2 bundleID];
       name = [(ASDTChangeRequestQueue *)self name];
-      v18 = 138412802;
-      v19 = bundleID;
-      v20 = 2112;
-      v21 = name;
-      v22 = 1024;
+      v19 = 138412802;
+      v20 = bundleID;
+      v21 = 2112;
+      v22 = name;
+      v23 = 1024;
       index = [requestCopy index];
-      _os_log_impl(&dword_241659000, v12, OS_LOG_TYPE_DEFAULT, "%@: Change requests already running for %@; running request %u inline.", &v18, 0x1Cu);
+      _os_log_impl(&dword_241659000, v13, OS_LOG_TYPE_DEFAULT, "%@: Change requests already running for %@; running request %u inline.", &v19, 0x1Cu);
     }
 
     [(ASDTChangeRequestQueue *)self executeChangeRequest:requestCopy];
@@ -109,28 +109,27 @@ LABEL_7:
     [(ASDTChangeRequestQueue *)self setFlags:[(ASDTChangeRequestQueue *)self flags]| 1];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)executeChangeRequest:(id)request
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   requestCopy = request;
-  v5 = ASDTBaseLogType();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = ASDTBaseLogType(requestCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     manager = [(ASDTChangeRequestQueue *)self manager];
     bundleID = [manager bundleID];
     index = [requestCopy index];
     name = [(ASDTChangeRequestQueue *)self name];
-    v18 = 138412802;
-    v19 = bundleID;
-    v20 = 1024;
-    v21 = index;
-    v22 = 2112;
-    v23 = name;
-    _os_log_impl(&dword_241659000, v5, OS_LOG_TYPE_DEFAULT, "%@: Starting config change %u for device: %@", &v18, 0x1Cu);
+    v20 = 138412802;
+    v21 = bundleID;
+    v22 = 1024;
+    v23 = index;
+    v24 = 2112;
+    v25 = name;
+    _os_log_impl(&dword_241659000, v6, OS_LOG_TYPE_DEFAULT, "%@: Starting config change %u for device: %@", &v20, 0x1Cu);
   }
 
   block = [requestCopy block];
@@ -141,23 +140,21 @@ LABEL_7:
     block2[2]();
   }
 
-  v12 = ASDTBaseLogType();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v15 = ASDTBaseLogType(v12, v13);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     manager2 = [(ASDTChangeRequestQueue *)self manager];
     bundleID2 = [manager2 bundleID];
     index2 = [requestCopy index];
     name2 = [(ASDTChangeRequestQueue *)self name];
-    v18 = 138412802;
-    v19 = bundleID2;
-    v20 = 1024;
-    v21 = index2;
-    v22 = 2112;
-    v23 = name2;
-    _os_log_impl(&dword_241659000, v12, OS_LOG_TYPE_DEFAULT, "%@: Completed config change %u for device: %@", &v18, 0x1Cu);
+    v20 = 138412802;
+    v21 = bundleID2;
+    v22 = 1024;
+    v23 = index2;
+    v24 = 2112;
+    v25 = name2;
+    _os_log_impl(&dword_241659000, v15, OS_LOG_TYPE_DEFAULT, "%@: Completed config change %u for device: %@", &v20, 0x1Cu);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)execute
@@ -216,8 +213,8 @@ LABEL_7:
     changeRequestLock5 = [manager6 changeRequestLock];
     [changeRequestLock5 unlock];
 
-    v22 = ASDTBaseLogType();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v24 = ASDTBaseLogType(v22, v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       manager7 = [(ASDTChangeRequestQueue *)self manager];
       bundleID = [manager7 bundleID];
@@ -229,10 +226,8 @@ LABEL_7:
       v39 = changeRequestsExecuted;
       v40 = 2112;
       v41 = name2;
-      _os_log_impl(&dword_241659000, v22, OS_LOG_TYPE_DEFAULT, "%@: Executed %u change requests for device: %@", buf, 0x1Cu);
+      _os_log_impl(&dword_241659000, v24, OS_LOG_TYPE_DEFAULT, "%@: Executed %u change requests for device: %@", buf, 0x1Cu);
     }
-
-    v27 = *MEMORY[0x277D85DE8];
   }
 
   else
@@ -249,8 +244,6 @@ LABEL_7:
     manager10 = [(ASDTChangeRequestQueue *)self manager];
     changeRequestLock7 = [manager10 changeRequestLock];
     [changeRequestLock7 unlock];
-
-    v34 = *MEMORY[0x277D85DE8];
   }
 }
 

@@ -145,15 +145,15 @@ id __156__WBSURLCompletionHistorySnapshot_getBestMatchesForTypedString_limit_for
 
 - (id)fakeBookmarkMatchDataWithURLString:(id)string title:(id)title shouldPreload:(BOOL)preload
 {
-  SafariShared::HistoryURLCompletionItem::create(string, title, 1, &v8);
-  v5 = v8;
-  v6 = [[WBSHistoryURLCompletionMatchData alloc] initWithCompletionItem:v8];
+  SafariShared::HistoryURLCompletionItem::create(&v9, string, title, 1);
+  v5 = v9;
+  v7 = [[WBSHistoryURLCompletionMatchData alloc] initWithCompletionItem:v9];
   if (v5)
   {
-    WTF::ThreadSafeRefCounted<SafariShared::HistoryURLCompletionItem,(WTF::DestructionThread)0>::deref(v5);
+    WTF::ThreadSafeRefCounted<SafariShared::HistoryURLCompletionItem,(WTF::DestructionThread)0>::deref(v5, v6);
   }
 
-  return v6;
+  return v7;
 }
 
 @end

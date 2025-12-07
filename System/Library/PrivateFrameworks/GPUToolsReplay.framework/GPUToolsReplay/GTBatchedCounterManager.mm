@@ -197,7 +197,7 @@
 
     else
     {
-      v26 = *(end - 2);
+      v25 = *(end - 2);
       v8 = *(end - 1);
       std::vector<std::pair<NSDictionary * {__strong},NSArray * {__strong}>>::__base_destruct_at_end[abi:nn200100](&self->_highPriorityArray, self->_highPriorityArray.__end_ - 16);
       v32 = 0u;
@@ -221,9 +221,10 @@
 
             v13 = *(*(&v30 + 1) + 8 * i);
             unsignedIntValue = [v13 unsignedIntValue];
+            v29 = unsignedIntValue;
             if (unsignedIntValue == -1 || std::__hash_table<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,GTEncoderSampleIndexInfo>>>::find<unsigned int>(self->_processedBatches.__begin_ + 5 * v10, unsignedIntValue))
             {
-              [(GTBatchedCounterManager *)self _addBatchAtEncoderIndex:v10 inEncoderArray:v6, v26];
+              [(GTBatchedCounterManager *)self _addBatchAtEncoderIndex:v10 inEncoderArray:v6, v25];
             }
 
             else
@@ -231,7 +232,7 @@
               v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:unsignedIntValue];
               [v6 addObject:v15];
 
-              std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(self->_processedBatches.__begin_ + 5 * v10, unsignedIntValue);
+              std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(self->_processedBatches.__begin_ + 5 * v10, unsignedIntValue, &v29);
             }
 
             v10 = (v10 + 1);
@@ -246,7 +247,7 @@
       if ([v6 count])
       {
         v16 = v6;
-        [listCopy setDictionary:v26];
+        [listCopy setDictionary:v25];
       }
 
       else
@@ -263,8 +264,6 @@
   {
     v16 = 0;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -283,13 +282,13 @@
   if (!v9[2].i64[1])
   {
 LABEL_6:
-    [arrayCopy addObject:{&unk_2860D66F8, v16}];
+    [arrayCopy addObject:{&unk_2860D66F8, v17}];
 LABEL_7:
     v13 = 0;
     goto LABEL_8;
   }
 
-  v16 = xmmword_24DA8BC20;
+  v17 = xmmword_24DA8BC20;
   while (1)
   {
     v10 = (v9[2].i64[0] >> 7) & 0x1FFFFFFFFFFFFF8;
@@ -311,7 +310,8 @@ LABEL_7:
   v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v12];
   [arrayCopy addObject:v15];
 
-  std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(self->_processedBatches.__begin_ + 5 * indexCopy, *(*(v9->i64[1] + ((v9[2].i64[0] >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v9[2].i64[0] & 0x3FF)));
+  v16 = (*(v9->i64[1] + ((v9[2].i64[0] >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v9[2].i64[0] & 0x3FF));
+  std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(self->_processedBatches.__begin_ + 5 * indexCopy, *v16, v16);
   v9[2] = vaddq_s64(v9[2], xmmword_24DA8BC20);
   std::deque<unsigned int>::__maybe_remove_front_spare[abi:nn200100](v9);
   v13 = 1;
@@ -322,7 +322,7 @@ LABEL_8:
 
 - (void)_initializeData:(id)data
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   size = self->_batchToEncoderMap.__table_.__bucket_list_.__deleter_.__size_;
   if (size)
@@ -337,32 +337,32 @@ LABEL_8:
 
   self->_batchToEncoderMap.__table_.__max_load_factor_ = fmaxf(v5, 0.4);
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(&self->_batchToEncoderMap, vcvtps_u32_f32(([dataCopy count] << 8) / self->_batchToEncoderMap.__table_.__max_load_factor_));
-  v76 = 0u;
-  v77 = 0u;
-  v75 = 0u;
   v74 = 0u;
+  v75 = 0u;
+  v73 = 0u;
+  v72 = 0u;
   obj = dataCopy;
-  v6 = [obj countByEnumeratingWithState:&v74 objects:v79 count:16];
+  v6 = [obj countByEnumeratingWithState:&v72 objects:v77 count:16];
   if (v6)
   {
     v7 = 0;
-    v64 = 0;
-    v58 = *v75;
+    v62 = 0;
+    v56 = *v73;
     selfCopy = self;
     do
     {
-      v59 = v6;
-      for (i = 0; i != v59; ++i)
+      v57 = v6;
+      for (i = 0; i != v57; ++i)
       {
-        if (*v75 != v58)
+        if (*v73 != v56)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v74 + 1) + 8 * i);
-        v72 = 0u;
-        v73 = 0u;
+        v8 = *(*(&v72 + 1) + 8 * i);
+        v70 = 0u;
         v71 = 0u;
+        v69 = 0u;
         end = self->_perEncoderBatchQueue.__end_;
         cap = self->_perEncoderBatchQueue.__cap_;
         if (end >= cap)
@@ -404,10 +404,10 @@ LABEL_70:
           v16 = (16 * ((end - begin) >> 4));
           *v16 = 0u;
           v16[1] = 0u;
-          v71 = 0u;
-          v72 = 0u;
+          v69 = 0u;
+          v70 = 0u;
           v16[2] = 0uLL;
-          v73 = 0uLL;
+          v71 = 0uLL;
           v17 = v16 - (end - begin);
           if (begin != end)
           {
@@ -451,21 +451,21 @@ LABEL_70:
         else
         {
           *end = 0;
-          *(end + 1) = *(&v71 + 1);
-          *(end + 1) = v72;
+          *(end + 1) = *(&v69 + 1);
+          *(end + 1) = v70;
           *(end + 4) = 0;
+          v69 = 0uLL;
+          v70 = 0uLL;
+          *(end + 5) = *(&v71 + 1);
           v71 = 0uLL;
-          v72 = 0uLL;
-          *(end + 5) = *(&v73 + 1);
-          v73 = 0uLL;
           v11 = end + 48;
         }
 
         self->_perEncoderBatchQueue.__end_ = v11;
-        std::deque<unsigned int>::~deque[abi:nn200100](&v71);
-        v71 = 0u;
-        v72 = 0u;
-        LODWORD(v73) = 1065353216;
+        std::deque<unsigned int>::~deque[abi:nn200100](&v69);
+        v69 = 0u;
+        v70 = 0u;
+        LODWORD(v71) = 1065353216;
         v21 = self->_processedBatches.__end_;
         v22 = self->_processedBatches.__cap_;
         if (v21 >= v22)
@@ -504,7 +504,7 @@ LABEL_70:
           }
 
           v28 = 8 * ((v21 - v24) >> 3);
-          std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__hash_table(v28, &v71);
+          std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__hash_table(v28, &v69);
           selfCopy2 = self;
           v30 = self->_processedBatches.__end_;
           v31 = selfCopy2->_processedBatches.__begin_;
@@ -543,11 +543,11 @@ LABEL_70:
 
         else
         {
-          v23 = (std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__hash_table(v21, &v71) + 40);
+          v23 = (std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__hash_table(v21, &v69) + 40);
         }
 
         self->_processedBatches.__end_ = v23;
-        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v71);
+        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&v69);
         v37 = self->_processedBatches.__end_;
         v38 = *(v37 - 4);
         if (v38)
@@ -563,52 +563,51 @@ LABEL_70:
         *(v37 - 2) = fmaxf(v39, 0.4);
         std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>((v37 - 10), vcvtps_u32_f32([v8 count] / *(v37 - 2)));
         v40 = self->_perEncoderBatchQueue.__end_;
+        v65 = 0u;
+        v66 = 0u;
         v67 = 0u;
         v68 = 0u;
-        v69 = 0u;
-        v70 = 0u;
-        v62 = v8;
-        v41 = [v62 countByEnumeratingWithState:&v67 objects:v78 count:16];
+        v60 = v8;
+        v41 = [v60 countByEnumeratingWithState:&v65 objects:v76 count:16];
         if (v41)
         {
-          v63 = *v68;
+          v61 = *v66;
           do
           {
             v42 = 0;
-            v65 = v41;
+            v63 = v41;
             do
             {
-              if (*v68 != v63)
+              if (*v66 != v61)
               {
-                objc_enumerationMutation(v62);
+                objc_enumerationMutation(v60);
               }
 
-              unsignedIntValue = [*(*(&v67 + 1) + 8 * v42) unsignedIntValue];
-              v44 = *(v40 - 5);
-              v45 = *(v40 - 4);
-              v46 = *(v40 - 5);
-              if (v45 == v46)
+              unsignedIntValue = [*(*(&v65 + 1) + 8 * v42) unsignedIntValue];
+              v44 = *(v40 - 4);
+              v45 = *(v40 - 5);
+              if (v44 == v45)
               {
-                v47 = 0;
+                v46 = 0;
               }
 
               else
               {
-                v47 = ((v45 - v46) << 7) - 1;
+                v46 = ((v44 - v45) << 7) - 1;
               }
 
-              v49 = *(v40 - 2);
-              v48 = *(v40 - 1);
-              v50 = v48 + v49;
-              if (v47 == v48 + v49)
+              v48 = *(v40 - 2);
+              v47 = *(v40 - 1);
+              v49 = v47 + v48;
+              if (v46 == v47 + v48)
               {
-                if (v49 < 0x400)
+                if (v48 < 0x400)
                 {
-                  v51 = *(v40 - 3);
-                  v52 = *(v40 - 6);
-                  if (v45 - v46 < (v51 - v52))
+                  v50 = *(v40 - 3);
+                  v51 = *(v40 - 6);
+                  if (v44 - v45 < (v50 - v51))
                   {
-                    if (v51 != v45)
+                    if (v50 != v44)
                     {
                       operator new();
                     }
@@ -616,55 +615,54 @@ LABEL_70:
                     operator new();
                   }
 
-                  if (v51 == v52)
+                  if (v50 == v51)
                   {
-                    v53 = 1;
+                    v52 = 1;
                   }
 
                   else
                   {
-                    v53 = (v51 - v52) >> 2;
+                    v52 = (v50 - v51) >> 2;
                   }
 
-                  std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int *>>(v53);
+                  std::__allocate_at_least[abi:nn200100]<std::allocator<unsigned int *>>(v52);
                 }
 
-                *(v40 - 2) = v49 - 1024;
-                *&v71 = *v46;
-                *(v40 - 5) = v46 + 8;
-                std::__split_buffer<unsigned int *>::emplace_back<unsigned int *&>(v40 - 6, &v71);
-                v46 = *(v40 - 5);
-                v48 = *(v40 - 1);
-                v50 = *(v40 - 2) + v48;
+                *(v40 - 2) = v48 - 1024;
+                *&v69 = *v45;
+                *(v40 - 5) = v45 + 8;
+                std::__split_buffer<unsigned int *>::emplace_back<unsigned int *&>(v40 - 6, &v69);
+                v45 = *(v40 - 5);
+                v47 = *(v40 - 1);
+                v49 = *(v40 - 2) + v47;
               }
 
-              *(*&v46[(v50 >> 7) & 0x1FFFFFFFFFFFFF8] + 4 * (v50 & 0x3FF)) = unsignedIntValue;
-              *(v40 - 1) = v48 + 1;
-              v66 = v7;
-              *&v71 = &v66;
-              v54 = std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(&self->_batchToEncoderMap.__table_.__bucket_list_.__ptr_, v7++);
-              *(v54 + 5) = v64;
+              *(*&v45[(v49 >> 7) & 0x1FFFFFFFFFFFFF8] + 4 * (v49 & 0x3FF)) = unsignedIntValue;
+              *(v40 - 1) = v47 + 1;
+              v64 = v7;
+              *&v69 = &v64;
+              v53 = std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(&self->_batchToEncoderMap.__table_.__bucket_list_.__ptr_, v7++, &v69);
+              *(v53 + 5) = v62;
               ++v42;
             }
 
-            while (v42 != v65);
-            v41 = [v62 countByEnumeratingWithState:&v67 objects:v78 count:16];
+            while (v42 != v63);
+            v41 = [v60 countByEnumeratingWithState:&v65 objects:v76 count:16];
           }
 
           while (v41);
         }
 
-        ++v64;
+        ++v62;
       }
 
-      v6 = [obj countByEnumeratingWithState:&v74 objects:v79 count:16];
+      v6 = [obj countByEnumeratingWithState:&v72 objects:v77 count:16];
     }
 
     while (v6);
   }
 
   gInitialized = 1;
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearData

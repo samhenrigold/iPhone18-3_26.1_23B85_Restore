@@ -105,17 +105,21 @@ uint64_t __42__BTCloudServicesClient__ensureXPCStarted__block_invoke_2(uint64_t 
 
 - (void)_interrupted
 {
-  if (gLogCategory_BTRootCloudServicesClient <= 50 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_BTRootCloudServicesClient <= 50)
   {
-    [BTCloudServicesClient _interrupted];
+    if (gLogCategory_BTRootCloudServicesClient != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(BTCloudServicesClient *)self _interrupted];
+    }
   }
 
-  v3 = MEMORY[0x245CFACE0](self->_interruptionHandler);
-  if (v3)
+  v4 = MEMORY[0x245CFACE0](selfCopy->_interruptionHandler);
+  if (v4)
   {
-    v4 = v3;
-    v3[2]();
-    v3 = v4;
+    v5 = v4;
+    v4[2]();
+    v4 = v5;
   }
 }
 
@@ -130,23 +134,23 @@ uint64_t __42__BTCloudServicesClient__ensureXPCStarted__block_invoke_2(uint64_t 
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __35__BTCloudServicesClient_invalidate__block_invoke(uint64_t result)
+void *__35__BTCloudServicesClient_invalidate__block_invoke(void *result)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if ((*(v2 + 8) & 1) == 0)
   {
     v3 = result;
     *(v2 + 8) = 1;
-    if ((*(*(result + 32) + 9) & 1) == 0 && gLogCategory_BTRootCloudServicesClient <= 30 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
+    if ((*(result[4] + 9) & 1) == 0 && gLogCategory_BTRootCloudServicesClient <= 30 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
     {
       __35__BTCloudServicesClient_invalidate__block_invoke_cold_1();
     }
 
-    v4 = *(v3 + 32);
+    v4 = v3[4];
     if (v4[2])
     {
       [v4[2] invalidate];
-      v4 = *(v3 + 32);
+      v4 = v3[4];
     }
 
     return [v4 _invalidated];
@@ -159,30 +163,34 @@ uint64_t __35__BTCloudServicesClient_invalidate__block_invoke(uint64_t result)
 {
   if (!self->_invalidateDone)
   {
-    if (!self->_invalidateCalled && gLogCategory_BTRootCloudServicesClient <= 50 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (!self->_invalidateCalled && gLogCategory_BTRootCloudServicesClient <= 50)
     {
-      [BTCloudServicesClient _invalidated];
+      if (gLogCategory_BTRootCloudServicesClient != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(BTCloudServicesClient *)self _invalidated];
+      }
     }
 
-    if (!self->_xpcCnx)
+    if (!selfCopy->_xpcCnx)
     {
-      v3 = MEMORY[0x245CFACE0](self->_invalidationHandler, a2);
-      v4 = v3;
-      if (v3)
+      v4 = MEMORY[0x245CFACE0](selfCopy->_invalidationHandler, a2);
+      v5 = v4;
+      if (v4)
       {
-        (*(v3 + 16))(v3);
+        (*(v4 + 16))(v4);
       }
 
-      interruptionHandler = self->_interruptionHandler;
-      self->_interruptionHandler = 0;
+      interruptionHandler = selfCopy->_interruptionHandler;
+      selfCopy->_interruptionHandler = 0;
 
-      invalidationHandler = self->_invalidationHandler;
-      self->_invalidationHandler = 0;
+      invalidationHandler = selfCopy->_invalidationHandler;
+      selfCopy->_invalidationHandler = 0;
 
-      xpcCnx = self->_xpcCnx;
-      self->_xpcCnx = 0;
+      xpcCnx = selfCopy->_xpcCnx;
+      selfCopy->_xpcCnx = 0;
 
-      self->_invalidateDone = 1;
+      selfCopy->_invalidateDone = 1;
       if (gLogCategory_BTRootCloudServicesClient <= 10 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
       {
         [BTCloudServicesClient _invalidated];
@@ -210,66 +218,66 @@ uint64_t __35__BTCloudServicesClient_invalidate__block_invoke(uint64_t result)
 
 void __55__BTCloudServicesClient_createDeviceRecord_completion___block_invoke(id *a1)
 {
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy_;
-  v20 = __Block_byref_object_dispose_;
-  v21 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy_;
+  v33 = __Block_byref_object_dispose_;
+  v34 = 0;
   v2 = a1[4];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __55__BTCloudServicesClient_createDeviceRecord_completion___block_invoke_102;
-  v12[3] = &unk_278D11858;
-  v15 = &v16;
-  v13 = a1[4];
-  v14 = a1[6];
-  v3 = MEMORY[0x245CFACE0](v12);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __55__BTCloudServicesClient_createDeviceRecord_completion___block_invoke_102;
+  v25[3] = &unk_278D11858;
+  v28 = &v29;
+  v26 = a1[4];
+  v27 = a1[6];
+  v9 = MEMORY[0x245CFACE0](v25);
   if (v2)
   {
-    v4 = [a1[5] _ensureXPCStarted];
-    if (v4)
+    v16 = [a1[5] _ensureXPCStarted];
+    if (v16)
     {
-      v9 = BTErrorF();
-      v7 = v17[5];
-      v17[5] = v9;
+      v21 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v10, v11, v12, v13, v14, v15, v22);
+      v19 = v30[5];
+      v30[5] = v21;
     }
 
     else
     {
       if (gLogCategory_BTRootCloudServicesClient <= 30 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient createDeviceRecord:completion:]_block_invoke_2", 30, "Create Device Record: %@", v2);
       }
 
-      v5 = *(a1[5] + 2);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __55__BTCloudServicesClient_createDeviceRecord_completion___block_invoke_3;
-      v10[3] = &unk_278D11880;
-      v11 = a1[6];
-      v6 = [v5 remoteObjectProxyWithErrorHandler:v10];
-      [v6 createDeviceRecord:a1[4] completion:a1[6]];
+      v17 = *(a1[5] + 2);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __55__BTCloudServicesClient_createDeviceRecord_completion___block_invoke_3;
+      v23[3] = &unk_278D11880;
+      v24 = a1[6];
+      v18 = [v17 remoteObjectProxyWithErrorHandler:v23];
+      [v18 createDeviceRecord:a1[4] completion:a1[6]];
 
-      v7 = v11;
+      v19 = v24;
     }
   }
 
   else
   {
-    v8 = BTErrorF();
-    v4 = v17[5];
-    v17[5] = v8;
+    v20 = BTErrorF(4294960591, "Nil Device Record", v3, v4, v5, v6, v7, v8, v22);
+    v16 = v30[5];
+    v30[5] = v20;
   }
 
-  v3[2](v3);
-  _Block_object_dispose(&v16, 8);
+  v9[2](v9);
+  _Block_object_dispose(&v29, 8);
 }
 
-uint64_t __55__BTCloudServicesClient_createDeviceRecord_completion___block_invoke_102(uint64_t result)
+void *__55__BTCloudServicesClient_createDeviceRecord_completion___block_invoke_102(void *result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(result[6] + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -279,26 +287,21 @@ uint64_t __55__BTCloudServicesClient_createDeviceRecord_completion___block_invok
   {
     if (gLogCategory_BTRootCloudServicesClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(v2[6] + 8) + 40);
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient createDeviceRecord:completion:]_block_invoke", 90, "### BTCloudDevice failed: %@, %{error}", v2[4], v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
+  v3 = *(v2[5] + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)modifyDeviceRecord:(id)record completion:(id)completion
@@ -320,66 +323,66 @@ LABEL_7:
 
 void __55__BTCloudServicesClient_modifyDeviceRecord_completion___block_invoke(id *a1)
 {
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy_;
-  v20 = __Block_byref_object_dispose_;
-  v21 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy_;
+  v33 = __Block_byref_object_dispose_;
+  v34 = 0;
   v2 = a1[4];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __55__BTCloudServicesClient_modifyDeviceRecord_completion___block_invoke_2;
-  v12[3] = &unk_278D11858;
-  v15 = &v16;
-  v13 = a1[4];
-  v14 = a1[6];
-  v3 = MEMORY[0x245CFACE0](v12);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __55__BTCloudServicesClient_modifyDeviceRecord_completion___block_invoke_2;
+  v25[3] = &unk_278D11858;
+  v28 = &v29;
+  v26 = a1[4];
+  v27 = a1[6];
+  v9 = MEMORY[0x245CFACE0](v25);
   if (v2)
   {
-    v4 = [a1[5] _ensureXPCStarted];
-    if (v4)
+    v16 = [a1[5] _ensureXPCStarted];
+    if (v16)
     {
-      v9 = BTErrorF();
-      v7 = v17[5];
-      v17[5] = v9;
+      v21 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v10, v11, v12, v13, v14, v15, v22);
+      v19 = v30[5];
+      v30[5] = v21;
     }
 
     else
     {
       if (gLogCategory_BTRootCloudServicesClient <= 30 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient modifyDeviceRecord:completion:]_block_invoke", 30, "Modify Device Record: %@", v2);
       }
 
-      v5 = *(a1[5] + 2);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __55__BTCloudServicesClient_modifyDeviceRecord_completion___block_invoke_3;
-      v10[3] = &unk_278D11880;
-      v11 = a1[6];
-      v6 = [v5 remoteObjectProxyWithErrorHandler:v10];
-      [v6 modifyDeviceRecord:a1[4] completion:a1[6]];
+      v17 = *(a1[5] + 2);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __55__BTCloudServicesClient_modifyDeviceRecord_completion___block_invoke_3;
+      v23[3] = &unk_278D11880;
+      v24 = a1[6];
+      v18 = [v17 remoteObjectProxyWithErrorHandler:v23];
+      [v18 modifyDeviceRecord:a1[4] completion:a1[6]];
 
-      v7 = v11;
+      v19 = v24;
     }
   }
 
   else
   {
-    v8 = BTErrorF();
-    v4 = v17[5];
-    v17[5] = v8;
+    v20 = BTErrorF(4294960591, "Nil Device Record", v3, v4, v5, v6, v7, v8, v22);
+    v16 = v30[5];
+    v30[5] = v20;
   }
 
-  v3[2](v3);
-  _Block_object_dispose(&v16, 8);
+  v9[2](v9);
+  _Block_object_dispose(&v29, 8);
 }
 
-uint64_t __55__BTCloudServicesClient_modifyDeviceRecord_completion___block_invoke_2(uint64_t result)
+void *__55__BTCloudServicesClient_modifyDeviceRecord_completion___block_invoke_2(void *result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(result[6] + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -389,26 +392,21 @@ uint64_t __55__BTCloudServicesClient_modifyDeviceRecord_completion___block_invok
   {
     if (gLogCategory_BTRootCloudServicesClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(v2[6] + 8) + 40);
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient modifyDeviceRecord:completion:]_block_invoke_2", 90, "### BTCloudDevice failed: %@, %{error}", v2[4], v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
+  v3 = *(v2[5] + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)deleteDeviceRecord:(id)record completion:(id)completion
@@ -430,66 +428,66 @@ LABEL_7:
 
 void __55__BTCloudServicesClient_deleteDeviceRecord_completion___block_invoke(id *a1)
 {
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy_;
-  v19 = __Block_byref_object_dispose_;
-  v20 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy_;
+  v32 = __Block_byref_object_dispose_;
+  v33 = 0;
   v2 = a1[4];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __55__BTCloudServicesClient_deleteDeviceRecord_completion___block_invoke_2;
-  v12[3] = &unk_278D11858;
-  v14 = &v15;
-  v12[4] = v2;
-  v13 = a1[6];
-  v3 = MEMORY[0x245CFACE0](v12);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __55__BTCloudServicesClient_deleteDeviceRecord_completion___block_invoke_2;
+  v25[3] = &unk_278D11858;
+  v27 = &v28;
+  v25[4] = v2;
+  v26 = a1[6];
+  v9 = MEMORY[0x245CFACE0](v25);
   if (a1[4])
   {
-    v4 = [a1[5] _ensureXPCStarted];
-    if (v4)
+    v16 = [a1[5] _ensureXPCStarted];
+    if (v16)
     {
-      v9 = BTErrorF();
-      v7 = v16[5];
-      v16[5] = v9;
+      v21 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v10, v11, v12, v13, v14, v15, v22);
+      v19 = v29[5];
+      v29[5] = v21;
     }
 
     else
     {
       if (gLogCategory_BTRootCloudServicesClient <= 30 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient deleteDeviceRecord:completion:]_block_invoke", 30, "Delete device with BluetoothAddress: %@", v2);
       }
 
-      v5 = *(a1[5] + 2);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __55__BTCloudServicesClient_deleteDeviceRecord_completion___block_invoke_3;
-      v10[3] = &unk_278D11880;
-      v11 = a1[6];
-      v6 = [v5 remoteObjectProxyWithErrorHandler:v10];
-      [v6 deleteDeviceRecord:a1[4] completion:a1[6]];
+      v17 = *(a1[5] + 2);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __55__BTCloudServicesClient_deleteDeviceRecord_completion___block_invoke_3;
+      v23[3] = &unk_278D11880;
+      v24 = a1[6];
+      v18 = [v17 remoteObjectProxyWithErrorHandler:v23];
+      [v18 deleteDeviceRecord:a1[4] completion:a1[6]];
 
-      v7 = v11;
+      v19 = v24;
     }
   }
 
   else
   {
-    v8 = BTErrorF();
-    v4 = v16[5];
-    v16[5] = v8;
+    v20 = BTErrorF(4294960591, "No deviceBluetoothAddress to delete", v3, v4, v5, v6, v7, v8, v22);
+    v16 = v29[5];
+    v29[5] = v20;
   }
 
-  v3[2](v3);
-  _Block_object_dispose(&v15, 8);
+  v9[2](v9);
+  _Block_object_dispose(&v28, 8);
 }
 
-uint64_t __55__BTCloudServicesClient_deleteDeviceRecord_completion___block_invoke_2(uint64_t result)
+void *__55__BTCloudServicesClient_deleteDeviceRecord_completion___block_invoke_2(void *result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(result[6] + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -499,26 +497,21 @@ uint64_t __55__BTCloudServicesClient_deleteDeviceRecord_completion___block_invok
   {
     if (gLogCategory_BTRootCloudServicesClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(v2[6] + 8) + 40);
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient deleteDeviceRecord:completion:]_block_invoke_2", 90, "### deviceBluetoothAddress failed: %@, %{error}", v2[4], v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
+  v3 = *(v2[5] + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)deviceRecord:(id)record completion:(id)completion
@@ -540,66 +533,66 @@ LABEL_7:
 
 void __49__BTCloudServicesClient_deviceRecord_completion___block_invoke(id *a1)
 {
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy_;
-  v19 = __Block_byref_object_dispose_;
-  v20 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy_;
+  v32 = __Block_byref_object_dispose_;
+  v33 = 0;
   v2 = a1[4];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __49__BTCloudServicesClient_deviceRecord_completion___block_invoke_2;
-  v12[3] = &unk_278D11858;
-  v14 = &v15;
-  v12[4] = v2;
-  v13 = a1[6];
-  v3 = MEMORY[0x245CFACE0](v12);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __49__BTCloudServicesClient_deviceRecord_completion___block_invoke_2;
+  v25[3] = &unk_278D11858;
+  v27 = &v28;
+  v25[4] = v2;
+  v26 = a1[6];
+  v9 = MEMORY[0x245CFACE0](v25);
   if (a1[4])
   {
-    v4 = [a1[5] _ensureXPCStarted];
-    if (v4)
+    v16 = [a1[5] _ensureXPCStarted];
+    if (v16)
     {
-      v9 = BTErrorF();
-      v7 = v16[5];
-      v16[5] = v9;
+      v21 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v10, v11, v12, v13, v14, v15, v22);
+      v19 = v29[5];
+      v29[5] = v21;
     }
 
     else
     {
       if (gLogCategory_BTRootCloudServicesClient <= 30 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient deviceRecord:completion:]_block_invoke", 30, "deviceBluetoothAddress: %@", v2);
       }
 
-      v5 = *(a1[5] + 2);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __49__BTCloudServicesClient_deviceRecord_completion___block_invoke_3;
-      v10[3] = &unk_278D11880;
-      v11 = a1[6];
-      v6 = [v5 remoteObjectProxyWithErrorHandler:v10];
-      [v6 fetchDeviceRecord:a1[4] completion:a1[6]];
+      v17 = *(a1[5] + 2);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __49__BTCloudServicesClient_deviceRecord_completion___block_invoke_3;
+      v23[3] = &unk_278D11880;
+      v24 = a1[6];
+      v18 = [v17 remoteObjectProxyWithErrorHandler:v23];
+      [v18 fetchDeviceRecord:a1[4] completion:a1[6]];
 
-      v7 = v11;
+      v19 = v24;
     }
   }
 
   else
   {
-    v8 = BTErrorF();
-    v4 = v16[5];
-    v16[5] = v8;
+    v20 = BTErrorF(4294960591, "No deviceBluetoothAddress", v3, v4, v5, v6, v7, v8, v22);
+    v16 = v29[5];
+    v29[5] = v20;
   }
 
-  v3[2](v3);
-  _Block_object_dispose(&v15, 8);
+  v9[2](v9);
+  _Block_object_dispose(&v28, 8);
 }
 
-uint64_t __49__BTCloudServicesClient_deviceRecord_completion___block_invoke_2(uint64_t result)
+void *__49__BTCloudServicesClient_deviceRecord_completion___block_invoke_2(void *result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(result[6] + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -609,26 +602,21 @@ uint64_t __49__BTCloudServicesClient_deviceRecord_completion___block_invoke_2(ui
   {
     if (gLogCategory_BTRootCloudServicesClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(v2[6] + 8) + 40);
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient deviceRecord:completion:]_block_invoke_2", 90, "### deviceBluetoothAddress failed: %@, %{error}", v2[4], v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
+  v3 = *(v2[5] + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)deviceRecordsWithCompletion:(id)completion
@@ -647,49 +635,49 @@ LABEL_7:
 
 void __53__BTCloudServicesClient_deviceRecordsWithCompletion___block_invoke(uint64_t a1)
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy_;
-  v17 = __Block_byref_object_dispose_;
-  v18 = 0;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __53__BTCloudServicesClient_deviceRecordsWithCompletion___block_invoke_2;
-  v10[3] = &unk_278D118D0;
-  v12 = &v13;
-  v11 = *(a1 + 40);
-  v2 = MEMORY[0x245CFACE0](v10);
-  v3 = [*(a1 + 32) _ensureXPCStarted];
-  if (v3)
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy_;
+  v24 = __Block_byref_object_dispose_;
+  v25 = 0;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __53__BTCloudServicesClient_deviceRecordsWithCompletion___block_invoke_2;
+  v17[3] = &unk_278D118D0;
+  v19 = &v20;
+  v18 = *(a1 + 40);
+  v2 = MEMORY[0x245CFACE0](v17);
+  v9 = [*(a1 + 32) _ensureXPCStarted];
+  if (v9)
   {
-    v7 = BTErrorF();
-    v6 = v14[5];
-    v14[5] = v7;
+    v13 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v3, v4, v5, v6, v7, v8, v14);
+    v12 = v21[5];
+    v21[5] = v13;
   }
 
   else
   {
-    v4 = *(*(a1 + 32) + 16);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __53__BTCloudServicesClient_deviceRecordsWithCompletion___block_invoke_3;
-    v8[3] = &unk_278D11880;
-    v9 = *(a1 + 40);
-    v5 = [v4 remoteObjectProxyWithErrorHandler:v8];
-    [v5 fetchDeviceRecordsWithCompletion:*(a1 + 40)];
+    v10 = *(*(a1 + 32) + 16);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __53__BTCloudServicesClient_deviceRecordsWithCompletion___block_invoke_3;
+    v15[3] = &unk_278D11880;
+    v16 = *(a1 + 40);
+    v11 = [v10 remoteObjectProxyWithErrorHandler:v15];
+    [v11 fetchDeviceRecordsWithCompletion:*(a1 + 40)];
 
-    v6 = v9;
+    v12 = v16;
   }
 
   v2[2](v2);
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v20, 8);
 }
 
 uint64_t __53__BTCloudServicesClient_deviceRecordsWithCompletion___block_invoke_2(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -699,25 +687,21 @@ uint64_t __53__BTCloudServicesClient_deviceRecordsWithCompletion___block_invoke_
   {
     if (gLogCategory_BTRootCloudServicesClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(*(v2 + 40) + 8) + 40);
     }
 
-    LogPrintF();
-    v1 = *(v2 + 40);
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient deviceRecordsWithCompletion:]_block_invoke_2", 90, "### BTCloudDevice Fetch failed: %{error}", v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(v2 + 32) + 16);
+  v3 = *(*(v2 + 32) + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)createDeviceSupportInformationRecord:(id)record completion:(id)completion
@@ -739,66 +723,66 @@ LABEL_7:
 
 void __73__BTCloudServicesClient_createDeviceSupportInformationRecord_completion___block_invoke(id *a1)
 {
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy_;
-  v20 = __Block_byref_object_dispose_;
-  v21 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy_;
+  v33 = __Block_byref_object_dispose_;
+  v34 = 0;
   v2 = a1[4];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __73__BTCloudServicesClient_createDeviceSupportInformationRecord_completion___block_invoke_2;
-  v12[3] = &unk_278D11858;
-  v15 = &v16;
-  v13 = a1[4];
-  v14 = a1[6];
-  v3 = MEMORY[0x245CFACE0](v12);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __73__BTCloudServicesClient_createDeviceSupportInformationRecord_completion___block_invoke_2;
+  v25[3] = &unk_278D11858;
+  v28 = &v29;
+  v26 = a1[4];
+  v27 = a1[6];
+  v9 = MEMORY[0x245CFACE0](v25);
   if (v2)
   {
-    v4 = [a1[5] _ensureXPCStarted];
-    if (v4)
+    v16 = [a1[5] _ensureXPCStarted];
+    if (v16)
     {
-      v9 = BTErrorF();
-      v7 = v17[5];
-      v17[5] = v9;
+      v21 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v10, v11, v12, v13, v14, v15, v22);
+      v19 = v30[5];
+      v30[5] = v21;
     }
 
     else
     {
       if (gLogCategory_BTRootCloudServicesClient <= 30 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient createDeviceSupportInformationRecord:completion:]_block_invoke", 30, "BTCloudDeviceSupportInformation: %@", v2);
       }
 
-      v5 = *(a1[5] + 2);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __73__BTCloudServicesClient_createDeviceSupportInformationRecord_completion___block_invoke_3;
-      v10[3] = &unk_278D11880;
-      v11 = a1[6];
-      v6 = [v5 remoteObjectProxyWithErrorHandler:v10];
-      [v6 createDeviceSupportInformationRecord:a1[4] completion:a1[6]];
+      v17 = *(a1[5] + 2);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __73__BTCloudServicesClient_createDeviceSupportInformationRecord_completion___block_invoke_3;
+      v23[3] = &unk_278D11880;
+      v24 = a1[6];
+      v18 = [v17 remoteObjectProxyWithErrorHandler:v23];
+      [v18 createDeviceSupportInformationRecord:a1[4] completion:a1[6]];
 
-      v7 = v11;
+      v19 = v24;
     }
   }
 
   else
   {
-    v8 = BTErrorF();
-    v4 = v17[5];
-    v17[5] = v8;
+    v20 = BTErrorF(4294960591, "Nil BTCloudDeviceSupportInformation", v3, v4, v5, v6, v7, v8, v22);
+    v16 = v30[5];
+    v30[5] = v20;
   }
 
-  v3[2](v3);
-  _Block_object_dispose(&v16, 8);
+  v9[2](v9);
+  _Block_object_dispose(&v29, 8);
 }
 
-uint64_t __73__BTCloudServicesClient_createDeviceSupportInformationRecord_completion___block_invoke_2(uint64_t result)
+void *__73__BTCloudServicesClient_createDeviceSupportInformationRecord_completion___block_invoke_2(void *result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(result[6] + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -808,26 +792,21 @@ uint64_t __73__BTCloudServicesClient_createDeviceSupportInformationRecord_comple
   {
     if (gLogCategory_BTRootCloudServicesClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(v2[6] + 8) + 40);
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient createDeviceSupportInformationRecord:completion:]_block_invoke_2", 90, "### BTCloudDeviceSupportInformation failed: %@, %{error}", v2[4], v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
+  v3 = *(v2[5] + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)modifyDeviceSupportInformationRecord:(id)record completion:(id)completion
@@ -849,66 +828,66 @@ LABEL_7:
 
 void __73__BTCloudServicesClient_modifyDeviceSupportInformationRecord_completion___block_invoke(id *a1)
 {
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy_;
-  v20 = __Block_byref_object_dispose_;
-  v21 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy_;
+  v33 = __Block_byref_object_dispose_;
+  v34 = 0;
   v2 = a1[4];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __73__BTCloudServicesClient_modifyDeviceSupportInformationRecord_completion___block_invoke_2;
-  v12[3] = &unk_278D11858;
-  v15 = &v16;
-  v13 = a1[4];
-  v14 = a1[6];
-  v3 = MEMORY[0x245CFACE0](v12);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __73__BTCloudServicesClient_modifyDeviceSupportInformationRecord_completion___block_invoke_2;
+  v25[3] = &unk_278D11858;
+  v28 = &v29;
+  v26 = a1[4];
+  v27 = a1[6];
+  v9 = MEMORY[0x245CFACE0](v25);
   if (v2)
   {
-    v4 = [a1[5] _ensureXPCStarted];
-    if (v4)
+    v16 = [a1[5] _ensureXPCStarted];
+    if (v16)
     {
-      v9 = BTErrorF();
-      v7 = v17[5];
-      v17[5] = v9;
+      v21 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v10, v11, v12, v13, v14, v15, v22);
+      v19 = v30[5];
+      v30[5] = v21;
     }
 
     else
     {
       if (gLogCategory_BTRootCloudServicesClient <= 30 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient modifyDeviceSupportInformationRecord:completion:]_block_invoke", 30, "BTCloudDeviceSupportInformation: %@", v2);
       }
 
-      v5 = *(a1[5] + 2);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __73__BTCloudServicesClient_modifyDeviceSupportInformationRecord_completion___block_invoke_3;
-      v10[3] = &unk_278D11880;
-      v11 = a1[6];
-      v6 = [v5 remoteObjectProxyWithErrorHandler:v10];
-      [v6 modifyDeviceSupportInformationRecord:a1[4] completion:a1[6]];
+      v17 = *(a1[5] + 2);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __73__BTCloudServicesClient_modifyDeviceSupportInformationRecord_completion___block_invoke_3;
+      v23[3] = &unk_278D11880;
+      v24 = a1[6];
+      v18 = [v17 remoteObjectProxyWithErrorHandler:v23];
+      [v18 modifyDeviceSupportInformationRecord:a1[4] completion:a1[6]];
 
-      v7 = v11;
+      v19 = v24;
     }
   }
 
   else
   {
-    v8 = BTErrorF();
-    v4 = v17[5];
-    v17[5] = v8;
+    v20 = BTErrorF(4294960591, "Nil BTCloudDeviceSupportInformation", v3, v4, v5, v6, v7, v8, v22);
+    v16 = v30[5];
+    v30[5] = v20;
   }
 
-  v3[2](v3);
-  _Block_object_dispose(&v16, 8);
+  v9[2](v9);
+  _Block_object_dispose(&v29, 8);
 }
 
-uint64_t __73__BTCloudServicesClient_modifyDeviceSupportInformationRecord_completion___block_invoke_2(uint64_t result)
+void *__73__BTCloudServicesClient_modifyDeviceSupportInformationRecord_completion___block_invoke_2(void *result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(result[6] + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -918,26 +897,21 @@ uint64_t __73__BTCloudServicesClient_modifyDeviceSupportInformationRecord_comple
   {
     if (gLogCategory_BTRootCloudServicesClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(v2[6] + 8) + 40);
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient modifyDeviceSupportInformationRecord:completion:]_block_invoke_2", 90, "### BTCloudDeviceSupportInformation failed: %@, %{error}", v2[4], v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
+  v3 = *(v2[5] + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)deleteDeviceSupportInformationRecord:(id)record completion:(id)completion
@@ -959,66 +933,66 @@ LABEL_7:
 
 void __73__BTCloudServicesClient_deleteDeviceSupportInformationRecord_completion___block_invoke(id *a1)
 {
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy_;
-  v19 = __Block_byref_object_dispose_;
-  v20 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy_;
+  v32 = __Block_byref_object_dispose_;
+  v33 = 0;
   v2 = a1[4];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __73__BTCloudServicesClient_deleteDeviceSupportInformationRecord_completion___block_invoke_2;
-  v12[3] = &unk_278D11858;
-  v14 = &v15;
-  v12[4] = v2;
-  v13 = a1[6];
-  v3 = MEMORY[0x245CFACE0](v12);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __73__BTCloudServicesClient_deleteDeviceSupportInformationRecord_completion___block_invoke_2;
+  v25[3] = &unk_278D11858;
+  v27 = &v28;
+  v25[4] = v2;
+  v26 = a1[6];
+  v9 = MEMORY[0x245CFACE0](v25);
   if (v2)
   {
-    v4 = [a1[5] _ensureXPCStarted];
-    if (v4)
+    v16 = [a1[5] _ensureXPCStarted];
+    if (v16)
     {
-      v9 = BTErrorF();
-      v7 = v16[5];
-      v16[5] = v9;
+      v21 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v10, v11, v12, v13, v14, v15, v22);
+      v19 = v29[5];
+      v29[5] = v21;
     }
 
     else
     {
       if (gLogCategory_BTRootCloudServicesClient <= 30 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient deleteDeviceSupportInformationRecord:completion:]_block_invoke", 30, "Delete Info device with BluetoothAddress: %@", v2);
       }
 
-      v5 = *(a1[5] + 2);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __73__BTCloudServicesClient_deleteDeviceSupportInformationRecord_completion___block_invoke_3;
-      v10[3] = &unk_278D11880;
-      v11 = a1[6];
-      v6 = [v5 remoteObjectProxyWithErrorHandler:v10];
-      [v6 deleteDeviceSupportInformationRecord:a1[4] completion:a1[6]];
+      v17 = *(a1[5] + 2);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __73__BTCloudServicesClient_deleteDeviceSupportInformationRecord_completion___block_invoke_3;
+      v23[3] = &unk_278D11880;
+      v24 = a1[6];
+      v18 = [v17 remoteObjectProxyWithErrorHandler:v23];
+      [v18 deleteDeviceSupportInformationRecord:a1[4] completion:a1[6]];
 
-      v7 = v11;
+      v19 = v24;
     }
   }
 
   else
   {
-    v8 = BTErrorF();
-    v4 = v16[5];
-    v16[5] = v8;
+    v20 = BTErrorF(4294960591, "Nil BTCloudDeviceSupportInformation deviceBluetoothAddress", v3, v4, v5, v6, v7, v8, v22);
+    v16 = v29[5];
+    v29[5] = v20;
   }
 
-  v3[2](v3);
-  _Block_object_dispose(&v15, 8);
+  v9[2](v9);
+  _Block_object_dispose(&v28, 8);
 }
 
-uint64_t __73__BTCloudServicesClient_deleteDeviceSupportInformationRecord_completion___block_invoke_2(uint64_t result)
+void *__73__BTCloudServicesClient_deleteDeviceSupportInformationRecord_completion___block_invoke_2(void *result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(result[6] + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -1028,26 +1002,21 @@ uint64_t __73__BTCloudServicesClient_deleteDeviceSupportInformationRecord_comple
   {
     if (gLogCategory_BTRootCloudServicesClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(v2[6] + 8) + 40);
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient deleteDeviceSupportInformationRecord:completion:]_block_invoke_2", 90, "### Info deviceBluetoothAddress failed: %@, %{error}", v2[4], v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
+  v3 = *(v2[5] + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)deviceSupportInformationRecord:(id)record completion:(id)completion
@@ -1069,66 +1038,66 @@ LABEL_7:
 
 void __67__BTCloudServicesClient_deviceSupportInformationRecord_completion___block_invoke(id *a1)
 {
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy_;
-  v19 = __Block_byref_object_dispose_;
-  v20 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy_;
+  v32 = __Block_byref_object_dispose_;
+  v33 = 0;
   v2 = a1[4];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __67__BTCloudServicesClient_deviceSupportInformationRecord_completion___block_invoke_2;
-  v12[3] = &unk_278D11858;
-  v14 = &v15;
-  v12[4] = v2;
-  v13 = a1[6];
-  v3 = MEMORY[0x245CFACE0](v12);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __67__BTCloudServicesClient_deviceSupportInformationRecord_completion___block_invoke_2;
+  v25[3] = &unk_278D11858;
+  v27 = &v28;
+  v25[4] = v2;
+  v26 = a1[6];
+  v9 = MEMORY[0x245CFACE0](v25);
   if (v2)
   {
-    v4 = [a1[5] _ensureXPCStarted];
-    if (v4)
+    v16 = [a1[5] _ensureXPCStarted];
+    if (v16)
     {
-      v9 = BTErrorF();
-      v7 = v16[5];
-      v16[5] = v9;
+      v21 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v10, v11, v12, v13, v14, v15, v22);
+      v19 = v29[5];
+      v29[5] = v21;
     }
 
     else
     {
       if (gLogCategory_BTRootCloudServicesClient <= 30 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient deviceSupportInformationRecord:completion:]_block_invoke", 30, "Info deviceBluetoothAddress: %@", v2);
       }
 
-      v5 = *(a1[5] + 2);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __67__BTCloudServicesClient_deviceSupportInformationRecord_completion___block_invoke_3;
-      v10[3] = &unk_278D11880;
-      v11 = a1[6];
-      v6 = [v5 remoteObjectProxyWithErrorHandler:v10];
-      [v6 fetchBTCloudDeviceSupportInformation:a1[4] completion:a1[6]];
+      v17 = *(a1[5] + 2);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __67__BTCloudServicesClient_deviceSupportInformationRecord_completion___block_invoke_3;
+      v23[3] = &unk_278D11880;
+      v24 = a1[6];
+      v18 = [v17 remoteObjectProxyWithErrorHandler:v23];
+      [v18 fetchBTCloudDeviceSupportInformation:a1[4] completion:a1[6]];
 
-      v7 = v11;
+      v19 = v24;
     }
   }
 
   else
   {
-    v8 = BTErrorF();
-    v4 = v16[5];
-    v16[5] = v8;
+    v20 = BTErrorF(4294960591, "Nil BTCloudDeviceSupportInformation deviceBluetoothAddress", v3, v4, v5, v6, v7, v8, v22);
+    v16 = v29[5];
+    v29[5] = v20;
   }
 
-  v3[2](v3);
-  _Block_object_dispose(&v15, 8);
+  v9[2](v9);
+  _Block_object_dispose(&v28, 8);
 }
 
-uint64_t __67__BTCloudServicesClient_deviceSupportInformationRecord_completion___block_invoke_2(uint64_t result)
+void *__67__BTCloudServicesClient_deviceSupportInformationRecord_completion___block_invoke_2(void *result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(result[6] + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -1138,26 +1107,21 @@ uint64_t __67__BTCloudServicesClient_deviceSupportInformationRecord_completion__
   {
     if (gLogCategory_BTRootCloudServicesClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(v2[6] + 8) + 40);
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient deviceSupportInformationRecord:completion:]_block_invoke_2", 90, "### Info deviceBluetoothAddress failed: %@, %{error}", v2[4], v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
+  v3 = *(v2[5] + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)deviceSupportInformationRecordsWithCompletion:(id)completion
@@ -1176,49 +1140,49 @@ LABEL_7:
 
 void __71__BTCloudServicesClient_deviceSupportInformationRecordsWithCompletion___block_invoke(uint64_t a1)
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy_;
-  v17 = __Block_byref_object_dispose_;
-  v18 = 0;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __71__BTCloudServicesClient_deviceSupportInformationRecordsWithCompletion___block_invoke_2;
-  v10[3] = &unk_278D118D0;
-  v12 = &v13;
-  v11 = *(a1 + 40);
-  v2 = MEMORY[0x245CFACE0](v10);
-  v3 = [*(a1 + 32) _ensureXPCStarted];
-  if (v3)
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy_;
+  v24 = __Block_byref_object_dispose_;
+  v25 = 0;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __71__BTCloudServicesClient_deviceSupportInformationRecordsWithCompletion___block_invoke_2;
+  v17[3] = &unk_278D118D0;
+  v19 = &v20;
+  v18 = *(a1 + 40);
+  v2 = MEMORY[0x245CFACE0](v17);
+  v9 = [*(a1 + 32) _ensureXPCStarted];
+  if (v9)
   {
-    v7 = BTErrorF();
-    v6 = v14[5];
-    v14[5] = v7;
+    v13 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v3, v4, v5, v6, v7, v8, v14);
+    v12 = v21[5];
+    v21[5] = v13;
   }
 
   else
   {
-    v4 = *(*(a1 + 32) + 16);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __71__BTCloudServicesClient_deviceSupportInformationRecordsWithCompletion___block_invoke_3;
-    v8[3] = &unk_278D11880;
-    v9 = *(a1 + 40);
-    v5 = [v4 remoteObjectProxyWithErrorHandler:v8];
-    [v5 fetchAllBTCloudDeviceSupportInformationWithCompletion:*(a1 + 40)];
+    v10 = *(*(a1 + 32) + 16);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __71__BTCloudServicesClient_deviceSupportInformationRecordsWithCompletion___block_invoke_3;
+    v15[3] = &unk_278D11880;
+    v16 = *(a1 + 40);
+    v11 = [v10 remoteObjectProxyWithErrorHandler:v15];
+    [v11 fetchAllBTCloudDeviceSupportInformationWithCompletion:*(a1 + 40)];
 
-    v6 = v9;
+    v12 = v16;
   }
 
   v2[2](v2);
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v20, 8);
 }
 
 uint64_t __71__BTCloudServicesClient_deviceSupportInformationRecordsWithCompletion___block_invoke_2(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -1228,25 +1192,21 @@ uint64_t __71__BTCloudServicesClient_deviceSupportInformationRecordsWithCompleti
   {
     if (gLogCategory_BTRootCloudServicesClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(*(v2 + 40) + 8) + 40);
     }
 
-    LogPrintF();
-    v1 = *(v2 + 40);
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient deviceSupportInformationRecordsWithCompletion:]_block_invoke_2", 90, "### BTCloudDeviceSupportInformation Fetch failed: %{error}", v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(v2 + 32) + 16);
+  v3 = *(*(v2 + 32) + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)createMagicSettingsRecord:(id)record completion:(id)completion
@@ -1268,66 +1228,66 @@ LABEL_7:
 
 void __62__BTCloudServicesClient_createMagicSettingsRecord_completion___block_invoke(id *a1)
 {
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy_;
-  v19 = __Block_byref_object_dispose_;
-  v20 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy_;
+  v32 = __Block_byref_object_dispose_;
+  v33 = 0;
   v2 = a1[4];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __62__BTCloudServicesClient_createMagicSettingsRecord_completion___block_invoke_2;
-  v12[3] = &unk_278D11858;
-  v14 = &v15;
-  v12[4] = v2;
-  v13 = a1[6];
-  v3 = MEMORY[0x245CFACE0](v12);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __62__BTCloudServicesClient_createMagicSettingsRecord_completion___block_invoke_2;
+  v25[3] = &unk_278D11858;
+  v27 = &v28;
+  v25[4] = v2;
+  v26 = a1[6];
+  v9 = MEMORY[0x245CFACE0](v25);
   if (v2)
   {
-    v4 = [a1[5] _ensureXPCStarted];
-    if (v4)
+    v16 = [a1[5] _ensureXPCStarted];
+    if (v16)
     {
-      v9 = BTErrorF();
-      v7 = v16[5];
-      v16[5] = v9;
+      v21 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v10, v11, v12, v13, v14, v15, v22);
+      v19 = v29[5];
+      v29[5] = v21;
     }
 
     else
     {
       if (gLogCategory_BTRootCloudServicesClient <= 30 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient createMagicSettingsRecord:completion:]_block_invoke", 30, "BTMagicPairingSettings: %@", v2);
       }
 
-      v5 = *(a1[5] + 2);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __62__BTCloudServicesClient_createMagicSettingsRecord_completion___block_invoke_3;
-      v10[3] = &unk_278D11880;
-      v11 = a1[6];
-      v6 = [v5 remoteObjectProxyWithErrorHandler:v10];
-      [v6 createMagicSettingsRecord:a1[4] completion:a1[6]];
+      v17 = *(a1[5] + 2);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __62__BTCloudServicesClient_createMagicSettingsRecord_completion___block_invoke_3;
+      v23[3] = &unk_278D11880;
+      v24 = a1[6];
+      v18 = [v17 remoteObjectProxyWithErrorHandler:v23];
+      [v18 createMagicSettingsRecord:a1[4] completion:a1[6]];
 
-      v7 = v11;
+      v19 = v24;
     }
   }
 
   else
   {
-    v8 = BTErrorF();
-    v4 = v16[5];
-    v16[5] = v8;
+    v20 = BTErrorF(4294960591, "Nil BTMagicPairingSettings deviceBluetoothAddress", v3, v4, v5, v6, v7, v8, v22);
+    v16 = v29[5];
+    v29[5] = v20;
   }
 
-  v3[2](v3);
-  _Block_object_dispose(&v15, 8);
+  v9[2](v9);
+  _Block_object_dispose(&v28, 8);
 }
 
-uint64_t __62__BTCloudServicesClient_createMagicSettingsRecord_completion___block_invoke_2(uint64_t result)
+void *__62__BTCloudServicesClient_createMagicSettingsRecord_completion___block_invoke_2(void *result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(result[6] + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -1337,26 +1297,21 @@ uint64_t __62__BTCloudServicesClient_createMagicSettingsRecord_completion___bloc
   {
     if (gLogCategory_BTRootCloudServicesClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(v2[6] + 8) + 40);
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient createMagicSettingsRecord:completion:]_block_invoke_2", 90, "### BTMagicPairingSettings failed: %@, %{error}", v2[4], v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
+  v3 = *(v2[5] + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)modifyMagicSettingsRecord:(id)record completion:(id)completion
@@ -1378,66 +1333,66 @@ LABEL_7:
 
 void __62__BTCloudServicesClient_modifyMagicSettingsRecord_completion___block_invoke(id *a1)
 {
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy_;
-  v19 = __Block_byref_object_dispose_;
-  v20 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy_;
+  v32 = __Block_byref_object_dispose_;
+  v33 = 0;
   v2 = a1[4];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __62__BTCloudServicesClient_modifyMagicSettingsRecord_completion___block_invoke_2;
-  v12[3] = &unk_278D11858;
-  v14 = &v15;
-  v12[4] = v2;
-  v13 = a1[6];
-  v3 = MEMORY[0x245CFACE0](v12);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __62__BTCloudServicesClient_modifyMagicSettingsRecord_completion___block_invoke_2;
+  v25[3] = &unk_278D11858;
+  v27 = &v28;
+  v25[4] = v2;
+  v26 = a1[6];
+  v9 = MEMORY[0x245CFACE0](v25);
   if (v2)
   {
-    v4 = [a1[5] _ensureXPCStarted];
-    if (v4)
+    v16 = [a1[5] _ensureXPCStarted];
+    if (v16)
     {
-      v9 = BTErrorF();
-      v7 = v16[5];
-      v16[5] = v9;
+      v21 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v10, v11, v12, v13, v14, v15, v22);
+      v19 = v29[5];
+      v29[5] = v21;
     }
 
     else
     {
       if (gLogCategory_BTRootCloudServicesClient <= 30 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient modifyMagicSettingsRecord:completion:]_block_invoke", 30, "BTMagicPairingSettings: %@", v2);
       }
 
-      v5 = *(a1[5] + 2);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __62__BTCloudServicesClient_modifyMagicSettingsRecord_completion___block_invoke_3;
-      v10[3] = &unk_278D11880;
-      v11 = a1[6];
-      v6 = [v5 remoteObjectProxyWithErrorHandler:v10];
-      [v6 modifyMagicSettingsRecord:a1[4] completion:a1[6]];
+      v17 = *(a1[5] + 2);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __62__BTCloudServicesClient_modifyMagicSettingsRecord_completion___block_invoke_3;
+      v23[3] = &unk_278D11880;
+      v24 = a1[6];
+      v18 = [v17 remoteObjectProxyWithErrorHandler:v23];
+      [v18 modifyMagicSettingsRecord:a1[4] completion:a1[6]];
 
-      v7 = v11;
+      v19 = v24;
     }
   }
 
   else
   {
-    v8 = BTErrorF();
-    v4 = v16[5];
-    v16[5] = v8;
+    v20 = BTErrorF(4294960591, "Nil BTMagicPairingSettings deviceBluetoothAddress", v3, v4, v5, v6, v7, v8, v22);
+    v16 = v29[5];
+    v29[5] = v20;
   }
 
-  v3[2](v3);
-  _Block_object_dispose(&v15, 8);
+  v9[2](v9);
+  _Block_object_dispose(&v28, 8);
 }
 
-uint64_t __62__BTCloudServicesClient_modifyMagicSettingsRecord_completion___block_invoke_2(uint64_t result)
+void *__62__BTCloudServicesClient_modifyMagicSettingsRecord_completion___block_invoke_2(void *result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(result[6] + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -1447,26 +1402,21 @@ uint64_t __62__BTCloudServicesClient_modifyMagicSettingsRecord_completion___bloc
   {
     if (gLogCategory_BTRootCloudServicesClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(v2[6] + 8) + 40);
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient modifyMagicSettingsRecord:completion:]_block_invoke_2", 90, "### BTMagicPairingSettings failed: %@, %{error}", v2[4], v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
+  v3 = *(v2[5] + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)deleteMagicSettingsRecord:(id)record completion:(id)completion
@@ -1488,66 +1438,66 @@ LABEL_7:
 
 void __62__BTCloudServicesClient_deleteMagicSettingsRecord_completion___block_invoke(id *a1)
 {
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy_;
-  v19 = __Block_byref_object_dispose_;
-  v20 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy_;
+  v32 = __Block_byref_object_dispose_;
+  v33 = 0;
   v2 = a1[4];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __62__BTCloudServicesClient_deleteMagicSettingsRecord_completion___block_invoke_2;
-  v12[3] = &unk_278D11858;
-  v14 = &v15;
-  v12[4] = v2;
-  v13 = a1[6];
-  v3 = MEMORY[0x245CFACE0](v12);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __62__BTCloudServicesClient_deleteMagicSettingsRecord_completion___block_invoke_2;
+  v25[3] = &unk_278D11858;
+  v27 = &v28;
+  v25[4] = v2;
+  v26 = a1[6];
+  v9 = MEMORY[0x245CFACE0](v25);
   if (v2)
   {
-    v4 = [a1[5] _ensureXPCStarted];
-    if (v4)
+    v16 = [a1[5] _ensureXPCStarted];
+    if (v16)
     {
-      v9 = BTErrorF();
-      v7 = v16[5];
-      v16[5] = v9;
+      v21 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v10, v11, v12, v13, v14, v15, v22);
+      v19 = v29[5];
+      v29[5] = v21;
     }
 
     else
     {
       if (gLogCategory_BTRootCloudServicesClient <= 30 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient deleteMagicSettingsRecord:completion:]_block_invoke", 30, "Delete Magic Settings for device with BluetoothAddress: %@", v2);
       }
 
-      v5 = *(a1[5] + 2);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __62__BTCloudServicesClient_deleteMagicSettingsRecord_completion___block_invoke_3;
-      v10[3] = &unk_278D11880;
-      v11 = a1[6];
-      v6 = [v5 remoteObjectProxyWithErrorHandler:v10];
-      [v6 deleteMagicSettingsRecord:a1[4] completion:a1[6]];
+      v17 = *(a1[5] + 2);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __62__BTCloudServicesClient_deleteMagicSettingsRecord_completion___block_invoke_3;
+      v23[3] = &unk_278D11880;
+      v24 = a1[6];
+      v18 = [v17 remoteObjectProxyWithErrorHandler:v23];
+      [v18 deleteMagicSettingsRecord:a1[4] completion:a1[6]];
 
-      v7 = v11;
+      v19 = v24;
     }
   }
 
   else
   {
-    v8 = BTErrorF();
-    v4 = v16[5];
-    v16[5] = v8;
+    v20 = BTErrorF(4294960591, "Nil MagicSettings deviceBluetoothAddress", v3, v4, v5, v6, v7, v8, v22);
+    v16 = v29[5];
+    v29[5] = v20;
   }
 
-  v3[2](v3);
-  _Block_object_dispose(&v15, 8);
+  v9[2](v9);
+  _Block_object_dispose(&v28, 8);
 }
 
-uint64_t __62__BTCloudServicesClient_deleteMagicSettingsRecord_completion___block_invoke_2(uint64_t result)
+void *__62__BTCloudServicesClient_deleteMagicSettingsRecord_completion___block_invoke_2(void *result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(result[6] + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -1557,26 +1507,21 @@ uint64_t __62__BTCloudServicesClient_deleteMagicSettingsRecord_completion___bloc
   {
     if (gLogCategory_BTRootCloudServicesClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(v2[6] + 8) + 40);
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient deleteMagicSettingsRecord:completion:]_block_invoke_2", 90, "### Magic deviceBluetoothAddress failed: %@, %{error}", v2[4], v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
+  v3 = *(v2[5] + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)magicSettingsRecord:(id)record completion:(id)completion
@@ -1598,66 +1543,66 @@ LABEL_7:
 
 void __56__BTCloudServicesClient_magicSettingsRecord_completion___block_invoke(id *a1)
 {
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy_;
-  v19 = __Block_byref_object_dispose_;
-  v20 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy_;
+  v32 = __Block_byref_object_dispose_;
+  v33 = 0;
   v2 = a1[4];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __56__BTCloudServicesClient_magicSettingsRecord_completion___block_invoke_2;
-  v12[3] = &unk_278D11858;
-  v14 = &v15;
-  v12[4] = v2;
-  v13 = a1[6];
-  v3 = MEMORY[0x245CFACE0](v12);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __56__BTCloudServicesClient_magicSettingsRecord_completion___block_invoke_2;
+  v25[3] = &unk_278D11858;
+  v27 = &v28;
+  v25[4] = v2;
+  v26 = a1[6];
+  v9 = MEMORY[0x245CFACE0](v25);
   if (v2)
   {
-    v4 = [a1[5] _ensureXPCStarted];
-    if (v4)
+    v16 = [a1[5] _ensureXPCStarted];
+    if (v16)
     {
-      v9 = BTErrorF();
-      v7 = v16[5];
-      v16[5] = v9;
+      v21 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v10, v11, v12, v13, v14, v15, v22);
+      v19 = v29[5];
+      v29[5] = v21;
     }
 
     else
     {
       if (gLogCategory_BTRootCloudServicesClient <= 30 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient magicSettingsRecord:completion:]_block_invoke", 30, "Magic deviceBluetoothAddress: %@", v2);
       }
 
-      v5 = *(a1[5] + 2);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __56__BTCloudServicesClient_magicSettingsRecord_completion___block_invoke_3;
-      v10[3] = &unk_278D11880;
-      v11 = a1[6];
-      v6 = [v5 remoteObjectProxyWithErrorHandler:v10];
-      [v6 fetchMagicSettingsRecord:a1[4] completion:a1[6]];
+      v17 = *(a1[5] + 2);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __56__BTCloudServicesClient_magicSettingsRecord_completion___block_invoke_3;
+      v23[3] = &unk_278D11880;
+      v24 = a1[6];
+      v18 = [v17 remoteObjectProxyWithErrorHandler:v23];
+      [v18 fetchMagicSettingsRecord:a1[4] completion:a1[6]];
 
-      v7 = v11;
+      v19 = v24;
     }
   }
 
   else
   {
-    v8 = BTErrorF();
-    v4 = v16[5];
-    v16[5] = v8;
+    v20 = BTErrorF(4294960591, "Nil MagicSettings deviceBluetoothAddress", v3, v4, v5, v6, v7, v8, v22);
+    v16 = v29[5];
+    v29[5] = v20;
   }
 
-  v3[2](v3);
-  _Block_object_dispose(&v15, 8);
+  v9[2](v9);
+  _Block_object_dispose(&v28, 8);
 }
 
-uint64_t __56__BTCloudServicesClient_magicSettingsRecord_completion___block_invoke_2(uint64_t result)
+void *__56__BTCloudServicesClient_magicSettingsRecord_completion___block_invoke_2(void *result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(result[6] + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -1667,26 +1612,21 @@ uint64_t __56__BTCloudServicesClient_magicSettingsRecord_completion___block_invo
   {
     if (gLogCategory_BTRootCloudServicesClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(v2[6] + 8) + 40);
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient magicSettingsRecord:completion:]_block_invoke_2", 90, "### Magic deviceBluetoothAddress failed: %@, %{error}", v2[4], v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
+  v3 = *(v2[5] + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)magicSettingsRecordsWithCompletion:(id)completion
@@ -1740,49 +1680,49 @@ void __60__BTCloudServicesClient_magicSettingsRecordsWithCompletion___block_invo
 
 void __51__BTCloudServicesClient_accountInfoWithCompletion___block_invoke(uint64_t a1)
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy_;
-  v17 = __Block_byref_object_dispose_;
-  v18 = 0;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __51__BTCloudServicesClient_accountInfoWithCompletion___block_invoke_2;
-  v10[3] = &unk_278D118D0;
-  v12 = &v13;
-  v11 = *(a1 + 40);
-  v2 = MEMORY[0x245CFACE0](v10);
-  v3 = [*(a1 + 32) _ensureXPCStarted];
-  if (v3)
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy_;
+  v24 = __Block_byref_object_dispose_;
+  v25 = 0;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __51__BTCloudServicesClient_accountInfoWithCompletion___block_invoke_2;
+  v17[3] = &unk_278D118D0;
+  v19 = &v20;
+  v18 = *(a1 + 40);
+  v2 = MEMORY[0x245CFACE0](v17);
+  v9 = [*(a1 + 32) _ensureXPCStarted];
+  if (v9)
   {
-    v7 = BTErrorF();
-    v6 = v14[5];
-    v14[5] = v7;
+    v13 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v3, v4, v5, v6, v7, v8, v14);
+    v12 = v21[5];
+    v21[5] = v13;
   }
 
   else
   {
-    v4 = *(*(a1 + 32) + 16);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __51__BTCloudServicesClient_accountInfoWithCompletion___block_invoke_3;
-    v8[3] = &unk_278D11880;
-    v9 = *(a1 + 40);
-    v5 = [v4 remoteObjectProxyWithErrorHandler:v8];
-    [v5 fetchCloudAccountInfoUpdatedWithCompletion:*(a1 + 40)];
+    v10 = *(*(a1 + 32) + 16);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __51__BTCloudServicesClient_accountInfoWithCompletion___block_invoke_3;
+    v15[3] = &unk_278D11880;
+    v16 = *(a1 + 40);
+    v11 = [v10 remoteObjectProxyWithErrorHandler:v15];
+    [v11 fetchCloudAccountInfoUpdatedWithCompletion:*(a1 + 40)];
 
-    v6 = v9;
+    v12 = v16;
   }
 
   v2[2](v2);
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v20, 8);
 }
 
 uint64_t __51__BTCloudServicesClient_accountInfoWithCompletion___block_invoke_2(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -1792,25 +1732,21 @@ uint64_t __51__BTCloudServicesClient_accountInfoWithCompletion___block_invoke_2(
   {
     if (gLogCategory_BTRootCloudServicesClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(*(v2 + 40) + 8) + 40);
     }
 
-    LogPrintF();
-    v1 = *(v2 + 40);
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient accountInfoWithCompletion:]_block_invoke_2", 90, "### Account Info failed: %{error}", v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(v2 + 32) + 16);
+  v3 = *(*(v2 + 32) + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)cloudPairingIdentifierForPeripheral:(id)peripheral completion:(id)completion
@@ -1832,67 +1768,66 @@ LABEL_7:
 
 void __72__BTCloudServicesClient_cloudPairingIdentifierForPeripheral_completion___block_invoke(id *a1)
 {
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy_;
-  v20 = __Block_byref_object_dispose_;
-  v21 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy_;
+  v32 = __Block_byref_object_dispose_;
+  v33 = 0;
   v2 = a1[4];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __72__BTCloudServicesClient_cloudPairingIdentifierForPeripheral_completion___block_invoke_2;
-  v13[3] = &unk_278D11858;
-  v15 = &v16;
-  v13[4] = v2;
-  v14 = a1[6];
-  v3 = MEMORY[0x245CFACE0](v13);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __72__BTCloudServicesClient_cloudPairingIdentifierForPeripheral_completion___block_invoke_2;
+  v25[3] = &unk_278D11858;
+  v27 = &v28;
+  v25[4] = v2;
+  v26 = a1[6];
+  v9 = MEMORY[0x245CFACE0](v25);
   if (v2)
   {
     if (gLogCategory_BTRootCloudServicesClient <= 30 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
     {
-      v10 = v2;
-      LogPrintF();
+      LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient cloudPairingIdentifierForPeripheral:completion:]_block_invoke", 30, "Peripheral Identifier: %@", v2);
     }
 
-    v4 = [a1[5] _ensureXPCStarted];
-    if (v4)
+    v16 = [a1[5] _ensureXPCStarted];
+    if (v16)
     {
-      v9 = BTErrorF();
-      v7 = v17[5];
-      v17[5] = v9;
+      v21 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v10, v11, v12, v13, v14, v15, v22);
+      v19 = v29[5];
+      v29[5] = v21;
     }
 
     else
     {
-      v5 = *(a1[5] + 2);
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __72__BTCloudServicesClient_cloudPairingIdentifierForPeripheral_completion___block_invoke_3;
-      v11[3] = &unk_278D11880;
-      v12 = a1[6];
-      v6 = [v5 remoteObjectProxyWithErrorHandler:v11];
-      [v6 fetchCloudPairingIdentifierForPeripheral:a1[4] completion:a1[6]];
+      v17 = *(a1[5] + 2);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __72__BTCloudServicesClient_cloudPairingIdentifierForPeripheral_completion___block_invoke_3;
+      v23[3] = &unk_278D11880;
+      v24 = a1[6];
+      v18 = [v17 remoteObjectProxyWithErrorHandler:v23];
+      [v18 fetchCloudPairingIdentifierForPeripheral:a1[4] completion:a1[6]];
 
-      v7 = v12;
+      v19 = v24;
     }
   }
 
   else
   {
-    v8 = BTErrorF();
-    v4 = v17[5];
-    v17[5] = v8;
+    v20 = BTErrorF(4294960591, "Nil Peripheral Identifier", v3, v4, v5, v6, v7, v8, v22);
+    v16 = v29[5];
+    v29[5] = v20;
   }
 
-  v3[2](v3);
-  _Block_object_dispose(&v16, 8);
+  v9[2](v9);
+  _Block_object_dispose(&v28, 8);
 }
 
-uint64_t __72__BTCloudServicesClient_cloudPairingIdentifierForPeripheral_completion___block_invoke_2(uint64_t result)
+void *__72__BTCloudServicesClient_cloudPairingIdentifierForPeripheral_completion___block_invoke_2(void *result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(result[6] + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -1902,26 +1837,21 @@ uint64_t __72__BTCloudServicesClient_cloudPairingIdentifierForPeripheral_complet
   {
     if (gLogCategory_BTRootCloudServicesClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(v2[6] + 8) + 40);
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient cloudPairingIdentifierForPeripheral:completion:]_block_invoke_2", 90, "### Peripheral Identifier failed: %@, %{error}", v2[4], v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
+  v3 = *(v2[5] + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)forceCloudPairingForIdentifiers:(id)identifiers completion:(id)completion
@@ -1943,67 +1873,66 @@ LABEL_7:
 
 void __68__BTCloudServicesClient_forceCloudPairingForIdentifiers_completion___block_invoke(id *a1)
 {
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy_;
-  v20 = __Block_byref_object_dispose_;
-  v21 = 0;
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x3032000000;
+  v31 = __Block_byref_object_copy_;
+  v32 = __Block_byref_object_dispose_;
+  v33 = 0;
   v2 = a1[4];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __68__BTCloudServicesClient_forceCloudPairingForIdentifiers_completion___block_invoke_2;
-  v13[3] = &unk_278D11858;
-  v15 = &v16;
-  v13[4] = v2;
-  v14 = a1[6];
-  v3 = MEMORY[0x245CFACE0](v13);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __68__BTCloudServicesClient_forceCloudPairingForIdentifiers_completion___block_invoke_2;
+  v25[3] = &unk_278D11858;
+  v27 = &v28;
+  v25[4] = v2;
+  v26 = a1[6];
+  v9 = MEMORY[0x245CFACE0](v25);
   if (v2)
   {
     if (gLogCategory_BTRootCloudServicesClient <= 30 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
     {
-      v10 = v2;
-      LogPrintF();
+      LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient forceCloudPairingForIdentifiers:completion:]_block_invoke", 30, "Cloud Identifiers: %@", v2);
     }
 
-    v4 = [a1[5] _ensureXPCStarted];
-    if (v4)
+    v16 = [a1[5] _ensureXPCStarted];
+    if (v16)
     {
-      v9 = BTErrorF();
-      v7 = v17[5];
-      v17[5] = v9;
+      v21 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v10, v11, v12, v13, v14, v15, v22);
+      v19 = v29[5];
+      v29[5] = v21;
     }
 
     else
     {
-      v5 = *(a1[5] + 2);
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __68__BTCloudServicesClient_forceCloudPairingForIdentifiers_completion___block_invoke_3;
-      v11[3] = &unk_278D11880;
-      v12 = a1[6];
-      v6 = [v5 remoteObjectProxyWithErrorHandler:v11];
-      [v6 forceCloudPairingForIdentifiers:v2 completion:a1[6]];
+      v17 = *(a1[5] + 2);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __68__BTCloudServicesClient_forceCloudPairingForIdentifiers_completion___block_invoke_3;
+      v23[3] = &unk_278D11880;
+      v24 = a1[6];
+      v18 = [v17 remoteObjectProxyWithErrorHandler:v23];
+      [v18 forceCloudPairingForIdentifiers:v2 completion:a1[6]];
 
-      v7 = v12;
+      v19 = v24;
     }
   }
 
   else
   {
-    v8 = BTErrorF();
-    v4 = v17[5];
-    v17[5] = v8;
+    v20 = BTErrorF(4294960591, "Nil Peripheral Identifier", v3, v4, v5, v6, v7, v8, v22);
+    v16 = v29[5];
+    v29[5] = v20;
   }
 
-  v3[2](v3);
-  _Block_object_dispose(&v16, 8);
+  v9[2](v9);
+  _Block_object_dispose(&v28, 8);
 }
 
-uint64_t __68__BTCloudServicesClient_forceCloudPairingForIdentifiers_completion___block_invoke_2(uint64_t result)
+void *__68__BTCloudServicesClient_forceCloudPairingForIdentifiers_completion___block_invoke_2(void *result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(result[6] + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -2013,26 +1942,21 @@ uint64_t __68__BTCloudServicesClient_forceCloudPairingForIdentifiers_completion_
   {
     if (gLogCategory_BTRootCloudServicesClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(v2[6] + 8) + 40);
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient forceCloudPairingForIdentifiers:completion:]_block_invoke_2", 90, "### Force Cloud Pairing failed for identifier: %@, %{error}", v2[4], v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
+  v3 = *(v2[5] + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)createSoundProfileRecord:(id)record completion:(id)completion
@@ -2054,73 +1978,81 @@ LABEL_7:
 
 void __61__BTCloudServicesClient_createSoundProfileRecord_completion___block_invoke(id *a1)
 {
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy_;
-  v24 = __Block_byref_object_dispose_;
-  v25 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy_;
+  v42 = __Block_byref_object_dispose_;
+  v43 = 0;
   v2 = a1[4];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __61__BTCloudServicesClient_createSoundProfileRecord_completion___block_invoke_2;
-  v16[3] = &unk_278D11858;
-  v19 = &v20;
-  v17 = a1[4];
-  v18 = a1[6];
-  v3 = MEMORY[0x245CFACE0](v16);
-  if (v2 && ([v2 soundProfileData], v4 = objc_claimAutoreleasedReturnValue(), v4, v4))
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __61__BTCloudServicesClient_createSoundProfileRecord_completion___block_invoke_2;
+  v34[3] = &unk_278D11858;
+  v37 = &v38;
+  v35 = a1[4];
+  v36 = a1[6];
+  v9 = MEMORY[0x245CFACE0](v34);
+  if (!v2)
   {
-    if (gLogCategory_BTRootCloudServicesClient <= 30 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
-    {
-      v11 = v2;
-      LogPrintF();
-    }
+    v27 = BTErrorF(4294960591, "Nil record provided", v3, v4, v5, v6, v7, v8, v29);
+LABEL_13:
+    v23 = v39[5];
+    v39[5] = v27;
+    goto LABEL_10;
+  }
 
-    v5 = [a1[5] _ensureXPCStarted];
-    if (v5)
-    {
-      v10 = BTErrorF();
-      v6 = v21[5];
-      v21[5] = v10;
-    }
+  v10 = [v2 soundProfileData];
 
-    else
-    {
-      v6 = *(a1[5] + 2);
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __61__BTCloudServicesClient_createSoundProfileRecord_completion___block_invoke_3;
-      v14[3] = &unk_278D11880;
-      v15 = a1[6];
-      v7 = [v6 remoteObjectProxyWithErrorHandler:v14];
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __61__BTCloudServicesClient_createSoundProfileRecord_completion___block_invoke_4;
-      v12[3] = &unk_278D11948;
-      v8 = a1[6];
-      v12[5] = v6;
-      v13 = v8;
-      v12[4] = v2;
-      [v7 startSoundProfileRecordFileHandleSessionWithCompletion:v12];
-    }
+  if (!v10)
+  {
+    v27 = BTErrorF(4294960591, "Please add sound profile data", v11, v12, v13, v14, v15, v16, v29);
+    goto LABEL_13;
+  }
+
+  if (gLogCategory_BTRootCloudServicesClient <= 30 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient createSoundProfileRecord:completion:]_block_invoke", 30, "Create Sound Profile Record: %@", v2);
+  }
+
+  v23 = [a1[5] _ensureXPCStarted];
+  if (v23)
+  {
+    v28 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v17, v18, v19, v20, v21, v22, v29);
+    v24 = v39[5];
+    v39[5] = v28;
   }
 
   else
   {
-    v9 = BTErrorF();
-    v5 = v21[5];
-    v21[5] = v9;
+    v24 = *(a1[5] + 2);
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __61__BTCloudServicesClient_createSoundProfileRecord_completion___block_invoke_3;
+    v32[3] = &unk_278D11880;
+    v33 = a1[6];
+    v25 = [v24 remoteObjectProxyWithErrorHandler:v32];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __61__BTCloudServicesClient_createSoundProfileRecord_completion___block_invoke_4;
+    v30[3] = &unk_278D11948;
+    v26 = a1[6];
+    v30[5] = v24;
+    v31 = v26;
+    v30[4] = v2;
+    [v25 startSoundProfileRecordFileHandleSessionWithCompletion:v30];
   }
 
-  v3[2](v3);
-  _Block_object_dispose(&v20, 8);
+LABEL_10:
+  v9[2](v9);
+
+  _Block_object_dispose(&v38, 8);
 }
 
-uint64_t __61__BTCloudServicesClient_createSoundProfileRecord_completion___block_invoke_2(uint64_t result)
+void *__61__BTCloudServicesClient_createSoundProfileRecord_completion___block_invoke_2(void *result)
 {
-  v1 = *(result + 48);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(result[6] + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -2130,45 +2062,40 @@ uint64_t __61__BTCloudServicesClient_createSoundProfileRecord_completion___block
   {
     if (gLogCategory_BTRootCloudServicesClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = v2[6];
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(v2[6] + 8) + 40);
     }
 
-    v7 = v2[4];
-    LogPrintF();
-    v1 = v2[6];
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient createSoundProfileRecord:completion:]_block_invoke_2", 90, "### Failed to create sound profile: %@, %{error}", v2[4], v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(v2[5] + 16);
+  v3 = *(v2[5] + 16);
 
-  return v5();
+  return v3();
 }
 
 void __61__BTCloudServicesClient_createSoundProfileRecord_completion___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v19[0] = 0;
-  v19[1] = v19;
-  v19[2] = 0x3032000000;
-  v19[3] = __Block_byref_object_copy_;
-  v19[4] = __Block_byref_object_dispose_;
-  v20 = 0;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __61__BTCloudServicesClient_createSoundProfileRecord_completion___block_invoke_5;
-  v16[3] = &unk_278D118D0;
-  v18 = v19;
-  v17 = *(a1 + 48);
-  v7 = MEMORY[0x245CFACE0](v16);
+  v26[0] = 0;
+  v26[1] = v26;
+  v26[2] = 0x3032000000;
+  v26[3] = __Block_byref_object_copy_;
+  v26[4] = __Block_byref_object_dispose_;
+  v27 = 0;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __61__BTCloudServicesClient_createSoundProfileRecord_completion___block_invoke_5;
+  v23[3] = &unk_278D118D0;
+  v25 = v26;
+  v24 = *(a1 + 48);
+  v7 = MEMORY[0x245CFACE0](v23);
   if (v6)
   {
     (*(*(a1 + 48) + 16))();
@@ -2176,51 +2103,51 @@ void __61__BTCloudServicesClient_createSoundProfileRecord_completion___block_inv
 
   else
   {
-    v8 = v5;
-    if (v8)
+    v14 = v5;
+    if (v14)
     {
       if (gLogCategory_BTRootCloudServicesClient <= 40 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient createSoundProfileRecord:completion:]_block_invoke_4", 40, "Writing Sound Profile Record to handle");
       }
 
-      v9 = [*(a1 + 32) soundProfileData];
-      [v8 writeData:v9];
+      v15 = [*(a1 + 32) soundProfileData];
+      [v14 writeData:v15];
 
       if (gLogCategory_BTRootCloudServicesClient <= 40 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient createSoundProfileRecord:completion:]_block_invoke_4", 40, "Wrote Sound Profile Record to handle");
       }
 
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __61__BTCloudServicesClient_createSoundProfileRecord_completion___block_invoke_6;
-      v14[3] = &unk_278D11880;
-      v10 = *(a1 + 40);
-      v15 = *(a1 + 48);
-      v11 = [v10 remoteObjectProxyWithErrorHandler:v14];
-      [v11 finishSoundProfileRecordSessionHandle:v8 completion:*(a1 + 48)];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __61__BTCloudServicesClient_createSoundProfileRecord_completion___block_invoke_6;
+      v21[3] = &unk_278D11880;
+      v16 = *(a1 + 40);
+      v22 = *(a1 + 48);
+      v17 = [v16 remoteObjectProxyWithErrorHandler:v21];
+      [v17 finishSoundProfileRecordSessionHandle:v14 completion:*(a1 + 48)];
 
-      v12 = v15;
+      v18 = v22;
     }
 
     else
     {
-      v13 = *(a1 + 48);
-      v12 = BTErrorF();
-      (*(v13 + 16))(v13, v12);
+      v19 = *(a1 + 48);
+      v18 = BTErrorF(4294960543, "Unable to create sound profile with file handle", v8, v9, v10, v11, v12, v13, v20);
+      (*(v19 + 16))(v19, v18);
     }
   }
 
   v7[2](v7);
 
-  _Block_object_dispose(v19, 8);
+  _Block_object_dispose(v26, 8);
 }
 
 uint64_t __61__BTCloudServicesClient_createSoundProfileRecord_completion___block_invoke_5(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -2230,25 +2157,21 @@ uint64_t __61__BTCloudServicesClient_createSoundProfileRecord_completion___block
   {
     if (gLogCategory_BTRootCloudServicesClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(*(v2 + 40) + 8) + 40);
     }
 
-    LogPrintF();
-    v1 = *(v2 + 40);
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient createSoundProfileRecord:completion:]_block_invoke_5", 90, "### Failed to write sound profile, %{error}", v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(v2 + 32) + 16);
+  v3 = *(*(v2 + 32) + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)fetchSoundProfileRecordWithCompletion:(id)completion
@@ -2267,54 +2190,54 @@ LABEL_7:
 
 void __63__BTCloudServicesClient_fetchSoundProfileRecordWithCompletion___block_invoke(uint64_t a1)
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy_;
-  v17 = __Block_byref_object_dispose_;
-  v18 = 0;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __63__BTCloudServicesClient_fetchSoundProfileRecordWithCompletion___block_invoke_2;
-  v10[3] = &unk_278D118D0;
-  v12 = &v13;
-  v11 = *(a1 + 40);
-  v2 = MEMORY[0x245CFACE0](v10);
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy_;
+  v24 = __Block_byref_object_dispose_;
+  v25 = 0;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __63__BTCloudServicesClient_fetchSoundProfileRecordWithCompletion___block_invoke_2;
+  v17[3] = &unk_278D118D0;
+  v19 = &v20;
+  v18 = *(a1 + 40);
+  v2 = MEMORY[0x245CFACE0](v17);
   if (gLogCategory_BTRootCloudServicesClient <= 30 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient fetchSoundProfileRecordWithCompletion:]_block_invoke", 30, "Fetching Sound Profile Record");
   }
 
-  v3 = [*(a1 + 32) _ensureXPCStarted];
-  if (v3)
+  v9 = [*(a1 + 32) _ensureXPCStarted];
+  if (v9)
   {
-    v7 = BTErrorF();
-    v6 = v14[5];
-    v14[5] = v7;
+    v13 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v3, v4, v5, v6, v7, v8, v14);
+    v12 = v21[5];
+    v21[5] = v13;
   }
 
   else
   {
-    v4 = *(*(a1 + 32) + 16);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __63__BTCloudServicesClient_fetchSoundProfileRecordWithCompletion___block_invoke_3;
-    v8[3] = &unk_278D11880;
-    v9 = *(a1 + 40);
-    v5 = [v4 remoteObjectProxyWithErrorHandler:v8];
-    [v5 fetchSoundProfileRecordWithCompletion:*(a1 + 40)];
+    v10 = *(*(a1 + 32) + 16);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __63__BTCloudServicesClient_fetchSoundProfileRecordWithCompletion___block_invoke_3;
+    v15[3] = &unk_278D11880;
+    v16 = *(a1 + 40);
+    v11 = [v10 remoteObjectProxyWithErrorHandler:v15];
+    [v11 fetchSoundProfileRecordWithCompletion:*(a1 + 40)];
 
-    v6 = v9;
+    v12 = v16;
   }
 
   v2[2](v2);
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v20, 8);
 }
 
 uint64_t __63__BTCloudServicesClient_fetchSoundProfileRecordWithCompletion___block_invoke_2(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -2324,25 +2247,21 @@ uint64_t __63__BTCloudServicesClient_fetchSoundProfileRecordWithCompletion___blo
   {
     if (gLogCategory_BTRootCloudServicesClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(*(v2 + 40) + 8) + 40);
     }
 
-    LogPrintF();
-    v1 = *(v2 + 40);
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient fetchSoundProfileRecordWithCompletion:]_block_invoke_2", 90, "### Failed to fetch sound profile, %{error}", v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(v2 + 32) + 16);
+  v3 = *(*(v2 + 32) + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)modifySoundProfileRecord:(id)record completion:(id)completion
@@ -2364,34 +2283,33 @@ LABEL_7:
 
 void __61__BTCloudServicesClient_modifySoundProfileRecord_completion___block_invoke(id *a1)
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy_;
-  v17 = __Block_byref_object_dispose_;
-  v18 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy_;
+  v29 = __Block_byref_object_dispose_;
+  v30 = 0;
   v2 = a1[4];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __61__BTCloudServicesClient_modifySoundProfileRecord_completion___block_invoke_2;
-  v10[3] = &unk_278D118D0;
-  v12 = &v13;
-  v11 = a1[6];
-  v3 = MEMORY[0x245CFACE0](v10);
-  if (v2 && ([v2 soundProfileData], v4 = objc_claimAutoreleasedReturnValue(), v4, v4))
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __61__BTCloudServicesClient_modifySoundProfileRecord_completion___block_invoke_2;
+  v22[3] = &unk_278D118D0;
+  v24 = &v25;
+  v23 = a1[6];
+  v9 = MEMORY[0x245CFACE0](v22);
+  if (v2 && ([v2 soundProfileData], v10 = objc_claimAutoreleasedReturnValue(), v10, v10))
   {
     if (gLogCategory_BTRootCloudServicesClient <= 30 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
     {
-      v9 = v2;
-      LogPrintF();
+      LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient modifySoundProfileRecord:completion:]_block_invoke", 30, "Modify Sound Profile Record: %@", v2);
     }
 
-    v6 = [a1[5] _ensureXPCStarted];
-    if (v6)
+    v12 = [a1[5] _ensureXPCStarted];
+    if (v12)
     {
-      v7 = BTErrorF();
-      v8 = v14[5];
-      v14[5] = v7;
+      v19 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v13, v14, v15, v16, v17, v18, v21);
+      v20 = v26[5];
+      v26[5] = v19;
     }
 
     else
@@ -2402,19 +2320,19 @@ void __61__BTCloudServicesClient_modifySoundProfileRecord_completion___block_inv
 
   else
   {
-    v5 = BTErrorF();
-    v6 = v14[5];
-    v14[5] = v5;
+    v11 = BTErrorF(4294960591, "Nil Sound Profile Record or Data", v3, v4, v5, v6, v7, v8, v21);
+    v12 = v26[5];
+    v26[5] = v11;
   }
 
-  v3[2](v3);
-  _Block_object_dispose(&v13, 8);
+  v9[2](v9);
+  _Block_object_dispose(&v25, 8);
 }
 
 uint64_t __61__BTCloudServicesClient_modifySoundProfileRecord_completion___block_invoke_2(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -2424,25 +2342,21 @@ uint64_t __61__BTCloudServicesClient_modifySoundProfileRecord_completion___block
   {
     if (gLogCategory_BTRootCloudServicesClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(*(v2 + 40) + 8) + 40);
     }
 
-    LogPrintF();
-    v1 = *(v2 + 40);
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient modifySoundProfileRecord:completion:]_block_invoke_2", 90, "### Failed to modify sound profile: %@, %{error}", v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(v2 + 32) + 16);
+  v3 = *(*(v2 + 32) + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)deleteSoundProfileRecordWithCompletion:(id)completion
@@ -2461,54 +2375,54 @@ LABEL_7:
 
 void __64__BTCloudServicesClient_deleteSoundProfileRecordWithCompletion___block_invoke(uint64_t a1)
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy_;
-  v17 = __Block_byref_object_dispose_;
-  v18 = 0;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __64__BTCloudServicesClient_deleteSoundProfileRecordWithCompletion___block_invoke_2;
-  v10[3] = &unk_278D118D0;
-  v12 = &v13;
-  v11 = *(a1 + 40);
-  v2 = MEMORY[0x245CFACE0](v10);
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy_;
+  v24 = __Block_byref_object_dispose_;
+  v25 = 0;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __64__BTCloudServicesClient_deleteSoundProfileRecordWithCompletion___block_invoke_2;
+  v17[3] = &unk_278D118D0;
+  v19 = &v20;
+  v18 = *(a1 + 40);
+  v2 = MEMORY[0x245CFACE0](v17);
   if (gLogCategory_BTRootCloudServicesClient <= 30 && (gLogCategory_BTRootCloudServicesClient != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient deleteSoundProfileRecordWithCompletion:]_block_invoke", 30, "Deleting Sound Profile Record");
   }
 
-  v3 = [*(a1 + 32) _ensureXPCStarted];
-  if (v3)
+  v9 = [*(a1 + 32) _ensureXPCStarted];
+  if (v9)
   {
-    v7 = BTErrorF();
-    v6 = v14[5];
-    v14[5] = v7;
+    v13 = BTErrorF(4294960543, "Unable to establish connection to Bluetooth Cloud Services", v3, v4, v5, v6, v7, v8, v14);
+    v12 = v21[5];
+    v21[5] = v13;
   }
 
   else
   {
-    v4 = *(*(a1 + 32) + 16);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __64__BTCloudServicesClient_deleteSoundProfileRecordWithCompletion___block_invoke_3;
-    v8[3] = &unk_278D11880;
-    v9 = *(a1 + 40);
-    v5 = [v4 remoteObjectProxyWithErrorHandler:v8];
-    [v5 deleteSoundProfileRecordWithCompletion:*(a1 + 40)];
+    v10 = *(*(a1 + 32) + 16);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __64__BTCloudServicesClient_deleteSoundProfileRecordWithCompletion___block_invoke_3;
+    v15[3] = &unk_278D11880;
+    v16 = *(a1 + 40);
+    v11 = [v10 remoteObjectProxyWithErrorHandler:v15];
+    [v11 deleteSoundProfileRecordWithCompletion:*(a1 + 40)];
 
-    v6 = v9;
+    v12 = v16;
   }
 
   v2[2](v2);
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v20, 8);
 }
 
 uint64_t __64__BTCloudServicesClient_deleteSoundProfileRecordWithCompletion___block_invoke_2(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -2518,25 +2432,21 @@ uint64_t __64__BTCloudServicesClient_deleteSoundProfileRecordWithCompletion___bl
   {
     if (gLogCategory_BTRootCloudServicesClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(*(v2 + 40) + 8) + 40);
     }
 
-    LogPrintF();
-    v1 = *(v2 + 40);
+    LogPrintF(&gLogCategory_BTRootCloudServicesClient, "[BTCloudServicesClient deleteSoundProfileRecordWithCompletion:]_block_invoke_2", 90, "### Failed to delete sound profile: %@, %{error}", v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(v2 + 32) + 16);
+  v3 = *(*(v2 + 32) + 16);
 
-  return v5();
+  return v3();
 }
 
 @end

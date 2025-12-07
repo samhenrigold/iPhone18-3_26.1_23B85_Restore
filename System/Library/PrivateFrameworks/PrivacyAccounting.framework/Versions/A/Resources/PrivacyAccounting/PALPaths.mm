@@ -44,65 +44,66 @@
 {
   v5 = +[NSFileManager defaultManager];
   rootDirectory = [(PALPaths *)self rootDirectory];
-  v30[0] = rootDirectory;
+  v32[0] = rootDirectory;
   biomeDirectory = [(PALPaths *)self biomeDirectory];
-  v30[1] = biomeDirectory;
-  v8 = [NSArray arrayWithObjects:v30 count:2];
+  v32[1] = biomeDirectory;
+  v8 = [NSArray arrayWithObjects:v32 count:2];
 
+  v27 = 0u;
+  v28 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v23 objects:v29 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v10)
   {
     v12 = v10;
-    v13 = *v24;
+    v13 = *v26;
     *&v11 = 138543362;
-    v22 = v11;
+    v24 = v11;
     while (2)
     {
       for (i = 0; i != v12; i = i + 1)
       {
-        if (*v24 != v13)
+        if (*v26 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v23 + 1) + 8 * i);
-        if (([v5 fileExistsAtPath:{v15, v22, v23}] & 1) == 0)
+        v15 = *(*(&v25 + 1) + 8 * i);
+        if (([v5 fileExistsAtPath:{v15, v24, v25}] & 1) == 0)
         {
           v16 = [v5 createDirectoryAtPath:v15 withIntermediateDirectories:1 attributes:0 error:directories];
-          v17 = sub_100005738();
-          v18 = v17;
-          if (!v16)
+          v17 = v16;
+          v18 = sub_100005738(v16);
+          v19 = v18;
+          if (!v17)
           {
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
-              sub_10000588C(v15, directories, v18);
+              sub_10000588C(v15, directories, v19);
             }
 
-            v20 = sub_100005738();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            v22 = sub_100005738(v21);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
             {
-              sub_100005918(v20);
+              sub_100005918(v22);
             }
 
-            v19 = 0;
+            v20 = 0;
             goto LABEL_19;
           }
 
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
           {
-            *buf = v22;
-            v28 = v15;
-            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Created directory: %{public}@", buf, 0xCu);
+            *buf = v24;
+            v30 = v15;
+            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Created directory: %{public}@", buf, 0xCu);
           }
         }
       }
 
-      v12 = [v9 countByEnumeratingWithState:&v23 objects:v29 count:16];
+      v12 = [v9 countByEnumeratingWithState:&v25 objects:v31 count:16];
       if (v12)
       {
         continue;
@@ -112,26 +113,26 @@
     }
   }
 
-  v19 = 1;
+  v20 = 1;
 LABEL_19:
 
-  return v19;
+  return v20;
 }
 
 - (void)removeBiomeDirectory
 {
   v3 = +[NSFileManager defaultManager];
   biomeDirectory = [(PALPaths *)self biomeDirectory];
-  v8 = 0;
-  v5 = [v3 removeItemAtPath:biomeDirectory error:&v8];
-  v6 = v8;
+  v9 = 0;
+  v5 = [v3 removeItemAtPath:biomeDirectory error:&v9];
+  v6 = v9;
 
   if ((v5 & 1) == 0)
   {
-    v7 = sub_100005738();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100005738(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_100005970(self, v6, v7);
+      sub_100005970(self, v6, v8);
     }
   }
 }

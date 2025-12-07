@@ -51,7 +51,7 @@
 
 - (id)is2GEnabled
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = [(PSUICoreTelephonyRegistrationCache *)self->_registrationCache is2GEnabledForContext:self->_subscriptionContext];
   getLogger = [(PSUI2GSwitchSpecifier *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
@@ -62,20 +62,19 @@
       v5 = "ON";
     }
 
-    v9 = 136315138;
-    v10 = v5;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "2G state is : %s", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = v5;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "2G state is : %s", &v8, 0xCu);
   }
 
   v6 = [MEMORY[0x277CCABB0] numberWithBool:v3];
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (void)enable2G:(id)g specifier:(id)specifier
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   bOOLValue = [g BOOLValue];
   getLogger = [(PSUI2GSwitchSpecifier *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
@@ -86,13 +85,12 @@
       v7 = @"enable";
     }
 
-    v9 = 138412290;
-    v10 = v7;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "attempting to %@ 2G", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "attempting to %@ 2G", &v8, 0xCu);
   }
 
   [(PSUICoreTelephonyRegistrationCache *)self->_registrationCache set2GEnabled:bOOLValue forContext:self->_subscriptionContext];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)groupFooterText

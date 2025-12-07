@@ -58,7 +58,7 @@
       [overridesCopy enumerateKeysAndObjectsUsingBlock:v13];
       if (configurationCopy)
       {
-        [configurationCopy ear_toString];
+        objc_msgSend_ear_toString(configurationCopy);
       }
 
       operator new();
@@ -171,7 +171,7 @@
       {
         if (v8)
         {
-          [v8 ear_toString];
+          objc_msgSend_ear_toString(v8);
         }
 
         else
@@ -188,7 +188,7 @@
         intValue = [v10 intValue];
         if (v12)
         {
-          [v12 ear_toString];
+          objc_msgSend_ear_toString(v12);
         }
 
         else
@@ -244,7 +244,7 @@ LABEL_49:
       {
         if (v8)
         {
-          [v8 ear_toString];
+          objc_msgSend_ear_toString(v8);
         }
 
         else
@@ -268,7 +268,7 @@ LABEL_49:
       {
         if (v8)
         {
-          [v8 ear_toString];
+          objc_msgSend_ear_toString(v8);
         }
 
         else
@@ -351,7 +351,7 @@ LABEL_58:
   ptr = self->_contextualData.__ptr_;
   if (applicationCopy)
   {
-    [applicationCopy ear_toString];
+    objc_msgSend_ear_toString(applicationCopy);
   }
 
   else
@@ -402,7 +402,7 @@ LABEL_58:
   v24 = applicationCopy;
   if (applicationCopy)
   {
-    [applicationCopy ear_toString];
+    objc_msgSend_ear_toString(applicationCopy);
   }
 
   else
@@ -414,7 +414,7 @@ LABEL_58:
 
   if (taskCopy)
   {
-    [taskCopy ear_toString];
+    objc_msgSend_ear_toString(taskCopy);
   }
 
   else
@@ -533,7 +533,7 @@ LABEL_42:
   ptr = self->_contextualData.__ptr_;
   if (applicationCopy)
   {
-    [applicationCopy ear_toString];
+    objc_msgSend_ear_toString(applicationCopy);
   }
 
   else
@@ -582,11 +582,11 @@ LABEL_42:
   ptr = self->_contextualData.__ptr_;
   if (applicationCopy)
   {
-    [applicationCopy ear_toString];
+    objc_msgSend_ear_toString(applicationCopy);
     if (taskCopy)
     {
 LABEL_3:
-      [taskCopy ear_toString];
+      objc_msgSend_ear_toString(taskCopy);
       goto LABEL_6;
     }
   }
@@ -639,15 +639,14 @@ LABEL_6:
 - (id)metrics
 {
   v3 = objc_alloc_init(MEMORY[0x1E695DF20]);
-  ptr = self->_contextualData.__ptr_;
-  if (ptr)
+  if (self->_contextualData.__ptr_)
   {
-    quasar::ContextualData::getStats(ptr);
+    quasar::ContextualData::getStats();
   }
 
-  v5 = v3;
+  v4 = v3;
 
-  return v5;
+  return v4;
 }
 
 - (BOOL)containsEntity

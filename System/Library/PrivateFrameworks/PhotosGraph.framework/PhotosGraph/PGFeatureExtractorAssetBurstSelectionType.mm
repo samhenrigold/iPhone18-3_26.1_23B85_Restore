@@ -37,12 +37,11 @@ LABEL_7:
 
 - (id)featureNames
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  v5[0] = @"BurstSelectionNone";
-  v5[1] = @"AutoPick";
-  v5[2] = @"UserPick";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
+  v4[0] = @"BurstSelectionNone";
+  v4[1] = @"AutoPick";
+  v4[2] = @"UserPick";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
 
   return v2;
 }

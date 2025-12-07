@@ -13,38 +13,39 @@
     [(PPLPeopleEntityMetadata *)a2 initWithURL:?];
   }
 
-  v12.receiver = self;
-  v12.super_class = PPLPeopleEntityMetadata;
-  v7 = [(PPLPeopleEntityMetadata *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = PPLPeopleEntityMetadata;
+  v7 = [(PPLPeopleEntityMetadata *)&v13 init];
   p_isa = &v7->super.isa;
   if (!v7)
   {
     goto LABEL_6;
   }
 
-  if ([(PPLPeopleEntityMetadata *)v7 _isValidURL:lCopy])
+  v9 = [(PPLPeopleEntityMetadata *)v7 _isValidURL:lCopy];
+  if (v9)
   {
     objc_storeStrong(p_isa + 1, l);
 LABEL_6:
-    v9 = p_isa;
+    v10 = p_isa;
     goto LABEL_10;
   }
 
-  v10 = PPLPeopleViewServiceLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v11 = PPLPeopleViewServiceLog(v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    [(PPLPeopleEntityMetadata *)lCopy initWithURL:v10];
+    [(PPLPeopleEntityMetadata *)lCopy initWithURL:v11];
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_10:
 
-  return v9;
+  return v10;
 }
 
 - (BOOL)_isValidURL:(id)l
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   lCopy = l;
   scheme = [lCopy scheme];
   v5 = [scheme isEqualToString:@"people"];
@@ -52,27 +53,27 @@ LABEL_10:
   if (v5)
   {
     v6 = [objc_alloc(MEMORY[0x277CCACE0]) initWithURL:lCopy resolvingAgainstBaseURL:0];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     queryItems = [v6 queryItems];
-    v8 = [queryItems countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v8 = [queryItems countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v8)
     {
       v9 = v8;
-      v19 = v6;
-      v10 = *v21;
+      v18 = v6;
+      v10 = *v20;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v21 != v10)
+          if (*v20 != v10)
           {
             objc_enumerationMutation(queryItems);
           }
 
-          v12 = *(*(&v20 + 1) + 8 * i);
+          v12 = *(*(&v19 + 1) + 8 * i);
           name = [v12 name];
           if ([name isEqualToString:@"contactIdentifier"])
           {
@@ -91,7 +92,7 @@ LABEL_10:
           }
         }
 
-        v9 = [queryItems countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v9 = [queryItems countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v9)
         {
           continue;
@@ -102,7 +103,7 @@ LABEL_10:
 
       v16 = 1;
 LABEL_15:
-      v6 = v19;
+      v6 = v18;
     }
 
     else
@@ -116,7 +117,6 @@ LABEL_15:
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -128,11 +128,10 @@ LABEL_15:
 
 - (void)initWithURL:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_25E21C000, a2, OS_LOG_TYPE_ERROR, "this url is not supported: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_25E21C000, a2, OS_LOG_TYPE_ERROR, "this url is not supported: %{public}@", &v2, 0xCu);
 }
 
 @end

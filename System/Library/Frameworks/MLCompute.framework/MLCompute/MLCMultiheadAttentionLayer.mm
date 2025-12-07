@@ -29,7 +29,7 @@
 
 - (MLCMultiheadAttentionLayer)initWithDescriptor:(id)descriptor weights:(id)weights bias:(id)bias attentionBias:(id)attentionBias
 {
-  v190[2] = *MEMORY[0x277D85DE8];
+  v189[2] = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   weightsCopy = weights;
   biasCopy = bias;
@@ -123,187 +123,187 @@ LABEL_11:
 
   obj = weights;
   attentionBiasCopy2 = attentionBias;
-  v146 = a2;
+  v145 = a2;
   selfCopy = self;
-  v167 = biasCopy;
+  v166 = biasCopy;
   modelDimension = [descriptorCopy modelDimension];
   keyDimension = [descriptorCopy keyDimension];
   valueDimension = [descriptorCopy valueDimension];
   headCount = [descriptorCopy headCount];
-  v24 = [weightsCopy objectAtIndexedSubscript:0];
-  descriptor = [v24 descriptor];
+  v23 = [weightsCopy objectAtIndexedSubscript:0];
+  descriptor = [v23 descriptor];
   shape = [descriptor shape];
 
-  v156 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:modelDimension];
-  v190[0] = v156;
-  v168 = modelDimension;
-  v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:modelDimension];
-  v190[1] = v26;
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v190 count:2];
-  v164 = headCount;
-  v166 = attentionBiasCopy;
+  v155 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:modelDimension];
+  v189[0] = v155;
+  v167 = modelDimension;
+  v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:modelDimension];
+  v189[1] = v25;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v189 count:2];
+  v163 = headCount;
+  v165 = attentionBiasCopy;
   biasCopy2 = bias;
-  if ([shape isEqualToArray:v27])
+  if ([shape isEqualToArray:v26])
   {
 
-    v28 = 0x277CCA000;
+    v27 = 0x277CCA000;
   }
 
   else
   {
-    v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:modelDimension];
-    v189[0] = v29;
-    v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v168 / headCount];
-    v31 = headCount;
-    v32 = v30;
-    v189[1] = v30;
-    v33 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v31];
-    v189[2] = v33;
-    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v189 count:3];
-    v142 = [shape isEqualToArray:v34];
+    v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:modelDimension];
+    v188[0] = v28;
+    v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v167 / headCount];
+    v30 = headCount;
+    v31 = v29;
+    v188[1] = v29;
+    v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v30];
+    v188[2] = v32;
+    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v188 count:3];
+    v141 = [shape isEqualToArray:v33];
 
-    attentionBiasCopy = v166;
-    v28 = 0x277CCA000uLL;
-    if ((v142 & 1) == 0)
+    attentionBiasCopy = v165;
+    v27 = 0x277CCA000uLL;
+    if ((v141 & 1) == 0)
     {
-      v62 = +[MLCLog framework];
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+      v61 = +[MLCLog framework];
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
       {
-        [MLCMultiheadAttentionLayer initWithDescriptor:v146 weights:? bias:? attentionBias:?];
+        [MLCMultiheadAttentionLayer initWithDescriptor:v145 weights:? bias:? attentionBias:?];
       }
 
       goto LABEL_54;
     }
   }
 
-  v35 = [weightsCopy objectAtIndexedSubscript:1];
-  descriptor2 = [v35 descriptor];
+  v34 = [weightsCopy objectAtIndexedSubscript:1];
+  descriptor2 = [v34 descriptor];
   shape2 = [descriptor2 shape];
 
-  v38 = v168;
-  v157 = [*(v28 + 2992) numberWithUnsignedInteger:v168];
-  v188[0] = v157;
-  v39 = [*(v28 + 2992) numberWithUnsignedInteger:keyDimension];
-  v188[1] = v39;
-  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v188 count:2];
-  v41 = v28;
-  if ([shape2 isEqualToArray:v40])
+  v37 = v167;
+  v156 = [*(v27 + 2992) numberWithUnsignedInteger:v167];
+  v187[0] = v156;
+  v38 = [*(v27 + 2992) numberWithUnsignedInteger:keyDimension];
+  v187[1] = v38;
+  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v187 count:2];
+  v40 = v27;
+  if ([shape2 isEqualToArray:v39])
   {
-    v42 = shape2;
+    v41 = shape2;
 
-    v43 = v41;
+    v42 = v40;
   }
 
   else
   {
-    v151 = [*(v28 + 2992) numberWithUnsignedInteger:v168];
-    v187[0] = v151;
-    v164 = [*(v28 + 2992) numberWithUnsignedInteger:v168 / v164];
-    v187[1] = v164;
-    v45 = [*(v28 + 2992) numberWithUnsignedInteger:v164];
-    v187[2] = v45;
-    v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v187 count:3];
-    v42 = shape2;
-    v143 = [shape2 isEqualToArray:v46];
+    v150 = [*(v27 + 2992) numberWithUnsignedInteger:v167];
+    v186[0] = v150;
+    v163 = [*(v27 + 2992) numberWithUnsignedInteger:v167 / v163];
+    v186[1] = v163;
+    v44 = [*(v27 + 2992) numberWithUnsignedInteger:v163];
+    v186[2] = v44;
+    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v186 count:3];
+    v41 = shape2;
+    v142 = [shape2 isEqualToArray:v45];
 
-    attentionBiasCopy = v166;
-    v38 = v168;
+    attentionBiasCopy = v165;
+    v37 = v167;
 
-    v43 = 0x277CCA000uLL;
-    if ((v143 & 1) == 0)
+    v42 = 0x277CCA000uLL;
+    if ((v142 & 1) == 0)
     {
-      v74 = +[MLCLog framework];
-      if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+      v73 = +[MLCLog framework];
+      if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
       {
-        [MLCMultiheadAttentionLayer initWithDescriptor:v146 weights:? bias:? attentionBias:?];
+        [MLCMultiheadAttentionLayer initWithDescriptor:v145 weights:? bias:? attentionBias:?];
       }
 
       selfCopy2 = 0;
-      shape = v42;
+      shape = v41;
       goto LABEL_55;
     }
   }
 
-  v47 = [weightsCopy objectAtIndexedSubscript:2];
-  descriptor3 = [v47 descriptor];
+  v46 = [weightsCopy objectAtIndexedSubscript:2];
+  descriptor3 = [v46 descriptor];
   shape = [descriptor3 shape];
 
-  v49 = [*(v43 + 2992) numberWithUnsignedInteger:v38];
-  v186[0] = v49;
-  v50 = [*(v43 + 2992) numberWithUnsignedInteger:valueDimension];
-  v186[1] = v50;
-  v51 = [MEMORY[0x277CBEA60] arrayWithObjects:v186 count:2];
-  if ([shape isEqualToArray:v51])
+  v48 = [*(v42 + 2992) numberWithUnsignedInteger:v37];
+  v185[0] = v48;
+  v49 = [*(v42 + 2992) numberWithUnsignedInteger:valueDimension];
+  v185[1] = v49;
+  v50 = [MEMORY[0x277CBEA60] arrayWithObjects:v185 count:2];
+  if ([shape isEqualToArray:v50])
   {
 
-    v52 = v43;
+    v51 = v42;
   }
 
   else
   {
-    v152 = [*(v43 + 2992) numberWithUnsignedInteger:v38];
-    v158 = v49;
-    v185[0] = v152;
-    v52 = v43;
-    v1642 = [*(v43 + 2992) numberWithUnsignedInteger:v38 / v164];
-    v185[1] = v1642;
-    v54 = [*(v43 + 2992) numberWithUnsignedInteger:v164];
-    v185[2] = v54;
-    v55 = [MEMORY[0x277CBEA60] arrayWithObjects:v185 count:3];
-    v149 = [shape isEqualToArray:v55];
+    v151 = [*(v42 + 2992) numberWithUnsignedInteger:v37];
+    v157 = v48;
+    v184[0] = v151;
+    v51 = v42;
+    v1632 = [*(v42 + 2992) numberWithUnsignedInteger:v37 / v163];
+    v184[1] = v1632;
+    v53 = [*(v42 + 2992) numberWithUnsignedInteger:v163];
+    v184[2] = v53;
+    v54 = [MEMORY[0x277CBEA60] arrayWithObjects:v184 count:3];
+    v148 = [shape isEqualToArray:v54];
 
-    v38 = v168;
-    attentionBiasCopy = v166;
+    v37 = v167;
+    attentionBiasCopy = v165;
 
-    if ((v149 & 1) == 0)
+    if ((v148 & 1) == 0)
     {
-      v62 = +[MLCLog framework];
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+      v61 = +[MLCLog framework];
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
       {
-        [MLCMultiheadAttentionLayer initWithDescriptor:v146 weights:? bias:? attentionBias:?];
+        [MLCMultiheadAttentionLayer initWithDescriptor:v145 weights:? bias:? attentionBias:?];
       }
 
       goto LABEL_54;
     }
   }
 
-  v56 = [weightsCopy objectAtIndexedSubscript:3];
-  descriptor4 = [v56 descriptor];
+  v55 = [weightsCopy objectAtIndexedSubscript:3];
+  descriptor4 = [v55 descriptor];
   shape3 = [descriptor4 shape];
 
-  v153 = [*(v52 + 2992) numberWithUnsignedInteger:v38];
-  v184[0] = v153;
-  v59 = [*(v52 + 2992) numberWithUnsignedInteger:v38];
-  v184[1] = v59;
-  v60 = [MEMORY[0x277CBEA60] arrayWithObjects:v184 count:2];
-  v159 = shape3;
-  if ([shape3 isEqualToArray:v60])
+  v152 = [*(v51 + 2992) numberWithUnsignedInteger:v37];
+  v183[0] = v152;
+  v58 = [*(v51 + 2992) numberWithUnsignedInteger:v37];
+  v183[1] = v58;
+  v59 = [MEMORY[0x277CBEA60] arrayWithObjects:v183 count:2];
+  v158 = shape3;
+  if ([shape3 isEqualToArray:v59])
   {
 
-    v61 = biasCopy2;
+    v60 = biasCopy2;
   }
 
   else
   {
-    v63 = v52;
-    v64 = [*(v52 + 2992) numberWithUnsignedInteger:v38];
-    v183[0] = v64;
-    v1643 = [*(v63 + 2992) numberWithUnsignedInteger:v38 / v164];
-    v183[1] = v1643;
-    v66 = [*(v63 + 2992) numberWithUnsignedInteger:v164];
-    v183[2] = v66;
-    v67 = [MEMORY[0x277CBEA60] arrayWithObjects:v183 count:3];
-    v68 = [shape3 isEqualToArray:v67];
+    v62 = v51;
+    v63 = [*(v51 + 2992) numberWithUnsignedInteger:v37];
+    v182[0] = v63;
+    v1633 = [*(v62 + 2992) numberWithUnsignedInteger:v37 / v163];
+    v182[1] = v1633;
+    v65 = [*(v62 + 2992) numberWithUnsignedInteger:v163];
+    v182[2] = v65;
+    v66 = [MEMORY[0x277CBEA60] arrayWithObjects:v182 count:3];
+    v67 = [shape3 isEqualToArray:v66];
 
-    attentionBiasCopy = v166;
-    v61 = biasCopy2;
-    if ((v68 & 1) == 0)
+    attentionBiasCopy = v165;
+    v60 = biasCopy2;
+    if ((v67 & 1) == 0)
     {
-      v80 = +[MLCLog framework];
+      v79 = +[MLCLog framework];
       self = selfCopy;
-      if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
       {
-        [MLCMultiheadAttentionLayer initWithDescriptor:v146 weights:? bias:? attentionBias:?];
+        [MLCMultiheadAttentionLayer initWithDescriptor:v145 weights:? bias:? attentionBias:?];
       }
 
       goto LABEL_59;
@@ -312,39 +312,39 @@ LABEL_11:
 
   if (![descriptorCopy hasBiases])
   {
-    biasCopy = v167;
-    v75 = selfCopy;
+    biasCopy = v166;
+    v74 = selfCopy;
     goto LABEL_49;
   }
 
-  v69 = [v167 objectAtIndexedSubscript:0];
-  descriptor5 = [v69 descriptor];
+  v68 = [v166 objectAtIndexedSubscript:0];
+  descriptor5 = [v68 descriptor];
   shape = [descriptor5 shape];
 
-  v71 = v168;
-  v72 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v168];
-  v182 = v72;
-  v73 = [MEMORY[0x277CBEA60] arrayWithObjects:&v182 count:1];
-  if ([shape isEqualToArray:v73])
+  v70 = v167;
+  v71 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v167];
+  v181 = v71;
+  v72 = [MEMORY[0x277CBEA60] arrayWithObjects:&v181 count:1];
+  if ([shape isEqualToArray:v72])
   {
   }
 
   else
   {
-    v1644 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v168 / v164];
-    v181[0] = v1644;
-    v82 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v164];
-    v181[1] = v82;
-    v83 = [MEMORY[0x277CBEA60] arrayWithObjects:v181 count:2];
-    v160 = [shape isEqualToArray:v83];
+    v1634 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v167 / v163];
+    v180[0] = v1634;
+    v81 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v163];
+    v180[1] = v81;
+    v82 = [MEMORY[0x277CBEA60] arrayWithObjects:v180 count:2];
+    v159 = [shape isEqualToArray:v82];
 
-    v71 = v168;
-    if ((v160 & 1) == 0)
+    v70 = v167;
+    if ((v159 & 1) == 0)
     {
-      v112 = +[MLCLog framework];
-      if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
+      v111 = +[MLCLog framework];
+      if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
       {
-        [MLCMultiheadAttentionLayer initWithDescriptor:v146 weights:? bias:? attentionBias:?];
+        [MLCMultiheadAttentionLayer initWithDescriptor:v145 weights:? bias:? attentionBias:?];
       }
 
       selfCopy2 = 0;
@@ -352,310 +352,309 @@ LABEL_11:
     }
   }
 
-  v84 = [v167 objectAtIndexedSubscript:1];
-  descriptor6 = [v84 descriptor];
+  v83 = [v166 objectAtIndexedSubscript:1];
+  descriptor6 = [v83 descriptor];
   shape4 = [descriptor6 shape];
 
-  v87 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v71];
-  v180 = v87;
-  v88 = [MEMORY[0x277CBEA60] arrayWithObjects:&v180 count:1];
-  if ([shape4 isEqualToArray:v88])
+  v86 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v70];
+  v179 = v86;
+  v87 = [MEMORY[0x277CBEA60] arrayWithObjects:&v179 count:1];
+  if ([shape4 isEqualToArray:v87])
   {
 
     goto LABEL_65;
   }
 
-  v1645 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v71 / v164];
-  v179[0] = v1645;
-  v90 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v164];
-  v179[1] = v90;
-  v91 = [MEMORY[0x277CBEA60] arrayWithObjects:v179 count:2];
-  v154 = [shape4 isEqualToArray:v91];
+  v1635 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v70 / v163];
+  v178[0] = v1635;
+  v89 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v163];
+  v178[1] = v89;
+  v90 = [MEMORY[0x277CBEA60] arrayWithObjects:v178 count:2];
+  v153 = [shape4 isEqualToArray:v90];
 
-  v71 = v168;
-  if ((v154 & 1) == 0)
+  v70 = v167;
+  if ((v153 & 1) == 0)
   {
-    v140 = +[MLCLog framework];
-    if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
+    v139 = +[MLCLog framework];
+    if (os_log_type_enabled(v139, OS_LOG_TYPE_ERROR))
     {
-      [MLCMultiheadAttentionLayer initWithDescriptor:v146 weights:? bias:? attentionBias:?];
+      [MLCMultiheadAttentionLayer initWithDescriptor:v145 weights:? bias:? attentionBias:?];
     }
 
     selfCopy2 = 0;
     shape = shape4;
 LABEL_98:
-    attentionBiasCopy = v166;
-    biasCopy = v167;
+    attentionBiasCopy = v165;
+    biasCopy = v166;
     goto LABEL_56;
   }
 
 LABEL_65:
-  v92 = [v167 objectAtIndexedSubscript:2];
-  descriptor7 = [v92 descriptor];
+  v91 = [v166 objectAtIndexedSubscript:2];
+  descriptor7 = [v91 descriptor];
   shape = [descriptor7 shape];
 
-  v94 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v71];
-  v178 = v94;
-  v95 = [MEMORY[0x277CBEA60] arrayWithObjects:&v178 count:1];
-  if ([shape isEqualToArray:v95])
+  v93 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v70];
+  v177 = v93;
+  v94 = [MEMORY[0x277CBEA60] arrayWithObjects:&v177 count:1];
+  if ([shape isEqualToArray:v94])
   {
 
-    v96 = v71;
+    v95 = v70;
   }
 
   else
   {
-    v1646 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v71 / v164];
-    v177[0] = v1646;
-    [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v164];
-    v105 = v96 = v71;
-    v177[1] = v105;
-    v106 = [MEMORY[0x277CBEA60] arrayWithObjects:v177 count:2];
-    v155 = [shape isEqualToArray:v106];
+    v1636 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v70 / v163];
+    v176[0] = v1636;
+    [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v163];
+    v104 = v95 = v70;
+    v176[1] = v104;
+    v105 = [MEMORY[0x277CBEA60] arrayWithObjects:v176 count:2];
+    v154 = [shape isEqualToArray:v105];
 
-    if ((v155 & 1) == 0)
+    if ((v154 & 1) == 0)
     {
-      v62 = +[MLCLog framework];
-      attentionBiasCopy = v166;
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+      v61 = +[MLCLog framework];
+      attentionBiasCopy = v165;
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
       {
-        [MLCMultiheadAttentionLayer initWithDescriptor:v146 weights:? bias:? attentionBias:?];
+        [MLCMultiheadAttentionLayer initWithDescriptor:v145 weights:? bias:? attentionBias:?];
       }
 
       goto LABEL_54;
     }
   }
 
-  v107 = [v167 objectAtIndexedSubscript:3];
-  descriptor8 = [v107 descriptor];
+  v106 = [v166 objectAtIndexedSubscript:3];
+  descriptor8 = [v106 descriptor];
   shape5 = [descriptor8 shape];
 
-  v110 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v96];
-  v176 = v110;
-  v111 = [MEMORY[0x277CBEA60] arrayWithObjects:&v176 count:1];
-  attentionBiasCopy = v166;
-  v159 = shape5;
-  if ([shape5 isEqualToArray:v111])
+  v109 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v95];
+  v175 = v109;
+  v110 = [MEMORY[0x277CBEA60] arrayWithObjects:&v175 count:1];
+  attentionBiasCopy = v165;
+  v158 = shape5;
+  if ([shape5 isEqualToArray:v110])
   {
 
-    biasCopy = v167;
-    v75 = selfCopy;
-    v61 = biasCopy2;
+    biasCopy = v166;
+    v74 = selfCopy;
+    v60 = biasCopy2;
     goto LABEL_49;
   }
 
-  v175[0] = &unk_284BA5D08;
-  v137 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v96];
-  v175[1] = v137;
-  v138 = [MEMORY[0x277CBEA60] arrayWithObjects:v175 count:2];
-  v139 = [shape5 isEqualToArray:v138];
+  v174[0] = &unk_284BA5D08;
+  v136 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v95];
+  v174[1] = v136;
+  v137 = [MEMORY[0x277CBEA60] arrayWithObjects:v174 count:2];
+  v138 = [shape5 isEqualToArray:v137];
 
-  if ((v139 & 1) == 0)
+  if ((v138 & 1) == 0)
   {
-    v80 = +[MLCLog framework];
+    v79 = +[MLCLog framework];
     self = selfCopy;
-    if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
     {
-      [MLCMultiheadAttentionLayer initWithDescriptor:v146 weights:? bias:? attentionBias:?];
+      [MLCMultiheadAttentionLayer initWithDescriptor:v145 weights:? bias:? attentionBias:?];
     }
 
 LABEL_59:
 
     selfCopy2 = 0;
-    shape = v159;
-    biasCopy = v167;
+    shape = v158;
+    biasCopy = v166;
     goto LABEL_12;
   }
 
-  biasCopy = v167;
-  v75 = selfCopy;
-  v61 = biasCopy2;
+  biasCopy = v166;
+  v74 = selfCopy;
+  v60 = biasCopy2;
 LABEL_49:
   if (![descriptorCopy hasAttentionBiases])
   {
-    shape = v159;
+    shape = v158;
 LABEL_79:
-    v170.receiver = v75;
-    v170.super_class = MLCMultiheadAttentionLayer;
-    v117 = [(MLCLayer *)&v170 initWithLabel:@"MultiheadAttention"];
-    v118 = v117;
-    if (v117)
+    v169.receiver = v74;
+    v169.super_class = MLCMultiheadAttentionLayer;
+    v116 = [(MLCLayer *)&v169 initWithLabel:@"MultiheadAttention"];
+    v117 = v116;
+    if (v116)
     {
-      objc_storeStrong(&v117->_descriptor, descriptor);
-      objc_storeStrong(&v118->_weights, obj);
-      objc_storeStrong(&v118->_biases, v61);
-      objc_storeStrong(&v118->_attentionBiases, attentionBiasCopy2);
-      v119 = MEMORY[0x277CBEBF8];
-      v120 = [MEMORY[0x277CBEBF8] mutableCopy];
-      v165 = [v119 mutableCopy];
+      objc_storeStrong(&v116->_descriptor, descriptor);
+      objc_storeStrong(&v117->_weights, obj);
+      objc_storeStrong(&v117->_biases, v60);
+      objc_storeStrong(&v117->_attentionBiases, attentionBiasCopy2);
+      v118 = MEMORY[0x277CBEBF8];
+      v119 = [MEMORY[0x277CBEBF8] mutableCopy];
+      v164 = [v118 mutableCopy];
       if ([weightsCopy count])
       {
-        v121 = 0;
+        v120 = 0;
         do
         {
-          v122 = [weightsCopy objectAtIndexedSubscript:v121];
-          v123 = [MLCTensorParameter parameterWithTensor:v122];
-          [v120 setObject:v123 atIndexedSubscript:v121];
+          v121 = [weightsCopy objectAtIndexedSubscript:v120];
+          v122 = [MLCTensorParameter parameterWithTensor:v121];
+          [v119 setObject:v122 atIndexedSubscript:v120];
 
-          v124 = [(NSArray *)v118->_weights objectAtIndexedSubscript:v121];
-          [v124 setIsLayerParameter:1];
+          v123 = [(NSArray *)v117->_weights objectAtIndexedSubscript:v120];
+          [v123 setIsLayerParameter:1];
 
-          ++v121;
+          ++v120;
         }
 
-        while (v121 < [weightsCopy count]);
+        while (v120 < [weightsCopy count]);
       }
 
-      v125 = [v120 copy];
-      weightsParameters = v118->_weightsParameters;
-      v118->_weightsParameters = v125;
+      v124 = [v119 copy];
+      weightsParameters = v117->_weightsParameters;
+      v117->_weightsParameters = v124;
 
-      if ([descriptorCopy hasBiases] && objc_msgSend(v167, "count"))
+      if ([descriptorCopy hasBiases] && objc_msgSend(v166, "count"))
       {
-        v127 = 0;
+        v126 = 0;
         do
         {
-          v128 = [v167 objectAtIndexedSubscript:v127];
-          v129 = [MLCTensorParameter parameterWithTensor:v128];
-          [v165 addObject:v129];
+          v127 = [v166 objectAtIndexedSubscript:v126];
+          v128 = [MLCTensorParameter parameterWithTensor:v127];
+          [v164 addObject:v128];
 
-          v130 = [(NSArray *)v118->_biases objectAtIndexedSubscript:v127];
-          [v130 setIsLayerParameter:1];
+          v129 = [(NSArray *)v117->_biases objectAtIndexedSubscript:v126];
+          [v129 setIsLayerParameter:1];
 
-          ++v127;
+          ++v126;
         }
 
-        while (v127 < [v167 count]);
+        while (v126 < [v166 count]);
       }
 
-      if ([descriptorCopy hasAttentionBiases] && objc_msgSend(v166, "count"))
+      if ([descriptorCopy hasAttentionBiases] && objc_msgSend(v165, "count"))
       {
-        v131 = 0;
+        v130 = 0;
         do
         {
-          v132 = [v166 objectAtIndexedSubscript:v131];
-          v133 = [MLCTensorParameter parameterWithTensor:v132];
-          [v165 addObject:v133];
+          v131 = [v165 objectAtIndexedSubscript:v130];
+          v132 = [MLCTensorParameter parameterWithTensor:v131];
+          [v164 addObject:v132];
 
-          v134 = [(NSArray *)v118->_attentionBiases objectAtIndexedSubscript:v131];
-          [v134 setIsLayerParameter:1];
+          v133 = [(NSArray *)v117->_attentionBiases objectAtIndexedSubscript:v130];
+          [v133 setIsLayerParameter:1];
 
-          ++v131;
+          ++v130;
         }
 
-        while (v131 < [v166 count]);
+        while (v130 < [v165 count]);
       }
 
-      v135 = [v165 copy];
-      biasesParameters = v118->_biasesParameters;
-      v118->_biasesParameters = v135;
+      v134 = [v164 copy];
+      biasesParameters = v117->_biasesParameters;
+      v117->_biasesParameters = v134;
 
-      v169.receiver = v118;
-      v169.super_class = MLCMultiheadAttentionLayer;
-      [(MLCLayer *)&v169 setIsUpdatable:1];
+      v168.receiver = v117;
+      v168.super_class = MLCMultiheadAttentionLayer;
+      [(MLCLayer *)&v168 setIsUpdatable:1];
 
-      biasCopy = v167;
-      attentionBiasCopy = v166;
+      biasCopy = v166;
+      attentionBiasCopy = v165;
     }
 
-    self = v118;
+    self = v117;
     selfCopy2 = self;
     goto LABEL_12;
   }
 
-  v76 = [attentionBiasCopy objectAtIndexedSubscript:0];
-  descriptor9 = [v76 descriptor];
+  v75 = [attentionBiasCopy objectAtIndexedSubscript:0];
+  descriptor9 = [v75 descriptor];
   shape = [descriptor9 shape];
 
-  v78 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v168];
-  v174 = v78;
-  v79 = [MEMORY[0x277CBEA60] arrayWithObjects:&v174 count:1];
-  if ([shape isEqualToArray:v79])
+  v77 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v167];
+  v173 = v77;
+  v78 = [MEMORY[0x277CBEA60] arrayWithObjects:&v173 count:1];
+  if ([shape isEqualToArray:v78])
   {
 
     goto LABEL_68;
   }
 
-  v1647 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v168 / v164];
-  v173[0] = v1647;
-  v98 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v164];
-  v173[1] = v98;
-  v99 = [MEMORY[0x277CBEA60] arrayWithObjects:v173 count:2];
-  v161 = [shape isEqualToArray:v99];
+  v1637 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v167 / v163];
+  v172[0] = v1637;
+  v97 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v163];
+  v172[1] = v97;
+  v98 = [MEMORY[0x277CBEA60] arrayWithObjects:v172 count:2];
+  v160 = [shape isEqualToArray:v98];
 
-  attentionBiasCopy = v166;
-  if ((v161 & 1) == 0)
+  attentionBiasCopy = v165;
+  if ((v160 & 1) == 0)
   {
-    v62 = +[MLCLog framework];
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+    v61 = +[MLCLog framework];
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
     {
-      [MLCMultiheadAttentionLayer initWithDescriptor:v146 weights:? bias:? attentionBias:?];
+      [MLCMultiheadAttentionLayer initWithDescriptor:v145 weights:? bias:? attentionBias:?];
     }
 
 LABEL_54:
 
     selfCopy2 = 0;
 LABEL_55:
-    biasCopy = v167;
+    biasCopy = v166;
 LABEL_56:
     self = selfCopy;
     goto LABEL_12;
   }
 
 LABEL_68:
-  v100 = [attentionBiasCopy objectAtIndexedSubscript:1];
-  descriptor10 = [v100 descriptor];
+  v99 = [attentionBiasCopy objectAtIndexedSubscript:1];
+  descriptor10 = [v99 descriptor];
   shape6 = [descriptor10 shape];
 
-  v103 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v168];
-  v172 = v103;
-  v104 = [MEMORY[0x277CBEA60] arrayWithObjects:&v172 count:1];
-  if ([shape6 isEqualToArray:v104])
+  v102 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v167];
+  v171 = v102;
+  v103 = [MEMORY[0x277CBEA60] arrayWithObjects:&v171 count:1];
+  if ([shape6 isEqualToArray:v103])
   {
 
     shape = shape6;
-    biasCopy = v167;
+    biasCopy = v166;
 LABEL_78:
-    v75 = selfCopy;
-    v61 = biasCopy2;
+    v74 = selfCopy;
+    v60 = biasCopy2;
     goto LABEL_79;
   }
 
-  v1648 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v168 / v164];
-  v171[0] = v1648;
-  v114 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v164];
-  v171[1] = v114;
-  v115 = [MEMORY[0x277CBEA60] arrayWithObjects:v171 count:2];
-  v116 = [shape6 isEqualToArray:v115];
+  v1638 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v167 / v163];
+  v170[0] = v1638;
+  v113 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v163];
+  v170[1] = v113;
+  v114 = [MEMORY[0x277CBEA60] arrayWithObjects:v170 count:2];
+  v115 = [shape6 isEqualToArray:v114];
 
-  if (v116)
+  if (v115)
   {
     shape = shape6;
-    attentionBiasCopy = v166;
-    biasCopy = v167;
+    attentionBiasCopy = v165;
+    biasCopy = v166;
     goto LABEL_78;
   }
 
-  v141 = +[MLCLog framework];
+  v140 = +[MLCLog framework];
   self = selfCopy;
-  if (os_log_type_enabled(v141, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
   {
-    [MLCMultiheadAttentionLayer initWithDescriptor:v146 weights:? bias:? attentionBias:?];
+    [MLCMultiheadAttentionLayer initWithDescriptor:v145 weights:? bias:? attentionBias:?];
   }
 
   selfCopy2 = 0;
   shape = shape6;
-  attentionBiasCopy = v166;
-  biasCopy = v167;
+  attentionBiasCopy = v165;
+  biasCopy = v166;
 LABEL_12:
 
-  v19 = *MEMORY[0x277D85DE8];
   return selfCopy2;
 }
 
 - (BOOL)compileForDevice:(id)device sourceTensors:(id)tensors resultTensor:(id)tensor
 {
-  v163 = *MEMORY[0x277D85DE8];
+  v162 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   tensorsCopy = tensors;
   tensorCopy = tensor;
@@ -761,11 +760,11 @@ LABEL_12:
     {
       v80 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v158 = v80;
-      v159 = 1024;
-      v160 = dataType;
-      v161 = 2112;
-      v162 = deviceCopy;
+      v157 = v80;
+      v158 = 1024;
+      v159 = dataType;
+      v160 = 2112;
+      v161 = deviceCopy;
       _os_log_error_impl(&dword_238C1D000, v78, OS_LOG_TYPE_ERROR, "%@: MultiheadAttention layer with data type = %d is not supported on a device = %@", buf, 0x1Cu);
     }
 
@@ -783,9 +782,9 @@ LABEL_12:
       v50 = [tensorsCopy objectAtIndexedSubscript:1];
       descriptor13 = [v50 descriptor];
       shape5 = [descriptor13 shape];
-      v147 = [tensorsCopy objectAtIndexedSubscript:1];
-      descriptor14 = [v147 descriptor];
-      v150 = shape5;
+      v146 = [tensorsCopy objectAtIndexedSubscript:1];
+      descriptor14 = [v146 descriptor];
+      v149 = shape5;
       v53 = [shape5 objectAtIndexedSubscript:{objc_msgSend(descriptor14, "dimensionCount") - 2}];
       unsignedIntegerValue5 = [v53 unsignedIntegerValue];
       v55 = [tensorsCopy objectAtIndexedSubscript:3];
@@ -796,7 +795,7 @@ LABEL_12:
       {
         v59 = [tensorsCopy objectAtIndexedSubscript:3];
         [v59 descriptor];
-        v60 = v139 = v50;
+        v60 = v138 = v50;
         dataType2 = [v60 dataType];
 
         v34 = tensorCopy;
@@ -820,10 +819,10 @@ LABEL_12:
           shape7 = [descriptor18 shape];
           v68 = [tensorsCopy objectAtIndexedSubscript:1];
           descriptor19 = [v68 descriptor];
-          v148 = [shape7 objectAtIndexedSubscript:{objc_msgSend(descriptor19, "dimensionCount") - 2}];
-          unsignedIntegerValue6 = [v148 unsignedIntegerValue];
-          v144 = [tensorsCopy objectAtIndexedSubscript:4];
-          descriptor20 = [v144 descriptor];
+          v147 = [shape7 objectAtIndexedSubscript:{objc_msgSend(descriptor19, "dimensionCount") - 2}];
+          unsignedIntegerValue6 = [v147 unsignedIntegerValue];
+          v143 = [tensorsCopy objectAtIndexedSubscript:4];
+          descriptor20 = [v143 descriptor];
           shape8 = [descriptor20 shape];
           v72 = [shape8 objectAtIndexedSubscript:2];
           if (unsignedIntegerValue6 != [v72 unsignedIntegerValue])
@@ -834,21 +833,21 @@ LABEL_12:
             goto LABEL_53;
           }
 
-          v136 = [tensorsCopy objectAtIndexedSubscript:0];
-          descriptor21 = [v136 descriptor];
+          v135 = [tensorsCopy objectAtIndexedSubscript:0];
+          descriptor21 = [v135 descriptor];
           shape9 = [descriptor21 shape];
-          v123 = [tensorsCopy objectAtIndexedSubscript:0];
-          descriptor22 = [v123 descriptor];
+          v122 = [tensorsCopy objectAtIndexedSubscript:0];
+          descriptor22 = [v122 descriptor];
           [shape9 objectAtIndexedSubscript:{objc_msgSend(descriptor22, "dimensionCount") - 2}];
-          v73 = v133 = v68;
+          v73 = v132 = v68;
           unsignedIntegerValue7 = [v73 unsignedIntegerValue];
           v74 = [tensorsCopy objectAtIndexedSubscript:4];
           [v74 descriptor];
-          v75 = v131 = v65;
+          v75 = v130 = v65;
           [v75 shape];
-          v76 = v127 = descriptor18;
+          v76 = v126 = descriptor18;
           [v76 objectAtIndexedSubscript:1];
-          v77 = v121 = shape7;
+          v77 = v120 = shape7;
           unsignedIntegerValue8 = [v77 unsignedIntegerValue];
 
           v34 = tensorCopy;
@@ -896,12 +895,12 @@ LABEL_55:
 
     if (dimensionCount5 == 3)
     {
-      v152 = [tensorsCopy objectAtIndexedSubscript:1];
-      descriptor24 = [v152 descriptor];
+      v151 = [tensorsCopy objectAtIndexedSubscript:1];
+      descriptor24 = [v151 descriptor];
       shape10 = [descriptor24 shape];
       v97 = [tensorsCopy objectAtIndexedSubscript:1];
       descriptor25 = [v97 descriptor];
-      v149 = shape10;
+      v148 = shape10;
       v98 = [shape10 objectAtIndexedSubscript:{objc_msgSend(descriptor25, "dimensionCount") - 2}];
       unsignedIntegerValue9 = [v98 unsignedIntegerValue];
       v100 = [tensorsCopy objectAtIndexedSubscript:3];
@@ -910,20 +909,20 @@ LABEL_55:
       v92 = [shape11 objectAtIndexedSubscript:2];
       if (unsignedIntegerValue9 == [v92 unsignedIntegerValue])
       {
-        v132 = [tensorsCopy objectAtIndexedSubscript:0];
-        descriptor27 = [v132 descriptor];
+        v131 = [tensorsCopy objectAtIndexedSubscript:0];
+        descriptor27 = [v131 descriptor];
         shape12 = [descriptor27 shape];
-        v126 = [tensorsCopy objectAtIndexedSubscript:0];
-        descriptor28 = [v126 descriptor];
-        v118 = [shape12 objectAtIndexedSubscript:{objc_msgSend(descriptor28, "dimensionCount") - 2}];
-        unsignedIntegerValue10 = [v118 unsignedIntegerValue];
+        v125 = [tensorsCopy objectAtIndexedSubscript:0];
+        descriptor28 = [v125 descriptor];
+        v117 = [shape12 objectAtIndexedSubscript:{objc_msgSend(descriptor28, "dimensionCount") - 2}];
+        unsignedIntegerValue10 = [v117 unsignedIntegerValue];
         v101 = [tensorsCopy objectAtIndexedSubscript:3];
         [v101 descriptor];
-        v102 = v138 = descriptor24;
+        v102 = v137 = descriptor24;
         [v102 shape];
-        v103 = v120 = descriptor26;
+        v103 = v119 = descriptor26;
         [v103 objectAtIndexedSubscript:1];
-        v104 = v146 = v97;
+        v104 = v145 = v97;
         unsignedIntegerValue11 = [v104 unsignedIntegerValue];
 
         v34 = tensorCopy;
@@ -958,12 +957,12 @@ LABEL_50:
         goto LABEL_50;
       }
 
-      v152 = [tensorsCopy objectAtIndexedSubscript:1];
-      descriptor24 = [v152 descriptor];
+      v151 = [tensorsCopy objectAtIndexedSubscript:1];
+      descriptor24 = [v151 descriptor];
       shape13 = [descriptor24 shape];
-      v145 = [tensorsCopy objectAtIndexedSubscript:1];
-      descriptor30 = [v145 descriptor];
-      v149 = shape13;
+      v144 = [tensorsCopy objectAtIndexedSubscript:1];
+      descriptor30 = [v144 descriptor];
+      v148 = shape13;
       v87 = [shape13 objectAtIndexedSubscript:{objc_msgSend(descriptor30, "dimensionCount") - 2}];
       unsignedIntegerValue12 = [v87 unsignedIntegerValue];
       v89 = [tensorsCopy objectAtIndexedSubscript:3];
@@ -974,7 +973,7 @@ LABEL_50:
       {
         v93 = [tensorsCopy objectAtIndexedSubscript:3];
         [v93 descriptor];
-        v94 = v137 = descriptor24;
+        v94 = v136 = descriptor24;
         dataType3 = [v94 dataType];
 
         v34 = tensorCopy;
@@ -992,7 +991,7 @@ LABEL_37:
       }
 
       v114 = v89;
-      v97 = v145;
+      v97 = v144;
     }
 
     v34 = tensorCopy;
@@ -1036,12 +1035,11 @@ LABEL_38:
   computeEngine2 = [v43 computeEngine];
   v79 = [computeEngine2 compileLayerDeviceOps:v78 sourceTensors:tensorsCopy resultTensor:v34];
 
-  v156.receiver = self;
-  v156.super_class = MLCMultiheadAttentionLayer;
-  [(MLCLayer *)&v156 bindDevice:v43 deviceOps:v78];
+  v155.receiver = self;
+  v155.super_class = MLCMultiheadAttentionLayer;
+  [(MLCLayer *)&v155 bindDevice:v43 deviceOps:v78];
 LABEL_56:
 
-  v115 = *MEMORY[0x277D85DE8];
   return v79;
 }
 
@@ -1536,266 +1534,194 @@ LABEL_10:
 
 - (void)initWithDescriptor:(const char *)a1 weights:bias:attentionBias:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDescriptor:(const char *)a1 weights:bias:attentionBias:.cold.2(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDescriptor:(const char *)a1 weights:bias:attentionBias:.cold.3(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDescriptor:(const char *)a1 weights:bias:attentionBias:.cold.4(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDescriptor:(const char *)a1 weights:bias:attentionBias:.cold.5(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDescriptor:(const char *)a1 weights:bias:attentionBias:.cold.6(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDescriptor:(const char *)a1 weights:bias:attentionBias:.cold.7(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDescriptor:(const char *)a1 weights:bias:attentionBias:.cold.8(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDescriptor:(const char *)a1 weights:bias:attentionBias:.cold.9(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDescriptor:(const char *)a1 weights:bias:attentionBias:.cold.10(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDescriptor:(const char *)a1 weights:bias:attentionBias:.cold.11(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDescriptor:(const char *)a1 weights:bias:attentionBias:.cold.12(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDescriptor:(const char *)a1 weights:bias:attentionBias:.cold.13(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDescriptor:(const char *)a1 weights:bias:attentionBias:.cold.14(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDescriptor:(const char *)a1 weights:bias:attentionBias:.cold.15(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDescriptor:(const char *)a1 weights:bias:attentionBias:.cold.16(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithDescriptor:(const char *)a1 weights:bias:attentionBias:.cold.17(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.2(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.3(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.4(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.5(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.6(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.7(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

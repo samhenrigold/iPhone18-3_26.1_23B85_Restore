@@ -14,7 +14,7 @@
   v14 = photoIrisProperties;
   if (photoIrisProperties)
   {
-    [photoIrisProperties photoIrisVideoDuration];
+    objc_msgSend_photoIrisVideoDuration(photoIrisProperties);
   }
 
   else

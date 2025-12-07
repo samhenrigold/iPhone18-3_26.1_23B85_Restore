@@ -60,7 +60,7 @@
   return v3;
 }
 
-uint64_t __37__PSYSyncCoordinator_syncRestriction__block_invoke(uint64_t a1)
+void *__37__PSYSyncCoordinator_syncRestriction__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _syncRestriction];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -126,9 +126,11 @@ uint64_t __37__PSYSyncCoordinator_syncRestriction__block_invoke(uint64_t a1)
 
 uint64_t __53__PSYSyncCoordinator_syncCoordinatorWithServiceName___block_invoke()
 {
-  syncCoordinatorWithServiceName____listeners = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v0 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v1 = syncCoordinatorWithServiceName____listeners;
+  syncCoordinatorWithServiceName____listeners = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (PSYSyncCoordinator)initWithServiceName:(id)name
@@ -142,85 +144,86 @@ uint64_t __53__PSYSyncCoordinator_syncCoordinatorWithServiceName___block_invoke(
 
 - (PSYSyncCoordinator)initWithServiceName:(id)name serviceLookupPath:(id)path
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   pathCopy = path;
-  v36.receiver = self;
-  v36.super_class = PSYSyncCoordinator;
-  v8 = [(PSYSyncCoordinator *)&v36 init];
+  v37.receiver = self;
+  v37.super_class = PSYSyncCoordinator;
+  v8 = [(PSYSyncCoordinator *)&v37 init];
+  v9 = v8;
   if (v8)
   {
-    v9 = psy_log();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    v10 = psy_log(v8);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-    if (v10)
+    if (v11)
     {
-      v11 = psy_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = psy_log(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v38 = "[PSYSyncCoordinator initWithServiceName:serviceLookupPath:]";
-        v39 = 2114;
-        v40 = nameCopy;
-        _os_log_impl(&dword_25DF25000, v11, OS_LOG_TYPE_DEFAULT, "%s: %{public}@", buf, 0x16u);
+        v39 = "[PSYSyncCoordinator initWithServiceName:serviceLookupPath:]";
+        v40 = 2114;
+        v41 = nameCopy;
+        _os_log_impl(&dword_25DF25000, v13, OS_LOG_TYPE_DEFAULT, "%s: %{public}@", buf, 0x16u);
       }
     }
 
-    v8->_syncSwitchIDToken = -1;
-    v29 = [nameCopy stringByAppendingPathExtension:@"plist"];
-    v12 = [pathCopy URLByAppendingPathComponent:v29];
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v12];
-    v14 = [PSYActivityInfo activityWithPlist:v13];
-    v8->_syncRestriction = 1;
-    objc_initWeak(buf, v8);
-    if (v14)
+    v9->_syncSwitchIDToken = -1;
+    v30 = [nameCopy stringByAppendingPathExtension:@"plist"];
+    v14 = [pathCopy URLByAppendingPathComponent:v30];
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v14];
+    v16 = [PSYActivityInfo activityWithPlist:v15];
+    v9->_syncRestriction = 1;
+    objc_initWeak(buf, v9);
+    if (v16)
     {
-      v28 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-      v15 = dispatch_queue_create("com.apple.pairedsync.coordinator", v28);
-      queue = v8->_queue;
-      v8->_queue = v15;
+      v29 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+      v17 = dispatch_queue_create("com.apple.pairedsync.coordinator", v29);
+      queue = v9->_queue;
+      v9->_queue = v17;
 
-      objc_storeStrong(&v8->_delegateQueue, MEMORY[0x277D85CD0]);
-      v17 = [nameCopy copy];
-      serviceName = v8->_serviceName;
-      v8->_serviceName = v17;
+      objc_storeStrong(&v9->_delegateQueue, MEMORY[0x277D85CD0]);
+      v19 = [nameCopy copy];
+      serviceName = v9->_serviceName;
+      v9->_serviceName = v19;
 
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __60__PSYSyncCoordinator_initWithServiceName_serviceLookupPath___block_invoke;
-      v33[3] = &unk_2799FB778;
-      objc_copyWeak(&v35, buf);
-      v19 = v8;
-      v34 = v19;
-      v20 = MEMORY[0x25F8A84D0](v33);
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __60__PSYSyncCoordinator_initWithServiceName_serviceLookupPath___block_invoke_2;
-      v30[3] = &unk_2799FB7A0;
-      objc_copyWeak(&v32, buf);
-      v21 = v20;
-      v31 = v21;
-      v8->_syncSwitchIDToken = [(PSYSyncCoordinator *)v19 registerNotifyTokenWithName:@"com.apple.pairedsync.lastsyncswitchid" withBlock:v30];
-      [(PSYSyncCoordinator *)v19 _registerMonitorAllNRDevicesForMigrationChanges:v21];
-      [PSYRegistrySingleton addDelegate:v19];
-      pthread_mutex_init(&v19->_delegateLock, 0);
-      v22 = objc_alloc(MEMORY[0x277CCAE98]);
-      machServiceName = [v14 machServiceName];
-      v24 = [v22 initWithMachServiceName:machServiceName];
-      listener = v19->_listener;
-      v19->_listener = v24;
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __60__PSYSyncCoordinator_initWithServiceName_serviceLookupPath___block_invoke;
+      v34[3] = &unk_2799FB778;
+      objc_copyWeak(&v36, buf);
+      v21 = v9;
+      v35 = v21;
+      v22 = MEMORY[0x25F8A84D0](v34);
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __60__PSYSyncCoordinator_initWithServiceName_serviceLookupPath___block_invoke_2;
+      v31[3] = &unk_2799FB7A0;
+      objc_copyWeak(&v33, buf);
+      v23 = v22;
+      v32 = v23;
+      v9->_syncSwitchIDToken = [(PSYSyncCoordinator *)v21 registerNotifyTokenWithName:@"com.apple.pairedsync.lastsyncswitchid" withBlock:v31];
+      [(PSYSyncCoordinator *)v21 _registerMonitorAllNRDevicesForMigrationChanges:v23];
+      [PSYRegistrySingleton addDelegate:v21];
+      pthread_mutex_init(&v21->_delegateLock, 0);
+      v24 = objc_alloc(MEMORY[0x277CCAE98]);
+      machServiceName = [v16 machServiceName];
+      v26 = [v24 initWithMachServiceName:machServiceName];
+      listener = v21->_listener;
+      v21->_listener = v26;
 
-      [(NSXPCListener *)v19->_listener setDelegate:v19];
-      objc_destroyWeak(&v32);
+      [(NSXPCListener *)v21->_listener setDelegate:v21];
+      objc_destroyWeak(&v33);
 
-      objc_destroyWeak(&v35);
+      objc_destroyWeak(&v36);
     }
 
     else
     {
 
-      NSLog(&cfstr_ErrorCouldNotC.isa, v12, nameCopy);
-      v19 = 0;
+      NSLog(&cfstr_ErrorCouldNotC.isa, v14, nameCopy);
+      v21 = 0;
     }
 
     objc_destroyWeak(buf);
@@ -228,11 +231,10 @@ uint64_t __53__PSYSyncCoordinator_syncCoordinatorWithServiceName___block_invoke(
 
   else
   {
-    v19 = 0;
+    v21 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-  return v19;
+  return v21;
 }
 
 void __60__PSYSyncCoordinator_initWithServiceName_serviceLookupPath___block_invoke(uint64_t a1)
@@ -303,27 +305,26 @@ void __60__PSYSyncCoordinator_initWithServiceName_serviceLookupPath___block_invo
   v12 = v11;
   if (v11)
   {
-    v13 = psy_log();
+    v13 = psy_log(v11);
     v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
     if (v14)
     {
-      v15 = psy_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = psy_log(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109378;
         v21 = v12;
         v22 = 2114;
         v23 = nameCopy;
-        _os_log_impl(&dword_25DF25000, v15, OS_LOG_TYPE_DEFAULT, "notify_register call failed with state: (%u) for %{public}@", buf, 0x12u);
+        _os_log_impl(&dword_25DF25000, v16, OS_LOG_TYPE_DEFAULT, "notify_register call failed with state: (%u) for %{public}@", buf, 0x12u);
       }
     }
   }
 
-  v16 = out_token;
+  v17 = out_token;
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v16;
+  return v17;
 }
 
 - (void)_registerMonitorAllNRDevicesForMigrationChanges:(id)changes
@@ -332,19 +333,19 @@ void __60__PSYSyncCoordinator_initWithServiceName_serviceLookupPath___block_invo
   migrationChangeBlock = self->_migrationChangeBlock;
   self->_migrationChangeBlock = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, migrationChangeBlock);
 }
 
 - (void)_unregisterNRDeviceMonitors
 {
   migrationChangeBlock = self->_migrationChangeBlock;
   self->_migrationChangeBlock = 0;
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](self, migrationChangeBlock);
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   v8 = [connectionCopy valueForEntitlement:@"com.apple.pairedsync.scheduler"];
@@ -352,47 +353,46 @@ void __60__PSYSyncCoordinator_initWithServiceName_serviceLookupPath___block_invo
 
   if (bOOLValue)
   {
-    v10 = PSYActivityXPCInterface();
-    [connectionCopy setExportedInterface:v10];
+    v11 = PSYActivityXPCInterface();
+    [connectionCopy setExportedInterface:v11];
 
     [connectionCopy setExportedObject:self];
-    v11 = PSYActivityProgressXPCInterface();
-    [connectionCopy setRemoteObjectInterface:v11];
+    v12 = PSYActivityProgressXPCInterface();
+    [connectionCopy setRemoteObjectInterface:v12];
 
     objc_initWeak(location, self);
-    v17 = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __57__PSYSyncCoordinator_listener_shouldAcceptNewConnection___block_invoke;
-    v20 = &unk_2799FB7C8;
+    v18 = MEMORY[0x277D85DD0];
+    v19 = 3221225472;
+    v20 = __57__PSYSyncCoordinator_listener_shouldAcceptNewConnection___block_invoke;
+    v21 = &unk_2799FB7C8;
     selfCopy = self;
-    objc_copyWeak(&v22, location);
-    [connectionCopy setInvalidationHandler:&v17];
+    objc_copyWeak(&v23, location);
+    [connectionCopy setInvalidationHandler:&v18];
     objc_storeStrong(&self->_connection, connection);
     [connectionCopy resume];
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(location);
   }
 
   else
   {
-    v12 = psy_log();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+    v13 = psy_log(v10);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-    if (v13)
+    if (v14)
     {
-      v14 = psy_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = psy_log(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *location = 138543618;
         *&location[4] = connectionCopy;
-        v24 = 2112;
-        v25 = @"com.apple.pairedsync.scheduler";
-        _os_log_impl(&dword_25DF25000, v14, OS_LOG_TYPE_DEFAULT, "Dropping connection %{public}@ because it's missing the entitlement for %@", location, 0x16u);
+        v25 = 2112;
+        v26 = @"com.apple.pairedsync.scheduler";
+        _os_log_impl(&dword_25DF25000, v16, OS_LOG_TYPE_DEFAULT, "Dropping connection %{public}@ because it's missing the entitlement for %@", location, 0x16u);
       }
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
@@ -413,21 +413,21 @@ void __57__PSYSyncCoordinator_listener_shouldAcceptNewConnection___block_invoke_
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained setConnection:0];
 
-  v3 = psd_log();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+  v4 = psd_log(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-  if (v4)
+  if (v5)
   {
-    v5 = psd_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = psd_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_25DF25000, v5, OS_LOG_TYPE_DEFAULT, "Connection to pairedsyncd lost, invalidating sync session", v7, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_25DF25000, v7, OS_LOG_TYPE_DEFAULT, "Connection to pairedsyncd lost, invalidating sync session", v9, 2u);
     }
   }
 
-  v6 = objc_loadWeakRetained((a1 + 32));
-  [v6 invalidateActiveSyncSession];
+  v8 = objc_loadWeakRetained((a1 + 32));
+  [v8 invalidateActiveSyncSession];
 }
 
 - (BOOL)_pairedSyncFinishedReunionSync
@@ -459,7 +459,7 @@ void __57__PSYSyncCoordinator_listener_shouldAcceptNewConnection___block_invoke_
 
 - (void)_syncRestrictionDidUpdate:(id)update forServiceName:(id)name
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   nameCopy = name;
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_syncRestriction];
@@ -473,52 +473,49 @@ void __57__PSYSyncCoordinator_listener_shouldAcceptNewConnection___block_invoke_
       pthread_mutex_lock(&self->_delegateLock);
       v10 = self->_delegateQueue;
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
-      pthread_mutex_unlock(&self->_delegateLock);
-      v12 = psy_log();
-      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+      v12 = pthread_mutex_unlock(&self->_delegateLock);
+      v13 = psy_log(v12);
+      v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-      if (v13)
+      if (v14)
       {
-        v14 = psy_log();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v16 = psy_log(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          v15 = objc_loadWeakRetained(&self->_delegate);
-          v16 = objc_opt_class();
-          v17 = NSStringFromClass(v16);
+          v17 = objc_loadWeakRetained(&self->_delegate);
+          v18 = objc_opt_class();
+          v19 = NSStringFromClass(v18);
           *buf = 138543874;
-          v24 = v10;
-          v25 = 2112;
-          v26 = v17;
-          v27 = 1024;
+          v25 = v10;
+          v26 = 2112;
+          v27 = v19;
+          v28 = 1024;
           integerValue = [updateCopy integerValue];
-          _os_log_impl(&dword_25DF25000, v14, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator - dispatching sync restriction did update on queue %{public}@ to delegate %@ (%d)", buf, 0x1Cu);
+          _os_log_impl(&dword_25DF25000, v16, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator - dispatching sync restriction did update on queue %{public}@ to delegate %@ (%d)", buf, 0x1Cu);
         }
       }
 
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __63__PSYSyncCoordinator__syncRestrictionDidUpdate_forServiceName___block_invoke;
-      v20[3] = &unk_2799FB588;
-      v21 = WeakRetained;
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __63__PSYSyncCoordinator__syncRestrictionDidUpdate_forServiceName___block_invoke;
+      v21[3] = &unk_2799FB588;
+      v22 = WeakRetained;
       selfCopy = self;
-      v18 = WeakRetained;
-      dispatch_async(v10, v20);
+      v20 = WeakRetained;
+      dispatch_async(v10, v21);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __63__PSYSyncCoordinator__syncRestrictionDidUpdate_forServiceName___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
+    v3 = *(a1 + 32);
+    v4 = *(a1 + 40);
 
-    return [v4 syncCoordinatorDidChangeSyncRestriction:v5];
+    return [v3 syncCoordinatorDidChangeSyncRestriction:v4];
   }
 
   return result;
@@ -529,17 +526,17 @@ uint64_t __63__PSYSyncCoordinator__syncRestrictionDidUpdate_forServiceName___blo
   v20 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   completionCopy = completion;
-  v8 = psy_log();
+  v8 = psy_log(completionCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = psy_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = psy_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       v19 = optionsCopy;
-      _os_log_impl(&dword_25DF25000, v10, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator - beginSyncWithOptions: %{public}@", buf, 0xCu);
+      _os_log_impl(&dword_25DF25000, v11, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator - beginSyncWithOptions: %{public}@", buf, 0xCu);
     }
   }
 
@@ -551,168 +548,169 @@ uint64_t __63__PSYSyncCoordinator__syncRestrictionDidUpdate_forServiceName___blo
   block[4] = self;
   v16 = optionsCopy;
   v17 = completionCopy;
-  v12 = completionCopy;
-  v13 = optionsCopy;
+  v13 = completionCopy;
+  v14 = optionsCopy;
   dispatch_async(queue, block);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __54__PSYSyncCoordinator_beginSyncWithOptions_completion___block_invoke(uint64_t a1)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   pthread_mutex_lock((*(a1 + 32) + 40));
   v2 = *(*(a1 + 32) + 32);
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 104));
   pthread_mutex_unlock((*(a1 + 32) + 40));
   v4 = objc_opt_respondsToSelector();
-  v5 = psd_log();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  v5 = v4;
+  v6 = psd_log(v4);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
-  if (v6)
+  if (v7)
   {
-    v7 = psd_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = psd_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = objc_opt_class();
-      v9 = @"DOES NOT SUPPORT";
+      v10 = objc_opt_class();
+      v11 = @"DOES NOT SUPPORT";
       *buf = 138412802;
-      v51 = v8;
-      if (v4)
+      v59 = v10;
+      if (v5)
       {
-        v9 = @"SUPPORTS";
+        v11 = @"SUPPORTS";
       }
 
-      v52 = 2048;
-      v53 = WeakRetained;
-      v54 = 2112;
-      v55 = v9;
-      v10 = v8;
-      _os_log_impl(&dword_25DF25000, v7, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator: in beginSyncWithOptions determined that delegate %@<%p> %@ migration sync", buf, 0x20u);
+      v60 = 2048;
+      v61 = WeakRetained;
+      v62 = 2112;
+      v63 = v11;
+      v12 = v10;
+      _os_log_impl(&dword_25DF25000, v9, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator: in beginSyncWithOptions determined that delegate %@<%p> %@ migration sync", buf, 0x20u);
     }
   }
 
-  v11 = [*(a1 + 32) syncSessionForOptions:*(a1 + 40) supportsMigrationSync:v4 & 1];
-  if (v11)
+  v13 = [*(a1 + 32) syncSessionForOptions:*(a1 + 40) supportsMigrationSync:v5 & 1];
+  v14 = v13;
+  if (v13)
   {
-    v12 = WeakRetained == 0;
+    v15 = WeakRetained == 0;
   }
 
   else
   {
-    v12 = 1;
+    v15 = 1;
   }
 
-  if (v12)
+  if (v15)
   {
-    v13 = psy_log();
-    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    v16 = psy_log(v13);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
     if (WeakRetained)
     {
-      if (v14)
+      if (v17)
       {
-        v15 = psy_log();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v19 = psy_log(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_25DF25000, v15, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator - No sync session could be created. Most likely no active device in NanoRegistry. Skipping beginSyncSession call into client.", buf, 2u);
+          _os_log_impl(&dword_25DF25000, v19, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator - No sync session could be created. Most likely no active device in NanoRegistry. Skipping beginSyncSession call into client.", buf, 2u);
         }
       }
 
-      v16 = *(a1 + 48);
-      v17 = 6;
+      v20 = *(a1 + 48);
+      v21 = 6;
     }
 
     else
     {
-      if (v14)
+      if (v17)
       {
-        v36 = psy_log();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        v43 = psy_log(v18);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_25DF25000, v36, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator - client delegate missing.", buf, 2u);
+          _os_log_impl(&dword_25DF25000, v43, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator - client delegate missing.", buf, 2u);
         }
       }
 
-      v16 = *(a1 + 48);
-      v17 = 7;
+      v20 = *(a1 + 48);
+      v21 = 7;
     }
 
-    v37 = PSYErrorForCode(v17);
-    (*(v16 + 16))(v16, 0, v37);
+    v44 = PSYErrorForCode(v21);
+    (*(v20 + 16))(v20, 0, v44);
   }
 
   else
   {
-    v18 = +[PSYRegistrySingleton registry];
-    *(*(a1 + 32) + 136) = [v18 switchIndex];
+    v22 = +[PSYRegistrySingleton registry];
+    *(*(a1 + 32) + 136) = [v22 switchIndex];
 
-    v19 = *(a1 + 32);
-    v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v19, "_syncRestriction")}];
-    [v19 _syncRestrictionDidUpdate:v20 forServiceName:*(*(a1 + 32) + 160)];
+    v23 = *(a1 + 32);
+    v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v23, "_syncRestriction")}];
+    [v23 _syncRestrictionDidUpdate:v24 forServiceName:*(*(a1 + 32) + 160)];
 
-    v21 = MEMORY[0x25F8A84D0](*(a1 + 48));
-    v22 = *(a1 + 32);
-    v23 = *(v22 + 16);
-    *(v22 + 16) = v21;
+    v25 = MEMORY[0x25F8A84D0](*(a1 + 48));
+    v26 = *(a1 + 32);
+    v27 = *(v26 + 16);
+    *(v26 + 16) = v25;
 
-    v24 = [*(*(a1 + 32) + 112) sessionIdentifier];
-    v25 = [*(a1 + 40) sessionIdentifier];
-    v26 = [v24 isEqual:v25];
+    v28 = [*(*(a1 + 32) + 112) sessionIdentifier];
+    v29 = [*(a1 + 40) sessionIdentifier];
+    v30 = [v28 isEqual:v29];
 
-    if (v26)
+    if (v30)
     {
-      v27 = psd_log();
-      v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
+      v32 = psd_log(v31);
+      v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
 
-      if (v28)
+      if (v33)
       {
-        v29 = psd_log();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v35 = psd_log(v34);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_25DF25000, v29, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator received beginSyncWithOptions: for the current sessionIdentifier. Ignoring message", buf, 2u);
+          _os_log_impl(&dword_25DF25000, v35, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator received beginSyncWithOptions: for the current sessionIdentifier. Ignoring message", buf, 2u);
         }
       }
     }
 
-    v30 = *(a1 + 32);
-    v32 = *(v30 + 112);
-    v31 = (v30 + 112);
-    if (v32)
+    v36 = *(a1 + 32);
+    v38 = *(v36 + 112);
+    v37 = (v36 + 112);
+    if (v38)
     {
-      v33 = psy_log();
-      v34 = os_log_type_enabled(v33, OS_LOG_TYPE_ERROR);
+      v39 = psy_log(v37);
+      v40 = os_log_type_enabled(v39, OS_LOG_TYPE_ERROR);
 
-      if (v34)
+      if (v40)
       {
-        v35 = psy_log();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        v42 = psy_log(v41);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
         {
-          __54__PSYSyncCoordinator_beginSyncWithOptions_completion___block_invoke_cold_1(v35);
+          __54__PSYSyncCoordinator_beginSyncWithOptions_completion___block_invoke_cold_1(v42);
         }
       }
     }
 
     else
     {
-      objc_storeStrong(v31, v11);
+      objc_storeStrong(v37, v14);
       [*(a1 + 32) beginMonitoringDeviceChanges];
-      v39 = [*(a1 + 40) dryRun];
-      v40 = psy_log();
-      v41 = os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT);
+      v45 = [*(a1 + 40) dryRun];
+      v46 = v45;
+      v47 = psy_log(v45);
+      v48 = os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT);
 
-      if (v39)
+      if (v46)
       {
-        if (v41)
+        if (v48)
         {
-          v42 = psy_log();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+          v50 = psy_log(v49);
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_25DF25000, v42, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator - Dry run - not calling delegate", buf, 2u);
+            _os_log_impl(&dword_25DF25000, v50, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator - Dry run - not calling delegate", buf, 2u);
           }
         }
 
@@ -721,37 +719,35 @@ void __54__PSYSyncCoordinator_beginSyncWithOptions_completion___block_invoke(uin
 
       else
       {
-        if (v41)
+        if (v48)
         {
-          v43 = psy_log();
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+          v51 = psy_log(v49);
+          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
           {
-            v44 = objc_loadWeakRetained((*(a1 + 32) + 104));
-            v45 = objc_opt_class();
-            v46 = NSStringFromClass(v45);
-            v47 = NSStringfromPSYSyncSessionType([v11 syncSessionType]);
+            v52 = objc_loadWeakRetained((*(a1 + 32) + 104));
+            v53 = objc_opt_class();
+            v54 = NSStringFromClass(v53);
+            v55 = NSStringfromPSYSyncSessionType([v14 syncSessionType]);
             *buf = 138543874;
-            v51 = v2;
-            v52 = 2112;
-            v53 = v46;
-            v54 = 2112;
-            v55 = v47;
-            _os_log_impl(&dword_25DF25000, v43, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator - dispatching start sync on queue %{public}@ to delegate %@ syncType %@", buf, 0x20u);
+            v59 = v2;
+            v60 = 2112;
+            v61 = v54;
+            v62 = 2112;
+            v63 = v55;
+            _os_log_impl(&dword_25DF25000, v51, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator - dispatching start sync on queue %{public}@ to delegate %@ syncType %@", buf, 0x20u);
           }
         }
 
-        v48[0] = MEMORY[0x277D85DD0];
-        v48[1] = 3221225472;
-        v48[2] = __54__PSYSyncCoordinator_beginSyncWithOptions_completion___block_invoke_31;
-        v48[3] = &unk_2799FB588;
-        v48[4] = *(a1 + 32);
-        v49 = WeakRetained;
-        dispatch_async(v2, v48);
+        v56[0] = MEMORY[0x277D85DD0];
+        v56[1] = 3221225472;
+        v56[2] = __54__PSYSyncCoordinator_beginSyncWithOptions_completion___block_invoke_31;
+        v56[3] = &unk_2799FB588;
+        v56[4] = *(a1 + 32);
+        v57 = WeakRetained;
+        dispatch_async(v2, v56);
       }
     }
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __54__PSYSyncCoordinator_beginSyncWithOptions_completion___block_invoke_31(uint64_t a1)
@@ -765,48 +761,46 @@ void __54__PSYSyncCoordinator_beginSyncWithOptions_completion___block_invoke_31(
       return;
     }
 
-    v3 = objc_opt_respondsToSelector();
-    v4 = *(a1 + 40);
-    if (v3)
+    v4 = objc_opt_respondsToSelector();
+    v5 = *(a1 + 40);
+    if (v4)
     {
-      v5 = *(a1 + 32);
-      v16 = [v5 activeSyncSession];
-      [v4 syncCoordinator:v5 beginSyncSession:v16];
+      v6 = *(a1 + 32);
+      v16 = [v6 activeSyncSession];
+      [v5 syncCoordinator:v6 beginSyncSession:v16];
 LABEL_15:
 
       return;
     }
 
-    v9 = *(a1 + 40);
     if ((objc_opt_respondsToSelector() & 1) == 0)
     {
-      v12 = MEMORY[0x277CBEAD8];
-      v13 = *MEMORY[0x277CBE658];
-      v14 = *(a1 + 40);
+      v13 = MEMORY[0x277CBEAD8];
+      v14 = *MEMORY[0x277CBE658];
       v15 = objc_opt_class();
       v16 = NSStringFromClass(v15);
-      [v12 raise:v13 format:{@"delegate %@ must respond to either syncCoordinator:beginSyncSession: or syncCoordinatorDidReceiveStartSyncCommand:", v16}];
+      [v13 raise:v14 format:{@"delegate %@ must respond to either syncCoordinator:beginSyncSession: or syncCoordinatorDidReceiveStartSyncCommand:", v16}];
       goto LABEL_15;
     }
 
-    v11 = *(a1 + 32);
-    v10 = *(a1 + 40);
+    v12 = *(a1 + 32);
+    v11 = *(a1 + 40);
 
-    [v10 syncCoordinatorDidReceiveStartSyncCommand:v11];
+    [v11 syncCoordinatorDidReceiveStartSyncCommand:v12];
   }
 
   else
   {
-    v6 = psy_log();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    v7 = psy_log(v3);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-    if (v7)
+    if (v8)
     {
-      v8 = psy_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = psy_log(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_25DF25000, v8, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator - Sync session disappeared before it could be started. Most likely the daemon has died due to a quickswitch.", buf, 2u);
+        _os_log_impl(&dword_25DF25000, v10, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator - Sync session disappeared before it could be started. Most likely the daemon has died due to a quickswitch.", buf, 2u);
       }
     }
   }
@@ -815,28 +809,28 @@ LABEL_15:
 - (void)abortSyncWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = psy_log();
+  v5 = psy_log(completionCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = psy_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = psy_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25DF25000, v7, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator - abortSyncWithCompletion:", buf, 2u);
+      _os_log_impl(&dword_25DF25000, v8, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator - abortSyncWithCompletion:", buf, 2u);
     }
   }
 
   queue = self->_queue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __46__PSYSyncCoordinator_abortSyncWithCompletion___block_invoke;
-  v10[3] = &unk_2799FB818;
-  v10[4] = self;
-  v11 = completionCopy;
-  v9 = completionCopy;
-  dispatch_async(queue, v10);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __46__PSYSyncCoordinator_abortSyncWithCompletion___block_invoke;
+  v11[3] = &unk_2799FB818;
+  v11[4] = self;
+  v12 = completionCopy;
+  v10 = completionCopy;
+  dispatch_async(queue, v11);
 }
 
 uint64_t __46__PSYSyncCoordinator_abortSyncWithCompletion___block_invoke(uint64_t a1)
@@ -897,39 +891,40 @@ uint64_t __46__PSYSyncCoordinator_abortSyncWithCompletion___block_invoke(uint64_
 
 - (void)syncSession:(id)session didFailWithError:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v6 = psy_log();
+  v6 = psy_log(errorCopy);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = psy_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = psy_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       psy_safeDescription = [errorCopy psy_safeDescription];
-      v15 = 138543362;
-      v16 = psy_safeDescription;
-      _os_log_impl(&dword_25DF25000, v8, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator client called syncDidFailWithError: %{public}@", &v15, 0xCu);
+      v17 = 138543362;
+      v18 = psy_safeDescription;
+      _os_log_impl(&dword_25DF25000, v9, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator client called syncDidFailWithError: %{public}@", &v17, 0xCu);
     }
   }
 
   if (self->_pendingCompletion)
   {
-    v10 = [PSYSyncCoordinator filteredErrorWithError:errorCopy];
-    if (v10 != errorCopy)
+    v11 = [PSYSyncCoordinator filteredErrorWithError:errorCopy];
+    v12 = v11;
+    if (v11 != errorCopy)
     {
-      v11 = psy_log();
-      v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+      v13 = psy_log(v11);
+      v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-      if (v12)
+      if (v14)
       {
-        v13 = psy_log();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v16 = psy_log(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          v15 = 138412290;
-          v16 = v10;
-          _os_log_impl(&dword_25DF25000, v13, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator client has custom classes in NSError userinfo, filtered error is: %@", &v15, 0xCu);
+          v17 = 138412290;
+          v18 = v12;
+          _os_log_impl(&dword_25DF25000, v16, OS_LOG_TYPE_DEFAULT, "PSYSyncCoordinator client has custom classes in NSError userinfo, filtered error is: %@", &v17, 0xCu);
         }
       }
     }
@@ -938,8 +933,6 @@ uint64_t __46__PSYSyncCoordinator_abortSyncWithCompletion___block_invoke(uint64_
     [(PSYSyncCoordinator *)self _cleanup];
     [(PSYSyncCoordinator *)self invalidateActiveSyncSession];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (id)filteredErrorWithError:(id)error
@@ -1080,18 +1073,17 @@ uint64_t __46__PSYSyncCoordinator_abortSyncWithCompletion___block_invoke(uint64_
     v5 = self->_activeSyncSession;
     self->_activeSyncSession = 0;
 
-    [(PSYSyncCoordinator *)self endMonitoringDeviceChanges];
-    v6 = psy_log();
+    v6 = psy_log([(PSYSyncCoordinator *)self endMonitoringDeviceChanges]);
     v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
     if (v7)
     {
-      v8 = psy_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = psy_log(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
         v14 = v4;
-        _os_log_impl(&dword_25DF25000, v8, OS_LOG_TYPE_DEFAULT, "Invalidating sync session: %{public}@", buf, 0xCu);
+        _os_log_impl(&dword_25DF25000, v9, OS_LOG_TYPE_DEFAULT, "Invalidating sync session: %{public}@", buf, 0xCu);
       }
     }
 
@@ -1101,11 +1093,9 @@ uint64_t __46__PSYSyncCoordinator_abortSyncWithCompletion___block_invoke(uint64_
     v11[3] = &unk_2799FB840;
     v11[4] = self;
     v12 = v4;
-    v9 = v4;
+    v10 = v4;
     [(PSYSyncCoordinator *)self performDelegateBlock:v11];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __49__PSYSyncCoordinator_invalidateActiveSyncSession__block_invoke(uint64_t a1, void *a2)
@@ -1137,7 +1127,7 @@ void __49__PSYSyncCoordinator_invalidateActiveSyncSession__block_invoke(uint64_t
 {
   pendingCompletion = self->_pendingCompletion;
   self->_pendingCompletion = 0;
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](self, pendingCompletion);
 }
 
 - (void)deviceChanged:(id)changed
@@ -1164,16 +1154,16 @@ void __36__PSYSyncCoordinator_deviceChanged___block_invoke(uint64_t a1)
 
     if ((v6 & 1) == 0)
     {
-      v7 = psd_log();
-      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+      v8 = psd_log(v7);
+      v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
-      if (v8)
+      if (v9)
       {
-        v9 = psd_log();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v11 = psd_log(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          *v10 = 0;
-          _os_log_impl(&dword_25DF25000, v9, OS_LOG_TYPE_DEFAULT, "Device changed, invalidating sync session", v10, 2u);
+          *v12 = 0;
+          _os_log_impl(&dword_25DF25000, v11, OS_LOG_TYPE_DEFAULT, "Device changed, invalidating sync session", v12, 2u);
         }
       }
 
@@ -1185,31 +1175,31 @@ void __36__PSYSyncCoordinator_deviceChanged___block_invoke(uint64_t a1)
 - (id)syncSessionForOptions:(id)options supportsMigrationSync:(BOOL)sync
 {
   syncCopy = sync;
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v6 = +[PSYRegistrySingleton registry];
   getPairedDevices = [v6 getPairedDevices];
 
-  v28 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
+  v28 = 0u;
   v8 = getPairedDevices;
-  v9 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v27;
+    v11 = *v28;
 LABEL_3:
     v12 = 0;
     while (1)
     {
-      if (*v27 != v11)
+      if (*v28 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v26 + 1) + 8 * v12);
+      v13 = *(*(&v27 + 1) + 8 * v12);
       pairingID = [v13 pairingID];
       pairingIdentifier = [optionsCopy pairingIdentifier];
       v16 = [pairingID isEqual:pairingIdentifier];
@@ -1221,7 +1211,7 @@ LABEL_3:
 
       if (v10 == ++v12)
       {
-        v10 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
         if (v10)
         {
           goto LABEL_3;
@@ -1231,23 +1221,23 @@ LABEL_3:
       }
     }
 
-    v17 = v13;
+    v18 = v13;
 
-    if (!v17)
+    if (!v18)
     {
       goto LABEL_12;
     }
 
-    v18 = [[PSYServiceSyncSession alloc] initWithQueue:self->_queue supportsMigrationSync:syncCopy];
-    [(PSYServiceSyncSession *)v18 setPdrPairedDevice:v17];
-    -[PSYServiceSyncSession setSyncSessionType:](v18, "setSyncSessionType:", [optionsCopy syncSessionType]);
+    v19 = [[PSYServiceSyncSession alloc] initWithQueue:self->_queue supportsMigrationSync:syncCopy];
+    [(PSYServiceSyncSession *)v19 setPdrPairedDevice:v18];
+    -[PSYServiceSyncSession setSyncSessionType:](v19, "setSyncSessionType:", [optionsCopy syncSessionType]);
     sessionIdentifier = [optionsCopy sessionIdentifier];
-    [(PSYServiceSyncSession *)v18 setSessionIdentifier:sessionIdentifier];
+    [(PSYServiceSyncSession *)v19 setSessionIdentifier:sessionIdentifier];
 
-    [(PSYServiceSyncSession *)v18 setDelegate:self];
-    [(PSYServiceSyncSession *)v18 setSyncCoordinator:self];
-    v20 = +[PSYRegistrySingleton registry];
-    -[PSYServiceSyncSession setSwitchID:](v18, "setSwitchID:", [v20 switchIndex]);
+    [(PSYServiceSyncSession *)v19 setDelegate:self];
+    [(PSYServiceSyncSession *)v19 setSyncCoordinator:self];
+    v21 = +[PSYRegistrySingleton registry];
+    -[PSYServiceSyncSession setSwitchID:](v19, "setSwitchID:", [v21 switchIndex]);
 
     goto LABEL_16;
   }
@@ -1255,29 +1245,27 @@ LABEL_3:
 LABEL_9:
 
 LABEL_12:
-  v21 = psd_log();
-  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
+  v22 = psd_log(v17);
+  v23 = os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
 
-  if (v22)
+  if (v23)
   {
-    v17 = psd_log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = psd_log(v24);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [PSYSyncCoordinator syncSessionForOptions:v8 supportsMigrationSync:v17];
+      [PSYSyncCoordinator syncSessionForOptions:v8 supportsMigrationSync:v18];
     }
 
-    v18 = 0;
+    v19 = 0;
 LABEL_16:
 
     goto LABEL_18;
   }
 
-  v18 = 0;
+  v19 = 0;
 LABEL_18:
 
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v18;
+  return v19;
 }
 
 - (void)beginDryRunSyncWithOptions:(id)options completion:(id)completion
@@ -1334,10 +1322,11 @@ void __60__PSYSyncCoordinator_beginDryRunSyncWithOptions_completion___block_invo
   }
 }
 
-void __60__PSYSyncCoordinator_beginDryRunSyncWithOptions_completion___block_invoke_2(uint64_t a1)
+void __60__PSYSyncCoordinator_beginDryRunSyncWithOptions_completion___block_invoke_2(void *a1)
 {
+  v1 = a1;
   v20 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 56);
+  v2 = a1[7];
   if ((v2 - 2) >= 2)
   {
     v3 = 0;
@@ -1347,62 +1336,61 @@ void __60__PSYSyncCoordinator_beginDryRunSyncWithOptions_completion___block_invo
 
   else
   {
-    v3 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.pairedsync.synccoordinator" code:1 userInfo:0];
+    a1 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.pairedsync.synccoordinator" code:1 userInfo:0];
+    v3 = a1;
     v4 = 0;
-    v2 = *(a1 + 56);
-    v5 = v3;
+    v2 = v1[7];
+    v5 = a1;
   }
 
   if (v2 == 1)
   {
-    [*(a1 + 32) exitForTestInput:*(a1 + 40)];
+    a1 = [v1[4] exitForTestInput:v1[5]];
     v5 = v3;
   }
 
-  v6 = psy_log();
+  v6 = psy_log(a1);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = psy_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = psy_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [*(a1 + 32) serviceName];
-      v10 = [v5 psy_safeDescription];
+      v10 = [v1[4] serviceName];
+      v11 = [v5 psy_safeDescription];
       v14 = 138543874;
-      v15 = v9;
+      v15 = v10;
       v16 = 1024;
       v17 = v4;
       v18 = 2114;
-      v19 = v10;
-      _os_log_impl(&dword_25DF25000, v8, OS_LOG_TYPE_DEFAULT, "Service %{public}@ completed dry run with success: %d error: %{public}@", &v14, 0x1Cu);
+      v19 = v11;
+      _os_log_impl(&dword_25DF25000, v9, OS_LOG_TYPE_DEFAULT, "Service %{public}@ completed dry run with success: %d error: %{public}@", &v14, 0x1Cu);
     }
   }
 
-  (*(*(a1 + 48) + 16))();
-  v11 = *(a1 + 32);
-  v12 = *(v11 + 16);
-  *(v11 + 16) = 0;
-
-  v13 = *MEMORY[0x277D85DE8];
+  (*(v1[6] + 16))();
+  v12 = v1[4];
+  v13 = *(v12 + 16);
+  *(v12 + 16) = 0;
 }
 
 - (void)exitForTestInput:(id)input
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   inputCopy = input;
-  v4 = psy_log();
+  v4 = psy_log(inputCopy);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = psy_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = psy_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(inputCopy, "action")}];
-      v8 = 138543362;
-      v9 = v7;
-      _os_log_impl(&dword_25DF25000, v6, OS_LOG_TYPE_DEFAULT, "Exiting due to test input action: %{public}@", &v8, 0xCu);
+      v8 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(inputCopy, "action")}];
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_25DF25000, v7, OS_LOG_TYPE_DEFAULT, "Exiting due to test input action: %{public}@", &v9, 0xCu);
     }
   }
 
@@ -1457,11 +1445,10 @@ void __60__PSYSyncCoordinator_beginDryRunSyncWithOptions_completion___block_invo
 
 - (void)syncSessionForOptions:(void *)a1 supportsMigrationSync:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 134217984;
-  v5 = [a1 count];
-  _os_log_error_impl(&dword_25DF25000, a2, OS_LOG_TYPE_ERROR, "missing paired device. devices count: %tu", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = [a1 count];
+  _os_log_error_impl(&dword_25DF25000, a2, OS_LOG_TYPE_ERROR, "missing paired device. devices count: %tu", &v3, 0xCu);
 }
 
 @end

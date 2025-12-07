@@ -211,7 +211,7 @@ LABEL_16:
           v55 = info;
           if (info)
           {
-            [info auditToken];
+            objc_msgSend_auditToken(info);
           }
 
           else
@@ -1155,7 +1155,7 @@ void __129__SBApplicationDropSession__getUserActivityDropSessionWithUIDragDropSe
       v18 = v17;
       if (v17)
       {
-        [v17 auditToken];
+        objc_msgSend_auditToken(v17);
       }
 
       v19 = BSBundleIDForAuditToken();
@@ -1839,7 +1839,7 @@ void __120__SBApplicationDropSession__getURLDropSessionWithUIDragDropSession_dra
 {
   v1 = [OUTLINED_FUNCTION_3_29(a1) bundleIdentifier];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "SBAppDrop: Bound to an application without an icon: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "SBAppDrop: Bound to an application without an icon: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)initWithUIDragDropSession:(uint64_t)a1 systemSession:application:targetContentIdentifier:URL:requiresOpenInPlace:.cold.1(uint64_t a1)

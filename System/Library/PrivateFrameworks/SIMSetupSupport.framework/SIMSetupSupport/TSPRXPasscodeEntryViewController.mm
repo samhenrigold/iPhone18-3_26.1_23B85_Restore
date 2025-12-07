@@ -10,9 +10,9 @@
 - (TSPRXPasscodeEntryViewController)initWithBtDevice:(id)device passcodeType:(int)type
 {
   deviceCopy = device;
-  v22.receiver = self;
-  v22.super_class = TSPRXPasscodeEntryViewController;
-  v8 = [(TSPRXPasscodeEntryViewController *)&v22 init];
+  v23.receiver = self;
+  v23.super_class = TSPRXPasscodeEntryViewController;
+  v8 = [(TSPRXPasscodeEntryViewController *)&v23 init];
   v9 = v8;
   if (v8)
   {
@@ -26,47 +26,47 @@
     [(TSPRXPasscodeEntryViewController *)v9 setSubtitle:v13];
 
     [(TSPRXPasscodeEntryViewController *)v9 setDismissalType:3];
-    [(PRXPasscodeEntryViewController *)v9 setNumberOfDigits:6];
-    v14 = type + 1;
+    v14 = [(PRXPasscodeEntryViewController *)v9 setNumberOfDigits:6];
+    v15 = type + 1;
     if ((type + 1) <= 0xA)
     {
-      if (((1 << v14) & 0x7C1) != 0)
+      if (((1 << v15) & 0x7C1) != 0)
       {
-        v15 = _TSLogDomain();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v16 = _TSLogDomain(v14);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          [TSPRXPasscodeEntryViewController initWithBtDevice:type passcodeType:v15];
+          [TSPRXPasscodeEntryViewController initWithBtDevice:type passcodeType:v16];
         }
 
         goto LABEL_12;
       }
 
-      if (((1 << v14) & 0x24) != 0)
+      if (((1 << v15) & 0x24) != 0)
       {
-        v16 = v9;
-        v17 = 4;
+        v17 = v9;
+        v18 = 4;
 LABEL_11:
-        [(PRXPasscodeEntryViewController *)v16 setNumberOfDigits:v17];
+        [(PRXPasscodeEntryViewController *)v17 setNumberOfDigits:v18];
         goto LABEL_12;
       }
 
       if (type == 3)
       {
-        v16 = v9;
-        v17 = 8;
+        v17 = v9;
+        v18 = 8;
         goto LABEL_11;
       }
     }
 
 LABEL_12:
     objc_initWeak(&location, v9);
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __66__TSPRXPasscodeEntryViewController_initWithBtDevice_passcodeType___block_invoke;
-    v19[3] = &unk_279B45108;
-    objc_copyWeak(&v20, &location);
-    [(PRXPasscodeEntryViewController *)v9 setTextEntryCompletionHandler:v19];
-    objc_destroyWeak(&v20);
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __66__TSPRXPasscodeEntryViewController_initWithBtDevice_passcodeType___block_invoke;
+    v20[3] = &unk_279B45108;
+    objc_copyWeak(&v21, &location);
+    [(PRXPasscodeEntryViewController *)v9 setTextEntryCompletionHandler:v20];
+    objc_destroyWeak(&v21);
     objc_destroyWeak(&location);
   }
 
@@ -98,20 +98,19 @@ void __41__TSPRXPasscodeEntryViewController_retry__block_invoke(uint64_t a1)
 
 - (void)_handlePINCodeUpdate:(id)update
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   updateCopy = update;
-  v5 = _TSLogDomain();
+  v5 = _TSLogDomain(updateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
-    v8 = updateCopy;
-    v9 = 2080;
-    v10 = "[TSPRXPasscodeEntryViewController _handlePINCodeUpdate:]";
-    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "auth code = %@ @%s", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = updateCopy;
+    v8 = 2080;
+    v9 = "[TSPRXPasscodeEntryViewController _handlePINCodeUpdate:]";
+    _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "auth code = %@ @%s", &v6, 0x16u);
   }
 
   [(SSProximityDevice *)self->_btDevice verifyPIN:updateCopy];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (TSSIMSetupFlowDelegate)delegate
@@ -123,13 +122,12 @@ void __41__TSPRXPasscodeEntryViewController_retry__block_invoke(uint64_t a1)
 
 - (void)initWithBtDevice:(int)a1 passcodeType:(NSObject *)a2 .cold.1(int a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109378;
-  v3[1] = a1;
-  v4 = 2080;
-  v5 = "[TSPRXPasscodeEntryViewController initWithBtDevice:passcodeType:]";
-  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]unsupported passcode type : %d @%s", v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109378;
+  v2[1] = a1;
+  v3 = 2080;
+  v4 = "[TSPRXPasscodeEntryViewController initWithBtDevice:passcodeType:]";
+  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]unsupported passcode type : %d @%s", v2, 0x12u);
 }
 
 @end

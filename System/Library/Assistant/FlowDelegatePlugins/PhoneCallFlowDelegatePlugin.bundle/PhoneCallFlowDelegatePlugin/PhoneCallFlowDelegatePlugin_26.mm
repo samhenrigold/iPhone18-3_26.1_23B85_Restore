@@ -1,5108 +1,1727 @@
-uint64_t PhoneCallFlow.execute()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+Swift::Bool __swiftcall PhoneCallNLIntent.isGroupFaceTimeCall()()
 {
-  OUTLINED_FUNCTION_135();
-  v15 = *(v14 + 2344);
-  v16 = *(v14 + 2256);
-  v17 = *(v14 + 2224);
-  v18 = *(v14 + 2216);
+  OUTLINED_FUNCTION_24_3();
+  v1 = *(v0 + 128);
+  v2 = *(v1() + 16);
 
-  *(v14 + 2088) = *(v14 + 216);
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v14 + 2088, &_sShySSGMd, &_sShySSGMR);
-  *(v14 + 1920) = *(v14 + 224);
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v14 + 1920, &_sSSSgMd, &_sSSSgMR);
-  *(v14 + 2096) = *(v14 + 248);
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v14 + 2096, &_sShySSGMd, &_sShySSGMR);
-  __swift_destroy_boxed_opaque_existential_1((v14 + 976));
-  v19 = *(v17 + 8);
-  v20 = OUTLINED_FUNCTION_0();
-  v21(v20);
-  OUTLINED_FUNCTION_2_77();
-  v33 = v23;
-  v34 = v22;
+  OUTLINED_FUNCTION_20_0();
+  v3 = PhoneCallNLIntent.isFaceTimeCall()();
+  if (v2)
+  {
+    if (v3)
+    {
+      v4 = OUTLINED_FUNCTION_20_0();
+      v5 = (v1)(v4);
+      goto LABEL_6;
+    }
 
-  OUTLINED_FUNCTION_11();
-  OUTLINED_FUNCTION_15_11();
+    return 0;
+  }
 
-  return v25(v24, v25, v26, v27, v28, v29, v30, v31, a9, v33, v34, a12, a13, a14);
+  if (!v3)
+  {
+    return 0;
+  }
+
+  OUTLINED_FUNCTION_97_3();
+  v6 = OUTLINED_FUNCTION_20_0();
+  v5 = v7(v6);
+LABEL_6:
+  v8 = *(v5 + 16);
+
+  if (v8 > 1)
+  {
+    return 1;
+  }
+
+  v10 = OUTLINED_FUNCTION_20_0();
+  v12 = *(v11(v10) + 16);
+
+  return v12 != 0;
 }
 
+Swift::Bool __swiftcall PhoneCallNLIntent.isVideoCall()()
 {
-  OUTLINED_FUNCTION_135();
-  v15 = *(v14 + 2240);
-  v16 = *(v14 + 2224);
-  v17 = *(v14 + 2216);
-  v18 = *(v14 + 2136);
-  if (*(v14 + 2368))
+  OUTLINED_FUNCTION_24_3();
+  if (PhoneCallNLIntent.hasAnyFaceTime()() && (OUTLINED_FUNCTION_20_0(), !PhoneCallNLIntent.hasAudioCallSemantic()()))
   {
-    v19 = (v14 + 1856);
-    v20 = (v14 + 2016);
-    v21 = (v14 + 2040);
-    v22 = *(v14 + 2368);
-    static ExecuteResponse.complete(next:)();
+    OUTLINED_FUNCTION_20_0();
+    return !PhoneCallNLIntent.isFind()();
   }
 
   else
   {
-    v19 = (v14 + 1872);
-    v20 = (v14 + 2048);
-    v21 = (v14 + 2056);
-    static ExecuteResponse.complete()();
+    return 0;
   }
-
-  v23 = *(v14 + 160);
-
-  *v20 = *(v14 + 168);
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v20, &_sShySSGMd, &_sShySSGMR);
-  *v19 = *(v14 + 176);
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v19, &_sSSSgMd, &_sSSSgMR);
-  *v21 = *(v14 + 200);
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v21, &_sShySSGMd, &_sShySSGMR);
-  __swift_destroy_boxed_opaque_existential_1((v14 + 936));
-  v24 = *(v16 + 8);
-  v25 = OUTLINED_FUNCTION_0();
-  v26(v25);
-  OUTLINED_FUNCTION_2_77();
-  v38 = v28;
-  v39 = v27;
-
-  OUTLINED_FUNCTION_11();
-  OUTLINED_FUNCTION_15_11();
-
-  return v30(v29, v30, v31, v32, v33, v34, v35, v36, a9, v38, v39, a12, a13, a14);
 }
 
-void *static PhoneCallFlow.buildIntentTypeSequence(intentTypeName:)(uint64_t a1, void *a2)
+uint64_t PhoneCallNLIntent.isOutgoingCall()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t), uint64_t (*a5)(uint64_t))
 {
-  v35 = _swiftEmptyArrayStorage;
-
-  v4._countAndFlagsBits = a1;
-  v4._object = a2;
-  value = PhoneCallIntentClassNames.init(intentClassName:)(v4).value;
-  if ((value - 4) < 2)
+  OUTLINED_FUNCTION_24_3();
+  if (v6())
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
-    inited = swift_initStackObject();
-    *(inited + 16) = xmmword_424FF0;
-    if (one-time initialization token for emptyStartCallIntent != -1)
-    {
-      swift_once();
-    }
-
-    v7 = [static PhoneCallIntentClassNames.emptyStartCallIntent _className];
-    v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v10 = v9;
-
-    *(inited + 32) = v8;
-    *(inited + 40) = v10;
-    if (one-time initialization token for emptyStartAudioCallIntent != -1)
-    {
-      swift_once();
-    }
-
-    v11 = [static PhoneCallIntentClassNames.emptyStartAudioCallIntent _className];
-    v12 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v14 = v13;
-
-    *(inited + 48) = v12;
-    *(inited + 56) = v14;
-LABEL_13:
-    specialized Array.append<A>(contentsOf:)(inited);
-    return v35;
+    return 1;
   }
 
-  if (value == 6)
+  v7 = OUTLINED_FUNCTION_20_0();
+  if (a4(v7))
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
-    inited = swift_initStackObject();
-    *(inited + 16) = xmmword_426980;
-    if (one-time initialization token for emptyStartCallIntent != -1)
-    {
-      swift_once();
-    }
-
-    v15 = [static PhoneCallIntentClassNames.emptyStartCallIntent _className];
-    v16 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v18 = v17;
-
-    *(inited + 32) = v16;
-    *(inited + 40) = v18;
-    v19 = PhoneCallIntentClassNames.intentInstance.getter(6);
-    v20 = [v19 _className];
-
-    v21 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v23 = v22;
-
-    *(inited + 48) = v21;
-    *(inited + 56) = v23;
-    if (one-time initialization token for emptyStartAudioCallIntent != -1)
-    {
-      swift_once();
-    }
-
-    v24 = [static PhoneCallIntentClassNames.emptyStartAudioCallIntent _className];
-    v25 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v27 = v26;
-
-    *(inited + 64) = v25;
-    *(inited + 72) = v27;
-    goto LABEL_13;
+    return 1;
   }
 
-  specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-  v29 = v28;
-  v30 = *(v28 + 16);
-  v31 = v30 + 1;
-  if (v30 >= *(v28 + 24) >> 1)
-  {
-    specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-    v31 = v30 + 1;
-    v29 = v34;
-  }
+  v9 = OUTLINED_FUNCTION_20_0();
 
-  *(v29 + 16) = v31;
-  v32 = v29 + 16 * v30;
-  *(v32 + 32) = a1;
-  *(v32 + 40) = a2;
-  return v29;
+  return a5(v9);
 }
 
-uint64_t closure #3 in PhoneCallFlow.execute()(_BYTE *a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t *a6)
+Swift::Bool __swiftcall PhoneCallNLIntent.hasVideoCallSemantic()()
 {
-  v12 = type metadata accessor for PhoneCallFlow.State(0);
-  v13 = *(*(v12 - 8) + 64);
-  __chkstk_darwin(v12);
-  v15 = &v35[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  if (*a1)
+  OUTLINED_FUNCTION_61_6();
+  OUTLINED_FUNCTION_37_21();
+  v1 = *(v0 + 80);
+  v1();
+  OUTLINED_FUNCTION_69_9();
+  if (!v3)
   {
-    if (one-time initialization token for siriPhone != -1)
+    PhoneCallNoun.rawValue.getter(v2);
+    OUTLINED_FUNCTION_103_2();
+    if (v3)
     {
-      swift_once();
-    }
-
-    v16 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v16, static Logger.siriPhone);
-    v17 = Logger.logObject.getter();
-    v18 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v17, v18))
-    {
-      v19 = swift_slowAlloc();
-      *v19 = 0;
-      _os_log_impl(&dword_0, v17, v18, "#PhoneCallFlow Failed AppResolution postconditions", v19, 2u);
-    }
-
-    swift_storeEnumTagMultiPayload();
-    v20 = OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin13PhoneCallFlow_state;
-    swift_beginAccess();
-    v21 = a2 + v20;
-  }
-
-  else
-  {
-    if (one-time initialization token for siriPhone != -1)
-    {
-      swift_once();
-    }
-
-    v22 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v22, static Logger.siriPhone);
-    v23 = Logger.logObject.getter();
-    v24 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v23, v24))
-    {
-      v25 = swift_slowAlloc();
-      *v25 = 0;
-      _os_log_impl(&dword_0, v23, v24, "#PhoneCallFlow Passed AppResolution postconditions, proceed to RCH", v25, 2u);
-    }
-
-    v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow5InputV5input_09PhoneCallC14DelegatePlugin0fG8NLIntent_p05phonegJ0AE0fG16IntentClassNamesO08selectedL4NameAE12AnnotatedAppV08resolvedR0tMd, &_s11SiriKitFlow5InputV5input_09PhoneCallC14DelegatePlugin0fG8NLIntent_p05phonegJ0AE0fG16IntentClassNamesO08selectedL4NameAE12AnnotatedAppV08resolvedR0tMR);
-    v27 = v26[12];
-    v28 = v26[16];
-    v29 = &v15[v26[20]];
-    v30 = type metadata accessor for Input();
-    (*(*(v30 - 8) + 16))(v15, a3, v30);
-    outlined init with copy of SignalProviding(a4, &v15[v27]);
-    v15[v28] = a5;
-    v31 = *a6;
-    v38 = a6[1];
-    v32 = *(a6 + 2);
-    v37 = *(a6 + 1);
-    v36 = a6[5];
-    v29[1] = v37;
-    v29[2] = v32;
-    *v29 = *a6;
-    swift_storeEnumTagMultiPayload();
-    v33 = OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin13PhoneCallFlow_state;
-    swift_beginAccess();
-
-    outlined init with copy of PhoneCallFlowState<INHangUpCallIntent, INHangUpCallIntentResponse>(&v38, v35, &_sShySSGMd, &_sShySSGMR);
-    outlined init with copy of PhoneCallFlowState<INHangUpCallIntent, INHangUpCallIntentResponse>(&v37, v35, &_sSSSgMd, &_sSSSgMR);
-    outlined init with copy of PhoneCallFlowState<INHangUpCallIntent, INHangUpCallIntentResponse>(&v36, v35, &_sShySSGMd, &_sShySSGMR);
-    v21 = a2 + v33;
-  }
-
-  outlined assign with take of PhoneCallFlow.State(v15, v21);
-  return swift_endAccess();
-}
-
-void PhoneCallFlow.onAppResolutionComplete(originalInput:phoneCallNLIntent:intentType:)()
-{
-  OUTLINED_FUNCTION_66();
-  v2 = v1;
-  v4 = v3;
-  v6 = v5;
-  v8 = v7;
-  v9 = type metadata accessor for Input();
-  OUTLINED_FUNCTION_9_1();
-  v11 = v10;
-  v13 = *(v12 + 64);
-  __chkstk_darwin(v14);
-  v15 = &v20 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v11 + 16))(v15, v8, v9);
-  outlined init with copy of SignalProviding(v6, v21);
-  v16 = (*(v11 + 80) + 24) & ~*(v11 + 80);
-  v17 = (v13 + v16 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v18 = swift_allocObject();
-  *(v18 + 16) = v0;
-  (*(v11 + 32))(v18 + v16, v15, v9);
-  outlined init with take of SPHConversation(v21, v18 + v17);
-  v19 = (v18 + ((v17 + 47) & 0xFFFFFFFFFFFFFFF8));
-  *v19 = v4;
-  v19[1] = v2;
-
-  OUTLINED_FUNCTION_65();
-}
-
-void PhoneCallFlow.onAppResolutionComplete(input:phoneCallNLIntent:intentType:appResolutionFlowResult:)()
-{
-  OUTLINED_FUNCTION_66();
-  v1 = v0;
-  v3 = v2;
-  v5 = v4;
-  v7 = v6;
-  v73 = v8;
-  v9 = type metadata accessor for PhoneCallFlow.State(0);
-  v10 = OUTLINED_FUNCTION_23_1(v9);
-  v12 = *(v11 + 64);
-  __chkstk_darwin(v10);
-  OUTLINED_FUNCTION_4();
-  v15 = v14 - v13;
-  v16 = type metadata accessor for AppResolutionFlowResult();
-  OUTLINED_FUNCTION_9_1();
-  v18 = v17;
-  v20 = *(v19 + 64);
-  __chkstk_darwin(v21);
-  OUTLINED_FUNCTION_4();
-  v24 = (v23 - v22);
-  v25 = *(v18 + 16);
-  v26 = OUTLINED_FUNCTION_33_4();
-  v27(v26);
-  if ((*(v18 + 88))(v24, v16) == enum case for AppResolutionFlowResult.resolved(_:))
-  {
-    v71 = v7;
-    v72 = v3;
-    (*(v18 + 96))(v24, v16);
-    v28 = *v24;
-    if (one-time initialization token for siriPhone != -1)
-    {
-      OUTLINED_FUNCTION_6_2();
-    }
-
-    v29 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v29, static Logger.siriPhone);
-    OUTLINED_FUNCTION_19_7();
-
-    v30 = Logger.logObject.getter();
-    v31 = static os_log_type_t.debug.getter();
-
-    if (os_log_type_enabled(v30, v31))
-    {
-      OUTLINED_FUNCTION_42();
-      v32 = OUTLINED_FUNCTION_44_12();
-      v75[0] = v32;
-      *v5 = 136315138;
-      v74[0] = v28;
-      v33 = type metadata accessor for App();
-      OUTLINED_FUNCTION_14_43();
-      lazy protocol witness table accessor for type PhoneCallFlow and conformance PhoneCallFlow(v34, v35);
-      v36 = dispatch thunk of CustomStringConvertible.description.getter();
-      getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v36, v37, v75);
-      OUTLINED_FUNCTION_34_0();
-
-      *(v5 + 4) = v33;
-      _os_log_impl(&dword_0, v30, v31, "#PhoneCallFlow: resolved app: %s", v5, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1(v32);
-      OUTLINED_FUNCTION_26_0();
-      OUTLINED_FUNCTION_26_0();
-    }
-
-    v38 = v1[11];
-    __swift_project_boxed_opaque_existential_1(v1 + 7, v1[10]);
-    v39 = *(v38 + 152);
-    v40 = OUTLINED_FUNCTION_61();
-    v41(v40, v38);
-    v42 = v74[4];
-    __swift_project_boxed_opaque_existential_1(v74, v74[3]);
-    v43 = App.appIdentifier.getter();
-    (*(v42 + 16))(v75, v43);
-
-    v44 = v75[0];
-    if (v75[0])
-    {
-      v45 = v75[1];
-      v46 = v78;
-      v70 = v77;
-      v79 = v76;
-      __swift_destroy_boxed_opaque_existential_1(v74);
-      v68 = v45;
-      v80 = v45;
-      v81 = v76;
-      v69 = v46;
-      v82[0] = v46;
-
-      outlined init with copy of PhoneCallFlowState<INHangUpCallIntent, INHangUpCallIntentResponse>(&v80, v74, &_sShySSGMd, &_sShySSGMR);
-      outlined init with copy of PhoneCallFlowState<INHangUpCallIntent, INHangUpCallIntentResponse>(&v81, v74, &_sSSSgMd, &_sSSSgMR);
-      outlined init with copy of PhoneCallFlowState<INHangUpCallIntent, INHangUpCallIntentResponse>(v82, v74, &_sShySSGMd, &_sShySSGMR);
-      v47 = Logger.logObject.getter();
-      v48 = static os_log_type_t.debug.getter();
-
-      outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(&v80, &_sShySSGMd, &_sShySSGMR);
-      outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(&v81, &_sSSSgMd, &_sSSSgMR);
-      outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v82, &_sShySSGMd, &_sShySSGMR);
-      if (os_log_type_enabled(v47, v48))
-      {
-        OUTLINED_FUNCTION_42();
-        v49 = OUTLINED_FUNCTION_44_12();
-        v74[0] = v49;
-        _sSSSgMd = 136315138;
-        v50 = type metadata accessor for App();
-        OUTLINED_FUNCTION_14_43();
-        lazy protocol witness table accessor for type PhoneCallFlow and conformance PhoneCallFlow(v51, v52);
-        v53 = dispatch thunk of CustomStringConvertible.description.getter();
-        getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v53, v54, v74);
-        OUTLINED_FUNCTION_34_0();
-
-        *algn_5508E4 = v50;
-        OUTLINED_FUNCTION_62_13(&dword_0, v55, v56, "#PhoneCallFlow: Using cached annotated app: %s");
-        __swift_destroy_boxed_opaque_existential_1(v49);
-        OUTLINED_FUNCTION_26_0();
-        OUTLINED_FUNCTION_26_0();
-      }
-
-      v57 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow5InputV5input_09PhoneCallC14DelegatePlugin0fG8NLIntent_p05phonegJ0SS10intentTypeAE12AnnotatedAppV08resolvedO0tMd, &_s11SiriKitFlow5InputV5input_09PhoneCallC14DelegatePlugin0fG8NLIntent_p05phonegJ0SS10intentTypeAE12AnnotatedAppV08resolvedO0tMR);
-      v58 = v57[12];
-      v59 = (v15 + v57[16]);
-      v60 = v15 + v57[20];
-      v61 = type metadata accessor for Input();
-      OUTLINED_FUNCTION_23_1(v61);
-      (*(v62 + 16))(v15, v73);
-      outlined init with copy of SignalProviding(v71, v15 + v58);
-      *v59 = v5;
-      v59[1] = v72;
-      *v60 = v44;
-      *(v60 + 8) = v68;
-      *(v60 + 16) = v79;
-      *(v60 + 32) = v70;
-      *(v60 + 40) = v69;
-      swift_storeEnumTagMultiPayload();
-      v63 = OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin13PhoneCallFlow_state;
-      OUTLINED_FUNCTION_61_13();
+      v6 = v5 == 0xE800000000000000;
     }
 
     else
     {
-      __swift_destroy_boxed_opaque_existential_1(v74);
-      v65 = Logger.logObject.getter();
-      v66 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v65, v66))
-      {
-        v67 = OUTLINED_FUNCTION_65_0();
-        *v67 = 0;
-        _os_log_impl(&dword_0, v65, v66, "#PhoneCallFlow onAppResolutionComplete: can't find appId in the cache, return complete", v67, 2u);
-        OUTLINED_FUNCTION_26_0();
-      }
-
-      swift_storeEnumTagMultiPayload();
-      v63 = OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin13PhoneCallFlow_state;
-      OUTLINED_FUNCTION_61_13();
+      v6 = 0;
     }
 
-    outlined assign with take of PhoneCallFlow.State(v15, v1 + v63);
-    swift_endAccess();
+    if (!v6)
+    {
+      OUTLINED_FUNCTION_35_18(v4);
+    }
+  }
+
+  v7 = OUTLINED_FUNCTION_8_2();
+  v8(v7);
+  OUTLINED_FUNCTION_20_31();
+  if (!v3)
+  {
+    PhoneCallVerb.rawValue.getter(v9);
+    OUTLINED_FUNCTION_103_2();
+    if (v10)
+    {
+      v13 = v12 == 0xE800000000000000;
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+
+    if (!v13)
+    {
+      OUTLINED_FUNCTION_35_18(v11);
+    }
+  }
+
+  v14 = OUTLINED_FUNCTION_8_2();
+  (v1)(v14);
+  OUTLINED_FUNCTION_69_9();
+  if (!v3)
+  {
+    v16 = PhoneCallNoun.rawValue.getter(v15);
+    if (v16 != 0x61665F70756F7267 || v17 != 0xEE00656D69746563)
+    {
+      _stringCompareWithSmolCheck(_:_:expecting:)();
+    }
+  }
+
+  OUTLINED_FUNCTION_60_1();
+  return result;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.hasAudioCallSemantic()()
+{
+  OUTLINED_FUNCTION_61_6();
+  v2 = v1;
+  v4 = v3;
+  OUTLINED_FUNCTION_92_3();
+  (*(v5 + 80))();
+  OUTLINED_FUNCTION_69_9();
+  if (!v9)
+  {
+    v7 = PhoneCallNoun.rawValue.getter(v6);
+    v9 = v7 == v0 && v8 == 0xEE006F6964756120;
+    if (!v9)
+    {
+      _stringCompareWithSmolCheck(_:_:expecting:)();
+    }
+  }
+
+  (*(v2 + 104))(v4, v2);
+  OUTLINED_FUNCTION_20_31();
+  if (!v9)
+  {
+    v11 = PhoneCallVerb.rawValue.getter(v10);
+    if (v11 != v0 || v12 != 0xEE006F6964756120)
+    {
+      _stringCompareWithSmolCheck(_:_:expecting:)();
+    }
+  }
+
+  OUTLINED_FUNCTION_60_1();
+  return result;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isRedialOrCallBack()()
+{
+  OUTLINED_FUNCTION_24_3();
+  v0 = PhoneCallNLIntent.isRedial()();
+  OUTLINED_FUNCTION_20_0();
+  return (v0 | PhoneCallNLIntent.isCallBack()()) & 1;
+}
+
+uint64_t specialized Collection.firstIndex(where:)(uint64_t (*a1)(char *, uint64_t), uint64_t a2, uint64_t a3)
+{
+  v5 = 0;
+  v6 = *(a3 + 16);
+  v7 = a3 + 32;
+  while (1)
+  {
+    if (v6 == v5)
+    {
+      return 0;
+    }
+
+    v9 = *(v7 + v5);
+    result = a1(&v9, a2);
+    if (v3)
+    {
+      return result;
+    }
+
+    if (result)
+    {
+      break;
+    }
+
+    ++v5;
+  }
+
+  return v5;
+}
+
+void specialized Sequence<>.contains(_:)()
+{
+  OUTLINED_FUNCTION_66();
+  v3 = v2;
+  OUTLINED_FUNCTION_74_6();
+  v5 = *(v4 + 16);
+  v6 = (v4 + 32);
+  do
+  {
+    if (v5-- == 0)
+    {
+      break;
+    }
+
+    v8 = 0xE600000000000000;
+    v9 = v1;
+    switch(*v6)
+    {
+      case 1:
+        v8 = 0xE300000000000000;
+        v9 = OUTLINED_FUNCTION_53_18();
+        break;
+      case 2:
+        v9 = OUTLINED_FUNCTION_19_30();
+        break;
+      case 3:
+        v8 = 0xE700000000000000;
+        v9 = OUTLINED_FUNCTION_4_7();
+        break;
+      case 4:
+        v8 = 0xE800000000000000;
+        v9 = OUTLINED_FUNCTION_7_53();
+        break;
+      case 5:
+        v8 = 0xE800000000000000;
+        v9 = OUTLINED_FUNCTION_11_42() & 0xFFFFFFFFFFFFLL | 0x676E000000000000;
+        break;
+      case 6:
+        v8 = 0xE400000000000000;
+        v9 = OUTLINED_FUNCTION_110_3();
+        break;
+      case 7:
+        v8 = 0xE800000000000000;
+        v9 = OUTLINED_FUNCTION_6_59();
+        break;
+      case 8:
+        v8 = 0xE700000000000000;
+        v9 = OUTLINED_FUNCTION_9_52();
+        break;
+      case 9:
+        v8 = 0xE700000000000000;
+        v9 = OUTLINED_FUNCTION_5_64();
+        break;
+      case 0xA:
+        v9 = 0x646C6F486E6FLL;
+        break;
+      case 0xB:
+        v9 = OUTLINED_FUNCTION_12_46() & 0xFFFFFFFFFFFFLL | 0x676E000000000000;
+        v8 = 0xE900000000000065;
+        break;
+      case 0xC:
+        v9 = OUTLINED_FUNCTION_8_9();
+        v8 = 0xEC0000006C69616DLL;
+        break;
+      case 0xD:
+        v9 = OUTLINED_FUNCTION_54_18();
+        v8 = 0x8000000000453620;
+        break;
+      default:
+        break;
+    }
+
+    v10 = 0xE600000000000000;
+    v11 = v1;
+    switch(v3)
+    {
+      case 1:
+        v10 = 0xE300000000000000;
+        v11 = 7824750;
+        break;
+      case 2:
+        v11 = 0x746E65636572;
+        break;
+      case 3:
+        v10 = 0xE700000000000000;
+        v11 = 0x64657661736E75;
+        break;
+      case 4:
+        v10 = 0xE800000000000000;
+        v11 = 0x6465766965636572;
+        break;
+      case 5:
+        v10 = 0xE800000000000000;
+        v11 = 0x676E696F6774756FLL;
+        break;
+      case 6:
+        v10 = 0xE400000000000000;
+        OUTLINED_FUNCTION_101_3();
+        break;
+      case 7:
+        v10 = 0xE800000000000000;
+        v11 = 0x7373656E69737562;
+        break;
+      case 8:
+        v10 = 0xE700000000000000;
+        v11 = 0x746E6572727563;
+        break;
+      case 9:
+        v10 = 0xE700000000000000;
+        v11 = 0x676E69676E6972;
+        break;
+      case 10:
+        v11 = 0x646C6F486E6FLL;
+        break;
+      case 11:
+        v11 = 0x676E615265746164;
+        v10 = 0xE900000000000065;
+        break;
+      case 12:
+        v11 = 0x6563696F5677656ELL;
+        v10 = 0xEC0000006C69616DLL;
+        break;
+      case 13:
+        v11 = 0xD000000000000014;
+        v10 = 0x8000000000453620;
+        break;
+      default:
+        break;
+    }
+
+    if (v9 == v11 && v8 == v10)
+    {
+
+      break;
+    }
+
+    _stringCompareWithSmolCheck(_:_:expecting:)();
+    OUTLINED_FUNCTION_20_2();
+
+    ++v6;
+  }
+
+  while ((v0 & 1) == 0);
+  OUTLINED_FUNCTION_65();
+}
+
+BOOL specialized Sequence<>.contains(_:)(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 16);
+  v3 = (a2 + 32);
+  do
+  {
+    v4 = v2;
+    if (v2-- == 0)
+    {
+      break;
+    }
+
+    v6 = *v3++;
+  }
+
+  while (v6 != a1);
+  return v4 != 0;
+}
+
+void *PhoneCallNLIntent.getPersons()()
+{
+  OUTLINED_FUNCTION_41_21();
+  v1 = v0();
+  v2 = *(v1 + 16);
+  if (v2)
+  {
+    v6 = _swiftEmptyArrayStorage;
+    specialized ContiguousArray.reserveCapacity(_:)();
+    v3 = v1 + 32;
+    do
+    {
+      outlined init with copy of SharedGlobalsProviding();
+      OUTLINED_FUNCTION_86(v5);
+      SiriPhoneContact.toINPerson()();
+      __swift_destroy_boxed_opaque_existential_1(v5);
+      specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
+      specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
+      specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
+      specialized ContiguousArray._endMutation()();
+      v3 += 40;
+      --v2;
+    }
+
+    while (v2);
+
+    return v6;
   }
 
   else
   {
-    swift_storeEnumTagMultiPayload();
-    v64 = OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin13PhoneCallFlow_state;
-    swift_beginAccess();
-    outlined assign with take of PhoneCallFlow.State(v15, v1 + v64);
-    swift_endAccess();
-    (*(v18 + 8))(v24, v16);
+
+    return _swiftEmptyArrayStorage;
+  }
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isBusinessRedirectCall()()
+{
+  OUTLINED_FUNCTION_66();
+  OUTLINED_FUNCTION_57_15();
+  v2 = v1();
+  if (v2)
+  {
+    v3 = (v2 + 32);
+    v4 = *(v2 + 16);
+    while (2)
+    {
+      if (v4-- != 0)
+      {
+        v6 = 0xE600000000000000;
+        v7 = 0x64657373696DLL;
+        switch(*v3)
+        {
+          case 1:
+            v6 = 0xE300000000000000;
+            v7 = OUTLINED_FUNCTION_53_18();
+            goto LABEL_19;
+          case 2:
+            v7 = OUTLINED_FUNCTION_19_30();
+            goto LABEL_19;
+          case 3:
+            v6 = 0xE700000000000000;
+            v7 = OUTLINED_FUNCTION_4_7();
+            goto LABEL_19;
+          case 4:
+            v6 = 0xE800000000000000;
+            v7 = OUTLINED_FUNCTION_7_53();
+            goto LABEL_19;
+          case 5:
+            v6 = 0xE800000000000000;
+            v8 = OUTLINED_FUNCTION_11_42();
+            goto LABEL_15;
+          case 6:
+            v6 = 0xE400000000000000;
+            v7 = OUTLINED_FUNCTION_110_3();
+            goto LABEL_19;
+          case 7:
+            v6 = 0xE800000000000000;
+            v7 = OUTLINED_FUNCTION_6_59();
+            goto LABEL_19;
+          case 8:
+            v6 = 0xE700000000000000;
+            v7 = OUTLINED_FUNCTION_9_52();
+            goto LABEL_19;
+          case 9:
+            v6 = 0xE700000000000000;
+            v7 = OUTLINED_FUNCTION_5_64();
+            goto LABEL_19;
+          case 0xA:
+            v7 = OUTLINED_FUNCTION_13_41();
+            goto LABEL_19;
+          case 0xB:
+            v6 = 0xE900000000000065;
+            v8 = OUTLINED_FUNCTION_12_46();
+LABEL_15:
+            v7 = v8 & 0xFFFFFFFFFFFFLL | 0x676E000000000000;
+            goto LABEL_19;
+          case 0xC:
+            v6 = 0xEC0000006C69616DLL;
+            v7 = 0x6563696F5677656ELL;
+            goto LABEL_19;
+          case 0xD:
+
+            break;
+          default:
+LABEL_19:
+            OUTLINED_FUNCTION_79_6(v7, v6, 0xD000000000000014);
+            OUTLINED_FUNCTION_62_15();
+            ++v3;
+            if (v0)
+            {
+              break;
+            }
+
+            continue;
+        }
+      }
+
+      break;
+    }
   }
 
   OUTLINED_FUNCTION_65();
+  return result;
 }
 
-uint64_t PhoneCallFlow.publishUnsupportedOutput(unsupportedReason:input:intentName:app:)(uint64_t a1, char a2, uint64_t a3, char a4, uint64_t a5)
+Swift::Bool __swiftcall PhoneCallNLIntent.isEmergencyContactCall()()
 {
-  *(v6 + 616) = v5;
-  *(v6 + 608) = a5;
-  *(v6 + 688) = a2;
-  *(v6 + 600) = a1;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow25DucTemplatingLocalContextVSgMd, &_s11SiriKitFlow25DucTemplatingLocalContextVSgMR);
-  OUTLINED_FUNCTION_21(v10);
-  v12 = *(v11 + 64);
-  *(v6 + 624) = OUTLINED_FUNCTION_45();
-  v13 = type metadata accessor for Locale();
-  *(v6 + 632) = v13;
-  OUTLINED_FUNCTION_13_2(v13);
-  *(v6 + 640) = v14;
-  v16 = *(v15 + 64);
-  *(v6 + 648) = OUTLINED_FUNCTION_45();
-  v17 = type metadata accessor for DialogPhase();
-  OUTLINED_FUNCTION_21(v17);
-  v19 = *(v18 + 64);
-  *(v6 + 656) = OUTLINED_FUNCTION_45();
-  v20 = type metadata accessor for CATOption();
-  OUTLINED_FUNCTION_21(v20);
-  v22 = *(v21 + 64);
-  *(v6 + 664) = OUTLINED_FUNCTION_45();
-  v23 = swift_task_alloc();
-  *(v6 + 672) = v23;
-  *v23 = v6;
-  v23[1] = PhoneCallFlow.publishUnsupportedOutput(unsupportedReason:input:intentName:app:);
-
-  return static PhoneCallRequestSupportPolicy.getSiriKitIntent(forIntent:input:app:sharedGlobals:)(a4, a3, a5, v5 + 56);
-}
-
-uint64_t PhoneCallFlow.publishUnsupportedOutput(unsupportedReason:input:intentName:app:)()
-{
-  OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_28();
-  OUTLINED_FUNCTION_13_1();
-  *v2 = v1;
-  v4 = *(v3 + 672);
-  *v2 = *v0;
-  *(v1 + 680) = v5;
-
-  v6 = OUTLINED_FUNCTION_10();
-
-  return _swift_task_switch(v6, v7, v8);
-}
-
-{
-  v74 = v0;
-  v1 = *(v0 + 680);
-  v65 = v1;
-  v2 = *(v0 + 664);
-  v3 = *(v0 + 656);
-  v72 = *(v0 + 648);
-  v61 = *(v0 + 640);
-  v62 = *(v0 + 632);
-  v64 = *(v0 + 624);
-  v66 = *(v0 + 616);
-  v57 = *(v0 + 608);
-  v59 = *(v0 + 688);
-  v68 = *(v0 + 600);
-  outlined init with copy of SignalProviding((v66 + 7), v0 + 64);
-  type metadata accessor for UnsupportedFlowCATs();
-  v67 = v1;
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_49_5();
-  v71 = CATWrapper.__allocating_init(options:globals:)();
-  type metadata accessor for SearchCallHistoryCATs();
-  OUTLINED_FUNCTION_99();
-  OUTLINED_FUNCTION_49_5();
-  v69 = CATWrapper.__allocating_init(options:globals:)();
-  type metadata accessor for UnsupportedFlowCATsSimple();
-  OUTLINED_FUNCTION_99();
-  OUTLINED_FUNCTION_49_5();
-  v70 = CATWrapperSimple.__allocating_init(options:globals:)();
-  v4 = type metadata accessor for ResponseFactory();
-  OUTLINED_FUNCTION_41_1(v4);
-  v5 = ResponseFactory.init()();
-  v56 = type metadata accessor for AppInfoBuilder();
-  v6 = OUTLINED_FUNCTION_79();
-  type metadata accessor for PhoneCallDisplayTextCATsSimple();
-  OUTLINED_FUNCTION_99();
-  OUTLINED_FUNCTION_49_5();
-  v63 = CATWrapperSimple.__allocating_init(options:globals:)();
-  v7 = type metadata accessor for UnsupportedCallFlowOutputFactory();
-  v8 = OUTLINED_FUNCTION_41_1(v7);
-  *(v0 + 128) = v4;
-  *(v0 + 136) = &protocol witness table for ResponseFactory;
-  *(v0 + 104) = v5;
-  *(v0 + 168) = &type metadata for LabelTemplatesProvider;
-  *(v0 + 176) = &protocol witness table for LabelTemplatesProvider;
-  v9 = swift_allocObject();
-  *(v0 + 144) = v9;
-  *(v9 + 16) = 0u;
-  *(v9 + 32) = 0u;
-  *(v0 + 208) = v56;
-  *(v0 + 216) = &protocol witness table for AppInfoBuilder;
-  *(v0 + 184) = v6;
-
-  static DialogPhase.completion.getter();
-  OutputGenerationManifest.init(dialogPhase:_:)();
-  *(v8 + 24) = v59;
-  *(v8 + 32) = v71;
-  *(v8 + 40) = v70;
-  *(v8 + 16) = v69;
-  v60 = v8;
-  outlined init with copy of SignalProviding(v0 + 104, v8 + 48);
-  outlined init with copy of SignalProviding(v0 + 64, v8 + 88);
-  *(v8 + 128) = v57;
-  outlined init with copy of SignalProviding(v0 + 64, v0 + 264);
-  outlined init with copy of SignalProviding(v0 + 144, v0 + 304);
-  type metadata accessor for PhoneCallDisplayTextCATs();
-  OUTLINED_FUNCTION_19_7();
-
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_49_5();
-  v10 = CATWrapper.__allocating_init(options:globals:)();
-  type metadata accessor for PhoneCallCommonCATs();
-  OUTLINED_FUNCTION_99();
-  v11 = CATWrapper.__allocating_init(options:globals:)();
-  v12 = OUTLINED_FUNCTION_79();
-  type metadata accessor for StartCallCATs();
-  OUTLINED_FUNCTION_99();
-  OUTLINED_FUNCTION_49_5();
-  v13 = CATWrapper.__allocating_init(options:globals:)();
-  v58 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin0aB24BaseCatTemplatingServiceCySo8INIntentCSo0J8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0aB24BaseCatTemplatingServiceCySo8INIntentCSo0J8ResponseCGMR);
-  v14 = OUTLINED_FUNCTION_41_1(v58);
-  *(v0 + 368) = v56;
-  *(v0 + 376) = &protocol witness table for AppInfoBuilder;
-  *(v0 + 344) = v12;
-  v15 = (v14 + *(*v14 + class metadata base offset for PhoneCallBaseCatTemplatingService + 16));
-  *v15 = 0x3D65737561705C1BLL;
-  v15[1] = 0xEC0000005C303532;
-  v16 = OUTLINED_FUNCTION_40_9(v14);
-  v19 = v16 + *(v18 + v17 + 56);
-  *v19 = 0u;
-  *(v19 + 1) = 0u;
-  *(v19 + 4) = 0;
-  OUTLINED_FUNCTION_40_9(v16);
-  outlined init with copy of SignalProviding(v0 + 264, v14 + *(v21 + v20 + 72));
-  v22 = *(v0 + 288);
-  v23 = *(v0 + 296);
-  __swift_project_boxed_opaque_existential_1((v0 + 264), v22);
-  (*(v23 + 8))(v22, v23);
-  OUTLINED_FUNCTION_70_0();
-  v25 = *(v24 + class metadata base offset for PhoneCallBaseCatTemplatingService + 40);
-  outlined init with take of SPHConversation((v0 + 384), v14 + v25);
-  OUTLINED_FUNCTION_70_0();
-  *(v14 + *(v26 + class metadata base offset for PhoneCallBaseCatTemplatingService + 24)) = v10;
-  OUTLINED_FUNCTION_70_0();
-  *(v14 + *(v28 + v27 + 32)) = v11;
-  OUTLINED_FUNCTION_70_0();
-  outlined init with copy of SignalProviding(v0 + 344, v14 + *(v30 + v29 + 48));
-  OUTLINED_FUNCTION_70_0();
-  outlined init with copy of SignalProviding(v0 + 304, v14 + *(v31 + class metadata base offset for PhoneCallBaseCatTemplatingService + 64));
-  OUTLINED_FUNCTION_70_0();
-  *(v14 + *(v32 + class metadata base offset for PhoneCallBaseCatTemplatingService + 80)) = v13;
-  outlined init with copy of SignalProviding(v14 + v25, v0 + 424);
-  v33 = *(v0 + 456);
-  __swift_project_boxed_opaque_existential_1((v0 + 424), *(v0 + 448));
-  OUTLINED_FUNCTION_5();
-
-  dispatch thunk of DeviceState.siriLocale.getter();
-  *(v0 + 544) = Locale.identifier.getter();
-  *(v0 + 552) = v34;
-  *(v0 + 560) = 45;
-  *(v0 + 568) = 0xE100000000000000;
-  *(v0 + 576) = 95;
-  *(v0 + 584) = 0xE100000000000000;
-  lazy protocol witness table accessor for type String and conformance String();
-  StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
-  (*(v61 + 8))(v72, v62);
-
-  type metadata accessor for INIntentSlotValueType(0);
-  lazy protocol witness table accessor for type PhoneCallFlow and conformance PhoneCallFlow(&lazy protocol witness table cache variable for type INIntentSlotValueType and conformance INIntentSlotValueType, type metadata accessor for INIntentSlotValueType);
-  Dictionary.init(dictionaryLiteral:)();
-  v36 = *(v0 + 288);
-  v35 = *(v0 + 296);
-  __swift_project_boxed_opaque_existential_1((v0 + 264), v36);
-  (*(v35 + 24))(v73, v36, v35);
-  outlined init with copy of SignalProviding(v14 + v25, v0 + 464);
-  v37 = type metadata accessor for DucTemplatingLocalContext();
-  __swift_storeEnumTagSinglePayload(v64, 1, 1, v37);
-  DucTemplatingService.init(ducFamily:locale:extensionValueTypeNamesByValueType:aceServiceInvoker:deviceState:localContext:)();
-  OUTLINED_FUNCTION_19_7();
-
-  __swift_destroy_boxed_opaque_existential_1((v0 + 304));
-  __swift_destroy_boxed_opaque_existential_1((v0 + 344));
-  __swift_destroy_boxed_opaque_existential_1((v0 + 424));
-  __swift_destroy_boxed_opaque_existential_1((v0 + 264));
-  *(v0 + 248) = v58;
-  *(v0 + 256) = &protocol witness table for PhoneCallBaseCatTemplatingService<A, B>;
-
-  *(v0 + 224) = v14;
-  __swift_destroy_boxed_opaque_existential_1((v0 + 64));
-  __swift_destroy_boxed_opaque_existential_1((v0 + 144));
-  __swift_destroy_boxed_opaque_existential_1((v0 + 104));
-  outlined init with take of SPHConversation((v0 + 224), v60 + 136);
-  *(v60 + 176) = v65;
-  outlined init with take of SPHConversation((v0 + 184), v60 + 192);
-  *(v60 + 184) = v63;
-  v38 = v66[10];
-  v39 = v66[11];
-  OUTLINED_FUNCTION_8_52(v66 + 7);
-  v41 = *(v40 + 16);
-  v42 = OUTLINED_FUNCTION_4_3();
-  v43(v42);
-  v44 = *(v0 + 40);
-  v45 = *(v0 + 56);
-  __swift_project_boxed_opaque_existential_1((v0 + 16), v44);
-  *(v0 + 528) = v44;
-  *(v0 + 536) = v45;
-  __swift_allocate_boxed_opaque_existential_1((v0 + 504));
-  v46 = *(*(v44 - 8) + 16);
-  OUTLINED_FUNCTION_28_2();
-  v51(v47, v48, v49, v50);
-  v52 = type metadata accessor for SimpleOutputFlowAsync();
-  OUTLINED_FUNCTION_41_1(v52);
-
-  v53 = SimpleOutputFlowAsync.init(outputPublisher:outputGenerator:)();
-  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
-  *(v0 + 592) = v53;
-  static ExecuteResponse.complete<A>(next:)();
-
-  OUTLINED_FUNCTION_11();
-
-  return v54();
-}
-
-uint64_t closure #1 in PhoneCallFlow.publishUnsupportedOutput(unsupportedReason:input:intentName:app:)(uint64_t a1, uint64_t a2)
-{
-  v4 = *(*a2 + 224);
-  v8 = (v4 + *v4);
-  v5 = v4[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = closure #2 in ActionableCallControlFlow.execute();
-
-  return v8(a1);
-}
-
-uint64_t PhoneCallFlow.chooseRCHFlow(input:phoneCallNLIntent:intentName:resolvedApp:)()
-{
-  OUTLINED_FUNCTION_15();
-  *(v1 + 136) = v2;
-  *(v1 + 144) = v0;
-  *(v1 + 216) = v3;
-  *(v1 + 120) = v4;
-  *(v1 + 128) = v5;
-  v6 = type metadata accessor for CATOption();
-  OUTLINED_FUNCTION_21(v6);
-  v8 = *(v7 + 64);
-  *(v1 + 152) = OUTLINED_FUNCTION_45();
-  v9 = type metadata accessor for Parse();
-  *(v1 + 160) = v9;
-  OUTLINED_FUNCTION_13_2(v9);
-  *(v1 + 168) = v10;
-  v12 = *(v11 + 64) + 15;
-  *(v1 + 176) = swift_task_alloc();
-  *(v1 + 184) = swift_task_alloc();
-  v13 = OUTLINED_FUNCTION_10();
-
-  return _swift_task_switch(v13, v14, v15);
-}
-
-{
-  v1 = *(v0 + 184);
-  v2 = *(v0 + 160);
-  v3 = *(v0 + 168);
-  v4 = *(v0 + 120);
-  Input.parse.getter();
-  v5 = *(v3 + 88);
-  v6 = OUTLINED_FUNCTION_55();
-  v8 = v7(v6);
-  if (v8 != enum case for Parse.NLv3IntentOnly(_:))
+  OUTLINED_FUNCTION_41_21();
+  v2();
+  OUTLINED_FUNCTION_99_2();
+  if (v0)
   {
-    v19 = v8;
-    v20 = enum case for Parse.NLv4IntentOnly(_:);
-    v21 = enum case for Parse.uso(_:);
-    v22 = enum case for Parse.ifClientAction(_:);
-    v23 = *(*(v0 + 168) + 8);
-    (v23)(*(v0 + 184), *(v0 + 160));
-    if (v19 == v20 || v19 == v21 || v19 == v22)
+    OUTLINED_FUNCTION_96_3();
+    while (1)
     {
-      v26 = *(v0 + 176);
-      v27 = *(v0 + 160);
-      v29 = *(v0 + 136);
-      v28 = *(v0 + 144);
-      v30 = *(v0 + 120);
-      v31 = *(v0 + 128);
-      v32 = *(v0 + 216);
-      Input.parse.getter();
-      static PhoneCallRequestSupportPolicy.getFlowFromParse(parse:intentTypeName:resolvedApp:phoneCallNLIntent:sharedGlobals:)(v26, v32, *v29, v31, (v28 + 56));
-      v33 = OUTLINED_FUNCTION_4_3();
-      v23(v33);
-    }
-
-    v35 = *(v0 + 176);
-    v34 = *(v0 + 184);
-    v36 = *(v0 + 152);
-
-    OUTLINED_FUNCTION_17_5();
-    OUTLINED_FUNCTION_16();
-
-    __asm { BRAA            X2, X16 }
-  }
-
-  v9 = *(v0 + 144);
-  *(v0 + 192) = **(v0 + 136);
-  v10 = swift_task_alloc();
-  *(v0 + 200) = v10;
-  *v10 = v0;
-  v10[1] = PhoneCallFlow.chooseRCHFlow(input:phoneCallNLIntent:intentName:resolvedApp:);
-  v11 = *(v0 + 120);
-  v12 = *(v0 + 216);
-  OUTLINED_FUNCTION_16();
-
-  return static PhoneCallRequestSupportPolicy.getSiriKitIntent(forIntent:input:app:sharedGlobals:)(v13, v14, v15, v16);
-}
-
-{
-  OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_28();
-  OUTLINED_FUNCTION_13_1();
-  *v2 = v1;
-  v4 = *(v3 + 200);
-  *v2 = *v0;
-  *(v1 + 208) = v5;
-
-  v6 = OUTLINED_FUNCTION_10();
-
-  return _swift_task_switch(v6, v7, v8);
-}
-
-void PhoneCallFlow.chooseRCHFlow(input:phoneCallNLIntent:intentName:resolvedApp:)()
-{
-  v2 = *(v0 + 208);
-  if (v2)
-  {
-    v3 = *(v0 + 192);
-    v4 = *(v0 + 144);
-    v5 = v2;
-    static PhoneCallFlowFactory.makeRCHFlow(app:intent:sharedGlobals:)();
-    if (v6)
-    {
-      v7 = v6;
-      v8 = *(v0 + 144);
-      v9 = *(v0 + 120);
-      v10 = *(v0 + 128);
-
-      dispatch thunk of AnyFlow.on(input:)();
-
-      outlined init with copy of SignalProviding(v10, v0 + 16);
-      LOBYTE(v9) = static PhoneCallRequestSupportPolicy.isHomePodPersonalRequest(intent:sharedGlobals:nlIntent:)(v5, (v8 + 56), v0 + 16);
-      outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v0 + 16, &_s27PhoneCallFlowDelegatePlugin0aB8NLIntent_pSgMd, &_s27PhoneCallFlowDelegatePlugin0aB8NLIntent_pSgMR);
-      if (v9)
+      OUTLINED_FUNCTION_95_3();
+      if (v4)
       {
-        v11 = *(v0 + 184);
-        v12 = *(v0 + 160);
-        v13 = *(v0 + 168);
-        outlined init with copy of SignalProviding(*(v0 + 144) + 56, v0 + 56);
-        type metadata accessor for PhoneCallActivityNotificationFlow();
-        swift_allocObject();
-        OUTLINED_FUNCTION_40_0();
-
-        *(v0 + 112) = PhoneCallActivityNotificationFlow.init(_:sharedGlobals:)(v14, (v0 + 56));
-        lazy protocol witness table accessor for type PhoneCallFlow and conformance PhoneCallFlow(&lazy protocol witness table cache variable for type PhoneCallActivityNotificationFlow and conformance PhoneCallActivityNotificationFlow, type metadata accessor for PhoneCallActivityNotificationFlow);
-        Flow.eraseToAnyFlow()();
-
-        v15 = *(v13 + 8);
-        v16 = OUTLINED_FUNCTION_33_4();
-        v17(v16);
+        break;
       }
 
-      else
+      OUTLINED_FUNCTION_85_4();
+      v5 = OUTLINED_FUNCTION_1_83(v10);
+      v7 = SiriPhoneContact.getEmergencyType()(v5, v6);
+      if (v8 != 3)
       {
-        if (one-time initialization token for siriPhone != -1)
+        if (!v8)
         {
-          OUTLINED_FUNCTION_6_2();
+          outlined consume of PhoneCallEmergencyType?(v7, 0);
+
+          __swift_destroy_boxed_opaque_existential_1(v10);
+          return 1;
         }
 
-        v27 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v27, static Logger.siriPhone);
+        outlined consume of PhoneCallEmergencyType?(v7, v8);
+      }
 
-        v28 = Logger.logObject.getter();
-        v29 = static os_log_type_t.debug.getter();
+      ++v1;
+      __swift_destroy_boxed_opaque_existential_1(v10);
+      OUTLINED_FUNCTION_94_6();
+      if (v9)
+      {
+        goto LABEL_9;
+      }
+    }
 
-        if (os_log_type_enabled(v28, v29))
+    __break(1u);
+  }
+
+  else
+  {
+LABEL_9:
+
+    return 0;
+  }
+
+  return result;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isFaceTimeCall()()
+{
+  OUTLINED_FUNCTION_24_3();
+  if (PhoneCallNLIntent.hasAnyFaceTime()())
+  {
+    return 1;
+  }
+
+  v1 = OUTLINED_FUNCTION_20_0();
+  v2(v1);
+  OUTLINED_FUNCTION_69_9();
+  if (v4)
+  {
+    return 0;
+  }
+
+  PhoneCallNoun.rawValue.getter(v3);
+  OUTLINED_FUNCTION_78_8();
+  if (v4)
+  {
+    v7 = v6 == 0xEE00656D69746563;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  if (v7)
+  {
+
+    return 1;
+  }
+
+  OUTLINED_FUNCTION_61_15(v5);
+  OUTLINED_FUNCTION_33_2();
+  return 1;
+}
+
+void PhoneCallNLIntent.shouldResetRequest(previousNLIntent:)()
+{
+  OUTLINED_FUNCTION_66();
+  v1 = v0;
+  v3 = v2;
+  OUTLINED_FUNCTION_9_1();
+  v5 = v4;
+  __chkstk_darwin(v6);
+  v8 = &v55 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9);
+  v11 = &v55 - v10;
+  outlined init with copy of PhoneCallNLIntent?(v12, &v57);
+  if (v58)
+  {
+    outlined init with take of PhoneCallFeatureFlagProviding(&v57, v60);
+    v58 = v3;
+    v59 = v1;
+    __swift_allocate_boxed_opaque_existential_1(&v57);
+    v13 = *(v5 + 16);
+    OUTLINED_FUNCTION_77_9();
+    v13();
+    v14 = OUTLINED_FUNCTION_91_6();
+    v16 = static PhoneCallNLIntent.isAppModified(previousNLIntent:currentNLIntent:)(v14, v15);
+    __swift_destroy_boxed_opaque_existential_1(&v57);
+    if (v16)
+    {
+      if (one-time initialization token for siriPhone != -1)
+      {
+        OUTLINED_FUNCTION_0_6();
+        swift_once();
+      }
+
+      v17 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v17, static Logger.siriPhone);
+      OUTLINED_FUNCTION_91_6();
+      outlined init with copy of SharedGlobalsProviding();
+      OUTLINED_FUNCTION_77_9();
+      v13();
+      v18 = Logger.logObject.getter();
+      v19 = static os_log_type_t.debug.getter();
+      if (os_log_type_enabled(v18, v19))
+      {
+        v20 = swift_slowAlloc();
+        v21 = swift_slowAlloc();
+        v56 = v21;
+        *v20 = 136315394;
+        v22 = v59;
+        v23 = OUTLINED_FUNCTION_86(&v57);
+        v24 = PhoneCallNLIntent.applicationId.getter(v23, v22);
+        if (v25)
         {
-          OUTLINED_FUNCTION_42();
-          v30 = OUTLINED_FUNCTION_44_12();
-          v52 = v30;
-          *v1 = 136315138;
-          *(v0 + 104) = v7;
-          type metadata accessor for AnyFlow();
-          lazy protocol witness table accessor for type PhoneCallFlow and conformance PhoneCallFlow(&lazy protocol witness table cache variable for type AnyFlow and conformance AnyFlow, &type metadata accessor for AnyFlow);
-          v31 = dispatch thunk of CustomStringConvertible.description.getter();
-          v33 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v31, v32, &v52);
-
-          *(v1 + 4) = v33;
-          OUTLINED_FUNCTION_62_13(&dword_0, v34, v35, "#PhoneCallFlow .appResolutionComplete, returning flow: %s");
-          __swift_destroy_boxed_opaque_existential_1(v30);
-          OUTLINED_FUNCTION_26_0();
-          OUTLINED_FUNCTION_26_0();
-        }
-
-        v36 = v5;
-        v37 = Logger.logObject.getter();
-        v38 = static os_log_type_t.debug.getter();
-
-        if (os_log_type_enabled(v37, v38))
-        {
-          v39 = OUTLINED_FUNCTION_42();
-          v40 = swift_slowAlloc();
-          v52 = v40;
-          *v39 = 136315138;
-          v41 = v36;
-          v42 = [v41 description];
-          v43 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v45 = v44;
-
-          v46 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v43, v45, &v52);
-
-          *(v39 + 4) = v46;
-          _os_log_impl(&dword_0, v37, v38, "#PhoneCallFlow .appResolutionComplete, for intent: %s", v39, 0xCu);
-          __swift_destroy_boxed_opaque_existential_1(v40);
-          OUTLINED_FUNCTION_26_0();
-          OUTLINED_FUNCTION_26_0();
+          v26 = v24;
         }
 
         else
         {
+          v26 = 7104878;
         }
 
-        (*(*(v0 + 168) + 8))(*(v0 + 184), *(v0 + 160));
+        if (v25)
+        {
+          v27 = v25;
+        }
+
+        else
+        {
+          v27 = 0xE300000000000000;
+        }
+
+        __swift_destroy_boxed_opaque_existential_1(&v57);
+        v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v26, v27, &v56);
+
+        *(v20 + 4) = v28;
+        *(v20 + 12) = 2080;
+        v29 = PhoneCallNLIntent.applicationId.getter(v3, v1);
+        if (v30)
+        {
+          v31 = v29;
+        }
+
+        else
+        {
+          v31 = 7104878;
+        }
+
+        if (v30)
+        {
+          v32 = v30;
+        }
+
+        else
+        {
+          v32 = 0xE300000000000000;
+        }
+
+        (*(v5 + 8))(v11, v3);
+        v33 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v31, v32, &v56);
+
+        *(v20 + 14) = v33;
+        _os_log_impl(&dword_0, v18, v19, "#PhoneCallNLIntent applicationId is changed from %s to %s, set shouldResetRequest as true", v20, 0x16u);
+        swift_arrayDestroy();
+        OUTLINED_FUNCTION_26_0(v21);
+        OUTLINED_FUNCTION_26_0(v20);
+
+LABEL_35:
+        v44 = v60;
+        goto LABEL_36;
       }
 
-LABEL_15:
-      v48 = *(v0 + 176);
-      v47 = *(v0 + 184);
-      v49 = *(v0 + 152);
-
-      OUTLINED_FUNCTION_17_5();
-      OUTLINED_FUNCTION_16();
-
-      __asm { BRAA            X2, X16 }
+      (*(v5 + 8))(v11, v3);
+      goto LABEL_30;
     }
+
+    v58 = v3;
+    v59 = v1;
+    __swift_allocate_boxed_opaque_existential_1(&v57);
+    OUTLINED_FUNCTION_77_9();
+    v13();
+    OUTLINED_FUNCTION_91_6();
+    static PhoneCallNLIntent.isPhoneCallVerbModified(previousNLIntent:currentNLIntent:)();
+    v35 = v34;
+    __swift_destroy_boxed_opaque_existential_1(&v57);
+    if (v35)
+    {
+      if (one-time initialization token for siriPhone != -1)
+      {
+        OUTLINED_FUNCTION_0_6();
+        swift_once();
+      }
+
+      v36 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v36, static Logger.siriPhone);
+      OUTLINED_FUNCTION_91_6();
+      outlined init with copy of SharedGlobalsProviding();
+      OUTLINED_FUNCTION_77_9();
+      v13();
+      v37 = Logger.logObject.getter();
+      v38 = static os_log_type_t.debug.getter();
+      if (os_log_type_enabled(v37, v38))
+      {
+        v39 = swift_slowAlloc();
+        v55 = swift_slowAlloc();
+        v56 = v55;
+        *v39 = 136315394;
+        v41 = v58;
+        v40 = v59;
+        __swift_project_boxed_opaque_existential_1(&v57, v58);
+        (*(v40 + 104))(v41, v40);
+        OUTLINED_FUNCTION_20_31();
+        if (v43)
+        {
+          v47 = 0xE300000000000000;
+          v45 = 7104878;
+        }
+
+        else
+        {
+          v45 = PhoneCallVerb.rawValue.getter(v42);
+          v47 = v46;
+        }
+
+        __swift_destroy_boxed_opaque_existential_1(&v57);
+        v48 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v45, v47, &v56);
+
+        *(v39 + 4) = v48;
+        *(v39 + 12) = 2080;
+        (*(v1 + 104))(v3, v1);
+        OUTLINED_FUNCTION_20_31();
+        if (v43)
+        {
+          v52 = 0xE300000000000000;
+          v50 = 7104878;
+        }
+
+        else
+        {
+          v50 = PhoneCallVerb.rawValue.getter(v49);
+          v52 = v51;
+        }
+
+        (*(v5 + 8))(v8, v3);
+        v53 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v50, v52, &v56);
+
+        *(v39 + 14) = v53;
+        _os_log_impl(&dword_0, v37, v38, "#PhoneCallNLIntent phoneCallVerb is changed from %s to %s, set shouldResetRequest as true", v39, 0x16u);
+        v54 = v55;
+        swift_arrayDestroy();
+        OUTLINED_FUNCTION_26_0(v54);
+        OUTLINED_FUNCTION_26_0(v39);
+
+        goto LABEL_35;
+      }
+
+      (*(v5 + 8))(v8, v3);
+LABEL_30:
+      __swift_destroy_boxed_opaque_existential_1(v60);
+      v44 = &v57;
+LABEL_36:
+      __swift_destroy_boxed_opaque_existential_1(v44);
+      goto LABEL_37;
+    }
+
+    __swift_destroy_boxed_opaque_existential_1(v60);
   }
 
-  v18 = *(v0 + 184);
-  v19 = *(v0 + 160);
-  v20 = *(v0 + 168);
-  v22 = *(v0 + 144);
-  v21 = *(v0 + 152);
-  type metadata accessor for StartCallCATsSimple();
-  static CATOption.defaultMode.getter();
-  v23 = CATWrapperSimple.__allocating_init(options:globals:)();
-  v24 = static CommonOutputs.genericError(sharedGlobals:startCallCATsSimple:)((v22 + 56), v23);
+  else
+  {
+    outlined destroy of PhoneCallApp?(&v57, &_s27PhoneCallFlowDelegatePlugin0aB8NLIntent_pSgMd);
+  }
 
-  v26 = (*(*v24 + 112))(v25);
-
-  *(v0 + 96) = v26;
-  type metadata accessor for SimpleOutputFlowAsync();
-  Flow.eraseToAnyFlow()();
-
-  (*(v20 + 8))(v18, v19);
-  goto LABEL_15;
-}
-
-void PhoneCallFlow.selfLogging(input:phoneCallNLIntent:intentTypeName:resolvedApp:)()
-{
-  OUTLINED_FUNCTION_66();
-  v3 = v2;
-  v33 = v4;
-  v34 = v5;
-  v7 = v6;
-  v9 = v8;
-  type metadata accessor for Input();
-  OUTLINED_FUNCTION_51_17();
-  v32[0] = v10;
-  OUTLINED_FUNCTION_9_1();
-  v12 = v11;
-  v14 = *(v13 + 64);
-  __chkstk_darwin(v15);
-  v16 = v32 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v18 = OUTLINED_FUNCTION_21(v17);
-  v20 = *(v19 + 64);
-  __chkstk_darwin(v18);
-  v22 = v32 - v21;
-  static TaskPriority.utility.getter();
-  v23 = type metadata accessor for TaskPriority();
-  __swift_storeEnumTagSinglePayload(v22, 0, 1, v23);
-  (*(v12 + 16))(v16, v9, v0);
-  v24 = *(v3 + 8);
-  v32[1] = *v3;
-  v38 = v24;
-  v37 = *(v3 + 16);
-  v36 = *(v3 + 40);
-  outlined init with copy of SignalProviding(v7, v35);
-  v25 = (*(v12 + 80) + 56) & ~*(v12 + 80);
-  v26 = (v14 + v25 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v27 = swift_allocObject();
-  *(v27 + 2) = 0;
-  *(v27 + 3) = 0;
-  v28 = v33;
-  v29 = v34;
-  *(v27 + 4) = v1;
-  *(v27 + 5) = v28;
-  *(v27 + 6) = v29;
-  (*(v12 + 32))(&v27[v25], v16, v32[0]);
-  v30 = &v27[v26];
-  v31 = *(v3 + 16);
-  *v30 = *v3;
-  *(v30 + 1) = v31;
-  *(v30 + 2) = *(v3 + 32);
-  outlined init with take of SPHConversation(v35, &v27[(v26 + 55) & 0xFFFFFFFFFFFFFFF8]);
-
-  outlined init with copy of PhoneCallFlowState<INHangUpCallIntent, INHangUpCallIntentResponse>(&v38, v35, &_sShySSGMd, &_sShySSGMR);
-  outlined init with copy of PhoneCallFlowState<INHangUpCallIntent, INHangUpCallIntentResponse>(&v37, v35, &_sSSSgMd, &_sSSSgMR);
-  outlined init with copy of PhoneCallFlowState<INHangUpCallIntent, INHangUpCallIntentResponse>(&v36, v35, &_sShySSGMd, &_sShySSGMR);
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5();
+LABEL_37:
   OUTLINED_FUNCTION_65();
 }
 
-uint64_t closure #1 in PhoneCallFlow.selfLogging(input:phoneCallNLIntent:intentTypeName:resolvedApp:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+Swift::Bool __swiftcall PhoneCallNLIntent.isEmergencyNumberCall()()
 {
-  v8[47] = a8;
-  v8[48] = v21;
-  v8[45] = a6;
-  v8[46] = a7;
-  v8[43] = a4;
-  v8[44] = a5;
-  v9 = type metadata accessor for Parse();
-  v8[49] = v9;
-  v10 = *(v9 - 8);
-  v8[50] = v10;
-  v11 = *(v10 + 64) + 15;
-  v8[51] = swift_task_alloc();
-  v12 = type metadata accessor for TaskFlowType();
-  v8[52] = v12;
-  v13 = *(v12 - 8);
-  v8[53] = v13;
-  v14 = *(v13 + 64) + 15;
-  v8[54] = swift_task_alloc();
-  v15 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow04TaskC13ConfigurationVSgMd, &_s11SiriKitFlow04TaskC13ConfigurationVSgMR) - 8) + 64) + 15;
-  v8[55] = swift_task_alloc();
-  v16 = type metadata accessor for TaskFlowConfiguration();
-  v8[56] = v16;
-  v17 = *(v16 - 8);
-  v8[57] = v17;
-  v18 = *(v17 + 64) + 15;
-  v8[58] = swift_task_alloc();
-  v8[59] = swift_task_alloc();
-
-  return _swift_task_switch(closure #1 in PhoneCallFlow.selfLogging(input:phoneCallNLIntent:intentTypeName:resolvedApp:), 0, 0);
-}
-
-uint64_t closure #1 in PhoneCallFlow.selfLogging(input:phoneCallNLIntent:intentTypeName:resolvedApp:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
-{
-  OUTLINED_FUNCTION_135();
-  v15 = v14[43];
-  v16 = v15[16];
-  __swift_project_boxed_opaque_existential_1(v15 + 12, v15[15]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
-  v17 = swift_allocObject();
-  v14[60] = v17;
-  *(v17 + 16) = xmmword_424FF0;
-  v18 = [objc_allocWithZone(INStartCallIntent) init];
-  v19 = [v18 _className];
-
-  v20 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v22 = v21;
-
-  *(v17 + 32) = v20;
-  *(v17 + 40) = v22;
-  v23 = [objc_allocWithZone(INStartAudioCallIntent) init];
-  v24 = [v23 _className];
-
-  v25 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v27 = v26;
-
-  *(v17 + 48) = v25;
-  *(v17 + 56) = v27;
-  v28 = *(v16 + 16);
-  v40 = v28 + *v28;
-  v29 = v28[1];
-  v30 = swift_task_alloc();
-  v14[61] = v30;
-  *v30 = v14;
-  v30[1] = closure #1 in PhoneCallFlow.selfLogging(input:phoneCallNLIntent:intentTypeName:resolvedApp:);
-  OUTLINED_FUNCTION_15_11();
-
-  return v34(v31, v32, v33, v34, v35, v36, v37, v38, a9, v16 + 16, v40, a12, a13, a14);
-}
-
-uint64_t closure #1 in PhoneCallFlow.selfLogging(input:phoneCallNLIntent:intentTypeName:resolvedApp:)()
-{
-  OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_28();
-  OUTLINED_FUNCTION_13_1();
-  *v2 = v1;
-  v4 = *(v3 + 488);
-  v5 = *(v3 + 480);
-  v6 = *v0;
-  OUTLINED_FUNCTION_4_2();
-  *v7 = v6;
-  *(v9 + 496) = v8;
-
-  v10 = OUTLINED_FUNCTION_10();
-
-  return _swift_task_switch(v10, v11, v12);
-}
-
-{
-  v87 = v0;
-  v1 = *(v0 + 496);
-  v3 = *(v0 + 352);
-  v2 = *(v0 + 360);
-  v4 = *(v0 + 344);
-  v5 = v4[20];
-  v6 = v4[21];
-  __swift_project_boxed_opaque_existential_1(v4 + 17, v5);
-  OUTLINED_FUNCTION_57_13();
-  v8 = (*(v7 + 8))(v1, v5, v6);
-
-  v9._countAndFlagsBits = v3;
-  v9._object = v2;
-  v10.value = PhoneCallIntentClassNames.init(intentClassName:)(v9).value;
-  if (v10.value != PhoneCallFlowDelegatePlugin_PhoneCallIntentClassNames_unknownDefault)
+  OUTLINED_FUNCTION_41_21();
+  v2();
+  OUTLINED_FUNCTION_99_2();
+  if (v0)
   {
-    v84 = v8;
-    v85 = PhoneCallIntentClassNames.intentInstance.getter(v10.value);
-    v11 = _sSo8INIntentC27PhoneCallFlowDelegatePluginE5typed2asxSgxm_tABRbzlFSo07INStartC6IntentC_Ttg5();
-    if (v11)
+    OUTLINED_FUNCTION_96_3();
+    while (1)
     {
-      v12 = *(v0 + 440);
-      v13 = *(v0 + 448);
-      v15 = *(v0 + 424);
-      v14 = *(v0 + 432);
-      v16 = *(v0 + 416);
-      v18 = *(v0 + 352);
-      v17 = *(v0 + 360);
-
-      *v14 = 5;
-      (*(v15 + 104))(v14, enum case for TaskFlowType.longDurationTask(_:), v16);
-
-      TaskFlowConfiguration.init(taskName:taskType:)();
-      if (__swift_getEnumTagSinglePayload(v12, 1, v13) == 1)
+      OUTLINED_FUNCTION_95_3();
+      if (v4)
       {
-        outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(*(v0 + 440), &_s11SiriKitFlow04TaskC13ConfigurationVSgMd, &_s11SiriKitFlow04TaskC13ConfigurationVSgMR);
+        break;
       }
 
-      else
+      OUTLINED_FUNCTION_85_4();
+      v5 = OUTLINED_FUNCTION_1_83(v10);
+      v7 = SiriPhoneContact.getEmergencyType()(v5, v6);
+      if (v8 != 3)
       {
-        (*(*(v0 + 456) + 32))(*(v0 + 472), *(v0 + 440), *(v0 + 448));
-        if (one-time initialization token for siriPhone != -1)
+        if (v8 == 2)
         {
-          OUTLINED_FUNCTION_6_2();
+          outlined consume of PhoneCallEmergencyType?(v7, 2uLL);
+
+          __swift_destroy_boxed_opaque_existential_1(v10);
+          return 1;
         }
 
-        v19 = *(v0 + 360);
-        v20 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v20, static Logger.siriPhone);
-        OUTLINED_FUNCTION_5();
+        outlined consume of PhoneCallEmergencyType?(v7, v8);
+      }
 
-        v21 = Logger.logObject.getter();
-        v22 = static os_log_type_t.debug.getter();
-
-        if (os_log_type_enabled(v21, v22))
-        {
-          v24 = *(v0 + 352);
-          v23 = *(v0 + 360);
-          v25 = OUTLINED_FUNCTION_42();
-          v26 = swift_slowAlloc();
-          v86 = v26;
-          *v25 = 136315138;
-          *(v25 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v24, v23, &v86);
-          _os_log_impl(&dword_0, v21, v22, "#PhoneCallFlow task flow configuration instrumentation with intentTypeName: %s", v25, 0xCu);
-          __swift_destroy_boxed_opaque_existential_1(v26);
-          OUTLINED_FUNCTION_26_0();
-          OUTLINED_FUNCTION_26_0();
-        }
-
-        v28 = *(v0 + 464);
-        v27 = *(v0 + 472);
-        v29 = *(v0 + 448);
-        v30 = *(v0 + 456);
-        v31 = *(v0 + 344);
-        v32 = v31[11];
-        __swift_project_boxed_opaque_existential_1(v31 + 7, v31[10]);
-        v33 = *(v32 + 40);
-        v34 = OUTLINED_FUNCTION_19_7();
-        v35(v34, v32);
-        v36 = *(v0 + 208);
-        __swift_project_boxed_opaque_existential_1((v0 + 176), *(v0 + 200));
-        type metadata accessor for SiriKitEvent();
-        OUTLINED_FUNCTION_40_17();
-        (*(v37 + 16))(v28, v27, v29);
-        SiriKitEvent.__allocating_init(taskFlowConfiguration:_:)();
-        dispatch thunk of SiriKitEventSending.send(_:)();
-
-        v38 = *(v30 + 8);
-        v39 = OUTLINED_FUNCTION_55();
-        v40(v39);
-        __swift_destroy_boxed_opaque_existential_1((v0 + 176));
+      ++v1;
+      __swift_destroy_boxed_opaque_existential_1(v10);
+      OUTLINED_FUNCTION_94_6();
+      if (v9)
+      {
+        goto LABEL_9;
       }
     }
 
-    v42 = *(v0 + 400);
-    v41 = *(v0 + 408);
-    v43 = *(v0 + 392);
-    v44 = *(v0 + 368);
-    Input.parse.getter();
-    v45 = *(v42 + 88);
-    v46 = OUTLINED_FUNCTION_55();
-    v48 = v47(v46);
-    v50 = *(v0 + 400);
-    v49 = *(v0 + 408);
-    v51 = *(v0 + 384);
-    v52 = *(v0 + 376);
-    v53 = *(v0 + 344);
-    if (v48 == enum case for Parse.NLv4IntentOnly(_:) || v48 == enum case for Parse.uso(_:))
-    {
-      (*(v50 + 8))(*(v0 + 408), *(v0 + 392));
-      v55 = v53[10];
-      v56 = v53[11];
-      OUTLINED_FUNCTION_8_52(v53 + 7);
-      v58 = *(v57 + 40);
-      v59 = OUTLINED_FUNCTION_4_3();
-      v60(v59);
-      v82 = *(v0 + 128);
-      __swift_project_boxed_opaque_existential_1((v0 + 96), *(v0 + 120));
-      type metadata accessor for SiriKitEvent();
-      v61 = [v85 typeName];
-      static String._unconditionallyBridgeFromObjectiveC(_:)();
-
-      v62 = *v52;
-      *(v0 + 296) = v52[1];
-      *(v0 + 232) = *(v52 + 1);
-      *(v0 + 304) = v52[5];
-      outlined init with copy of SignalProviding(v51, v0 + 136);
-      v63 = swift_allocObject();
-      OUTLINED_FUNCTION_37_19(v63);
-      outlined init with take of SPHConversation((v0 + 136), v51 + 64);
-      *(v51 + 104) = v84;
-      *(v51 + 112) = v53;
-
-      outlined init with copy of PhoneCallFlowState<INHangUpCallIntent, INHangUpCallIntentResponse>(v0 + 296, v0 + 328, &_sShySSGMd, &_sShySSGMR);
-      outlined init with copy of PhoneCallFlowState<INHangUpCallIntent, INHangUpCallIntentResponse>(v0 + 232, v0 + 264, &_sSSSgMd, &_sSSSgMR);
-      outlined init with copy of PhoneCallFlowState<INHangUpCallIntent, INHangUpCallIntentResponse>(v0 + 304, v0 + 336, &_sShySSGMd, &_sShySSGMR);
-
-      SiriKitEvent.__allocating_init(stateType:taskType:statusReason:_:)();
-      dispatch thunk of SiriKitEventSending.send(_:)();
-
-      __swift_destroy_boxed_opaque_existential_1((v0 + 96));
-    }
-
-    else
-    {
-      v64 = v53[10];
-      v65 = v53[11];
-      v81 = *(v0 + 408);
-      v83 = *(v0 + 392);
-      OUTLINED_FUNCTION_8_52(v53 + 7);
-      v67 = *(v66 + 40);
-      v68 = OUTLINED_FUNCTION_4_3();
-      v69(v68);
-      v80 = *(v0 + 48);
-      __swift_project_boxed_opaque_existential_1((v0 + 16), *(v0 + 40));
-      type metadata accessor for SiriKitEvent();
-      v70 = [v85 typeName];
-      static String._unconditionallyBridgeFromObjectiveC(_:)();
-
-      v71 = *v52;
-      *(v0 + 280) = v52[1];
-      *(v0 + 216) = *(v52 + 1);
-      *(v0 + 288) = v52[5];
-      outlined init with copy of SignalProviding(v51, v0 + 56);
-      v72 = swift_allocObject();
-      OUTLINED_FUNCTION_37_19(v72);
-      outlined init with take of SPHConversation((v0 + 56), v51 + 64);
-      *(v51 + 104) = v84;
-      *(v51 + 112) = v53;
-
-      outlined init with copy of PhoneCallFlowState<INHangUpCallIntent, INHangUpCallIntentResponse>(v0 + 280, v0 + 312, &_sShySSGMd, &_sShySSGMR);
-      outlined init with copy of PhoneCallFlowState<INHangUpCallIntent, INHangUpCallIntentResponse>(v0 + 216, v0 + 248, &_sSSSgMd, &_sSSSgMR);
-      outlined init with copy of PhoneCallFlowState<INHangUpCallIntent, INHangUpCallIntentResponse>(v0 + 288, v0 + 320, &_sShySSGMd, &_sShySSGMR);
-      OUTLINED_FUNCTION_28_2();
-      SiriKitEvent.__allocating_init(stateType:taskType:statusReason:_:)();
-      dispatch thunk of SiriKitEventSending.send(_:)();
-
-      __swift_destroy_boxed_opaque_existential_1((v0 + 16));
-      (*(v50 + 8))(v81, v83);
-    }
-  }
-
-  v74 = *(v0 + 464);
-  v73 = *(v0 + 472);
-  v76 = *(v0 + 432);
-  v75 = *(v0 + 440);
-  v77 = *(v0 + 408);
-
-  OUTLINED_FUNCTION_11();
-
-  return v78();
-}
-
-uint64_t closure #2 in closure #1 in PhoneCallFlow.selfLogging(input:phoneCallNLIntent:intentTypeName:resolvedApp:)(uint64_t *a1, uint64_t *a2, void *a3, uint64_t a4, void *a5, char a6)
-{
-  v10 = *a1;
-  v11 = *a2;
-
-  dispatch thunk of SiriKitEvent.SiriKitEventBuilder.app.setter();
-  v12 = a5[10];
-  v13 = a5[11];
-  __swift_project_boxed_opaque_existential_1(a5 + 7, v12);
-  (*(v13 + 120))(v22, v12, v13);
-  v14 = v23;
-  v15 = v24;
-  v16 = __swift_project_boxed_opaque_existential_1(v22, v23);
-  v17 = specialized static PhoneDomainContextMetricsUtils.populatePhoneDomainContext(phoneCallNLIntent:contextNLType:app:resolvedSiriKitContacts:callStateProvider:)(a3, a6, v11, _swiftEmptyArrayStorage, v16, v14, v15);
-  v18 = v17;
-  if (v17)
-  {
-    v19 = [v17 phoneCallContext];
-    if (v19)
-    {
-      v20 = v19;
-      [v19 setUserPersona:a4];
-      [v18 setPhoneCallContext:v20];
-    }
-  }
-
-  __swift_destroy_boxed_opaque_existential_1(v22);
-  return dispatch thunk of SiriKitEvent.SiriKitEventBuilder.domainContext.setter();
-}
-
-uint64_t *PhoneCallFlow.deinit()
-{
-  __swift_destroy_boxed_opaque_existential_1(v0 + 2);
-  __swift_destroy_boxed_opaque_existential_1(v0 + 7);
-  __swift_destroy_boxed_opaque_existential_1(v0 + 12);
-  __swift_destroy_boxed_opaque_existential_1(v0 + 17);
-  v1 = v0[22];
-
-  outlined destroy of PhoneCallFlow.State(v0 + OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin13PhoneCallFlow_state);
-  return v0;
-}
-
-uint64_t PhoneCallFlow.__deallocating_deinit()
-{
-  PhoneCallFlow.deinit();
-  v1 = *(*v0 + 48);
-  v2 = *(*v0 + 52);
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t protocol witness for Flow.execute() in conformance PhoneCallFlow(uint64_t a1)
-{
-  v4 = *(**v1 + 208);
-  v8 = (v4 + *v4);
-  v5 = v4[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = closure #2 in ActionableCallControlFlow.execute();
-
-  return v8(a1);
-}
-
-uint64_t protocol witness for Flow.exitValue.getter in conformance PhoneCallFlow(uint64_t a1, uint64_t a2)
-{
-  v3 = type metadata accessor for PhoneCallFlow(0);
-
-  return Flow<>.exitValue.getter(v3, a2);
-}
-
-uint64_t specialized PhoneAppResolutionHelper.init(sharedGlobals:eligibleAppsFinder:smartAppSelection:phoneAppResolutionLogger:appUsageProvider:appResolver:)(uint64_t *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v14 = type metadata accessor for EligibleAppFinder();
-  v51[3] = v14;
-  v51[4] = &protocol witness table for EligibleAppFinder;
-  v51[0] = a2;
-  v15 = (a7 + OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin24PhoneAppResolutionHelper_logPrefix);
-  *v15 = type metadata accessor for PhoneAppResolutionHelper();
-  v15[1] = &outlined read-only object #0 of specialized PhoneAppResolutionHelper.init(sharedGlobals:eligibleAppsFinder:smartAppSelection:phoneAppResolutionLogger:appUsageProvider:appResolver:);
-  v15[2] = 0;
-  v15[3] = 0;
-  outlined init with copy of SignalProviding(a1, a7 + 56);
-  outlined init with copy of SignalProviding(v51, a7 + 16);
-  v16 = OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin24PhoneAppResolutionHelper_appResolver;
-  v17 = type metadata accessor for AppResolver();
-  v18 = *(v17 - 8);
-  (*(v18 + 16))(&v16[a7], a6, v17);
-  *(a7 + 144) = a5;
-  if (a3)
-  {
-
-    v19 = a3;
+    __break(1u);
   }
 
   else
   {
-    outlined init with copy of SignalProviding(a1, __src);
-    objc_opt_self();
-    OUTLINED_FUNCTION_61();
+LABEL_9:
 
-    v20 = [v16 clientWithIdentifier:112];
-    type metadata accessor for TrialSmartAppSelectionConfigProvider();
-    v21 = swift_allocObject();
-    *(v21 + 16) = v20;
-    type metadata accessor for DiagnosticLogPermission();
-    v22 = OUTLINED_FUNCTION_79();
-    type metadata accessor for SmartAppSelectionFeatureManager();
-    swift_allocObject();
-    v19 = SmartAppSelectionFeatureManager.init(sharedGlobals:trialSmartAppSelectionConfigProvider:diagnosticLogPermission:)(__src, v21, v22);
+    return 0;
   }
 
-  *(a7 + 96) = v19;
-  outlined init with copy of PhoneCallFlowState<INHangUpCallIntent, INHangUpCallIntentResponse>(a4, &v48, &_s27PhoneCallFlowDelegatePlugin0A20AppResolutionLogging_pSgMd, &_s27PhoneCallFlowDelegatePlugin0A20AppResolutionLogging_pSgMR);
-  if (v49)
-  {
+  return result;
+}
 
-    (*(v18 + 8))(a6, v17);
-    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(a4, &_s27PhoneCallFlowDelegatePlugin0A20AppResolutionLogging_pSgMd, &_s27PhoneCallFlowDelegatePlugin0A20AppResolutionLogging_pSgMR);
-    __swift_destroy_boxed_opaque_existential_1(a1);
-    __swift_destroy_boxed_opaque_existential_1(v51);
-    outlined init with take of SPHConversation(&v48, __src);
-    v23 = __src;
+Swift::Bool __swiftcall PhoneCallNLIntent.isEmergencyServicesCall()()
+{
+  OUTLINED_FUNCTION_107_3();
+  v31 = v0;
+  v32 = v1;
+  v3 = v2;
+  v5 = v4;
+  OUTLINED_FUNCTION_41_21();
+  v7 = v6();
+  v8 = v7;
+  v9 = *(v7 + 16);
+  if (v9)
+  {
+    v10 = 0;
+    v11 = v7 + 32;
+    while (v10 < *(v8 + 16))
+    {
+      outlined init with copy of SharedGlobalsProviding();
+      v12 = v30;
+      v13 = OUTLINED_FUNCTION_86(&v29);
+      v14 = SiriPhoneContact.getEmergencyType()(v13, v12);
+      if (v15 != 3)
+      {
+        if (v15 == 1)
+        {
+          v16 = 1;
+          outlined consume of PhoneCallEmergencyType?(v14, 1uLL);
+
+          __swift_destroy_boxed_opaque_existential_1(&v29);
+          goto LABEL_10;
+        }
+
+        outlined consume of PhoneCallEmergencyType?(v14, v15);
+      }
+
+      ++v10;
+      __swift_destroy_boxed_opaque_existential_1(&v29);
+      v11 += 40;
+      if (v9 == v10)
+      {
+        goto LABEL_8;
+      }
+    }
+
+    __break(1u);
+LABEL_27:
+    OUTLINED_FUNCTION_0_6();
+    swift_once();
+    goto LABEL_22;
+  }
+
+LABEL_8:
+
+  v16 = 0;
+LABEL_10:
+  (*(v3 + 72))(v5, v3);
+  OUTLINED_FUNCTION_56_8();
+  if (v18)
+  {
+    if (!v16)
+    {
+      goto LABEL_25;
+    }
   }
 
   else
   {
-    v38 = a6;
-    v39 = a4;
-
-    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(&v48, &_s27PhoneCallFlowDelegatePlugin0A20AppResolutionLogging_pSgMd, &_s27PhoneCallFlowDelegatePlugin0A20AppResolutionLogging_pSgMR);
-    v40 = a1;
-    outlined init with copy of SignalProviding(a1, v45);
-    v24 = [objc_opt_self() sharedAnalytics];
-    v37 = [v24 defaultMessageStream];
-
-    if (one-time initialization token for instance != -1)
+    PhoneCallDestinationType.rawValue.getter(v17);
+    OUTLINED_FUNCTION_27_22();
+    if (v18)
     {
-      OUTLINED_FUNCTION_60_2();
-    }
-
-    v43 = v14;
-    v44 = &protocol witness table for EligibleAppFinder;
-    *&v42 = static EligibleAppFinder.instance;
-    v49 = &type metadata for PhoneAppResolutionLogger;
-    v50 = &protocol witness table for PhoneAppResolutionLogger;
-    OUTLINED_FUNCTION_50_15();
-    v25 = swift_allocObject();
-    *&v48 = v25;
-    v27 = v46;
-    v26 = v47;
-    __swift_project_boxed_opaque_existential_1(v45, v46);
-    v28 = *(v26 + 112);
-
-    if (v28(v27, v26))
-    {
-      v29 = CurrentRequest.executionRequestId.getter();
-      v31 = v30;
+      v21 = v20 == 0xE900000000000079;
     }
 
     else
     {
-      v29 = 0;
-      v31 = 0;
+      v21 = 0;
     }
 
-    __src[0] = v29;
-    __src[1] = v31;
-    __src[2] = v37;
-    outlined init with copy of SignalProviding(v45, &__src[3]);
-    v32 = v47;
-    __swift_project_boxed_opaque_existential_1(v45, v46);
-    v33 = *(v32 + 216);
-    v34 = OUTLINED_FUNCTION_61();
-    v35(v34, v32);
-    outlined init with take of SPHConversation(&v42, &__src[13]);
-    memcpy((v25 + 16), __src, 0x90uLL);
+    if (v21)
+    {
+    }
 
-    (*(v18 + 8))(v38, v17);
-    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v39, &_s27PhoneCallFlowDelegatePlugin0A20AppResolutionLogging_pSgMd, &_s27PhoneCallFlowDelegatePlugin0A20AppResolutionLogging_pSgMR);
-    __swift_destroy_boxed_opaque_existential_1(v40);
-    __swift_destroy_boxed_opaque_existential_1(v51);
-    __swift_destroy_boxed_opaque_existential_1(v45);
-    v23 = &v48;
+    else
+    {
+      OUTLINED_FUNCTION_111_4(v19, v3, 0x636E656772656D65, 121);
+      OUTLINED_FUNCTION_33_2();
+    }
   }
 
-  outlined init with take of SPHConversation(v23, a7 + 104);
-  return a7;
-}
-
-uint64_t specialized PhoneCallFlow.__allocating_init(input:sharedGlobals:appFinder:eligibleAppsFinder:)(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v14 = type metadata accessor for PhoneCallFlow.State(0);
-  v15 = *(*(v14 - 8) + 64);
-  __chkstk_darwin(v14);
-  v17 = &v28[-((v16 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
-  v31[3] = a6;
-  v31[4] = a7;
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v31);
-  (*(*(a6 - 8) + 32))(boxed_opaque_existential_1, a4, a6);
-  v19 = type metadata accessor for Input();
-  v20 = *(v19 - 8);
-  (*(v20 + 16))(v17, a1, v19);
-  swift_storeEnumTagMultiPayload();
-  outlined init with copy of SignalProviding(a2, v30);
-  outlined init with copy of SignalProviding(a3, v29);
-  outlined init with copy of SignalProviding(v31, v28);
-  v21 = (*(a5 + 184))(v17, v30, v29, v28);
   if (one-time initialization token for siriPhone != -1)
   {
-    swift_once();
+    goto LABEL_27;
   }
 
+LABEL_22:
   v22 = type metadata accessor for Logger();
   __swift_project_value_buffer(v22, static Logger.siriPhone);
   v23 = Logger.logObject.getter();
   v24 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v23, v24))
+  if (OUTLINED_FUNCTION_10_0(v24))
   {
     v25 = swift_slowAlloc();
     *v25 = 0;
-    _os_log_impl(&dword_0, v23, v24, "#PhoneCallFlow state is initialized.", v25, 2u);
+    OUTLINED_FUNCTION_33(&dword_0, v26, v27, "#PhoneCallNLIntent EmergencyServices intent");
+    OUTLINED_FUNCTION_26_0(v25);
   }
 
-  __swift_destroy_boxed_opaque_existential_1(a3);
-  __swift_destroy_boxed_opaque_existential_1(a2);
-  (*(v20 + 8))(a1, v19);
-  __swift_destroy_boxed_opaque_existential_1(v31);
-  return v21;
+LABEL_25:
+  OUTLINED_FUNCTION_106_1();
+  return result;
 }
 
-uint64_t outlined init with copy of PhoneCallFlow.State(uint64_t a1, uint64_t a2)
+Swift::Bool __swiftcall PhoneCallNLIntent.isAnswerCall()()
 {
-  v4 = type metadata accessor for PhoneCallFlow.State(0);
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t specialized PhoneCallFlow.init(state:sharedGlobals:appFinder:eligibleAppsFinder:)(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v18[3] = a6;
-  v18[4] = a7;
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v18);
-  (*(*(a6 - 8) + 32))(boxed_opaque_existential_1, a4, a6);
-  *(a5 + 176) = _swiftEmptyArrayStorage;
-  outlined init with copy of SignalProviding(a3, a5 + 16);
-  outlined init with copy of PhoneCallFlow.State(a1, a5 + OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin13PhoneCallFlow_state);
-  outlined init with copy of SignalProviding(a2, a5 + 56);
-  outlined init with copy of SignalProviding(v18, a5 + 96);
-  v14 = a2[3];
-  v15 = a2[4];
-  __swift_project_boxed_opaque_existential_1(a2, v14);
-  (*(v15 + 216))(v17, v14, v15);
-  __swift_destroy_boxed_opaque_existential_1(a3);
-  outlined destroy of PhoneCallFlow.State(a1);
-  __swift_destroy_boxed_opaque_existential_1(v18);
-  outlined init with take of SPHConversation(v17, a5 + 136);
-  __swift_destroy_boxed_opaque_existential_1(a2);
-  return a5;
-}
-
-uint64_t partial apply for closure #3 in PhoneCallFlow.execute()(_BYTE *a1)
-{
-  v3 = type metadata accessor for Input();
-  OUTLINED_FUNCTION_13_2(v3);
-  v5 = v4;
-  v7 = v6;
-  v8 = (*(v5 + 80) + 24) & ~*(v5 + 80);
-  v9 = v8 + *(v7 + 64);
-  v10 = *(v1 + 16);
-  v11 = v1 + ((v9 + 7) & 0xFFFFFFFFFFFFFFF8);
-  v12 = *(v11 + 40);
-
-  return closure #3 in PhoneCallFlow.execute()(a1, v10, v1 + v8, v11, v12, (v1 + ((v9 + 55) & 0xFFFFFFFFFFFFFFF8)));
-}
-
-uint64_t lazy protocol witness table accessor for type PhoneCallFlow and conformance PhoneCallFlow(unint64_t *a1, void (*a2)(uint64_t))
-{
-  result = *a1;
-  if (!result)
+  OUTLINED_FUNCTION_34_14();
+  v0();
+  OUTLINED_FUNCTION_20_31();
+  if (v3)
   {
-    a2(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
+    return 0;
+  }
+
+  PhoneCallVerb.rawValue.getter(v1);
+  OUTLINED_FUNCTION_27_22();
+  if (v3)
+  {
+    v6 = v5 == 0xE600000000000000;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (v6)
+  {
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_36_19(v4);
+    OUTLINED_FUNCTION_33_2();
+  }
+
+  return 1;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isHangUpCall()()
+{
+  OUTLINED_FUNCTION_34_14();
+  v1();
+  OUTLINED_FUNCTION_20_31();
+  if (v4)
+  {
+    return 0;
+  }
+
+  PhoneCallVerb.rawValue.getter(v2);
+  OUTLINED_FUNCTION_27_22();
+  if (v4)
+  {
+    v7 = v6 == 0xE700000000000000;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  if (v7)
+  {
+
+    return 1;
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_86_6(v5, v0);
+    OUTLINED_FUNCTION_33_2();
+    return 0;
+  }
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isBusinessNameCall()()
+{
+  OUTLINED_FUNCTION_10_55();
+  v3 = (*(v2 + 40))();
+  if (v3)
+  {
+    v4 = (v3 + 32);
+    v5 = *(v3 + 16);
+    OUTLINED_FUNCTION_74_6();
+    while (v5)
+    {
+      v6 = v1;
+      switch(*v4)
+      {
+        case 1:
+          v6 = OUTLINED_FUNCTION_24_27();
+          break;
+        case 2:
+          v6 = OUTLINED_FUNCTION_19_30();
+          break;
+        case 3:
+          v6 = OUTLINED_FUNCTION_4_7();
+          break;
+        case 4:
+          v6 = OUTLINED_FUNCTION_7_53();
+          break;
+        case 5:
+          v7 = OUTLINED_FUNCTION_11_42();
+          goto LABEL_15;
+        case 6:
+          v6 = OUTLINED_FUNCTION_110_3();
+          break;
+        case 7:
+
+          goto LABEL_19;
+        case 8:
+          v6 = OUTLINED_FUNCTION_9_52();
+          break;
+        case 9:
+          v6 = OUTLINED_FUNCTION_5_64();
+          break;
+        case 0xA:
+          v6 = OUTLINED_FUNCTION_13_41();
+          break;
+        case 0xB:
+          v7 = OUTLINED_FUNCTION_12_46();
+LABEL_15:
+          v6 = v7 & 0xFFFFFFFFFFFFLL | 0x676E000000000000;
+          break;
+        case 0xC:
+          v6 = OUTLINED_FUNCTION_2_81();
+          break;
+        case 0xD:
+          v6 = OUTLINED_FUNCTION_54_18();
+          break;
+        default:
+          break;
+      }
+
+      OUTLINED_FUNCTION_35_18(v6);
+      OUTLINED_FUNCTION_113_0();
+      ++v4;
+      --v5;
+      if (v0)
+      {
+LABEL_19:
+
+        OUTLINED_FUNCTION_20_0();
+        return !PhoneCallNLIntent.hasPhoneNumber()();
+      }
+    }
+  }
+
+  return 0;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isCallWithReference()()
+{
+  OUTLINED_FUNCTION_24_3();
+  if (!PhoneCallNLIntent.hasCallVerb()())
+  {
+    return 0;
+  }
+
+  v1 = OUTLINED_FUNCTION_20_0();
+  v3 = v2(v1);
+  specialized Array.count.getter(v3);
+  OUTLINED_FUNCTION_40_0();
+
+  return v0 != 0;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isDisplayNameEmergencyContact()()
+{
+  OUTLINED_FUNCTION_107_3();
+  v18 = v0;
+  v19 = v1;
+  OUTLINED_FUNCTION_41_21();
+  v3 = v2();
+  v4 = v3;
+  v5 = *(v3 + 16);
+  if (v5)
+  {
+    v6 = 0;
+    v7 = v3 + 32;
+    while (v6 < *(v4 + 16))
+    {
+      OUTLINED_FUNCTION_85_4();
+      v8 = v16;
+      v9 = v17;
+      __swift_project_boxed_opaque_existential_1(&v15, v16);
+      v10 = (*(v9 + 408))(v8, v9);
+      if (v11)
+      {
+        if (v10 == 0xD000000000000011 && v11 == 0x800000000045E840)
+        {
+
+          __swift_destroy_boxed_opaque_existential_1(&v15);
+          goto LABEL_15;
+        }
+
+        v13 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+        LOBYTE(v3) = __swift_destroy_boxed_opaque_existential_1(&v15);
+        if (v13)
+        {
+          goto LABEL_15;
+        }
+      }
+
+      else
+      {
+        LOBYTE(v3) = __swift_destroy_boxed_opaque_existential_1(&v15);
+      }
+
+      ++v6;
+      v7 += 40;
+      if (v5 == v6)
+      {
+        goto LABEL_15;
+      }
+    }
+
+    __break(1u);
+  }
+
+  else
+  {
+LABEL_15:
+
+    OUTLINED_FUNCTION_106_1();
+  }
+
+  return v3;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isNextAfterPlayingVoiceMail()()
+{
+  (*(v0 + 112))();
+  OUTLINED_FUNCTION_68_7();
+  if (v4)
+  {
+    return 0;
+  }
+
+  VoiceMail.VoiceMailVerb.rawValue.getter(v2);
+  OUTLINED_FUNCTION_27_22();
+  if (v4)
+  {
+    v7 = v6 == 0xE400000000000000;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  if (v7)
+  {
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_59_8(v5, v1, 1885956979);
+    OUTLINED_FUNCTION_33_2();
+  }
+
+  return 1;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.hasWantedToRepeat()()
+{
+  OUTLINED_FUNCTION_34_14();
+  v0();
+  OUTLINED_FUNCTION_20_31();
+  if (v3)
+  {
+    return 0;
+  }
+
+  PhoneCallVerb.rawValue.getter(v1);
+  OUTLINED_FUNCTION_78_8();
+  if (v3)
+  {
+    v6 = v5 == 0xEC00000074616570;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (v6)
+  {
+
+    return 1;
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_61_15(v4);
+    OUTLINED_FUNCTION_33_2();
+    return 0;
+  }
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isRepeatAfterPlayingVoiceMail()()
+{
+  (*(v0 + 112))();
+  OUTLINED_FUNCTION_68_7();
+  if (v3)
+  {
+    return 0;
+  }
+
+  VoiceMail.VoiceMailVerb.rawValue.getter(v1);
+  OUTLINED_FUNCTION_27_22();
+  if (v3)
+  {
+    v6 = v5 == 0xE600000000000000;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (v6)
+  {
+
+    return 1;
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_36_19(v4);
+    OUTLINED_FUNCTION_33_2();
+    return 0;
+  }
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isVoiceMailCallOrCallBack()()
+{
+  OUTLINED_FUNCTION_24_3();
+  if (PhoneCallNLIntent.hasCallVerb()())
+  {
+    OUTLINED_FUNCTION_20_0();
+    if (PhoneCallNLIntent.hasNoContactOrReference()())
+    {
+      return 1;
+    }
+  }
+
+  OUTLINED_FUNCTION_20_0();
+  if (PhoneCallNLIntent.isCallBack()())
+  {
+    return 1;
+  }
+
+  OUTLINED_FUNCTION_20_0();
+
+  return PhoneCallNLIntent.isCallWithReference()();
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.hasCancellation()()
+{
+  (*(v0 + 64))();
+  OUTLINED_FUNCTION_56_8();
+  if (v3)
+  {
+    return 0;
+  }
+
+  PhoneCallConfirmation.description.getter(v1);
+  OUTLINED_FUNCTION_27_22();
+  if (v3)
+  {
+    v6 = v5 == 0xE600000000000000;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (v6)
+  {
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_36_19(v4);
+    OUTLINED_FUNCTION_33_2();
+  }
+
+  return 1;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.hasRejection()()
+{
+  (*(v0 + 64))();
+  OUTLINED_FUNCTION_56_8();
+  if (v6)
+  {
+    return 0;
+  }
+
+  v4 = PhoneCallConfirmation.description.getter(v2);
+  v6 = v4 == 28526 && v5 == 0xE200000000000000;
+  if (v6)
+  {
+
+    return 1;
+  }
+
+  else
+  {
+    _stringCompareWithSmolCheck(_:_:expecting:)();
+    OUTLINED_FUNCTION_33_2();
+    return v1 & 1;
+  }
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.hasVoiceMail()()
+{
+  OUTLINED_FUNCTION_10_55();
+  (*(v0 + 112))();
+  OUTLINED_FUNCTION_68_7();
+  if (!v1)
+  {
+    return 1;
+  }
+
+  v2 = OUTLINED_FUNCTION_14_45();
+  v3(v2);
+  OUTLINED_FUNCTION_43_19();
+  return !v1;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.hasPhoneNumber()()
+{
+  OUTLINED_FUNCTION_41_21();
+  v2();
+  OUTLINED_FUNCTION_99_2();
+  if (v0)
+  {
+    OUTLINED_FUNCTION_96_3();
+    while (1)
+    {
+      OUTLINED_FUNCTION_95_3();
+      if (v4)
+      {
+        break;
+      }
+
+      OUTLINED_FUNCTION_85_4();
+      OUTLINED_FUNCTION_1_83(v8);
+      v5 = SiriPhoneContact.getPhoneNumber()();
+      if (v5.value._object)
+      {
+
+        if ((v5.value._object & 0x2000000000000000) != 0)
+        {
+          v6 = (v5.value._object >> 56) & 0xF;
+        }
+
+        else
+        {
+          v6 = v5.value._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+        }
+
+        __swift_destroy_boxed_opaque_existential_1(v8);
+        if (v6)
+        {
+
+          return 1;
+        }
+      }
+
+      else
+      {
+        __swift_destroy_boxed_opaque_existential_1(v8);
+      }
+
+      ++v1;
+      OUTLINED_FUNCTION_94_6();
+      if (v7)
+      {
+        goto LABEL_13;
+      }
+    }
+
+    __break(1u);
+  }
+
+  else
+  {
+LABEL_13:
+
+    return 0;
   }
 
   return result;
 }
 
-uint64_t outlined assign with take of PhoneCallFlow.State(uint64_t a1, uint64_t a2)
+Swift::Bool __swiftcall PhoneCallNLIntent.isRedial()()
 {
-  v4 = type metadata accessor for PhoneCallFlow.State(0);
-  (*(*(v4 - 8) + 40))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t closure #1 in static CommonOutputs.promptCancelled(sharedGlobals:phoneCallCommonCATsSimple:)partial apply()
-{
-  OUTLINED_FUNCTION_15();
-  v1 = swift_task_alloc();
-  *(v0 + 16) = v1;
-  *v1 = v0;
-  v1[1] = closure #1 in AddCallParticipantGuardFlowFactory.makeAddRestricted(_:)partial apply;
-  v2 = OUTLINED_FUNCTION_34_0();
-
-  return closure #1 in static CommonOutputs.promptCancelled(sharedGlobals:phoneCallCommonCATsSimple:)(v2);
-}
-
-uint64_t partial apply for closure #1 in PhoneCallFlow.onAppResolutionComplete(originalInput:phoneCallNLIntent:intentType:)(uint64_t a1)
-{
-  v3 = type metadata accessor for Input();
-  OUTLINED_FUNCTION_13_2(v3);
-  v5 = (*(v4 + 80) + 24) & ~*(v4 + 80);
-  v7 = (*(v6 + 64) + v5 + 7) & 0xFFFFFFFFFFFFFFF8;
-  return (*(**(v1 + 16) + 224))(v1 + v5, v1 + v7, *(v1 + ((v7 + 47) & 0xFFFFFFFFFFFFFFF8)), *(v1 + ((v7 + 47) & 0xFFFFFFFFFFFFFFF8) + 8), a1);
-}
-
-uint64_t outlined destroy of PhoneCallFlow.State(uint64_t a1)
-{
-  v2 = type metadata accessor for PhoneCallFlow.State(0);
-  (*(*(v2 - 8) + 8))(a1, v2);
-  return a1;
-}
-
-uint64_t type metadata completion function for PhoneCallFlow()
-{
-  result = type metadata accessor for PhoneCallFlow.State(319);
-  if (v1 <= 0x3F)
+  OUTLINED_FUNCTION_10_55();
+  (*(v0 + 104))();
+  OUTLINED_FUNCTION_20_31();
+  if (v3)
   {
-    v2 = *(result - 8) + 64;
-    result = swift_updateClassMetadata2();
-    if (!result)
+    return 0;
+  }
+
+  PhoneCallVerb.rawValue.getter(v1);
+  OUTLINED_FUNCTION_42_17();
+  if (v3)
+  {
+    v5 = v4 == 0xE600000000000000;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (!v5)
+  {
+    OUTLINED_FUNCTION_40_4();
+    OUTLINED_FUNCTION_76_6(v6, v7, v8);
+    OUTLINED_FUNCTION_62_15();
+    return 0;
+  }
+
+  OUTLINED_FUNCTION_20_0();
+  if (!PhoneCallNLIntent.hasAnyContactReference()())
+  {
+    OUTLINED_FUNCTION_97_3();
+    v9 = OUTLINED_FUNCTION_20_0();
+    v11 = *(v10(v9) + 16);
+
+    if (v11)
     {
+      if (one-time initialization token for siriPhone != -1)
+      {
+        OUTLINED_FUNCTION_0_6();
+        swift_once();
+      }
+
+      v12 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v12, static Logger.siriPhone);
+      v13 = Logger.logObject.getter();
+      v14 = static os_log_type_t.debug.getter();
+      if (OUTLINED_FUNCTION_10_0(v14))
+      {
+        v15 = swift_slowAlloc();
+        *v15 = 0;
+        OUTLINED_FUNCTION_33(&dword_0, v16, v17, "#PhoneCallNLIntent Not a redial request as utterance contains either number or contact name");
+        OUTLINED_FUNCTION_26_0(v15);
+      }
+
       return 0;
     }
   }
 
-  return result;
+  return 1;
 }
 
-void type metadata completion function for PhoneCallFlow.State()
-{
-  type metadata accessor for (input: Input)();
-  if (v0 <= 0x3F)
-  {
-    type metadata accessor for (input: Input, phoneCallNLIntent: PhoneCallNLIntent, intentType: String)();
-    if (v1 <= 0x3F)
-    {
-      type metadata accessor for (input: Input, phoneCallNLIntent: PhoneCallNLIntent, intentType: String, resolvedApp: AnnotatedApp)();
-      if (v2 <= 0x3F)
-      {
-        type metadata accessor for (input: Input, phoneCallNLIntent: PhoneCallNLIntent, selectedIntentName: PhoneCallIntentClassNames, resolvedApp: AnnotatedApp)();
-        if (v3 <= 0x3F)
-        {
-          swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
-        }
-      }
-    }
-  }
-}
-
-void type metadata accessor for (input: Input)()
-{
-  if (!lazy cache variable for type metadata for (input: Input))
-  {
-    v0 = type metadata accessor for Input();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for (input: Input));
-    }
-  }
-}
-
-void type metadata accessor for (input: Input, phoneCallNLIntent: PhoneCallNLIntent, intentType: String)()
-{
-  if (!lazy cache variable for type metadata for (input: Input, phoneCallNLIntent: PhoneCallNLIntent, intentType: String))
-  {
-    type metadata accessor for Input();
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s27PhoneCallFlowDelegatePlugin0aB8NLIntent_pMd, &_s27PhoneCallFlowDelegatePlugin0aB8NLIntent_pMR);
-    TupleTypeMetadata3 = swift_getTupleTypeMetadata3();
-    if (!v1)
-    {
-      atomic_store(TupleTypeMetadata3, &lazy cache variable for type metadata for (input: Input, phoneCallNLIntent: PhoneCallNLIntent, intentType: String));
-    }
-  }
-}
-
-void type metadata accessor for (input: Input, phoneCallNLIntent: PhoneCallNLIntent, intentType: String, resolvedApp: AnnotatedApp)()
-{
-  if (!lazy cache variable for type metadata for (input: Input, phoneCallNLIntent: PhoneCallNLIntent, intentType: String, resolvedApp: AnnotatedApp))
-  {
-    __chkstk_darwin(0);
-    type metadata accessor for Input();
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s27PhoneCallFlowDelegatePlugin0aB8NLIntent_pMd, &_s27PhoneCallFlowDelegatePlugin0aB8NLIntent_pMR);
-    TupleTypeMetadata = swift_getTupleTypeMetadata();
-    if (!v1)
-    {
-      atomic_store(TupleTypeMetadata, &lazy cache variable for type metadata for (input: Input, phoneCallNLIntent: PhoneCallNLIntent, intentType: String, resolvedApp: AnnotatedApp));
-    }
-  }
-}
-
-void type metadata accessor for (input: Input, phoneCallNLIntent: PhoneCallNLIntent, selectedIntentName: PhoneCallIntentClassNames, resolvedApp: AnnotatedApp)()
-{
-  if (!lazy cache variable for type metadata for (input: Input, phoneCallNLIntent: PhoneCallNLIntent, selectedIntentName: PhoneCallIntentClassNames, resolvedApp: AnnotatedApp))
-  {
-    __chkstk_darwin(0);
-    type metadata accessor for Input();
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s27PhoneCallFlowDelegatePlugin0aB8NLIntent_pMd, &_s27PhoneCallFlowDelegatePlugin0aB8NLIntent_pMR);
-    TupleTypeMetadata = swift_getTupleTypeMetadata();
-    if (!v1)
-    {
-      atomic_store(TupleTypeMetadata, &lazy cache variable for type metadata for (input: Input, phoneCallNLIntent: PhoneCallNLIntent, selectedIntentName: PhoneCallIntentClassNames, resolvedApp: AnnotatedApp));
-    }
-  }
-}
-
-uint64_t partial apply for closure #1 in PhoneCallFlow.publishUnsupportedOutput(unsupportedReason:input:intentName:app:)()
-{
-  OUTLINED_FUNCTION_15();
-  v3 = v2;
-  v4 = swift_task_alloc();
-  *(v1 + 16) = v4;
-  *v4 = v1;
-  v4[1] = closure #2 in ActionableCallControlFlow.execute();
-
-  return closure #1 in PhoneCallFlow.publishUnsupportedOutput(unsupportedReason:input:intentName:app:)(v3, v0);
-}
-
-uint64_t partial apply for closure #1 in PhoneCallFlow.selfLogging(input:phoneCallNLIntent:intentTypeName:resolvedApp:)()
-{
-  v2 = type metadata accessor for Input();
-  OUTLINED_FUNCTION_13_2(v2);
-  v5 = (*(v4 + 64) + ((*(v3 + 80) + 56) & ~*(v3 + 80)) + 7) & 0xFFFFFFFFFFFFFFF8;
-  v6 = v0[2];
-  v7 = v0[3];
-  v8 = v0[4];
-  v9 = v0[5];
-  v10 = v0[6];
-  v11 = swift_task_alloc();
-  *(v1 + 16) = v11;
-  *v11 = v1;
-  v11[1] = closure #2 in ActionableCallControlFlow.execute();
-  OUTLINED_FUNCTION_16();
-
-  return closure #1 in PhoneCallFlow.selfLogging(input:phoneCallNLIntent:intentTypeName:resolvedApp:)(v12, v13, v14, v15, v16, v17, v18, v19);
-}
-
-uint64_t objectdestroy_40Tm()
-{
-  v1 = v0[2];
-
-  v2 = v0[3];
-
-  v3 = v0[5];
-
-  v4 = v0[7];
-
-  __swift_destroy_boxed_opaque_existential_1(v0 + 8);
-  v5 = v0[14];
-
-  return _swift_deallocObject(v0, 120, 7);
-}
-
-__n128 OUTLINED_FUNCTION_37_19(uint64_t a1)
-{
-  v3 = *(v1 + 16);
-  result = *(v1 + 32);
-  *(a1 + 16) = *v1;
-  *(a1 + 32) = v3;
-  *(a1 + 48) = result;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_64_8()
-{
-
-  return Dictionary.init(dictionaryLiteral:)();
-}
-
-uint64_t OUTLINED_FUNCTION_66_9()
-{
-
-  return CATWrapperSimple.__allocating_init(options:globals:)();
-}
-
-uint64_t PhoneCallFlowDelegatePlugin.__allocating_init()()
-{
-  v9[3] = type metadata accessor for FlowFinder();
-  v9[4] = &protocol witness table for FlowFinder;
-  v9[0] = swift_allocObject();
-  if (one-time initialization token for instance != -1)
-  {
-    swift_once();
-  }
-
-  v1 = static EligibleAppFinder.instance;
-  v2 = one-time initialization token for shared;
-  swift_retain_n();
-  if (v2 != -1)
-  {
-    swift_once();
-  }
-
-  v3 = static CallRegistrationManager.shared;
-  v4 = type metadata accessor for PluginPrewarmProvider();
-  v5 = swift_allocObject();
-
-  v6 = specialized PluginPrewarmProvider.init(eligibleAppsFinder:callRegistrationManager:)(v1, v3, v5);
-
-  v8[3] = v4;
-  v8[4] = &protocol witness table for PluginPrewarmProvider;
-  v8[0] = v6;
-  return (*(v0 + 112))(v9, implicit closure #1 in PhoneCallFlowDelegatePlugin.init(), 0, v8);
-}
-
-uint64_t PhoneCallFlowDelegatePlugin.__allocating_init(flowFinder:sharedGlobalsFactory:pluginPrewarmProvider:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
-{
-  swift_allocObject();
-  v8 = OUTLINED_FUNCTION_11_0();
-  PhoneCallFlowDelegatePlugin.init(flowFinder:sharedGlobalsFactory:pluginPrewarmProvider:)(v8, a2, a3, a4);
-  return v4;
-}
-
-uint64_t PhoneCallFlowDelegatePlugin.init(flowFinder:sharedGlobalsFactory:pluginPrewarmProvider:)(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
-{
-  v5 = v4;
-  outlined init with copy of SignalProviding(a1, v5 + 16);
-  *(v5 + 56) = a2;
-  *(v5 + 64) = a3;
-  outlined init with copy of SignalProviding(a4, v5 + 72);
-  type metadata accessor for CATExecutor();
-  type metadata accessor for PhoneCallFlowDelegatePlugin();
-  ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v11 = objc_opt_self();
-
-  v12 = [v11 bundleForClass:ObjCClassFromMetadata];
-  static CATExecutor.registerBundle(bundle:)();
-
-  __swift_destroy_boxed_opaque_existential_1(a4);
-  __swift_destroy_boxed_opaque_existential_1(a1);
-  return v5;
-}
-
-uint64_t PhoneCallFlowDelegatePlugin.makeFlowFor(parse:)(uint64_t a1)
-{
-  v3 = *(v1 + 56);
-  v4 = *(v1 + 64);
-  v3(v7);
-  v5 = PhoneCallFlowDelegatePlugin.makeFlowForCommon(parse:sharedGlobals:)(a1);
-  __swift_destroy_boxed_opaque_existential_1(v7);
-  return v5;
-}
-
-void PhoneCallFlowDelegatePlugin.sendPreWarmExtensionCommand(resultCandidateId:phoneCallNLIntent:aceServiceInvoker:)(uint64_t a1, unint64_t a2, void *a3, void *a4)
-{
-  if (one-time initialization token for siriPhone != -1)
-  {
-    OUTLINED_FUNCTION_6_2();
-  }
-
-  v8 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v8, static Logger.siriPhone);
-
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.debug.getter();
-
-  if (os_log_type_enabled(v9, v10))
-  {
-    v11 = swift_slowAlloc();
-    v12 = swift_slowAlloc();
-    v29 = v12;
-    *v11 = 136315138;
-    *(v11 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, &v29);
-    OUTLINED_FUNCTION_9_47();
-    _os_log_impl(v13, v14, v15, v16, v17, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v12);
-    OUTLINED_FUNCTION_26_0();
-    OUTLINED_FUNCTION_26_0();
-  }
-
-  v18 = a1 == 48 && a2 == 0xE100000000000000;
-  if (v18 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-    v19 = a3[4];
-    __swift_project_boxed_opaque_existential_1(a3, a3[3]);
-    if (PhoneCallNLIntent.isFirstPartyOrDefaultAppRequest()())
-    {
-      v20 = Logger.logObject.getter();
-      v21 = static os_log_type_t.debug.getter();
-      if (OUTLINED_FUNCTION_16_4(v21))
-      {
-        v22 = OUTLINED_FUNCTION_65_0();
-        *v22 = 0;
-        _os_log_impl(&dword_0, v20, v21, "#PhoneCallFlowDelegatePlugin sending IntentSignal to pre-warm first party extension", v22, 2u);
-        OUTLINED_FUNCTION_26_0();
-      }
-
-      v23 = [objc_allocWithZone(SAIntentGroupIntentSignal) init];
-      v28 = [objc_allocWithZone(INStartCallIntent) init];
-      v24 = String._bridgeToObjectiveC()();
-      [v28 _setLaunchId:v24];
-
-      v25 = String._bridgeToObjectiveC()();
-      [v28 _setExtensionBundleId:v25];
-
-      type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for SAIntentGroupProtobufMessage, SAIntentGroupProtobufMessage_ptr);
-      v26 = SAIntentGroupProtobufMessage.init(intent:)();
-      [v23 setIntent:v26];
-
-      v27 = a4[4];
-      __swift_project_boxed_opaque_existential_1(a4, a4[3]);
-      dispatch thunk of AceServiceInvoker.submitAndForget(_:)();
-    }
-  }
-}
-
-uint64_t PhoneCallFlowDelegatePlugin.makeFlowForEmergencyResourceCall(parse:nlTransformer:)(uint64_t a1, uint64_t a2)
-{
-  v3 = v2;
-  v6 = type metadata accessor for Parse.DirectInvocation();
-  v7 = OUTLINED_FUNCTION_7(v6);
-  v9 = v8;
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v7);
-  OUTLINED_FUNCTION_4();
-  v14 = v13 - v12;
-  (*(*a2 + 192))(&v56, a1);
-  if (!v57)
-  {
-    _s16SiriDialogEngine15SpeakableStringVSgWOhTm_0(&v56, &_s27PhoneCallFlowDelegatePlugin0aB8NLIntent_pSgMd, &_s27PhoneCallFlowDelegatePlugin0aB8NLIntent_pSgMR);
-LABEL_9:
-    if (one-time initialization token for siriPhone != -1)
-    {
-      OUTLINED_FUNCTION_6_2();
-    }
-
-    v27 = type metadata accessor for Logger();
-    OUTLINED_FUNCTION_9_0(v27, static Logger.siriPhone);
-    v28 = Logger.logObject.getter();
-    v29 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v28, v29))
-    {
-      v30 = OUTLINED_FUNCTION_65_0();
-      *v30 = 0;
-      _os_log_impl(&dword_0, v28, v29, "#PhoneCallFlowDelegatePlugin No emergency resource found", v30, 2u);
-      OUTLINED_FUNCTION_26_0();
-    }
-
-    return 0;
-  }
-
-  outlined init with take of SPHConversation(&v56, v59);
-  v15 = v59[4];
-  __swift_project_boxed_opaque_existential_1(v59, v59[3]);
-  v16 = *(v15 + 24);
-  v17 = OUTLINED_FUNCTION_11_0();
-  v18(v17, v15);
-  specialized Collection.first.getter(&v56);
-
-  if (!v57)
-  {
-    _s16SiriDialogEngine15SpeakableStringVSgWOhTm_0(&v56, &_s27PhoneCallFlowDelegatePlugin04SiriA7Contact_pSgMd, &_s27PhoneCallFlowDelegatePlugin04SiriA7Contact_pSgMR);
-    goto LABEL_8;
-  }
-
-  v19 = v58;
-  __swift_project_boxed_opaque_existential_1(&v56, v57);
-  v20 = *(v19 + 272);
-  v21 = OUTLINED_FUNCTION_11_0();
-  v22(v21, v19);
-  v24 = v23;
-  __swift_destroy_boxed_opaque_existential_1(&v56);
-  if (v24 < 3)
-  {
-    v25 = OUTLINED_FUNCTION_104();
-    outlined consume of PhoneCallEmergencyType?(v25, v26);
-LABEL_8:
-    __swift_destroy_boxed_opaque_existential_1(v59);
-    goto LABEL_9;
-  }
-
-  if (v24 == 3)
-  {
-    goto LABEL_8;
-  }
-
-  if (one-time initialization token for siriPhone != -1)
-  {
-    OUTLINED_FUNCTION_6_2();
-  }
-
-  v33 = type metadata accessor for Logger();
-  OUTLINED_FUNCTION_9_0(v33, static Logger.siriPhone);
-  v34 = OUTLINED_FUNCTION_104();
-  outlined copy of PhoneCallEmergencyType(v34, v35);
-  v36 = Logger.logObject.getter();
-  v37 = static os_log_type_t.debug.getter();
-  v38 = OUTLINED_FUNCTION_104();
-  outlined consume of PhoneCallEmergencyType?(v38, v39);
-  if (os_log_type_enabled(v36, v37))
-  {
-    v40 = swift_slowAlloc();
-    v41 = swift_slowAlloc();
-    *&v56 = v41;
-    *v40 = 136315138;
-    v42 = OUTLINED_FUNCTION_104();
-    *(v40 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v42, v43, v44);
-    OUTLINED_FUNCTION_9_47();
-    _os_log_impl(v45, v46, v47, v48, v49, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v41);
-    OUTLINED_FUNCTION_26_0();
-    OUTLINED_FUNCTION_26_0();
-  }
-
-  v50 = OUTLINED_FUNCTION_104();
-  static CallEmergencyResourceDirectInvocation.invocation(for:)(v50, v51);
-  v52 = OUTLINED_FUNCTION_104();
-  outlined consume of PhoneCallEmergencyType?(v52, v53);
-  v54 = v3[5];
-  v55 = v3[6];
-  __swift_project_boxed_opaque_existential_1(v3 + 2, v54);
-  v31 = (*(v55 + 8))(v14, v54, v55);
-  (*(v9 + 8))(v14, v6);
-  __swift_destroy_boxed_opaque_existential_1(v59);
-  return v31;
-}
-
-Swift::Void __swiftcall PhoneCallFlowDelegatePlugin.warmup(refId:)(Swift::String refId)
-{
-  object = refId._object;
-  countAndFlagsBits = refId._countAndFlagsBits;
-  v4 = v1[12];
-  v5 = v1[13];
-  __swift_project_boxed_opaque_existential_1(v1 + 9, v4);
-  (*(v5 + 8))(countAndFlagsBits, object, v4, v5);
-}
-
-uint64_t *PhoneCallFlowDelegatePlugin.deinit()
-{
-  __swift_destroy_boxed_opaque_existential_1(v0 + 2);
-  v1 = v0[8];
-
-  __swift_destroy_boxed_opaque_existential_1(v0 + 9);
-  return v0;
-}
-
-uint64_t PhoneCallFlowDelegatePlugin.__deallocating_deinit()
-{
-  PhoneCallFlowDelegatePlugin.deinit();
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t protocol witness for FlowPlugin.init() in conformance PhoneCallFlowDelegatePlugin@<X0>(uint64_t *a1@<X8>)
-{
-  result = (*(v1 + 104))();
-  *a1 = result;
-  return result;
-}
-
-void *specialized PluginPrewarmProvider.init(eligibleAppsFinder:callRegistrationManager:)(uint64_t a1, uint64_t a2, void *a3)
-{
-  v16[0] = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v6 = *(v16[0] - 8);
-  v7 = *(v6 + 64);
-  __chkstk_darwin(v16[0]);
-  v9 = v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for OS_dispatch_queue.Attributes();
-  v11 = *(*(v10 - 8) + 64);
-  __chkstk_darwin(v10);
-  v12 = type metadata accessor for DispatchQoS();
-  v13 = *(*(v12 - 8) + 64);
-  __chkstk_darwin(v12 - 8);
-  v21 = type metadata accessor for EligibleAppFinder();
-  v22 = &protocol witness table for EligibleAppFinder;
-  *&v20 = a1;
-  v18 = type metadata accessor for CallRegistrationManager();
-  v19 = &protocol witness table for CallRegistrationManager;
-  *&v17 = a2;
-  type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for OS_dispatch_queue, OS_dispatch_queue_ptr);
-  static DispatchQoS.userInteractive.getter();
-  v16[1] = _swiftEmptyArrayStorage;
-  lazy protocol witness table accessor for type RedirectToServerFlow and conformance RedirectToServerFlow(&lazy protocol witness table cache variable for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes, 255, &type metadata accessor for OS_dispatch_queue.Attributes);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A]();
-  dispatch thunk of SetAlgebra.init<A>(_:)();
-  (*(v6 + 104))(v9, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v16[0]);
-  v14 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
-  a3[13] = 0;
-  a3[14] = 0;
-  a3[12] = v14;
-  outlined init with take of SPHConversation(&v20, (a3 + 2));
-  outlined init with take of SPHConversation(&v17, (a3 + 7));
-  return a3;
-}
-
-uint64_t lazy protocol witness table accessor for type RedirectToServerFlow and conformance RedirectToServerFlow(unint64_t *a1, uint64_t a2, void (*a3)(uint64_t))
-{
-  result = *a1;
-  if (!result)
-  {
-    a3(a2);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-void specialized closure #1 in static CallingIntentContinueInAppFlow.makeProducer(sharedGlobals:)()
+Swift::Bool __swiftcall PhoneCallNLIntent.isCallBack()()
 {
   OUTLINED_FUNCTION_66();
   v2 = v1;
+  OUTLINED_FUNCTION_9_1();
   v4 = v3;
-  v6 = v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow22IntentResolutionRecordVySo011INStartCallD0CSo0ghD8ResponseCGMd, &_s11SiriKitFlow22IntentResolutionRecordVySo011INStartCallD0CSo0ghD8ResponseCGMR);
-  OUTLINED_FUNCTION_7(v7);
-  v9 = v8;
-  v11 = *(v10 + 64);
-  OUTLINED_FUNCTION_49_0();
-  __chkstk_darwin(v12);
-  OUTLINED_FUNCTION_94_5();
-  (*(v9 + 16))(v0, v4, v7);
-  outlined init with copy of SignalProviding(v2, v25);
-  v13 = [objc_allocWithZone(AFDeviceStateConnection) init];
-  v14 = type metadata accessor for PhoneSettingProvider();
-  v15 = OUTLINED_FUNCTION_79();
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin026CallingIntentContinueInAppC0CySo07INStartbG0CSo0kbG8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin026CallingIntentContinueInAppC0CySo07INStartbG0CSo0kbG8ResponseCGMR);
-  OUTLINED_FUNCTION_12_8(v16);
-  v17 = swift_allocObject();
-  v18 = OUTLINED_FUNCTION_40_9(v17);
-  v20 = (v18 + *(v19 + 136));
-  v20[3] = v14;
-  v20[4] = &protocol witness table for PhoneSettingProvider;
-  *v20 = v15;
-  v18[2] = v6;
-  v21 = OUTLINED_FUNCTION_40_9(v18);
-  (*(v9 + 32))(v21 + *(v22 + 112), v0, v7);
-  OUTLINED_FUNCTION_10_20();
-  outlined init with take of SPHConversation(v25, v17 + *(v23 + 120));
-  OUTLINED_FUNCTION_10_20();
-  *(v17 + *(v24 + 128)) = v13;
-  *&v25[0] = v17;
-  lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type CallingIntentContinueInAppFlow<INStartCallIntent, INStartCallIntentResponse> and conformance CallingIntentContinueInAppFlow<A, B>, &_s27PhoneCallFlowDelegatePlugin026CallingIntentContinueInAppC0CySo07INStartbG0CSo0kbG8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin026CallingIntentContinueInAppC0CySo07INStartbG0CSo0kbG8ResponseCGMR);
+  v6 = __chkstk_darwin(v5);
+  v8 = &v52 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = *(v9 + 104);
+  v10(v6);
+  OUTLINED_FUNCTION_20_31();
+  if (v15)
+  {
+    v12 = 0;
+    goto LABEL_35;
+  }
 
-  Flow.eraseToAnyFlow()();
+  v57 = v10;
+  v13 = PhoneCallVerb.rawValue.getter(v11);
+  v15 = v13 == 1819042147 && v14 == 0xE400000000000000;
+  if (v15)
+  {
 
-  OUTLINED_FUNCTION_91_5();
-  OUTLINED_FUNCTION_65();
-}
+    goto LABEL_11;
+  }
 
-uint64_t static PhoneCallFlowFactory.makeRCHFlow(input:app:intent:sharedGlobals:)()
-{
-  static PhoneCallFlowFactory.makeRCHFlow(app:intent:sharedGlobals:)();
-  v1 = v0;
+  OUTLINED_FUNCTION_17_34(v13, v14);
+  OUTLINED_FUNCTION_80_5();
   if (v0)
   {
-
-    dispatch thunk of AnyFlow.on(input:)();
-  }
-
-  return v1;
-}
-
-uint64_t _s27PhoneCallFlowDelegatePlugin026ContactNeedsDisambiguationC8StrategyC14promptProvider13sharedGlobalsACyxGx_AA06SharedM9Providing_ptcfCAA017ParticipantOutputK0C_Tt1g5(uint64_t a1, uint64_t a2)
-{
-  v46 = a2;
-  v47 = a1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow25DucTemplatingLocalContextVSgMd, &_s11SiriKitFlow25DucTemplatingLocalContextVSgMR);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v45 = v40 - v5;
-  v6 = type metadata accessor for Locale();
-  v42 = *(v6 - 8);
-  v43 = v6;
-  v7 = *(v42 + 64);
-  __chkstk_darwin(v6);
-  v9 = v40 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for CATOption();
-  v11 = *(*(v10 - 8) + 64);
-  __chkstk_darwin(v10 - 8);
-  outlined init with copy of SignalProviding(a2, v54);
-  v44 = "com.apple.camera";
-  type metadata accessor for PhoneCallDisplayTextCATs();
-  static CATOption.defaultMode.getter();
-  v12 = CATWrapper.__allocating_init(options:globals:)();
-  type metadata accessor for PhoneCallCommonCATs();
-  static CATOption.defaultMode.getter();
-  v13 = CATWrapper.__allocating_init(options:globals:)();
-  v14 = type metadata accessor for AppInfoBuilder();
-  v15 = swift_allocObject();
-  type metadata accessor for StartCallCATs();
-  static CATOption.defaultMode.getter();
-  v41 = CATWrapper.__allocating_init(options:globals:)();
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin0aB24BaseCatTemplatingServiceCySo05INAddB17ParticipantIntentCSo0jbkL8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0aB24BaseCatTemplatingServiceCySo05INAddB17ParticipantIntentCSo0jbkL8ResponseCGMR);
-  v17 = *(v16 + 48);
-  v18 = *(v16 + 52);
-  v19 = swift_allocObject();
-  v53[3] = v14;
-  v53[4] = &protocol witness table for AppInfoBuilder;
-  v53[0] = v15;
-  v52[3] = &type metadata for LabelTemplatesProvider;
-  v52[4] = &protocol witness table for LabelTemplatesProvider;
-  v20 = swift_allocObject();
-  v52[0] = v20;
-  *(v20 + 16) = 0u;
-  *(v20 + 32) = 0u;
-  v21 = class metadata base offset for PhoneCallBaseCatTemplatingService;
-  v22 = (v19 + *(*v19 + class metadata base offset for PhoneCallBaseCatTemplatingService + 16));
-  *v22 = 0x3D65737561705C1BLL;
-  v22[1] = 0xEC0000005C303532;
-  v23 = v19 + *(*v19 + v21 + 56);
-  *v23 = 0u;
-  *(v23 + 1) = 0u;
-  *(v23 + 4) = 0;
-  outlined init with copy of SignalProviding(v54, v19 + *(*v19 + v21 + 72));
-  v24 = v55;
-  v25 = v56;
-  __swift_project_boxed_opaque_existential_1(v54, v55);
-  (*(v25 + 8))(&v50, v24, v25);
-  v26 = *(*v19 + class metadata base offset for PhoneCallBaseCatTemplatingService + 40);
-  outlined init with take of SPHConversation(&v50, v19 + v26);
-  v27 = class metadata base offset for PhoneCallBaseCatTemplatingService;
-  v28 = *(*v19 + class metadata base offset for PhoneCallBaseCatTemplatingService + 24);
-  v40[0] = v13;
-  v40[1] = v12;
-  *(v19 + v28) = v12;
-  *(v19 + *(*v19 + v27 + 32)) = v13;
-  outlined init with copy of SignalProviding(v53, v19 + *(*v19 + v27 + 48));
-  outlined init with copy of SignalProviding(v52, v19 + *(*v19 + class metadata base offset for PhoneCallBaseCatTemplatingService + 64));
-  *(v19 + *(*v19 + class metadata base offset for PhoneCallBaseCatTemplatingService + 80)) = v41;
-  outlined init with copy of SignalProviding(v19 + v26, &v50);
-  __swift_project_boxed_opaque_existential_1(&v50, v51);
-
-  dispatch thunk of DeviceState.siriLocale.getter();
-  v49[0] = Locale.identifier.getter();
-  v49[1] = v29;
-  v48[0] = 45;
-  v48[1] = 0xE100000000000000;
-  v49[5] = 95;
-  v49[6] = 0xE100000000000000;
-  lazy protocol witness table accessor for type String and conformance String();
-  StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
-  (*(v42 + 8))(v9, v43);
-
-  type metadata accessor for INIntentSlotValueType(0);
-  lazy protocol witness table accessor for type SearchCallHistoryHandleFlowStrategy and conformance SearchCallHistoryHandleFlowStrategy(&lazy protocol witness table cache variable for type INIntentSlotValueType and conformance INIntentSlotValueType, type metadata accessor for INIntentSlotValueType);
-  Dictionary.init(dictionaryLiteral:)();
-  v30 = v55;
-  v31 = v56;
-  __swift_project_boxed_opaque_existential_1(v54, v55);
-  (*(v31 + 24))(v49, v30, v31);
-  outlined init with copy of SignalProviding(v19 + v26, v48);
-  v32 = type metadata accessor for DucTemplatingLocalContext();
-  __swift_storeEnumTagSinglePayload(v45, 1, 1, v32);
-  v33 = DucTemplatingService.init(ducFamily:locale:extensionValueTypeNamesByValueType:aceServiceInvoker:deviceState:localContext:)();
-
-  __swift_destroy_boxed_opaque_existential_1(v52);
-  __swift_destroy_boxed_opaque_existential_1(v53);
-  __swift_destroy_boxed_opaque_existential_1(&v50);
-  __swift_destroy_boxed_opaque_existential_1(v54);
-  v34 = v46;
-  outlined init with copy of SignalProviding(v46, v54);
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin026ContactNeedsDisambiguationC8StrategyCyAA25ParticipantOutputProviderCGMd, &_s27PhoneCallFlowDelegatePlugin026ContactNeedsDisambiguationC8StrategyCyAA25ParticipantOutputProviderCGMR);
-  v36 = *(v35 + 48);
-  v37 = *(v35 + 52);
-  swift_allocObject();
-  v38 = specialized ContactNeedsDisambiguationFlowStrategy.init(promptProvider:sharedGlobals:templatingService:cachedPromptResponse:)(v47, v54, v33, 0, 0xFFu);
-  __swift_destroy_boxed_opaque_existential_1(v34);
-  return v38;
-}
-
-uint64_t specialized ContactNeedsDisambiguationFlowStrategy.init(promptProvider:sharedGlobals:templatingService:cachedPromptResponse:)(uint64_t a1, uint64_t *a2, uint64_t a3, void *a4, unsigned __int8 a5)
-{
-  v6 = v5;
-  static UnlockDevicePolicy.default.getter();
-  *(v6 + direct field offset for ContactNeedsDisambiguationFlowStrategy.personsToDisambiguate) = _swiftEmptyArrayStorage;
-  v12 = v6 + *(*v6 + 144);
-  *v12 = 0;
-  *(v12 + 8) = -1;
-  *(v6 + *(*v6 + 112)) = a1;
-  outlined init with copy of SignalProviding(a2, v6 + *(*v6 + 120));
-  *(v6 + *(*v6 + 128)) = a3;
-  v13 = a2[3];
-  v14 = a2[4];
-  __swift_project_boxed_opaque_existential_1(a2, v13);
-  v15 = (*(v14 + 72))(v13, v14);
-  outlined init with copy of SignalProviding(v15 + 160, v19);
-
-  outlined init with take of SPHConversation(v19, v6 + *(*v6 + 136));
-  v16 = v6 + *(*v6 + 144);
-  swift_beginAccess();
-  v17 = *v16;
-  *v16 = a4;
-  LOBYTE(v14) = *(v16 + 8);
-  *(v16 + 8) = a5;
-  outlined copy of ContactDisambiguationPromptResponse?(a4, a5);
-  outlined consume of ContactDisambiguationPromptResponse?(v17, v14);
-  outlined consume of ContactDisambiguationPromptResponse?(a4, a5);
-  __swift_destroy_boxed_opaque_existential_1(a2);
-  return v6;
-}
-
-uint64_t specialized ContactNeedsValueGuardFlow.init(flow:state:sharedGlobals:app:)(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4)
-{
-  OUTLINED_FUNCTION_2_0();
-  *(v4 + *(v7 + 104)) = v8;
-  OUTLINED_FUNCTION_2_0();
-  outlined init with take of ButtonConfigurationModel?(v12, v4 + *(v9 + 96), v10, v11);
-  OUTLINED_FUNCTION_2_0();
-  outlined init with take of SPHConversation(a3, v4 + *(v13 + 112));
-  OUTLINED_FUNCTION_2_0();
-  *(v4 + *(v14 + 120)) = a4;
-  return v4;
-}
-
-void _s27PhoneCallFlowDelegatePlugin024ContactUnsetRelationshipC8StrategyV13sharedGlobals12contactStore14labelTemplates05unsethO020displayTextCatFamily05phoneB10CommonCatsACyxGAA06SharedK9Providing_p_AA0F7Storing_pAA05LabeloY0_pAA0gh8TemplateY0_pAA0ab7DisplayR4CATsCAA0abV4CATsCtcfCSo012INStartAudioB6IntentC_Tt6g5Tm()
-{
-  OUTLINED_FUNCTION_66();
-  v63 = v0;
-  v2 = v1;
-  v4 = v3;
-  v6 = v5;
-  v8 = v7;
-  v68 = v7;
-  v10 = v9;
-  v12 = v11;
-  v70 = v11;
-  v14 = v13;
-  v16 = v15;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow25DucTemplatingLocalContextVSgMd, &_s11SiriKitFlow25DucTemplatingLocalContextVSgMR);
-  OUTLINED_FUNCTION_21(v17);
-  v19 = *(v18 + 64);
-  OUTLINED_FUNCTION_49_0();
-  __chkstk_darwin(v20);
-  OUTLINED_FUNCTION_27_3();
-  v71 = v21;
-  OUTLINED_FUNCTION_15_0();
-  v66 = type metadata accessor for Locale();
-  v22 = OUTLINED_FUNCTION_7(v66);
-  v65 = v23;
-  v25 = *(v24 + 64);
-  __chkstk_darwin(v22);
-  OUTLINED_FUNCTION_4();
-  v64 = v27 - v26;
-  OUTLINED_FUNCTION_15_0();
-  v28 = type metadata accessor for CATOption();
-  v29 = OUTLINED_FUNCTION_21(v28);
-  v31 = *(v30 + 64);
-  __chkstk_darwin(v29);
-  OUTLINED_FUNCTION_4();
-  v69 = v14;
-  outlined init with copy of SignalProviding(v14, v16);
-  outlined init with copy of SignalProviding(v12, (v16 + 5));
-  v67 = v10;
-  outlined init with copy of SignalProviding(v10, (v16 + 10));
-  outlined init with copy of SignalProviding(v8, (v16 + 15));
-  v16[20] = v6;
-  v16[21] = v4;
-  v73 = v4;
-  outlined init with copy of SignalProviding(v14, v79);
-  outlined init with copy of SignalProviding(v10, v78);
-  v32 = type metadata accessor for AppInfoBuilder();
-  v33 = OUTLINED_FUNCTION_79();
-  type metadata accessor for StartCallCATs();
-
-  static CATOption.defaultMode.getter();
-  v72 = CATWrapper.__allocating_init(options:globals:)();
-  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(v2, v63);
-  OUTLINED_FUNCTION_12_8(v34);
-  v35 = swift_allocObject();
-  v77[3] = v32;
-  v77[4] = &protocol witness table for AppInfoBuilder;
-  v77[0] = v33;
-  v36 = (v35 + *(*v35 + class metadata base offset for PhoneCallBaseCatTemplatingService + 16));
-  *v36 = 0x3D65737561705C1BLL;
-  v36[1] = 0xEC0000005C303532;
-  v37 = OUTLINED_FUNCTION_40_9(v35);
-  v40 = v37 + *(v39 + v38 + 56);
-  *v40 = 0u;
-  *(v40 + 1) = 0u;
-  *(v40 + 4) = 0;
-  OUTLINED_FUNCTION_40_9(v37);
-  outlined init with copy of SignalProviding(v79, v35 + *(v42 + v41 + 72));
-  v43 = v81;
-  __swift_project_boxed_opaque_existential_1(v79, v80);
-  v44 = *(v43 + 8);
-  v45 = OUTLINED_FUNCTION_61();
-  v46(v45, v43);
-  OUTLINED_FUNCTION_10_20();
-  v48 = *(v47 + class metadata base offset for PhoneCallBaseCatTemplatingService + 40);
-  outlined init with take of SPHConversation(&v75, v35 + v48);
-  OUTLINED_FUNCTION_10_20();
-  *(v35 + *(v49 + class metadata base offset for PhoneCallBaseCatTemplatingService + 24)) = v6;
-  OUTLINED_FUNCTION_10_20();
-  *(v35 + *(v51 + v50 + 32)) = v73;
-  OUTLINED_FUNCTION_10_20();
-  outlined init with copy of SignalProviding(v77, v35 + *(v53 + v52 + 48));
-  OUTLINED_FUNCTION_10_20();
-  outlined init with copy of SignalProviding(v78, v35 + *(v54 + class metadata base offset for PhoneCallBaseCatTemplatingService + 64));
-  OUTLINED_FUNCTION_10_20();
-  *(v35 + *(v55 + class metadata base offset for PhoneCallBaseCatTemplatingService + 80)) = v72;
-  outlined init with copy of SignalProviding(v35 + v48, &v75);
-  OUTLINED_FUNCTION_28_0(&v75, v76);
-
-  dispatch thunk of DeviceState.siriLocale.getter();
-  v74[5] = Locale.identifier.getter();
-  v74[6] = v56;
-  v74[0] = 45;
-  v74[1] = 0xE100000000000000;
-  v74[10] = 95;
-  v74[11] = 0xE100000000000000;
-  lazy protocol witness table accessor for type String and conformance String();
-  StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
-  (*(v65 + 8))(v64, v66);
-
-  type metadata accessor for INIntentSlotValueType(0);
-  lazy protocol witness table accessor for type SearchCallHistoryHandleFlowStrategy and conformance SearchCallHistoryHandleFlowStrategy(&lazy protocol witness table cache variable for type INIntentSlotValueType and conformance INIntentSlotValueType, type metadata accessor for INIntentSlotValueType);
-  Dictionary.init(dictionaryLiteral:)();
-  v57 = v81;
-  __swift_project_boxed_opaque_existential_1(v79, v80);
-  v58 = *(v57 + 24);
-  v59 = OUTLINED_FUNCTION_33_3();
-  v60(v59, v57);
-  outlined init with copy of SignalProviding(v35 + v48, v74);
-  v61 = type metadata accessor for DucTemplatingLocalContext();
-  __swift_storeEnumTagSinglePayload(v71, 1, 1, v61);
-  v62 = DucTemplatingService.init(ducFamily:locale:extensionValueTypeNamesByValueType:aceServiceInvoker:deviceState:localContext:)();
-
-  __swift_destroy_boxed_opaque_existential_1(v68);
-  __swift_destroy_boxed_opaque_existential_1(v67);
-  __swift_destroy_boxed_opaque_existential_1(v70);
-  __swift_destroy_boxed_opaque_existential_1(v69);
-  __swift_destroy_boxed_opaque_existential_1(v78);
-  __swift_destroy_boxed_opaque_existential_1(v77);
-  __swift_destroy_boxed_opaque_existential_1(&v75);
-  __swift_destroy_boxed_opaque_existential_1(v79);
-  v16[22] = v62;
-  OUTLINED_FUNCTION_65();
-}
-
-void static PhoneCallFlowFactory.makeHangUpCallRCHFlow(intent:app:sharedGlobals:)()
-{
-  OUTLINED_FUNCTION_66();
-  v2 = v1;
-  v4 = v3;
-  v84 = v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo18INHangUpCallIntentCSo0ghiJ8ResponseCGMd, &_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo18INHangUpCallIntentCSo0ghiJ8ResponseCGMR);
-  v7 = OUTLINED_FUNCTION_7(v6);
-  v85 = v8;
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v7);
-  OUTLINED_FUNCTION_16_2();
-  v82 = v11;
-  OUTLINED_FUNCTION_4_0();
-  __chkstk_darwin(v12);
-  v14 = &v70 - v13;
-  v15 = type metadata accessor for CATOption();
-  v16 = OUTLINED_FUNCTION_21(v15);
-  v18 = *(v17 + 64);
-  __chkstk_darwin(v16);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_94_5();
-  OUTLINED_FUNCTION_112_3();
-  type metadata accessor for HangUpCallCATsSimple();
-  OUTLINED_FUNCTION_47_5();
-  OUTLINED_FUNCTION_38_2();
-  v78 = v0;
-  v19 = CATWrapperSimple.__allocating_init(options:globals:)();
-  v20 = type metadata accessor for ResponseFactory();
-  OUTLINED_FUNCTION_12_8(v20);
-  swift_allocObject();
-  v21 = ResponseFactory.init()();
-  if (one-time initialization token for shared != -1)
-  {
-    swift_once();
-  }
-
-  v22 = static CallRegistrationManager.shared;
-  v80 = type metadata accessor for HangUpCallIntentRCHFlowStrategy();
-  v23 = swift_allocObject();
-  v23[12] = v20;
-  v23[13] = &protocol witness table for ResponseFactory;
-  v23[9] = v21;
-  v77 = type metadata accessor for CallRegistrationManager();
-  v23[17] = v77;
-  v23[18] = &protocol witness table for CallRegistrationManager;
-  v23[14] = v22;
-  v23[2] = v4;
-  outlined init with take of SPHConversation(&v94, (v23 + 3));
-  v23[8] = v19;
-  type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for INHangUpCallIntent, INHangUpCallIntent_ptr);
-  v75 = type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for INHangUpCallIntentResponse, INHangUpCallIntentResponse_ptr);
-  v79 = v22;
-
-  OUTLINED_FUNCTION_19_0();
-  RCHChildFlowProducersAsync.init()();
-  OUTLINED_FUNCTION_28_2();
-  static RCHChildFlowFactoryHelper.makeAppResolutionFlowProducer<A, B>(app:)();
-  RCHChildFlowProducersAsync.appResolutionFlowProducer.setter();
-  OUTLINED_FUNCTION_112_3();
-  type metadata accessor for PhoneCallCommonCATs();
-  OUTLINED_FUNCTION_47_5();
-  OUTLINED_FUNCTION_38_2();
-  v73 = CATWrapper.__allocating_init(options:globals:)();
-  v72 = type metadata accessor for PhoneCallCommonCATPatternsExecutor();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_38_2();
-  v24 = CATWrapper.__allocating_init(options:globals:)();
-  v71 = type metadata accessor for AppInfoBuilder();
-  v25 = OUTLINED_FUNCTION_79();
-  v74 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo08INHangUpB6IntentCSo0hibJ8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo08INHangUpB6IntentCSo0hibJ8ResponseCGMR);
-  v26 = swift_allocObject();
-  v83 = v14;
-  v27 = v26;
-  v92 = v25;
-  v93 = v24;
-  v70 = v24;
-  v91[3] = &type metadata for LabelTemplatesProvider;
-  v91[4] = &protocol witness table for LabelTemplatesProvider;
-  OUTLINED_FUNCTION_68_0();
-  v28 = swift_allocObject();
-  v91[0] = v28;
-  *(v28 + 16) = 0u;
-  *(v28 + 32) = 0u;
-  v90[3] = &type metadata for TCCTemplatesProvider;
-  v90[4] = &protocol witness table for TCCTemplatesProvider;
-  outlined init with copy of SignalProviding(&v94, v27 + 272);
-  outlined init with copy of SignalProviding(v91, v27 + 192);
-  outlined init with copy of SignalProviding(v90, v27 + 232);
-  v76 = v4;
-  v81 = v6;
-  v29 = v2;
-  v30 = v95;
-  v31 = v96;
-  OUTLINED_FUNCTION_28_0(&v94, v95);
-  v32 = *(v31 + 136);
-
-  v32(v87, v30, v31);
-  v33 = v88;
-  v34 = v89;
-  __swift_project_boxed_opaque_existential_1(v87, v88);
-  v35 = v96;
-  __swift_project_boxed_opaque_existential_1(&v94, v95);
-  v36 = *(v35 + 8);
-  v37 = OUTLINED_FUNCTION_61();
-  v38(v37, v35);
-  OUTLINED_FUNCTION_9_1();
-  v40 = *(v39 + 64);
-  __chkstk_darwin(v41);
-  OUTLINED_FUNCTION_4();
-  v43 = OUTLINED_FUNCTION_65_10(v42);
-  v44 = v29;
-  v45 = v81;
-  v46(v43);
-  v47 = v27;
-  v48 = v83;
-  v49 = specialized PhoneCallStrategy.init(catFamily:catPatternFamily:responseGenerator:appInfoBuilder:deviceState:)(v73, &v93, v25, &v92, &v86, v47, v33, v72, v71, *(v34 + 8), &protocol witness table for PhoneCallCommonCATPatternsExecutor, &protocol witness table for AppInfoBuilder, v70);
-
-  __swift_destroy_boxed_opaque_existential_1(v90);
-  __swift_destroy_boxed_opaque_existential_1(v91);
-  __swift_destroy_boxed_opaque_existential_1(v87);
-  __swift_destroy_boxed_opaque_existential_1(&v94);
-  *&v94 = v49;
-  OUTLINED_FUNCTION_27_21();
-  lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(v50, &_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo08INHangUpB6IntentCSo0hibJ8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo08INHangUpB6IntentCSo0hibJ8ResponseCGMR);
-  static RCHChildFlowFactoryHelper.makeRequestTCCAcceptanceFlow<A, B>(strategy:)();
-
-  RCHChildFlowProducersAsync.requestTCCAcceptanceFlowProducer.setter();
-  outlined init with copy of SignalProviding(v29, &v94);
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_38_2();
-  v51 = CATWrapperSimple.__allocating_init(options:globals:)();
-  if (one-time initialization token for instance != -1)
-  {
-    OUTLINED_FUNCTION_0_9();
-  }
-
-  v52 = static BiomeEventSender.instance;
-  type metadata accessor for HangUpCallHandleIntentFlowStrategy();
-  v53 = swift_allocObject();
-  v53[11] = &type metadata for BiomeEventSender;
-  v53[12] = &protocol witness table for BiomeEventSender;
-  v53[8] = v52;
-  v53[16] = v77;
-  v53[17] = &protocol witness table for CallRegistrationManager;
-  v53[13] = v79;
-  outlined init with take of SPHConversation(&v94, (v53 + 2));
-  v53[7] = v51;
-  *&v94 = v53;
-  lazy protocol witness table accessor for type SearchCallHistoryHandleFlowStrategy and conformance SearchCallHistoryHandleFlowStrategy(&lazy protocol witness table cache variable for type HangUpCallHandleIntentFlowStrategy and conformance HangUpCallHandleIntentFlowStrategy, type metadata accessor for HangUpCallHandleIntentFlowStrategy);
-  OUTLINED_FUNCTION_48_16();
-
-  v54 = v52;
-  static RCHChildFlowFactoryHelper.makeHandleIntentFlowProducer<A>(strategy:)();
-
-  OUTLINED_FUNCTION_19_0();
-  RCHChildFlowProducersAsync.handleIntentFlowProducer.setter();
-  v55 = v44[4];
-  __swift_project_boxed_opaque_existential_1(v44, v44[3]);
-  v56 = OUTLINED_FUNCTION_54_17();
-  v57(v56);
-  v58 = v95;
-  v59 = v96;
-  v79 = __swift_project_boxed_opaque_existential_1(&v94, v95);
-  v91[0] = v23;
-  v60 = v85;
-  v61 = *(v85 + 16);
-  v62 = OUTLINED_FUNCTION_69_8();
-  v63(v62);
-  v64 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08RCHChildC7FactoryCySo18INHangUpCallIntentCSo0fghI8ResponseCGMd, &_s11SiriKitFlow08RCHChildC7FactoryCySo18INHangUpCallIntentCSo0fghI8ResponseCGMR);
-  OUTLINED_FUNCTION_12_8(v64);
-  swift_allocObject();
-  OUTLINED_FUNCTION_11_0();
-  v65 = RCHChildFlowFactory.init(producers:)();
-  v66 = v45;
-  v67 = v48;
-  v68 = *(v59 + 8);
-  v69 = lazy protocol witness table accessor for type SearchCallHistoryHandleFlowStrategy and conformance SearchCallHistoryHandleFlowStrategy(&lazy protocol witness table cache variable for type HangUpCallIntentRCHFlowStrategy and conformance HangUpCallIntentRCHFlowStrategy, type metadata accessor for HangUpCallIntentRCHFlowStrategy);
-  v68(v91, v65, v76, v84, v80, v69, v58, v59);
-  OUTLINED_FUNCTION_48_16();
-
-  (*(v60 + 8))(v67, v66);
-
-  __swift_destroy_boxed_opaque_existential_1(&v94);
-  OUTLINED_FUNCTION_91_5();
-  OUTLINED_FUNCTION_65();
-}
-
-void static PhoneCallFlowFactory.makeIncomingCallRCHFlow<A, B>(strategy:intent:app:sharedGlobals:)()
-{
-  OUTLINED_FUNCTION_66();
-  v1 = v0;
-  v3 = v2;
-  v44 = v4;
-  v41 = v5;
-  v6 = type metadata accessor for RCHChildFlowProducersAsync();
-  v7 = OUTLINED_FUNCTION_7(v6);
-  v43 = v8;
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v7);
-  OUTLINED_FUNCTION_16_2();
-  v42 = v11;
-  OUTLINED_FUNCTION_4_0();
-  __chkstk_darwin(v12);
-  v14 = &v38 - v13;
-  OUTLINED_FUNCTION_69();
-  RCHChildFlowProducersAsync.init()();
-  OUTLINED_FUNCTION_93_5();
-  static RCHChildFlowFactoryHelper.makeAppResolutionFlowProducer<A, B>(app:)();
-  RCHChildFlowProducersAsync.appResolutionFlowProducer.setter();
-  OUTLINED_FUNCTION_18_23();
-  type metadata accessor for PhoneTCCFlowStrategy();
-  OUTLINED_FUNCTION_112_3();
-  v15 = OUTLINED_FUNCTION_69();
-  v17 = default argument 3 of PhoneCallBaseCatTemplatingService.init(ducFamily:sharedGlobals:displayTextCats:phoneCallCommonCats:appInfoBuilder:labelTemplating:startCallCats:)(v15, v16);
-  v18 = OUTLINED_FUNCTION_69();
-  default argument 2 of PhoneTCCFlowStrategy.init(sharedGlobals:phoneCallCommonCats:phoneCallCommonCatPatterns:labelTemplatesProvider:tccTemplatesProvider:appInfoBuilder:)(v20, v18, v19);
-  v21 = OUTLINED_FUNCTION_69();
-  default argument 5 of PhoneCallBaseCatTemplatingService.init(ducFamily:sharedGlobals:displayTextCats:phoneCallCommonCats:appInfoBuilder:labelTemplating:startCallCats:)(v21);
-  OUTLINED_FUNCTION_69();
-  default argument 4 of PhoneTCCFlowStrategy.init(sharedGlobals:phoneCallCommonCats:phoneCallCommonCatPatterns:labelTemplatesProvider:tccTemplatesProvider:appInfoBuilder:)(v22);
-  v23 = OUTLINED_FUNCTION_69();
-  default argument 4 of PhoneCallBaseCatTemplatingService.init(ducFamily:sharedGlobals:displayTextCats:phoneCallCommonCats:appInfoBuilder:labelTemplating:startCallCats:)(v23);
-  *&v50 = PhoneTCCFlowStrategy.__allocating_init(sharedGlobals:phoneCallCommonCats:phoneCallCommonCatPatterns:labelTemplatesProvider:tccTemplatesProvider:appInfoBuilder:)(&v50, v17, v49, v48, v47, &v46);
-  OUTLINED_FUNCTION_82_4();
-  static RCHChildFlowFactoryHelper.makeRequestTCCAcceptanceFlow<A, B>(strategy:)();
-  OUTLINED_FUNCTION_86_5();
-  OUTLINED_FUNCTION_60_10();
-  RCHChildFlowProducersAsync.requestTCCAcceptanceFlowProducer.setter();
-  OUTLINED_FUNCTION_18_23();
-  type metadata accessor for IncomingCallActionHandleIntentFlowStrategy();
-  outlined init with copy of SignalProviding(v41, &v50);
-  outlined init with copy of SignalProviding(v1, v49);
-  OUTLINED_FUNCTION_69();
-  default argument 2 of IncomingCallActionHandleIntentFlowStrategy.init(strategy:sharedGlobals:callStateNotificationManager:audioSessionManager:sbsManager:)();
-  OUTLINED_FUNCTION_69();
-  default argument 3 of IncomingCallActionHandleIntentFlowStrategy.init(strategy:sharedGlobals:callStateNotificationManager:audioSessionManager:sbsManager:)(v24);
-  OUTLINED_FUNCTION_69();
-  default argument 4 of IncomingCallActionHandleIntentFlowStrategy.init(strategy:sharedGlobals:callStateNotificationManager:audioSessionManager:sbsManager:)(v25);
-  *&v50 = IncomingCallActionHandleIntentFlowStrategy.__allocating_init(strategy:sharedGlobals:callStateNotificationManager:audioSessionManager:sbsManager:)();
-  OUTLINED_FUNCTION_82_4();
-  OUTLINED_FUNCTION_17_31();
-  static RCHChildFlowFactoryHelper.makeHandleIntentFlowProducer<A>(strategy:)();
-  OUTLINED_FUNCTION_86_5();
-  OUTLINED_FUNCTION_60_10();
-  v40 = v6;
-  v45 = v14;
-  RCHChildFlowProducersAsync.handleIntentFlowProducer.setter();
-  OUTLINED_FUNCTION_18_23();
-  type metadata accessor for IncomingCallActionContinueInAppStrategy();
-  *&v50 = UnsetRelationshipTemplatesWrapper.__allocating_init()();
-  OUTLINED_FUNCTION_82_4();
-  OUTLINED_FUNCTION_17_31();
-  static RCHChildFlowFactoryHelper.makeContinueInAppFlowWithAutomaticPunchOutProducer<A>(strategy:)();
-  OUTLINED_FUNCTION_86_5();
-  OUTLINED_FUNCTION_60_10();
-  RCHChildFlowProducersAsync.continueInAppFlowProducer.setter();
-  OUTLINED_FUNCTION_18_23();
-  v26 = type metadata accessor for PhoneIntentRCHFlowStrategy();
-  OUTLINED_FUNCTION_112_3();
-  v39 = v3;
-  v27 = PhoneIntentRCHFlowStrategy.__allocating_init(sharedGlobals:app:)(&v50, v3);
-  v29 = v1[3];
-  v28 = v1[4];
-  OUTLINED_FUNCTION_28_0(v1, v29);
-  v30 = *(v28 + 104);
-
-  v30(&v50, v29, v28);
-  v31 = v51;
-  v32 = v52;
-  v41 = __swift_project_boxed_opaque_existential_1(&v50, v51);
-  v49[0] = v27;
-  OUTLINED_FUNCTION_18_23();
-  type metadata accessor for RCHChildFlowFactory();
-  v33 = v43;
-  v34 = v40;
-  (*(v43 + 16))(v42, v45, v40);
-  v35 = RCHChildFlowFactory.__allocating_init(producers:)();
-  v36 = *(v32 + 8);
-  WitnessTable = swift_getWitnessTable();
-  v36(v49, v35, v39, v44, v26, WitnessTable, v31, v32);
-  OUTLINED_FUNCTION_19_7();
-
-  (*(v33 + 8))(v45, v34);
-
-  __swift_destroy_boxed_opaque_existential_1(&v50);
-  OUTLINED_FUNCTION_68_6();
-  OUTLINED_FUNCTION_65();
-}
-
-void static PhoneCallFlowFactoryProtocol.makeIncomingCallFlow<A, B>(strategy:intent:app:sharedGlobals:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
-{
-  (*(a8 + 40))(a1);
-  v15[0] = a6;
-  v15[1] = a7;
-  v15[2] = a9;
-  v15[3] = a10;
-  type metadata accessor for IncomingCallFlow();
-  outlined init with copy of SignalProviding(a1, v15);
-  outlined init with copy of SignalProviding(a4, v14);
-
-  IncomingCallFlow.__allocating_init(rchFlow:app:strategy:sharedGlobals:)();
-}
-
-void static PhoneCallFlowFactory.makeAddCallParticipantRCHFlow(intent:app:sharedGlobals:)()
-{
-  OUTLINED_FUNCTION_66();
-  v2 = v1;
-  v4 = v3;
-  v61 = v5;
-  v6 = type metadata accessor for CATOption();
-  v7 = OUTLINED_FUNCTION_21(v6);
-  v9 = *(v8 + 64);
-  __chkstk_darwin(v7);
-  OUTLINED_FUNCTION_4();
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo26INAddCallParticipantIntentCSo0ghiJ8ResponseCGMd, &_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo26INAddCallParticipantIntentCSo0ghiJ8ResponseCGMR);
-  v11 = OUTLINED_FUNCTION_7(v10);
-  v62 = v12;
-  v14 = *(v13 + 64);
-  __chkstk_darwin(v11);
-  OUTLINED_FUNCTION_16_2();
-  v60 = v15;
-  OUTLINED_FUNCTION_4_0();
-  __chkstk_darwin(v16);
-  v18 = &v56 - v17;
-  type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for INAddCallParticipantIntent, INAddCallParticipantIntent_ptr);
-  type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for INAddCallParticipantIntentResponse, INAddCallParticipantIntentResponse_ptr);
-  OUTLINED_FUNCTION_19_0();
-  RCHChildFlowProducersAsync.init()();
-  OUTLINED_FUNCTION_28_2();
-  static RCHChildFlowFactoryHelper.makeAppResolutionFlowProducer<A, B>(app:)();
-  RCHChildFlowProducersAsync.appResolutionFlowProducer.setter();
-  OUTLINED_FUNCTION_87_4();
-  type metadata accessor for AddCallParticipantCATsSimple();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_67_9();
-  CATWrapperSimple.__allocating_init(options:globals:)();
-  OUTLINED_FUNCTION_47_4();
-  type metadata accessor for AddCallParticipantHandleIntentFlowStrategy();
-  OUTLINED_FUNCTION_102_0();
-  v19 = swift_allocObject();
-  outlined init with take of SPHConversation(&v64, v19 + 16);
-  *(v19 + 56) = v0;
-  *&v63 = v19;
-  OUTLINED_FUNCTION_87_4();
-  OUTLINED_FUNCTION_102_0();
-  v20 = swift_allocObject();
-  *(v20 + 16) = v4;
-  outlined init with take of SPHConversation(&v64, v20 + 24);
-  lazy protocol witness table accessor for type SearchCallHistoryHandleFlowStrategy and conformance SearchCallHistoryHandleFlowStrategy(&lazy protocol witness table cache variable for type AddCallParticipantHandleIntentFlowStrategy and conformance AddCallParticipantHandleIntentFlowStrategy, type metadata accessor for AddCallParticipantHandleIntentFlowStrategy);
-
-  static RCHChildFlowFactoryHelper.makeHandleIntentFlowProducer<A>(strategy:responseFlowProducer:)();
-
-  OUTLINED_FUNCTION_62_14();
-  RCHChildFlowProducersAsync.handleIntentFlowProducer.setter();
-  type metadata accessor for ParticipantOutputProvider();
-  OUTLINED_FUNCTION_87_4();
-  type metadata accessor for AddCallParticipantCATs();
-
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_67_9();
-  CATWrapper.__allocating_init(options:globals:)();
-  OUTLINED_FUNCTION_47_4();
-  type metadata accessor for StartCallCATs();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_67_9();
-  v21 = CATWrapper.__allocating_init(options:globals:)();
-  v22 = ParticipantOutputProvider.__allocating_init(sharedGlobals:app:cats:startCallCats:)(&v64, v4, v20, v21);
-  outlined init with copy of SignalProviding(v2, &v64 + 8);
-  *&v64 = v22;
-
-  v23 = OUTLINED_FUNCTION_19_0();
-  __swift_instantiateConcreteTypeFromMangledNameV2(v23, v24);
-  OUTLINED_FUNCTION_28_2();
-  lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(v25, v26, v27);
-  OUTLINED_FUNCTION_19_29();
-  static RCHChildFlowFactoryHelper.makeNeedsValueFlowProducer<A>(strategy:)();
-  OUTLINED_FUNCTION_28_2();
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v28, v29, v30);
-  OUTLINED_FUNCTION_62_14();
-  RCHChildFlowProducersAsync.needsValueFlowProducer.setter();
-  outlined init with copy of SignalProviding(v2, &v64 + 8);
-  *&v64 = v22;
-
-  v31 = OUTLINED_FUNCTION_19_0();
-  __swift_instantiateConcreteTypeFromMangledNameV2(v31, v32);
-  OUTLINED_FUNCTION_28_2();
-  lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(v33, v34, v35);
-  OUTLINED_FUNCTION_19_29();
-  static RCHChildFlowFactoryHelper.makeNeedsConfirmationFlowProducer<A>(strategy:)();
-  OUTLINED_FUNCTION_28_2();
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v36, v37, v38);
-  OUTLINED_FUNCTION_62_14();
-  RCHChildFlowProducersAsync.needsConfirmationFlowProducer.setter();
-  OUTLINED_FUNCTION_87_4();
-  OUTLINED_FUNCTION_102_0();
-  v39 = swift_allocObject();
-  outlined init with take of SPHConversation(&v64, v39 + 16);
-  *(v39 + 56) = v22;
-
-  RCHChildFlowProducersAsync.unsupportedValueFlowProducer.setter();
-  OUTLINED_FUNCTION_87_4();
-
-  v41 = _s27PhoneCallFlowDelegatePlugin026ContactNeedsDisambiguationC8StrategyC14promptProvider13sharedGlobalsACyxGx_AA06SharedM9Providing_ptcfCAA017ParticipantOutputK0C_Tt1g5(v40, &v64);
-  OUTLINED_FUNCTION_96_2(v41);
-  v42 = OUTLINED_FUNCTION_43_3();
-  __swift_instantiateConcreteTypeFromMangledNameV2(v42, v43);
-  lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type ContactNeedsDisambiguationFlowStrategy<ParticipantOutputProvider> and conformance ContactNeedsDisambiguationFlowStrategy<A>, &_s27PhoneCallFlowDelegatePlugin026ContactNeedsDisambiguationC8StrategyCyAA25ParticipantOutputProviderCGMd, &_s27PhoneCallFlowDelegatePlugin026ContactNeedsDisambiguationC8StrategyCyAA25ParticipantOutputProviderCGMR);
-  OUTLINED_FUNCTION_19_29();
-  static RCHChildFlowFactoryHelper.makeNeedsDisambiguationFlowProducer<A>(strategy:)();
-  OUTLINED_FUNCTION_29_18();
-
-  OUTLINED_FUNCTION_43_3();
-  v57 = v18;
-  v58 = v10;
-  RCHChildFlowProducersAsync.needsDisambiguationFlowProducer.setter();
-  v44 = v2[4];
-  __swift_project_boxed_opaque_existential_1(v2, v2[3]);
-  v45 = OUTLINED_FUNCTION_54_17();
-  v46(v45);
-  v47 = v65;
-  v56 = v66;
-  v59 = __swift_project_boxed_opaque_existential_1(&v64, v65);
-  outlined init with copy of SignalProviding(v2, &v63);
-  v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin0A21IntentRCHFlowStrategyCySo05INAddb11ParticipantF0CSo0ibjF8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0A21IntentRCHFlowStrategyCySo05INAddb11ParticipantF0CSo0ibjF8ResponseCGMR);
-  OUTLINED_FUNCTION_102_0();
-  v49 = swift_allocObject();
-  outlined init with take of SPHConversation(&v63, v49 + 16);
-  *(v49 + 56) = v4;
-  *&v63 = v49;
-  (*(v62 + 16))(v60, v18, v10);
-  v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08RCHChildC7FactoryCySo26INAddCallParticipantIntentCSo0fghI8ResponseCGMd, &_s11SiriKitFlow08RCHChildC7FactoryCySo26INAddCallParticipantIntentCSo0fghI8ResponseCGMR);
-  OUTLINED_FUNCTION_12_8(v50);
-  swift_allocObject();
-
-  v51 = RCHChildFlowFactory.init(producers:)();
-  v52 = v56;
-  v53 = *(v56 + 8);
-  OUTLINED_FUNCTION_24_25();
-  v55 = lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(v54, &_s27PhoneCallFlowDelegatePlugin0A21IntentRCHFlowStrategyCySo05INAddb11ParticipantF0CSo0ibjF8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0A21IntentRCHFlowStrategyCySo05INAddb11ParticipantF0CSo0ibjF8ResponseCGMR);
-  v53(&v63, v51, v4, v61, v48, v55, v47, v52);
-
-  (*(v62 + 8))(v57, v58);
-  __swift_destroy_boxed_opaque_existential_1(&v64);
-  OUTLINED_FUNCTION_91_5();
-  OUTLINED_FUNCTION_65();
-}
-
-uint64_t specialized ParameterResolutionRecord<>.isUnsetRelationship.getter()
-{
-  v0 = type metadata accessor for ParameterIdentifier();
-  v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  __chkstk_darwin(v0);
-  v4 = &v34 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow25ParameterResolutionRecordVySo22INStartAudioCallIntentCGMd, &_s11SiriKitFlow25ParameterResolutionRecordVySo22INStartAudioCallIntentCGMR);
-  ParameterResolutionRecord.app.getter();
-  v5 = App.isFirstParty()();
-
-  if (!v5)
-  {
-    return 0;
-  }
-
-  ParameterResolutionRecord.parameter.getter();
-  v6 = ParameterIdentifier.multicardinalIndex.getter();
-  v8 = v7;
-  (*(v1 + 8))(v4, v0);
-  v9 = ParameterResolutionRecord.intent.getter();
-  v10 = outlined bridged method (pb) of @objc INStartAudioCallIntent.contacts.getter(v9);
-
-  if (!v10)
-  {
-    return 0;
-  }
-
-  v11 = (v8 & 1) != 0 ? 0 : v6;
-  v12 = specialized Array.subscript.getter(v11, v10);
-
-  if (!v12)
-  {
-    return 0;
-  }
-
-  v13 = [v12 relationship];
-
-  if (!v13)
-  {
-    return 0;
-  }
-
-  v14 = ParameterResolutionRecord.intent.getter();
-  v15 = ParameterResolutionRecord.result.getter();
-  v36 = v14;
-  v37 = v15;
-  v16 = v14;
-  v17 = v15;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22INStartAudioCallIntentC_So24INIntentResolutionResultCtMd, &_sSo22INStartAudioCallIntentC_So24INIntentResolutionResultCtMR);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo17INStartCallIntentC_So0aB23ContactResolutionResultCtMd, &_sSo17INStartCallIntentC_So0aB23ContactResolutionResultCtMR);
-  if (swift_dynamicCast())
-  {
-  }
-
-  else
-  {
-    v18 = v36;
-
-    v36 = v16;
-    v37 = v17;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo26INAddCallParticipantIntentC_So0abcC16ResolutionResultCtMd, &_sSo26INAddCallParticipantIntentC_So0abcC16ResolutionResultCtMR);
-    if ((swift_dynamicCast() & 1) == 0)
+LABEL_11:
+    v53 = v8;
+    v54 = v4;
+    v16 = OUTLINED_FUNCTION_55_0();
+    v18 = v17(v16);
+    v19 = _swiftEmptyArrayStorage;
+    if (v18)
     {
+      v19 = v18;
+    }
 
-      v13 = v36;
-      goto LABEL_17;
+    v20 = v19[2];
+    v52 = v19;
+    v21 = v19 + 4;
+    OUTLINED_FUNCTION_74_6();
+    v55 = 0xE900000000000065;
+    v56 = v22;
+    while (2)
+    {
+      v23 = v20-- != 0;
+      v12 = v23;
+      if (v23)
+      {
+        switch(*v21)
+        {
+          case 1:
+            OUTLINED_FUNCTION_24_27();
+            goto LABEL_32;
+          case 2:
+            OUTLINED_FUNCTION_19_30();
+            goto LABEL_32;
+          case 3:
+            OUTLINED_FUNCTION_4_7();
+            goto LABEL_32;
+          case 4:
+            OUTLINED_FUNCTION_7_53();
+            goto LABEL_32;
+          case 5:
+            OUTLINED_FUNCTION_11_42();
+            goto LABEL_32;
+          case 6:
+
+            break;
+          case 7:
+            OUTLINED_FUNCTION_6_59();
+            goto LABEL_32;
+          case 8:
+            OUTLINED_FUNCTION_9_52();
+            goto LABEL_32;
+          case 9:
+            OUTLINED_FUNCTION_5_64();
+            goto LABEL_32;
+          case 0xA:
+            OUTLINED_FUNCTION_13_41();
+            goto LABEL_32;
+          case 0xB:
+            OUTLINED_FUNCTION_12_46();
+            goto LABEL_32;
+          case 0xC:
+            OUTLINED_FUNCTION_2_81();
+            goto LABEL_32;
+          case 0xD:
+            OUTLINED_FUNCTION_54_18();
+            goto LABEL_32;
+          default:
+LABEL_32:
+            OUTLINED_FUNCTION_101_3();
+            OUTLINED_FUNCTION_59_8(v24, v25, v26);
+            OUTLINED_FUNCTION_113_0();
+            ++v21;
+            if (v8)
+            {
+              break;
+            }
+
+            continue;
+        }
+      }
+
+      break;
+    }
+
+    v8 = v53;
+    v4 = v54;
+    goto LABEL_34;
+  }
+
+  v12 = 0;
+LABEL_34:
+  v10 = v57;
+LABEL_35:
+  v27 = OUTLINED_FUNCTION_55_0();
+  (v10)(v27);
+  OUTLINED_FUNCTION_20_31();
+  if (v15)
+  {
+    if (!v12)
+    {
+      goto LABEL_58;
     }
   }
 
-  v19 = v35;
-  v20 = [v35 unsupportedReason];
-
-  v21 = v36;
-  if (v20 != &dword_0 + 1)
-  {
-LABEL_17:
-
-    return 0;
-  }
-
-  if (one-time initialization token for siriPhone != -1)
-  {
-    swift_once();
-  }
-
-  v22 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v22, static Logger.siriPhone);
-  v23 = v13;
-  v24 = Logger.logObject.getter();
-  v25 = static os_log_type_t.debug.getter();
-
-  if (os_log_type_enabled(v24, v25))
-  {
-    v26 = swift_slowAlloc();
-    v36 = swift_slowAlloc();
-    *v26 = 136315650;
-    v34 = type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for INStartAudioCallIntent, INStartAudioCallIntent_ptr);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22INStartAudioCallIntentCmMd, &_sSo22INStartAudioCallIntentCmMR);
-    v27 = String.init<A>(describing:)();
-    v29 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v27, v28, &v36);
-
-    *(v26 + 4) = v29;
-    *(v26 + 12) = 2080;
-    *(v26 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000013, 0x800000000045D050, &v36);
-    *(v26 + 22) = 2080;
-    v30 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v30, v31, &v36);
-
-    *(v26 + 24) = v32;
-    _os_log_impl(&dword_0, v24, v25, "#ParameterResolutionRecord<%s> %s Found unsetRelationship = %s", v26, 0x20u);
-    swift_arrayDestroy();
-  }
-
   else
   {
-  }
-
-  return 1;
-}
-
-{
-  v0 = type metadata accessor for ParameterIdentifier();
-  v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  __chkstk_darwin(v0);
-  v4 = &v34 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow25ParameterResolutionRecordVySo22INStartVideoCallIntentCGMd, &_s11SiriKitFlow25ParameterResolutionRecordVySo22INStartVideoCallIntentCGMR);
-  ParameterResolutionRecord.app.getter();
-  v5 = App.isFirstParty()();
-
-  if (!v5)
-  {
-    return 0;
-  }
-
-  ParameterResolutionRecord.parameter.getter();
-  v6 = ParameterIdentifier.multicardinalIndex.getter();
-  v8 = v7;
-  (*(v1 + 8))(v4, v0);
-  v9 = ParameterResolutionRecord.intent.getter();
-  v10 = outlined bridged method (pb) of @objc INStartVideoCallIntent.contacts.getter(v9);
-
-  if (!v10)
-  {
-    return 0;
-  }
-
-  v11 = (v8 & 1) != 0 ? 0 : v6;
-  v12 = specialized Array.subscript.getter(v11, v10);
-
-  if (!v12)
-  {
-    return 0;
-  }
-
-  v13 = [v12 relationship];
-
-  if (!v13)
-  {
-    return 0;
-  }
-
-  v14 = ParameterResolutionRecord.intent.getter();
-  v15 = ParameterResolutionRecord.result.getter();
-  v36 = v14;
-  v37 = v15;
-  v16 = v14;
-  v17 = v15;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22INStartVideoCallIntentC_So24INIntentResolutionResultCtMd, &_sSo22INStartVideoCallIntentC_So24INIntentResolutionResultCtMR);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo17INStartCallIntentC_So0aB23ContactResolutionResultCtMd, &_sSo17INStartCallIntentC_So0aB23ContactResolutionResultCtMR);
-  if (swift_dynamicCast())
-  {
-  }
-
-  else
-  {
-    v18 = v36;
-
-    v36 = v16;
-    v37 = v17;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo26INAddCallParticipantIntentC_So0abcC16ResolutionResultCtMd, &_sSo26INAddCallParticipantIntentC_So0abcC16ResolutionResultCtMR);
-    if ((swift_dynamicCast() & 1) == 0)
+    v29 = PhoneCallVerb.rawValue.getter(v28);
+    if (v29 == 0x636162206C6C6163 && v30 == 0xE90000000000006BLL)
     {
+    }
 
-      v13 = v36;
-      goto LABEL_17;
+    else
+    {
+      OUTLINED_FUNCTION_111_4(v29, v30, 0x636162206C6C6163, 107);
+      OUTLINED_FUNCTION_80_5();
     }
   }
 
-  v19 = v35;
-  v20 = [v35 unsupportedReason];
-
-  v21 = v36;
-  if (v20 != &dword_0 + 1)
-  {
-LABEL_17:
-
-    return 0;
-  }
-
-  if (one-time initialization token for siriPhone != -1)
-  {
-    swift_once();
-  }
-
-  v22 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v22, static Logger.siriPhone);
-  v23 = v13;
-  v24 = Logger.logObject.getter();
-  v25 = static os_log_type_t.debug.getter();
-
-  if (os_log_type_enabled(v24, v25))
-  {
-    v26 = swift_slowAlloc();
-    v36 = swift_slowAlloc();
-    *v26 = 136315650;
-    v34 = type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for INStartVideoCallIntent, INStartVideoCallIntent_ptr);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22INStartVideoCallIntentCmMd, &_sSo22INStartVideoCallIntentCmMR);
-    v27 = String.init<A>(describing:)();
-    v29 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v27, v28, &v36);
-
-    *(v26 + 4) = v29;
-    *(v26 + 12) = 2080;
-    *(v26 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000013, 0x800000000045D050, &v36);
-    *(v26 + 22) = 2080;
-    v30 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v30, v31, &v36);
-
-    *(v26 + 24) = v32;
-    _os_log_impl(&dword_0, v24, v25, "#ParameterResolutionRecord<%s> %s Found unsetRelationship = %s", v26, 0x20u);
-    swift_arrayDestroy();
-  }
-
-  else
-  {
-  }
-
-  return 1;
-}
-
-{
-  v0 = type metadata accessor for ParameterIdentifier();
-  v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  __chkstk_darwin(v0);
-  v4 = &v34 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow25ParameterResolutionRecordVySo17INStartCallIntentCGMd, &_s11SiriKitFlow25ParameterResolutionRecordVySo17INStartCallIntentCGMR);
-  ParameterResolutionRecord.app.getter();
-  v5 = App.isFirstParty()();
-
-  if (!v5)
-  {
-    return 0;
-  }
-
-  ParameterResolutionRecord.parameter.getter();
-  v6 = ParameterIdentifier.multicardinalIndex.getter();
-  v8 = v7;
-  (*(v1 + 8))(v4, v0);
-  v9 = ParameterResolutionRecord.intent.getter();
-  v10 = outlined bridged method (pb) of @objc INStartCallIntent.contacts.getter(v9);
-
-  if (!v10)
-  {
-    return 0;
-  }
-
-  v11 = (v8 & 1) != 0 ? 0 : v6;
-  v12 = specialized Array.subscript.getter(v11, v10);
-
-  if (!v12)
-  {
-    return 0;
-  }
-
-  v13 = [v12 relationship];
-
-  if (!v13)
-  {
-    return 0;
-  }
-
-  v14 = ParameterResolutionRecord.intent.getter();
-  v15 = ParameterResolutionRecord.result.getter();
-  v36 = v14;
-  v37 = v15;
-  v16 = v14;
-  v17 = v15;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo17INStartCallIntentC_So24INIntentResolutionResultCtMd, &_sSo17INStartCallIntentC_So24INIntentResolutionResultCtMR);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo17INStartCallIntentC_So0aB23ContactResolutionResultCtMd, &_sSo17INStartCallIntentC_So0aB23ContactResolutionResultCtMR);
-  if (swift_dynamicCast())
-  {
-  }
-
-  else
-  {
-    v18 = v36;
-
-    v36 = v16;
-    v37 = v17;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo26INAddCallParticipantIntentC_So0abcC16ResolutionResultCtMd, &_sSo26INAddCallParticipantIntentC_So0abcC16ResolutionResultCtMR);
-    if ((swift_dynamicCast() & 1) == 0)
-    {
-
-      v13 = v36;
-      goto LABEL_17;
-    }
-  }
-
-  v19 = v35;
-  v20 = [v35 unsupportedReason];
-
-  v21 = v36;
-  if (v20 != &dword_0 + 1)
-  {
-LABEL_17:
-
-    return 0;
-  }
-
-  if (one-time initialization token for siriPhone != -1)
-  {
-    swift_once();
-  }
-
-  v22 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v22, static Logger.siriPhone);
-  v23 = v13;
-  v24 = Logger.logObject.getter();
-  v25 = static os_log_type_t.debug.getter();
-
-  if (os_log_type_enabled(v24, v25))
-  {
-    v26 = swift_slowAlloc();
-    v36 = swift_slowAlloc();
-    *v26 = 136315650;
-    v34 = type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for INStartCallIntent, INStartCallIntent_ptr);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo17INStartCallIntentCmMd, &_sSo17INStartCallIntentCmMR);
-    v27 = String.init<A>(describing:)();
-    v29 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v27, v28, &v36);
-
-    *(v26 + 4) = v29;
-    *(v26 + 12) = 2080;
-    *(v26 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000013, 0x800000000045D050, &v36);
-    *(v26 + 22) = 2080;
-    v30 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v30, v31, &v36);
-
-    *(v26 + 24) = v32;
-    _os_log_impl(&dword_0, v24, v25, "#ParameterResolutionRecord<%s> %s Found unsetRelationship = %s", v26, 0x20u);
-    swift_arrayDestroy();
-  }
-
-  else
-  {
-  }
-
-  return 1;
-}
-
-{
-  v0 = type metadata accessor for ParameterIdentifier();
-  v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  __chkstk_darwin(v0);
-  v4 = &v34 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow25ParameterResolutionRecordVySo26INAddCallParticipantIntentCGMd, &_s11SiriKitFlow25ParameterResolutionRecordVySo26INAddCallParticipantIntentCGMR);
-  ParameterResolutionRecord.app.getter();
-  v5 = App.isFirstParty()();
-
-  if (!v5)
-  {
-    return 0;
-  }
-
-  ParameterResolutionRecord.parameter.getter();
-  v6 = ParameterIdentifier.multicardinalIndex.getter();
-  v8 = v7;
-  (*(v1 + 8))(v4, v0);
-  v9 = ParameterResolutionRecord.intent.getter();
-  v10 = outlined bridged method (pb) of @objc INAddCallParticipantIntent.participants.getter(v9);
-
-  if (!v10)
-  {
-    return 0;
-  }
-
-  v11 = (v8 & 1) != 0 ? 0 : v6;
-  v12 = specialized Array.subscript.getter(v11, v10);
-
-  if (!v12)
-  {
-    return 0;
-  }
-
-  v13 = [v12 relationship];
-
-  if (!v13)
-  {
-    return 0;
-  }
-
-  v14 = ParameterResolutionRecord.intent.getter();
-  v15 = ParameterResolutionRecord.result.getter();
-  v36 = v14;
-  v37 = v15;
-  v16 = v14;
-  v17 = v15;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo26INAddCallParticipantIntentC_So24INIntentResolutionResultCtMd, &_sSo26INAddCallParticipantIntentC_So24INIntentResolutionResultCtMR);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo17INStartCallIntentC_So0aB23ContactResolutionResultCtMd, &_sSo17INStartCallIntentC_So0aB23ContactResolutionResultCtMR);
-  if (swift_dynamicCast())
-  {
-  }
-
-  else
-  {
-    v18 = v36;
-
-    v36 = v16;
-    v37 = v17;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo26INAddCallParticipantIntentC_So0abcC16ResolutionResultCtMd, &_sSo26INAddCallParticipantIntentC_So0abcC16ResolutionResultCtMR);
-    if ((swift_dynamicCast() & 1) == 0)
-    {
-
-      v13 = v36;
-      goto LABEL_17;
-    }
-  }
-
-  v19 = v35;
-  v20 = [v35 unsupportedReason];
-
-  v21 = v36;
-  if (v20 != &dword_0 + 1)
-  {
-LABEL_17:
-
-    return 0;
-  }
-
-  if (one-time initialization token for siriPhone != -1)
-  {
-    swift_once();
-  }
-
-  v22 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v22, static Logger.siriPhone);
-  v23 = v13;
-  v24 = Logger.logObject.getter();
-  v25 = static os_log_type_t.debug.getter();
-
-  if (os_log_type_enabled(v24, v25))
-  {
-    v26 = swift_slowAlloc();
-    v36 = swift_slowAlloc();
-    *v26 = 136315650;
-    v34 = type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for INAddCallParticipantIntent, INAddCallParticipantIntent_ptr);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo26INAddCallParticipantIntentCmMd, &_sSo26INAddCallParticipantIntentCmMR);
-    v27 = String.init<A>(describing:)();
-    v29 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v27, v28, &v36);
-
-    *(v26 + 4) = v29;
-    *(v26 + 12) = 2080;
-    *(v26 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000013, 0x800000000045D050, &v36);
-    *(v26 + 22) = 2080;
-    v30 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v30, v31, &v36);
-
-    *(v26 + 24) = v32;
-    _os_log_impl(&dword_0, v24, v25, "#ParameterResolutionRecord<%s> %s Found unsetRelationship = %s", v26, 0x20u);
-    swift_arrayDestroy();
-  }
-
-  else
-  {
-  }
-
-  return 1;
-}
-
-void static PhoneCallFlowFactory.makeVoiceCommandsParityFlow(app:intent:sharedGlobals:)()
-{
-  OUTLINED_FUNCTION_66();
-  v1 = v0;
-  v47 = v2;
-  v4 = v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08RCHChildC9ProducersVySo17INStartCallIntentCSo0fgH8ResponseCGMd, &_s11SiriKitFlow08RCHChildC9ProducersVySo17INStartCallIntentCSo0fgH8ResponseCGMR);
-  v6 = OUTLINED_FUNCTION_7(v5);
-  v48 = v7;
-  v49 = v6;
-  v9 = *(v8 + 64);
-  OUTLINED_FUNCTION_49_0();
-  __chkstk_darwin(v10);
-  OUTLINED_FUNCTION_27_3();
-  v46 = v11;
-  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo17INStartCallIntentCSo0ghI8ResponseCGMd, &_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo17INStartCallIntentCSo0ghI8ResponseCGMR);
-  OUTLINED_FUNCTION_7(v45);
-  v13 = v12;
-  v15 = *(v14 + 64);
-  OUTLINED_FUNCTION_49_0();
-  __chkstk_darwin(v16);
-  OUTLINED_FUNCTION_27_3();
-  v44 = v17;
-  v18 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin0abC7FactoryO0A16RCHFlowProducersVy_So07INStartB6IntentCSo0ibJ8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0abC7FactoryO0A16RCHFlowProducersVy_So07INStartB6IntentCSo0ibJ8ResponseCGMR) - 8);
-  v19 = *(*v18 + 64);
-  OUTLINED_FUNCTION_49_0();
-  __chkstk_darwin(v20);
-  v22 = v43 - v21;
-  v23 = type metadata accessor for CATOption();
-  v24 = OUTLINED_FUNCTION_21(v23);
-  v26 = *(v25 + 64);
-  __chkstk_darwin(v24);
-  OUTLINED_FUNCTION_4();
-  type metadata accessor for StartCallRCHFlowDelegate();
-  outlined init with copy of SignalProviding(v1, &v51);
-  swift_retain_n();
-  v43[1] = StartCallRCHFlowDelegate.__allocating_init(sharedGlobals:appResolved:)(&v51, v4);
-  outlined init with copy of SignalProviding(v1, &v51);
-  type metadata accessor for PhoneCallDisplayTextCATsSimple();
-  static CATOption.defaultMode.getter();
-  v27 = OUTLINED_FUNCTION_88_4();
-  type metadata accessor for StartCallCATsSimple();
-  static CATOption.defaultMode.getter();
-  v28 = OUTLINED_FUNCTION_88_4();
-  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin28CallingIntentRCHFlowStrategyCySo07INStartbG0CSo0jbG8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin28CallingIntentRCHFlowStrategyCySo07INStartbG0CSo0jbG8ResponseCGMR);
-  OUTLINED_FUNCTION_70();
-  v30 = swift_allocObject();
-  outlined init with take of SPHConversation(&v51, (v30 + 2));
-  v43[0] = v4;
-  v30[7] = v4;
-  v30[8] = v27;
-  v30[9] = v28;
-  v31 = v47;
-  static PhoneCallFlowFactory.getStartCallProducers(skIntent:delegate:app:sharedGlobals:)();
-  (*(v13 + 16))(v44, &v22[v18[11]], v45);
-  (*(v48 + 16))(v46, v22, v49);
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08RCHChildC7FactoryCySo17INStartCallIntentCSo0fgH8ResponseCGMd, &_s11SiriKitFlow08RCHChildC7FactoryCySo17INStartCallIntentCSo0fgH8ResponseCGMR);
-  OUTLINED_FUNCTION_12_8(v32);
-  swift_allocObject();
-  OUTLINED_FUNCTION_11_0();
-  v33 = RCHChildFlowFactory.init(producers:withFallbacks:)();
-  v34 = v1[4];
-  __swift_project_boxed_opaque_existential_1(v1, v1[3]);
-  v35 = *(v34 + 104);
-  v36 = OUTLINED_FUNCTION_11_0();
-  v37(v36, v34);
-  v38 = v52;
-  v39 = v53;
-  OUTLINED_FUNCTION_28_0(&v51, v52);
-  v50 = v30;
-  v40 = *(v39 + 64);
-  OUTLINED_FUNCTION_4_54();
-  v42 = lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(v41, &_s27PhoneCallFlowDelegatePlugin28CallingIntentRCHFlowStrategyCySo07INStartbG0CSo0jbG8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin28CallingIntentRCHFlowStrategyCySo07INStartbG0CSo0jbG8ResponseCGMR);
-  v40(&v50, v33, v43[0], v31, v29, v42, v38, v39);
-
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v22, &_s27PhoneCallFlowDelegatePlugin0abC7FactoryO0A16RCHFlowProducersVy_So07INStartB6IntentCSo0ibJ8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0abC7FactoryO0A16RCHFlowProducersVy_So07INStartB6IntentCSo0ibJ8ResponseCGMR);
-
-  __swift_destroy_boxed_opaque_existential_1(&v51);
-  OUTLINED_FUNCTION_68_6();
-  OUTLINED_FUNCTION_65();
-}
-
-void _s27PhoneCallFlowDelegatePlugin0abC7FactoryO015getGenericStartB9Producers8delegate3appAC0a7RCHFlowJ0Vy_10IntentTypeQz0n8ResponseO0QzGx_17SiriAppResolution0R0CtAA07CallingnmD0RzlFZAA0i5AudiobmD0C_Tt2g5()
-{
-  OUTLINED_FUNCTION_66();
-  v3 = OUTLINED_FUNCTION_84_5(v1, v2);
-  v4 = OUTLINED_FUNCTION_21(v3);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_15_0();
-  v7 = type metadata accessor for CATOption();
-  v8 = OUTLINED_FUNCTION_21(v7);
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v8);
-  OUTLINED_FUNCTION_4();
-  v11 = OUTLINED_FUNCTION_47_17();
-  _s27PhoneCallFlowDelegatePlugin0abC7FactoryO12getProducers33_CD8279EFAB3EC33E52197D7782D744418delegate3appAC0a7RCHFlowH0Vy_10IntentTypeQz0r8ResponseS0QzGx_17SiriAppResolution0V0CtAA0aqD0RzlFZAA010StartAudiobqD0C_Tt2g5(v11, v12, v13);
-  outlined init with copy of SignalProviding(v0 + direct field offset for StartAudioCallRCHFlowDelegate.sharedGlobals, v82);
-  OUTLINED_FUNCTION_102_0();
-  v14 = swift_allocObject();
-  OUTLINED_FUNCTION_100_3(v14);
-  v62 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin0abC7FactoryO0A16RCHFlowProducersVy_So012INStartAudioB6IntentCSo0ijbK8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0abC7FactoryO0A16RCHFlowProducersVy_So012INStartAudioB6IntentCSo0ijbK8ResponseCGMR) + 36);
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo22INStartAudioCallIntentCSo0ghiJ8ResponseCGMd, &_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo22INStartAudioCallIntentCSo0ghiJ8ResponseCGMR);
-  OUTLINED_FUNCTION_34_11();
-  RCHChildFlowProducersAsync.appResolutionBeforeNextResolveFlowProducer.setter();
-  v15 = type metadata accessor for StartCallCATs();
-  OUTLINED_FUNCTION_111_3(v15);
-  OUTLINED_FUNCTION_19_13();
-  CATWrapper.__allocating_init(options:globals:)();
-  v16 = type metadata accessor for StartCallCATPatternsExecutor(0);
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  v17 = v16;
-  v59 = v16;
-  v18 = CATWrapper.__allocating_init(options:globals:)();
-  v19 = type metadata accessor for StartCallCATsSimple();
-  OUTLINED_FUNCTION_110_2(v19);
-  OUTLINED_FUNCTION_19_13();
-  CATWrapperSimple.__allocating_init(options:globals:)();
-  v20 = type metadata accessor for PhoneCallCommonCATs();
-  OUTLINED_FUNCTION_109_2(v20);
-  OUTLINED_FUNCTION_19_13();
-  CATWrapper.__allocating_init(options:globals:)();
-  v21 = type metadata accessor for PhoneCallCommonCATsSimple();
-  OUTLINED_FUNCTION_108_2(v21);
-  OUTLINED_FUNCTION_19_13();
-  CATWrapperSimple.__allocating_init(options:globals:)();
-  v22 = type metadata accessor for PhoneCallCommonCATPatternsExecutor();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  v60 = v22;
-  v55 = CATWrapper.__allocating_init(options:globals:)();
-  type metadata accessor for PhoneCallDisplayTextCATsSimple();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  CATWrapperSimple.__allocating_init(options:globals:)();
-  v23 = type metadata accessor for ResponseFactory();
-  v63 = OUTLINED_FUNCTION_12_8(v23);
-  swift_allocObject();
-  v57 = ResponseFactory.init()();
-  static SiriKitEventSender.current.getter();
-  v61 = type metadata accessor for AppInfoBuilder();
-  v24 = OUTLINED_FUNCTION_79();
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin039CallingIntentContactNeedsDisambiguationC8StrategyCyAA010StartAudiob7RCHFlowD0CGMd, &_s27PhoneCallFlowDelegatePlugin039CallingIntentContactNeedsDisambiguationC8StrategyCyAA010StartAudiob7RCHFlowD0CGMR);
-  OUTLINED_FUNCTION_12_8(v25);
-  v26 = swift_allocObject();
-  v80 = v17;
-  v81 = &protocol witness table for StartCallCATPatternsExecutor;
-  v79 = v18;
-  v78 = &protocol witness table for PhoneCallCommonCATPatternsExecutor;
-  v77 = v22;
-  v76 = v55;
-  *(v26 + direct field offset for CallingIntentContactNeedsDisambiguationFlowStrategy.personsToDisambiguate) = &_swiftEmptyArrayStorage;
-  v75 = &protocol witness table for AppInfoBuilder;
-  v74 = v61;
-  v73 = v24;
-  *(v26 + direct field offset for CallingIntentContactNeedsDisambiguationFlowStrategy.selectedPerson) = 0;
-  *(v26 + direct field offset for CallingIntentContactNeedsDisambiguationFlowStrategy.requiresReprompt) = 0;
-  *(v26 + direct field offset for CallingIntentContactNeedsDisambiguationFlowStrategy.shouldClearContext) = 0;
-  OUTLINED_FUNCTION_79_5();
-  OUTLINED_FUNCTION_80_4();
-  OUTLINED_FUNCTION_83_4();
-  OUTLINED_FUNCTION_78_7();
-  v69 = v63;
-  v70 = &protocol witness table for ResponseFactory;
-  v68 = v57;
-
-  OUTLINED_FUNCTION_77_8();
-  OUTLINED_FUNCTION_23_21();
-  OutputGenerationManifest.init(dialogPhase:_:)();
-  OUTLINED_FUNCTION_76_5();
-  OUTLINED_FUNCTION_30_22();
-  OUTLINED_FUNCTION_12_44();
-  OUTLINED_FUNCTION_32_15();
-  OUTLINED_FUNCTION_105_3();
-  OUTLINED_FUNCTION_104_1();
-  v27 = v67;
-  OUTLINED_FUNCTION_28_0(v65, v66);
-  v28 = *(v27 + 72);
-
-  v29 = OUTLINED_FUNCTION_72();
-  v28(v29);
-
-  OUTLINED_FUNCTION_2_78();
-
-  OUTLINED_FUNCTION_5_61();
-  OUTLINED_FUNCTION_22_20();
-  lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(v30, &_s27PhoneCallFlowDelegatePlugin039CallingIntentContactNeedsDisambiguationC8StrategyCyAA010StartAudiob7RCHFlowD0CGMd, &_s27PhoneCallFlowDelegatePlugin039CallingIntentContactNeedsDisambiguationC8StrategyCyAA010StartAudiob7RCHFlowD0CGMR);
-  OUTLINED_FUNCTION_19_29();
-  static RCHChildFlowFactoryHelper.makeNeedsDisambiguationFlowProducer<A>(strategy:)();
-  OUTLINED_FUNCTION_52_13();
-  OUTLINED_FUNCTION_72();
-  RCHChildFlowProducersAsync.needsDisambiguationFlowProducer.setter();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  CATWrapper.__allocating_init(options:globals:)();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  v58 = CATWrapper.__allocating_init(options:globals:)();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  CATWrapperSimple.__allocating_init(options:globals:)();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  CATWrapper.__allocating_init(options:globals:)();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  CATWrapperSimple.__allocating_init(options:globals:)();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  v31 = CATWrapper.__allocating_init(options:globals:)();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  CATWrapperSimple.__allocating_init(options:globals:)();
-  v32 = OUTLINED_FUNCTION_12_8(v63);
-  swift_allocObject();
-  ResponseFactory.init()();
-  OUTLINED_FUNCTION_90_1();
-  static SiriKitEventSender.current.getter();
-  v33 = OUTLINED_FUNCTION_79();
-  v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin025CallingIntentConfirmationC8StrategyCyAA010StartAudiob7RCHFlowD0CGMd, &_s27PhoneCallFlowDelegatePlugin025CallingIntentConfirmationC8StrategyCyAA010StartAudiob7RCHFlowD0CGMR);
-  OUTLINED_FUNCTION_12_8(v56);
-  v34 = swift_allocObject();
-  v80 = v59;
-  v81 = &protocol witness table for StartCallCATPatternsExecutor;
-  v79 = v58;
-  v77 = v60;
-  v78 = &protocol witness table for PhoneCallCommonCATPatternsExecutor;
-  v76 = v31;
-  v74 = v61;
-  v75 = &protocol witness table for AppInfoBuilder;
-  v73 = v33;
-  v35 = type metadata accessor for ConfirmationResponse();
-  OUTLINED_FUNCTION_99_1(v35);
-  *(v34 + direct field offset for CallingIntentConfirmationFlowStrategy.personToConfirm) = 0;
-  OUTLINED_FUNCTION_79_5();
-  OUTLINED_FUNCTION_80_4();
-  OUTLINED_FUNCTION_83_4();
-  OUTLINED_FUNCTION_78_7();
-  v69 = v32;
-  v70 = &protocol witness table for ResponseFactory;
-  v68 = v28;
-
-  OUTLINED_FUNCTION_77_8();
-  OUTLINED_FUNCTION_53_16();
-  OUTLINED_FUNCTION_74_5();
-  OUTLINED_FUNCTION_30_22();
-  OUTLINED_FUNCTION_12_44();
-  OUTLINED_FUNCTION_32_15();
-  OUTLINED_FUNCTION_105_3();
-  OUTLINED_FUNCTION_104_1();
-  v37 = v66;
-  v36 = v67;
-  OUTLINED_FUNCTION_28_0(v65, v66);
-  v38 = *(v36 + 72);
-
-  v38(v37, v36);
-
-  OUTLINED_FUNCTION_2_78();
-
-  OUTLINED_FUNCTION_5_61();
-  OUTLINED_FUNCTION_21_26();
-  lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(v39, &_s27PhoneCallFlowDelegatePlugin025CallingIntentConfirmationC8StrategyCyAA010StartAudiob7RCHFlowD0CGMd, &_s27PhoneCallFlowDelegatePlugin025CallingIntentConfirmationC8StrategyCyAA010StartAudiob7RCHFlowD0CGMR);
-  OUTLINED_FUNCTION_19_29();
-  static RCHChildFlowFactoryHelper.makeNeedsConfirmationFlowProducer<A>(strategy:)();
-  OUTLINED_FUNCTION_52_13();
-  OUTLINED_FUNCTION_72();
-  RCHChildFlowProducersAsync.needsConfirmationFlowProducer.setter();
-  v40 = swift_allocObject();
-  OUTLINED_FUNCTION_81_4(v40);
-
-  OUTLINED_FUNCTION_34_11();
-  RCHChildFlowProducersAsync.needsValueFlowProducer.setter();
-
-  OUTLINED_FUNCTION_101_2();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  v41 = CATWrapper.__allocating_init(options:globals:)();
-  OUTLINED_FUNCTION_111_3(v41);
-  OUTLINED_FUNCTION_19_13();
-  v42 = CATWrapper.__allocating_init(options:globals:)();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  v43 = CATWrapperSimple.__allocating_init(options:globals:)();
-  OUTLINED_FUNCTION_110_2(v43);
-  OUTLINED_FUNCTION_19_13();
-  v44 = CATWrapper.__allocating_init(options:globals:)();
-  OUTLINED_FUNCTION_109_2(v44);
-  OUTLINED_FUNCTION_19_13();
-  v45 = CATWrapperSimple.__allocating_init(options:globals:)();
-  OUTLINED_FUNCTION_108_2(v45);
-  OUTLINED_FUNCTION_19_13();
-  v46 = CATWrapper.__allocating_init(options:globals:)();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  CATWrapperSimple.__allocating_init(options:globals:)();
-  OUTLINED_FUNCTION_12_8(v63);
-  swift_allocObject();
-  v47 = ResponseFactory.init()();
-  static SiriKitEventSender.current.getter();
-  v48 = OUTLINED_FUNCTION_79();
-  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin019CallingIntentHandlegC8StrategyCyAA010StartAudiob7RCHFlowD0CGMd, &_s27PhoneCallFlowDelegatePlugin019CallingIntentHandlegC8StrategyCyAA010StartAudiob7RCHFlowD0CGMR);
-  OUTLINED_FUNCTION_12_8(v49);
-  v50 = swift_allocObject();
-  v80 = v59;
-  v81 = &protocol witness table for StartCallCATPatternsExecutor;
-  v79 = v42;
-  v77 = v60;
-  v78 = &protocol witness table for PhoneCallCommonCATPatternsExecutor;
-  v76 = v46;
-  v74 = v61;
-  v75 = &protocol witness table for AppInfoBuilder;
-  v73 = v48;
-  *(v50 + direct field offset for CallingIntentHandleIntentFlowStrategy.cancellable) = 0;
-  OUTLINED_FUNCTION_79_5();
-  OUTLINED_FUNCTION_80_4();
-  OUTLINED_FUNCTION_83_4();
-  OUTLINED_FUNCTION_78_7();
-  v69 = v63;
-  v70 = &protocol witness table for ResponseFactory;
-  v68 = v47;
-
-  OUTLINED_FUNCTION_77_8();
-  OUTLINED_FUNCTION_53_16();
-  OUTLINED_FUNCTION_75_7();
-  OUTLINED_FUNCTION_98_4();
-  OUTLINED_FUNCTION_63_8();
-  OUTLINED_FUNCTION_97_2();
-  outlined init with copy of SignalProviding(&v72, v50 + 224);
-  outlined init with copy of SignalProviding(v50 + 24, v65);
-  v51 = v67;
-  OUTLINED_FUNCTION_28_0(v65, v66);
-  v52 = *(v51 + 72);
-
-  v53 = OUTLINED_FUNCTION_93_5();
-  v52(v53);
-
-  OUTLINED_FUNCTION_2_78();
-
-  outlined init with take of SPHConversation(&v64, v50 + 264);
-  __swift_destroy_boxed_opaque_existential_1(v65);
-  OUTLINED_FUNCTION_10_50(&v71, v50 + 304);
-  v82[0] = v50;
-  OUTLINED_FUNCTION_26_21();
-  lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(v54, &_s27PhoneCallFlowDelegatePlugin019CallingIntentHandlegC8StrategyCyAA010StartAudiob7RCHFlowD0CGMd, &_s27PhoneCallFlowDelegatePlugin019CallingIntentHandlegC8StrategyCyAA010StartAudiob7RCHFlowD0CGMR);
-  OUTLINED_FUNCTION_19_29();
-  static RCHChildFlowFactoryHelper.makeHandleIntentFlowProducer<A>(strategy:)();
-  OUTLINED_FUNCTION_29_18();
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08RCHChildC9ProducersVySo22INStartAudioCallIntentCSo0fghI8ResponseCGMd, &_s11SiriKitFlow08RCHChildC9ProducersVySo22INStartAudioCallIntentCSo0fghI8ResponseCGMR);
-  OUTLINED_FUNCTION_43_3();
-  RCHChildFlowProducers.handleIntentFlowCompletion.setter();
-  OUTLINED_FUNCTION_65();
-}
-
-void _s27PhoneCallFlowDelegatePlugin0abC7FactoryO015getGenericStartB9Producers8delegate3appAC0a7RCHFlowJ0Vy_10IntentTypeQz0n8ResponseO0QzGx_17SiriAppResolution0R0CtAA07CallingnmD0RzlFZAA0i5VideobmD0C_Tt2g5()
-{
-  OUTLINED_FUNCTION_66();
-  v3 = OUTLINED_FUNCTION_84_5(v1, v2);
-  v4 = OUTLINED_FUNCTION_21(v3);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_15_0();
-  v7 = type metadata accessor for CATOption();
-  v8 = OUTLINED_FUNCTION_21(v7);
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v8);
-  OUTLINED_FUNCTION_4();
-  v11 = OUTLINED_FUNCTION_47_17();
-  _s27PhoneCallFlowDelegatePlugin0abC7FactoryO12getProducers33_CD8279EFAB3EC33E52197D7782D744418delegate3appAC0a7RCHFlowH0Vy_10IntentTypeQz0r8ResponseS0QzGx_17SiriAppResolution0V0CtAA0aqD0RzlFZAA010StartVideobqD0C_Tt2g5(v11, v12, v13);
-  outlined init with copy of SignalProviding(v0 + direct field offset for StartVideoCallRCHFlowDelegate.sharedGlobals, v82);
-  OUTLINED_FUNCTION_102_0();
-  v14 = swift_allocObject();
-  OUTLINED_FUNCTION_100_3(v14);
-  v62 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin0abC7FactoryO0A16RCHFlowProducersVy_So012INStartVideoB6IntentCSo0ijbK8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0abC7FactoryO0A16RCHFlowProducersVy_So012INStartVideoB6IntentCSo0ijbK8ResponseCGMR) + 36);
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo22INStartVideoCallIntentCSo0ghiJ8ResponseCGMd, &_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo22INStartVideoCallIntentCSo0ghiJ8ResponseCGMR);
-  OUTLINED_FUNCTION_34_11();
-  RCHChildFlowProducersAsync.appResolutionBeforeNextResolveFlowProducer.setter();
-  v15 = type metadata accessor for StartCallCATs();
-  OUTLINED_FUNCTION_111_3(v15);
-  OUTLINED_FUNCTION_19_13();
-  CATWrapper.__allocating_init(options:globals:)();
-  v16 = type metadata accessor for StartCallCATPatternsExecutor(0);
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  v17 = v16;
-  v59 = v16;
-  v18 = CATWrapper.__allocating_init(options:globals:)();
-  v19 = type metadata accessor for StartCallCATsSimple();
-  OUTLINED_FUNCTION_110_2(v19);
-  OUTLINED_FUNCTION_19_13();
-  CATWrapperSimple.__allocating_init(options:globals:)();
-  v20 = type metadata accessor for PhoneCallCommonCATs();
-  OUTLINED_FUNCTION_109_2(v20);
-  OUTLINED_FUNCTION_19_13();
-  CATWrapper.__allocating_init(options:globals:)();
-  v21 = type metadata accessor for PhoneCallCommonCATsSimple();
-  OUTLINED_FUNCTION_108_2(v21);
-  OUTLINED_FUNCTION_19_13();
-  CATWrapperSimple.__allocating_init(options:globals:)();
-  v22 = type metadata accessor for PhoneCallCommonCATPatternsExecutor();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  v60 = v22;
-  v55 = CATWrapper.__allocating_init(options:globals:)();
-  type metadata accessor for PhoneCallDisplayTextCATsSimple();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  CATWrapperSimple.__allocating_init(options:globals:)();
-  v23 = type metadata accessor for ResponseFactory();
-  v63 = OUTLINED_FUNCTION_12_8(v23);
-  swift_allocObject();
-  v57 = ResponseFactory.init()();
-  static SiriKitEventSender.current.getter();
-  v61 = type metadata accessor for AppInfoBuilder();
-  v24 = OUTLINED_FUNCTION_79();
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin039CallingIntentContactNeedsDisambiguationC8StrategyCyAA010StartVideob7RCHFlowD0CGMd, &_s27PhoneCallFlowDelegatePlugin039CallingIntentContactNeedsDisambiguationC8StrategyCyAA010StartVideob7RCHFlowD0CGMR);
-  OUTLINED_FUNCTION_12_8(v25);
-  v26 = swift_allocObject();
-  v80 = v17;
-  v81 = &protocol witness table for StartCallCATPatternsExecutor;
-  v79 = v18;
-  v78 = &protocol witness table for PhoneCallCommonCATPatternsExecutor;
-  v77 = v22;
-  v76 = v55;
-  *(v26 + direct field offset for CallingIntentContactNeedsDisambiguationFlowStrategy.personsToDisambiguate) = &_swiftEmptyArrayStorage;
-  v75 = &protocol witness table for AppInfoBuilder;
-  v74 = v61;
-  v73 = v24;
-  *(v26 + direct field offset for CallingIntentContactNeedsDisambiguationFlowStrategy.selectedPerson) = 0;
-  *(v26 + direct field offset for CallingIntentContactNeedsDisambiguationFlowStrategy.requiresReprompt) = 0;
-  *(v26 + direct field offset for CallingIntentContactNeedsDisambiguationFlowStrategy.shouldClearContext) = 0;
-  OUTLINED_FUNCTION_79_5();
-  OUTLINED_FUNCTION_80_4();
-  OUTLINED_FUNCTION_83_4();
-  OUTLINED_FUNCTION_78_7();
-  v69 = v63;
-  v70 = &protocol witness table for ResponseFactory;
-  v68 = v57;
-
-  OUTLINED_FUNCTION_77_8();
-  OUTLINED_FUNCTION_23_21();
-  OutputGenerationManifest.init(dialogPhase:_:)();
-  OUTLINED_FUNCTION_76_5();
-  OUTLINED_FUNCTION_30_22();
-  OUTLINED_FUNCTION_12_44();
-  OUTLINED_FUNCTION_32_15();
-  OUTLINED_FUNCTION_105_3();
-  OUTLINED_FUNCTION_104_1();
-  v27 = v67;
-  OUTLINED_FUNCTION_28_0(v65, v66);
-  v28 = *(v27 + 72);
-
-  v29 = OUTLINED_FUNCTION_72();
-  v28(v29);
-
-  OUTLINED_FUNCTION_2_78();
-
-  OUTLINED_FUNCTION_5_61();
-  OUTLINED_FUNCTION_22_20();
-  lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(v30, &_s27PhoneCallFlowDelegatePlugin039CallingIntentContactNeedsDisambiguationC8StrategyCyAA010StartVideob7RCHFlowD0CGMd, &_s27PhoneCallFlowDelegatePlugin039CallingIntentContactNeedsDisambiguationC8StrategyCyAA010StartVideob7RCHFlowD0CGMR);
-  OUTLINED_FUNCTION_19_29();
-  static RCHChildFlowFactoryHelper.makeNeedsDisambiguationFlowProducer<A>(strategy:)();
-  OUTLINED_FUNCTION_52_13();
-  OUTLINED_FUNCTION_72();
-  RCHChildFlowProducersAsync.needsDisambiguationFlowProducer.setter();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  CATWrapper.__allocating_init(options:globals:)();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  v58 = CATWrapper.__allocating_init(options:globals:)();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  CATWrapperSimple.__allocating_init(options:globals:)();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  CATWrapper.__allocating_init(options:globals:)();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  CATWrapperSimple.__allocating_init(options:globals:)();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  v31 = CATWrapper.__allocating_init(options:globals:)();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  CATWrapperSimple.__allocating_init(options:globals:)();
-  v32 = OUTLINED_FUNCTION_12_8(v63);
-  swift_allocObject();
-  ResponseFactory.init()();
-  OUTLINED_FUNCTION_90_1();
-  static SiriKitEventSender.current.getter();
-  v33 = OUTLINED_FUNCTION_79();
-  v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin025CallingIntentConfirmationC8StrategyCyAA010StartVideob7RCHFlowD0CGMd, &_s27PhoneCallFlowDelegatePlugin025CallingIntentConfirmationC8StrategyCyAA010StartVideob7RCHFlowD0CGMR);
-  OUTLINED_FUNCTION_12_8(v56);
-  v34 = swift_allocObject();
-  v80 = v59;
-  v81 = &protocol witness table for StartCallCATPatternsExecutor;
-  v79 = v58;
-  v77 = v60;
-  v78 = &protocol witness table for PhoneCallCommonCATPatternsExecutor;
-  v76 = v31;
-  v74 = v61;
-  v75 = &protocol witness table for AppInfoBuilder;
-  v73 = v33;
-  v35 = type metadata accessor for ConfirmationResponse();
-  OUTLINED_FUNCTION_99_1(v35);
-  *(v34 + direct field offset for CallingIntentConfirmationFlowStrategy.personToConfirm) = 0;
-  OUTLINED_FUNCTION_79_5();
-  OUTLINED_FUNCTION_80_4();
-  OUTLINED_FUNCTION_83_4();
-  OUTLINED_FUNCTION_78_7();
-  v69 = v32;
-  v70 = &protocol witness table for ResponseFactory;
-  v68 = v28;
-
-  OUTLINED_FUNCTION_77_8();
-  OUTLINED_FUNCTION_53_16();
-  OUTLINED_FUNCTION_74_5();
-  OUTLINED_FUNCTION_30_22();
-  OUTLINED_FUNCTION_12_44();
-  OUTLINED_FUNCTION_32_15();
-  OUTLINED_FUNCTION_105_3();
-  OUTLINED_FUNCTION_104_1();
-  v37 = v66;
-  v36 = v67;
-  OUTLINED_FUNCTION_28_0(v65, v66);
-  v38 = *(v36 + 72);
-
-  v38(v37, v36);
-
-  OUTLINED_FUNCTION_2_78();
-
-  OUTLINED_FUNCTION_5_61();
-  OUTLINED_FUNCTION_21_26();
-  lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(v39, &_s27PhoneCallFlowDelegatePlugin025CallingIntentConfirmationC8StrategyCyAA010StartVideob7RCHFlowD0CGMd, &_s27PhoneCallFlowDelegatePlugin025CallingIntentConfirmationC8StrategyCyAA010StartVideob7RCHFlowD0CGMR);
-  OUTLINED_FUNCTION_19_29();
-  static RCHChildFlowFactoryHelper.makeNeedsConfirmationFlowProducer<A>(strategy:)();
-  OUTLINED_FUNCTION_52_13();
-  OUTLINED_FUNCTION_72();
-  RCHChildFlowProducersAsync.needsConfirmationFlowProducer.setter();
-  v40 = swift_allocObject();
-  OUTLINED_FUNCTION_81_4(v40);
-
-  OUTLINED_FUNCTION_34_11();
-  RCHChildFlowProducersAsync.needsValueFlowProducer.setter();
-
-  OUTLINED_FUNCTION_101_2();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  v41 = CATWrapper.__allocating_init(options:globals:)();
-  OUTLINED_FUNCTION_111_3(v41);
-  OUTLINED_FUNCTION_19_13();
-  v42 = CATWrapper.__allocating_init(options:globals:)();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  v43 = CATWrapperSimple.__allocating_init(options:globals:)();
-  OUTLINED_FUNCTION_110_2(v43);
-  OUTLINED_FUNCTION_19_13();
-  v44 = CATWrapper.__allocating_init(options:globals:)();
-  OUTLINED_FUNCTION_109_2(v44);
-  OUTLINED_FUNCTION_19_13();
-  v45 = CATWrapperSimple.__allocating_init(options:globals:)();
-  OUTLINED_FUNCTION_108_2(v45);
-  OUTLINED_FUNCTION_19_13();
-  v46 = CATWrapper.__allocating_init(options:globals:)();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_19_13();
-  CATWrapperSimple.__allocating_init(options:globals:)();
-  OUTLINED_FUNCTION_12_8(v63);
-  swift_allocObject();
-  v47 = ResponseFactory.init()();
-  static SiriKitEventSender.current.getter();
-  v48 = OUTLINED_FUNCTION_79();
-  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin019CallingIntentHandlegC8StrategyCyAA010StartVideob7RCHFlowD0CGMd, &_s27PhoneCallFlowDelegatePlugin019CallingIntentHandlegC8StrategyCyAA010StartVideob7RCHFlowD0CGMR);
-  OUTLINED_FUNCTION_12_8(v49);
-  v50 = swift_allocObject();
-  v80 = v59;
-  v81 = &protocol witness table for StartCallCATPatternsExecutor;
-  v79 = v42;
-  v77 = v60;
-  v78 = &protocol witness table for PhoneCallCommonCATPatternsExecutor;
-  v76 = v46;
-  v74 = v61;
-  v75 = &protocol witness table for AppInfoBuilder;
-  v73 = v48;
-  *(v50 + direct field offset for CallingIntentHandleIntentFlowStrategy.cancellable) = 0;
-  OUTLINED_FUNCTION_79_5();
-  OUTLINED_FUNCTION_80_4();
-  OUTLINED_FUNCTION_83_4();
-  OUTLINED_FUNCTION_78_7();
-  v69 = v63;
-  v70 = &protocol witness table for ResponseFactory;
-  v68 = v47;
-
-  OUTLINED_FUNCTION_77_8();
-  OUTLINED_FUNCTION_53_16();
-  OUTLINED_FUNCTION_75_7();
-  OUTLINED_FUNCTION_98_4();
-  OUTLINED_FUNCTION_63_8();
-  OUTLINED_FUNCTION_97_2();
-  outlined init with copy of SignalProviding(&v72, v50 + 224);
-  outlined init with copy of SignalProviding(v50 + 24, v65);
-  v51 = v67;
-  OUTLINED_FUNCTION_28_0(v65, v66);
-  v52 = *(v51 + 72);
-
-  v53 = OUTLINED_FUNCTION_93_5();
-  v52(v53);
-
-  OUTLINED_FUNCTION_2_78();
-
-  outlined init with take of SPHConversation(&v64, v50 + 264);
-  __swift_destroy_boxed_opaque_existential_1(v65);
-  OUTLINED_FUNCTION_10_50(&v71, v50 + 304);
-  v82[0] = v50;
-  OUTLINED_FUNCTION_26_21();
-  lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(v54, &_s27PhoneCallFlowDelegatePlugin019CallingIntentHandlegC8StrategyCyAA010StartVideob7RCHFlowD0CGMd, &_s27PhoneCallFlowDelegatePlugin019CallingIntentHandlegC8StrategyCyAA010StartVideob7RCHFlowD0CGMR);
-  OUTLINED_FUNCTION_19_29();
-  static RCHChildFlowFactoryHelper.makeHandleIntentFlowProducer<A>(strategy:)();
-  OUTLINED_FUNCTION_29_18();
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08RCHChildC9ProducersVySo22INStartVideoCallIntentCSo0fghI8ResponseCGMd, &_s11SiriKitFlow08RCHChildC9ProducersVySo22INStartVideoCallIntentCSo0fghI8ResponseCGMR);
-  OUTLINED_FUNCTION_43_3();
-  RCHChildFlowProducers.handleIntentFlowCompletion.setter();
-  OUTLINED_FUNCTION_65();
-}
-
-uint64_t static PhoneCallFlowFactory.getGenericStartCallProducers<A>(delegate:app:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  v8 = *(a4 + 8);
-  static PhoneCallFlowFactory.getProducers<A>(delegate:app:)(a1, a2, a3, v8, a5);
-  v99[0] = a1;
-  (*(*(v8 + 8) + 8))(v100, a3);
-  v10 = static PhoneCallFlowFactory.makeAppResolutionFlowBeforeNextResolveFlowProducer<A>(delegate:app:sharedGlobal:)(a1, a2, v100, a3, v8);
-  __swift_destroy_boxed_opaque_existential_1(v100);
-  v11 = *(v8 + 16);
-  OUTLINED_FUNCTION_102_2();
-  OUTLINED_FUNCTION_102_2();
-  OUTLINED_FUNCTION_28_2();
-  v95 = *(type metadata accessor for PhoneCallFlowFactory.PhoneRCHFlowProducers() + 36);
-  OUTLINED_FUNCTION_28_2();
-  type metadata accessor for RCHChildFlowProducersAsync();
-  RCHChildFlowProducersAsync.appResolutionBeforeNextResolveFlowProducer.setter();
-  OUTLINED_FUNCTION_61_14();
-  type metadata accessor for CallingIntentContactNeedsDisambiguationFlowStrategy();
-  OUTLINED_FUNCTION_5();
-  swift_unknownObjectRetain();
-  v12 = OUTLINED_FUNCTION_14_6();
-  default argument 1 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v12, v13);
-  OUTLINED_FUNCTION_90_1();
-  OUTLINED_FUNCTION_14_6();
-  default argument 2 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v14);
-  v15 = OUTLINED_FUNCTION_14_6();
-  v17 = default argument 3 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v15, v16);
-  v18 = OUTLINED_FUNCTION_14_6();
-  v20 = default argument 4 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v18, v19);
-  v21 = OUTLINED_FUNCTION_14_6();
-  v23 = default argument 5 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v21, v22);
-  OUTLINED_FUNCTION_14_6();
-  default argument 6 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v24);
-  v25 = OUTLINED_FUNCTION_14_6();
-  v27 = default argument 7 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v25, v26);
-  OUTLINED_FUNCTION_14_6();
-  default argument 8 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)();
-  v28 = OUTLINED_FUNCTION_14_6();
-  SharedGlobalsProviding.siriKitEventSender.getter(v30, v28, v29);
-  v31 = OUTLINED_FUNCTION_14_6();
-  default argument 10 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v31, v32);
-  v33 = CallingIntentContactNeedsDisambiguationFlowStrategy.__allocating_init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(a1, v10, v100, v17, v20, v23, v99, v27, v98, v97, v96);
-  OUTLINED_FUNCTION_96_2(v33);
-  OUTLINED_FUNCTION_82_4();
-  OUTLINED_FUNCTION_17_31();
-  static RCHChildFlowFactoryHelper.makeNeedsDisambiguationFlowProducer<A>(strategy:)();
-
-  RCHChildFlowProducersAsync.needsDisambiguationFlowProducer.setter();
-  OUTLINED_FUNCTION_61_14();
-  type metadata accessor for CallingIntentConfirmationFlowStrategy();
-  OUTLINED_FUNCTION_5();
-  swift_unknownObjectRetain();
-  v34 = OUTLINED_FUNCTION_14_6();
-  default argument 1 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v34, v35);
-  OUTLINED_FUNCTION_90_1();
-  OUTLINED_FUNCTION_14_6();
-  default argument 2 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v36);
-  v37 = OUTLINED_FUNCTION_14_6();
-  v39 = default argument 3 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v37, v38);
-  v40 = OUTLINED_FUNCTION_14_6();
-  v42 = default argument 4 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v40, v41);
-  v43 = OUTLINED_FUNCTION_14_6();
-  v45 = default argument 5 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v43, v44);
-  OUTLINED_FUNCTION_14_6();
-  default argument 6 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v46);
-  v47 = OUTLINED_FUNCTION_14_6();
-  v49 = default argument 7 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v47, v48);
-  OUTLINED_FUNCTION_14_6();
-  default argument 8 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)();
-  v50 = OUTLINED_FUNCTION_14_6();
-  SharedGlobalsProviding.siriKitEventSender.getter(v52, v50, v51);
-  v53 = OUTLINED_FUNCTION_14_6();
-  default argument 10 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v53, v54);
-  v55 = OUTLINED_FUNCTION_35_16();
-  v58 = CallingIntentConfirmationFlowStrategy.__allocating_init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v55, v10, v56, v39, v42, v45, v57, v49, v88, v90, v92);
-  OUTLINED_FUNCTION_96_2(v58);
-  OUTLINED_FUNCTION_82_4();
-  OUTLINED_FUNCTION_17_31();
-  static RCHChildFlowFactoryHelper.makeNeedsConfirmationFlowProducer<A>(strategy:)();
-
-  RCHChildFlowProducersAsync.needsConfirmationFlowProducer.setter();
-  OUTLINED_FUNCTION_68_0();
-  v59 = swift_allocObject();
-  v59[2] = a3;
-  v59[3] = a4;
-  v59[4] = a1;
-  v59[5] = a2;
-  swift_unknownObjectRetain();
-
-  RCHChildFlowProducersAsync.needsValueFlowProducer.setter();
-  v60 = swift_allocObject();
-  v60[2] = a3;
-  v60[3] = a4;
-  v60[4] = a1;
-  swift_unknownObjectRetain();
-  RCHChildFlowProducersAsync.unsupportedValueFlowProducer.setter();
-  OUTLINED_FUNCTION_61_14();
-  type metadata accessor for CallingIntentHandleIntentFlowStrategy();
-  OUTLINED_FUNCTION_5();
-  swift_unknownObjectRetain();
-  v61 = OUTLINED_FUNCTION_14_6();
-  v63 = default argument 1 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v61, v62);
-  OUTLINED_FUNCTION_14_6();
-  default argument 2 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v64);
-  v65 = OUTLINED_FUNCTION_14_6();
-  v67 = default argument 3 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v65, v66);
-  v68 = OUTLINED_FUNCTION_14_6();
-  v70 = default argument 4 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v68, v69);
-  v71 = OUTLINED_FUNCTION_14_6();
-  v73 = default argument 5 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v71, v72);
-  OUTLINED_FUNCTION_14_6();
-  default argument 6 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v74);
-  v75 = OUTLINED_FUNCTION_14_6();
-  v77 = default argument 7 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v75, v76);
-  OUTLINED_FUNCTION_14_6();
-  default argument 8 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)();
-  v78 = OUTLINED_FUNCTION_14_6();
-  SharedGlobalsProviding.siriKitEventSender.getter(v80, v78, v79);
-  v81 = OUTLINED_FUNCTION_14_6();
-  default argument 10 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v81, v82);
-  v83 = OUTLINED_FUNCTION_35_16();
-  v86 = CallingIntentHandleIntentFlowStrategy.__allocating_init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v83, v63, v84, v67, v70, v73, v85, v77, v89, v91, v93);
-  OUTLINED_FUNCTION_96_2(v86);
-  OUTLINED_FUNCTION_82_4();
-  OUTLINED_FUNCTION_17_31();
-  static RCHChildFlowFactoryHelper.makeHandleIntentFlowProducer<A>(strategy:)();
-  OUTLINED_FUNCTION_29_18();
-
-  type metadata accessor for RCHChildFlowProducers();
-  OUTLINED_FUNCTION_43_3();
-  return RCHChildFlowProducers.handleIntentFlowCompletion.setter();
-}
-
-uint64_t _s27PhoneCallFlowDelegatePlugin0abC7FactoryO12getProducers33_CD8279EFAB3EC33E52197D7782D74441LL8delegate3appAC0a7RCHFlowH0Vy_10IntentTypeQz0r8ResponseS0QzGx_17SiriAppResolution0V0CtAA0aqD0RzlFZAA010StartAudiobqD0C_Tt2g5@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v39 = a2;
-  v5 = type metadata accessor for CATOption();
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v7 = a1 + direct field offset for StartAudioCallRCHFlowDelegate.sharedGlobals;
-  v8 = *(a1 + direct field offset for StartAudioCallRCHFlowDelegate.sharedGlobals + 24);
-  v9 = *(a1 + direct field offset for StartAudioCallRCHFlowDelegate.sharedGlobals + 32);
-  __swift_project_boxed_opaque_existential_1((a1 + direct field offset for StartAudioCallRCHFlowDelegate.sharedGlobals), v8);
-  (*(v9 + 104))(v51, v8, v9);
-  v10 = v52;
-  v11 = v53;
-  __swift_project_boxed_opaque_existential_1(v51, v52);
-  v12 = *(v11 + 56);
-  v13 = type metadata accessor for StartAudioCallRCHFlowDelegate();
-  v14 = lazy protocol witness table accessor for type SearchCallHistoryHandleFlowStrategy and conformance SearchCallHistoryHandleFlowStrategy(&lazy protocol witness table cache variable for type StartAudioCallRCHFlowDelegate and conformance BaseRCHFlowDelegate<A, B>, type metadata accessor for StartAudioCallRCHFlowDelegate);
-  v12(a1, v13, v14, v10, v11);
-  __swift_destroy_boxed_opaque_existential_1(v51);
-  v15 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin0abC7FactoryO0A16RCHFlowProducersVy_So012INStartAudioB6IntentCSo0ijbK8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0abC7FactoryO0A16RCHFlowProducersVy_So012INStartAudioB6IntentCSo0ijbK8ResponseCGMR) + 36);
-  type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for INStartAudioCallIntent, INStartAudioCallIntent_ptr);
-  v42 = type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for INStartAudioCallIntentResponse, INStartAudioCallIntentResponse_ptr);
-  v40 = a3;
-  v41 = v15;
-  RCHChildFlowProducersAsync.init()();
-  static RCHChildFlowFactoryHelper.makeAppResolutionFlowProducer<A, B>(app:)();
-  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo22INStartAudioCallIntentCSo0ghiJ8ResponseCGMd, &_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo22INStartAudioCallIntentCSo0ghiJ8ResponseCGMR);
-  RCHChildFlowProducersAsync.appResolutionFlowProducer.setter();
-  outlined init with copy of SignalProviding(v7, v51);
-  type metadata accessor for PhoneCallCommonCATs();
-  static CATOption.defaultMode.getter();
-  v38 = CATWrapper.__allocating_init(options:globals:)();
-  v16 = type metadata accessor for PhoneCallCommonCATPatternsExecutor();
-  static CATOption.defaultMode.getter();
-  v17 = CATWrapper.__allocating_init(options:globals:)();
-  v18 = type metadata accessor for AppInfoBuilder();
-  v19 = swift_allocObject();
-  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo012INStartAudioB6IntentCSo0hibJ8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo012INStartAudioB6IntentCSo0hibJ8ResponseCGMR);
-  v20 = swift_allocObject();
-  v49 = v19;
-  v50 = v17;
-  v48[3] = &type metadata for LabelTemplatesProvider;
-  v48[4] = &protocol witness table for LabelTemplatesProvider;
-  v21 = swift_allocObject();
-  v48[0] = v21;
-  *(v21 + 16) = 0u;
-  *(v21 + 32) = 0u;
-  v47[3] = &type metadata for TCCTemplatesProvider;
-  v47[4] = &protocol witness table for TCCTemplatesProvider;
-  outlined init with copy of SignalProviding(v51, v20 + 272);
-  outlined init with copy of SignalProviding(v48, v20 + 192);
-  outlined init with copy of SignalProviding(v47, v20 + 232);
-  v23 = v52;
-  v22 = v53;
-  __swift_project_boxed_opaque_existential_1(v51, v52);
-  v24 = *(v22 + 136);
-
-  v24(v44, v23, v22);
-  v26 = v45;
-  v25 = v46;
-  v27 = __swift_project_boxed_opaque_existential_1(v44, v45);
-  v28 = v52;
-  v29 = v53;
-  __swift_project_boxed_opaque_existential_1(v51, v52);
-  v30 = (*(v29 + 8))(v43, v28, v29);
-  v31 = *(*(v26 - 8) + 64);
-  __chkstk_darwin(v30);
-  v33 = &v37 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v34 + 16))(v33, v27, v26);
-  v35 = specialized PhoneCallStrategy.init(catFamily:catPatternFamily:responseGenerator:appInfoBuilder:deviceState:)(v38, &v50, v33, &v49, v43, v20, v26, v16, v18, *(v25 + 8), &protocol witness table for PhoneCallCommonCATPatternsExecutor, &protocol witness table for AppInfoBuilder, v37);
-
-  __swift_destroy_boxed_opaque_existential_1(v47);
-  __swift_destroy_boxed_opaque_existential_1(v48);
-  __swift_destroy_boxed_opaque_existential_1(v44);
-  __swift_destroy_boxed_opaque_existential_1(v51);
-  v51[0] = v35;
-  lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type PhoneTCCFlowStrategy<INStartAudioCallIntent, INStartAudioCallIntentResponse> and conformance PhoneTCCFlowStrategy<A, B>, &_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo012INStartAudioB6IntentCSo0hibJ8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo012INStartAudioB6IntentCSo0hibJ8ResponseCGMR);
-  static RCHChildFlowFactoryHelper.makeRequestTCCAcceptanceFlow<A, B>(strategy:)();
-
-  return RCHChildFlowProducersAsync.requestTCCAcceptanceFlowProducer.setter();
-}
-
-uint64_t _s27PhoneCallFlowDelegatePlugin0abC7FactoryO12getProducers33_CD8279EFAB3EC33E52197D7782D74441LL8delegate3appAC0a7RCHFlowH0Vy_10IntentTypeQz0r8ResponseS0QzGx_17SiriAppResolution0V0CtAA0aqD0RzlFZAA010StartVideobqD0C_Tt2g5@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v39 = a2;
-  v5 = type metadata accessor for CATOption();
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v7 = a1 + direct field offset for StartVideoCallRCHFlowDelegate.sharedGlobals;
-  v8 = *(a1 + direct field offset for StartVideoCallRCHFlowDelegate.sharedGlobals + 24);
-  v9 = *(a1 + direct field offset for StartVideoCallRCHFlowDelegate.sharedGlobals + 32);
-  __swift_project_boxed_opaque_existential_1((a1 + direct field offset for StartVideoCallRCHFlowDelegate.sharedGlobals), v8);
-  (*(v9 + 104))(v51, v8, v9);
-  v10 = v52;
-  v11 = v53;
-  __swift_project_boxed_opaque_existential_1(v51, v52);
-  v12 = *(v11 + 56);
-  v13 = type metadata accessor for StartVideoCallRCHFlowDelegate();
-  v14 = lazy protocol witness table accessor for type SearchCallHistoryHandleFlowStrategy and conformance SearchCallHistoryHandleFlowStrategy(&lazy protocol witness table cache variable for type StartVideoCallRCHFlowDelegate and conformance BaseRCHFlowDelegate<A, B>, type metadata accessor for StartVideoCallRCHFlowDelegate);
-  v12(a1, v13, v14, v10, v11);
-  __swift_destroy_boxed_opaque_existential_1(v51);
-  v15 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin0abC7FactoryO0A16RCHFlowProducersVy_So012INStartVideoB6IntentCSo0ijbK8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0abC7FactoryO0A16RCHFlowProducersVy_So012INStartVideoB6IntentCSo0ijbK8ResponseCGMR) + 36);
-  type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for INStartVideoCallIntent, INStartVideoCallIntent_ptr);
-  v42 = type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for INStartVideoCallIntentResponse, INStartVideoCallIntentResponse_ptr);
-  v40 = a3;
-  v41 = v15;
-  RCHChildFlowProducersAsync.init()();
-  static RCHChildFlowFactoryHelper.makeAppResolutionFlowProducer<A, B>(app:)();
-  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo22INStartVideoCallIntentCSo0ghiJ8ResponseCGMd, &_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo22INStartVideoCallIntentCSo0ghiJ8ResponseCGMR);
-  RCHChildFlowProducersAsync.appResolutionFlowProducer.setter();
-  outlined init with copy of SignalProviding(v7, v51);
-  type metadata accessor for PhoneCallCommonCATs();
-  static CATOption.defaultMode.getter();
-  v38 = CATWrapper.__allocating_init(options:globals:)();
-  v16 = type metadata accessor for PhoneCallCommonCATPatternsExecutor();
-  static CATOption.defaultMode.getter();
-  v17 = CATWrapper.__allocating_init(options:globals:)();
-  v18 = type metadata accessor for AppInfoBuilder();
-  v19 = swift_allocObject();
-  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo012INStartVideoB6IntentCSo0hibJ8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo012INStartVideoB6IntentCSo0hibJ8ResponseCGMR);
-  v20 = swift_allocObject();
-  v49 = v19;
-  v50 = v17;
-  v48[3] = &type metadata for LabelTemplatesProvider;
-  v48[4] = &protocol witness table for LabelTemplatesProvider;
-  v21 = swift_allocObject();
-  v48[0] = v21;
-  *(v21 + 16) = 0u;
-  *(v21 + 32) = 0u;
-  v47[3] = &type metadata for TCCTemplatesProvider;
-  v47[4] = &protocol witness table for TCCTemplatesProvider;
-  outlined init with copy of SignalProviding(v51, v20 + 272);
-  outlined init with copy of SignalProviding(v48, v20 + 192);
-  outlined init with copy of SignalProviding(v47, v20 + 232);
-  v23 = v52;
-  v22 = v53;
-  __swift_project_boxed_opaque_existential_1(v51, v52);
-  v24 = *(v22 + 136);
-
-  v24(v44, v23, v22);
-  v26 = v45;
-  v25 = v46;
-  v27 = __swift_project_boxed_opaque_existential_1(v44, v45);
-  v28 = v52;
-  v29 = v53;
-  __swift_project_boxed_opaque_existential_1(v51, v52);
-  v30 = (*(v29 + 8))(v43, v28, v29);
-  v31 = *(*(v26 - 8) + 64);
-  __chkstk_darwin(v30);
-  v33 = &v37 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v34 + 16))(v33, v27, v26);
-  v35 = specialized PhoneCallStrategy.init(catFamily:catPatternFamily:responseGenerator:appInfoBuilder:deviceState:)(v38, &v50, v33, &v49, v43, v20, v26, v16, v18, *(v25 + 8), &protocol witness table for PhoneCallCommonCATPatternsExecutor, &protocol witness table for AppInfoBuilder, v37);
-
-  __swift_destroy_boxed_opaque_existential_1(v47);
-  __swift_destroy_boxed_opaque_existential_1(v48);
-  __swift_destroy_boxed_opaque_existential_1(v44);
-  __swift_destroy_boxed_opaque_existential_1(v51);
-  v51[0] = v35;
-  lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type PhoneTCCFlowStrategy<INStartVideoCallIntent, INStartVideoCallIntentResponse> and conformance PhoneTCCFlowStrategy<A, B>, &_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo012INStartVideoB6IntentCSo0hibJ8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo012INStartVideoB6IntentCSo0hibJ8ResponseCGMR);
-  static RCHChildFlowFactoryHelper.makeRequestTCCAcceptanceFlow<A, B>(strategy:)();
-
-  return RCHChildFlowProducersAsync.requestTCCAcceptanceFlowProducer.setter();
-}
-
-uint64_t _s27PhoneCallFlowDelegatePlugin0abC7FactoryO12getProducers33_CD8279EFAB3EC33E52197D7782D74441LL8delegate3appAC0a7RCHFlowH0Vy_10IntentTypeQz0r8ResponseS0QzGx_17SiriAppResolution0V0CtAA0aqD0RzlFZAA06Searchb7HistoryqD0C_Tt2g5@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v39 = a2;
-  v5 = type metadata accessor for CATOption();
-  v6 = *(*(v5 - 8) + 64);
-  __chkstk_darwin(v5 - 8);
-  v7 = a1 + direct field offset for SearchCallHistoryRCHFlowDelegate.sharedGlobals;
-  v8 = *(a1 + direct field offset for SearchCallHistoryRCHFlowDelegate.sharedGlobals + 24);
-  v9 = *(a1 + direct field offset for SearchCallHistoryRCHFlowDelegate.sharedGlobals + 32);
-  __swift_project_boxed_opaque_existential_1((a1 + direct field offset for SearchCallHistoryRCHFlowDelegate.sharedGlobals), v8);
-  (*(v9 + 104))(v51, v8, v9);
-  v10 = v52;
-  v11 = v53;
-  __swift_project_boxed_opaque_existential_1(v51, v52);
-  v12 = *(v11 + 56);
-  v13 = type metadata accessor for SearchCallHistoryRCHFlowDelegate();
-  v14 = lazy protocol witness table accessor for type SearchCallHistoryHandleFlowStrategy and conformance SearchCallHistoryHandleFlowStrategy(&lazy protocol witness table cache variable for type SearchCallHistoryRCHFlowDelegate and conformance BaseRCHFlowDelegate<A, B>, type metadata accessor for SearchCallHistoryRCHFlowDelegate);
-  v12(a1, v13, v14, v10, v11);
-  __swift_destroy_boxed_opaque_existential_1(v51);
-  v15 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin0abC7FactoryO0A16RCHFlowProducersVy_So08INSearchB13HistoryIntentCSo0ibjK8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0abC7FactoryO0A16RCHFlowProducersVy_So08INSearchB13HistoryIntentCSo0ibjK8ResponseCGMR) + 36);
-  type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for INSearchCallHistoryIntent, INSearchCallHistoryIntent_ptr);
-  v42 = type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for INSearchCallHistoryIntentResponse, INSearchCallHistoryIntentResponse_ptr);
-  v40 = a3;
-  v41 = v15;
-  RCHChildFlowProducersAsync.init()();
-  static RCHChildFlowFactoryHelper.makeAppResolutionFlowProducer<A, B>(app:)();
-  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo25INSearchCallHistoryIntentCSo0ghiJ8ResponseCGMd, &_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo25INSearchCallHistoryIntentCSo0ghiJ8ResponseCGMR);
-  RCHChildFlowProducersAsync.appResolutionFlowProducer.setter();
-  outlined init with copy of SignalProviding(v7, v51);
-  type metadata accessor for PhoneCallCommonCATs();
-  static CATOption.defaultMode.getter();
-  v38 = CATWrapper.__allocating_init(options:globals:)();
-  v16 = type metadata accessor for PhoneCallCommonCATPatternsExecutor();
-  static CATOption.defaultMode.getter();
-  v17 = CATWrapper.__allocating_init(options:globals:)();
-  v18 = type metadata accessor for AppInfoBuilder();
-  v19 = swift_allocObject();
-  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo08INSearchB13HistoryIntentCSo0hbiJ8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo08INSearchB13HistoryIntentCSo0hbiJ8ResponseCGMR);
-  v20 = swift_allocObject();
-  v49 = v19;
-  v50 = v17;
-  v48[3] = &type metadata for LabelTemplatesProvider;
-  v48[4] = &protocol witness table for LabelTemplatesProvider;
-  v21 = swift_allocObject();
-  v48[0] = v21;
-  *(v21 + 16) = 0u;
-  *(v21 + 32) = 0u;
-  v47[3] = &type metadata for TCCTemplatesProvider;
-  v47[4] = &protocol witness table for TCCTemplatesProvider;
-  outlined init with copy of SignalProviding(v51, v20 + 272);
-  outlined init with copy of SignalProviding(v48, v20 + 192);
-  outlined init with copy of SignalProviding(v47, v20 + 232);
-  v23 = v52;
-  v22 = v53;
-  __swift_project_boxed_opaque_existential_1(v51, v52);
-  v24 = *(v22 + 136);
-
-  v24(v44, v23, v22);
-  v26 = v45;
-  v25 = v46;
-  v27 = __swift_project_boxed_opaque_existential_1(v44, v45);
-  v28 = v52;
-  v29 = v53;
-  __swift_project_boxed_opaque_existential_1(v51, v52);
-  v30 = (*(v29 + 8))(v43, v28, v29);
-  v31 = *(*(v26 - 8) + 64);
-  __chkstk_darwin(v30);
-  v33 = &v37 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v34 + 16))(v33, v27, v26);
-  v35 = specialized PhoneCallStrategy.init(catFamily:catPatternFamily:responseGenerator:appInfoBuilder:deviceState:)(v38, &v50, v33, &v49, v43, v20, v26, v16, v18, *(v25 + 8), &protocol witness table for PhoneCallCommonCATPatternsExecutor, &protocol witness table for AppInfoBuilder, v37);
-
-  __swift_destroy_boxed_opaque_existential_1(v47);
-  __swift_destroy_boxed_opaque_existential_1(v48);
-  __swift_destroy_boxed_opaque_existential_1(v44);
-  __swift_destroy_boxed_opaque_existential_1(v51);
-  v51[0] = v35;
-  lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type PhoneTCCFlowStrategy<INSearchCallHistoryIntent, INSearchCallHistoryIntentResponse> and conformance PhoneTCCFlowStrategy<A, B>, &_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo08INSearchB13HistoryIntentCSo0hbiJ8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo08INSearchB13HistoryIntentCSo0hbiJ8ResponseCGMR);
-  static RCHChildFlowFactoryHelper.makeRequestTCCAcceptanceFlow<A, B>(strategy:)();
-
-  return RCHChildFlowProducersAsync.requestTCCAcceptanceFlowProducer.setter();
-}
-
-uint64_t static PhoneCallFlowFactory.getProducers<A>(delegate:app:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  v28 = a2;
-  v29 = a5;
-  v25 = *(a4 + 16);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v9 = swift_getAssociatedTypeWitness();
-  v26 = type metadata accessor for RCHChildFlowProducersAsync();
-  v10 = *(*(v26 - 8) + 64);
-  __chkstk_darwin(v26);
-  v30 = &v24 - v11;
-  v12 = type metadata accessor for RCHChildFlowProducers();
-  v13 = *(*(v12 - 8) + 64);
-  __chkstk_darwin(v12 - 8);
-  v27 = &v24 - v14;
-  v33[0] = a1;
-  v15 = a1;
-  v16 = *(a4 + 8);
-  v24 = *(v16 + 8);
-  v24(v37, a3, v16);
-  v17 = v38;
-  v18 = v39;
-  __swift_project_boxed_opaque_existential_1(v37, v38);
-  (*(v18 + 104))(v34, v17, v18);
-  v19 = v35;
-  v20 = v36;
-  __swift_project_boxed_opaque_existential_1(v34, v35);
-  (*(v20 + 56))(v15, a3, v25, v19, v20);
-  __swift_destroy_boxed_opaque_existential_1(v34);
-  __swift_destroy_boxed_opaque_existential_1(v37);
-  RCHChildFlowProducersAsync.init()();
-  static RCHChildFlowFactoryHelper.makeAppResolutionFlowProducer<A, B>(app:)();
-  RCHChildFlowProducersAsync.appResolutionFlowProducer.setter();
-  type metadata accessor for PhoneTCCFlowStrategy();
-  v33[5] = v15;
-  v24(v37, a3, v16);
-  v21 = default argument 3 of PhoneCallBaseCatTemplatingService.init(ducFamily:sharedGlobals:displayTextCats:phoneCallCommonCats:appInfoBuilder:labelTemplating:startCallCats:)(AssociatedTypeWitness, v9);
-  default argument 2 of PhoneTCCFlowStrategy.init(sharedGlobals:phoneCallCommonCats:phoneCallCommonCatPatterns:labelTemplatesProvider:tccTemplatesProvider:appInfoBuilder:)(v34, AssociatedTypeWitness, v9);
-  default argument 5 of PhoneCallBaseCatTemplatingService.init(ducFamily:sharedGlobals:displayTextCats:phoneCallCommonCats:appInfoBuilder:labelTemplating:startCallCats:)(AssociatedTypeWitness);
-  default argument 4 of PhoneTCCFlowStrategy.init(sharedGlobals:phoneCallCommonCats:phoneCallCommonCatPatterns:labelTemplatesProvider:tccTemplatesProvider:appInfoBuilder:)(v32);
-  default argument 4 of PhoneCallBaseCatTemplatingService.init(ducFamily:sharedGlobals:displayTextCats:phoneCallCommonCats:appInfoBuilder:labelTemplating:startCallCats:)(AssociatedTypeWitness);
-  v37[0] = PhoneTCCFlowStrategy.__allocating_init(sharedGlobals:phoneCallCommonCats:phoneCallCommonCatPatterns:labelTemplatesProvider:tccTemplatesProvider:appInfoBuilder:)(v37, v21, v34, v33, v32, v31);
-  swift_getWitnessTable();
-  static RCHChildFlowFactoryHelper.makeRequestTCCAcceptanceFlow<A, B>(strategy:)();
-
-  v22 = v30;
-  RCHChildFlowProducersAsync.requestTCCAcceptanceFlowProducer.setter();
-  return PhoneCallFlowFactory.PhoneRCHFlowProducers.init(completionProducers:asyncProducers:)(v22, v29);
-}
-
-uint64_t PhoneCallFlowFactory.PhoneRCHFlowProducers.completionProducers.getter(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  v2 = *(a1 + 24);
-  v3 = type metadata accessor for RCHChildFlowProducers();
-  OUTLINED_FUNCTION_23_1(v3);
-  v5 = *(v4 + 16);
-  v6 = OUTLINED_FUNCTION_19_0();
-
-  return v7(v6);
-}
-
-uint64_t PhoneCallFlowFactory.PhoneRCHFlowProducers.completionProducers.setter(uint64_t a1, uint64_t a2)
-{
-  v5 = *(a2 + 16);
-  v4 = *(a2 + 24);
-  v6 = type metadata accessor for RCHChildFlowProducers();
-  v7 = OUTLINED_FUNCTION_23_1(v6);
-  v9 = *(v8 + 40);
-
-  return v9(v2, a1, v7);
-}
-
-uint64_t PhoneCallFlowFactory.PhoneRCHFlowProducers.asyncProducers.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v4 = *(a1 + 36);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 24);
-  v7 = type metadata accessor for RCHChildFlowProducersAsync();
-  v8 = OUTLINED_FUNCTION_23_1(v7);
-  v10 = *(v9 + 16);
-
-  return v10(a2, v2 + v4, v8);
-}
-
-uint64_t PhoneCallFlowFactory.PhoneRCHFlowProducers.asyncProducers.setter(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a2 + 36);
-  v6 = *(a2 + 16);
-  v5 = *(a2 + 24);
-  v7 = type metadata accessor for RCHChildFlowProducersAsync();
-  OUTLINED_FUNCTION_23_1(v7);
-  v9 = *(v8 + 40);
-
-  return v9(v2 + v4, a1);
-}
-
-Swift::Void (__swiftcall *PhoneCallFlowFactory.PhoneRCHFlowProducers.asyncProducers.modify(uint64_t a1, uint64_t a2))(Swift::OpaquePointer newCallGroups)
-{
-  result = INAddCallParticipantIntent.overwriteCallGroups(newCallGroups:);
-  v4 = v2 + *(a2 + 36);
-  return result;
-}
-
-uint64_t PhoneCallFlowFactory.PhoneRCHFlowProducers.init(completionProducers:asyncProducers:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
-{
-  v4 = type metadata accessor for RCHChildFlowProducers();
-  OUTLINED_FUNCTION_23_1(v4);
-  v6 = *(v5 + 32);
-  v7 = OUTLINED_FUNCTION_14_6();
-  v8(v7);
-  v9 = *(type metadata accessor for PhoneCallFlowFactory.PhoneRCHFlowProducers() + 36);
-  v10 = type metadata accessor for RCHChildFlowProducersAsync();
-  OUTLINED_FUNCTION_23_1(v10);
-  v12 = *(v11 + 32);
-
-  return v12(a2 + v9, a1);
-}
-
-uint64_t (*static PhoneCallFlowFactory.makeAppResolutionFlowBeforeNextResolveFlowProducer<A>(delegate:app:sharedGlobal:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5))(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, unint64_t a5, uint64_t a6)
-{
-  outlined init with copy of SignalProviding(a3, v10);
-  v8 = swift_allocObject();
-  v8[2] = a4;
-  v8[3] = a5;
-  v8[4] = a2;
-  outlined init with take of SPHConversation(v10, (v8 + 5));
-
-  return partial apply for closure #1 in static PhoneCallFlowFactory.makeAppResolutionFlowBeforeNextResolveFlowProducer<A>(delegate:app:sharedGlobal:);
-}
-
-uint64_t specialized closure #1 in static PhoneCallFlowFactory.getGenericStartCallProducers<A>(delegate:app:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v61 = a4;
-  v74 = a1;
-  v75 = a3;
-  v69 = a2;
-  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin022ContactNeedsValueGuardC0C0C5StateOySo012INStartAudioB6IntentC_GMd, &_s27PhoneCallFlowDelegatePlugin022ContactNeedsValueGuardC0C0C5StateOySo012INStartAudioB6IntentC_GMR);
-  v4 = *(*(v59 - 8) + 64);
-  __chkstk_darwin(v59);
-  v60 = &v58 - v5;
-  v6 = type metadata accessor for ParameterIdentifier();
-  v71 = *(v6 - 8);
-  v72 = v6;
-  v7 = *(v71 + 64);
-  __chkstk_darwin(v6);
-  v70 = &v58 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for DialogPhase();
-  v10 = *(*(v9 - 8) + 64);
-  __chkstk_darwin(v9 - 8);
-  v67 = &v58 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for CATOption();
-  v13 = *(*(v12 - 8) + 64);
-  __chkstk_darwin(v12 - 8);
-  type metadata accessor for StartCallCATs();
-  static CATOption.defaultMode.getter();
-  v68 = CATWrapper.__allocating_init(options:globals:)();
-  v14 = type metadata accessor for StartCallCATPatternsExecutor(0);
-  static CATOption.defaultMode.getter();
-  v15 = CATWrapper.__allocating_init(options:globals:)();
-  type metadata accessor for StartCallCATsSimple();
-  static CATOption.defaultMode.getter();
-  v66 = CATWrapperSimple.__allocating_init(options:globals:)();
-  type metadata accessor for PhoneCallCommonCATs();
-  static CATOption.defaultMode.getter();
-  v65 = CATWrapper.__allocating_init(options:globals:)();
-  type metadata accessor for PhoneCallCommonCATsSimple();
-  static CATOption.defaultMode.getter();
-  v64 = CATWrapperSimple.__allocating_init(options:globals:)();
-  v16 = type metadata accessor for PhoneCallCommonCATPatternsExecutor();
-  static CATOption.defaultMode.getter();
-  v17 = CATWrapper.__allocating_init(options:globals:)();
-  type metadata accessor for PhoneCallDisplayTextCATsSimple();
-  static CATOption.defaultMode.getter();
-  v63 = CATWrapperSimple.__allocating_init(options:globals:)();
-  v18 = type metadata accessor for ResponseFactory();
-  v19 = *(v18 + 48);
-  v20 = *(v18 + 52);
-  swift_allocObject();
-  v21 = ResponseFactory.init()();
-  static SiriKitEventSender.current.getter();
-  v22 = type metadata accessor for AppInfoBuilder();
-  v23 = swift_allocObject();
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin023CallingIntentNeedsValueC8StrategyCyAA010StartAudiob7RCHFlowD0CGMd, &_s27PhoneCallFlowDelegatePlugin023CallingIntentNeedsValueC8StrategyCyAA010StartAudiob7RCHFlowD0CGMR);
-  v25 = *(v24 + 48);
-  v26 = *(v24 + 52);
-  v73 = v24;
-  v27 = swift_allocObject();
-  v87[3] = v14;
-  v87[4] = &protocol witness table for StartCallCATPatternsExecutor;
-  v87[0] = v15;
-  v86[4] = &protocol witness table for PhoneCallCommonCATPatternsExecutor;
-  v86[3] = v16;
-  v62 = v17;
-  v85[4] = &protocol witness table for AppInfoBuilder;
-  v86[0] = v17;
-  v85[3] = v22;
-  v85[0] = v23;
-  *(v27 + direct field offset for CallingIntentNeedsValueFlowStrategy.rePromptCount) = 0;
-  *(v27 + direct field offset for CallingIntentNeedsValueFlowStrategy.startingOver) = 0;
-  *(v27 + direct field offset for CallingIntentNeedsValueFlowStrategy.isUnsupportedFollowUp) = 0;
-  outlined init with copy of SignalProviding(v87, v84);
-  outlined init with copy of SignalProviding(v86, v83);
-  outlined init with copy of SignalProviding(v88, v82);
-  outlined init with copy of SignalProviding(v85, v81);
-  v80[3] = v18;
-  v80[4] = &protocol witness table for ResponseFactory;
-  v80[0] = v21;
-
-  static DialogPhase.completion.getter();
-  OutputGenerationManifest.init(dialogPhase:_:)();
-  v28 = v75;
-  v27[2] = v75;
-  v67 = direct field offset for StartAudioCallRCHFlowDelegate.sharedGlobals;
-  outlined init with copy of SignalProviding(v28 + direct field offset for StartAudioCallRCHFlowDelegate.sharedGlobals, (v27 + 3));
-  v27[8] = v68;
-  outlined init with copy of SignalProviding(v84, (v27 + 9));
-  v29 = v65;
-  v27[14] = v66;
-  v27[15] = v29;
-  v27[16] = v64;
-  outlined init with copy of SignalProviding(v83, (v27 + 17));
-  v27[22] = v63;
-  outlined init with copy of SignalProviding(v80, (v27 + 23));
-  outlined init with copy of SignalProviding(v82, (v27 + 28));
-  outlined init with copy of SignalProviding((v27 + 3), v77);
-  v30 = v78;
-  v31 = v79;
-  __swift_project_boxed_opaque_existential_1(v77, v78);
-  v32 = *(v31 + 72);
-
-  v33 = v31;
-  v34 = v69;
-  v35 = v32(v30, v33);
-
-  __swift_destroy_boxed_opaque_existential_1(v82);
-  __swift_destroy_boxed_opaque_existential_1(v83);
-  __swift_destroy_boxed_opaque_existential_1(v84);
-  __swift_destroy_boxed_opaque_existential_1(v88);
-  __swift_destroy_boxed_opaque_existential_1(v80);
-  outlined init with copy of SignalProviding(v35 + 160, v76);
-
-  outlined init with take of SPHConversation(v76, (v27 + 33));
-  __swift_destroy_boxed_opaque_existential_1(v77);
-  outlined init with take of SPHConversation(v81, (v27 + 38));
-  __swift_destroy_boxed_opaque_existential_1(v85);
-  __swift_destroy_boxed_opaque_existential_1(v86);
-  __swift_destroy_boxed_opaque_existential_1(v87);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow25ParameterResolutionRecordVySo22INStartAudioCallIntentCGMd, &_s11SiriKitFlow25ParameterResolutionRecordVySo22INStartAudioCallIntentCGMR);
-  v36 = v70;
-  ParameterResolutionRecord.parameter.getter();
-  v37 = ParameterIdentifier.name.getter();
-  v39 = v38;
-  (*(v71 + 8))(v36, v72);
-  v40._countAndFlagsBits = v37;
-  v40._object = v39;
-  if ((PhoneCallSlotNames.init(rawValue:)(v40).value & 0xFE) == 4)
+  OUTLINED_FUNCTION_55_0();
+  if (PhoneCallNLIntent.hasAnyContactReference()() || (v32 = OUTLINED_FUNCTION_55_0(), v34 = *(v33(v32) + 16), , !v34))
   {
     if (one-time initialization token for siriPhone != -1)
     {
+      OUTLINED_FUNCTION_0_6();
       swift_once();
     }
 
     v41 = type metadata accessor for Logger();
     __swift_project_value_buffer(v41, static Logger.siriPhone);
-    v42 = Logger.logObject.getter();
-    v43 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v42, v43))
+    OUTLINED_FUNCTION_77_9();
+    v42();
+    v43 = Logger.logObject.getter();
+    v44 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v43, v44))
     {
-      v44 = swift_slowAlloc();
-      *v44 = 0;
-      _os_log_impl(&dword_0, v42, v43, "#PhoneCallFlowFactory Contact slot needs value. Wrapping needsValueStrategy in NeedsValueGuardFlow.", v44, 2u);
+      v45 = swift_slowAlloc();
+      *v45 = 67109120;
+      v46 = OUTLINED_FUNCTION_55_0();
+      v48 = *(v47(v46) + 16);
+
+      v49 = OUTLINED_FUNCTION_20_0();
+      v50(v49);
+      *(v45 + 4) = v48 == 0;
+      _os_log_impl(&dword_0, v43, v44, "PhoneCallNLIntent contacts empty: %{BOOL}d", v45, 8u);
+      OUTLINED_FUNCTION_26_0(v45);
     }
 
-    *&v88[0] = v27;
-    lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type CallingIntentNeedsValueFlowStrategy<StartAudioCallRCHFlowDelegate> and conformance CallingIntentNeedsValueFlowStrategy<A>, &_s27PhoneCallFlowDelegatePlugin023CallingIntentNeedsValueC8StrategyCyAA010StartAudiob7RCHFlowD0CGMd, &_s27PhoneCallFlowDelegatePlugin023CallingIntentNeedsValueC8StrategyCyAA010StartAudiob7RCHFlowD0CGMR);
-    v45 = static RCHChildFlowFactoryHelper.makeNeedsValueFlowProducer<A>(strategy:)();
-    v46 = v45(v74, v34);
-
-    outlined init with copy of SignalProviding(&v67[v75], v88);
-    v47 = v60;
-    swift_storeEnumTagMultiPayload();
-    v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin022ContactNeedsValueGuardC0CySo012INStartAudioB6IntentCGMd, &_s27PhoneCallFlowDelegatePlugin022ContactNeedsValueGuardC0CySo012INStartAudioB6IntentCGMR);
-    v49 = *(v48 + 48);
-    v50 = *(v48 + 52);
-    swift_allocObject();
-    *&v88[0] = specialized ContactNeedsValueGuardFlow.init(flow:state:sharedGlobals:app:)(v46, v47, v88, v61);
-    lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type ContactNeedsValueGuardFlow<INStartAudioCallIntent> and conformance ContactNeedsValueGuardFlow<A>, &_s27PhoneCallFlowDelegatePlugin022ContactNeedsValueGuardC0CySo012INStartAudioB6IntentCGMd, &_s27PhoneCallFlowDelegatePlugin022ContactNeedsValueGuardC0CySo012INStartAudioB6IntentCGMR);
-
-    v51 = Flow.eraseToAnyValueFlow()();
+    else
+    {
+      (*(v4 + 8))(v8, v2);
+    }
   }
 
   else
   {
     if (one-time initialization token for siriPhone != -1)
     {
-      swift_once();
-    }
-
-    v52 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v52, static Logger.siriPhone);
-    v53 = Logger.logObject.getter();
-    v54 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v53, v54))
-    {
-      v55 = swift_slowAlloc();
-      *v55 = 0;
-      _os_log_impl(&dword_0, v53, v54, "#PhoneCallFlowFactory Needs value for non contact slot. Appending needsValueStrategy only.", v55, 2u);
-    }
-
-    *&v88[0] = v27;
-    lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type CallingIntentNeedsValueFlowStrategy<StartAudioCallRCHFlowDelegate> and conformance CallingIntentNeedsValueFlowStrategy<A>, &_s27PhoneCallFlowDelegatePlugin023CallingIntentNeedsValueC8StrategyCyAA010StartAudiob7RCHFlowD0CGMd, &_s27PhoneCallFlowDelegatePlugin023CallingIntentNeedsValueC8StrategyCyAA010StartAudiob7RCHFlowD0CGMR);
-    v56 = static RCHChildFlowFactoryHelper.makeNeedsValueFlowProducer<A>(strategy:)();
-    v51 = v56(v74, v34);
-  }
-
-  return v51;
-}
-
-{
-  v61 = a4;
-  v74 = a1;
-  v75 = a3;
-  v69 = a2;
-  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin022ContactNeedsValueGuardC0C0C5StateOySo012INStartVideoB6IntentC_GMd, &_s27PhoneCallFlowDelegatePlugin022ContactNeedsValueGuardC0C0C5StateOySo012INStartVideoB6IntentC_GMR);
-  v4 = *(*(v59 - 8) + 64);
-  __chkstk_darwin(v59);
-  v60 = &v58 - v5;
-  v6 = type metadata accessor for ParameterIdentifier();
-  v71 = *(v6 - 8);
-  v72 = v6;
-  v7 = *(v71 + 64);
-  __chkstk_darwin(v6);
-  v70 = &v58 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for DialogPhase();
-  v10 = *(*(v9 - 8) + 64);
-  __chkstk_darwin(v9 - 8);
-  v67 = &v58 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for CATOption();
-  v13 = *(*(v12 - 8) + 64);
-  __chkstk_darwin(v12 - 8);
-  type metadata accessor for StartCallCATs();
-  static CATOption.defaultMode.getter();
-  v68 = CATWrapper.__allocating_init(options:globals:)();
-  v14 = type metadata accessor for StartCallCATPatternsExecutor(0);
-  static CATOption.defaultMode.getter();
-  v15 = CATWrapper.__allocating_init(options:globals:)();
-  type metadata accessor for StartCallCATsSimple();
-  static CATOption.defaultMode.getter();
-  v66 = CATWrapperSimple.__allocating_init(options:globals:)();
-  type metadata accessor for PhoneCallCommonCATs();
-  static CATOption.defaultMode.getter();
-  v65 = CATWrapper.__allocating_init(options:globals:)();
-  type metadata accessor for PhoneCallCommonCATsSimple();
-  static CATOption.defaultMode.getter();
-  v64 = CATWrapperSimple.__allocating_init(options:globals:)();
-  v16 = type metadata accessor for PhoneCallCommonCATPatternsExecutor();
-  static CATOption.defaultMode.getter();
-  v17 = CATWrapper.__allocating_init(options:globals:)();
-  type metadata accessor for PhoneCallDisplayTextCATsSimple();
-  static CATOption.defaultMode.getter();
-  v63 = CATWrapperSimple.__allocating_init(options:globals:)();
-  v18 = type metadata accessor for ResponseFactory();
-  v19 = *(v18 + 48);
-  v20 = *(v18 + 52);
-  swift_allocObject();
-  v21 = ResponseFactory.init()();
-  static SiriKitEventSender.current.getter();
-  v22 = type metadata accessor for AppInfoBuilder();
-  v23 = swift_allocObject();
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin023CallingIntentNeedsValueC8StrategyCyAA010StartVideob7RCHFlowD0CGMd, &_s27PhoneCallFlowDelegatePlugin023CallingIntentNeedsValueC8StrategyCyAA010StartVideob7RCHFlowD0CGMR);
-  v25 = *(v24 + 48);
-  v26 = *(v24 + 52);
-  v73 = v24;
-  v27 = swift_allocObject();
-  v87[3] = v14;
-  v87[4] = &protocol witness table for StartCallCATPatternsExecutor;
-  v87[0] = v15;
-  v86[4] = &protocol witness table for PhoneCallCommonCATPatternsExecutor;
-  v86[3] = v16;
-  v62 = v17;
-  v85[4] = &protocol witness table for AppInfoBuilder;
-  v86[0] = v17;
-  v85[3] = v22;
-  v85[0] = v23;
-  *(v27 + direct field offset for CallingIntentNeedsValueFlowStrategy.rePromptCount) = 0;
-  *(v27 + direct field offset for CallingIntentNeedsValueFlowStrategy.startingOver) = 0;
-  *(v27 + direct field offset for CallingIntentNeedsValueFlowStrategy.isUnsupportedFollowUp) = 0;
-  outlined init with copy of SignalProviding(v87, v84);
-  outlined init with copy of SignalProviding(v86, v83);
-  outlined init with copy of SignalProviding(v88, v82);
-  outlined init with copy of SignalProviding(v85, v81);
-  v80[3] = v18;
-  v80[4] = &protocol witness table for ResponseFactory;
-  v80[0] = v21;
-
-  static DialogPhase.completion.getter();
-  OutputGenerationManifest.init(dialogPhase:_:)();
-  v28 = v75;
-  v27[2] = v75;
-  v67 = direct field offset for StartVideoCallRCHFlowDelegate.sharedGlobals;
-  outlined init with copy of SignalProviding(v28 + direct field offset for StartVideoCallRCHFlowDelegate.sharedGlobals, (v27 + 3));
-  v27[8] = v68;
-  outlined init with copy of SignalProviding(v84, (v27 + 9));
-  v29 = v65;
-  v27[14] = v66;
-  v27[15] = v29;
-  v27[16] = v64;
-  outlined init with copy of SignalProviding(v83, (v27 + 17));
-  v27[22] = v63;
-  outlined init with copy of SignalProviding(v80, (v27 + 23));
-  outlined init with copy of SignalProviding(v82, (v27 + 28));
-  outlined init with copy of SignalProviding((v27 + 3), v77);
-  v30 = v78;
-  v31 = v79;
-  __swift_project_boxed_opaque_existential_1(v77, v78);
-  v32 = *(v31 + 72);
-
-  v33 = v31;
-  v34 = v69;
-  v35 = v32(v30, v33);
-
-  __swift_destroy_boxed_opaque_existential_1(v82);
-  __swift_destroy_boxed_opaque_existential_1(v83);
-  __swift_destroy_boxed_opaque_existential_1(v84);
-  __swift_destroy_boxed_opaque_existential_1(v88);
-  __swift_destroy_boxed_opaque_existential_1(v80);
-  outlined init with copy of SignalProviding(v35 + 160, v76);
-
-  outlined init with take of SPHConversation(v76, (v27 + 33));
-  __swift_destroy_boxed_opaque_existential_1(v77);
-  outlined init with take of SPHConversation(v81, (v27 + 38));
-  __swift_destroy_boxed_opaque_existential_1(v85);
-  __swift_destroy_boxed_opaque_existential_1(v86);
-  __swift_destroy_boxed_opaque_existential_1(v87);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow25ParameterResolutionRecordVySo22INStartVideoCallIntentCGMd, &_s11SiriKitFlow25ParameterResolutionRecordVySo22INStartVideoCallIntentCGMR);
-  v36 = v70;
-  ParameterResolutionRecord.parameter.getter();
-  v37 = ParameterIdentifier.name.getter();
-  v39 = v38;
-  (*(v71 + 8))(v36, v72);
-  v40._countAndFlagsBits = v37;
-  v40._object = v39;
-  if ((PhoneCallSlotNames.init(rawValue:)(v40).value & 0xFE) == 4)
-  {
-    if (one-time initialization token for siriPhone != -1)
-    {
-      swift_once();
-    }
-
-    v41 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v41, static Logger.siriPhone);
-    v42 = Logger.logObject.getter();
-    v43 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v42, v43))
-    {
-      v44 = swift_slowAlloc();
-      *v44 = 0;
-      _os_log_impl(&dword_0, v42, v43, "#PhoneCallFlowFactory Contact slot needs value. Wrapping needsValueStrategy in NeedsValueGuardFlow.", v44, 2u);
-    }
-
-    *&v88[0] = v27;
-    lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type CallingIntentNeedsValueFlowStrategy<StartVideoCallRCHFlowDelegate> and conformance CallingIntentNeedsValueFlowStrategy<A>, &_s27PhoneCallFlowDelegatePlugin023CallingIntentNeedsValueC8StrategyCyAA010StartVideob7RCHFlowD0CGMd, &_s27PhoneCallFlowDelegatePlugin023CallingIntentNeedsValueC8StrategyCyAA010StartVideob7RCHFlowD0CGMR);
-    v45 = static RCHChildFlowFactoryHelper.makeNeedsValueFlowProducer<A>(strategy:)();
-    v46 = v45(v74, v34);
-
-    outlined init with copy of SignalProviding(&v67[v75], v88);
-    v47 = v60;
-    swift_storeEnumTagMultiPayload();
-    v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin022ContactNeedsValueGuardC0CySo012INStartVideoB6IntentCGMd, &_s27PhoneCallFlowDelegatePlugin022ContactNeedsValueGuardC0CySo012INStartVideoB6IntentCGMR);
-    v49 = *(v48 + 48);
-    v50 = *(v48 + 52);
-    swift_allocObject();
-    *&v88[0] = specialized ContactNeedsValueGuardFlow.init(flow:state:sharedGlobals:app:)(v46, v47, v88, v61);
-    lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type ContactNeedsValueGuardFlow<INStartVideoCallIntent> and conformance ContactNeedsValueGuardFlow<A>, &_s27PhoneCallFlowDelegatePlugin022ContactNeedsValueGuardC0CySo012INStartVideoB6IntentCGMd, &_s27PhoneCallFlowDelegatePlugin022ContactNeedsValueGuardC0CySo012INStartVideoB6IntentCGMR);
-
-    v51 = Flow.eraseToAnyValueFlow()();
-  }
-
-  else
-  {
-    if (one-time initialization token for siriPhone != -1)
-    {
-      swift_once();
-    }
-
-    v52 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v52, static Logger.siriPhone);
-    v53 = Logger.logObject.getter();
-    v54 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v53, v54))
-    {
-      v55 = swift_slowAlloc();
-      *v55 = 0;
-      _os_log_impl(&dword_0, v53, v54, "#PhoneCallFlowFactory Needs value for non contact slot. Appending needsValueStrategy only.", v55, 2u);
-    }
-
-    *&v88[0] = v27;
-    lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type CallingIntentNeedsValueFlowStrategy<StartVideoCallRCHFlowDelegate> and conformance CallingIntentNeedsValueFlowStrategy<A>, &_s27PhoneCallFlowDelegatePlugin023CallingIntentNeedsValueC8StrategyCyAA010StartVideob7RCHFlowD0CGMd, &_s27PhoneCallFlowDelegatePlugin023CallingIntentNeedsValueC8StrategyCyAA010StartVideob7RCHFlowD0CGMR);
-    v56 = static RCHChildFlowFactoryHelper.makeNeedsValueFlowProducer<A>(strategy:)();
-    v51 = v56(v74, v34);
-  }
-
-  return v51;
-}
-
-{
-  v61 = a4;
-  v74 = a1;
-  v75 = a3;
-  v69 = a2;
-  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin022ContactNeedsValueGuardC0C0C5StateOySo07INStartB6IntentC_GMd, &_s27PhoneCallFlowDelegatePlugin022ContactNeedsValueGuardC0C0C5StateOySo07INStartB6IntentC_GMR);
-  v4 = *(*(v59 - 8) + 64);
-  __chkstk_darwin(v59);
-  v60 = &v58 - v5;
-  v6 = type metadata accessor for ParameterIdentifier();
-  v71 = *(v6 - 8);
-  v72 = v6;
-  v7 = *(v71 + 64);
-  __chkstk_darwin(v6);
-  v70 = &v58 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for DialogPhase();
-  v10 = *(*(v9 - 8) + 64);
-  __chkstk_darwin(v9 - 8);
-  v67 = &v58 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for CATOption();
-  v13 = *(*(v12 - 8) + 64);
-  __chkstk_darwin(v12 - 8);
-  type metadata accessor for StartCallCATs();
-  static CATOption.defaultMode.getter();
-  v68 = CATWrapper.__allocating_init(options:globals:)();
-  v14 = type metadata accessor for StartCallCATPatternsExecutor(0);
-  static CATOption.defaultMode.getter();
-  v15 = CATWrapper.__allocating_init(options:globals:)();
-  type metadata accessor for StartCallCATsSimple();
-  static CATOption.defaultMode.getter();
-  v66 = CATWrapperSimple.__allocating_init(options:globals:)();
-  type metadata accessor for PhoneCallCommonCATs();
-  static CATOption.defaultMode.getter();
-  v65 = CATWrapper.__allocating_init(options:globals:)();
-  type metadata accessor for PhoneCallCommonCATsSimple();
-  static CATOption.defaultMode.getter();
-  v64 = CATWrapperSimple.__allocating_init(options:globals:)();
-  v16 = type metadata accessor for PhoneCallCommonCATPatternsExecutor();
-  static CATOption.defaultMode.getter();
-  v17 = CATWrapper.__allocating_init(options:globals:)();
-  type metadata accessor for PhoneCallDisplayTextCATsSimple();
-  static CATOption.defaultMode.getter();
-  v63 = CATWrapperSimple.__allocating_init(options:globals:)();
-  v18 = type metadata accessor for ResponseFactory();
-  v19 = *(v18 + 48);
-  v20 = *(v18 + 52);
-  swift_allocObject();
-  v21 = ResponseFactory.init()();
-  static SiriKitEventSender.current.getter();
-  v22 = type metadata accessor for AppInfoBuilder();
-  v23 = swift_allocObject();
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin023CallingIntentNeedsValueC8StrategyCyAA05Startb7RCHFlowD0CGMd, &_s27PhoneCallFlowDelegatePlugin023CallingIntentNeedsValueC8StrategyCyAA05Startb7RCHFlowD0CGMR);
-  v25 = *(v24 + 48);
-  v26 = *(v24 + 52);
-  v73 = v24;
-  v27 = swift_allocObject();
-  v87[3] = v14;
-  v87[4] = &protocol witness table for StartCallCATPatternsExecutor;
-  v87[0] = v15;
-  v86[4] = &protocol witness table for PhoneCallCommonCATPatternsExecutor;
-  v86[3] = v16;
-  v62 = v17;
-  v85[4] = &protocol witness table for AppInfoBuilder;
-  v86[0] = v17;
-  v85[3] = v22;
-  v85[0] = v23;
-  *(v27 + direct field offset for CallingIntentNeedsValueFlowStrategy.rePromptCount) = 0;
-  *(v27 + direct field offset for CallingIntentNeedsValueFlowStrategy.startingOver) = 0;
-  *(v27 + direct field offset for CallingIntentNeedsValueFlowStrategy.isUnsupportedFollowUp) = 0;
-  outlined init with copy of SignalProviding(v87, v84);
-  outlined init with copy of SignalProviding(v86, v83);
-  outlined init with copy of SignalProviding(v88, v82);
-  outlined init with copy of SignalProviding(v85, v81);
-  v80[3] = v18;
-  v80[4] = &protocol witness table for ResponseFactory;
-  v80[0] = v21;
-
-  static DialogPhase.completion.getter();
-  OutputGenerationManifest.init(dialogPhase:_:)();
-  v28 = v75;
-  v27[2] = v75;
-  v67 = direct field offset for StartCallRCHFlowDelegate.sharedGlobals;
-  outlined init with copy of SignalProviding(v28 + direct field offset for StartCallRCHFlowDelegate.sharedGlobals, (v27 + 3));
-  v27[8] = v68;
-  outlined init with copy of SignalProviding(v84, (v27 + 9));
-  v29 = v65;
-  v27[14] = v66;
-  v27[15] = v29;
-  v27[16] = v64;
-  outlined init with copy of SignalProviding(v83, (v27 + 17));
-  v27[22] = v63;
-  outlined init with copy of SignalProviding(v80, (v27 + 23));
-  outlined init with copy of SignalProviding(v82, (v27 + 28));
-  outlined init with copy of SignalProviding((v27 + 3), v77);
-  v30 = v78;
-  v31 = v79;
-  __swift_project_boxed_opaque_existential_1(v77, v78);
-  v32 = *(v31 + 72);
-
-  v33 = v31;
-  v34 = v69;
-  v35 = v32(v30, v33);
-
-  __swift_destroy_boxed_opaque_existential_1(v82);
-  __swift_destroy_boxed_opaque_existential_1(v83);
-  __swift_destroy_boxed_opaque_existential_1(v84);
-  __swift_destroy_boxed_opaque_existential_1(v88);
-  __swift_destroy_boxed_opaque_existential_1(v80);
-  outlined init with copy of SignalProviding(v35 + 160, v76);
-
-  outlined init with take of SPHConversation(v76, (v27 + 33));
-  __swift_destroy_boxed_opaque_existential_1(v77);
-  outlined init with take of SPHConversation(v81, (v27 + 38));
-  __swift_destroy_boxed_opaque_existential_1(v85);
-  __swift_destroy_boxed_opaque_existential_1(v86);
-  __swift_destroy_boxed_opaque_existential_1(v87);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow25ParameterResolutionRecordVySo17INStartCallIntentCGMd, &_s11SiriKitFlow25ParameterResolutionRecordVySo17INStartCallIntentCGMR);
-  v36 = v70;
-  ParameterResolutionRecord.parameter.getter();
-  v37 = ParameterIdentifier.name.getter();
-  v39 = v38;
-  (*(v71 + 8))(v36, v72);
-  v40._countAndFlagsBits = v37;
-  v40._object = v39;
-  if ((PhoneCallSlotNames.init(rawValue:)(v40).value & 0xFE) == 4)
-  {
-    if (one-time initialization token for siriPhone != -1)
-    {
-      swift_once();
-    }
-
-    v41 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v41, static Logger.siriPhone);
-    v42 = Logger.logObject.getter();
-    v43 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v42, v43))
-    {
-      v44 = swift_slowAlloc();
-      *v44 = 0;
-      _os_log_impl(&dword_0, v42, v43, "#PhoneCallFlowFactory Contact slot needs value. Wrapping needsValueStrategy in NeedsValueGuardFlow.", v44, 2u);
-    }
-
-    *&v88[0] = v27;
-    lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type CallingIntentNeedsValueFlowStrategy<StartCallRCHFlowDelegate> and conformance CallingIntentNeedsValueFlowStrategy<A>, &_s27PhoneCallFlowDelegatePlugin023CallingIntentNeedsValueC8StrategyCyAA05Startb7RCHFlowD0CGMd, &_s27PhoneCallFlowDelegatePlugin023CallingIntentNeedsValueC8StrategyCyAA05Startb7RCHFlowD0CGMR);
-    v45 = static RCHChildFlowFactoryHelper.makeNeedsValueFlowProducer<A>(strategy:)();
-    v46 = v45(v74, v34);
-
-    outlined init with copy of SignalProviding(&v67[v75], v88);
-    v47 = v60;
-    swift_storeEnumTagMultiPayload();
-    v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin022ContactNeedsValueGuardC0CySo07INStartB6IntentCGMd, &_s27PhoneCallFlowDelegatePlugin022ContactNeedsValueGuardC0CySo07INStartB6IntentCGMR);
-    v49 = *(v48 + 48);
-    v50 = *(v48 + 52);
-    swift_allocObject();
-    *&v88[0] = specialized ContactNeedsValueGuardFlow.init(flow:state:sharedGlobals:app:)(v46, v47, v88, v61);
-    lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type ContactNeedsValueGuardFlow<INStartCallIntent> and conformance ContactNeedsValueGuardFlow<A>, &_s27PhoneCallFlowDelegatePlugin022ContactNeedsValueGuardC0CySo07INStartB6IntentCGMd, &_s27PhoneCallFlowDelegatePlugin022ContactNeedsValueGuardC0CySo07INStartB6IntentCGMR);
-
-    v51 = Flow.eraseToAnyValueFlow()();
-  }
-
-  else
-  {
-    if (one-time initialization token for siriPhone != -1)
-    {
-      swift_once();
-    }
-
-    v52 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v52, static Logger.siriPhone);
-    v53 = Logger.logObject.getter();
-    v54 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v53, v54))
-    {
-      v55 = swift_slowAlloc();
-      *v55 = 0;
-      _os_log_impl(&dword_0, v53, v54, "#PhoneCallFlowFactory Needs value for non contact slot. Appending needsValueStrategy only.", v55, 2u);
-    }
-
-    *&v88[0] = v27;
-    lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type CallingIntentNeedsValueFlowStrategy<StartCallRCHFlowDelegate> and conformance CallingIntentNeedsValueFlowStrategy<A>, &_s27PhoneCallFlowDelegatePlugin023CallingIntentNeedsValueC8StrategyCyAA05Startb7RCHFlowD0CGMd, &_s27PhoneCallFlowDelegatePlugin023CallingIntentNeedsValueC8StrategyCyAA05Startb7RCHFlowD0CGMR);
-    v56 = static RCHChildFlowFactoryHelper.makeNeedsValueFlowProducer<A>(strategy:)();
-    v51 = v56(v74, v34);
-  }
-
-  return v51;
-}
-
-uint64_t closure #1 in static PhoneCallFlowFactory.getGenericStartCallProducers<A>(delegate:app:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v42 = a4;
-  v45 = a2;
-  v9 = *a1;
-  v48 = a1;
-  v46 = v9;
-  v47 = type metadata accessor for ParameterIdentifier();
-  v10 = *(v47 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v47);
-  v13 = &v41 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v44 = type metadata accessor for CallingIntentNeedsValueFlowStrategy();
-  swift_unknownObjectRetain();
-  v43 = default argument 1 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(a5, a6);
-  default argument 2 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v53);
-  v14 = default argument 3 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(a5, a6);
-  v15 = default argument 4 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(a5, a6);
-  v16 = default argument 5 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(a5, a6);
-  default argument 6 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(v52);
-  v17 = default argument 7 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(a5, a6);
-  default argument 8 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)();
-  SharedGlobalsProviding.siriKitEventSender.getter(v50, a5, a6);
-  default argument 10 of CallingIntentBaseFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(a5, a6);
-  v18 = v45;
-  v41 = a3;
-  v19 = CallingIntentNeedsValueFlowStrategy.__allocating_init(delegate:startCallCATs:startCallCatPatterns:startCallCATsSimple:phoneCallCommonCATs:phoneCallCommonCATsSimple:phoneCallCommonCatPatterns:phoneCallDisplayTextCATsSimple:responseGenerator:siriKitEventSender:appInfoBuilder:)(a3, v43, v53, v14, v15, v16, v52, v17, v51, v50, v49);
-  v20 = *(v46 + class metadata base offset for RCHChildFlowFactory);
-  type metadata accessor for ParameterResolutionRecord();
-  ParameterResolutionRecord.parameter.getter();
-  v21 = ParameterIdentifier.name.getter();
-  v23 = v22;
-  (*(v10 + 8))(v13, v47);
-  v24._countAndFlagsBits = v21;
-  v24._object = v23;
-  if ((PhoneCallSlotNames.init(rawValue:)(v24).value & 0xFE) == 4)
-  {
-    if (one-time initialization token for siriPhone != -1)
-    {
-      swift_once();
-    }
-
-    v25 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v25, static Logger.siriPhone);
-    v26 = Logger.logObject.getter();
-    v27 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v26, v27))
-    {
-      v28 = swift_slowAlloc();
-      *v28 = 0;
-      _os_log_impl(&dword_0, v26, v27, "#PhoneCallFlowFactory Contact slot needs value. Wrapping needsValueStrategy in NeedsValueGuardFlow.", v28, 2u);
-    }
-
-    v53[0] = v19;
-    swift_getWitnessTable();
-    v29 = static RCHChildFlowFactoryHelper.makeNeedsValueFlowProducer<A>(strategy:)();
-    v30 = v29(v48, v18);
-
-    swift_getAssociatedConformanceWitness();
-    type metadata accessor for ContactNeedsValueGuardFlow();
-    v52[0] = v41;
-    v31 = *(*(a6 + 8) + 8);
-    v32 = *(v31 + 8);
-
-    v32(v53, a5, v31);
-    v33 = v42;
-
-    v53[0] = ContactNeedsValueGuardFlow.__allocating_init(_:_:app:)(v30, v53, v33);
-    swift_getWitnessTable();
-    v34 = Flow.eraseToAnyValueFlow()();
-  }
-
-  else
-  {
-    if (one-time initialization token for siriPhone != -1)
-    {
+      OUTLINED_FUNCTION_0_6();
       swift_once();
     }
 
@@ -5110,2272 +1729,4283 @@ uint64_t closure #1 in static PhoneCallFlowFactory.getGenericStartCallProducers<
     __swift_project_value_buffer(v35, static Logger.siriPhone);
     v36 = Logger.logObject.getter();
     v37 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v36, v37))
+    if (OUTLINED_FUNCTION_10_0(v37))
     {
       v38 = swift_slowAlloc();
       *v38 = 0;
-      _os_log_impl(&dword_0, v36, v37, "#PhoneCallFlowFactory Needs value for non contact slot. Appending needsValueStrategy only.", v38, 2u);
+      OUTLINED_FUNCTION_33(&dword_0, v39, v40, "#PhoneCallNLIntent Not a call back request as utterance contains either number or contact name");
+      OUTLINED_FUNCTION_26_0(v38);
     }
-
-    v53[0] = v19;
-    swift_getWitnessTable();
-    v39 = static RCHChildFlowFactoryHelper.makeNeedsValueFlowProducer<A>(strategy:)();
-    v34 = v39(v48, v18);
   }
 
-  return v34;
+LABEL_58:
+  OUTLINED_FUNCTION_65();
+  return result;
 }
 
-uint64_t closure #2 in static PhoneCallFlowFactory.getGenericStartCallProducers<A>(delegate:app:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+Swift::Bool __swiftcall PhoneCallNLIntent.isEmergencyResourceCall()()
 {
-  v8 = *a1;
-  v37 = a1;
-  v38 = v8;
-  v39 = a2;
-  v9 = type metadata accessor for ParameterIdentifier();
-  v35 = *(v9 - 8);
-  v36 = v9;
-  v10 = *(v35 + 64);
-  __chkstk_darwin(v9);
-  v12 = &v33 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for CallingIntentUnsupportedValueFlowStrategy();
-  swift_unknownObjectRetain();
-  v34 = default argument 6 of PhoneCallBaseCatTemplatingService.init(ducFamily:sharedGlobals:displayTextCats:phoneCallCommonCats:appInfoBuilder:labelTemplating:startCallCats:)(a4);
-  default argument 2 of CallingIntentUnsupportedValueFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:phoneCallCommonCATs:phoneCallCommonCatPatterns:startCallCatsSimple:phoneCallDisplayTextCATsSimple:siriKitEventSender:appInfoBuilder:)(v41, a4, a5);
-  v13 = default argument 3 of PhoneCallBaseCatTemplatingService.init(ducFamily:sharedGlobals:displayTextCats:phoneCallCommonCats:appInfoBuilder:labelTemplating:startCallCats:)(a4, a5);
-  default argument 2 of PhoneTCCFlowStrategy.init(sharedGlobals:phoneCallCommonCats:phoneCallCommonCatPatterns:labelTemplatesProvider:tccTemplatesProvider:appInfoBuilder:)(v44, a4, a5);
-  v14 = default argument 5 of CallingIntentUnsupportedValueFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:phoneCallCommonCATs:phoneCallCommonCatPatterns:startCallCatsSimple:phoneCallDisplayTextCATsSimple:siriKitEventSender:appInfoBuilder:)(a4, a5);
-  v15 = default argument 6 of CallingIntentUnsupportedValueFlowStrategy.init(delegate:startCallCATs:startCallCatPatterns:phoneCallCommonCATs:phoneCallCommonCatPatterns:startCallCatsSimple:phoneCallDisplayTextCATsSimple:siriKitEventSender:appInfoBuilder:)(a4, a5);
-  default argument 7 of static ReferenceContactResolutionWrapper.resolveUpdateSKIntent(siriKitIntent:contactQueries:hasEmergencyContact:app:nlIntent:sharedGlobals:multicardinalIndex:siriKitEventSender:emergencyContactResolution:contactGroupResolver:)(v43, a4, a5);
-  default argument 4 of PhoneCallBaseCatTemplatingService.init(ducFamily:sharedGlobals:displayTextCats:phoneCallCommonCats:appInfoBuilder:labelTemplating:startCallCats:)(a4);
-  v33 = a3;
-  v16 = CallingIntentUnsupportedValueFlowStrategy.__allocating_init(delegate:startCallCATs:startCallCatPatterns:phoneCallCommonCATs:phoneCallCommonCatPatterns:startCallCatsSimple:phoneCallDisplayTextCATsSimple:siriKitEventSender:appInfoBuilder:)(a3, v34, v41, v13, v44, v14, v15, v43, v42);
-  v17 = *(v38 + class metadata base offset for RCHChildFlowFactory);
-  v18 = type metadata accessor for ParameterResolutionRecord();
-  ParameterResolutionRecord.parameter.getter();
-  v19 = ParameterIdentifier.name.getter();
-  v21 = v20;
-  (*(v35 + 8))(v12, v36);
-  v22._countAndFlagsBits = v19;
-  v22._object = v21;
-  if ((PhoneCallSlotNames.init(rawValue:)(v22).value & 0xFE) == 4)
+  OUTLINED_FUNCTION_41_21();
+  v2();
+  OUTLINED_FUNCTION_99_2();
+  if (v0)
   {
-    v23 = v16;
-    v24 = *(swift_getAssociatedConformanceWitness() + 8);
-    v25 = v39;
-    if (ParameterResolutionRecord<>.isUnsetRelationship.getter(v18, v24))
+    OUTLINED_FUNCTION_96_3();
+    while (1)
     {
-      v40[5] = v33;
-      (*(*(*(a5 + 8) + 8) + 8))(v44, a4);
-      default argument 1 of ContactUnsetRelationshipFlowStrategy.init(sharedGlobals:contactStore:labelTemplates:unsetRelationshipTemplates:displayTextCatFamily:phoneCallCommonCats:)(v43);
-      default argument 2 of ContactUnsetRelationshipFlowStrategy.init(sharedGlobals:contactStore:labelTemplates:unsetRelationshipTemplates:displayTextCatFamily:phoneCallCommonCats:)(v42);
-      default argument 3 of ContactUnsetRelationshipFlowStrategy.init(sharedGlobals:contactStore:labelTemplates:unsetRelationshipTemplates:displayTextCatFamily:phoneCallCommonCats:)(v17, v24);
-      v26 = default argument 4 of ContactUnsetRelationshipFlowStrategy.init(sharedGlobals:contactStore:labelTemplates:unsetRelationshipTemplates:displayTextCatFamily:phoneCallCommonCats:)(v17, v24);
-      v27 = default argument 3 of PhoneCallBaseCatTemplatingService.init(ducFamily:sharedGlobals:displayTextCats:phoneCallCommonCats:appInfoBuilder:labelTemplating:startCallCats:)(v17, v24);
-      ContactUnsetRelationshipFlowStrategy.init(sharedGlobals:contactStore:labelTemplates:unsetRelationshipTemplates:displayTextCatFamily:phoneCallCommonCats:)(v44, v43, v42, v40, v26, v27, v41);
-      v28 = type metadata accessor for ContactUnsetRelationshipFlowStrategy();
-      v29 = *(v38 + class metadata base offset for RCHChildFlowFactory + 8);
-      swift_getWitnessTable();
-      v30 = static RCHChildFlowFactoryHelper.makeUnsupportedUnsetRelationshipFlowProducer<A, B>(strategy:)();
-      (*(*(v28 - 8) + 8))(v41, v28);
-    }
-
-    else
-    {
-      v41[0] = v23;
-      swift_getWitnessTable();
-      v30 = static RCHChildFlowFactoryHelper.makeUnsupportedValueAndPromptFlowProducer<A>(strategy:)();
-    }
-  }
-
-  else
-  {
-    v41[0] = v16;
-    swift_getWitnessTable();
-    v30 = static RCHChildFlowFactoryHelper.makeUnsupportedValueAndCancelFlowProducer<A>(strategy:)();
-    v25 = v39;
-  }
-
-  v31 = v30(v37, v25);
-
-  return v31;
-}
-
-uint64_t closure #1 in static PhoneCallFlowFactory.getStartCallProducers(skIntent:delegate:app:sharedGlobals:)(uint64_t a1, void *a2, void *a3, void *a4)
-{
-  v112 = a3;
-  v7 = type metadata accessor for CATOption();
-  v8 = *(*(v7 - 8) + 64);
-  __chkstk_darwin(v7 - 8);
-  v10 = (&v100 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v110 = type metadata accessor for ResponseMode();
-  v108 = *(v110 - 8);
-  v11 = *(v108 + 64);
-  __chkstk_darwin(v110);
-  v107 = &v100 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v111 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities12ResponseModeVSg_ADtMd, &_s13SiriUtilities12ResponseModeVSg_ADtMR);
-  v13 = *(*(v111 - 8) + 64);
-  __chkstk_darwin(v111);
-  v15 = &v100 - v14;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = __chkstk_darwin(v16 - 8);
-  v109 = &v100 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = __chkstk_darwin(v18);
-  v113 = &v100 - v21;
-  __chkstk_darwin(v20);
-  v114 = &v100 - v22;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow22IntentResolutionRecordVySo011INStartCallD0CSo0ghD8ResponseCGMd, &_s11SiriKitFlow22IntentResolutionRecordVySo011INStartCallD0CSo0ghD8ResponseCGMR);
-  v24 = *(v23 - 1);
-  v25 = *(v24 + 64);
-  __chkstk_darwin(v23);
-  v27 = &v100 - v26;
-  v28 = IntentResolutionRecord.intentResponse.getter();
-  v29 = [v28 _intentResponseCode];
-
-  if (v29 == &dword_8)
-  {
-    v101 = a1;
-    if (one-time initialization token for siriPhone != -1)
-    {
-LABEL_51:
-      swift_once();
-    }
-
-    v103 = v15;
-    v104 = v10;
-    v100 = a4;
-    v30 = type metadata accessor for Logger();
-    v31 = __swift_project_value_buffer(v30, static Logger.siriPhone);
-    (*(v24 + 16))(v27, a2, v23);
-    v102 = v31;
-    v10 = Logger.logObject.getter();
-    v32 = static os_log_type_t.debug.getter();
-    v33 = os_log_type_enabled(v10, v32);
-    v106 = v23;
-    if (v33)
-    {
-      v34 = swift_slowAlloc();
-      v35 = swift_slowAlloc();
-      *v34 = 138412290;
-      v36 = IntentResolutionRecord.intent.getter();
-      v37 = [v36 backingStore];
-
-      if (!outlined bridged method (ob) of @objc PBCodable.dictionaryRepresentation()(v37))
+      OUTLINED_FUNCTION_95_3();
+      if (v4)
       {
-        Dictionary.init(dictionaryLiteral:)();
+        break;
       }
 
-      isa = Dictionary._bridgeToObjectiveC()().super.isa;
-
-      v39 = v106;
-      (*(v24 + 8))(v27, v106);
-      *(v34 + 4) = isa;
-      *v35 = isa;
-      _os_log_impl(&dword_0, v10, v32, "#PhoneCallFlowFactory Extension explicitly asked to confirm, intent = %@", v34, 0xCu);
-      outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v35, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v23 = v39;
-    }
-
-    else
-    {
-
-      (*(v24 + 8))(v27, v23);
-    }
-
-    v105 = a2;
-    v44 = IntentResolutionRecord.intent.getter();
-    v45 = outlined bridged method (ob) of @objc INStartCallIntent.contacts.getter(v44);
-    if (v45)
-    {
-      v46 = v45;
-    }
-
-    else
-    {
-      v46 = &_swiftEmptyArrayStorage;
-    }
-
-    v47 = specialized Array.count.getter(v46);
-    v27 = 0;
-    v24 = v46 & 0xC000000000000001;
-    v15 = (v46 & 0xFFFFFFFFFFFFFF8);
-    a2 = &unk_548000;
-    a4 = &unk_548000;
-    while (v47 != v27)
-    {
-      if (v24)
+      OUTLINED_FUNCTION_85_4();
+      v5 = OUTLINED_FUNCTION_1_83(v10);
+      v7 = SiriPhoneContact.getEmergencyType()(v5, v6);
+      if (v8 >= 3)
       {
-        v48 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        if (v8 != 3)
+        {
+          outlined consume of PhoneCallEmergencyType?(v7, v8);
+
+          __swift_destroy_boxed_opaque_existential_1(v10);
+          return 1;
+        }
       }
 
       else
       {
-        if (v27 >= *(&dword_10 + (v46 & 0xFFFFFFFFFFFFFF8)))
-        {
-          goto LABEL_50;
-        }
-
-        v48 = *(v46 + 8 * v27 + 32);
+        outlined consume of PhoneCallEmergencyType?(v7, v8);
       }
 
-      v10 = v48;
-      if (__OFADD__(v27, 1))
+      ++v1;
+      __swift_destroy_boxed_opaque_existential_1(v10);
+      OUTLINED_FUNCTION_94_6();
+      if (v9)
       {
-        __break(1u);
-LABEL_50:
-        __break(1u);
-        goto LABEL_51;
-      }
-
-      v49 = [v48 personHandle];
-      if (v49)
-      {
-        v50 = v49;
-        v23 = [v49 emergencyType];
-
-        if (v23 == (&dword_0 + 1))
-        {
-
-          v58 = v10;
-          v41 = Logger.logObject.getter();
-          v59 = static os_log_type_t.debug.getter();
-
-          if (os_log_type_enabled(v41, v59))
-          {
-            v60 = swift_slowAlloc();
-            v61 = swift_slowAlloc();
-            *v60 = 138412290;
-            *(v60 + 4) = v58;
-            *v61 = v58;
-            v62 = v58;
-            _os_log_impl(&dword_0, v41, v59, "#PhoneCallFlowFactory skipping confirmation because contacts contains local emergency handle: %@", v60, 0xCu);
-            outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v61, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-
-            return 0;
-          }
-
-          goto LABEL_37;
-        }
-      }
-
-      ++v27;
-    }
-
-    v51 = v112;
-    v52 = v112[3];
-    v53 = v112[4];
-    __swift_project_boxed_opaque_existential_1(v112, v52);
-    if ((*(v53 + 112))(v52, v53))
-    {
-      v54 = v114;
-      CurrentRequest.responseMode.getter();
-
-      v55 = 0;
-      v56 = v105;
-      v57 = v110;
-    }
-
-    else
-    {
-      v55 = 1;
-      v56 = v105;
-      v57 = v110;
-      v54 = v114;
-    }
-
-    v63 = v113;
-    __swift_storeEnumTagSinglePayload(v54, v55, 1, v57);
-    static ResponseMode.voiceOnly.getter();
-    __swift_storeEnumTagSinglePayload(v63, 0, 1, v57);
-    v64 = *(v111 + 48);
-    v65 = v103;
-    outlined init with copy of ButtonConfigurationModel?(v54, v103, &_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
-    outlined init with copy of ButtonConfigurationModel?(v63, v65 + v64, &_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
-    if (__swift_getEnumTagSinglePayload(v65, 1, v57) == 1)
-    {
-      outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v63, &_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
-      outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v54, &_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
-      if (__swift_getEnumTagSinglePayload(v65 + v64, 1, v57) == 1)
-      {
-        outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v65, &_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
-        v66 = 1;
-LABEL_40:
-        v74 = v51[3];
-        v75 = v51[4];
-        __swift_project_boxed_opaque_existential_1(v51, v74);
-        if ((*(v75 + 112))(v74, v75))
-        {
-          v76 = v51[3];
-          v77 = v51[4];
-          __swift_project_boxed_opaque_existential_1(v51, v76);
-          (*(v77 + 8))(v116, v76, v77);
-
-          __swift_destroy_boxed_opaque_existential_1(v116);
-        }
-
-        if (v66 & 1) != 0 && (v78 = IntentResolutionRecord.intent.getter(), v79 = static EmergencyUtils.requiresEmergencyConfirmation(intent:intentResponse:)(v78, 0), v78, (v79))
-        {
-          v80 = Logger.logObject.getter();
-          v81 = static os_log_type_t.debug.getter();
-          if (os_log_type_enabled(v80, v81))
-          {
-            v82 = swift_slowAlloc();
-            *v82 = 0;
-            _os_log_impl(&dword_0, v80, v81, "#PhoneCallFlowFactory making confirmation producer for voice only emergency call request", v82, 2u);
-          }
-
-          outlined init with copy of SignalProviding(v51, v116);
-          v83 = IntentResolutionRecord.intent.getter();
-          type metadata accessor for StartCallCATsSimple();
-          static CATOption.defaultMode.getter();
-          v84 = CATWrapperSimple.__allocating_init(options:globals:)();
-          type metadata accessor for PhoneCallCommonCATsSimple();
-          static CATOption.defaultMode.getter();
-          v85 = CATWrapperSimple.__allocating_init(options:globals:)();
-          type metadata accessor for VoiceOnlyEmergencyConfirmationFlow();
-          swift_allocObject();
-          v116[0] = VoiceOnlyEmergencyConfirmationFlow.init(sharedGlobals:skIntent:startCallCATsSimple:phoneCallCommonCATsSimple:)(v116, v83, v84, v85);
-          v86 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow016AnyConfirmIntentC0CySo011INStartCallF0CGMd, &_s11SiriKitFlow016AnyConfirmIntentC0CySo011INStartCallF0CGMR);
-          v87 = *(v86 + 48);
-          v88 = *(v86 + 52);
-          swift_allocObject();
-          lazy protocol witness table accessor for type SearchCallHistoryHandleFlowStrategy and conformance SearchCallHistoryHandleFlowStrategy(&lazy protocol witness table cache variable for type VoiceOnlyEmergencyConfirmationFlow and conformance VoiceOnlyEmergencyConfirmationFlow, type metadata accessor for VoiceOnlyEmergencyConfirmationFlow);
-          v116[0] = AnyConfirmIntentFlow.init<A>(_:)();
-          lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type AnyConfirmIntentFlow<INStartCallIntent> and conformance AnyConfirmIntentFlow<A>, &_s11SiriKitFlow016AnyConfirmIntentC0CySo011INStartCallF0CGMd, &_s11SiriKitFlow016AnyConfirmIntentC0CySo011INStartCallF0CGMR);
-          v68 = Flow.eraseToAnyValueFlow()();
-        }
-
-        else
-        {
-          v89 = v51[3];
-          v90 = v51[4];
-          __swift_project_boxed_opaque_existential_1(v51, v89);
-          (*(v90 + 104))(v116, v89, v90);
-          v91 = v117;
-          v92 = v118;
-          __swift_project_boxed_opaque_existential_1(v116, v117);
-          type metadata accessor for StartCallCATsSimple();
-          static CATOption.defaultMode.getter();
-          v93 = CATWrapperSimple.__allocating_init(options:globals:)();
-          type metadata accessor for PhoneCallDisplayTextCATsSimple();
-          static CATOption.defaultMode.getter();
-          v94 = CATWrapperSimple.__allocating_init(options:globals:)();
-          v95 = type metadata accessor for StartCallConfirmIntentFlowStrategy();
-          swift_allocObject();
-          v115 = StartCallConfirmIntentFlowStrategy.init(delegate:startCallCATsSimple:displayTextCATsSimple:)(v100, v93, v94);
-          v96 = *(v92 + 16);
-          v97 = lazy protocol witness table accessor for type SearchCallHistoryHandleFlowStrategy and conformance SearchCallHistoryHandleFlowStrategy(&lazy protocol witness table cache variable for type StartCallConfirmIntentFlowStrategy and conformance StartCallConfirmIntentFlowStrategy, type metadata accessor for StartCallConfirmIntentFlowStrategy);
-
-          v98 = v96(&v115, v95, v97, v91, v92);
-
-          v68 = v98(v101, v56);
-
-          __swift_destroy_boxed_opaque_existential_1(v116);
-        }
-
-        return v68;
+        goto LABEL_10;
       }
     }
 
-    else
-    {
-      v67 = v109;
-      outlined init with copy of ButtonConfigurationModel?(v65, v109, &_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
-      if (__swift_getEnumTagSinglePayload(v65 + v64, 1, v57) != 1)
-      {
-        v69 = v107;
-        v70 = v108;
-        (*(v108 + 32))(v107, v65 + v64, v57);
-        lazy protocol witness table accessor for type SearchCallHistoryHandleFlowStrategy and conformance SearchCallHistoryHandleFlowStrategy(&lazy protocol witness table cache variable for type ResponseMode and conformance ResponseMode, &type metadata accessor for ResponseMode);
-        v71 = v67;
-        v66 = dispatch thunk of static Equatable.== infix(_:_:)();
-        v72 = *(v70 + 8);
-        v72(v69, v57);
-        outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v113, &_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
-        outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v114, &_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
-        v73 = v71;
-        v56 = v105;
-        v72(v73, v57);
-        outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v65, &_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
-        goto LABEL_40;
-      }
-
-      outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v63, &_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
-      outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v54, &_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
-      (*(v108 + 8))(v67, v57);
-    }
-
-    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v65, &_s13SiriUtilities12ResponseModeVSg_ADtMd, &_s13SiriUtilities12ResponseModeVSg_ADtMR);
-    v66 = 0;
-    goto LABEL_40;
+    __break(1u);
   }
 
-  if (one-time initialization token for siriPhone != -1)
+  else
   {
-    swift_once();
+LABEL_10:
+
+    return 0;
   }
 
-  v40 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v40, static Logger.siriPhone);
-  v41 = Logger.logObject.getter();
-  v42 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v41, v42))
-  {
-    v43 = swift_slowAlloc();
-    *v43 = 0;
-    _os_log_impl(&dword_0, v41, v42, "#PhoneCallFlowFactory skipping confirmation", v43, 2u);
-  }
-
-LABEL_37:
-
-  return 0;
+  return result;
 }
 
-uint64_t closure #2 in static PhoneCallFlowFactory.getStartCallProducers(skIntent:delegate:app:sharedGlobals:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t), uint64_t a5, uint64_t a6)
+uint64_t PhoneCallVerb.rawValue.getter(char a1)
 {
-  v11 = type metadata accessor for CATOption();
-  v12 = *(*(v11 - 8) + 64);
-  __chkstk_darwin(v11 - 8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow22IntentResolutionRecordVySo011INStartCallD0CSo0ghD8ResponseCGMd, &_s11SiriKitFlow22IntentResolutionRecordVySo011INStartCallD0CSo0ghD8ResponseCGMR);
-  v13 = IntentResolutionRecord.intent.getter();
-  v14 = outlined bridged method (ob) of @objc INStartCallIntent.faceTimeLink.getter(v13);
-  v16 = specialized Optional<A>.isNilOrEmpty.getter(v14, v15);
-
-  if ((v16 & 1) == 0)
+  result = 1819042147;
+  switch(a1)
   {
-    if (one-time initialization token for siriPhone != -1)
-    {
-      swift_once();
-    }
-
-    v24 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v24, static Logger.siriPhone);
-    v25 = Logger.logObject.getter();
-    v26 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v25, v26))
-    {
-      v27 = swift_slowAlloc();
-      *v27 = 0;
-      _os_log_impl(&dword_0, v25, v26, "#PhoneCallFlowFactory Received FaceTime request and has FaceTimeLink set", v27, 2u);
-    }
-
-    v28 = IntentResolutionRecord.app.getter();
-    v29 = IntentResolutionRecord.intent.getter();
-    v30 = IntentResolutionRecord.intentResponse.getter();
-    outlined init with copy of SignalProviding(a3, v45);
-    type metadata accessor for StartCallCATsSimple();
-    static CATOption.defaultMode.getter();
-    v31 = CATWrapperSimple.__allocating_init(options:globals:)();
-    v32 = type metadata accessor for FlowFinder();
-    v33 = swift_allocObject();
-    static SiriKitEventSender.current.getter();
-    type metadata accessor for FaceTimeMessageControllerFlow();
-    v34 = swift_allocObject();
-    *(v34 + 112) = v32;
-    *(v34 + 120) = &protocol witness table for FlowFinder;
-    *(v34 + 88) = v33;
-    *(v34 + 169) = 5;
-    *(v34 + 16) = v28;
-    *(v34 + 24) = v29;
-    *(v34 + 32) = v30;
-    outlined init with take of SPHConversation(v45, v34 + 40);
-    *(v34 + 168) = 0;
-    *(v34 + 80) = v31;
-    outlined init with take of SPHConversation(&v44, v34 + 128);
-    *&v45[0] = v34;
-    v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow016AnyConfirmIntentC0CySo011INStartCallF0CGMd, &_s11SiriKitFlow016AnyConfirmIntentC0CySo011INStartCallF0CGMR);
-    v36 = *(v35 + 48);
-    v37 = *(v35 + 52);
-    swift_allocObject();
-    lazy protocol witness table accessor for type SearchCallHistoryHandleFlowStrategy and conformance SearchCallHistoryHandleFlowStrategy(&lazy protocol witness table cache variable for type FaceTimeMessageControllerFlow and conformance FaceTimeMessageControllerFlow, type metadata accessor for FaceTimeMessageControllerFlow);
-    *&v45[0] = AnyConfirmIntentFlow.init<A>(_:)();
-    lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type AnyConfirmIntentFlow<INStartCallIntent> and conformance AnyConfirmIntentFlow<A>, &_s11SiriKitFlow016AnyConfirmIntentC0CySo011INStartCallF0CGMd, &_s11SiriKitFlow016AnyConfirmIntentC0CySo011INStartCallF0CGMR);
-    v23 = Flow.eraseToAnyValueFlow()();
-    goto LABEL_14;
+    case 1:
+      result = 0x636162206C6C6163;
+      break;
+    case 2:
+    case 3:
+      result = OUTLINED_FUNCTION_17_6();
+      break;
+    case 4:
+      result = OUTLINED_FUNCTION_33_18();
+      break;
+    case 5:
+      result = 1684957542;
+      break;
+    case 6:
+      result = OUTLINED_FUNCTION_72_5();
+      break;
+    case 7:
+      result = 0x79666972616C63;
+      break;
+    case 8:
+      result = 1684104562;
+      break;
+    case 9:
+      result = 0x6D7269666E6F63;
+      break;
+    case 10:
+      result = 0x726577736E61;
+      break;
+    case 11:
+      result = 0x70755F676E6168;
+      break;
+    case 12:
+      result = 0x6574656C6564;
+      break;
+    case 13:
+      result = 0x65526F54746E6177;
+      break;
+    case 14:
+      result = 1852403562;
+      break;
+    case 15:
+      result = 0x6974726150646461;
+      break;
+    case 16:
+      result = 0xD000000000000011;
+      break;
+    default:
+      return result;
   }
 
-  if (a4)
+  return result;
+}
+
+Swift::Bool __swiftcall PhoneCallVerb.isCallOrFaceTime()()
+{
+  PhoneCallVerb.rawValue.getter(v0);
+  OUTLINED_FUNCTION_78_8();
+  v4 = v4 && v3 == 0xE400000000000000;
+  if (v4)
   {
-    v17 = one-time initialization token for siriPhone;
-
-    if (v17 != -1)
-    {
-      swift_once();
-    }
-
-    v18 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v18, static Logger.siriPhone);
-    v19 = Logger.logObject.getter();
-    v20 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v19, v20))
-    {
-      v21 = swift_slowAlloc();
-      *v21 = 0;
-      _os_log_impl(&dword_0, v19, v20, "#PhoneCallFlowFactory using default confirmIntentFlowCompletion", v21, 2u);
-    }
-
-    v22 = a4(a6, a2);
-    if (!v22)
-    {
-      outlined consume of (@escaping @callee_guaranteed (@guaranteed RCHChildFlowFactory<INStartCallIntent, INStartCallIntentResponse>, @in_guaranteed IntentResolutionRecord<INStartCallIntent, INStartCallIntentResponse>) -> (@owned AnyValueFlow<PromptResult<ConfirmIntentAnswer<INStartCallIntent>>>?))?(a4, a5);
-      return 0;
-    }
-
-    *&v45[0] = v22;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08AnyValueC0CyAA12PromptResultOyAA19ConfirmIntentAnswerVySo011INStartCallI0CGGGMd, &_s11SiriKitFlow08AnyValueC0CyAA12PromptResultOyAA19ConfirmIntentAnswerVySo011INStartCallI0CGGGMR);
-    lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type AnyValueFlow<PromptResult<ConfirmIntentAnswer<INStartCallIntent>>> and conformance AnyValueFlow<A>, &_s11SiriKitFlow08AnyValueC0CyAA12PromptResultOyAA19ConfirmIntentAnswerVySo011INStartCallI0CGGGMd, &_s11SiriKitFlow08AnyValueC0CyAA12PromptResultOyAA19ConfirmIntentAnswerVySo011INStartCallI0CGGGMR);
-    v23 = Flow.eraseToAnyValueFlow()();
-    outlined consume of (@escaping @callee_guaranteed (@guaranteed RCHChildFlowFactory<INStartCallIntent, INStartCallIntentResponse>, @in_guaranteed IntentResolutionRecord<INStartCallIntent, INStartCallIntentResponse>) -> (@owned AnyValueFlow<PromptResult<ConfirmIntentAnswer<INStartCallIntent>>>?))?(a4, a5);
-LABEL_14:
-
-    return v23;
+    goto LABEL_16;
   }
 
-  if (one-time initialization token for siriPhone != -1)
+  v5 = v2;
+  v6 = OUTLINED_FUNCTION_17_34(v2, v1);
+
+  if (v6)
   {
-    swift_once();
+    return 1;
   }
 
-  v39 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v39, static Logger.siriPhone);
-  v40 = Logger.logObject.getter();
-  v41 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v40, v41))
+  OUTLINED_FUNCTION_92_3();
+  if (v5 == v6 && v1 == 0xE800000000000000)
   {
-    v42 = swift_slowAlloc();
-    v43 = swift_slowAlloc();
-    *&v45[0] = v43;
-    *v42 = 136315138;
-    *(v42 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000048, 0x800000000045E570, v45);
-    _os_log_impl(&dword_0, v40, v41, "%s", v42, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v43);
+LABEL_16:
+
+    return 1;
   }
 
-  static SiriKitLifecycle._logCrashToEventBus(_:)();
-  result = _assertionFailure(_:_:file:line:flags:)();
+  v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+  if ((v8 & 1) == 0)
+  {
+    if (v5 != v6 || v1 != 0xEE006F6964756120)
+    {
+      _stringCompareWithSmolCheck(_:_:expecting:)();
+      OUTLINED_FUNCTION_33_2();
+      return v5 & 1;
+    }
+
+    goto LABEL_16;
+  }
+
+  return 1;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.hasApplicationNameOrId()()
+{
+  OUTLINED_FUNCTION_24_3();
+  v4 = PhoneCallNLIntent.appName.getter(v2, v3);
+  specialized Optional<A>.isNilOrEmpty.getter(v4, v5);
+  OUTLINED_FUNCTION_62_15();
+  if (v1)
+  {
+    v6 = OUTLINED_FUNCTION_20_0();
+    v8 = PhoneCallNLIntent.applicationId.getter(v6, v7);
+    specialized Optional<A>.isNilOrEmpty.getter(v8, v9);
+    OUTLINED_FUNCTION_33_2();
+    v10 = v0 ^ 1;
+  }
+
+  else
+  {
+    v10 = 1;
+  }
+
+  return v10 & 1;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isOutgoingCallExcludeCallBackAndRedial()()
+{
+  OUTLINED_FUNCTION_61_6();
+  OUTLINED_FUNCTION_24_3();
+  OUTLINED_FUNCTION_37_21();
+  v1 = *(v0 + 104);
+  v1();
+  OUTLINED_FUNCTION_20_31();
+  if (v4)
+  {
+    v3 = 0;
+  }
+
+  else
+  {
+    PhoneCallVerb.rawValue.getter(v2);
+    OUTLINED_FUNCTION_103_2();
+    if (v4)
+    {
+      v6 = v5 == 0xEE006F6964756120;
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+
+    if (v6)
+    {
+
+      v3 = 1;
+    }
+
+    else
+    {
+      v3 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    }
+  }
+
+  v7 = OUTLINED_FUNCTION_20_0();
+  (v1)(v7);
+  OUTLINED_FUNCTION_20_31();
+  if (v4)
+  {
+    v9 = 0;
+  }
+
+  else
+  {
+    PhoneCallVerb.rawValue.getter(v8);
+    OUTLINED_FUNCTION_103_2();
+    if (v10)
+    {
+      v13 = v12 == 0xE800000000000000;
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+
+    if (v13)
+    {
+
+      v9 = 1;
+    }
+
+    else
+    {
+      v9 = OUTLINED_FUNCTION_35_18(v11);
+    }
+  }
+
+  v14 = OUTLINED_FUNCTION_20_0();
+  (v1)(v14);
+  OUTLINED_FUNCTION_20_31();
+  if (v4)
+  {
+    OUTLINED_FUNCTION_20_0();
+    v15 = PhoneCallNLIntent.hasPhoneNumber()();
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  OUTLINED_FUNCTION_20_0();
+  v16 = PhoneCallNLIntent.hasCallVerb()();
+  if (v15 || ((v16 | v3 | v9) & 1) != 0)
+  {
+    OUTLINED_FUNCTION_60_1();
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_20_0();
+    OUTLINED_FUNCTION_60_1();
+
+    return PhoneCallNLIntent.isInferredCallFromRedialOrCallBack()();
+  }
+
+  return result;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isTelephonyTargetFromSrr()()
+{
+  OUTLINED_FUNCTION_41_21();
+  v1 = v0();
+  v2 = 0;
+  v10 = v1;
+  v11 = *(v1 + 16);
+  for (i = v1 + 32; ; i += 40)
+  {
+    if (v11 == v2)
+    {
+LABEL_13:
+
+      OUTLINED_FUNCTION_105_4();
+      return v1;
+    }
+
+    if (v2 >= *(v10 + 16))
+    {
+      break;
+    }
+
+    outlined init with copy of SharedGlobalsProviding();
+    v5 = v13;
+    v4 = v14;
+    __swift_project_boxed_opaque_existential_1(v12, v13);
+    v6 = *(v4 + 80);
+    switch(v6(v5, v4))
+    {
+      case 1u:
+      case 2u:
+        v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+        if (v7)
+        {
+          goto LABEL_12;
+        }
+
+        break;
+      case 3u:
+        break;
+      default:
+LABEL_11:
+
+LABEL_12:
+        __swift_destroy_boxed_opaque_existential_1(v12);
+        goto LABEL_13;
+    }
+
+    switch(v6(v5, v4))
+    {
+      case 1u:
+        goto LABEL_11;
+      case 3u:
+        LOBYTE(v1) = __swift_destroy_boxed_opaque_existential_1(v12);
+        break;
+      default:
+        v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+        LOBYTE(v1) = __swift_destroy_boxed_opaque_existential_1(v12);
+        if (v8)
+        {
+          goto LABEL_13;
+        }
+
+        break;
+    }
+
+    ++v2;
+  }
+
+  __break(1u);
+  return v1;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.hasAnyFaceTime()()
+{
+  OUTLINED_FUNCTION_24_3();
+  if (PhoneCallNLIntent.hasAudioCallSemantic()() || (OUTLINED_FUNCTION_20_0(), PhoneCallNLIntent.hasVideoCallSemantic()()))
+  {
+    v0 = 1;
+  }
+
+  else
+  {
+    v2 = OUTLINED_FUNCTION_20_0();
+    v4 = PhoneCallNLIntent.applicationId.getter(v2, v3);
+    if (v5)
+    {
+      if (v4 == 0xD000000000000012 && v5 == 0x80000000004574F0)
+      {
+        v0 = 1;
+      }
+
+      else
+      {
+        v0 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      }
+    }
+
+    else
+    {
+      v0 = 0;
+    }
+  }
+
+  return v0 & 1;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isIncomingCallSearch()()
+{
+  OUTLINED_FUNCTION_66();
+  OUTLINED_FUNCTION_10_55();
+  (*(v1 + 104))();
+  OUTLINED_FUNCTION_56_8();
+  if (!v8)
+  {
+    goto LABEL_42;
+  }
+
+  v2 = OUTLINED_FUNCTION_20_0();
+  v3(v2);
+  OUTLINED_FUNCTION_69_9();
+  if (v8)
+  {
+    v5 = OUTLINED_FUNCTION_20_0();
+    v7 = v6(v5);
+    if (v7 == 35)
+    {
+      goto LABEL_42;
+    }
+
+    PhoneCallReference.rawValue.getter(v7);
+    OUTLINED_FUNCTION_42_17();
+    if (!v8 || v13 != 0xE300000000000000)
+    {
+      OUTLINED_FUNCTION_108_3(v12, v0);
+      OUTLINED_FUNCTION_62_15();
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+    PhoneCallNoun.rawValue.getter(v4);
+    OUTLINED_FUNCTION_42_17();
+    if (!v8 || v10 != 0xE400000000000000)
+    {
+      OUTLINED_FUNCTION_17_34(v9, v0);
+      OUTLINED_FUNCTION_62_15();
+      goto LABEL_18;
+    }
+  }
+
+LABEL_18:
+  v15 = OUTLINED_FUNCTION_20_0();
+  v17 = v16(v15);
+  if (v17)
+  {
+    v18 = v17;
+  }
+
+  else
+  {
+    v18 = _swiftEmptyArrayStorage;
+  }
+
+  v19 = v18[2];
+  if (!v19)
+  {
+LABEL_41:
+
+LABEL_42:
+    OUTLINED_FUNCTION_65();
+    return result;
+  }
+
+  v20 = 0;
+  v21 = v19 - 1;
+  OUTLINED_FUNCTION_93_6();
+  while (v20 < v18[2])
+  {
+    v23 = 0xE600000000000000;
+    v24 = 0x64657373696DLL;
+    switch(*(v18 + v20 + 32))
+    {
+      case 1:
+        v23 = 0xE300000000000000;
+        v24 = OUTLINED_FUNCTION_53_18();
+        break;
+      case 2:
+        v24 = OUTLINED_FUNCTION_19_30();
+        break;
+      case 3:
+        v23 = 0xE700000000000000;
+        v24 = OUTLINED_FUNCTION_4_7();
+        break;
+      case 4:
+        v23 = 0xE800000000000000;
+        v24 = OUTLINED_FUNCTION_7_53();
+        break;
+      case 5:
+        v23 = 0xE800000000000000;
+        v25 = OUTLINED_FUNCTION_11_42();
+        goto LABEL_35;
+      case 6:
+        v23 = 0xE400000000000000;
+        v24 = OUTLINED_FUNCTION_110_3();
+        break;
+      case 7:
+        v23 = 0xE800000000000000;
+        v24 = OUTLINED_FUNCTION_6_59();
+        break;
+      case 8:
+
+        goto LABEL_41;
+      case 9:
+        v23 = 0xE700000000000000;
+        v24 = OUTLINED_FUNCTION_5_64();
+        break;
+      case 0xA:
+        v24 = OUTLINED_FUNCTION_13_41();
+        break;
+      case 0xB:
+        v23 = 0xE900000000000065;
+        v25 = OUTLINED_FUNCTION_12_46();
+LABEL_35:
+        v24 = v25 & 0xFFFFFFFFFFFFLL | 0x676E000000000000;
+        break;
+      case 0xC:
+        v23 = 0xEC0000006C69616DLL;
+        v24 = 0x6563696F5677656ELL;
+        break;
+      case 0xD:
+        v24 = OUTLINED_FUNCTION_54_18();
+        v23 = 0x8000000000453620;
+        break;
+      default:
+        break;
+    }
+
+    v26 = OUTLINED_FUNCTION_86_6(v24, v23);
+
+    if ((v26 & 1) == 0)
+    {
+      v8 = v21 == v20++;
+      if (!v8)
+      {
+        continue;
+      }
+    }
+
+    goto LABEL_41;
+  }
+
   __break(1u);
   return result;
 }
 
-uint64_t closure #1 in static PhoneCallFlowFactory.makeAddCallParticipantRCHFlow(intent:app:sharedGlobals:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t PhoneCallReference.ordinalIndex.getter(char a1)
 {
-  v4[10] = a3;
-  v4[11] = a4;
-  v4[8] = a1;
-  v4[9] = a2;
-  v5 = *(*(type metadata accessor for CATOption() - 8) + 64) + 15;
-  v4[12] = swift_task_alloc();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow22IntentResolutionRecordVySo020INAddCallParticipantD0CSo0ghiD8ResponseCGMd, &_s11SiriKitFlow22IntentResolutionRecordVySo020INAddCallParticipantD0CSo0ghiD8ResponseCGMR);
-  v4[13] = v6;
-  v7 = *(v6 - 8);
-  v4[14] = v7;
-  v8 = *(v7 + 64) + 15;
-  v4[15] = swift_task_alloc();
-
-  return _swift_task_switch(closure #1 in static PhoneCallFlowFactory.makeAddCallParticipantRCHFlow(intent:app:sharedGlobals:), 0, 0);
-}
-
-uint64_t closure #1 in static PhoneCallFlowFactory.makeAddCallParticipantRCHFlow(intent:app:sharedGlobals:)()
-{
-  v2 = *(v0 + 112);
-  v1 = *(v0 + 120);
-  v3 = *(v0 + 96);
-  v17 = *(v0 + 104);
-  v5 = *(v0 + 80);
-  v4 = *(v0 + 88);
-  v7 = *(v0 + 64);
-  v6 = *(v0 + 72);
-  type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for INAddCallParticipantIntent, INAddCallParticipantIntent_ptr);
-  type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for INAddCallParticipantIntentResponse, INAddCallParticipantIntentResponse_ptr);
-
-  v8 = v7;
-  v9 = v6;
-  IntentResolutionRecord.init(app:intent:intentResponse:)();
-  outlined init with copy of SignalProviding(v4, v0 + 16);
-  v10 = type metadata accessor for AddCallParticipantCATPatternsExecutor();
-  static CATOption.defaultMode.getter();
-  v11 = CATWrapper.__allocating_init(options:globals:)();
-  v12 = type metadata accessor for AddCallParticipantHandleIntentFollowUpFlow();
-  OUTLINED_FUNCTION_12_8(v12);
-  v13 = swift_allocObject();
-  v14 = (v13 + OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin42AddCallParticipantHandleIntentFollowUpFlow_patterns);
-  v14[3] = v10;
-  v14[4] = &protocol witness table for AddCallParticipantCATPatternsExecutor;
-  *v14 = v11;
-  (*(v2 + 32))(v13 + OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin42AddCallParticipantHandleIntentFollowUpFlow_rchRecord, v1, v17);
-  outlined init with take of SPHConversation((v0 + 16), v13 + OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin42AddCallParticipantHandleIntentFollowUpFlow_sharedGlobals);
-  *(v0 + 56) = v13;
-  lazy protocol witness table accessor for type SearchCallHistoryHandleFlowStrategy and conformance SearchCallHistoryHandleFlowStrategy(&lazy protocol witness table cache variable for type AddCallParticipantHandleIntentFollowUpFlow and conformance AddCallParticipantHandleIntentFollowUpFlow, type metadata accessor for AddCallParticipantHandleIntentFollowUpFlow);
-  Flow.eraseToAnyFlow()();
-  OUTLINED_FUNCTION_64();
-
-  v15 = *(v0 + 8);
-
-  return v15(v0 + 56);
-}
-
-uint64_t closure #2 in static PhoneCallFlowFactory.makeAddCallParticipantRCHFlow(intent:app:sharedGlobals:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v8 = type metadata accessor for CATOption();
-  v9 = *(*(v8 - 8) + 64);
-  __chkstk_darwin(v8 - 8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow25ParameterResolutionRecordVySo26INAddCallParticipantIntentCGMd, &_s11SiriKitFlow25ParameterResolutionRecordVySo26INAddCallParticipantIntentCGMR);
-  v10 = ParameterResolutionRecord.result.getter();
-  v11 = [v10 unsupportedReason];
-
-  if ((v11 - 5) > 1)
+  PhoneCallReference.rawValue.getter(a1);
+  OUTLINED_FUNCTION_78_8();
+  v4 = v4 && v3 == 0xE500000000000000;
+  if (v4 || (v5 = v2, (OUTLINED_FUNCTION_16_39(0x7473726966, 0xE500000000000000) & 1) != 0))
   {
-    if (specialized ParameterResolutionRecord<>.isUnsetRelationship.getter())
+
+    return 0;
+  }
+
+  else
+  {
+    v7 = v5 == 0x646E6F636573 && v1 == 0xE600000000000000;
+    if (v7 || (OUTLINED_FUNCTION_16_39(0x646E6F636573, 0xE600000000000000) & 1) != 0)
     {
-      outlined init with copy of SignalProviding(a3, &v20);
-      [objc_allocWithZone(CNContactStore) init];
-      type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for CNContactStore, CNContactStore_ptr);
-      v19 = swift_allocObject();
-      *(v19 + 16) = 0u;
-      *(v19 + 32) = 0u;
-      type metadata accessor for UnsetRelationshipTemplatesWrapper();
-      swift_allocObject();
-      type metadata accessor for PhoneCallDisplayTextCATs();
-      static CATOption.defaultMode.getter();
-      CATWrapper.__allocating_init(options:globals:)();
-      type metadata accessor for PhoneCallCommonCATs();
-      static CATOption.defaultMode.getter();
-      CATWrapper.__allocating_init(options:globals:)();
-      _s27PhoneCallFlowDelegatePlugin024ContactUnsetRelationshipC8StrategyV13sharedGlobals12contactStore14labelTemplates05unsethO020displayTextCatFamily05phoneB10CommonCatsACyxGAA06SharedK9Providing_p_AA0F7Storing_pAA05LabeloY0_pAA0gh8TemplateY0_pAA0ab7DisplayR4CATsCAA0abV4CATsCtcfCSo012INStartAudioB6IntentC_Tt6g5Tm();
-      v14 = &_s27PhoneCallFlowDelegatePlugin024ContactUnsetRelationshipC8StrategyVySo05INAddB17ParticipantIntentCGMd;
-      v15 = &_s27PhoneCallFlowDelegatePlugin024ContactUnsetRelationshipC8StrategyVySo05INAddB17ParticipantIntentCGMR;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin024ContactUnsetRelationshipC8StrategyVySo05INAddB17ParticipantIntentCGMd, &_s27PhoneCallFlowDelegatePlugin024ContactUnsetRelationshipC8StrategyVySo05INAddB17ParticipantIntentCGMR);
-      type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for INAddCallParticipantIntentResponse, INAddCallParticipantIntentResponse_ptr);
-      lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type ContactUnsetRelationshipFlowStrategy<INAddCallParticipantIntent> and conformance ContactUnsetRelationshipFlowStrategy<A>, &_s27PhoneCallFlowDelegatePlugin024ContactUnsetRelationshipC8StrategyVySo05INAddB17ParticipantIntentCGMd, &_s27PhoneCallFlowDelegatePlugin024ContactUnsetRelationshipC8StrategyVySo05INAddB17ParticipantIntentCGMR);
-      v16 = static RCHChildFlowFactoryHelper.makeUnsupportedUnsetRelationshipFlowProducer<A, B>(strategy:)();
+
+      return 1;
     }
 
     else
     {
-      outlined init with copy of SignalProviding(a3, v21 + 8);
-      *&v21[0] = a4;
-
-      v14 = &_s27PhoneCallFlowDelegatePlugin018ContactUnsupportedC8StrategyVyAA25ParticipantOutputProviderCGMd;
-      v15 = &_s27PhoneCallFlowDelegatePlugin018ContactUnsupportedC8StrategyVyAA25ParticipantOutputProviderCGMR;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin018ContactUnsupportedC8StrategyVyAA25ParticipantOutputProviderCGMd, &_s27PhoneCallFlowDelegatePlugin018ContactUnsupportedC8StrategyVyAA25ParticipantOutputProviderCGMR);
-      lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type ContactUnsupportedFlowStrategy<ParticipantOutputProvider> and conformance ContactUnsupportedFlowStrategy<A>, &_s27PhoneCallFlowDelegatePlugin018ContactUnsupportedC8StrategyVyAA25ParticipantOutputProviderCGMd, &_s27PhoneCallFlowDelegatePlugin018ContactUnsupportedC8StrategyVyAA25ParticipantOutputProviderCGMR);
-      v16 = static RCHChildFlowFactoryHelper.makeUnsupportedValueAndPromptFlowProducer<A>(strategy:)();
-    }
-
-    v13 = v16;
-    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v21, v14, v15);
-  }
-
-  else
-  {
-    outlined init with copy of SignalProviding(a3, v21);
-    v12 = swift_allocObject();
-    outlined init with take of SPHConversation(v21, v12 + 16);
-    v13 = partial apply for specialized closure #1 in static OngoingCallFlowProducers.makeUnsupportedValueOfferFlowProducer<A, B>(sharedGlobals:);
-  }
-
-  v17 = v13(a1, a2);
-
-  return v17;
-}
-
-uint64_t specialized closure #1 in static PhoneCallFlowFactory.makeAppResolutionFlowBeforeNextResolveFlowProducer<A>(delegate:app:sharedGlobal:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
-{
-  if (specialized Sequence<>.contains(_:)(a6, a9))
-  {
-    if (one-time initialization token for siriPhone != -1)
-    {
-      OUTLINED_FUNCTION_6_2();
-    }
-
-    v16 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v16, static Logger.siriPhone);
-    v17 = Logger.logObject.getter();
-    v18 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v17, v18))
-    {
-      v19 = OUTLINED_FUNCTION_65_0();
-      *v19 = 0;
-      _os_log_impl(&dword_0, v17, v18, "#PhoneCallFlowFactory makeAppResolutionFlowBeforeNextResolveFlowProducer: resolutionResultCode is needsDisambiguation or needsConfirmation, don't start app resolution again", v19, 2u);
-      OUTLINED_FUNCTION_26_0();
-    }
-
-    return 0;
-  }
-
-  else
-  {
-    if (one-time initialization token for siriPhone != -1)
-    {
-      OUTLINED_FUNCTION_6_2();
-    }
-
-    v20 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v20, static Logger.siriPhone);
-
-    v21 = a3;
-
-    v22 = Logger.logObject.getter();
-    v23 = static os_log_type_t.debug.getter();
-
-    if (os_log_type_enabled(v22, v23))
-    {
-      v35 = a8;
-      v24 = swift_slowAlloc();
-      *&v37[0] = swift_slowAlloc();
-      *v24 = 136315906;
-      *&v36[0] = a2;
-      type metadata accessor for App();
-      lazy protocol witness table accessor for type SearchCallHistoryHandleFlowStrategy and conformance SearchCallHistoryHandleFlowStrategy(&lazy protocol witness table cache variable for type App and conformance App, &type metadata accessor for App);
-      v25 = dispatch thunk of CustomStringConvertible.description.getter();
-      v27 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v26, v37);
-
-      *(v24 + 4) = v27;
-      *(v24 + 12) = 2048;
-      *(v24 + 14) = a6;
-      *(v24 + 22) = 2080;
-      v28 = INIntent.debugDescriptionLite.getter();
-      v30 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v28, v29, v37);
-
-      *(v24 + 24) = v30;
-      *(v24 + 32) = 2080;
-      *(v24 + 34) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a4, a5, v37);
-      _os_log_impl(&dword_0, v22, v23, "#PhoneCallFlowFactory makeAppResolutionFlowBeforeNextResolveFlowProducer: app:%s resolutionResultCode:%ld intent:%s parameterName: %s ", v24, 0x2Au);
-      swift_arrayDestroy();
-      OUTLINED_FUNCTION_26_0();
-      a8 = v35;
-      OUTLINED_FUNCTION_26_0();
-    }
-
-    v31 = outlined init with copy of SignalProviding(a8, v37);
-    default argument 2 of PhoneCallFlow.init(state:sharedGlobals:appFinder:eligibleAppsFinder:)(v36, v31);
-    v32 = type metadata accessor for AppResolutionBeforeResolveFlow(0);
-    OUTLINED_FUNCTION_12_8(v32);
-    swift_allocObject();
-    *&v37[0] = AppResolutionBeforeResolveFlow.init(previousTurnIntent:previouslyResolvedApp:sharedGlobals:appFinder:)(v21, a7, v37, v36);
-    lazy protocol witness table accessor for type SearchCallHistoryHandleFlowStrategy and conformance SearchCallHistoryHandleFlowStrategy(&lazy protocol witness table cache variable for type AppResolutionBeforeResolveFlow and conformance AppResolutionBeforeResolveFlow, type metadata accessor for AppResolutionBeforeResolveFlow);
-    v33 = v21;
-
-    Flow.eraseToAnyValueFlow()();
-    OUTLINED_FUNCTION_48_16();
-  }
-
-  return a7;
-}
-
-uint64_t closure #1 in static PhoneCallFlowFactory.makeAppResolutionFlowBeforeNextResolveFlowProducer<A>(delegate:app:sharedGlobal:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  if (specialized Sequence<>.contains(_:)(a6, &outlined read-only object #0 of closure #1 in static PhoneCallFlowFactory.makeAppResolutionFlowBeforeNextResolveFlowProducer<A>(delegate:app:sharedGlobal:)))
-  {
-    if (one-time initialization token for siriPhone != -1)
-    {
-      swift_once();
-    }
-
-    v15 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v15, static Logger.siriPhone);
-    v16 = Logger.logObject.getter();
-    v17 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v16, v17))
-    {
-      v18 = swift_slowAlloc();
-      *v18 = 0;
-      _os_log_impl(&dword_0, v16, v17, "#PhoneCallFlowFactory makeAppResolutionFlowBeforeNextResolveFlowProducer: resolutionResultCode is needsDisambiguation or needsConfirmation, don't start app resolution again", v18, 2u);
-    }
-
-    return 0;
-  }
-
-  else
-  {
-    if (one-time initialization token for siriPhone != -1)
-    {
-      swift_once();
-    }
-
-    v20 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v20, static Logger.siriPhone);
-
-    v21 = a3;
-
-    v22 = Logger.logObject.getter();
-    v23 = static os_log_type_t.debug.getter();
-
-    if (os_log_type_enabled(v22, v23))
-    {
-      v37 = a8;
-      v24 = swift_slowAlloc();
-      *&v39[0] = swift_slowAlloc();
-      *v24 = 136315906;
-      *&v38[0] = a2;
-      type metadata accessor for App();
-      lazy protocol witness table accessor for type SearchCallHistoryHandleFlowStrategy and conformance SearchCallHistoryHandleFlowStrategy(&lazy protocol witness table cache variable for type App and conformance App, &type metadata accessor for App);
-      v25 = dispatch thunk of CustomStringConvertible.description.getter();
-      v27 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v26, v39);
-
-      *(v24 + 4) = v27;
-      *(v24 + 12) = 2048;
-      *(v24 + 14) = a6;
-      *(v24 + 22) = 2080;
-      v28 = INIntent.debugDescriptionLite.getter();
-      v30 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v28, v29, v39);
-
-      *(v24 + 24) = v30;
-      *(v24 + 32) = 2080;
-      *(v24 + 34) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a4, a5, v39);
-      _os_log_impl(&dword_0, v22, v23, "#PhoneCallFlowFactory makeAppResolutionFlowBeforeNextResolveFlowProducer: app:%s resolutionResultCode:%ld intent:%s parameterName: %s ", v24, 0x2Au);
-      swift_arrayDestroy();
-
-      a8 = v37;
-    }
-
-    v31 = outlined init with copy of SignalProviding(a8, v39);
-    default argument 2 of PhoneCallFlow.init(state:sharedGlobals:appFinder:eligibleAppsFinder:)(v38, v31);
-    v32 = type metadata accessor for AppResolutionBeforeResolveFlow(0);
-    v33 = *(v32 + 48);
-    v34 = *(v32 + 52);
-    swift_allocObject();
-    *&v39[0] = AppResolutionBeforeResolveFlow.init(previousTurnIntent:previouslyResolvedApp:sharedGlobals:appFinder:)(v21, a7, v39, v38);
-    lazy protocol witness table accessor for type SearchCallHistoryHandleFlowStrategy and conformance SearchCallHistoryHandleFlowStrategy(&lazy protocol witness table cache variable for type AppResolutionBeforeResolveFlow and conformance AppResolutionBeforeResolveFlow, type metadata accessor for AppResolutionBeforeResolveFlow);
-    v35 = v21;
-
-    v19 = Flow.eraseToAnyValueFlow()();
-  }
-
-  return v19;
-}
-
-uint64_t outlined bridged method (ob) of @objc PBCodable.dictionaryRepresentation()(void *a1)
-{
-  v2 = [a1 dictionaryRepresentation];
-
-  if (!v2)
-  {
-    return 0;
-  }
-
-  v3 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-
-  return v3;
-}
-
-uint64_t outlined bridged method (ob) of @objc INStartCallIntent.faceTimeLink.getter(void *a1)
-{
-  v2 = [a1 faceTimeLink];
-
-  if (!v2)
-  {
-    return 0;
-  }
-
-  v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-
-  return v3;
-}
-
-void *specialized StartAudioCallRCHFlowDelegate.init(sharedGlobals:appResolved:biomeEventSender:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6, void *a7)
-{
-  v13[3] = &type metadata for BiomeEventSender;
-  v13[4] = &protocol witness table for BiomeEventSender;
-  v13[0] = a3;
-  outlined init with copy of SignalProviding(a1, a4 + *a5);
-  *(a4 + *a6) = a2;
-  outlined init with copy of SignalProviding(v13, a4 + *a7);
-  BaseRCHFlowDelegate.init()();
-  v11 = OUTLINED_FUNCTION_48_16();
-  __swift_destroy_boxed_opaque_existential_1(v11);
-  __swift_destroy_boxed_opaque_existential_1(v13);
-  return a7;
-}
-
-void _s27PhoneCallFlowDelegatePlugin0abC7FactoryO012makeIncomingB7RCHFlow8strategy6intent3app13sharedGlobals07SiriKitC008AnyValueC0CyAI0I6ResultOyxq_GGAA0hbC14OutputStrategy_p_x0O13AppResolution0V0CAA06SharedN9Providing_ptSo8INIntentCRbzAA0hB14IntentResponseR_r0_lFZSo08INAnswerB6IntentC_So08INAnswerB14IntentResponseCTt3g5Tf4ennn_nAA06AnswerbtU0V_Tg5()
-{
-  OUTLINED_FUNCTION_66();
-  v1 = v0;
-  v66 = v0;
-  v3 = v2;
-  v74 = v4;
-  v6 = v5;
-  v7 = type metadata accessor for CATOption();
-  v8 = OUTLINED_FUNCTION_21(v7);
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v8);
-  OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_94_5();
-  v75 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo18INAnswerCallIntentCSo0ghI8ResponseCGMd, &_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo18INAnswerCallIntentCSo0ghI8ResponseCGMR);
-  OUTLINED_FUNCTION_9_1();
-  v72 = v11;
-  v13 = *(v12 + 64);
-  __chkstk_darwin(v14);
-  OUTLINED_FUNCTION_16_2();
-  v71 = v15;
-  OUTLINED_FUNCTION_4_0();
-  __chkstk_darwin(v16);
-  v69 = &v65 - v17;
-  v89[3] = &type metadata for AnswerCallOutputStrategy;
-  v89[4] = &protocol witness table for AnswerCallOutputStrategy;
-  v89[0] = swift_allocObject();
-  outlined init with copy of AnswerCallOutputStrategy(v6, v89[0] + 16);
-  type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for INAnswerCallIntent, INAnswerCallIntent_ptr);
-  v70 = type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for INAnswerCallIntentResponse, INAnswerCallIntentResponse_ptr);
-  RCHChildFlowProducersAsync.init()();
-  v73 = v3;
-  static RCHChildFlowFactoryHelper.makeAppResolutionFlowProducer<A, B>(app:)();
-  RCHChildFlowProducersAsync.appResolutionFlowProducer.setter();
-  outlined init with copy of SignalProviding(v1, &v86);
-  type metadata accessor for PhoneCallCommonCATs();
-  OUTLINED_FUNCTION_47_5();
-  OUTLINED_FUNCTION_38_2();
-  v67 = CATWrapper.__allocating_init(options:globals:)();
-  v65 = type metadata accessor for PhoneCallCommonCATPatternsExecutor();
-  static CATOption.defaultMode.getter();
-  OUTLINED_FUNCTION_38_2();
-  v18 = CATWrapper.__allocating_init(options:globals:)();
-  v19 = type metadata accessor for AppInfoBuilder();
-  v20 = OUTLINED_FUNCTION_79();
-  v68 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo08INAnswerB6IntentCSo0hbI8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo08INAnswerB6IntentCSo0hbI8ResponseCGMR);
-  v21 = swift_allocObject();
-  v84 = v20;
-  v85 = v18;
-  v82 = &type metadata for LabelTemplatesProvider;
-  v83 = &protocol witness table for LabelTemplatesProvider;
-  OUTLINED_FUNCTION_68_0();
-  v22 = swift_allocObject();
-  *&v81 = v22;
-  *(v22 + 16) = 0u;
-  *(v22 + 32) = 0u;
-  v80[3] = &type metadata for TCCTemplatesProvider;
-  v80[4] = &protocol witness table for TCCTemplatesProvider;
-  outlined init with copy of SignalProviding(&v86, v21 + 272);
-  outlined init with copy of SignalProviding(&v81, v21 + 192);
-  outlined init with copy of SignalProviding(v80, v21 + 232);
-  v23 = v87;
-  v24 = v88;
-  OUTLINED_FUNCTION_28_0(&v86, v87);
-  v25 = *(v24 + 136);
-
-  v25(v77, v23, v24);
-  v26 = v78;
-  v27 = v79;
-  __swift_project_boxed_opaque_existential_1(v77, v78);
-  v28 = v88;
-  __swift_project_boxed_opaque_existential_1(&v86, v87);
-  v29 = *(v28 + 8);
-  v30 = OUTLINED_FUNCTION_19_7();
-  v31(v30, v28);
-  OUTLINED_FUNCTION_9_1();
-  v33 = *(v32 + 64);
-  __chkstk_darwin(v34);
-  OUTLINED_FUNCTION_4();
-  v36 = OUTLINED_FUNCTION_65_10(v35);
-  v37 = v66;
-  v38(v36);
-  v39 = v20;
-  v40 = v69;
-  v41 = specialized PhoneCallStrategy.init(catFamily:catPatternFamily:responseGenerator:appInfoBuilder:deviceState:)(v67, &v85, v39, &v84, v76, v21, v26, v65, v19, *(v27 + 8), &protocol witness table for PhoneCallCommonCATPatternsExecutor, &protocol witness table for AppInfoBuilder, v65);
-
-  __swift_destroy_boxed_opaque_existential_1(v80);
-  __swift_destroy_boxed_opaque_existential_1(&v81);
-  __swift_destroy_boxed_opaque_existential_1(v77);
-  __swift_destroy_boxed_opaque_existential_1(&v86);
-  *&v86 = v41;
-  OUTLINED_FUNCTION_27_21();
-  lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(v42, &_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo08INAnswerB6IntentCSo0hbI8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo08INAnswerB6IntentCSo0hbI8ResponseCGMR);
-  static RCHChildFlowFactoryHelper.makeRequestTCCAcceptanceFlow<A, B>(strategy:)();
-
-  OUTLINED_FUNCTION_72();
-  v43 = v40;
-  RCHChildFlowProducersAsync.requestTCCAcceptanceFlowProducer.setter();
-  outlined init with copy of SignalProviding(v89, &v86);
-  outlined init with copy of SignalProviding(v37, &v81);
-  if (one-time initialization token for instance != -1)
-  {
-    swift_once();
-  }
-
-  v44 = static CallStateNotificationManager.instance;
-  v45 = OUTLINED_FUNCTION_69_8();
-  __swift_instantiateConcreteTypeFromMangledNameV2(v45, v46);
-  v47 = swift_allocObject();
-  v47[10] = type metadata accessor for CallStateNotificationManager();
-  v47[11] = &protocol witness table for CallStateNotificationManager;
-  v47[7] = v44;
-  v47[20] = &type metadata for AudioSessionManager;
-  v47[21] = &protocol witness table for AudioSessionManager;
-  v47[25] = &type metadata for SpringBoardServicesManager;
-  v47[26] = &protocol witness table for SpringBoardServicesManager;
-  outlined init with take of SPHConversation(&v86, (v47 + 2));
-  outlined init with take of SPHConversation(&v81, (v47 + 12));
-  *&v86 = v47;
-  lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type IncomingCallActionHandleIntentFlowStrategy<INAnswerCallIntent, INAnswerCallIntentResponse> and conformance IncomingCallActionHandleIntentFlowStrategy<A, B>, &_s27PhoneCallFlowDelegatePlugin08Incomingb18ActionHandleIntentC8StrategyCySo08INAnswerbI0CSo0kbI8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin08Incomingb18ActionHandleIntentC8StrategyCySo08INAnswerbI0CSo0kbI8ResponseCGMR);
-
-  static RCHChildFlowFactoryHelper.makeHandleIntentFlowProducer<A>(strategy:)();
-  OUTLINED_FUNCTION_29_18();
-
-  OUTLINED_FUNCTION_43_3();
-  RCHChildFlowProducersAsync.handleIntentFlowProducer.setter();
-  v48 = OUTLINED_FUNCTION_43_3();
-  __swift_instantiateConcreteTypeFromMangledNameV2(v48, v49);
-  *&v86 = OUTLINED_FUNCTION_79();
-  lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type IncomingCallActionContinueInAppStrategy<INAnswerCallIntent, INAnswerCallIntentResponse> and conformance IncomingCallActionContinueInAppStrategy<A, B>, &_s27PhoneCallFlowDelegatePlugin08IncomingB27ActionContinueInAppStrategyCySo08INAnswerB6IntentCSo0lbM8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin08IncomingB27ActionContinueInAppStrategyCySo08INAnswerB6IntentCSo0lbM8ResponseCGMR);
-  static RCHChildFlowFactoryHelper.makeContinueInAppFlowWithAutomaticPunchOutProducer<A>(strategy:)();
-  OUTLINED_FUNCTION_29_18();
-
-  OUTLINED_FUNCTION_43_3();
-  RCHChildFlowProducersAsync.continueInAppFlowProducer.setter();
-  outlined init with copy of SignalProviding(v37, &v86);
-  v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin0A21IntentRCHFlowStrategyCySo08INAnswerbF0CSo0ibF8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0A21IntentRCHFlowStrategyCySo08INAnswerbF0CSo0ibF8ResponseCGMR);
-  OUTLINED_FUNCTION_102_0();
-  v50 = swift_allocObject();
-  outlined init with take of SPHConversation(&v86, v50 + 16);
-  v51 = v73;
-  *(v50 + 56) = v73;
-  v52 = v37[3];
-  v53 = v37[4];
-  OUTLINED_FUNCTION_28_0(v37, v52);
-  v54 = *(v53 + 104);
-
-  v54(&v86, v52, v53);
-  v55 = v88;
-  v68 = v87;
-  v67 = __swift_project_boxed_opaque_existential_1(&v86, v87);
-  *&v81 = v50;
-  v56 = v72;
-  v57 = *(v72 + 16);
-  v58 = OUTLINED_FUNCTION_69_8();
-  v59(v58);
-  v60 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08RCHChildC7FactoryCySo18INAnswerCallIntentCSo0fgH8ResponseCGMd, &_s11SiriKitFlow08RCHChildC7FactoryCySo18INAnswerCallIntentCSo0fgH8ResponseCGMR);
-  OUTLINED_FUNCTION_12_8(v60);
-  swift_allocObject();
-  OUTLINED_FUNCTION_11_0();
-  v61 = RCHChildFlowFactory.init(producers:)();
-  v62 = *(v55 + 8);
-  OUTLINED_FUNCTION_24_25();
-  v64 = lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(v63, &_s27PhoneCallFlowDelegatePlugin0A21IntentRCHFlowStrategyCySo08INAnswerbF0CSo0ibF8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0A21IntentRCHFlowStrategyCySo08INAnswerbF0CSo0ibF8ResponseCGMR);
-  v62(&v81, v61, v51, v74, v70, v64, v68, v55);
-  OUTLINED_FUNCTION_19_7();
-
-  (*(v56 + 8))(v43, v75);
-
-  __swift_destroy_boxed_opaque_existential_1(&v86);
-  __swift_destroy_boxed_opaque_existential_1(v89);
-  OUTLINED_FUNCTION_68_6();
-  OUTLINED_FUNCTION_65();
-}
-
-void _s27PhoneCallFlowDelegatePlugin08IncomingbC0C03rchC03app8strategy13sharedGlobalsACyxq_G07SiriKitC008AnyValueC0CyAI13RCHFlowResultOyxq_GG_0L13AppResolution0R0CAA0fbC14OutputStrategy_pAA06SharedK9Providing_ptcfCSo08INAnswerB6IntentC_So0xbY8ResponseCTt3g5Tf4nnen_nAA06AnswerbtU0V_Tg5()
-{
-  OUTLINED_FUNCTION_66();
-  v1 = v0;
-  v3 = v2;
-  v5 = v4;
-  v7 = v6;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin0abC5StateOySo08INAnswerB6IntentCSo0gbH8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0abC5StateOySo08INAnswerB6IntentCSo0gbH8ResponseCGMR);
-  v9 = OUTLINED_FUNCTION_23_1(v8);
-  v11 = *(v10 + 64);
-  v12 = __chkstk_darwin(v9);
-  v14 = &v23 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v12);
-  v16 = (&v23 - v15);
-  v26[0] = v7;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08AnyValueC0CyAA13RCHFlowResultOySo18INAnswerCallIntentCSo0hiJ8ResponseCGGMd, &_s11SiriKitFlow08AnyValueC0CyAA13RCHFlowResultOySo18INAnswerCallIntentCSo0hiJ8ResponseCGGMR);
-  OUTLINED_FUNCTION_3_68();
-  lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(v17, v18, &_s11SiriKitFlow08AnyValueC0CyAA13RCHFlowResultOySo18INAnswerCallIntentCSo0hiJ8ResponseCGGMR);
-  *v16 = Flow.eraseToAnyValueFlow()();
-  swift_storeEnumTagMultiPayload();
-  outlined init with copy of SignalProviding(v1, v26);
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin08IncomingbC0CySo08INAnswerB6IntentCSo0gbH8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin08IncomingbC0CySo08INAnswerB6IntentCSo0gbH8ResponseCGMR);
-  OUTLINED_FUNCTION_12_8(v19);
-  v20 = swift_allocObject();
-  v25[3] = &type metadata for AnswerCallOutputStrategy;
-  v25[4] = &protocol witness table for AnswerCallOutputStrategy;
-  v25[0] = swift_allocObject();
-  memcpy((v25[0] + 16), v3, 0xB0uLL);
-  OUTLINED_FUNCTION_2_0();
-  outlined init with copy of SignalProviding(v25, v20 + *(v21 + 288));
-  OUTLINED_FUNCTION_2_0();
-  *(v20 + *(v22 + 296)) = v5;
-  outlined init with copy of ButtonConfigurationModel?(v16, v14, &_s27PhoneCallFlowDelegatePlugin0abC5StateOySo08INAnswerB6IntentCSo0gbH8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0abC5StateOySo08INAnswerB6IntentCSo0gbH8ResponseCGMR);
-  outlined init with copy of SignalProviding(v26, v24);
-  specialized PhoneFlow.init(state:sharedGlobals:)(v14, v24);
-  OUTLINED_FUNCTION_48_16();
-
-  __swift_destroy_boxed_opaque_existential_1(v1);
-  __swift_destroy_boxed_opaque_existential_1(v26);
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v16, &_s27PhoneCallFlowDelegatePlugin0abC5StateOySo08INAnswerB6IntentCSo0gbH8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0abC5StateOySo08INAnswerB6IntentCSo0gbH8ResponseCGMR);
-  __swift_destroy_boxed_opaque_existential_1(v25);
-  OUTLINED_FUNCTION_91_5();
-  OUTLINED_FUNCTION_65();
-}
-
-uint64_t _s27PhoneCallFlowDelegatePlugin0abC7FactoryO012makeIncomingB7RCHFlow8strategy6intent3app13sharedGlobals07SiriKitC008AnyValueC0CyAI0I6ResultOyxq_GGAA0hbC14OutputStrategy_p_x0O13AppResolution0V0CAA06SharedN9Providing_ptSo8INIntentCRbzAA0hB14IntentResponseR_r0_lFZSo010INIdentifyH12CallerIntentC_So010INIdentifyH20CallerIntentResponseCTt3g5Tf4ennn_nAA08Identifyh6CallertU0V_Tg5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v59 = a4;
-  v67 = a2;
-  v7 = type metadata accessor for CATOption();
-  v8 = *(*(v7 - 8) + 64);
-  __chkstk_darwin(v7 - 8);
-  v68 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo30INIdentifyIncomingCallerIntentCSo0ghiJ8ResponseCGMd, &_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo30INIdentifyIncomingCallerIntentCSo0ghiJ8ResponseCGMR);
-  v65 = *(v68 - 8);
-  v9 = *(v65 + 64);
-  v10 = __chkstk_darwin(v68);
-  v64 = &v58 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v10);
-  v62 = &v58 - v12;
-  v82[3] = &type metadata for IdentifyIncomingCallerOutputStrategy;
-  v82[4] = &protocol witness table for IdentifyIncomingCallerOutputStrategy;
-  v82[0] = swift_allocObject();
-  outlined init with copy of IdentifyIncomingCallerOutputStrategy(a1, v82[0] + 16);
-  type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for INIdentifyIncomingCallerIntent, INIdentifyIncomingCallerIntent_ptr);
-  v63 = type metadata accessor for CNContactStore(0, &lazy cache variable for type metadata for INIdentifyIncomingCallerIntentResponse, INIdentifyIncomingCallerIntentResponse_ptr);
-  RCHChildFlowProducersAsync.init()();
-  v66 = a3;
-  static RCHChildFlowFactoryHelper.makeAppResolutionFlowProducer<A, B>(app:)();
-  RCHChildFlowProducersAsync.appResolutionFlowProducer.setter();
-  outlined init with copy of SignalProviding(a4, &v79);
-  type metadata accessor for PhoneCallCommonCATs();
-  static CATOption.defaultMode.getter();
-  v60 = CATWrapper.__allocating_init(options:globals:)();
-  v58 = type metadata accessor for PhoneCallCommonCATPatternsExecutor();
-  static CATOption.defaultMode.getter();
-  v13 = CATWrapper.__allocating_init(options:globals:)();
-  v14 = type metadata accessor for AppInfoBuilder();
-  v15 = swift_allocObject();
-  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo30INIdentifyIncomingCallerIntentCSo0hijK8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo30INIdentifyIncomingCallerIntentCSo0hijK8ResponseCGMR);
-  v16 = swift_allocObject();
-  v77 = v15;
-  v78 = v13;
-  v75 = &type metadata for LabelTemplatesProvider;
-  v76 = &protocol witness table for LabelTemplatesProvider;
-  v17 = swift_allocObject();
-  *&v74 = v17;
-  *(v17 + 16) = 0u;
-  *(v17 + 32) = 0u;
-  v73[3] = &type metadata for TCCTemplatesProvider;
-  v73[4] = &protocol witness table for TCCTemplatesProvider;
-  outlined init with copy of SignalProviding(&v79, v16 + 272);
-  outlined init with copy of SignalProviding(&v74, v16 + 192);
-  outlined init with copy of SignalProviding(v73, v16 + 232);
-  v18 = v80;
-  v19 = v81;
-  __swift_project_boxed_opaque_existential_1(&v79, v80);
-  v20 = *(v19 + 136);
-
-  v20(v70, v18, v19);
-  v21 = v71;
-  v22 = v72;
-  v23 = __swift_project_boxed_opaque_existential_1(v70, v71);
-  v24 = v80;
-  v25 = v81;
-  __swift_project_boxed_opaque_existential_1(&v79, v80);
-  v26 = v24;
-  v27 = v68;
-  v28 = (*(v25 + 8))(v69, v26, v25);
-  v29 = *(*(v21 - 8) + 64);
-  __chkstk_darwin(v28);
-  v31 = &v58 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v33 = v23;
-  v34 = v59;
-  (*(v32 + 16))(v31, v33, v21);
-  v35 = v31;
-  v36 = v62;
-  v37 = specialized PhoneCallStrategy.init(catFamily:catPatternFamily:responseGenerator:appInfoBuilder:deviceState:)(v60, &v78, v35, &v77, v69, v16, v21, v58, v14, *(v22 + 8), &protocol witness table for PhoneCallCommonCATPatternsExecutor, &protocol witness table for AppInfoBuilder, v58);
-
-  __swift_destroy_boxed_opaque_existential_1(v73);
-  __swift_destroy_boxed_opaque_existential_1(&v74);
-  __swift_destroy_boxed_opaque_existential_1(v70);
-  __swift_destroy_boxed_opaque_existential_1(&v79);
-  *&v79 = v37;
-  lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type PhoneTCCFlowStrategy<INIdentifyIncomingCallerIntent, INIdentifyIncomingCallerIntentResponse> and conformance PhoneTCCFlowStrategy<A, B>, &_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo30INIdentifyIncomingCallerIntentCSo0hijK8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0A15TCCFlowStrategyCySo30INIdentifyIncomingCallerIntentCSo0hijK8ResponseCGMR);
-  static RCHChildFlowFactoryHelper.makeRequestTCCAcceptanceFlow<A, B>(strategy:)();
-
-  v38 = v36;
-  RCHChildFlowProducersAsync.requestTCCAcceptanceFlowProducer.setter();
-  outlined init with copy of SignalProviding(v82, &v79);
-  outlined init with copy of SignalProviding(v34, &v74);
-  if (one-time initialization token for instance != -1)
-  {
-    swift_once();
-  }
-
-  v39 = static CallStateNotificationManager.instance;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin08Incomingb18ActionHandleIntentC8StrategyCySo010INIdentifyf6CallerI0CSo0kflI8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin08Incomingb18ActionHandleIntentC8StrategyCySo010INIdentifyf6CallerI0CSo0kflI8ResponseCGMR);
-  v40 = swift_allocObject();
-  v40[10] = type metadata accessor for CallStateNotificationManager();
-  v40[11] = &protocol witness table for CallStateNotificationManager;
-  v40[7] = v39;
-  v40[20] = &type metadata for AudioSessionManager;
-  v40[21] = &protocol witness table for AudioSessionManager;
-  v40[25] = &type metadata for SpringBoardServicesManager;
-  v40[26] = &protocol witness table for SpringBoardServicesManager;
-  outlined init with take of SPHConversation(&v79, (v40 + 2));
-  outlined init with take of SPHConversation(&v74, (v40 + 12));
-  *&v79 = v40;
-  lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type IncomingCallActionHandleIntentFlowStrategy<INIdentifyIncomingCallerIntent, INIdentifyIncomingCallerIntentResponse> and conformance IncomingCallActionHandleIntentFlowStrategy<A, B>, &_s27PhoneCallFlowDelegatePlugin08Incomingb18ActionHandleIntentC8StrategyCySo010INIdentifyf6CallerI0CSo0kflI8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin08Incomingb18ActionHandleIntentC8StrategyCySo010INIdentifyf6CallerI0CSo0kflI8ResponseCGMR);
-
-  static RCHChildFlowFactoryHelper.makeHandleIntentFlowProducer<A>(strategy:)();
-
-  v41 = v38;
-  RCHChildFlowProducersAsync.handleIntentFlowProducer.setter();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin08IncomingB27ActionContinueInAppStrategyCySo010INIdentifyF12CallerIntentCSo0lfmN8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin08IncomingB27ActionContinueInAppStrategyCySo010INIdentifyF12CallerIntentCSo0lfmN8ResponseCGMR);
-  *&v79 = swift_allocObject();
-  lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type IncomingCallActionContinueInAppStrategy<INIdentifyIncomingCallerIntent, INIdentifyIncomingCallerIntentResponse> and conformance IncomingCallActionContinueInAppStrategy<A, B>, &_s27PhoneCallFlowDelegatePlugin08IncomingB27ActionContinueInAppStrategyCySo010INIdentifyF12CallerIntentCSo0lfmN8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin08IncomingB27ActionContinueInAppStrategyCySo010INIdentifyF12CallerIntentCSo0lfmN8ResponseCGMR);
-  static RCHChildFlowFactoryHelper.makeContinueInAppFlowWithAutomaticPunchOutProducer<A>(strategy:)();
-
-  RCHChildFlowProducersAsync.continueInAppFlowProducer.setter();
-  outlined init with copy of SignalProviding(v34, &v79);
-  v63 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin0A21IntentRCHFlowStrategyCySo024INIdentifyIncomingCallerF0CSo0ijkF8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0A21IntentRCHFlowStrategyCySo024INIdentifyIncomingCallerF0CSo0ijkF8ResponseCGMR);
-  v42 = swift_allocObject();
-  outlined init with take of SPHConversation(&v79, v42 + 16);
-  v43 = v66;
-  *(v42 + 56) = v66;
-  v44 = v27;
-  v45 = v34[3];
-  v46 = v34[4];
-  __swift_project_boxed_opaque_existential_1(v34, v45);
-  v47 = *(v46 + 104);
-
-  v47(&v79, v45, v46);
-  v48 = v81;
-  v61 = v80;
-  v60 = __swift_project_boxed_opaque_existential_1(&v79, v80);
-  *&v74 = v42;
-  v49 = v65;
-  (*(v65 + 16))(v64, v41, v44);
-  v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08RCHChildC7FactoryCySo30INIdentifyIncomingCallerIntentCSo0fghI8ResponseCGMd, &_s11SiriKitFlow08RCHChildC7FactoryCySo30INIdentifyIncomingCallerIntentCSo0fghI8ResponseCGMR);
-  v51 = *(v50 + 48);
-  v52 = *(v50 + 52);
-  swift_allocObject();
-  v53 = RCHChildFlowFactory.init(producers:)();
-  v54 = *(v48 + 8);
-  v55 = lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type PhoneIntentRCHFlowStrategy<INIdentifyIncomingCallerIntent, INIdentifyIncomingCallerIntentResponse> and conformance PhoneIntentRCHFlowStrategy<A, B>, &_s27PhoneCallFlowDelegatePlugin0A21IntentRCHFlowStrategyCySo024INIdentifyIncomingCallerF0CSo0ijkF8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0A21IntentRCHFlowStrategyCySo024INIdentifyIncomingCallerF0CSo0ijkF8ResponseCGMR);
-  v56 = v54(&v74, v53, v43, v67, v63, v55, v61, v48);
-
-  (*(v49 + 8))(v41, v68);
-
-  __swift_destroy_boxed_opaque_existential_1(&v79);
-  __swift_destroy_boxed_opaque_existential_1(v82);
-  return v56;
-}
-
-void *_s27PhoneCallFlowDelegatePlugin08IncomingbC0C03rchC03app8strategy13sharedGlobalsACyxq_G07SiriKitC008AnyValueC0CyAI13RCHFlowResultOyxq_GG_0L13AppResolution0R0CAA0fbC14OutputStrategy_pAA06SharedK9Providing_ptcfCSo010INIdentifyF12CallerIntentC_So0xfyZ8ResponseCTt3g5Tf4nnen_nAA08IdentifyfytU0V_Tg5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
-{
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin0abC5StateOySo30INIdentifyIncomingCallerIntentCSo0ghiJ8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0abC5StateOySo30INIdentifyIncomingCallerIntentCSo0ghiJ8ResponseCGMR);
-  v9 = *(*(v8 - 8) + 64);
-  v10 = __chkstk_darwin(v8);
-  v12 = &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v10);
-  v14 = (&v23 - v13);
-  v26[0] = a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08AnyValueC0CyAA13RCHFlowResultOySo30INIdentifyIncomingCallerIntentCSo0hijK8ResponseCGGMd, &_s11SiriKitFlow08AnyValueC0CyAA13RCHFlowResultOySo30INIdentifyIncomingCallerIntentCSo0hijK8ResponseCGGMR);
-  lazy protocol witness table accessor for type AnyValueFlow<ExecuteOnRemoteFlowResult> and conformance AnyValueFlow<A>(&lazy protocol witness table cache variable for type AnyValueFlow<RCHFlowResult<INIdentifyIncomingCallerIntent, INIdentifyIncomingCallerIntentResponse>> and conformance AnyValueFlow<A>, &_s11SiriKitFlow08AnyValueC0CyAA13RCHFlowResultOySo30INIdentifyIncomingCallerIntentCSo0hijK8ResponseCGGMd, &_s11SiriKitFlow08AnyValueC0CyAA13RCHFlowResultOySo30INIdentifyIncomingCallerIntentCSo0hijK8ResponseCGGMR);
-  *v14 = Flow.eraseToAnyValueFlow()();
-  swift_storeEnumTagMultiPayload();
-  outlined init with copy of SignalProviding(a4, v26);
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin08IncomingbC0CySo010INIdentifyF12CallerIntentCSo0gfhI8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin08IncomingbC0CySo010INIdentifyF12CallerIntentCSo0gfhI8ResponseCGMR);
-  v16 = *(v15 + 48);
-  v17 = *(v15 + 52);
-  v18 = swift_allocObject();
-  v25[3] = &type metadata for IdentifyIncomingCallerOutputStrategy;
-  v25[4] = &protocol witness table for IdentifyIncomingCallerOutputStrategy;
-  v19 = swift_allocObject();
-  v25[0] = v19;
-  v20 = *(a3 + 16);
-  *(v19 + 16) = *a3;
-  *(v19 + 32) = v20;
-  *(v19 + 48) = *(a3 + 32);
-  *(v19 + 64) = *(a3 + 48);
-  outlined init with copy of SignalProviding(v25, v18 + *(*v18 + 288));
-  *(v18 + *(*v18 + 296)) = a2;
-  outlined init with copy of ButtonConfigurationModel?(v14, v12, &_s27PhoneCallFlowDelegatePlugin0abC5StateOySo30INIdentifyIncomingCallerIntentCSo0ghiJ8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0abC5StateOySo30INIdentifyIncomingCallerIntentCSo0ghiJ8ResponseCGMR);
-  outlined init with copy of SignalProviding(v26, v24);
-  v21 = specialized PhoneFlow.init(state:sharedGlobals:)(v12, v24);
-
-  __swift_destroy_boxed_opaque_existential_1(a4);
-  __swift_destroy_boxed_opaque_existential_1(v26);
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v14, &_s27PhoneCallFlowDelegatePlugin0abC5StateOySo30INIdentifyIncomingCallerIntentCSo0ghiJ8ResponseCGMd, &_s27PhoneCallFlowDelegatePlugin0abC5StateOySo30INIdentifyIncomingCallerIntentCSo0ghiJ8ResponseCGMR);
-  __swift_destroy_boxed_opaque_existential_1(v25);
-  return v21;
-}
-
-uint64_t partial apply for closure #1 in static PhoneCallFlowFactory.makeAddCallParticipantRCHFlow(intent:app:sharedGlobals:)(uint64_t a1, uint64_t a2)
-{
-  v6 = *(v2 + 16);
-  v7 = swift_task_alloc();
-  *(v3 + 16) = v7;
-  *v7 = v3;
-  v7[1] = partial apply for closure #1 in static PhoneCallFlowFactory.makeAddCallParticipantRCHFlow(intent:app:sharedGlobals:);
-
-  return closure #1 in static PhoneCallFlowFactory.makeAddCallParticipantRCHFlow(intent:app:sharedGlobals:)(a1, a2, v6, v2 + 24);
-}
-
-uint64_t partial apply for closure #1 in static PhoneCallFlowFactory.makeAddCallParticipantRCHFlow(intent:app:sharedGlobals:)(uint64_t a1)
-{
-  v3 = *(*v1 + 16);
-  v6 = *v1;
-
-  v4 = *(v6 + 8);
-
-  return v4(a1);
-}
-
-uint64_t type metadata completion function for PhoneCallFlowFactory.PhoneRCHFlowProducers(uint64_t a1)
-{
-  v1 = *(a1 + 16);
-  v2 = *(a1 + 24);
-  result = type metadata accessor for RCHChildFlowProducers();
-  if (v4 <= 0x3F)
-  {
-    result = type metadata accessor for RCHChildFlowProducersAsync();
-    if (v5 <= 0x3F)
-    {
-      swift_cvw_initStructMetadataWithLayoutString();
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t partial apply for closure #1 in static PhoneCallFlowFactory.makeAppResolutionFlowBeforeNextResolveFlowProducer<A>(delegate:app:sharedGlobal:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, unint64_t a5, uint64_t a6)
-{
-  v8 = v6[2];
-  v9 = v6[3];
-  return closure #1 in static PhoneCallFlowFactory.makeAppResolutionFlowBeforeNextResolveFlowProducer<A>(delegate:app:sharedGlobal:)(a1, a2, a3, a4, a5, a6, v6[4], (v6 + 5));
-}
-
-uint64_t partial apply for specialized closure #1 in static PhoneCallFlowFactory.makeAppResolutionFlowBeforeNextResolveFlowProducer<A>(delegate:app:sharedGlobal:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, unint64_t a5, uint64_t a6)
-{
-  return specialized closure #1 in static PhoneCallFlowFactory.makeAppResolutionFlowBeforeNextResolveFlowProducer<A>(delegate:app:sharedGlobal:)(a1, a2, a3, a4, a5, a6, *(v6 + 16), v6 + 24, &outlined read-only object #0 of specialized closure #1 in static PhoneCallFlowFactory.makeAppResolutionFlowBeforeNextResolveFlowProducer<A>(delegate:app:sharedGlobal:));
-}
-
-{
-  return specialized closure #1 in static PhoneCallFlowFactory.makeAppResolutionFlowBeforeNextResolveFlowProducer<A>(delegate:app:sharedGlobal:)(a1, a2, a3, a4, a5, a6, *(v6 + 16), v6 + 24, &outlined read-only object #0 of specialized closure #1 in static PhoneCallFlowFactory.makeAppResolutionFlowBeforeNextResolveFlowProducer<A>(delegate:app:sharedGlobal:));
-}
-
-{
-  return specialized closure #1 in static PhoneCallFlowFactory.makeAppResolutionFlowBeforeNextResolveFlowProducer<A>(delegate:app:sharedGlobal:)(a1, a2, a3, a4, a5, a6, *(v6 + 16), v6 + 24, &outlined read-only object #0 of specialized closure #1 in static PhoneCallFlowFactory.makeAppResolutionFlowBeforeNextResolveFlowProducer<A>(delegate:app:sharedGlobal:));
-}
-
-uint64_t partial apply for specialized closure #1 in static PhoneCallFlowFactory.getGenericStartCallProducers<A>(delegate:app:)(uint64_t a1, uint64_t a2)
-{
-  return specialized closure #1 in static PhoneCallFlowFactory.getGenericStartCallProducers<A>(delegate:app:)(a1, a2, *(v2 + 16), *(v2 + 24));
-}
-
-{
-  return specialized closure #1 in static PhoneCallFlowFactory.getGenericStartCallProducers<A>(delegate:app:)(a1, a2, *(v2 + 16), *(v2 + 24));
-}
-
-{
-  return specialized closure #1 in static PhoneCallFlowFactory.getGenericStartCallProducers<A>(delegate:app:)(a1, a2, *(v2 + 16), *(v2 + 24));
-}
-
-uint64_t partial apply for specialized closure #2 in static PhoneCallFlowFactory.getGenericStartCallProducers<A>(delegate:app:)(uint64_t a1, uint64_t a2)
-{
-  return specialized closure #2 in static PhoneCallFlowFactory.getGenericStartCallProducers<A>(delegate:app:)(a1, a2, v2);
-}
-
-{
-  return specialized closure #2 in static PhoneCallFlowFactory.getGenericStartCallProducers<A>(delegate:app:)(a1, a2, v2);
-}
-
-{
-  return specialized closure #2 in static PhoneCallFlowFactory.getGenericStartCallProducers<A>(delegate:app:)(a1, a2, v2);
-}
-
-uint64_t OUTLINED_FUNCTION_47_17()
-{
-  *(v0 + 192) = v1;
-  *(v0 + 200) = v2;
-  return v2;
-}
-
-uint64_t OUTLINED_FUNCTION_53_16()
-{
-  v2 = *(v0 + 104);
-
-  return OutputGenerationManifest.init(dialogPhase:_:)();
-}
-
-uint64_t OUTLINED_FUNCTION_74_5()
-{
-  v3 = *(v0 + 200);
-  *(v1 + 16) = v3;
-  v4 = v3 + *(v0 + 184);
-
-  return outlined init with copy of SignalProviding(v4, v1 + 24);
-}
-
-uint64_t OUTLINED_FUNCTION_77_8()
-{
-  v2 = *(v0 + 176);
-
-  return static DialogPhase.completion.getter();
-}
-
-uint64_t OUTLINED_FUNCTION_78_7()
-{
-
-  return outlined init with copy of SignalProviding(v1 - 248, v0 + 328);
-}
-
-uint64_t OUTLINED_FUNCTION_79_5()
-{
-
-  return outlined init with copy of SignalProviding(v1 - 168, v0 + 448);
-}
-
-uint64_t OUTLINED_FUNCTION_80_4()
-{
-
-  return outlined init with copy of SignalProviding(v1 - 208, v0 + 408);
-}
-
-uint64_t OUTLINED_FUNCTION_81_4(uint64_t a1)
-{
-  *(a1 + 16) = *(v1 + 200);
-  *(a1 + 24) = *(v1 + 56);
-}
-
-uint64_t OUTLINED_FUNCTION_82_4()
-{
-
-  return swift_getWitnessTable();
-}
-
-uint64_t OUTLINED_FUNCTION_84_5(uint64_t a1, uint64_t a2)
-{
-  *(v2 + 56) = a2;
-
-  return type metadata accessor for DialogPhase();
-}
-
-uint64_t OUTLINED_FUNCTION_85_3()
-{
-  v2 = *(v0 + 168);
-
-  return static CATOption.defaultMode.getter();
-}
-
-uint64_t OUTLINED_FUNCTION_86_5()
-{
-}
-
-uint64_t OUTLINED_FUNCTION_88_4()
-{
-
-  return CATWrapperSimple.__allocating_init(options:globals:)();
-}
-
-uint64_t OUTLINED_FUNCTION_97_2()
-{
-  *(v1 + 176) = *(v0 + 128);
-
-  return outlined init with copy of SignalProviding(v0 + 288, v1 + 184);
-}
-
-uint64_t OUTLINED_FUNCTION_99_1(uint64_t a1)
-{
-
-  return __swift_storeEnumTagSinglePayload(v2 + v1, 1, 1, a1);
-}
-
-uint64_t OUTLINED_FUNCTION_100_3(uint64_t a1)
-{
-  *(a1 + 16) = v1;
-
-  return outlined init with take of SPHConversation((v2 - 128), a1 + 24);
-}
-
-uint64_t OUTLINED_FUNCTION_101_2()
-{
-
-  return RCHChildFlowProducersAsync.unsupportedValueFlowProducer.setter();
-}
-
-uint64_t OUTLINED_FUNCTION_102_2()
-{
-
-  return swift_getAssociatedTypeWitness();
-}
-
-uint64_t OUTLINED_FUNCTION_105_3()
-{
-
-  return outlined init with copy of SignalProviding(v0 + 368, v1 + 224);
-}
-
-uint64_t OUTLINED_FUNCTION_107_2()
-{
-
-  return __swift_instantiateConcreteTypeFromMangledNameV2(v0, v1);
-}
-
-uint64_t OUTLINED_FUNCTION_108_2(uint64_t a1)
-{
-  *(v1 + 136) = a1;
-
-  return static CATOption.defaultMode.getter();
-}
-
-uint64_t OUTLINED_FUNCTION_109_2(uint64_t a1)
-{
-  *(v1 + 144) = a1;
-
-  return static CATOption.defaultMode.getter();
-}
-
-uint64_t OUTLINED_FUNCTION_111_3(uint64_t a1)
-{
-  *(v1 + 160) = a1;
-
-  return static CATOption.defaultMode.getter();
-}
-
-uint64_t OUTLINED_FUNCTION_112_3()
-{
-
-  return outlined init with copy of SignalProviding(v0, v1 - 128);
-}
-
-uint64_t PhoneCallFlowState.description.getter(uint64_t a1)
-{
-  v2 = v1;
-  v4 = *(a1 + 16);
-  v5 = *(a1 + 24);
-  v6 = type metadata accessor for RCHFlowResult();
-  OUTLINED_FUNCTION_9_1();
-  v8 = v7;
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v11);
-  v13 = &v54 - v12;
-  v14 = type metadata accessor for Input();
-  OUTLINED_FUNCTION_9_1();
-  v16 = v15;
-  v18 = *(v17 + 64);
-  __chkstk_darwin(v19);
-  v21 = &v54 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  OUTLINED_FUNCTION_9_1();
-  v23 = *(v22 + 64);
-  __chkstk_darwin(v24);
-  v26 = (&v54 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0));
-  (*(v27 + 16))(v26, v2, a1);
-  v28 = 0x6C616974696E692ELL;
-  switch(swift_getEnumCaseMultiPayload())
-  {
-    case 1u:
-      v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow5InputV_0A13AppResolution0E0CAA11DeviceState_ptMd, &_s11SiriKitFlow5InputV_0A13AppResolution0E0CAA11DeviceState_ptMR);
-      v37 = *(v26 + *(v36 + 48));
-      v38 = *(v36 + 64);
-      v39 = OUTLINED_FUNCTION_3_69();
-      v40(v39);
-      outlined init with take of PhoneCallFeatureFlagProviding(v26 + v38, &v57);
-      v55 = 0;
-      v56 = 0xE000000000000000;
-      _StringGuts.grow(_:)(32);
-      OUTLINED_FUNCTION_5_12(".runIntentConversion(");
-      v54 = v37;
-      type metadata accessor for App();
-      _s17SiriAppResolution0B0CACs23CustomStringConvertibleAAWlTm_0(&lazy protocol witness table cache variable for type App and conformance App, &type metadata accessor for App);
-      v41._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
-      String.append(_:)(v41);
-
-      v42._countAndFlagsBits = 8236;
-      v42._object = 0xE200000000000000;
-      String.append(_:)(v42);
-      OUTLINED_FUNCTION_0_79();
-      _s17SiriAppResolution0B0CACs23CustomStringConvertibleAAWlTm_0(v43, v44);
-      v45._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
-      String.append(_:)(v45);
-
-      v46._countAndFlagsBits = 8236;
-      v46._object = 0xE200000000000000;
-      String.append(_:)(v46);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow11DeviceState_pMd, &_s11SiriKitFlow11DeviceState_pMR);
-      v47 = _print_unlocked<A, B>(_:_:)();
-      OUTLINED_FUNCTION_6_5(v47);
-
-      v28 = v55;
-      __swift_destroy_boxed_opaque_existential_1(&v57);
-      goto LABEL_5;
-    case 2u:
-      v48 = *v26;
-      v57 = 0;
-      v58 = 0xE000000000000000;
-      v49._countAndFlagsBits = 0x284843526E75722ELL;
-      v49._object = 0xE800000000000000;
-      String.append(_:)(v49);
-      v55 = v48;
-      type metadata accessor for AnyValueFlow();
-      swift_getWitnessTable();
-      v50 = DefaultStringInterpolation.appendInterpolation<A>(_:)();
-      goto LABEL_9;
-    case 3u:
-      (*(v8 + 32))(v13, v26, v6);
-      OUTLINED_FUNCTION_2_16();
-      _StringGuts.grow(_:)(24);
-      OUTLINED_FUNCTION_5_12(".offerFollowUpAction(");
-      v35 = DefaultStringInterpolation.appendInterpolation<A>(_:)();
-      OUTLINED_FUNCTION_6_5(v35);
-      v28 = v57;
-      (*(v8 + 8))(v13, v6);
-      return v28;
-    case 4u:
-      v51 = *v26;
-      OUTLINED_FUNCTION_2_16();
-      _StringGuts.grow(_:)(16);
-      v52._countAndFlagsBits = 0x6F707075736E752ELL;
-      v52._object = 0xED00002864657472;
-      String.append(_:)(v52);
-      v55 = v51;
-      type metadata accessor for SimpleOutputFlowAsync();
-      v50 = _print_unlocked<A, B>(_:_:)();
-LABEL_9:
-      OUTLINED_FUNCTION_6_5(v50);
-
-      v28 = v57;
-      break;
-    case 5u:
-      return v28;
-    case 6u:
-      v28 = 0x7373696D7369642ELL;
-      break;
-    case 7u:
-      v28 = 0x706F74732ELL;
-      break;
-    default:
-      v29 = OUTLINED_FUNCTION_3_69();
-      v30(v29);
-      OUTLINED_FUNCTION_2_16();
-      _StringGuts.grow(_:)(21);
-
-      v57 = 0xD000000000000012;
-      v58 = 0x80000000004572D0;
-      OUTLINED_FUNCTION_0_79();
-      _s17SiriAppResolution0B0CACs23CustomStringConvertibleAAWlTm_0(v31, v32);
-      v33._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
-      String.append(_:)(v33);
-
-      OUTLINED_FUNCTION_6_5(v34);
-      v28 = v57;
-LABEL_5:
-      (*(v16 + 8))(v21, v14);
-      break;
-  }
-
-  return v28;
-}
-
-void type metadata completion function for PhoneCallFlowState(uint64_t a1)
-{
-  type metadata accessor for Input();
-  if (v2 <= 0x3F)
-  {
-    type metadata accessor for (Input, App, DeviceState)();
-    if (v3 <= 0x3F)
-    {
-      v4 = *(a1 + 16);
-      v5 = *(a1 + 24);
-      type metadata accessor for RCHFlowResult();
-      v7 = v6;
-      type metadata accessor for AnyValueFlow();
-      if (v8 <= 0x3F && v7 <= 0x3F)
+      v8 = v5 == 0x6472696874 && v1 == 0xE500000000000000;
+      if (v8 || (OUTLINED_FUNCTION_16_39(0x6472696874, 0xE500000000000000) & 1) != 0)
       {
-        type metadata accessor for SimpleOutputFlowAsync();
-        if (v9 <= 0x3F)
+
+        return 2;
+      }
+
+      else
+      {
+        v9 = v5 == 0x687472756F66 && v1 == 0xE600000000000000;
+        if (v9 || (OUTLINED_FUNCTION_16_39(0x687472756F66, 0xE600000000000000) & 1) != 0)
         {
-          swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
+
+          return 3;
+        }
+
+        else
+        {
+          v10 = v5 == 0x6874666966 && v1 == 0xE500000000000000;
+          if (v10 || (OUTLINED_FUNCTION_16_39(0x6874666966, 0xE500000000000000) & 1) != 0)
+          {
+
+            return 4;
+          }
+
+          else
+          {
+            v11 = v5 == 0x6874786973 && v1 == 0xE500000000000000;
+            if (v11 || (OUTLINED_FUNCTION_16_39(0x6874786973, 0xE500000000000000) & 1) != 0)
+            {
+
+              return 5;
+            }
+
+            else
+            {
+              v12 = v5 == 0x68746E65766573 && v1 == 0xE700000000000000;
+              if (v12 || (OUTLINED_FUNCTION_16_39(0x68746E65766573, 0xE700000000000000) & 1) != 0)
+              {
+
+                return 6;
+              }
+
+              else
+              {
+                v13 = v5 == 0x687468676965 && v1 == 0xE600000000000000;
+                if (v13 || (OUTLINED_FUNCTION_16_39(0x687468676965, 0xE600000000000000) & 1) != 0)
+                {
+
+                  return 7;
+                }
+
+                else
+                {
+                  v14 = v5 == 0x68746E696ELL && v1 == 0xE500000000000000;
+                  if (v14 || (OUTLINED_FUNCTION_16_39(0x68746E696ELL, 0xE500000000000000) & 1) != 0)
+                  {
+
+                    return 8;
+                  }
+
+                  else
+                  {
+                    v15 = v5 == 0x68746E6574 && v1 == 0xE500000000000000;
+                    if (v15 || (OUTLINED_FUNCTION_16_39(0x68746E6574, 0xE500000000000000) & 1) != 0)
+                    {
+
+                      return 9;
+                    }
+
+                    else
+                    {
+                      v16 = v5 == 0x68746E6576656C65 && v1 == 0xE800000000000000;
+                      if (v16 || (OUTLINED_FUNCTION_16_39(0x68746E6576656C65, 0xE800000000000000) & 1) != 0)
+                      {
+
+                        return 10;
+                      }
+
+                      else
+                      {
+                        v17 = v5 == 0x6874666C657774 && v1 == 0xE700000000000000;
+                        if (v17 || (OUTLINED_FUNCTION_16_39(0x6874666C657774, 0xE700000000000000) & 1) != 0)
+                        {
+
+                          return 11;
+                        }
+
+                        else
+                        {
+                          v18 = OUTLINED_FUNCTION_40_20(0x72696874u);
+                          v19 = v4 && v1 == 0xEA00000000006874;
+                          if (v19 || (OUTLINED_FUNCTION_16_39(v18, 0xEA00000000006874) & 1) != 0)
+                          {
+
+                            return 12;
+                          }
+
+                          else
+                          {
+                            v20 = OUTLINED_FUNCTION_40_20(0x72756F66u);
+                            v21 = v4 && v1 == 0xEA00000000006874;
+                            if (v21 || (OUTLINED_FUNCTION_16_39(v20, 0xEA00000000006874) & 1) != 0)
+                            {
+
+                              return 13;
+                            }
+
+                            else
+                            {
+                              v22 = v5 == 0x746E656574666966 && v1 == 0xE900000000000068;
+                              if (v22 || (OUTLINED_FUNCTION_16_39(0x746E656574666966, 0xE900000000000068) & 1) != 0)
+                              {
+
+                                return 14;
+                              }
+
+                              else
+                              {
+                                v23 = v5 == 0x746E656574786973 && v1 == 0xE900000000000068;
+                                if (v23 || (OUTLINED_FUNCTION_16_39(0x746E656574786973, 0xE900000000000068) & 1) != 0)
+                                {
+
+                                  return 15;
+                                }
+
+                                else
+                                {
+                                  v24 = v5 == 0x6565746E65766573 && v1 == 0xEB0000000068746ELL;
+                                  if (v24 || (OUTLINED_FUNCTION_16_39(0x6565746E65766573, 0xEB0000000068746ELL) & 1) != 0)
+                                  {
+
+                                    return 16;
+                                  }
+
+                                  else
+                                  {
+                                    v25 = OUTLINED_FUNCTION_40_20(0x68676965u);
+                                    v26 = v4 && v1 == 0xEA00000000006874;
+                                    if (v26 || (OUTLINED_FUNCTION_16_39(v25, 0xEA00000000006874) & 1) != 0)
+                                    {
+
+                                      return 17;
+                                    }
+
+                                    else
+                                    {
+                                      v27 = OUTLINED_FUNCTION_40_20(0x656E696Eu);
+                                      v28 = v4 && v1 == 0xEA00000000006874;
+                                      if (v28 || (OUTLINED_FUNCTION_16_39(v27, 0xEA00000000006874) & 1) != 0)
+                                      {
+
+                                        return 18;
+                                      }
+
+                                      else
+                                      {
+                                        v29 = v5 == 0x746569746E657774 && v1 == 0xE900000000000068;
+                                        if (v29 || (OUTLINED_FUNCTION_16_39(0x746569746E657774, 0xE900000000000068) & 1) != 0)
+                                        {
+
+                                          return 19;
+                                        }
+
+                                        else
+                                        {
+                                          v30 = v5 == 0x662079746E657774 && v1 == 0xEC00000074737269;
+                                          if (v30 || (OUTLINED_FUNCTION_16_39(0x662079746E657774, 0xEC00000074737269) & 1) != 0)
+                                          {
+
+                                            return 20;
+                                          }
+
+                                          else
+                                          {
+                                            v31 = v5 == 0x732079746E657774 && v1 == 0xED0000646E6F6365;
+                                            if (v31 || (OUTLINED_FUNCTION_16_39(0x732079746E657774, 0xED0000646E6F6365) & 1) != 0)
+                                            {
+
+                                              return 21;
+                                            }
+
+                                            else
+                                            {
+                                              v32 = v5 == 0x742079746E657774 && v1 == 0xEC00000064726968;
+                                              if (v32 || (OUTLINED_FUNCTION_16_39(0x742079746E657774, 0xEC00000064726968) & 1) != 0)
+                                              {
+
+                                                return 22;
+                                              }
+
+                                              else
+                                              {
+                                                v33 = v5 == 0x662079746E657774 && v1 == 0xED0000687472756FLL;
+                                                if (v33 || (OUTLINED_FUNCTION_16_39(0x662079746E657774, 0xED0000687472756FLL) & 1) != 0)
+                                                {
+
+                                                  return 23;
+                                                }
+
+                                                else if (v5 == 0x662079746E657774 && v1 == 0xEC00000068746669)
+                                                {
+
+                                                  return 24;
+                                                }
+
+                                                else
+                                                {
+                                                  OUTLINED_FUNCTION_16_39(0x662079746E657774, 0xEC00000068746669);
+                                                  OUTLINED_FUNCTION_33_2();
+                                                  if (v5)
+                                                  {
+                                                    return 24;
+                                                  }
+
+                                                  else
+                                                  {
+                                                    return 0;
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
   }
 }
 
-void type metadata accessor for (Input, App, DeviceState)()
+Swift::Bool __swiftcall PhoneCallNLIntent.isFirstPartyOrDefaultAppRequest()()
 {
-  if (!lazy cache variable for type metadata for (Input, App, DeviceState))
+  PhoneCallNLIntent.applicationId.getter(v0, v1);
+  if (!v2)
   {
-    type metadata accessor for Input();
-    type metadata accessor for App();
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s11SiriKitFlow11DeviceState_pMd, &_s11SiriKitFlow11DeviceState_pMR);
-    TupleTypeMetadata3 = swift_getTupleTypeMetadata3();
-    if (!v1)
-    {
-      atomic_store(TupleTypeMetadata3, &lazy cache variable for type metadata for (Input, App, DeviceState));
-    }
+    return 1;
   }
-}
 
-uint64_t key path setter for PhoneCallGroup.Builder.groupName : PhoneCallGroup.Builder(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v9 - v6;
-  outlined init with copy of SpeakableString?(a1, &v9 - v6);
-  return (*(**a2 + 104))(v7);
-}
+  OUTLINED_FUNCTION_70_1();
+  type metadata accessor for App();
+  App.__allocating_init(appIdentifier:)();
+  v3 = App.isFirstParty()();
 
-uint64_t outlined init with copy of SpeakableString?(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t key path setter for PhoneCallGroup.Builder.groupId : PhoneCallGroup.Builder(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v9 - v6;
-  outlined init with copy of SpeakableString?(a1, &v9 - v6);
-  return (*(**a2 + 128))(v7);
-}
-
-uint64_t PhoneCallGroup.Builder.groupName.getter@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
-{
-  v4 = *a1;
-  swift_beginAccess();
-  return outlined init with copy of SpeakableString?(v2 + v4, a2);
-}
-
-uint64_t PhoneCallGroup.Builder.groupName.setter(uint64_t a1, uint64_t *a2)
-{
-  v4 = *a2;
-  OUTLINED_FUNCTION_17_3();
-  outlined assign with take of SpeakableString?(a1, v2 + v4);
-  return swift_endAccess();
-}
-
-uint64_t PhoneCallGroup.Builder.__allocating_init()()
-{
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
-  v3 = swift_allocObject();
-  v4 = type metadata accessor for SpeakableString();
-  OUTLINED_FUNCTION_7_6();
-  __swift_storeEnumTagSinglePayload(v5, v6, v7, v4);
-  OUTLINED_FUNCTION_7_6();
-  __swift_storeEnumTagSinglePayload(v8, v9, v10, v4);
   return v3;
 }
 
-uint64_t PhoneCallGroup.Builder.init()()
+PhoneCallFlowDelegatePlugin::PhoneCallAttribute_optional __swiftcall PhoneCallAttribute.init(rawValue:)(Swift::String rawValue)
 {
-  v1 = type metadata accessor for SpeakableString();
-  OUTLINED_FUNCTION_7_6();
-  __swift_storeEnumTagSinglePayload(v2, v3, v4, v1);
-  OUTLINED_FUNCTION_7_6();
-  __swift_storeEnumTagSinglePayload(v5, v6, v7, v1);
-  return v0;
-}
+  OUTLINED_FUNCTION_38();
+  v3._object = v1;
+  _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of PhoneCallAttribute.init(rawValue:), v3);
+  OUTLINED_FUNCTION_40_0();
 
-uint64_t PhoneCallGroup.Builder.__allocating_init(groupName:groupId:)(uint64_t a1, uint64_t a2)
-{
-  OUTLINED_FUNCTION_8_7();
-  v4 = swift_allocObject();
-  PhoneCallGroup.Builder.init(groupName:groupId:)(a1, a2);
-  return v4;
-}
-
-uint64_t PhoneCallGroup.Builder.init(groupName:groupId:)(uint64_t a1, uint64_t a2)
-{
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
-  OUTLINED_FUNCTION_21(v5);
-  v7 = *(v6 + 64);
-  OUTLINED_FUNCTION_49_0();
-  __chkstk_darwin(v8);
-  v10 = &v28 - v9;
-  v11 = OBJC_IVAR____TtCC27PhoneCallFlowDelegatePlugin14PhoneCallGroup7Builder_groupName;
-  v12 = type metadata accessor for SpeakableString();
-  OUTLINED_FUNCTION_7_6();
-  __swift_storeEnumTagSinglePayload(v13, v14, v15, v12);
-  v16 = OBJC_IVAR____TtCC27PhoneCallFlowDelegatePlugin14PhoneCallGroup7Builder_groupId;
-  OUTLINED_FUNCTION_7_6();
-  __swift_storeEnumTagSinglePayload(v17, v18, v19, v12);
-  v20 = *(*(v12 - 8) + 32);
-  v20(v10, a1, v12);
-  OUTLINED_FUNCTION_23_3();
-  __swift_storeEnumTagSinglePayload(v21, v22, v23, v12);
-  OUTLINED_FUNCTION_17_3();
-  outlined assign with take of SpeakableString?(v10, v2 + v11);
-  swift_endAccess();
-  v20(v10, a2, v12);
-  OUTLINED_FUNCTION_23_3();
-  __swift_storeEnumTagSinglePayload(v24, v25, v26, v12);
-  OUTLINED_FUNCTION_17_3();
-  outlined assign with take of SpeakableString?(v10, v2 + v16);
-  swift_endAccess();
-  return v2;
-}
-
-uint64_t PhoneCallGroup.Builder.withGroupName(_:)()
-{
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
-  OUTLINED_FUNCTION_21(v1);
-  v3 = *(v2 + 64);
-  OUTLINED_FUNCTION_49_0();
-  __chkstk_darwin(v4);
-  OUTLINED_FUNCTION_9_48(v5, v8);
-  OUTLINED_FUNCTION_2_0();
-  (*(v6 + 104))(v0);
-}
-
-uint64_t PhoneCallGroup.Builder.withGroupName(print:speak:)()
-{
-  OUTLINED_FUNCTION_7_8();
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
-  OUTLINED_FUNCTION_21(v1);
-  v3 = *(v2 + 64);
-  OUTLINED_FUNCTION_49_0();
-  __chkstk_darwin(v4);
-  OUTLINED_FUNCTION_16_8();
-
-  OUTLINED_FUNCTION_12_7();
-  type metadata accessor for SpeakableString();
-  OUTLINED_FUNCTION_23_3();
-  __swift_storeEnumTagSinglePayload(v5, v6, v7, v8);
-  OUTLINED_FUNCTION_2_0();
-  (*(v9 + 104))(v0);
-}
-
-uint64_t PhoneCallGroup.Builder.withGroupId(_:)()
-{
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
-  OUTLINED_FUNCTION_21(v1);
-  v3 = *(v2 + 64);
-  OUTLINED_FUNCTION_49_0();
-  __chkstk_darwin(v4);
-  OUTLINED_FUNCTION_9_48(v5, v8);
-  OUTLINED_FUNCTION_2_0();
-  (*(v6 + 128))(v0);
-}
-
-uint64_t PhoneCallGroup.Builder.withGroupId(print:speak:)()
-{
-  OUTLINED_FUNCTION_7_8();
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
-  OUTLINED_FUNCTION_21(v1);
-  v3 = *(v2 + 64);
-  OUTLINED_FUNCTION_49_0();
-  __chkstk_darwin(v4);
-  OUTLINED_FUNCTION_16_8();
-
-  OUTLINED_FUNCTION_12_7();
-  type metadata accessor for SpeakableString();
-  OUTLINED_FUNCTION_23_3();
-  __swift_storeEnumTagSinglePayload(v5, v6, v7, v8);
-  OUTLINED_FUNCTION_2_0();
-  (*(v9 + 128))(v0);
-}
-
-uint64_t PhoneCallGroup.Builder.build()()
-{
-  v0 = type metadata accessor for PhoneCallGroup(0);
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
-  v3 = swift_allocObject();
-
-  PhoneCallGroup.init(builder:)(v4);
-  return v3;
-}
-
-uint64_t PhoneCallGroup.__allocating_init(builder:)(uint64_t a1)
-{
-  OUTLINED_FUNCTION_8_7();
-  v2 = swift_allocObject();
-  PhoneCallGroup.init(builder:)(a1);
-  return v2;
-}
-
-uint64_t PhoneCallGroup.Builder.deinit()
-{
-  outlined destroy of SpeakableString?(v0 + OBJC_IVAR____TtCC27PhoneCallFlowDelegatePlugin14PhoneCallGroup7Builder_groupName);
-  outlined destroy of SpeakableString?(v0 + OBJC_IVAR____TtCC27PhoneCallFlowDelegatePlugin14PhoneCallGroup7Builder_groupId);
-  return v0;
-}
-
-uint64_t PhoneCallGroup.Builder.__deallocating_deinit()
-{
-  outlined destroy of SpeakableString?(v0 + OBJC_IVAR____TtCC27PhoneCallFlowDelegatePlugin14PhoneCallGroup7Builder_groupName);
-  outlined destroy of SpeakableString?(v0 + OBJC_IVAR____TtCC27PhoneCallFlowDelegatePlugin14PhoneCallGroup7Builder_groupId);
-  v1 = *(*v0 + 48);
-  v2 = *(*v0 + 52);
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t key path setter for PhoneCallGroup.mockGlobals : PhoneCallGroup(id *a1, uint64_t a2)
-{
-  v2 = *a1;
-  v3 = *(**a2 + 128);
-  v4 = *a1;
-  return v3(v2);
-}
-
-void *PhoneCallGroup.init(builder:)(uint64_t a1)
-{
-  v2 = v1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
-  OUTLINED_FUNCTION_21(v4);
-  v6 = *(v5 + 64);
-  OUTLINED_FUNCTION_49_0();
-  v8 = __chkstk_darwin(v7);
-  v10 = v19 - v9;
-  v1[2] = 0;
-  (*(*a1 + 96))(v8);
-  v11 = outlined init with take of SpeakableString?(v10, v1 + OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin14PhoneCallGroup_groupName);
-  (*(*a1 + 120))(v11);
-  v12 = outlined init with take of SpeakableString?(v10, v1 + OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin14PhoneCallGroup_groupId);
-  if (((*(*v1 + 152))(v12) & 1) == 0)
+  if (v2 >= 0xE)
   {
-    v13 = static Log.siriDialogEngine.getter();
-    static os_log_type_t.error.getter();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
-    v14 = swift_allocObject();
-    *(v14 + 16) = xmmword_424FD0;
-    v19[1] = *v2;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin0aB5GroupCmMd, &_s27PhoneCallFlowDelegatePlugin0aB5GroupCmMR);
-    v15 = String.init<A>(describing:)();
-    v17 = v16;
-    *(v14 + 56) = &type metadata for String;
-    *(v14 + 64) = lazy protocol witness table accessor for type String and conformance String();
-    *(v14 + 32) = v15;
-    *(v14 + 40) = v17;
-    os_log(_:dso:log:type:_:)();
+    return 14;
   }
 
-  return v2;
-}
-
-uint64_t PhoneCallGroup.__allocating_init(groupName:groupId:)(uint64_t a1, uint64_t a2)
-{
-  v5 = type metadata accessor for PhoneCallGroup.Builder(0);
-  v6 = *(v5 + 48);
-  v7 = *(v5 + 52);
-  swift_allocObject();
-  v8 = type metadata accessor for SpeakableString();
-  OUTLINED_FUNCTION_7_6();
-  __swift_storeEnumTagSinglePayload(v9, v10, v11, v8);
-  OUTLINED_FUNCTION_7_6();
-  __swift_storeEnumTagSinglePayload(v12, v13, v14, v8);
-  PhoneCallGroup.Builder.withGroupName(_:)();
-
-  OUTLINED_FUNCTION_2_0();
-  v16 = (*(v15 + 176))(a2);
-
-  v17 = (*(v2 + 144))(v16);
-  outlined destroy of SpeakableString?(a2);
-  outlined destroy of SpeakableString?(a1);
-  return v17;
-}
-
-Swift::Bool __swiftcall PhoneCallGroup.allRequiredInputsHaveValues()()
-{
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
-  v2 = OUTLINED_FUNCTION_21(v1);
-  v4 = *(v3 + 64);
-  __chkstk_darwin(v2);
-  OUTLINED_FUNCTION_12_5();
-  v7 = v5 - v6;
-  __chkstk_darwin(v8);
-  v10 = &v15 - v9;
-  outlined init with copy of SpeakableString?(v0 + OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin14PhoneCallGroup_groupName, &v15 - v9);
-  v11 = type metadata accessor for SpeakableString();
-  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v10, 1, v11);
-  outlined destroy of SpeakableString?(v10);
-  if (EnumTagSinglePayload == 1)
+  else
   {
-    return 0;
+    return v2;
   }
-
-  outlined init with copy of SpeakableString?(v0 + OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin14PhoneCallGroup_groupId, v7);
-  v13 = __swift_getEnumTagSinglePayload(v7, 1, v11) != 1;
-  outlined destroy of SpeakableString?(v7);
-  return v13;
 }
 
-uint64_t PhoneCallGroup.getProperty(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t PhoneCallAttribute.rawValue.getter(char a1)
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
-  v8 = OUTLINED_FUNCTION_21(v7);
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v8);
-  OUTLINED_FUNCTION_12_5();
-  v13 = v11 - v12;
-  __chkstk_darwin(v14);
-  v16 = &v25 - v15;
-  v17 = a1 == 0x6D614E70756F7267 && a2 == 0xE900000000000065;
-  if (v17 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  result = 0x64657373696DLL;
+  switch(a1)
   {
-    outlined init with copy of SpeakableString?(v3 + OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin14PhoneCallGroup_groupName, v16);
-    v18 = type metadata accessor for SpeakableString();
-    if (__swift_getEnumTagSinglePayload(v16, 1, v18) == 1)
-    {
-      v19 = v16;
-LABEL_8:
-      result = outlined destroy of SpeakableString?(v19);
-LABEL_9:
-      *a3 = 0u;
-      *(a3 + 16) = 0u;
+    case 1:
+      result = OUTLINED_FUNCTION_53_18();
+      break;
+    case 2:
+      result = OUTLINED_FUNCTION_19_30();
+      break;
+    case 3:
+      result = OUTLINED_FUNCTION_4_7();
+      break;
+    case 4:
+      result = OUTLINED_FUNCTION_7_53();
+      break;
+    case 5:
+      v3 = OUTLINED_FUNCTION_11_42();
+      goto LABEL_11;
+    case 6:
+      result = OUTLINED_FUNCTION_22_23();
+      break;
+    case 7:
+      result = OUTLINED_FUNCTION_6_59();
+      break;
+    case 8:
+      result = OUTLINED_FUNCTION_9_52();
+      break;
+    case 9:
+      result = OUTLINED_FUNCTION_5_64();
+      break;
+    case 10:
+      result = OUTLINED_FUNCTION_13_41();
+      break;
+    case 11:
+      v3 = OUTLINED_FUNCTION_12_46();
+LABEL_11:
+      result = v3 & 0xFFFFFFFFFFFFLL | 0x676E000000000000;
+      break;
+    case 12:
+      result = OUTLINED_FUNCTION_8_9();
+      break;
+    case 13:
+      result = OUTLINED_FUNCTION_54_18();
+      break;
+    default:
       return result;
-    }
-
-    *(a3 + 24) = v18;
-    boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(a3);
-    return (*(*(v18 - 8) + 32))(boxed_opaque_existential_1, v16, v18);
   }
 
-  else
-  {
-    if (a1 != 0x644970756F7267 || a2 != 0xE700000000000000)
-    {
-      result = _stringCompareWithSmolCheck(_:_:expecting:)();
-      if ((result & 1) == 0)
-      {
-        goto LABEL_9;
-      }
-    }
-
-    outlined init with copy of SpeakableString?(v3 + OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin14PhoneCallGroup_groupId, v13);
-    v23 = type metadata accessor for SpeakableString();
-    if (__swift_getEnumTagSinglePayload(v13, 1, v23) == 1)
-    {
-      v19 = v13;
-      goto LABEL_8;
-    }
-
-    *(a3 + 24) = v23;
-    v24 = __swift_allocate_boxed_opaque_existential_1(a3);
-    return (*(*(v23 - 8) + 32))(v24, v13, v23);
-  }
+  return result;
 }
 
-uint64_t PhoneCallGroup.CodingKeys.init(rawValue:)(Swift::String string)
+PhoneCallFlowDelegatePlugin::PhoneCallAttribute_optional protocol witness for RawRepresentable.init(rawValue:) in conformance PhoneCallAttribute@<W0>(Swift::String *a1@<X0>, PhoneCallFlowDelegatePlugin::PhoneCallAttribute_optional *a2@<X8>)
 {
-  object = string._object;
-  v2._countAndFlagsBits = string._countAndFlagsBits;
-  v2._object = object;
-  v3 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of PhoneCallGroup.CodingKeys.init(rawValue:), v2);
-
-  if (v3 == 1)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = 2;
-  }
-
-  if (v3)
-  {
-    return v4;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t PhoneCallGroup.CodingKeys.stringValue.getter(char a1)
-{
-  if (a1)
-  {
-    return 0x644970756F7267;
-  }
-
-  else
-  {
-    return 0x6D614E70756F7267;
-  }
-}
-
-PhoneCallFlowDelegatePlugin::PhoneCallGroup::CodingKeys_optional protocol witness for RawRepresentable.init(rawValue:) in conformance PhoneCallGroup.CodingKeys@<W0>(Swift::String *a1@<X0>, PhoneCallFlowDelegatePlugin::PhoneCallGroup::CodingKeys_optional *a2@<X8>)
-{
-  result.value = PhoneCallGroup.CodingKeys.init(stringValue:)(*a1).value;
+  result.value = PhoneCallAttribute.init(rawValue:)(*a1).value;
   a2->value = result.value;
   return result;
 }
 
-uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance PhoneCallGroup.CodingKeys@<X0>(uint64_t *a1@<X8>)
+uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance PhoneCallAttribute()
 {
-  result = PhoneCallGroup.CodingKeys.stringValue.getter(*v1);
-  *a1 = result;
-  a1[1] = v4;
+  v1 = OUTLINED_FUNCTION_40_2();
+  result = PhoneCallAttribute.rawValue.getter(v1);
+  *v0 = result;
+  v0[1] = v3;
   return result;
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneCallGroup.CodingKeys(uint64_t a1)
+uint64_t protocol witness for static TerminalNodeValueType.fromIntentNodeValue(_:) in conformance PhoneCallAttribute(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  v2 = lazy protocol witness table accessor for type PhoneCallGroup.CodingKeys and conformance PhoneCallGroup.CodingKeys();
-
-  return CodingKey.description.getter(a1, v2);
+  return protocol witness for static TerminalNodeValueType.fromIntentNodeValue(_:) in conformance PhoneCallAttribute(a1, a2, a3, lazy protocol witness table accessor for type PhoneCallAttribute and conformance PhoneCallAttribute, lazy protocol witness table accessor for type PhoneCallAttribute and conformance PhoneCallAttribute, lazy protocol witness table accessor for type PhoneCallAttribute and conformance PhoneCallAttribute, a7, a8, a9, a10);
 }
 
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance PhoneCallGroup.CodingKeys(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type PhoneCallGroup.CodingKeys and conformance PhoneCallGroup.CodingKeys();
+  OUTLINED_FUNCTION_61_6();
+  v11 = v10;
+  v13 = v12;
+  v14();
+  v13();
+  v11();
+  OUTLINED_FUNCTION_60_1();
 
-  return CodingKey.debugDescription.getter(a1, v2);
+  return static TerminalNodeBoundedSemanticValue<>.fromIntentNodeValue(_:)(v15, v16, v17, v18, v19, v20, v21, v22, a9, a10);
 }
 
-uint64_t PhoneCallGroup.deinit()
+PhoneCallFlowDelegatePlugin::PhoneCallAudioRoute_optional __swiftcall PhoneCallAudioRoute.init(rawValue:)(Swift::String rawValue)
 {
-  outlined destroy of SpeakableString?(v0 + OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin14PhoneCallGroup_groupName);
-  outlined destroy of SpeakableString?(v0 + OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin14PhoneCallGroup_groupId);
-  return v0;
-}
+  OUTLINED_FUNCTION_38();
+  v3._object = v1;
+  _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of PhoneCallAudioRoute.init(rawValue:), v3);
+  OUTLINED_FUNCTION_40_0();
 
-uint64_t PhoneCallGroup.__deallocating_deinit()
-{
-  PhoneCallGroup.deinit();
-  v1 = *(*v0 + 48);
-  v2 = *(*v0 + 52);
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t PhoneCallGroup.encode(to:)(void *a1)
-{
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy27PhoneCallFlowDelegatePlugin0dE5GroupC10CodingKeysOGMd, &_ss22KeyedEncodingContainerVy27PhoneCallFlowDelegatePlugin0dE5GroupC10CodingKeysOGMR);
-  OUTLINED_FUNCTION_7(v3);
-  v5 = v4;
-  v7 = *(v6 + 64);
-  OUTLINED_FUNCTION_49_0();
-  __chkstk_darwin(v8);
-  v10 = &v15[-v9];
-  v11 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  lazy protocol witness table accessor for type PhoneCallGroup.CodingKeys and conformance PhoneCallGroup.CodingKeys();
-  dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v15[15] = 0;
-  type metadata accessor for SpeakableString();
-  OUTLINED_FUNCTION_0_80();
-  lazy protocol witness table accessor for type SpeakableString and conformance SpeakableString(v12, v13);
-  OUTLINED_FUNCTION_11_9();
-  if (!v1)
+  if (v2 >= 4)
   {
-    v15[14] = 1;
-    OUTLINED_FUNCTION_11_9();
-  }
-
-  return (*(v5 + 8))(v10, v3);
-}
-
-unint64_t lazy protocol witness table accessor for type PhoneCallGroup.CodingKeys and conformance PhoneCallGroup.CodingKeys()
-{
-  result = lazy protocol witness table cache variable for type PhoneCallGroup.CodingKeys and conformance PhoneCallGroup.CodingKeys;
-  if (!lazy protocol witness table cache variable for type PhoneCallGroup.CodingKeys and conformance PhoneCallGroup.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallGroup.CodingKeys and conformance PhoneCallGroup.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type PhoneCallGroup.CodingKeys and conformance PhoneCallGroup.CodingKeys;
-  if (!lazy protocol witness table cache variable for type PhoneCallGroup.CodingKeys and conformance PhoneCallGroup.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallGroup.CodingKeys and conformance PhoneCallGroup.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type PhoneCallGroup.CodingKeys and conformance PhoneCallGroup.CodingKeys;
-  if (!lazy protocol witness table cache variable for type PhoneCallGroup.CodingKeys and conformance PhoneCallGroup.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallGroup.CodingKeys and conformance PhoneCallGroup.CodingKeys);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type PhoneCallGroup.CodingKeys and conformance PhoneCallGroup.CodingKeys;
-  if (!lazy protocol witness table cache variable for type PhoneCallGroup.CodingKeys and conformance PhoneCallGroup.CodingKeys)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallGroup.CodingKeys and conformance PhoneCallGroup.CodingKeys);
-  }
-
-  return result;
-}
-
-uint64_t PhoneCallGroup.__allocating_init(from:)(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_8_7();
-  v2 = swift_allocObject();
-  PhoneCallGroup.init(from:)(a1);
-  return v2;
-}
-
-id *PhoneCallGroup.init(from:)(uint64_t *a1)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
-  v5 = OUTLINED_FUNCTION_21(v4);
-  v7 = *(v6 + 64);
-  __chkstk_darwin(v5);
-  OUTLINED_FUNCTION_12_5();
-  v10 = v8 - v9;
-  __chkstk_darwin(v11);
-  v28 = v27 - v12;
-  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy27PhoneCallFlowDelegatePlugin0dE5GroupC10CodingKeysOGMd, &_ss22KeyedDecodingContainerVy27PhoneCallFlowDelegatePlugin0dE5GroupC10CodingKeysOGMR);
-  OUTLINED_FUNCTION_7(v29);
-  v14 = v13;
-  v16 = *(v15 + 64);
-  OUTLINED_FUNCTION_49_0();
-  __chkstk_darwin(v17);
-  v1[2] = 0;
-  v18 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  lazy protocol witness table accessor for type PhoneCallGroup.CodingKeys and conformance PhoneCallGroup.CodingKeys();
-  dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v2)
-  {
-
-    type metadata accessor for PhoneCallGroup(0);
-    v22 = *(*v1 + 12);
-    v23 = *(*v1 + 26);
-    swift_deallocPartialClassInstance();
+    return 4;
   }
 
   else
   {
-    v27[1] = v14;
-    type metadata accessor for SpeakableString();
-    v31 = 0;
-    OUTLINED_FUNCTION_0_80();
-    lazy protocol witness table accessor for type SpeakableString and conformance SpeakableString(v19, v20);
-    v21 = v28;
-    OUTLINED_FUNCTION_17_32();
-    outlined init with take of SpeakableString?(v21, v1 + OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin14PhoneCallGroup_groupName);
-    v30 = 1;
-    OUTLINED_FUNCTION_17_32();
-    v25 = OUTLINED_FUNCTION_1_79();
-    v26(v25);
-    outlined init with take of SpeakableString?(v10, v1 + OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin14PhoneCallGroup_groupId);
+    return v2;
   }
-
-  __swift_destroy_boxed_opaque_existential_1(a1);
-  return v1;
 }
 
-uint64_t lazy protocol witness table accessor for type SpeakableString and conformance SpeakableString(unint64_t *a1, void (*a2)(uint64_t))
+unint64_t PhoneCallAudioRoute.rawValue.getter(char a1)
+{
+  result = 0x7072656B61657073;
+  switch(a1)
+  {
+    case 1:
+      result = OUTLINED_FUNCTION_3_22();
+      break;
+    case 2:
+      result = 0x746F6F7465756C62;
+      break;
+    case 3:
+      result = 0x65756C625F746F6ELL;
+      break;
+    default:
+      return result;
+  }
+
+  return result;
+}
+
+PhoneCallFlowDelegatePlugin::PhoneCallAudioRoute_optional protocol witness for RawRepresentable.init(rawValue:) in conformance PhoneCallAudioRoute@<W0>(Swift::String *a1@<X0>, PhoneCallFlowDelegatePlugin::PhoneCallAudioRoute_optional *a2@<X8>)
+{
+  result.value = PhoneCallAudioRoute.init(rawValue:)(*a1).value;
+  a2->value = result.value;
+  return result;
+}
+
+unint64_t protocol witness for RawRepresentable.rawValue.getter in conformance PhoneCallAudioRoute()
+{
+  v1 = OUTLINED_FUNCTION_40_2();
+  result = PhoneCallAudioRoute.rawValue.getter(v1);
+  *v0 = result;
+  v0[1] = v3;
+  return result;
+}
+
+uint64_t PhoneCallCapability.rawValue.getter(char a1)
+{
+  if (a1)
+  {
+    return 0x6F65646976;
+  }
+
+  else
+  {
+    return 0x6F69647561;
+  }
+}
+
+PhoneCallFlowDelegatePlugin::PhoneCallCapability_optional protocol witness for RawRepresentable.init(rawValue:) in conformance PhoneCallCapability@<W0>(Swift::String *a1@<X0>, PhoneCallFlowDelegatePlugin::PhoneCallCapability_optional *a2@<X8>)
+{
+  result.value = PhoneCallCapability.init(rawValue:)(*a1).value;
+  a2->value = result.value;
+  return result;
+}
+
+uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance PhoneCallCapability()
+{
+  v1 = OUTLINED_FUNCTION_40_2();
+  result = PhoneCallCapability.rawValue.getter(v1);
+  *v0 = result;
+  v0[1] = 0xE500000000000000;
+  return result;
+}
+
+PhoneCallFlowDelegatePlugin::PhoneCallPreferredProvider_optional __swiftcall PhoneCallPreferredProvider.init(rawValue:)(Swift::String rawValue)
+{
+  OUTLINED_FUNCTION_38();
+  v3._object = v1;
+  _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of PhoneCallPreferredProvider.init(rawValue:), v3);
+  OUTLINED_FUNCTION_40_0();
+
+  if (v2 >= 3)
+  {
+    return 3;
+  }
+
+  else
+  {
+    return v2;
+  }
+}
+
+uint64_t PhoneCallPreferredProvider.rawValue.getter(char a1)
+{
+  if (!a1)
+  {
+    return 0x6E6F6870656C6574;
+  }
+
+  if (a1 == 1)
+  {
+    return 0x656D697465636166;
+  }
+
+  return 0x7261506472696874;
+}
+
+PhoneCallFlowDelegatePlugin::PhoneCallPreferredProvider_optional protocol witness for RawRepresentable.init(rawValue:) in conformance PhoneCallPreferredProvider@<W0>(Swift::String *a1@<X0>, PhoneCallFlowDelegatePlugin::PhoneCallPreferredProvider_optional *a2@<X8>)
+{
+  result.value = PhoneCallPreferredProvider.init(rawValue:)(*a1).value;
+  a2->value = result.value;
+  return result;
+}
+
+uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance PhoneCallPreferredProvider()
+{
+  v1 = OUTLINED_FUNCTION_40_2();
+  result = PhoneCallPreferredProvider.rawValue.getter(v1);
+  *v0 = result;
+  v0[1] = v3;
+  return result;
+}
+
+uint64_t PhoneCallConfirmation.description.getter(char a1)
+{
+  result = 7562617;
+  switch(a1)
+  {
+    case 1:
+      result = 28526;
+      break;
+    case 2:
+      result = 0x6C65636E6163;
+      break;
+    case 3:
+      result = 0x206D7269666E6F63;
+      break;
+    case 4:
+      result = 0x63207463656A6572;
+      break;
+    default:
+      return result;
+  }
+
+  return result;
+}
+
+PhoneCallFlowDelegatePlugin::PhoneCallConfirmation_optional __swiftcall PhoneCallConfirmation.init(rawValue:)(Swift::String rawValue)
+{
+  OUTLINED_FUNCTION_38();
+  v3._object = v1;
+  _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of PhoneCallConfirmation.init(rawValue:), v3);
+  OUTLINED_FUNCTION_40_0();
+
+  if (v2 >= 5)
+  {
+    return 5;
+  }
+
+  else
+  {
+    return v2;
+  }
+}
+
+PhoneCallFlowDelegatePlugin::PhoneCallConfirmation_optional protocol witness for RawRepresentable.init(rawValue:) in conformance PhoneCallConfirmation@<W0>(Swift::String *a1@<X0>, PhoneCallFlowDelegatePlugin::PhoneCallConfirmation_optional *a2@<X8>)
+{
+  result.value = PhoneCallConfirmation.init(rawValue:)(*a1).value;
+  a2->value = result.value;
+  return result;
+}
+
+uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance PhoneCallConfirmation()
+{
+  v1 = OUTLINED_FUNCTION_40_2();
+  result = PhoneCallConfirmation.description.getter(v1);
+  *v0 = result;
+  v0[1] = v3;
+  return result;
+}
+
+PhoneCallFlowDelegatePlugin::PhoneCallNoun_optional __swiftcall PhoneCallNoun.init(rawValue:)(Swift::String rawValue)
+{
+  OUTLINED_FUNCTION_38();
+  v3._object = v1;
+  _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of PhoneCallNoun.init(rawValue:), v3);
+  OUTLINED_FUNCTION_40_0();
+
+  if (v2 >= 9)
+  {
+    return 9;
+  }
+
+  else
+  {
+    return v2;
+  }
+}
+
+uint64_t PhoneCallNoun.rawValue.getter(char a1)
+{
+  result = 1819042147;
+  switch(a1)
+  {
+    case 1:
+      result = 0x736C6C6163;
+      break;
+    case 2:
+    case 3:
+      result = OUTLINED_FUNCTION_17_6();
+      break;
+    case 4:
+      result = 0x61665F70756F7267;
+      break;
+    case 5:
+      result = OUTLINED_FUNCTION_33_18();
+      break;
+    case 6:
+      result = OUTLINED_FUNCTION_3_22();
+      break;
+    case 7:
+      result = OUTLINED_FUNCTION_46_18();
+      break;
+    case 8:
+      result = 0x746F6F7465756C62;
+      break;
+    default:
+      return result;
+  }
+
+  return result;
+}
+
+PhoneCallFlowDelegatePlugin::PhoneCallNoun_optional protocol witness for RawRepresentable.init(rawValue:) in conformance PhoneCallNoun@<W0>(Swift::String *a1@<X0>, PhoneCallFlowDelegatePlugin::PhoneCallNoun_optional *a2@<X8>)
+{
+  result.value = PhoneCallNoun.init(rawValue:)(*a1).value;
+  a2->value = result.value;
+  return result;
+}
+
+uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance PhoneCallNoun()
+{
+  v1 = OUTLINED_FUNCTION_40_2();
+  result = PhoneCallNoun.rawValue.getter(v1);
+  *v0 = result;
+  v0[1] = v3;
+  return result;
+}
+
+void PhoneCallReference.rawValue.getter(char a1)
+{
+  switch(a1)
+  {
+    case 1:
+      OUTLINED_FUNCTION_50_18();
+      break;
+    case 2:
+      OUTLINED_FUNCTION_63_9();
+      break;
+    case 8:
+      OUTLINED_FUNCTION_45_14();
+      break;
+    case 10:
+      OUTLINED_FUNCTION_39_16();
+      break;
+    case 12:
+      OUTLINED_FUNCTION_48_17(0x72696874u);
+      break;
+    case 13:
+      OUTLINED_FUNCTION_48_17(0x72756F66u);
+      break;
+    case 14:
+    case 15:
+    case 19:
+      OUTLINED_FUNCTION_87_5();
+      break;
+    case 16:
+      OUTLINED_FUNCTION_32_17();
+      break;
+    case 17:
+      OUTLINED_FUNCTION_48_17(0x68676965u);
+      break;
+    case 18:
+      OUTLINED_FUNCTION_48_17(0x656E696Eu);
+      break;
+    case 20:
+    case 23:
+    case 24:
+      OUTLINED_FUNCTION_52_15();
+      break;
+    case 21:
+      OUTLINED_FUNCTION_25_24();
+      break;
+    case 22:
+      OUTLINED_FUNCTION_31_19();
+      break;
+    case 25:
+      OUTLINED_FUNCTION_22_23();
+      break;
+    case 26:
+      OUTLINED_FUNCTION_49_16();
+      break;
+    case 27:
+      OUTLINED_FUNCTION_71_4();
+      break;
+    case 28:
+      OUTLINED_FUNCTION_38_18();
+      break;
+    case 29:
+      OUTLINED_FUNCTION_29_21();
+      break;
+    case 30:
+      OUTLINED_FUNCTION_30_25();
+      break;
+    case 32:
+      OUTLINED_FUNCTION_70_5();
+      break;
+    default:
+      return;
+  }
+}
+
+PhoneCallFlowDelegatePlugin::PhoneCallReference_optional __swiftcall PhoneCallReference.init(rawValue:)(Swift::String rawValue)
+{
+  OUTLINED_FUNCTION_38();
+  _findStringSwitchCaseWithCache(cases:string:cache:)();
+  OUTLINED_FUNCTION_40_0();
+
+  if (v1 >= 0x23)
+  {
+    return 35;
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+PhoneCallFlowDelegatePlugin::PhoneCallReference_optional protocol witness for RawRepresentable.init(rawValue:) in conformance PhoneCallReference@<W0>(Swift::String *a1@<X0>, PhoneCallFlowDelegatePlugin::PhoneCallReference_optional *a2@<X8>)
+{
+  result.value = PhoneCallReference.init(rawValue:)(*a1).value;
+  a2->value = result.value;
+  return result;
+}
+
+void protocol witness for RawRepresentable.rawValue.getter in conformance PhoneCallReference()
+{
+  v1 = OUTLINED_FUNCTION_40_2();
+  PhoneCallReference.rawValue.getter(v1);
+  *v0 = v2;
+  v0[1] = v3;
+}
+
+PhoneCallFlowDelegatePlugin::PhoneCallContactReference_optional __swiftcall PhoneCallContactReference.init(rawValue:)(Swift::String rawValue)
+{
+  OUTLINED_FUNCTION_38();
+  _findStringSwitchCaseWithCache(cases:string:cache:)();
+  OUTLINED_FUNCTION_40_0();
+
+  if (v1 >= 0x26)
+  {
+    return 38;
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+void PhoneCallContactReference.rawValue.getter(char a1)
+{
+  switch(a1)
+  {
+    case 1:
+      OUTLINED_FUNCTION_50_18();
+      break;
+    case 2:
+      OUTLINED_FUNCTION_63_9();
+      break;
+    case 8:
+      OUTLINED_FUNCTION_45_14();
+      break;
+    case 10:
+      OUTLINED_FUNCTION_39_16();
+      break;
+    case 12:
+      OUTLINED_FUNCTION_48_17(0x72696874u);
+      break;
+    case 13:
+      OUTLINED_FUNCTION_48_17(0x72756F66u);
+      break;
+    case 14:
+    case 15:
+    case 19:
+      OUTLINED_FUNCTION_87_5();
+      break;
+    case 16:
+      OUTLINED_FUNCTION_32_17();
+      break;
+    case 17:
+      OUTLINED_FUNCTION_48_17(0x68676965u);
+      break;
+    case 18:
+      OUTLINED_FUNCTION_48_17(0x656E696Eu);
+      break;
+    case 20:
+    case 23:
+    case 24:
+      OUTLINED_FUNCTION_52_15();
+      break;
+    case 21:
+      OUTLINED_FUNCTION_25_24();
+      break;
+    case 22:
+      OUTLINED_FUNCTION_31_19();
+      break;
+    case 25:
+      OUTLINED_FUNCTION_22_23();
+      break;
+    case 26:
+      OUTLINED_FUNCTION_49_16();
+      break;
+    case 27:
+      OUTLINED_FUNCTION_71_4();
+      break;
+    case 28:
+      OUTLINED_FUNCTION_38_18();
+      break;
+    case 29:
+      OUTLINED_FUNCTION_29_21();
+      break;
+    case 30:
+      OUTLINED_FUNCTION_30_25();
+      break;
+    case 32:
+      OUTLINED_FUNCTION_70_5();
+      break;
+    default:
+      return;
+  }
+}
+
+PhoneCallFlowDelegatePlugin::PhoneCallContactReference_optional protocol witness for RawRepresentable.init(rawValue:) in conformance PhoneCallContactReference@<W0>(Swift::String *a1@<X0>, PhoneCallFlowDelegatePlugin::PhoneCallContactReference_optional *a2@<X8>)
+{
+  result.value = PhoneCallContactReference.init(rawValue:)(*a1).value;
+  a2->value = result.value;
+  return result;
+}
+
+void protocol witness for RawRepresentable.rawValue.getter in conformance PhoneCallContactReference()
+{
+  v1 = OUTLINED_FUNCTION_40_2();
+  PhoneCallContactReference.rawValue.getter(v1);
+  *v0 = v2;
+  v0[1] = v3;
+}
+
+PhoneCallFlowDelegatePlugin::PhoneCallVerb_optional __swiftcall PhoneCallVerb.init(rawValue:)(Swift::String rawValue)
+{
+  OUTLINED_FUNCTION_38();
+  _findStringSwitchCaseWithCache(cases:string:cache:)();
+  OUTLINED_FUNCTION_40_0();
+
+  if (v1 >= 0x11)
+  {
+    return 17;
+  }
+
+  else
+  {
+    return v1;
+  }
+}
+
+PhoneCallFlowDelegatePlugin::PhoneCallVerb_optional protocol witness for RawRepresentable.init(rawValue:) in conformance PhoneCallVerb@<W0>(Swift::String *a1@<X0>, PhoneCallFlowDelegatePlugin::PhoneCallVerb_optional *a2@<X8>)
+{
+  result.value = PhoneCallVerb.init(rawValue:)(*a1).value;
+  a2->value = result.value;
+  return result;
+}
+
+uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance PhoneCallVerb()
+{
+  v1 = OUTLINED_FUNCTION_40_2();
+  result = PhoneCallVerb.rawValue.getter(v1);
+  *v0 = result;
+  v0[1] = v3;
+  return result;
+}
+
+uint64_t *VoiceMail.voiceMailNoun.unsafeMutableAddressor()
+{
+  if (one-time initialization token for voiceMailNoun != -1)
+  {
+    swift_once();
+  }
+
+  return &static VoiceMail.voiceMailNoun;
+}
+
+uint64_t one-time initialization function for voiceMailNoun(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
+{
+  v6 = OUTLINED_FUNCTION_104_2(a1, a2);
+  __swift_instantiateConcreteTypeFromMangledNameV2(v6, v7);
+  swift_allocObject();
+  result = TerminalOntologyNode.init(name:multicardinal:)();
+  *a5 = result;
+  return result;
+}
+
+uint64_t *VoiceMail.voiceMailVerb.unsafeMutableAddressor()
+{
+  if (one-time initialization token for voiceMailVerb != -1)
+  {
+    swift_once();
+  }
+
+  return &static VoiceMail.voiceMailVerb;
+}
+
+uint64_t static VoiceMail.voiceMailNoun.getter(void *a1, uint64_t a2, uint64_t a3)
+{
+  if (*a1 != -1)
+  {
+    swift_once();
+  }
+}
+
+uint64_t VoiceMail.VoiceMailNoun.rawValue.getter(char a1)
+{
+  if (a1)
+  {
+    return 0x6563696F76;
+  }
+
+  else
+  {
+    return 0x69616D6563696F76;
+  }
+}
+
+PhoneCallFlowDelegatePlugin::VoiceMail::VoiceMailNoun_optional protocol witness for RawRepresentable.init(rawValue:) in conformance VoiceMail.VoiceMailNoun@<W0>(Swift::String *a1@<X0>, PhoneCallFlowDelegatePlugin::VoiceMail::VoiceMailNoun_optional *a2@<X8>)
+{
+  result.value = VoiceMail.VoiceMailNoun.init(rawValue:)(*a1).value;
+  a2->value = result.value;
+  return result;
+}
+
+uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance VoiceMail.VoiceMailNoun()
+{
+  v1 = OUTLINED_FUNCTION_40_2();
+  result = VoiceMail.VoiceMailNoun.rawValue.getter(v1);
+  *v0 = result;
+  v0[1] = v3;
+  return result;
+}
+
+PhoneCallFlowDelegatePlugin::VoiceMail::VoiceMailVerb_optional __swiftcall VoiceMail.VoiceMailVerb.init(rawValue:)(Swift::String rawValue)
+{
+  OUTLINED_FUNCTION_38();
+  v3._object = v1;
+  _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of VoiceMail.VoiceMailVerb.init(rawValue:), v3);
+  OUTLINED_FUNCTION_40_0();
+
+  if (v2 >= 6)
+  {
+    return 6;
+  }
+
+  else
+  {
+    return v2;
+  }
+}
+
+uint64_t VoiceMail.VoiceMailVerb.rawValue.getter(char a1)
+{
+  result = 2036427888;
+  switch(a1)
+  {
+    case 1:
+      result = 0x746165706572;
+      break;
+    case 2:
+      result = 1885956979;
+      break;
+    case 3:
+      result = 0x6573756170;
+      break;
+    case 4:
+      result = 0x656D75736572;
+      break;
+    case 5:
+      result = 0x6574656C6564;
+      break;
+    default:
+      return result;
+  }
+
+  return result;
+}
+
+PhoneCallFlowDelegatePlugin::VoiceMail::VoiceMailVerb_optional protocol witness for RawRepresentable.init(rawValue:) in conformance VoiceMail.VoiceMailVerb@<W0>(Swift::String *a1@<X0>, PhoneCallFlowDelegatePlugin::VoiceMail::VoiceMailVerb_optional *a2@<X8>)
+{
+  result.value = VoiceMail.VoiceMailVerb.init(rawValue:)(*a1).value;
+  a2->value = result.value;
+  return result;
+}
+
+uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance VoiceMail.VoiceMailVerb()
+{
+  v1 = OUTLINED_FUNCTION_40_2();
+  result = VoiceMail.VoiceMailVerb.rawValue.getter(v1);
+  *v0 = result;
+  v0[1] = v3;
+  return result;
+}
+
+PhoneCallFlowDelegatePlugin::PhoneCallDestinationType_optional __swiftcall PhoneCallDestinationType.init(rawValue:)(Swift::String rawValue)
+{
+  OUTLINED_FUNCTION_38();
+  v3._object = v1;
+  _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of PhoneCallDestinationType.init(rawValue:), v3);
+  OUTLINED_FUNCTION_40_0();
+
+  if (v2 >= 5)
+  {
+    return 5;
+  }
+
+  else
+  {
+    return v2;
+  }
+}
+
+uint64_t PhoneCallDestinationType.rawValue.getter(char a1)
+{
+  result = 0x6C616D726F6ELL;
+  switch(a1)
+  {
+    case 1:
+      result = OUTLINED_FUNCTION_46_18();
+      break;
+    case 2:
+      result = 0x69616D6563696F76;
+      break;
+    case 3:
+      result = OUTLINED_FUNCTION_72_5();
+      break;
+    case 4:
+      result = 0x6B6361626C6C6163;
+      break;
+    default:
+      return result;
+  }
+
+  return result;
+}
+
+PhoneCallFlowDelegatePlugin::PhoneCallDestinationType_optional protocol witness for RawRepresentable.init(rawValue:) in conformance PhoneCallDestinationType@<W0>(Swift::String *a1@<X0>, PhoneCallFlowDelegatePlugin::PhoneCallDestinationType_optional *a2@<X8>)
+{
+  result.value = PhoneCallDestinationType.init(rawValue:)(*a1).value;
+  a2->value = result.value;
+  return result;
+}
+
+uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance PhoneCallDestinationType()
+{
+  v1 = OUTLINED_FUNCTION_40_2();
+  result = PhoneCallDestinationType.rawValue.getter(v1);
+  *v0 = result;
+  v0[1] = v3;
+  return result;
+}
+
+PhoneCallFlowDelegatePlugin::PhoneCallContactRole::NLv3_optional __swiftcall PhoneCallContactRole.NLv3.init(rawValue:)(Swift::String rawValue)
+{
+  OUTLINED_FUNCTION_38();
+  v3._object = v1;
+  _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of PhoneCallContactRole.NLv3.init(rawValue:), v3);
+  OUTLINED_FUNCTION_40_0();
+
+  if (v2 >= 3)
+  {
+    return 3;
+  }
+
+  else
+  {
+    return v2;
+  }
+}
+
+uint64_t PhoneCallContactRole.NLv3.rawValue.getter(char a1)
+{
+  if (!a1)
+  {
+    return 28532;
+  }
+
+  if (a1 == 1)
+  {
+    return 1836020326;
+  }
+
+  return 1752459639;
+}
+
+PhoneCallFlowDelegatePlugin::PhoneCallContactRole::NLv3_optional protocol witness for RawRepresentable.init(rawValue:) in conformance PhoneCallContactRole.NLv3@<W0>(Swift::String *a1@<X0>, PhoneCallFlowDelegatePlugin::PhoneCallContactRole::NLv3_optional *a2@<X8>)
+{
+  result.value = PhoneCallContactRole.NLv3.init(rawValue:)(*a1).value;
+  a2->value = result.value;
+  return result;
+}
+
+uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance PhoneCallContactRole.NLv3()
+{
+  v1 = OUTLINED_FUNCTION_40_2();
+  result = PhoneCallContactRole.NLv3.rawValue.getter(v1);
+  *v0 = result;
+  v0[1] = v3;
+  return result;
+}
+
+id SmsGroup.asINCallGroup.getter()
+{
+  OUTLINED_FUNCTION_10_55();
+  v3 = (*(v2 + 8))();
+  v5 = v4;
+  v6 = OUTLINED_FUNCTION_20_0();
+  v7(v6);
+  OUTLINED_FUNCTION_70_1();
+  v8 = objc_allocWithZone(INCallGroup);
+  return @nonobjc INCallGroup.init(groupName:groupId:)(v3, v5, v0, v1);
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isPlayVoiceMail()()
+{
+  OUTLINED_FUNCTION_10_55();
+  (*(v0 + 120))();
+  OUTLINED_FUNCTION_43_19();
+  if (!v1)
+  {
+    OUTLINED_FUNCTION_20_0();
+    if (!PhoneCallNLIntent.hasCallVerb()())
+    {
+      return 1;
+    }
+  }
+
+  v2 = OUTLINED_FUNCTION_20_0();
+  v3(v2);
+  OUTLINED_FUNCTION_68_7();
+  return !v1;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.hasVoiceMailNoun()()
+{
+  (*(v0 + 120))();
+  OUTLINED_FUNCTION_43_19();
+  return !v1;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.hasCallVerb()()
+{
+  OUTLINED_FUNCTION_34_14();
+  v1();
+  OUTLINED_FUNCTION_20_31();
+  if (v4)
+  {
+    return 0;
+  }
+
+  PhoneCallVerb.rawValue.getter(v2);
+  OUTLINED_FUNCTION_27_22();
+  if (v4)
+  {
+    v7 = v6 == 0xE400000000000000;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  if (v7)
+  {
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_17_34(v5, v0);
+    OUTLINED_FUNCTION_33_2();
+  }
+
+  return 1;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.hasVoiceMailVerb()()
+{
+  (*(v0 + 112))();
+  OUTLINED_FUNCTION_68_7();
+  return !v1;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isPlayIt()()
+{
+  OUTLINED_FUNCTION_10_55();
+  (*(v1 + 112))();
+  OUTLINED_FUNCTION_68_7();
+  if (v4)
+  {
+    return 0;
+  }
+
+  VoiceMail.VoiceMailVerb.rawValue.getter(v2);
+  OUTLINED_FUNCTION_42_17();
+  if (v4)
+  {
+    v7 = v6 == 0xE400000000000000;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  if (!v7)
+  {
+    OUTLINED_FUNCTION_59_8(v5, v0, 2036427888);
+    OUTLINED_FUNCTION_62_15();
+    return 0;
+  }
+
+  v8 = OUTLINED_FUNCTION_14_45();
+  v9(v8);
+  OUTLINED_FUNCTION_43_19();
+  return v4 != 0;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isFind()()
+{
+  OUTLINED_FUNCTION_34_14();
+  v1();
+  OUTLINED_FUNCTION_20_31();
+  if (v4)
+  {
+    return 0;
+  }
+
+  PhoneCallVerb.rawValue.getter(v2);
+  OUTLINED_FUNCTION_27_22();
+  if (v4)
+  {
+    v7 = v6 == 0xE400000000000000;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  if (v7)
+  {
+
+    return 1;
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_59_8(v5, v0, 1684957542);
+    OUTLINED_FUNCTION_33_2();
+    return 0;
+  }
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isDelete()()
+{
+  OUTLINED_FUNCTION_34_14();
+  v0();
+  OUTLINED_FUNCTION_20_31();
+  if (v3)
+  {
+    return 0;
+  }
+
+  PhoneCallVerb.rawValue.getter(v1);
+  OUTLINED_FUNCTION_27_22();
+  if (v3)
+  {
+    v6 = v5 == 0xE600000000000000;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (v6)
+  {
+
+    return 1;
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_36_19(v4);
+    OUTLINED_FUNCTION_33_2();
+    return 0;
+  }
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.hasRelationship()()
+{
+  OUTLINED_FUNCTION_66();
+  OUTLINED_FUNCTION_24_3();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriInference24ContactRelationshipQueryVSgMd, &_s13SiriInference24ContactRelationshipQueryVSgMR);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v37 - v4;
+  v41 = type metadata accessor for ContactQuery();
+  OUTLINED_FUNCTION_9_1();
+  v7 = v6;
+  __chkstk_darwin(v8);
+  v10 = &v37 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  OUTLINED_FUNCTION_97_3();
+  v39 = v0;
+  v40 = v1;
+  v38 = v2;
+  v11 = OUTLINED_FUNCTION_20_0();
+  v13 = v12(v11);
+  v14 = v13;
+  v15 = v13[2];
+  if (v15)
+  {
+    v16 = 0;
+    v17 = v13 + 4;
+    while (v16 < v14[2])
+    {
+      outlined init with copy of SharedGlobalsProviding();
+      v18 = v42[4];
+      __swift_project_boxed_opaque_existential_1(v42, v42[3]);
+      v19 = OUTLINED_FUNCTION_40_0();
+      v21 = v20(v19, v18);
+      if (v22)
+      {
+        v23 = v21;
+        v24 = v22;
+
+        if ((v24 & 0x2000000000000000) != 0)
+        {
+          v25 = HIBYTE(v24) & 0xF;
+        }
+
+        else
+        {
+          v25 = v23 & 0xFFFFFFFFFFFFLL;
+        }
+
+        LOBYTE(v13) = __swift_destroy_boxed_opaque_existential_1(v42);
+        if (v25)
+        {
+          goto LABEL_27;
+        }
+      }
+
+      else
+      {
+        LOBYTE(v13) = __swift_destroy_boxed_opaque_existential_1(v42);
+      }
+
+      ++v16;
+      v17 += 5;
+      if (v15 == v16)
+      {
+        goto LABEL_12;
+      }
+    }
+
+    __break(1u);
+LABEL_30:
+    __break(1u);
+LABEL_31:
+    __break(1u);
+LABEL_32:
+    __break(1u);
+  }
+
+  else
+  {
+LABEL_12:
+
+    v13 = (*(v39 + 128))(v38);
+    v26 = v13;
+    v27 = 0;
+    v28 = v13[2];
+    while (v28 != v27)
+    {
+      if (v27 >= v26[2])
+      {
+        goto LABEL_30;
+      }
+
+      v29 = v41;
+      (*(v7 + 16))(v10, v26 + ((*(v7 + 80) + 32) & ~*(v7 + 80)) + *(v7 + 72) * v27, v41);
+      ContactQuery.relationship.getter();
+      (*(v7 + 8))(v10, v29);
+      v30 = type metadata accessor for ContactRelationshipQuery();
+      if (__swift_getEnumTagSinglePayload(v5, 1, v30) != 1)
+      {
+
+        outlined destroy of PhoneCallApp?(v5, &_s13SiriInference24ContactRelationshipQueryVSgMd);
+        goto LABEL_28;
+      }
+
+      ++v27;
+      LOBYTE(v13) = outlined destroy of PhoneCallApp?(v5, &_s13SiriInference24ContactRelationshipQueryVSgMd);
+    }
+
+    v31 = PhoneCallNLIntent.getPersons()();
+    v13 = specialized Array.count.getter(v31);
+    v32 = v13;
+    v33 = 0;
+    while (v32 != v33)
+    {
+      if ((v31 & 0xC000000000000001) != 0)
+      {
+        OUTLINED_FUNCTION_20_0();
+        v13 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+      }
+
+      else
+      {
+        if (v33 >= *(&dword_10 + (v31 & 0xFFFFFFFFFFFFFF8)))
+        {
+          goto LABEL_32;
+        }
+
+        v13 = *(v31 + 8 * v33 + 32);
+      }
+
+      v34 = v13;
+      if (__OFADD__(v33, 1))
+      {
+        goto LABEL_31;
+      }
+
+      v35 = [v13 relationship];
+
+      ++v33;
+      if (v35)
+      {
+
+        goto LABEL_28;
+      }
+    }
+
+LABEL_27:
+
+LABEL_28:
+    OUTLINED_FUNCTION_65();
+  }
+
+  return v13;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isInferredCallFromRedialOrCallBack()()
+{
+  OUTLINED_FUNCTION_61_6();
+  OUTLINED_FUNCTION_24_3();
+  v1 = *(v0 + 104);
+  v1();
+  OUTLINED_FUNCTION_20_31();
+  if (!v4)
+  {
+    PhoneCallVerb.rawValue.getter(v2);
+    OUTLINED_FUNCTION_42_17();
+    v4 = v4 && v3 == 0xE600000000000000;
+    if (v4)
+    {
+
+      OUTLINED_FUNCTION_20_0();
+      if (!PhoneCallNLIntent.isRedial()())
+      {
+        goto LABEL_18;
+      }
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_40_4();
+      OUTLINED_FUNCTION_76_6(v5, v6, v7);
+      OUTLINED_FUNCTION_62_15();
+    }
+  }
+
+  v8 = OUTLINED_FUNCTION_20_0();
+  (v1)(v8);
+  OUTLINED_FUNCTION_20_31();
+  if (!v4)
+  {
+    PhoneCallVerb.rawValue.getter(v9);
+    OUTLINED_FUNCTION_42_17();
+    if (v10)
+    {
+      v12 = v11 == 0xE90000000000006BLL;
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    if (v12)
+    {
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_40_4();
+      OUTLINED_FUNCTION_111_4(v13, v14, v15, 107);
+      OUTLINED_FUNCTION_62_15();
+    }
+
+    OUTLINED_FUNCTION_20_0();
+    PhoneCallNLIntent.isCallBack()();
+  }
+
+LABEL_18:
+  OUTLINED_FUNCTION_60_1();
+  return result;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isVoiceMailCall()()
+{
+  OUTLINED_FUNCTION_24_3();
+  if (!PhoneCallNLIntent.isOutgoingCall()())
+  {
+    return 0;
+  }
+
+  OUTLINED_FUNCTION_20_0();
+
+  return PhoneCallNLIntent.hasVoiceMail()();
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isAudioCall()()
+{
+  OUTLINED_FUNCTION_24_3();
+  if (!PhoneCallNLIntent.hasAudioCallSemantic()())
+  {
+    OUTLINED_FUNCTION_20_0();
+    if (!PhoneCallNLIntent.hasCallVerb()())
+    {
+      return 0;
+    }
+  }
+
+  OUTLINED_FUNCTION_20_0();
+  if (PhoneCallNLIntent.isFind()())
+  {
+    return 0;
+  }
+
+  v1 = OUTLINED_FUNCTION_14_45();
+  v2(v1);
+  OUTLINED_FUNCTION_43_19();
+  return v3 != 0;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.hasAnyContactReference()()
+{
+  OUTLINED_FUNCTION_107_3();
+  v21 = v0;
+  v22 = v1;
+  OUTLINED_FUNCTION_41_21();
+  v3 = v2();
+  v4 = v3;
+  v5 = 0;
+  v6 = *(v3 + 16);
+  for (i = v3 + 32; ; i += 40)
+  {
+    if (v6 == v5)
+    {
+      goto LABEL_20;
+    }
+
+    if (v5 >= *(v4 + 16))
+    {
+      break;
+    }
+
+    OUTLINED_FUNCTION_85_4();
+    v8 = v20;
+    OUTLINED_FUNCTION_1_83(&v19);
+    v9.value = SiriPhoneContact.getContactReference()().value;
+    if (v9.value != PhoneCallFlowDelegatePlugin_PhoneCallContactReference_unknownDefault)
+    {
+      PhoneCallContactReference.rawValue.getter(v9.value);
+      if (v10 == 6647407 && v11 == 0xE300000000000000)
+      {
+LABEL_18:
+
+LABEL_19:
+        __swift_destroy_boxed_opaque_existential_1(&v19);
+LABEL_20:
+
+        OUTLINED_FUNCTION_106_1();
+        return v3;
+      }
+
+      OUTLINED_FUNCTION_108_3(v10, v11);
+      OUTLINED_FUNCTION_20_2();
+      if (v8)
+      {
+        goto LABEL_19;
+      }
+    }
+
+    v13 = v20;
+    OUTLINED_FUNCTION_1_83(&v19);
+    v14.value = SiriPhoneContact.getContactReference()().value;
+    if (v14.value == PhoneCallFlowDelegatePlugin_PhoneCallContactReference_unknownDefault)
+    {
+      LOBYTE(v3) = __swift_destroy_boxed_opaque_existential_1(&v19);
+    }
+
+    else
+    {
+      PhoneCallContactReference.rawValue.getter(v14.value);
+      if (v15 == 2037277037 && v16 == 0xE400000000000000)
+      {
+        goto LABEL_18;
+      }
+
+      OUTLINED_FUNCTION_59_8(v15, v16, 2037277037);
+      OUTLINED_FUNCTION_20_2();
+      LOBYTE(v3) = __swift_destroy_boxed_opaque_existential_1(&v19);
+      if (v13)
+      {
+        goto LABEL_20;
+      }
+    }
+
+    ++v5;
+  }
+
+  __break(1u);
+  return v3;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.hasNoContactOrReference()()
+{
+  OUTLINED_FUNCTION_10_55();
+  v1 = (*(v0 + 144))();
+  v2 = specialized Array.count.getter(v1);
+
+  if (v2)
+  {
+    return 0;
+  }
+
+  OUTLINED_FUNCTION_97_3();
+  v3 = OUTLINED_FUNCTION_20_0();
+  v5 = *(v4(v3) + 16);
+
+  if (v5)
+  {
+    return 0;
+  }
+
+  v7 = OUTLINED_FUNCTION_20_0();
+  v9 = *(v8(v7) + 16);
+
+  return v9 == 0;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isJoinCall()()
+{
+  OUTLINED_FUNCTION_34_14();
+  v1();
+  OUTLINED_FUNCTION_20_31();
+  if (v4)
+  {
+    return 0;
+  }
+
+  PhoneCallVerb.rawValue.getter(v2);
+  OUTLINED_FUNCTION_27_22();
+  if (v4)
+  {
+    v7 = v6 == 0xE400000000000000;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  if (v7)
+  {
+
+    return 1;
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_59_8(v5, v0, 1852403562);
+    OUTLINED_FUNCTION_33_2();
+    return 0;
+  }
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isRemoveParticipant()()
+{
+  OUTLINED_FUNCTION_34_14();
+  v0();
+  OUTLINED_FUNCTION_20_31();
+  if (v5)
+  {
+    v2 = 0;
+  }
+
+  else
+  {
+    v3 = PhoneCallVerb.rawValue.getter(v1);
+    v5 = v3 == 0xD000000000000011 && 0x8000000000453820 == v4;
+    if (v5)
+    {
+      v2 = 1;
+    }
+
+    else
+    {
+      v2 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    }
+  }
+
+  return v2 & 1;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.hasReadVerb()()
+{
+  OUTLINED_FUNCTION_34_14();
+  v1();
+  OUTLINED_FUNCTION_20_31();
+  if (v4)
+  {
+    return 0;
+  }
+
+  PhoneCallVerb.rawValue.getter(v2);
+  OUTLINED_FUNCTION_27_22();
+  if (v4)
+  {
+    v7 = v6 == 0xE400000000000000;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  if (v7)
+  {
+
+    return 1;
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_59_8(v5, v0, 1684104562);
+    OUTLINED_FUNCTION_33_2();
+    return 0;
+  }
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isSearchCallOrVoiceMail()()
+{
+  OUTLINED_FUNCTION_24_3();
+  if (PhoneCallNLIntent.isFind()() || (OUTLINED_FUNCTION_20_0(), PhoneCallNLIntent.hasReadVerb()()) && (v1 = OUTLINED_FUNCTION_14_45(), v2(v1), OUTLINED_FUNCTION_43_19(), v3) || (OUTLINED_FUNCTION_20_0(), PhoneCallNLIntent.hasCallVerb()()) && (v4 = OUTLINED_FUNCTION_14_45(), v5(v4), OUTLINED_FUNCTION_43_19(), !v3))
+  {
+    OUTLINED_FUNCTION_20_0();
+    if (!PhoneCallNLIntent.isIncomingCallSearch()())
+    {
+      return 1;
+    }
+  }
+
+  OUTLINED_FUNCTION_20_0();
+
+  return PhoneCallNLIntent.hasVoiceMail()();
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isSearchCallHistoryWithDate()()
+{
+  OUTLINED_FUNCTION_66();
+  OUTLINED_FUNCTION_57_15();
+  v2 = v1();
+  if (v2)
+  {
+    v3 = v2;
+    OUTLINED_FUNCTION_8_2();
+    if (PhoneCallNLIntent.isFind()())
+    {
+      v4 = (v3 + 32);
+      v5 = *(v3 + 16);
+      while (2)
+      {
+        if (v5-- != 0)
+        {
+          v7 = 0xE600000000000000;
+          v8 = 0x64657373696DLL;
+          switch(*v4)
+          {
+            case 1:
+              v7 = 0xE300000000000000;
+              v8 = OUTLINED_FUNCTION_53_18();
+              goto LABEL_19;
+            case 2:
+              v8 = OUTLINED_FUNCTION_19_30();
+              goto LABEL_19;
+            case 3:
+              v7 = 0xE700000000000000;
+              v8 = OUTLINED_FUNCTION_4_7();
+              goto LABEL_19;
+            case 4:
+              v7 = 0xE800000000000000;
+              v8 = OUTLINED_FUNCTION_7_53();
+              goto LABEL_19;
+            case 5:
+              v7 = 0xE800000000000000;
+              v8 = OUTLINED_FUNCTION_11_42() & 0xFFFFFFFFFFFFLL | 0x676E000000000000;
+              goto LABEL_19;
+            case 6:
+              v7 = 0xE400000000000000;
+              v8 = OUTLINED_FUNCTION_110_3();
+              goto LABEL_19;
+            case 7:
+              v7 = 0xE800000000000000;
+              v8 = OUTLINED_FUNCTION_6_59();
+              goto LABEL_19;
+            case 8:
+              v7 = 0xE700000000000000;
+              v8 = OUTLINED_FUNCTION_9_52();
+              goto LABEL_19;
+            case 9:
+              v7 = 0xE700000000000000;
+              v8 = OUTLINED_FUNCTION_5_64();
+              goto LABEL_19;
+            case 0xA:
+              v8 = OUTLINED_FUNCTION_13_41();
+              goto LABEL_19;
+            case 0xB:
+
+              break;
+            case 0xC:
+              v7 = 0xEC0000006C69616DLL;
+              v8 = OUTLINED_FUNCTION_8_9();
+              goto LABEL_19;
+            case 0xD:
+              v8 = OUTLINED_FUNCTION_54_18();
+              v7 = 0x8000000000453620;
+              goto LABEL_19;
+            default:
+LABEL_19:
+              OUTLINED_FUNCTION_111_4(v8, v7, 0x676E615265746164, 101);
+              OUTLINED_FUNCTION_62_15();
+              ++v4;
+              if (v0)
+              {
+                break;
+              }
+
+              continue;
+          }
+        }
+
+        break;
+      }
+    }
+  }
+
+  OUTLINED_FUNCTION_65();
+  return result;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isSearchCallHistoryWithAppName()()
+{
+  OUTLINED_FUNCTION_24_3();
+  PhoneCallNLIntent.applicationId.getter(v1, v2);
+  if (!v3)
+  {
+    return 0;
+  }
+
+  v4 = OUTLINED_FUNCTION_20_0();
+  v6 = PhoneCallNLIntent.applicationId.getter(v4, v5);
+  if (v7)
+  {
+    if (v6 == 0xD000000000000015 && v7 == 0x8000000000452BD0)
+    {
+    }
+
+    else
+    {
+      _stringCompareWithSmolCheck(_:_:expecting:)();
+      OUTLINED_FUNCTION_62_15();
+      if ((v0 & 1) == 0)
+      {
+        goto LABEL_8;
+      }
+    }
+
+    return 0;
+  }
+
+LABEL_8:
+  OUTLINED_FUNCTION_20_0();
+
+  return PhoneCallNLIntent.isFind()();
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isSearchCallHistoryWithUnsupportedAttribute()()
+{
+  OUTLINED_FUNCTION_66();
+  OUTLINED_FUNCTION_57_15();
+  v3 = v2();
+  if (v3)
+  {
+    v4 = v3;
+    OUTLINED_FUNCTION_8_2();
+    if (PhoneCallNLIntent.isFind()())
+    {
+      v5 = *(v4 + 16);
+      if (v5)
+      {
+        OUTLINED_FUNCTION_93_6();
+        v6 = (v4 + 32);
+        v7 = (v4 + 32);
+        while (v5)
+        {
+          v8 = 0xE300000000000000;
+          v9 = 7824750;
+          switch(*v7)
+          {
+            case 1:
+              break;
+            case 2:
+              v8 = 0xE600000000000000;
+              v9 = 0x746E65636572;
+              break;
+            case 3:
+              v8 = 0xE700000000000000;
+              v9 = OUTLINED_FUNCTION_4_7();
+              break;
+            case 4:
+              v8 = 0xE800000000000000;
+              v9 = OUTLINED_FUNCTION_7_53();
+              break;
+            case 5:
+              v8 = 0xE800000000000000;
+              v10 = OUTLINED_FUNCTION_11_42();
+              goto LABEL_17;
+            case 6:
+              v8 = 0xE400000000000000;
+              v9 = OUTLINED_FUNCTION_110_3();
+              break;
+            case 7:
+              v8 = 0xE800000000000000;
+              v9 = OUTLINED_FUNCTION_6_59();
+              break;
+            case 8:
+              v8 = 0xE700000000000000;
+              v9 = v0;
+              break;
+            case 9:
+              v8 = 0xE700000000000000;
+              v9 = OUTLINED_FUNCTION_5_64();
+              break;
+            case 0xA:
+              v8 = 0xE600000000000000;
+              v9 = OUTLINED_FUNCTION_13_41();
+              break;
+            case 0xB:
+              v8 = 0xE900000000000065;
+              v10 = OUTLINED_FUNCTION_12_46();
+LABEL_17:
+              v9 = v10 & 0xFFFFFFFFFFFFLL | 0x676E000000000000;
+              break;
+            case 0xC:
+              v8 = 0xEC0000006C69616DLL;
+              v9 = OUTLINED_FUNCTION_8_9();
+              break;
+            case 0xD:
+              v8 = 0x8000000000453620;
+              v9 = OUTLINED_FUNCTION_54_18();
+              break;
+            default:
+              goto LABEL_74;
+          }
+
+          OUTLINED_FUNCTION_76_6(v9, v8, 0x64657373696DLL);
+          OUTLINED_FUNCTION_80_5();
+          ++v7;
+          --v5;
+          if (v1)
+          {
+            goto LABEL_55;
+          }
+        }
+
+        v11 = *(v4 + 16);
+        v12 = (v4 + 32);
+        while (v11)
+        {
+          switch(*v12)
+          {
+            case 1:
+              OUTLINED_FUNCTION_53_18();
+              break;
+            case 3:
+              OUTLINED_FUNCTION_4_7();
+              break;
+            case 4:
+              OUTLINED_FUNCTION_7_53();
+              break;
+            case 5:
+              OUTLINED_FUNCTION_11_42();
+              break;
+            case 6:
+              goto LABEL_74;
+            case 7:
+              OUTLINED_FUNCTION_6_59();
+              break;
+            case 9:
+              OUTLINED_FUNCTION_5_64();
+              break;
+            case 0xA:
+              OUTLINED_FUNCTION_13_41();
+              break;
+            case 0xB:
+              OUTLINED_FUNCTION_12_46();
+              break;
+            case 0xC:
+              OUTLINED_FUNCTION_8_9();
+              break;
+            case 0xD:
+              OUTLINED_FUNCTION_54_18();
+              break;
+            default:
+              break;
+          }
+
+          OUTLINED_FUNCTION_101_3();
+          OUTLINED_FUNCTION_59_8(v13, v14, v15);
+          OUTLINED_FUNCTION_80_5();
+          ++v12;
+          --v11;
+          if (v1)
+          {
+            goto LABEL_55;
+          }
+        }
+
+        v16 = *(v4 + 16);
+        v17 = (v4 + 32);
+        while (v16)
+        {
+          v18 = 0xE600000000000000;
+          v19 = 0x64657373696DLL;
+          switch(*v17)
+          {
+            case 1:
+              v18 = 0xE300000000000000;
+              v19 = OUTLINED_FUNCTION_53_18();
+              break;
+            case 2:
+              goto LABEL_74;
+            case 3:
+              v18 = 0xE700000000000000;
+              v19 = OUTLINED_FUNCTION_4_7();
+              break;
+            case 4:
+              v18 = 0xE800000000000000;
+              v19 = OUTLINED_FUNCTION_7_53();
+              break;
+            case 5:
+              v18 = 0xE800000000000000;
+              v20 = OUTLINED_FUNCTION_11_42();
+              goto LABEL_51;
+            case 6:
+              v18 = 0xE400000000000000;
+              v19 = OUTLINED_FUNCTION_110_3();
+              break;
+            case 7:
+              v18 = 0xE800000000000000;
+              v19 = OUTLINED_FUNCTION_6_59();
+              break;
+            case 8:
+              v18 = 0xE700000000000000;
+              v19 = v0;
+              break;
+            case 9:
+              v18 = 0xE700000000000000;
+              v19 = OUTLINED_FUNCTION_5_64();
+              break;
+            case 0xA:
+              v19 = OUTLINED_FUNCTION_13_41();
+              break;
+            case 0xB:
+              v18 = 0xE900000000000065;
+              v20 = OUTLINED_FUNCTION_12_46();
+LABEL_51:
+              v19 = v20 & 0xFFFFFFFFFFFFLL | 0x676E000000000000;
+              break;
+            case 0xC:
+              v18 = 0xEC0000006C69616DLL;
+              v19 = OUTLINED_FUNCTION_8_9();
+              break;
+            case 0xD:
+              v18 = 0x8000000000453620;
+              v19 = OUTLINED_FUNCTION_54_18();
+              break;
+            default:
+              break;
+          }
+
+          OUTLINED_FUNCTION_76_6(v19, v18, 0x746E65636572);
+          OUTLINED_FUNCTION_80_5();
+          ++v17;
+          --v16;
+          if (v1)
+          {
+            goto LABEL_55;
+          }
+        }
+
+        for (i = *(v4 + 16); i; --i)
+        {
+          v23 = 0xE600000000000000;
+          v24 = 0x64657373696DLL;
+          switch(*v6)
+          {
+            case 1:
+              v24 = OUTLINED_FUNCTION_24_27();
+              break;
+            case 2:
+              v24 = 0x746E65636572;
+              break;
+            case 3:
+              v23 = 0xE700000000000000;
+              v24 = OUTLINED_FUNCTION_4_7();
+              break;
+            case 4:
+              v23 = 0xE800000000000000;
+              v24 = OUTLINED_FUNCTION_7_53();
+              break;
+            case 5:
+              v23 = 0xE800000000000000;
+              v25 = OUTLINED_FUNCTION_11_42();
+              goto LABEL_70;
+            case 6:
+              v23 = 0xE400000000000000;
+              v24 = OUTLINED_FUNCTION_110_3();
+              break;
+            case 7:
+              v23 = 0xE800000000000000;
+              v24 = OUTLINED_FUNCTION_6_59();
+              break;
+            case 8:
+LABEL_74:
+
+              goto LABEL_55;
+            case 9:
+              v23 = 0xE700000000000000;
+              v24 = OUTLINED_FUNCTION_5_64();
+              break;
+            case 0xA:
+              v24 = OUTLINED_FUNCTION_13_41();
+              break;
+            case 0xB:
+              v23 = 0xE900000000000065;
+              v25 = OUTLINED_FUNCTION_12_46();
+LABEL_70:
+              v24 = v25 & 0xFFFFFFFFFFFFLL | 0x676E000000000000;
+              break;
+            case 0xC:
+              v24 = OUTLINED_FUNCTION_2_81();
+              break;
+            case 0xD:
+              v23 = 0x8000000000453620;
+              v24 = OUTLINED_FUNCTION_54_18();
+              break;
+            default:
+              break;
+          }
+
+          OUTLINED_FUNCTION_86_6(v24, v23);
+          OUTLINED_FUNCTION_113_0();
+          ++v6;
+        }
+      }
+    }
+
+LABEL_55:
+  }
+
+  OUTLINED_FUNCTION_65();
+  return result;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.isWhoJustCalled()()
+{
+  OUTLINED_FUNCTION_10_55();
+  v3 = (*(v2 + 40))();
+  if (v3)
+  {
+    v4 = v3;
+    OUTLINED_FUNCTION_20_0();
+    if (!PhoneCallNLIntent.isFind()())
+    {
+      goto LABEL_42;
+    }
+
+    v5 = *(v4 + 16);
+    v6 = (v4 + 32);
+    v7 = (v4 + 32);
+    while (2)
+    {
+      if (v5)
+      {
+        switch(*v7)
+        {
+          case 1:
+            OUTLINED_FUNCTION_24_27();
+            goto LABEL_18;
+          case 2:
+            OUTLINED_FUNCTION_19_30();
+            goto LABEL_18;
+          case 3:
+            OUTLINED_FUNCTION_4_7();
+            goto LABEL_18;
+          case 4:
+            OUTLINED_FUNCTION_7_53();
+            goto LABEL_18;
+          case 5:
+            OUTLINED_FUNCTION_11_42();
+            goto LABEL_18;
+          case 6:
+
+            goto LABEL_19;
+          case 7:
+            OUTLINED_FUNCTION_6_59();
+            goto LABEL_18;
+          case 8:
+            OUTLINED_FUNCTION_9_52();
+            goto LABEL_18;
+          case 9:
+            OUTLINED_FUNCTION_5_64();
+            goto LABEL_18;
+          case 0xA:
+            OUTLINED_FUNCTION_13_41();
+            goto LABEL_18;
+          case 0xB:
+            OUTLINED_FUNCTION_12_46();
+            goto LABEL_18;
+          case 0xC:
+            OUTLINED_FUNCTION_2_81();
+            goto LABEL_18;
+          case 0xD:
+            OUTLINED_FUNCTION_54_18();
+            goto LABEL_18;
+          default:
+LABEL_18:
+            OUTLINED_FUNCTION_101_3();
+            OUTLINED_FUNCTION_59_8(v8, v9, v10);
+            OUTLINED_FUNCTION_113_0();
+            ++v7;
+            --v5;
+            if ((v1 & 1) == 0)
+            {
+              continue;
+            }
+
+LABEL_19:
+            v11 = *(v4 + 16);
+            while (2)
+            {
+              if (!v11)
+              {
+                goto LABEL_42;
+              }
+
+              switch(*v6)
+              {
+                case 1:
+                  OUTLINED_FUNCTION_24_27();
+                  goto LABEL_34;
+                case 2:
+                  OUTLINED_FUNCTION_19_30();
+                  goto LABEL_34;
+                case 3:
+                  OUTLINED_FUNCTION_4_7();
+                  goto LABEL_34;
+                case 4:
+
+                  goto LABEL_35;
+                case 5:
+                  OUTLINED_FUNCTION_11_42();
+                  goto LABEL_34;
+                case 7:
+                  OUTLINED_FUNCTION_6_59();
+                  goto LABEL_34;
+                case 8:
+                  OUTLINED_FUNCTION_9_52();
+                  goto LABEL_34;
+                case 9:
+                  OUTLINED_FUNCTION_5_64();
+                  goto LABEL_34;
+                case 0xA:
+                  OUTLINED_FUNCTION_13_41();
+                  goto LABEL_34;
+                case 0xB:
+                  OUTLINED_FUNCTION_12_46();
+                  goto LABEL_34;
+                case 0xC:
+                  OUTLINED_FUNCTION_2_81();
+                  goto LABEL_34;
+                case 0xD:
+                  OUTLINED_FUNCTION_54_18();
+                  goto LABEL_34;
+                default:
+LABEL_34:
+                  _stringCompareWithSmolCheck(_:_:expecting:)();
+                  OUTLINED_FUNCTION_113_0();
+                  ++v6;
+                  --v11;
+                  if ((v1 & 1) == 0)
+                  {
+                    continue;
+                  }
+
+LABEL_35:
+
+                  v12 = OUTLINED_FUNCTION_20_0();
+                  v13(v12);
+                  OUTLINED_FUNCTION_69_9();
+                  if (v17)
+                  {
+                    goto LABEL_43;
+                  }
+
+                  PhoneCallNoun.rawValue.getter(v14);
+                  OUTLINED_FUNCTION_27_22();
+                  v17 = v17 && v16 == 0xE400000000000000;
+                  if (v17)
+                  {
+                  }
+
+                  else
+                  {
+                    OUTLINED_FUNCTION_17_34(v15, v0);
+                    OUTLINED_FUNCTION_33_2();
+                  }
+
+                  LOBYTE(v3) = 1;
+                  break;
+              }
+
+              break;
+            }
+
+            break;
+        }
+      }
+
+      else
+      {
+LABEL_42:
+
+LABEL_43:
+        LOBYTE(v3) = 0;
+      }
+
+      break;
+    }
+  }
+
+  return v3;
+}
+
+__C::INCallRecordTypeOptions_optional __swiftcall PhoneCallNLIntent.getCallRecordTypeOption(attr:)(PhoneCallFlowDelegatePlugin::PhoneCallAttribute attr)
+{
+  v1 = attr;
+  v2 = 0;
+  v3 = 2;
+  switch(v1)
+  {
+    case 0:
+      break;
+    case 4:
+      v2 = 0;
+      v3 = 4;
+      break;
+    case 5:
+      v2 = 0;
+      v3 = 1;
+      break;
+    case 6:
+      v2 = 0;
+      v3 = 8;
+      break;
+    case 8:
+      v2 = 0;
+      v3 = 64;
+      break;
+    case 9:
+      v2 = 0;
+      v3 = 32;
+      break;
+    case 10:
+      v2 = 0;
+      v3 = 128;
+      break;
+    default:
+      v3 = 0;
+      v2 = 1;
+      break;
+  }
+
+  result.value.rawValue = v3;
+  result.is_nil = v2;
+  return result;
+}
+
+unint64_t PhoneCallNLIntent.getCallRecordType()(uint64_t a1, uint64_t a2)
+{
+  OUTLINED_FUNCTION_57_15();
+  result = v5();
+  if (result)
+  {
+    v7 = result;
+    __chkstk_darwin(result);
+    v10[2] = a1;
+    v10[3] = a2;
+    v10[4] = v2;
+    result = specialized Collection.firstIndex(where:)(partial apply for closure #1 in PhoneCallNLIntent.getCallRecordType(), v10, v7);
+    if (v8)
+    {
+
+      return 0;
+    }
+
+    if ((result & 0x8000000000000000) != 0)
+    {
+      __break(1u);
+    }
+
+    else if (result < *(v7 + 16))
+    {
+      v9 = *(v7 + result + 32);
+
+      return PhoneCallNLIntent.getCallRecordType(attr:)(v9);
+    }
+
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t PhoneCallNLIntent.getCallRecordType(attr:)(unsigned __int8 a1)
+{
+  if (a1 > 0xAu)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return qword_43CD28[a1];
+  }
+}
+
+BOOL static PhoneCallNLIntent.isAppModified(previousNLIntent:currentNLIntent:)(void *a1, void *a2)
+{
+  v4 = a2[4];
+  v5 = OUTLINED_FUNCTION_1_83(a2);
+  v7 = PhoneCallNLIntent.applicationId.getter(v5, v6);
+  specialized Optional<A>.isNilOrEmpty.getter(v7, v8);
+  OUTLINED_FUNCTION_20_2();
+  if ((v4 & 1) == 0)
+  {
+    v15 = OUTLINED_FUNCTION_1_83(a2);
+    v17 = PhoneCallNLIntent.applicationId.getter(v15, v16);
+    v19 = v18;
+    v20 = a1[4];
+    v21 = OUTLINED_FUNCTION_86(a1);
+    v22 = PhoneCallNLIntent.applicationId.getter(v21, v20);
+    if (v19)
+    {
+      if (!v23)
+      {
+        goto LABEL_26;
+      }
+
+      if (v17 == v22 && v19 == v23)
+      {
+      }
+
+      else
+      {
+        OUTLINED_FUNCTION_79_6(v17, v19, v22);
+        OUTLINED_FUNCTION_62_15();
+
+        if ((v17 & 1) == 0)
+        {
+          return 1;
+        }
+      }
+    }
+
+    else if (v23)
+    {
+      goto LABEL_26;
+    }
+  }
+
+  v9 = a2[4];
+  v10 = OUTLINED_FUNCTION_1_83(a2);
+  v12 = PhoneCallNLIntent.appName.getter(v10, v11);
+  specialized Optional<A>.isNilOrEmpty.getter(v12, v13);
+  OUTLINED_FUNCTION_20_2();
+  if (v9)
+  {
+    return 0;
+  }
+
+  v25 = OUTLINED_FUNCTION_1_83(a2);
+  v27 = PhoneCallNLIntent.appName.getter(v25, v26);
+  v29 = v28;
+  v30 = a1[4];
+  v31 = OUTLINED_FUNCTION_86(a1);
+  v32 = PhoneCallNLIntent.appName.getter(v31, v30);
+  if (!v29)
+  {
+    if (!v33)
+    {
+      return 0;
+    }
+
+    goto LABEL_26;
+  }
+
+  if (!v33)
+  {
+LABEL_26:
+
+    return 1;
+  }
+
+  if (v27 == v32 && v29 == v33)
+  {
+
+    return 0;
+  }
+
+  OUTLINED_FUNCTION_8_2();
+  v35 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+  return (v35 & 1) == 0;
+}
+
+void static PhoneCallNLIntent.isPhoneCallVerbModified(previousNLIntent:currentNLIntent:)()
+{
+  OUTLINED_FUNCTION_61_6();
+  v1 = v0;
+  v3 = v2[3];
+  v4 = v2[4];
+  __swift_project_boxed_opaque_existential_1(v2, v3);
+  v5 = *(v4 + 104);
+  v5(v3, v4);
+  OUTLINED_FUNCTION_20_31();
+  if (v13)
+  {
+    v5(v3, v4);
+    OUTLINED_FUNCTION_20_31();
+    if (!v13)
+    {
+      v7 = (v5)(v3, v4);
+      v8 = *(v1 + 24);
+      v9 = *(v1 + 32);
+      v10 = OUTLINED_FUNCTION_55_0();
+      __swift_project_boxed_opaque_existential_1(v10, v11);
+      v12 = (*(v9 + 104))(v8, v9);
+      v13 = v7 == 17 || v12 == 17;
+      if (!v13)
+      {
+        v14 = v12;
+        v15 = PhoneCallVerb.rawValue.getter(v7);
+        v17 = v16;
+        if (v15 != PhoneCallVerb.rawValue.getter(v14) || v17 != v18)
+        {
+          v20 = OUTLINED_FUNCTION_20_0();
+          OUTLINED_FUNCTION_79_6(v20, v21, v22);
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v23 = PhoneCallVerb.rawValue.getter(v6);
+    if (v23 == 1819042147 && v24 == 0xE400000000000000)
+    {
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_17_34(v23, v24);
+      OUTLINED_FUNCTION_80_5();
+    }
+  }
+
+  OUTLINED_FUNCTION_60_1();
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.hasUnsupportedSearchCallHistoryParameter()()
+{
+  v3 = v2;
+  v4 = v1;
+  v5 = v0;
+  OUTLINED_FUNCTION_57_15();
+  if (!v6())
+  {
+    goto LABEL_20;
+  }
+
+  v7 = 0;
+  v8 = 0;
+  v9 = &dword_54B000;
+LABEL_3:
+  v10 = v8;
+  do
+  {
+    v11 = *(&outlined read-only object #0 of PhoneCallNLIntent.hasUnsupportedSearchCallHistoryParameter() + v10 + 32);
+    v8 = v10 + 1;
+    specialized Sequence<>.contains(_:)();
+    if (v12)
+    {
+      if (*(v9 + 369) != -1)
+      {
+        OUTLINED_FUNCTION_0_6();
+        swift_once();
+      }
+
+      v13 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v13, static Logger.siriPhone);
+      v14 = Logger.logObject.getter();
+      v15 = static os_log_type_t.debug.getter();
+      if (os_log_type_enabled(v14, v15))
+      {
+        v27 = v4;
+        v16 = swift_slowAlloc();
+        v25 = swift_slowAlloc();
+        v28 = v25;
+        *v16 = 136315138;
+        v17 = PhoneCallAttribute.rawValue.getter(v11);
+        v26 = v5;
+        v19 = v3;
+        v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v18, &v28);
+
+        *(v16 + 4) = v20;
+        v3 = v19;
+        v5 = v26;
+        _os_log_impl(&dword_0, v14, v15, "#PhoneCallNLIntent find unsupported search call history parameter %s", v16, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1(v25);
+        OUTLINED_FUNCTION_26_0(v25);
+        v21 = v16;
+        v4 = v27;
+        OUTLINED_FUNCTION_26_0(v21);
+      }
+
+      v7 = 1;
+      v9 = &dword_54B000;
+      if (v10 == 2)
+      {
+
+        goto LABEL_20;
+      }
+
+      goto LABEL_3;
+    }
+
+    ++v10;
+  }
+
+  while (v8 != 3);
+
+  if ((v7 & 1) == 0 && !PhoneCallNLIntent.hasPhoneNumber()() && ((*(v4 + 56))(v5, v4), OUTLINED_FUNCTION_43_19(), v22))
+  {
+    OUTLINED_FUNCTION_105_4();
+
+    return PhoneCallNLIntent.isSearchCallHistoryWithAppName()();
+  }
+
+  else
+  {
+LABEL_20:
+    OUTLINED_FUNCTION_105_4();
+  }
+
+  return result;
+}
+
+Swift::Bool __swiftcall PhoneCallNLIntent.hasOnlyCallVerb()()
+{
+  OUTLINED_FUNCTION_61_6();
+  OUTLINED_FUNCTION_24_3();
+  v3 = *(v2 + 104);
+  v3();
+  OUTLINED_FUNCTION_20_31();
+  if (v7)
+  {
+    v5 = OUTLINED_FUNCTION_20_0();
+    (v3)(v5);
+    OUTLINED_FUNCTION_20_31();
+    if (!v7)
+    {
+      OUTLINED_FUNCTION_37_21();
+      PhoneCallVerb.rawValue.getter(v11);
+      OUTLINED_FUNCTION_42_17();
+      if (v12)
+      {
+        v14 = v13 == 0xE800000000000000;
+      }
+
+      else
+      {
+        v14 = 0;
+      }
+
+      if (v14)
+      {
+        goto LABEL_17;
+      }
+
+      OUTLINED_FUNCTION_40_4();
+      _stringCompareWithSmolCheck(_:_:expecting:)();
+      OUTLINED_FUNCTION_62_15();
+      if (v1)
+      {
+        goto LABEL_18;
+      }
+    }
+
+    OUTLINED_FUNCTION_60_1();
+    return result;
+  }
+
+  PhoneCallVerb.rawValue.getter(v4);
+  OUTLINED_FUNCTION_42_17();
+  if (v7)
+  {
+    v10 = v9 == 0xE400000000000000;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  if (v10)
+  {
+LABEL_17:
+
+    goto LABEL_18;
+  }
+
+  OUTLINED_FUNCTION_17_34(v8, v0);
+  OUTLINED_FUNCTION_62_15();
+LABEL_18:
+  OUTLINED_FUNCTION_20_0();
+  OUTLINED_FUNCTION_60_1();
+
+  return PhoneCallNLIntent.hasNoContactOrReference()();
+}
+
+id @nonobjc INCallGroup.init(groupName:groupId:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (!a2)
+  {
+    v6 = 0;
+    if (a4)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_5:
+    v7 = 0;
+    goto LABEL_6;
+  }
+
+  v6 = String._bridgeToObjectiveC()();
+
+  if (!a4)
+  {
+    goto LABEL_5;
+  }
+
+LABEL_3:
+  OUTLINED_FUNCTION_8_2();
+  v7 = String._bridgeToObjectiveC()();
+
+LABEL_6:
+  v8 = [v4 initWithGroupName:v6 groupId:v7];
+
+  return v8;
+}
+
+uint64_t outlined destroy of PhoneCallApp?(uint64_t a1, uint64_t a2)
+{
+  v3 = OUTLINED_FUNCTION_104_2(a1, a2);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  (*(*(v5 - 8) + 8))(a1, v5);
+  return a1;
+}
+
+unint64_t lazy protocol witness table accessor for type PhoneCallAVMode and conformance PhoneCallAVMode()
+{
+  result = lazy protocol witness table cache variable for type PhoneCallAVMode and conformance PhoneCallAVMode;
+  if (!lazy protocol witness table cache variable for type PhoneCallAVMode and conformance PhoneCallAVMode)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallAVMode and conformance PhoneCallAVMode);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type PhoneCallAttribute and conformance PhoneCallAttribute()
+{
+  result = lazy protocol witness table cache variable for type PhoneCallAttribute and conformance PhoneCallAttribute;
+  if (!lazy protocol witness table cache variable for type PhoneCallAttribute and conformance PhoneCallAttribute)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallAttribute and conformance PhoneCallAttribute);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallAttribute and conformance PhoneCallAttribute;
+  if (!lazy protocol witness table cache variable for type PhoneCallAttribute and conformance PhoneCallAttribute)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallAttribute and conformance PhoneCallAttribute);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallAttribute and conformance PhoneCallAttribute;
+  if (!lazy protocol witness table cache variable for type PhoneCallAttribute and conformance PhoneCallAttribute)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallAttribute and conformance PhoneCallAttribute);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallAttribute and conformance PhoneCallAttribute;
+  if (!lazy protocol witness table cache variable for type PhoneCallAttribute and conformance PhoneCallAttribute)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallAttribute and conformance PhoneCallAttribute);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallAttribute and conformance PhoneCallAttribute;
+  if (!lazy protocol witness table cache variable for type PhoneCallAttribute and conformance PhoneCallAttribute)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallAttribute and conformance PhoneCallAttribute);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallAttribute and conformance PhoneCallAttribute;
+  if (!lazy protocol witness table cache variable for type PhoneCallAttribute and conformance PhoneCallAttribute)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallAttribute and conformance PhoneCallAttribute);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type PhoneCallAudioRoute and conformance PhoneCallAudioRoute()
+{
+  result = lazy protocol witness table cache variable for type PhoneCallAudioRoute and conformance PhoneCallAudioRoute;
+  if (!lazy protocol witness table cache variable for type PhoneCallAudioRoute and conformance PhoneCallAudioRoute)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallAudioRoute and conformance PhoneCallAudioRoute);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallAudioRoute and conformance PhoneCallAudioRoute;
+  if (!lazy protocol witness table cache variable for type PhoneCallAudioRoute and conformance PhoneCallAudioRoute)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallAudioRoute and conformance PhoneCallAudioRoute);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallAudioRoute and conformance PhoneCallAudioRoute;
+  if (!lazy protocol witness table cache variable for type PhoneCallAudioRoute and conformance PhoneCallAudioRoute)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallAudioRoute and conformance PhoneCallAudioRoute);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallAudioRoute and conformance PhoneCallAudioRoute;
+  if (!lazy protocol witness table cache variable for type PhoneCallAudioRoute and conformance PhoneCallAudioRoute)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallAudioRoute and conformance PhoneCallAudioRoute);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallAudioRoute and conformance PhoneCallAudioRoute;
+  if (!lazy protocol witness table cache variable for type PhoneCallAudioRoute and conformance PhoneCallAudioRoute)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallAudioRoute and conformance PhoneCallAudioRoute);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallAudioRoute and conformance PhoneCallAudioRoute;
+  if (!lazy protocol witness table cache variable for type PhoneCallAudioRoute and conformance PhoneCallAudioRoute)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallAudioRoute and conformance PhoneCallAudioRoute);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type PhoneCallCapability and conformance PhoneCallCapability()
+{
+  result = lazy protocol witness table cache variable for type PhoneCallCapability and conformance PhoneCallCapability;
+  if (!lazy protocol witness table cache variable for type PhoneCallCapability and conformance PhoneCallCapability)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallCapability and conformance PhoneCallCapability);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallCapability and conformance PhoneCallCapability;
+  if (!lazy protocol witness table cache variable for type PhoneCallCapability and conformance PhoneCallCapability)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallCapability and conformance PhoneCallCapability);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallCapability and conformance PhoneCallCapability;
+  if (!lazy protocol witness table cache variable for type PhoneCallCapability and conformance PhoneCallCapability)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallCapability and conformance PhoneCallCapability);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallCapability and conformance PhoneCallCapability;
+  if (!lazy protocol witness table cache variable for type PhoneCallCapability and conformance PhoneCallCapability)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallCapability and conformance PhoneCallCapability);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallCapability and conformance PhoneCallCapability;
+  if (!lazy protocol witness table cache variable for type PhoneCallCapability and conformance PhoneCallCapability)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallCapability and conformance PhoneCallCapability);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallCapability and conformance PhoneCallCapability;
+  if (!lazy protocol witness table cache variable for type PhoneCallCapability and conformance PhoneCallCapability)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallCapability and conformance PhoneCallCapability);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type PhoneCallPreferredProvider and conformance PhoneCallPreferredProvider()
+{
+  result = lazy protocol witness table cache variable for type PhoneCallPreferredProvider and conformance PhoneCallPreferredProvider;
+  if (!lazy protocol witness table cache variable for type PhoneCallPreferredProvider and conformance PhoneCallPreferredProvider)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallPreferredProvider and conformance PhoneCallPreferredProvider);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallPreferredProvider and conformance PhoneCallPreferredProvider;
+  if (!lazy protocol witness table cache variable for type PhoneCallPreferredProvider and conformance PhoneCallPreferredProvider)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallPreferredProvider and conformance PhoneCallPreferredProvider);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallPreferredProvider and conformance PhoneCallPreferredProvider;
+  if (!lazy protocol witness table cache variable for type PhoneCallPreferredProvider and conformance PhoneCallPreferredProvider)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallPreferredProvider and conformance PhoneCallPreferredProvider);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallPreferredProvider and conformance PhoneCallPreferredProvider;
+  if (!lazy protocol witness table cache variable for type PhoneCallPreferredProvider and conformance PhoneCallPreferredProvider)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallPreferredProvider and conformance PhoneCallPreferredProvider);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallPreferredProvider and conformance PhoneCallPreferredProvider;
+  if (!lazy protocol witness table cache variable for type PhoneCallPreferredProvider and conformance PhoneCallPreferredProvider)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallPreferredProvider and conformance PhoneCallPreferredProvider);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallPreferredProvider and conformance PhoneCallPreferredProvider;
+  if (!lazy protocol witness table cache variable for type PhoneCallPreferredProvider and conformance PhoneCallPreferredProvider)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallPreferredProvider and conformance PhoneCallPreferredProvider);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type PhoneCallConfirmation and conformance PhoneCallConfirmation()
+{
+  result = lazy protocol witness table cache variable for type PhoneCallConfirmation and conformance PhoneCallConfirmation;
+  if (!lazy protocol witness table cache variable for type PhoneCallConfirmation and conformance PhoneCallConfirmation)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallConfirmation and conformance PhoneCallConfirmation);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallConfirmation and conformance PhoneCallConfirmation;
+  if (!lazy protocol witness table cache variable for type PhoneCallConfirmation and conformance PhoneCallConfirmation)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallConfirmation and conformance PhoneCallConfirmation);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallConfirmation and conformance PhoneCallConfirmation;
+  if (!lazy protocol witness table cache variable for type PhoneCallConfirmation and conformance PhoneCallConfirmation)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallConfirmation and conformance PhoneCallConfirmation);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallConfirmation and conformance PhoneCallConfirmation;
+  if (!lazy protocol witness table cache variable for type PhoneCallConfirmation and conformance PhoneCallConfirmation)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallConfirmation and conformance PhoneCallConfirmation);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallConfirmation and conformance PhoneCallConfirmation;
+  if (!lazy protocol witness table cache variable for type PhoneCallConfirmation and conformance PhoneCallConfirmation)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallConfirmation and conformance PhoneCallConfirmation);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallConfirmation and conformance PhoneCallConfirmation;
+  if (!lazy protocol witness table cache variable for type PhoneCallConfirmation and conformance PhoneCallConfirmation)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallConfirmation and conformance PhoneCallConfirmation);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type PhoneCallNoun and conformance PhoneCallNoun()
+{
+  result = lazy protocol witness table cache variable for type PhoneCallNoun and conformance PhoneCallNoun;
+  if (!lazy protocol witness table cache variable for type PhoneCallNoun and conformance PhoneCallNoun)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallNoun and conformance PhoneCallNoun);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallNoun and conformance PhoneCallNoun;
+  if (!lazy protocol witness table cache variable for type PhoneCallNoun and conformance PhoneCallNoun)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallNoun and conformance PhoneCallNoun);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallNoun and conformance PhoneCallNoun;
+  if (!lazy protocol witness table cache variable for type PhoneCallNoun and conformance PhoneCallNoun)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallNoun and conformance PhoneCallNoun);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallNoun and conformance PhoneCallNoun;
+  if (!lazy protocol witness table cache variable for type PhoneCallNoun and conformance PhoneCallNoun)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallNoun and conformance PhoneCallNoun);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallNoun and conformance PhoneCallNoun;
+  if (!lazy protocol witness table cache variable for type PhoneCallNoun and conformance PhoneCallNoun)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallNoun and conformance PhoneCallNoun);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallNoun and conformance PhoneCallNoun;
+  if (!lazy protocol witness table cache variable for type PhoneCallNoun and conformance PhoneCallNoun)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallNoun and conformance PhoneCallNoun);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type PhoneCallReference and conformance PhoneCallReference()
+{
+  result = lazy protocol witness table cache variable for type PhoneCallReference and conformance PhoneCallReference;
+  if (!lazy protocol witness table cache variable for type PhoneCallReference and conformance PhoneCallReference)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallReference and conformance PhoneCallReference);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallReference and conformance PhoneCallReference;
+  if (!lazy protocol witness table cache variable for type PhoneCallReference and conformance PhoneCallReference)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallReference and conformance PhoneCallReference);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallReference and conformance PhoneCallReference;
+  if (!lazy protocol witness table cache variable for type PhoneCallReference and conformance PhoneCallReference)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallReference and conformance PhoneCallReference);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallReference and conformance PhoneCallReference;
+  if (!lazy protocol witness table cache variable for type PhoneCallReference and conformance PhoneCallReference)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallReference and conformance PhoneCallReference);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallReference and conformance PhoneCallReference;
+  if (!lazy protocol witness table cache variable for type PhoneCallReference and conformance PhoneCallReference)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallReference and conformance PhoneCallReference);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallReference and conformance PhoneCallReference;
+  if (!lazy protocol witness table cache variable for type PhoneCallReference and conformance PhoneCallReference)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallReference and conformance PhoneCallReference);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type PhoneCallContactReference and conformance PhoneCallContactReference()
+{
+  result = lazy protocol witness table cache variable for type PhoneCallContactReference and conformance PhoneCallContactReference;
+  if (!lazy protocol witness table cache variable for type PhoneCallContactReference and conformance PhoneCallContactReference)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallContactReference and conformance PhoneCallContactReference);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallContactReference and conformance PhoneCallContactReference;
+  if (!lazy protocol witness table cache variable for type PhoneCallContactReference and conformance PhoneCallContactReference)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallContactReference and conformance PhoneCallContactReference);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallContactReference and conformance PhoneCallContactReference;
+  if (!lazy protocol witness table cache variable for type PhoneCallContactReference and conformance PhoneCallContactReference)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallContactReference and conformance PhoneCallContactReference);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallContactReference and conformance PhoneCallContactReference;
+  if (!lazy protocol witness table cache variable for type PhoneCallContactReference and conformance PhoneCallContactReference)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallContactReference and conformance PhoneCallContactReference);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallContactReference and conformance PhoneCallContactReference;
+  if (!lazy protocol witness table cache variable for type PhoneCallContactReference and conformance PhoneCallContactReference)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallContactReference and conformance PhoneCallContactReference);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallContactReference and conformance PhoneCallContactReference;
+  if (!lazy protocol witness table cache variable for type PhoneCallContactReference and conformance PhoneCallContactReference)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallContactReference and conformance PhoneCallContactReference);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type PhoneCallVerb and conformance PhoneCallVerb()
+{
+  result = lazy protocol witness table cache variable for type PhoneCallVerb and conformance PhoneCallVerb;
+  if (!lazy protocol witness table cache variable for type PhoneCallVerb and conformance PhoneCallVerb)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallVerb and conformance PhoneCallVerb);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallVerb and conformance PhoneCallVerb;
+  if (!lazy protocol witness table cache variable for type PhoneCallVerb and conformance PhoneCallVerb)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallVerb and conformance PhoneCallVerb);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallVerb and conformance PhoneCallVerb;
+  if (!lazy protocol witness table cache variable for type PhoneCallVerb and conformance PhoneCallVerb)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallVerb and conformance PhoneCallVerb);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallVerb and conformance PhoneCallVerb;
+  if (!lazy protocol witness table cache variable for type PhoneCallVerb and conformance PhoneCallVerb)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallVerb and conformance PhoneCallVerb);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallVerb and conformance PhoneCallVerb;
+  if (!lazy protocol witness table cache variable for type PhoneCallVerb and conformance PhoneCallVerb)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallVerb and conformance PhoneCallVerb);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallVerb and conformance PhoneCallVerb;
+  if (!lazy protocol witness table cache variable for type PhoneCallVerb and conformance PhoneCallVerb)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallVerb and conformance PhoneCallVerb);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type VoiceMail.VoiceMailNoun and conformance VoiceMail.VoiceMailNoun()
+{
+  result = lazy protocol witness table cache variable for type VoiceMail.VoiceMailNoun and conformance VoiceMail.VoiceMailNoun;
+  if (!lazy protocol witness table cache variable for type VoiceMail.VoiceMailNoun and conformance VoiceMail.VoiceMailNoun)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type VoiceMail.VoiceMailNoun and conformance VoiceMail.VoiceMailNoun);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type VoiceMail.VoiceMailNoun and conformance VoiceMail.VoiceMailNoun;
+  if (!lazy protocol witness table cache variable for type VoiceMail.VoiceMailNoun and conformance VoiceMail.VoiceMailNoun)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type VoiceMail.VoiceMailNoun and conformance VoiceMail.VoiceMailNoun);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type VoiceMail.VoiceMailNoun and conformance VoiceMail.VoiceMailNoun;
+  if (!lazy protocol witness table cache variable for type VoiceMail.VoiceMailNoun and conformance VoiceMail.VoiceMailNoun)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type VoiceMail.VoiceMailNoun and conformance VoiceMail.VoiceMailNoun);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type VoiceMail.VoiceMailNoun and conformance VoiceMail.VoiceMailNoun;
+  if (!lazy protocol witness table cache variable for type VoiceMail.VoiceMailNoun and conformance VoiceMail.VoiceMailNoun)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type VoiceMail.VoiceMailNoun and conformance VoiceMail.VoiceMailNoun);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type VoiceMail.VoiceMailNoun and conformance VoiceMail.VoiceMailNoun;
+  if (!lazy protocol witness table cache variable for type VoiceMail.VoiceMailNoun and conformance VoiceMail.VoiceMailNoun)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type VoiceMail.VoiceMailNoun and conformance VoiceMail.VoiceMailNoun);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type VoiceMail.VoiceMailNoun and conformance VoiceMail.VoiceMailNoun;
+  if (!lazy protocol witness table cache variable for type VoiceMail.VoiceMailNoun and conformance VoiceMail.VoiceMailNoun)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type VoiceMail.VoiceMailNoun and conformance VoiceMail.VoiceMailNoun);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type VoiceMail.VoiceMailVerb and conformance VoiceMail.VoiceMailVerb()
+{
+  result = lazy protocol witness table cache variable for type VoiceMail.VoiceMailVerb and conformance VoiceMail.VoiceMailVerb;
+  if (!lazy protocol witness table cache variable for type VoiceMail.VoiceMailVerb and conformance VoiceMail.VoiceMailVerb)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type VoiceMail.VoiceMailVerb and conformance VoiceMail.VoiceMailVerb);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type VoiceMail.VoiceMailVerb and conformance VoiceMail.VoiceMailVerb;
+  if (!lazy protocol witness table cache variable for type VoiceMail.VoiceMailVerb and conformance VoiceMail.VoiceMailVerb)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type VoiceMail.VoiceMailVerb and conformance VoiceMail.VoiceMailVerb);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type VoiceMail.VoiceMailVerb and conformance VoiceMail.VoiceMailVerb;
+  if (!lazy protocol witness table cache variable for type VoiceMail.VoiceMailVerb and conformance VoiceMail.VoiceMailVerb)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type VoiceMail.VoiceMailVerb and conformance VoiceMail.VoiceMailVerb);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type VoiceMail.VoiceMailVerb and conformance VoiceMail.VoiceMailVerb;
+  if (!lazy protocol witness table cache variable for type VoiceMail.VoiceMailVerb and conformance VoiceMail.VoiceMailVerb)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type VoiceMail.VoiceMailVerb and conformance VoiceMail.VoiceMailVerb);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type VoiceMail.VoiceMailVerb and conformance VoiceMail.VoiceMailVerb;
+  if (!lazy protocol witness table cache variable for type VoiceMail.VoiceMailVerb and conformance VoiceMail.VoiceMailVerb)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type VoiceMail.VoiceMailVerb and conformance VoiceMail.VoiceMailVerb);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type VoiceMail.VoiceMailVerb and conformance VoiceMail.VoiceMailVerb;
+  if (!lazy protocol witness table cache variable for type VoiceMail.VoiceMailVerb and conformance VoiceMail.VoiceMailVerb)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type VoiceMail.VoiceMailVerb and conformance VoiceMail.VoiceMailVerb);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type PhoneCallDestinationType and conformance PhoneCallDestinationType()
+{
+  result = lazy protocol witness table cache variable for type PhoneCallDestinationType and conformance PhoneCallDestinationType;
+  if (!lazy protocol witness table cache variable for type PhoneCallDestinationType and conformance PhoneCallDestinationType)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallDestinationType and conformance PhoneCallDestinationType);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallDestinationType and conformance PhoneCallDestinationType;
+  if (!lazy protocol witness table cache variable for type PhoneCallDestinationType and conformance PhoneCallDestinationType)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallDestinationType and conformance PhoneCallDestinationType);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallDestinationType and conformance PhoneCallDestinationType;
+  if (!lazy protocol witness table cache variable for type PhoneCallDestinationType and conformance PhoneCallDestinationType)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallDestinationType and conformance PhoneCallDestinationType);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallDestinationType and conformance PhoneCallDestinationType;
+  if (!lazy protocol witness table cache variable for type PhoneCallDestinationType and conformance PhoneCallDestinationType)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallDestinationType and conformance PhoneCallDestinationType);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallDestinationType and conformance PhoneCallDestinationType;
+  if (!lazy protocol witness table cache variable for type PhoneCallDestinationType and conformance PhoneCallDestinationType)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallDestinationType and conformance PhoneCallDestinationType);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallDestinationType and conformance PhoneCallDestinationType;
+  if (!lazy protocol witness table cache variable for type PhoneCallDestinationType and conformance PhoneCallDestinationType)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallDestinationType and conformance PhoneCallDestinationType);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type PhoneCallContactRole.NLv3 and conformance PhoneCallContactRole.NLv3()
+{
+  result = lazy protocol witness table cache variable for type PhoneCallContactRole.NLv3 and conformance PhoneCallContactRole.NLv3;
+  if (!lazy protocol witness table cache variable for type PhoneCallContactRole.NLv3 and conformance PhoneCallContactRole.NLv3)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallContactRole.NLv3 and conformance PhoneCallContactRole.NLv3);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallContactRole.NLv3 and conformance PhoneCallContactRole.NLv3;
+  if (!lazy protocol witness table cache variable for type PhoneCallContactRole.NLv3 and conformance PhoneCallContactRole.NLv3)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallContactRole.NLv3 and conformance PhoneCallContactRole.NLv3);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallContactRole.NLv3 and conformance PhoneCallContactRole.NLv3;
+  if (!lazy protocol witness table cache variable for type PhoneCallContactRole.NLv3 and conformance PhoneCallContactRole.NLv3)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallContactRole.NLv3 and conformance PhoneCallContactRole.NLv3);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallContactRole.NLv3 and conformance PhoneCallContactRole.NLv3;
+  if (!lazy protocol witness table cache variable for type PhoneCallContactRole.NLv3 and conformance PhoneCallContactRole.NLv3)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallContactRole.NLv3 and conformance PhoneCallContactRole.NLv3);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallContactRole.NLv3 and conformance PhoneCallContactRole.NLv3;
+  if (!lazy protocol witness table cache variable for type PhoneCallContactRole.NLv3 and conformance PhoneCallContactRole.NLv3)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallContactRole.NLv3 and conformance PhoneCallContactRole.NLv3);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type PhoneCallContactRole.NLv3 and conformance PhoneCallContactRole.NLv3;
+  if (!lazy protocol witness table cache variable for type PhoneCallContactRole.NLv3 and conformance PhoneCallContactRole.NLv3)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallContactRole.NLv3 and conformance PhoneCallContactRole.NLv3);
+  }
+
+  return result;
+}
+
+uint64_t lazy protocol witness table accessor for type [PhoneCallAttribute] and conformance [A](unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
-    a2(255);
+    v4 = OUTLINED_FUNCTION_104_2(0, a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(v4, v5);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -7383,61 +6013,21 @@ uint64_t lazy protocol witness table accessor for type SpeakableString and confo
   return result;
 }
 
-void (*protocol witness for CATType.mockGlobals.modify in conformance PhoneCallGroup(void *a1))(void *a1)
+unint64_t lazy protocol witness table accessor for type PhoneCallContactRole and conformance PhoneCallContactRole()
 {
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v3[4] = (*(**v1 + 136))();
-  return protocol witness for SiriEnvironmentLocating.siriEnvironment.modify in conformance BusinessCompositionFlow;
-}
-
-uint64_t protocol witness for Decodable.init(from:) in conformance PhoneCallGroup@<X0>(uint64_t *a1@<X8>)
-{
-  result = (*(v1 + 176))();
-  if (!v2)
+  result = lazy protocol witness table cache variable for type PhoneCallContactRole and conformance PhoneCallContactRole;
+  if (!lazy protocol witness table cache variable for type PhoneCallContactRole and conformance PhoneCallContactRole)
   {
-    *a1 = result;
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type PhoneCallContactRole and conformance PhoneCallContactRole);
   }
 
   return result;
 }
 
-void type metadata completion function for PhoneCallGroup()
+_BYTE *storeEnumTagSinglePayload for PhoneCallAttribute(_BYTE *result, unsigned int a2, unsigned int a3)
 {
-  type metadata accessor for SpeakableString?();
-  if (v1 <= 0x3F)
-  {
-    v2 = *(v0 - 8) + 64;
-    swift_updateClassMetadata2();
-  }
-}
-
-void type metadata accessor for SpeakableString?()
-{
-  if (!lazy cache variable for type metadata for SpeakableString?)
-  {
-    type metadata accessor for SpeakableString();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for SpeakableString?);
-    }
-  }
-}
-
-void type metadata completion function for PhoneCallGroup.Builder()
-{
-  type metadata accessor for SpeakableString?();
-  if (v1 <= 0x3F)
-  {
-    v2 = *(v0 - 8) + 64;
-    swift_updateClassMetadata2();
-  }
-}
-
-_BYTE *storeEnumTagSinglePayload for PhoneCallGroup.CodingKeys(_BYTE *result, unsigned int a2, unsigned int a3)
-{
-  if (a3 + 1 >= 0xFFFF00)
+  if (a3 + 13 >= 0xFFFF00)
   {
     v3 = 4;
   }
@@ -7447,7 +6037,7 @@ _BYTE *storeEnumTagSinglePayload for PhoneCallGroup.CodingKeys(_BYTE *result, un
     v3 = 2;
   }
 
-  if ((a3 + 1) >> 8 < 0xFF)
+  if ((a3 + 13) >> 8 < 0xFF)
   {
     v4 = 1;
   }
@@ -7457,7 +6047,7 @@ _BYTE *storeEnumTagSinglePayload for PhoneCallGroup.CodingKeys(_BYTE *result, un
     v4 = v3;
   }
 
-  if (a3 >= 0xFF)
+  if (a3 >= 0xF3)
   {
     v5 = v4;
   }
@@ -7467,10 +6057,10 @@ _BYTE *storeEnumTagSinglePayload for PhoneCallGroup.CodingKeys(_BYTE *result, un
     v5 = 0;
   }
 
-  if (a2 > 0xFE)
+  if (a2 > 0xF2)
   {
-    v6 = ((a2 - 255) >> 8) + 1;
-    *result = a2 + 1;
+    v6 = ((a2 - 243) >> 8) + 1;
+    *result = a2 + 13;
     switch(v5)
     {
       case 1:
@@ -7521,7 +6111,7 @@ LABEL_17:
         if (a2)
         {
 LABEL_18:
-          *result = a2 + 1;
+          *result = a2 + 13;
         }
 
         break;
@@ -7531,2314 +6121,3755 @@ LABEL_18:
   return result;
 }
 
-void specialized SiriPhoneContact.asSiriInferenceContact.getter()
+_BYTE *storeEnumTagSinglePayload for PhoneCallAudioRoute(_BYTE *result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 3 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 3) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 >= 0xFD)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a2 > 0xFC)
+  {
+    v6 = ((a2 - 253) >> 8) + 1;
+    *result = a2 + 3;
+    switch(v5)
+    {
+      case 1:
+        result[1] = v6;
+        break;
+      case 2:
+        *(result + 1) = v6;
+        break;
+      case 3:
+LABEL_23:
+        __break(1u);
+        break;
+      case 4:
+        *(result + 1) = v6;
+        break;
+      default:
+        return result;
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 1:
+        result[1] = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      case 2:
+        *(result + 1) = 0;
+        goto LABEL_17;
+      case 3:
+        goto LABEL_23;
+      case 4:
+        *(result + 1) = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      default:
+LABEL_17:
+        if (a2)
+        {
+LABEL_18:
+          *result = a2 + 3;
+        }
+
+        break;
+    }
+  }
+
+  return result;
+}
+
+_BYTE *storeEnumTagSinglePayload for PhoneCallNoun(_BYTE *result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 8 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 8) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 >= 0xF8)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a2 > 0xF7)
+  {
+    v6 = ((a2 - 248) >> 8) + 1;
+    *result = a2 + 8;
+    switch(v5)
+    {
+      case 1:
+        result[1] = v6;
+        break;
+      case 2:
+        *(result + 1) = v6;
+        break;
+      case 3:
+LABEL_23:
+        __break(1u);
+        break;
+      case 4:
+        *(result + 1) = v6;
+        break;
+      default:
+        return result;
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 1:
+        result[1] = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      case 2:
+        *(result + 1) = 0;
+        goto LABEL_17;
+      case 3:
+        goto LABEL_23;
+      case 4:
+        *(result + 1) = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      default:
+LABEL_17:
+        if (a2)
+        {
+LABEL_18:
+          *result = a2 + 8;
+        }
+
+        break;
+    }
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for PhoneCallReference(unsigned __int8 *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    v5 = -1;
+    return (v5 + 1);
+  }
+
+  if (a2 >= 0xDE)
+  {
+    if (a2 + 34 >= 0xFFFF00)
+    {
+      v2 = 4;
+    }
+
+    else
+    {
+      v2 = 2;
+    }
+
+    if ((a2 + 34) >> 8 < 0xFF)
+    {
+      v3 = 1;
+    }
+
+    else
+    {
+      v3 = v2;
+    }
+
+    if (v3 == 4)
+    {
+      v4 = *(a1 + 1);
+      if (!v4)
+      {
+        goto LABEL_17;
+      }
+    }
+
+    else if (v3 == 2)
+    {
+      v4 = *(a1 + 1);
+      if (!*(a1 + 1))
+      {
+        goto LABEL_17;
+      }
+    }
+
+    else
+    {
+      v4 = a1[1];
+      if (!a1[1])
+      {
+        goto LABEL_17;
+      }
+    }
+
+    v5 = (*a1 | (v4 << 8)) - 35;
+    return (v5 + 1);
+  }
+
+LABEL_17:
+  v6 = *a1;
+  v7 = v6 >= 0x23;
+  v5 = v6 - 35;
+  if (!v7)
+  {
+    v5 = -1;
+  }
+
+  return (v5 + 1);
+}
+
+_BYTE *storeEnumTagSinglePayload for PhoneCallReference(_BYTE *result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 34 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 34) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 >= 0xDE)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a2 > 0xDD)
+  {
+    v6 = ((a2 - 222) >> 8) + 1;
+    *result = a2 + 34;
+    switch(v5)
+    {
+      case 1:
+        result[1] = v6;
+        break;
+      case 2:
+        *(result + 1) = v6;
+        break;
+      case 3:
+LABEL_23:
+        __break(1u);
+        break;
+      case 4:
+        *(result + 1) = v6;
+        break;
+      default:
+        return result;
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 1:
+        result[1] = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      case 2:
+        *(result + 1) = 0;
+        goto LABEL_17;
+      case 3:
+        goto LABEL_23;
+      case 4:
+        *(result + 1) = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      default:
+LABEL_17:
+        if (a2)
+        {
+LABEL_18:
+          *result = a2 + 34;
+        }
+
+        break;
+    }
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for PhoneCallContactReference(unsigned __int8 *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    v5 = -1;
+    return (v5 + 1);
+  }
+
+  if (a2 >= 0xDB)
+  {
+    if (a2 + 37 >= 0xFFFF00)
+    {
+      v2 = 4;
+    }
+
+    else
+    {
+      v2 = 2;
+    }
+
+    if ((a2 + 37) >> 8 < 0xFF)
+    {
+      v3 = 1;
+    }
+
+    else
+    {
+      v3 = v2;
+    }
+
+    if (v3 == 4)
+    {
+      v4 = *(a1 + 1);
+      if (!v4)
+      {
+        goto LABEL_17;
+      }
+    }
+
+    else if (v3 == 2)
+    {
+      v4 = *(a1 + 1);
+      if (!*(a1 + 1))
+      {
+        goto LABEL_17;
+      }
+    }
+
+    else
+    {
+      v4 = a1[1];
+      if (!a1[1])
+      {
+        goto LABEL_17;
+      }
+    }
+
+    v5 = (*a1 | (v4 << 8)) - 38;
+    return (v5 + 1);
+  }
+
+LABEL_17:
+  v6 = *a1;
+  v7 = v6 >= 0x26;
+  v5 = v6 - 38;
+  if (!v7)
+  {
+    v5 = -1;
+  }
+
+  return (v5 + 1);
+}
+
+_BYTE *storeEnumTagSinglePayload for PhoneCallContactReference(_BYTE *result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 37 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 37) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 >= 0xDB)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a2 > 0xDA)
+  {
+    v6 = ((a2 - 219) >> 8) + 1;
+    *result = a2 + 37;
+    switch(v5)
+    {
+      case 1:
+        result[1] = v6;
+        break;
+      case 2:
+        *(result + 1) = v6;
+        break;
+      case 3:
+LABEL_23:
+        __break(1u);
+        break;
+      case 4:
+        *(result + 1) = v6;
+        break;
+      default:
+        return result;
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 1:
+        result[1] = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      case 2:
+        *(result + 1) = 0;
+        goto LABEL_17;
+      case 3:
+        goto LABEL_23;
+      case 4:
+        *(result + 1) = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      default:
+LABEL_17:
+        if (a2)
+        {
+LABEL_18:
+          *result = a2 + 37;
+        }
+
+        break;
+    }
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for PhoneCallVerb(unsigned __int8 *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    v5 = -1;
+    return (v5 + 1);
+  }
+
+  if (a2 >= 0xF0)
+  {
+    if (a2 + 16 >= 0xFFFF00)
+    {
+      v2 = 4;
+    }
+
+    else
+    {
+      v2 = 2;
+    }
+
+    if ((a2 + 16) >> 8 < 0xFF)
+    {
+      v3 = 1;
+    }
+
+    else
+    {
+      v3 = v2;
+    }
+
+    if (v3 == 4)
+    {
+      v4 = *(a1 + 1);
+      if (!v4)
+      {
+        goto LABEL_17;
+      }
+    }
+
+    else if (v3 == 2)
+    {
+      v4 = *(a1 + 1);
+      if (!*(a1 + 1))
+      {
+        goto LABEL_17;
+      }
+    }
+
+    else
+    {
+      v4 = a1[1];
+      if (!a1[1])
+      {
+        goto LABEL_17;
+      }
+    }
+
+    v5 = (*a1 | (v4 << 8)) - 17;
+    return (v5 + 1);
+  }
+
+LABEL_17:
+  v6 = *a1;
+  v7 = v6 >= 0x11;
+  v5 = v6 - 17;
+  if (!v7)
+  {
+    v5 = -1;
+  }
+
+  return (v5 + 1);
+}
+
+_BYTE *storeEnumTagSinglePayload for PhoneCallVerb(_BYTE *result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 16 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 16) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 >= 0xF0)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a2 > 0xEF)
+  {
+    v6 = ((a2 - 240) >> 8) + 1;
+    *result = a2 + 16;
+    switch(v5)
+    {
+      case 1:
+        result[1] = v6;
+        break;
+      case 2:
+        *(result + 1) = v6;
+        break;
+      case 3:
+LABEL_23:
+        __break(1u);
+        break;
+      case 4:
+        *(result + 1) = v6;
+        break;
+      default:
+        return result;
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 1:
+        result[1] = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      case 2:
+        *(result + 1) = 0;
+        goto LABEL_17;
+      case 3:
+        goto LABEL_23;
+      case 4:
+        *(result + 1) = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      default:
+LABEL_17:
+        if (a2)
+        {
+LABEL_18:
+          *result = a2 + 16;
+        }
+
+        break;
+    }
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for PhoneCallAVMode(unsigned __int8 *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return OUTLINED_FUNCTION_84_6(-1);
+  }
+
+  if (a2 < 0xFF)
+  {
+    goto LABEL_17;
+  }
+
+  if (a2 + 1 >= 0xFFFF00)
+  {
+    v2 = 4;
+  }
+
+  else
+  {
+    v2 = 2;
+  }
+
+  if ((a2 + 1) >> 8 < 0xFF)
+  {
+    v3 = 1;
+  }
+
+  else
+  {
+    v3 = v2;
+  }
+
+  if (v3 == 4)
+  {
+    v4 = *(a1 + 1);
+    if (v4)
+    {
+      return OUTLINED_FUNCTION_84_6((*a1 | (v4 << 8)) - 2);
+    }
+  }
+
+  else
+  {
+    if (v3 == 2)
+    {
+      v4 = *(a1 + 1);
+      if (!*(a1 + 1))
+      {
+        goto LABEL_17;
+      }
+
+      return OUTLINED_FUNCTION_84_6((*a1 | (v4 << 8)) - 2);
+    }
+
+    v4 = a1[1];
+    if (a1[1])
+    {
+      return OUTLINED_FUNCTION_84_6((*a1 | (v4 << 8)) - 2);
+    }
+  }
+
+LABEL_17:
+  v6 = *a1;
+  v7 = v6 >= 2;
+  v8 = v6 - 2;
+  if (!v7)
+  {
+    v8 = -1;
+  }
+
+  return OUTLINED_FUNCTION_84_6(v8);
+}
+
+_BYTE *storeEnumTagSinglePayload for PhoneCallAVMode(_BYTE *result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 1 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 1) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 >= 0xFF)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a2 > 0xFE)
+  {
+    v6 = ((a2 - 255) >> 8) + 1;
+    *result = a2 + 1;
+    switch(v5)
+    {
+      case 1:
+        result = OUTLINED_FUNCTION_83_5(result, v6);
+        break;
+      case 2:
+        result = OUTLINED_FUNCTION_81_5(result, v6);
+        break;
+      case 3:
+LABEL_23:
+        __break(1u);
+        break;
+      case 4:
+        result = OUTLINED_FUNCTION_82_5(result, v6);
+        break;
+      default:
+        return result;
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 1:
+        result[1] = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      case 2:
+        *(result + 1) = 0;
+        goto LABEL_17;
+      case 3:
+        goto LABEL_23;
+      case 4:
+        *(result + 1) = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      default:
+LABEL_17:
+        if (a2)
+        {
+LABEL_18:
+          result = OUTLINED_FUNCTION_52_11(result, a2 + 1);
+        }
+
+        break;
+    }
+  }
+
+  return result;
+}
+
+_BYTE *storeEnumTagSinglePayload for VoiceMail.VoiceMailVerb(_BYTE *result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 5 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 5) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 >= 0xFB)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a2 > 0xFA)
+  {
+    v6 = ((a2 - 251) >> 8) + 1;
+    *result = a2 + 5;
+    switch(v5)
+    {
+      case 1:
+        result[1] = v6;
+        break;
+      case 2:
+        *(result + 1) = v6;
+        break;
+      case 3:
+LABEL_23:
+        __break(1u);
+        break;
+      case 4:
+        *(result + 1) = v6;
+        break;
+      default:
+        return result;
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 1:
+        result[1] = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      case 2:
+        *(result + 1) = 0;
+        goto LABEL_17;
+      case 3:
+        goto LABEL_23;
+      case 4:
+        *(result + 1) = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      default:
+LABEL_17:
+        if (a2)
+        {
+LABEL_18:
+          *result = a2 + 5;
+        }
+
+        break;
+    }
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for PhoneCallConfirmation(unsigned __int8 *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return OUTLINED_FUNCTION_84_6(-1);
+  }
+
+  if (a2 < 0xFC)
+  {
+    goto LABEL_17;
+  }
+
+  if (a2 + 4 >= 0xFFFF00)
+  {
+    v2 = 4;
+  }
+
+  else
+  {
+    v2 = 2;
+  }
+
+  if ((a2 + 4) >> 8 < 0xFF)
+  {
+    v3 = 1;
+  }
+
+  else
+  {
+    v3 = v2;
+  }
+
+  if (v3 == 4)
+  {
+    v4 = *(a1 + 1);
+    if (v4)
+    {
+      return OUTLINED_FUNCTION_84_6((*a1 | (v4 << 8)) - 5);
+    }
+  }
+
+  else
+  {
+    if (v3 == 2)
+    {
+      v4 = *(a1 + 1);
+      if (!*(a1 + 1))
+      {
+        goto LABEL_17;
+      }
+
+      return OUTLINED_FUNCTION_84_6((*a1 | (v4 << 8)) - 5);
+    }
+
+    v4 = a1[1];
+    if (a1[1])
+    {
+      return OUTLINED_FUNCTION_84_6((*a1 | (v4 << 8)) - 5);
+    }
+  }
+
+LABEL_17:
+  v6 = *a1;
+  v7 = v6 >= 5;
+  v8 = v6 - 5;
+  if (!v7)
+  {
+    v8 = -1;
+  }
+
+  return OUTLINED_FUNCTION_84_6(v8);
+}
+
+_BYTE *storeEnumTagSinglePayload for PhoneCallConfirmation(_BYTE *result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 4 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 4) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 >= 0xFC)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a2 > 0xFB)
+  {
+    v6 = ((a2 - 252) >> 8) + 1;
+    *result = a2 + 4;
+    switch(v5)
+    {
+      case 1:
+        result = OUTLINED_FUNCTION_83_5(result, v6);
+        break;
+      case 2:
+        result = OUTLINED_FUNCTION_81_5(result, v6);
+        break;
+      case 3:
+LABEL_23:
+        __break(1u);
+        break;
+      case 4:
+        result = OUTLINED_FUNCTION_82_5(result, v6);
+        break;
+      default:
+        return result;
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 1:
+        result[1] = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      case 2:
+        *(result + 1) = 0;
+        goto LABEL_17;
+      case 3:
+        goto LABEL_23;
+      case 4:
+        *(result + 1) = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      default:
+LABEL_17:
+        if (a2)
+        {
+LABEL_18:
+          result = OUTLINED_FUNCTION_52_11(result, a2 + 4);
+        }
+
+        break;
+    }
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for PhoneCallPreferredProvider(unsigned __int8 *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return OUTLINED_FUNCTION_84_6(-1);
+  }
+
+  if (a2 < 0xFE)
+  {
+    goto LABEL_17;
+  }
+
+  if (a2 + 2 >= 0xFFFF00)
+  {
+    v2 = 4;
+  }
+
+  else
+  {
+    v2 = 2;
+  }
+
+  if ((a2 + 2) >> 8 < 0xFF)
+  {
+    v3 = 1;
+  }
+
+  else
+  {
+    v3 = v2;
+  }
+
+  if (v3 == 4)
+  {
+    v4 = *(a1 + 1);
+    if (v4)
+    {
+      return OUTLINED_FUNCTION_84_6((*a1 | (v4 << 8)) - 3);
+    }
+  }
+
+  else
+  {
+    if (v3 == 2)
+    {
+      v4 = *(a1 + 1);
+      if (!*(a1 + 1))
+      {
+        goto LABEL_17;
+      }
+
+      return OUTLINED_FUNCTION_84_6((*a1 | (v4 << 8)) - 3);
+    }
+
+    v4 = a1[1];
+    if (a1[1])
+    {
+      return OUTLINED_FUNCTION_84_6((*a1 | (v4 << 8)) - 3);
+    }
+  }
+
+LABEL_17:
+  v6 = *a1;
+  v7 = v6 >= 3;
+  v8 = v6 - 3;
+  if (!v7)
+  {
+    v8 = -1;
+  }
+
+  return OUTLINED_FUNCTION_84_6(v8);
+}
+
+_BYTE *storeEnumTagSinglePayload for PhoneCallPreferredProvider(_BYTE *result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 2 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 2) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 >= 0xFE)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a2 > 0xFD)
+  {
+    v6 = ((a2 - 254) >> 8) + 1;
+    *result = a2 + 2;
+    switch(v5)
+    {
+      case 1:
+        result = OUTLINED_FUNCTION_83_5(result, v6);
+        break;
+      case 2:
+        result = OUTLINED_FUNCTION_81_5(result, v6);
+        break;
+      case 3:
+LABEL_23:
+        __break(1u);
+        break;
+      case 4:
+        result = OUTLINED_FUNCTION_82_5(result, v6);
+        break;
+      default:
+        return result;
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 1:
+        result[1] = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      case 2:
+        *(result + 1) = 0;
+        goto LABEL_17;
+      case 3:
+        goto LABEL_23;
+      case 4:
+        *(result + 1) = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      default:
+LABEL_17:
+        if (a2)
+        {
+LABEL_18:
+          result = OUTLINED_FUNCTION_52_11(result, a2 + 2);
+        }
+
+        break;
+    }
+  }
+
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_36_19(uint64_t a1)
+{
+
+  return _stringCompareWithSmolCheck(_:_:expecting:)();
+}
+
+uint64_t OUTLINED_FUNCTION_59_8(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+
+  return _stringCompareWithSmolCheck(_:_:expecting:)();
+}
+
+uint64_t OUTLINED_FUNCTION_79_6(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+
+  return _stringCompareWithSmolCheck(_:_:expecting:)();
+}
+
+uint64_t OUTLINED_FUNCTION_80_5()
+{
+}
+
+uint64_t OUTLINED_FUNCTION_85_4()
+{
+
+  return outlined init with copy of SharedGlobalsProviding();
+}
+
+uint64_t OUTLINED_FUNCTION_86_6(uint64_t a1, uint64_t a2)
+{
+
+  return _stringCompareWithSmolCheck(_:_:expecting:)();
+}
+
+uint64_t OUTLINED_FUNCTION_108_3(uint64_t a1, uint64_t a2)
+{
+
+  return _stringCompareWithSmolCheck(_:_:expecting:)();
+}
+
+uint64_t OUTLINED_FUNCTION_111_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+
+  return _stringCompareWithSmolCheck(_:_:expecting:)();
+}
+
+uint64_t _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF12SiriOntology21NonTerminalIntentNodeV_s5NeverO27PhoneCallFlowDelegatePlugin0jK3App_pTg5@<X0>(void (*a1)(char *)@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  v5 = v3;
+  v15[1] = a2;
+  v16 = a1;
+  v7 = type metadata accessor for NonTerminalIntentNode();
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7);
+  v10 = v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology21NonTerminalIntentNodeVSgMd, &_s12SiriOntology21NonTerminalIntentNodeVSgMR);
+  __chkstk_darwin(v11 - 8);
+  v13 = v15 - v12;
+  _s27PhoneCallFlowDelegatePlugin0aB8NLIntent_pSgWOcTm_0(v5, v15 - v12, &_s12SiriOntology21NonTerminalIntentNodeVSgMd, &_s12SiriOntology21NonTerminalIntentNodeVSgMR);
+  result = __swift_getEnumTagSinglePayload(v13, 1, v7);
+  if (result == 1)
+  {
+    *(a3 + 32) = 0;
+    *a3 = 0u;
+    *(a3 + 16) = 0u;
+  }
+
+  else
+  {
+    (*(v8 + 32))(v10, v13, v7);
+    v16(v10);
+    result = (*(v8 + 8))(v10, v7);
+    if (v4)
+    {
+      __break(1u);
+    }
+  }
+
+  return result;
+}
+
+uint64_t static PhoneCallNLv3Intent.placeCall()@<X0>(uint64_t x8_0@<X8>)
+{
+  return static PhoneCallNLv3Intent.placeCall()(x8_0);
+}
+
+{
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology15TerminalElementV5ValueOSgMd, &_s12SiriOntology15TerminalElementV5ValueOSgMR);
+  OUTLINED_FUNCTION_21(v5);
+  OUTLINED_FUNCTION_49_0();
+  __chkstk_darwin(v6);
+  OUTLINED_FUNCTION_29_3();
+  v7 = type metadata accessor for TerminalIntentNode();
+  OUTLINED_FUNCTION_7();
+  v9 = v8;
+  __chkstk_darwin(v10);
+  OUTLINED_FUNCTION_4();
+  v13 = v12 - v11;
+  TerminalElement.SemanticValue.init(_:javaPojoName:)();
+  v14 = enum case for TerminalElement.Value.semantic(_:);
+  v15 = type metadata accessor for TerminalElement.Value();
+  OUTLINED_FUNCTION_23_1();
+  (*(v16 + 104))(v3, v14, v15);
+  __swift_storeEnumTagSinglePayload(v3, 0, 1, v15);
+  OUTLINED_FUNCTION_75_8();
+  OUTLINED_FUNCTION_0_66();
+  TerminalIntentNode.init(name:value:semanticTags:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12SiriOntology10IntentNode_pGMd, &_ss23_ContiguousArrayStorageCy12SiriOntology10IntentNode_pGMR);
+  v17 = swift_allocObject();
+  *(v17 + 16) = xmmword_424FD0;
+  *(v17 + 56) = v7;
+  *(v17 + 64) = &protocol witness table for TerminalIntentNode;
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v17 + 32));
+  (*(v9 + 16))(boxed_opaque_existential_1, v13, v7);
+  static PhoneCallNLv3Intent.phoneCallNLv3Intent(_:)(x8_0);
+
+  v19 = OUTLINED_FUNCTION_23_6();
+  return v20(v19);
+}
+
+uint64_t specialized PhoneCallNLIntent.hasVideoCallSemantic()()
+{
+  type metadata accessor for PhoneCallNLv3Intent(0);
+  lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(&lazy protocol witness table cache variable for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent, type metadata accessor for PhoneCallNLv3Intent, &protocol conformance descriptor for PhoneCallNLv3Intent);
+  IntentNodeTraversable.value<A>(forNode:)();
+  if (v13 == 9)
+  {
+    v0 = 0;
+  }
+
+  else if (PhoneCallNoun.rawValue.getter(v13) == 0x656D697465636166 && v1 == 0xE800000000000000)
+  {
+
+    v0 = 1;
+  }
+
+  else
+  {
+    v0 = _stringCompareWithSmolCheck(_:_:expecting:)();
+  }
+
+  IntentNodeTraversable.value<A>(forNode:)();
+  if (v12 == 17)
+  {
+    v3 = 0;
+  }
+
+  else if (PhoneCallVerb.rawValue.getter(v12) == 0x656D697465636166 && v4 == 0xE800000000000000)
+  {
+
+    v3 = 1;
+  }
+
+  else
+  {
+    v3 = _stringCompareWithSmolCheck(_:_:expecting:)();
+  }
+
+  IntentNodeTraversable.value<A>(forNode:)();
+  if (v11 == 9)
+  {
+    v6 = 0;
+  }
+
+  else if (PhoneCallNoun.rawValue.getter(v11) == 0x61665F70756F7267 && v7 == 0xEE00656D69746563)
+  {
+
+    v6 = 1;
+  }
+
+  else
+  {
+    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
+  }
+
+  if (v0)
+  {
+    v9 = 1;
+  }
+
+  else
+  {
+    v9 = v3 | v6;
+  }
+
+  return v9 & 1;
+}
+
+uint64_t specialized PhoneCallNLIntent.hasAudioCallSemantic()()
+{
+  type metadata accessor for PhoneCallNLv3Intent(0);
+  lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(&lazy protocol witness table cache variable for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent, type metadata accessor for PhoneCallNLv3Intent, &protocol conformance descriptor for PhoneCallNLv3Intent);
+  IntentNodeTraversable.value<A>(forNode:)();
+  if (v8 == 9)
+  {
+    v0 = 0;
+  }
+
+  else if (PhoneCallNoun.rawValue.getter(v8) == 0x656D697465636166 && v1 == 0xEE006F6964756120)
+  {
+
+    v0 = 1;
+  }
+
+  else
+  {
+    v0 = _stringCompareWithSmolCheck(_:_:expecting:)();
+  }
+
+  IntentNodeTraversable.value<A>(forNode:)();
+  if (v7 == 17)
+  {
+    v3 = 0;
+  }
+
+  else if (PhoneCallVerb.rawValue.getter(v7) == 0x656D697465636166 && v4 == 0xEE006F6964756120)
+  {
+
+    v3 = 1;
+  }
+
+  else
+  {
+    v3 = _stringCompareWithSmolCheck(_:_:expecting:)();
+  }
+
+  return (v0 | v3) & 1;
+}
+
+uint64_t *PhoneCallNLv3Intent.callId.unsafeMutableAddressor()
+{
+  if (one-time initialization token for callId != -1)
+  {
+    OUTLINED_FUNCTION_43_20(&one-time initialization token for callId);
+  }
+
+  return &static PhoneCallNLv3Intent.callId;
+}
+
+uint64_t PhoneCallNLv3Intent.init(intent:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v4 = type metadata accessor for PhoneCallNLv3Intent(0);
+  v5 = v4[5];
+  type metadata accessor for AppOntologyNode();
+  OUTLINED_FUNCTION_12_8();
+  v82 = v6;
+  swift_allocObject();
+  v7 = AppOntologyNode.init(name:multicardinal:)();
+  *(a2 + v5) = v7;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF9AttributeOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF9AttributeOGMR);
+  OUTLINED_FUNCTION_12_8();
+  v80 = v8;
+  swift_allocObject();
+  v81 = v7;
+
+  OUTLINED_FUNCTION_51_20();
+  v9 = TerminalOntologyNode.init(name:multicardinal:)();
+  OUTLINED_FUNCTION_73_5(v9);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF10AudioRouteOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF10AudioRouteOGMR);
+  OUTLINED_FUNCTION_12_8();
+  v78 = v10;
+  swift_allocObject();
+  v79 = v7;
+
+  OUTLINED_FUNCTION_51_20();
+  v11 = TerminalOntologyNode.init(name:multicardinal:)();
+  OUTLINED_FUNCTION_73_5(v11);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF10CapabilityOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF10CapabilityOGMR);
+  OUTLINED_FUNCTION_12_8();
+  v74 = v12;
+  swift_allocObject();
+  v77 = v7;
+
+  OUTLINED_FUNCTION_51_20();
+  v13 = TerminalOntologyNode.init(name:multicardinal:)();
+  OUTLINED_FUNCTION_73_5(v13);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF17PreferredProviderOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF17PreferredProviderOGMR);
+  OUTLINED_FUNCTION_12_8();
+  v69 = v14;
+  swift_allocObject();
+  v72 = v7;
+
+  v15 = TerminalOntologyNode.init(name:multicardinal:)();
+  OUTLINED_FUNCTION_73_5(v15);
+  v16 = v4[11];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF15DestinationTypeOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF15DestinationTypeOGMR);
+  OUTLINED_FUNCTION_12_8();
+  v64 = v17;
+  swift_allocObject();
+  v67 = v7;
+
+  v18 = TerminalOntologyNode.init(name:multicardinal:)();
+  *(a2 + v16) = v18;
+  v19 = v4[12];
+  type metadata accessor for PhoneCallContactOntologyNode(0);
+  OUTLINED_FUNCTION_12_8();
+  v71 = v20;
+  swift_allocObject();
+
+  v21 = PhoneCallContactOntologyNode.init(name:multicardinal:)();
+  *(a2 + v19) = v21;
+  v22 = v4[13];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCySSGMd, &_s12SiriOntology08TerminalB4NodeCySSGMR);
+  OUTLINED_FUNCTION_12_8();
+  v76 = v23;
+  swift_allocObject();
+  v66 = v21;
+
+  v24 = TerminalOntologyNode.init(name:multicardinal:)();
+  *(a2 + v22) = v24;
+  v25 = v4[14];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF4NounOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF4NounOGMR);
+  OUTLINED_FUNCTION_12_8();
+  v68 = v26;
+  swift_allocObject();
+  v70 = v24;
+
+  v27 = TerminalOntologyNode.init(name:multicardinal:)();
+  *(a2 + v25) = v27;
+  v28 = v4[15];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF4VerbOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF4VerbOGMR);
+  OUTLINED_FUNCTION_12_8();
+  v75 = v29;
+  swift_allocObject();
+  v65 = v27;
+
+  OUTLINED_FUNCTION_0_66();
+  v30 = TerminalOntologyNode.init(name:multicardinal:)();
+  *(a2 + v28) = v30;
+  v31 = v4[16];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12SiriOntology0E4Node_pGMd, &_ss23_ContiguousArrayStorageCy12SiriOntology0E4Node_pGMR);
+  v32 = swift_allocObject();
+  *(v32 + 16) = xmmword_424FF0;
+  v33 = one-time initialization token for voiceMailNoun;
+  v73 = v30;
+
+  if (v33 != -1)
+  {
+    swift_once();
+  }
+
+  v34 = static VoiceMail.voiceMailNoun;
+  *(v32 + 56) = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin9VoiceMailO0jK4NounOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin9VoiceMailO0jK4NounOGMR);
+  OUTLINED_FUNCTION_2_14();
+  *(v32 + 64) = lazy protocol witness table accessor for type TerminalOntologyNode<VoiceMail.VoiceMailNoun> and conformance TerminalOntologyNode<A>(v35, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin9VoiceMailO0jK4NounOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin9VoiceMailO0jK4NounOGMR, v36);
+  *(v32 + 32) = v34;
+  v37 = one-time initialization token for voiceMailVerb;
+
+  if (v37 != -1)
+  {
+    swift_once();
+  }
+
+  v38 = static VoiceMail.voiceMailVerb;
+  *(v32 + 96) = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin9VoiceMailO0jK4VerbOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin9VoiceMailO0jK4VerbOGMR);
+  *(v32 + 104) = lazy protocol witness table accessor for type TerminalOntologyNode<VoiceMail.VoiceMailNoun> and conformance TerminalOntologyNode<A>(&lazy protocol witness table cache variable for type TerminalOntologyNode<VoiceMail.VoiceMailVerb> and conformance TerminalOntologyNode<A>, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin9VoiceMailO0jK4VerbOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin9VoiceMailO0jK4VerbOGMR, &protocol conformance descriptor for TerminalOntologyNode<A>);
+  *(v32 + 72) = v38;
+  type metadata accessor for NonTerminalOntologyNode();
+  OUTLINED_FUNCTION_12_8();
+  v63 = v39;
+  swift_allocObject();
+
+  v40 = NonTerminalOntologyNode.init(name:multicardinal:childNodes:)();
+  *(a2 + v31) = v40;
+  v41 = v4[17];
+  v42 = type metadata accessor for SmsGroupOntologyNode(0);
+  OUTLINED_FUNCTION_12_8();
+  swift_allocObject();
+  v61 = v40;
+
+  v43 = SmsGroupOntologyNode.init(name:multicardinal:)();
+  *(a2 + v41) = v43;
+  v44 = type metadata accessor for NLIntent();
+  v45 = *(v44 - 8);
+  v62 = v44;
+  (*(v45 + 16))(a2, a1);
+  v46 = swift_allocObject();
+  *(v46 + 16) = xmmword_43CD80;
+  *(v46 + 56) = v82;
+  *(v46 + 64) = &protocol witness table for NonTerminalOntologyNode;
+  *(v46 + 32) = v81;
+  *(v46 + 96) = v80;
+  *(v46 + 104) = lazy protocol witness table accessor for type TerminalOntologyNode<VoiceMail.VoiceMailNoun> and conformance TerminalOntologyNode<A>(&lazy protocol witness table cache variable for type TerminalOntologyNode<PhoneCallAttribute> and conformance TerminalOntologyNode<A>, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF9AttributeOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF9AttributeOGMR, &protocol conformance descriptor for TerminalOntologyNode<A>);
+  *(v46 + 72) = v79;
+  *(v46 + 136) = v78;
+  *(v46 + 144) = lazy protocol witness table accessor for type TerminalOntologyNode<VoiceMail.VoiceMailNoun> and conformance TerminalOntologyNode<A>(&lazy protocol witness table cache variable for type TerminalOntologyNode<PhoneCallAudioRoute> and conformance TerminalOntologyNode<A>, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF10AudioRouteOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF10AudioRouteOGMR, &protocol conformance descriptor for TerminalOntologyNode<A>);
+  *(v46 + 112) = v77;
+  *(v46 + 176) = v74;
+  *(v46 + 184) = lazy protocol witness table accessor for type TerminalOntologyNode<VoiceMail.VoiceMailNoun> and conformance TerminalOntologyNode<A>(&lazy protocol witness table cache variable for type TerminalOntologyNode<PhoneCallCapability> and conformance TerminalOntologyNode<A>, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF10CapabilityOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF10CapabilityOGMR, &protocol conformance descriptor for TerminalOntologyNode<A>);
+  *(v46 + 152) = v72;
+  *(v46 + 216) = v69;
+  *(v46 + 224) = lazy protocol witness table accessor for type TerminalOntologyNode<VoiceMail.VoiceMailNoun> and conformance TerminalOntologyNode<A>(&lazy protocol witness table cache variable for type TerminalOntologyNode<PhoneCallPreferredProvider> and conformance TerminalOntologyNode<A>, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF17PreferredProviderOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF17PreferredProviderOGMR, &protocol conformance descriptor for TerminalOntologyNode<A>);
+  *(v46 + 192) = v67;
+  *(v46 + 256) = v64;
+  *(v46 + 264) = lazy protocol witness table accessor for type TerminalOntologyNode<VoiceMail.VoiceMailNoun> and conformance TerminalOntologyNode<A>(&lazy protocol witness table cache variable for type TerminalOntologyNode<PhoneCallDestinationType> and conformance TerminalOntologyNode<A>, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF15DestinationTypeOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF15DestinationTypeOGMR, &protocol conformance descriptor for TerminalOntologyNode<A>);
+  *(v46 + 232) = v18;
+  v47 = one-time initialization token for confirmation;
+
+  if (v47 != -1)
+  {
+    OUTLINED_FUNCTION_41_22(&one-time initialization token for confirmation);
+  }
+
+  v48 = static PhoneCallNLv3Intent.confirmation;
+  *(v46 + 296) = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF12ConfirmationOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF12ConfirmationOGMR);
+  OUTLINED_FUNCTION_2_14();
+  v51 = lazy protocol witness table accessor for type TerminalOntologyNode<VoiceMail.VoiceMailNoun> and conformance TerminalOntologyNode<A>(v49, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF12ConfirmationOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF12ConfirmationOGMR, v50);
+  *(v46 + 272) = v48;
+  *(v46 + 336) = v71;
+  *(v46 + 344) = &protocol witness table for NonTerminalOntologyNode;
+  *(v46 + 304) = v51;
+  *(v46 + 312) = v66;
+  v52 = one-time initialization token for callId;
+
+  if (v52 != -1)
+  {
+    OUTLINED_FUNCTION_43_20(&one-time initialization token for callId);
+  }
+
+  v53 = static PhoneCallNLv3Intent.callId;
+  *(v46 + 376) = v76;
+  v54 = lazy protocol witness table accessor for type TerminalOntologyNode<VoiceMail.VoiceMailNoun> and conformance TerminalOntologyNode<A>(&lazy protocol witness table cache variable for type TerminalOntologyNode<String> and conformance TerminalOntologyNode<A>, &_s12SiriOntology08TerminalB4NodeCySSGMd, &_s12SiriOntology08TerminalB4NodeCySSGMR, &protocol conformance descriptor for TerminalOntologyNode<A>);
+  *(v46 + 352) = v53;
+  *(v46 + 416) = v76;
+  *(v46 + 424) = v54;
+  *(v46 + 384) = v54;
+  *(v46 + 392) = v70;
+  *(v46 + 456) = v68;
+  *(v46 + 464) = lazy protocol witness table accessor for type TerminalOntologyNode<VoiceMail.VoiceMailNoun> and conformance TerminalOntologyNode<A>(&lazy protocol witness table cache variable for type TerminalOntologyNode<PhoneCallNoun> and conformance TerminalOntologyNode<A>, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF4NounOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF4NounOGMR, &protocol conformance descriptor for TerminalOntologyNode<A>);
+  *(v46 + 432) = v65;
+  v55 = one-time initialization token for reference;
+
+  if (v55 != -1)
+  {
+    OUTLINED_FUNCTION_25_23(&one-time initialization token for reference);
+  }
+
+  v56 = static PhoneCallNLv3Intent.reference;
+  v57 = OUTLINED_FUNCTION_103_0();
+  *(v46 + 496) = __swift_instantiateConcreteTypeFromMangledNameV2(v57, v58);
+  *(v46 + 504) = lazy protocol witness table accessor for type TerminalOntologyNode<VoiceMail.VoiceMailNoun> and conformance TerminalOntologyNode<A>(&lazy protocol witness table cache variable for type TerminalOntologyNode<PhoneCallReference> and conformance TerminalOntologyNode<A>, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF9ReferenceOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF9ReferenceOGMR, &protocol conformance descriptor for TerminalOntologyNode<A>);
+  *(v46 + 472) = v56;
+  *(v46 + 536) = v75;
+  *(v46 + 544) = lazy protocol witness table accessor for type TerminalOntologyNode<VoiceMail.VoiceMailNoun> and conformance TerminalOntologyNode<A>(&lazy protocol witness table cache variable for type TerminalOntologyNode<PhoneCallVerb> and conformance TerminalOntologyNode<A>, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF4VerbOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF4VerbOGMR, &protocol conformance descriptor for TerminalOntologyNode<A>);
+  *(v46 + 512) = v73;
+  *(v46 + 576) = v63;
+  *(v46 + 584) = &protocol witness table for NonTerminalOntologyNode;
+  *(v46 + 552) = v61;
+  *(v46 + 616) = v42;
+  *(v46 + 624) = &protocol witness table for NonTerminalOntologyNode;
+  *(v46 + 592) = v43;
+  type metadata accessor for DomainOntologyNode();
+  OUTLINED_FUNCTION_12_8();
+  swift_allocObject();
+
+  OUTLINED_FUNCTION_75_8();
+  v59 = DomainOntologyNode.init(name:childNodes:isInEventTree:)();
+  result = (*(v45 + 8))(a1, v62);
+  *(a2 + v4[6]) = v59;
+  return result;
+}
+
+uint64_t *PhoneCallNLv3Intent.appName.unsafeMutableAddressor()
+{
+  if (one-time initialization token for appName != -1)
+  {
+    swift_once();
+  }
+
+  return &static PhoneCallNLv3Intent.appName;
+}
+
+uint64_t *PhoneCallNLv3Intent.reference.unsafeMutableAddressor()
+{
+  if (one-time initialization token for reference != -1)
+  {
+    OUTLINED_FUNCTION_25_23(&one-time initialization token for reference);
+  }
+
+  return &static PhoneCallNLv3Intent.reference;
+}
+
+uint64_t *PhoneCallNLv3Intent.confirmation.unsafeMutableAddressor()
+{
+  if (one-time initialization token for confirmation != -1)
+  {
+    OUTLINED_FUNCTION_41_22(&one-time initialization token for confirmation);
+  }
+
+  return &static PhoneCallNLv3Intent.confirmation;
+}
+
+uint64_t PhoneCallNLv3Intent.domainOntologyNode.getter()
+{
+  type metadata accessor for PhoneCallNLv3Intent(0);
+}
+
+uint64_t static PhoneCallNLv3Intent.appName.getter()
+{
+  return static PhoneCallNLv3Intent.appName.getter();
+}
+
+{
+  OUTLINED_FUNCTION_42_18();
+  if (!v0)
+  {
+    swift_once();
+  }
+}
+
+uint64_t *PhoneCallNLv3Intent.applicationId.unsafeMutableAddressor()
+{
+  if (one-time initialization token for applicationId != -1)
+  {
+    swift_once();
+  }
+
+  return &static PhoneCallNLv3Intent.applicationId;
+}
+
+uint64_t one-time initialization function for confirmation()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF12ConfirmationOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF12ConfirmationOGMR);
+  OUTLINED_FUNCTION_12_8();
+  swift_allocObject();
+  result = TerminalOntologyNode.init(name:multicardinal:)();
+  static PhoneCallNLv3Intent.confirmation = result;
+  return result;
+}
+
+uint64_t one-time initialization function for reference()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF9ReferenceOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF9ReferenceOGMR);
+  OUTLINED_FUNCTION_12_8();
+  swift_allocObject();
+  result = TerminalOntologyNode.init(name:multicardinal:)();
+  static PhoneCallNLv3Intent.reference = result;
+  return result;
+}
+
+uint64_t PhoneCallNLv3Intent.app.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = OUTLINED_FUNCTION_55_0();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(v3, v4);
+  OUTLINED_FUNCTION_21(v5);
+  OUTLINED_FUNCTION_49_0();
+  __chkstk_darwin(v6);
+  type metadata accessor for PhoneCallNLv3Intent(0);
+  OUTLINED_FUNCTION_0_83();
+  lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(v7, v8, &protocol conformance descriptor for PhoneCallNLv3Intent);
+  IntentNodeTraversable.intentNode(forOntologyNode:)();
+  v13 = v1;
+  _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF12SiriOntology21NonTerminalIntentNodeV_s5NeverO27PhoneCallFlowDelegatePlugin0jK3App_pTg5(partial apply for closure #1 in PhoneCallNLv3Intent.app.getter, v12, a1);
+  v9 = OUTLINED_FUNCTION_13_17();
+  return outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v9, v10, &_s12SiriOntology21NonTerminalIntentNodeVSgMR);
+}
+
+uint64_t closure #1 in PhoneCallNLv3Intent.app.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+{
+  v6 = type metadata accessor for AppIntentNode(0);
+  a3[3] = v6;
+  a3[4] = &protocol witness table for AppIntentNode;
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(a3);
+  v8 = type metadata accessor for NonTerminalIntentNode();
+  (*(*(v8 - 8) + 16))(boxed_opaque_existential_1, a1, v8);
+  *(boxed_opaque_existential_1 + *(v6 + 20)) = *(a2 + *(type metadata accessor for PhoneCallNLv3Intent(0) + 20));
+}
+
+uint64_t PhoneCallNLv3Intent.phoneCallAVMode.getter()
+{
+  if (specialized PhoneCallNLIntent.hasVideoCallSemantic()())
+  {
+    return 1;
+  }
+
+  if (specialized PhoneCallNLIntent.hasAudioCallSemantic()())
+  {
+    return 0;
+  }
+
+  return 2;
+}
+
+uint64_t PhoneCallNLv3Intent.phoneCallAttributes.getter()
+{
+  OUTLINED_FUNCTION_21_28();
+  OUTLINED_FUNCTION_0_83();
+  lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(v0, v1, &protocol conformance descriptor for PhoneCallNLv3Intent);
+  v2 = OUTLINED_FUNCTION_20_0();
+
+  return IntentNodeTraversable.values<A>(forNode:)(v2);
+}
+
+uint64_t PhoneCallNLv3Intent.phoneCallAudioRoute.getter()
+{
+  OUTLINED_FUNCTION_21_28();
+  OUTLINED_FUNCTION_0_83();
+  v2 = lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(v0, v1, &protocol conformance descriptor for PhoneCallNLv3Intent);
+  OUTLINED_FUNCTION_16_40(v2);
+  return v4;
+}
+
+uint64_t PhoneCallNLv3Intent.phoneCallCapability.getter()
+{
+  OUTLINED_FUNCTION_21_28();
+  OUTLINED_FUNCTION_0_83();
+  v2 = lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(v0, v1, &protocol conformance descriptor for PhoneCallNLv3Intent);
+  OUTLINED_FUNCTION_16_40(v2);
+  return v4;
+}
+
+uint64_t PhoneCallNLv3Intent.phoneCallPreferredProvider.getter()
+{
+  OUTLINED_FUNCTION_21_28();
+  OUTLINED_FUNCTION_0_83();
+  v2 = lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(v0, v1, &protocol conformance descriptor for PhoneCallNLv3Intent);
+  OUTLINED_FUNCTION_16_40(v2);
+  return v4;
+}
+
+uint64_t PhoneCallNLv3Intent.phoneCallDestinationType.getter()
+{
+  OUTLINED_FUNCTION_21_28();
+  OUTLINED_FUNCTION_0_83();
+  v2 = lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(v0, v1, &protocol conformance descriptor for PhoneCallNLv3Intent);
+  OUTLINED_FUNCTION_16_40(v2);
+  return v4;
+}
+
+uint64_t PhoneCallNLv3Intent.phoneCallVerb.getter()
+{
+  OUTLINED_FUNCTION_21_28();
+  OUTLINED_FUNCTION_0_83();
+  v2 = lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(v0, v1, &protocol conformance descriptor for PhoneCallNLv3Intent);
+  OUTLINED_FUNCTION_16_40(v2);
+  return v4;
+}
+
+uint64_t PhoneCallNLv3Intent.phoneCallNoun.getter()
+{
+  OUTLINED_FUNCTION_21_28();
+  OUTLINED_FUNCTION_0_83();
+  v2 = lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(v0, v1, &protocol conformance descriptor for PhoneCallNLv3Intent);
+  OUTLINED_FUNCTION_16_40(v2);
+  return v4;
+}
+
+uint64_t PhoneCallNLv3Intent.phoneCallConfirmation.getter()
+{
+  OUTLINED_FUNCTION_42_18();
+  if (!v0)
+  {
+    swift_once();
+  }
+
+  type metadata accessor for PhoneCallNLv3Intent(0);
+  OUTLINED_FUNCTION_0_83();
+  lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(v1, v2, &protocol conformance descriptor for PhoneCallNLv3Intent);
+  OUTLINED_FUNCTION_55();
+  IntentNodeTraversable.value<A>(forNode:)();
+  return v4;
+}
+
+uint64_t PhoneCallNLv3Intent.contacts.getter()
+{
+  OUTLINED_FUNCTION_21_28();
+  OUTLINED_FUNCTION_0_83();
+  lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(v1, v2, &protocol conformance descriptor for PhoneCallNLv3Intent);
+  OUTLINED_FUNCTION_20_0();
+  IntentNodeTraversable.intentNodes(forOntologyNode:)();
+  v3 = OUTLINED_FUNCTION_72_6();
+  _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay12SiriOntology21NonTerminalIntentNodeVG_27PhoneCallFlowDelegatePlugin0dJ7Contact_ps5NeverOTg5(v3, v4, v5);
+  OUTLINED_FUNCTION_33_2();
+  return v0;
+}
+
+uint64_t closure #1 in PhoneCallNLv3Intent.contacts.getter@<X0>(uint64_t a1@<X0>, uint64_t *a3@<X8>)
+{
+  type metadata accessor for NonTerminalIntentNode();
+  OUTLINED_FUNCTION_7();
+  __chkstk_darwin(v5);
+  OUTLINED_FUNCTION_4();
+  (*(v8 + 16))(v7 - v6, a1);
+  type metadata accessor for PhoneCallNLv3Intent(0);
+  v9 = type metadata accessor for PhoneCallContactIntentNode(0);
+  OUTLINED_FUNCTION_12_8();
+  v10 = swift_allocObject();
+  PhoneCallContactIntentNode.init(intentNode:ontologyNode:)();
+  a3[3] = v9;
+  a3[4] = &protocol witness table for PhoneCallContactIntentNode;
+  *a3 = v10;
+}
+
+uint64_t PhoneCallContactIntentNode.__allocating_init(intentNode:ontologyNode:)()
+{
+  OUTLINED_FUNCTION_24_3();
+  v0 = swift_allocObject();
+  OUTLINED_FUNCTION_20_0();
+  PhoneCallContactIntentNode.init(intentNode:ontologyNode:)();
+  return v0;
+}
+
+void PhoneCallNLv3Intent.contactQueries.getter()
+{
+  OUTLINED_FUNCTION_66();
+  v1 = type metadata accessor for ContactQuery();
+  OUTLINED_FUNCTION_7();
+  v3 = v2;
+  __chkstk_darwin(v4);
+  OUTLINED_FUNCTION_4();
+  v7 = v6 - v5;
+  type metadata accessor for PhoneCallNLv3Intent(0);
+  OUTLINED_FUNCTION_0_83();
+  lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(v8, v9, &protocol conformance descriptor for PhoneCallNLv3Intent);
+  OUTLINED_FUNCTION_76_7();
+  v10 = IntentNodeTraversable.intentNodes(forOntologyNode:)();
+  v23 = v0;
+  v11 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay12SiriOntology21NonTerminalIntentNodeVG_27PhoneCallFlowDelegatePlugin0dJ7Contact_ps5NeverOTg5(closure #1 in PhoneCallNLv3Intent.contacts.getterpartial apply, &v22, v10);
+
+  v12 = *(v11 + 16);
+
+  if (v12)
+  {
+    OUTLINED_FUNCTION_76_7();
+    v13 = IntentNodeTraversable.intentNodes(forOntologyNode:)();
+    __chkstk_darwin(v13);
+    OUTLINED_FUNCTION_6_49();
+    *(v14 - 16) = v0;
+    v16 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay12SiriOntology21NonTerminalIntentNodeVG_27PhoneCallFlowDelegatePlugin0dJ7Contact_ps5NeverOTg5(closure #1 in PhoneCallNLv3Intent.contacts.getterpartial apply, v15, v13);
+
+    v17 = *(v16 + 16);
+    if (v17)
+    {
+      v25 = _swiftEmptyArrayStorage;
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v17, 0);
+      v18 = v25;
+      v19 = v16 + 32;
+      do
+      {
+        outlined init with copy of SignalProviding(v19, v24);
+        __swift_project_boxed_opaque_existential_1(v24, v24[3]);
+        SiriPhoneContact.asSiriInferenceContact.getter();
+        __swift_destroy_boxed_opaque_existential_1(v24);
+        v25 = v18;
+        v21 = v18[2];
+        v20 = v18[3];
+        if (v21 >= v20 >> 1)
+        {
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v20 > 1, v21 + 1, 1);
+          v18 = v25;
+        }
+
+        v18[2] = v21 + 1;
+        (*(v3 + 32))(v18 + ((*(v3 + 80) + 32) & ~*(v3 + 80)) + *(v3 + 72) * v21, v7, v1);
+        v19 += 40;
+        --v17;
+      }
+
+      while (v17);
+    }
+  }
+
+  OUTLINED_FUNCTION_65();
+}
+
+uint64_t PhoneCallNLv3Intent.smsGroups.getter()
+{
+  OUTLINED_FUNCTION_21_28();
+  OUTLINED_FUNCTION_0_83();
+  lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(v1, v2, &protocol conformance descriptor for PhoneCallNLv3Intent);
+  OUTLINED_FUNCTION_20_0();
+  IntentNodeTraversable.intentNodes(forOntologyNode:)();
+  v3 = OUTLINED_FUNCTION_72_6();
+  _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay12SiriOntology21NonTerminalIntentNodeVG_27PhoneCallFlowDelegatePlugin8SmsGroup_ps5NeverOTg5(v3, v4, v5);
+  OUTLINED_FUNCTION_33_2();
+  return v0;
+}
+
+uint64_t closure #1 in PhoneCallNLv3Intent.smsGroups.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+{
+  v6 = type metadata accessor for SmsGroupIntentNode(0);
+  a3[3] = v6;
+  a3[4] = &protocol witness table for SmsGroupIntentNode;
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(a3);
+  v8 = type metadata accessor for NonTerminalIntentNode();
+  (*(*(v8 - 8) + 16))(boxed_opaque_existential_1, a1, v8);
+  *(boxed_opaque_existential_1 + *(v6 + 20)) = *(a2 + *(type metadata accessor for PhoneCallNLv3Intent(0) + 68));
+}
+
+uint64_t AppIntentNode.init(intentNode:ontologyNode:)()
+{
+  OUTLINED_FUNCTION_67_10();
+  OUTLINED_FUNCTION_23_1();
+  (*(v4 + 32))(v3, v2);
+  result = v0(0);
+  *(v3 + *(result + 20)) = v1;
+  return result;
+}
+
+uint64_t static PhoneCallNLv3Intent.phoneCallNLv3Intent(_:)@<X0>(uint64_t a2@<X8>)
+{
+  v18 = a2;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology23MitigatorClassificationOSgMd, &_s12SiriOntology23MitigatorClassificationOSgMR);
+  __chkstk_darwin(v2 - 8);
+  v17 = &v15 - v3;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology7NLStateVSgMd, &_s12SiriOntology7NLStateVSgMR);
+  __chkstk_darwin(v4 - 8);
+  v16 = &v15 - v5;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12SiriOntology10IntentNode_pGMd, &_ss23_ContiguousArrayStorageCy12SiriOntology10IntentNode_pGMR);
+  v6 = swift_allocObject();
+  v19 = xmmword_424FD0;
+  *(v6 + 16) = xmmword_424FD0;
+  v7 = swift_allocObject();
+  *(v7 + 16) = v19;
+  v8 = swift_allocObject();
+  *(v8 + 16) = v19;
+  v9 = swift_allocObject();
+  *(v9 + 16) = v19;
+  v10 = swift_allocObject();
+  *(v10 + 16) = v19;
+  v11 = type metadata accessor for NonTerminalIntentNode();
+  *(v10 + 56) = v11;
+  *(v10 + 64) = &protocol witness table for NonTerminalIntentNode;
+  __swift_allocate_boxed_opaque_existential_1((v10 + 32));
+
+  NonTerminalIntentNode.init(name:childNodes:resultIDs:)();
+  *(v9 + 56) = v11;
+  *(v9 + 64) = &protocol witness table for NonTerminalIntentNode;
+  __swift_allocate_boxed_opaque_existential_1((v9 + 32));
+  NonTerminalIntentNode.init(name:childNodes:resultIDs:)();
+  *(v8 + 56) = v11;
+  *(v8 + 64) = &protocol witness table for NonTerminalIntentNode;
+  __swift_allocate_boxed_opaque_existential_1((v8 + 32));
+  NonTerminalIntentNode.init(name:childNodes:resultIDs:)();
+  *(v7 + 56) = v11;
+  *(v7 + 64) = &protocol witness table for NonTerminalIntentNode;
+  __swift_allocate_boxed_opaque_existential_1((v7 + 32));
+  NonTerminalIntentNode.init(name:childNodes:resultIDs:)();
+  *(v6 + 56) = v11;
+  *(v6 + 64) = &protocol witness table for NonTerminalIntentNode;
+  __swift_allocate_boxed_opaque_existential_1((v6 + 32));
+  NonTerminalIntentNode.init(name:childNodes:resultIDs:)();
+  v20[3] = v11;
+  v20[4] = &protocol witness table for NonTerminalIntentNode;
+  __swift_allocate_boxed_opaque_existential_1(v20);
+  NonTerminalIntentNode.init(name:childNodes:resultIDs:)();
+  v12 = type metadata accessor for NLState();
+  __swift_storeEnumTagSinglePayload(v16, 1, 1, v12);
+  v13 = type metadata accessor for MitigatorClassification();
+  __swift_storeEnumTagSinglePayload(v17, 1, 1, v13);
+  return NLIntent.init(rootNode:score:originalInput:allWordsMatched:primary:usingExplicitInput:intentRank:isNERBasedParse:intentID:nlState:mitigatorClassification:strippedVoiceTrigger:isInvalidVoiceTrigger:isSuggested:metaDomainActions:)();
+}
+
+uint64_t static PhoneCallNLv3Intent.__derived_struct_equals(_:_:)()
+{
+  OUTLINED_FUNCTION_24_3();
+  if ((static NLIntent.== infix(_:_:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  type metadata accessor for NonTerminalOntologyNode();
+  v0 = type metadata accessor for PhoneCallNLv3Intent(0);
+  OUTLINED_FUNCTION_25_25(v0[5]);
+  if ((static NonTerminalOntologyNode.== infix(_:_:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  OUTLINED_FUNCTION_25_25(v0[6]);
+  if ((static NonTerminalOntologyNode.== infix(_:_:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF9AttributeOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF9AttributeOGMR);
+  OUTLINED_FUNCTION_25_25(v0[7]);
+  if ((static TerminalOntologyNode.== infix(_:_:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF10AudioRouteOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF10AudioRouteOGMR);
+  OUTLINED_FUNCTION_25_25(v0[8]);
+  if ((static TerminalOntologyNode.== infix(_:_:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF10CapabilityOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF10CapabilityOGMR);
+  OUTLINED_FUNCTION_25_25(v0[9]);
+  if ((static TerminalOntologyNode.== infix(_:_:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF17PreferredProviderOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF17PreferredProviderOGMR);
+  OUTLINED_FUNCTION_25_25(v0[10]);
+  if ((static TerminalOntologyNode.== infix(_:_:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF15DestinationTypeOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF15DestinationTypeOGMR);
+  OUTLINED_FUNCTION_25_25(v0[11]);
+  if ((static TerminalOntologyNode.== infix(_:_:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  OUTLINED_FUNCTION_25_25(v0[12]);
+  if ((static NonTerminalOntologyNode.== infix(_:_:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCySSGMd, &_s12SiriOntology08TerminalB4NodeCySSGMR);
+  OUTLINED_FUNCTION_25_25(v0[13]);
+  if ((static TerminalOntologyNode.== infix(_:_:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF4NounOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF4NounOGMR);
+  OUTLINED_FUNCTION_25_25(v0[14]);
+  if ((static TerminalOntologyNode.== infix(_:_:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF4VerbOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF4VerbOGMR);
+  OUTLINED_FUNCTION_25_25(v0[15]);
+  if ((static TerminalOntologyNode.== infix(_:_:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  OUTLINED_FUNCTION_25_25(v0[16]);
+  if ((static NonTerminalOntologyNode.== infix(_:_:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  OUTLINED_FUNCTION_25_25(v0[17]);
+  return static NonTerminalOntologyNode.== infix(_:_:)() & 1;
+}
+
+uint64_t PhoneCallNLv3Intent.hash(into:)()
+{
+  type metadata accessor for NLIntent();
+  lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(&lazy protocol witness table cache variable for type NLIntent and conformance NLIntent, &type metadata accessor for NLIntent, &protocol conformance descriptor for NLIntent);
+  OUTLINED_FUNCTION_55_0();
+  dispatch thunk of Hashable.hash(into:)();
+  type metadata accessor for PhoneCallNLv3Intent(0);
+  type metadata accessor for AppOntologyNode();
+  lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(&lazy protocol witness table cache variable for type AppOntologyNode and conformance NonTerminalOntologyNode, &type metadata accessor for AppOntologyNode, &protocol conformance descriptor for NonTerminalOntologyNode);
+  OUTLINED_FUNCTION_5_65();
+  dispatch thunk of Hashable.hash(into:)();
+  OUTLINED_FUNCTION_26_23();
+  type metadata accessor for DomainOntologyNode();
+  OUTLINED_FUNCTION_80_6(&lazy protocol witness table cache variable for type DomainOntologyNode and conformance NonTerminalOntologyNode);
+  OUTLINED_FUNCTION_5_65();
+  dispatch thunk of Hashable.hash(into:)();
+  OUTLINED_FUNCTION_26_23();
+  OUTLINED_FUNCTION_53_19();
+  lazy protocol witness table accessor for type TerminalOntologyNode<VoiceMail.VoiceMailNoun> and conformance TerminalOntologyNode<A>(&lazy protocol witness table cache variable for type TerminalOntologyNode<PhoneCallAttribute> and conformance TerminalOntologyNode<A>, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF9AttributeOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF9AttributeOGMR, &protocol conformance descriptor for TerminalOntologyNode<A>);
+  OUTLINED_FUNCTION_5_65();
+  dispatch thunk of Hashable.hash(into:)();
+  OUTLINED_FUNCTION_26_23();
+  OUTLINED_FUNCTION_53_19();
+  OUTLINED_FUNCTION_30_26(&lazy protocol witness table cache variable for type TerminalOntologyNode<PhoneCallAudioRoute> and conformance TerminalOntologyNode<A>);
+  OUTLINED_FUNCTION_5_65();
+  dispatch thunk of Hashable.hash(into:)();
+  OUTLINED_FUNCTION_26_23();
+  OUTLINED_FUNCTION_53_19();
+  OUTLINED_FUNCTION_30_26(&lazy protocol witness table cache variable for type TerminalOntologyNode<PhoneCallCapability> and conformance TerminalOntologyNode<A>);
+  OUTLINED_FUNCTION_5_65();
+  dispatch thunk of Hashable.hash(into:)();
+  OUTLINED_FUNCTION_26_23();
+  OUTLINED_FUNCTION_53_19();
+  OUTLINED_FUNCTION_30_26(&lazy protocol witness table cache variable for type TerminalOntologyNode<PhoneCallPreferredProvider> and conformance TerminalOntologyNode<A>);
+  OUTLINED_FUNCTION_5_65();
+  dispatch thunk of Hashable.hash(into:)();
+  OUTLINED_FUNCTION_26_23();
+  OUTLINED_FUNCTION_53_19();
+  OUTLINED_FUNCTION_30_26(&lazy protocol witness table cache variable for type TerminalOntologyNode<PhoneCallDestinationType> and conformance TerminalOntologyNode<A>);
+  OUTLINED_FUNCTION_5_65();
+  dispatch thunk of Hashable.hash(into:)();
+  OUTLINED_FUNCTION_26_23();
+  type metadata accessor for PhoneCallContactOntologyNode(0);
+  OUTLINED_FUNCTION_80_6(&lazy protocol witness table cache variable for type PhoneCallContactOntologyNode and conformance NonTerminalOntologyNode);
+  OUTLINED_FUNCTION_5_65();
+  dispatch thunk of Hashable.hash(into:)();
+  OUTLINED_FUNCTION_26_23();
+  OUTLINED_FUNCTION_53_19();
+  OUTLINED_FUNCTION_30_26(&lazy protocol witness table cache variable for type TerminalOntologyNode<String> and conformance TerminalOntologyNode<A>);
+  OUTLINED_FUNCTION_5_65();
+  dispatch thunk of Hashable.hash(into:)();
+  OUTLINED_FUNCTION_26_23();
+  OUTLINED_FUNCTION_53_19();
+  OUTLINED_FUNCTION_30_26(&lazy protocol witness table cache variable for type TerminalOntologyNode<PhoneCallNoun> and conformance TerminalOntologyNode<A>);
+  OUTLINED_FUNCTION_5_65();
+  dispatch thunk of Hashable.hash(into:)();
+  OUTLINED_FUNCTION_26_23();
+  OUTLINED_FUNCTION_53_19();
+  OUTLINED_FUNCTION_30_26(&lazy protocol witness table cache variable for type TerminalOntologyNode<PhoneCallVerb> and conformance TerminalOntologyNode<A>);
+  OUTLINED_FUNCTION_5_65();
+  dispatch thunk of Hashable.hash(into:)();
+  OUTLINED_FUNCTION_26_23();
+  type metadata accessor for NonTerminalOntologyNode();
+  OUTLINED_FUNCTION_80_6(&lazy protocol witness table cache variable for type NonTerminalOntologyNode and conformance NonTerminalOntologyNode);
+  OUTLINED_FUNCTION_5_65();
+  dispatch thunk of Hashable.hash(into:)();
+  OUTLINED_FUNCTION_26_23();
+  type metadata accessor for SmsGroupOntologyNode(0);
+  OUTLINED_FUNCTION_80_6(&lazy protocol witness table cache variable for type SmsGroupOntologyNode and conformance NonTerminalOntologyNode);
+  OUTLINED_FUNCTION_5_65();
+  return dispatch thunk of Hashable.hash(into:)();
+}
+
+Swift::Int PhoneCallNLv3Intent.hashValue.getter()
+{
+  Hasher.init(_seed:)();
+  PhoneCallNLv3Intent.hash(into:)();
+  return Hasher._finalize()();
+}
+
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PhoneCallNLv3Intent(uint64_t a1)
+{
+  Hasher.init(_seed:)();
+  PhoneCallNLv3Intent.hash(into:)();
+  return Hasher._finalize()();
+}
+
+uint64_t protocol witness for IntentNodeTraversable.traversableIntentNode.getter in conformance PhoneCallNLv3Intent(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(&lazy protocol witness table cache variable for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent, type metadata accessor for PhoneCallNLv3Intent, &protocol conformance descriptor for PhoneCallNLv3Intent);
+
+  return NLIntentWrapper.traversableIntentNode.getter(a1, v2);
+}
+
+uint64_t protocol witness for IntentNodeTraversable.traversableOntologyNode.getter in conformance PhoneCallNLv3Intent(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(&lazy protocol witness table cache variable for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent, type metadata accessor for PhoneCallNLv3Intent, &protocol conformance descriptor for PhoneCallNLv3Intent);
+
+  return NLIntentWrapper.traversableOntologyNode.getter(a1, v2);
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance PhoneCallNLv3Intent(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(&lazy protocol witness table cache variable for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent, type metadata accessor for PhoneCallNLv3Intent, &protocol conformance descriptor for PhoneCallNLv3Intent);
+
+  return NLIntentWrapper.description.getter(a1, v2);
+}
+
+uint64_t key path setter for PhoneCallContactIntentNode.intentNode : PhoneCallContactIntentNode(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for NonTerminalIntentNode();
+  v5 = __chkstk_darwin(v4);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v8 + 16))(v7, a1, v5);
+  return (*(**a2 + 128))(v7);
+}
+
+uint64_t PhoneCallContactIntentNode.intentNode.getter@<X0>(uint64_t a1@<X8>)
+{
+  v3 = OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin26PhoneCallContactIntentNode_intentNode;
+  swift_beginAccess();
+  type metadata accessor for NonTerminalIntentNode();
+  OUTLINED_FUNCTION_23_1();
+  return (*(v4 + 16))(a1, v1 + v3);
+}
+
+uint64_t PhoneCallContactIntentNode.intentNode.setter(uint64_t a1)
+{
+  v3 = OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin26PhoneCallContactIntentNode_intentNode;
+  swift_beginAccess();
+  type metadata accessor for NonTerminalIntentNode();
+  OUTLINED_FUNCTION_23_1();
+  (*(v4 + 40))(v1 + v3, a1);
+  return swift_endAccess();
+}
+
+uint64_t key path setter for PhoneCallContactIntentNode.ontologyNode : PhoneCallContactIntentNode(uint64_t a1, uint64_t a2)
+{
+  v2 = *(**a2 + 152);
+
+  return v2(v3);
+}
+
+uint64_t PhoneCallContactIntentNode.ontologyNode.setter(uint64_t a1)
+{
+  v3 = OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin26PhoneCallContactIntentNode_ontologyNode;
+  OUTLINED_FUNCTION_78_3(a1);
+  *(v1 + v3) = a1;
+}
+
+uint64_t PhoneCallContactIntentNode.init(intentNode:ontologyNode:)()
+{
+  OUTLINED_FUNCTION_24_3();
+  v3 = (v1 + OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin26PhoneCallContactIntentNode_handleLabel);
+  *v3 = 0;
+  v3[1] = 0;
+  *(v1 + OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin26PhoneCallContactIntentNode_emergencyLocationType) = 3;
+  *(v1 + OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin26PhoneCallContactIntentNode_contactSource) = 3;
+  v4 = OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin26PhoneCallContactIntentNode_intentNode;
+  type metadata accessor for NonTerminalIntentNode();
+  OUTLINED_FUNCTION_23_1();
+  (*(v5 + 32))(v1 + v4, v2);
+  *(v1 + OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin26PhoneCallContactIntentNode_ontologyNode) = v0;
+  return v1;
+}
+
+uint64_t static PhoneCallContactIntentNode.from(intentNode:ontologyNode:)()
+{
+  OUTLINED_FUNCTION_24_3();
+  type metadata accessor for NonTerminalIntentNode();
+  OUTLINED_FUNCTION_7();
+  __chkstk_darwin(v3);
+  OUTLINED_FUNCTION_4();
+  v6 = v5 - v4;
+  (*(v7 + 16))(v5 - v4, v2);
+  v8 = *(v1 + 168);
+
+  return v8(v6, v0);
+}
+
+void PhoneCallContactIntentNode.person.getter()
 {
   OUTLINED_FUNCTION_66();
   v3 = v2;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriInference18ContactHandleQueryVSgMd, &_s13SiriInference18ContactHandleQueryVSgMR);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology21NonTerminalIntentNodeVSgMd, &_s12SiriOntology21NonTerminalIntentNodeVSgMR);
   OUTLINED_FUNCTION_21(v4);
-  v6 = *(v5 + 64);
   OUTLINED_FUNCTION_49_0();
-  __chkstk_darwin(v7);
-  v9 = v105 - v8;
-  v10 = type metadata accessor for ContactHandle.HandleType();
-  v11 = OUTLINED_FUNCTION_7(v10);
-  v114 = v12;
-  v14 = *(v13 + 64);
-  __chkstk_darwin(v11);
-  OUTLINED_FUNCTION_12_5();
-  v113 = v15 - v16;
-  __chkstk_darwin(v17);
-  v19 = v105 - v18;
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriInference12ContactQueryVSgMd, &_s13SiriInference12ContactQueryVSgMR);
-  OUTLINED_FUNCTION_21(v20);
-  v22 = *(v21 + 64);
-  OUTLINED_FUNCTION_49_0();
-  __chkstk_darwin(v23);
-  v25 = v105 - v24;
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriInference24ContactRelationshipQueryVSgMd, &_s13SiriInference24ContactRelationshipQueryVSgMR);
-  OUTLINED_FUNCTION_21(v26);
-  v28 = *(v27 + 64);
-  OUTLINED_FUNCTION_49_0();
-  __chkstk_darwin(v29);
-  ContactQuery.init()();
-  specialized SiriPhoneContact.getFullName(filteredAlternatives:)();
-  if (v30)
-  {
-    ContactQuery.fullName.setter();
-  }
-
-  specialized SiriPhoneContact.getPrefixName()();
-  if (v31)
-  {
-    ContactQuery.namePrefix.setter();
-  }
-
-  specialized SiriPhoneContact.getFirstName(filteredAlternatives:)();
-  if (v32)
-  {
-    ContactQuery.givenName.setter();
-  }
-
-  specialized SiriPhoneContact.getMiddleName(filteredAlternatives:)();
-  if (v33)
-  {
-    ContactQuery.middleName.setter();
-  }
-
-  specialized SiriPhoneContact.getLastName(filteredAlternatives:)();
-  if (v34)
-  {
-    ContactQuery.familyName.setter();
-  }
-
-  specialized SiriPhoneContact.getPostfixName()();
-  if (v35)
-  {
-    ContactQuery.nameSuffix.setter();
-  }
-
-  v115 = v10;
-  specialized SiriPhoneContact.getNickName()();
-  if (v36)
-  {
-    ContactQuery.nickname.setter();
-  }
-
-  OUTLINED_FUNCTION_26_5();
-  (*(v37 + 376))();
-  if (v38)
-  {
-    v39 = type metadata accessor for ContactQuery();
-    __swift_storeEnumTagSinglePayload(v25, 1, 1, v39);
-    ContactRelationshipQuery.init(label:fromContact:)();
-    type metadata accessor for ContactRelationshipQuery();
-    OUTLINED_FUNCTION_23_3();
-    __swift_storeEnumTagSinglePayload(v40, v41, v42, v43);
-    ContactQuery.relationship.setter();
-  }
-
-  OUTLINED_FUNCTION_26_5();
-  (*(v44 + 328))();
-  if (v45)
-  {
-    ContactQuery.organizationName.setter();
-  }
-
-  v112 = v19;
-  OUTLINED_FUNCTION_26_5();
-  v47 = (*(v46 + 280))();
-  v48 = v114;
-  if (v47)
-  {
-    ContactQuery.isMe.setter();
-  }
-
-  OUTLINED_FUNCTION_26_5();
-  (*(v49 + 256))();
-  if (v50)
-  {
-    ContactQuery.givenName.getter();
-    OUTLINED_FUNCTION_34_12();
-
-    OUTLINED_FUNCTION_16_37();
-    if (v51)
-    {
-      goto LABEL_25;
-    }
-
-    ContactQuery.middleName.getter();
-    OUTLINED_FUNCTION_34_12();
-
-    OUTLINED_FUNCTION_16_37();
-    if (v52 || (ContactQuery.familyName.getter(), OUTLINED_FUNCTION_34_12(), , OUTLINED_FUNCTION_16_37(), v53))
-    {
-LABEL_25:
-    }
-
-    else
-    {
-      ContactQuery.givenName.setter();
-    }
-  }
-
-  OUTLINED_FUNCTION_26_5();
-  v55 = (*(v54 + 400))();
-  if (v56)
-  {
-    v108 = v0;
-    v109 = v9;
-    v110 = v3;
-    v106 = v55;
-    v107 = v56;
-    v120 = v55;
-    v121 = v56;
-    lazy protocol witness table accessor for type String and conformance String();
-    OUTLINED_FUNCTION_49_14();
-    v105[1] = v57;
-    v58 = StringProtocol<>.split(separator:maxSplits:omittingEmptySubsequences:)();
-    v59 = 0;
-    v60 = *(v58 + 16);
-    v61 = v58 + 56;
-    v111 = _swiftEmptyArrayStorage;
-    v105[0] = v58 + 56;
-LABEL_28:
-    v62 = (v61 + 32 * v59);
-    while (v60 != v59)
-    {
-      if (v59 >= *(v58 + 16))
-      {
-        __break(1u);
-LABEL_71:
-        OUTLINED_FUNCTION_0_6();
-        swift_once();
-LABEL_60:
-        v86 = type metadata accessor for Logger();
-        OUTLINED_FUNCTION_9_0(v86, static Logger.siriPhone);
-        v87 = Logger.logObject.getter();
-        v88 = static os_log_type_t.debug.getter();
-        if (os_log_type_enabled(v87, v88))
-        {
-          v89 = swift_slowAlloc();
-          *v89 = 0;
-          _os_log_impl(&dword_0, v87, v88, "#ContactResolution received AmbiguousHandle. Setting handleType as unknown", v89, 2u);
-          OUTLINED_FUNCTION_8();
-        }
-
-        v81 = v114;
-        v84 = v115;
-        v90 = *(v114 + 8);
-        v83 = v112;
-        v91 = OUTLINED_FUNCTION_13_17();
-        v92(v91);
-        (v1)(v83, enum case for ContactHandle.HandleType.unknown(_:), v84);
-        goto LABEL_63;
-      }
-
-      v63 = *(v62 - 3);
-      v1 = *(v62 - 2);
-      v65 = *(v62 - 1);
-      v64 = *v62;
-      v66 = v63 >> 16;
-      v67 = v1 >> 16;
-      if (v65 != 0x656E6F6870 || v64 != 0xE500000000000000 || v66 != 0 || v67 != 5)
-      {
-        OUTLINED_FUNCTION_38_16();
-        if ((_stringCompareInternal(_:_:_:_:expecting:)() & 1) == 0)
-        {
-          v71 = v65 == 0x6C69616D65 && v64 == 0xE500000000000000;
-          if (!v71 || v66 || v67 != 5)
-          {
-            OUTLINED_FUNCTION_38_16();
-            if ((_stringCompareInternal(_:_:_:_:expecting:)() & 1) == 0)
-            {
-
-              v72 = v111;
-              isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-              v120 = v72;
-              if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-              {
-                v74 = v72[2];
-                specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-                v72 = v120;
-              }
-
-              v75 = v72[2];
-              if (v75 >= v72[3] >> 1)
-              {
-                specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-                v72 = v120;
-              }
-
-              ++v59;
-              v72[2] = v75 + 1;
-              v111 = v72;
-              v76 = &v72[4 * v75];
-              v76[4] = v63;
-              v76[5] = v1;
-              v76[6] = v65;
-              v76[7] = v64;
-              v61 = v105[0];
-              goto LABEL_28;
-            }
-          }
-        }
-      }
-
-      v62 += 4;
-      ++v59;
-    }
-
-    v120 = v111;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySsGMd, &_sSaySsGMR);
-    lazy protocol witness table accessor for type [Substring] and conformance [A]();
-    lazy protocol witness table accessor for type Substring and conformance Substring();
-    OUTLINED_FUNCTION_49_14();
-    v77 = Sequence<>.joined(separator:)();
-    v79 = v78;
-
-    v120 = v77;
-    v121 = v79;
-    v118 = 0x6C616E6F73726570;
-    v119 = 0xE800000000000000;
-    v116 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v117 = v80;
-    OUTLINED_FUNCTION_19_3();
-    v111 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
-
-    v120 = v106;
-    v121 = v107;
-    v118 = 0x6C69616D65;
-    v119 = 0xE500000000000000;
-    LOBYTE(v77) = StringProtocol.contains<A>(_:)();
-
-    v81 = v114;
-    v1 = *(v114 + 104);
-    v82 = &enum case for ContactHandle.HandleType.email(_:);
-    if ((v77 & 1) == 0)
-    {
-      v82 = &enum case for ContactHandle.HandleType.phone(_:);
-    }
-
-    v83 = v112;
-    v84 = v115;
-    v85 = (v1)(v112, *v82, v115);
-    if ((*(*v108 + 472))(v85))
-    {
-      if (one-time initialization token for siriPhone != -1)
-      {
-        goto LABEL_71;
-      }
-
-      goto LABEL_60;
-    }
-
-LABEL_63:
-    (*(v81 + 16))(v113, v83, v84);
-    ContactHandleQuery.init(type:label:value:)();
-    v93 = type metadata accessor for ContactHandleQuery();
-    OUTLINED_FUNCTION_20_29(v93);
-    v94 = *(v81 + 8);
-    v95 = OUTLINED_FUNCTION_13_17();
-    v96(v95);
-    v48 = v81;
-  }
-
-  OUTLINED_FUNCTION_26_5();
-  (*(v97 + 352))(v98);
-  if (v99)
-  {
-    (*(v48 + 104))(v113, enum case for ContactHandle.HandleType.phone(_:), v115);
-    OUTLINED_FUNCTION_32_16();
-    v100 = type metadata accessor for ContactHandleQuery();
-    OUTLINED_FUNCTION_20_29(v100);
-  }
-
-  OUTLINED_FUNCTION_26_5();
-  (*(v101 + 232))(v102);
-  if (v103)
-  {
-    (*(v48 + 104))(v113, enum case for ContactHandle.HandleType.email(_:), v115);
-    OUTLINED_FUNCTION_32_16();
-    v104 = type metadata accessor for ContactHandleQuery();
-    OUTLINED_FUNCTION_20_29(v104);
-  }
-
-  OUTLINED_FUNCTION_65();
-}
-
-uint64_t specialized SiriPhoneContact.getFullName(filteredAlternatives:)()
-{
-  (*(*v0 + 304))(v3);
-  if (v3[1] == 1)
-  {
-    return 0;
-  }
-
-  v1 = v3[8];
-
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v3, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMd, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMR);
-  return v1;
-}
-
-uint64_t specialized SiriPhoneContact.getPrefixName()()
-{
-  (*(*v0 + 304))(v3);
-  if (v3[1] == 1)
-  {
-    return 0;
-  }
-
-  v1 = v3[10];
-
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v3, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMd, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMR);
-  return v1;
-}
-
-uint64_t specialized SiriPhoneContact.getFirstName(filteredAlternatives:)()
-{
-  (*(*v0 + 304))(v3);
-  if (v3[1] == 1)
-  {
-    return 0;
-  }
-
-  v1 = v3[0];
-
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v3, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMd, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMR);
-  return v1;
-}
-
-uint64_t specialized SiriPhoneContact.getMiddleName(filteredAlternatives:)()
-{
-  (*(*v0 + 304))(v3);
-  if (v3[1] == 1)
-  {
-    return 0;
-  }
-
-  v1 = v3[2];
-
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v3, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMd, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMR);
-  return v1;
-}
-
-uint64_t specialized SiriPhoneContact.getLastName(filteredAlternatives:)()
-{
-  (*(*v0 + 304))(v3);
-  if (v3[1] == 1)
-  {
-    return 0;
-  }
-
-  v1 = v3[4];
-
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v3, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMd, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMR);
-  return v1;
-}
-
-uint64_t specialized SiriPhoneContact.getPostfixName()()
-{
-  (*(*v0 + 304))(v3);
-  if (v3[1] == 1)
-  {
-    return 0;
-  }
-
-  v1 = v3[12];
-
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v3, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMd, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMR);
-  return v1;
-}
-
-uint64_t specialized SiriPhoneContact.getNickName()()
-{
-  (*(*v0 + 304))(v3);
-  if (v3[1] == 1)
-  {
-    return 0;
-  }
-
-  v1 = v3[6];
-
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v3, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMd, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMR);
-  return v1;
-}
-
-uint64_t static PhoneCallIFIntent.from(clientAction:contactStore:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
-{
-  v55 = type metadata accessor for PhoneError();
-  v7 = OUTLINED_FUNCTION_23_1(v55);
-  v9 = *(v8 + 64);
-  __chkstk_darwin(v7);
-  OUTLINED_FUNCTION_4();
-  v56 = (v11 - v10);
-  v54 = type metadata accessor for MessagePayload.ClientAction();
-  v12 = OUTLINED_FUNCTION_7(v54);
-  v14 = v13;
-  v16 = *(v15 + 64);
-  __chkstk_darwin(v12);
-  OUTLINED_FUNCTION_4();
-  v19 = v18 - v17;
-  if (MessagePayload.ClientAction.toolId.getter() == 0x61635F7472617473 && v20 == 0xEA00000000006C6CLL)
-  {
-
-LABEL_11:
-    v36 = MessagePayload.ClientAction.app.getter();
-    MessagePayload.ClientAction.destinations.getter();
-    v38 = v37;
-    __chkstk_darwin(v37);
-    *(&v53 - 2) = v36;
-    *(&v53 - 1) = a2;
-    _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay27PhoneCallFlowDelegatePlugin04SiriD7Contact_pG_AfG_psAE_pTg5(partial apply for closure #1 in static PhoneCallIFIntent.preprocess(app:resolvedDestinations:contactStore:), (&v53 - 4), v38, v39, v40, v41, v42, v43, v53, v54, v55, v56, v57, v58, v59, v60[0], v60[1], v60[2], v60[3], v60[4]);
-    v45 = v44;
-
-    if (v3)
-    {
-    }
-
-    if (v36)
-    {
-      v47 = type metadata accessor for App();
-      v48 = &protocol witness table for App;
-    }
-
-    else
-    {
-      v47 = 0;
-      v48 = 0;
-    }
-
-    if (MessagePayload.ClientAction.speakerphone.getter())
-    {
-      v52 = 0;
-    }
-
-    else
-    {
-      v52 = 4;
-    }
-
-    *a3 = v36;
-    *(a3 + 8) = 0;
-    *(a3 + 16) = 0;
-    *(a3 + 24) = v47;
-    *(a3 + 32) = v48;
-    *(a3 + 40) = v45;
-    *(a3 + 48) = 0;
-    *(a3 + 56) = 0;
-    *(a3 + 64) = v52;
-    *(a3 + 65) = 0x600230309050502;
-    *(a3 + 73) = 2;
-
-    *(a3 + 80) = _swiftEmptyArrayStorage;
-    *(a3 + 88) = _swiftEmptyArrayStorage;
-    return result;
-  }
-
-  v22 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-  if (v22)
-  {
-    goto LABEL_11;
-  }
-
-  if (one-time initialization token for siriPhone != -1)
-  {
-    OUTLINED_FUNCTION_0_6();
-    swift_once();
-  }
-
-  v23 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v23, static Logger.siriPhone);
-  v24 = v14;
-  v25 = *(v14 + 16);
-  v26 = v54;
-  v25(v19, a1, v54);
-  v27 = Logger.logObject.getter();
-  v28 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v27, v28))
-  {
-    OUTLINED_FUNCTION_21_21();
-    v29 = swift_slowAlloc();
-    OUTLINED_FUNCTION_24_19();
-    v53 = swift_slowAlloc();
-    v60[0] = v53;
-    *v29 = 136315394;
-    v57 = 0;
-    v58 = 0xE000000000000000;
-    OUTLINED_FUNCTION_19_3();
-    DefaultStringInterpolation.appendInterpolation(type:tags:function:)(v30, v31, v32, v33);
-    v34 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0, 0xE000000000000000, v60);
-
-    *(v29 + 4) = v34;
-    *(v29 + 12) = 2080;
-    MessagePayload.ClientAction.toolId.getter();
-    OUTLINED_FUNCTION_34_12();
-    (*(v24 + 8))(v19, v26);
-    v35 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v19, v34, v60);
-
-    *(v29 + 14) = v35;
-    _os_log_impl(&dword_0, v27, v28, "%s Unrecognized toolId %s", v29, 0x16u);
-    swift_arrayDestroy();
-    OUTLINED_FUNCTION_8();
-
-    OUTLINED_FUNCTION_8();
-  }
-
-  else
-  {
-
-    (*(v24 + 8))(v19, v54);
-  }
-
-  v49 = v56;
-  *v56 = MessagePayload.ClientAction.toolId.getter();
-  v49[1] = v50;
-  *(v49 + 16) = 1;
-  OUTLINED_FUNCTION_0();
-  swift_storeEnumTagMultiPayload();
-  lazy protocol witness table accessor for type PhoneError and conformance PhoneError();
-  swift_allocError();
-  PhoneError.logged()(v51);
-  _s27PhoneCallFlowDelegatePlugin0A5ErrorOWOhTm_5(v49, type metadata accessor for PhoneError);
-  return swift_willThrow();
-}
-
-void specialized SiriPhoneContact.update(person:)()
-{
-  OUTLINED_FUNCTION_66();
-  v201 = v0;
-  v2 = v1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin14BackingContactOSgMd, &_s27PhoneCallFlowDelegatePlugin14BackingContactOSgMR);
-  OUTLINED_FUNCTION_21(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_49_0();
-  __chkstk_darwin(v6);
-  v209 = (&v197 - v7);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PersonNameComponentsVSgMd, &_s10Foundation20PersonNameComponentsVSgMR);
-  v9 = OUTLINED_FUNCTION_21(v8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  OUTLINED_FUNCTION_12_5();
-  OUTLINED_FUNCTION_9_3();
-  __chkstk_darwin(v12);
-  OUTLINED_FUNCTION_13_5();
-  OUTLINED_FUNCTION_9_3();
-  __chkstk_darwin(v13);
-  OUTLINED_FUNCTION_13_5();
-  OUTLINED_FUNCTION_9_3();
-  __chkstk_darwin(v14);
-  OUTLINED_FUNCTION_13_5();
-  OUTLINED_FUNCTION_9_3();
-  __chkstk_darwin(v15);
-  OUTLINED_FUNCTION_13_5();
-  OUTLINED_FUNCTION_9_3();
-  __chkstk_darwin(v16);
-  OUTLINED_FUNCTION_13_5();
-  OUTLINED_FUNCTION_9_3();
-  __chkstk_darwin(v17);
-  OUTLINED_FUNCTION_13_5();
-  OUTLINED_FUNCTION_9_3();
-  __chkstk_darwin(v18);
-  OUTLINED_FUNCTION_13_5();
-  OUTLINED_FUNCTION_9_3();
-  __chkstk_darwin(v19);
-  OUTLINED_FUNCTION_13_5();
-  OUTLINED_FUNCTION_9_3();
-  __chkstk_darwin(v20);
-  OUTLINED_FUNCTION_13_5();
-  OUTLINED_FUNCTION_9_3();
-  v22 = __chkstk_darwin(v21);
-  v24 = &v197 - v23;
-  v25 = __chkstk_darwin(v22);
-  v27 = &v197 - v26;
-  v28 = __chkstk_darwin(v25);
-  v30 = &v197 - v29;
-  v31 = __chkstk_darwin(v28);
-  v33 = &v197 - v32;
-  v34 = __chkstk_darwin(v31);
-  v36 = &v197 - v35;
-  v37 = __chkstk_darwin(v34);
-  v39 = &v197 - v38;
-  v40 = __chkstk_darwin(v37);
-  v42 = &v197 - v41;
-  __chkstk_darwin(v40);
-  v44 = &v197 - v43;
-  v45 = [v2 nameComponents];
-  if (v45)
-  {
-    v46 = v45;
-    static PersonNameComponents._unconditionallyBridgeFromObjectiveC(_:)();
-  }
-
-  type metadata accessor for PersonNameComponents();
-  OUTLINED_FUNCTION_10_51();
-  __swift_storeEnumTagSinglePayload(v47, v48, v49, v50);
-  outlined init with take of PersonNameComponents?(v42, v44);
-  type metadata accessor for PersonNameComponents();
-  if (OUTLINED_FUNCTION_21_27())
-  {
-    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v44, &_s10Foundation20PersonNameComponentsVSgMd, &_s10Foundation20PersonNameComponentsVSgMR);
-    OUTLINED_FUNCTION_47_18();
-    goto LABEL_22;
-  }
-
-  v198 = v24;
-  v51 = PersonNameComponents.givenName.getter();
-  v53 = v52;
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v44, &_s10Foundation20PersonNameComponentsVSgMd, &_s10Foundation20PersonNameComponentsVSgMR);
-  if (!v53)
-  {
-    goto LABEL_20;
-  }
-
-  v54 = HIBYTE(v53) & 0xF;
-  if ((v53 & 0x2000000000000000) == 0)
-  {
-    v54 = v51 & 0xFFFFFFFFFFFFLL;
-  }
-
-  if (!v54)
-  {
-    goto LABEL_19;
-  }
-
-  v55 = [v2 nameComponents];
-  if (v55)
-  {
-    v56 = v55;
-    static PersonNameComponents._unconditionallyBridgeFromObjectiveC(_:)();
-  }
-
-  OUTLINED_FUNCTION_10_51();
-  __swift_storeEnumTagSinglePayload(v57, v58, v59, v60);
-  outlined init with take of PersonNameComponents?(v36, v39);
-  if (!OUTLINED_FUNCTION_31_18(v39))
-  {
-    v61 = PersonNameComponents.familyName.getter();
-    v63 = v62;
-    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v39, &_s10Foundation20PersonNameComponentsVSgMd, &_s10Foundation20PersonNameComponentsVSgMR);
-    if (v63)
-    {
-      v64 = HIBYTE(v63) & 0xF;
-      if ((v63 & 0x2000000000000000) == 0)
-      {
-        v64 = v61 & 0xFFFFFFFFFFFFLL;
-      }
-
-      if (v64)
-      {
-        v197 = v61;
-        v199 = v63;
-        v65 = [v2 nameComponents];
-        if (v65)
-        {
-          v66 = v65;
-          v67 = v53;
-          v68 = v200;
-          static PersonNameComponents._unconditionallyBridgeFromObjectiveC(_:)();
-
-          v69 = v210;
-        }
-
-        else
-        {
-          v67 = v53;
-          v69 = v210;
-          v68 = v200;
-        }
-
-        OUTLINED_FUNCTION_10_51();
-        __swift_storeEnumTagSinglePayload(v185, v186, v187, v188);
-        outlined init with take of PersonNameComponents?(v68, v69);
-        if (OUTLINED_FUNCTION_21_27())
-        {
-          outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v69, &_s10Foundation20PersonNameComponentsVSgMd, &_s10Foundation20PersonNameComponentsVSgMR);
-        }
-
-        else
-        {
-          v191 = PersonNameComponents.middleName.getter();
-          v193 = v192;
-          outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v69, &_s10Foundation20PersonNameComponentsVSgMd, &_s10Foundation20PersonNameComponentsVSgMR);
-          if (v193)
-          {
-            v194 = HIBYTE(v193) & 0xF;
-            if ((v193 & 0x2000000000000000) == 0)
-            {
-              v194 = v191 & 0xFFFFFFFFFFFFLL;
-            }
-
-            if (v194)
-            {
-              v213 = v51;
-              v214 = v67;
-              v195._countAndFlagsBits = OUTLINED_FUNCTION_49_14();
-              String.append(_:)(v195);
-              v196._countAndFlagsBits = v191;
-              v196._object = v193;
-              String.append(_:)(v196);
-
-              goto LABEL_87;
-            }
-          }
-        }
-
-        v213 = v51;
-        v214 = v67;
-LABEL_87:
-        v189._countAndFlagsBits = OUTLINED_FUNCTION_49_14();
-        String.append(_:)(v189);
-        v190._countAndFlagsBits = v197;
-        v190._object = v199;
-        String.append(_:)(v190);
-
-        v199 = v213;
-        v210 = v214;
-        goto LABEL_21;
-      }
-    }
-
-LABEL_19:
-
-    goto LABEL_20;
-  }
-
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v39, &_s10Foundation20PersonNameComponentsVSgMd, &_s10Foundation20PersonNameComponentsVSgMR);
-LABEL_20:
-  OUTLINED_FUNCTION_47_18();
-LABEL_21:
-  v24 = v198;
-LABEL_22:
-  [v2 isMe];
-  v70 = *v201;
-  OUTLINED_FUNCTION_72_0();
-  (*(v71 + 232))();
-  v72 = [v2 contactIdentifier];
-  if (v72)
-  {
-    v73 = v72;
-    v74 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v76 = v75;
-  }
-
-  else
-  {
-    v74 = 0;
-    v76 = 0;
-  }
-
-  v77 = v207;
-  OUTLINED_FUNCTION_72_0();
-  (*(v78 + 256))(v74, v76);
-  v79 = OUTLINED_FUNCTION_50_16();
-  if (v79)
-  {
-    v80 = v79;
-    static PersonNameComponents._unconditionallyBridgeFromObjectiveC(_:)();
-  }
-
-  OUTLINED_FUNCTION_10_51();
-  __swift_storeEnumTagSinglePayload(v81, v82, v83, v84);
-  outlined init with take of PersonNameComponents?(v30, v33);
-  if (OUTLINED_FUNCTION_31_18(v33))
-  {
-    v207 = 0;
-    v201 = 0;
-  }
-
-  else
-  {
-    v207 = PersonNameComponents.givenName.getter();
-    v201 = v85;
-  }
-
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v33, &_s10Foundation20PersonNameComponentsVSgMd, &_s10Foundation20PersonNameComponentsVSgMR);
-  v86 = OUTLINED_FUNCTION_50_16();
-  if (v86)
-  {
-    v87 = v86;
-    static PersonNameComponents._unconditionallyBridgeFromObjectiveC(_:)();
-  }
-
-  v88 = v204;
-  OUTLINED_FUNCTION_10_51();
-  __swift_storeEnumTagSinglePayload(v89, v90, v91, v92);
-  outlined init with take of PersonNameComponents?(v24, v27);
-  if (OUTLINED_FUNCTION_31_18(v27))
-  {
-    v204 = 0;
-    v200 = 0;
-  }
-
-  else
-  {
-    v204 = PersonNameComponents.middleName.getter();
-    v200 = v93;
-  }
-
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v27, &_s10Foundation20PersonNameComponentsVSgMd, &_s10Foundation20PersonNameComponentsVSgMR);
-  v94 = OUTLINED_FUNCTION_50_16();
-  if (v94)
-  {
-    v95 = v94;
-    static PersonNameComponents._unconditionallyBridgeFromObjectiveC(_:)();
-  }
-
-  v96 = v203;
-  OUTLINED_FUNCTION_10_51();
-  __swift_storeEnumTagSinglePayload(v97, v98, v99, v100);
-  v101 = OUTLINED_FUNCTION_35_17();
-  outlined init with take of PersonNameComponents?(v101, v102);
-  if (OUTLINED_FUNCTION_21_27())
-  {
-    v203 = 0;
-    v202 = 0;
-  }
-
-  else
-  {
-    v203 = PersonNameComponents.familyName.getter();
-    v202 = v103;
-  }
-
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v96, &_s10Foundation20PersonNameComponentsVSgMd, &_s10Foundation20PersonNameComponentsVSgMR);
-  v104 = OUTLINED_FUNCTION_50_16();
-  if (v104)
-  {
-    v105 = v104;
-    static PersonNameComponents._unconditionallyBridgeFromObjectiveC(_:)();
-  }
-
-  v106 = v205;
-  OUTLINED_FUNCTION_10_51();
-  __swift_storeEnumTagSinglePayload(v107, v108, v109, v110);
-  outlined init with take of PersonNameComponents?(v88, v106);
-  if (OUTLINED_FUNCTION_21_27())
-  {
-    v205 = 0;
-    v111 = 0;
-  }
-
-  else
-  {
-    v205 = PersonNameComponents.nickname.getter();
-    v111 = v112;
-  }
-
-  v113 = outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v106, &_s10Foundation20PersonNameComponentsVSgMd, &_s10Foundation20PersonNameComponentsVSgMR);
-  (*(*v70 + 320))(v212, v113);
-  v115 = v212[8];
-  v114 = v212[9];
-  if (v212[1] == 1)
-  {
-    OUTLINED_FUNCTION_12_45(v212[0]);
-    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(&v213, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMd, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMR);
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_12_45(v212[0]);
-
-    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(&v213, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMd, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMR);
-    if (v114)
-    {
-      goto LABEL_49;
-    }
-  }
-
-  v114 = v210;
-
-  v115 = v199;
-LABEL_49:
-  v116 = [v2 nameComponents];
-  v117 = v206;
-  if (v116)
-  {
-    v118 = v116;
-    static PersonNameComponents._unconditionallyBridgeFromObjectiveC(_:)();
-  }
-
-  OUTLINED_FUNCTION_10_51();
-  __swift_storeEnumTagSinglePayload(v119, v120, v121, v122);
-  v123 = v211;
-  outlined init with take of PersonNameComponents?(v117, v211);
-  if (OUTLINED_FUNCTION_21_27())
-  {
-    v124 = 0;
-    v125 = 0;
-  }
-
-  else
-  {
-    v126 = PersonNameComponents.namePrefix.getter();
-    v123 = v211;
-    v124 = v126;
-    v125 = v127;
-  }
-
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v123, &_s10Foundation20PersonNameComponentsVSgMd, &_s10Foundation20PersonNameComponentsVSgMR);
-  v128 = [v2 nameComponents];
-  if (v128)
-  {
-    v129 = v128;
-    static PersonNameComponents._unconditionallyBridgeFromObjectiveC(_:)();
-  }
-
-  OUTLINED_FUNCTION_10_51();
-  __swift_storeEnumTagSinglePayload(v130, v131, v132, v133);
-  v134 = v208;
-  outlined init with take of PersonNameComponents?(v77, v208);
-  if (OUTLINED_FUNCTION_21_27())
-  {
-    v135 = 0;
-    v136 = 0;
-  }
-
-  else
-  {
-    v135 = PersonNameComponents.nameSuffix.getter();
-    v136 = v137;
-  }
-
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v134, &_s10Foundation20PersonNameComponentsVSgMd, &_s10Foundation20PersonNameComponentsVSgMR);
-  v213 = v207;
-  v214 = v201;
-  v215 = v204;
-  v216 = v200;
-  v217 = v203;
-  v218 = v202;
-  v219 = v205;
-  v220 = v111;
-  v221 = v115;
-  v222 = v114;
-  v223 = v124;
-  v224 = v125;
-  v225 = v135;
-  v226 = v136;
-  (*(*v70 + 328))(&v213);
-  v138 = [v2 relationship];
-  if (v138)
-  {
-    v139 = v138;
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
-    OUTLINED_FUNCTION_29_18();
-  }
-
-  OUTLINED_FUNCTION_72_0();
-  v141 = *(v140 + 424);
-  v142 = OUTLINED_FUNCTION_22_21();
-  v143(v142);
-  v144 = OUTLINED_FUNCTION_40_18();
-  if (v144)
-  {
-    v145 = v144;
-    v146 = [v144 type];
-
-    if (v146 == &dword_0 + 2)
-    {
-      v147 = OUTLINED_FUNCTION_40_18();
-      v148 = v147;
-      if (v147)
-      {
-        v149 = [v147 value];
-
-        if (v149)
-        {
-          static String._unconditionallyBridgeFromObjectiveC(_:)();
-          OUTLINED_FUNCTION_29_18();
-        }
-      }
-
-      OUTLINED_FUNCTION_72_0();
-      v157 = *(v156 + 376);
-      v158 = OUTLINED_FUNCTION_22_21();
-      v159(v158);
-LABEL_73:
-      OUTLINED_FUNCTION_72_0();
-      (*(v164 + 448))();
-      goto LABEL_74;
-    }
-  }
-
-  v150 = OUTLINED_FUNCTION_40_18();
-  if (v150)
-  {
-    v151 = v150;
-    v152 = [v150 type];
-
-    if (v152 == &dword_0 + 1)
-    {
-      v153 = OUTLINED_FUNCTION_40_18();
-      v154 = v153;
-      if (v153)
-      {
-        v155 = [v153 value];
-
-        if (v155)
-        {
-          static String._unconditionallyBridgeFromObjectiveC(_:)();
-          OUTLINED_FUNCTION_29_18();
-        }
-      }
-
-      OUTLINED_FUNCTION_72_0();
-      v161 = *(v160 + 400);
-      v162 = OUTLINED_FUNCTION_22_21();
-      v163(v162);
-      goto LABEL_73;
-    }
-  }
-
-LABEL_74:
-  v165 = OUTLINED_FUNCTION_40_18();
-  v166 = v165;
-  if (v165)
-  {
-    v167 = [v165 label];
-
-    if (v167)
-    {
-      static String._unconditionallyBridgeFromObjectiveC(_:)();
-      OUTLINED_FUNCTION_29_18();
-    }
-  }
-
-  OUTLINED_FUNCTION_72_0();
-  v169 = *(v168 + 472);
-  v170 = OUTLINED_FUNCTION_22_21();
-  v171(v170);
-  v172 = OUTLINED_FUNCTION_40_18();
-  if (!v172 || (v173 = v172, v174 = [v172 emergencyType], v173, v174 != &dword_0 + 1))
-  {
-    v175 = OUTLINED_FUNCTION_40_18();
-    if (v175)
-    {
-      v176 = v175;
-      [v175 emergencyType];
-    }
-  }
-
-  OUTLINED_FUNCTION_72_0();
-  (*(v177 + 520))();
-  v178 = v209;
-  *v209 = v2;
-  v179 = type metadata accessor for BackingContact(0);
-  OUTLINED_FUNCTION_35_17();
-  swift_storeEnumTagMultiPayload();
-  OUTLINED_FUNCTION_23_3();
-  __swift_storeEnumTagSinglePayload(v180, v181, v182, v179);
-  v183 = *(*v70 + 640);
-  v184 = v2;
-  v183(v178);
-
-  OUTLINED_FUNCTION_65();
-}
-
-void PhoneCallIFIntent.contactQueries.getter()
-{
-  OUTLINED_FUNCTION_66();
-  v45 = type metadata accessor for BackingContact(0);
-  v1 = OUTLINED_FUNCTION_23_1(v45);
-  v3 = *(v2 + 64);
-  __chkstk_darwin(v1);
-  OUTLINED_FUNCTION_4();
-  v44 = (v5 - v4);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin14BackingContactOSgMd, &_s27PhoneCallFlowDelegatePlugin14BackingContactOSgMR);
-  OUTLINED_FUNCTION_21(v6);
-  v8 = *(v7 + 64);
-  OUTLINED_FUNCTION_49_0();
-  __chkstk_darwin(v9);
-  v11 = &v42 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriInference12ContactQueryVSgMd, &_s13SiriInference12ContactQueryVSgMR);
-  OUTLINED_FUNCTION_21(v12);
-  v14 = *(v13 + 64);
-  OUTLINED_FUNCTION_49_0();
-  __chkstk_darwin(v15);
-  v17 = &v42 - v16;
-  v18 = type metadata accessor for ContactQuery();
-  v19 = OUTLINED_FUNCTION_7(v18);
-  v21 = *(v20 + 64);
-  __chkstk_darwin(v19);
-  OUTLINED_FUNCTION_4();
-  v43 = (v24 - v23);
-  v25 = *(v0 + 40);
-  v26 = *(v25 + 16);
-  if (v26)
-  {
-    v27 = v25 + 32;
-    v42 = v22;
-    v28 = (v22 + 32);
-    v29 = _swiftEmptyArrayStorage;
-    do
-    {
-      outlined init with copy of SignalProviding(v27, v47);
-      v30 = v48;
-      v31 = v49;
-      __swift_project_boxed_opaque_existential_1(v47, v48);
-      (*(v31 + 384))(v30, v31);
-      if (__swift_getEnumTagSinglePayload(v11, 1, v45) == 1)
-      {
-        outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v11, &_s27PhoneCallFlowDelegatePlugin14BackingContactOSgMd, &_s27PhoneCallFlowDelegatePlugin14BackingContactOSgMR);
-        v32 = 1;
-      }
-
-      else
-      {
-        outlined init with copy of BackingContact(v11, v44);
-        switch(swift_getEnumCaseMultiPayload())
-        {
-          case 1u:
-            v36 = *v44;
-            specialized SiriPhoneContact.asSiriInferenceContact.getter();
-
-            break;
-          case 2u:
-            outlined init with take of SPHConversation(v44, v46);
-            v34 = v46[4];
-            __swift_project_boxed_opaque_existential_1(v46, v46[3]);
-            v35 = *(v34 + 8);
-            dispatch thunk of ToContactQuery.toContactQuery()();
-            __swift_destroy_boxed_opaque_existential_1(v46);
-            break;
-          case 3u:
-            (*v28)(v17, v44, v18);
-            break;
-          default:
-            v33 = *v44;
-            INPerson.toContactQuery()();
-
-            break;
-        }
-
-        _s27PhoneCallFlowDelegatePlugin0A5ErrorOWOhTm_5(v11, type metadata accessor for BackingContact);
-        v32 = 0;
-      }
-
-      __swift_storeEnumTagSinglePayload(v17, v32, 1, v18);
-      __swift_destroy_boxed_opaque_existential_1(v47);
-      if (__swift_getEnumTagSinglePayload(v17, 1, v18) == 1)
-      {
-        outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v17, &_s13SiriInference12ContactQueryVSgMd, &_s13SiriInference12ContactQueryVSgMR);
-      }
-
-      else
-      {
-        v37 = *v28;
-        (*v28)(v43, v17, v18);
-        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-        {
-          v39 = *(v29 + 2);
-          OUTLINED_FUNCTION_10_51();
-          specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-          v29 = v40;
-        }
-
-        v38 = *(v29 + 2);
-        if (v38 >= *(v29 + 3) >> 1)
-        {
-          OUTLINED_FUNCTION_10_51();
-          specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-          v29 = v41;
-        }
-
-        *(v29 + 2) = v38 + 1;
-        v37(&v29[((*(v42 + 80) + 32) & ~*(v42 + 80)) + *(v42 + 72) * v38], v43, v18);
-      }
-
-      v27 += 40;
-      --v26;
-    }
-
-    while (v26);
-  }
-
-  OUTLINED_FUNCTION_65();
-}
-
-uint64_t MessagePayload.ClientAction.app.getter()
-{
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16IntelligenceFlow14MessagePayloadO12ClientActionV13ShimParameterOSgMd, &_s16IntelligenceFlow14MessagePayloadO12ClientActionV13ShimParameterOSgMR);
-  OUTLINED_FUNCTION_21(v0);
-  v2 = *(v1 + 64);
-  OUTLINED_FUNCTION_49_0();
-  __chkstk_darwin(v3);
-  v5 = &v11 - v4;
-  v6 = MessagePayload.ClientAction.shimParameters.getter();
-  Dictionary<>.single(name:)(7368801, 0xE300000000000000, v6, v5);
-
-  v7 = type metadata accessor for MessagePayload.ClientAction.ShimParameter();
-  if (__swift_getEnumTagSinglePayload(v5, 1, v7) == 1)
-  {
-    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v5, &_s16IntelligenceFlow14MessagePayloadO12ClientActionV13ShimParameterOSgMd, &_s16IntelligenceFlow14MessagePayloadO12ClientActionV13ShimParameterOSgMR);
-    return 0;
-  }
-
-  else
-  {
-    MessagePayload.ClientAction.ShimParameter.toApp.getter();
-    v8 = v9;
-    (*(*(v7 - 8) + 8))(v5, v7);
-  }
-
-  return v8;
-}
-
-void MessagePayload.ClientAction.destinations.getter()
-{
-  OUTLINED_FUNCTION_66();
-  v31 = type metadata accessor for MessagePayload.ClientAction.ShimParameter();
-  v0 = OUTLINED_FUNCTION_7(v31);
-  v2 = v1;
-  v4 = *(v3 + 64);
-  __chkstk_darwin(v0);
-  OUTLINED_FUNCTION_4();
-  v7 = v6 - v5;
-  v8 = MessagePayload.ClientAction.shimParameters.getter();
-  v9 = OUTLINED_FUNCTION_43_18();
-  v11 = Dictionary<>.multicardinal(name:)(v9, v10, v8);
-
-  v12 = v11[2];
-  if (v12)
-  {
-    v14 = *(v2 + 16);
-    v13 = v2 + 16;
-    v15 = v11 + ((*(v13 + 64) + 32) & ~*(v13 + 64));
-    v29 = *(v13 + 56);
-    v30 = v14;
-    v16 = (v13 - 8);
-    v17 = _swiftEmptyArrayStorage;
-    v28 = v13;
-    do
-    {
-      v30(v7, v15, v31);
-      MessagePayload.ClientAction.ShimParameter.toSiriPhoneContact.getter();
-      v32 = v35;
-      v33 = v36;
-      v34 = v37;
-      (*v16)(v7, v31);
-      if (*(&v33 + 1))
-      {
-        outlined init with take of SPHConversation(&v32, &v35);
-        isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        v38 = v17;
-        if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-        {
-          v25 = v17[2];
-          specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-          v17 = v26;
-          v38 = v26;
-        }
-
-        v19 = v17[2];
-        if (v19 >= v17[3] >> 1)
-        {
-          specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-          v17 = v27;
-          v38 = v27;
-        }
-
-        v20 = *(&v36 + 1);
-        v21 = v37;
-        v22 = __swift_mutable_project_boxed_opaque_existential_1(&v35, *(&v36 + 1));
-        v23 = *(*(v20 - 8) + 64);
-        __chkstk_darwin(v22);
-        OUTLINED_FUNCTION_2_79();
-        (*(v24 + 16))(v13);
-        specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)(v19, v13, &v38, v20, v21);
-        __swift_destroy_boxed_opaque_existential_1(&v35);
-        v13 = v28;
-      }
-
-      else
-      {
-        outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(&v32, &_s27PhoneCallFlowDelegatePlugin04SiriA7Contact_pSgMd, &_s27PhoneCallFlowDelegatePlugin04SiriA7Contact_pSgMR);
-      }
-
-      v15 += v29;
-      --v12;
-    }
-
-    while (v12);
-  }
-
-  else
-  {
-  }
-
-  OUTLINED_FUNCTION_65();
-}
-
-uint64_t MessagePayload.ClientAction.speakerphone.getter()
-{
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16IntelligenceFlow14MessagePayloadO12ClientActionV13ShimParameterOSgMd, &_s16IntelligenceFlow14MessagePayloadO12ClientActionV13ShimParameterOSgMR);
-  OUTLINED_FUNCTION_21(v0);
-  v2 = *(v1 + 64);
-  OUTLINED_FUNCTION_49_0();
-  __chkstk_darwin(v3);
-  v5 = &v12 - v4;
-  v6 = MessagePayload.ClientAction.shimParameters.getter();
-  v7 = OUTLINED_FUNCTION_42_16();
-  Dictionary<>.single(name:)(v7, v8, v6, v5);
-
-  v9 = type metadata accessor for MessagePayload.ClientAction.ShimParameter();
-  if (__swift_getEnumTagSinglePayload(v5, 1, v9) == 1)
-  {
-    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v5, &_s16IntelligenceFlow14MessagePayloadO12ClientActionV13ShimParameterOSgMd, &_s16IntelligenceFlow14MessagePayloadO12ClientActionV13ShimParameterOSgMR);
-    v10 = 0;
-  }
-
-  else
-  {
-    v10 = MessagePayload.ClientAction.ShimParameter.toBool.getter();
-    (*(*(v9 - 8) + 8))(v5, v9);
-  }
-
-  return v10 & 1;
-}
-
-double PhoneCallIFIntent.init(app:contacts:phoneCallAVMode:phoneCallAudioRoute:phoneCallVerb:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, char a4@<W3>, char a5@<W4>, uint64_t a6@<X8>)
-{
-  v6 = *(a1 + 16);
-  *a6 = *a1;
-  *(a6 + 16) = v6;
-  *(a6 + 32) = *(a1 + 32);
-  *(a6 + 40) = a2;
-  *(a6 + 48) = a3;
-  *(a6 + 56) = 0;
-  *(a6 + 64) = a4;
-  *&result = 151323906;
-  *(a6 + 65) = 151323906;
-  *(a6 + 69) = 8963;
-  *(a6 + 71) = a5;
-  *(a6 + 72) = 518;
-  *(a6 + 80) = &_swiftEmptyArrayStorage;
-  *(a6 + 88) = &_swiftEmptyArrayStorage;
-  return result;
-}
-
-void closure #1 in static PhoneCallIFIntent.preprocess(app:resolvedDestinations:contactStore:)(void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, void *a4@<X3>, uint64_t *a5@<X8>)
-{
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin14BackingContactOSgMd, &_s27PhoneCallFlowDelegatePlugin14BackingContactOSgMR);
-  v11 = *(*(v10 - 8) + 64);
-  __chkstk_darwin(v10 - 8);
-  v13 = (&v43 - v12);
-  v15 = a1[3];
-  v14 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, v15);
-  (*(v14 + 384))(v15, v14);
-  v16 = type metadata accessor for BackingContact(0);
-  if (__swift_getEnumTagSinglePayload(v13, 1, v16) == 1)
-  {
-    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v13, &_s27PhoneCallFlowDelegatePlugin14BackingContactOSgMd, &_s27PhoneCallFlowDelegatePlugin14BackingContactOSgMR);
-LABEL_5:
-    if (one-time initialization token for siriPhone != -1)
-    {
-      swift_once();
-    }
-
-    v17 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v17, static Logger.siriPhone);
-    v18 = Logger.logObject.getter();
-    v19 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v18, v19))
-    {
-      v20 = swift_slowAlloc();
-      v21 = swift_slowAlloc();
-      v51 = v21;
-      *v20 = 136315138;
-      v49 = 0;
-      v50 = 0xE000000000000000;
-      DefaultStringInterpolation.appendInterpolation(type:tags:function:)(&type metadata for PhoneCallIFIntent, _swiftEmptyArrayStorage, 0, 0);
-      v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v49, v50, &v51);
-
-      *(v20 + 4) = v22;
-      _os_log_impl(&dword_0, v18, v19, "%s Skip preprocessing when backingContact is not an INPerson", v20, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1(v21);
-    }
-
-    goto LABEL_9;
-  }
-
-  if (swift_getEnumCaseMultiPayload())
-  {
-    _s27PhoneCallFlowDelegatePlugin0A5ErrorOWOhTm_5(v13, type metadata accessor for BackingContact);
-    goto LABEL_5;
-  }
-
-  v18 = *v13;
-  if (!a2)
-  {
-LABEL_14:
-    v25 = [v18 personHandle];
-    if (v25)
-    {
-      v26 = v25;
-      v47 = outlined bridged method (pb) of @objc INPersonHandle.value.getter(v25);
-      if (v27)
-      {
-        v28 = v27;
-        if ([v26 type] == &dword_0 + 1)
-        {
-          if (one-time initialization token for siriPhone != -1)
-          {
-            swift_once();
-          }
-
-          v29 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v29, static Logger.siriPhone);
-          v30 = Logger.logObject.getter();
-          v31 = static os_log_type_t.debug.getter();
-          if (os_log_type_enabled(v30, v31))
-          {
-            v32 = swift_slowAlloc();
-            v45 = v32;
-            v46 = swift_slowAlloc();
-            v51 = v46;
-            *v32 = 136315138;
-            v49 = 0;
-            v50 = 0xE000000000000000;
-            v44 = v30;
-            DefaultStringInterpolation.appendInterpolation(type:tags:function:)(&type metadata for PhoneCallIFIntent, _swiftEmptyArrayStorage, 0, 0);
-            v33 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v49, v50, &v51);
-
-            v34 = v45;
-            *(v45 + 1) = v33;
-            v30 = v44;
-            _os_log_impl(&dword_0, v44, v31, "%s Preprocessing: Telephony call to email address", v34, 0xCu);
-            __swift_destroy_boxed_opaque_existential_1(v46);
-          }
-
-          v35 = v48;
-          static PhoneCallIFIntent.mapEmailHandleToPerson(personRepresentation:emailAddress:contactStore:)(v18, v47, v28, a3, a5);
-
-          if (v35)
-          {
-            *a4 = v35;
-          }
-
-          return;
-        }
-      }
-
-      else
-      {
-      }
-    }
-
-LABEL_9:
-
-    outlined init with copy of SignalProviding(a1, a5);
-    return;
-  }
-
-  v23 = App.isFirstParty()();
-  v24 = App.isFaceTime()();
-  if (v23)
-  {
-    if (v24)
-    {
-      goto LABEL_9;
-    }
-
-    goto LABEL_14;
-  }
-
-  v36 = [v18 personHandle];
-  if (!v36)
-  {
-    goto LABEL_9;
-  }
-
-  if (one-time initialization token for siriPhone != -1)
-  {
-    swift_once();
-  }
-
-  v37 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v37, static Logger.siriPhone);
-  v38 = Logger.logObject.getter();
-  v39 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v38, v39))
-  {
-    v40 = swift_slowAlloc();
-    v41 = swift_slowAlloc();
-    v51 = v41;
-    *v40 = 136315138;
-    v49 = 0;
-    v50 = 0xE000000000000000;
-    DefaultStringInterpolation.appendInterpolation(type:tags:function:)(&type metadata for PhoneCallIFIntent, _swiftEmptyArrayStorage, 0, 0);
-    v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v49, v50, &v51);
-
-    *(v40 + 4) = v42;
-    _os_log_impl(&dword_0, v38, v39, "%s Preprocessing: 3P call", v40, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v41);
-  }
-
-  static PhoneCallIFIntent.removeHandleForThirdPartyCall(person:)(v18, a5);
-}
-
-uint64_t static PhoneCallIFIntent.removeHandleForThirdPartyCall(person:)@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
-{
-  [a1 setPersonHandle:0];
-  v3 = type metadata accessor for SiriPhoneContactImpl(0);
-  v4 = *(v3 + 48);
-  v5 = *(v3 + 52);
-  swift_allocObject();
-  v7 = SiriPhoneContactImpl.init()();
-
-  specialized SiriPhoneContact.update(person:)();
-  a2[3] = v3;
-  a2[4] = &protocol witness table for SiriPhoneContactImpl;
-
-  *a2 = v7;
-  return result;
-}
-
-void static PhoneCallIFIntent.mapEmailHandleToPerson(personRepresentation:emailAddress:contactStore:)(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X3>, uint64_t *a5@<X8>)
-{
-  v10.super.isa = INPerson.mutableCopyPerson()().super.isa;
-  if (v11)
-  {
-    return;
-  }
-
-  isa = v10.super.isa;
-  [(objc_class *)v10.super.isa setPersonHandle:0];
-  v13 = type metadata accessor for SiriPhoneContactImpl(0);
-  v14 = *(v13 + 48);
-  v15 = *(v13 + 52);
-  v54 = v13;
-  swift_allocObject();
-  v55 = SiriPhoneContactImpl.init()();
-  v56 = isa;
-  v58[2] = v55;
-  specialized SiriPhoneContact.update(person:)();
-  v16 = outlined bridged method (pb) of @objc INPerson.contactIdentifier.getter(a1);
-  LOBYTE(isa) = specialized Optional<A>.isNilOrEmpty.getter(v16, v17);
-
-  if ((isa & 1) == 0)
-  {
-    if (one-time initialization token for siriPhone != -1)
-    {
-      swift_once();
-    }
-
-    v27 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v27, static Logger.siriPhone);
-    v28 = Logger.logObject.getter();
-    v29 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v28, v29))
-    {
-      v30 = swift_slowAlloc();
-      v31 = swift_slowAlloc();
-      *v30 = 136315138;
-      v58[0] = v31;
-      DefaultStringInterpolation.appendInterpolation(type:tags:function:)(&type metadata for PhoneCallIFIntent, _swiftEmptyArrayStorage, 0, 0);
-      v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0, 0xE000000000000000, v58);
-
-      *(v30 + 4) = v32;
-      _os_log_impl(&dword_0, v28, v29, "%s INPerson has an email address but also has a 1P contactIdentifier. Return destination w/o email address", v30, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1(v31);
-    }
-
-    a5[3] = v54;
-    a5[4] = &protocol witness table for SiriPhoneContactImpl;
-
-    goto LABEL_24;
-  }
-
-  if (one-time initialization token for siriPhone != -1)
-  {
-    swift_once();
-  }
-
-  v18 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v18, static Logger.siriPhone);
-  v19 = Logger.logObject.getter();
-  v20 = static os_log_type_t.debug.getter();
-  v53 = a5;
-  if (os_log_type_enabled(v19, v20))
-  {
-    v21 = swift_slowAlloc();
-    v52 = swift_slowAlloc();
-    *v21 = 136315138;
-    v58[0] = v52;
-    DefaultStringInterpolation.appendInterpolation(type:tags:function:)(&type metadata for PhoneCallIFIntent, _swiftEmptyArrayStorage, 0, 0);
-    v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0, 0xE000000000000000, v58);
-
-    *(v21 + 4) = v22;
-    _os_log_impl(&dword_0, v19, v20, "%s Received a fully-resolved INPerson with an email address", v21, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1(v52);
-  }
-
-  v23 = a4[3];
-  v24 = a4[4];
-  __swift_project_boxed_opaque_existential_1(a4, v23);
-  v25 = outlined bridged method (pb) of @objc INPerson._displayName()(a1);
-  v33 = (*(v24 + 16))(a2, a3, v25, v26, v23, v24);
-
-  if (specialized Array.count.getter(v33) != 1 || !specialized Array.count.getter(v33))
-  {
-
-    v46 = Logger.logObject.getter();
-    v47 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v46, v47))
-    {
-      v48 = swift_slowAlloc();
-      v49 = swift_slowAlloc();
-      *v48 = 136315394;
-      v58[0] = v49;
-      DefaultStringInterpolation.appendInterpolation(type:tags:function:)(&type metadata for PhoneCallIFIntent, _swiftEmptyArrayStorage, 0, 0);
-      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0, 0xE000000000000000, v58);
-
-      *(v48 + 4) = v50;
-      *(v48 + 12) = 2048;
-      v51 = specialized Array.count.getter(v33);
-
-      *(v48 + 14) = v51;
-
-      _os_log_impl(&dword_0, v46, v47, "%s Reverse handle lookup for email address handle found %ld matches. Remove email address and return as-is", v48, 0x16u);
-      __swift_destroy_boxed_opaque_existential_1(v49);
-    }
-
-    else
-    {
-
-      swift_bridgeObjectRelease_n();
-    }
-
-    a5 = v53;
-    v53[3] = v54;
-    v53[4] = &protocol witness table for SiriPhoneContactImpl;
-
-LABEL_24:
-    *a5 = v55;
-    return;
-  }
-
-  specialized Array._checkSubscript(_:wasNativeTypeChecked:)(0, (v33 & 0xC000000000000001) == 0, v33);
-  if ((v33 & 0xC000000000000001) != 0)
-  {
-    v34 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-  }
-
-  else
-  {
-    v34 = *(v33 + 32);
-  }
-
-  v35 = v34;
-
-  v36 = v35;
-  v37 = Logger.logObject.getter();
-  v38 = static os_log_type_t.debug.getter();
-
-  if (os_log_type_enabled(v37, v38))
-  {
-    v39 = swift_slowAlloc();
-    v40 = swift_slowAlloc();
-    v41 = swift_slowAlloc();
-    *v39 = 136315394;
-    v58[0] = v41;
-    DefaultStringInterpolation.appendInterpolation(type:tags:function:)(&type metadata for PhoneCallIFIntent, _swiftEmptyArrayStorage, 0, 0);
-    v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0, 0xE000000000000000, v58);
-
-    *(v39 + 4) = v42;
-    *(v39 + 12) = 2112;
-    *(v39 + 14) = v36;
-    *v40 = v36;
-    v43 = v36;
-    _os_log_impl(&dword_0, v37, v38, "%s Reverse handle lookup for email address handle found person %@", v39, 0x16u);
-    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v40, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-
-    __swift_destroy_boxed_opaque_existential_1(v41);
-  }
-
-  v44 = *(v54 + 48);
-  v45 = *(v54 + 52);
-  swift_allocObject();
-  v57 = SiriPhoneContactImpl.init()();
-
-  specialized SiriPhoneContact.update(person:)();
-  v53[3] = v54;
-  v53[4] = &protocol witness table for SiriPhoneContactImpl;
-
-  *v53 = v57;
-}
-
-void *Dictionary<>.multicardinal(name:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  if (!*(a3 + 16))
-  {
-    return _swiftEmptyArrayStorage;
-  }
-
-  v4 = specialized __RawDictionaryStorage.find<A>(_:)(a1, a2);
-  if ((v5 & 1) == 0)
-  {
-    return _swiftEmptyArrayStorage;
-  }
-
-  v6 = *(*(a3 + 56) + 8 * v4);
-}
-
-void MessagePayload.ClientAction.ShimParameter.toSiriPhoneContact.getter()
-{
-  OUTLINED_FUNCTION_66();
-  v122 = v1;
-  v2 = type metadata accessor for MessagePayload.ClientAction.StringQuery();
-  v3 = OUTLINED_FUNCTION_7(v2);
-  v120 = v4;
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v3);
-  OUTLINED_FUNCTION_12_5();
-  v9 = v7 - v8;
-  __chkstk_darwin(v10);
-  v12 = (&v116 - v11);
-  v121 = type metadata accessor for MessagePayload.ClientAction.PersonQuery();
-  v13 = OUTLINED_FUNCTION_7(v121);
-  v117 = v14;
-  v16 = *(v15 + 64);
-  __chkstk_darwin(v13);
-  OUTLINED_FUNCTION_12_5();
-  v118 = v17 - v18;
-  __chkstk_darwin(v19);
-  OUTLINED_FUNCTION_13_5();
-  v116 = v20;
-  __chkstk_darwin(v21);
-  v119 = &v116 - v22;
-  v23 = type metadata accessor for TypedValue();
-  v24 = OUTLINED_FUNCTION_7(v23);
-  v26 = v25;
-  v28 = *(v27 + 64);
-  __chkstk_darwin(v24);
-  OUTLINED_FUNCTION_4();
-  v31 = (v30 - v29);
-  v32 = type metadata accessor for MessagePayload.ClientAction.ShimParameter();
-  v33 = OUTLINED_FUNCTION_7(v32);
-  v35 = v34;
-  v37 = *(v36 + 64);
-  __chkstk_darwin(v33);
-  OUTLINED_FUNCTION_2_79();
-  v38 = v35[2];
-  v39 = OUTLINED_FUNCTION_3_1();
-  v40(v39);
-  v41 = v35[11];
-  v42 = OUTLINED_FUNCTION_8_2();
-  v44 = v43(v42);
-  if (v44 == enum case for MessagePayload.ClientAction.ShimParameter.resolved(_:))
-  {
-    v45 = v35[12];
-    v46 = OUTLINED_FUNCTION_8_2();
-    v47(v46);
-    OUTLINED_FUNCTION_45_13();
-    v48(v31, v0, v23);
-    TypedValue.toPerson.getter();
-    if (v49)
-    {
-      v50 = v49;
-      if (one-time initialization token for siriPhone != -1)
-      {
-        OUTLINED_FUNCTION_0_6();
-        swift_once();
-      }
-
-      v51 = type metadata accessor for Logger();
-      OUTLINED_FUNCTION_9_0(v51, static Logger.siriPhone);
-      v52 = v50;
-      v53 = Logger.logObject.getter();
-      v54 = static os_log_type_t.debug.getter();
-
-      if (os_log_type_enabled(v53, v54))
-      {
-        OUTLINED_FUNCTION_21_21();
-        v55 = swift_slowAlloc();
-        v120 = swift_slowAlloc();
-        v56 = OUTLINED_FUNCTION_36();
-        v121 = v56;
-        *v55 = 136315394;
-        v57 = OUTLINED_FUNCTION_5_8(v56);
-        OUTLINED_FUNCTION_15_37(v57, _swiftEmptyArrayStorage);
-        v58 = OUTLINED_FUNCTION_11_40();
-
-        *(v55 + 4) = v58;
-        *(v55 + 12) = 2112;
-        *(v55 + 14) = v52;
-        v59 = v120;
-        *v120 = v50;
-        v60 = v52;
-        _os_log_impl(&dword_0, v53, v54, "%s Received resolved value for SiriPhoneContact: %@", v55, 0x16u);
-        outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v59, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-        OUTLINED_FUNCTION_8();
-
-        __swift_destroy_boxed_opaque_existential_1(v121);
-        OUTLINED_FUNCTION_8();
-
-        OUTLINED_FUNCTION_8();
-      }
-
-      v61 = type metadata accessor for SiriPhoneContactImpl(0);
-      v62 = *(v61 + 48);
-      v63 = *(v61 + 52);
-      swift_allocObject();
-      v64 = SiriPhoneContactImpl.init()();
-      v123 = v64;
-
-      specialized SiriPhoneContact.update(person:)();
-      v65 = v122;
-      v122[3] = v61;
-      v65[4] = &protocol witness table for SiriPhoneContactImpl;
-
-      *v65 = v64;
-      (*(v26 + 8))(v31, v23);
-      goto LABEL_26;
-    }
-
-    (*(v26 + 8))(v31, v23);
-LABEL_25:
-    v110 = v122;
-    v122[4] = 0;
-    *v110 = 0u;
-    *(v110 + 1) = 0u;
-    goto LABEL_26;
-  }
-
-  if (v44 == enum case for MessagePayload.ClientAction.ShimParameter.stringQuery(_:))
-  {
-    v66 = v35[12];
-    v67 = OUTLINED_FUNCTION_8_2();
-    v68(v67);
-    v69 = v120;
-    OUTLINED_FUNCTION_45_13();
-    v70(v12, v0, v2);
-    if (one-time initialization token for siriPhone != -1)
-    {
-      OUTLINED_FUNCTION_0_6();
-      swift_once();
-    }
-
-    v71 = type metadata accessor for Logger();
-    OUTLINED_FUNCTION_9_0(v71, static Logger.siriPhone);
-    (v69[2])(v9, v12, v2);
-    v72 = Logger.logObject.getter();
-    v73 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v72, v73))
-    {
-      OUTLINED_FUNCTION_21_21();
-      v74 = swift_slowAlloc();
-      v121 = v12;
-      v75 = v74;
-      OUTLINED_FUNCTION_24_19();
-      v76 = swift_slowAlloc();
-      *v75 = 136315394;
-      v77 = OUTLINED_FUNCTION_5_8(v76);
-      OUTLINED_FUNCTION_15_37(v77, _swiftEmptyArrayStorage);
-      v78 = OUTLINED_FUNCTION_11_40();
-
-      *(v75 + 4) = v78;
-      *(v75 + 12) = 2080;
-      MessagePayload.ClientAction.StringQuery.text.getter();
-      OUTLINED_FUNCTION_29_18();
-      v79 = v69[1];
-      v79(v9, v2);
-      v80 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v78, &v125);
-
-      *(v75 + 14) = v80;
-      _os_log_impl(&dword_0, v72, v73, "%s Received unresolved stringQuery %s for SiriPhoneContact. This is not expected!", v75, 0x16u);
-      swift_arrayDestroy();
-      OUTLINED_FUNCTION_8();
-
-      OUTLINED_FUNCTION_8();
-
-      v79(v121, v2);
-    }
-
-    else
-    {
-
-      v99 = v69[1];
-      v99(v9, v2);
-      v99(v12, v2);
-    }
-
-    goto LABEL_25;
-  }
-
-  if (v44 != enum case for MessagePayload.ClientAction.ShimParameter.personQuery(_:))
-  {
-    if (one-time initialization token for siriPhone != -1)
-    {
-      OUTLINED_FUNCTION_0_6();
-      swift_once();
-    }
-
-    v100 = type metadata accessor for Logger();
-    OUTLINED_FUNCTION_9_0(v100, static Logger.siriPhone);
-    v101 = Logger.logObject.getter();
-    v102 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v101, v102))
-    {
-      v103 = swift_slowAlloc();
-      v104 = OUTLINED_FUNCTION_36();
-      *v103 = 136315138;
-      v105 = OUTLINED_FUNCTION_5_8(v104);
-      OUTLINED_FUNCTION_15_37(v105, _swiftEmptyArrayStorage);
-      v106 = OUTLINED_FUNCTION_11_40();
-
-      *(v103 + 4) = v106;
-      _os_log_impl(&dword_0, v101, v102, "%s Received unknown ShimParameterResolution case", v103, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1(v104);
-      OUTLINED_FUNCTION_8();
-
-      OUTLINED_FUNCTION_8();
-    }
-
-    v107 = v35[1];
-    v108 = OUTLINED_FUNCTION_8_2();
-    v109(v108);
-    goto LABEL_25;
-  }
-
-  v81 = v35[12];
-  v82 = OUTLINED_FUNCTION_8_2();
-  v83(v82);
-  v84 = v117;
-  v85 = v119;
-  v86 = v0;
-  v87 = v121;
-  (*(v117 + 32))(v119, v86, v121);
-  if (one-time initialization token for siriPhone != -1)
-  {
-    OUTLINED_FUNCTION_0_6();
-    swift_once();
-  }
-
-  v88 = type metadata accessor for Logger();
-  OUTLINED_FUNCTION_9_0(v88, static Logger.siriPhone);
-  v89 = v116;
-  v120 = *(v84 + 16);
-  (v120)(v116, v85, v87);
-  v90 = Logger.logObject.getter();
-  v91 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v90, v91))
-  {
-    OUTLINED_FUNCTION_21_21();
-    v92 = swift_slowAlloc();
-    OUTLINED_FUNCTION_24_19();
-    v93 = swift_slowAlloc();
-    *v92 = 136315394;
-    v94 = OUTLINED_FUNCTION_5_8(v93);
-    OUTLINED_FUNCTION_15_37(v94, _swiftEmptyArrayStorage);
-    v95 = OUTLINED_FUNCTION_11_40();
-
-    *(v92 + 4) = v95;
-    *(v92 + 12) = 2080;
-    v123 = MessagePayload.ClientAction.PersonQuery.name.getter();
-    v124 = v96;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, &_sSSSgMR);
-    String.init<A>(describing:)();
-    OUTLINED_FUNCTION_29_18();
-    v97 = OUTLINED_FUNCTION_44_13();
-    v31(v97, v121);
-    v98 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v89, v95, &v125);
-
-    *(v92 + 14) = v98;
-    _os_log_impl(&dword_0, v90, v91, "%s Received unresolved personQuery for SiriPhoneContact: %s", v92, 0x16u);
-    swift_arrayDestroy();
-    v85 = v119;
-    OUTLINED_FUNCTION_8();
-
-    v87 = v121;
-    OUTLINED_FUNCTION_8();
-  }
-
-  else
-  {
-
-    v111 = OUTLINED_FUNCTION_44_13();
-    v31(v111, v87);
-  }
-
-  v112 = type metadata accessor for SiriPhoneContactImpl(0);
-  v113 = v118;
-  (v120)(v118, v85, v87);
-  v114 = SiriPhoneContactImpl.__allocating_init(ifPersonQuery:)(v113);
-  v115 = v122;
-  v122[3] = v112;
-  v115[4] = &protocol witness table for SiriPhoneContactImpl;
-  *v115 = v114;
-  v31(v85, v87);
-LABEL_26:
-  OUTLINED_FUNCTION_65();
-}
-
-uint64_t Dictionary<>.single(name:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  if (*(a3 + 16) && (v6 = specialized __RawDictionaryStorage.find<A>(_:)(a1, a2), (v7 & 1) != 0) && (v8 = *(*(a3 + 56) + 8 * v6), *(v8 + 16) == 1))
-  {
-    v9 = type metadata accessor for MessagePayload.ClientAction.ShimParameter();
-    OUTLINED_FUNCTION_23_1(v9);
-    (*(v10 + 16))(a4, v8 + ((*(v10 + 80) + 32) & ~*(v10 + 80)), v9);
-    OUTLINED_FUNCTION_23_3();
-    v14 = v9;
-  }
-
-  else
-  {
-    v14 = type metadata accessor for MessagePayload.ClientAction.ShimParameter();
-    v11 = a4;
-    v12 = 1;
-    v13 = 1;
-  }
-
-  return __swift_storeEnumTagSinglePayload(v11, v12, v13, v14);
-}
-
-uint64_t MessagePayload.ClientAction.ShimParameter.toBool.getter()
-{
-  v1 = type metadata accessor for MessagePayload.ClientAction.ShimParameter();
-  v2 = OUTLINED_FUNCTION_7(v1);
-  v4 = v3;
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v2);
-  OUTLINED_FUNCTION_4();
-  v7 = OUTLINED_FUNCTION_41_19();
-  v8 = OUTLINED_FUNCTION_7(v7);
+  __chkstk_darwin(v5);
+  v7 = &v20 - v6;
+  v8 = type metadata accessor for NonTerminalIntentNode();
+  OUTLINED_FUNCTION_7();
   v10 = v9;
-  v12 = *(v11 + 64);
-  __chkstk_darwin(v8);
-  OUTLINED_FUNCTION_2_79();
-  (*(v4 + 16))(v0, v0, v1);
-  v13 = *(v4 + 88);
-  v14 = OUTLINED_FUNCTION_0();
-  if (v15(v14) == enum case for MessagePayload.ClientAction.ShimParameter.resolved(_:))
+  __chkstk_darwin(v11);
+  OUTLINED_FUNCTION_15_6();
+  __chkstk_darwin(v12);
+  v14 = &v20 - v13;
+  v21 = v0;
+  if (one-time initialization token for personNode != -1)
   {
-    v16 = *(v4 + 96);
-    v17 = OUTLINED_FUNCTION_0();
-    v18(v17);
-    v19 = *(v10 + 32);
-    v20 = OUTLINED_FUNCTION_3_1();
-    v21(v20);
-    v22 = TypedValue.toBool.getter();
-    v23 = *(v10 + 8);
-    v24 = OUTLINED_FUNCTION_8_2();
+    OUTLINED_FUNCTION_11_43(&one-time initialization token for personNode);
+  }
+
+  type metadata accessor for PhoneCallContactIntentNode(0);
+  OUTLINED_FUNCTION_1_84();
+  lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(v15, v16, &protocol conformance descriptor for PhoneCallContactIntentNode);
+  IntentNodeTraversable.intentNode(forOntologyNode:)();
+  OUTLINED_FUNCTION_9_40(v7, 1, v8);
+  if (v17)
+  {
+    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v7, &_s12SiriOntology21NonTerminalIntentNodeVSgMd, &_s12SiriOntology21NonTerminalIntentNodeVSgMR);
+    v18 = 1;
+  }
+
+  else
+  {
+    (*(v10 + 32))(v14, v7, v8);
+    (*(v10 + 16))(v1, v14, v8);
+    type metadata accessor for PersonOntologyNode();
+    OUTLINED_FUNCTION_12_8();
+    swift_allocObject();
+    PersonOntologyNode.init(name:multicardinal:)();
+    PersonIntentNode.init(intentNode:ontologyNode:)();
+    (*(v10 + 8))(v14, v8);
+    v18 = 0;
+  }
+
+  v19 = type metadata accessor for PersonIntentNode();
+  __swift_storeEnumTagSinglePayload(v3, v18, 1, v19);
+  OUTLINED_FUNCTION_65();
+}
+
+uint64_t *PhoneCallContactOntologyNode.personNode.unsafeMutableAddressor()
+{
+  if (one-time initialization token for personNode != -1)
+  {
+    OUTLINED_FUNCTION_11_43(&one-time initialization token for personNode);
+  }
+
+  return &static PhoneCallContactOntologyNode.personNode;
+}
+
+uint64_t key path setter for PhoneCallContactIntentNode.contactId : PhoneCallContactIntentNode(uint64_t *a1, uint64_t a2)
+{
+  v2 = *a1;
+  v3 = a1[1];
+  v4 = *(**a2 + 192);
+
+  return v4(v2, v3);
+}
+
+uint64_t *PhoneCallContactOntologyNode.phoneCallContactIdNode.unsafeMutableAddressor()
+{
+  if (one-time initialization token for phoneCallContactIdNode != -1)
+  {
+    OUTLINED_FUNCTION_34_15(&one-time initialization token for phoneCallContactIdNode);
+  }
+
+  return &static PhoneCallContactOntologyNode.phoneCallContactIdNode;
+}
+
+uint64_t PhoneCallContactIntentNode.contactId.modify(uint64_t *a1)
+{
+  *a1 = PhoneCallContactIntentNode.contactId.getter();
+  a1[1] = v2;
+  return OUTLINED_FUNCTION_26_7();
+}
+
+uint64_t PhoneCallContactIntentNode.contactReference.getter()
+{
+  if (one-time initialization token for phoneCallContactReferenceNode != -1)
+  {
+    OUTLINED_FUNCTION_9_53(&one-time initialization token for phoneCallContactReferenceNode);
+  }
+
+  type metadata accessor for PhoneCallContactIntentNode(0);
+  OUTLINED_FUNCTION_1_84();
+  lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(v0, v1, &protocol conformance descriptor for PhoneCallContactIntentNode);
+  OUTLINED_FUNCTION_55();
+  IntentNodeTraversable.value<A>(forNode:)();
+  return v3;
+}
+
+uint64_t *PhoneCallContactOntologyNode.phoneCallContactReferenceNode.unsafeMutableAddressor()
+{
+  if (one-time initialization token for phoneCallContactReferenceNode != -1)
+  {
+    OUTLINED_FUNCTION_9_53(&one-time initialization token for phoneCallContactReferenceNode);
+  }
+
+  return &static PhoneCallContactOntologyNode.phoneCallContactReferenceNode;
+}
+
+uint64_t key path setter for PhoneCallContactIntentNode.emailAddress : PhoneCallContactIntentNode(uint64_t *a1, uint64_t a2)
+{
+  v2 = *a1;
+  v3 = a1[1];
+  v4 = *(**a2 + 240);
+
+  return v4(v2, v3);
+}
+
+uint64_t *PhoneCallContactOntologyNode.emailAddressNode.unsafeMutableAddressor()
+{
+  if (one-time initialization token for emailAddressNode != -1)
+  {
+    OUTLINED_FUNCTION_33_19(&one-time initialization token for emailAddressNode);
+  }
+
+  return &static PhoneCallContactOntologyNode.emailAddressNode;
+}
+
+uint64_t PhoneCallContactIntentNode.emailAddress.modify(uint64_t *a1, uint64_t a2, uint64_t a3)
+{
+  *a1 = PhoneCallContactIntentNode.emailAddress.getter(a1, a2, a3);
+  a1[1] = v4;
+  return OUTLINED_FUNCTION_26_7();
+}
+
+uint64_t key path setter for PhoneCallContactIntentNode.contactName : PhoneCallContactIntentNode(uint64_t *a1, uint64_t a2)
+{
+  v2 = *a1;
+  v3 = a1[1];
+  v4 = *(**a2 + 264);
+
+  return v4(v2, v3);
+}
+
+uint64_t *PhoneCallContactOntologyNode.phoneCallContactNameNode.unsafeMutableAddressor()
+{
+  if (one-time initialization token for phoneCallContactNameNode != -1)
+  {
+    OUTLINED_FUNCTION_32_18(&one-time initialization token for phoneCallContactNameNode);
+  }
+
+  return &static PhoneCallContactOntologyNode.phoneCallContactNameNode;
+}
+
+uint64_t PhoneCallContactIntentNode.contactName.modify(uint64_t *a1, uint64_t a2, uint64_t a3)
+{
+  *a1 = PhoneCallContactIntentNode.contactName.getter(a1, a2, a3);
+  a1[1] = v4;
+  return OUTLINED_FUNCTION_26_7();
+}
+
+void PhoneCallContactIntentNode.isMe.getter()
+{
+  OUTLINED_FUNCTION_66();
+  v1 = type metadata accessor for PersonOntologyNode.PersonSelfReference();
+  OUTLINED_FUNCTION_7();
+  v3 = v2;
+  __chkstk_darwin(v4);
+  OUTLINED_FUNCTION_4();
+  v34 = v6 - v5;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSg_AFtMd, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSg_AFtMR);
+  OUTLINED_FUNCTION_23_1();
+  OUTLINED_FUNCTION_49_0();
+  __chkstk_darwin(v8);
+  OUTLINED_FUNCTION_5_63();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology16PersonIntentNodeVSgMd, &_s12SiriOntology16PersonIntentNodeVSgMR);
+  OUTLINED_FUNCTION_21(v9);
+  OUTLINED_FUNCTION_49_0();
+  __chkstk_darwin(v10);
+  v12 = &v33 - v11;
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMd, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMR);
+  v14 = OUTLINED_FUNCTION_21(v13);
+  __chkstk_darwin(v14);
+  v16 = &v33 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v17);
+  v19 = &v33 - v18;
+  __chkstk_darwin(v20);
+  v22 = &v33 - v21;
+  PhoneCallContactIntentNode.person.getter();
+  v23 = type metadata accessor for PersonIntentNode();
+  OUTLINED_FUNCTION_9_40(v12, 1, v23);
+  if (v27)
+  {
+    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v12, &_s12SiriOntology16PersonIntentNodeVSgMd, &_s12SiriOntology16PersonIntentNodeVSgMR);
+    __swift_storeEnumTagSinglePayload(v22, 1, 1, v1);
+  }
+
+  else
+  {
+    PersonIntentNodeContaining.selfReference.getter();
+    OUTLINED_FUNCTION_40();
+    v24 = OUTLINED_FUNCTION_103_0();
     v25(v24);
   }
 
-  else
+  (*(v3 + 104))(v19, enum case for PersonOntologyNode.PersonSelfReference.me(_:), v1);
+  __swift_storeEnumTagSinglePayload(v19, 0, 1, v1);
+  v26 = *(v7 + 48);
+  _s27PhoneCallFlowDelegatePlugin0aB8NLIntent_pSgWOcTm_0(v22, v0, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMd, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMR);
+  _s27PhoneCallFlowDelegatePlugin0aB8NLIntent_pSgWOcTm_0(v19, v0 + v26, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMd, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMR);
+  OUTLINED_FUNCTION_1_0(v0);
+  if (!v27)
   {
-    v26 = *(v4 + 8);
-    v27 = OUTLINED_FUNCTION_0();
-    v28(v27);
-    v22 = 0;
-  }
-
-  return v22 & 1;
-}
-
-void MessagePayload.ClientAction.ShimParameter.toApp.getter()
-{
-  OUTLINED_FUNCTION_66();
-  v1 = type metadata accessor for TypedValue();
-  v2 = OUTLINED_FUNCTION_7(v1);
-  v4 = v3;
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v2);
-  OUTLINED_FUNCTION_2_79();
-  v7 = type metadata accessor for MessagePayload.ClientAction.ShimParameter();
-  v8 = OUTLINED_FUNCTION_7(v7);
-  v10 = v9;
-  v12 = *(v11 + 64);
-  __chkstk_darwin(v8);
-  OUTLINED_FUNCTION_4();
-  v15 = v14 - v13;
-  v16 = v10[2];
-  v17 = OUTLINED_FUNCTION_35_17();
-  v18(v17);
-  v19 = v10[11];
-  v20 = OUTLINED_FUNCTION_13_17();
-  if (v21(v20) == enum case for MessagePayload.ClientAction.ShimParameter.resolved(_:))
-  {
-    v22 = v10[12];
-    v23 = OUTLINED_FUNCTION_13_17();
-    v24(v23);
-    (*(v4 + 32))(v0, v15, v1);
-    TypedValue.toApp.getter();
-    if (v25)
+    _s27PhoneCallFlowDelegatePlugin0aB8NLIntent_pSgWOcTm_0(v0, v16, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMd, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMR);
+    OUTLINED_FUNCTION_1_0(v0 + v26);
+    if (!v27)
     {
-      if (one-time initialization token for siriPhone != -1)
-      {
-        OUTLINED_FUNCTION_0_6();
-        swift_once();
-      }
-
-      v26 = type metadata accessor for Logger();
-      OUTLINED_FUNCTION_9_0(v26, static Logger.siriPhone);
-
-      v27 = Logger.logObject.getter();
-      v28 = static os_log_type_t.debug.getter();
-
-      if (os_log_type_enabled(v27, v28))
-      {
-        OUTLINED_FUNCTION_21_21();
-        v29 = swift_slowAlloc();
-        OUTLINED_FUNCTION_24_19();
-        v30 = swift_slowAlloc();
-        *v29 = 136315394;
-        OUTLINED_FUNCTION_5_8(v30);
-        OUTLINED_FUNCTION_19_3();
-        DefaultStringInterpolation.appendInterpolation(type:tags:function:)(v31, v32, v33, v34);
-        v35 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v55, v56, &v57);
-
-        *(v29 + 4) = v35;
-        *(v29 + 12) = 2080;
-        App.appIdentifier.getter();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, &_sSSSgMR);
-        v36 = String.init<A>(describing:)();
-        v38 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v36, v37, &v57);
-
-        *(v29 + 14) = v38;
-        _os_log_impl(&dword_0, v27, v28, "%s Received resolved value for App: %s", v29, 0x16u);
-        swift_arrayDestroy();
-        OUTLINED_FUNCTION_8();
-
-        OUTLINED_FUNCTION_8();
-      }
+      v30 = v34;
+      (*(v3 + 32))(v34, v0 + v26, v1);
+      lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(&lazy protocol witness table cache variable for type PersonOntologyNode.PersonSelfReference and conformance PersonOntologyNode.PersonSelfReference, &type metadata accessor for PersonOntologyNode.PersonSelfReference, &protocol conformance descriptor for PersonOntologyNode.PersonSelfReference);
+      dispatch thunk of static Equatable.== infix(_:_:)();
+      v31 = *(v3 + 8);
+      v31(v30, v1);
+      outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v19, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMd, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMR);
+      outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v22, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMd, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMR);
+      v32 = OUTLINED_FUNCTION_13_17();
+      (v31)(v32);
+      outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v0, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMd, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMR);
+      goto LABEL_13;
     }
 
-    v39 = *(v4 + 8);
-    v40 = OUTLINED_FUNCTION_8_2();
-    v41(v40);
+    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v19, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMd, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMR);
+    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v22, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMd, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMR);
+    v28 = OUTLINED_FUNCTION_13_17();
+    v29(v28);
+LABEL_12:
+    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v0, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSg_AFtMd, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSg_AFtMR);
+    goto LABEL_13;
   }
 
-  else
+  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v19, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMd, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMR);
+  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v22, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMd, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMR);
+  OUTLINED_FUNCTION_1_0(v0 + v26);
+  if (!v27)
   {
-    if (one-time initialization token for siriPhone != -1)
-    {
-      OUTLINED_FUNCTION_0_6();
-      swift_once();
-    }
-
-    v42 = type metadata accessor for Logger();
-    OUTLINED_FUNCTION_9_0(v42, static Logger.siriPhone);
-    v43 = Logger.logObject.getter();
-    v44 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v43, v44))
-    {
-      v45 = swift_slowAlloc();
-      v46 = OUTLINED_FUNCTION_36();
-      *v45 = 136315138;
-      OUTLINED_FUNCTION_5_8(v46);
-      OUTLINED_FUNCTION_19_3();
-      DefaultStringInterpolation.appendInterpolation(type:tags:function:)(v47, v48, v49, v50);
-      v51 = OUTLINED_FUNCTION_11_40();
-
-      *(v45 + 4) = v51;
-      _os_log_impl(&dword_0, v43, v44, "%s Received unknown ShimParameterResolution case for App", v45, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1(v46);
-      OUTLINED_FUNCTION_8();
-
-      OUTLINED_FUNCTION_8();
-    }
-
-    v52 = v10[1];
-    v53 = OUTLINED_FUNCTION_13_17();
-    v54(v53);
+    goto LABEL_12;
   }
 
+  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v0, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMd, &_s12SiriOntology06PersonB4NodeC0C13SelfReferenceOSgMR);
+LABEL_13:
   OUTLINED_FUNCTION_65();
 }
 
-void TypedValue.toPerson.getter()
+uint64_t PhoneCallContactIntentNode.isMe.modify()
+{
+  PhoneCallContactIntentNode.isMe.getter();
+  OUTLINED_FUNCTION_77_10(v0);
+  return OUTLINED_FUNCTION_26_7();
+}
+
+uint64_t key path setter for PhoneCallContactIntentNode.personName : PhoneCallContactIntentNode(void *__src, uint64_t a2)
+{
+  memcpy(__dst, __src, sizeof(__dst));
+  v3 = *(**a2 + 312);
+  _s27PhoneCallFlowDelegatePlugin0aB8NLIntent_pSgWOcTm_0(__dst, &v5, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMd, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMR);
+  return v3(__dst);
+}
+
+void PhoneCallContactIntentNode.personName.getter()
 {
   OUTLINED_FUNCTION_66();
-  v0 = type metadata accessor for TypedValue.PrimitiveValue();
-  v1 = OUTLINED_FUNCTION_7(v0);
   v3 = v2;
-  v5 = *(v4 + 64);
-  __chkstk_darwin(v1);
-  OUTLINED_FUNCTION_4();
-  v6 = OUTLINED_FUNCTION_41_19();
-  v7 = OUTLINED_FUNCTION_7(v6);
-  v9 = v8;
-  v11 = *(v10 + 64);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology06PersonB4NodeC0C11NamePostfixOSgMd, &_s12SiriOntology06PersonB4NodeC0C11NamePostfixOSgMR);
+  OUTLINED_FUNCTION_21(v4);
+  OUTLINED_FUNCTION_49_0();
+  __chkstk_darwin(v5);
+  OUTLINED_FUNCTION_5_63();
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology06PersonB4NodeC0C10NamePrefixOSgMd, &_s12SiriOntology06PersonB4NodeC0C10NamePrefixOSgMR);
+  OUTLINED_FUNCTION_21(v6);
+  OUTLINED_FUNCTION_49_0();
   __chkstk_darwin(v7);
+  v9 = &v56 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology16PersonIntentNodeVSgMd, &_s12SiriOntology16PersonIntentNodeVSgMR);
+  OUTLINED_FUNCTION_21(v10);
+  OUTLINED_FUNCTION_49_0();
+  __chkstk_darwin(v11);
+  OUTLINED_FUNCTION_29_3();
+  v12 = type metadata accessor for PersonIntentNode();
+  OUTLINED_FUNCTION_7();
+  v14 = v13;
+  __chkstk_darwin(v15);
   OUTLINED_FUNCTION_4();
-  v14 = (v13 - v12);
-  v15 = type metadata accessor for TypedValue.PrimitiveValue.PersonValue();
-  v16 = OUTLINED_FUNCTION_7(v15);
-  v18 = v17;
-  v20 = *(v19 + 64);
-  __chkstk_darwin(v16);
-  OUTLINED_FUNCTION_2_79();
-  v21 = OUTLINED_FUNCTION_33_17();
-  v22(v21);
-  v23 = v9[11];
-  v24 = OUTLINED_FUNCTION_30_23();
-  if (v25(v24) == enum case for TypedValue.primitive(_:))
+  v18 = v17 - v16;
+  PhoneCallContactIntentNode.person.getter();
+  v19 = OUTLINED_FUNCTION_54_19();
+  OUTLINED_FUNCTION_9_40(v19, v20, v12);
+  if (v50)
   {
-    v26 = v9[12];
-    v27 = OUTLINED_FUNCTION_30_23();
-    v28(v27);
-    v29 = *v14;
-    swift_projectBox();
-    v30 = OUTLINED_FUNCTION_37_20();
-    v31(v30);
-    v32 = v3[11];
-    v33 = OUTLINED_FUNCTION_0();
-    if (v34(v33) == enum case for TypedValue.PrimitiveValue.person(_:))
-    {
-      v35 = v3[12];
-      v36 = OUTLINED_FUNCTION_0();
-      v37(v36);
-      OUTLINED_FUNCTION_45_13();
-      v38 = OUTLINED_FUNCTION_3_1();
-      v39(v38);
+    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v1, &_s12SiriOntology16PersonIntentNodeVSgMd, &_s12SiriOntology16PersonIntentNodeVSgMR);
+    v21 = 0;
+    v22 = 0;
+    v23 = 0;
+    v24 = 0;
+    v25 = 0;
+    v26 = 0;
+    v27 = 0;
+    v28 = 0;
+    v29 = 0;
+    v30 = 0;
+    v31 = 0;
+    v32 = 0;
+    v33 = 0;
+    v34 = 1;
+  }
 
-      TypedValue.PrimitiveValue.PersonValue.person.getter();
-      v40 = *(v18 + 8);
-      v41 = OUTLINED_FUNCTION_8_2();
-      v42(v41);
+  else
+  {
+    (*(v14 + 32))(v18, v1, v12);
+    type metadata accessor for PersonOntologyNode();
+    Name = static PersonOntologyNode.personFirstNameNode.getter();
+    v36 = OUTLINED_FUNCTION_49_17(Name);
+    v64 = v37;
+    v65 = v36;
+
+    v38 = static PersonOntologyNode.personMiddleNameNode.getter();
+    v39 = OUTLINED_FUNCTION_49_17(v38);
+    v62 = v40;
+    v63 = v39;
+
+    v41 = static PersonOntologyNode.personLastNameNode.getter();
+    v42 = OUTLINED_FUNCTION_49_17(v41);
+    v60 = v43;
+    v61 = v42;
+
+    v44 = PersonIntentNodeContaining.nickName.getter();
+    v58 = v45;
+    v59 = v44;
+    v46 = static PersonOntologyNode.personFullNameNode.getter();
+    v47 = OUTLINED_FUNCTION_49_17(v46);
+    v56 = v48;
+    v57 = v47;
+
+    PersonIntentNodeContaining.namePrefix.getter();
+    v49 = type metadata accessor for PersonOntologyNode.PersonNamePrefix();
+    OUTLINED_FUNCTION_9_40(v9, 1, v49);
+    if (v50)
+    {
+      outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v9, &_s12SiriOntology06PersonB4NodeC0C10NamePrefixOSgMd, &_s12SiriOntology06PersonB4NodeC0C10NamePrefixOSgMR);
+      v30 = 0;
+      v31 = 0;
     }
 
     else
     {
-      v46 = v3[1];
-      v47 = OUTLINED_FUNCTION_0();
-      v48(v47);
+      v30 = PersonOntologyNode.PersonNamePrefix.rawValue.getter();
+      v31 = v51;
+      OUTLINED_FUNCTION_40();
+      (*(v52 + 8))(v9, v49);
     }
+
+    PersonIntentNodeContaining.namePostfix.getter();
+    v53 = type metadata accessor for PersonOntologyNode.PersonNamePostfix();
+    OUTLINED_FUNCTION_9_40(v0, 1, v53);
+    if (v50)
+    {
+      (*(v14 + 8))(v18, v12);
+      outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v0, &_s12SiriOntology06PersonB4NodeC0C11NamePostfixOSgMd, &_s12SiriOntology06PersonB4NodeC0C11NamePostfixOSgMR);
+      v32 = 0;
+      v33 = 0;
+    }
+
+    else
+    {
+      v32 = PersonOntologyNode.PersonNamePostfix.rawValue.getter();
+      v33 = v54;
+      (*(v14 + 8))(v18, v12);
+      OUTLINED_FUNCTION_40();
+      (*(v55 + 8))(v0, v53);
+    }
+
+    v34 = v64;
+    v21 = v65;
+    v23 = v62;
+    v22 = v63;
+    v25 = v60;
+    v24 = v61;
+    v27 = v58;
+    v26 = v59;
+    v29 = v56;
+    v28 = v57;
+  }
+
+  *v3 = v21;
+  v3[1] = v34;
+  v3[2] = v22;
+  v3[3] = v23;
+  v3[4] = v24;
+  v3[5] = v25;
+  v3[6] = v26;
+  v3[7] = v27;
+  v3[8] = v28;
+  v3[9] = v29;
+  v3[10] = v30;
+  v3[11] = v31;
+  v3[12] = v32;
+  v3[13] = v33;
+  OUTLINED_FUNCTION_65();
+}
+
+void (*PhoneCallContactIntentNode.personName.modify(void **a1))(const void **a1)
+{
+  *a1 = __swift_coroFrameAllocStub(0xE0uLL);
+  PhoneCallContactIntentNode.personName.getter();
+  return PhoneCallContactIntentNode.personName.modify;
+}
+
+void PhoneCallContactIntentNode.personName.modify(const void **a1)
+{
+  v1 = *a1;
+  memcpy(*a1 + 112, *a1, 0x70uLL);
+  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v1 + 112, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMd, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMR);
+
+  free(v1);
+}
+
+uint64_t key path setter for PhoneCallContactIntentNode.organizationName : PhoneCallContactIntentNode(uint64_t *a1, uint64_t a2)
+{
+  v2 = *a1;
+  v3 = a1[1];
+  v4 = *(**a2 + 336);
+
+  return v4(v2, v3);
+}
+
+uint64_t PhoneCallContactIntentNode.organizationName.modify(uint64_t *a1)
+{
+  *a1 = PhoneCallContactIntentNode.organizationName.getter();
+  a1[1] = v2;
+  return OUTLINED_FUNCTION_26_7();
+}
+
+uint64_t key path setter for PhoneCallContactIntentNode.telephoneNumber : PhoneCallContactIntentNode(uint64_t *a1, uint64_t a2)
+{
+  v2 = *a1;
+  v3 = a1[1];
+  v4 = *(**a2 + 360);
+
+  return v4(v2, v3);
+}
+
+uint64_t *PhoneCallContactOntologyNode.phoneNumberNode.unsafeMutableAddressor()
+{
+  if (one-time initialization token for phoneNumberNode != -1)
+  {
+    OUTLINED_FUNCTION_12_47(&one-time initialization token for phoneNumberNode);
+  }
+
+  return &static PhoneCallContactOntologyNode.phoneNumberNode;
+}
+
+uint64_t PhoneCallContactIntentNode.telephoneNumber.modify(uint64_t *a1, uint64_t a2, uint64_t a3)
+{
+  *a1 = PhoneCallContactIntentNode.telephoneNumber.getter(a1, a2, a3);
+  a1[1] = v4;
+  return OUTLINED_FUNCTION_26_7();
+}
+
+uint64_t key path setter for PhoneCallContactIntentNode.relationship : PhoneCallContactIntentNode(uint64_t *a1, uint64_t a2)
+{
+  v2 = *a1;
+  v3 = a1[1];
+  v4 = *(**a2 + 384);
+
+  return v4(v2, v3);
+}
+
+uint64_t PhoneCallContactIntentNode.organizationName.getter(void (*a1)(uint64_t, void *))
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology16PersonIntentNodeVSgMd, &_s12SiriOntology16PersonIntentNodeVSgMR);
+  OUTLINED_FUNCTION_21(v3);
+  OUTLINED_FUNCTION_49_0();
+  __chkstk_darwin(v4);
+  OUTLINED_FUNCTION_5_63();
+  PhoneCallContactIntentNode.person.getter();
+  v5 = type metadata accessor for PersonIntentNode();
+  OUTLINED_FUNCTION_9_40(v1, 1, v5);
+  if (v6)
+  {
+    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v1, &_s12SiriOntology16PersonIntentNodeVSgMd, &_s12SiriOntology16PersonIntentNodeVSgMR);
   }
 
   else
   {
-    v43 = v9[1];
-    v44 = OUTLINED_FUNCTION_30_23();
-    v45(v44);
+    a1(v5, &protocol witness table for PersonIntentNode);
+    OUTLINED_FUNCTION_40();
+    (*(v7 + 8))(v1, v5);
   }
 
+  return OUTLINED_FUNCTION_19_0();
+}
+
+uint64_t PhoneCallContactIntentNode.relationship.modify(uint64_t *a1)
+{
+  *a1 = PhoneCallContactIntentNode.relationship.getter();
+  a1[1] = v2;
+  return OUTLINED_FUNCTION_26_7();
+}
+
+uint64_t key path setter for PhoneCallContactIntentNode.handleType : PhoneCallContactIntentNode(uint64_t *a1, uint64_t a2)
+{
+  v2 = *a1;
+  v3 = a1[1];
+  v4 = *(**a2 + 408);
+
+  return v4(v2, v3);
+}
+
+uint64_t PhoneCallContactIntentNode.contactId.getter(void *a1, uint64_t a2, uint64_t a3)
+{
+  if (*a1 != -1)
+  {
+    swift_once();
+  }
+
+  type metadata accessor for PhoneCallContactIntentNode(0);
+  OUTLINED_FUNCTION_1_84();
+  lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(v3, v4, &protocol conformance descriptor for PhoneCallContactIntentNode);
+  OUTLINED_FUNCTION_55();
+  IntentNodeTraversable.value<A>(forNode:)();
+  return v6;
+}
+
+uint64_t *PhoneCallContactOntologyNode.contactTypeNode.unsafeMutableAddressor()
+{
+  if (one-time initialization token for contactTypeNode != -1)
+  {
+    OUTLINED_FUNCTION_10_56(&one-time initialization token for contactTypeNode);
+  }
+
+  return &static PhoneCallContactOntologyNode.contactTypeNode;
+}
+
+uint64_t PhoneCallContactIntentNode.handleType.modify(uint64_t *a1, uint64_t a2, uint64_t a3)
+{
+  *a1 = PhoneCallContactIntentNode.handleType.getter(a1, a2, a3);
+  a1[1] = v4;
+  return OUTLINED_FUNCTION_26_7();
+}
+
+uint64_t key path setter for PhoneCallContactIntentNode.handleLabel : PhoneCallContactIntentNode(uint64_t *a1, uint64_t a2)
+{
+  v2 = *a1;
+  v3 = a1[1];
+  v4 = *(**a2 + 432);
+
+  return v4(v2, v3);
+}
+
+uint64_t PhoneCallContactIntentNode.handleLabel.getter()
+{
+  v1 = (v0 + OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin26PhoneCallContactIntentNode_handleLabel);
+  swift_beginAccess();
+  v2 = *v1;
+
+  return v2;
+}
+
+uint64_t PhoneCallContactIntentNode.handleLabel.setter()
+{
+  OUTLINED_FUNCTION_24_3();
+  v3 = (v1 + OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin26PhoneCallContactIntentNode_handleLabel);
+  swift_beginAccess();
+  *v3 = v2;
+  v3[1] = v0;
+}
+
+uint64_t key path setter for PhoneCallContactIntentNode.emergencyType : PhoneCallContactIntentNode(uint64_t *a1, uint64_t a2)
+{
+  v2 = *a1;
+  v3 = a1[1];
+  v4 = *(**a2 + 456);
+  outlined copy of PhoneCallEmergencyType?(*a1, v3);
+  return v4(v2, v3);
+}
+
+void PhoneCallContactIntentNode.emergencyType.getter()
+{
+  OUTLINED_FUNCTION_66();
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology15TerminalElementVSgMd, &_s12SiriOntology15TerminalElementVSgMR);
+  OUTLINED_FUNCTION_21(v2);
+  OUTLINED_FUNCTION_49_0();
+  __chkstk_darwin(v3);
+  v5 = &v52 - v4;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology18TerminalIntentNodeVSgMd, &_s12SiriOntology18TerminalIntentNodeVSgMR);
+  v7 = OUTLINED_FUNCTION_21(v6);
+  __chkstk_darwin(v7);
+  OUTLINED_FUNCTION_15_6();
+  __chkstk_darwin(v8);
+  v10 = &v52 - v9;
+  v54 = v0;
+  v56 = v0;
+  if (one-time initialization token for phoneNumberNode != -1)
+  {
+LABEL_39:
+    OUTLINED_FUNCTION_12_47(&one-time initialization token for phoneNumberNode);
+  }
+
+  type metadata accessor for PhoneCallContactIntentNode(0);
+  OUTLINED_FUNCTION_1_84();
+  lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(v11, v12, &protocol conformance descriptor for PhoneCallContactIntentNode);
+  IntentNodeTraversable.intentNode<A>(forOntologyNode:)();
+  v13 = OUTLINED_FUNCTION_55_0();
+  _s27PhoneCallFlowDelegatePlugin0aB8NLIntent_pSgWOcTm_0(v13, v14, v15, v16);
+  v17 = type metadata accessor for TerminalIntentNode();
+  v18 = OUTLINED_FUNCTION_54_19();
+  OUTLINED_FUNCTION_9_40(v18, v19, v17);
+  v55 = v10;
+  if (v26)
+  {
+    v20 = &_s12SiriOntology18TerminalIntentNodeVSgMd;
+    v21 = &_s12SiriOntology18TerminalIntentNodeVSgMR;
+    v22 = v1;
+  }
+
+  else
+  {
+    v23 = TerminalIntentNode.elements.getter();
+    OUTLINED_FUNCTION_40();
+    (*(v24 + 8))(v1, v17);
+    specialized BidirectionalCollection.last.getter(v23, v5);
+
+    v25 = type metadata accessor for TerminalElement();
+    OUTLINED_FUNCTION_9_40(v5, 1, v25);
+    if (!v26)
+    {
+      v1 = TerminalElement.semanticTags.getter();
+      OUTLINED_FUNCTION_40();
+      (*(v36 + 8))(v5, v25);
+      v10 = 0;
+      v37 = *(v1 + 16);
+      v38 = v1 + 40;
+      v52 = v1 + 40;
+      v53 = _swiftEmptyArrayStorage;
+LABEL_24:
+      v39 = v38 + 16 * v10;
+      while (v37 != v10)
+      {
+        if (v10 >= *(v1 + 16))
+        {
+          __break(1u);
+          goto LABEL_39;
+        }
+
+        ++v10;
+        v40 = v39 + 16;
+
+        String.index(_:offsetBy:limitedBy:)();
+        String.subscript.getter();
+        v41 = Substring.lowercased()();
+
+        v42 = specialized Collection.dropFirst(_:)(1uLL);
+        v60 = v41;
+        v56 = v42;
+        v57 = v43;
+        v58 = v44;
+        v59 = v45;
+        lazy protocol witness table accessor for type Substring and conformance Substring();
+        String.append<A>(contentsOf:)();
+
+        v5 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of PhoneCallContactIntentNode.emergencyType.getter, v60);
+
+        v39 = v40;
+        if (!v5)
+        {
+          v5 = v53;
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v5 + 2) + 1, 1, v5);
+            v5 = v49;
+          }
+
+          v47 = *(v5 + 2);
+          v46 = *(v5 + 3);
+          v48 = v47 + 1;
+          if (v47 >= v46 >> 1)
+          {
+            specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v46 > 1, v47 + 1, 1, v5);
+            v5 = v50;
+          }
+
+          v53 = v5;
+          *(v5 + 2) = v48;
+          v38 = v52;
+          goto LABEL_24;
+        }
+      }
+
+      v51 = *(v53 + 2);
+
+      if (!v51)
+      {
+        goto LABEL_9;
+      }
+
+      goto LABEL_34;
+    }
+
+    v20 = &_s12SiriOntology15TerminalElementVSgMd;
+    v21 = &_s12SiriOntology15TerminalElementVSgMR;
+    v22 = v5;
+  }
+
+  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v22, v20, v21);
+LABEL_9:
+  OUTLINED_FUNCTION_2_0();
+  v27 += 32;
+  v28 = *v27;
+  v29 = (*v27)();
+  if (v30)
+  {
+    if (v29 == 0xD000000000000012 && v30 == 0x800000000045E860)
+    {
+    }
+
+    else
+    {
+      v32 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+      if ((v32 & 1) == 0)
+      {
+        goto LABEL_15;
+      }
+    }
+
+LABEL_34:
+    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v55, &_s12SiriOntology18TerminalIntentNodeVSgMd, &_s12SiriOntology18TerminalIntentNodeVSgMR);
+    goto LABEL_37;
+  }
+
+LABEL_15:
+  v33 = (v28)(v29);
+  if (!v34)
+  {
+    goto LABEL_34;
+  }
+
+  if (v33 != 0xD000000000000011 || v34 != 0x800000000045E840)
+  {
+    _stringCompareWithSmolCheck(_:_:expecting:)();
+  }
+
+  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v55, &_s12SiriOntology18TerminalIntentNodeVSgMd, &_s12SiriOntology18TerminalIntentNodeVSgMR);
+LABEL_37:
   OUTLINED_FUNCTION_65();
 }
 
-uint64_t SiriPhoneContactImpl.__allocating_init(ifPersonQuery:)(uint64_t a1)
+uint64_t PhoneCallContactIntentNode.emergencyType.modify(void *a1)
+{
+  PhoneCallContactIntentNode.emergencyType.getter();
+  *a1 = 0;
+  a1[1] = v2;
+  return OUTLINED_FUNCTION_26_7();
+}
+
+BOOL PhoneCallContactIntentNode.isAmbiguousHandle.getter()
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology15TerminalElementVSgMd, &_s12SiriOntology15TerminalElementVSgMR);
+  OUTLINED_FUNCTION_21(v3);
+  OUTLINED_FUNCTION_49_0();
+  __chkstk_darwin(v4);
+  OUTLINED_FUNCTION_5_63();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology18TerminalIntentNodeVSgMd, &_s12SiriOntology18TerminalIntentNodeVSgMR);
+  v6 = OUTLINED_FUNCTION_21(v5);
+  __chkstk_darwin(v6);
+  OUTLINED_FUNCTION_15_6();
+  __chkstk_darwin(v7);
+  v9 = v34 - v8;
+  v34[0] = v0;
+  if (one-time initialization token for contactTypeNode != -1)
+  {
+    OUTLINED_FUNCTION_10_56(&one-time initialization token for contactTypeNode);
+  }
+
+  type metadata accessor for PhoneCallContactIntentNode(0);
+  OUTLINED_FUNCTION_1_84();
+  lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(v10, v11, &protocol conformance descriptor for PhoneCallContactIntentNode);
+  IntentNodeTraversable.intentNode<A>(forOntologyNode:)();
+  v12 = OUTLINED_FUNCTION_55_0();
+  _s27PhoneCallFlowDelegatePlugin0aB8NLIntent_pSgWOcTm_0(v12, v13, v14, v15);
+  v16 = type metadata accessor for TerminalIntentNode();
+  v17 = OUTLINED_FUNCTION_54_19();
+  OUTLINED_FUNCTION_9_40(v17, v18, v16);
+  if (v27)
+  {
+    v19 = OUTLINED_FUNCTION_19_0();
+    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v19, v20, &_s12SiriOntology18TerminalIntentNodeVSgMR);
+    v21 = v2;
+    v22 = &_s12SiriOntology18TerminalIntentNodeVSgMd;
+    v23 = &_s12SiriOntology18TerminalIntentNodeVSgMR;
+LABEL_9:
+    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v21, v22, v23);
+    return 0;
+  }
+
+  v24 = TerminalIntentNode.elements.getter();
+  OUTLINED_FUNCTION_40();
+  (*(v25 + 8))(v2, v16);
+  specialized BidirectionalCollection.last.getter(v24, v1);
+
+  v26 = type metadata accessor for TerminalElement();
+  OUTLINED_FUNCTION_9_40(v1, 1, v26);
+  if (v27)
+  {
+    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v9, &_s12SiriOntology18TerminalIntentNodeVSgMd, &_s12SiriOntology18TerminalIntentNodeVSgMR);
+    v22 = &_s12SiriOntology15TerminalElementVSgMd;
+    v23 = &_s12SiriOntology15TerminalElementVSgMR;
+    v21 = v1;
+    goto LABEL_9;
+  }
+
+  TerminalElement.semanticTags.getter();
+  OUTLINED_FUNCTION_40();
+  v30 = (*(v29 + 8))(v1, v26);
+  v34[0] = 0x756F756769626D41;
+  v34[1] = 0xEF656C646E614873;
+  __chkstk_darwin(v30);
+  OUTLINED_FUNCTION_6_49();
+  *(v31 - 16) = v34;
+  v32 = specialized Sequence.contains(where:)();
+
+  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v9, &_s12SiriOntology18TerminalIntentNodeVSgMd, &_s12SiriOntology18TerminalIntentNodeVSgMR);
+  return v32;
+}
+
+uint64_t PhoneCallContactIntentNode.isAmbiguousHandle.modify()
+{
+  v0 = PhoneCallContactIntentNode.isAmbiguousHandle.getter();
+  OUTLINED_FUNCTION_77_10(v0);
+  return OUTLINED_FUNCTION_26_7();
+}
+
+uint64_t PhoneCallContactIntentNode.emergencyLocationType.getter(uint64_t a1)
+{
+  v2 = OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin26PhoneCallContactIntentNode_emergencyLocationType;
+  OUTLINED_FUNCTION_146(a1);
+  return *(v1 + v2);
+}
+
+uint64_t PhoneCallContactIntentNode.emergencyLocationType.setter(uint64_t a1)
+{
+  v2 = a1;
+  v3 = OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin26PhoneCallContactIntentNode_emergencyLocationType;
+  result = OUTLINED_FUNCTION_78_3(a1);
+  *(v1 + v3) = v2;
+  return result;
+}
+
+uint64_t PhoneCallContactIntentNode.searchQualifier.getter()
+{
+  if (one-time initialization token for phoneCallContactRole != -1)
+  {
+    OUTLINED_FUNCTION_8_54(&one-time initialization token for phoneCallContactRole);
+  }
+
+  type metadata accessor for PhoneCallContactIntentNode(0);
+  OUTLINED_FUNCTION_1_84();
+  lazy protocol witness table accessor for type PhoneCallNLv3Intent and conformance PhoneCallNLv3Intent(v0, v1, &protocol conformance descriptor for PhoneCallContactIntentNode);
+  OUTLINED_FUNCTION_55();
+  IntentNodeTraversable.value<A>(forNode:)();
+  result = 0;
+  switch(v3)
+  {
+    case 1:
+      return result;
+    case 2:
+      result = 1;
+      break;
+    case 3:
+      result = 512;
+      break;
+    default:
+      result = 2;
+      break;
+  }
+
+  return result;
+}
+
+uint64_t *PhoneCallContactOntologyNode.phoneCallContactRole.unsafeMutableAddressor()
+{
+  if (one-time initialization token for phoneCallContactRole != -1)
+  {
+    OUTLINED_FUNCTION_8_54(&one-time initialization token for phoneCallContactRole);
+  }
+
+  return &static PhoneCallContactOntologyNode.phoneCallContactRole;
+}
+
+uint64_t key path setter for PhoneCallContactIntentNode.backingContact : PhoneCallContactIntentNode(uint64_t a1, uint64_t a2)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin14BackingContactOSgMd, &_s27PhoneCallFlowDelegatePlugin14BackingContactOSgMR);
-  OUTLINED_FUNCTION_21(v4);
-  v6 = *(v5 + 64);
-  OUTLINED_FUNCTION_49_0();
-  v8 = __chkstk_darwin(v7);
-  v10 = __dst - v9 + 64;
-  v11 = (*(v1 + 656))(v8);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v8 - v5;
+  _s27PhoneCallFlowDelegatePlugin0aB8NLIntent_pSgWOcTm_0(a1, &v8 - v5, &_s27PhoneCallFlowDelegatePlugin14BackingContactOSgMd, &_s27PhoneCallFlowDelegatePlugin14BackingContactOSgMR);
+  return (*(**a2 + 544))(v6);
+}
 
-  MessagePayload.ClientAction.PersonQuery.name.getter();
-  OUTLINED_FUNCTION_34_12();
-  swift_beginAccess();
-  memcpy(__dst, (v11 + 64), sizeof(__dst));
-  *(v11 + 64) = 0u;
-  *(v11 + 80) = 0u;
-  *(v11 + 96) = 0u;
-  *(v11 + 112) = 0u;
-  *(v11 + 128) = a1;
-  *(v11 + 136) = v2;
-  *(v11 + 144) = 0u;
-  *(v11 + 160) = 0u;
-  outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(__dst, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMd, &_s27PhoneCallFlowDelegatePlugin0aB10PersonNameVSgMR);
-  v12 = MessagePayload.ClientAction.PersonQuery.isMe.getter();
-  swift_beginAccess();
-  *(v11 + 16) = v12 & 1;
-  MessagePayload.ClientAction.PersonQuery.toContactQuery()();
-  v13 = type metadata accessor for MessagePayload.ClientAction.PersonQuery();
-  OUTLINED_FUNCTION_23_1(v13);
-  (*(v14 + 8))(a1);
-  v15 = type metadata accessor for BackingContact(0);
+uint64_t PhoneCallContactIntentNode.backingContact.getter@<X0>(void *a1@<X8>)
+{
+  *a1 = v1;
+  v3 = type metadata accessor for BackingContact(0);
+  OUTLINED_FUNCTION_55();
   swift_storeEnumTagMultiPayload();
-  OUTLINED_FUNCTION_23_3();
-  __swift_storeEnumTagSinglePayload(v16, v17, v18, v15);
-  v19 = OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin20SiriPhoneContactImpl_backingContact;
-  swift_beginAccess();
-  outlined assign with take of BackingContact?(v10, v11 + v19);
-  swift_endAccess();
+  __swift_storeEnumTagSinglePayload(a1, 0, 1, v3);
+}
 
-  return v11;
+uint64_t PhoneCallContactIntentNode.backingContact.setter(uint64_t a1)
+{
+  if (one-time initialization token for siriPhone != -1)
+  {
+    swift_once();
+  }
+
+  v2 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v2, static Logger.siriPhone);
+  v3 = Logger.logObject.getter();
+  v4 = static os_log_type_t.error.getter();
+  if (os_log_type_enabled(v3, v4))
+  {
+    v5 = swift_slowAlloc();
+    *v5 = 0;
+    _os_log_impl(&dword_0, v3, v4, "Cannot set a backing contact for an NLv3 intent!", v5, 2u);
+  }
+
+  return outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(a1, &_s27PhoneCallFlowDelegatePlugin14BackingContactOSgMd, &_s27PhoneCallFlowDelegatePlugin14BackingContactOSgMR);
+}
+
+void (*PhoneCallContactIntentNode.backingContact.modify(void *a1))(uint64_t a1, char a2)
+{
+  *a1 = v1;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27PhoneCallFlowDelegatePlugin14BackingContactOSgMd, &_s27PhoneCallFlowDelegatePlugin14BackingContactOSgMR);
+  OUTLINED_FUNCTION_21(v3);
+  v5 = *(v4 + 64);
+  a1[1] = __swift_coroFrameAllocStub(v5);
+  v6 = __swift_coroFrameAllocStub(v5);
+  a1[2] = v6;
+  PhoneCallContactIntentNode.backingContact.getter(v6);
+  return PhoneCallContactIntentNode.backingContact.modify;
+}
+
+void PhoneCallContactIntentNode.backingContact.modify(uint64_t a1, char a2)
+{
+  v2 = *(a1 + 8);
+  v3 = *(a1 + 16);
+  if (a2)
+  {
+    _s27PhoneCallFlowDelegatePlugin0aB8NLIntent_pSgWOcTm_0(*(a1 + 16), v2, &_s27PhoneCallFlowDelegatePlugin14BackingContactOSgMd, &_s27PhoneCallFlowDelegatePlugin14BackingContactOSgMR);
+    PhoneCallContactIntentNode.backingContact.setter(v2);
+    outlined destroy of PhoneCallFlowState<INAddCallParticipantIntent, INAddCallParticipantIntentResponse>(v3, &_s27PhoneCallFlowDelegatePlugin14BackingContactOSgMd, &_s27PhoneCallFlowDelegatePlugin14BackingContactOSgMR);
+  }
+
+  else
+  {
+    PhoneCallContactIntentNode.backingContact.setter(*(a1 + 16));
+  }
+
+  free(v3);
+
+  free(v2);
+}
+
+uint64_t PhoneCallContactIntentNode.contactSource.getter(uint64_t a1)
+{
+  v2 = OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin26PhoneCallContactIntentNode_contactSource;
+  OUTLINED_FUNCTION_146(a1);
+  return *(v1 + v2);
+}
+
+uint64_t PhoneCallContactIntentNode.contactSource.setter(uint64_t a1)
+{
+  v2 = a1;
+  v3 = OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin26PhoneCallContactIntentNode_contactSource;
+  result = OUTLINED_FUNCTION_78_3(a1);
+  *(v1 + v3) = v2;
+  return result;
+}
+
+uint64_t PhoneCallContactIntentNode.deinit()
+{
+  v1 = OBJC_IVAR____TtC27PhoneCallFlowDelegatePlugin26PhoneCallContactIntentNode_intentNode;
+  type metadata accessor for NonTerminalIntentNode();
+  OUTLINED_FUNCTION_23_1();
+  (*(v2 + 8))(v0 + v1);
+
+  return v0;
+}
+
+uint64_t PhoneCallContactIntentNode.__deallocating_deinit()
+{
+  PhoneCallContactIntentNode.deinit();
+
+  return swift_deallocClassInstance();
+}
+
+uint64_t (*protocol witness for SiriPhoneContact.isMe.modify in conformance PhoneCallContactIntentNode(void *a1))()
+{
+  v3 = __swift_coroFrameAllocStub(0x28uLL);
+  *a1 = v3;
+  v3[4] = (*(**v1 + 296))();
+  return protocol witness for SiriPhoneContact.contactId.modify in conformance PhoneCallContactIntentNode;
+}
+
+uint64_t (*protocol witness for SiriPhoneContact.contactId.modify in conformance PhoneCallContactIntentNode(void *a1))()
+{
+  v3 = __swift_coroFrameAllocStub(0x28uLL);
+  *a1 = v3;
+  v3[4] = (*(**v1 + 200))();
+  return protocol witness for SiriPhoneContact.contactId.modify in conformance PhoneCallContactIntentNode;
+}
+
+uint64_t (*protocol witness for SiriPhoneContact.contactName.modify in conformance PhoneCallContactIntentNode(void *a1))()
+{
+  v3 = __swift_coroFrameAllocStub(0x28uLL);
+  *a1 = v3;
+  v3[4] = (*(**v1 + 272))();
+  return protocol witness for SiriPhoneContact.contactId.modify in conformance PhoneCallContactIntentNode;
+}
+
+uint64_t (*protocol witness for SiriPhoneContact.contactSource.modify in conformance PhoneCallContactIntentNode(void *a1))()
+{
+  v3 = __swift_coroFrameAllocStub(0x28uLL);
+  *a1 = v3;
+  v3[4] = (*(**v1 + 576))();
+  return protocol witness for SiriPhoneContact.contactId.modify in conformance PhoneCallContactIntentNode;
+}
+
+void *protocol witness for SiriPhoneContact.personName.getter in conformance PhoneCallContactIntentNode@<X0>(void *a1@<X8>)
+{
+  OUTLINED_FUNCTION_43_0();
+  (*(v2 + 304))(v4);
+  return memcpy(a1, v4, 0x70uLL);
+}
+
+uint64_t (*protocol witness for SiriPhoneContact.personName.modify in conformance PhoneCallContactIntentNode(void *a1))()
+{
+  v3 = __swift_coroFrameAllocStub(0x28uLL);
+  *a1 = v3;
+  v3[4] = (*(**v1 + 320))();
+  return protocol witness for SiriPhoneContact.contactId.modify in conformance PhoneCallContactIntentNode;
+}
+
+uint64_t (*protocol witness for SiriPhoneContact.organizationName.modify in conformance PhoneCallContactIntentNode(void *a1))()
+{
+  v3 = __swift_coroFrameAllocStub(0x28uLL);
+  *a1 = v3;
+  v3[4] = (*(**v1 + 344))();
+  return protocol witness for SiriPhoneContact.contactId.modify in conformance PhoneCallContactIntentNode;
+}
+
+uint64_t (*protocol witness for SiriPhoneContact.telephoneNumber.modify in conformance PhoneCallContactIntentNode(void *a1))()
+{
+  v3 = __swift_coroFrameAllocStub(0x28uLL);
+  *a1 = v3;
+  v3[4] = (*(**v1 + 368))();
+  return protocol witness for SiriPhoneContact.contactId.modify in conformance PhoneCallContactIntentNode;
+}
+
+uint64_t (*protocol witness for SiriPhoneContact.emailAddress.modify in conformance PhoneCallContactIntentNode(void *a1))()
+{
+  v3 = __swift_coroFrameAllocStub(0x28uLL);
+  *a1 = v3;
+  v3[4] = (*(**v1 + 248))();
+  return protocol witness for SiriPhoneContact.contactId.modify in conformance PhoneCallContactIntentNode;
+}
+
+uint64_t (*protocol witness for SiriPhoneContact.relationship.modify in conformance PhoneCallContactIntentNode(void *a1))()
+{
+  v3 = __swift_coroFrameAllocStub(0x28uLL);
+  *a1 = v3;
+  v3[4] = (*(**v1 + 392))();
+  return protocol witness for SiriPhoneContact.contactId.modify in conformance PhoneCallContactIntentNode;
+}
+
+uint64_t (*protocol witness for SiriPhoneContact.handleType.modify in conformance PhoneCallContactIntentNode(void *a1))()
+{
+  v3 = __swift_coroFrameAllocStub(0x28uLL);
+  *a1 = v3;
+  v3[4] = (*(**v1 + 416))();
+  return protocol witness for SiriPhoneContact.contactId.modify in conformance PhoneCallContactIntentNode;
+}
+
+uint64_t (*protocol witness for SiriPhoneContact.handleLabel.modify in conformance PhoneCallContactIntentNode(void *a1))()
+{
+  v3 = __swift_coroFrameAllocStub(0x28uLL);
+  *a1 = v3;
+  v3[4] = (*(**v1 + 440))();
+  return protocol witness for SiriPhoneContact.contactId.modify in conformance PhoneCallContactIntentNode;
+}
+
+uint64_t (*protocol witness for SiriPhoneContact.emergencyType.modify in conformance PhoneCallContactIntentNode(void *a1))()
+{
+  v3 = __swift_coroFrameAllocStub(0x28uLL);
+  *a1 = v3;
+  v3[4] = (*(**v1 + 464))();
+  return protocol witness for SiriPhoneContact.contactId.modify in conformance PhoneCallContactIntentNode;
+}
+
+uint64_t (*protocol witness for SiriPhoneContact.emergencyLocationType.modify in conformance PhoneCallContactIntentNode(void *a1))()
+{
+  v3 = __swift_coroFrameAllocStub(0x28uLL);
+  *a1 = v3;
+  v3[4] = (*(**v1 + 512))();
+  return protocol witness for SiriPhoneContact.contactId.modify in conformance PhoneCallContactIntentNode;
+}
+
+uint64_t (*protocol witness for SiriPhoneContact.contactReference.modify in conformance PhoneCallContactIntentNode(void *a1))()
+{
+  v3 = __swift_coroFrameAllocStub(0x28uLL);
+  *a1 = v3;
+  v3[4] = (*(**v1 + 224))();
+  return protocol witness for SiriPhoneContact.contactId.modify in conformance PhoneCallContactIntentNode;
+}
+
+uint64_t (*protocol witness for SiriPhoneContact.isAmbiguousHandle.modify in conformance PhoneCallContactIntentNode(void *a1))()
+{
+  v3 = __swift_coroFrameAllocStub(0x28uLL);
+  *a1 = v3;
+  v3[4] = (*(**v1 + 488))();
+  return protocol witness for SiriPhoneContact.contactId.modify in conformance PhoneCallContactIntentNode;
+}
+
+uint64_t (*protocol witness for SiriPhoneContact.backingContact.modify in conformance PhoneCallContactIntentNode(void *a1))()
+{
+  v3 = __swift_coroFrameAllocStub(0x28uLL);
+  *a1 = v3;
+  v3[4] = (*(**v1 + 552))();
+  return protocol witness for SiriPhoneContact.backingContact.modify in conformance PhoneCallContactIntentNode;
+}
+
+uint64_t protocol witness for static NonTerminalIntentNodeWrapper.from(intentNode:ontologyNode:) in conformance PhoneCallContactIntentNode@<X0>(uint64_t *a1@<X8>)
+{
+  result = static PhoneCallContactIntentNode.from(intentNode:ontologyNode:)();
+  *a1 = result;
+  return result;
+}
+
+uint64_t protocol witness for IntentNodeTraversable.traversableIntentNode.getter in conformance PhoneCallContactIntentNode(uint64_t a1)
+{
+  WitnessTable = swift_getWitnessTable();
+
+  return NonTerminalIntentNodeWrapper.traversableIntentNode.getter(a1, WitnessTable);
+}
+
+uint64_t protocol witness for IntentNodeTraversable.traversableOntologyNode.getter in conformance PhoneCallContactIntentNode(uint64_t a1)
+{
+  WitnessTable = swift_getWitnessTable();
+
+  return NonTerminalIntentNodeWrapper.traversableOntologyNode.getter(a1, WitnessTable);
+}
+
+uint64_t one-time initialization function for personNode()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12SiriOntology0E4Node_pGMd, &_ss23_ContiguousArrayStorageCy12SiriOntology0E4Node_pGMR);
+  v0 = swift_allocObject();
+  *(v0 + 16) = xmmword_424FD0;
+  v1 = type metadata accessor for PersonOntologyNode();
+  swift_allocObject();
+  v2 = PersonOntologyNode.init(name:multicardinal:)();
+  *(v0 + 56) = v1;
+  *(v0 + 64) = &protocol witness table for NonTerminalOntologyNode;
+  *(v0 + 32) = v2;
+  type metadata accessor for NonTerminalOntologyNode();
+  swift_allocObject();
+  result = NonTerminalOntologyNode.init(name:multicardinal:childNodes:)();
+  static PhoneCallContactOntologyNode.personNode = result;
+  return result;
+}
+
+uint64_t one-time initialization function for phoneCallContactNameNode()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCySSGMd, &_s12SiriOntology08TerminalB4NodeCySSGMR);
+  swift_allocObject();
+  result = TerminalOntologyNode.init(name:multicardinal:)();
+  static PhoneCallContactOntologyNode.phoneCallContactNameNode = result;
+  return result;
+}
+
+uint64_t one-time initialization function for phoneCallContactIdNode()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCySSGMd, &_s12SiriOntology08TerminalB4NodeCySSGMR);
+  swift_allocObject();
+  result = TerminalOntologyNode.init(name:multicardinal:)();
+  static PhoneCallContactOntologyNode.phoneCallContactIdNode = result;
+  return result;
+}
+
+uint64_t one-time initialization function for phoneCallContactReferenceNode()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF16ContactReferenceOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF16ContactReferenceOGMR);
+  swift_allocObject();
+  result = TerminalOntologyNode.init(name:multicardinal:)();
+  static PhoneCallContactOntologyNode.phoneCallContactReferenceNode = result;
+  return result;
+}
+
+uint64_t one-time initialization function for phoneCallContactRole()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF11ContactRoleO4NLv3OGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF11ContactRoleO4NLv3OGMR);
+  swift_allocObject();
+  result = TerminalOntologyNode.init(name:multicardinal:)();
+  static PhoneCallContactOntologyNode.phoneCallContactRole = result;
+  return result;
+}
+
+uint64_t PhoneCallContactOntologyNode.init(name:multicardinal:)()
+{
+  OUTLINED_FUNCTION_66();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12SiriOntology0E4Node_pGMd, &_ss23_ContiguousArrayStorageCy12SiriOntology0E4Node_pGMR);
+  v0 = swift_allocObject();
+  *(v0 + 16) = xmmword_43CD90;
+  if (one-time initialization token for personNode != -1)
+  {
+    OUTLINED_FUNCTION_11_43(&one-time initialization token for personNode);
+  }
+
+  v1 = static PhoneCallContactOntologyNode.personNode;
+  *(v0 + 56) = type metadata accessor for NonTerminalOntologyNode();
+  *(v0 + 64) = &protocol witness table for NonTerminalOntologyNode;
+  *(v0 + 32) = v1;
+  v2 = one-time initialization token for phoneNumberNode;
+
+  if (v2 != -1)
+  {
+    OUTLINED_FUNCTION_12_47(&one-time initialization token for phoneNumberNode);
+  }
+
+  v3 = static PhoneCallContactOntologyNode.phoneNumberNode;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology08TerminalB4NodeCySSGMd, &_s12SiriOntology08TerminalB4NodeCySSGMR);
+  *(v0 + 96) = v4;
+  OUTLINED_FUNCTION_2_14();
+  OUTLINED_FUNCTION_76_7();
+  v9 = lazy protocol witness table accessor for type TerminalOntologyNode<VoiceMail.VoiceMailNoun> and conformance TerminalOntologyNode<A>(v5, v6, v7, v8);
+  *(v0 + 104) = v9;
+  *(v0 + 72) = v3;
+  v10 = one-time initialization token for phoneCallContactNameNode;
+
+  if (v10 != -1)
+  {
+    OUTLINED_FUNCTION_32_18(&one-time initialization token for phoneCallContactNameNode);
+  }
+
+  v11 = static PhoneCallContactOntologyNode.phoneCallContactNameNode;
+  *(v0 + 136) = v4;
+  *(v0 + 144) = v9;
+  *(v0 + 112) = v11;
+  v12 = one-time initialization token for phoneCallContactIdNode;
+
+  if (v12 != -1)
+  {
+    OUTLINED_FUNCTION_34_15(&one-time initialization token for phoneCallContactIdNode);
+  }
+
+  v13 = static PhoneCallContactOntologyNode.phoneCallContactIdNode;
+  *(v0 + 176) = v4;
+  *(v0 + 184) = v9;
+  *(v0 + 152) = v13;
+  v14 = one-time initialization token for phoneCallContactRole;
+
+  if (v14 != -1)
+  {
+    OUTLINED_FUNCTION_8_54(&one-time initialization token for phoneCallContactRole);
+  }
+
+  v15 = static PhoneCallContactOntologyNode.phoneCallContactRole;
+  v16 = OUTLINED_FUNCTION_103_0();
+  *(v0 + 216) = __swift_instantiateConcreteTypeFromMangledNameV2(v16, v17);
+  OUTLINED_FUNCTION_2_14();
+  *(v0 + 224) = lazy protocol witness table accessor for type TerminalOntologyNode<VoiceMail.VoiceMailNoun> and conformance TerminalOntologyNode<A>(v18, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF11ContactRoleO4NLv3OGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF11ContactRoleO4NLv3OGMR, v19);
+  *(v0 + 192) = v15;
+  v20 = one-time initialization token for phoneCallContactReferenceNode;
+
+  if (v20 != -1)
+  {
+    OUTLINED_FUNCTION_9_53(&one-time initialization token for phoneCallContactReferenceNode);
+  }
+
+  v21 = static PhoneCallContactOntologyNode.phoneCallContactReferenceNode;
+  v22 = OUTLINED_FUNCTION_103_0();
+  *(v0 + 256) = __swift_instantiateConcreteTypeFromMangledNameV2(v22, v23);
+  OUTLINED_FUNCTION_2_14();
+  *(v0 + 264) = lazy protocol witness table accessor for type TerminalOntologyNode<VoiceMail.VoiceMailNoun> and conformance TerminalOntologyNode<A>(v24, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF16ContactReferenceOGMd, &_s12SiriOntology08TerminalB4NodeCy27PhoneCallFlowDelegatePlugin0eF16ContactReferenceOGMR, v25);
+  *(v0 + 232) = v21;
+  v26 = one-time initialization token for emailAddressNode;
+
+  if (v26 != -1)
+  {
+    OUTLINED_FUNCTION_33_19(&one-time initialization token for emailAddressNode);
+  }
+
+  v27 = static PhoneCallContactOntologyNode.emailAddressNode;
+  *(v0 + 296) = v4;
+  *(v0 + 304) = v9;
+  *(v0 + 272) = v27;
+  v28 = one-time initialization token for contactTypeNode;
+
+  if (v28 != -1)
+  {
+    OUTLINED_FUNCTION_10_56(&one-time initialization token for contactTypeNode);
+  }
+
+  v29 = static PhoneCallContactOntologyNode.contactTypeNode;
+  *(v0 + 336) = v4;
+  *(v0 + 344) = v9;
+  *(v0 + 312) = v29;
+
+  OUTLINED_FUNCTION_71_5();
+  OUTLINED_FUNCTION_65();
+
+  return NonTerminalOntologyNode.init(name:multicardinal:childNodes:)();
 }

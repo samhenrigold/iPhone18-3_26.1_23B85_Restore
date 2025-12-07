@@ -143,52 +143,52 @@ LABEL_21:
 
 - (id)serializeWithError:(id *)error
 {
-  v68 = *MEMORY[0x277D85DE8];
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
+  v67 = *MEMORY[0x277D85DE8];
   v65 = 0u;
-  v62 = 0u;
+  v66 = 0u;
   v63 = 0u;
-  v60 = 0u;
+  v64 = 0u;
   v61 = 0u;
-  v58 = 0u;
+  v62 = 0u;
   v59 = 0u;
-  v56 = 0u;
+  v60 = 0u;
   v57 = 0u;
-  v54 = 0u;
+  v58 = 0u;
   v55 = 0u;
-  v52 = 0u;
+  v56 = 0u;
   v53 = 0u;
-  v50 = 0u;
+  v54 = 0u;
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
+  v50 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v46 = 0u;
   TLV8BufferInit();
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   selfCopy = self;
   transitionPoints = [(HAPCharacteristicValueLinearDerivedTransition *)self transitionPoints];
-  v6 = [transitionPoints countByEnumeratingWithState:&v42 objects:v46 count:16];
+  v6 = [transitionPoints countByEnumeratingWithState:&v41 objects:v45 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v43;
+    v8 = *v42;
     v9 = 1;
     errorCopy = error;
     while (1)
     {
       v10 = 0;
 LABEL_4:
-      if (*v43 != v8)
+      if (*v42 != v8)
       {
         objc_enumerationMutation(transitionPoints);
       }
 
-      v11 = *(*(&v42 + 1) + 8 * v10);
+      v11 = *(*(&v41 + 1) + 8 * v10);
       if ((v9 & 1) == 0)
       {
         v12 = TLV8BufferAppend();
@@ -198,9 +198,9 @@ LABEL_4:
         }
       }
 
-      v41 = 0;
-      v13 = [v11 serializeWithError:&v41];
-      v14 = v41;
+      v40 = 0;
+      v13 = [v11 serializeWithError:&v40];
+      v14 = v40;
       if (v14)
       {
         v21 = v14;
@@ -242,7 +242,7 @@ LABEL_4:
         goto LABEL_4;
       }
 
-      v7 = [transitionPoints countByEnumeratingWithState:&v42 objects:v46 count:16];
+      v7 = [transitionPoints countByEnumeratingWithState:&v41 objects:v45 count:16];
       v9 = 0;
       error = errorCopy;
       if (!v7)
@@ -264,9 +264,9 @@ LABEL_17:
   if (sourceHAPInstanceID)
   {
     sourceHAPInstanceID2 = [(HAPCharacteristicValueLinearDerivedTransition *)selfCopy sourceHAPInstanceID];
-    v40 = 0;
-    transitionPoints = [sourceHAPInstanceID2 serializeWithError:&v40];
-    v21 = v40;
+    v39 = 0;
+    transitionPoints = [sourceHAPInstanceID2 serializeWithError:&v39];
+    v21 = v39;
 
     if (v21)
     {
@@ -302,9 +302,9 @@ LABEL_33:
   if (sourceValueRange)
   {
     sourceValueRange2 = [(HAPCharacteristicValueLinearDerivedTransition *)selfCopy sourceValueRange];
-    v39 = 0;
-    transitionPoints = [sourceValueRange2 serializeWithError:&v39];
-    v21 = v39;
+    v38 = 0;
+    transitionPoints = [sourceValueRange2 serializeWithError:&v38];
+    v21 = v38;
 
     if (v21)
     {
@@ -323,44 +323,44 @@ LABEL_31:
 
     errorCopy2 = error;
     bytes2 = [transitionPoints bytes];
-    v32 = bytes2 + [transitionPoints length];
+    v31 = bytes2 + [transitionPoints length];
     do
     {
-      if ((v32 - bytes2) >= 255)
+      if ((v31 - bytes2) >= 255)
       {
-        v33 = 255;
+        v32 = 255;
       }
 
       else
       {
-        v33 = v32 - bytes2;
+        v32 = v31 - bytes2;
       }
 
-      v34 = TLV8BufferAppend();
-      if (v34)
+      v33 = TLV8BufferAppend();
+      if (v33)
       {
-        v35 = 0;
-      }
-
-      else
-      {
-        v35 = v33;
-      }
-
-      bytes2 += v35;
-      if (v34)
-      {
-        v36 = 1;
+        v34 = 0;
       }
 
       else
       {
-        v36 = bytes2 >= v32;
+        v34 = v32;
+      }
+
+      bytes2 += v34;
+      if (v33)
+      {
+        v35 = 1;
+      }
+
+      else
+      {
+        v35 = bytes2 >= v31;
       }
     }
 
-    while (!v36);
-    v23 = v34;
+    while (!v35);
+    v23 = v33;
 
     error = errorCopy2;
     if (v23)
@@ -369,12 +369,10 @@ LABEL_31:
     }
   }
 
-  v24 = [MEMORY[0x277CBEA90] dataWithBytes:v47 length:?];
+  v24 = [MEMORY[0x277CBEA90] dataWithBytes:v46 length:?];
   v21 = 0;
 LABEL_34:
   TLV8BufferFree();
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v24;
 }

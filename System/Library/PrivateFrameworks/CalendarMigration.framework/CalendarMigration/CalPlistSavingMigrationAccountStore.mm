@@ -106,7 +106,7 @@ LABEL_9:
 
 - (id)topLevelAccountsWithAccountTypeIdentifier:(id)identifier error:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   backingAccountStore = [(CalPlistSavingMigrationAccountStore *)self backingAccountStore];
   v8 = [backingAccountStore topLevelAccountsWithAccountTypeIdentifier:identifierCopy error:error];
@@ -114,59 +114,59 @@ LABEL_9:
   if (v8)
   {
     v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v8, "count")}];
+    v33 = 0u;
     v34 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v35;
+      v13 = *v34;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v35 != v13)
+          if (*v34 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v34 + 1) + 8 * i);
+          v15 = *(*(&v33 + 1) + 8 * i);
           identifier = [v15 identifier];
           v17 = [(CalPlistSavingMigrationAccountStore *)self _accountWithIdentifier:identifier preloadedBackingAccount:v15];
           [v9 addObject:v17];
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v33 objects:v38 count:16];
       }
 
       while (v12);
     }
 
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     addedAccounts = [(CalPlistSavingMigrationAccountStore *)self addedAccounts];
     allValues = [addedAccounts allValues];
 
-    v20 = [allValues countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v20 = [allValues countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v31;
+      v22 = *v30;
       do
       {
         for (j = 0; j != v21; ++j)
         {
-          if (*v31 != v22)
+          if (*v30 != v22)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v24 = *(*(&v30 + 1) + 8 * j);
+          v24 = *(*(&v29 + 1) + 8 * j);
           parentAccountIdentifier = [v24 parentAccountIdentifier];
           if (parentAccountIdentifier)
           {
@@ -184,7 +184,7 @@ LABEL_9:
           }
         }
 
-        v21 = [allValues countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v21 = [allValues countByEnumeratingWithState:&v29 objects:v37 count:16];
       }
 
       while (v21);
@@ -196,14 +196,12 @@ LABEL_9:
     v9 = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)childAccountsForAccount:(id)account withTypeIdentifier:(id)identifier
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   identifierCopy = identifier;
   objc_opt_class();
@@ -235,33 +233,33 @@ LABEL_26:
   identifier2 = [v8 identifier];
   v15 = [addedAccounts objectForKeyedSubscript:identifier2];
 
-  v44 = identifierCopy;
+  v43 = identifierCopy;
   if (v15)
   {
 LABEL_15:
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     addedChildAccounts = [(CalPlistSavingMigrationAccountStore *)self addedChildAccounts];
     identifier3 = [v8 identifier];
     v30 = [addedChildAccounts objectForKeyedSubscript:identifier3];
 
-    v31 = [v30 countByEnumeratingWithState:&v45 objects:v53 count:16];
+    v31 = [v30 countByEnumeratingWithState:&v44 objects:v52 count:16];
     if (v31)
     {
       v32 = v31;
-      v33 = *v46;
+      v33 = *v45;
       while (2)
       {
         for (i = 0; i != v32; ++i)
         {
-          if (*v46 != v33)
+          if (*v45 != v33)
           {
             objc_enumerationMutation(v30);
           }
 
-          v35 = *(*(&v45 + 1) + 8 * i);
+          v35 = *(*(&v44 + 1) + 8 * i);
           v36 = [(CalPlistSavingMigrationAccountStore *)self _accountWithIdentifier:v35 preloadedBackingAccount:0];
           if (!v36)
           {
@@ -279,7 +277,7 @@ LABEL_15:
           [array addObject:v36];
         }
 
-        v32 = [v30 countByEnumeratingWithState:&v45 objects:v53 count:16];
+        v32 = [v30 countByEnumeratingWithState:&v44 objects:v52 count:16];
         if (v32)
         {
           continue;
@@ -291,7 +289,7 @@ LABEL_15:
 
     v38 = [array copy];
 LABEL_30:
-    identifierCopy = v44;
+    identifierCopy = v43;
     goto LABEL_31;
   }
 
@@ -300,29 +298,29 @@ LABEL_30:
   {
     v17 = backingAccount;
     backingAccountStore = [(CalPlistSavingMigrationAccountStore *)self backingAccountStore];
-    v43 = v17;
+    v42 = v17;
     v19 = [backingAccountStore childAccountsForAccount:v17 withTypeIdentifier:identifierCopy];
 
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     v20 = v19;
-    v21 = [v20 countByEnumeratingWithState:&v49 objects:v54 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v48 objects:v53 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v50;
+      v23 = *v49;
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v50 != v23)
+          if (*v49 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v49 + 1) + 8 * j);
+          v25 = *(*(&v48 + 1) + 8 * j);
           identifier4 = [v25 identifier];
           v27 = [(CalPlistSavingMigrationAccountStore *)self _accountWithIdentifier:identifier4 preloadedBackingAccount:v25];
 
@@ -332,7 +330,7 @@ LABEL_30:
           }
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v49 objects:v54 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v48 objects:v53 count:16];
       }
 
       while (v22);
@@ -341,8 +339,8 @@ LABEL_30:
     goto LABEL_15;
   }
 
-  v42 = +[CalMigrationLog defaultCategory];
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
+  v41 = +[CalMigrationLog defaultCategory];
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_FAULT))
   {
     [CalPlistSavingMigrationAccountStore childAccountsForAccount:withTypeIdentifier:];
   }
@@ -351,7 +349,6 @@ LABEL_30:
 LABEL_31:
 
 LABEL_32:
-  v40 = *MEMORY[0x277D85DE8];
 
   return v38;
 }
@@ -595,26 +592,26 @@ LABEL_20:
 
 - (BOOL)_trySaveWithError:(id *)error
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v5 = +[CalMigrationLog defaultCategory];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     plistURL = [(CalPlistSavingMigrationAccountStore *)self plistURL];
     *buf = 138412290;
-    v43 = plistURL;
+    v42 = plistURL;
     _os_log_impl(&dword_2428EA000, v5, OS_LOG_TYPE_DEFAULT, "Attempting to save account changes to file %@", buf, 0xCu);
   }
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
   addedAccounts = [(CalPlistSavingMigrationAccountStore *)self addedAccounts];
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __57__CalPlistSavingMigrationAccountStore__trySaveWithError___block_invoke;
-  v40[3] = &unk_278D6D430;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __57__CalPlistSavingMigrationAccountStore__trySaveWithError___block_invoke;
+  v39[3] = &unk_278D6D430;
   v10 = dictionary2;
-  v41 = v10;
-  [addedAccounts enumerateKeysAndObjectsUsingBlock:v40];
+  v40 = v10;
+  [addedAccounts enumerateKeysAndObjectsUsingBlock:v39];
 
   if ([v10 count])
   {
@@ -623,22 +620,22 @@ LABEL_20:
 
   dictionary3 = [MEMORY[0x277CBEB38] dictionary];
   addedAccounts2 = [(CalPlistSavingMigrationAccountStore *)self addedAccounts];
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __57__CalPlistSavingMigrationAccountStore__trySaveWithError___block_invoke_2;
-  v38[3] = &unk_278D6D430;
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __57__CalPlistSavingMigrationAccountStore__trySaveWithError___block_invoke_2;
+  v37[3] = &unk_278D6D430;
   v13 = dictionary3;
-  v39 = v13;
-  [addedAccounts2 enumerateKeysAndObjectsUsingBlock:v38];
+  v38 = v13;
+  [addedAccounts2 enumerateKeysAndObjectsUsingBlock:v37];
 
   modifiedAccounts = [(CalPlistSavingMigrationAccountStore *)self modifiedAccounts];
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __57__CalPlistSavingMigrationAccountStore__trySaveWithError___block_invoke_3;
-  v36[3] = &unk_278D6D430;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __57__CalPlistSavingMigrationAccountStore__trySaveWithError___block_invoke_3;
+  v35[3] = &unk_278D6D430;
   v15 = v13;
-  v37 = v15;
-  [modifiedAccounts enumerateKeysAndObjectsUsingBlock:v36];
+  v36 = v15;
+  [modifiedAccounts enumerateKeysAndObjectsUsingBlock:v35];
 
   if ([v15 count])
   {
@@ -654,17 +651,17 @@ LABEL_20:
     [dictionary setObject:allObjects forKeyedSubscript:@"DeletedAccounts"];
   }
 
-  v35 = 0;
-  v19 = [MEMORY[0x277CCAC58] dataWithPropertyList:dictionary format:100 options:0 error:&v35];
-  v20 = v35;
+  v34 = 0;
+  v19 = [MEMORY[0x277CCAC58] dataWithPropertyList:dictionary format:100 options:0 error:&v34];
+  v20 = v34;
   if (v19)
   {
-    v33 = dictionary;
+    v32 = dictionary;
     errorCopy = error;
     plistURL2 = [(CalPlistSavingMigrationAccountStore *)self plistURL];
-    v34 = 0;
-    v23 = [v19 writeToURL:plistURL2 options:0 error:&v34];
-    v24 = v34;
+    v33 = 0;
+    v23 = [v19 writeToURL:plistURL2 options:0 error:&v33];
+    v24 = v33;
 
     v25 = +[CalMigrationLog defaultCategory];
     v26 = v25;
@@ -674,7 +671,7 @@ LABEL_20:
       {
         plistURL3 = [(CalPlistSavingMigrationAccountStore *)self plistURL];
         *buf = 138412290;
-        v43 = plistURL3;
+        v42 = plistURL3;
         _os_log_impl(&dword_2428EA000, v26, OS_LOG_TYPE_DEFAULT, "Successfully saved account changes to file %@", buf, 0xCu);
       }
     }
@@ -693,7 +690,7 @@ LABEL_20:
       }
     }
 
-    dictionary = v33;
+    dictionary = v32;
   }
 
   else
@@ -717,7 +714,6 @@ LABEL_20:
     }
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -755,77 +751,60 @@ void __57__CalPlistSavingMigrationAccountStore__trySaveWithError___block_invoke_
 - (void)childAccountsForAccount:withTypeIdentifier:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 identifier];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)childAccountsForAccount:(uint64_t)a1 withTypeIdentifier:(void *)a2 .cold.2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = [a2 identifier];
+  v7 = [a2 identifier];
   OUTLINED_FUNCTION_1();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)childAccountsForAccount:withTypeIdentifier:.cold.3()
 {
   OUTLINED_FUNCTION_2();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 identifier];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAccount:error:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 identifier];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveAccount:withError:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 identifier];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
   _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_trySaveWithError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2428EA000, a2, OS_LOG_TYPE_ERROR, "Failed to write plist data to file: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2428EA000, a2, OS_LOG_TYPE_ERROR, "Failed to write plist data to file: %@", &v2, 0xCu);
 }
 
 - (void)_trySaveWithError:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2428EA000, a2, OS_LOG_TYPE_ERROR, "Failed to serialize account changes: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2428EA000, a2, OS_LOG_TYPE_ERROR, "Failed to serialize account changes: %@", &v2, 0xCu);
 }
 
 @end

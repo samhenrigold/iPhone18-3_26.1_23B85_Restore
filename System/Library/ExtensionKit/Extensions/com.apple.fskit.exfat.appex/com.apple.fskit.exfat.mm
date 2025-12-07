@@ -522,7 +522,7 @@ uint64_t CONV_Unistr255ToUTF8(_WORD *a1, _BYTE *a2, uint64_t a3)
         break;
       }
 
-      if ((v3 + 1) >= v8)
+      if (v3 + 1 >= v8)
       {
         goto LABEL_49;
       }
@@ -567,7 +567,7 @@ uint64_t CONV_Unistr255ToUTF8(_WORD *a1, _BYTE *a2, uint64_t a3)
       v18 = *v9;
       if ((v18 & 0xFC00) == 0xDC00)
       {
-        if ((v3 + 3) >= v8)
+        if (v3 + 3 >= v8)
         {
           goto LABEL_49;
         }
@@ -591,7 +591,7 @@ uint64_t CONV_Unistr255ToUTF8(_WORD *a1, _BYTE *a2, uint64_t a3)
         v20 = v16 >> 6;
         LOBYTE(v21) = -19;
 LABEL_45:
-        if ((v3 + 2) >= v8)
+        if (v3 + 2 >= v8)
         {
 LABEL_49:
           v7 = 63;
@@ -782,63 +782,63 @@ LABEL_17:
   return result;
 }
 
-BOOL memory_pressure_recent(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL memory_pressure_recent()
 {
-  v8 = MEMORY[0xFFFFFC030];
+  v0 = MEMORY[0xFFFFFC030];
   if (debug)
   {
-    v9 = MEMORY[0xFFFFFC030] == 0;
+    v1 = MEMORY[0xFFFFFC030] == 0;
   }
 
   else
   {
-    v9 = 1;
+    v1 = 1;
   }
 
-  if (!v9)
+  if (!v1)
   {
-    v11[0] = ctx;
-    v11[1] = *&qword_100026DF8;
-    v12 = qword_100026E08;
-    fsck_printf(v11, "vm.memory_pressure = %u\n", a3, a4, a5, a6, a7, a8, MEMORY[0xFFFFFC030]);
+    v3[0] = ctx;
+    v3[1] = *&qword_100026DF8;
+    v4 = qword_100026E08;
+    fsck_printf(v3, "vm.memory_pressure = %u\n", MEMORY[0xFFFFFC030]);
   }
 
-  return v8 != 0;
+  return v0 != 0;
 }
 
 uint64_t memory_pressure_current()
 {
-  v11 = 0;
-  v12 = 4;
-  v6 = sysctlbyname("vm.page_free_wanted", &v11, &v12, 0, 0);
+  v5 = 0;
+  v6 = 4;
+  v0 = sysctlbyname("vm.page_free_wanted", &v5, &v6, 0, 0);
   result = 0;
-  if (!v6)
+  if (!v0)
   {
-    result = v11;
+    result = v5;
     if (debug)
     {
-      v8 = v11 == 0;
+      v2 = v5 == 0;
     }
 
     else
     {
-      v8 = 1;
+      v2 = 1;
     }
 
-    if (!v8)
+    if (!v2)
     {
-      v9[0] = ctx;
-      v9[1] = *&qword_100026DF8;
-      v10 = qword_100026E08;
-      fsck_printf(v9, "vm.page_free_wanted = %u\n", v0, v1, v2, v3, v4, v5, v11);
-      return v11;
+      v3[0] = ctx;
+      v3[1] = *&qword_100026DF8;
+      v4 = qword_100026E08;
+      fsck_printf(v3, "vm.page_free_wanted = %u\n", v5);
+      return v5;
     }
   }
 
   return result;
 }
 
-uint64_t fsck_exfat_cache_init()
+void *fsck_exfat_cache_init()
 {
   v13 = 0;
   v14 = 8;
@@ -924,32 +924,32 @@ void fsck_exfat_cache_dispose()
   free(v1);
 }
 
-uint64_t fsck_exfat_cache_write(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t fsck_exfat_cache_write(uint64_t a1)
 {
   if (debug)
   {
-    v9 = *a1;
-    v10 = *(a1 + 32);
-    v16[0] = ctx;
-    v16[1] = *&qword_100026DF8;
-    v17 = qword_100026E08;
-    fsck_printf(v16, "Write     offset = 0x%012llx  length = 0x%06x\n", a3, a4, a5, a6, a7, a8, v9);
+    v2 = *a1;
+    v3 = *(a1 + 32);
+    v9[0] = ctx;
+    v9[1] = *&qword_100026DF8;
+    v10 = qword_100026E08;
+    fsck_printf(v9, "Write     offset = 0x%012llx  length = 0x%06x\n", v2, v3);
   }
 
-  v11 = pwrite(g, *(a1 + 8), *(a1 + 32), *a1);
-  v12 = *(a1 + 32);
-  if (v11 == v12)
+  v4 = pwrite(g, *(a1 + 8), *(a1 + 32), *a1);
+  v5 = *(a1 + 32);
+  if (v4 == v5)
   {
     return 0;
   }
 
-  v14 = *a1;
-  v15 = __error();
-  warn("Couldn't write %zu bytes at offset %lld, errno %d", v12, v14, *v15);
+  v7 = *a1;
+  v8 = __error();
+  warn("Couldn't write %zu bytes at offset %lld, errno %d", v5, v7, *v8);
   return *__error();
 }
 
-uint64_t fsck_exfat_cache_evict(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t fsck_exfat_cache_evict(uint64_t a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -976,20 +976,20 @@ uint64_t fsck_exfat_cache_evict(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
     sub_10000FB64();
   }
 
-  if (*(a2 + 40) != 1 || (result = fsck_exfat_cache_write(a2, a2, a3, a4, a5, a6, a7, a8), !result))
+  if (*(a2 + 40) != 1 || (result = fsck_exfat_cache_write(a2), !result))
   {
     if (a1)
     {
-      v11 = *(a2 + 16);
-      v12 = *(a2 + 24);
-      v13 = (a1 + 8);
-      if (v11)
+      v5 = *(a2 + 16);
+      v6 = *(a2 + 24);
+      v7 = (a1 + 8);
+      if (v5)
       {
-        v13 = (v11 + 24);
+        v7 = (v5 + 24);
       }
 
-      *v13 = v12;
-      *v12 = v11;
+      *v7 = v6;
+      *v6 = v5;
     }
 
     free(*(a2 + 8));
@@ -997,25 +997,25 @@ uint64_t fsck_exfat_cache_evict(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
     *a2 = 0u;
     *(a2 + 32) = 0u;
     *(a2 + 16) = 0u;
-    v14 = free_list;
+    v8 = free_list;
     *(a2 + 16) = free_list;
-    v15 = (v14 + 24);
-    v16 = v14 == 0;
+    v9 = (v8 + 24);
+    v10 = v8 == 0;
     free_list = a2;
-    v17 = &unk_100026CB8;
-    if (!v16)
+    v11 = &qword_100026CB8;
+    if (!v10)
     {
-      v17 = v15;
+      v11 = v9;
     }
 
-    *v17 = a2 + 16;
+    *v11 = a2 + 16;
     *(a2 + 24) = &free_list;
   }
 
   return result;
 }
 
-uint64_t fsck_exfat_cache_recycle(unsigned int a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t fsck_exfat_cache_recycle(unsigned int a1, int *a2)
 {
   *a2 = 0;
   if (!a1)
@@ -1027,114 +1027,114 @@ uint64_t fsck_exfat_cache_recycle(unsigned int a1, int *a2, uint64_t a3, uint64_
     }
   }
 
-  v14 = **(qword_100026CA8 + 8);
-  if (v14)
+  v8 = **(qword_100026CA8 + 8);
+  if (v8)
   {
-    v15 = 0;
-    v16 = 0;
+    v9 = 0;
+    v10 = 0;
     while (1)
     {
-      if (!*(v14 + 8))
+      if (!*(v8 + 8))
       {
         sub_10000FC98();
       }
 
-      if (!*v14)
+      if (!*v8)
       {
         sub_10000FC6C();
       }
 
-      v17 = *(v14 + 32);
-      if (!v17)
+      v11 = *(v8 + 32);
+      if (!v11)
       {
         sub_10000FC40();
       }
 
-      v18 = **(*(v14 + 24) + 8);
-      if (!*(v14 + 36))
+      v12 = **(*(v8 + 24) + 8);
+      if (!*(v8 + 36))
       {
-        v19 = fsck_exfat_cache_evict(&aged_list, v14, a3, a4, a5, a6, a7, a8);
-        if (v19)
+        v13 = fsck_exfat_cache_evict(&aged_list, v8);
+        if (v13)
         {
 LABEL_38:
-          v24 = v19;
+          v18 = v13;
           result = 0;
           goto LABEL_39;
         }
 
-        ++v15;
-        v16 += v17;
-        if (v16 >= a1)
+        ++v9;
+        v10 += v11;
+        if (v10 >= a1)
         {
           goto LABEL_29;
         }
       }
 
-      v14 = v18;
-      if (!v18)
+      v8 = v12;
+      if (!v12)
       {
         goto LABEL_21;
       }
     }
   }
 
-  v16 = 0;
-  v15 = 0;
+  v10 = 0;
+  v9 = 0;
 LABEL_21:
-  v20 = **(qword_100026C98 + 8);
-  if (v20)
+  v14 = **(qword_100026C98 + 8);
+  if (v14)
   {
     do
     {
-      if (!*(v20 + 8))
+      if (!*(v14 + 8))
       {
         sub_10000FD1C();
       }
 
-      if (!*v20)
+      if (!*v14)
       {
         sub_10000FCF0();
       }
 
-      v21 = *(v20 + 32);
-      if (!v21)
+      v15 = *(v14 + 32);
+      if (!v15)
       {
         sub_10000FCC4();
       }
 
-      v22 = **(*(v20 + 24) + 8);
-      if (!*(v20 + 36))
+      v16 = **(*(v14 + 24) + 8);
+      if (!*(v14 + 36))
       {
-        v19 = fsck_exfat_cache_evict(&active_list, v20, a3, a4, a5, a6, a7, a8);
-        if (v19)
+        v13 = fsck_exfat_cache_evict(&active_list, v14);
+        if (v13)
         {
           goto LABEL_38;
         }
 
-        ++v15;
-        v16 += v21;
-        if (v16 >= a1)
+        ++v9;
+        v10 += v15;
+        if (v10 >= a1)
         {
           break;
         }
       }
 
-      v20 = v22;
+      v14 = v16;
     }
 
-    while (v22);
+    while (v16);
   }
 
 LABEL_29:
-  if (v16)
+  if (v10)
   {
-    v23 = ++dword_100024C88;
+    v17 = ++dword_100024C88;
     if (debug)
     {
-      v25[0] = ctx;
-      v25[1] = *&qword_100026DF8;
-      v26 = qword_100026E08;
-      fsck_printf(v25, "--- [%d] Evicted %d buffers (%u bytes; %u pages)\n", a3, a4, a5, a6, a7, a8, v23);
+      v19[0] = ctx;
+      v19[1] = *&qword_100026DF8;
+      v20 = qword_100026E08;
+      fsck_printf(v19, "--- [%d] Evicted %d buffers (%u bytes; %u pages)\n", v17, v9, v10, v10 / dword_100024C78);
     }
   }
 
@@ -1167,16 +1167,16 @@ LABEL_52:
       sub_10000FDCC();
     }
 
-    v11 = *(result + 16);
-    v12 = *(result + 24);
-    v13 = (v11 + 24);
-    if (!v11)
+    v5 = *(result + 16);
+    v6 = *(result + 24);
+    v7 = (v5 + 24);
+    if (!v5)
     {
-      v13 = &unk_100026CB8;
+      v7 = &qword_100026CB8;
     }
 
-    *v13 = v12;
-    *v12 = v11;
+    *v7 = v6;
+    *v6 = v5;
   }
 
   else
@@ -1187,9 +1187,9 @@ LABEL_52:
     }
 
     result = 0;
-    v24 = 12;
+    v18 = 12;
 LABEL_39:
-    *a2 = v24;
+    *a2 = v18;
   }
 
   return result;
@@ -1258,54 +1258,54 @@ uint64_t fsck_exfat_cache_get(uint64_t a1, size_t a2, int *a3)
   v6 = fsck_exfat_cache_find(a1, a2);
   if (v6)
   {
-    v13 = v6;
+    v7 = v6;
 LABEL_3:
-    v14 = active_list;
-    *(v13 + 16) = active_list;
-    v15 = (v14 + 24);
-    v16 = v14 == 0;
-    active_list = v13;
-    v17 = &qword_100026C98;
-    if (!v16)
+    v8 = active_list;
+    *(v7 + 16) = active_list;
+    v9 = (v8 + 24);
+    v10 = v8 == 0;
+    active_list = v7;
+    v11 = &qword_100026C98;
+    if (!v10)
     {
-      v17 = v15;
+      v11 = v9;
     }
 
-    *v17 = v13 + 16;
-    *(v13 + 24) = &active_list;
-    ++*(v13 + 36);
-    return v13;
+    *v11 = v7 + 16;
+    *(v7 + 24) = &active_list;
+    ++*(v7 + 36);
+    return v7;
   }
 
-  v13 = fsck_exfat_cache_recycle(0, a3, v7, v8, v9, v10, v11, v12);
+  v7 = fsck_exfat_cache_recycle(0, a3);
+  if (!v7)
+  {
+    return v7;
+  }
+
+  v13 = malloc_type_malloc(a2, 0x2AA5381EuLL);
+  *(v7 + 8) = v13;
   if (!v13)
   {
-    return v13;
+    v24 = ctx;
+    v25 = *&qword_100026DF8;
+    v26 = qword_100026E08;
+    fsck_err(&v24, 1, "fsck_exfat_cache_get", v14, v15, v16, v17, v18, v23);
   }
 
-  v19 = malloc_type_malloc(a2, 0x2AA5381EuLL);
-  *(v13 + 8) = v19;
-  if (!v19)
-  {
-    v31 = ctx;
-    v32 = *&qword_100026DF8;
-    v33 = qword_100026E08;
-    fsck_err(&v31, 1, "fsck_exfat_cache_get", v21, v22, v23, v24, v25, v30);
-  }
-
-  *v13 = a1;
-  *(v13 + 32) = a2;
+  *v7 = a1;
+  *(v7 + 32) = a2;
   if (debug)
   {
-    v31 = ctx;
-    v32 = *&qword_100026DF8;
-    v33 = qword_100026E08;
-    fsck_printf(&v31, "Read      offset = 0x%012llx  length = 0x%06lx\n", v20, v21, v22, v23, v24, v25, a1);
+    v24 = ctx;
+    v25 = *&qword_100026DF8;
+    v26 = qword_100026E08;
+    fsck_printf(&v24, "Read      offset = 0x%012llx  length = 0x%06lx\n", a1, a2);
   }
 
-  if (pread(g, *(v13 + 8), a2, a1) == a2)
+  if (pread(g, *(v7 + 8), a2, a1) == a2)
   {
-    if ((dword_100026CCC & 0x80000000) == 0 && pwrite(dword_100026CCC, *(v13 + 8), a2, a1) != a2 && dword_100024C8C <= 19)
+    if ((dword_100026CCC & 0x80000000) == 0 && pwrite(dword_100026CCC, *(v7 + 8), a2, a1) != a2 && dword_100024C8C <= 19)
     {
       ++dword_100024C8C;
       warn("Trouble shadowing offset 0x%012llx length 0x%06lx", a1, a2);
@@ -1315,29 +1315,29 @@ LABEL_3:
   }
 
   warn("Couldn't read %zu bytes at offset %lld", a2, a1);
-  free(*(v13 + 8));
-  *v13 = 0u;
-  *(v13 + 32) = 0u;
-  *(v13 + 16) = 0u;
-  v27 = free_list;
-  *(v13 + 16) = free_list;
-  v28 = (v27 + 24);
-  v16 = v27 == 0;
-  free_list = v13;
-  v29 = &unk_100026CB8;
-  if (!v16)
+  free(*(v7 + 8));
+  *v7 = 0u;
+  *(v7 + 32) = 0u;
+  *(v7 + 16) = 0u;
+  v20 = free_list;
+  *(v7 + 16) = free_list;
+  v21 = (v20 + 24);
+  v10 = v20 == 0;
+  free_list = v7;
+  v22 = &qword_100026CB8;
+  if (!v10)
   {
-    v29 = v28;
+    v22 = v21;
   }
 
-  *v29 = v13 + 16;
-  *(v13 + 24) = &free_list;
-  v13 = 0;
+  *v22 = v7 + 16;
+  *(v7 + 24) = &free_list;
+  v7 = 0;
   *a3 = *__error();
-  return v13;
+  return v7;
 }
 
-uint64_t fsck_exfat_cache_mark_dirty(uint64_t a1)
+uint64_t fsck_exfat_cache_mark_dirty(uint64_t a1, uint64_t a2)
 {
   if (!*(a1 + 36))
   {
@@ -1348,7 +1348,7 @@ uint64_t fsck_exfat_cache_mark_dirty(uint64_t a1)
   return 0;
 }
 
-uint64_t fsck_exfat_cache_release(uint64_t a1, int a2, int a3)
+uint64_t fsck_exfat_cache_release(uint64_t a1, uint64_t a2, int a3)
 {
   v3 = *(a1 + 36);
   if (!v3)
@@ -1393,80 +1393,80 @@ uint64_t fsck_exfat_cache_release(uint64_t a1, int a2, int a3)
   return 0;
 }
 
-uint64_t fsck_exfat_cache_flush(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t fsck_exfat_cache_flush()
 {
-  v8 = active_list;
+  v0 = active_list;
   if (active_list)
   {
-    v9 = 0;
+    v1 = 0;
     do
     {
-      if (*(v8 + 40) == 1)
+      if (*(v0 + 40) == 1)
       {
-        v10 = fsck_exfat_cache_write(v8, a2, a3, a4, a5, a6, a7, a8);
-        if (v9)
+        v2 = fsck_exfat_cache_write(v0);
+        if (v1)
         {
-          v11 = 1;
+          v3 = 1;
         }
 
         else
         {
-          v11 = v10 == 0;
+          v3 = v2 == 0;
         }
 
-        if (v11)
+        if (v3)
         {
-          v9 = v9;
+          v1 = v1;
         }
 
         else
         {
-          v9 = v10;
+          v1 = v2;
         }
       }
 
-      v8 = *(v8 + 16);
+      v0 = *(v0 + 16);
     }
 
-    while (v8);
+    while (v0);
   }
 
   else
   {
-    v9 = 0;
+    v1 = 0;
   }
 
   for (i = aged_list; i; i = *(i + 16))
   {
     if (*(i + 40) == 1)
     {
-      v13 = fsck_exfat_cache_write(i, a2, a3, a4, a5, a6, a7, a8);
-      if (v9)
+      v5 = fsck_exfat_cache_write(i);
+      if (v1)
       {
-        v14 = 1;
+        v6 = 1;
       }
 
       else
       {
-        v14 = v13 == 0;
+        v6 = v5 == 0;
       }
 
-      if (v14)
+      if (v6)
       {
-        v9 = v9;
+        v1 = v1;
       }
 
       else
       {
-        v9 = v13;
+        v1 = v5;
       }
     }
   }
 
-  return v9;
+  return v1;
 }
 
-uint64_t fsck_exfat_cache_get_cluster(unsigned int a1, int *a2)
+uint64_t fsck_exfat_cache_get_cluster(uint64_t a1, int *a2)
 {
   if (a1 < 2 || dword_100026D0C < a1)
   {
@@ -1495,25 +1495,25 @@ uint64_t fsck_exfat_cache_evict_clusters(const __CFArray *a1)
     v6 = fsck_exfat_cache_find((dword_100026CF4 + dword_100026D00 * (ValueAtIndex - 2)) * dword_100026CF8, dword_100026CFC);
     if (v6)
     {
-      v13 = fsck_exfat_cache_evict(0, v6, v7, v8, v9, v10, v11, v12);
+      v7 = fsck_exfat_cache_evict(0, v6);
       if (v3)
       {
-        v14 = 1;
+        v8 = 1;
       }
 
       else
       {
-        v14 = v13 == 0;
+        v8 = v7 == 0;
       }
 
-      if (v14)
+      if (v8)
       {
         v3 = v3;
       }
 
       else
       {
-        v3 = v13;
+        v3 = v7;
       }
     }
 
@@ -1675,99 +1675,99 @@ uint64_t fsck_exfat_decompress_upcase(uint64_t a1, uint64_t a2, unint64_t a3)
   return result;
 }
 
-uint64_t fsck_exfat_upcase_replace(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t fsck_exfat_upcase_replace()
 {
-  result = fsck_exfat_resize_chain(&dword_100026DC4, &qword_100026DC8, default_upcase_table_size, a4, a5, a6, a7, a8);
+  result = fsck_exfat_resize_chain(&dword_100026DC4, &qword_100026DC8, default_upcase_table_size);
   if (result)
   {
     goto LABEL_2;
   }
 
-  v27 = 0;
-  v28 = 0;
+  v15 = 0;
+  v16 = 0;
   if (dword_100026DC0 == -1)
   {
-    result = fsck_exfat_find_unused_entry(qword_100026D80, &dword_100026DC0, &v28, &v27, v9, v10, v11, v12);
+    result = fsck_exfat_find_unused_entry(qword_100026D80, &dword_100026DC0, &v16, &v15);
     if (result)
     {
       goto LABEL_2;
     }
 
-    v13 = v27;
-    *v27 = 0u;
-    *(v13 + 16) = 0u;
-    *v13 = -126;
+    v1 = v15;
+    *v15 = 0u;
+    *(v1 + 16) = 0u;
+    *v1 = -126;
   }
 
   else
   {
-    result = fsck_exfat_read_dir_entry(qword_100026D80, dword_100026DC0, &v28, &v27);
+    result = fsck_exfat_read_dir_entry(qword_100026D80, dword_100026DC0, &v16, &v15);
     if (result)
     {
       goto LABEL_2;
     }
   }
 
-  v14 = v27;
-  *(v27 + 20) = dword_100026DC4;
-  *(v14 + 24) = qword_100026DC8;
-  v15 = default_upcase_table_size;
+  v2 = v15;
+  *(v15 + 20) = dword_100026DC4;
+  *(v2 + 24) = qword_100026DC8;
+  v3 = default_upcase_table_size;
   if (default_upcase_table_size)
   {
-    v16 = 0;
-    v17 = &default_upcase_table;
+    v4 = 0;
+    v5 = &default_upcase_table;
     do
     {
-      HIDWORD(v18) = v16;
-      LODWORD(v18) = v16;
-      v19 = *v17++;
-      v16 = (v18 >> 1) + v19;
-      --v15;
+      HIDWORD(v6) = v4;
+      LODWORD(v6) = v4;
+      v7 = *v5++;
+      v4 = (v6 >> 1) + v7;
+      --v3;
     }
 
-    while (v15);
+    while (v3);
   }
 
   else
   {
-    v16 = 0;
+    v4 = 0;
   }
 
-  *(v14 + 4) = v16;
-  result = fsck_exfat_cache_release(v28, 1, 0);
-  v25 = result;
+  *(v2 + 4) = v4;
+  result = fsck_exfat_cache_release(v16, 1, 0);
+  v13 = result;
   if (!result)
   {
-    v26 = dword_100026DC4;
-    v20 = default_upcase_table_size;
-    v21 = &default_upcase_table;
+    v14 = dword_100026DC4;
+    v8 = default_upcase_table_size;
+    v9 = &default_upcase_table;
     while (1)
     {
-      if (!v20)
+      if (!v8)
       {
         result = 0;
         byte_100026DD4 = 1;
         return result;
       }
 
-      v22 = v20 >= dword_100026CFC ? dword_100026CFC : v20;
-      cluster = fsck_exfat_cache_get_cluster(v26, &v25);
-      v28 = cluster;
+      v10 = v8 >= dword_100026CFC ? dword_100026CFC : v8;
+      cluster = fsck_exfat_cache_get_cluster(v14, &v13);
+      v16 = cluster;
       if (!cluster)
       {
         break;
       }
 
-      v24 = buffer_data(cluster);
-      memcpy(v24, v21, v22);
-      result = fsck_exfat_cache_release(v28, 1, 0);
-      v25 = result;
+      v12 = buffer_data(cluster);
+      memcpy(v12, v9, v10);
+      result = fsck_exfat_cache_release(v16, 1, 0);
+      v13 = result;
       if (!result)
       {
-        v20 -= v22;
-        v21 += v22;
-        result = fsck_exfat_fat_get(v26, &v26);
-        v25 = result;
+        v8 -= v10;
+        v9 += v10;
+        result = fsck_exfat_fat_get(v14, &v14);
+        v13 = result;
         if (!result)
         {
           continue;
@@ -1777,7 +1777,7 @@ uint64_t fsck_exfat_upcase_replace(uint64_t a1, uint64_t a2, uint64_t a3, uint64
       goto LABEL_2;
     }
 
-    result = v25;
+    result = v13;
   }
 
 LABEL_2:
@@ -1909,7 +1909,7 @@ LABEL_17:
     v34 = ctx;
     v35 = *&qword_100026DF8;
     v36 = qword_100026E08;
-    fsck_printf(&v34, "Found upcase table; starting cluster %u, length %llu\n", v10, v11, v12, v13, v14, v15, v32);
+    fsck_printf(&v34, "Found upcase table; starting cluster %u, length %llu\n", v32, v9);
   }
 
   if (v16)
@@ -1926,7 +1926,7 @@ BOOL fsck_exfat_filename_exists_in_dir()
   v2 = v1;
   v3 = v0;
   v4 = *(v0 + 24);
-  v43 = v4;
+  v43 = *(v0 + 24);
   memset(v77, 0, sizeof(v77));
   v76 = 0u;
   v75 = 0u;
@@ -2223,7 +2223,7 @@ LABEL_45:
   return v10;
 }
 
-uint64_t fsck_exfat_bitmap_init(const char *a1)
+void *fsck_exfat_bitmap_init(const char *a1)
 {
   byte_100026D98 = 0;
   if ((dword_100026D08 & 0x1F) != 0)
@@ -2244,15 +2244,15 @@ uint64_t fsck_exfat_bitmap_init(const char *a1)
     v3 = open(a1, 2562);
     if (v3 == -1)
     {
-      v19 = *__error();
-      v60 = ctx;
-      v61 = *&qword_100026DF8;
-      v62 = qword_100026E08;
-      fsckPrint(&v60, 452, v20, v21, v22, v23, v24, v25, a1);
-      v60 = ctx;
-      v61 = *&qword_100026DF8;
-      v62 = qword_100026E08;
-      fsckPrint(&v60, 455, v26, v27, v28, v29, v30, v31, v58);
+      __error();
+      v57 = ctx;
+      v58 = *&qword_100026DF8;
+      v59 = qword_100026E08;
+      fsckPrint(&v57, 452, v19, v20, v21, v22, v23, v24, a1);
+      v57 = ctx;
+      v58 = *&qword_100026DF8;
+      v59 = qword_100026E08;
+      fsckPrint(&v57, 455, v25, v26, v27, v28, v29, v30, v55);
       byte_100026D98 = 0;
     }
 
@@ -2265,10 +2265,10 @@ uint64_t fsck_exfat_bitmap_init(const char *a1)
         qword_100026DA0 = v5;
         if (!v5)
         {
-          v60 = ctx;
-          v61 = *&qword_100026DF8;
-          v62 = qword_100026E08;
-          fsck_err(&v60, 1, "Could not allocate struct fsck_bitmap_cache", v6, v7, v8, v9, v10, v57);
+          v57 = ctx;
+          v58 = *&qword_100026DF8;
+          v59 = qword_100026E08;
+          fsck_err(&v57, 1, "Could not allocate struct fsck_bitmap_cache", v6, v7, v8, v9, v10, v54);
           v5 = qword_100026DA0;
         }
 
@@ -2280,10 +2280,10 @@ uint64_t fsck_exfat_bitmap_init(const char *a1)
         *(qword_100026DA0 + 8) = result;
         if (!result)
         {
-          v60 = ctx;
-          v61 = *&qword_100026DF8;
-          v62 = qword_100026E08;
-          result = fsck_err(&v60, 1, "Could not allocate bitmap cache block", v13, v14, v15, v16, v17, v57);
+          v57 = ctx;
+          v58 = *&qword_100026DF8;
+          v59 = qword_100026E08;
+          result = fsck_err(&v57, 1, "Could not allocate bitmap cache block", v13, v14, v15, v16, v17, v54);
           v18 = qword_100026DA0;
         }
 
@@ -2291,23 +2291,23 @@ uint64_t fsck_exfat_bitmap_init(const char *a1)
         return result;
       }
 
-      v32 = *__error();
-      v60 = ctx;
-      v61 = *&qword_100026DF8;
-      v62 = qword_100026E08;
-      fsckPrint(&v60, 453, v33, v34, v35, v36, v37, v38, a1);
-      v60 = ctx;
-      v61 = *&qword_100026DF8;
-      v62 = qword_100026E08;
-      fsckPrint(&v60, 455, v39, v40, v41, v42, v43, v44, v59);
+      __error();
+      v57 = ctx;
+      v58 = *&qword_100026DF8;
+      v59 = qword_100026E08;
+      fsckPrint(&v57, 453, v31, v32, v33, v34, v35, v36, a1);
+      v57 = ctx;
+      v58 = *&qword_100026DF8;
+      v59 = qword_100026E08;
+      fsckPrint(&v57, 455, v37, v38, v39, v40, v41, v42, v56);
       byte_100026D98 = 0;
       if (unlink(a1) == -1)
       {
-        v45 = *__error();
-        v60 = ctx;
-        v61 = *&qword_100026DF8;
-        v62 = qword_100026E08;
-        fsckPrint(&v60, 454, v46, v47, v48, v49, v50, v51, a1);
+        __error();
+        v57 = ctx;
+        v58 = *&qword_100026DF8;
+        v59 = qword_100026E08;
+        fsckPrint(&v57, 454, v43, v44, v45, v46, v47, v48, a1);
       }
 
       close(v4);
@@ -2318,10 +2318,10 @@ uint64_t fsck_exfat_bitmap_init(const char *a1)
   qword_100026D88 = result;
   if (!result)
   {
-    v60 = ctx;
-    v61 = *&qword_100026DF8;
-    v62 = qword_100026E08;
-    return fsck_err(&v60, 1, "Could not allocate memory for in-memory bitmap", v52, v53, v54, v55, v56, v57);
+    v57 = ctx;
+    v58 = *&qword_100026DF8;
+    v59 = qword_100026E08;
+    return fsck_err(&v57, 1, "Could not allocate memory for in-memory bitmap", v49, v50, v51, v52, v53, v54);
   }
 
   return result;
@@ -2335,11 +2335,11 @@ void fsck_exfat_bitmap_deinit(char *a1)
     {
       if (unlink(a1) == -1)
       {
-        v2 = *__error();
-        v10[0] = ctx;
-        v10[1] = *&qword_100026DF8;
-        v11 = qword_100026E08;
-        fsckPrint(v10, 454, v3, v4, v5, v6, v7, v8, a1);
+        __error();
+        v9[0] = ctx;
+        v9[1] = *&qword_100026DF8;
+        v10 = qword_100026E08;
+        fsckPrint(v9, 454, v2, v3, v4, v5, v6, v7, a1);
       }
     }
 
@@ -2350,47 +2350,47 @@ void fsck_exfat_bitmap_deinit(char *a1)
 
   else
   {
-    v9 = qword_100026D88;
+    v8 = qword_100026D88;
 
-    free(v9);
+    free(v8);
   }
 }
 
-uint64_t fsck_exfat_bitmap_allocate(unsigned int a1, uint64_t a2, unsigned int *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t fsck_exfat_bitmap_allocate(unsigned int a1, unsigned int a2, unsigned int *a3)
 {
-  v8 = a1 - 2;
-  if (a1 < 2 || dword_100026D0C < a1 || (v9 = a2, __CFADD__(a2, a1)) || a2 + a1 > dword_100026D0C + 1)
+  v3 = a1 - 2;
+  if (a1 < 2 || dword_100026D0C < a1 || (v4 = a2, __CFADD__(a2, a1)) || a2 + a1 > dword_100026D0C + 1)
   {
     sub_10000FF5C();
   }
 
-  v11 = sub_1000039A8(a1 - 2, a2, a3, a4, a5, a6, a7, a8);
-  v19 = v8 & 0x1F;
-  if ((v8 & 0x1F) != 0)
+  v6 = sub_1000039A8(a1 - 2);
+  v7 = v3 & 0x1F;
+  if ((v3 & 0x1F) != 0)
   {
-    v20 = -1 << v19;
-    v21 = 32 - v19;
-    v22 = -1 << (v19 + v9);
-    if (v21 > v9)
+    v8 = -1 << v7;
+    v9 = 32 - v7;
+    v10 = -1 << (v7 + v4);
+    if (v9 > v4)
     {
-      v23 = ~v22;
+      v11 = ~v10;
     }
 
     else
     {
-      v23 = -2;
+      v11 = -2;
     }
 
-    v24 = v23 & v20;
-    v25 = *v11;
-    if ((*v11 & v24) != 0)
+    v12 = v11 & v8;
+    v13 = *v6;
+    if ((*v6 & v12) != 0)
     {
-      v26 = 0;
-      if (!v9)
+      v14 = 0;
+      if (!v4)
       {
 LABEL_35:
-        *a3 = v26;
-        dword_100026D94 += v26;
+        *a3 = v14;
+        dword_100026D94 += v14;
         if (qword_100026DE0)
         {
           ++*(qword_100026DE0 + 64);
@@ -2400,17 +2400,17 @@ LABEL_35:
       }
 
 LABEL_31:
-      v28 = 1 << v8;
-      v29 = v9 + v26;
-      while ((v25 & v28) == 0)
+      v16 = 1 << v3;
+      v17 = v4 + v14;
+      while ((v13 & v16) == 0)
       {
-        v25 |= v28;
-        *v11 = v25;
-        ++v26;
-        v28 *= 2;
-        if (!--v9)
+        v13 |= v16;
+        *v6 = v13;
+        ++v14;
+        v16 *= 2;
+        if (!--v4)
         {
-          v26 = v29;
+          v14 = v17;
           goto LABEL_35;
         }
       }
@@ -2418,226 +2418,236 @@ LABEL_31:
       goto LABEL_35;
     }
 
-    *v11++ = v25 | v24;
-    if (v9 >= v21)
+    *v6++ = v13 | v12;
+    if (v4 >= v9)
     {
-      v27 = v9 - v21;
+      v15 = v4 - v9;
     }
 
     else
     {
-      v27 = 0;
+      v15 = 0;
     }
 
-    if (v21 >= v9)
+    if (v9 >= v4)
     {
-      v26 = v9;
+      v14 = v4;
     }
 
     else
     {
-      v26 = v21;
+      v14 = v9;
     }
 
-    v8 += v26;
-    if (byte_100026D98 == 1 && (*(qword_100026DA0 + 8) + *(qword_100026DA0 + 20)) == v11)
+    v3 += v14;
+    if (byte_100026D98 == 1 && (*(qword_100026DA0 + 8) + *(qword_100026DA0 + 20)) == v6)
     {
-      v11 = sub_1000039A8(v8, v12, v13, v14, v15, v16, v17, v18);
+      v6 = sub_1000039A8(v3);
     }
 
-    v9 = v27;
+    v4 = v15;
   }
 
   else
   {
-    v26 = 0;
+    v14 = 0;
   }
 
-  if (v9 >= 0x20)
+  if (v4 >= 0x20)
   {
     do
     {
-      v25 = *v11;
-      if (*v11)
+      v13 = *v6;
+      if (*v6)
       {
         goto LABEL_31;
       }
 
-      *v11++ = -1;
-      v8 += 32;
-      if (byte_100026D98 == 1 && (*(qword_100026DA0 + 8) + *(qword_100026DA0 + 20)) == v11)
+      *v6++ = -1;
+      v3 += 32;
+      if (byte_100026D98 == 1 && (*(qword_100026DA0 + 8) + *(qword_100026DA0 + 20)) == v6)
       {
-        v11 = sub_1000039A8(v8, v12, v13, v14, v15, v16, v17, v18);
+        v6 = sub_1000039A8(v3);
       }
 
-      v9 -= 32;
-      v26 += 32;
+      v4 -= 32;
+      v14 += 32;
     }
 
-    while (v9 > 0x1F);
+    while (v4 > 0x1F);
   }
 
-  if (v9)
+  if (v4)
   {
-    v25 = *v11;
-    if ((*v11 & ~(-1 << v9)) != 0)
+    v13 = *v6;
+    if ((*v6 & ~(-1 << v4)) != 0)
     {
       goto LABEL_31;
     }
 
-    *v11 = v25 | ~(-1 << v9);
-    v26 += v9;
+    *v6 = v13 | ~(-1 << v4);
+    v14 += v4;
   }
 
   if (a3)
   {
-    *a3 = v26;
+    *a3 = v14;
   }
 
   result = 0;
-  dword_100026D94 += v26;
+  dword_100026D94 += v14;
   return result;
 }
 
-uint64_t sub_1000039A8(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_1000039A8(unsigned int a1)
 {
-  v8 = a1;
+  v1 = a1;
   if (byte_100026D98 == 1)
   {
-    v9 = qword_100026DA0;
-    v10 = *(qword_100026DA0 + 16);
-    v11 = *(qword_100026DA0 + 20);
-    v12 = (a1 >> 3) / v11;
-    if (v12 == v10)
+    v2 = qword_100026DA0;
+    v3 = *(qword_100026DA0 + 16);
+    v4 = *(qword_100026DA0 + 20);
+    v5 = (a1 >> 3) / v4;
+    if (v5 == v3)
     {
-      v13 = v11 * v12;
+      v6 = v4 * v5;
     }
 
     else
     {
-      if (v10 != -1)
+      if (v3 != -1)
       {
         if (debug)
         {
-          v35 = ctx;
-          v36 = *&qword_100026DF8;
-          v37 = qword_100026E08;
-          fsck_printf(&v35, "%s: Flushing cached block with idx %u to file", a3, a4, a5, a6, a7, a8, "fsck_exfat_bitmap_get_word");
-          v9 = qword_100026DA0;
-          v10 = *(qword_100026DA0 + 16);
-          v11 = *(qword_100026DA0 + 20);
+          v17 = ctx;
+          v18 = *&qword_100026DF8;
+          v19 = qword_100026E08;
+          fsck_printf(&v17, "%s: Flushing cached block with idx %u to file", "fsck_exfat_bitmap_get_word", v3);
+          v2 = qword_100026DA0;
+          v3 = *(qword_100026DA0 + 16);
+          v4 = *(qword_100026DA0 + 20);
         }
 
-        v15 = v11 * v10;
-        if (v11 >= dword_100026D90 - v15)
+        v8 = v4 * v3;
+        if (v4 >= dword_100026D90 - v8)
         {
-          v16 = (dword_100026D90 - v15);
+          v9 = (dword_100026D90 - v8);
         }
 
         else
         {
-          v16 = v11;
+          v9 = v4;
         }
 
-        if (pwrite(*v9, *(v9 + 8), v16, v15) == -1)
+        if (pwrite(*v2, *(v2 + 8), v9, v8) == -1)
         {
-          v17 = *__error();
-          v35 = ctx;
-          v36 = *&qword_100026DF8;
-          v37 = qword_100026E08;
-          fsck_printf(&v35, "Failed writing to bitmap cache file with error = %d. offset %u length %u.", v18, v19, v20, v21, v22, v23, v17);
+          v10 = *__error();
+          v17 = ctx;
+          v18 = *&qword_100026DF8;
+          v19 = qword_100026E08;
+          fsck_printf(&v17, "Failed writing to bitmap cache file with error = %d. offset %u length %u.", v10, v8, v9);
         }
       }
 
-      v24 = qword_100026DA0;
-      v25 = *(qword_100026DA0 + 20);
-      v26 = v25 * v12;
+      v11 = qword_100026DA0;
+      v12 = *(qword_100026DA0 + 20);
+      v13 = v12 * v5;
+      if (v12 >= dword_100026D90 - v13)
+      {
+        v14 = dword_100026D90 - v13;
+      }
+
+      else
+      {
+        v14 = *(qword_100026DA0 + 20);
+      }
+
       if (debug)
       {
-        v35 = ctx;
-        v36 = *&qword_100026DF8;
-        v37 = qword_100026E08;
-        fsck_printf(&v35, "%s: Reading block with idx %u from file", a3, a4, a5, a6, a7, a8, "fsck_exfat_bitmap_get_word");
-        v24 = qword_100026DA0;
-        v25 = *(qword_100026DA0 + 20);
+        v17 = ctx;
+        v18 = *&qword_100026DF8;
+        v19 = qword_100026E08;
+        fsck_printf(&v17, "%s: Reading block with idx %u from file", "fsck_exfat_bitmap_get_word", v5);
+        v11 = qword_100026DA0;
+        v12 = *(qword_100026DA0 + 20);
       }
 
-      if (pread(*v24, *(v24 + 8), v25, v26) == -1)
+      if (pread(*v11, *(v11 + 8), v12, v13) == -1)
       {
-        v27 = *__error();
-        v35 = ctx;
-        v36 = *&qword_100026DF8;
-        v37 = qword_100026E08;
-        fsck_printf(&v35, "Failed reading from bitmap cache file with error = %d. offset %u length %u.", v28, v29, v30, v31, v32, v33, v27);
+        v15 = *__error();
+        v17 = ctx;
+        v18 = *&qword_100026DF8;
+        v19 = qword_100026E08;
+        fsck_printf(&v17, "Failed reading from bitmap cache file with error = %d. offset %u length %u.", v15, v13, v14);
       }
 
-      v9 = qword_100026DA0;
-      *(qword_100026DA0 + 16) = v12;
-      v13 = v12 * *(v9 + 20);
+      v2 = qword_100026DA0;
+      *(qword_100026DA0 + 16) = v5;
+      v6 = v5 * *(v2 + 20);
     }
 
-    v8 -= 8 * v13;
-    v14 = (v9 + 8);
+    v1 -= 8 * v6;
+    v7 = (v2 + 8);
   }
 
   else
   {
-    v14 = &qword_100026D88;
+    v7 = &qword_100026D88;
   }
 
-  return *v14 + 4 * (v8 >> 5);
+  return *v7 + 4 * (v1 >> 5);
 }
 
-uint64_t fsck_exfat_bitmap_free(unsigned int a1, uint64_t a2, unsigned int *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t fsck_exfat_bitmap_free(unsigned int a1, unsigned int a2, unsigned int *a3)
 {
-  v8 = a1 - 2;
-  if (a1 < 2 || dword_100026D0C < a1 || (v9 = a2, __CFADD__(a2, a1)) || a2 + a1 > dword_100026D0C + 1)
+  v3 = a1 - 2;
+  if (a1 < 2 || dword_100026D0C < a1 || (v4 = a2, __CFADD__(a2, a1)) || a2 + a1 > dword_100026D0C + 1)
   {
     sub_10000FF88();
   }
 
-  v11 = sub_1000039A8(a1 - 2, a2, a3, a4, a5, a6, a7, a8);
-  v19 = v8 & 0x1F;
-  if ((v8 & 0x1F) != 0)
+  v6 = sub_1000039A8(a1 - 2);
+  v7 = v3 & 0x1F;
+  if ((v3 & 0x1F) != 0)
   {
-    v20 = -1 << v19;
-    v21 = 32 - v19;
-    v22 = -1 << (v19 + v9);
-    if (v21 > v9)
+    v8 = -1 << v7;
+    v9 = 32 - v7;
+    v10 = -1 << (v7 + v4);
+    if (v9 > v4)
     {
-      v23 = ~v22;
+      v11 = ~v10;
     }
 
     else
     {
-      v23 = -2;
+      v11 = -2;
     }
 
-    v24 = v23 & v20;
-    v25 = *v11;
-    if ((v24 & ~*v11) != 0)
+    v12 = v11 & v8;
+    v13 = *v6;
+    if ((v12 & ~*v6) != 0)
     {
-      v27 = 0;
-      if (!v9)
+      v15 = 0;
+      if (!v4)
       {
 LABEL_35:
-        v28 = 1;
+        v16 = 1;
         goto LABEL_37;
       }
 
 LABEL_31:
-      v29 = 1 << v8;
-      v30 = v9 + v27;
-      while ((v25 & v29) != 0)
+      v17 = 1 << v3;
+      v18 = v4 + v15;
+      while ((v13 & v17) != 0)
       {
-        v25 &= ~v29;
-        *v11 = v25;
-        ++v27;
-        v29 *= 2;
-        if (!--v9)
+        v13 &= ~v17;
+        *v6 = v13;
+        ++v15;
+        v17 *= 2;
+        if (!--v4)
         {
-          v28 = 1;
-          v27 = v30;
+          v16 = 1;
+          v15 = v18;
           goto LABEL_37;
         }
       }
@@ -2645,123 +2655,123 @@ LABEL_31:
       goto LABEL_35;
     }
 
-    *v11++ = v25 & ~v24;
-    if (v9 >= v21)
+    *v6++ = v13 & ~v12;
+    if (v4 >= v9)
     {
-      v26 = v9 - v21;
+      v14 = v4 - v9;
     }
 
     else
     {
-      v26 = 0;
+      v14 = 0;
     }
 
-    if (v21 >= v9)
+    if (v9 >= v4)
     {
-      v27 = v9;
+      v15 = v4;
     }
 
     else
     {
-      v27 = v21;
+      v15 = v9;
     }
 
-    v8 += v27;
-    if (byte_100026D98 == 1 && (*(qword_100026DA0 + 8) + *(qword_100026DA0 + 20)) == v11)
+    v3 += v15;
+    if (byte_100026D98 == 1 && (*(qword_100026DA0 + 8) + *(qword_100026DA0 + 20)) == v6)
     {
-      v11 = sub_1000039A8(v8, v12, v13, v14, v15, v16, v17, v18);
+      v6 = sub_1000039A8(v3);
     }
 
-    v9 = v26;
+    v4 = v14;
   }
 
   else
   {
-    v27 = 0;
+    v15 = 0;
   }
 
-  if (v9 >= 0x20)
+  if (v4 >= 0x20)
   {
     do
     {
-      v25 = *v11;
-      if (*v11 != -1)
+      v13 = *v6;
+      if (*v6 != -1)
       {
         goto LABEL_31;
       }
 
-      *v11++ = 0;
-      v8 += 32;
-      if (byte_100026D98 == 1 && (*(qword_100026DA0 + 8) + *(qword_100026DA0 + 20)) == v11)
+      *v6++ = 0;
+      v3 += 32;
+      if (byte_100026D98 == 1 && (*(qword_100026DA0 + 8) + *(qword_100026DA0 + 20)) == v6)
       {
-        v11 = sub_1000039A8(v8, v12, v13, v14, v15, v16, v17, v18);
+        v6 = sub_1000039A8(v3);
       }
 
-      v9 -= 32;
-      v27 += 32;
+      v4 -= 32;
+      v15 += 32;
     }
 
-    while (v9 > 0x1F);
+    while (v4 > 0x1F);
   }
 
-  if (!v9)
+  if (!v4)
   {
-    v28 = 0;
+    v16 = 0;
     goto LABEL_37;
   }
 
-  v25 = *v11;
-  if ((*v11 | (-1 << v9)) != 0xFFFFFFFF)
+  v13 = *v6;
+  if ((*v6 | (-1 << v4)) != 0xFFFFFFFF)
   {
     goto LABEL_31;
   }
 
-  v28 = 0;
-  *v11 = v25 & (-1 << v9);
-  v27 += v9;
+  v16 = 0;
+  *v6 = v13 & (-1 << v4);
+  v15 += v4;
 LABEL_37:
-  *a3 = v27;
-  dword_100026D94 -= v27;
-  return v28;
+  *a3 = v15;
+  dword_100026D94 -= v15;
+  return v16;
 }
 
-uint64_t fsck_exfat_bitmap_find_free(unsigned int a1, _DWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t fsck_exfat_bitmap_find_free(unsigned int a1, _DWORD *a2)
 {
-  v10 = sub_1000039A8(0, a2, a3, a4, a5, a6, a7, a8);
-  v18 = dword_100026D08;
+  v4 = sub_1000039A8(0);
+  v5 = dword_100026D08;
   if (!dword_100026D08)
   {
     goto LABEL_20;
   }
 
-  v19 = 0;
+  v6 = 0;
   do
   {
-    if (*v10 != -1)
+    if (*v4 != -1)
     {
       break;
     }
 
-    v19 += 32;
-    ++v10;
-    if (byte_100026D98 == 1 && (*(qword_100026DA0 + 8) + *(qword_100026DA0 + 20)) == v10)
+    v6 += 32;
+    ++v4;
+    if (byte_100026D98 == 1 && (*(qword_100026DA0 + 8) + *(qword_100026DA0 + 20)) == v4)
     {
-      v10 = sub_1000039A8(v19, v11, v12, v13, v14, v15, v16, v17);
-      v18 = dword_100026D08;
+      v4 = sub_1000039A8(v6);
+      v5 = dword_100026D08;
     }
   }
 
-  while (v19 < v18);
-  if (v19 < v18)
+  while (v6 < v5);
+  if (v6 < v5)
   {
-    v20 = 1;
-    while ((*v10 & v20) != 0)
+    v7 = 1;
+    while ((*v4 & v7) != 0)
     {
-      ++v19;
-      v20 *= 2;
-      if (v19 >= v18 || !v20)
+      ++v6;
+      v7 *= 2;
+      if (v6 >= v5 || !v7)
       {
-        if (v19 >= v18)
+        if (v6 >= v5)
         {
           goto LABEL_20;
         }
@@ -2770,41 +2780,41 @@ uint64_t fsck_exfat_bitmap_find_free(unsigned int a1, _DWORD *a2, uint64_t a3, u
       }
     }
 
-    *a2 = v19 + 2;
-    v21 = dword_100026D08;
-    if (v19 >= dword_100026D08 || a1 == 0)
+    *a2 = v6 + 2;
+    v8 = dword_100026D08;
+    if (v6 >= dword_100026D08 || a1 == 0)
     {
       return 0;
     }
 
     else
     {
-      v24 = 1;
-      while ((*v10 & v20) == 0)
+      v11 = 1;
+      while ((*v4 & v7) == 0)
       {
-        v20 *= 2;
-        if (!v20)
+        v7 *= 2;
+        if (!v7)
         {
-          ++v10;
-          if (byte_100026D98 == 1 && (*(qword_100026DA0 + 8) + *(qword_100026DA0 + 20)) == v10)
+          ++v4;
+          if (byte_100026D98 == 1 && (*(qword_100026DA0 + 8) + *(qword_100026DA0 + 20)) == v4)
           {
-            v10 = sub_1000039A8(v19 + v24, v11, v12, v13, v14, v15, v16, v17);
-            v21 = dword_100026D08;
+            v4 = sub_1000039A8(v6 + v11);
+            v8 = dword_100026D08;
           }
 
-          v20 = 1;
+          v7 = 1;
         }
 
-        v25 = v24 + 1;
-        if (v19 + v24 < v21 && v24++ < a1)
+        v12 = v11 + 1;
+        if (v6 + v11 < v8 && v11++ < a1)
         {
           continue;
         }
 
-        return v25 - 1;
+        return v12 - 1;
       }
 
-      return v24 - 1;
+      return v11 - 1;
     }
   }
 
@@ -2820,18 +2830,18 @@ LABEL_20:
 
 uint64_t fsck_exfat_bitmap_verify(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v108 = 0;
-  v109 = 0;
-  v106 = 0;
+  v93 = 0;
+  v94 = 0;
+  v91 = 0;
   v8 = &g;
   if (byte_100026DD5 == 1)
   {
-    v103 = ctx;
-    v104 = *&qword_100026DF8;
+    v88 = ctx;
+    v89 = *&qword_100026DF8;
     v9 = qword_100026E08;
 LABEL_3:
-    v105 = v9;
-    fsckPrint(&v103, 432, a3, a4, a5, a6, a7, a8, v93);
+    v90 = v9;
+    fsckPrint(&v88, 432, a3, a4, a5, a6, a7, a8, v78);
     return 0;
   }
 
@@ -2858,33 +2868,33 @@ LABEL_3:
 
   if (dword_100026DB8 == -1)
   {
-    v103 = ctx;
-    v104 = *&qword_100026DF8;
-    v105 = qword_100026E08;
-    fsckPrint(&v103, 415, a3, a4, a5, a6, a7, a8, v93);
-    v103 = ctx;
-    v104 = *&qword_100026DF8;
-    v105 = qword_100026E08;
-    if (fsckAskPrompt(&v103, "Create? ", v23, v24, v25, v26, v27, v28, v95) != 1)
+    v88 = ctx;
+    v89 = *&qword_100026DF8;
+    v90 = qword_100026E08;
+    fsckPrint(&v88, 415, a3, a4, a5, a6, a7, a8, v78);
+    v88 = ctx;
+    v89 = *&qword_100026DF8;
+    v90 = qword_100026E08;
+    if (fsckAskPrompt(&v88, "Create? ", v23, v24, v25, v26, v27, v28, v80) != 1)
     {
-      v103 = ctx;
-      v104 = *&qword_100026DF8;
-      v105 = qword_100026E08;
-      fsckPrint(&v103, 432, v29, v30, v31, v32, v33, v34, v93);
+      v88 = ctx;
+      v89 = *&qword_100026DF8;
+      v90 = qword_100026E08;
+      fsckPrint(&v88, 432, v29, v30, v31, v32, v33, v34, v78);
       result = 0;
       LOBYTE(word_100026DD2) = 1;
       return result;
     }
 
-    unused_entry = fsck_exfat_extend_chain(&dword_100026D14, &qword_100026D18, v12, v30, v31, v32, v33, v34);
-    v106 = unused_entry;
+    unused_entry = fsck_exfat_extend_chain(&dword_100026D14, &qword_100026D18, v12);
+    v91 = unused_entry;
     if (!unused_entry)
     {
-      unused_entry = fsck_exfat_find_unused_entry(qword_100026D80, &dword_100026DB8, &v109, &v108, a5, a6, a7, a8);
-      v106 = unused_entry;
+      unused_entry = fsck_exfat_find_unused_entry(qword_100026D80, &dword_100026DB8, &v94, &v93);
+      v91 = unused_entry;
     }
 
-    v36 = v108;
+    v36 = v93;
     if (unused_entry)
     {
       v37 = 1;
@@ -2892,29 +2902,29 @@ LABEL_3:
 
     else
     {
-      v37 = v108 == 0;
+      v37 = v93 == 0;
     }
 
-    if (!v37 && v109 != 0)
+    if (!v37 && v94 != 0)
     {
-      *v108 = 0u;
+      *v93 = 0u;
       *(v36 + 16) = 0u;
-      *v108 = -127;
-      v40 = v108;
-      v39 = v109;
-      *(v108 + 20) = dword_100026D14;
+      *v93 = -127;
+      v40 = v93;
+      v39 = v94;
+      *(v93 + 20) = dword_100026D14;
       *(v40 + 24) = qword_100026D18;
       unused_entry = fsck_exfat_cache_release(v39, 1, 0);
-      v106 = unused_entry;
+      v91 = unused_entry;
     }
 
     v14 = 1;
     if (unused_entry)
     {
-      v103 = ctx;
-      v104 = *&qword_100026DF8;
-      v105 = qword_100026E08;
-      fsckPrint(&v103, 432, a3, a4, a5, a6, a7, a8, v93);
+      v88 = ctx;
+      v89 = *&qword_100026DF8;
+      v90 = qword_100026E08;
+      fsckPrint(&v88, 432, a3, a4, a5, a6, a7, a8, v78);
       result = 0;
       HIBYTE(word_100026DD2) = 1;
       return result;
@@ -2928,23 +2938,23 @@ LABEL_3:
 
   if (qword_100026D18 < v12)
   {
-    v103 = ctx;
-    v104 = *&qword_100026DF8;
-    v105 = qword_100026E08;
-    fsckPrint(&v103, 409, a3, a4, a5, a6, a7, a8, "Active bitmap");
-    v103 = ctx;
-    v104 = *&qword_100026DF8;
-    v105 = qword_100026E08;
-    if (fsckAskPrompt(&v103, "Extend? ", v15, v16, v17, v18, v19, v20, v94) != 1)
+    v88 = ctx;
+    v89 = *&qword_100026DF8;
+    v90 = qword_100026E08;
+    fsckPrint(&v88, 409, a3, a4, a5, a6, a7, a8, "Active bitmap");
+    v88 = ctx;
+    v89 = *&qword_100026DF8;
+    v90 = qword_100026E08;
+    if (fsckAskPrompt(&v88, "Extend? ", v15, v16, v17, v18, v19, v20, v79) != 1)
     {
       LOBYTE(word_100026DD2) = 1;
-      v103 = ctx;
-      v104 = *&qword_100026DF8;
+      v88 = ctx;
+      v89 = *&qword_100026DF8;
       v9 = qword_100026E08;
       goto LABEL_3;
     }
 
-    if (fsck_exfat_extend_chain(&dword_100026D14, &qword_100026D18, v12, a4, a5, a6, a7, a8) || fsck_exfat_read_dir_entry(qword_100026D80, dword_100026DB8, &v109, &v108) || (v22 = v108, v21 = v109, *(v108 + 20) = dword_100026D14, *(v22 + 24) = qword_100026D18, (v106 = fsck_exfat_cache_release(v21, 1, 0)) != 0))
+    if (fsck_exfat_extend_chain(&dword_100026D14, &qword_100026D18, v12) || fsck_exfat_read_dir_entry(qword_100026D80, dword_100026DB8, &v94, &v93) || (v22 = v93, v21 = v94, *(v93 + 20) = dword_100026D14, *(v22 + 24) = qword_100026D18, (v91 = fsck_exfat_cache_release(v21, 1, 0)) != 0))
     {
       result = 0;
       HIBYTE(word_100026DD2) = 1;
@@ -2954,132 +2964,134 @@ LABEL_3:
     byte_100026DD4 = 1;
   }
 
-  v41 = sub_1000039A8(0, a2, a3, a4, a5, a6, a7, a8);
-  v107 = dword_100026D14;
+  v41 = sub_1000039A8(0);
+  v92 = dword_100026D14;
   if (v13)
   {
-    v48 = v41;
-    v98 = v14;
-    v102 = 0;
-    v49 = 0;
-    v50 = 0;
-    v100 = dword_100026D08 >> 3;
-    v101 = 0;
-    v96 = v13;
-    v97 = v12 - 1;
+    v42 = v41;
+    v83 = v14;
+    v87 = 0;
+    v43 = 0;
+    v44 = 0;
+    v85 = dword_100026D08 >> 3;
+    v86 = 0;
+    v81 = v13;
+    v82 = v12 - 1;
     while (1)
     {
-      v51 = v107;
+      v45 = v92;
       if (debug)
       {
-        v103 = ctx;
-        v104 = *&qword_100026DF8;
-        v105 = qword_100026E08;
-        fsck_printf(&v103, "Checking bitmap cluster %u\n", v42, v43, v44, v45, v46, v47, v107);
-        v51 = v107;
+        v88 = ctx;
+        v89 = *&qword_100026DF8;
+        v90 = qword_100026E08;
+        fsck_printf(&v88, "Checking bitmap cluster %u\n", v92);
+        v45 = v92;
       }
 
-      cluster = fsck_exfat_cache_get_cluster(v51, &v106);
-      v109 = cluster;
+      cluster = fsck_exfat_cache_get_cluster(v45, &v91);
+      v94 = cluster;
       if (!cluster)
       {
         goto LABEL_86;
       }
 
-      v59 = buffer_data(cluster);
-      v60 = v8[13];
-      v61 = v100 >= v60 ? v60 : v100;
-      if (v61)
+      v47 = buffer_data(cluster);
+      v48 = v8[13];
+      v49 = v85 >= v48 ? v48 : v85;
+      if (v49)
       {
-        v62 = v61;
-        v63 = memcmp(v48, v59, v61) == 0;
+        v50 = v49;
+        v51 = memcmp(v42, v47, v49) == 0;
       }
 
       else
       {
-        v62 = 0;
-        v63 = 1;
+        v50 = 0;
+        v51 = 1;
       }
 
-      v99 = v62;
-      if (v62 < v60)
+      v84 = v50;
+      if (v50 < v48)
       {
-        v64 = v8[16] & 7;
-        if (v64)
+        v52 = v8[16] & 7;
+        if (v52)
         {
-          v65 = v48[v97 % v60];
-          v66 = 8 - v64;
-          v67 = v59[v97 % v60];
-          if (((v67 ^ v65) << v66))
+          v53 = v42[v82 % v48];
+          v54 = 8 - v52;
+          v55 = v47[v82 % v48];
+          if (((v55 ^ v53) << v54))
           {
             break;
           }
         }
       }
 
-      if (!v63)
+      if (!v51)
       {
-        LODWORD(v103) = 0;
-        v68 = v62;
-        if (v62)
+        LODWORD(v88) = 0;
+        v56 = v50;
+        if (v50)
         {
           goto LABEL_55;
         }
 
-        v75 = 0;
-        v71 = 0;
+        v63 = 0;
+        v59 = 0;
 LABEL_69:
-        if (memcmp(v48, v59, v71))
+        if (memcmp(v42, v47, v59))
         {
-          if (v98 == -1)
+          if (v83 == -1)
           {
-            v103 = ctx;
-            v104 = *&qword_100026DF8;
-            v105 = qword_100026E08;
-            fsckPrint(&v103, 433, v61, v54, v55, v56, v57, v58, v93);
+            v88 = ctx;
+            v89 = *&qword_100026DF8;
+            v90 = qword_100026E08;
+            fsckPrint(&v88, 433, v64, v65, v66, v67, v68, v69, v78);
           }
 
-          v76 = v75 ^ 1;
+          v70 = v63 ^ 1;
           if (!debug)
           {
-            v76 = 1;
+            v70 = 1;
           }
 
-          if ((v76 & 1) == 0)
+          if ((v70 & 1) == 0)
           {
-            v77 = 0;
+            v71 = 0;
             do
             {
-              if (v48[v77] != v59[v77])
+              v72 = v42[v71];
+              v73 = v47[v71];
+              if (v72 != v73)
               {
-                v78 = v77 + (v102 * v8[13]);
-                v103 = ctx;
-                v104 = *&qword_100026DF8;
-                v105 = qword_100026E08;
-                fsck_printf(&v103, "%08X: %02X should be %02X\n", v61, v54, v55, v56, v57, v58, v78);
+                v74 = v71 + v87 * v8[13];
+                v88 = ctx;
+                v89 = *&qword_100026DF8;
+                v90 = qword_100026E08;
+                fsck_printf(&v88, "%08X: %02X should be %02X\n", v74, v73, v72);
               }
 
-              ++v77;
+              ++v71;
             }
 
-            while (v71 != v77);
+            while (v59 != v71);
           }
 
-          v79 = v98;
-          if (v98 == -1)
+          v75 = v83;
+          if (v83 == -1)
           {
-            v103 = ctx;
-            v104 = *&qword_100026DF8;
-            v105 = qword_100026E08;
-            v79 = fsckAskPrompt(&v103, "Repair? ", v61, v54, v55, v56, v57, v58, v93);
+            v88 = ctx;
+            v89 = *&qword_100026DF8;
+            v90 = qword_100026E08;
+            v75 = fsckAskPrompt(&v88, "Repair? ", v64, v65, v66, v67, v68, v69, v78);
           }
 
-          v98 = v79;
-          if (v79 == 1)
+          v83 = v75;
+          if (v75 == 1)
           {
-            memcpy(v59, v48, v71);
-            fsck_exfat_cache_mark_dirty(v109);
-            v98 = 1;
+            memcpy(v47, v42, v59);
+            fsck_exfat_cache_mark_dirty(v94, v76);
+            v83 = 1;
             *(v8 + 268) = 1;
           }
 
@@ -3090,15 +3102,15 @@ LABEL_69:
         }
       }
 
-      v48 = sub_1000039A8((8 * v102 + 8) * v8[13], v53, v61, v54, v55, v56, v57, v58);
-      v106 = fsck_exfat_cache_release(v109, 0, 0);
-      if (!v106)
+      v42 = sub_1000039A8((8 * v87 + 8) * v8[13]);
+      v91 = fsck_exfat_cache_release(v94, 0, 0);
+      if (!v91)
       {
-        v106 = fsck_exfat_fat_get(v107, &v107);
-        if (!v106)
+        v91 = fsck_exfat_fat_get(v92, &v92);
+        if (!v91)
         {
-          v100 -= v99;
-          if (++v102 < v13)
+          v85 -= v84;
+          if (++v87 < v13)
           {
             continue;
           }
@@ -3108,87 +3120,87 @@ LABEL_69:
       goto LABEL_86;
     }
 
-    v68 = v62 + 1;
-    v48[v97 % v60] = v67 & (-256 >> v66) | v65;
-    LODWORD(v103) = 0;
+    v56 = v50 + 1;
+    v42[v82 % v48] = v55 & (-256 >> v54) | v53;
+    LODWORD(v88) = 0;
 LABEL_55:
-    v69 = v8;
-    v70 = 0;
-    v71 = v68;
+    v57 = v8;
+    v58 = 0;
+    v59 = v56;
     do
     {
-      v72 = v59[v70];
-      if (v48[v70] != v72)
+      v60 = v47[v58];
+      if (v42[v58] != v60)
       {
         for (i = 0; i != 8; ++i)
         {
-          v74 = 1 << i;
-          if ((v72 & (1 << i)) != 0 && (v74 & v48[v70]) == 0)
+          v62 = 1 << i;
+          if ((v60 & (1 << i)) != 0 && (v62 & v42[v58]) == 0)
           {
-            LODWORD(v103) = i + 8 * (v70 + v102 * v69[13]) + 2;
-            v106 = fsck_exfat_fat_get(v103, &v103);
-            if (v106)
+            LODWORD(v88) = i + 8 * (v58 + v87 * v57[13]) + 2;
+            v91 = fsck_exfat_fat_get(v88, &v88);
+            if (v91)
             {
-              fsck_exfat_cache_release(v109, 0, 0);
-              return v106;
+              fsck_exfat_cache_release(v94, 0, 0);
+              return v91;
             }
 
-            v50 = (v50 + 1);
-            if (v103 == -9)
+            ++v44;
+            if (v88 == -9)
             {
-              v48[v70] |= v74;
-              v101 = (v101 + 1);
+              v42[v58] |= v62;
+              ++v86;
             }
           }
 
-          v72 = v59[v70];
-          if ((v74 & v72) == 0)
+          v60 = v47[v58];
+          if ((v62 & v60) == 0)
           {
-            v49 = ((v48[v70] >> i) & 1) + v49;
+            v43 += (v42[v58] >> i) & 1;
           }
         }
       }
 
-      ++v70;
+      ++v58;
     }
 
-    while (v70 != v71);
-    v75 = 1;
-    v8 = v69;
-    v13 = v96;
+    while (v58 != v59);
+    v63 = 1;
+    v8 = v57;
+    v13 = v81;
     goto LABEL_69;
   }
 
-  v50 = 0;
-  v101 = 0;
-  v49 = 0;
+  v44 = 0;
+  v86 = 0;
+  v43 = 0;
 LABEL_86:
-  v80 = *(v8 + 35);
-  if (v80)
+  v77 = *(v8 + 35);
+  if (v77)
   {
-    v80[13] = v49;
-    v80[14] = v50;
-    v80[15] = v101;
-    v80[10] = (100 * v8[51]) / (8 * *(v8 + 10));
+    v77[13] = v43;
+    v77[14] = v44;
+    v77[15] = v86;
+    v77[10] = (100 * v8[51]) / (8 * *(v8 + 10));
   }
 
   if (debug)
   {
-    v103 = ctx;
-    v104 = *&qword_100026DF8;
-    v105 = qword_100026E08;
-    fsck_printf(&v103, "%u clusters were marked used, but not referenced\n", v42, v43, v44, v45, v46, v47, v50);
-    v103 = ctx;
-    v104 = *&qword_100026DF8;
-    v105 = qword_100026E08;
-    fsck_printf(&v103, "%u clusters were marked used and CLUST_BAD\n", v81, v82, v83, v84, v85, v86, v101);
-    v103 = ctx;
-    v104 = *&qword_100026DF8;
-    v105 = qword_100026E08;
-    fsck_printf(&v103, "%u clusters were marked free, but referenced\n", v87, v88, v89, v90, v91, v92, v49);
+    v88 = ctx;
+    v89 = *&qword_100026DF8;
+    v90 = qword_100026E08;
+    fsck_printf(&v88, "%u clusters were marked used, but not referenced\n", v44);
+    v88 = ctx;
+    v89 = *&qword_100026DF8;
+    v90 = qword_100026E08;
+    fsck_printf(&v88, "%u clusters were marked used and CLUST_BAD\n", v86);
+    v88 = ctx;
+    v89 = *&qword_100026DF8;
+    v90 = qword_100026E08;
+    fsck_printf(&v88, "%u clusters were marked free, but referenced\n", v43);
   }
 
-  return v106;
+  return v91;
 }
 
 void fsck_exfat_fat_init()
@@ -3284,7 +3296,7 @@ uint64_t fsck_exfat_fat_alloc_chain(unsigned int a1, _DWORD *a2, uint64_t a3, ui
       break;
     }
 
-    if (fsck_exfat_bitmap_allocate(v20, 1, &v19, a4, a5, a6, a7, a8))
+    if (fsck_exfat_bitmap_allocate(v20, 1u, &v19))
     {
       v14 = 1;
     }
@@ -3341,48 +3353,48 @@ uint64_t fsck_exfat_truncate_chain(unsigned int a1, unsigned int a2, unsigned in
     return 0;
   }
 
-  v23 = 0;
-  v24 = a1;
+  v18 = 0;
+  v19 = a1;
   v5 = a2 - 1;
   if (a2 == 1)
   {
 LABEL_6:
-    result = fsck_exfat_fat_set(a1, -1, &v24);
-    v12 = a3 >= a2;
-    v13 = a3 - a2;
-    if (v13 != 0 && v12)
+    result = fsck_exfat_fat_set(a1, -1, &v19);
+    v7 = a3 >= a2;
+    v8 = a3 - a2;
+    if (v8 != 0 && v7)
     {
       do
       {
-        if (fsck_exfat_bitmap_free(v24, 1, &v23, v7, v8, v9, v10, v11))
+        if (fsck_exfat_bitmap_free(v19, 1u, &v18))
         {
-          v20 = 0;
+          v15 = 0;
         }
 
         else
         {
-          v20 = v23 == 1;
+          v15 = v18 == 1;
         }
 
-        if (!v20)
+        if (!v15)
         {
-          *(&v21[0] + 1) = *(&ctx + 1);
-          v21[1] = *&qword_100026DF8;
-          v22 = qword_100026E08;
-          fsckPrint(v21, 448, v14, v15, v16, v17, v18, v19, ctx);
+          *(&v16[0] + 1) = *(&ctx + 1);
+          v16[1] = *&qword_100026DF8;
+          v17 = qword_100026E08;
+          fsckPrint(v16, 448, v9, v10, v11, v12, v13, v14, ctx);
           return 206;
         }
 
-        result = fsck_exfat_fat_set(v24, 0, &v24);
+        result = fsck_exfat_fat_set(v19, 0, &v19);
         if (result)
         {
           return result;
         }
 
-        --v13;
+        --v8;
       }
 
-      while (v13);
+      while (v8);
       return 0;
     }
   }
@@ -3391,7 +3403,7 @@ LABEL_6:
   {
     while (1)
     {
-      result = fsck_exfat_fat_get(v24, &v24);
+      result = fsck_exfat_fat_get(v19, &v19);
       if (result)
       {
         break;
@@ -3399,7 +3411,7 @@ LABEL_6:
 
       if (!--v5)
       {
-        a1 = v24;
+        a1 = v19;
         goto LABEL_6;
       }
     }
@@ -3408,117 +3420,117 @@ LABEL_6:
   return result;
 }
 
-uint64_t fsck_exfat_extend_chain(unsigned int *a1, unint64_t *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t fsck_exfat_extend_chain(unsigned int *a1, unint64_t *a2, unint64_t a3)
 {
-  v42 = 0;
-  v8 = *a2;
+  v32 = 0;
+  v3 = *a2;
   if (*a2 >= a3)
   {
     sub_100010038();
   }
 
-  v10 = a2;
-  v43 = 0;
-  if (v8 % dword_100026CFC)
+  v5 = a2;
+  v33 = 0;
+  if (v3 % dword_100026CFC)
   {
-    v12 = v8 / dword_100026CFC + 1;
+    v7 = v3 / dword_100026CFC + 1;
   }
 
   else
   {
-    v12 = v8 / dword_100026CFC;
+    v7 = v3 / dword_100026CFC;
   }
 
   if (a3 % dword_100026CFC)
   {
-    v13 = a3 / dword_100026CFC + 1;
+    v8 = a3 / dword_100026CFC + 1;
   }
 
   else
   {
-    v13 = a3 / dword_100026CFC;
+    v8 = a3 / dword_100026CFC;
   }
 
-  v14 = *a1;
-  v44 = *a1;
-  if (v12 < 2)
+  v9 = *a1;
+  v34 = *a1;
+  if (v7 < 2)
   {
 LABEL_13:
-    if (v12 >= v13)
+    if (v7 >= v8)
     {
-      v36 = v12;
+      v26 = v7;
 LABEL_28:
-      result = fsck_exfat_fat_set(v14, -1, 0);
-      v42 = result;
-      v16 = v36;
+      result = fsck_exfat_fat_set(v9, -1, 0);
+      v32 = result;
+      v11 = v26;
       if (!result)
       {
-        *v10 = a3;
+        *v5 = a3;
         return result;
       }
     }
 
     else
     {
-      v16 = v12;
+      v11 = v7;
 LABEL_15:
-      v17 = v10;
-      free = fsck_exfat_bitmap_find_free(v13 - v16, &v43, a3, a4, a5, a6, a7, a8);
+      v12 = v5;
+      free = fsck_exfat_bitmap_find_free(v8 - v11, &v33);
       if (free)
       {
-        v25 = free;
-        v39 = free + v16;
-        v26 = v43;
+        v20 = free;
+        v29 = free + v11;
+        v21 = v33;
         while (1)
         {
-          cluster = fsck_exfat_cache_get_cluster(v26, &v42);
+          cluster = fsck_exfat_cache_get_cluster(v21, &v32);
           if (!cluster)
           {
             break;
           }
 
-          v28 = cluster;
-          v29 = buffer_data(cluster);
-          bzero(v29, dword_100026CFC);
-          v42 = fsck_exfat_cache_release(v28, 1, 0);
-          if (v42)
+          v23 = cluster;
+          v24 = buffer_data(cluster);
+          bzero(v24, dword_100026CFC);
+          v32 = fsck_exfat_cache_release(v23, 1, 0);
+          if (v32)
           {
             break;
           }
 
-          v42 = fsck_exfat_bitmap_allocate(v43, 1, 0, v30, v31, v32, v33, v34);
-          if (v42)
+          v32 = fsck_exfat_bitmap_allocate(v33, 1u, 0);
+          if (v32)
           {
             break;
           }
 
-          v35 = v43;
-          if (v14)
+          v25 = v33;
+          if (v9)
           {
-            v42 = fsck_exfat_fat_set(v14, v43, 0);
-            if (v42)
+            v32 = fsck_exfat_fat_set(v9, v33, 0);
+            if (v32)
             {
               break;
             }
 
-            v14 = v43;
+            v9 = v33;
           }
 
           else
           {
-            *a1 = v43;
-            v14 = v35;
+            *a1 = v33;
+            v9 = v25;
           }
 
-          v26 = v14 + 1;
-          v43 = v14 + 1;
-          ++v16;
-          if (!--v25)
+          v21 = v9 + 1;
+          v33 = v9 + 1;
+          ++v11;
+          if (!--v20)
           {
-            v16 = v39;
-            v10 = v17;
-            v36 = v39;
-            if (v39 < v13)
+            v11 = v29;
+            v5 = v12;
+            v26 = v29;
+            if (v29 < v8)
             {
               goto LABEL_15;
             }
@@ -3530,75 +3542,75 @@ LABEL_15:
 
       else
       {
-        v40[0] = ctx;
-        v40[1] = *&qword_100026DF8;
-        v41 = qword_100026E08;
-        fsckPrint(v40, 447, v19, v20, v21, v22, v23, v24, v38);
-        v42 = 207;
+        v30[0] = ctx;
+        v30[1] = *&qword_100026DF8;
+        v31 = qword_100026E08;
+        fsckPrint(v30, 447, v14, v15, v16, v17, v18, v19, v28);
+        v32 = 207;
       }
     }
 
-    if (v16 > v12)
+    if (v11 > v7)
     {
-      fsck_exfat_truncate_chain(*a1, v12, v16);
+      fsck_exfat_truncate_chain(*a1, v7, v11);
     }
   }
 
   else
   {
-    v15 = v12;
+    v10 = v7;
     while (1)
     {
-      v42 = fsck_exfat_fat_get(v44, &v44);
-      if (v42)
+      v32 = fsck_exfat_fat_get(v34, &v34);
+      if (v32)
       {
         break;
       }
 
-      if (--v15 <= 1)
+      if (--v10 <= 1)
       {
-        v14 = v44;
+        v9 = v34;
         goto LABEL_13;
       }
     }
   }
 
-  if (!v12)
+  if (!v7)
   {
     *a1 = 0;
   }
 
-  return v42;
+  return v32;
 }
 
-uint64_t fsck_exfat_resize_chain(unsigned int *a1, unint64_t *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t fsck_exfat_resize_chain(unsigned int *a1, unint64_t *a2, unint64_t a3)
 {
-  v10 = *a2;
+  v5 = *a2;
   if (*a2 >= a3)
   {
     if (*a2 > a3)
     {
-      if (v10 % dword_100026CFC)
+      if (v5 % dword_100026CFC)
       {
-        v12 = v10 / dword_100026CFC + 1;
+        v7 = v5 / dword_100026CFC + 1;
       }
 
       else
       {
-        v12 = v10 / dword_100026CFC;
+        v7 = v5 / dword_100026CFC;
       }
 
       if (a3 % dword_100026CFC)
       {
-        v13 = a3 / dword_100026CFC + 1;
+        v8 = a3 / dword_100026CFC + 1;
       }
 
       else
       {
-        v13 = a3 / dword_100026CFC;
+        v8 = a3 / dword_100026CFC;
       }
 
-      if (v13 >= v12 || (result = fsck_exfat_truncate_chain(*a1, v13, v12), !result))
+      if (v8 >= v7 || (result = fsck_exfat_truncate_chain(*a1, v8, v7), !result))
       {
         result = 0;
         *a2 = a3;
@@ -3614,7 +3626,7 @@ uint64_t fsck_exfat_resize_chain(unsigned int *a1, unint64_t *a2, unint64_t a3, 
   else
   {
 
-    return fsck_exfat_extend_chain(a1, a2, a3, a4, a5, a6, a7, a8);
+    return fsck_exfat_extend_chain(a1, a2, a3);
   }
 
   return result;
@@ -3658,7 +3670,7 @@ uint64_t fsckAskPrompt(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   if (*a1)
   {
-    return (*a1)(*(a1 + 32), a2, &a9);
+    return (*a1)(*(a1 + 32), a2, &a9, a4, a5, a6, a7, a8);
   }
 
   else
@@ -3946,7 +3958,6 @@ uint64_t read_boot_region(int a1)
   {
     if (debug)
     {
-      v23 = *(qword_100026CD8 + 104);
       warnx("Invalid version (%04X)");
     }
 
@@ -3958,7 +3969,6 @@ uint64_t read_boot_region(int a1)
   {
     if (debug)
     {
-      v22 = *(qword_100026CD8 + 108);
       warnx("Invalid bytes per sector shift (%d)");
     }
 
@@ -3983,7 +3993,6 @@ uint64_t read_boot_region(int a1)
     {
       if (debug)
       {
-        v24 = *(v6 + 109);
         warnx("Invalid sectors per cluster shift (%d)");
       }
 
@@ -4004,8 +4013,8 @@ uint64_t read_boot_region(int a1)
       v14 = qword_100026D30;
       if (!qword_100026D30)
       {
-        memset(&v26, 0, sizeof(v26));
-        if (fstat(g, &v26) < 0)
+        memset(&v22, 0, sizeof(v22));
+        if (fstat(g, &v22) < 0)
         {
           if (debug)
           {
@@ -4015,7 +4024,7 @@ uint64_t read_boot_region(int a1)
           return 0xFFFFFFFFLL;
         }
 
-        if ((v26.st_mode & 0x80000000) == 0)
+        if ((v22.st_mode & 0x80000000) == 0)
         {
           if (debug)
           {
@@ -4026,7 +4035,7 @@ uint64_t read_boot_region(int a1)
         }
 
         v9 = dword_100026CF8;
-        v14 = v26.st_size / dword_100026CF8;
+        v14 = v22.st_size / dword_100026CF8;
         qword_100026D30 = v14;
         v6 = qword_100026CD0;
       }
@@ -4064,7 +4073,6 @@ uint64_t read_boot_region(int a1)
       {
         if (debug)
         {
-          v25 = *(v6 + 110);
           warnx("Invalid number of FATs (%d)");
         }
 
@@ -4256,7 +4264,7 @@ uint64_t fsckPrint(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 {
   if (*(a1 + 8))
   {
-    return (*(a1 + 8))(*(a1 + 32), a2, &a9);
+    return (*(a1 + 8))(*(a1 + 32), a2, &a9, a4, a5, a6, a7, a8);
   }
 
   else
@@ -4429,52 +4437,52 @@ uint64_t sub_100005C7C(uint64_t a1, int a2, _OWORD *a3)
   return 0;
 }
 
-uint64_t fsck_exfat_find_unused_entry(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t fsck_exfat_find_unused_entry(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4)
 {
-  v11 = 0;
-  v12 = dword_100026CFC;
-  v13 = dword_100026CFC >> 5;
-  v15 = (a1 + 24);
-  v14 = *(a1 + 24);
-  v24 = 0;
-  v25 = v14;
-  v16 = dword_100026CFC & 0xFFFFFFE0;
+  v7 = 0;
+  v8 = dword_100026CFC;
+  v9 = dword_100026CFC >> 5;
+  v11 = (a1 + 24);
+  v10 = *(a1 + 24);
+  v20 = 0;
+  v21 = v10;
+  v12 = dword_100026CFC & 0xFFFFFFE0;
   while (1)
   {
-    if (v25 < 2 || v25 > dword_100026D0C)
+    if (v21 < 2 || v21 > dword_100026D0C)
     {
-      v26 = v11;
-      result = fsck_exfat_extend_chain(v15, &v26, dword_100026CFC + v11, a4, a5, a6, a7, a8);
-      v24 = result;
+      v22 = v7;
+      result = fsck_exfat_extend_chain(v11, &v22, dword_100026CFC + v7);
+      v20 = result;
       if (!result)
       {
         ++*(a1 + 28);
-        return fsck_exfat_read_dir_entry(a1, v11, a3, a4);
+        return fsck_exfat_read_dir_entry(a1, v7, a3, a4);
       }
 
       return result;
     }
 
-    cluster = fsck_exfat_cache_get_cluster(v25, &v24);
+    cluster = fsck_exfat_cache_get_cluster(v21, &v20);
     if (!cluster)
     {
-      return v24;
+      return v20;
     }
 
-    v19 = cluster;
-    v20 = buffer_data(cluster);
-    if (v12 >= 0x20)
+    v15 = cluster;
+    v16 = buffer_data(cluster);
+    if (v8 >= 0x20)
     {
       break;
     }
 
 LABEL_11:
-    result = fsck_exfat_cache_release(v19, 0, 0);
-    v24 = result;
+    result = fsck_exfat_cache_release(v15, 0, 0);
+    v20 = result;
     if (!result)
     {
-      result = fsck_exfat_fat_get(v25, &v25);
-      v24 = result;
+      result = fsck_exfat_fat_get(v21, &v21);
+      v20 = result;
       if (!result)
       {
         continue;
@@ -4484,21 +4492,21 @@ LABEL_11:
     return result;
   }
 
-  v21 = v20;
-  v11 += v16;
-  v22 = v13;
-  while (*v21 < 0)
+  v17 = v16;
+  v7 += v12;
+  v18 = v9;
+  while (*v17 < 0)
   {
-    v21 += 32;
-    if (!--v22)
+    v17 += 32;
+    if (!--v18)
     {
       goto LABEL_11;
     }
   }
 
   result = 0;
-  *a3 = v19;
-  *a4 = v21;
+  *a3 = v15;
+  *a4 = v17;
   return result;
 }
 
@@ -4598,23 +4606,23 @@ uint64_t fsck_exfat_check_allocation(uint64_t a1, uint64_t a2, uint64_t a3, uint
     sub_10001016C();
   }
 
-  v99 = 0;
+  v96 = 0;
   v10 = *(a1 + 16);
   v12 = v10 == 1 || v10 > dword_100026D0C;
   if (v12)
   {
-    v96 = ctx;
-    v97 = *&qword_100026DF8;
-    v98 = qword_100026E08;
-    fsckPrint(&v96, 401, a3, a4, a5, a6, a7, a8, a2);
+    v93 = ctx;
+    v94 = *&qword_100026DF8;
+    v95 = qword_100026E08;
+    fsckPrint(&v93, 401, a3, a4, a5, a6, a7, a8, a2);
     *a1 = 0;
     *(a1 + 8) = 0;
     *(a1 + 16) = 0;
     *(a1 + 24) &= ~2u;
-    v96 = ctx;
-    v97 = *&qword_100026DF8;
-    v98 = qword_100026E08;
-    if (fsckAskPrompt(&v96, "Truncate? ", v13, v14, v15, v16, v17, v18, v87) != 1)
+    v93 = ctx;
+    v94 = *&qword_100026DF8;
+    v95 = qword_100026E08;
+    if (fsckAskPrompt(&v93, "Truncate? ", v13, v14, v15, v16, v17, v18, v84) != 1)
     {
       goto LABEL_82;
     }
@@ -4635,16 +4643,16 @@ uint64_t fsck_exfat_check_allocation(uint64_t a1, uint64_t a2, uint64_t a3, uint
 
   if (v10)
   {
-    v96 = ctx;
-    v97 = *&qword_100026DF8;
-    v98 = qword_100026E08;
-    fsckPrint(&v96, 408, a3, a4, a5, a6, a7, a8, a2);
+    v93 = ctx;
+    v94 = *&qword_100026DF8;
+    v95 = qword_100026E08;
+    fsckPrint(&v93, 408, a3, a4, a5, a6, a7, a8, a2);
     *(a1 + 16) = 0;
     *(a1 + 24) &= ~2u;
-    v96 = ctx;
-    v97 = *&qword_100026DF8;
-    v98 = qword_100026E08;
-    if (fsckAskPrompt(&v96, "Truncate? ", v26, v27, v28, v29, v30, v31, v89) != 1)
+    v93 = ctx;
+    v94 = *&qword_100026DF8;
+    v95 = qword_100026E08;
+    if (fsckAskPrompt(&v93, "Truncate? ", v26, v27, v28, v29, v30, v31, v86) != 1)
     {
       goto LABEL_82;
     }
@@ -4664,18 +4672,18 @@ LABEL_20:
     }
 
 LABEL_13:
-    v96 = ctx;
-    v97 = *&qword_100026DF8;
-    v98 = qword_100026E08;
-    fsckPrint(&v96, 401, a3, a4, a5, a6, a7, a8, a2);
+    v93 = ctx;
+    v94 = *&qword_100026DF8;
+    v95 = qword_100026E08;
+    fsckPrint(&v93, 401, a3, a4, a5, a6, a7, a8, a2);
     *(a1 + 20) = 0;
     *a1 = 0;
     *(a1 + 8) = 0;
     *(a1 + 24) &= ~2u;
-    v96 = ctx;
-    v97 = *&qword_100026DF8;
-    v98 = qword_100026E08;
-    if (fsckAskPrompt(&v96, "Truncate? ", v20, v21, v22, v23, v24, v25, v88) != 1)
+    v93 = ctx;
+    v94 = *&qword_100026DF8;
+    v95 = qword_100026E08;
+    if (fsckAskPrompt(&v93, "Truncate? ", v20, v21, v22, v23, v24, v25, v85) != 1)
     {
       goto LABEL_82;
     }
@@ -4686,83 +4694,82 @@ LABEL_13:
 
   v19 = 0;
 LABEL_22:
-  v99 = 0;
-  v32 = v19 / dword_100026CFC;
+  v96 = 0;
   if (v19 % dword_100026CFC)
   {
-    v33 = (v32 + 1);
+    v32 = v19 / dword_100026CFC + 1;
   }
 
   else
   {
-    v33 = v32;
+    v32 = v19 / dword_100026CFC;
   }
 
-  if (v19 > dword_100026CFC * v33)
+  if (v19 > dword_100026CFC * v32)
   {
     if (debug)
     {
       warnx("dataLength (%llu) overflows 32 bits of clusters", v19);
     }
 
-    v33 = 0xFFFFFFFFLL;
+    v32 = -1;
   }
 
-  v34 = *(a1 + 16);
-  if (!v34)
+  v33 = *(a1 + 16);
+  if (!v33)
   {
     goto LABEL_66;
   }
 
   if ((*(a1 + 24) & 2) == 0)
   {
-    v35 = fsck_exfat_fat_alloc_chain(v34, &v99, a2, a4, a5, a6, a7, a8);
-    v36 = v99;
-    *(a1 + 20) = v99;
-    if (!v36)
+    v34 = fsck_exfat_fat_alloc_chain(v33, &v96, a2, a4, a5, a6, a7, a8);
+    v35 = v96;
+    *(a1 + 20) = v96;
+    if (!v35)
     {
       *(a1 + 16) = 0;
     }
 
-    if (v35)
+    if (v34)
     {
-      if (v36 < v33)
+      if (v35 < v32)
       {
-        v96 = ctx;
-        v97 = *&qword_100026DF8;
-        v98 = qword_100026E08;
-        fsckPrint(&v96, 406, a3, a4, a5, a6, a7, a8, a2);
-        v43 = dword_100026CFC * v99;
-        *a1 = v43;
-        if (*(a1 + 8) > v43)
+        v93 = ctx;
+        v94 = *&qword_100026DF8;
+        v95 = qword_100026E08;
+        fsckPrint(&v93, 406, a3, a4, a5, a6, a7, a8, a2);
+        v42 = dword_100026CFC * v96;
+        *a1 = v42;
+        if (*(a1 + 8) > v42)
         {
-          *(a1 + 8) = v43;
+          *(a1 + 8) = v42;
         }
 
-        v96 = ctx;
-        v97 = *&qword_100026DF8;
-        v98 = qword_100026E08;
-        if (fsckAskPrompt(&v96, "Truncate? ", v37, v38, v39, v40, v41, v42, v90) != 1 || fsck_exfat_truncate_chain(*(a1 + 16), v99, v99))
+        v93 = ctx;
+        v94 = *&qword_100026DF8;
+        v95 = qword_100026E08;
+        if (fsckAskPrompt(&v93, "Truncate? ", v36, v37, v38, v39, v40, v41, v87) != 1 || fsck_exfat_truncate_chain(*(a1 + 16), v96, v96))
         {
           goto LABEL_82;
         }
 
         v12 = 1;
-        v36 = v99;
+        v35 = v96;
       }
 
-      if (v36 >= v33)
+      if (v35 >= v32)
       {
-        v96 = ctx;
-        v97 = *&qword_100026DF8;
-        v98 = qword_100026E08;
-        v44 = 405;
+        v93 = ctx;
+        v94 = *&qword_100026DF8;
+        v95 = qword_100026E08;
+        v43 = 405;
 LABEL_63:
-        fsckPrint(&v96, v44, a3, a4, a5, a6, a7, a8, v86);
-        v96 = ctx;
-        v97 = *&qword_100026DF8;
-        v98 = qword_100026E08;
-        if (fsckAskPrompt(&v96, "Truncate? ", v72, v73, v74, v75, v76, v77, v94) != 1 || fsck_exfat_truncate_chain(*(a1 + 16), v33, v99))
+        fsckPrint(&v93, v43, a3, a4, a5, a6, a7, a8, v83);
+        v93 = ctx;
+        v94 = *&qword_100026DF8;
+        v95 = qword_100026E08;
+        if (fsckAskPrompt(&v93, "Truncate? ", v69, v70, v71, v72, v73, v74, v91) != 1 || fsck_exfat_truncate_chain(*(a1 + 16), v32, v96))
         {
           goto LABEL_82;
         }
@@ -4773,117 +4780,115 @@ LABEL_63:
 
     else
     {
-      if (v36 < v33)
+      if (v35 < v32)
       {
-        v96 = ctx;
-        v97 = *&qword_100026DF8;
-        v98 = qword_100026E08;
-        fsckPrint(&v96, 406, a3, a4, a5, a6, a7, a8, a2);
-        v71 = dword_100026CFC * v99;
-        *a1 = v71;
-        if (*(a1 + 8) > v71)
+        v93 = ctx;
+        v94 = *&qword_100026DF8;
+        v95 = qword_100026E08;
+        fsckPrint(&v93, 406, a3, a4, a5, a6, a7, a8, a2);
+        v68 = dword_100026CFC * v96;
+        *a1 = v68;
+        if (*(a1 + 8) > v68)
         {
-          *(a1 + 8) = v71;
+          *(a1 + 8) = v68;
         }
 
-        v96 = ctx;
-        v97 = *&qword_100026DF8;
-        v98 = qword_100026E08;
-        if (fsckAskPrompt(&v96, "Truncate? ", v65, v66, v67, v68, v69, v70, v93) != 1)
+        v93 = ctx;
+        v94 = *&qword_100026DF8;
+        v95 = qword_100026E08;
+        if (fsckAskPrompt(&v93, "Truncate? ", v62, v63, v64, v65, v66, v67, v90) != 1)
         {
           goto LABEL_82;
         }
 
         v12 = 1;
-        v36 = v99;
+        v35 = v96;
       }
 
-      if (v36 > v33)
+      if (v35 > v32)
       {
-        v96 = ctx;
-        v97 = *&qword_100026DF8;
-        v98 = qword_100026E08;
-        v86 = a2;
-        v44 = 407;
+        v93 = ctx;
+        v94 = *&qword_100026DF8;
+        v95 = qword_100026E08;
+        v83 = a2;
+        v43 = 407;
         goto LABEL_63;
       }
     }
 
 LABEL_66:
-    v53 = 0;
+    v52 = 0;
     goto LABEL_67;
   }
 
-  if (v34 == 1 || v34 > dword_100026D0C)
+  if (v33 == 1 || v33 > dword_100026D0C)
   {
     sub_100010114();
   }
 
-  if (v34 + v33 - 1 <= dword_100026D0C)
+  if (v33 + v32 - 1 <= dword_100026D0C)
   {
-    v53 = 0;
+    v52 = 0;
   }
 
   else
   {
-    v96 = ctx;
-    v97 = *&qword_100026DF8;
-    v98 = qword_100026E08;
-    fsckPrint(&v96, 403, a3, a4, a5, a6, a7, a8, a2);
-    v33 = (dword_100026D0C - *(a1 + 16) + 1);
-    v51 = (v33 * dword_100026CFC);
-    *a1 = v51;
-    *(a1 + 20) = v33;
-    if (*(a1 + 8) > v51)
+    v93 = ctx;
+    v94 = *&qword_100026DF8;
+    v95 = qword_100026E08;
+    fsckPrint(&v93, 403, a3, a4, a5, a6, a7, a8, a2);
+    v32 = dword_100026D0C - *(a1 + 16) + 1;
+    v50 = v32 * dword_100026CFC;
+    *a1 = v50;
+    *(a1 + 20) = v32;
+    if (*(a1 + 8) > v50)
     {
-      *(a1 + 8) = v51;
+      *(a1 + 8) = v50;
     }
 
-    v96 = ctx;
-    v97 = *&qword_100026DF8;
-    v98 = qword_100026E08;
-    v52 = fsckAskPrompt(&v96, "Truncate? ", v45, v46, v47, v48, v49, v50, v91);
-    v53 = v52 != 1;
-    if (v52 == 1)
+    v93 = ctx;
+    v94 = *&qword_100026DF8;
+    v95 = qword_100026E08;
+    v51 = fsckAskPrompt(&v93, "Truncate? ", v44, v45, v46, v47, v48, v49, v88);
+    v52 = v51 != 1;
+    if (v51 == 1)
     {
       v12 = 1;
     }
 
-    LODWORD(v34) = *(a1 + 16);
+    LODWORD(v33) = *(a1 + 16);
   }
 
-  v54 = fsck_exfat_bitmap_allocate(v34, v33, &v99, a4, a5, a6, a7, a8);
-  v55 = v99;
-  *(a1 + 20) = v99;
-  if (v54)
+  v53 = fsck_exfat_bitmap_allocate(v33, v32, &v96);
+  *(a1 + 20) = v96;
+  if (v53)
   {
-    v56 = *(a1 + 16) + v55;
-    v96 = ctx;
-    v97 = *&qword_100026DF8;
-    v98 = qword_100026E08;
-    fsckPrint(&v96, 404, a3, a4, a5, a6, a7, a8, a2);
-    v63 = v99;
-    v64 = dword_100026CFC * v99;
-    *a1 = v64;
-    if (*(a1 + 8) > v64)
+    v93 = ctx;
+    v94 = *&qword_100026DF8;
+    v95 = qword_100026E08;
+    fsckPrint(&v93, 404, a3, a4, a5, a6, a7, a8, a2);
+    v60 = v96;
+    v61 = dword_100026CFC * v96;
+    *a1 = v61;
+    if (*(a1 + 8) > v61)
     {
-      *(a1 + 8) = v64;
-      if (v63)
+      *(a1 + 8) = v61;
+      if (v60)
       {
 LABEL_54:
-        if (v53)
+        if (v52)
         {
           goto LABEL_82;
         }
 
 LABEL_80:
-        v96 = ctx;
-        v97 = *&qword_100026DF8;
-        v98 = qword_100026E08;
-        if (fsckAskPrompt(&v96, "Truncate? ", v57, v58, v59, v60, v61, v62, v92) == 1)
+        v93 = ctx;
+        v94 = *&qword_100026DF8;
+        v95 = qword_100026E08;
+        if (fsckAskPrompt(&v93, "Truncate? ", v54, v55, v56, v57, v58, v59, v89) == 1)
         {
 LABEL_81:
-          v53 = 0;
+          v52 = 0;
           v12 = 1;
           goto LABEL_67;
         }
@@ -4894,13 +4899,13 @@ LABEL_82:
       }
     }
 
-    else if (v63)
+    else if (v60)
     {
       goto LABEL_54;
     }
 
     *(a1 + 16) = 0;
-    if (v53)
+    if (v52)
     {
       goto LABEL_82;
     }
@@ -4911,20 +4916,20 @@ LABEL_82:
 LABEL_67:
   if (*(a1 + 8) > *a1)
   {
-    v96 = ctx;
-    v97 = *&qword_100026DF8;
-    v98 = qword_100026E08;
-    fsckPrint(&v96, 410, a3, a4, a5, a6, a7, a8, a2);
+    v93 = ctx;
+    v94 = *&qword_100026DF8;
+    v95 = qword_100026E08;
+    fsckPrint(&v93, 410, a3, a4, a5, a6, a7, a8, a2);
     *(a1 + 8) = *a1;
-    if (v53)
+    if (v52)
     {
       goto LABEL_82;
     }
 
-    v96 = ctx;
-    v97 = *&qword_100026DF8;
-    v98 = qword_100026E08;
-    if (fsckAskPrompt(&v96, "Truncate? ", v78, v79, v80, v81, v82, v83, v95) != 1)
+    v93 = ctx;
+    v94 = *&qword_100026DF8;
+    v95 = qword_100026E08;
+    if (fsckAskPrompt(&v93, "Truncate? ", v75, v76, v77, v78, v79, v80, v92) != 1)
     {
       goto LABEL_82;
     }
@@ -4932,7 +4937,7 @@ LABEL_67:
     goto LABEL_73;
   }
 
-  if (v53 && v12)
+  if (v52 && v12)
   {
     sub_100010140();
   }
@@ -4940,20 +4945,20 @@ LABEL_67:
   if (v12)
   {
 LABEL_73:
-    v84 = 1;
+    v81 = 1;
     goto LABEL_75;
   }
 
-  v84 = 0;
+  v81 = 0;
 LABEL_75:
-  if (v53)
+  if (v52)
   {
     return 0xFFFFFFFFLL;
   }
 
   else
   {
-    return v84;
+    return v81;
   }
 }
 
@@ -4963,11 +4968,11 @@ uint64_t fsck_exfat_scan_root(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4,
   v9 = dword_100026CFC;
   *&dword_100026DB8 = -1;
   dword_100026DC0 = -1;
-  v98 = 0u;
-  v99 = 0u;
+  v100 = 0u;
+  v101 = 0u;
   v10 = *(a1 + 24);
-  v96 = 0;
-  v97 = v10;
+  v98 = 0;
+  v99 = v10;
   v11 = v10 < 2 || v10 > dword_100026D0C;
   v12 = &unk_100026000;
   if (!v11)
@@ -4975,7 +4980,7 @@ uint64_t fsck_exfat_scan_root(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4,
     v14 = 0;
     v15 = 0;
     v16 = dword_100026CFC >> 5;
-    v94 = dword_100026CFC;
+    v96 = dword_100026CFC;
     while (1)
     {
       if (v14 >= *(v8 + 28))
@@ -4983,14 +4988,14 @@ uint64_t fsck_exfat_scan_root(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4,
         goto LABEL_92;
       }
 
-      cluster = fsck_exfat_cache_get_cluster(v10, &v96);
+      cluster = fsck_exfat_cache_get_cluster(v10, &v98);
       if (!cluster)
       {
         goto LABEL_92;
       }
 
       v18 = cluster;
-      v95 = v14;
+      v97 = v14;
       v19 = buffer_data(cluster);
       if (v9 >= 0x20)
       {
@@ -4998,17 +5003,17 @@ uint64_t fsck_exfat_scan_root(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4,
       }
 
 LABEL_9:
-      v96 = fsck_exfat_cache_release(v18, 0, 0);
-      if (!v96)
+      v98 = fsck_exfat_cache_release(v18, 0, 0);
+      if (!v98)
       {
-        v96 = fsck_exfat_fat_get(v97, &v97);
-        if (!v96)
+        v98 = fsck_exfat_fat_get(v99, &v99);
+        if (!v98)
         {
-          v10 = v97;
-          if (v97 >= 2)
+          v10 = v99;
+          if (v99 >= 2)
           {
-            v14 = v95 + 1;
-            if (v97 <= dword_100026D0C)
+            v14 = v97 + 1;
+            if (v99 <= dword_100026D0C)
             {
               continue;
             }
@@ -5039,37 +5044,37 @@ LABEL_9:
             v32 = "Main Bitmap";
           }
 
-          LODWORD(v99) = *(v26 + 5);
-          *&v98 = *(v26 + 3);
-          *(&v98 + 1) = v98;
-          BYTE8(v99) = 1;
+          LODWORD(v101) = *(v26 + 5);
+          *&v100 = *(v26 + 3);
+          *(&v100 + 1) = v100;
+          BYTE8(v101) = 1;
           if (v31)
           {
             if (*(qword_100026CD0 + 110) <= 1u)
             {
-              v100 = ctx;
-              v101 = *&qword_100026DF8;
-              v102 = qword_100026E08;
+              v102 = ctx;
+              v103 = *&qword_100026DF8;
+              v104 = qword_100026E08;
               v33 = 436;
               goto LABEL_59;
             }
 
             if (dword_100026DBC != -1)
             {
-              v100 = ctx;
-              v101 = *&qword_100026DF8;
-              v102 = qword_100026E08;
+              v102 = ctx;
+              v103 = *&qword_100026DF8;
+              v104 = qword_100026E08;
               v33 = 414;
 LABEL_59:
-              fsckPrint(&v100, v33, v20, v21, v22, v23, v24, v25, v88);
-              v100 = ctx;
-              v101 = *&qword_100026DF8;
-              v102 = qword_100026E08;
-              if (fsckAskPrompt(&v100, "Delete? ", v58, v59, v60, v61, v62, v63, v91) == 1)
+              fsckPrint(&v102, v33, v20, v21, v22, v23, v24, v25, v90);
+              v102 = ctx;
+              v103 = *&qword_100026DF8;
+              v104 = qword_100026E08;
+              if (fsckAskPrompt(&v102, "Delete? ", v60, v61, v62, v63, v64, v65, v93) == 1)
               {
                 *v26 &= ~0x80u;
 LABEL_61:
-                fsck_exfat_cache_mark_dirty(v18);
+                fsck_exfat_cache_mark_dirty(v18, v59);
                 byte_100026DD4 = 1;
                 if (!a2)
                 {
@@ -5096,9 +5101,9 @@ LABEL_63:
           {
             if (v12[878] != -1)
             {
-              v100 = ctx;
-              v101 = *&qword_100026DF8;
-              v102 = qword_100026E08;
+              v102 = ctx;
+              v103 = *&qword_100026DF8;
+              v104 = qword_100026E08;
               v33 = 413;
               goto LABEL_59;
             }
@@ -5106,24 +5111,24 @@ LABEL_63:
             v12[878] = v15;
           }
 
-          v64 = fsck_exfat_check_allocation(&v98, v32, v20, v21, v22, v23, v24, v25);
-          v96 = v64;
-          if (v64 == -1)
+          v66 = fsck_exfat_check_allocation(&v100, v32, v20, v21, v22, v23, v24, v25);
+          v98 = v66;
+          if (v66 == -1)
           {
             byte_100026DD5 = 1;
           }
 
-          else if (v64 == 1)
+          else if (v66 == 1)
           {
-            *(v26 + 5) = v99;
-            *(v26 + 3) = v98;
-            *&v100 = _NSConcreteStackBlock;
-            *(&v100 + 1) = 0x40000000;
-            *&v101 = sub_100005BE4;
-            *(&v101 + 1) = &unk_10001C5C0;
-            v102 = v26;
-            v96 = fsck_exfat_iter_dir_entries(v8, v15, 1, &v100);
-            if (v96)
+            *(v26 + 5) = v101;
+            *(v26 + 3) = v100;
+            *&v102 = _NSConcreteStackBlock;
+            *(&v102 + 1) = 0x40000000;
+            *&v103 = sub_100005BE4;
+            *(&v103 + 1) = &unk_10001C5C0;
+            v104 = v26;
+            v98 = fsck_exfat_iter_dir_entries(v8, v15, 1, &v102);
+            if (v98)
             {
               HIBYTE(word_100026DD2) = 1;
             }
@@ -5136,21 +5141,21 @@ LABEL_63:
 
           if (dword_100026D38 == (v26[1] & 1))
           {
-            dword_100026D14 = v99;
-            qword_100026D18 = v98;
+            dword_100026D14 = v101;
+            qword_100026D18 = v100;
             if (debug)
             {
-              v100 = ctx;
-              v101 = *&qword_100026DF8;
-              v102 = qword_100026E08;
-              fsck_printf(&v100, "Found active bitmap; first cluster %u, length %llu\n", v20, v21, v22, v23, v24, v25, v99);
+              v102 = ctx;
+              v103 = *&qword_100026DF8;
+              v104 = qword_100026E08;
+              fsck_printf(&v102, "Found active bitmap; first cluster %u, length %llu\n", v101, v100);
             }
           }
         }
 
         else if (!*v26)
         {
-          v96 = fsck_exfat_cache_release(v18, 0, 0);
+          v98 = fsck_exfat_cache_release(v18, 0, 0);
           break;
         }
       }
@@ -5160,24 +5165,24 @@ LABEL_63:
         if (v28 == 130)
         {
           v34 = *(v26 + 5);
-          LODWORD(v99) = v34;
+          LODWORD(v101) = v34;
           v35 = *(v26 + 3);
-          *&v98 = v35;
-          *(&v98 + 1) = v35;
-          BYTE8(v99) = 1;
+          *&v100 = v35;
+          *(&v100 + 1) = v35;
+          BYTE8(v101) = 1;
           if (dword_100026DC0 != -1)
           {
-            v100 = ctx;
-            v101 = *&qword_100026DF8;
-            v102 = qword_100026E08;
-            fsckPrint(&v100, 418, v20, v21, v22, v23, v24, v25, v88);
-            v100 = ctx;
-            v101 = *&qword_100026DF8;
-            v102 = qword_100026E08;
-            if (fsckAskPrompt(&v100, "Delete? ", v36, v37, v38, v39, v40, v41, v89) == 1)
+            v102 = ctx;
+            v103 = *&qword_100026DF8;
+            v104 = qword_100026E08;
+            fsckPrint(&v102, 418, v20, v21, v22, v23, v24, v25, v90);
+            v102 = ctx;
+            v103 = *&qword_100026DF8;
+            v104 = qword_100026E08;
+            if (fsckAskPrompt(&v102, "Delete? ", v36, v37, v38, v39, v40, v41, v91) == 1)
             {
               *v26 &= ~0x80u;
-              fsck_exfat_cache_mark_dirty(v18);
+              fsck_exfat_cache_mark_dirty(v18, v42);
               byte_100026DD4 = 1;
             }
 
@@ -5191,54 +5196,54 @@ LABEL_63:
 
           dword_100026DC4 = v34;
           qword_100026DC8 = v35;
-          v42 = fsck_exfat_check_allocation(&v98, "Upcase", v20, v21, v22, v23, v24, v25);
-          v96 = v42;
-          if (v42)
+          v43 = fsck_exfat_check_allocation(&v100, "Upcase", v20, v21, v22, v23, v24, v25);
+          v98 = v43;
+          if (v43)
           {
             byte_100026DD6 = 1;
-            if (v42 != 1)
+            if (v43 != 1)
             {
               goto LABEL_76;
             }
 
-            v43 = v99;
-            *(v26 + 5) = v99;
-            v44 = v8;
-            v45 = v98;
-            *(v26 + 3) = v98;
-            *&v100 = _NSConcreteStackBlock;
-            *(&v100 + 1) = 0x40000000;
-            *&v101 = sub_100005BE4;
-            *(&v101 + 1) = &unk_10001C5C0;
-            v102 = v26;
-            v46 = v44;
-            v96 = fsck_exfat_iter_dir_entries(v44, v15, 1, &v100);
-            if (v96)
+            v44 = v101;
+            *(v26 + 5) = v101;
+            v45 = v8;
+            v46 = v100;
+            *(v26 + 3) = v100;
+            *&v102 = _NSConcreteStackBlock;
+            *(&v102 + 1) = 0x40000000;
+            *&v103 = sub_100005BE4;
+            *(&v103 + 1) = &unk_10001C5C0;
+            v104 = v26;
+            v47 = v45;
+            v98 = fsck_exfat_iter_dir_entries(v45, v15, 1, &v102);
+            if (v98)
             {
               HIBYTE(word_100026DD2) = 1;
-              dword_100026DC4 = v43;
-              qword_100026DC8 = v45;
+              dword_100026DC4 = v44;
+              qword_100026DC8 = v46;
               v12 = &unk_100026000;
-              v8 = v46;
-              v9 = v94;
+              v8 = v47;
+              v9 = v96;
               goto LABEL_76;
             }
 
             byte_100026DD4 = 1;
-            dword_100026DC4 = v43;
-            qword_100026DC8 = v45;
+            dword_100026DC4 = v44;
+            qword_100026DC8 = v46;
             v12 = &unk_100026000;
-            v8 = v46;
-            v9 = v94;
+            v8 = v47;
+            v9 = v96;
           }
 
           if ((byte_100026DD6 & 1) == 0)
           {
-            v100 = ctx;
-            v101 = *&qword_100026DF8;
-            v102 = qword_100026E08;
-            fsckPrint(&v100, 204, v20, v21, v22, v23, v24, v25, v88);
-            if (fsck_exfat_read_upcase(v26, v65, v66, v67, v68, v69, v70, v71))
+            v102 = ctx;
+            v103 = *&qword_100026DF8;
+            v104 = qword_100026E08;
+            fsckPrint(&v102, 204, v20, v21, v22, v23, v24, v25, v90);
+            if (fsck_exfat_read_upcase(v26, v67, v68, v69, v70, v71, v72, v73))
             {
               byte_100026DD6 = 1;
             }
@@ -5261,53 +5266,53 @@ LABEL_76:
           {
             if (v29 > 0xB)
             {
-              v100 = ctx;
-              v101 = *&qword_100026DF8;
-              v102 = qword_100026E08;
+              v102 = ctx;
+              v103 = *&qword_100026DF8;
+              v104 = qword_100026E08;
               v30 = 434;
               goto LABEL_54;
             }
 
-            v47 = v26[1];
-            v48 = 2;
+            v48 = v26[1];
+            v49 = 2;
             do
             {
-              v49 = *&v26[v48];
-              if (v49 - 34 <= 0x3A && ((1 << (v49 - 34)) & 0x400000035002101) != 0)
+              v50 = *&v26[v49];
+              if (v50 - 34 <= 0x3A && ((1 << (v50 - 34)) & 0x400000035002101) != 0)
               {
                 goto LABEL_53;
               }
 
-              if (v49 == 124 || v49 <= 0x1F)
+              if (v50 == 124 || v50 <= 0x1F)
               {
                 goto LABEL_53;
               }
 
-              v48 += 2;
-              --v47;
+              v49 += 2;
+              --v48;
             }
 
-            while (v47);
-            if (v49 == 46)
+            while (v48);
+            if (v50 == 46)
             {
 LABEL_53:
-              v100 = ctx;
-              v101 = *&qword_100026DF8;
-              v102 = qword_100026E08;
+              v102 = ctx;
+              v103 = *&qword_100026DF8;
+              v104 = qword_100026E08;
               v30 = 435;
               goto LABEL_54;
             }
 
-            v72 = CFStringCreateWithBytes(kCFAllocatorDefault, v26 + 2, 2 * v29, 0x14000100u, 0);
-            if (v72)
+            v74 = CFStringCreateWithBytes(kCFAllocatorDefault, v26 + 2, 2 * v29, 0x14000100u, 0);
+            if (v74)
             {
-              cf = v72;
-              if (CFStringGetCString(v72, byte_100026D3C, 64, 0x8000100u))
+              cf = v74;
+              if (CFStringGetCString(v74, byte_100026D3C, 64, 0x8000100u))
               {
-                v100 = ctx;
-                v101 = *&qword_100026DF8;
-                v102 = qword_100026E08;
-                fsckPrint(&v100, 207, v73, v74, v75, v76, v77, v78, byte_100026D3C);
+                v102 = ctx;
+                v103 = *&qword_100026DF8;
+                v104 = qword_100026E08;
+                fsckPrint(&v102, 207, v75, v76, v77, v78, v79, v80, byte_100026D3C);
                 CFRelease(cf);
                 if (!a2)
                 {
@@ -5319,27 +5324,27 @@ LABEL_83:
                 goto LABEL_84;
               }
 
-              v100 = ctx;
-              v101 = *&qword_100026DF8;
-              v102 = qword_100026E08;
-              fsckPrint(&v100, 412, v73, v74, v75, v76, v77, v78, v88);
+              v102 = ctx;
+              v103 = *&qword_100026DF8;
+              v104 = qword_100026E08;
+              fsckPrint(&v102, 412, v75, v76, v77, v78, v79, v80, v90);
               CFRelease(cf);
             }
 
             else
             {
-              v100 = ctx;
-              v101 = *&qword_100026DF8;
-              v102 = qword_100026E08;
+              v102 = ctx;
+              v103 = *&qword_100026DF8;
+              v104 = qword_100026E08;
               v30 = 411;
 LABEL_54:
-              fsckPrint(&v100, v30, v20, v21, v22, v23, v24, v25, v88);
+              fsckPrint(&v102, v30, v20, v21, v22, v23, v24, v25, v90);
             }
 
-            v100 = ctx;
-            v101 = *&qword_100026DF8;
-            v102 = qword_100026E08;
-            if (fsckAskPrompt(&v100, "Set name length to 0? ", v52, v53, v54, v55, v56, v57, v90) == 1)
+            v102 = ctx;
+            v103 = *&qword_100026DF8;
+            v104 = qword_100026E08;
+            if (fsckAskPrompt(&v102, "Set name length to 0? ", v53, v54, v55, v56, v57, v58, v92) == 1)
             {
               v26[1] = 0;
               goto LABEL_61;
@@ -5369,16 +5374,16 @@ LABEL_84:
 LABEL_92:
   if (dword_100026DC0 == -1)
   {
-    v100 = ctx;
-    v101 = *&qword_100026DF8;
-    v102 = qword_100026E08;
-    fsckPrint(&v100, 417, a3, a4, a5, a6, a7, a8, v88);
+    v102 = ctx;
+    v103 = *&qword_100026DF8;
+    v104 = qword_100026E08;
+    fsckPrint(&v102, 417, a3, a4, a5, a6, a7, a8, v90);
     if (!dword_100026DD8)
     {
-      v100 = ctx;
-      v101 = *&qword_100026DF8;
-      v102 = qword_100026E08;
-      if (fsckAskPrompt(&v100, "CONTINUE? ", a3, a4, a5, a6, a7, a8, v88) != 1)
+      v102 = ctx;
+      v103 = *&qword_100026DF8;
+      v104 = qword_100026E08;
+      if (fsckAskPrompt(&v102, "CONTINUE? ", a3, a4, a5, a6, a7, a8, v90) != 1)
       {
         return 208;
       }
@@ -5387,12 +5392,12 @@ LABEL_92:
 
   if ((byte_100026DD6 & 1) != 0 || dword_100026DC0 == -1)
   {
-    v100 = ctx;
-    v101 = *&qword_100026DF8;
-    v102 = qword_100026E08;
-    fsckPrint(&v100, 423, a3, a4, a5, a6, a7, a8, v88);
-    v96 = fsck_exfat_decompress_upcase(qword_100026DB0, &default_upcase_table, default_upcase_table_size);
-    if (v96)
+    v102 = ctx;
+    v103 = *&qword_100026DF8;
+    v104 = qword_100026E08;
+    fsckPrint(&v102, 423, a3, a4, a5, a6, a7, a8, v90);
+    v98 = fsck_exfat_decompress_upcase(qword_100026DB0, &default_upcase_table, default_upcase_table_size);
+    if (v98)
     {
       sub_100010198();
     }
@@ -5400,16 +5405,16 @@ LABEL_92:
 
   if (v12[878] == -1)
   {
-    v100 = ctx;
-    v101 = *&qword_100026DF8;
-    v102 = qword_100026E08;
-    fsckPrint(&v100, 415, a3, a4, a5, a6, a7, a8, v88);
+    v102 = ctx;
+    v103 = *&qword_100026DF8;
+    v104 = qword_100026E08;
+    fsckPrint(&v102, 415, a3, a4, a5, a6, a7, a8, v90);
     if (!dword_100026DD8)
     {
-      v100 = ctx;
-      v101 = *&qword_100026DF8;
-      v102 = qword_100026E08;
-      if (fsckAskPrompt(&v100, "CONTINUE? ", a3, a4, a5, a6, a7, a8, v88) != 1)
+      v102 = ctx;
+      v103 = *&qword_100026DF8;
+      v104 = qword_100026E08;
+      if (fsckAskPrompt(&v102, "CONTINUE? ", a3, a4, a5, a6, a7, a8, v90) != 1)
       {
         return 209;
       }
@@ -5418,40 +5423,41 @@ LABEL_92:
 
   if (*(qword_100026CD0 + 110) == 2 && dword_100026DBC == -1)
   {
-    v100 = ctx;
-    v101 = *&qword_100026DF8;
-    v102 = qword_100026E08;
-    fsckPrint(&v100, 416, a3, a4, a5, a6, a7, a8, v88);
+    v102 = ctx;
+    v103 = *&qword_100026DF8;
+    v104 = qword_100026E08;
+    fsckPrint(&v102, 416, a3, a4, a5, a6, a7, a8, v90);
     if (!dword_100026DD8)
     {
-      v100 = ctx;
-      v101 = *&qword_100026DF8;
-      v102 = qword_100026E08;
-      if (fsckAskPrompt(&v100, "CONTINUE? ", v80, v81, v82, v83, v84, v85, v92) != 1)
+      v102 = ctx;
+      v103 = *&qword_100026DF8;
+      v104 = qword_100026E08;
+      if (fsckAskPrompt(&v102, "CONTINUE? ", v82, v83, v84, v85, v86, v87, v94) != 1)
       {
         return 210;
       }
     }
   }
 
-  return v96;
+  return v98;
 }
 
-uint64_t fsck_printf(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t fsck_printf(uint64_t result, const char *a2, ...)
 {
+  va_start(va, a2);
   if (*(result + 16))
   {
-    return (*(result + 16))(*(result + 32), a2, &a9);
+    return (*(result + 16))(*(result + 32), a2, va);
   }
 
   return result;
 }
 
-uint64_t fsck_exfat_dir_ref(uint64_t result)
+uint64_t fsck_exfat_dir_ref(uint64_t result, uint64_t a2)
 {
-  v1 = *(result + 32);
-  *(result + 32) = v1 + 1;
-  if (v1 == -1)
+  v2 = *(result + 32);
+  *(result + 32) = v2 + 1;
+  if (v2 == -1)
   {
     sub_1000101C4();
   }
@@ -5519,7 +5525,7 @@ uint64_t fsck_err(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64
 {
   if (*(result + 24))
   {
-    return (*(result + 24))(*(result + 32), a2, a3, &a9);
+    return (*(result + 24))(*(result + 32), a2, a3, &a9, a5, a6, a7, a8);
   }
 
   return result;
@@ -5703,7 +5709,7 @@ uint64_t fsck_exfat_rename_file_set()
 
 uint64_t fsck_exfat_rename_names(uint64_t **a1, const __CFArray *a2, __CFArray *a3, __CFSet *a4)
 {
-  v46 = a1;
+  v40 = a1;
   path = fsck_exfat_dir_get_path(a1);
   Count = CFArrayGetCount(a2);
   if (Count >= 1)
@@ -5712,9 +5718,9 @@ uint64_t fsck_exfat_rename_names(uint64_t **a1, const __CFArray *a2, __CFArray *
     do
     {
       ValueAtIndex = CFArrayGetValueAtIndex(a2, v9 - 1);
-      v50.length = *(ValueAtIndex + 38);
-      v50.location = 0;
-      CFStringGetCharacters(ValueAtIndex[1], v50, buffer);
+      v44.length = *(ValueAtIndex + 38);
+      v44.location = 0;
+      CFStringGetCharacters(ValueAtIndex[1], v44, buffer);
       v11 = *(ValueAtIndex + 38);
       if (*(ValueAtIndex + 38))
       {
@@ -5739,7 +5745,7 @@ uint64_t fsck_exfat_rename_names(uint64_t **a1, const __CFArray *a2, __CFArray *
       CFRelease(ValueAtIndex[1]);
       ValueAtIndex[1] = v15;
       v16 = sub_100007978(v15);
-      if (sub_100007A04(v46, ValueAtIndex, v16, a4, path))
+      if (sub_100007A04(v40, ValueAtIndex, v16, a4, path))
       {
         v17 = fsck_exfat_rename_file_set();
         if (v17)
@@ -5765,21 +5771,21 @@ LABEL_30:
     while (v9-- > 1);
   }
 
-  v43 = CFArrayGetCount(a3);
-  if (v43 >= 1)
+  v37 = CFArrayGetCount(a3);
+  if (v37 >= 1)
   {
     v19 = 0;
-    v42 = a3;
+    v36 = a3;
     while (2)
     {
-      v44 = v19;
+      v38 = v19;
       v20 = CFArrayGetValueAtIndex(a3, v19);
       v21 = CFStringCopyFilenameExtension(v20[1]);
       v22 = *(v20 + 38);
       v23 = v22 - CFStringGetLength(v21);
-      v51.length = v23;
-      v51.location = 0;
-      v24 = CFStringCreateWithSubstring(0, v20[1], v51);
+      v45.length = v23;
+      v45.location = 0;
+      v24 = CFStringCreateWithSubstring(0, v20[1], v45);
       v16 = 0;
       if (*(v20 + 38) % 0xFu)
       {
@@ -5793,7 +5799,7 @@ LABEL_30:
 
       v26 = 15 * v25;
       v27 = 1;
-      v45 = v23;
+      v39 = v23;
       do
       {
         while (1)
@@ -5812,14 +5818,14 @@ LABEL_30:
             break;
           }
 
-          v31.length = v45 - v30;
-          if (v45 < v30)
+          v31.length = v39 - v30;
+          if (v39 < v30)
           {
             v34 = CFStringCopyCStringUTF8(v20[1]);
             *buffer = ctx;
-            v48 = *&qword_100026DF8;
-            v49 = qword_100026E08;
-            fsck_printf(buffer, "Cannot create a generated name for %s\n", v35, v36, v37, v38, v39, v40, v34);
+            v42 = *&qword_100026DF8;
+            v43 = qword_100026E08;
+            fsck_printf(buffer, "Cannot create a generated name for %s\n", v34);
             free(v34);
             CFRelease(v24);
             CFRelease(v28);
@@ -5833,7 +5839,7 @@ LABEL_30:
           }
 
           v31.location = 0;
-          v45 -= v30;
+          v39 -= v30;
           v32 = CFStringCreateWithSubstring(0, v24, v31);
           CFRelease(v24);
           CFRelease(v28);
@@ -5843,7 +5849,7 @@ LABEL_30:
         v27 = (v27 + 1);
       }
 
-      while (!sub_100007A04(v46, v20, v16, a4, path));
+      while (!sub_100007A04(v40, v20, v16, a4, path));
       CFRelease(v21);
       CFRelease(v24);
       CFRelease(v20[1]);
@@ -5856,9 +5862,9 @@ LABEL_30:
 
       sub_100007B04(v16, a4, path);
       CFRelease(v16);
-      v19 = v44 + 1;
-      a3 = v42;
-      if (v44 + 1 != v43)
+      v19 = v38 + 1;
+      a3 = v36;
+      if (v38 + 1 != v37)
       {
         continue;
       }
@@ -5900,20 +5906,20 @@ BOOL sub_100007A04(int a1, int a2, const __CFString *value, CFSetRef theSet, cha
   if (strcmp(__s1, "/.Trashes"))
   {
     v8 = sub_100009D34(value);
-    v15 = (1 << (v8 & 7)) & *(theSet + ((v8 & 0x1FFFFF) >> 3));
-    if (v15)
+    v9 = (1 << (v8 & 7)) & *(theSet + ((v8 & 0x1FFFFF) >> 3));
+    if (v9)
     {
-      v16 = debug == 0;
+      v10 = debug == 0;
     }
 
     else
     {
-      v16 = 1;
+      v10 = 1;
     }
 
-    if (v16)
+    if (v10)
     {
-      if (!v15)
+      if (!v9)
       {
         return v7;
       }
@@ -5921,10 +5927,10 @@ BOOL sub_100007A04(int a1, int a2, const __CFString *value, CFSetRef theSet, cha
 
     else
     {
-      v18[0] = ctx;
-      v18[1] = *&qword_100026DF8;
-      v19 = qword_100026E08;
-      fsck_printf(v18, "Hash bitmap collision: index: %u\n", v9, v10, v11, v12, v13, v14, v8 & 0x1FFFFF);
+      v12[0] = ctx;
+      v12[1] = *&qword_100026DF8;
+      v13 = qword_100026E08;
+      fsck_printf(v12, "Hash bitmap collision: index: %u\n", v8 & 0x1FFFFF);
     }
 
     return !fsck_exfat_filename_exists_in_dir();
@@ -5951,10 +5957,10 @@ void sub_100007B04(const __CFString *value, __CFSet *theSet, char *__s1)
   }
 }
 
-uint64_t fsck_exfat_recurse(const void *a1, _DWORD *a2)
+uint64_t fsck_exfat_recurse(uint64_t **a1, _DWORD *a2)
 {
-  v234 = 0u;
-  v235 = 0u;
+  v211 = 0u;
+  v212 = 0u;
   *&callBacks.version = unk_10001C600;
   *&callBacks.release = *&off_10001C610;
   callBacks.equal = 0;
@@ -5965,7 +5971,7 @@ uint64_t fsck_exfat_recurse(const void *a1, _DWORD *a2)
   byte_100026DDC = 1;
   v7 = malloc_type_malloc(0x200000uLL, 0x866E412CuLL);
   value = 0;
-  v231 = 0;
+  v208 = 0;
   CFArrayAppendValue(v4, a1);
   if (a2)
   {
@@ -5975,12 +5981,12 @@ uint64_t fsck_exfat_recurse(const void *a1, _DWORD *a2)
   if (CFArrayGetCount(v4))
   {
     v8 = 0;
-    v225 = 0;
-    v227 = 0;
-    v222 = v4;
-    v223 = v7;
-    v220 = v5;
-    v221 = v6;
+    v202 = 0;
+    v204 = 0;
+    v199 = v4;
+    v200 = v7;
+    v197 = v5;
+    v198 = v6;
     while (1)
     {
       ValueAtIndex = CFArrayGetValueAtIndex(v4, 0);
@@ -6005,32 +6011,32 @@ uint64_t fsck_exfat_recurse(const void *a1, _DWORD *a2)
         break;
       }
 
-      v224 = 0;
+      v201 = 0;
 LABEL_14:
-      v6 = v221;
-      v4 = v222;
-      v7 = v223;
-      v5 = v220;
-      if (CFArrayGetCount(v221) || CFArrayGetCount(v220))
+      v6 = v198;
+      v4 = v199;
+      v7 = v200;
+      v5 = v197;
+      if (CFArrayGetCount(v198) || CFArrayGetCount(v197))
       {
         if (debug)
         {
-          v236 = ctx;
-          v237 = *&qword_100026DF8;
-          v238 = qword_100026E08;
-          fsck_printf(&v236, "Renaming items in %s\n", v13, v14, v15, v16, v17, v18, path);
+          v213 = ctx;
+          v214 = *&qword_100026DF8;
+          v215 = qword_100026E08;
+          fsck_printf(&v213, "Renaming items in %s\n", path);
         }
 
-        LODWORD(value) = fsck_exfat_rename_names(ValueAtIndex, v221, v220, v223);
+        LODWORD(value) = fsck_exfat_rename_names(ValueAtIndex, v198, v197, v200);
         if (value)
         {
           HIBYTE(word_100026DD2) = 1;
           if (debug)
           {
-            v236 = ctx;
-            v237 = *&qword_100026DF8;
-            v238 = qword_100026E08;
-            fsck_printf(&v236, "Renaming failed in %s\n", v19, v20, v21, v22, v23, v24, path);
+            v213 = ctx;
+            v214 = *&qword_100026DF8;
+            v215 = qword_100026E08;
+            fsck_printf(&v213, "Renaming failed in %s\n");
           }
         }
 
@@ -6039,10 +6045,10 @@ LABEL_14:
           byte_100026DD4 = 1;
           if (debug)
           {
-            v236 = ctx;
-            v237 = *&qword_100026DF8;
-            v238 = qword_100026E08;
-            fsck_printf(&v236, "Renaming completed in %s\n", v19, v20, v21, v22, v23, v24, path);
+            v213 = ctx;
+            v214 = *&qword_100026DF8;
+            v215 = qword_100026E08;
+            fsck_printf(&v213, "Renaming completed in %s\n");
           }
         }
       }
@@ -6053,36 +6059,36 @@ LABEL_14:
         HIBYTE(word_100026DD2) = 1;
         if (debug)
         {
-          v236 = ctx;
-          v237 = *&qword_100026DF8;
-          v238 = qword_100026E08;
-          fsck_printf(&v236, "Could not write clusters for directory %s\n", v198, v199, v200, v201, v202, v203, path);
+          v213 = ctx;
+          v214 = *&qword_100026DF8;
+          v215 = qword_100026E08;
+          fsck_printf(&v213, "Could not write clusters for directory %s\n", path);
         }
       }
 
-      fsck_exfat_telemetry_num_files_in_dir(v224);
+      fsck_exfat_telemetry_num_files_in_dir(v201);
       if (!strcmp(path, "/.Trashes"))
       {
-        *(qword_100026DE0 + 32) = v224;
+        *(qword_100026DE0 + 32) = v201;
       }
 
       free(path);
-      CFArrayRemoveValueAtIndex(v222, 0);
-      if (!CFArrayGetCount(v222))
+      CFArrayRemoveValueAtIndex(v199, 0);
+      if (!CFArrayGetCount(v199))
       {
         goto LABEL_218;
       }
     }
 
-    v25 = 0;
-    v26 = 0;
-    v224 = 0;
-    v27 = 0;
-    v28 = 0;
-    v29 = 1;
+    v13 = 0;
+    v14 = 0;
+    v201 = 0;
+    v15 = 0;
+    v16 = 0;
+    v17 = 1;
     while (1)
     {
-      if (v25 >= *(ValueAtIndex + 7))
+      if (v13 >= *(ValueAtIndex + 7))
       {
         goto LABEL_14;
       }
@@ -6093,19 +6099,19 @@ LABEL_14:
         goto LABEL_14;
       }
 
-      v228 = v25;
-      v31 = cluster;
-      v32 = v26 + buffer_length(cluster);
+      v205 = v13;
+      v19 = cluster;
+      v20 = v14 + buffer_length(cluster);
       CFArrayAppendValue(theArray, HIDWORD(value));
-      v229 = v31;
-      v33 = buffer_data(v31);
-      if (v26 < v32)
+      v206 = v19;
+      v21 = buffer_data(v19);
+      if (v14 < v20)
       {
         break;
       }
 
 LABEL_202:
-      LODWORD(value) = fsck_exfat_cache_release(v229, 0, 1);
+      LODWORD(value) = fsck_exfat_cache_release(v206, 0, 1);
       if (value)
       {
         goto LABEL_14;
@@ -6114,13 +6120,13 @@ LABEL_202:
       if (*(ValueAtIndex + 39) == 1)
       {
         v11 = ++HIDWORD(value);
-        v197 = v228;
+        v180 = v205;
       }
 
       else
       {
         LODWORD(value) = fsck_exfat_fat_get(HIDWORD(value), &value + 1);
-        v197 = v228;
+        v180 = v205;
         if (value)
         {
           goto LABEL_14;
@@ -6131,7 +6137,7 @@ LABEL_202:
 
       if (v11 >= 2)
       {
-        v25 = v197 + 1;
+        v13 = v180 + 1;
         if (v11 <= dword_100026D0C)
         {
           continue;
@@ -6141,27 +6147,27 @@ LABEL_202:
       goto LABEL_14;
     }
 
-    v40 = v33;
+    v28 = v21;
     while (1)
     {
-      if (v29 != 1)
+      if (v17 != 1)
       {
-        v41 = *v40;
-        if (!*v40)
+        v29 = *v28;
+        if (!*v28)
         {
           goto LABEL_34;
         }
 
-        v236 = ctx;
-        v237 = *&qword_100026DF8;
-        v238 = qword_100026E08;
-        fsckPrint(&v236, 425, v34, v35, v36, v37, v38, v39, path);
-        v236 = ctx;
-        v237 = *&qword_100026DF8;
-        v238 = qword_100026E08;
-        if (fsckAskPrompt(&v236, "Extend? ", v42, v43, v44, v45, v46, v47, v206) == 1)
+        v213 = ctx;
+        v214 = *&qword_100026DF8;
+        v215 = qword_100026E08;
+        fsckPrint(&v213, 425, v22, v23, v24, v25, v26, v27, path);
+        v213 = ctx;
+        v214 = *&qword_100026DF8;
+        v215 = qword_100026E08;
+        if (fsckAskPrompt(&v213, "Extend? ", v30, v31, v32, v33, v34, v35, v183) == 1)
         {
-          LODWORD(value) = fsck_exfat_iter_dir_entries(ValueAtIndex, v29, (v26 - v29) >> 5, &stru_10001C5A0);
+          LODWORD(value) = fsck_exfat_iter_dir_entries(ValueAtIndex, v17, (v14 - v17) >> 5, &stru_10001C5A0);
           if (value)
           {
             HIBYTE(word_100026DD2) = 1;
@@ -6179,30 +6185,30 @@ LABEL_202:
         }
       }
 
-      v41 = *v40;
-      if ((*v40 & 0x80000000) == 0)
+      v29 = *v28;
+      if ((*v28 & 0x80000000) == 0)
       {
-        v29 = 1;
+        v17 = 1;
 LABEL_34:
-        if (v29 == 1 && v41 == 0)
+        if (v17 == 1 && v29 == 0)
         {
-          v29 = v26;
+          v17 = v14;
         }
 
-        if (v27)
+        if (v15)
         {
-          v236 = ctx;
-          v237 = *&qword_100026DF8;
-          v238 = qword_100026E08;
-          fsckPrint(&v236, 426, v34, v35, v36, v37, v38, v39, path);
-          v236 = ctx;
-          v237 = *&qword_100026DF8;
-          v238 = qword_100026E08;
-          if (fsckAskPrompt(&v236, "Delete? ", v49, v50, v51, v52, v53, v54, v207) == 1)
+          v213 = ctx;
+          v214 = *&qword_100026DF8;
+          v215 = qword_100026E08;
+          fsckPrint(&v213, 426, v22, v23, v24, v25, v26, v27, path);
+          v213 = ctx;
+          v214 = *&qword_100026DF8;
+          v215 = qword_100026E08;
+          if (fsckAskPrompt(&v213, "Delete? ", v37, v38, v39, v40, v41, v42, v184) == 1)
           {
-            LODWORD(value) = fsck_exfat_iter_dir_entries(ValueAtIndex, v8, (v26 - v8) >> 5, &stru_10001C5A0);
-            v28 = 0;
-            v27 = 0;
+            LODWORD(value) = fsck_exfat_iter_dir_entries(ValueAtIndex, v8, (v14 - v8) >> 5, &stru_10001C5A0);
+            v16 = 0;
+            v15 = 0;
             if (value)
             {
               HIBYTE(word_100026DD2) = 1;
@@ -6216,8 +6222,8 @@ LABEL_34:
 
           else
           {
-            v28 = 0;
-            v27 = 0;
+            v16 = 0;
+            v15 = 0;
             LOBYTE(word_100026DD2) = 1;
           }
         }
@@ -6225,20 +6231,20 @@ LABEL_34:
         goto LABEL_101;
       }
 
-      if ((v41 & 0x40) == 0 && v27)
+      if ((v29 & 0x40) == 0 && v15)
       {
-        v236 = ctx;
-        v237 = *&qword_100026DF8;
-        v238 = qword_100026E08;
-        fsckPrint(&v236, 426, v34, v35, v36, v37, v38, v39, path);
-        v236 = ctx;
-        v237 = *&qword_100026DF8;
-        v238 = qword_100026E08;
-        if (fsckAskPrompt(&v236, "Delete? ", v55, v56, v57, v58, v59, v60, v208) == 1)
+        v213 = ctx;
+        v214 = *&qword_100026DF8;
+        v215 = qword_100026E08;
+        fsckPrint(&v213, 426, v22, v23, v24, v25, v26, v27, path);
+        v213 = ctx;
+        v214 = *&qword_100026DF8;
+        v215 = qword_100026E08;
+        if (fsckAskPrompt(&v213, "Delete? ", v43, v44, v45, v46, v47, v48, v185) == 1)
         {
-          LODWORD(value) = fsck_exfat_iter_dir_entries(ValueAtIndex, v8, (v26 - v8) >> 5, &stru_10001C5A0);
-          v28 = 0;
-          v27 = 0;
+          LODWORD(value) = fsck_exfat_iter_dir_entries(ValueAtIndex, v8, (v14 - v8) >> 5, &stru_10001C5A0);
+          v16 = 0;
+          v15 = 0;
           if (value)
           {
             HIBYTE(word_100026DD2) = 1;
@@ -6252,91 +6258,91 @@ LABEL_34:
 
         else
         {
-          v28 = 0;
-          v27 = 0;
+          v16 = 0;
+          v15 = 0;
           LOBYTE(word_100026DD2) = 1;
         }
       }
 
-      v61 = *v40;
-      if (ValueAtIndex == a1 && (v61 - 129) <= 0x1F && ((1 << (v61 + 127)) & 0x80000007) != 0)
+      v49 = *v28;
+      if (ValueAtIndex == a1 && (v49 - 129) <= 0x1F && ((1 << (v49 + 127)) & 0x80000007) != 0)
       {
         goto LABEL_64;
       }
 
-      if (v61 == 133)
+      if (v49 == 133)
       {
         break;
       }
 
-      if (v61 == 160)
+      if (v49 == 160)
       {
-        v236 = ctx;
-        v237 = *&qword_100026DF8;
-        v238 = qword_100026E08;
-        fsckPrint(&v236, 442, v34, v35, v36, v37, v38, v39, path);
+        v213 = ctx;
+        v214 = *&qword_100026DF8;
+        v215 = qword_100026E08;
+        fsckPrint(&v213, 442, v22, v23, v24, v25, v26, v27, path);
 LABEL_68:
-        v236 = ctx;
-        v237 = *&qword_100026DF8;
-        v238 = qword_100026E08;
-        if (fsckAskPrompt(&v236, "Delete? ", v62, v63, v64, v65, v66, v67, v209) != 1)
+        v213 = ctx;
+        v214 = *&qword_100026DF8;
+        v215 = qword_100026E08;
+        if (fsckAskPrompt(&v213, "Delete? ", v50, v51, v52, v53, v54, v55, v186) != 1)
         {
           goto LABEL_100;
         }
 
-        *v40 &= ~0x80u;
-        fsck_exfat_cache_mark_dirty(v229);
+        *v28 &= ~0x80u;
+        fsck_exfat_cache_mark_dirty(v206, v58);
         goto LABEL_70;
       }
 
-      if ((v61 & 0x60) == 0x20)
+      if ((v49 & 0x60) == 0x20)
       {
-        v70 = *(v40 + 1);
-        xmmword_100024C90[0] = *v40;
-        unk_100024CA0 = v70;
-        v28 = v40[1];
-        *&v234 = *(v40 + 3);
-        *(&v234 + 1) = v234;
-        LODWORD(v235) = *(v40 + 5);
-        v71 = *(v40 + 2);
-        BYTE8(v235) = v71;
-        if ((v71 & 1) != 0 && (LODWORD(value) = fsck_exfat_check_allocation(&v234, path, v34, v35, v36, v37, v38, v39), value == 1))
+        v59 = *(v28 + 1);
+        xmmword_100024C90[0] = *v28;
+        unk_100024CA0 = v59;
+        v16 = v28[1];
+        *&v211 = *(v28 + 3);
+        *(&v211 + 1) = v211;
+        LODWORD(v212) = *(v28 + 5);
+        v60 = *(v28 + 2);
+        BYTE8(v212) = v60;
+        if ((v60 & 1) != 0 && (LODWORD(value) = fsck_exfat_check_allocation(&v211, path, v22, v23, v24, v25, v26, v27), value == 1))
         {
-          *(v40 + 3) = v234;
-          *(v40 + 5) = v235;
-          *(v40 + 2) = BYTE8(v235);
-          v227 = 1;
+          *(v28 + 3) = v211;
+          *(v28 + 5) = v212;
+          *(v28 + 2) = BYTE8(v212);
+          v204 = 1;
         }
 
         else
         {
-          v227 = 0;
+          v204 = 0;
         }
 
-        v225 = v28 + 1;
-        if (!v28)
+        v202 = v16 + 1;
+        if (!v16)
         {
-          v8 = v26;
+          v8 = v14;
 LABEL_84:
-          v80 = 0;
-          v81 = 0;
+          v69 = 0;
+          v70 = 0;
           do
           {
-            if ((v81 & 0x7FFFFFFFFFFFFFFELL) != 2)
+            if ((v70 & 0x7FFFFFFFFFFFFFFELL) != 2)
             {
-              v80 = ((v80 >> 1) | (v80 << 15)) + *(xmmword_100024C90 + v81);
+              v69 = ((v69 >> 1) | (v69 << 15)) + *(xmmword_100024C90 + v70);
             }
 
-            ++v81;
+            ++v70;
           }
 
-          while (32 * BYTE1(xmmword_100024C90[0]) + 32 != v81);
-          if (WORD1(xmmword_100024C90[0]) != v80)
+          while (32 * BYTE1(xmmword_100024C90[0]) + 32 != v70);
+          if (WORD1(xmmword_100024C90[0]) != v69)
           {
-            v236 = ctx;
-            v237 = *&qword_100026DF8;
-            v238 = qword_100026E08;
-            fsckPrint(&v236, 429, v34, v35, v36, v37, v38, v39, v205);
+            v213 = ctx;
+            v214 = *&qword_100026DF8;
+            v215 = qword_100026E08;
+            fsckPrint(&v213, 429, v22, v23, v24, v25, v26, v27, v182);
             goto LABEL_95;
           }
 
@@ -6344,26 +6350,26 @@ LABEL_84:
           {
             if (byte_100024CB0 != 192)
             {
-              v236 = ctx;
-              v237 = *&qword_100026DF8;
-              v238 = qword_100026E08;
-              fsckPrint(&v236, 439, v34, v35, v36, v37, v38, v39, path);
+              v213 = ctx;
+              v214 = *&qword_100026DF8;
+              v215 = qword_100026E08;
+              fsckPrint(&v213, 439, v22, v23, v24, v25, v26, v27, path);
               goto LABEL_95;
             }
 
             if ((byte_100024CB1 & 1) == 0)
             {
-              v236 = ctx;
-              v237 = *&qword_100026DF8;
-              v238 = qword_100026E08;
-              fsckPrint(&v236, 440, v34, v35, v36, v37, v38, v39, path);
-              v236 = ctx;
-              v237 = *&qword_100026DF8;
-              v238 = qword_100026E08;
-              if (fsckAskPrompt(&v236, "Fix? ", v82, v83, v84, v85, v86, v87, v211) == 1)
+              v213 = ctx;
+              v214 = *&qword_100026DF8;
+              v215 = qword_100026E08;
+              fsckPrint(&v213, 440, v22, v23, v24, v25, v26, v27, path);
+              v213 = ctx;
+              v214 = *&qword_100026DF8;
+              v215 = qword_100026E08;
+              if (fsckAskPrompt(&v213, "Fix? ", v71, v72, v73, v74, v75, v76, v188) == 1)
               {
                 byte_100024CB1 |= 1u;
-                v227 = 1;
+                v204 = 1;
               }
 
               else
@@ -6372,71 +6378,71 @@ LABEL_84:
               }
             }
 
-            if (!byte_100024CB3 || ((v97 = byte_100024CB3 / 0xFu, !(byte_100024CB3 % 0xFu)) ? (v98 = v97) : (v98 = v97 + 1), v98 >= BYTE1(xmmword_100024C90[0])))
+            if (!byte_100024CB3 || ((v86 = byte_100024CB3 / 0xFu, !(byte_100024CB3 % 0xFu)) ? (v87 = v86) : (v87 = v86 + 1), v87 >= BYTE1(xmmword_100024C90[0])))
             {
-              v236 = ctx;
-              v237 = *&qword_100026DF8;
-              v238 = qword_100026E08;
-              fsckPrint(&v236, 437, v34, v35, v36, v37, v38, v39, path);
+              v213 = ctx;
+              v214 = *&qword_100026DF8;
+              v215 = qword_100026E08;
+              fsckPrint(&v213, 437, v22, v23, v24, v25, v26, v27, path);
               goto LABEL_95;
             }
 
-            if (v98)
+            if (v87)
             {
-              v99 = v98;
-              v100 = &byte_100024CD0;
+              v88 = v87;
+              v89 = &byte_100024CD0;
               while (1)
               {
-                v101 = *v100;
-                v100 += 32;
-                if (v101 != 193)
+                v90 = *v89;
+                v89 += 32;
+                if (v90 != 193)
                 {
                   break;
                 }
 
-                if (!--v99)
+                if (!--v88)
                 {
                   goto LABEL_127;
                 }
               }
 
 LABEL_137:
-              v236 = ctx;
-              v237 = *&qword_100026DF8;
-              v238 = qword_100026E08;
-              fsckPrint(&v236, 438, v34, v35, v36, v37, v38, v39, path);
+              v213 = ctx;
+              v214 = *&qword_100026DF8;
+              v215 = qword_100026E08;
+              fsckPrint(&v213, 438, v22, v23, v24, v25, v26, v27, path);
 LABEL_95:
-              v236 = ctx;
-              v237 = *&qword_100026DF8;
-              v238 = qword_100026E08;
-              if (fsckAskPrompt(&v236, "Delete? ", v88, v89, v90, v91, v92, v93, v212) != 1)
+              v213 = ctx;
+              v214 = *&qword_100026DF8;
+              v215 = qword_100026E08;
+              if (fsckAskPrompt(&v213, "Delete? ", v77, v78, v79, v80, v81, v82, v189) != 1)
               {
-                v28 = 0;
-                v27 = 0;
+                v16 = 0;
+                v15 = 0;
 LABEL_100:
-                v29 = 1;
+                v17 = 1;
                 LOBYTE(word_100026DD2) = 1;
                 goto LABEL_101;
               }
 
 LABEL_96:
-              LODWORD(value) = fsck_exfat_iter_dir_entries(ValueAtIndex, v8, (v26 - v8 + 32) >> 5, &stru_10001C5A0);
+              LODWORD(value) = fsck_exfat_iter_dir_entries(ValueAtIndex, v8, (v14 - v8 + 32) >> 5, &stru_10001C5A0);
               if (value)
               {
                 goto LABEL_112;
               }
 
 LABEL_116:
-              v28 = 0;
-              v27 = 0;
+              v16 = 0;
+              v15 = 0;
 LABEL_70:
-              v29 = 1;
+              v17 = 1;
               byte_100026DD4 = 1;
               goto LABEL_101;
             }
 
 LABEL_127:
-            if (fsck_exfat_name_hash(xmmword_100024C90, &v231) != word_100024CB4)
+            if (fsck_exfat_name_hash(xmmword_100024C90, &v208) != word_100024CB4)
             {
               goto LABEL_137;
             }
@@ -6444,88 +6450,88 @@ LABEL_127:
             if (dword_100026DD8 != 1 && (byte_100026DD7 & 1) == 0)
             {
               Mutable = CFStringCreateMutable(0, 0);
-              v230 = Mutable;
-              sub_1000070F8(xmmword_100024C90, &v230, byte_100024CB3);
-              v103 = CFStringCopyCStringUTF8(Mutable);
-              v104 = Mutable;
-              v105 = v103;
-              CFRelease(v104);
-              if (!strncmp(v105, ".nfs.20051", 0xAuLL))
+              v207 = Mutable;
+              sub_1000070F8(xmmword_100024C90, &v207, byte_100024CB3);
+              v92 = CFStringCopyCStringUTF8(Mutable);
+              v93 = Mutable;
+              v94 = v92;
+              CFRelease(v93);
+              if (!strncmp(v94, ".nfs.20051", 0xAuLL))
               {
-                v236 = ctx;
-                v237 = *&qword_100026DF8;
-                v238 = qword_100026E08;
-                fsckPrint(&v236, 446, v106, v107, v108, v109, v110, v111, v205);
-                free(v105);
+                v213 = ctx;
+                v214 = *&qword_100026DF8;
+                v215 = qword_100026E08;
+                fsckPrint(&v213, 446, v95, v96, v97, v98, v99, v100, v182);
+                free(v94);
                 goto LABEL_96;
               }
 
-              free(v105);
+              free(v94);
             }
 
-            v112 = fsck_exfat_dir_from_file_set(xmmword_100024C90);
-            v113 = *(ValueAtIndex + 8);
-            *(ValueAtIndex + 8) = v113 + 1;
-            if (v113 == -1)
+            v101 = fsck_exfat_dir_from_file_set(xmmword_100024C90);
+            v102 = *(ValueAtIndex + 8);
+            *(ValueAtIndex + 8) = v102 + 1;
+            if (v102 == -1)
             {
               sub_1000101C4();
             }
 
-            *v112 = ValueAtIndex;
-            *(v112 + 4) = v8;
-            *(v112 + 5) = v225;
-            v218 = v112;
-            v219 = fsck_exfat_dir_get_path(v112);
-            *&v234 = qword_100024CC8;
-            *(&v234 + 1) = unk_100024CB8;
-            LODWORD(v235) = unk_100024CC4;
-            BYTE8(v235) = byte_100024CB1;
-            v217 = sub_100007978(v218[1]);
+            *v101 = ValueAtIndex;
+            *(v101 + 4) = v8;
+            *(v101 + 5) = v202;
+            v195 = v101;
+            v196 = fsck_exfat_dir_get_path(v101);
+            *&v211 = qword_100024CC8;
+            *(&v211 + 1) = unk_100024CB8;
+            LODWORD(v212) = unk_100024CC4;
+            BYTE8(v212) = byte_100024CB1;
+            v194 = sub_100007978(v195[1]);
             if (debug)
             {
-              v236 = ctx;
-              v237 = *&qword_100026DF8;
-              v238 = qword_100026E08;
+              v213 = ctx;
+              v214 = *&qword_100026DF8;
+              v215 = qword_100026E08;
               if ((BYTE4(xmmword_100024C90[0]) & 0x10) != 0)
               {
-                fsck_printf(&v236, "Directory %s\n", v114, v115, v116, v117, v118, v119, v219);
+                fsck_printf(&v213, "Directory %s\n");
               }
 
               else
               {
-                fsck_printf(&v236, "File      %s\n", v114, v115, v116, v117, v118, v119, v219);
+                fsck_printf(&v213, "File      %s\n");
               }
             }
 
-            if (v231 == 1)
+            if (v208 == 1)
             {
               if (qword_100026DE0)
               {
                 ++*(qword_100026DE0 + 44);
               }
 
-              v120 = v218;
-              v121 = CFStringCopyCStringUTF8(v218[1]);
-              v236 = ctx;
-              v237 = *&qword_100026DF8;
-              v238 = qword_100026E08;
-              fsckPrint(&v236, 445, v122, v123, v124, v125, v126, v127, path);
-              free(v121);
-              v236 = ctx;
-              v237 = *&qword_100026DF8;
-              v238 = qword_100026E08;
-              if (fsckAskPrompt(&v236, "Rename? ", v128, v129, v130, v131, v132, v133, v213) == 1)
+              v103 = v195;
+              v104 = CFStringCopyCStringUTF8(v195[1]);
+              v213 = ctx;
+              v214 = *&qword_100026DF8;
+              v215 = qword_100026E08;
+              fsckPrint(&v213, 445, v105, v106, v107, v108, v109, v110, path);
+              free(v104);
+              v213 = ctx;
+              v214 = *&qword_100026DF8;
+              v215 = qword_100026E08;
+              if (fsckAskPrompt(&v213, "Rename? ", v111, v112, v113, v114, v115, v116, v190) == 1)
               {
-                v140 = v221;
+                v123 = v198;
                 goto LABEL_150;
               }
 
 LABEL_152:
-              v236 = ctx;
-              v237 = *&qword_100026DF8;
-              v238 = qword_100026E08;
-              v160 = &unk_100024000;
-              if (fsckAskPrompt(&v236, "Delete? ", v134, v135, v136, v137, v138, v139, v205) != 1)
+              v213 = ctx;
+              v214 = *&qword_100026DF8;
+              v215 = qword_100026E08;
+              v143 = &unk_100024000;
+              if (fsckAskPrompt(&v213, "Delete? ", v117, v118, v119, v120, v121, v122, v182) != 1)
               {
                 LOBYTE(word_100026DD2) = 1;
                 goto LABEL_154;
@@ -6534,10 +6540,10 @@ LABEL_152:
               goto LABEL_174;
             }
 
-            if (sub_100007A04(ValueAtIndex, v218, v217, v223, path))
+            if (sub_100007A04(ValueAtIndex, v195, v194, v200, path))
             {
-              sub_100007B04(v217, v223, path);
-              ++v224;
+              sub_100007B04(v194, v200, path);
+              ++v201;
             }
 
             else
@@ -6547,93 +6553,93 @@ LABEL_152:
                 ++*(qword_100026DE0 + 48);
               }
 
-              v120 = v218;
-              v147 = CFStringCopyCStringUTF8(v218[1]);
-              v236 = ctx;
-              v237 = *&qword_100026DF8;
-              v238 = qword_100026E08;
-              fsckPrint(&v236, 444, v148, v149, v150, v151, v152, v153, path);
-              free(v147);
-              v236 = ctx;
-              v237 = *&qword_100026DF8;
-              v238 = qword_100026E08;
-              if (fsckAskPrompt(&v236, "Rename? ", v154, v155, v156, v157, v158, v159, v214) != 1)
+              v103 = v195;
+              v130 = CFStringCopyCStringUTF8(v195[1]);
+              v213 = ctx;
+              v214 = *&qword_100026DF8;
+              v215 = qword_100026E08;
+              fsckPrint(&v213, 444, v131, v132, v133, v134, v135, v136, path);
+              free(v130);
+              v213 = ctx;
+              v214 = *&qword_100026DF8;
+              v215 = qword_100026E08;
+              if (fsckAskPrompt(&v213, "Rename? ", v137, v138, v139, v140, v141, v142, v191) != 1)
               {
                 goto LABEL_152;
               }
 
-              v140 = v220;
+              v123 = v197;
 LABEL_150:
-              CFArrayAppendValue(v140, v120);
+              CFArrayAppendValue(v123, v103);
             }
 
-            v160 = &unk_100024000;
+            v143 = &unk_100024000;
 LABEL_154:
-            v161 = fsck_exfat_check_allocation(&v234, v219, v141, v142, v143, v144, v145, v146);
-            LODWORD(value) = v161;
-            if (v161 == -1 || v234 || (BYTE4(xmmword_100024C90[0]) & 0x10) == 0)
+            v144 = fsck_exfat_check_allocation(&v211, v196, v124, v125, v126, v127, v128, v129);
+            LODWORD(value) = v144;
+            if (v144 == -1 || v211 || (BYTE4(xmmword_100024C90[0]) & 0x10) == 0)
             {
-              if (v161 == 1)
+              if (v144 == 1)
               {
-                unk_100024CB8 = *(&v234 + 1);
-                qword_100024CC8 = v234;
-                unk_100024CC4 = v235;
-                byte_100024CB1 = BYTE8(v235);
-                v227 = 1;
+                unk_100024CB8 = *(&v211 + 1);
+                qword_100024CC8 = v211;
+                unk_100024CC4 = v212;
+                byte_100024CB1 = BYTE8(v212);
+                v204 = 1;
               }
 
-              *(v218 + 7) = DWORD1(v235);
-              v168 = v160[3217];
+              *(v195 + 7) = DWORD1(v212);
+              v151 = v143[3217];
               while (2)
               {
-                if (v98 >= v168 - 1)
+                if (v87 >= v151 - 1)
                 {
                   goto LABEL_180;
                 }
 
-                v169 = &xmmword_100024C90[2 * v98];
-                v171 = *(v169 + 64);
-                v170 = v169 + 4;
-                if ((v171 & 0x20) == 0)
+                v152 = &xmmword_100024C90[2 * v87];
+                v154 = *(v152 + 64);
+                v153 = v152 + 4;
+                if ((v154 & 0x20) == 0)
                 {
-                  v236 = ctx;
-                  v237 = *&qword_100026DF8;
-                  v238 = qword_100026E08;
-                  fsckPrint(&v236, 441, v162, v163, v164, v165, v166, v167, v219);
-                  v236 = ctx;
-                  v237 = *&qword_100026DF8;
-                  v238 = qword_100026E08;
-                  if (fsckAskPrompt(&v236, "Remove? ", v172, v173, v174, v175, v176, v177, v215) == 1)
+                  v213 = ctx;
+                  v214 = *&qword_100026DF8;
+                  v215 = qword_100026E08;
+                  fsckPrint(&v213, 441, v145, v146, v147, v148, v149, v150, v196);
+                  v213 = ctx;
+                  v214 = *&qword_100026DF8;
+                  v215 = qword_100026E08;
+                  if (fsckAskPrompt(&v213, "Remove? ", v155, v156, v157, v158, v159, v160, v192) == 1)
                   {
-                    LODWORD(v178) = v98 + 1;
-                    LODWORD(v179) = v160[3217];
-                    if (v98 + 1 < v179 - 1)
+                    LODWORD(v161) = v87 + 1;
+                    LODWORD(v162) = v143[3217];
+                    if (v87 + 1 < v162 - 1)
                     {
-                      v178 = v178;
-                      v180 = &xmmword_100024C90[2 * v178 + 4];
-                      v181 = v98;
+                      v161 = v161;
+                      v163 = &xmmword_100024C90[2 * v161 + 4];
+                      v164 = v87;
                       do
                       {
-                        v179 = &xmmword_100024C90[2 * v181];
-                        v182 = *v180;
-                        v183 = v180[1];
-                        v180 += 2;
-                        v179[4] = v182;
-                        v179[5] = v183;
-                        ++v178;
-                        LOBYTE(v179) = BYTE1(xmmword_100024C90[0]);
-                        ++v181;
+                        v162 = &xmmword_100024C90[2 * v164];
+                        v165 = *v163;
+                        v166 = v163[1];
+                        v163 += 2;
+                        v162[4] = v165;
+                        v162[5] = v166;
+                        ++v161;
+                        LOBYTE(v162) = BYTE1(xmmword_100024C90[0]);
+                        ++v164;
                       }
 
-                      while (v178 < BYTE1(xmmword_100024C90[0]) - 1);
+                      while (v161 < BYTE1(xmmword_100024C90[0]) - 1);
                     }
 
-                    LOBYTE(v168) = v179 - 1;
-                    BYTE1(xmmword_100024C90[0]) = v179 - 1;
-                    LOBYTE(xmmword_100024C90[2 * (v179 - 1) + 2]) &= ~0x80u;
-                    v227 = 1;
+                    LOBYTE(v151) = v162 - 1;
+                    BYTE1(xmmword_100024C90[0]) = v162 - 1;
+                    LOBYTE(xmmword_100024C90[2 * (v162 - 1) + 2]) &= ~0x80u;
+                    v204 = 1;
 LABEL_172:
-                    v168 = v168;
+                    v151 = v151;
                     continue;
                   }
 
@@ -6643,39 +6649,39 @@ LABEL_172:
                 break;
               }
 
-              v184 = *(v170 + 1);
-              if (v184)
+              v167 = *(v153 + 1);
+              if (v167)
               {
-                *&v234 = *(v170 + 3);
-                *(&v234 + 1) = v234;
-                LODWORD(v235) = *(v170 + 5);
-                BYTE8(v235) = v184;
-                LODWORD(value) = fsck_exfat_check_allocation(&v234, v219, v162, v163, v164, v165, v166, v167);
+                *&v211 = *(v153 + 3);
+                *(&v211 + 1) = v211;
+                LODWORD(v212) = *(v153 + 5);
+                BYTE8(v212) = v167;
+                LODWORD(value) = fsck_exfat_check_allocation(&v211, v196, v145, v146, v147, v148, v149, v150);
                 if (value == 1)
                 {
-                  *(v170 + 3) = v234;
-                  *(v170 + 5) = v235;
-                  *(v170 + 1) = BYTE8(v235);
-                  v227 = 1;
+                  *(v153 + 3) = v211;
+                  *(v153 + 5) = v212;
+                  *(v153 + 1) = BYTE8(v212);
+                  v204 = 1;
                 }
               }
 
-              LODWORD(v98) = v98 + 1;
-              LOBYTE(v168) = v160[3217];
+              LODWORD(v87) = v87 + 1;
+              LOBYTE(v151) = v143[3217];
               goto LABEL_172;
             }
 
-            v236 = ctx;
-            v237 = *&qword_100026DF8;
-            v238 = qword_100026E08;
-            fsckPrint(&v236, 443, v162, v163, v164, v165, v166, v167, v219);
-            v236 = ctx;
-            v237 = *&qword_100026DF8;
-            v238 = qword_100026E08;
-            if (fsckAskPrompt(&v236, "Delete? ", v185, v186, v187, v188, v189, v190, v216) == 1)
+            v213 = ctx;
+            v214 = *&qword_100026DF8;
+            v215 = qword_100026E08;
+            fsckPrint(&v213, 443, v145, v146, v147, v148, v149, v150, v196);
+            v213 = ctx;
+            v214 = *&qword_100026DF8;
+            v215 = qword_100026E08;
+            if (fsckAskPrompt(&v213, "Delete? ", v168, v169, v170, v171, v172, v173, v193) == 1)
             {
 LABEL_174:
-              LODWORD(value) = fsck_exfat_iter_dir_entries(ValueAtIndex, v8, v225 & 0x7FFFFFF, &stru_10001C5A0);
+              LODWORD(value) = fsck_exfat_iter_dir_entries(ValueAtIndex, v8, v202 & 0x7FFFFFF, &stru_10001C5A0);
               if (value)
               {
                 HIBYTE(word_100026DD2) = 1;
@@ -6686,36 +6692,36 @@ LABEL_174:
                 byte_100026DD4 = 1;
               }
 
-              fsck_exfat_dir_rele(v218);
-              v191 = v217;
+              fsck_exfat_dir_rele(v195);
+              v174 = v194;
             }
 
             else
             {
               LOBYTE(word_100026DD2) = 1;
 LABEL_180:
-              if (v227)
+              if (v204)
               {
-                v192 = 0;
-                v193 = 0;
+                v175 = 0;
+                v176 = 0;
                 do
                 {
-                  if ((v193 & 0x7FFFFFFFFFFFFFFELL) != 2)
+                  if ((v176 & 0x7FFFFFFFFFFFFFFELL) != 2)
                   {
-                    v192 = ((v192 >> 1) | (v192 << 15)) + *(xmmword_100024C90 + v193);
+                    v175 = ((v175 >> 1) | (v175 << 15)) + *(xmmword_100024C90 + v176);
                   }
 
-                  ++v193;
+                  ++v176;
                 }
 
-                while (32 * v160[3217] + 32 != v193);
-                WORD1(xmmword_100024C90[0]) = v192;
-                *&v236 = _NSConcreteStackBlock;
-                *(&v236 + 1) = 0x40000000;
-                *&v237 = sub_100005BE4;
-                *(&v237 + 1) = &unk_10001C5C0;
-                v238 = xmmword_100024C90;
-                LODWORD(value) = fsck_exfat_iter_dir_entries(ValueAtIndex, v8, v225, &v236);
+                while (32 * v143[3217] + 32 != v176);
+                WORD1(xmmword_100024C90[0]) = v175;
+                *&v213 = _NSConcreteStackBlock;
+                *(&v213 + 1) = 0x40000000;
+                *&v214 = sub_100005BE4;
+                *(&v214 + 1) = &unk_10001C5C0;
+                v215 = xmmword_100024C90;
+                LODWORD(value) = fsck_exfat_iter_dir_entries(ValueAtIndex, v8, v202, &v213);
                 if (value)
                 {
                   HIBYTE(word_100026DD2) = 1;
@@ -6729,9 +6735,9 @@ LABEL_180:
 
               if ((BYTE4(xmmword_100024C90[0]) & 0x10) != 0)
               {
-                v194 = v218;
-                CFArrayAppendValue(v222, v218);
-                v195 = v217;
+                v177 = v195;
+                CFArrayAppendValue(v199, v195);
+                v178 = v194;
                 if (qword_100026DE0)
                 {
                   ++*(qword_100026DE0 + 28);
@@ -6740,131 +6746,131 @@ LABEL_180:
 
               else
               {
-                v195 = v217;
-                v194 = v218;
+                v178 = v194;
+                v177 = v195;
                 if (qword_100026DE0)
                 {
                   ++*(qword_100026DE0 + 24);
                 }
               }
 
-              fsck_exfat_telemetry_filename_length(*(v194 + 38));
-              if (qword_100026DE0 && *(v194 + 38) >= 3u)
+              fsck_exfat_telemetry_filename_length(*(v177 + 38));
+              if (qword_100026DE0 && *(v177 + 38) >= 3u)
               {
-                v196 = CFStringCopyCStringUTF8(v194[1]);
-                if (*v196 == 46 && v196[1] == 95)
+                v179 = CFStringCopyCStringUTF8(v177[1]);
+                if (*v179 == 46 && v179[1] == 95)
                 {
                   ++*(qword_100026DE0 + 36);
                 }
 
-                free(v196);
+                free(v179);
               }
 
-              fsck_exfat_dir_rele(v194);
-              v191 = v195;
+              fsck_exfat_dir_rele(v177);
+              v174 = v178;
             }
 
-            CFRelease(v191);
-            free(v219);
+            CFRelease(v174);
+            free(v196);
           }
 
           else
           {
             if (BYTE1(xmmword_100024C90[0]))
             {
-              v94 = 0;
-              v95 = &qword_100024CC8;
+              v83 = 0;
+              v84 = &qword_100024CC8;
               do
               {
-                v96 = *(v95 - 23);
-                if (v96)
+                v85 = *(v84 - 23);
+                if (v85)
                 {
-                  *&v234 = *v95;
-                  *(&v234 + 1) = v234;
-                  LODWORD(v235) = *(v95 - 1);
-                  BYTE8(v235) = v96;
-                  LODWORD(value) = fsck_exfat_check_allocation(&v234, path, v34, v35, v36, v37, v38, v39);
+                  *&v211 = *v84;
+                  *(&v211 + 1) = v211;
+                  LODWORD(v212) = *(v84 - 1);
+                  BYTE8(v212) = v85;
+                  LODWORD(value) = fsck_exfat_check_allocation(&v211, path, v22, v23, v24, v25, v26, v27);
                   if (value == 1)
                   {
-                    *v95 = v234;
-                    *(v95 - 1) = v235;
-                    *(v95 - 23) = BYTE8(v235);
-                    v227 = 1;
+                    *v84 = v211;
+                    *(v84 - 1) = v212;
+                    *(v84 - 23) = BYTE8(v212);
+                    v204 = 1;
                   }
                 }
 
-                ++v94;
-                v95 += 4;
+                ++v83;
+                v84 += 4;
               }
 
-              while (v94 < BYTE1(xmmword_100024C90[0]));
+              while (v83 < BYTE1(xmmword_100024C90[0]));
             }
 
-            if (v227)
+            if (v204)
             {
-              *&v236 = _NSConcreteStackBlock;
-              *(&v236 + 1) = 0x40000000;
-              *&v237 = sub_100005BE4;
-              *(&v237 + 1) = &unk_10001C5C0;
-              v238 = xmmword_100024C90;
-              LODWORD(value) = fsck_exfat_iter_dir_entries(a1, v8, v225, &v236);
+              *&v213 = _NSConcreteStackBlock;
+              *(&v213 + 1) = 0x40000000;
+              *&v214 = sub_100005BE4;
+              *(&v214 + 1) = &unk_10001C5C0;
+              v215 = xmmword_100024C90;
+              LODWORD(value) = fsck_exfat_iter_dir_entries(a1, v8, v202, &v213);
               if (value)
               {
-                v227 = 0;
+                v204 = 0;
 LABEL_112:
-                v28 = 0;
-                v27 = 0;
+                v16 = 0;
+                v15 = 0;
 LABEL_113:
-                v29 = 1;
+                v17 = 1;
                 HIBYTE(word_100026DD2) = 1;
                 goto LABEL_101;
               }
 
-              v227 = 0;
+              v204 = 0;
               goto LABEL_116;
             }
           }
 
-          v227 = 0;
-          v28 = 0;
-          v27 = 0;
+          v204 = 0;
+          v16 = 0;
+          v15 = 0;
           goto LABEL_64;
         }
 
         goto LABEL_63;
       }
 
-      if ((v61 & 0x60) == 0)
+      if ((v49 & 0x60) == 0)
       {
-        v236 = ctx;
-        v237 = *&qword_100026DF8;
-        v238 = qword_100026E08;
-        fsckPrint(&v236, 427, v34, v35, v36, v37, v38, v39, path);
+        v213 = ctx;
+        v214 = *&qword_100026DF8;
+        v215 = qword_100026E08;
+        fsckPrint(&v213, 427, v22, v23, v24, v25, v26, v27, path);
         goto LABEL_68;
       }
 
-      if ((v61 & 0x40) == 0)
+      if ((v49 & 0x40) == 0)
       {
         sub_100010248();
       }
 
-      if (!v28)
+      if (!v16)
       {
-        v236 = ctx;
-        v237 = *&qword_100026DF8;
-        v238 = qword_100026E08;
-        fsckPrint(&v236, 428, v34, v35, v36, v37, v38, v39, path);
-        v236 = ctx;
-        v237 = *&qword_100026DF8;
-        v238 = qword_100026E08;
-        if (fsckAskPrompt(&v236, "Delete? ", v74, v75, v76, v77, v78, v79, v210) != 1)
+        v213 = ctx;
+        v214 = *&qword_100026DF8;
+        v215 = qword_100026E08;
+        fsckPrint(&v213, 428, v22, v23, v24, v25, v26, v27, path);
+        v213 = ctx;
+        v214 = *&qword_100026DF8;
+        v215 = qword_100026E08;
+        if (fsckAskPrompt(&v213, "Delete? ", v63, v64, v65, v66, v67, v68, v187) != 1)
         {
-          v28 = 0;
+          v16 = 0;
           goto LABEL_100;
         }
 
-        LODWORD(value) = fsck_exfat_iter_dir_entries(ValueAtIndex, v26, 1, &stru_10001C5A0);
-        v28 = 0;
+        LODWORD(value) = fsck_exfat_iter_dir_entries(ValueAtIndex, v14, 1, &stru_10001C5A0);
+        v16 = 0;
         if (value)
         {
           goto LABEL_113;
@@ -6873,36 +6879,36 @@ LABEL_113:
         goto LABEL_70;
       }
 
-      v72 = *(v40 + 1);
-      v73 = &xmmword_100024C90[2 * v27];
-      *v73 = *v40;
-      v73[1] = v72;
-      if (!--v28)
+      v61 = *(v28 + 1);
+      v62 = &xmmword_100024C90[2 * v15];
+      *v62 = *v28;
+      v62[1] = v61;
+      if (!--v16)
       {
         goto LABEL_84;
       }
 
-      ++v27;
+      ++v15;
 LABEL_64:
-      v29 = 1;
+      v17 = 1;
 LABEL_101:
-      v40 += 32;
-      v26 += 32;
-      if (v26 >= v32)
+      v28 += 32;
+      v14 += 32;
+      if (v14 >= v20)
       {
         goto LABEL_202;
       }
     }
 
-    v227 = 0;
-    v69 = *(v40 + 1);
-    xmmword_100024C90[0] = *v40;
-    unk_100024CA0 = v69;
-    v28 = v40[1];
-    v225 = v28 + 1;
+    v204 = 0;
+    v57 = *(v28 + 1);
+    xmmword_100024C90[0] = *v28;
+    unk_100024CA0 = v57;
+    v16 = v28[1];
+    v202 = v16 + 1;
 LABEL_63:
-    v27 = 1;
-    v8 = v26;
+    v15 = 1;
+    v8 = v14;
     goto LABEL_64;
   }
 
@@ -6997,20 +7003,20 @@ uint64_t fsck_exfat_check_fs(void *a1)
   if (boot_region > 0)
   {
 LABEL_17:
-    v27 = 507;
+    v26 = 507;
     if (!v10)
     {
 LABEL_19:
-      fsck_exfat_cache_flush(boot_region, v20, v21, v22, v23, v24, v25, v26);
+      fsck_exfat_cache_flush();
       v151 = ctx;
       v152 = *&qword_100026DF8;
       v153 = qword_100026E08;
-      fsckPrint(&v151, 106, v28, v29, v30, v31, v32, v33, byte_100026D3C);
+      fsckPrint(&v151, 106, v27, v28, v29, v30, v31, v32, byte_100026D3C);
       goto LABEL_20;
     }
 
 LABEL_18:
-    boot_region = (a1[2])(v27, *a1, a1[3]);
+    (a1[2])(v26, *a1, a1[3]);
     goto LABEL_19;
   }
 
@@ -7020,28 +7026,28 @@ LABEL_18:
     v151 = ctx;
     v152 = *&qword_100026DF8;
     v153 = qword_100026E08;
-    fsckPrint(&v151, 302, v21, v22, v23, v24, v25, v26, v143);
+    fsckPrint(&v151, 302, v20, v21, v22, v23, v24, v25, v143);
     v151 = ctx;
     v152 = *&qword_100026DF8;
     v153 = qword_100026E08;
-    fsckPrint(&v151, 202, v37, v38, v39, v40, v41, v42, v144);
-    v43 = read_boot_region(1);
-    if (v43)
+    fsckPrint(&v151, 202, v36, v37, v38, v39, v40, v41, v144);
+    v42 = read_boot_region(1);
+    if (v42)
     {
-      if (v43 == -1)
+      if (v42 == -1)
       {
         v18 = 211;
       }
 
       else
       {
-        v18 = v43;
+        v18 = v42;
       }
 
       v151 = ctx;
       v152 = *&qword_100026DF8;
       v153 = qword_100026E08;
-      boot_region = fsckPrint(&v151, 303, v21, v22, v23, v24, v25, v26, v143);
+      fsckPrint(&v151, 303, v20, v21, v22, v23, v24, v25, v143);
       goto LABEL_17;
     }
   }
@@ -7055,10 +7061,10 @@ LABEL_18:
 
   if (*(qword_100026CD0 + 104) == 256)
   {
-    v36 = 11;
-    while (!*(qword_100026CD0 + v36))
+    v35 = 11;
+    while (!*(qword_100026CD0 + v35))
     {
-      if (++v36 == 64)
+      if (++v35 == 64)
       {
         goto LABEL_50;
       }
@@ -7067,17 +7073,17 @@ LABEL_18:
     v151 = ctx;
     v152 = *&qword_100026DF8;
     v153 = qword_100026E08;
-    fsckPrint(&v151, 306, v21, v22, v23, v24, v25, v26, v143);
+    fsckPrint(&v151, 306, v20, v21, v22, v23, v24, v25, v143);
     v151 = ctx;
     v152 = *&qword_100026DF8;
     v153 = qword_100026E08;
-    if (fsckAskPrompt(&v151, "Fix? ", v44, v45, v46, v47, v48, v49, v145) == 1)
+    if (fsckAskPrompt(&v151, "Fix? ", v43, v44, v45, v46, v47, v48, v145) == 1)
     {
-      v50 = qword_100026CD0;
+      v49 = qword_100026CD0;
       *(qword_100026CD0 + 56) = 0;
-      *(v50 + 43) = 0u;
-      *(v50 + 27) = 0u;
-      *(v50 + 11) = 0u;
+      *(v49 + 43) = 0u;
+      *(v49 + 27) = 0u;
+      *(v49 + 11) = 0u;
       exfat_update_boot_checksum(qword_100026CD8, dword_100026CF8);
       byte_100026DD4 = 1;
     }
@@ -7099,58 +7105,58 @@ LABEL_50:
     v151 = ctx;
     v152 = *&qword_100026DF8;
     v153 = qword_100026E08;
-    fsck_printf(&v151, "%llu total sectors; %u bytes per sector\n", v21, v22, v23, v24, v25, v26, qword_100026CE8);
-    v57 = *(qword_100026CD0 + 110);
-    if (v57 != 1)
+    fsck_printf(&v151, "%llu total sectors; %u bytes per sector\n", qword_100026CE8, dword_100026CF8);
+    v50 = *(qword_100026CD0 + 110);
+    if (v50 != 1)
     {
       v151 = ctx;
       v152 = *&qword_100026DF8;
       v153 = qword_100026E08;
-      fsck_printf(&v151, "%d FATs; active FAT #%d; ", v51, v52, v53, v54, v55, v56, v57);
+      fsck_printf(&v151, "%d FATs; active FAT #%d; ", v50, dword_100026D38);
     }
 
     v151 = ctx;
     v152 = *&qword_100026DF8;
     v153 = qword_100026E08;
-    fsck_printf(&v151, "FAT starts at sector %u; size %u sectors\n", v51, v52, v53, v54, v55, v56, dword_100026CF0);
+    fsck_printf(&v151, "FAT starts at sector %u; size %u sectors\n", dword_100026CF0, dword_100026D04);
     v151 = ctx;
     v152 = *&qword_100026DF8;
     v153 = qword_100026E08;
-    fsck_printf(&v151, "%u clusters starting at sector %u; %u bytes per cluster\n", v58, v59, v60, v61, v62, v63, dword_100026D08);
+    fsck_printf(&v151, "%u clusters starting at sector %u; %u bytes per cluster\n", dword_100026D08, dword_100026CF4, dword_100026CFC);
     v151 = ctx;
     v152 = *&qword_100026DF8;
     v153 = qword_100026E08;
-    fsck_printf(&v151, "Root directory starts at cluster %u\n", v64, v65, v66, v67, v68, v69, dword_100026D10);
+    fsck_printf(&v151, "Root directory starts at cluster %u\n", dword_100026D10);
   }
 
-  v70 = *(qword_100026CD0 + 106);
+  v51 = *(qword_100026CD0 + 106);
   if (byte_100026DD7 != 1)
   {
     v150 = *(qword_100026CD0 + 106);
     if (v10)
     {
       (a1[1])(501, 3, 3, &v154 + 4, *a1, a1[3]);
-      v27 = 0;
+      v26 = 0;
     }
 
     else
     {
-      v27 = 507;
+      v26 = 507;
     }
 
     fsck_exfat_cache_init();
     ++HIDWORD(v154);
     if (a1)
     {
-      v74 = a1[4];
+      v55 = a1[4];
     }
 
     else
     {
-      v74 = 0;
+      v55 = 0;
     }
 
-    fsck_exfat_bitmap_init(v74);
+    fsck_exfat_bitmap_init(v55);
     ++HIDWORD(v154);
     fsck_exfat_fat_init();
     if (v10)
@@ -7166,7 +7172,7 @@ LABEL_50:
       v151 = ctx;
       v152 = *&qword_100026DF8;
       v153 = qword_100026E08;
-      fsck_err(&v151, 1, "Cannot allocate upper case translation table", v76, v77, v78, v79, v80, v143);
+      fsck_err(&v151, 1, "Cannot allocate upper case translation table", v57, v58, v59, v60, v61, v143);
     }
 
     if (dword_100026D10 < 2 || dword_100026D10 > dword_100026D0C)
@@ -7174,7 +7180,7 @@ LABEL_50:
       v151 = ctx;
       v152 = *&qword_100026DF8;
       v153 = qword_100026E08;
-      boot_region = fsckPrint(&v151, 401, v75, v76, v77, v78, v79, v80, "/");
+      fsckPrint(&v151, 401, v56, v57, v58, v59, v60, v61, "/");
       HIBYTE(word_100026DD2) = 1;
       if (!v10)
       {
@@ -7184,12 +7190,12 @@ LABEL_50:
 
     else
     {
-      if (fsck_exfat_fat_alloc_chain(dword_100026D10, &v154, "/", v76, v77, v78, v79, v80))
+      if (fsck_exfat_fat_alloc_chain(dword_100026D10, &v154, "/", v57, v58, v59, v60, v61))
       {
         v151 = ctx;
         v152 = *&qword_100026DF8;
         v153 = qword_100026E08;
-        if (fsckAskPrompt(&v151, "Truncate? ", v81, v82, v83, v84, v85, v86, v143) == 1 && !fsck_exfat_truncate_chain(dword_100026D10, v154, v154))
+        if (fsckAskPrompt(&v151, "Truncate? ", v62, v63, v64, v65, v66, v67, v143) == 1 && !fsck_exfat_truncate_chain(dword_100026D10, v154, v154))
         {
           byte_100026DD4 = 1;
         }
@@ -7201,16 +7207,16 @@ LABEL_50:
       }
 
       qword_100026D80 = malloc_type_calloc(1uLL, 0x28uLL, 0x1060040E3ABEE6CuLL);
-      v87 = CFRetain(&stru_10001C798);
-      v94 = qword_100026D80;
-      *(qword_100026D80 + 8) = v87;
-      v95 = v154;
-      *(v94 + 24) = dword_100026D10;
-      *(v94 + 28) = v95;
-      *(v94 + 39) = 0;
-      v96 = *(v94 + 32);
-      *(v94 + 32) = v96 + 1;
-      if (v96 == -1)
+      v68 = CFRetain(&stru_10001C798);
+      v75 = qword_100026D80;
+      *(qword_100026D80 + 8) = v68;
+      v76 = v154;
+      *(v75 + 24) = dword_100026D10;
+      *(v75 + 28) = v76;
+      *(v75 + 39) = 0;
+      v77 = *(v75 + 32);
+      *(v75 + 32) = v77 + 1;
+      if (v77 == -1)
       {
         sub_1000101C4();
       }
@@ -7218,34 +7224,33 @@ LABEL_50:
       v151 = ctx;
       v152 = *&qword_100026DF8;
       v153 = qword_100026E08;
-      fsckPrint(&v151, 203, v88, v89, v90, v91, v92, v93, v143);
+      fsckPrint(&v151, 203, v69, v70, v71, v72, v73, v74, v143);
       if (v10)
       {
         (a1[1])(502, 5, (dword_100026CFC * *(qword_100026D80 + 28)) >> 5, &v154 + 4, *a1, a1[3]);
-        v109 = fsck_exfat_scan_root(qword_100026D80, &v154 + 1, v103, v104, v105, v106, v107, v108);
-        if (v109)
+        v90 = fsck_exfat_scan_root(qword_100026D80, &v154 + 1, v84, v85, v86, v87, v88, v89);
+        if (v90)
         {
-          v18 = v109;
-          v27 = 508;
+          v18 = v90;
+          v26 = 508;
           goto LABEL_18;
         }
 
-        v117 = dword_100026CFC * *(qword_100026D80 + 28);
-        if (HIDWORD(v154) < v117 >> 5)
+        v104 = dword_100026CFC * *(qword_100026D80 + 28);
+        if (HIDWORD(v154) < v104 >> 5)
         {
-          HIDWORD(v154) = v117 >> 5;
+          HIDWORD(v154) = v104 >> 5;
         }
 
         (a1[2])(502, *a1, a1[3]);
         HIDWORD(v154) = 0;
-        v27 = 508;
+        v26 = 508;
       }
 
       else
       {
-        boot_region = fsck_exfat_scan_root(qword_100026D80, &v154 + 1, v97, v98, v99, v100, v101, v102);
-        v18 = boot_region;
-        if (boot_region)
+        v18 = fsck_exfat_scan_root(qword_100026D80, &v154 + 1, v78, v79, v80, v81, v82, v83);
+        if (v18)
         {
           goto LABEL_19;
         }
@@ -7254,13 +7259,13 @@ LABEL_50:
       v151 = ctx;
       v152 = *&qword_100026DF8;
       v153 = qword_100026E08;
-      fsckPrint(&v151, 205, v21, v22, v23, v24, v25, v26, v146);
+      fsckPrint(&v151, 205, v98, v99, v100, v101, v102, v103, v146);
       if (debug)
       {
         v151 = ctx;
         v152 = *&qword_100026DF8;
         v153 = qword_100026E08;
-        fsck_printf(&v151, "Directory /\n", v118, v119, v120, v121, v122, v123, v148);
+        fsck_printf(&v151, "Directory /\n");
       }
 
       if (v10)
@@ -7274,7 +7279,7 @@ LABEL_50:
 
         (a1[2])(503, *a1, a1[3]);
         HIDWORD(v154) = 0;
-        v27 = 509;
+        v26 = 509;
       }
 
       else
@@ -7287,15 +7292,14 @@ LABEL_50:
         v151 = ctx;
         v152 = *&qword_100026DF8;
         v153 = qword_100026E08;
-        fsckPrint(&v151, 424, v21, v22, v23, v24, v25, v26, v148);
+        fsckPrint(&v151, 424, v105, v106, v107, v108, v109, v110, v148);
         v151 = ctx;
         v152 = *&qword_100026DF8;
         v153 = qword_100026E08;
-        v130 = fsckAskPrompt(&v151, "Replace? ", v124, v125, v126, v127, v128, v129, v149);
-        if (v130 == 1)
+        if (fsckAskPrompt(&v151, "Replace? ", v111, v112, v113, v114, v115, v116, v149) == 1)
         {
-          boot_region = fsck_exfat_upcase_replace(v130, v131, v21, v22, v23, v24, v25, v26);
-          if (boot_region)
+          v117 = fsck_exfat_upcase_replace();
+          if (v117)
           {
             goto LABEL_127;
           }
@@ -7310,18 +7314,18 @@ LABEL_50:
       if (v10)
       {
         (a1[1])(504, 3, 3, &v154 + 4, *a1, a1[3]);
-        v27 = 510;
+        v26 = 510;
       }
 
       v151 = ctx;
       v152 = *&qword_100026DF8;
       v153 = qword_100026E08;
-      v132 = fsckPrint(&v151, 206, v21, v22, v23, v24, v25, v26, v148);
-      boot_region = fsck_exfat_bitmap_verify(v132, v133, v134, v135, v136, v137, v138, v139);
-      if (boot_region || (++HIDWORD(v154), boot_region = compare_boot_region(0, v20, v21, v22, v23, v24, v25, v26), boot_region) || (++HIDWORD(v154), boot_region = compare_boot_region(1, v20, v21, v22, v23, v24, v25, v26), boot_region))
+      v118 = fsckPrint(&v151, 206, v105, v106, v107, v108, v109, v110, v148);
+      v117 = fsck_exfat_bitmap_verify(v118, v119, v120, v121, v122, v123, v124, v125);
+      if (v117 || (++HIDWORD(v154), v117 = compare_boot_region(0, v126, v127, v128, v129, v130, v131, v132), v117) || (++HIDWORD(v154), v117 = compare_boot_region(1, v133, v134, v135, v136, v137, v138, v139), v117))
       {
 LABEL_127:
-        v18 = boot_region;
+        v18 = v117;
         if (!v10)
         {
           goto LABEL_19;
@@ -7333,7 +7337,7 @@ LABEL_127:
       if (!v10)
       {
 LABEL_85:
-        v18 = fsck_exfat_cache_flush(boot_region, v20, v21, v22, v23, v24, v25, v26);
+        v18 = fsck_exfat_cache_flush();
         ++HIDWORD(v154);
         if (!v18)
         {
@@ -7344,11 +7348,11 @@ LABEL_85:
             v151 = ctx;
             v152 = *&qword_100026DF8;
             v153 = qword_100026E08;
-            if (fsckAskPrompt(&v151, "Mark volume clean? ", v110, v111, v112, v113, v114, v115, v147) == 1)
+            if (fsckAskPrompt(&v151, "Mark volume clean? ", v91, v92, v93, v94, v95, v96, v147) == 1)
             {
-              v116 = qword_100026CD8;
+              v97 = qword_100026CD8;
               *(qword_100026CD0 + 106) = v150 & 0xFFFD;
-              if (pwrite(g, v116, qword_100026CE0, 0) != qword_100026CE0)
+              if (pwrite(g, v97, qword_100026CE0, 0) != qword_100026CE0)
               {
                 warn("Could not update main boot region");
                 v18 = *__error();
@@ -7367,7 +7371,7 @@ LABEL_85:
             v151 = ctx;
             v152 = *&qword_100026DF8;
             v153 = qword_100026E08;
-            fsckPrint(&v151, 108, v110, v111, v112, v113, v114, v115, byte_100026D3C);
+            fsckPrint(&v151, 108, v91, v92, v93, v94, v95, v96, byte_100026D3C);
             v18 = 202;
             if (!v10)
             {
@@ -7377,7 +7381,7 @@ LABEL_85:
 LABEL_133:
             if (v18)
             {
-              v140 = v27;
+              v140 = v26;
             }
 
             else
@@ -7394,7 +7398,7 @@ LABEL_133:
             v151 = ctx;
             v152 = *&qword_100026DF8;
             v153 = qword_100026E08;
-            fsckPrint(&v151, 109, v110, v111, v112, v113, v114, v115, byte_100026D3C);
+            fsckPrint(&v151, 109, v91, v92, v93, v94, v95, v96, byte_100026D3C);
             v18 = 203;
             if (!v10)
             {
@@ -7409,12 +7413,12 @@ LABEL_133:
           v153 = qword_100026E08;
           if (byte_100026DD4 == 1)
           {
-            fsckPrint(&v151, 105, v110, v111, v112, v113, v114, v115, byte_100026D3C);
+            fsckPrint(&v151, 105, v91, v92, v93, v94, v95, v96, byte_100026D3C);
           }
 
           else
           {
-            fsckPrint(&v151, 104, v110, v111, v112, v113, v114, v115, byte_100026D3C);
+            fsckPrint(&v151, 104, v91, v92, v93, v94, v95, v96, byte_100026D3C);
           }
 
           v18 = 0;
@@ -7433,31 +7437,31 @@ LABEL_133:
       HIDWORD(v154) = 0;
     }
 
-    boot_region = (a1[1])(506, 2, 2, &v154 + 4, *a1, a1[3]);
-    LODWORD(v27) = 512;
+    (a1[1])(506, 2, 2, &v154 + 4, *a1, a1[3]);
+    LODWORD(v26) = 512;
     goto LABEL_85;
   }
 
   if ((word_100026DD2 & 1) != 0 || (byte_100026DD0 & 1) != 0 || byte_100026DD1 == 1)
   {
-    v71 = __stderrp;
-    v72 = "QUICKCHECK ONLY; CORRUPTION FOUND\n";
-    v73 = 34;
+    v52 = __stderrp;
+    v53 = "QUICKCHECK ONLY; CORRUPTION FOUND\n";
+    v54 = 34;
 LABEL_62:
-    fwrite(v72, v73, 1uLL, v71);
+    fwrite(v53, v54, 1uLL, v52);
     v18 = 201;
     goto LABEL_20;
   }
 
-  if ((v70 & 4) != 0)
+  if ((v51 & 4) != 0)
   {
-    v71 = __stderrp;
-    v72 = "QUICKCHECK ONLY; FILESYSTEM MARKED CORRUPT\n";
-    v73 = 43;
+    v52 = __stderrp;
+    v53 = "QUICKCHECK ONLY; FILESYSTEM MARKED CORRUPT\n";
+    v54 = 43;
     goto LABEL_62;
   }
 
-  if ((v70 & 2) != 0)
+  if ((v51 & 2) != 0)
   {
     fwrite("QUICKCHECK ONLY; FILESYSTEM DIRTY\n", 0x22uLL, 1uLL, __stderrp);
     v18 = 200;
@@ -7487,15 +7491,15 @@ LABEL_20:
 
   if (a1)
   {
-    v34 = a1[4];
+    v33 = a1[4];
   }
 
   else
   {
-    v34 = 0;
+    v33 = 0;
   }
 
-  fsck_exfat_bitmap_deinit(v34);
+  fsck_exfat_bitmap_deinit(v33);
   if (qword_100026DB0)
   {
     free(qword_100026DB0);
@@ -7503,7 +7507,7 @@ LABEL_20:
 
   if (qword_100026DE0)
   {
-    fsck_exfat_send_telemetry_event();
+    fsck_exfat_send_telemetry_event(qword_100026DE0);
     free(qword_100026DE0);
   }
 
@@ -7642,16 +7646,16 @@ off_t format_buf_init()
   return lseek(fd, 0, 0);
 }
 
-void format_buf_flush()
+void format_buf_flush(ssize_t result)
 {
   if (format_buf_used)
   {
     fd = newfs_get_fd();
     if (write(fd, format_buf, format_buf_used) != format_buf_used)
     {
-      v7 = newfs_ctx;
-      v8 = qword_100026E38;
-      newfs_print(&v7, 16, v1, v2, v3, v4, v5, v6, "flushing format buffer");
+      v8 = newfs_ctx;
+      v9 = qword_100026E38;
+      newfs_print(&v8, 16, v2, v3, v4, v5, v6, v7, "flushing format buffer");
     }
 
     format_buf_used = 0;
@@ -7680,7 +7684,7 @@ void format_buf_zero(size_t a1)
       v1 -= v3;
       format_buf_used += v3;
       format_buf_offset += v3;
-      format_buf_flush();
+      format_buf_flush(v4);
       v2 = format_buf_used;
     }
 
@@ -7713,12 +7717,12 @@ void format_buf_write(char *__src, size_t __n)
         v5 = v2;
       }
 
-      memcpy((format_buf + v4), __src, v5);
+      v6 = memcpy((format_buf + v4), __src, v5);
       v2 -= v5;
       format_buf_used += v5;
       format_buf_offset += v5;
       __src += v5;
-      format_buf_flush();
+      format_buf_flush(v6);
       v4 = format_buf_used;
     }
 
@@ -7745,7 +7749,7 @@ uint64_t newfs_print(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uin
 {
   if (*result)
   {
-    return (*result)(*(result + 16), a2, &a9);
+    return (*result)(*(result + 16), a2, &a9, a4, a5, a6, a7, a8);
   }
 
   return result;
@@ -7766,20 +7770,20 @@ uint64_t format(uint64_t a1, void *a2)
   v4 = a2 && a2[1] && a2[2] && *a2 != 0;
   volume_name = newfs_get_volume_name();
   device_path = newfs_get_device_path();
-  v171 = 0;
+  v168 = 0;
   fd = newfs_get_fd();
   if (v4)
   {
-    (a2[1])(100, 10, 2, &v171, *a2, qword_100026E38);
+    (a2[1])(100, 10, 2, &v168, *a2, qword_100026E38);
   }
 
   sector_size = newfs_get_sector_size();
   if (!sector_size)
   {
-    v172 = newfs_ctx;
-    v173 = qword_100026E38;
+    v169 = newfs_ctx;
+    v170 = qword_100026E38;
     sector_size = 512;
-    newfs_print(&v172, 207, v8, v9, v10, v11, v12, v13, device_path);
+    newfs_print(&v169, 207, v8, v9, v10, v11, v12, v13, device_path);
   }
 
   total_sectors = *(a1 + 8);
@@ -7789,10 +7793,10 @@ uint64_t format(uint64_t a1, void *a2)
     *(a1 + 8) = total_sectors;
     if (total_sectors == -1)
     {
-      v172 = newfs_ctx;
-      v173 = qword_100026E38;
+      v169 = newfs_ctx;
+      v170 = qword_100026E38;
       total_sectors = 0x2000;
-      newfs_print(&v172, 208, v8, v9, v10, v11, v12, v13, device_path);
+      newfs_print(&v169, 208, v8, v9, v10, v11, v12, v13, device_path);
       *(a1 + 8) = 0x2000;
     }
   }
@@ -7809,12 +7813,12 @@ uint64_t format(uint64_t a1, void *a2)
     *(a1 + 16) = sector_size;
   }
 
-  ++v171;
+  ++v168;
   if ((12 * sector_size) > 0x20000)
   {
-    v172 = newfs_ctx;
-    v173 = qword_100026E38;
-    newfs_print(&v172, 200, v8, v9, v10, v11, v12, v13, sector_size);
+    v169 = newfs_ctx;
+    v170 = qword_100026E38;
+    newfs_print(&v169, 200, v8, v9, v10, v11, v12, v13, sector_size);
 LABEL_22:
     v20 = 22;
     goto LABEL_31;
@@ -7827,9 +7831,9 @@ LABEL_22:
     v19 = v17 * sector_size;
     if (v18 && v18 != v19)
     {
-      v172 = newfs_ctx;
-      v173 = qword_100026E38;
-      newfs_print(&v172, 201, v8, v9, v10, v11, v12, v13, v17);
+      v169 = newfs_ctx;
+      v170 = qword_100026E38;
+      newfs_print(&v169, 201, v8, v9, v10, v11, v12, v13, v17);
       goto LABEL_22;
     }
 
@@ -7838,9 +7842,9 @@ LABEL_22:
       *(a1 + 20) = v19;
       if (v19 >= 0x2000001)
       {
-        v172 = newfs_ctx;
-        v173 = qword_100026E38;
-        newfs_print(&v172, 202, v8, v9, v10, v11, v12, v13, v17);
+        v169 = newfs_ctx;
+        v170 = qword_100026E38;
+        newfs_print(&v169, 202, v8, v9, v10, v11, v12, v13, v17);
         goto LABEL_22;
       }
     }
@@ -7849,9 +7853,9 @@ LABEL_22:
   temp_buffer = malloc_type_calloc(1uLL, 0x20000uLL, 0xD4A4F4D7uLL);
   if (!temp_buffer || (v27 = malloc_type_malloc(*(a1 + 16), 0xBE8B9C31uLL)) == 0)
   {
-    v172 = newfs_ctx;
-    v173 = qword_100026E38;
-    newfs_print(&v172, 203, v21, v22, v23, v24, v25, v26, v169);
+    v169 = newfs_ctx;
+    v170 = qword_100026E38;
+    newfs_print(&v169, 203, v21, v22, v23, v24, v25, v26, v166);
     v20 = 12;
 LABEL_31:
     v29 = 107;
@@ -7866,9 +7870,9 @@ LABEL_31:
   v28 = v27;
   if (v4)
   {
-    ++v171;
+    ++v168;
     (a2[2])(100, *a2, qword_100026E38);
-    v171 = 0;
+    v168 = 0;
     v29 = 108;
   }
 
@@ -7886,83 +7890,79 @@ LABEL_31:
   *(a1 + 80) = *(a1 + 20) / *(a1 + 16);
   if (volume_name)
   {
-    v172 = newfs_ctx;
-    v173 = qword_100026E38;
-    newfs_print(&v172, 300, v32, v33, v34, v35, v36, v37, volume_name);
-    v38 = *(a1 + 16);
+    v169 = newfs_ctx;
+    v170 = qword_100026E38;
+    newfs_print(&v169, 300, v32, v33, v34, v35, v36, v37, volume_name);
   }
 
-  v39 = *a1;
-  v172 = newfs_ctx;
-  v173 = qword_100026E38;
-  newfs_print(&v172, 301, v32, v33, v34, v35, v36, v37, v39);
-  v40 = *(a1 + 8);
-  v41 = v40 * *(a1 + 16);
-  v172 = newfs_ctx;
-  v173 = qword_100026E38;
-  newfs_print(&v172, 302, v42, v43, v44, v45, v46, v47, v40);
-  v48 = *(a1 + 16);
-  v172 = newfs_ctx;
-  v173 = qword_100026E38;
-  newfs_print(&v172, 303, v49, v50, v51, v52, v53, v54, v48);
-  v55 = *(a1 + 20);
-  v172 = newfs_ctx;
-  v173 = qword_100026E38;
-  newfs_print(&v172, 304, v56, v57, v58, v59, v60, v61, v55);
-  v62 = *(a1 + 24);
-  v63 = *(a1 + 16) * v62;
-  v172 = newfs_ctx;
-  v173 = qword_100026E38;
-  newfs_print(&v172, 305, v64, v65, v66, v67, v68, v69, v62);
-  v70 = *(a1 + 28);
-  v172 = newfs_ctx;
-  v173 = qword_100026E38;
-  newfs_print(&v172, 306, v71, v72, v73, v74, v75, v76, v70);
-  v77 = *(a1 + 44);
-  v172 = newfs_ctx;
-  v173 = qword_100026E38;
-  newfs_print(&v172, 307, v78, v79, v80, v81, v82, v83, v77);
-  v84 = *(a1 + 32);
-  v85 = *(a1 + 16) * v84;
-  v172 = newfs_ctx;
-  v173 = qword_100026E38;
-  newfs_print(&v172, 308, v86, v87, v88, v89, v90, v91, v84);
-  v92 = *(a1 + 36);
-  v172 = newfs_ctx;
-  v173 = qword_100026E38;
-  newfs_print(&v172, 309, v93, v94, v95, v96, v97, v98, v92);
-  v99 = *(a1 + 40);
-  v172 = newfs_ctx;
-  v173 = qword_100026E38;
-  newfs_print(&v172, 310, v100, v101, v102, v103, v104, v105, v99);
-  v106 = *(a1 + 72);
-  v172 = newfs_ctx;
-  v173 = qword_100026E38;
-  newfs_print(&v172, 311, v107, v108, v109, v110, v111, v112, v106);
+  v38 = *a1;
+  v169 = newfs_ctx;
+  v170 = qword_100026E38;
+  newfs_print(&v169, 301, v32, v33, v34, v35, v36, v37, v38);
+  v39 = *(a1 + 8);
+  v169 = newfs_ctx;
+  v170 = qword_100026E38;
+  newfs_print(&v169, 302, v40, v41, v42, v43, v44, v45, v39);
+  v46 = *(a1 + 16);
+  v169 = newfs_ctx;
+  v170 = qword_100026E38;
+  newfs_print(&v169, 303, v47, v48, v49, v50, v51, v52, v46);
+  v53 = *(a1 + 20);
+  v169 = newfs_ctx;
+  v170 = qword_100026E38;
+  newfs_print(&v169, 304, v54, v55, v56, v57, v58, v59, v53);
+  v60 = *(a1 + 24);
+  v169 = newfs_ctx;
+  v170 = qword_100026E38;
+  newfs_print(&v169, 305, v61, v62, v63, v64, v65, v66, v60);
+  v67 = *(a1 + 28);
+  v169 = newfs_ctx;
+  v170 = qword_100026E38;
+  newfs_print(&v169, 306, v68, v69, v70, v71, v72, v73, v67);
+  v74 = *(a1 + 44);
+  v169 = newfs_ctx;
+  v170 = qword_100026E38;
+  newfs_print(&v169, 307, v75, v76, v77, v78, v79, v80, v74);
+  v81 = *(a1 + 32);
+  v169 = newfs_ctx;
+  v170 = qword_100026E38;
+  newfs_print(&v169, 308, v82, v83, v84, v85, v86, v87, v81);
+  v88 = *(a1 + 36);
+  v169 = newfs_ctx;
+  v170 = qword_100026E38;
+  newfs_print(&v169, 309, v89, v90, v91, v92, v93, v94, v88);
+  v95 = *(a1 + 40);
+  v169 = newfs_ctx;
+  v170 = qword_100026E38;
+  newfs_print(&v169, 310, v96, v97, v98, v99, v100, v101, v95);
+  v102 = *(a1 + 72);
+  v169 = newfs_ctx;
+  v170 = qword_100026E38;
+  newfs_print(&v169, 311, v103, v104, v105, v106, v107, v108, v102);
   if (*(a1 + 44) == 2)
   {
-    v119 = *(a1 + 76);
-    v172 = newfs_ctx;
-    v173 = qword_100026E38;
-    newfs_print(&v172, 312, v113, v114, v115, v116, v117, v118, v119);
+    v115 = *(a1 + 76);
+    v169 = newfs_ctx;
+    v170 = qword_100026E38;
+    newfs_print(&v169, 312, v109, v110, v111, v112, v113, v114, v115);
   }
 
-  v120 = *(a1 + 84);
-  v172 = newfs_ctx;
-  v173 = qword_100026E38;
-  newfs_print(&v172, 313, v113, v114, v115, v116, v117, v118, v120);
-  v121 = *(a1 + 88);
-  v172 = newfs_ctx;
-  v173 = qword_100026E38;
-  newfs_print(&v172, 314, v122, v123, v124, v125, v126, v127, v121);
-  v128 = *(a1 + 92);
-  v172 = newfs_ctx;
-  v173 = qword_100026E38;
-  newfs_print(&v172, 315, v129, v130, v131, v132, v133, v134, v128);
-  v135 = *(a1 + 96);
-  v172 = newfs_ctx;
-  v173 = qword_100026E38;
-  newfs_print(&v172, 316, v136, v137, v138, v139, v140, v141, v135);
+  v116 = *(a1 + 84);
+  v169 = newfs_ctx;
+  v170 = qword_100026E38;
+  newfs_print(&v169, 313, v109, v110, v111, v112, v113, v114, v116);
+  v117 = *(a1 + 88);
+  v169 = newfs_ctx;
+  v170 = qword_100026E38;
+  newfs_print(&v169, 314, v118, v119, v120, v121, v122, v123, v117);
+  v124 = *(a1 + 92);
+  v169 = newfs_ctx;
+  v170 = qword_100026E38;
+  newfs_print(&v169, 315, v125, v126, v127, v128, v129, v130, v124);
+  v131 = *(a1 + 96);
+  v169 = newfs_ctx;
+  v170 = qword_100026E38;
+  newfs_print(&v169, 316, v132, v133, v134, v135, v136, v137, v131);
   if (*(a1 + 104))
   {
     v20 = 0;
@@ -7971,7 +7971,7 @@ LABEL_31:
 
   if (v4)
   {
-    (a2[1])(102, 25, 1, &v171, *a2, qword_100026E38);
+    (a2[1])(102, 25, 1, &v168, *a2, qword_100026E38);
     v29 = 109;
   }
 
@@ -7982,218 +7982,218 @@ LABEL_31:
 
   if (*(&newfs_ctx + 1))
   {
-    v142 = *(a1 + 16);
-    v143 = *(a1 + 32) + (*(a1 + 96) - 1) * *(a1 + 80);
-    *&v172 = 0;
-    *(&v172 + 1) = fd;
-    v173 = v142;
-    v174 = 0;
-    v175 = v143;
-    v176 = 0;
-    v144 = (*(&newfs_ctx + 1))(qword_100026E38, &v172);
-    ++v171;
-    if (v144)
+    v138 = *(a1 + 16);
+    v139 = *(a1 + 32) + (*(a1 + 96) - 1) * *(a1 + 80);
+    *&v169 = 0;
+    *(&v169 + 1) = fd;
+    v170 = v138;
+    v171 = 0;
+    v172 = v139;
+    v173 = 0;
+    v140 = (*(&newfs_ctx + 1))(qword_100026E38, &v169);
+    ++v168;
+    if (v140)
     {
-      v20 = v144;
-      v172 = newfs_ctx;
-      v173 = qword_100026E38;
-      newfs_print(&v172, 401, v145, v146, v147, v148, v149, v150, "format");
+      v20 = v140;
+      v169 = newfs_ctx;
+      v170 = qword_100026E38;
+      newfs_print(&v169, 401, v141, v142, v143, v144, v145, v146, "format");
       goto LABEL_82;
     }
   }
 
   else
   {
-    ++v171;
+    ++v168;
   }
 
   if (v4)
   {
     (a2[2])(102, *a2, qword_100026E38);
-    v171 = 0;
-    (a2[1])(103, 10, 3, &v171, *a2, qword_100026E38);
+    v168 = 0;
+    (a2[1])(103, 10, 3, &v168, *a2, qword_100026E38);
     v29 = 110;
   }
 
-  v151 = temp_buffer;
+  v147 = temp_buffer;
   if (!*(a1 + 100))
   {
     bzero(temp_buffer, *(a1 + 16));
-    *(v151 + 7) = 538976340;
-    *v151 = *"\xEB\x76\x90EXFAT   ";
-    *(v151 + 64) = *a1;
-    *(v151 + 72) = *(a1 + 8);
-    *(v151 + 80) = *(a1 + 24);
-    *(v151 + 84) = *(a1 + 28);
-    *(v151 + 88) = *(a1 + 32);
-    *(v151 + 92) = *(a1 + 36);
-    *(v151 + 100) = *(a1 + 40);
-    *(v151 + 104) = 256;
-    v152 = *(a1 + 16);
-    if (v152 < 2)
+    *(v147 + 7) = 538976340;
+    *v147 = *"\xEB\x76\x90EXFAT   ";
+    *(v147 + 64) = *a1;
+    *(v147 + 72) = *(a1 + 8);
+    *(v147 + 80) = *(a1 + 24);
+    *(v147 + 84) = *(a1 + 28);
+    *(v147 + 88) = *(a1 + 32);
+    *(v147 + 92) = *(a1 + 36);
+    *(v147 + 100) = *(a1 + 40);
+    *(v147 + 104) = 256;
+    v148 = *(a1 + 16);
+    if (v148 < 2)
     {
-      v153 = 0;
+      v149 = 0;
     }
 
     else
     {
-      v153 = 0;
+      v149 = 0;
       do
       {
-        ++v153;
-        v154 = v152 > 3;
-        v152 >>= 1;
+        ++v149;
+        v150 = v148 > 3;
+        v148 >>= 1;
       }
 
-      while (v154);
+      while (v150);
     }
 
-    *(v151 + 108) = v153;
-    v155 = *(a1 + 80);
-    if (v155 < 2)
+    *(v147 + 108) = v149;
+    v151 = *(a1 + 80);
+    if (v151 < 2)
     {
-      v156 = 0;
+      v152 = 0;
     }
 
     else
     {
-      v156 = 0;
+      v152 = 0;
       do
       {
-        ++v156;
-        v154 = v155 > 3;
-        v155 >>= 1;
+        ++v152;
+        v150 = v151 > 3;
+        v151 >>= 1;
       }
 
-      while (v154);
+      while (v150);
     }
 
-    v157 = *(a1 + 44);
-    *&v158 = 0xF4F4F4F4F4F4F4F4;
-    *(&v158 + 1) = 0xF4F4F4F4F4F4F4F4;
-    *(v151 + 120) = v158;
-    *(v151 + 109) = v156;
-    *(v151 + 110) = v157;
-    *(v151 + 111) = 0x80;
-    *(v151 + 472) = v158;
-    *(v151 + 488) = v158;
-    *(v151 + 440) = v158;
-    *(v151 + 456) = v158;
-    *(v151 + 408) = v158;
-    *(v151 + 424) = v158;
-    *(v151 + 376) = v158;
-    *(v151 + 392) = v158;
-    *(v151 + 344) = v158;
-    *(v151 + 360) = v158;
-    *(v151 + 312) = v158;
-    *(v151 + 328) = v158;
-    *(v151 + 280) = v158;
-    *(v151 + 296) = v158;
-    *(v151 + 248) = v158;
-    *(v151 + 264) = v158;
-    *(v151 + 216) = v158;
-    *(v151 + 232) = v158;
-    *(v151 + 184) = v158;
-    *(v151 + 200) = v158;
-    *(v151 + 152) = v158;
-    *(v151 + 168) = v158;
-    *(v151 + 136) = v158;
-    *(v151 + 502) = 0xF4F4F4F4F4F4F4F4;
+    v153 = *(a1 + 44);
+    *&v154 = 0xF4F4F4F4F4F4F4F4;
+    *(&v154 + 1) = 0xF4F4F4F4F4F4F4F4;
+    *(v147 + 120) = v154;
+    *(v147 + 109) = v152;
+    *(v147 + 110) = v153;
+    *(v147 + 111) = 0x80;
+    *(v147 + 472) = v154;
+    *(v147 + 488) = v154;
+    *(v147 + 440) = v154;
+    *(v147 + 456) = v154;
+    *(v147 + 408) = v154;
+    *(v147 + 424) = v154;
+    *(v147 + 376) = v154;
+    *(v147 + 392) = v154;
+    *(v147 + 344) = v154;
+    *(v147 + 360) = v154;
+    *(v147 + 312) = v154;
+    *(v147 + 328) = v154;
+    *(v147 + 280) = v154;
+    *(v147 + 296) = v154;
+    *(v147 + 248) = v154;
+    *(v147 + 264) = v154;
+    *(v147 + 216) = v154;
+    *(v147 + 232) = v154;
+    *(v147 + 184) = v154;
+    *(v147 + 200) = v154;
+    *(v147 + 152) = v154;
+    *(v147 + 168) = v154;
+    *(v147 + 136) = v154;
+    *(v147 + 502) = 0xF4F4F4F4F4F4F4F4;
   }
 
-  v159 = *(a1 + 96);
-  *(v151 + 96) = v159;
-  *(v151 + 112) = (100 * v159 - 100) / *(a1 + 36);
-  v160 = 2;
-  *(v151 + 106) = 0;
-  *(v151 + 510) = -21931;
+  v155 = *(a1 + 96);
+  *(v147 + 96) = v155;
+  *(v147 + 112) = (100 * v155 - 100) / *(a1 + 36);
+  v156 = 2;
+  *(v147 + 106) = 0;
+  *(v147 + 510) = -21931;
   do
   {
-    *(temp_buffer + (*(a1 + 16) * v160 - 4)) = 0;
-    *(temp_buffer + (*(a1 + 16) * v160 - 3)) = 0;
-    *(temp_buffer + (*(a1 + 16) * v160 - 2)) = 85;
-    *(temp_buffer + (*(a1 + 16) * v160++ - 1)) = -86;
+    *(temp_buffer + (*(a1 + 16) * v156 - 4)) = 0;
+    *(temp_buffer + (*(a1 + 16) * v156 - 3)) = 0;
+    *(temp_buffer + (*(a1 + 16) * v156 - 2)) = 85;
+    *(temp_buffer + (*(a1 + 16) * v156++ - 1)) = -86;
   }
 
-  while (v160 != 10);
+  while (v156 != 10);
   exfat_set_boot_checksum(temp_buffer, *(a1 + 16));
-  ++v171;
+  ++v168;
   memmove(v28, temp_buffer, *(a1 + 16));
   bzero(temp_buffer, *(a1 + 16));
-  ++v171;
+  ++v168;
   format_buf_init();
   format_buf_write(temp_buffer, (12 * *(a1 + 16)));
   format_buf_write(temp_buffer, (12 * *(a1 + 16)));
   format_buf_zero_to_offset(*(a1 + 16) * *(a1 + 24));
-  ++v171;
+  ++v168;
   if (v4)
   {
     (a2[2])(103, *a2, qword_100026E38);
-    v171 = 0;
-    (a2[1])(104, 10, 3, &v171, *a2, qword_100026E38);
-    fat_write(a1, &v171);
+    v168 = 0;
+    (a2[1])(104, 10, 3, &v168, *a2, qword_100026E38);
+    fat_write(a1, &v168);
     v29 = 0;
   }
 
   else
   {
-    fat_write(a1, &v171);
+    fat_write(a1, &v168);
     if (!a2)
     {
-      bitmap_write(a1, &v171);
+      bitmap_write(a1, &v168);
       goto LABEL_76;
     }
   }
 
   (a2[2])(104, *a2, qword_100026E38);
-  v171 = 0;
+  v168 = 0;
   if (v4)
   {
-    (a2[1])(105, 10, *(a1 + 44), &v171, *a2, qword_100026E38);
-    bitmap_write(a1, &v171);
+    (a2[1])(105, 10, *(a1 + 44), &v168, *a2, qword_100026E38);
+    bitmap_write(a1, &v168);
     (a2[2])(105, *a2, qword_100026E38);
-    v171 = 0;
-    (a2[1])(106, 10, 4, &v171, *a2, qword_100026E38);
+    v168 = 0;
+    (a2[1])(106, 10, 4, &v168, *a2, qword_100026E38);
     v29 = 111;
   }
 
   else
   {
-    bitmap_write(a1, &v171);
+    bitmap_write(a1, &v168);
     (a2[2])(105, *a2, qword_100026E38);
-    v171 = 0;
+    v168 = 0;
   }
 
 LABEL_76:
   upcase_write(a1);
-  ++v171;
+  ++v168;
   root_write(a1);
-  ++v171;
-  format_buf_flush();
-  ++v171;
-  v161 = pwrite(fd, v28, *(a1 + 16), (12 * *(a1 + 16)));
-  if (v161 == *(a1 + 16))
+  ++v168;
+  format_buf_flush(v157);
+  ++v168;
+  v158 = pwrite(fd, v28, *(a1 + 16), (12 * *(a1 + 16)));
+  if (v158 == *(a1 + 16))
   {
-    if (pwrite(fd, v28, v161, 0) == *(a1 + 16))
+    if (pwrite(fd, v28, v158, 0) == *(a1 + 16))
     {
       v20 = 0;
-      ++v171;
+      ++v168;
       goto LABEL_82;
     }
 
-    v172 = newfs_ctx;
-    v173 = qword_100026E38;
-    v168 = 206;
+    v169 = newfs_ctx;
+    v170 = qword_100026E38;
+    v165 = 206;
   }
 
   else
   {
-    v172 = newfs_ctx;
-    v173 = qword_100026E38;
-    v168 = 205;
+    v169 = newfs_ctx;
+    v170 = qword_100026E38;
+    v165 = 205;
   }
 
-  newfs_print(&v172, v168, v162, v163, v164, v165, v166, v167, v170);
+  newfs_print(&v169, v165, v159, v160, v161, v162, v163, v164, v167);
   v20 = *__error();
 LABEL_82:
   free(v28);
@@ -8434,11 +8434,11 @@ LABEL_10:
   }
 }
 
-unint64_t exfat_format_defaults(unint64_t result, uint64_t a2)
+void exfat_format_defaults(uint64_t a1, uint64_t a2)
 {
   if (!*(a2 + 100))
   {
-    v3 = is_SDXC(result);
+    v3 = is_SDXC(a1);
     v4 = &SDXC_defaults;
     if (!v3)
     {
@@ -8519,10 +8519,9 @@ unint64_t exfat_format_defaults(unint64_t result, uint64_t a2)
       }
 
       v26 = v25 + v24;
-      result = (v21 - v19);
     }
 
-    while (v26 * v20 > result);
+    while (v26 * v20 > (v21 - v19));
     v27 = -1;
     if (v26 >= 0xFFFFFFFF)
     {
@@ -8544,8 +8543,7 @@ unint64_t exfat_format_defaults(unint64_t result, uint64_t a2)
     *(a2 + 36) = v27;
     if (!*(a2 + 40))
     {
-      result = time(0);
-      *(a2 + 40) = result;
+      *(a2 + 40) = time(0);
     }
   }
 
@@ -8588,7 +8586,6 @@ unint64_t exfat_format_defaults(unint64_t result, uint64_t a2)
   }
 
   *(a2 + 96) = v32 + v33;
-  return result;
 }
 
 uint64_t ilog2(unsigned int a1)
@@ -9192,53 +9189,49 @@ LABEL_7:
 
 uint64_t wipefs(uint64_t a1, uint64_t a2)
 {
-  v35 = 0;
-  v3 = *(a2 + 8);
-  v4 = *(a2 + 16);
-  v5 = wipefs_alloc();
-  if (v5)
+  v31 = 0;
+  v3 = wipefs_alloc();
+  if (v3)
   {
-    v6 = v5;
-    v7 = *(a2 + 8);
-    strerror(v5);
-    v33 = newfs_ctx;
-    v34 = qword_100026E38;
-    newfs_print(&v33, 212, v8, v9, v10, v11, v12, v13, v7);
+    v4 = v3;
+    v5 = *(a2 + 8);
+    strerror(v3);
+    v29 = newfs_ctx;
+    v30 = qword_100026E38;
+    newfs_print(&v29, 212, v6, v7, v8, v9, v10, v11, v5);
   }
 
   else
   {
-    v14 = *(a2 + 24);
-    v15 = *(a2 + 28);
-    v16 = wipefs_except_blocks();
-    if (v16)
+    v12 = wipefs_except_blocks();
+    if (v12)
     {
-      v6 = v16;
-      v17 = *(a2 + 8);
-      strerror(v16);
-      v33 = newfs_ctx;
-      v34 = qword_100026E38;
-      newfs_print(&v33, 213, v18, v19, v20, v21, v22, v23, v17);
+      v4 = v12;
+      v13 = *(a2 + 8);
+      strerror(v12);
+      v29 = newfs_ctx;
+      v30 = qword_100026E38;
+      newfs_print(&v29, 213, v14, v15, v16, v17, v18, v19, v13);
     }
 
     else
     {
-      v24 = wipefs_wipe();
-      v6 = v24;
-      if (v24)
+      v20 = wipefs_wipe();
+      v4 = v20;
+      if (v20)
       {
-        v25 = *(a2 + 8);
-        strerror(v24);
-        v33 = newfs_ctx;
-        v34 = qword_100026E38;
-        newfs_print(&v33, 214, v26, v27, v28, v29, v30, v31, v25);
+        v21 = *(a2 + 8);
+        strerror(v20);
+        v29 = newfs_ctx;
+        v30 = qword_100026E38;
+        newfs_print(&v29, 214, v22, v23, v24, v25, v26, v27, v21);
       }
     }
 
     wipefs_free();
   }
 
-  return v6;
+  return v4;
 }
 
 BOOL verify_volume_name(unsigned __int8 *a1)
@@ -9430,9 +9423,9 @@ uint64_t fsckMsgsAskPrompt(id *a1, uint64_t a2, uint64_t a3)
   return v13;
 }
 
-void sub_10000C36C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000C36C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9506,7 +9499,7 @@ LABEL_18:
   v13 = fskit_std_log();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    sub_100010334(v8, v9);
+    sub_100010334(v8);
   }
 
   v14 = [NSString stringWithUTF8String:*(v9 + 1)];
@@ -9540,11 +9533,12 @@ LABEL_19:
   return v16;
 }
 
-void sub_10000D660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_10000D660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 176), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -9605,9 +9599,9 @@ void sub_10000D770(uint64_t a1, void *a2, void *a3, void *a4)
   *(v13 + 40) = v14;
 }
 
-void sub_10000DD58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_10000DD58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9754,7 +9748,7 @@ uint64_t sub_10000EBB0(uint64_t a1, uint64_t a2)
     }
 
 LABEL_19:
-    v24 = 22;
+    v21 = 22;
     goto LABEL_20;
   }
 
@@ -9764,73 +9758,70 @@ LABEL_19:
   if (v6 && [v6 kind] == 1)
   {
     v14 = [FSBlockDeviceResource dynamicCast:v13];
-    v15 = [v14 fileDescriptor];
-    v17 = *(a2 + 8);
-    v16 = (a2 + 8);
-    if (v15 == v17)
+    if ([v14 fileDescriptor] == *(a2 + 8))
     {
-      *&v30 = 0;
-      *(&v30 + 1) = &v30;
-      v31 = 0x3032000000;
-      v32 = sub_10000D6A4;
-      v33 = sub_10000D6B4;
-      v34 = 0;
-      v18 = dispatch_group_create();
-      dispatch_group_enter(v18);
-      v27[0] = _NSConcreteStackBlock;
-      v27[1] = 3221225472;
-      v27[2] = sub_10000FA3C;
-      v27[3] = &unk_10001C6F8;
-      v29 = &v30;
-      v19 = v18;
-      v28 = v19;
-      [v5 wipeResource:v13 completionHandler:v27];
-      v20 = fskit_std_log();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      *&v27 = 0;
+      *(&v27 + 1) = &v27;
+      v28 = 0x3032000000;
+      v29 = sub_10000D6A4;
+      v30 = sub_10000D6B4;
+      v31 = 0;
+      v15 = dispatch_group_create();
+      dispatch_group_enter(v15);
+      v24[0] = _NSConcreteStackBlock;
+      v24[1] = 3221225472;
+      v24[2] = sub_10000FA3C;
+      v24[3] = &unk_10001C6F8;
+      v26 = &v27;
+      v16 = v15;
+      v25 = v16;
+      [v5 wipeResource:v13 completionHandler:v24];
+      v17 = fskit_std_log();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        sub_100010D6C(v20);
+        sub_100010D6C(v17);
       }
 
-      dispatch_group_wait(v19, 0xFFFFFFFFFFFFFFFFLL);
-      if (*(*(&v30 + 1) + 40))
+      dispatch_group_wait(v16, 0xFFFFFFFFFFFFFFFFLL);
+      if (*(*(&v27 + 1) + 40))
       {
-        v21 = fskit_std_log();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v18 = fskit_std_log();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v22 = [*(*(&v30 + 1) + 40) description];
-          v23 = v22;
-          sub_100010DF0([v22 UTF8String], v35, v21, v22);
+          v19 = [*(*(&v27 + 1) + 40) description];
+          v20 = v19;
+          sub_100010DF0([v19 UTF8String], v32, v18, v19);
         }
 
-        v24 = [*(*(&v30 + 1) + 40) code];
+        v21 = [*(*(&v27 + 1) + 40) code];
       }
 
       else
       {
-        v24 = 0;
+        v21 = 0;
       }
 
-      _Block_object_dispose(&v30, 8);
+      _Block_object_dispose(&v27, 8);
       goto LABEL_16;
     }
 
-    v26 = fskit_std_log();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v23 = fskit_std_log();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      sub_100010CCC(v14, v16);
+      sub_100010CCC(v14);
     }
   }
 
   else
   {
-    v30 = newfs_ctx;
-    v31 = qword_100026E38;
-    newfs_print(&v30, 400, v7, v8, v9, v10, v11, v12, "wipeFSCallback");
+    v27 = newfs_ctx;
+    v28 = qword_100026E38;
+    newfs_print(&v27, 400, v7, v8, v9, v10, v11, v12, "wipeFSCallback");
   }
 
-  v24 = 22;
+  v21 = 22;
 LABEL_16:
 
 LABEL_20:
-  return v24;
+  return v21;
 }

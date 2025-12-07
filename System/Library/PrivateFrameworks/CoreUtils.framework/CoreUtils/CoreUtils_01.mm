@@ -845,8 +845,9 @@ LABEL_24:
   return v15;
 }
 
-const char *DebugGetErrorStringEx(const __CFString *a1, int a2, char *a3, uint64_t a4)
+char *DebugGetErrorStringEx(const __CFString *a1, uint64_t a2, char *a3, uint64_t a4)
 {
+  v6 = a2;
   if (a1)
   {
     v7 = CUErrorDomainCodeToString(a1, a2);
@@ -856,21 +857,21 @@ const char *DebugGetErrorStringEx(const __CFString *a1, int a2, char *a3, uint64
     }
   }
 
-  if (a2 == 999 || (a2 - 100) <= 0x1F3)
+  if (v6 == 999 || (v6 - 100) <= 0x1F3)
   {
-    if (a2 == 102)
+    if (v6 == 102)
     {
       v7 = "EOPNOTSUPP / kA11AuthFatalErr / HTTP Processing";
       goto LABEL_22;
     }
 
-    v8 = a2;
+    v8 = v6;
     goto LABEL_12;
   }
 
-  if (a2 == 200999 || (a2 - 200100) <= 0x1F3)
+  if (v6 == 200999 || (v6 - 200100) <= 0x1F3)
   {
-    v8 = a2 - 200000;
+    v8 = v6 - 200000;
 LABEL_12:
     v7 = HTTPGetReasonPhrase(v8);
     if (*v7)
@@ -889,7 +890,7 @@ LABEL_13:
     v7 = *(v9 + 8);
     if (v7)
     {
-      if (*v9 == a2)
+      if (*v9 == v6)
       {
         goto LABEL_22;
       }
@@ -905,7 +906,7 @@ LABEL_13:
 
         v11 = *(v10 - 2);
         v10 += 2;
-        if (v11 == a2)
+        if (v11 == v6)
         {
           goto LABEL_22;
         }
@@ -956,36 +957,36 @@ uint64_t CUXPCDecodeNSDataOfLength(void *a1, const char *a2, uint64_t a3, void *
   data = xpc_dictionary_get_data(v9, a2, &length);
   if (!data)
   {
-    v20 = xpc_dictionary_get_value(v9, a2);
-    v21 = v20;
-    if (!v20)
+    v15 = xpc_dictionary_get_value(v9, a2);
+    v16 = v15;
+    if (!v15)
     {
 LABEL_8:
 
       goto LABEL_9;
     }
 
-    if (MEMORY[0x193B07A70](v20) == MEMORY[0x1E69E9E70])
+    if (MEMORY[0x193B07A70](v15) == MEMORY[0x1E69E9E70])
     {
       if (!a3)
       {
-        v27 = [MEMORY[0x1E695DEF0] data];
-        v28 = *a4;
-        *a4 = v27;
+        v17 = [MEMORY[0x1E695DEF0] data];
+        v18 = *a4;
+        *a4 = v17;
 
         goto LABEL_8;
       }
 
       if (a5)
       {
-        NSErrorF_safe(*MEMORY[0x1E696A768], 4294960553, "XPC bad size: '%s', 0 vs %zu", v22, v23, v24, v25, v26, a2);
+        NSErrorF_safe(*MEMORY[0x1E696A768], 4294960553, "XPC bad size: '%s', 0 vs %zu");
         goto LABEL_17;
       }
     }
 
     else if (a5)
     {
-      NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC non-data type: '%s'", v22, v23, v24, v25, v26, a2);
+      NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC non-data type: '%s'");
       *a5 = LABEL_17:;
     }
 
@@ -996,27 +997,27 @@ LABEL_8:
   {
     if (a5)
     {
-      NSErrorF_safe(*MEMORY[0x1E696A768], 4294960553, "XPC bad size: '%s', %zu vs %zu", v11, v12, v13, v14, v15, a2);
-      *a5 = v29 = 0;
+      NSErrorF_safe(*MEMORY[0x1E696A768], 4294960553, "XPC bad size: '%s', %zu vs %zu", a2, length, a3);
+      *a5 = v19 = 0;
       goto LABEL_10;
     }
 
 LABEL_19:
-    v29 = 0;
+    v19 = 0;
     goto LABEL_10;
   }
 
-  v16 = data;
-  v17 = objc_alloc(MEMORY[0x1E695DEF0]);
-  v18 = [v17 initWithBytes:v16 length:length];
-  v19 = *a4;
-  *a4 = v18;
+  v11 = data;
+  v12 = objc_alloc(MEMORY[0x1E695DEF0]);
+  v13 = [v12 initWithBytes:v11 length:length];
+  v14 = *a4;
+  *a4 = v13;
 
 LABEL_9:
-  v29 = 1;
+  v19 = 1;
 LABEL_10:
 
-  return v29;
+  return v19;
 }
 
 uint64_t PrintFWriteTimeDuration(unint64_t a1, int a2, char *a3)
@@ -1225,7 +1226,7 @@ void _BonjourBrowser_NANEnsureStopped(uint64_t a1, int a2, uint64_t a3, uint64_t
   {
     if (gLogCategory_BonjourBrowser <= 30 && (gLogCategory_BonjourBrowser != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x1Eu)))
     {
-      LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_NANEnsureStopped(BonjourBrowserRef, Boolean)", 0x1Eu, "NAN subscriber stop: %s\n", a5, a6, a7, a8, *(a1 + 136));
+      LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_NANEnsureStopped(BonjourBrowserRef, Boolean)", 30, "NAN subscriber stop: %s\n", a5, a6, a7, a8, *(a1 + 136));
     }
 
     if (!a2)
@@ -1306,7 +1307,7 @@ void _BonjourBrowser_HandleError(uint64_t a1, int a2, uint64_t a3, uint64_t a4, 
 
       if (gLogCategory_BonjourBrowser <= 50 && (gLogCategory_BonjourBrowser != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x32u)))
       {
-        LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_HandleError(BonjourBrowserRef, OSStatus)", 0x32u, "### Browse for %s failed, retrying in %llu ms: %#m\n", v14, v15, v16, v17, *(a1 + 136));
+        LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_HandleError(BonjourBrowserRef, OSStatus)", 50, "### Browse for %s failed, retrying in %llu ms: %#m\n", v14, v15, v16, v17, *(a1 + 136));
       }
 
       v19 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, *(a1 + 16));
@@ -1328,7 +1329,7 @@ void _BonjourBrowser_HandleError(uint64_t a1, int a2, uint64_t a3, uint64_t a4, 
       else if (gLogCategory_BonjourBrowser <= 60 && (gLogCategory_BonjourBrowser != -1 || _LogCategory_Initialize(&gLogCategory_BonjourBrowser, 0x3Cu)))
       {
 
-        LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_HandleError(BonjourBrowserRef, OSStatus)", 0x3Cu, "### Bonjour retry timer failed\n", v20, v21, v22, v23, a9);
+        LogPrintF(&gLogCategory_BonjourBrowser, "void _BonjourBrowser_HandleError(BonjourBrowserRef, OSStatus)", 60, "### Bonjour retry timer failed\n", v20, v21, v22, v23, a9);
       }
     }
   }
@@ -1341,7 +1342,7 @@ void _BonjourBrowser_HandleError(uint64_t a1, int a2, uint64_t a3, uint64_t a4, 
   }
 }
 
-id NSErrorWithOSStatusF(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+id NSErrorWithOSStatusF(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a1)
   {
@@ -1356,62 +1357,62 @@ id NSErrorWithOSStatusF(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t 
   return v10;
 }
 
-id NSErrorV(void *a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4)
+id NSErrorV(void *a1, uint64_t a2, char *a3, uint64_t a4)
 {
-  v32[3] = *MEMORY[0x1E69E9840];
+  v26[3] = *MEMORY[0x1E69E9840];
   v7 = a1;
   v8 = v7;
   if (a2)
   {
     ErrorString = DebugGetErrorStringEx(v7, a2, 0, 0);
-    v23 = NSPrintV(a3, a4, v10, v11, v12, v13, v14, v15);
+    v17 = NSPrintV(a3, a4);
     if (*ErrorString)
     {
-      NSPrintF("%s (%@)", v16, v17, v18, v19, v20, v21, v22, ErrorString);
+      NSPrintF("%s (%@)", v10, v11, v12, v13, v14, v15, v16, ErrorString);
     }
 
     else
     {
-      NSPrintF("%d (%@)", v16, v17, v18, v19, v20, v21, v22, a2);
+      NSPrintF("%d (%@)", v10, v11, v12, v13, v14, v15, v16, a2);
     }
-    v25 = ;
-    v26 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v31[0] = @"cuErrorDesc";
-    v31[1] = @"cuErrorMsg";
-    if (v23)
+    v19 = ;
+    v20 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v25[0] = @"cuErrorDesc";
+    v25[1] = @"cuErrorMsg";
+    if (v17)
     {
-      v27 = v23;
+      v21 = v17;
     }
 
     else
     {
-      v27 = &stru_1F068B090;
+      v21 = &stru_1F068B090;
     }
 
-    v32[0] = v25;
-    v32[1] = v27;
-    v31[2] = *MEMORY[0x1E696A578];
-    v32[2] = v25;
-    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:3];
+    v26[0] = v19;
+    v26[1] = v21;
+    v25[2] = *MEMORY[0x1E696A578];
+    v26[2] = v19;
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:3];
     if (v8)
     {
-      v29 = v8;
+      v23 = v8;
     }
 
     else
     {
-      v29 = *MEMORY[0x1E696A768];
+      v23 = *MEMORY[0x1E696A768];
     }
 
-    v24 = [v26 initWithDomain:v29 code:a2 userInfo:v28];
+    v18 = [v20 initWithDomain:v23 code:a2 userInfo:v22];
   }
 
   else
   {
-    v24 = 0;
+    v18 = 0;
   }
 
-  return v24;
+  return v18;
 }
 
 uint64_t CUIsGreenTeaDevice()
@@ -1424,7 +1425,7 @@ uint64_t CUIsGreenTeaDevice()
   return CUIsGreenTeaDevice_sResult;
 }
 
-uint64_t _OPACKEncodeDictionaryApplier(uint64_t result, uint64_t a2, void *a3)
+const __CFString *_OPACKEncodeDictionaryApplier(const __CFString *result, const __CFString *a2, uint64_t *a3)
 {
   if (!*(a3 + 4))
   {
@@ -1440,7 +1441,7 @@ uint64_t _OPACKEncodeDictionaryApplier(uint64_t result, uint64_t a2, void *a3)
 
 uint64_t _OPACKEncodeUID(uint64_t a1, const void *a2, _BYTE *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   Value = CFDictionaryGetValue(*(a1 + 16), a2);
   if (!Value)
   {
@@ -1468,14 +1469,16 @@ uint64_t _OPACKEncodeUID(uint64_t a1, const void *a2, _BYTE *a3)
 
           v11 = -60;
           v12 = Value - 1;
+          v13 = (Value - 1) >> 16;
           v7 = 5;
+          v14 = (Value - 1) >> 24;
         }
 
         else
         {
           v11 = -61;
-          LOWORD(v12) = Value - 1;
-          BYTE2(v12) = (Value - 1) >> 16;
+          v12 = Value - 1;
+          v13 = (Value - 1) >> 16;
           v7 = 4;
         }
       }
@@ -1483,7 +1486,7 @@ uint64_t _OPACKEncodeUID(uint64_t a1, const void *a2, _BYTE *a3)
       else
       {
         v11 = -62;
-        LOWORD(v12) = Value - 1;
+        v12 = Value - 1;
         v7 = 3;
       }
     }
@@ -1511,12 +1514,13 @@ uint64_t _OPACKEncodeUID(uint64_t a1, const void *a2, _BYTE *a3)
   return result;
 }
 
-CFMutableDataRef OPACKEncoderCreateDataMutable(const __CFString *a1, unsigned int a2, int *a3)
+CFMutableDataRef OPACKEncoderCreateDataMutable(const __CFString *a1, uint64_t a2, int *a3)
 {
+  v4 = a2;
   Mutable = CFDataCreateMutable(0, 0);
   if (Mutable)
   {
-    v7 = OPACKEncodeObject(a1, a2, _OPACKEncoderAppendCallback, Mutable);
+    v7 = OPACKEncodeObject(a1, v4, _OPACKEncoderAppendCallback, Mutable);
     if (v7)
     {
       CFRelease(Mutable);
@@ -2139,9 +2143,9 @@ LABEL_5:
   return v12;
 }
 
-__CFString *_OPACKDecodeObject(uint64_t a1, UInt8 *bytes, unint64_t a3, UInt8 **a4, int *a5)
+__CFString *_OPACKDecodeObject(uint64_t a1, UInt8 *bytes, UInt8 *a3, UInt8 **a4, int *a5)
 {
-  if ((a3 - bytes) < 1)
+  if (a3 - bytes < 1)
   {
     goto LABEL_108;
   }
@@ -2189,7 +2193,7 @@ LABEL_23:
       {
         if (v9 == 97)
         {
-          if ((a3 - v10) < 1)
+          if (a3 - v10 < 1)
           {
             goto LABEL_108;
           }
@@ -2206,7 +2210,7 @@ LABEL_23:
             goto LABEL_25;
           }
 
-          if ((a3 - v10) < 2)
+          if (a3 - v10 < 2)
           {
             goto LABEL_108;
           }
@@ -2223,7 +2227,7 @@ LABEL_23:
         {
           if (v9 == 100)
           {
-            if ((a3 - v10) < 8)
+            if (a3 - v10 < 8)
             {
               goto LABEL_108;
             }
@@ -2275,7 +2279,7 @@ LABEL_23:
           goto LABEL_25;
         }
 
-        if ((a3 - v10) < 4)
+        if (a3 - v10 < 4)
         {
           goto LABEL_108;
         }
@@ -2533,7 +2537,7 @@ LABEL_62:
         switch(v9)
         {
           case 5:
-            if ((a3 - v10) < 16)
+            if (a3 - v10 < 16)
             {
               goto LABEL_108;
             }
@@ -2559,7 +2563,7 @@ LABEL_62:
             v34 = bytes + 17;
             break;
           case 6:
-            if ((a3 - v10) < 8)
+            if (a3 - v10 < 8)
             {
               goto LABEL_108;
             }
@@ -2636,109 +2640,154 @@ __CFString *OPACKDecodeData(const __CFData *a1, unsigned int a2, _DWORD *a3)
   return _OPACKDecodeBytes(a1, BytePtr, Length, a2, a3);
 }
 
-__CFDictionary *_OPACKDecodeDictionary(uint64_t a1, UInt8 *a2, uint64_t a3, int a4, UInt8 **a5, int *a6)
+__CFDictionary *_OPACKDecodeDictionary(uint64_t a1, UInt8 *a2, unint64_t a3, int a4, UInt8 **a5, int *a6)
 {
+  bytes = a2;
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  if (!Mutable)
+  if (Mutable)
   {
-    v17 = -6728;
-    goto LABEL_9;
-  }
-
-  if ((a4 - 224) >= 0xF)
-  {
-    while (1)
+    v27 = 0;
+    if ((a4 - 224) >= 0xF)
     {
-      v19 = *(a1 + 40);
-      if (v19 > 31)
+      while (1)
       {
-        break;
+        v21 = *(a1 + 40);
+        if (v21 > 31)
+        {
+          goto LABEL_18;
+        }
+
+        *(a1 + 40) = v21 + 1;
+        v22 = _OPACKDecodeObject(a1, bytes, a3, &bytes, &v27);
+        v15 = v22;
+        v23 = *(a1 + 40);
+        *(a1 + 40) = v23 - 1;
+        if (v27)
+        {
+          break;
+        }
+
+        if (!v22)
+        {
+          goto LABEL_10;
+        }
+
+        *(a1 + 40) = v23;
+        v24 = _OPACKDecodeObject(a1, bytes, a3, &bytes, &v27);
+        v18 = v24;
+        --*(a1 + 40);
+        if (v27)
+        {
+LABEL_21:
+          CFRelease(v15);
+          if (!v18)
+          {
+            goto LABEL_28;
+          }
+
+          v26 = v18;
+          goto LABEL_25;
+        }
+
+        if (!v24)
+        {
+LABEL_23:
+          v27 = -6742;
+LABEL_24:
+          v26 = v15;
+LABEL_25:
+          CFRelease(v26);
+          goto LABEL_28;
+        }
+
+        CFDictionaryAddValue(Mutable, v15, v24);
+        CFRelease(v15);
+        CFRelease(v18);
       }
 
-      *(a1 + 40) = v19 + 1;
-      v13 = _OPACKDecodeObject(a1, a2);
-      v20 = *(a1 + 40);
-      *(a1 + 40) = v20 - 1;
-      if (!v13)
+LABEL_19:
+      if (!v15)
       {
-        goto LABEL_8;
+        goto LABEL_28;
       }
 
-      *(a1 + 40) = v20;
-      v21 = _OPACKDecodeObject(a1, a2);
-      v22 = v21;
-      --*(a1 + 40);
-      if (!v21)
+      goto LABEL_24;
+    }
+
+    v12 = a4 & 0xF;
+    if ((a4 & 0xF) != 0)
+    {
+      while (1)
       {
-LABEL_15:
-        v24 = -6742;
-        CFRelease(v13);
-        goto LABEL_18;
+        v13 = *(a1 + 40);
+        if (v13 >= 32)
+        {
+          break;
+        }
+
+        *(a1 + 40) = v13 + 1;
+        v14 = _OPACKDecodeObject(a1, bytes, a3, &bytes, &v27);
+        v15 = v14;
+        v16 = *(a1 + 40);
+        *(a1 + 40) = v16 - 1;
+        if (v27)
+        {
+          goto LABEL_19;
+        }
+
+        if (!v14)
+        {
+          v25 = -6742;
+          goto LABEL_27;
+        }
+
+        *(a1 + 40) = v16;
+        v17 = _OPACKDecodeObject(a1, bytes, a3, &bytes, &v27);
+        v18 = v17;
+        --*(a1 + 40);
+        if (v27)
+        {
+          goto LABEL_21;
+        }
+
+        if (!v17)
+        {
+          goto LABEL_23;
+        }
+
+        CFDictionaryAddValue(Mutable, v15, v17);
+        CFRelease(v15);
+        CFRelease(v18);
+        if (!--v12)
+        {
+          goto LABEL_10;
+        }
       }
 
-      CFDictionaryAddValue(Mutable, v13, v21);
-      CFRelease(v13);
-      CFRelease(v22);
+LABEL_18:
+      v25 = -6751;
+LABEL_27:
+      v27 = v25;
+LABEL_28:
+      CFRelease(Mutable);
+      Mutable = 0;
+      v19 = v27;
+    }
+
+    else
+    {
+LABEL_10:
+      v19 = 0;
     }
   }
 
   else
   {
-    v11 = a4 & 0xF;
-    if ((a4 & 0xF) == 0)
-    {
-LABEL_8:
-      v17 = 0;
-      goto LABEL_9;
-    }
-
-    while (1)
-    {
-      v12 = *(a1 + 40);
-      if (v12 >= 32)
-      {
-        break;
-      }
-
-      *(a1 + 40) = v12 + 1;
-      v13 = _OPACKDecodeObject(a1, a2);
-      v14 = *(a1 + 40);
-      *(a1 + 40) = v14 - 1;
-      if (!v13)
-      {
-        v23 = -6742;
-        goto LABEL_17;
-      }
-
-      *(a1 + 40) = v14;
-      v15 = _OPACKDecodeObject(a1, a2);
-      v16 = v15;
-      --*(a1 + 40);
-      if (!v15)
-      {
-        goto LABEL_15;
-      }
-
-      CFDictionaryAddValue(Mutable, v13, v15);
-      CFRelease(v13);
-      CFRelease(v16);
-      if (!--v11)
-      {
-        goto LABEL_8;
-      }
-    }
+    v19 = -6728;
   }
 
-  v23 = -6751;
-LABEL_17:
-  v24 = v23;
-LABEL_18:
-  CFRelease(Mutable);
-  Mutable = 0;
-  v17 = v24;
-LABEL_9:
-  *a5 = a2;
-  *a6 = v17;
+  *a5 = bytes;
+  *a6 = v19;
   return Mutable;
 }
 
@@ -2918,7 +2967,7 @@ CFNumberRef _OPACKInitializeOnce()
     gCFNumbers[v0] = result;
     if (!result)
     {
-      FatalErrorF("Create small number %d failed", v2, v3, v4, v5, v6, v7, v8, valuePtr);
+      FatalErrorF("Create small number %d failed", valuePtr);
     }
 
     ++v0;
@@ -2940,148 +2989,167 @@ uint64_t CUXPCDecodeNSArrayOfClass(void *a1, const char *a2, uint64_t a3, id *a4
 
   if (MEMORY[0x193B07A70](v10) == MEMORY[0x1E69E9E50])
   {
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x3032000000;
+    v21 = __Block_byref_object_copy__10482;
+    v22 = __Block_byref_object_dispose__10483;
     v23 = 0;
-    v24 = &v23;
-    v25 = 0x3032000000;
-    v26 = __Block_byref_object_copy__10482;
-    v27 = __Block_byref_object_dispose__10483;
-    v28 = 0;
-    v18 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
     applier[0] = MEMORY[0x1E69E9820];
     applier[1] = 3221225472;
     applier[2] = __CUXPCDecodeNSArrayOfClass_block_invoke;
     applier[3] = &unk_1E73A43B0;
     applier[6] = a2;
     applier[7] = a3;
-    applier[4] = v18;
-    applier[5] = &v23;
+    applier[4] = v13;
+    applier[5] = &v18;
     xpc_array_apply(v11, applier);
-    v19 = v24[5];
-    if (v19)
+    v14 = v19[5];
+    if (v14)
     {
       if (a5)
       {
-        v21 = v19;
-        *a5 = v19;
+        v16 = v14;
+        *a5 = v14;
       }
     }
 
     else
     {
-      objc_storeStrong(a4, v18);
+      objc_storeStrong(a4, v13);
     }
 
-    _Block_object_dispose(&v23, 8);
-    if (v19)
+    _Block_object_dispose(&v18, 8);
+    if (v14)
     {
       goto LABEL_8;
     }
 
 LABEL_9:
-    v17 = 1;
+    v12 = 1;
     goto LABEL_10;
   }
 
   if (!a5)
   {
 LABEL_8:
-    v17 = 0;
+    v12 = 0;
     goto LABEL_10;
   }
 
-  NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC non-array type: '%s'", v12, v13, v14, v15, v16, a2);
-  *a5 = v17 = 0;
+  NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC non-array type: '%s'", a2);
+  *a5 = v12 = 0;
 LABEL_10:
 
-  return v17;
+  return v12;
 }
 
-void sub_191EBF99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_191EBF99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-__CFArray *_OPACKDecodeArray(uint64_t a1, UInt8 *a2, uint64_t a3, int a4, UInt8 **a5, int *a6)
+__CFArray *_OPACKDecodeArray(uint64_t a1, UInt8 *a2, unint64_t a3, int a4, UInt8 **a5, int *a6)
 {
+  bytes = a2;
   Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
   if (!Mutable)
   {
-    v15 = -6728;
-    goto LABEL_8;
+    v16 = -6728;
+    goto LABEL_9;
   }
 
+  v21 = 0;
   if ((a4 - 208) >= 0xF)
   {
     while (1)
     {
-      v17 = *(a1 + 40);
-      if (v17 > 31)
+      v18 = *(a1 + 40);
+      if (v18 > 31)
       {
         break;
       }
 
-      *(a1 + 40) = v17 + 1;
-      v18 = _OPACKDecodeObject(a1, a2);
-      v19 = v18;
+      *(a1 + 40) = v18 + 1;
+      v19 = _OPACKDecodeObject(a1, bytes, a3, &bytes, &v21);
+      v15 = v19;
       --*(a1 + 40);
-      if (!v18)
+      if (v21)
       {
-        goto LABEL_7;
+LABEL_15:
+        if (v15)
+        {
+          CFRelease(v15);
+        }
+
+        goto LABEL_19;
       }
 
-      CFArrayAppendValue(Mutable, v18);
-      CFRelease(v19);
+      if (!v19)
+      {
+        goto LABEL_8;
+      }
+
+      CFArrayAppendValue(Mutable, v19);
+      CFRelease(v15);
     }
   }
 
   else
   {
-    v11 = a4 & 0xF;
+    v12 = a4 & 0xF;
     if ((a4 & 0xF) == 0)
     {
-LABEL_7:
-      v15 = 0;
-      goto LABEL_8;
+LABEL_8:
+      v16 = 0;
+      goto LABEL_9;
     }
 
     while (1)
     {
-      v12 = *(a1 + 40);
-      if (v12 >= 32)
+      v13 = *(a1 + 40);
+      if (v13 >= 32)
       {
         break;
       }
 
-      *(a1 + 40) = v12 + 1;
-      v13 = _OPACKDecodeObject(a1, a2);
-      v14 = v13;
+      *(a1 + 40) = v13 + 1;
+      v14 = _OPACKDecodeObject(a1, bytes, a3, &bytes, &v21);
+      v15 = v14;
       --*(a1 + 40);
-      if (!v13)
+      if (v21)
       {
-        v20 = -6742;
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      CFArrayAppendValue(Mutable, v13);
-      CFRelease(v14);
-      if (!--v11)
+      if (!v14)
       {
-        goto LABEL_7;
+        v20 = -6742;
+        goto LABEL_18;
+      }
+
+      CFArrayAppendValue(Mutable, v14);
+      CFRelease(v15);
+      if (!--v12)
+      {
+        goto LABEL_8;
       }
     }
   }
 
   v20 = -6751;
-LABEL_14:
+LABEL_18:
   v21 = v20;
+LABEL_19:
   CFRelease(Mutable);
   Mutable = 0;
-  v15 = v21;
-LABEL_8:
-  *a5 = a2;
-  *a6 = v15;
+  v16 = v21;
+LABEL_9:
+  *a5 = bytes;
+  *a6 = v16;
   return Mutable;
 }
 
@@ -3275,7 +3343,7 @@ uint64_t CUXPCDecodeNSData(void *a1, const char *a2, void **a3, void *a4)
     v12 = *a3;
     *a3 = v11;
 LABEL_6:
-    v21 = 1;
+    v16 = 1;
     goto LABEL_7;
   }
 
@@ -3288,27 +3356,27 @@ LABEL_6:
 
   if (MEMORY[0x193B07A70](v13) == MEMORY[0x1E69E9E70])
   {
-    v19 = [MEMORY[0x1E695DEF0] data];
-    v20 = *a3;
-    *a3 = v19;
+    v14 = [MEMORY[0x1E695DEF0] data];
+    v15 = *a3;
+    *a3 = v14;
 
     goto LABEL_6;
   }
 
   if (a4)
   {
-    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC non-data type: '%s'", v14, v15, v16, v17, v18, a2);
-    *a4 = v21 = 0;
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC non-data type: '%s'", a2);
+    *a4 = v16 = 0;
   }
 
   else
   {
-    v21 = 0;
+    v16 = 0;
   }
 
 LABEL_7:
 
-  return v21;
+  return v16;
 }
 
 CFArrayRef CFPrefs_CopyKeys(const __CFString *a1, int *a2)
@@ -3404,9 +3472,9 @@ BOOL GestaltGetBoolean(const void *a1, uint64_t a2, int *a3)
   return v6;
 }
 
-uint64_t GestaltCopyAnswer(CFTypeRef cf1, uint64_t a2, int *a3)
+CFDataRef GestaltCopyAnswer(CFTypeRef cf1, uint64_t a2, int *a3)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (!gGestaltHook_f || (result = gGestaltHook_f(cf1, a2, a3, gGestaltHook_ctx)) == 0)
   {
     if (CFEqual(cf1, @"NANCapability"))
@@ -3434,7 +3502,7 @@ uint64_t GestaltCopyAnswer(CFTypeRef cf1, uint64_t a2, int *a3)
     {
       if (CFEqual(cf1, @"systemUUID"))
       {
-        v36 = 0;
+        v29 = 0;
         pthread_mutex_lock(&gGestaltLock);
         if (gGestaltDomain)
         {
@@ -3449,11 +3517,11 @@ uint64_t GestaltCopyAnswer(CFTypeRef cf1, uint64_t a2, int *a3)
         __s[0] = 0;
         CFPrefs_GetCString(v17, @"systemUUID", __s, 0x80uLL, 0);
         v18 = strchr(__s, 58);
-        if (v18 && (v22 = v18, !StringToUUIDEx(__s, v18 - __s, 0, 0, &bytes, v19, v20, v21)) && sscanf(v22 + 1, "%lf", &v36) == 1)
+        if (v18 && (v19 = v18, !StringToUUIDEx(__s, v18 - __s, 0, 0, &bytes)) && sscanf(v19 + 1, "%lf", &v29) == 1)
         {
           if (gLogCategory_Gestalt <= 20 && (gLogCategory_Gestalt != -1 || _LogCategory_Initialize(&gLogCategory_Gestalt, 0x14u)))
           {
-            LogPrintF(&gLogCategory_Gestalt, "void GetSystemUUID(int, uint8_t *)", 0x14u, "Reused system UUID %s\n", v23, v24, v25, v26, __s);
+            LogPrintF(&gLogCategory_Gestalt, "void GetSystemUUID(int, uint8_t *)", 20, "Reused system UUID %s\n", v20, v21, v22, v23, __s);
           }
         }
 
@@ -3462,13 +3530,13 @@ uint64_t GestaltCopyAnswer(CFTypeRef cf1, uint64_t a2, int *a3)
           RandomBytes(&bytes, 0x10uLL);
           BYTE6(bytes) = BYTE6(bytes) & 0xF | 0x40;
           BYTE8(bytes) = BYTE8(bytes) & 0x3F | 0x80;
-          CFAbsoluteTimeGetCurrent();
-          SNPrintF(__s, 128, "%#U:%f", v27, v28, v29, v30, v31, &bytes);
+          Current = CFAbsoluteTimeGetCurrent();
+          SNPrintF(__s, 128, "%#U:%f", &bytes, *&Current, v29);
           CFPrefs_SetCString(v17, @"systemUUID", __s, -1);
           CFPreferencesAppSynchronize(v17);
           if (gLogCategory_Gestalt <= 40 && (gLogCategory_Gestalt != -1 || _LogCategory_Initialize(&gLogCategory_Gestalt, 0x28u)))
           {
-            LogPrintF(&gLogCategory_Gestalt, "void GetSystemUUID(int, uint8_t *)", 0x28u, "Generated system UUID %s\n", v32, v33, v34, v35, __s);
+            LogPrintF(&gLogCategory_Gestalt, "void GetSystemUUID(int, uint8_t *)", 40, "Generated system UUID %s\n", v25, v26, v27, v28, __s);
           }
         }
 
@@ -3600,7 +3668,7 @@ void _networkInterfacesChanged(uint64_t a1, uint64_t a2, void *a3)
         v9 = v10[4];
       }
 
-      LogPrintF(v9, "void _networkInterfacesChanged(SCDynamicStoreRef, CFArrayRef, void *)", 0xAu, "Network interfaces changed: %##@\n", v5, v6, v7, v8, a2);
+      LogPrintF(v9, "void _networkInterfacesChanged(SCDynamicStoreRef, CFArrayRef, void *)", 10, "Network interfaces changed: %##@\n", v5, v6, v7, v8, a2);
     }
 
 LABEL_6:
@@ -4188,7 +4256,7 @@ uint64_t LUStringToLevel(char *__s1)
   {
     v8 = "all";
     v9 = 18;
-    v10 = &kLogLevelToStringTable;
+    v10 = kLogLevelToStringTable;
     while (strncmp(__s1, v8, v7))
     {
       v8 = *(v10 + 3);
@@ -4384,36 +4452,36 @@ CFNumberRef CFNumberCreateInt64(uint64_t a1)
   return CFNumberCreate(0, v2, p_valuePtr);
 }
 
-uint64_t LogCategoryReplaceV(uint64_t *a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t LogCategoryReplaceV(uint64_t *a1, char *a2, uint64_t a3)
 {
-  v8 = *a1;
-  v15 = 0;
-  v14 = 0;
-  if (!v8)
+  v3 = *a1;
+  v10 = 0;
+  v9 = 0;
+  if (!v3)
   {
     return -6705;
   }
 
-  VASPrintF(&v14, a2, a3, a4, a5, a6, a7, a8);
-  v10 = v14;
-  if (!v14)
+  VASPrintF(&v9, a2, a3);
+  v5 = v9;
+  if (!v9)
   {
     return -6700;
   }
 
-  v11 = LogCategoryCreateEx(*(v8 + 96), v14, *(v8 + 4), *(v8 + 16), *(v8 + 8), &v15);
-  free(v10);
-  if (v11)
+  v6 = LogCategoryCreateEx(*(v3 + 96), v9, *(v3 + 4), *(v3 + 16), *(v3 + 8), &v10);
+  free(v5);
+  if (v6)
   {
-    if ((*(v8 + 18) & 4) != 0)
+    if ((*(v3 + 18) & 4) != 0)
     {
-      LogCategory_Remove(v8);
+      LogCategory_Remove(v3);
     }
 
-    *a1 = v11;
+    *a1 = v6;
   }
 
-  return v15;
+  return v10;
 }
 
 os_log_t LogCategoryCopyOSLogHandle(uint64_t a1)
@@ -4858,7 +4926,7 @@ unsigned int *chacha20_poly1305_add_aad(uint64_t a1, unsigned int *a2, unint64_t
   return result;
 }
 
-uint64_t NetSocket_WriteVInternal(uint64_t a1, iovec *a2, int a3, unsigned int a4)
+uint64_t NetSocket_WriteVInternal(uint64_t a1, iovec *a2, int a3, uint64_t a4)
 {
   if (!a1)
   {
@@ -4886,6 +4954,7 @@ uint64_t NetSocket_WriteVInternal(uint64_t a1, iovec *a2, int a3, unsigned int a
     return 0;
   }
 
+  v6 = a4;
   while (1)
   {
     while (1)
@@ -4948,7 +5017,7 @@ uint64_t NetSocket_WriteVInternal(uint64_t a1, iovec *a2, int a3, unsigned int a
         return result;
       }
 
-      result = NetSocket_Wait(a1, *(a1 + 4), 1, a4);
+      result = NetSocket_Wait(a1, *(a1 + 4), 1, v6);
       if (result)
       {
         return result;
@@ -4959,9 +5028,9 @@ uint64_t NetSocket_WriteVInternal(uint64_t a1, iovec *a2, int a3, unsigned int a
   return 4294960596;
 }
 
-uint64_t HTTPMessageReadMessageEx(uint64_t a1, uint64_t (*a2)(unint64_t, size_t, unint64_t *, uint64_t), uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t HTTPMessageReadMessageEx(uint64_t a1, uint64_t (*a2)(size_t, unint64_t, size_t *, uint64_t), uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v66 = 0;
+  v61 = 0;
   if (*(a1 + 8504))
   {
     goto LABEL_2;
@@ -4976,10 +5045,10 @@ uint64_t HTTPMessageReadMessageEx(uint64_t a1, uint64_t (*a2)(unint64_t, size_t,
   *(a1 + 8504) = 1;
   if (*(a1 + 9744))
   {
-    v40 = *(a1 + 9752);
-    if ((v40 & 0x80000000) == 0)
+    v35 = *(a1 + 9752);
+    if ((v35 & 0x80000000) == 0)
     {
-      if (close(v40) && *__error())
+      if (close(v35) && *__error())
       {
         __error();
       }
@@ -4989,9 +5058,9 @@ uint64_t HTTPMessageReadMessageEx(uint64_t a1, uint64_t (*a2)(unint64_t, size_t,
 
     while (1)
     {
-      v41 = open(*(a1 + 9744), 1538, 384);
-      *(a1 + 9752) = v41;
-      if ((v41 & 0x80000000) == 0)
+      v36 = open(*(a1 + 9744), 1538, 384);
+      *(a1 + 9752) = v36;
+      if ((v36 & 0x80000000) == 0)
       {
         break;
       }
@@ -5014,68 +5083,68 @@ uint64_t HTTPMessageReadMessageEx(uint64_t a1, uint64_t (*a2)(unint64_t, size_t,
     }
   }
 
-  v42 = *(a1 + 8216);
-  if (v42 == -1)
+  v37 = *(a1 + 8216);
+  if (v37 == -1)
   {
-    v42 = strlen((a1 + 24));
+    v37 = strlen((a1 + 24));
   }
 
-  v69 = 0;
-  v70 = 0;
+  v64 = 0;
+  v65 = 0;
   LOBYTE(__nbyte) = 0;
-  if (HTTPGetHeaderField((a1 + 24), v42, "Transfer-Encoding", 0, 0, &v70, &v69, 0) || v69 < 1)
+  if (HTTPGetHeaderField((a1 + 24), v37, "Transfer-Encoding", 0, 0, &v65, &v64, 0) || v64 < 1)
   {
     goto LABEL_118;
   }
 
-  v44 = v70;
-  v45 = &v70[v69];
-  v46 = &v70[v69];
-  v47 = MEMORY[0x1E69E9830];
+  v39 = v65;
+  v40 = &v65[v64];
+  v41 = &v65[v64];
+  v42 = MEMORY[0x1E69E9830];
   do
   {
-    if (v44 >= v45)
+    if (v39 >= v40)
     {
       goto LABEL_89;
     }
 
-    v48 = v46 - v44;
+    v43 = v41 - v39;
     while (1)
     {
-      v49 = *v44;
-      if (v49 < 0)
+      v44 = *v39;
+      if (v44 < 0)
       {
         break;
       }
 
-      if ((*(v47 + 4 * v49 + 60) & 0x4000) == 0)
+      if ((*(v42 + 4 * v44 + 60) & 0x4000) == 0)
       {
         goto LABEL_88;
       }
 
 LABEL_86:
-      v70 = ++v44;
-      if (!--v48)
+      v65 = ++v39;
+      if (!--v43)
       {
         goto LABEL_89;
       }
     }
 
-    if (__maskrune(*v44, 0x4000uLL))
+    if (__maskrune(*v39, 0x4000uLL))
     {
       goto LABEL_86;
     }
 
 LABEL_88:
-    v44 = v70;
+    v39 = v65;
 LABEL_89:
-    v50 = v44;
-    if (v44 < v45)
+    v45 = v39;
+    if (v39 < v40)
     {
-      v50 = v44;
+      v45 = v39;
       do
       {
-        LOBYTE(__nbyte) = *v50;
+        LOBYTE(__nbyte) = *v45;
         if (__nbyte == 44 || __nbyte == 59)
         {
           break;
@@ -5083,96 +5152,96 @@ LABEL_89:
 
         if ((__nbyte & 0x80) != 0)
         {
-          v51 = __maskrune(__nbyte, 0x4000uLL);
-          v50 = v70;
-          if (v51)
+          v46 = __maskrune(__nbyte, 0x4000uLL);
+          v45 = v65;
+          if (v46)
           {
             break;
           }
         }
 
-        else if ((*(v47 + 4 * __nbyte + 60) & 0x4000) != 0)
+        else if ((*(v42 + 4 * __nbyte + 60) & 0x4000) != 0)
         {
           break;
         }
 
-        v70 = ++v50;
+        v65 = ++v45;
       }
 
-      while (v50 < v45);
+      while (v45 < v40);
     }
 
-    if (!strnicmpx(v44, v50 - v44, "chunked"))
+    if (!strnicmpx(v39, v45 - v39, "chunked"))
     {
       *(a1 + 8508) = 1;
       goto LABEL_2;
     }
 
-    v44 = v70;
-    if (v70 < v45)
+    v39 = v65;
+    if (v65 < v40)
     {
-      v52 = v46 - v70;
-      v53 = v70 + 1;
+      v47 = v41 - v65;
+      v48 = v65 + 1;
       while (1)
       {
-        v54 = *(v53 - 1);
-        if (v54 < 0)
+        v49 = *(v48 - 1);
+        if (v49 < 0)
         {
-          if (!__maskrune(*(v53 - 1), 0x4000uLL))
+          if (!__maskrune(*(v48 - 1), 0x4000uLL))
           {
 LABEL_107:
-            v44 = v70;
+            v39 = v65;
             break;
           }
         }
 
-        else if ((*(v47 + 4 * v54 + 60) & 0x4000) == 0)
+        else if ((*(v42 + 4 * v49 + 60) & 0x4000) == 0)
         {
           goto LABEL_107;
         }
 
-        v70 = v53++;
-        if (!--v52)
+        v65 = v48++;
+        if (!--v47)
         {
-          v44 = v46;
+          v39 = v41;
           break;
         }
       }
     }
 
-    if (v44 < v45 && *v44 == 59)
+    if (v39 < v40 && *v39 == 59)
     {
-      v70 = v44 + 1;
+      v65 = v39 + 1;
         ;
       }
 
-      v44 = v70;
+      v39 = v65;
     }
 
-    if (v44 < v45 && *v44 == 44)
+    if (v39 < v40 && *v39 == 44)
     {
-      v70 = ++v44;
+      v65 = ++v39;
     }
   }
 
-  while (v44 < v45);
+  while (v39 < v40);
 LABEL_118:
   *(a1 + 8508) = 0;
-  v55 = *(a1 + 8488);
+  v50 = *(a1 + 8488);
   if ((*(a1 + 9752) & 0x80000000) == 0)
   {
-    *(a1 + 9760) = v55;
-    if (v55 >= 0x100000)
+    *(a1 + 9760) = v50;
+    if (v50 >= 0x100000)
     {
-      v55 = 0x100000;
+      v50 = 0x100000;
     }
 
-    v66 = v55;
-    *(a1 + 8536) = v55;
+    v61 = v50;
+    *(a1 + 8536) = v50;
     goto LABEL_154;
   }
 
-  if (v55 > *(a1 + 8536))
+  if (v50 > *(a1 + 8536))
   {
     if (gLogCategory_HTTPMessage <= 90)
     {
@@ -5183,18 +5252,18 @@ LABEL_118:
           return 4294960553;
         }
 
-        v55 = *(a1 + 8488);
+        v50 = *(a1 + 8488);
       }
 
-      LogPrintF_safe(&gLogCategory_HTTPMessage, "OSStatus HTTPMessageReadMessageEx(HTTPMessageRef, NetTransportRead_f, void *)", 0x5Au, "### Bad content length: %llu vs %zu", v43, a6, a7, a8, v55);
+      LogPrintF_safe(&gLogCategory_HTTPMessage, "OSStatus HTTPMessageReadMessageEx(HTTPMessageRef, NetTransportRead_f, void *)", 90, "### Bad content length: %llu vs %zu", v38, a6, a7, a8, v50);
     }
 
     return 4294960553;
   }
 
-  v66 = *(a1 + 8488);
+  v61 = *(a1 + 8488);
 LABEL_154:
-  result = HTTPMessageSetBodyLength(a1, v55);
+  result = HTTPMessageSetBodyLength(a1, v50);
   if (result)
   {
     return result;
@@ -5204,8 +5273,8 @@ LABEL_2:
   v11 = *(a1 + 8508);
   if (v11)
   {
-    v69 = 0;
-    v70 = 0;
+    v64 = 0;
+    v65 = 0;
     __nbyte = 0;
     while (1)
     {
@@ -5214,85 +5283,85 @@ LABEL_2:
       {
         if (v11 == 1)
         {
-          v67 = 0;
-          result = HTTPReadLine((a1 + 24), a2, a3, &v70, &v69, a6, a7, a8);
+          v62 = 0;
+          result = HTTPReadLine((a1 + 24), a2, a3, &v65, &v64, a6, a7, a8);
           if (result)
           {
             return result;
           }
 
-          if (SNScanF(v70, v69, "%llx", v22, v23, v24, v25, v26, &v67) != 1)
+          if (SNScanF(v65, v64, "%llx", &v62) != 1)
           {
             return 4294960554;
           }
 
-          v28 = v67;
-          if (v67)
+          v23 = v62;
+          if (v62)
           {
             if ((*(a1 + 9752) & 0x80000000) != 0)
             {
-              v35 = *(a1 + 8528);
-              v36 = v35 + v67;
-              if (v35 + v67 <= v35)
+              v30 = *(a1 + 8528);
+              v31 = v30 + v62;
+              if (v30 + v62 <= v30)
               {
                 if (gLogCategory_HTTPMessage <= 90 && (gLogCategory_HTTPMessage != -1 || _LogCategory_Initialize(&gLogCategory_HTTPMessage, 0x5Au)))
                 {
-                  LogPrintF_safe(&gLogCategory_HTTPMessage, "OSStatus _HTTPMessageProcessChunkHeader(HTTPMessageRef, uint64_t)", 0x5Au, "### Bad chunk wrap: %zu vs %zu", v27, a6, a7, a8, v36);
+                  LogPrintF_safe(&gLogCategory_HTTPMessage, "OSStatus _HTTPMessageProcessChunkHeader(HTTPMessageRef, uint64_t)", 90, "### Bad chunk wrap: %zu vs %zu", v22, a6, a7, a8, v31);
                 }
 
                 return 4294960553;
               }
 
-              v37 = (a1 + 8552);
-              if (v36 >= 0x3E9)
+              v32 = (a1 + 8552);
+              if (v31 >= 0x3E9)
               {
-                v38 = malloc_type_realloc(*(a1 + 9552), v36, 0x100004077774924uLL);
-                if (!v38)
+                v33 = malloc_type_realloc(*(a1 + 9552), v31, 0x100004077774924uLL);
+                if (!v33)
                 {
                   return 4294960568;
                 }
 
-                v37 = v38;
+                v32 = v33;
                 if (!*(a1 + 9552))
                 {
-                  v39 = *(a1 + 8544);
-                  if (v39)
+                  v34 = *(a1 + 8544);
+                  if (v34)
                   {
-                    memmove(v38, *(a1 + 8520), v39);
+                    memmove(v33, *(a1 + 8520), v34);
                   }
                 }
 
-                *(a1 + 9552) = v37;
+                *(a1 + 9552) = v32;
               }
 
-              *(a1 + 8520) = v37;
-              *(a1 + 8528) = v36;
+              *(a1 + 8520) = v32;
+              *(a1 + 8528) = v31;
             }
 
             else
             {
-              if (v67 >= 0x100000)
+              if (v62 >= 0x100000)
               {
-                v29 = 0x100000;
+                v24 = 0x100000;
               }
 
               else
               {
-                v29 = v67;
+                v24 = v62;
               }
 
-              if (v29 > *(a1 + 8536))
+              if (v24 > *(a1 + 8536))
               {
-                result = HTTPMessageSetBodyLength(a1, v29);
+                result = HTTPMessageSetBodyLength(a1, v24);
                 if (result)
                 {
                   return result;
                 }
 
-                *(a1 + 8536) = v29;
+                *(a1 + 8536) = v24;
               }
 
-              *(a1 + 9760) = v28;
+              *(a1 + 9760) = v23;
             }
 
             v13 = 2;
@@ -5315,46 +5384,46 @@ LABEL_2:
         v15 = *(a1 + 8232);
         if (v14 < 0)
         {
-          v30 = *(a1 + 8544);
-          v31 = *(a1 + 8528);
+          v25 = *(a1 + 8544);
+          v26 = *(a1 + 8528);
           if (v15)
           {
-            v32 = v31 - v30;
-            if (v32 >= v15)
+            v27 = v26 - v25;
+            if (v27 >= v15)
             {
-              v33 = *(a1 + 8232);
+              v28 = *(a1 + 8232);
             }
 
             else
             {
-              v33 = v32;
+              v28 = v27;
             }
 
-            __nbyte = v33;
-            memmove((*(a1 + 8520) + v30), *(a1 + 8224), v33);
-            v34 = __nbyte;
+            __nbyte = v28;
+            memmove((*(a1 + 8520) + v25), *(a1 + 8224), v28);
+            v29 = __nbyte;
             *(a1 + 8224) += __nbyte;
-            *(a1 + 8232) -= v34;
-            v30 = *(a1 + 8544) + v34;
-            *(a1 + 8544) = v30;
-            v31 = *(a1 + 8528);
+            *(a1 + 8232) -= v29;
+            v25 = *(a1 + 8544) + v29;
+            *(a1 + 8544) = v25;
+            v26 = *(a1 + 8528);
           }
 
-          __nbyte = v30;
-          if (v31 > v30)
+          __nbyte = v25;
+          if (v26 > v25)
           {
-            result = a2(*(a1 + 8520) + v30, v31 - v30, &__nbyte, a3);
+            result = a2(*(a1 + 8520) + v25, v26 - v25, &__nbyte, a3);
             if (result)
             {
               return result;
             }
 
-            v30 = *(a1 + 8544) + __nbyte;
-            *(a1 + 8544) = v30;
-            v31 = *(a1 + 8528);
+            v25 = *(a1 + 8544) + __nbyte;
+            *(a1 + 8544) = v25;
+            v26 = *(a1 + 8528);
           }
 
-          if (v30 == v31)
+          if (v25 == v26)
           {
             goto LABEL_51;
           }
@@ -5438,13 +5507,13 @@ LABEL_51:
         switch(v11)
         {
           case 3:
-            result = HTTPReadLine((a1 + 24), a2, a3, &v70, &v69, a6, a7, a8);
+            result = HTTPReadLine((a1 + 24), a2, a3, &v65, &v64, a6, a7, a8);
             if (result)
             {
               return result;
             }
 
-            if (v69)
+            if (v64)
             {
               return 4294960554;
             }
@@ -5452,13 +5521,13 @@ LABEL_51:
             *(a1 + 8508) = 1;
             break;
           case 4:
-            result = HTTPReadLine((a1 + 24), a2, a3, &v70, &v69, a6, a7, a8);
+            result = HTTPReadLine((a1 + 24), a2, a3, &v65, &v64, a6, a7, a8);
             if (result)
             {
               return result;
             }
 
-            if (!v69)
+            if (!v64)
             {
               v13 = 5;
 LABEL_62:
@@ -5468,13 +5537,13 @@ LABEL_62:
             break;
           case 5:
 LABEL_123:
-            v56 = *(a1 + 9752);
-            if (v56 < 0)
+            v51 = *(a1 + 9752);
+            if (v51 < 0)
             {
               return 0;
             }
 
-            if (close(v56))
+            if (close(v51))
             {
               if (*__error())
               {
@@ -5494,50 +5563,50 @@ LABEL_123:
     }
   }
 
-  v57 = *(a1 + 9752);
-  v58 = *(a1 + 8232);
-  if (v57 < 0)
+  v52 = *(a1 + 9752);
+  v53 = *(a1 + 8232);
+  if (v52 < 0)
   {
-    if (v58)
+    if (v53)
     {
-      if (v58 >= *(a1 + 8528))
+      if (v53 >= *(a1 + 8528))
       {
-        v63 = *(a1 + 8528);
+        v58 = *(a1 + 8528);
       }
 
       else
       {
-        v63 = *(a1 + 8232);
+        v58 = *(a1 + 8232);
       }
 
-      memmove(*(a1 + 8520), *(a1 + 8224), v63);
-      *(a1 + 8224) += v63;
-      *(a1 + 8232) -= v63;
-      v64 = *(a1 + 8544) + v63;
-      *(a1 + 8544) = v64;
+      memmove(*(a1 + 8520), *(a1 + 8224), v58);
+      *(a1 + 8224) += v58;
+      *(a1 + 8232) -= v58;
+      v59 = *(a1 + 8544) + v58;
+      *(a1 + 8544) = v59;
     }
 
     else
     {
-      v64 = *(a1 + 8544);
+      v59 = *(a1 + 8544);
     }
 
-    v66 = v64;
-    v65 = *(a1 + 8528);
-    if (v65 > v64)
+    v61 = v59;
+    v60 = *(a1 + 8528);
+    if (v60 > v59)
     {
-      result = a2(*(a1 + 8520) + v64, v65 - v64, &v66, a3);
+      result = a2(*(a1 + 8520) + v59, v60 - v59, &v61, a3);
       if (result)
       {
         return result;
       }
 
-      v64 = *(a1 + 8544) + v66;
-      *(a1 + 8544) = v64;
-      v65 = *(a1 + 8528);
+      v59 = *(a1 + 8544) + v61;
+      *(a1 + 8544) = v59;
+      v60 = *(a1 + 8528);
     }
 
-    if (v64 == v65)
+    if (v59 == v60)
     {
       return 0;
     }
@@ -5550,35 +5619,35 @@ LABEL_123:
 
   else
   {
-    v59 = *(a1 + 9760);
-    if (!v58)
+    v54 = *(a1 + 9760);
+    if (!v53)
     {
 LABEL_136:
-      if (!v59)
+      if (!v54)
       {
         goto LABEL_123;
       }
 
-      if (*(a1 + 8536) >= v59)
+      if (*(a1 + 8536) >= v54)
       {
-        v61 = v59;
+        v56 = v54;
       }
 
       else
       {
-        v61 = *(a1 + 8536);
+        v56 = *(a1 + 8536);
       }
 
-      v66 = v61;
+      v61 = v56;
       result = (a2)(*(a1 + 8520));
       if (!result)
       {
-        result = FDWriteAll(*(a1 + 9752), *(a1 + 8520), v66);
+        result = FDWriteAll(*(a1 + 9752), *(a1 + 8520), v61);
         if (!result)
         {
-          v62 = *(a1 + 9760);
-          v21 = v62 == v66;
-          *(a1 + 9760) = v62 - v66;
+          v57 = *(a1 + 9760);
+          v21 = v57 == v61;
+          *(a1 + 9760) = v57 - v61;
           if (v21)
           {
             goto LABEL_123;
@@ -5591,29 +5660,29 @@ LABEL_136:
       return result;
     }
 
-    if (!v59)
+    if (!v54)
     {
       goto LABEL_123;
     }
 
-    if (v58 >= v59)
+    if (v53 >= v54)
     {
-      v60 = *(a1 + 9760);
+      v55 = *(a1 + 9760);
     }
 
     else
     {
-      v60 = *(a1 + 8232);
+      v55 = *(a1 + 8232);
     }
 
-    v66 = v60;
-    result = FDWriteAll(v57, *(a1 + 8224), v60);
+    v61 = v55;
+    result = FDWriteAll(v52, *(a1 + 8224), v55);
     if (!result)
     {
-      *(a1 + 8224) += v60;
-      *(a1 + 8232) -= v60;
-      v59 = *(a1 + 9760) - v60;
-      *(a1 + 9760) = v59;
+      *(a1 + 8224) += v55;
+      *(a1 + 8232) -= v55;
+      v54 = *(a1 + 9760) - v55;
+      *(a1 + 9760) = v54;
       goto LABEL_136;
     }
   }
@@ -5687,7 +5756,7 @@ uint64_t _NetTransportRead(char *__dst, size_t a2, void *a3, uint64_t a4)
             v14 = *(a4 + 24);
           }
 
-          LogPrintF(&gLogCategory_NetTransportChaCha20Poly1305, "OSStatus _NetTransportRead(void *, size_t, size_t *, void *)", 0x3Cu, "### NTCP bad size: %zu / %H\n", v16, v17, v18, v19, v14);
+          LogPrintF(&gLogCategory_NetTransportChaCha20Poly1305, "OSStatus _NetTransportRead(void *, size_t, size_t *, void *)", 60, "### NTCP bad size: %zu / %H\n", v16, v17, v18, v19, v14);
         }
 
 LABEL_52:
@@ -5741,7 +5810,7 @@ LABEL_37:
     {
       if (gLogCategory_NetTransportChaCha20Poly1305 <= 60 && (gLogCategory_NetTransportChaCha20Poly1305 != -1 || _LogCategory_Initialize(&gLogCategory_NetTransportChaCha20Poly1305, 0x3Cu)))
       {
-        LogPrintF(&gLogCategory_NetTransportChaCha20Poly1305, "OSStatus _NetTransportRead(void *, size_t, size_t *, void *)", 0x3Cu, "### NTCP verify len failed: %zu vs %zu\n", v22, v23, v24, v25, v27);
+        LogPrintF(&gLogCategory_NetTransportChaCha20Poly1305, "OSStatus _NetTransportRead(void *, size_t, size_t *, void *)", 60, "### NTCP verify len failed: %zu vs %zu\n", v22, v23, v24, v25, v27);
       }
 
       LODWORD(v26) = -6762;
@@ -5767,7 +5836,7 @@ LABEL_37:
 
   if (gLogCategory_NetTransportChaCha20Poly1305 <= 60 && (gLogCategory_NetTransportChaCha20Poly1305 != -1 || _LogCategory_Initialize(&gLogCategory_NetTransportChaCha20Poly1305, 0x3Cu)))
   {
-    LogPrintF(&gLogCategory_NetTransportChaCha20Poly1305, "OSStatus _NetTransportRead(void *, size_t, size_t *, void *)", 0x3Cu, "### NTCP verify failed: %#m\n", v22, v23, v24, v25, v26);
+    LogPrintF(&gLogCategory_NetTransportChaCha20Poly1305, "OSStatus _NetTransportRead(void *, size_t, size_t *, void *)", 60, "### NTCP verify failed: %#m\n", v22, v23, v24, v25, v26);
   }
 
 LABEL_26:
@@ -6318,7 +6387,7 @@ LABEL_37:
     if (*v29 != -1)
     {
 LABEL_40:
-      LogPrintF(v29, "void _HTTPConnectionRunStateMachine(HTTPConnectionRef)", 0x32u, "HTTP connection closing: %#m\n", a5, a6, a7, a8, v11);
+      LogPrintF(v29, "void _HTTPConnectionRunStateMachine(HTTPConnectionRef)", 50, "HTTP connection closing: %#m\n", a5, a6, a7, a8, v11);
       goto LABEL_42;
     }
 
@@ -6433,7 +6502,7 @@ uint64_t poly1305_init(uint64_t result, unsigned __int16 *a2)
   return result;
 }
 
-int64_t chacha20_update(uint64_t a1, int8x16_t *a2, unint64_t a3, int8x16_t *a4)
+uint64_t chacha20_update(uint64_t a1, int8x16_t *a2, unint64_t a3, int8x16_t *a4)
 {
   v5 = a3;
   v6 = a2;
@@ -7015,7 +7084,7 @@ LABEL_5:
   return result;
 }
 
-int64_t chacha20_poly1305_decrypt(uint64_t a1, int8x16_t *a2, unint64_t a3, int8x16_t *a4)
+uint64_t chacha20_poly1305_decrypt(uint64_t a1, int8x16_t *a2, unint64_t a3, int8x16_t *a4)
 {
   if (!*(a1 + 248))
   {
@@ -7148,7 +7217,7 @@ LABEL_49:
       v29 = "";
     }
 
-    return LogPrintF(result, "void _NTPClockServerProcessPacket(NTPClockRef, SocketRef)", 0x32u, "### NTP server send%s to %##a failed: %#m\n", v11, v12, v13, v14, v29);
+    return LogPrintF(result, "void _NTPClockServerProcessPacket(NTPClockRef, SocketRef)", 50, "### NTP server send%s to %##a failed: %#m\n", v11, v12, v13, v14, v29);
   }
 
 LABEL_6:
@@ -7193,7 +7262,7 @@ LABEL_6:
 
   if (gLogCategory_NTPClockCore <= 90 && (gLogCategory_NTPClockCore != -1 || _LogCategory_Initialize(&gLogCategory_NTPClockCore, 0x5Au)))
   {
-    LogPrintF(&gLogCategory_NTPClockCore, "OSStatus SocketGetPacketReceiveInfo(struct msghdr *, CUIPPacketInfo *)", 0x5Au, "### Receive address not found. Did you enable it with setsockopt?", v11, v12, v13, v14, v31);
+    LogPrintF(&gLogCategory_NTPClockCore, "OSStatus SocketGetPacketReceiveInfo(struct msghdr *, CUIPPacketInfo *)", 90, "### Receive address not found. Did you enable it with setsockopt?", v11, v12, v13, v14, v31);
   }
 
   v34 = 0;
@@ -7335,7 +7404,7 @@ LABEL_28:
     v28 = "";
   }
 
-  return LogPrintF(result, "void _NTPClockServerProcessPacket(NTPClockRef, SocketRef)", 0xAu, "NTP server sent %sresponse to %##a, RAF %d", v11, v12, v13, v14, v28);
+  return LogPrintF(result, "void _NTPClockServerProcessPacket(NTPClockRef, SocketRef)", 10, "NTP server sent %sresponse to %##a, RAF %d", v11, v12, v13, v14, v28);
 }
 
 uint64_t _NTPClockServerThread(uint64_t a1)
@@ -7449,40 +7518,40 @@ uint64_t _NTPClockServerThread(uint64_t a1)
   return 0;
 }
 
-uint64_t HTTPConnectionSendSimpleResponseEx2(uint64_t a1, int a2, uint64_t a3, uint64_t a4, const void *a5, size_t a6, uint64_t a7, uint64_t a8)
+uint64_t HTTPConnectionSendSimpleResponseEx2(void *a1, uint64_t a2, uint64_t a3, const char *a4, const void *a5, size_t a6)
 {
-  inited = HTTPConnectionInitResponseEx(a1, a2, a3, a4, a5, a6, a7, a8);
-  if (inited || (inited = HTTPMessageSetBody(*(a1 + 304), a4, a5, a6), inited))
+  inited = HTTPConnectionInitResponseEx(a1, a2, a3);
+  if (inited || (inited = HTTPMessageSetBody(a1[38], a4, a5, a6), inited))
   {
-    v17 = inited;
+    v15 = inited;
   }
 
   else
   {
-    v17 = HTTPConnectionSendResponse(a1);
-    if (!v17)
+    v15 = HTTPConnectionSendResponse(a1);
+    if (!v15)
     {
-      return v17;
+      return v15;
     }
   }
 
-  v18 = *(a1 + 128);
-  if (*v18 <= 60)
+  v16 = a1[16];
+  if (*v16 <= 60)
   {
-    if (*v18 == -1)
+    if (*v16 == -1)
     {
-      if (!_LogCategory_Initialize(v18, 0x3Cu))
+      if (!_LogCategory_Initialize(v16, 0x3Cu))
       {
-        return v17;
+        return v15;
       }
 
-      v18 = *(a1 + 128);
+      v16 = a1[16];
     }
 
-    LogPrintF(v18, "OSStatus HTTPConnectionSendSimpleResponseEx2(HTTPConnectionRef, const char *, HTTPStatus, OSStatus, const char *, const void *, size_t)", 0x3Cu, "### Response failed: %#m\n", v13, v14, v15, v16, v17);
+    LogPrintF(v16, "OSStatus HTTPConnectionSendSimpleResponseEx2(HTTPConnectionRef, const char *, HTTPStatus, OSStatus, const char *, const void *, size_t)", 60, "### Response failed: %#m\n", v11, v12, v13, v14, v15);
   }
 
-  return v17;
+  return v15;
 }
 
 uint64_t HTTPMessageCreate(uint64_t *a1)
@@ -7839,7 +7908,7 @@ LABEL_95:
 
     if (v27 == 63)
     {
-      v28 = (v26 + 1);
+      v28 = v26 + 1;
       if (v26 + 1 >= a2)
       {
         v27 = 63;
@@ -7890,7 +7959,7 @@ LABEL_95:
 
     if (v43)
     {
-      v32 = (v30 + 1);
+      v32 = v30 + 1;
     }
 
     else
@@ -8055,8 +8124,8 @@ uint64_t HTTPHeader_Parse(char *__s)
   }
 
   v6 = &__s[v1];
-  v37 = 0;
-  v38 = 0;
+  v33 = 0;
+  v34 = 0;
   v7 = v1 - 1;
   v8 = __s;
   while (1)
@@ -8173,7 +8242,7 @@ LABEL_69:
 
   *(__s + 1027) = __s;
   v17 = v8 - __s;
-  v38 = v8 - __s;
+  v34 = v8 - __s;
   *(__s + 1028) = v8 - __s;
   v18 = v8 + 1;
   if (strnicmpx(__s, v8 - __s, "GET"))
@@ -8264,7 +8333,7 @@ LABEL_63:
     return 4294960554;
   }
 
-  if (HTTPGetHeaderField(__s, *(__s + 1024), "Connection", 0, 0, &v37, &v38, 0))
+  if (HTTPGetHeaderField(__s, *(__s + 1024), "Connection", 0, 0, &v33, &v34, 0))
   {
     v30 = *(__s + 1052);
     v31 = *(__s + 1053);
@@ -8273,17 +8342,17 @@ LABEL_63:
 
   else
   {
-    v30 = v37;
-    v31 = v38;
+    v30 = v33;
+    v31 = v34;
     v32 = "close";
   }
 
   v3[280] = strnicmpx(v30, v31, v32) != 0;
-  HTTPScanFHeaderValue(__s, *(__s + 1024), "Content-Length", "%llu", v33, v34, v35, v36, __s + 8464);
+  HTTPScanFHeaderValue(__s, *(__s + 1024), "Content-Length", "%llu", __s + 8464);
   return 0;
 }
 
-uint64_t LogHTTP(uint64_t result, int *a2, unsigned __int8 *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t LogHTTP(uint64_t result, int *a2, unsigned __int8 *a3, uint64_t a4, unsigned __int8 *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (result)
   {
@@ -8399,13 +8468,13 @@ LABEL_49:
               {
                 if (*v12 != -1)
                 {
-                  return LogPrintF(v12, "void LogHTTP(LogCategory *, LogCategory *, const void *, size_t, const void *, size_t)", 0x32u, "HTTP Request:  %.*s\n", a5, a6, a7, a8, v15 - a3);
+                  return LogPrintF(v12, "void LogHTTP(LogCategory *, LogCategory *, const void *, size_t, const void *, size_t)", 50, "HTTP Request:  %.*s\n", a5, a6, a7, a8, v15 - a3);
                 }
 
                 result = _LogCategory_Initialize(v12, 0x32u);
                 if (result)
                 {
-                  return LogPrintF(v12, "void LogHTTP(LogCategory *, LogCategory *, const void *, size_t, const void *, size_t)", 0x32u, "HTTP Request:  %.*s\n", a5, a6, a7, a8, v15 - a3);
+                  return LogPrintF(v12, "void LogHTTP(LogCategory *, LogCategory *, const void *, size_t, const void *, size_t)", 50, "HTTP Request:  %.*s\n", a5, a6, a7, a8, v15 - a3);
                 }
               }
             }
@@ -8414,13 +8483,13 @@ LABEL_49:
             {
               if (*v13 != -1)
               {
-                return LogPrintF(v13, "void LogHTTP(LogCategory *, LogCategory *, const void *, size_t, const void *, size_t)", 0x32u, "HTTP Response: %.*s\n\n", a5, a6, a7, a8, v15 - a3);
+                return LogPrintF(v13, "void LogHTTP(LogCategory *, LogCategory *, const void *, size_t, const void *, size_t)", 50, "HTTP Response: %.*s\n\n", a5, a6, a7, a8, v15 - a3);
               }
 
               result = _LogCategory_Initialize(v13, 0x32u);
               if (result)
               {
-                return LogPrintF(v13, "void LogHTTP(LogCategory *, LogCategory *, const void *, size_t, const void *, size_t)", 0x32u, "HTTP Response: %.*s\n\n", a5, a6, a7, a8, v15 - a3);
+                return LogPrintF(v13, "void LogHTTP(LogCategory *, LogCategory *, const void *, size_t, const void *, size_t)", 50, "HTTP Response: %.*s\n\n", a5, a6, a7, a8, v15 - a3);
               }
             }
           }
@@ -8466,7 +8535,7 @@ LABEL_41:
 
     v28 = v24;
     v27 = "%s%{text}%{text}%s";
-    return LogPrintF(v21, "void LogHTTP(LogCategory *, LogCategory *, const void *, size_t, const void *, size_t)", 0x32u, v27, a5, a6, a7, a8, v28);
+    return LogPrintF(v21, "void LogHTTP(LogCategory *, LogCategory *, const void *, size_t, const void *, size_t)", 50, v27, a5, a6, a7, a8, v28);
   }
 
   v25 = a5;
@@ -8478,7 +8547,7 @@ LABEL_41:
       break;
     }
 
-    if (++v25 >= a5 + a6)
+    if (++v25 >= &a5[a6])
     {
       goto LABEL_41;
     }
@@ -8490,7 +8559,7 @@ LABEL_41:
     {
       v28 = v24;
       v27 = "%s%{text}<< BINARY DATA >>\n%.1H\n";
-      return LogPrintF(v21, "void LogHTTP(LogCategory *, LogCategory *, const void *, size_t, const void *, size_t)", 0x32u, v27, a5, a6, a7, a8, v28);
+      return LogPrintF(v21, "void LogHTTP(LogCategory *, LogCategory *, const void *, size_t, const void *, size_t)", 50, v27, a5, a6, a7, a8, v28);
     }
   }
 
@@ -8659,20 +8728,21 @@ LABEL_6:
   return 4294960568;
 }
 
-uint64_t HTTPScanFHeaderValue(char *a1, int64_t a2, char *a3, unsigned __int8 *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9)
+uint64_t HTTPScanFHeaderValue(char *a1, int64_t a2, char *a3, char *a4, ...)
 {
-  v11 = 0;
-  v12 = 0;
-  result = HTTPGetHeaderField(a1, a2, a3, 0, 0, &v12, &v11, 0);
+  va_start(va, a4);
+  v6 = 0;
+  v7 = 0;
+  result = HTTPGetHeaderField(a1, a2, a3, 0, 0, &v7, &v6, 0);
   if (!result)
   {
-    return VSNScanF(v12, v11, a4, &a9);
+    return VSNScanF(v7, v6, a4, va);
   }
 
   return result;
 }
 
-uint64_t VSNScanF(char *__s, size_t a2, unsigned __int8 *a3, int *a4)
+uint64_t VSNScanF(char *__s, size_t a2, char *a3, int *a4)
 {
   v5 = __s;
   v130 = *MEMORY[0x1E69E9840];
@@ -9708,7 +9778,7 @@ LABEL_144:
   }
 
   v124 = 1;
-  if ((v57 - v13) < 2 || !v24)
+  if (v57 - v13 < 2 || !v24)
   {
 LABEL_157:
     if (!v35)
@@ -9807,7 +9877,7 @@ LABEL_302:
 LABEL_179:
   if (v47)
   {
-    if ((v57 - v13) >= 2)
+    if (v57 - v13 >= 2)
     {
       v63 = v24 - 2;
       if (v24 >= 2 && *v13 == 48)
@@ -9830,7 +9900,7 @@ LABEL_179:
     goto LABEL_193;
   }
 
-  if ((v57 - v13) < 2 || (v63 = v24 - 2, v24 < 2) || *v13 != 48 || __tolower(v13[1]) != 98)
+  if (v57 - v13 < 2 || (v63 = v24 - 2, v24 < 2) || *v13 != 48 || __tolower(v13[1]) != 98)
   {
     v49 = 2;
 LABEL_193:

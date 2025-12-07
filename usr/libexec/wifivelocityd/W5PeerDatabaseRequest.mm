@@ -43,7 +43,7 @@
     {
       v23 = 136315138;
       v24 = "[W5PeerDatabaseRequest initWithPeer:fetch:reply:]";
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v21, 0, "[wifivelocity] %s: init error!", &v23);
     }
 
     v13 = 0;
@@ -69,17 +69,18 @@
       {
         if (v9)
         {
-          v23 = 136316162;
-          v24 = "[W5PeerDatabaseRequest handleResponse:]";
-          v25 = 2080;
-          v26 = "W5PeerDatabaseRequest.m";
-          v27 = 1024;
-          v28 = 69;
-          v29 = 2080;
-          v30 = "[W5PeerDatabaseRequest handleResponse:]";
-          v31 = 2048;
-          v32 = [fetchedResults count];
-          _os_log_send_and_compose_impl();
+          v22 = 136316162;
+          v23 = "[W5PeerDatabaseRequest handleResponse:]";
+          v24 = 2080;
+          v25 = "W5PeerDatabaseRequest.m";
+          v26 = 1024;
+          v27 = 69;
+          v28 = 2080;
+          v29 = "[W5PeerDatabaseRequest handleResponse:]";
+          v30 = 2048;
+          v31 = [fetchedResults count];
+          LODWORD(v17) = 48;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] %s (%s:%u) %s: peer fetched results count=%lu", &v22, v17, v18, v19, v20);
         }
 
         reply = [(W5PeerDatabaseRequest *)self reply];
@@ -90,25 +91,23 @@
       if (v9)
       {
         peer = [(W5PeerDatabaseRequest *)self peer];
-        v23 = 136316162;
-        v24 = "[W5PeerDatabaseRequest handleResponse:]";
-        v25 = 2080;
-        v26 = "W5PeerDatabaseRequest.m";
-        v27 = 1024;
-        v28 = 72;
-        v29 = 2080;
-        v30 = "[W5PeerDatabaseRequest handleResponse:]";
-        v31 = 2112;
-        v32 = peer;
-        LODWORD(v18) = 48;
-        v17 = &v23;
-        _os_log_send_and_compose_impl();
+        v22 = 136316162;
+        v23 = "[W5PeerDatabaseRequest handleResponse:]";
+        v24 = 2080;
+        v25 = "W5PeerDatabaseRequest.m";
+        v26 = 1024;
+        v27 = 72;
+        v28 = 2080;
+        v29 = "[W5PeerDatabaseRequest handleResponse:]";
+        v30 = 2112;
+        v31 = peer;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] %s (%s:%u) %s: peer fetch ok, but no results peer='%@'", &v22, 48);
       }
 
       reply = [(W5PeerDatabaseRequest *)self reply];
-      v21 = NSLocalizedFailureReasonErrorKey;
-      v22 = @"W5NoErr";
-      v13 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+      v20 = NSLocalizedFailureReasonErrorKey;
+      v21 = @"W5NoErr";
+      v13 = [NSDictionary dictionaryWithObjects:&v21 forKeys:&v20 count:1];
       v14 = 0;
     }
 
@@ -118,29 +117,27 @@
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         peer2 = [(W5PeerDatabaseRequest *)self peer];
-        v23 = 136316162;
-        v24 = "[W5PeerDatabaseRequest handleResponse:]";
-        v25 = 2080;
-        v26 = "W5PeerDatabaseRequest.m";
-        v27 = 1024;
-        v28 = 76;
-        v29 = 2080;
-        v30 = "[W5PeerDatabaseRequest handleResponse:]";
-        v31 = 2112;
-        v32 = peer2;
-        LODWORD(v18) = 48;
-        v17 = &v23;
-        _os_log_send_and_compose_impl();
+        v22 = 136316162;
+        v23 = "[W5PeerDatabaseRequest handleResponse:]";
+        v24 = 2080;
+        v25 = "W5PeerDatabaseRequest.m";
+        v26 = 1024;
+        v27 = 76;
+        v28 = 2080;
+        v29 = "[W5PeerDatabaseRequest handleResponse:]";
+        v30 = 2112;
+        v31 = peer2;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v11, 0, "[wifivelocity] %s (%s:%u) %s: failed to retrieve status object from peer='%@'", &v22, 48);
       }
 
       reply = [(W5PeerDatabaseRequest *)self reply];
-      v19 = NSLocalizedFailureReasonErrorKey;
-      v20 = @"W5PeerDatabaseResponseUndefinedError";
-      v13 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+      v18 = NSLocalizedFailureReasonErrorKey;
+      v19 = @"W5PeerDatabaseResponseUndefinedError";
+      v13 = [NSDictionary dictionaryWithObjects:&v19 forKeys:&v18 count:1];
       v14 = 14;
     }
 
-    v16 = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:v14 userInfo:v13, v17, v18];
+    v16 = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:v14 userInfo:v13];
     (reply)[2](reply, v16, 0);
 
 LABEL_15:

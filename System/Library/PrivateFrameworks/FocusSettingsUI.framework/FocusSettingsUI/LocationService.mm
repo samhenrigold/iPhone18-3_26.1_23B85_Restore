@@ -8,7 +8,7 @@
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
 {
-  sub_24B8F37E8(0, &qword_27F064520);
+  sub_24B8F37E8(0, &qword_27F064520, 0x277CE41F8);
   v5 = sub_24BAAA12C();
   if (v5 >> 62)
   {
@@ -88,7 +88,7 @@ LABEL_8:
   resultsCopy = results;
   selfCopy = self;
   results = [resultsCopy results];
-  sub_24B8F37E8(0, &qword_27F064518);
+  sub_24B8F37E8(0, &qword_27F064518, 0x277CD4E30);
   sub_24BAAA12C();
 
   swift_getKeyPath();

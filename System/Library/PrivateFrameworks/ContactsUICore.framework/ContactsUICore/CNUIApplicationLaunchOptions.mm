@@ -16,61 +16,61 @@
   return v3;
 }
 
-void __46__CNUIApplicationLaunchOptions_defaultOptions__block_invoke()
+void __46__CNUIApplicationLaunchOptions_defaultOptions__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v17[2] = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
-  v0 = getFBSOpenApplicationOptionKeyUnlockDeviceSymbolLoc_ptr;
-  v14 = getFBSOpenApplicationOptionKeyUnlockDeviceSymbolLoc_ptr;
+  v21[2] = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v4 = getFBSOpenApplicationOptionKeyUnlockDeviceSymbolLoc_ptr;
+  v18 = getFBSOpenApplicationOptionKeyUnlockDeviceSymbolLoc_ptr;
   if (!getFBSOpenApplicationOptionKeyUnlockDeviceSymbolLoc_ptr)
   {
-    v1 = FrontBoardServicesLibrary();
-    v12[3] = dlsym(v1, "FBSOpenApplicationOptionKeyUnlockDevice");
-    getFBSOpenApplicationOptionKeyUnlockDeviceSymbolLoc_ptr = v12[3];
-    v0 = v12[3];
+    v5 = FrontBoardServicesLibrary();
+    v16[3] = dlsym(v5, "FBSOpenApplicationOptionKeyUnlockDevice");
+    getFBSOpenApplicationOptionKeyUnlockDeviceSymbolLoc_ptr = v16[3];
+    v4 = v16[3];
   }
 
-  _Block_object_dispose(&v11, 8);
-  if (!v0)
+  _Block_object_dispose(&v15, 8);
+  if (!v4)
   {
     goto LABEL_8;
   }
 
-  v2 = *v0;
-  v15 = v2;
-  v3 = MEMORY[0x1E695E118];
-  v17[0] = MEMORY[0x1E695E118];
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
-  v4 = getFBSOpenApplicationOptionKeyPromptUnlockDeviceSymbolLoc_ptr;
-  v14 = getFBSOpenApplicationOptionKeyPromptUnlockDeviceSymbolLoc_ptr;
+  v6 = *v4;
+  v19 = v6;
+  v7 = MEMORY[0x1E695E118];
+  v21[0] = MEMORY[0x1E695E118];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v8 = getFBSOpenApplicationOptionKeyPromptUnlockDeviceSymbolLoc_ptr;
+  v18 = getFBSOpenApplicationOptionKeyPromptUnlockDeviceSymbolLoc_ptr;
   if (!getFBSOpenApplicationOptionKeyPromptUnlockDeviceSymbolLoc_ptr)
   {
-    v5 = FrontBoardServicesLibrary();
-    v12[3] = dlsym(v5, "FBSOpenApplicationOptionKeyPromptUnlockDevice");
-    getFBSOpenApplicationOptionKeyPromptUnlockDeviceSymbolLoc_ptr = v12[3];
-    v4 = v12[3];
+    v9 = FrontBoardServicesLibrary();
+    v16[3] = dlsym(v9, "FBSOpenApplicationOptionKeyPromptUnlockDevice");
+    getFBSOpenApplicationOptionKeyPromptUnlockDeviceSymbolLoc_ptr = v16[3];
+    v8 = v16[3];
   }
 
-  _Block_object_dispose(&v11, 8);
-  if (!v4)
+  _Block_object_dispose(&v15, 8);
+  if (!v8)
   {
 LABEL_8:
     +[CNUIIDSRequest IDSServiceForService:];
     __break(1u);
   }
 
-  v16 = *v4;
-  v17[1] = v3;
-  v6 = MEMORY[0x1E695DF20];
-  v7 = v16;
-  v8 = [v6 dictionaryWithObjects:v17 forKeys:&v15 count:2];
-  v9 = [v8 copy];
-  v10 = defaultOptions_cn_once_object_1;
-  defaultOptions_cn_once_object_1 = v9;
+  v20 = *v8;
+  v21[1] = v7;
+  v10 = MEMORY[0x1E695DF20];
+  v11 = v20;
+  v12 = [v10 dictionaryWithObjects:v21 forKeys:&v19 count:2];
+  v13 = [v12 copy];
+  v14 = defaultOptions_cn_once_object_1;
+  defaultOptions_cn_once_object_1 = v13;
 }
 
 @end

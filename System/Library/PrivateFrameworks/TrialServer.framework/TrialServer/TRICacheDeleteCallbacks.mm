@@ -3,6 +3,9 @@
 + (void)registerCallbacksWithPaths:(id)paths experimentDatabase:(id)database rolloutDatabase:(id)rolloutDatabase taskQueue:(id)queue loggingClient:(id)client;
 - (BOOL)_trialVolumeIsEqualToVolume:(id)volume;
 - (TRICacheDeleteCallbacks)initWithPaths:(id)paths assetPurger:(id)purger loggingClient:(id)client;
+- (id)purge:(id)purge urgency:(int)urgency;
+- (id)purgeable:(id)purgeable urgency:(int)urgency;
+- (void)_logPurgedAmountTelemetry:(int)telemetry purgedAmountInBytes:(id)bytes;
 - (void)cancel:(id)cancel;
 @end
 
@@ -27,6 +30,170 @@
   return v13;
 }
 
+- (id)purgeable:(id)purgeable urgency:(int)urgency
+{
+  v4 = *&urgency;
+  v23 = *MEMORY[0x277D85DE8];
+  purgeableCopy = purgeable;
+  v7 = objc_autoreleasePoolPush();
+  v8 = TRILogCategory_Server();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_26F567000, v8, OS_LOG_TYPE_DEFAULT, "Purgeable CacheDelete callback invoked", buf, 2u);
+  }
+
+  localTempDir = [(TRIPaths *)self->_paths localTempDir];
+  [TRITempDirScopeGuard ifUnreferencedCleanupPath:localTempDir];
+
+  v10 = [purgeableCopy triObjectForExpectedKey:@"CACHE_DELETE_VOLUME"];
+  if ([(TRICacheDeleteCallbacks *)self _trialVolumeIsEqualToVolume:v10])
+  {
+    v11 = [MEMORY[0x277D737B0] purgeabilityLevelFromCacheDeleteUrgency:v4];
+    v12 = v11;
+    if (v11)
+    {
+      v13 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[TRIAssetPurging purgeableAssetSizeForPurgeabilityLevel:](self->_assetPurger, "purgeableAssetSizeForPurgeabilityLevel:", objc_msgSend(v11, "unsignedIntValue"))}];
+    }
+
+    else
+    {
+      v13 = &unk_287FC4630;
+    }
+  }
+
+  else
+  {
+    v13 = &unk_287FC4630;
+  }
+
+  v14 = TRILogCategory_Server();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v20 = v13;
+    v21 = 1024;
+    v22 = v4;
+    _os_log_impl(&dword_26F567000, v14, OS_LOG_TYPE_DEFAULT, "Trial CacheDelete service found %@ bytes to be purgeable at CacheDeleteUrgency %d", buf, 0x12u);
+  }
+
+  if (v10)
+  {
+    v17[0] = @"CACHE_DELETE_VOLUME";
+    v17[1] = @"CACHE_DELETE_AMOUNT";
+    v18[0] = v10;
+    v18[1] = v13;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  objc_autoreleasePoolPop(v7);
+
+  return v15;
+}
+
+- (id)purge:(id)purge urgency:(int)urgency
+{
+  v4 = *&urgency;
+  v30 = *MEMORY[0x277D85DE8];
+  purgeCopy = purge;
+  v7 = objc_autoreleasePoolPush();
+  v8 = TRILogCategory_Server();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_26F567000, v8, OS_LOG_TYPE_DEFAULT, "Purge CacheDelete callback invoked", buf, 2u);
+  }
+
+  v9 = [purgeCopy triObjectForExpectedKey:@"CACHE_DELETE_VOLUME"];
+  v10 = v9;
+  v11 = &stru_287FA0430;
+  if (v9)
+  {
+    v11 = v9;
+  }
+
+  v12 = v11;
+
+  v13 = [purgeCopy triObjectForExpectedKey:@"CACHE_DELETE_AMOUNT"];
+  v14 = v13;
+  v15 = &unk_287FC4630;
+  if (v13)
+  {
+    v16 = v13;
+  }
+
+  else
+  {
+    v16 = &unk_287FC4630;
+  }
+
+  v17 = v16;
+
+  if ([(TRICacheDeleteCallbacks *)self _trialVolumeIsEqualToVolume:v12])
+  {
+    v18 = [MEMORY[0x277D737B0] purgeabilityLevelFromCacheDeleteUrgency:v4];
+    v19 = v18;
+    if (v18)
+    {
+      unsignedIntValue = [v18 unsignedIntValue];
+      v15 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[TRIAssetPurging purgeAssetsForPurgeabilityLevel:requestedPurgeAmount:](self->_assetPurger, "purgeAssetsForPurgeabilityLevel:requestedPurgeAmount:", unsignedIntValue, objc_msgSend(v17, "intValue"))}];
+      if ([v15 unsignedLongLongValue])
+      {
+        [(TRICacheDeleteCallbacks *)self _logPurgedAmountTelemetry:unsignedIntValue purgedAmountInBytes:v15];
+      }
+    }
+  }
+
+  v21 = TRILogCategory_Server();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v27 = v15;
+    v28 = 1024;
+    v29 = v4;
+    _os_log_impl(&dword_26F567000, v21, OS_LOG_TYPE_DEFAULT, "Trial CacheDelete service purged %@ bytes at CacheDeleteUrgency %d", buf, 0x12u);
+  }
+
+  v24[0] = @"CACHE_DELETE_VOLUME";
+  v24[1] = @"CACHE_DELETE_AMOUNT";
+  v25[0] = v12;
+  v25[1] = v15;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
+
+  objc_autoreleasePoolPop(v7);
+
+  return v22;
+}
+
+- (void)_logPurgedAmountTelemetry:(int)telemetry purgedAmountInBytes:(id)bytes
+{
+  v4 = *&telemetry;
+  v17[1] = *MEMORY[0x277D85DE8];
+  bytesCopy = bytes;
+  v7 = objc_opt_new();
+  ensureAssetPurgeFields = [v7 ensureAssetPurgeFields];
+  [v7 setAssetPurgeFields:ensureAssetPurgeFields];
+
+  v9 = [MEMORY[0x277D73BC0] assetPurgeFieldsPurgeabilityLevelFromPurgeabilityLevel:v4];
+  assetPurgeFields = [v7 assetPurgeFields];
+  [assetPurgeFields setPurgeabilityLevel:v9];
+
+  v11 = MEMORY[0x277D73B40];
+  intValue = [bytesCopy intValue];
+
+  v13 = [v11 metricWithName:@"total_purged_asset_size" integerValue:intValue];
+  logger = [(TRIClient *)self->_loggingClient logger];
+  trackingId = [(TRIClient *)self->_loggingClient trackingId];
+  v17[0] = v13;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  [logger logWithTrackingId:trackingId metrics:v16 dimensions:0 trialSystemTelemetry:v7];
+}
+
 - (void)cancel:(id)cancel
 {
   v3 = TRILogCategory_Server();
@@ -39,7 +206,7 @@
 
 - (BOOL)_trialVolumeIsEqualToVolume:(id)volume
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   paths = self->_paths;
   volumeCopy = volume;
   trialVolume = [(TRIPaths *)paths trialVolume];
@@ -56,9 +223,9 @@
       v8 = @"nil";
     }
 
-    v16 = 138412290;
-    v17 = v8;
-    _os_log_impl(&dword_26F567000, v7, OS_LOG_TYPE_INFO, "Found the following trial directory volume: %@", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = v8;
+    _os_log_impl(&dword_26F567000, v7, OS_LOG_TYPE_INFO, "Found the following trial directory volume: %@", &v15, 0xCu);
   }
 
   v9 = [(TRIPaths *)self->_paths volumeForDirectory:volumeCopy];
@@ -76,9 +243,9 @@
       v11 = @"nil";
     }
 
-    v16 = 138412290;
-    v17 = v11;
-    _os_log_impl(&dword_26F567000, v10, OS_LOG_TYPE_INFO, "Found the following cache delete requested volume: %@", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = v11;
+    _os_log_impl(&dword_26F567000, v10, OS_LOG_TYPE_INFO, "Found the following cache delete requested volume: %@", &v15, 0xCu);
   }
 
   if (!trialVolume || !v9)
@@ -86,8 +253,8 @@
     v13 = TRILogCategory_Server();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v16) = 0;
-      _os_log_error_impl(&dword_26F567000, v13, OS_LOG_TYPE_ERROR, "Invalid trial or cache delete requested volume", &v16, 2u);
+      LOWORD(v15) = 0;
+      _os_log_error_impl(&dword_26F567000, v13, OS_LOG_TYPE_ERROR, "Invalid trial or cache delete requested volume", &v15, 2u);
     }
 
     goto LABEL_19;
@@ -98,11 +265,11 @@
     v13 = TRILogCategory_Server();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412546;
-      v17 = v9;
-      v18 = 2112;
-      v19 = trialVolume;
-      _os_log_impl(&dword_26F567000, v13, OS_LOG_TYPE_DEFAULT, "Cache delete request for %@ does not match expected volume %@", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = v9;
+      v17 = 2112;
+      v18 = trialVolume;
+      _os_log_impl(&dword_26F567000, v13, OS_LOG_TYPE_DEFAULT, "Cache delete request for %@ does not match expected volume %@", &v15, 0x16u);
     }
 
 LABEL_19:
@@ -114,7 +281,6 @@ LABEL_19:
   v12 = 1;
 LABEL_20:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

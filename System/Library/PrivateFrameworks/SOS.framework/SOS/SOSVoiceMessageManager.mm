@@ -46,13 +46,14 @@
 
 - (void)startMessagePlayback
 {
-  if (+[SOSUtilities shouldSilenceSOSFlow])
+  v3 = +[SOSUtilities shouldSilenceSOSFlow];
+  if (v3)
   {
-    v3 = sos_voice_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sos_voice_log(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&dword_264323000, v3, OS_LOG_TYPE_DEFAULT, "SOS flow silenced so not playing voice message", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&dword_264323000, v4, OS_LOG_TYPE_DEFAULT, "SOS flow silenced so not playing voice message", v5, 2u);
     }
   }
 
@@ -65,7 +66,7 @@
 
 - (void)playMessage
 {
-  v3 = sos_voice_log();
+  v3 = sos_voice_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -78,25 +79,23 @@
 
 - (void)_playUtterances:(id)utterances
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   utterancesCopy = utterances;
-  v5 = sos_voice_log();
+  v5 = sos_voice_log(utterancesCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = utterancesCopy;
-    _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "Playing utterances: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = utterancesCopy;
+    _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "Playing utterances: %@", &v7, 0xCu);
   }
 
   voiceUtterer = [(SOSVoiceMessageManager *)self voiceUtterer];
   [voiceUtterer speakUtterances:utterancesCopy];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopMessagePlayback
 {
-  v3 = sos_voice_log();
+  v3 = sos_voice_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -149,7 +148,7 @@
     }
   }
 
-  v5 = sos_voice_log();
+  v5 = sos_voice_log(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(SOSVoiceMessageManager *)type _messageStringKeyForMessageType:v5];
@@ -160,26 +159,23 @@
 
 - (id)utterances
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = [SOSVoiceUtterance alloc];
   messageKey = [(SOSVoiceMessageManager *)self messageKey];
   voiceLanguage = [(SOSVoiceMessageManager *)self voiceLanguage];
   v6 = [(SOSVoiceUtterance *)v3 initWithMessageKey:messageKey voiceLanguage:voiceLanguage];
-  v10[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
 
   return v7;
 }
 
 + (void)_messageStringKeyForMessageType:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_264323000, a2, OS_LOG_TYPE_ERROR, "_messageStringKeyForReason - Unexpected messageType: %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_264323000, a2, OS_LOG_TYPE_ERROR, "_messageStringKeyForReason - Unexpected messageType: %ld", &v2, 0xCu);
 }
 
 @end

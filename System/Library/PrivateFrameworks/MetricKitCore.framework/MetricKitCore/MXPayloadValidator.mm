@@ -126,27 +126,27 @@ LABEL_25:
 
 - (BOOL)_validatePowerlogData:(id)data
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   dataCopy = data;
-  v5 = [dataCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [dataCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(dataCopy);
         }
 
-        v9 = [dataCopy objectForKey:{*(*(&v13 + 1) + 8 * i), v13}];
+        v9 = [dataCopy objectForKey:{*(*(&v12 + 1) + 8 * i), v12}];
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
         {
@@ -160,7 +160,7 @@ LABEL_25:
         }
       }
 
-      v6 = [dataCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [dataCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
       v10 = 1;
       if (v6)
       {
@@ -178,33 +178,32 @@ LABEL_25:
 
 LABEL_15:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (BOOL)_validateHangTracerData:(id)data
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   dataCopy = data;
-  v5 = [dataCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [dataCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(dataCopy);
         }
 
-        v9 = [dataCopy objectForKey:{*(*(&v16 + 1) + 8 * i), v16}];
+        v9 = [dataCopy objectForKey:{*(*(&v15 + 1) + 8 * i), v15}];
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
         {
@@ -226,7 +225,7 @@ LABEL_15:
         [(MXPayloadValidator *)self _sanitizeDeviceMetadataForDiagnostic:appLaunchDiagnostic];
       }
 
-      v6 = [dataCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [dataCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
       v13 = 1;
       if (v6)
       {
@@ -244,33 +243,32 @@ LABEL_15:
 
 LABEL_15:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)_validateSpinTracerData:(id)data
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   dataCopy = data;
-  v5 = [dataCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [dataCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(dataCopy);
         }
 
-        v9 = [dataCopy objectForKey:{*(*(&v16 + 1) + 8 * i), v16}];
+        v9 = [dataCopy objectForKey:{*(*(&v15 + 1) + 8 * i), v15}];
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
         {
@@ -292,7 +290,7 @@ LABEL_15:
         [(MXPayloadValidator *)self _sanitizeDeviceMetadataForDiagnostic:diskWriteExceptionDiagnostic];
       }
 
-      v6 = [dataCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [dataCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
       v13 = 1;
       if (v6)
       {
@@ -310,72 +308,10 @@ LABEL_15:
 
 LABEL_15:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)_validateReportCrashData:(id)data
-{
-  v19 = *MEMORY[0x277D85DE8];
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  dataCopy = data;
-  v5 = [dataCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v5)
-  {
-    v6 = v5;
-    v7 = *v15;
-    while (2)
-    {
-      for (i = 0; i != v6; ++i)
-      {
-        if (*v15 != v7)
-        {
-          objc_enumerationMutation(dataCopy);
-        }
-
-        v9 = [dataCopy objectForKey:{*(*(&v14 + 1) + 8 * i), v14}];
-        objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
-        {
-          if (os_log_type_enabled(self->_logHandle, OS_LOG_TYPE_ERROR))
-          {
-            [MXPayloadValidator _validateReportCrashData:];
-          }
-
-          v11 = 0;
-          goto LABEL_15;
-        }
-
-        crashDiagnostic = [v9 crashDiagnostic];
-        [(MXPayloadValidator *)self _sanitizeDeviceMetadataForDiagnostic:crashDiagnostic];
-      }
-
-      v6 = [dataCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
-      v11 = 1;
-      if (v6)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-  else
-  {
-    v11 = 1;
-  }
-
-LABEL_15:
-
-  v12 = *MEMORY[0x277D85DE8];
-  return v11;
-}
-
-- (BOOL)_validateSpaceAttributionData:(id)data
 {
   v18 = *MEMORY[0x277D85DE8];
   v13 = 0u;
@@ -403,6 +339,66 @@ LABEL_15:
         {
           if (os_log_type_enabled(self->_logHandle, OS_LOG_TYPE_ERROR))
           {
+            [MXPayloadValidator _validateReportCrashData:];
+          }
+
+          v11 = 0;
+          goto LABEL_15;
+        }
+
+        crashDiagnostic = [v9 crashDiagnostic];
+        [(MXPayloadValidator *)self _sanitizeDeviceMetadataForDiagnostic:crashDiagnostic];
+      }
+
+      v6 = [dataCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v11 = 1;
+      if (v6)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  else
+  {
+    v11 = 1;
+  }
+
+LABEL_15:
+
+  return v11;
+}
+
+- (BOOL)_validateSpaceAttributionData:(id)data
+{
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  dataCopy = data;
+  v5 = [dataCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v13;
+    while (2)
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v13 != v7)
+        {
+          objc_enumerationMutation(dataCopy);
+        }
+
+        v9 = [dataCopy objectForKey:{*(*(&v12 + 1) + 8 * i), v12}];
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+        {
+          if (os_log_type_enabled(self->_logHandle, OS_LOG_TYPE_ERROR))
+          {
             [MXPayloadValidator _validateSpaceAttributionData:];
           }
 
@@ -411,7 +407,7 @@ LABEL_15:
         }
       }
 
-      v6 = [dataCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [dataCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
       v10 = 1;
       if (v6)
       {
@@ -429,7 +425,6 @@ LABEL_15:
 
 LABEL_15:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -505,45 +500,40 @@ LABEL_14:
 
 - (void)validatePayload:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_258D6F000, a2, OS_LOG_TYPE_ERROR, "Invalid payload: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_258D6F000, a2, OS_LOG_TYPE_ERROR, "Invalid payload: %@", &v2, 0xCu);
 }
 
 - (void)_validatePayload:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [a1 bundleID];
-  v6 = 138412546;
-  v7 = a1;
-  v8 = 2112;
-  v9 = v4;
-  _os_log_error_impl(&dword_258D6F000, v3, OS_LOG_TYPE_ERROR, "Invalid payload: %@ due to payload metrics of client: %@ is nil", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = a1;
+  v7 = 2112;
+  v8 = v4;
+  _os_log_error_impl(&dword_258D6F000, v3, OS_LOG_TYPE_ERROR, "Invalid payload: %@ due to payload metrics of client: %@ is nil", &v5, 0x16u);
 }
 
 - (void)_validatePayload:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_258D6F000, a2, OS_LOG_TYPE_ERROR, "Invalid payload: %@ due to payload datestamp is nil", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_258D6F000, a2, OS_LOG_TYPE_ERROR, "Invalid payload: %@ due to payload datestamp is nil", &v2, 0xCu);
 }
 
 - (void)_sanitizeDeviceMetadataForDiagnostic:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_258D6F000, log, OS_LOG_TYPE_ERROR, "There was an error querying the LS database for bundle id %@: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_258D6F000, log, OS_LOG_TYPE_ERROR, "There was an error querying the LS database for bundle id %@: %@", &v3, 0x16u);
 }
 
 @end

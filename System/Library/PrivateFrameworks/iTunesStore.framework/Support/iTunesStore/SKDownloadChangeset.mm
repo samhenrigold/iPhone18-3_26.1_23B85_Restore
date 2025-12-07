@@ -25,56 +25,56 @@
   v5 = encodingCopy;
   if (encodingCopy && xpc_get_type(encodingCopy) == &_xpc_type_dictionary)
   {
-    v25.receiver = self;
-    v25.super_class = SKDownloadChangeset;
-    v6 = [(SKDownloadChangeset *)&v25 init];
+    v32.receiver = self;
+    v32.super_class = SKDownloadChangeset;
+    v6 = [(SKDownloadChangeset *)&v32 init];
     if (v6)
     {
-      objc_opt_class();
-      v8 = sub_10018E3FC(v5, "1");
-      v9 = v8;
-      if (v8)
+      v8 = objc_opt_class();
+      v9 = sub_10018E3FC(v5, "1", v8);
+      v10 = v9;
+      if (v9)
       {
-        v8 = [[NSURL alloc] initWithString:v8];
+        v9 = [[NSURL alloc] initWithString:v9];
       }
 
       contentURL = v6->_contentURL;
-      v6->_contentURL = v8;
+      v6->_contentURL = v9;
 
-      objc_opt_class();
-      v11 = sub_10018E3FC(v5, "4");
-      v12 = v11;
-      if (v11)
+      v12 = objc_opt_class();
+      v13 = sub_10018E3FC(v5, "4", v12);
+      v14 = v13;
+      if (v13)
       {
-        v13 = sub_10018DAD8(v11);
+        v15 = sub_10018DAD8(v13);
         error = v6->_error;
-        v6->_error = v13;
+        v6->_error = v15;
       }
 
-      objc_opt_class();
-      v15 = sub_10018E3FC(v5, "0");
+      v17 = objc_opt_class();
+      v18 = sub_10018E3FC(v5, "0", v17);
       contentLength = v6->_contentLength;
-      v6->_contentLength = v15;
+      v6->_contentLength = v18;
 
-      objc_opt_class();
-      v17 = sub_10018E3FC(v5, "2");
+      v20 = objc_opt_class();
+      v21 = sub_10018E3FC(v5, "2", v20);
       downloadID = v6->_downloadID;
-      v6->_downloadID = v17;
+      v6->_downloadID = v21;
 
-      objc_opt_class();
-      v19 = sub_10018E3FC(v5, "3");
+      v23 = objc_opt_class();
+      v24 = sub_10018E3FC(v5, "3", v23);
       downloadState = v6->_downloadState;
-      v6->_downloadState = v19;
+      v6->_downloadState = v24;
 
-      objc_opt_class();
-      v21 = sub_10018E3FC(v5, "5");
+      v26 = objc_opt_class();
+      v27 = sub_10018E3FC(v5, "5", v26);
       progress = v6->_progress;
-      v6->_progress = v21;
+      v6->_progress = v27;
 
-      objc_opt_class();
-      v23 = sub_10018E3FC(v5, "6");
+      v29 = objc_opt_class();
+      v30 = sub_10018E3FC(v5, "6", v29);
       timeRemaining = v6->_timeRemaining;
-      v6->_timeRemaining = v23;
+      v6->_timeRemaining = v30;
     }
   }
 

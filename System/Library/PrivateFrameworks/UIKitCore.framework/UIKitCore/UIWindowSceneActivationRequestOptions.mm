@@ -38,9 +38,9 @@
   if (configurationCopy)
   {
     role = [(UISceneConfiguration *)configurationCopy role];
-    v8 = [role isEqualToString:@"UISceneSessionRoleQuickLook"];
+    isEqualToString = objc_msgSend_isEqualToString_(role);
 
-    if ((v8 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
       role2 = [(UISceneConfiguration *)v6 role];
@@ -159,7 +159,7 @@
   return v6;
 }
 
-uint64_t __79__UIWindowSceneActivationRequestOptions_descriptionBuilderWithMultilinePrefix___block_invoke(uint64_t a1)
+void *__79__UIWindowSceneActivationRequestOptions_descriptionBuilderWithMultilinePrefix___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) placement];

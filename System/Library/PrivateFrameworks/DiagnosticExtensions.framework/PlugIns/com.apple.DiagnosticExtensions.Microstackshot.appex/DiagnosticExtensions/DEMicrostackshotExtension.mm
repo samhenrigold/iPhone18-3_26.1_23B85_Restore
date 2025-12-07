@@ -18,16 +18,16 @@
   v6 = PLQueryRegistered();
   v7 = [v6 objectForKeyedSubscript:@"microstackshots"];
   NSLog(@"[DEMicrostackshotExtension] attachmentList: %@\n", v7);
-  v8 = PowerMSSLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = PowerMSSLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v12 = v7;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "attachmentList: %@", buf, 0xCu);
+    v13 = v7;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "attachmentList: %@", buf, 0xCu);
   }
 
-  v9 = [DEAttachmentItem attachmentWithPath:v7];
-  [v2 addObject:v9];
+  v10 = [DEAttachmentItem attachmentWithPath:v7];
+  [v2 addObject:v10];
 
   return v2;
 }
@@ -35,11 +35,11 @@
 - (id)attachmentsForParameters:(id)parameters
 {
   parametersCopy = parameters;
-  v4 = PowerMSSLog();
+  v4 = PowerMSSLog(parametersCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v19 = parametersCopy;
+    v21 = parametersCopy;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "parameters: %@", buf, 0xCu);
   }
 
@@ -90,46 +90,47 @@ LABEL_15:
   {
     v11 = [v9 objectForKeyedSubscript:@"microstackshots"];
     NSLog(@"[DEMicrostackshotExtension] attachmentsForParameters(parameters=%@): %@\n", parametersCopy, v11);
-    v12 = PowerMSSLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = PowerMSSLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      sub_100001184(v11, v12);
+      sub_100001184(v11, v13);
     }
 
-    v13 = +[NSFileManager defaultManager];
-    if ([v13 fileExistsAtPath:v11])
+    v14 = +[NSFileManager defaultManager];
+    v15 = [v14 fileExistsAtPath:v11];
+    if (v15)
     {
-      v14 = [DEAttachmentItem attachmentWithPath:v11];
-      [v14 setDeleteOnAttach:&__kCFBooleanTrue];
-      [v14 setShouldCompress:&__kCFBooleanTrue];
-      v17 = v14;
-      v15 = [NSArray arrayWithObjects:&v17 count:1];
+      v16 = [DEAttachmentItem attachmentWithPath:v11];
+      [v16 setDeleteOnAttach:&__kCFBooleanTrue];
+      [v16 setShouldCompress:&__kCFBooleanTrue];
+      v19 = v16;
+      v17 = [NSArray arrayWithObjects:&v19 count:1];
     }
 
     else
     {
-      v14 = PowerMSSLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = PowerMSSLog(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        sub_1000011FC(v14);
+        sub_1000011FC(v16);
       }
 
-      v15 = &__NSArray0__struct;
+      v17 = &__NSArray0__struct;
     }
   }
 
   else
   {
-    v11 = PowerMSSLog();
+    v11 = PowerMSSLog(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_100001240(v11);
     }
 
-    v15 = &__NSArray0__struct;
+    v17 = &__NSArray0__struct;
   }
 
-  return v15;
+  return v17;
 }
 
 @end

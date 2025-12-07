@@ -134,7 +134,7 @@
           {
             if (error)
             {
-              ENTestResultErrorF(10);
+              ENTestResultErrorF(10, "Nil upload URL");
               *error = v26 = 0;
             }
 
@@ -151,7 +151,7 @@
         {
           if (error)
           {
-            ENTestResultErrorF(10);
+            ENTestResultErrorF(10, "Nil verification URL");
             *error = v26 = 0;
           }
 
@@ -169,7 +169,7 @@
         v25 = nonceCopy;
         if (error)
         {
-          ENTestResultErrorF(10);
+          ENTestResultErrorF(10, "Nil health authority ID");
           *error = v26 = 0;
         }
 
@@ -184,7 +184,7 @@
     {
       if (error)
       {
-        ENTestResultErrorF(10);
+        ENTestResultErrorF(10, "Nil certificate URL");
         *error = v26 = 0;
       }
 
@@ -201,7 +201,7 @@
   {
     if (error)
     {
-      ENTestResultErrorF(10);
+      ENTestResultErrorF(10, "Nil API key");
       *error = v26 = 0;
     }
 
@@ -288,7 +288,7 @@ LABEL_16:
 LABEL_17:
 }
 
-void __55__ENTestResultSession_verifyCodeWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void __55__ENTestResultSession_verifyCodeWithCompletionHandler___block_invoke(uint64_t a1, int a2, void *a3)
 {
   v8 = a3;
   v5 = +[ENLoggingPrefs sharedENLoggingPrefs];
@@ -307,59 +307,59 @@ LABEL_11:
   else if (v6 && gLogCategory_ENTestResultSession <= 90 && (gLogCategory_ENTestResultSession != -1 || _LogCategory_Initialize()))
   {
     v7 = [*(*(a1 + 32) + 72) UUIDString];
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_ENTestResultSession, "[ENTestResultSession verifyCodeWithCompletionHandler:]_block_invoke", 90, "%@ code verification failed: %@", v7, v8);
     goto LABEL_11;
   }
 
-  (*(*(a1 + 40) + 16))(*(a1 + 40), a2);
+  (*(*(a1 + 40) + 16))();
 }
 
 - (void)uploadTemporaryExposureKeys:(id)keys revisionToken:(id)token userMetadata:(id)metadata completionHandler:(id)handler
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   tokenCopy = token;
   metadataCopy = metadata;
   handlerCopy = handler;
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = __96__ENTestResultSession_uploadTemporaryExposureKeys_revisionToken_userMetadata_completionHandler___block_invoke;
-  v45[3] = &unk_278FD2FC8;
-  v45[4] = self;
-  v46 = handlerCopy;
-  v33 = MEMORY[0x24C214430](v45);
+  v44[0] = MEMORY[0x277D85DD0];
+  v44[1] = 3221225472;
+  v44[2] = __96__ENTestResultSession_uploadTemporaryExposureKeys_revisionToken_userMetadata_completionHandler___block_invoke;
+  v44[3] = &unk_278FD2FC8;
+  v44[4] = self;
+  v45 = handlerCopy;
+  v32 = MEMORY[0x24C214430](v44);
   v14 = +[ENLoggingPrefs sharedENLoggingPrefs];
   isSensitiveLoggingAllowed = [v14 isSensitiveLoggingAllowed];
 
   if (isSensitiveLoggingAllowed && gLogCategory_ENTestResultSession <= 50 && (gLogCategory_ENTestResultSession != -1 || _LogCategory_Initialize()))
   {
-    [ENTestResultSession uploadTemporaryExposureKeys:keysCopy revisionToken:? userMetadata:? completionHandler:?];
+    [ENTestResultSession uploadTemporaryExposureKeys:keysCopy revisionToken:metadataCopy userMetadata:tokenCopy completionHandler:?];
   }
 
   selfCopy = self;
-  v34 = metadataCopy;
-  v35 = tokenCopy;
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
+  v33 = metadataCopy;
+  v34 = tokenCopy;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v16 = keysCopy;
-  v17 = [v16 countByEnumeratingWithState:&v41 objects:v47 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v40 objects:v46 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v42;
+    v19 = *v41;
     do
     {
       v20 = 0;
       do
       {
-        if (*v42 != v19)
+        if (*v41 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v41 + 1) + 8 * v20);
+        v21 = *(*(&v40 + 1) + 8 * v20);
         v22 = +[ENLoggingPrefs sharedENLoggingPrefs];
         isRPILoggingAllowed = [v22 isRPILoggingAllowed];
 
@@ -372,7 +372,7 @@ LABEL_11:
       }
 
       while (v18 != v20);
-      v24 = [v16 countByEnumeratingWithState:&v41 objects:v47 count:16];
+      v24 = [v16 countByEnumeratingWithState:&v40 objects:v46 count:16];
       v18 = v24;
     }
 
@@ -382,44 +382,42 @@ LABEL_11:
   verificationToken = [(ENTestResultPersistentSession *)selfCopy->_persistentSession verificationToken];
   if (verificationToken)
   {
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __96__ENTestResultSession_uploadTemporaryExposureKeys_revisionToken_userMetadata_completionHandler___block_invoke_2;
-    v36[3] = &unk_278FD2FF0;
-    v36[4] = selfCopy;
-    v37 = v16;
-    v26 = v35;
-    v38 = v35;
-    v27 = v34;
-    v39 = v34;
-    v28 = v33;
-    v40 = v33;
-    [(ENTestResultSession *)selfCopy _performCertificateRequestWithToken:verificationToken temporaryExposureKeys:v37 completionHandler:v36];
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __96__ENTestResultSession_uploadTemporaryExposureKeys_revisionToken_userMetadata_completionHandler___block_invoke_2;
+    v35[3] = &unk_278FD2FF0;
+    v35[4] = selfCopy;
+    v36 = v16;
+    v26 = v34;
+    v37 = v34;
+    v27 = v33;
+    v38 = v33;
+    v28 = v32;
+    v39 = v32;
+    [(ENTestResultSession *)selfCopy _performCertificateRequestWithToken:verificationToken temporaryExposureKeys:v36 completionHandler:v35];
   }
 
   else
   {
-    v28 = v33;
+    v28 = v32;
     verificationError = [(ENTestResultPersistentSession *)selfCopy->_persistentSession verificationError];
-    v27 = v34;
+    v27 = v33;
     if (verificationError)
     {
-      (v33)[2](v33, 0, 0, verificationError);
+      (v32)[2](v32, 0, 0, verificationError);
     }
 
     else
     {
-      v30 = ENTestResultErrorF(1);
-      (v33)[2](v33, 0, 0, v30);
+      v30 = ENTestResultErrorF(1, "Nil token");
+      (v32)[2](v32, 0, 0, v30);
     }
 
-    v26 = v35;
+    v26 = v34;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
-void __96__ENTestResultSession_uploadTemporaryExposureKeys_revisionToken_userMetadata_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void __96__ENTestResultSession_uploadTemporaryExposureKeys_revisionToken_userMetadata_completionHandler___block_invoke(uint64_t a1, int a2, void *a3, void *a4)
 {
   v11 = a3;
   v7 = a4;
@@ -430,18 +428,20 @@ void __96__ENTestResultSession_uploadTemporaryExposureKeys_revisionToken_userMet
   {
     if (v9 && gLogCategory_ENTestResultSession <= 30 && (gLogCategory_ENTestResultSession != -1 || _LogCategory_Initialize()))
     {
-LABEL_9:
       v10 = [*(*(a1 + 32) + 72) UUIDString];
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_ENTestResultSession, "[ENTestResultSession uploadTemporaryExposureKeys:revisionToken:userMetadata:completionHandler:]_block_invoke", 30, "%@ finished successfully, revision token %@", v10, v11);
+LABEL_10:
     }
   }
 
   else if (v9 && gLogCategory_ENTestResultSession <= 90 && (gLogCategory_ENTestResultSession != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_9;
+    v10 = [*(*(a1 + 32) + 72) UUIDString];
+    LogPrintF_safe(&gLogCategory_ENTestResultSession, "[ENTestResultSession uploadTemporaryExposureKeys:revisionToken:userMetadata:completionHandler:]_block_invoke", 90, "%@ failed: %@", v10, v7);
+    goto LABEL_10;
   }
 
-  (*(*(a1 + 40) + 16))(*(a1 + 40), a2);
+  (*(*(a1 + 40) + 16))();
 }
 
 uint64_t __96__ENTestResultSession_uploadTemporaryExposureKeys_revisionToken_userMetadata_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -487,7 +487,7 @@ void __60__ENTestResultSession__performVerificationRequestWithError___block_invo
 
   if (v7 && gLogCategory_ENTestResultSession <= 90 && (gLogCategory_ENTestResultSession != -1 || _LogCategory_Initialize()))
   {
-    __60__ENTestResultSession__performVerificationRequestWithError___block_invoke_cold_1(a1);
+    __60__ENTestResultSession__performVerificationRequestWithError___block_invoke_cold_1(a1, v5);
   }
 
   v8 = [v5 domain];
@@ -517,7 +517,7 @@ LABEL_17:
 
 - (void)_flushVerificationCompletionsWithError:(id)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   p_verificationCompletions = &self->_verificationCompletions;
   if ([(NSMutableArray *)self->_verificationCompletions count])
@@ -530,29 +530,29 @@ LABEL_17:
       [(ENTestResultSession *)self _flushVerificationCompletionsWithError:?];
     }
 
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v8 = *p_verificationCompletions;
-    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v16;
+      v11 = *v15;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v16 != v11)
+          if (*v15 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          (*(*(*(&v15 + 1) + 8 * i) + 16))(*(*(&v15 + 1) + 8 * i));
+          (*(*(*(&v14 + 1) + 8 * i) + 16))(*(*(&v14 + 1) + 8 * i));
         }
 
-        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v10);
@@ -561,8 +561,6 @@ LABEL_17:
 
   v13 = *p_verificationCompletions;
   *p_verificationCompletions = 0;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performCertificateRequestWithToken:(id)token temporaryExposureKeys:(id)keys completionHandler:(id)handler
@@ -652,7 +650,7 @@ void __99__ENTestResultSession__performCertificateRequestWithToken_temporaryExpo
   {
     if (!v5)
     {
-      v5 = ENTestResultErrorF(1);
+      v5 = ENTestResultErrorF(1, "Unknown certificate error", v13);
     }
 
     *(a1[4] + 16) = 2;
@@ -774,7 +772,7 @@ void __135__ENTestResultSession__performUploadRequestWithTemporaryExposureKeys_r
     networkRequest = self->_networkRequest;
     self->_networkRequest = 0;
 
-    v5 = ENTestResultErrorF(5);
+    v5 = ENTestResultErrorF(5, "Session invalidated");
     [(ENTestResultSession *)self _flushVerificationCompletionsWithError:v5];
   }
 }
@@ -792,7 +790,7 @@ LABEL_11:
   {
     if (error)
     {
-      ENErrorF();
+      ENErrorF(10, "Code verification not finished");
       *error = v6 = 0;
       goto LABEL_6;
     }
@@ -809,7 +807,7 @@ LABEL_11:
 
   else if (error)
   {
-    *error = ENErrorF();
+    *error = ENErrorF(11, "Metadata unavailable");
   }
 
 LABEL_6:
@@ -843,34 +841,32 @@ LABEL_6:
 - (void)verifyCodeWithCompletionHandler:(uint64_t)a1 .cold.1(uint64_t a1)
 {
   v1 = [*(a1 + 72) UUIDString];
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENTestResultSession, "[ENTestResultSession verifyCodeWithCompletionHandler:]", 50, "%@ coalesced verification request", v1);
 }
 
 uint64_t __55__ENTestResultSession_verifyCodeWithCompletionHandler___block_invoke_cold_1(uint64_t a1, uint64_t *a2)
 {
-  *a2 = [*(*(a1 + 32) + 72) UUIDString];
-  return LogPrintF_safe();
+  v3 = [*(*(a1 + 32) + 72) UUIDString];
+  *a2 = v3;
+  return LogPrintF_safe(&gLogCategory_ENTestResultSession, "[ENTestResultSession verifyCodeWithCompletionHandler:]_block_invoke", 30, "%@ code verification succeeded", v3);
 }
 
-- (void)uploadTemporaryExposureKeys:(uint64_t)a1 revisionToken:(void *)a2 userMetadata:completionHandler:.cold.1(uint64_t a1, void *a2)
+- (void)uploadTemporaryExposureKeys:(uint64_t)a1 revisionToken:(void *)a2 userMetadata:(uint64_t)a3 completionHandler:(uint64_t)a4 .cold.1(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = [*(a1 + 72) UUIDString];
-  [a2 count];
-  LogPrintF_safe();
+  v7 = [*(a1 + 72) UUIDString];
+  LogPrintF_safe(&gLogCategory_ENTestResultSession, "-[ENTestResultSession uploadTemporaryExposureKeys:revisionToken:userMetadata:completionHandler:]", 50, "%@ will upload %lu keys, user metadata %@, revisionToken %@", v7, [a2 count], a3, a4);
 }
 
 - (void)uploadTemporaryExposureKeys:(void *)a1 revisionToken:userMetadata:completionHandler:.cold.2(void *a1)
 {
   v2 = [a1 keyData];
-  [a1 rollingStartNumber];
-  [a1 rollingPeriod];
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENTestResultSession, "-[ENTestResultSession uploadTemporaryExposureKeys:revisionToken:userMetadata:completionHandler:]", 30, "{ %@, %u, %u }", v2, [a1 rollingStartNumber], objc_msgSend(a1, "rollingPeriod"));
 }
 
-void __60__ENTestResultSession__performVerificationRequestWithError___block_invoke_cold_1(uint64_t a1)
+void __60__ENTestResultSession__performVerificationRequestWithError___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v1 = [*(*(a1 + 32) + 72) UUIDString];
-  LogPrintF_safe();
+  v3 = [*(*(a1 + 32) + 72) UUIDString];
+  LogPrintF_safe(&gLogCategory_ENTestResultSession, "[ENTestResultSession _performVerificationRequestWithError:]_block_invoke", 90, "%@ failed to deserialize test verification metadata: %@", v3, a2);
 }
 
 void __60__ENTestResultSession__performVerificationRequestWithError___block_invoke_cold_2(uint64_t a1)
@@ -878,38 +874,37 @@ void __60__ENTestResultSession__performVerificationRequestWithError___block_invo
   v4 = [OUTLINED_FUNCTION_0_10(a1) UUIDString];
   v2 = [v1 token];
   v3 = [v1 metadata];
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENTestResultSession, "[ENTestResultSession _performVerificationRequestWithError:]_block_invoke", 30, "%@ deserialized test verification token %@ and metadata %@", v4, v2, v3);
 }
 
 - (void)_flushVerificationCompletionsWithError:(uint64_t)a1 .cold.1(uint64_t a1, id *a2)
 {
   v3 = [*(a1 + 72) UUIDString];
-  [*a2 count];
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENTestResultSession, "-[ENTestResultSession _flushVerificationCompletionsWithError:]", 30, "%@ calling %lu test verification completions", v3, [*a2 count]);
 }
 
 void __99__ENTestResultSession__performCertificateRequestWithToken_temporaryExposureKeys_completionHandler___block_invoke_cold_1(uint64_t a1)
 {
   v1 = [*(*a1 + 72) UUIDString];
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENTestResultSession, "[ENTestResultSession _performCertificateRequestWithToken:temporaryExposureKeys:completionHandler:]_block_invoke", 30, "%@ certificate request completed", v1);
 }
 
 void __99__ENTestResultSession__performCertificateRequestWithToken_temporaryExposureKeys_completionHandler___block_invoke_cold_2(uint64_t a1)
 {
-  v1 = [OUTLINED_FUNCTION_0_10(a1) UUIDString];
-  LogPrintF_safe();
+  v2 = [OUTLINED_FUNCTION_0_10(a1) UUIDString];
+  LogPrintF_safe(&gLogCategory_ENTestResultSession, "[ENTestResultSession _performCertificateRequestWithToken:temporaryExposureKeys:completionHandler:]_block_invoke", 90, "%@ certificate request failed: %@", v2, v1);
 }
 
 void __135__ENTestResultSession__performUploadRequestWithTemporaryExposureKeys_revisionToken_certificate_HMACKey_userMetadata_completionHandler___block_invoke_cold_1(uint64_t a1)
 {
   v1 = [*(*a1 + 72) UUIDString];
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENTestResultSession, "[ENTestResultSession _performUploadRequestWithTemporaryExposureKeys:revisionToken:certificate:HMACKey:userMetadata:completionHandler:]_block_invoke", 30, "%@ upload finished", v1);
 }
 
 void __135__ENTestResultSession__performUploadRequestWithTemporaryExposureKeys_revisionToken_certificate_HMACKey_userMetadata_completionHandler___block_invoke_cold_2(uint64_t a1)
 {
-  v1 = [OUTLINED_FUNCTION_0_10(a1) UUIDString];
-  LogPrintF_safe();
+  v2 = [OUTLINED_FUNCTION_0_10(a1) UUIDString];
+  LogPrintF_safe(&gLogCategory_ENTestResultSession, "[ENTestResultSession _performUploadRequestWithTemporaryExposureKeys:revisionToken:certificate:HMACKey:userMetadata:completionHandler:]_block_invoke", 90, "%@ upload request failed: %@", v2, v1);
 }
 
 - (void)_checkInvalidatedAndReturnError:(void *)result .cold.1(void *result)
@@ -917,7 +912,7 @@ void __135__ENTestResultSession__performUploadRequestWithTemporaryExposureKeys_r
   if (result)
   {
     v1 = result;
-    result = ENErrorF();
+    result = ENErrorF(10, "Session invalidated");
     *v1 = result;
   }
 

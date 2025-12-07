@@ -2,6 +2,7 @@
 - (BKUIIndicatorViewController)init;
 - (void)_updateUI;
 - (void)setShouldShow:(BOOL)show;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
@@ -54,6 +55,24 @@
   v2.receiver = self;
   v2.super_class = BKUIIndicatorViewController;
   [(BKUIIndicatorViewController *)&v2 viewDidLoad];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v10.receiver = self;
+  v10.super_class = BKUIIndicatorViewController;
+  [(BKUIIndicatorViewController *)&v10 viewDidAppear:appear];
+  view = [(BKUIIndicatorViewController *)self view];
+  clearColor = [MEMORY[0x277D75348] clearColor];
+  [view setBackgroundColor:clearColor];
+
+  view2 = [(BKUIIndicatorViewController *)self view];
+  window = [view2 window];
+  physicalButtonView = [(BKUIIndicatorViewController *)self physicalButtonView];
+  [window addSubview:physicalButtonView];
+
+  physicalButtonView2 = [(BKUIIndicatorViewController *)self physicalButtonView];
+  [physicalButtonView2 setAnimating:1];
 }
 
 - (void)viewDidLayoutSubviews

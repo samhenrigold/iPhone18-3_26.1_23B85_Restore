@@ -24,7 +24,7 @@
 
 - (PBFPosterExtensionDataStoreSQLiteDatabase)initWithURL:(id)l options:(unint64_t)options error:(id *)error
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if (!lCopy)
   {
@@ -32,9 +32,9 @@
   }
 
   v10 = lCopy;
-  v64.receiver = self;
-  v64.super_class = PBFPosterExtensionDataStoreSQLiteDatabase;
-  v11 = [(PBFPosterExtensionDataStoreSQLiteDatabase *)&v64 init];
+  v65.receiver = self;
+  v65.super_class = PBFPosterExtensionDataStoreSQLiteDatabase;
+  v11 = [(PBFPosterExtensionDataStoreSQLiteDatabase *)&v65 init];
   if (!v11)
   {
     goto LABEL_48;
@@ -59,7 +59,7 @@
   v21 = [v18 fileURLWithPath:v20];
 
   errorCopy = error;
-  v53 = v11;
+  v54 = v11;
   if ((options & 0xA) != 0)
   {
     v22 = [_PBFPosterExtensionDataStoreSQLiteDatabaseImpl alloc];
@@ -83,9 +83,9 @@
       v24 = v23;
     }
 
-    v63 = 0;
-    v25 = [(_PBFPosterExtensionDataStoreSQLiteDatabaseImpl *)v22 initWithURL:v10 options:v24 error:&v63];
-    v26 = v63;
+    v64 = 0;
+    v25 = [(_PBFPosterExtensionDataStoreSQLiteDatabaseImpl *)v22 initWithURL:v10 options:v24 error:&v64];
+    v26 = v64;
     v27 = v26;
     if (((options & 8) != 0 || (options & 2) != 0) && !v26)
     {
@@ -102,8 +102,8 @@
   {
     if (![v17 checkResourceIsReachableAndReturnError:0] || (objc_msgSend(v21, "checkResourceIsReachableAndReturnError:", 0) & 1) == 0)
     {
-      v62 = 0;
-      v25 = [[_PBFPosterExtensionDataStoreSQLiteDatabaseImpl alloc] initWithURL:v10 options:2 error:&v62];
+      v63 = 0;
+      v25 = [[_PBFPosterExtensionDataStoreSQLiteDatabaseImpl alloc] initWithURL:v10 options:2 error:&v63];
       [(_PBFPosterExtensionDataStoreSQLiteDatabaseImpl *)v25 invalidate];
 LABEL_15:
 
@@ -113,104 +113,105 @@ LABEL_15:
 
   else if ((options & 1) == 0)
   {
-    v49 = _PBFPosterExtensionDataStoreSQLiteDatabaseError(1, 0, 0, 0);
+    v50 = _PBFPosterExtensionDataStoreSQLiteDatabaseError(1, 0, 0, 0);
     goto LABEL_16;
   }
 
-  v49 = 0;
+  v50 = 0;
 LABEL_16:
-  v60 = 0u;
   v61 = 0u;
-  v58 = 0u;
+  v62 = 0u;
   v59 = 0u;
-  v51 = v21;
-  v69[0] = v17;
-  v69[1] = v21;
-  v54 = v10;
-  v69[2] = v10;
-  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:{3, v49}];
-  v30 = [v29 countByEnumeratingWithState:&v58 objects:v70 count:16];
+  v60 = 0u;
+  v52 = v21;
+  v70[0] = v17;
+  v70[1] = v21;
+  v55 = v10;
+  v70[2] = v10;
+  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:{3, v50}];
+  v30 = [v29 countByEnumeratingWithState:&v59 objects:v71 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v59;
+    v32 = *v60;
     do
     {
       for (i = 0; i != v31; ++i)
       {
-        if (*v59 != v32)
+        if (*v60 != v32)
         {
           objc_enumerationMutation(v29);
         }
 
-        v34 = *(*(&v58 + 1) + 8 * i);
+        v34 = *(*(&v59 + 1) + 8 * i);
         pf_allowSuspendWithOpenFileHandle = [v34 pf_allowSuspendWithOpenFileHandle];
-        v36 = PBFLogSQLite();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        v36 = pf_allowSuspendWithOpenFileHandle;
+        v37 = PBFLogSQLite(pf_allowSuspendWithOpenFileHandle);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v66 = v34;
-          v67 = 1024;
-          LODWORD(v68) = pf_allowSuspendWithOpenFileHandle;
-          _os_log_impl(&dword_21B526000, v36, OS_LOG_TYPE_DEFAULT, "Database file at %{public}@ allowSuspendWithOpenFileHandle: %{BOOL}u", buf, 0x12u);
+          v67 = v34;
+          v68 = 1024;
+          LODWORD(v69) = v36;
+          _os_log_impl(&dword_21B526000, v37, OS_LOG_TYPE_DEFAULT, "Database file at %{public}@ allowSuspendWithOpenFileHandle: %{BOOL}u", buf, 0x12u);
         }
 
-        if ((pf_allowSuspendWithOpenFileHandle & 1) == 0)
+        if ((v36 & 1) == 0)
         {
-          v57 = 0;
-          v37 = [v34 pf_setAllowSuspendWithOpenFileHandle:1 error:&v57];
-          v38 = v57;
-          v39 = PBFLogSQLite();
-          v40 = v39;
-          if (v37)
+          v58 = 0;
+          v38 = [v34 pf_setAllowSuspendWithOpenFileHandle:1 error:&v58];
+          v39 = v58;
+          v40 = PBFLogSQLite(v39);
+          v41 = v40;
+          if (v38)
           {
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
             {
               pf_allowSuspendWithOpenFileHandle2 = [v34 pf_allowSuspendWithOpenFileHandle];
               *buf = 138543618;
-              v66 = v34;
-              v67 = 1024;
-              LODWORD(v68) = pf_allowSuspendWithOpenFileHandle2;
-              _os_log_impl(&dword_21B526000, v40, OS_LOG_TYPE_DEFAULT, "Database file at %{public}@ was updated to allowSuspendWithOpenFileHandle: %{BOOL}u", buf, 0x12u);
+              v67 = v34;
+              v68 = 1024;
+              LODWORD(v69) = pf_allowSuspendWithOpenFileHandle2;
+              _os_log_impl(&dword_21B526000, v41, OS_LOG_TYPE_DEFAULT, "Database file at %{public}@ was updated to allowSuspendWithOpenFileHandle: %{BOOL}u", buf, 0x12u);
             }
           }
 
-          else if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+          else if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v66 = v34;
-            v67 = 2114;
-            v68 = v38;
-            _os_log_error_impl(&dword_21B526000, v40, OS_LOG_TYPE_ERROR, "Database file at %{public}@ failed to update allowSuspendWithOpenFileHandle! Error: %{public}@", buf, 0x16u);
+            v67 = v34;
+            v68 = 2114;
+            v69 = v39;
+            _os_log_error_impl(&dword_21B526000, v41, OS_LOG_TYPE_ERROR, "Database file at %{public}@ failed to update allowSuspendWithOpenFileHandle! Error: %{public}@", buf, 0x16u);
           }
         }
       }
 
-      v31 = [v29 countByEnumeratingWithState:&v58 objects:v70 count:16];
+      v31 = [v29 countByEnumeratingWithState:&v59 objects:v71 count:16];
     }
 
     while (v31);
   }
 
-  v11 = v53;
-  v10 = v54;
-  v42 = v50;
-  if (!v50)
+  v11 = v54;
+  v10 = v55;
+  v43 = v51;
+  if (!v51)
   {
-    v56 = 0;
-    v43 = [[_PBFPosterExtensionDataStoreSQLiteDatabaseImpl alloc] initWithURL:v54 options:1 error:&v56];
-    v42 = v56;
-    lock_readonlyImpl = v53->_lock_readonlyImpl;
-    v53->_lock_readonlyImpl = v43;
+    v57 = 0;
+    v44 = [[_PBFPosterExtensionDataStoreSQLiteDatabaseImpl alloc] initWithURL:v55 options:1 error:&v57];
+    v43 = v57;
+    lock_readonlyImpl = v54->_lock_readonlyImpl;
+    v54->_lock_readonlyImpl = v44;
 
-    if (!v42)
+    if (!v43)
     {
-      v55 = 0;
-      [(PBFPosterExtensionDataStoreSQLiteDatabase *)v53 validateDatabaseWithError:&v55];
-      v47 = v55;
-      if (v47)
+      v56 = 0;
+      [(PBFPosterExtensionDataStoreSQLiteDatabase *)v54 validateDatabaseWithError:&v56];
+      v48 = v56;
+      if (v48)
       {
-        v42 = v47;
+        v43 = v48;
         if (!errorCopy)
         {
           goto LABEL_36;
@@ -220,7 +221,7 @@ LABEL_16:
       }
 
 LABEL_48:
-      v46 = v11;
+      v47 = v11;
       goto LABEL_49;
     }
   }
@@ -228,17 +229,17 @@ LABEL_48:
   if (errorCopy)
   {
 LABEL_35:
-    v45 = v42;
-    *errorCopy = v42;
+    v46 = v43;
+    *errorCopy = v43;
   }
 
 LABEL_36:
-  [(PBFPosterExtensionDataStoreSQLiteDatabase *)v53 invalidate];
+  [(PBFPosterExtensionDataStoreSQLiteDatabase *)v54 invalidate];
 
-  v46 = 0;
+  v47 = 0;
 LABEL_49:
 
-  return v46;
+  return v47;
 }
 
 - (unint64_t)version
@@ -805,7 +806,7 @@ LABEL_20:
 
 - (void)initWithURL:(char *)a1 options:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"databaseURL"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -813,7 +814,7 @@ LABEL_20:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"databaseURL", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -823,7 +824,7 @@ LABEL_20:
 
 - (void)sortedPosterUUIDsForRole:(char *)a1 error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"roleId"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -831,7 +832,7 @@ LABEL_20:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"roleId", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -841,7 +842,7 @@ LABEL_20:
 
 - (void)roleDisplayNamesForIdentifiers:(char *)a1 error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"roleIdentifiers"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -849,7 +850,7 @@ LABEL_20:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"roleIdentifiers", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -859,7 +860,7 @@ LABEL_20:
 
 - (void)checkIfPosterUUIDs:(char *)a1 belongToRole:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"roleId"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -867,7 +868,7 @@ LABEL_20:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"roleId", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -877,7 +878,7 @@ LABEL_20:
 
 - (void)selectedPosterUUIDForRole:(char *)a1 error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"roleId"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -885,7 +886,7 @@ LABEL_20:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"roleId", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -895,7 +896,7 @@ LABEL_20:
 
 - (void)attributeForPoster:(char *)a1 roleId:attributeId:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"roleId"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -903,7 +904,7 @@ LABEL_20:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"roleId", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -913,7 +914,7 @@ LABEL_20:
 
 - (void)attributesForPoster:(char *)a1 roleId:attributeIdentifiers:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"roleId"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -921,7 +922,7 @@ LABEL_20:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"roleId", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -931,7 +932,7 @@ LABEL_20:
 
 - (void)performChanges:(char *)a1 error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"changeHandler"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -939,7 +940,7 @@ LABEL_20:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"changeHandler", v10, v11);
+    OUTLINED_FUNCTION_1(&dword_21B526000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

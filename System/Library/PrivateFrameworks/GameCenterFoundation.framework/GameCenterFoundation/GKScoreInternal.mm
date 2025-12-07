@@ -141,32 +141,30 @@
   return v3;
 }
 
-void __42__GKScoreInternal_secureCodedPropertyKeys__block_invoke()
+void __42__GKScoreInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[9] = *MEMORY[0x277D85DE8];
-  v3[0] = @"player";
-  v4[0] = objc_opt_class();
-  v3[1] = @"leaderboardIdentifier";
-  v4[1] = objc_opt_class();
-  v3[2] = @"groupLeaderboardIdentifier";
-  v4[2] = objc_opt_class();
-  v3[3] = @"formattedValue";
-  v4[3] = objc_opt_class();
-  v3[4] = @"date";
-  v4[4] = objc_opt_class();
-  v3[5] = @"value";
-  v4[5] = objc_opt_class();
-  v3[6] = @"context";
-  v4[6] = objc_opt_class();
-  v3[7] = @"rank";
-  v4[7] = objc_opt_class();
-  v3[8] = @"valueSet";
-  v4[8] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:9];
-  v1 = secureCodedPropertyKeys_sSecureCodedKeys_26;
-  secureCodedPropertyKeys_sSecureCodedKeys_26 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v5[9] = *MEMORY[0x277D85DE8];
+  v4[0] = @"player";
+  v5[0] = objc_opt_class();
+  v4[1] = @"leaderboardIdentifier";
+  v5[1] = objc_opt_class();
+  v4[2] = @"groupLeaderboardIdentifier";
+  v5[2] = objc_opt_class();
+  v4[3] = @"formattedValue";
+  v5[3] = objc_opt_class();
+  v4[4] = @"date";
+  v5[4] = objc_opt_class();
+  v4[5] = @"value";
+  v5[5] = objc_opt_class();
+  v4[6] = @"context";
+  v5[6] = objc_opt_class();
+  v4[7] = @"rank";
+  v5[7] = objc_opt_class();
+  v4[8] = @"valueSet";
+  v5[8] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:9];
+  v3 = secureCodedPropertyKeys_sSecureCodedKeys_26;
+  secureCodedPropertyKeys_sSecureCodedKeys_26 = v2;
 }
 
 - (id)serverRepresentation

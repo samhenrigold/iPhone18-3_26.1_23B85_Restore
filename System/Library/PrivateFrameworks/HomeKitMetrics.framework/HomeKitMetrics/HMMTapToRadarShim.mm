@@ -12,14 +12,14 @@
 
 - (void)createDraft:(id)draft forProcessNamed:(id)named withDisplayReason:(id)reason
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   draftCopy = draft;
   namedCopy = named;
   reasonCopy = reason;
   tapToRadarService = [(HMMTapToRadarShim *)self tapToRadarService];
-  v18 = 0;
-  [tapToRadarService createDraft:draftCopy forProcessNamed:namedCopy withDisplayReason:reasonCopy error:&v18];
-  v12 = v18;
+  v17 = 0;
+  [tapToRadarService createDraft:draftCopy forProcessNamed:namedCopy withDisplayReason:reasonCopy error:&v17];
+  v12 = v17;
 
   if (v12)
   {
@@ -30,16 +30,14 @@
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v20 = v16;
-      v21 = 2112;
-      v22 = v12;
+      v19 = v16;
+      v20 = 2112;
+      v21 = v12;
       _os_log_impl(&dword_22B074000, v15, OS_LOG_TYPE_ERROR, "%{public}@Error trying to create TTR draft: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createRadarComponentWithName:(id)name version:(id)version identifier:(int64_t)identifier
@@ -96,68 +94,64 @@
 
 - (BOOL)isTapToRadarServiceAuthorized
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   tapToRadarService = [(HMMTapToRadarShim *)self tapToRadarService];
   serviceSettings = [tapToRadarService serviceSettings];
   authorizationStatus = [serviceSettings authorizationStatus];
 
-  if (authorizationStatus == 2)
+  switch(authorizationStatus)
   {
-    v6 = objc_autoreleasePoolPush();
-    selfCopy = self;
-    v8 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-    {
-      v9 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v9;
-      v10 = "%{public}@Failing to initiate a radar: TapToRadarService is rate-limiting us";
-      goto LABEL_10;
-    }
-  }
+    case 2:
+      v6 = objc_autoreleasePoolPush();
+      selfCopy = self;
+      v8 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        v9 = HMFGetLogIdentifier();
+        v14 = 138543362;
+        v15 = v9;
+        v10 = "%{public}@Failing to initiate a radar: TapToRadarService is rate-limiting us";
+        goto LABEL_10;
+      }
 
-  else if (authorizationStatus == 1)
-  {
-    v6 = objc_autoreleasePoolPush();
-    selfCopy2 = self;
-    v8 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-    {
-      v9 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v9;
-      v10 = "%{public}@Failing to initiate a radar: TapToRadarService has been disallowed by the user";
-      goto LABEL_10;
-    }
-  }
+      goto LABEL_11;
+    case 1:
+      v6 = objc_autoreleasePoolPush();
+      selfCopy2 = self;
+      v8 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        v9 = HMFGetLogIdentifier();
+        v14 = 138543362;
+        v15 = v9;
+        v10 = "%{public}@Failing to initiate a radar: TapToRadarService has been disallowed by the user";
+        goto LABEL_10;
+      }
 
-  else
-  {
-    if (authorizationStatus)
-    {
-      result = 1;
-      goto LABEL_13;
-    }
+LABEL_11:
 
-    v6 = objc_autoreleasePoolPush();
-    selfCopy3 = self;
-    v8 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-    {
-      v9 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v9;
-      v10 = "%{public}@Failing to initiate a radar: TapToRadarService is not authorized";
+      objc_autoreleasePoolPop(v6);
+      return 0;
+    case 0:
+      v6 = objc_autoreleasePoolPush();
+      selfCopy3 = self;
+      v8 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        v9 = HMFGetLogIdentifier();
+        v14 = 138543362;
+        v15 = v9;
+        v10 = "%{public}@Failing to initiate a radar: TapToRadarService is not authorized";
 LABEL_10:
-      _os_log_impl(&dword_22B074000, v8, OS_LOG_TYPE_DEFAULT, v10, &v15, 0xCu);
-    }
+        _os_log_impl(&dword_22B074000, v8, OS_LOG_TYPE_DEFAULT, v10, &v14, 0xCu);
+
+        goto LABEL_11;
+      }
+
+      goto LABEL_11;
   }
 
-  objc_autoreleasePoolPop(v6);
-  result = 0;
-LABEL_13:
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (HMMTapToRadarShim)init
@@ -167,7 +161,7 @@ LABEL_13:
   v2 = [(HMMTapToRadarShim *)&v9 init];
   if (v2)
   {
-    if (!HMFIsInternalBuild() || !TapToRadarKitLibraryCore())
+    if (!HMFIsInternalBuild() || !TapToRadarKitLibraryCore(0))
     {
       v7 = 0;
       goto LABEL_9;
@@ -216,7 +210,6 @@ LABEL_9:
 
 uint64_t __32__HMMTapToRadarShim_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
   logCategory__hmf_once_v7 = HMFCreateOSLogHandle();
 
   return MEMORY[0x2821F96F8]();

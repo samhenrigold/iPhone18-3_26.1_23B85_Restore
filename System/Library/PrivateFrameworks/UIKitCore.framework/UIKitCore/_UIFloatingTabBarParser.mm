@@ -202,9 +202,9 @@ LABEL_10:
     {
       if (v4 && v3)
       {
-        v6 = [v3 isEqual:v4];
+        isEqual = objc_msgSend_isEqual_(v3);
 
-        if (v6)
+        if (isEqual)
         {
           goto LABEL_11;
         }
@@ -670,9 +670,9 @@ LABEL_18:
           {
             if (v14)
             {
-              v16 = [(__CFString *)v14 isEqual:0x1EFB191F0];
+              isEqual = objc_msgSend_isEqual_(v14);
 
-              if (!v16)
+              if (!isEqual)
               {
                 goto LABEL_22;
               }

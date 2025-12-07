@@ -30,20 +30,19 @@
 
 - (void)creatScene
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = *(self + 424);
   v3 = *(self + 432);
-  v5 = 138543618;
-  v6 = v2;
-  v7 = 2114;
-  v8 = v3;
-  _os_log_error_impl(&dword_1D29CC000, a2, OS_LOG_TYPE_ERROR, "Failed to register FBProcess for: %{public}@ for session: %{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v2;
+  v6 = 2114;
+  v7 = v3;
+  _os_log_error_impl(&dword_1D29CC000, a2, OS_LOG_TYPE_ERROR, "Failed to register FBProcess for: %{public}@ for session: %{public}@", &v4, 0x16u);
 }
 
 - (void)setScene:(id)scene
 {
-  v32[4] = *MEMORY[0x1E69E9840];
+  v31[4] = *MEMORY[0x1E69E9840];
   sceneCopy = scene;
   scenePresenter = [(_EXSceneHostView *)self scenePresenter];
   presentationView = [scenePresenter presentationView];
@@ -54,14 +53,14 @@
 
   scene = self->_scene;
   self->_scene = sceneCopy;
-  v29 = sceneCopy;
+  v28 = sceneCopy;
 
-  uiPresentationManager = [(FBScene *)v29 uiPresentationManager];
+  uiPresentationManager = [(FBScene *)v28 uiPresentationManager];
   sessionUUID = [(_EXSceneHostView *)self sessionUUID];
   uUIDString = [sessionUUID UUIDString];
   v11 = [uiPresentationManager createPresenterWithIdentifier:uUIDString];
 
-  v30 = v11;
+  v29 = v11;
   [(_EXSceneHostView *)self setScenePresenter:v11];
   presentationView2 = [v11 presentationView];
   [(_EXSceneHostView *)self bounds];
@@ -70,28 +69,27 @@
   [presentationView2 setBackgroundColor:darkGrayColor];
 
   [(_EXSceneHostView *)self addSubview:presentationView2];
-  v24 = MEMORY[0x1E696ACD8];
+  v23 = MEMORY[0x1E696ACD8];
   leftAnchor = [(_EXSceneHostView *)self leftAnchor];
   leftAnchor2 = [presentationView2 leftAnchor];
-  v26 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-  v32[0] = v26;
+  v25 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
+  v31[0] = v25;
   topAnchor = [(_EXSceneHostView *)self topAnchor];
   topAnchor2 = [presentationView2 topAnchor];
   v15 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v32[1] = v15;
+  v31[1] = v15;
   rightAnchor = [(_EXSceneHostView *)self rightAnchor];
   rightAnchor2 = [presentationView2 rightAnchor];
   v18 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-  v32[2] = v18;
+  v31[2] = v18;
   bottomAnchor = [(_EXSceneHostView *)self bottomAnchor];
   bottomAnchor2 = [presentationView2 bottomAnchor];
   v21 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v32[3] = v21;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:4];
-  [v24 activateConstraints:v22];
+  v31[3] = v21;
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:4];
+  [v23 activateConstraints:v22];
 
-  [v30 activate];
-  v23 = *MEMORY[0x1E69E9840];
+  [v29 activate];
 }
 
 - (void)layoutSubviews

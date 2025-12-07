@@ -12,25 +12,22 @@
 
 - (_TtC26AuthenticationServicesCore20ASCABLEAuthenticator)initWithCaBLEURL:(id)l error:(id *)error
 {
-  v5 = sub_1C2170024();
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v5);
-  v10 = &v20[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x1EEE9AC00](v8);
-  v12 = &v20[-v11];
+  v4 = sub_1C2170024();
+  v5 = *(v4 - 8);
+  v6 = MEMORY[0x1EEE9AC00](v4);
+  v8 = &v16[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x1EEE9AC00](v6);
+  v10 = &v16[-v9];
   sub_1C216FFD4();
-  (*(v6 + 16))(v10, v12, v5);
-  v13 = [objc_allocWithZone(MEMORY[0x1E695D250]) init];
-  v14 = objc_allocWithZone(type metadata accessor for ASCABLEAuthenticator());
-  sub_1C20E0E34(v10, v13);
-  v16 = v15;
-  (*(v6 + 8))(v12, v5);
+  (*(v5 + 16))(v8, v10, v4);
+  v11 = [objc_allocWithZone(MEMORY[0x1E695D250]) init];
+  v12 = objc_allocWithZone(type metadata accessor for ASCABLEAuthenticator(0));
+  sub_1C20E0E34(v8, v11);
+  v14 = v13;
+  (*(v5 + 8))(v10, v4);
   swift_getObjectType();
-  v17 = *((*MEMORY[0x1E69E7D40] & *self) + 0x30);
-  v18 = *((*MEMORY[0x1E69E7D40] & *self) + 0x34);
   swift_deallocPartialClassInstance();
-  return v16;
+  return v14;
 }
 
 - (void)startWithCompletionHandler:(id)handler
@@ -45,7 +42,7 @@
   v6[1] = v5;
   selfCopy = self;
 
-  sub_1C20B0080(v7);
+  sub_1C20B0080(v7, v8);
   sub_1C20E19CC(0);
   [*(selfCopy + OBJC_IVAR____TtC26AuthenticationServicesCore20ASCABLEAuthenticator_powerLogger) logAuthenticationStartedEventIfNeeded];
 }
@@ -79,7 +76,7 @@
   selfCopy = self;
   [v2 invalidate];
   v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for ASCABLEAuthenticator();
+  v4.super_class = type metadata accessor for ASCABLEAuthenticator(0);
   [(ASCABLEAuthenticator *)&v4 dealloc];
 }
 

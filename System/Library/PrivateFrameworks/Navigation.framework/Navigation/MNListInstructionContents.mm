@@ -53,40 +53,40 @@
 
 - (id)_instructionsForFormats:(id)formats
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   formatsCopy = formats;
   if ([formatsCopy count])
   {
     v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(formatsCopy, "count")}];
+    v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v6 = [(MNListInstructionContents *)self transportType]== 2;
+    v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v7 = formatsCopy;
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
       v10 = 2 * v6;
-      v11 = *v17;
+      v11 = *v16;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          v13 = [MEMORY[0x1E696AEC0] _navigation_stringForServerFormattedString:*(*(&v16 + 1) + 8 * i) abbreviatedUnits:0 detail:v10 spoken:0 overrideVariables:{0, v16}];
+          v13 = [MEMORY[0x1E696AEC0] _navigation_stringForServerFormattedString:*(*(&v15 + 1) + 8 * i) abbreviatedUnits:0 detail:v10 spoken:0 overrideVariables:{0, v15}];
           if ([v13 length] && (objc_msgSend(v13, "_navigation_containsVariables") & 1) == 0)
           {
             [v5 addObject:v13];
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
@@ -98,14 +98,12 @@
     v5 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (id)stringForDistance:(double)distance
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   distanceCopy = distance;
   if (distance < 0.0)
   {
@@ -118,13 +116,13 @@
   if (self->_distanceString)
   {
     distanceString = [(MNListInstructionContents *)self distanceString];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __47__MNListInstructionContents_stringForDistance___block_invoke;
-    v20[3] = &unk_1E84308D8;
-    v20[4] = self;
-    *&v20[5] = distance;
-    v10 = [distanceString optionsWithArgumentHandler:v20];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __47__MNListInstructionContents_stringForDistance___block_invoke;
+    v19[3] = &unk_1E84308D8;
+    v19[4] = self;
+    *&v19[5] = distance;
+    v10 = [distanceString optionsWithArgumentHandler:v19];
 
     v11 = [(GEOComposedString *)self->_distanceString stringWithOptions:v10];
   }
@@ -135,10 +133,10 @@
     v13 = 2 * ([(MNListInstructionContents *)self transportType]== 2);
     if (distanceCopy >= 0.0)
     {
-      v21 = @"{distance}";
+      v20 = @"{distance}";
       v15 = [MEMORY[0x1E696AD98] numberWithDouble:distanceCopy];
-      v22[0] = v15;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+      v21[0] = v15;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     }
 
     else
@@ -150,8 +148,6 @@
     distanceFormat = [(MNListInstructionContents *)self distanceFormat];
     v11 = [v16 _navigation_stringForServerFormattedString:distanceFormat abbreviatedUnits:v8 detail:v13 spoken:v12 == 0 overrideVariables:v14];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

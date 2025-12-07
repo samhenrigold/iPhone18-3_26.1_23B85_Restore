@@ -11,29 +11,29 @@
 
 - (id)storageServiceWithName:(id)name
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (nameCopy)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     registeredServices = [(WFStorageServiceRegistry *)self registeredServices];
-    v6 = [registeredServices countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [registeredServices countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         for (i = 0; i != v6; i = i + 1)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(registeredServices);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           serviceName = [objc_opt_class() serviceName];
           v11 = [serviceName isEqualToString:nameCopy];
 
@@ -44,7 +44,7 @@
           }
         }
 
-        v6 = [registeredServices countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [registeredServices countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v6)
         {
           continue;
@@ -62,8 +62,6 @@ LABEL_12:
     v6 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
@@ -79,7 +77,7 @@ LABEL_12:
 
 - (NSArray)storageServices
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   workflowUserDefaults = [MEMORY[0x277CBEBD0] workflowUserDefaults];
   v4 = [workflowUserDefaults objectForKey:@"WFStorageServicesAllowedServices"];
   v5 = objc_opt_class();
@@ -90,14 +88,14 @@ LABEL_12:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315906;
-      v19 = "WFEnforceClass";
-      v20 = 2114;
-      v21 = v6;
-      v22 = 2114;
-      v23 = objc_opt_class();
-      v24 = 2114;
-      v25 = v5;
-      v9 = v23;
+      v18 = "WFEnforceClass";
+      v19 = 2114;
+      v20 = v6;
+      v21 = 2114;
+      v22 = objc_opt_class();
+      v23 = 2114;
+      v24 = v5;
+      v9 = v22;
       _os_log_impl(&dword_23DE30000, v8, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", buf, 0x2Au);
     }
 
@@ -117,48 +115,46 @@ LABEL_12:
   }
 
   registeredServices = [(WFStorageServiceRegistry *)self registeredServices];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __43__WFStorageServiceRegistry_storageServices__block_invoke;
-  v16[3] = &unk_278C1E058;
-  v17 = v7;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __43__WFStorageServiceRegistry_storageServices__block_invoke;
+  v15[3] = &unk_278C1E058;
+  v16 = v7;
   v12 = v7;
-  v13 = [registeredServices if_objectsPassingTest:v16];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = [registeredServices if_objectsPassingTest:v15];
 
   return v13;
 }
 
-uint64_t __43__WFStorageServiceRegistry_storageServices__block_invoke(uint64_t a1)
+uint64_t __43__WFStorageServiceRegistry_storageServices__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  v4 = [v1 containsObject:v3];
+  v2 = *(a1 + 32);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = [v2 containsObject:v4];
 
-  return v4;
+  return v5;
 }
 
 - (WFStorageServiceRegistry)init
 {
-  v18[1] = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = WFStorageServiceRegistry;
-  v2 = [(WFStorageServiceRegistry *)&v15 init];
+  v17[1] = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = WFStorageServiceRegistry;
+  v2 = [(WFStorageServiceRegistry *)&v14 init];
   if (v2)
   {
     workflowUserDefaults = [MEMORY[0x277CBEBD0] workflowUserDefaults];
-    v17 = @"WFStorageServicesAllowedServices";
+    v16 = @"WFStorageServicesAllowedServices";
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
-    v16[0] = v5;
+    v15[0] = v5;
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
-    v16[1] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
-    v18[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v15[1] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v17[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     [workflowUserDefaults registerDefaults:v9];
 
     v10 = [registeredStorageServiceClasses if_map:&__block_literal_global_180];
@@ -168,15 +164,14 @@ uint64_t __43__WFStorageServiceRegistry_storageServices__block_invoke(uint64_t a
     v12 = v2;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
-id __32__WFStorageServiceRegistry_init__block_invoke()
+id __32__WFStorageServiceRegistry_init__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
+  v2 = objc_opt_new();
 
-  return v0;
+  return v2;
 }
 
 + (id)sharedRegistry
@@ -199,10 +194,9 @@ id __32__WFStorageServiceRegistry_init__block_invoke()
 void __42__WFStorageServiceRegistry_sharedRegistry__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) registerAllActionKitStorageServiceClasses];
-  v2 = *(a1 + 32);
-  v3 = objc_opt_new();
-  v4 = sharedRegistry_sharedRegistry;
-  sharedRegistry_sharedRegistry = v3;
+  v1 = objc_opt_new();
+  v2 = sharedRegistry_sharedRegistry;
+  sharedRegistry_sharedRegistry = v1;
 }
 
 + (void)registerStorageServiceClass:(Class)class

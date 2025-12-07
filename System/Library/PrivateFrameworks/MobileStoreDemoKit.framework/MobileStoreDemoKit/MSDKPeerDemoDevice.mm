@@ -29,30 +29,30 @@
 
 - (void)refreshDevicePropertiesUsingProperties:(id)properties
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   v5 = [propertiesCopy mutableCopy];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = propertiesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
-        v12 = [v6 objectForKey:{v11, v17}];
+        v11 = *(*(&v16 + 1) + 8 * i);
+        v12 = [v6 objectForKey:{v11, v16}];
         null = [MEMORY[0x277CBEB68] null];
 
         if (v12 == null)
@@ -62,7 +62,7 @@
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
@@ -81,15 +81,13 @@
     }
   }
 
-  [(MSDKPeerDemoDevice *)self setValuesForKeysWithDictionary:v5, v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [(MSDKPeerDemoDevice *)self setValuesForKeysWithDictionary:v5, v16];
 }
 
 - (id)valueForUndefinedKey:(id)key
 {
   keyCopy = key;
-  v5 = defaultLogHandle();
+  v5 = defaultLogHandle(keyCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(MSDKPeerDemoDevice *)self valueForUndefinedKey:keyCopy, v5];
@@ -407,13 +405,12 @@
 
 - (void)valueForUndefinedKey:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_259B7D000, log, OS_LOG_TYPE_ERROR, "%{public}@: Encountered undefined key: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_259B7D000, log, OS_LOG_TYPE_ERROR, "%{public}@: Encountered undefined key: %{public}@", &v3, 0x16u);
 }
 
 @end

@@ -1537,38 +1537,51 @@
   currentDevice = [MEMORY[0x1E69DC938] currentDevice];
   userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
-  if (CKIsRunningInMacCatalyst() && CKIsRunningUnitTests())
+  v6 = CKIsRunningInMacCatalyst();
+  if (v6)
   {
-    goto LABEL_11;
+    v6 = CKIsRunningUnitTests(v6, v7);
+    if (v6)
+    {
+      goto LABEL_11;
+    }
   }
 
   if (userInterfaceIdiom != 4)
   {
     if (userInterfaceIdiom != 5)
     {
-      if (!CKIsRunningInSiri() && !CKIsRunningInMessagesNotificationViewService() && CKIsRunningInMessagesNotificationExtension())
+      v9 = CKIsRunningInSiri(v6);
+      if (!v9)
       {
-        [MEMORY[0x193AF5EC0](@"UNUserNotificationCenter" @"UserNotifications")];
+        v11 = CKIsRunningInMessagesNotificationViewService(v9, v10);
+        if (!v11)
+        {
+          if (CKIsRunningInMessagesNotificationExtension(v11))
+          {
+            [MEMORY[0x193AF5EC0](@"UNUserNotificationCenter" @"UserNotifications")];
+          }
+        }
       }
 
       [self _shouldUseClarityUI];
     }
 
 LABEL_11:
-    v6 = objc_opt_class();
+    v8 = objc_opt_class();
     goto LABEL_12;
   }
 
-  v6 = 0;
+  v8 = 0;
 LABEL_12:
   if (testOverrideCKUIBehaviorClass)
   {
-    v6 = testOverrideCKUIBehaviorClass;
+    v8 = testOverrideCKUIBehaviorClass;
   }
 
-  v7 = objc_alloc_init(v6);
-  v8 = sSharedBehaviors;
-  sSharedBehaviors = v7;
+  v12 = objc_alloc_init(v8);
+  v13 = sSharedBehaviors;
+  sSharedBehaviors = v12;
 
   [sSharedBehaviors setHUDStyle:1];
   v3 = sSharedBehaviors;
@@ -1593,18 +1606,18 @@ void __35__CKUIBehavior__shouldUseClarityUI__block_invoke()
   _shouldUseClarityUI_sIsClarityBoardEnabled = [v0 isClarityBoardEnabled];
 }
 
-void __21__CKUIBehavior_theme__block_invoke()
+void __21__CKUIBehavior_theme__block_invoke(uint64_t a1)
 {
-  v0 = CKIsRunningInMessagesNotificationExtension();
-  v1 = off_1E72E5AC8;
-  if (v0)
+  v1 = CKIsRunningInMessagesNotificationExtension(a1);
+  v2 = off_1E72E5AC8;
+  if (v1)
   {
-    v1 = off_1E72E5AE8;
+    v2 = off_1E72E5AE8;
   }
 
-  v2 = objc_alloc_init(*v1);
-  v3 = theme_sBehavior;
-  theme_sBehavior = v2;
+  v3 = objc_alloc_init(*v2);
+  v4 = theme_sBehavior;
+  theme_sBehavior = v3;
 }
 
 - (CKUITheme)theme
@@ -1634,7 +1647,7 @@ void __21__CKUIBehavior_theme__block_invoke()
   return defaultConversationViewingMessageCount_sBehavior;
 }
 
-uint64_t __54__CKUIBehavior_defaultConversationViewingMessageCount__block_invoke(uint64_t a1)
+void *__54__CKUIBehavior_defaultConversationViewingMessageCount__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _defaultConversationViewingMessageCount];
   defaultConversationViewingMessageCount_sBehavior = result;
@@ -1802,7 +1815,7 @@ uint64_t __47__CKUIBehavior_conversationListControllerClass__block_invoke()
   return v3;
 }
 
-void __45__CKUIBehavior_showPendingInConversationList__block_invoke()
+void __45__CKUIBehavior_showPendingInConversationList__block_invoke(uint64_t result, uint64_t a2)
 {
   if (CKIsGeneralIdiom_onceToken != -1)
   {
@@ -1837,7 +1850,7 @@ void __45__CKUIBehavior_showPendingInConversationList__block_invoke()
   return *&minConversationListWidth_sBehavior;
 }
 
-uint64_t __40__CKUIBehavior_minConversationListWidth__block_invoke(uint64_t a1)
+void *__40__CKUIBehavior_minConversationListWidth__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) conversationListWidthForInterfaceOrientation:1];
   v3 = v2;
@@ -1866,7 +1879,7 @@ uint64_t __40__CKUIBehavior_minConversationListWidth__block_invoke(uint64_t a1)
   return *&maxConversationListWidth_sBehavior;
 }
 
-uint64_t __40__CKUIBehavior_maxConversationListWidth__block_invoke(uint64_t a1)
+void *__40__CKUIBehavior_maxConversationListWidth__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) conversationListWidthForInterfaceOrientation:1];
   v3 = v2;
@@ -1890,7 +1903,7 @@ uint64_t __40__CKUIBehavior_maxConversationListWidth__block_invoke(uint64_t a1)
   return maximumNumberOfPinnedConversations_sBehavior;
 }
 
-uint64_t __50__CKUIBehavior_maximumNumberOfPinnedConversations__block_invoke()
+void *__50__CKUIBehavior_maximumNumberOfPinnedConversations__block_invoke()
 {
   result = [MEMORY[0x1E69A5C38] maximumNumberOfPinnedConversations];
   maximumNumberOfPinnedConversations_sBehavior = result;
@@ -2012,7 +2025,7 @@ void __31__CKUIBehavior_newComposeImage__block_invoke()
   return initialConversationViewingMessageCount_sBehavior;
 }
 
-uint64_t __54__CKUIBehavior_initialConversationViewingMessageCount__block_invoke(uint64_t a1)
+void *__54__CKUIBehavior_initialConversationViewingMessageCount__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) shouldLoadInitialViewingMessageCount];
   v3 = *(a1 + 32);
@@ -2810,7 +2823,7 @@ uint64_t __45__CKUIBehavior_showUnreadCountDebugggingInfo__block_invoke()
   return conversationListScrollingPaddingRowCount_sBehavior;
 }
 
-uint64_t __56__CKUIBehavior_conversationListScrollingPaddingRowCount__block_invoke(uint64_t a1)
+void *__56__CKUIBehavior_conversationListScrollingPaddingRowCount__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _conversationListScrollingPaddingRowCount];
   conversationListScrollingPaddingRowCount_sBehavior = result;
@@ -2842,7 +2855,7 @@ uint64_t __56__CKUIBehavior_conversationListScrollingPaddingRowCount__block_invo
   return *&previewMaxWidth_sBehavior;
 }
 
-uint64_t __31__CKUIBehavior_previewMaxWidth__block_invoke(uint64_t a1)
+void *__31__CKUIBehavior_previewMaxWidth__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   [v2 maxTranscriptPortraitWidth];
@@ -2921,7 +2934,7 @@ void __42__CKUIBehavior_maxTranscriptPortraitWidth__block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __44__CKUIBehavior_entryViewVerticalCoverInsets__block_invoke(uint64_t a1)
+void *__44__CKUIBehavior_entryViewVerticalCoverInsets__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _entryViewVerticalCoverInsets];
   entryViewVerticalCoverInsets_sBehavior_0 = v2;
@@ -3063,7 +3076,7 @@ void __46__CKUIBehavior_entryViewHorizontalCoverInsets__block_invoke()
   return *&entryViewSendButtonCoverSpace_sBehavior;
 }
 
-uint64_t __45__CKUIBehavior_entryViewSendButtonCoverSpace__block_invoke(uint64_t a1)
+void *__45__CKUIBehavior_entryViewSendButtonCoverSpace__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _entryViewSendButtonCoverSpace];
   entryViewSendButtonCoverSpace_sBehavior = v2;
@@ -3123,7 +3136,7 @@ uint64_t __45__CKUIBehavior_entryViewSendButtonCoverSpace__block_invoke(uint64_t
   return *&entryContentViewTextLeftOffset_sBehavior;
 }
 
-uint64_t __46__CKUIBehavior_entryContentViewTextLeftOffset__block_invoke(uint64_t a1)
+void *__46__CKUIBehavior_entryContentViewTextLeftOffset__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _entryContentViewTextLeftOffset];
   entryContentViewTextLeftOffset_sBehavior = v2;
@@ -3167,7 +3180,7 @@ uint64_t __46__CKUIBehavior_entryContentViewTextLeftOffset__block_invoke(uint64_
   return result;
 }
 
-uint64_t __41__CKUIBehavior_balloonLineFragmentInsets__block_invoke(uint64_t a1)
+void *__41__CKUIBehavior_balloonLineFragmentInsets__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) balloonLineFragmentPadding];
   balloonLineFragmentInsets_sBehavior_1 = v2;
@@ -3492,7 +3505,7 @@ void __44__CKUIBehavior_textBalloonPillContentInsets__block_invoke()
   return shouldUseDynamicGradient_sBehavior;
 }
 
-uint64_t __40__CKUIBehavior_shouldUseDynamicGradient__block_invoke(uint64_t a1)
+void *__40__CKUIBehavior_shouldUseDynamicGradient__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _shouldUseDynamicGradient];
   shouldUseDynamicGradient_sBehavior = result;
@@ -3658,7 +3671,7 @@ uint64_t __40__CKUIBehavior_shouldUseDynamicGradient__block_invoke(uint64_t a1)
   return entryViewCoverHasOuterStroke_sBehavior;
 }
 
-uint64_t __44__CKUIBehavior_entryViewCoverHasOuterStroke__block_invoke(uint64_t a1)
+void *__44__CKUIBehavior_entryViewCoverHasOuterStroke__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _entryViewCoverHasOuterStroke];
   entryViewCoverHasOuterStroke_sBehavior = result;
@@ -3770,7 +3783,7 @@ uint64_t __44__CKUIBehavior_entryViewCoverHasOuterStroke__block_invoke(uint64_t 
   return v4;
 }
 
-uint64_t __45__CKUIBehavior_taillessSkinnyBalloonMaskSize__block_invoke(uint64_t a1)
+void *__45__CKUIBehavior_taillessSkinnyBalloonMaskSize__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) skinnyBalloonMaskSize];
   taillessSkinnyBalloonMaskSize_sBehavior_0 = v2;
@@ -3918,7 +3931,7 @@ void __48__CKUIBehavior_entryViewVerticalTextFieldInsets__block_invoke(uint64_t 
   return *&entryViewCoverMinHeight_sBehavior;
 }
 
-uint64_t __39__CKUIBehavior_entryViewCoverMinHeight__block_invoke(uint64_t a1)
+void *__39__CKUIBehavior_entryViewCoverMinHeight__block_invoke(uint64_t a1)
 {
   v2 = [MEMORY[0x1E69A8070] sharedFeatureFlags];
   v3 = [v2 isEntryViewRefreshEnabled];
@@ -3964,7 +3977,7 @@ uint64_t __39__CKUIBehavior_entryViewCoverMinHeight__block_invoke(uint64_t a1)
   return isRunningInStoreDemoMode_sBehavior;
 }
 
-uint64_t __40__CKUIBehavior_isRunningInStoreDemoMode__block_invoke()
+void *__40__CKUIBehavior_isRunningInStoreDemoMode__block_invoke()
 {
   result = [MEMORY[0x1E69DC668] isRunningInStoreDemoMode];
   isRunningInStoreDemoMode_sBehavior = result;
@@ -4221,7 +4234,7 @@ uint64_t __40__CKUIBehavior_isRunningInStoreDemoMode__block_invoke()
   return *&entryViewWithSendMenuBottomContentInsetWithKeyboardVisible_sBehavior;
 }
 
-uint64_t __74__CKUIBehavior_entryViewWithSendMenuBottomContentInsetWithKeyboardVisible__block_invoke(uint64_t a1)
+void *__74__CKUIBehavior_entryViewWithSendMenuBottomContentInsetWithKeyboardVisible__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _entryViewWithSendMenuBottomContentInsetWithKeyboardVisible];
   entryViewWithSendMenuBottomContentInsetWithKeyboardVisible_sBehavior = v2;
@@ -4262,9 +4275,9 @@ uint64_t __74__CKUIBehavior_entryViewWithSendMenuBottomContentInsetWithKeyboardV
   return showsLoadMoreItem_sBehavior;
 }
 
-uint64_t __33__CKUIBehavior_showsLoadMoreItem__block_invoke()
+uint64_t __33__CKUIBehavior_showsLoadMoreItem__block_invoke(uint64_t a1)
 {
-  result = CKIsRunningInMessagesNotificationExtension();
+  result = CKIsRunningInMessagesNotificationExtension(a1);
   showsLoadMoreItem_sBehavior = result == 0;
   return result;
 }
@@ -4465,9 +4478,9 @@ void __39__CKUIBehavior_lowClearanceInLandscape__block_invoke()
   return canPresentOverKeyboard_sBehavior;
 }
 
-uint64_t __38__CKUIBehavior_canPresentOverKeyboard__block_invoke()
+uint64_t __38__CKUIBehavior_canPresentOverKeyboard__block_invoke(uint64_t a1)
 {
-  result = CKIsRunningInMessagesTranscriptExtension();
+  result = CKIsRunningInMessagesTranscriptExtension(a1);
   canPresentOverKeyboard_sBehavior = result == 0;
   return result;
 }
@@ -4502,17 +4515,17 @@ uint64_t __38__CKUIBehavior_canPresentOverKeyboard__block_invoke()
   return canUseWindowedSendAnimation_sBehavior;
 }
 
-void __43__CKUIBehavior_canUseWindowedSendAnimation__block_invoke()
+void __43__CKUIBehavior_canUseWindowedSendAnimation__block_invoke(uint64_t a1)
 {
-  if (CKIsRunningInMessagesTranscriptExtension())
+  if (CKIsRunningInMessagesTranscriptExtension(a1))
   {
     canUseWindowedSendAnimation_sBehavior = 0;
   }
 
   else
   {
-    v0 = [MEMORY[0x1E69A8070] sharedFeatureFlags];
-    canUseWindowedSendAnimation_sBehavior = [v0 isEntryViewInTranscriptEnabled] ^ 1;
+    v1 = [MEMORY[0x1E69A8070] sharedFeatureFlags];
+    canUseWindowedSendAnimation_sBehavior = [v1 isEntryViewInTranscriptEnabled] ^ 1;
   }
 }
 
@@ -4643,14 +4656,14 @@ void __43__CKUIBehavior_canUseWindowedSendAnimation__block_invoke()
 uint64_t __30__CKUIBehavior_usesActionMenu__block_invoke()
 {
   result = CKIsRunningInMessagesViewService();
-  if (result || (result = CKIsRunningInMessagesNotificationExtension(), result))
+  if (result || (result = CKIsRunningInMessagesNotificationExtension(result), result))
   {
     v1 = 0;
   }
 
   else
   {
-    result = CKIsRunningInMessagesTranscriptExtension();
+    result = CKIsRunningInMessagesTranscriptExtension(result);
     v1 = result == 0;
   }
 
@@ -4771,9 +4784,9 @@ uint64_t __46__CKUIBehavior_isProximityMonitoringSupported__block_invoke()
   result = 0.0;
   if (!userInterfaceIdiom)
   {
-    v8 = CKIsRunningInMessagesTranscriptExtension();
+    v9 = CKIsRunningInMessagesTranscriptExtension(v7);
     result = 15.0;
-    if (!v8)
+    if (!v9)
     {
       result = 0.0;
       if (areasCopy)
@@ -4923,10 +4936,10 @@ void __51__CKUIBehavior_maxNavigationBarExpandedHeightValue__block_invoke(uint64
   v4 = [MEMORY[0x1E69DC938] currentDevice];
   v5 = [v4 userInterfaceIdiom];
 
-  if (!v5 && CKIsRunningInMessagesTranscriptExtension())
+  if (!v5 && CKIsRunningInMessagesTranscriptExtension(v6))
   {
     [*(a1 + 32) navigationBarTitleViewVerticalOffsetWantsMinimumSafeAreas:0];
-    v3 = v3 + v6;
+    v3 = v3 + v7;
   }
 
   maxNavigationBarExpandedHeightValue_sBehavior = *&v3;
@@ -5566,7 +5579,7 @@ void __44__CKUIBehavior_orderedContentSizeCategories__block_invoke()
   return defaultConversationLoadMoreCount_sBehavior;
 }
 
-uint64_t __48__CKUIBehavior_defaultConversationLoadMoreCount__block_invoke(uint64_t a1)
+void *__48__CKUIBehavior_defaultConversationLoadMoreCount__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _defaultConversationLoadMoreCount];
   defaultConversationLoadMoreCount_sBehavior = result;
@@ -5615,7 +5628,7 @@ uint64_t __48__CKUIBehavior_defaultConversationLoadMoreCount__block_invoke(uint6
   return initialConversationSizingMessageCount_sBehavior;
 }
 
-uint64_t __53__CKUIBehavior_initialConversationSizingMessageCount__block_invoke(uint64_t a1)
+void *__53__CKUIBehavior_initialConversationSizingMessageCount__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) minBalloonsForTranscriptHeight];
   initialConversationSizingMessageCount_sBehavior = result;
@@ -5698,7 +5711,7 @@ void __45__CKUIBehavior_locationRelativeDateFormatter__block_invoke()
   return canAccessContacts_sBehavior;
 }
 
-uint64_t __33__CKUIBehavior_canAccessContacts__block_invoke()
+void *__33__CKUIBehavior_canAccessContacts__block_invoke()
 {
   result = [MEMORY[0x1E695CE18] authorizationStatusForEntityType:0];
   canAccessContacts_sBehavior = result == 3;
@@ -5924,7 +5937,7 @@ void __27__CKUIBehavior_appIconSize__block_invoke()
   return *&defaultSeparatorHeight_sBehavior;
 }
 
-uint64_t __38__CKUIBehavior_defaultSeparatorHeight__block_invoke(uint64_t a1)
+void *__38__CKUIBehavior_defaultSeparatorHeight__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _defaultSeparatorHeight];
   defaultSeparatorHeight_sBehavior = v2;
@@ -6006,46 +6019,46 @@ void __43__CKUIBehavior_maxTranscriptPortraitHeight__block_invoke()
   return result;
 }
 
-void __39__CKUIBehavior_landscapeKeyboardInsets__block_invoke()
+void __39__CKUIBehavior_landscapeKeyboardInsets__block_invoke(uint64_t a1)
 {
-  if (CKIsRunningInMessagesNotificationExtension() || ([MEMORY[0x1E69DD2E8] keyWindow], v0 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v0, "traitCollection"), v1 = objc_claimAutoreleasedReturnValue(), v2 = objc_msgSend(v1, "horizontalSizeClass"), v1, v0, v2 != 2))
+  if (CKIsRunningInMessagesNotificationExtension(a1) || ([MEMORY[0x1E69DD2E8] keyWindow], v1 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v1, "traitCollection"), v2 = objc_claimAutoreleasedReturnValue(), v3 = objc_msgSend(v2, "horizontalSizeClass"), v2, v1, v3 != 2))
   {
-    v12 = MEMORY[0x1E69DCBE0];
-    v13 = [MEMORY[0x1E69DCBF0] sharedInputModeController];
-    v14 = [v13 currentInputMode];
-    [v12 deviceSpecificPaddingForInterfaceOrientation:4 inputMode:v14];
-    v16 = v15;
-    v18 = v17;
-    v20 = v19;
-    v22 = v21;
+    v13 = MEMORY[0x1E69DCBE0];
+    v14 = [MEMORY[0x1E69DCBF0] sharedInputModeController];
+    v15 = [v14 currentInputMode];
+    [v13 deviceSpecificPaddingForInterfaceOrientation:4 inputMode:v15];
+    v17 = v16;
+    v19 = v18;
+    v21 = v20;
+    v23 = v22;
 
-    v23 = +[CKUIBehavior sharedBehaviors];
-    [v23 entryViewHorizontalCoverInsets];
-    v25 = v24;
-    v27 = v26;
-    v29 = v28;
-    v31 = v30;
+    v24 = +[CKUIBehavior sharedBehaviors];
+    [v24 entryViewHorizontalCoverInsets];
+    v26 = v25;
+    v28 = v27;
+    v30 = v29;
+    v32 = v31;
 
-    v5 = v16 - v25;
-    v7 = v18 - v27;
-    v9 = v20 - v29;
-    v11 = v22 - v31;
+    v6 = v17 - v26;
+    v8 = v19 - v28;
+    v10 = v21 - v30;
+    v12 = v23 - v32;
   }
 
   else
   {
-    v3 = [MEMORY[0x1E69DD2E8] keyWindow];
-    [v3 safeAreaInsets];
-    v5 = v4;
-    v7 = v6;
-    v9 = v8;
-    v11 = v10;
+    v4 = [MEMORY[0x1E69DD2E8] keyWindow];
+    [v4 safeAreaInsets];
+    v6 = v5;
+    v8 = v7;
+    v10 = v9;
+    v12 = v11;
   }
 
-  landscapeKeyboardInsets_sBehavior_0 = *&v5;
-  landscapeKeyboardInsets_sBehavior_1 = *&v7;
-  landscapeKeyboardInsets_sBehavior_2 = *&v9;
-  landscapeKeyboardInsets_sBehavior_3 = *&v11;
+  landscapeKeyboardInsets_sBehavior_0 = *&v6;
+  landscapeKeyboardInsets_sBehavior_1 = *&v8;
+  landscapeKeyboardInsets_sBehavior_2 = *&v10;
+  landscapeKeyboardInsets_sBehavior_3 = *&v12;
 }
 
 - (double)conversationListSenderBodyLeading
@@ -7097,13 +7110,6 @@ void __30__CKUIBehavior_acceptableUTIs__block_invoke()
   return v3;
 }
 
-uint64_t __46__CKUIBehavior_modalTranscriptControllerClass__block_invoke()
-{
-  result = objc_opt_class();
-  modalTranscriptControllerClass_sBehavior = result;
-  return result;
-}
-
 - (BOOL)suppressPinActivityForState:(id)state
 {
   stateCopy = state;
@@ -7329,7 +7335,7 @@ double __54__CKUIBehavior_pinnedConversationCheckmarkStrokeRatio__block_invoke(u
   return conversationListScrollingBatchSize_sBehavior;
 }
 
-uint64_t __50__CKUIBehavior_conversationListScrollingBatchSize__block_invoke(uint64_t a1)
+void *__50__CKUIBehavior_conversationListScrollingBatchSize__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _conversationListScrollingBatchSize];
   conversationListScrollingBatchSize_sBehavior = result;
@@ -7850,7 +7856,7 @@ void __62__CKUIBehavior_conversationListFocusFilterBannerShowsKeylines__block_in
   return *&conversationListFocusFilterBannerBottomPadding_sBehavior;
 }
 
-uint64_t __62__CKUIBehavior_conversationListFocusFilterBannerBottomPadding__block_invoke(uint64_t a1)
+void *__62__CKUIBehavior_conversationListFocusFilterBannerBottomPadding__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) conversationListFocusFilterBannerTopPadding];
   conversationListFocusFilterBannerBottomPadding_sBehavior = v2;
@@ -8591,13 +8597,6 @@ void __63__CKUIBehavior_pinnedConversationFilteredByFocusIndicatorImage__block_i
   return v3;
 }
 
-uint64_t __55__CKUIBehavior_transcriptCollectionViewControllerClass__block_invoke()
-{
-  result = objc_opt_class();
-  transcriptCollectionViewControllerClass_sBehavior = result;
-  return result;
-}
-
 - (Class)chatControllerClass
 {
   if (chatControllerClass_once != -1)
@@ -8608,13 +8607,6 @@ uint64_t __55__CKUIBehavior_transcriptCollectionViewControllerClass__block_invok
   v3 = chatControllerClass_sBehavior;
 
   return v3;
-}
-
-uint64_t __35__CKUIBehavior_chatControllerClass__block_invoke()
-{
-  result = objc_opt_class();
-  chatControllerClass_sBehavior = result;
-  return result;
 }
 
 - (Class)composeChatControllerClass
@@ -8629,13 +8621,6 @@ uint64_t __35__CKUIBehavior_chatControllerClass__block_invoke()
   return v3;
 }
 
-uint64_t __42__CKUIBehavior_composeChatControllerClass__block_invoke()
-{
-  result = objc_opt_class();
-  composeChatControllerClass_sBehavior = result;
-  return result;
-}
-
 - (Class)businessChatControllerClass
 {
   if (businessChatControllerClass_once != -1)
@@ -8646,13 +8631,6 @@ uint64_t __42__CKUIBehavior_composeChatControllerClass__block_invoke()
   v3 = businessChatControllerClass_sBehavior;
 
   return v3;
-}
-
-uint64_t __43__CKUIBehavior_businessChatControllerClass__block_invoke()
-{
-  result = objc_opt_class();
-  businessChatControllerClass_sBehavior = result;
-  return result;
 }
 
 - (BOOL)shouldBackfillTranscript
@@ -8751,7 +8729,7 @@ void __40__CKUIBehavior_shouldBackfillTranscript__block_invoke()
   return *&sendAnimationDuration_sBehavior;
 }
 
-uint64_t __37__CKUIBehavior_sendAnimationDuration__block_invoke(uint64_t a1)
+void *__37__CKUIBehavior_sendAnimationDuration__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _sendAnimationDuration];
   sendAnimationDuration_sBehavior = v2;
@@ -9140,7 +9118,7 @@ uint64_t __37__CKUIBehavior_sendAnimationDuration__block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __28__CKUIBehavior_readerInsets__block_invoke(uint64_t a1)
+void *__28__CKUIBehavior_readerInsets__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) readerContentInset];
   v3 = v2;
@@ -9847,7 +9825,7 @@ void __58__CKUIBehavior_obscurableBalloonObscuredContentBadgeImage__block_invoke
   return shouldShowContactPhotosInTranscript_sBehavior;
 }
 
-uint64_t __51__CKUIBehavior_shouldShowContactPhotosInTranscript__block_invoke(uint64_t a1)
+void *__51__CKUIBehavior_shouldShowContactPhotosInTranscript__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) canAccessContacts];
   shouldShowContactPhotosInTranscript_sBehavior = result;
@@ -9913,7 +9891,7 @@ uint64_t __51__CKUIBehavior_shouldShowContactPhotosInTranscript__block_invoke(ui
   return transcriptCanUseOpaqueMask_sBehavior;
 }
 
-uint64_t __42__CKUIBehavior_transcriptCanUseOpaqueMask__block_invoke(uint64_t a1)
+void *__42__CKUIBehavior_transcriptCanUseOpaqueMask__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _transcriptCanUseOpaqueMask];
   transcriptCanUseOpaqueMask_sBehavior = result;
@@ -10289,7 +10267,7 @@ void __65__CKUIBehavior_transcriptReplyPreviewContextContactImageDiameter__block
   if (-[CKUIBehavior ckShouldUpdatestatusSaveButtonTranscriptText](self, "ckShouldUpdatestatusSaveButtonTranscriptText") || v11 || statusSaveButtonTranscriptText_sIsIncreaseContrastEnabled_statusSaveButtonTranscriptText != v4 || statusSaveButtonTranscriptText_sIsBoldTextEnabled_statusSaveButtonTranscriptText != IsBoldTextEnabled || *&statusSaveButtonTranscriptText_sTextFontSize_statusSaveButtonTranscriptText != v6 || *&statusSaveButtonTranscriptText_sCustomTextFontSize_statusSaveButtonTranscriptText != v7 || ([statusSaveButtonTranscriptText_sCustomTextFontName_statusSaveButtonTranscriptText isEqualToString:{v10, *&statusSaveButtonTranscriptText_sCustomTextFontSize_statusSaveButtonTranscriptText}] & 1) == 0)
   {
     v13 = objc_alloc(MEMORY[0x1E696AAB0]);
-    v14 = CKFrameworkBundle();
+    v14 = CKFrameworkBundle(v13);
     v15 = [v14 localizedStringForKey:@"KEEP" value:&stru_1F04268F8 table:@"ChatKit"];
     keepAudioMessageButtonTextAttributes = [(CKUIBehavior *)self keepAudioMessageButtonTextAttributes];
     v17 = [v13 initWithString:v15 attributes:keepAudioMessageButtonTextAttributes];
@@ -10441,7 +10419,7 @@ void __49__CKUIBehavior_transcriptButtonContentEdgeInsets__block_invoke()
   return *&mapPreviewMaxWidth_sBehavior;
 }
 
-uint64_t __34__CKUIBehavior_mapPreviewMaxWidth__block_invoke(uint64_t a1)
+void *__34__CKUIBehavior_mapPreviewMaxWidth__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) previewMaxWidth];
   mapPreviewMaxWidth_sBehavior = v2;
@@ -12783,7 +12761,7 @@ void __59__CKUIBehavior_defaultAVPlayerViewContorllerControlsInsets__block_invok
   return *&tuConversationBalloonContentBottomPadding_sBehavior;
 }
 
-uint64_t __57__CKUIBehavior_tuConversationBalloonContentBottomPadding__block_invoke(uint64_t a1)
+void *__57__CKUIBehavior_tuConversationBalloonContentBottomPadding__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) tuConversationBalloonContentTopPadding];
   tuConversationBalloonContentBottomPadding_sBehavior = v2;
@@ -13005,7 +12983,7 @@ void __54__CKUIBehavior_tuConversationBalloonIconConfiguration__block_invoke()
   return *&tuConversationBalloonJoinButtonMinWidth_sBehavior;
 }
 
-uint64_t __55__CKUIBehavior_tuConversationBalloonJoinButtonMinWidth__block_invoke(uint64_t a1)
+void *__55__CKUIBehavior_tuConversationBalloonJoinButtonMinWidth__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) tuConversationJoinButtonMinWidth];
   tuConversationBalloonJoinButtonMinWidth_sBehavior = v2;
@@ -19477,7 +19455,7 @@ double __44__CKUIBehavior_skinnyBalloonWidthDifference__block_invoke(uint64_t a1
   return result;
 }
 
-uint64_t __39__CKUIBehavior_taillessBalloonMaskSize__block_invoke(uint64_t a1)
+void *__39__CKUIBehavior_taillessBalloonMaskSize__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) balloonMaskSize];
   taillessBalloonMaskSize_sBehavior_0 = v2;
@@ -20894,47 +20872,47 @@ LABEL_7:
 
 - (UIEdgeInsets)_replyBalloonTextContainerInset
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
   [mainScreen bounds];
   v6 = fmin(v4, v5);
 
-  v7 = CKFrameworkBundle();
-  v8 = [v7 localizedStringForKey:@"MADRID" value:&stru_1F04268F8 table:@"ChatKit"];
+  v8 = CKFrameworkBundle(v7);
+  v9 = [v8 localizedStringForKey:@"MADRID" value:&stru_1F04268F8 table:@"ChatKit"];
 
-  v29 = *MEMORY[0x1E69DB648];
+  v30 = *MEMORY[0x1E69DB648];
   replyBalloonTextFont = [(CKUIBehavior *)self replyBalloonTextFont];
-  v30[0] = replyBalloonTextFont;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+  v31[0] = replyBalloonTextFont;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
 
-  v11 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v8 attributes:v10];
-  v12 = [[CKTextMetricsRequest alloc] initWithAttributedString:v11];
+  v12 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v9 attributes:v11];
+  v13 = [[CKTextMetricsRequest alloc] initWithAttributedString:v12];
   [(CKUIBehavior *)self balloonLineFragmentPadding];
-  [(CKTextMetricsRequest *)v12 setLineFragmentPadding:?];
-  [(CKTextMetricsRequest *)v12 setMaximumNumberOfLines:[(CKUIBehavior *)self replyBalloonMaximumNumberOfLines]];
-  [(CKTextMetricsRequest *)v12 setMaximumHeight:10000.0];
-  [(CKTextMetricsRequest *)v12 setMaximumWidth:v6];
-  v13 = objc_alloc_init(CKTextMetricsProvider);
-  [(CKTextMetricsRequest *)v12 setContainerInset:2.25, 0.0, 2.25, 0.0];
+  [(CKTextMetricsRequest *)v13 setLineFragmentPadding:?];
+  [(CKTextMetricsRequest *)v13 setMaximumNumberOfLines:[(CKUIBehavior *)self replyBalloonMaximumNumberOfLines]];
+  [(CKTextMetricsRequest *)v13 setMaximumHeight:10000.0];
+  [(CKTextMetricsRequest *)v13 setMaximumWidth:v6];
+  v14 = objc_alloc_init(CKTextMetricsProvider);
+  [(CKTextMetricsRequest *)v13 setContainerInset:2.25, 0.0, 2.25, 0.0];
   [(CKUIBehavior *)self replyBalloonMinHeight];
-  [(CKTextMetricsRequest *)v12 setMinimumViewHeight:?];
-  v14 = [(CKTextMetricsProvider *)v13 metricsForRequest:v12];
-  [v14 alignmentInset];
-  v16 = v15;
-  v18 = v17;
-  v20 = v19;
-  v22 = v21;
+  [(CKTextMetricsRequest *)v13 setMinimumViewHeight:?];
+  v15 = [(CKTextMetricsProvider *)v14 metricsForRequest:v13];
+  [v15 alignmentInset];
+  v17 = v16;
+  v19 = v18;
+  v21 = v20;
+  v23 = v22;
   [(CKUIBehavior *)self textAlignmentRectInsetsScaleFactor];
-  v24 = v23;
+  v25 = v24;
 
-  v25 = v16 * v24;
-  v26 = v18 * v24;
-  v27 = v20 * v24;
-  v28 = v22 * v24;
-  result.right = v28;
-  result.bottom = v27;
-  result.left = v26;
-  result.top = v25;
+  v26 = v17 * v25;
+  v27 = v19 * v25;
+  v28 = v21 * v25;
+  v29 = v23 * v25;
+  result.right = v29;
+  result.bottom = v28;
+  result.left = v27;
+  result.top = v26;
   return result;
 }
 
@@ -21282,7 +21260,7 @@ void __38__CKUIBehavior_balloonMaskFrameInsets__block_invoke()
   return *&messageFailureButtonBalloonMargin_sBehavior;
 }
 
-uint64_t __49__CKUIBehavior_messageFailureButtonBalloonMargin__block_invoke(uint64_t a1)
+void *__49__CKUIBehavior_messageFailureButtonBalloonMargin__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _messageFailureButtonBalloonMargin];
   messageFailureButtonBalloonMargin_sBehavior = v2;
@@ -21358,7 +21336,7 @@ uint64_t __49__CKUIBehavior_messageFailureButtonBalloonMargin__block_invoke(uint
   return *&audioRecordingViewPadding_sBehavior;
 }
 
-uint64_t __41__CKUIBehavior_audioRecordingViewPadding__block_invoke(uint64_t a1)
+void *__41__CKUIBehavior_audioRecordingViewPadding__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) audioRecordingViewPaddingFloat];
   audioRecordingViewPadding_sBehavior = v2;
@@ -23344,7 +23322,7 @@ LABEL_5:
   return audioBalloonViewClass_sBehavior;
 }
 
-uint64_t __37__CKUIBehavior_audioBalloonViewClass__block_invoke(uint64_t a1)
+void *__37__CKUIBehavior_audioBalloonViewClass__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) audioBalloonClass];
   audioBalloonViewClass_sBehavior = result;
@@ -23366,14 +23344,6 @@ uint64_t __37__CKUIBehavior_audioBalloonViewClass__block_invoke(uint64_t a1)
   return audioBalloonCellClass_sBehavior;
 }
 
-uint64_t __37__CKUIBehavior_audioBalloonCellClass__block_invoke(uint64_t a1)
-{
-  [*(a1 + 32) isProximityMonitoringSupported];
-  result = objc_opt_class();
-  audioBalloonCellClass_sBehavior = result;
-  return result;
-}
-
 - (Class)contactBalloonViewClass
 {
   if (contactBalloonViewClass_once != -1)
@@ -23384,13 +23354,6 @@ uint64_t __37__CKUIBehavior_audioBalloonCellClass__block_invoke(uint64_t a1)
   v3 = contactBalloonViewClass_sBehavior;
 
   return v3;
-}
-
-uint64_t __39__CKUIBehavior_contactBalloonViewClass__block_invoke()
-{
-  result = objc_opt_class();
-  contactBalloonViewClass_sBehavior = result;
-  return result;
 }
 
 - (BOOL)shouldFillAndStrokeAttachmentBalloon
@@ -23756,7 +23719,7 @@ double __37__CKUIBehavior_attachmentBalloonSize__block_invoke()
   return *&contactBalloonMinWidth_sBehavior;
 }
 
-uint64_t __38__CKUIBehavior_contactBalloonMinWidth__block_invoke(uint64_t a1)
+void *__38__CKUIBehavior_contactBalloonMinWidth__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) attachmentBalloonSize];
   contactBalloonMinWidth_sBehavior = v2;
@@ -24055,7 +24018,7 @@ double __37__CKUIBehavior_previewTitleBarHeight__block_invoke()
   return *&waveformViewHeight_sBehavior;
 }
 
-uint64_t __34__CKUIBehavior_waveformViewHeight__block_invoke(uint64_t a1)
+void *__34__CKUIBehavior_waveformViewHeight__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) audioWaveformViewHeight];
   waveformViewHeight_sBehavior = v2;
@@ -24077,7 +24040,7 @@ uint64_t __34__CKUIBehavior_waveformViewHeight__block_invoke(uint64_t a1)
   return *&waveformHeight_sBehavior;
 }
 
-uint64_t __30__CKUIBehavior_waveformHeight__block_invoke(uint64_t a1)
+void *__30__CKUIBehavior_waveformHeight__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) audioWaveformHeight];
   waveformHeight_sBehavior = v2;
@@ -24137,7 +24100,7 @@ uint64_t __30__CKUIBehavior_waveformHeight__block_invoke(uint64_t a1)
   return waveformGapWidth_sBehavior;
 }
 
-uint64_t __32__CKUIBehavior_waveformGapWidth__block_invoke(uint64_t a1)
+void *__32__CKUIBehavior_waveformGapWidth__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) audioWaveformGapWidth];
   waveformGapWidth_sBehavior = v2;
@@ -24159,7 +24122,7 @@ uint64_t __32__CKUIBehavior_waveformGapWidth__block_invoke(uint64_t a1)
   return waveformPowerLevelWidthIncrement_sBehavior;
 }
 
-uint64_t __48__CKUIBehavior_waveformPowerLevelWidthIncrement__block_invoke(uint64_t a1)
+void *__48__CKUIBehavior_waveformPowerLevelWidthIncrement__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) waveformPowerLevelWidth];
   result = [*(a1 + 32) waveformGapWidth];
@@ -24926,16 +24889,16 @@ uint64_t __52__CKUIBehavior_entryViewPlusButtonLongPressDuration__block_invoke()
   return 0;
 }
 
-void __41__CKUIBehavior_isEntryViewInputAccessory__block_invoke()
+void __41__CKUIBehavior_isEntryViewInputAccessory__block_invoke(uint64_t a1)
 {
-  v0 = CKIsRunningInMessagesNotificationExtension() != 0;
-  v1 = [MEMORY[0x1E69A8070] sharedFeatureFlags];
-  v2 = [v1 isEntryViewInTranscriptEnabled];
+  v1 = CKIsRunningInMessagesNotificationExtension(a1) != 0;
+  v2 = [MEMORY[0x1E69A8070] sharedFeatureFlags];
+  v3 = [v2 isEntryViewInTranscriptEnabled];
 
-  isEntryViewInputAccessory_sBehavior = v0 || (v2 & 1) == 0;
+  isEntryViewInputAccessory_sBehavior = v1 || (v3 & 1) == 0;
 }
 
-uint64_t __51__CKUIBehavior_entryViewFollowsKeyboardLayoutGuide__block_invoke(uint64_t a1)
+void *__51__CKUIBehavior_entryViewFollowsKeyboardLayoutGuide__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isEntryViewInputAccessory];
   entryViewFollowsKeyboardLayoutGuide_sBehavior = result ^ 1;
@@ -25018,9 +24981,9 @@ void __46__CKUIBehavior_entryViewSupportsBrowserButton__block_invoke()
   return entryViewSupportsSingleBigEmojiFont_sBehavior;
 }
 
-uint64_t __51__CKUIBehavior_entryViewSupportsSingleBigEmojiFont__block_invoke()
+uint64_t __51__CKUIBehavior_entryViewSupportsSingleBigEmojiFont__block_invoke(uint64_t a1)
 {
-  result = CKIsRunningInMessagesNotificationExtension();
+  result = CKIsRunningInMessagesNotificationExtension(a1);
   entryViewSupportsSingleBigEmojiFont_sBehavior = result == 0;
   return result;
 }
@@ -25103,7 +25066,8 @@ void __50__CKUIBehavior_entryViewUsesTransparentBackground__block_invoke()
 
   else
   {
-    if (!UIAccessibilityIsReduceTransparencyEnabled() && !CKIsRunningInMessagesNotificationExtension())
+    IsReduceTransparencyEnabled = UIAccessibilityIsReduceTransparencyEnabled();
+    if (!IsReduceTransparencyEnabled && !CKIsRunningInMessagesNotificationExtension(IsReduceTransparencyEnabled))
     {
       [(CKUIBehavior *)self entryViewUsesTransparentBackground];
     }
@@ -25324,7 +25288,7 @@ void __56__CKUIBehavior_messageEntryContentViewPollsPluginInsets__block_invoke()
   return *&entryViewLinkViewDiscardButtonDiameter_sBehavior;
 }
 
-uint64_t __54__CKUIBehavior_entryViewLinkViewDiscardButtonDiameter__block_invoke(uint64_t a1)
+void *__54__CKUIBehavior_entryViewLinkViewDiscardButtonDiameter__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) clearPluginButtonSize];
   entryViewLinkViewDiscardButtonDiameter_sBehavior = v2;
@@ -25346,7 +25310,7 @@ uint64_t __54__CKUIBehavior_entryViewLinkViewDiscardButtonDiameter__block_invoke
   return *&entryViewLinkViewDiscardButtonEdgeInset_sBehavior;
 }
 
-uint64_t __55__CKUIBehavior_entryViewLinkViewDiscardButtonEdgeInset__block_invoke(uint64_t a1)
+void *__55__CKUIBehavior_entryViewLinkViewDiscardButtonEdgeInset__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _entryViewLinkViewDiscardButtonEdgeInset];
   entryViewLinkViewDiscardButtonEdgeInset_sBehavior = v2;
@@ -25528,7 +25492,7 @@ void __42__CKUIBehavior_entryViewDashedLinePattern__block_invoke()
   return result;
 }
 
-uint64_t __58__CKUIBehavior_messageEntryContentViewSendLaterDateInsets__block_invoke(uint64_t a1)
+void *__58__CKUIBehavior_messageEntryContentViewSendLaterDateInsets__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _messageEntryContentViewSendLaterDateInsets];
   messageEntryContentViewSendLaterDateInsets_sBehavior_0 = v2;
@@ -25569,7 +25533,7 @@ uint64_t __58__CKUIBehavior_messageEntryContentViewSendLaterDateInsets__block_in
   return *&sendButtonSize_sBehavior;
 }
 
-uint64_t __30__CKUIBehavior_sendButtonSize__block_invoke(uint64_t a1)
+void *__30__CKUIBehavior_sendButtonSize__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _sendButtonSize];
   sendButtonSize_sBehavior = v2;
@@ -25599,7 +25563,7 @@ uint64_t __30__CKUIBehavior_sendButtonSize__block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __35__CKUIBehavior_dictationButtonSize__block_invoke(uint64_t a1)
+void *__35__CKUIBehavior_dictationButtonSize__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _dictationButtonSize];
   dictationButtonSize_sBehavior_0 = v2;
@@ -25616,7 +25580,7 @@ uint64_t __35__CKUIBehavior_dictationButtonSize__block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __31__CKUIBehavior_audioButtonSize__block_invoke(uint64_t a1)
+void *__31__CKUIBehavior_audioButtonSize__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _audioButtonSize];
   audioButtonSize_sBehavior_0 = v2;
@@ -25652,7 +25616,7 @@ uint64_t __31__CKUIBehavior_audioButtonSize__block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __39__CKUIBehavior_entryViewPlusButtonSize__block_invoke(uint64_t a1)
+void *__39__CKUIBehavior_entryViewPlusButtonSize__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _entryViewPlusButtonSize];
   entryViewPlusButtonSize_sBehavior_0 = v2;
@@ -25711,7 +25675,7 @@ uint64_t __39__CKUIBehavior_entryViewPlusButtonSize__block_invoke(uint64_t a1)
   return *&entryFieldCoverLineWidth_sBehavior;
 }
 
-uint64_t __40__CKUIBehavior_entryFieldCoverLineWidth__block_invoke(uint64_t a1)
+void *__40__CKUIBehavior_entryFieldCoverLineWidth__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _entryFieldBorderWidth];
   entryFieldCoverLineWidth_sBehavior = v2;
@@ -25778,7 +25742,7 @@ uint64_t __40__CKUIBehavior_entryFieldCoverLineWidth__block_invoke(uint64_t a1)
   return *&entryViewNonCollapsableLeftPadding_sBehavior;
 }
 
-uint64_t __50__CKUIBehavior_entryViewNonCollapsableLeftPadding__block_invoke(uint64_t a1)
+void *__50__CKUIBehavior_entryViewNonCollapsableLeftPadding__block_invoke(uint64_t a1)
 {
   v2 = [MEMORY[0x1E69A8070] sharedFeatureFlags];
   v3 = [v2 isSendMenuEnabled];
@@ -25873,7 +25837,7 @@ void __45__CKUIBehavior_entryViewMaxPluginShelfHeight__block_invoke()
   return *&entryViewMaxExtensionShelfHeight_sBehavior;
 }
 
-uint64_t __48__CKUIBehavior_entryViewMaxExtensionShelfHeight__block_invoke(uint64_t a1)
+void *__48__CKUIBehavior_entryViewMaxExtensionShelfHeight__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) maxTranscriptPortraitHeight];
   entryViewMaxExtensionShelfHeight_sBehavior = v2;
@@ -25900,7 +25864,7 @@ uint64_t __48__CKUIBehavior_entryViewMaxExtensionShelfHeight__block_invoke(uint6
   return *&entryViewMaxHandWritingPluginShelfHeight_sBehavior;
 }
 
-uint64_t __46__CKUIBehavior_entryViewAudioButtonCoverSpace__block_invoke(uint64_t a1)
+void *__46__CKUIBehavior_entryViewAudioButtonCoverSpace__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _entryViewAudioButtonCoverSpace];
   entryViewAudioButtonCoverSpace_sBehavior = v2;
@@ -25922,7 +25886,7 @@ uint64_t __46__CKUIBehavior_entryViewAudioButtonCoverSpace__block_invoke(uint64_
   return *&CKPixelWidth_sPixel_4 + 4.5;
 }
 
-uint64_t __50__CKUIBehavior_entryViewDictationButtonCoverSpace__block_invoke(uint64_t a1)
+void *__50__CKUIBehavior_entryViewDictationButtonCoverSpace__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _entryViewDictationButtonCoverSpace];
   entryViewDictationButtonCoverSpace_sBehavior = v2;
@@ -25944,7 +25908,7 @@ uint64_t __50__CKUIBehavior_entryViewDictationButtonCoverSpace__block_invoke(uin
   return *&entryViewWithSendMenuBottomContentInsetWithoutKeyboardVisible_sBehavior;
 }
 
-uint64_t __77__CKUIBehavior_entryViewWithSendMenuBottomContentInsetWithoutKeyboardVisible__block_invoke(uint64_t a1)
+void *__77__CKUIBehavior_entryViewWithSendMenuBottomContentInsetWithoutKeyboardVisible__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _entryViewWithSendMenuBottomContentInsetWithoutKeyboardVisible];
   entryViewWithSendMenuBottomContentInsetWithoutKeyboardVisible_sBehavior = v2;
@@ -26788,7 +26752,7 @@ void __41__CKUIBehavior_sendMenuListItemTextColor__block_invoke()
   return *&sendMenuPreferredNumberOfItemsToDisplayOnOpen_sBehavior;
 }
 
-uint64_t __61__CKUIBehavior_sendMenuPreferredNumberOfItemsToDisplayOnOpen__block_invoke(uint64_t a1)
+void *__61__CKUIBehavior_sendMenuPreferredNumberOfItemsToDisplayOnOpen__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _sendMenuPreferredNumberOfItemsToDisplayOnOpen];
   sendMenuPreferredNumberOfItemsToDisplayOnOpen_sBehavior = v2;
@@ -26824,7 +26788,7 @@ uint64_t __61__CKUIBehavior_sendMenuPreferredNumberOfItemsToDisplayOnOpen__block
   return *&sendMenuCollectionViewBottomContentInset_sBehavior;
 }
 
-uint64_t __56__CKUIBehavior_sendMenuCollectionViewBottomContentInset__block_invoke(uint64_t a1)
+void *__56__CKUIBehavior_sendMenuCollectionViewBottomContentInset__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _sendMenuCollectionViewBottomContentInset];
   sendMenuCollectionViewBottomContentInset_sBehavior = v2;
@@ -27585,7 +27549,7 @@ __n128 __47__CKUIBehavior_tapbackPickerBlurPlatterPadding__block_invoke()
   return *&orbPreviewAdditionalTopInsetForTapbackPicker_sBehavior;
 }
 
-uint64_t __60__CKUIBehavior_orbPreviewAdditionalTopInsetForTapbackPicker__block_invoke(uint64_t a1)
+void *__60__CKUIBehavior_orbPreviewAdditionalTopInsetForTapbackPicker__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) messageAcknowledgementVotingViewMinPadding];
   orbPreviewAdditionalTopInsetForTapbackPicker_sBehavior = v2;
@@ -27627,7 +27591,7 @@ uint64_t __60__CKUIBehavior_orbPreviewAdditionalTopInsetForTapbackPicker__block_
   return usesTapbackRefreshStyling_sBehavior;
 }
 
-uint64_t __41__CKUIBehavior_usesTapbackRefreshStyling__block_invoke(uint64_t a1)
+void *__41__CKUIBehavior_usesTapbackRefreshStyling__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _usesTapbackRefreshStyling];
   usesTapbackRefreshStyling_sBehavior = result;
@@ -27636,7 +27600,7 @@ uint64_t __41__CKUIBehavior_usesTapbackRefreshStyling__block_invoke(uint64_t a1)
 
 - (BOOL)_usesTapbackRefreshStyling
 {
-  if (CKIsRunningInMessagesNotificationExtension())
+  if (CKIsRunningInMessagesNotificationExtension(self))
   {
     mEMORY[0x1E69A8018] = [MEMORY[0x1E69A8018] sharedInstance];
     v3 = [mEMORY[0x1E69A8018] getBoolFromDomain:@"com.apple.MobileSMS" forKey:@"enableGlassPickerInNotifications" defaultValue:0];
@@ -29768,20 +29732,20 @@ void __43__CKUIBehavior_grayQuestionMarkDotAckImage__block_invoke()
   return v3;
 }
 
-void __30__CKUIBehavior_grayHaAckImage__block_invoke()
+void __30__CKUIBehavior_grayHaAckImage__block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x1E696AEC0];
-  v1 = CKFrameworkBundle();
-  v2 = [v1 localizedStringForKey:@"ACKNOWLEDGMENT_HAHA_ASSET_NAME_SUFFIX" value:@"ENG" table:@"ChatKit"];
-  v3 = [v0 stringWithFormat:@"%@-%@", @"Acknowledgments-Menu-HAHA", v2];
+  v1 = MEMORY[0x1E696AEC0];
+  v2 = CKFrameworkBundle(a1);
+  v3 = [v2 localizedStringForKey:@"ACKNOWLEDGMENT_HAHA_ASSET_NAME_SUFFIX" value:@"ENG" table:@"ChatKit"];
+  v4 = [v1 stringWithFormat:@"%@-%@", @"Acknowledgments-Menu-HAHA", v3];
 
-  v4 = +[CKUIBehavior sharedBehaviors];
-  v5 = [v4 theme];
-  v6 = [v5 messageAcknowledgmentGrayColor];
-  v7 = CKImageNamedWithDynamicTintColor(v3, v6);
+  v5 = +[CKUIBehavior sharedBehaviors];
+  v6 = [v5 theme];
+  v7 = [v6 messageAcknowledgmentGrayColor];
+  v8 = CKImageNamedWithDynamicTintColor(v4, v7);
 
-  v8 = grayHaAckImage_sBehavior;
-  grayHaAckImage_sBehavior = v7;
+  v9 = grayHaAckImage_sBehavior;
+  grayHaAckImage_sBehavior = v8;
 }
 
 - (UIImage)grayH1AckImage
@@ -29796,20 +29760,20 @@ void __30__CKUIBehavior_grayHaAckImage__block_invoke()
   return v3;
 }
 
-void __30__CKUIBehavior_grayH1AckImage__block_invoke()
+void __30__CKUIBehavior_grayH1AckImage__block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x1E696AEC0];
-  v1 = CKFrameworkBundle();
-  v2 = [v1 localizedStringForKey:@"ACKNOWLEDGMENT_HAHA_ASSET_NAME_SUFFIX" value:@"ENG" table:@"ChatKit"];
-  v3 = [v0 stringWithFormat:@"%@-%@-1", @"Acknowledgments-Menu-HAHA", v2];
+  v1 = MEMORY[0x1E696AEC0];
+  v2 = CKFrameworkBundle(a1);
+  v3 = [v2 localizedStringForKey:@"ACKNOWLEDGMENT_HAHA_ASSET_NAME_SUFFIX" value:@"ENG" table:@"ChatKit"];
+  v4 = [v1 stringWithFormat:@"%@-%@-1", @"Acknowledgments-Menu-HAHA", v3];
 
-  v4 = +[CKUIBehavior sharedBehaviors];
-  v5 = [v4 theme];
-  v6 = [v5 messageAcknowledgmentGrayColor];
-  v7 = CKImageNamedWithDynamicTintColor(v3, v6);
+  v5 = +[CKUIBehavior sharedBehaviors];
+  v6 = [v5 theme];
+  v7 = [v6 messageAcknowledgmentGrayColor];
+  v8 = CKImageNamedWithDynamicTintColor(v4, v7);
 
-  v8 = grayH1AckImage_sBehavior;
-  grayH1AckImage_sBehavior = v7;
+  v9 = grayH1AckImage_sBehavior;
+  grayH1AckImage_sBehavior = v8;
 }
 
 - (UIImage)grayA1AckImage
@@ -29824,20 +29788,20 @@ void __30__CKUIBehavior_grayH1AckImage__block_invoke()
   return v3;
 }
 
-void __30__CKUIBehavior_grayA1AckImage__block_invoke()
+void __30__CKUIBehavior_grayA1AckImage__block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x1E696AEC0];
-  v1 = CKFrameworkBundle();
-  v2 = [v1 localizedStringForKey:@"ACKNOWLEDGMENT_HAHA_ASSET_NAME_SUFFIX" value:@"ENG" table:@"ChatKit"];
-  v3 = [v0 stringWithFormat:@"%@-%@-2", @"Acknowledgments-Menu-HAHA", v2];
+  v1 = MEMORY[0x1E696AEC0];
+  v2 = CKFrameworkBundle(a1);
+  v3 = [v2 localizedStringForKey:@"ACKNOWLEDGMENT_HAHA_ASSET_NAME_SUFFIX" value:@"ENG" table:@"ChatKit"];
+  v4 = [v1 stringWithFormat:@"%@-%@-2", @"Acknowledgments-Menu-HAHA", v3];
 
-  v4 = +[CKUIBehavior sharedBehaviors];
-  v5 = [v4 theme];
-  v6 = [v5 messageAcknowledgmentGrayColor];
-  v7 = CKImageNamedWithDynamicTintColor(v3, v6);
+  v5 = +[CKUIBehavior sharedBehaviors];
+  v6 = [v5 theme];
+  v7 = [v6 messageAcknowledgmentGrayColor];
+  v8 = CKImageNamedWithDynamicTintColor(v4, v7);
 
-  v8 = grayA1AckImage_sBehavior;
-  grayA1AckImage_sBehavior = v7;
+  v9 = grayA1AckImage_sBehavior;
+  grayA1AckImage_sBehavior = v8;
 }
 
 - (UIImage)grayH2AckImage
@@ -29852,20 +29816,20 @@ void __30__CKUIBehavior_grayA1AckImage__block_invoke()
   return v3;
 }
 
-void __30__CKUIBehavior_grayH2AckImage__block_invoke()
+void __30__CKUIBehavior_grayH2AckImage__block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x1E696AEC0];
-  v1 = CKFrameworkBundle();
-  v2 = [v1 localizedStringForKey:@"ACKNOWLEDGMENT_HAHA_ASSET_NAME_SUFFIX" value:@"ENG" table:@"ChatKit"];
-  v3 = [v0 stringWithFormat:@"%@-%@-3", @"Acknowledgments-Menu-HAHA", v2];
+  v1 = MEMORY[0x1E696AEC0];
+  v2 = CKFrameworkBundle(a1);
+  v3 = [v2 localizedStringForKey:@"ACKNOWLEDGMENT_HAHA_ASSET_NAME_SUFFIX" value:@"ENG" table:@"ChatKit"];
+  v4 = [v1 stringWithFormat:@"%@-%@-3", @"Acknowledgments-Menu-HAHA", v3];
 
-  v4 = +[CKUIBehavior sharedBehaviors];
-  v5 = [v4 theme];
-  v6 = [v5 messageAcknowledgmentGrayColor];
-  v7 = CKImageNamedWithDynamicTintColor(v3, v6);
+  v5 = +[CKUIBehavior sharedBehaviors];
+  v6 = [v5 theme];
+  v7 = [v6 messageAcknowledgmentGrayColor];
+  v8 = CKImageNamedWithDynamicTintColor(v4, v7);
 
-  v8 = grayH2AckImage_sBehavior;
-  grayH2AckImage_sBehavior = v7;
+  v9 = grayH2AckImage_sBehavior;
+  grayH2AckImage_sBehavior = v8;
 }
 
 - (UIImage)grayA2AckImage
@@ -29880,20 +29844,20 @@ void __30__CKUIBehavior_grayH2AckImage__block_invoke()
   return v3;
 }
 
-void __30__CKUIBehavior_grayA2AckImage__block_invoke()
+void __30__CKUIBehavior_grayA2AckImage__block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x1E696AEC0];
-  v1 = CKFrameworkBundle();
-  v2 = [v1 localizedStringForKey:@"ACKNOWLEDGMENT_HAHA_ASSET_NAME_SUFFIX" value:@"ENG" table:@"ChatKit"];
-  v3 = [v0 stringWithFormat:@"%@-%@-4", @"Acknowledgments-Menu-HAHA", v2];
+  v1 = MEMORY[0x1E696AEC0];
+  v2 = CKFrameworkBundle(a1);
+  v3 = [v2 localizedStringForKey:@"ACKNOWLEDGMENT_HAHA_ASSET_NAME_SUFFIX" value:@"ENG" table:@"ChatKit"];
+  v4 = [v1 stringWithFormat:@"%@-%@-4", @"Acknowledgments-Menu-HAHA", v3];
 
-  v4 = +[CKUIBehavior sharedBehaviors];
-  v5 = [v4 theme];
-  v6 = [v5 messageAcknowledgmentGrayColor];
-  v7 = CKImageNamedWithDynamicTintColor(v3, v6);
+  v5 = +[CKUIBehavior sharedBehaviors];
+  v6 = [v5 theme];
+  v7 = [v6 messageAcknowledgmentGrayColor];
+  v8 = CKImageNamedWithDynamicTintColor(v4, v7);
 
-  v8 = grayA2AckImage_sBehavior;
-  grayA2AckImage_sBehavior = v7;
+  v9 = grayA2AckImage_sBehavior;
+  grayA2AckImage_sBehavior = v8;
 }
 
 - (UIImage)redHeartAckImage
@@ -30064,19 +30028,19 @@ void __44__CKUIBehavior_whiteQuestionMarkDotAckImage__block_invoke()
   return v3;
 }
 
-void __31__CKUIBehavior_whiteHaAckImage__block_invoke()
+void __31__CKUIBehavior_whiteHaAckImage__block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x1E696AEC0];
-  v1 = CKFrameworkBundle();
-  v2 = [v1 localizedStringForKey:@"ACKNOWLEDGMENT_HAHA_ASSET_NAME_SUFFIX" value:@"ENG" table:@"ChatKit"];
-  v3 = [v0 stringWithFormat:@"%@-%@", @"Acknowledgments-Menu-HAHA", v2];
+  v1 = MEMORY[0x1E696AEC0];
+  v2 = CKFrameworkBundle(a1);
+  v3 = [v2 localizedStringForKey:@"ACKNOWLEDGMENT_HAHA_ASSET_NAME_SUFFIX" value:@"ENG" table:@"ChatKit"];
+  v4 = [v1 stringWithFormat:@"%@-%@", @"Acknowledgments-Menu-HAHA", v3];
 
-  v4 = [MEMORY[0x1E69DCAB8] ckImageNamed:v3];
-  v5 = [MEMORY[0x1E69DC888] whiteColor];
-  v6 = [v4 _flatImageWithColor:v5];
+  v5 = [MEMORY[0x1E69DCAB8] ckImageNamed:v4];
+  v6 = [MEMORY[0x1E69DC888] whiteColor];
+  v7 = [v5 _flatImageWithColor:v6];
 
-  v7 = whiteHaAckImage_sBehavior;
-  whiteHaAckImage_sBehavior = v6;
+  v8 = whiteHaAckImage_sBehavior;
+  whiteHaAckImage_sBehavior = v7;
 }
 
 - (UIImage)whiteH1AckImage
@@ -30688,7 +30652,7 @@ void __36__CKUIBehavior_navBarSharePlayImage__block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __55__CKUIBehavior_additionalComposeRecipientLayoutMargins__block_invoke(uint64_t a1)
+void *__55__CKUIBehavior_additionalComposeRecipientLayoutMargins__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _additionalComposeRecipientLayoutMargins];
   additionalComposeRecipientLayoutMargins_sBehavior_0 = v2;
@@ -30761,7 +30725,7 @@ uint64_t __55__CKUIBehavior_additionalComposeRecipientLayoutMargins__block_invok
   return *&defaultToolbarHeight_sBehavior;
 }
 
-uint64_t __36__CKUIBehavior_defaultToolbarHeight__block_invoke(uint64_t a1)
+void *__36__CKUIBehavior_defaultToolbarHeight__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) macAppKitToolbarHeight];
   defaultToolbarHeight_sBehavior = v2;
@@ -31384,7 +31348,7 @@ void __70__CKUIBehavior_messageAcknowledgmentTranscriptBalloonRelativePosition__
     if (type == 2003)
     {
       v9 = MEMORY[0x1E696AEC0];
-      v10 = CKFrameworkBundle();
+      v10 = CKFrameworkBundle(self);
       v11 = [v10 localizedStringForKey:@"ACKNOWLEDGMENT_HAHA_ASSET_NAME_SUFFIX" value:@"ENG" table:@"ChatKit"];
       v7 = [v9 stringWithFormat:@"%@-%@", @"Acknowledgments-Menu-HAHA", v11];
 
@@ -31441,7 +31405,7 @@ LABEL_14:
     if (type == 2003)
     {
       v9 = MEMORY[0x1E696AEC0];
-      v10 = CKFrameworkBundle();
+      v10 = CKFrameworkBundle(self);
       v11 = [v10 localizedStringForKey:@"ACKNOWLEDGMENT_HAHA_ASSET_NAME_SUFFIX" value:@"ENG" table:@"ChatKit"];
       v7 = [v9 stringWithFormat:@"Polling-HAHA-%@", v11];
 
@@ -31498,7 +31462,7 @@ LABEL_14:
     if (type == 2003)
     {
       v9 = MEMORY[0x1E696AEC0];
-      v10 = CKFrameworkBundle();
+      v10 = CKFrameworkBundle(self);
       v11 = [v10 localizedStringForKey:@"ACKNOWLEDGMENT_HAHA_ASSET_NAME_SUFFIX" value:@"ENG" table:@"ChatKit"];
       v7 = [v9 stringWithFormat:@"Polling-HAHA-%@-Large", v11];
 
@@ -32087,7 +32051,7 @@ void __55__CKUIBehavior_messageHighlightButtonImageHighlightOff__block_invoke(ui
   return *&browserSwitcherCompactGrabberVisibleHeight_sBehavior;
 }
 
-uint64_t __58__CKUIBehavior_browserSwitcherCompactGrabberVisibleHeight__block_invoke(uint64_t a1)
+void *__58__CKUIBehavior_browserSwitcherCompactGrabberVisibleHeight__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) browserSwitcherCollapsedGrabberHeaderHeight];
   browserSwitcherCompactGrabberVisibleHeight_sBehavior = v2;
@@ -32388,7 +32352,7 @@ double __39__CKUIBehavior_dragBalloonCornerRadius__block_invoke(uint64_t a1)
   return *&composeBalloonCornerRadius_sBehavior;
 }
 
-uint64_t __42__CKUIBehavior_composeBalloonCornerRadius__block_invoke(uint64_t a1)
+void *__42__CKUIBehavior_composeBalloonCornerRadius__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dragBalloonCornerRadius];
   composeBalloonCornerRadius_sBehavior = v2;
@@ -33083,7 +33047,7 @@ void __33__CKUIBehavior_syncProgressColor__block_invoke()
   return syncBarBlurEffectStyle_sBehavior;
 }
 
-uint64_t __38__CKUIBehavior_syncBarBlurEffectStyle__block_invoke(uint64_t a1)
+void *__38__CKUIBehavior_syncBarBlurEffectStyle__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _syncBarBlurEffectStyle];
   syncBarBlurEffectStyle_sBehavior = result;
@@ -33292,7 +33256,7 @@ void __52__CKUIBehavior_searchSectionDirectionalMarginInsets__block_invoke()
   return result;
 }
 
-uint64_t __48__CKUIBehavior_searchDetailsSectionMarginInsets__block_invoke(uint64_t a1)
+void *__48__CKUIBehavior_searchDetailsSectionMarginInsets__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) searchSectionMarginInsets];
   searchDetailsSectionMarginInsets_sBehavior_0 = v2;
@@ -34273,7 +34237,7 @@ void __42__CKUIBehavior_searchPhotosThumbnailWidth__block_invoke()
   return *&searchPhotosInterItemSpacing_sBehavior;
 }
 
-uint64_t __44__CKUIBehavior_searchPhotosInterItemSpacing__block_invoke(uint64_t a1)
+void *__44__CKUIBehavior_searchPhotosInterItemSpacing__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) searchResultsInterItemSpacing];
   searchPhotosInterItemSpacing_sBehavior = v2;
@@ -34360,7 +34324,7 @@ void __41__CKUIBehavior_searchLinksThumbnailWidth__block_invoke()
   return *&searchLinksInterItemSpacing_sBehavior;
 }
 
-uint64_t __43__CKUIBehavior_searchLinksInterItemSpacing__block_invoke(uint64_t a1)
+void *__43__CKUIBehavior_searchLinksInterItemSpacing__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) searchResultsInterItemSpacing];
   searchLinksInterItemSpacing_sBehavior = v2;
@@ -34382,7 +34346,7 @@ uint64_t __43__CKUIBehavior_searchLinksInterItemSpacing__block_invoke(uint64_t a
   return *&searchLinksCellCornerRadius_sBehavior;
 }
 
-uint64_t __43__CKUIBehavior_searchLinksCellCornerRadius__block_invoke(uint64_t a1)
+void *__43__CKUIBehavior_searchLinksCellCornerRadius__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) searchResultsCellCornerRadius];
   searchLinksCellCornerRadius_sBehavior = v2;
@@ -34424,7 +34388,7 @@ uint64_t __43__CKUIBehavior_searchLinksCellCornerRadius__block_invoke(uint64_t a
   return *&searchAttachmentsInterItemSpacing_sBehavior;
 }
 
-uint64_t __49__CKUIBehavior_searchAttachmentsInterItemSpacing__block_invoke(uint64_t a1)
+void *__49__CKUIBehavior_searchAttachmentsInterItemSpacing__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) searchResultsInterItemSpacing];
   searchAttachmentsInterItemSpacing_sBehavior = v2;
@@ -34446,7 +34410,7 @@ uint64_t __49__CKUIBehavior_searchAttachmentsInterItemSpacing__block_invoke(uint
   return *&searchAttachmentsCellCornerRadius_sBehavior;
 }
 
-uint64_t __49__CKUIBehavior_searchAttachmentsCellCornerRadius__block_invoke(uint64_t a1)
+void *__49__CKUIBehavior_searchAttachmentsCellCornerRadius__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) searchResultsCellCornerRadius];
   searchAttachmentsCellCornerRadius_sBehavior = v2;
@@ -34529,7 +34493,7 @@ __n128 __55__CKUIBehavior_searchAttachmentsThumbnailAlignmentSize__block_invoke(
   return *&searchLocationsInterItemSpacing_sBehavior;
 }
 
-uint64_t __47__CKUIBehavior_searchLocationsInterItemSpacing__block_invoke(uint64_t a1)
+void *__47__CKUIBehavior_searchLocationsInterItemSpacing__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) searchResultsInterItemSpacing];
   searchLocationsInterItemSpacing_sBehavior = v2;
@@ -34551,7 +34515,7 @@ uint64_t __47__CKUIBehavior_searchLocationsInterItemSpacing__block_invoke(uint64
   return *&searchLocationCellCornerRadius_sBehavior;
 }
 
-uint64_t __46__CKUIBehavior_searchLocationCellCornerRadius__block_invoke(uint64_t a1)
+void *__46__CKUIBehavior_searchLocationCellCornerRadius__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) searchResultsCellCornerRadius];
   searchLocationCellCornerRadius_sBehavior = v2;
@@ -34573,7 +34537,7 @@ uint64_t __46__CKUIBehavior_searchLocationCellCornerRadius__block_invoke(uint64_
   return *&searchHighlightsInterItemSpacing_sBehavior;
 }
 
-uint64_t __48__CKUIBehavior_searchHighlightsInterItemSpacing__block_invoke(uint64_t a1)
+void *__48__CKUIBehavior_searchHighlightsInterItemSpacing__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) searchResultsInterItemSpacing];
   searchHighlightsInterItemSpacing_sBehavior = v2;
@@ -34595,7 +34559,7 @@ uint64_t __48__CKUIBehavior_searchHighlightsInterItemSpacing__block_invoke(uint6
   return *&searchCollaborationInterItemSpacing_sBehavior;
 }
 
-uint64_t __51__CKUIBehavior_searchCollaborationInterItemSpacing__block_invoke(uint64_t a1)
+void *__51__CKUIBehavior_searchCollaborationInterItemSpacing__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) searchResultsInterItemSpacing];
   searchCollaborationInterItemSpacing_sBehavior = v2;
@@ -34899,7 +34863,7 @@ void __34__CKUIBehavior_signInAppIconImage__block_invoke()
 - (id)__ck_localizedString:(id)string
 {
   stringCopy = string;
-  v4 = CKFrameworkBundle();
+  v4 = CKFrameworkBundle(stringCopy);
   v5 = [v4 localizedStringForKey:stringCopy value:&stru_1F04268F8 table:@"ChatKit"];
 
   return v5;

@@ -70,26 +70,24 @@
   configuration = self->_configuration;
   self->_configuration = v4;
 
-  predicate = self->_predicate;
   objc_opt_class();
   if (objc_opt_respondsToSelector())
   {
-    v7 = [(MOTrendBundlerPredicate *)self->_predicate configure:self->_configuration];
+    v6 = [(MOTrendBundlerPredicate *)self->_predicate configure:self->_configuration];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
-  annotator = self->_annotator;
   objc_opt_class();
   if (objc_opt_respondsToSelector())
   {
-    v7 &= [(MOTrendBundlerAnnotator *)self->_annotator configure:self->_configuration];
+    v6 &= [(MOTrendBundlerAnnotator *)self->_annotator configure:self->_configuration];
   }
 
-  return v7;
+  return v6;
 }
 
 - (id)processPatternEvents:(id)events withEvents:(id)withEvents
@@ -101,7 +99,7 @@
   {
     trendDetectorName = self->_trendDetectorName;
     *buf = 138412290;
-    v28 = trendDetectorName;
+    v26 = trendDetectorName;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Creating trend bundles from events for %@...", buf, 0xCu);
   }
 
@@ -129,62 +127,60 @@
     [v14 handleFailureInMethod:a2 object:self file:@"MOTrendBundler.m" lineNumber:78 description:{@"No trend bundle annotator strategy was defined for %@ (in %s:%d)", self->_trendDetectorName, "-[MOTrendBundler processPatternEvents:withEvents:]", 78}];
   }
 
-  predicate = self->_predicate;
   objc_opt_class();
   if (objc_opt_respondsToSelector())
   {
     [(MOTrendBundlerPredicate *)self->_predicate reset];
   }
 
-  annotator = self->_annotator;
   objc_opt_class();
   if (objc_opt_respondsToSelector())
   {
     [(MOTrendBundlerAnnotator *)self->_annotator reset];
   }
 
-  v17 = [(MOTrendBundlerPredicate *)self->_predicate filterEvents:eventsCopy];
-  v18 = [(MOTrendBundlerAnnotator *)self->_annotator createTrendBundlesFrom:v17 withEvents:withEventsCopy];
+  v15 = [(MOTrendBundlerPredicate *)self->_predicate filterEvents:eventsCopy];
+  v16 = [(MOTrendBundlerAnnotator *)self->_annotator createTrendBundlesFrom:v15 withEvents:withEventsCopy];
 
-  if (v18 && [v18 count])
+  if (v16 && [v16 count])
   {
-    v19 = _mo_log_facility_get_os_log(&MOLogFacilityEventBundleManager);
-    if (!os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v17 = _mo_log_facility_get_os_log(&MOLogFacilityEventBundleManager);
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       goto LABEL_22;
     }
 
-    v20 = [v18 count];
-    v21 = self->_trendDetectorName;
+    v18 = [v16 count];
+    v19 = self->_trendDetectorName;
     *buf = 134218242;
-    v28 = v20;
-    v29 = 2112;
-    v30 = v21;
-    v22 = "Detected %lu trend bundles for %@";
-    v23 = v19;
-    v24 = 22;
+    v26 = v18;
+    v27 = 2112;
+    v28 = v19;
+    v20 = "Detected %lu trend bundles for %@";
+    v21 = v17;
+    v22 = 22;
   }
 
   else
   {
-    v19 = _mo_log_facility_get_os_log(&MOLogFacilityEventBundleManager);
-    if (!os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v17 = _mo_log_facility_get_os_log(&MOLogFacilityEventBundleManager);
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       goto LABEL_22;
     }
 
-    v25 = self->_trendDetectorName;
+    v23 = self->_trendDetectorName;
     *buf = 138412290;
-    v28 = v25;
-    v22 = "No trend bundles detected for %@";
-    v23 = v19;
-    v24 = 12;
+    v26 = v23;
+    v20 = "No trend bundles detected for %@";
+    v21 = v17;
+    v22 = 12;
   }
 
-  _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, v22, buf, v24);
+  _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, v20, buf, v22);
 LABEL_22:
 
-  return v18;
+  return v16;
 }
 
 - (void)processPatternEvents:(uint64_t)a1 withEvents:.cold.1(uint64_t a1)

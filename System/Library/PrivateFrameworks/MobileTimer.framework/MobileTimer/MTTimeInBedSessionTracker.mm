@@ -9,7 +9,7 @@
 
 + (BOOL)_shouldUseBedtimeDismissedDateForAlarm:(id)alarm
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   bedtimeDismissedDate = [alarmCopy bedtimeDismissedDate];
   if (bedtimeDismissedDate && (v6 = bedtimeDismissedDate, v7 = [alarmCopy bedtimeDismissedAction], v6, v7 == 2))
@@ -37,11 +37,11 @@
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         bedtimeDismissedDate6 = [alarmCopy bedtimeDismissedDate];
-        v25 = 138543618;
+        v24 = 138543618;
         selfCopy = self;
-        v27 = 2112;
-        v28 = bedtimeDismissedDate6;
-        _os_log_impl(&dword_1B1F9F000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@ Ignoring user bedtime %@.", &v25, 0x16u);
+        v26 = 2112;
+        v27 = bedtimeDismissedDate6;
+        _os_log_impl(&dword_1B1F9F000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@ Ignoring user bedtime %@.", &v24, 0x16u);
       }
     }
   }
@@ -51,36 +51,33 @@
     v20 = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 - (void)endSessionWithDate:(id)date reason:(unint64_t)reason
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   v7 = MTLogForCategory(7);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = MTSleepSessionEndReasonDescription(reason);
-    v12 = 138543618;
+    v11 = 138543618;
     selfCopy = self;
-    v14 = 2114;
-    v15 = v8;
-    _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ stopping session with reason %{public}@", &v12, 0x16u);
+    v13 = 2114;
+    v14 = v8;
+    _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ stopping session with reason %{public}@", &v11, 0x16u);
   }
 
   v9 = [(MTTimeInBedSessionTracker *)self _createSleepSessionWithUserWakeTime:dateCopy endReason:reason];
 
   sleepSessionTrackerDelegate = [(MTSleepSessionTracker *)self sleepSessionTrackerDelegate];
   [sleepSessionTrackerDelegate sleepSessionTracker:self sessionDidComplete:v9];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_createSleepSessionWithUserWakeTime:(id)time endReason:(unint64_t)reason
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   timeCopy = time;
   cachedAlarm = [(MTSleepSessionTracker *)self cachedAlarm];
   if ([objc_opt_class() _shouldUseBedtimeDismissedDateForAlarm:cachedAlarm] && (objc_msgSend(cachedAlarm, "bedtimeDismissedDate"), (v7 = objc_claimAutoreleasedReturnValue()) != 0))
@@ -148,122 +145,120 @@
   }
 
   bedtimeComponents2 = [cachedAlarm bedtimeComponents];
-  v38 = [v7 mtDateNearestMatchingComponents:bedtimeComponents2];
+  v37 = [v7 mtDateNearestMatchingComponents:bedtimeComponents2];
 
   dateComponents = [cachedAlarm dateComponents];
-  v37 = [timeCopy mtDateNearestMatchingComponents:dateComponents];
+  v36 = [timeCopy mtDateNearestMatchingComponents:dateComponents];
 
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2020000000;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
   v18 = getHKMetadataKeyTimeZoneSymbolLoc_ptr;
-  v43 = getHKMetadataKeyTimeZoneSymbolLoc_ptr;
+  v42 = getHKMetadataKeyTimeZoneSymbolLoc_ptr;
   if (!getHKMetadataKeyTimeZoneSymbolLoc_ptr)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getHKMetadataKeyTimeZoneSymbolLoc_block_invoke;
-    v48 = &unk_1E7B0C600;
-    v49 = &v40;
+    v47 = &unk_1E7B0C600;
+    v48 = &v39;
     v19 = HealthKitLibrary();
     v20 = dlsym(v19, "HKMetadataKeyTimeZone");
-    *(v49[1] + 24) = v20;
-    getHKMetadataKeyTimeZoneSymbolLoc_ptr = *(v49[1] + 24);
-    v18 = v41[3];
+    *(v48[1] + 24) = v20;
+    getHKMetadataKeyTimeZoneSymbolLoc_ptr = *(v48[1] + 24);
+    v18 = v40[3];
   }
 
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v39, 8);
   if (!v18)
   {
     [MTTimeInBedSessionTracker _createSleepSessionWithUserWakeTime:endReason:];
   }
 
   v21 = *v18;
-  v44[0] = v21;
+  v43[0] = v21;
   systemTimeZone = [MEMORY[0x1E695DFE8] systemTimeZone];
   name = [systemTimeZone name];
-  v46[0] = name;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2020000000;
+  v45[0] = name;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
   v24 = get_HKPrivateMetadataKeySleepAlarmUserSetBedtimeSymbolLoc_ptr;
-  v43 = get_HKPrivateMetadataKeySleepAlarmUserSetBedtimeSymbolLoc_ptr;
+  v42 = get_HKPrivateMetadataKeySleepAlarmUserSetBedtimeSymbolLoc_ptr;
   if (!get_HKPrivateMetadataKeySleepAlarmUserSetBedtimeSymbolLoc_ptr)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __get_HKPrivateMetadataKeySleepAlarmUserSetBedtimeSymbolLoc_block_invoke;
-    v48 = &unk_1E7B0C600;
-    v49 = &v40;
+    v47 = &unk_1E7B0C600;
+    v48 = &v39;
     v25 = HealthKitLibrary();
     v26 = dlsym(v25, "_HKPrivateMetadataKeySleepAlarmUserSetBedtime");
-    *(v49[1] + 24) = v26;
-    get_HKPrivateMetadataKeySleepAlarmUserSetBedtimeSymbolLoc_ptr = *(v49[1] + 24);
-    v24 = v41[3];
+    *(v48[1] + 24) = v26;
+    get_HKPrivateMetadataKeySleepAlarmUserSetBedtimeSymbolLoc_ptr = *(v48[1] + 24);
+    v24 = v40[3];
   }
 
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v39, 8);
   if (!v24)
   {
     [MTTimeInBedSessionTracker _createSleepSessionWithUserWakeTime:endReason:];
   }
 
   v27 = *v24;
-  v44[1] = v27;
-  v46[1] = v38;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2020000000;
+  v43[1] = v27;
+  v45[1] = v37;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
   v28 = get_HKPrivateMetadataKeySleepAlarmUserWakeTimeSymbolLoc_ptr;
-  v43 = get_HKPrivateMetadataKeySleepAlarmUserWakeTimeSymbolLoc_ptr;
+  v42 = get_HKPrivateMetadataKeySleepAlarmUserWakeTimeSymbolLoc_ptr;
   if (!get_HKPrivateMetadataKeySleepAlarmUserWakeTimeSymbolLoc_ptr)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __get_HKPrivateMetadataKeySleepAlarmUserWakeTimeSymbolLoc_block_invoke;
-    v48 = &unk_1E7B0C600;
-    v49 = &v40;
+    v47 = &unk_1E7B0C600;
+    v48 = &v39;
     v29 = HealthKitLibrary();
     v30 = dlsym(v29, "_HKPrivateMetadataKeySleepAlarmUserWakeTime");
-    *(v49[1] + 24) = v30;
-    get_HKPrivateMetadataKeySleepAlarmUserWakeTimeSymbolLoc_ptr = *(v49[1] + 24);
-    v28 = v41[3];
+    *(v48[1] + 24) = v30;
+    get_HKPrivateMetadataKeySleepAlarmUserWakeTimeSymbolLoc_ptr = *(v48[1] + 24);
+    v28 = v40[3];
   }
 
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v39, 8);
   if (!v28)
   {
     [MTTimeInBedSessionTracker _createSleepSessionWithUserWakeTime:endReason:];
   }
 
-  v45 = *v28;
-  v46[2] = v37;
+  v44 = *v28;
+  v45[2] = v36;
   v31 = MEMORY[0x1E695DF20];
-  v32 = v45;
-  v33 = [v31 dictionaryWithObjects:v46 forKeys:v44 count:3];
+  v32 = v44;
+  v33 = [v31 dictionaryWithObjects:v45 forKeys:v43 count:3];
   v34 = [MTTimeInBedSession timeInBedSessionWithStartDate:v7 endDate:timeCopy intervals:0 endReason:reason metadata:v33];
 
   [v34 setNeedsAdditionalProcessing:1];
 LABEL_27:
-
-  v35 = *MEMORY[0x1E69E9840];
 
   return v34;
 }
 
 - (id)processedSessionForSession:(id)session
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
-  v37 = objc_opt_new();
+  v36 = objc_opt_new();
   inBedDetector = [MEMORY[0x1E69978C8] inBedDetector];
   startDate = [sessionCopy startDate];
-  v38 = sessionCopy;
+  v37 = sessionCopy;
   endDate = [sessionCopy endDate];
-  v49 = 0;
-  v36 = inBedDetector;
-  v7 = [inBedDetector detectInBedBetweenBedtimeDate:startDate wakupDate:endDate error:&v49];
-  v35 = v49;
+  v48 = 0;
+  v35 = inBedDetector;
+  v7 = [inBedDetector detectInBedBetweenBedtimeDate:startDate wakupDate:endDate error:&v48];
+  v34 = v48;
 
   v8 = MTLogForCategory(7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -271,31 +266,31 @@ LABEL_27:
     v9 = [v7 count];
     *buf = 138543618;
     selfCopy2 = self;
-    v53 = 2048;
-    v54 = v9;
+    v52 = 2048;
+    v53 = v9;
     _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ Found %lu in-bed intervals", buf, 0x16u);
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   obj = v7;
-  v10 = [obj countByEnumeratingWithState:&v45 objects:v57 count:16];
+  v10 = [obj countByEnumeratingWithState:&v44 objects:v56 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v46;
+    v12 = *v45;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v46 != v12)
+        if (*v45 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v45 + 1) + 8 * i);
+        v14 = *(*(&v44 + 1) + 8 * i);
         v15 = MTLogForCategory(7);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
@@ -303,77 +298,75 @@ LABEL_27:
           endDate2 = [v14 endDate];
           *buf = 138543874;
           selfCopy2 = self;
-          v53 = 2112;
-          v54 = startDate2;
-          v55 = 2112;
-          v56 = endDate2;
+          v52 = 2112;
+          v53 = startDate2;
+          v54 = 2112;
+          v55 = endDate2;
           _os_log_impl(&dword_1B1F9F000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ _CDInBedDetection [%@ - %@]", buf, 0x20u);
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v45 objects:v57 count:16];
+      v11 = [obj countByEnumeratingWithState:&v44 objects:v56 count:16];
     }
 
     while (v11);
   }
 
-  v18 = v35;
-  if (!obj || v35)
+  v18 = v34;
+  if (!obj || v34)
   {
     v32 = MTLogForCategory(7);
-    v21 = v37;
+    v21 = v36;
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      [(MTTimeInBedSessionTracker *)self processedSessionForSession:v35, v32];
+      [(MTTimeInBedSessionTracker *)self processedSessionForSession:v34, v32];
     }
 
     v31 = 0;
-    v26 = v38;
+    v26 = v37;
   }
 
   else
   {
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     v19 = obj;
-    v20 = [v19 countByEnumeratingWithState:&v41 objects:v50 count:16];
-    v21 = v37;
+    v20 = [v19 countByEnumeratingWithState:&v40 objects:v49 count:16];
+    v21 = v36;
     if (v20)
     {
       v22 = v20;
-      v23 = *v42;
+      v23 = *v41;
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v42 != v23)
+          if (*v41 != v23)
           {
             objc_enumerationMutation(v19);
           }
 
-          _mt_dateInterval = [*(*(&v41 + 1) + 8 * j) _mt_dateInterval];
-          [v37 na_safeAddObject:_mt_dateInterval];
+          _mt_dateInterval = [*(*(&v40 + 1) + 8 * j) _mt_dateInterval];
+          [v36 na_safeAddObject:_mt_dateInterval];
         }
 
-        v22 = [v19 countByEnumeratingWithState:&v41 objects:v50 count:16];
+        v22 = [v19 countByEnumeratingWithState:&v40 objects:v49 count:16];
       }
 
       while (v22);
     }
 
-    v26 = v38;
-    startDate3 = [v38 startDate];
-    endDate3 = [v38 endDate];
-    endReason = [v38 endReason];
-    metadata = [v38 metadata];
-    v31 = [MTTimeInBedSession timeInBedSessionWithStartDate:startDate3 endDate:endDate3 intervals:v37 endReason:endReason metadata:metadata];
+    v26 = v37;
+    startDate3 = [v37 startDate];
+    endDate3 = [v37 endDate];
+    endReason = [v37 endReason];
+    metadata = [v37 metadata];
+    v31 = [MTTimeInBedSession timeInBedSessionWithStartDate:startDate3 endDate:endDate3 intervals:v36 endReason:endReason metadata:metadata];
 
     [v31 setNeedsAdditionalProcessing:0];
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return v31;
 }
@@ -407,13 +400,12 @@ LABEL_27:
 
 - (void)processedSessionForSession:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_ERROR, "%{public}@ In bed detector failed to detect time-in-bed with error: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_ERROR, "%{public}@ In bed detector failed to detect time-in-bed with error: %{public}@", &v3, 0x16u);
 }
 
 @end

@@ -251,7 +251,6 @@ LABEL_13:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -271,7 +270,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  eventType = self->_eventType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -286,12 +284,10 @@ LABEL_4:
   }
 
 LABEL_19:
-  networkTypeBitMap = self->_networkTypeBitMap;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_5:
-    networkSecurity = self->_networkSecurity;
     PBDataWriterWriteUint32Field();
   }
 
@@ -301,16 +297,15 @@ LABEL_6:
     PBDataWriterWriteDataField();
   }
 
-  v6 = self->_has;
-  if ((v6 & 2) != 0)
+  v5 = self->_has;
+  if ((v5 & 2) != 0)
   {
-    colocatedState = self->_colocatedState;
     PBDataWriterWriteUint32Field();
-    v6 = self->_has;
-    if ((v6 & 0x80) == 0)
+    v5 = self->_has;
+    if ((v5 & 0x80) == 0)
     {
 LABEL_10:
-      if ((v6 & 0x40) == 0)
+      if ((v5 & 0x40) == 0)
       {
         goto LABEL_11;
       }
@@ -324,13 +319,12 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  switchedAwayFromCount = self->_switchedAwayFromCount;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((v6 & 0x40) == 0)
+  v5 = self->_has;
+  if ((v5 & 0x40) == 0)
   {
 LABEL_11:
-    if ((v6 & 8) == 0)
+    if ((v5 & 8) == 0)
     {
       goto LABEL_13;
     }
@@ -339,12 +333,10 @@ LABEL_11:
   }
 
 LABEL_23:
-  switchToCount = self->_switchToCount;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_12:
-    networkScore = self->_networkScore;
     PBDataWriterWriteInt32Field();
   }
 
@@ -579,7 +571,6 @@ LABEL_11:
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 64);
     if (has)
     {
       if ((*(equal + 64) & 1) == 0 || self->_timestamp != *(equal + 1))
@@ -644,7 +635,6 @@ LABEL_11:
       has = self->_has;
     }
 
-    v9 = *(equal + 64);
     if ((has & 2) != 0)
     {
       if ((*(equal + 64) & 2) == 0 || self->_colocatedState != *(equal + 6))

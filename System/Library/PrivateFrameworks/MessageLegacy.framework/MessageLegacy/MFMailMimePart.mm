@@ -1,5 +1,6 @@
 @interface MFMailMimePart
 + (BOOL)isRecognizedClassForContent:(id)content;
+- (id)contentToOffset:(unint64_t)offset resultOffset:(unint64_t *)resultOffset downloadIfNecessary:(BOOL)necessary asHTML:(BOOL)l isComplete:(BOOL *)complete;
 - (id)decodeMessageRfc822;
 - (id)decodeMultipartAppledouble;
 - (id)decodeTextEnriched;
@@ -7,6 +8,8 @@
 - (id)decodeTextPlain;
 - (id)decodeTextRichtext;
 - (id)fileWrapperForDecodedObject:(id)object withFileData:(id *)data;
+- (id)fileWrapperForcingDownload:(BOOL)download;
+- (id)storeData:(id)data inMessage:(id)message isComplete:(BOOL)complete;
 - (void)configureFileWrapper:(id)wrapper;
 @end
 
@@ -77,6 +80,20 @@
   return [v2 fileWrapperForcingDownload:0];
 }
 
+- (id)fileWrapperForcingDownload:(BOOL)download
+{
+  downloadCopy = download;
+  v5 = [-[MFMailMimePart mimeBody](self "mimeBody")];
+  if ((objc_opt_respondsToSelector() & 1) == 0 || (v6 = [v5 performSelector:sel__attachmentStorageLocation]) == 0 || (v7 = objc_msgSend(v6, "stringByAppendingPathComponent:", -[MFMailMimePart partNumber](self, "partNumber")), (v8 = -[MFMailMimePart attachmentFilename](self, "attachmentFilename")) == 0) || (v9 = v8, v10 = objc_msgSend(objc_alloc(MEMORY[0x277D24F38]), "initWithPath:", objc_msgSend(v7, "stringByAppendingPathComponent:", v8)), objc_msgSend(v10, "setPreferredFilename:", v9), objc_msgSend(v10, "setFilename:", objc_msgSend(v10, "preferredFilename")), -[MFMailMimePart configureFileWrapper:](self, "configureFileWrapper:", v10), !v10))
+  {
+    v12.receiver = self;
+    v12.super_class = MFMailMimePart;
+    return [(MFMailMimePart *)&v12 fileWrapperForcingDownload:downloadCopy];
+  }
+
+  return v10;
+}
+
 - (id)fileWrapperForDecodedObject:(id)object withFileData:(id *)data
 {
   objc_opt_class();
@@ -138,6 +155,14 @@
   }
 }
 
+- (id)storeData:(id)data inMessage:(id)message isComplete:(BOOL)complete
+{
+  completeCopy = complete;
+  messageStore = [message messageStore];
+
+  return [messageStore storeData:data forMimePart:self isComplete:completeCopy];
+}
+
 + (BOOL)isRecognizedClassForContent:(id)content
 {
   objc_opt_class();
@@ -155,6 +180,71 @@
   v6.receiver = self;
   v6.super_class = &OBJC_METACLASS___MFMailMimePart;
   return objc_msgSendSuper2(&v6, sel_isRecognizedClassForContent_, content);
+}
+
+- (id)contentToOffset:(unint64_t)offset resultOffset:(unint64_t *)resultOffset downloadIfNecessary:(BOOL)necessary asHTML:(BOOL)l isComplete:(BOOL *)complete
+{
+  v23 = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = MFMailMimePart;
+  v8 = [(MFMailMimePart *)&v21 contentToOffset:offset resultOffset:resultOffset downloadIfNecessary:necessary asHTML:l isComplete:complete];
+  array = [MEMORY[0x277CBEB18] array];
+  if (v8)
+  {
+    v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v10 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    if (v10)
+    {
+      v11 = v10;
+      v12 = *v18;
+      do
+      {
+        for (i = 0; i != v11; ++i)
+        {
+          if (*v18 != v12)
+          {
+            objc_enumerationMutation(v8);
+          }
+
+          v14 = *(*(&v17 + 1) + 8 * i);
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            v14 = [[MFWebMessageDocument alloc] initWithMimePart:self htmlData:[(MFWebMessageDocument *)v14 dataUsingEncoding:4] encoding:134217984];
+            v15 = v14;
+          }
+
+          else
+          {
+            objc_opt_class();
+            if (objc_opt_isKindOfClass())
+            {
+              v14 = [[MFContentErrorDocument alloc] initWithMimePart:self];
+            }
+          }
+
+          if (v14)
+          {
+            [array addObject:v14];
+          }
+        }
+
+        v11 = [v8 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      }
+
+      while (v11);
+    }
+  }
+
+  else if ([(MFMailMimePart *)self _shouldContinueDecodingProcess])
+  {
+    [array addObject:{-[MFContentErrorDocument initWithMimePart:]([MFContentErrorDocument alloc], "initWithMimePart:", self)}];
+  }
+
+  return array;
 }
 
 - (id)decodeMessageRfc822

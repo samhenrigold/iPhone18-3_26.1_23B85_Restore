@@ -1,3 +1,1793 @@
+uint64_t geom::sparse_linear_solver<float>::solve(uint64_t a1, uint64_t a2, float *a3, uint64_t a4, float *a5)
+{
+  v39 = *MEMORY[0x277D85DE8];
+  if (*(a1 + 248) == 1)
+  {
+    v5 = a2;
+    if (*a1 == a2)
+    {
+      v6 = a4;
+      if (*(a1 + 4) == a4)
+      {
+        v7 = *(a1 + 104);
+        v8 = *(a1 + 152);
+        v9 = *(a1 + 184);
+        *&Factored.userFactorStorage = *(a1 + 168);
+        *&Factored.solveWorkspaceRequiredStatic = v9;
+        v22 = *(a1 + 200);
+        v10 = *(a1 + 120);
+        *&Factored.status = v7;
+        *&Factored.symbolicFactorization.columnCount = v10;
+        *&Factored.symbolicFactorization.workspaceSize_Float = *(a1 + 136);
+        *&Factored.symbolicFactorization.factorSize_Float = v8;
+        if (!DWORD2(v7) && Factored.symbolicFactorization.workspaceSize_Float)
+        {
+          _SparseGetOptionsFromSymbolicFactor(&v25, &Factored.symbolicFactorization);
+          reportError = v25.reportError;
+          if (Factored.symbolicFactorization.status || !Factored.symbolicFactorization.workspaceSize_Float || Factored.status || !Factored.solveWorkspaceRequiredStatic)
+          {
+            if (!v25.reportError)
+            {
+              if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+              {
+                geom::sparse_linear_solver<float>::solve();
+              }
+
+              goto LABEL_7;
+            }
+
+            v37 = 0u;
+            v38 = 0u;
+            v35 = 0u;
+            v36 = 0u;
+            v33 = 0u;
+            v34 = 0u;
+            v31 = 0u;
+            v32 = 0u;
+            v29 = 0u;
+            v30 = 0u;
+            v27 = 0u;
+            v28 = 0u;
+            v26 = 0u;
+            memset(&v25, 0, sizeof(v25));
+            snprintf(&v25, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
+          }
+
+          else
+          {
+            if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
+            {
+              v15 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
+            }
+
+            else
+            {
+              v15 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+            }
+
+            if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
+            {
+              v16 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+            }
+
+            else
+            {
+              v16 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
+            }
+
+            if (BYTE1(Factored.symbolicFactorization.factorization) == 40)
+            {
+              v17 = v15;
+            }
+
+            else
+            {
+              v17 = v16;
+            }
+
+            if (v16 == v6)
+            {
+              if (v17 == v5)
+              {
+                free = v25.free;
+                RHS.rowCount = v5;
+                RHS.columnCount = 1;
+                *&RHS.attributes = 0;
+                RHS.data = a3;
+                RHS.columnStride = v5;
+                *&Soln.attributes = 0;
+                Soln.data = a5;
+                Soln.rowCount = v6;
+                Soln.columnCount = 1;
+                Soln.columnStride = v6;
+                v19 = (v25.malloc)(v22 + Factored.solveWorkspaceRequiredPerRHS);
+                if (v19)
+                {
+                  v20 = v19;
+                  _SparseSolveOpaque_Float(&Factored, &RHS, &Soln, v19);
+                  (free)(v20);
+                  return 1;
+                }
+
+                if (reportError)
+                {
+                  v37 = 0u;
+                  v38 = 0u;
+                  v35 = 0u;
+                  v36 = 0u;
+                  v33 = 0u;
+                  v34 = 0u;
+                  v31 = 0u;
+                  v32 = 0u;
+                  v29 = 0u;
+                  v30 = 0u;
+                  v27 = 0u;
+                  v28 = 0u;
+                  v26 = 0u;
+                  memset(&v25, 0, sizeof(v25));
+                  snprintf(&v25, 0x100uLL, "Failed to allocate workspace of size %ld for SparseSolve().\n");
+                  goto LABEL_36;
+                }
+
+                if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+                {
+                  geom::sparse_linear_solver<float>::solve();
+                }
+
+LABEL_7:
+                _SparseTrap();
+                return 1;
+              }
+
+              if (!v25.reportError)
+              {
+                if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+                {
+                  geom::sparse_linear_solver<float>::solve();
+                }
+
+                goto LABEL_7;
+              }
+            }
+
+            else if (!v25.reportError)
+            {
+              if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+              {
+                geom::sparse_linear_solver<float>::solve();
+              }
+
+              goto LABEL_7;
+            }
+
+            v37 = 0u;
+            v38 = 0u;
+            v35 = 0u;
+            v36 = 0u;
+            v33 = 0u;
+            v34 = 0u;
+            v31 = 0u;
+            v32 = 0u;
+            v29 = 0u;
+            v30 = 0u;
+            v27 = 0u;
+            v28 = 0u;
+            v26 = 0u;
+            memset(&v25, 0, sizeof(v25));
+            snprintf(&v25, 0x100uLL, "%s (size %dx1) does not match dimensions of matrix factorization %s (%d x %d).\n");
+          }
+
+LABEL_36:
+          (reportError)(&v25);
+          return 1;
+        }
+
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          geom::sparse_linear_solver<float>::solve();
+        }
+
+        goto LABEL_7;
+      }
+    }
+  }
+
+  return 0;
+}
+
+uint64_t geom::sparse_linear_solver<float>::solve(uint64_t a1, uint64_t a2, float **a3, int16x4_t a4)
+{
+  v7 = *(a1 + 4);
+  v9 = 0;
+  std::vector<float>::resize(a3, v7, &v9, a4);
+  return geom::sparse_linear_solver<float>::solve(a1, (*(a2 + 8) - *a2) >> 2, *a2, a3[1] - *a3, *a3);
+}
+
+uint64_t geom::sparse_linear_solver<float>::solve(unsigned int *a1, uint64_t a2, float *a3)
+{
+  v34 = *MEMORY[0x277D85DE8];
+  if (*(a1 + 248) != 1)
+  {
+    return 0;
+  }
+
+  v3 = a2;
+  v4 = *a1;
+  if (v4 != a1[1] || v4 != a2)
+  {
+    return 0;
+  }
+
+  v7 = *(a1 + 26);
+  v8 = *(a1 + 38);
+  v9 = *(a1 + 46);
+  *&Factored.userFactorStorage = *(a1 + 42);
+  *&Factored.solveWorkspaceRequiredStatic = v9;
+  v18 = *(a1 + 25);
+  v10 = *(a1 + 30);
+  *&Factored.status = v7;
+  *&Factored.symbolicFactorization.columnCount = v10;
+  *&Factored.symbolicFactorization.workspaceSize_Float = *(a1 + 34);
+  *&Factored.symbolicFactorization.factorSize_Float = v8;
+  if (DWORD2(v7) || !Factored.symbolicFactorization.workspaceSize_Float)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      geom::sparse_linear_solver<float>::solve();
+    }
+
+    goto LABEL_10;
+  }
+
+  _SparseGetOptionsFromSymbolicFactor(&v20, &Factored.symbolicFactorization);
+  reportError = v20.reportError;
+  if (Factored.symbolicFactorization.status || !Factored.symbolicFactorization.workspaceSize_Float || Factored.status || !Factored.solveWorkspaceRequiredStatic)
+  {
+    if (!v20.reportError)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        geom::sparse_linear_solver<float>::solve();
+      }
+
+      goto LABEL_10;
+    }
+
+    v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v21 = 0u;
+    memset(&v20, 0, sizeof(v20));
+    snprintf(&v20, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
+    goto LABEL_30;
+  }
+
+  v13 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
+  if (Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization) > v13)
+  {
+    v13 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+  }
+
+  if (v13 != v3)
+  {
+    if (!v20.reportError)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        geom::sparse_linear_solver<float>::solve();
+      }
+
+      goto LABEL_10;
+    }
+
+    v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v21 = 0u;
+    memset(&v20, 0, sizeof(v20));
+    snprintf(&v20, 0x100uLL, "%s.count (%d) is not equal to largest dimension of matrix factorization %s.\n");
+LABEL_30:
+    (reportError)(&v20);
+    return 1;
+  }
+
+  free = v20.free;
+  Soln.rowCount = v3;
+  Soln.columnCount = 1;
+  *&Soln.attributes = 0;
+  Soln.data = a3;
+  Soln.columnStride = v3;
+  v15 = (v20.malloc)(v18 + Factored.solveWorkspaceRequiredPerRHS);
+  if (v15)
+  {
+    v16 = v15;
+    _SparseSolveOpaque_Float(&Factored, 0, &Soln, v15);
+    (free)(v16);
+    return 1;
+  }
+
+  if (reportError)
+  {
+    v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v21 = 0u;
+    memset(&v20, 0, sizeof(v20));
+    snprintf(&v20, 0x100uLL, "Failed to allocate workspace of size %ld for SparseSolve().\n");
+    goto LABEL_30;
+  }
+
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    geom::sparse_linear_solver<float>::solve();
+  }
+
+LABEL_10:
+  _SparseTrap();
+  return 1;
+}
+
+double *geom::sparse_linear_solver<double>::add_entry(uint64_t a1, unsigned int a2, unsigned int a3, double a4)
+{
+  v11 = a4;
+  v12 = __PAIR64__(a3, a2);
+  result = std::__tree<std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::__map_value_compare<geom::sparse_linear_solver<double>::entry,std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::less<geom::sparse_linear_solver<double>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<double>::entry,double>>>::__emplace_unique_key_args<geom::sparse_linear_solver<double>::entry,geom::sparse_linear_solver<double>::entry,double const&>((a1 + 8), &v12, &v12, &v11);
+  if ((v8 & 1) == 0)
+  {
+    v9 = v11;
+    v10[0] = a2;
+    v10[1] = a3;
+    v12 = v10;
+    result = std::__tree<std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::__map_value_compare<geom::sparse_linear_solver<double>::entry,std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::less<geom::sparse_linear_solver<double>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<double>::entry,double>>>::__emplace_unique_key_args<geom::sparse_linear_solver<double>::entry,std::piecewise_construct_t const&,std::tuple<geom::sparse_linear_solver<double>::entry&&>,std::tuple<>>((a1 + 8), v10, &std::piecewise_construct, &v12);
+    result[5] = v9;
+  }
+
+  *(a1 + 248) = 0;
+  return result;
+}
+
+uint64_t geom::sparse_linear_solver<double>::get_entry(uint64_t a1, unsigned int a2, unsigned int a3)
+{
+  v5[0] = a2;
+  v5[1] = a3;
+  if ((a1 + 16) == std::__tree<std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::__map_value_compare<geom::sparse_linear_solver<double>::entry,std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::less<geom::sparse_linear_solver<double>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<double>::entry,double>>>::find<geom::sparse_linear_solver<double>::entry>(a1 + 8, v5))
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *std::map<geom::sparse_linear_solver<double>::entry,double,std::less<geom::sparse_linear_solver<double>::entry>,std::allocator<std::pair<geom::sparse_linear_solver<double>::entry const,double>>>::at(a1 + 8, v5);
+  }
+}
+
+uint64_t std::map<geom::sparse_linear_solver<double>::entry,double,std::less<geom::sparse_linear_solver<double>::entry>,std::allocator<std::pair<geom::sparse_linear_solver<double>::entry const,double>>>::at(uint64_t a1, unsigned int *a2)
+{
+  v2 = *std::__tree<std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::__map_value_compare<geom::sparse_linear_solver<double>::entry,std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::less<geom::sparse_linear_solver<double>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<double>::entry,double>>>::__find_equal<geom::sparse_linear_solver<double>::entry>(a1, &v4, a2);
+  if (!v2)
+  {
+    abort();
+  }
+
+  return v2 + 40;
+}
+
+BOOL geom::sparse_linear_solver<double>::factor(unsigned int *a1, unsigned int a2)
+{
+  v5 = *(a1 + 4);
+  v4 = a1 + 8;
+  *(a1 + 5) = v5;
+  v6 = *(a1 + 7);
+  *(a1 + 8) = v6;
+  v7 = a1[1];
+  a1[52] = *a1;
+  v8 = a1 + 52;
+  *(a1 + 236) = 1;
+  v9 = *(a1 + 10);
+  *(a1 + 11) = v9;
+  a1[53] = v7;
+  *(a1 + 30) = v9;
+  *(a1 + 27) = v5;
+  *(a1 + 28) = v6;
+  v10 = v7 + 1;
+  if (a2 > 1)
+  {
+    *__x = 0;
+    std::vector<unsigned long long>::resize(v4, v10, __x);
+    v31 = *(a1 + 3);
+    __x[0] = 0;
+    std::vector<unsigned int>::resize((a1 + 14), v31, __x);
+    v32 = *(a1 + 3);
+    *__x = 0;
+    std::vector<double>::resize(a1 + 10, v32, __x);
+    *(a1 + 116) &= 0xFFF2u;
+    v33 = *(a1 + 4);
+    v34 = *(a1 + 7);
+    *(a1 + 27) = v33;
+    *(a1 + 28) = v34;
+    v35 = *(a1 + 10);
+    *(a1 + 30) = v35;
+    v36 = *(a1 + 1);
+    if (v36 != a1 + 4)
+    {
+      v37 = 0;
+      do
+      {
+        ++v33[v36[9] + 1];
+        *(v34 + 4 * v37) = v36[8];
+        *(v35 + 8 * v37) = *(v36 + 5);
+        v38 = *(v36 + 1);
+        if (v38)
+        {
+          do
+          {
+            v39 = v38;
+            v38 = *v38;
+          }
+
+          while (v38);
+        }
+
+        else
+        {
+          do
+          {
+            v39 = *(v36 + 2);
+            v22 = *v39 == v36;
+            v36 = v39;
+          }
+
+          while (!v22);
+        }
+
+        ++v37;
+        v36 = v39;
+      }
+
+      while (v39 != a1 + 4);
+    }
+
+    v40 = a1[53];
+    if (v40)
+    {
+      if (v40 + 1 > 2)
+      {
+        v41 = v40 + 1;
+      }
+
+      else
+      {
+        v41 = 2;
+      }
+
+      v44 = *v33;
+      v42 = v33 + 1;
+      v43 = v44;
+      v45 = v41 - 1;
+      do
+      {
+        v43 += *v42;
+        *v42++ = v43;
+        --v45;
+      }
+
+      while (v45);
+    }
+
+    v46 = *(a1 + 14);
+    *&v52.structure.rowCount = *v8;
+    *&v52.structure.rowIndices = v46;
+    v52.data = *(a1 + 30);
+    *&sfoptions.control = xmmword_286292FE8;
+    *&sfoptions.ignoreRowsAndColumns = *algn_286292FF8;
+    sfoptions.free = qword_286293008;
+    sfoptions.reportError = geom::sparse_linear_solver<double>::factor(geom_factorization_type)::{lambda(char const*)#1}::__invoke;
+    v50 = *ymmword_2500D1468;
+    v30 = SparseFactorizationQR;
+  }
+
+  else
+  {
+    *__x = 0;
+    std::vector<unsigned long long>::resize(v4, v10, __x);
+    v11 = *(a1 + 3);
+    __x[0] = 0;
+    std::vector<unsigned int>::resize((a1 + 14), v11, __x);
+    v12 = *a1 + ((*(a1 + 3) - *a1) >> 1);
+    *__x = 0;
+    std::vector<double>::resize(a1 + 10, v12, __x);
+    *(a1 + 116) = a1[58] & 0xFFF0 | 0xE;
+    v13 = *(a1 + 4);
+    v14 = *(a1 + 7);
+    *(a1 + 27) = v13;
+    *(a1 + 28) = v14;
+    v15 = *(a1 + 10);
+    *(a1 + 30) = v15;
+    v16 = *(a1 + 1);
+    if (v16 != a1 + 4)
+    {
+      v17 = 0;
+      do
+      {
+        v18 = v16[8];
+        v19 = v16[9];
+        if (v18 >= v19)
+        {
+          ++v13[v19 + 1];
+          *(v14 + 4 * v17) = v18;
+          *(v15 + 8 * v17++) = *(v16 + 5);
+        }
+
+        v20 = *(v16 + 1);
+        if (v20)
+        {
+          do
+          {
+            v21 = v20;
+            v20 = *v20;
+          }
+
+          while (v20);
+        }
+
+        else
+        {
+          do
+          {
+            v21 = *(v16 + 2);
+            v22 = *v21 == v16;
+            v16 = v21;
+          }
+
+          while (!v22);
+        }
+
+        v16 = v21;
+      }
+
+      while (v21 != a1 + 4);
+    }
+
+    v23 = a1[53];
+    if (v23)
+    {
+      if (v23 + 1 > 2)
+      {
+        v24 = v23 + 1;
+      }
+
+      else
+      {
+        v24 = 2;
+      }
+
+      v27 = *v13;
+      v25 = v13 + 1;
+      v26 = v27;
+      v28 = v24 - 1;
+      do
+      {
+        v26 += *v25;
+        *v25++ = v26;
+        --v28;
+      }
+
+      while (v28);
+    }
+
+    v29 = *(a1 + 14);
+    *&v52.structure.rowCount = *v8;
+    *&v52.structure.rowIndices = v29;
+    v52.data = *(a1 + 30);
+    *&sfoptions.control = xmmword_286292FE8;
+    *&sfoptions.ignoreRowsAndColumns = *algn_286292FF8;
+    sfoptions.free = qword_286293008;
+    sfoptions.reportError = geom::sparse_linear_solver<double>::factor(geom_factorization_type)::{lambda(char const*)#1}::__invoke;
+    v50 = *ymmword_2500D1468;
+    v30 = a2;
+  }
+
+  SparseFactor(__x, v30, &v52, &sfoptions, &v50);
+  v47 = v57;
+  *(a1 + 38) = v56;
+  *(a1 + 42) = v47;
+  *(a1 + 46) = v58;
+  *(a1 + 25) = v59;
+  *(a1 + 26) = *__x;
+  v48 = v55;
+  *(a1 + 30) = v54;
+  *(a1 + 34) = v48;
+  result = a1[26] == 0;
+  *(a1 + 248) = result;
+  return result;
+}
+
+double SparseFactor@<D0>(uint64_t *__return_ptr a1@<X8>, SparseFactorization_t a2@<W0>, SparseMatrix_Double *a3@<X1>, SparseSymbolicFactorOptions *sfoptions@<X2>, SparseNumericFactorOptions *a5@<X3>)
+{
+  v13 = *MEMORY[0x277D85DE8];
+  if (a3->structure.rowCount <= 0)
+  {
+    if (!sfoptions->reportError)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        SparseFactor();
+      }
+
+      goto LABEL_34;
+    }
+
+    memset(__str, 0, 256);
+    snprintf(__str, 0x100uLL, "%s.rowCount must be > 0, but is %d.\n", a5);
+    goto LABEL_22;
+  }
+
+  columnCount = a3->structure.columnCount;
+  if (columnCount <= 0)
+  {
+    if (!sfoptions->reportError)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        SparseFactor();
+      }
+
+      goto LABEL_34;
+    }
+
+    memset(__str, 0, 256);
+    snprintf(__str, 0x100uLL, "%s.columnCount must be > 0, but is %d.\n", a5);
+    goto LABEL_22;
+  }
+
+  if (!*(&a3->structure.blockSize + 2))
+  {
+    if (!sfoptions->reportError)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        SparseFactor();
+      }
+
+      goto LABEL_34;
+    }
+
+    memset(__str, 0, 256);
+    snprintf(__str, 0x100uLL, "%s.blockSize must be > 0, but is %d.]n", a5);
+    goto LABEL_22;
+  }
+
+  v8 = *&a3->structure.attributes & 0xC;
+  if (a3->structure.rowCount != columnCount && v8 == 12)
+  {
+    if (!sfoptions->reportError)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        SparseFactor();
+      }
+
+      goto LABEL_34;
+    }
+
+    memset(__str, 0, 256);
+    snprintf(__str, 0x100uLL, "%s.attributes.kind=SparseSymmetric, but %s.rowCount (%d) != %s.columnCount (%d).\n", a5);
+LABEL_22:
+    reportError = sfoptions->reportError;
+LABEL_23:
+    (reportError)(__str);
+LABEL_35:
+    result = 0.0;
+    a1[12] = 0;
+    *(a1 + 4) = 0u;
+    *(a1 + 5) = 0u;
+    *(a1 + 2) = 0u;
+    *(a1 + 3) = 0u;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    *a1 = -4;
+    *(a1 + 2) = -4;
+    return result;
+  }
+
+  if ((a2 & 0xFE) == 0x28)
+  {
+
+    _SparseFactorQR_Double(a1, a2, a3, sfoptions, a5);
+    return result;
+  }
+
+  if (v8 != 12)
+  {
+    reportError = sfoptions->reportError;
+    if (reportError)
+    {
+      memset(&__str[72], 0, 184);
+      strcpy(__str, "Cannot perform symmetric matrix factorization of non-symmetric matrix.\n");
+      goto LABEL_23;
+    }
+
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      SparseFactor();
+    }
+
+LABEL_34:
+    _SparseTrap();
+    goto LABEL_35;
+  }
+
+  _SparseFactorSymmetric_Double(a1, a2, a3, sfoptions, a5);
+  return result;
+}
+
+uint64_t geom::sparse_linear_solver<double>::solve(uint64_t a1, uint64_t a2, double *a3, uint64_t a4, double *a5)
+{
+  v39 = *MEMORY[0x277D85DE8];
+  if (*(a1 + 248) == 1)
+  {
+    v5 = a2;
+    if (*a1 == a2)
+    {
+      v6 = a4;
+      if (*(a1 + 4) == a4)
+      {
+        v7 = *(a1 + 104);
+        v8 = *(a1 + 152);
+        v9 = *(a1 + 184);
+        *&Factored.userFactorStorage = *(a1 + 168);
+        *&Factored.solveWorkspaceRequiredStatic = v9;
+        v22 = *(a1 + 200);
+        v10 = *(a1 + 120);
+        *&Factored.status = v7;
+        *&Factored.symbolicFactorization.columnCount = v10;
+        *&Factored.symbolicFactorization.workspaceSize_Float = *(a1 + 136);
+        *&Factored.symbolicFactorization.factorSize_Float = v8;
+        if (!DWORD2(v7) && Factored.symbolicFactorization.workspaceSize_Float)
+        {
+          _SparseGetOptionsFromSymbolicFactor(&v25, &Factored.symbolicFactorization);
+          reportError = v25.reportError;
+          if (Factored.symbolicFactorization.status || !Factored.symbolicFactorization.workspaceSize_Float || Factored.status || !Factored.solveWorkspaceRequiredStatic)
+          {
+            if (!v25.reportError)
+            {
+              if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+              {
+                geom::sparse_linear_solver<float>::solve();
+              }
+
+              goto LABEL_7;
+            }
+
+            v37 = 0u;
+            v38 = 0u;
+            v35 = 0u;
+            v36 = 0u;
+            v33 = 0u;
+            v34 = 0u;
+            v31 = 0u;
+            v32 = 0u;
+            v29 = 0u;
+            v30 = 0u;
+            v27 = 0u;
+            v28 = 0u;
+            v26 = 0u;
+            memset(&v25, 0, sizeof(v25));
+            snprintf(&v25, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
+          }
+
+          else
+          {
+            if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
+            {
+              v15 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
+            }
+
+            else
+            {
+              v15 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+            }
+
+            if ((*&Factored.attributes ^ *&Factored.symbolicFactorization.attributes))
+            {
+              v16 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+            }
+
+            else
+            {
+              v16 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
+            }
+
+            if (BYTE1(Factored.symbolicFactorization.factorization) == 40)
+            {
+              v17 = v15;
+            }
+
+            else
+            {
+              v17 = v16;
+            }
+
+            if (v16 == v6)
+            {
+              if (v17 == v5)
+              {
+                free = v25.free;
+                RHS.rowCount = v5;
+                RHS.columnCount = 1;
+                *&RHS.attributes = 0;
+                RHS.data = a3;
+                RHS.columnStride = v5;
+                *&Soln.attributes = 0;
+                Soln.data = a5;
+                Soln.rowCount = v6;
+                Soln.columnCount = 1;
+                Soln.columnStride = v6;
+                v19 = (v25.malloc)(v22 + Factored.solveWorkspaceRequiredPerRHS);
+                if (v19)
+                {
+                  v20 = v19;
+                  _SparseSolveOpaque_Double(&Factored, &RHS, &Soln, v19);
+                  (free)(v20);
+                  return 1;
+                }
+
+                if (reportError)
+                {
+                  v37 = 0u;
+                  v38 = 0u;
+                  v35 = 0u;
+                  v36 = 0u;
+                  v33 = 0u;
+                  v34 = 0u;
+                  v31 = 0u;
+                  v32 = 0u;
+                  v29 = 0u;
+                  v30 = 0u;
+                  v27 = 0u;
+                  v28 = 0u;
+                  v26 = 0u;
+                  memset(&v25, 0, sizeof(v25));
+                  snprintf(&v25, 0x100uLL, "Failed to allocate workspace of size %ld for SparseSolve().\n");
+                  goto LABEL_36;
+                }
+
+                if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+                {
+                  geom::sparse_linear_solver<float>::solve();
+                }
+
+LABEL_7:
+                _SparseTrap();
+                return 1;
+              }
+
+              if (!v25.reportError)
+              {
+                if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+                {
+                  geom::sparse_linear_solver<float>::solve();
+                }
+
+                goto LABEL_7;
+              }
+            }
+
+            else if (!v25.reportError)
+            {
+              if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+              {
+                geom::sparse_linear_solver<float>::solve();
+              }
+
+              goto LABEL_7;
+            }
+
+            v37 = 0u;
+            v38 = 0u;
+            v35 = 0u;
+            v36 = 0u;
+            v33 = 0u;
+            v34 = 0u;
+            v31 = 0u;
+            v32 = 0u;
+            v29 = 0u;
+            v30 = 0u;
+            v27 = 0u;
+            v28 = 0u;
+            v26 = 0u;
+            memset(&v25, 0, sizeof(v25));
+            snprintf(&v25, 0x100uLL, "%s (size %dx1) does not match dimensions of matrix factorization %s (%d x %d).\n");
+          }
+
+LABEL_36:
+          (reportError)(&v25);
+          return 1;
+        }
+
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          geom::sparse_linear_solver<float>::solve();
+        }
+
+        goto LABEL_7;
+      }
+    }
+  }
+
+  return 0;
+}
+
+uint64_t geom::sparse_linear_solver<double>::solve(uint64_t a1, uint64_t a2, double **a3)
+{
+  v6 = *(a1 + 4);
+  v8 = 0;
+  std::vector<double>::resize(a3, v6, &v8);
+  return geom::sparse_linear_solver<double>::solve(a1, (*(a2 + 8) - *a2) >> 3, *a2, a3[1] - *a3, *a3);
+}
+
+uint64_t geom::sparse_linear_solver<double>::solve(unsigned int *a1, uint64_t a2, double *a3)
+{
+  v34 = *MEMORY[0x277D85DE8];
+  if (*(a1 + 248) != 1)
+  {
+    return 0;
+  }
+
+  v3 = a2;
+  v4 = *a1;
+  if (v4 != a1[1] || v4 != a2)
+  {
+    return 0;
+  }
+
+  v7 = *(a1 + 26);
+  v8 = *(a1 + 38);
+  v9 = *(a1 + 46);
+  *&Factored.userFactorStorage = *(a1 + 42);
+  *&Factored.solveWorkspaceRequiredStatic = v9;
+  v18 = *(a1 + 25);
+  v10 = *(a1 + 30);
+  *&Factored.status = v7;
+  *&Factored.symbolicFactorization.columnCount = v10;
+  *&Factored.symbolicFactorization.workspaceSize_Float = *(a1 + 34);
+  *&Factored.symbolicFactorization.factorSize_Float = v8;
+  if (DWORD2(v7) || !Factored.symbolicFactorization.workspaceSize_Float)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      geom::sparse_linear_solver<float>::solve();
+    }
+
+    goto LABEL_10;
+  }
+
+  _SparseGetOptionsFromSymbolicFactor(&v20, &Factored.symbolicFactorization);
+  reportError = v20.reportError;
+  if (Factored.symbolicFactorization.status || !Factored.symbolicFactorization.workspaceSize_Float || Factored.status || !Factored.solveWorkspaceRequiredStatic)
+  {
+    if (!v20.reportError)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        geom::sparse_linear_solver<float>::solve();
+      }
+
+      goto LABEL_10;
+    }
+
+    v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v21 = 0u;
+    memset(&v20, 0, sizeof(v20));
+    snprintf(&v20, 0x100uLL, "%s does not hold a completed matrix factorization.\n");
+    goto LABEL_30;
+  }
+
+  v13 = Factored.symbolicFactorization.columnCount * LOBYTE(Factored.symbolicFactorization.factorization);
+  if (Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization) > v13)
+  {
+    v13 = Factored.symbolicFactorization.rowCount * LOBYTE(Factored.symbolicFactorization.factorization);
+  }
+
+  if (v13 != v3)
+  {
+    if (!v20.reportError)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        geom::sparse_linear_solver<float>::solve();
+      }
+
+      goto LABEL_10;
+    }
+
+    v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v21 = 0u;
+    memset(&v20, 0, sizeof(v20));
+    snprintf(&v20, 0x100uLL, "%s.count (%d) is not equal to largest dimension of matrix factorization %s.\n");
+LABEL_30:
+    (reportError)(&v20);
+    return 1;
+  }
+
+  free = v20.free;
+  Soln.rowCount = v3;
+  Soln.columnCount = 1;
+  *&Soln.attributes = 0;
+  Soln.data = a3;
+  Soln.columnStride = v3;
+  v15 = (v20.malloc)(v18 + Factored.solveWorkspaceRequiredPerRHS);
+  if (v15)
+  {
+    v16 = v15;
+    _SparseSolveOpaque_Double(&Factored, 0, &Soln, v15);
+    (free)(v16);
+    return 1;
+  }
+
+  if (reportError)
+  {
+    v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v21 = 0u;
+    memset(&v20, 0, sizeof(v20));
+    snprintf(&v20, 0x100uLL, "Failed to allocate workspace of size %ld for SparseSolve().\n");
+    goto LABEL_30;
+  }
+
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    geom::sparse_linear_solver<float>::solve();
+  }
+
+LABEL_10:
+  _SparseTrap();
+  return 1;
+}
+
+uint64_t geom::compute_svd(geom *this, int a2, uint64_t a3, double *a4, double *a5, double *a6, double *a7)
+{
+  v7 = dgesvd_NEWLAPACK();
+  MEMORY[0x28223BE20](v7, v8, v9, v10);
+  dgesvd_NEWLAPACK();
+  return 1;
+}
+
+uint64_t geom::compute_svd(geom *this, int a2, uint64_t a3, float *a4, float *a5, float *a6, float *a7)
+{
+  v7 = sgesvd_NEWLAPACK();
+  MEMORY[0x28223BE20](v7, v8, v9, v10);
+  sgesvd_NEWLAPACK();
+  return 1;
+}
+
+double geom_compute_svd_3x3_f(_OWORD *a1, _OWORD *a2, _OWORD *a3, int8x16_t a4, int8x16_t a5, int8x16_t a6, uint64_t a7, uint64_t a8, uint64_t a9, float *a10)
+{
+  v11[0] = a4;
+  v11[1] = a5;
+  v11[2] = a6;
+  return geom::compute_svd_3x3<float>(v11, a1, a2, a3, a8, a9, a10);
+}
+
+uint64_t std::__tree<std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::__map_value_compare<geom::sparse_linear_solver<float>::entry,std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::less<geom::sparse_linear_solver<float>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<float>::entry,float>>>::__emplace_unique_key_args<geom::sparse_linear_solver<float>::entry,geom::sparse_linear_solver<float>::entry,float const&>(uint64_t **a1, unsigned int *a2, void *a3, _DWORD *a4)
+{
+  v4 = *std::__tree<std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::__map_value_compare<geom::sparse_linear_solver<float>::entry,std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::less<geom::sparse_linear_solver<float>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<float>::entry,float>>>::__find_equal<geom::sparse_linear_solver<float>::entry>(a1, &v6, a2);
+  if (!v4)
+  {
+    operator new();
+  }
+
+  return v4;
+}
+
+uint64_t *std::__tree<std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::__map_value_compare<geom::sparse_linear_solver<float>::entry,std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::less<geom::sparse_linear_solver<float>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<float>::entry,float>>>::__find_equal<geom::sparse_linear_solver<float>::entry>(uint64_t a1, uint64_t **a2, unsigned int *a3)
+{
+  v5 = *(a1 + 8);
+  result = (a1 + 8);
+  v4 = v5;
+  if (v5)
+  {
+    v7 = *a3;
+    v6 = a3[1];
+    do
+    {
+      while (1)
+      {
+        v8 = v4;
+        v9 = *(v4 + 32);
+        if (__PAIR64__(v6, v7) >= __PAIR64__(v9, *(v8 + 7)))
+        {
+          break;
+        }
+
+        v4 = *v8;
+        result = v8;
+        if (!*v8)
+        {
+          goto LABEL_12;
+        }
+      }
+
+      if (v9 >= v6 && *(v8 + 7) >= v7)
+      {
+        break;
+      }
+
+      result = v8 + 1;
+      v4 = v8[1];
+    }
+
+    while (v4);
+  }
+
+  else
+  {
+    v8 = result;
+  }
+
+LABEL_12:
+  *a2 = v8;
+  return result;
+}
+
+uint64_t std::__tree<std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::__map_value_compare<geom::sparse_linear_solver<float>::entry,std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::less<geom::sparse_linear_solver<float>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<float>::entry,float>>>::__emplace_unique_key_args<geom::sparse_linear_solver<float>::entry,std::piecewise_construct_t const&,std::tuple<geom::sparse_linear_solver<float>::entry&&>,std::tuple<>>(uint64_t **a1, unsigned int *a2, uint64_t a3, void **a4)
+{
+  v4 = *std::__tree<std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::__map_value_compare<geom::sparse_linear_solver<float>::entry,std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::less<geom::sparse_linear_solver<float>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<float>::entry,float>>>::__find_equal<geom::sparse_linear_solver<float>::entry>(a1, &v6, a2);
+  if (!v4)
+  {
+    operator new();
+  }
+
+  return v4;
+}
+
+uint64_t *std::__tree<std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::__map_value_compare<geom::sparse_linear_solver<float>::entry,std::__value_type<geom::sparse_linear_solver<float>::entry,float>,std::less<geom::sparse_linear_solver<float>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<float>::entry,float>>>::find<geom::sparse_linear_solver<float>::entry>(uint64_t a1, unsigned int *a2)
+{
+  v4 = *(a1 + 8);
+  v2 = (a1 + 8);
+  v3 = v4;
+  if (!v4)
+  {
+    return v2;
+  }
+
+  v5 = *a2;
+  v6 = a2[1];
+  v7 = v2;
+  do
+  {
+    v8 = *(v3 + 8);
+    if (v8 >= v6)
+    {
+      if (v8 == v6)
+      {
+        v9 = *(v3 + 7);
+        v10 = v9 >= v5;
+        v11 = v9 < v5;
+        if (v10)
+        {
+          v7 = v3;
+        }
+
+        v3 += v11;
+      }
+
+      else
+      {
+        v7 = v3;
+      }
+    }
+
+    else
+    {
+      ++v3;
+    }
+
+    v3 = *v3;
+  }
+
+  while (v3);
+  if (v7 == v2 || __PAIR64__(v6, v5) < *(v7 + 28))
+  {
+    return v2;
+  }
+
+  return v7;
+}
+
+void *std::__tree<std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::__map_value_compare<geom::sparse_linear_solver<double>::entry,std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::less<geom::sparse_linear_solver<double>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<double>::entry,double>>>::__emplace_unique_key_args<geom::sparse_linear_solver<double>::entry,geom::sparse_linear_solver<double>::entry,double const&>(uint64_t **a1, unsigned int *a2, void *a3, void *a4)
+{
+  v4 = *std::__tree<std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::__map_value_compare<geom::sparse_linear_solver<double>::entry,std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::less<geom::sparse_linear_solver<double>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<double>::entry,double>>>::__find_equal<geom::sparse_linear_solver<double>::entry>(a1, &v6, a2);
+  if (!v4)
+  {
+    operator new();
+  }
+
+  return v4;
+}
+
+uint64_t *std::__tree<std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::__map_value_compare<geom::sparse_linear_solver<double>::entry,std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::less<geom::sparse_linear_solver<double>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<double>::entry,double>>>::__find_equal<geom::sparse_linear_solver<double>::entry>(uint64_t a1, uint64_t **a2, unsigned int *a3)
+{
+  v5 = *(a1 + 8);
+  result = (a1 + 8);
+  v4 = v5;
+  if (v5)
+  {
+    v7 = *a3;
+    v6 = a3[1];
+    do
+    {
+      while (1)
+      {
+        v8 = v4;
+        v9 = *(v4 + 36);
+        if (__PAIR64__(v6, v7) >= __PAIR64__(v9, *(v8 + 8)))
+        {
+          break;
+        }
+
+        v4 = *v8;
+        result = v8;
+        if (!*v8)
+        {
+          goto LABEL_12;
+        }
+      }
+
+      if (v9 >= v6 && *(v8 + 8) >= v7)
+      {
+        break;
+      }
+
+      result = v8 + 1;
+      v4 = v8[1];
+    }
+
+    while (v4);
+  }
+
+  else
+  {
+    v8 = result;
+  }
+
+LABEL_12:
+  *a2 = v8;
+  return result;
+}
+
+void *std::__tree<std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::__map_value_compare<geom::sparse_linear_solver<double>::entry,std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::less<geom::sparse_linear_solver<double>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<double>::entry,double>>>::__emplace_unique_key_args<geom::sparse_linear_solver<double>::entry,std::piecewise_construct_t const&,std::tuple<geom::sparse_linear_solver<double>::entry&&>,std::tuple<>>(uint64_t **a1, unsigned int *a2, uint64_t a3, void **a4)
+{
+  v4 = *std::__tree<std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::__map_value_compare<geom::sparse_linear_solver<double>::entry,std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::less<geom::sparse_linear_solver<double>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<double>::entry,double>>>::__find_equal<geom::sparse_linear_solver<double>::entry>(a1, &v6, a2);
+  if (!v4)
+  {
+    operator new();
+  }
+
+  return v4;
+}
+
+uint64_t *std::__tree<std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::__map_value_compare<geom::sparse_linear_solver<double>::entry,std::__value_type<geom::sparse_linear_solver<double>::entry,double>,std::less<geom::sparse_linear_solver<double>::entry>,true>,std::allocator<std::__value_type<geom::sparse_linear_solver<double>::entry,double>>>::find<geom::sparse_linear_solver<double>::entry>(uint64_t a1, unsigned int *a2)
+{
+  v4 = *(a1 + 8);
+  v2 = (a1 + 8);
+  v3 = v4;
+  if (!v4)
+  {
+    return v2;
+  }
+
+  v5 = *a2;
+  v6 = a2[1];
+  v7 = v2;
+  do
+  {
+    v8 = *(v3 + 9);
+    if (v8 >= v6)
+    {
+      if (v8 == v6)
+      {
+        v9 = *(v3 + 8);
+        v10 = v9 >= v5;
+        v11 = v9 < v5;
+        if (v10)
+        {
+          v7 = v3;
+        }
+
+        v3 += v11;
+      }
+
+      else
+      {
+        v7 = v3;
+      }
+    }
+
+    else
+    {
+      ++v3;
+    }
+
+    v3 = *v3;
+  }
+
+  while (v3);
+  if (v7 == v2 || __PAIR64__(v6, v5) < v7[4])
+  {
+    return v2;
+  }
+
+  return v7;
+}
+
+double geom::triangle_mesh_atlas::copy_face_vertex_uvs(char **a1, uint64_t a2, uint64_t *a3, void *a4, uint64_t *a5)
+{
+  v9 = *(a2 + 4);
+  v10 = ((*(a2 + 48) - *(a2 + 40)) >> 2);
+  v11 = a1[1] - *a1;
+  if (v10 <= v11)
+  {
+    if (v10 < v11)
+    {
+      a1[1] = &(*a1)[v10];
+    }
+  }
+
+  else
+  {
+    std::vector<unsigned char>::__append(a1, v10 - v11, geom::triangle_mesh_atlas::k_unassigned_vertex);
+  }
+
+  std::vector<BOOL>::resize(a5, v9, 0);
+  _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE6resizeEm(a1 + 3, (3 * v9));
+  v13 = *a3;
+  if (a3[1] != *a3)
+  {
+    v14 = 0;
+    v15 = 0;
+    do
+    {
+      v16 = *(v13 + 4 * v15);
+      *(*a5 + ((v16 >> 3) & 0x1FFFFFF8)) |= 1 << v16;
+      LODWORD(v16) = 3 * v16;
+      *&a1[3][8 * v16] = *(*a4 + v14);
+      *&a1[3][8 * (v16 + 1)] = *(*a4 + v14 + 8);
+      result = *(*a4 + v14 + 16);
+      *&a1[3][8 * (v16 + 2)] = result;
+      ++v15;
+      v13 = *a3;
+      v14 += 24;
+    }
+
+    while (v15 < (a3[1] - *a3) >> 2);
+  }
+
+  return result;
+}
+
+double geom::triangle_mesh_atlas::copy_face_vertex_uvs(char **a1, uint64_t a2, uint64_t *a3, void *a4, void *a5, uint64_t *a6)
+{
+  v11 = *(a2 + 4);
+  v12 = ((*(a2 + 48) - *(a2 + 40)) >> 2);
+  v13 = a1[1] - *a1;
+  if (v12 <= v13)
+  {
+    if (v12 < v13)
+    {
+      a1[1] = &(*a1)[v12];
+    }
+  }
+
+  else
+  {
+    std::vector<unsigned char>::__append(a1, v12 - v13, geom::triangle_mesh_atlas::k_unassigned_vertex);
+  }
+
+  std::vector<BOOL>::resize(a6, v11, 0);
+  _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE6resizeEm(a1 + 3, (3 * v11));
+  v15 = *a3;
+  if (a3[1] != *a3)
+  {
+    v16 = 0;
+    v17 = 0;
+    do
+    {
+      v18 = *(v15 + 4 * v17);
+      *(*a6 + ((v18 >> 3) & 0x1FFFFFF8)) |= 1 << v18;
+      LODWORD(v18) = 3 * v18;
+      *&a1[3][8 * v18] = *(*a5 + 8 * *(*a4 + v16));
+      *&a1[3][8 * (v18 + 1)] = *(*a5 + 8 * *(*a4 + v16 + 4));
+      result = *(*a5 + 8 * *(*a4 + v16 + 8));
+      *&a1[3][8 * (v18 + 2)] = result;
+      ++v17;
+      v15 = *a3;
+      v16 += 12;
+    }
+
+    while (v17 < (a3[1] - *a3) >> 2);
+  }
+
+  return result;
+}
+
+double geom::triangle_mesh_atlas::find_face_vertex_uv(geom::triangle_mesh_atlas *this, const geom::triangle_mesh_connectivity *a2, int a3, int a4)
+{
+  v4 = (*(a2 + 2) + 4 * (3 * a3));
+  v5 = *v4;
+  if (v4[1] == a4)
+  {
+    v6 = 1;
+  }
+
+  else
+  {
+    v6 = 2;
+  }
+
+  if (v5 == a4)
+  {
+    v6 = 0;
+  }
+
+  return *(*(this + 3) + 8 * (v6 + 3 * a3));
+}
+
+BOOL geom::triangle_mesh_atlas::is_wedge_boundary_a_uv_corner(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, void *a5)
+{
+  v5 = *a5 >> 62;
+  v6 = 3 * (*a4 & 0x3FFFFFFF) + (*a4 >> 62);
+  v7 = *(a1 + 24);
+  if (v5)
+  {
+    v8 = -1;
+  }
+
+  else
+  {
+    v8 = 2;
+  }
+
+  v9 = *(v7 + 8 * v6);
+  v10 = vsub_f32(*(v7 + 8 * (v6 + ((*a4 >> 63) ^ 1))), v9);
+  v11 = vsub_f32(*(v7 + 8 * (v8 + v5 + 3 * (*a5 & 0x3FFFFFFF))), v9);
+  v12 = vmul_f32(v10, v11);
+  v13 = vmul_f32(v10, v10);
+  v14 = vmul_f32(v11, v11);
+  v15 = vsqrt_f32(vadd_f32(vzip1_s32(v13, v14), vzip2_s32(v13, v14)));
+  return vdiv_f32(vadd_f32(v12, vdup_lane_s32(v12, 1)), vmul_lane_f32(v15, v15, 1)).f32[0] > -0.5;
+}
+
+uint64_t geom::triangle_mesh_atlas::is_vertex_a_uv_corner(geom::triangle_mesh_atlas *this, const geom::triangle_mesh_connectivity *a2, uint64_t a3)
+{
+  v3 = a3;
+  v22 = 0;
+  v23 = 0;
+  v24 = 0;
+  __p = 0;
+  v20 = 0;
+  v21 = 0;
+  geom::triangle_mesh_atlas::vertex_incident_wedges(this, a2, a3, &v22, &__p);
+  v9 = v22;
+  v8 = v23;
+  v10 = (v23 - v22) >> 2;
+  if (v10 > 2 || v23 - v22 == 8 && geom::triangle_mesh_half_edge_connectivity::is_boundary_vertex(a2, v3))
+  {
+    v11 = 1;
+  }
+
+  else if (v8 == v9)
+  {
+    v11 = 0;
+  }
+
+  else
+  {
+    v13 = 0;
+    v14 = v22;
+    v15 = 1;
+    v16 = __p;
+    do
+    {
+      if (v15 == 1)
+      {
+        v17 = 0;
+      }
+
+      else
+      {
+        v17 = v14[v15 - 2];
+      }
+
+      is_wedge_boundary_a_uv_corner = geom::triangle_mesh_atlas::is_wedge_boundary_a_uv_corner(this, v6, v7, &v16[v17], &v16[v14[v13] - 1]);
+      v11 = is_wedge_boundary_a_uv_corner;
+      if (v10 <= v15)
+      {
+        break;
+      }
+
+      v13 = v15++;
+    }
+
+    while (!is_wedge_boundary_a_uv_corner);
+  }
+
+  if (__p)
+  {
+    v20 = __p;
+    operator delete(__p);
+  }
+
+  if (v22)
+  {
+    v23 = v22;
+    operator delete(v22);
+  }
+
+  return v11;
+}
+
+void geom::triangle_mesh_atlas::vertex_incident_wedges(uint64_t a1, geom::triangle_mesh_half_edge_connectivity *a2, uint64_t a3, uint64_t a4, void *a5)
+{
+  v6 = a3;
+  *(a4 + 8) = *a4;
+  a5[1] = *a5;
+  __p = 0;
+  v40 = 0;
+  v41 = 0;
+  geom::triangle_mesh_half_edge_connectivity::get_incident_faces_to_vertex(a2, a3, &__p);
+  v9 = __p;
+  v10 = (v40 - __p) >> 2;
+  if (v10)
+  {
+    v11 = 0;
+    v12 = (v40 - __p) >> 2;
+    while (*(*(a1 + 96) + 4 * *(__p + v11)) == -1)
+    {
+      ++v11;
+      LODWORD(v12) = v12 + 1;
+      if (((v40 - __p) >> 2) == v11)
+      {
+        goto LABEL_60;
+      }
+    }
+
+    if (!geom::triangle_mesh_half_edge_connectivity::is_boundary_vertex(a2, v6))
+    {
+      v13 = *(__p + v11);
+      v14 = *(a2 + 2);
+      v15 = 3 * v13;
+      v16 = (v14 + 4 * (3 * v13));
+      if (*v16 == v6)
+      {
+        v17 = 0;
+      }
+
+      else if (v16[1] == v6)
+      {
+        v17 = 1;
+      }
+
+      else
+      {
+        v17 = v16[2] == v6 ? 2 : 255;
+      }
+
+      if (v10 != 1)
+      {
+        v18 = *(a1 + 96);
+        v19 = *(v18 + 4 * v13);
+        v20 = v17 + v15;
+        if (v10 <= 2)
+        {
+          v21 = 2;
+        }
+
+        else
+        {
+          v21 = v10;
+        }
+
+        v22 = v21 - 1;
+        while (1)
+        {
+          v23 = *(__p + (v12 - 1) % v10);
+          v24 = (v14 + 4 * (3 * v23));
+          if (*v24 == v6)
+          {
+            v25 = 0;
+          }
+
+          else if (v24[1] == v6)
+          {
+            v25 = 1;
+          }
+
+          else
+          {
+            v25 = v24[2] == v6 ? 2 : 255;
+          }
+
+          if (*(v18 + 4 * v23) != v19)
+          {
+            break;
+          }
+
+          if (v19 != -1)
+          {
+            v26 = vsub_f32(*(*(a1 + 24) + 8 * v20), *(*(a1 + 24) + 8 * (v25 + 3 * v23)));
+            if (sqrtf(vaddv_f32(vmul_f32(v26, v26))) > 0.00001)
+            {
+              break;
+            }
+          }
+
+          LODWORD(v12) = v12 - 1;
+          if (!--v22)
+          {
+            goto LABEL_32;
+          }
+        }
+
+        LODWORD(v11) = v12 % v10;
+      }
+    }
+
+LABEL_32:
+    v27 = 0;
+    do
+    {
+      v28 = *(__p + (v27 + v11) % v10);
+      v29 = (*(a2 + 2) + 4 * (3 * v28));
+      if (*v29 == v6)
+      {
+        v30 = 0;
+      }
+
+      else if (v29[1] == v6)
+      {
+        v30 = 1;
+      }
+
+      else if (v29[2] == v6)
+      {
+        v30 = 2;
+      }
+
+      else
+      {
+        v30 = 0xFFFFFFFFLL;
+      }
+
+      v31 = *(*(a1 + 96) + 4 * v28);
+      v32 = *(*(a1 + 24) + 8 * (3 * v28 + v30));
+      if (v31 != -1)
+      {
+        v33 = v28 & 0x3FFFFFFF;
+LABEL_54:
+        v38 = v33 | (v30 << 62) | ((v6 & 0x3FFFFFFF) << 32);
+        std::vector<geom::triangle_mesh_atlas::face_vertex>::push_back[abi:nn200100](a5, &v38);
+        goto LABEL_42;
+      }
+
+      do
+      {
+LABEL_42:
+        if (++v27 < v10)
+        {
+          v34 = *(__p + (v11 + v27) % v10);
+          v35 = (*(a2 + 2) + 4 * (3 * v34));
+          if (*v35 == v6)
+          {
+            v30 = 0;
+          }
+
+          else if (v35[1] == v6)
+          {
+            v30 = 1;
+          }
+
+          else
+          {
+            v30 = v35[2] == v6 ? 2 : 0xFFFFFFFFLL;
+          }
+
+          if (*(*(a1 + 96) + 4 * v34) == v31)
+          {
+            continue;
+          }
+        }
+
+        goto LABEL_55;
+      }
+
+      while (v31 == -1);
+      v36 = vsub_f32(v32, *(*(a1 + 24) + 8 * (3 * v34 + v30)));
+      if (sqrtf(vaddv_f32(vmul_f32(v36, v36))) <= 0.00001)
+      {
+        v33 = v34 & 0x3FFFFFFF;
+        goto LABEL_54;
+      }
+
+LABEL_55:
+      if (v31 != -1)
+      {
+        LODWORD(v38) = (a5[1] - *a5) >> 3;
+        std::vector<unsigned int>::push_back[abi:nn200100](a4, &v38);
+      }
+    }
+
+    while (v27 < v10);
+    v9 = __p;
+  }
+
+  if (v9)
+  {
+LABEL_60:
+    v40 = v9;
+    operator delete(v9);
+  }
+}
+
 void geom::triangle_mesh_atlas::classify_vertices(geom::triangle_mesh_atlas *a1, uint64_t a2, uint64_t *a3, void *a4)
 {
   v8 = *(a2 + 48) - *(a2 + 40);
@@ -130,68 +1920,68 @@ LABEL_34:
 
 void geom::triangle_mesh_atlas::build_face_charts(std::vector<int> *a1, uint64_t a2, void *a3, void *a4)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v7 = *(a2 + 4);
   memset(__p, 0, sizeof(__p));
   std::vector<BOOL>::resize(__p, v7, 0);
-  memset(&v31, 0, sizeof(v31));
+  memset(&v30, 0, sizeof(v30));
   std::vector<unsigned int>::resize(a1 + 4, v7, &geom::triangle_mesh_atlas::k_invalid_chart);
   if (v7)
   {
     v8 = 0;
-    v29 = 0;
-    v27 = v7;
+    v28 = 0;
+    v26 = v7;
     do
     {
       v9 = v8 >> 6;
       v10 = 1 << v8;
       if ((*(__p[0] + (v8 >> 6)) & (1 << v8)) == 0 && (*(*a3 + 8 * v9) & v10) != 0)
       {
-        v33[0] = v8;
-        std::vector<unsigned int>::push_back[abi:nn200100](&v31.__begin_, v33);
+        v32[0] = v8;
+        std::vector<unsigned int>::push_back[abi:nn200100](&v30.__begin_, v32);
         *(__p[0] + v9) |= v10;
-        while (v31.__end_ != v31.__begin_)
+        while (v30.__end_ != v30.__begin_)
         {
-          v11 = v31.__end_ - v31.__begin_ - 1;
-          v12 = v31.__begin_[v11];
-          std::vector<float>::resize(&v31, v11);
-          v30 = v12;
-          std::vector<unsigned int>::push_back[abi:nn200100](&a1[3].__begin_, &v30);
+          v11 = v30.__end_ - v30.__begin_ - 1;
+          v12 = v30.__begin_[v11];
+          std::vector<float>::resize(&v30, v11);
+          v29 = v12;
+          std::vector<unsigned int>::push_back[abi:nn200100](&a1[3].__begin_, &v29);
           v13 = 0;
-          a1[4].__begin_[v30] = v29;
+          a1[4].__begin_[v29] = v28;
           v14 = *(a2 + 160);
-          v33[0] = *(v14 + 12 * v30);
-          v33[1] = *(v14 + 4 * (3 * v30 + 1));
-          v33[2] = *(v14 + 4 * (3 * v30 + 2));
+          v32[0] = *(v14 + 12 * v29);
+          v32[1] = *(v14 + 4 * (3 * v29 + 1));
+          v32[2] = *(v14 + 4 * (3 * v29 + 2));
           do
           {
-            v15 = v33[v13];
+            v15 = v32[v13];
             if (((*(*a4 + ((v15 >> 3) & 0x1FFFFFF8)) >> v15) & 1) == 0)
             {
               v16 = *(a2 + 184);
               if (v15 < (*(a2 + 192) - v16) >> 2)
               {
-                v17 = v30;
+                v17 = v29;
                 half_edge_for_face_vertex = geom::triangle_mesh_half_edge_connectivity::get_half_edge_for_face_vertex(a2, *(v16 + 4 * v15) / 3u, *(v16 + 4 * v15) % 3u);
                 if (geom::triangle_mesh_half_edge_connectivity::is_valid_half_edge(a2, half_edge_for_face_vertex))
                 {
                   v19 = *(*(a2 + 184) + 4 * v15);
                   v20 = geom::triangle_mesh_half_edge_connectivity::get_half_edge_for_face_vertex(a2, v19 / 3, v19 % 3);
                   half_edge_face = geom::triangle_mesh_half_edge_connectivity::get_half_edge_face(a2, v20);
-                  v34[0] = half_edge_face;
+                  v33[0] = half_edge_face;
                   if (!geom::triangle_mesh_half_edge_connectivity::is_boundary_half_edge(a2, v20))
                   {
                     half_edge_twin = geom::triangle_mesh_half_edge_connectivity::get_half_edge_twin(a2, v20);
-                    v34[1] = geom::triangle_mesh_half_edge_connectivity::get_half_edge_face(a2, half_edge_twin);
-                    v23 = v34[half_edge_face == v17];
+                    v33[1] = geom::triangle_mesh_half_edge_connectivity::get_half_edge_face(a2, half_edge_twin);
+                    v23 = v33[half_edge_face == v17];
                     if (v23 != -1)
                     {
                       v24 = v23 >> 6;
                       v25 = 1 << v23;
                       if ((*(__p[0] + (v23 >> 6)) & (1 << v23)) == 0)
                       {
-                        v34[0] = v23;
-                        std::vector<unsigned int>::push_back[abi:nn200100](&v31.__begin_, v34);
+                        v33[0] = v23;
+                        std::vector<unsigned int>::push_back[abi:nn200100](&v30.__begin_, v33);
                         *(__p[0] + v24) |= v25;
                       }
                     }
@@ -206,20 +1996,20 @@ void geom::triangle_mesh_atlas::build_face_charts(std::vector<int> *a1, uint64_t
           while (v13 != 3);
         }
 
-        ++v29;
-        v33[0] = (a1[3].__end_ - a1[3].__begin_) >> 2;
-        std::vector<unsigned int>::push_back[abi:nn200100](&a1[2].__begin_, v33);
-        v7 = v27;
+        ++v28;
+        v32[0] = (a1[3].__end_ - a1[3].__begin_) >> 2;
+        std::vector<unsigned int>::push_back[abi:nn200100](&a1[2].__begin_, v32);
+        v7 = v26;
       }
 
       ++v8;
     }
 
     while (v8 != v7);
-    if (v31.__begin_)
+    if (v30.__begin_)
     {
-      v31.__end_ = v31.__begin_;
-      operator delete(v31.__begin_);
+      v30.__end_ = v30.__begin_;
+      operator delete(v30.__begin_);
     }
   }
 
@@ -227,43 +2017,41 @@ void geom::triangle_mesh_atlas::build_face_charts(std::vector<int> *a1, uint64_t
   {
     operator delete(__p[0]);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void geom::triangle_mesh_atlas::init(std::vector<int> *a1, uint64_t a2, uint64_t *a3, void *a4)
 {
-  v50 = *MEMORY[0x277D85DE8];
-  memset(v46, 0, sizeof(v46));
-  geom::triangle_mesh_atlas::copy_face_vertex_uvs(a1, a2, a3, a4, v46);
+  v49 = *MEMORY[0x277D85DE8];
+  memset(v45, 0, sizeof(v45));
+  geom::triangle_mesh_atlas::copy_face_vertex_uvs(a1, a2, a3, a4, v45);
   v6 = 3 * *(a2 + 4) - *(a2 + 8) + ((*(a2 + 96) - *(a2 + 88)) >> 2);
   v7 = v6 >> 1;
   memset(__p, 0, sizeof(__p));
   std::vector<BOOL>::resize(__p, v6 >> 1, 0);
   if (v6 >= 2)
   {
-    v9 = 0;
+    v8 = 0;
     if (v7 <= 1)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v7;
+      v9 = v7;
     }
 
     do
     {
-      v11 = *(a2 + 184);
-      if (v9 < (*(a2 + 192) - v11) >> 2 && (v12 = geom::triangle_mesh_half_edge_connectivity::get_half_edge_for_face_vertex(a2, *(v11 + 4 * v9) / 3u, *(v11 + 4 * v9) % 3u), geom::triangle_mesh_half_edge_connectivity::is_valid_half_edge(a2, v12)))
+      v10 = *(a2 + 184);
+      if (v8 < (*(a2 + 192) - v10) >> 2 && (v11 = geom::triangle_mesh_half_edge_connectivity::get_half_edge_for_face_vertex(a2, *(v10 + 4 * v8) / 3u, *(v10 + 4 * v8) % 3u), geom::triangle_mesh_half_edge_connectivity::is_valid_half_edge(a2, v11)))
       {
-        v13 = *(*(a2 + 184) + 4 * v9);
-        half_edge_for_face_vertex = geom::triangle_mesh_half_edge_connectivity::get_half_edge_for_face_vertex(a2, v13 / 3, v13 % 3);
+        v12 = *(*(a2 + 184) + 4 * v8);
+        half_edge_for_face_vertex = geom::triangle_mesh_half_edge_connectivity::get_half_edge_for_face_vertex(a2, v12 / 3, v12 % 3);
         half_edge_face = geom::triangle_mesh_half_edge_connectivity::get_half_edge_face(a2, half_edge_for_face_vertex);
         if (geom::triangle_mesh_half_edge_connectivity::is_boundary_half_edge(a2, half_edge_for_face_vertex))
         {
-          if (((*(v46[0] + ((half_edge_face >> 3) & 0x1FFFFFF8)) >> half_edge_face) & 1) == 0)
+          if (((*(v45[0] + ((half_edge_face >> 3) & 0x1FFFFFF8)) >> half_edge_face) & 1) == 0)
           {
             goto LABEL_39;
           }
@@ -272,150 +2060,148 @@ void geom::triangle_mesh_atlas::init(std::vector<int> *a1, uint64_t a2, uint64_t
         }
 
         half_edge_twin = geom::triangle_mesh_half_edge_connectivity::get_half_edge_twin(a2, half_edge_for_face_vertex);
-        v16 = geom::triangle_mesh_half_edge_connectivity::get_half_edge_face(a2, half_edge_twin);
+        v15 = geom::triangle_mesh_half_edge_connectivity::get_half_edge_face(a2, half_edge_twin);
       }
 
       else
       {
         half_edge_face = -1;
-        v16 = -1;
+        v15 = -1;
       }
 
-      v17 = (1 << half_edge_face) & *(v46[0] + ((half_edge_face >> 3) & 0x1FFFFFF8));
-      if ((((v17 != 0) ^ (*(v46[0] + ((v16 >> 3) & 0x1FFFFFF8)) >> v16)) & 1) == 0)
+      v16 = (1 << half_edge_face) & *(v45[0] + ((half_edge_face >> 3) & 0x1FFFFFF8));
+      if ((((v16 != 0) ^ (*(v45[0] + ((v15 >> 3) & 0x1FFFFFF8)) >> v15)) & 1) == 0)
       {
-        if (!v17)
+        if (!v16)
         {
           goto LABEL_39;
         }
 
-        v18 = *(a2 + 184);
-        if (v9 >= (*(a2 + 192) - v18) >> 2)
+        v17 = *(a2 + 184);
+        if (v8 >= (*(a2 + 192) - v17) >> 2)
         {
-          *v47 = -1;
+          *v46 = -1;
         }
 
         else
         {
-          v19 = geom::triangle_mesh_half_edge_connectivity::get_half_edge_for_face_vertex(a2, *(v18 + 4 * v9) / 3u, *(v18 + 4 * v9) % 3u);
-          geom::triangle_mesh_half_edge_connectivity::get_half_edge_vertices(a2, v19, v47);
+          v18 = geom::triangle_mesh_half_edge_connectivity::get_half_edge_for_face_vertex(a2, *(v17 + 4 * v8) / 3u, *(v17 + 4 * v8) % 3u);
+          geom::triangle_mesh_half_edge_connectivity::get_half_edge_vertices(a2, v18, v46);
         }
 
-        v20 = *(a2 + 16);
-        v21 = (v20 + 12 * half_edge_face);
-        v22 = *v21;
-        v23 = *(v21 + 2);
-        v24 = (v20 + 12 * v16);
-        v25 = *v24;
-        v26 = *(v24 + 2);
-        v27 = &v44;
-        v28 = v47;
-        v29 = 1;
+        v19 = *(a2 + 16);
+        v20 = (v19 + 12 * half_edge_face);
+        v21 = *v20;
+        v22 = *(v20 + 2);
+        v23 = (v19 + 12 * v15);
+        v24 = *v23;
+        v25 = *(v23 + 2);
+        v26 = &v43;
+        v27 = v46;
+        v28 = 1;
         do
         {
-          v30 = 0;
-          v31 = *v28;
-          v32 = v29;
+          v29 = 0;
+          v30 = *v27;
+          v31 = v28;
+          v47 = v21;
+          v32 = 3 * half_edge_face;
           v48 = v22;
-          v33 = 3 * half_edge_face;
-          v49 = v23;
-          while (*(&v48 + v30) != v31)
+          while (*(&v47 + v29) != v30)
           {
-            ++v33;
-            v30 += 4;
-            if (v30 == 12)
+            ++v32;
+            v29 += 4;
+            if (v29 == 12)
             {
-              v34 = 0;
+              v33 = 0;
               goto LABEL_27;
             }
           }
 
-          v34 = *&a1[1].__begin_[2 * v33];
+          v33 = *&a1[1].__begin_[2 * v32];
 LABEL_27:
-          v35 = 0;
+          v34 = 0;
+          v47 = v24;
           v48 = v25;
-          v49 = v26;
-          v36 = 3 * v16;
-          while (*(&v48 + v35) != v31)
+          v35 = 3 * v15;
+          while (*(&v47 + v34) != v30)
           {
-            ++v36;
-            v35 += 4;
-            if (v35 == 12)
+            ++v35;
+            v34 += 4;
+            if (v34 == 12)
             {
-              v37 = 0;
+              v36 = 0;
               goto LABEL_32;
             }
           }
 
-          v37 = *&a1[1].__begin_[2 * v36];
+          v36 = *&a1[1].__begin_[2 * v35];
 LABEL_32:
-          v29 = 0;
-          v38 = vsub_f32(v34, v37);
-          *v27 = sqrtf(vaddv_f32(vmul_f32(v38, v38))) <= 0.00001;
-          v27 = &v43;
-          v28 = &v47[1];
+          v28 = 0;
+          v37 = vsub_f32(v33, v36);
+          *v26 = sqrtf(vaddv_f32(vmul_f32(v37, v37))) <= 0.00001;
+          v26 = &v42;
+          v27 = &v46[1];
         }
 
-        while ((v32 & 1) != 0);
-        v39 = v44;
-        v40 = v43;
-        if (v44 != v43)
+        while ((v31 & 1) != 0);
+        v38 = v43;
+        v39 = v42;
+        if (v43 != v42)
         {
-          v41 = &v47[1];
-          if (!v44)
+          v40 = &v46[1];
+          if (!v43)
           {
-            v41 = v47;
+            v40 = v46;
           }
 
-          *(a1->__begin_ + *v41) = 2;
+          *(a1->__begin_ + *v40) = 2;
         }
 
-        if (v40 & v39)
+        if (v39 & v38)
         {
           goto LABEL_39;
         }
       }
 
 LABEL_38:
-      *(__p[0] + ((v9 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v9;
+      *(__p[0] + ((v8 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v8;
 LABEL_39:
-      ++v9;
+      ++v8;
     }
 
-    while (v9 != v10);
+    while (v8 != v9);
   }
 
-  geom::triangle_mesh_atlas::build_face_charts(a1, a2, v46, __p);
-  geom::triangle_mesh_atlas::classify_vertices(a1, a2, v46, __p);
+  geom::triangle_mesh_atlas::build_face_charts(a1, a2, v45, __p);
+  geom::triangle_mesh_atlas::classify_vertices(a1, a2, v45, __p);
   if (__p[0])
   {
     operator delete(__p[0]);
   }
 
-  if (v46[0])
+  if (v45[0])
   {
-    operator delete(v46[0]);
+    operator delete(v45[0]);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void geom::triangle_mesh_atlas::init(std::vector<int> *a1, uint64_t a2, uint64_t *a3, void *a4, void *a5)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v11 = 3 * *(a2 + 4) - *(a2 + 8) + ((*(a2 + 96) - *(a2 + 88)) >> 2);
-  memset(v60, 0, sizeof(v60));
-  geom::triangle_mesh_atlas::copy_face_vertex_uvs(a1, a2, a3, a4, a5, v60);
+  memset(v59, 0, sizeof(v59));
+  geom::triangle_mesh_atlas::copy_face_vertex_uvs(a1, a2, a3, a4, a5, v59);
   memset(__p, 0, sizeof(__p));
   std::vector<BOOL>::resize(__p, (3 * *(a2 + 4) - *(a2 + 8) + ((*(a2 + 96) - *(a2 + 88)) >> 2)) >> 1, 0);
-  memset(&v58, 0, sizeof(v58));
-  std::vector<unsigned int>::resize(&v58, (3 * *(a2 + 4)), geom::k_invalid_index);
+  memset(&v57, 0, sizeof(v57));
+  std::vector<unsigned int>::resize(&v57, (3 * *(a2 + 4)), geom::k_invalid_index);
   v12 = *a3;
   v13 = a3[1] - *a3;
   if (v13)
   {
     v14 = v13 >> 2;
-    begin = v58.__begin_;
+    begin = v57.__begin_;
     v16 = (*a4 + 8);
     if (v14 <= 1)
     {
@@ -471,7 +2257,7 @@ void geom::triangle_mesh_atlas::init(std::vector<int> *a1, uint64_t a2, uint64_t
           {
             v27 = v11;
             v28 = v5;
-            if (((*(v60[0] + ((half_edge_face >> 3) & 0x1FFFFFF8)) >> half_edge_face) & 1) == 0)
+            if (((*(v59[0] + ((half_edge_face >> 3) & 0x1FFFFFF8)) >> half_edge_face) & 1) == 0)
             {
               goto LABEL_58;
             }
@@ -490,8 +2276,8 @@ void geom::triangle_mesh_atlas::init(std::vector<int> *a1, uint64_t a2, uint64_t
         }
       }
 
-      v31 = (1 << half_edge_face) & *(v60[0] + ((half_edge_face >> 3) & 0x1FFFFFF8));
-      if (((v31 != 0) ^ (*(v60[0] + ((v29 >> 3) & 0x1FFFFFF8)) >> v29)))
+      v31 = (1 << half_edge_face) & *(v59[0] + ((half_edge_face >> 3) & 0x1FFFFFF8));
+      if (((v31 != 0) ^ (*(v59[0] + ((v29 >> 3) & 0x1FFFFFF8)) >> v29)))
       {
         goto LABEL_56;
       }
@@ -501,7 +2287,7 @@ void geom::triangle_mesh_atlas::init(std::vector<int> *a1, uint64_t a2, uint64_t
         v32 = *(a2 + 184);
         if (v20 >= (*(a2 + 192) - v32) >> 2)
         {
-          *v61 = -1;
+          *v60 = -1;
           v34 = -1;
           v35 = -1;
         }
@@ -509,9 +2295,9 @@ void geom::triangle_mesh_atlas::init(std::vector<int> *a1, uint64_t a2, uint64_t
         else
         {
           v33 = geom::triangle_mesh_half_edge_connectivity::get_half_edge_for_face_vertex(a2, *(v32 + 4 * v20) / 3u, *(v32 + 4 * v20) % 3u);
-          geom::triangle_mesh_half_edge_connectivity::get_half_edge_vertices(a2, v33, v61);
-          v35 = v61[0];
-          v34 = v61[1];
+          geom::triangle_mesh_half_edge_connectivity::get_half_edge_vertices(a2, v33, v60);
+          v35 = v60[0];
+          v34 = v60[1];
         }
 
         v27 = v6;
@@ -519,8 +2305,8 @@ void geom::triangle_mesh_atlas::init(std::vector<int> *a1, uint64_t a2, uint64_t
         v37 = *(a2 + 16);
         v38 = 3 * half_edge_face;
         v39 = (v37 + 12 * half_edge_face);
-        v62 = *v39;
-        v63 = *(v39 + 2);
+        v61 = *v39;
+        v62 = *(v39 + 2);
         v40 = 3 * half_edge_face;
         while (1)
         {
@@ -535,16 +2321,16 @@ void geom::triangle_mesh_atlas::init(std::vector<int> *a1, uint64_t a2, uint64_t
             v42 = v36 + 1;
           }
 
-          v43 = *(&v62 + v36);
-          if (v43 == v35 && *(&v62 + v42) == v34)
+          v43 = *(&v61 + v36);
+          if (v43 == v35 && *(&v61 + v42) == v34)
           {
-            v44 = v58.__begin_;
-            v45 = &v58.__begin_[v40];
+            v44 = v57.__begin_;
+            v45 = &v57.__begin_[v40];
             v40 = v42 + v38;
             goto LABEL_34;
           }
 
-          if (v43 == v34 && *(&v62 + v42) == v35)
+          if (v43 == v34 && *(&v61 + v42) == v35)
           {
             break;
           }
@@ -557,8 +2343,8 @@ void geom::triangle_mesh_atlas::init(std::vector<int> *a1, uint64_t a2, uint64_t
           }
         }
 
-        v44 = v58.__begin_;
-        v45 = &v58.__begin_[v42 + v38];
+        v44 = v57.__begin_;
+        v45 = &v57.__begin_[v42 + v38];
 LABEL_34:
         v7 = *v45;
         v27 = v44[v40];
@@ -566,8 +2352,8 @@ LABEL_35:
         v46 = 0;
         v47 = 3 * v29;
         v48 = (v37 + 12 * v29);
-        v62 = *v48;
-        v63 = *(v48 + 2);
+        v61 = *v48;
+        v62 = *(v48 + 2);
         v49 = 3 * v29;
         while (1)
         {
@@ -582,16 +2368,16 @@ LABEL_35:
             v51 = v46 + 1;
           }
 
-          v52 = *(&v62 + v46);
-          if (v52 == v35 && *(&v62 + v51) == v34)
+          v52 = *(&v61 + v46);
+          if (v52 == v35 && *(&v61 + v51) == v34)
           {
-            v53 = v58.__begin_;
-            v54 = &v58.__begin_[v49];
+            v53 = v57.__begin_;
+            v54 = &v57.__begin_[v49];
             v49 = v51 + v47;
             goto LABEL_47;
           }
 
-          if (v52 == v34 && *(&v62 + v51) == v35)
+          if (v52 == v34 && *(&v61 + v51) == v35)
           {
             break;
           }
@@ -604,8 +2390,8 @@ LABEL_35:
           }
         }
 
-        v53 = v58.__begin_;
-        v54 = &v58.__begin_[v51 + v47];
+        v53 = v57.__begin_;
+        v54 = &v57.__begin_[v51 + v47];
 LABEL_47:
         v5 = *v54;
         v11 = v53[v49];
@@ -643,12 +2429,12 @@ LABEL_58:
     while (v20 != v21);
   }
 
-  geom::triangle_mesh_atlas::build_face_charts(a1, a2, v60, __p);
-  geom::triangle_mesh_atlas::classify_vertices(a1, a2, v60, __p);
-  if (v58.__begin_)
+  geom::triangle_mesh_atlas::build_face_charts(a1, a2, v59, __p);
+  geom::triangle_mesh_atlas::classify_vertices(a1, a2, v59, __p);
+  if (v57.__begin_)
   {
-    v58.__end_ = v58.__begin_;
-    operator delete(v58.__begin_);
+    v57.__end_ = v57.__begin_;
+    operator delete(v57.__begin_);
   }
 
   if (__p[0])
@@ -656,34 +2442,30 @@ LABEL_58:
     operator delete(__p[0]);
   }
 
-  if (v60[0])
+  if (v59[0])
   {
-    operator delete(v60[0]);
+    operator delete(v59[0]);
   }
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
-unint64_t geom::triangle_mesh_atlas::face_vertex_from_face_and_vertex(geom::triangle_mesh_atlas *this, const geom::triangle_mesh_connectivity *a2, int a3, int a4)
+uint64_t geom::triangle_mesh_atlas::face_vertex_from_face_and_vertex(geom::triangle_mesh_atlas *this, const geom::triangle_mesh_connectivity *a2, int a3, int a4)
 {
   v4 = 0;
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = *(a2 + 2) + 4 * (3 * a3);
-  v8 = *v5;
-  v9 = *(v5 + 8);
+  v7 = *v5;
+  v8 = *(v5 + 8);
   result = a3 & 0x3FFFFFFF | ((a4 & 0x3FFFFFFF) << 32);
-  while (*(&v8 + v4) != a4)
+  while (*(&v7 + v4) != a4)
   {
     v4 += 4;
     result += 0x4000000000000000;
     if (v4 == 12)
     {
-      result = a3 & 0x3FFFFFFF | ((a4 & 0x3FFFFFFF) << 32);
-      break;
+      return a3 & 0x3FFFFFFF | ((a4 & 0x3FFFFFFF) << 32);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -731,7 +2513,7 @@ LABEL_9:
   }
 }
 
-void geom::triangle_mesh_atlas::vertex_incident_charts(uint64_t a1, void *a2, unsigned int a3, uint64_t a4, std::vector<unsigned int> *a5)
+void geom::triangle_mesh_atlas::vertex_incident_charts(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, std::vector<unsigned int> *a5)
 {
   __p = 0;
   v11 = 0;
@@ -819,9 +2601,9 @@ void std::vector<geom::triangle_mesh_atlas::face_vertex>::push_back[abi:nn200100
 
 void geom::triangle_mesh_atlas::edge_incident_wedges(uint64_t a1, geom::triangle_mesh_half_edge_connectivity *this, unsigned int a3, std::vector<unsigned int> *a4, void *a5)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   half_edge_face = -1;
-  v54 = -1;
+  v53 = -1;
   v10 = a3;
   v11 = *(this + 23);
   if (a3 < ((*(this + 24) - v11) >> 2))
@@ -835,7 +2617,7 @@ void geom::triangle_mesh_atlas::edge_incident_wedges(uint64_t a1, geom::triangle
       if (!geom::triangle_mesh_half_edge_connectivity::is_boundary_half_edge(this, v14))
       {
         half_edge_twin = geom::triangle_mesh_half_edge_connectivity::get_half_edge_twin(this, v14);
-        v54 = geom::triangle_mesh_half_edge_connectivity::get_half_edge_face(this, half_edge_twin);
+        v53 = geom::triangle_mesh_half_edge_connectivity::get_half_edge_face(this, half_edge_twin);
       }
     }
 
@@ -845,25 +2627,25 @@ void geom::triangle_mesh_atlas::edge_incident_wedges(uint64_t a1, geom::triangle
     }
   }
 
-  v55 = half_edge_face;
-  v51 = a4;
-  v52 = a5;
+  v54 = half_edge_face;
+  v50 = a4;
+  v51 = a5;
+  v47 = 0;
   v48 = 0;
   v49 = 0;
-  v50 = 0;
+  v44 = 0;
   v45 = 0;
   v46 = 0;
-  v47 = 0;
+  v41 = 0;
   v42 = 0;
   v43 = 0;
-  v44 = 0;
-  v41[0] = &v55;
-  v41[1] = &v54;
-  v41[2] = &v42;
-  v41[3] = &v53;
-  v41[4] = &v48;
-  v41[5] = &v45;
-  v41[6] = &v51;
+  v40[0] = &v54;
+  v40[1] = &v53;
+  v40[2] = &v41;
+  v40[3] = &v52;
+  v40[4] = &v47;
+  v40[5] = &v44;
+  v40[6] = &v50;
   a4->__end_ = a4->__begin_;
   a5[1] = *a5;
   std::vector<float>::reserve(a4, 4uLL);
@@ -871,33 +2653,33 @@ void geom::triangle_mesh_atlas::edge_incident_wedges(uint64_t a1, geom::triangle
   v16 = *(this + 23);
   if (v10 >= (*(this + 24) - v16) >> 2)
   {
-    *v57 = -1;
-    v18 = -1;
+    *v56 = -1;
+    v18 = 0xFFFFFFFFLL;
   }
 
   else
   {
     v17 = geom::triangle_mesh_half_edge_connectivity::get_half_edge_for_face_vertex(this, *(v16 + 4 * v10) / 3u, *(v16 + 4 * v10) % 3u);
-    geom::triangle_mesh_half_edge_connectivity::get_half_edge_vertices(this, v17, v57);
-    v18 = v57[0];
+    geom::triangle_mesh_half_edge_connectivity::get_half_edge_vertices(this, v17, v56);
+    v18 = v56[0];
   }
 
+  v37 = 0;
   v38 = 0;
   v39 = 0;
-  v40 = 0;
   __p = 0;
+  v35 = 0;
   v36 = 0;
-  v37 = 0;
-  geom::triangle_mesh_atlas::vertex_incident_wedges(a1, this, v18, &v38, &__p);
-  geom::triangle_mesh_atlas::edge_incident_wedges(geom::triangle_mesh_connectivity const&,unsigned int,std::vector<unsigned int> &,std::vector<geom::triangle_mesh_atlas::face_vertex> &)const::$_2::operator()(v41, &v38, &__p);
-  geom::triangle_mesh_atlas::vertex_incident_wedges(a1, this, v57[1], &v38, &__p);
-  geom::triangle_mesh_atlas::edge_incident_wedges(geom::triangle_mesh_connectivity const&,unsigned int,std::vector<unsigned int> &,std::vector<geom::triangle_mesh_atlas::face_vertex> &)const::$_2::operator()(v41, &v38, &__p);
-  v19 = v48;
-  v20 = v49;
-  if (v49 != v48)
+  geom::triangle_mesh_atlas::vertex_incident_wedges(a1, this, v18, &v37, &__p);
+  geom::triangle_mesh_atlas::edge_incident_wedges(geom::triangle_mesh_connectivity const&,unsigned int,std::vector<unsigned int> &,std::vector<geom::triangle_mesh_atlas::face_vertex> &)const::$_2::operator()(v40, &v37, &__p);
+  geom::triangle_mesh_atlas::vertex_incident_wedges(a1, this, v56[1], &v37, &__p);
+  geom::triangle_mesh_atlas::edge_incident_wedges(geom::triangle_mesh_connectivity const&,unsigned int,std::vector<unsigned int> &,std::vector<geom::triangle_mesh_atlas::face_vertex> &)const::$_2::operator()(v40, &v37, &__p);
+  v19 = v47;
+  v20 = v48;
+  if (v48 != v47)
   {
-    end = v51->__end_;
-    if (v51->__begin_ == end)
+    end = v50->__end_;
+    if (v50->__begin_ == end)
     {
       v22 = 0;
     }
@@ -907,24 +2689,24 @@ void geom::triangle_mesh_atlas::edge_incident_wedges(uint64_t a1, geom::triangle
       v22 = *(end - 1);
     }
 
-    LODWORD(v56) = v22 + ((v49 - v48) >> 3);
-    std::vector<unsigned int>::push_back[abi:nn200100](&v51->__begin_, &v56);
+    LODWORD(v55) = v22 + ((v48 - v47) >> 3);
+    std::vector<unsigned int>::push_back[abi:nn200100](&v50->__begin_, &v55);
     do
     {
       v23 = *v19++;
-      v56 = v23;
-      std::vector<geom::triangle_mesh_atlas::face_vertex>::push_back[abi:nn200100](v52, &v56);
+      v55 = v23;
+      std::vector<geom::triangle_mesh_atlas::face_vertex>::push_back[abi:nn200100](v51, &v55);
     }
 
     while (v19 != v20);
   }
 
-  v24 = v45;
-  v25 = v46;
-  if (v46 != v45)
+  v24 = v44;
+  v25 = v45;
+  if (v45 != v44)
   {
-    v26 = v51->__end_;
-    if (v51->__begin_ == v26)
+    v26 = v50->__end_;
+    if (v50->__begin_ == v26)
     {
       v27 = 0;
     }
@@ -934,24 +2716,24 @@ void geom::triangle_mesh_atlas::edge_incident_wedges(uint64_t a1, geom::triangle
       v27 = *(v26 - 1);
     }
 
-    LODWORD(v56) = v27 + ((v46 - v45) >> 3);
-    std::vector<unsigned int>::push_back[abi:nn200100](&v51->__begin_, &v56);
+    LODWORD(v55) = v27 + ((v45 - v44) >> 3);
+    std::vector<unsigned int>::push_back[abi:nn200100](&v50->__begin_, &v55);
     do
     {
       v28 = *v24++;
-      v56 = v28;
-      std::vector<geom::triangle_mesh_atlas::face_vertex>::push_back[abi:nn200100](v52, &v56);
+      v55 = v28;
+      std::vector<geom::triangle_mesh_atlas::face_vertex>::push_back[abi:nn200100](v51, &v55);
     }
 
     while (v24 != v25);
   }
 
-  v29 = v42;
-  v30 = v43;
-  if (v43 != v42)
+  v29 = v41;
+  v30 = v42;
+  if (v42 != v41)
   {
-    v31 = v51->__end_;
-    if (v51->__begin_ == v31)
+    v31 = v50->__end_;
+    if (v50->__begin_ == v31)
     {
       v32 = 0;
     }
@@ -961,13 +2743,13 @@ void geom::triangle_mesh_atlas::edge_incident_wedges(uint64_t a1, geom::triangle
       v32 = *(v31 - 1);
     }
 
-    LODWORD(v56) = v32 + ((v43 - v42) >> 3);
-    std::vector<unsigned int>::push_back[abi:nn200100](&v51->__begin_, &v56);
+    LODWORD(v55) = v32 + ((v42 - v41) >> 3);
+    std::vector<unsigned int>::push_back[abi:nn200100](&v50->__begin_, &v55);
     do
     {
       v33 = *v29++;
-      v56 = v33;
-      std::vector<geom::triangle_mesh_atlas::face_vertex>::push_back[abi:nn200100](v52, &v56);
+      v55 = v33;
+      std::vector<geom::triangle_mesh_atlas::face_vertex>::push_back[abi:nn200100](v51, &v55);
     }
 
     while (v29 != v30);
@@ -975,51 +2757,46 @@ void geom::triangle_mesh_atlas::edge_incident_wedges(uint64_t a1, geom::triangle
 
   if (__p)
   {
-    v36 = __p;
+    v35 = __p;
     operator delete(__p);
   }
 
-  if (v38)
+  if (v37)
   {
-    v39 = v38;
-    operator delete(v38);
+    v38 = v37;
+    operator delete(v37);
   }
 
-  if (v42)
+  if (v41)
   {
-    v43 = v42;
-    operator delete(v42);
+    v42 = v41;
+    operator delete(v41);
   }
 
-  if (v45)
+  if (v44)
   {
-    v46 = v45;
-    operator delete(v45);
+    v45 = v44;
+    operator delete(v44);
   }
 
-  if (v48)
+  if (v47)
   {
-    v49 = v48;
-    operator delete(v48);
+    v48 = v47;
+    operator delete(v47);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
-void *std::vector<geom::triangle_mesh_atlas::face_vertex>::reserve(void *result, unint64_t a2)
+void std::vector<geom::triangle_mesh_atlas::face_vertex>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:nn200100]<std::allocator<geom::triangle_mesh_atlas::face_vertex>>(result, a2);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<geom::triangle_mesh_atlas::face_vertex>>(a1, a2);
     }
 
     std::__throw_bad_array_new_length[abi:nn200100]();
   }
-
-  return result;
 }
 
 void geom::triangle_mesh_atlas::edge_incident_wedges(geom::triangle_mesh_connectivity const&,unsigned int,std::vector<unsigned int> &,std::vector<geom::triangle_mesh_atlas::face_vertex> &)const::$_2::operator()(int **a1, uint64_t *a2, void *a3)
@@ -1226,30 +3003,30 @@ LABEL_50:
 
 void geom::triangle_mesh_atlas::edge_incident_charts(uint64_t a1, geom::triangle_mesh_half_edge_connectivity *this, unsigned int a3, uint64_t a4, std::vector<unsigned int> *a5)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v9 = a3;
   v10 = *(this + 23);
   if (a3 >= ((*(this + 24) - v10) >> 2))
   {
-    *v34 = -1;
+    *v33 = -1;
     v12 = -1;
   }
 
   else
   {
     half_edge_for_face_vertex = geom::triangle_mesh_half_edge_connectivity::get_half_edge_for_face_vertex(this, *(v10 + 4 * a3) / 3u, *(v10 + 4 * a3) % 3u);
-    geom::triangle_mesh_half_edge_connectivity::get_half_edge_vertices(this, half_edge_for_face_vertex, v34);
-    v12 = v34[0];
+    geom::triangle_mesh_half_edge_connectivity::get_half_edge_vertices(this, half_edge_for_face_vertex, v33);
+    v12 = v33[0];
   }
 
+  v29 = 0;
   v30 = 0;
   v31 = 0;
-  v32 = 0;
-  geom::triangle_mesh_half_edge_connectivity::get_incident_faces_to_vertex(this, v12, &v30);
+  geom::triangle_mesh_half_edge_connectivity::get_incident_faces_to_vertex(this, v12, &v29);
   __p = 0;
+  v27 = 0;
   v28 = 0;
-  v29 = 0;
-  geom::triangle_mesh_half_edge_connectivity::get_incident_faces_to_vertex(this, v34[1], &__p);
+  geom::triangle_mesh_half_edge_connectivity::get_incident_faces_to_vertex(this, v33[1], &__p);
   v13 = *(this + 23);
   if (v9 >= (*(this + 24) - v13) >> 2 || (v14 = geom::triangle_mesh_half_edge_connectivity::get_half_edge_for_face_vertex(this, *(v13 + 4 * v9) / 3u, *(v13 + 4 * v9) % 3u), !geom::triangle_mesh_half_edge_connectivity::is_valid_half_edge(this, v14)))
   {
@@ -1271,22 +3048,22 @@ LABEL_9:
   v19 = geom::triangle_mesh_half_edge_connectivity::get_half_edge_face(this, half_edge_twin);
 LABEL_10:
   v20 = __p;
-  v21 = v28;
+  v21 = v27;
   while (v20 != v21)
   {
     v22 = *v20;
-    LODWORD(v33) = v22;
+    LODWORD(v32) = v22;
     if (v22 != half_edge_face && v22 != v19)
     {
-      std::vector<unsigned int>::push_back[abi:nn200100](&v30, &v33);
+      std::vector<unsigned int>::push_back[abi:nn200100](&v29, &v32);
     }
 
     ++v20;
   }
 
-  v24 = 126 - 2 * __clz((v31 - v30) >> 2);
-  v33 = a1;
-  if (v31 == v30)
+  v24 = 126 - 2 * __clz((v30 - v29) >> 2);
+  v32 = a1;
+  if (v30 == v29)
   {
     v25 = 0;
   }
@@ -1296,50 +3073,48 @@ LABEL_10:
     v25 = v24;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,geom::triangle_mesh_atlas::vertex_incident_charts(geom::triangle_mesh_connectivity const&,unsigned int,std::vector<unsigned int> &,std::vector<unsigned int> &)::$_0 &,unsigned int *,false>(v30, v31, &v33, v25, 1);
-  geom::triangle_mesh_atlas::pack_faces_into_charts(a1, &v30, a4, a5);
+  std::__introsort<std::_ClassicAlgPolicy,geom::triangle_mesh_atlas::vertex_incident_charts(geom::triangle_mesh_connectivity const&,unsigned int,std::vector<unsigned int> &,std::vector<unsigned int> &)::$_0 &,unsigned int *,false>(v29, v30, &v32, v25, 1);
+  geom::triangle_mesh_atlas::pack_faces_into_charts(a1, &v29, a4, a5);
   if (__p)
   {
-    v28 = __p;
+    v27 = __p;
     operator delete(__p);
   }
 
-  if (v30)
+  if (v29)
   {
-    v31 = v30;
-    operator delete(v30);
+    v30 = v29;
+    operator delete(v29);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 BOOL geom::triangle_mesh_atlas::edge_vertices_have_compatible_charts(geom::triangle_mesh_atlas *this, const geom::triangle_mesh_connectivity *a2, unsigned int a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v17[0] = a2;
-  v17[1] = this;
+  v18 = *MEMORY[0x277D85DE8];
+  v16[0] = a2;
+  v16[1] = this;
   v3 = *(a2 + 23);
   if (a3 >= ((*(a2 + 24) - v3) >> 2))
   {
-    *v18 = -1;
-    v6 = -1;
+    *v17 = -1;
+    v6 = 0xFFFFFFFFLL;
   }
 
   else
   {
     half_edge_for_face_vertex = geom::triangle_mesh_half_edge_connectivity::get_half_edge_for_face_vertex(a2, *(v3 + 4 * a3) / 3u, *(v3 + 4 * a3) % 3u);
-    geom::triangle_mesh_half_edge_connectivity::get_half_edge_vertices(a2, half_edge_for_face_vertex, v18);
-    v6 = v18[0];
+    geom::triangle_mesh_half_edge_connectivity::get_half_edge_vertices(a2, half_edge_for_face_vertex, v17);
+    v6 = v17[0];
   }
 
-  memset(&v16, 0, sizeof(v16));
   memset(&v15, 0, sizeof(v15));
-  geom::triangle_mesh_atlas::edge_vertices_have_compatible_charts(geom::triangle_mesh_connectivity const&,unsigned int)const::$_0::operator()(v17, v6, &v16);
-  geom::triangle_mesh_atlas::edge_vertices_have_compatible_charts(geom::triangle_mesh_connectivity const&,unsigned int)const::$_0::operator()(v17, v18[1], &v15);
-  begin = v16.__begin_;
-  v8 = v16.__end_ - v16.__begin_ == v15.__end_ - v15.__begin_;
-  v9 = v16.__end_ - v16.__begin_;
-  if (v16.__end_ != v16.__begin_ && v9 == v15.__end_ - v15.__begin_)
+  memset(&v14, 0, sizeof(v14));
+  geom::triangle_mesh_atlas::edge_vertices_have_compatible_charts(geom::triangle_mesh_connectivity const&,unsigned int)const::$_0::operator()(v16, v6, &v15);
+  geom::triangle_mesh_atlas::edge_vertices_have_compatible_charts(geom::triangle_mesh_connectivity const&,unsigned int)const::$_0::operator()(v16, v17[1], &v14);
+  begin = v15.__begin_;
+  v8 = v15.__end_ - v15.__begin_ == v14.__end_ - v14.__begin_;
+  v9 = v15.__end_ - v15.__begin_;
+  if (v15.__end_ != v15.__begin_ && v9 == v14.__end_ - v14.__begin_)
   {
     v10 = 0;
     v11 = v9 >> 2;
@@ -1353,7 +3128,7 @@ BOOL geom::triangle_mesh_atlas::edge_vertices_have_compatible_charts(geom::trian
       v12 = v11;
     }
 
-    while (v16.__begin_[v10] == v15.__begin_[v10])
+    while (v15.__begin_[v10] == v14.__begin_[v10])
     {
       if (v12 == ++v10)
       {
@@ -1364,40 +3139,38 @@ BOOL geom::triangle_mesh_atlas::edge_vertices_have_compatible_charts(geom::trian
 
     v8 = 0;
 LABEL_17:
-    v15.__end_ = v15.__begin_;
-    operator delete(v15.__begin_);
-    begin = v16.__begin_;
-    if (!v16.__begin_)
+    v14.__end_ = v14.__begin_;
+    operator delete(v14.__begin_);
+    begin = v15.__begin_;
+    if (!v15.__begin_)
     {
-      goto LABEL_15;
+      return v8;
     }
 
     goto LABEL_14;
   }
 
-  if (v15.__begin_)
+  if (v14.__begin_)
   {
     goto LABEL_17;
   }
 
-  if (v16.__begin_)
+  if (v15.__begin_)
   {
 LABEL_14:
-    v16.__end_ = begin;
+    v15.__end_ = begin;
     operator delete(begin);
   }
 
-LABEL_15:
-  v13 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
-void geom::triangle_mesh_atlas::edge_vertices_have_compatible_charts(geom::triangle_mesh_connectivity const&,unsigned int)const::$_0::operator()(uint64_t a1, unsigned int a2, std::vector<unsigned int> *a3)
+void geom::triangle_mesh_atlas::edge_vertices_have_compatible_charts(geom::triangle_mesh_connectivity const&,unsigned int)const::$_0::operator()(void *a1, uint64_t a2, std::vector<unsigned int> *a3)
 {
   v14 = 0;
   v15 = 0;
   v16 = 0;
-  v4 = *(a1 + 8);
+  v4 = a1[1];
   geom::triangle_mesh_half_edge_connectivity::get_incident_faces_to_vertex(*a1, a2, &v14);
   a3->__end_ = a3->__begin_;
   std::vector<float>::reserve(a3, v15 - v14);
@@ -1561,7 +3334,7 @@ void std::vector<unsigned char>::__append(char **a1, size_t __len, unsigned __in
   }
 }
 
-uint64_t std::__introsort<std::_ClassicAlgPolicy,geom::triangle_mesh_atlas::vertex_incident_charts(geom::triangle_mesh_connectivity const&,unsigned int,std::vector<unsigned int> &,std::vector<unsigned int> &)::$_0 &,unsigned int *,false>(uint64_t result, unsigned int *a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,geom::triangle_mesh_atlas::vertex_incident_charts(geom::triangle_mesh_connectivity const&,unsigned int,std::vector<unsigned int> &,std::vector<unsigned int> &)::$_0 &,unsigned int *,false>(uint64_t result, unsigned int *a2, uint64_t *a3, uint64_t a4, char a5)
 {
   v9 = result;
 LABEL_2:
@@ -2269,7 +4042,7 @@ LABEL_81:
 
       if (v55 >= *(v14 + 4 * *(a2 - 1)))
       {
-        v72 = v10 + 1;
+        v72 = (v10 + 1);
         do
         {
           v10 = v72;
@@ -2278,7 +4051,7 @@ LABEL_81:
             break;
           }
 
-          ++v72;
+          v72 += 4;
         }
 
         while (v55 >= *(v14 + 4 * *v10));
@@ -2860,12 +4633,10 @@ uint64_t geom::triangle_mesh_half_edge_connectivity::vertex_to_half_edge_iterato
 
 uint64_t geom::triangle_mesh_half_edge_connectivity::vertex_to_half_edge_iterator<unsigned int,geom::triangle_mesh_half_edge_connectivity::adjacent_vertex_tag>::operator*(uint64_t a1)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v4[0] = -1;
-  geom::triangle_mesh_half_edge_connectivity::get_half_edge_vertices(*(a1 + 16), *(a1 + 12), v4);
-  result = *(v4 | (4 * (LODWORD(v4[0]) == *(a1 + 4))));
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[1] = *MEMORY[0x277D85DE8];
+  v3[0] = -1;
+  geom::triangle_mesh_half_edge_connectivity::get_half_edge_vertices(*(a1 + 16), *(a1 + 12), v3);
+  return *(v3 | (4 * (LODWORD(v3[0]) == *(a1 + 4))));
 }
 
 BOOL geom::triangle_mesh_half_edge_connectivity::get_half_edge_vertices(geom::triangle_mesh_half_edge_connectivity *this, unsigned int a2, unsigned int *a3)
@@ -2991,44 +4762,38 @@ uint64_t geom::triangle_mesh_half_edge_connectivity::face_vertex_to_component_it
 
 uint64_t geom::triangle_mesh_half_edge_connectivity::face_vertex_to_component_iterator<unsigned int,geom::triangle_mesh_half_edge_connectivity::adjacent_face_tag>::operator*(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  if (*a1 == 1)
+  v7[1] = *MEMORY[0x277D85DE8];
+  if (*a1 != 1)
   {
-    v8[0] = -1;
-    v1 = *(a1 + 4);
-    v2 = *(a1 + 16);
-    if (geom::triangle_mesh_half_edge_connectivity::is_valid_half_edge(v2, (v1 / 3) & 0x3FFFFFFF | ((v1 + v1 / 3) << 30)))
-    {
-      v3 = (v1 / 3uLL) & 0x3FFFFFFF;
-      LODWORD(v8[0]) = (v1 / 3) & 0x3FFFFFFF;
-      v4 = v1 + 0x40000000;
-      if (v1 >> 30 != 3)
-      {
-        v4 = v1;
-      }
+    return 0xFFFFFFFFLL;
+  }
 
-      v5 = *(*(v2 + 8) + 4 * v4);
-      if (v5 >> 30 != 3)
-      {
-        HIDWORD(v8[0]) = v5 & 0x3FFFFFFF;
-      }
+  v7[0] = -1;
+  v1 = *(a1 + 4);
+  v2 = *(a1 + 16);
+  if (geom::triangle_mesh_half_edge_connectivity::is_valid_half_edge(v2, (v1 / 3) & 0x3FFFFFFF | ((v1 + v1 / 3) << 30)))
+  {
+    v3 = (v1 / 3uLL) & 0x3FFFFFFF;
+    LODWORD(v7[0]) = (v1 / 3) & 0x3FFFFFFF;
+    v4 = v1 + 0x40000000;
+    if (v1 >> 30 != 3)
+    {
+      v4 = v1;
     }
 
-    else
+    v5 = *(*(v2 + 8) + 4 * v4);
+    if (v5 >> 30 != 3)
     {
-      LODWORD(v3) = -1;
+      HIDWORD(v7[0]) = v5 & 0x3FFFFFFF;
     }
-
-    result = *(v8 | (4 * (v3 == v1 / 3)));
   }
 
   else
   {
-    result = 0xFFFFFFFFLL;
+    LODWORD(v3) = -1;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return *(v7 | (4 * (v3 == v1 / 3)));
 }
 
 uint64_t geom::triangle_mesh_half_edge_connectivity::face_vertex_to_component_iterator<unsigned int,geom::triangle_mesh_half_edge_connectivity::adjacent_face_tag>::operator++(uint64_t a1)
@@ -3124,7 +4889,7 @@ BOOL geom::triangle_mesh_half_edge_connectivity::is_valid_half_edge(geom::triang
   return v2 < (v4 - v3) >> 2 && *(v3 + 4 * v2) != -1;
 }
 
-uint64_t geom::triangle_mesh_half_edge_connectivity::face_to_adjacent_faces_begin@<X0>(uint64_t this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+BOOL geom::triangle_mesh_half_edge_connectivity::face_to_adjacent_faces_begin@<W0>(_BOOL8 this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
 {
   v4 = (3 * a2);
   v5 = *(this + 16);
@@ -3254,7 +5019,7 @@ uint64_t geom::triangle_mesh_half_edge_connectivity::half_edges_end@<X0>(uint64_
   return this;
 }
 
-void geom::triangle_mesh_half_edge_connectivity::make(geom::triangle_mesh_half_edge_connectivity *this@<X0>, unint64_t a2@<X1>, _BYTE *a3@<X8>)
+void geom::triangle_mesh_half_edge_connectivity::make(geom::triangle_mesh_half_edge_connectivity *this@<X0>, unint64_t a2@<X1>, uint64_t *a4@<X8>)
 {
   __p = 0;
   v5 = 0;
@@ -3264,7 +5029,7 @@ void geom::triangle_mesh_half_edge_connectivity::make(geom::triangle_mesh_half_e
     std::vector<float>::__vallocate[abi:nn200100](&__p, a2);
   }
 
-  geom::triangle_mesh_half_edge_connectivity::make(this, &__p, a3);
+  geom::triangle_mesh_half_edge_connectivity::make(a4, this, &__p);
   if (__p)
   {
     v5 = __p;
@@ -3272,12 +5037,12 @@ void geom::triangle_mesh_half_edge_connectivity::make(geom::triangle_mesh_half_e
   }
 }
 
-void geom::triangle_mesh_half_edge_connectivity::make(std::vector<int>::size_type __sz@<X0>, unsigned int **a2@<X1>, _BYTE *a3@<X8>)
+void geom::triangle_mesh_half_edge_connectivity::make(uint64_t *__return_ptr a1@<X8>, std::vector<int>::size_type __sz@<X0>, unsigned int **a3@<X1>)
 {
-  v184 = *MEMORY[0x277D85DE8];
-  v4 = *a2;
-  v3 = a2[1];
-  v5 = v3 - *a2;
+  v183 = *MEMORY[0x277D85DE8];
+  v4 = *a3;
+  v3 = a3[1];
+  v5 = v3 - *a3;
   if (v5 % 3)
   {
     v6 = 1;
@@ -3291,12 +5056,12 @@ void geom::triangle_mesh_half_edge_connectivity::make(std::vector<int>::size_typ
   if (v6)
   {
 LABEL_6:
-    *a3 = 0;
-    a3[192] = 0;
-    goto LABEL_181;
+    *a1 = 0;
+    *(a1 + 192) = 0;
+    return;
   }
 
-  v7 = a2;
+  v7 = a3;
   if (v3 != v4)
   {
     do
@@ -3311,18 +5076,18 @@ LABEL_6:
     while (--v5);
   }
 
-  memset(&v164, 0, sizeof(v164));
-  v134 = __sz;
-  std::vector<unsigned int>::resize(&v164, __sz, &geom::triangle_mesh_half_edge_connectivity::k_invalid_index);
-  begin = v164.__begin_;
-  end = v164.__end_;
-  if (v164.__begin_ != v164.__end_)
+  memset(&v163, 0, sizeof(v163));
+  v133 = __sz;
+  std::vector<unsigned int>::resize(&v163, __sz, &geom::triangle_mesh_half_edge_connectivity::k_invalid_index);
+  begin = v163.__begin_;
+  end = v163.__end_;
+  if (v163.__begin_ != v163.__end_)
   {
     v11 = 0;
-    v12 = (v164.__end_ - v164.__begin_ - 4) >> 2;
+    v12 = (v163.__end_ - v163.__begin_ - 4) >> 2;
     v13 = vdupq_n_s64(v12);
     v14 = (v12 + 4) & 0x7FFFFFFFFFFFFFFCLL;
-    v15 = v164.__begin_ + 2;
+    v15 = v163.__begin_ + 2;
     do
     {
       v16 = vdupq_n_s64(v11);
@@ -3361,7 +5126,7 @@ LABEL_6:
       v21 = v18[1];
       if (v22 == v21 || (v23 = v18[2], v22 == v23))
       {
-        std::vector<unsigned int>::push_back[abi:nn200100](&v164.__begin_, &v164.__begin_[v22]);
+        std::vector<unsigned int>::push_back[abi:nn200100](&v163.__begin_, &v163.__begin_[v22]);
         *v18 = v20;
         LODWORD(v20) = v20 + 1;
         v21 = v18[1];
@@ -3370,7 +5135,7 @@ LABEL_6:
 
       if (v21 == v23)
       {
-        std::vector<unsigned int>::push_back[abi:nn200100](&v164.__begin_, &v164.__begin_[v23]);
+        std::vector<unsigned int>::push_back[abi:nn200100](&v163.__begin_, &v163.__begin_[v23]);
         v18[1] = v20;
         LODWORD(v20) = v20 + 1;
       }
@@ -3381,91 +5146,91 @@ LABEL_6:
     while (v18 < v19);
   }
 
-  v183 = 0;
+  v182 = 0;
+  v180 = 0u;
   v181 = 0u;
-  v182 = 0u;
   v24 = *v7;
   v25 = v7[1];
-  v26 = (v25 - *v7) >> 2;
-  if (*(&v182 + 1) < v26)
+  v26 = v25 - *v7;
+  if (*(&v181 + 1) < v26)
   {
     v24 = *v7;
     v25 = v7[1];
-    v26 = (v25 - *v7) >> 2;
+    v26 = v25 - *v7;
   }
 
-  v146 = v7;
+  v145 = v7;
   if (v26 >= 3)
   {
     v27 = v26 / 3;
-    v28 = (v164.__end_ - v164.__begin_) >> 2;
-    v29 = (v24 + 8);
+    v28 = (v163.__end_ - v163.__begin_) >> 2;
+    v29 = v24 + 2;
     v30 = 1;
     do
     {
       v32 = *(v29 - 2);
       v31 = *(v29 - 1);
-      v148 = (v32 | (v31 << 32));
+      v147 = (v32 | (v31 << 32));
       v34 = *v29;
-      v148 = (v31 | (v34 << 32));
-      v148 = (v34 | (v32 << 32));
+      v147 = (v31 | (v34 << 32));
+      v147 = (v34 | (v32 << 32));
       if ((v36 & internal) != 0xFFFFFFFFFFFFFFFFLL)
       {
-        std::vector<unsigned int>::push_back[abi:nn200100](&v164.__begin_, &v164.__begin_[v32]);
+        std::vector<unsigned int>::push_back[abi:nn200100](&v163.__begin_, &v163.__begin_[v32]);
         *(v29 - 2) = v28;
         LODWORD(v28) = v28 + 1;
       }
 
       if ((v35 & internal) != 0xFFFFFFFFFFFFFFFFLL)
       {
-        std::vector<unsigned int>::push_back[abi:nn200100](&v164.__begin_, &v164.__begin_[*(v29 - 1)]);
+        std::vector<unsigned int>::push_back[abi:nn200100](&v163.__begin_, &v163.__begin_[*(v29 - 1)]);
         *(v29 - 1) = v28;
         LODWORD(v28) = v28 + 1;
       }
 
       if ((v36 & v35) != 0xFFFFFFFFFFFFFFFFLL)
       {
-        std::vector<unsigned int>::push_back[abi:nn200100](&v164.__begin_, &v164.__begin_[*v29]);
+        std::vector<unsigned int>::push_back[abi:nn200100](&v163.__begin_, &v163.__begin_[*v29]);
         *v29 = v28;
         LODWORD(v28) = v28 + 1;
       }
 
-      v180[0] = *(v29 - 1);
-      LODWORD(v177) = (v30 - 1) & 0x3FFFFFFF;
-      v180[0] = *(v29 - 1);
-      LODWORD(v177) = (v30 - 1) & 0x3FFFFFFF | 0x40000000;
-      LODWORD(v180[0]) = *v29;
-      HIDWORD(v180[0]) = *(v29 - 2);
-      LODWORD(v177) = (v30 - 1) & 0x3FFFFFFF | 0x80000000;
+      v179[0] = *(v29 - 1);
+      LODWORD(v176) = (v30 - 1) & 0x3FFFFFFF;
+      v179[0] = *(v29 - 1);
+      LODWORD(v176) = (v30 - 1) & 0x3FFFFFFF | 0x40000000;
+      LODWORD(v179[0]) = *v29;
+      HIDWORD(v179[0]) = *(v29 - 2);
+      LODWORD(v176) = (v30 - 1) & 0x3FFFFFFF | 0x80000000;
       v6 = v27 > v30++;
       v29 += 3;
     }
 
     while (v6);
-    v7 = v146;
-    v24 = *v146;
-    v25 = v146[1];
+    v7 = v145;
+    v24 = *v145;
+    v25 = v145[1];
   }
 
-  memset(&v163, 0, sizeof(v163));
   memset(&v162, 0, sizeof(v162));
   memset(&v161, 0, sizeof(v161));
-  v37 = ((v25 - v24) >> 2) / 3uLL;
-  v38 = ((v164.__end_ - v164.__begin_) >> 2);
+  memset(&v160, 0, sizeof(v160));
+  v37 = (v25 - v24) / 3uLL;
+  v38 = ((v163.__end_ - v163.__begin_) >> 2);
+  v164 = 0;
   v165 = 0;
   v166 = 0;
-  v167 = 0;
-  if (((v164.__end_ - v164.__begin_) >> 2))
+  if (((v163.__end_ - v163.__begin_) >> 2))
   {
-    std::vector<float>::__vallocate[abi:nn200100](&v165, ((v164.__end_ - v164.__begin_) >> 2));
+    std::vector<float>::__vallocate[abi:nn200100](&v164, ((v163.__end_ - v163.__begin_) >> 2));
   }
 
-  v148 = &v181;
-  if (v182 >= 0x10)
+  v147 = &v180;
+  if (v181 >= 0x10)
   {
     v39 = 0;
-    v40 = v181;
-    v41 = v182 >> 4;
+    v40 = v180;
+    v41 = v181 >> 4;
     while (1)
     {
       v42 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*v40), xmmword_2500C4D40)))), 0x3830282018100800).u16[0];
@@ -3484,40 +5249,40 @@ LABEL_6:
 
     v43 = __clz(__rbit64(v42 ^ 0xFFFFLL));
     v44 = (v43 - v39);
-    v149[0] = (v42 ^ 0xFFFFLL);
-    v149[1] = (v43 - v39);
+    v148[0] = (v42 ^ 0xFFFFLL);
+    v148[1] = (v43 - v39);
     if (v43 + 1 != v39)
     {
-      v45 = v165;
+      v45 = v164;
       do
       {
-        v46 = *(*(v148 + 1) + 12 * v44);
+        v46 = *(*(v147 + 1) + 12 * v44);
         ++v45[v46];
-        _ZN4geom10hash_brownIZNS_23marching_squares_2_implIfRKNSt3__18functionIFfDv2_fEEEEEvOT0_tNS_4bboxIT_Lh2EEERNS2_6vectorINS_11vector_typeISC_Lh2EvE5valueENS2_9allocatorISH_EEEERNSE_IjNSI_IjEEEEE16vertex_map_queryS4_ZNS1_IfS8_EEvSA_tSD_SL_SO_ENSP_4hashENS2_8equal_toISP_EEE19hash_brown_iteratorIRNS2_4pairIKSP_S4_EEEppEv(&v148);
-        v44 = v149[1];
+        _ZN4geom10hash_brownIZNS_23marching_squares_2_implIfRKNSt3__18functionIFfDv2_fEEEEEvOT0_tNS_4bboxIT_Lh2EEERNS2_6vectorINS_11vector_typeISC_Lh2EvE5valueENS2_9allocatorISH_EEEERNSE_IjNSI_IjEEEEE16vertex_map_queryS4_ZNS1_IfS8_EEvSA_tSD_SL_SO_ENSP_4hashENS2_8equal_toISP_EEE19hash_brown_iteratorIRNS2_4pairIKSP_S4_EEEppEv(&v147);
+        v44 = v148[1];
       }
 
-      while (v149[1] != -1);
+      while (v148[1] != -1);
     }
   }
 
 LABEL_49:
-  v163.__end_ = v163.__begin_;
   v162.__end_ = v162.__begin_;
   v161.__end_ = v161.__begin_;
-  std::vector<float>::reserve(&v161, v37);
+  v160.__end_ = v160.__begin_;
+  std::vector<float>::reserve(&v160, v37);
   v47 = *v7;
   if (v37)
   {
     v48 = 0;
-    v49 = v162.__begin_;
+    v49 = v161.__begin_;
     do
     {
       v50 = 0;
       v51 = v48 & 0x3FFFFFFF;
       do
       {
-        v52 = *(v47 + 4 * v50);
+        v52 = v47[v50];
         if (v50 == 2)
         {
           v53 = 0;
@@ -3528,22 +5293,22 @@ LABEL_49:
           v53 = v50 + 1;
         }
 
-        v148 = (*(v47 + 4 * v53) | (v52 << 32));
+        v147 = (v47[v53] | (v52 << 32));
         if (v54 == -1)
         {
-          v55 = ((LODWORD(v161.__end_) - LODWORD(v161.__begin_)) >> 2) | 0xC0000000;
+          v55 = ((LODWORD(v160.__end_) - LODWORD(v160.__begin_)) >> 2) | 0xC0000000;
           v49[v50] = v55;
-          LODWORD(v148) = v51;
-          std::vector<unsigned int>::push_back[abi:nn200100](&v161.__begin_, &v148);
-          v163.__begin_[v52] = v55;
+          LODWORD(v147) = v51;
+          std::vector<unsigned int>::push_back[abi:nn200100](&v160.__begin_, &v147);
+          v162.__begin_[v52] = v55;
         }
 
         else
         {
-          v49[v50] = *(*(&v181 + 1) + 12 * v54 + 8);
-          if (v163.__begin_[v52] == -1)
+          v49[v50] = *(*(&v180 + 1) + 12 * v54 + 8);
+          if (v162.__begin_[v52] == -1)
           {
-            v163.__begin_[v52] = v51;
+            v162.__begin_[v52] = v51;
           }
         }
 
@@ -3553,19 +5318,19 @@ LABEL_49:
 
       while (v50 != 3);
       ++v48;
-      v47 += 12;
+      v47 += 3;
       v49 += 3;
     }
 
     while (v48 != v37);
-    v7 = v146;
-    v47 = *v146;
+    v7 = v145;
+    v47 = *v145;
   }
 
   v56 = v7[1];
-  v57 = v164.__end_ - v164.__begin_;
-  LOBYTE(v148) = 0;
-  std::vector<BOOL>::vector(v180, v57);
+  v57 = v163.__end_ - v163.__begin_;
+  LOBYTE(v147) = 0;
+  std::vector<BOOL>::vector(v179, v57, &v147);
   if (!v57)
   {
     v67 = 0;
@@ -3576,12 +5341,12 @@ LABEL_49:
   v59 = 0;
   v60 = 0;
   v61 = 0;
-  v145 = ((v56 - v47) >> 2) / 3uLL;
-  v62 = v163.__begin_;
-  v63 = v162.__begin_;
-  v64 = v161.__begin_;
-  v65 = v165;
-  v66 = v180[0];
+  v144 = (v56 - v47) / 3uLL;
+  v62 = v162.__begin_;
+  v63 = v161.__begin_;
+  v64 = v160.__begin_;
+  v65 = v164;
+  v66 = v179[0];
   v67 = v57;
   v68 = v57;
   do
@@ -3673,43 +5438,43 @@ LABEL_79:
   while (v58 != v57);
   if (v59)
   {
-    v144 = v60;
-    v147 = v57;
-    v137 = v67;
+    v143 = v60;
+    v146 = v57;
+    v136 = v67;
+    v176 = 0;
     v177 = 0;
     v178 = 0;
-    v179 = 0;
-    std::vector<double>::reserve(&v177, v61);
-    if (v145)
+    std::vector<double>::reserve(&v176, v61);
+    if (v144)
     {
       v80 = 0;
-      v81 = *v146;
+      v81 = *v145;
       do
       {
         v82 = 0;
         v83 = (v80 & 0x3FFFFFFF) << 32;
         do
         {
-          v84 = *(v81 + v82);
-          if ((*(v180[0] + ((v84 >> 3) & 0x1FFFFFF8)) >> v84))
+          v84 = v81[v82];
+          if ((*(v179[0] + ((v84 >> 3) & 0x1FFFFFF8)) >> v84))
           {
             v85 = v83 + v84;
-            v86 = v178;
-            if (v178 >= v179)
+            v86 = v177;
+            if (v177 >= v178)
             {
-              v88 = (v178 - v177) >> 3;
+              v88 = (v177 - v176) >> 3;
               if ((v88 + 1) >> 61)
               {
                 std::__throw_bad_array_new_length[abi:nn200100]();
               }
 
-              v89 = (v179 - v177) >> 2;
+              v89 = (v178 - v176) >> 2;
               if (v89 <= v88 + 1)
               {
                 v89 = v88 + 1;
               }
 
-              if (v179 - v177 >= 0x7FFFFFFFFFFFFFF8)
+              if (v178 - v176 >= 0x7FFFFFFFFFFFFFF8)
               {
                 v90 = 0x1FFFFFFFFFFFFFFFLL;
               }
@@ -3721,18 +5486,18 @@ LABEL_79:
 
               if (v90)
               {
-                std::__allocate_at_least[abi:nn200100]<std::allocator<double>>(&v177, v90);
+                std::__allocate_at_least[abi:nn200100]<std::allocator<double>>(&v176, v90);
               }
 
               v91 = (8 * v88);
               *v91 = v85;
               v87 = (8 * v88 + 8);
-              v92 = v91 - (v178 - v177);
-              memcpy(v92, v177, v178 - v177);
-              v93 = v177;
-              v177 = v92;
-              v178 = v87;
-              v179 = 0;
+              v92 = v91 - (v177 - v176);
+              memcpy(v92, v176, v177 - v176);
+              v93 = v176;
+              v176 = v92;
+              v177 = v87;
+              v178 = 0;
               if (v93)
               {
                 operator delete(v93);
@@ -3741,27 +5506,27 @@ LABEL_79:
 
             else
             {
-              *v178 = v85;
-              v87 = v86 + 8;
+              *v177 = v85;
+              v87 = (v86 + 8);
             }
 
-            v178 = v87;
+            v177 = v87;
           }
 
-          v82 += 4;
+          ++v82;
           v83 += 0x4000000000000000;
         }
 
-        while (v82 != 12);
+        while (v82 != 3);
         ++v80;
-        v81 += 12;
+        v81 += 3;
       }
 
-      while (v80 != v145);
+      while (v80 != v144);
     }
 
-    v94 = 126 - 2 * __clz((v178 - v177) >> 3);
-    if (v178 == v177)
+    v94 = 126 - 2 * __clz((v177 - v176) >> 3);
+    if (v177 == v176)
     {
       v95 = 0;
     }
@@ -3771,40 +5536,40 @@ LABEL_79:
       v95 = v94;
     }
 
-    LOBYTE(v148) = 0;
-    std::vector<BOOL>::vector(v176, v145);
-    v174 = 0;
+    LOBYTE(v147) = 0;
+    std::vector<BOOL>::vector(v175, v144, &v147);
     v173 = 0;
-    v175 = 0;
-    if (v144)
+    v172 = 0;
+    v174 = 0;
+    if (v143)
     {
-      std::vector<float>::__vallocate[abi:nn200100](&v173, v144);
+      std::vector<float>::__vallocate[abi:nn200100](&v172, v143);
     }
 
     __p = 0;
+    v170 = 0;
     v171 = 0;
-    v172 = 0;
-    v7 = v146;
-    v67 = v137;
-    if (((v178 - v177) & 0x7FFFFFFF8) != 0)
+    v7 = v145;
+    v67 = v136;
+    if (((v177 - v176) & 0x7FFFFFFF8) != 0)
     {
       v96 = 0;
       v97 = 0;
       v98 = 0;
-      v99 = ((v178 - v177) >> 3);
+      v99 = ((v177 - v176) >> 3);
       v100 = 0xFFFFFFFFLL;
-      v136 = v99;
+      v135 = v99;
       do
       {
-        v101 = v177;
-        v102 = *&v177[8 * v97];
+        v101 = v176;
+        v102 = *&v176[8 * v97];
         if (v100 != v102)
         {
           if (v97 > v98)
           {
-            v103 = v176[0];
+            v103 = v175[0];
             v104 = v96 + v98;
-            v105 = &v177[8 * v98 + 4];
+            v105 = &v176[8 * v98 + 4];
             do
             {
               v106 = *v105;
@@ -3815,41 +5580,41 @@ LABEL_79:
             while (!__CFADD__(v104++, 1));
           }
 
-          v108 = v163.__begin_[v102];
+          v108 = v162.__begin_[v102];
           if (v108 >> 30 == 3)
           {
-            v108 = v161.__begin_[v108 & 0x3FFFFFFF];
+            v108 = v160.__begin_[v108 & 0x3FFFFFFF];
           }
 
           v98 = v97;
-          v101 = v177;
+          v101 = v176;
           v100 = v102;
         }
 
         v109 = *&v101[8 * v97 + 4];
-        if (((*(v176[0] + ((v109 >> 3) & 0x7FFFFF8)) >> v109) & 1) == 0)
+        if (((*(v175[0] + ((v109 >> 3) & 0x7FFFFF8)) >> v109) & 1) == 0)
         {
           ++v67;
-          std::vector<unsigned int>::push_back[abi:nn200100](&v164.__begin_, &v164.__begin_[v100]);
+          std::vector<unsigned int>::push_back[abi:nn200100](&v163.__begin_, &v163.__begin_[v100]);
           if (petal_of_faces_incident_to_face_vertex_helper)
           {
-            v138 = v67;
+            v137 = v67;
             v111 = 0;
-            v140 = 4 * petal_of_faces_incident_to_face_vertex_helper;
-            v139 = v100;
-            v142 = v98;
-            v141 = v100;
-            v7 = v146;
+            v139 = 4 * petal_of_faces_incident_to_face_vertex_helper;
+            v138 = v100;
+            v141 = v98;
+            v140 = v100;
+            v7 = v145;
             while (1)
             {
               v112 = *(__p + v111);
-              v113 = (*v7 + 4 * (3 * v112));
+              v113 = &(*v7)[3 * v112];
               if (*v113 == v100)
               {
                 v114 = 0;
                 v115 = 2;
-                v116 = v139;
-                v143 = (*v7 + 4 * (3 * v112));
+                v116 = v138;
+                v142 = &(*v7)[3 * v112];
                 v117 = 1;
                 goto LABEL_132;
               }
@@ -3863,11 +5628,11 @@ LABEL_79:
               {
                 if (v113[2] == v100)
                 {
-                  v143 = v113 + 2;
+                  v142 = v113 + 2;
                   v117 = 0;
                   v114 = 2;
                   v115 = 1;
-                  v116 = v139;
+                  v116 = v138;
                   goto LABEL_132;
                 }
 
@@ -3876,64 +5641,64 @@ LABEL_79:
 
               v115 = v114 - 1;
               v117 = v114 + 1;
-              v143 = &v113[v114];
-              v116 = *v143;
+              v142 = &v113[v114];
+              v116 = *v142;
 LABEL_132:
               v118 = v113[v115];
               v119 = v113[v117];
-              v169 = v116 | (v119 << 32);
-              v148 = &v181;
-              v149[0] = 0;
-              v149[1] = v120;
-              if (v120 >> 4 < v182 >> 4)
+              v168 = v116 | (v119 << 32);
+              v147 = &v180;
+              v148[0] = 0;
+              v148[1] = v120;
+              if (v120 >> 4 < v181 >> 4)
               {
-                v149[0] = ~*&vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*(v181 + 16 * (v120 >> 4))), xmmword_2500C4D40)))), 0x3830282018100800);
+                v148[0] = ~*&vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*(v180 + 16 * (v120 >> 4))), xmmword_2500C4D40)))), 0x3830282018100800);
               }
 
-              v169 = v118 | (v116 << 32);
-              v148 = &v181;
-              v149[0] = 0;
-              v149[1] = v121;
-              if (v121 >> 4 < v182 >> 4)
+              v168 = v118 | (v116 << 32);
+              v147 = &v180;
+              v148[0] = 0;
+              v148[1] = v121;
+              if (v121 >> 4 < v181 >> 4)
               {
-                v149[0] = ~*&vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*(v181 + 16 * (v121 >> 4))), xmmword_2500C4D40)))), 0x3830282018100800);
+                v148[0] = ~*&vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*(v180 + 16 * (v121 >> 4))), xmmword_2500C4D40)))), 0x3830282018100800);
               }
 
-              v168[1] = v119;
-              v168[0] = v147;
-              LODWORD(v169) = v112 & 0x3FFFFFFF | (v114 << 30);
-              *v168 = (v147 << 32) | v118;
-              LODWORD(v169) = v112 & 0x3FFFFFFF | (v115 << 30);
-              v7 = v146;
-              v98 = v142;
-              *v143 = v147;
-              v122 = v162.__begin_[3 * v112 + v114];
+              v167[1] = v119;
+              v167[0] = v146;
+              LODWORD(v168) = v112 & 0x3FFFFFFF | (v114 << 30);
+              *v167 = (v146 << 32) | v118;
+              LODWORD(v168) = v112 & 0x3FFFFFFF | (v115 << 30);
+              v7 = v145;
+              v98 = v141;
+              *v142 = v146;
+              v122 = v161.__begin_[3 * v112 + v114];
               if (v122 >> 30 == 3)
               {
                 goto LABEL_139;
               }
 
-              if (v163.__begin_[v147] == -1)
+              if (v162.__begin_[v146] == -1)
               {
                 v122 = v112 & 0x3FFFFFFF | (v114 << 30);
 LABEL_139:
-                v163.__begin_[v147] = v122;
+                v162.__begin_[v146] = v122;
               }
 
               v111 += 4;
-              v100 = v141;
-              if (v140 == v111)
+              v100 = v140;
+              if (v139 == v111)
               {
-                v147 = (v147 + 1);
-                v67 = v138;
-                v99 = v136;
+                v146 = (v146 + 1);
+                v67 = v137;
+                v99 = v135;
                 goto LABEL_143;
               }
             }
           }
 
-          v147 = (v147 + 1);
-          v7 = v146;
+          v146 = (v146 + 1);
+          v7 = v145;
         }
 
 LABEL_143:
@@ -3946,116 +5711,122 @@ LABEL_143:
 
     if (__p)
     {
-      v171 = __p;
+      v170 = __p;
       operator delete(__p);
     }
 
-    if (v173)
+    if (v172)
     {
-      v174 = v173;
-      operator delete(v173);
+      v173 = v172;
+      operator delete(v172);
     }
 
-    if (v176[0])
+    if (v175[0])
     {
-      operator delete(v176[0]);
+      operator delete(v175[0]);
     }
 
-    if (v177)
+    if (v176)
     {
-      v178 = v177;
-      operator delete(v177);
+      v177 = v176;
+      operator delete(v176);
     }
   }
 
 LABEL_152:
-  if (v180[0])
+  if (v179[0])
   {
-    operator delete(v180[0]);
+    operator delete(v179[0]);
   }
 
-  if (v165)
+  if (v164)
   {
-    v166 = v165;
-    operator delete(v165);
+    v165 = v164;
+    operator delete(v164);
   }
 
   v123 = *v7;
   v124 = *(v7 + 1);
-  memset(v158, 0, 25);
-  v150 = v124;
+  memset(v157, 0, 25);
+  v149 = v124;
   v125 = ((v124 - v123) >> 2) / 3uLL;
   v7[1] = 0;
   v7[2] = 0;
   *v7 = 0;
-  value = v163.__end_cap_.__value_;
-  v127 = *&v163.__begin_;
-  memset(&v163, 0, sizeof(v163));
-  v128 = v162.__end_cap_.__value_;
-  v129 = *&v162.__begin_;
+  value = v162.__end_cap_.__value_;
+  v127 = *&v162.__begin_;
   memset(&v162, 0, sizeof(v162));
-  v130 = v161.__end_cap_.__value_;
-  v131 = *&v161.__begin_;
+  v128 = v161.__end_cap_.__value_;
+  v129 = *&v161.__begin_;
   memset(&v161, 0, sizeof(v161));
-  v160 = 0;
-  v156[1] = 0;
-  v149[0] = 0;
-  v157 = 0u;
-  *v151 = v127;
-  v152 = value;
-  *v153 = v129;
-  v154 = v128;
-  *v155 = v131;
-  v156[0] = v130;
-  v148 = __PAIR64__(v125, v67);
-  v149[1] = v123;
-  if (v67 != v134)
+  v130 = v160.__end_cap_.__value_;
+  v131 = *&v160.__begin_;
+  memset(&v160, 0, sizeof(v160));
+  v159 = 0;
+  v155[1] = 0;
+  v148[0] = 0;
+  v156 = 0u;
+  *v150 = v127;
+  v151 = value;
+  *v152 = v129;
+  v153 = v128;
+  *v154 = v131;
+  v155[0] = v130;
+  v147 = __PAIR64__(v125, v67);
+  v148[1] = v123;
+  if (v67 != v133)
   {
-    std::optional<std::vector<unsigned int>>::operator=[abi:nn200100]<std::vector<unsigned int>,void>(&v158[24], &v164);
+    std::optional<std::vector<unsigned int>>::operator=[abi:nn200100]<std::vector<unsigned int>,void>(&v157[24], &v163);
   }
 
-  std::pair<geom::triangle_mesh_half_edge_connectivity,std::optional<std::vector<unsigned int>>>::pair[abi:nn200100](a3, &v148);
+  std::pair<geom::triangle_mesh_half_edge_connectivity,std::optional<std::vector<unsigned int>>>::pair[abi:nn200100](a1, &v147);
   *(v132 + 192) = 1;
-  if (v160 == 1 && *&v158[24])
+  if (v159 == 1 && *&v157[24])
   {
-    v159 = *&v158[24];
-    operator delete(*&v158[24]);
+    v158 = *&v157[24];
+    operator delete(*&v157[24]);
   }
 
-  if (*v158)
+  if (*v157)
   {
-    *&v158[8] = *v158;
-    operator delete(*v158);
+    *&v157[8] = *v157;
+    operator delete(*v157);
   }
 
-  if (v156[1])
+  if (v155[1])
   {
-    *&v157 = v156[1];
-    operator delete(v156[1]);
+    *&v156 = v155[1];
+    operator delete(v155[1]);
   }
 
-  if (v155[0])
+  if (v154[0])
   {
-    v155[1] = v155[0];
-    operator delete(v155[0]);
+    v154[1] = v154[0];
+    operator delete(v154[0]);
   }
 
-  if (v153[0])
+  if (v152[0])
   {
-    v153[1] = v153[0];
-    operator delete(v153[0]);
+    v152[1] = v152[0];
+    operator delete(v152[0]);
   }
 
-  if (v151[0])
+  if (v150[0])
   {
-    v151[1] = v151[0];
-    operator delete(v151[0]);
+    v150[1] = v150[0];
+    operator delete(v150[0]);
   }
 
-  if (v149[1])
+  if (v148[1])
   {
-    *&v150 = v149[1];
-    operator delete(v149[1]);
+    *&v149 = v148[1];
+    operator delete(v148[1]);
+  }
+
+  if (v160.__begin_)
+  {
+    v160.__end_ = v160.__begin_;
+    operator delete(v160.__begin_);
   }
 
   if (v161.__begin_)
@@ -4070,21 +5841,12 @@ LABEL_152:
     operator delete(v162.__begin_);
   }
 
+  _ZN4geom10hash_brownIZNS_23marching_squares_2_implIfRKNSt3__18functionIFfDv2_fEEEEEvOT0_tNS_4bboxIT_Lh2EEERNS2_6vectorINS_11vector_typeISC_Lh2EvE5valueENS2_9allocatorISH_EEEERNSE_IjNSI_IjEEEEE14edge_map_queryNS_12_GLOBAL__N_19cell_edgeEZNS1_IfS8_EEvSA_tSD_SL_SO_ENSP_4hashENS2_8equal_toISP_EEED1Ev(&v180);
   if (v163.__begin_)
   {
     v163.__end_ = v163.__begin_;
     operator delete(v163.__begin_);
   }
-
-  _ZN4geom10hash_brownIZNS_23marching_squares_2_implIfRKNSt3__18functionIFfDv2_fEEEEEvOT0_tNS_4bboxIT_Lh2EEERNS2_6vectorINS_11vector_typeISC_Lh2EvE5valueENS2_9allocatorISH_EEEERNSE_IjNSI_IjEEEEE14edge_map_queryNS_12_GLOBAL__N_19cell_edgeEZNS1_IfS8_EEvSA_tSD_SL_SO_ENSP_4hashENS2_8equal_toISP_EEED1Ev(&v181);
-  if (v164.__begin_)
-  {
-    v164.__end_ = v164.__begin_;
-    operator delete(v164.__begin_);
-  }
-
-LABEL_181:
-  v133 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t geom::triangle_mesh_half_edge_connectivity::make_interior_half_edge(geom::triangle_mesh_half_edge_connectivity *this, uint64_t a2)
@@ -4253,11 +6015,11 @@ uint64_t geom::triangle_mesh_half_edge_connectivity::find_half_edge(geom::triang
 
 uint64_t geom::triangle_mesh_half_edge_connectivity::find_edge(geom::triangle_mesh_half_edge_connectivity *this, unsigned int a2, int a3)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v3 = *(*(this + 5) + 4 * a2);
   if (v3 == -1)
   {
-    goto LABEL_23;
+    return 0xFFFFFFFFLL;
   }
 
   if (v3 >> 30 == 3)
@@ -4271,7 +6033,7 @@ uint64_t geom::triangle_mesh_half_edge_connectivity::find_edge(geom::triangle_me
       v10 = i >> 30 == 2 ? 0 : v9 + 1;
       if (*(*(this + 2) + 4 * (v10 + v8)) == a3)
       {
-        goto LABEL_24;
+        return i;
       }
 
       if (v9)
@@ -4285,17 +6047,15 @@ uint64_t geom::triangle_mesh_half_edge_connectivity::find_edge(geom::triangle_me
       }
     }
 
-    v18[0] = -1;
+    v17[0] = -1;
     i = *(v6 + 4 * (i & 0x3FFFFFFF));
-    geom::triangle_mesh_half_edge_connectivity::get_half_edge_vertices(this, i, v18);
-    if (LODWORD(v18[0]) == a3)
+    geom::triangle_mesh_half_edge_connectivity::get_half_edge_vertices(this, i, v17);
+    if (LODWORD(v17[0]) == a3)
     {
-      goto LABEL_24;
+      return i;
     }
 
-LABEL_23:
-    i = 0xFFFFFFFFLL;
-    goto LABEL_24;
+    return 0xFFFFFFFFLL;
   }
 
   i = *(*(this + 5) + 4 * a2);
@@ -4322,12 +6082,10 @@ LABEL_23:
     i = *(*(this + 8) + 4 * (v15 + v12));
     if (i == v3)
     {
-      goto LABEL_23;
+      return 0xFFFFFFFFLL;
     }
   }
 
-LABEL_24:
-  v16 = *MEMORY[0x277D85DE8];
   return i;
 }
 
@@ -4568,7 +6326,7 @@ void geom::triangle_mesh_half_edge_connectivity::get_incident_incoming_half_edge
 
 void geom::triangle_mesh_half_edge_connectivity::get_adjacent_vertices_to_vertex(geom::triangle_mesh_half_edge_connectivity *this, unsigned int a2, uint64_t a3)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   *(a3 + 8) = *a3;
   v3 = *(this + 5);
   if (a2 < ((*(this + 6) - v3) >> 2))
@@ -4586,10 +6344,10 @@ void geom::triangle_mesh_half_edge_connectivity::get_adjacent_vertices_to_vertex
       v8 = (a2 << 32) | 1;
       do
       {
-        v13[0] = -1;
-        geom::triangle_mesh_half_edge_connectivity::get_half_edge_vertices(this, v7, v13);
-        LODWORD(v13[0]) = *(v13 | (4 * (LODWORD(v13[0]) == HIDWORD(v8))));
-        std::vector<unsigned int>::push_back[abi:nn200100](a3, v13);
+        v12[0] = -1;
+        geom::triangle_mesh_half_edge_connectivity::get_half_edge_vertices(this, v7, v12);
+        LODWORD(v12[0]) = *(v12 | (4 * (LODWORD(v12[0]) == HIDWORD(v8))));
+        std::vector<unsigned int>::push_back[abi:nn200100](a3, v12);
         v9 = v7 >> 30;
         if (v7 >> 30 == 3)
         {
@@ -4623,232 +6381,217 @@ void geom::triangle_mesh_half_edge_connectivity::get_adjacent_vertices_to_vertex
       while ((v8 & 1) != 0);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 BOOL geom::triangle_mesh_half_edge_connectivity::is_boundary_face(geom::triangle_mesh_half_edge_connectivity *this, int a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = (3 * a2);
   v3 = *(this + 2);
   if (v2 >= (*(this + 3) - v3) >> 2 || *(v3 + 4 * v2) == -1)
   {
-    result = 0;
+    return 0;
   }
 
-  else
-  {
-    *v7 = -1;
-    v8 = -1;
-    geom::triangle_mesh_half_edge_connectivity::get_face_half_edges(this, a2, v7);
-    result = geom::triangle_mesh_half_edge_connectivity::is_boundary_half_edge(this, v7[0]) || geom::triangle_mesh_half_edge_connectivity::is_boundary_half_edge(this, v7[1]) || geom::triangle_mesh_half_edge_connectivity::is_boundary_half_edge(this, v8);
-  }
-
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  *v6 = -1;
+  v7 = -1;
+  geom::triangle_mesh_half_edge_connectivity::get_face_half_edges(this, a2, v6);
+  return geom::triangle_mesh_half_edge_connectivity::is_boundary_half_edge(this, v6[0]) || geom::triangle_mesh_half_edge_connectivity::is_boundary_half_edge(this, v6[1]) || geom::triangle_mesh_half_edge_connectivity::is_boundary_half_edge(this, v7);
 }
 
 uint64_t geom::triangle_mesh_half_edge_connectivity::is_edge_collapse_manifold(geom::triangle_mesh_half_edge_connectivity *a1, unsigned int a2, std::vector<unsigned int> *a3, std::vector<unsigned int> *a4)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   if (!geom::triangle_mesh_half_edge_connectivity::is_valid_half_edge(a1, a2))
   {
-    goto LABEL_47;
+    return 0;
   }
 
-  *v46 = -1;
-  geom::triangle_mesh_half_edge_connectivity::get_half_edge_vertices(a1, a2, v46);
-  v8 = v46[0];
+  *v41 = -1;
+  geom::triangle_mesh_half_edge_connectivity::get_half_edge_vertices(a1, a2, v41);
+  v8 = v41[0];
   v9 = *(a1 + 5);
   v10 = (*(a1 + 6) - v9) >> 2;
-  v11 = v10 <= v46[0] || (*(v9 + 4 * v46[0]) + 1) < 0xC0000001;
-  v12 = v46[1];
-  if (v10 <= v46[1] || ((*(v9 + 4 * v46[1]) + 1) < 0xC0000001 ? (v13 = 1) : (v13 = v11), (v13 & 1) != 0 || geom::triangle_mesh_half_edge_connectivity::is_boundary_half_edge(a1, a2)))
+  v11 = v10 <= v41[0] || (*(v9 + 4 * v41[0]) + 1) < 0xC0000001;
+  v12 = v41[1];
+  if (v10 > v41[1])
   {
-    std::vector<float>::reserve(a3, 6uLL);
-    std::vector<float>::reserve(a4, 6uLL);
-    geom::triangle_mesh_half_edge_connectivity::get_adjacent_vertices_to_vertex(a1, v8, a3);
-    geom::triangle_mesh_half_edge_connectivity::get_adjacent_vertices_to_vertex(a1, v12, a4);
-    begin = a3->__begin_;
-    end = a3->__end_;
-    std::__sort<std::__less<unsigned int,unsigned int> &,unsigned int *>();
-    v16 = a4->__begin_;
-    v17 = a4->__end_;
-    std::__sort<std::__less<unsigned int,unsigned int> &,unsigned int *>();
-    v18 = a3->__begin_;
-    v20 = a4->__begin_;
-    v19 = a4->__end_;
-    v21 = a3->__end_ - a3->__begin_;
-    v22 = v21 >> 2;
-    v23 = v19 - a4->__begin_;
-    v24 = v23 + (v21 >> 2);
-    if (v21 && v19 != v20)
+    v13 = (*(v9 + 4 * v41[1]) + 1) < 0xC0000001 || v11;
+    if ((v13 & 1) == 0 && !geom::triangle_mesh_half_edge_connectivity::is_boundary_half_edge(a1, a2))
     {
-      v45 = v8;
-      v25 = 0;
-      v26 = 0;
-      do
+      return 0;
+    }
+  }
+
+  std::vector<float>::reserve(a3, 6uLL);
+  std::vector<float>::reserve(a4, 6uLL);
+  geom::triangle_mesh_half_edge_connectivity::get_adjacent_vertices_to_vertex(a1, v8, a3);
+  geom::triangle_mesh_half_edge_connectivity::get_adjacent_vertices_to_vertex(a1, v12, a4);
+  std::__sort<std::__less<unsigned int,unsigned int> &,unsigned int *>();
+  std::__sort<std::__less<unsigned int,unsigned int> &,unsigned int *>();
+  begin = a3->__begin_;
+  v16 = a4->__begin_;
+  end = a4->__end_;
+  v17 = a3->__end_ - a3->__begin_;
+  v18 = v17 >> 2;
+  v19 = end - a4->__begin_;
+  v20 = v19 + (v17 >> 2);
+  if (v17 && end != v16)
+  {
+    v40 = v8;
+    v21 = 0;
+    v22 = 0;
+    do
+    {
+      while (1)
+      {
+        v23 = v16[v22];
+        if (v23 >= begin[v21])
+        {
+          break;
+        }
+
+        if (++v22 >= v19)
+        {
+          return v20;
+        }
+      }
+
+      if (v21 < v18)
       {
         while (1)
         {
-          v27 = v20[v26];
-          if (v27 >= v18[v25])
+          v24 = begin[v21];
+          if (v24 >= v23)
           {
             break;
           }
 
-          if (++v26 >= v23)
+          if (v18 == ++v21)
           {
-            goto LABEL_48;
+            return v20;
           }
         }
 
-        if (v25 < v22)
+        if (v24 == v23)
         {
-          while (1)
+          edge = geom::triangle_mesh_half_edge_connectivity::find_edge(a1, v40, v16[v22]);
+          v37 = geom::triangle_mesh_half_edge_connectivity::find_edge(a1, v12, v23);
+          v25 = edge;
+          if (geom::triangle_mesh_half_edge_connectivity::is_valid_half_edge(a1, edge))
           {
-            v28 = v18[v25];
-            if (v28 >= v27)
+            if (edge >> 30 == 3)
             {
-              break;
+              v25 = *(*(a1 + 11) + 4 * (edge & 0x3FFFFFFF));
             }
 
-            if (v22 == ++v25)
+            v39 = v25 & 0x3FFFFFFF;
+            v26 = *(*(a1 + 8) + 4 * (3 * (v25 & 0x3FFFFFFF) + (v25 >> 30)));
+            v27 = v26 >> 30 == 3;
+            v28 = v26 >> 30 != 3;
+            v29 = v26 & 0x3FFFFFFF;
+            if (v27)
             {
-              goto LABEL_48;
+              v29 = -1;
+            }
+
+            v35 = v29;
+            v36 = v28;
+          }
+
+          else
+          {
+            v35 = -1;
+            v36 = 0;
+            v39 = -1;
+          }
+
+          v30 = v37;
+          if (geom::triangle_mesh_half_edge_connectivity::is_valid_half_edge(a1, v37))
+          {
+            if (v37 >> 30 == 3)
+            {
+              v30 = *(*(a1 + 11) + 4 * (v37 & 0x3FFFFFFF));
+            }
+
+            v31 = v30 & 0x3FFFFFFF;
+            v32 = *(*(a1 + 8) + 4 * (3 * (v30 & 0x3FFFFFFF) + (v30 >> 30)));
+            if (v32 >> 30 == 3)
+            {
+              v33 = -1;
+            }
+
+            else
+            {
+              v33 = v32 & 0x3FFFFFFF;
             }
           }
 
-          if (v28 == v27)
+          else
           {
-            edge = geom::triangle_mesh_half_edge_connectivity::find_edge(a1, v45, v20[v26]);
-            v42 = geom::triangle_mesh_half_edge_connectivity::find_edge(a1, v12, v27);
-            v29 = edge;
-            if (geom::triangle_mesh_half_edge_connectivity::is_valid_half_edge(a1, edge))
+            v33 = -1;
+            v31 = -1;
+          }
+
+          if (v39 == v33 || v39 == v31)
+          {
+            ++v21;
+            ++v22;
+            v20 = (v20 - 1);
+          }
+
+          else
+          {
+            if (!v36)
             {
-              if (edge >> 30 == 3)
-              {
-                v29 = *(*(a1 + 11) + 4 * (edge & 0x3FFFFFFF));
-              }
-
-              v44 = v29 & 0x3FFFFFFF;
-              v30 = *(*(a1 + 8) + 4 * (3 * (v29 & 0x3FFFFFFF) + (v29 >> 30)));
-              v31 = v30 >> 30 == 3;
-              v32 = v30 >> 30 != 3;
-              v33 = v30 & 0x3FFFFFFF;
-              if (v31)
-              {
-                v33 = -1;
-              }
-
-              v40 = v33;
-              v41 = v32;
+              return 0;
             }
 
-            else
+            ++v21;
+            ++v22;
+            v20 = (v20 - 1);
+            if (v35 != v33 && v35 != v31)
             {
-              v40 = -1;
-              v41 = 0;
-              v44 = -1;
-            }
-
-            v34 = v42;
-            if (geom::triangle_mesh_half_edge_connectivity::is_valid_half_edge(a1, v42))
-            {
-              if (v42 >> 30 == 3)
-              {
-                v34 = *(*(a1 + 11) + 4 * (v42 & 0x3FFFFFFF));
-              }
-
-              v35 = v34 & 0x3FFFFFFF;
-              v36 = *(*(a1 + 8) + 4 * (3 * (v34 & 0x3FFFFFFF) + (v34 >> 30)));
-              if (v36 >> 30 == 3)
-              {
-                v37 = -1;
-              }
-
-              else
-              {
-                v37 = v36 & 0x3FFFFFFF;
-              }
-            }
-
-            else
-            {
-              v37 = -1;
-              v35 = -1;
-            }
-
-            if (v44 == v37 || v44 == v35)
-            {
-              ++v25;
-              ++v26;
-              v24 = (v24 - 1);
-            }
-
-            else
-            {
-              if (!v41)
-              {
-                goto LABEL_47;
-              }
-
-              ++v25;
-              ++v26;
-              v24 = (v24 - 1);
-              if (v40 != v37 && v40 != v35)
-              {
-                goto LABEL_47;
-              }
+              return 0;
             }
           }
         }
       }
-
-      while (v25 < v22 && v26 < v23);
     }
+
+    while (v21 < v18 && v22 < v19);
   }
 
-  else
-  {
-LABEL_47:
-    v24 = 0;
-  }
-
-LABEL_48:
-  v38 = *MEMORY[0x277D85DE8];
-  return v24;
+  return v20;
 }
 
 uint64_t geom::triangle_mesh_half_edge_connectivity::is_edge_collapse_safe_and_genus_preserving(geom::triangle_mesh_half_edge_connectivity *a1, unsigned int a2, std::vector<unsigned int> *a3, std::vector<unsigned int> *a4)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   result = geom::triangle_mesh_half_edge_connectivity::is_edge_collapse_manifold(a1, a2, a3, a4);
   if (result)
   {
     v7 = result;
-    v16[0] = -1;
-    geom::triangle_mesh_half_edge_connectivity::get_half_edge_vertices(a1, a2, v16);
+    v15[0] = -1;
+    geom::triangle_mesh_half_edge_connectivity::get_half_edge_vertices(a1, a2, v15);
     v8 = *(a1 + 5);
     v9 = (*(a1 + 6) - v8) >> 2;
-    v10 = v9 > LODWORD(v16[0]) && (*(v8 + 4 * LODWORD(v16[0])) + 0x40000000) < 0x3FFFFFFF;
-    v11 = v9 > HIDWORD(v16[0]) && (*(v8 + 4 * HIDWORD(v16[0])) + 0x40000000) < 0x3FFFFFFF;
+    v10 = v9 > LODWORD(v15[0]) && (*(v8 + 4 * LODWORD(v15[0])) + 0x40000000) < 0x3FFFFFFF;
+    v11 = v9 > HIDWORD(v15[0]) && (*(v8 + 4 * HIDWORD(v15[0])) + 0x40000000) < 0x3FFFFFFF;
     v12 = v10 || v11;
     v13 = v12 || v7 < 5;
     v14 = v7 > 3 && v12;
     if (v13)
     {
-      result = v14;
+      return v14;
     }
 
     else
     {
-      result = 1;
+      return 1;
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5273,27 +7016,14 @@ uint64_t geom::triangle_mesh_half_edge_connectivity::debug_print(geom::triangle_
         printf("invalid ");
       }
 
+      else if (v9 >> 30 == 3)
+      {
+        printf("border %d -> face-vertex (%d, %d) or edge (%d %d)");
+      }
+
       else
       {
-        v10 = v9 & 0x3FFFFFFF;
-        if (v9 >> 30 == 3)
-        {
-          v11 = *(*(this + 11) + 4 * v10);
-          v12 = 3 * (v11 & 0x3FFFFFFF) + (v11 >> 30);
-          v13 = *(this + 2);
-          v38 = *(v13 + 4 * v12);
-          v43 = *(v13 + 4 * (v12 + ((v11 >> 31) ^ 1)));
-          printf("border %d -> face-vertex (%d, %d) or edge (%d %d)");
-        }
-
-        else
-        {
-          v14 = 3 * v10 + (v9 >> 30);
-          v15 = *(this + 2);
-          v35 = *(v15 + 4 * v14);
-          v39 = *(v15 + 4 * (v14 + ((v9 >> 31) ^ 1)));
-          printf("interior -> face-vertex (%d, %d) or edge (%d, %d)");
-        }
+        printf("interior -> face-vertex (%d, %d) or edge (%d, %d)");
       }
 
       putchar(10);
@@ -5304,98 +7034,83 @@ uint64_t geom::triangle_mesh_half_edge_connectivity::debug_print(geom::triangle_
   }
 
   printf(" === e2e (%d, %d) === \n", (3 * *(this + 1) - *(this + 2) + ((*(this + 12) - *(this + 11)) >> 2)) >> 1, (*(this + 9) - *(this + 8)) >> 2);
-  v16 = ((*(this + 9) - *(this + 8)) >> 2) / 3uLL;
-  if (v16)
+  v10 = ((*(this + 9) - *(this + 8)) >> 2) / 3uLL;
+  if (v10)
   {
-    v17 = 0;
-    v18 = 0;
+    v11 = 0;
+    v12 = 0;
     do
     {
-      printf("    %d ", v17);
-      if (*(*(this + 8) + 4 * v18) == -1)
+      printf("    %d ", v11);
+      if (*(*(this + 8) + 4 * v12) == -1)
       {
         puts(" invalid");
       }
 
       else
       {
-        printf("      (%d %d %d)\n", *(*(this + 2) + 4 * v18), *(*(this + 2) + 4 * (v18 + 1)), *(*(this + 2) + 4 * (v18 + 2)));
-        v19 = 3;
-        v20 = v18;
+        printf("      (%d %d %d)\n", *(*(this + 2) + 4 * v12), *(*(this + 2) + 4 * (v12 + 1)), *(*(this + 2) + 4 * (v12 + 2)));
+        v13 = 3;
+        v14 = v12;
         do
         {
-          v21 = *(*(this + 8) + 4 * v20);
-          v22 = v21 & 0x3FFFFFFF;
-          if (v21 >> 30 == 3)
+          v15 = *(*(this + 8) + 4 * v14);
+          if (v15 >> 30 == 3)
           {
-            v23 = *(*(this + 11) + 4 * v22);
-            if (v23 >> 30 == 3)
+            if (*(*(this + 11) + 4 * (v15 & 0x3FFFFFFF)) >> 30 == 3)
             {
               printf("      ERROR:  border %d -> border %d \n");
             }
 
             else
             {
-              v26 = 3 * (v23 & 0x3FFFFFFF) + (v23 >> 30);
-              v27 = *(this + 2);
-              v41 = *(v27 + 4 * v26);
-              v44 = *(v27 + 4 * (v26 + ((v23 >> 31) ^ 1)));
               printf("      border %d -> face-vertex (%d, %d) or edge (%d, %d) \n");
             }
           }
 
           else
           {
-            v24 = 3 * v22 + (v21 >> 30);
-            v25 = *(this + 2);
-            v36 = *(v25 + 4 * v24);
-            v40 = *(v25 + 4 * (v24 + ((v21 >> 31) ^ 1)));
             printf("      twin face - vertex (%d, %d) with verts (%d, %d)\n");
           }
 
-          ++v20;
-          --v19;
+          ++v14;
+          --v13;
         }
 
-        while (v19);
+        while (v13);
       }
 
-      ++v17;
-      v18 += 3;
+      ++v11;
+      v12 += 3;
     }
 
-    while (v17 != v16);
+    while (v11 != v10);
   }
 
   result = puts(" === b2e === ");
-  v29 = *(this + 12) - *(this + 11);
-  if ((v29 & 0x3FFFFFFFCLL) != 0)
+  v17 = *(this + 12) - *(this + 11);
+  if ((v17 & 0x3FFFFFFFCLL) != 0)
   {
-    v30 = 0;
-    v31 = (v29 >> 2);
+    v18 = 0;
+    v19 = (v17 >> 2);
     do
     {
-      printf("    %d ", v30);
-      v32 = *(*(this + 11) + 4 * v30);
-      if (v32 == -1)
+      printf("    %d ", v18);
+      if (*(*(this + 11) + 4 * v18) == -1)
       {
         printf("invalid");
       }
 
       else
       {
-        v33 = 3 * (v32 & 0x3FFFFFFF) + (v32 >> 30);
-        v34 = *(this + 2);
-        v37 = *(v34 + 4 * v33);
-        v42 = *(v34 + 4 * (v33 + ((v32 >> 31) ^ 1)));
         printf(" -> face-vertex (%d, %d) or edge (%d %d)");
       }
 
       result = putchar(10);
-      ++v30;
+      ++v18;
     }
 
-    while (v31 != v30);
+    while (v19 != v18);
   }
 
   return result;
@@ -5737,27 +7452,26 @@ unint64_t geom::triangle_mesh_half_edge_connectivity::get_face_and_face_vertex_f
   }
 }
 
-BOOL geom::triangle_mesh_half_edge_connectivity::get_boundary_loop_for_boundary_vertex(_BOOL8 result, unsigned int a2, uint64_t a3)
+uint64_t geom::triangle_mesh_half_edge_connectivity::get_boundary_loop_for_boundary_vertex(uint64_t result, unsigned int a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   *(a3 + 8) = *a3;
   v3 = *(result + 40);
   if (a2 < ((*(result + 48) - v3) >> 2) && (*(v3 + 4 * a2) + 0x40000000) <= 0x3FFFFFFE)
   {
     v6 = result;
-    v9 = a2;
+    v8 = a2;
     do
     {
-      std::vector<unsigned int>::push_back[abi:nn200100](a3, &v9);
-      v7 = v9;
-      result = geom::triangle_mesh_half_edge_connectivity::get_half_edge_vertices(v6, *(*(v6 + 5) + 4 * v9), v10);
-      v9 = v10[v7 == v10[0]];
+      std::vector<unsigned int>::push_back[abi:nn200100](a3, &v8);
+      v7 = v8;
+      result = geom::triangle_mesh_half_edge_connectivity::get_half_edge_vertices(v6, *(*(v6 + 5) + 4 * v8), v9);
+      v8 = v9[v7 == v9[0]];
     }
 
-    while (v9 != a2);
+    while (v8 != a2);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5767,7 +7481,7 @@ void geom::triangle_mesh_half_edge_connectivity::get_boundary_loops(uint64_t a1,
   *(a3 + 8) = *a3;
   v6 = ((*(a1 + 48) - *(a1 + 40)) >> 2);
   LOBYTE(__p) = 0;
-  std::vector<BOOL>::vector(&v21, v6);
+  std::vector<BOOL>::vector(&v21, v6, &__p);
   v20 = 0;
   v8 = *(a1 + 40);
   v7 = *(a1 + 48);
@@ -5866,53 +7580,53 @@ LABEL_3:
 
 void geom::triangle_mesh_half_edge_connectivity::get_connected_component_for_face_helper(geom::triangle_mesh_half_edge_connectivity *a1, unsigned int a2, void *a3, uint64_t a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0;
   v16 = 0;
   v17 = 0;
-  v18 = 0;
   *(a4 + 8) = *a4;
-  v20[0] = a2;
-  std::vector<unsigned int>::push_back[abi:nn200100](&v16, v20);
-  *(*a3 + ((v20[0] >> 3) & 0x1FFFFFF8)) |= 1 << SLOBYTE(v20[0]);
-  v7 = v16;
-  for (i = v17; v16 != v17; i = v17)
+  v19[0] = a2;
+  std::vector<unsigned int>::push_back[abi:nn200100](&v15, v19);
+  *(*a3 + ((v19[0] >> 3) & 0x1FFFFFF8)) |= 1 << SLOBYTE(v19[0]);
+  v7 = v15;
+  for (i = v16; v15 != v16; i = v16)
   {
     v9 = *(i - 1);
-    v17 = (i - 1);
-    v15 = v9;
-    std::vector<unsigned int>::push_back[abi:nn200100](a4, &v15);
-    geom::triangle_mesh_half_edge_connectivity::get_face_half_edges(a1, v15, v20);
+    v16 = (i - 1);
+    v14 = v9;
+    std::vector<unsigned int>::push_back[abi:nn200100](a4, &v14);
+    geom::triangle_mesh_half_edge_connectivity::get_face_half_edges(a1, v14, v19);
     for (j = 0; j != 3; ++j)
     {
-      v11 = v20[j];
+      v11 = v19[j];
       if (!geom::triangle_mesh_half_edge_connectivity::is_boundary_half_edge(a1, v11))
       {
         half_edge_twin = geom::triangle_mesh_half_edge_connectivity::get_half_edge_twin(a1, v11);
         v13 = ((half_edge_twin >> 30 != 3) & geom::triangle_mesh_half_edge_connectivity::is_valid_half_edge(a1, half_edge_twin)) != 0 ? half_edge_twin & 0x3FFFFFFF : 0xFFFFFFFFLL;
         if (((*(*a3 + ((v13 >> 3) & 0x1FFFFFF8)) >> v13) & 1) == 0)
         {
-          v19 = v13;
-          std::vector<unsigned int>::push_back[abi:nn200100](&v16, &v19);
-          *(*a3 + ((v19 >> 3) & 0x1FFFFFF8)) |= 1 << v19;
+          v18 = v13;
+          std::vector<unsigned int>::push_back[abi:nn200100](&v15, &v18);
+          *(*a3 + ((v18 >> 3) & 0x1FFFFFF8)) |= 1 << v18;
         }
       }
     }
 
-    v7 = v16;
+    v7 = v15;
   }
 
   if (v7)
   {
-    v17 = v7;
+    v16 = v7;
     operator delete(v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void geom::triangle_mesh_half_edge_connectivity::get_connected_component_for_face(geom::triangle_mesh_half_edge_connectivity *a1, unsigned int a2, uint64_t a3)
 {
-  std::vector<BOOL>::vector(__p, (((*(a1 + 3) - *(a1 + 2)) >> 2) / 3uLL));
+  v6 = (((*(a1 + 3) - *(a1 + 2)) >> 2) / 3uLL);
+  v7 = 0;
+  std::vector<BOOL>::vector(__p, v6, &v7);
   geom::triangle_mesh_half_edge_connectivity::get_connected_component_for_face_helper(a1, a2, __p, a3);
   if (__p[0])
   {
@@ -5924,47 +7638,49 @@ void geom::triangle_mesh_half_edge_connectivity::get_connected_components(geom::
 {
   *(a2 + 8) = *a2;
   *(a3 + 8) = *a3;
-  std::vector<BOOL>::vector(v16, (((*(a1 + 3) - *(a1 + 2)) >> 2) / 3uLL));
+  v6 = (((*(a1 + 3) - *(a1 + 2)) >> 2) / 3uLL);
+  LOBYTE(__p) = 0;
+  std::vector<BOOL>::vector(v17, v6, &__p);
   __p = 0;
-  v14 = 0;
   v15 = 0;
-  v12 = 0;
-  v7 = *(a1 + 2);
-  v6 = *(a1 + 3);
-  v8 = (v6 - v7) >> 2;
-  if ((v8 / 3))
+  v16 = 0;
+  v13 = 0;
+  v8 = *(a1 + 2);
+  v7 = *(a1 + 3);
+  v9 = (v7 - v8) >> 2;
+  if ((v9 / 3))
   {
-    v9 = 0;
     v10 = 0;
+    v11 = 0;
     do
     {
-      if (v8 > v9 && *(v7 + 4 * v9) != -1 && ((*(v16[0] + ((v10 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v10) & 1) == 0)
+      if (v9 > v10 && *(v8 + 4 * v10) != -1 && ((*(v17[0] + ((v11 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v11) & 1) == 0)
       {
-        geom::triangle_mesh_half_edge_connectivity::get_connected_component_for_face_helper(a1, v10, v16, &__p);
-        v11 = (v14 - __p) >> 2;
-        v12 += v11;
-        std::vector<unsigned int>::__insert_with_size[abi:nn200100]<std::__wrap_iter<unsigned int *>,std::__wrap_iter<unsigned int *>>(a3, *(a3 + 8), __p, v14, v11);
-        std::vector<unsigned int>::push_back[abi:nn200100](a2, &v12);
-        v7 = *(a1 + 2);
-        v6 = *(a1 + 3);
+        geom::triangle_mesh_half_edge_connectivity::get_connected_component_for_face_helper(a1, v11, v17, &__p);
+        v12 = (v15 - __p) >> 2;
+        v13 += v12;
+        std::vector<unsigned int>::__insert_with_size[abi:nn200100]<std::__wrap_iter<unsigned int *>,std::__wrap_iter<unsigned int *>>(a3, *(a3 + 8), __p, v15, v12);
+        std::vector<unsigned int>::push_back[abi:nn200100](a2, &v13);
+        v8 = *(a1 + 2);
+        v7 = *(a1 + 3);
       }
 
-      ++v10;
-      v8 = (v6 - v7) >> 2;
-      v9 += 3;
+      ++v11;
+      v9 = (v7 - v8) >> 2;
+      v10 += 3;
     }
 
-    while (v10 < (v8 / 3));
+    while (v11 < (v9 / 3));
     if (__p)
     {
-      v14 = __p;
+      v15 = __p;
       operator delete(__p);
     }
   }
 
-  if (v16[0])
+  if (v17[0])
   {
-    operator delete(v16[0]);
+    operator delete(v17[0]);
   }
 }
 
@@ -6110,7 +7826,7 @@ uint64_t geom::triangle_mesh_half_edge_connectivity::split_face(int32x2_t *this,
 {
   v2 = (3 * a2);
   v3 = this[2];
-  v4 = &this[2];
+  v4 = this + 2;
   v5 = (*&this[3] - *&v3) >> 2;
   if (v5 <= v2 || *(*&v3 + 4 * v2) == -1)
   {
@@ -6122,7 +7838,7 @@ uint64_t geom::triangle_mesh_half_edge_connectivity::split_face(int32x2_t *this,
   v28 = *(*&v3 + 4 * v2);
   v27 = *(*&v3 + 4 * (v2 + 1));
   v10 = *(*&v3 + 4 * v9);
-  v23 = &this[5];
+  v23 = this + 5;
   v25 = (*&this[6] - *&this[5]) >> 2;
   v26 = v10;
   v11 = v5 / 3;
@@ -6175,7 +7891,7 @@ uint64_t geom::triangle_mesh_half_edge_connectivity::split_face(int32x2_t *this,
   *(*v13 + 4 * v8) = v11 & 0x3FFFFFFF | 0x80000000;
   *(*&v21 + 4 * v9) = v20 | 0x40000000;
   v22 = *v23;
-  if (*(*v23 + v27) == (a2 & 0x3FFFFFFF | 0x40000000))
+  if (*(*v23 + 4 * v27) == (a2 & 0x3FFFFFFF | 0x40000000))
   {
     v22[v27] = v11 & 0x3FFFFFFF;
   }
@@ -6265,16 +7981,16 @@ void geom::hash_brown<std::pair<unsigned int,unsigned int>,unsigned int,geom::an
 
 uint64_t geom::hash_brown<std::pair<unsigned int,unsigned int>,unsigned int,geom::anonymous namespace::vertex_pair_hash,std::equal_to<std::pair<unsigned int,unsigned int>>>::do_resize(__int128 *a1, unint64_t a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (a2 <= 1)
   {
     a2 = 1;
   }
 
-  v23 = 0;
+  v22 = 0;
+  v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v19[0] = a1;
+  v18[0] = a1;
   v3 = *(a1 + 2);
   if (v3 >= 0x10)
   {
@@ -6299,41 +8015,39 @@ uint64_t geom::hash_brown<std::pair<unsigned int,unsigned int>,unsigned int,geom
 
     v8 = __clz(__rbit64(v7 ^ 0xFFFFLL));
     v9 = v8 - v4;
-    v19[1] = v7 ^ 0xFFFFLL;
-    v20 = v8 - v4;
+    v18[1] = v7 ^ 0xFFFFLL;
+    v19 = v8 - v4;
     if (v8 + 1 != v4)
     {
       do
       {
-        v10 = *(v19[0] + 8) + 12 * v9;
-        v17 = *v10;
-        v18 = *(v10 + 8);
-        _ZN4geom10hash_brownIZNS_23marching_squares_2_implIfRKNSt3__18functionIFfDv2_fEEEEEvOT0_tNS_4bboxIT_Lh2EEERNS2_6vectorINS_11vector_typeISC_Lh2EvE5valueENS2_9allocatorISH_EEEERNSE_IjNSI_IjEEEEE16vertex_map_queryS4_ZNS1_IfS8_EEvSA_tSD_SL_SO_ENSP_4hashENS2_8equal_toISP_EEE19hash_brown_iteratorIRNS2_4pairIKSP_S4_EEEppEv(v19);
-        v9 = v20;
+        v10 = *(v18[0] + 8) + 12 * v9;
+        v16 = *v10;
+        v17 = *(v10 + 8);
+        _ZN4geom10hash_brownIZNS_23marching_squares_2_implIfRKNSt3__18functionIFfDv2_fEEEEEvOT0_tNS_4bboxIT_Lh2EEERNS2_6vectorINS_11vector_typeISC_Lh2EvE5valueENS2_9allocatorISH_EEEERNSE_IjNSI_IjEEEEE16vertex_map_queryS4_ZNS1_IfS8_EEvSA_tSD_SL_SO_ENSP_4hashENS2_8equal_toISP_EEE19hash_brown_iteratorIRNS2_4pairIKSP_S4_EEEppEv(v18);
+        v9 = v19;
       }
 
-      while (v20 != -1);
+      while (v19 != -1);
     }
   }
 
 LABEL_10:
-  if (&v21 != a1)
+  if (&v20 != a1)
   {
-    v11 = v22;
+    v11 = v21;
     v12 = *a1;
     v13 = a1[1];
-    *a1 = v21;
+    *a1 = v20;
     a1[1] = v11;
-    v21 = v12;
-    v22 = v13;
+    v20 = v12;
+    v21 = v13;
     v14 = *(a1 + 4);
-    *(a1 + 4) = v23;
-    v23 = v14;
+    *(a1 + 4) = v22;
+    v22 = v14;
   }
 
-  result = _ZN4geom10hash_brownIZNS_23marching_squares_2_implIfRKNSt3__18functionIFfDv2_fEEEEEvOT0_tNS_4bboxIT_Lh2EEERNS2_6vectorINS_11vector_typeISC_Lh2EvE5valueENS2_9allocatorISH_EEEERNSE_IjNSI_IjEEEEE14edge_map_queryNS_12_GLOBAL__N_19cell_edgeEZNS1_IfS8_EEvSA_tSD_SL_SO_ENSP_4hashENS2_8equal_toISP_EEED1Ev(&v21);
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return _ZN4geom10hash_brownIZNS_23marching_squares_2_implIfRKNSt3__18functionIFfDv2_fEEEEEvOT0_tNS_4bboxIT_Lh2EEERNS2_6vectorINS_11vector_typeISC_Lh2EvE5valueENS2_9allocatorISH_EEEERNSE_IjNSI_IjEEEEE14edge_map_queryNS_12_GLOBAL__N_19cell_edgeEZNS1_IfS8_EEvSA_tSD_SL_SO_ENSP_4hashENS2_8equal_toISP_EEED1Ev(&v20);
 }
 
 int64x2_t geom::hash_brown<std::pair<unsigned int,unsigned int>,unsigned int,geom::anonymous namespace::vertex_pair_hash,std::equal_to<std::pair<unsigned int,unsigned int>>>::internal_add<unsigned int>(uint64_t *a1, unsigned int *a2, int a3)
@@ -6390,11 +8104,20 @@ int64x2_t geom::hash_brown<std::pair<unsigned int,unsigned int>,unsigned int,geo
   return result;
 }
 
-void *geom::hash_brown<std::pair<unsigned int,unsigned int>,unsigned int,geom::anonymous namespace::vertex_pair_hash,std::equal_to<std::pair<unsigned int,unsigned int>>>::grow_to_count(void *result)
+uint64_t geom::hash_brown<std::pair<unsigned int,unsigned int>,unsigned int,geom::anonymous namespace::vertex_pair_hash,std::equal_to<std::pair<unsigned int,unsigned int>>>::grow_to_count(uint64_t result)
 {
-  v1 = result[2];
-  v2 = (((151 * result[3]) >> 7) + 15) & 0x3FFFFFFFFFFFFF0;
-  if (v2 != v1 || !result[4])
+  v2 = *(result + 16);
+  v1 = *(result + 24);
+  v3 = (((151 * v1) >> 7) + 15) & 0x3FFFFFFFFFFFFF0;
+  if (v3 != v2)
+  {
+    if (v3 > v2)
+    {
+      v1 = 150 * v1 / 0x64;
+    }
+  }
+
+  if (!*(result + 32))
   {
   }
 
@@ -6494,12 +8217,12 @@ LABEL_12:
   return 0;
 }
 
-double geom::hash_brown<std::pair<unsigned int,unsigned int>,unsigned int,geom::anonymous namespace::vertex_pair_hash,std::equal_to<std::pair<unsigned int,unsigned int>>>::erase@<D0>(uint64_t a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X8>)
+double geom::hash_brown<std::pair<unsigned int,unsigned int>,unsigned int,geom::anonymous namespace::vertex_pair_hash,std::equal_to<std::pair<unsigned int,unsigned int>>>::erase@<D0>(uint64_t a1@<X0>, __n128 *a2@<X1>, uint64_t a3@<X8>)
 {
-  if (*a2 == a1 && (v5 = *(a2 + 2), v5 != -1))
+  if (a2->n128_u64[0] == a1 && (v5 = a2[1].n128_u64[0], v5 != -1))
   {
     v12 = *a2;
-    v13 = *(a2 + 2);
+    v13 = a2[1].n128_u64[0];
     _ZN4geom10hash_brownIZNS_23marching_squares_2_implIfRKNSt3__18functionIFfDv2_fEEEEEvOT0_tNS_4bboxIT_Lh2EEERNS2_6vectorINS_11vector_typeISC_Lh2EvE5valueENS2_9allocatorISH_EEEERNSE_IjNSI_IjEEEEE16vertex_map_queryS4_ZNS1_IfS8_EEvSA_tSD_SL_SO_ENSP_4hashENS2_8equal_toISP_EEE19hash_brown_iteratorIRNS2_4pairIKSP_S4_EEEppEv(&v12);
     v7 = (*a1 + (v5 & 0xFFFFFFFFFFFFFFF0));
     v8.i64[0] = -1;
@@ -6538,12 +8261,12 @@ double geom::hash_brown<std::pair<unsigned int,unsigned int>,unsigned int,geom::
   return result;
 }
 
-int *std::__introsort<std::_ClassicAlgPolicy,geom::anonymous namespace::find_and_repair_non_manifold_vertices_helper(std::vector<unsigned int> const&,unsigned int &,geom::hash_brown<std::pair<unsigned int,unsigned int>,unsigned int,geom::anonymous namespace::vertex_pair_hash,std::equal_to<std::pair<unsigned int,unsigned int>>> &,std::vector<unsigned int>&,std::vector<unsigned int>&,std::vector<unsigned int>&,std::vector<unsigned int>&,std::vector<unsigned int>&)::{lambda(std::pair<unsigned int,unsigned int> const&,std::pair<unsigned int,unsigned int> const&)#1} &,std::pair<unsigned int,unsigned int>*,false>(int *result, char *a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,geom::anonymous namespace::find_and_repair_non_manifold_vertices_helper(std::vector<unsigned int> const&,unsigned int &,geom::hash_brown<std::pair<unsigned int,unsigned int>,unsigned int,geom::anonymous namespace::vertex_pair_hash,std::equal_to<std::pair<unsigned int,unsigned int>>> &,std::vector<unsigned int>&,std::vector<unsigned int>&,std::vector<unsigned int>&,std::vector<unsigned int>&,std::vector<unsigned int>&)::{lambda(std::pair<unsigned int,unsigned int> const&,std::pair<unsigned int,unsigned int> const&)#1} &,std::pair<unsigned int,unsigned int>*,false>(uint64_t result, unsigned int *a2, uint64_t a3, char a4)
 {
   v7 = result;
   while (2)
   {
-    v8 = a2 - 4;
+    v8 = a2 - 1;
     v9 = v7;
     while (1)
     {
@@ -6570,7 +8293,7 @@ int *std::__introsort<std::_ClassicAlgPolicy,geom::anonymous namespace::find_and
 
                   v9[2] = v97;
                   *(a2 - 2) = v95;
-                  v8 = (v9 + 3);
+                  v8 = v9 + 3;
                   v149 = v9[3];
                   v9[3] = *(a2 - 1);
                   *(a2 - 1) = v149;
@@ -6583,14 +8306,14 @@ int *std::__introsort<std::_ClassicAlgPolicy,geom::anonymous namespace::find_and
 
                   *v9 = v150;
                   v9[2] = v151;
-                  v98 = (v9 + 1);
+                  v98 = v9 + 1;
                 }
 
                 else
                 {
                   if (v97 >= v95)
                   {
-                    v98 = (v9 + 3);
+                    v98 = v9 + 3;
                     v162 = v9[3];
                     v163 = v9[1];
                     *v9 = v95;
@@ -6608,7 +8331,7 @@ int *std::__introsort<std::_ClassicAlgPolicy,geom::anonymous namespace::find_and
 
                   else
                   {
-                    v98 = (v9 + 1);
+                    v98 = v9 + 1;
                     *v9 = v97;
                   }
 
@@ -6740,7 +8463,7 @@ LABEL_204:
 
           if (v10 <= 23)
           {
-            v103 = (v9 + 2);
+            v103 = v9 + 2;
             v105 = v9 == a2 || v103 == a2;
             if (a4)
             {
@@ -6756,7 +8479,7 @@ LABEL_204:
                   if (v108 < v109)
                   {
                     v111 = *v103;
-                    v110 = *(v103 + 1);
+                    v110 = v103[1];
                     v112 = v106;
                     while (1)
                     {
@@ -6784,7 +8507,7 @@ LABEL_137:
                     v115[1] = v110;
                   }
 
-                  v103 = (v107 + 2);
+                  v103 = v107 + 2;
                   v106 += 8;
                 }
 
@@ -6818,7 +8541,7 @@ LABEL_137:
                   *(v159 - 1) = v158;
                 }
 
-                v103 = (v7 + 2);
+                v103 = v7 + 2;
                 v155 += 2;
               }
 
@@ -6927,7 +8650,7 @@ LABEL_137:
                 do
                 {
                   v132 = &v131[2 * v129];
-                  v133 = (v132 + 2);
+                  v133 = v132 + 2;
                   v134 = (2 * v129) | 1;
                   v129 = 2 * v129 + 2;
                   if (v129 >= v10)
@@ -6939,7 +8662,7 @@ LABEL_137:
                   else
                   {
                     v137 = v132[4];
-                    v136 = (v132 + 4);
+                    v136 = v132 + 4;
                     v135 = v137;
                     v138 = *(v136 - 2);
                     v139 = v138 >= v137;
@@ -6960,12 +8683,12 @@ LABEL_137:
                   }
 
                   *v131 = v135;
-                  v131[1] = *(v133 + 1);
+                  v131[1] = v133[1];
                   v131 = v133;
                 }
 
                 while (v129 <= ((v10 - 2) >> 1));
-                if (v133 == a2 - 8)
+                if (v133 == a2 - 2)
                 {
                   *v133 = v130;
                 }
@@ -6973,7 +8696,7 @@ LABEL_137:
                 else
                 {
                   *v133 = *(a2 - 2);
-                  *(v133 + 1) = *(a2 - 1);
+                  v133[1] = *(a2 - 1);
                   *(a2 - 1) = v130;
                   v140 = (v133 - v9 + 8) >> 3;
                   v141 = v140 < 2;
@@ -6986,13 +8709,13 @@ LABEL_137:
                     if (*v144 < *v133)
                     {
                       v146 = *v133;
-                      v147 = *(v133 + 1);
+                      v147 = v133[1];
                       do
                       {
                         v148 = v133;
                         v133 = v144;
                         *v148 = v145;
-                        *(v148 + 1) = *(v144 + 1);
+                        v148[1] = v144[1];
                         if (!v143)
                         {
                           break;
@@ -7005,12 +8728,12 @@ LABEL_137:
 
                       while (*v144 < v146);
                       *v133 = v146;
-                      *(v133 + 1) = v147;
+                      v133[1] = v147;
                     }
                   }
                 }
 
-                a2 -= 8;
+                a2 -= 2;
                 v141 = v10-- <= 2;
               }
 
@@ -7029,7 +8752,7 @@ LABEL_137:
             v15 = *v9;
             if (*v11 >= *v9)
             {
-              if (v13 >= v14 || (*v11 = v13, *(a2 - 2) = v14, v21 = (v11 + 1), v20 = v11[1], v11[1] = *(a2 - 1), *(a2 - 1) = v20, v22 = *v9, *v11 >= *v9))
+              if (v13 >= v14 || (*v11 = v13, *(a2 - 2) = v14, v21 = v11 + 1, v20 = v11[1], v11[1] = *(a2 - 1), *(a2 - 1) = v20, v22 = *v9, *v11 >= *v9))
               {
 LABEL_29:
                 v30 = v11 - 2;
@@ -7038,7 +8761,7 @@ LABEL_29:
                 v33 = *(a2 - 4);
                 if (v31 >= v32)
                 {
-                  if (v33 >= v31 || (*v30 = v33, *(a2 - 4) = v31, v36 = (v11 - 1), v35 = *(v11 - 1), *(v11 - 1) = *(a2 - 3), *(a2 - 3) = v35, v37 = v9[2], *v30 >= v37))
+                  if (v33 >= v31 || (*v30 = v33, *(a2 - 4) = v31, v36 = v11 - 1, v35 = *(v11 - 1), *(v11 - 1) = *(a2 - 3), *(a2 - 3) = v35, v37 = v9[2], *v30 >= v37))
                   {
 LABEL_42:
                     v47 = v11[2];
@@ -7052,7 +8775,7 @@ LABEL_42:
                       {
                         *v45 = v49;
                         *(a2 - 6) = v46;
-                        v52 = (v45 + 1);
+                        v52 = v45 + 1;
                         v51 = v45[1];
                         v45[1] = *(a2 - 5);
                         *(a2 - 5) = v51;
@@ -7062,7 +8785,7 @@ LABEL_42:
                         {
                           v9[4] = v46;
                           *v45 = v53;
-                          v50 = (v9 + 5);
+                          v50 = v9 + 5;
 LABEL_51:
                           v57 = *v50;
                           *v50 = *v52;
@@ -7076,15 +8799,15 @@ LABEL_51:
                     {
                       if (v49 < v46)
                       {
-                        v50 = (v9 + 5);
+                        v50 = v9 + 5;
                         v9[4] = v49;
 LABEL_50:
                         *(a2 - 6) = v48;
-                        v52 = a2 - 20;
+                        v52 = a2 - 5;
                         goto LABEL_51;
                       }
 
-                      v50 = (v45 + 1);
+                      v50 = v45 + 1;
                       v54 = v45[1];
                       v55 = v9[5];
                       v9[4] = v46;
@@ -7110,9 +8833,9 @@ LABEL_50:
 LABEL_62:
                         v67 = *v9;
                         *v9 = v58;
-                        v19 = (v9 + 1);
+                        v19 = v9 + 1;
                         *v12 = v67;
-                        v25 = (v12 + 1);
+                        v25 = v12 + 1;
                         goto LABEL_63;
                       }
 
@@ -7205,7 +8928,7 @@ LABEL_62:
                   }
 
                   *(a2 - 4) = v32;
-                  v36 = a2 - 12;
+                  v36 = a2 - 3;
                 }
 
                 v44 = *v34;
@@ -7215,7 +8938,7 @@ LABEL_62:
               }
 
               *v9 = *v11;
-              v16 = (v9 + 1);
+              v16 = v9 + 1;
               *v11 = v22;
             }
 
@@ -7223,7 +8946,7 @@ LABEL_62:
             {
               if (v13 >= v14)
               {
-                v16 = (v11 + 1);
+                v16 = v11 + 1;
                 v26 = v11[1];
                 v27 = v9[1];
                 *v9 = v14;
@@ -7241,12 +8964,12 @@ LABEL_62:
 
               else
               {
-                v16 = (v9 + 1);
+                v16 = v9 + 1;
                 *v9 = v13;
               }
 
               *(a2 - 2) = v15;
-              v21 = a2 - 4;
+              v21 = a2 - 1;
             }
 
             v29 = *v16;
@@ -7271,8 +8994,8 @@ LABEL_62:
               {
                 *v12 = *v9;
                 *v9 = v24;
-                v19 = (v12 + 1);
-                v25 = (v9 + 1);
+                v19 = v12 + 1;
+                v25 = v9 + 1;
 LABEL_63:
                 v68 = *v19;
                 *v19 = *v25;
@@ -7285,15 +9008,15 @@ LABEL_63:
           {
             if (v13 < v17)
             {
-              v19 = (v11 + 1);
+              v19 = v11 + 1;
               *v12 = v13;
 LABEL_37:
               *(a2 - 2) = v18;
-              v25 = a2 - 4;
+              v25 = a2 - 1;
               goto LABEL_63;
             }
 
-            v19 = (v9 + 1);
+            v19 = v9 + 1;
             v38 = v9[1];
             v39 = v12[1];
             *v12 = v17;
@@ -7317,7 +9040,7 @@ LABEL_37:
           v82 = *v9;
           if (*(a2 - 2) <= *v9)
           {
-            v84 = v9 + 2;
+            v84 = (v9 + 2);
             do
             {
               v9 = v84;
@@ -7326,7 +9049,7 @@ LABEL_37:
                 break;
               }
 
-              v84 += 2;
+              v84 += 8;
             }
 
             while (*v9 <= v82);
@@ -7420,7 +9143,7 @@ LABEL_37:
             }
 
             v75 = *(v73 - 2);
-            v73 -= 8;
+            v73 -= 2;
           }
 
           while (v75 >= v70);
@@ -7431,7 +9154,7 @@ LABEL_37:
           do
           {
             v74 = *(v73 - 2);
-            v73 -= 8;
+            v73 -= 2;
           }
 
           while (v74 >= v70);
@@ -7502,7 +9225,7 @@ LABEL_87:
       }
     }
 
-    a2 = (v9 - 2);
+    a2 = v9 - 2;
     if (!v81)
     {
       continue;
@@ -7512,7 +9235,7 @@ LABEL_87:
   }
 }
 
-int *std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,geom::anonymous namespace::find_and_repair_non_manifold_vertices_helper(std::vector<unsigned int> const&,unsigned int &,geom::hash_brown<std::pair<unsigned int,unsigned int>,unsigned int,geom::anonymous namespace::vertex_pair_hash,std::equal_to<std::pair<unsigned int,unsigned int>>> &,std::vector<unsigned int>&,std::vector<unsigned int>&,std::vector<unsigned int>&,std::vector<unsigned int>&,std::vector<unsigned int>&)::{lambda(std::pair<unsigned int,unsigned int> const&,std::pair<unsigned int,unsigned int> const&)#1} &,std::pair<unsigned int,unsigned int>*,0>(int *result, unsigned int *a2, unsigned int *a3, unsigned int *a4, unsigned int *a5)
+unsigned int *std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,geom::anonymous namespace::find_and_repair_non_manifold_vertices_helper(std::vector<unsigned int> const&,unsigned int &,geom::hash_brown<std::pair<unsigned int,unsigned int>,unsigned int,geom::anonymous namespace::vertex_pair_hash,std::equal_to<std::pair<unsigned int,unsigned int>>> &,std::vector<unsigned int>&,std::vector<unsigned int>&,std::vector<unsigned int>&,std::vector<unsigned int>&,std::vector<unsigned int>&)::{lambda(std::pair<unsigned int,unsigned int> const&,std::pair<unsigned int,unsigned int> const&)#1} &,std::pair<unsigned int,unsigned int>*,0>(unsigned int *result, unsigned int *a2, unsigned int *a3, unsigned int *a4, unsigned int *a5)
 {
   v5 = *a2;
   v6 = *result;
@@ -7523,7 +9246,7 @@ int *std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,geom::anonymous namespace
     {
       *a2 = v7;
       *a3 = v5;
-      v10 = (a2 + 1);
+      v10 = a2 + 1;
       v9 = a2[1];
       a2[1] = a3[1];
       a3[1] = v9;
@@ -7531,7 +9254,7 @@ int *std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,geom::anonymous namespace
       if (*a2 < *result)
       {
         *result = *a2;
-        v8 = result + 1;
+        v8 = (result + 1);
         *a2 = v11;
 LABEL_10:
         v13 = *v8;
@@ -7545,11 +9268,11 @@ LABEL_10:
   {
     if (v7 < v5)
     {
-      v8 = result + 1;
+      v8 = (result + 1);
       *result = v7;
 LABEL_9:
       *a3 = v6;
-      v10 = (a3 + 1);
+      v10 = a3 + 1;
       goto LABEL_10;
     }
 
@@ -7654,7 +9377,7 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,geom:
 
         a1[2] = v8;
         *(a2 - 2) = v6;
-        v20 = (a1 + 3);
+        v20 = a1 + 3;
         v19 = a1[3];
         a1[3] = *(a2 - 1);
         *(a2 - 1) = v19;
@@ -7667,14 +9390,14 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,geom:
 
         *a1 = v21;
         a1[2] = v22;
-        v9 = (a1 + 1);
+        v9 = a1 + 1;
       }
 
       else
       {
         if (v8 >= v6)
         {
-          v9 = (a1 + 3);
+          v9 = a1 + 3;
           v29 = a1[3];
           v30 = a1[1];
           *a1 = v6;
@@ -7692,12 +9415,12 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,geom:
 
         else
         {
-          v9 = (a1 + 1);
+          v9 = a1 + 1;
           *a1 = v8;
         }
 
         *(a2 - 2) = v7;
-        v20 = a2 - 4;
+        v20 = (a2 - 4);
       }
 
       v32 = *v9;
@@ -7723,7 +9446,7 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,geom:
     {
       if (v17 < v15)
       {
-        v27 = (a1 + 3);
+        v27 = a1 + 3;
         v26 = a1[3];
         v28 = a1[5];
         a1[2] = v17;
@@ -7739,7 +9462,7 @@ LABEL_51:
 
         *a1 = v17;
         a1[2] = v16;
-        v18 = (a1 + 1);
+        v18 = a1 + 1;
 LABEL_50:
         v48 = *v18;
         *v18 = *v27;
@@ -7752,16 +9475,16 @@ LABEL_50:
     {
       if (v17 < v15)
       {
-        v18 = (a1 + 1);
+        v18 = a1 + 1;
         *a1 = v17;
 LABEL_49:
         a1[4] = v16;
-        v27 = (a1 + 5);
+        v27 = a1 + 5;
         v15 = v16;
         goto LABEL_50;
       }
 
-      v18 = (a1 + 3);
+      v18 = a1 + 3;
       v46 = a1[3];
       v47 = a1[1];
       *a1 = v15;
@@ -7831,7 +9554,7 @@ LABEL_52:
   }
 
 LABEL_13:
-  v10 = (a1 + 4);
+  v10 = a1 + 4;
   v11 = a1[4];
   v12 = a1[2];
   v13 = *a1;
@@ -7839,7 +9562,7 @@ LABEL_13:
   {
     if (v11 >= v12)
     {
-      v14 = (a1 + 3);
+      v14 = a1 + 3;
       v33 = a1[3];
       v34 = a1[1];
       *a1 = v12;
@@ -7856,18 +9579,18 @@ LABEL_13:
 
     else
     {
-      v14 = (a1 + 1);
+      v14 = a1 + 1;
       *a1 = v11;
     }
 
     a1[4] = v13;
-    v24 = (a1 + 5);
+    v24 = a1 + 5;
     goto LABEL_35;
   }
 
   if (v11 < v12)
   {
-    v24 = (a1 + 3);
+    v24 = a1 + 3;
     v23 = a1[3];
     v25 = a1[5];
     a1[2] = v11;
@@ -7878,7 +9601,7 @@ LABEL_13:
     {
       *a1 = v11;
       a1[2] = v13;
-      v14 = (a1 + 1);
+      v14 = a1 + 1;
 LABEL_35:
       v35 = *v14;
       *v14 = *v24;
@@ -7887,7 +9610,7 @@ LABEL_35:
   }
 
 LABEL_36:
-  v36 = (a1 + 6);
+  v36 = a1 + 6;
   if (a1 + 6 == a2)
   {
     return 1;
@@ -7901,7 +9624,7 @@ LABEL_36:
     if (*v36 < *v10)
     {
       v41 = *v36;
-      v40 = *(v36 + 1);
+      v40 = v36[1];
       v42 = v37;
       while (1)
       {
@@ -7929,13 +9652,13 @@ LABEL_44:
       v45[1] = v40;
       if (++v38 == 8)
       {
-        return v36 + 8 == a2;
+        return v36 + 2 == a2;
       }
     }
 
     v10 = v36;
     v37 += 8;
-    v36 += 8;
+    v36 += 2;
     if (v36 == a2)
     {
       return 1;
@@ -8025,7 +9748,7 @@ double geom::triangle_mesh_half_edge_connectivity::triangle_mesh_half_edge_conne
   return result;
 }
 
-char *std::vector<unsigned int>::__insert_with_size[abi:nn200100]<std::__wrap_iter<unsigned int *>,std::__wrap_iter<unsigned int *>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<unsigned int>::__insert_with_size[abi:nn200100]<std::__wrap_iter<unsigned int *>,std::__wrap_iter<unsigned int *>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -8034,8 +9757,8 @@ char *std::vector<unsigned int>::__insert_with_size[abi:nn200100]<std::__wrap_it
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 2)
   {
     v11 = *a1;
@@ -8073,23 +9796,24 @@ char *std::vector<unsigned int>::__insert_with_size[abi:nn200100]<std::__wrap_it
     v35 = (4 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 4;
       *v35++ = v36;
       v34 -= 4;
     }
 
     while (v34);
-    memcpy((v33 + 4 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 4 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 4 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 4 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -8104,14 +9828,14 @@ char *std::vector<unsigned int>::__insert_with_size[abi:nn200100]<std::__wrap_it
   {
     v29 = &__dst[4 * a5];
     v30 = (v10 - 4 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[4 * a5], __dst, v10 - v29);
@@ -8126,11 +9850,11 @@ char *std::vector<unsigned int>::__insert_with_size[abi:nn200100]<std::__wrap_it
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[4 * a5];
@@ -8150,7 +9874,7 @@ char *std::vector<unsigned int>::__insert_with_size[abi:nn200100]<std::__wrap_it
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[4 * a5], v5, v21 - v22);
@@ -8167,1615 +9891,4 @@ LABEL_29:
   }
 
   return v5;
-}
-
-uint64_t geom::triangulate_by_ear_clipping<float>(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  if (v2)
-  {
-    v3 = *result;
-    v4 = 0x7F0000007FLL;
-    v5 = vneg_f32(0x7F0000007FLL);
-    v6 = 8 * v2;
-    do
-    {
-      v7 = *v3++;
-      v5 = vminnm_f32(v7, v5);
-      v4 = vmaxnm_f32(v7, v4);
-      v6 -= 8;
-    }
-
-    while (v6);
-  }
-
-  if (v2 > 2)
-  {
-    geom::fixed_pool_list<unsigned long>::fixed_pool_list(v8, v2);
-  }
-
-  a2[1] = *a2;
-  return result;
-}
-
-void geom::triangulate_by_ear_clipping_helper<float>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, void *a5, uint64_t *a6, std::vector<unsigned int> *a7, float a8)
-{
-  v176 = *MEMORY[0x277D85DE8];
-  v168[0] = a3;
-  v168[1] = a4;
-  v15 = *a2;
-  v14 = a2[1];
-  v16 = (v14 - *a2) >> 3;
-  v17 = 3 * (v16 - 2);
-  if (6 * (v16 - 2) <= 1)
-  {
-    v18 = 1;
-  }
-
-  else
-  {
-    v18 = 6 * (v16 - 2);
-  }
-
-  v175 = 0;
-  memset(v174, 0, sizeof(v174));
-  geom::hash_brown<std::pair<unsigned long,unsigned long>,unsigned long,geom::edge_hash,std::equal_to<std::pair<unsigned long,unsigned long>>>::init(v174, v18);
-  geom::fixed_pool_list<geom::fixed_pool_list<unsigned long>::const_node_iterator>::fixed_pool_list(&v163, v16);
-  v160 = 0;
-  v161 = 0;
-  v162 = 0;
-  if (v14 != v15)
-  {
-    std::vector<geom::fixed_pool_list<geom::fixed_pool_list<unsigned long>::const_node_iterator>::const_node_iterator,std::allocator<std::allocator>>::__vallocate[abi:nn200100](&v160, v16);
-  }
-
-  *__p = 0u;
-  v159 = 0u;
-  *v157 = 0u;
-  std::vector<geom::indexed_priority_queue<unsigned long,double>::key,std::allocator<geom::indexed_priority_queue<unsigned long,double>::key>>::reserve(v157, v16);
-  std::vector<unsigned long long>::resize(&__p[1], v16, &geom::indexed_priority_queue<unsigned long,double>::k_invalid_index);
-  v19 = a1[2];
-  v20 = *(v19 + 16);
-  while (v20 != 1)
-  {
-    v21 = (v160 + 16 * *(v19 + 32 * v20));
-    *v21 = v20;
-    v21[1] = a1;
-    v19 = a1[2];
-    v22 = (*a6 + 16 * *(v19 + 32 * v20));
-    if (v22[1] == a5 && *v22 == 1)
-    {
-      v171 = v20;
-      v172 = *&a1;
-      is_triangle_incident_to_vertex_concave = geom::is_triangle_incident_to_vertex_concave_free<float>(&v171, a1, a2, v168, a5, a8);
-      v19 = a1[2];
-      if (is_triangle_incident_to_vertex_concave)
-      {
-        v24 = (v19 + 32 * v20);
-        v25 = v24[2];
-        if (v25 == -1)
-        {
-          v25 = v20;
-        }
-
-        if (v25 == 1)
-        {
-          v25 = *(v19 + 16);
-        }
-
-        if (v20 == *(v19 + 16))
-        {
-          v26 = *(v19 + 56);
-          if (v26 <= 1)
-          {
-            v26 = 1;
-          }
-        }
-
-        else
-        {
-          v26 = v24[3];
-          if (!v26)
-          {
-            v26 = v20;
-          }
-        }
-
-        v27 = *v24;
-        v28 = *(v168[0] + 8 * *(*a2 + 8 * v27));
-        v29 = vsub_f32(v28, *(v168[0] + 8 * *(*a2 + 8 * *(v19 + 32 * v26))));
-        v30 = vsub_f32(*(v168[0] + 8 * *(*a2 + 8 * *(v19 + 32 * v25))), v28);
-        v31 = vmul_f32(v30, v30);
-        v31.i32[0] = vadd_f32(v31, vdup_lane_s32(v31, 1)).u32[0];
-        v32 = vrsqrte_f32(v31.u32[0]);
-        v33 = vmul_f32(v32, vrsqrts_f32(v31.u32[0], vmul_f32(v32, v32)));
-        v34 = vmul_f32(v33, vrsqrts_f32(v31.u32[0], vmul_f32(v33, v33)));
-        v35 = vmul_n_f32(v30, *v34.i32);
-        *v34.i32 = -*&v29.i32[1];
-        v36 = vzip1_s32(v34, v29);
-        v37 = vmul_f32(v36, v36);
-        v37.i32[0] = vadd_f32(v37, vdup_lane_s32(v37, 1)).u32[0];
-        v38 = vrsqrte_f32(v37.u32[0]);
-        v39 = vmul_f32(v38, vrsqrts_f32(v37.u32[0], vmul_f32(v38, v38)));
-        v40 = vaddv_f32(vmul_f32(v35, vmul_n_f32(v36, vmul_f32(v39, vrsqrts_f32(v37.u32[0], vmul_f32(v39, v39))).f32[0])));
-        if (v40 < 0.0)
-        {
-          v40 = v40 + 2.0;
-        }
-
-        v171 = v27;
-        v172 = v40;
-        geom::indexed_priority_queue<unsigned long,double>::push_or_change_cost(v157, &v171);
-        v19 = a1[2];
-      }
-    }
-
-    if (*(v19 + 32 * v20 + 16) != -1)
-    {
-      v20 = *(v19 + 32 * v20 + 16);
-    }
-  }
-
-  a7->__end_ = a7->__begin_;
-  std::vector<float>::reserve(a7, v17);
-  v41 = v157[0];
-  v42 = v157[1] - v157[0];
-  if (v157[1] != v157[0])
-  {
-    while (1)
-    {
-      v43 = *v41;
-      v44 = v41[1];
-      if (v42 == 16)
-      {
-        v157[1] = v41;
-        v45 = __p[1];
-      }
-
-      else
-      {
-        v54 = (v42 >> 4) - 1;
-        v55 = &v41[2 * v54];
-        v56 = *v55;
-        *v41 = *v55;
-        v41[1] = v55[1];
-        *(__p[1] + *&v56) = 0;
-        std::vector<geom::indexed_priority_queue<unsigned long,double>::key,std::allocator<geom::indexed_priority_queue<unsigned long,double>::key>>::resize(v157, v54);
-        v57 = 0;
-        v41 = v157[0];
-        v58 = (v157[1] - v157[0]) >> 4;
-        v45 = __p[1];
-        for (i = 0; ; v57 = i)
-        {
-          v60 = (2 * v57) | 1;
-          v61 = &v41[2 * v57];
-          if (v60 < v58)
-          {
-            i = v57;
-            if (v41[2 * v60 + 1] < v61[1])
-            {
-              i = (2 * v57) | 1;
-            }
-          }
-
-          v62 = 2 * v57 + 2;
-          if (v62 < v58 && v41[2 * v62 + 1] < v41[2 * i + 1])
-          {
-            i = 2 * v57 + 2;
-          }
-
-          if (i == v57)
-          {
-            break;
-          }
-
-          v63 = &v41[2 * i];
-          v64 = *v61;
-          v65 = *(v61 + 1);
-          *v61 = *v63;
-          v61[1] = v63[1];
-          *v63 = v64;
-          *(v63 + 1) = v65;
-          v45[*v61] = v57;
-          v45[*v63] = i;
-        }
-      }
-
-      v45[*&v43] = -1;
-      if (v44 == INFINITY)
-      {
-        goto LABEL_167;
-      }
-
-      v46 = (v160 + 16 * *&v43);
-      v48 = *v46;
-      v47 = v46[1];
-      if (v47 == a1 && v48 == 1)
-      {
-        break;
-      }
-
-      v50 = *(v47[2] + 32 * v48 + 16);
-      if (v50 == -1)
-      {
-        v50 = v48;
-      }
-
-      if (v47 == a1 && v50 == 1)
-      {
-        v50 = *(a1[2] + 16);
-        v52 = a1;
-        goto LABEL_52;
-      }
-
-      v52 = v47;
-      v53 = v47;
-LABEL_53:
-      v155 = v50;
-      v156 = v52;
-      if (v47 != a1)
-      {
-        goto LABEL_54;
-      }
-
-      v66 = a1[2];
-      if (v48 == 1)
-      {
-        v68 = a1;
-        v67 = 1;
-        goto LABEL_63;
-      }
-
-      if (v48 == *(v66 + 16))
-      {
-        v67 = *(v66 + 56);
-        if (v67 <= 1)
-        {
-          v67 = 1;
-        }
-
-        v68 = a1;
-      }
-
-      else
-      {
-LABEL_54:
-        v66 = v47[2];
-        v67 = *(v66 + 32 * v48 + 24);
-        if (!v67)
-        {
-          v67 = v48;
-        }
-
-        v68 = v47;
-      }
-
-LABEL_63:
-      v153 = v67;
-      v154 = v68;
-      v171 = *(v47[2] + 32 * v48);
-      v172 = *(v53[2] + 32 * v50);
-      v173 = *(v66 + 32 * v67);
-      geom::add_triangle_helper<float>(&v171, a7, v174, a2, v168[0]);
-      v69 = a1[2];
-      v70 = (v69 + 32 * v48);
-      v71 = v69 + 32 * v70[3];
-      v72 = v69 + 32 * v70[2];
-      *(v71 + 16) = *(v72 + 8);
-      *(v72 + 24) = *(v71 + 8);
-      v70[2] = -1;
-      v70[3] = -1;
-      v73 = a1[1] - 1;
-      a1[1] = v73;
-      *(a1[5] + 8 * v73) = v70[1];
-      v74 = v153;
-      v75 = v154[2];
-      v76 = *(v75 + 32 * v153);
-      v77 = *a6;
-      v78 = (*a6 + 16 * v76);
-      if (v78[1] == a5 && *v78 == 1)
-      {
-        goto LABEL_85;
-      }
-
-      v79 = v75 + 32 * v153;
-      if (v154 == a1 && v153 == 1)
-      {
-        v80 = v154[2];
-        v81 = 1;
-      }
-
-      else
-      {
-        v81 = *(v79 + 16);
-        if (v81 == -1)
-        {
-          v81 = v153;
-        }
-
-        v80 = v154[2];
-        if (v154 == a1 && v81 == 1)
-        {
-          v80 = a1[2];
-          v81 = *(v80 + 16);
-        }
-      }
-
-      if (v154 != a1)
-      {
-LABEL_74:
-        if (*(v79 + 24))
-        {
-          v74 = *(v79 + 24);
-        }
-
-        goto LABEL_83;
-      }
-
-      if (v153 != 1)
-      {
-        v82 = a1[2];
-        if (v153 != *(v82 + 16))
-        {
-          goto LABEL_74;
-        }
-
-        if (*(v82 + 56) <= 1uLL)
-        {
-          v74 = 1;
-        }
-
-        else
-        {
-          v74 = *(v82 + 56);
-        }
-
-        v75 = a1[2];
-      }
-
-LABEL_83:
-      v83 = _simd_orient_pf2(*(v168[0] + 8 * *(*a2 + 8 * *(v75 + 32 * v74))), *(v168[0] + 8 * *(*a2 + 8 * v76)), *(v168[0] + 8 * *(*a2 + 8 * *(v80 + 32 * v81))));
-      v77 = *a6;
-      if (v83 > 0.0)
-      {
-        v84 = a5[2];
-        v85 = (v84 + 40 * *(v77 + 16 * *(v154[2] + 32 * v153)));
-        v86 = v84 + 40 * v85[4];
-        v87 = v84 + 40 * v85[3];
-        *(v86 + 24) = *(v87 + 16);
-        *(v87 + 32) = *(v86 + 16);
-        v85[3] = -1;
-        v85[4] = -1;
-        v88 = a5[1] - 1;
-        a5[1] = v88;
-        *(a5[5] + 8 * v88) = v85[2];
-        v89 = (*a6 + 16 * *(v154[2] + 32 * v153));
-        *v89 = 1;
-        v89[1] = a5;
-        v77 = *a6;
-      }
-
-LABEL_85:
-      v90 = v155;
-      v91 = v156[2];
-      v92 = *(v91 + 32 * v155);
-      v93 = (v77 + 16 * v92);
-      if (v93[1] == a5 && *v93 == 1)
-      {
-        goto LABEL_107;
-      }
-
-      v94 = v91 + 32 * v155;
-      if (v156 == a1 && v155 == 1)
-      {
-        v95 = v156[2];
-        v96 = 1;
-      }
-
-      else
-      {
-        v96 = *(v94 + 16);
-        if (v96 == -1)
-        {
-          v96 = v155;
-        }
-
-        v95 = v156[2];
-        if (v156 == a1 && v96 == 1)
-        {
-          v95 = a1[2];
-          v96 = *(v95 + 16);
-        }
-      }
-
-      if (v156 != a1)
-      {
-LABEL_96:
-        if (*(v94 + 24))
-        {
-          v90 = *(v94 + 24);
-        }
-
-        goto LABEL_105;
-      }
-
-      if (v155 != 1)
-      {
-        v97 = a1[2];
-        if (v155 != *(v97 + 16))
-        {
-          goto LABEL_96;
-        }
-
-        if (*(v97 + 56) <= 1uLL)
-        {
-          v90 = 1;
-        }
-
-        else
-        {
-          v90 = *(v97 + 56);
-        }
-
-        v91 = a1[2];
-      }
-
-LABEL_105:
-      if (_simd_orient_pf2(*(v168[0] + 8 * *(*a2 + 8 * *(v91 + 32 * v90))), *(v168[0] + 8 * *(*a2 + 8 * v92)), *(v168[0] + 8 * *(*a2 + 8 * *(v95 + 32 * v96)))) > 0.0)
-      {
-        v98 = a5[2];
-        v99 = (v98 + 40 * *(*a6 + 16 * *(v156[2] + 32 * v155)));
-        v100 = v98 + 40 * v99[4];
-        v101 = v98 + 40 * v99[3];
-        *(v100 + 24) = *(v101 + 16);
-        *(v101 + 32) = *(v100 + 16);
-        v99[3] = -1;
-        v99[4] = -1;
-        v102 = a5[1] - 1;
-        a5[1] = v102;
-        *(a5[5] + 8 * v102) = v99[2];
-        v103 = (*a6 + 16 * *(v156[2] + 32 * v155));
-        *v103 = 1;
-        v103[1] = a5;
-      }
-
-LABEL_107:
-      v104 = *(v154[2] + 32 * v153);
-      v105 = *(__p[1] + v104);
-      v106 = v105 != -1 && *(v157[0] + 2 * v105 + 1) != INFINITY;
-      v107 = (*a6 + 16 * v104);
-      if (v107[1] == a5 && *v107 == 1 && geom::is_triangle_incident_to_vertex_concave_free<float>(&v153, a1, a2, v168, a5, a8))
-      {
-        v108 = v154[2];
-        v109 = v108 + 32 * v153;
-        if (v154 == a1 && v153 == 1)
-        {
-          v110 = v154[2];
-          v111 = 1;
-        }
-
-        else
-        {
-          v111 = *(v109 + 16);
-          if (v111 == -1)
-          {
-            v111 = v153;
-          }
-
-          v110 = v154[2];
-          if (v154 == a1 && v111 == 1)
-          {
-            v110 = a1[2];
-            v111 = *(v110 + 16);
-          }
-        }
-
-        if (v154 == a1)
-        {
-          if (v153 == 1)
-          {
-            v121 = v154[2];
-            v120 = 1;
-          }
-
-          else
-          {
-            v121 = a1[2];
-            if (v153 != *(v121 + 16))
-            {
-              goto LABEL_139;
-            }
-
-            v120 = *(v121 + 56);
-            if (v120 <= 1)
-            {
-              v120 = 1;
-            }
-          }
-        }
-
-        else
-        {
-LABEL_139:
-          v120 = *(v109 + 24);
-          if (!v120)
-          {
-            v120 = v153;
-          }
-
-          v121 = v154[2];
-        }
-
-        v124 = *(v108 + 32 * v153);
-        v125 = *(v168[0] + 8 * *(*a2 + 8 * v124));
-        v126 = vsub_f32(v125, *(v168[0] + 8 * *(*a2 + 8 * *(v121 + 32 * v120))));
-        v127 = vsub_f32(*(v168[0] + 8 * *(*a2 + 8 * *(v110 + 32 * v111))), v125);
-        v128 = vmul_f32(v127, v127);
-        v128.i32[0] = vadd_f32(v128, vdup_lane_s32(v128, 1)).u32[0];
-        v129 = vrsqrte_f32(v128.u32[0]);
-        v130 = vmul_f32(v129, vrsqrts_f32(v128.u32[0], vmul_f32(v129, v129)));
-        v131 = vmul_f32(v130, vrsqrts_f32(v128.u32[0], vmul_f32(v130, v130)));
-        v132 = vmul_n_f32(v127, *v131.i32);
-        *v131.i32 = -*&v126.i32[1];
-        v133 = vzip1_s32(v131, v126);
-        v134 = vmul_f32(v133, v133);
-        v134.i32[0] = vadd_f32(v134, vdup_lane_s32(v134, 1)).u32[0];
-        v135 = vrsqrte_f32(v134.u32[0]);
-        v136 = vmul_f32(v135, vrsqrts_f32(v134.u32[0], vmul_f32(v135, v135)));
-        v137 = vaddv_f32(vmul_f32(v132, vmul_n_f32(v133, vmul_f32(v136, vrsqrts_f32(v134.u32[0], vmul_f32(v136, v136))).f32[0])));
-        if (v137 < 0.0)
-        {
-          v137 = v137 + 2.0;
-        }
-
-        v169 = v124;
-        v170 = v137;
-        goto LABEL_118;
-      }
-
-      if (!v106)
-      {
-        goto LABEL_119;
-      }
-
-      v169 = *(v154[2] + 32 * v153);
-      v170 = INFINITY;
-LABEL_118:
-      geom::indexed_priority_queue<unsigned long,double>::push_or_change_cost(v157, &v169);
-LABEL_119:
-      v112 = *(v156[2] + 32 * v155);
-      v113 = *(__p[1] + v112);
-      v114 = v113 != -1 && *(v157[0] + 2 * v113 + 1) != INFINITY;
-      v115 = (*a6 + 16 * v112);
-      if (v115[1] == a5 && *v115 == 1 && geom::is_triangle_incident_to_vertex_concave_free<float>(&v155, a1, a2, v168, a5, a8))
-      {
-        v116 = v156[2];
-        v117 = v116 + 32 * v155;
-        if (v156 == a1 && v155 == 1)
-        {
-          v118 = v156[2];
-          v119 = 1;
-        }
-
-        else
-        {
-          v119 = *(v117 + 16);
-          if (v119 == -1)
-          {
-            v119 = v155;
-          }
-
-          v118 = v156[2];
-          if (v156 == a1 && v119 == 1)
-          {
-            v118 = a1[2];
-            v119 = *(v118 + 16);
-          }
-        }
-
-        if (v156 == a1)
-        {
-          if (v155 == 1)
-          {
-            v123 = v156[2];
-            v122 = 1;
-          }
-
-          else
-          {
-            v123 = a1[2];
-            if (v155 != *(v123 + 16))
-            {
-              goto LABEL_148;
-            }
-
-            v122 = *(v123 + 56);
-            if (v122 <= 1)
-            {
-              v122 = 1;
-            }
-          }
-        }
-
-        else
-        {
-LABEL_148:
-          v122 = *(v117 + 24);
-          if (!v122)
-          {
-            v122 = v155;
-          }
-
-          v123 = v156[2];
-        }
-
-        v138 = *(v116 + 32 * v155);
-        v139 = *(v168[0] + 8 * *(*a2 + 8 * v138));
-        v140 = vsub_f32(v139, *(v168[0] + 8 * *(*a2 + 8 * *(v123 + 32 * v122))));
-        v141 = vsub_f32(*(v168[0] + 8 * *(*a2 + 8 * *(v118 + 32 * v119))), v139);
-        v142 = vmul_f32(v141, v141);
-        v142.i32[0] = vadd_f32(v142, vdup_lane_s32(v142, 1)).u32[0];
-        v143 = vrsqrte_f32(v142.u32[0]);
-        v144 = vmul_f32(v143, vrsqrts_f32(v142.u32[0], vmul_f32(v143, v143)));
-        v145 = vmul_f32(v144, vrsqrts_f32(v142.u32[0], vmul_f32(v144, v144)));
-        v146 = vmul_n_f32(v141, *v145.i32);
-        *v145.i32 = -*&v140.i32[1];
-        v147 = vzip1_s32(v145, v140);
-        v148 = vmul_f32(v147, v147);
-        v148.i32[0] = vadd_f32(v148, vdup_lane_s32(v148, 1)).u32[0];
-        v149 = vrsqrte_f32(v148.u32[0]);
-        v150 = vmul_f32(v149, vrsqrts_f32(v148.u32[0], vmul_f32(v149, v149)));
-        v151 = vaddv_f32(vmul_f32(v146, vmul_n_f32(v147, vmul_f32(v150, vrsqrts_f32(v148.u32[0], vmul_f32(v150, v150))).f32[0])));
-        if (v151 < 0.0)
-        {
-          v151 = v151 + 2.0;
-        }
-
-        v169 = v138;
-        v170 = v151;
-LABEL_130:
-        geom::indexed_priority_queue<unsigned long,double>::push_or_change_cost(v157, &v169);
-        goto LABEL_131;
-      }
-
-      if (v114)
-      {
-        v169 = *(v156[2] + 32 * v155);
-        v170 = INFINITY;
-        goto LABEL_130;
-      }
-
-LABEL_131:
-      v41 = v157[0];
-      v42 = v157[1] - v157[0];
-      if (v157[1] == v157[0])
-      {
-        goto LABEL_167;
-      }
-    }
-
-    v52 = a1;
-    v50 = 1;
-LABEL_52:
-    v53 = a1;
-    goto LABEL_53;
-  }
-
-LABEL_167:
-  if (__p[1])
-  {
-    *&v159 = __p[1];
-    operator delete(__p[1]);
-    v41 = v157[0];
-  }
-
-  if (v41)
-  {
-    v157[1] = v41;
-    operator delete(v41);
-  }
-
-  if (v160)
-  {
-    v161 = v160;
-    operator delete(v160);
-  }
-
-  if (v166)
-  {
-    v167 = v166;
-    operator delete(v166);
-  }
-
-  if (v164)
-  {
-    v165 = v164;
-    operator delete(v164);
-  }
-
-  _ZN4geom10hash_brownIZNS_23marching_squares_2_implIfRKNSt3__18functionIFfDv2_fEEEEEvOT0_tNS_4bboxIT_Lh2EEERNS2_6vectorINS_11vector_typeISC_Lh2EvE5valueENS2_9allocatorISH_EEEERNSE_IjNSI_IjEEEEE16vertex_map_queryS4_ZNS1_IfS8_EEvSA_tSD_SL_SO_ENSP_4hashENS2_8equal_toISP_EEE6deinitEv(v174);
-  v152 = *MEMORY[0x277D85DE8];
-}
-
-float64x2_t **geom::triangulate_by_ear_clipping<double>(float64x2_t **result, void *a2)
-{
-  v2 = result[1];
-  if (v2)
-  {
-    v3 = *result;
-    v4 = vdupq_n_s64(0x7FF0000000000000uLL);
-    v5 = 16 * v2;
-    v6 = vdupq_n_s64(0xFFF0000000000000);
-    do
-    {
-      v7 = *v3++;
-      v4 = vminnmq_f64(v7, v4);
-      v6 = vmaxnmq_f64(v7, v6);
-      v5 -= 16;
-    }
-
-    while (v5);
-  }
-
-  if (v2 > 2)
-  {
-    geom::fixed_pool_list<unsigned long>::fixed_pool_list(v8, v2);
-  }
-
-  a2[1] = *a2;
-  return result;
-}
-
-void geom::triangulate_by_ear_clipping_helper<double>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, void *a5, uint64_t *a6, std::vector<unsigned int> *a7, double a8)
-{
-  v158 = *MEMORY[0x277D85DE8];
-  v150[0] = a3;
-  v150[1] = a4;
-  v15 = *a2;
-  v14 = a2[1];
-  v16 = (v14 - *a2) >> 3;
-  v17 = 3 * (v16 - 2);
-  if (6 * (v16 - 2) <= 1)
-  {
-    v18 = 1;
-  }
-
-  else
-  {
-    v18 = 6 * (v16 - 2);
-  }
-
-  v157 = 0;
-  memset(v156, 0, sizeof(v156));
-  geom::hash_brown<std::pair<unsigned long,unsigned long>,unsigned long,geom::edge_hash,std::equal_to<std::pair<unsigned long,unsigned long>>>::init(v156, v18);
-  geom::fixed_pool_list<geom::fixed_pool_list<unsigned long>::const_node_iterator>::fixed_pool_list(&v145, v16);
-  v142 = 0;
-  v143 = 0;
-  v144 = 0;
-  if (v14 != v15)
-  {
-    std::vector<geom::fixed_pool_list<geom::fixed_pool_list<unsigned long>::const_node_iterator>::const_node_iterator,std::allocator<std::allocator>>::__vallocate[abi:nn200100](&v142, v16);
-  }
-
-  *__p = 0u;
-  v141 = 0u;
-  *v139 = 0u;
-  std::vector<geom::indexed_priority_queue<unsigned long,double>::key,std::allocator<geom::indexed_priority_queue<unsigned long,double>::key>>::reserve(v139, v16);
-  std::vector<unsigned long long>::resize(&__p[1], v16, &geom::indexed_priority_queue<unsigned long,double>::k_invalid_index);
-  v19 = a1[2];
-  v20 = *(v19 + 16);
-  while (v20 != 1)
-  {
-    v21 = (v142 + 16 * *(v19 + 32 * v20));
-    *v21 = v20;
-    v21[1] = a1;
-    v19 = a1[2];
-    v22 = (*a6 + 16 * *(v19 + 32 * v20));
-    if (v22[1] == a5 && *v22 == 1)
-    {
-      v153 = v20;
-      v154 = *&a1;
-      is_triangle_incident_to_vertex_concave = geom::is_triangle_incident_to_vertex_concave_free<double>(&v153, a1, a2, v150, a5, a8);
-      v19 = a1[2];
-      if (is_triangle_incident_to_vertex_concave)
-      {
-        v24 = (v19 + 32 * v20);
-        v25 = v24[2];
-        if (v25 == -1)
-        {
-          v25 = v20;
-        }
-
-        if (v25 == 1)
-        {
-          v25 = *(v19 + 16);
-        }
-
-        if (v20 == *(v19 + 16))
-        {
-          v26 = *(v19 + 56);
-          if (v26 <= 1)
-          {
-            v26 = 1;
-          }
-        }
-
-        else
-        {
-          v26 = v24[3];
-          if (!v26)
-          {
-            v26 = v20;
-          }
-        }
-
-        v27 = *v24;
-        v28 = *(v150[0] + 16 * *(*a2 + 8 * v27));
-        v29 = vsubq_f64(v28, *(v150[0] + 16 * *(*a2 + 8 * *(v19 + 32 * v26))));
-        v30 = vsubq_f64(*(v150[0] + 16 * *(*a2 + 8 * *(v19 + 32 * v25))), v28);
-        v31 = vmulq_f64(v30, v30);
-        v32 = vmulq_n_f64(v30, 1.0 / sqrt(vaddvq_f64(v31)));
-        v31.f64[0] = -*&v29.i64[1];
-        v33 = vzip1q_s64(v31, v29);
-        v34 = vaddvq_f64(vmulq_f64(v32, vmulq_n_f64(v33, 1.0 / sqrt(vaddvq_f64(vmulq_f64(v33, v33))))));
-        if (v34 < 0.0)
-        {
-          v34 = v34 + 2.0;
-        }
-
-        v153 = v27;
-        v154 = v34;
-        geom::indexed_priority_queue<unsigned long,double>::push_or_change_cost(v139, &v153);
-        v19 = a1[2];
-      }
-    }
-
-    if (*(v19 + 32 * v20 + 16) != -1)
-    {
-      v20 = *(v19 + 32 * v20 + 16);
-    }
-  }
-
-  a7->__end_ = a7->__begin_;
-  std::vector<float>::reserve(a7, v17);
-  v35 = v139[0];
-  v36 = v139[1] - v139[0];
-  if (v139[1] != v139[0])
-  {
-    while (1)
-    {
-      v37 = *v35;
-      v38 = v35[1];
-      if (v36 == 16)
-      {
-        v139[1] = v35;
-        v39 = __p[1];
-      }
-
-      else
-      {
-        v48 = (v36 >> 4) - 1;
-        v49 = &v35[2 * v48];
-        v50 = *v49;
-        *v35 = *v49;
-        v35[1] = v49[1];
-        *(__p[1] + *&v50) = 0;
-        std::vector<geom::indexed_priority_queue<unsigned long,double>::key,std::allocator<geom::indexed_priority_queue<unsigned long,double>::key>>::resize(v139, v48);
-        v51 = 0;
-        v35 = v139[0];
-        v52 = (v139[1] - v139[0]) >> 4;
-        v39 = __p[1];
-        for (i = 0; ; v51 = i)
-        {
-          v54 = (2 * v51) | 1;
-          v55 = &v35[2 * v51];
-          if (v54 < v52)
-          {
-            i = v51;
-            if (v35[2 * v54 + 1] < v55[1])
-            {
-              i = (2 * v51) | 1;
-            }
-          }
-
-          v56 = 2 * v51 + 2;
-          if (v56 < v52 && v35[2 * v56 + 1] < v35[2 * i + 1])
-          {
-            i = 2 * v51 + 2;
-          }
-
-          if (i == v51)
-          {
-            break;
-          }
-
-          v57 = &v35[2 * i];
-          v58 = *v55;
-          v59 = *(v55 + 1);
-          *v55 = *v57;
-          v55[1] = v57[1];
-          *v57 = v58;
-          *(v57 + 1) = v59;
-          v39[*v55] = v51;
-          v39[*v57] = i;
-        }
-      }
-
-      v39[*&v37] = -1;
-      if (v38 == INFINITY)
-      {
-        goto LABEL_167;
-      }
-
-      v40 = (v142 + 16 * *&v37);
-      v42 = *v40;
-      v41 = v40[1];
-      if (v41 == a1 && v42 == 1)
-      {
-        break;
-      }
-
-      v44 = *(v41[2] + 32 * v42 + 16);
-      if (v44 == -1)
-      {
-        v44 = v42;
-      }
-
-      if (v41 == a1 && v44 == 1)
-      {
-        v44 = *(a1[2] + 16);
-        v46 = a1;
-        goto LABEL_52;
-      }
-
-      v46 = v41;
-      v47 = v41;
-LABEL_53:
-      v137 = v44;
-      v138 = v46;
-      if (v41 != a1)
-      {
-        goto LABEL_60;
-      }
-
-      v60 = a1[2];
-      if (v42 == 1)
-      {
-        v61 = a1;
-        v62 = 1;
-        goto LABEL_63;
-      }
-
-      if (v42 == *(v60 + 16))
-      {
-        v62 = *(v60 + 56);
-        if (v62 <= 1)
-        {
-          v62 = 1;
-        }
-
-        v61 = a1;
-      }
-
-      else
-      {
-LABEL_60:
-        v60 = v41[2];
-        v62 = *(v60 + 32 * v42 + 24);
-        if (!v62)
-        {
-          v62 = v42;
-        }
-
-        v61 = v41;
-      }
-
-LABEL_63:
-      v135 = v62;
-      v136 = v61;
-      v153 = *(v41[2] + 32 * v42);
-      v154 = *(v47[2] + 32 * v44);
-      v155 = *(v60 + 32 * v62);
-      geom::add_triangle_helper<double>(&v153, a7, v156, a2, v150[0]);
-      v63 = a1[2];
-      v64 = (v63 + 32 * v42);
-      v65 = v63 + 32 * v64[3];
-      v66 = v63 + 32 * v64[2];
-      *(v65 + 16) = *(v66 + 8);
-      *(v66 + 24) = *(v65 + 8);
-      v64[2] = -1;
-      v64[3] = -1;
-      v67 = a1[1] - 1;
-      a1[1] = v67;
-      *(a1[5] + 8 * v67) = v64[1];
-      v68 = v135;
-      v69 = v136[2];
-      v70 = *(v69 + 32 * v135);
-      v71 = *a6;
-      v72 = (*a6 + 16 * v70);
-      if (v72[1] == a5 && *v72 == 1)
-      {
-        goto LABEL_85;
-      }
-
-      v73 = v69 + 32 * v135;
-      if (v136 == a1 && v135 == 1)
-      {
-        v74 = v136[2];
-        v75 = 1;
-      }
-
-      else
-      {
-        v75 = *(v73 + 16);
-        if (v75 == -1)
-        {
-          v75 = v135;
-        }
-
-        v74 = v136[2];
-        if (v136 == a1 && v75 == 1)
-        {
-          v74 = a1[2];
-          v75 = *(v74 + 16);
-        }
-      }
-
-      if (v136 != a1)
-      {
-LABEL_74:
-        if (*(v73 + 24))
-        {
-          v68 = *(v73 + 24);
-        }
-
-        goto LABEL_83;
-      }
-
-      if (v135 != 1)
-      {
-        v76 = a1[2];
-        if (v135 != *(v76 + 16))
-        {
-          goto LABEL_74;
-        }
-
-        if (*(v76 + 56) <= 1uLL)
-        {
-          v68 = 1;
-        }
-
-        else
-        {
-          v68 = *(v76 + 56);
-        }
-
-        v69 = a1[2];
-      }
-
-LABEL_83:
-      v77 = _simd_orient_pd2(*(v150[0] + 16 * *(*a2 + 8 * *(v69 + 32 * v68))), *(v150[0] + 16 * *(*a2 + 8 * v70)), *(v150[0] + 16 * *(*a2 + 8 * *(v74 + 32 * v75))));
-      v71 = *a6;
-      if (v77 > 0.0)
-      {
-        v78 = a5[2];
-        v79 = (v78 + 40 * *(v71 + 16 * *(v136[2] + 32 * v135)));
-        v80 = v78 + 40 * v79[4];
-        v81 = v78 + 40 * v79[3];
-        *(v80 + 24) = *(v81 + 16);
-        *(v81 + 32) = *(v80 + 16);
-        v79[3] = -1;
-        v79[4] = -1;
-        v82 = a5[1] - 1;
-        a5[1] = v82;
-        *(a5[5] + 8 * v82) = v79[2];
-        v83 = (*a6 + 16 * *(v136[2] + 32 * v135));
-        *v83 = 1;
-        v83[1] = a5;
-        v71 = *a6;
-      }
-
-LABEL_85:
-      v84 = v137;
-      v85 = v138[2];
-      v86 = *(v85 + 32 * v137);
-      v87 = (v71 + 16 * v86);
-      if (v87[1] == a5 && *v87 == 1)
-      {
-        goto LABEL_107;
-      }
-
-      v88 = v85 + 32 * v137;
-      if (v138 == a1 && v137 == 1)
-      {
-        v89 = v138[2];
-        v90 = 1;
-      }
-
-      else
-      {
-        v90 = *(v88 + 16);
-        if (v90 == -1)
-        {
-          v90 = v137;
-        }
-
-        v89 = v138[2];
-        if (v138 == a1 && v90 == 1)
-        {
-          v89 = a1[2];
-          v90 = *(v89 + 16);
-        }
-      }
-
-      if (v138 != a1)
-      {
-LABEL_96:
-        if (*(v88 + 24))
-        {
-          v84 = *(v88 + 24);
-        }
-
-        goto LABEL_105;
-      }
-
-      if (v137 != 1)
-      {
-        v91 = a1[2];
-        if (v137 != *(v91 + 16))
-        {
-          goto LABEL_96;
-        }
-
-        if (*(v91 + 56) <= 1uLL)
-        {
-          v84 = 1;
-        }
-
-        else
-        {
-          v84 = *(v91 + 56);
-        }
-
-        v85 = a1[2];
-      }
-
-LABEL_105:
-      if (_simd_orient_pd2(*(v150[0] + 16 * *(*a2 + 8 * *(v85 + 32 * v84))), *(v150[0] + 16 * *(*a2 + 8 * v86)), *(v150[0] + 16 * *(*a2 + 8 * *(v89 + 32 * v90)))) > 0.0)
-      {
-        v92 = a5[2];
-        v93 = (v92 + 40 * *(*a6 + 16 * *(v138[2] + 32 * v137)));
-        v94 = v92 + 40 * v93[4];
-        v95 = v92 + 40 * v93[3];
-        *(v94 + 24) = *(v95 + 16);
-        *(v95 + 32) = *(v94 + 16);
-        v93[3] = -1;
-        v93[4] = -1;
-        v96 = a5[1] - 1;
-        a5[1] = v96;
-        *(a5[5] + 8 * v96) = v93[2];
-        v97 = (*a6 + 16 * *(v138[2] + 32 * v137));
-        *v97 = 1;
-        v97[1] = a5;
-      }
-
-LABEL_107:
-      v98 = *(v136[2] + 32 * v135);
-      v99 = *(__p[1] + v98);
-      v100 = v99 != -1 && *(v139[0] + 2 * v99 + 1) != INFINITY;
-      v101 = (*a6 + 16 * v98);
-      if (v101[1] == a5 && *v101 == 1 && geom::is_triangle_incident_to_vertex_concave_free<double>(&v135, a1, a2, v150, a5, a8))
-      {
-        v102 = v136[2];
-        v103 = v102 + 32 * v135;
-        if (v136 == a1 && v135 == 1)
-        {
-          v104 = v136[2];
-          v105 = 1;
-        }
-
-        else
-        {
-          v105 = *(v103 + 16);
-          if (v105 == -1)
-          {
-            v105 = v135;
-          }
-
-          v104 = v136[2];
-          if (v136 == a1 && v105 == 1)
-          {
-            v104 = a1[2];
-            v105 = *(v104 + 16);
-          }
-        }
-
-        if (v136 == a1)
-        {
-          if (v135 == 1)
-          {
-            v115 = v136[2];
-            v114 = 1;
-          }
-
-          else
-          {
-            v115 = a1[2];
-            if (v135 != *(v115 + 16))
-            {
-              goto LABEL_139;
-            }
-
-            v114 = *(v115 + 56);
-            if (v114 <= 1)
-            {
-              v114 = 1;
-            }
-          }
-        }
-
-        else
-        {
-LABEL_139:
-          v114 = *(v103 + 24);
-          if (!v114)
-          {
-            v114 = v135;
-          }
-
-          v115 = v136[2];
-        }
-
-        v118 = *(v102 + 32 * v135);
-        v119 = *(v150[0] + 16 * *(*a2 + 8 * v118));
-        v120 = vsubq_f64(v119, *(v150[0] + 16 * *(*a2 + 8 * *(v115 + 32 * v114))));
-        v121 = vsubq_f64(*(v150[0] + 16 * *(*a2 + 8 * *(v104 + 32 * v105))), v119);
-        v122 = vmulq_f64(v121, v121);
-        v123 = vmulq_n_f64(v121, 1.0 / sqrt(vaddvq_f64(v122)));
-        v122.f64[0] = -*&v120.i64[1];
-        v124 = vzip1q_s64(v122, v120);
-        v125 = vaddvq_f64(vmulq_f64(v123, vmulq_n_f64(v124, 1.0 / sqrt(vaddvq_f64(vmulq_f64(v124, v124))))));
-        if (v125 < 0.0)
-        {
-          v125 = v125 + 2.0;
-        }
-
-        v151 = v118;
-        v152 = *&v125;
-        goto LABEL_118;
-      }
-
-      if (!v100)
-      {
-        goto LABEL_119;
-      }
-
-      v151 = *(v136[2] + 32 * v135);
-      v152 = 0x7FF0000000000000;
-LABEL_118:
-      geom::indexed_priority_queue<unsigned long,double>::push_or_change_cost(v139, &v151);
-LABEL_119:
-      v106 = *(v138[2] + 32 * v137);
-      v107 = *(__p[1] + v106);
-      v108 = v107 != -1 && *(v139[0] + 2 * v107 + 1) != INFINITY;
-      v109 = (*a6 + 16 * v106);
-      if (v109[1] == a5 && *v109 == 1 && geom::is_triangle_incident_to_vertex_concave_free<double>(&v137, a1, a2, v150, a5, a8))
-      {
-        v110 = v138[2];
-        v111 = v110 + 32 * v137;
-        if (v138 == a1 && v137 == 1)
-        {
-          v112 = v138[2];
-          v113 = 1;
-        }
-
-        else
-        {
-          v113 = *(v111 + 16);
-          if (v113 == -1)
-          {
-            v113 = v137;
-          }
-
-          v112 = v138[2];
-          if (v138 == a1 && v113 == 1)
-          {
-            v112 = a1[2];
-            v113 = *(v112 + 16);
-          }
-        }
-
-        if (v138 == a1)
-        {
-          if (v137 == 1)
-          {
-            v117 = v138[2];
-            v116 = 1;
-          }
-
-          else
-          {
-            v117 = a1[2];
-            if (v137 != *(v117 + 16))
-            {
-              goto LABEL_148;
-            }
-
-            v116 = *(v117 + 56);
-            if (v116 <= 1)
-            {
-              v116 = 1;
-            }
-          }
-        }
-
-        else
-        {
-LABEL_148:
-          v116 = *(v111 + 24);
-          if (!v116)
-          {
-            v116 = v137;
-          }
-
-          v117 = v138[2];
-        }
-
-        v126 = *(v110 + 32 * v137);
-        v127 = *(v150[0] + 16 * *(*a2 + 8 * v126));
-        v128 = vsubq_f64(v127, *(v150[0] + 16 * *(*a2 + 8 * *(v117 + 32 * v116))));
-        v129 = vsubq_f64(*(v150[0] + 16 * *(*a2 + 8 * *(v112 + 32 * v113))), v127);
-        v130 = vmulq_f64(v129, v129);
-        v131 = vmulq_n_f64(v129, 1.0 / sqrt(vaddvq_f64(v130)));
-        v130.f64[0] = -*&v128.i64[1];
-        v132 = vzip1q_s64(v130, v128);
-        v133 = vaddvq_f64(vmulq_f64(v131, vmulq_n_f64(v132, 1.0 / sqrt(vaddvq_f64(vmulq_f64(v132, v132))))));
-        if (v133 < 0.0)
-        {
-          v133 = v133 + 2.0;
-        }
-
-        v151 = v126;
-        v152 = *&v133;
-LABEL_130:
-        geom::indexed_priority_queue<unsigned long,double>::push_or_change_cost(v139, &v151);
-        goto LABEL_131;
-      }
-
-      if (v108)
-      {
-        v151 = *(v138[2] + 32 * v137);
-        v152 = 0x7FF0000000000000;
-        goto LABEL_130;
-      }
-
-LABEL_131:
-      v35 = v139[0];
-      v36 = v139[1] - v139[0];
-      if (v139[1] == v139[0])
-      {
-        goto LABEL_167;
-      }
-    }
-
-    v46 = a1;
-    v44 = 1;
-LABEL_52:
-    v47 = a1;
-    goto LABEL_53;
-  }
-
-LABEL_167:
-  if (__p[1])
-  {
-    *&v141 = __p[1];
-    operator delete(__p[1]);
-    v35 = v139[0];
-  }
-
-  if (v35)
-  {
-    v139[1] = v35;
-    operator delete(v35);
-  }
-
-  if (v142)
-  {
-    v143 = v142;
-    operator delete(v142);
-  }
-
-  if (v148)
-  {
-    v149 = v148;
-    operator delete(v148);
-  }
-
-  if (v146)
-  {
-    v147 = v146;
-    operator delete(v146);
-  }
-
-  _ZN4geom10hash_brownIZNS_23marching_squares_2_implIfRKNSt3__18functionIFfDv2_fEEEEEvOT0_tNS_4bboxIT_Lh2EEERNS2_6vectorINS_11vector_typeISC_Lh2EvE5valueENS2_9allocatorISH_EEEERNSE_IjNSI_IjEEEEE16vertex_map_queryS4_ZNS1_IfS8_EEvSA_tSD_SL_SO_ENSP_4hashENS2_8equal_toISP_EEE6deinitEv(v156);
-  v134 = *MEMORY[0x277D85DE8];
-}
-
-float32x2_t **geom::triangulate_by_ear_clipping<float>(float32x2_t **result, unsigned int **a2, void *a3)
-{
-  v3 = a2[1];
-  v4 = result[1];
-  if (v4)
-  {
-    v5 = *result;
-    v6 = 0x7F0000007FLL;
-    v7 = vneg_f32(0x7F0000007FLL);
-    v8 = 8 * v4;
-    do
-    {
-      v9 = *v5++;
-      v7 = vminnm_f32(v9, v7);
-      v6 = vmaxnm_f32(v9, v6);
-      v8 -= 8;
-    }
-
-    while (v8);
-  }
-
-  v10 = v3 - 1;
-  if (v3 != 1)
-  {
-    if (v3)
-    {
-      if (v4 + 2 * v10 > 2)
-      {
-        geom::fixed_pool_list<unsigned long>::fixed_pool_list(v11, v4 + 2 * v10);
-      }
-    }
-
-    goto LABEL_12;
-  }
-
-  if (v4 != **a2)
-  {
-LABEL_12:
-    a3[1] = *a3;
-    return result;
-  }
-
-  return geom::triangulate_by_ear_clipping<float>(result, a3);
-}
-
-void std::vector<geom::fixed_pool_list<geom::fixed_pool_list<unsigned long>::const_node_iterator>::const_node_iterator,std::allocator<std::allocator>>::resize(void *a1, unint64_t a2, _OWORD *a3)
-{
-  v3 = (a1[1] - *a1) >> 4;
-  if (a2 <= v3)
-  {
-    if (a2 < v3)
-    {
-      a1[1] = *a1 + 16 * a2;
-    }
-  }
-
-  else
-  {
-    std::vector<geom::fixed_pool_list<geom::fixed_pool_list<unsigned long>::const_node_iterator>::const_node_iterator,std::allocator<std::allocator>>::__append(a1, a2 - v3, a3);
-  }
-}
-
-float64x2_t **geom::triangulate_by_ear_clipping<double>(float64x2_t **result, unsigned int **a2, void *a3)
-{
-  v3 = a2[1];
-  v4 = result[1];
-  if (v4)
-  {
-    v5 = *result;
-    v6 = vdupq_n_s64(0x7FF0000000000000uLL);
-    v7 = 16 * v4;
-    v8 = vdupq_n_s64(0xFFF0000000000000);
-    do
-    {
-      v9 = *v5++;
-      v6 = vminnmq_f64(v9, v6);
-      v8 = vmaxnmq_f64(v9, v8);
-      v7 -= 16;
-    }
-
-    while (v7);
-  }
-
-  v10 = v3 - 1;
-  if (v3 != 1)
-  {
-    if (v3)
-    {
-      if (v4 + 2 * v10 > 2)
-      {
-        geom::fixed_pool_list<unsigned long>::fixed_pool_list(v11, v4 + 2 * v10);
-      }
-    }
-
-    goto LABEL_12;
-  }
-
-  if (v4 != **a2)
-  {
-LABEL_12:
-    a3[1] = *a3;
-    return result;
-  }
-
-  return geom::triangulate_by_ear_clipping<double>(result, a3);
-}
-
-void geom::fixed_pool_list<unsigned long>::fixed_pool_list(uint64_t a1, uint64_t a2)
-{
-  *a1 = a2;
-  *(a1 + 8) = 0u;
-  *(a1 + 24) = 0u;
-  if (a2 != -2)
-  {
-    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE11__vallocateB8nn200100Em(a1 + 16, a2 + 2);
-  }
-
-  *(a1 + 40) = 0;
-  *(a1 + 48) = 0;
-  *(a1 + 56) = 0;
-  std::vector<double>::__vallocate[abi:nn200100](a1 + 40, 0xFFFFFFFFFFFFFFFELL);
-}
-
-unint64_t *geom::fixed_pool_list<geom::fixed_pool_list<unsigned long>::const_node_iterator>::fixed_pool_list(unint64_t *a1, unint64_t a2)
-{
-  *a1 = a2;
-  a1[1] = 0;
-  std::vector<geom::fixed_pool_list<geom::fixed_pool_list<unsigned long>::const_node_iterator>::node,std::allocator<std::allocator>>::vector[abi:nn200100](a1 + 2, a2 + 2);
-  a1[5] = 0;
-  a1[6] = 0;
-  a1[7] = 0;
-  if (a2)
-  {
-    std::vector<double>::__vallocate[abi:nn200100]((a1 + 5), a2);
-  }
-
-  v4 = a1[2];
-  v4[3] = 1;
-  v4[9] = 0;
-  v5 = 0;
-  v6 = vdupq_n_s64(1uLL);
-  v7 = xmmword_2500C1680;
-  v8 = v4 + 7;
-  v9 = vdupq_n_s64(2uLL);
-  do
-  {
-    v10 = vmovn_s64(vcgeq_u64(v6, v7));
-    if (v10.i8[0])
-    {
-      *(v8 - 5) = v5;
-    }
-
-    if (v10.i8[4])
-    {
-      *v8 = v5 + 1;
-    }
-
-    v5 += 2;
-    v7 = vaddq_s64(v7, v9);
-    v8 += 10;
-  }
-
-  while (v5 != 2);
-  return a1;
-}
-
-void *std::vector<geom::fixed_pool_list<geom::fixed_pool_list<unsigned long>::const_node_iterator>::node,std::allocator<std::allocator>>::vector[abi:nn200100](void *result, unint64_t a2)
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<geom::fixed_pool_list<geom::fixed_pool_list<unsigned long>::const_node_iterator>::node,std::allocator<std::allocator>>::__vallocate[abi:nn200100](result, a2);
-  }
-
-  return result;
 }

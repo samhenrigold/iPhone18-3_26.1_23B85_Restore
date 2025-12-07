@@ -58,7 +58,7 @@
 
 - (void)accessoryAttached:(id)attached
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   attachedCopy = attached;
   if (gLogObjects)
   {
@@ -88,20 +88,18 @@
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v10 = 138412290;
-    v11 = attachedCopy;
-    _os_log_impl(&dword_2335F7000, v7, OS_LOG_TYPE_INFO, "[#Navigation] accessoryAttached: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = attachedCopy;
+    _os_log_impl(&dword_2335F7000, v7, OS_LOG_TYPE_INFO, "[#Navigation] accessoryAttached: %@", &v9, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained notifyNavigationAccessoryClientsOfStateChange];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accessoryDetached:(id)detached
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   detachedCopy = detached;
   if (gLogObjects)
   {
@@ -131,20 +129,18 @@
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v10 = 138412290;
-    v11 = detachedCopy;
-    _os_log_impl(&dword_2335F7000, v7, OS_LOG_TYPE_INFO, "[#Navigation] accessoryDetached: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = detachedCopy;
+    _os_log_impl(&dword_2335F7000, v7, OS_LOG_TYPE_INFO, "[#Navigation] accessoryDetached: %@", &v9, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained notifyNavigationAccessoryClientsOfStateChange];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accessoryStartRouteGuidance:(id)guidance componentList:(id)list
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   guidanceCopy = guidance;
   listCopy = list;
   if (gLogObjects)
@@ -175,22 +171,20 @@
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v13 = 138412546;
-    v14 = guidanceCopy;
-    v15 = 2112;
-    v16 = listCopy;
-    _os_log_impl(&dword_2335F7000, v10, OS_LOG_TYPE_INFO, "[#Navigation] accessoryStartRouteGuidance: %@ componentList: %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = guidanceCopy;
+    v14 = 2112;
+    v15 = listCopy;
+    _os_log_impl(&dword_2335F7000, v10, OS_LOG_TYPE_INFO, "[#Navigation] accessoryStartRouteGuidance: %@ componentList: %@", &v12, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained notifyNavigationAccessoryClientsOfStateChange];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accessoryStopRouteGuidance:(id)guidance componentList:(id)list
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   guidanceCopy = guidance;
   listCopy = list;
   if (gLogObjects)
@@ -221,22 +215,20 @@
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v13 = 138412546;
-    v14 = guidanceCopy;
-    v15 = 2112;
-    v16 = listCopy;
-    _os_log_impl(&dword_2335F7000, v10, OS_LOG_TYPE_INFO, "[#Navigation] accessoryStopRouteGuidance: %@ componentList: %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = guidanceCopy;
+    v14 = 2112;
+    v15 = listCopy;
+    _os_log_impl(&dword_2335F7000, v10, OS_LOG_TYPE_INFO, "[#Navigation] accessoryStopRouteGuidance: %@ componentList: %@", &v12, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained notifyNavigationAccessoryClientsOfStateChange];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accessoryNavigation:(id)navigation updateRouteGuidanceInfo:(id)info
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   navigationCopy = navigation;
   infoCopy = info;
   if (gLogObjects)
@@ -267,11 +259,11 @@
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v17 = 138412546;
-    v18 = navigationCopy;
-    v19 = 2112;
-    v20 = infoCopy;
-    _os_log_impl(&dword_2335F7000, v10, OS_LOG_TYPE_INFO, "[#Navigation] accessoryNavigation: %@ updateRouteGuidanceInfo: %@", &v17, 0x16u);
+    v16 = 138412546;
+    v17 = navigationCopy;
+    v18 = 2112;
+    v19 = infoCopy;
+    _os_log_impl(&dword_2335F7000, v10, OS_LOG_TYPE_INFO, "[#Navigation] accessoryNavigation: %@ updateRouteGuidanceInfo: %@", &v16, 0x16u);
   }
 
   v11 = [MEMORY[0x277CCABB0] numberWithInt:0];
@@ -291,13 +283,11 @@
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   v15 = [(ACCNavigationShim *)self convertIAP2ACCRouteGuidanceInfo:infoCopy forAccessory:navigationCopy];
   [WeakRetained updateRouteGuidanceInfo:v15 componentIdList:v13 accessory:navigationCopy];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accessoryNavigation:(id)navigation updateManeuverInfo:(id)info
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   navigationCopy = navigation;
   infoCopy = info;
   if (gLogObjects)
@@ -328,11 +318,11 @@
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v17 = 138412546;
-    v18 = navigationCopy;
-    v19 = 2112;
-    v20 = infoCopy;
-    _os_log_impl(&dword_2335F7000, v10, OS_LOG_TYPE_INFO, "[#Navigation] accessoryNavigation: %@ updateManeuverInfo: %@", &v17, 0x16u);
+    v16 = 138412546;
+    v17 = navigationCopy;
+    v18 = 2112;
+    v19 = infoCopy;
+    _os_log_impl(&dword_2335F7000, v10, OS_LOG_TYPE_INFO, "[#Navigation] accessoryNavigation: %@ updateManeuverInfo: %@", &v16, 0x16u);
   }
 
   v11 = [MEMORY[0x277CCABB0] numberWithInt:0];
@@ -352,95 +342,89 @@
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   v15 = [(ACCNavigationShim *)self convertIAP2ACCManeuverInfo:infoCopy forAccessory:navigationCopy];
   [WeakRetained updateManeuverInfo:v15 componentIdList:v13 accessory:navigationCopy];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)convertIAP2ACCRouteGuidanceInfo:(id)info forAccessory:(id)accessory
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v5 = objc_alloc_init(MEMORY[0x277CE82F8]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   allKeys = [infoCopy allKeys];
-  v7 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         integerValue = [v11 integerValue];
         v13 = [infoCopy objectForKey:v11];
         [v5 setInfo:integerValue data:v13];
       }
 
-      v8 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)convertIAP2ACCManeuverInfo:(id)info forAccessory:(id)accessory
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v5 = objc_alloc_init(MEMORY[0x277CE82E8]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   allKeys = [infoCopy allKeys];
-  v7 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         integerValue = [v11 integerValue];
         v13 = [infoCopy objectForKey:v11];
         [v5 setInfo:integerValue data:v13];
       }
 
-      v8 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (BOOL)tryProcessXPCMessage:(id)message connection:(id)connection server:(id)server
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   connectionCopy = connection;
   string = xpc_dictionary_get_string(messageCopy, MEMORY[0x277CE8508]);
@@ -476,8 +460,8 @@
 
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v56[0]) = 0;
-      _os_log_impl(&dword_2335F7000, v14, OS_LOG_TYPE_DEFAULT, "[#Navigation] RequestType not specified in xpc message!", v56, 2u);
+      LOWORD(v55[0]) = 0;
+      _os_log_impl(&dword_2335F7000, v14, OS_LOG_TYPE_DEFAULT, "[#Navigation] RequestType not specified in xpc message!", v55, 2u);
     }
 
     string = "<nil>";
@@ -525,14 +509,14 @@
       }
 
       uint64 = xpc_dictionary_get_uint64(messageCopy, "nav_accessoryIdentifier");
-      v56[0] = 0xAAAAAAAAAAAAAAAALL;
-      data = xpc_dictionary_get_data(messageCopy, "nav_payload", v56);
-      v32 = [MEMORY[0x277CBEA90] dataWithBytes:data length:v56[0]];
-      v61[0] = NSClassFromString(&cfstr_Nsdictionary.isa);
-      v61[1] = NSClassFromString(&cfstr_Nsarray.isa);
-      v61[2] = NSClassFromString(&cfstr_Nsstring.isa);
-      v61[3] = NSClassFromString(&cfstr_Nsnumber.isa);
-      v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:4];
+      v55[0] = 0xAAAAAAAAAAAAAAAALL;
+      data = xpc_dictionary_get_data(messageCopy, "nav_payload", v55);
+      v32 = [MEMORY[0x277CBEA90] dataWithBytes:data length:v55[0]];
+      v60[0] = NSClassFromString(&cfstr_Nsdictionary.isa);
+      v60[1] = NSClassFromString(&cfstr_Nsarray.isa);
+      v60[2] = NSClassFromString(&cfstr_Nsstring.isa);
+      v60[3] = NSClassFromString(&cfstr_Nsnumber.isa);
+      v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:4];
       v34 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v33];
       v35 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v34 fromData:v32 error:0];
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -590,14 +574,14 @@ LABEL_57:
     }
 
     v30 = xpc_dictionary_get_uint64(messageCopy, "nav_accessoryIdentifier");
-    v56[0] = 0xAAAAAAAAAAAAAAAALL;
-    v31 = xpc_dictionary_get_data(messageCopy, "nav_payload", v56);
-    v32 = [MEMORY[0x277CBEA90] dataWithBytes:v31 length:v56[0]];
-    v62[0] = NSClassFromString(&cfstr_Nsdictionary.isa);
-    v62[1] = NSClassFromString(&cfstr_Nsarray.isa);
-    v62[2] = NSClassFromString(&cfstr_Nsstring.isa);
-    v62[3] = NSClassFromString(&cfstr_Nsnumber.isa);
-    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:4];
+    v55[0] = 0xAAAAAAAAAAAAAAAALL;
+    v31 = xpc_dictionary_get_data(messageCopy, "nav_payload", v55);
+    v32 = [MEMORY[0x277CBEA90] dataWithBytes:v31 length:v55[0]];
+    v61[0] = NSClassFromString(&cfstr_Nsdictionary.isa);
+    v61[1] = NSClassFromString(&cfstr_Nsarray.isa);
+    v61[2] = NSClassFromString(&cfstr_Nsstring.isa);
+    v61[3] = NSClassFromString(&cfstr_Nsnumber.isa);
+    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:4];
     v34 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v33];
     v35 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v34 fromData:v32 error:0];
     v36 = objc_loadWeakRetained(&self->_delegate);
@@ -665,30 +649,30 @@ LABEL_72:
   v20 = objc_loadWeakRetained(&self->_delegate);
   navigationShimAccessoryList = [v20 navigationShimAccessoryList];
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   v22 = navigationShimAccessoryList;
-  v23 = [v22 countByEnumeratingWithState:&v57 objects:v63 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v56 objects:v62 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v58;
+    v25 = *v57;
     do
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v58 != v25)
+        if (*v57 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        create_xpc_representation = [*(*(&v57 + 1) + 8 * i) create_xpc_representation];
+        create_xpc_representation = [*(*(&v56 + 1) + 8 * i) create_xpc_representation];
         xpc_array_append_value(v19, create_xpc_representation);
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v57 objects:v63 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v56 objects:v62 count:16];
     }
 
     while (v24);
@@ -753,7 +737,6 @@ LABEL_73:
     [ACCNavigationShim tryProcessXPCMessage:v18 connection:v52 server:?];
   }
 
-  v54 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -766,22 +749,20 @@ LABEL_73:
 
 - (void)tryProcessXPCMessage:(uint64_t)a1 connection:(NSObject *)a2 server:.cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 136315138;
-  v4 = a1;
-  _os_log_debug_impl(&dword_2335F7000, a2, OS_LOG_TYPE_DEBUG, "[#Navigation] tryProcessXPCMessage: messagetype=%s", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 136315138;
+  v3 = a1;
+  _os_log_debug_impl(&dword_2335F7000, a2, OS_LOG_TYPE_DEBUG, "[#Navigation] tryProcessXPCMessage: messagetype=%s", &v2, 0xCu);
 }
 
 - (void)tryProcessXPCMessage:(uint64_t)a1 connection:(char)a2 server:(os_log_t)log .cold.11(uint64_t a1, char a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 136315394;
-  v5 = a1;
-  v6 = 1024;
-  v7 = a2 & 1;
-  _os_log_debug_impl(&dword_2335F7000, log, OS_LOG_TYPE_DEBUG, "[#Navigation] tryProcessXPCMessage: messagetype=%s processed=%d", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = a1;
+  v5 = 1024;
+  v6 = a2 & 1;
+  _os_log_debug_impl(&dword_2335F7000, log, OS_LOG_TYPE_DEBUG, "[#Navigation] tryProcessXPCMessage: messagetype=%s processed=%d", &v3, 0x12u);
 }
 
 @end

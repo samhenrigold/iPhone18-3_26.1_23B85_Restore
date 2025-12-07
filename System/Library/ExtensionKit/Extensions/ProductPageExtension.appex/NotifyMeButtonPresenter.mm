@@ -23,7 +23,7 @@
 - (void)appEnteredWhileAppeared
 {
 
-  sub_10074F8C8();
+  sub_10074F8C8(v2, v3);
 }
 
 - (void)appExitedWhileAppeared

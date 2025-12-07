@@ -21,7 +21,7 @@
 
 - (id)unitParameter
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [(WFMeasurementCreateAction *)self parameterForKey:@"WFMeasurementUnit"];
   v3 = objc_opt_class();
   v4 = v2;
@@ -30,16 +30,16 @@
     v6 = getWFGeneralLogObject();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      v10 = 136315906;
-      v11 = "WFEnforceClass";
-      v12 = 2114;
-      v13 = v4;
-      v14 = 2114;
-      v15 = objc_opt_class();
-      v16 = 2114;
-      v17 = v3;
-      v7 = v15;
-      _os_log_impl(&dword_23DE30000, v6, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v10, 0x2Au);
+      v9 = 136315906;
+      v10 = "WFEnforceClass";
+      v11 = 2114;
+      v12 = v4;
+      v13 = 2114;
+      v14 = objc_opt_class();
+      v15 = 2114;
+      v16 = v3;
+      v7 = v14;
+      _os_log_impl(&dword_23DE30000, v6, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v9, 0x2Au);
     }
 
     v5 = 0;
@@ -49,8 +49,6 @@
   {
     v5 = v4;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -154,7 +152,7 @@
 
 - (void)runAsynchronouslyWithInput:(id)input
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   currentUnit = [(WFMeasurementCreateAction *)self currentUnit];
   currentValue = [(WFMeasurementCreateAction *)self currentValue];
   if (currentUnit)
@@ -166,8 +164,8 @@
     v9 = [v6 itemWithObject:v8];
 
     v10 = MEMORY[0x277CFC2E0];
-    v18 = v9;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+    v17 = v9;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
     v12 = [v10 collectionWithItems:v11];
     [(WFMeasurementCreateAction *)self setOutput:v12];
 
@@ -179,14 +177,12 @@
     v9 = WFLocalizedString(@"Measurement failed because no unit was specified. Please pick a unit.");
     v13 = MEMORY[0x277CCA9B8];
     v14 = *MEMORY[0x277D7CB30];
-    v19 = *MEMORY[0x277CCA450];
-    v20[0] = v9;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x277CCA450];
+    v19[0] = v9;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     v16 = [v13 errorWithDomain:v14 code:5 userInfo:v15];
     [(WFMeasurementCreateAction *)self finishRunningWithError:v16];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

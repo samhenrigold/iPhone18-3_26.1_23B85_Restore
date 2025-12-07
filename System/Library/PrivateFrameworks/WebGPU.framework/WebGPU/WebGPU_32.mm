@@ -614,7 +614,7 @@ LABEL_158:
         if (*(v21 + 48) || *v21 >= 3u)
         {
 LABEL_76:
-          WTF::tryFastCompactMalloc(0x3E);
+          WTF::tryFastCompactMalloc(&v78, 0x3E);
           v51 = v78;
           if (!v78)
           {
@@ -813,7 +813,7 @@ LABEL_111:
   }
 }
 
-void WGSL::TypeChecker::binaryExpression(uint64_t a1, WTF::StringImpl *a2, const WTF::StringImpl *a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t a7)
+void WGSL::TypeChecker::binaryExpression(uint64_t a1, WTF::StringImpl *a2, const WTF::StringImpl *a3, WTF::StringImpl *a4, unsigned int a5, uint64_t a6, uint64_t a7)
 {
   v174 = *MEMORY[0x277D85DE8];
   if (a5 >= 0x12)
@@ -926,7 +926,7 @@ LABEL_167:
   v153 = 0x200000002;
   v156 = 0;
   v157 = 0;
-  v16 = *(v7 + 96);
+  v16 = *(v7 + 12);
   v145 = a6;
   if (!v16)
   {
@@ -971,7 +971,7 @@ LABEL_167:
     {
       if (!v25)
       {
-        if (!*(v7 + 96))
+        if (!*(v7 + 12))
         {
           v16 = 0;
           v21 = 1;
@@ -999,7 +999,7 @@ LABEL_21:
     ++i;
   }
 
-  v26 = *(v7 + 96);
+  v26 = *(v7 + 12);
   a1 = v143;
   a7 = v144;
   v15 = &v154;
@@ -1101,7 +1101,7 @@ LABEL_35:
   }
 
   while (v28 < HIDWORD(v153));
-  WGSL::resolveOverloads(*(v7 + 72), v24 + 4, &v159, &v156, &v148);
+  WGSL::resolveOverloads(*(v7 + 9), v24 + 4, &v159, &v156, &v148);
   if (v150 != 1)
   {
     v57 = WTF::StringPrintStream::StringPrintStream(&v169);
@@ -1242,7 +1242,7 @@ LABEL_113:
             if (!v75 && !__OFADD__(v87, 25))
             {
               v88 = (*(v8 + 16) & 4) != 0 && (!v163 || (*(v163 + 16) & 4) != 0) && (!v162 || (*(v162 + 16) & 4) != 0);
-              WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>>(v164, (v87 + 25), v88, "no matching overload for ", 0x19uLL, "operator", 8uLL, 0x20uLL, v8, v163, 0x28, v162, 41);
+              WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>>(v164, (v87 + 25), v88, "no matching overload for ", 0x19uLL, "operator", 8, 0x20, v8, v163, 0x28, v162, 41);
               v16 = v164[0];
               if (v164[0])
               {
@@ -1317,7 +1317,7 @@ LABEL_336:
 
 LABEL_50:
     v16 = v149;
-    *(v7 + 48) = v149;
+    *(v7 + 6) = v149;
     if (v140)
     {
       if ((*(*v140 + 16))(v140) == 19)
@@ -1328,7 +1328,7 @@ LABEL_50:
         if (v43)
         {
           v44 = v16;
-          if (v16 || (v44 = *(v140 + 24)) != 0)
+          if (v16 || (v44 = *(v140 + 3)) != 0)
           {
             v45 = *(v44 + 48);
             if (v45 != 10)
@@ -1354,9 +1354,9 @@ LABEL_59:
               else
               {
 LABEL_62:
-                if (!v45 && *v44 - 1 <= 1 && *(v140 + 84) == 1)
+                if (!v45 && *v44 - 1 <= 1 && *(v140 + 21) == 1)
                 {
-                  v46 = *(**(v140 + 72) + 24);
+                  v46 = *(**(v140 + 9) + 24);
                   if (v46)
                   {
                     v47 = v46[48];
@@ -1384,7 +1384,7 @@ LABEL_62:
 
                     if (!v47 && *v46 - 3 <= 2)
                     {
-                      *(*(v7 + 40) + 32) = 1;
+                      *(*(v7 + 5) + 32) = 1;
                     }
                   }
                 }
@@ -1750,7 +1750,7 @@ LABEL_293:
     return;
   }
 
-  v107 = *(v7 + 40);
+  v107 = *(v7 + 5);
   if (v11 == 3)
   {
     *(v107 + 14) = 1;
@@ -2131,7 +2131,7 @@ LABEL_277:
   }
 }
 
-void WTF::makeString<WTF::ASCIILiteral,WTF::ASCIILiteral,WGSL::Type>(void *a1, int8x16_t *a2, uint64_t a3, unsigned __int8 *a4)
+void WTF::makeString<WTF::ASCIILiteral,WTF::ASCIILiteral,WGSL::Type>(uint64_t *a1, int8x16_t *a2, uint64_t a3, mpark *a4)
 {
   v107[20] = *MEMORY[0x277D85DE8];
   if (a3)
@@ -2196,7 +2196,7 @@ LABEL_13:
       goto LABEL_124;
     }
 
-    WTF::tryFastCompactMalloc((v14 + 20));
+    WTF::tryFastCompactMalloc(v107, (v14 + 20));
     v17 = v107[0];
     if (!v107[0])
     {
@@ -2381,7 +2381,7 @@ LABEL_73:
 
   if (v14 <= 0x7FFFFFEF)
   {
-    WTF::tryFastCompactMalloc((2 * v14 + 20));
+    WTF::tryFastCompactMalloc(v107, (2 * v14 + 20));
     v17 = v107[0];
     if (v107[0])
     {
@@ -2772,7 +2772,7 @@ LABEL_143:
   }
 }
 
-void WTF::makeString<WTF::ASCIILiteral,WGSL::Type>(void *a1, int8x16_t *a2, uint64_t a3, unsigned __int8 *a4)
+void WTF::makeString<WTF::ASCIILiteral,WGSL::Type>(uint64_t *a1, int8x16_t *a2, uint64_t a3, mpark *a4)
 {
   v102[20] = *MEMORY[0x277D85DE8];
   if (a3)
@@ -2844,7 +2844,7 @@ LABEL_49:
         goto LABEL_125;
       }
 
-      WTF::tryFastCompactMalloc((2 * v12 + 20));
+      WTF::tryFastCompactMalloc(v102, (2 * v12 + 20));
       v15 = v102[0];
       if (!v102[0])
       {
@@ -3177,7 +3177,7 @@ LABEL_139:
     goto LABEL_124;
   }
 
-  WTF::tryFastCompactMalloc((v12 + 20));
+  WTF::tryFastCompactMalloc(v102, (v12 + 20));
   v15 = v102[0];
   if (!v102[0])
   {
@@ -3494,12 +3494,12 @@ LABEL_19:
 
 void WGSL::TypeChecker::visit(WGSL::TypeChecker *this, WGSL::AST::Expression *a2, uint64_t a3)
 {
-  v254 = *MEMORY[0x277D85DE8];
+  v255 = *MEMORY[0x277D85DE8];
   switch((*(*a3 + 16))(a3))
   {
     case 0x12u:
-      WGSL::TypeChecker::binaryExpression(&v250, a2, (a3 + 8), a3, *(a3 + 80), *(a3 + 64), *(a3 + 72));
-      if (v252 == 1)
+      WGSL::TypeChecker::binaryExpression(&v251, a2, (a3 + 8), a3, *(a3 + 80), *(a3 + 64), *(a3 + 72));
+      if (v253 == 1)
       {
         goto LABEL_103;
       }
@@ -3510,46 +3510,46 @@ void WGSL::TypeChecker::visit(WGSL::TypeChecker *this, WGSL::AST::Expression *a2
       WGSL::TypeChecker::visit(this, a2, a3);
       return;
     case 0x14u:
-      v240 = a3;
-      *&v241 = a2;
-      WGSL::TypeChecker::infer(&v246, a2, *(a3 + 64), *(a2 + 64), 0);
-      v35 = v248;
-      if (v248)
+      v241 = a3;
+      *&v242 = a2;
+      WGSL::TypeChecker::infer(&v247, a2, *(a3 + 64), *(a2 + 64), 0);
+      v36 = v249;
+      if (v249)
       {
         goto LABEL_400;
       }
 
-      v36 = v246;
-      if (!v246)
+      v37 = v247;
+      if (!v247)
       {
         goto LABEL_99;
       }
 
-      v37 = *(v246 + 48);
-      if (v37 == 11)
+      v38 = *(v247 + 48);
+      if (v38 == 11)
       {
-        LOBYTE(v237) = 1;
-        LOBYTE(v234[0]) = 0;
-        WGSL::TypeChecker::visit(WGSL::AST::FieldAccessExpression &)::$_1::operator()(&v250, &v240, *(v246 + 1), &v237, v234);
-        if (v252)
+        LOBYTE(v238) = 1;
+        LOBYTE(v235[0]) = 0;
+        WGSL::TypeChecker::visit(WGSL::AST::FieldAccessExpression &)::$_1::operator()(&v251, &v241, *(v247 + 1), &v238, v235);
+        if (v253)
         {
-          if (v252 != 1)
+          if (v253 != 1)
           {
             goto LABEL_484;
           }
 
-          v38 = v250;
-          if (!v250)
+          v39 = v251;
+          if (!v251)
           {
             goto LABEL_500;
           }
 
 LABEL_465:
-          atomic_fetch_add_explicit(v38, 2u, memory_order_relaxed);
-          *this = v38;
-          *(this + 8) = v251;
+          atomic_fetch_add_explicit(v39, 2u, memory_order_relaxed);
+          *this = v39;
+          *(this + 8) = v252;
           *(this + 24) = 1;
-          if (atomic_fetch_add_explicit(v38, 0xFFFFFFFE, memory_order_relaxed) != 2)
+          if (atomic_fetch_add_explicit(v39, 0xFFFFFFFE, memory_order_relaxed) != 2)
           {
             return;
           }
@@ -3558,34 +3558,34 @@ LABEL_465:
         }
 
 LABEL_164:
-        v106 = v250;
-        if (v237 == 1)
+        v107 = v251;
+        if (v238 == 1)
         {
-          v106 = WGSL::TypeStore::referenceType(*(a2 + 9), *v36, v250, *(v36 + 1), LOBYTE(v234[0]));
+          v107 = WGSL::TypeStore::referenceType(*(a2 + 9), *v37, v251, *(v37 + 1), LOBYTE(v235[0]));
         }
 
-        *(a2 + 6) = v106;
+        *(a2 + 6) = v107;
         goto LABEL_113;
       }
 
-      if (v37 == 10)
+      if (v38 == 10)
       {
-        LOBYTE(v237) = 1;
-        LOBYTE(v234[0]) = 0;
-        WGSL::TypeChecker::visit(WGSL::AST::FieldAccessExpression &)::$_1::operator()(&v250, &v240, *(v246 + 1), &v237, v234);
-        if (v252)
+        LOBYTE(v238) = 1;
+        LOBYTE(v235[0]) = 0;
+        WGSL::TypeChecker::visit(WGSL::AST::FieldAccessExpression &)::$_1::operator()(&v251, &v241, *(v247 + 1), &v238, v235);
+        if (v253)
         {
-          if (v252 != 1)
+          if (v253 != 1)
           {
             goto LABEL_484;
           }
 
-          v38 = v250;
-          if (!v250)
+          v39 = v251;
+          if (!v251)
           {
 LABEL_500:
             *this = 0;
-            v105 = v251;
+            v106 = v252;
             goto LABEL_161;
           }
 
@@ -3596,60 +3596,50 @@ LABEL_500:
       }
 
 LABEL_99:
-      WGSL::TypeChecker::visit(WGSL::AST::FieldAccessExpression &)::$_1::operator()(&v250, &v240, v246, 0, 0);
-      v18 = v252;
-      if (!v252)
+      WGSL::TypeChecker::visit(WGSL::AST::FieldAccessExpression &)::$_1::operator()(&v251, &v241, v247, 0, 0);
+      v18 = v253;
+      if (!v253)
       {
         goto LABEL_100;
       }
 
       goto LABEL_102;
     case 0x15u:
-      v55 = WGSL::ContextProvider<WGSL::Binding>::Context::lookup(*a2, (a3 + 88), v6);
-      if (!v55)
+      v56 = WGSL::ContextProvider<WGSL::Binding>::Context::lookup(*a2, (a3 + 88), v6);
+      if (!v56)
       {
-        v247 = *(a3 + 72);
-        v246 = off_2838D37C0;
-        v202 = *(a3 + 88);
-        if (v202)
+        v248 = *(a3 + 72);
+        v247 = off_2838D37C0;
+        v203 = *(a3 + 88);
+        if (v203)
         {
-          atomic_fetch_add_explicit(v202, 2u, memory_order_relaxed);
+          atomic_fetch_add_explicit(v203, 2u, memory_order_relaxed);
         }
 
-        v248 = v202;
-        WTF::makeString<WTF::ASCIILiteral,WGSL::AST::Identifier,char>(&v250, "unresolved identifier '", 24, v202);
-        *this = v250;
+        v249 = v203;
+        WTF::makeString<WTF::ASCIILiteral,WGSL::AST::Identifier,char>(&v251, "unresolved identifier '", 24, v203);
+        *this = v251;
         *(this + 8) = *(a3 + 8);
         *(this + 24) = 1;
-        v250 = 0;
-        WGSL::AST::Identifier::~Identifier(&v246, v203);
+        v251 = 0;
+        WGSL::AST::Identifier::~Identifier(&v247, v204);
         return;
       }
 
-      v57 = *v55;
-      if (*v55)
+      v58 = *v56;
+      if (*v56)
       {
-        v205 = "value";
-        v206 = 6;
-        if (v57 == 1)
+        v206 = "value";
+        v207 = 6;
+        if (v58 == 1)
         {
-          v205 = "type";
-          v206 = 5;
+          v206 = "type";
+          v207 = 5;
         }
 
-        if (v57 == 2)
+        if (v58 == 2)
         {
-          v207 = "function";
-        }
-
-        else
-        {
-          v207 = v205;
-        }
-
-        if (v57 == 2)
-        {
-          v208 = 9;
+          v208 = "function";
         }
 
         else
@@ -3657,114 +3647,124 @@ LABEL_99:
           v208 = v206;
         }
 
-        v241 = *(a3 + 72);
-        v240 = off_2838D37C0;
-        v209 = *(a3 + 88);
-        if (v209)
+        if (v58 == 2)
         {
-          atomic_fetch_add_explicit(v209, 2u, memory_order_relaxed);
-        }
-
-        v242 = v209;
-        WTF::makeString<WTF::ASCIILiteral,WTF::ASCIILiteral,WTF::ASCIILiteral,WGSL::AST::Identifier,WTF::ASCIILiteral>(&v250, v207, v208, v209, "' as value", 11);
-        *this = v250;
-        *(this + 8) = *(a3 + 8);
-        *(this + 24) = 1;
-        WGSL::AST::Identifier::~Identifier(&v240, v210);
-        return;
-      }
-
-      v58 = v55[16];
-      v59 = *(a2 + 64);
-      if (v58 > v59)
-      {
-        if (v58 == 3)
-        {
-          v211 = "runtime";
-          v214 = 8;
+          v209 = 9;
         }
 
         else
         {
-          if (v58 == 2)
-          {
-            v211 = "override";
-          }
-
-          else
-          {
-            v211 = "constant";
-          }
-
-          v214 = 9;
+          v209 = v207;
         }
 
+        v242 = *(a3 + 72);
+        v241 = off_2838D37C0;
+        v210 = *(a3 + 88);
+        if (v210)
+        {
+          atomic_fetch_add_explicit(v210, 2u, memory_order_relaxed);
+        }
+
+        v243 = v210;
+        WTF::makeString<WTF::ASCIILiteral,WTF::ASCIILiteral,WTF::ASCIILiteral,WGSL::AST::Identifier,WTF::ASCIILiteral>(&v251, v208, v209, v210, "' as value", 11);
+        *this = v251;
+        *(this + 8) = *(a3 + 8);
+        *(this + 24) = 1;
+        WGSL::AST::Identifier::~Identifier(&v241, v211);
+        return;
+      }
+
+      v59 = v56[16];
+      v60 = *(a2 + 64);
+      if (v59 > v60)
+      {
         if (v59 == 3)
         {
-          v215 = "runtime";
-          v216 = 8;
+          v212 = "runtime";
+          v215 = 8;
         }
 
         else
         {
           if (v59 == 2)
           {
-            v215 = "override";
+            v212 = "override";
           }
 
           else
           {
-            v215 = "constant";
+            v212 = "constant";
           }
 
-          v216 = 9;
+          v215 = 9;
         }
 
-        WTF::makeString<WTF::ASCIILiteral,WTF::ASCIILiteral,WTF::ASCIILiteral,WTF::ASCIILiteral,WTF::ASCIILiteral>(&v250, v211, v214, v215, v216);
-        v104 = v250;
+        if (v60 == 3)
+        {
+          v216 = "runtime";
+          v217 = 8;
+        }
+
+        else
+        {
+          if (v60 == 2)
+          {
+            v216 = "override";
+          }
+
+          else
+          {
+            v216 = "constant";
+          }
+
+          v217 = 9;
+        }
+
+        WTF::makeString<WTF::ASCIILiteral,WTF::ASCIILiteral,WTF::ASCIILiteral,WTF::ASCIILiteral,WTF::ASCIILiteral>(&v251, v212, v215, v216, v217);
+        v105 = v251;
         goto LABEL_159;
       }
 
-      v60 = *(v55 + 1);
-      *(a2 + 6) = v60;
-      if (v55[48] != 1)
+      v61 = *(v56 + 1);
+      *(a2 + 6) = v61;
+      if (v56[48] != 1)
       {
         goto LABEL_113;
       }
 
-      LOBYTE(v237) = 0;
-      BYTE8(v238) = -1;
-      if (v55[40] == 255)
+      LOBYTE(v238) = 0;
+      BYTE8(v239) = -1;
+      if (v56[40] == 255)
       {
-        v63 = (a3 + 56);
-        v64 = (a3 + 32);
-        LODWORD(v62) = 255;
+        v64 = (a3 + 56);
+        v65 = (a3 + 32);
+        LODWORD(v63) = 255;
         if ((*(a3 + 56) & 1) == 0)
         {
           *(a3 + 32) = 0;
           *(a3 + 48) = -1;
 LABEL_231:
-          *v63 = 1;
+          *v64 = 1;
           goto LABEL_234;
         }
       }
 
       else
       {
-        v61 = v55;
-        _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_11constructorINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE17generic_constructIRKNS0_16copy_constructorISB_LNS0_5TraitE1EEEEEvRSC_OT_EUlRSK_OT0_E_JSJ_SI_EEEDcmSL_DpOT0_(v55[40], &v250, &v237, v55 + 3);
-        v62 = v61[40];
-        BYTE8(v238) = v61[40];
-        v63 = (a3 + 56);
-        v64 = (a3 + 32);
+        v62 = v56;
+        _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_11constructorINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE17generic_constructIRKNS0_16copy_constructorISB_LNS0_5TraitE1EEEEEvRSC_OT_EUlRSK_OT0_E_JSJ_SI_EEEDcmSL_DpOT0_(v56[40], &v251, &v238, v56 + 3);
+        v63 = v62[40];
+        BYTE8(v239) = v62[40];
+        v64 = (a3 + 56);
+        v65 = (a3 + 32);
         if ((*(a3 + 56) & 1) == 0)
         {
           *(a3 + 32) = 0;
           *(a3 + 48) = -1;
-          if (v62 != 255)
+          if (v63 != 255)
           {
-            _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_11constructorINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE17generic_constructIRKNS0_16copy_constructorISB_LNS0_5TraitE1EEEEEvRSC_OT_EUlRSK_OT0_E_JSJ_SI_EEEDcmSL_DpOT0_(v62, &v250, (a3 + 32), &v237);
-            *(a3 + 48) = BYTE8(v238);
+            _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_11constructorINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE17generic_constructIRKNS0_16copy_constructorISB_LNS0_5TraitE1EEEEEvRSC_OT_EUlRSK_OT0_E_JSJ_SI_EEEDcmSL_DpOT0_(v63, &v251, (a3 + 32), &v238);
+            *(a3 + 48) = BYTE8(v239);
           }
 
           goto LABEL_231;
@@ -3773,120 +3773,120 @@ LABEL_231:
 
       if (*(a3 + 48) == 255)
       {
-        if (v62 == 255)
+        if (v63 == 255)
         {
           goto LABEL_236;
         }
       }
 
-      else if (v62 == 255)
+      else if (v63 == 255)
       {
-        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v250, v64);
+        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v251, v65);
         *(a3 + 48) = -1;
         goto LABEL_234;
       }
 
-      v250 = v64;
-      _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE14generic_assignIRKNS0_15copy_assignmentISB_LNS0_5TraitE1EEEEEvOT_EUlRSJ_OT0_E_JRSC_SI_EEEDcmSK_DpOT0_(v62, &v250, v64, &v237);
+      v251 = v65;
+      _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE14generic_assignIRKNS0_15copy_assignmentISB_LNS0_5TraitE1EEEEEvOT_EUlRSJ_OT0_E_JRSC_SI_EEEDcmSK_DpOT0_(v63, &v251, v65, &v238);
 LABEL_234:
-      if (BYTE8(v238) != 255)
+      if (BYTE8(v239) != 255)
       {
-        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v250, &v237);
+        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v251, &v238);
       }
 
 LABEL_236:
-      BYTE8(v238) = -1;
-      WGSL::TypeChecker::convertValue(&v250, (a3 + 8), v60, v64, v56);
-      if (v252 != 1)
+      BYTE8(v239) = -1;
+      WGSL::TypeChecker::convertValue(&v251, (a3 + 8), v61, v65, v57);
+      if (v253 != 1)
       {
         goto LABEL_113;
       }
 
       goto LABEL_440;
     case 0x17u:
-      v231 = a3;
-      v237 = &v231;
-      *&v238 = a2;
-      *(&v238 + 1) = a3;
-      WGSL::TypeChecker::infer(&v246, a2, *(a3 + 64), *(a2 + 64), 0);
-      v35 = v248;
-      if (v248)
+      v232 = a3;
+      v238 = &v232;
+      *&v239 = a2;
+      *(&v239 + 1) = a3;
+      WGSL::TypeChecker::infer(&v247, a2, *(a3 + 64), *(a2 + 64), 0);
+      v36 = v249;
+      if (v249)
       {
         goto LABEL_400;
       }
 
-      WGSL::TypeChecker::infer(&v240, a2, *(a3 + 72), *(a2 + 64), 0);
-      if (!v242)
+      WGSL::TypeChecker::infer(&v241, a2, *(a3 + 72), *(a2 + 64), 0);
+      if (!v243)
       {
-        v44 = *(*(a2 + 9) + 56);
-        v45 = v240;
-        if (v44 != v240 && WGSL::conversionRank(v240, v44, v43) == -1)
+        v45 = *(*(a2 + 9) + 56);
+        v46 = v241;
+        if (v45 != v241 && WGSL::conversionRank(v241, v45, v44) == -1)
         {
-          v101 = *(*(a2 + 9) + 64);
-          if (v101 != v45 && WGSL::conversionRank(v45, v101, v46) == -1)
+          v102 = *(*(a2 + 9) + 64);
+          if (v102 != v46 && WGSL::conversionRank(v46, v102, v47) == -1)
           {
-            v103 = *(*(a2 + 9) + 24);
-            if (v103 != v45 && WGSL::conversionRank(v45, v103, v102) == -1)
+            v104 = *(*(a2 + 9) + 24);
+            if (v104 != v46 && WGSL::conversionRank(v46, v104, v103) == -1)
             {
-              WGSL::Type::Type(&v250, v45);
-              WTF::makeString<WTF::ASCIILiteral,WGSL::Type,char>(v234, "index must be of type 'i32' or 'u32', found: '", 47, &v250);
-              *this = v234[0];
+              WGSL::Type::Type(&v251, v46);
+              WTF::makeString<WTF::ASCIILiteral,WGSL::Type,char>(v235, "index must be of type 'i32' or 'u32', found: '", 47, &v251);
+              *this = v235[0];
               *(this + 8) = *(a3 + 8);
               *(this + 24) = 1;
-              if (v253 == 255)
+              if (v254 == 255)
               {
                 return;
               }
 
-              v71 = &v245;
+              v72 = &v246;
               goto LABEL_363;
             }
           }
         }
 
-        v47 = v246;
-        if (v246)
+        v48 = v247;
+        if (v247)
         {
-          v48 = *(v246 + 48);
-          if (v48 == 11 || v48 == 10)
+          v49 = *(v247 + 48);
+          if (v49 == 11 || v49 == 10)
           {
-            LOBYTE(v245) = 0;
-            WGSL::TypeChecker::visit(WGSL::AST::IndexAccessExpression &)::$_2::operator()(&v250, &v237, *(v246 + 1), &v245);
-            if (!v252)
+            LOBYTE(v246) = 0;
+            WGSL::TypeChecker::visit(WGSL::AST::IndexAccessExpression &)::$_2::operator()(&v251, &v238, *(v247 + 1), &v246);
+            if (!v253)
             {
-              v50 = *(a2 + 9);
-              v51 = *v47;
-              v52 = v250;
-              v53 = *(v47 + 1);
-              v54 = v245;
+              v51 = *(a2 + 9);
+              v52 = *v48;
+              v53 = v251;
+              v54 = *(v48 + 1);
+              v55 = v246;
 LABEL_125:
-              *(a2 + 6) = WGSL::TypeStore::referenceType(v50, v51, v52, v53, v54);
+              *(a2 + 6) = WGSL::TypeStore::referenceType(v51, v52, v53, v54, v55);
               goto LABEL_113;
             }
 
-            if (v252 != 1)
+            if (v253 != 1)
             {
               goto LABEL_484;
             }
 
 LABEL_440:
-            v213 = v250;
-            if (v250)
+            v214 = v251;
+            if (v251)
             {
-              atomic_fetch_add_explicit(v250, 2u, memory_order_relaxed);
-              *v234 = v251;
-              if (atomic_fetch_add_explicit(v213, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              atomic_fetch_add_explicit(v251, 2u, memory_order_relaxed);
+              *v235 = v252;
+              if (atomic_fetch_add_explicit(v214, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                WTF::StringImpl::destroy(v213, v49);
+                WTF::StringImpl::destroy(v214, v50);
               }
 
-              atomic_fetch_add_explicit(v213, 2u, memory_order_relaxed);
-              *this = v213;
-              *(this + 8) = *v234;
+              atomic_fetch_add_explicit(v214, 2u, memory_order_relaxed);
+              *this = v214;
+              *(this + 8) = *v235;
               *(this + 24) = 1;
-              if (atomic_fetch_add_explicit(v213, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              if (atomic_fetch_add_explicit(v214, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                WTF::StringImpl::destroy(v213, v49);
+                WTF::StringImpl::destroy(v214, v50);
               }
 
               return;
@@ -3896,25 +3896,25 @@ LABEL_440:
           }
         }
 
-        WGSL::TypeChecker::visit(WGSL::AST::IndexAccessExpression &)::$_2::operator()(&v250, &v237, v246, 0);
-        v18 = v252;
-        if (v252)
+        WGSL::TypeChecker::visit(WGSL::AST::IndexAccessExpression &)::$_2::operator()(&v251, &v238, v247, 0);
+        v18 = v253;
+        if (v253)
         {
           goto LABEL_102;
         }
 
 LABEL_100:
-        *(a2 + 6) = v250;
+        *(a2 + 6) = v251;
         goto LABEL_113;
       }
 
-      if (v242 != 1)
+      if (v243 != 1)
       {
         goto LABEL_484;
       }
 
-      v38 = v240;
-      if (!v240)
+      v39 = v241;
+      if (!v241)
       {
         goto LABEL_414;
       }
@@ -3926,9 +3926,9 @@ LABEL_100:
       {
         if (!*(a3 + 72))
         {
-          WGSL::TypeChecker::infer(&v250, a2, *(a3 + 64), 3u, 0);
-          v18 = v252;
-          if (v252)
+          WGSL::TypeChecker::infer(&v251, a2, *(a3 + 64), 3u, 0);
+          v18 = v253;
+          if (v253)
           {
 LABEL_102:
             if (v18 != 1)
@@ -3937,165 +3937,165 @@ LABEL_102:
             }
 
 LABEL_103:
-            v38 = v250;
-            if (v250)
+            v39 = v251;
+            if (v251)
             {
-              atomic_fetch_add_explicit(v250, 2u, memory_order_relaxed);
-              v70 = v251;
+              atomic_fetch_add_explicit(v251, 2u, memory_order_relaxed);
+              v71 = v252;
               goto LABEL_410;
             }
 
-            v204 = v251;
+            v205 = v252;
 LABEL_496:
-            *(this + 8) = v204;
+            *(this + 8) = v205;
             *this = 0;
             goto LABEL_162;
           }
 
-          if (v250 && *(v250 + 48) == 10)
+          if (v251 && *(v251 + 48) == 10)
           {
-            v19 = *v250;
+            v19 = *v251;
             if (v19 == 1)
             {
-              v219 = "cannot take the address of expression in handle address space";
-              v220 = this;
-              v221 = 62;
+              v220 = "cannot take the address of expression in handle address space";
+              v221 = this;
+              v222 = 62;
             }
 
             else
             {
-              if (*(v250 + 16) != 1)
+              if (*(v251 + 16) != 1)
               {
-                *(a2 + 6) = WGSL::TypeStore::pointerType(*(a2 + 9), v19, *(v250 + 1), *(v250 + 1));
+                *(a2 + 6) = WGSL::TypeStore::pointerType(*(a2 + 9), v19, *(v251 + 1), *(v251 + 1));
                 goto LABEL_113;
               }
 
-              v219 = "cannot take the address of a vector component";
-              v220 = this;
-              v221 = 46;
+              v220 = "cannot take the address of a vector component";
+              v221 = this;
+              v222 = 46;
             }
 
-            WTF::makeString<WTF::ASCIILiteral>(v220, v219, v221);
+            WTF::makeString<WTF::ASCIILiteral>(v221, v220, v222);
             goto LABEL_160;
           }
 
-          WTF::tryFastCompactMalloc(0x35);
-          v104 = v246;
-          if (!v246)
+          WTF::tryFastCompactMalloc(&v247, 0x35);
+          v105 = v247;
+          if (!v247)
           {
             __break(0xC471u);
             JUMPOUT(0x225861804);
           }
 
-          *v246 = 0x2100000002;
-          qmemcpy(v104 + 20, "cannot take address of expression", 33);
-          *(v104 + 1) = v104 + 20;
-          *(v104 + 4) = 4;
+          *v247 = 0x2100000002;
+          qmemcpy(v105 + 20, "cannot take address of expression", 33);
+          *(v105 + 1) = v105 + 20;
+          *(v105 + 4) = 4;
 LABEL_159:
-          *this = v104;
+          *this = v105;
 LABEL_160:
-          v105 = *(a3 + 8);
+          v106 = *(a3 + 8);
 LABEL_161:
-          *(this + 8) = v105;
+          *(this + 8) = v106;
           goto LABEL_162;
         }
 
         if (v16 < 5)
         {
           WTF::StringImpl::createWithoutCopyingNonEmpty();
-          v79 = *(a3 + 64);
-          v237 = (&v238 + 8);
-          *(&v238 + 1) = v79;
-          *&v238 = 0x100000001;
-          v231 = 0;
-          *&v232 = 0;
-          v80 = *(a2 + 12);
-          if (!v80)
+          v80 = *(a3 + 64);
+          v238 = (&v239 + 8);
+          *(&v239 + 1) = v80;
+          *&v239 = 0x100000001;
+          v232 = 0;
+          *&v233 = 0;
+          v81 = *(a2 + 12);
+          if (!v81)
           {
-            v113 = 0;
             v114 = 0;
+            v115 = 0;
             goto LABEL_385;
           }
 
-          if (v230 != -1)
+          if (v231 != -1)
           {
-            if (!v230)
+            if (!v231)
             {
               __break(0xC471u);
               JUMPOUT(0x22586184CLL);
             }
 
-            v81 = *(v80 - 8);
-            v82 = *(v230 + 4);
-            if (v82 < 0x100)
+            v82 = *(v81 - 8);
+            v83 = *(v231 + 4);
+            if (v83 < 0x100)
             {
-              v83 = WTF::StringImpl::hashSlowCase(v230);
+              v84 = WTF::StringImpl::hashSlowCase(v231);
             }
 
             else
             {
-              v83 = v82 >> 8;
+              v84 = v83 >> 8;
             }
 
-            for (i = 0; ; v83 = i + v116)
+            for (i = 0; ; v84 = i + v117)
             {
-              v116 = v83 & v81;
-              v117 = v80 + 48 * (v83 & v81);
-              v118 = *v117;
-              if (*v117 != -1)
+              v117 = v84 & v82;
+              v118 = v81 + 48 * (v84 & v82);
+              v119 = *v118;
+              if (*v118 != -1)
               {
-                if (!v118)
+                if (!v119)
                 {
-                  v119 = *(a2 + 12);
-                  if (!v119)
+                  v120 = *(a2 + 12);
+                  if (!v120)
                   {
                     goto LABEL_238;
                   }
 
-                  v120 = *(v119 - 4);
-                  v117 = v119 + 48 * v120;
+                  v121 = *(v120 - 4);
+                  v118 = v120 + 48 * v121;
 LABEL_205:
-                  if (v117 == v119 + 48 * v120)
+                  if (v118 == v120 + 48 * v121)
                   {
 LABEL_238:
-                    v113 = 0;
                     v114 = 0;
+                    v115 = 0;
                     goto LABEL_385;
                   }
 
 LABEL_206:
-                  v234[0] = 0;
-                  v234[1] = 0;
-                  if (DWORD1(v238) >> 29)
+                  v235[0] = 0;
+                  v235[1] = 0;
+                  if (DWORD1(v239) >> 29)
                   {
                     __break(0xC471u);
                     JUMPOUT(0x22586187CLL);
                   }
 
-                  LODWORD(v234[1]) = DWORD1(v238);
-                  v234[0] = WTF::fastMalloc((8 * DWORD1(v238)));
-                  v121 = 0;
+                  LODWORD(v235[1]) = DWORD1(v239);
+                  v235[0] = WTF::fastMalloc((8 * DWORD1(v239)));
+                  v122 = 0;
                   while (2)
                   {
-                    WGSL::TypeChecker::infer(&v250, a2, *(v237 + v121), *(a2 + 64), 0);
-                    v122 = v252;
-                    if (v252)
+                    WGSL::TypeChecker::infer(&v251, a2, *(v238 + v122), *(a2 + 64), 0);
+                    v123 = v253;
+                    if (v253)
                     {
-                      if (v252 != 1)
+                      if (v253 != 1)
                       {
                         goto LABEL_484;
                       }
 
-                      i = v250;
-                      if (v250)
+                      i = v251;
+                      if (v251)
                       {
-                        atomic_fetch_add_explicit(v250, 2u, memory_order_relaxed);
+                        atomic_fetch_add_explicit(v251, 2u, memory_order_relaxed);
                       }
 
-                      v225 = *(&v251 + 1);
-                      v226 = v251;
-                      v126 = v252;
-                      if (v252)
+                      v226 = *(&v252 + 1);
+                      v227 = v252;
+                      v127 = v253;
+                      if (v253)
                       {
                         goto LABEL_213;
                       }
@@ -4103,15 +4103,15 @@ LABEL_206:
 
                     else
                     {
-                      v123 = HIDWORD(v234[1]);
-                      if (HIDWORD(v234[1]) == LODWORD(v234[1]))
+                      v124 = HIDWORD(v235[1]);
+                      if (HIDWORD(v235[1]) == LODWORD(v235[1]))
                       {
-                        v124 = WTF::Vector<WebGPU::BindGroupLayout::Entry const*,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(v234, HIDWORD(v234[1]) + 1, &v250);
-                        v125 = HIDWORD(v234[1]) + 1;
-                        *(v234[0] + HIDWORD(v234[1])) = *v124;
-                        HIDWORD(v234[1]) = v125;
-                        v126 = v252;
-                        if (!v252)
+                        v125 = WTF::Vector<WebGPU::BindGroupLayout::Entry const*,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(v235, HIDWORD(v235[1]) + 1, &v251);
+                        v126 = HIDWORD(v235[1]) + 1;
+                        *(v235[0] + HIDWORD(v235[1])) = *v125;
+                        HIDWORD(v235[1]) = v126;
+                        v127 = v253;
+                        if (!v253)
                         {
                           goto LABEL_217;
                         }
@@ -4119,165 +4119,165 @@ LABEL_206:
 
                       else
                       {
-                        *(v234[0] + HIDWORD(v234[1])) = v250;
-                        HIDWORD(v234[1]) = v123 + 1;
-                        v126 = v252;
-                        if (!v252)
+                        *(v235[0] + HIDWORD(v235[1])) = v251;
+                        HIDWORD(v235[1]) = v124 + 1;
+                        v127 = v253;
+                        if (!v253)
                         {
                           goto LABEL_217;
                         }
                       }
 
 LABEL_213:
-                      if (v126 != 255)
+                      if (v127 != 255)
                       {
-                        v127 = v250;
-                        v250 = 0;
-                        if (v127)
+                        v128 = v251;
+                        v251 = 0;
+                        if (v128)
                         {
-                          if (atomic_fetch_add_explicit(v127, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                          if (atomic_fetch_add_explicit(v128, 0xFFFFFFFE, memory_order_relaxed) == 2)
                           {
-                            WTF::StringImpl::destroy(v127, v77);
+                            WTF::StringImpl::destroy(v128, v78);
                           }
                         }
                       }
                     }
 
 LABEL_217:
-                    if (v122)
+                    if (v123)
                     {
-                      v113 = 1;
-                      v114 = i;
+                      v114 = 1;
+                      v115 = i;
                       goto LABEL_383;
                     }
 
-                    if (++v121 >= DWORD1(v238))
+                    if (++v122 >= DWORD1(v239))
                     {
-                      WGSL::resolveOverloads(*(a2 + 9), (v117 + 32), v234, &v231, &v240);
-                      v148 = BYTE8(v241);
-                      if (BYTE8(v241) != 1)
+                      WGSL::resolveOverloads(*(a2 + 9), (v118 + 32), v235, &v232, &v241);
+                      v149 = BYTE8(v242);
+                      if (BYTE8(v242) != 1)
                       {
-                        WTF::StringPrintStream::StringPrintStream(&v250);
-                        v170 = HIDWORD(v234[1]);
-                        if (HIDWORD(v234[1]))
+                        WTF::StringPrintStream::StringPrintStream(&v251);
+                        v171 = HIDWORD(v235[1]);
+                        if (HIDWORD(v235[1]))
                         {
-                          v171 = v234[0];
-                          v172 = *v234[0];
-                          v173 = (*(v250 + 4))(&v250);
-                          WGSL::Type::dump(v172, v173);
-                          (*(v250 + 5))(&v250);
-                          if (v170 != 1)
+                          v172 = v235[0];
+                          v173 = *v235[0];
+                          v174 = (*(v251 + 4))(&v251);
+                          WGSL::Type::dump(v173, v174);
+                          (*(v251 + 5))(&v251);
+                          if (v171 != 1)
                           {
-                            v174 = (v171 + 8);
-                            v175 = 8 * v170 - 8;
+                            v175 = (v172 + 8);
+                            v176 = 8 * v171 - 8;
                             do
                             {
-                              v176 = *v174++;
-                              (*(v250 + 4))(&v250);
+                              v177 = *v175++;
+                              (*(v251 + 4))(&v251);
                               WTF::printInternal();
-                              (*(v250 + 5))(&v250);
-                              v177 = (*(v250 + 4))(&v250);
-                              WGSL::Type::dump(v176, v177);
-                              (*(v250 + 5))(&v250);
-                              v175 -= 8;
+                              (*(v251 + 5))(&v251);
+                              v178 = (*(v251 + 4))(&v251);
+                              WGSL::Type::dump(v177, v178);
+                              (*(v251 + 5))(&v251);
+                              v176 -= 8;
                             }
 
-                            while (v175);
+                            while (v176);
                           }
                         }
 
-                        WTF::StringPrintStream::StringPrintStream(&v246);
-                        if (DWORD1(v232))
+                        WTF::StringPrintStream::StringPrintStream(&v247);
+                        if (DWORD1(v233))
                         {
-                          (*(v246 + 4))(&v246);
+                          (*(v247 + 4))(&v247);
                           WTF::printInternal();
-                          (*(v246 + 5))(&v246);
-                          v178 = DWORD1(v232);
-                          if (DWORD1(v232))
+                          (*(v247 + 5))(&v247);
+                          v179 = DWORD1(v233);
+                          if (DWORD1(v233))
                           {
-                            v179 = v231;
-                            v180 = *v231;
-                            v181 = (*(v246 + 4))(&v246);
-                            WGSL::Type::dump(v180, v181);
-                            (*(v246 + 5))(&v246);
-                            if (v178 != 1)
+                            v180 = v232;
+                            v181 = *v232;
+                            v182 = (*(v247 + 4))(&v247);
+                            WGSL::Type::dump(v181, v182);
+                            (*(v247 + 5))(&v247);
+                            if (v179 != 1)
                             {
-                              v182 = (v179 + 8);
-                              v183 = 8 * v178 - 8;
+                              v183 = (v180 + 8);
+                              v184 = 8 * v179 - 8;
                               do
                               {
-                                v184 = *v182++;
-                                (*(v246 + 4))(&v246);
+                                v185 = *v183++;
+                                (*(v247 + 4))(&v247);
                                 WTF::printInternal();
-                                (*(v246 + 5))(&v246);
-                                v185 = (*(v246 + 4))(&v246);
-                                WGSL::Type::dump(v184, v185);
-                                (*(v246 + 5))(&v246);
-                                v183 -= 8;
+                                (*(v247 + 5))(&v247);
+                                v186 = (*(v247 + 4))(&v247);
+                                WGSL::Type::dump(v185, v186);
+                                (*(v247 + 5))(&v247);
+                                v184 -= 8;
                               }
 
-                              while (v183);
+                              while (v184);
                             }
                           }
 
-                          (*(v246 + 4))(&v246);
+                          (*(v247 + 4))(&v247);
                           WTF::printInternal();
-                          (*(v246 + 5))(&v246);
+                          (*(v247 + 5))(&v247);
                         }
 
-                        atomic_fetch_add_explicit(v230, 2u, memory_order_relaxed);
-                        WTF::StringPrintStream::toString(&v244, &v246);
-                        WTF::StringPrintStream::toString(&v243, &v250);
-                        WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>>(&v245, "no matching overload for ", 0x19uLL, "operator", 8uLL, 0x20u, v230, v244, 0x28u, v243, 41);
-                        v114 = v245;
-                        if (!v245)
+                        atomic_fetch_add_explicit(v231, 2u, memory_order_relaxed);
+                        WTF::StringPrintStream::toString(&v245, &v247);
+                        WTF::StringPrintStream::toString(&v244, &v251);
+                        WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>>(&v246, "no matching overload for ", 0x19uLL, "operator", 8, 0x20u, v231, v245, 0x28u, v244, 41);
+                        v115 = v246;
+                        if (!v246)
                         {
                           __break(0xC471u);
                           JUMPOUT(0x225861884);
                         }
 
-                        v225 = *(a3 + 16);
-                        v226 = *(a3 + 8);
-                        v187 = v243;
-                        v243 = 0;
-                        if (v187 && atomic_fetch_add_explicit(v187, 0xFFFFFFFE, memory_order_relaxed) == 2)
-                        {
-                          WTF::StringImpl::destroy(v187, v186);
-                        }
-
+                        v226 = *(a3 + 16);
+                        v227 = *(a3 + 8);
                         v188 = v244;
                         v244 = 0;
                         if (v188 && atomic_fetch_add_explicit(v188, 0xFFFFFFFE, memory_order_relaxed) == 2)
                         {
-                          WTF::StringImpl::destroy(v188, v186);
+                          WTF::StringImpl::destroy(v188, v187);
                         }
 
-                        if (atomic_fetch_add_explicit(v230, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                        v189 = v245;
+                        v245 = 0;
+                        if (v189 && atomic_fetch_add_explicit(v189, 0xFFFFFFFE, memory_order_relaxed) == 2)
                         {
-                          WTF::StringImpl::destroy(v230, v186);
+                          WTF::StringImpl::destroy(v189, v187);
                         }
 
-                        WTF::StringPrintStream::~StringPrintStream(&v246);
-                        WTF::StringPrintStream::~StringPrintStream(&v250);
-                        v113 = 1;
+                        if (atomic_fetch_add_explicit(v231, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                        {
+                          WTF::StringImpl::destroy(v231, v187);
+                        }
+
+                        WTF::StringPrintStream::~StringPrintStream(&v247);
+                        WTF::StringPrintStream::~StringPrintStream(&v251);
+                        v114 = 1;
                         goto LABEL_380;
                       }
 
-                      if (*(a2 + 65) == 1 && *(v117 + 9) == 1)
+                      if (*(a2 + 65) == 1 && *(v118 + 9) == 1)
                       {
-                        atomic_fetch_add_explicit(v230, 2u, memory_order_relaxed);
-                        WTF::makeString<WTF::ASCIILiteral,WTF::String,char>(&v250, v230);
-                        v225 = *(a3 + 16);
-                        v226 = *(a3 + 8);
-                        v114 = v250;
-                        if (atomic_fetch_add_explicit(v230, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                        atomic_fetch_add_explicit(v231, 2u, memory_order_relaxed);
+                        WTF::makeString<WTF::ASCIILiteral,WTF::String,char>(&v251, v231);
+                        v226 = *(a3 + 16);
+                        v227 = *(a3 + 8);
+                        v115 = v251;
+                        if (atomic_fetch_add_explicit(v231, 0xFFFFFFFE, memory_order_relaxed) == 2)
                         {
-                          WTF::StringImpl::destroy(v230, v77);
+                          WTF::StringImpl::destroy(v231, v78);
                         }
 
-                        v113 = 1;
-                        v197 = v240;
-                        if (v240)
+                        v114 = 1;
+                        v198 = v241;
+                        if (v241)
                         {
                           goto LABEL_382;
                         }
@@ -4285,61 +4285,61 @@ LABEL_217:
                         goto LABEL_383;
                       }
 
-                      v149 = DWORD1(v238);
-                      if (DWORD1(v238))
+                      v150 = DWORD1(v239);
+                      if (DWORD1(v239))
                       {
-                        v150 = (v240 + 8);
-                        v151 = *v240;
-                        v152 = v237;
+                        v151 = (v241 + 8);
+                        v152 = *v241;
+                        v153 = v238;
                         do
                         {
-                          if (!v151)
+                          if (!v152)
                           {
                             __break(0xC471u);
                             JUMPOUT(0x225861794);
                           }
 
-                          v154 = *v150++;
-                          v153 = v154;
-                          v155 = *v152;
-                          v152 = (v152 + 8);
-                          *(v155 + 24) = v153;
-                          --v151;
-                          --v149;
+                          v155 = *v151++;
+                          v154 = v155;
+                          v156 = *v153;
+                          v153 = (v153 + 8);
+                          *(v156 + 24) = v154;
+                          --v152;
+                          --v150;
                         }
 
-                        while (v149);
+                        while (v150);
                       }
 
-                      v114 = v241;
-                      *(a2 + 6) = v241;
+                      v115 = v242;
+                      *(a2 + 6) = v242;
                       if ((*(*a3 + 16))(a3) == 19)
                       {
-                        v156 = *(v117 + 8) == 1;
-                        *(a3 + 88) = v156;
-                        *(a3 + 89) = *(v117 + 24);
-                        if (v156)
+                        v157 = *(v118 + 8) == 1;
+                        *(a3 + 88) = v157;
+                        *(a3 + 89) = *(v118 + 24);
+                        if (v157)
                         {
-                          v157 = v114;
-                          if (v114 || (v157 = *(a3 + 24)) != 0)
+                          v158 = v115;
+                          if (v115 || (v158 = *(a3 + 24)) != 0)
                           {
-                            v158 = *(v157 + 48);
-                            if (v158 != 10)
+                            v159 = *(v158 + 48);
+                            if (v159 != 10)
                             {
                               goto LABEL_296;
                             }
 
-                            v157 = *(v157 + 1);
-                            if (v157)
+                            v158 = *(v158 + 1);
+                            if (v158)
                             {
-                              v158 = *(v157 + 48);
+                              v159 = *(v158 + 48);
 LABEL_296:
-                              if (v158 == 1)
+                              if (v159 == 1)
                               {
-                                v157 = *v157;
-                                if (v157)
+                                v158 = *v158;
+                                if (v158)
                                 {
-                                  v158 = *(v157 + 48);
+                                  v159 = *(v158 + 48);
                                   goto LABEL_299;
                                 }
                               }
@@ -4347,35 +4347,35 @@ LABEL_296:
                               else
                               {
 LABEL_299:
-                                if (!v158 && *v157 - 1 <= 1 && *(a3 + 84) == 1)
+                                if (!v159 && *v158 - 1 <= 1 && *(a3 + 84) == 1)
                                 {
-                                  v159 = *(**(a3 + 72) + 24);
-                                  if (v159)
+                                  v160 = *(**(a3 + 72) + 24);
+                                  if (v160)
                                   {
-                                    v160 = v159[48];
-                                    if (v160 == 10)
+                                    v161 = v160[48];
+                                    if (v161 == 10)
                                     {
-                                      v159 = *(v159 + 1);
-                                      if (!v159)
+                                      v160 = *(v160 + 1);
+                                      if (!v160)
                                       {
                                         goto LABEL_312;
                                       }
 
-                                      v160 = v159[48];
+                                      v161 = v160[48];
                                     }
 
-                                    if (v160 == 1)
+                                    if (v161 == 1)
                                     {
-                                      v159 = *v159;
-                                      if (!v159)
+                                      v160 = *v160;
+                                      if (!v160)
                                       {
                                         goto LABEL_312;
                                       }
 
-                                      v160 = v159[48];
+                                      v161 = v160[48];
                                     }
 
-                                    if (!v160 && *v159 - 3 <= 2)
+                                    if (!v161 && *v160 - 3 <= 2)
                                     {
                                       *(*(a2 + 5) + 32) = 1;
                                     }
@@ -4388,12 +4388,12 @@ LABEL_299:
                       }
 
 LABEL_312:
-                      v161 = DWORD1(v238);
-                      if (!DWORD1(v238))
+                      v162 = DWORD1(v239);
+                      if (!DWORD1(v239))
                       {
-                        v245 = 0;
-                        v189 = *(v117 + 16);
-                        if (v189)
+                        v246 = 0;
+                        v190 = *(v118 + 16);
+                        if (v190)
                         {
                           goto LABEL_365;
                         }
@@ -4401,143 +4401,143 @@ LABEL_312:
                         goto LABEL_371;
                       }
 
-                      v227 = v114;
-                      v162 = WTF::fastMalloc((24 * DWORD1(v238) + 8));
-                      *v162 = v161;
-                      v163 = 24;
-                      bzero((v162 + 8), 24 * ((24 * v161 - 24) / 0x18uLL) + 24);
-                      v165 = 0;
-                      v245 = v162;
-                      v228 = 1;
+                      v228 = v115;
+                      v163 = WTF::fastMalloc((24 * DWORD1(v239) + 8));
+                      *v163 = v162;
+                      v164 = 24;
+                      bzero((v163 + 8), 24 * ((24 * v162 - 24) / 0x18uLL) + 24);
+                      v166 = 0;
+                      v246 = v163;
+                      v229 = 1;
                       while (2)
                       {
-                        if (v165 >= DWORD1(v238))
+                        if (v166 >= DWORD1(v239))
                         {
                           __break(0xC471u);
                           JUMPOUT(0x22586179CLL);
                         }
 
-                        v166 = *(v237 + v165);
-                        if (*(v166 + 56) != 1)
+                        v167 = *(v238 + v166);
+                        if (*(v167 + 56) != 1)
                         {
-                          v228 = 0;
+                          v229 = 0;
                           goto LABEL_315;
                         }
 
-                        WGSL::TypeChecker::convertValue(&v250, (v166 + 8), *(v166 + 24), (v166 + 32), v164);
-                        if (v252 == 1)
+                        WGSL::TypeChecker::convertValue(&v251, (v167 + 8), *(v167 + 24), (v167 + 32), v165);
+                        if (v253 == 1)
                         {
-                          v114 = v250;
-                          if (v250)
+                          v115 = v251;
+                          if (v251)
                           {
-                            atomic_fetch_add_explicit(v250, 2u, memory_order_relaxed);
-                            v225 = *(&v251 + 1);
-                            v226 = v251;
-                            if (atomic_fetch_add_explicit(v114, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                            atomic_fetch_add_explicit(v251, 2u, memory_order_relaxed);
+                            v226 = *(&v252 + 1);
+                            v227 = v252;
+                            if (atomic_fetch_add_explicit(v115, 0xFFFFFFFE, memory_order_relaxed) == 2)
                             {
-                              WTF::StringImpl::destroy(v114, v77);
+                              WTF::StringImpl::destroy(v115, v78);
                             }
                           }
 
                           else
                           {
-                            v225 = *(&v251 + 1);
-                            v226 = v251;
+                            v226 = *(&v252 + 1);
+                            v227 = v252;
                           }
 
-                          v113 = 1;
-                          v148 = 1;
+                          v114 = 1;
+                          v149 = 1;
 LABEL_373:
-                          v193 = v245;
-                          v245 = 0;
-                          if (v193)
+                          v194 = v246;
+                          v246 = 0;
+                          if (v194)
                           {
-                            v194 = *v193;
-                            if (v194)
+                            v195 = *v194;
+                            if (v195)
                             {
-                              v195 = 24 * v194;
-                              v196 = v193 + 24;
+                              v196 = 24 * v195;
+                              v197 = v194 + 24;
                               do
                               {
-                                v77 = (v196 - 16);
-                                if (*v196 != 255)
+                                v78 = (v197 - 16);
+                                if (*v197 != 255)
                                 {
-                                  mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v250, v77);
+                                  mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v251, v78);
                                 }
 
-                                *v196 = -1;
-                                v196 += 24;
-                                v195 -= 24;
+                                *v197 = -1;
+                                v197 += 24;
+                                v196 -= 24;
                               }
 
-                              while (v195);
+                              while (v196);
                             }
 
-                            WTF::fastFree(v193, v77);
+                            WTF::fastFree(v194, v78);
                           }
 
 LABEL_380:
-                          if (v148)
+                          if (v149)
                           {
-                            v197 = v240;
-                            if (v240)
+                            v198 = v241;
+                            if (v241)
                             {
 LABEL_382:
-                              WTF::fastFree(v197, v77);
+                              WTF::fastFree(v198, v78);
                             }
                           }
 
 LABEL_383:
-                          v198 = v234[0];
-                          if (v234[0])
+                          v199 = v235[0];
+                          if (v235[0])
                           {
-                            v234[0] = 0;
-                            LODWORD(v234[1]) = 0;
-                            WTF::fastFree(v198, v77);
+                            v235[0] = 0;
+                            LODWORD(v235[1]) = 0;
+                            WTF::fastFree(v199, v78);
                           }
 
 LABEL_385:
-                          v199 = v231;
-                          if (v231)
+                          v200 = v232;
+                          if (v232)
                           {
-                            v231 = 0;
-                            LODWORD(v232) = 0;
-                            WTF::fastFree(v199, v77);
+                            v232 = 0;
+                            LODWORD(v233) = 0;
+                            WTF::fastFree(v200, v78);
                           }
 
-                          v200 = v237;
-                          if ((&v238 + 8) != v237 && v237)
+                          v201 = v238;
+                          if ((&v239 + 8) != v238 && v238)
                           {
-                            v237 = 0;
-                            LODWORD(v238) = 0;
-                            WTF::fastFree(v200, v77);
+                            v238 = 0;
+                            LODWORD(v239) = 0;
+                            WTF::fastFree(v201, v78);
                           }
 
-                          if (v230 && atomic_fetch_add_explicit(v230, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                          if (v231 && atomic_fetch_add_explicit(v231, 0xFFFFFFFE, memory_order_relaxed) == 2)
                           {
-                            WTF::StringImpl::destroy(v230, v77);
+                            WTF::StringImpl::destroy(v231, v78);
                           }
 
-                          if (v113)
+                          if (v114)
                           {
-                            if (v114)
+                            if (v115)
                             {
-                              atomic_fetch_add_explicit(v114, 2u, memory_order_relaxed);
-                              *this = v114;
-                              *(this + 1) = v226;
-                              *(this + 2) = v225;
+                              atomic_fetch_add_explicit(v115, 2u, memory_order_relaxed);
+                              *this = v115;
+                              *(this + 1) = v227;
+                              *(this + 2) = v226;
                               *(this + 24) = 1;
-                              if (atomic_fetch_add_explicit(v114, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                              if (atomic_fetch_add_explicit(v115, 0xFFFFFFFE, memory_order_relaxed) == 2)
                               {
-                                WTF::StringImpl::destroy(v114, v77);
+                                WTF::StringImpl::destroy(v115, v78);
                               }
 
                               return;
                             }
 
                             *this = 0;
-                            *(this + 1) = v226;
-                            *(this + 2) = v225;
+                            *(this + 1) = v227;
+                            *(this + 2) = v226;
 LABEL_162:
                             *(this + 24) = 1;
                             return;
@@ -4549,22 +4549,22 @@ LABEL_113:
                           return;
                         }
 
-                        if ((*(v166 + 56) & 1) == 0)
+                        if ((*(v167 + 56) & 1) == 0)
                         {
                           goto LABEL_512;
                         }
 
-                        if (v165 >= *v245)
+                        if (v166 >= *v246)
                         {
                           __break(0xC471u);
                           JUMPOUT(0x2258617BCLL);
                         }
 
-                        v167 = v245 + v163;
-                        v168 = *(v166 + 48);
-                        if (*(v245 + v163) == 255)
+                        v168 = v246 + v164;
+                        v169 = *(v167 + 48);
+                        if (*(v246 + v164) == 255)
                         {
-                          if (v168 != 255)
+                          if (v169 != 255)
                           {
                             goto LABEL_325;
                           }
@@ -4572,109 +4572,109 @@ LABEL_113:
 
                         else
                         {
-                          if (v168 == 255)
+                          if (v169 == 255)
                           {
-                            mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v250, v245 + v163 - 16);
-                            *v167 = -1;
+                            mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v251, v246 + v164 - 16);
+                            *v168 = -1;
                             goto LABEL_315;
                           }
 
 LABEL_325:
-                          v250 = (v245 + v163 - 16);
-                          _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE14generic_assignIRKNS0_15copy_assignmentISB_LNS0_5TraitE1EEEEEvOT_EUlRSJ_OT0_E_JRSC_SI_EEEDcmSK_DpOT0_(v168, &v250, v250, (v166 + 32));
+                          v251 = (v246 + v164 - 16);
+                          _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_10assignmentINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE14generic_assignIRKNS0_15copy_assignmentISB_LNS0_5TraitE1EEEEEvOT_EUlRSJ_OT0_E_JRSC_SI_EEEDcmSK_DpOT0_(v169, &v251, v251, (v167 + 32));
                         }
 
 LABEL_315:
-                        ++v165;
-                        v163 += 24;
-                        if (v161 == v165)
+                        ++v166;
+                        v164 += 24;
+                        if (v162 == v166)
                         {
-                          v189 = *(v117 + 16);
-                          v114 = v227;
-                          if (v189)
+                          v190 = *(v118 + 16);
+                          v115 = v228;
+                          if (v190)
                           {
-                            if ((v228 & 1) == 0)
+                            if ((v229 & 1) == 0)
                             {
-                              v113 = 0;
-                              v148 = 1;
+                              v114 = 0;
+                              v149 = 1;
                               goto LABEL_373;
                             }
 
 LABEL_365:
-                            v17 = v189(&v250, v114, &v245);
-                            v148 = 1;
-                            if (!v252)
+                            v17 = v190(&v251, v115, &v246);
+                            v149 = 1;
+                            if (!v253)
                             {
-                              WGSL::TypeChecker::setConstantValue<WGSL::AST::CallExpression>(&v246, a3, v114, &v250, v191);
-                              if (v248 != 1)
+                              WGSL::TypeChecker::setConstantValue<WGSL::AST::CallExpression>(&v247, a3, v115, &v251, v192);
+                              if (v249 != 1)
                               {
-                                if (v252 != 255)
+                                if (v253 != 255)
                                 {
-                                  if (v252)
+                                  if (v253)
                                   {
-                                    v201 = v250;
-                                    v250 = 0;
-                                    if (v201 && atomic_fetch_add_explicit(v201, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                                    v202 = v251;
+                                    v251 = 0;
+                                    if (v202 && atomic_fetch_add_explicit(v202, 0xFFFFFFFE, memory_order_relaxed) == 2)
                                     {
-                                      WTF::StringImpl::destroy(v201, v77);
+                                      WTF::StringImpl::destroy(v202, v78);
                                     }
                                   }
 
-                                  else if (BYTE8(v251) != 255)
+                                  else if (BYTE8(v252) != 255)
                                   {
-                                    mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v246, &v250);
+                                    mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v247, &v251);
                                   }
                                 }
 
 LABEL_372:
-                                v113 = 0;
+                                v114 = 0;
                                 goto LABEL_373;
                               }
 
-                              v114 = v246;
-                              if (v246)
+                              v115 = v247;
+                              if (v247)
                               {
-                                atomic_fetch_add_explicit(v246, 2u, memory_order_relaxed);
-                                v229 = v247;
-                                if (atomic_fetch_add_explicit(v114, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                                atomic_fetch_add_explicit(v247, 2u, memory_order_relaxed);
+                                v230 = v248;
+                                if (atomic_fetch_add_explicit(v115, 0xFFFFFFFE, memory_order_relaxed) == 2)
                                 {
-                                  v223 = v114;
+                                  v224 = v115;
 LABEL_488:
-                                  WTF::StringImpl::destroy(v223, v77);
+                                  WTF::StringImpl::destroy(v224, v78);
                                 }
                               }
 
                               else
                               {
-                                v229 = v247;
+                                v230 = v248;
                               }
 
                               goto LABEL_489;
                             }
 
-                            if (v252 == 1)
+                            if (v253 == 1)
                             {
-                              v222 = v250;
-                              if (v250)
+                              v223 = v251;
+                              if (v251)
                               {
-                                atomic_fetch_add_explicit(v250, 2u, memory_order_relaxed);
+                                atomic_fetch_add_explicit(v251, 2u, memory_order_relaxed);
                               }
 
-                              WTF::makeString<WTF::String>(&v246, v222);
-                              v229 = *(a3 + 8);
-                              v114 = v246;
-                              if (v222 && atomic_fetch_add_explicit(v222, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                              WTF::makeString<WTF::String>(&v247, v223);
+                              v230 = *(a3 + 8);
+                              v115 = v247;
+                              if (v223 && atomic_fetch_add_explicit(v223, 0xFFFFFFFE, memory_order_relaxed) == 2)
                               {
-                                v223 = v222;
+                                v224 = v223;
                                 goto LABEL_488;
                               }
 
 LABEL_489:
-                              std::experimental::fundamentals_v3::expected<WGSL::ConstantValue,WTF::String>::~expected(&v250, v77);
-                              v225 = *(&v229 + 1);
-                              v226 = v229;
-                              v113 = 1;
-                              v148 = 1;
+                              std::experimental::fundamentals_v3::expected<WGSL::ConstantValue,WTF::String>::~expected(&v251, v78);
+                              v226 = *(&v230 + 1);
+                              v227 = v230;
+                              v114 = 1;
+                              v149 = 1;
                               goto LABEL_373;
                             }
 
@@ -4683,25 +4683,25 @@ LABEL_484:
                           }
 
 LABEL_371:
-                          v192 = *(a2 + 64);
-                          v148 = 1;
-                          if (v192 <= 2)
+                          v193 = *(a2 + 64);
+                          v149 = 1;
+                          if (v193 <= 2)
                           {
-                            if (v192 == 2)
+                            if (v193 == 2)
                             {
-                              v224 = "override";
+                              v225 = "override";
                             }
 
                             else
                             {
-                              v224 = "constant";
+                              v225 = "constant";
                             }
 
-                            WTF::makeString<WTF::ASCIILiteral,WTF::ASCIILiteral,WTF::ASCIILiteral>(&v250, "cannot call function from ", 27, v224, 9, " context", 9);
-                            v225 = *(a3 + 16);
-                            v226 = *(a3 + 8);
-                            v113 = 1;
-                            v114 = v250;
+                            WTF::makeString<WTF::ASCIILiteral,WTF::ASCIILiteral,WTF::ASCIILiteral>(&v251, "cannot call function from ", 27, v225, 9, " context", 9);
+                            v226 = *(a3 + 16);
+                            v227 = *(a3 + 8);
+                            v114 = 1;
+                            v115 = v251;
                             goto LABEL_373;
                           }
 
@@ -4716,12 +4716,12 @@ LABEL_371:
                   }
                 }
 
-                if (WTF::equal(v118, v230, v78))
+                if (WTF::equal(v119, v231, v79))
                 {
-                  v119 = *(a2 + 12);
-                  if (v119)
+                  v120 = *(a2 + 12);
+                  if (v120)
                   {
-                    v120 = *(v119 - 4);
+                    v121 = *(v120 - 4);
                     goto LABEL_205;
                   }
 
@@ -4743,116 +4743,116 @@ LABEL_512:
         goto LABEL_513;
       }
 
-      WGSL::TypeChecker::infer(&v246, a2, *(a3 + 64), 3u, 0);
-      v35 = v248;
-      if (!v248)
+      WGSL::TypeChecker::infer(&v247, a2, *(a3 + 64), 3u, 0);
+      v36 = v249;
+      if (!v249)
       {
-        v75 = v246;
-        if (v246)
+        v76 = v247;
+        if (v247)
         {
-          v76 = *(v246 + 48);
-          if (v76 == 11)
+          v77 = *(v247 + 48);
+          if (v77 == 11)
           {
-            v50 = *(a2 + 9);
-            v51 = *v246;
-            v52 = *(v246 + 1);
-            v53 = *(v246 + 1);
-            v54 = 0;
+            v51 = *(a2 + 9);
+            v52 = *v247;
+            v53 = *(v247 + 1);
+            v54 = *(v247 + 1);
+            v55 = 0;
             goto LABEL_125;
           }
         }
 
         else
         {
-          v76 = MEMORY[0x30];
+          v77 = MEMORY[0x30];
         }
 
-        LOBYTE(v250) = 0;
-        v253 = -1;
-        if (v76 != 255)
+        LOBYTE(v251) = 0;
+        v254 = -1;
+        if (v77 != 255)
         {
-          _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_11constructorINS0_6traitsIJN4WGSL5Types9PrimitiveENS7_6VectorENS7_6MatrixENS7_5ArrayENS7_6StructENS7_15PrimitiveStructENS7_8FunctionENS7_7TextureENS7_14TextureStorageENS7_12TextureDepthENS7_9ReferenceENS7_7PointerENS7_6AtomicENS7_15TypeConstructorEEEEE17generic_constructIRKNS0_16copy_constructorISM_LNS0_5TraitE1EEEEEvRSN_OT_EUlRSV_OT0_E_JSU_ST_EEEDcmSW_DpOT0_(v76, &v240, &v250, v246);
-          v253 = *(v75 + 48);
+          _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_11constructorINS0_6traitsIJN4WGSL5Types9PrimitiveENS7_6VectorENS7_6MatrixENS7_5ArrayENS7_6StructENS7_15PrimitiveStructENS7_8FunctionENS7_7TextureENS7_14TextureStorageENS7_12TextureDepthENS7_9ReferenceENS7_7PointerENS7_6AtomicENS7_15TypeConstructorEEEEE17generic_constructIRKNS0_16copy_constructorISM_LNS0_5TraitE1EEEEEvRSN_OT_EUlRSV_OT0_E_JSU_ST_EEEDcmSW_DpOT0_(v77, &v241, &v251, v247);
+          v254 = *(v76 + 48);
         }
 
-        WGSL::Type::toString(&v250, v234);
-        v110 = v234[0];
-        if (v234[0])
+        WGSL::Type::toString(v235, &v251);
+        v111 = v235[0];
+        if (v235[0])
         {
-          v111 = *(v234[0] + 1);
-          if (v111 < 0)
+          v112 = *(v235[0] + 1);
+          if (v112 < 0)
           {
-            v112 = 0;
-            v234[0] = 0;
+            v113 = 0;
+            v235[0] = 0;
 LABEL_358:
-            if (atomic_fetch_add_explicit(v110, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            if (atomic_fetch_add_explicit(v111, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v110, v109);
+              WTF::StringImpl::destroy(v111, v110);
             }
 
 LABEL_360:
-            if (!v112)
+            if (!v113)
             {
               __break(0xC471u);
               goto LABEL_512;
             }
 
-            *this = v112;
+            *this = v113;
             *(this + 8) = *(a3 + 8);
             *(this + 24) = 1;
-            if (v253 == 255)
+            if (v254 == 255)
             {
               return;
             }
 
-            v71 = &v240;
+            v72 = &v241;
 LABEL_363:
-            mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(v71, &v250);
+            mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(v72, &v251);
             return;
           }
         }
 
         else
         {
-          v111 = 0;
+          v112 = 0;
         }
 
-        v129 = __OFADD__(v111, 1);
-        v130 = v111 + 1;
-        if (v129 || __OFADD__(v130, 39))
+        v130 = __OFADD__(v112, 1);
+        v131 = v112 + 1;
+        if (v130 || __OFADD__(v131, 39))
         {
-          v112 = 0;
+          v113 = 0;
         }
 
         else
         {
-          if (v234[0])
+          if (v235[0])
           {
-            v169 = (*(v234[0] + 4) >> 2) & 1;
-            atomic_fetch_add_explicit(v234[0], 2u, memory_order_relaxed);
+            v170 = (*(v235[0] + 4) >> 2) & 1;
+            atomic_fetch_add_explicit(v235[0], 2u, memory_order_relaxed);
           }
 
           else
           {
-            v169 = 1;
+            v170 = 1;
           }
 
-          v237 = v110;
-          WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WGSL::Type,void>,WTF::StringTypeAdapter<char,void>>((v130 + 39), v169, "cannot dereference expression of type '", 0x27uLL, &v237, 39, &v240);
-          v112 = v240;
-          v240 = 0;
-          v190 = v237;
-          v237 = 0;
-          if (v190 && atomic_fetch_add_explicit(v190, 0xFFFFFFFE, memory_order_relaxed) == 2)
+          v238 = v111;
+          WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WGSL::Type,void>,WTF::StringTypeAdapter<char,void>>((v131 + 39), v170, "cannot dereference expression of type '", 0x27uLL, &v238, 39, &v241);
+          v113 = v241;
+          v241 = 0;
+          v191 = v238;
+          v238 = 0;
+          if (v191 && atomic_fetch_add_explicit(v191, 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
-            WTF::StringImpl::destroy(v190, v109);
+            WTF::StringImpl::destroy(v191, v110);
           }
 
-          v110 = v234[0];
+          v111 = v235[0];
         }
 
-        v234[0] = 0;
-        if (!v110)
+        v235[0] = 0;
+        if (!v111)
         {
           goto LABEL_360;
         }
@@ -4861,54 +4861,54 @@ LABEL_363:
       }
 
 LABEL_400:
-      if (v35 != 1)
+      if (v36 != 1)
       {
         goto LABEL_484;
       }
 
-      v38 = v246;
-      if (!v246)
+      v39 = v247;
+      if (!v247)
       {
-        v204 = v247;
+        v205 = v248;
         goto LABEL_496;
       }
 
-      atomic_fetch_add_explicit(v246, 2u, memory_order_relaxed);
-      v70 = v247;
+      atomic_fetch_add_explicit(v247, 2u, memory_order_relaxed);
+      v71 = v248;
       goto LABEL_410;
     case 0x1Du:
       *(a2 + 6) = *(*(a2 + 9) + 32);
-      v33 = *(a3 + 64);
-      v250 = v33;
+      v34 = *(a3 + 64);
+      v251 = v34;
       v9 = 2;
-      BYTE8(v251) = 2;
+      BYTE8(v252) = 2;
       if (*(a3 + 56) != 1)
       {
-        *(a3 + 32) = v33;
+        *(a3 + 32) = v34;
         goto LABEL_110;
       }
 
-      v34 = *(a3 + 48);
-      if (v34 != 255)
+      v35 = *(a3 + 48);
+      if (v35 != 255)
       {
-        if (v34 == 2)
+        if (v35 == 2)
         {
-          *(a3 + 32) = v33;
+          *(a3 + 32) = v34;
           goto LABEL_112;
         }
 
-        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v246, (a3 + 32));
+        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v247, (a3 + 32));
       }
 
-      *(a3 + 32) = v33;
+      *(a3 + 32) = v34;
       *(a3 + 48) = 2;
       goto LABEL_112;
     case 0x1Eu:
       *(a2 + 6) = *(*(a2 + 9) + 24);
       v14 = *(a3 + 64);
-      v250 = v14;
+      v251 = v14;
       v9 = 5;
-      BYTE8(v251) = 5;
+      BYTE8(v252) = 5;
       if (*(a3 + 56) != 1)
       {
         *(a3 + 32) = v14;
@@ -4924,7 +4924,7 @@ LABEL_400:
           goto LABEL_112;
         }
 
-        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v246, (a3 + 32));
+        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v247, (a3 + 32));
       }
 
       *(a3 + 32) = v14;
@@ -4932,36 +4932,36 @@ LABEL_400:
       goto LABEL_112;
     case 0x1Fu:
       *(a2 + 6) = *(*(a2 + 9) + 48);
-      v41 = *(a3 + 64);
-      LOBYTE(v250) = v41;
+      v42 = *(a3 + 64);
+      LOBYTE(v251) = v42;
       v9 = 6;
-      BYTE8(v251) = 6;
+      BYTE8(v252) = 6;
       if (*(a3 + 56) != 1)
       {
-        *(a3 + 32) = v41;
+        *(a3 + 32) = v42;
         goto LABEL_110;
       }
 
-      v42 = *(a3 + 48);
-      if (v42 != 255)
+      v43 = *(a3 + 48);
+      if (v43 != 255)
       {
-        if (v42 == 6)
+        if (v43 == 6)
         {
-          *(a3 + 32) = v41;
+          *(a3 + 32) = v42;
           goto LABEL_112;
         }
 
-        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v246, (a3 + 32));
+        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v247, (a3 + 32));
       }
 
-      *(a3 + 32) = v41;
+      *(a3 + 32) = v42;
       *(a3 + 48) = 6;
       goto LABEL_112;
     case 0x20u:
       *(a2 + 6) = *(*(a2 + 9) + 72);
       v12 = *(a3 + 64);
-      LODWORD(v250) = v12;
-      BYTE8(v251) = 0;
+      LODWORD(v251) = v12;
+      BYTE8(v252) = 0;
       if (*(a3 + 56) != 1)
       {
         *(a3 + 32) = v12;
@@ -4978,7 +4978,7 @@ LABEL_400:
           goto LABEL_112;
         }
 
-        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v246, v13);
+        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v247, v13);
       }
 
       *(a3 + 32) = v12;
@@ -4986,37 +4986,37 @@ LABEL_400:
       goto LABEL_112;
     case 0x21u:
       *(a2 + 6) = *(*(a2 + 9) + 80);
-      v39 = *(a3 + 64);
-      LOWORD(v250) = v39;
-      BYTE8(v251) = 1;
+      v40 = *(a3 + 64);
+      LOWORD(v251) = v40;
+      BYTE8(v252) = 1;
       if (*(a3 + 56) != 1)
       {
-        *(a3 + 32) = v39;
+        *(a3 + 32) = v40;
         *(a3 + 48) = 1;
         goto LABEL_111;
       }
 
-      v40 = *(a3 + 48);
-      if (v40 != 255)
+      v41 = *(a3 + 48);
+      if (v41 != 255)
       {
-        if (v40 == 1)
+        if (v41 == 1)
         {
-          *(a3 + 32) = v39;
+          *(a3 + 32) = v40;
           goto LABEL_112;
         }
 
-        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v246, (a3 + 32));
+        mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v247, (a3 + 32));
       }
 
-      *(a3 + 32) = v39;
+      *(a3 + 32) = v40;
       *(a3 + 48) = 1;
       goto LABEL_112;
     case 0x22u:
       *(a2 + 6) = *(*(a2 + 9) + 56);
       v8 = *(a3 + 64);
-      LODWORD(v250) = v8;
+      LODWORD(v251) = v8;
       v9 = 3;
-      BYTE8(v251) = 3;
+      BYTE8(v252) = 3;
       if (*(a3 + 56) != 1)
       {
         goto LABEL_13;
@@ -5033,7 +5033,7 @@ LABEL_400:
         goto LABEL_12;
       }
 
-      mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v246, (a3 + 32));
+      mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v247, (a3 + 32));
 LABEL_8:
       *(a3 + 32) = v8;
       *(a3 + 48) = 3;
@@ -5041,9 +5041,9 @@ LABEL_8:
     case 0x23u:
       *(a2 + 6) = *(*(a2 + 9) + 64);
       v8 = *(a3 + 64);
-      LODWORD(v250) = v8;
+      LODWORD(v251) = v8;
       v9 = 4;
-      BYTE8(v251) = 4;
+      BYTE8(v252) = 4;
       if (*(a3 + 56) == 1)
       {
         v11 = *(a3 + 48);
@@ -5056,7 +5056,7 @@ LABEL_12:
             goto LABEL_112;
           }
 
-          mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v246, (a3 + 32));
+          mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v247, (a3 + 32));
         }
 
         *(a3 + 32) = v8;
@@ -5074,40 +5074,41 @@ LABEL_111:
       }
 
 LABEL_112:
-      mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v246, &v250);
+      mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v247, &v251);
       goto LABEL_113;
     case 0x39u:
-      if (!*(a3 + 64))
+      v20 = *(a3 + 64);
+      if (!v20)
       {
-        WTF::makeString<WTF::ASCIILiteral>(&v240, "'array' requires at least 1 template argument", 0x2EuLL);
-        v104 = v240;
+        WTF::makeString<WTF::ASCIILiteral>(&v241, "'array' requires at least 1 template argument", 0x2EuLL);
+        v105 = v241;
         goto LABEL_159;
       }
 
-      v17 = WGSL::TypeChecker::resolve(&v240, a2);
-      if (v242)
+      WGSL::TypeChecker::resolve(&v241, a2, v20);
+      if (v243)
       {
-        if (v242 != 1)
+        if (v243 != 1)
         {
           goto LABEL_484;
         }
 
-        v38 = v240;
-        if (!v240)
+        v39 = v241;
+        if (!v241)
         {
 LABEL_414:
-          v204 = v241;
+          v205 = v242;
           goto LABEL_496;
         }
 
 LABEL_409:
-        atomic_fetch_add_explicit(v38, 2u, memory_order_relaxed);
-        v70 = v241;
+        atomic_fetch_add_explicit(v39, 2u, memory_order_relaxed);
+        v71 = v242;
 LABEL_410:
-        *(this + 8) = v70;
-        *this = v38;
+        *(this + 8) = v71;
+        *this = v39;
         *(this + 24) = 1;
-        if (atomic_fetch_add_explicit(v38, 0xFFFFFFFE, memory_order_relaxed) != 2)
+        if (atomic_fetch_add_explicit(v39, 0xFFFFFFFE, memory_order_relaxed) != 2)
         {
           return;
         }
@@ -5115,303 +5116,303 @@ LABEL_410:
         goto LABEL_411;
       }
 
-      v20 = v240;
-      if ((WGSL::Type::hasCreationFixedFootprint(v240) & 1) == 0)
+      v21 = v241;
+      if ((WGSL::Type::hasCreationFixedFootprint(v241) & 1) == 0)
       {
-        WGSL::Type::Type(&v250, v20);
-        WTF::makeString<char,WGSL::Type,WTF::ASCIILiteral>(&v237, &v250, "' cannot be used as an element type of an array", 48);
-        *this = v237;
+        WGSL::Type::Type(&v251, v21);
+        WTF::makeString<char,WGSL::Type,WTF::ASCIILiteral>(&v238, &v251, "' cannot be used as an element type of an array", 48);
+        *this = v238;
         *(this + 8) = *(a3 + 8);
         *(this + 24) = 1;
-        if (v253 == 255)
+        if (v254 == 255)
         {
           return;
         }
 
-        v71 = v234;
+        v72 = v235;
         goto LABEL_363;
       }
 
-      v21 = *(a3 + 72);
-      if (!v21)
+      v22 = *(a3 + 72);
+      if (!v22)
       {
-        v72 = *(a2 + 9);
-        v73 = v20;
-        v74 = 0;
+        v73 = *(a2 + 9);
+        v74 = v21;
+        v75 = 0;
 LABEL_280:
-        *(a2 + 6) = WGSL::TypeStore::arrayType(v72, v73, v21, v74);
+        *(a2 + 6) = WGSL::TypeStore::arrayType(v73, v74, v22, v75);
         goto LABEL_113;
       }
 
-      v24 = WGSL::TypeChecker::infer(&v237, a2, v21, 2u, 0);
-      if (v239)
+      v25 = WGSL::TypeChecker::infer(&v238, a2, v22, 2u, 0);
+      if (v240)
       {
-        if (v239 != 1)
+        if (v240 != 1)
         {
           goto LABEL_484;
         }
 
-        v212 = v237;
-        if (v237)
+        v213 = v238;
+        if (v238)
         {
-          atomic_fetch_add_explicit(v237, 2u, memory_order_relaxed);
+          atomic_fetch_add_explicit(v238, 2u, memory_order_relaxed);
         }
 
-        *(this + 8) = v238;
-        *this = v212;
+        *(this + 8) = v239;
+        *this = v213;
         *(this + 24) = 1;
 LABEL_470:
-        std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(&v237, v22);
+        std::experimental::fundamentals_v3::expected<std::reference_wrapper<WGSL::AST::Expression>,WGSL::CompilationMessage>::~expected(&v238, v23);
         return;
       }
 
-      v25 = *(*(a2 + 9) + 56);
-      v26 = v237;
-      if (v25 != v237 && WGSL::conversionRank(v237, v25, v23) == -1)
+      v26 = *(*(a2 + 9) + 56);
+      v27 = v238;
+      if (v26 != v238 && WGSL::conversionRank(v238, v26, v24) == -1)
       {
-        v27 = *(*(a2 + 9) + 64);
-        if (v27 != v26 && WGSL::conversionRank(v26, v27, v23) == -1)
+        v28 = *(*(a2 + 9) + 64);
+        if (v28 != v27 && WGSL::conversionRank(v27, v28, v24) == -1)
         {
-          WGSL::Type::Type(&v246, v26);
-          WTF::makeString<WTF::ASCIILiteral,WGSL::Type,char>(v234, "array count must be an i32 or u32 value, found '", 49, &v246);
-          *this = v234[0];
+          WGSL::Type::Type(&v247, v27);
+          WTF::makeString<WTF::ASCIILiteral,WGSL::Type,char>(v235, "array count must be an i32 or u32 value, found '", 49, &v247);
+          *this = v235[0];
           *(this + 8) = *(a3 + 8);
           *(this + 24) = 1;
-          if (v249 != 255)
+          if (v250 != 255)
           {
-            mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v231, &v246);
+            mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<WGSL::Types::Primitive,WGSL::Types::Vector,WGSL::Types::Matrix,WGSL::Types::Array,WGSL::Types::Struct,WGSL::Types::PrimitiveStruct,WGSL::Types::Function,WGSL::Types::Texture,WGSL::Types::TextureStorage,WGSL::Types::TextureDepth,WGSL::Types::Reference,WGSL::Types::Pointer,WGSL::Types::Atomic,WGSL::Types::TypeConstructor>,(mpark::detail::Trait)1> &>(&v232, &v247);
           }
 
-          v249 = -1;
+          v250 = -1;
           goto LABEL_470;
         }
       }
 
-      v28 = *(a3 + 72);
-      LOBYTE(v234[0]) = 0;
-      v236 = 0;
-      if (*(v28 + 56) == 1)
+      v29 = *(a3 + 72);
+      LOBYTE(v235[0]) = 0;
+      v237 = 0;
+      if (*(v29 + 56) == 1)
       {
-        v235 = -1;
-        v29 = *(v28 + 48);
-        if (v29 != 255)
+        v236 = -1;
+        v30 = *(v29 + 48);
+        if (v30 != 255)
         {
-          _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_11constructorINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE17generic_constructIRKNS0_16copy_constructorISB_LNS0_5TraitE1EEEEEvRSC_OT_EUlRSK_OT0_E_JSJ_SI_EEEDcmSL_DpOT0_(v29, &v231, v234, (v28 + 32));
-          v235 = *(v28 + 48);
-          v28 = *(a3 + 72);
-          v26 = v237;
+          _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_11constructorINS0_6traitsIJfDhdijxbN4WGSL13ConstantArrayENS6_14ConstantVectorENS6_14ConstantMatrixENS6_14ConstantStructEEEEE17generic_constructIRKNS0_16copy_constructorISB_LNS0_5TraitE1EEEEEvRSC_OT_EUlRSK_OT0_E_JSJ_SI_EEEDcmSL_DpOT0_(v30, &v232, v235, (v29 + 32));
+          v236 = *(v29 + 48);
+          v29 = *(a3 + 72);
+          v27 = v238;
         }
 
-        v236 = 1;
-        v30 = WGSL::concretize(v26, *(a2 + 9), v23);
-        WGSL::TypeChecker::convertValue(&v231, (v28 + 8), v30, v234, v31);
-        if (v233 == 1)
+        v237 = 1;
+        v31 = WGSL::concretize(v27, *(a2 + 9), v24);
+        WGSL::TypeChecker::convertValue(&v232, (v29 + 8), v31, v235, v32);
+        if (v234 == 1)
         {
-          v217 = v231;
-          if (v231)
+          v218 = v232;
+          if (v232)
           {
-            atomic_fetch_add_explicit(v231, 2u, memory_order_relaxed);
-            *this = v217;
-            *(this + 8) = v232;
+            atomic_fetch_add_explicit(v232, 2u, memory_order_relaxed);
+            *this = v218;
+            *(this + 8) = v233;
             *(this + 24) = 1;
-            if (atomic_fetch_add_explicit(v217, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            if (atomic_fetch_add_explicit(v218, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
-              WTF::StringImpl::destroy(v217, v22);
+              WTF::StringImpl::destroy(v218, v23);
             }
 
             goto LABEL_460;
           }
 
           *this = 0;
-          v218 = v232;
+          v219 = v233;
         }
 
         else
         {
-          if ((v236 & 1) == 0)
+          if ((v237 & 1) == 0)
           {
             goto LABEL_512;
           }
 
-          switch(v235)
+          switch(v236)
           {
             case 5u:
-              v32 = v234[0];
+              v33 = v235[0];
               break;
             case 4u:
-              v32 = LODWORD(v234[0]);
+              v33 = LODWORD(v235[0]);
               break;
             case 3u:
-              v32 = SLODWORD(v234[0]);
+              v33 = SLODWORD(v235[0]);
               break;
             default:
               __break(0xC471u);
               JUMPOUT(0x225861874);
           }
 
-          if (v32 > 0)
+          if (v33 > 0)
           {
-            v28 = v32;
-            v128 = 1;
+            v29 = v33;
+            v129 = 1;
 LABEL_273:
-            mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v231, v234);
+            mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v232, v235);
 LABEL_274:
-            if (v239)
+            if (v240)
             {
-              if (v239 != 255)
+              if (v240 != 255)
               {
-                v147 = v237;
-                v237 = 0;
-                if (v147)
+                v148 = v238;
+                v238 = 0;
+                if (v148)
                 {
-                  if (atomic_fetch_add_explicit(v147, 0xFFFFFFFE, memory_order_relaxed) == 2)
+                  if (atomic_fetch_add_explicit(v148, 0xFFFFFFFE, memory_order_relaxed) == 2)
                   {
-                    WTF::StringImpl::destroy(v147, v146);
+                    WTF::StringImpl::destroy(v148, v147);
                   }
                 }
               }
             }
 
-            v73 = v240;
-            v72 = *(a2 + 9);
-            v21 = v28;
-            v74 = v128;
+            v74 = v241;
+            v73 = *(a2 + 9);
+            v22 = v29;
+            v75 = v129;
             goto LABEL_280;
           }
 
-          WTF::makeString<WTF::ASCIILiteral>(&v231, "array count must be greater than 0", 0x23uLL);
-          *this = v231;
-          v218 = *(a3 + 8);
+          WTF::makeString<WTF::ASCIILiteral>(&v232, "array count must be greater than 0", 0x23uLL);
+          *this = v232;
+          v219 = *(a3 + 8);
         }
 
-        *(this + 8) = v218;
+        *(this + 8) = v219;
         *(this + 24) = 1;
 LABEL_460:
-        if (v236 == 1 && v235 != 255)
+        if (v237 == 1 && v236 != 255)
         {
-          mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v231, v234);
+          mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v232, v235);
         }
 
         goto LABEL_470;
       }
 
-      if ((*(*v28 + 16))(v28, v24) == 21)
+      if ((*(*v29 + 16))(v29, v25) == 21)
       {
-        v245 = v28;
-        WTF::HashMap<WTF::String,WGSL::AST::IdentifierExpression *,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::AST::IdentifierExpression *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::add<WGSL::AST::IdentifierExpression *&>(&v231, a2 + 13, (v28 + 88), &v245);
-        v28 = *(v231 + 1);
+        v246 = v29;
+        WTF::HashMap<WTF::String,WGSL::AST::IdentifierExpression *,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::AST::IdentifierExpression *>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::add<WGSL::AST::IdentifierExpression *&>(&v232, a2 + 13, (v29 + 88), &v246);
+        v29 = *(v232 + 1);
       }
 
-      if (v28 == -1)
+      if (v29 == -1)
       {
         __break(0xC471u);
         JUMPOUT(0x2258617DCLL);
       }
 
-      if (!v28)
+      if (!v29)
       {
         __break(0xC471u);
         JUMPOUT(0x2258617FCLL);
       }
 
-      v85 = *(a2 + 5);
-      v86 = *(v85 + 384);
-      if (!v86)
+      v86 = *(a2 + 5);
+      v87 = *(v86 + 384);
+      if (!v87)
       {
-        WTF::HashTable<WGSL::AST::Expression const*,WTF::KeyValuePair<WGSL::AST::Expression const*,WTF::Vector<WTF::Function<std::optional<WTF::String> ()(WGSL::ConstantValue const&)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WGSL::AST::Expression const*,WTF::Vector<WTF::Function<std::optional<WTF::String> ()(WGSL::ConstantValue const&)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>,WTF::DefaultHash<WGSL::AST::Expression const*>,WTF::HashMap<WGSL::AST::Expression const*,WTF::Vector<WTF::Function<std::optional<WTF::String> ()(WGSL::ConstantValue const&)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<WGSL::AST::Expression const*>,WTF::HashTraits<WGSL::AST::Expression const*>,WTF::HashTraits<WTF::Vector<WTF::Function<std::optional<WTF::String> ()(WGSL::ConstantValue const&)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WGSL::AST::Expression const*>,WTF::FastMalloc>::rehash((v85 + 384), 8u, 0);
-        v86 = *(v85 + 384);
+        WTF::HashTable<WGSL::AST::Expression const*,WTF::KeyValuePair<WGSL::AST::Expression const*,WTF::Vector<WTF::Function<std::optional<WTF::String> ()(WGSL::ConstantValue const&)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WGSL::AST::Expression const*,WTF::Vector<WTF::Function<std::optional<WTF::String> ()(WGSL::ConstantValue const&)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>,WTF::DefaultHash<WGSL::AST::Expression const*>,WTF::HashMap<WGSL::AST::Expression const*,WTF::Vector<WTF::Function<std::optional<WTF::String> ()(WGSL::ConstantValue const&)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<WGSL::AST::Expression const*>,WTF::HashTraits<WGSL::AST::Expression const*>,WTF::HashTraits<WTF::Vector<WTF::Function<std::optional<WTF::String> ()(WGSL::ConstantValue const&)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WGSL::AST::Expression const*>,WTF::FastMalloc>::rehash((v86 + 384), 8uLL, 0);
+        v87 = *(v86 + 384);
       }
 
-      v87 = *(v86 - 8);
-      v88 = (~(v28 << 32) + v28) ^ ((~(v28 << 32) + v28) >> 22);
-      v89 = 9 * ((v88 + ~(v88 << 13)) ^ ((v88 + ~(v88 << 13)) >> 8));
-      v90 = (v89 ^ (v89 >> 15)) + ~((v89 ^ (v89 >> 15)) << 27);
-      v91 = v87 & ((v90 >> 31) ^ v90);
-      v92 = v86 + 24 * v91;
-      v93 = *v92;
-      if (*v92)
+      v88 = *(v87 - 8);
+      v89 = (~(v29 << 32) + v29) ^ ((~(v29 << 32) + v29) >> 22);
+      v90 = 9 * ((v89 + ~(v89 << 13)) ^ ((v89 + ~(v89 << 13)) >> 8));
+      v91 = (v90 ^ (v90 >> 15)) + ~((v90 ^ (v90 >> 15)) << 27);
+      v92 = v88 & ((v91 >> 31) ^ v91);
+      v93 = v87 + 24 * v92;
+      v94 = *v93;
+      if (*v93)
       {
-        v94 = 0;
-        v95 = 1;
+        v95 = 0;
+        v96 = 1;
         do
         {
-          if (v93 == v28)
+          if (v94 == v29)
           {
             goto LABEL_252;
           }
 
-          if (v93 == -1)
+          if (v94 == -1)
           {
-            v94 = v92;
+            v95 = v93;
           }
 
-          v91 = (v91 + v95) & v87;
-          v92 = v86 + 24 * v91;
-          v93 = *v92;
-          ++v95;
+          v92 = (v92 + v96) & v88;
+          v93 = v87 + 24 * v92;
+          v94 = *v93;
+          ++v96;
         }
 
-        while (*v92);
-        if (v94)
+        while (*v93);
+        if (v95)
         {
-          *v94 = 0;
-          v94[1] = 0;
-          v94[2] = 0;
-          --*(*(v85 + 384) - 16);
-          v92 = v94;
+          *v95 = 0;
+          v95[1] = 0;
+          v95[2] = 0;
+          --*(*(v86 + 384) - 16);
+          v93 = v95;
         }
       }
 
-      *v92 = v28;
-      v97 = (v92 + 8);
-      v96 = *(v92 + 8);
-      v98 = *(v92 + 20);
-      if (v98)
+      *v93 = v29;
+      v98 = (v93 + 8);
+      v97 = *(v93 + 8);
+      v99 = *(v93 + 20);
+      if (v99)
       {
-        v99 = 8 * v98;
+        v100 = 8 * v99;
         do
         {
-          v100 = *v96;
-          *v96 = 0;
-          if (v100)
+          v101 = *v97;
+          *v97 = 0;
+          if (v101)
           {
-            (*(*v100 + 8))(v100);
+            (*(*v101 + 8))(v101);
           }
 
-          v96 = (v96 + 8);
-          v99 -= 8;
+          v97 = (v97 + 8);
+          v100 -= 8;
         }
 
-        while (v99);
-        v96 = *v97;
+        while (v100);
+        v97 = *v98;
       }
 
-      if (v96)
+      if (v97)
       {
-        *(v92 + 8) = 0;
-        *(v92 + 16) = 0;
-        WTF::fastFree(v96, v84);
+        *(v93 + 8) = 0;
+        *(v93 + 16) = 0;
+        WTF::fastFree(v97, v85);
       }
 
-      *v97 = 0;
-      *(v92 + 16) = 0;
-      v107 = *(v85 + 384);
-      if (v107)
+      *v98 = 0;
+      *(v93 + 16) = 0;
+      v108 = *(v86 + 384);
+      if (v108)
       {
-        v108 = *(v107 - 12) + 1;
+        v109 = *(v108 - 12) + 1;
       }
 
       else
       {
-        v108 = 1;
+        v109 = 1;
       }
 
-      *(v107 - 12) = v108;
-      v131 = (*(v107 - 16) + v108);
-      v132 = *(v107 - 4);
-      if (v132 > 0x400)
+      *(v108 - 12) = v109;
+      v132 = (*(v108 - 16) + v109);
+      v133 = *(v108 - 4);
+      if (v133 > 0x400)
       {
-        if (v132 > 2 * v131)
+        if (v133 > 2 * v132)
         {
           goto LABEL_252;
         }
@@ -5419,97 +5420,97 @@ LABEL_460:
 
       else
       {
-        if (3 * v132 > 4 * v131)
+        if (3 * v133 > 4 * v132)
         {
           goto LABEL_252;
         }
 
-        if (!v132)
+        if (!v133)
         {
-          v133 = 8;
+          v134 = 8;
 LABEL_251:
-          v92 = WTF::HashTable<WGSL::AST::Expression const*,WTF::KeyValuePair<WGSL::AST::Expression const*,WTF::Vector<WTF::Function<std::optional<WTF::String> ()(WGSL::ConstantValue const&)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WGSL::AST::Expression const*,WTF::Vector<WTF::Function<std::optional<WTF::String> ()(WGSL::ConstantValue const&)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>,WTF::DefaultHash<WGSL::AST::Expression const*>,WTF::HashMap<WGSL::AST::Expression const*,WTF::Vector<WTF::Function<std::optional<WTF::String> ()(WGSL::ConstantValue const&)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<WGSL::AST::Expression const*>,WTF::HashTraits<WGSL::AST::Expression const*>,WTF::HashTraits<WTF::Vector<WTF::Function<std::optional<WTF::String> ()(WGSL::ConstantValue const&)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WGSL::AST::Expression const*>,WTF::FastMalloc>::rehash((v85 + 384), v133, v92);
+          v93 = WTF::HashTable<WGSL::AST::Expression const*,WTF::KeyValuePair<WGSL::AST::Expression const*,WTF::Vector<WTF::Function<std::optional<WTF::String> ()(WGSL::ConstantValue const&)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WGSL::AST::Expression const*,WTF::Vector<WTF::Function<std::optional<WTF::String> ()(WGSL::ConstantValue const&)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>>,WTF::DefaultHash<WGSL::AST::Expression const*>,WTF::HashMap<WGSL::AST::Expression const*,WTF::Vector<WTF::Function<std::optional<WTF::String> ()(WGSL::ConstantValue const&)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WTF::DefaultHash<WGSL::AST::Expression const*>,WTF::HashTraits<WGSL::AST::Expression const*>,WTF::HashTraits<WTF::Vector<WTF::Function<std::optional<WTF::String> ()(WGSL::ConstantValue const&)>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WGSL::AST::Expression const*>,WTF::FastMalloc>::rehash((v86 + 384), v134, v93);
 LABEL_252:
-          v134 = *(v92 + 20);
-          if (v134 == *(v92 + 16))
+          v135 = *(v93 + 20);
+          if (v135 == *(v93 + 16))
           {
-            v135 = v134 + (v134 >> 1);
-            if (v135 <= v134 + 1)
+            v136 = v135 + (v135 >> 1);
+            if (v136 <= v135 + 1)
             {
-              v135 = v134 + 1;
+              v136 = v135 + 1;
             }
 
-            if (v135 >> 29)
+            if (v136 >> 29)
             {
               __break(0xC471u);
               JUMPOUT(0x225861854);
             }
 
-            v136 = *(v92 + 8);
-            if (v135 <= 0x10)
+            v137 = *(v93 + 8);
+            if (v136 <= 0x10)
             {
-              v137 = 16;
+              v138 = 16;
             }
 
             else
             {
-              v137 = v135;
+              v138 = v136;
             }
 
-            v139 = WTF::fastMalloc((8 * v137));
-            *(v92 + 16) = v137;
-            *(v92 + 8) = v139;
-            if (v134)
+            v140 = WTF::fastMalloc((8 * v138));
+            *(v93 + 16) = v138;
+            *(v93 + 8) = v140;
+            if (v135)
             {
-              v140 = 8 * v134;
-              v141 = v136;
+              v141 = 8 * v135;
+              v142 = v137;
               do
               {
-                v142 = *v141;
-                *v141 = 0;
-                *v139 = v142;
-                v143 = *v141;
-                *v141 = 0;
-                if (v143)
+                v143 = *v142;
+                *v142 = 0;
+                *v140 = v143;
+                v144 = *v142;
+                *v142 = 0;
+                if (v144)
                 {
-                  (*(*v143 + 8))(v143);
+                  (*(*v144 + 8))(v144);
                 }
 
-                v139 = (v139 + 8);
-                v141 = (v141 + 8);
-                v140 -= 8;
+                v140 = (v140 + 8);
+                v142 = (v142 + 8);
+                v141 -= 8;
               }
 
-              while (v140);
-              v139 = *(v92 + 8);
+              while (v141);
+              v140 = *(v93 + 8);
             }
 
-            if (v136)
+            if (v137)
             {
-              if (v139 == v136)
+              if (v140 == v137)
               {
-                *(v92 + 8) = 0;
-                *(v92 + 16) = 0;
+                *(v93 + 8) = 0;
+                *(v93 + 16) = 0;
               }
 
-              WTF::fastFree(v136, v138);
-              v139 = *(v92 + 8);
+              WTF::fastFree(v137, v139);
+              v140 = *(v93 + 8);
             }
 
-            v144 = (v139 + 8 * *(v92 + 20));
+            v145 = (v140 + 8 * *(v93 + 20));
           }
 
           else
           {
-            v144 = (*(v92 + 8) + 8 * v134);
+            v145 = (*(v93 + 8) + 8 * v135);
           }
 
-          v145 = WTF::fastMalloc(0x10);
-          *v145 = &unk_2838D6738;
-          *v144 = v145;
-          ++*(v92 + 20);
-          v128 = 2;
-          if ((v236 & 1) == 0 || v235 == 255)
+          v146 = WTF::fastMalloc(0x10);
+          *v146 = &unk_2838D6738;
+          *v145 = v146;
+          ++*(v93 + 20);
+          v129 = 2;
+          if ((v237 & 1) == 0 || v236 == 255)
           {
             goto LABEL_274;
           }
@@ -5518,71 +5519,71 @@ LABEL_252:
         }
       }
 
-      v133 = v132 << (6 * v108 >= (2 * v132));
+      v134 = (v133 << (6 * v109 >= (2 * v133)));
       goto LABEL_251;
     case 0x3Au:
-      WGSL::TypeChecker::lookupType(&v246, a2, a3 + 64);
-      v35 = v248;
-      if (v248)
+      WGSL::TypeChecker::lookupType(&v247, a2, (a3 + 64));
+      v36 = v249;
+      if (v249)
       {
         goto LABEL_400;
       }
 
-      v65 = v246;
-      if (v246)
+      v66 = v247;
+      if (v247)
       {
-        v66 = *(v246 + 48);
-        if (v66 == 13)
+        v67 = *(v247 + 48);
+        if (v67 == 13)
         {
-          v67 = *(v246 + 5);
-          if (!v67)
+          v68 = *(v247 + 5);
+          if (!v68)
           {
             std::__throw_bad_function_call[abi:sn200100]();
 LABEL_498:
-            v105 = v251;
-            *v234 = v251;
+            v106 = v252;
+            *v235 = v252;
             *this = 0;
             goto LABEL_161;
           }
 
-          v17 = (*(*v67 + 48))(&v250);
-          if (v252)
+          v17 = (*(*v68 + 48))(&v251);
+          if (v253)
           {
-            if (v252 != 1)
+            if (v253 != 1)
             {
               goto LABEL_484;
             }
 
-            v68 = v250;
-            if (!v250)
+            v69 = v251;
+            if (!v251)
             {
               goto LABEL_500;
             }
 
-            atomic_fetch_add_explicit(v250, 2u, memory_order_relaxed);
-            v69 = v252;
-            *this = v68;
-            *(this + 8) = v251;
+            atomic_fetch_add_explicit(v251, 2u, memory_order_relaxed);
+            v70 = v253;
+            *this = v69;
+            *(this + 8) = v252;
             *(this + 24) = 1;
-            if (!v69)
+            if (!v70)
             {
               return;
             }
 
-            if (v69 == 255)
+            if (v70 == 255)
             {
               return;
             }
 
-            v38 = v250;
-            v250 = 0;
-            if (!v38 || atomic_fetch_add_explicit(v38, 0xFFFFFFFE, memory_order_relaxed) != 2)
+            v39 = v251;
+            v251 = 0;
+            if (!v39 || atomic_fetch_add_explicit(v39, 0xFFFFFFFE, memory_order_relaxed) != 2)
             {
               return;
             }
 
 LABEL_411:
-            WTF::StringImpl::destroy(v38, v7);
+            WTF::StringImpl::destroy(v39, v7);
             return;
           }
 
@@ -5592,24 +5593,24 @@ LABEL_411:
 
       else
       {
-        v66 = MEMORY[0x30];
+        v67 = MEMORY[0x30];
       }
 
-      LOBYTE(v250) = 0;
-      v253 = -1;
-      if (v66 != 255)
+      LOBYTE(v251) = 0;
+      v254 = -1;
+      if (v67 != 255)
       {
-        _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_11constructorINS0_6traitsIJN4WGSL5Types9PrimitiveENS7_6VectorENS7_6MatrixENS7_5ArrayENS7_6StructENS7_15PrimitiveStructENS7_8FunctionENS7_7TextureENS7_14TextureStorageENS7_12TextureDepthENS7_9ReferenceENS7_7PointerENS7_6AtomicENS7_15TypeConstructorEEEEE17generic_constructIRKNS0_16copy_constructorISM_LNS0_5TraitE1EEEEEvRSN_OT_EUlRSV_OT0_E_JSU_ST_EEEDcmSW_DpOT0_(v66, &v240, &v250, v246);
-        v253 = *(v65 + 48);
+        _ZN5mpark6detail10visitation3alt12visit_alt_atIZNS0_11constructorINS0_6traitsIJN4WGSL5Types9PrimitiveENS7_6VectorENS7_6MatrixENS7_5ArrayENS7_6StructENS7_15PrimitiveStructENS7_8FunctionENS7_7TextureENS7_14TextureStorageENS7_12TextureDepthENS7_9ReferenceENS7_7PointerENS7_6AtomicENS7_15TypeConstructorEEEEE17generic_constructIRKNS0_16copy_constructorISM_LNS0_5TraitE1EEEEEvRSN_OT_EUlRSV_OT0_E_JSU_ST_EEEDcmSW_DpOT0_(v67, &v241, &v251, v247);
+        v254 = *(v66 + 48);
       }
 
-      WTF::makeString<WTF::ASCIILiteral,WGSL::Type,WTF::ASCIILiteral>(&v240, "type '", 7, &v250, "' does not take template arguments", 35);
-      *this = v240;
+      WTF::makeString<WTF::ASCIILiteral,WGSL::Type,WTF::ASCIILiteral>(&v241, "type '", 7, &v251, "' does not take template arguments", 35);
+      *this = v241;
       *(this + 8) = *(a3 + 8);
       *(this + 24) = 1;
-      if (v253 != 255)
+      if (v254 != 255)
       {
-        v71 = &v237;
+        v72 = &v238;
         goto LABEL_363;
       }
 
@@ -5620,7 +5621,7 @@ LABEL_411:
   }
 }
 
-WTF *WGSL::TypeChecker::visit(WGSL::TypeChecker *this, const WGSL::Type **a2, uint64_t a3)
+WTF *WGSL::TypeChecker::visit(WGSL::TypeChecker *this, WTF::StringImpl **a2, uint64_t a3)
 {
   v4 = a3;
   v427 = *MEMORY[0x277D85DE8];
@@ -5664,7 +5665,7 @@ WTF *WGSL::TypeChecker::visit(WGSL::TypeChecker *this, const WGSL::Type **a2, ui
     v26 = 8 * v23;
     while (1)
     {
-      v12 = WGSL::TypeChecker::resolve(&v415, a2);
+      WGSL::TypeChecker::resolve(&v415, a2, *v24);
       v27 = v417;
       if (!v417)
       {
@@ -5795,8 +5796,8 @@ LABEL_232:
 
         a2 = v371;
         v4 = v372;
-        v170 = *(v371 + 12);
-        if (v170 && v168 == (v170 + 48 * *(v170 - 4)))
+        v170 = v371[12];
+        if (v170 && v168 == (v170 + 48 * *(v170 - 1)))
         {
 LABEL_551:
           if (MEMORY[0x22AA683D0](v131, "bitcast", 7))
@@ -6225,7 +6226,7 @@ LABEL_575:
                 if (!__OFADD__(v281, 24))
                 {
                   v282 = !v131 || (*(v131 + 16) & 4) != 0;
-                  WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>>(&v415, v281 + 24, v282, "unresolved call target '", 0x18uLL, v131);
+                  WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>>(&v415, (v281 + 24), v282, "unresolved call target '", 0x18uLL, v131);
                   if (v415)
                   {
                     v283 = *(v6 + 8);
@@ -6360,7 +6361,7 @@ LABEL_332:
         }
 
 LABEL_344:
-        WGSL::resolveOverloads(*(v371 + 9), v168 + 4, &v423, &v383, &v387);
+        WGSL::resolveOverloads(v371[9], v168 + 4, &v423, &v383, &v387);
         v180 = v389;
         if (v389 == 1)
         {
@@ -6419,7 +6420,7 @@ LABEL_344:
           }
 
           v56 = v388;
-          *(v371 + 6) = v388;
+          v371[6] = v388;
           if ((*(*v372 + 16))(v372) != 19)
           {
             goto LABEL_363;
@@ -6510,7 +6511,7 @@ LABEL_362:
 
             if (!v316 && *v315 - 3 <= 2)
             {
-              *(*(v371 + 5) + 32) = 1;
+              *(v371[5] + 32) = 1;
             }
 
 LABEL_363:
@@ -6531,13 +6532,13 @@ LABEL_363:
           }
 
           v191 = v190;
-          v192 = 24 * v190;
-          v193 = WTF::fastMalloc((v192 + 8));
+          v192 = 6 * v190;
+          v193 = WTF::fastMalloc((v192 * 4 + 8));
           *v193 = v190;
-          v194 = v193 + v192;
+          v194 = &v193[v192];
           a2 = v371;
           v195 = 6;
-          bzero((v193 + 8), 24 * ((v194 - (v193 + 8) - 16) / 0x18uLL) + 24);
+          bzero(v193 + 2, 24 * ((v194 - (v193 + 2) - 16) / 0x18uLL) + 24);
           v197 = 0;
           v419 = v193;
           v7 = 1;
@@ -6784,13 +6785,13 @@ LABEL_545:
 
                     if (MEMORY[0x22AA683D0](v131, "extractBits", 11))
                     {
-                      *(*(v371 + 5) + 29) = 1;
+                      *(v371[5] + 29) = 1;
                       goto LABEL_60;
                     }
 
                     if (MEMORY[0x22AA683D0](v131, "insertBits", 10))
                     {
-                      *(*(v371 + 5) + 33) = 1;
+                      *(v371[5] + 33) = 1;
                       goto LABEL_60;
                     }
 
@@ -6823,7 +6824,7 @@ LABEL_545:
                             goto LABEL_837;
                           }
 
-                          WTF::String::number(v12);
+                          WTF::String::number(&v377, v12);
                           WTF::makeString<WTF::ASCIILiteral,WTF::String>("the component argument must be at least 0 and at most 3. component is ", 71, &v377, &v415);
                           v358 = *(v343 + 8);
                           *this = v415;
@@ -6877,7 +6878,7 @@ LABEL_837:
 
                     v343 = v342[v341 - 1];
                     v344 = *(v343 + 24);
-                    if (!v344 || *(v344 + 48) != 1 || *(v344 + 8) != 2 || *v344 != *(*(v371 + 9) + 56))
+                    if (!v344 || *(v344 + 48) != 1 || *(v344 + 8) != 2 || *v344 != *(v371[9] + 7))
                     {
                       goto LABEL_60;
                     }
@@ -6907,9 +6908,9 @@ LABEL_837:
                       {
                         v349 = 0;
 LABEL_918:
-                        WTF::String::number(v349);
-                        WTF::String::number(*v346);
-                        WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("each component of the offset argument must be at least -8 and at most 7. offset component ", 91, &v376, " is ", 5, &v375, &v415);
+                        WTF::String::number(&v376, v349);
+                        WTF::String::number(&v375, *v346);
+                        WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral,WTF::String>("each component of the offset argument must be at least -8 and at most 7. offset component ", 91, &v376, 5, &v375, &v415, " is ");
                         v361 = *(v343 + 8);
                         *this = v415;
                         *(this + 8) = v361;
@@ -7212,7 +7213,7 @@ LABEL_520:
                   if (!v271 && !__OFADD__(v257, 25))
                   {
                     v258 = (!v229 || (*(v229 + 16) & 4) != 0) && (!v386 || (*(v386 + 16) & 4) != 0) && (!v385 || (*(v385 + 16) & 4) != 0);
-                    WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>>(&v419, (v257 + 25), v258, "no matching overload for ", 0x19uLL, "initializer", 0xBuLL, 0x20uLL, v229, v386, 0x28, v385, 41);
+                    WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<char,void>>(&v419, (v257 + 25), v258, "no matching overload for ", 0x19uLL, "initializer", 0xB, 0x20, v229, v386, 0x28, v385, 41);
                     v56 = v419;
                     if (v419)
                     {
@@ -7255,7 +7256,7 @@ LABEL_928:
         JUMPOUT(0x2258652DCLL);
       }
 
-      v24 += 8;
+      ++v24;
       v26 -= 8;
       if (!v26)
       {
@@ -7857,7 +7858,7 @@ LABEL_111:
                       }
 
                       v68 = v387;
-                      if (v387 || (WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WGSL::ConstantValue>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WGSL::ConstantValue>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WGSL::ConstantValue,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::ConstantValue>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(&v387, 8u, 0), (v68 = v387) != 0))
+                      if (v387 || (WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WGSL::ConstantValue>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WGSL::ConstantValue>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WGSL::ConstantValue,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::ConstantValue>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(&v387, 8uLL, 0), (v68 = v387) != 0))
                       {
                         v69 = *(v68 - 2);
                         v70 = *v7;
@@ -7988,7 +7989,7 @@ LABEL_127:
                         }
 
 LABEL_144:
-                        v83 = v82 << (6 * v80 >= (2 * v82));
+                        v83 = (v82 << (6 * v80 >= (2 * v82)));
 LABEL_145:
                         WTF::HashTable<WTF::String,WTF::KeyValuePair<WTF::String,WGSL::ConstantValue>,WTF::KeyValuePairKeyExtractor<WTF::KeyValuePair<WTF::String,WGSL::ConstantValue>>,WTF::DefaultHash<WTF::String>,WTF::HashMap<WTF::String,WGSL::ConstantValue,WTF::DefaultHash<WTF::String>,WTF::HashTraits<WTF::String>,WTF::HashTraits<WGSL::ConstantValue>,WTF::HashTableTraits,(WTF::ShouldValidateKey)1,WTF::FastMalloc>::KeyValuePairTraits,WTF::HashTraits<WTF::String>,WTF::FastMalloc>::rehash(&v387, v83, v76);
                       }
@@ -8250,7 +8251,7 @@ LABEL_172:
     goto LABEL_218;
   }
 
-  if ((v109 & 0x80000000) != 0 || (WTF::tryFastCompactMalloc((v109 + 20)), (v67 = v415) == 0))
+  if ((v109 & 0x80000000) != 0 || (WTF::tryFastCompactMalloc(&v415, (v109 + 20)), (v67 = v415) == 0))
   {
 LABEL_926:
     __break(0xC471u);
@@ -8600,7 +8601,7 @@ LABEL_270:
           goto LABEL_283;
         }
 
-        WTF::tryFastCompactMalloc(0x55);
+        WTF::tryFastCompactMalloc(&v411, 0x55);
         v150 = v411;
         if (!v411)
         {
@@ -8724,7 +8725,7 @@ LABEL_749:
     goto LABEL_777;
   }
 
-  v12 = WGSL::TypeChecker::resolve(&v415, a2);
+  WGSL::TypeChecker::resolve(&v415, a2, v122);
   v125 = v417;
   if (v417 || (v126 = v415, WGSL::TypeChecker::infer(&v415, a2, *(v123 + 72), *(a2 + 64), 0), (v125 = v417) != 0))
   {
@@ -9210,7 +9211,7 @@ LABEL_60:
           goto LABEL_61;
         }
 
-        WTF::String::number(0x7FF);
+        WTF::String::number(&v374, 0x7FF);
         WTF::makeString<WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral>("constant array cannot have more than ", 38, &v374, " elements", 10, &v415);
         *this = v415;
         *(this + 8) = *(v237 + 8);
@@ -9262,14 +9263,14 @@ LABEL_475:
     v246 = a2 + 3;
     do
     {
-      v13 = (v246 - 16);
+      v13 = (v246 - 2);
       if (*v246 != 255)
       {
         mpark::detail::visitation::alt::visit_alt<mpark::detail::dtor,mpark::detail::destructor<mpark::detail::traits<float,half,double,int,unsigned int,long long,BOOL,WGSL::ConstantArray,WGSL::ConstantVector,WGSL::ConstantMatrix,WGSL::ConstantStruct>,(mpark::detail::Trait)1> &>(&v415, v13);
       }
 
       *v246 = -1;
-      v246 += 24;
+      v246 += 3;
       v245 -= 24;
     }
 
@@ -9344,12 +9345,12 @@ LABEL_36:
             if (v31 != 103 && v31 != 114)
             {
 LABEL_176:
-              WTF::tryFastCompactMalloc(0x34);
+              WTF::tryFastCompactMalloc(v122, 0x34);
               v88 = v122[0];
               if (!v122[0])
               {
+LABEL_241:
                 __break(0xC471u);
-LABEL_242:
                 JUMPOUT(0x225866260);
               }
 
@@ -9533,8 +9534,7 @@ LABEL_234:
             WGSL::TypeChecker::vectorFieldAccess(WGSL::Types::Vector const&,WGSL::AST::FieldAccessExpression &)::$_2::operator()(v122, *(v48 + 32), v52);
             if (v51 >= *v49)
             {
-              __break(0xC471u);
-              goto LABEL_242;
+              goto LABEL_241;
             }
 
             if (*v50 == 255)
@@ -9786,7 +9786,7 @@ LABEL_220:
         }
 
 LABEL_208:
-        WTF::tryFastCompactMalloc(0x2F);
+        WTF::tryFastCompactMalloc(v122, 0x2F);
         v88 = v122[0];
         if (!v122[0])
         {

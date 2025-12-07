@@ -78,7 +78,7 @@
     v18 = __nwlog_obj();
     *buf = 136446210;
     v29 = "[NWBrowser initWithDescriptor:parameters:]";
-    v19 = _os_log_send_and_compose_impl();
+    v19 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v18, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v25 = 0;

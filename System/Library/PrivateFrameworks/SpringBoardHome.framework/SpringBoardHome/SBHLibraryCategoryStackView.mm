@@ -69,10 +69,10 @@
 - (id)matchingCategoryStackView
 {
   v3 = objc_alloc(objc_opt_class());
-  [(SBHLibraryCategoryStackView *)self bounds];
+  objc_msgSend_bounds(self);
   v4 = [v3 initWithFrame:?];
   [v4 setNumberOfCategories:{-[SBHLibraryCategoryStackView numberOfCategories](self, "numberOfCategories")}];
-  [(SBHLibraryCategoryStackView *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self);
   [v4 setIconImageInfo:?];
   innerIcons = [(SBHLibraryCategoryStackView *)self innerIcons];
   [v4 setInnerIcons:innerIcons];
@@ -361,7 +361,7 @@ void __46__SBHLibraryCategoryStackView_setOverlapping___block_invoke(uint64_t a1
 
 - (CGRect)frameForStackedViewAtIndex:(unint64_t)index
 {
-  [(SBHLibraryCategoryStackView *)self bounds];
+  objc_msgSend_bounds(self, a2);
   v5 = v4;
   v7 = v6;
   v9 = v8;
@@ -423,7 +423,7 @@ void __46__SBHLibraryCategoryStackView_setOverlapping___block_invoke(uint64_t a1
     [(SBHLibraryCategoryStackView *)self _reconfigurePodBackgroundViews];
   }
 
-  [(SBHLibraryCategoryStackView *)self bounds];
+  objc_msgSend_bounds(self);
   v36 = v6;
   v37 = v5;
   v7 = v4;
@@ -444,7 +444,7 @@ void __46__SBHLibraryCategoryStackView_setOverlapping___block_invoke(uint64_t a1
 
     do
     {
-      v13 = [(NSMutableArray *)self->_podBackgroundViews objectAtIndex:v10];
+      v13 = objc_msgSend_objectAtIndex_(self->_podBackgroundViews);
       [(SBHLibraryCategoryStackView *)self frameForStackedViewAtIndex:v10];
       v15 = v14;
       v17 = v16;
@@ -583,33 +583,18 @@ void __45__SBHLibraryCategoryStackView_layoutSubviews__block_invoke(uint64_t a1,
 
 - (SBIconImageInfo)_innerIconImageInfo
 {
-  [(SBHLibraryCategoryStackView *)self bounds];
-  v6 = *MEMORY[0x1E695F060];
-  v7 = *(MEMORY[0x1E695F060] + 8);
-  v8 = self->_iconImageInfo.size.width == *MEMORY[0x1E695F060] && self->_iconImageInfo.size.height == v7;
-  if (v8 || (v4 == v6 ? (v9 = v5 == v7) : (v9 = 0), v9))
+  objc_msgSend_bounds(self, a3);
+  v6 = *(MEMORY[0x1E695F060] + 8);
+  if ((self->_iconImageInfo.size.width != *MEMORY[0x1E695F060] || self->_iconImageInfo.size.height != v6) && (v4 != *MEMORY[0x1E695F060] || v5 != v6))
   {
-    v17 = 0.0;
-    v16 = 0.0;
-  }
-
-  else
-  {
-    scale = self->_iconImageInfo.scale;
     [(SBHLibraryCategoryStackView *)self _innerIconEdgeSpacingFraction];
     [(SBHLibraryCategoryStackView *)self _innerIconInterSpacingFraction];
     UIRoundToScale();
-    v12 = v11;
     UIRoundToScale();
-    v14 = v13;
     UICeilToScale();
-    v16 = v15;
-    v6 = v12;
-    v7 = v14;
-    v17 = scale;
   }
 
-  SBIconImageInfoMake(v6, v7, v17, v16);
+  SBIconImageInfoMake();
   return result;
 }
 

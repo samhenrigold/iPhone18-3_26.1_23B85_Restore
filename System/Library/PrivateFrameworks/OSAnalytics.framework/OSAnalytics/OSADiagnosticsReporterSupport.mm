@@ -7,7 +7,7 @@
 
 + (void)initAlertDelegate
 {
-  if (DiagnosticsReporterServicesLibraryCore())
+  if (DiagnosticsReporterServicesLibraryCore(0))
   {
     OSADiagnosticsReporterClass = getOSADiagnosticsReporterClass();
     initAlertDelegate_OSADiagnosticsReporterClass = OSADiagnosticsReporterClass;
@@ -28,7 +28,7 @@
   completionCopy = completion;
   if (OSAIsFeedbackPromptingEnabled())
   {
-    if (DiagnosticsReporterServicesLibraryCore())
+    if (DiagnosticsReporterServicesLibraryCore(0))
     {
       handleDiagnosticLog_logPath_completion__OSADiagnosticsReporterClass = getOSADiagnosticsReporterClass();
       v15 = 0;
@@ -90,13 +90,11 @@ void __72__OSADiagnosticsReporterSupport_handleDiagnosticLog_logPath_completion_
 
 void __72__OSADiagnosticsReporterSupport_handleDiagnosticLog_logPath_completion___block_invoke_cold_1(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = [a1 localizedDescription];
-  v3 = 138412290;
-  v4 = v1;
-  _os_log_error_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to launch DR with error: %@", &v3, 0xCu);
-
-  v2 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = v1;
+  _os_log_error_impl(&dword_1AE4F7000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to launch DR with error: %@", &v2, 0xCu);
 }
 
 @end

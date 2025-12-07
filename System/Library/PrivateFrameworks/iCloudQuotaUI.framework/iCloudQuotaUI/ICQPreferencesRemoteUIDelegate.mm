@@ -1206,7 +1206,7 @@ LABEL_32:
                       _Block_object_dispose(&v153, 8);
                       if (!v51)
                       {
-                        topSignal = [ICQFamilySharingHook _beginFamilySharingFlowWithCompletion:];
+                        [ICQFamilySharingHook _beginFamilySharingFlowWithCompletion:];
                         __break(1u);
                         goto LABEL_70;
                       }

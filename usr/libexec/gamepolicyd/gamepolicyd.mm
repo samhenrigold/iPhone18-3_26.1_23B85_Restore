@@ -1,4 +1,4 @@
-void sub_100001C78()
+void sub_100001C78(uint64_t result, uint64_t a2)
 {
   if (qword_1000556B0 != -1)
   {
@@ -40,9 +40,9 @@ id sub_100001CCC()
   return v1;
 }
 
-void sub_100001D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100001D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -121,7 +121,6 @@ Class sub_1000034F8(uint64_t a1)
 
 uint64_t sub_100003624(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1000556C0 = result;
   return result;
@@ -171,7 +170,6 @@ uint64_t sub_100003870(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -196,15 +194,17 @@ void *sub_100003920(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100003964(uint64_t *a1)
+uint64_t sub_100003964(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 id variable initialization expression of GamePolicyMobileAssetRetriever.lock()
@@ -266,12 +266,12 @@ uint64_t sub_100003A24(uint64_t result, int a2, int a3)
   return result;
 }
 
-void sub_100003A78(uint64_t a1, unint64_t *a2)
+void sub_100003A78(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -330,7 +330,7 @@ uint64_t sub_100003C8C@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100003D34(unint64_t *a1)
+uint64_t sub_100003D34(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -370,13 +370,13 @@ uint64_t sub_100003DE0(uint64_t a1)
   return result;
 }
 
-uint64_t sub_100003E18(uint64_t a1, unint64_t a2)
+uint64_t sub_100003E18(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -431,7 +431,7 @@ uint64_t sub_100004110()
   return v2;
 }
 
-uint64_t type metadata accessor for GamePolicyMobileAsset()
+uint64_t type metadata accessor for GamePolicyMobileAsset(uint64_t a1)
 {
   result = qword_100053678;
   if (!qword_100053678)
@@ -442,12 +442,11 @@ uint64_t type metadata accessor for GamePolicyMobileAsset()
   return result;
 }
 
-uint64_t sub_1000041C8()
+uint64_t sub_1000041C8(uint64_t a1)
 {
   result = type metadata accessor for Version();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -458,7 +457,7 @@ uint64_t sub_1000041C8()
   return result;
 }
 
-uint64_t sub_100004274()
+void *sub_100004274()
 {
   if (_set_user_dir_suffix())
   {
@@ -508,7 +507,7 @@ Swift::Int sub_100004418()
   return Hasher._finalize()();
 }
 
-Swift::Int sub_10000448C()
+Swift::Int sub_10000448C(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -530,15 +529,14 @@ uint64_t sub_100004554()
   v3 = *(*(v2 - 8) + 8);
   v3(v0 + v1, v2);
   v3(v0 + OBJC_IVAR____TtC11gamepolicyd19ConfigurationBundle_compatibilityVersion, v2);
-  v4 = *(v0 + OBJC_IVAR____TtC11gamepolicyd19ConfigurationBundle_identifier + 8);
 
-  v5 = *(*v0 + 48);
-  v6 = *(*v0 + 52);
+  v4 = *(*v0 + 48);
+  v5 = *(*v0 + 52);
 
-  return _swift_deallocClassInstance(v0, v5, v6);
+  return _swift_deallocClassInstance(v0, v4, v5);
 }
 
-uint64_t type metadata accessor for ConfigurationBundle()
+uint64_t type metadata accessor for ConfigurationBundle(uint64_t a1)
 {
   result = qword_1000537F0;
   if (!qword_1000537F0)
@@ -549,12 +547,11 @@ uint64_t type metadata accessor for ConfigurationBundle()
   return result;
 }
 
-uint64_t sub_100004698()
+uint64_t sub_100004698(uint64_t a1)
 {
   result = type metadata accessor for Version();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -688,9 +685,7 @@ unint64_t sub_100004840()
 
 uint64_t sub_100004894()
 {
-  v0 = type metadata accessor for GameStore();
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
+  type metadata accessor for GameStore(0);
   swift_allocObject();
   result = sub_100007CF4();
   qword_1000538A0 = result;
@@ -711,76 +706,74 @@ uint64_t sub_100004948(void *a1)
   v2 = v1;
   v4 = type metadata accessor for Logger();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *(v2 + OBJC_IVAR____TtC11gamepolicyd9GameStore_gamingMetadata);
+  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = *(v2 + OBJC_IVAR____TtC11gamepolicyd9GameStore_gamingMetadata);
   *(v2 + OBJC_IVAR____TtC11gamepolicyd9GameStore_gamingMetadata) = a1;
-  v10 = a1;
+  v9 = a1;
 
   static Logger.gameStore.getter();
-  v11 = Logger.logObject.getter();
-  v12 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v11, v12))
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v10, v11))
   {
-    v13 = swift_slowAlloc();
-    *v13 = 0;
-    _os_log_impl(&_mh_execute_header, v11, v12, "Updated gaming metadata. Refreshing games.", v13, 2u);
+    v12 = swift_slowAlloc();
+    *v12 = 0;
+    _os_log_impl(&_mh_execute_header, v10, v11, "Updated gaming metadata. Refreshing games.", v12, 2u);
   }
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
   return sub_100006910();
 }
 
 void sub_100004AAC(void *a1)
 {
-  v27 = a1;
-  v26 = type metadata accessor for URL();
-  v2 = *(v26 - 8);
-  v3 = *(v2 + 64);
-  __chkstk_darwin(v26);
-  v5 = &v25 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = *(v1 + OBJC_IVAR____TtC11gamepolicyd9GameStore_gamingMetadata);
-  v7 = dispatch thunk of GamingMetadataBlob.processPartialPathAllowList.getter();
+  v26 = a1;
+  v25 = type metadata accessor for URL();
+  v2 = *(v25 - 8);
+  __chkstk_darwin(v25);
+  v4 = &v24 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = *(v1 + OBJC_IVAR____TtC11gamepolicyd9GameStore_gamingMetadata);
+  v6 = dispatch thunk of GamingMetadataBlob.processPartialPathAllowList.getter();
 
-  v8 = 0;
-  v10 = v7 + 56;
-  v9 = *(v7 + 56);
-  v28 = v7;
-  v11 = 1 << *(v7 + 32);
-  v12 = -1;
-  if (v11 < 64)
+  v7 = 0;
+  v9 = v6 + 56;
+  v8 = *(v6 + 56);
+  v27 = v6;
+  v10 = 1 << *(v6 + 32);
+  v11 = -1;
+  if (v10 < 64)
   {
-    v12 = ~(-1 << v11);
+    v11 = ~(-1 << v10);
   }
 
-  v13 = v12 & v9;
-  v14 = (v11 + 63) >> 6;
-  v15 = (v2 + 8);
-  while (v13)
+  v12 = v11 & v8;
+  v13 = (v10 + 63) >> 6;
+  v14 = (v2 + 8);
+  while (v12)
   {
-    v16 = v8;
+    v15 = v7;
 LABEL_10:
-    v17 = __clz(__rbit64(v13));
-    v13 &= v13 - 1;
-    v18 = (*(v28 + 48) + ((v16 << 10) | (16 * v17)));
-    v19 = *v18;
-    v20 = v18[1];
+    v16 = __clz(__rbit64(v12));
+    v12 &= v12 - 1;
+    v17 = (*(v27 + 48) + ((v15 << 10) | (16 * v16)));
+    v18 = *v17;
+    v19 = v17[1];
 
-    v21 = [v27 URL];
+    v20 = [v26 URL];
     static URL._unconditionallyBridgeFromObjectiveC(_:)();
 
-    v22 = URL.absoluteString.getter();
-    v24 = v23;
-    (*v15)(v5, v26);
-    v31 = v22;
-    v32 = v24;
+    v21 = URL.absoluteString.getter();
+    v23 = v22;
+    (*v14)(v4, v25);
+    v30 = v21;
+    v31 = v23;
+    v28 = v18;
     v29 = v19;
-    v30 = v20;
     sub_100009790();
-    LOBYTE(v22) = StringProtocol.contains<A>(_:)();
+    LOBYTE(v21) = StringProtocol.contains<A>(_:)();
 
-    if (v22)
+    if (v21)
     {
 LABEL_11:
 
@@ -790,22 +783,22 @@ LABEL_11:
 
   while (1)
   {
-    v16 = v8 + 1;
-    if (__OFADD__(v8, 1))
+    v15 = v7 + 1;
+    if (__OFADD__(v7, 1))
     {
       break;
     }
 
-    if (v16 >= v14)
+    if (v15 >= v13)
     {
       goto LABEL_11;
     }
 
-    v13 = *(v10 + 8 * v16);
-    ++v8;
-    if (v13)
+    v12 = *(v9 + 8 * v15);
+    ++v7;
+    if (v12)
     {
-      v8 = v16;
+      v7 = v15;
       goto LABEL_10;
     }
   }
@@ -894,76 +887,72 @@ LABEL_17:
 
 void *sub_100004E70(uint64_t a1)
 {
-  v61 = 0;
-  v60 = type metadata accessor for GameLibraryGame.Config();
-  v2 = *(v60 - 8);
-  v3 = *(v2 + 64);
-  v4 = __chkstk_darwin(v60);
-  v67 = &v58 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v4);
-  v66 = &v58 - v6;
-  v72 = &_swiftEmptyArrayStorage;
-  v7 = *(a1 + 16);
-  if (v7)
+  v56 = 0;
+  v55 = type metadata accessor for GameLibraryGame.Config();
+  v2 = *(v55 - 8);
+  v3 = __chkstk_darwin(v55);
+  v62 = &v53 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v3);
+  v61 = &v53 - v5;
+  v67 = _swiftEmptyArrayStorage;
+  v6 = *(a1 + 16);
+  if (v6)
   {
-    v8 = (a1 + 40);
-    v69 = &_swiftEmptyArrayStorage;
+    v7 = a1 + 40;
+    v64 = _swiftEmptyArrayStorage;
     do
     {
-      v10 = *(v8 - 1);
-      v11 = *v8;
-      v12 = objc_allocWithZone(LSApplicationRecord);
+      v9 = objc_allocWithZone(LSApplicationRecord);
 
-      v13 = String._bridgeToObjectiveC()();
+      v10 = String._bridgeToObjectiveC()();
 
-      v70[0] = 0;
-      v14 = [v12 initWithBundleIdentifier:v13 allowPlaceholder:0 error:v70];
+      v65[0] = 0;
+      v11 = [v9 initWithBundleIdentifier:v10 allowPlaceholder:0 error:v65];
 
-      if (v14)
+      if (v11)
       {
-        v15 = v70[0];
-        v16 = v14;
+        v12 = v65[0];
+        v13 = v11;
         specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-        if (*((v72 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v72 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+        if (*((v67 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v67 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
         {
-          v17 = *((v72 & 0xFFFFFFFFFFFFFF8) + 0x10);
           specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
         }
 
         specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
 
-        v69 = v72;
+        v64 = v67;
       }
 
       else
       {
-        v9 = v70[0];
+        v8 = v65[0];
         _convertNSErrorToError(_:)();
 
         swift_willThrow();
 
-        v61 = 0;
+        v56 = 0;
       }
 
-      v8 += 2;
-      --v7;
+      v7 += 16;
+      --v6;
     }
 
-    while (v7);
+    while (v6);
   }
 
   else
   {
-    v69 = &_swiftEmptyArrayStorage;
+    v64 = _swiftEmptyArrayStorage;
   }
 
-  v18 = v69;
-  if (v69 >> 62)
+  v14 = v64;
+  if (v64 >> 62)
   {
-    v57 = v69;
-    v19 = _CocoaArrayWrapper.endIndex.getter();
-    v18 = v57;
-    if (v19)
+    v52 = v64;
+    v15 = _CocoaArrayWrapper.endIndex.getter();
+    v14 = v52;
+    if (v15)
     {
       goto LABEL_12;
     }
@@ -971,422 +960,419 @@ void *sub_100004E70(uint64_t a1)
 
   else
   {
-    v19 = *((v69 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (v19)
+    v15 = *((v64 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v15)
     {
 LABEL_12:
-      v20 = v18;
-      v71 = &_swiftEmptyArrayStorage;
+      v16 = v14;
+      v66 = _swiftEmptyArrayStorage;
       specialized ContiguousArray.reserveCapacity(_:)();
-      if (v19 < 0)
+      if (v15 < 0)
       {
         __break(1u);
       }
 
-      v21 = 0;
-      v59 = OBJC_IVAR____TtC11gamepolicyd9GameStore_gamingMetadata;
-      v22 = v20;
-      v63 = (v2 + 16);
-      v64 = v20 & 0xC000000000000001;
-      v62 = (v2 + 8);
+      v17 = 0;
+      v54 = OBJC_IVAR____TtC11gamepolicyd9GameStore_gamingMetadata;
+      v18 = v16;
+      v58 = (v2 + 16);
+      v59 = v16 & 0xC000000000000001;
+      v57 = (v2 + 8);
       p_name = (&stru_100051FF8 + 8);
-      v24 = v60;
-      v65 = v19;
+      v20 = v55;
+      v60 = v15;
       while (1)
       {
-        if (v64)
+        if (v59)
         {
-          v28 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+          v23 = specialized _ArrayBuffer._getElementSlowPath(_:)();
         }
 
         else
         {
-          v28 = *(v22 + 8 * v21 + 32);
+          v23 = *(v18 + 8 * v17 + 32);
         }
 
-        v29 = v28;
-        v30 = [v28 persistentIdentifier];
-        v31 = [v29 bundleIdentifier];
-        if (v31)
+        v24 = v23;
+        v25 = [v23 persistentIdentifier];
+        v26 = [v24 bundleIdentifier];
+        if (v26)
         {
-          v32 = v31;
+          v27 = v26;
           static String._unconditionallyBridgeFromObjectiveC(_:)();
         }
 
-        v33 = [v29 iTunesMetadata];
-        v34 = [v33 p_name[196]];
+        v28 = [v24 iTunesMetadata];
+        v29 = [v28 p_name[196]];
 
-        if (v34)
+        if (v29)
         {
-          v35 = [v29 iTunesMetadata];
-          [v35 p_name[196]];
+          v30 = [v24 iTunesMetadata];
+          [v30 p_name[196]];
 
           UInt64._bridgeToObjectiveC()();
         }
 
-        if (sub_100004CD4(v29))
+        if (sub_100004CD4(v24))
         {
           goto LABEL_14;
         }
 
-        v36 = [v29 applicationState];
-        v37 = [v36 isInstalled];
+        v31 = [v24 applicationState];
+        v32 = [v31 isInstalled];
 
-        if ((v37 & 1) == 0)
+        if ((v32 & 1) == 0)
         {
           goto LABEL_14;
         }
 
-        if ([v29 isGameCenterEnabled] & 1) != 0 || (sub_100008744(v29))
+        if ([v24 isGameCenterEnabled] & 1) != 0 || (sub_100008744(v24))
         {
           goto LABEL_31;
         }
 
-        v38 = [v29 bundleIdentifier];
-        if (v38)
+        v33 = [v24 bundleIdentifier];
+        if (v33)
         {
-          v39 = v38;
-          v40 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v42 = v41;
+          v34 = v33;
+          v35 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+          v37 = v36;
 
-          v43 = *(v68 + v59);
-          v44 = dispatch thunk of GamingMetadataBlob.processBundleIdentifierAllowList.getter();
+          v38 = *(v63 + v54);
+          v39 = dispatch thunk of GamingMetadataBlob.processBundleIdentifierAllowList.getter();
 
-          LOBYTE(v43) = sub_1000263E8(v40, v42, v44);
+          LOBYTE(v38) = sub_1000263E8(v35, v37, v39);
 
-          if (v43)
+          if (v38)
           {
 
             swift_arrayDestroy();
-            v24 = v60;
+            v20 = v55;
 LABEL_31:
-            v49 = [v29 bundleIdentifier];
-            if (v49)
+            v44 = [v24 bundleIdentifier];
+            if (v44)
             {
-              v50 = v49;
-              v51 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-              v53 = v52;
+              v45 = v44;
+              v46 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+              v48 = v47;
 
-              v54 = *(v68 + v59);
-              v55 = dispatch thunk of GamingMetadataBlob.processBundleIdentifierBlockList.getter();
+              v49 = *(v63 + v54);
+              v50 = dispatch thunk of GamingMetadataBlob.processBundleIdentifierBlockList.getter();
 
-              sub_1000263E8(v51, v53, v55);
-              v24 = v60;
+              sub_1000263E8(v46, v48, v50);
+              v20 = v55;
             }
 
             goto LABEL_14;
           }
 
-          v58 = &v58;
-          v70[0] = v40;
-          v70[1] = v42;
-          __chkstk_darwin(v45);
-          *(&v58 - 2) = v70;
-          v46 = v61;
-          v47 = sub_10001EACC(sub_1000097E4, (&v58 - 4), &off_10004D738);
-          v61 = v46;
+          v53 = &v53;
+          v65[0] = v35;
+          v65[1] = v37;
+          __chkstk_darwin(v40);
+          *(&v53 - 2) = v65;
+          v41 = v56;
+          v42 = sub_10001EACC(sub_1000097E4, (&v53 - 4), &off_10004D738);
+          v56 = v41;
           swift_arrayDestroy();
 
-          v24 = v60;
-          if (v47)
+          v20 = v55;
+          if (v42)
           {
             goto LABEL_31;
           }
         }
 
-        sub_100004AAC(v29);
-        if (v48)
+        sub_100004AAC(v24);
+        if (v43)
         {
           goto LABEL_31;
         }
 
 LABEL_14:
-        ++v21;
-        v25 = v66;
+        ++v17;
+        v21 = v61;
         GameLibraryGame.Config.init(persistentIdentifier:bundleID:adamID:isGame:)();
-        (*v63)(v67, v25, v24);
-        v26 = objc_allocWithZone(type metadata accessor for GameLibraryGame());
+        (*v58)(v62, v21, v20);
+        v22 = objc_allocWithZone(type metadata accessor for GameLibraryGame());
         GameLibraryGame.init(config:)();
 
-        (*v62)(v25, v24);
+        (*v57)(v21, v20);
         specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-        v27 = v71[2];
         specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
         specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
         specialized ContiguousArray._endMutation()();
-        v22 = v69;
+        v18 = v64;
         p_name = &stru_100051FF8.name;
-        if (v65 == v21)
+        if (v60 == v17)
         {
 
-          return v71;
+          return v66;
         }
       }
     }
   }
 
-  return &_swiftEmptyArrayStorage;
+  return _swiftEmptyArrayStorage;
 }
 
 void *sub_100005530(unint64_t a1)
 {
   v3 = type metadata accessor for GameLibraryGame.Config();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 8);
-  v6 = __chkstk_darwin(v3);
-  v73 = &v62 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __chkstk_darwin(v6);
-  v72 = &v62 - v9;
-  v77 = &_swiftEmptyArrayStorage;
+  v5 = __chkstk_darwin(v3);
+  v71 = &v60 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __chkstk_darwin(v5);
+  v70 = &v60 - v8;
+  v75 = _swiftEmptyArrayStorage;
   if (a1 >> 62)
   {
-    v61 = v8;
-    v10 = _CocoaArrayWrapper.endIndex.getter();
-    v8 = v61;
+    v59 = v7;
+    v9 = _CocoaArrayWrapper.endIndex.getter();
+    v7 = v59;
   }
 
   else
   {
-    v10 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v9 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  v66 = v8;
-  v63 = v1;
-  v74 = v4;
-  if (v10)
+  v64 = v7;
+  v61 = v1;
+  v72 = v4;
+  if (v9)
   {
     sub_100009748(0, &qword_100053BF0, NSNumber_ptr);
-    if (v10 < 1)
+    if (v9 < 1)
     {
       __break(1u);
       goto LABEL_48;
     }
 
-    v11 = 0;
-    v65 = 0;
-    v12 = &_swiftEmptyArrayStorage;
+    v10 = 0;
+    v63 = 0;
+    v11 = _swiftEmptyArrayStorage;
     do
     {
       if ((a1 & 0xC000000000000001) != 0)
       {
-        v13 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        v12 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
 
       else
       {
-        v13 = *(a1 + 8 * v11 + 32);
+        v12 = *(a1 + 8 * v10 + 32);
       }
 
-      v14 = v13;
+      v13 = v12;
       isa = NSNumber.init(integerLiteral:)(0).super.super.isa;
-      v16 = [v14 isEqualToNumber:isa];
+      v15 = [v13 isEqualToNumber:isa];
 
-      if (v16)
+      if (v15)
       {
       }
 
       else
       {
-        v17 = UInt64.init(truncating:)();
-        v18 = objc_allocWithZone(LSApplicationRecord);
-        v75[0] = 0;
-        v19 = [v18 initWithStoreItemIdentifier:v17 error:v75];
-        if (v19)
+        v16 = UInt64.init(truncating:)();
+        v17 = objc_allocWithZone(LSApplicationRecord);
+        v73[0] = 0;
+        v18 = [v17 initWithStoreItemIdentifier:v16 error:v73];
+        if (v18)
         {
-          v20 = v19;
-          v21 = v75[0];
-          v22 = v20;
+          v19 = v18;
+          v20 = v73[0];
+          v21 = v19;
           specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-          if (*((v77 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v77 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+          if (*((v75 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v75 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
           {
             specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
           }
 
           specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
 
-          v12 = v77;
+          v11 = v75;
         }
 
         else
         {
-          v23 = v75[0];
+          v22 = v73[0];
           _convertNSErrorToError(_:)();
 
           swift_willThrow();
 
-          v65 = 0;
+          v63 = 0;
         }
       }
 
-      ++v11;
+      ++v10;
     }
 
-    while (v10 != v11);
+    while (v9 != v10);
   }
 
   else
   {
-    v65 = 0;
-    v12 = &_swiftEmptyArrayStorage;
+    v63 = 0;
+    v11 = _swiftEmptyArrayStorage;
   }
 
-  if (v12 >> 62)
+  if (v11 >> 62)
   {
-    v24 = _CocoaArrayWrapper.endIndex.getter();
+    v23 = _CocoaArrayWrapper.endIndex.getter();
   }
 
   else
   {
-    v24 = *((v12 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v23 = *((v11 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  v25 = v66;
-  v26 = v63;
-  if (v24)
+  v24 = v64;
+  v25 = v61;
+  if (v23)
   {
-    v76 = &_swiftEmptyArrayStorage;
+    v74 = _swiftEmptyArrayStorage;
     specialized ContiguousArray.reserveCapacity(_:)();
-    if ((v24 & 0x8000000000000000) == 0)
+    if ((v23 & 0x8000000000000000) == 0)
     {
-      v27 = 0;
-      v64 = OBJC_IVAR____TtC11gamepolicyd9GameStore_gamingMetadata;
-      v68 = (v74 + 16);
-      v69 = v12 & 0xC000000000000001;
-      v67 = (v74 + 8);
+      v26 = 0;
+      v62 = OBJC_IVAR____TtC11gamepolicyd9GameStore_gamingMetadata;
+      v66 = (v72 + 16);
+      v67 = v11 & 0xC000000000000001;
+      v65 = (v72 + 8);
       p_name = (&stru_100051FF8 + 8);
-      v70 = v24;
-      v71 = v12;
+      v68 = v23;
+      v69 = v11;
       while (1)
       {
-        if (v69)
+        if (v67)
         {
-          v32 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+          v30 = specialized _ArrayBuffer._getElementSlowPath(_:)();
         }
 
         else
         {
-          v32 = *(v12 + 8 * v27 + 32);
+          v30 = *(v11 + 8 * v26 + 32);
         }
 
-        v33 = v32;
-        v74 = [v32 persistentIdentifier];
-        v34 = [v33 bundleIdentifier];
-        if (v34)
+        v31 = v30;
+        v72 = [v30 persistentIdentifier];
+        v32 = [v31 bundleIdentifier];
+        if (v32)
         {
-          v35 = v34;
+          v33 = v32;
           static String._unconditionallyBridgeFromObjectiveC(_:)();
         }
 
-        v36 = [v33 p_name[195]];
-        v37 = [v36 storeItemIdentifier];
+        v34 = [v31 p_name[195]];
+        v35 = [v34 storeItemIdentifier];
 
-        if (v37)
+        if (v35)
         {
-          v38 = [v33 p_name[195]];
-          [v38 storeItemIdentifier];
+          v36 = [v31 p_name[195]];
+          [v36 storeItemIdentifier];
 
           UInt64._bridgeToObjectiveC()();
         }
 
-        if (sub_100004CD4(v33))
+        if (sub_100004CD4(v31))
         {
           goto LABEL_23;
         }
 
-        v39 = [v33 applicationState];
-        v40 = [v39 isInstalled];
+        v37 = [v31 applicationState];
+        v38 = [v37 isInstalled];
 
-        if ((v40 & 1) == 0)
+        if ((v38 & 1) == 0)
         {
           goto LABEL_23;
         }
 
-        if ([v33 isGameCenterEnabled] & 1) != 0 || (sub_100008744(v33))
+        if ([v31 isGameCenterEnabled] & 1) != 0 || (sub_100008744(v31))
         {
           goto LABEL_40;
         }
 
-        v41 = [v33 bundleIdentifier];
-        if (v41)
+        v39 = [v31 bundleIdentifier];
+        if (v39)
         {
-          v42 = v41;
-          v43 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v45 = v44;
+          v40 = v39;
+          v41 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+          v43 = v42;
 
-          v46 = *(v26 + v64);
-          v47 = dispatch thunk of GamingMetadataBlob.processBundleIdentifierAllowList.getter();
+          v44 = *(v25 + v62);
+          v45 = dispatch thunk of GamingMetadataBlob.processBundleIdentifierAllowList.getter();
 
-          LOBYTE(v46) = sub_1000263E8(v43, v45, v47);
+          LOBYTE(v44) = sub_1000263E8(v41, v43, v45);
 
-          if (v46)
+          if (v44)
           {
 
             swift_arrayDestroy();
-            v25 = v66;
+            v24 = v64;
 LABEL_40:
-            v52 = [v33 bundleIdentifier];
-            if (v52)
+            v50 = [v31 bundleIdentifier];
+            if (v50)
             {
-              v53 = v52;
-              v54 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-              v56 = v55;
+              v51 = v50;
+              v52 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+              v54 = v53;
 
-              v57 = *(v26 + v64);
-              v58 = v26;
-              v59 = dispatch thunk of GamingMetadataBlob.processBundleIdentifierBlockList.getter();
+              v55 = *(v25 + v62);
+              v56 = v25;
+              v57 = dispatch thunk of GamingMetadataBlob.processBundleIdentifierBlockList.getter();
 
-              sub_1000263E8(v54, v56, v59);
-              v25 = v66;
+              sub_1000263E8(v52, v54, v57);
+              v24 = v64;
 
-              v26 = v58;
+              v25 = v56;
             }
 
             goto LABEL_23;
           }
 
-          v62 = &v62;
-          v75[0] = v43;
-          v75[1] = v45;
-          __chkstk_darwin(v48);
-          *(&v62 - 2) = v75;
-          v49 = v65;
-          v50 = sub_10001EACC(sub_1000097E4, (&v62 - 4), &off_10004D738);
-          v65 = v49;
+          v60 = &v60;
+          v73[0] = v41;
+          v73[1] = v43;
+          __chkstk_darwin(v46);
+          *(&v60 - 2) = v73;
+          v47 = v63;
+          v48 = sub_10001EACC(sub_1000097E4, (&v60 - 4), &off_10004D738);
+          v63 = v47;
           swift_arrayDestroy();
 
-          v25 = v66;
-          if (v50)
+          v24 = v64;
+          if (v48)
           {
             goto LABEL_40;
           }
         }
 
-        sub_100004AAC(v33);
-        if (v51)
+        sub_100004AAC(v31);
+        if (v49)
         {
           goto LABEL_40;
         }
 
 LABEL_23:
-        ++v27;
-        v29 = v72;
+        ++v26;
+        v28 = v70;
         GameLibraryGame.Config.init(persistentIdentifier:bundleID:adamID:isGame:)();
-        (*v68)(v73, v29, v25);
-        v30 = objc_allocWithZone(type metadata accessor for GameLibraryGame());
+        (*v66)(v71, v28, v24);
+        v29 = objc_allocWithZone(type metadata accessor for GameLibraryGame());
         GameLibraryGame.init(config:)();
 
-        (*v67)(v29, v25);
+        (*v65)(v28, v24);
         specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-        v31 = v76[2];
         specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
         specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
         specialized ContiguousArray._endMutation()();
-        v12 = v71;
+        v11 = v69;
         p_name = &stru_100051FF8.name;
-        if (v70 == v27)
+        if (v68 == v26)
         {
 
-          return v76;
+          return v74;
         }
       }
     }
@@ -1395,35 +1381,33 @@ LABEL_48:
     __break(1u);
   }
 
-  return &_swiftEmptyArrayStorage;
+  return _swiftEmptyArrayStorage;
 }
 
 uint64_t sub_100005C8C()
 {
   v1 = type metadata accessor for Logger();
-  v50 = *(v1 - 8);
-  v51 = v1;
-  v2 = *(v50 + 64);
-  v3 = __chkstk_darwin(v1);
-  v4 = __chkstk_darwin(v3);
-  v6 = v46 - v5;
-  v7 = __chkstk_darwin(v4);
-  v9 = v46 - v8;
-  __chkstk_darwin(v7);
-  v11 = v46 - v10;
-  v49 = type metadata accessor for Date();
-  v12 = *(v49 - 8);
-  v13 = *(v12 + 64);
-  v14 = __chkstk_darwin(v49);
-  v16 = v46 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v14);
-  v18 = v46 - v17;
+  v48 = *(v1 - 8);
+  v49 = v1;
+  v2 = __chkstk_darwin(v1);
+  v3 = __chkstk_darwin(v2);
+  v5 = v44 - v4;
+  v6 = __chkstk_darwin(v3);
+  v8 = v44 - v7;
+  __chkstk_darwin(v6);
+  v10 = v44 - v9;
+  v47 = type metadata accessor for Date();
+  v11 = *(v47 - 8);
+  v12 = __chkstk_darwin(v47);
+  v14 = v44 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v12);
+  v16 = v44 - v15;
   static Date.now.getter();
-  v19 = *(v0 + OBJC_IVAR____TtC11gamepolicyd9GameStore_userDefaults);
-  v20 = String._bridgeToObjectiveC()();
-  v21 = [v19 objectForKey:v20];
+  v17 = *(v0 + OBJC_IVAR____TtC11gamepolicyd9GameStore_userDefaults);
+  v18 = String._bridgeToObjectiveC()();
+  v19 = [v17 objectForKey:v18];
 
-  if (v21)
+  if (v19)
   {
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
@@ -1431,151 +1415,149 @@ uint64_t sub_100005C8C()
 
   else
   {
-    v54 = 0u;
-    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
   }
 
-  v56 = v54;
-  v57 = v55;
-  if (!*(&v55 + 1))
+  v54 = v52;
+  v55 = v53;
+  if (!*(&v53 + 1))
   {
-    sub_1000096E8(&v56, &qword_1000553D0, &unk_10003E3F0);
+    sub_1000096E8(&v54, &qword_1000553D0, &unk_10003E3F0);
     goto LABEL_8;
   }
 
   if ((swift_dynamicCast() & 1) == 0)
   {
 LABEL_8:
-    v26 = v50;
-    v25 = v51;
+    v24 = v48;
+    v23 = v49;
     goto LABEL_19;
   }
 
-  v46[0] = v11;
-  v46[1] = v0;
-  v23 = v52;
-  v22 = v53;
+  v44[0] = v10;
+  v44[1] = v0;
+  v21 = v50;
+  v20 = v51;
   sub_100009748(0, &qword_100053B20, NSKeyedUnarchiver_ptr);
   sub_100003870(&qword_100053B28, &unk_10003E3A0);
-  v24 = swift_allocObject();
-  *(v24 + 16) = xmmword_10003E2E0;
-  *(v24 + 32) = sub_100009748(0, &qword_100053B30, NSArray_ptr);
-  *(v24 + 40) = type metadata accessor for GameLibraryGame();
-  v47 = v23;
-  v48 = v22;
+  v22 = swift_allocObject();
+  *(v22 + 16) = xmmword_10003E2E0;
+  *(v22 + 32) = sub_100009748(0, &qword_100053B30, NSArray_ptr);
+  *(v22 + 40) = type metadata accessor for GameLibraryGame();
+  v45 = v21;
+  v46 = v20;
   static NSKeyedUnarchiver.unarchivedObject(ofClasses:from:)();
 
-  if (*(&v57 + 1))
+  if (*(&v55 + 1))
   {
     if (swift_dynamicCast())
     {
-      v27 = v54;
-      v28 = v46[0];
+      v25 = v52;
+      v26 = v44[0];
       static Logger.gameStore.getter();
 
-      v29 = Logger.logObject.getter();
-      v30 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v29, v30))
+      v27 = Logger.logObject.getter();
+      v28 = static os_log_type_t.default.getter();
+      if (os_log_type_enabled(v27, v28))
       {
-        v31 = swift_slowAlloc();
-        *v31 = 134217984;
-        if (v27 >> 62)
+        v29 = swift_slowAlloc();
+        *v29 = 134217984;
+        if (v25 >> 62)
         {
-          v32 = _CocoaArrayWrapper.endIndex.getter();
+          v30 = _CocoaArrayWrapper.endIndex.getter();
         }
 
         else
         {
-          v32 = *((v27 & 0xFFFFFFFFFFFFFF8) + 0x10);
+          v30 = *((v25 & 0xFFFFFFFFFFFFFF8) + 0x10);
         }
 
-        *(v31 + 4) = v32;
+        *(v29 + 4) = v30;
 
-        _os_log_impl(&_mh_execute_header, v29, v30, "Got %ld library games from disk.", v31, 0xCu);
+        _os_log_impl(&_mh_execute_header, v27, v28, "Got %ld library games from disk.", v29, 0xCu);
       }
 
       else
       {
       }
 
-      v26 = v50;
-      v25 = v51;
-      (*(v50 + 8))(v28, v51);
+      v24 = v48;
+      v23 = v49;
+      (*(v48 + 8))(v26, v49);
       swift_getKeyPath();
       swift_getKeyPath();
-      *&v56 = v27;
+      *&v54 = v25;
 
       static Published.subscript.setter();
-      sub_100003E18(v47, v48);
+      sub_100003E18(v45, v46);
       goto LABEL_19;
     }
   }
 
   else
   {
-    sub_1000096E8(&v56, &qword_1000553D0, &unk_10003E3F0);
+    sub_1000096E8(&v54, &qword_1000553D0, &unk_10003E3F0);
   }
 
   static Logger.gameStore.getter();
-  v33 = Logger.logObject.getter();
-  v34 = static os_log_type_t.default.getter();
-  v35 = os_log_type_enabled(v33, v34);
-  v25 = v51;
-  if (v35)
+  v31 = Logger.logObject.getter();
+  v32 = static os_log_type_t.default.getter();
+  v33 = os_log_type_enabled(v31, v32);
+  v23 = v49;
+  if (v33)
   {
-    v36 = swift_slowAlloc();
-    *v36 = 0;
-    _os_log_impl(&_mh_execute_header, v33, v34, "Unable to cast decoded object to [GameLibraryGame].", v36, 2u);
+    v34 = swift_slowAlloc();
+    *v34 = 0;
+    _os_log_impl(&_mh_execute_header, v31, v32, "Unable to cast decoded object to [GameLibraryGame].", v34, 2u);
   }
 
-  sub_100003E18(v47, v48);
+  sub_100003E18(v45, v46);
 
-  v37 = v9;
-  v26 = v50;
-  (*(v50 + 8))(v37, v25);
+  v35 = v8;
+  v24 = v48;
+  (*(v48 + 8))(v35, v23);
 LABEL_19:
   static Date.now.getter();
   Date.timeIntervalSince(_:)();
-  v39 = v38;
+  v37 = v36;
   static Logger.gameStore.getter();
-  v40 = Logger.logObject.getter();
-  v41 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v40, v41))
+  v38 = Logger.logObject.getter();
+  v39 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v38, v39))
   {
-    v42 = swift_slowAlloc();
-    *v42 = 134217984;
-    *(v42 + 4) = v39;
-    _os_log_impl(&_mh_execute_header, v40, v41, "Cold loaded library in %f seconds.", v42, 0xCu);
+    v40 = swift_slowAlloc();
+    *v40 = 134217984;
+    *(v40 + 4) = v37;
+    _os_log_impl(&_mh_execute_header, v38, v39, "Cold loaded library in %f seconds.", v40, 0xCu);
   }
 
-  (*(v26 + 8))(v6, v25);
-  v43 = *(v12 + 8);
-  v44 = v49;
-  v43(v16, v49);
-  return (v43)(v18, v44);
+  (*(v24 + 8))(v5, v23);
+  v41 = *(v11 + 8);
+  v42 = v47;
+  v41(v14, v47);
+  return (v41)(v16, v42);
 }
 
 uint64_t sub_100006410()
 {
   v1 = v0;
   v2 = type metadata accessor for Logger();
-  v43 = *(v2 - 8);
-  v44 = v2;
-  v3 = *(v43 + 64);
-  v4 = __chkstk_darwin(v2);
-  v6 = &v42 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v4);
-  v8 = &v42 - v7;
-  v42 = type metadata accessor for Date();
-  v9 = *(v42 - 8);
-  v10 = *(v9 + 64);
-  v11 = __chkstk_darwin(v42);
-  v13 = &v42 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v11);
-  v15 = &v42 - v14;
+  v41 = *(v2 - 8);
+  v42 = v2;
+  v3 = __chkstk_darwin(v2);
+  v5 = &v40 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v3);
+  v7 = &v40 - v6;
+  v40 = type metadata accessor for Date();
+  v8 = *(v40 - 8);
+  v9 = __chkstk_darwin(v40);
+  v11 = &v40 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9);
+  v13 = &v40 - v12;
   static Date.now.getter();
-  v16 = *(v1 + OBJC_IVAR____TtC11gamepolicyd9GameStore_userDefaults);
-  v17 = objc_opt_self();
+  v14 = *(v1 + OBJC_IVAR____TtC11gamepolicyd9GameStore_userDefaults);
+  v15 = objc_opt_self();
   swift_getKeyPath();
   swift_getKeyPath();
   static Published.subscript.getter();
@@ -1583,134 +1565,150 @@ uint64_t sub_100006410()
   type metadata accessor for GameLibraryGame();
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  v45 = 0;
-  v19 = [v17 archivedDataWithRootObject:isa requiringSecureCoding:1 error:&v45];
+  v43 = 0;
+  v17 = [v15 archivedDataWithRootObject:isa requiringSecureCoding:1 error:&v43];
 
-  v20 = v45;
-  if (v19)
+  v18 = v43;
+  if (v17)
   {
-    v21 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-    v23 = v22;
+    v19 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+    v21 = v20;
 
-    v24 = Data._bridgeToObjectiveC()().super.isa;
-    sub_100003E18(v21, v23);
-    v25 = String._bridgeToObjectiveC()();
-    [v16 setObject:v24 forKey:v25];
+    v22 = Data._bridgeToObjectiveC()().super.isa;
+    sub_100003E18(v19, v21);
+    v23 = String._bridgeToObjectiveC()();
+    [v14 setObject:v22 forKey:v23];
 
-    v27 = v43;
-    v26 = v44;
+    v25 = v41;
+    v24 = v42;
   }
 
   else
   {
-    v28 = v20;
+    v26 = v18;
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
     static Logger.gameStore.getter();
     swift_errorRetain();
-    v29 = Logger.logObject.getter();
-    v30 = static os_log_type_t.error.getter();
+    v27 = Logger.logObject.getter();
+    v28 = static os_log_type_t.error.getter();
 
-    if (os_log_type_enabled(v29, v30))
+    if (os_log_type_enabled(v27, v28))
     {
-      v31 = swift_slowAlloc();
-      v32 = swift_slowAlloc();
-      *v31 = 138412290;
+      v29 = swift_slowAlloc();
+      v30 = swift_slowAlloc();
+      *v29 = 138412290;
       swift_errorRetain();
-      v33 = _swift_stdlib_bridgeErrorToNSError();
-      *(v31 + 4) = v33;
-      *v32 = v33;
-      _os_log_impl(&_mh_execute_header, v29, v30, "Error saving installed games cache to disk: %@", v31, 0xCu);
-      sub_1000096E8(v32, &unk_100053C00, &qword_10003E810);
+      v31 = _swift_stdlib_bridgeErrorToNSError();
+      *(v29 + 4) = v31;
+      *v30 = v31;
+      _os_log_impl(&_mh_execute_header, v27, v28, "Error saving installed games cache to disk: %@", v29, 0xCu);
+      sub_1000096E8(v30, &unk_100053C00, &qword_10003E810);
     }
 
     else
     {
     }
 
-    v27 = v43;
-    v26 = v44;
-    (*(v43 + 8))(v6, v44);
+    v25 = v41;
+    v24 = v42;
+    (*(v41 + 8))(v5, v42);
   }
 
   static Date.now.getter();
   Date.timeIntervalSince(_:)();
-  v35 = v34;
+  v33 = v32;
   static Logger.gameStore.getter();
-  v36 = Logger.logObject.getter();
-  v37 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v36, v37))
+  v34 = Logger.logObject.getter();
+  v35 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v34, v35))
   {
-    v38 = swift_slowAlloc();
-    *v38 = 134217984;
-    *(v38 + 4) = v35;
-    _os_log_impl(&_mh_execute_header, v36, v37, "Library saved to disk. Operation took %f seconds.", v38, 0xCu);
+    v36 = swift_slowAlloc();
+    *v36 = 134217984;
+    *(v36 + 4) = v33;
+    _os_log_impl(&_mh_execute_header, v34, v35, "Library saved to disk. Operation took %f seconds.", v36, 0xCu);
   }
 
-  (*(v27 + 8))(v8, v26);
-  v39 = *(v9 + 8);
-  v40 = v42;
-  v39(v13, v42);
-  return (v39)(v15, v40);
+  (*(v25 + 8))(v7, v24);
+  v37 = *(v8 + 8);
+  v38 = v40;
+  v37(v11, v40);
+  return (v37)(v13, v38);
 }
 
 uint64_t sub_100006910()
 {
   v1 = v0;
-  v167 = type metadata accessor for GameLibraryGame.Config();
-  v148 = *(v167 - 8);
-  v2 = *(v148 + 64);
-  v3 = __chkstk_darwin(v167);
-  v166 = &v142 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v165 = &v142 - v5;
-  v161 = type metadata accessor for NSFastEnumerationIterator();
-  v151 = *(v161 - 1);
-  v6 = *(v151 + 64);
-  __chkstk_darwin(v161);
-  v164 = &v142 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v158 = type metadata accessor for Logger();
-  v159 = *(v158 - 8);
-  v8 = *(v159 + 64);
-  v9 = __chkstk_darwin(v158);
-  v160 = &v142 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __chkstk_darwin(v9);
-  v163 = &v142 - v12;
-  v13 = __chkstk_darwin(v11);
-  v162 = (&v142 - v14);
-  __chkstk_darwin(v13);
-  v16 = &v142 - v15;
-  v17 = type metadata accessor for Date();
-  v18 = *(v17 - 8);
-  v19 = v18[8];
-  v20 = __chkstk_darwin(v17);
-  v152 = &v142 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = __chkstk_darwin(v20);
-  v24 = &v142 - v23;
-  __chkstk_darwin(v22);
-  v26 = &v142 - v25;
-  v27 = *(v1 + OBJC_IVAR____TtC11gamepolicyd9GameStore_lock);
-  [v27 lock];
-  v28 = OBJC_IVAR____TtC11gamepolicyd9GameStore_isRefreshingInstalledGames;
-  v29 = *(v1 + OBJC_IVAR____TtC11gamepolicyd9GameStore_isRefreshingInstalledGames);
+  v159 = type metadata accessor for GameLibraryGame.Config();
+  v140 = *(v159 - 8);
+  v2 = __chkstk_darwin(v159);
+  v158 = &v134 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v2);
+  v157 = &v134 - v4;
+  v153 = type metadata accessor for NSFastEnumerationIterator();
+  v143 = *(v153 - 1);
+  __chkstk_darwin(v153);
+  v156 = &v134 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v150 = type metadata accessor for Logger();
+  v151 = *(v150 - 8);
+  v6 = __chkstk_darwin(v150);
+  v152 = &v134 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __chkstk_darwin(v6);
+  v155 = &v134 - v9;
+  v10 = __chkstk_darwin(v8);
+  v154 = (&v134 - v11);
+  __chkstk_darwin(v10);
+  v13 = &v134 - v12;
+  v14 = type metadata accessor for Date();
+  v15 = *(v14 - 8);
+  v16 = __chkstk_darwin(v14);
+  v144 = &v134 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = __chkstk_darwin(v16);
+  v20 = &v134 - v19;
+  __chkstk_darwin(v18);
+  v22 = &v134 - v21;
+  v23 = *(v1 + OBJC_IVAR____TtC11gamepolicyd9GameStore_lock);
+  [v23 lock];
+  v24 = OBJC_IVAR____TtC11gamepolicyd9GameStore_isRefreshingInstalledGames;
+  v25 = *(v1 + OBJC_IVAR____TtC11gamepolicyd9GameStore_isRefreshingInstalledGames);
   static Date.now.getter();
-  v30 = OBJC_IVAR____TtC11gamepolicyd9GameStore_lastLibraryRefreshDate;
+  v26 = OBJC_IVAR____TtC11gamepolicyd9GameStore_lastLibraryRefreshDate;
   swift_beginAccess();
-  v31 = v18[2];
-  v149 = v30;
-  v31(v24, v1 + v30, v17);
-  v156 = v26;
+  v27 = *(v15 + 16);
+  v141 = v26;
+  v27(v20, v1 + v26, v14);
+  v148 = v22;
   Date.timeIntervalSince(_:)();
-  v33 = v32;
-  v150 = v18;
-  v34 = v18[1];
-  v157 = v17;
-  v155 = v18 + 1;
-  v154 = v34;
-  v34(v24, v17);
-  if (v33 < 1.0)
+  v29 = v28;
+  v142 = v15;
+  v30 = *(v15 + 8);
+  v149 = v14;
+  v147 = v15 + 8;
+  v146 = v30;
+  v30(v20, v14);
+  if (v29 < 1.0)
   {
+    static Logger.gameStore.getter();
+    v31 = Logger.logObject.getter();
+    v32 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v31, v32))
+    {
+      v33 = swift_slowAlloc();
+      *v33 = 0;
+      _os_log_impl(&_mh_execute_header, v31, v32, "Ignoring library refresh request. Last refresh was less than 1 second ago.", v33, 2u);
+    }
+
+    (*(v151 + 8))(v13, v150);
+    [v23 unlock];
+    return v146(v148, v149);
+  }
+
+  *(v1 + v24) = 1;
+  [v23 unlock];
+  if (v25)
+  {
+    v34 = v154;
     static Logger.gameStore.getter();
     v35 = Logger.logObject.getter();
     v36 = static os_log_type_t.debug.getter();
@@ -1718,150 +1716,130 @@ uint64_t sub_100006910()
     {
       v37 = swift_slowAlloc();
       *v37 = 0;
-      _os_log_impl(&_mh_execute_header, v35, v36, "Ignoring library refresh request. Last refresh was less than 1 second ago.", v37, 2u);
+      _os_log_impl(&_mh_execute_header, v35, v36, "Received request to refresh, but already refreshing. Ignoring.", v37, 2u);
     }
 
-    (*(v159 + 8))(v16, v158);
-    [v27 unlock];
-    return v154(v156, v157);
+    (*(v151 + 8))(v34, v150);
+    return v146(v148, v149);
   }
 
-  *(v1 + v28) = 1;
-  [v27 unlock];
-  if (v29)
-  {
-    v38 = v162;
-    static Logger.gameStore.getter();
-    v39 = Logger.logObject.getter();
-    v40 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v39, v40))
-    {
-      v41 = swift_slowAlloc();
-      *v41 = 0;
-      _os_log_impl(&_mh_execute_header, v39, v40, "Received request to refresh, but already refreshing. Ignoring.", v41, 2u);
-    }
-
-    (*(v159 + 8))(v38, v158);
-    return v154(v156, v157);
-  }
-
-  v43 = v1;
-  v145 = v28;
-  v146 = v27;
-  v44 = v163;
+  v39 = v1;
+  v137 = v24;
+  v138 = v23;
+  v40 = v155;
   static Logger.gameStore.getter();
-  v45 = Logger.logObject.getter();
-  v46 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v45, v46))
+  v41 = Logger.logObject.getter();
+  v42 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v41, v42))
   {
-    v47 = swift_slowAlloc();
-    *v47 = 0;
-    _os_log_impl(&_mh_execute_header, v45, v46, "Refreshing installed games", v47, 2u);
+    v43 = swift_slowAlloc();
+    *v43 = 0;
+    _os_log_impl(&_mh_execute_header, v41, v42, "Refreshing installed games", v43, 2u);
   }
 
-  v48 = *(v159 + 8);
-  v159 += 8;
-  v143 = v48;
-  v48(v44, v158);
-  v49 = [objc_opt_self() enumeratorWithOptions:0];
-  v172 = &_swiftEmptyArrayStorage;
-  v50 = v164;
-  v144 = v49;
+  v44 = *(v151 + 8);
+  v151 += 8;
+  v135 = v44;
+  v44(v40, v150);
+  v45 = [objc_opt_self() enumeratorWithOptions:0];
+  v164 = _swiftEmptyArrayStorage;
+  v46 = v156;
+  v136 = v45;
   NSEnumerator.makeIterator()();
-  v162 = OBJC_IVAR____TtC11gamepolicyd9GameStore_gamingMetadata;
+  v154 = OBJC_IVAR____TtC11gamepolicyd9GameStore_gamingMetadata;
   NSFastEnumerationIterator.next()();
-  v153 = v1;
-  v51 = v160;
-  if (v171)
+  v145 = v1;
+  v47 = v152;
+  if (v163)
   {
-    v142 = 0;
-    v147 = &_swiftEmptyArrayStorage;
-    v52 = &unk_100053B18;
+    v134 = 0;
+    v139 = _swiftEmptyArrayStorage;
+    v48 = &unk_100053B18;
     while (1)
     {
-      sub_1000096B8(&v170, v168);
-      sub_100009748(0, v52, LSApplicationRecord_ptr);
+      sub_1000096B8(&v162, v160);
+      sub_100009748(0, v48, LSApplicationRecord_ptr);
       if (!swift_dynamicCast())
       {
         goto LABEL_15;
       }
 
-      v53 = v169;
-      v54 = [v169 bundleIdentifier];
-      if (v54)
+      v49 = v161;
+      v50 = [v161 bundleIdentifier];
+      if (v50)
       {
-        v163 = v53;
-        v55 = v54;
-        v56 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v58 = v57;
+        v155 = v49;
+        v51 = v50;
+        v52 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v54 = v53;
 
-        v59 = *(v162 + v43);
-        v60 = dispatch thunk of GamingMetadataBlob.launchers.getter();
+        v55 = *(v154 + v39);
+        v56 = dispatch thunk of GamingMetadataBlob.launchers.getter();
 
-        if (v60 >> 62)
+        if (v56 >> 62)
         {
-          v61 = _CocoaArrayWrapper.endIndex.getter();
-          v43 = v61;
+          v57 = _CocoaArrayWrapper.endIndex.getter();
+          v39 = v57;
         }
 
         else
         {
-          v43 = *((v60 & 0xFFFFFFFFFFFFFF8) + 0x10);
+          v39 = *((v56 & 0xFFFFFFFFFFFFFF8) + 0x10);
         }
 
-        v62 = 0;
+        v58 = 0;
         while (1)
         {
-          if (v43 == v62)
+          if (v39 == v58)
           {
 
-            v43 = v153;
-            v51 = v160;
-            v50 = v164;
-            v52 = &unk_100053B18;
-            v53 = v163;
+            v39 = v145;
+            v47 = v152;
+            v46 = v156;
+            v48 = &unk_100053B18;
+            v49 = v155;
             goto LABEL_32;
           }
 
-          if ((v60 & 0xC000000000000001) != 0)
+          if ((v56 & 0xC000000000000001) != 0)
           {
-            v61 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+            v57 = specialized _ArrayBuffer._getElementSlowPath(_:)();
           }
 
           else
           {
-            if (v62 >= *((v60 & 0xFFFFFFFFFFFFFF8) + 0x10))
+            if (v58 >= *((v56 & 0xFFFFFFFFFFFFFF8) + 0x10))
             {
               goto LABEL_88;
             }
 
-            v61 = *(v60 + 8 * v62 + 32);
+            v57 = *(v56 + 8 * v58 + 32);
           }
 
-          v64 = v61;
-          if (__OFADD__(v62, 1))
+          v60 = v57;
+          if (__OFADD__(v58, 1))
           {
             break;
           }
 
-          v65 = GamingMetadataModel.Launcher.bundleIdentifier.getter();
-          v51 = v66;
-          if (v65 == v56 && v66 == v58)
+          v61 = GamingMetadataModel.Launcher.bundleIdentifier.getter();
+          v47 = v62;
+          if (v61 == v52 && v62 == v54)
           {
 
 LABEL_39:
 
-            v43 = v153;
-            v51 = v160;
-            v50 = v164;
-            v52 = &unk_100053B18;
+            v39 = v145;
+            v47 = v152;
+            v46 = v156;
+            v48 = &unk_100053B18;
             goto LABEL_15;
           }
 
-          v63 = _stringCompareWithSmolCheck(_:_:expecting:)();
+          v59 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-          ++v62;
-          if (v63)
+          ++v58;
+          if (v59)
           {
 
             goto LABEL_39;
@@ -1875,136 +1853,134 @@ LABEL_88:
       }
 
 LABEL_32:
-      v67 = [v53 applicationState];
-      v68 = [v67 isInstalled];
+      v63 = [v49 applicationState];
+      v64 = [v63 isInstalled];
 
-      if (!v68)
+      if (!v64)
       {
         goto LABEL_14;
       }
 
-      if ([v53 isGameCenterEnabled] & 1) != 0 || (sub_100008744(v53))
+      if ([v49 isGameCenterEnabled] & 1) != 0 || (sub_100008744(v49))
       {
         goto LABEL_42;
       }
 
-      v69 = [v53 bundleIdentifier];
-      if (v69)
+      v65 = [v49 bundleIdentifier];
+      if (v65)
       {
-        v70 = v43;
-        v71 = v51;
-        v72 = v53;
-        v73 = v69;
-        v74 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v76 = v75;
+        v66 = v39;
+        v67 = v47;
+        v68 = v49;
+        v69 = v65;
+        v70 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v72 = v71;
 
-        v77 = *(v162 + v70);
-        v78 = dispatch thunk of GamingMetadataBlob.processBundleIdentifierAllowList.getter();
+        v73 = *(v154 + v66);
+        v74 = dispatch thunk of GamingMetadataBlob.processBundleIdentifierAllowList.getter();
 
-        LOBYTE(v77) = sub_1000263E8(v74, v76, v78);
+        LOBYTE(v73) = sub_1000263E8(v70, v72, v74);
 
-        if (v77)
+        if (v73)
         {
 
           swift_arrayDestroy();
-          v53 = v72;
-          v51 = v71;
-          v43 = v70;
-          v52 = &unk_100053B18;
+          v49 = v68;
+          v47 = v67;
+          v39 = v66;
+          v48 = &unk_100053B18;
           goto LABEL_42;
         }
 
-        *&v168[0] = v74;
-        *(&v168[0] + 1) = v76;
-        __chkstk_darwin(v79);
-        *(&v142 - 2) = v168;
-        v80 = v142;
-        v81 = sub_10001EACC(sub_1000096C8, (&v142 - 4), &off_10004D6F8);
-        v142 = v80;
+        *&v160[0] = v70;
+        *(&v160[0] + 1) = v72;
+        __chkstk_darwin(v75);
+        *(&v134 - 2) = v160;
+        v76 = v134;
+        v77 = sub_10001EACC(sub_1000096C8, (&v134 - 4), &off_10004D6F8);
+        v134 = v76;
         swift_arrayDestroy();
 
-        v53 = v72;
-        v51 = v71;
-        v43 = v70;
-        v52 = &unk_100053B18;
-        if (v81)
+        v49 = v68;
+        v47 = v67;
+        v39 = v66;
+        v48 = &unk_100053B18;
+        if (v77)
         {
           goto LABEL_42;
         }
       }
 
-      sub_100004AAC(v53);
-      if (v82)
+      sub_100004AAC(v49);
+      if (v78)
       {
 LABEL_42:
-        v83 = [v53 bundleIdentifier];
-        if (v83)
+        v79 = [v49 bundleIdentifier];
+        if (v79)
         {
-          v84 = v83;
-          v85 = v52;
-          v86 = v51;
-          v87 = v53;
-          v88 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v90 = v89;
+          v80 = v79;
+          v81 = v48;
+          v82 = v47;
+          v83 = v49;
+          v84 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+          v86 = v85;
 
-          v91 = *(v162 + v43);
-          v92 = dispatch thunk of GamingMetadataBlob.processBundleIdentifierBlockList.getter();
+          v87 = *(v154 + v39);
+          v88 = dispatch thunk of GamingMetadataBlob.processBundleIdentifierBlockList.getter();
 
-          if (*(v92 + 16))
+          if (*(v88 + 16))
           {
-            v93 = *(v92 + 40);
             Hasher.init(_seed:)();
             String.hash(into:)();
-            v94 = Hasher._finalize()();
-            v95 = -1 << *(v92 + 32);
-            v96 = v94 & ~v95;
-            if ((*(v92 + 56 + ((v96 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v96))
+            v89 = Hasher._finalize()();
+            v90 = -1 << *(v88 + 32);
+            v91 = v89 & ~v90;
+            if ((*(v88 + 56 + ((v91 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v91))
             {
-              v97 = ~v95;
+              v92 = ~v90;
               while (1)
               {
-                v98 = (*(v92 + 48) + 16 * v96);
-                v99 = *v98 == v88 && v98[1] == v90;
-                if (v99 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+                v93 = (*(v88 + 48) + 16 * v91);
+                v94 = *v93 == v84 && v93[1] == v86;
+                if (v94 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
                 {
                   break;
                 }
 
-                v96 = (v96 + 1) & v97;
-                if (((*(v92 + 56 + ((v96 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v96) & 1) == 0)
+                v91 = (v91 + 1) & v92;
+                if (((*(v88 + 56 + ((v91 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v91) & 1) == 0)
                 {
                   goto LABEL_52;
                 }
               }
 
-              v51 = v86;
-              v52 = v85;
-              v50 = v164;
+              v47 = v82;
+              v48 = v81;
+              v46 = v156;
               goto LABEL_15;
             }
           }
 
 LABEL_52:
 
-          v53 = v87;
-          v51 = v86;
-          v52 = v85;
-          v50 = v164;
+          v49 = v83;
+          v47 = v82;
+          v48 = v81;
+          v46 = v156;
         }
 
-        v100 = v53;
+        v95 = v49;
         specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-        if (*((v172 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v172 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+        if (*((v164 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v164 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
         {
-          v101 = *((v172 & 0xFFFFFFFFFFFFFF8) + 0x10);
           specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
         }
 
         specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
 
-        v147 = v172;
+        v139 = v164;
         NSFastEnumerationIterator.next()();
-        if (!v171)
+        if (!v163)
         {
           goto LABEL_60;
         }
@@ -2016,7 +1992,7 @@ LABEL_14:
 
 LABEL_15:
         NSFastEnumerationIterator.next()();
-        if (!v171)
+        if (!v163)
         {
           goto LABEL_60;
         }
@@ -2024,261 +2000,256 @@ LABEL_15:
     }
   }
 
-  v147 = &_swiftEmptyArrayStorage;
+  v139 = _swiftEmptyArrayStorage;
 LABEL_60:
-  (*(v151 + 8))(v50, v161);
-  v102 = OBJC_IVAR____TtC11gamepolicyd9GameStore_installedGameRecords;
-  v103 = *(v43 + OBJC_IVAR____TtC11gamepolicyd9GameStore_installedGameRecords);
-  *(v43 + OBJC_IVAR____TtC11gamepolicyd9GameStore_installedGameRecords) = v147;
+  (*(v143 + 8))(v46, v153);
+  v96 = OBJC_IVAR____TtC11gamepolicyd9GameStore_installedGameRecords;
+  *(v39 + OBJC_IVAR____TtC11gamepolicyd9GameStore_installedGameRecords) = v139;
 
-  v61 = *(v43 + v102);
-  if (v61 >> 62)
+  v57 = *(v39 + v96);
+  if (v57 >> 62)
   {
 LABEL_89:
-    v141 = v61;
-    v104 = _CocoaArrayWrapper.endIndex.getter();
-    v61 = v141;
+    v133 = v57;
+    v97 = _CocoaArrayWrapper.endIndex.getter();
+    v57 = v133;
   }
 
   else
   {
-    v104 = *((v61 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v97 = *((v57 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  if (v104)
+  if (v97)
   {
-    *&v168[0] = &_swiftEmptyArrayStorage;
-    v105 = v61;
+    *&v160[0] = _swiftEmptyArrayStorage;
+    v98 = v57;
 
     specialized ContiguousArray.reserveCapacity(_:)();
-    if (v104 < 0)
+    if (v97 < 0)
     {
       __break(1u);
 LABEL_91:
-      v123 = _CocoaArrayWrapper.endIndex.getter();
+      v115 = _CocoaArrayWrapper.endIndex.getter();
       goto LABEL_79;
     }
 
-    v106 = 0;
-    v107 = v105;
-    v163 = (v105 & 0xC000000000000001);
-    v162 = (v148 + 16);
-    v161 = (v148 + 8);
+    v99 = 0;
+    v100 = v98;
+    v155 = (v98 & 0xC000000000000001);
+    v154 = (v140 + 16);
+    v153 = (v140 + 8);
     p_name = (&stru_100051FF8 + 8);
-    v164 = v105;
+    v156 = v98;
     do
     {
-      if (v163)
+      if (v155)
       {
-        v114 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        v106 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
 
       else
       {
-        v114 = *&v107[8 * v106 + 32];
+        v106 = *&v100[8 * v99 + 32];
       }
 
-      v115 = v114;
-      v116 = [v114 persistentIdentifier];
-      v117 = [v115 bundleIdentifier];
-      if (v117)
+      v107 = v106;
+      v108 = [v106 persistentIdentifier];
+      v109 = [v107 bundleIdentifier];
+      if (v109)
       {
-        v118 = v117;
+        v110 = v109;
         static String._unconditionallyBridgeFromObjectiveC(_:)();
       }
 
-      v119 = [v115 p_name[195]];
-      v120 = p_name;
-      v121 = [v119 storeItemIdentifier];
+      v111 = [v107 p_name[195]];
+      v112 = p_name;
+      v113 = [v111 storeItemIdentifier];
 
-      if (v121)
+      if (v113)
       {
-        v109 = [v115 v120[195]];
-        [v109 storeItemIdentifier];
+        v102 = [v107 v112[195]];
+        [v102 storeItemIdentifier];
 
         UInt64._bridgeToObjectiveC()();
       }
 
-      ++v106;
-      v110 = v165;
+      ++v99;
+      v103 = v157;
       GameLibraryGame.Config.init(persistentIdentifier:bundleID:adamID:isGame:)();
-      v111 = v167;
-      (*v162)(v166, v110, v167);
-      v112 = objc_allocWithZone(type metadata accessor for GameLibraryGame());
+      v104 = v159;
+      (*v154)(v158, v103, v159);
+      v105 = objc_allocWithZone(type metadata accessor for GameLibraryGame());
       GameLibraryGame.init(config:)();
 
-      (*v161)(v110, v111);
+      (*v153)(v103, v104);
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-      v113 = *(*&v168[0] + 16);
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       specialized ContiguousArray._endMutation()();
-      v107 = v164;
+      v100 = v156;
       p_name = &stru_100051FF8.name;
     }
 
-    while (v104 != v106);
+    while (v97 != v99);
 
-    v122 = *&v168[0];
-    v43 = v153;
-    v51 = v160;
+    v114 = *&v160[0];
+    v39 = v145;
+    v47 = v152;
   }
 
   else
   {
 
-    v122 = &_swiftEmptyArrayStorage;
+    v114 = _swiftEmptyArrayStorage;
   }
 
   swift_getKeyPath();
   swift_getKeyPath();
   static Published.subscript.getter();
 
-  LOBYTE(v105) = sub_100008A7C(*&v168[0], v122);
+  LOBYTE(v98) = sub_100008A7C(*&v160[0], v114);
 
-  if ((v105 & 1) == 0)
+  if ((v98 & 1) == 0)
   {
 
-    v127 = 0;
-    v126 = 0xE000000000000000;
+    v119 = 0;
+    v118 = 0xE000000000000000;
     goto LABEL_81;
   }
 
   swift_getKeyPath();
   swift_getKeyPath();
-  *&v168[0] = v122;
+  *&v160[0] = v114;
 
   static Published.subscript.setter();
-  *&v168[0] = 0;
-  *(&v168[0] + 1) = 0xE000000000000000;
+  *&v160[0] = 0;
+  *(&v160[0] + 1) = 0xE000000000000000;
   _StringGuts.grow(_:)(43);
 
-  *&v168[0] = 0xD000000000000021;
-  *(&v168[0] + 1) = 0x8000000100040D00;
+  *&v160[0] = 0xD000000000000021;
+  *(&v160[0] + 1) = 0x8000000100040D00;
   swift_getKeyPath();
   swift_getKeyPath();
   static Published.subscript.getter();
 
-  if (v170 >> 62)
+  if (v162 >> 62)
   {
     goto LABEL_91;
   }
 
-  v123 = *((v170 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  v115 = *((v162 & 0xFFFFFFFFFFFFFF8) + 0x10);
 LABEL_79:
 
-  *&v170 = v123;
-  v124._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
-  String.append(_:)(v124);
+  *&v162 = v115;
+  v116._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
+  String.append(_:)(v116);
 
-  v125._countAndFlagsBits = 0x202E73656D616720;
-  v125._object = 0xE800000000000000;
-  String.append(_:)(v125);
-  v126 = *(&v168[0] + 1);
-  v127 = *&v168[0];
+  v117._countAndFlagsBits = 0x202E73656D616720;
+  v117._object = 0xE800000000000000;
+  String.append(_:)(v117);
+  v118 = *(&v160[0] + 1);
+  v119 = *&v160[0];
 LABEL_81:
-  v128 = v152;
+  v120 = v144;
   static Date.now.getter();
-  v129 = v149;
+  v121 = v141;
   swift_beginAccess();
-  (v150[3])(v43 + v129, v128, v157);
+  (*(v142 + 24))(v39 + v121, v120, v149);
   swift_endAccess();
   Date.timeIntervalSince(_:)();
-  v131 = v130;
+  v123 = v122;
   static Logger.gameStore.getter();
 
-  v132 = Logger.logObject.getter();
-  v133 = static os_log_type_t.info.getter();
+  v124 = Logger.logObject.getter();
+  v125 = static os_log_type_t.info.getter();
 
-  if (os_log_type_enabled(v132, v133))
+  if (os_log_type_enabled(v124, v125))
   {
-    v134 = swift_slowAlloc();
-    v135 = v43;
-    v136 = swift_slowAlloc();
-    *&v168[0] = v136;
-    *v134 = 136315394;
-    v137 = sub_100034C38(v127, v126, v168);
+    v126 = swift_slowAlloc();
+    v127 = v39;
+    v128 = swift_slowAlloc();
+    *&v160[0] = v128;
+    *v126 = 136315394;
+    v129 = sub_100034C38(v119, v118, v160);
 
-    *(v134 + 4) = v137;
-    *(v134 + 12) = 2048;
-    *(v134 + 14) = v131;
-    _os_log_impl(&_mh_execute_header, v132, v133, "Library refresh complete. %sOperation took %f seconds.", v134, 0x16u);
-    sub_100003964(v136);
-    v43 = v135;
+    *(v126 + 4) = v129;
+    *(v126 + 12) = 2048;
+    *(v126 + 14) = v123;
+    _os_log_impl(&_mh_execute_header, v124, v125, "Library refresh complete. %sOperation took %f seconds.", v126, 0x16u);
+    sub_100003964(v128);
+    v39 = v127;
   }
 
   else
   {
   }
 
-  v143(v51, v158);
-  if (v105)
+  v135(v47, v150);
+  if (v98)
   {
     sub_100006410();
   }
 
-  v138 = v146;
-  [v146 lock];
-  *(v43 + v145) = 0;
-  [v138 unlock];
+  v130 = v138;
+  [v138 lock];
+  *(v39 + v137) = 0;
+  [v130 unlock];
 
-  v139 = v157;
-  v140 = v154;
-  v154(v152, v157);
-  return v140(v156, v139);
+  v131 = v149;
+  v132 = v146;
+  v146(v144, v149);
+  return v132(v148, v131);
 }
 
 uint64_t sub_100007CF4()
 {
   v1 = v0;
   v2 = type metadata accessor for DispatchWorkItemFlags();
-  v26 = *(v2 - 8);
-  v3 = *(v26 + 64);
+  v23 = *(v2 - 8);
   __chkstk_darwin(v2);
-  v5 = &v26 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v27 = type metadata accessor for DispatchQoS();
-  v6 = *(v27 - 8);
-  v7 = *(v6 + 64);
-  __chkstk_darwin(v27);
-  v9 = &v26 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_100003870(&qword_100053AF8, &qword_10003E350);
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  __chkstk_darwin(v10);
-  v14 = &v26 - v13;
-  v15 = OBJC_IVAR____TtC11gamepolicyd9GameStore__installedGames;
+  v4 = &v23 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = type metadata accessor for DispatchQoS();
+  v5 = *(v24 - 8);
+  __chkstk_darwin(v24);
+  v7 = &v23 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_100003870(&qword_100053AF8, &qword_10003E350);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = &v23 - v10;
+  v12 = OBJC_IVAR____TtC11gamepolicyd9GameStore__installedGames;
   aBlock[0] = _swiftEmptyArrayStorage;
   Published.init(initialValue:)();
-  (*(v11 + 32))(v1 + v15, v14, v10);
-  v16 = (v1 + OBJC_IVAR____TtC11gamepolicyd9GameStore_gameStoreCacheKey);
-  *v16 = 0x726F7453656D6167;
-  v16[1] = 0xE900000000000065;
-  v17 = OBJC_IVAR____TtC11gamepolicyd9GameStore_userDefaults;
-  *(v1 + v17) = [objc_allocWithZone(NSUserDefaults) init];
-  v18 = OBJC_IVAR____TtC11gamepolicyd9GameStore_lock;
-  *(v1 + v18) = [objc_allocWithZone(NSLock) init];
+  (*(v9 + 32))(v1 + v12, v11, v8);
+  v13 = (v1 + OBJC_IVAR____TtC11gamepolicyd9GameStore_gameStoreCacheKey);
+  *v13 = 0x726F7453656D6167;
+  v13[1] = 0xE900000000000065;
+  v14 = OBJC_IVAR____TtC11gamepolicyd9GameStore_userDefaults;
+  *(v1 + v14) = [objc_allocWithZone(NSUserDefaults) init];
+  v15 = OBJC_IVAR____TtC11gamepolicyd9GameStore_lock;
+  *(v1 + v15) = [objc_allocWithZone(NSLock) init];
   *(v1 + OBJC_IVAR____TtC11gamepolicyd9GameStore_installedGameRecords) = _swiftEmptyArrayStorage;
-  v19 = OBJC_IVAR____TtC11gamepolicyd9GameStore_gamingMetadata;
-  *(v1 + v19) = [objc_allocWithZone(type metadata accessor for GamingMetadataBlob()) init];
+  v16 = OBJC_IVAR____TtC11gamepolicyd9GameStore_gamingMetadata;
+  *(v1 + v16) = [objc_allocWithZone(type metadata accessor for GamingMetadataBlob()) init];
   static Date.distantPast.getter();
   *(v1 + OBJC_IVAR____TtC11gamepolicyd9GameStore_isRefreshingInstalledGames) = 0;
   sub_100005C8C();
-  v20 = [objc_opt_self() defaultCenter];
+  v17 = [objc_opt_self() defaultCenter];
 
-  v21 = GamingMetadataBlobDidChangeNotification.getter();
-  [v20 addObserver:v1 selector:"gamingMetadataBlobDidChange:" name:v21 object:0];
+  v18 = GamingMetadataBlobDidChangeNotification.getter();
+  [v17 addObserver:v1 selector:"gamingMetadataBlobDidChange:" name:v18 object:0];
 
   sub_100009748(0, &qword_100053B00, OS_dispatch_queue_ptr);
-  v22 = static OS_dispatch_queue.main.getter();
-  v23 = swift_allocObject();
+  v19 = static OS_dispatch_queue.main.getter();
+  v20 = swift_allocObject();
   swift_weakInit();
   aBlock[4] = sub_100008660;
-  aBlock[5] = v23;
+  aBlock[5] = v20;
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1107296256;
   aBlock[2] = sub_100024520;
   aBlock[3] = &unk_10004D9A0;
-  v24 = _Block_copy(aBlock);
+  v21 = _Block_copy(aBlock);
 
   static DispatchQoS.unspecified.getter();
   aBlock[0] = _swiftEmptyArrayStorage;
@@ -2287,14 +2258,14 @@ uint64_t sub_100007CF4()
   sub_1000086D8();
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OS_dispatch_queue.async(group:qos:flags:execute:)();
-  _Block_release(v24);
+  _Block_release(v21);
 
-  (*(v26 + 8))(v5, v2);
-  (*(v6 + 8))(v9, v27);
+  (*(v23 + 8))(v4, v2);
+  (*(v5 + 8))(v7, v24);
   return v1;
 }
 
-uint64_t sub_100008188()
+uint64_t sub_100008188(uint64_t a1)
 {
   swift_beginAccess();
   result = swift_weakLoadStrong();
@@ -2342,20 +2313,17 @@ uint64_t sub_1000082F4()
   v1 = OBJC_IVAR____TtC11gamepolicyd9GameStore__installedGames;
   v2 = sub_100003870(&qword_100053AF8, &qword_10003E350);
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
-  v3 = *(v0 + OBJC_IVAR____TtC11gamepolicyd9GameStore_gameStoreCacheKey + 8);
 
-  v4 = *(v0 + OBJC_IVAR____TtC11gamepolicyd9GameStore_installedGameRecords);
+  v3 = OBJC_IVAR____TtC11gamepolicyd9GameStore_lastLibraryRefreshDate;
+  v4 = type metadata accessor for Date();
+  (*(*(v4 - 8) + 8))(v0 + v3, v4);
+  v5 = *(*v0 + 48);
+  v6 = *(*v0 + 52);
 
-  v5 = OBJC_IVAR____TtC11gamepolicyd9GameStore_lastLibraryRefreshDate;
-  v6 = type metadata accessor for Date();
-  (*(*(v6 - 8) + 8))(v0 + v5, v6);
-  v7 = *(*v0 + 48);
-  v8 = *(*v0 + 52);
-
-  return _swift_deallocClassInstance(v0, v7, v8);
+  return _swift_deallocClassInstance(v0, v5, v6);
 }
 
-uint64_t type metadata accessor for GameStore()
+uint64_t type metadata accessor for GameStore(uint64_t a1)
 {
   result = qword_100053910;
   if (!qword_100053910)
@@ -2366,29 +2334,27 @@ uint64_t type metadata accessor for GameStore()
   return result;
 }
 
-void sub_100008484()
+void sub_100008484(uint64_t a1)
 {
-  sub_10000857C();
+  sub_10000857C(319);
   if (v1 <= 0x3F)
   {
-    v4 = *(v0 - 8) + 64;
-    v2 = type metadata accessor for Date();
-    if (v3 <= 0x3F)
+    type metadata accessor for Date();
+    if (v2 <= 0x3F)
     {
-      v5 = *(v2 - 8) + 64;
       swift_updateClassMetadata2();
     }
   }
 }
 
-void sub_10000857C()
+void sub_10000857C(uint64_t a1)
 {
   if (!qword_100053920)
   {
-    v0 = type metadata accessor for Published();
-    if (!v1)
+    v1 = type metadata accessor for Published();
+    if (!v2)
     {
-      atomic_store(v0, &qword_100053920);
+      atomic_store(v1, &qword_100053920);
     }
   }
 }
@@ -2398,7 +2364,6 @@ uint64_t sub_1000085E0(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -2449,110 +2414,109 @@ unint64_t sub_1000086D8()
 uint64_t sub_100008744(void *a1)
 {
   v2 = type metadata accessor for UTType();
-  v35 = *(v2 - 8);
-  v3 = *(v35 + 64);
+  v34 = *(v2 - 8);
   __chkstk_darwin(v2);
-  v5 = &v29 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = [a1 iTunesMetadata];
-  v7 = [v6 genreIdentifier];
+  v4 = &v28 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = [a1 iTunesMetadata];
+  v6 = [v5 genreIdentifier];
 
-  if (v7 == 6014)
+  if (v6 == 6014)
   {
-    v8 = 1;
-    return v8 & 1;
+    v7 = 1;
+    return v7 & 1;
   }
 
-  v36 = 0;
-  v9 = [a1 categoryTypesWithError:&v36];
-  v10 = v36;
-  if (!v9)
+  v35 = 0;
+  v8 = [a1 categoryTypesWithError:&v35];
+  v9 = v35;
+  if (!v8)
   {
-    v27 = v36;
+    v26 = v35;
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
 
 LABEL_22:
-    v8 = 0;
-    return v8 & 1;
+    v7 = 0;
+    return v7 & 1;
   }
 
-  v11 = v9;
-  v12 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  v13 = v10;
+  v10 = v8;
+  v11 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v12 = v9;
 
-  v34 = *(v12 + 16);
-  if (!v34)
+  v33 = *(v11 + 16);
+  if (!v33)
   {
 
     goto LABEL_22;
   }
 
-  HIDWORD(v29) = 0;
-  v14 = 0;
-  v33 = v12 + ((*(v35 + 80) + 32) & ~*(v35 + 80));
-  v31 = v12;
-  v32 = v35 + 16;
-  v30 = (v35 + 8);
+  HIDWORD(v28) = 0;
+  v13 = 0;
+  v32 = v11 + ((*(v34 + 80) + 32) & ~*(v34 + 80));
+  v30 = v11;
+  v31 = v34 + 16;
+  v29 = (v34 + 8);
   do
   {
-    if (v14 >= *(v12 + 16))
+    if (v13 >= *(v11 + 16))
     {
       goto LABEL_25;
     }
 
-    v15 = v14++;
-    v16 = v2;
-    (*(v35 + 16))(v5, v33 + *(v35 + 72) * v15, v2);
-    v17 = gpf_gameCategories();
-    v18 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+    v14 = v13++;
+    v15 = v2;
+    (*(v34 + 16))(v4, v32 + *(v34 + 72) * v14, v2);
+    v16 = gpf_gameCategories();
+    v17 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-    v19 = (v18 + 40);
-    v20 = -*(v18 + 16);
-    v21 = -1;
+    v18 = (v17 + 40);
+    v19 = -*(v17 + 16);
+    v20 = -1;
     while (1)
     {
-      if (v20 + v21 == -1)
+      if (v19 + v20 == -1)
       {
         goto LABEL_8;
       }
 
-      if (++v21 >= *(v18 + 16))
+      if (++v20 >= *(v17 + 16))
       {
         __break(1u);
 LABEL_25:
         __break(1u);
       }
 
-      v23 = *(v19 - 1);
-      v22 = *v19;
+      v22 = *(v18 - 1);
+      v21 = *v18;
 
-      if (UTType.identifier.getter() == v23 && v24 == v22)
+      if (UTType.identifier.getter() == v22 && v23 == v21)
       {
         break;
       }
 
-      v19 += 2;
-      v26 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v18 += 2;
+      v25 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-      if (v26)
+      if (v25)
       {
         goto LABEL_7;
       }
     }
 
 LABEL_7:
-    HIDWORD(v29) = 1;
+    HIDWORD(v28) = 1;
 LABEL_8:
-    v2 = v16;
-    v12 = v31;
-    (*v30)(v5, v16);
+    v2 = v15;
+    v11 = v30;
+    (*v29)(v4, v15);
   }
 
-  while (v14 != v34);
+  while (v13 != v33);
 
-  v8 = BYTE4(v29);
-  return v8 & 1;
+  v7 = BYTE4(v28);
+  return v7 & 1;
 }
 
 uint64_t sub_100008A7C(unint64_t a1, unint64_t a2)
@@ -3564,12 +3528,11 @@ uint64_t sub_1000096E8(uint64_t a1, uint64_t *a2, uint64_t *a3)
   return a1;
 }
 
-uint64_t sub_100009748(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_100009748(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -3594,17 +3557,16 @@ uint64_t sub_100009800(void *a1)
 {
   v3 = type metadata accessor for Logger();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = __chkstk_darwin(v3);
-  v8 = &aBlock - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v10 = &aBlock - v9;
+  v5 = __chkstk_darwin(v3);
+  v7 = &aBlock - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v9 = &aBlock - v8;
   kGamePolicyToolEntitlement.getter();
-  v11 = String._bridgeToObjectiveC()();
+  v10 = String._bridgeToObjectiveC()();
 
-  v12 = [a1 valueForEntitlement:v11];
+  v11 = [a1 valueForEntitlement:v10];
 
-  if (v12)
+  if (v11)
   {
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
@@ -3612,13 +3574,13 @@ uint64_t sub_100009800(void *a1)
 
   else
   {
-    v44 = 0u;
-    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
   }
 
-  aBlock = v44;
-  v40 = v45;
-  if (!*(&v45 + 1))
+  aBlock = v42;
+  v38 = v43;
+  if (!*(&v43 + 1))
   {
     sub_1000096E8(&aBlock, &qword_1000553D0, &unk_10003E3F0);
     goto LABEL_11;
@@ -3629,103 +3591,102 @@ uint64_t sub_100009800(void *a1)
   {
 LABEL_11:
     static Logger.toolCoordinator.getter();
-    v32 = Logger.logObject.getter();
-    v33 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v32, v33))
+    v31 = Logger.logObject.getter();
+    v32 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v31, v32))
     {
-      v34 = swift_slowAlloc();
-      *v34 = 0;
-      _os_log_impl(&_mh_execute_header, v32, v33, "Unable to accept incoming tool connection for unentitled process.", v34, 2u);
+      v33 = swift_slowAlloc();
+      *v33 = 0;
+      _os_log_impl(&_mh_execute_header, v31, v32, "Unable to accept incoming tool connection for unentitled process.", v33, 2u);
     }
 
-    (*(v4 + 8))(v8, v3);
+    (*(v4 + 8))(v7, v3);
     return 0;
   }
 
-  v13 = v43;
-  if (([v43 BOOLValue] & 1) == 0)
+  v12 = v41;
+  if (([v41 BOOLValue] & 1) == 0)
   {
     static Logger.toolCoordinator.getter();
-    v35 = Logger.logObject.getter();
-    v36 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v35, v36))
+    v34 = Logger.logObject.getter();
+    v35 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v34, v35))
     {
-      v37 = swift_slowAlloc();
-      *v37 = 0;
-      _os_log_impl(&_mh_execute_header, v35, v36, "Unable to accept incoming tool connection for unentitled process.", v37, 2u);
+      v36 = swift_slowAlloc();
+      *v36 = 0;
+      _os_log_impl(&_mh_execute_header, v34, v35, "Unable to accept incoming tool connection for unentitled process.", v36, 2u);
     }
 
-    (*(v4 + 8))(v10, v3);
+    (*(v4 + 8))(v9, v3);
     return 0;
   }
 
-  v14 = *(v1 + OBJC_IVAR____TtC11gamepolicyd25GamePolicyToolCoordinator_queue);
+  v13 = *(v1 + OBJC_IVAR____TtC11gamepolicyd25GamePolicyToolCoordinator_queue);
   type metadata accessor for GamePolicyToolProxy();
-  v15 = swift_allocObject();
-  v15[5] = 0;
+  v14 = swift_allocObject();
+  v14[5] = 0;
   swift_unknownObjectWeakInit();
-  v15[2] = a1;
-  v15[3] = v14;
-  v15[5] = &off_10004D9D0;
+  v14[2] = a1;
+  v14[3] = v13;
+  v14[5] = &off_10004D9D0;
   swift_unknownObjectWeakAssign();
-  v16 = objc_opt_self();
-  v17 = v14;
-  v18 = a1;
-  v19 = [v16 interfaceWithProtocol:&OBJC_PROTOCOL____TtP10GamePolicy20GamePolicyToolClient_];
-  [v18 setRemoteObjectInterface:v19];
+  v15 = objc_opt_self();
+  v16 = v13;
+  v17 = a1;
+  v18 = [v15 interfaceWithProtocol:&OBJC_PROTOCOL____TtP10GamePolicy20GamePolicyToolClient_];
+  [v17 setRemoteObjectInterface:v18];
 
-  v20 = [v16 interfaceWithProtocol:&OBJC_PROTOCOL____TtP10GamePolicy20GamePolicyToolServer_];
-  [v18 setExportedInterface:v20];
+  v19 = [v15 interfaceWithProtocol:&OBJC_PROTOCOL____TtP10GamePolicy20GamePolicyToolServer_];
+  [v17 setExportedInterface:v19];
 
-  [v18 setExportedObject:v15];
+  [v17 setExportedObject:v14];
+  v20 = swift_allocObject();
+  swift_unknownObjectWeakInit();
   v21 = swift_allocObject();
-  swift_unknownObjectWeakInit();
-  v22 = swift_allocObject();
-  *(v22 + 16) = v21;
-  *(v22 + 24) = v18;
-  v41 = sub_10000AD40;
-  v42 = v22;
+  *(v21 + 16) = v20;
+  *(v21 + 24) = v17;
+  v39 = sub_10000AD40;
+  v40 = v21;
   *&aBlock = _NSConcreteStackBlock;
   *(&aBlock + 1) = 1107296256;
-  *&v40 = sub_100024520;
-  *(&v40 + 1) = &unk_10004DAC8;
-  v23 = _Block_copy(&aBlock);
-  v24 = v18;
+  *&v38 = sub_100024520;
+  *(&v38 + 1) = &unk_10004DAC8;
+  v22 = _Block_copy(&aBlock);
+  v23 = v17;
 
-  [v24 setInvalidationHandler:v23];
-  _Block_release(v23);
+  [v23 setInvalidationHandler:v22];
+  _Block_release(v22);
+  v24 = swift_allocObject();
+  swift_unknownObjectWeakInit();
   v25 = swift_allocObject();
-  swift_unknownObjectWeakInit();
-  v26 = swift_allocObject();
-  *(v26 + 16) = v25;
-  *(v26 + 24) = v24;
-  v41 = sub_10000ADD4;
-  v42 = v26;
+  *(v25 + 16) = v24;
+  *(v25 + 24) = v23;
+  v39 = sub_10000ADD4;
+  v40 = v25;
   *&aBlock = _NSConcreteStackBlock;
   *(&aBlock + 1) = 1107296256;
-  *&v40 = sub_100024520;
-  *(&v40 + 1) = &unk_10004DB18;
-  v27 = _Block_copy(&aBlock);
-  v28 = v24;
+  *&v38 = sub_100024520;
+  *(&v38 + 1) = &unk_10004DB18;
+  v26 = _Block_copy(&aBlock);
+  v27 = v23;
 
-  [v28 setInterruptionHandler:v27];
-  _Block_release(v27);
-  v29 = *(v1 + OBJC_IVAR____TtC11gamepolicyd25GamePolicyToolCoordinator_lock);
-  [v29 lock];
-  v30 = OBJC_IVAR____TtC11gamepolicyd25GamePolicyToolCoordinator_toolProxies;
+  [v27 setInterruptionHandler:v26];
+  _Block_release(v26);
+  v28 = *(v1 + OBJC_IVAR____TtC11gamepolicyd25GamePolicyToolCoordinator_lock);
+  [v28 lock];
+  v29 = OBJC_IVAR____TtC11gamepolicyd25GamePolicyToolCoordinator_toolProxies;
   swift_beginAccess();
 
   specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-  if (*((*(v1 + v30) & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*(v1 + v30) & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+  if (*((*(v1 + v29) & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*(v1 + v29) & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
   {
-    v38 = *((*(v1 + v30) & 0xFFFFFFFFFFFFFF8) + 0x10);
     specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
   }
 
   specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
   swift_endAccess();
-  [v29 unlock];
-  [v28 resume];
+  [v28 unlock];
+  [v27 resume];
 
   return 1;
 }
@@ -3745,15 +3706,15 @@ uint64_t sub_100009E40(void *a1)
 
   else
   {
+    v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
   }
 
+  v23 = v28;
   v24 = v29;
-  v25 = v30;
-  if (!*(&v30 + 1))
+  if (!*(&v29 + 1))
   {
-    sub_1000096E8(&v24, &qword_1000553D0, &unk_10003E3F0);
+    sub_1000096E8(&v23, &qword_1000553D0, &unk_10003E3F0);
     return 0;
   }
 
@@ -3763,8 +3724,8 @@ uint64_t sub_100009E40(void *a1)
     return 0;
   }
 
-  v5 = v28;
-  if (([v28 BOOLValue] & 1) == 0)
+  v5 = v27;
+  if (([v27 BOOLValue] & 1) == 0)
   {
 
     return 0;
@@ -3794,13 +3755,13 @@ uint64_t sub_100009E40(void *a1)
   v13 = swift_allocObject();
   *(v13 + 16) = v12;
   *(v13 + 24) = v9;
-  v26 = sub_10000A8B4;
-  v27 = v13;
-  *&v24 = _NSConcreteStackBlock;
-  *(&v24 + 1) = 1107296256;
-  *&v25 = sub_100024520;
-  *(&v25 + 1) = &unk_10004DA28;
-  v14 = _Block_copy(&v24);
+  v25 = sub_10000A8B4;
+  v26 = v13;
+  *&v23 = _NSConcreteStackBlock;
+  *(&v23 + 1) = 1107296256;
+  *&v24 = sub_100024520;
+  *(&v24 + 1) = &unk_10004DA28;
+  v14 = _Block_copy(&v23);
   v15 = v9;
 
   [v15 setInvalidationHandler:v14];
@@ -3810,13 +3771,13 @@ uint64_t sub_100009E40(void *a1)
   v17 = swift_allocObject();
   *(v17 + 16) = v16;
   *(v17 + 24) = v15;
-  v26 = sub_10000A920;
-  v27 = v17;
-  *&v24 = _NSConcreteStackBlock;
-  *(&v24 + 1) = 1107296256;
-  *&v25 = sub_100024520;
-  *(&v25 + 1) = &unk_10004DA78;
-  v18 = _Block_copy(&v24);
+  v25 = sub_10000A920;
+  v26 = v17;
+  *&v23 = _NSConcreteStackBlock;
+  *(&v23 + 1) = 1107296256;
+  *&v24 = sub_100024520;
+  *(&v24 + 1) = &unk_10004DA78;
+  v18 = _Block_copy(&v23);
   v19 = v15;
 
   [v19 setInterruptionHandler:v18];
@@ -3829,7 +3790,6 @@ uint64_t sub_100009E40(void *a1)
   specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
   if (*((*(v1 + v21) & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*(v1 + v21) & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
   {
-    v23 = *((*(v1 + v21) & 0xFFFFFFFFFFFFFF8) + 0x10);
     specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
   }
 
@@ -3841,121 +3801,109 @@ uint64_t sub_100009E40(void *a1)
   return 1;
 }
 
-void sub_10000A290(uint64_t a1, void *a2, const char *a3, uint64_t *a4, uint64_t (*a5)(unint64_t), void (*a6)(int64_t))
+void sub_10000A290(uint64_t a1, void *a2, const char *a3, uint64_t *a4, uint64_t (*a5)(uint64_t), void (*a6)(uint64_t))
 {
   v11 = type metadata accessor for Logger();
   v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
   __chkstk_darwin(v11);
-  v15 = &v28 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = &v26 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v17 = Strong;
-    v29 = a5;
-    v30 = a6;
+    v16 = Strong;
+    v27 = a5;
+    v28 = a6;
     static Logger.toolCoordinator.getter();
-    v18 = Logger.logObject.getter();
-    v19 = static os_log_type_t.info.getter();
-    if (os_log_type_enabled(v18, v19))
+    v17 = Logger.logObject.getter();
+    v18 = static os_log_type_t.info.getter();
+    if (os_log_type_enabled(v17, v18))
     {
-      v20 = swift_slowAlloc();
-      *v20 = 0;
-      _os_log_impl(&_mh_execute_header, v18, v19, a3, v20, 2u);
+      v19 = swift_slowAlloc();
+      *v19 = 0;
+      _os_log_impl(&_mh_execute_header, v17, v18, a3, v19, 2u);
     }
 
-    (*(v12 + 8))(v15, v11);
-    v21 = OBJC_IVAR____TtC11gamepolicyd25GamePolicyToolCoordinator_lock;
-    [*&v17[OBJC_IVAR____TtC11gamepolicyd25GamePolicyToolCoordinator_lock] lock];
-    v22 = *a4;
+    (*(v12 + 8))(v14, v11);
+    v20 = OBJC_IVAR____TtC11gamepolicyd25GamePolicyToolCoordinator_lock;
+    [*&v16[OBJC_IVAR____TtC11gamepolicyd25GamePolicyToolCoordinator_lock] lock];
+    v21 = *a4;
     swift_beginAccess();
-    v23 = a2;
-    v24 = sub_10000AA90(&v17[v22], v23, v29);
+    v22 = a2;
+    v23 = sub_10000AA90(&v16[v21], v22, v27);
 
-    v25 = *&v17[v22];
-    if (v25 >> 62)
+    v24 = *&v16[v21];
+    if (v24 >> 62)
     {
-      if (v25 < 0)
-      {
-        v27 = *&v17[v22];
-      }
-
-      v26 = _CocoaArrayWrapper.endIndex.getter();
+      v25 = _CocoaArrayWrapper.endIndex.getter();
     }
 
     else
     {
-      v26 = *((v25 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      v25 = *((v24 & 0xFFFFFFFFFFFFFF8) + 0x10);
     }
 
-    if (v26 < v24)
+    if (v25 < v23)
     {
       __break(1u);
     }
 
     else
     {
-      v30(v24);
+      v28(v23);
       swift_endAccess();
-      [*&v17[v21] unlock];
+      [*&v16[v20] unlock];
     }
   }
 }
 
-void sub_10000A4D0(uint64_t a1, void *a2, const char *a3, uint64_t *a4, uint64_t (*a5)(unint64_t), void (*a6)(int64_t))
+void sub_10000A4D0(uint64_t a1, void *a2, const char *a3, uint64_t *a4, uint64_t (*a5)(uint64_t), void (*a6)(uint64_t))
 {
   v11 = type metadata accessor for Logger();
   v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
   __chkstk_darwin(v11);
-  v15 = &v27 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = &v25 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v17 = Strong;
-    v28 = a6;
-    v29 = a5;
+    v16 = Strong;
+    v26 = a6;
+    v27 = a5;
     static Logger.toolCoordinator.getter();
-    v18 = Logger.logObject.getter();
-    v19 = static os_log_type_t.info.getter();
-    if (os_log_type_enabled(v18, v19))
+    v17 = Logger.logObject.getter();
+    v18 = static os_log_type_t.info.getter();
+    if (os_log_type_enabled(v17, v18))
     {
-      v20 = swift_slowAlloc();
-      *v20 = 0;
-      _os_log_impl(&_mh_execute_header, v18, v19, a3, v20, 2u);
+      v19 = swift_slowAlloc();
+      *v19 = 0;
+      _os_log_impl(&_mh_execute_header, v17, v18, a3, v19, 2u);
     }
 
-    (*(v12 + 8))(v15, v11);
-    v21 = OBJC_IVAR____TtC11gamepolicyd25GamePolicyToolCoordinator_lock;
-    [*&v17[OBJC_IVAR____TtC11gamepolicyd25GamePolicyToolCoordinator_lock] lock];
-    v22 = *a4;
+    (*(v12 + 8))(v14, v11);
+    v20 = OBJC_IVAR____TtC11gamepolicyd25GamePolicyToolCoordinator_lock;
+    [*&v16[OBJC_IVAR____TtC11gamepolicyd25GamePolicyToolCoordinator_lock] lock];
+    v21 = *a4;
     swift_beginAccess();
-    v23 = a2;
-    v24 = sub_10000AA90(&v17[v22], v23, v29);
+    v22 = a2;
+    v23 = sub_10000AA90(&v16[v21], v22, v27);
 
-    v25 = *&v17[v22];
-    if (v25 >> 62)
+    v24 = *&v16[v21];
+    if (v24 >> 62)
     {
-      if (v25 < 0)
-      {
-        v26 = *&v17[v22];
-      }
-
-      if (_CocoaArrayWrapper.endIndex.getter() >= v24)
+      if (_CocoaArrayWrapper.endIndex.getter() >= v23)
       {
         goto LABEL_6;
       }
     }
 
-    else if (*((v25 & 0xFFFFFFFFFFFFFF8) + 0x10) >= v24)
+    else if (*((v24 & 0xFFFFFFFFFFFFFF8) + 0x10) >= v23)
     {
 LABEL_6:
-      v28(v24);
+      v26(v23);
       swift_endAccess();
-      [*&v17[v21] unlock];
-      [v23 invalidate];
+      [*&v16[v20] unlock];
+      [v22 invalidate];
 
       return;
     }
@@ -3985,66 +3933,63 @@ uint64_t sub_10000A908(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-unint64_t sub_10000A974(unint64_t a1)
+unint64_t sub_10000A974(unint64_t a1, uint64_t a2)
 {
-  v2 = a1 & 0xFFFFFFFFFFFFFF8;
+  v3 = a1 & 0xFFFFFFFFFFFFFF8;
   if (a1 >> 62)
   {
 LABEL_17:
-    v3 = _CocoaArrayWrapper.endIndex.getter();
+    v4 = _CocoaArrayWrapper.endIndex.getter();
   }
 
   else
   {
-    v3 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v4 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  v4 = 0;
+  v5 = 0;
   while (1)
   {
-    if (v3 == v4)
+    if (v4 == v5)
     {
       return 0;
     }
 
     if ((a1 & 0xC000000000000001) != 0)
     {
-      v5 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+      specialized _ArrayBuffer._getElementSlowPath(_:)();
     }
 
     else
     {
-      if (v4 >= *(v2 + 16))
+      if (v5 >= *(v3 + 16))
       {
         __break(1u);
 LABEL_16:
         __break(1u);
         goto LABEL_17;
       }
-
-      v5 = *(a1 + 8 * v4 + 32);
     }
 
     sub_100009748(0, &qword_100055020, NSObject_ptr);
-    v6 = *(v5 + 16);
-    v7 = static NSObject.== infix(_:_:)();
+    v6 = static NSObject.== infix(_:_:)();
 
-    if (v7)
+    if (v6)
     {
-      return v4;
+      return v5;
     }
 
-    if (__OFADD__(v4++, 1))
+    if (__OFADD__(v5++, 1))
     {
       goto LABEL_16;
     }
   }
 }
 
-unint64_t sub_10000AA90(unint64_t *a1, uint64_t a2, uint64_t (*a3)(unint64_t))
+unint64_t sub_10000AA90(unint64_t *a1, uint64_t a2, uint64_t (*a3)(uint64_t))
 {
   v6 = *a1;
-  result = sub_10000A974(*a1);
+  result = sub_10000A974(*a1, a2);
   v9 = result;
   if (v3)
   {
@@ -4061,7 +4006,7 @@ unint64_t sub_10000AA90(unint64_t *a1, uint64_t a2, uint64_t (*a3)(unint64_t))
     return *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  v25 = a3;
+  v20 = a3;
   v10 = result + 1;
   if (__OFADD__(result, 1))
   {
@@ -4070,7 +4015,7 @@ unint64_t sub_10000AA90(unint64_t *a1, uint64_t a2, uint64_t (*a3)(unint64_t))
   }
 
   v11 = &qword_100055020;
-  v26 = a1;
+  v21 = a1;
   while (1)
   {
     if (v6 >> 62)
@@ -4088,7 +4033,7 @@ unint64_t sub_10000AA90(unint64_t *a1, uint64_t a2, uint64_t (*a3)(unint64_t))
 
     if ((v6 & 0xC000000000000001) != 0)
     {
-      v13 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+      specialized _ArrayBuffer._getElementSlowPath(_:)();
       goto LABEL_15;
     }
 
@@ -4102,21 +4047,18 @@ unint64_t sub_10000AA90(unint64_t *a1, uint64_t a2, uint64_t (*a3)(unint64_t))
       goto LABEL_40;
     }
 
-    v13 = *(v6 + 8 * v10 + 32);
-
 LABEL_15:
     sub_100009748(0, v11, NSObject_ptr);
-    v14 = *(v13 + 16);
-    v15 = static NSObject.== infix(_:_:)();
+    v13 = static NSObject.== infix(_:_:)();
 
-    if ((v15 & 1) == 0)
+    if ((v13 & 1) == 0)
     {
       if (v9 != v10)
       {
         if ((v6 & 0xC000000000000001) != 0)
         {
-          v16 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-          v17 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+          v14 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+          v15 = specialized _ArrayBuffer._getElementSlowPath(_:)();
         }
 
         else
@@ -4126,41 +4068,40 @@ LABEL_15:
             goto LABEL_44;
           }
 
-          v18 = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
-          if (v9 >= v18)
+          v16 = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
+          if (v9 >= v16)
           {
             goto LABEL_45;
           }
 
-          if (v10 >= v18)
+          if (v10 >= v16)
           {
             goto LABEL_46;
           }
 
-          v16 = *(v6 + 32 + 8 * v9);
-          v17 = *(v6 + 32 + 8 * v10);
+          v14 = *(v6 + 32 + 8 * v9);
+          v15 = *(v6 + 32 + 8 * v10);
         }
 
-        v19 = v11;
+        v17 = v11;
         if (!swift_isUniquelyReferenced_nonNull_bridgeObject() || (v6 & 0x8000000000000000) != 0 || (v6 & 0x4000000000000000) != 0)
         {
-          v6 = v25(v6);
-          v20 = (v6 >> 62) & 1;
+          v6 = v20(v6);
+          v18 = (v6 >> 62) & 1;
         }
 
         else
         {
-          LODWORD(v20) = 0;
+          LODWORD(v18) = 0;
         }
 
-        v21 = v6 & 0xFFFFFFFFFFFFFF8;
-        v22 = *((v6 & 0xFFFFFFFFFFFFFF8) + 8 * v9 + 0x20);
-        *((v6 & 0xFFFFFFFFFFFFFF8) + 8 * v9 + 0x20) = v17;
+        v19 = v6 & 0xFFFFFFFFFFFFFF8;
+        *((v6 & 0xFFFFFFFFFFFFFF8) + 8 * v9 + 0x20) = v15;
 
-        if ((v6 & 0x8000000000000000) != 0 || v20)
+        if ((v6 & 0x8000000000000000) != 0 || v18)
         {
-          v6 = v25(v6);
-          v21 = v6 & 0xFFFFFFFFFFFFFF8;
+          v6 = v20(v6);
+          v19 = v6 & 0xFFFFFFFFFFFFFF8;
           if ((v10 & 0x8000000000000000) != 0)
           {
 LABEL_37:
@@ -4174,17 +4115,15 @@ LABEL_37:
           goto LABEL_37;
         }
 
-        if (v10 >= *(v21 + 16))
+        if (v10 >= *(v19 + 16))
         {
           goto LABEL_43;
         }
 
-        v11 = v19;
-        v23 = v21 + 8 * v10;
-        v24 = *(v23 + 32);
-        *(v23 + 32) = v16;
+        v11 = v17;
+        *(v19 + 8 * v10 + 32) = v14;
 
-        *v26 = v6;
+        *v21 = v6;
       }
 
       v12 = __OFADD__(v9++, 1);
@@ -4221,7 +4160,6 @@ LABEL_46:
 
 uint64_t sub_10000AD94()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -4230,22 +4168,21 @@ uint64_t sub_10000AE28(void *a1)
 {
   v2 = type metadata accessor for Logger();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  v5 = __chkstk_darwin(v2);
-  v7 = &v36 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v5);
-  v9 = &v36 - v8;
-  v10 = [a1 serviceName];
-  if (!v10)
+  v4 = __chkstk_darwin(v2);
+  v6 = &v35 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v8 = &v35 - v7;
+  v9 = [a1 serviceName];
+  if (!v9)
   {
     goto LABEL_7;
   }
 
-  v11 = v10;
-  v12 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v14 = v13;
+  v10 = v9;
+  v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v13 = v12;
 
-  if (v12 == 0xD00000000000001ALL && 0x8000000100040E00 == v14)
+  if (v11 == 0xD00000000000001ALL && 0x8000000100040E00 == v13)
   {
 
 LABEL_15:
@@ -4257,33 +4194,33 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v16 = _stringCompareWithSmolCheck(_:_:expecting:)();
+  v15 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-  if (v16)
+  if (v15)
   {
     goto LABEL_15;
   }
 
 LABEL_7:
-  v17 = [a1 serviceName];
-  if (!v17)
+  v16 = [a1 serviceName];
+  if (!v16)
   {
     goto LABEL_21;
   }
 
-  v18 = v17;
-  v19 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v21 = v20;
+  v17 = v16;
+  v18 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v20 = v19;
 
-  if (v19 == 0xD000000000000025 && 0x8000000100040DD0 == v21)
+  if (v18 == 0xD000000000000025 && 0x8000000100040DD0 == v20)
   {
   }
 
   else
   {
-    v23 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v22 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if ((v23 & 1) == 0)
+    if ((v22 & 1) == 0)
     {
       goto LABEL_21;
     }
@@ -4293,56 +4230,56 @@ LABEL_7:
   {
 LABEL_21:
     static Logger.toolCoordinator.getter();
-    v31 = a1;
-    v25 = Logger.logObject.getter();
-    v32 = static os_log_type_t.info.getter();
+    v30 = a1;
+    v24 = Logger.logObject.getter();
+    v31 = static os_log_type_t.info.getter();
 
-    if (!os_log_type_enabled(v25, v32))
+    if (!os_log_type_enabled(v24, v31))
     {
-      v30 = 0;
-      v9 = v7;
+      v29 = 0;
+      v8 = v6;
       goto LABEL_25;
     }
 
-    v33 = swift_slowAlloc();
-    v28 = swift_slowAlloc();
-    *v33 = 138412290;
-    *(v33 + 4) = v31;
-    *v28 = v31;
-    v34 = v31;
-    _os_log_impl(&_mh_execute_header, v25, v32, "GamePolicyToolCoordinator: rejecting incoming connection %@", v33, 0xCu);
-    v30 = 0;
-    v9 = v7;
+    v32 = swift_slowAlloc();
+    v27 = swift_slowAlloc();
+    *v32 = 138412290;
+    *(v32 + 4) = v30;
+    *v27 = v30;
+    v33 = v30;
+    _os_log_impl(&_mh_execute_header, v24, v31, "GamePolicyToolCoordinator: rejecting incoming connection %@", v32, 0xCu);
+    v29 = 0;
+    v8 = v6;
     goto LABEL_23;
   }
 
 LABEL_16:
   static Logger.toolCoordinator.getter();
-  v24 = a1;
-  v25 = Logger.logObject.getter();
-  v26 = static os_log_type_t.debug.getter();
+  v23 = a1;
+  v24 = Logger.logObject.getter();
+  v25 = static os_log_type_t.debug.getter();
 
-  if (os_log_type_enabled(v25, v26))
+  if (os_log_type_enabled(v24, v25))
   {
+    v26 = swift_slowAlloc();
     v27 = swift_slowAlloc();
-    v28 = swift_slowAlloc();
-    *v27 = 138412290;
-    *(v27 + 4) = v24;
-    *v28 = v24;
-    v29 = v24;
-    _os_log_impl(&_mh_execute_header, v25, v26, "GamePolicyToolCoordinator: accepting incoming connection %@", v27, 0xCu);
-    v30 = 1;
+    *v26 = 138412290;
+    *(v26 + 4) = v23;
+    *v27 = v23;
+    v28 = v23;
+    _os_log_impl(&_mh_execute_header, v24, v25, "GamePolicyToolCoordinator: accepting incoming connection %@", v26, 0xCu);
+    v29 = 1;
 LABEL_23:
-    sub_1000096E8(v28, &unk_100053C00, &qword_10003E810);
+    sub_1000096E8(v27, &unk_100053C00, &qword_10003E810);
 
     goto LABEL_25;
   }
 
-  v30 = 1;
+  v29 = 1;
 LABEL_25:
 
-  (*(v3 + 8))(v9, v2);
-  return v30;
+  (*(v3 + 8))(v8, v2);
+  return v29;
 }
 
 NSString sub_10000B204()
@@ -4357,28 +4294,27 @@ uint64_t sub_10000B23C()
   v1 = v0;
   v2 = type metadata accessor for Logger();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v6 = v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Logger.toolCoordinator.getter();
-  v7 = Logger.logObject.getter();
-  v8 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v7, v8))
+  v6 = Logger.logObject.getter();
+  v7 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v6, v7))
   {
-    v9 = swift_slowAlloc();
-    *v9 = 0;
-    _os_log_impl(&_mh_execute_header, v7, v8, "GamePolicyToolProxy: ping!", v9, 2u);
+    v8 = swift_slowAlloc();
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v6, v7, "GamePolicyToolProxy: ping!", v8, 2u);
   }
 
-  (*(v3 + 8))(v6, v2);
-  v10 = [*(v1 + 16) remoteObjectProxy];
+  (*(v3 + 8))(v5, v2);
+  v9 = [*(v1 + 16) remoteObjectProxy];
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
   sub_100003870(&qword_100053CE8, &unk_10003E450);
   result = swift_dynamicCast();
   if (result)
   {
-    [v12[1] pong];
+    [v11[1] pong];
     return swift_unknownObjectRelease();
   }
 
@@ -4396,7 +4332,7 @@ uint64_t sub_10000B4D0()
 {
   _StringGuts.grow(_:)(29);
 
-  type metadata accessor for GamingMetadataDBBundle();
+  type metadata accessor for GamingMetadataDBBundle(0);
   sub_100003870(&qword_100053DC8, &qword_10003E4B8);
   v1._countAndFlagsBits = String.init<A>(describing:)();
   String.append(_:)(v1);
@@ -4412,28 +4348,17 @@ uint64_t sub_10000B4D0()
   v4._object = 0x8000000100040F20;
   v4._countAndFlagsBits = 0xD000000000000013;
   String.append(_:)(v4);
-  v5 = *(v0 + OBJC_IVAR____TtC11gamepolicyd22GamingMetadataDBBundle_descriptors);
-  if (v5 >> 62)
+  if (*(v0 + OBJC_IVAR____TtC11gamepolicyd22GamingMetadataDBBundle_descriptors) >> 62)
   {
-    if (v5 < 0)
-    {
-      v10 = *(v0 + OBJC_IVAR____TtC11gamepolicyd22GamingMetadataDBBundle_descriptors);
-    }
-
     _CocoaArrayWrapper.endIndex.getter();
   }
 
-  else
-  {
-    v6 = *((v5 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  }
+  v5._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
+  String.append(_:)(v5);
 
-  v7._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
-  String.append(_:)(v7);
-
-  v8._countAndFlagsBits = 62;
-  v8._object = 0xE100000000000000;
-  String.append(_:)(v8);
+  v6._countAndFlagsBits = 62;
+  v6._object = 0xE100000000000000;
+  String.append(_:)(v6);
   return 60;
 }
 
@@ -4442,19 +4367,14 @@ uint64_t sub_10000B648()
   v1 = OBJC_IVAR____TtC11gamepolicyd22GamingMetadataDBBundle_version;
   v2 = type metadata accessor for Version();
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
-  v3 = *(v0 + OBJC_IVAR____TtC11gamepolicyd22GamingMetadataDBBundle_identifier + 8);
 
-  v4 = *(v0 + OBJC_IVAR____TtC11gamepolicyd22GamingMetadataDBBundle_descriptors);
+  v3 = *(*v0 + 48);
+  v4 = *(*v0 + 52);
 
-  v5 = *(v0 + OBJC_IVAR____TtC11gamepolicyd22GamingMetadataDBBundle_overrides);
-
-  v6 = *(*v0 + 48);
-  v7 = *(*v0 + 52);
-
-  return _swift_deallocClassInstance(v0, v6, v7);
+  return _swift_deallocClassInstance(v0, v3, v4);
 }
 
-uint64_t type metadata accessor for GamingMetadataDBBundle()
+uint64_t type metadata accessor for GamingMetadataDBBundle(uint64_t a1)
 {
   result = qword_100053D18;
   if (!qword_100053D18)
@@ -4465,12 +4385,11 @@ uint64_t type metadata accessor for GamingMetadataDBBundle()
   return result;
 }
 
-uint64_t sub_10000B76C()
+uint64_t sub_10000B76C(uint64_t a1)
 {
   result = type metadata accessor for Version();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -4499,268 +4418,267 @@ int *sub_10000B890()
   v1 = v0;
   v2 = type metadata accessor for String.Encoding();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v6 = &v39 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v38 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   *(v0 + 8) = 0;
-  v43 = v0 + 16;
+  v42 = v0 + 16;
   *(v0 + 3) = 0u;
-  v42 = v0 + 12;
+  v41 = v0 + 12;
   *(v0 + 2) = 0u;
-  v40 = v0 + 8;
+  v39 = v0 + 8;
   *(v0 + 1) = 0u;
-  v7 = v0 + 4;
-  v44 = 0xD000000000000025;
-  v45 = 0x8000000100041140;
+  v6 = v0 + 4;
+  v43 = 0xD000000000000025;
+  v44 = 0x8000000100041140;
   static String.Encoding.utf8.getter();
   sub_100009790();
-  v8 = StringProtocol.cString(using:)();
-  v9 = *(v3 + 8);
-  v9(v6, v2);
-  if (v8)
+  v7 = StringProtocol.cString(using:)();
+  v8 = *(v3 + 8);
+  v8(v5, v2);
+  if (v7)
   {
-    v10 = (v8 + 32);
+    v9 = (v7 + 32);
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
   swift_beginAccess();
-  notify_register_check(v10, v7);
+  notify_register_check(v9, v6);
   swift_endAccess();
 
-  v44 = 0xD00000000000002FLL;
-  v45 = 0x8000000100041170;
+  v43 = 0xD00000000000002FLL;
+  v44 = 0x8000000100041170;
   static String.Encoding.utf8.getter();
-  v11 = StringProtocol.cString(using:)();
-  v9(v6, v2);
-  if (v11)
+  v10 = StringProtocol.cString(using:)();
+  v8(v5, v2);
+  if (v10)
   {
-    v12 = (v11 + 32);
+    v11 = (v10 + 32);
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
   swift_beginAccess();
-  notify_register_check(v12, v1 + 5);
+  notify_register_check(v11, v1 + 5);
   swift_endAccess();
 
-  v41 = 0xD000000000000029;
-  v44 = 0xD000000000000029;
-  v45 = 0x80000001000411A0;
+  v40 = 0xD000000000000029;
+  v43 = 0xD000000000000029;
+  v44 = 0x80000001000411A0;
   static String.Encoding.utf8.getter();
-  v13 = StringProtocol.cString(using:)();
-  v9(v6, v2);
-  if (v13)
+  v12 = StringProtocol.cString(using:)();
+  v8(v5, v2);
+  if (v12)
   {
-    v14 = (v13 + 32);
+    v13 = (v12 + 32);
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
   swift_beginAccess();
-  notify_register_check(v14, v1 + 6);
+  notify_register_check(v13, v1 + 6);
   swift_endAccess();
 
-  v44 = 0xD000000000000039;
-  v45 = 0x80000001000411D0;
+  v43 = 0xD000000000000039;
+  v44 = 0x80000001000411D0;
   static String.Encoding.utf8.getter();
-  v15 = StringProtocol.cString(using:)();
-  v9(v6, v2);
-  if (v15)
+  v14 = StringProtocol.cString(using:)();
+  v8(v5, v2);
+  if (v14)
   {
-    v16 = (v15 + 32);
+    v15 = (v14 + 32);
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
   swift_beginAccess();
-  notify_register_check(v16, v1 + 7);
+  notify_register_check(v15, v1 + 7);
   swift_endAccess();
 
-  v44 = 0xD000000000000025;
-  v45 = 0x8000000100041210;
+  v43 = 0xD000000000000025;
+  v44 = 0x8000000100041210;
   static String.Encoding.utf8.getter();
-  v17 = StringProtocol.cString(using:)();
-  v9(v6, v2);
-  if (v17)
+  v16 = StringProtocol.cString(using:)();
+  v8(v5, v2);
+  if (v16)
   {
-    v18 = (v17 + 32);
+    v17 = (v16 + 32);
   }
 
   else
   {
-    v18 = 0;
+    v17 = 0;
   }
 
-  v19 = v40;
+  v18 = v39;
   swift_beginAccess();
-  notify_register_check(v18, v19);
+  notify_register_check(v17, v18);
   swift_endAccess();
 
-  v44 = 0xD000000000000032;
-  v45 = 0x8000000100041240;
+  v43 = 0xD000000000000032;
+  v44 = 0x8000000100041240;
   static String.Encoding.utf8.getter();
-  v20 = StringProtocol.cString(using:)();
-  v9(v6, v2);
-  if (v20)
+  v19 = StringProtocol.cString(using:)();
+  v8(v5, v2);
+  if (v19)
   {
-    v21 = (v20 + 32);
+    v20 = (v19 + 32);
   }
 
   else
   {
-    v21 = 0;
+    v20 = 0;
   }
 
   swift_beginAccess();
-  notify_register_check(v21, v1 + 9);
+  notify_register_check(v20, v1 + 9);
   swift_endAccess();
 
-  v44 = 0xD000000000000034;
-  v45 = 0x8000000100041280;
+  v43 = 0xD000000000000034;
+  v44 = 0x8000000100041280;
   static String.Encoding.utf8.getter();
-  v22 = StringProtocol.cString(using:)();
-  v9(v6, v2);
-  if (v22)
+  v21 = StringProtocol.cString(using:)();
+  v8(v5, v2);
+  if (v21)
   {
-    v23 = (v22 + 32);
+    v22 = (v21 + 32);
   }
 
   else
   {
-    v23 = 0;
+    v22 = 0;
   }
 
   swift_beginAccess();
-  notify_register_check(v23, v1 + 10);
+  notify_register_check(v22, v1 + 10);
   swift_endAccess();
 
-  v44 = 0xD000000000000032;
-  v45 = 0x80000001000412C0;
+  v43 = 0xD000000000000032;
+  v44 = 0x80000001000412C0;
   static String.Encoding.utf8.getter();
-  v24 = StringProtocol.cString(using:)();
-  v9(v6, v2);
-  if (v24)
+  v23 = StringProtocol.cString(using:)();
+  v8(v5, v2);
+  if (v23)
   {
-    v25 = (v24 + 32);
+    v24 = (v23 + 32);
   }
 
   else
   {
-    v25 = 0;
+    v24 = 0;
   }
 
   swift_beginAccess();
-  notify_register_check(v25, v1 + 11);
+  notify_register_check(v24, v1 + 11);
   swift_endAccess();
 
-  v44 = 0xD000000000000027;
-  v45 = 0x8000000100041300;
+  v43 = 0xD000000000000027;
+  v44 = 0x8000000100041300;
   static String.Encoding.utf8.getter();
-  v26 = StringProtocol.cString(using:)();
-  v9(v6, v2);
-  if (v26)
+  v25 = StringProtocol.cString(using:)();
+  v8(v5, v2);
+  if (v25)
   {
-    v27 = (v26 + 32);
+    v26 = (v25 + 32);
   }
 
   else
   {
-    v27 = 0;
+    v26 = 0;
   }
 
-  v28 = v42;
+  v27 = v41;
   swift_beginAccess();
-  notify_register_check(v27, v28);
+  notify_register_check(v26, v27);
   swift_endAccess();
 
-  v44 = v41;
-  v45 = 0x8000000100041330;
+  v43 = v40;
+  v44 = 0x8000000100041330;
   static String.Encoding.utf8.getter();
-  v29 = StringProtocol.cString(using:)();
-  v9(v6, v2);
-  if (v29)
+  v28 = StringProtocol.cString(using:)();
+  v8(v5, v2);
+  if (v28)
   {
-    v30 = (v29 + 32);
+    v29 = (v28 + 32);
   }
 
   else
   {
-    v30 = 0;
+    v29 = 0;
   }
 
   swift_beginAccess();
-  notify_register_check(v30, v1 + 13);
+  notify_register_check(v29, v1 + 13);
   swift_endAccess();
 
-  v44 = 0xD000000000000027;
-  v45 = 0x8000000100041360;
+  v43 = 0xD000000000000027;
+  v44 = 0x8000000100041360;
   static String.Encoding.utf8.getter();
-  v31 = StringProtocol.cString(using:)();
-  v9(v6, v2);
-  if (v31)
+  v30 = StringProtocol.cString(using:)();
+  v8(v5, v2);
+  if (v30)
   {
-    v32 = (v31 + 32);
+    v31 = (v30 + 32);
   }
 
   else
   {
-    v32 = 0;
+    v31 = 0;
   }
 
   swift_beginAccess();
-  notify_register_check(v32, v1 + 14);
+  notify_register_check(v31, v1 + 14);
   swift_endAccess();
 
-  v44 = 0xD000000000000031;
-  v45 = 0x8000000100041390;
+  v43 = 0xD000000000000031;
+  v44 = 0x8000000100041390;
   static String.Encoding.utf8.getter();
-  v33 = StringProtocol.cString(using:)();
-  v9(v6, v2);
-  if (v33)
+  v32 = StringProtocol.cString(using:)();
+  v8(v5, v2);
+  if (v32)
   {
-    v34 = (v33 + 32);
+    v33 = (v32 + 32);
   }
 
   else
   {
-    v34 = 0;
+    v33 = 0;
   }
 
   swift_beginAccess();
-  notify_register_check(v34, v1 + 15);
+  notify_register_check(v33, v1 + 15);
   swift_endAccess();
 
-  v44 = 0xD000000000000030;
-  v45 = 0x80000001000413D0;
+  v43 = 0xD000000000000030;
+  v44 = 0x80000001000413D0;
   static String.Encoding.utf8.getter();
-  v35 = StringProtocol.cString(using:)();
-  v9(v6, v2);
-  if (v35)
+  v34 = StringProtocol.cString(using:)();
+  v8(v5, v2);
+  if (v34)
   {
-    v36 = (v35 + 32);
+    v35 = (v34 + 32);
   }
 
   else
   {
-    v36 = 0;
+    v35 = 0;
   }
 
-  v37 = v43;
+  v36 = v42;
   swift_beginAccess();
-  notify_register_check(v36, v37);
+  notify_register_check(v35, v36);
   swift_endAccess();
 
   return v1;
@@ -4885,65 +4803,47 @@ uint64_t sub_10000C2E0()
   v3._object = 0x8000000100041470;
   v3._countAndFlagsBits = 0xD000000000000015;
   String.append(_:)(v3);
-  countAndFlagsBits = v0[2]._countAndFlagsBits;
-  if (countAndFlagsBits >> 62)
+  if (v0[2]._countAndFlagsBits >> 62)
   {
-    if (countAndFlagsBits < 0)
-    {
-      v9 = v0[2]._countAndFlagsBits;
-    }
-
     _CocoaArrayWrapper.endIndex.getter();
   }
 
-  else
-  {
-    v5 = *((countAndFlagsBits & 0xFFFFFFFFFFFFFF8) + 0x10);
-  }
+  v4._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
+  String.append(_:)(v4);
 
-  v6._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
-  String.append(_:)(v6);
-
-  v7._countAndFlagsBits = 62;
-  v7._object = 0xE100000000000000;
-  String.append(_:)(v7);
+  v5._countAndFlagsBits = 62;
+  v5._object = 0xE100000000000000;
+  String.append(_:)(v5);
   return 60;
 }
 
 uint64_t sub_10000C430()
 {
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 32);
 
   return _swift_deallocClassInstance(v0, 40, 7);
 }
 
 uint64_t sub_10000C4B8()
 {
-  v1 = v0;
-  v2 = sub_100003870(&qword_1000541E0, "d_");
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  __chkstk_darwin(v2);
-  v6 = &v17 - v5;
-  v7 = type metadata accessor for Logger();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  __chkstk_darwin(v7);
-  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v0 = sub_100003870(&qword_1000541E0, "d_");
+  v1 = *(v0 - 8);
+  __chkstk_darwin(v0);
+  v3 = &v12 - v2;
+  v4 = type metadata accessor for Logger();
+  v5 = *(v4 - 8);
+  __chkstk_darwin(v4);
+  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Logger.appCoordinator.getter();
-  v12 = Logger.logObject.getter();
-  v13 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v12, v13))
+  v8 = Logger.logObject.getter();
+  v9 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v8, v9))
   {
-    v14 = swift_slowAlloc();
-    *v14 = 0;
-    _os_log_impl(&_mh_execute_header, v12, v13, "GamePolicyPrivilegedAppProxy: ping", v14, 2u);
+    v10 = swift_slowAlloc();
+    *v10 = 0;
+    _os_log_impl(&_mh_execute_header, v8, v9, "GamePolicyPrivilegedAppProxy: ping", v10, 2u);
   }
 
-  (*(v8 + 8))(v11, v7);
-  v15 = *(v1 + 32);
+  (*(v5 + 8))(v7, v4);
   swift_beginAccess();
   sub_100003870(&qword_100053AF8, &qword_10003E350);
   Published.projectedValue.getter();
@@ -4952,7 +4852,7 @@ uint64_t sub_10000C4B8()
 
   Publisher<>.sink(receiveValue:)();
 
-  (*(v3 + 8))(v6, v2);
+  (*(v1 + 8))(v3, v0);
   swift_beginAccess();
   AnyCancellable.store(in:)();
   swift_endAccess();
@@ -4960,10 +4860,9 @@ uint64_t sub_10000C4B8()
   return sub_100006910();
 }
 
-uint64_t sub_10000C75C(uint64_t *a1, uint64_t a2)
+uint64_t sub_10000C75C(uint64_t a1, uint64_t a2)
 {
-  v2 = *a1;
-  v3 = [*(a2 + 16) remoteObjectProxy];
+  v2 = [*(a2 + 16) remoteObjectProxy];
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
   sub_100003870(&qword_1000541F0, &qword_10003E5F8);
@@ -4972,7 +4871,7 @@ uint64_t sub_10000C75C(uint64_t *a1, uint64_t a2)
   {
     type metadata accessor for GameLibraryGame();
     isa = Array._bridgeToObjectiveC()().super.isa;
-    [v6 installedGamesDidChange:isa];
+    [v5 installedGamesDidChange:isa];
 
     return swift_unknownObjectRelease();
   }
@@ -4982,9 +4881,6 @@ uint64_t sub_10000C75C(uint64_t *a1, uint64_t a2)
 
 uint64_t sub_10000CACC()
 {
-  v1 = *(v0 + 32);
-
-  v2 = *(v0 + 40);
 
   return _swift_deallocClassInstance(v0, 48, 7);
 }
@@ -5002,21 +4898,18 @@ unint64_t sub_10000CB48()
   return result;
 }
 
-uint64_t sub_10000CBAC@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_10000CBAC@<X0>(void *a2@<X8>)
 {
-  v3 = *a1;
   swift_getKeyPath();
   swift_getKeyPath();
   static Published.subscript.getter();
 
-  *a2 = v5;
+  *a2 = v4;
   return result;
 }
 
 uint64_t sub_10000CC2C(uint64_t *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
   swift_getKeyPath();
   swift_getKeyPath();
 
@@ -5043,7 +4936,7 @@ Swift::Int sub_10000CCFC()
   return Hasher._finalize()();
 }
 
-Swift::Int sub_10000CD68()
+Swift::Int sub_10000CD68(uint64_t a1)
 {
   Hasher.init(_seed:)();
   Hasher._combine(_:)(0);
@@ -5094,105 +4987,103 @@ NSString sub_10000CF0C()
 
 double sub_10000CF48@<D0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
 {
-  v94 = a2;
+  v92 = a2;
   v3 = type metadata accessor for Notification();
-  v98 = *(v3 - 8);
-  v4 = *(v98 + 64);
+  v96 = *(v3 - 8);
   __chkstk_darwin(v3);
-  v95 = &v89 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for Logger();
-  v96 = *(v6 - 8);
-  v97 = v6;
-  v7 = *(v96 + 64);
-  v8 = __chkstk_darwin(v6);
-  v10 = &v89 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __chkstk_darwin(v8);
-  v13 = (&v89 - v12);
-  v14 = __chkstk_darwin(v11);
-  v16 = &v89 - v15;
-  __chkstk_darwin(v14);
-  v18 = &v89 - v17;
-  v19 = *(a1 + 16);
-  [v19 lock];
+  v93 = &v87 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for Logger();
+  v94 = *(v5 - 8);
+  v95 = v5;
+  v6 = __chkstk_darwin(v5);
+  v8 = &v87 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __chkstk_darwin(v6);
+  v11 = (&v87 - v10);
+  v12 = __chkstk_darwin(v9);
+  v14 = &v87 - v13;
+  __chkstk_darwin(v12);
+  v16 = &v87 - v15;
+  v17 = *(a1 + 16);
+  [v17 lock];
   swift_beginAccess();
-  v20 = *(a1 + 72);
-  v112[0] = *(a1 + 56);
-  v112[1] = v20;
-  v21 = *(a1 + 104);
-  v113 = *(a1 + 88);
-  v114 = v21;
-  v115[0] = v112[0];
-  v115[1] = v20;
-  v115[2] = v113;
-  v115[3] = v21;
-  v102 = v113;
+  v18 = *(a1 + 72);
+  v110[0] = *(a1 + 56);
+  v110[1] = v18;
+  v19 = *(a1 + 104);
+  v111 = *(a1 + 88);
+  v112 = v19;
+  v113[0] = v110[0];
+  v113[1] = v18;
+  v113[2] = v111;
+  v113[3] = v19;
+  v100 = v111;
+  v101 = v19;
+  v98 = v110[0];
+  v99 = v18;
+  v114[0] = v110[0];
+  v114[1] = v18;
+  v114[2] = v111;
+  v114[3] = v19;
+  v20 = *(a1 + 104);
+  v104 = *(a1 + 88);
+  v105 = v20;
+  v21 = *(a1 + 72);
+  v102 = *(a1 + 56);
   v103 = v21;
-  v100 = v112[0];
-  v101 = v20;
-  v116[0] = v112[0];
-  v116[1] = v20;
-  v116[2] = v113;
-  v116[3] = v21;
-  v22 = *(a1 + 104);
-  v106 = *(a1 + 88);
-  v107 = v22;
-  v23 = *(a1 + 72);
-  v104 = *(a1 + 56);
-  v105 = v23;
+  v106 = v102;
+  v107 = v21;
   v108 = v104;
-  v109 = v23;
-  v110 = v106;
-  v111 = v22;
-  sub_10001B118(v112, &v121);
-  sub_10001B118(v115, &v121);
-  sub_10001B118(v116, &v121);
-  [v19 unlock];
-  v117[0] = v104;
-  v117[1] = v105;
-  v117[2] = v106;
-  v117[3] = v107;
-  v118[0] = v108;
-  v118[1] = v109;
-  v119 = v110;
-  v120 = v111;
-  v123 = v102;
-  v124 = v103;
+  v109 = v20;
+  sub_10001B118(v110, &v119);
+  sub_10001B118(v113, &v119);
+  sub_10001B118(v114, &v119);
+  [v17 unlock];
+  v115[0] = v102;
+  v115[1] = v103;
+  v115[2] = v104;
+  v115[3] = v105;
+  v116[0] = v106;
+  v116[1] = v107;
+  v117 = v108;
+  v118 = v109;
   v121 = v100;
   v122 = v101;
-  v24 = v110;
-  v25 = ModeEnablementStrategy.rawValue.getter();
-  if (v25 != ModeEnablementStrategy.rawValue.getter())
+  v119 = v98;
+  v120 = v99;
+  v22 = v108;
+  v23 = ModeEnablementStrategy.rawValue.getter();
+  if (v23 != ModeEnablementStrategy.rawValue.getter())
   {
     static Logger.policyCoordinator.getter();
-    v89 = v18;
-    v26 = Logger.logObject.getter();
-    v27 = static os_log_type_t.default.getter();
-    v28 = os_log_type_enabled(v26, v27);
-    v92 = v16;
-    if (v28)
+    v87 = v16;
+    v24 = Logger.logObject.getter();
+    v25 = static os_log_type_t.default.getter();
+    v26 = os_log_type_enabled(v24, v25);
+    v90 = v14;
+    if (v26)
     {
+      v27 = swift_slowAlloc();
+      v89 = v3;
+      v28 = v27;
       v29 = swift_slowAlloc();
-      v91 = v3;
-      v30 = v29;
-      v31 = swift_slowAlloc();
-      *&v100 = v31;
-      *v30 = 136446210;
-      v99 = v24;
-      v32 = String.init<A>(describing:)();
-      v90 = v13;
-      v34 = v10;
-      v35 = sub_100034C38(v32, v33, &v100);
-      v13 = v90;
+      *&v98 = v29;
+      *v28 = 136446210;
+      v97 = v22;
+      v30 = String.init<A>(describing:)();
+      v88 = v11;
+      v32 = v8;
+      v33 = sub_100034C38(v30, v31, &v98);
+      v11 = v88;
 
-      *(v30 + 4) = v35;
-      v10 = v34;
-      _os_log_impl(&_mh_execute_header, v26, v27, "Updating game mode enablement strategy to %{public}s", v30, 0xCu);
-      sub_100003964(v31);
+      *(v28 + 4) = v33;
+      v8 = v32;
+      _os_log_impl(&_mh_execute_header, v24, v25, "Updating game mode enablement strategy to %{public}s", v28, 0xCu);
+      sub_100003964(v29);
 
-      v3 = v91;
+      v3 = v89;
     }
 
-    (*(v96 + 8))(v89, v97);
+    (*(v94 + 8))(v87, v95);
     type metadata accessor for GlobalPreferences();
     dispatch thunk of static GlobalPreferences.shared.getter();
     dispatch thunk of GlobalPreferences.gameModeEnablementStrategy.setter();
@@ -5202,55 +5093,55 @@ double sub_10000CF48@<D0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
       swift_once();
     }
 
-    *(&v101 + 1) = &type metadata for ModeEnablementStrategy;
-    *&v100 = v24;
-    v36 = qword_1000565E0;
-    v37 = v95;
+    *(&v99 + 1) = &type metadata for ModeEnablementStrategy;
+    *&v98 = v22;
+    v34 = qword_1000565E0;
+    v35 = v93;
     Notification.init(name:object:userInfo:)();
-    v38 = [objc_opt_self() defaultCenter];
+    v36 = [objc_opt_self() defaultCenter];
     isa = Notification._bridgeToObjectiveC()().super.isa;
-    [v38 postNotification:isa];
+    [v36 postNotification:isa];
 
-    (*(v98 + 8))(v37, v3);
-    v16 = v92;
+    (*(v96 + 8))(v35, v3);
+    v14 = v90;
   }
 
-  v40 = *(&v119 + 1);
-  v41 = ModeEnablementStrategy.rawValue.getter();
-  v42 = ModeEnablementStrategy.rawValue.getter();
-  v93 = v10;
-  if (v41 != v42)
+  v38 = *(&v117 + 1);
+  v39 = ModeEnablementStrategy.rawValue.getter();
+  v40 = ModeEnablementStrategy.rawValue.getter();
+  v91 = v8;
+  if (v39 != v40)
   {
     static Logger.policyCoordinator.getter();
-    v43 = Logger.logObject.getter();
-    v44 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v43, v44))
+    v41 = Logger.logObject.getter();
+    v42 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v41, v42))
     {
-      v45 = swift_slowAlloc();
-      v90 = swift_slowAlloc();
-      *&v100 = v90;
-      *v45 = 136446210;
-      v99 = v40;
-      v46 = String.init<A>(describing:)();
-      v91 = v3;
-      v48 = sub_100034C38(v46, v47, &v100);
-      v92 = v16;
-      v49 = v13;
-      v50 = v48;
-      v3 = v91;
+      v43 = swift_slowAlloc();
+      v88 = swift_slowAlloc();
+      *&v98 = v88;
+      *v43 = 136446210;
+      v97 = v38;
+      v44 = String.init<A>(describing:)();
+      v89 = v3;
+      v46 = sub_100034C38(v44, v45, &v98);
+      v90 = v14;
+      v47 = v11;
+      v48 = v46;
+      v3 = v89;
 
-      *(v45 + 4) = v50;
-      v13 = v49;
-      _os_log_impl(&_mh_execute_header, v43, v44, "Updating sustained execution mode enablement strategy to %{public}s", v45, 0xCu);
-      sub_100003964(v90);
+      *(v43 + 4) = v48;
+      v11 = v47;
+      _os_log_impl(&_mh_execute_header, v41, v42, "Updating sustained execution mode enablement strategy to %{public}s", v43, 0xCu);
+      sub_100003964(v88);
 
-      (*(v96 + 8))(v92, v97);
+      (*(v94 + 8))(v90, v95);
     }
 
     else
     {
 
-      (*(v96 + 8))(v16, v97);
+      (*(v94 + 8))(v14, v95);
     }
 
     type metadata accessor for GlobalPreferences();
@@ -5262,50 +5153,50 @@ double sub_10000CF48@<D0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
       swift_once();
     }
 
-    *(&v101 + 1) = &type metadata for ModeEnablementStrategy;
-    *&v100 = v40;
-    v51 = qword_1000565F0;
-    v52 = v95;
+    *(&v99 + 1) = &type metadata for ModeEnablementStrategy;
+    *&v98 = v38;
+    v49 = qword_1000565F0;
+    v50 = v93;
     Notification.init(name:object:userInfo:)();
-    v53 = [objc_opt_self() defaultCenter];
-    v54 = Notification._bridgeToObjectiveC()().super.isa;
-    [v53 postNotification:v54];
+    v51 = [objc_opt_self() defaultCenter];
+    v52 = Notification._bridgeToObjectiveC()().super.isa;
+    [v51 postNotification:v52];
 
-    (*(v98 + 8))(v52, v3);
+    (*(v96 + 8))(v50, v3);
   }
 
-  v55 = v120;
-  v56 = ModeEnablementStrategy.rawValue.getter();
-  if (v56 != ModeEnablementStrategy.rawValue.getter())
+  v53 = v118;
+  v54 = ModeEnablementStrategy.rawValue.getter();
+  if (v54 != ModeEnablementStrategy.rawValue.getter())
   {
     static Logger.policyCoordinator.getter();
-    v57 = Logger.logObject.getter();
-    v58 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v57, v58))
+    v55 = Logger.logObject.getter();
+    v56 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v55, v56))
     {
-      v59 = swift_slowAlloc();
-      v60 = swift_slowAlloc();
-      v90 = v13;
-      v61 = v3;
-      v62 = v60;
-      *&v100 = v60;
-      *v59 = 136446210;
-      v99 = v55;
-      v63 = String.init<A>(describing:)();
-      v65 = sub_100034C38(v63, v64, &v100);
+      v57 = swift_slowAlloc();
+      v58 = swift_slowAlloc();
+      v88 = v11;
+      v59 = v3;
+      v60 = v58;
+      *&v98 = v58;
+      *v57 = 136446210;
+      v97 = v53;
+      v61 = String.init<A>(describing:)();
+      v63 = sub_100034C38(v61, v62, &v98);
 
-      *(v59 + 4) = v65;
-      _os_log_impl(&_mh_execute_header, v57, v58, "Updating dynamic splitter enablement strategy to %{public}s", v59, 0xCu);
-      sub_100003964(v62);
-      v3 = v61;
+      *(v57 + 4) = v63;
+      _os_log_impl(&_mh_execute_header, v55, v56, "Updating dynamic splitter enablement strategy to %{public}s", v57, 0xCu);
+      sub_100003964(v60);
+      v3 = v59;
 
-      (*(v96 + 8))(v90, v97);
+      (*(v94 + 8))(v88, v95);
     }
 
     else
     {
 
-      (*(v96 + 8))(v13, v97);
+      (*(v94 + 8))(v11, v95);
     }
 
     type metadata accessor for GlobalPreferences();
@@ -5317,50 +5208,50 @@ double sub_10000CF48@<D0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
       swift_once();
     }
 
-    *(&v101 + 1) = &type metadata for ModeEnablementStrategy;
-    *&v100 = v55;
-    v66 = qword_1000565F8;
-    v67 = v95;
+    *(&v99 + 1) = &type metadata for ModeEnablementStrategy;
+    *&v98 = v53;
+    v64 = qword_1000565F8;
+    v65 = v93;
     Notification.init(name:object:userInfo:)();
-    v68 = [objc_opt_self() defaultCenter];
-    v69 = Notification._bridgeToObjectiveC()().super.isa;
-    [v68 postNotification:v69];
+    v66 = [objc_opt_self() defaultCenter];
+    v67 = Notification._bridgeToObjectiveC()().super.isa;
+    [v66 postNotification:v67];
 
-    (*(v98 + 8))(v67, v3);
+    (*(v96 + 8))(v65, v3);
   }
 
-  v70 = *(&v120 + 1);
-  v71 = ModelManagerPolicyStrategy.rawValue.getter();
-  if (v71 == ModelManagerPolicyStrategy.rawValue.getter())
+  v68 = *(&v118 + 1);
+  v69 = ModelManagerPolicyStrategy.rawValue.getter();
+  if (v69 == ModelManagerPolicyStrategy.rawValue.getter())
   {
-    sub_10001B150(v118);
-    sub_10001B150(v117);
+    sub_10001B150(v116);
+    sub_10001B150(v115);
   }
 
   else
   {
-    v72 = v93;
+    v70 = v91;
     static Logger.policyCoordinator.getter();
-    v73 = Logger.logObject.getter();
-    v74 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v73, v74))
+    v71 = Logger.logObject.getter();
+    v72 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v71, v72))
     {
+      v73 = swift_slowAlloc();
+      v74 = v3;
       v75 = swift_slowAlloc();
-      v76 = v3;
-      v77 = swift_slowAlloc();
-      *&v100 = v77;
-      *v75 = 136446210;
-      v99 = v70;
-      v78 = String.init<A>(describing:)();
-      v80 = sub_100034C38(v78, v79, &v100);
+      *&v98 = v75;
+      *v73 = 136446210;
+      v97 = v68;
+      v76 = String.init<A>(describing:)();
+      v78 = sub_100034C38(v76, v77, &v98);
 
-      *(v75 + 4) = v80;
-      _os_log_impl(&_mh_execute_header, v73, v74, "Updating game mode ModelManager policy strategy to %{public}s", v75, 0xCu);
-      sub_100003964(v77);
-      v3 = v76;
+      *(v73 + 4) = v78;
+      _os_log_impl(&_mh_execute_header, v71, v72, "Updating game mode ModelManager policy strategy to %{public}s", v73, 0xCu);
+      sub_100003964(v75);
+      v3 = v74;
     }
 
-    (*(v96 + 8))(v72, v97);
+    (*(v94 + 8))(v70, v95);
     type metadata accessor for GlobalPreferences();
     dispatch thunk of static GlobalPreferences.shared.getter();
     dispatch thunk of GlobalPreferences.modelManagerGameAssertionPolicyStrategy.setter();
@@ -5370,108 +5261,104 @@ double sub_10000CF48@<D0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
       swift_once();
     }
 
-    *(&v101 + 1) = &type metadata for ModelManagerPolicyStrategy;
-    *&v100 = v70;
-    v81 = qword_1000565E8;
-    v82 = v95;
+    *(&v99 + 1) = &type metadata for ModelManagerPolicyStrategy;
+    *&v98 = v68;
+    v79 = qword_1000565E8;
+    v80 = v93;
     Notification.init(name:object:userInfo:)();
-    v83 = [objc_opt_self() defaultCenter];
-    v84 = Notification._bridgeToObjectiveC()().super.isa;
-    [v83 postNotification:v84];
+    v81 = [objc_opt_self() defaultCenter];
+    v82 = Notification._bridgeToObjectiveC()().super.isa;
+    [v81 postNotification:v82];
 
-    sub_10001B150(v118);
-    sub_10001B150(v117);
-    (*(v98 + 8))(v82, v3);
+    sub_10001B150(v116);
+    sub_10001B150(v115);
+    (*(v96 + 8))(v80, v3);
   }
 
-  v85 = v122;
-  v86 = v94;
-  *v94 = v121;
-  v86[1] = v85;
-  result = *&v123;
-  v88 = v124;
-  v86[2] = v123;
-  v86[3] = v88;
+  v83 = v120;
+  v84 = v92;
+  *v92 = v119;
+  v84[1] = v83;
+  result = *&v121;
+  v86 = v122;
+  v84[2] = v121;
+  v84[3] = v86;
   return result;
 }
 
 id sub_10000DA84(uint64_t a1)
 {
-  v83 = type metadata accessor for Notification();
-  v87 = *(v83 - 8);
-  v2 = *(v87 + 64);
-  __chkstk_darwin(v83 - 8);
-  v86 = &v79 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for Logger();
-  v84 = *(v4 - 8);
-  v85 = v4;
-  v5 = *(v84 + 64);
+  v77 = type metadata accessor for Notification();
+  v81 = *(v77 - 8);
+  __chkstk_darwin(v77 - 8);
+  v80 = &v73 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for Logger();
+  v78 = *(v3 - 8);
+  v79 = v3;
+  v4 = __chkstk_darwin(v3);
+  v75 = &v73 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = __chkstk_darwin(v4);
-  v81 = &v79 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v74 = &v73 - v7;
   v8 = __chkstk_darwin(v6);
-  v80 = &v79 - v9;
-  v10 = __chkstk_darwin(v8);
-  v12 = &v79 - v11;
-  __chkstk_darwin(v10);
-  v14 = &v79 - v13;
-  v15 = *(a1 + 16);
-  [v15 lock];
+  v10 = &v73 - v9;
+  __chkstk_darwin(v8);
+  v12 = &v73 - v11;
+  v13 = *(a1 + 16);
+  [v13 lock];
   swift_beginAccess();
-  v98 = *(a1 + 56);
-  v99 = *(a1 + 72);
-  v100 = *(a1 + 88);
-  v101 = *(a1 + 104);
-  v16 = v98;
-  v102[0] = v98;
-  v102[1] = v99;
-  v102[2] = v100;
-  v102[3] = v101;
-  v92 = v100;
-  v93 = v101;
-  v90 = v98;
-  v91 = v99;
-  v96 = v100;
-  v94 = v98;
-  v95 = v99;
-  v97 = v101;
-  sub_10001B118(&v98, v104);
-  v82 = v16;
-  sub_10001B118(v102, v104);
-  [v15 unlock];
-  v103[0] = v90;
-  v103[1] = v91;
-  v103[2] = v92;
-  v103[3] = v93;
-  v104[0] = v94;
-  v104[1] = v95;
-  v105 = v96;
-  v106 = v97;
-  v17 = v96;
-  v18 = ModeEnablementStrategy.rawValue.getter();
-  v19 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
+  v92 = *(a1 + 56);
+  v93 = *(a1 + 72);
+  v94 = *(a1 + 88);
+  v95 = *(a1 + 104);
+  v14 = v92;
+  v96[0] = v92;
+  v96[1] = v93;
+  v96[2] = v94;
+  v96[3] = v95;
+  v86 = v94;
+  v87 = v95;
+  v84 = v92;
+  v85 = v93;
+  v90 = v94;
+  v88 = v92;
+  v89 = v93;
+  v91 = v95;
+  sub_10001B118(&v92, v98);
+  v76 = v14;
+  sub_10001B118(v96, v98);
+  [v13 unlock];
+  v97[0] = v84;
+  v97[1] = v85;
+  v97[2] = v86;
+  v97[3] = v87;
+  v98[0] = v88;
+  v98[1] = v89;
+  v99 = v90;
+  v100 = v91;
+  v15 = v90;
+  v16 = ModeEnablementStrategy.rawValue.getter();
   p_name = (&stru_100051FF8 + 8);
-  if (v18 != ModeEnablementStrategy.rawValue.getter())
+  if (v16 != ModeEnablementStrategy.rawValue.getter())
   {
     static Logger.policyCoordinator.getter();
-    v21 = Logger.logObject.getter();
-    v22 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v21, v22))
+    v18 = Logger.logObject.getter();
+    v19 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v18, v19))
     {
-      v23 = swift_slowAlloc();
-      v24 = swift_slowAlloc();
-      v89 = v24;
-      *v23 = 136446210;
-      v88 = v17;
-      v25 = String.init<A>(describing:)();
-      v27 = sub_100034C38(v25, v26, &v89);
+      v20 = swift_slowAlloc();
+      v21 = swift_slowAlloc();
+      v83 = v21;
+      *v20 = 136446210;
+      v82 = v15;
+      v22 = String.init<A>(describing:)();
+      v24 = sub_100034C38(v22, v23, &v83);
 
-      *(v23 + 4) = v27;
-      v19 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
-      _os_log_impl(&_mh_execute_header, v21, v22, "Updating game mode enablement strategy to %{public}s", v23, 0xCu);
-      sub_100003964(v24);
+      *(v20 + 4) = v24;
+      _os_log_impl(&_mh_execute_header, v18, v19, "Updating game mode enablement strategy to %{public}s", v20, 0xCu);
+      sub_100003964(v21);
     }
 
-    (*(v84 + 8))(v14, v85);
+    (*(v78 + 8))(v12, v79);
     type metadata accessor for GlobalPreferences();
     dispatch thunk of static GlobalPreferences.shared.getter();
     dispatch thunk of GlobalPreferences.gameModeEnablementStrategy.setter();
@@ -5482,240 +5369,21 @@ id sub_10000DA84(uint64_t a1)
       swift_once();
     }
 
-    *&v91 = &type metadata for ModeEnablementStrategy;
-    v89 = v17;
-    v28 = qword_1000565E0;
-    v29 = v86;
+    *&v85 = &type metadata for ModeEnablementStrategy;
+    v83 = v15;
+    v25 = qword_1000565E0;
+    v26 = v80;
     Notification.init(name:object:userInfo:)();
-    v30 = v19[465];
-    v31 = [objc_opt_self() defaultCenter];
+    v27 = [objc_opt_self() defaultCenter];
     isa = Notification._bridgeToObjectiveC()().super.isa;
-    [v31 postNotification:isa];
+    [v27 postNotification:isa];
 
-    (*(v87 + 8))(v29, v83);
+    (*(v81 + 8))(v26, v77);
   }
 
-  v33 = *(&v105 + 1);
-  v34 = ModeEnablementStrategy.rawValue.getter();
-  if (v34 != ModeEnablementStrategy.rawValue.getter())
-  {
-    static Logger.policyCoordinator.getter();
-    v35 = Logger.logObject.getter();
-    v36 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v35, v36))
-    {
-      v37 = swift_slowAlloc();
-      v38 = swift_slowAlloc();
-      v89 = v38;
-      *v37 = 136446210;
-      v88 = v33;
-      v39 = String.init<A>(describing:)();
-      v41 = sub_100034C38(v39, v40, &v89);
-
-      *(v37 + 4) = v41;
-      _os_log_impl(&_mh_execute_header, v35, v36, "Updating sustained execution mode enablement strategy to %{public}s", v37, 0xCu);
-      sub_100003964(v38);
-    }
-
-    (*(v84 + 8))(v12, v85);
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.semEnablementStrategy.setter();
-
-    if (qword_100053470 != -1)
-    {
-      swift_once();
-    }
-
-    *&v91 = &type metadata for ModeEnablementStrategy;
-    v89 = v33;
-    v42 = qword_1000565F0;
-    v43 = v86;
-    Notification.init(name:object:userInfo:)();
-    v19 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
-    v44 = [objc_opt_self() p_name[186]];
-    v45 = Notification._bridgeToObjectiveC()().super.isa;
-    [v44 postNotification:v45];
-
-    (*(v87 + 8))(v43, v83);
-  }
-
-  v46 = v19;
-  v47 = v106;
-  v48 = ModeEnablementStrategy.rawValue.getter();
-  if (v48 != ModeEnablementStrategy.rawValue.getter())
-  {
-    v49 = v80;
-    static Logger.policyCoordinator.getter();
-    v50 = Logger.logObject.getter();
-    v51 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v50, v51))
-    {
-      v52 = swift_slowAlloc();
-      v53 = p_name;
-      v54 = swift_slowAlloc();
-      v89 = v54;
-      *v52 = 136446210;
-      v88 = v47;
-      v55 = String.init<A>(describing:)();
-      v57 = sub_100034C38(v55, v56, &v89);
-
-      *(v52 + 4) = v57;
-      _os_log_impl(&_mh_execute_header, v50, v51, "Updating dynamic splitter enablement strategy to %{public}s", v52, 0xCu);
-      sub_100003964(v54);
-      p_name = v53;
-
-      (*(v84 + 8))(v80, v85);
-    }
-
-    else
-    {
-
-      (*(v84 + 8))(v49, v85);
-    }
-
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.dynamicSplitterEnablementStrategy.setter();
-
-    if (qword_100053478 != -1)
-    {
-      swift_once();
-    }
-
-    *&v91 = &type metadata for ModeEnablementStrategy;
-    v89 = v47;
-    v58 = qword_1000565F8;
-    v59 = v86;
-    Notification.init(name:object:userInfo:)();
-    v60 = v46[465];
-    v61 = [objc_opt_self() p_name[186]];
-    v62 = Notification._bridgeToObjectiveC()().super.isa;
-    [v61 postNotification:v62];
-
-    (*(v87 + 8))(v59, v83);
-  }
-
-  v63 = *(&v106 + 1);
-  v64 = ModelManagerPolicyStrategy.rawValue.getter();
-  v65 = ModelManagerPolicyStrategy.rawValue.getter();
-  v66 = v81;
-  if (v64 == v65)
-  {
-    sub_10001B150(v104);
-    sub_10001B150(v103);
-  }
-
-  else
-  {
-    static Logger.policyCoordinator.getter();
-    v67 = Logger.logObject.getter();
-    v68 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v67, v68))
-    {
-      v69 = swift_slowAlloc();
-      v70 = swift_slowAlloc();
-      v89 = v70;
-      *v69 = 136446210;
-      v88 = v63;
-      v71 = String.init<A>(describing:)();
-      v73 = sub_100034C38(v71, v72, &v89);
-
-      *(v69 + 4) = v73;
-      _os_log_impl(&_mh_execute_header, v67, v68, "Updating game mode ModelManager policy strategy to %{public}s", v69, 0xCu);
-      sub_100003964(v70);
-      p_name = &stru_100051FF8.name;
-    }
-
-    (*(v84 + 8))(v66, v85);
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.modelManagerGameAssertionPolicyStrategy.setter();
-
-    if (qword_100053468 != -1)
-    {
-      swift_once();
-    }
-
-    *&v91 = &type metadata for ModelManagerPolicyStrategy;
-    v89 = v63;
-    v74 = qword_1000565E8;
-    v75 = v86;
-    Notification.init(name:object:userInfo:)();
-    v76 = [objc_opt_self() p_name[186]];
-    v77 = Notification._bridgeToObjectiveC()().super.isa;
-    [v76 postNotification:v77];
-
-    sub_10001B150(v104);
-    sub_10001B150(v103);
-    (*(v87 + 8))(v75, v83);
-  }
-
-  return v82;
-}
-
-uint64_t sub_10000E54C(uint64_t a1, uint64_t a2)
-{
-  v93 = type metadata accessor for Notification();
-  v97 = *(v93 - 8);
-  v4 = *(v97 + 64);
-  __chkstk_darwin(v93);
-  v96 = &v90 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for Logger();
-  v94 = *(v6 - 8);
-  v95 = v6;
-  v7 = *(v94 + 64);
-  v8 = __chkstk_darwin(v6);
-  v10 = &v90 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __chkstk_darwin(v8);
-  v13 = &v90 - v12;
-  v14 = __chkstk_darwin(v11);
-  v16 = &v90 - v15;
-  __chkstk_darwin(v14);
-  v18 = &v90 - v17;
-  v19 = *(a1 + 16);
-  [v19 lock];
-  swift_beginAccess();
-  v21 = *(a1 + 72);
-  v107[0] = *(a1 + 56);
-  v20 = v107[0];
-  v107[1] = v21;
-  v23 = *(a1 + 104);
-  v108 = *(a1 + 88);
-  v22 = v108;
-  v109 = v23;
-  *(a1 + 88) = a2;
-  v110[0] = v20;
-  v110[1] = v21;
-  v110[2] = *(a1 + 88);
-  v110[3] = v23;
-  v101 = v22;
-  v102 = v23;
-  v99 = v20;
-  v100 = v21;
-  v24 = *(a1 + 56);
-  v25 = *(a1 + 72);
-  v26 = *(a1 + 104);
-  v105 = *(a1 + 88);
-  v106 = v26;
-  v103 = v24;
-  v104 = v25;
-  sub_10001B118(v107, v112);
-  sub_10001B118(v110, v112);
-  [v19 unlock];
-  v111[0] = v99;
-  v111[1] = v100;
-  v111[2] = v101;
-  v111[3] = v102;
-  v112[0] = v103;
-  v112[1] = v104;
-  v113 = v105;
-  v114 = v106;
-  v27 = v105;
-  v28 = ModeEnablementStrategy.rawValue.getter();
-  p_name = (&stru_100051FF8 + 8);
-  v30 = (&stru_100051FF8 + 8);
-  if (v28 != ModeEnablementStrategy.rawValue.getter())
+  v29 = *(&v99 + 1);
+  v30 = ModeEnablementStrategy.rawValue.getter();
+  if (v30 != ModeEnablementStrategy.rawValue.getter())
   {
     static Logger.policyCoordinator.getter();
     v31 = Logger.logObject.getter();
@@ -5723,84 +5391,19 @@ uint64_t sub_10000E54C(uint64_t a1, uint64_t a2)
     if (os_log_type_enabled(v31, v32))
     {
       v33 = swift_slowAlloc();
-      v90 = swift_slowAlloc();
-      *&v99 = v90;
+      v34 = swift_slowAlloc();
+      v83 = v34;
       *v33 = 136446210;
-      v98 = v27;
-      v34 = String.init<A>(describing:)();
-      v91 = v13;
-      v36 = v16;
-      v37 = v10;
-      v38 = sub_100034C38(v34, v35, &v99);
-      v13 = v91;
+      v82 = v29;
+      v35 = String.init<A>(describing:)();
+      v37 = sub_100034C38(v35, v36, &v83);
 
-      *(v33 + 4) = v38;
-      v10 = v37;
-      v16 = v36;
-      _os_log_impl(&_mh_execute_header, v31, v32, "Updating game mode enablement strategy to %{public}s", v33, 0xCu);
-      sub_100003964(v90);
-      p_name = &stru_100051FF8.name;
+      *(v33 + 4) = v37;
+      _os_log_impl(&_mh_execute_header, v31, v32, "Updating sustained execution mode enablement strategy to %{public}s", v33, 0xCu);
+      sub_100003964(v34);
     }
 
-    (*(v94 + 8))(v18, v95);
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.gameModeEnablementStrategy.setter();
-
-    v30 = &stru_100051FF8.name;
-    if (qword_100053460 != -1)
-    {
-      swift_once();
-    }
-
-    *(&v100 + 1) = &type metadata for ModeEnablementStrategy;
-    *&v99 = v27;
-    v39 = qword_1000565E0;
-    v40 = v96;
-    Notification.init(name:object:userInfo:)();
-    v41 = [objc_opt_self() p_name[186]];
-    isa = Notification._bridgeToObjectiveC()().super.isa;
-    [v41 postNotification:isa];
-
-    (*(v97 + 8))(v40, v93);
-  }
-
-  v43 = *(&v113 + 1);
-  v44 = ModeEnablementStrategy.rawValue.getter();
-  v45 = ModeEnablementStrategy.rawValue.getter();
-  v92 = v10;
-  if (v44 != v45)
-  {
-    static Logger.policyCoordinator.getter();
-    v46 = Logger.logObject.getter();
-    v47 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v46, v47))
-    {
-      v48 = swift_slowAlloc();
-      v49 = swift_slowAlloc();
-      *&v99 = v49;
-      *v48 = 136446210;
-      v98 = v43;
-      v50 = String.init<A>(describing:)();
-      v91 = v16;
-      v52 = v13;
-      v53 = sub_100034C38(v50, v51, &v99);
-
-      *(v48 + 4) = v53;
-      v13 = v52;
-      _os_log_impl(&_mh_execute_header, v46, v47, "Updating sustained execution mode enablement strategy to %{public}s", v48, 0xCu);
-      sub_100003964(v49);
-      p_name = (&stru_100051FF8 + 8);
-
-      (*(v94 + 8))(v91, v95);
-    }
-
-    else
-    {
-
-      (*(v94 + 8))(v16, v95);
-    }
-
+    (*(v78 + 8))(v10, v79);
     type metadata accessor for GlobalPreferences();
     dispatch thunk of static GlobalPreferences.shared.getter();
     dispatch thunk of GlobalPreferences.semEnablementStrategy.setter();
@@ -5810,50 +5413,49 @@ uint64_t sub_10000E54C(uint64_t a1, uint64_t a2)
       swift_once();
     }
 
-    *(&v100 + 1) = &type metadata for ModeEnablementStrategy;
-    *&v99 = v43;
-    v54 = qword_1000565F0;
-    v55 = v96;
+    *&v85 = &type metadata for ModeEnablementStrategy;
+    v83 = v29;
+    v38 = qword_1000565F0;
+    v39 = v80;
     Notification.init(name:object:userInfo:)();
-    v56 = [objc_opt_self() p_name[186]];
-    v57 = Notification._bridgeToObjectiveC()().super.isa;
-    [v56 v30[223]];
+    v40 = [objc_opt_self() p_name[186]];
+    v41 = Notification._bridgeToObjectiveC()().super.isa;
+    [v40 postNotification:v41];
 
-    (*(v97 + 8))(v55, v93);
+    (*(v81 + 8))(v39, v77);
   }
 
-  v58 = v114;
-  v59 = ModeEnablementStrategy.rawValue.getter();
-  if (v59 != ModeEnablementStrategy.rawValue.getter())
+  v42 = v100;
+  v43 = ModeEnablementStrategy.rawValue.getter();
+  if (v43 != ModeEnablementStrategy.rawValue.getter())
   {
+    v44 = v74;
     static Logger.policyCoordinator.getter();
-    v60 = Logger.logObject.getter();
-    v61 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v60, v61))
+    v45 = Logger.logObject.getter();
+    v46 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v45, v46))
     {
-      v62 = swift_slowAlloc();
-      v63 = swift_slowAlloc();
-      *&v99 = v63;
-      *v62 = 136446210;
-      v98 = v58;
-      v64 = String.init<A>(describing:)();
-      v66 = sub_100034C38(v64, v65, &v99);
-      v91 = v13;
-      v67 = p_name;
-      v68 = v66;
+      v47 = swift_slowAlloc();
+      v48 = p_name;
+      v49 = swift_slowAlloc();
+      v83 = v49;
+      *v47 = 136446210;
+      v82 = v42;
+      v50 = String.init<A>(describing:)();
+      v52 = sub_100034C38(v50, v51, &v83);
 
-      *(v62 + 4) = v68;
-      p_name = v67;
-      _os_log_impl(&_mh_execute_header, v60, v61, "Updating dynamic splitter enablement strategy to %{public}s", v62, 0xCu);
-      sub_100003964(v63);
+      *(v47 + 4) = v52;
+      _os_log_impl(&_mh_execute_header, v45, v46, "Updating dynamic splitter enablement strategy to %{public}s", v47, 0xCu);
+      sub_100003964(v49);
+      p_name = v48;
 
-      (*(v94 + 8))(v91, v95);
+      (*(v78 + 8))(v74, v79);
     }
 
     else
     {
 
-      (*(v94 + 8))(v13, v95);
+      (*(v78 + 8))(v44, v79);
     }
 
     type metadata accessor for GlobalPreferences();
@@ -5865,57 +5467,336 @@ uint64_t sub_10000E54C(uint64_t a1, uint64_t a2)
       swift_once();
     }
 
-    *(&v100 + 1) = &type metadata for ModeEnablementStrategy;
-    *&v99 = v58;
-    v69 = qword_1000565F8;
-    v70 = v96;
+    *&v85 = &type metadata for ModeEnablementStrategy;
+    v83 = v42;
+    v53 = qword_1000565F8;
+    v54 = v80;
     Notification.init(name:object:userInfo:)();
-    v71 = [objc_opt_self() p_name[186]];
-    v72 = Notification._bridgeToObjectiveC()().super.isa;
-    [v71 v30[223]];
+    v55 = [objc_opt_self() p_name[186]];
+    v56 = Notification._bridgeToObjectiveC()().super.isa;
+    [v55 postNotification:v56];
 
-    (*(v97 + 8))(v70, v93);
+    (*(v81 + 8))(v54, v77);
   }
 
-  v73 = *(&v114 + 1);
-  v74 = ModelManagerPolicyStrategy.rawValue.getter();
-  if (v74 == ModelManagerPolicyStrategy.rawValue.getter())
+  v57 = *(&v100 + 1);
+  v58 = ModelManagerPolicyStrategy.rawValue.getter();
+  v59 = ModelManagerPolicyStrategy.rawValue.getter();
+  v60 = v75;
+  if (v58 == v59)
   {
-    sub_10001B150(v112);
-    return sub_10001B150(v111);
+    sub_10001B150(v98);
+    sub_10001B150(v97);
   }
 
   else
   {
-    v76 = v92;
     static Logger.policyCoordinator.getter();
-    v77 = Logger.logObject.getter();
-    v78 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v77, v78))
+    v61 = Logger.logObject.getter();
+    v62 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v61, v62))
     {
-      v79 = swift_slowAlloc();
-      v80 = swift_slowAlloc();
-      *&v99 = v80;
-      *v79 = 136446210;
-      v98 = v73;
-      v81 = String.init<A>(describing:)();
-      v83 = p_name;
-      v84 = v30;
-      v85 = sub_100034C38(v81, v82, &v99);
+      v63 = swift_slowAlloc();
+      v64 = swift_slowAlloc();
+      v83 = v64;
+      *v63 = 136446210;
+      v82 = v57;
+      v65 = String.init<A>(describing:)();
+      v67 = sub_100034C38(v65, v66, &v83);
 
-      *(v79 + 4) = v85;
-      v30 = v84;
-      p_name = v83;
-      _os_log_impl(&_mh_execute_header, v77, v78, "Updating game mode ModelManager policy strategy to %{public}s", v79, 0xCu);
-      sub_100003964(v80);
+      *(v63 + 4) = v67;
+      _os_log_impl(&_mh_execute_header, v61, v62, "Updating game mode ModelManager policy strategy to %{public}s", v63, 0xCu);
+      sub_100003964(v64);
+      p_name = &stru_100051FF8.name;
+    }
 
-      (*(v94 + 8))(v92, v95);
+    (*(v78 + 8))(v60, v79);
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.modelManagerGameAssertionPolicyStrategy.setter();
+
+    if (qword_100053468 != -1)
+    {
+      swift_once();
+    }
+
+    *&v85 = &type metadata for ModelManagerPolicyStrategy;
+    v83 = v57;
+    v68 = qword_1000565E8;
+    v69 = v80;
+    Notification.init(name:object:userInfo:)();
+    v70 = [objc_opt_self() p_name[186]];
+    v71 = Notification._bridgeToObjectiveC()().super.isa;
+    [v70 postNotification:v71];
+
+    sub_10001B150(v98);
+    sub_10001B150(v97);
+    (*(v81 + 8))(v69, v77);
+  }
+
+  return v76;
+}
+
+uint64_t sub_10000E54C(uint64_t a1, uint64_t a2)
+{
+  v91 = type metadata accessor for Notification();
+  v95 = *(v91 - 8);
+  __chkstk_darwin(v91);
+  v94 = &v88 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for Logger();
+  v92 = *(v5 - 8);
+  v93 = v5;
+  v6 = __chkstk_darwin(v5);
+  v8 = &v88 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __chkstk_darwin(v6);
+  v11 = &v88 - v10;
+  v12 = __chkstk_darwin(v9);
+  v14 = &v88 - v13;
+  __chkstk_darwin(v12);
+  v16 = &v88 - v15;
+  v17 = *(a1 + 16);
+  [v17 lock];
+  swift_beginAccess();
+  v19 = *(a1 + 72);
+  v105[0] = *(a1 + 56);
+  v18 = v105[0];
+  v105[1] = v19;
+  v21 = *(a1 + 104);
+  v106 = *(a1 + 88);
+  v20 = v106;
+  v107 = v21;
+  *(a1 + 88) = a2;
+  v108[0] = v18;
+  v108[1] = v19;
+  v108[2] = *(a1 + 88);
+  v108[3] = v21;
+  v99 = v20;
+  v100 = v21;
+  v97 = v18;
+  v98 = v19;
+  v22 = *(a1 + 56);
+  v23 = *(a1 + 72);
+  v24 = *(a1 + 104);
+  v103 = *(a1 + 88);
+  v104 = v24;
+  v101 = v22;
+  v102 = v23;
+  sub_10001B118(v105, v110);
+  sub_10001B118(v108, v110);
+  [v17 unlock];
+  v109[0] = v97;
+  v109[1] = v98;
+  v109[2] = v99;
+  v109[3] = v100;
+  v110[0] = v101;
+  v110[1] = v102;
+  v111 = v103;
+  v112 = v104;
+  v25 = v103;
+  v26 = ModeEnablementStrategy.rawValue.getter();
+  p_name = (&stru_100051FF8 + 8);
+  v28 = (&stru_100051FF8 + 8);
+  if (v26 != ModeEnablementStrategy.rawValue.getter())
+  {
+    static Logger.policyCoordinator.getter();
+    v29 = Logger.logObject.getter();
+    v30 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v29, v30))
+    {
+      v31 = swift_slowAlloc();
+      v88 = swift_slowAlloc();
+      *&v97 = v88;
+      *v31 = 136446210;
+      v96 = v25;
+      v32 = String.init<A>(describing:)();
+      v89 = v11;
+      v34 = v14;
+      v35 = v8;
+      v36 = sub_100034C38(v32, v33, &v97);
+      v11 = v89;
+
+      *(v31 + 4) = v36;
+      v8 = v35;
+      v14 = v34;
+      _os_log_impl(&_mh_execute_header, v29, v30, "Updating game mode enablement strategy to %{public}s", v31, 0xCu);
+      sub_100003964(v88);
+      p_name = &stru_100051FF8.name;
+    }
+
+    (*(v92 + 8))(v16, v93);
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.gameModeEnablementStrategy.setter();
+
+    v28 = &stru_100051FF8.name;
+    if (qword_100053460 != -1)
+    {
+      swift_once();
+    }
+
+    *(&v98 + 1) = &type metadata for ModeEnablementStrategy;
+    *&v97 = v25;
+    v37 = qword_1000565E0;
+    v38 = v94;
+    Notification.init(name:object:userInfo:)();
+    v39 = [objc_opt_self() p_name[186]];
+    isa = Notification._bridgeToObjectiveC()().super.isa;
+    [v39 postNotification:isa];
+
+    (*(v95 + 8))(v38, v91);
+  }
+
+  v41 = *(&v111 + 1);
+  v42 = ModeEnablementStrategy.rawValue.getter();
+  v43 = ModeEnablementStrategy.rawValue.getter();
+  v90 = v8;
+  if (v42 != v43)
+  {
+    static Logger.policyCoordinator.getter();
+    v44 = Logger.logObject.getter();
+    v45 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v44, v45))
+    {
+      v46 = swift_slowAlloc();
+      v47 = swift_slowAlloc();
+      *&v97 = v47;
+      *v46 = 136446210;
+      v96 = v41;
+      v48 = String.init<A>(describing:)();
+      v89 = v14;
+      v50 = v11;
+      v51 = sub_100034C38(v48, v49, &v97);
+
+      *(v46 + 4) = v51;
+      v11 = v50;
+      _os_log_impl(&_mh_execute_header, v44, v45, "Updating sustained execution mode enablement strategy to %{public}s", v46, 0xCu);
+      sub_100003964(v47);
+      p_name = (&stru_100051FF8 + 8);
+
+      (*(v92 + 8))(v89, v93);
     }
 
     else
     {
 
-      (*(v94 + 8))(v76, v95);
+      (*(v92 + 8))(v14, v93);
+    }
+
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.semEnablementStrategy.setter();
+
+    if (qword_100053470 != -1)
+    {
+      swift_once();
+    }
+
+    *(&v98 + 1) = &type metadata for ModeEnablementStrategy;
+    *&v97 = v41;
+    v52 = qword_1000565F0;
+    v53 = v94;
+    Notification.init(name:object:userInfo:)();
+    v54 = [objc_opt_self() p_name[186]];
+    v55 = Notification._bridgeToObjectiveC()().super.isa;
+    [v54 v28[223]];
+
+    (*(v95 + 8))(v53, v91);
+  }
+
+  v56 = v112;
+  v57 = ModeEnablementStrategy.rawValue.getter();
+  if (v57 != ModeEnablementStrategy.rawValue.getter())
+  {
+    static Logger.policyCoordinator.getter();
+    v58 = Logger.logObject.getter();
+    v59 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v58, v59))
+    {
+      v60 = swift_slowAlloc();
+      v61 = swift_slowAlloc();
+      *&v97 = v61;
+      *v60 = 136446210;
+      v96 = v56;
+      v62 = String.init<A>(describing:)();
+      v64 = sub_100034C38(v62, v63, &v97);
+      v89 = v11;
+      v65 = p_name;
+      v66 = v64;
+
+      *(v60 + 4) = v66;
+      p_name = v65;
+      _os_log_impl(&_mh_execute_header, v58, v59, "Updating dynamic splitter enablement strategy to %{public}s", v60, 0xCu);
+      sub_100003964(v61);
+
+      (*(v92 + 8))(v89, v93);
+    }
+
+    else
+    {
+
+      (*(v92 + 8))(v11, v93);
+    }
+
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.dynamicSplitterEnablementStrategy.setter();
+
+    if (qword_100053478 != -1)
+    {
+      swift_once();
+    }
+
+    *(&v98 + 1) = &type metadata for ModeEnablementStrategy;
+    *&v97 = v56;
+    v67 = qword_1000565F8;
+    v68 = v94;
+    Notification.init(name:object:userInfo:)();
+    v69 = [objc_opt_self() p_name[186]];
+    v70 = Notification._bridgeToObjectiveC()().super.isa;
+    [v69 v28[223]];
+
+    (*(v95 + 8))(v68, v91);
+  }
+
+  v71 = *(&v112 + 1);
+  v72 = ModelManagerPolicyStrategy.rawValue.getter();
+  if (v72 == ModelManagerPolicyStrategy.rawValue.getter())
+  {
+    sub_10001B150(v110);
+    return sub_10001B150(v109);
+  }
+
+  else
+  {
+    v74 = v90;
+    static Logger.policyCoordinator.getter();
+    v75 = Logger.logObject.getter();
+    v76 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v75, v76))
+    {
+      v77 = swift_slowAlloc();
+      v78 = swift_slowAlloc();
+      *&v97 = v78;
+      *v77 = 136446210;
+      v96 = v71;
+      v79 = String.init<A>(describing:)();
+      v81 = p_name;
+      v82 = v28;
+      v83 = sub_100034C38(v79, v80, &v97);
+
+      *(v77 + 4) = v83;
+      v28 = v82;
+      p_name = v81;
+      _os_log_impl(&_mh_execute_header, v75, v76, "Updating game mode ModelManager policy strategy to %{public}s", v77, 0xCu);
+      sub_100003964(v78);
+
+      (*(v92 + 8))(v90, v93);
+    }
+
+    else
+    {
+
+      (*(v92 + 8))(v74, v93);
     }
 
     type metadata accessor for GlobalPreferences();
@@ -5927,167 +5808,165 @@ uint64_t sub_10000E54C(uint64_t a1, uint64_t a2)
       swift_once();
     }
 
-    *(&v100 + 1) = &type metadata for ModelManagerPolicyStrategy;
-    *&v99 = v73;
-    v86 = qword_1000565E8;
-    v87 = v96;
+    *(&v98 + 1) = &type metadata for ModelManagerPolicyStrategy;
+    *&v97 = v71;
+    v84 = qword_1000565E8;
+    v85 = v94;
     Notification.init(name:object:userInfo:)();
-    v88 = [objc_opt_self() p_name[186]];
-    v89 = Notification._bridgeToObjectiveC()().super.isa;
-    [v88 v30[223]];
+    v86 = [objc_opt_self() p_name[186]];
+    v87 = Notification._bridgeToObjectiveC()().super.isa;
+    [v86 v28[223]];
 
-    sub_10001B150(v112);
-    sub_10001B150(v111);
-    return (*(v97 + 8))(v87, v93);
+    sub_10001B150(v110);
+    sub_10001B150(v109);
+    return (*(v95 + 8))(v85, v91);
   }
 }
 
 uint64_t sub_10000F05C(uint64_t a1, uint64_t a2)
 {
-  v94 = type metadata accessor for Notification();
-  v98 = *(v94 - 8);
-  v4 = *(v98 + 64);
-  __chkstk_darwin(v94);
-  v97 = &v91 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for Logger();
-  v95 = *(v6 - 8);
-  v96 = v6;
-  v7 = *(v95 + 64);
-  v8 = __chkstk_darwin(v6);
-  v10 = &v91 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __chkstk_darwin(v8);
-  v13 = &v91 - v12;
-  v14 = __chkstk_darwin(v11);
-  v16 = &v91 - v15;
-  __chkstk_darwin(v14);
-  v18 = &v91 - v17;
-  v19 = *(a1 + 16);
-  [v19 lock];
+  v92 = type metadata accessor for Notification();
+  v96 = *(v92 - 8);
+  __chkstk_darwin(v92);
+  v95 = &v89 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for Logger();
+  v93 = *(v5 - 8);
+  v94 = v5;
+  v6 = __chkstk_darwin(v5);
+  v8 = &v89 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __chkstk_darwin(v6);
+  v11 = &v89 - v10;
+  v12 = __chkstk_darwin(v9);
+  v14 = &v89 - v13;
+  __chkstk_darwin(v12);
+  v16 = &v89 - v15;
+  v17 = *(a1 + 16);
+  [v17 lock];
   swift_beginAccess();
-  v21 = *(a1 + 72);
-  v108[0] = *(a1 + 56);
-  v20 = v108[0];
-  v108[1] = v21;
-  v23 = *(a1 + 104);
-  v109 = *(a1 + 88);
-  v22 = v109;
-  v110 = v23;
+  v19 = *(a1 + 72);
+  v106[0] = *(a1 + 56);
+  v18 = v106[0];
+  v106[1] = v19;
+  v21 = *(a1 + 104);
+  v107 = *(a1 + 88);
+  v20 = v107;
+  v108 = v21;
   *(a1 + 104) = a2;
-  v111[0] = v20;
-  v111[1] = v21;
-  v24 = *(a1 + 104);
-  v111[2] = v22;
-  v111[3] = v24;
-  v102 = v22;
-  v103 = v23;
+  v109[0] = v18;
+  v109[1] = v19;
+  v22 = *(a1 + 104);
+  v109[2] = v20;
+  v109[3] = v22;
   v100 = v20;
   v101 = v21;
-  v25 = *(a1 + 56);
-  v26 = *(a1 + 72);
-  v27 = *(a1 + 104);
-  v106 = *(a1 + 88);
-  v107 = v27;
-  v104 = v25;
-  v105 = v26;
-  sub_10001B118(v108, v113);
-  sub_10001B118(v111, v113);
-  [v19 unlock];
-  v112[0] = v100;
-  v112[1] = v101;
-  v112[2] = v102;
-  v112[3] = v103;
-  v113[0] = v104;
-  v113[1] = v105;
-  v114 = v106;
-  v115 = v107;
-  v28 = v106;
-  v29 = ModeEnablementStrategy.rawValue.getter();
+  v98 = v18;
+  v99 = v19;
+  v23 = *(a1 + 56);
+  v24 = *(a1 + 72);
+  v25 = *(a1 + 104);
+  v104 = *(a1 + 88);
+  v105 = v25;
+  v102 = v23;
+  v103 = v24;
+  sub_10001B118(v106, v111);
+  sub_10001B118(v109, v111);
+  [v17 unlock];
+  v110[0] = v98;
+  v110[1] = v99;
+  v110[2] = v100;
+  v110[3] = v101;
+  v111[0] = v102;
+  v111[1] = v103;
+  v112 = v104;
+  v113 = v105;
+  v26 = v104;
+  v27 = ModeEnablementStrategy.rawValue.getter();
   p_name = (&stru_100051FF8 + 8);
-  v31 = (&stru_100051FF8 + 8);
-  if (v29 != ModeEnablementStrategy.rawValue.getter())
+  v29 = (&stru_100051FF8 + 8);
+  if (v27 != ModeEnablementStrategy.rawValue.getter())
   {
     static Logger.policyCoordinator.getter();
-    v32 = Logger.logObject.getter();
-    v33 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v32, v33))
+    v30 = Logger.logObject.getter();
+    v31 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v30, v31))
     {
-      v34 = swift_slowAlloc();
-      v91 = swift_slowAlloc();
-      *&v100 = v91;
-      *v34 = 136446210;
-      v99 = v28;
-      v35 = String.init<A>(describing:)();
-      v92 = v13;
-      v37 = v16;
-      v38 = v10;
-      v39 = sub_100034C38(v35, v36, &v100);
-      v13 = v92;
+      v32 = swift_slowAlloc();
+      v89 = swift_slowAlloc();
+      *&v98 = v89;
+      *v32 = 136446210;
+      v97 = v26;
+      v33 = String.init<A>(describing:)();
+      v90 = v11;
+      v35 = v14;
+      v36 = v8;
+      v37 = sub_100034C38(v33, v34, &v98);
+      v11 = v90;
 
-      *(v34 + 4) = v39;
-      v10 = v38;
-      v16 = v37;
-      _os_log_impl(&_mh_execute_header, v32, v33, "Updating game mode enablement strategy to %{public}s", v34, 0xCu);
-      sub_100003964(v91);
+      *(v32 + 4) = v37;
+      v8 = v36;
+      v14 = v35;
+      _os_log_impl(&_mh_execute_header, v30, v31, "Updating game mode enablement strategy to %{public}s", v32, 0xCu);
+      sub_100003964(v89);
       p_name = &stru_100051FF8.name;
     }
 
-    (*(v95 + 8))(v18, v96);
+    (*(v93 + 8))(v16, v94);
     type metadata accessor for GlobalPreferences();
     dispatch thunk of static GlobalPreferences.shared.getter();
     dispatch thunk of GlobalPreferences.gameModeEnablementStrategy.setter();
 
-    v31 = &stru_100051FF8.name;
+    v29 = &stru_100051FF8.name;
     if (qword_100053460 != -1)
     {
       swift_once();
     }
 
-    *(&v101 + 1) = &type metadata for ModeEnablementStrategy;
-    *&v100 = v28;
-    v40 = qword_1000565E0;
-    v41 = v97;
+    *(&v99 + 1) = &type metadata for ModeEnablementStrategy;
+    *&v98 = v26;
+    v38 = qword_1000565E0;
+    v39 = v95;
     Notification.init(name:object:userInfo:)();
-    v42 = [objc_opt_self() p_name[186]];
+    v40 = [objc_opt_self() p_name[186]];
     isa = Notification._bridgeToObjectiveC()().super.isa;
-    [v42 postNotification:isa];
+    [v40 postNotification:isa];
 
-    (*(v98 + 8))(v41, v94);
+    (*(v96 + 8))(v39, v92);
   }
 
-  v44 = *(&v114 + 1);
-  v45 = ModeEnablementStrategy.rawValue.getter();
-  v46 = ModeEnablementStrategy.rawValue.getter();
-  v93 = v10;
-  if (v45 != v46)
+  v42 = *(&v112 + 1);
+  v43 = ModeEnablementStrategy.rawValue.getter();
+  v44 = ModeEnablementStrategy.rawValue.getter();
+  v91 = v8;
+  if (v43 != v44)
   {
     static Logger.policyCoordinator.getter();
-    v47 = Logger.logObject.getter();
-    v48 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v47, v48))
+    v45 = Logger.logObject.getter();
+    v46 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v45, v46))
     {
-      v49 = swift_slowAlloc();
-      v50 = swift_slowAlloc();
-      *&v100 = v50;
-      *v49 = 136446210;
-      v99 = v44;
-      v51 = String.init<A>(describing:)();
-      v92 = v16;
-      v53 = v13;
-      v54 = sub_100034C38(v51, v52, &v100);
+      v47 = swift_slowAlloc();
+      v48 = swift_slowAlloc();
+      *&v98 = v48;
+      *v47 = 136446210;
+      v97 = v42;
+      v49 = String.init<A>(describing:)();
+      v90 = v14;
+      v51 = v11;
+      v52 = sub_100034C38(v49, v50, &v98);
 
-      *(v49 + 4) = v54;
-      v13 = v53;
-      _os_log_impl(&_mh_execute_header, v47, v48, "Updating sustained execution mode enablement strategy to %{public}s", v49, 0xCu);
-      sub_100003964(v50);
+      *(v47 + 4) = v52;
+      v11 = v51;
+      _os_log_impl(&_mh_execute_header, v45, v46, "Updating sustained execution mode enablement strategy to %{public}s", v47, 0xCu);
+      sub_100003964(v48);
       p_name = (&stru_100051FF8 + 8);
 
-      (*(v95 + 8))(v92, v96);
+      (*(v93 + 8))(v90, v94);
     }
 
     else
     {
 
-      (*(v95 + 8))(v16, v96);
+      (*(v93 + 8))(v14, v94);
     }
 
     type metadata accessor for GlobalPreferences();
@@ -6099,50 +5978,50 @@ uint64_t sub_10000F05C(uint64_t a1, uint64_t a2)
       swift_once();
     }
 
-    *(&v101 + 1) = &type metadata for ModeEnablementStrategy;
-    *&v100 = v44;
-    v55 = qword_1000565F0;
-    v56 = v97;
+    *(&v99 + 1) = &type metadata for ModeEnablementStrategy;
+    *&v98 = v42;
+    v53 = qword_1000565F0;
+    v54 = v95;
     Notification.init(name:object:userInfo:)();
-    v57 = [objc_opt_self() p_name[186]];
-    v58 = Notification._bridgeToObjectiveC()().super.isa;
-    [v57 v31[223]];
+    v55 = [objc_opt_self() p_name[186]];
+    v56 = Notification._bridgeToObjectiveC()().super.isa;
+    [v55 v29[223]];
 
-    (*(v98 + 8))(v56, v94);
+    (*(v96 + 8))(v54, v92);
   }
 
-  v59 = v115;
-  v60 = ModeEnablementStrategy.rawValue.getter();
-  if (v60 != ModeEnablementStrategy.rawValue.getter())
+  v57 = v113;
+  v58 = ModeEnablementStrategy.rawValue.getter();
+  if (v58 != ModeEnablementStrategy.rawValue.getter())
   {
     static Logger.policyCoordinator.getter();
-    v61 = Logger.logObject.getter();
-    v62 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v61, v62))
+    v59 = Logger.logObject.getter();
+    v60 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v59, v60))
     {
-      v63 = swift_slowAlloc();
-      v64 = swift_slowAlloc();
-      *&v100 = v64;
-      *v63 = 136446210;
-      v99 = v59;
-      v65 = String.init<A>(describing:)();
-      v67 = sub_100034C38(v65, v66, &v100);
-      v92 = v13;
-      v68 = p_name;
-      v69 = v67;
+      v61 = swift_slowAlloc();
+      v62 = swift_slowAlloc();
+      *&v98 = v62;
+      *v61 = 136446210;
+      v97 = v57;
+      v63 = String.init<A>(describing:)();
+      v65 = sub_100034C38(v63, v64, &v98);
+      v90 = v11;
+      v66 = p_name;
+      v67 = v65;
 
-      *(v63 + 4) = v69;
-      p_name = v68;
-      _os_log_impl(&_mh_execute_header, v61, v62, "Updating dynamic splitter enablement strategy to %{public}s", v63, 0xCu);
-      sub_100003964(v64);
+      *(v61 + 4) = v67;
+      p_name = v66;
+      _os_log_impl(&_mh_execute_header, v59, v60, "Updating dynamic splitter enablement strategy to %{public}s", v61, 0xCu);
+      sub_100003964(v62);
 
-      (*(v95 + 8))(v92, v96);
+      (*(v93 + 8))(v90, v94);
     }
 
     else
     {
 
-      (*(v95 + 8))(v13, v96);
+      (*(v93 + 8))(v11, v94);
     }
 
     type metadata accessor for GlobalPreferences();
@@ -6154,57 +6033,57 @@ uint64_t sub_10000F05C(uint64_t a1, uint64_t a2)
       swift_once();
     }
 
-    *(&v101 + 1) = &type metadata for ModeEnablementStrategy;
-    *&v100 = v59;
-    v70 = qword_1000565F8;
-    v71 = v97;
+    *(&v99 + 1) = &type metadata for ModeEnablementStrategy;
+    *&v98 = v57;
+    v68 = qword_1000565F8;
+    v69 = v95;
     Notification.init(name:object:userInfo:)();
-    v72 = [objc_opt_self() p_name[186]];
-    v73 = Notification._bridgeToObjectiveC()().super.isa;
-    [v72 v31[223]];
+    v70 = [objc_opt_self() p_name[186]];
+    v71 = Notification._bridgeToObjectiveC()().super.isa;
+    [v70 v29[223]];
 
-    (*(v98 + 8))(v71, v94);
+    (*(v96 + 8))(v69, v92);
   }
 
-  v74 = *(&v115 + 1);
-  v75 = ModelManagerPolicyStrategy.rawValue.getter();
-  if (v75 == ModelManagerPolicyStrategy.rawValue.getter())
+  v72 = *(&v113 + 1);
+  v73 = ModelManagerPolicyStrategy.rawValue.getter();
+  if (v73 == ModelManagerPolicyStrategy.rawValue.getter())
   {
-    sub_10001B150(v113);
-    return sub_10001B150(v112);
+    sub_10001B150(v111);
+    return sub_10001B150(v110);
   }
 
   else
   {
-    v77 = v93;
+    v75 = v91;
     static Logger.policyCoordinator.getter();
-    v78 = Logger.logObject.getter();
-    v79 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v78, v79))
+    v76 = Logger.logObject.getter();
+    v77 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v76, v77))
     {
-      v80 = swift_slowAlloc();
-      v81 = swift_slowAlloc();
-      *&v100 = v81;
-      *v80 = 136446210;
-      v99 = v74;
-      v82 = String.init<A>(describing:)();
-      v84 = p_name;
-      v85 = v31;
-      v86 = sub_100034C38(v82, v83, &v100);
+      v78 = swift_slowAlloc();
+      v79 = swift_slowAlloc();
+      *&v98 = v79;
+      *v78 = 136446210;
+      v97 = v72;
+      v80 = String.init<A>(describing:)();
+      v82 = p_name;
+      v83 = v29;
+      v84 = sub_100034C38(v80, v81, &v98);
 
-      *(v80 + 4) = v86;
-      v31 = v85;
-      p_name = v84;
-      _os_log_impl(&_mh_execute_header, v78, v79, "Updating game mode ModelManager policy strategy to %{public}s", v80, 0xCu);
-      sub_100003964(v81);
+      *(v78 + 4) = v84;
+      v29 = v83;
+      p_name = v82;
+      _os_log_impl(&_mh_execute_header, v76, v77, "Updating game mode ModelManager policy strategy to %{public}s", v78, 0xCu);
+      sub_100003964(v79);
 
-      (*(v95 + 8))(v93, v96);
+      (*(v93 + 8))(v91, v94);
     }
 
     else
     {
 
-      (*(v95 + 8))(v77, v96);
+      (*(v93 + 8))(v75, v94);
     }
 
     type metadata accessor for GlobalPreferences();
@@ -6216,166 +6095,164 @@ uint64_t sub_10000F05C(uint64_t a1, uint64_t a2)
       swift_once();
     }
 
-    *(&v101 + 1) = &type metadata for ModelManagerPolicyStrategy;
-    *&v100 = v74;
-    v87 = qword_1000565E8;
-    v88 = v97;
+    *(&v99 + 1) = &type metadata for ModelManagerPolicyStrategy;
+    *&v98 = v72;
+    v85 = qword_1000565E8;
+    v86 = v95;
     Notification.init(name:object:userInfo:)();
-    v89 = [objc_opt_self() p_name[186]];
-    v90 = Notification._bridgeToObjectiveC()().super.isa;
-    [v89 v31[223]];
+    v87 = [objc_opt_self() p_name[186]];
+    v88 = Notification._bridgeToObjectiveC()().super.isa;
+    [v87 v29[223]];
 
-    sub_10001B150(v113);
-    sub_10001B150(v112);
-    return (*(v98 + 8))(v88, v94);
+    sub_10001B150(v111);
+    sub_10001B150(v110);
+    return (*(v96 + 8))(v86, v92);
   }
 }
 
 uint64_t sub_10000FB6C(uint64_t a1, uint64_t a2)
 {
-  v93 = type metadata accessor for Notification();
-  v97 = *(v93 - 8);
-  v4 = *(v97 + 64);
-  __chkstk_darwin(v93);
-  v96 = &v90 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for Logger();
-  v94 = *(v6 - 8);
-  v95 = v6;
-  v7 = *(v94 + 64);
-  v8 = __chkstk_darwin(v6);
-  v10 = &v90 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __chkstk_darwin(v8);
-  v13 = &v90 - v12;
-  v14 = __chkstk_darwin(v11);
-  v16 = &v90 - v15;
-  __chkstk_darwin(v14);
-  v18 = &v90 - v17;
-  v19 = *(a1 + 16);
-  [v19 lock];
+  v91 = type metadata accessor for Notification();
+  v95 = *(v91 - 8);
+  __chkstk_darwin(v91);
+  v94 = &v88 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for Logger();
+  v92 = *(v5 - 8);
+  v93 = v5;
+  v6 = __chkstk_darwin(v5);
+  v8 = &v88 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __chkstk_darwin(v6);
+  v11 = &v88 - v10;
+  v12 = __chkstk_darwin(v9);
+  v14 = &v88 - v13;
+  __chkstk_darwin(v12);
+  v16 = &v88 - v15;
+  v17 = *(a1 + 16);
+  [v17 lock];
   swift_beginAccess();
-  v21 = *(a1 + 72);
-  v107[0] = *(a1 + 56);
-  v20 = v107[0];
-  v107[1] = v21;
-  v23 = *(a1 + 104);
-  v108 = *(a1 + 88);
-  v22 = v108;
-  v109 = v23;
+  v19 = *(a1 + 72);
+  v105[0] = *(a1 + 56);
+  v18 = v105[0];
+  v105[1] = v19;
+  v21 = *(a1 + 104);
+  v106 = *(a1 + 88);
+  v20 = v106;
+  v107 = v21;
   *(a1 + 96) = a2;
-  v110[0] = v20;
-  v110[1] = v21;
-  v110[2] = *(a1 + 88);
-  v110[3] = v23;
-  v101 = v22;
-  v102 = v23;
+  v108[0] = v18;
+  v108[1] = v19;
+  v108[2] = *(a1 + 88);
+  v108[3] = v21;
   v99 = v20;
   v100 = v21;
-  v24 = *(a1 + 56);
-  v25 = *(a1 + 72);
-  v26 = *(a1 + 104);
-  v105 = *(a1 + 88);
-  v106 = v26;
-  v103 = v24;
-  v104 = v25;
-  sub_10001B118(v107, v112);
-  sub_10001B118(v110, v112);
-  [v19 unlock];
-  v111[0] = v99;
-  v111[1] = v100;
-  v111[2] = v101;
-  v111[3] = v102;
-  v112[0] = v103;
-  v112[1] = v104;
-  v113 = v105;
-  v114 = v106;
-  v27 = v105;
-  v28 = ModeEnablementStrategy.rawValue.getter();
+  v97 = v18;
+  v98 = v19;
+  v22 = *(a1 + 56);
+  v23 = *(a1 + 72);
+  v24 = *(a1 + 104);
+  v103 = *(a1 + 88);
+  v104 = v24;
+  v101 = v22;
+  v102 = v23;
+  sub_10001B118(v105, v110);
+  sub_10001B118(v108, v110);
+  [v17 unlock];
+  v109[0] = v97;
+  v109[1] = v98;
+  v109[2] = v99;
+  v109[3] = v100;
+  v110[0] = v101;
+  v110[1] = v102;
+  v111 = v103;
+  v112 = v104;
+  v25 = v103;
+  v26 = ModeEnablementStrategy.rawValue.getter();
   p_name = (&stru_100051FF8 + 8);
-  v30 = (&stru_100051FF8 + 8);
-  if (v28 != ModeEnablementStrategy.rawValue.getter())
+  v28 = (&stru_100051FF8 + 8);
+  if (v26 != ModeEnablementStrategy.rawValue.getter())
   {
     static Logger.policyCoordinator.getter();
-    v31 = Logger.logObject.getter();
-    v32 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v31, v32))
+    v29 = Logger.logObject.getter();
+    v30 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v29, v30))
     {
-      v33 = swift_slowAlloc();
-      v90 = swift_slowAlloc();
-      *&v99 = v90;
-      *v33 = 136446210;
-      v98 = v27;
-      v34 = String.init<A>(describing:)();
-      v91 = v13;
-      v36 = v16;
-      v37 = v10;
-      v38 = sub_100034C38(v34, v35, &v99);
-      v13 = v91;
+      v31 = swift_slowAlloc();
+      v88 = swift_slowAlloc();
+      *&v97 = v88;
+      *v31 = 136446210;
+      v96 = v25;
+      v32 = String.init<A>(describing:)();
+      v89 = v11;
+      v34 = v14;
+      v35 = v8;
+      v36 = sub_100034C38(v32, v33, &v97);
+      v11 = v89;
 
-      *(v33 + 4) = v38;
-      v10 = v37;
-      v16 = v36;
-      _os_log_impl(&_mh_execute_header, v31, v32, "Updating game mode enablement strategy to %{public}s", v33, 0xCu);
-      sub_100003964(v90);
+      *(v31 + 4) = v36;
+      v8 = v35;
+      v14 = v34;
+      _os_log_impl(&_mh_execute_header, v29, v30, "Updating game mode enablement strategy to %{public}s", v31, 0xCu);
+      sub_100003964(v88);
       p_name = &stru_100051FF8.name;
     }
 
-    (*(v94 + 8))(v18, v95);
+    (*(v92 + 8))(v16, v93);
     type metadata accessor for GlobalPreferences();
     dispatch thunk of static GlobalPreferences.shared.getter();
     dispatch thunk of GlobalPreferences.gameModeEnablementStrategy.setter();
 
-    v30 = &stru_100051FF8.name;
+    v28 = &stru_100051FF8.name;
     if (qword_100053460 != -1)
     {
       swift_once();
     }
 
-    *(&v100 + 1) = &type metadata for ModeEnablementStrategy;
-    *&v99 = v27;
-    v39 = qword_1000565E0;
-    v40 = v96;
+    *(&v98 + 1) = &type metadata for ModeEnablementStrategy;
+    *&v97 = v25;
+    v37 = qword_1000565E0;
+    v38 = v94;
     Notification.init(name:object:userInfo:)();
-    v41 = [objc_opt_self() p_name[186]];
+    v39 = [objc_opt_self() p_name[186]];
     isa = Notification._bridgeToObjectiveC()().super.isa;
-    [v41 postNotification:isa];
+    [v39 postNotification:isa];
 
-    (*(v97 + 8))(v40, v93);
+    (*(v95 + 8))(v38, v91);
   }
 
-  v43 = *(&v113 + 1);
-  v44 = ModeEnablementStrategy.rawValue.getter();
-  v45 = ModeEnablementStrategy.rawValue.getter();
-  v92 = v10;
-  if (v44 != v45)
+  v41 = *(&v111 + 1);
+  v42 = ModeEnablementStrategy.rawValue.getter();
+  v43 = ModeEnablementStrategy.rawValue.getter();
+  v90 = v8;
+  if (v42 != v43)
   {
     static Logger.policyCoordinator.getter();
-    v46 = Logger.logObject.getter();
-    v47 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v46, v47))
+    v44 = Logger.logObject.getter();
+    v45 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v44, v45))
     {
-      v48 = swift_slowAlloc();
-      v49 = swift_slowAlloc();
-      *&v99 = v49;
-      *v48 = 136446210;
-      v98 = v43;
-      v50 = String.init<A>(describing:)();
-      v91 = v16;
-      v52 = v13;
-      v53 = sub_100034C38(v50, v51, &v99);
+      v46 = swift_slowAlloc();
+      v47 = swift_slowAlloc();
+      *&v97 = v47;
+      *v46 = 136446210;
+      v96 = v41;
+      v48 = String.init<A>(describing:)();
+      v89 = v14;
+      v50 = v11;
+      v51 = sub_100034C38(v48, v49, &v97);
 
-      *(v48 + 4) = v53;
-      v13 = v52;
-      _os_log_impl(&_mh_execute_header, v46, v47, "Updating sustained execution mode enablement strategy to %{public}s", v48, 0xCu);
-      sub_100003964(v49);
+      *(v46 + 4) = v51;
+      v11 = v50;
+      _os_log_impl(&_mh_execute_header, v44, v45, "Updating sustained execution mode enablement strategy to %{public}s", v46, 0xCu);
+      sub_100003964(v47);
       p_name = (&stru_100051FF8 + 8);
 
-      (*(v94 + 8))(v91, v95);
+      (*(v92 + 8))(v89, v93);
     }
 
     else
     {
 
-      (*(v94 + 8))(v16, v95);
+      (*(v92 + 8))(v14, v93);
     }
 
     type metadata accessor for GlobalPreferences();
@@ -6387,21 +6264,1381 @@ uint64_t sub_10000FB6C(uint64_t a1, uint64_t a2)
       swift_once();
     }
 
-    *(&v100 + 1) = &type metadata for ModeEnablementStrategy;
-    *&v99 = v43;
-    v54 = qword_1000565F0;
-    v55 = v96;
+    *(&v98 + 1) = &type metadata for ModeEnablementStrategy;
+    *&v97 = v41;
+    v52 = qword_1000565F0;
+    v53 = v94;
     Notification.init(name:object:userInfo:)();
-    v56 = [objc_opt_self() p_name[186]];
-    v57 = Notification._bridgeToObjectiveC()().super.isa;
-    [v56 v30[223]];
+    v54 = [objc_opt_self() p_name[186]];
+    v55 = Notification._bridgeToObjectiveC()().super.isa;
+    [v54 v28[223]];
 
-    (*(v97 + 8))(v55, v93);
+    (*(v95 + 8))(v53, v91);
   }
 
-  v58 = v114;
-  v59 = ModeEnablementStrategy.rawValue.getter();
-  if (v59 != ModeEnablementStrategy.rawValue.getter())
+  v56 = v112;
+  v57 = ModeEnablementStrategy.rawValue.getter();
+  if (v57 != ModeEnablementStrategy.rawValue.getter())
+  {
+    static Logger.policyCoordinator.getter();
+    v58 = Logger.logObject.getter();
+    v59 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v58, v59))
+    {
+      v60 = swift_slowAlloc();
+      v61 = swift_slowAlloc();
+      *&v97 = v61;
+      *v60 = 136446210;
+      v96 = v56;
+      v62 = String.init<A>(describing:)();
+      v64 = sub_100034C38(v62, v63, &v97);
+      v89 = v11;
+      v65 = p_name;
+      v66 = v64;
+
+      *(v60 + 4) = v66;
+      p_name = v65;
+      _os_log_impl(&_mh_execute_header, v58, v59, "Updating dynamic splitter enablement strategy to %{public}s", v60, 0xCu);
+      sub_100003964(v61);
+
+      (*(v92 + 8))(v89, v93);
+    }
+
+    else
+    {
+
+      (*(v92 + 8))(v11, v93);
+    }
+
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.dynamicSplitterEnablementStrategy.setter();
+
+    if (qword_100053478 != -1)
+    {
+      swift_once();
+    }
+
+    *(&v98 + 1) = &type metadata for ModeEnablementStrategy;
+    *&v97 = v56;
+    v67 = qword_1000565F8;
+    v68 = v94;
+    Notification.init(name:object:userInfo:)();
+    v69 = [objc_opt_self() p_name[186]];
+    v70 = Notification._bridgeToObjectiveC()().super.isa;
+    [v69 v28[223]];
+
+    (*(v95 + 8))(v68, v91);
+  }
+
+  v71 = *(&v112 + 1);
+  v72 = ModelManagerPolicyStrategy.rawValue.getter();
+  if (v72 == ModelManagerPolicyStrategy.rawValue.getter())
+  {
+    sub_10001B150(v110);
+    return sub_10001B150(v109);
+  }
+
+  else
+  {
+    v74 = v90;
+    static Logger.policyCoordinator.getter();
+    v75 = Logger.logObject.getter();
+    v76 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v75, v76))
+    {
+      v77 = swift_slowAlloc();
+      v78 = swift_slowAlloc();
+      *&v97 = v78;
+      *v77 = 136446210;
+      v96 = v71;
+      v79 = String.init<A>(describing:)();
+      v81 = p_name;
+      v82 = v28;
+      v83 = sub_100034C38(v79, v80, &v97);
+
+      *(v77 + 4) = v83;
+      v28 = v82;
+      p_name = v81;
+      _os_log_impl(&_mh_execute_header, v75, v76, "Updating game mode ModelManager policy strategy to %{public}s", v77, 0xCu);
+      sub_100003964(v78);
+
+      (*(v92 + 8))(v90, v93);
+    }
+
+    else
+    {
+
+      (*(v92 + 8))(v74, v93);
+    }
+
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.modelManagerGameAssertionPolicyStrategy.setter();
+
+    if (qword_100053468 != -1)
+    {
+      swift_once();
+    }
+
+    *(&v98 + 1) = &type metadata for ModelManagerPolicyStrategy;
+    *&v97 = v71;
+    v84 = qword_1000565E8;
+    v85 = v94;
+    Notification.init(name:object:userInfo:)();
+    v86 = [objc_opt_self() p_name[186]];
+    v87 = Notification._bridgeToObjectiveC()().super.isa;
+    [v86 v28[223]];
+
+    sub_10001B150(v110);
+    sub_10001B150(v109);
+    return (*(v95 + 8))(v85, v91);
+  }
+}
+
+uint64_t sub_10001067C(uint64_t a1, uint64_t a2)
+{
+  v92 = type metadata accessor for Notification();
+  v96 = *(v92 - 8);
+  __chkstk_darwin(v92);
+  v95 = &v89 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for Logger();
+  v93 = *(v5 - 8);
+  v94 = v5;
+  v6 = __chkstk_darwin(v5);
+  v8 = &v89 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __chkstk_darwin(v6);
+  v11 = &v89 - v10;
+  v12 = __chkstk_darwin(v9);
+  v14 = &v89 - v13;
+  __chkstk_darwin(v12);
+  v16 = &v89 - v15;
+  v17 = *(a1 + 16);
+  [v17 lock];
+  swift_beginAccess();
+  v19 = *(a1 + 72);
+  v106[0] = *(a1 + 56);
+  v18 = v106[0];
+  v106[1] = v19;
+  v21 = *(a1 + 104);
+  v107 = *(a1 + 88);
+  v20 = v107;
+  v108 = v21;
+  *(a1 + 112) = a2;
+  v109[0] = v18;
+  v109[1] = v19;
+  v22 = *(a1 + 104);
+  v109[2] = v20;
+  v109[3] = v22;
+  v100 = v20;
+  v101 = v21;
+  v98 = v18;
+  v99 = v19;
+  v23 = *(a1 + 56);
+  v24 = *(a1 + 72);
+  v25 = *(a1 + 104);
+  v104 = *(a1 + 88);
+  v105 = v25;
+  v102 = v23;
+  v103 = v24;
+  sub_10001B118(v106, v111);
+  sub_10001B118(v109, v111);
+  [v17 unlock];
+  v110[0] = v98;
+  v110[1] = v99;
+  v110[2] = v100;
+  v110[3] = v101;
+  v111[0] = v102;
+  v111[1] = v103;
+  v112 = v104;
+  v113 = v105;
+  v26 = v104;
+  v27 = ModeEnablementStrategy.rawValue.getter();
+  p_name = (&stru_100051FF8 + 8);
+  v29 = (&stru_100051FF8 + 8);
+  if (v27 != ModeEnablementStrategy.rawValue.getter())
+  {
+    static Logger.policyCoordinator.getter();
+    v30 = Logger.logObject.getter();
+    v31 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v30, v31))
+    {
+      v32 = swift_slowAlloc();
+      v89 = swift_slowAlloc();
+      *&v98 = v89;
+      *v32 = 136446210;
+      v97 = v26;
+      v33 = String.init<A>(describing:)();
+      v90 = v11;
+      v35 = v14;
+      v36 = v8;
+      v37 = sub_100034C38(v33, v34, &v98);
+      v11 = v90;
+
+      *(v32 + 4) = v37;
+      v8 = v36;
+      v14 = v35;
+      _os_log_impl(&_mh_execute_header, v30, v31, "Updating game mode enablement strategy to %{public}s", v32, 0xCu);
+      sub_100003964(v89);
+      p_name = &stru_100051FF8.name;
+    }
+
+    (*(v93 + 8))(v16, v94);
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.gameModeEnablementStrategy.setter();
+
+    v29 = &stru_100051FF8.name;
+    if (qword_100053460 != -1)
+    {
+      swift_once();
+    }
+
+    *(&v99 + 1) = &type metadata for ModeEnablementStrategy;
+    *&v98 = v26;
+    v38 = qword_1000565E0;
+    v39 = v95;
+    Notification.init(name:object:userInfo:)();
+    v40 = [objc_opt_self() p_name[186]];
+    isa = Notification._bridgeToObjectiveC()().super.isa;
+    [v40 postNotification:isa];
+
+    (*(v96 + 8))(v39, v92);
+  }
+
+  v42 = *(&v112 + 1);
+  v43 = ModeEnablementStrategy.rawValue.getter();
+  v44 = ModeEnablementStrategy.rawValue.getter();
+  v91 = v8;
+  if (v43 != v44)
+  {
+    static Logger.policyCoordinator.getter();
+    v45 = Logger.logObject.getter();
+    v46 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v45, v46))
+    {
+      v47 = swift_slowAlloc();
+      v48 = swift_slowAlloc();
+      *&v98 = v48;
+      *v47 = 136446210;
+      v97 = v42;
+      v49 = String.init<A>(describing:)();
+      v90 = v14;
+      v51 = v11;
+      v52 = sub_100034C38(v49, v50, &v98);
+
+      *(v47 + 4) = v52;
+      v11 = v51;
+      _os_log_impl(&_mh_execute_header, v45, v46, "Updating sustained execution mode enablement strategy to %{public}s", v47, 0xCu);
+      sub_100003964(v48);
+      p_name = (&stru_100051FF8 + 8);
+
+      (*(v93 + 8))(v90, v94);
+    }
+
+    else
+    {
+
+      (*(v93 + 8))(v14, v94);
+    }
+
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.semEnablementStrategy.setter();
+
+    if (qword_100053470 != -1)
+    {
+      swift_once();
+    }
+
+    *(&v99 + 1) = &type metadata for ModeEnablementStrategy;
+    *&v98 = v42;
+    v53 = qword_1000565F0;
+    v54 = v95;
+    Notification.init(name:object:userInfo:)();
+    v55 = [objc_opt_self() p_name[186]];
+    v56 = Notification._bridgeToObjectiveC()().super.isa;
+    [v55 v29[223]];
+
+    (*(v96 + 8))(v54, v92);
+  }
+
+  v57 = v113;
+  v58 = ModeEnablementStrategy.rawValue.getter();
+  if (v58 != ModeEnablementStrategy.rawValue.getter())
+  {
+    static Logger.policyCoordinator.getter();
+    v59 = Logger.logObject.getter();
+    v60 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v59, v60))
+    {
+      v61 = swift_slowAlloc();
+      v62 = swift_slowAlloc();
+      *&v98 = v62;
+      *v61 = 136446210;
+      v97 = v57;
+      v63 = String.init<A>(describing:)();
+      v65 = sub_100034C38(v63, v64, &v98);
+      v90 = v11;
+      v66 = p_name;
+      v67 = v65;
+
+      *(v61 + 4) = v67;
+      p_name = v66;
+      _os_log_impl(&_mh_execute_header, v59, v60, "Updating dynamic splitter enablement strategy to %{public}s", v61, 0xCu);
+      sub_100003964(v62);
+
+      (*(v93 + 8))(v90, v94);
+    }
+
+    else
+    {
+
+      (*(v93 + 8))(v11, v94);
+    }
+
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.dynamicSplitterEnablementStrategy.setter();
+
+    if (qword_100053478 != -1)
+    {
+      swift_once();
+    }
+
+    *(&v99 + 1) = &type metadata for ModeEnablementStrategy;
+    *&v98 = v57;
+    v68 = qword_1000565F8;
+    v69 = v95;
+    Notification.init(name:object:userInfo:)();
+    v70 = [objc_opt_self() p_name[186]];
+    v71 = Notification._bridgeToObjectiveC()().super.isa;
+    [v70 v29[223]];
+
+    (*(v96 + 8))(v69, v92);
+  }
+
+  v72 = *(&v113 + 1);
+  v73 = ModelManagerPolicyStrategy.rawValue.getter();
+  if (v73 == ModelManagerPolicyStrategy.rawValue.getter())
+  {
+    sub_10001B150(v111);
+    return sub_10001B150(v110);
+  }
+
+  else
+  {
+    v75 = v91;
+    static Logger.policyCoordinator.getter();
+    v76 = Logger.logObject.getter();
+    v77 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v76, v77))
+    {
+      v78 = swift_slowAlloc();
+      v79 = swift_slowAlloc();
+      *&v98 = v79;
+      *v78 = 136446210;
+      v97 = v72;
+      v80 = String.init<A>(describing:)();
+      v82 = p_name;
+      v83 = v29;
+      v84 = sub_100034C38(v80, v81, &v98);
+
+      *(v78 + 4) = v84;
+      v29 = v83;
+      p_name = v82;
+      _os_log_impl(&_mh_execute_header, v76, v77, "Updating game mode ModelManager policy strategy to %{public}s", v78, 0xCu);
+      sub_100003964(v79);
+
+      (*(v93 + 8))(v91, v94);
+    }
+
+    else
+    {
+
+      (*(v93 + 8))(v75, v94);
+    }
+
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.modelManagerGameAssertionPolicyStrategy.setter();
+
+    if (qword_100053468 != -1)
+    {
+      swift_once();
+    }
+
+    *(&v99 + 1) = &type metadata for ModelManagerPolicyStrategy;
+    *&v98 = v72;
+    v85 = qword_1000565E8;
+    v86 = v95;
+    Notification.init(name:object:userInfo:)();
+    v87 = [objc_opt_self() p_name[186]];
+    v88 = Notification._bridgeToObjectiveC()().super.isa;
+    [v87 v29[223]];
+
+    sub_10001B150(v111);
+    sub_10001B150(v110);
+    return (*(v96 + 8))(v86, v92);
+  }
+}
+
+id sub_10001118C(uint64_t a1)
+{
+  v77 = type metadata accessor for Notification();
+  v81 = *(v77 - 8);
+  __chkstk_darwin(v77 - 8);
+  v80 = &v73 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for Logger();
+  v78 = *(v3 - 8);
+  v79 = v3;
+  v4 = __chkstk_darwin(v3);
+  v75 = &v73 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __chkstk_darwin(v4);
+  v74 = &v73 - v7;
+  v8 = __chkstk_darwin(v6);
+  v10 = &v73 - v9;
+  __chkstk_darwin(v8);
+  v12 = &v73 - v11;
+  v13 = *(a1 + 16);
+  [v13 lock];
+  swift_beginAccess();
+  v93 = *(a1 + 72);
+  v92 = *(a1 + 56);
+  v94 = *(a1 + 88);
+  v95 = *(a1 + 104);
+  v14 = v93;
+  v96[0] = v92;
+  v96[1] = v93;
+  v96[2] = v94;
+  v96[3] = v95;
+  v86 = v94;
+  v87 = v95;
+  v84 = v92;
+  v85 = v93;
+  v90 = v94;
+  v88 = v92;
+  v89 = v93;
+  v91 = v95;
+  sub_10001B118(&v92, v98);
+  v76 = v14;
+  sub_10001B118(v96, v98);
+  [v13 unlock];
+  v97[0] = v84;
+  v97[1] = v85;
+  v97[2] = v86;
+  v97[3] = v87;
+  v98[0] = v88;
+  v98[1] = v89;
+  v99 = v90;
+  v100 = v91;
+  v15 = v90;
+  v16 = ModeEnablementStrategy.rawValue.getter();
+  p_name = (&stru_100051FF8 + 8);
+  if (v16 != ModeEnablementStrategy.rawValue.getter())
+  {
+    static Logger.policyCoordinator.getter();
+    v18 = Logger.logObject.getter();
+    v19 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v18, v19))
+    {
+      v20 = swift_slowAlloc();
+      v21 = swift_slowAlloc();
+      v83 = v21;
+      *v20 = 136446210;
+      v82 = v15;
+      v22 = String.init<A>(describing:)();
+      v24 = sub_100034C38(v22, v23, &v83);
+
+      *(v20 + 4) = v24;
+      _os_log_impl(&_mh_execute_header, v18, v19, "Updating game mode enablement strategy to %{public}s", v20, 0xCu);
+      sub_100003964(v21);
+    }
+
+    (*(v78 + 8))(v12, v79);
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.gameModeEnablementStrategy.setter();
+
+    p_name = &stru_100051FF8.name;
+    if (qword_100053460 != -1)
+    {
+      swift_once();
+    }
+
+    *&v85 = &type metadata for ModeEnablementStrategy;
+    v83 = v15;
+    v25 = qword_1000565E0;
+    v26 = v80;
+    Notification.init(name:object:userInfo:)();
+    v27 = [objc_opt_self() defaultCenter];
+    isa = Notification._bridgeToObjectiveC()().super.isa;
+    [v27 postNotification:isa];
+
+    (*(v81 + 8))(v26, v77);
+  }
+
+  v29 = *(&v99 + 1);
+  v30 = ModeEnablementStrategy.rawValue.getter();
+  if (v30 != ModeEnablementStrategy.rawValue.getter())
+  {
+    static Logger.policyCoordinator.getter();
+    v31 = Logger.logObject.getter();
+    v32 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v31, v32))
+    {
+      v33 = swift_slowAlloc();
+      v34 = swift_slowAlloc();
+      v83 = v34;
+      *v33 = 136446210;
+      v82 = v29;
+      v35 = String.init<A>(describing:)();
+      v37 = sub_100034C38(v35, v36, &v83);
+
+      *(v33 + 4) = v37;
+      _os_log_impl(&_mh_execute_header, v31, v32, "Updating sustained execution mode enablement strategy to %{public}s", v33, 0xCu);
+      sub_100003964(v34);
+    }
+
+    (*(v78 + 8))(v10, v79);
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.semEnablementStrategy.setter();
+
+    if (qword_100053470 != -1)
+    {
+      swift_once();
+    }
+
+    *&v85 = &type metadata for ModeEnablementStrategy;
+    v83 = v29;
+    v38 = qword_1000565F0;
+    v39 = v80;
+    Notification.init(name:object:userInfo:)();
+    v40 = [objc_opt_self() p_name[186]];
+    v41 = Notification._bridgeToObjectiveC()().super.isa;
+    [v40 postNotification:v41];
+
+    (*(v81 + 8))(v39, v77);
+  }
+
+  v42 = v100;
+  v43 = ModeEnablementStrategy.rawValue.getter();
+  if (v43 != ModeEnablementStrategy.rawValue.getter())
+  {
+    v44 = v74;
+    static Logger.policyCoordinator.getter();
+    v45 = Logger.logObject.getter();
+    v46 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v45, v46))
+    {
+      v47 = swift_slowAlloc();
+      v48 = p_name;
+      v49 = swift_slowAlloc();
+      v83 = v49;
+      *v47 = 136446210;
+      v82 = v42;
+      v50 = String.init<A>(describing:)();
+      v52 = sub_100034C38(v50, v51, &v83);
+
+      *(v47 + 4) = v52;
+      _os_log_impl(&_mh_execute_header, v45, v46, "Updating dynamic splitter enablement strategy to %{public}s", v47, 0xCu);
+      sub_100003964(v49);
+      p_name = v48;
+
+      (*(v78 + 8))(v74, v79);
+    }
+
+    else
+    {
+
+      (*(v78 + 8))(v44, v79);
+    }
+
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.dynamicSplitterEnablementStrategy.setter();
+
+    if (qword_100053478 != -1)
+    {
+      swift_once();
+    }
+
+    *&v85 = &type metadata for ModeEnablementStrategy;
+    v83 = v42;
+    v53 = qword_1000565F8;
+    v54 = v80;
+    Notification.init(name:object:userInfo:)();
+    v55 = [objc_opt_self() p_name[186]];
+    v56 = Notification._bridgeToObjectiveC()().super.isa;
+    [v55 postNotification:v56];
+
+    (*(v81 + 8))(v54, v77);
+  }
+
+  v57 = *(&v100 + 1);
+  v58 = ModelManagerPolicyStrategy.rawValue.getter();
+  v59 = ModelManagerPolicyStrategy.rawValue.getter();
+  v60 = v75;
+  if (v58 == v59)
+  {
+    sub_10001B150(v98);
+    sub_10001B150(v97);
+  }
+
+  else
+  {
+    static Logger.policyCoordinator.getter();
+    v61 = Logger.logObject.getter();
+    v62 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v61, v62))
+    {
+      v63 = swift_slowAlloc();
+      v64 = swift_slowAlloc();
+      v83 = v64;
+      *v63 = 136446210;
+      v82 = v57;
+      v65 = String.init<A>(describing:)();
+      v67 = sub_100034C38(v65, v66, &v83);
+
+      *(v63 + 4) = v67;
+      _os_log_impl(&_mh_execute_header, v61, v62, "Updating game mode ModelManager policy strategy to %{public}s", v63, 0xCu);
+      sub_100003964(v64);
+      p_name = &stru_100051FF8.name;
+    }
+
+    (*(v78 + 8))(v60, v79);
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.modelManagerGameAssertionPolicyStrategy.setter();
+
+    if (qword_100053468 != -1)
+    {
+      swift_once();
+    }
+
+    *&v85 = &type metadata for ModelManagerPolicyStrategy;
+    v83 = v57;
+    v68 = qword_1000565E8;
+    v69 = v80;
+    Notification.init(name:object:userInfo:)();
+    v70 = [objc_opt_self() p_name[186]];
+    v71 = Notification._bridgeToObjectiveC()().super.isa;
+    [v70 postNotification:v71];
+
+    sub_10001B150(v98);
+    sub_10001B150(v97);
+    (*(v81 + 8))(v69, v77);
+  }
+
+  return v76;
+}
+
+id sub_100011C54(uint64_t a1)
+{
+  v77 = type metadata accessor for Notification();
+  v81 = *(v77 - 8);
+  __chkstk_darwin(v77 - 8);
+  v80 = &v73 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for Logger();
+  v78 = *(v3 - 8);
+  v79 = v3;
+  v4 = __chkstk_darwin(v3);
+  v75 = &v73 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __chkstk_darwin(v4);
+  v74 = &v73 - v7;
+  v8 = __chkstk_darwin(v6);
+  v10 = &v73 - v9;
+  __chkstk_darwin(v8);
+  v12 = &v73 - v11;
+  v13 = *(a1 + 16);
+  [v13 lock];
+  swift_beginAccess();
+  v92 = *(a1 + 56);
+  v93 = *(a1 + 72);
+  v94 = *(a1 + 88);
+  v95 = *(a1 + 104);
+  v14 = *(&v92 + 1);
+  v96[0] = v92;
+  v96[1] = v93;
+  v96[2] = v94;
+  v96[3] = v95;
+  v86 = v94;
+  v87 = v95;
+  v84 = v92;
+  v85 = v93;
+  v90 = v94;
+  v88 = v92;
+  v89 = v93;
+  v91 = v95;
+  sub_10001B118(&v92, v98);
+  v76 = v14;
+  sub_10001B118(v96, v98);
+  [v13 unlock];
+  v97[0] = v84;
+  v97[1] = v85;
+  v97[2] = v86;
+  v97[3] = v87;
+  v98[0] = v88;
+  v98[1] = v89;
+  v99 = v90;
+  v100 = v91;
+  v15 = v90;
+  v16 = ModeEnablementStrategy.rawValue.getter();
+  p_name = (&stru_100051FF8 + 8);
+  if (v16 != ModeEnablementStrategy.rawValue.getter())
+  {
+    static Logger.policyCoordinator.getter();
+    v18 = Logger.logObject.getter();
+    v19 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v18, v19))
+    {
+      v20 = swift_slowAlloc();
+      v21 = swift_slowAlloc();
+      v83 = v21;
+      *v20 = 136446210;
+      v82 = v15;
+      v22 = String.init<A>(describing:)();
+      v24 = sub_100034C38(v22, v23, &v83);
+
+      *(v20 + 4) = v24;
+      _os_log_impl(&_mh_execute_header, v18, v19, "Updating game mode enablement strategy to %{public}s", v20, 0xCu);
+      sub_100003964(v21);
+    }
+
+    (*(v78 + 8))(v12, v79);
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.gameModeEnablementStrategy.setter();
+
+    p_name = &stru_100051FF8.name;
+    if (qword_100053460 != -1)
+    {
+      swift_once();
+    }
+
+    *&v85 = &type metadata for ModeEnablementStrategy;
+    v83 = v15;
+    v25 = qword_1000565E0;
+    v26 = v80;
+    Notification.init(name:object:userInfo:)();
+    v27 = [objc_opt_self() defaultCenter];
+    isa = Notification._bridgeToObjectiveC()().super.isa;
+    [v27 postNotification:isa];
+
+    (*(v81 + 8))(v26, v77);
+  }
+
+  v29 = *(&v99 + 1);
+  v30 = ModeEnablementStrategy.rawValue.getter();
+  if (v30 != ModeEnablementStrategy.rawValue.getter())
+  {
+    static Logger.policyCoordinator.getter();
+    v31 = Logger.logObject.getter();
+    v32 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v31, v32))
+    {
+      v33 = swift_slowAlloc();
+      v34 = swift_slowAlloc();
+      v83 = v34;
+      *v33 = 136446210;
+      v82 = v29;
+      v35 = String.init<A>(describing:)();
+      v37 = sub_100034C38(v35, v36, &v83);
+
+      *(v33 + 4) = v37;
+      _os_log_impl(&_mh_execute_header, v31, v32, "Updating sustained execution mode enablement strategy to %{public}s", v33, 0xCu);
+      sub_100003964(v34);
+    }
+
+    (*(v78 + 8))(v10, v79);
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.semEnablementStrategy.setter();
+
+    if (qword_100053470 != -1)
+    {
+      swift_once();
+    }
+
+    *&v85 = &type metadata for ModeEnablementStrategy;
+    v83 = v29;
+    v38 = qword_1000565F0;
+    v39 = v80;
+    Notification.init(name:object:userInfo:)();
+    v40 = [objc_opt_self() p_name[186]];
+    v41 = Notification._bridgeToObjectiveC()().super.isa;
+    [v40 postNotification:v41];
+
+    (*(v81 + 8))(v39, v77);
+  }
+
+  v42 = v100;
+  v43 = ModeEnablementStrategy.rawValue.getter();
+  if (v43 != ModeEnablementStrategy.rawValue.getter())
+  {
+    v44 = v74;
+    static Logger.policyCoordinator.getter();
+    v45 = Logger.logObject.getter();
+    v46 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v45, v46))
+    {
+      v47 = swift_slowAlloc();
+      v48 = p_name;
+      v49 = swift_slowAlloc();
+      v83 = v49;
+      *v47 = 136446210;
+      v82 = v42;
+      v50 = String.init<A>(describing:)();
+      v52 = sub_100034C38(v50, v51, &v83);
+
+      *(v47 + 4) = v52;
+      _os_log_impl(&_mh_execute_header, v45, v46, "Updating dynamic splitter enablement strategy to %{public}s", v47, 0xCu);
+      sub_100003964(v49);
+      p_name = v48;
+
+      (*(v78 + 8))(v74, v79);
+    }
+
+    else
+    {
+
+      (*(v78 + 8))(v44, v79);
+    }
+
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.dynamicSplitterEnablementStrategy.setter();
+
+    if (qword_100053478 != -1)
+    {
+      swift_once();
+    }
+
+    *&v85 = &type metadata for ModeEnablementStrategy;
+    v83 = v42;
+    v53 = qword_1000565F8;
+    v54 = v80;
+    Notification.init(name:object:userInfo:)();
+    v55 = [objc_opt_self() p_name[186]];
+    v56 = Notification._bridgeToObjectiveC()().super.isa;
+    [v55 postNotification:v56];
+
+    (*(v81 + 8))(v54, v77);
+  }
+
+  v57 = *(&v100 + 1);
+  v58 = ModelManagerPolicyStrategy.rawValue.getter();
+  v59 = ModelManagerPolicyStrategy.rawValue.getter();
+  v60 = v75;
+  if (v58 == v59)
+  {
+    sub_10001B150(v98);
+    sub_10001B150(v97);
+  }
+
+  else
+  {
+    static Logger.policyCoordinator.getter();
+    v61 = Logger.logObject.getter();
+    v62 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v61, v62))
+    {
+      v63 = swift_slowAlloc();
+      v64 = swift_slowAlloc();
+      v83 = v64;
+      *v63 = 136446210;
+      v82 = v57;
+      v65 = String.init<A>(describing:)();
+      v67 = sub_100034C38(v65, v66, &v83);
+
+      *(v63 + 4) = v67;
+      _os_log_impl(&_mh_execute_header, v61, v62, "Updating game mode ModelManager policy strategy to %{public}s", v63, 0xCu);
+      sub_100003964(v64);
+      p_name = &stru_100051FF8.name;
+    }
+
+    (*(v78 + 8))(v60, v79);
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.modelManagerGameAssertionPolicyStrategy.setter();
+
+    if (qword_100053468 != -1)
+    {
+      swift_once();
+    }
+
+    *&v85 = &type metadata for ModelManagerPolicyStrategy;
+    v83 = v57;
+    v68 = qword_1000565E8;
+    v69 = v80;
+    Notification.init(name:object:userInfo:)();
+    v70 = [objc_opt_self() p_name[186]];
+    v71 = Notification._bridgeToObjectiveC()().super.isa;
+    [v70 postNotification:v71];
+
+    sub_10001B150(v98);
+    sub_10001B150(v97);
+    (*(v81 + 8))(v69, v77);
+  }
+
+  return v76;
+}
+
+id sub_10001271C(uint64_t a1)
+{
+  v77 = type metadata accessor for Notification();
+  v81 = *(v77 - 8);
+  __chkstk_darwin(v77 - 8);
+  v80 = &v73 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for Logger();
+  v78 = *(v3 - 8);
+  v79 = v3;
+  v4 = __chkstk_darwin(v3);
+  v75 = &v73 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __chkstk_darwin(v4);
+  v74 = &v73 - v7;
+  v8 = __chkstk_darwin(v6);
+  v10 = &v73 - v9;
+  __chkstk_darwin(v8);
+  v12 = &v73 - v11;
+  v13 = *(a1 + 16);
+  [v13 lock];
+  swift_beginAccess();
+  v93 = *(a1 + 72);
+  v92 = *(a1 + 56);
+  v94 = *(a1 + 88);
+  v95 = *(a1 + 104);
+  v14 = *(&v93 + 1);
+  v96[0] = v92;
+  v96[1] = v93;
+  v96[2] = v94;
+  v96[3] = v95;
+  v86 = v94;
+  v87 = v95;
+  v84 = v92;
+  v85 = v93;
+  v90 = v94;
+  v88 = v92;
+  v89 = v93;
+  v91 = v95;
+  sub_10001B118(&v92, v98);
+  v76 = v14;
+  sub_10001B118(v96, v98);
+  [v13 unlock];
+  v97[0] = v84;
+  v97[1] = v85;
+  v97[2] = v86;
+  v97[3] = v87;
+  v98[0] = v88;
+  v98[1] = v89;
+  v99 = v90;
+  v100 = v91;
+  v15 = v90;
+  v16 = ModeEnablementStrategy.rawValue.getter();
+  p_name = (&stru_100051FF8 + 8);
+  if (v16 != ModeEnablementStrategy.rawValue.getter())
+  {
+    static Logger.policyCoordinator.getter();
+    v18 = Logger.logObject.getter();
+    v19 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v18, v19))
+    {
+      v20 = swift_slowAlloc();
+      v21 = swift_slowAlloc();
+      v83 = v21;
+      *v20 = 136446210;
+      v82 = v15;
+      v22 = String.init<A>(describing:)();
+      v24 = sub_100034C38(v22, v23, &v83);
+
+      *(v20 + 4) = v24;
+      _os_log_impl(&_mh_execute_header, v18, v19, "Updating game mode enablement strategy to %{public}s", v20, 0xCu);
+      sub_100003964(v21);
+    }
+
+    (*(v78 + 8))(v12, v79);
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.gameModeEnablementStrategy.setter();
+
+    p_name = &stru_100051FF8.name;
+    if (qword_100053460 != -1)
+    {
+      swift_once();
+    }
+
+    *&v85 = &type metadata for ModeEnablementStrategy;
+    v83 = v15;
+    v25 = qword_1000565E0;
+    v26 = v80;
+    Notification.init(name:object:userInfo:)();
+    v27 = [objc_opt_self() defaultCenter];
+    isa = Notification._bridgeToObjectiveC()().super.isa;
+    [v27 postNotification:isa];
+
+    (*(v81 + 8))(v26, v77);
+  }
+
+  v29 = *(&v99 + 1);
+  v30 = ModeEnablementStrategy.rawValue.getter();
+  if (v30 != ModeEnablementStrategy.rawValue.getter())
+  {
+    static Logger.policyCoordinator.getter();
+    v31 = Logger.logObject.getter();
+    v32 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v31, v32))
+    {
+      v33 = swift_slowAlloc();
+      v34 = swift_slowAlloc();
+      v83 = v34;
+      *v33 = 136446210;
+      v82 = v29;
+      v35 = String.init<A>(describing:)();
+      v37 = sub_100034C38(v35, v36, &v83);
+
+      *(v33 + 4) = v37;
+      _os_log_impl(&_mh_execute_header, v31, v32, "Updating sustained execution mode enablement strategy to %{public}s", v33, 0xCu);
+      sub_100003964(v34);
+    }
+
+    (*(v78 + 8))(v10, v79);
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.semEnablementStrategy.setter();
+
+    if (qword_100053470 != -1)
+    {
+      swift_once();
+    }
+
+    *&v85 = &type metadata for ModeEnablementStrategy;
+    v83 = v29;
+    v38 = qword_1000565F0;
+    v39 = v80;
+    Notification.init(name:object:userInfo:)();
+    v40 = [objc_opt_self() p_name[186]];
+    v41 = Notification._bridgeToObjectiveC()().super.isa;
+    [v40 postNotification:v41];
+
+    (*(v81 + 8))(v39, v77);
+  }
+
+  v42 = v100;
+  v43 = ModeEnablementStrategy.rawValue.getter();
+  if (v43 != ModeEnablementStrategy.rawValue.getter())
+  {
+    v44 = v74;
+    static Logger.policyCoordinator.getter();
+    v45 = Logger.logObject.getter();
+    v46 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v45, v46))
+    {
+      v47 = swift_slowAlloc();
+      v48 = p_name;
+      v49 = swift_slowAlloc();
+      v83 = v49;
+      *v47 = 136446210;
+      v82 = v42;
+      v50 = String.init<A>(describing:)();
+      v52 = sub_100034C38(v50, v51, &v83);
+
+      *(v47 + 4) = v52;
+      _os_log_impl(&_mh_execute_header, v45, v46, "Updating dynamic splitter enablement strategy to %{public}s", v47, 0xCu);
+      sub_100003964(v49);
+      p_name = v48;
+
+      (*(v78 + 8))(v74, v79);
+    }
+
+    else
+    {
+
+      (*(v78 + 8))(v44, v79);
+    }
+
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.dynamicSplitterEnablementStrategy.setter();
+
+    if (qword_100053478 != -1)
+    {
+      swift_once();
+    }
+
+    *&v85 = &type metadata for ModeEnablementStrategy;
+    v83 = v42;
+    v53 = qword_1000565F8;
+    v54 = v80;
+    Notification.init(name:object:userInfo:)();
+    v55 = [objc_opt_self() p_name[186]];
+    v56 = Notification._bridgeToObjectiveC()().super.isa;
+    [v55 postNotification:v56];
+
+    (*(v81 + 8))(v54, v77);
+  }
+
+  v57 = *(&v100 + 1);
+  v58 = ModelManagerPolicyStrategy.rawValue.getter();
+  v59 = ModelManagerPolicyStrategy.rawValue.getter();
+  v60 = v75;
+  if (v58 == v59)
+  {
+    sub_10001B150(v98);
+    sub_10001B150(v97);
+  }
+
+  else
+  {
+    static Logger.policyCoordinator.getter();
+    v61 = Logger.logObject.getter();
+    v62 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v61, v62))
+    {
+      v63 = swift_slowAlloc();
+      v64 = swift_slowAlloc();
+      v83 = v64;
+      *v63 = 136446210;
+      v82 = v57;
+      v65 = String.init<A>(describing:)();
+      v67 = sub_100034C38(v65, v66, &v83);
+
+      *(v63 + 4) = v67;
+      _os_log_impl(&_mh_execute_header, v61, v62, "Updating game mode ModelManager policy strategy to %{public}s", v63, 0xCu);
+      sub_100003964(v64);
+      p_name = &stru_100051FF8.name;
+    }
+
+    (*(v78 + 8))(v60, v79);
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.modelManagerGameAssertionPolicyStrategy.setter();
+
+    if (qword_100053468 != -1)
+    {
+      swift_once();
+    }
+
+    *&v85 = &type metadata for ModelManagerPolicyStrategy;
+    v83 = v57;
+    v68 = qword_1000565E8;
+    v69 = v80;
+    Notification.init(name:object:userInfo:)();
+    v70 = [objc_opt_self() p_name[186]];
+    v71 = Notification._bridgeToObjectiveC()().super.isa;
+    [v70 postNotification:v71];
+
+    sub_10001B150(v98);
+    sub_10001B150(v97);
+    (*(v81 + 8))(v69, v77);
+  }
+
+  return v76;
+}
+
+uint64_t sub_1000131E8(uint64_t a1)
+{
+  v76 = type metadata accessor for Notification();
+  v80 = *(v76 - 8);
+  __chkstk_darwin(v76 - 8);
+  v79 = &v72 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for Logger();
+  v77 = *(v3 - 8);
+  v78 = v3;
+  v4 = __chkstk_darwin(v3);
+  v74 = &v72 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __chkstk_darwin(v4);
+  v73 = &v72 - v7;
+  v8 = __chkstk_darwin(v6);
+  v10 = &v72 - v9;
+  __chkstk_darwin(v8);
+  v12 = &v72 - v11;
+  v13 = *(a1 + 16);
+  [v13 lock];
+  swift_beginAccess();
+  v93 = *(a1 + 88);
+  v91 = *(a1 + 56);
+  v92 = *(a1 + 72);
+  v94 = *(a1 + 104);
+  v75 = v93;
+  v95[0] = v91;
+  v95[1] = v92;
+  v95[2] = v93;
+  v95[3] = v94;
+  v85 = v93;
+  v86 = v94;
+  v83 = v91;
+  v84 = v92;
+  v90 = v94;
+  v89 = v93;
+  v87 = v91;
+  v88 = v92;
+  sub_10001B118(&v91, v97);
+  sub_10001B118(v95, v97);
+  [v13 unlock];
+  v96[0] = v83;
+  v96[1] = v84;
+  v96[2] = v85;
+  v96[3] = v86;
+  v97[0] = v87;
+  v97[1] = v88;
+  v98 = v89;
+  v99 = v90;
+  v14 = v89;
+  v15 = ModeEnablementStrategy.rawValue.getter();
+  p_name = (&stru_100051FF8 + 8);
+  if (v15 != ModeEnablementStrategy.rawValue.getter())
+  {
+    static Logger.policyCoordinator.getter();
+    v17 = Logger.logObject.getter();
+    v18 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v17, v18))
+    {
+      v19 = swift_slowAlloc();
+      v20 = swift_slowAlloc();
+      v82 = v20;
+      *v19 = 136446210;
+      v81 = v14;
+      v21 = String.init<A>(describing:)();
+      v23 = sub_100034C38(v21, v22, &v82);
+
+      *(v19 + 4) = v23;
+      _os_log_impl(&_mh_execute_header, v17, v18, "Updating game mode enablement strategy to %{public}s", v19, 0xCu);
+      sub_100003964(v20);
+    }
+
+    (*(v77 + 8))(v12, v78);
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.gameModeEnablementStrategy.setter();
+
+    p_name = &stru_100051FF8.name;
+    if (qword_100053460 != -1)
+    {
+      swift_once();
+    }
+
+    *&v84 = &type metadata for ModeEnablementStrategy;
+    v82 = v14;
+    v24 = qword_1000565E0;
+    v25 = v79;
+    Notification.init(name:object:userInfo:)();
+    v26 = [objc_opt_self() defaultCenter];
+    isa = Notification._bridgeToObjectiveC()().super.isa;
+    [v26 postNotification:isa];
+
+    (*(v80 + 8))(v25, v76);
+  }
+
+  v28 = *(&v98 + 1);
+  v29 = ModeEnablementStrategy.rawValue.getter();
+  if (v29 != ModeEnablementStrategy.rawValue.getter())
+  {
+    static Logger.policyCoordinator.getter();
+    v30 = Logger.logObject.getter();
+    v31 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v30, v31))
+    {
+      v32 = swift_slowAlloc();
+      v33 = swift_slowAlloc();
+      v82 = v33;
+      *v32 = 136446210;
+      v81 = v28;
+      v34 = String.init<A>(describing:)();
+      v36 = sub_100034C38(v34, v35, &v82);
+
+      *(v32 + 4) = v36;
+      _os_log_impl(&_mh_execute_header, v30, v31, "Updating sustained execution mode enablement strategy to %{public}s", v32, 0xCu);
+      sub_100003964(v33);
+    }
+
+    (*(v77 + 8))(v10, v78);
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.semEnablementStrategy.setter();
+
+    if (qword_100053470 != -1)
+    {
+      swift_once();
+    }
+
+    *&v84 = &type metadata for ModeEnablementStrategy;
+    v82 = v28;
+    v37 = qword_1000565F0;
+    v38 = v79;
+    Notification.init(name:object:userInfo:)();
+    v39 = [objc_opt_self() p_name[186]];
+    v40 = Notification._bridgeToObjectiveC()().super.isa;
+    [v39 postNotification:v40];
+
+    (*(v80 + 8))(v38, v76);
+  }
+
+  v41 = v99;
+  v42 = ModeEnablementStrategy.rawValue.getter();
+  if (v42 != ModeEnablementStrategy.rawValue.getter())
+  {
+    v43 = v73;
+    static Logger.policyCoordinator.getter();
+    v44 = Logger.logObject.getter();
+    v45 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v44, v45))
+    {
+      v46 = swift_slowAlloc();
+      v47 = p_name;
+      v48 = swift_slowAlloc();
+      v82 = v48;
+      *v46 = 136446210;
+      v81 = v41;
+      v49 = String.init<A>(describing:)();
+      v51 = sub_100034C38(v49, v50, &v82);
+
+      *(v46 + 4) = v51;
+      _os_log_impl(&_mh_execute_header, v44, v45, "Updating dynamic splitter enablement strategy to %{public}s", v46, 0xCu);
+      sub_100003964(v48);
+      p_name = v47;
+
+      (*(v77 + 8))(v73, v78);
+    }
+
+    else
+    {
+
+      (*(v77 + 8))(v43, v78);
+    }
+
+    type metadata accessor for GlobalPreferences();
+    dispatch thunk of static GlobalPreferences.shared.getter();
+    dispatch thunk of GlobalPreferences.dynamicSplitterEnablementStrategy.setter();
+
+    if (qword_100053478 != -1)
+    {
+      swift_once();
+    }
+
+    *&v84 = &type metadata for ModeEnablementStrategy;
+    v82 = v41;
+    v52 = qword_1000565F8;
+    v53 = v79;
+    Notification.init(name:object:userInfo:)();
+    v54 = [objc_opt_self() p_name[186]];
+    v55 = Notification._bridgeToObjectiveC()().super.isa;
+    [v54 postNotification:v55];
+
+    (*(v80 + 8))(v53, v76);
+  }
+
+  v56 = *(&v99 + 1);
+  v57 = ModelManagerPolicyStrategy.rawValue.getter();
+  v58 = ModelManagerPolicyStrategy.rawValue.getter();
+  v59 = v74;
+  if (v57 == v58)
+  {
+    sub_10001B150(v97);
+    sub_10001B150(v96);
+  }
+
+  else
   {
     static Logger.policyCoordinator.getter();
     v60 = Logger.logObject.getter();
@@ -6410,380 +7647,19 @@ uint64_t sub_10000FB6C(uint64_t a1, uint64_t a2)
     {
       v62 = swift_slowAlloc();
       v63 = swift_slowAlloc();
-      *&v99 = v63;
+      v82 = v63;
       *v62 = 136446210;
-      v98 = v58;
+      v81 = v56;
       v64 = String.init<A>(describing:)();
-      v66 = sub_100034C38(v64, v65, &v99);
-      v91 = v13;
-      v67 = p_name;
-      v68 = v66;
+      v66 = sub_100034C38(v64, v65, &v82);
 
-      *(v62 + 4) = v68;
-      p_name = v67;
-      _os_log_impl(&_mh_execute_header, v60, v61, "Updating dynamic splitter enablement strategy to %{public}s", v62, 0xCu);
+      *(v62 + 4) = v66;
+      _os_log_impl(&_mh_execute_header, v60, v61, "Updating game mode ModelManager policy strategy to %{public}s", v62, 0xCu);
       sub_100003964(v63);
-
-      (*(v94 + 8))(v91, v95);
-    }
-
-    else
-    {
-
-      (*(v94 + 8))(v13, v95);
-    }
-
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.dynamicSplitterEnablementStrategy.setter();
-
-    if (qword_100053478 != -1)
-    {
-      swift_once();
-    }
-
-    *(&v100 + 1) = &type metadata for ModeEnablementStrategy;
-    *&v99 = v58;
-    v69 = qword_1000565F8;
-    v70 = v96;
-    Notification.init(name:object:userInfo:)();
-    v71 = [objc_opt_self() p_name[186]];
-    v72 = Notification._bridgeToObjectiveC()().super.isa;
-    [v71 v30[223]];
-
-    (*(v97 + 8))(v70, v93);
-  }
-
-  v73 = *(&v114 + 1);
-  v74 = ModelManagerPolicyStrategy.rawValue.getter();
-  if (v74 == ModelManagerPolicyStrategy.rawValue.getter())
-  {
-    sub_10001B150(v112);
-    return sub_10001B150(v111);
-  }
-
-  else
-  {
-    v76 = v92;
-    static Logger.policyCoordinator.getter();
-    v77 = Logger.logObject.getter();
-    v78 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v77, v78))
-    {
-      v79 = swift_slowAlloc();
-      v80 = swift_slowAlloc();
-      *&v99 = v80;
-      *v79 = 136446210;
-      v98 = v73;
-      v81 = String.init<A>(describing:)();
-      v83 = p_name;
-      v84 = v30;
-      v85 = sub_100034C38(v81, v82, &v99);
-
-      *(v79 + 4) = v85;
-      v30 = v84;
-      p_name = v83;
-      _os_log_impl(&_mh_execute_header, v77, v78, "Updating game mode ModelManager policy strategy to %{public}s", v79, 0xCu);
-      sub_100003964(v80);
-
-      (*(v94 + 8))(v92, v95);
-    }
-
-    else
-    {
-
-      (*(v94 + 8))(v76, v95);
-    }
-
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.modelManagerGameAssertionPolicyStrategy.setter();
-
-    if (qword_100053468 != -1)
-    {
-      swift_once();
-    }
-
-    *(&v100 + 1) = &type metadata for ModelManagerPolicyStrategy;
-    *&v99 = v73;
-    v86 = qword_1000565E8;
-    v87 = v96;
-    Notification.init(name:object:userInfo:)();
-    v88 = [objc_opt_self() p_name[186]];
-    v89 = Notification._bridgeToObjectiveC()().super.isa;
-    [v88 v30[223]];
-
-    sub_10001B150(v112);
-    sub_10001B150(v111);
-    return (*(v97 + 8))(v87, v93);
-  }
-}
-
-uint64_t sub_10001067C(uint64_t a1, uint64_t a2)
-{
-  v94 = type metadata accessor for Notification();
-  v98 = *(v94 - 8);
-  v4 = *(v98 + 64);
-  __chkstk_darwin(v94);
-  v97 = &v91 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for Logger();
-  v95 = *(v6 - 8);
-  v96 = v6;
-  v7 = *(v95 + 64);
-  v8 = __chkstk_darwin(v6);
-  v10 = &v91 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __chkstk_darwin(v8);
-  v13 = &v91 - v12;
-  v14 = __chkstk_darwin(v11);
-  v16 = &v91 - v15;
-  __chkstk_darwin(v14);
-  v18 = &v91 - v17;
-  v19 = *(a1 + 16);
-  [v19 lock];
-  swift_beginAccess();
-  v21 = *(a1 + 72);
-  v108[0] = *(a1 + 56);
-  v20 = v108[0];
-  v108[1] = v21;
-  v23 = *(a1 + 104);
-  v109 = *(a1 + 88);
-  v22 = v109;
-  v110 = v23;
-  *(a1 + 112) = a2;
-  v111[0] = v20;
-  v111[1] = v21;
-  v24 = *(a1 + 104);
-  v111[2] = v22;
-  v111[3] = v24;
-  v102 = v22;
-  v103 = v23;
-  v100 = v20;
-  v101 = v21;
-  v25 = *(a1 + 56);
-  v26 = *(a1 + 72);
-  v27 = *(a1 + 104);
-  v106 = *(a1 + 88);
-  v107 = v27;
-  v104 = v25;
-  v105 = v26;
-  sub_10001B118(v108, v113);
-  sub_10001B118(v111, v113);
-  [v19 unlock];
-  v112[0] = v100;
-  v112[1] = v101;
-  v112[2] = v102;
-  v112[3] = v103;
-  v113[0] = v104;
-  v113[1] = v105;
-  v114 = v106;
-  v115 = v107;
-  v28 = v106;
-  v29 = ModeEnablementStrategy.rawValue.getter();
-  p_name = (&stru_100051FF8 + 8);
-  v31 = (&stru_100051FF8 + 8);
-  if (v29 != ModeEnablementStrategy.rawValue.getter())
-  {
-    static Logger.policyCoordinator.getter();
-    v32 = Logger.logObject.getter();
-    v33 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v32, v33))
-    {
-      v34 = swift_slowAlloc();
-      v91 = swift_slowAlloc();
-      *&v100 = v91;
-      *v34 = 136446210;
-      v99 = v28;
-      v35 = String.init<A>(describing:)();
-      v92 = v13;
-      v37 = v16;
-      v38 = v10;
-      v39 = sub_100034C38(v35, v36, &v100);
-      v13 = v92;
-
-      *(v34 + 4) = v39;
-      v10 = v38;
-      v16 = v37;
-      _os_log_impl(&_mh_execute_header, v32, v33, "Updating game mode enablement strategy to %{public}s", v34, 0xCu);
-      sub_100003964(v91);
       p_name = &stru_100051FF8.name;
     }
 
-    (*(v95 + 8))(v18, v96);
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.gameModeEnablementStrategy.setter();
-
-    v31 = &stru_100051FF8.name;
-    if (qword_100053460 != -1)
-    {
-      swift_once();
-    }
-
-    *(&v101 + 1) = &type metadata for ModeEnablementStrategy;
-    *&v100 = v28;
-    v40 = qword_1000565E0;
-    v41 = v97;
-    Notification.init(name:object:userInfo:)();
-    v42 = [objc_opt_self() p_name[186]];
-    isa = Notification._bridgeToObjectiveC()().super.isa;
-    [v42 postNotification:isa];
-
-    (*(v98 + 8))(v41, v94);
-  }
-
-  v44 = *(&v114 + 1);
-  v45 = ModeEnablementStrategy.rawValue.getter();
-  v46 = ModeEnablementStrategy.rawValue.getter();
-  v93 = v10;
-  if (v45 != v46)
-  {
-    static Logger.policyCoordinator.getter();
-    v47 = Logger.logObject.getter();
-    v48 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v47, v48))
-    {
-      v49 = swift_slowAlloc();
-      v50 = swift_slowAlloc();
-      *&v100 = v50;
-      *v49 = 136446210;
-      v99 = v44;
-      v51 = String.init<A>(describing:)();
-      v92 = v16;
-      v53 = v13;
-      v54 = sub_100034C38(v51, v52, &v100);
-
-      *(v49 + 4) = v54;
-      v13 = v53;
-      _os_log_impl(&_mh_execute_header, v47, v48, "Updating sustained execution mode enablement strategy to %{public}s", v49, 0xCu);
-      sub_100003964(v50);
-      p_name = (&stru_100051FF8 + 8);
-
-      (*(v95 + 8))(v92, v96);
-    }
-
-    else
-    {
-
-      (*(v95 + 8))(v16, v96);
-    }
-
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.semEnablementStrategy.setter();
-
-    if (qword_100053470 != -1)
-    {
-      swift_once();
-    }
-
-    *(&v101 + 1) = &type metadata for ModeEnablementStrategy;
-    *&v100 = v44;
-    v55 = qword_1000565F0;
-    v56 = v97;
-    Notification.init(name:object:userInfo:)();
-    v57 = [objc_opt_self() p_name[186]];
-    v58 = Notification._bridgeToObjectiveC()().super.isa;
-    [v57 v31[223]];
-
-    (*(v98 + 8))(v56, v94);
-  }
-
-  v59 = v115;
-  v60 = ModeEnablementStrategy.rawValue.getter();
-  if (v60 != ModeEnablementStrategy.rawValue.getter())
-  {
-    static Logger.policyCoordinator.getter();
-    v61 = Logger.logObject.getter();
-    v62 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v61, v62))
-    {
-      v63 = swift_slowAlloc();
-      v64 = swift_slowAlloc();
-      *&v100 = v64;
-      *v63 = 136446210;
-      v99 = v59;
-      v65 = String.init<A>(describing:)();
-      v67 = sub_100034C38(v65, v66, &v100);
-      v92 = v13;
-      v68 = p_name;
-      v69 = v67;
-
-      *(v63 + 4) = v69;
-      p_name = v68;
-      _os_log_impl(&_mh_execute_header, v61, v62, "Updating dynamic splitter enablement strategy to %{public}s", v63, 0xCu);
-      sub_100003964(v64);
-
-      (*(v95 + 8))(v92, v96);
-    }
-
-    else
-    {
-
-      (*(v95 + 8))(v13, v96);
-    }
-
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.dynamicSplitterEnablementStrategy.setter();
-
-    if (qword_100053478 != -1)
-    {
-      swift_once();
-    }
-
-    *(&v101 + 1) = &type metadata for ModeEnablementStrategy;
-    *&v100 = v59;
-    v70 = qword_1000565F8;
-    v71 = v97;
-    Notification.init(name:object:userInfo:)();
-    v72 = [objc_opt_self() p_name[186]];
-    v73 = Notification._bridgeToObjectiveC()().super.isa;
-    [v72 v31[223]];
-
-    (*(v98 + 8))(v71, v94);
-  }
-
-  v74 = *(&v115 + 1);
-  v75 = ModelManagerPolicyStrategy.rawValue.getter();
-  if (v75 == ModelManagerPolicyStrategy.rawValue.getter())
-  {
-    sub_10001B150(v113);
-    return sub_10001B150(v112);
-  }
-
-  else
-  {
-    v77 = v93;
-    static Logger.policyCoordinator.getter();
-    v78 = Logger.logObject.getter();
-    v79 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v78, v79))
-    {
-      v80 = swift_slowAlloc();
-      v81 = swift_slowAlloc();
-      *&v100 = v81;
-      *v80 = 136446210;
-      v99 = v74;
-      v82 = String.init<A>(describing:)();
-      v84 = p_name;
-      v85 = v31;
-      v86 = sub_100034C38(v82, v83, &v100);
-
-      *(v80 + 4) = v86;
-      v31 = v85;
-      p_name = v84;
-      _os_log_impl(&_mh_execute_header, v78, v79, "Updating game mode ModelManager policy strategy to %{public}s", v80, 0xCu);
-      sub_100003964(v81);
-
-      (*(v95 + 8))(v93, v96);
-    }
-
-    else
-    {
-
-      (*(v95 + 8))(v77, v96);
-    }
-
+    (*(v77 + 8))(v59, v78);
     type metadata accessor for GlobalPreferences();
     dispatch thunk of static GlobalPreferences.shared.getter();
     dispatch thunk of GlobalPreferences.modelManagerGameAssertionPolicyStrategy.setter();
@@ -6793,1132 +7669,95 @@ uint64_t sub_10001067C(uint64_t a1, uint64_t a2)
       swift_once();
     }
 
-    *(&v101 + 1) = &type metadata for ModelManagerPolicyStrategy;
-    *&v100 = v74;
-    v87 = qword_1000565E8;
-    v88 = v97;
+    *&v84 = &type metadata for ModelManagerPolicyStrategy;
+    v82 = v56;
+    v67 = qword_1000565E8;
+    v68 = v79;
     Notification.init(name:object:userInfo:)();
-    v89 = [objc_opt_self() p_name[186]];
-    v90 = Notification._bridgeToObjectiveC()().super.isa;
-    [v89 v31[223]];
+    v69 = [objc_opt_self() p_name[186]];
+    v70 = Notification._bridgeToObjectiveC()().super.isa;
+    [v69 postNotification:v70];
 
-    sub_10001B150(v113);
-    sub_10001B150(v112);
-    return (*(v98 + 8))(v88, v94);
-  }
-}
-
-id sub_10001118C(uint64_t a1)
-{
-  v83 = type metadata accessor for Notification();
-  v87 = *(v83 - 8);
-  v2 = *(v87 + 64);
-  __chkstk_darwin(v83 - 8);
-  v86 = &v79 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for Logger();
-  v84 = *(v4 - 8);
-  v85 = v4;
-  v5 = *(v84 + 64);
-  v6 = __chkstk_darwin(v4);
-  v81 = &v79 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __chkstk_darwin(v6);
-  v80 = &v79 - v9;
-  v10 = __chkstk_darwin(v8);
-  v12 = &v79 - v11;
-  __chkstk_darwin(v10);
-  v14 = &v79 - v13;
-  v15 = *(a1 + 16);
-  [v15 lock];
-  swift_beginAccess();
-  v99 = *(a1 + 72);
-  v98 = *(a1 + 56);
-  v100 = *(a1 + 88);
-  v101 = *(a1 + 104);
-  v16 = v99;
-  v102[0] = v98;
-  v102[1] = v99;
-  v102[2] = v100;
-  v102[3] = v101;
-  v92 = v100;
-  v93 = v101;
-  v90 = v98;
-  v91 = v99;
-  v96 = v100;
-  v94 = v98;
-  v95 = v99;
-  v97 = v101;
-  sub_10001B118(&v98, v104);
-  v82 = v16;
-  sub_10001B118(v102, v104);
-  [v15 unlock];
-  v103[0] = v90;
-  v103[1] = v91;
-  v103[2] = v92;
-  v103[3] = v93;
-  v104[0] = v94;
-  v104[1] = v95;
-  v105 = v96;
-  v106 = v97;
-  v17 = v96;
-  v18 = ModeEnablementStrategy.rawValue.getter();
-  v19 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
-  p_name = (&stru_100051FF8 + 8);
-  if (v18 != ModeEnablementStrategy.rawValue.getter())
-  {
-    static Logger.policyCoordinator.getter();
-    v21 = Logger.logObject.getter();
-    v22 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v21, v22))
-    {
-      v23 = swift_slowAlloc();
-      v24 = swift_slowAlloc();
-      v89 = v24;
-      *v23 = 136446210;
-      v88 = v17;
-      v25 = String.init<A>(describing:)();
-      v27 = sub_100034C38(v25, v26, &v89);
-
-      *(v23 + 4) = v27;
-      v19 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
-      _os_log_impl(&_mh_execute_header, v21, v22, "Updating game mode enablement strategy to %{public}s", v23, 0xCu);
-      sub_100003964(v24);
-    }
-
-    (*(v84 + 8))(v14, v85);
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.gameModeEnablementStrategy.setter();
-
-    p_name = &stru_100051FF8.name;
-    if (qword_100053460 != -1)
-    {
-      swift_once();
-    }
-
-    *&v91 = &type metadata for ModeEnablementStrategy;
-    v89 = v17;
-    v28 = qword_1000565E0;
-    v29 = v86;
-    Notification.init(name:object:userInfo:)();
-    v30 = v19[465];
-    v31 = [objc_opt_self() defaultCenter];
-    isa = Notification._bridgeToObjectiveC()().super.isa;
-    [v31 postNotification:isa];
-
-    (*(v87 + 8))(v29, v83);
+    sub_10001B150(v97);
+    sub_10001B150(v96);
+    (*(v80 + 8))(v68, v76);
   }
 
-  v33 = *(&v105 + 1);
-  v34 = ModeEnablementStrategy.rawValue.getter();
-  if (v34 != ModeEnablementStrategy.rawValue.getter())
-  {
-    static Logger.policyCoordinator.getter();
-    v35 = Logger.logObject.getter();
-    v36 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v35, v36))
-    {
-      v37 = swift_slowAlloc();
-      v38 = swift_slowAlloc();
-      v89 = v38;
-      *v37 = 136446210;
-      v88 = v33;
-      v39 = String.init<A>(describing:)();
-      v41 = sub_100034C38(v39, v40, &v89);
-
-      *(v37 + 4) = v41;
-      _os_log_impl(&_mh_execute_header, v35, v36, "Updating sustained execution mode enablement strategy to %{public}s", v37, 0xCu);
-      sub_100003964(v38);
-    }
-
-    (*(v84 + 8))(v12, v85);
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.semEnablementStrategy.setter();
-
-    if (qword_100053470 != -1)
-    {
-      swift_once();
-    }
-
-    *&v91 = &type metadata for ModeEnablementStrategy;
-    v89 = v33;
-    v42 = qword_1000565F0;
-    v43 = v86;
-    Notification.init(name:object:userInfo:)();
-    v19 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
-    v44 = [objc_opt_self() p_name[186]];
-    v45 = Notification._bridgeToObjectiveC()().super.isa;
-    [v44 postNotification:v45];
-
-    (*(v87 + 8))(v43, v83);
-  }
-
-  v46 = v19;
-  v47 = v106;
-  v48 = ModeEnablementStrategy.rawValue.getter();
-  if (v48 != ModeEnablementStrategy.rawValue.getter())
-  {
-    v49 = v80;
-    static Logger.policyCoordinator.getter();
-    v50 = Logger.logObject.getter();
-    v51 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v50, v51))
-    {
-      v52 = swift_slowAlloc();
-      v53 = p_name;
-      v54 = swift_slowAlloc();
-      v89 = v54;
-      *v52 = 136446210;
-      v88 = v47;
-      v55 = String.init<A>(describing:)();
-      v57 = sub_100034C38(v55, v56, &v89);
-
-      *(v52 + 4) = v57;
-      _os_log_impl(&_mh_execute_header, v50, v51, "Updating dynamic splitter enablement strategy to %{public}s", v52, 0xCu);
-      sub_100003964(v54);
-      p_name = v53;
-
-      (*(v84 + 8))(v80, v85);
-    }
-
-    else
-    {
-
-      (*(v84 + 8))(v49, v85);
-    }
-
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.dynamicSplitterEnablementStrategy.setter();
-
-    if (qword_100053478 != -1)
-    {
-      swift_once();
-    }
-
-    *&v91 = &type metadata for ModeEnablementStrategy;
-    v89 = v47;
-    v58 = qword_1000565F8;
-    v59 = v86;
-    Notification.init(name:object:userInfo:)();
-    v60 = v46[465];
-    v61 = [objc_opt_self() p_name[186]];
-    v62 = Notification._bridgeToObjectiveC()().super.isa;
-    [v61 postNotification:v62];
-
-    (*(v87 + 8))(v59, v83);
-  }
-
-  v63 = *(&v106 + 1);
-  v64 = ModelManagerPolicyStrategy.rawValue.getter();
-  v65 = ModelManagerPolicyStrategy.rawValue.getter();
-  v66 = v81;
-  if (v64 == v65)
-  {
-    sub_10001B150(v104);
-    sub_10001B150(v103);
-  }
-
-  else
-  {
-    static Logger.policyCoordinator.getter();
-    v67 = Logger.logObject.getter();
-    v68 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v67, v68))
-    {
-      v69 = swift_slowAlloc();
-      v70 = swift_slowAlloc();
-      v89 = v70;
-      *v69 = 136446210;
-      v88 = v63;
-      v71 = String.init<A>(describing:)();
-      v73 = sub_100034C38(v71, v72, &v89);
-
-      *(v69 + 4) = v73;
-      _os_log_impl(&_mh_execute_header, v67, v68, "Updating game mode ModelManager policy strategy to %{public}s", v69, 0xCu);
-      sub_100003964(v70);
-      p_name = &stru_100051FF8.name;
-    }
-
-    (*(v84 + 8))(v66, v85);
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.modelManagerGameAssertionPolicyStrategy.setter();
-
-    if (qword_100053468 != -1)
-    {
-      swift_once();
-    }
-
-    *&v91 = &type metadata for ModelManagerPolicyStrategy;
-    v89 = v63;
-    v74 = qword_1000565E8;
-    v75 = v86;
-    Notification.init(name:object:userInfo:)();
-    v76 = [objc_opt_self() p_name[186]];
-    v77 = Notification._bridgeToObjectiveC()().super.isa;
-    [v76 postNotification:v77];
-
-    sub_10001B150(v104);
-    sub_10001B150(v103);
-    (*(v87 + 8))(v75, v83);
-  }
-
-  return v82;
-}
-
-id sub_100011C54(uint64_t a1)
-{
-  v83 = type metadata accessor for Notification();
-  v87 = *(v83 - 8);
-  v2 = *(v87 + 64);
-  __chkstk_darwin(v83 - 8);
-  v86 = &v79 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for Logger();
-  v84 = *(v4 - 8);
-  v85 = v4;
-  v5 = *(v84 + 64);
-  v6 = __chkstk_darwin(v4);
-  v81 = &v79 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __chkstk_darwin(v6);
-  v80 = &v79 - v9;
-  v10 = __chkstk_darwin(v8);
-  v12 = &v79 - v11;
-  __chkstk_darwin(v10);
-  v14 = &v79 - v13;
-  v15 = *(a1 + 16);
-  [v15 lock];
-  swift_beginAccess();
-  v98 = *(a1 + 56);
-  v99 = *(a1 + 72);
-  v100 = *(a1 + 88);
-  v101 = *(a1 + 104);
-  v16 = *(&v98 + 1);
-  v102[0] = v98;
-  v102[1] = v99;
-  v102[2] = v100;
-  v102[3] = v101;
-  v92 = v100;
-  v93 = v101;
-  v90 = v98;
-  v91 = v99;
-  v96 = v100;
-  v94 = v98;
-  v95 = v99;
-  v97 = v101;
-  sub_10001B118(&v98, v104);
-  v82 = v16;
-  sub_10001B118(v102, v104);
-  [v15 unlock];
-  v103[0] = v90;
-  v103[1] = v91;
-  v103[2] = v92;
-  v103[3] = v93;
-  v104[0] = v94;
-  v104[1] = v95;
-  v105 = v96;
-  v106 = v97;
-  v17 = v96;
-  v18 = ModeEnablementStrategy.rawValue.getter();
-  v19 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
-  p_name = (&stru_100051FF8 + 8);
-  if (v18 != ModeEnablementStrategy.rawValue.getter())
-  {
-    static Logger.policyCoordinator.getter();
-    v21 = Logger.logObject.getter();
-    v22 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v21, v22))
-    {
-      v23 = swift_slowAlloc();
-      v24 = swift_slowAlloc();
-      v89 = v24;
-      *v23 = 136446210;
-      v88 = v17;
-      v25 = String.init<A>(describing:)();
-      v27 = sub_100034C38(v25, v26, &v89);
-
-      *(v23 + 4) = v27;
-      v19 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
-      _os_log_impl(&_mh_execute_header, v21, v22, "Updating game mode enablement strategy to %{public}s", v23, 0xCu);
-      sub_100003964(v24);
-    }
-
-    (*(v84 + 8))(v14, v85);
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.gameModeEnablementStrategy.setter();
-
-    p_name = &stru_100051FF8.name;
-    if (qword_100053460 != -1)
-    {
-      swift_once();
-    }
-
-    *&v91 = &type metadata for ModeEnablementStrategy;
-    v89 = v17;
-    v28 = qword_1000565E0;
-    v29 = v86;
-    Notification.init(name:object:userInfo:)();
-    v30 = v19[465];
-    v31 = [objc_opt_self() defaultCenter];
-    isa = Notification._bridgeToObjectiveC()().super.isa;
-    [v31 postNotification:isa];
-
-    (*(v87 + 8))(v29, v83);
-  }
-
-  v33 = *(&v105 + 1);
-  v34 = ModeEnablementStrategy.rawValue.getter();
-  if (v34 != ModeEnablementStrategy.rawValue.getter())
-  {
-    static Logger.policyCoordinator.getter();
-    v35 = Logger.logObject.getter();
-    v36 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v35, v36))
-    {
-      v37 = swift_slowAlloc();
-      v38 = swift_slowAlloc();
-      v89 = v38;
-      *v37 = 136446210;
-      v88 = v33;
-      v39 = String.init<A>(describing:)();
-      v41 = sub_100034C38(v39, v40, &v89);
-
-      *(v37 + 4) = v41;
-      _os_log_impl(&_mh_execute_header, v35, v36, "Updating sustained execution mode enablement strategy to %{public}s", v37, 0xCu);
-      sub_100003964(v38);
-    }
-
-    (*(v84 + 8))(v12, v85);
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.semEnablementStrategy.setter();
-
-    if (qword_100053470 != -1)
-    {
-      swift_once();
-    }
-
-    *&v91 = &type metadata for ModeEnablementStrategy;
-    v89 = v33;
-    v42 = qword_1000565F0;
-    v43 = v86;
-    Notification.init(name:object:userInfo:)();
-    v19 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
-    v44 = [objc_opt_self() p_name[186]];
-    v45 = Notification._bridgeToObjectiveC()().super.isa;
-    [v44 postNotification:v45];
-
-    (*(v87 + 8))(v43, v83);
-  }
-
-  v46 = v19;
-  v47 = v106;
-  v48 = ModeEnablementStrategy.rawValue.getter();
-  if (v48 != ModeEnablementStrategy.rawValue.getter())
-  {
-    v49 = v80;
-    static Logger.policyCoordinator.getter();
-    v50 = Logger.logObject.getter();
-    v51 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v50, v51))
-    {
-      v52 = swift_slowAlloc();
-      v53 = p_name;
-      v54 = swift_slowAlloc();
-      v89 = v54;
-      *v52 = 136446210;
-      v88 = v47;
-      v55 = String.init<A>(describing:)();
-      v57 = sub_100034C38(v55, v56, &v89);
-
-      *(v52 + 4) = v57;
-      _os_log_impl(&_mh_execute_header, v50, v51, "Updating dynamic splitter enablement strategy to %{public}s", v52, 0xCu);
-      sub_100003964(v54);
-      p_name = v53;
-
-      (*(v84 + 8))(v80, v85);
-    }
-
-    else
-    {
-
-      (*(v84 + 8))(v49, v85);
-    }
-
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.dynamicSplitterEnablementStrategy.setter();
-
-    if (qword_100053478 != -1)
-    {
-      swift_once();
-    }
-
-    *&v91 = &type metadata for ModeEnablementStrategy;
-    v89 = v47;
-    v58 = qword_1000565F8;
-    v59 = v86;
-    Notification.init(name:object:userInfo:)();
-    v60 = v46[465];
-    v61 = [objc_opt_self() p_name[186]];
-    v62 = Notification._bridgeToObjectiveC()().super.isa;
-    [v61 postNotification:v62];
-
-    (*(v87 + 8))(v59, v83);
-  }
-
-  v63 = *(&v106 + 1);
-  v64 = ModelManagerPolicyStrategy.rawValue.getter();
-  v65 = ModelManagerPolicyStrategy.rawValue.getter();
-  v66 = v81;
-  if (v64 == v65)
-  {
-    sub_10001B150(v104);
-    sub_10001B150(v103);
-  }
-
-  else
-  {
-    static Logger.policyCoordinator.getter();
-    v67 = Logger.logObject.getter();
-    v68 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v67, v68))
-    {
-      v69 = swift_slowAlloc();
-      v70 = swift_slowAlloc();
-      v89 = v70;
-      *v69 = 136446210;
-      v88 = v63;
-      v71 = String.init<A>(describing:)();
-      v73 = sub_100034C38(v71, v72, &v89);
-
-      *(v69 + 4) = v73;
-      _os_log_impl(&_mh_execute_header, v67, v68, "Updating game mode ModelManager policy strategy to %{public}s", v69, 0xCu);
-      sub_100003964(v70);
-      p_name = &stru_100051FF8.name;
-    }
-
-    (*(v84 + 8))(v66, v85);
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.modelManagerGameAssertionPolicyStrategy.setter();
-
-    if (qword_100053468 != -1)
-    {
-      swift_once();
-    }
-
-    *&v91 = &type metadata for ModelManagerPolicyStrategy;
-    v89 = v63;
-    v74 = qword_1000565E8;
-    v75 = v86;
-    Notification.init(name:object:userInfo:)();
-    v76 = [objc_opt_self() p_name[186]];
-    v77 = Notification._bridgeToObjectiveC()().super.isa;
-    [v76 postNotification:v77];
-
-    sub_10001B150(v104);
-    sub_10001B150(v103);
-    (*(v87 + 8))(v75, v83);
-  }
-
-  return v82;
-}
-
-id sub_10001271C(uint64_t a1)
-{
-  v83 = type metadata accessor for Notification();
-  v87 = *(v83 - 8);
-  v2 = *(v87 + 64);
-  __chkstk_darwin(v83 - 8);
-  v86 = &v79 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for Logger();
-  v84 = *(v4 - 8);
-  v85 = v4;
-  v5 = *(v84 + 64);
-  v6 = __chkstk_darwin(v4);
-  v81 = &v79 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __chkstk_darwin(v6);
-  v80 = &v79 - v9;
-  v10 = __chkstk_darwin(v8);
-  v12 = &v79 - v11;
-  __chkstk_darwin(v10);
-  v14 = &v79 - v13;
-  v15 = *(a1 + 16);
-  [v15 lock];
-  swift_beginAccess();
-  v99 = *(a1 + 72);
-  v98 = *(a1 + 56);
-  v100 = *(a1 + 88);
-  v101 = *(a1 + 104);
-  v16 = *(&v99 + 1);
-  v102[0] = v98;
-  v102[1] = v99;
-  v102[2] = v100;
-  v102[3] = v101;
-  v92 = v100;
-  v93 = v101;
-  v90 = v98;
-  v91 = v99;
-  v96 = v100;
-  v94 = v98;
-  v95 = v99;
-  v97 = v101;
-  sub_10001B118(&v98, v104);
-  v82 = v16;
-  sub_10001B118(v102, v104);
-  [v15 unlock];
-  v103[0] = v90;
-  v103[1] = v91;
-  v103[2] = v92;
-  v103[3] = v93;
-  v104[0] = v94;
-  v104[1] = v95;
-  v105 = v96;
-  v106 = v97;
-  v17 = v96;
-  v18 = ModeEnablementStrategy.rawValue.getter();
-  v19 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
-  p_name = (&stru_100051FF8 + 8);
-  if (v18 != ModeEnablementStrategy.rawValue.getter())
-  {
-    static Logger.policyCoordinator.getter();
-    v21 = Logger.logObject.getter();
-    v22 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v21, v22))
-    {
-      v23 = swift_slowAlloc();
-      v24 = swift_slowAlloc();
-      v89 = v24;
-      *v23 = 136446210;
-      v88 = v17;
-      v25 = String.init<A>(describing:)();
-      v27 = sub_100034C38(v25, v26, &v89);
-
-      *(v23 + 4) = v27;
-      v19 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
-      _os_log_impl(&_mh_execute_header, v21, v22, "Updating game mode enablement strategy to %{public}s", v23, 0xCu);
-      sub_100003964(v24);
-    }
-
-    (*(v84 + 8))(v14, v85);
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.gameModeEnablementStrategy.setter();
-
-    p_name = &stru_100051FF8.name;
-    if (qword_100053460 != -1)
-    {
-      swift_once();
-    }
-
-    *&v91 = &type metadata for ModeEnablementStrategy;
-    v89 = v17;
-    v28 = qword_1000565E0;
-    v29 = v86;
-    Notification.init(name:object:userInfo:)();
-    v30 = v19[465];
-    v31 = [objc_opt_self() defaultCenter];
-    isa = Notification._bridgeToObjectiveC()().super.isa;
-    [v31 postNotification:isa];
-
-    (*(v87 + 8))(v29, v83);
-  }
-
-  v33 = *(&v105 + 1);
-  v34 = ModeEnablementStrategy.rawValue.getter();
-  if (v34 != ModeEnablementStrategy.rawValue.getter())
-  {
-    static Logger.policyCoordinator.getter();
-    v35 = Logger.logObject.getter();
-    v36 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v35, v36))
-    {
-      v37 = swift_slowAlloc();
-      v38 = swift_slowAlloc();
-      v89 = v38;
-      *v37 = 136446210;
-      v88 = v33;
-      v39 = String.init<A>(describing:)();
-      v41 = sub_100034C38(v39, v40, &v89);
-
-      *(v37 + 4) = v41;
-      _os_log_impl(&_mh_execute_header, v35, v36, "Updating sustained execution mode enablement strategy to %{public}s", v37, 0xCu);
-      sub_100003964(v38);
-    }
-
-    (*(v84 + 8))(v12, v85);
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.semEnablementStrategy.setter();
-
-    if (qword_100053470 != -1)
-    {
-      swift_once();
-    }
-
-    *&v91 = &type metadata for ModeEnablementStrategy;
-    v89 = v33;
-    v42 = qword_1000565F0;
-    v43 = v86;
-    Notification.init(name:object:userInfo:)();
-    v19 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
-    v44 = [objc_opt_self() p_name[186]];
-    v45 = Notification._bridgeToObjectiveC()().super.isa;
-    [v44 postNotification:v45];
-
-    (*(v87 + 8))(v43, v83);
-  }
-
-  v46 = v19;
-  v47 = v106;
-  v48 = ModeEnablementStrategy.rawValue.getter();
-  if (v48 != ModeEnablementStrategy.rawValue.getter())
-  {
-    v49 = v80;
-    static Logger.policyCoordinator.getter();
-    v50 = Logger.logObject.getter();
-    v51 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v50, v51))
-    {
-      v52 = swift_slowAlloc();
-      v53 = p_name;
-      v54 = swift_slowAlloc();
-      v89 = v54;
-      *v52 = 136446210;
-      v88 = v47;
-      v55 = String.init<A>(describing:)();
-      v57 = sub_100034C38(v55, v56, &v89);
-
-      *(v52 + 4) = v57;
-      _os_log_impl(&_mh_execute_header, v50, v51, "Updating dynamic splitter enablement strategy to %{public}s", v52, 0xCu);
-      sub_100003964(v54);
-      p_name = v53;
-
-      (*(v84 + 8))(v80, v85);
-    }
-
-    else
-    {
-
-      (*(v84 + 8))(v49, v85);
-    }
-
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.dynamicSplitterEnablementStrategy.setter();
-
-    if (qword_100053478 != -1)
-    {
-      swift_once();
-    }
-
-    *&v91 = &type metadata for ModeEnablementStrategy;
-    v89 = v47;
-    v58 = qword_1000565F8;
-    v59 = v86;
-    Notification.init(name:object:userInfo:)();
-    v60 = v46[465];
-    v61 = [objc_opt_self() p_name[186]];
-    v62 = Notification._bridgeToObjectiveC()().super.isa;
-    [v61 postNotification:v62];
-
-    (*(v87 + 8))(v59, v83);
-  }
-
-  v63 = *(&v106 + 1);
-  v64 = ModelManagerPolicyStrategy.rawValue.getter();
-  v65 = ModelManagerPolicyStrategy.rawValue.getter();
-  v66 = v81;
-  if (v64 == v65)
-  {
-    sub_10001B150(v104);
-    sub_10001B150(v103);
-  }
-
-  else
-  {
-    static Logger.policyCoordinator.getter();
-    v67 = Logger.logObject.getter();
-    v68 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v67, v68))
-    {
-      v69 = swift_slowAlloc();
-      v70 = swift_slowAlloc();
-      v89 = v70;
-      *v69 = 136446210;
-      v88 = v63;
-      v71 = String.init<A>(describing:)();
-      v73 = sub_100034C38(v71, v72, &v89);
-
-      *(v69 + 4) = v73;
-      _os_log_impl(&_mh_execute_header, v67, v68, "Updating game mode ModelManager policy strategy to %{public}s", v69, 0xCu);
-      sub_100003964(v70);
-      p_name = &stru_100051FF8.name;
-    }
-
-    (*(v84 + 8))(v66, v85);
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.modelManagerGameAssertionPolicyStrategy.setter();
-
-    if (qword_100053468 != -1)
-    {
-      swift_once();
-    }
-
-    *&v91 = &type metadata for ModelManagerPolicyStrategy;
-    v89 = v63;
-    v74 = qword_1000565E8;
-    v75 = v86;
-    Notification.init(name:object:userInfo:)();
-    v76 = [objc_opt_self() p_name[186]];
-    v77 = Notification._bridgeToObjectiveC()().super.isa;
-    [v76 postNotification:v77];
-
-    sub_10001B150(v104);
-    sub_10001B150(v103);
-    (*(v87 + 8))(v75, v83);
-  }
-
-  return v82;
-}
-
-uint64_t sub_1000131E8(uint64_t a1)
-{
-  v82 = type metadata accessor for Notification();
-  v86 = *(v82 - 8);
-  v2 = *(v86 + 64);
-  __chkstk_darwin(v82 - 8);
-  v85 = &v78 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for Logger();
-  v83 = *(v4 - 8);
-  v84 = v4;
-  v5 = *(v83 + 64);
-  v6 = __chkstk_darwin(v4);
-  v80 = &v78 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __chkstk_darwin(v6);
-  v79 = &v78 - v9;
-  v10 = __chkstk_darwin(v8);
-  v12 = &v78 - v11;
-  __chkstk_darwin(v10);
-  v14 = &v78 - v13;
-  v15 = *(a1 + 16);
-  [v15 lock];
-  swift_beginAccess();
-  v99 = *(a1 + 88);
-  v97 = *(a1 + 56);
-  v98 = *(a1 + 72);
-  v100 = *(a1 + 104);
-  v81 = v99;
-  v101[0] = v97;
-  v101[1] = v98;
-  v101[2] = v99;
-  v101[3] = v100;
-  v91 = v99;
-  v92 = v100;
-  v89 = v97;
-  v90 = v98;
-  v96 = v100;
-  v95 = v99;
-  v93 = v97;
-  v94 = v98;
-  sub_10001B118(&v97, v103);
-  sub_10001B118(v101, v103);
-  [v15 unlock];
-  v102[0] = v89;
-  v102[1] = v90;
-  v102[2] = v91;
-  v102[3] = v92;
-  v103[0] = v93;
-  v103[1] = v94;
-  v104 = v95;
-  v105 = v96;
-  v16 = v95;
-  v17 = ModeEnablementStrategy.rawValue.getter();
-  v18 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
-  p_name = (&stru_100051FF8 + 8);
-  if (v17 != ModeEnablementStrategy.rawValue.getter())
-  {
-    static Logger.policyCoordinator.getter();
-    v20 = Logger.logObject.getter();
-    v21 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v20, v21))
-    {
-      v22 = swift_slowAlloc();
-      v23 = swift_slowAlloc();
-      v88 = v23;
-      *v22 = 136446210;
-      v87 = v16;
-      v24 = String.init<A>(describing:)();
-      v26 = sub_100034C38(v24, v25, &v88);
-
-      *(v22 + 4) = v26;
-      v18 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
-      _os_log_impl(&_mh_execute_header, v20, v21, "Updating game mode enablement strategy to %{public}s", v22, 0xCu);
-      sub_100003964(v23);
-    }
-
-    (*(v83 + 8))(v14, v84);
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.gameModeEnablementStrategy.setter();
-
-    p_name = &stru_100051FF8.name;
-    if (qword_100053460 != -1)
-    {
-      swift_once();
-    }
-
-    *&v90 = &type metadata for ModeEnablementStrategy;
-    v88 = v16;
-    v27 = qword_1000565E0;
-    v28 = v85;
-    Notification.init(name:object:userInfo:)();
-    v29 = v18[465];
-    v30 = [objc_opt_self() defaultCenter];
-    isa = Notification._bridgeToObjectiveC()().super.isa;
-    [v30 postNotification:isa];
-
-    (*(v86 + 8))(v28, v82);
-  }
-
-  v32 = *(&v104 + 1);
-  v33 = ModeEnablementStrategy.rawValue.getter();
-  if (v33 != ModeEnablementStrategy.rawValue.getter())
-  {
-    static Logger.policyCoordinator.getter();
-    v34 = Logger.logObject.getter();
-    v35 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v34, v35))
-    {
-      v36 = swift_slowAlloc();
-      v37 = swift_slowAlloc();
-      v88 = v37;
-      *v36 = 136446210;
-      v87 = v32;
-      v38 = String.init<A>(describing:)();
-      v40 = sub_100034C38(v38, v39, &v88);
-
-      *(v36 + 4) = v40;
-      _os_log_impl(&_mh_execute_header, v34, v35, "Updating sustained execution mode enablement strategy to %{public}s", v36, 0xCu);
-      sub_100003964(v37);
-    }
-
-    (*(v83 + 8))(v12, v84);
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.semEnablementStrategy.setter();
-
-    if (qword_100053470 != -1)
-    {
-      swift_once();
-    }
-
-    *&v90 = &type metadata for ModeEnablementStrategy;
-    v88 = v32;
-    v41 = qword_1000565F0;
-    v42 = v85;
-    Notification.init(name:object:userInfo:)();
-    v18 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
-    v43 = [objc_opt_self() p_name[186]];
-    v44 = Notification._bridgeToObjectiveC()().super.isa;
-    [v43 postNotification:v44];
-
-    (*(v86 + 8))(v42, v82);
-  }
-
-  v45 = v18;
-  v46 = v105;
-  v47 = ModeEnablementStrategy.rawValue.getter();
-  if (v47 != ModeEnablementStrategy.rawValue.getter())
-  {
-    v48 = v79;
-    static Logger.policyCoordinator.getter();
-    v49 = Logger.logObject.getter();
-    v50 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v49, v50))
-    {
-      v51 = swift_slowAlloc();
-      v52 = p_name;
-      v53 = swift_slowAlloc();
-      v88 = v53;
-      *v51 = 136446210;
-      v87 = v46;
-      v54 = String.init<A>(describing:)();
-      v56 = sub_100034C38(v54, v55, &v88);
-
-      *(v51 + 4) = v56;
-      _os_log_impl(&_mh_execute_header, v49, v50, "Updating dynamic splitter enablement strategy to %{public}s", v51, 0xCu);
-      sub_100003964(v53);
-      p_name = v52;
-
-      (*(v83 + 8))(v79, v84);
-    }
-
-    else
-    {
-
-      (*(v83 + 8))(v48, v84);
-    }
-
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.dynamicSplitterEnablementStrategy.setter();
-
-    if (qword_100053478 != -1)
-    {
-      swift_once();
-    }
-
-    *&v90 = &type metadata for ModeEnablementStrategy;
-    v88 = v46;
-    v57 = qword_1000565F8;
-    v58 = v85;
-    Notification.init(name:object:userInfo:)();
-    v59 = v45[465];
-    v60 = [objc_opt_self() p_name[186]];
-    v61 = Notification._bridgeToObjectiveC()().super.isa;
-    [v60 postNotification:v61];
-
-    (*(v86 + 8))(v58, v82);
-  }
-
-  v62 = *(&v105 + 1);
-  v63 = ModelManagerPolicyStrategy.rawValue.getter();
-  v64 = ModelManagerPolicyStrategy.rawValue.getter();
-  v65 = v80;
-  if (v63 == v64)
-  {
-    sub_10001B150(v103);
-    sub_10001B150(v102);
-  }
-
-  else
-  {
-    static Logger.policyCoordinator.getter();
-    v66 = Logger.logObject.getter();
-    v67 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v66, v67))
-    {
-      v68 = swift_slowAlloc();
-      v69 = swift_slowAlloc();
-      v88 = v69;
-      *v68 = 136446210;
-      v87 = v62;
-      v70 = String.init<A>(describing:)();
-      v72 = sub_100034C38(v70, v71, &v88);
-
-      *(v68 + 4) = v72;
-      _os_log_impl(&_mh_execute_header, v66, v67, "Updating game mode ModelManager policy strategy to %{public}s", v68, 0xCu);
-      sub_100003964(v69);
-      p_name = &stru_100051FF8.name;
-    }
-
-    (*(v83 + 8))(v65, v84);
-    type metadata accessor for GlobalPreferences();
-    dispatch thunk of static GlobalPreferences.shared.getter();
-    dispatch thunk of GlobalPreferences.modelManagerGameAssertionPolicyStrategy.setter();
-
-    if (qword_100053468 != -1)
-    {
-      swift_once();
-    }
-
-    *&v90 = &type metadata for ModelManagerPolicyStrategy;
-    v88 = v62;
-    v73 = qword_1000565E8;
-    v74 = v85;
-    Notification.init(name:object:userInfo:)();
-    v75 = [objc_opt_self() p_name[186]];
-    v76 = Notification._bridgeToObjectiveC()().super.isa;
-    [v75 postNotification:v76];
-
-    sub_10001B150(v103);
-    sub_10001B150(v102);
-    (*(v86 + 8))(v74, v82);
-  }
-
-  return v81;
+  return v75;
 }
 
 uint64_t sub_100013CB0(uint64_t a1)
 {
-  v82 = type metadata accessor for Notification();
-  v86 = *(v82 - 8);
-  v2 = *(v86 + 64);
-  __chkstk_darwin(v82 - 8);
-  v85 = &v78 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for Logger();
-  v83 = *(v4 - 8);
-  v84 = v4;
-  v5 = *(v83 + 64);
+  v76 = type metadata accessor for Notification();
+  v80 = *(v76 - 8);
+  __chkstk_darwin(v76 - 8);
+  v79 = &v72 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for Logger();
+  v77 = *(v3 - 8);
+  v78 = v3;
+  v4 = __chkstk_darwin(v3);
+  v74 = &v72 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = __chkstk_darwin(v4);
-  v80 = &v78 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v73 = &v72 - v7;
   v8 = __chkstk_darwin(v6);
-  v79 = &v78 - v9;
-  v10 = __chkstk_darwin(v8);
-  v12 = &v78 - v11;
-  __chkstk_darwin(v10);
-  v14 = &v78 - v13;
-  v15 = *(a1 + 16);
-  [v15 lock];
+  v10 = &v72 - v9;
+  __chkstk_darwin(v8);
+  v12 = &v72 - v11;
+  v13 = *(a1 + 16);
+  [v13 lock];
   swift_beginAccess();
-  v99 = *(a1 + 88);
-  v97 = *(a1 + 56);
-  v98 = *(a1 + 72);
-  v100 = *(a1 + 104);
-  v81 = *(&v99 + 1);
-  v101[0] = v97;
-  v101[1] = v98;
-  v101[2] = v99;
-  v101[3] = v100;
-  v91 = v99;
-  v92 = v100;
-  v89 = v97;
-  v90 = v98;
-  v96 = v100;
-  v95 = v99;
-  v93 = v97;
-  v94 = v98;
-  sub_10001B118(&v97, v103);
-  sub_10001B118(v101, v103);
-  [v15 unlock];
-  v102[0] = v89;
-  v102[1] = v90;
-  v102[2] = v91;
-  v102[3] = v92;
-  v103[0] = v93;
-  v103[1] = v94;
-  v104 = v95;
-  v105 = v96;
-  v16 = v95;
-  v17 = ModeEnablementStrategy.rawValue.getter();
-  v18 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
+  v93 = *(a1 + 88);
+  v91 = *(a1 + 56);
+  v92 = *(a1 + 72);
+  v94 = *(a1 + 104);
+  v75 = *(&v93 + 1);
+  v95[0] = v91;
+  v95[1] = v92;
+  v95[2] = v93;
+  v95[3] = v94;
+  v85 = v93;
+  v86 = v94;
+  v83 = v91;
+  v84 = v92;
+  v90 = v94;
+  v89 = v93;
+  v87 = v91;
+  v88 = v92;
+  sub_10001B118(&v91, v97);
+  sub_10001B118(v95, v97);
+  [v13 unlock];
+  v96[0] = v83;
+  v96[1] = v84;
+  v96[2] = v85;
+  v96[3] = v86;
+  v97[0] = v87;
+  v97[1] = v88;
+  v98 = v89;
+  v99 = v90;
+  v14 = v89;
+  v15 = ModeEnablementStrategy.rawValue.getter();
   p_name = (&stru_100051FF8 + 8);
-  if (v17 != ModeEnablementStrategy.rawValue.getter())
+  if (v15 != ModeEnablementStrategy.rawValue.getter())
   {
     static Logger.policyCoordinator.getter();
-    v20 = Logger.logObject.getter();
-    v21 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v20, v21))
+    v17 = Logger.logObject.getter();
+    v18 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v17, v18))
     {
-      v22 = swift_slowAlloc();
-      v23 = swift_slowAlloc();
-      v88 = v23;
-      *v22 = 136446210;
-      v87 = v16;
-      v24 = String.init<A>(describing:)();
-      v26 = sub_100034C38(v24, v25, &v88);
+      v19 = swift_slowAlloc();
+      v20 = swift_slowAlloc();
+      v82 = v20;
+      *v19 = 136446210;
+      v81 = v14;
+      v21 = String.init<A>(describing:)();
+      v23 = sub_100034C38(v21, v22, &v82);
 
-      *(v22 + 4) = v26;
-      v18 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
-      _os_log_impl(&_mh_execute_header, v20, v21, "Updating game mode enablement strategy to %{public}s", v22, 0xCu);
-      sub_100003964(v23);
+      *(v19 + 4) = v23;
+      _os_log_impl(&_mh_execute_header, v17, v18, "Updating game mode enablement strategy to %{public}s", v19, 0xCu);
+      sub_100003964(v20);
     }
 
-    (*(v83 + 8))(v14, v84);
+    (*(v77 + 8))(v12, v78);
     type metadata accessor for GlobalPreferences();
     dispatch thunk of static GlobalPreferences.shared.getter();
     dispatch thunk of GlobalPreferences.gameModeEnablementStrategy.setter();
@@ -7929,42 +7768,41 @@ uint64_t sub_100013CB0(uint64_t a1)
       swift_once();
     }
 
-    *&v90 = &type metadata for ModeEnablementStrategy;
-    v88 = v16;
-    v27 = qword_1000565E0;
-    v28 = v85;
+    *&v84 = &type metadata for ModeEnablementStrategy;
+    v82 = v14;
+    v24 = qword_1000565E0;
+    v25 = v79;
     Notification.init(name:object:userInfo:)();
-    v29 = v18[465];
-    v30 = [objc_opt_self() defaultCenter];
+    v26 = [objc_opt_self() defaultCenter];
     isa = Notification._bridgeToObjectiveC()().super.isa;
-    [v30 postNotification:isa];
+    [v26 postNotification:isa];
 
-    (*(v86 + 8))(v28, v82);
+    (*(v80 + 8))(v25, v76);
   }
 
-  v32 = *(&v104 + 1);
-  v33 = ModeEnablementStrategy.rawValue.getter();
-  if (v33 != ModeEnablementStrategy.rawValue.getter())
+  v28 = *(&v98 + 1);
+  v29 = ModeEnablementStrategy.rawValue.getter();
+  if (v29 != ModeEnablementStrategy.rawValue.getter())
   {
     static Logger.policyCoordinator.getter();
-    v34 = Logger.logObject.getter();
-    v35 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v34, v35))
+    v30 = Logger.logObject.getter();
+    v31 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v30, v31))
     {
-      v36 = swift_slowAlloc();
-      v37 = swift_slowAlloc();
-      v88 = v37;
-      *v36 = 136446210;
-      v87 = v32;
-      v38 = String.init<A>(describing:)();
-      v40 = sub_100034C38(v38, v39, &v88);
+      v32 = swift_slowAlloc();
+      v33 = swift_slowAlloc();
+      v82 = v33;
+      *v32 = 136446210;
+      v81 = v28;
+      v34 = String.init<A>(describing:)();
+      v36 = sub_100034C38(v34, v35, &v82);
 
-      *(v36 + 4) = v40;
-      _os_log_impl(&_mh_execute_header, v34, v35, "Updating sustained execution mode enablement strategy to %{public}s", v36, 0xCu);
-      sub_100003964(v37);
+      *(v32 + 4) = v36;
+      _os_log_impl(&_mh_execute_header, v30, v31, "Updating sustained execution mode enablement strategy to %{public}s", v32, 0xCu);
+      sub_100003964(v33);
     }
 
-    (*(v83 + 8))(v12, v84);
+    (*(v77 + 8))(v10, v78);
     type metadata accessor for GlobalPreferences();
     dispatch thunk of static GlobalPreferences.shared.getter();
     dispatch thunk of GlobalPreferences.semEnablementStrategy.setter();
@@ -7974,51 +7812,49 @@ uint64_t sub_100013CB0(uint64_t a1)
       swift_once();
     }
 
-    *&v90 = &type metadata for ModeEnablementStrategy;
-    v88 = v32;
-    v41 = qword_1000565F0;
-    v42 = v85;
+    *&v84 = &type metadata for ModeEnablementStrategy;
+    v82 = v28;
+    v37 = qword_1000565F0;
+    v38 = v79;
     Notification.init(name:object:userInfo:)();
-    v18 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
-    v43 = [objc_opt_self() p_name[186]];
-    v44 = Notification._bridgeToObjectiveC()().super.isa;
-    [v43 postNotification:v44];
+    v39 = [objc_opt_self() p_name[186]];
+    v40 = Notification._bridgeToObjectiveC()().super.isa;
+    [v39 postNotification:v40];
 
-    (*(v86 + 8))(v42, v82);
+    (*(v80 + 8))(v38, v76);
   }
 
-  v45 = v18;
-  v46 = v105;
-  v47 = ModeEnablementStrategy.rawValue.getter();
-  if (v47 != ModeEnablementStrategy.rawValue.getter())
+  v41 = v99;
+  v42 = ModeEnablementStrategy.rawValue.getter();
+  if (v42 != ModeEnablementStrategy.rawValue.getter())
   {
-    v48 = v79;
+    v43 = v73;
     static Logger.policyCoordinator.getter();
-    v49 = Logger.logObject.getter();
-    v50 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v49, v50))
+    v44 = Logger.logObject.getter();
+    v45 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v44, v45))
     {
-      v51 = swift_slowAlloc();
-      v52 = p_name;
-      v53 = swift_slowAlloc();
-      v88 = v53;
-      *v51 = 136446210;
-      v87 = v46;
-      v54 = String.init<A>(describing:)();
-      v56 = sub_100034C38(v54, v55, &v88);
+      v46 = swift_slowAlloc();
+      v47 = p_name;
+      v48 = swift_slowAlloc();
+      v82 = v48;
+      *v46 = 136446210;
+      v81 = v41;
+      v49 = String.init<A>(describing:)();
+      v51 = sub_100034C38(v49, v50, &v82);
 
-      *(v51 + 4) = v56;
-      _os_log_impl(&_mh_execute_header, v49, v50, "Updating dynamic splitter enablement strategy to %{public}s", v51, 0xCu);
-      sub_100003964(v53);
-      p_name = v52;
+      *(v46 + 4) = v51;
+      _os_log_impl(&_mh_execute_header, v44, v45, "Updating dynamic splitter enablement strategy to %{public}s", v46, 0xCu);
+      sub_100003964(v48);
+      p_name = v47;
 
-      (*(v83 + 8))(v79, v84);
+      (*(v77 + 8))(v73, v78);
     }
 
     else
     {
 
-      (*(v83 + 8))(v48, v84);
+      (*(v77 + 8))(v43, v78);
     }
 
     type metadata accessor for GlobalPreferences();
@@ -8030,51 +7866,50 @@ uint64_t sub_100013CB0(uint64_t a1)
       swift_once();
     }
 
-    *&v90 = &type metadata for ModeEnablementStrategy;
-    v88 = v46;
-    v57 = qword_1000565F8;
-    v58 = v85;
+    *&v84 = &type metadata for ModeEnablementStrategy;
+    v82 = v41;
+    v52 = qword_1000565F8;
+    v53 = v79;
     Notification.init(name:object:userInfo:)();
-    v59 = v45[465];
-    v60 = [objc_opt_self() p_name[186]];
-    v61 = Notification._bridgeToObjectiveC()().super.isa;
-    [v60 postNotification:v61];
+    v54 = [objc_opt_self() p_name[186]];
+    v55 = Notification._bridgeToObjectiveC()().super.isa;
+    [v54 postNotification:v55];
 
-    (*(v86 + 8))(v58, v82);
+    (*(v80 + 8))(v53, v76);
   }
 
-  v62 = *(&v105 + 1);
-  v63 = ModelManagerPolicyStrategy.rawValue.getter();
-  v64 = ModelManagerPolicyStrategy.rawValue.getter();
-  v65 = v80;
-  if (v63 == v64)
+  v56 = *(&v99 + 1);
+  v57 = ModelManagerPolicyStrategy.rawValue.getter();
+  v58 = ModelManagerPolicyStrategy.rawValue.getter();
+  v59 = v74;
+  if (v57 == v58)
   {
-    sub_10001B150(v103);
-    sub_10001B150(v102);
+    sub_10001B150(v97);
+    sub_10001B150(v96);
   }
 
   else
   {
     static Logger.policyCoordinator.getter();
-    v66 = Logger.logObject.getter();
-    v67 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v66, v67))
+    v60 = Logger.logObject.getter();
+    v61 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v60, v61))
     {
-      v68 = swift_slowAlloc();
-      v69 = swift_slowAlloc();
-      v88 = v69;
-      *v68 = 136446210;
-      v87 = v62;
-      v70 = String.init<A>(describing:)();
-      v72 = sub_100034C38(v70, v71, &v88);
+      v62 = swift_slowAlloc();
+      v63 = swift_slowAlloc();
+      v82 = v63;
+      *v62 = 136446210;
+      v81 = v56;
+      v64 = String.init<A>(describing:)();
+      v66 = sub_100034C38(v64, v65, &v82);
 
-      *(v68 + 4) = v72;
-      _os_log_impl(&_mh_execute_header, v66, v67, "Updating game mode ModelManager policy strategy to %{public}s", v68, 0xCu);
-      sub_100003964(v69);
+      *(v62 + 4) = v66;
+      _os_log_impl(&_mh_execute_header, v60, v61, "Updating game mode ModelManager policy strategy to %{public}s", v62, 0xCu);
+      sub_100003964(v63);
       p_name = &stru_100051FF8.name;
     }
 
-    (*(v83 + 8))(v65, v84);
+    (*(v77 + 8))(v59, v78);
     type metadata accessor for GlobalPreferences();
     dispatch thunk of static GlobalPreferences.shared.getter();
     dispatch thunk of GlobalPreferences.modelManagerGameAssertionPolicyStrategy.setter();
@@ -8084,99 +7919,95 @@ uint64_t sub_100013CB0(uint64_t a1)
       swift_once();
     }
 
-    *&v90 = &type metadata for ModelManagerPolicyStrategy;
-    v88 = v62;
-    v73 = qword_1000565E8;
-    v74 = v85;
+    *&v84 = &type metadata for ModelManagerPolicyStrategy;
+    v82 = v56;
+    v67 = qword_1000565E8;
+    v68 = v79;
     Notification.init(name:object:userInfo:)();
-    v75 = [objc_opt_self() p_name[186]];
-    v76 = Notification._bridgeToObjectiveC()().super.isa;
-    [v75 postNotification:v76];
+    v69 = [objc_opt_self() p_name[186]];
+    v70 = Notification._bridgeToObjectiveC()().super.isa;
+    [v69 postNotification:v70];
 
-    sub_10001B150(v103);
-    sub_10001B150(v102);
-    (*(v86 + 8))(v74, v82);
+    sub_10001B150(v97);
+    sub_10001B150(v96);
+    (*(v80 + 8))(v68, v76);
   }
 
-  return v81;
+  return v75;
 }
 
 uint64_t sub_100014778(uint64_t a1)
 {
-  v82 = type metadata accessor for Notification();
-  v86 = *(v82 - 8);
-  v2 = *(v86 + 64);
-  __chkstk_darwin(v82 - 8);
-  v85 = &v78 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for Logger();
-  v83 = *(v4 - 8);
-  v84 = v4;
-  v5 = *(v83 + 64);
+  v76 = type metadata accessor for Notification();
+  v80 = *(v76 - 8);
+  __chkstk_darwin(v76 - 8);
+  v79 = &v72 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for Logger();
+  v77 = *(v3 - 8);
+  v78 = v3;
+  v4 = __chkstk_darwin(v3);
+  v74 = &v72 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = __chkstk_darwin(v4);
-  v80 = &v78 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v73 = &v72 - v7;
   v8 = __chkstk_darwin(v6);
-  v79 = &v78 - v9;
-  v10 = __chkstk_darwin(v8);
-  v12 = &v78 - v11;
-  __chkstk_darwin(v10);
-  v14 = &v78 - v13;
-  v15 = *(a1 + 16);
-  [v15 lock];
+  v10 = &v72 - v9;
+  __chkstk_darwin(v8);
+  v12 = &v72 - v11;
+  v13 = *(a1 + 16);
+  [v13 lock];
   swift_beginAccess();
-  v100 = *(a1 + 104);
-  v97 = *(a1 + 56);
-  v98 = *(a1 + 72);
-  v99 = *(a1 + 88);
-  v81 = v100;
-  v101[0] = v97;
-  v101[1] = v98;
-  v101[2] = v99;
-  v101[3] = v100;
-  v91 = v99;
-  v92 = v100;
-  v89 = v97;
-  v90 = v98;
-  v93 = v97;
-  v94 = v98;
-  v96 = v100;
-  v95 = v99;
-  sub_10001B118(&v97, v103);
-  sub_10001B118(v101, v103);
-  [v15 unlock];
-  v102[0] = v89;
-  v102[1] = v90;
-  v102[2] = v91;
-  v102[3] = v92;
-  v103[0] = v93;
-  v103[1] = v94;
-  v104 = v95;
-  v105 = v96;
-  v16 = v95;
-  v17 = ModeEnablementStrategy.rawValue.getter();
-  v18 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
+  v94 = *(a1 + 104);
+  v91 = *(a1 + 56);
+  v92 = *(a1 + 72);
+  v93 = *(a1 + 88);
+  v75 = v94;
+  v95[0] = v91;
+  v95[1] = v92;
+  v95[2] = v93;
+  v95[3] = v94;
+  v85 = v93;
+  v86 = v94;
+  v83 = v91;
+  v84 = v92;
+  v87 = v91;
+  v88 = v92;
+  v90 = v94;
+  v89 = v93;
+  sub_10001B118(&v91, v97);
+  sub_10001B118(v95, v97);
+  [v13 unlock];
+  v96[0] = v83;
+  v96[1] = v84;
+  v96[2] = v85;
+  v96[3] = v86;
+  v97[0] = v87;
+  v97[1] = v88;
+  v98 = v89;
+  v99 = v90;
+  v14 = v89;
+  v15 = ModeEnablementStrategy.rawValue.getter();
   p_name = (&stru_100051FF8 + 8);
-  if (v17 != ModeEnablementStrategy.rawValue.getter())
+  if (v15 != ModeEnablementStrategy.rawValue.getter())
   {
     static Logger.policyCoordinator.getter();
-    v20 = Logger.logObject.getter();
-    v21 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v20, v21))
+    v17 = Logger.logObject.getter();
+    v18 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v17, v18))
     {
-      v22 = swift_slowAlloc();
-      v23 = swift_slowAlloc();
-      v88 = v23;
-      *v22 = 136446210;
-      v87 = v16;
-      v24 = String.init<A>(describing:)();
-      v26 = sub_100034C38(v24, v25, &v88);
+      v19 = swift_slowAlloc();
+      v20 = swift_slowAlloc();
+      v82 = v20;
+      *v19 = 136446210;
+      v81 = v14;
+      v21 = String.init<A>(describing:)();
+      v23 = sub_100034C38(v21, v22, &v82);
 
-      *(v22 + 4) = v26;
-      v18 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
-      _os_log_impl(&_mh_execute_header, v20, v21, "Updating game mode enablement strategy to %{public}s", v22, 0xCu);
-      sub_100003964(v23);
+      *(v19 + 4) = v23;
+      _os_log_impl(&_mh_execute_header, v17, v18, "Updating game mode enablement strategy to %{public}s", v19, 0xCu);
+      sub_100003964(v20);
     }
 
-    (*(v83 + 8))(v14, v84);
+    (*(v77 + 8))(v12, v78);
     type metadata accessor for GlobalPreferences();
     dispatch thunk of static GlobalPreferences.shared.getter();
     dispatch thunk of GlobalPreferences.gameModeEnablementStrategy.setter();
@@ -8187,42 +8018,41 @@ uint64_t sub_100014778(uint64_t a1)
       swift_once();
     }
 
-    *&v90 = &type metadata for ModeEnablementStrategy;
-    v88 = v16;
-    v27 = qword_1000565E0;
-    v28 = v85;
+    *&v84 = &type metadata for ModeEnablementStrategy;
+    v82 = v14;
+    v24 = qword_1000565E0;
+    v25 = v79;
     Notification.init(name:object:userInfo:)();
-    v29 = v18[465];
-    v30 = [objc_opt_self() defaultCenter];
+    v26 = [objc_opt_self() defaultCenter];
     isa = Notification._bridgeToObjectiveC()().super.isa;
-    [v30 postNotification:isa];
+    [v26 postNotification:isa];
 
-    (*(v86 + 8))(v28, v82);
+    (*(v80 + 8))(v25, v76);
   }
 
-  v32 = *(&v104 + 1);
-  v33 = ModeEnablementStrategy.rawValue.getter();
-  if (v33 != ModeEnablementStrategy.rawValue.getter())
+  v28 = *(&v98 + 1);
+  v29 = ModeEnablementStrategy.rawValue.getter();
+  if (v29 != ModeEnablementStrategy.rawValue.getter())
   {
     static Logger.policyCoordinator.getter();
-    v34 = Logger.logObject.getter();
-    v35 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v34, v35))
+    v30 = Logger.logObject.getter();
+    v31 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v30, v31))
     {
-      v36 = swift_slowAlloc();
-      v37 = swift_slowAlloc();
-      v88 = v37;
-      *v36 = 136446210;
-      v87 = v32;
-      v38 = String.init<A>(describing:)();
-      v40 = sub_100034C38(v38, v39, &v88);
+      v32 = swift_slowAlloc();
+      v33 = swift_slowAlloc();
+      v82 = v33;
+      *v32 = 136446210;
+      v81 = v28;
+      v34 = String.init<A>(describing:)();
+      v36 = sub_100034C38(v34, v35, &v82);
 
-      *(v36 + 4) = v40;
-      _os_log_impl(&_mh_execute_header, v34, v35, "Updating sustained execution mode enablement strategy to %{public}s", v36, 0xCu);
-      sub_100003964(v37);
+      *(v32 + 4) = v36;
+      _os_log_impl(&_mh_execute_header, v30, v31, "Updating sustained execution mode enablement strategy to %{public}s", v32, 0xCu);
+      sub_100003964(v33);
     }
 
-    (*(v83 + 8))(v12, v84);
+    (*(v77 + 8))(v10, v78);
     type metadata accessor for GlobalPreferences();
     dispatch thunk of static GlobalPreferences.shared.getter();
     dispatch thunk of GlobalPreferences.semEnablementStrategy.setter();
@@ -8232,51 +8062,49 @@ uint64_t sub_100014778(uint64_t a1)
       swift_once();
     }
 
-    *&v90 = &type metadata for ModeEnablementStrategy;
-    v88 = v32;
-    v41 = qword_1000565F0;
-    v42 = v85;
+    *&v84 = &type metadata for ModeEnablementStrategy;
+    v82 = v28;
+    v37 = qword_1000565F0;
+    v38 = v79;
     Notification.init(name:object:userInfo:)();
-    v18 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
-    v43 = [objc_opt_self() p_name[186]];
-    v44 = Notification._bridgeToObjectiveC()().super.isa;
-    [v43 postNotification:v44];
+    v39 = [objc_opt_self() p_name[186]];
+    v40 = Notification._bridgeToObjectiveC()().super.isa;
+    [v39 postNotification:v40];
 
-    (*(v86 + 8))(v42, v82);
+    (*(v80 + 8))(v38, v76);
   }
 
-  v45 = v18;
-  v46 = v105;
-  v47 = ModeEnablementStrategy.rawValue.getter();
-  if (v47 != ModeEnablementStrategy.rawValue.getter())
+  v41 = v99;
+  v42 = ModeEnablementStrategy.rawValue.getter();
+  if (v42 != ModeEnablementStrategy.rawValue.getter())
   {
-    v48 = v79;
+    v43 = v73;
     static Logger.policyCoordinator.getter();
-    v49 = Logger.logObject.getter();
-    v50 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v49, v50))
+    v44 = Logger.logObject.getter();
+    v45 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v44, v45))
     {
-      v51 = swift_slowAlloc();
-      v52 = p_name;
-      v53 = swift_slowAlloc();
-      v88 = v53;
-      *v51 = 136446210;
-      v87 = v46;
-      v54 = String.init<A>(describing:)();
-      v56 = sub_100034C38(v54, v55, &v88);
+      v46 = swift_slowAlloc();
+      v47 = p_name;
+      v48 = swift_slowAlloc();
+      v82 = v48;
+      *v46 = 136446210;
+      v81 = v41;
+      v49 = String.init<A>(describing:)();
+      v51 = sub_100034C38(v49, v50, &v82);
 
-      *(v51 + 4) = v56;
-      _os_log_impl(&_mh_execute_header, v49, v50, "Updating dynamic splitter enablement strategy to %{public}s", v51, 0xCu);
-      sub_100003964(v53);
-      p_name = v52;
+      *(v46 + 4) = v51;
+      _os_log_impl(&_mh_execute_header, v44, v45, "Updating dynamic splitter enablement strategy to %{public}s", v46, 0xCu);
+      sub_100003964(v48);
+      p_name = v47;
 
-      (*(v83 + 8))(v79, v84);
+      (*(v77 + 8))(v73, v78);
     }
 
     else
     {
 
-      (*(v83 + 8))(v48, v84);
+      (*(v77 + 8))(v43, v78);
     }
 
     type metadata accessor for GlobalPreferences();
@@ -8288,51 +8116,50 @@ uint64_t sub_100014778(uint64_t a1)
       swift_once();
     }
 
-    *&v90 = &type metadata for ModeEnablementStrategy;
-    v88 = v46;
-    v57 = qword_1000565F8;
-    v58 = v85;
+    *&v84 = &type metadata for ModeEnablementStrategy;
+    v82 = v41;
+    v52 = qword_1000565F8;
+    v53 = v79;
     Notification.init(name:object:userInfo:)();
-    v59 = v45[465];
-    v60 = [objc_opt_self() p_name[186]];
-    v61 = Notification._bridgeToObjectiveC()().super.isa;
-    [v60 postNotification:v61];
+    v54 = [objc_opt_self() p_name[186]];
+    v55 = Notification._bridgeToObjectiveC()().super.isa;
+    [v54 postNotification:v55];
 
-    (*(v86 + 8))(v58, v82);
+    (*(v80 + 8))(v53, v76);
   }
 
-  v62 = *(&v105 + 1);
-  v63 = ModelManagerPolicyStrategy.rawValue.getter();
-  v64 = ModelManagerPolicyStrategy.rawValue.getter();
-  v65 = v80;
-  if (v63 == v64)
+  v56 = *(&v99 + 1);
+  v57 = ModelManagerPolicyStrategy.rawValue.getter();
+  v58 = ModelManagerPolicyStrategy.rawValue.getter();
+  v59 = v74;
+  if (v57 == v58)
   {
-    sub_10001B150(v103);
-    sub_10001B150(v102);
+    sub_10001B150(v97);
+    sub_10001B150(v96);
   }
 
   else
   {
     static Logger.policyCoordinator.getter();
-    v66 = Logger.logObject.getter();
-    v67 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v66, v67))
+    v60 = Logger.logObject.getter();
+    v61 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v60, v61))
     {
-      v68 = swift_slowAlloc();
-      v69 = swift_slowAlloc();
-      v88 = v69;
-      *v68 = 136446210;
-      v87 = v62;
-      v70 = String.init<A>(describing:)();
-      v72 = sub_100034C38(v70, v71, &v88);
+      v62 = swift_slowAlloc();
+      v63 = swift_slowAlloc();
+      v82 = v63;
+      *v62 = 136446210;
+      v81 = v56;
+      v64 = String.init<A>(describing:)();
+      v66 = sub_100034C38(v64, v65, &v82);
 
-      *(v68 + 4) = v72;
-      _os_log_impl(&_mh_execute_header, v66, v67, "Updating game mode ModelManager policy strategy to %{public}s", v68, 0xCu);
-      sub_100003964(v69);
+      *(v62 + 4) = v66;
+      _os_log_impl(&_mh_execute_header, v60, v61, "Updating game mode ModelManager policy strategy to %{public}s", v62, 0xCu);
+      sub_100003964(v63);
       p_name = &stru_100051FF8.name;
     }
 
-    (*(v83 + 8))(v65, v84);
+    (*(v77 + 8))(v59, v78);
     type metadata accessor for GlobalPreferences();
     dispatch thunk of static GlobalPreferences.shared.getter();
     dispatch thunk of GlobalPreferences.modelManagerGameAssertionPolicyStrategy.setter();
@@ -8342,99 +8169,95 @@ uint64_t sub_100014778(uint64_t a1)
       swift_once();
     }
 
-    *&v90 = &type metadata for ModelManagerPolicyStrategy;
-    v88 = v62;
-    v73 = qword_1000565E8;
-    v74 = v85;
+    *&v84 = &type metadata for ModelManagerPolicyStrategy;
+    v82 = v56;
+    v67 = qword_1000565E8;
+    v68 = v79;
     Notification.init(name:object:userInfo:)();
-    v75 = [objc_opt_self() p_name[186]];
-    v76 = Notification._bridgeToObjectiveC()().super.isa;
-    [v75 postNotification:v76];
+    v69 = [objc_opt_self() p_name[186]];
+    v70 = Notification._bridgeToObjectiveC()().super.isa;
+    [v69 postNotification:v70];
 
-    sub_10001B150(v103);
-    sub_10001B150(v102);
-    (*(v86 + 8))(v74, v82);
+    sub_10001B150(v97);
+    sub_10001B150(v96);
+    (*(v80 + 8))(v68, v76);
   }
 
-  return v81;
+  return v75;
 }
 
 uint64_t sub_100015240(uint64_t a1)
 {
-  v82 = type metadata accessor for Notification();
-  v86 = *(v82 - 8);
-  v2 = *(v86 + 64);
-  __chkstk_darwin(v82 - 8);
-  v85 = &v78 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for Logger();
-  v83 = *(v4 - 8);
-  v84 = v4;
-  v5 = *(v83 + 64);
+  v76 = type metadata accessor for Notification();
+  v80 = *(v76 - 8);
+  __chkstk_darwin(v76 - 8);
+  v79 = &v72 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for Logger();
+  v77 = *(v3 - 8);
+  v78 = v3;
+  v4 = __chkstk_darwin(v3);
+  v74 = &v72 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = __chkstk_darwin(v4);
-  v80 = &v78 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v73 = &v72 - v7;
   v8 = __chkstk_darwin(v6);
-  v79 = &v78 - v9;
-  v10 = __chkstk_darwin(v8);
-  v12 = &v78 - v11;
-  __chkstk_darwin(v10);
-  v14 = &v78 - v13;
-  v15 = *(a1 + 16);
-  [v15 lock];
+  v10 = &v72 - v9;
+  __chkstk_darwin(v8);
+  v12 = &v72 - v11;
+  v13 = *(a1 + 16);
+  [v13 lock];
   swift_beginAccess();
-  v100 = *(a1 + 104);
-  v97 = *(a1 + 56);
-  v98 = *(a1 + 72);
-  v99 = *(a1 + 88);
-  v81 = *(&v100 + 1);
-  v101[0] = v97;
-  v101[1] = v98;
-  v101[2] = v99;
-  v101[3] = v100;
-  v91 = v99;
-  v92 = v100;
-  v89 = v97;
-  v90 = v98;
-  v93 = v97;
-  v94 = v98;
-  v96 = v100;
-  v95 = v99;
-  sub_10001B118(&v97, v103);
-  sub_10001B118(v101, v103);
-  [v15 unlock];
-  v102[0] = v89;
-  v102[1] = v90;
-  v102[2] = v91;
-  v102[3] = v92;
-  v103[0] = v93;
-  v103[1] = v94;
-  v104 = v95;
-  v105 = v96;
-  v16 = v95;
-  v17 = ModeEnablementStrategy.rawValue.getter();
-  v18 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
+  v94 = *(a1 + 104);
+  v91 = *(a1 + 56);
+  v92 = *(a1 + 72);
+  v93 = *(a1 + 88);
+  v75 = *(&v94 + 1);
+  v95[0] = v91;
+  v95[1] = v92;
+  v95[2] = v93;
+  v95[3] = v94;
+  v85 = v93;
+  v86 = v94;
+  v83 = v91;
+  v84 = v92;
+  v87 = v91;
+  v88 = v92;
+  v90 = v94;
+  v89 = v93;
+  sub_10001B118(&v91, v97);
+  sub_10001B118(v95, v97);
+  [v13 unlock];
+  v96[0] = v83;
+  v96[1] = v84;
+  v96[2] = v85;
+  v96[3] = v86;
+  v97[0] = v87;
+  v97[1] = v88;
+  v98 = v89;
+  v99 = v90;
+  v14 = v89;
+  v15 = ModeEnablementStrategy.rawValue.getter();
   p_name = (&stru_100051FF8 + 8);
-  if (v17 != ModeEnablementStrategy.rawValue.getter())
+  if (v15 != ModeEnablementStrategy.rawValue.getter())
   {
     static Logger.policyCoordinator.getter();
-    v20 = Logger.logObject.getter();
-    v21 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v20, v21))
+    v17 = Logger.logObject.getter();
+    v18 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v17, v18))
     {
-      v22 = swift_slowAlloc();
-      v23 = swift_slowAlloc();
-      v88 = v23;
-      *v22 = 136446210;
-      v87 = v16;
-      v24 = String.init<A>(describing:)();
-      v26 = sub_100034C38(v24, v25, &v88);
+      v19 = swift_slowAlloc();
+      v20 = swift_slowAlloc();
+      v82 = v20;
+      *v19 = 136446210;
+      v81 = v14;
+      v21 = String.init<A>(describing:)();
+      v23 = sub_100034C38(v21, v22, &v82);
 
-      *(v22 + 4) = v26;
-      v18 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
-      _os_log_impl(&_mh_execute_header, v20, v21, "Updating game mode enablement strategy to %{public}s", v22, 0xCu);
-      sub_100003964(v23);
+      *(v19 + 4) = v23;
+      _os_log_impl(&_mh_execute_header, v17, v18, "Updating game mode enablement strategy to %{public}s", v19, 0xCu);
+      sub_100003964(v20);
     }
 
-    (*(v83 + 8))(v14, v84);
+    (*(v77 + 8))(v12, v78);
     type metadata accessor for GlobalPreferences();
     dispatch thunk of static GlobalPreferences.shared.getter();
     dispatch thunk of GlobalPreferences.gameModeEnablementStrategy.setter();
@@ -8445,42 +8268,41 @@ uint64_t sub_100015240(uint64_t a1)
       swift_once();
     }
 
-    *&v90 = &type metadata for ModeEnablementStrategy;
-    v88 = v16;
-    v27 = qword_1000565E0;
-    v28 = v85;
+    *&v84 = &type metadata for ModeEnablementStrategy;
+    v82 = v14;
+    v24 = qword_1000565E0;
+    v25 = v79;
     Notification.init(name:object:userInfo:)();
-    v29 = v18[465];
-    v30 = [objc_opt_self() defaultCenter];
+    v26 = [objc_opt_self() defaultCenter];
     isa = Notification._bridgeToObjectiveC()().super.isa;
-    [v30 postNotification:isa];
+    [v26 postNotification:isa];
 
-    (*(v86 + 8))(v28, v82);
+    (*(v80 + 8))(v25, v76);
   }
 
-  v32 = *(&v104 + 1);
-  v33 = ModeEnablementStrategy.rawValue.getter();
-  if (v33 != ModeEnablementStrategy.rawValue.getter())
+  v28 = *(&v98 + 1);
+  v29 = ModeEnablementStrategy.rawValue.getter();
+  if (v29 != ModeEnablementStrategy.rawValue.getter())
   {
     static Logger.policyCoordinator.getter();
-    v34 = Logger.logObject.getter();
-    v35 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v34, v35))
+    v30 = Logger.logObject.getter();
+    v31 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v30, v31))
     {
-      v36 = swift_slowAlloc();
-      v37 = swift_slowAlloc();
-      v88 = v37;
-      *v36 = 136446210;
-      v87 = v32;
-      v38 = String.init<A>(describing:)();
-      v40 = sub_100034C38(v38, v39, &v88);
+      v32 = swift_slowAlloc();
+      v33 = swift_slowAlloc();
+      v82 = v33;
+      *v32 = 136446210;
+      v81 = v28;
+      v34 = String.init<A>(describing:)();
+      v36 = sub_100034C38(v34, v35, &v82);
 
-      *(v36 + 4) = v40;
-      _os_log_impl(&_mh_execute_header, v34, v35, "Updating sustained execution mode enablement strategy to %{public}s", v36, 0xCu);
-      sub_100003964(v37);
+      *(v32 + 4) = v36;
+      _os_log_impl(&_mh_execute_header, v30, v31, "Updating sustained execution mode enablement strategy to %{public}s", v32, 0xCu);
+      sub_100003964(v33);
     }
 
-    (*(v83 + 8))(v12, v84);
+    (*(v77 + 8))(v10, v78);
     type metadata accessor for GlobalPreferences();
     dispatch thunk of static GlobalPreferences.shared.getter();
     dispatch thunk of GlobalPreferences.semEnablementStrategy.setter();
@@ -8490,51 +8312,49 @@ uint64_t sub_100015240(uint64_t a1)
       swift_once();
     }
 
-    *&v90 = &type metadata for ModeEnablementStrategy;
-    v88 = v32;
-    v41 = qword_1000565F0;
-    v42 = v85;
+    *&v84 = &type metadata for ModeEnablementStrategy;
+    v82 = v28;
+    v37 = qword_1000565F0;
+    v38 = v79;
     Notification.init(name:object:userInfo:)();
-    v18 = &_s10GamePolicy01kaB15ToolEntitlementSSvg_ptr;
-    v43 = [objc_opt_self() p_name[186]];
-    v44 = Notification._bridgeToObjectiveC()().super.isa;
-    [v43 postNotification:v44];
+    v39 = [objc_opt_self() p_name[186]];
+    v40 = Notification._bridgeToObjectiveC()().super.isa;
+    [v39 postNotification:v40];
 
-    (*(v86 + 8))(v42, v82);
+    (*(v80 + 8))(v38, v76);
   }
 
-  v45 = v18;
-  v46 = v105;
-  v47 = ModeEnablementStrategy.rawValue.getter();
-  if (v47 != ModeEnablementStrategy.rawValue.getter())
+  v41 = v99;
+  v42 = ModeEnablementStrategy.rawValue.getter();
+  if (v42 != ModeEnablementStrategy.rawValue.getter())
   {
-    v48 = v79;
+    v43 = v73;
     static Logger.policyCoordinator.getter();
-    v49 = Logger.logObject.getter();
-    v50 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v49, v50))
+    v44 = Logger.logObject.getter();
+    v45 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v44, v45))
     {
-      v51 = swift_slowAlloc();
-      v52 = p_name;
-      v53 = swift_slowAlloc();
-      v88 = v53;
-      *v51 = 136446210;
-      v87 = v46;
-      v54 = String.init<A>(describing:)();
-      v56 = sub_100034C38(v54, v55, &v88);
+      v46 = swift_slowAlloc();
+      v47 = p_name;
+      v48 = swift_slowAlloc();
+      v82 = v48;
+      *v46 = 136446210;
+      v81 = v41;
+      v49 = String.init<A>(describing:)();
+      v51 = sub_100034C38(v49, v50, &v82);
 
-      *(v51 + 4) = v56;
-      _os_log_impl(&_mh_execute_header, v49, v50, "Updating dynamic splitter enablement strategy to %{public}s", v51, 0xCu);
-      sub_100003964(v53);
-      p_name = v52;
+      *(v46 + 4) = v51;
+      _os_log_impl(&_mh_execute_header, v44, v45, "Updating dynamic splitter enablement strategy to %{public}s", v46, 0xCu);
+      sub_100003964(v48);
+      p_name = v47;
 
-      (*(v83 + 8))(v79, v84);
+      (*(v77 + 8))(v73, v78);
     }
 
     else
     {
 
-      (*(v83 + 8))(v48, v84);
+      (*(v77 + 8))(v43, v78);
     }
 
     type metadata accessor for GlobalPreferences();
@@ -8546,51 +8366,50 @@ uint64_t sub_100015240(uint64_t a1)
       swift_once();
     }
 
-    *&v90 = &type metadata for ModeEnablementStrategy;
-    v88 = v46;
-    v57 = qword_1000565F8;
-    v58 = v85;
+    *&v84 = &type metadata for ModeEnablementStrategy;
+    v82 = v41;
+    v52 = qword_1000565F8;
+    v53 = v79;
     Notification.init(name:object:userInfo:)();
-    v59 = v45[465];
-    v60 = [objc_opt_self() p_name[186]];
-    v61 = Notification._bridgeToObjectiveC()().super.isa;
-    [v60 postNotification:v61];
+    v54 = [objc_opt_self() p_name[186]];
+    v55 = Notification._bridgeToObjectiveC()().super.isa;
+    [v54 postNotification:v55];
 
-    (*(v86 + 8))(v58, v82);
+    (*(v80 + 8))(v53, v76);
   }
 
-  v62 = *(&v105 + 1);
-  v63 = ModelManagerPolicyStrategy.rawValue.getter();
-  v64 = ModelManagerPolicyStrategy.rawValue.getter();
-  v65 = v80;
-  if (v63 == v64)
+  v56 = *(&v99 + 1);
+  v57 = ModelManagerPolicyStrategy.rawValue.getter();
+  v58 = ModelManagerPolicyStrategy.rawValue.getter();
+  v59 = v74;
+  if (v57 == v58)
   {
-    sub_10001B150(v103);
-    sub_10001B150(v102);
+    sub_10001B150(v97);
+    sub_10001B150(v96);
   }
 
   else
   {
     static Logger.policyCoordinator.getter();
-    v66 = Logger.logObject.getter();
-    v67 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v66, v67))
+    v60 = Logger.logObject.getter();
+    v61 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v60, v61))
     {
-      v68 = swift_slowAlloc();
-      v69 = swift_slowAlloc();
-      v88 = v69;
-      *v68 = 136446210;
-      v87 = v62;
-      v70 = String.init<A>(describing:)();
-      v72 = sub_100034C38(v70, v71, &v88);
+      v62 = swift_slowAlloc();
+      v63 = swift_slowAlloc();
+      v82 = v63;
+      *v62 = 136446210;
+      v81 = v56;
+      v64 = String.init<A>(describing:)();
+      v66 = sub_100034C38(v64, v65, &v82);
 
-      *(v68 + 4) = v72;
-      _os_log_impl(&_mh_execute_header, v66, v67, "Updating game mode ModelManager policy strategy to %{public}s", v68, 0xCu);
-      sub_100003964(v69);
+      *(v62 + 4) = v66;
+      _os_log_impl(&_mh_execute_header, v60, v61, "Updating game mode ModelManager policy strategy to %{public}s", v62, 0xCu);
+      sub_100003964(v63);
       p_name = &stru_100051FF8.name;
     }
 
-    (*(v83 + 8))(v65, v84);
+    (*(v77 + 8))(v59, v78);
     type metadata accessor for GlobalPreferences();
     dispatch thunk of static GlobalPreferences.shared.getter();
     dispatch thunk of GlobalPreferences.modelManagerGameAssertionPolicyStrategy.setter();
@@ -8600,138 +8419,133 @@ uint64_t sub_100015240(uint64_t a1)
       swift_once();
     }
 
-    *&v90 = &type metadata for ModelManagerPolicyStrategy;
-    v88 = v62;
-    v73 = qword_1000565E8;
-    v74 = v85;
+    *&v84 = &type metadata for ModelManagerPolicyStrategy;
+    v82 = v56;
+    v67 = qword_1000565E8;
+    v68 = v79;
     Notification.init(name:object:userInfo:)();
-    v75 = [objc_opt_self() p_name[186]];
-    v76 = Notification._bridgeToObjectiveC()().super.isa;
-    [v75 postNotification:v76];
+    v69 = [objc_opt_self() p_name[186]];
+    v70 = Notification._bridgeToObjectiveC()().super.isa;
+    [v69 postNotification:v70];
 
-    sub_10001B150(v103);
-    sub_10001B150(v102);
-    (*(v86 + 8))(v74, v82);
+    sub_10001B150(v97);
+    sub_10001B150(v96);
+    (*(v80 + 8))(v68, v76);
   }
 
-  return v81;
+  return v75;
 }
 
-void sub_100015D04(uint64_t a1@<X0>, char *a2@<X1>, void *a3@<X2>, uint64_t *a4@<X3>, _BYTE *a5@<X4>, void *a6@<X5>, uint64_t a7@<X6>, uint64_t *a8@<X7>, uint64_t a9@<X8>, _BYTE *a10, _BYTE *a11, char *a12)
+void sub_100015D04(uint64_t a1@<X0>, char *a2@<X1>, void *a3@<X2>, uint64_t *a4@<X3>, _BYTE *a5@<X4>, void *a6@<X5>, uint64_t a7@<X6>, void *a8@<X7>, uint64_t a9@<X8>, _BYTE *a10, _BYTE *a11, char *a12)
 {
-  v197 = a4;
-  v198 = a8;
-  v195 = a5;
-  v196 = a7;
-  v184 = a3;
-  v185 = a6;
-  v182 = a9;
-  v187 = a12;
-  v170 = a11;
-  v186 = a10;
+  v185 = a4;
+  v186 = a8;
+  v183 = a5;
+  v184 = a7;
+  v172 = a3;
+  v173 = a6;
+  v170 = a9;
+  v175 = a12;
+  v158 = a11;
+  v174 = a10;
   v14 = type metadata accessor for Notification();
-  v193 = *(v14 - 8);
-  v194 = v14;
-  v15 = *(v193 + 64);
+  v181 = *(v14 - 8);
+  v182 = v14;
   __chkstk_darwin(v14);
-  v192 = &v170 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = type metadata accessor for Logger();
-  v189 = *(v17 - 8);
-  v190 = v17;
-  v18 = *(v189 + 64);
-  v19 = __chkstk_darwin(v17);
-  v21 = &v170 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = __chkstk_darwin(v19);
-  v24 = &v170 - v23;
-  v25 = __chkstk_darwin(v22);
-  v27 = &v170 - v26;
-  __chkstk_darwin(v25);
-  v173 = &v170 - v28;
-  v29 = sub_100003870(&qword_100054428, &qword_10003E778);
-  v30 = *(*(v29 - 8) + 64);
-  __chkstk_darwin(v29 - 8);
-  v32 = &v170 - v31;
-  v179 = sub_100003870(&qword_100054448, &unk_10003E790);
-  v33 = *(*(v179 - 8) + 64);
-  __chkstk_darwin(v179);
-  v180 = &v170 - v34;
-  v174 = sub_100003870(&qword_1000552B0, &qword_10003F110);
-  v35 = *(*(v174 - 8) + 64);
-  __chkstk_darwin(v174);
-  v191 = &v170 - v36;
-  v178 = *(a1 + 16);
-  [v178 lock];
+  v180 = &v158 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = type metadata accessor for Logger();
+  v177 = *(v16 - 8);
+  v178 = v16;
+  v17 = __chkstk_darwin(v16);
+  v19 = &v158 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = __chkstk_darwin(v17);
+  v22 = &v158 - v21;
+  v23 = __chkstk_darwin(v20);
+  v25 = &v158 - v24;
+  __chkstk_darwin(v23);
+  v161 = &v158 - v26;
+  v27 = sub_100003870(&qword_100054428, &qword_10003E778);
+  __chkstk_darwin(v27 - 8);
+  v29 = &v158 - v28;
+  v167 = sub_100003870(&qword_100054448, &unk_10003E790);
+  __chkstk_darwin(v167);
+  v168 = &v158 - v30;
+  v162 = sub_100003870(&qword_1000552B0, &qword_10003F110);
+  __chkstk_darwin(v162);
+  v179 = &v158 - v31;
+  v166 = *(a1 + 16);
+  [v166 lock];
   swift_beginAccess();
-  v37 = *(a1 + 88);
-  v38 = *(a1 + 72);
-  v207 = *(a1 + 56);
-  v208 = v38;
-  v39 = *(a1 + 104);
-  v209 = v37;
-  v210 = v39;
-  v188 = v37;
-  v176 = a1;
+  v32 = *(a1 + 88);
+  v33 = *(a1 + 72);
+  v195 = *(a1 + 56);
+  v196 = v33;
+  v34 = *(a1 + 104);
+  v197 = v32;
+  v198 = v34;
+  v176 = v32;
+  v164 = a1;
   swift_beginAccess();
-  v40 = OBJC_IVAR____TtC11gamepolicyd26EmbeddedGameProcessMonitor_gameProcesses;
+  v35 = OBJC_IVAR____TtC11gamepolicyd26EmbeddedGameProcessMonitor_gameProcesses;
   swift_beginAccess();
-  v183 = a2;
-  v41 = *&a2[v40];
-  v171 = v27;
-  v172 = v21;
-  v181 = v24;
-  v175 = v32;
-  if ((v41 & 0xC000000000000001) != 0)
+  v171 = a2;
+  v36 = *&a2[v35];
+  v159 = v25;
+  v160 = v19;
+  v169 = v22;
+  v163 = v29;
+  if ((v36 & 0xC000000000000001) != 0)
   {
-    v42 = __CocoaDictionary.makeIterator()() | 0x8000000000000000;
-    sub_10001B118(&v207, v204);
-    v43 = 0;
-    v44 = 0;
-    v45 = 0;
+    v37 = __CocoaDictionary.makeIterator()() | 0x8000000000000000;
+    sub_10001B118(&v195, v192);
+    v38 = 0;
+    v39 = 0;
+    v40 = 0;
   }
 
   else
   {
-    v46 = -1 << *(v41 + 32);
-    v43 = v41 + 64;
-    v44 = ~v46;
-    v47 = -v46;
-    if (v47 < 64)
+    v41 = -1 << *(v36 + 32);
+    v38 = v36 + 64;
+    v39 = ~v41;
+    v42 = -v41;
+    if (v42 < 64)
     {
-      v48 = ~(-1 << v47);
+      v43 = ~(-1 << v42);
     }
 
     else
     {
-      v48 = -1;
+      v43 = -1;
     }
 
-    v45 = v48 & *(v41 + 64);
-    sub_10001B118(&v207, v204);
-    v42 = v41;
+    v40 = v43 & *(v36 + 64);
+    sub_10001B118(&v195, v192);
+    v37 = v36;
   }
 
-  v49 = 0;
-  v177 = v44;
-  v50 = (v44 + 64) >> 6;
-  while ((v42 & 0x8000000000000000) != 0)
+  v44 = 0;
+  v165 = v39;
+  v45 = (v39 + 64) >> 6;
+  while ((v37 & 0x8000000000000000) != 0)
   {
-    v58 = __CocoaDictionary.Iterator.next()();
-    if (!v58)
+    v51 = __CocoaDictionary.Iterator.next()();
+    if (!v51)
     {
       goto LABEL_46;
     }
 
-    v60 = v59;
-    *&v202[0] = v58;
+    v53 = v52;
+    *&v190[0] = v51;
     sub_100009748(0, &qword_100054450, RBSProcessIdentity_ptr);
     swift_dynamicCast();
-    v57 = *&v204[0];
-    *&v202[0] = v60;
+    v50 = *&v192[0];
+    *&v190[0] = v53;
     type metadata accessor for EmbeddedGameProcess();
     swift_dynamicCast();
-    v53 = v49;
-    v54 = v45;
-    if (!v57)
+    v48 = v44;
+    v49 = v40;
+    if (!v50)
     {
       goto LABEL_46;
     }
@@ -8749,40 +8563,38 @@ LABEL_19:
     if (dispatch thunk of EmbeddedGameProcess.isGame.getter())
     {
 
-      v61 = v184;
+      v54 = v172;
       specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-      if (*((*v61 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*v61 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      if (*((*v54 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*v54 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
-        v75 = *((*v61 & 0xFFFFFFFFFFFFFF8) + 0x10);
         specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
       }
 
       specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
     }
 
-    v62 = v197;
-    v63 = *v197;
-    v64 = EmbeddedGameProcess.semPreference.getter();
-    *v62 = sub_100039D3C(v63, v64);
+    v55 = v185;
+    v56 = *v185;
+    v57 = EmbeddedGameProcess.semPreference.getter();
+    *v55 = sub_100039D3C(v56, v57);
     if (EmbeddedGameProcess.supportsDynamicPowerSplitter.getter())
     {
-      *v195 = 1;
+      *v183 = 1;
     }
 
     if (EmbeddedGameProcess.supportsGameMode.getter())
     {
 
-      v65 = v185;
+      v58 = v173;
       specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-      if (*((*v65 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*v65 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      if (*((*v58 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*v58 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
-        v76 = *((*v65 & 0xFFFFFFFFFFFFFF8) + 0x10);
         specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
       }
 
       specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-      v66 = EmbeddedGameProcess.bundleIdentifier.getter();
-      if (!*(v196 + 16))
+      v59 = EmbeddedGameProcess.bundleIdentifier.getter();
+      if (!*(v184 + 16))
       {
 
 LABEL_34:
@@ -8794,11 +8606,10 @@ LABEL_34:
         dispatch thunk of EmbeddedGameProcess.triggeringGameMode.setter();
 LABEL_35:
 
-        v72 = v198;
+        v65 = v186;
         specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
-        if (*((*v72 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*v72 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+        if (*((*v65 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*v65 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
         {
-          v77 = *((*v72 & 0xFFFFFFFFFFFFFF8) + 0x10);
           specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
         }
 
@@ -8806,17 +8617,17 @@ LABEL_35:
         goto LABEL_38;
       }
 
-      v68 = sub_100035224(v66, v67);
-      v70 = v69;
+      v61 = sub_100035224(v59, v60);
+      v63 = v62;
 
-      if ((v70 & 1) == 0)
+      if ((v63 & 1) == 0)
       {
         goto LABEL_34;
       }
 
-      v71 = *(*(v196 + 56) + v68);
+      v64 = *(*(v184 + 56) + v61);
       dispatch thunk of EmbeddedGameProcess.triggeringGameMode.setter();
-      if (v71 == 1)
+      if (v64 == 1)
       {
         goto LABEL_35;
       }
@@ -8826,53 +8637,53 @@ LABEL_38:
     if (EmbeddedGameProcess.requiresModelManagerAssertion.getter())
     {
       dispatch thunk of EmbeddedGameProcess.triggeringModelManagerAssertion.setter();
-      *v186 = 1;
+      *v174 = 1;
     }
 
     if (EmbeddedGameProcess.supportsModelManagerAssertion.getter() & 1) != 0 && (dispatch thunk of EmbeddedGameProcess.triggeringGameMode.getter())
     {
-      v73 = ModeEnablementStrategy.rawValue.getter();
-      if (v73 != ModeEnablementStrategy.rawValue.getter())
+      v66 = ModeEnablementStrategy.rawValue.getter();
+      if (v66 != ModeEnablementStrategy.rawValue.getter())
       {
         dispatch thunk of EmbeddedGameProcess.triggeringModelManagerAssertion.setter();
-        *v170 = 1;
+        *v158 = 1;
       }
     }
 
-    v74 = dispatch thunk of EmbeddedGameProcess.supportsCameraJettisonS2R.getter();
+    v67 = dispatch thunk of EmbeddedGameProcess.supportsCameraJettisonS2R.getter();
 
-    v49 = v53;
-    v45 = v54;
-    if (v74)
+    v44 = v48;
+    v40 = v49;
+    if (v67)
     {
-      *v187 = 1;
+      *v175 = 1;
 LABEL_9:
-      v49 = v53;
-      v45 = v54;
+      v44 = v48;
+      v40 = v49;
     }
   }
 
-  v51 = v49;
-  v52 = v45;
-  v53 = v49;
-  if (!v45)
+  v46 = v44;
+  v47 = v40;
+  v48 = v44;
+  if (!v40)
   {
     while (1)
     {
-      v53 = v51 + 1;
-      if (__OFADD__(v51, 1))
+      v48 = v46 + 1;
+      if (__OFADD__(v46, 1))
       {
         break;
       }
 
-      if (v53 >= v50)
+      if (v48 >= v45)
       {
         goto LABEL_46;
       }
 
-      v52 = *(v43 + 8 * v53);
-      ++v51;
-      if (v52)
+      v47 = *(v38 + 8 * v48);
+      ++v46;
+      if (v47)
       {
         goto LABEL_15;
       }
@@ -8883,63 +8694,61 @@ LABEL_9:
   }
 
 LABEL_15:
-  v54 = (v52 - 1) & v52;
-  v55 = (v53 << 9) | (8 * __clz(__rbit64(v52)));
-  v56 = *(*(v42 + 56) + v55);
-  v57 = *(*(v42 + 48) + v55);
+  v49 = (v47 - 1) & v47;
+  v50 = *(*(v37 + 48) + ((v48 << 9) | (8 * __clz(__rbit64(v47)))));
 
-  if (v57)
+  if (v50)
   {
     goto LABEL_19;
   }
 
 LABEL_46:
-  sub_10001B370();
-  if (!(*v198 >> 62))
+  sub_10001B370(v37);
+  if (!(*v186 >> 62))
   {
-    v78 = *((*v198 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v68 = *((*v186 & 0xFFFFFFFFFFFFFF8) + 0x10);
     goto LABEL_48;
   }
 
 LABEL_104:
-  v78 = _CocoaArrayWrapper.endIndex.getter();
+  v68 = _CocoaArrayWrapper.endIndex.getter();
 LABEL_48:
-  v80 = v175;
-  v79 = v176;
-  if (v78 > 0 || (v81 = ModeEnablementStrategy.rawValue.getter(), v81 == ModeEnablementStrategy.rawValue.getter()))
+  v70 = v163;
+  v69 = v164;
+  if (v68 > 0 || (v71 = ModeEnablementStrategy.rawValue.getter(), v71 == ModeEnablementStrategy.rawValue.getter()))
   {
-    v82 = ModeEnablementStrategy.rawValue.getter();
-    v83 = v82 != ModeEnablementStrategy.rawValue.getter();
+    v72 = ModeEnablementStrategy.rawValue.getter();
+    v73 = v72 != ModeEnablementStrategy.rawValue.getter();
   }
 
   else
   {
-    v83 = 0;
+    v73 = 0;
   }
 
-  v84 = *(v79 + 112);
-  if (v84 > 1)
+  v74 = *(v69 + 112);
+  if (v74 > 1)
   {
-    if (v84 == 2)
+    if (v74 == 2)
     {
       goto LABEL_57;
     }
 
-    if (v84 == 3)
+    if (v74 == 3)
     {
       goto LABEL_61;
     }
 
 LABEL_105:
-    *&v204[0] = *(v79 + 112);
+    *&v192[0] = *(v69 + 112);
     _diagnoseUnexpectedEnumCaseValue<A, B>(type:rawValue:)();
     __break(1u);
     return;
   }
 
-  if (v84)
+  if (v74)
   {
-    if (v84 == 1)
+    if (v74 == 1)
     {
       goto LABEL_59;
     }
@@ -8947,148 +8756,147 @@ LABEL_105:
     goto LABEL_105;
   }
 
-  if (*v186)
+  if (*v174)
   {
 LABEL_61:
-    v85 = &enum case for ModelManagerGameAssertionPolicy.aaaGameMode(_:);
+    v75 = &enum case for ModelManagerGameAssertionPolicy.aaaGameMode(_:);
     goto LABEL_62;
   }
 
-  if ((*v170 & 1) == 0)
+  if ((*v158 & 1) == 0)
   {
 LABEL_59:
-    v86 = type metadata accessor for ModelManagerGameAssertionPolicy();
-    (*(*(v86 - 8) + 56))(v80, 1, 1, v86);
+    v76 = type metadata accessor for ModelManagerGameAssertionPolicy();
+    (*(*(v76 - 8) + 56))(v70, 1, 1, v76);
     goto LABEL_63;
   }
 
 LABEL_57:
-  v85 = &enum case for ModelManagerGameAssertionPolicy.standardGameMode(_:);
+  v75 = &enum case for ModelManagerGameAssertionPolicy.standardGameMode(_:);
 LABEL_62:
-  v87 = *v85;
-  v88 = type metadata accessor for ModelManagerGameAssertionPolicy();
-  v89 = *(v88 - 8);
-  (*(v89 + 104))(v80, v87, v88);
-  (*(v89 + 56))(v80, 0, 1, v88);
+  v77 = *v75;
+  v78 = type metadata accessor for ModelManagerGameAssertionPolicy();
+  v79 = *(v78 - 8);
+  (*(v79 + 104))(v70, v77, v78);
+  (*(v79 + 56))(v70, 0, 1, v78);
 LABEL_63:
-  v90 = *(v79 + 96);
-  if (v90 == 2)
+  v80 = *(v69 + 96);
+  if (v80 == 2)
   {
-    v91 = 3;
+    v81 = 3;
   }
 
-  else if (v90 == 1)
+  else if (v80 == 1)
   {
-    v91 = 2;
+    v81 = 2;
   }
 
   else
   {
-    v91 = *v197;
+    v81 = *v185;
   }
 
-  v92 = *(v79 + 104);
-  if ((*v195 & 1) != 0 || (v93 = *(v79 + 104), v94 = ModeEnablementStrategy.rawValue.getter(), v94 == ModeEnablementStrategy.rawValue.getter()))
+  if ((*v183 & 1) != 0 || (v82 = ModeEnablementStrategy.rawValue.getter(), v82 == ModeEnablementStrategy.rawValue.getter()))
   {
-    v95 = ModeEnablementStrategy.rawValue.getter();
-    v96 = v95 != ModeEnablementStrategy.rawValue.getter();
-    if (v83)
+    v83 = ModeEnablementStrategy.rawValue.getter();
+    v84 = v83 != ModeEnablementStrategy.rawValue.getter();
+    if (v73)
     {
-      v97 = v174;
+      v85 = v162;
       goto LABEL_74;
     }
 
-    v98 = 0;
-    v97 = v174;
+    v86 = 0;
+    v85 = v162;
   }
 
   else
   {
-    v96 = 0;
-    v98 = 0;
-    v97 = v174;
-    if (v83)
+    v84 = 0;
+    v86 = 0;
+    v85 = v162;
+    if (v73)
     {
 LABEL_74:
-      v98 = *v187;
+      v86 = *v175;
     }
   }
 
-  v99 = *(v97 + 80);
-  v100 = *(v97 + 96);
-  v101 = v180;
-  *v180 = v83;
-  *(v101 + 8) = v91;
-  *(v101 + 16) = v96;
-  sub_10001B378(v80, v101 + v99, &qword_100054428, &qword_10003E778);
-  *(v101 + v100) = v98;
+  v87 = *(v85 + 80);
+  v88 = *(v85 + 96);
+  v89 = v168;
+  *v168 = v73;
+  *(v89 + 8) = v81;
+  *(v89 + 16) = v84;
+  sub_10001B378(v70, v89 + v87, &qword_100054428, &qword_10003E778);
+  *(v89 + v88) = v86;
   swift_endAccess();
-  v102 = *(v79 + 104);
-  v103 = *(v79 + 72);
-  v202[0] = *(v79 + 56);
-  v202[1] = v103;
-  v202[2] = *(v79 + 88);
-  v202[3] = v102;
-  v104 = (v101 + *(v179 + 48));
-  v105 = (v101 + *(v179 + 64));
-  v106 = v208;
-  *v104 = v207;
-  v104[1] = v106;
-  v107 = v210;
-  v104[2] = v209;
-  v104[3] = v107;
-  v108 = *(v79 + 72);
-  *v105 = *(v79 + 56);
-  v105[1] = v108;
-  v109 = *(v79 + 104);
-  v105[2] = *(v79 + 88);
-  v105[3] = v109;
-  sub_10001B118(v202, v204);
-  [v178 unlock];
-  v110 = v104[1];
-  v203[0] = *v104;
-  v203[1] = v110;
-  v111 = v104[3];
-  v203[2] = v104[2];
-  v203[3] = v111;
-  v112 = v105[1];
-  v204[0] = *v105;
-  v204[1] = v112;
-  v113 = v105[3];
-  v205 = v105[2];
-  v206 = v113;
-  sub_10001B378(v101, v191, &qword_1000552B0, &qword_10003F110);
-  v114 = v205;
-  v115 = ModeEnablementStrategy.rawValue.getter();
+  v90 = *(v69 + 104);
+  v91 = *(v69 + 72);
+  v190[0] = *(v69 + 56);
+  v190[1] = v91;
+  v190[2] = *(v69 + 88);
+  v190[3] = v90;
+  v92 = (v89 + *(v167 + 48));
+  v93 = (v89 + *(v167 + 64));
+  v94 = v196;
+  *v92 = v195;
+  v92[1] = v94;
+  v95 = v198;
+  v92[2] = v197;
+  v92[3] = v95;
+  v96 = *(v69 + 72);
+  *v93 = *(v69 + 56);
+  v93[1] = v96;
+  v97 = *(v69 + 104);
+  v93[2] = *(v69 + 88);
+  v93[3] = v97;
+  sub_10001B118(v190, v192);
+  [v166 unlock];
+  v98 = v92[1];
+  v191[0] = *v92;
+  v191[1] = v98;
+  v99 = v92[3];
+  v191[2] = v92[2];
+  v191[3] = v99;
+  v100 = v93[1];
+  v192[0] = *v93;
+  v192[1] = v100;
+  v101 = v93[3];
+  v193 = v93[2];
+  v194 = v101;
+  sub_10001B378(v89, v179, &qword_1000552B0, &qword_10003F110);
+  v102 = v193;
+  v103 = ModeEnablementStrategy.rawValue.getter();
   p_name = &stru_100051FF8.name;
-  if (v115 != ModeEnablementStrategy.rawValue.getter())
+  if (v103 != ModeEnablementStrategy.rawValue.getter())
   {
-    v117 = v173;
+    v105 = v161;
     static Logger.policyCoordinator.getter();
-    v118 = Logger.logObject.getter();
-    v119 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v118, v119))
+    v106 = Logger.logObject.getter();
+    v107 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v106, v107))
     {
-      v120 = swift_slowAlloc();
-      v121 = swift_slowAlloc();
-      v199 = v114;
-      v200[0] = v121;
-      *v120 = 136446210;
-      v122 = String.init<A>(describing:)();
-      v124 = sub_100034C38(v122, v123, v200);
+      v108 = swift_slowAlloc();
+      v109 = swift_slowAlloc();
+      v187 = v102;
+      v188[0] = v109;
+      *v108 = 136446210;
+      v110 = String.init<A>(describing:)();
+      v112 = sub_100034C38(v110, v111, v188);
 
-      *(v120 + 4) = v124;
-      _os_log_impl(&_mh_execute_header, v118, v119, "Updating game mode enablement strategy to %{public}s", v120, 0xCu);
-      sub_100003964(v121);
+      *(v108 + 4) = v112;
+      _os_log_impl(&_mh_execute_header, v106, v107, "Updating game mode enablement strategy to %{public}s", v108, 0xCu);
+      sub_100003964(v109);
       p_name = (&stru_100051FF8 + 8);
 
-      (*(v189 + 8))(v173, v190);
+      (*(v177 + 8))(v161, v178);
     }
 
     else
     {
 
-      (*(v189 + 8))(v117, v190);
+      (*(v177 + 8))(v105, v178);
     }
 
     type metadata accessor for GlobalPreferences();
@@ -9100,43 +8908,43 @@ LABEL_74:
       swift_once();
     }
 
-    v201 = &type metadata for ModeEnablementStrategy;
-    v200[0] = v114;
-    v125 = qword_1000565E0;
-    v126 = v192;
+    v189 = &type metadata for ModeEnablementStrategy;
+    v188[0] = v102;
+    v113 = qword_1000565E0;
+    v114 = v180;
     Notification.init(name:object:userInfo:)();
-    v127 = [objc_opt_self() defaultCenter];
+    v115 = [objc_opt_self() defaultCenter];
     isa = Notification._bridgeToObjectiveC()().super.isa;
-    [v127 p_name[223]];
+    [v115 p_name[223]];
 
-    (*(v193 + 8))(v126, v194);
+    (*(v181 + 8))(v114, v182);
   }
 
-  v129 = *(&v205 + 1);
-  v130 = ModeEnablementStrategy.rawValue.getter();
-  if (v130 != ModeEnablementStrategy.rawValue.getter())
+  v117 = *(&v193 + 1);
+  v118 = ModeEnablementStrategy.rawValue.getter();
+  if (v118 != ModeEnablementStrategy.rawValue.getter())
   {
-    v131 = v171;
+    v119 = v159;
     static Logger.policyCoordinator.getter();
-    v132 = Logger.logObject.getter();
-    v133 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v132, v133))
+    v120 = Logger.logObject.getter();
+    v121 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v120, v121))
     {
-      v134 = swift_slowAlloc();
-      v198 = swift_slowAlloc();
-      v199 = v129;
-      v200[0] = v198;
-      *v134 = 136446210;
-      v135 = String.init<A>(describing:)();
-      v137 = sub_100034C38(v135, v136, v200);
+      v122 = swift_slowAlloc();
+      v186 = swift_slowAlloc();
+      v187 = v117;
+      v188[0] = v186;
+      *v122 = 136446210;
+      v123 = String.init<A>(describing:)();
+      v125 = sub_100034C38(v123, v124, v188);
 
-      *(v134 + 4) = v137;
-      _os_log_impl(&_mh_execute_header, v132, v133, "Updating sustained execution mode enablement strategy to %{public}s", v134, 0xCu);
-      sub_100003964(v198);
+      *(v122 + 4) = v125;
+      _os_log_impl(&_mh_execute_header, v120, v121, "Updating sustained execution mode enablement strategy to %{public}s", v122, 0xCu);
+      sub_100003964(v186);
       p_name = &stru_100051FF8.name;
     }
 
-    (*(v189 + 8))(v131, v190);
+    (*(v177 + 8))(v119, v178);
     type metadata accessor for GlobalPreferences();
     dispatch thunk of static GlobalPreferences.shared.getter();
     dispatch thunk of GlobalPreferences.semEnablementStrategy.setter();
@@ -9146,42 +8954,42 @@ LABEL_74:
       swift_once();
     }
 
-    v201 = &type metadata for ModeEnablementStrategy;
-    v200[0] = v129;
-    v138 = qword_1000565F0;
-    v139 = v192;
+    v189 = &type metadata for ModeEnablementStrategy;
+    v188[0] = v117;
+    v126 = qword_1000565F0;
+    v127 = v180;
     Notification.init(name:object:userInfo:)();
-    v140 = [objc_opt_self() defaultCenter];
-    v141 = Notification._bridgeToObjectiveC()().super.isa;
-    [v140 p_name[223]];
+    v128 = [objc_opt_self() defaultCenter];
+    v129 = Notification._bridgeToObjectiveC()().super.isa;
+    [v128 p_name[223]];
 
-    (*(v193 + 8))(v139, v194);
+    (*(v181 + 8))(v127, v182);
   }
 
-  v142 = v206;
-  v143 = ModeEnablementStrategy.rawValue.getter();
-  if (v143 != ModeEnablementStrategy.rawValue.getter())
+  v130 = v194;
+  v131 = ModeEnablementStrategy.rawValue.getter();
+  if (v131 != ModeEnablementStrategy.rawValue.getter())
   {
     static Logger.policyCoordinator.getter();
-    v144 = Logger.logObject.getter();
-    v145 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v144, v145))
+    v132 = Logger.logObject.getter();
+    v133 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v132, v133))
     {
-      v146 = swift_slowAlloc();
-      v147 = swift_slowAlloc();
-      v199 = v142;
-      v200[0] = v147;
-      *v146 = 136446210;
-      v148 = String.init<A>(describing:)();
-      v150 = sub_100034C38(v148, v149, v200);
+      v134 = swift_slowAlloc();
+      v135 = swift_slowAlloc();
+      v187 = v130;
+      v188[0] = v135;
+      *v134 = 136446210;
+      v136 = String.init<A>(describing:)();
+      v138 = sub_100034C38(v136, v137, v188);
 
-      *(v146 + 4) = v150;
-      _os_log_impl(&_mh_execute_header, v144, v145, "Updating dynamic splitter enablement strategy to %{public}s", v146, 0xCu);
-      sub_100003964(v147);
+      *(v134 + 4) = v138;
+      _os_log_impl(&_mh_execute_header, v132, v133, "Updating dynamic splitter enablement strategy to %{public}s", v134, 0xCu);
+      sub_100003964(v135);
       p_name = &stru_100051FF8.name;
     }
 
-    (*(v189 + 8))(v181, v190);
+    (*(v177 + 8))(v169, v178);
     type metadata accessor for GlobalPreferences();
     dispatch thunk of static GlobalPreferences.shared.getter();
     dispatch thunk of GlobalPreferences.dynamicSplitterEnablementStrategy.setter();
@@ -9191,52 +8999,52 @@ LABEL_74:
       swift_once();
     }
 
-    v201 = &type metadata for ModeEnablementStrategy;
-    v200[0] = v142;
-    v151 = qword_1000565F8;
-    v152 = v192;
+    v189 = &type metadata for ModeEnablementStrategy;
+    v188[0] = v130;
+    v139 = qword_1000565F8;
+    v140 = v180;
     Notification.init(name:object:userInfo:)();
-    v153 = [objc_opt_self() defaultCenter];
-    v154 = Notification._bridgeToObjectiveC()().super.isa;
-    [v153 p_name[223]];
+    v141 = [objc_opt_self() defaultCenter];
+    v142 = Notification._bridgeToObjectiveC()().super.isa;
+    [v141 p_name[223]];
 
-    (*(v193 + 8))(v152, v194);
+    (*(v181 + 8))(v140, v182);
   }
 
-  v155 = *(&v206 + 1);
-  v156 = ModelManagerPolicyStrategy.rawValue.getter();
-  if (v156 == ModelManagerPolicyStrategy.rawValue.getter())
+  v143 = *(&v194 + 1);
+  v144 = ModelManagerPolicyStrategy.rawValue.getter();
+  if (v144 == ModelManagerPolicyStrategy.rawValue.getter())
   {
-    sub_10001B150(v204);
-    sub_10001B150(v203);
-    v157 = v183;
+    sub_10001B150(v192);
+    sub_10001B150(v191);
+    v145 = v171;
   }
 
   else
   {
-    v158 = v172;
+    v146 = v160;
     static Logger.policyCoordinator.getter();
-    v159 = Logger.logObject.getter();
-    v160 = static os_log_type_t.default.getter();
-    v161 = os_log_type_enabled(v159, v160);
-    v157 = v183;
-    if (v161)
+    v147 = Logger.logObject.getter();
+    v148 = static os_log_type_t.default.getter();
+    v149 = os_log_type_enabled(v147, v148);
+    v145 = v171;
+    if (v149)
     {
-      v162 = swift_slowAlloc();
-      v198 = swift_slowAlloc();
-      v199 = v155;
-      v200[0] = v198;
-      *v162 = 136446210;
-      v163 = String.init<A>(describing:)();
-      v165 = sub_100034C38(v163, v164, v200);
+      v150 = swift_slowAlloc();
+      v186 = swift_slowAlloc();
+      v187 = v143;
+      v188[0] = v186;
+      *v150 = 136446210;
+      v151 = String.init<A>(describing:)();
+      v153 = sub_100034C38(v151, v152, v188);
 
-      *(v162 + 4) = v165;
-      _os_log_impl(&_mh_execute_header, v159, v160, "Updating game mode ModelManager policy strategy to %{public}s", v162, 0xCu);
-      sub_100003964(v198);
+      *(v150 + 4) = v153;
+      _os_log_impl(&_mh_execute_header, v147, v148, "Updating game mode ModelManager policy strategy to %{public}s", v150, 0xCu);
+      sub_100003964(v186);
       p_name = &stru_100051FF8.name;
     }
 
-    (*(v189 + 8))(v158, v190);
+    (*(v177 + 8))(v146, v178);
     type metadata accessor for GlobalPreferences();
     dispatch thunk of static GlobalPreferences.shared.getter();
     dispatch thunk of GlobalPreferences.modelManagerGameAssertionPolicyStrategy.setter();
@@ -9246,121 +9054,119 @@ LABEL_74:
       swift_once();
     }
 
-    v201 = &type metadata for ModelManagerPolicyStrategy;
-    v200[0] = v155;
-    v166 = qword_1000565E8;
-    v167 = v192;
+    v189 = &type metadata for ModelManagerPolicyStrategy;
+    v188[0] = v143;
+    v154 = qword_1000565E8;
+    v155 = v180;
     Notification.init(name:object:userInfo:)();
-    v168 = [objc_opt_self() defaultCenter];
-    v169 = Notification._bridgeToObjectiveC()().super.isa;
-    [v168 p_name[223]];
+    v156 = [objc_opt_self() defaultCenter];
+    v157 = Notification._bridgeToObjectiveC()().super.isa;
+    [v156 p_name[223]];
 
-    sub_10001B150(v204);
-    sub_10001B150(v203);
-    (*(v193 + 8))(v167, v194);
+    sub_10001B150(v192);
+    sub_10001B150(v191);
+    (*(v181 + 8))(v155, v182);
   }
 
-  sub_10001B378(v191, v182, &qword_1000552B0, &qword_10003F110);
+  sub_10001B378(v179, v170, &qword_1000552B0, &qword_10003F110);
 }
 
 uint64_t sub_1000170B8(uint64_t a1, uint64_t a2)
 {
   v5 = type metadata accessor for Logger();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v21 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
-  v10 = *(a1 + 32);
-  v25 = v5;
-  v26 = v2;
-  v24 = v6;
-  if (v10 >> 62)
+  v9 = *(a1 + 32);
+  v23 = v5;
+  v24 = v2;
+  v22 = v6;
+  if (v9 >> 62)
   {
     goto LABEL_22;
   }
 
-  v11 = *((v10 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  v10 = *((v9 & 0xFFFFFFFFFFFFFF8) + 0x10);
 LABEL_3:
 
-  if (v11)
+  if (v10)
   {
-    v12 = 0;
+    v11 = 0;
     do
     {
-      if ((v10 & 0xC000000000000001) != 0)
+      if ((v9 & 0xC000000000000001) != 0)
       {
         result = specialized _ArrayBuffer._getElementSlowPath(_:)();
-        if (__OFADD__(v12++, 1))
+        if (__OFADD__(v11++, 1))
         {
           __break(1u);
           return result;
         }
 
-        v23 = result;
+        v21 = result;
         swift_unknownObjectRelease();
-        if (v23 == a2)
+        if (v21 == a2)
         {
         }
       }
 
       else
       {
-        if ((v12 & 0x8000000000000000) != 0)
+        if ((v11 & 0x8000000000000000) != 0)
         {
           __break(1u);
 LABEL_21:
           __break(1u);
 LABEL_22:
-          v11 = _CocoaArrayWrapper.endIndex.getter();
+          v10 = _CocoaArrayWrapper.endIndex.getter();
           goto LABEL_3;
         }
 
-        if (v12 >= *((v10 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        if (v11 >= *((v9 & 0xFFFFFFFFFFFFFF8) + 0x10))
         {
           goto LABEL_21;
         }
 
-        if (*(v10 + 32 + 8 * v12) == a2)
+        if (*(v9 + 32 + 8 * v11) == a2)
         {
         }
 
-        ++v12;
+        ++v11;
       }
     }
 
-    while (v12 != v11);
+    while (v11 != v10);
   }
 
   static Logger.policyCoordinator.getter();
 
-  v15 = Logger.logObject.getter();
-  v16 = static os_log_type_t.default.getter();
+  v14 = Logger.logObject.getter();
+  v15 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v15, v16))
+  if (os_log_type_enabled(v14, v15))
   {
+    v16 = swift_slowAlloc();
     v17 = swift_slowAlloc();
-    v18 = swift_slowAlloc();
-    v27[0] = v18;
-    *v17 = 136446210;
-    v27[7] = a2;
+    v25[0] = v17;
+    *v16 = 136446210;
+    v26 = a2;
     type metadata accessor for GamePolicyCoordinatorObserver();
 
-    v19 = String.init<A>(describing:)();
-    v21 = sub_100034C38(v19, v20, v27);
+    v18 = String.init<A>(describing:)();
+    v20 = sub_100034C38(v18, v19, v25);
 
-    *(v17 + 4) = v21;
-    _os_log_impl(&_mh_execute_header, v15, v16, "registerObserver: %{public}s", v17, 0xCu);
-    sub_100003964(v18);
+    *(v16 + 4) = v20;
+    _os_log_impl(&_mh_execute_header, v14, v15, "registerObserver: %{public}s", v16, 0xCu);
+    sub_100003964(v17);
   }
 
-  (*(v24 + 8))(v9, v25);
+  (*(v22 + 8))(v8, v23);
   swift_beginAccess();
 
   specialized Array._makeUniqueAndReserveCapacityIfNotUnique()();
   if (*((*(a1 + 32) & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*(a1 + 32) & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
   {
-    v22 = *((*(a1 + 32) & 0xFFFFFFFFFFFFFF8) + 0x10);
     specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
   }
 
@@ -9372,66 +9178,65 @@ uint64_t sub_1000173E8(uint64_t a1, uint64_t a2)
 {
   v5 = type metadata accessor for Logger();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v26 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
-  v10 = *(a1 + 32);
-  v30 = v5;
-  v31 = v2;
-  v29 = v6;
-  if (v10 >> 62)
+  v9 = *(a1 + 32);
+  v28 = v5;
+  v29 = v2;
+  v27 = v6;
+  if (v9 >> 62)
   {
-LABEL_23:
-    v11 = _CocoaArrayWrapper.endIndex.getter();
+LABEL_24:
+    v10 = _CocoaArrayWrapper.endIndex.getter();
   }
 
   else
   {
-    v11 = *((v10 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v10 = *((v9 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  if (!v11)
+  if (!v10)
   {
   }
 
-  v12 = 0;
-  while ((v10 & 0xC000000000000001) == 0)
+  v11 = 0;
+  while ((v9 & 0xC000000000000001) == 0)
   {
-    if ((v12 & 0x8000000000000000) != 0)
+    if ((v11 & 0x8000000000000000) != 0)
     {
       __break(1u);
-LABEL_22:
+LABEL_23:
       __break(1u);
+      goto LABEL_24;
+    }
+
+    if (v11 >= *((v9 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    {
       goto LABEL_23;
     }
 
-    if (v12 >= *((v10 & 0xFFFFFFFFFFFFFF8) + 0x10))
-    {
-      goto LABEL_22;
-    }
-
-    if (*(v10 + 32 + 8 * v12) == a2)
+    if (*(v9 + 32 + 8 * v11) == a2)
     {
       goto LABEL_14;
     }
 
-    ++v12;
+    ++v11;
 LABEL_10:
-    if (v12 == v11)
+    if (v11 == v10)
     {
     }
   }
 
   result = specialized _ArrayBuffer._getElementSlowPath(_:)();
-  if (__OFADD__(v12++, 1))
+  if (__OFADD__(v11++, 1))
   {
-    goto LABEL_28;
+    goto LABEL_27;
   }
 
-  v28 = result;
+  v26 = result;
   swift_unknownObjectRelease();
-  if (v28 != a2)
+  if (v26 != a2)
   {
     goto LABEL_10;
   }
@@ -9440,51 +9245,46 @@ LABEL_14:
 
   static Logger.policyCoordinator.getter();
 
-  v15 = Logger.logObject.getter();
-  v16 = static os_log_type_t.default.getter();
+  v14 = Logger.logObject.getter();
+  v15 = static os_log_type_t.default.getter();
 
-  v17 = os_log_type_enabled(v15, v16);
-  v18 = v30;
-  if (v17)
+  v16 = os_log_type_enabled(v14, v15);
+  v17 = v28;
+  if (v16)
   {
+    v18 = swift_slowAlloc();
     v19 = swift_slowAlloc();
-    v20 = swift_slowAlloc();
-    v32[0] = v20;
-    *v19 = 136446210;
-    v32[7] = a2;
+    v30[0] = v19;
+    *v18 = 136446210;
+    v31 = a2;
     type metadata accessor for GamePolicyCoordinatorObserver();
 
-    v21 = String.init<A>(describing:)();
-    v23 = sub_100034C38(v21, v22, v32);
+    v20 = String.init<A>(describing:)();
+    v22 = sub_100034C38(v20, v21, v30);
 
-    *(v19 + 4) = v23;
-    _os_log_impl(&_mh_execute_header, v15, v16, "unregisterObserver: %{public}s", v19, 0xCu);
-    sub_100003964(v20);
+    *(v18 + 4) = v22;
+    _os_log_impl(&_mh_execute_header, v14, v15, "unregisterObserver: %{public}s", v18, 0xCu);
+    sub_100003964(v19);
 
-    (*(v29 + 8))(v9, v30);
+    (*(v27 + 8))(v8, v28);
   }
 
   else
   {
 
-    (*(v29 + 8))(v9, v18);
+    (*(v27 + 8))(v8, v17);
   }
 
   swift_beginAccess();
 
-  v24 = sub_10001B4E4((a1 + 32), a2);
+  v23 = sub_10001B4E4((a1 + 32), a2);
 
-  v25 = *(a1 + 32);
-  if (v25 >> 62)
+  v24 = *(a1 + 32);
+  if (v24 >> 62)
   {
-    if (v25 < 0)
-    {
-      v27 = *(a1 + 32);
-    }
-
     result = _CocoaArrayWrapper.endIndex.getter();
-    v26 = result;
-    if (result >= v24)
+    v25 = result;
+    if (result >= v23)
     {
       goto LABEL_20;
     }
@@ -9492,17 +9292,17 @@ LABEL_14:
 
   else
   {
-    v26 = *((v25 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (v26 >= v24)
+    v25 = *((v24 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v25 >= v23)
     {
 LABEL_20:
-      sub_100025814(v24, v26);
+      sub_100025814(v23, v25);
       return swift_endAccess();
     }
   }
 
   __break(1u);
-LABEL_28:
+LABEL_27:
   __break(1u);
   return result;
 }
@@ -9519,171 +9319,161 @@ void *sub_10001774C()
 void *sub_100017788()
 {
   v1 = type metadata accessor for DynamicSplitterStatus.Config();
-  v86 = *(v1 - 8);
-  v87 = v1;
-  v2 = *(v86 + 64);
-  v3 = (__chkstk_darwin)();
-  v85 = v69 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v78 = v69 - v5;
-  v84 = type metadata accessor for SustainedExecutionStatus.Config();
-  v82 = *(v84 - 8);
-  v6 = *(v82 + 64);
-  v7 = __chkstk_darwin(v84);
-  v80 = v69 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  v89 = v69 - v9;
-  v10 = sub_100003870(&qword_100054428, &qword_10003E778);
-  v11 = (*(*(v10 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin(v10 - 8);
-  v76 = v69 - v12;
-  v83 = type metadata accessor for ModelManagerGameAssertionStatus.Config();
-  v81 = *(v83 - 8);
-  v13 = *(v81 + 64);
-  v14 = __chkstk_darwin(v83);
-  v79 = v69 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v76 = *(v1 - 8);
+  v77 = v1;
+  v2 = __chkstk_darwin(v1);
+  v75 = v59 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v2);
+  v68 = v59 - v4;
+  v74 = type metadata accessor for SustainedExecutionStatus.Config();
+  v72 = *(v74 - 8);
+  v5 = __chkstk_darwin(v74);
+  v70 = v59 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v5);
+  v79 = v59 - v7;
+  v8 = sub_100003870(&qword_100054428, &qword_10003E778);
+  __chkstk_darwin(v8 - 8);
+  v66 = v59 - v9;
+  v73 = type metadata accessor for ModelManagerGameAssertionStatus.Config();
+  v71 = *(v73 - 8);
+  v10 = __chkstk_darwin(v73);
+  v69 = v59 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v10);
+  v80 = v59 - v12;
+  v13 = sub_100003870(&qword_1000552E0, &qword_10003E780);
+  v14 = __chkstk_darwin(v13 - 8);
+  v65 = v59 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v14);
-  v90 = v69 - v16;
-  v17 = sub_100003870(&qword_1000552E0, &qword_10003E780);
-  v18 = *(*(v17 - 8) + 64);
-  v19 = __chkstk_darwin(v17 - 8);
-  v75 = v69 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v19);
-  v74 = v69 - v21;
-  v22 = type metadata accessor for GameModeStatus.Config();
-  v91 = *(v22 - 8);
-  v92 = v22;
-  v23 = *(v91 + 64);
-  v24 = __chkstk_darwin(v22);
-  v77 = v69 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v24);
-  v93 = v69 - v26;
-  v73 = type metadata accessor for String.Encoding();
-  v72 = *(v73 - 8);
-  v27 = *(v72 + 64);
-  __chkstk_darwin(v73);
-  v71 = v69 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v70 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v29 = *(v70 - 8);
-  v30 = *(v29 + 64);
-  __chkstk_darwin(v70);
-  v32 = v69 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v33 = type metadata accessor for OS_dispatch_queue.Attributes();
-  v34 = *(*(v33 - 8) + 64);
-  __chkstk_darwin(v33);
-  v35 = type metadata accessor for DispatchQoS();
-  v36 = *(*(v35 - 8) + 64);
-  __chkstk_darwin(v35 - 8);
+  v64 = v59 - v16;
+  v17 = type metadata accessor for GameModeStatus.Config();
+  v81 = *(v17 - 8);
+  v82 = v17;
+  v18 = __chkstk_darwin(v17);
+  v67 = v59 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v18);
+  v83 = v59 - v20;
+  v63 = type metadata accessor for String.Encoding();
+  v62 = *(v63 - 8);
+  __chkstk_darwin(v63);
+  v61 = v59 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v60 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
+  v22 = *(v60 - 8);
+  __chkstk_darwin(v60);
+  v24 = v59 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = type metadata accessor for OS_dispatch_queue.Attributes();
+  __chkstk_darwin(v25);
+  v26 = type metadata accessor for DispatchQoS();
+  __chkstk_darwin(v26 - 8);
   *(v0 + 16) = [objc_allocWithZone(NSLock) init];
-  v69[2] = sub_100009748(0, &qword_100053B00, OS_dispatch_queue_ptr);
-  v69[1] = "AssertionChangedNotifyToken";
+  v59[2] = sub_100009748(0, &qword_100053B00, OS_dispatch_queue_ptr);
+  v59[1] = "AssertionChangedNotifyToken";
   static DispatchQoS.unspecified.getter();
-  v94 = &_swiftEmptyArrayStorage;
-  sub_10001BF5C(&qword_100054430, &type metadata accessor for OS_dispatch_queue.Attributes);
+  v84 = _swiftEmptyArrayStorage;
+  sub_10001BF5C(&qword_100054430, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
   sub_100003870(&qword_100054438, &qword_10003E788);
   sub_10001B9A0(&qword_100054440, &qword_100054438, &qword_10003E788);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  (*(v29 + 104))(v32, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v70);
-  v37 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
-  v38 = v88;
-  v88[3] = v37;
-  v38[4] = &_swiftEmptyArrayStorage;
-  v38[6] = 0;
+  (*(v22 + 104))(v24, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v60);
+  v27 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
+  v28 = v78;
+  v78[3] = v27;
+  v28[4] = _swiftEmptyArrayStorage;
+  v28[6] = 0;
   swift_unknownObjectWeakInit();
-  v38[15] = 0;
-  v39 = v38;
+  v28[15] = 0;
+  v29 = v28;
   out_token = 0;
-  v94 = 0xD00000000000003DLL;
-  v95 = 0x80000001000416B0;
-  v40 = v71;
+  v84 = 0xD00000000000003DLL;
+  v85 = 0x80000001000416B0;
+  v30 = v61;
   static String.Encoding.utf8.getter();
   sub_100009790();
-  v41 = StringProtocol.cString(using:)();
-  (*(v72 + 8))(v40, v73);
-  if (v41)
+  v31 = StringProtocol.cString(using:)();
+  (*(v62 + 8))(v30, v63);
+  if (v31)
   {
-    v42 = (v41 + 32);
+    v32 = (v31 + 32);
   }
 
   else
   {
-    v42 = 0;
+    v32 = 0;
   }
 
-  notify_register_check(v42, &out_token);
+  notify_register_check(v32, &out_token);
 
-  *(v39 + 32) = out_token;
+  *(v29 + 32) = out_token;
   type metadata accessor for GlobalPreferences();
   dispatch thunk of static GlobalPreferences.shared.getter();
-  v73 = dispatch thunk of GlobalPreferences.gameModeEnablementStrategy.getter();
+  v63 = dispatch thunk of GlobalPreferences.gameModeEnablementStrategy.getter();
 
-  v43 = type metadata accessor for Date();
-  v44 = *(*(v43 - 8) + 56);
-  v45 = v74;
-  v44(v74, 1, 1, v43);
-  v46 = v75;
-  v44(v75, 1, 1, v43);
+  v33 = type metadata accessor for Date();
+  v34 = *(*(v33 - 8) + 56);
+  v35 = v64;
+  v34(v64, 1, 1, v33);
+  v36 = v65;
+  v34(v65, 1, 1, v33);
   GameModeStatus.Config.init(enabled:enablementDate:disablementDate:deviceSupported:jettisonCameraS2R:gameBundleIdentifiers:previousGameBundleIdentifiers:impactedBundleIdentifiers:previouslyImpactedBundleIdentifiers:allGameBundleIdentifiers:previousAllGameBundleIdentifiers:enablementStrategy:perfomanceGamingModeEnabled:)();
   dispatch thunk of static GlobalPreferences.shared.getter();
-  v72 = dispatch thunk of GlobalPreferences.modelManagerGameAssertionPolicyStrategy.getter();
+  v62 = dispatch thunk of GlobalPreferences.modelManagerGameAssertionPolicyStrategy.getter();
 
-  v47 = type metadata accessor for ModelManagerGameAssertionPolicy();
-  (*(*(v47 - 8) + 56))(v76, 1, 1, v47);
-  v44(v45, 1, 1, v43);
-  v44(v46, 1, 1, v43);
+  v37 = type metadata accessor for ModelManagerGameAssertionPolicy();
+  (*(*(v37 - 8) + 56))(v66, 1, 1, v37);
+  v34(v35, 1, 1, v33);
+  v34(v36, 1, 1, v33);
   ModelManagerGameAssertionStatus.Config.init(policy:enablementDate:disablementDate:deviceSupported:aaaBundleIdentifiers:impactedBundleIdentifiers:previouslyImpactedBundleIdentifiers:policyStrategy:)();
   dispatch thunk of static GlobalPreferences.shared.getter();
-  v76 = dispatch thunk of GlobalPreferences.semEnablementStrategy.getter();
+  v66 = dispatch thunk of GlobalPreferences.semEnablementStrategy.getter();
 
-  v44(v45, 1, 1, v43);
-  v44(v46, 1, 1, v43);
-  v48 = v89;
+  v34(v35, 1, 1, v33);
+  v34(v36, 1, 1, v33);
+  v38 = v79;
   SustainedExecutionStatus.Config.init(activePolicy:enablementDate:disablementDate:deviceSupported:impactedBundleIdentifiers:previouslyImpactedBundleIdentifiers:enablementStrategy:)();
   dispatch thunk of static GlobalPreferences.shared.getter();
-  v71 = dispatch thunk of GlobalPreferences.dynamicSplitterEnablementStrategy.getter();
+  v61 = dispatch thunk of GlobalPreferences.dynamicSplitterEnablementStrategy.getter();
 
-  v44(v45, 1, 1, v43);
-  v44(v46, 1, 1, v43);
-  v49 = v78;
+  v34(v35, 1, 1, v33);
+  v34(v36, 1, 1, v33);
+  v39 = v68;
   DynamicSplitterStatus.Config.init(enabled:enablementDate:disablementDate:deviceSupported:impactedBundleIdentifiers:previouslyImpactedBundleIdentifiers:enablementStrategy:)();
-  (*(v91 + 16))(v77, v93, v92);
-  v50 = objc_allocWithZone(type metadata accessor for GameModeStatus());
-  v77 = GameModeStatus.init(config:)();
-  v51 = v82;
-  v52 = v48;
-  v53 = v84;
-  (*(v82 + 16))(v80, v52, v84);
-  v54 = objc_allocWithZone(type metadata accessor for SustainedExecutionStatus());
-  v80 = SustainedExecutionStatus.init(config:)();
-  v55 = v86;
-  v56 = v49;
-  v57 = v49;
-  v58 = v87;
-  (*(v86 + 16))(v85, v56, v87);
-  v59 = objc_allocWithZone(type metadata accessor for DynamicSplitterStatus());
-  v85 = DynamicSplitterStatus.init(config:)();
-  v60 = v81;
-  v61 = v90;
-  v62 = v83;
-  (*(v81 + 16))(v79, v90, v83);
-  v63 = objc_allocWithZone(type metadata accessor for ModelManagerGameAssertionStatus());
-  v64 = ModelManagerGameAssertionStatus.init(config:)();
-  (*(v55 + 8))(v57, v58);
-  (*(v51 + 8))(v89, v53);
-  (*(v60 + 8))(v61, v62);
-  (*(v91 + 8))(v93, v92);
-  result = v88;
-  v66 = v80;
-  v88[7] = v77;
-  result[8] = v66;
-  result[9] = v85;
-  result[10] = v64;
-  v67 = v76;
-  result[11] = v73;
-  result[12] = v67;
-  v68 = v72;
-  result[13] = v71;
-  result[14] = v68;
+  (*(v81 + 16))(v67, v83, v82);
+  v40 = objc_allocWithZone(type metadata accessor for GameModeStatus());
+  v67 = GameModeStatus.init(config:)();
+  v41 = v72;
+  v42 = v38;
+  v43 = v74;
+  (*(v72 + 16))(v70, v42, v74);
+  v44 = objc_allocWithZone(type metadata accessor for SustainedExecutionStatus());
+  v70 = SustainedExecutionStatus.init(config:)();
+  v45 = v76;
+  v46 = v39;
+  v47 = v39;
+  v48 = v77;
+  (*(v76 + 16))(v75, v46, v77);
+  v49 = objc_allocWithZone(type metadata accessor for DynamicSplitterStatus());
+  v75 = DynamicSplitterStatus.init(config:)();
+  v50 = v71;
+  v51 = v80;
+  v52 = v73;
+  (*(v71 + 16))(v69, v80, v73);
+  v53 = objc_allocWithZone(type metadata accessor for ModelManagerGameAssertionStatus());
+  v54 = ModelManagerGameAssertionStatus.init(config:)();
+  (*(v45 + 8))(v47, v48);
+  (*(v41 + 8))(v79, v43);
+  (*(v50 + 8))(v51, v52);
+  (*(v81 + 8))(v83, v82);
+  result = v78;
+  v56 = v70;
+  v78[7] = v67;
+  result[8] = v56;
+  result[9] = v75;
+  result[10] = v54;
+  v57 = v66;
+  result[11] = v63;
+  result[12] = v57;
+  v58 = v62;
+  result[13] = v61;
+  result[14] = v58;
   return result;
 }
 
@@ -9692,75 +9482,68 @@ uint64_t sub_10001836C()
   v1 = v0;
   v2 = type metadata accessor for String.Encoding();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v6 = v24 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_100003870(&qword_100054460, &qword_10003E7B8);
-  v8 = *(*(v7 - 8) + 64);
-  __chkstk_darwin(v7 - 8);
-  v10 = v24 - v9;
-  v11 = *(v1 + 120);
-  if (v11)
+  v5 = v20 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_100003870(&qword_100054460, &qword_10003E7B8);
+  __chkstk_darwin(v6 - 8);
+  v8 = v20 - v7;
+  v9 = *(v1 + 120);
+  if (v9)
   {
     *(v1 + 120) = 0;
-    v12 = type metadata accessor for TaskPriority();
-    (*(*(v12 - 8) + 56))(v10, 1, 1, v12);
-    v13 = swift_allocObject();
-    v13[2] = 0;
-    v13[3] = 0;
-    v13[4] = v11;
+    v10 = type metadata accessor for TaskPriority();
+    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v11 = swift_allocObject();
+    v11[2] = 0;
+    v11[3] = 0;
+    v11[4] = v9;
 
-    sub_100018680(0, 0, v10, &unk_10003E838, v13);
+    sub_100018680(0, 0, v8, &unk_10003E838, v11);
 
-    v14 = *(v1 + 128);
-    if (v14)
+    v12 = *(v1 + 128);
+    if (v12)
     {
-      notify_set_state(v14, 0);
-      v24[0] = 0xD00000000000003DLL;
-      v24[1] = 0x80000001000416B0;
+      notify_set_state(v12, 0);
+      v20[0] = 0xD00000000000003DLL;
+      v20[1] = 0x80000001000416B0;
       static String.Encoding.utf8.getter();
       sub_100009790();
-      v15 = StringProtocol.cString(using:)();
-      (*(v3 + 8))(v6, v2);
-      if (v15)
+      v13 = StringProtocol.cString(using:)();
+      (*(v3 + 8))(v5, v2);
+      if (v13)
       {
-        v16 = (v15 + 32);
+        v14 = (v13 + 32);
       }
 
       else
       {
-        v16 = 0;
+        v14 = 0;
       }
 
-      notify_post(v16);
+      notify_post(v14);
     }
   }
 
-  v17 = *(v1 + 128);
-  if (v17)
+  v15 = *(v1 + 128);
+  if (v15)
   {
-    notify_cancel(v17);
+    notify_cancel(v15);
   }
 
-  v18 = *(v1 + 32);
-
   sub_10000B4A8(v1 + 40);
-  v19 = *(v1 + 56);
-  v20 = *(v1 + 64);
-  v21 = *(v1 + 72);
-
-  v22 = *(v1 + 120);
+  v16 = *(v1 + 56);
+  v17 = *(v1 + 64);
+  v18 = *(v1 + 72);
 
   return v1;
 }
 
 uint64_t sub_1000185EC()
 {
-  v1 = async function pointer to Assertion.invalidate()[1];
-  v2 = swift_task_alloc();
-  *(v0 + 16) = v2;
-  *v2 = v0;
-  v2[1] = sub_10001C4B0;
+  v1 = swift_task_alloc();
+  *(v0 + 16) = v1;
+  *v1 = v0;
+  v1[1] = sub_10001C4B0;
 
   return Assertion.invalidate()();
 }
@@ -9768,72 +9551,70 @@ uint64_t sub_1000185EC()
 uint64_t sub_100018680(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v9 = sub_100003870(&qword_100054460, &qword_10003E7B8);
-  v10 = *(*(v9 - 8) + 64);
   __chkstk_darwin(v9 - 8);
-  v12 = v27 - v11;
-  sub_10001C10C(a3, v27 - v11);
-  v13 = type metadata accessor for TaskPriority();
-  v14 = *(v13 - 8);
-  v15 = (*(v14 + 48))(v12, 1, v13);
+  v11 = v25 - v10;
+  sub_10001C10C(a3, v25 - v10);
+  v12 = type metadata accessor for TaskPriority();
+  v13 = *(v12 - 8);
+  v14 = (*(v13 + 48))(v11, 1, v12);
 
-  if (v15 == 1)
+  if (v14 == 1)
   {
-    sub_1000096E8(v12, &qword_100054460, &qword_10003E7B8);
+    sub_1000096E8(v11, &qword_100054460, &qword_10003E7B8);
   }
 
   else
   {
     TaskPriority.rawValue.getter();
-    (*(v14 + 8))(v12, v13);
+    (*(v13 + 8))(v11, v12);
   }
 
-  v17 = *(a5 + 16);
-  v16 = *(a5 + 24);
+  v15 = *(a5 + 16);
   swift_unknownObjectRetain();
 
-  if (v17)
+  if (v15)
   {
     swift_getObjectType();
-    v18 = dispatch thunk of Actor.unownedExecutor.getter();
-    v20 = v19;
+    v16 = dispatch thunk of Actor.unownedExecutor.getter();
+    v18 = v17;
     swift_unknownObjectRelease();
     if (a2)
     {
 LABEL_6:
-      v21 = String.utf8CString.getter() + 32;
-      v22 = swift_allocObject();
-      *(v22 + 16) = a4;
-      *(v22 + 24) = a5;
+      v19 = String.utf8CString.getter() + 32;
+      v20 = swift_allocObject();
+      *(v20 + 16) = a4;
+      *(v20 + 24) = a5;
 
-      if (v20 | v18)
+      if (v18 | v16)
       {
-        v28[0] = 0;
-        v28[1] = 0;
-        v23 = v28;
-        v28[2] = v18;
-        v28[3] = v20;
+        v26[0] = 0;
+        v26[1] = 0;
+        v21 = v26;
+        v26[2] = v16;
+        v26[3] = v18;
       }
 
       else
       {
-        v23 = 0;
+        v21 = 0;
       }
 
-      v27[1] = 7;
-      v27[2] = v23;
-      v27[3] = v21;
-      v25 = swift_task_create();
+      v25[1] = 7;
+      v25[2] = v21;
+      v25[3] = v19;
+      v23 = swift_task_create();
 
       sub_1000096E8(a3, &qword_100054460, &qword_10003E7B8);
 
-      return v25;
+      return v23;
     }
   }
 
   else
   {
+    v16 = 0;
     v18 = 0;
-    v20 = 0;
     if (a2)
     {
       goto LABEL_6;
@@ -9841,16 +9622,231 @@ LABEL_6:
   }
 
   sub_1000096E8(a3, &qword_100054460, &qword_10003E7B8);
-  v24 = swift_allocObject();
-  *(v24 + 16) = a4;
-  *(v24 + 24) = a5;
-  if (v20 | v18)
+  v22 = swift_allocObject();
+  *(v22 + 16) = a4;
+  *(v22 + 24) = a5;
+  if (v18 | v16)
   {
-    v28[4] = 0;
-    v28[5] = 0;
-    v28[6] = v18;
-    v28[7] = v20;
+    v26[4] = 0;
+    v26[5] = 0;
+    v26[6] = v16;
+    v26[7] = v18;
   }
 
   return swift_task_create();
+}
+
+uint64_t sub_100018970()
+{
+  sub_10001836C();
+
+  return _swift_deallocClassInstance(v0, 132, 7);
+}
+
+uint64_t sub_1000189C8@<X0>(void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+{
+  v18 = a3;
+  v5 = type metadata accessor for OSSignpostID();
+  v6 = *(v5 - 8);
+  __chkstk_darwin(v5);
+  v8 = &v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = GameModeStatus.enabled.getter() & 1;
+  swift_beginAccess();
+  v10 = *(a2 + 56);
+  v11 = GameModeStatus.enabled.getter() & 1;
+
+  v12 = *(a2 + 56);
+  *(a2 + 56) = a1;
+  v13 = a1;
+
+  if (v9 != v11)
+  {
+    v14 = (v6 + 8);
+    if (GameModeStatus.enabled.getter())
+    {
+      static os_signpost_type_t.begin.getter();
+    }
+
+    else
+    {
+      static os_signpost_type_t.end.getter();
+    }
+
+    v15 = static Logger.stateTracking.getter();
+    static OSSignpostID.exclusive.getter();
+    os_signpost(_:dso:log:name:signpostID:)();
+
+    (*v14)(v8, v5);
+  }
+
+  swift_beginAccess();
+  *v18 = *(a2 + 32);
+}
+
+uint64_t sub_100018B80(void *a1)
+{
+  v3 = type metadata accessor for DispatchWorkItemFlags();
+  v21 = *(v3 - 8);
+  __chkstk_darwin(v3);
+  v5 = &v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for DispatchQoS();
+  v19 = *(v6 - 8);
+  v20 = v6;
+  __chkstk_darwin(v6);
+  v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = v1[2];
+  [v9 lock];
+  swift_beginAccess();
+  v10 = v1[10];
+  v1[10] = a1;
+  v22 = a1;
+
+  swift_beginAccess();
+  v11 = v1[4];
+
+  [v9 unlock];
+  aBlock[4] = sub_10001B984;
+  v25 = v1;
+  aBlock[0] = _NSConcreteStackBlock;
+  aBlock[1] = 1107296256;
+  aBlock[2] = sub_100024520;
+  aBlock[3] = &unk_10004DC00;
+  v12 = _Block_copy(aBlock);
+
+  static DispatchQoS.unspecified.getter();
+  v23 = _swiftEmptyArrayStorage;
+  sub_10001BF5C(&qword_100053B08, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_100003870(&unk_1000551B0, &unk_10003E7A0);
+  sub_10001B9A0(&qword_100053B10, &unk_1000551B0, &unk_10003E7A0);
+  dispatch thunk of SetAlgebra.init<A>(_:)();
+  OS_dispatch_queue.async(group:qos:flags:execute:)();
+  _Block_release(v12);
+  (*(v21 + 8))(v5, v3);
+  (*(v19 + 8))(v8, v20);
+
+  if (!(v11 >> 62))
+  {
+    v14 = *((v11 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v14)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  result = _CocoaArrayWrapper.endIndex.getter();
+  v14 = result;
+  if (!result)
+  {
+  }
+
+LABEL_3:
+  if (v14 >= 1)
+  {
+    for (i = 0; i != v14; ++i)
+    {
+      if ((v11 & 0xC000000000000001) != 0)
+      {
+        specialized _ArrayBuffer._getElementSlowPath(_:)();
+      }
+
+      else
+      {
+      }
+
+      Strong = swift_unknownObjectWeakLoadStrong();
+      if (Strong)
+      {
+        v17 = [*(Strong + 16) remoteObjectProxy];
+        _bridgeAnyObjectToAny(_:)();
+        swift_unknownObjectRelease();
+        sub_100003870(&qword_100054458, &qword_10003E7B0);
+        if (swift_dynamicCast())
+        {
+          [v23 updateStatus:0 :v22 :0 :0];
+          swift_unknownObjectRelease();
+        }
+
+        swift_unknownObjectRelease();
+      }
+
+      else
+      {
+      }
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+__n128 sub_100018FCC(uint64_t a1, uint64_t a2)
+{
+  result = *a2;
+  v3 = *(a2 + 16);
+  v4 = *(a2 + 48);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 48) = v4;
+  *a1 = result;
+  *(a1 + 16) = v3;
+  return result;
+}
+
+uint64_t sub_100018FE0(uint64_t *a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 64))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *a1;
+  if (*a1 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t sub_100019028(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 56) = 0;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 64) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *result = (a2 - 1);
+      return result;
+    }
+
+    *(result + 64) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
 }

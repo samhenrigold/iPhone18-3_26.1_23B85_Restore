@@ -19,6 +19,7 @@
 - (void)showUnknownErrorAlertWithCode:(int64_t)code;
 - (void)showUserAuthErrorAlert;
 - (void)transitionToState:(int64_t)state;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -226,6 +227,23 @@ LABEL_34:
   [(ActivationLockViewController *)&v5 viewDidLoad];
   navigationController = [(ActivationLockViewController *)self navigationController];
   [navigationController setDelegate:self];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5 = handleForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v8 = "[ActivationLockViewController viewDidAppear:]";
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+  }
+
+  v6.receiver = self;
+  v6.super_class = ActivationLockViewController;
+  [(ActivationLockViewController *)&v6 viewDidAppear:appearCopy];
+  [(ActivationLockViewController *)self resetState];
 }
 
 - (void)navigationController:(id)controller didShowViewController:(id)viewController animated:(BOOL)animated

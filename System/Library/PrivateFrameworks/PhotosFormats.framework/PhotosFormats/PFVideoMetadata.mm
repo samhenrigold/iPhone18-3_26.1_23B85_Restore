@@ -188,9 +188,9 @@ uint64_t __58__PFVideoMetadata_videoCodecFourCharCodeNumberForAVAsset___block_in
   return self;
 }
 
-uint64_t __39__PFVideoMetadata_videoAssetIsSpatial___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__39__PFVideoMetadata_videoAssetIsSpatial___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  result = [*(a1 + 40) videoTrackIsSpatial:a2];
+  result = [*(a1 + 40) videoTrackIsSpatial:{a2, a4}];
   if (result)
   {
     *(*(*(a1 + 32) + 8) + 24) = 1;
@@ -220,9 +220,9 @@ uint64_t __39__PFVideoMetadata_videoAssetIsSpatial___block_invoke(uint64_t a1, u
   return self;
 }
 
-uint64_t __48__PFVideoMetadata_videoAssetIsHighDynamicRange___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *__48__PFVideoMetadata_videoAssetIsHighDynamicRange___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  result = [*(a1 + 40) videoTrackFormatDescriptionIsHighDynamicRange:?];
+  result = [*(a1 + 40) videoTrackFormatDescriptionIsHighDynamicRange:{a3, a4}];
   if (result)
   {
     *(*(*(a1 + 32) + 8) + 24) = 1;
@@ -366,7 +366,7 @@ LABEL_4:
         goto LABEL_16;
       }
 
-      error = [v9 mutableCopy];
+      error = objc_msgSend_mutableCopy(v9);
       [error removeObject:v23];
     }
 

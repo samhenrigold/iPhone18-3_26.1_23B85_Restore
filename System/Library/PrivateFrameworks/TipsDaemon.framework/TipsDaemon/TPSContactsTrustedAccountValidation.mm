@@ -1,6 +1,7 @@
 @interface TPSContactsTrustedAccountValidation
 - (BOOL)_primaryAccountCanHaveTrustedAccountType:(unint64_t)type;
 - (void)_hasAssignmentForTrustedAccountType:(unint64_t)type completion:(id)completion;
+- (void)reportCompletionWithResult:(BOOL)result error:(id)error;
 - (void)validateBeneficiaryAssignmentWithCompletion:(id)completion;
 - (void)validateCustodianAssignmentWithCompletion:(id)completion;
 - (void)validateWithCompletion:(id)completion;
@@ -10,7 +11,7 @@
 
 - (void)validateWithCompletion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   [(TPSContactsTrustedAccountValidation *)self setCompletionHandler:completionCopy];
   value = [(TPSTargetingValidation *)self value];
@@ -33,13 +34,13 @@
     if (v14 == 2)
     {
       objc_initWeak(buf, self);
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __62__TPSContactsTrustedAccountValidation_validateWithCompletion___block_invoke;
-      v23[3] = &unk_2789B04D8;
-      objc_copyWeak(&v24, buf);
-      [(TPSContactsTrustedAccountValidation *)self _hasAssignmentForTrustedAccountType:v12 completion:v23];
-      objc_destroyWeak(&v24);
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __62__TPSContactsTrustedAccountValidation_validateWithCompletion___block_invoke;
+      v22[3] = &unk_2789B04D8;
+      objc_copyWeak(&v23, buf);
+      [(TPSContactsTrustedAccountValidation *)self _hasAssignmentForTrustedAccountType:v12 completion:v22];
+      objc_destroyWeak(&v23);
       objc_destroyWeak(buf);
     }
 
@@ -50,8 +51,8 @@
 
     else
     {
-      v22 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:0];
-      [(TPSContactsTrustedAccountValidation *)self reportCompletionWithResult:0 error:v22];
+      v21 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:0];
+      [(TPSContactsTrustedAccountValidation *)self reportCompletionWithResult:0 error:v21];
     }
   }
 
@@ -63,18 +64,16 @@
       value5 = [(TPSTargetingValidation *)self value];
       value6 = [(TPSTargetingValidation *)self value];
       *buf = 138412546;
-      v26 = value5;
-      v27 = 2112;
-      v28 = objc_opt_class();
-      v19 = v28;
+      v25 = value5;
+      v26 = 2112;
+      v27 = objc_opt_class();
+      v19 = v27;
       _os_log_impl(&dword_232D6F000, targeting, OS_LOG_TYPE_INFO, "Unexpected value: %@ with class %@.", buf, 0x16u);
     }
 
     v20 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:0];
     [(TPSContactsTrustedAccountValidation *)self reportCompletionWithResult:0 error:v20];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __62__TPSContactsTrustedAccountValidation_validateWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -263,20 +262,21 @@ void __81__TPSContactsTrustedAccountValidation_validateCustodianAssignmentWithCo
   }
 }
 
-void __83__TPSContactsTrustedAccountValidation_validateBeneficiaryAssignmentWithCompletion___block_invoke_cold_1()
+- (void)reportCompletionWithResult:(BOOL)result error:(id)error
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
+  resultCopy = result;
+  v6 = MEMORY[0x277D71778];
+  errorCopy = error;
+  targeting = [v6 targeting];
+  if (os_log_type_enabled(targeting, OS_LOG_TYPE_DEBUG))
+  {
+    [(TPSDictationLanguageValidation *)self validateWithCompletion:resultCopy, targeting];
+  }
 
-void __81__TPSContactsTrustedAccountValidation_validateCustodianAssignmentWithCompletion___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  completionHandler = [(TPSContactsTrustedAccountValidation *)self completionHandler];
+  (completionHandler)[2](completionHandler, resultCopy, errorCopy);
+
+  [(TPSContactsTrustedAccountValidation *)self setCompletionHandler:0];
 }
 
 @end

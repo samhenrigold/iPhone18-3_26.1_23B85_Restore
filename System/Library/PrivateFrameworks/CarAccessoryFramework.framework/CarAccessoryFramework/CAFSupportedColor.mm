@@ -51,8 +51,8 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = @"color";
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"color";
   color = [(CAFSupportedColor *)self color];
   null = color;
   if (!color)
@@ -60,13 +60,11 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v8[0] = null;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[0] = null;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   if (!color)
   {
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

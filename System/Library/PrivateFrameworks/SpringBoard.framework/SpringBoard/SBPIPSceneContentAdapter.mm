@@ -190,7 +190,7 @@ LABEL_7:
 
     else
     {
-      if ([(NSMutableSet *)self->_interruptingBundleIdentifiersSinceLastTransition containsObject:cameraSensorAttributionBundleIdentifier])
+      if (objc_msgSend_containsObject_(self->_interruptingBundleIdentifiersSinceLastTransition))
       {
         v18 = SBLogPIP();
         if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
@@ -209,7 +209,7 @@ LABEL_7:
         goto LABEL_7;
       }
 
-      if ([(NSMutableSet *)self->_trackedPIPBundleIdentifiers containsObject:cameraSensorAttributionBundleIdentifier])
+      if (objc_msgSend_containsObject_(self->_trackedPIPBundleIdentifiers))
       {
         v18 = SBLogPIP();
         if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
@@ -456,7 +456,7 @@ void __92__SBPIPSceneContentAdapter_pipController_didUpdateEnhancedWindowingMode
           application = [applicationSceneEntity application];
           bundleIdentifier = [application bundleIdentifier];
 
-          if (([v23 containsObject:bundleIdentifier] & 1) == 0)
+          if ((objc_msgSend_containsObject_(v23) & 1) == 0)
           {
             [(NSMutableSet *)self->_interruptingBundleIdentifiersSinceLastTransition removeObject:bundleIdentifier];
             if (![(NSMutableSet *)self->_interruptingBundleIdentifiersSinceLastTransition count])

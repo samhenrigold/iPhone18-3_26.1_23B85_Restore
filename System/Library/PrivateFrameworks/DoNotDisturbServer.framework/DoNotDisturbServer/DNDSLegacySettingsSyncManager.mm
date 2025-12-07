@@ -131,7 +131,7 @@
 
 - (void)_propagateScheduleSettings:(id)settings
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   v5 = [settingsCopy mutableCopy];
   [v5 scheduleEnabledSetting];
@@ -150,11 +150,11 @@
     v12 = DNDSLogLegacySettingsSync;
     if (os_log_type_enabled(DNDSLogLegacySettingsSync, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138543618;
-      v17 = settingsCopy;
-      v18 = 2114;
-      v19 = v11;
-      _os_log_impl(&dword_24912E000, v12, OS_LOG_TYPE_DEFAULT, "Got new schedule settings: settings=%{public}@, oldSettings=%{public}@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = settingsCopy;
+      v17 = 2114;
+      v18 = v11;
+      _os_log_impl(&dword_24912E000, v12, OS_LOG_TYPE_DEFAULT, "Got new schedule settings: settings=%{public}@, oldSettings=%{public}@", &v15, 0x16u);
     }
 
     [(NPSDomainAccessor *)self->_accessor dnds_setScheduleSettings:settingsCopy];
@@ -162,13 +162,11 @@
     v14 = [MEMORY[0x277CBEB98] setWithObject:@"dndEffectiveOverrides"];
     [(NPSManager *)self->_npsManager synchronizeNanoDomain:@"com.apple.nano" keys:v14];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateScheduleSettingsWithDate:(id)date
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   synchronize = [(NPSDomainAccessor *)self->_accessor synchronize];
   dataSource = [(DNDSLegacySettingsSyncManager *)self dataSource];
@@ -204,21 +202,19 @@
     v15 = DNDSLogLegacySettingsSync;
     if (os_log_type_enabled(DNDSLogLegacySettingsSync, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138543362;
-      v19 = v14;
-      _os_log_impl(&dword_24912E000, v15, OS_LOG_TYPE_DEFAULT, "Got new schedule settings: settings=%{public}@", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v14;
+      _os_log_impl(&dword_24912E000, v15, OS_LOG_TYPE_DEFAULT, "Got new schedule settings: settings=%{public}@", &v17, 0xCu);
     }
 
     delegate = [(DNDSLegacySettingsSyncManager *)self delegate];
     [delegate syncManager:self didReceiveUpdatedScheduleSettings:v14];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_propagateBypassSettings:(id)settings
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   v5 = [settingsCopy mutableCopy];
   [v5 immediateBypassEventSourceType];
@@ -234,11 +230,11 @@
     v9 = DNDSLogLegacySettingsSync;
     if (os_log_type_enabled(DNDSLogLegacySettingsSync, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138543618;
-      v14 = settingsCopy;
-      v15 = 2114;
-      v16 = v8;
-      _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_DEFAULT, "Got new bypass settings: settings=%{public}@, oldSettings=%{public}@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = settingsCopy;
+      v14 = 2114;
+      v15 = v8;
+      _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_DEFAULT, "Got new bypass settings: settings=%{public}@, oldSettings=%{public}@", &v12, 0x16u);
     }
 
     [(NPSDomainAccessor *)self->_accessor dnds_setBypassSettings:settingsCopy];
@@ -246,13 +242,11 @@
     v11 = [MEMORY[0x277CBEB98] setWithObject:@"dndPrivilegedSenderTypes"];
     [(NPSManager *)self->_npsManager synchronizeNanoDomain:@"com.apple.nano" keys:v11];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateBypassSettings
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   synchronize = [(NPSDomainAccessor *)self->_accessor synchronize];
   dataSource = [(DNDSLegacySettingsSyncManager *)self dataSource];
   v5 = [dataSource phoneCallBypassSettingsForSyncManager:self];
@@ -274,16 +268,14 @@
     v9 = DNDSLogLegacySettingsSync;
     if (os_log_type_enabled(DNDSLogLegacySettingsSync, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543362;
-      v13 = v7;
-      _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_DEFAULT, "Got new bypass settings: settings=%{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v7;
+      _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_DEFAULT, "Got new bypass settings: settings=%{public}@", &v11, 0xCu);
     }
 
     delegate = [(DNDSLegacySettingsSyncManager *)self delegate];
     [delegate syncManager:self didReceiveUpdatedPhoneCallBypassSettings:v7];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (DNDSSettingsSyncManagerDataSource)dataSource

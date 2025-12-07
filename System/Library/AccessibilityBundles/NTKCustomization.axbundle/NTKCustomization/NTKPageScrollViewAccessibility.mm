@@ -174,10 +174,7 @@ uint64_t __152__NTKPageScrollViewAccessibility__accessibilityMoveFocusToNextOpaq
 
 uint64_t __152__NTKPageScrollViewAccessibility__accessibilityMoveFocusToNextOpaqueElementForTechnology_direction_searchType_range_shouldScrollToVisible_honorsGroups___block_invoke_352(uint64_t a1)
 {
-  v2 = [*(a1 + 32) pageAtIndex:*(a1 + 48)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) pageAtIndex:*(a1 + 48)];
 
   return _objc_release_x1();
 }
@@ -309,10 +306,7 @@ id __62__NTKPageScrollViewAccessibility__accessibilityScrollToIndex___block_invo
 
 uint64_t __66__NTKPageScrollViewAccessibility__accessibilityGetCurrentPageView__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) pageAtIndex:{objc_msgSend(*(a1 + 32), "safeUnsignedIntegerForKey:", @"currentPageIndex"}];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) pageAtIndex:{objc_msgSend(*(a1 + 32), "safeUnsignedIntegerForKey:", @"currentPageIndex"}];
 
   return _objc_release_x1();
 }

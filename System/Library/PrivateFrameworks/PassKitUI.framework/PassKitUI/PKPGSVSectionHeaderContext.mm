@@ -1,11 +1,11 @@
 @interface PKPGSVSectionHeaderContext
-+ (id)createUpdatedHeaderContextForGroupStackView:(void *)view passType:(uint64_t)type withState:(uint64_t)state hasPriorSection:(char)section currentContext:(void *)context allowHeader:(int)header allowSubheaders:(int)subheaders containerWidth:;
++ (id)createUpdatedHeaderContextForGroupStackView:(uint64_t)view passType:(uint64_t)type withState:(char)state hasPriorSection:(void *)section currentContext:(int)context allowHeader:(int)header allowSubheaders:(double)subheaders containerWidth:;
 - (BOOL)isEqual:(id)equal;
 - (double)_headerViewSize;
 - (double)_subheadersHeight;
+- (double)boundsForHeaderViewInContainerFrame:(double)frame;
 - (double)positionForHeaderViewInContainerFrame:(double)frame;
 - (double)totalHeight;
-- (uint64_t)boundsForHeaderViewInContainerFrame:(double)frame;
 - (unint64_t)hash;
 - (void)dealloc;
 @end
@@ -110,18 +110,18 @@
   [(PKPGSVSectionHeaderContext *)&v2 dealloc];
 }
 
-+ (id)createUpdatedHeaderContextForGroupStackView:(void *)view passType:(uint64_t)type withState:(uint64_t)state hasPriorSection:(char)section currentContext:(void *)context allowHeader:(int)header allowSubheaders:(int)subheaders containerWidth:
++ (id)createUpdatedHeaderContextForGroupStackView:(uint64_t)view passType:(uint64_t)type withState:(char)state hasPriorSection:(void *)section currentContext:(int)context allowHeader:(int)header allowSubheaders:(double)subheaders containerWidth:
 {
-  viewCopy = view;
-  contextCopy = context;
+  v16 = a2;
+  sectionCopy = section;
   objc_opt_self();
-  datasource = [viewCopy datasource];
-  if (header && (objc_opt_respondsToSelector() & 1) != 0)
+  datasource = [v16 datasource];
+  if (context && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v19 = *(state + 16);
-    v61 = *state;
+    v19 = *(type + 16);
+    v61 = *type;
     v62 = v19;
-    v20 = [datasource groupStackView:viewCopy headerForPassType:type withState:&v61];
+    v20 = [datasource groupStackView:v16 headerForPassType:view withState:&v61];
     v21 = v20;
     if (v20)
     {
@@ -137,16 +137,16 @@
   }
 
   v24 = MEMORY[0x1E69DDCE0];
-  if (subheaders && (objc_opt_respondsToSelector() & 1) != 0)
+  if (header && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    sectionCopy = section;
-    v58 = datasource;
-    v25 = *(state + 16);
     stateCopy = state;
-    v61 = *state;
+    v58 = datasource;
+    v25 = *(type + 16);
+    typeCopy = type;
+    v61 = *type;
     v62 = v25;
-    v59 = viewCopy;
-    v26 = [datasource groupStackView:viewCopy subheadersWithState:&v61];
+    v59 = v16;
+    v26 = [datasource groupStackView:v16 subheadersWithState:&v61];
     v27 = [v26 count];
     if (v27)
     {
@@ -217,10 +217,10 @@
       v29 = 0;
     }
 
-    viewCopy = v59;
-    state = stateCopy;
+    v16 = v59;
+    type = typeCopy;
     datasource = v58;
-    section = sectionCopy;
+    state = stateCopy;
     v24 = MEMORY[0x1E69DDCE0];
   }
 
@@ -232,7 +232,7 @@
   v42 = *v24;
   if (_UISolariumFeatureFlagEnabled())
   {
-    if (section)
+    if (state)
     {
       if (v21)
       {
@@ -249,7 +249,7 @@
 
     else
     {
-      if (*(state + 24))
+      if (*(type + 24))
       {
         v44 = 17.0;
         v43 = 17.0;
@@ -318,7 +318,7 @@ LABEL_45:
       v50[8] = v51;
       *(v50 + 9) = v43;
       v50[10] = v52;
-      *(v50 + 1) = self;
+      *(v50 + 1) = subheaders;
       v53 = [v48 count];
       if (v53)
       {
@@ -423,42 +423,51 @@ LABEL_45:
     return 0.0;
   }
 
-  v8 = *(self + 8);
-  if (a4 != v8)
+  v10 = *(self + 8);
+  if (a4 != v10)
   {
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:{@"PKPGSVSectionHeaderContext container width changed from %lu to %lu", v8, a4}];
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:{@"PKPGSVSectionHeaderContext container width changed from %lu to %lu", v10, a4}];
   }
 
   [(PKPGSVSectionHeaderContext *)self boundsForHeaderViewInContainerFrame:a2, frame, a4];
-  PKSizeAlignedInRect();
-  v10 = v9;
-  v12 = v11;
-  v14 = v13;
+  v12.n128_u64[0] = v11;
+  v14.n128_u64[0] = v13;
+  v16 = *(self + 56);
+  v15 = *(self + 64);
+  v17.n128_u64[0] = *(self + 72);
+  v18.n128_f64[0] = a2 + v15;
+  v19.n128_f64[0] = frame + v16;
+  v20.n128_f64[0] = a4 - (v15 + *(self + 80));
+  v21.n128_f64[0] = a5 - (v16 + v17.n128_f64[0]);
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v12, v14, v18, v19, v20, v21, v17);
+  v23 = v22;
+  v25 = v24;
+  v27 = v26;
   layer = [*(self + 40) layer];
   [layer anchorPoint];
-  v17 = v16;
-  v19 = v18;
+  v30 = v29;
+  v32 = v31;
 
-  v20.n128_f64[0] = v12 * v17;
-  PKFloatFloorToPixel(v20, v21);
-  v23 = v10 + v22;
-  v24.n128_f64[0] = v14 * v19;
-  PKFloatFloorToPixel(v24, v25);
-  return v23;
+  v33.n128_f64[0] = v25 * v30;
+  PKFloatFloorToPixel(v33, v34);
+  v36 = v23 + v35;
+  v37.n128_f64[0] = v27 * v32;
+  PKFloatFloorToPixel(v37, v38);
+  return v36;
 }
 
-- (uint64_t)boundsForHeaderViewInContainerFrame:(double)frame
+- (double)boundsForHeaderViewInContainerFrame:(double)frame
 {
   if (result)
   {
     v4 = result;
-    v5 = *(result + 8);
+    v5 = result[1];
     if (a4 != v5)
     {
       [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:{@"PKPGSVSectionHeaderContext container width changed from %lu to %lu", v5, a4}];
     }
 
-    return [*(v4 + 40) bounds];
+    return [*(v4 + 5) bounds];
   }
 
   return result;

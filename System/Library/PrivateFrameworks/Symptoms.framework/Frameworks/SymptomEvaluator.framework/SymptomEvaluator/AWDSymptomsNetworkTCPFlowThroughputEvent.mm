@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)snapshotTypeAsString:(int)string;
+- (id)throughputTypeAsString:(int)string;
 - (int)StringAsSnapshotType:(id)type;
 - (int)StringAsThroughputType:(id)type;
 - (int)snapshotType;
@@ -81,6 +83,21 @@
   self->_has = (*&self->_has & 0xFF7FFFFF | v3);
 }
 
+- (id)throughputTypeAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898CF18[string - 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsThroughputType:(id)type
 {
   typeCopy = type;
@@ -138,6 +155,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFBFFFFF | v3);
+}
+
+- (id)snapshotTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898CF38[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsSnapshotType:(id)type
@@ -882,7 +914,6 @@ LABEL_26:
   has = self->_has;
   if ((*&has & 0x40000) != 0)
   {
-    timeToNetworkEventsMsecs = self->_timeToNetworkEventsMsecs;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x800000) == 0)
@@ -902,7 +933,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  throughputType = self->_throughputType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -917,7 +947,6 @@ LABEL_4:
   }
 
 LABEL_31:
-  snapshotType = self->_snapshotType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -932,7 +961,6 @@ LABEL_5:
   }
 
 LABEL_32:
-  txBytes = self->_txBytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -947,7 +975,6 @@ LABEL_6:
   }
 
 LABEL_33:
-  rxBytes = self->_rxBytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -962,7 +989,6 @@ LABEL_7:
   }
 
 LABEL_34:
-  flowDurationMsecs = self->_flowDurationMsecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -977,7 +1003,6 @@ LABEL_8:
   }
 
 LABEL_35:
-  ulThroughputBytesPerSec = self->_ulThroughputBytesPerSec;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -992,7 +1017,6 @@ LABEL_9:
   }
 
 LABEL_36:
-  dlThroughputBytesPerSec = self->_dlThroughputBytesPerSec;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1007,7 +1031,6 @@ LABEL_10:
   }
 
 LABEL_37:
-  estimatorDelayMsecs = self->_estimatorDelayMsecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1022,7 +1045,6 @@ LABEL_11:
   }
 
 LABEL_38:
-  estimatorConfidence = self->_estimatorConfidence;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1037,7 +1059,6 @@ LABEL_12:
   }
 
 LABEL_39:
-  invalidResponses = self->_invalidResponses;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1052,7 +1073,6 @@ LABEL_13:
   }
 
 LABEL_40:
-  rxDuplicateBytes = self->_rxDuplicateBytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1067,7 +1087,6 @@ LABEL_14:
   }
 
 LABEL_41:
-  rxOutOfOrderBytes = self->_rxOutOfOrderBytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -1082,7 +1101,6 @@ LABEL_15:
   }
 
 LABEL_42:
-  txRetransmittedBytes = self->_txRetransmittedBytes;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -1097,7 +1115,6 @@ LABEL_16:
   }
 
 LABEL_43:
-  connAttempts = self->_connAttempts;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -1112,7 +1129,6 @@ LABEL_17:
   }
 
 LABEL_44:
-  connSuccess = self->_connSuccess;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1127,7 +1143,6 @@ LABEL_18:
   }
 
 LABEL_45:
-  rttMinimumMsecs = self->_rttMinimumMsecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1142,7 +1157,6 @@ LABEL_19:
   }
 
 LABEL_46:
-  rttAverageMsecs = self->_rttAverageMsecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -1157,7 +1171,6 @@ LABEL_20:
   }
 
 LABEL_47:
-  rttVariation = self->_rttVariation;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -1172,7 +1185,6 @@ LABEL_21:
   }
 
 LABEL_48:
-  maxCongestionWindow = self->_maxCongestionWindow;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -1187,7 +1199,6 @@ LABEL_22:
   }
 
 LABEL_49:
-  delayedACKFactor = self->_delayedACKFactor;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1202,7 +1213,6 @@ LABEL_23:
   }
 
 LABEL_50:
-  retransmissionTimeoutMsecs = self->_retransmissionTimeoutMsecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1217,12 +1227,10 @@ LABEL_24:
   }
 
 LABEL_51:
-  packetErrorRate = self->_packetErrorRate;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x100) != 0)
   {
 LABEL_25:
-    lQM = self->_lQM;
     PBDataWriterWriteInt64Field();
   }
 

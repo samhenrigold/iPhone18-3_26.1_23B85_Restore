@@ -170,7 +170,7 @@ LABEL_160:
 
               else
               {
-                v157 = [(__CFString *)v10 length];
+                v157 = [v10 length];
                 if (v157)
                 {
                   v108 = String.init(_cocoaString:)();
@@ -286,7 +286,7 @@ LABEL_105:
           goto LABEL_155;
         }
 
-        v157 = [(__CFString *)v66 length];
+        v157 = [v66 length];
         if (!v157)
         {
 
@@ -300,7 +300,7 @@ LABEL_154:
         goto LABEL_155;
       }
 
-      v69 = [(__CFString *)v10 UTF8String];
+      v69 = [v10 UTF8String];
       if (!v69)
       {
 LABEL_241:
@@ -326,7 +326,7 @@ LABEL_114:
     v70 = _SwiftCreateImmortalString_ForFoundation(buffer:isASCII:)();
     if (!v71)
     {
-      [(__CFString *)v10 mutableCopy];
+      [v10 mutableCopy];
       _bridgeAnyObjectToAny(_:)();
 
       swift_unknownObjectRelease();
@@ -428,7 +428,7 @@ LABEL_76:
                 goto LABEL_82;
               }
 
-              v54 = [(__CFString *)v10 UTF8String];
+              v54 = [v10 UTF8String];
               if (!v54)
               {
 LABEL_238:
@@ -453,7 +453,7 @@ LABEL_238:
               goto LABEL_83;
             }
 
-            [(__CFString *)v10 mutableCopy];
+            [v10 mutableCopy];
             _bridgeAnyObjectToAny(_:)();
 
             swift_unknownObjectRelease();
@@ -475,7 +475,7 @@ LABEL_83:
 
           v52 = v10;
           String.init(_nativeStorage:)();
-          if (!v53 && (v157 = [(__CFString *)v52 length]) != 0)
+          if (!v53 && (v157 = [v52 length]) != 0)
           {
             String.init(_cocoaString:)();
           }
@@ -630,7 +630,7 @@ LABEL_189:
                     {
                       if (v153 != 1)
                       {
-                        IsCF = [(__CFString *)v123 lengthOfBytesUsingEncoding:4];
+                        IsCF = [v123 lengthOfBytesUsingEncoding_];
                       }
 
                       MEMORY[0x1EEE9AC00](IsCF);
@@ -663,7 +663,7 @@ LABEL_189:
                       goto LABEL_218;
                     }
 
-                    v157 = [(__CFString *)v129 length];
+                    v157 = [v129 length];
                     if (!v157)
                     {
 
@@ -746,7 +746,7 @@ LABEL_231:
                   return swift_willThrow();
                 }
 
-                v132 = [(__CFString *)v123 UTF8String];
+                v132 = [v123 UTF8String];
                 if (!v132)
                 {
 LABEL_239:
@@ -774,7 +774,7 @@ LABEL_201:
               v133 = _SwiftCreateImmortalString_ForFoundation(buffer:isASCII:)();
               if (!v134)
               {
-                [(__CFString *)v123 mutableCopy];
+                [v123 mutableCopy];
                 _bridgeAnyObjectToAny(_:)();
 
                 swift_unknownObjectRelease();
@@ -973,7 +973,7 @@ LABEL_67:
           goto LABEL_121;
         }
 
-        v157 = [(__CFString *)v44 length];
+        v157 = [v44 length];
         if (v157)
         {
           String.init(_cocoaString:)();
@@ -997,7 +997,7 @@ LABEL_67:
       _SwiftCreateImmortalString_ForFoundation(buffer:isASCII:)();
       if (!v48)
       {
-        [(__CFString *)v10 mutableCopy];
+        [v10 mutableCopy];
         _bridgeAnyObjectToAny(_:)();
 
         swift_unknownObjectRelease();
@@ -1052,7 +1052,7 @@ LABEL_234:
       goto LABEL_67;
     }
 
-    v46 = [(__CFString *)v10 UTF8String];
+    v46 = [v10 UTF8String];
     v26 = v151;
     if (v46)
     {
@@ -1102,7 +1102,7 @@ uint64_t specialized _BridgedStoredNSError.errorUserInfo.getter(void *a1)
     if (v5)
     {
       v6 = v5;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd, &_ss18_DictionaryStorageCySSypGMR);
       v7 = static _DictionaryStorage.allocate(capacity:)();
       v8 = *(v7 + 48);
       v9 = *(v7 + 56);
@@ -1149,7 +1149,7 @@ LABEL_18:
           v24 = v4[6] + 16 * v12;
 
           outlined destroy of String(v24);
-          __swift_destroy_boxed_opaque_existential_1(v4[7] + 32 * v12);
+          __swift_destroy_boxed_opaque_existential_1((v4[7] + 32 * v12));
           v25 = v4[2];
           v26 = __OFSUB__(v25, 1);
           v27 = v25 - 1;
@@ -1381,7 +1381,7 @@ LABEL_27:
   }
 
   v84 = v57;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd, &_ss18_DictionaryStorageCySSypGMR);
   v68 = static _DictionaryStorage.copy(original:)();
   v63 = v68;
   if (!*(i + 16))
@@ -1533,7 +1533,7 @@ uint64_t specialized closure #1 in String.withMutableFileSystemRepresentation<A>
   }
 }
 
-void specialized static NSData._writeData(toPath:data:options:stringEncodingAttributeData:reportProgress:)(uint64_t a1, unint64_t a2, void *a3, uint64_t a4, uint64_t a5, unint64_t a6, int a7)
+void specialized static NSData._writeData(toPath:data:options:stringEncodingAttributeData:reportProgress:)(uint64_t a1, unint64_t a2, void *a3, unint64_t a4, uint64_t a5, uint64_t a6, int a7)
 {
   v8 = v7;
   v121 = a7;
@@ -1670,7 +1670,7 @@ LABEL_25:
   v134 = v24;
   v135 = a5;
   v136 = a6;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation4DataVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation4DataVGMd, &_ss18_DictionaryStorageCySS10Foundation4DataVGMR);
   a3 = static _DictionaryStorage.allocate(capacity:)();
   v8 = v133;
   a2 = v134;
@@ -2286,29 +2286,29 @@ LABEL_166:
 
 uint64_t outlined destroy of (String, Data)(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_10Foundation4DataVtMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_10Foundation4DataVtMd, &_sSS_10Foundation4DataVtMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-uint64_t specialized DataProtocol.firstRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t specialized DataProtocol.firstRange<A, B>(of:in:)(uint64_t a1, double a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   type metadata accessor for DispatchData();
-  lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData);
+  lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData, MEMORY[0x1E69E7FF0], v10);
   dispatch thunk of RangeExpression.relative<A>(to:)();
-  v5 = dispatch thunk of Collection.count.getter();
-  if (v5)
+  v11 = dispatch thunk of Collection.count.getter();
+  if (v11)
   {
-    v6 = v5;
-    lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData);
-    if (dispatch thunk of RandomAccessCollection.distance(from:to:)() >= v6)
+    v13 = v11;
+    lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData, MEMORY[0x1E69E7FE8], v12);
+    if (dispatch thunk of RandomAccessCollection.distance(from:to:)() >= v13)
     {
-      for (i = v10; i < v11 && dispatch thunk of RandomAccessCollection.distance(from:to:)() >= v6; i = v9)
+      for (i = v17; i < v18 && dispatch thunk of RandomAccessCollection.distance(from:to:)() >= v13; i = v16)
       {
-        if (specialized DataProtocol.matches<A>(_:from:)(a1, i, a3))
+        if (specialized DataProtocol.matches<A>(_:from:)(a1, i, a4, a6))
         {
           result = dispatch thunk of RandomAccessCollection.index(_:offsetBy:)();
-          if (v9 >= i)
+          if (v16 >= i)
           {
             return i;
           }
@@ -2325,10 +2325,10 @@ uint64_t specialized DataProtocol.firstRange<A, B>(of:in:)(uint64_t a1, uint64_t
   return 0;
 }
 
-uint64_t specialized DataProtocol.firstRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t specialized DataProtocol.firstRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v10 = a5;
-  v11 = a4;
+  v11 = a5;
+  v12 = a4;
   lazy protocol witness table accessor for type DispatchData.Region and conformance DispatchData.Region();
   dispatch thunk of RangeExpression.relative<A>(to:)();
   result = dispatch thunk of Collection.count.getter();
@@ -2337,8 +2337,8 @@ uint64_t specialized DataProtocol.firstRange<A, B>(of:in:)(uint64_t a1, uint64_t
     return 0;
   }
 
-  v14 = v10 + v11;
-  if (__OFADD__(v10, v11))
+  v15 = v11 + v12;
+  if (__OFADD__(v11, v12))
   {
 LABEL_38:
     __break(1u);
@@ -2353,32 +2353,32 @@ LABEL_42:
     goto LABEL_43;
   }
 
-  if (v14 < v21)
+  if (v15 < v22)
   {
     goto LABEL_39;
   }
 
-  v15 = v20;
-  if (v20 < v10 || v14 < v20 || v21 < v10)
+  v16 = v21;
+  if (v21 < v11 || v15 < v21 || v22 < v11)
   {
     goto LABEL_39;
   }
 
-  if (__OFSUB__(v21, v20))
+  if (__OFSUB__(v22, v21))
   {
     goto LABEL_40;
   }
 
-  v16 = result;
-  if (v21 - v20 < result || v20 >= v21)
+  v17 = result;
+  if (v22 - v21 < result || v21 >= v22)
   {
     return 0;
   }
 
   while (1)
   {
-    v18 = v10 + v11;
-    if (__OFADD__(v10, v11))
+    v19 = v11 + v12;
+    if (__OFADD__(v11, v12))
     {
       __break(1u);
 LABEL_34:
@@ -2392,24 +2392,24 @@ LABEL_37:
       goto LABEL_38;
     }
 
-    if (v18 < v21 || v21 < v10 || v15 < v10 || v18 < v15)
+    if (v19 < v22 || v22 < v11 || v16 < v11 || v19 < v16)
     {
       goto LABEL_34;
     }
 
-    if (__OFSUB__(v21, v15))
+    if (__OFSUB__(v22, v16))
     {
       goto LABEL_35;
     }
 
-    if (v21 - v15 < v16)
+    if (v22 - v16 < v17)
     {
       return 0;
     }
 
-    v11 = a4;
-    v10 = a5;
-    result = specialized DataProtocol.matches<A>(_:from:)(a1, v15, a3, a4, a5, a6, a8);
+    v12 = a4;
+    v11 = a5;
+    result = specialized DataProtocol.matches<A>(_:from:)(a1, v16, a3, a4, a5, a6, a8);
     if (result)
     {
       break;
@@ -2420,19 +2420,19 @@ LABEL_37:
       goto LABEL_36;
     }
 
-    if (v15 < a5 || v15 >= a5 + a4)
+    if (v16 < a5 || v16 >= a5 + a4)
     {
       goto LABEL_37;
     }
 
-    if (v21 == ++v15)
+    if (v22 == ++v16)
     {
       return 0;
     }
   }
 
-  v19 = v15 + v16;
-  if (__OFADD__(v15, v16))
+  v20 = v16 + v17;
+  if (__OFADD__(v16, v17))
   {
     goto LABEL_41;
   }
@@ -2442,14 +2442,14 @@ LABEL_37:
     goto LABEL_42;
   }
 
-  if (v19 >= a5 && a5 + a4 >= v19)
+  if (v20 >= a5 && a5 + a4 >= v20)
   {
-    if (v19 < v15)
+    if (v20 < v16)
     {
       goto LABEL_44;
     }
 
-    return v15;
+    return v16;
   }
 
 LABEL_43:
@@ -2459,10 +2459,10 @@ LABEL_44:
   return result;
 }
 
-uint64_t specialized DataProtocol.firstRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t specialized DataProtocol.firstRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5UInt8VGMd);
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type [UInt8] and conformance [A], &_sSays5UInt8VGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5UInt8VGMd, &_sSays5UInt8VGMR);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type [UInt8] and conformance [A], &_sSays5UInt8VGMd, &_sSays5UInt8VGMR, MEMORY[0x1E69E6340]);
   dispatch thunk of RangeExpression.relative<A>(to:)();
   result = dispatch thunk of Collection.count.getter();
   if (!result)
@@ -2470,8 +2470,8 @@ uint64_t specialized DataProtocol.firstRange<A, B>(of:in:)(uint64_t a1, uint64_t
     return 0;
   }
 
-  v11 = v14;
-  if (__OFSUB__(v15, v14))
+  v12 = v15;
+  if (__OFSUB__(v16, v15))
   {
 LABEL_18:
     __break(1u);
@@ -2481,45 +2481,45 @@ LABEL_19:
 
   else
   {
-    v12 = result;
-    if (v15 - v14 < result || v14 >= v15)
+    v13 = result;
+    if (v16 - v15 < result || v15 >= v16)
     {
       return 0;
     }
 
     while (1)
     {
-      if (__OFSUB__(v15, v11))
+      if (__OFSUB__(v16, v12))
       {
         __break(1u);
         goto LABEL_18;
       }
 
-      if (v15 - v11 < v12)
+      if (v16 - v12 < v13)
       {
         return 0;
       }
 
-      result = specialized DataProtocol.matches<A>(_:from:)(a1, v11, a3, a4, a6);
+      result = specialized DataProtocol.matches<A>(_:from:)(a1, v12, a3, a4, a6);
       if (result)
       {
         break;
       }
 
-      if (v15 == ++v11)
+      if (v16 == ++v12)
       {
         return 0;
       }
     }
 
-    if (__OFADD__(v11, v12))
+    if (__OFADD__(v12, v13))
     {
       goto LABEL_19;
     }
 
-    if (v11 + v12 >= v11)
+    if (v12 + v13 >= v12)
     {
-      return v11;
+      return v12;
     }
   }
 
@@ -2528,8 +2528,8 @@ LABEL_19:
 }
 
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15ContiguousArrayVys5UInt8VGMd);
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>, &_ss15ContiguousArrayVys5UInt8VGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15ContiguousArrayVys5UInt8VGMd, &_ss15ContiguousArrayVys5UInt8VGMR);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>, &_ss15ContiguousArrayVys5UInt8VGMd, &_ss15ContiguousArrayVys5UInt8VGMR, MEMORY[0x1E69E6C20]);
   dispatch thunk of RangeExpression.relative<A>(to:)();
   result = dispatch thunk of Collection.count.getter();
   if (!result)
@@ -2537,8 +2537,8 @@ LABEL_19:
     return 0;
   }
 
-  v11 = v14;
-  if (__OFSUB__(v15, v14))
+  v12 = v15;
+  if (__OFSUB__(v16, v15))
   {
 LABEL_18:
     __break(1u);
@@ -2548,45 +2548,45 @@ LABEL_19:
 
   else
   {
-    v12 = result;
-    if (v15 - v14 < result || v14 >= v15)
+    v13 = result;
+    if (v16 - v15 < result || v15 >= v16)
     {
       return 0;
     }
 
     while (1)
     {
-      if (__OFSUB__(v15, v11))
+      if (__OFSUB__(v16, v12))
       {
         __break(1u);
         goto LABEL_18;
       }
 
-      if (v15 - v11 < v12)
+      if (v16 - v12 < v13)
       {
         return 0;
       }
 
-      result = specialized DataProtocol.matches<A>(_:from:)(a1, v11, a3, a4, a6);
+      result = specialized DataProtocol.matches<A>(_:from:)(a1, v12, a3, a4, a6);
       if (result)
       {
         break;
       }
 
-      if (v15 == ++v11)
+      if (v16 == ++v12)
       {
         return 0;
       }
     }
 
-    if (__OFADD__(v11, v12))
+    if (__OFADD__(v12, v13))
     {
       goto LABEL_19;
     }
 
-    if (v11 + v12 >= v11)
+    if (v12 + v13 >= v12)
     {
-      return v11;
+      return v12;
     }
   }
 
@@ -2594,7 +2594,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t specialized DataProtocol.firstRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void (**a10)(char *, char *, uint64_t))
+void *specialized DataProtocol.firstRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void (**a10)(char *, char *, uint64_t))
 {
   v40 = a8;
   v36 = a10;
@@ -2611,8 +2611,8 @@ uint64_t specialized DataProtocol.firstRange<A, B>(of:in:)(uint64_t a1, uint64_t
   v39 = a5;
   v46 = a5;
   v47 = a6;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss10ArraySliceVys5UInt8VGMd);
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ArraySlice<UInt8> and conformance ArraySlice<A>, &_ss10ArraySliceVys5UInt8VGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss10ArraySliceVys5UInt8VGMd, &_ss10ArraySliceVys5UInt8VGMR);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ArraySlice<UInt8> and conformance ArraySlice<A>, &_ss10ArraySliceVys5UInt8VGMd, &_ss10ArraySliceVys5UInt8VGMR, MEMORY[0x1E69E6978]);
   dispatch thunk of RangeExpression.relative<A>(to:)();
   result = dispatch thunk of Collection.count.getter();
   if (!result)
@@ -2627,16 +2627,16 @@ uint64_t specialized DataProtocol.firstRange<A, B>(of:in:)(uint64_t a1, uint64_t
   }
 
   v22 = result;
-  if (v43 - v42 < result || v42 >= v43)
+  if (&v43[-v42] < result || v42 >= v43)
   {
     return 0;
   }
 
   v40 = a6 >> 1;
-  v24 = (v35 + 8);
-  v36 = (v35 + 32);
+  v24 = (v35 + 1);
+  v36 = (v35 + 4);
   v37 = v42;
-  v32 = (v35 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v32 = (v35 + 1) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
   v33 = v43;
   v25 = v42;
   v34 = result;
@@ -2669,7 +2669,7 @@ LABEL_29:
       goto LABEL_26;
     }
 
-    v26 = *(v38 + v25);
+    v26 = *(v25 + v38);
     v27 = dispatch thunk of Collection.subscript.read();
     v29 = *v28;
     v27(v41, 0);
@@ -2680,7 +2680,7 @@ LABEL_20:
       v30(v19, AssociatedTypeWitness);
       result = 0;
       v22 = v34;
-      v25 = v35 + 1;
+      v25 = (v35 + 1);
       v21 = v33;
       if (v35 + 1 != v33)
       {
@@ -2703,7 +2703,8 @@ LABEL_20:
       break;
     }
 
-    if (v40 == ++v25)
+    v25 = (v25 + 1);
+    if (v40 == v25)
     {
       goto LABEL_20;
     }
@@ -2716,7 +2717,7 @@ LABEL_20:
     goto LABEL_28;
   }
 
-  if (v35 + v34 < v35)
+  if ((v34 + v35) < v35)
   {
     goto LABEL_29;
   }
@@ -2724,14 +2725,14 @@ LABEL_20:
   return result;
 }
 
-uint64_t specialized DataProtocol.firstRange<A, B>(of:in:)()
+void *specialized DataProtocol.firstRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness - 8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15EmptyCollectionVys5UInt8VGMd);
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type EmptyCollection<UInt8> and conformance EmptyCollection<A>, &_ss15EmptyCollectionVys5UInt8VGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15EmptyCollectionVys5UInt8VGMd, &_ss15EmptyCollectionVys5UInt8VGMR);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type EmptyCollection<UInt8> and conformance EmptyCollection<A>, &_ss15EmptyCollectionVys5UInt8VGMd, &_ss15EmptyCollectionVys5UInt8VGMR, MEMORY[0x1E69E6C58]);
   dispatch thunk of RangeExpression.relative<A>(to:)();
-  if ((dispatch thunk of Collection.count.getter() & 0x8000000000000000) == 0 || v2 >= v3)
+  if ((dispatch thunk of Collection.count.getter() & 0x8000000000000000) == 0 || v8 >= v9)
   {
     return 0;
   }
@@ -2741,15 +2742,16 @@ uint64_t specialized DataProtocol.firstRange<A, B>(of:in:)()
   return result;
 }
 
-uint64_t specialized DataProtocol.firstRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int8 a4)
+uint64_t specialized DataProtocol.firstRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RepeatedVys5UInt8VGMd);
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type Repeated<UInt8> and conformance Repeated<A>, &_ss8RepeatedVys5UInt8VGMd);
+  v10 = a4;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RepeatedVys5UInt8VGMd, &_ss8RepeatedVys5UInt8VGMR);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type Repeated<UInt8> and conformance Repeated<A>, &_ss8RepeatedVys5UInt8VGMd, &_ss8RepeatedVys5UInt8VGMR, MEMORY[0x1E69E7C18]);
   dispatch thunk of RangeExpression.relative<A>(to:)();
   result = dispatch thunk of Collection.count.getter();
   if (result)
   {
-    if (v14 > a3 || (v8 = v13, v13 > a3) || (v14 | v13) < 0)
+    if (v20 > a3 || (v14 = v19, v19 > a3) || (v20 | v19) < 0)
     {
       __break(1u);
 LABEL_20:
@@ -2761,36 +2763,36 @@ LABEL_22:
       return result;
     }
 
-    v9 = result;
-    v10 = v14 - v13;
-    if (v14 - v13 >= result && v14 > v13)
+    v15 = result;
+    v16 = v20 - v19;
+    if (v20 - v19 >= result && v20 > v19)
     {
-      while (v10 >= v9)
+      while (v16 >= v15)
       {
-        result = specialized DataProtocol.matches<A>(_:from:)(a1, v8, a3, a4);
+        result = specialized DataProtocol.matches<A>(_:from:)(a1, v14, a3, v10, a5, a7);
         if (result)
         {
-          v12 = v8 + v9;
-          if (__OFADD__(v8, v9))
+          v18 = v14 + v15;
+          if (__OFADD__(v14, v15))
           {
             goto LABEL_20;
           }
 
-          if (v12 < 0 || v12 > a3)
+          if (v18 < 0 || v18 > a3)
           {
             goto LABEL_21;
           }
 
-          if (v12 < v8)
+          if (v18 < v14)
           {
             goto LABEL_22;
           }
 
-          return v8;
+          return v14;
         }
 
-        ++v8;
-        if (!--v10)
+        ++v14;
+        if (!--v16)
         {
           return 0;
         }
@@ -2801,92 +2803,55 @@ LABEL_22:
   return 0;
 }
 
-uint64_t specialized DataProtocol.firstRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  lazy protocol witness table accessor for type Data and conformance Data();
-  dispatch thunk of RangeExpression.relative<A>(to:)();
-  v10 = dispatch thunk of Collection.count.getter();
-  if (v10)
-  {
-    v11 = v10;
-    v12 = v15;
-    if (specialized RandomAccessCollection<>.distance(from:to:)(v15, v16, a3, a4) >= v10 && v15 < v16)
-    {
-      while (specialized RandomAccessCollection<>.distance(from:to:)(v12, v16, a3, a4) >= v11)
-      {
-        if (specialized DataProtocol.matches<A>(_:from:)(a1, v12, a3, a4, a5, a7))
-        {
-          result = specialized RandomAccessCollection<>.index(_:offsetBy:)(v12, v11, a3, a4);
-          if (result >= v12)
-          {
-            return v12;
-          }
-
-          __break(1u);
-          return result;
-        }
-
-        if (v16 == ++v12)
-        {
-          return 0;
-        }
-      }
-    }
-  }
-
-  return 0;
-}
-
-uint64_t specialized DataProtocol.firstRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSRys5UInt8VGMd);
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8> and conformance UnsafeBufferPointer<A>, &_sSRys5UInt8VGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSRys5UInt8VGMd, &_sSRys5UInt8VGMR);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8> and conformance UnsafeBufferPointer<A>, &_sSRys5UInt8VGMd, &_sSRys5UInt8VGMR, MEMORY[0x1E69E6068]);
   dispatch thunk of RangeExpression.relative<A>(to:)();
   result = dispatch thunk of Collection.count.getter();
   if (result)
   {
-    v8 = result;
-    v9 = v13;
-    v10 = v14 - v13 < result || v14 <= v13;
-    if (v10)
+    v14 = result;
+    v15 = v19;
+    v16 = v20 - v19 < result || v20 <= v19;
+    if (v16)
     {
       return 0;
     }
 
     else
     {
-      v11 = result + v13;
-      v12 = ~v13 + v14;
+      v17 = result + v19;
+      v18 = ~v19 + v20;
       while (1)
       {
-        result = specialized DataProtocol.matches<A>(_:from:)(a1, v9, a3, a4);
+        result = specialized DataProtocol.matches<A>(_:from:)(a1, v15, a3, a4, a5, a7);
         if (result)
         {
           break;
         }
 
-        if (++v9 >= v14)
+        if (++v15 >= v20)
         {
           return 0;
         }
 
-        ++v11;
+        ++v17;
         result = 0;
-        v10 = v12-- < v8;
-        if (v10)
+        v16 = v18-- < v14;
+        if (v16)
         {
           return result;
         }
       }
 
-      if (v11 < v9)
+      if (v17 < v15)
       {
         __break(1u);
       }
 
       else
       {
-        return v9;
+        return v15;
       }
     }
   }
@@ -2897,37 +2862,37 @@ uint64_t specialized DataProtocol.firstRange<A, B>(of:in:)(uint64_t a1, uint64_t
 {
   lazy protocol witness table accessor for type UnsafeRawBufferPointer and conformance UnsafeRawBufferPointer();
   dispatch thunk of RangeExpression.relative<A>(to:)();
-  v7 = dispatch thunk of Collection.count.getter();
-  if (v7)
+  v13 = dispatch thunk of Collection.count.getter();
+  if (v13)
   {
-    v8 = v7;
-    if (specialized RandomAccessCollection<>.distance(from:to:)(v14, v15, a3, a4) >= v7 && v14 < v15)
+    v14 = v13;
+    if (specialized RandomAccessCollection<>.distance(from:to:)(v20, v21, a3, a4) >= v13 && v20 < v21)
     {
       if (a3)
       {
-        v10 = a4 - a3;
+        v16 = a4 - a3;
       }
 
       else
       {
-        v10 = 0;
+        v16 = 0;
       }
 
-      v11 = v14;
+      v17 = v20;
       while (1)
       {
-        if (specialized RandomAccessCollection<>.distance(from:to:)(v11, v15, a3, a4) < v8)
+        if (specialized RandomAccessCollection<>.distance(from:to:)(v17, v21, a3, a4) < v14)
         {
           return 0;
         }
 
-        result = specialized DataProtocol.matches<A>(_:from:)(a1, v11, a3, a4);
+        result = specialized DataProtocol.matches<A>(_:from:)(a1, v17, a3, a4, a5, a7);
         if (result)
         {
           break;
         }
 
-        if (v14 < 0 || v11 >= v10)
+        if (v20 < 0 || v17 >= v16)
         {
           __break(1u);
 LABEL_24:
@@ -2935,27 +2900,27 @@ LABEL_24:
           goto LABEL_25;
         }
 
-        if (v15 == ++v11)
+        if (v21 == ++v17)
         {
           return 0;
         }
       }
 
-      v13 = v11 + v8;
-      if (__OFADD__(v11, v8))
+      v19 = v17 + v14;
+      if (__OFADD__(v17, v14))
       {
         goto LABEL_24;
       }
 
-      if (v13 < 0 || v10 < v13)
+      if (v19 < 0 || v16 < v19)
       {
 LABEL_25:
         __break(1u);
       }
 
-      else if (v13 >= v11)
+      else if (v19 >= v17)
       {
-        return v11;
+        return v17;
       }
 
       __break(1u);
@@ -2966,71 +2931,107 @@ LABEL_25:
   return 0;
 }
 
-uint64_t DataProtocol.firstRange<A, B>(of:in:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X5>, uint64_t a6@<X6>, char *a7@<X8>)
+uint64_t specialized DataProtocol.firstRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v53 = a4;
-  v54 = a6;
-  v45 = a7;
-  v46 = a2;
-  v49 = a5;
-  v51 = *(a5 + 8);
-  v52 = a1;
-  v8 = *(*(v51 + 8) + 8);
+  lazy protocol witness table accessor for type Data and conformance Data();
+  dispatch thunk of RangeExpression.relative<A>(to:)();
+  v11 = dispatch thunk of Collection.count.getter();
+  if (v11)
+  {
+    v12 = v11;
+    v13 = v16;
+    if (specialized RandomAccessCollection<>.distance(from:to:)(v16, v17, a3, a4) >= v11 && v16 < v17)
+    {
+      while (specialized RandomAccessCollection<>.distance(from:to:)(v13, v17, a3, a4) >= v12)
+      {
+        if (specialized DataProtocol.matches<A>(_:from:)(a1, v13, a3, a4, a5, a7))
+        {
+          result = specialized RandomAccessCollection<>.index(_:offsetBy:)(v13, v12, a3, a4);
+          if (result >= v13)
+          {
+            return v13;
+          }
+
+          __break(1u);
+          return result;
+        }
+
+        if (v17 == ++v13)
+        {
+          return 0;
+        }
+      }
+    }
+  }
+
+  return 0;
+}
+
+uint64_t DataProtocol.firstRange<A, B>(of:in:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a6@<X5>, uint64_t a7@<X6>, char *a9@<X8>)
+{
+  v55 = a4;
+  v56 = a7;
+  v47 = a9;
+  v48 = a2;
+  v51 = a6;
+  v53 = *(a6 + 8);
+  v54 = a1;
+  v10 = *(*(v53 + 8) + 8);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v41 = *(TupleTypeMetadata2 - 8);
+  v43 = *(TupleTypeMetadata2 - 8);
   MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
-  v42 = &v39 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v40 = &v39 - v12;
-  v44 = *(AssociatedTypeWitness - 8);
+  v44 = &v41 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v13);
-  v15 = &v39 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v16);
-  v18 = &v39 - v17;
+  v42 = &v41 - v14;
+  v46 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v17 = &v41 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v18);
+  v20 = &v41 - v19;
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v19 = type metadata accessor for Range();
-  v47 = *(v19 - 8);
-  MEMORY[0x1EEE9AC00](v19);
-  v21 = &v39 - v20;
-  v48 = v8;
+  v21 = type metadata accessor for Range();
+  v49 = *(v21 - 8);
+  MEMORY[0x1EEE9AC00](v21);
+  v23 = &v41 - v22;
+  v50 = v10;
   dispatch thunk of RangeExpression.relative<A>(to:)();
-  v22 = dispatch thunk of Collection.count.getter();
-  if (v22 && (v23 = v22, dispatch thunk of RandomAccessCollection.distance(from:to:)() >= v22))
+  v24 = dispatch thunk of Collection.count.getter();
+  if (v24 && (v25 = v24, dispatch thunk of RandomAccessCollection.distance(from:to:)() >= v24))
   {
-    v46 = v19;
-    (*(v44 + 16))(v18, v21, AssociatedTypeWitness);
+    v48 = v21;
+    (*(v46 + 16))(v20, v23, AssociatedTypeWitness);
     if (dispatch thunk of static Comparable.< infix(_:_:)())
     {
-      v26 = (v44 + 40);
-      while (dispatch thunk of RandomAccessCollection.distance(from:to:)() >= v23)
+      v28 = (v46 + 40);
+      while (dispatch thunk of RandomAccessCollection.distance(from:to:)() >= v25)
       {
-        if (DataProtocol.matches<A>(_:from:)(v52, v18, a3, v53, v49, v54))
+        if (DataProtocol.matches<A>(_:from:)(v54, v20, a3, v55, v51, v56))
         {
           dispatch thunk of RandomAccessCollection.index(_:offsetBy:)();
-          v29 = dispatch thunk of static Comparable.<= infix(_:_:)();
-          result = (*(v47 + 8))(v21, v46);
-          if (v29)
+          v31 = dispatch thunk of static Comparable.<= infix(_:_:)();
+          result = (*(v49 + 8))(v23, v48);
+          if (v31)
           {
-            v30 = v44;
-            v31 = *(v44 + 32);
-            v32 = v40;
-            v31(v40, v18, AssociatedTypeWitness);
-            v33 = TupleTypeMetadata2;
-            v31(&v32[*(TupleTypeMetadata2 + 48)], v15, AssociatedTypeWitness);
-            v35 = v41;
+            v32 = v46;
+            v33 = *(v46 + 32);
             v34 = v42;
-            (*(v41 + 16))(v42, v32, v33);
-            v54 = *(v33 + 48);
-            v36 = v45;
-            v31(v45, v34, AssociatedTypeWitness);
-            v37 = *(v30 + 8);
-            v37(&v34[v54], AssociatedTypeWitness);
-            (*(v35 + 32))(v34, v32, v33);
-            v38 = v46;
-            v31(&v36[*(v46 + 36)], &v34[*(v33 + 48)], AssociatedTypeWitness);
-            v37(v34, AssociatedTypeWitness);
-            return (*(v47 + 56))(v36, 0, 1, v38);
+            v33(v42, v20, AssociatedTypeWitness);
+            v35 = TupleTypeMetadata2;
+            v33(&v34[*(TupleTypeMetadata2 + 48)], v17, AssociatedTypeWitness);
+            v37 = v43;
+            v36 = v44;
+            (*(v43 + 16))(v44, v34, v35);
+            v56 = *(v35 + 48);
+            v38 = v47;
+            v33(v47, v36, AssociatedTypeWitness);
+            v39 = *(v32 + 8);
+            v39(&v36[v56], AssociatedTypeWitness);
+            (*(v37 + 32))(v36, v34, v35);
+            v40 = v48;
+            v33(&v38[*(v48 + 36)], &v36[*(v35 + 48)], AssociatedTypeWitness);
+            v39(v36, AssociatedTypeWitness);
+            return (*(v49 + 56))(v38, 0, 1, v40);
           }
 
           else
@@ -3042,7 +3043,7 @@ uint64_t DataProtocol.firstRange<A, B>(of:in:)@<X0>(uint64_t a1@<X0>, uint64_t a
         }
 
         dispatch thunk of Collection.index(after:)();
-        (*v26)(v18, v15, AssociatedTypeWitness);
+        (*v28)(v20, v17, AssociatedTypeWitness);
         if ((dispatch thunk of static Comparable.< infix(_:_:)() & 1) == 0)
         {
           break;
@@ -3050,68 +3051,68 @@ uint64_t DataProtocol.firstRange<A, B>(of:in:)@<X0>(uint64_t a1@<X0>, uint64_t a
       }
     }
 
-    (*(v44 + 8))(v18, AssociatedTypeWitness);
-    v27 = v46;
-    v28 = v47;
-    (*(v47 + 8))(v21, v46);
-    return (*(v28 + 56))(v45, 1, 1, v27);
+    (*(v46 + 8))(v20, AssociatedTypeWitness);
+    v29 = v48;
+    v30 = v49;
+    (*(v49 + 8))(v23, v48);
+    return (*(v30 + 56))(v47, 1, 1, v29);
   }
 
   else
   {
-    v24 = v47;
-    (*(v47 + 8))(v21, v19);
-    return (*(v24 + 56))(v45, 1, 1, v19);
+    v26 = v49;
+    (*(v49 + 8))(v23, v21);
+    return (*(v26 + 56))(v47, 1, 1, v21);
   }
 }
 
-uint64_t specialized DataProtocol.lastRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t specialized DataProtocol.lastRange<A, B>(of:in:)(uint64_t a1, double a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   type metadata accessor for DispatchData();
-  lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData);
+  lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData, MEMORY[0x1E69E7FF0], v10);
   dispatch thunk of RangeExpression.relative<A>(to:)();
-  v5 = dispatch thunk of Collection.count.getter();
-  if (!v5)
+  v11 = dispatch thunk of Collection.count.getter();
+  if (!v11)
   {
     return 0;
   }
 
-  v6 = v5;
-  lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData);
+  v13 = v11;
+  lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData, MEMORY[0x1E69E7FE8], v12);
   result = dispatch thunk of RandomAccessCollection.distance(from:to:)();
-  if (result < v6)
+  if (result < v13)
   {
     return 0;
   }
 
-  if (__OFSUB__(0, v6))
+  if (__OFSUB__(0, v13))
   {
     __break(1u);
     goto LABEL_12;
   }
 
   dispatch thunk of RandomAccessCollection.index(_:offsetBy:)();
-  v8 = v10;
-  if (v10 < v11)
+  v15 = v18;
+  if (v18 < v19)
   {
     return 0;
   }
 
-  while ((specialized DataProtocol.matches<A>(_:from:)(a1, v8, a3) & 1) == 0)
+  while ((specialized DataProtocol.matches<A>(_:from:)(a1, v15, a4, a6) & 1) == 0)
   {
-    lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData);
+    lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData, MEMORY[0x1E69E7FD8], v16);
     dispatch thunk of BidirectionalCollection.index(before:)();
-    v8 = v9;
-    if (v9 < v11)
+    v15 = v17;
+    if (v17 < v19)
     {
       return 0;
     }
   }
 
   result = dispatch thunk of RandomAccessCollection.index(_:offsetBy:)();
-  if (v9 >= v8)
+  if (v17 >= v15)
   {
-    return v8;
+    return v15;
   }
 
 LABEL_12:
@@ -3119,46 +3120,46 @@ LABEL_12:
   return result;
 }
 
-uint64_t specialized DataProtocol.lastRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t specialized DataProtocol.lastRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   lazy protocol witness table accessor for type DispatchData.Region and conformance DispatchData.Region();
   dispatch thunk of RangeExpression.relative<A>(to:)();
   result = dispatch thunk of Collection.count.getter();
   if (result)
   {
-    v14 = a5 + a4;
+    v15 = a5 + a4;
     if (__OFADD__(a5, a4))
     {
 LABEL_32:
       __break(1u);
     }
 
-    else if (v14 >= v21 && v20 >= a5 && v14 >= v20 && v21 >= a5)
+    else if (v15 >= v22 && v21 >= a5 && v15 >= v21 && v22 >= a5)
     {
-      if (!__OFSUB__(v21, v20))
+      if (!__OFSUB__(v22, v21))
       {
-        v15 = result;
-        if (v21 - v20 < result)
+        v16 = result;
+        if (v22 - v21 < result)
         {
           return 0;
         }
 
         if (!__OFSUB__(0, result))
         {
-          v16 = v21 - result;
-          if (!__OFADD__(v21, -result))
+          v17 = v22 - result;
+          if (!__OFADD__(v22, -result))
           {
-            if (v16 >= a5 && v14 >= v16)
+            if (v17 >= a5 && v15 >= v17)
             {
-              while (v16 >= v20)
+              while (v17 >= v21)
               {
-                result = specialized DataProtocol.matches<A>(_:from:)(a1, v16, a3, a4, a5, a6, a8);
+                result = specialized DataProtocol.matches<A>(_:from:)(a1, v17, a3, a4, a5, a6, a8);
                 if (result)
                 {
                   goto LABEL_24;
                 }
 
-                if (__OFSUB__(v16--, 1))
+                if (__OFSUB__(v17--, 1))
                 {
                   __break(1u);
 LABEL_31:
@@ -3171,12 +3172,12 @@ LABEL_31:
                   goto LABEL_31;
                 }
 
-                if (v16 < a5 || v16 >= a5 + a4)
+                if (v17 < a5 || v17 >= a5 + a4)
                 {
                   __break(1u);
 LABEL_24:
-                  v19 = v16 + v15;
-                  if (__OFADD__(v16, v15))
+                  v20 = v17 + v16;
+                  if (__OFADD__(v17, v16))
                   {
                     goto LABEL_38;
                   }
@@ -3186,17 +3187,17 @@ LABEL_24:
                     goto LABEL_39;
                   }
 
-                  if (v19 < a5 || a5 + a4 < v19)
+                  if (v20 < a5 || a5 + a4 < v20)
                   {
                     goto LABEL_40;
                   }
 
-                  if (v19 < v16)
+                  if (v20 < v17)
                   {
                     goto LABEL_41;
                   }
 
-                  return v16;
+                  return v17;
                 }
               }
 
@@ -3238,55 +3239,55 @@ LABEL_34:
   return 0;
 }
 
-uint64_t specialized DataProtocol.lastRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t specialized DataProtocol.lastRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5UInt8VGMd);
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type [UInt8] and conformance [A], &_sSays5UInt8VGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5UInt8VGMd, &_sSays5UInt8VGMR);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type [UInt8] and conformance [A], &_sSays5UInt8VGMd, &_sSays5UInt8VGMR, MEMORY[0x1E69E6340]);
   dispatch thunk of RangeExpression.relative<A>(to:)();
   result = dispatch thunk of Collection.count.getter();
   if (result)
   {
-    if (__OFSUB__(v15, v14))
+    if (__OFSUB__(v16, v15))
     {
       __break(1u);
     }
 
     else
     {
-      if (v15 - v14 < result)
+      if (v16 - v15 < result)
       {
         return 0;
       }
 
       if (!__OFSUB__(0, result))
       {
-        v11 = v15 - result;
-        if (!__OFADD__(v15, -result))
+        v12 = v16 - result;
+        if (!__OFADD__(v16, -result))
         {
-          v12 = result;
-          while (v11 >= v14)
+          v13 = result;
+          while (v12 >= v15)
           {
-            result = specialized DataProtocol.matches<A>(_:from:)(a1, v11, a3, a4, a6);
+            result = specialized DataProtocol.matches<A>(_:from:)(a1, v12, a3, a4, a6);
             if (result)
             {
               goto LABEL_14;
             }
 
-            if (__OFSUB__(v11--, 1))
+            if (__OFSUB__(v12--, 1))
             {
               __break(1u);
 LABEL_14:
-              if (__OFADD__(v11, v12))
+              if (__OFADD__(v12, v13))
               {
                 goto LABEL_20;
               }
 
-              if (v11 + v12 < v11)
+              if (v12 + v13 < v12)
               {
                 goto LABEL_21;
               }
 
-              return v11;
+              return v12;
             }
           }
 
@@ -3311,53 +3312,53 @@ LABEL_21:
 }
 
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15ContiguousArrayVys5UInt8VGMd);
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>, &_ss15ContiguousArrayVys5UInt8VGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15ContiguousArrayVys5UInt8VGMd, &_ss15ContiguousArrayVys5UInt8VGMR);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>, &_ss15ContiguousArrayVys5UInt8VGMd, &_ss15ContiguousArrayVys5UInt8VGMR, MEMORY[0x1E69E6C20]);
   dispatch thunk of RangeExpression.relative<A>(to:)();
   result = dispatch thunk of Collection.count.getter();
   if (result)
   {
-    if (__OFSUB__(v15, v14))
+    if (__OFSUB__(v16, v15))
     {
       __break(1u);
     }
 
     else
     {
-      if (v15 - v14 < result)
+      if (v16 - v15 < result)
       {
         return 0;
       }
 
       if (!__OFSUB__(0, result))
       {
-        v11 = v15 - result;
-        if (!__OFADD__(v15, -result))
+        v12 = v16 - result;
+        if (!__OFADD__(v16, -result))
         {
-          v12 = result;
-          while (v11 >= v14)
+          v13 = result;
+          while (v12 >= v15)
           {
-            result = specialized DataProtocol.matches<A>(_:from:)(a1, v11, a3, a4, a6);
+            result = specialized DataProtocol.matches<A>(_:from:)(a1, v12, a3, a4, a6);
             if (result)
             {
               goto LABEL_14;
             }
 
-            if (__OFSUB__(v11--, 1))
+            if (__OFSUB__(v12--, 1))
             {
               __break(1u);
 LABEL_14:
-              if (__OFADD__(v11, v12))
+              if (__OFADD__(v12, v13))
               {
                 goto LABEL_20;
               }
 
-              if (v11 + v12 < v11)
+              if (v12 + v13 < v12)
               {
                 goto LABEL_21;
               }
 
-              return v11;
+              return v12;
             }
           }
 
@@ -3399,8 +3400,8 @@ uint64_t specialized DataProtocol.lastRange<A, B>(of:in:)(uint64_t a1, uint64_t 
   v45 = a5;
   v54 = a5;
   v55 = a6;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss10ArraySliceVys5UInt8VGMd);
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ArraySlice<UInt8> and conformance ArraySlice<A>, &_ss10ArraySliceVys5UInt8VGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss10ArraySliceVys5UInt8VGMd, &_ss10ArraySliceVys5UInt8VGMR);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ArraySlice<UInt8> and conformance ArraySlice<A>, &_ss10ArraySliceVys5UInt8VGMd, &_ss10ArraySliceVys5UInt8VGMR, MEMORY[0x1E69E6978]);
   dispatch thunk of RangeExpression.relative<A>(to:)();
   result = dispatch thunk of Collection.count.getter();
   if (!result)
@@ -3532,14 +3533,14 @@ LABEL_28:
   return result;
 }
 
-uint64_t specialized DataProtocol.lastRange<A, B>(of:in:)()
+void *specialized DataProtocol.lastRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness - 8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15EmptyCollectionVys5UInt8VGMd);
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type EmptyCollection<UInt8> and conformance EmptyCollection<A>, &_ss15EmptyCollectionVys5UInt8VGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15EmptyCollectionVys5UInt8VGMd, &_ss15EmptyCollectionVys5UInt8VGMR);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type EmptyCollection<UInt8> and conformance EmptyCollection<A>, &_ss15EmptyCollectionVys5UInt8VGMd, &_ss15EmptyCollectionVys5UInt8VGMR, MEMORY[0x1E69E6C58]);
   dispatch thunk of RangeExpression.relative<A>(to:)();
-  if ((dispatch thunk of Collection.count.getter() & 0x8000000000000000) == 0 || v3 < v2)
+  if ((dispatch thunk of Collection.count.getter() & 0x8000000000000000) == 0 || v9 < v8)
   {
     return 0;
   }
@@ -3549,65 +3550,66 @@ uint64_t specialized DataProtocol.lastRange<A, B>(of:in:)()
   return result;
 }
 
-uint64_t specialized DataProtocol.lastRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int8 a4)
+uint64_t specialized DataProtocol.lastRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RepeatedVys5UInt8VGMd);
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type Repeated<UInt8> and conformance Repeated<A>, &_ss8RepeatedVys5UInt8VGMd);
+  v10 = a4;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RepeatedVys5UInt8VGMd, &_ss8RepeatedVys5UInt8VGMR);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type Repeated<UInt8> and conformance Repeated<A>, &_ss8RepeatedVys5UInt8VGMd, &_ss8RepeatedVys5UInt8VGMR, MEMORY[0x1E69E7C18]);
   dispatch thunk of RangeExpression.relative<A>(to:)();
   result = dispatch thunk of Collection.count.getter();
   if (result)
   {
-    if (v14 > a3 || v13 > a3 || (v14 | v13) < 0)
+    if (v20 > a3 || v19 > a3 || (v20 | v19) < 0)
     {
       __break(1u);
     }
 
     else
     {
-      v8 = result;
-      if (v14 - v13 < result)
+      v14 = result;
+      if (v20 - v19 < result)
       {
         return 0;
       }
 
       if (!__OFSUB__(0, result))
       {
-        v9 = v14 - result;
-        if (!__OFADD__(v14, -result))
+        v15 = v20 - result;
+        if (!__OFADD__(v20, -result))
         {
-          if ((v9 & 0x8000000000000000) == 0 && v9 <= a3)
+          if ((v15 & 0x8000000000000000) == 0 && v15 <= a3)
           {
-            v10 = v14 + ~result;
-            while (v9 >= v13)
+            v16 = v20 + ~result;
+            while (v15 >= v19)
             {
-              result = specialized DataProtocol.matches<A>(_:from:)(a1, v9, a3, a4);
+              result = specialized DataProtocol.matches<A>(_:from:)(a1, v15, a3, v10, a5, a7);
               if (result)
               {
                 goto LABEL_18;
               }
 
-              v11 = v9-- < 1;
-              if (v11 || v10 >= a3)
+              v17 = v15-- < 1;
+              if (v17 || v16 >= a3)
               {
                 __break(1u);
 LABEL_18:
-                v12 = v9 + v8;
-                if (__OFADD__(v9, v8))
+                v18 = v15 + v14;
+                if (__OFADD__(v15, v14))
                 {
                   goto LABEL_27;
                 }
 
-                if (v12 < 0 || v12 > a3)
+                if (v18 < 0 || v18 > a3)
                 {
                   goto LABEL_28;
                 }
 
-                if (v12 < v9)
+                if (v18 < v15)
                 {
                   goto LABEL_29;
                 }
 
-                return v9;
+                return v15;
               }
             }
 
@@ -3638,56 +3640,9 @@ LABEL_25:
   return 0;
 }
 
-uint64_t specialized DataProtocol.lastRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  lazy protocol witness table accessor for type Data and conformance Data();
-  dispatch thunk of RangeExpression.relative<A>(to:)();
-  v10 = dispatch thunk of Collection.count.getter();
-  if (v10)
-  {
-    v11 = v10;
-    result = specialized RandomAccessCollection<>.distance(from:to:)(v15, v16, a3, a4);
-    if (result >= v11)
-    {
-      if (__OFSUB__(0, v11))
-      {
-        __break(1u);
-LABEL_15:
-        __break(1u);
-        return result;
-      }
-
-      v13 = specialized RandomAccessCollection<>.index(_:offsetBy:)(v16, -v11, a3);
-      while (v13 >= v15)
-      {
-        if (specialized DataProtocol.matches<A>(_:from:)(a1, v13, a3, a4, a5, a7))
-        {
-          goto LABEL_12;
-        }
-
-        if (__OFSUB__(v13--, 1))
-        {
-          __break(1u);
-LABEL_12:
-          result = specialized RandomAccessCollection<>.index(_:offsetBy:)(v13, v11, a3);
-          if (result < v13)
-          {
-            goto LABEL_15;
-          }
-
-          return v13;
-        }
-      }
-    }
-  }
-
-  return 0;
-}
-
-uint64_t specialized DataProtocol.lastRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSRys5UInt8VGMd);
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8> and conformance UnsafeBufferPointer<A>, &_sSRys5UInt8VGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSRys5UInt8VGMd, &_sSRys5UInt8VGMR);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8> and conformance UnsafeBufferPointer<A>, &_sSRys5UInt8VGMd, &_sSRys5UInt8VGMR, MEMORY[0x1E69E6068]);
   dispatch thunk of RangeExpression.relative<A>(to:)();
   result = dispatch thunk of Collection.count.getter();
   if (!result)
@@ -3695,8 +3650,8 @@ uint64_t specialized DataProtocol.lastRange<A, B>(of:in:)(uint64_t a1, uint64_t 
     return 0;
   }
 
-  v8 = v11;
-  if (v11 - v10 < result)
+  v14 = v17;
+  if (v17 - v16 < result)
   {
     return 0;
   }
@@ -3708,31 +3663,31 @@ uint64_t specialized DataProtocol.lastRange<A, B>(of:in:)(uint64_t a1, uint64_t 
 
   else
   {
-    v9 = v11 - result;
-    if (v11 - result < v10)
+    v15 = v17 - result;
+    if (v17 - result < v16)
     {
       return 0;
     }
 
     while (1)
     {
-      result = specialized DataProtocol.matches<A>(_:from:)(a1, v9, a3, a4);
+      result = specialized DataProtocol.matches<A>(_:from:)(a1, v15, a3, a4, a5, a7);
       if (result)
       {
         break;
       }
 
-      --v9;
-      --v8;
-      if (v9 < v10)
+      --v15;
+      --v14;
+      if (v15 < v16)
       {
         return 0;
       }
     }
 
-    if (v8 >= v9)
+    if (v14 >= v15)
     {
-      return v9;
+      return v15;
     }
   }
 
@@ -3743,65 +3698,65 @@ uint64_t specialized DataProtocol.lastRange<A, B>(of:in:)(uint64_t a1, uint64_t 
 {
   lazy protocol witness table accessor for type UnsafeRawBufferPointer and conformance UnsafeRawBufferPointer();
   dispatch thunk of RangeExpression.relative<A>(to:)();
-  v7 = dispatch thunk of Collection.count.getter();
-  if (v7)
+  v13 = dispatch thunk of Collection.count.getter();
+  if (v13)
   {
-    v8 = v7;
-    result = specialized RandomAccessCollection<>.distance(from:to:)(v14, v15, a3, a4);
-    if (result >= v8)
+    v14 = v13;
+    result = specialized RandomAccessCollection<>.distance(from:to:)(v20, v21, a3, a4);
+    if (result >= v14)
     {
-      if (__OFSUB__(0, v8))
+      if (__OFSUB__(0, v14))
       {
         __break(1u);
       }
 
       else
       {
-        v10 = v15 - v8;
-        if (!__OFADD__(v15, -v8))
+        v16 = v21 - v14;
+        if (!__OFADD__(v21, -v14))
         {
           if (a3)
           {
-            v11 = a4 - a3;
+            v17 = a4 - a3;
           }
 
           else
           {
-            v11 = 0;
+            v17 = 0;
           }
 
-          if ((v10 & 0x8000000000000000) == 0 && v11 >= v10)
+          if ((v16 & 0x8000000000000000) == 0 && v17 >= v16)
           {
-            while (v10 >= v14)
+            while (v16 >= v20)
             {
-              result = specialized DataProtocol.matches<A>(_:from:)(a1, v10, a3, a4);
+              result = specialized DataProtocol.matches<A>(_:from:)(a1, v16, a3, a4, a5, a7);
               if (result)
               {
                 goto LABEL_17;
               }
 
-              v12 = v10-- < 1;
-              if (v12 || v15 + ~v8 >= v11)
+              v18 = v16-- < 1;
+              if (v18 || v21 + ~v14 >= v17)
               {
                 __break(1u);
 LABEL_17:
-                v13 = v10 + v8;
-                if (__OFADD__(v10, v8))
+                v19 = v16 + v14;
+                if (__OFADD__(v16, v14))
                 {
                   goto LABEL_25;
                 }
 
-                if ((v13 & 0x8000000000000000) != 0 || v11 < v13)
+                if (v19 < 0 || v17 < v19)
                 {
                   goto LABEL_26;
                 }
 
-                if (v13 < v10)
+                if (v19 < v16)
                 {
                   goto LABEL_27;
                 }
 
-                return v10;
+                return v16;
               }
             }
 
@@ -3828,44 +3783,90 @@ LABEL_27:
   return 0;
 }
 
-uint64_t DataProtocol.lastRange<A, B>(of:in:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X5>, uint64_t a6@<X6>, char *a7@<X8>)
+uint64_t specialized DataProtocol.lastRange<A, B>(of:in:)(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v56 = a4;
-  v57 = a6;
-  v49 = a7;
-  v50 = a2;
-  v55 = a1;
-  v8 = *(a5 + 8);
-  v52 = *(v8 + 8);
-  v53 = a5;
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v45 = *(TupleTypeMetadata2 - 8);
-  MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
-  v46 = &v42 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v44 = &v42 - v12;
-  v48 = *(AssociatedTypeWitness - 8);
-  MEMORY[0x1EEE9AC00](v13);
-  v15 = &v42 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v16);
-  v18 = &v42 - v17;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v19 = type metadata accessor for Range();
-  v51 = *(v19 - 8);
-  MEMORY[0x1EEE9AC00](v19);
-  v21 = &v42 - v20;
-  v23 = v22;
+  lazy protocol witness table accessor for type Data and conformance Data();
   dispatch thunk of RangeExpression.relative<A>(to:)();
-  v24 = dispatch thunk of Collection.count.getter();
-  if (!v24 || (v50 = v24, result = dispatch thunk of RandomAccessCollection.distance(from:to:)(), result < v50))
+  v11 = dispatch thunk of Collection.count.getter();
+  if (v11)
   {
-    v26 = v51;
-    (*(v51 + 8))(v21, v23);
-    return (*(v26 + 56))(v49, 1, 1, v23);
+    v12 = v11;
+    result = specialized RandomAccessCollection<>.distance(from:to:)(v16, v17, a3, a4);
+    if (result >= v12)
+    {
+      if (__OFSUB__(0, v12))
+      {
+        __break(1u);
+LABEL_15:
+        __break(1u);
+        return result;
+      }
+
+      v14 = specialized RandomAccessCollection<>.index(_:offsetBy:)(v17, -v12, a3, a4);
+      while (v14 >= v16)
+      {
+        if (specialized DataProtocol.matches<A>(_:from:)(a1, v14, a3, a4, a5, a7))
+        {
+          goto LABEL_12;
+        }
+
+        if (__OFSUB__(v14--, 1))
+        {
+          __break(1u);
+LABEL_12:
+          result = specialized RandomAccessCollection<>.index(_:offsetBy:)(v14, v12, a3, a4);
+          if (result < v14)
+          {
+            goto LABEL_15;
+          }
+
+          return v14;
+        }
+      }
+    }
   }
 
-  if (__OFSUB__(0, v50))
+  return 0;
+}
+
+uint64_t DataProtocol.lastRange<A, B>(of:in:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a6@<X5>, uint64_t a7@<X6>, char *a9@<X8>)
+{
+  v58 = a4;
+  v59 = a7;
+  v51 = a9;
+  v52 = a2;
+  v57 = a1;
+  v10 = *(a6 + 8);
+  v54 = *(v10 + 8);
+  v55 = a6;
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+  v47 = *(TupleTypeMetadata2 - 8);
+  MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
+  v48 = &v44 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13);
+  v46 = &v44 - v14;
+  v50 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v17 = &v44 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v18);
+  v20 = &v44 - v19;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v21 = type metadata accessor for Range();
+  v53 = *(v21 - 8);
+  MEMORY[0x1EEE9AC00](v21);
+  v23 = &v44 - v22;
+  v25 = v24;
+  dispatch thunk of RangeExpression.relative<A>(to:)();
+  v26 = dispatch thunk of Collection.count.getter();
+  if (!v26 || (v52 = v26, result = dispatch thunk of RandomAccessCollection.distance(from:to:)(), result < v52))
+  {
+    v28 = v53;
+    (*(v53 + 8))(v23, v25);
+    return (*(v28 + 56))(v51, 1, 1, v25);
+  }
+
+  if (__OFSUB__(0, v52))
   {
     __break(1u);
 LABEL_15:
@@ -3873,21 +3874,21 @@ LABEL_15:
     return result;
   }
 
-  v43 = v23;
+  v45 = v25;
   dispatch thunk of RandomAccessCollection.index(_:offsetBy:)();
-  v27 = dispatch thunk of static Comparable.>= infix(_:_:)();
-  v28 = v48 + 8;
-  if (v27)
+  v29 = dispatch thunk of static Comparable.>= infix(_:_:)();
+  v30 = v50 + 8;
+  if (v29)
   {
-    v42 = v8;
-    v29 = (v48 + 32);
-    v48 = v28 & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-    while ((DataProtocol.matches<A>(_:from:)(v55, v18, a3, v56, v53, v57) & 1) == 0)
+    v44 = v10;
+    v31 = (v50 + 32);
+    v50 = v30 & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+    while ((DataProtocol.matches<A>(_:from:)(v57, v20, a3, v58, v55, v59) & 1) == 0)
     {
       dispatch thunk of BidirectionalCollection.index(before:)();
-      v30 = *v28;
-      (*v28)(v18, AssociatedTypeWitness);
-      (*v29)(v18, v15, AssociatedTypeWitness);
+      v32 = *v30;
+      (*v30)(v20, AssociatedTypeWitness);
+      (*v31)(v20, v17, AssociatedTypeWitness);
       if ((dispatch thunk of static Comparable.>= infix(_:_:)() & 1) == 0)
       {
         goto LABEL_11;
@@ -3895,45 +3896,45 @@ LABEL_15:
     }
 
     dispatch thunk of RandomAccessCollection.index(_:offsetBy:)();
-    v33 = dispatch thunk of static Comparable.<= infix(_:_:)();
-    result = (*(v51 + 8))(v21, v43);
-    if (v33)
+    v35 = dispatch thunk of static Comparable.<= infix(_:_:)();
+    result = (*(v53 + 8))(v23, v45);
+    if (v35)
     {
-      v34 = *v29;
-      v35 = v44;
-      (*v29)(v44, v18, AssociatedTypeWitness);
-      v36 = TupleTypeMetadata2;
-      v34(&v35[*(TupleTypeMetadata2 + 48)], v15, AssociatedTypeWitness);
-      v37 = v45;
-      v38 = v46;
-      (*(v45 + 16))(v46, v35, v36);
-      v57 = *(v36 + 48);
-      v39 = v49;
-      v34(v49, v38, AssociatedTypeWitness);
-      v40 = *v28;
-      (*v28)(&v38[v57], AssociatedTypeWitness);
-      (*(v37 + 32))(v38, v35, v36);
-      v41 = v43;
-      v34(&v39[*(v43 + 36)], &v38[*(v36 + 48)], AssociatedTypeWitness);
-      v40(v38, AssociatedTypeWitness);
-      return (*(v51 + 56))(v39, 0, 1, v41);
+      v36 = *v31;
+      v37 = v46;
+      (*v31)(v46, v20, AssociatedTypeWitness);
+      v38 = TupleTypeMetadata2;
+      v36(&v37[*(TupleTypeMetadata2 + 48)], v17, AssociatedTypeWitness);
+      v39 = v47;
+      v40 = v48;
+      (*(v47 + 16))(v48, v37, v38);
+      v59 = *(v38 + 48);
+      v41 = v51;
+      v36(v51, v40, AssociatedTypeWitness);
+      v42 = *v30;
+      (*v30)(&v40[v59], AssociatedTypeWitness);
+      (*(v39 + 32))(v40, v37, v38);
+      v43 = v45;
+      v36(&v41[*(v45 + 36)], &v40[*(v38 + 48)], AssociatedTypeWitness);
+      v42(v40, AssociatedTypeWitness);
+      return (*(v53 + 56))(v41, 0, 1, v43);
     }
 
     goto LABEL_15;
   }
 
-  v30 = *v28;
+  v32 = *v30;
 LABEL_11:
-  v30(v18, AssociatedTypeWitness);
-  v31 = v51;
-  v32 = v43;
-  (*(v51 + 8))(v21, v43);
-  return (*(v31 + 56))(v49, 1, 1, v32);
+  v32(v20, AssociatedTypeWitness);
+  v33 = v53;
+  v34 = v45;
+  (*(v53 + 8))(v23, v45);
+  return (*(v33 + 56))(v51, 1, 1, v34);
 }
 
-void specialized DataProtocol.copyBytes<A>(to:count:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+void specialized DataProtocol.copyBytes<A>(to:count:)(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char *a6, uint64_t a7)
 {
-  v10 = (a6 + a3);
+  v10 = &a6[a3];
   if (__OFADD__(a6, a3))
   {
     __break(1u);
@@ -3949,12 +3950,12 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  if (v10 < a6 || a6 + a5 < v10)
+  if (v10 < a6 || &a6[a5] < v10)
   {
     goto LABEL_12;
   }
 
-  if (!a1)
+  if (!result)
   {
     v12 = 0;
     goto LABEL_9;
@@ -3963,9 +3964,9 @@ LABEL_12:
   v11 = *(*(a7 - 8) + 72);
   if ((a2 * v11) >> 64 == (a2 * v11) >> 63)
   {
-    v12 = a2 * v11 + a1;
+    v12 = result + a2 * v11;
 LABEL_9:
-    specialized DataProtocol.copyBytes<A>(to:from:)(a1, v12, a6, v10, a4, a5, a6);
+    specialized DataProtocol.copyBytes<A>(to:from:)(result, v12, a6, v10, a4, a5, a6);
     return;
   }
 
@@ -3973,15 +3974,15 @@ LABEL_13:
   __break(1u);
 }
 
-void specialized DataProtocol.copyBytes<A>(to:count:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void specialized DataProtocol.copyBytes<A>(to:count:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5)
 {
   type metadata accessor for DispatchData();
-  lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData);
+  lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData, MEMORY[0x1E69E7FF0], v8);
   dispatch thunk of Collection.startIndex.getter();
   dispatch thunk of Collection.startIndex.getter();
-  lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData);
+  lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData, MEMORY[0x1E69E7FE8], v9);
   dispatch thunk of RandomAccessCollection.index(_:offsetBy:)();
-  if (v9 < v10)
+  if (v12 < v13)
   {
     __break(1u);
   }
@@ -3990,16 +3991,16 @@ void specialized DataProtocol.copyBytes<A>(to:count:)(uint64_t a1, uint64_t a2, 
   {
     if (!a1)
     {
-      v8 = 0;
+      v11 = 0;
       goto LABEL_6;
     }
 
-    v7 = *(*(a4 - 8) + 72);
-    if ((a2 * v7) >> 64 == (a2 * v7) >> 63)
+    v10 = *(*(a4 - 8) + 72);
+    if ((a2 * v10) >> 64 == (a2 * v10) >> 63)
     {
-      v8 = a2 * v7 + a1;
+      v11 = a2 * v10 + a1;
 LABEL_6:
-      specialized DataProtocol.copyBytes<A>(to:from:)(a1, v8, v10, v9);
+      specialized DataProtocol.copyBytes<A>(to:from:)(a1, v11, v13, v12);
       return;
     }
   }
@@ -4068,7 +4069,7 @@ uint64_t specialized DataProtocol.copyBytes<A>(to:count:)(uint64_t result, uint6
   return result;
 }
 
-uint64_t specialized DataProtocol.copyBytes<A>(to:count:)(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t a6)
+char *specialized DataProtocol.copyBytes<A>(to:count:)(char *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (a3 < 0 || a4 < a3)
   {
@@ -4086,7 +4087,33 @@ uint64_t specialized DataProtocol.copyBytes<A>(to:count:)(uint64_t result, uint6
     v6 = *(*(a6 - 8) + 72);
     if ((a2 * v6) >> 64 == (a2 * v6) >> 63)
     {
-      v7 = a2 * v6 + result;
+      v7 = &result[a2 * v6];
+      return specialized DataProtocol.copyBytes<A>(to:from:)(result, v7, 0, a3, a4, a5);
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+{
+  if (a3 < 0)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    if (!result)
+    {
+      v7 = 0;
+      return specialized DataProtocol.copyBytes<A>(to:from:)(result, v7, 0, a3, a4, a5);
+    }
+
+    v6 = *(*(a6 - 8) + 72);
+    if ((a2 * v6) >> 64 == (a2 * v6) >> 63)
+    {
+      v7 = &result[a2 * v6];
       return specialized DataProtocol.copyBytes<A>(to:from:)(result, v7, 0, a3, a4, a5);
     }
   }
@@ -4117,7 +4144,7 @@ int64_t specialized DataProtocol.copyBytes<A>(to:count:)(uint64_t a1, uint64_t a
     v12 = 0;
   }
 
-  result = specialized RandomAccessCollection<>.index(_:offsetBy:)(v12, a3, a4);
+  result = specialized RandomAccessCollection<>.index(_:offsetBy:)(v12, a3, a4, a5);
   if (result < v12)
   {
     __break(1u);
@@ -4144,7 +4171,7 @@ LABEL_12:
   return specialized DataProtocol.copyBytes<A>(to:from:)(a1, v15, v12, result, a4, a5);
 }
 
-char *specialized DataProtocol.copyBytes<A>(to:count:)(char *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void *specialized DataProtocol.copyBytes<A>(to:count:)(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v6 = a5 - a4;
   if (!a4)
@@ -4168,35 +4195,8 @@ char *specialized DataProtocol.copyBytes<A>(to:count:)(char *result, uint64_t a2
     v7 = *(*(a6 - 8) + 72);
     if ((a2 * v7) >> 64 == (a2 * v7) >> 63)
     {
-      v8 = &result[a2 * v7];
+      v8 = result + a2 * v7;
       return specialized DataProtocol.copyBytes<A>(to:from:)(result, v8, 0, a3, a4, a5);
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t specialized DataProtocol.copyBytes<A>(to:count:)(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  if (a3 < 0)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    if (!result)
-    {
-      v7 = 0;
-      return specialized DataProtocol.copyBytes<A>(to:from:)(result, v7, 0, a3, a4, a5);
-    }
-
-    v6 = *(*(a6 - 8) + 72);
-    if ((a2 * v6) >> 64 == (a2 * v6) >> 63)
-    {
-      v7 = a2 * v6 + result;
-      return specialized DataProtocol.copyBytes<A>(to:from:)(result, v7, 0, a3, a4, a5);
     }
   }
 
@@ -4279,122 +4279,122 @@ uint64_t DataProtocol.copyBytes<A>(to:count:)(uint64_t a1, uint64_t a2, uint64_t
 
 void specialized DataProtocol.copyBytes<A>(to:from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SliceVy8Dispatch0B4DataVGMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5SliceVy8Dispatch0B4DataVGMd, &_ss5SliceVy8Dispatch0B4DataVGMR);
   MEMORY[0x1EEE9AC00](v8);
-  v10 = &v33[-v9];
+  v10 = &v35[-v9];
   if (a1)
   {
-    v37[1] = a3;
-    v37[2] = a4;
+    v39[1] = a3;
+    v39[2] = a4;
     type metadata accessor for DispatchData();
-    lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData);
+    lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData, MEMORY[0x1E69E7FF0], v11);
     dispatch thunk of Collection.subscript.getter();
-    lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData);
-    v11 = dispatch thunk of RandomAccessCollection.distance(from:to:)();
-    v12 = a2 - a1;
-    if (v11 >= a2 - a1)
+    lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData, MEMORY[0x1E69E7FE8], v12);
+    v13 = dispatch thunk of RandomAccessCollection.distance(from:to:)();
+    v14 = a2 - a1;
+    if (v13 >= a2 - a1)
     {
-      v13 = a2 - a1;
+      v15 = a2 - a1;
     }
 
     else
     {
-      v13 = v11;
+      v15 = v13;
     }
 
-    v14 = *v10;
-    v36 = v10[1];
-    v37[0] = v14;
-    v15 = dispatch thunk of Collection.startIndex.getter();
-    v34 = MEMORY[0x1E69E7CC0];
-    MEMORY[0x1EEE9AC00](v15);
-    *&v33[-16] = &v34;
-    v16 = DispatchData.enumerateBytes(_:)();
-    v17 = v34;
-    MEMORY[0x1EEE9AC00](v16);
-    *&v33[-32] = &v35;
-    *&v33[-24] = v10;
-    *&v33[-16] = v37;
-    *&v33[-8] = &v36;
-    v18 = specialized Sequence.compactMap<A>(_:)(closure #1 in Slice<>.regions.getterspecialized partial apply, &v33[-48], v17);
-    v19 = v18 + 64;
+    v16 = *v10;
+    v38 = v10[1];
+    v39[0] = v16;
+    v17 = dispatch thunk of Collection.startIndex.getter();
+    v36 = MEMORY[0x1E69E7CC0];
+    MEMORY[0x1EEE9AC00](v17);
+    *&v35[-16] = &v36;
+    v18 = DispatchData.enumerateBytes(_:)();
+    v19 = v36;
+    MEMORY[0x1EEE9AC00](v18);
+    *&v35[-32] = &v37;
+    *&v35[-24] = v10;
+    *&v35[-16] = v39;
+    *&v35[-8] = &v38;
+    v20 = specialized Sequence.compactMap<A>(_:)(closure #1 in Slice<>.regions.getterspecialized partial apply, &v35[-48], v19);
+    v21 = v20 + 64;
 
-    v20 = 0;
-    v21 = -*(v18 + 2);
-    v22 = -1;
+    v22 = 0;
+    v23 = -*(v20 + 2);
+    v24 = -1;
     while (1)
     {
-      if (v21 + v22 == -1)
+      if (v23 + v24 == -1)
       {
 LABEL_34:
-        outlined destroy of TermOfAddress?(v10, &_ss5SliceVy8Dispatch0B4DataVGMd);
+        outlined destroy of TermOfAddress?(v10, &_ss5SliceVy8Dispatch0B4DataVGMd, &_ss5SliceVy8Dispatch0B4DataVGMR);
 
         return;
       }
 
-      if (++v22 >= *(v18 + 2))
+      if (++v24 >= *(v20 + 2))
       {
         break;
       }
 
-      if (v13 <= 0)
+      if (v15 <= 0)
       {
         goto LABEL_34;
       }
 
-      v24 = *(v19 - 1);
-      v25 = *v19;
-      v23 = __OFADD__(*v19, v24);
-      v26 = *v19 + v24;
-      if (v23)
+      v26 = *(v21 - 1);
+      v27 = *v21;
+      v25 = __OFADD__(*v21, v26);
+      v28 = *v21 + v26;
+      if (v25)
       {
         goto LABEL_36;
       }
 
-      v27 = *(v19 - 4);
-      if (v26 < v27 || v27 < v25 || v26 < v25)
+      v29 = *(v21 - 4);
+      if (v28 < v29 || v29 < v27 || v28 < v27)
       {
         goto LABEL_37;
       }
 
-      if (__OFSUB__(v27, v25))
+      if (__OFSUB__(v29, v27))
       {
         goto LABEL_38;
       }
 
-      v31 = *(v19 - 3);
-      v30 = *(v19 - 2);
-      if (v30)
+      v33 = *(v21 - 3);
+      v32 = *(v21 - 2);
+      if (v32)
       {
-        if (v31 < v25 || v26 < v31)
+        if (v33 < v27 || v28 < v33)
         {
           goto LABEL_41;
         }
 
-        if (__OFSUB__(v31, v27))
+        if (__OFSUB__(v33, v29))
         {
           goto LABEL_42;
         }
 
-        if (v12 < v20)
+        if (v14 < v22)
         {
           goto LABEL_39;
         }
 
-        if (v13 >= v31 - v27)
+        if (v15 >= v33 - v29)
         {
-          v32 = v31 - v27;
+          v34 = v33 - v29;
         }
 
         else
         {
-          v32 = v13;
+          v34 = v15;
         }
 
-        memmove((v20 + a1), (v30 + v27 - v25), v32);
-        v23 = __OFADD__(v20, v32);
-        v20 += v32;
-        if (v23)
+        memmove((v22 + a1), (v32 + v29 - v27), v34);
+        v25 = __OFADD__(v22, v34);
+        v22 += v34;
+        if (v25)
         {
           goto LABEL_43;
         }
@@ -4402,23 +4402,23 @@ LABEL_34:
 
       else
       {
-        if (v31 < v25 || v26 < v31)
+        if (v33 < v27 || v28 < v33)
         {
           goto LABEL_44;
         }
 
-        if (v12 < v20)
+        if (v14 < v22)
         {
           goto LABEL_39;
         }
 
-        v32 = 0;
+        v34 = 0;
       }
 
-      v19 += 5;
-      v23 = __OFSUB__(v13, v32);
-      v13 -= v32;
-      if (v23)
+      v21 += 5;
+      v25 = __OFSUB__(v15, v34);
+      v15 -= v34;
+      if (v25)
       {
         goto LABEL_40;
       }
@@ -4448,16 +4448,16 @@ LABEL_44:
   __break(1u);
 }
 
-void specialized DataProtocol.copyBytes<A>(to:from:)(uint64_t a1, uint64_t a2, uint64_t a3, char *a4, uint64_t a5, uint64_t a6, uint64_t a7)
+void specialized DataProtocol.copyBytes<A>(to:from:)(void *result, uint64_t a2, char *a3, char *a4, uint64_t a5, uint64_t a6, char *a7)
 {
-  if (!a1)
+  if (!result)
   {
 LABEL_52:
     __break(1u);
     goto LABEL_53;
   }
 
-  v7 = a7 + a6;
+  v7 = &a7[a6];
   if (__OFADD__(a7, a6))
   {
 LABEL_53:
@@ -4493,18 +4493,18 @@ LABEL_57:
     goto LABEL_57;
   }
 
-  v8 = &a4[-a3];
+  v8 = a4 - a3;
   if (!__OFSUB__(a4, a3))
   {
-    v10 = a2 - a1;
-    if (v8 >= a2 - a1)
+    v10 = a2 - result;
+    if (v8 >= a2 - result)
     {
-      v11 = a2 - a1;
+      v11 = a2 - result;
     }
 
     else
     {
-      v11 = &a4[-a3];
+      v11 = a4 - a3;
     }
 
     specialized Slice<>.regions.getter(a4, v8);
@@ -4581,7 +4581,7 @@ LABEL_41:
           v27 = v11;
         }
 
-        memmove((v14 + a1), (v25 + v22 - v20), v27);
+        memmove(result + v14, (v25 + v22 - v20), v27);
         v18 = __OFADD__(v14, v27);
         v14 += v27;
         if (v18)
@@ -4640,9 +4640,9 @@ LABEL_58:
   __break(1u);
 }
 
-void specialized DataProtocol.copyBytes<A>(to:from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int64_t a6)
+void specialized DataProtocol.copyBytes<A>(to:from:)(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  if (!a1)
+  if (!result)
   {
 LABEL_54:
     __break(1u);
@@ -4651,7 +4651,7 @@ LABEL_54:
 
   lazy protocol witness table accessor for type DispatchData.Region and conformance DispatchData.Region();
   dispatch thunk of RangeExpression.relative<A>(to:)();
-  v9 = a6 + a5;
+  v11 = a6 + a5;
   if (__OFADD__(a6, a5))
   {
 LABEL_55:
@@ -4659,21 +4659,21 @@ LABEL_55:
     goto LABEL_56;
   }
 
-  if (v9 < a6)
+  if (v11 < a6)
   {
 LABEL_56:
     __break(1u);
     goto LABEL_57;
   }
 
-  if (v29 < a6)
+  if (v31 < a6)
   {
 LABEL_57:
     __break(1u);
     goto LABEL_58;
   }
 
-  if (v9 < v30)
+  if (v11 < v32)
   {
 LABEL_58:
     __break(1u);
@@ -4682,102 +4682,102 @@ LABEL_59:
     goto LABEL_60;
   }
 
-  if (v30 < a6 || v9 < v29)
+  if (v32 < a6 || v11 < v31)
   {
     goto LABEL_59;
   }
 
-  if (!__OFSUB__(v30, v29))
+  if (!__OFSUB__(v32, v31))
   {
-    v11 = a2 - a1;
-    if (v30 - v29 >= a2 - a1)
+    v13 = a2 - result;
+    if (v32 - v31 >= a2 - result)
     {
-      v12 = a2 - a1;
+      v14 = a2 - result;
     }
 
     else
     {
-      v12 = v30 - v29;
+      v14 = v32 - v31;
     }
 
-    specialized Slice<>.regions.getter(v8, a6);
-    v14 = v13;
-    v15 = 0;
-    v16 = (v13 + 64);
-    v17 = -*(v13 + 16);
-    v18 = -1;
+    specialized Slice<>.regions.getter(v10, a6);
+    v16 = v15;
+    v17 = 0;
+    v18 = (v15 + 64);
+    v19 = -*(v15 + 16);
+    v20 = -1;
     while (1)
     {
-      if (v17 + v18 == -1)
+      if (v19 + v20 == -1)
       {
 LABEL_43:
 
         return;
       }
 
-      if (++v18 >= *(v14 + 16))
+      if (++v20 >= *(v16 + 16))
       {
         break;
       }
 
-      if (v12 < 1)
+      if (v14 < 1)
       {
         goto LABEL_43;
       }
 
-      v20 = *(v16 - 1);
-      v21 = *v16;
-      v19 = __OFADD__(*v16, v20);
-      v22 = *v16 + v20;
-      if (v19)
+      v22 = *(v18 - 1);
+      v23 = *v18;
+      v21 = __OFADD__(*v18, v22);
+      v24 = *v18 + v22;
+      if (v21)
       {
         goto LABEL_45;
       }
 
-      v23 = *(v16 - 4);
-      if (v22 < v23 || v23 < v21 || v22 < v21)
+      v25 = *(v18 - 4);
+      if (v24 < v25 || v25 < v23 || v24 < v23)
       {
         goto LABEL_46;
       }
 
-      if (__OFSUB__(v23, v21))
+      if (__OFSUB__(v25, v23))
       {
         goto LABEL_47;
       }
 
-      v27 = *(v16 - 3);
-      v26 = *(v16 - 2);
-      if (v26)
+      v29 = *(v18 - 3);
+      v28 = *(v18 - 2);
+      if (v28)
       {
-        if (v27 < v21 || v22 < v27)
+        if (v29 < v23 || v24 < v29)
         {
           goto LABEL_50;
         }
 
-        if (__OFSUB__(v27, v23))
+        if (__OFSUB__(v29, v25))
         {
           goto LABEL_51;
         }
 
-        if (v11 < v15)
+        if (v13 < v17)
         {
           goto LABEL_48;
         }
 
-        if (v12 >= v27 - v23)
+        if (v14 >= v29 - v25)
         {
-          v28 = v27 - v23;
+          v30 = v29 - v25;
         }
 
         else
         {
-          v28 = v12;
+          v30 = v14;
         }
 
-        memmove((v15 + a1), (v26 + v23 - v21), v28);
-        v19 = __OFADD__(v15, v28);
-        v15 += v28;
-        if (v19)
+        memmove(result + v17, (v28 + v25 - v23), v30);
+        v21 = __OFADD__(v17, v30);
+        v17 += v30;
+        if (v21)
         {
           goto LABEL_52;
         }
@@ -4785,23 +4785,23 @@ LABEL_43:
 
       else
       {
-        if (v27 < v21 || v22 < v27)
+        if (v29 < v23 || v24 < v29)
         {
           goto LABEL_53;
         }
 
-        if (v11 < v15)
+        if (v13 < v17)
         {
           goto LABEL_48;
         }
 
-        v28 = 0;
+        v30 = 0;
       }
 
-      v16 += 5;
-      v19 = __OFSUB__(v12, v28);
-      v12 -= v28;
-      if (v19)
+      v18 += 5;
+      v21 = __OFSUB__(v14, v30);
+      v14 -= v30;
+      if (v21)
       {
         goto LABEL_49;
       }
@@ -5132,7 +5132,7 @@ LABEL_27:
   return v36[0];
 }
 
-uint64_t specialized DataProtocol.copyBytes<A>(to:from:)(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+char *specialized DataProtocol.copyBytes<A>(to:from:)(char *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (result)
   {
@@ -5151,12 +5151,12 @@ uint64_t specialized DataProtocol.copyBytes<A>(to:from:)(uint64_t result, uint64
     result = specialized Slice<>.regions.getter(a3, a4, a5, a6);
     v9 = result;
     v10 = 0;
-    v11 = (result + 48);
+    v11 = result + 48;
     v12 = -1;
     while (1)
     {
       ++v12;
-      v15 = *(v9 + 16);
+      v15 = *(v9 + 2);
       if (v12 == v15)
       {
         goto LABEL_25;
@@ -5211,7 +5211,7 @@ uint64_t specialized DataProtocol.copyBytes<A>(to:from:)(uint64_t result, uint64
           v13 = v8;
         }
 
-        result = memmove((v10 + v6), v17, v13);
+        result = memmove(&v6[v10], v17, v13);
         v14 = __OFADD__(v10, v13);
         v10 += v13;
         if (v14)
@@ -5228,7 +5228,7 @@ LABEL_25:
         v13 = 0;
       }
 
-      v11 += 4;
+      v11 += 32;
       v14 = __OFSUB__(v8, v13);
       v8 -= v13;
       if (v14)
@@ -5248,109 +5248,109 @@ LABEL_28:
   return result;
 }
 
-uint64_t specialized DataProtocol.copyBytes<A>(to:from:)(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t specialized DataProtocol.copyBytes<A>(to:from:)(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   if (result)
   {
-    v8 = result;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSRys5UInt8VGMd);
-    lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8> and conformance UnsafeBufferPointer<A>, &_sSRys5UInt8VGMd);
+    v10 = result;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSRys5UInt8VGMd, &_sSRys5UInt8VGMR);
+    lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8> and conformance UnsafeBufferPointer<A>, &_sSRys5UInt8VGMd, &_sSRys5UInt8VGMR, MEMORY[0x1E69E6068]);
     dispatch thunk of RangeExpression.relative<A>(to:)();
-    v9 = a2 - v8;
-    if (v23 - v22 >= v9)
+    v11 = a2 - v10;
+    if (v25 - v24 >= v11)
     {
-      v10 = v9;
+      v12 = v11;
     }
 
     else
     {
-      v10 = v23 - v22;
+      v12 = v25 - v24;
     }
 
-    result = specialized Slice<>.regions.getter(v22, v23, a4, a5);
-    v11 = result;
-    v12 = 0;
-    v13 = (result + 48);
-    v14 = -1;
+    result = specialized Slice<>.regions.getter(v24, v25, a4, a5);
+    v13 = result;
+    v14 = 0;
+    v15 = (result + 48);
+    v16 = -1;
     while (1)
     {
-      ++v14;
-      v17 = *(v11 + 16);
-      if (v14 == v17)
+      ++v16;
+      v19 = *(v13 + 16);
+      if (v16 == v19)
       {
         goto LABEL_25;
       }
 
-      if (v14 >= v17)
+      if (v16 >= v19)
       {
         break;
       }
 
-      if (v10 < 1)
+      if (v12 < 1)
       {
         goto LABEL_25;
       }
 
-      v18 = *v13;
-      if (*v13)
+      v20 = *v15;
+      if (*v15)
       {
-        v19 = (*v13 + *(v13 - 2));
+        v21 = (*v15 + *(v15 - 2));
       }
 
       else
       {
-        v19 = 0;
+        v21 = 0;
       }
 
-      if (v9 < v12)
+      if (v11 < v14)
       {
         goto LABEL_27;
       }
 
-      if (v19)
+      if (v21)
       {
+        if (v20)
+        {
+          v22 = v20 + *(v15 - 1);
+        }
+
+        else
+        {
+          v22 = 0;
+        }
+
+        v23 = v22 - v21;
+        if (v12 >= v23)
+        {
+          v17 = v23;
+        }
+
+        else
+        {
+          v17 = v12;
+        }
+
+        result = memmove((v14 + v10), v21, v17);
+        v18 = __OFADD__(v14, v17);
+        v14 += v17;
         if (v18)
-        {
-          v20 = v18 + *(v13 - 1);
-        }
-
-        else
-        {
-          v20 = 0;
-        }
-
-        v21 = v20 - v19;
-        if (v10 >= v21)
-        {
-          v15 = v21;
-        }
-
-        else
-        {
-          v15 = v10;
-        }
-
-        result = memmove((v12 + v8), v19, v15);
-        v16 = __OFADD__(v12, v15);
-        v12 += v15;
-        if (v16)
         {
           __break(1u);
 LABEL_25:
 
-          return v12;
+          return v14;
         }
       }
 
       else
       {
-        v15 = 0;
+        v17 = 0;
       }
 
-      v13 += 4;
-      v16 = __OFSUB__(v10, v15);
-      v10 -= v15;
-      if (v16)
+      v15 += 4;
+      v18 = __OFSUB__(v12, v17);
+      v12 -= v17;
+      if (v18)
       {
         goto LABEL_28;
       }
@@ -5367,7 +5367,7 @@ LABEL_28:
   return result;
 }
 
-char *specialized DataProtocol.copyBytes<A>(to:from:)(char *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void *specialized DataProtocol.copyBytes<A>(to:from:)(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (result)
   {
@@ -5387,12 +5387,12 @@ char *specialized DataProtocol.copyBytes<A>(to:from:)(char *result, uint64_t a2,
     result = specialized Slice<>.regions.getter(a3, a4, a5, a6);
     v15 = result;
     v16 = 0;
-    v17 = result + 56;
+    v17 = result + 7;
     v18 = -1;
     while (1)
     {
       ++v18;
-      v20 = *(v15 + 2);
+      v20 = *(v15 + 16);
       if (v18 == v20)
       {
 LABEL_29:
@@ -5570,23 +5570,23 @@ LABEL_20:
   return v10;
 }
 
-uint64_t specialized DataProtocol.copyBytes<A>(to:from:)(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7)
+uint64_t specialized DataProtocol.copyBytes<A>(to:from:)(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v17 = a4;
-  v18 = a5;
-  v19 = a6;
-  v20 = a7;
+  v19 = a4;
+  v20 = a5;
+  v21 = a6;
+  v22 = a7;
   if (!result)
   {
     __break(1u);
     goto LABEL_15;
   }
 
-  v10 = result;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss10ArraySliceVys5UInt8VGMd);
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ArraySlice<UInt8> and conformance ArraySlice<A>, &_ss10ArraySliceVys5UInt8VGMd);
+  v12 = result;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss10ArraySliceVys5UInt8VGMd, &_ss10ArraySliceVys5UInt8VGMR);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ArraySlice<UInt8> and conformance ArraySlice<A>, &_ss10ArraySliceVys5UInt8VGMd, &_ss10ArraySliceVys5UInt8VGMR, MEMORY[0x1E69E6978]);
   result = dispatch thunk of RangeExpression.relative<A>(to:)();
-  if (v15 < a6)
+  if (v17 < a6)
   {
 LABEL_15:
     __break(1u);
@@ -5595,47 +5595,47 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  if ((a7 >> 1) < v15 || (a7 >> 1) < v16)
+  if ((a7 >> 1) < v17 || (a7 >> 1) < v18)
   {
     goto LABEL_16;
   }
 
-  if (v16 < a6)
+  if (v18 < a6)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  if (v16 < 0)
+  if (v18 < 0)
   {
 LABEL_18:
     __break(1u);
     goto LABEL_19;
   }
 
-  v14 = 0;
-  if (__OFSUB__(v16, v15))
+  v16 = 0;
+  if (__OFSUB__(v18, v17))
   {
 LABEL_19:
     __break(1u);
     return result;
   }
 
-  v11 = a2 - v10;
-  if (v16 - v15 < a2 - v10)
+  v13 = a2 - v12;
+  if (v18 - v17 < a2 - v12)
   {
-    v11 = v16 - v15;
+    v13 = v18 - v17;
   }
 
-  v13 = v11;
-  if (v11 < 1)
+  v15 = v13;
+  if (v13 < 1)
   {
     return 0;
   }
 
-  closure #1 in DataProtocol.copyBytes<A>(to:from:)((a5 + v15), a5 + v16, v10, a2, &v14, &v13);
-  return v14;
+  closure #1 in DataProtocol.copyBytes<A>(to:from:)((a5 + v17), a5 + v18, v12, a2, &v16, &v15);
+  return v16;
 }
 
 uint64_t specialized DataProtocol.copyBytes<A>(to:from:)(uint64_t result, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5)
@@ -5687,12 +5687,12 @@ LABEL_17:
   return v11[0];
 }
 
-uint64_t specialized DataProtocol.copyBytes<A>(to:from:)(uint64_t result)
+uint64_t specialized DataProtocol.copyBytes<A>(to:from:)(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15EmptyCollectionVys5UInt8VGMd);
-    lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type EmptyCollection<UInt8> and conformance EmptyCollection<A>, &_ss15EmptyCollectionVys5UInt8VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15EmptyCollectionVys5UInt8VGMd, &_ss15EmptyCollectionVys5UInt8VGMR);
+    lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type EmptyCollection<UInt8> and conformance EmptyCollection<A>, &_ss15EmptyCollectionVys5UInt8VGMd, &_ss15EmptyCollectionVys5UInt8VGMR, MEMORY[0x1E69E6C58]);
     dispatch thunk of RangeExpression.relative<A>(to:)();
     return 0;
   }
@@ -5705,7 +5705,7 @@ uint64_t specialized DataProtocol.copyBytes<A>(to:from:)(uint64_t result)
   return result;
 }
 
-uint64_t specialized DataProtocol.copyBytes<A>(to:from:)(uint64_t result, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, char a6)
+char *specialized DataProtocol.copyBytes<A>(to:from:)(char *result, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (!result)
   {
@@ -5788,7 +5788,7 @@ LABEL_83:
   v12 = result + 32;
   while (2)
   {
-    v13 = *(v9 + 16);
+    v13 = *(v9 + 2);
     v14 = v13 - v10;
     if (v13 >= v10)
     {
@@ -5802,7 +5802,7 @@ LABEL_83:
 
     v16 = v15 + 1;
     v17 = ~v10;
-    v18 = (v12 + 16 * v10);
+    v18 = &v12[16 * v10];
     while (1)
     {
       if (!v14)
@@ -5865,7 +5865,7 @@ LABEL_67:
         v33 = v8;
       }
 
-      result = memcpy((v11 + v6), &__src, v33);
+      result = memcpy(&v6[v11], &__src, v33);
       v28 = __OFADD__(v11, v33);
       v11 += v33;
       if (!v28)
@@ -5937,7 +5937,7 @@ LABEL_48:
           v44 = v8;
         }
 
-        result = memmove((v11 + v6), v41, v44);
+        result = memmove(&v6[v11], v41, v44);
         v28 = __OFADD__(v11, v44);
         v11 += v44;
         if (!v28)
@@ -6022,7 +6022,7 @@ LABEL_64:
     v31 = v8;
   }
 
-  result = memmove((v11 + v6), (v29 + v26), v31);
+  result = memmove(&v6[v11], (v29 + v26), v31);
   v28 = __OFADD__(v11, v31);
   v11 += v31;
   if (!v28)
@@ -6043,384 +6043,40 @@ LABEL_85:
   return result;
 }
 
-unint64_t specialized DataProtocol.copyBytes<A>(to:from:)(unint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
-{
-  v55 = a4;
-  v56 = a5;
-  if (!result)
-  {
-LABEL_68:
-    __break(1u);
-    goto LABEL_69;
-  }
-
-  v8 = result;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RepeatedVys5UInt8VGMd);
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type Repeated<UInt8> and conformance Repeated<A>, &_ss8RepeatedVys5UInt8VGMd);
-  result = dispatch thunk of RangeExpression.relative<A>(to:)();
-  if (a4 < 0)
-  {
-LABEL_69:
-    __break(1u);
-    goto LABEL_70;
-  }
-
-  result = v53;
-  if ((v53 & 0x8000000000000000) != 0)
-  {
-LABEL_70:
-    __break(1u);
-    goto LABEL_71;
-  }
-
-  if (v54 > a4)
-  {
-LABEL_71:
-    __break(1u);
-    goto LABEL_72;
-  }
-
-  if (v53 > a4)
-  {
-LABEL_72:
-    __break(1u);
-    goto LABEL_73;
-  }
-
-  if (v54 < 0)
-  {
-LABEL_73:
-    __break(1u);
-LABEL_74:
-    __break(1u);
-LABEL_75:
-    __break(1u);
-LABEL_76:
-    __break(1u);
-LABEL_77:
-    __break(1u);
-LABEL_78:
-    __break(1u);
-LABEL_79:
-    __break(1u);
-LABEL_80:
-    __break(1u);
-LABEL_81:
-    __break(1u);
-LABEL_82:
-    __break(1u);
-LABEL_83:
-    __break(1u);
-    goto LABEL_84;
-  }
-
-  v9 = a2 - v8;
-  if ((v54 - v53) >= v9)
-  {
-    v10 = v9;
-  }
-
-  else
-  {
-    v10 = v54 - v53;
-  }
-
-  result = specialized Slice<>.regions.getter(v53, v54, a4, a5);
-  v11 = result;
-  v12 = 0;
-  v13 = 0;
-  v14 = result + 32;
-  while (2)
-  {
-    v15 = *(v11 + 16);
-    v16 = v15 - v12;
-    if (v15 >= v12)
-    {
-      v17 = v15 - v12;
-    }
-
-    else
-    {
-      v17 = 0;
-    }
-
-    v18 = v17 + 1;
-    v19 = ~v12;
-    v20 = (v14 + 16 * v12);
-    while (1)
-    {
-      if (!v16)
-      {
-LABEL_65:
-
-        return v13;
-      }
-
-      if (!--v18)
-      {
-        __break(1u);
-LABEL_67:
-        __break(1u);
-        goto LABEL_68;
-      }
-
-      if (v10 < 1)
-      {
-        goto LABEL_65;
-      }
-
-      v21 = v20[1];
-      v22 = v21 >> 62;
-      if (v21 >> 62 != 3)
-      {
-        break;
-      }
-
-      --v19;
-      v20 += 2;
-      --v16;
-      if (v9 < v13)
-      {
-        goto LABEL_67;
-      }
-    }
-
-    if (!v22)
-    {
-      __src = *v20;
-      v48 = v21;
-      v49 = BYTE2(v21);
-      v50 = BYTE3(v21);
-      v51 = BYTE4(v21);
-      v52 = BYTE5(v21);
-      if (v9 < v13)
-      {
-        goto LABEL_75;
-      }
-
-      v34 = BYTE6(v21);
-      if (v10 >= v34)
-      {
-        v35 = v34;
-      }
-
-      else
-      {
-        v35 = v10;
-      }
-
-      result = memcpy((v13 + v8), &__src, v35);
-      v30 = __OFADD__(v13, v35);
-      v13 += v35;
-      if (!v30)
-      {
-        v10 -= v35;
-        goto LABEL_64;
-      }
-
-      goto LABEL_77;
-    }
-
-    if (v22 != 1)
-    {
-      v36 = *v20;
-      v37 = (v21 & 0x3FFFFFFFFFFFFFFFLL);
-      v38 = *(*v20 + 16);
-      v39 = *(v36 + 24);
-      v40 = v37[2];
-      if (!v40)
-      {
-        v43 = 0;
-        v30 = __OFSUB__(v39, v38);
-        v44 = v39 - v38;
-        if (v30)
-        {
-          goto LABEL_76;
-        }
-
-        goto LABEL_48;
-      }
-
-      v41 = v37[5];
-      v30 = __OFSUB__(v38, v41);
-      v42 = v38 - v41;
-      if (v30)
-      {
-        goto LABEL_82;
-      }
-
-      v43 = (v42 + v40);
-      v30 = __OFSUB__(v39, v38);
-      v44 = v39 - v38;
-      if (!v30)
-      {
-LABEL_48:
-        if (v9 < v13)
-        {
-          goto LABEL_79;
-        }
-
-        if (!v43)
-        {
-          goto LABEL_64;
-        }
-
-        v45 = v37[3];
-        if (v45 >= v44)
-        {
-          v45 = v44;
-        }
-
-        if (v10 >= v45)
-        {
-          v46 = v45;
-        }
-
-        else
-        {
-          v46 = v10;
-        }
-
-        result = memmove((v13 + v8), v43, v46);
-        v30 = __OFADD__(v13, v46);
-        v13 += v46;
-        if (!v30)
-        {
-          v30 = __OFSUB__(v10, v46);
-          v10 -= v46;
-          if (v30)
-          {
-            goto LABEL_81;
-          }
-
-          goto LABEL_64;
-        }
-
-LABEL_84:
-        __break(1u);
-        goto LABEL_85;
-      }
-
-      goto LABEL_76;
-    }
-
-    v23 = *v20;
-    v24 = v23;
-    v23 >>= 32;
-    v25 = v23 < v24;
-    v26 = v23 - v24;
-    if (v25)
-    {
-      goto LABEL_74;
-    }
-
-    v27 = (v21 & 0x3FFFFFFFFFFFFFFFLL);
-    v28 = v27[2];
-    if (!v28)
-    {
-      if (v9 < v13)
-      {
-        goto LABEL_78;
-      }
-
-      v33 = 0;
-      goto LABEL_61;
-    }
-
-    v29 = v27[5];
-    v30 = __OFSUB__(v24, v29);
-    v31 = v24 - v29;
-    if (v30)
-    {
-      goto LABEL_83;
-    }
-
-    if (v9 < v13)
-    {
-      goto LABEL_78;
-    }
-
-    if (!(v31 + v28))
-    {
-LABEL_64:
-      v12 = -v19;
-      continue;
-    }
-
-    break;
-  }
-
-  v32 = v27[3];
-  if (v32 >= v26)
-  {
-    v32 = v26;
-  }
-
-  if (v10 >= v32)
-  {
-    v33 = v32;
-  }
-
-  else
-  {
-    v33 = v10;
-  }
-
-  result = memmove((v13 + v8), (v31 + v28), v33);
-  v30 = __OFADD__(v13, v33);
-  v13 += v33;
-  if (!v30)
-  {
-LABEL_61:
-    v30 = __OFSUB__(v10, v33);
-    v10 -= v33;
-    if (v30)
-    {
-      goto LABEL_80;
-    }
-
-    goto LABEL_64;
-  }
-
-LABEL_85:
-  __break(1u);
-  return result;
-}
-
-void specialized DataProtocol.copyBytes<A, B>(to:from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void specialized DataProtocol.copyBytes<A, B>(to:from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (!a1)
   {
-    v5 = 0;
+    v7 = 0;
     goto LABEL_5;
   }
 
-  v4 = *(*(a4 - 8) + 72);
-  if ((a2 * v4) >> 64 == (a2 * v4) >> 63)
+  v6 = *(*(a4 - 8) + 72);
+  if ((a2 * v6) >> 64 == (a2 * v6) >> 63)
   {
-    v5 = a2 * v4 + a1;
+    v7 = a2 * v6 + a1;
 LABEL_5:
-    specialized DataProtocol.copyBytes<A>(to:from:)(a1, v5);
+    specialized DataProtocol.copyBytes<A>(to:from:)(a1, v7, a3, a5, a6);
     return;
   }
 
   __break(1u);
 }
 
-void specialized DataProtocol.copyBytes<A, B>(to:from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int64_t a6, uint64_t a7)
+void specialized DataProtocol.copyBytes<A, B>(to:from:)(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  if (!a1)
+  if (!result)
   {
-    v8 = 0;
+    v10 = 0;
     goto LABEL_5;
   }
 
-  v7 = *(*(a7 - 8) + 72);
-  if ((a2 * v7) >> 64 == (a2 * v7) >> 63)
+  v9 = *(*(a7 - 8) + 72);
+  if ((a2 * v9) >> 64 == (a2 * v9) >> 63)
   {
-    v8 = a2 * v7 + a1;
+    v10 = result + a2 * v9;
 LABEL_5:
-    specialized DataProtocol.copyBytes<A>(to:from:)(a1, v8, a3, a4, a5, a6);
+    specialized DataProtocol.copyBytes<A>(to:from:)(result, v10, a3, a4, a5, a6, a8, a9);
     return;
   }
 
@@ -6446,19 +6102,21 @@ uint64_t specialized DataProtocol.copyBytes<A, B>(to:from:)(uint64_t result, uin
   return result;
 }
 
-uint64_t specialized DataProtocol.copyBytes<A, B>(to:from:)(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8)
+uint64_t specialized DataProtocol.copyBytes<A, B>(to:from:)(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (!result)
   {
-    v9 = 0;
-    return specialized DataProtocol.copyBytes<A>(to:from:)(result, v9, a3, a4, a5, a6, a7);
+    v13 = 0;
+    v14 = a10;
+    return specialized DataProtocol.copyBytes<A>(to:from:)(result, v13, a3, a4, a5, a6, a7, a9, v14);
   }
 
-  v8 = *(*(a8 - 8) + 72);
-  if ((a2 * v8) >> 64 == (a2 * v8) >> 63)
+  v12 = *(*(a8 - 8) + 72);
+  if ((a2 * v12) >> 64 == (a2 * v12) >> 63)
   {
-    v9 = a2 * v8 + result;
-    return specialized DataProtocol.copyBytes<A>(to:from:)(result, v9, a3, a4, a5, a6, a7);
+    v13 = a2 * v12 + result;
+    v14 = a10;
+    return specialized DataProtocol.copyBytes<A>(to:from:)(result, v13, a3, a4, a5, a6, a7, a9, v14);
   }
 
   __break(1u);
@@ -6484,12 +6142,12 @@ uint64_t specialized DataProtocol.copyBytes<A, B>(to:from:)(uint64_t result, uin
   return result;
 }
 
-uint64_t specialized DataProtocol.copyBytes<A, B>(to:from:)(uint64_t result)
+uint64_t specialized DataProtocol.copyBytes<A, B>(to:from:)(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15EmptyCollectionVys5UInt8VGMd);
-    lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type EmptyCollection<UInt8> and conformance EmptyCollection<A>, &_ss15EmptyCollectionVys5UInt8VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15EmptyCollectionVys5UInt8VGMd, &_ss15EmptyCollectionVys5UInt8VGMR);
+    lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type EmptyCollection<UInt8> and conformance EmptyCollection<A>, &_ss15EmptyCollectionVys5UInt8VGMd, &_ss15EmptyCollectionVys5UInt8VGMR, MEMORY[0x1E69E6C58]);
     dispatch thunk of RangeExpression.relative<A>(to:)();
     return 0;
   }
@@ -6502,19 +6160,19 @@ uint64_t specialized DataProtocol.copyBytes<A, B>(to:from:)(uint64_t result)
   return result;
 }
 
-unint64_t specialized DataProtocol.copyBytes<A, B>(to:from:)(unint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t a6)
+char *specialized DataProtocol.copyBytes<A, B>(to:from:)(char *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (!result)
   {
-    v7 = 0;
-    return specialized DataProtocol.copyBytes<A>(to:from:)(result, v7, a3, a4, a5);
+    v9 = 0;
+    return specialized DataProtocol.copyBytes<A>(to:from:)(result, v9, a3, a4, a5, a7, a8);
   }
 
-  v6 = *(*(a6 - 8) + 72);
-  if ((a2 * v6) >> 64 == (a2 * v6) >> 63)
+  v8 = *(*(a6 - 8) + 72);
+  if ((a2 * v8) >> 64 == (a2 * v8) >> 63)
   {
-    v7 = a2 * v6 + result;
-    return specialized DataProtocol.copyBytes<A>(to:from:)(result, v7, a3, a4, a5);
+    v9 = &result[a2 * v8];
+    return specialized DataProtocol.copyBytes<A>(to:from:)(result, v9, a3, a4, a5, a7, a8);
   }
 
   __break(1u);
@@ -6616,7 +6274,7 @@ uint64_t protocol witness for DataProtocol.firstRange<A, B>(of:in:) in conforman
   return result;
 }
 
-uint64_t protocol witness for DataProtocol.copyBytes(to:count:) in conformance <A> Repeated<A>(uint64_t result, uint64_t a2, uint64_t a3)
+char *protocol witness for DataProtocol.copyBytes(to:count:) in conformance <A> Repeated<A>(char *result, uint64_t a2, uint64_t a3)
 {
   if ((a3 & 0x8000000000000000) == 0 && *v3 >= a3)
   {
@@ -6627,21 +6285,21 @@ uint64_t protocol witness for DataProtocol.copyBytes(to:count:) in conformance <
   return result;
 }
 
-uint64_t specialized MutableDataProtocol.resetBytes<A>(in:)()
+uint64_t specialized MutableDataProtocol.resetBytes<A>(in:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5UInt8VGMd);
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type [UInt8] and conformance [A], &_sSays5UInt8VGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSays5UInt8VGMd, &_sSays5UInt8VGMR);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type [UInt8] and conformance [A], &_sSays5UInt8VGMd, &_sSays5UInt8VGMR, MEMORY[0x1E69E6340]);
   dispatch thunk of RangeExpression.relative<A>(to:)();
-  result = v2;
-  v1 = v3 - v2;
-  if (__OFSUB__(v3, v2))
+  result = v5;
+  v4 = v6 - v5;
+  if (__OFSUB__(v6, v5))
   {
     __break(1u);
   }
 
-  else if ((v1 & 0x8000000000000000) == 0)
+  else if ((v4 & 0x8000000000000000) == 0)
   {
-    return specialized Array.replaceSubrange<A>(_:with:)(v2, v3, v1, 0);
+    return specialized Array.replaceSubrange<A>(_:with:)(v5, v6, v4);
   }
 
   __break(1u);
@@ -6649,19 +6307,19 @@ uint64_t specialized MutableDataProtocol.resetBytes<A>(in:)()
 }
 
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15ContiguousArrayVys5UInt8VGMd);
-  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>, &_ss15ContiguousArrayVys5UInt8VGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss15ContiguousArrayVys5UInt8VGMd, &_ss15ContiguousArrayVys5UInt8VGMR);
+  lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type ContiguousArray<UInt8> and conformance ContiguousArray<A>, &_ss15ContiguousArrayVys5UInt8VGMd, &_ss15ContiguousArrayVys5UInt8VGMR, MEMORY[0x1E69E6C20]);
   dispatch thunk of RangeExpression.relative<A>(to:)();
-  result = v2;
-  v1 = v3 - v2;
-  if (__OFSUB__(v3, v2))
+  result = v5;
+  v4 = v6 - v5;
+  if (__OFSUB__(v6, v5))
   {
     __break(1u);
   }
 
-  else if ((v1 & 0x8000000000000000) == 0)
+  else if ((v4 & 0x8000000000000000) == 0)
   {
-    return specialized ContiguousArray.replaceSubrange<A>(_:with:)(v2, v3, v1, 0);
+    return specialized ContiguousArray.replaceSubrange<A>(_:with:)(v5, v6, v4, 0);
   }
 
   __break(1u);
@@ -6671,24 +6329,24 @@ uint64_t specialized MutableDataProtocol.resetBytes<A>(in:)()
 {
   lazy protocol witness table accessor for type Data and conformance Data();
   dispatch thunk of RangeExpression.relative<A>(to:)();
-  result = specialized RandomAccessCollection<>.distance(from:to:)(v2, v3, *v0, *(v0 + 8));
+  result = specialized RandomAccessCollection<>.distance(from:to:)(v5, v6, *v3, *(v3 + 8));
   if ((result & 0x8000000000000000) == 0)
   {
-    return specialized Data.replaceSubrange<A>(_:with:)(v2, v3, result, 0);
+    return specialized Data.replaceSubrange<A>(_:with:)(v5, v6, result, 0);
   }
 
   __break(1u);
   return result;
 }
 
-uint64_t MutableDataProtocol.resetBytes<A>(in:)()
+uint64_t MutableDataProtocol.resetBytes<A>(in:)(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
 {
   swift_getAssociatedTypeWitness();
   swift_getAssociatedConformanceWitness();
-  v0 = type metadata accessor for Range();
-  v1 = *(v0 - 8);
-  MEMORY[0x1EEE9AC00](v0);
-  v3 = &v5 - v2;
+  v5 = type metadata accessor for Range();
+  v6 = *(v5 - 8);
+  MEMORY[0x1EEE9AC00](v5);
+  v8 = &v10 - v7;
   dispatch thunk of RangeExpression.relative<A>(to:)();
   result = dispatch thunk of RandomAccessCollection.distance(from:to:)();
   if (result < 0)
@@ -6698,19 +6356,15 @@ uint64_t MutableDataProtocol.resetBytes<A>(in:)()
 
   else
   {
-    v5 = result;
-    v6 = 0;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RepeatedVys5UInt8VGMd);
-    lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type Repeated<UInt8> and conformance Repeated<A>, &_ss8RepeatedVys5UInt8VGMd);
+    v10 = result;
+    v11 = 0;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RepeatedVys5UInt8VGMd, &_ss8RepeatedVys5UInt8VGMR);
+    lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type Repeated<UInt8> and conformance Repeated<A>, &_ss8RepeatedVys5UInt8VGMd, &_ss8RepeatedVys5UInt8VGMR, MEMORY[0x1E69E7C18]);
     dispatch thunk of RangeReplaceableCollection.replaceSubrange<A>(_:with:)();
-    return (*(v1 + 8))(v3, v0);
+    return (*(v6 + 8))(v8, v5);
   }
 
   return result;
-}
-
-{
-  return MutableDataProtocol.resetBytes<A>(in:)();
 }
 
 uint64_t specialized Data.replaceSubrange<A>(_:with:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
@@ -6719,8 +6373,8 @@ uint64_t specialized Data.replaceSubrange<A>(_:with:)(uint64_t a1, uint64_t a2, 
   v15 = a4;
   v12 = a3;
   v13 = a4;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RepeatedVys5UInt8VGMd);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation15ContiguousBytes_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RepeatedVys5UInt8VGMd, &_ss8RepeatedVys5UInt8VGMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation15ContiguousBytes_pMd, &_s10Foundation15ContiguousBytes_pMR);
   if (swift_dynamicCast())
   {
     outlined init with take of Equatable(v10, v14);
@@ -6735,13 +6389,13 @@ uint64_t specialized Data.replaceSubrange<A>(_:with:)(uint64_t a1, uint64_t a2, 
   {
     v11 = 0;
     memset(v10, 0, sizeof(v10));
-    v9 = outlined destroy of TermOfAddress?(v10, &_s10Foundation15ContiguousBytes_pSgMd);
+    v9 = outlined destroy of TermOfAddress?(v10, &_s10Foundation15ContiguousBytes_pSgMd, &_s10Foundation15ContiguousBytes_pSgMR);
     MEMORY[0x1EEE9AC00](v9);
     return _withStackOrHeapBuffer(capacity:_:)(a3, partial apply for specialized closure #3 in Data.replaceSubrange<A>(_:with:));
   }
 }
 
-void specialized closure #3 in Data.replaceSubrange<A>(_:with:)(char *__src, uint64_t a2, uint64_t a3, char a4, int a5, int64_t __n, uint64_t a7, int64_t a8)
+void specialized closure #3 in Data.replaceSubrange<A>(_:with:)(char *__src, uint64_t a2, uint64_t a3, char a4, int a5, uint64_t __n, uint64_t a7, int64_t a8)
 {
   if (__src && a2)
   {
@@ -6917,7 +6571,7 @@ int64_t protocol witness for DataProtocol.copyBytes(to:count:) in conformance Da
     v9 = 0;
   }
 
-  result = specialized RandomAccessCollection<>.index(_:offsetBy:)(v9, a3, v6);
+  result = specialized RandomAccessCollection<>.index(_:offsetBy:)(v9, a3, v6, v7);
   if (result < v9)
   {
     __break(1u);
@@ -7118,51 +6772,51 @@ uint64_t DataProtocol.copyBytes<A>(to:)(uint64_t a1, uint64_t a2, uint64_t a3, u
   return result;
 }
 
-uint64_t specialized DataProtocol.matches<A>(_:from:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t specialized DataProtocol.matches<A>(_:from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v7 = *(AssociatedTypeWitness - 8);
+  v8 = *(AssociatedTypeWitness - 8);
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v9 = &v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10);
-  v12 = &v23 - v11;
-  v30 = a2;
-  v26 = a1;
-  v27 = a3;
+  v10 = &v25 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v25 - v12;
+  v32 = a2;
+  v28 = a1;
+  v29 = a3;
   dispatch thunk of Collection.startIndex.getter();
-  v28 = type metadata accessor for DispatchData();
-  lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData);
-  v24 = (v7 + 32);
-  v25 = (v7 + 8);
-  v23 = (v7 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v30 = type metadata accessor for DispatchData();
+  lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData, MEMORY[0x1E69E7FF0], v14);
+  v26 = (v8 + 32);
+  v27 = (v8 + 8);
+  v25 = (v8 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
   while (1)
   {
-    v13 = dispatch thunk of Collection.subscript.read();
-    v15 = *v14;
-    v13(v29, 0);
-    v16 = dispatch thunk of Collection.subscript.read();
-    v18 = *v17;
-    v16(v29, 0);
-    if (v15 != v18)
+    v15 = dispatch thunk of Collection.subscript.read();
+    v17 = *v16;
+    v15(v31, 0);
+    v18 = dispatch thunk of Collection.subscript.read();
+    v20 = *v19;
+    v18(v31, 0);
+    if (v17 != v20)
     {
       break;
     }
 
     dispatch thunk of Collection.index(after:)();
-    v19 = v29[0];
-    v30 = v29[0];
+    v21 = v31[0];
+    v32 = v31[0];
     dispatch thunk of Collection.index(after:)();
-    v20 = *v25;
-    (*v25)(v12, AssociatedTypeWitness);
-    (*v24)(v12, v9, AssociatedTypeWitness);
+    v22 = *v27;
+    (*v27)(v13, AssociatedTypeWitness);
+    (*v26)(v13, v10, AssociatedTypeWitness);
     dispatch thunk of Collection.endIndex.getter();
     swift_getAssociatedConformanceWitness();
-    v21 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v20(v9, AssociatedTypeWitness);
-    if ((v21 & 1) == 0)
+    v23 = dispatch thunk of static Equatable.== infix(_:_:)();
+    v22(v10, AssociatedTypeWitness);
+    if ((v23 & 1) == 0)
     {
       dispatch thunk of Collection.endIndex.getter();
-      if (v19 != v29[0])
+      if (v21 != v31[0])
       {
         continue;
       }
@@ -7171,14 +6825,14 @@ uint64_t specialized DataProtocol.matches<A>(_:from:)(uint64_t a1, uint64_t a2, 
     goto LABEL_7;
   }
 
-  v21 = 0;
-  v20 = *v25;
+  v23 = 0;
+  v22 = *v27;
 LABEL_7:
-  v20(v12, AssociatedTypeWitness);
-  return v21 & 1;
+  v22(v13, AssociatedTypeWitness);
+  return v23 & 1;
 }
 
-uint64_t specialized DataProtocol.matches<A>(_:from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+void *specialized DataProtocol.matches<A>(_:from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v38 = a3;
   v12 = *(*(*(a7 + 8) + 8) + 8);
@@ -7231,7 +6885,7 @@ uint64_t specialized DataProtocol.matches<A>(_:from:)(uint64_t a1, uint64_t a2, 
         v28 = *v37;
 LABEL_16:
         v28(v17, AssociatedTypeWitness);
-        return v29 & 1;
+        return (v29 & 1);
       }
 
       if (v36 == v21)
@@ -7271,7 +6925,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t specialized DataProtocol.matches<A>(_:from:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *specialized DataProtocol.matches<A>(_:from:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v9 = *(*(*(a5 + 8) + 8) + 8);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
@@ -7303,7 +6957,7 @@ uint64_t specialized DataProtocol.matches<A>(_:from:)(uint64_t a1, unint64_t a2,
       v24 = *v29;
 LABEL_9:
       v24(v14, AssociatedTypeWitness);
-      return v25 & 1;
+      return (v25 & 1);
     }
 
     if (__OFADD__(a2, 1))
@@ -7339,46 +6993,46 @@ LABEL_11:
   return result;
 }
 
-uint64_t specialized DataProtocol.matches<A>(_:from:)(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int8 a4)
+void *specialized DataProtocol.matches<A>(_:from:)(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int8 a4, uint64_t a5, uint64_t a6)
 {
-  v25 = a4;
+  v27 = a4;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v7 = *(AssociatedTypeWitness - 8);
+  v9 = *(AssociatedTypeWitness - 8);
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v9 = &v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10);
-  v12 = &v22 - v11;
+  v11 = &v24 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12);
+  v14 = &v24 - v13;
   result = dispatch thunk of Collection.startIndex.getter();
-  v14 = v7;
-  v15 = (v7 + 8);
-  v26 = a3;
-  v27 = a2;
-  v23 = a3 - 1;
-  v24 = (v14 + 32);
-  v22 = v15 & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  while ((v27 & 0x8000000000000000) == 0 && a2 < v26)
+  v16 = v9;
+  v17 = (v9 + 8);
+  v28 = a3;
+  v29 = a2;
+  v25 = a3 - 1;
+  v26 = (v16 + 32);
+  v24 = v17 & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  while ((v29 & 0x8000000000000000) == 0 && a2 < v28)
   {
-    v16 = dispatch thunk of Collection.subscript.read();
-    v18 = *v17;
-    v16(v28, 0);
-    if (v18 != v25)
+    v18 = dispatch thunk of Collection.subscript.read();
+    v20 = *v19;
+    v18(v30, 0);
+    if (v20 != v27)
     {
-      v20 = 0;
-      v19 = *v15;
+      v22 = 0;
+      v21 = *v17;
 LABEL_10:
-      v19(v12, AssociatedTypeWitness);
-      return v20 & 1;
+      v21(v14, AssociatedTypeWitness);
+      return (v22 & 1);
     }
 
     dispatch thunk of Collection.index(after:)();
-    v19 = *v15;
-    (*v15)(v12, AssociatedTypeWitness);
-    (*v24)(v12, v9, AssociatedTypeWitness);
+    v21 = *v17;
+    (*v17)(v14, AssociatedTypeWitness);
+    (*v26)(v14, v11, AssociatedTypeWitness);
     dispatch thunk of Collection.endIndex.getter();
     swift_getAssociatedConformanceWitness();
-    v20 = dispatch thunk of static Equatable.== infix(_:_:)();
-    result = (v19)(v9, AssociatedTypeWitness);
-    if ((v20 & 1) == 0 && v23 != a2++)
+    v22 = dispatch thunk of static Equatable.== infix(_:_:)();
+    result = (v21)(v11, AssociatedTypeWitness);
+    if ((v22 & 1) == 0 && v25 != a2++)
     {
       continue;
     }
@@ -7390,7 +7044,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t specialized DataProtocol.matches<A>(_:from:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t specialized DataProtocol.matches<A>(_:from:)(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6)
 {
   v51 = *MEMORY[0x1E69E9840];
   v11 = *(*(*(a6 + 8) + 8) + 8);
@@ -7558,46 +7212,46 @@ LABEL_25:
   return v31 & 1;
 }
 
-uint64_t specialized DataProtocol.matches<A>(_:from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t specialized DataProtocol.matches<A>(_:from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v9 = *(AssociatedTypeWitness - 8);
+  v11 = *(AssociatedTypeWitness - 8);
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v11 = &v26 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v14 = &v26 - v13;
-  v29 = a1;
+  v13 = &v28 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = &v28 - v15;
+  v31 = a1;
   dispatch thunk of Collection.startIndex.getter();
-  v15 = v9 + 8;
-  v27 = (v9 + 32);
-  v28 = (v9 + 8);
-  v16 = ~a2 + a4;
-  v17 = (a3 + a2);
-  v26 = v15 & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v17 = v11 + 8;
+  v29 = (v11 + 32);
+  v30 = (v11 + 8);
+  v18 = ~a2 + a4;
+  v19 = (a3 + a2);
+  v28 = v17 & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
   while (1)
   {
-    v18 = v16;
-    v19 = *v17++;
-    v20 = dispatch thunk of Collection.subscript.read();
-    v22 = *v21;
-    v20(v30, 0);
-    if (v19 != v22)
+    v20 = v18;
+    v21 = *v19++;
+    v22 = dispatch thunk of Collection.subscript.read();
+    v24 = *v23;
+    v22(v32, 0);
+    if (v21 != v24)
     {
       break;
     }
 
     dispatch thunk of Collection.index(after:)();
-    v23 = *v28;
-    (*v28)(v14, AssociatedTypeWitness);
-    (*v27)(v14, v11, AssociatedTypeWitness);
+    v25 = *v30;
+    (*v30)(v16, AssociatedTypeWitness);
+    (*v29)(v16, v13, AssociatedTypeWitness);
     dispatch thunk of Collection.endIndex.getter();
     swift_getAssociatedConformanceWitness();
-    v24 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v23(v11, AssociatedTypeWitness);
-    if ((v24 & 1) == 0)
+    v26 = dispatch thunk of static Equatable.== infix(_:_:)();
+    v25(v13, AssociatedTypeWitness);
+    if ((v26 & 1) == 0)
     {
-      v16 = v18 - 1;
-      if (v18)
+      v18 = v20 - 1;
+      if (v20)
       {
         continue;
       }
@@ -7606,76 +7260,76 @@ uint64_t specialized DataProtocol.matches<A>(_:from:)(uint64_t a1, uint64_t a2, 
     goto LABEL_7;
   }
 
-  v24 = 0;
-  v23 = *v28;
+  v26 = 0;
+  v25 = *v30;
 LABEL_7:
-  v23(v14, AssociatedTypeWitness);
-  return v24 & 1;
+  v25(v16, AssociatedTypeWitness);
+  return v26 & 1;
 }
 
 {
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v9 = *(AssociatedTypeWitness - 8);
+  v11 = *(AssociatedTypeWitness - 8);
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v11 = &v29 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v14 = &v29 - v13;
-  v34 = a1;
+  v13 = &v31 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = &v31 - v15;
+  v36 = a1;
   dispatch thunk of Collection.startIndex.getter();
-  v15 = a3;
+  v17 = a3;
   if (a3)
   {
-    v16 = a4 - a3;
+    v18 = a4 - a3;
   }
 
   else
   {
-    v16 = 0;
+    v18 = 0;
   }
 
-  v17 = v9;
-  v18 = (v9 + 8);
-  v31 = (v17 + 32);
-  v32 = v16;
-  v29 = v18 & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v30 = a4 - a3 - 1;
-  v33 = a2;
-  v19 = a2;
+  v19 = v11;
+  v20 = (v11 + 8);
+  v33 = (v19 + 32);
+  v34 = v18;
+  v31 = v20 & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v32 = a4 - a3 - 1;
+  v35 = a2;
+  v21 = a2;
   while (1)
   {
-    v20 = v19;
-    v21 = v15;
-    v22 = *(v15 + v19);
-    v23 = dispatch thunk of Collection.subscript.read();
-    v25 = *v24;
-    result = v23(v35, 0);
-    if (v22 != v25)
+    v22 = v21;
+    v23 = v17;
+    v24 = *(v17 + v21);
+    v25 = dispatch thunk of Collection.subscript.read();
+    v27 = *v26;
+    result = v25(v37, 0);
+    if (v24 != v27)
     {
-      v28 = 0;
-      v27 = *v18;
+      v30 = 0;
+      v29 = *v20;
 LABEL_13:
-      v27(v14, AssociatedTypeWitness);
-      return v28 & 1;
+      v29(v16, AssociatedTypeWitness);
+      return v30 & 1;
     }
 
-    if (v33 < 0 || v20 >= v32)
+    if (v35 < 0 || v22 >= v34)
     {
       break;
     }
 
     dispatch thunk of Collection.index(after:)();
-    v27 = *v18;
-    (*v18)(v14, AssociatedTypeWitness);
-    (*v31)(v14, v11, AssociatedTypeWitness);
+    v29 = *v20;
+    (*v20)(v16, AssociatedTypeWitness);
+    (*v33)(v16, v13, AssociatedTypeWitness);
     dispatch thunk of Collection.endIndex.getter();
     swift_getAssociatedConformanceWitness();
-    v28 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v27(v11, AssociatedTypeWitness);
-    if ((v28 & 1) == 0)
+    v30 = dispatch thunk of static Equatable.== infix(_:_:)();
+    v29(v13, AssociatedTypeWitness);
+    if ((v30 & 1) == 0)
     {
-      v19 = v20 + 1;
-      v15 = v21;
-      if (!v21 || v30 != v20)
+      v21 = v22 + 1;
+      v17 = v23;
+      if (!v23 || v32 != v22)
       {
         continue;
       }
@@ -7773,25 +7427,25 @@ LABEL_8:
   return v45 & 1;
 }
 
-void *closure #1 in DataProtocol<>.copyBytes<A, B>(to:from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void *closure #1 in DataProtocol<>.copyBytes<A, B>(to:from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
-  v17 = a5;
-  v16[3] = a9;
+  v19 = a5;
+  v18[3] = a9;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v11 = *(AssociatedTypeWitness - 8);
+  v13 = *(AssociatedTypeWitness - 8);
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v13 = v16 - v12;
+  v15 = v18 - v14;
   dispatch thunk of Collection.startIndex.getter();
-  v14 = dispatch thunk of RandomAccessCollection.distance(from:to:)();
-  (*(v11 + 8))(v13, AssociatedTypeWitness);
+  v16 = dispatch thunk of RandomAccessCollection.distance(from:to:)();
+  (*(v13 + 8))(v15, AssociatedTypeWitness);
   swift_getAssociatedConformanceWitness();
   type metadata accessor for Range();
   result = dispatch thunk of RandomAccessCollection.distance(from:to:)();
-  if (v17)
+  if (v19)
   {
     if (a1)
     {
-      return memcpy(v17, (a1 + v14), result);
+      return memcpy(v19, (a1 + v16), result);
     }
   }
 
@@ -8895,7 +8549,7 @@ LABEL_24:
   return result;
 }
 
-uint64_t associated type witness table accessor for DataProtocol.Regions.Sequence.Element : DataProtocol in <> Slice<A>()
+uint64_t associated type witness table accessor for DataProtocol.Regions.Sequence.Element : DataProtocol in <> Slice<A>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   swift_getAssociatedTypeWitness();
   swift_getAssociatedConformanceWitness();
@@ -8912,14 +8566,14 @@ uint64_t protocol witness for DataProtocol.regions.getter in conformance <> Slic
   return result;
 }
 
-uint64_t instantiation function for generic protocol witness table for <> Slice<A>(uint64_t a1)
+uint64_t instantiation function for generic protocol witness table for <> Slice<A>(uint64_t a1, uint64_t a2)
 {
   result = swift_getWitnessTable();
   *(a1 + 8) = result;
   return result;
 }
 
-char *protocol witness for DataProtocol.copyBytes(to:count:) in conformance UnsafeRawBufferPointer(char *result, uint64_t a2, uint64_t a3)
+void *protocol witness for DataProtocol.copyBytes(to:count:) in conformance UnsafeRawBufferPointer(void *result, uint64_t a2, uint64_t a3)
 {
   v4 = v3[1];
   v5 = v4 - *v3;
@@ -8946,7 +8600,7 @@ uint64_t protocol witness for DataProtocol.firstRange<A, B>(of:in:) in conforman
   return result;
 }
 
-uint64_t protocol witness for DataProtocol.copyBytes(to:count:) in conformance <A> UnsafeBufferPointer<A>(uint64_t result, uint64_t a2, uint64_t a3)
+char *protocol witness for DataProtocol.copyBytes(to:count:) in conformance <A> UnsafeBufferPointer<A>(char *result, uint64_t a2, uint64_t a3)
 {
   if ((a3 & 0x8000000000000000) == 0)
   {
@@ -8966,18 +8620,18 @@ uint64_t protocol witness for DataProtocol.firstRange<A, B>(of:in:) in conforman
   return result;
 }
 
-void protocol witness for DataProtocol.copyBytes(to:count:) in conformance DispatchData.Region(uint64_t a1, uint64_t a2, uint64_t a3)
+void protocol witness for DataProtocol.copyBytes(to:count:) in conformance DispatchData.Region(void *result, uint64_t a2, uint64_t a3)
 {
-  v5 = v3[2];
-  v6 = (v5 + a3);
+  v5 = *(v3 + 16);
+  v6 = &v5[a3];
   if (__OFADD__(v5, a3))
   {
     __break(1u);
     goto LABEL_9;
   }
 
-  v7 = v3[1];
-  v8 = v5 + v7;
+  v7 = *(v3 + 8);
+  v8 = &v5[v7];
   if (__OFADD__(v5, v7))
   {
 LABEL_9:
@@ -8999,7 +8653,7 @@ LABEL_9:
 
   if (v9 == v10)
   {
-    specialized DataProtocol.copyBytes<A>(to:from:)(a1, a2, v5, v6, *v3, v7, v3[2]);
+    specialized DataProtocol.copyBytes<A>(to:from:)(result, a2, v5, v6, *v3, v7, *(v3 + 16));
     return;
   }
 
@@ -9016,21 +8670,21 @@ uint64_t protocol witness for DataProtocol.firstRange<A, B>(of:in:) in conforman
   return result;
 }
 
-void protocol witness for DataProtocol.copyBytes(to:count:) in conformance DispatchData(uint64_t a1, uint64_t a2)
+void protocol witness for DataProtocol.copyBytes(to:count:) in conformance DispatchData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5)
 {
-  lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData);
+  lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData, MEMORY[0x1E69E7FF0], a5);
   dispatch thunk of Collection.startIndex.getter();
   dispatch thunk of Collection.startIndex.getter();
-  lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData);
+  lazy protocol witness table accessor for type DispatchData and conformance DispatchData(&lazy protocol witness table cache variable for type DispatchData and conformance DispatchData, MEMORY[0x1E69E7FE8], v7);
   dispatch thunk of RandomAccessCollection.index(_:offsetBy:)();
-  if (v4 < v5)
+  if (v8 < v9)
   {
     __break(1u);
   }
 
   else
   {
-    specialized DataProtocol.copyBytes<A>(to:from:)(a1, a2, v5, v4);
+    specialized DataProtocol.copyBytes<A>(to:from:)(a1, a2, v9, v8);
   }
 }
 
@@ -9095,7 +8749,7 @@ unint64_t lazy protocol witness table accessor for type Slice<UnsafeRawBufferPoi
   result = lazy protocol witness table cache variable for type Slice<UnsafeRawBufferPointer> and conformance <> Slice<A>;
   if (!lazy protocol witness table cache variable for type Slice<UnsafeRawBufferPointer> and conformance <> Slice<A>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5SliceVySWGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5SliceVySWGMd, &_ss5SliceVySWGMR);
     lazy protocol witness table accessor for type UnsafeRawBufferPointer and conformance UnsafeRawBufferPointer();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type Slice<UnsafeRawBufferPointer> and conformance <> Slice<A>);
@@ -9109,8 +8763,8 @@ unint64_t lazy protocol witness table accessor for type Slice<UnsafeBufferPointe
   result = lazy protocol witness table cache variable for type Slice<UnsafeBufferPointer<UInt8>> and conformance <> Slice<A>;
   if (!lazy protocol witness table cache variable for type Slice<UnsafeBufferPointer<UInt8>> and conformance <> Slice<A>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5SliceVySRys5UInt8VGGMd);
-    lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8> and conformance <A> UnsafeBufferPointer<A>, &_sSRys5UInt8VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5SliceVySRys5UInt8VGGMd, &_ss5SliceVySRys5UInt8VGGMR);
+    lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8> and conformance <A> UnsafeBufferPointer<A>, &_sSRys5UInt8VGMd, &_sSRys5UInt8VGMR, &protocol conformance descriptor for <A> UnsafeBufferPointer<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type Slice<UnsafeBufferPointer<UInt8>> and conformance <> Slice<A>);
   }
@@ -9118,12 +8772,12 @@ unint64_t lazy protocol witness table accessor for type Slice<UnsafeBufferPointe
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<UnsafeRawBufferPointer> and conformance <> Slice<A>(unint64_t *a1, uint64_t *a2)
+uint64_t lazy protocol witness table accessor for type Slice<UnsafeRawBufferPointer> and conformance <> Slice<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -9133,7 +8787,7 @@ uint64_t lazy protocol witness table accessor for type Slice<UnsafeRawBufferPoin
 
 uint64_t instantiation function for generic protocol witness table for <A> UnsafeBufferPointer<A>(uint64_t a1)
 {
-  result = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8> and conformance UnsafeBufferPointer<A>, &_sSRys5UInt8VGMd);
+  result = lazy protocol witness table accessor for type ListFormatStyle<StringStyle, [String]> and conformance ListFormatStyle<A, B>(&lazy protocol witness table cache variable for type UnsafeBufferPointer<UInt8> and conformance UnsafeBufferPointer<A>, &_sSRys5UInt8VGMd, &_sSRys5UInt8VGMR, MEMORY[0x1E69E6060]);
   *(a1 + 8) = result;
   return result;
 }
@@ -9143,7 +8797,8 @@ Swift::Void __swiftcall NSDecimal.multiply(by:)(NSDecimal *by)
   NSDecimal._multiply(by:roundingMode:)(v2, by, v1);
   if (v7)
   {
-    *&v8[4] = 0uLL;
+    *&v8[4] = 0;
+    *&v8[12] = 0;
     _So9NSDecimala__exponent_setter(0, v8);
     _So9NSDecimala__length_setter(0, v8);
     _So9NSDecimala__isNegative_setter(1, v8);
@@ -9256,7 +8911,8 @@ double protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeF
 
   else
   {
-    *&v4[4] = 0uLL;
+    *&v4[4] = 0;
+    *&v4[12] = 0;
     _So9NSDecimala__exponent_setter(0, v4);
     _So9NSDecimala__length_setter(0, v4);
     _So9NSDecimala__isNegative_setter(0, v4);
@@ -9423,7 +9079,8 @@ LABEL_47:
       }
 
 LABEL_61:
-      *&v58[4] = 0uLL;
+      *&v58[12] = 0;
+      *&v58[4] = 0;
       _So9NSDecimala__exponent_setter(0, v58);
       _So9NSDecimala__length_setter(0, v58);
       _So9NSDecimala__isNegative_setter(1, v58);
@@ -9732,7 +9389,7 @@ LABEL_11:
     goto LABEL_18;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys11AnyHashableVypGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys11AnyHashableVypGMd, &_sSDys11AnyHashableVypGMR);
   if ((swift_dynamicCast() & 1) == 0)
   {
 LABEL_18:
@@ -10133,7 +9790,1410 @@ LABEL_73:
   }
 
   v65 = v59;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionVySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionVySSGMd, &_ss18ReversedCollectionVySSGMR);
   lazy protocol witness table accessor for type ReversedCollection<String> and conformance ReversedCollection<A>();
   return String.init<A>(_:)();
+}
+
+uint64_t NSDecimalSubtract(_:_:_:_:)(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t a4)
+{
+  v122 = *MEMORY[0x1E69E9840];
+  v120 = *a3;
+  v121 = *(a3 + 4);
+  v118 = *a3;
+  v119 = *(a3 + 4);
+  if (_So9NSDecimala__length_getter(&v118))
+  {
+    v118 = *a3;
+    v119 = *(a3 + 4);
+    isNegative_getter = _So9NSDecimala__isNegative_getter(&v118);
+    _So9NSDecimala__isNegative_setter(isNegative_getter ^ 1u, &v120);
+  }
+
+  v118 = *a2;
+  v119 = *(a2 + 4);
+  if (!_So9NSDecimala__length_getter(&v118) && (v118 = *a2, v119 = *(a2 + 4), _So9NSDecimala__isNegative_getter(&v118)) || (v118 = v120, v119 = v121, !_So9NSDecimala__length_getter(&v118)) && (v118 = v120, v119 = v121, _So9NSDecimala__isNegative_getter(&v118)))
+  {
+LABEL_54:
+    lazy protocol witness table accessor for type NSDecimal._CalculationError and conformance NSDecimal._CalculationError();
+    v28 = swift_allocError();
+    *v29 = 0;
+    swift_willThrow();
+LABEL_55:
+    *&v118 = v28;
+    v30 = v28;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+    if (swift_dynamicCast())
+    {
+      v31 = qword_181234EC8[v116];
+    }
+
+    else
+    {
+      v31 = 0;
+    }
+
+    *&v113[4] = 0;
+    *&v113[12] = 0;
+    _So9NSDecimala__exponent_setter(0, v113);
+    _So9NSDecimala__length_setter(0, v113);
+    _So9NSDecimala__isNegative_setter(1, v113);
+    _So9NSDecimala__isCompact_setter(v113);
+    _So9NSDecimala__reserved_setter(v113);
+    *a1 = *v113;
+    *(a1 + 16) = *&v113[16];
+
+    return v31;
+  }
+
+  v116 = *a2;
+  v117 = *(a2 + 4);
+  if (!_So9NSDecimala__length_getter(&v116))
+  {
+    v118 = v120;
+    v32 = v121;
+LABEL_61:
+    v119 = v32;
+LABEL_62:
+    v31 = 0;
+    *a1 = v118;
+    *(a1 + 16) = v119;
+    return v31;
+  }
+
+  v116 = v120;
+  v117 = v121;
+  if (!_So9NSDecimala__length_getter(&v116))
+  {
+    v118 = *a2;
+    v32 = *(a2 + 4);
+    goto LABEL_61;
+  }
+
+  v116 = *a2;
+  v117 = *(a2 + 4);
+  v114 = v120;
+  v115 = v121;
+  specialized static NSDecimal._normalize(a:b:roundingMode:)(&v116, &v114);
+  v111 = v116;
+  v112 = v117;
+  if (!_So9NSDecimala__length_getter(&v111))
+  {
+    v118 = v114;
+    v32 = v115;
+    goto LABEL_61;
+  }
+
+  v111 = v114;
+  v112 = v115;
+  if (!_So9NSDecimala__length_getter(&v111))
+  {
+    v118 = v116;
+    v32 = v117;
+    goto LABEL_61;
+  }
+
+  v111 = v116;
+  v112 = v117;
+  v109 = v116;
+  v110 = v117;
+  v9 = _So9NSDecimala__isNegative_getter(&v109);
+  v109 = v114;
+  v110 = v115;
+  if (v9 != _So9NSDecimala__isNegative_getter(&v109))
+  {
+    v34 = v117;
+    v105 = *(&v116 + 1);
+    v107 = v116;
+    NSDecimal.asVariableLengthInteger()(v116, *(&v116 + 1), v117);
+    v36 = v35;
+    v37 = v114;
+    v38 = v115;
+    NSDecimal.asVariableLengthInteger()(v114, *(&v114 + 1), v115);
+    v17 = specialized static NSDecimal._integerCompare(lhs:rhs:)(v36, v39);
+
+    switch(v17)
+    {
+      case 0xFFFFFFFFFFFFFFFFLL:
+        NSDecimal.asVariableLengthInteger()(v37, *(&v37 + 1), v38);
+        v17 = v41;
+        NSDecimal.asVariableLengthInteger()(v107, v105, v34);
+        v43 = v42;
+        v44 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+        v12 = v44;
+        *(v44 + 32) = 0;
+        v45 = (v44 + 32);
+        *(v44 + 16) = 8;
+        *(v44 + 40) = 0;
+        v21 = *(v17 + 16);
+        v20 = *(v43 + 16);
+        if (v20 >= v21)
+        {
+          v46 = *(v17 + 16);
+        }
+
+        else
+        {
+          v46 = *(v43 + 16);
+        }
+
+        if (v46)
+        {
+          if (!v21)
+          {
+            goto LABEL_305;
+          }
+
+          if (!v20)
+          {
+            goto LABEL_306;
+          }
+
+          v47 = ((*(v17 + 32) | 0x10000) - *(v43 + 32)) >> 16;
+          *v45 = *(v17 + 32) - *(v43 + 32);
+          if (v46 != 1)
+          {
+            if (v21 == 1)
+            {
+              goto LABEL_305;
+            }
+
+            if (v20 == 1)
+            {
+              goto LABEL_306;
+            }
+
+            v48 = v47 + *(v17 + 34) - *(v43 + 34) + 0xFFFF;
+            v47 = HIWORD(v48);
+            *(v44 + 34) = v48;
+            if (v46 != 2)
+            {
+              if (v21 == 2)
+              {
+                goto LABEL_305;
+              }
+
+              if (v20 == 2)
+              {
+                goto LABEL_306;
+              }
+
+              v49 = v47 + *(v17 + 36) - *(v43 + 36) + 0xFFFF;
+              v47 = HIWORD(v49);
+              *(v44 + 36) = v49;
+              if (v46 != 3)
+              {
+                if (v21 == 3)
+                {
+                  goto LABEL_305;
+                }
+
+                if (v20 == 3)
+                {
+                  goto LABEL_306;
+                }
+
+                v50 = v47 + *(v17 + 38) - *(v43 + 38) + 0xFFFF;
+                v47 = HIWORD(v50);
+                *(v44 + 38) = v50;
+                if (v46 != 4)
+                {
+                  if (v21 == 4)
+                  {
+                    goto LABEL_305;
+                  }
+
+                  if (v20 == 4)
+                  {
+                    goto LABEL_306;
+                  }
+
+                  v51 = v47 + *(v17 + 40) - *(v43 + 40) + 0xFFFF;
+                  v47 = HIWORD(v51);
+                  *(v44 + 40) = v51;
+                  if (v46 != 5)
+                  {
+                    if (v21 == 5)
+                    {
+                      goto LABEL_305;
+                    }
+
+                    if (v20 == 5)
+                    {
+                      goto LABEL_306;
+                    }
+
+                    v52 = v47 + *(v17 + 42) - *(v43 + 42) + 0xFFFF;
+                    v47 = HIWORD(v52);
+                    *(v44 + 42) = v52;
+                    if (v46 != 6)
+                    {
+                      if (v21 == 6)
+                      {
+                        goto LABEL_305;
+                      }
+
+                      if (v20 == 6)
+                      {
+                        goto LABEL_306;
+                      }
+
+                      v53 = v47 + *(v17 + 44) - *(v43 + 44) + 0xFFFF;
+                      v47 = HIWORD(v53);
+                      *(v44 + 44) = v53;
+                      if (v46 != 7)
+                      {
+                        if (v21 == 7)
+                        {
+                          goto LABEL_305;
+                        }
+
+                        if (v20 == 7)
+                        {
+                          goto LABEL_306;
+                        }
+
+                        v54 = v47 + *(v17 + 46) - *(v43 + 46) + 0xFFFF;
+                        *(v44 + 46) = v54;
+                        if (v46 != 8)
+                        {
+                          goto LABEL_302;
+                        }
+
+                        v47 = HIWORD(v54);
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        else
+        {
+          v47 = 1;
+        }
+
+        if (v20 < v21)
+        {
+          v81 = v17 + 32;
+          while (!v47)
+          {
+            if (v46 >= *(v44 + 16))
+            {
+              goto LABEL_283;
+            }
+
+            v47 = (*(v81 + 2 * v46) + 0xFFFF) >> 16;
+            v45[v46] = *(v81 + 2 * v46) - 1;
+            if (v21 == ++v46)
+            {
+              v46 = v21;
+              goto LABEL_192;
+            }
+          }
+
+          do
+          {
+            if (v46 >= v21)
+            {
+              goto LABEL_279;
+            }
+
+            if (v46 >= *(v44 + 16))
+            {
+              goto LABEL_281;
+            }
+
+            v45[v46] = *(v81 + 2 * v46);
+            ++v46;
+          }
+
+          while (v46 < v21);
+        }
+
+LABEL_192:
+        if (v46 < v20)
+        {
+          if (v46 <= v20)
+          {
+            v82 = v20;
+          }
+
+          else
+          {
+            v82 = v46;
+          }
+
+          do
+          {
+            if (v82 == v46)
+            {
+              goto LABEL_273;
+            }
+
+            if (v46 >= *(v44 + 16))
+            {
+              goto LABEL_275;
+            }
+
+            v83 = v47 + (*(v43 + 32 + 2 * v46) ^ 0xFFFF);
+            v47 = HIWORD(v83);
+            v45[v46++] = v83;
+          }
+
+          while (v20 != v46);
+        }
+
+        if (!v47)
+        {
+          goto LABEL_252;
+        }
+
+        for (i = *(v44 + 16); i; *(v44 + 16) = --i)
+        {
+          if (*(v44 + 30 + 2 * i))
+          {
+            break;
+          }
+        }
+
+        v85 = v12[1].u64[0];
+        if (HIDWORD(v85))
+        {
+          goto LABEL_289;
+        }
+
+        _So9NSDecimala__length_setter(v85, &v111);
+        v109 = v114;
+        v86 = v115;
+        break;
+      case 0uLL:
+        v118 = 0uLL;
+        v119 = 0;
+        goto LABEL_62;
+      case 1uLL:
+        NSDecimal.asVariableLengthInteger()(v107, v105, v34);
+        v17 = v55;
+        NSDecimal.asVariableLengthInteger()(v37, *(&v37 + 1), v38);
+        v57 = v56;
+        v58 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+        v12 = v58;
+        *(v58 + 32) = 0;
+        v59 = (v58 + 32);
+        *(v58 + 16) = 8;
+        *(v58 + 40) = 0;
+        v21 = *(v17 + 16);
+        v20 = *(v57 + 16);
+        if (v20 >= v21)
+        {
+          v60 = *(v17 + 16);
+        }
+
+        else
+        {
+          v60 = *(v57 + 16);
+        }
+
+        if (v60)
+        {
+          if (!v21)
+          {
+            goto LABEL_310;
+          }
+
+          if (!v20)
+          {
+            goto LABEL_311;
+          }
+
+          v61 = ((*(v17 + 32) | 0x10000) - *(v57 + 32)) >> 16;
+          *v59 = *(v17 + 32) - *(v57 + 32);
+          if (v60 != 1)
+          {
+            if (v21 == 1)
+            {
+              goto LABEL_310;
+            }
+
+            if (v20 == 1)
+            {
+              goto LABEL_311;
+            }
+
+            v62 = v61 + *(v17 + 34) - *(v57 + 34) + 0xFFFF;
+            v61 = HIWORD(v62);
+            *(v58 + 34) = v62;
+            if (v60 != 2)
+            {
+              if (v21 == 2)
+              {
+                goto LABEL_310;
+              }
+
+              if (v20 == 2)
+              {
+                goto LABEL_311;
+              }
+
+              v63 = v61 + *(v17 + 36) - *(v57 + 36) + 0xFFFF;
+              v61 = HIWORD(v63);
+              *(v58 + 36) = v63;
+              if (v60 != 3)
+              {
+                if (v21 == 3)
+                {
+                  goto LABEL_310;
+                }
+
+                if (v20 == 3)
+                {
+                  goto LABEL_311;
+                }
+
+                v64 = v61 + *(v17 + 38) - *(v57 + 38) + 0xFFFF;
+                v61 = HIWORD(v64);
+                *(v58 + 38) = v64;
+                if (v60 != 4)
+                {
+                  if (v21 == 4)
+                  {
+                    goto LABEL_310;
+                  }
+
+                  if (v20 == 4)
+                  {
+                    goto LABEL_311;
+                  }
+
+                  v65 = v61 + *(v17 + 40) - *(v57 + 40) + 0xFFFF;
+                  v61 = HIWORD(v65);
+                  *(v58 + 40) = v65;
+                  if (v60 != 5)
+                  {
+                    if (v21 == 5)
+                    {
+                      goto LABEL_310;
+                    }
+
+                    if (v20 == 5)
+                    {
+                      goto LABEL_311;
+                    }
+
+                    v66 = v61 + *(v17 + 42) - *(v57 + 42) + 0xFFFF;
+                    v61 = HIWORD(v66);
+                    *(v58 + 42) = v66;
+                    if (v60 != 6)
+                    {
+                      if (v21 == 6)
+                      {
+                        goto LABEL_310;
+                      }
+
+                      if (v20 == 6)
+                      {
+                        goto LABEL_311;
+                      }
+
+                      v67 = v61 + *(v17 + 44) - *(v57 + 44) + 0xFFFF;
+                      v61 = HIWORD(v67);
+                      *(v58 + 44) = v67;
+                      if (v60 != 7)
+                      {
+                        if (v21 == 7)
+                        {
+                          goto LABEL_310;
+                        }
+
+                        if (v20 == 7)
+                        {
+                          goto LABEL_311;
+                        }
+
+                        v68 = v61 + *(v17 + 46) - *(v57 + 46) + 0xFFFF;
+                        *(v58 + 46) = v68;
+                        if (v60 != 8)
+                        {
+                          goto LABEL_307;
+                        }
+
+                        v61 = HIWORD(v68);
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        else
+        {
+          v61 = 1;
+        }
+
+        if (v20 < v21)
+        {
+          v87 = v17 + 32;
+          while (!v61)
+          {
+            if (v60 >= *(v58 + 16))
+            {
+              goto LABEL_284;
+            }
+
+            v61 = (*(v87 + 2 * v60) + 0xFFFF) >> 16;
+            v59[v60] = *(v87 + 2 * v60) - 1;
+            if (v21 == ++v60)
+            {
+              v60 = v21;
+              goto LABEL_215;
+            }
+          }
+
+          do
+          {
+            if (v60 >= v21)
+            {
+              goto LABEL_280;
+            }
+
+            if (v60 >= *(v58 + 16))
+            {
+              goto LABEL_282;
+            }
+
+            v59[v60] = *(v87 + 2 * v60);
+            ++v60;
+          }
+
+          while (v60 < v21);
+        }
+
+LABEL_215:
+        if (v60 < v20)
+        {
+          if (v60 <= v20)
+          {
+            v88 = v20;
+          }
+
+          else
+          {
+            v88 = v60;
+          }
+
+          do
+          {
+            if (v88 == v60)
+            {
+              goto LABEL_274;
+            }
+
+            if (v60 >= *(v58 + 16))
+            {
+              goto LABEL_276;
+            }
+
+            v89 = v61 + (*(v57 + 32 + 2 * v60) ^ 0xFFFF);
+            v61 = HIWORD(v89);
+            v59[v60++] = v89;
+          }
+
+          while (v20 != v60);
+        }
+
+        if (!v61)
+        {
+          goto LABEL_252;
+        }
+
+        for (j = *(v58 + 16); j; *(v58 + 16) = --j)
+        {
+          if (*(v58 + 30 + 2 * j))
+          {
+            break;
+          }
+        }
+
+        v91 = v12[1].u64[0];
+        if (HIDWORD(v91))
+        {
+          goto LABEL_290;
+        }
+
+        _So9NSDecimala__length_setter(v91, &v111);
+        v109 = v116;
+        v86 = v117;
+        break;
+      default:
+LABEL_312:
+        type metadata accessor for NSComparisonResult(0);
+        *&v109 = v17;
+        _diagnoseUnexpectedEnumCaseValue<A, B>(type:rawValue:)();
+        __break(1u);
+        goto LABEL_313;
+    }
+
+    v110 = v86;
+    v92 = _So9NSDecimala__isNegative_getter(&v109);
+    _So9NSDecimala__isNegative_setter(v92, &v111);
+    goto LABEL_229;
+  }
+
+  v109 = v116;
+  v110 = v117;
+  v10 = _So9NSDecimala__isNegative_getter(&v109);
+  _So9NSDecimala__isNegative_setter(v10, &v111);
+  NSDecimal.asVariableLengthInteger()(v116, *(&v116 + 1), v117);
+  v12 = v11;
+  NSDecimal.asVariableLengthInteger()(v114, *(&v114 + 1), v115);
+  v14 = v13;
+  v15 = v12[1].u64[0];
+  v16 = *(v13 + 16);
+  if (v16 >= v15)
+  {
+    v17 = v12[1].u64[0];
+  }
+
+  else
+  {
+    v17 = *(v13 + 16);
+  }
+
+  v18 = 9;
+  v19 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+  *(v19 + 16) = 9;
+  *(v19 + 32) = 0;
+  v22 = (v19 + 32);
+  *(v19 + 40) = 0;
+  *(v19 + 48) = 0;
+  if (v17)
+  {
+    if (!v15)
+    {
+      goto LABEL_300;
+    }
+
+    if (!v16)
+    {
+      goto LABEL_301;
+    }
+
+    v21 = v12[2].u16[0] + *(v14 + 32);
+    v20 = WORD1(v21);
+    *v22 = v12[2].i16[0] + *(v14 + 32);
+    if (v17 != 1)
+    {
+      if (v15 == 1)
+      {
+        goto LABEL_300;
+      }
+
+      if (v16 == 1)
+      {
+        goto LABEL_301;
+      }
+
+      v21 = v20 + v12[2].u16[1] + *(v14 + 34);
+      v20 = WORD1(v21);
+      *(v19 + 34) = v21;
+      if (v17 != 2)
+      {
+        if (v15 == 2)
+        {
+          goto LABEL_300;
+        }
+
+        if (v16 == 2)
+        {
+          goto LABEL_301;
+        }
+
+        v21 = v20 + v12[2].u16[2] + *(v14 + 36);
+        v20 = WORD1(v21);
+        *(v19 + 36) = v21;
+        if (v17 != 3)
+        {
+          if (v15 == 3)
+          {
+            goto LABEL_300;
+          }
+
+          if (v16 == 3)
+          {
+            goto LABEL_301;
+          }
+
+          v21 = v20 + v12[2].u16[3] + *(v14 + 38);
+          v20 = WORD1(v21);
+          *(v19 + 38) = v21;
+          if (v17 != 4)
+          {
+            if (v15 == 4)
+            {
+              goto LABEL_300;
+            }
+
+            if (v16 == 4)
+            {
+              goto LABEL_301;
+            }
+
+            v21 = v20 + v12[2].u16[4] + *(v14 + 40);
+            v20 = WORD1(v21);
+            *(v19 + 40) = v21;
+            if (v17 != 5)
+            {
+              if (v15 == 5)
+              {
+                goto LABEL_300;
+              }
+
+              if (v16 == 5)
+              {
+                goto LABEL_301;
+              }
+
+              v21 = v20 + v12[2].u16[5] + *(v14 + 42);
+              v20 = WORD1(v21);
+              *(v19 + 42) = v21;
+              if (v17 != 6)
+              {
+                if (v15 == 6)
+                {
+                  goto LABEL_300;
+                }
+
+                if (v16 == 6)
+                {
+                  goto LABEL_301;
+                }
+
+                v21 = v20 + v12[2].u16[6] + *(v14 + 44);
+                v20 = WORD1(v21);
+                *(v19 + 44) = v21;
+                if (v17 != 7)
+                {
+                  if (v15 == 7)
+                  {
+                    goto LABEL_300;
+                  }
+
+                  if (v16 == 7)
+                  {
+                    goto LABEL_301;
+                  }
+
+                  v21 = v20 + v12[2].u16[7] + *(v14 + 46);
+                  v20 = WORD1(v21);
+                  *(v19 + 46) = v21;
+                  if (v17 != 8)
+                  {
+                    if (v15 == 8)
+                    {
+                      goto LABEL_300;
+                    }
+
+                    if (v16 == 8)
+                    {
+                      goto LABEL_301;
+                    }
+
+                    v23 = *(v14 + 48);
+                    v21 = v20 + v12[3].u16[0] + v23;
+                    *(v19 + 48) = v20 + v12[3].i16[0] + v23;
+                    if (v17 != 9)
+                    {
+                      goto LABEL_297;
+                    }
+
+                    LODWORD(v20) = WORD1(v21);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    if (v16 < v15)
+    {
+      if (v21 < 0x10000)
+      {
+        goto LABEL_70;
+      }
+
+      if (v17 > 8)
+      {
+        goto LABEL_286;
+      }
+
+      LODWORD(v20) = (v12[2].u16[v17] + 1) >> 16;
+      v22[v17] = v12[2].i16[v17] + 1;
+      if (v17 + 1 != v15)
+      {
+        v24 = 2 * v17 + 34;
+        v25 = (v19 + v24);
+        v26 = (v12->u16 + v24);
+        ++v17;
+        while (v20)
+        {
+          if (v17 >= *(v19 + 16))
+          {
+            goto LABEL_286;
+          }
+
+          v27 = *v26++;
+          LODWORD(v20) = (v27 + 1) >> 16;
+          *v25++ = v27 + 1;
+          if (v15 == ++v17)
+          {
+            goto LABEL_50;
+          }
+        }
+
+LABEL_70:
+        if (v17 <= v15)
+        {
+          v40 = v15;
+        }
+
+        else
+        {
+          v40 = v17;
+        }
+
+        do
+        {
+          if (v40 == v17)
+          {
+            goto LABEL_266;
+          }
+
+          if (v17 >= *(v19 + 16))
+          {
+            goto LABEL_267;
+          }
+
+          *(v19 + 2 * v17 + 32) = v12[2].i16[v17];
+          ++v17;
+        }
+
+        while (v17 < v15);
+        if (v17 >= v16)
+        {
+          goto LABEL_157;
+        }
+
+        goto LABEL_151;
+      }
+
+LABEL_50:
+      v17 = v15;
+    }
+  }
+
+  else
+  {
+    if (v15)
+    {
+      goto LABEL_70;
+    }
+
+    LODWORD(v20) = 0;
+  }
+
+  if (v17 < v16)
+  {
+    if (!v20)
+    {
+LABEL_151:
+      if (v17 <= v16)
+      {
+        v73 = v16;
+      }
+
+      else
+      {
+        v73 = v17;
+      }
+
+      do
+      {
+        if (v73 == v17)
+        {
+          goto LABEL_268;
+        }
+
+        if (v17 >= *(v19 + 16))
+        {
+          goto LABEL_269;
+        }
+
+        *(v19 + 2 * v17 + 32) = *(v14 + 32 + 2 * v17);
+        ++v17;
+      }
+
+      while (v17 < v16);
+LABEL_157:
+      *&v109 = v19;
+      goto LABEL_158;
+    }
+
+    if (v17 >= *(v19 + 16))
+    {
+      goto LABEL_285;
+    }
+
+    LODWORD(v20) = (*(v14 + 32 + 2 * v17) + 1) >> 16;
+    v22[v17] = *(v14 + 32 + 2 * v17) + 1;
+    if (v17 + 1 != v16)
+    {
+      v69 = 2 * v17 + 34;
+      v70 = (v19 + v69);
+      v71 = (v14 + v69);
+      ++v17;
+      while (v20)
+      {
+        if (v17 >= *(v19 + 16))
+        {
+          goto LABEL_285;
+        }
+
+        v72 = *v71++;
+        LODWORD(v20) = (v72 + 1) >> 16;
+        *v70++ = v72 + 1;
+        if (v16 == ++v17)
+        {
+          goto LABEL_146;
+        }
+      }
+
+      goto LABEL_151;
+    }
+
+LABEL_146:
+    v17 = v16;
+  }
+
+  *&v109 = v19;
+  if (!v20)
+  {
+LABEL_158:
+    v74 = *(v19 + 16);
+    if (__OFSUB__(v74, v17))
+    {
+      goto LABEL_287;
+    }
+
+    specialized RangeReplaceableCollection<>.removeLast(_:)(v74 - v17);
+
+    v108 = v109;
+    v75 = *(v109 + 16);
+    if (v75 > 8)
+    {
+
+      if (v75 == 9)
+      {
+        v18 = 0;
+        LODWORD(v14) = 0;
+        LODWORD(v17) = 0;
+        v12 = v108;
+      }
+
+      else
+      {
+        v106 = a4;
+        v78 = 0;
+        LODWORD(v14) = 0;
+        LODWORD(v17) = 0;
+        v15 = v108;
+        do
+        {
+          if (v14)
+          {
+            v17 = 1;
+          }
+
+          else
+          {
+            v17 = v17;
+          }
+
+          v79 = specialized static NSDecimal._integerDivideByShort(_:_:)(v15, 0x2710u);
+          v14 = v80;
+
+          v18 = v78 + 4;
+          if (__OFADD__(v78, 4))
+          {
+            goto LABEL_278;
+          }
+
+          v16 = v79[1].u64[0];
+          v78 += 4;
+          v15 = v79;
+        }
+
+        while (v16 > 9);
+        v12 = v79;
+        a4 = v106;
+        if (v16 != 9)
+        {
+          goto LABEL_178;
+        }
+      }
+
+      v15 = v12;
+      do
+      {
+        if (v14)
+        {
+          v17 = 1;
+        }
+
+        else
+        {
+          v17 = v17;
+        }
+
+        v12 = specialized static NSDecimal._integerDivideByShort(_:_:)(v15, 0xAu);
+        v14 = v76;
+
+        v77 = v18 + 1;
+        if (__OFADD__(v18, 1))
+        {
+          goto LABEL_277;
+        }
+
+        v16 = v12[1].u64[0];
+        ++v18;
+        v15 = v12;
+      }
+
+      while (v16 > 8);
+      v18 = v77;
+LABEL_178:
+      if (v17)
+      {
+        if (!v14 || v14 == 5)
+        {
+          v14 = (v14 + 1);
+        }
+      }
+
+      else if (!v14)
+      {
+        goto LABEL_257;
+      }
+
+      if (a4 <= 1)
+      {
+        if (a4)
+        {
+          goto LABEL_257;
+        }
+
+        goto LABEL_243;
+      }
+
+      if (a4 == 2)
+      {
+        goto LABEL_245;
+      }
+
+      if (a4 != 3)
+      {
+        goto LABEL_257;
+      }
+
+      if (v14 != 5)
+      {
+LABEL_243:
+        if (v14 <= 4)
+        {
+LABEL_257:
+
+          while (1)
+          {
+            v109 = v111;
+            v110 = v112;
+            v100 = _So9NSDecimala__exponent_getter(&v109);
+            if (v18 < 0xFFFFFFFF80000000)
+            {
+              goto LABEL_291;
+            }
+
+            if (v18 > 0x7FFFFFFF)
+            {
+              goto LABEL_292;
+            }
+
+            if (__OFADD__(v100, v18))
+            {
+              goto LABEL_293;
+            }
+
+            if (v100 + v18 > 127)
+            {
+              break;
+            }
+
+            v109 = v111;
+            v110 = v112;
+            v101 = _So9NSDecimala__exponent_getter(&v109);
+            v102 = __OFADD__(v101, v18);
+            v103 = (v101 + v18);
+            if (v102)
+            {
+              __break(1u);
+LABEL_295:
+              a4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v99 > 1), v14, 1, a4);
+LABEL_254:
+              *(a4 + 16) = v14;
+              *(a4 + 2 * v15 + 32) = 1;
+              if (*(a4 + 16) >= v16)
+              {
+                goto LABEL_256;
+              }
+
+              v19 = specialized static NSDecimal._integerDivideByShort(_:_:)(a4, 0xAu);
+            }
+
+            else
+            {
+              v19 = _So9NSDecimala__exponent_setter(v103, &v111);
+              v75 = v12[1].u64[0];
+              if (!HIDWORD(v75))
+              {
+                goto LABEL_170;
+              }
+
+              __break(1u);
+LABEL_266:
+              __break(1u);
+LABEL_267:
+              __break(1u);
+LABEL_268:
+              __break(1u);
+LABEL_269:
+              __break(1u);
+            }
+
+            v16 = v19;
+
+            v102 = __OFADD__(v18++, 1);
+            if (v102)
+            {
+              __break(1u);
+LABEL_273:
+              __break(1u);
+LABEL_274:
+              __break(1u);
+LABEL_275:
+              __break(1u);
+LABEL_276:
+              __break(1u);
+LABEL_277:
+              __break(1u);
+LABEL_278:
+              __break(1u);
+LABEL_279:
+              __break(1u);
+LABEL_280:
+              __break(1u);
+LABEL_281:
+              __break(1u);
+LABEL_282:
+              __break(1u);
+LABEL_283:
+              __break(1u);
+LABEL_284:
+              __break(1u);
+LABEL_285:
+              __break(1u);
+LABEL_286:
+              __break(1u);
+LABEL_287:
+              __break(1u);
+LABEL_288:
+              __break(1u);
+LABEL_289:
+              __break(1u);
+LABEL_290:
+              __break(1u);
+LABEL_291:
+              __break(1u);
+LABEL_292:
+              __break(1u);
+LABEL_293:
+              __break(1u);
+            }
+          }
+
+          goto LABEL_54;
+        }
+
+LABEL_245:
+        if (!v16)
+        {
+          a4 = MEMORY[0x1E69E7CC0];
+          v15 = *(MEMORY[0x1E69E7CC0] + 16);
+          v94 = 1;
+LABEL_251:
+          if (v15 != v94)
+          {
+            v99 = *(a4 + 24);
+            v14 = v15 + 1;
+            if (v15 >= v99 >> 1)
+            {
+              goto LABEL_295;
+            }
+
+            goto LABEL_254;
+          }
+
+LABEL_252:
+
+          lazy protocol witness table accessor for type NSDecimal._CalculationError and conformance NSDecimal._CalculationError();
+          v28 = swift_allocError();
+          *v98 = 0;
+          swift_willThrow();
+
+          goto LABEL_55;
+        }
+
+LABEL_246:
+        v94 = v16 + 1;
+        a4 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+        *(a4 + 16) = v16;
+        bzero((a4 + 32), 2 * v16);
+        v95 = 0;
+        v96 = 1;
+        do
+        {
+          v97 = v96 + v12[2].u16[v95];
+          v96 = HIWORD(v97);
+          *(a4 + 2 * v95++ + 32) = v97;
+        }
+
+        while (v16 != v95);
+        v15 = v16;
+        if (v97 < 0x10000)
+        {
+LABEL_256:
+
+          goto LABEL_257;
+        }
+
+        goto LABEL_251;
+      }
+
+      if (v16)
+      {
+        if (v12[2].i16[0])
+        {
+          goto LABEL_257;
+        }
+
+        goto LABEL_246;
+      }
+
+      __break(1u);
+LABEL_297:
+      if (v15 != 9)
+      {
+        if (v16 != 9)
+        {
+          __break(1u);
+          goto LABEL_300;
+        }
+
+LABEL_301:
+        __break(1u);
+LABEL_302:
+        if (v21 != 8)
+        {
+          if (v20 != 8)
+          {
+            __break(1u);
+            goto LABEL_305;
+          }
+
+LABEL_306:
+          __break(1u);
+LABEL_307:
+          if (v21 != 8)
+          {
+            if (v20 != 8)
+            {
+              __break(1u);
+              goto LABEL_310;
+            }
+
+LABEL_311:
+            __break(1u);
+            goto LABEL_312;
+          }
+
+LABEL_310:
+          __break(1u);
+          goto LABEL_311;
+        }
+
+LABEL_305:
+        __break(1u);
+        goto LABEL_306;
+      }
+
+LABEL_300:
+      __break(1u);
+      goto LABEL_301;
+    }
+
+    v12 = v109;
+LABEL_170:
+    _So9NSDecimala__length_setter(v75, &v111);
+LABEL_229:
+    NSDecimal.copyVariableLengthInteger(_:)(v12);
+    if (v93)
+    {
+      v28 = v93;
+
+      goto LABEL_55;
+    }
+
+    _So9NSDecimala__isCompact_setter(&v111);
+    NSDecimal.compact()();
+    v118 = v111;
+    v32 = v112;
+    goto LABEL_61;
+  }
+
+  if (v17 <= 9)
+  {
+    if (v17 >= *(v19 + 16))
+    {
+      goto LABEL_288;
+    }
+
+    v22[v17] = 1;
+    *&v109 = v19;
+    ++v17;
+    goto LABEL_158;
+  }
+
+LABEL_313:
+
+  lazy protocol witness table accessor for type NSDecimal._CalculationError and conformance NSDecimal._CalculationError();
+  swift_allocError();
+  *v104 = 0;
+  swift_willThrow();
+
+  result = swift_unexpectedError();
+  __break(1u);
+  return result;
 }

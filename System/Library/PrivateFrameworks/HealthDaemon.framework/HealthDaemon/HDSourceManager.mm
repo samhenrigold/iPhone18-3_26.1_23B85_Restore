@@ -31,6 +31,7 @@
 - (id)publicSourceForClinicalExternalIdentifier:(id)identifier provenance:(int64_t)provenance createOrUpdateIfNecessary:(BOOL)necessary nameOnCreateOrUpdate:(id)update error:(id *)error;
 - (id)sourceEntityForClientSource:(id)source createOrUpdateIfNecessary:(BOOL)necessary error:(id *)error;
 - (id)sourceForAppleDeviceWithUUID:(id)d identifier:(id)identifier name:(id)name productType:(id)type createIfNecessary:(BOOL)necessary error:(id *)error;
+- (id)sourceForApplicationIdentifier:(id)identifier createOrUpdateIfNecessary:(BOOL)necessary entitlements:(id)entitlements name:(id)name error:(id *)error;
 - (id)sourceForClient:(id)client error:(id *)error;
 - (id)sourceForCodableSource:(id)source provenance:(int64_t)provenance createIfNecessary:(BOOL)necessary isDeleted:(BOOL *)deleted error:(id *)error;
 - (id)sourceUUIDForBundleIdentifier:(id)identifier error:(id *)error;
@@ -112,7 +113,7 @@
 
 - (BOOL)updateCurrentDeviceNameWithError:(id *)error
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   if (HKIsUnitTesting())
   {
     _HKInitializeLogging();
@@ -121,10 +122,10 @@
     {
       v6 = v5;
       *buf = 138412546;
-      v42 = objc_opt_class();
-      v43 = 2048;
+      v41 = objc_opt_class();
+      v42 = 2048;
       selfCopy4 = self;
-      v7 = v42;
+      v7 = v41;
       _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "<%@:%p> updateCurrentDeviceNameWithError: started", buf, 0x16u);
     }
   }
@@ -134,97 +135,93 @@
 
   if (profileType == 2)
   {
-    v10 = 1;
+    return 1;
   }
 
-  else
+  v11 = objc_loadWeakRetained(&self->_profile);
+  daemon = [v11 daemon];
+  behavior = [daemon behavior];
+  currentDeviceDisplayName = [behavior currentDeviceDisplayName];
+
+  v15 = [HDKeyValueDomain alloc];
+  v16 = objc_loadWeakRetained(&self->_profile);
+  v17 = [(HDKeyValueDomain *)v15 initWithCategory:0 domainName:@"source-manager" profile:v16];
+
+  v39 = 0;
+  v18 = [(HDKeyValueDomain *)v17 stringForKey:@"HKSourceLastObservedDeviceName" error:&v39];
+  v19 = v39;
+  v20 = v19;
+  if (v18 || !v19)
   {
-    v11 = objc_loadWeakRetained(&self->_profile);
-    daemon = [v11 daemon];
-    behavior = [daemon behavior];
-    currentDeviceDisplayName = [behavior currentDeviceDisplayName];
-
-    v15 = [HDKeyValueDomain alloc];
-    v16 = objc_loadWeakRetained(&self->_profile);
-    v17 = [(HDKeyValueDomain *)v15 initWithCategory:0 domainName:@"source-manager" profile:v16];
-
-    v40 = 0;
-    v18 = [(HDKeyValueDomain *)v17 stringForKey:@"HKSourceLastObservedDeviceName" error:&v40];
-    v19 = v40;
-    v20 = v19;
-    if (v18 || !v19)
+    if (v18 && ([currentDeviceDisplayName isEqualToString:v18] & 1) != 0)
     {
-      if (v18 && ([currentDeviceDisplayName isEqualToString:v18] & 1) != 0)
-      {
-        v10 = 1;
-      }
-
-      else
-      {
-        v22 = HKIsUnitTesting();
-        v23 = MEMORY[0x277CCC2B0];
-        if (v22)
-        {
-          _HKInitializeLogging();
-          v24 = *v23;
-          if (os_log_type_enabled(*v23, OS_LOG_TYPE_DEFAULT))
-          {
-            v25 = v24;
-            v26 = objc_opt_class();
-            *buf = 138412546;
-            v42 = v26;
-            v43 = 2048;
-            selfCopy4 = self;
-            v27 = v26;
-            _os_log_impl(&dword_228986000, v25, OS_LOG_TYPE_DEFAULT, "<%@:%p> updateCurrentDeviceNameWithError: mid", buf, 0x16u);
-          }
-        }
-
-        v28 = objc_loadWeakRetained(&self->_profile);
-        database = [v28 database];
-
-        v36[0] = MEMORY[0x277D85DD0];
-        v36[1] = 3221225472;
-        v36[2] = __52__HDSourceManager_updateCurrentDeviceNameWithError___block_invoke;
-        v36[3] = &unk_278615D40;
-        v37 = currentDeviceDisplayName;
-        selfCopy3 = self;
-        v39 = v17;
-        v10 = [(HDHealthEntity *)HDSourceEntity performWriteTransactionWithHealthDatabase:database error:error block:v36];
-        if (HKIsUnitTesting())
-        {
-          _HKInitializeLogging();
-          v30 = *v23;
-          if (os_log_type_enabled(*v23, OS_LOG_TYPE_DEFAULT))
-          {
-            v31 = v30;
-            v32 = objc_opt_class();
-            *buf = 138412546;
-            v42 = v32;
-            v43 = 2048;
-            selfCopy4 = self;
-            v33 = v32;
-            _os_log_impl(&dword_228986000, v31, OS_LOG_TYPE_DEFAULT, "<%@:%p> updateCurrentDeviceNameWithError: ended", buf, 0x16u);
-          }
-        }
-      }
-    }
-
-    else if (error)
-    {
-      v21 = v19;
-      v10 = 0;
-      *error = v20;
+      v10 = 1;
     }
 
     else
     {
-      _HKLogDroppedError();
-      v10 = 0;
+      v22 = HKIsUnitTesting();
+      v23 = MEMORY[0x277CCC2B0];
+      if (v22)
+      {
+        _HKInitializeLogging();
+        v24 = *v23;
+        if (os_log_type_enabled(*v23, OS_LOG_TYPE_DEFAULT))
+        {
+          v25 = v24;
+          v26 = objc_opt_class();
+          *buf = 138412546;
+          v41 = v26;
+          v42 = 2048;
+          selfCopy4 = self;
+          v27 = v26;
+          _os_log_impl(&dword_228986000, v25, OS_LOG_TYPE_DEFAULT, "<%@:%p> updateCurrentDeviceNameWithError: mid", buf, 0x16u);
+        }
+      }
+
+      v28 = objc_loadWeakRetained(&self->_profile);
+      database = [v28 database];
+
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __52__HDSourceManager_updateCurrentDeviceNameWithError___block_invoke;
+      v35[3] = &unk_278615D40;
+      v36 = currentDeviceDisplayName;
+      selfCopy3 = self;
+      v38 = v17;
+      v10 = [(HDHealthEntity *)HDSourceEntity performWriteTransactionWithHealthDatabase:database error:error block:v35];
+      if (HKIsUnitTesting())
+      {
+        _HKInitializeLogging();
+        v30 = *v23;
+        if (os_log_type_enabled(*v23, OS_LOG_TYPE_DEFAULT))
+        {
+          v31 = v30;
+          v32 = objc_opt_class();
+          *buf = 138412546;
+          v41 = v32;
+          v42 = 2048;
+          selfCopy4 = self;
+          v33 = v32;
+          _os_log_impl(&dword_228986000, v31, OS_LOG_TYPE_DEFAULT, "<%@:%p> updateCurrentDeviceNameWithError: ended", buf, 0x16u);
+        }
+      }
     }
   }
 
-  v34 = *MEMORY[0x277D85DE8];
+  else if (error)
+  {
+    v21 = v19;
+    v10 = 0;
+    *error = v20;
+  }
+
+  else
+  {
+    _HKLogDroppedError();
+    v10 = 0;
+  }
+
   return v10;
 }
 
@@ -835,7 +832,7 @@ LABEL_23:
 
 BOOL __64__HDSourceManager_insertCodableSource_provenance_profile_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if ([*(a1 + 32) deleted])
   {
@@ -863,30 +860,30 @@ BOOL __64__HDSourceManager_insertCodableSource_provenance_profile_error___block_
 
   if (![*(a1 + 32) hasSyncIdentity])
   {
-    v49 = v5;
-    v51 = a3;
-    v47 = v7;
-    v48 = v6;
-    v52 = 0;
+    v48 = v5;
+    v50 = a3;
+    v46 = v7;
+    v47 = v6;
+    v51 = 0;
     goto LABEL_12;
   }
 
   v11 = v10;
   v12 = [*(a1 + 32) syncIdentity];
-  v54 = 0;
-  v13 = [HDSyncIdentity syncIdentityWithCodable:v12 error:&v54];
-  v14 = v54;
+  v53 = 0;
+  v13 = [HDSyncIdentity syncIdentityWithCodable:v12 error:&v53];
+  v14 = v53;
 
   if (!v13)
   {
-    v50 = 0;
+    v49 = 0;
     _HKInitializeLogging();
     v33 = *MEMORY[0x277CCC2A0];
     v30 = v11;
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
     {
       *buf = 138543362;
-      v56 = v14;
+      v55 = v14;
       _os_log_fault_impl(&dword_228986000, v33, OS_LOG_TYPE_FAULT, "SyncIdentity from received codable is nil %{public}@", buf, 0xCu);
     }
 
@@ -916,34 +913,34 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  v51 = a3;
+  v50 = a3;
   v15 = [*(a1 + 40) syncIdentityManager];
-  v53 = v14;
-  [v15 concreteIdentityForIdentity:v13 shouldCreate:1 transaction:v5 error:&v53];
+  v52 = v14;
+  [v15 concreteIdentityForIdentity:v13 shouldCreate:1 transaction:v5 error:&v52];
   v17 = v16 = v13;
-  v52 = v53;
+  v51 = v52;
 
   if (!v17)
   {
-    v50 = v16;
+    v49 = v16;
     v37 = v7;
     _HKInitializeLogging();
     v38 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
     {
       *buf = 138543362;
-      v56 = v52;
+      v55 = v51;
       _os_log_fault_impl(&dword_228986000, v38, OS_LOG_TYPE_FAULT, "ConcreteSyncIdentity from received codable is nil %{public}@", buf, 0xCu);
     }
 
-    v39 = v52;
+    v39 = v51;
     v32 = v39;
     v7 = v37;
     if (v39)
     {
-      if (v51)
+      if (v50)
       {
-        v35 = v51;
+        v35 = v50;
         v26 = v8;
         v40 = v39;
         v30 = 0;
@@ -963,14 +960,14 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  v47 = v7;
-  v48 = v6;
-  v49 = v5;
+  v46 = v7;
+  v47 = v6;
+  v48 = v5;
 
   v10 = v17;
 LABEL_12:
-  v46 = *(a1 + 48);
-  v45 = [v8 persistentID];
+  v45 = *(a1 + 48);
+  v44 = [v8 persistentID];
   v18 = [*(a1 + 32) name];
   v19 = *(a1 + 64);
   v20 = [*(a1 + 32) productType];
@@ -979,23 +976,22 @@ LABEL_12:
   v23 = *(a1 + 72);
   [v10 entity];
   v25 = v24 = v10;
-  v44 = v23;
+  v43 = v23;
   v26 = v8;
-  LOBYTE(v43) = v21;
-  v5 = v49;
-  v27 = +[HDSourceEntity insertSourceWithUUID:logicalSourceID:name:options:isCurrentDevice:productType:deleted:modificationDate:provenance:syncIdentity:transaction:error:](HDSourceEntity, "insertSourceWithUUID:logicalSourceID:name:options:isCurrentDevice:productType:deleted:modificationDate:provenance:syncIdentity:transaction:error:", v46, v45, v18, v19, 0, v20, v43, v22, v44, [v25 persistentID], v49, v51);
+  LOBYTE(v42) = v21;
+  v5 = v48;
+  v27 = +[HDSourceEntity insertSourceWithUUID:logicalSourceID:name:options:isCurrentDevice:productType:deleted:modificationDate:provenance:syncIdentity:transaction:error:](HDSourceEntity, "insertSourceWithUUID:logicalSourceID:name:options:isCurrentDevice:productType:deleted:modificationDate:provenance:syncIdentity:transaction:error:", v45, v44, v18, v19, 0, v20, v42, v22, v43, [v25 persistentID], v48, v50);
   v28 = *(*(a1 + 56) + 8);
   v29 = *(v28 + 40);
   *(v28 + 40) = v27;
 
   v30 = v24;
   v31 = *(*(*(a1 + 56) + 8) + 40) != 0;
-  v7 = v47;
-  v6 = v48;
-  v32 = v52;
+  v7 = v46;
+  v6 = v47;
+  v32 = v51;
 LABEL_30:
 
-  v41 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
@@ -1385,6 +1381,15 @@ uint64_t __89__HDSourceManager__sourceFromEphemeralSource_provenance_createOrUpd
   return v9;
 }
 
+- (id)sourceForApplicationIdentifier:(id)identifier createOrUpdateIfNecessary:(BOOL)necessary entitlements:(id)entitlements name:(id)name error:(id *)error
+{
+  necessaryCopy = necessary;
+  v10 = [MEMORY[0x277CCDA00] _sourceWithBundleIdentifier:identifier defaultBundleIdentifier:identifier appEntitlements:entitlements name:name];
+  v11 = [(HDSourceManager *)self sourceEntityForClientSource:v10 createOrUpdateIfNecessary:necessaryCopy error:error];
+
+  return v11;
+}
+
 - (id)sourceEntityForClientSource:(id)source createOrUpdateIfNecessary:(BOOL)necessary error:(id *)error
 {
   necessaryCopy = necessary;
@@ -1556,7 +1561,7 @@ uint64_t __79__HDSourceManager_sourceEntityForClientSource_createOrUpdateIfNeces
 
 id __100__HDSourceManager_sourceForAppleDeviceWithUUID_identifier_name_productType_createIfNecessary_error___block_invoke(void *a1, uint64_t a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a1[4];
   v6 = a1[5];
   v7 = a1[6];
@@ -1564,9 +1569,9 @@ id __100__HDSourceManager_sourceForAppleDeviceWithUUID_identifier_name_productTy
   v9 = HKSourceOptionsForAppleDevice();
   v10 = a1[8];
   v11 = [MEMORY[0x277CBEAA8] date];
-  v21 = 0;
-  v12 = [v5 insertSourceWithBundleIdentifier:v6 owningAppBundleIdentifier:0 UUID:v7 name:v8 options:v9 isCurrentDevice:0 productType:v10 modificationDate:v11 provenance:0 error:&v21];
-  v13 = v21;
+  v20 = 0;
+  v12 = [v5 insertSourceWithBundleIdentifier:v6 owningAppBundleIdentifier:0 UUID:v7 name:v8 options:v9 isCurrentDevice:0 productType:v10 modificationDate:v11 provenance:0 error:&v20];
+  v13 = v20;
 
   if (!v12)
   {
@@ -1574,14 +1579,14 @@ id __100__HDSourceManager_sourceForAppleDeviceWithUUID_identifier_name_productTy
     v14 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
-      v19 = a1[5];
-      v20 = a1[6];
+      v18 = a1[5];
+      v19 = a1[6];
       *buf = 138412802;
-      v23 = v19;
-      v24 = 2112;
-      v25 = v20;
-      v26 = 2114;
-      v27 = v13;
+      v22 = v18;
+      v23 = 2112;
+      v24 = v19;
+      v25 = 2114;
+      v26 = v13;
       _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "Failed to insert local source for %@ %@: %{public}@", buf, 0x20u);
     }
 
@@ -1600,8 +1605,6 @@ id __100__HDSourceManager_sourceForAppleDeviceWithUUID_identifier_name_productTy
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -1908,7 +1911,7 @@ uint64_t __57__HDSourceManager_clientSourceForBundleIdentifier_error___block_inv
 
 - (id)clientSourceForPersistentID:(id)d error:(id *)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (d)
   {
     dCopy = d;
@@ -1916,7 +1919,7 @@ uint64_t __57__HDSourceManager_clientSourceForBundleIdentifier_error___block_inv
     dCopy2 = d;
     v8 = [v6 arrayWithObjects:&dCopy count:1];
 
-    v9 = [(HDSourceManager *)self clientSourcesForSourceIDs:v8 error:error, dCopy, v14];
+    v9 = [(HDSourceManager *)self clientSourcesForSourceIDs:v8 error:error, dCopy, v13];
     anyObject = [v9 anyObject];
   }
 
@@ -1924,8 +1927,6 @@ uint64_t __57__HDSourceManager_clientSourceForBundleIdentifier_error___block_inv
   {
     anyObject = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return anyObject;
 }
@@ -2008,39 +2009,39 @@ uint64_t __57__HDSourceManager_clientSourceForBundleIdentifier_error___block_inv
 
 uint64_t __51__HDSourceManager_clientSourcesForSourceIDs_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v6 = *(a1 + 32);
-  v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v24;
+    v9 = *v23;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v24 != v9)
+      if (*v23 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v23 + 1) + 8 * v10);
+      v11 = *(*(&v22 + 1) + 8 * v10);
       v12 = *(a1 + 40);
       v13 = *(v12 + 32);
-      v21[5] = v11;
-      v22 = 0;
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __51__HDSourceManager_clientSourcesForSourceIDs_error___block_invoke_2;
-      v21[3] = &unk_2786202F8;
-      v21[4] = v12;
-      v14 = [v13 fetchObjectForKey:v11 transaction:v5 error:&v22 faultHandler:v21];
-      v15 = v22;
+      v20[5] = v11;
+      v21 = 0;
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __51__HDSourceManager_clientSourcesForSourceIDs_error___block_invoke_2;
+      v20[3] = &unk_2786202F8;
+      v20[4] = v12;
+      v14 = [v13 fetchObjectForKey:v11 transaction:v5 error:&v21 faultHandler:v20];
+      v15 = v21;
       v16 = v15;
       if (v14)
       {
@@ -2084,7 +2085,7 @@ LABEL_15:
 
       if (v8 == ++v10)
       {
-        v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -2098,13 +2099,12 @@ LABEL_15:
   v18 = 1;
 LABEL_20:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 id __51__HDSourceManager_clientSourcesForSourceIDs_error___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   if (v3)
   {
@@ -2137,24 +2137,24 @@ LABEL_9:
               v12 = *MEMORY[0x277CCC2A0];
               if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
               {
-                *v16 = 138412546;
-                *&v16[4] = v9;
-                *&v16[12] = 2112;
-                *&v16[14] = v7;
-                _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "Updating name to %@ for source %@", v16, 0x16u);
+                *v15 = 138412546;
+                *&v15[4] = v9;
+                *&v15[12] = 2112;
+                *&v15[14] = v7;
+                _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "Updating name to %@ for source %@", v15, 0x16u);
               }
 
               [v7 _setName:v9];
               v13 = *(v3 + 16);
-              *v16 = MEMORY[0x277D85DD0];
-              *&v16[8] = 3221225472;
-              *&v16[16] = __59__HDSourceManager__fetchClientSourceForPersistentID_error___block_invoke;
-              v17 = &unk_278616D68;
-              v18 = v5;
-              v19 = v9;
-              v20 = v3;
-              v21 = v7;
-              dispatch_async(v13, v16);
+              *v15 = MEMORY[0x277D85DD0];
+              *&v15[8] = 3221225472;
+              *&v15[16] = __59__HDSourceManager__fetchClientSourceForPersistentID_error___block_invoke;
+              v16 = &unk_278616D68;
+              v17 = v5;
+              v18 = v9;
+              v19 = v3;
+              v20 = v7;
+              dispatch_async(v13, v15);
             }
           }
         }
@@ -2182,7 +2182,6 @@ LABEL_16:
 
   v7 = 0;
 LABEL_17:
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -2234,7 +2233,7 @@ LABEL_17:
 
     if (v10)
     {
-      v11 = [v9 copy];
+      v11 = objc_msgSend_copy(v9);
     }
 
     else
@@ -2290,7 +2289,7 @@ BOOL __53__HDSourceManager__clientSourcesWithPredicate_error___block_invoke_2(ui
 
 - (void)profileDidBecomeReady:(id)ready
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = HKIsUnitTesting();
   v5 = MEMORY[0x277CCC2B0];
   if (v4)
@@ -2301,32 +2300,32 @@ BOOL __53__HDSourceManager__clientSourcesWithPredicate_error___block_invoke_2(ui
     {
       v7 = v6;
       *buf = 138412546;
-      v22 = objc_opt_class();
-      v23 = 2048;
+      v21 = objc_opt_class();
+      v22 = 2048;
       selfCopy2 = self;
-      v8 = v22;
+      v8 = v21;
       _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "<%@:%p> profileDidBecomeReady: started", buf, 0x16u);
     }
   }
 
   dispatch_assert_queue_V2(self->_queue);
-  v20 = 0;
-  v9 = [(HDSourceManager *)self updateCurrentDeviceNameWithError:&v20];
-  v10 = v20;
+  v19 = 0;
+  v9 = [(HDSourceManager *)self updateCurrentDeviceNameWithError:&v19];
+  v10 = v19;
   if (!v9)
   {
     _HKInitializeLogging();
     v11 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_ERROR))
     {
-      v17 = v11;
+      v16 = v11;
       WeakRetained = objc_loadWeakRetained(&self->_profile);
       profileIdentifier = [WeakRetained profileIdentifier];
       *buf = 138543618;
-      v22 = profileIdentifier;
-      v23 = 2114;
+      v21 = profileIdentifier;
+      v22 = 2114;
       selfCopy2 = v10;
-      _os_log_error_impl(&dword_228986000, v17, OS_LOG_TYPE_ERROR, "Current device source name update failed for profile with identifier %{public}@: %{public}@", buf, 0x16u);
+      _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "Current device source name update failed for profile with identifier %{public}@: %{public}@", buf, 0x16u);
     }
   }
 
@@ -2339,15 +2338,13 @@ BOOL __53__HDSourceManager__clientSourcesWithPredicate_error___block_invoke_2(ui
       v13 = v12;
       v14 = objc_opt_class();
       *buf = 138412546;
-      v22 = v14;
-      v23 = 2048;
+      v21 = v14;
+      v22 = 2048;
       selfCopy2 = self;
       v15 = v14;
       _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_DEFAULT, "<%@:%p> profileDidBecomeReady: ended", buf, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)insertSourceWithBundleIdentifier:(id)identifier owningAppBundleIdentifier:(id)bundleIdentifier UUID:(id)d name:(id)name options:(unint64_t)options isCurrentDevice:(BOOL)device productType:(id)type modificationDate:(id)self0 provenance:(int64_t)self1 error:(id *)self2
@@ -2482,34 +2479,33 @@ id __62__HDSourceManager_createSourcesWithCodables_provenance_error___block_invo
 
 - (uint64_t)_createSourcesWithCodables:(uint64_t)codables provenance:(void *)provenance sourceUUIDSToDelete:(unsigned int)delete deleteSamples:(void *)samples transaction:(uint64_t)transaction error:
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v11 = a2;
   provenanceCopy = provenance;
   samplesCopy = samples;
-  v25 = v11;
+  v24 = v11;
   if (self)
   {
-    v30 = 0u;
-    v31 = 0u;
     v28 = 0u;
     v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v13 = v11;
-    v14 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v29;
+      v16 = *v27;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v29 != v16)
+          if (*v27 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v26 = *(*(&v28 + 1) + 8 * i);
-          v27 = samplesCopy;
+          v25 = samplesCopy;
           v18 = HKWithAutoreleasePool();
 
           if ((v18 & 1) == 0)
@@ -2519,7 +2515,7 @@ id __62__HDSourceManager_createSourcesWithCodables_provenance_error___block_invo
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
         if (v15)
         {
           continue;
@@ -2540,28 +2536,24 @@ LABEL_12:
     v19 = provenanceCopy;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 BOOL __62__HDSourceManager_createSourcesWithCodables_provenance_error___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (![*(a1 + 32) count])
+  if ([*(a1 + 32) count])
   {
-    goto LABEL_3;
+    v5 = [[_HDDeleteSourcesWithUUIDsEntry alloc] initWithUUIDs:*(a1 + 32) bundleIdentifier:0];
+    WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 8));
+    v7 = [WeakRetained database];
+    v8 = [v7 addJournalEntry:v5 error:a3];
+
+    if (!v8)
+    {
+      return 0;
+    }
   }
 
-  v5 = [[_HDDeleteSourcesWithUUIDsEntry alloc] initWithUUIDs:*(a1 + 32) bundleIdentifier:0];
-  WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 8));
-  v7 = [WeakRetained database];
-  v8 = [v7 addJournalEntry:v5 error:a3];
-
-  if (!v8)
-  {
-    return 0;
-  }
-
-LABEL_3:
   v9 = objc_loadWeakRetained((*(a1 + 40) + 8));
   v10 = [v9 database];
   v16[0] = MEMORY[0x277D85DD0];
@@ -2582,7 +2574,7 @@ LABEL_3:
 
 uint64_t __109__HDSourceManager__createSourcesWithCodables_provenance_sourceUUIDSToDelete_deleteSamples_transaction_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = [*(a1 + 32) decodedUUID];
   v5 = 1;
   v6 = HDSourceEntityPredicateForSourceWithUUID(v4, 1);
@@ -2597,12 +2589,12 @@ uint64_t __109__HDSourceManager__createSourcesWithCodables_provenance_sourceUUID
       v9 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
-        v12 = *(a1 + 32);
-        v13 = 138543618;
-        v14 = v4;
-        v15 = 2112;
-        v16 = v12;
-        _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "Failed to create source %{public}@ with codable source %@", &v13, 0x16u);
+        v11 = *(a1 + 32);
+        v12 = 138543618;
+        v13 = v4;
+        v14 = 2112;
+        v15 = v11;
+        _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "Failed to create source %{public}@ with codable source %@", &v12, 0x16u);
       }
 
       v8 = 0;
@@ -2610,7 +2602,6 @@ uint64_t __109__HDSourceManager__createSourcesWithCodables_provenance_sourceUUID
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -2667,7 +2658,7 @@ uint64_t __58__HDSourceManager_deleteSourceWithBundleIdentifier_error___block_in
 
 - (id)_sourceUUIDsForBundleIdentifier:(uint64_t)identifier error:
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (self)
   {
@@ -2677,28 +2668,28 @@ uint64_t __58__HDSourceManager_deleteSourceWithBundleIdentifier_error___block_in
     {
       if ([v6 count])
       {
-        v20 = v5;
+        v19 = v5;
         v8 = objc_alloc_init(MEMORY[0x277CBEB58]);
+        v20 = 0u;
         v21 = 0u;
         v22 = 0u;
         v23 = 0u;
-        v24 = 0u;
         v9 = v7;
-        v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v22;
+          v12 = *v21;
           while (2)
           {
             for (i = 0; i != v11; ++i)
             {
-              if (*v22 != v12)
+              if (*v21 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v14 = *(*(&v21 + 1) + 8 * i);
+              v14 = *(*(&v20 + 1) + 8 * i);
               WeakRetained = objc_loadWeakRetained(self + 1);
               v16 = [v14 sourceUUIDWithProfile:WeakRetained error:identifier];
 
@@ -2712,7 +2703,7 @@ uint64_t __58__HDSourceManager_deleteSourceWithBundleIdentifier_error___block_in
               [v8 addObject:v16];
             }
 
-            v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
             if (v11)
             {
               continue;
@@ -2725,7 +2716,7 @@ uint64_t __58__HDSourceManager_deleteSourceWithBundleIdentifier_error___block_in
         v17 = v8;
 LABEL_14:
 
-        v5 = v20;
+        v5 = v19;
         goto LABEL_17;
       }
 
@@ -2740,8 +2731,6 @@ LABEL_17:
 
   v17 = 0;
 LABEL_18:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -2800,20 +2789,20 @@ uint64_t __58__HDSourceManager_deleteSourceWithBundleIdentifier_error___block_in
 - (BOOL)_deleteSourcesWithUUIDs:(id)ds localSourceEntityCacheKey:(id)key syncIdentity:(id)identity deleteSamples:(BOOL)samples transaction:(id)transaction error:(id *)error
 {
   samplesCopy = samples;
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   keyCopy = key;
   identityCopy = identity;
   transactionCopy = transaction;
-  v44 = dsCopy;
+  v43 = dsCopy;
   if ([dsCopy count])
   {
     selfCopy = self;
-    v45 = transactionCopy;
+    v44 = transactionCopy;
     v17 = [transactionCopy databaseForEntityClass:objc_opt_class()];
-    v41 = HDSourceEntityPredicateForSourcesWithUUIDs(v44);
+    v40 = HDSourceEntityPredicateForSourcesWithUUIDs(v43);
     v18 = MEMORY[0x277CBEB98];
-    v19 = [HDSourceEntity sourcesWithPredicate:v41 includeDeleted:1 database:v17 error:error];
+    v19 = [HDSourceEntity sourcesWithPredicate:v40 includeDeleted:1 database:v17 error:error];
     v20 = [v18 setWithArray:v19];
 
     v21 = v20;
@@ -2829,19 +2818,19 @@ uint64_t __58__HDSourceManager_deleteSourceWithBundleIdentifier_error___block_in
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
-        v61 = __Block_byref_object_copy__86;
-        v62 = __Block_byref_object_dispose__86;
-        v63 = 0;
-        v50 = MEMORY[0x277D85DD0];
-        v51 = 3221225472;
-        v52 = __114__HDSourceManager__deleteSourcesWithUUIDs_localSourceEntityCacheKey_syncIdentity_deleteSamples_transaction_error___block_invoke;
-        v53 = &unk_2786203B8;
-        v54 = selfCopy;
-        v55 = v41;
-        v56 = v17;
+        v60 = __Block_byref_object_copy__86;
+        v61 = __Block_byref_object_dispose__86;
+        v62 = 0;
+        v49 = MEMORY[0x277D85DD0];
+        v50 = 3221225472;
+        v51 = __114__HDSourceManager__deleteSourcesWithUUIDs_localSourceEntityCacheKey_syncIdentity_deleteSamples_transaction_error___block_invoke;
+        v52 = &unk_2786203B8;
+        v53 = selfCopy;
+        v54 = v40;
+        v55 = v17;
         v20 = v20;
-        v57 = v20;
-        v58 = buf;
+        v56 = v20;
+        v57 = buf;
         v22 = HKWithAutoreleasePool();
         if ((v22 & 1) != 0 && [*(*&buf[8] + 40) count])
         {
@@ -2859,7 +2848,7 @@ uint64_t __58__HDSourceManager_deleteSourceWithBundleIdentifier_error___block_in
         else
         {
 LABEL_9:
-          v24 = [HDLogicalSourceEntity lookUpOrCreateLogicalSourceWithBundleIdentifier:&stru_283BF39C8 owningAppBundleIdentifier:0 transaction:v45 error:error];
+          v24 = [HDLogicalSourceEntity lookUpOrCreateLogicalSourceWithBundleIdentifier:&stru_283BF39C8 owningAppBundleIdentifier:0 transaction:v44 error:error];
           _HKInitializeLogging();
           v25 = *MEMORY[0x277CCC2A0];
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
@@ -2867,31 +2856,31 @@ LABEL_9:
             v26 = v25;
             v27 = [v20 count];
             *buf = 138543618;
-            *&buf[4] = v44;
+            *&buf[4] = v43;
             *&buf[12] = 2048;
             *&buf[14] = v27;
             _os_log_impl(&dword_228986000, v26, OS_LOG_TYPE_DEFAULT, "Deleting sources with UUIDs %{public}@ (%lu entities)", buf, 0x16u);
           }
 
-          v48 = 0u;
-          v49 = 0u;
-          v46 = 0u;
           v47 = 0u;
+          v48 = 0u;
+          v45 = 0u;
+          v46 = 0u;
           obj = v20;
-          v28 = [obj countByEnumeratingWithState:&v46 objects:v59 count:16];
+          v28 = [obj countByEnumeratingWithState:&v45 objects:v58 count:16];
           if (v28)
           {
-            v29 = *v47;
+            v29 = *v46;
             while (2)
             {
               for (i = 0; i != v28; ++i)
               {
-                if (*v47 != v29)
+                if (*v46 != v29)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v31 = *(*(&v46 + 1) + 8 * i);
+                v31 = *(*(&v45 + 1) + 8 * i);
                 if (identityCopy)
                 {
                   entity = [identityCopy entity];
@@ -2900,13 +2889,13 @@ LABEL_9:
 
                 else
                 {
-                  entity = [*(*(&v46 + 1) + 8 * i) valueForProperty:@"sync_identity" database:v17];
+                  entity = [*(*(&v45 + 1) + 8 * i) valueForProperty:@"sync_identity" database:v17];
                   persistentID = [entity integerValue];
                 }
 
                 v34 = persistentID;
 
-                if (![v31 deleteSourceWithTombstoneLogicalSourceID:objc_msgSend(v24 syncIdentity:"persistentID") database:v34 transaction:v17 error:{v45, error}])
+                if (![v31 deleteSourceWithTombstoneLogicalSourceID:objc_msgSend(v24 syncIdentity:"persistentID") database:v34 transaction:v17 error:{v44, error}])
                 {
                   LOBYTE(v22) = 0;
                   WeakRetained = obj;
@@ -2914,7 +2903,7 @@ LABEL_9:
                 }
               }
 
-              v28 = [obj countByEnumeratingWithState:&v46 objects:v59 count:16];
+              v28 = [obj countByEnumeratingWithState:&v45 objects:v58 count:16];
               if (v28)
               {
                 continue;
@@ -2924,24 +2913,24 @@ LABEL_9:
             }
           }
 
-          if ([HDLogicalSourceEntity deleteLogicalSourceEntitiesIfNecessaryWithTransaction:v45 error:error])
+          if ([HDLogicalSourceEntity deleteLogicalSourceEntitiesIfNecessaryWithTransaction:v44 error:error])
           {
             sourceEntityByBundleIdentifierCache = selfCopy->_sourceEntityByBundleIdentifierCache;
             if (keyCopy)
             {
-              [(HDDatabaseValueCache *)sourceEntityByBundleIdentifierCache removeObjectForKey:keyCopy transaction:v45];
+              [(HDDatabaseValueCache *)sourceEntityByBundleIdentifierCache removeObjectForKey:keyCopy transaction:v44];
             }
 
             else
             {
-              [(HDDatabaseValueCache *)sourceEntityByBundleIdentifierCache removeAllObjectsWithTransaction:v45];
+              [(HDDatabaseValueCache *)sourceEntityByBundleIdentifierCache removeAllObjectsWithTransaction:v44];
             }
 
-            [(HDDatabaseValueCache *)selfCopy->_clientSourceCache removeAllObjectsWithTransaction:v45];
-            [(HDDatabaseValueCache *)selfCopy->_localSourceForBundleIdentifierCache removeAllObjectsWithTransaction:v45];
+            [(HDDatabaseValueCache *)selfCopy->_clientSourceCache removeAllObjectsWithTransaction:v44];
+            [(HDDatabaseValueCache *)selfCopy->_localSourceForBundleIdentifierCache removeAllObjectsWithTransaction:v44];
             WeakRetained = objc_loadWeakRetained(&selfCopy->_profile);
             sourceOrderManager = [WeakRetained sourceOrderManager];
-            [sourceOrderManager resetCacheWithTransaction:v45];
+            [sourceOrderManager resetCacheWithTransaction:v44];
 
             LOBYTE(v22) = 1;
 LABEL_33:
@@ -2958,20 +2947,19 @@ LABEL_33:
         goto LABEL_35;
       }
 
-      [MEMORY[0x277CCA9B8] hk_assignError:error code:3 format:{@"No sources with UUIDs %@", v44}];
+      [MEMORY[0x277CCA9B8] hk_assignError:error code:3 format:{@"No sources with UUIDs %@", v43}];
     }
 
     LOBYTE(v22) = 0;
 LABEL_35:
 
-    transactionCopy = v45;
+    transactionCopy = v44;
     goto LABEL_36;
   }
 
   LOBYTE(v22) = 1;
 LABEL_36:
 
-  v38 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -3095,13 +3083,13 @@ uint64_t __93__HDSourceManager__logicalSourceIDsWithoutLocalSourceForSourcesWith
 
 void __59__HDSourceManager__fetchClientSourceForPersistentID_error___block_invoke(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = a1[5];
   WeakRetained = objc_loadWeakRetained((a1[6] + 8));
-  v10 = 0;
-  LOBYTE(v3) = [v2 setName:v3 profile:WeakRetained error:&v10];
-  v5 = v10;
+  v9 = 0;
+  LOBYTE(v3) = [v2 setName:v3 profile:WeakRetained error:&v9];
+  v5 = v9;
 
   if ((v3 & 1) == 0)
   {
@@ -3109,19 +3097,17 @@ void __59__HDSourceManager__fetchClientSourceForPersistentID_error___block_invok
     v6 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
-      v8 = a1[5];
-      v9 = a1[7];
+      v7 = a1[5];
+      v8 = a1[7];
       *buf = 138412802;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v9;
-      v15 = 2114;
-      v16 = v5;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v8;
+      v14 = 2114;
+      v15 = v5;
       _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Failed to set name %@ for source %@: %{public}@", buf, 0x20u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createSourceEntityForLocalDeviceWithError:(id *)error
@@ -3141,7 +3127,7 @@ void __59__HDSourceManager__fetchClientSourceForPersistentID_error___block_invok
 
 - (void)_applicationsUninstalledNotification:(id)notification
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   userInfo = [notification userInfo];
   v5 = [userInfo objectForKeyedSubscript:@"HDHealthDaemonApplicationsUninstalledBundleIdentifiersKey"];
 
@@ -3151,9 +3137,9 @@ void __59__HDSourceManager__fetchClientSourceForPersistentID_error___block_invok
     v7 = HDSourceEntityPredicateForSourcesWithBundleIdentifiers(v6);
     v8 = HDSourceEntityPredicateForSourcesWithOwnerBundleIdentifiers(v6);
     v9 = [MEMORY[0x277D10B70] disjunctionWithPredicate:v7 otherPredicate:v8];
-    v45 = 0;
-    v10 = [(HDSourceManager *)self _clientSourcesWithPredicate:v9 error:&v45];
-    v11 = v45;
+    v44 = 0;
+    v10 = [(HDSourceManager *)self _clientSourcesWithPredicate:v9 error:&v44];
+    v11 = v44;
     if (v10)
     {
       if (![v10 count])
@@ -3161,45 +3147,45 @@ void __59__HDSourceManager__fetchClientSourceForPersistentID_error___block_invok
         goto LABEL_32;
       }
 
-      v33 = v11;
-      v34 = v9;
-      v35 = v8;
-      v36 = v7;
-      v37 = v6;
-      v38 = v5;
-      v39 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v32 = v11;
+      v33 = v9;
+      v34 = v8;
+      v35 = v7;
+      v36 = v6;
+      v37 = v5;
+      v38 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v40 = 0u;
       v41 = 0u;
       v42 = 0u;
       v43 = 0u;
-      v44 = 0u;
-      v32 = v10;
+      v31 = v10;
       obj = v10;
-      v12 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
+      v12 = [obj countByEnumeratingWithState:&v40 objects:v47 count:16];
       if (!v12)
       {
         goto LABEL_24;
       }
 
       v13 = v12;
-      v14 = *v42;
+      v14 = *v41;
       while (1)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v42 != v14)
+          if (*v41 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
           if (self)
           {
-            v16 = *(*(&v41 + 1) + 8 * i);
+            v16 = *(*(&v40 + 1) + 8 * i);
             bundleIdentifier = [v16 bundleIdentifier];
             WeakRetained = objc_loadWeakRetained(&self->_profile);
             dataManager = [WeakRetained dataManager];
-            v47 = 0;
-            v20 = [dataManager hasSampleWithBundleIdentifier:bundleIdentifier error:&v47];
-            v21 = v47;
+            v46 = 0;
+            v20 = [dataManager hasSampleWithBundleIdentifier:bundleIdentifier error:&v46];
+            v21 = v46;
 
             if (v20 == 1)
             {
@@ -3213,9 +3199,9 @@ void __59__HDSourceManager__fetchClientSourceForPersistentID_error___block_invok
               if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543618;
-                v50 = bundleIdentifier;
-                v51 = 2114;
-                v52 = v21;
+                v49 = bundleIdentifier;
+                v50 = 2114;
+                v51 = v21;
                 _os_log_error_impl(&dword_228986000, v22, OS_LOG_TYPE_ERROR, "Error while checking if application %{public}@ has samples: %{public}@", buf, 0x16u);
               }
 
@@ -3224,9 +3210,9 @@ LABEL_21:
               continue;
             }
 
-            v46 = 0;
-            v23 = [(HDSourceManager *)self deleteSourceWithBundleIdentifier:bundleIdentifier error:&v46];
-            v24 = v46;
+            v45 = 0;
+            v23 = [(HDSourceManager *)self deleteSourceWithBundleIdentifier:bundleIdentifier error:&v45];
+            v24 = v45;
             _HKInitializeLogging();
             v25 = *MEMORY[0x277CCC2A0];
             v26 = *MEMORY[0x277CCC2A0];
@@ -3235,9 +3221,9 @@ LABEL_21:
               if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543618;
-                v50 = bundleIdentifier;
-                v51 = 2114;
-                v52 = v24;
+                v49 = bundleIdentifier;
+                v50 = 2114;
+                v51 = v24;
                 _os_log_error_impl(&dword_228986000, v25, OS_LOG_TYPE_ERROR, "Failed to delete source without data for uninstalled application %{public}@: %{public}@", buf, 0x16u);
               }
 
@@ -3247,16 +3233,16 @@ LABEL_21:
             if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v50 = bundleIdentifier;
+              v49 = bundleIdentifier;
               _os_log_impl(&dword_228986000, v25, OS_LOG_TYPE_DEFAULT, "Successfully deleted source without data for uninstalled application %{public}@", buf, 0xCu);
             }
 
             bundleIdentifier2 = [v16 bundleIdentifier];
-            [v39 addObject:bundleIdentifier2];
+            [v38 addObject:bundleIdentifier2];
           }
         }
 
-        v13 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
+        v13 = [obj countByEnumeratingWithState:&v40 objects:v47 count:16];
         if (!v13)
         {
 LABEL_24:
@@ -3266,17 +3252,17 @@ LABEL_24:
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v50 = v39;
+            v49 = v38;
             _os_log_impl(&dword_228986000, v28, OS_LOG_TYPE_DEFAULT, "Application(s) uninstalled, deleted sources without data: %{public}@", buf, 0xCu);
           }
 
-          v6 = v37;
-          v5 = v38;
-          v8 = v35;
-          v7 = v36;
-          v11 = v33;
-          v9 = v34;
-          v10 = v32;
+          v6 = v36;
+          v5 = v37;
+          v8 = v34;
+          v7 = v35;
+          v11 = v32;
+          v9 = v33;
+          v10 = v31;
           goto LABEL_32;
         }
       }
@@ -3289,7 +3275,7 @@ LABEL_24:
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v50 = v11;
+        v49 = v11;
         _os_log_error_impl(&dword_228986000, v30, OS_LOG_TYPE_ERROR, "Failed to look up sources to delete for uninstalled applications: %{public}@", buf, 0xCu);
       }
     }
@@ -3307,8 +3293,6 @@ LABEL_32:
       _os_log_impl(&dword_228986000, v29, OS_LOG_TYPE_DEFAULT, "Application uninstallation notification missing bundle identifiers", buf, 2u);
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 @end

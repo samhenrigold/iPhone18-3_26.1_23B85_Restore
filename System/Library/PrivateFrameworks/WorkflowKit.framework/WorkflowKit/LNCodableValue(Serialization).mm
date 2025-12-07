@@ -7,19 +7,15 @@
 
 - (id)wfSerializedRepresentation
 {
-  v6 = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E696ACB0];
   data = [self data];
   v3 = [v1 JSONObjectWithData:data options:0 error:0];
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 + (id)valueFromSerializedRepresentation:()Serialization variableProvider:parameter:
 {
-  v14 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   v9 = a5;
@@ -33,8 +29,6 @@
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

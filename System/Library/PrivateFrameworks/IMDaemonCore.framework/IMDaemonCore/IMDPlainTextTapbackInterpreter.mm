@@ -37,6 +37,7 @@
   selfCopy = self;
   LOBYTE(type) = IMDPlainTextTapbackInterpreter.parseString(_:emoji:infix:type:)(v10, v12, emoji, infix, type);
 
+  v12, v14, v15, v16, v17, v18, v19, v20, v22, v23;
   return type & 1;
 }
 

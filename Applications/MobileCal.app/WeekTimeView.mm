@@ -496,17 +496,26 @@
     [(UILabel *)weekNumberLabel setText:v10];
     [(UILabel *)self->_weekNumberLabel setAdjustsFontSizeToFitWidth:1];
     [(UILabel *)self->_weekNumberLabel setMinimumScaleFactor:0.75];
-    [(WeekTimeView *)self setNeedsLayout];
+    weekNumberLabel = [(WeekTimeView *)self setNeedsLayout];
   }
 
-  else if (weekNumberLabel)
+  else
   {
+    if (!weekNumberLabel)
+    {
+      goto LABEL_8;
+    }
+
+    v10 = 0;
     [(UILabel *)weekNumberLabel removeFromSuperview];
     v9 = self->_weekNumberLabel;
     self->_weekNumberLabel = 0;
   }
 
-  _objc_release_x1();
+  textCopy = v10;
+LABEL_8:
+
+  _objc_release_x1(weekNumberLabel, textCopy);
 }
 
 - (void)setOverlayMonthText:(id)text

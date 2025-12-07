@@ -99,14 +99,14 @@ uint64_t __43__ManagedConfigurationUtils_sharedInstance__block_invoke()
 
 - (void)profileConnectionDidReceiveProfileListChangedNotification:(id)notification userInfo:(id)info
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = [notification installedProfileIdentifiersWithFilterFlags:{1, info}];
   v6 = configurationLogHandle;
   if (os_log_type_enabled(configurationLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 138412290;
-    v12 = v5;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "Received ProfileListChangedNotification with installed visible profiles: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v5;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "Received ProfileListChangedNotification with installed visible profiles: %@", &v10, 0xCu);
   }
 
   installedVisibleProfileIdentifiers = [(ManagedConfigurationUtils *)self installedVisibleProfileIdentifiers];
@@ -117,13 +117,11 @@ uint64_t __43__ManagedConfigurationUtils_sharedInstance__block_invoke()
     v9 = [v5 copy];
     [(ManagedConfigurationUtils *)self setInstalledVisibleProfileIdentifiers:v9];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)profileConnectionDidReceiveEffectiveSettingsChangedNotification:(id)notification userInfo:(id)info
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   isDiagnosticSubmissionAllowed = [notification isDiagnosticSubmissionAllowed];
   v6 = debuggabilityLogHandle;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -134,17 +132,15 @@ uint64_t __43__ManagedConfigurationUtils_sharedInstance__block_invoke()
       v7 = @"ON";
     }
 
-    v9 = 138412290;
-    v10 = v7;
-    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "MCProfile Settings Changed to %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "MCProfile Settings Changed to %@", &v8, 0xCu);
   }
 
   if (isDiagnosticSubmissionAllowed != [(ManagedConfigurationUtils *)self diagnosticsAndUsageEnabled])
   {
     [(ManagedConfigurationUtils *)self setDiagnosticsAndUsageEnabled:isDiagnosticSubmissionAllowed];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

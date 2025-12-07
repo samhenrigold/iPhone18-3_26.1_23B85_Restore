@@ -160,12 +160,11 @@ LABEL_22:
 
 - (void)onboardingEligibilityForCountryCode:(void *)a1 device:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = a1;
-  v2 = objc_opt_class();
-  OUTLINED_FUNCTION_3_0(&dword_229486000, v3, v4, "[%{public}@] Watch version is nil", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  LODWORD(v9) = 138543362;
+  *(&v9 + 4) = objc_opt_class();
+  v2 = *(&v9 + 4);
+  OUTLINED_FUNCTION_3_0(&dword_229486000, v3, v4, "[%{public}@] Watch version is nil", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 @end

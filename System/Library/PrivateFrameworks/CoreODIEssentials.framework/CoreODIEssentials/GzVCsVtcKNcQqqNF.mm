@@ -9,12 +9,12 @@
 
 - (void)MypqGKKWznx4xnYa:(id)ya ygOPXTiKN0J02x0j:(id)j02x0j
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   yaCopy = ya;
   j02x0jCopy = j02x0j;
   if (yaCopy)
   {
-    v21 = +[Lt10zus2DOk3OfFf sharedInstance];
+    v20 = +[Lt10zus2DOk3OfFf sharedInstance];
     hkbEJeZjAQnItubK = [yaCopy HkbEJeZjAQnItubK];
     profileIDs = [yaCopy profileIDs];
     tbX4HHO0pTPaerrJ = [yaCopy TbX4HHO0pTPaerrJ];
@@ -26,30 +26,28 @@
     hostChallenge = [yaCopy hostChallenge];
     challengeResponse = [yaCopy challengeResponse];
     seid = [yaCopy seid];
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __54__GzVCsVtcKNcQqqNF_MypqGKKWznx4xnYa_ygOPXTiKN0J02x0j___block_invoke;
-    v26[3] = &unk_1E85EDDD8;
-    v27 = j02x0jCopy;
-    v18 = s08uY31jbmOEDLrH;
-    v12 = v21;
-    [v21 Z8aAH7stm0EYhyxg:hkbEJeZjAQnItubK dhAnc7b9U376IHnX:profileIDs xz5EHXEN4FjlhJbi:tbX4HHO0pTPaerrJ uhVTXyAfCFn7u0Ue:bGiN5h2SLMRO6B9R EQUjQp7JcQbqcPcD:rU1LRx5aI44CETG8 A5wDLa5TFdFZlz3A:yNHDWo3TCV TJKMyOe6zn5PdGIr:zeXRCfLmM5cdkEtz eCqgGM0WcnHOslnr:0 eCszfxdv3kUXvhgV:v18 uWp4aZpP2vLhc04Q:hostChallenge QZYtNpvp0hKd248p:challengeResponse oCwPYmtRv8s31KUH:seid completion:v26];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __54__GzVCsVtcKNcQqqNF_MypqGKKWznx4xnYa_ygOPXTiKN0J02x0j___block_invoke;
+    v25[3] = &unk_1E85EDDD8;
+    v26 = j02x0jCopy;
+    v17 = s08uY31jbmOEDLrH;
+    v12 = v20;
+    [v20 Z8aAH7stm0EYhyxg:hkbEJeZjAQnItubK dhAnc7b9U376IHnX:profileIDs xz5EHXEN4FjlhJbi:tbX4HHO0pTPaerrJ uhVTXyAfCFn7u0Ue:bGiN5h2SLMRO6B9R EQUjQp7JcQbqcPcD:rU1LRx5aI44CETG8 A5wDLa5TFdFZlz3A:yNHDWo3TCV TJKMyOe6zn5PdGIr:zeXRCfLmM5cdkEtz eCqgGM0WcnHOslnr:0 eCszfxdv3kUXvhgV:v17 uWp4aZpP2vLhc04Q:hostChallenge QZYtNpvp0hKd248p:challengeResponse oCwPYmtRv8s31KUH:seid completion:v25];
   }
 
   else
   {
     v13 = MEMORY[0x1E696ABC0];
-    v28 = *MEMORY[0x1E696A578];
+    v27 = *MEMORY[0x1E696A578];
     mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
     v15 = [mainBundle localizedStringForKey:@"empty request" value:&stru_1F56D1DE0 table:0];
-    v29[0] = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v28[0] = v15;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
     v12 = [v13 errorWithDomain:@"com.apple.asd.ca" code:-27100 userInfo:v16];
 
     (*(j02x0jCopy + 2))(j02x0jCopy, 0, 0, 0xFFFFFFFFLL, v12);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __54__GzVCsVtcKNcQqqNF_MypqGKKWznx4xnYa_ygOPXTiKN0J02x0j___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -122,7 +120,7 @@ LABEL_11:
 
 - (void)MypqGKKWznx4xnYa:(id)ya l8OCYbP9LFIvnTwG:(unint64_t)g ygOPXTiKN0J02x0j:(id)j02x0j
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   yaCopy = ya;
   j02x0jCopy = j02x0j;
   if (yaCopy)
@@ -140,13 +138,13 @@ LABEL_11:
     challengeResponse = [yaCopy challengeResponse];
     [yaCopy seid];
     v14 = v13 = j02x0jCopy;
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __71__GzVCsVtcKNcQqqNF_MypqGKKWznx4xnYa_l8OCYbP9LFIvnTwG_ygOPXTiKN0J02x0j___block_invoke;
-    v29[3] = &unk_1E85EDDD8;
-    v30 = v13;
-    v28 = v9;
-    [v9 Z8aAH7stm0EYhyxg:hkbEJeZjAQnItubK dhAnc7b9U376IHnX:profileIDs xz5EHXEN4FjlhJbi:tbX4HHO0pTPaerrJ uhVTXyAfCFn7u0Ue:bGiN5h2SLMRO6B9R EQUjQp7JcQbqcPcD:rU1LRx5aI44CETG8 A5wDLa5TFdFZlz3A:yNHDWo3TCV TJKMyOe6zn5PdGIr:zeXRCfLmM5cdkEtz eCqgGM0WcnHOslnr:g eCszfxdv3kUXvhgV:s08uY31jbmOEDLrH uWp4aZpP2vLhc04Q:hostChallenge QZYtNpvp0hKd248p:challengeResponse oCwPYmtRv8s31KUH:v14 completion:v29];
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __71__GzVCsVtcKNcQqqNF_MypqGKKWznx4xnYa_l8OCYbP9LFIvnTwG_ygOPXTiKN0J02x0j___block_invoke;
+    v28[3] = &unk_1E85EDDD8;
+    v29 = v13;
+    v27 = v9;
+    [v9 Z8aAH7stm0EYhyxg:hkbEJeZjAQnItubK dhAnc7b9U376IHnX:profileIDs xz5EHXEN4FjlhJbi:tbX4HHO0pTPaerrJ uhVTXyAfCFn7u0Ue:bGiN5h2SLMRO6B9R EQUjQp7JcQbqcPcD:rU1LRx5aI44CETG8 A5wDLa5TFdFZlz3A:yNHDWo3TCV TJKMyOe6zn5PdGIr:zeXRCfLmM5cdkEtz eCqgGM0WcnHOslnr:g eCszfxdv3kUXvhgV:s08uY31jbmOEDLrH uWp4aZpP2vLhc04Q:hostChallenge QZYtNpvp0hKd248p:challengeResponse oCwPYmtRv8s31KUH:v14 completion:v28];
 
     j02x0jCopy = v13;
   }
@@ -154,18 +152,16 @@ LABEL_11:
   else
   {
     v15 = MEMORY[0x1E696ABC0];
-    v31 = *MEMORY[0x1E696A578];
+    v30 = *MEMORY[0x1E696A578];
     mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
     v17 = [mainBundle localizedStringForKey:@"empty request" value:&stru_1F56D1DE0 table:0];
-    v32[0] = v17;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+    v31[0] = v17;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
     v19 = [v15 errorWithDomain:@"com.apple.asd.ca" code:-27100 userInfo:v18];
 
-    v28 = v19;
+    v27 = v19;
     (*(j02x0jCopy + 2))(j02x0jCopy, 0, 0, 0, 0xFFFFFFFFLL, v19);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __71__GzVCsVtcKNcQqqNF_MypqGKKWznx4xnYa_l8OCYbP9LFIvnTwG_ygOPXTiKN0J02x0j___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)

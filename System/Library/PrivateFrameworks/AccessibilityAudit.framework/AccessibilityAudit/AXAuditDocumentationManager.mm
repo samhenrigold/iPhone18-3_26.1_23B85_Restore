@@ -33,7 +33,6 @@
 
 uint64_t __44__AXAuditDocumentationManager_sharedManager__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedManager_instance_5 = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -59,150 +58,148 @@ uint64_t __44__AXAuditDocumentationManager_sharedManager__block_invoke(uint64_t 
 
 void __42__AXAuditDocumentationManager_webpageURLs__block_invoke(uint64_t a1)
 {
-  v52[46] = *MEMORY[0x277D85DE8];
-  v51[0] = &unk_284FC3E50;
-  v50 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilitylabel()"];
-  v52[0] = v50;
-  v51[1] = &unk_284FC3E68;
-  v49 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilitytitle()"];
-  v52[1] = v49;
-  v51[2] = &unk_284FC3E80;
-  v48 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityvalue()"];
-  v52[2] = v48;
-  v51[3] = &unk_284FC3E98;
-  v47 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityroledescription()"];
-  v52[3] = v47;
-  v51[4] = &unk_284FC3EB0;
-  v46 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilitychildren()"];
-  v52[4] = v46;
-  v51[5] = &unk_284FC3EC8;
-  v45 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilitychildreninnavigationorder()"];
-  v52[5] = v45;
-  v51[6] = &unk_284FC3EE0;
-  v44 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityextrasmenubar()"];
-  v52[6] = v44;
-  v51[7] = &unk_284FC3EF8;
-  v43 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilitylayoutarea/accessibilityfocuseduielement"];
-  v52[7] = v43;
-  v51[8] = &unk_284FC3F10;
-  v42 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityfocusedwindow()"];
-  v52[8] = v42;
-  v51[9] = &unk_284FC3F28;
-  v41 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/isaccessibilityfrontmost()"];
-  v52[9] = v41;
-  v51[10] = &unk_284FC3F40;
-  v40 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibility/attribute/1530325-topleveluielement"];
-  v52[10] = v40;
-  v51[11] = &unk_284FC3F58;
-  v39 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/isaccessibilityhidden()"];
-  v52[11] = v39;
-  v51[12] = &unk_284FC3F70;
-  v38 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilitymainwindow()"];
-  v52[12] = v38;
-  v51[13] = &unk_284FC3F88;
-  v37 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilitymenubar()"];
-  v52[13] = v37;
-  v51[14] = &unk_284FC3FA0;
-  v36 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityrole()"];
-  v52[14] = v36;
-  v51[15] = &unk_284FC3FB8;
-  v35 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilitywindows()"];
-  v52[15] = v35;
-  v51[16] = &unk_284FC3FD0;
-  v34 = [*(a1 + 32) stringByAppendingString:@"/documentation/objectivec/nsobject/1411337-classname"];
-  v52[16] = v34;
-  v51[17] = &unk_284FC3FE8;
-  v33 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityperformshowmenu()"];
-  v52[17] = v33;
-  v51[18] = &unk_284FC4000;
-  v32 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityperformpress()"];
-  v52[18] = v32;
-  v51[19] = &unk_284FC4018;
-  v31 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilitypositionattribute"];
-  v52[19] = v31;
-  v51[20] = &unk_284FC4030;
-  v30 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilitysizeattribute"];
-  v52[20] = v30;
-  v51[21] = &unk_284FC4048;
-  v29 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityparent()"];
-  v52[21] = v29;
-  v51[22] = &unk_284FC4060;
-  v28 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityhelp()"];
-  v52[22] = v28;
-  v51[23] = &unk_284FC4078;
-  v27 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityframe()"];
-  v52[23] = v27;
-  v51[24] = &unk_284FC4090;
-  v26 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/isaccessibilityfocused()"];
-  v52[24] = v26;
-  v51[25] = &unk_284FC40A8;
-  v25 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/isaccessibilityenabled()"];
-  v52[25] = v25;
-  v51[26] = &unk_284FC40C0;
-  v24 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityactivationpoint()"];
-  v52[26] = v24;
-  v51[27] = &unk_284FC40D8;
-  v23 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilitywindow()"];
-  v52[27] = v23;
-  v51[28] = &unk_284FC40F0;
-  v22 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityurl()"];
-  v52[28] = v22;
-  v51[29] = &unk_284FC4108;
-  v21 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilitytopleveluielement()"];
-  v52[29] = v21;
-  v51[30] = &unk_284FC4120;
-  v20 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilitysubrole()"];
-  v52[30] = v20;
-  v51[31] = &unk_284FC4138;
-  v19 = [*(a1 + 32) stringByAppendingString:@"/documentation/uikit/uiaccessibilityelement/1619577-accessibilitylabel"];
-  v52[31] = v19;
-  v51[32] = &unk_284FC4150;
-  v18 = [*(a1 + 32) stringByAppendingString:@"/documentation/uikit/uiaccessibilityelement/1619583-accessibilityvalue"];
-  v52[32] = v18;
-  v51[33] = &unk_284FC4168;
-  v17 = [*(a1 + 32) stringByAppendingString:@"/documentation/uikit/uiaccessibilityelement/1619584-accessibilitytraits"];
-  v52[33] = v17;
-  v51[34] = &unk_284FC4180;
-  v16 = [*(a1 + 32) stringByAppendingString:@"/documentation/uikit/uiaccessibilityidentification"];
-  v52[34] = v16;
-  v51[35] = &unk_284FC4198;
-  v15 = [*(a1 + 32) stringByAppendingString:@"/documentation/objectivec/nsobject/uiaccessibilityaction"];
-  v52[35] = v15;
-  v51[36] = &unk_284FC41B0;
+  v51[46] = *MEMORY[0x277D85DE8];
+  v50[0] = &unk_284FC3E50;
+  v49 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilitylabel()"];
+  v51[0] = v49;
+  v50[1] = &unk_284FC3E68;
+  v48 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilitytitle()"];
+  v51[1] = v48;
+  v50[2] = &unk_284FC3E80;
+  v47 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityvalue()"];
+  v51[2] = v47;
+  v50[3] = &unk_284FC3E98;
+  v46 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityroledescription()"];
+  v51[3] = v46;
+  v50[4] = &unk_284FC3EB0;
+  v45 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilitychildren()"];
+  v51[4] = v45;
+  v50[5] = &unk_284FC3EC8;
+  v44 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilitychildreninnavigationorder()"];
+  v51[5] = v44;
+  v50[6] = &unk_284FC3EE0;
+  v43 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityextrasmenubar()"];
+  v51[6] = v43;
+  v50[7] = &unk_284FC3EF8;
+  v42 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilitylayoutarea/accessibilityfocuseduielement"];
+  v51[7] = v42;
+  v50[8] = &unk_284FC3F10;
+  v41 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityfocusedwindow()"];
+  v51[8] = v41;
+  v50[9] = &unk_284FC3F28;
+  v40 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/isaccessibilityfrontmost()"];
+  v51[9] = v40;
+  v50[10] = &unk_284FC3F40;
+  v39 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibility/attribute/1530325-topleveluielement"];
+  v51[10] = v39;
+  v50[11] = &unk_284FC3F58;
+  v38 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/isaccessibilityhidden()"];
+  v51[11] = v38;
+  v50[12] = &unk_284FC3F70;
+  v37 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilitymainwindow()"];
+  v51[12] = v37;
+  v50[13] = &unk_284FC3F88;
+  v36 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilitymenubar()"];
+  v51[13] = v36;
+  v50[14] = &unk_284FC3FA0;
+  v35 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityrole()"];
+  v51[14] = v35;
+  v50[15] = &unk_284FC3FB8;
+  v34 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilitywindows()"];
+  v51[15] = v34;
+  v50[16] = &unk_284FC3FD0;
+  v33 = [*(a1 + 32) stringByAppendingString:@"/documentation/objectivec/nsobject/1411337-classname"];
+  v51[16] = v33;
+  v50[17] = &unk_284FC3FE8;
+  v32 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityperformshowmenu()"];
+  v51[17] = v32;
+  v50[18] = &unk_284FC4000;
+  v31 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityperformpress()"];
+  v51[18] = v31;
+  v50[19] = &unk_284FC4018;
+  v30 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilitypositionattribute"];
+  v51[19] = v30;
+  v50[20] = &unk_284FC4030;
+  v29 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilitysizeattribute"];
+  v51[20] = v29;
+  v50[21] = &unk_284FC4048;
+  v28 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityparent()"];
+  v51[21] = v28;
+  v50[22] = &unk_284FC4060;
+  v27 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityhelp()"];
+  v51[22] = v27;
+  v50[23] = &unk_284FC4078;
+  v26 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityframe()"];
+  v51[23] = v26;
+  v50[24] = &unk_284FC4090;
+  v25 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/isaccessibilityfocused()"];
+  v51[24] = v25;
+  v50[25] = &unk_284FC40A8;
+  v24 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/isaccessibilityenabled()"];
+  v51[25] = v24;
+  v50[26] = &unk_284FC40C0;
+  v23 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityactivationpoint()"];
+  v51[26] = v23;
+  v50[27] = &unk_284FC40D8;
+  v22 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilitywindow()"];
+  v51[27] = v22;
+  v50[28] = &unk_284FC40F0;
+  v21 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilityurl()"];
+  v51[28] = v21;
+  v50[29] = &unk_284FC4108;
+  v20 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilitytopleveluielement()"];
+  v51[29] = v20;
+  v50[30] = &unk_284FC4120;
+  v19 = [*(a1 + 32) stringByAppendingString:@"/documentation/appkit/nsaccessibilityprotocol/accessibilitysubrole()"];
+  v51[30] = v19;
+  v50[31] = &unk_284FC4138;
+  v18 = [*(a1 + 32) stringByAppendingString:@"/documentation/uikit/uiaccessibilityelement/1619577-accessibilitylabel"];
+  v51[31] = v18;
+  v50[32] = &unk_284FC4150;
+  v17 = [*(a1 + 32) stringByAppendingString:@"/documentation/uikit/uiaccessibilityelement/1619583-accessibilityvalue"];
+  v51[32] = v17;
+  v50[33] = &unk_284FC4168;
+  v16 = [*(a1 + 32) stringByAppendingString:@"/documentation/uikit/uiaccessibilityelement/1619584-accessibilitytraits"];
+  v51[33] = v16;
+  v50[34] = &unk_284FC4180;
+  v15 = [*(a1 + 32) stringByAppendingString:@"/documentation/uikit/uiaccessibilityidentification"];
+  v51[34] = v15;
+  v50[35] = &unk_284FC4198;
+  v14 = [*(a1 + 32) stringByAppendingString:@"/documentation/objectivec/nsobject/uiaccessibilityaction"];
+  v51[35] = v14;
+  v50[36] = &unk_284FC41B0;
   v2 = [*(a1 + 32) stringByAppendingString:@"/documentation/objectivec/nsobject/1615093-accessibilityhint"];
-  v52[36] = v2;
-  v51[37] = &unk_284FC41C8;
+  v51[36] = v2;
+  v50[37] = &unk_284FC41C8;
   v3 = [*(a1 + 32) stringByAppendingString:@"/documentation/objectivec/nsobject/3197989-accessibilityuserinputlabels"];
-  v52[37] = v3;
-  v51[38] = &unk_284FC41E0;
+  v51[37] = v3;
+  v50[38] = &unk_284FC41E0;
   v4 = [*(a1 + 32) stringByAppendingString:@"/documentation/objectivec/nsobject/1615165-accessibilityactivate"];
-  v52[38] = v4;
-  v51[39] = &unk_284FC41F8;
+  v51[38] = v4;
+  v50[39] = &unk_284FC41F8;
   v5 = [*(a1 + 32) stringByAppendingString:@"/documentation/objectivec/nsobject/1615076-accessibilityincrement"];
-  v52[39] = v5;
-  v51[40] = &unk_284FC4210;
+  v51[39] = v5;
+  v50[40] = &unk_284FC4210;
   v6 = [*(a1 + 32) stringByAppendingString:@"/documentation/objectivec/nsobject/1615169-accessibilitydecrement"];
-  v52[40] = v6;
-  v51[41] = &unk_284FC4228;
+  v51[40] = v6;
+  v50[41] = &unk_284FC4228;
   v7 = [*(a1 + 32) stringByAppendingString:@"/documentation/objectivec/nsobject/1615161-accessibilityscroll"];
-  v52[41] = v7;
-  v51[42] = &unk_284FC4240;
+  v51[41] = v7;
+  v50[42] = &unk_284FC4240;
   v8 = [*(a1 + 32) stringByAppendingString:@"/documentation/objectivec/nsobject/1615202-accessibilitytraits"];
-  v52[42] = v8;
-  v51[43] = &unk_284FC4258;
+  v51[42] = v8;
+  v50[43] = &unk_284FC4258;
   v9 = [*(a1 + 32) stringByAppendingString:@"/documentation/uikit/uiaccessibility/uiaccessibilitycontainertype"];
-  v52[43] = v9;
-  v51[44] = &unk_284FC4270;
+  v51[43] = v9;
+  v50[44] = &unk_284FC4270;
   v10 = [*(a1 + 32) stringByAppendingString:@"/documentation/objectivec/nsobject/1615181-accessibilitylabel"];
-  v52[44] = v10;
-  v51[45] = &unk_284FC4288;
+  v51[44] = v10;
+  v50[45] = &unk_284FC4288;
   v11 = [*(a1 + 32) stringByAppendingString:@"/documentation/objectivec/nsobject/1615117-accessibilityvalue"];
-  v52[45] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:46];
+  v51[45] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:46];
   v13 = webpageURLs_returnValue;
   webpageURLs_returnValue = v12;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (id)appleDocViewerURLs
@@ -222,28 +219,28 @@ void __42__AXAuditDocumentationManager_webpageURLs__block_invoke(uint64_t a1)
 
 void __49__AXAuditDocumentationManager_appleDocViewerURLs__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   obj = [*(a1 + 32) webpageURLs];
-  v2 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v2 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v15;
+    v4 = *v14;
     do
     {
       v5 = 0;
       do
       {
-        if (*v15 != v4)
+        if (*v14 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v14 + 1) + 8 * v5);
+        v6 = *(*(&v13 + 1) + 8 * v5);
         v7 = [*(a1 + 32) webpageURLs];
         v8 = [v7 objectForKey:v6];
 
@@ -262,13 +259,11 @@ void __49__AXAuditDocumentationManager_appleDocViewerURLs__block_invoke(uint64_t
       }
 
       while (v3 != v5);
-      v3 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v3 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v3);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)appleDocURLForType:(int64_t)type

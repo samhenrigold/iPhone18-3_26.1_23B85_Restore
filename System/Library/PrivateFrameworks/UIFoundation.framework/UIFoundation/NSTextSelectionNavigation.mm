@@ -405,7 +405,7 @@ void __48__NSTextSelectionNavigation__setupCharacterSets__block_invoke()
   return v16;
 }
 
-uint64_t __97__NSTextSelectionNavigation__copyRangeForTextLineFragmentAtLocation_affinity_copyEnclosingRange___block_invoke(void *a1, uint64_t a2, void *a3, void *a4, _BYTE *a5)
+id __97__NSTextSelectionNavigation__copyRangeForTextLineFragmentAtLocation_affinity_copyEnclosingRange___block_invoke(void *a1, uint64_t a2, void *a3, void *a4, _BYTE *a5)
 {
   if (a1[7] == 1 || (result = [objc_msgSend(a3 "location")], (result & 1) == 0))
   {
@@ -1764,25 +1764,26 @@ id __149__NSTextSelectionNavigation__visualDestinationLocationForTextSelection_o
 
 id __149__NSTextSelectionNavigation__visualDestinationLocationForTextSelection_originLocation_direction_destination_extending_confined_affinity_crossedLine___block_invoke_2(uint64_t a1, void *a2, void *a3, uint64_t a4, _BYTE *a5)
 {
+  v6 = a3;
   if (*(a1 + 40) == 1)
   {
-    +[NSTextSelectionNavigation _setupCharacterSets];
+    [NSTextSelectionNavigation _setupCharacterSets:a3];
     [a2 rangeOfCharacterFromSet:__NSSkippableSet options:8];
     if (v9)
     {
-      a3 = 0;
+      v6 = 0;
     }
   }
 
-  result = a3;
+  result = v6;
   *(*(*(a1 + 32) + 8) + 40) = result;
   *a5 = 1;
   return result;
 }
 
-uint64_t __149__NSTextSelectionNavigation__visualDestinationLocationForTextSelection_originLocation_direction_destination_extending_confined_affinity_crossedLine___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, _BYTE *a5)
+id __149__NSTextSelectionNavigation__visualDestinationLocationForTextSelection_originLocation_direction_destination_extending_confined_affinity_crossedLine___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, _BYTE *a5)
 {
-  result = [a3 isEqualToTextRange:*(*(*(a1 + 32) + 8) + 40)];
+  result = [a3 isEqualToTextRange:{*(*(*(a1 + 32) + 8) + 40), a4}];
   if ((result & 1) == 0)
   {
     result = [a3 containsRange:*(*(*(a1 + 32) + 8) + 40)];
@@ -2128,9 +2129,9 @@ LABEL_68:
   return [infoCopy rangesBetweenStartingOffset:!_isVisuallyContiguousNavigation endOffset:v37 logicallyContinuous:offsetCopy5];
 }
 
-uint64_t __125__NSTextSelectionNavigation__rangesForSelectionStartingOffset_inLineFragmentInfo_endingOffset_inLineFragmentInfo_contiguous___block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, _BYTE *a5)
+void *__125__NSTextSelectionNavigation__rangesForSelectionStartingOffset_inLineFragmentInfo_endingOffset_inLineFragmentInfo_contiguous___block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, _BYTE *a5)
 {
-  v8 = [*(a1 + 32) _lineFragmentInfoForRange:?];
+  v8 = [*(a1 + 32) _lineFragmentInfoForRange:{a3, a4}];
   if (v8)
   {
     v9 = [v8 rangesBetweenStartingOffset:0 endOffset:*(a1 + 56) logicallyContinuous:*(a1 + 64)];
@@ -2632,7 +2633,7 @@ LABEL_61:
   return v11;
 }
 
-uint64_t __107__NSTextSelectionNavigation_destinationSelectionForTextSelection_direction_destination_extending_confined___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+NSTextRange *__107__NSTextSelectionNavigation_destinationSelectionForTextSelection_direction_destination_extending_confined___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v8 = *(a1 + 32);
   if (*(a1 + 64) == 1)
@@ -3077,7 +3078,7 @@ LABEL_63:
   return v49;
 }
 
-uint64_t __119__NSTextSelectionNavigation_textSelectionsInteractingAtPoint_inContainerAtLocation_anchors_modifiers_selecting_bounds___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__119__NSTextSelectionNavigation_textSelectionsInteractingAtPoint_inContainerAtLocation_anchors_modifiers_selecting_bounds___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isTransient];
   if (result)
@@ -3089,7 +3090,7 @@ uint64_t __119__NSTextSelectionNavigation_textSelectionsInteractingAtPoint_inCon
   return result;
 }
 
-uint64_t __119__NSTextSelectionNavigation_textSelectionsInteractingAtPoint_inContainerAtLocation_anchors_modifiers_selecting_bounds___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+char *__119__NSTextSelectionNavigation_textSelectionsInteractingAtPoint_inContainerAtLocation_anchors_modifiers_selecting_bounds___block_invoke_2(uint64_t a1, void *a2, char *a3, _BYTE *a4)
 {
   v7 = [*(a1 + 32) _rangeOfCombinedLineFragmentsInRanges:{objc_msgSend(a2, "textRanges")}];
   result = [*(*(a1 + 64) + 8) compare:{objc_msgSend(v7, "location")}];
@@ -3166,7 +3167,7 @@ id __119__NSTextSelectionNavigation_textSelectionsInteractingAtPoint_inContainer
   return result;
 }
 
-uint64_t __119__NSTextSelectionNavigation_textSelectionsInteractingAtPoint_inContainerAtLocation_anchors_modifiers_selecting_bounds___block_invoke_4(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__119__NSTextSelectionNavigation_textSelectionsInteractingAtPoint_inContainerAtLocation_anchors_modifiers_selecting_bounds___block_invoke_4(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   if (([objc_msgSend(*(*(*(a1 + 40) + 8) + 40) "location")] & 1) != 0 || (result = objc_msgSend(objc_msgSend(a2, "location"), "isEqual:", objc_msgSend(*(*(*(a1 + 40) + 8) + 40), "endLocation")), result))
   {
@@ -3212,7 +3213,7 @@ void __119__NSTextSelectionNavigation_textSelectionsInteractingAtPoint_inContain
   }
 }
 
-uint64_t __119__NSTextSelectionNavigation_textSelectionsInteractingAtPoint_inContainerAtLocation_anchors_modifiers_selecting_bounds___block_invoke_6(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__119__NSTextSelectionNavigation_textSelectionsInteractingAtPoint_inContainerAtLocation_anchors_modifiers_selecting_bounds___block_invoke_6(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 containsLocation:*(a1 + 32)];
   if (result)
@@ -3341,7 +3342,7 @@ uint64_t __119__NSTextSelectionNavigation_textSelectionsInteractingAtPoint_inCon
   return [(NSTextSelectionNavigation *)self _rangesWithDirectionalFormatAdjustmentsForRanges:textRanges];
 }
 
-uint64_t __111__NSTextSelectionNavigation_deletionRangesForTextSelection_direction_destination_allowsDecomposition_confined___block_invoke(uint64_t result, void *a2, void *a3, uint64_t a4, _BYTE *a5)
+unint64_t __111__NSTextSelectionNavigation_deletionRangesForTextSelection_direction_destination_allowsDecomposition_confined___block_invoke(unint64_t result, void *a2, void *a3, uint64_t a4, _BYTE *a5)
 {
   v7 = result;
   if (!*(result + 48))

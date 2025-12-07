@@ -13,7 +13,7 @@
   selfCopy = self;
   [v4 finishTasksAndInvalidate];
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for KnoxServiceClient();
+  v6.super_class = type metadata accessor for KnoxServiceClient(0);
   [(KnoxServiceClient *)&v6 dealloc];
 }
 

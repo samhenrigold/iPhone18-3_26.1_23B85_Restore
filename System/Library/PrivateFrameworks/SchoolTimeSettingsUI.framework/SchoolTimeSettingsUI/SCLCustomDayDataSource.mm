@@ -66,28 +66,28 @@ void __59__SCLCustomDayDataSource_initWithListController_viewModel___block_invok
 
 - (void)updateSpecifiersWithCurrentCalendar
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   weekdaySpecifiers = [(SCLCustomDayDataSource *)self weekdaySpecifiers];
-  v5 = [weekdaySpecifiers countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [weekdaySpecifiers countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(weekdaySpecifiers);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         v10 = [(SCLCustomDayDataSource *)self dayForSpecifier:v9]- 1;
         weekdaySymbols = [currentCalendar weekdaySymbols];
         v12 = [weekdaySymbols objectAtIndex:v10];
@@ -95,7 +95,7 @@ void __59__SCLCustomDayDataSource_initWithListController_viewModel___block_invok
         [v9 setName:v12];
       }
 
-      v6 = [weekdaySpecifiers countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [weekdaySpecifiers countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
@@ -109,7 +109,6 @@ void __59__SCLCustomDayDataSource_initWithListController_viewModel___block_invok
   [array addObjectsFromArray:weekdaySpecifiers2];
 
   [(SCLSpecifierDataSource *)self setSpecifiers:array];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)dayForSpecifier:(id)specifier
@@ -122,27 +121,27 @@ void __59__SCLCustomDayDataSource_initWithListController_viewModel___block_invok
 
 - (id)specifierForDay:(int64_t)day
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   weekdaySpecifiers = [(SCLCustomDayDataSource *)self weekdaySpecifiers];
-  v6 = [weekdaySpecifiers countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [weekdaySpecifiers countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(weekdaySpecifiers);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if ([(SCLCustomDayDataSource *)self dayForSpecifier:v10]== day)
         {
           v11 = v10;
@@ -150,7 +149,7 @@ void __59__SCLCustomDayDataSource_initWithListController_viewModel___block_invok
         }
       }
 
-      v7 = [weekdaySpecifiers countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [weekdaySpecifiers countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -162,8 +161,6 @@ void __59__SCLCustomDayDataSource_initWithListController_viewModel___block_invok
 
   v11 = 0;
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -183,7 +180,7 @@ LABEL_11:
 
 - (void)showEditorForSpecifier:(id)specifier
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   v5 = [(SCLCustomDayDataSource *)self dayForSpecifier:specifierCopy];
   v6 = objc_alloc_init(SCLSettingsViewModel);
@@ -200,8 +197,8 @@ LABEL_11:
   if (!v11)
   {
     v12 = +[SCLTimeIntervalModel defaultTimeInterval];
-    v19[0] = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18[0] = v12;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     [(SCLSettingsViewModel *)v6 setTimeIntervals:v13];
   }
 
@@ -213,69 +210,67 @@ LABEL_11:
   [(SCLCustomDayViewController *)v16 setDelegate:self];
   listController = [(SCLSpecifierDataSource *)self listController];
   [listController showController:v16 animate:1];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)customDayViewControllerWillDismiss:(id)dismiss
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dismissCopy = dismiss;
   viewModel = [dismissCopy viewModel];
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x2020000000;
-  v31 = 1;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 1;
   [viewModel repeatSchedule];
-  v27[5] = MEMORY[0x277D85DD0];
-  v27[6] = 3221225472;
-  v27[7] = __61__SCLCustomDayDataSource_customDayViewControllerWillDismiss___block_invoke;
-  v27[8] = &unk_279B6F198;
-  v27[9] = &v28;
+  v26[5] = MEMORY[0x277D85DD0];
+  v26[6] = 3221225472;
+  v26[7] = __61__SCLCustomDayDataSource_customDayViewControllerWillDismiss___block_invoke;
+  v26[8] = &unk_279B6F198;
+  v26[9] = &v27;
   SCLEnumerateDaysInRepeatSchedule();
   viewModel2 = [(SCLSpecifierDataSource *)self viewModel];
   customSchedule = [viewModel2 customSchedule];
   recurrences = [customSchedule recurrences];
   v8 = [recurrences mutableCopy];
 
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __61__SCLCustomDayDataSource_customDayViewControllerWillDismiss___block_invoke_2;
-  v27[3] = &unk_279B6F1E8;
-  v27[4] = &v28;
-  v9 = [v8 indexesOfObjectsPassingTest:v27];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __61__SCLCustomDayDataSource_customDayViewControllerWillDismiss___block_invoke_2;
+  v26[3] = &unk_279B6F1E8;
+  v26[4] = &v27;
+  v9 = [v8 indexesOfObjectsPassingTest:v26];
   [v8 removeObjectsAtIndexes:v9];
   if ([viewModel isEnabled])
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     timeIntervals = [viewModel timeIntervals];
-    v11 = [timeIntervals countByEnumeratingWithState:&v23 objects:v32 count:16];
+    v11 = [timeIntervals countByEnumeratingWithState:&v22 objects:v31 count:16];
     if (v11)
     {
-      v12 = *v24;
+      v12 = *v23;
       do
       {
         v13 = 0;
         do
         {
-          if (*v24 != v12)
+          if (*v23 != v12)
           {
             objc_enumerationMutation(timeIntervals);
           }
 
-          v14 = *(*(&v23 + 1) + 8 * v13);
+          v14 = *(*(&v22 + 1) + 8 * v13);
           v15 = objc_alloc(MEMORY[0x277D4B748]);
-          v16 = [v15 initWithTimeInterval:v14 day:v29[3]];
+          v16 = [v15 initWithTimeInterval:v14 day:v28[3]];
           [v8 addObject:v16];
 
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [timeIntervals countByEnumeratingWithState:&v23 objects:v32 count:16];
+        v11 = [timeIntervals countByEnumeratingWithState:&v22 objects:v31 count:16];
       }
 
       while (v11);
@@ -287,11 +282,10 @@ LABEL_11:
   [viewModel3 setCustomSchedule:v17];
 
   listController = [(SCLSpecifierDataSource *)self listController];
-  v20 = [(SCLCustomDayDataSource *)self specifierForDay:v29[3]];
+  v20 = [(SCLCustomDayDataSource *)self specifierForDay:v28[3]];
   [listController reloadSpecifier:v20 animated:0];
 
-  _Block_object_dispose(&v28, 8);
-  v21 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v27, 8);
 }
 
 @end

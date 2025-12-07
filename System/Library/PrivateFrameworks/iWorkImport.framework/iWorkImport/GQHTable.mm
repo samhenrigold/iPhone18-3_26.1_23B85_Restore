@@ -6,7 +6,11 @@
 + (int)handleCell:(id)cell state:(id)state;
 + (int)mapCellContent:(id)content xml:(id)xml state:(id)state;
 + (unsigned)resolveGroupLevel:(id)level model:(id)model columnIndex:(int)index tableState:(id)state;
++ (void)addMissingCellWithRowIndex:(unsigned __int16)index columnIndex:(unsigned __int16)columnIndex state:(id)state;
 + (void)addMissingCellsUpToRowIndex:(unsigned __int16)index columnIndex:(unsigned __int16)columnIndex state:(id)state;
++ (void)beginRowWithIndex:(unsigned __int16)index state:(id)state;
++ (void)getVectorStylesForRowIndex:(unsigned __int16)index rowSpan:(unsigned __int16)span columnIndex:(unsigned __int16)columnIndex columnSpan:(unsigned __int16)columnSpan vectorStyles:(id *)styles state:(id)state;
++ (void)mapCellStyle:(id)style rowIndex:(unsigned __int16)index rowSpan:(unsigned __int16)span columnIndex:(unsigned __int16)columnIndex columnSpan:(unsigned __int16)columnSpan state:(id)state cell:(id)cell level:(unsigned __int16)self0;
 + (void)mapVectorStyles:(id *)styles toCellStyle:(id)style state:(id)state;
 + (void)splitTable:(id)table;
 + (void)startTableWithTableAnchor:(__CFString *)anchor tableHeight:(float)height state:(id)state;
@@ -188,6 +192,123 @@ LABEL_11:
   }
 
   return [GQHTextBox handleLayoutStorage:layoutStorage state:state];
+}
+
++ (void)beginRowWithIndex:(unsigned __int16)index state:(id)state
+{
+  indexCopy = index;
+  htmlDoc = [state htmlDoc];
+  tableState = [state tableState];
+  [objc_msgSend(objc_msgSend(tableState "table")];
+  v10 = v9;
+  if ([tableState splitTable])
+  {
+    [state currentAttachmentPosition];
+    v12 = v11;
+    if (v12 > 0.0)
+    {
+      [tableState currentTablePosition];
+      v11 = v13 + v10;
+      if (v11 > v12)
+      {
+        [self splitTable:state];
+      }
+    }
+
+    *&v11 = v10;
+    [tableState addRowHeight:v11];
+  }
+
+  [htmlDoc startElement:"tr"];
+  v14 = objc_alloc_init(GQHStyle);
+  [(GQHStyle *)v14 addAttribute:off_9CE98 pxValue:llroundf(v10)];
+  [(GQHStyle *)v14 setStyleOnCurrentNode:state];
+}
+
++ (void)addMissingCellWithRowIndex:(unsigned __int16)index columnIndex:(unsigned __int16)columnIndex state:(id)state
+{
+  columnIndexCopy = columnIndex;
+  indexCopy = index;
+  htmlDoc = [state htmlDoc];
+  tableState = [state tableState];
+  cellCountInColumns = [tableState cellCountInColumns];
+  v12 = *cellCountInColumns;
+  if (columnIndexCopy >= ((cellCountInColumns[1] - *cellCountInColumns) >> 1))
+  {
+    return;
+  }
+
+  if (*(v12 + 2 * columnIndexCopy) != indexCopy)
+  {
+    return;
+  }
+
+  *(v12 + 2 * columnIndexCopy) = indexCopy + 1;
+  table = [tableState table];
+  model = [table model];
+  if (![model visibilityForRow:indexCopy] || !objc_msgSend(model, "visibilityForColumn:", columnIndexCopy))
+  {
+    return;
+  }
+
+  [state enterGraphicObject];
+  [htmlDoc startElement:"td"];
+  tableStyle = [table tableStyle];
+  if ([model headerRowCount] <= indexCopy)
+  {
+    rowCount = [model rowCount];
+    if ((rowCount - [model footerRowCount]) <= indexCopy)
+    {
+      v16 = 87;
+    }
+
+    else if ([model headerColumnCount] <= columnIndexCopy)
+    {
+      if (((indexCopy - [model headerRowCount]) & 0x80000001) == 1)
+      {
+        if ([tableStyle valueForBoolProperty:81])
+        {
+          v18 = [tableStyle valueForObjectProperty:82];
+          if (v18)
+          {
+            goto LABEL_16;
+          }
+        }
+      }
+
+      v16 = 84;
+    }
+
+    else
+    {
+      v16 = 86;
+    }
+  }
+
+  else
+  {
+    v16 = 85;
+  }
+
+  v18 = [objc_msgSend(tableStyle valueForObjectProperty:{v16), "valueForObjectProperty:", 67}];
+LABEL_16:
+  [self getVectorStylesForRowIndex:indexCopy rowSpan:1 columnIndex:columnIndexCopy columnSpan:1 vectorStyles:v21 state:state];
+  v19 = [state cachedClassStringForCellStyle:0 fillStyle:v18 cellClass:objc_opt_class() vectorStyles:v21 groupLevel:0 hasFormula:0];
+  if (!v19)
+  {
+    v20 = objc_alloc_init(GQHStyle);
+    if (v18)
+    {
+      [GQHGraphicStyle mapFill:v18 style:v20 state:state];
+    }
+
+    [self mapVectorStyles:v21 toCellStyle:v20 state:state];
+    v19 = [state addCacheForCellStyle:0 fillStyle:v18 cellClass:objc_opt_class() vectorStyles:v21 groupLevel:0 hasFormula:0 baseClassString:&stru_85620 cssCachedStyle:v20];
+  }
+
+  [htmlDoc setAttribute:"class" cfStringValue:v19];
+  [htmlDoc endElement];
+  [state leaveGraphicObject];
 }
 
 + (void)addMissingCellsUpToRowIndex:(unsigned __int16)index columnIndex:(unsigned __int16)columnIndex state:(id)state
@@ -694,6 +815,179 @@ LABEL_24:
   }
 
   return result;
+}
+
++ (void)mapCellStyle:(id)style rowIndex:(unsigned __int16)index rowSpan:(unsigned __int16)span columnIndex:(unsigned __int16)columnIndex columnSpan:(unsigned __int16)columnSpan state:(id)state cell:(id)cell level:(unsigned __int16)self0
+{
+  columnSpanCopy = columnSpan;
+  columnIndexCopy = columnIndex;
+  spanCopy = span;
+  indexCopy = index;
+  htmlDoc = [state htmlDoc];
+  value = 0;
+  if (([style hasValueForObjectProperty:118 value:&value] & 1) == 0)
+  {
+    value = 0;
+  }
+
+  v43 = 0;
+  if (([style hasValueForObjectProperty:119 value:&v43] & 1) == 0)
+  {
+    v43 = 0;
+  }
+
+  objc_opt_class();
+  v41 = [self mapBaseFillStyleForRowIndex:indexCopy columnIndex:columnIndexCopy state:state isGroupingCell:objc_opt_isKindOfClass() & 1];
+  [self getVectorStylesForRowIndex:indexCopy rowSpan:spanCopy columnIndex:columnIndexCopy columnSpan:columnSpanCopy vectorStyles:v45 state:state];
+  if ([cell isMemberOfClass:objc_opt_class()])
+  {
+    hasFormulaValue = [cell hasFormulaValue];
+  }
+
+  else
+  {
+    hasFormulaValue = 0;
+  }
+
+  theArray = self;
+  v18 = hasFormulaValue;
+  if ([cell isMemberOfClass:objc_opt_class()])
+  {
+    [cell resultCell];
+  }
+
+  v19 = v41;
+  v20 = [state cachedClassStringForCellStyle:style fillStyle:v41 cellClass:objc_opt_class() vectorStyles:v45 groupLevel:level hasFormula:v18];
+  if (!v20)
+  {
+    v21 = objc_alloc_init(GQHStyle);
+    if (v41)
+    {
+      [GQHGraphicStyle mapFill:v41 style:v21 state:state];
+      v19 = v41;
+    }
+
+    [GQHGraphicStyle mapStyle:style style:v21 state:state suppressNullFillOverride:v19 != 0];
+    v37 = v18;
+    if (value)
+    {
+      [GQHTextBox mapStyle:value style:v21 state:state];
+    }
+
+    if (v43)
+    {
+      [GQHParagraphStyle mapStyle:v43 style:v21 state:state];
+    }
+
+    if (cell)
+    {
+      [GQHTableCellStyle mapStyle:style style:v21 state:state cell:cell level:level];
+    }
+
+    [(__CFArray *)theArray mapVectorStyles:v45 toCellStyle:v21 state:state];
+    Mutable = CFArrayCreateMutable(kCFAllocatorDefault, 0, 0);
+    v23 = CFArrayCreateMutable(kCFAllocatorDefault, 0, 0);
+    if (style)
+    {
+      CFArrayAppendValue(Mutable, style);
+      v24 = objc_opt_class();
+      CFArrayAppendValue(v23, v24);
+    }
+
+    v38 = v21;
+    if (value)
+    {
+      CFArrayAppendValue(Mutable, value);
+      v25 = objc_opt_class();
+      CFArrayAppendValue(v23, v25);
+    }
+
+    if (v43)
+    {
+      CFArrayAppendValue(Mutable, v43);
+      v26 = objc_opt_class();
+      CFArrayAppendValue(v23, v26);
+    }
+
+    cf = 0;
+    [GQHStyle createBaseStyleClassesString:Mutable classString:&cf classTypes:v23 state:state];
+    v27 = objc_opt_class();
+    v28 = cf;
+    if (!cf)
+    {
+      v28 = &stru_85620;
+    }
+
+    v20 = [state addCacheForCellStyle:style fillStyle:v41 cellClass:v27 vectorStyles:v45 groupLevel:level hasFormula:v37 baseClassString:v28 cssCachedStyle:v21];
+    if (cf)
+    {
+      CFRelease(cf);
+    }
+
+    CFRelease(v23);
+    CFRelease(Mutable);
+  }
+
+  if ([(GQHTextBox *)GQHGraphicStyle styleNeedsImageFillMapping:style])
+  {
+    v29 = objc_alloc_init(GQHStyle);
+    v30 = [objc_msgSend(objc_msgSend(state "tableState")];
+    v31 = 0.0;
+    v32 = 0.0;
+    if (columnSpanCopy)
+    {
+      v33 = 0;
+      do
+      {
+        [v30 widthForColumn:(v33 + columnIndexCopy)];
+        v32 = v32 + v34;
+        ++v33;
+      }
+
+      while (columnSpanCopy > v33);
+    }
+
+    if (spanCopy)
+    {
+      v35 = 0;
+      v31 = 0.0;
+      do
+      {
+        [v30 heightForRow:(v35 + indexCopy)];
+        v31 = v31 + v36;
+        ++v35;
+      }
+
+      while (spanCopy > v35);
+    }
+
+    [GQHTextBox mapScaledImageFill:style style:v29 size:v32, v31];
+    if (v20)
+    {
+      [(GQHStyle *)v29 addClass:v20];
+    }
+
+    [(GQHStyle *)v29 setStyleOnCurrentNode:state];
+  }
+
+  else if (v20)
+  {
+    [htmlDoc setAttribute:"class" cfStringValue:v20];
+  }
+}
+
++ (void)getVectorStylesForRowIndex:(unsigned __int16)index rowSpan:(unsigned __int16)span columnIndex:(unsigned __int16)columnIndex columnSpan:(unsigned __int16)columnSpan vectorStyles:(id *)styles state:(id)state
+{
+  columnSpanCopy = columnSpan;
+  columnIndexCopy = columnIndex;
+  spanCopy = span;
+  indexCopy = index;
+  v13 = [objc_msgSend(state "tableState")];
+  model = [v13 model];
+  *styles = [v13 defaultVectorStyleForVectorType:{objc_msgSend(model, "typeOfVectorAlongGridline:offset:length:vertical:", indexCopy, columnIndexCopy, columnSpanCopy, 0)}];
+  styles[1] = [v13 defaultVectorStyleForVectorType:{objc_msgSend(model, "typeOfVectorAlongGridline:offset:length:vertical:", (spanCopy + indexCopy), columnIndexCopy, columnSpanCopy, 0)}];
+  styles[2] = [v13 defaultVectorStyleForVectorType:{objc_msgSend(model, "typeOfVectorAlongGridline:offset:length:vertical:", columnIndexCopy, indexCopy, spanCopy, 1)}];
+  styles[3] = [v13 defaultVectorStyleForVectorType:{objc_msgSend(model, "typeOfVectorAlongGridline:offset:length:vertical:", (columnSpanCopy + columnIndexCopy), indexCopy, spanCopy, 1)}];
 }
 
 + (void)mapVectorStyles:(id *)styles toCellStyle:(id)style state:(id)state

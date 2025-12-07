@@ -161,71 +161,66 @@ void __43__SFUnlockManager_disableUnlockWithDevice___block_invoke(uint64_t a1, v
 {
   v13 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = [a2 remoteObjectProxyWithErrorHandler:&__block_literal_global_134];
-    v7 = *(a1 + 32);
+    v7 = [a2 remoteObjectProxyWithErrorHandler:&__block_literal_global_134];
+    v8 = *(a1 + 32);
     v9[0] = MEMORY[0x1E69E9820];
     v9[1] = 3221225472;
     v9[2] = __43__SFUnlockManager_disableUnlockWithDevice___block_invoke_135;
     v9[3] = &unk_1E788C170;
-    v10 = v7;
-    [v6 disableUnlockWithDevice:v10 completionHandler:v9];
+    v10 = v8;
+    [v7 disableUnlockWithDevice:v10 completionHandler:v9];
   }
 
   else
   {
-    v6 = auto_unlock_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = auto_unlock_log(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = v5;
-      _os_log_impl(&dword_1A9662000, v6, OS_LOG_TYPE_DEFAULT, "Error retrieving connection proxy = %@", buf, 0xCu);
+      v12 = v6;
+      _os_log_impl(&dword_1A9662000, v7, OS_LOG_TYPE_DEFAULT, "Error retrieving connection proxy = %@", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __43__SFUnlockManager_disableUnlockWithDevice___block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = auto_unlock_log();
+  v3 = auto_unlock_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1A9662000, v3, OS_LOG_TYPE_DEFAULT, "Disabling unlock failed: XPC connection error = %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1A9662000, v3, OS_LOG_TYPE_DEFAULT, "Disabling unlock failed: XPC connection error = %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __43__SFUnlockManager_disableUnlockWithDevice___block_invoke_135(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = auto_unlock_log();
+  v6 = auto_unlock_log(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v8 = *(a1 + 32);
-    v9 = @"NO";
-    v10 = 138412802;
+    v7 = *(a1 + 32);
+    v8 = @"NO";
+    v9 = 138412802;
     if (a2)
     {
-      v9 = @"YES";
+      v8 = @"YES";
     }
 
-    v11 = v8;
-    v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v5;
-    _os_log_debug_impl(&dword_1A9662000, v6, OS_LOG_TYPE_DEBUG, "Disabled unlock with device = %@, success = %@, error = %@", &v10, 0x20u);
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v5;
+    _os_log_debug_impl(&dword_1A9662000, v6, OS_LOG_TYPE_DEBUG, "Disabled unlock with device = %@, success = %@, error = %@", &v9, 0x20u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unlockEnabledWithDevice:(id)device completionHandler:(id)handler
@@ -407,30 +402,31 @@ void __58__SFUnlockManager_establishStashBagWithCompletionHandler___block_invoke
 {
   manifestCopy = manifest;
   handlerCopy = handler;
+  v8 = handlerCopy;
   if (handlerCopy)
   {
     if (manifestCopy)
     {
-      v8 = +[SFCompanionXPCManager sharedManager];
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __67__SFUnlockManager_establishStashBagWithManifest_completionHandler___block_invoke_2;
-      v13[3] = &unk_1E788C198;
-      v13[4] = self;
-      v15 = handlerCopy;
-      v14 = manifestCopy;
-      [v8 unlockManagerWithCompletionHandler:v13];
+      v9 = +[SFCompanionXPCManager sharedManager];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __67__SFUnlockManager_establishStashBagWithManifest_completionHandler___block_invoke_2;
+      v14[3] = &unk_1E788C198;
+      v14[4] = self;
+      v16 = v8;
+      v15 = manifestCopy;
+      [v9 unlockManagerWithCompletionHandler:v14];
 
-      v9 = v15;
+      v10 = v16;
     }
 
     else
     {
-      v11 = auto_unlock_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = auto_unlock_log(handlerCopy);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A9662000, v11, OS_LOG_TYPE_DEFAULT, "establishStashBagWithManifest: Missing manifest data handler", buf, 2u);
+        _os_log_impl(&dword_1A9662000, v12, OS_LOG_TYPE_DEFAULT, "establishStashBagWithManifest: Missing manifest data handler", buf, 2u);
       }
 
       delegateQueue = self->_delegateQueue;
@@ -438,35 +434,33 @@ void __58__SFUnlockManager_establishStashBagWithCompletionHandler___block_invoke
       block[1] = 3221225472;
       block[2] = __67__SFUnlockManager_establishStashBagWithManifest_completionHandler___block_invoke;
       block[3] = &unk_1E788B1C0;
-      v17 = handlerCopy;
+      v18 = v8;
       dispatch_async(delegateQueue, block);
-      v9 = v17;
+      v10 = v18;
     }
   }
 
   else
   {
-    v10 = auto_unlock_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = auto_unlock_log(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A9662000, v10, OS_LOG_TYPE_DEFAULT, "establishStashBagWithManifest: Missing completion handler", buf, 2u);
+      _os_log_impl(&dword_1A9662000, v11, OS_LOG_TYPE_DEFAULT, "establishStashBagWithManifest: Missing completion handler", buf, 2u);
     }
   }
 }
 
 void __67__SFUnlockManager_establishStashBagWithManifest_completionHandler___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = MEMORY[0x1E696ABC0];
-  v6 = *MEMORY[0x1E696A578];
-  v7[0] = @"Missing manifest data handler";
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = *MEMORY[0x1E696A578];
+  v6[0] = @"Missing manifest data handler";
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v4 = [v2 errorWithDomain:@"SFUnlockErrorDomian" code:112 userInfo:v3];
   (*(v1 + 16))(v1, 0, v4);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __67__SFUnlockManager_establishStashBagWithManifest_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -572,18 +566,16 @@ void __67__SFUnlockManager_establishStashBagWithManifest_completionHandler___blo
 
 uint64_t __58__SFUnlockManager_unlockStateForDevice_completionHandler___block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
   v3 = MEMORY[0x1E696ABC0];
-  v8 = *MEMORY[0x1E696A578];
-  v9[0] = @"sharingd never responded";
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = *MEMORY[0x1E696A578];
+  v8[0] = @"sharingd never responded";
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [v3 errorWithDomain:@"SFUnlockErrorDomian" code:113 userInfo:v4];
   (*(v2 + 16))(v2, 0, v5);
 
-  result = [*(a1 + 32) cancelStateRequestTimer];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) cancelStateRequestTimer];
 }
 
 void __58__SFUnlockManager_unlockStateForDevice_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -645,13 +637,12 @@ void __58__SFUnlockManager_unlockStateForDevice_completionHandler___block_invoke
   dispatch_async(v4, block);
 }
 
-uint64_t __58__SFUnlockManager_unlockStateForDevice_completionHandler___block_invoke_4(void *a1)
+uint64_t __58__SFUnlockManager_unlockStateForDevice_completionHandler___block_invoke_4(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 cancelStateRequestTimer];
+  return [v2 cancelStateRequestTimer];
 }
 
 void __58__SFUnlockManager_unlockStateForDevice_completionHandler___block_invoke_5(uint64_t a1, void *a2, void *a3)
@@ -673,23 +664,20 @@ void __58__SFUnlockManager_unlockStateForDevice_completionHandler___block_invoke
   dispatch_async(v7, v11);
 }
 
-uint64_t __58__SFUnlockManager_unlockStateForDevice_completionHandler___block_invoke_6(void *a1)
+uint64_t __58__SFUnlockManager_unlockStateForDevice_completionHandler___block_invoke_6(uint64_t a1)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  (*(a1[7] + 16))();
-  v4 = a1[6];
+  (*(*(a1 + 56) + 16))();
+  v2 = *(a1 + 48);
 
-  return [v4 cancelStateRequestTimer];
+  return [v2 cancelStateRequestTimer];
 }
 
-uint64_t __58__SFUnlockManager_unlockStateForDevice_completionHandler___block_invoke_7(void *a1)
+uint64_t __58__SFUnlockManager_unlockStateForDevice_completionHandler___block_invoke_7(uint64_t a1)
 {
-  v2 = a1[4];
-  (*(a1[6] + 16))();
-  v3 = a1[5];
+  (*(*(a1 + 48) + 16))();
+  v2 = *(a1 + 40);
 
-  return [v3 cancelStateRequestTimer];
+  return [v2 cancelStateRequestTimer];
 }
 
 - (id)timerWithBlock:(id)block

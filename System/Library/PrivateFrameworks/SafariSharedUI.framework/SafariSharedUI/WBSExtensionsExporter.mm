@@ -95,46 +95,46 @@
 
 void __71__WBSExtensionsExporter_exportExtensionDictionaries_completionHandler___block_invoke(id *a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = [a1[4] jsonWriter];
   v3 = *MEMORY[0x1E69C8B78];
-  v22 = 0;
-  [v2 beginArrayForKey:v3 error:&v22];
-  v4 = v22;
+  v24 = 0;
+  [v2 beginArrayForKey:v3 error:&v24];
+  v4 = v24;
 
+  v22 = 0u;
+  v23 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
   v5 = a1[5];
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v25 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v21;
     do
     {
       v9 = 0;
       do
       {
         v10 = v4;
-        if (*v19 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * v9);
+        v11 = *(*(&v20 + 1) + 8 * v9);
         v12 = [a1[4] jsonWriter];
-        v17 = v10;
-        [v12 appendEntry:v11 error:&v17];
-        v4 = v17;
+        v19 = v10;
+        [v12 appendEntry:v11 error:&v19];
+        v4 = v19;
 
         if (v4)
         {
-          v13 = WBS_LOG_CHANNEL_PREFIXExport();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v15 = WBS_LOG_CHANNEL_PREFIXExport(v13, v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
-            __71__WBSExtensionsExporter_exportExtensionDictionaries_completionHandler___block_invoke_cold_1(v23, v13, v4, &v24);
+            __71__WBSExtensionsExporter_exportExtensionDictionaries_completionHandler___block_invoke_cold_1(v25, v15, v4, &v26);
           }
         }
 
@@ -142,37 +142,38 @@ void __71__WBSExtensionsExporter_exportExtensionDictionaries_completionHandler__
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v25 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v20 objects:v27 count:16];
     }
 
     while (v7);
   }
 
-  v14 = a1[4];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __71__WBSExtensionsExporter_exportExtensionDictionaries_completionHandler___block_invoke_2;
-  v15[3] = &unk_1E8285E10;
-  v16 = a1[6];
-  [v14 finishWithCompletionHandler:v15];
+  v16 = a1[4];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __71__WBSExtensionsExporter_exportExtensionDictionaries_completionHandler___block_invoke_2;
+  v17[3] = &unk_1E8285E10;
+  v18 = a1[6];
+  [v16 finishWithCompletionHandler:v17];
 }
 
 void __71__WBSExtensionsExporter_exportExtensionDictionaries_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = WBS_LOG_CHANNEL_PREFIXExport();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXExport(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __71__WBSExtensionsExporter_exportExtensionDictionaries_completionHandler___block_invoke_2_cold_1(v4, v3);
+      __71__WBSExtensionsExporter_exportExtensionDictionaries_completionHandler___block_invoke_2_cold_1(v6, v5);
     }
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v7 = *(a1 + 32);
+  if (v7)
   {
-    (*(v5 + 16))(v5, v3);
+    (*(v7 + 16))(v7, v5);
   }
 }
 

@@ -24,7 +24,7 @@
 
 + (int64_t)_sidebarListAccessoriesMonochromaticTreatment
 {
-  if ((_UIInternalPreferenceUsesDefault_0(&_MergedGlobals_952, @"UseMonochromaticTreatment") & 1) != 0 || byte_1ED48B544)
+  if (_UIInternalPreferenceUsesDefault_0(&_MergedGlobals_952, @"UseMonochromaticTreatment") || byte_1ED48B544)
   {
     v3 = _UIInternalPreferenceUsesDefault_0(&dword_1ED48B550, @"UseMonochromaticTreatmentSidebarListAccessories");
     if (byte_1ED48B554)
@@ -48,7 +48,7 @@
 
 + (int64_t)_sidebarListMonochromaticTreatment
 {
-  if ((_UIInternalPreferenceUsesDefault_0(&_MergedGlobals_952, @"UseMonochromaticTreatment") & 1) != 0 || byte_1ED48B544)
+  if (_UIInternalPreferenceUsesDefault_0(&_MergedGlobals_952, @"UseMonochromaticTreatment") || byte_1ED48B544)
   {
     v3 = _UIInternalPreferenceUsesDefault_0(&dword_1ED48B548, @"UseMonochromaticTreatmentSidebarList");
     if (byte_1ED48B54C)

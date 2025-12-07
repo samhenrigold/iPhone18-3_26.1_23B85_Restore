@@ -41,23 +41,23 @@
     v17 = [(HMDRemoteMessageSenderContext *)&v30 init];
     if (v17)
     {
-      v18 = [handleCopy copy];
+      v18 = objc_msgSend_copy(handleCopy);
       deviceHandle = v17->_deviceHandle;
       v17->_deviceHandle = v18;
 
-      v20 = [accountHandleCopy copy];
+      v20 = objc_msgSend_copy(accountHandleCopy);
       accountHandle = v17->_accountHandle;
       v17->_accountHandle = v20;
 
-      v22 = [identifierCopy copy];
+      v22 = objc_msgSend_copy(identifierCopy);
       accountIdentifier = v17->_accountIdentifier;
       v17->_accountIdentifier = v22;
 
-      v24 = [versionCopy copy];
+      v24 = objc_msgSend_copy(versionCopy);
       deviceVersion = v17->_deviceVersion;
       v17->_deviceVersion = v24;
 
-      v26 = [identityIdentifierCopy copy];
+      v26 = objc_msgSend_copy(identityIdentifierCopy);
       pairingIdentityIdentifier = v17->_pairingIdentityIdentifier;
       v17->_pairingIdentityIdentifier = v26;
     }

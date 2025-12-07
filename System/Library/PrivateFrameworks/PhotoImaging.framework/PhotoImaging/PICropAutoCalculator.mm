@@ -766,7 +766,7 @@ LABEL_9:
       v21 = geometry;
       if (geometry)
       {
-        [geometry extent];
+        objc_msgSend_extent(geometry);
       }
 
       else
@@ -778,7 +778,7 @@ LABEL_9:
       v24 = geometry2;
       if (geometry2)
       {
-        [geometry2 extent];
+        objc_msgSend_extent(geometry2);
       }
 
       else
@@ -800,7 +800,7 @@ LABEL_9:
         v27 = geometry3;
         if (geometry3)
         {
-          [geometry3 extent];
+          objc_msgSend_extent(geometry3);
         }
 
         else
@@ -814,7 +814,7 @@ LABEL_9:
         v29 = geometry4;
         if (geometry4)
         {
-          [geometry4 extent];
+          objc_msgSend_extent(geometry4);
         }
 
         else

@@ -120,19 +120,18 @@ LABEL_10:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v12 = toCopy;
+  v6 = toCopy;
   if (self->_productType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    chipID = self->_chipID;
     PBDataWriterWriteInt32Field();
-    toCopy = v12;
+    toCopy = v6;
     has = self->_has;
     if ((has & 0x10) == 0)
     {
@@ -151,9 +150,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  postFailsafeObliteration = self->_postFailsafeObliteration;
   PBDataWriterWriteBOOLField();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -167,9 +165,8 @@ LABEL_6:
   }
 
 LABEL_15:
-  pairingVersion = self->_pairingVersion;
   PBDataWriterWriteInt64Field();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x20) == 0)
   {
@@ -183,9 +180,8 @@ LABEL_7:
   }
 
 LABEL_16:
-  supportsTokyoBayAquaLine = self->_supportsTokyoBayAquaLine;
   PBDataWriterWriteBOOLField();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -199,15 +195,13 @@ LABEL_8:
   }
 
 LABEL_17:
-  isCellularEnabled = self->_isCellularEnabled;
   PBDataWriterWriteBOOLField();
-  toCopy = v12;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_9:
-    encodedSystemVersion = self->_encodedSystemVersion;
     PBDataWriterWriteUint32Field();
-    toCopy = v12;
+    toCopy = v6;
   }
 
 LABEL_10:
@@ -337,7 +331,6 @@ LABEL_7:
       goto LABEL_41;
     }
 
-    v6 = *(equalCopy + 33);
     if (self->_postFailsafeObliteration)
     {
       if ((*(equalCopy + 33) & 1) == 0)
@@ -377,7 +370,6 @@ LABEL_7:
       goto LABEL_41;
     }
 
-    v8 = *(equalCopy + 34);
     if (self->_supportsTokyoBayAquaLine)
     {
       if ((*(equalCopy + 34) & 1) == 0)
@@ -405,7 +397,7 @@ LABEL_7:
     }
 
 LABEL_41:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_42;
   }
 
@@ -414,7 +406,6 @@ LABEL_41:
     goto LABEL_41;
   }
 
-  v9 = *(equalCopy + 32);
   if (self->_isCellularEnabled)
   {
     if ((*(equalCopy + 32) & 1) == 0)
@@ -429,7 +420,7 @@ LABEL_41:
   }
 
 LABEL_24:
-  v7 = (*(equalCopy + 36) & 4) == 0;
+  v6 = (*(equalCopy + 36) & 4) == 0;
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 36) & 4) == 0 || self->_encodedSystemVersion != *(equalCopy + 5))
@@ -437,12 +428,12 @@ LABEL_24:
       goto LABEL_41;
     }
 
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_42:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

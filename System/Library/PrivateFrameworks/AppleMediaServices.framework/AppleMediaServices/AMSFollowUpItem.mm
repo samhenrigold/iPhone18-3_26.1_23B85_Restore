@@ -626,53 +626,53 @@ LABEL_17:
 {
   if ([(AMSFollowUpItem *)self disableGrouping])
   {
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x2020000000;
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x2020000000;
     v3 = qword_1ED6E2A28;
-    v16 = qword_1ED6E2A28;
+    v17 = qword_1ED6E2A28;
     if (qword_1ED6E2A28)
     {
       goto LABEL_16;
     }
 
     v4 = CoreFollowUpLibrary_0();
-    v14[3] = dlsym(v4, "FLGroupIdentifierNoGroup");
-    qword_1ED6E2A28 = v14[3];
+    v15[3] = dlsym(v4, "FLGroupIdentifierNoGroup");
+    qword_1ED6E2A28 = v15[3];
   }
 
   else if ([(AMSFollowUpItem *)self isHardwareOffer])
   {
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x2020000000;
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x2020000000;
     v3 = qword_1ED6E2A30;
-    v16 = qword_1ED6E2A30;
+    v17 = qword_1ED6E2A30;
     if (qword_1ED6E2A30)
     {
       goto LABEL_16;
     }
 
     v5 = CoreFollowUpLibrary_0();
-    v14[3] = dlsym(v5, "FLGroupIdentifierAppleServices");
-    qword_1ED6E2A30 = v14[3];
+    v15[3] = dlsym(v5, "FLGroupIdentifierAppleServices");
+    qword_1ED6E2A30 = v15[3];
   }
 
   else if ([(AMSFollowUpItem *)self isNewDeviceOutreach])
   {
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x2020000000;
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x2020000000;
     v3 = qword_1ED6E2A38;
-    v16 = qword_1ED6E2A38;
+    v17 = qword_1ED6E2A38;
     if (qword_1ED6E2A38)
     {
       goto LABEL_16;
     }
 
     v6 = CoreFollowUpLibrary_0();
-    v14[3] = dlsym(v6, "FLGroupIdentifierNewDeviceOutreach");
-    qword_1ED6E2A38 = v14[3];
+    v15[3] = dlsym(v6, "FLGroupIdentifierNewDeviceOutreach");
+    qword_1ED6E2A38 = v15[3];
   }
 
   else
@@ -681,48 +681,48 @@ LABEL_17:
 
     if (account)
     {
-      v13 = 0;
-      v14 = &v13;
-      v15 = 0x2020000000;
+      v14 = 0;
+      v15 = &v14;
+      v16 = 0x2020000000;
       v3 = qword_1ED6E2A40;
-      v16 = qword_1ED6E2A40;
+      v17 = qword_1ED6E2A40;
       if (qword_1ED6E2A40)
       {
         goto LABEL_16;
       }
 
       v8 = CoreFollowUpLibrary_0();
-      v14[3] = dlsym(v8, "FLGroupIdentifierAccount");
-      qword_1ED6E2A40 = v14[3];
+      v15[3] = dlsym(v8, "FLGroupIdentifierAccount");
+      qword_1ED6E2A40 = v15[3];
     }
 
     else
     {
-      v13 = 0;
-      v14 = &v13;
-      v15 = 0x2020000000;
+      v14 = 0;
+      v15 = &v14;
+      v16 = 0x2020000000;
       v3 = qword_1ED6E2A48;
-      v16 = qword_1ED6E2A48;
+      v17 = qword_1ED6E2A48;
       if (qword_1ED6E2A48)
       {
         goto LABEL_16;
       }
 
       v9 = CoreFollowUpLibrary_0();
-      v14[3] = dlsym(v9, "FLGroupIdentifierDevice");
-      qword_1ED6E2A48 = v14[3];
+      v15[3] = dlsym(v9, "FLGroupIdentifierDevice");
+      qword_1ED6E2A48 = v15[3];
     }
   }
 
-  v3 = v14[3];
+  v3 = v15[3];
 LABEL_16:
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v14, 8);
   if (!v3)
   {
-    dlerror();
-    v12 = abort_report_np();
-    _Block_object_dispose(&v13, 8);
-    _Unwind_Resume(v12);
+    v12 = dlerror();
+    v13 = abort_report_np("%s", v12);
+    _Block_object_dispose(&v14, 8);
+    _Unwind_Resume(v13);
   }
 
   v10 = *v3;

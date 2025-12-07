@@ -655,26 +655,26 @@ LABEL_6:
 
 - (void)iconDidUpdateForDomain:(id)domain iconController:(id)controller
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
-  v6 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = WBS_LOG_CHANNEL_PREFIXPasswordsIcons(domainCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 141558275;
-    v11 = 1752392040;
-    v12 = 2117;
-    v13 = domainCopy;
-    _os_log_impl(&dword_1D4644000, v6, OS_LOG_TYPE_DEFAULT, "Icon did update; domain=%{sensitive, mask.hash}@", buf, 0x16u);
+    v12 = 1752392040;
+    v13 = 2117;
+    v14 = domainCopy;
+    _os_log_impl(&dword_1D4644000, v7, OS_LOG_TYPE_DEFAULT, "Icon did update; domain=%{sensitive, mask.hash}@", buf, 0x16u);
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __71___SFAccountTableViewController_iconDidUpdateForDomain_iconController___block_invoke;
-  v8[3] = &unk_1E848F548;
-  v8[4] = self;
-  v9 = domainCopy;
-  v7 = domainCopy;
-  dispatch_async(MEMORY[0x1E69E96A0], v8);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __71___SFAccountTableViewController_iconDidUpdateForDomain_iconController___block_invoke;
+  v9[3] = &unk_1E848F548;
+  v9[4] = self;
+  v10 = domainCopy;
+  v8 = domainCopy;
+  dispatch_async(MEMORY[0x1E69E96A0], v9);
 }
 
 - (void)_updateIconForDomain:(id)domain forCell:(id)cell

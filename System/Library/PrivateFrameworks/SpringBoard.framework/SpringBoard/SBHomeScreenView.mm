@@ -63,7 +63,7 @@
   v20 = 0u;
   v21 = 0u;
   v19 = 0u;
-  [(SBHomeScreenView *)self transform];
+  objc_msgSend_transform(self);
   v14 = *(MEMORY[0x277CBF2C0] + 16);
   v16 = *MEMORY[0x277CBF2C0];
   v17 = v14;
@@ -92,7 +92,7 @@
     v8 = v7;
     v10 = v9;
     v12 = v11;
-    [(SBHomeScreenView *)self frame];
+    objc_msgSend_frame(self);
     v15.origin.x = v6;
     v15.origin.y = v8;
     v15.size.width = v10;

@@ -67,7 +67,7 @@ void ___UITabBarControllerWantsFloatingTabBar_block_invoke()
     _MergedGlobals_63_0 = v5;
   }
 
-  if ([v7 isEqualToString:@"com.apple.DocumentManagerUICore.Service"])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     _MergedGlobals_63_0 = _UIDocumentViewControllerWantsUIPDocumentLanding();
   }

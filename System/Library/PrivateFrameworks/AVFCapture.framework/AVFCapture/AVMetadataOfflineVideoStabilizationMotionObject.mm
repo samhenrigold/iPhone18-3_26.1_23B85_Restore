@@ -61,7 +61,7 @@
   payload = [(AVMetadataOfflineVideoStabilizationMotionObject *)self payload];
   if (self)
   {
-    [(AVMetadataObject *)self time];
+    objc_msgSend_time(self);
     v7 = v9;
   }
 
@@ -78,13 +78,6 @@
   payload = [(AVMetadataOfflineVideoStabilizationMotionObjectInternal *)self->_offlineVISMotionObjectInternal payload];
 
   return payload;
-}
-
-- (void)initWithTime:(void *)a1 motionDictionary:input:.cold.1(void *a1)
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_1();
-  FigDebugAssert3();
 }
 
 @end

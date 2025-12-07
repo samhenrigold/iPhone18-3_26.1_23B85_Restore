@@ -28,20 +28,21 @@ MXDebugPlatform *__33__MXDebugPlatform_sharedInstance__block_invoke()
 
 - (MXDebugPlatform)init
 {
-  v6.receiver = self;
-  v6.super_class = MXDebugPlatform;
-  v2 = [(MXDebugPlatform *)&v6 init];
+  v8.receiver = self;
+  v8.super_class = MXDebugPlatform;
+  v2 = [(MXDebugPlatform *)&v8 init];
+  v4 = v2;
   if (v2)
   {
-    v5 = *byte_1F288C668;
-    v2->_logger = MXGetSessionLog();
-    v2->_sysdiagnoseBlockRegistry = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], &v5);
-    v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v2->_sysdiagnoseBlockQueue = dispatch_queue_create("MXSysdiagnoseBlockRegistryQueue", v3);
+    v7 = *byte_1F288C668;
+    v2->_logger = MXGetSessionLog(v2, v3);
+    v4->_sysdiagnoseBlockRegistry = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], &v7);
+    v5 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v4->_sysdiagnoseBlockQueue = dispatch_queue_create("MXSysdiagnoseBlockRegistryQueue", v5);
     os_state_add_handler();
   }
 
-  return v2;
+  return v4;
 }
 
 uint64_t __23__MXDebugPlatform_init__block_invoke(uint64_t a1, uint64_t a2)
@@ -67,27 +68,27 @@ uint64_t __23__MXDebugPlatform_init__block_invoke(uint64_t a1, uint64_t a2)
 
 - (void)executeSysdiagnoseBlocks
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
   sysdiagnoseBlockRegistry = [(MXDebugPlatform *)self sysdiagnoseBlockRegistry];
-  v4 = [(NSMutableDictionary *)sysdiagnoseBlockRegistry countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [(NSMutableDictionary *)sysdiagnoseBlockRegistry countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(sysdiagnoseBlockRegistry);
         }
 
-        v8 = [(NSMutableDictionary *)[(MXDebugPlatform *)self sysdiagnoseBlockRegistry:v11] objectForKey:*(*(&v13 + 1) + 8 * i)];
+        v8 = [(NSMutableDictionary *)[(MXDebugPlatform *)self sysdiagnoseBlockRegistry] objectForKey:*(*(&v10 + 1) + 8 * i)];
         if (v8)
         {
           (*(v8 + 16))();
@@ -101,13 +102,11 @@ uint64_t __23__MXDebugPlatform_init__block_invoke(uint64_t a1, uint64_t a2)
         }
       }
 
-      v5 = [(NSMutableDictionary *)sysdiagnoseBlockRegistry countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [(NSMutableDictionary *)sysdiagnoseBlockRegistry countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)installSysdiagnoseBlock:(id)block blockToRun:(id)run
@@ -164,11 +163,10 @@ void __54__MXDebugPlatform_installSysdiagnoseBlock_blockToRun___block_invoke(uin
 
 - (void)simulateCrash:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 136315138;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1B17A2000, a2, OS_LOG_TYPE_FAULT, "%s (This is not a crash)", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 136315138;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1B17A2000, a2, OS_LOG_TYPE_FAULT, "%s (This is not a crash)", &v2, 0xCu);
 }
 
 @end

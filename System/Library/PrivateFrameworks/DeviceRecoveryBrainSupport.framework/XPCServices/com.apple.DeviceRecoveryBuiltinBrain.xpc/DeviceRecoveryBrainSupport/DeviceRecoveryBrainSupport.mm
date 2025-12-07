@@ -1,7 +1,7 @@
 int main(int argc, const char **argv, const char **envp)
 {
   v3 = objc_autoreleasePoolPush();
-  v4 = sub_100000ACC();
+  v4 = sub_100000ACC(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 136446722;
@@ -24,7 +24,7 @@ int main(int argc, const char **argv, const char **envp)
     }
 
     v8 = v7;
-    sub_100000BDC();
+    sub_100000BDC(v7);
   }
 
   else
@@ -37,16 +37,16 @@ int main(int argc, const char **argv, const char **envp)
   return -1;
 }
 
-id sub_100000ACC()
+id sub_100000ACC(uint64_t a1)
 {
   if (qword_100008018 != -1)
   {
     sub_100000E24();
   }
 
-  v1 = off_100008008;
+  v2 = off_100008008;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000B10(id a1)
@@ -57,16 +57,16 @@ void sub_100000B10(id a1)
   _objc_release_x1();
 }
 
-id sub_100000B54()
+id sub_100000B54(uint64_t a1)
 {
   if (qword_100008020 != -1)
   {
     sub_100000E38();
   }
 
-  v1 = off_100008010;
+  v2 = off_100008010;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000B98(id a1)
@@ -77,26 +77,26 @@ void sub_100000B98(id a1)
   _objc_release_x1();
 }
 
-void sub_100000BDC()
+void sub_100000BDC(uint64_t a1)
 {
-  v0 = sub_100000ACC();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
-  {
-    sub_100000ABC();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0x3Au);
-  }
-
-  v1 = sub_100000ACC();
+  v1 = sub_100000ACC(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     sub_100000ABC();
-    _os_log_error_impl(v7, v8, v9, v10, v11, 0x16u);
+    _os_log_error_impl(v4, v5, v6, v7, v8, 0x3Au);
+  }
+
+  v3 = sub_100000ACC(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  {
+    sub_100000ABC();
+    _os_log_error_impl(v9, v10, v11, v12, v13, 0x16u);
   }
 }
 
 void sub_100000D30(NSObject **a1)
 {
-  v2 = sub_100000ACC();
+  v2 = sub_100000ACC(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     sub_100000ABC();

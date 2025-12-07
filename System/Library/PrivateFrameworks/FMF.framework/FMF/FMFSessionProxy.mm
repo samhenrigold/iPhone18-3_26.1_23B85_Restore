@@ -15,11 +15,13 @@
 - (void)didUpdateFences:(id)fences;
 - (void)didUpdateFollowers:(id)followers;
 - (void)didUpdateFollowing:(id)following;
+- (void)didUpdateHideFromFollowersStatus:(BOOL)status;
 - (void)didUpdateLocations:(id)locations;
 - (void)didUpdatePendingOffersForHandles:(id)handles;
 - (void)didUpdatePreferences:(id)preferences;
 - (void)failedToGetLocationForHandle:(id)handle error:(id)error;
 - (void)modelDidLoad;
+- (void)networkReachabilityUpdated:(BOOL)updated;
 - (void)sendMappingPacket:(id)packet toHandle:(id)handle;
 - (void)setLocations:(id)locations;
 @end
@@ -45,6 +47,13 @@
 {
   session = [(FMFSessionProxy *)self session];
   [session modelDidLoad];
+}
+
+- (void)networkReachabilityUpdated:(BOOL)updated
+{
+  updatedCopy = updated;
+  session = [(FMFSessionProxy *)self session];
+  [session networkReachabilityUpdated:updatedCopy];
 }
 
 - (void)setLocations:(id)locations
@@ -95,6 +104,13 @@
   requestCopy = request;
   session = [(FMFSessionProxy *)self session];
   [session didReceiveFriendshipRequest:requestCopy];
+}
+
+- (void)didUpdateHideFromFollowersStatus:(BOOL)status
+{
+  statusCopy = status;
+  session = [(FMFSessionProxy *)self session];
+  [session didUpdateHideFromFollowersStatus:statusCopy];
 }
 
 - (void)didUpdatePendingOffersForHandles:(id)handles

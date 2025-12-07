@@ -49,32 +49,30 @@
 {
   if (!key)
   {
-    v7 = MEMORY[0x1E695DF30];
-    v8 = *MEMORY[0x1E695D940];
-    v9 = @"Associated attached media key must not be nil";
+    v6 = MEMORY[0x1E695DF30];
+    v7 = *MEMORY[0x1E695D940];
+    v8 = @"Associated attached media key must not be nil";
     goto LABEL_8;
   }
 
   if (self->_associatedAttachedMediaKey)
   {
-    v7 = MEMORY[0x1E695DF30];
-    v8 = *MEMORY[0x1E695D940];
-    v9 = @"Associated attached media key can only be set once";
+    v6 = MEMORY[0x1E695DF30];
+    v7 = *MEMORY[0x1E695D940];
+    v8 = @"Associated attached media key can only be set once";
 LABEL_8:
-    objc_exception_throw([v7 exceptionWithName:v8 reason:v9 userInfo:0]);
+    objc_exception_throw([v6 exceptionWithName:v7 reason:v8 userInfo:0]);
   }
 
   associatedAttachedMediaKey = [key copy];
   self->_associatedAttachedMediaKey = associatedAttachedMediaKey;
-  attachedMediaKeyOfInputWhichDrivesThisOutput = self->_attachedMediaKeyOfInputWhichDrivesThisOutput;
-  if (!attachedMediaKeyOfInputWhichDrivesThisOutput)
+  if (!self->_attachedMediaKeyOfInputWhichDrivesThisOutput)
   {
-    attachedMediaKeyOfInputWhichDrivesThisOutput = [key copy];
-    self->_attachedMediaKeyOfInputWhichDrivesThisOutput = attachedMediaKeyOfInputWhichDrivesThisOutput;
+    self->_attachedMediaKeyOfInputWhichDrivesThisOutput = [key copy];
     associatedAttachedMediaKey = self->_associatedAttachedMediaKey;
   }
 
-  self->_performsAttachedMediaRemapping = ![(NSString *)associatedAttachedMediaKey isEqualToString:attachedMediaKeyOfInputWhichDrivesThisOutput];
+  self->_performsAttachedMediaRemapping = objc_msgSend_isEqualToString_(associatedAttachedMediaKey) ^ 1;
 }
 
 - (void)setIndexOfInputWhichDrivesThisOutput:(int)output

@@ -14,28 +14,28 @@
 
 - (id)getUserGuideViewWithTitle:(id)title
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   titleCopy = title;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
   v4 = getHLPHelpViewControllerVersionLatestSymbolLoc_ptr;
-  v23 = getHLPHelpViewControllerVersionLatestSymbolLoc_ptr;
+  v22 = getHLPHelpViewControllerVersionLatestSymbolLoc_ptr;
   if (!getHLPHelpViewControllerVersionLatestSymbolLoc_ptr)
   {
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __getHLPHelpViewControllerVersionLatestSymbolLoc_block_invoke;
-    v25 = &unk_278D224B0;
-    v26 = &v20;
+    v24 = &unk_278D224B0;
+    v25 = &v19;
     v5 = HelpKitLibrary();
     v6 = dlsym(v5, "HLPHelpViewControllerVersionLatest");
-    *(v26[1] + 24) = v6;
-    getHLPHelpViewControllerVersionLatestSymbolLoc_ptr = *(v26[1] + 24);
-    v4 = v21[3];
+    *(v25[1] + 24) = v6;
+    getHLPHelpViewControllerVersionLatestSymbolLoc_ptr = *(v25[1] + 24);
+    v4 = v20[3];
   }
 
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v19, 8);
   if (!v4)
   {
     [BCUserGuide getUserGuideViewWithTitle:];
@@ -65,37 +65,35 @@
     _os_log_impl(&dword_241E55000, v13, OS_LOG_TYPE_DEFAULT, "Asking HelpKit for %@ user guide, version: %@", buf, 0x16u);
   }
 
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2050000000;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2050000000;
   v14 = getHLPHelpViewControllerClass_softClass;
-  v23 = getHLPHelpViewControllerClass_softClass;
+  v22 = getHLPHelpViewControllerClass_softClass;
   if (!getHLPHelpViewControllerClass_softClass)
   {
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __getHLPHelpViewControllerClass_block_invoke;
-    v25 = &unk_278D224B0;
-    v26 = &v20;
+    v24 = &unk_278D224B0;
+    v25 = &v19;
     __getHLPHelpViewControllerClass_block_invoke(buf);
-    v14 = v21[3];
+    v14 = v20[3];
   }
 
   v15 = v14;
-  _Block_object_dispose(&v20, 8);
-  v16 = [v14 helpViewControllerWithTitle:titleCopy identifier:@"watch" version:{v7, v20}];
+  _Block_object_dispose(&v19, 8);
+  v16 = [v14 helpViewControllerWithTitle:titleCopy identifier:@"watch" version:{v7, v19}];
   [v16 setShowTopicViewOnLoad:1];
   v17 = [objc_alloc(MEMORY[0x277D757A0]) initWithRootViewController:v16];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
 - (uint64_t)getUserGuideViewWithTitle:.cold.1()
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   return __getHLPHelpViewControllerClass_block_invoke_cold_1();
 }
 

@@ -66,7 +66,7 @@
     v9 = routeAttributes2;
     if (routeAttributes2)
     {
-      [routeAttributes2 timepoint];
+      objc_msgSend_timepoint(routeAttributes2);
       v10 = v20;
     }
 
@@ -126,7 +126,7 @@
     v13 = routeAttributes2;
     if (routeAttributes2)
     {
-      [routeAttributes2 timepoint];
+      objc_msgSend_timepoint(routeAttributes2);
     }
 
     else

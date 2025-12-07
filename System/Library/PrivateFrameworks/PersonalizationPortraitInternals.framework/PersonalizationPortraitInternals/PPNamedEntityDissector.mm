@@ -3,8 +3,10 @@
 - (PPNamedEntityDissector)init;
 - (PPNamedEntityDissector)initWithPurgeableGazetteer:(id)gazetteer;
 - (id)_collectDataDetectorsWithText:(id)text algorithms:(id)algorithms isMessagesSource:(BOOL)source addNamedEntity:(id)entity;
+- (id)entitiesInPlainText:(id)text eligibleRegions:(id)regions source:(id)source cloudSync:(BOOL)sync;
 - (id)entitiesInPlainText:(id)text eligibleRegions:(id)regions source:(id)source cloudSync:(BOOL)sync algorithms:(id)algorithms;
 - (void)_collectAugmentedGazetteerWithText:(id)text addNamedEntity:(id)entity addTopic:(id)topic addLocation:(id)location;
+- (void)_harvestLocationFromEntity:(id)entity category:(unint64_t)category dynamicCategory:(id)dynamicCategory enrichment:(id)enrichment algorithm:(unsigned __int16)algorithm;
 - (void)_registerForNotifications;
 - (void)_resetGazetteer;
 - (void)dealloc;
@@ -14,7 +16,7 @@
 
 - (id)entitiesInPlainText:(id)text eligibleRegions:(id)regions source:(id)source cloudSync:(BOOL)sync algorithms:(id)algorithms
 {
-  v143[3] = *MEMORY[0x277D85DE8];
+  v142[3] = *MEMORY[0x277D85DE8];
   textCopy = text;
   regionsCopy = regions;
   sourceCopy = source;
@@ -45,76 +47,76 @@
 
 LABEL_5:
   v22 = objc_autoreleasePoolPush();
-  v142[0] = &unk_2847839C0;
-  v142[1] = &unk_2847839A8;
-  v143[0] = &unk_2847839D8;
-  v143[1] = &unk_2847839F0;
-  v142[2] = &unk_284783A08;
-  v143[2] = &unk_284783A20;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v143 forKeys:v142 count:3];
+  v141[0] = &unk_2847839C0;
+  v141[1] = &unk_2847839A8;
+  v142[0] = &unk_2847839D8;
+  v142[1] = &unk_2847839F0;
+  v141[2] = &unk_284783A08;
+  v142[2] = &unk_284783A20;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v142 forKeys:v141 count:3];
   objc_autoreleasePoolPop(v22);
   v24 = +[PPConfiguration sharedInstance];
   bundleId3 = [sourceCopy bundleId];
   language = [sourceCopy language];
   v27 = [v24 extractionAlgorithmsForBundleId:bundleId3 sourceLanguage:language conservative:0 domain:2];
 
-  v129 = 0;
-  v130 = &v129;
-  v131 = 0x3032000000;
-  v132 = __Block_byref_object_copy_;
-  v133 = __Block_byref_object_dispose_;
-  v134 = 0;
+  v128 = 0;
+  v129 = &v128;
+  v130 = 0x3032000000;
+  v131 = __Block_byref_object_copy_;
+  v132 = __Block_byref_object_dispose_;
+  v133 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __90__PPNamedEntityDissector_entitiesInPlainText_eligibleRegions_source_cloudSync_algorithms___block_invoke;
   aBlock[3] = &unk_278971448;
-  v125 = &v129;
+  v124 = &v128;
   v28 = sourceCopy;
-  v120 = v28;
+  v119 = v28;
   syncCopy = sync;
-  v128 = v16;
-  v126 = v19;
-  v81 = algorithmsCopy;
-  v121 = v81;
-  v75 = v23;
-  v122 = v75;
+  v127 = v16;
+  v125 = v19;
+  v80 = algorithmsCopy;
+  v120 = v80;
+  v74 = v23;
+  v121 = v74;
   v29 = v27;
-  v123 = v29;
+  v122 = v29;
   selfCopy = self;
-  v80 = _Block_copy(aBlock);
+  v79 = _Block_copy(aBlock);
   v30 = +[PPConfiguration sharedInstance];
   bundleId4 = [v28 bundleId];
   language2 = [v28 language];
   v33 = [v30 extractionAlgorithmsForBundleId:bundleId4 sourceLanguage:language2 conservative:0 domain:0];
 
-  v112[0] = MEMORY[0x277D85DD0];
-  v112[1] = 3221225472;
-  v112[2] = __90__PPNamedEntityDissector_entitiesInPlainText_eligibleRegions_source_cloudSync_algorithms___block_invoke_2;
-  v112[3] = &unk_278971470;
-  v115 = &v129;
-  v74 = v33;
-  v113 = v74;
+  v111[0] = MEMORY[0x277D85DD0];
+  v111[1] = 3221225472;
+  v111[2] = __90__PPNamedEntityDissector_entitiesInPlainText_eligibleRegions_source_cloudSync_algorithms___block_invoke_2;
+  v111[3] = &unk_278971470;
+  v114 = &v128;
+  v73 = v33;
+  v112 = v73;
   v34 = v28;
-  v114 = v34;
+  v113 = v34;
   syncCopy2 = sync;
-  v118 = v16;
-  v116 = v19;
-  v77 = _Block_copy(v112);
-  v105[0] = MEMORY[0x277D85DD0];
-  v105[1] = 3221225472;
-  v105[2] = __90__PPNamedEntityDissector_entitiesInPlainText_eligibleRegions_source_cloudSync_algorithms___block_invoke_3;
-  v105[3] = &unk_278971498;
-  v108 = &v129;
-  v73 = v29;
-  v106 = v73;
-  v76 = v34;
-  v107 = v76;
+  v117 = v16;
+  v115 = v19;
+  v76 = _Block_copy(v111);
+  v104[0] = MEMORY[0x277D85DD0];
+  v104[1] = 3221225472;
+  v104[2] = __90__PPNamedEntityDissector_entitiesInPlainText_eligibleRegions_source_cloudSync_algorithms___block_invoke_3;
+  v104[3] = &unk_278971498;
+  v107 = &v128;
+  v72 = v29;
+  v105 = v72;
+  v75 = v34;
+  v106 = v75;
   syncCopy3 = sync;
-  v111 = v16;
-  v109 = v19;
-  v78 = _Block_copy(v105);
-  v35 = [v81 containsObject:&unk_2847839A8];
-  bundleId5 = [v76 bundleId];
+  v110 = v16;
+  v108 = v19;
+  v77 = _Block_copy(v104);
+  v35 = [v80 containsObject:&unk_2847839A8];
+  bundleId5 = [v75 bundleId];
   LODWORD(v34) = [bundleId5 isEqualToString:*MEMORY[0x277D3A698]];
 
   if (!v34)
@@ -127,90 +129,90 @@ LABEL_5:
     goto LABEL_9;
   }
 
-  v37 = [PPConfiguration sharedInstance:v73];
+  v37 = [PPConfiguration sharedInstance:v72];
   safariDataDetectorsEnabledForHighMemoryDevices = [v37 safariDataDetectorsEnabledForHighMemoryDevices];
 
   if (v35 & safariDataDetectorsEnabledForHighMemoryDevices)
   {
 LABEL_9:
-    v39 = [(PPNamedEntityDissector *)self _collectDataDetectorsWithText:textCopy algorithms:v81 isMessagesSource:v16 addNamedEntity:v80, v73];
+    v39 = [(PPNamedEntityDissector *)self _collectDataDetectorsWithText:textCopy algorithms:v80 isMessagesSource:v16 addNamedEntity:v79, v72];
   }
 
 LABEL_10:
   if (regionsCopy)
   {
-    v100[0] = MEMORY[0x277D85DD0];
-    v100[1] = 3221225472;
-    v100[2] = __90__PPNamedEntityDissector_entitiesInPlainText_eligibleRegions_source_cloudSync_algorithms___block_invoke_4;
-    v100[3] = &unk_2789714C0;
-    v100[4] = self;
-    v101 = textCopy;
-    v102 = v80;
+    v99[0] = MEMORY[0x277D85DD0];
+    v99[1] = 3221225472;
+    v99[2] = __90__PPNamedEntityDissector_entitiesInPlainText_eligibleRegions_source_cloudSync_algorithms___block_invoke_4;
+    v99[3] = &unk_2789714C0;
+    v99[4] = self;
+    v100 = textCopy;
+    v101 = v79;
+    v102 = v76;
     v103 = v77;
-    v104 = v78;
-    [regionsCopy enumerateRangesUsingBlock:v100];
+    [regionsCopy enumerateRangesUsingBlock:v99];
   }
 
   else
   {
-    [(PPNamedEntityDissector *)self _collectAugmentedGazetteerWithText:textCopy addNamedEntity:v80 addTopic:v77 addLocation:v78];
+    [(PPNamedEntityDissector *)self _collectAugmentedGazetteerWithText:textCopy addNamedEntity:v79 addTopic:v76 addLocation:v77];
   }
 
-  v83 = objc_opt_new();
-  v98 = 0u;
-  v99 = 0u;
-  v96 = 0u;
+  v82 = objc_opt_new();
   v97 = 0u;
-  v85 = [&unk_2847852B0 countByEnumeratingWithState:&v96 objects:v141 count:16];
-  if (v85)
+  v98 = 0u;
+  v95 = 0u;
+  v96 = 0u;
+  v84 = [&unk_2847852B0 countByEnumeratingWithState:&v95 objects:v140 count:16];
+  if (v84)
   {
-    v84 = *v97;
+    v83 = *v96;
     do
     {
-      for (i = 0; i != v85; ++i)
+      for (i = 0; i != v84; ++i)
       {
-        if (*v97 != v84)
+        if (*v96 != v83)
         {
           objc_enumerationMutation(&unk_2847852B0);
         }
 
-        v87 = [v130[5] objectForKeyedSubscript:{*(*(&v96 + 1) + 8 * i), v73}];
-        v40 = v87;
-        if (v87)
+        v86 = [v129[5] objectForKeyedSubscript:{*(*(&v95 + 1) + 8 * i), v72}];
+        v40 = v86;
+        if (v86)
         {
-          [v83 addObject:?];
+          [v82 addObject:?];
           v41 = pp_default_log_handle();
           if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
           {
-            entities = [v87 entities];
+            entities = [v86 entities];
             v43 = [entities count];
-            v44 = [MEMORY[0x277D3A438] describeAlgorithm:{objc_msgSend(v87, "entityAlgorithm")}];
+            v44 = [MEMORY[0x277D3A438] describeAlgorithm:{objc_msgSend(v86, "entityAlgorithm")}];
             *buf = 134218242;
-            v138 = v43;
-            v139 = 2112;
-            v140 = v44;
+            v137 = v43;
+            v138 = 2112;
+            v139 = v44;
             _os_log_impl(&dword_23224A000, v41, OS_LOG_TYPE_DEFAULT, "PPNamedEntityDissector: entitiesInPlainText detected %lu entities with algorithm %@.", buf, 0x16u);
           }
 
-          v94 = 0u;
-          v95 = 0u;
-          v92 = 0u;
           v93 = 0u;
-          entities2 = [v87 entities];
-          v46 = [entities2 countByEnumeratingWithState:&v92 objects:v136 count:16];
+          v94 = 0u;
+          v91 = 0u;
+          v92 = 0u;
+          entities2 = [v86 entities];
+          v46 = [entities2 countByEnumeratingWithState:&v91 objects:v135 count:16];
           if (v46)
           {
-            v47 = *v93;
+            v47 = *v92;
             do
             {
               for (j = 0; j != v46; ++j)
               {
-                if (*v93 != v47)
+                if (*v92 != v47)
                 {
                   objc_enumerationMutation(entities2);
                 }
 
-                v49 = *(*(&v92 + 1) + 8 * j);
+                v49 = *(*(&v91 + 1) + 8 * j);
                 v50 = pp_default_log_handle();
                 if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
                 {
@@ -218,7 +220,7 @@ LABEL_10:
                   item = [v49 item];
                   v54 = [v52 describeCategory:{objc_msgSend(item, "category")}];
                   *buf = 138739971;
-                  v138 = v54;
+                  v137 = v54;
                   _os_log_debug_impl(&dword_23224A000, v50, OS_LOG_TYPE_DEBUG, "   category: %{sensitive}@", buf, 0xCu);
                 }
 
@@ -228,18 +230,18 @@ LABEL_10:
                   item2 = [v49 item];
                   name = [item2 name];
                   *buf = 138739971;
-                  v138 = name;
+                  v137 = name;
                   _os_log_debug_impl(&dword_23224A000, v51, OS_LOG_TYPE_DEBUG, "       name: %{sensitive}@", buf, 0xCu);
                 }
               }
 
-              v46 = [entities2 countByEnumeratingWithState:&v92 objects:v136 count:16];
+              v46 = [entities2 countByEnumeratingWithState:&v91 objects:v135 count:16];
             }
 
             while (v46);
           }
 
-          topics = [v87 topics];
+          topics = [v86 topics];
           v58 = [topics count] == 0;
 
           if (!v58)
@@ -247,70 +249,69 @@ LABEL_10:
             v59 = pp_default_log_handle();
             if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
             {
-              topics2 = [v87 topics];
+              topics2 = [v86 topics];
               v61 = [topics2 count];
-              v62 = [MEMORY[0x277D3A548] describeAlgorithm:{objc_msgSend(v87, "topicAlgorithm")}];
+              v62 = [MEMORY[0x277D3A548] describeAlgorithm:{objc_msgSend(v86, "topicAlgorithm")}];
               *buf = 134218242;
-              v138 = v61;
-              v139 = 2112;
-              v140 = v62;
+              v137 = v61;
+              v138 = 2112;
+              v139 = v62;
               _os_log_impl(&dword_23224A000, v59, OS_LOG_TYPE_DEFAULT, "PPNamedEntityDissector: entitiesInPlainText detected %lu topics with algorithm %@.", buf, 0x16u);
             }
           }
 
-          v90 = 0u;
-          v91 = 0u;
-          v88 = 0u;
           v89 = 0u;
-          topics3 = [v87 topics];
-          v64 = [topics3 countByEnumeratingWithState:&v88 objects:v135 count:16];
+          v90 = 0u;
+          v87 = 0u;
+          v88 = 0u;
+          topics3 = [v86 topics];
+          v64 = [topics3 countByEnumeratingWithState:&v87 objects:v134 count:16];
           if (v64)
           {
-            v65 = *v89;
+            v65 = *v88;
             do
             {
               for (k = 0; k != v64; ++k)
               {
-                if (*v89 != v65)
+                if (*v88 != v65)
                 {
                   objc_enumerationMutation(topics3);
                 }
 
-                v67 = *(*(&v88 + 1) + 8 * k);
+                v67 = *(*(&v87 + 1) + 8 * k);
                 v68 = pp_default_log_handle();
                 if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
                 {
                   item3 = [v67 item];
                   topicIdentifier = [item3 topicIdentifier];
                   *buf = 138739971;
-                  v138 = topicIdentifier;
+                  v137 = topicIdentifier;
                   _os_log_debug_impl(&dword_23224A000, v68, OS_LOG_TYPE_DEBUG, "  %{sensitive}@", buf, 0xCu);
                 }
               }
 
-              v64 = [topics3 countByEnumeratingWithState:&v88 objects:v135 count:16];
+              v64 = [topics3 countByEnumeratingWithState:&v87 objects:v134 count:16];
             }
 
             while (v64);
           }
 
-          v40 = v87;
+          v40 = v86;
         }
       }
 
-      v85 = [&unk_2847852B0 countByEnumeratingWithState:&v96 objects:v141 count:16];
+      v84 = [&unk_2847852B0 countByEnumeratingWithState:&v95 objects:v140 count:16];
     }
 
-    while (v85);
+    while (v84);
   }
 
-  _Block_object_dispose(&v129, 8);
-  v71 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v128, 8);
 
-  return v83;
+  return v82;
 }
 
-id __90__PPNamedEntityDissector_entitiesInPlainText_eligibleRegions_source_cloudSync_algorithms___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a5)
+PPScoredExtractionSet *__90__PPNamedEntityDissector_entitiesInPlainText_eligibleRegions_source_cloudSync_algorithms___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a5)
 {
   v8 = a2;
   v9 = a4;
@@ -400,7 +401,7 @@ id __90__PPNamedEntityDissector_entitiesInPlainText_eligibleRegions_source_cloud
   return v15;
 }
 
-id __90__PPNamedEntityDissector_entitiesInPlainText_eligibleRegions_source_cloudSync_algorithms___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+PPScoredExtractionSet *__90__PPNamedEntityDissector_entitiesInPlainText_eligibleRegions_source_cloudSync_algorithms___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v7 = a2;
   v8 = *(*(*(a1 + 48) + 8) + 40);
@@ -469,7 +470,7 @@ id __90__PPNamedEntityDissector_entitiesInPlainText_eligibleRegions_source_cloud
   return v26;
 }
 
-id __90__PPNamedEntityDissector_entitiesInPlainText_eligibleRegions_source_cloudSync_algorithms___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+PPScoredExtractionSet *__90__PPNamedEntityDissector_entitiesInPlainText_eligibleRegions_source_cloudSync_algorithms___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v9 = a2;
   v10 = *(*(*(a1 + 48) + 8) + 40);
@@ -539,54 +540,81 @@ void __90__PPNamedEntityDissector_entitiesInPlainText_eligibleRegions_source_clo
   [v6 _collectAugmentedGazetteerWithText:v8 addNamedEntity:*(a1 + 48) addTopic:*(a1 + 56) addLocation:*(a1 + 64)];
 }
 
+- (id)entitiesInPlainText:(id)text eligibleRegions:(id)regions source:(id)source cloudSync:(BOOL)sync
+{
+  syncCopy = sync;
+  sourceCopy = source;
+  regionsCopy = regions;
+  textCopy = text;
+  v13 = +[PPConfiguration sharedInstance];
+  bundleId = [sourceCopy bundleId];
+  language = [sourceCopy language];
+  v16 = [v13 extractionAlgorithmsForBundleId:bundleId sourceLanguage:language conservative:0 domain:1];
+  v17 = [(PPNamedEntityDissector *)self entitiesInPlainText:textCopy eligibleRegions:regionsCopy source:sourceCopy cloudSync:syncCopy algorithms:v16];
+
+  return v17;
+}
+
+- (void)_harvestLocationFromEntity:(id)entity category:(unint64_t)category dynamicCategory:(id)dynamicCategory enrichment:(id)enrichment algorithm:(unsigned __int16)algorithm
+{
+  algorithmCopy = algorithm;
+  entityCopy = entity;
+  enrichmentCopy = enrichment;
+  if ([PPLocalLocationStore isLocationRelevantNamedEntityCategory:category])
+  {
+    v11 = [PPLocalLocationStore scoredLocationFromName:entityCopy category:[PPLocalLocationStore namedEntityCategoryToLocationCategory:category] score:1.0 sentimentScore:0.0];
+    [enrichmentCopy addLocation:v11 algorithm:algorithmCopy];
+  }
+}
+
 - (id)_collectDataDetectorsWithText:(id)text algorithms:(id)algorithms isMessagesSource:(BOOL)source addNamedEntity:(id)entity
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   textCopy = text;
   algorithmsCopy = algorithms;
   entityCopy = entity;
   v9 = MEMORY[0x277D024E0];
   v10 = objc_opt_new();
-  v44 = textCopy;
+  v43 = textCopy;
   v11 = [v9 detectionsInPlainText:textCopy baseDate:v10];
 
-  v41 = objc_opt_new();
+  v40 = objc_opt_new();
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
   obj = v11;
-  v12 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
+  v12 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v55;
-    v42 = *v55;
+    v14 = *v54;
+    v41 = *v54;
     do
     {
       v15 = 0;
-      v45 = v13;
+      v44 = v13;
       do
       {
-        if (*v55 != v14)
+        if (*v54 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v54 + 1) + 8 * v15);
+        v16 = *(*(&v53 + 1) + 8 * v15);
         v17 = objc_autoreleasePoolPush();
         if ([v16 matchType] == 1 && objc_msgSend(algorithmsCopy, "containsObject:", &unk_2847839A8))
         {
-          v46 = v17;
+          v45 = v17;
           aBlock[0] = MEMORY[0x277D85DD0];
           aBlock[1] = 3221225472;
           aBlock[2] = __99__PPNamedEntityDissector__collectDataDetectorsWithText_algorithms_isMessagesSource_addNamedEntity___block_invoke;
           aBlock[3] = &unk_278971420;
-          v53 = entityCopy;
+          v52 = entityCopy;
           v18 = _Block_copy(aBlock);
           v19 = objc_autoreleasePoolPush();
           range = [v16 range];
-          v22 = [v44 substringWithRange:{range, v21}];
+          v22 = [v43 substringWithRange:{range, v21}];
           objc_autoreleasePoolPop(v19);
           v23 = SGPostalAddressParse();
 
@@ -599,25 +627,25 @@ void __90__PPNamedEntityDissector_entitiesInPlainText_eligibleRegions_source_clo
           v30 = (v18[2])(v18, v25, 9);
           v31 = (v18[2])(v18, v26, 10);
           v32 = (v18[2])(v18, v28, 11);
-          v50 = v25;
-          v51 = v24;
+          v49 = v25;
+          v50 = v24;
           v33 = [PPNamedEntitySupport fullAddressForStreetAddress:v24 city:v25 state:v26 postalCode:v27 country:v28];
           v34 = (v18[2])(v18, v33, 12);
-          v49 = v29;
+          v48 = v29;
           if (v29)
           {
-            v35 = [MEMORY[0x277D3A3F8] placemarkWithLocation:0 name:0 thoroughfare:v51 subthoroughFare:0 locality:v25 subLocality:0 administrativeArea:v26 subAdministrativeArea:0 postalCode:v27 countryCode:0 country:v28 inlandWater:0 ocean:0 areasOfInterest:0];
+            v35 = [MEMORY[0x277D3A3F8] placemarkWithLocation:0 name:0 thoroughfare:v50 subthoroughFare:0 locality:v25 subLocality:0 administrativeArea:v26 subAdministrativeArea:0 postalCode:v27 countryCode:0 country:v28 inlandWater:0 ocean:0 areasOfInterest:0];
             v36 = v26;
             v37 = [objc_alloc(MEMORY[0x277D3A3D8]) initWithPlacemark:v35 category:0 mostRelevantRecord:0];
             v38 = [objc_alloc(MEMORY[0x277D3A4A8]) initWithLocation:v37 score:1.0 sentimentScore:0.0];
-            [v49 addLocation:v38 algorithm:4];
+            [v48 addLocation:v38 algorithm:4];
 
             v26 = v36;
           }
 
-          v14 = v42;
-          v13 = v45;
-          v17 = v46;
+          v14 = v41;
+          v13 = v44;
+          v17 = v45;
         }
 
         objc_autoreleasePoolPop(v17);
@@ -625,15 +653,13 @@ void __90__PPNamedEntityDissector_entitiesInPlainText_eligibleRegions_source_clo
       }
 
       while (v13 != v15);
-      v13 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
+      v13 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
     }
 
     while (v13);
   }
 
-  v39 = *MEMORY[0x277D85DE8];
-
-  return v41;
+  return v40;
 }
 
 uint64_t __99__PPNamedEntityDissector__collectDataDetectorsWithText_algorithms_isMessagesSource_addNamedEntity___block_invoke(uint64_t a1, void *a2)

@@ -12,9 +12,32 @@
 - (void)_updateSpecifiersWithProviderDomains:(id)domains;
 - (void)documentPicker:(id)picker didPickDocumentsAtURLs:(id)ls;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SafariDownloadsSettingsController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = SafariDownloadsSettingsController;
+  [(SafariDownloadsSettingsController *)&v12 viewWillAppear:appear];
+  v4 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Apps/com.apple.mobilesafari/DOWNLOADS"];
+  v5 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v5 bundleURL];
+
+  v7 = +[NSLocale currentLocale];
+  v8 = [[_NSLocalizedStringResource alloc] initWithKey:@"Downloads" table:@"Safari" locale:v7 bundleURL:bundleURL];
+  v9 = [[_NSLocalizedStringResource alloc] initWithKey:@"Apps" table:@"Safari" locale:v7 bundleURL:bundleURL];
+  v10 = [[_NSLocalizedStringResource alloc] initWithKey:@"Safari" table:@"Safari" locale:v7 bundleURL:bundleURL];
+  if (objc_opt_respondsToSelector())
+  {
+    v13[0] = v9;
+    v13[1] = v10;
+    v11 = [NSArray arrayWithObjects:v13 count:2];
+    [(SafariDownloadsSettingsController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.mobilesafari" title:v8 localizedNavigationComponents:v11 deepLink:v4];
+  }
+}
 
 - (id)_downloadSettings
 {
@@ -147,26 +170,27 @@ void __47__SafariDownloadsSettingsController_specifiers__block_invoke(uint64_t a
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v9 = WBS_LOG_CHANNEL_PREFIXDownloads(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      __47__SafariDownloadsSettingsController_specifiers__block_invoke_cold_1(v7);
+      __47__SafariDownloadsSettingsController_specifiers__block_invoke_cold_1(v9);
     }
   }
 
   else
   {
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = __47__SafariDownloadsSettingsController_specifiers__block_invoke_75;
-    v8[3] = &unk_89BE8;
-    objc_copyWeak(&v10, (a1 + 32));
-    v9 = v5;
-    dispatch_async(&_dispatch_main_q, v8);
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = __47__SafariDownloadsSettingsController_specifiers__block_invoke_75;
+    v10[3] = &unk_89BE8;
+    objc_copyWeak(&v12, (a1 + 32));
+    v11 = v5;
+    dispatch_async(&_dispatch_main_q, v10);
 
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v12);
   }
 }
 
@@ -251,28 +275,29 @@ void __58__SafariDownloadsSettingsController__updateSelectedFolder__block_invoke
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXDownloads(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __58__SafariDownloadsSettingsController__updateSelectedFolder__block_invoke_cold_1(v7);
+      __58__SafariDownloadsSettingsController__updateSelectedFolder__block_invoke_cold_1(v9);
     }
 
-    v8 = *(a1 + 32);
-    v9 = *(v8 + 184);
-    *(v8 + 184) = 0;
+    v10 = *(a1 + 32);
+    v11 = *(v10 + 184);
+    *(v10 + 184) = 0;
   }
 
   else
   {
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = __58__SafariDownloadsSettingsController__updateSelectedFolder__block_invoke_79;
-    v10[3] = &unk_896A0;
-    v10[4] = *(a1 + 32);
-    v11 = v5;
-    dispatch_async(&_dispatch_main_q, v10);
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = __58__SafariDownloadsSettingsController__updateSelectedFolder__block_invoke_79;
+    v12[3] = &unk_896A0;
+    v12[4] = *(a1 + 32);
+    v13 = v5;
+    dispatch_async(&_dispatch_main_q, v12);
   }
 }
 
@@ -346,20 +371,21 @@ LABEL_7:
 void __76__SafariDownloadsSettingsController__setDownloadsLocationForProviderDomain___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v6 = v4;
   if (v4)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXDownloads(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __76__SafariDownloadsSettingsController__setDownloadsLocationForProviderDomain___block_invoke_cold_1(v5);
+      __76__SafariDownloadsSettingsController__setDownloadsLocationForProviderDomain___block_invoke_cold_1(v7);
     }
   }
 
   else
   {
-    v6 = +[WBSAnalyticsLogger sharedLogger];
-    v7 = [*(a1 + 32) identifier];
-    [v6 didSetDownloadFolderToProviderWithIdentifier:v7 isDefaultFolder:1];
+    v8 = +[WBSAnalyticsLogger sharedLogger];
+    v9 = [*(a1 + 32) identifier];
+    [v8 didSetDownloadFolderToProviderWithIdentifier:v9 isDefaultFolder:1];
 
     [*(a1 + 40) _updateSelectedFolder];
   }
@@ -382,20 +408,21 @@ void __76__SafariDownloadsSettingsController__setDownloadsLocationForProviderDom
 void __70__SafariDownloadsSettingsController__setDefaultDownloadsLocationItem___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v6 = v4;
   if (v4)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXDownloads(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __76__SafariDownloadsSettingsController__setDownloadsLocationForProviderDomain___block_invoke_cold_1(v5);
+      __76__SafariDownloadsSettingsController__setDownloadsLocationForProviderDomain___block_invoke_cold_1(v7);
     }
   }
 
   else
   {
-    v6 = +[WBSAnalyticsLogger sharedLogger];
-    v7 = [*(a1 + 32) providerDomainID];
-    [v6 didSetDownloadFolderToProviderWithIdentifier:v7 isDefaultFolder:{objc_msgSend(*(a1 + 32), "folderType") == &dword_4}];
+    v8 = +[WBSAnalyticsLogger sharedLogger];
+    v9 = [*(a1 + 32) providerDomainID];
+    [v8 didSetDownloadFolderToProviderWithIdentifier:v9 isDefaultFolder:{objc_msgSend(*(a1 + 32), "folderType") == &dword_4}];
 
     [*(a1 + 40) _updateSelectedFolder];
   }
@@ -517,21 +544,21 @@ id __54__SafariDownloadsSettingsController__showFolderPicker__block_invoke_2(uin
   {
     _itemManager = [(SafariDownloadsSettingsController *)self _itemManager];
     firstObject = [lsCopy firstObject];
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = __75__SafariDownloadsSettingsController_documentPicker_didPickDocumentsAtURLs___block_invoke;
-    v9[3] = &unk_89C60;
-    v10 = lsCopy;
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = __75__SafariDownloadsSettingsController_documentPicker_didPickDocumentsAtURLs___block_invoke;
+    v10[3] = &unk_89C60;
+    v11 = lsCopy;
     selfCopy = self;
-    [_itemManager fetchItemForURL:firstObject completionHandler:v9];
+    [_itemManager fetchItemForURL:firstObject completionHandler:v10];
   }
 
   else
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXDownloads(0, v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [SafariDownloadsSettingsController documentPicker:v8 didPickDocumentsAtURLs:?];
+      [SafariDownloadsSettingsController documentPicker:v9 didPickDocumentsAtURLs:?];
     }
   }
 }
@@ -539,6 +566,7 @@ id __54__SafariDownloadsSettingsController__showFolderPicker__block_invoke_2(uin
 void __75__SafariDownloadsSettingsController_documentPicker_didPickDocumentsAtURLs___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if (a2)
   {
     [*(a1 + 40) _setDefaultDownloadsLocationItem:a2];
@@ -546,10 +574,10 @@ void __75__SafariDownloadsSettingsController_documentPicker_didPickDocumentsAtUR
 
   else
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXDownloads(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __75__SafariDownloadsSettingsController_documentPicker_didPickDocumentsAtURLs___block_invoke_cold_1(a1, v6);
+      __75__SafariDownloadsSettingsController_documentPicker_didPickDocumentsAtURLs___block_invoke_cold_1(a1, v8);
     }
   }
 }
@@ -567,7 +595,7 @@ void __58__SafariDownloadsSettingsController__updateSelectedFolder__block_invoke
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_0, v4, v5, "Failed to fetch default downloads location item: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0(&dword_0, v4, v5, "Failed to fetch default downloads location item: %{public}@", v6, v7, v8, v9);
 }
 
 void __76__SafariDownloadsSettingsController__setDownloadsLocationForProviderDomain___block_invoke_cold_1(void *a1)
@@ -575,7 +603,7 @@ void __76__SafariDownloadsSettingsController__setDownloadsLocationForProviderDom
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_0, v4, v5, "Setting default downloads location item failed: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0(&dword_0, v4, v5, "Setting default downloads location item failed: %{public}@", v6, v7, v8, v9);
 }
 
 void __75__SafariDownloadsSettingsController_documentPicker_didPickDocumentsAtURLs___block_invoke_cold_1(uint64_t a1, void *a2)

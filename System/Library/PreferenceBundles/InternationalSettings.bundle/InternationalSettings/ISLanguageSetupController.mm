@@ -1,6 +1,7 @@
 @interface ISLanguageSetupController
 - (BOOL)isSettingDifferentLanguage;
 - (void)commit;
+- (void)handleAlertAction:(BOOL)action;
 - (void)saveLanguage:(BOOL)language;
 - (void)setLanguage:(id)language specifier:(id)specifier;
 - (void)setupController;
@@ -207,9 +208,7 @@
 
 - (void)setLanguage:(id)language specifier:(id)specifier
 {
-  v5 = [language copy];
-  languageToSet = self->_languageToSet;
-  self->_languageToSet = v5;
+  self->_languageToSet = [language copy];
 
   _objc_release_x1();
 }
@@ -227,6 +226,15 @@
   [(ISLanguageViewController *)v5 setParentController:self];
   [(ISLanguageSetupController *)self setListController:v5];
   [(ISLanguageSetupController *)self showController:v5];
+}
+
+- (void)handleAlertAction:(BOOL)action
+{
+  [(ISLanguageSetupController *)self saveLanguage:action];
+  parentController = [(ISLanguageSetupController *)self parentController];
+  [parentController reloadSpecifiers];
+
+  [(ISLanguageSetupController *)self dismissAnimated:1];
 }
 
 @end

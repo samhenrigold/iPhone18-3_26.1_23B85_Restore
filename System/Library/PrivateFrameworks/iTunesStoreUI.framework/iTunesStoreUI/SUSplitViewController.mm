@@ -842,7 +842,7 @@ LABEL_14:
 
 - (void)_reloadViewController:(id)controller fromDictionary:(id)dictionary
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v7 = [dictionary objectForKey:@"contents"];
   if (!v7)
   {
@@ -872,92 +872,84 @@ LABEL_14:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0 || (v12 = [v8 dataUsingEncoding:4]) == 0)
       {
-LABEL_29:
+LABEL_31:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v24 = objc_alloc_init(SUStructuredPage);
-          [(SUStructuredPage *)v24 loadFromDictionary:v8];
-          [controller reloadWithStorePage:v24 ofType:0 forURL:{-[SUSplitViewController displayedURL](self, "displayedURL")}];
+          v26 = objc_alloc_init(SUStructuredPage);
+          [(SUStructuredPage *)v26 loadFromDictionary:v8];
+          [controller reloadWithStorePage:v26 ofType:0 forURL:{-[SUSplitViewController displayedURL](self, "displayedURL")}];
         }
 
         return;
       }
     }
 
-    v26 = 0;
-    v8 = [MEMORY[0x1E696AE40] propertyListWithData:v12 options:0 format:0 error:&v26];
-    if (v26)
+    v27 = 0;
+    v8 = [MEMORY[0x1E696AE40] propertyListWithData:v12 options:0 format:0 error:&v27];
+    if (v27)
     {
       mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
       shouldLog = [mEMORY[0x1E69D4938] shouldLog];
-      if ([mEMORY[0x1E69D4938] shouldLogToDisk])
+      LODWORD(v21) = [mEMORY[0x1E69D4938] shouldLogToDisk] ? shouldLog | 2 : shouldLog;
+      oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+      v21 = os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT) ? v21 : v21 & 2u;
+      if (v21)
       {
-        v20 = shouldLog | 2;
-      }
-
-      else
-      {
-        v20 = shouldLog;
-      }
-
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
-      {
-        v20 &= 2u;
-      }
-
-      if (v20)
-      {
-        v21 = objc_opt_class();
-        v27 = 138412546;
-        v28 = v21;
-        v29 = 2112;
-        v30 = v26;
-        LODWORD(v25) = 22;
-        v22 = _os_log_send_and_compose_impl();
-        if (v22)
+        v23 = objc_opt_class();
+        v28 = 138412546;
+        v29 = v23;
+        v30 = 2112;
+        v31 = v27;
+        v24 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Could not parse plist contents: %@", &v28, 22);
+        if (v24)
         {
-          v23 = v22;
-          [MEMORY[0x1E696AEC0] stringWithCString:v22 encoding:{4, &v27, v25}];
-          free(v23);
+          v25 = v24;
+          [MEMORY[0x1E696AEC0] stringWithCString:v24 encoding:4];
+          free(v25);
           SSFileLog();
         }
       }
     }
 
-    goto LABEL_29;
+    goto LABEL_31;
   }
 
   mEMORY[0x1E69D4938]2 = [MEMORY[0x1E69D4938] sharedConfig];
   shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
   if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
   {
-    v15 = shouldLog2 | 2;
+    LODWORD(v15) = shouldLog2 | 2;
   }
 
   else
   {
-    v15 = shouldLog2;
+    LODWORD(v15) = shouldLog2;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938]2 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = v15;
+  }
+
+  else
   {
     v15 &= 2u;
   }
 
   if (v15)
   {
-    v27 = 138412546;
-    v28 = objc_opt_class();
-    v29 = 2112;
-    v30 = v10;
-    LODWORD(v25) = 22;
-    v16 = _os_log_send_and_compose_impl();
-    if (v16)
+    v28 = 138412546;
+    v29 = objc_opt_class();
+    v30 = 2112;
+    v31 = v10;
+    v17 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 0, "%@: Unknown section type: %@", &v28, 22);
+    if (v17)
     {
-      v17 = v16;
-      [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:{4, &v27, v25}];
-      free(v17);
+      v18 = v17;
+      [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:4];
+      free(v18);
       SSFileLog();
     }
   }

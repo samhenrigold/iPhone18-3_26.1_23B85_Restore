@@ -43,7 +43,7 @@
 
 - (HFTriggerActionsSetsUISummary)initWithSummaryText:(id)text summaryIconNames:(id)names
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   textCopy = text;
   namesCopy = names;
   v8 = [(HFTriggerActionsSetsUISummary *)self init];
@@ -54,36 +54,36 @@
     v8->_summaryDescription = v9;
 
     array = [MEMORY[0x277CBEB18] array];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v12 = namesCopy;
-    v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v25;
+      v15 = *v24;
       do
       {
         v16 = 0;
         do
         {
-          if (*v25 != v15)
+          if (*v24 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v24 + 1) + 8 * v16);
+          v17 = *(*(&v23 + 1) + 8 * v16);
           v18 = [HFImageIconDescriptor alloc];
-          v19 = [(HFImageIconDescriptor *)v18 initWithImageIdentifier:v17, v24];
+          v19 = [(HFImageIconDescriptor *)v18 initWithImageIdentifier:v17, v23];
           [array addObject:v19];
 
           ++v16;
         }
 
         while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v14);
@@ -96,7 +96,6 @@
     v8->_needsIconSort = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -247,38 +246,36 @@ LABEL_7:
 
 - (id)summaryIcons
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   summaryIconDescriptors = [(HFTriggerActionsSetsUISummary *)self summaryIconDescriptors];
-  v5 = [summaryIconDescriptors countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [summaryIconDescriptors countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(summaryIconDescriptors);
         }
 
-        identifier = [*(*(&v12 + 1) + 8 * i) identifier];
+        identifier = [*(*(&v11 + 1) + 8 * i) identifier];
         [array addObject:identifier];
       }
 
-      v6 = [summaryIconDescriptors countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [summaryIconDescriptors countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return array;
 }

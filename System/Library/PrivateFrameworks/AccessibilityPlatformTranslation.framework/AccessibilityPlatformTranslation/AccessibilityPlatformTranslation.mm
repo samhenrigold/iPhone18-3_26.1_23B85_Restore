@@ -1,8 +1,8 @@
-void notificationBypass(int a1, uint64_t a2, void *a3, void *a4)
+void notificationBypass(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   if (a1 == 1060)
   {
-    _handleElementDestroyed(a3);
+    _handleElementDestroyed(a3, a2, a3);
   }
 
   v7 = _convertAXNotification(a1, a4);
@@ -25,58 +25,57 @@ void notificationBypass(int a1, uint64_t a2, void *a3, void *a4)
   }
 }
 
-void _systemWideServerDied(void *a1)
+void _systemWideServerDied(void *a1, uint64_t a2)
 {
   v7 = *MEMORY[0x277D85DE8];
-  v2 = AXPlatformTranslationLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = AXPlatformTranslationLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v5 = 136315138;
     v6 = "void _systemWideServerDied(void *)";
-    _os_log_impl(&dword_23D766000, v2, OS_LOG_TYPE_INFO, "%s", &v5, 0xCu);
+    _os_log_impl(&dword_23D766000, v3, OS_LOG_TYPE_INFO, "%s", &v5, 0xCu);
   }
 
-  v3 = objc_autoreleasePoolPush();
+  v4 = objc_autoreleasePoolPush();
   [a1 _resetSystemWideElementAfterDelay];
-  objc_autoreleasePoolPop(v3);
-  v4 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v4);
 }
 
-void _axEventHandler(uint64_t a1, void *a2, int a3, void *a4)
+void _axEventHandler(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v7 = objc_autoreleasePoolPush();
+  v9 = objc_autoreleasePoolPush();
   if (a3 == 1060)
   {
-    _handleElementDestroyed(a2);
+    _handleElementDestroyed(a2, v7, v8);
   }
 
-  v8 = +[AXPTranslator sharedInstance];
-  v9 = [v8 runtimeDelegate];
-  v10 = objc_opt_respondsToSelector();
+  v10 = +[AXPTranslator sharedInstance];
+  v11 = [v10 runtimeDelegate];
+  v12 = objc_opt_respondsToSelector();
 
-  if (v10)
+  if (v12)
   {
-    v11 = _convertAXNotification(a3, a4);
-    if (v11)
+    v13 = _convertAXNotification(a3, a4);
+    if (v13)
     {
-      v12 = v11;
-      v21 = 0;
-      v13 = _convertAXNotificationForElementWithData(a3, a2, a4, &v21);
-      v14 = v21;
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = ___axEventHandler_block_invoke;
-      v17[3] = &unk_278BE8550;
-      v19 = v14;
-      v20 = v12;
-      v18 = v13;
-      v15 = v14;
-      v16 = v13;
-      dispatch_async(MEMORY[0x277D85CD0], v17);
+      v14 = v13;
+      v23 = 0;
+      v15 = _convertAXNotificationForElementWithData(a3, a2, a4, &v23);
+      v16 = v23;
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = ___axEventHandler_block_invoke;
+      v19[3] = &unk_278BE8550;
+      v21 = v16;
+      v22 = v14;
+      v20 = v15;
+      v17 = v16;
+      v18 = v15;
+      dispatch_async(MEMORY[0x277D85CD0], v19);
     }
   }
 
-  objc_autoreleasePoolPop(v7);
+  objc_autoreleasePoolPop(v9);
 }
 
 uint64_t _appLoadedAccessibilityCallback(uint64_t a1, void *a2)
@@ -187,7 +186,7 @@ uint64_t _convertAXPActionToiOS(uint64_t a1)
 
 const __CFUUID *_AXPConvertOutgoingValueWithDesiredType(void *a1, uint64_t a2)
 {
-  v46[7] = *MEMORY[0x277D85DE8];
+  v45[7] = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     v7 = 0;
@@ -223,34 +222,34 @@ const __CFUUID *_AXPConvertOutgoingValueWithDesiredType(void *a1, uint64_t a2)
   {
     v9 = v6;
     v10 = [(__CFUUID *)v9 mutableCopy];
-    v44[0] = 0;
-    v44[1] = v44;
-    v44[2] = 0x2020000000;
-    v44[3] = 0;
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = ___convertAXAttributedStringToAXString_block_invoke;
-    v40[3] = &unk_278BE8598;
+    v43[0] = 0;
+    v43[1] = v43;
+    v43[2] = 0x2020000000;
+    v43[3] = 0;
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = ___convertAXAttributedStringToAXString_block_invoke;
+    v39[3] = &unk_278BE8598;
     v11 = v9;
-    v41 = v11;
+    v40 = v11;
     v12 = v10;
-    v42 = v12;
-    v43 = v44;
-    [(__CFUUID *)v11 enumerateAttributesUsingBlock:v40];
-    v46[0] = @"NSParagraphStyle";
-    v46[1] = @"NSFont";
-    v46[2] = @"NSShadow";
-    v46[3] = @"NSColor";
-    v46[4] = @"NSTextAlternatives";
-    v46[5] = @"NSTextEffect";
-    v46[6] = @"NSOriginalFont";
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:7];
+    v41 = v12;
+    v42 = v43;
+    [(__CFUUID *)v11 enumerateAttributesUsingBlock:v39];
+    v45[0] = @"NSParagraphStyle";
+    v45[1] = @"NSFont";
+    v45[2] = @"NSShadow";
+    v45[3] = @"NSColor";
+    v45[4] = @"NSTextAlternatives";
+    v45[5] = @"NSTextEffect";
+    v45[6] = @"NSOriginalFont";
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:7];
     [v12 removeAttributes:v13];
 
-    v14 = v42;
+    v14 = v41;
     v15 = v12;
 
-    _Block_object_dispose(v44, 8);
+    _Block_object_dispose(v43, 8);
     if (a2 && objc_opt_class() == a2 && [v15 hasAttributes])
     {
       v16 = [v15 attributedString];
@@ -305,52 +304,52 @@ const __CFUUID *_AXPConvertOutgoingValueWithDesiredType(void *a1, uint64_t a2)
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = ___AXPConvertOutgoingValueWithDesiredType_block_invoke;
-    v39[3] = &__block_descriptor_40_e8__16__0_8lu32l8;
-    v39[4] = a2;
-    v8 = [(__CFUUID *)v6 ax_flatMappedArrayUsingBlock:v39];
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = ___AXPConvertOutgoingValueWithDesiredType_block_invoke;
+    v38[3] = &__block_descriptor_40_e8__16__0_8lu32l8;
+    v38[4] = a2;
+    v8 = [(__CFUUID *)v6 ax_flatMappedArrayUsingBlock:v38];
     goto LABEL_9;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v19 = [(__CFUUID *)v6 allKeys];
-    if ([v19 count])
+    v18 = [(__CFUUID *)v6 allKeys];
+    if ([v18 count])
     {
-      v7 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v19, "count")}];
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
+      v7 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v18, "count")}];
       v36 = 0u;
-      v20 = v19;
-      v21 = [v20 countByEnumeratingWithState:&v35 objects:v45 count:16];
-      if (v21)
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
+      v19 = v18;
+      v20 = [v19 countByEnumeratingWithState:&v34 objects:v44 count:16];
+      if (v20)
       {
-        v22 = *v36;
+        v21 = *v35;
         do
         {
-          for (i = 0; i != v21; ++i)
+          for (i = 0; i != v20; ++i)
           {
-            if (*v36 != v22)
+            if (*v35 != v21)
             {
-              objc_enumerationMutation(v20);
+              objc_enumerationMutation(v19);
             }
 
-            v24 = *(*(&v35 + 1) + 8 * i);
-            v25 = _AXPConvertOutgoingValueWithDesiredType([(__CFUUID *)v6 objectForKey:v24], a2);
-            if (v25)
+            v23 = *(*(&v34 + 1) + 8 * i);
+            v24 = _AXPConvertOutgoingValueWithDesiredType([(__CFUUID *)v6 objectForKey:v23], a2);
+            if (v24)
             {
-              [(__CFUUID *)v7 setObject:v25 forKeyedSubscript:v24];
+              [(__CFUUID *)v7 setObject:v24 forKeyedSubscript:v23];
             }
           }
 
-          v21 = [v20 countByEnumeratingWithState:&v35 objects:v45 count:16];
+          v20 = [v19 countByEnumeratingWithState:&v34 objects:v44 count:16];
         }
 
-        while (v21);
+        while (v20);
       }
     }
 
@@ -363,7 +362,7 @@ const __CFUUID *_AXPConvertOutgoingValueWithDesiredType(void *a1, uint64_t a2)
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 || (v26 = CFURLGetTypeID(), v26 == CFGetTypeID(v6)) || (v27 = CGColorGetTypeID(), v27 == CFGetTypeID(v6)) || (v28 = CGPathGetTypeID(), v28 == CFGetTypeID(v6)))
+  if ((objc_opt_isKindOfClass() & 1) != 0 || (v25 = CFURLGetTypeID(), v25 == CFGetTypeID(v6)) || (v26 = CGColorGetTypeID(), v26 == CFGetTypeID(v6)) || (v27 = CGPathGetTypeID(), v27 == CFGetTypeID(v6)))
   {
 LABEL_8:
     v8 = v6;
@@ -374,20 +373,20 @@ LABEL_8:
     TypeID = AXValueGetTypeID();
     if (TypeID != CFGetTypeID(v6))
     {
-      v30 = AXUIElementGetTypeID();
-      if (v30 == CFGetTypeID(v6))
+      v29 = AXUIElementGetTypeID();
+      if (v29 == CFGetTypeID(v6))
       {
-        v31 = +[AXPTranslator_iOS sharedInstance];
-        v7 = [v31 translationObjectFromPlatformElement:v6];
+        v30 = +[AXPTranslator_iOS sharedInstance];
+        v7 = [v30 translationObjectFromPlatformElement:v6];
       }
 
       else
       {
-        v32 = MEMORY[0x277CBEAD8];
-        v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"Illegal outgoing type: %@[%@]", objc_opt_class(), v6];
-        v34 = [v32 exceptionWithName:@"Illegal outgoing type" reason:v33 userInfo:0];
+        v31 = MEMORY[0x277CBEAD8];
+        v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"Illegal outgoing type: %@[%@]", objc_opt_class(), v6];
+        v33 = [v31 exceptionWithName:@"Illegal outgoing type" reason:v32 userInfo:0];
 
-        [v34 raise];
+        [v33 raise];
         v7 = 0;
       }
 
@@ -402,9 +401,15 @@ LABEL_9:
 LABEL_25:
 
 LABEL_26:
-  v17 = *MEMORY[0x277D85DE8];
 
   return v7;
+}
+
+void sub_23D76B4FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
+{
+  va_start(va, a31);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 id _AXPiOSParameterFromPlatformParameter(void *a1)
@@ -495,9 +500,9 @@ LABEL_17:
   return v3;
 }
 
-void sub_23D76BFE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23D76BFE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -540,42 +545,42 @@ LABEL_9:
   return v7;
 }
 
-void sub_23D770050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23D770050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23D770344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23D770344(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23D771B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_23D771B84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23D77294C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23D77294C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -603,31 +608,31 @@ uint64_t _AXPAXUIElementReplaceWithRemotePid(uint64_t a1, void *a2, uint64_t a3)
   return result;
 }
 
-void _handleElementDestroyed(uint64_t a1)
+void _handleElementDestroyed(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1)
   {
-    v2 = MEMORY[0x277CE6BB0];
-    v3 = objc_opt_new();
-    v4 = [v2 uiElementWithAXElement:a1 cache:v3];
-
+    v4 = MEMORY[0x277CE6BB0];
     v5 = objc_opt_new();
-    v6 = _AXUIElementIDForElement();
-    [v5 setUid:{v6, v7}];
-    [v5 setPid:{objc_msgSend(v4, "pid")}];
-    v8 = +[AXPTranslator_iOS sharedInstance];
-    v9 = v8[15];
+    v6 = [v4 uiElementWithAXElement:a1 cache:v5];
+
+    v7 = objc_opt_new();
+    v8 = _AXUIElementIDForElement();
+    [v7 setUid:{v8, v9}];
+    [v7 setPid:{objc_msgSend(v6, "pid")}];
+    v10 = +[AXPTranslator_iOS sharedInstance];
+    v11 = v10[15];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = ___handleElementDestroyed_block_invoke;
     block[3] = &unk_278BE8288;
-    v12 = v5;
-    v10 = v5;
-    dispatch_sync(v9, block);
+    v14 = v7;
+    v12 = v7;
+    dispatch_sync(v11, block);
   }
 }
 
-uint64_t _convertAXNotification(int a1, void *a2)
+uint64_t _convertAXNotification(uint64_t a1, void *a2)
 {
   if (a1 > 1016)
   {
@@ -637,11 +642,11 @@ uint64_t _convertAXNotification(int a1, void *a2)
       {
         switch(a1)
         {
-          case 5550:
+          case 0x15AE:
             return 9;
-          case 4002:
+          case 0xFA2:
             return 7;
-          case 1060:
+          case 0x424:
             return 2;
         }
 
@@ -708,7 +713,7 @@ uint64_t _convertAXNotification(int a1, void *a2)
 
     if (a1 != 1005)
     {
-      if (AXPIsCatalyst())
+      if (AXPIsCatalyst(a1, a2))
       {
         return 11;
       }
@@ -970,28 +975,29 @@ LABEL_8:
 id _convertDurationTime(void *a1)
 {
   v1 = a1;
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
   v2 = getAXLocalizeDurationTimeSymbolLoc_ptr;
-  v10 = getAXLocalizeDurationTimeSymbolLoc_ptr;
+  v11 = getAXLocalizeDurationTimeSymbolLoc_ptr;
   if (!getAXLocalizeDurationTimeSymbolLoc_ptr)
   {
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __getAXLocalizeDurationTimeSymbolLoc_block_invoke;
-    v6[3] = &unk_278BE85C0;
-    v6[4] = &v7;
-    __getAXLocalizeDurationTimeSymbolLoc_block_invoke(v6);
-    v2 = v8[3];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __getAXLocalizeDurationTimeSymbolLoc_block_invoke;
+    v7[3] = &unk_278BE85C0;
+    v7[4] = &v8;
+    __getAXLocalizeDurationTimeSymbolLoc_block_invoke(v7);
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v8, 8);
   if (!v2)
   {
-    v5 = _convertDurationTime_cold_1();
-    _Block_object_dispose(&v7, 8);
-    _Unwind_Resume(v5);
+    _convertDurationTime_cold_1();
+    v6 = v5;
+    _Block_object_dispose(&v8, 8);
+    _Unwind_Resume(v6);
   }
 
   v3 = v2(v1);
@@ -1001,23 +1007,23 @@ id _convertDurationTime(void *a1)
 
 void *__getAXLocalizeDurationTimeSymbolLoc_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6[0] = 0;
+  v8 = *MEMORY[0x277D85DE8];
+  v5[0] = 0;
   if (!AccessibilityUtilitiesLibraryCore_frameworkLibrary)
   {
-    v6[1] = MEMORY[0x277D85DD0];
-    v6[2] = 3221225472;
-    v6[3] = __AccessibilityUtilitiesLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_278BE85E0;
-    v8 = 0;
+    v5[1] = MEMORY[0x277D85DD0];
+    v5[2] = 3221225472;
+    v5[3] = __AccessibilityUtilitiesLibraryCore_block_invoke;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_278BE85E0;
+    v7 = 0;
     AccessibilityUtilitiesLibraryCore_frameworkLibrary = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = AccessibilityUtilitiesLibraryCore_frameworkLibrary;
     if (AccessibilityUtilitiesLibraryCore_frameworkLibrary)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -1025,7 +1031,7 @@ void *__getAXLocalizeDurationTimeSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -1037,17 +1043,13 @@ LABEL_5:
   result = dlsym(v2, "AXLocalizeDurationTime");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getAXLocalizeDurationTimeSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __AccessibilityUtilitiesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AccessibilityUtilitiesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1295,45 +1297,46 @@ void sub_23D7759F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 id AXPConvertValue(void *a1, uint64_t a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a1;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v4 = v3;
     v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v4, "count")}];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v27;
+      v9 = *v26;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v27 != v9)
+          if (*v26 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = AXPConvertValue(*(*(&v26 + 1) + 8 * i), a2);
+          v11 = AXPConvertValue(*(*(&v25 + 1) + 8 * i), a2);
           [v5 addObject:v11];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v8);
@@ -1345,42 +1348,42 @@ id AXPConvertValue(void *a1, uint64_t a2)
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v25 = v3;
+      v24 = v3;
       v12 = v3;
       v5 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v12, "count")}];
+      v25 = 0u;
       v26 = 0u;
       v27 = 0u;
       v28 = 0u;
-      v29 = 0u;
       v13 = [v12 allKeys];
-      v14 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v27;
+        v16 = *v26;
         do
         {
           for (j = 0; j != v15; ++j)
           {
-            if (*v27 != v16)
+            if (*v26 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v26 + 1) + 8 * j);
+            v18 = *(*(&v25 + 1) + 8 * j);
             v19 = [v12 objectForKeyedSubscript:v18];
             v20 = AXPConvertValue(v19, a2);
 
             [v5 setObject:v20 forKeyedSubscript:v18];
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
         }
 
         while (v15);
       }
 
-      v3 = v25;
+      v3 = v24;
     }
 
     else
@@ -1400,12 +1403,10 @@ id AXPConvertValue(void *a1, uint64_t a2)
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
-uint64_t AXPIsCatalyst()
+uint64_t AXPIsCatalyst(uint64_t a1, uint64_t a2)
 {
   if (AXPIsCatalyst_onceToken != -1)
   {
@@ -1415,7 +1416,7 @@ uint64_t AXPIsCatalyst()
   return 0;
 }
 
-uint64_t AXPIsiOSAppOnMac()
+uint64_t AXPIsiOSAppOnMac(uint64_t a1, uint64_t a2)
 {
   if (AXPIsiOSAppOnMac_onceToken != -1)
   {
@@ -1425,7 +1426,7 @@ uint64_t AXPIsiOSAppOnMac()
   return 0;
 }
 
-uint64_t AXPLinkedOnOrAfterGozul()
+uint64_t AXPLinkedOnOrAfterGozul(uint64_t a1, uint64_t a2)
 {
   if (AXPLinkedOnOrAfterGozul_onceToken != -1)
   {
@@ -1442,7 +1443,7 @@ uint64_t __AXPLinkedOnOrAfterGozul_block_invoke()
   return result;
 }
 
-uint64_t AXPIsGoodOldAppleCatalystApp()
+uint64_t AXPIsGoodOldAppleCatalystApp(uint64_t a1, uint64_t a2)
 {
   if (AXPIsGoodOldAppleCatalystApp_onceToken != -1)
   {
@@ -1471,7 +1472,7 @@ void __AXPIsGoodOldAppleCatalystApp_block_invoke()
   AXPIsGoodOldAppleCatalystApp_isGoodOldApp = v2;
 }
 
-uint64_t AXPIsSwiftPlaygrounds()
+uint64_t AXPIsSwiftPlaygrounds(uint64_t a1, uint64_t a2)
 {
   if (AXPIsSwiftPlaygrounds_onceToken != -1)
   {
@@ -1505,10 +1506,11 @@ BOOL AXPNilOrEmptyString(void *a1)
   return v2;
 }
 
-void sub_23D777798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_23D777798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a31, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1519,7 +1521,7 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_1_0()
+uint64_t OUTLINED_FUNCTION_1_0(uint64_t a1)
 {
 
   return objc_opt_class();
@@ -1564,9 +1566,9 @@ __CFString *_AXPAttributeToString(unint64_t a1)
   }
 }
 
-uint64_t _convertDurationTime_cold_1()
+void _convertDurationTime_cold_1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return __30__AXPRemoteCacheManager_start__block_invoke_2_cold_1(v0);
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  __30__AXPRemoteCacheManager_start__block_invoke_2_cold_1();
 }

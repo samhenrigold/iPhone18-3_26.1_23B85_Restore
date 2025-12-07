@@ -48,15 +48,15 @@
 
 - (void)_decrementCounters
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (allFlows <= 0)
   {
     v3 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 67109120;
-      v10 = allFlows;
-      _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "allFlows would be negative, currently %d", &v9, 8u);
+      v8 = 67109120;
+      v9 = allFlows;
+      _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "allFlows would be negative, currently %d", &v8, 8u);
     }
 
     allFlows = 1;
@@ -94,7 +94,7 @@
         v5 = &wifiFlowCount;
 LABEL_17:
         atomic_fetch_add(v5, 0xFFFFFFFFFFFFFFFFLL);
-        goto LABEL_18;
+        return;
       }
     }
 
@@ -102,14 +102,11 @@ LABEL_17:
     if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
     {
       v7 = self->_ifType;
-      v9 = 67109120;
-      v10 = v7;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Unexpected interface type %d when decrementing counters", &v9, 8u);
+      v8 = 67109120;
+      v9 = v7;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Unexpected interface type %d when decrementing counters", &v8, 8u);
     }
   }
-
-LABEL_18:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)initialize
@@ -234,7 +231,7 @@ LABEL_18:
 
 - (BOOL)inheritEarlyProperties:(id)properties
 {
-  v55[1] = *MEMORY[0x277D85DE8];
+  v54[1] = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   v5 = propertiesCopy;
   if ((self->_flags & 0x200) == 0)
@@ -278,9 +275,9 @@ LABEL_18:
         v13 = flowLogHandle;
         if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_DEBUG))
         {
-          *v51 = 134217984;
-          *&v51[4] = self;
-          _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "Ignoring TCP LISTEN source %p", v51, 0xCu);
+          *v50 = 134217984;
+          *&v50[4] = self;
+          _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "Ignoring TCP LISTEN source %p", v50, 0xCu);
         }
 
         goto LABEL_36;
@@ -293,9 +290,9 @@ LABEL_18:
         {
           v19 = v18;
           verboseDescription = [v10 verboseDescription];
-          *v51 = 138412290;
-          *&v51[4] = verboseDescription;
-          _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "Ignoring TCP source of unknown interface type, not companionlink %@", v51, 0xCu);
+          *v50 = 138412290;
+          *&v50[4] = verboseDescription;
+          _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "Ignoring TCP source of unknown interface type, not companionlink %@", v50, 0xCu);
         }
 
         v21 = +[SystemSettingsRelay defaultRelay];
@@ -314,12 +311,12 @@ LABEL_18:
           if (v24)
           {
             v25 = [v24 signatureWithDomain:*MEMORY[0x277D6B020] type:*MEMORY[0x277D6B220] subType:@"TCP Snapshot" subtypeContext:@"Unknown Interface Type" detectedProcess:@"symptomsd" triggerThresholdValues:0];
-            v54 = *MEMORY[0x277D6B010];
-            v52 = *MEMORY[0x277D6B008];
-            v53 = &unk_2847EFD70;
-            v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-            v55[0] = v26;
-            v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:&v54 count:1];
+            v53 = *MEMORY[0x277D6B010];
+            v51 = *MEMORY[0x277D6B008];
+            v52 = &unk_2847EFD70;
+            v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+            v54[0] = v26;
+            v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:&v53 count:1];
             [v21 snapshotWithSignature:v25 duration:0 events:0 payload:v27 actions:&__block_literal_global_54 reply:0.0];
           }
 
@@ -351,11 +348,11 @@ LABEL_37:
       v10 = v28;
       v29 = objc_opt_class();
       v30 = NSStringFromClass(v29);
-      *v51 = 134218242;
-      *&v51[4] = self;
-      *&v51[12] = 2112;
-      *&v51[14] = v30;
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Ignoring source %p with unknown snapshot type %@", v51, 0x16u);
+      *v50 = 134218242;
+      *&v50[4] = self;
+      *&v50[12] = 2112;
+      *&v50[14] = v30;
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Ignoring source %p with unknown snapshot type %@", v50, 0x16u);
 
       goto LABEL_36;
     }
@@ -369,11 +366,11 @@ LABEL_39:
         v35 = flowLogHandle;
         if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_ERROR))
         {
-          *v51 = 134218242;
-          *&v51[4] = self;
-          *&v51[12] = 2112;
-          *&v51[14] = v5;
-          _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_ERROR, "Ignoring source %p, snapshot is from kernel %@", v51, 0x16u);
+          *v50 = 134218242;
+          *&v50[4] = self;
+          *&v50[12] = 2112;
+          *&v50[14] = v5;
+          _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_ERROR, "Ignoring source %p, snapshot is from kernel %@", v50, 0x16u);
         }
 
         goto LABEL_37;
@@ -402,8 +399,8 @@ LABEL_49:
       v36 = rnfLogHandle;
       if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
       {
-        *v51 = 0;
-        _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_ERROR, "Unknown address family", v51, 2u);
+        *v50 = 0;
+        _os_log_impl(&dword_23255B000, v36, OS_LOG_TYPE_ERROR, "Unknown address family", v50, 2u);
       }
 
 LABEL_50:
@@ -414,11 +411,11 @@ LABEL_50:
         flowStartTimestamp = [v5 flowStartTimestamp];
         startingTimestamp = [(TrackedFlow *)self startingTimestamp];
         [flowStartTimestamp timeIntervalSinceDate:startingTimestamp];
-        *v51 = 134218240;
-        *&v51[4] = self;
-        *&v51[12] = 2048;
-        *&v51[14] = v41;
-        _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_DEBUG, "Adjusting flow start time for %p, delta: %f", v51, 0x16u);
+        *v50 = 134218240;
+        *&v50[4] = self;
+        *&v50[12] = 2048;
+        *&v50[14] = v41;
+        _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_DEBUG, "Adjusting flow start time for %p, delta: %f", v50, 0x16u);
       }
 
       flowStartTimestamp2 = [v5 flowStartTimestamp];
@@ -466,9 +463,9 @@ LABEL_64:
       if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
       {
         v46 = self->_ifType;
-        *v51 = 67109120;
-        *&v51[4] = v46;
-        _os_log_impl(&dword_23255B000, v45, OS_LOG_TYPE_ERROR, "Unexpected interface type %d when inheriting properties", v51, 8u);
+        *v50 = 67109120;
+        *&v50[4] = v46;
+        _os_log_impl(&dword_23255B000, v45, OS_LOG_TYPE_ERROR, "Unexpected interface type %d when inheriting properties", v50, 8u);
       }
 
       v8 = 0;
@@ -484,8 +481,8 @@ LABEL_64:
         goto LABEL_39;
       }
 
-      *v51 = 138412290;
-      *&v51[4] = v5;
+      *v50 = 138412290;
+      *&v50[4] = v5;
       v15 = "UDP TrackedFlow has inferred interface type cell from snapshot %@";
     }
 
@@ -498,8 +495,8 @@ LABEL_64:
         goto LABEL_39;
       }
 
-      *v51 = 138412290;
-      *&v51[4] = v5;
+      *v50 = 138412290;
+      *&v50[4] = v5;
       v15 = "UDP TrackedFlow has inferred interface type wifi from snapshot %@";
     }
 
@@ -509,31 +506,31 @@ LABEL_64:
       {
         if (([v5 interfaceCompanionLinkBluetooth] & 1) != 0 || objc_msgSend(v5, "rxCompanionLinkBluetoothBytes") || objc_msgSend(v5, "txCompanionLinkBluetoothBytes"))
         {
-          v49 = flowLogHandle;
+          v48 = flowLogHandle;
           if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_INFO))
           {
-            *v51 = 138412290;
-            *&v51[4] = v5;
-            _os_log_impl(&dword_23255B000, v49, OS_LOG_TYPE_INFO, "UDP TrackedFlow has interface type Bluetooth from snapshot %@", v51, 0xCu);
+            *v50 = 138412290;
+            *&v50[4] = v5;
+            _os_log_impl(&dword_23255B000, v48, OS_LOG_TYPE_INFO, "UDP TrackedFlow has interface type Bluetooth from snapshot %@", v50, 0xCu);
           }
 
           self->_ifType = 0;
           goto LABEL_39;
         }
 
-        v50 = flowLogHandle;
+        v49 = flowLogHandle;
         if (!os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_39;
         }
 
-        *v51 = 138412290;
-        *&v51[4] = v5;
+        *v50 = 138412290;
+        *&v50[4] = v5;
         v15 = "UDP TrackedFlow cannot infer interface type from snapshot %@";
-        v16 = v50;
+        v16 = v49;
         v17 = OS_LOG_TYPE_DEFAULT;
 LABEL_24:
-        _os_log_impl(&dword_23255B000, v16, v17, v15, v51, 0xCu);
+        _os_log_impl(&dword_23255B000, v16, v17, v15, v50, 0xCu);
         goto LABEL_39;
       }
 
@@ -544,8 +541,8 @@ LABEL_24:
         goto LABEL_39;
       }
 
-      *v51 = 138412290;
-      *&v51[4] = v5;
+      *v50 = 138412290;
+      *&v50[4] = v5;
       v15 = "UDP TrackedFlow has inferred interface type wired from snapshot %@";
     }
 
@@ -557,49 +554,46 @@ LABEL_24:
   v7 = flowLogHandle;
   if (os_log_type_enabled(flowLogHandle, OS_LOG_TYPE_ERROR))
   {
-    *v51 = 134217984;
-    *&v51[4] = v5;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "Double call to inheritEarlyProperties for snapshot %p", v51, 0xCu);
+    *v50 = 134217984;
+    *&v50[4] = v5;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "Double call to inheritEarlyProperties for snapshot %p", v50, 0xCu);
   }
 
   v8 = 1;
 LABEL_66:
 
-  v47 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 void __38__TrackedFlow_inheritEarlyProperties___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = netepochsLogHandle;
   if (os_log_type_enabled(netepochsLogHandle, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_INFO, "TCP Snapshot Unknown Interface Type response: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_INFO, "TCP Snapshot Unknown Interface Type response: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (unint64_t)activeFlowsCountForType:(int64_t)type
 {
   typeCopy = type;
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (type > 1)
   {
     if (type == 3)
     {
       v4 = &wiredFlowCount;
-      goto LABEL_13;
+      return atomic_load(v4);
     }
 
     if (type == 2)
     {
       v4 = &cellFlowCount;
-      goto LABEL_13;
+      return atomic_load(v4);
     }
   }
 
@@ -608,30 +602,25 @@ void __38__TrackedFlow_inheritEarlyProperties___block_invoke(uint64_t a1, void *
     if (!type)
     {
       v4 = &otherFlowCount;
-      goto LABEL_13;
+      return atomic_load(v4);
     }
 
     if (type == 1)
     {
       v4 = &wifiFlowCount;
-LABEL_13:
-      result = atomic_load(v4);
-      goto LABEL_14;
+      return atomic_load(v4);
     }
   }
 
   v5 = analyticsLogHandle;
   if (os_log_type_enabled(analyticsLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v8[0] = 67109120;
-    v8[1] = typeCopy;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "Unexpected interface type %d when requesting current flow counts", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = typeCopy;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "Unexpected interface type %d when requesting current flow counts", v7, 8u);
   }
 
-  result = 0;
-LABEL_14:
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 + (unint64_t)cellUsageGrandTallyAfterAdding:(unint64_t)adding
@@ -706,7 +695,7 @@ LABEL_14:
 
 + (id)startTrackingForKey:(id)key
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v4 = [liveSocketCache objectForKey:keyCopy];
   if (v4)
@@ -718,11 +707,11 @@ LABEL_14:
       v7 = [keyCopy description];
       uTF8String = [v7 UTF8String];
       v9 = [v4 description];
-      v14 = 136315394;
-      v15 = uTF8String;
-      v16 = 2080;
+      v13 = 136315394;
+      v14 = uTF8String;
+      v15 = 2080;
       uTF8String2 = [v9 UTF8String];
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "startTrackingForKey: creating flow in place of existing flow for same key: %s, flow: %s", &v14, 0x16u);
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "startTrackingForKey: creating flow in place of existing flow for same key: %s, flow: %s", &v13, 0x16u);
     }
   }
 
@@ -736,13 +725,11 @@ LABEL_14:
     v11 = attributionLogHandle;
     if (os_log_type_enabled(attributionLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v14 = 138412290;
-      v15 = keyCopy;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "startTrackingForKey: creating flow for %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = keyCopy;
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "startTrackingForKey: creating flow for %@", &v13, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -763,38 +750,37 @@ LABEL_14:
 
 + (id)currentCellUsers
 {
-  v23[2] = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 0;
+  v22[2] = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
   v2 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v3 = liveSocketCache;
-  v10 = MEMORY[0x277D85DD0];
-  v11 = 3221225472;
-  v12 = __31__TrackedFlow_currentCellUsers__block_invoke;
-  v13 = &unk_27898FFC8;
-  v15 = &v16;
+  v9 = MEMORY[0x277D85DD0];
+  v10 = 3221225472;
+  v11 = __31__TrackedFlow_currentCellUsers__block_invoke;
+  v12 = &unk_27898FFC8;
+  v14 = &v15;
   v4 = v2;
-  v14 = v4;
-  [v3 enumerateKeysAndObjectsUsingBlock:&v10];
-  v22[0] = @"activeTrafficClassFlags";
-  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{*(v17 + 6), v10, v11, v12, v13}];
-  v22[1] = @"activeProcessIdentifiers";
-  v23[0] = v5;
-  v23[1] = v4;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+  v13 = v4;
+  [v3 enumerateKeysAndObjectsUsingBlock:&v9];
+  v21[0] = @"activeTrafficClassFlags";
+  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{*(v16 + 6), v9, v10, v11, v12}];
+  v21[1] = @"activeProcessIdentifiers";
+  v22[0] = v5;
+  v22[1] = v4;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
 
   v7 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = v6;
+    v20 = v6;
     _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "reply for current cell users is %@", buf, 0xCu);
   }
 
-  _Block_object_dispose(&v16, 8);
-  v8 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v15, 8);
 
   return v6;
 }
@@ -840,7 +826,7 @@ LABEL_8:
 
 + (id)ownersOfFlowsPassingTest:(id)test
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   testCopy = test;
   v4 = objc_autoreleasePoolPush();
   allValues = [liveSocketCache allValues];
@@ -849,28 +835,28 @@ LABEL_8:
   v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v7, "count")}];
   if ([v7 count])
   {
-    v20 = v4;
-    v21 = testCopy;
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
+    v19 = v4;
+    v20 = testCopy;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v22 objects:v28 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v21 objects:v27 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v23;
+      v12 = *v22;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v23 != v12)
+          if (*v22 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v22 + 1) + 8 * i);
+          v14 = *(*(&v21 + 1) + 8 * i);
           ownerKey = [v14 ownerKey];
 
           if (ownerKey)
@@ -880,33 +866,32 @@ LABEL_8:
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v22 objects:v28 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v21 objects:v27 count:16];
       }
 
       while (v11);
     }
 
-    v4 = v20;
-    testCopy = v21;
+    v4 = v19;
+    testCopy = v20;
   }
 
   v17 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v27 = v8;
+    v26 = v8;
     _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "reply for current flows is %@", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
-  v18 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (unint64_t)countFlowsPassingTest:(id)test
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   testCopy = test;
   v4 = objc_autoreleasePoolPush();
   allValues = [liveSocketCache allValues];
@@ -915,15 +900,14 @@ LABEL_8:
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v8 = v7;
-    v12 = 134217984;
-    v13 = [v6 count];
-    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "count for current flows is %lu", &v12, 0xCu);
+    v11 = 134217984;
+    v12 = [v6 count];
+    _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "count for current flows is %lu", &v11, 0xCu);
   }
 
   v9 = [v6 count];
 
   objc_autoreleasePoolPop(v4);
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -941,73 +925,73 @@ LABEL_8:
 
 - (void)_updateScoreholder:(scoreHolder *)scoreholder
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   rxWiFiBytes = [(TrackedFlowCounts *)self rxWiFiBytes];
   snapshotRxWiFiBytes = self->_snapshotRxWiFiBytes;
-  v44 = rxWiFiBytes;
+  v43 = rxWiFiBytes;
   txWiFiBytes = [(TrackedFlowCounts *)self txWiFiBytes];
   snapshotTxWiFiBytes = self->_snapshotTxWiFiBytes;
-  v42 = txWiFiBytes - snapshotTxWiFiBytes;
+  v41 = txWiFiBytes - snapshotTxWiFiBytes;
   rxPkts = [(TrackedFlowCounts *)self rxPkts];
   snapshotRxPkts = self->_snapshotRxPkts;
-  v40 = rxPkts;
-  v41 = rxPkts - snapshotRxPkts;
+  v39 = rxPkts;
+  v40 = rxPkts - snapshotRxPkts;
   txPkts = [(TrackedFlowCounts *)self txPkts];
   snapshotTxPkts = self->_snapshotTxPkts;
   rxDupeBytes = [(TrackedFlowCounts *)self rxDupeBytes];
   snapshotRxDupeBytes = self->_snapshotRxDupeBytes;
-  v37 = rxDupeBytes - snapshotRxDupeBytes;
+  v36 = rxDupeBytes - snapshotRxDupeBytes;
   rxOOOBytes = [(TrackedFlowCounts *)self rxOOOBytes];
   snapshotRxOOOBytes = self->_snapshotRxOOOBytes;
   v14 = rxOOOBytes - snapshotRxOOOBytes;
   txReTxBytes = [(TrackedFlowCounts *)self txReTxBytes];
   snapshotTxReTxBytes = self->_snapshotTxReTxBytes;
   v17 = txReTxBytes - snapshotTxReTxBytes;
-  v18 = v44 - snapshotRxWiFiBytes;
-  v35 = snapshotTxWiFiBytes;
-  v36 = txWiFiBytes;
-  if (v44 != snapshotRxWiFiBytes || txWiFiBytes != snapshotTxWiFiBytes || v40 != snapshotRxPkts || txPkts != snapshotTxPkts || rxDupeBytes != snapshotRxDupeBytes || rxOOOBytes != snapshotRxOOOBytes || txReTxBytes != snapshotTxReTxBytes)
+  v18 = v43 - snapshotRxWiFiBytes;
+  v34 = snapshotTxWiFiBytes;
+  v35 = txWiFiBytes;
+  if (v43 != snapshotRxWiFiBytes || txWiFiBytes != snapshotTxWiFiBytes || v39 != snapshotRxPkts || txPkts != snapshotTxPkts || rxDupeBytes != snapshotRxDupeBytes || rxOOOBytes != snapshotRxOOOBytes || txReTxBytes != snapshotTxReTxBytes)
   {
     v25 = evaluationLogHandle;
     v26 = txReTxBytes - snapshotTxReTxBytes;
     v27 = os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG);
-    v18 = v44 - snapshotRxWiFiBytes;
+    v18 = v43 - snapshotRxWiFiBytes;
     v17 = v26;
     if (v27)
     {
       txUnacked = self->_txUnacked;
       *buf = 134220032;
       selfCopy = self;
-      v47 = 2048;
-      v48 = v44 - snapshotRxWiFiBytes;
-      v49 = 2048;
-      v50 = v42;
-      v51 = 2048;
-      v52 = v41;
-      v53 = 2048;
-      v54 = txPkts - snapshotTxPkts;
-      v55 = 2048;
-      v56 = rxDupeBytes - snapshotRxDupeBytes;
-      v57 = 2048;
-      v58 = rxOOOBytes - snapshotRxOOOBytes;
-      v59 = 2048;
-      v60 = v26;
-      v61 = 1024;
-      v62 = txUnacked;
+      v46 = 2048;
+      v47 = v43 - snapshotRxWiFiBytes;
+      v48 = 2048;
+      v49 = v41;
+      v50 = 2048;
+      v51 = v40;
+      v52 = 2048;
+      v53 = txPkts - snapshotTxPkts;
+      v54 = 2048;
+      v55 = rxDupeBytes - snapshotRxDupeBytes;
+      v56 = 2048;
+      v57 = rxOOOBytes - snapshotRxOOOBytes;
+      v58 = 2048;
+      v59 = v26;
+      v60 = 1024;
+      v61 = txUnacked;
       _os_log_impl(&dword_23255B000, v25, OS_LOG_TYPE_DEBUG, "self %p bytes rx %lld tx %lld pkts rx %lld tx %lld dup %lld OOO %lld retx %lld unack %u", buf, 0x58u);
-      v18 = v44 - snapshotRxWiFiBytes;
+      v18 = v43 - snapshotRxWiFiBytes;
       v17 = v26;
     }
   }
 
-  v29 = scoreholder->var0.var1 + v42;
+  v29 = scoreholder->var0.var1 + v41;
   scoreholder->var0.var0 += v18;
   scoreholder->var0.var1 = v29;
   v30 = scoreholder->var0.var3 + txPkts - snapshotTxPkts;
   v31 = self->_txUnacked;
-  scoreholder->var0.var2 += v41;
+  scoreholder->var0.var2 += v40;
   scoreholder->var0.var3 = v30;
-  v32 = scoreholder->var0.var5 + v37;
+  v32 = scoreholder->var0.var5 + v36;
   scoreholder->var0.var4 += v31;
   scoreholder->var0.var5 = v32;
   v33 = scoreholder->var0.var7 + v17;
@@ -1016,7 +1000,7 @@ LABEL_8:
   ++scoreholder->var1;
   if (self->_txUnacked)
   {
-    if (v44 != snapshotRxWiFiBytes || v36 != v35)
+    if (v43 != snapshotRxWiFiBytes || v35 != v34)
     {
       ++scoreholder->var4;
       goto LABEL_30;
@@ -1027,9 +1011,9 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (v18 == v14 + v37)
+  if (v18 == v14 + v36)
   {
-    if (!(v18 + v42))
+    if (!(v18 + v41))
     {
       ++scoreholder->var2;
       goto LABEL_30;
@@ -1038,7 +1022,7 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  if (v14 + v37 + v17)
+  if (v14 + v36 + v17)
   {
     ++scoreholder->var6;
   }
@@ -1070,7 +1054,6 @@ LABEL_30:
   }
 
   [(TrackedFlow *)self _takeSnapshot];
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_wifiStallCheckStarted
@@ -1083,7 +1066,7 @@ LABEL_30:
   }
 
   scoreHolderId = -1;
-  bzero(&openFlowScoreHolders, 0x460uLL);
+  bzero(openFlowScoreHolders, 0x460uLL);
   [liveSocketCache enumerateKeysAndObjectsUsingBlock:&__block_literal_global_146];
 }
 
@@ -1098,7 +1081,7 @@ void __37__TrackedFlow__wifiStallCheckStarted__block_invoke(uint64_t a1, uint64_
 
 + (id)getPolledFlowInfo
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v2 = scoreHolderId;
   v3 = scoreHolderId;
   [gLastPollCollectionDate timeIntervalSinceNow];
@@ -1107,7 +1090,7 @@ void __37__TrackedFlow__wifiStallCheckStarted__block_invoke(uint64_t a1, uint64_
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v55 = v5;
+    v54 = v5;
     _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Collect info, last update was %f secs ago", buf, 0xCu);
   }
 
@@ -1142,7 +1125,7 @@ LABEL_17:
     goto LABEL_39;
   }
 
-  v51 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v50 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v9 = v2 - v3;
   while (v3 != openFlowScoreHolders[28 * (v3 % 0xAu) + 26])
   {
@@ -1150,7 +1133,7 @@ LABEL_17:
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v55) = v3;
+      LODWORD(v54) = v3;
       _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "Saved results id %d not found, wind back further", buf, 8u);
     }
 
@@ -1177,13 +1160,13 @@ LABEL_19:
   do
   {
     v23 = v21;
-    v24 = &v20[-1120 * (v22 / 0xA)];
+    v24 = &v20[-280 * (v22 / 0xA)];
     v14 = *v24 + v14 - (*(v24 + 5) + *(v24 + 6));
-    v15 = (*(v24 + 18) + v15);
+    v15 = (v24[18] + v15);
     v19 |= *(v24 + 7) != 0;
-    v18 |= *(v24 + 23) != 0;
-    v17 |= *(v24 + 24) != 0;
-    v16 |= *(v24 + 25) != 0;
+    v18 |= v24[23] != 0;
+    v17 |= v24[24] != 0;
+    v16 |= v24[25] != 0;
     v25 = v3-- != 0;
     if (!v25)
     {
@@ -1191,7 +1174,7 @@ LABEL_19:
     }
 
     v21 = 0;
-    v20 -= 112;
+    v20 -= 28;
     --v22;
   }
 
@@ -1225,17 +1208,17 @@ LABEL_19:
     v27 = 50;
   }
 
-  v45 = v27;
-  v49 = v14;
+  v44 = v27;
+  v48 = v14;
   v28 = -5;
   do
   {
     v29 = &openFlowScoreHolders[28 * (v9 % 10)];
-    v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"id %d: bytes rx %lld tx %lld  pkts rx %lld tx %lld  unacked %lld   dupe %lld OOO %lld retx %lld", *(v29 + 26), *v29, *(v29 + 1), *(v29 + 2), *(v29 + 3), *(v29 + 4), *(v29 + 5), *(v29 + 6), *(v29 + 7)];
-    [v51 addObject:v30];
+    v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"id %d: bytes rx %lld tx %lld  pkts rx %lld tx %lld  unacked %lld   dupe %lld OOO %lld retx %lld", v29[26], *v29, *(v29 + 1), *(v29 + 2), *(v29 + 3), *(v29 + 4), *(v29 + 5), *(v29 + 6), *(v29 + 7)];
+    [v50 addObject:v30];
 
-    v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"id %d: flows %d good %d imperfect %d stuck %d unack %d quiet %d extra-stats-flows %d 3whs-stuck %d read-stuck %d write-stuck %d", *(v29 + 26), *(v29 + 16), *(v29 + 20), *(v29 + 21), *(v29 + 18), *(v29 + 19), *(v29 + 17), *(v29 + 22), *(v29 + 23), *(v29 + 24), *(v29 + 25)];
-    [v51 addObject:v31];
+    v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"id %d: flows %d good %d imperfect %d stuck %d unack %d quiet %d extra-stats-flows %d 3whs-stuck %d read-stuck %d write-stuck %d", v29[26], v29[16], v29[20], v29[21], v29[18], v29[19], v29[17], v29[22], v29[23], v29[24], v29[25]];
+    [v50 addObject:v31];
 
     if (!v9)
     {
@@ -1247,82 +1230,81 @@ LABEL_19:
   }
 
   while (!v25);
-  v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"total input %llu  flows stuck %d txReTx %d TCPExtra %d", v49, v15, v19 & 1, ((v18 | v17) | v16) & 1];
-  v47 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerScore];
-  v52[0] = v47;
-  v46 = [MEMORY[0x277CCABB0] numberWithInt:v45];
-  v53[0] = v46;
-  v44 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerScoreInfo];
-  v52[1] = v44;
+  v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"total input %llu  flows stuck %d txReTx %d TCPExtra %d", v48, v15, v19 & 1, ((v18 | v17) | v16) & 1];
+  v46 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerScore];
+  v51[0] = v46;
+  v45 = [MEMORY[0x277CCABB0] numberWithInt:v44];
+  v52[0] = v45;
+  v43 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerScoreInfo];
+  v51[1] = v43;
   v32 = @"no info";
   if (v13)
   {
     v32 = v13;
   }
 
-  v53[1] = v32;
-  v43 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerBundleInput];
-  v52[2] = v43;
-  v50 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v49];
-  v53[2] = v50;
-  v42 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerTCPExtraState];
-  v52[3] = v42;
-  v48 = [MEMORY[0x277CCABB0] numberWithBool:((v18 | v17) | v16) & 1];
-  v53[3] = v48;
-  v41 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerTCP3WHSStuck];
-  v52[4] = v41;
+  v52[1] = v32;
+  v42 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerBundleInput];
+  v51[2] = v42;
+  v49 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v48];
+  v52[2] = v49;
+  v41 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerTCPExtraState];
+  v51[3] = v41;
+  v47 = [MEMORY[0x277CCABB0] numberWithBool:((v18 | v17) | v16) & 1];
+  v52[3] = v47;
+  v40 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerTCP3WHSStuck];
+  v51[4] = v40;
   v33 = [MEMORY[0x277CCABB0] numberWithBool:v18 & 1];
-  v53[4] = v33;
+  v52[4] = v33;
   v34 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerTCPReadStuck];
-  v52[5] = v34;
+  v51[5] = v34;
   v35 = [MEMORY[0x277CCABB0] numberWithBool:v17 & 1];
-  v53[5] = v35;
+  v52[5] = v35;
   v36 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerTCPWriteStuck];
-  v52[6] = v36;
+  v51[6] = v36;
   v37 = [MEMORY[0x277CCABB0] numberWithBool:v16 & 1];
-  v53[6] = v37;
+  v52[6] = v37;
   v38 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerDetails];
-  v52[7] = v38;
-  v53[7] = v51;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:8];
+  v51[7] = v38;
+  v52[7] = v50;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:8];
 
 LABEL_39:
-  v39 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 + (void)_notifyPollingEnd
 {
-  v23[7] = *MEMORY[0x277D85DE8];
-  v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerScore];
-  v22[0] = v19;
-  v18 = [MEMORY[0x277CCABB0] numberWithInt:50];
-  v23[0] = v18;
-  v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerScoreInfo];
-  v22[1] = v17;
-  v23[1] = @"polled flow shutdown";
-  v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerBundleInput];
-  v22[2] = v16;
+  v22[7] = *MEMORY[0x277D85DE8];
+  v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerScore];
+  v21[0] = v18;
+  v17 = [MEMORY[0x277CCABB0] numberWithInt:50];
+  v22[0] = v17;
+  v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerScoreInfo];
+  v21[1] = v16;
+  v22[1] = @"polled flow shutdown";
+  v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerBundleInput];
+  v21[2] = v15;
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:0];
-  v23[2] = v2;
+  v22[2] = v2;
   v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerTCP3WHSStuck];
-  v22[3] = v3;
+  v21[3] = v3;
   v4 = [MEMORY[0x277CCABB0] numberWithBool:0];
-  v23[3] = v4;
+  v22[3] = v4;
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerTCPReadStuck];
-  v22[4] = v5;
+  v21[4] = v5;
   v6 = [MEMORY[0x277CCABB0] numberWithBool:0];
-  v23[4] = v6;
+  v22[4] = v6;
   v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerTCPWriteStuck];
-  v22[5] = v7;
+  v21[5] = v7;
   v8 = [MEMORY[0x277CCABB0] numberWithBool:0];
-  v23[5] = v8;
+  v22[5] = v8;
   v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:kSymptomManagedEventKeyTriggerTCPExtraState];
-  v22[6] = v9;
+  v21[6] = v9;
   v10 = [MEMORY[0x277CCABB0] numberWithBool:0];
-  v23[6] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:7];
+  v22[6] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:7];
 
   if (v11)
   {
@@ -1330,15 +1312,13 @@ LABEL_39:
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v21 = v11;
+      v20 = v11;
       _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEFAULT, "Notify ending assessment %@", buf, 0xCu);
     }
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter postNotificationName:@"kNotificationPolledFlowAssessment" object:self userInfo:v11];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_dumpStateOfType:(int64_t)type
@@ -1353,7 +1333,7 @@ LABEL_39:
 
 void __32__TrackedFlow__dumpStateOfType___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ([v4 ifType] == *(a1 + 32))
   {
@@ -1362,13 +1342,11 @@ void __32__TrackedFlow__dumpStateOfType___block_invoke(uint64_t a1, uint64_t a2,
     {
       v6 = v5;
       v7 = [v4 description];
-      v9 = 138412290;
-      v10 = v7;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "FLOW %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "FLOW %@", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)dumpState
@@ -1382,12 +1360,12 @@ void __32__TrackedFlow__dumpStateOfType___block_invoke(uint64_t a1, uint64_t a2,
 
 + (void)_wifiStallCheck
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109120;
-    v13 = scoreHolderId;
+    v12 = scoreHolderId;
     _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "stallcheck entry, id %d", buf, 8u);
   }
 
@@ -1403,31 +1381,30 @@ void __32__TrackedFlow__dumpStateOfType___block_invoke(uint64_t a1, uint64_t a2,
   v6 = ++scoreHolderId;
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   setApparentTime(v7);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __30__TrackedFlow__wifiStallCheck__block_invoke;
-  v9[3] = &__block_descriptor_56_e8_v12__0B8l;
-  v10 = v6;
-  v11 = v4;
-  v9[4] = v5;
-  v9[5] = self;
-  [FlowRefreshScheduler refreshDataUsageMaxStale:@"WiFiStallCheck" maxDelay:v9 logAs:0.0 callback:0.0];
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __30__TrackedFlow__wifiStallCheck__block_invoke;
+  v8[3] = &__block_descriptor_56_e8_v12__0B8l;
+  v9 = v6;
+  v10 = v4;
+  v8[4] = v5;
+  v8[5] = self;
+  [FlowRefreshScheduler refreshDataUsageMaxStale:@"WiFiStallCheck" maxDelay:v8 logAs:0.0 callback:0.0];
 }
 
 void __30__TrackedFlow__wifiStallCheck__block_invoke(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     if (scoreHolderId != -1)
     {
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __30__TrackedFlow__wifiStallCheck__block_invoke_2;
-      v11[3] = &__block_descriptor_40_e15_v32__0_8_16_B24l;
-      v11[4] = *(a1 + 32);
-      [liveSocketCache enumerateKeysAndObjectsUsingBlock:v11];
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = __30__TrackedFlow__wifiStallCheck__block_invoke_2;
+      v10[3] = &__block_descriptor_40_e15_v32__0_8_16_B24l;
+      v10[4] = *(a1 + 32);
+      [liveSocketCache enumerateKeysAndObjectsUsingBlock:v10];
       if (scoreHolderId != -1)
       {
         *(*(a1 + 32) + 104) = *(a1 + 48);
@@ -1442,7 +1419,7 @@ void __30__TrackedFlow__wifiStallCheck__block_invoke(uint64_t a1, int a2)
           if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v13 = v4;
+            v12 = v4;
             _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "Notify assessment %@", buf, 0xCu);
           }
 
@@ -1456,7 +1433,7 @@ void __30__TrackedFlow__wifiStallCheck__block_invoke(uint64_t a1, int a2)
             if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              v13 = v4;
+              v12 = v4;
               _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_INFO, "Notify bad assessment %@", buf, 0xCu);
             }
 
@@ -1466,8 +1443,6 @@ void __30__TrackedFlow__wifiStallCheck__block_invoke(uint64_t a1, int a2)
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __30__TrackedFlow__wifiStallCheck__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -1481,16 +1456,16 @@ void __30__TrackedFlow__wifiStallCheck__block_invoke_2(uint64_t a1, uint64_t a2,
 
 + (void)startPollingWifiFlows:(unsigned int)flows
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = flows + 1;
   add = atomic_fetch_add(&gPolledFlowClientCount, 1uLL);
   v7 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
-    *v29 = flows;
-    *&v29[4] = 2048;
-    *&v29[6] = add;
+    *v28 = flows;
+    *&v28[4] = 2048;
+    *&v28[6] = add;
     _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "startPollingWifiFlows, secs %u number of existing clients is %llu", buf, 0x12u);
   }
 
@@ -1522,7 +1497,7 @@ void __30__TrackedFlow__wifiStallCheck__block_invoke_2(uint64_t a1, uint64_t a2,
     v12 = rnfLogHandle;
     if (!os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_19;
+      return;
     }
 
     *buf = 0;
@@ -1536,72 +1511,74 @@ void __30__TrackedFlow__wifiStallCheck__block_invoke_2(uint64_t a1, uint64_t a2,
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      *v29 = gPolledFlowCount;
-      *&v29[8] = 2048;
-      *&v29[10] = v5 >> 1;
+      *v28 = gPolledFlowCount;
+      *&v28[8] = 2048;
+      *&v28[10] = v5 >> 1;
       _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "startPollingWifiFlows: bump from %lld to %lld", buf, 0x16u);
     }
 
     gPolledFlowCount = v5 >> 1;
-    goto LABEL_19;
+    return;
   }
 
   if (add)
   {
-    v17 = rnfLogHandle;
+    v16 = rnfLogHandle;
     if (!os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_19;
+      return;
     }
 
     *buf = 0;
     v13 = "startPollingWifiFlows, subsequent client finds gPolledFlowCount set to zero";
-    v14 = v17;
+    v14 = v16;
     v15 = OS_LOG_TYPE_ERROR;
-    goto LABEL_18;
+LABEL_18:
+    _os_log_impl(&dword_23255B000, v14, v15, v13, buf, 2u);
+    return;
   }
 
   if (gPolledFlowTimer)
   {
-    v18 = rnfLogHandle;
+    v17 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_ERROR, "startPollingWifiFlows: need to cancel old timer", buf, 2u);
+      _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "startPollingWifiFlows: need to cancel old timer", buf, 2u);
     }
 
     dispatch_source_cancel(gPolledFlowTimer);
-    v19 = gPolledFlowTimer;
+    v18 = gPolledFlowTimer;
     gPolledFlowTimer = 0;
   }
 
-  v20 = _pollingQueue();
+  v19 = _pollingQueue();
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __37__TrackedFlow_startPollingWifiFlows___block_invoke;
   block[3] = &__block_descriptor_40_e5_v8__0l;
   block[4] = self;
-  dispatch_async(v20, block);
+  dispatch_async(v19, block);
 
-  v21 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, MEMORY[0x277D85CD0]);
+  v20 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, MEMORY[0x277D85CD0]);
+  v21 = gPolledFlowTimer;
+  gPolledFlowTimer = v20;
+
   v22 = gPolledFlowTimer;
-  gPolledFlowTimer = v21;
-
-  v23 = gPolledFlowTimer;
-  v24 = dispatch_time(0, 2000000000);
-  dispatch_source_set_timer(v23, v24, 0x77359400uLL, 0);
+  v23 = dispatch_time(0, 2000000000);
+  dispatch_source_set_timer(v22, v23, 0x77359400uLL, 0);
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 3221225472;
   handler[2] = __37__TrackedFlow_startPollingWifiFlows___block_invoke_166;
   handler[3] = &__block_descriptor_40_e5_v8__0l;
   handler[4] = self;
   dispatch_source_set_event_handler(gPolledFlowTimer, handler);
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __37__TrackedFlow_startPollingWifiFlows___block_invoke_2;
-  v25[3] = &__block_descriptor_40_e5_v8__0l;
-  v25[4] = self;
-  dispatch_source_set_cancel_handler(gPolledFlowTimer, v25);
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __37__TrackedFlow_startPollingWifiFlows___block_invoke_2;
+  v24[3] = &__block_descriptor_40_e5_v8__0l;
+  v24[4] = self;
+  dispatch_source_set_cancel_handler(gPolledFlowTimer, v24);
   dispatch_resume(gPolledFlowTimer);
   v12 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
@@ -1611,12 +1588,8 @@ void __30__TrackedFlow__wifiStallCheck__block_invoke_2(uint64_t a1, uint64_t a2,
 LABEL_17:
     v14 = v12;
     v15 = OS_LOG_TYPE_DEFAULT;
-LABEL_18:
-    _os_log_impl(&dword_23255B000, v14, v15, v13, buf, 2u);
+    goto LABEL_18;
   }
-
-LABEL_19:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __37__TrackedFlow_startPollingWifiFlows___block_invoke(uint64_t a1)
@@ -1673,14 +1646,14 @@ void __37__TrackedFlow_startPollingWifiFlows___block_invoke_2(uint64_t a1)
 
 + (void)stopPollingWifiFlows
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   add = atomic_fetch_add(&gPolledFlowClientCount, 0xFFFFFFFFFFFFFFFFLL);
   v3 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134217984;
-    v9 = add;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "stopPollingWifiFlows, number of clients is %llu", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = add;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "stopPollingWifiFlows, number of clients is %llu", &v7, 0xCu);
   }
 
   if (add)
@@ -1699,8 +1672,8 @@ void __37__TrackedFlow_startPollingWifiFlows___block_invoke_2(uint64_t a1)
         v6 = rnfLogHandle;
         if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
         {
-          LOWORD(v8) = 0;
-          _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "stopPollingWifiFlows, last client but timer already nil", &v8, 2u);
+          LOWORD(v7) = 0;
+          _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "stopPollingWifiFlows, last client but timer already nil", &v7, 2u);
         }
       }
 
@@ -1714,14 +1687,12 @@ void __37__TrackedFlow_startPollingWifiFlows___block_invoke_2(uint64_t a1)
     v5 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "stopPollingWifiFlows, mismatched starts/stops, ignoring stop", &v8, 2u);
+      LOWORD(v7) = 0;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "stopPollingWifiFlows, mismatched starts/stops, ignoring stop", &v7, 2u);
     }
 
     atomic_fetch_add(&gPolledFlowClientCount, 1uLL);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

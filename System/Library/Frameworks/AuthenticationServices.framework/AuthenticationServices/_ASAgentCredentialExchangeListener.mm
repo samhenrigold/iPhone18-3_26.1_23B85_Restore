@@ -40,104 +40,102 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   listenerCopy = listener;
   connectionCopy = connection;
   v8 = connectionCopy;
-  v34 = 0u;
-  v35 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
-  v9 = *MEMORY[0x1E69C8E68];
-  *buf = v34;
-  v37 = v35;
-  if (WBSAuditTokenHasEntitlement() & 1) != 0 || (v10 = *MEMORY[0x1E69C8E78], *buf = v34, v37 = v35, (WBSAuditTokenHasEntitlement()))
+  *buf = v37;
+  v40 = v38;
+  if (WBSAuditTokenHasEntitlement() & 1) != 0 || (*buf = v37, v40 = v38, HasEntitlement = WBSAuditTokenHasEntitlement(), (HasEntitlement))
   {
     os_unfair_lock_lock(&self->_internalLock);
-    v11 = self->_currentOperation;
-    if (v11)
+    v12 = self->_currentOperation;
+    if (v12)
     {
-      *buf = v34;
-      v37 = v35;
-      v12 = WBSApplicationIdentifierFromAuditToken();
-      v33 = 0;
-      v13 = [v12 safari_bundleIdentifierFromApplicationIdentifier:&v33];
-      v14 = v33;
-      if ([v13 length])
+      *buf = v37;
+      v40 = v38;
+      v13 = WBSApplicationIdentifierFromAuditToken();
+      v36 = 0;
+      v14 = [v13 safari_bundleIdentifierFromApplicationIdentifier:&v36];
+      v15 = v36;
+      if ([v14 length])
       {
-        selectedImporterBundleIdentifier = [(_ASAgentCredentialExchangeOperation *)v11 selectedImporterBundleIdentifier];
-        v16 = [v13 isEqualToString:selectedImporterBundleIdentifier];
+        selectedImporterBundleIdentifier = [(_ASAgentCredentialExchangeOperation *)v12 selectedImporterBundleIdentifier];
+        v18 = [v14 isEqualToString:selectedImporterBundleIdentifier];
 
-        if (v16)
+        if (v18)
         {
-          [(_ASAgentCredentialExchangeListener *)self _setUpImporterConnection:v8 forOperation:v11];
+          [(_ASAgentCredentialExchangeListener *)self _setUpImporterConnection:v8 forOperation:v12];
 
 LABEL_12:
           [v8 resume];
-          v20 = 1;
+          v24 = 1;
 LABEL_22:
 
           os_unfair_lock_unlock(&self->_internalLock);
           goto LABEL_23;
         }
 
-        v24 = WBS_LOG_CHANNEL_PREFIXCredentialExchange();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+        v28 = WBS_LOG_CHANNEL_PREFIXCredentialExchange(v19, v20);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
         {
-          [(_ASAgentCredentialExchangeListener *)v12 listener:v24 shouldAcceptNewConnection:v25, v26, v27, v28, v29, v30];
+          [(_ASAgentCredentialExchangeListener *)v13 listener:v28 shouldAcceptNewConnection:v29, v30, v31, v32, v33, v34];
         }
       }
 
       else
       {
-        v22 = WBS_LOG_CHANNEL_PREFIXCredentialExchange();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+        v26 = WBS_LOG_CHANNEL_PREFIXCredentialExchange(0, v16);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
         {
-          safari_privacyPreservingDescription = [v14 safari_privacyPreservingDescription];
-          [(_ASAgentCredentialExchangeListener *)v12 listener:safari_privacyPreservingDescription shouldAcceptNewConnection:buf, v22];
+          safari_privacyPreservingDescription = [v15 safari_privacyPreservingDescription];
+          [(_ASAgentCredentialExchangeListener *)v13 listener:safari_privacyPreservingDescription shouldAcceptNewConnection:buf, v26];
         }
       }
 
-      v20 = 0;
+      v24 = 0;
       goto LABEL_22;
     }
 
-    v17 = WBS_LOG_CHANNEL_PREFIXCredentialExchange();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v21 = WBS_LOG_CHANNEL_PREFIXCredentialExchange(0, v11);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B1C8D000, v17, OS_LOG_TYPE_DEFAULT, "Starting new credential exchange operation.", buf, 2u);
+      _os_log_impl(&dword_1B1C8D000, v21, OS_LOG_TYPE_DEFAULT, "Starting new credential exchange operation.", buf, 2u);
     }
 
-    v18 = objc_alloc_init(_ASAgentCredentialExchangeOperation);
+    v22 = objc_alloc_init(_ASAgentCredentialExchangeOperation);
     currentOperation = self->_currentOperation;
-    self->_currentOperation = v18;
+    self->_currentOperation = v22;
 
     [(_ASAgentCredentialExchangeListener *)self _setUpExporterConnection:v8 forOperation:self->_currentOperation];
     goto LABEL_12;
   }
 
-  v21 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  v25 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(HasEntitlement, v10);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
     [_ASAgentCredentialExchangeListener listener:shouldAcceptNewConnection:];
   }
 
-  v20 = 0;
+  v24 = 0;
 LABEL_23:
 
-  v31 = *MEMORY[0x1E69E9840];
-  return v20;
+  return v24;
 }
 
 - (void)_setUpExporterConnection:(id)connection forOperation:(id)operation
 {
   connectionCopy = connection;
   operationCopy = operation;
-  v8 = ASAgentCredentialExchangeExporterInterface();
+  v8 = ASAgentCredentialExchangeExporterInterface(operationCopy);
   [connectionCopy setExportedInterface:v8];
 
   [connectionCopy setExportedObject:self];
@@ -157,7 +155,7 @@ LABEL_23:
 {
   connectionCopy = connection;
   operationCopy = operation;
-  v8 = ASAgentCredentialExchangeImporterInterface();
+  v8 = ASAgentCredentialExchangeImporterInterface(operationCopy);
   [connectionCopy setExportedInterface:v8];
 
   [connectionCopy setExportedObject:self];
@@ -175,7 +173,7 @@ LABEL_23:
 
 - (void)requestExportForCredentialProvider:(id)provider windowSceneIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   providerCopy = provider;
   identifierCopy = identifier;
   handlerCopy = handler;
@@ -183,30 +181,31 @@ LABEL_23:
   currentOperation = self->_currentOperation;
   if (currentOperation)
   {
-    v12 = currentOperation;
-    exporterConnection = [(_ASAgentCredentialExchangeOperation *)v12 exporterConnection];
-    if ([MEMORY[0x1E69C8880] isCredentialExchangeEnabled])
+    v14 = currentOperation;
+    exporterConnection = [(_ASAgentCredentialExchangeOperation *)v14 exporterConnection];
+    isCredentialExchangeEnabled = [MEMORY[0x1E69C8880] isCredentialExchangeEnabled];
+    if (isCredentialExchangeEnabled)
     {
-      v14 = os_transaction_create();
-      [(_ASAgentCredentialExchangeOperation *)v12 setTransaction:v14];
+      v18 = os_transaction_create();
+      [(_ASAgentCredentialExchangeOperation *)v14 setTransaction:v18];
 
       [(_ASAgentCredentialExchangeListener *)self _requestExportWithConnection:exporterConnection credentialProviderBundleIdentifier:providerCopy windowSceneIdentifier:identifierCopy completionHandler:handlerCopy];
     }
 
     else
     {
-      v24 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v28 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(isCredentialExchangeEnabled, v17);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         [_ASAgentCredentialExchangeListener requestExportForCredentialProvider:windowSceneIdentifier:completionHandler:];
       }
 
-      v25 = MEMORY[0x1E696ABC0];
-      v29 = *MEMORY[0x1E696A588];
-      v30 = @"Developer mode must be enabled for this API. You can find the toggle for this in Settings › Developer in the Authentication Services Testing section.";
-      v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-      v27 = [v25 errorWithDomain:*MEMORY[0x1E698DF70] code:19 userInfo:v26];
-      handlerCopy[2](handlerCopy, 0, v27);
+      v29 = MEMORY[0x1E696ABC0];
+      v32 = *MEMORY[0x1E696A588];
+      v33 = @"Developer mode must be enabled for this API. You can find the toggle for this in Settings › Developer in the Authentication Services Testing section.";
+      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+      v31 = [v29 errorWithDomain:*MEMORY[0x1E698DF70] code:19 userInfo:v30];
+      handlerCopy[2](handlerCopy, 0, v31);
 
       [(_ASAgentCredentialExchangeListener *)self _showErrorAlert:0];
     }
@@ -214,84 +213,84 @@ LABEL_23:
 
   else
   {
-    v15 = WBS_LOG_CHANNEL_PREFIXCredentialExchange();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v19 = WBS_LOG_CHANNEL_PREFIXCredentialExchange(v11, v12);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
     {
-      [(_ASAgentCredentialExchangeListener *)v15 requestExportForCredentialProvider:v16 windowSceneIdentifier:v17 completionHandler:v18, v19, v20, v21, v22];
+      [(_ASAgentCredentialExchangeListener *)v19 requestExportForCredentialProvider:v20 windowSceneIdentifier:v21 completionHandler:v22, v23, v24, v25, v26];
     }
 
-    v23 = MEMORY[0x1E696ABC0];
-    v31 = *MEMORY[0x1E696A588];
-    v32[0] = @"No export in progress.";
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
-    exporterConnection = [v23 errorWithDomain:*MEMORY[0x1E698DF70] code:19 userInfo:v12];
+    v27 = MEMORY[0x1E696ABC0];
+    v34 = *MEMORY[0x1E696A588];
+    v35[0] = @"No export in progress.";
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+    exporterConnection = [v27 errorWithDomain:*MEMORY[0x1E698DF70] code:19 userInfo:v14];
     handlerCopy[2](handlerCopy, 0, exporterConnection);
   }
 
   os_unfair_lock_unlock(&self->_internalLock);
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)continueExportWithCredentials:(id)credentials completionHandler:(id)handler
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v42[1] = *MEMORY[0x1E69E9840];
   credentialsCopy = credentials;
   handlerCopy = handler;
   os_unfair_lock_lock(&self->_internalLock);
   currentOperation = self->_currentOperation;
   if (currentOperation)
   {
-    v9 = currentOperation;
-    if ([MEMORY[0x1E69C8880] isCredentialExchangeEnabled])
+    v11 = currentOperation;
+    isCredentialExchangeEnabled = [MEMORY[0x1E69C8880] isCredentialExchangeEnabled];
+    if (isCredentialExchangeEnabled)
     {
-      v10 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v14 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(isCredentialExchangeEnabled, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1B1C8D000, v10, OS_LOG_TYPE_INFO, "Received export data.", buf, 2u);
+        _os_log_impl(&dword_1B1C8D000, v14, OS_LOG_TYPE_INFO, "Received export data.", buf, 2u);
       }
 
-      exportDataFetchCompletionHandler = [(_ASAgentCredentialExchangeOperation *)v9 exportDataFetchCompletionHandler];
+      exportDataFetchCompletionHandler = [(_ASAgentCredentialExchangeOperation *)v11 exportDataFetchCompletionHandler];
 
       if (exportDataFetchCompletionHandler)
       {
-        v12 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v18 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(v16, v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_1B1C8D000, v12, OS_LOG_TYPE_INFO, "Returning export data to view service.", buf, 2u);
+          _os_log_impl(&dword_1B1C8D000, v18, OS_LOG_TYPE_INFO, "Returning export data to view service.", buf, 2u);
         }
 
-        exportDataFetchCompletionHandler2 = [(_ASAgentCredentialExchangeOperation *)v9 exportDataFetchCompletionHandler];
+        exportDataFetchCompletionHandler2 = [(_ASAgentCredentialExchangeOperation *)v11 exportDataFetchCompletionHandler];
         (exportDataFetchCompletionHandler2)[2](exportDataFetchCompletionHandler2, credentialsCopy);
       }
 
-      [(_ASAgentCredentialExchangeOperation *)v9 setExportedCredentialData:credentialsCopy];
-      v14 = MEMORY[0x1E695DFF0];
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __86___ASAgentCredentialExchangeListener_continueExportWithCredentials_completionHandler___block_invoke;
-      v31[3] = &unk_1E7AF8CE8;
-      v31[4] = self;
-      v32 = v9;
-      v15 = [v14 scheduledTimerWithTimeInterval:0 repeats:v31 block:300.0];
+      [(_ASAgentCredentialExchangeOperation *)v11 setExportedCredentialData:credentialsCopy];
+      v20 = MEMORY[0x1E695DFF0];
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __86___ASAgentCredentialExchangeListener_continueExportWithCredentials_completionHandler___block_invoke;
+      v36[3] = &unk_1E7AF8CE8;
+      v36[4] = self;
+      v37 = v11;
+      v21 = [v20 scheduledTimerWithTimeInterval:0 repeats:v36 block:300.0];
       handlerCopy[2](handlerCopy, 0);
     }
 
     else
     {
-      v26 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v32 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(isCredentialExchangeEnabled, v13);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         [_ASAgentCredentialExchangeListener requestExportForCredentialProvider:windowSceneIdentifier:completionHandler:];
       }
 
-      v27 = MEMORY[0x1E696ABC0];
-      v34 = *MEMORY[0x1E696A588];
-      v35 = @"Developer mode must be enabled for this API. You can find the toggle for this in Settings › Developer in the Authentication Services Testing section.";
-      v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-      v29 = [v27 errorWithDomain:*MEMORY[0x1E698DF70] code:19 userInfo:v28];
-      (handlerCopy)[2](handlerCopy, v29);
+      v33 = MEMORY[0x1E696ABC0];
+      v39 = *MEMORY[0x1E696A588];
+      v40 = @"Developer mode must be enabled for this API. You can find the toggle for this in Settings › Developer in the Authentication Services Testing section.";
+      v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+      v35 = [v33 errorWithDomain:*MEMORY[0x1E698DF70] code:19 userInfo:v34];
+      (handlerCopy)[2](handlerCopy, v35);
 
       [(_ASAgentCredentialExchangeListener *)self _showErrorAlert:0];
     }
@@ -299,22 +298,21 @@ LABEL_23:
 
   else
   {
-    v16 = WBS_LOG_CHANNEL_PREFIXCredentialExchange();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v22 = WBS_LOG_CHANNEL_PREFIXCredentialExchange(v8, v9);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
-      [(_ASAgentCredentialExchangeListener *)v16 continueExportWithCredentials:v17 completionHandler:v18, v19, v20, v21, v22, v23];
+      [(_ASAgentCredentialExchangeListener *)v22 continueExportWithCredentials:v23 completionHandler:v24, v25, v26, v27, v28, v29];
     }
 
-    v24 = MEMORY[0x1E696ABC0];
-    v36 = *MEMORY[0x1E696A588];
-    v37[0] = @"No export in progress.";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
-    v25 = [v24 errorWithDomain:*MEMORY[0x1E698DF70] code:19 userInfo:v9];
-    (handlerCopy)[2](handlerCopy, v25);
+    v30 = MEMORY[0x1E696ABC0];
+    v41 = *MEMORY[0x1E696A588];
+    v42[0] = @"No export in progress.";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+    v31 = [v30 errorWithDomain:*MEMORY[0x1E698DF70] code:19 userInfo:v11];
+    (handlerCopy)[2](handlerCopy, v31);
   }
 
   os_unfair_lock_unlock(&self->_internalLock);
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_atLeastOneAppAvailableForImportForConnection:(id)connection
@@ -323,36 +321,36 @@ LABEL_23:
   v4 = connectionCopy;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   else
   {
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
   }
 
   v5 = WBSApplicationIdentifierFromAuditToken();
-  v11 = 0;
-  v6 = [v5 safari_bundleIdentifierFromApplicationIdentifier:&v11];
-  if (v6)
+  v12 = 0;
+  v7 = [v5 safari_bundleIdentifierFromApplicationIdentifier:&v12];
+  if (v7)
   {
     mEMORY[0x1E69C8DE0] = [MEMORY[0x1E69C8DE0] sharedManager];
-    v8 = [mEMORY[0x1E69C8DE0] atLeastOneAvailableExtensionSupportsCredentialExchange:v6];
+    v9 = [mEMORY[0x1E69C8DE0] atLeastOneAvailableExtensionSupportsCredentialExchange:v7];
   }
 
   else
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(0, v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [_ASAgentCredentialExchangeListener _atLeastOneAppAvailableForImportForConnection:];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)setTokenForImport:(id)import
@@ -362,25 +360,25 @@ LABEL_23:
   v6 = currentConnection;
   if (currentConnection)
   {
-    [currentConnection auditToken];
+    objc_msgSend_auditToken(currentConnection);
   }
 
-  v7 = *MEMORY[0x1E698DF78];
-  if (WBSAuditTokenHasEntitlement())
+  HasEntitlement = WBSAuditTokenHasEntitlement();
+  if (HasEntitlement)
   {
     os_unfair_lock_lock(&self->_internalLock);
     if (self->_currentOperation)
     {
-      v8 = [importCopy copy];
-      [(_ASAgentCredentialExchangeOperation *)self->_currentOperation setImporterToken:v8];
+      v11 = [importCopy copy];
+      [(_ASAgentCredentialExchangeOperation *)self->_currentOperation setImporterToken:v11];
     }
 
     else
     {
-      v17 = WBS_LOG_CHANNEL_PREFIXCredentialExchange();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+      v20 = WBS_LOG_CHANNEL_PREFIXCredentialExchange(v9, v10);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
       {
-        [(_ASAgentCredentialExchangeListener *)v17 setTokenForImport:v18, v19, v20, v21, v22, v23, v24];
+        [(_ASAgentCredentialExchangeListener *)v20 setTokenForImport:v21, v22, v23, v24, v25, v26, v27];
       }
     }
 
@@ -389,10 +387,10 @@ LABEL_23:
 
   else
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXCredentialExchange();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v12 = WBS_LOG_CHANNEL_PREFIXCredentialExchange(HasEntitlement, v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      [(_ASAgentCredentialExchangeListener *)v9 setTokenForImport:v10, v11, v12, v13, v14, v15, v16];
+      [(_ASAgentCredentialExchangeListener *)v12 setTokenForImport:v13, v14, v15, v16, v17, v18, v19];
     }
   }
 }
@@ -404,64 +402,64 @@ LABEL_23:
   v6 = currentConnection;
   if (currentConnection)
   {
-    [currentConnection auditToken];
+    objc_msgSend_auditToken(currentConnection);
   }
 
   else
   {
-    v31 = 0u;
-    v32 = 0u;
+    v37 = 0u;
+    v38 = 0u;
   }
 
-  v7 = *MEMORY[0x1E698DF78];
-  if (WBSAuditTokenHasEntitlement())
+  HasEntitlement = WBSAuditTokenHasEntitlement();
+  if (HasEntitlement)
   {
     os_unfair_lock_lock(&self->_internalLock);
     currentOperation = self->_currentOperation;
     if (currentOperation)
     {
-      v9 = currentOperation;
-      v10 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v12 = currentOperation;
+      v14 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v31) = 0;
-        _os_log_impl(&dword_1B1C8D000, v10, OS_LOG_TYPE_INFO, "Reading export data.", &v31, 2u);
+        LOWORD(v37) = 0;
+        _os_log_impl(&dword_1B1C8D000, v14, OS_LOG_TYPE_INFO, "Reading export data.", &v37, 2u);
       }
 
-      v11 = [(_ASAgentCredentialExchangeOperation *)v9 exportedCredentialData:v31];
+      v15 = [(_ASAgentCredentialExchangeOperation *)v12 exportedCredentialData:v37];
 
-      if (v11)
+      if (v15)
       {
-        v12 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v18 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(v16, v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v31) = 0;
-          _os_log_impl(&dword_1B1C8D000, v12, OS_LOG_TYPE_INFO, "Export data is already available.", &v31, 2u);
+          LOWORD(v37) = 0;
+          _os_log_impl(&dword_1B1C8D000, v18, OS_LOG_TYPE_INFO, "Export data is already available.", &v37, 2u);
         }
 
-        exportedCredentialData = [(_ASAgentCredentialExchangeOperation *)v9 exportedCredentialData];
+        exportedCredentialData = [(_ASAgentCredentialExchangeOperation *)v12 exportedCredentialData];
         dataCopy[2](dataCopy, exportedCredentialData);
       }
 
       else
       {
-        v30 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+        v36 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(v16, v17);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v31) = 0;
-          _os_log_impl(&dword_1B1C8D000, v30, OS_LOG_TYPE_INFO, "Export data is not yet available.", &v31, 2u);
+          LOWORD(v37) = 0;
+          _os_log_impl(&dword_1B1C8D000, v36, OS_LOG_TYPE_INFO, "Export data is not yet available.", &v37, 2u);
         }
 
-        [(_ASAgentCredentialExchangeOperation *)v9 setExportDataFetchCompletionHandler:dataCopy];
+        [(_ASAgentCredentialExchangeOperation *)v12 setExportDataFetchCompletionHandler:dataCopy];
       }
     }
 
     else
     {
-      v22 = WBS_LOG_CHANNEL_PREFIXCredentialExchange();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+      v28 = WBS_LOG_CHANNEL_PREFIXCredentialExchange(v9, v10);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
       {
-        [(_ASAgentCredentialExchangeListener *)v22 getExportedCredentialData:v23, v24, v25, v26, v27, v28, v29];
+        [(_ASAgentCredentialExchangeListener *)v28 getExportedCredentialData:v29, v30, v31, v32, v33, v34, v35];
       }
 
       dataCopy[2](dataCopy, 0);
@@ -472,10 +470,10 @@ LABEL_23:
 
   else
   {
-    v14 = WBS_LOG_CHANNEL_PREFIXCredentialExchange();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v20 = WBS_LOG_CHANNEL_PREFIXCredentialExchange(HasEntitlement, v8);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
-      [(_ASAgentCredentialExchangeListener *)v14 getExportedCredentialData:v15, v16, v17, v18, v19, v20, v21];
+      [(_ASAgentCredentialExchangeListener *)v20 getExportedCredentialData:v21, v22, v23, v24, v25, v26, v27];
     }
 
     dataCopy[2](dataCopy, 0);
@@ -484,80 +482,81 @@ LABEL_23:
 
 - (void)importCredentialsWithToken:(id)token completionHandler:(id)handler
 {
-  v45[1] = *MEMORY[0x1E69E9840];
+  v52[1] = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   handlerCopy = handler;
   os_unfair_lock_lock(&self->_internalLock);
   currentOperation = self->_currentOperation;
   if (currentOperation)
   {
-    v9 = currentOperation;
-    if ([MEMORY[0x1E69C8880] isCredentialExchangeEnabled])
+    v11 = currentOperation;
+    isCredentialExchangeEnabled = [MEMORY[0x1E69C8880] isCredentialExchangeEnabled];
+    if (isCredentialExchangeEnabled)
     {
-      importerToken = [(_ASAgentCredentialExchangeOperation *)v9 importerToken];
-      v11 = [tokenCopy isEqual:importerToken];
+      importerToken = [(_ASAgentCredentialExchangeOperation *)v11 importerToken];
+      v15 = [tokenCopy isEqual:importerToken];
 
-      if (v11)
+      if (v15)
       {
-        exportedCredentialData = [(_ASAgentCredentialExchangeOperation *)v9 exportedCredentialData];
+        exportedCredentialData = [(_ASAgentCredentialExchangeOperation *)v11 exportedCredentialData];
 
         if (exportedCredentialData)
         {
-          exportedCredentialData2 = [(_ASAgentCredentialExchangeOperation *)v9 exportedCredentialData];
+          exportedCredentialData2 = [(_ASAgentCredentialExchangeOperation *)v11 exportedCredentialData];
           handlerCopy[2](handlerCopy, exportedCredentialData2, 0);
 
-          v14 = self->_currentOperation;
+          v22 = self->_currentOperation;
           self->_currentOperation = 0;
         }
 
         else
         {
-          v33 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          v41 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(v19, v20);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
             [_ASAgentCredentialExchangeListener importCredentialsWithToken:completionHandler:];
           }
 
-          v34 = MEMORY[0x1E696ABC0];
-          v38 = *MEMORY[0x1E696A588];
-          v39 = @"Exported credential data not found.";
-          v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-          v36 = [v34 errorWithDomain:*MEMORY[0x1E698DF70] code:1 userInfo:v35];
-          (handlerCopy)[2](handlerCopy, 0, v36);
+          v42 = MEMORY[0x1E696ABC0];
+          v45 = *MEMORY[0x1E696A588];
+          v46 = @"Exported credential data not found.";
+          v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+          v44 = [v42 errorWithDomain:*MEMORY[0x1E698DF70] code:1 userInfo:v43];
+          (handlerCopy)[2](handlerCopy, 0, v44);
         }
       }
 
       else
       {
-        v29 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v37 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(v16, v17);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
           [_ASAgentCredentialExchangeListener importCredentialsWithToken:completionHandler:];
         }
 
-        v30 = MEMORY[0x1E696ABC0];
-        v40 = *MEMORY[0x1E696A588];
-        v41 = @"The import request came from a client that did not match the one selected by the user for import.";
-        v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
-        v32 = [v30 errorWithDomain:*MEMORY[0x1E698DF70] code:18 userInfo:v31];
-        (handlerCopy)[2](handlerCopy, 0, v32);
+        v38 = MEMORY[0x1E696ABC0];
+        v47 = *MEMORY[0x1E696A588];
+        v48 = @"The import request came from a client that did not match the one selected by the user for import.";
+        v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+        v40 = [v38 errorWithDomain:*MEMORY[0x1E698DF70] code:18 userInfo:v39];
+        (handlerCopy)[2](handlerCopy, 0, v40);
       }
     }
 
     else
     {
-      v25 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v33 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(isCredentialExchangeEnabled, v13);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         [_ASAgentCredentialExchangeListener requestExportForCredentialProvider:windowSceneIdentifier:completionHandler:];
       }
 
-      v26 = MEMORY[0x1E696ABC0];
-      v42 = *MEMORY[0x1E696A588];
-      v43 = @"Developer mode must be enabled for this API. You can find the toggle for this in Settings › Developer in the Authentication Services Testing section.";
-      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
-      v28 = [v26 errorWithDomain:*MEMORY[0x1E698DF70] code:18 userInfo:v27];
-      (handlerCopy)[2](handlerCopy, 0, v28);
+      v34 = MEMORY[0x1E696ABC0];
+      v49 = *MEMORY[0x1E696A588];
+      v50 = @"Developer mode must be enabled for this API. You can find the toggle for this in Settings › Developer in the Authentication Services Testing section.";
+      v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+      v36 = [v34 errorWithDomain:*MEMORY[0x1E698DF70] code:18 userInfo:v35];
+      (handlerCopy)[2](handlerCopy, 0, v36);
 
       [(_ASAgentCredentialExchangeListener *)self _showErrorAlert:0];
     }
@@ -565,22 +564,21 @@ LABEL_23:
 
   else
   {
-    v15 = WBS_LOG_CHANNEL_PREFIXCredentialExchange();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v23 = WBS_LOG_CHANNEL_PREFIXCredentialExchange(v8, v9);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
-      [(_ASAgentCredentialExchangeListener *)v15 importCredentialsWithToken:v16 completionHandler:v17, v18, v19, v20, v21, v22];
+      [(_ASAgentCredentialExchangeListener *)v23 importCredentialsWithToken:v24 completionHandler:v25, v26, v27, v28, v29, v30];
     }
 
-    v23 = MEMORY[0x1E696ABC0];
-    v44 = *MEMORY[0x1E696A588];
-    v45[0] = @"No export in progress";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v45 forKeys:&v44 count:1];
-    v24 = [v23 errorWithDomain:*MEMORY[0x1E698DF70] code:1 userInfo:v9];
-    (handlerCopy)[2](handlerCopy, 0, v24);
+    v31 = MEMORY[0x1E696ABC0];
+    v51 = *MEMORY[0x1E696A588];
+    v52[0] = @"No export in progress";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:&v51 count:1];
+    v32 = [v31 errorWithDomain:*MEMORY[0x1E698DF70] code:1 userInfo:v11];
+    (handlerCopy)[2](handlerCopy, 0, v32);
   }
 
   os_unfair_lock_unlock(&self->_internalLock);
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelCurrentOperation
@@ -595,7 +593,7 @@ LABEL_23:
 - (void)_showErrorAlert:(unint64_t)alert
 {
   v3 = 0;
-  v13[3] = *MEMORY[0x1E69E9840];
+  v12[3] = *MEMORY[0x1E69E9840];
   if (alert <= 1)
   {
     if (alert)
@@ -610,39 +608,35 @@ LABEL_23:
     goto LABEL_7;
   }
 
-  if (alert != 2)
+  if (alert == 2)
   {
-    v4 = 0;
-    if (alert != 3)
-    {
-LABEL_8:
-      v5 = *MEMORY[0x1E695EE60];
-      v12[0] = *MEMORY[0x1E695EE58];
-      v12[1] = v5;
-      v13[0] = v4;
-      v13[1] = v3;
-      v12[2] = *MEMORY[0x1E695EE78];
-      v6 = _WBSLocalizedStringWithCurrentUserLocale();
-      v13[2] = v6;
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
-      v8 = [v7 mutableCopy];
+    return;
+  }
 
-      v9 = CFUserNotificationCreate(*MEMORY[0x1E695E480], 0.0, 2uLL, 0, v8);
-      v11 = 3;
-      CFUserNotificationReceiveResponse(v9, 0.0, &v11);
-      CFRelease(v9);
-
-      goto LABEL_9;
-    }
-
+  v4 = 0;
+  if (alert == 3)
+  {
 LABEL_7:
     v4 = _WBSLocalizedStringWithCurrentUserLocale();
     v3 = _WBSLocalizedStringWithCurrentUserLocale();
-    goto LABEL_8;
   }
 
-LABEL_9:
-  v10 = *MEMORY[0x1E69E9840];
+LABEL_8:
+  v5 = *MEMORY[0x1E695EE60];
+  v11[0] = *MEMORY[0x1E695EE58];
+  v11[1] = v5;
+  v12[0] = v4;
+  v12[1] = v3;
+  v11[2] = *MEMORY[0x1E695EE78];
+  v6 = _WBSLocalizedStringWithCurrentUserLocale();
+  v12[2] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v8 = [v7 mutableCopy];
+
+  v9 = CFUserNotificationCreate(*MEMORY[0x1E695E480], 0.0, 2uLL, 0, v8);
+  v10 = 3;
+  CFUserNotificationReceiveResponse(v9, 0.0, &v10);
+  CFRelease(v9);
 }
 
 - (void)_setSelectedImporterBundleIdentifierForCurrentOperation:(id)operation
@@ -657,10 +651,10 @@ LABEL_9:
 
   else
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXCredentialExchange();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = WBS_LOG_CHANNEL_PREFIXCredentialExchange(0, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      [(_ASAgentCredentialExchangeListener *)v6 _setSelectedImporterBundleIdentifierForCurrentOperation:v7, v8, v9, v10, v11, v12, v13];
+      [(_ASAgentCredentialExchangeListener *)v7 _setSelectedImporterBundleIdentifierForCurrentOperation:v8, v9, v10, v11, v12, v13, v14];
     }
   }
 
@@ -670,72 +664,70 @@ LABEL_9:
 - (void)_requestExportWithConnection:(NSXPCConnection *)connection credentialProviderBundleIdentifier:(NSString *)identifier windowSceneIdentifier:(NSString *)sceneIdentifier completionHandler:(id)handler
 {
   v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB775460, &qword_1B1D86860);
-  v12 = *(*(v11 - 8) + 64);
   MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v24 - v13;
-  v15 = _Block_copy(handler);
-  v16 = swift_allocObject();
-  v16[2] = connection;
-  v16[3] = identifier;
-  v16[4] = sceneIdentifier;
-  v16[5] = v15;
-  v16[6] = self;
-  v17 = sub_1B1D7BF4C();
-  (*(*(v17 - 8) + 56))(v14, 1, 1, v17);
+  v13 = &v23 - v12;
+  v14 = _Block_copy(handler);
+  v15 = swift_allocObject();
+  v15[2] = connection;
+  v15[3] = identifier;
+  v15[4] = sceneIdentifier;
+  v15[5] = v14;
+  v15[6] = self;
+  v16 = sub_1B1D7BF4C();
+  (*(*(v16 - 8) + 56))(v13, 1, 1, v16);
+  v17 = swift_allocObject();
+  v17[2] = 0;
+  v17[3] = 0;
+  v17[4] = &unk_1B1D861F0;
+  v17[5] = v15;
   v18 = swift_allocObject();
   v18[2] = 0;
   v18[3] = 0;
-  v18[4] = &unk_1B1D861F0;
-  v18[5] = v16;
-  v19 = swift_allocObject();
-  v19[2] = 0;
-  v19[3] = 0;
-  v19[4] = &unk_1B1D861F8;
-  v19[5] = v18;
+  v18[4] = &unk_1B1D861F8;
+  v18[5] = v17;
   connectionCopy = connection;
   identifierCopy = identifier;
   sceneIdentifierCopy = sceneIdentifier;
   selfCopy = self;
-  sub_1B1D22574(0, 0, v14, &unk_1B1D86200, v19);
+  sub_1B1D22574(0, 0, v13, &unk_1B1D86200, v18);
 }
 
 - (void)_highestCommonVersionNumber:(NSString *)number credentialProviderBundleIdentifier:(NSString *)identifier importerBundleIdentifier:(NSString *)bundleIdentifier completionHandler:(id)handler
 {
   v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB775460, &qword_1B1D86860);
-  v12 = *(*(v11 - 8) + 64);
   MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v24 - v13;
-  v15 = _Block_copy(handler);
-  v16 = swift_allocObject();
-  v16[2] = number;
-  v16[3] = identifier;
-  v16[4] = bundleIdentifier;
-  v16[5] = v15;
-  v16[6] = self;
-  v17 = sub_1B1D7BF4C();
-  (*(*(v17 - 8) + 56))(v14, 1, 1, v17);
+  v13 = &v23 - v12;
+  v14 = _Block_copy(handler);
+  v15 = swift_allocObject();
+  v15[2] = number;
+  v15[3] = identifier;
+  v15[4] = bundleIdentifier;
+  v15[5] = v14;
+  v15[6] = self;
+  v16 = sub_1B1D7BF4C();
+  (*(*(v16 - 8) + 56))(v13, 1, 1, v16);
+  v17 = swift_allocObject();
+  v17[2] = 0;
+  v17[3] = 0;
+  v17[4] = &unk_1B1D861C0;
+  v17[5] = v15;
   v18 = swift_allocObject();
   v18[2] = 0;
   v18[3] = 0;
-  v18[4] = &unk_1B1D861C0;
-  v18[5] = v16;
-  v19 = swift_allocObject();
-  v19[2] = 0;
-  v19[3] = 0;
-  v19[4] = &unk_1B1D885D0;
-  v19[5] = v18;
+  v18[4] = &unk_1B1D885D0;
+  v18[5] = v17;
   numberCopy = number;
   identifierCopy = identifier;
   bundleIdentifierCopy = bundleIdentifier;
   selfCopy = self;
-  sub_1B1D22574(0, 0, v14, &unk_1B1D86880, v19);
+  sub_1B1D22574(0, 0, v13, &unk_1B1D86880, v18);
 }
 
 - (void)listener:(uint64_t)a3 shouldAcceptNewConnection:(uint64_t)a4 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_5(&dword_1B1C8D000, a2, a3, "Unexpected process %{public}@ tried to connect during credential import.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_5(&dword_1B1C8D000, a2, a3, "Unexpected process %{public}@ tried to connect during credential import.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)listener:(uint8_t *)buf shouldAcceptNewConnection:(os_log_t)log .cold.3(uint64_t a1, void *a2, uint8_t *buf, os_log_t log)
@@ -749,58 +741,58 @@ LABEL_9:
 
 - (void)requestExportForCredentialProvider:(uint64_t)a3 windowSceneIdentifier:(uint64_t)a4 completionHandler:(uint64_t)a5 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_5(&dword_1B1C8D000, a1, a3, "Called %{public}s with no current operation.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[_ASAgentCredentialExchangeListener requestExportForCredentialProvider:windowSceneIdentifier:completionHandler:]";
+  OUTLINED_FUNCTION_0_5(&dword_1B1C8D000, a1, a3, "Called %{public}s with no current operation.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)continueExportWithCredentials:(uint64_t)a3 completionHandler:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_5(&dword_1B1C8D000, a1, a3, "Called %{public}s with no current operation.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[_ASAgentCredentialExchangeListener continueExportWithCredentials:completionHandler:]";
+  OUTLINED_FUNCTION_0_5(&dword_1B1C8D000, a1, a3, "Called %{public}s with no current operation.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)setTokenForImport:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_5(&dword_1B1C8D000, a1, a3, "%{public}s must only be called by the view service", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[_ASAgentCredentialExchangeListener setTokenForImport:]";
+  OUTLINED_FUNCTION_0_5(&dword_1B1C8D000, a1, a3, "%{public}s must only be called by the view service", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)setTokenForImport:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_5(&dword_1B1C8D000, a1, a3, "Called %{public}s with no current operation.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[_ASAgentCredentialExchangeListener setTokenForImport:]";
+  OUTLINED_FUNCTION_0_5(&dword_1B1C8D000, a1, a3, "Called %{public}s with no current operation.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)getExportedCredentialData:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_5(&dword_1B1C8D000, a1, a3, "%{public}s must only be called by the view service", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[_ASAgentCredentialExchangeListener getExportedCredentialData:]";
+  OUTLINED_FUNCTION_0_5(&dword_1B1C8D000, a1, a3, "%{public}s must only be called by the view service", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)getExportedCredentialData:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_5(&dword_1B1C8D000, a1, a3, "Called %{public}s with no current operation.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[_ASAgentCredentialExchangeListener getExportedCredentialData:]";
+  OUTLINED_FUNCTION_0_5(&dword_1B1C8D000, a1, a3, "Called %{public}s with no current operation.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)importCredentialsWithToken:(uint64_t)a3 completionHandler:(uint64_t)a4 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_5(&dword_1B1C8D000, a1, a3, "Called %{public}s with no current operation.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[_ASAgentCredentialExchangeListener importCredentialsWithToken:completionHandler:]";
+  OUTLINED_FUNCTION_0_5(&dword_1B1C8D000, a1, a3, "Called %{public}s with no current operation.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_setSelectedImporterBundleIdentifierForCurrentOperation:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_5(&dword_1B1C8D000, a1, a3, "Called %{public}s with no current operation.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[_ASAgentCredentialExchangeListener _setSelectedImporterBundleIdentifierForCurrentOperation:]";
+  OUTLINED_FUNCTION_0_5(&dword_1B1C8D000, a1, a3, "Called %{public}s with no current operation.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

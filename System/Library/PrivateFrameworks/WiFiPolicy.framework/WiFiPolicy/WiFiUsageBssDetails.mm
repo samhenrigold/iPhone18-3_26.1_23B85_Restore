@@ -1,4 +1,5 @@
 @interface WiFiUsageBssDetails
++ (id)bssWithIdentifier:(id)identifier apProfile:(id)profile apMode:(int64_t)mode phyMode:(int)phyMode channel:(int64_t)channel channelFlags:(unint64_t)flags channelWidth:(int64_t)width rssi:(int64_t)self0 latitude:(double)self1 longitude:(double)self2 isEdgeBss:(BOOL)self3;
 + (id)bssWithIdentifier:(id)identifier channel:(int64_t)channel channelFlags:(unint64_t)flags rssi:(int64_t)rssi;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isOnChannel:(id)channel;
@@ -32,6 +33,32 @@
   }
 
   return apProfile;
+}
+
++ (id)bssWithIdentifier:(id)identifier apProfile:(id)profile apMode:(int64_t)mode phyMode:(int)phyMode channel:(int64_t)channel channelFlags:(unint64_t)flags channelWidth:(int64_t)width rssi:(int64_t)self0 latitude:(double)self1 longitude:(double)self2 isEdgeBss:(BOOL)self3
+{
+  v17 = *&phyMode;
+  profileCopy = profile;
+  identifierCopy = identifier;
+  v23 = objc_alloc_init(self);
+  [v23 setBssid:identifierCopy];
+
+  [v23 setApMode:mode];
+  [v23 setPhyMode:v17];
+  [v23 setChannelFlags:flags];
+  [v23 setBand:{+[WiFiUsagePrivacyFilter bandFromFlags:](WiFiUsagePrivacyFilter, "bandFromFlags:", flags)}];
+  [v23 setChannel:channel];
+  [v23 setChannelWidth:{+[WiFiUsagePrivacyFilter channelWidthFromFlags:](WiFiUsagePrivacyFilter, "channelWidthFromFlags:", flags)}];
+  [v23 setLocationLatitude:latitude];
+  [v23 setLocationLongitude:longitude];
+  [v23 setIsEdgeBss:bss];
+  [v23 setRssi:rssi];
+  [v23 setNSS:0x7FFFFFFFFFFFFFFFLL];
+  [v23 setApProfile:profileCopy];
+
+  [v23 setCurrentMloPreferredBand:3];
+
+  return v23;
 }
 
 + (id)bssWithIdentifier:(id)identifier channel:(int64_t)channel channelFlags:(unint64_t)flags rssi:(int64_t)rssi
@@ -69,27 +96,26 @@
   v4 = objc_opt_class();
   bssid = self->_bssid;
   apProfile = [(WiFiUsageBssDetails *)self apProfile];
-  channelWidth = self->_channelWidth;
-  LOBYTE(v10) = self->_isEdgeBss;
-  v8 = [v4 bssWithIdentifier:bssid apProfile:apProfile apMode:self->_apMode phyMode:self->_phyMode channel:self->_channel channelFlags:self->_channelFlags channelWidth:self->_locationLatitude rssi:self->_locationLongitude latitude:channelWidth longitude:self->_rssi isEdgeBss:v10];
+  LOBYTE(v9) = self->_isEdgeBss;
+  v7 = [v4 bssWithIdentifier:bssid apProfile:apProfile apMode:self->_apMode phyMode:self->_phyMode channel:self->_channel channelFlags:self->_channelFlags channelWidth:self->_locationLatitude rssi:self->_locationLongitude latitude:self->_channelWidth longitude:self->_rssi isEdgeBss:v9];
 
-  [v8 setHasAppleIE:self->_hasAppleIE];
-  [v8 setHasInterworkingIE:self->_hasInterworkingIE];
-  [v8 setHasWpsIE:self->_hasWpsIE];
-  [v8 setHasDomainName:self->_hasDomainName];
-  [v8 setHasNaiRealms:self->_hasNaiRealms];
-  [v8 setHasRoamingOis:self->_hasRoamingOis];
-  [v8 setNetworkAccessCode:self->_networkAccessCode];
-  [v8 setVenueGroup:self->_venueGroup];
-  [v8 setVenueCode:self->_venueCode];
-  [v8 setModelName:self->_modelName];
-  [v8 setModelNumber:self->_modelNumber];
-  [v8 setManufacturerName:self->_manufacturerName];
-  [v8 setDeviceVersion:self->_deviceVersion];
-  [v8 setRssi:self->_rssi];
-  [v8 setHasColocatedMLOs:self->_hasColocatedMLOs];
-  [v8 setApProfileError:self->_apProfileError];
-  return v8;
+  [v7 setHasAppleIE:self->_hasAppleIE];
+  [v7 setHasInterworkingIE:self->_hasInterworkingIE];
+  [v7 setHasWpsIE:self->_hasWpsIE];
+  [v7 setHasDomainName:self->_hasDomainName];
+  [v7 setHasNaiRealms:self->_hasNaiRealms];
+  [v7 setHasRoamingOis:self->_hasRoamingOis];
+  [v7 setNetworkAccessCode:self->_networkAccessCode];
+  [v7 setVenueGroup:self->_venueGroup];
+  [v7 setVenueCode:self->_venueCode];
+  [v7 setModelName:self->_modelName];
+  [v7 setModelNumber:self->_modelNumber];
+  [v7 setManufacturerName:self->_manufacturerName];
+  [v7 setDeviceVersion:self->_deviceVersion];
+  [v7 setRssi:self->_rssi];
+  [v7 setHasColocatedMLOs:self->_hasColocatedMLOs];
+  [v7 setApProfileError:self->_apProfileError];
+  return v7;
 }
 
 - (unint64_t)hash

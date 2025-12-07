@@ -13,68 +13,59 @@
   reasonCopy = reason;
   observerCopy = observer;
   [(BKSProximitySensorService *)self _connectToRemoteServiceIfNeeded];
-  v8 = [(BSCompoundAssertion *)self->_observers acquireForReason:reasonCopy withContext:observerCopy];
+  v8 = [BSCompoundAssertion acquireForReason:"acquireForReason:withContext:" withContext:?];
 
   return v8;
 }
 
 - (void)proximityDetectionMaskDidChange:(id)change
 {
-  v16 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   dispatch_assert_queue_V2(self->_calloutQueue);
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
-  v12 = 0u;
   orderedContext = [(BSCompoundAssertion *)self->_observers orderedContext];
-  v6 = [orderedContext countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [orderedContext countByEnumeratingWithState:? objects:? count:?];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = MEMORY[0];
     do
     {
-      v9 = 0;
-      do
+      for (i = 0; i != v7; i = (i + 1))
       {
-        if (*v12 != v8)
+        if (MEMORY[0] != v8)
         {
           objc_enumerationMutation(orderedContext);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) proximitySensorDetectionMaskDidChange:changeCopy];
+        [*(8 * i) proximitySensorDetectionMaskDidChange:?];
       }
 
-      while (v7 != v9);
-      v7 = [orderedContext countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [orderedContext countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_connectToRemoteServiceIfNeeded
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   p_connection = &self->_connection;
   if (!self->_connection)
   {
     v5 = +[BKSHIDServiceConnectionFactory sharedInstance];
-    v6 = [v5 clientConnectionForServiceWithName:@"BKProximitySensor"];
+    v6 = [v5 clientConnectionForServiceWithName:?];
 
     if (v6)
     {
       objc_storeStrong(p_connection, v6);
       connection = self->_connection;
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __60__BKSProximitySensorService__connectToRemoteServiceIfNeeded__block_invoke;
-      v18[3] = &unk_1E6F47978;
-      v18[4] = self;
-      [(BSServiceInitiatingConnection *)connection configure:v18];
+      v17 = MEMORY[0x1E69E9820];
+      v18 = 3221225472;
+      v19 = __60__BKSProximitySensorService__connectToRemoteServiceIfNeeded__block_invoke;
+      v20 = &unk_1E6F47978;
+      selfCopy = self;
+      [(BSServiceInitiatingConnection *)connection configure:?];
       v8 = BKLogUISensor();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
@@ -88,7 +79,7 @@
       {
         remoteTarget = [v6 remoteTarget];
         *buf = 138543362;
-        v20 = remoteTarget;
+        v23 = remoteTarget;
         _os_log_debug_impl(&dword_186345000, v9, OS_LOG_TYPE_DEBUG, "server remote target %{public}@", buf, 0xCu);
       }
 
@@ -96,24 +87,24 @@
 
       if (!remoteTarget2)
       {
-        v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"we must have a remote target"];
+        v11 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           v12 = NSStringFromSelector(a2);
           v13 = objc_opt_class();
           v14 = NSStringFromClass(v13);
           *buf = 138544642;
-          v20 = v12;
-          v21 = 2114;
-          v22 = v14;
-          v23 = 2048;
-          selfCopy = self;
-          v25 = 2114;
-          v26 = @"BKSProximitySensorService.m";
-          v27 = 1024;
-          v28 = 101;
-          v29 = 2114;
-          v30 = v11;
+          v23 = v12;
+          v24 = 2114;
+          v25 = v14;
+          v26 = 2048;
+          selfCopy2 = self;
+          v28 = 2114;
+          v29 = @"BKSProximitySensorService.m";
+          v30 = 1024;
+          v31 = 101;
+          v32 = 2114;
+          v33 = v11;
           _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
         }
 
@@ -134,30 +125,28 @@
       }
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __60__BKSProximitySensorService__connectToRemoteServiceIfNeeded__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = BKLogUISensor();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v2 = a2;
+  v3 = BKLogUISensor();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    *v8 = 0;
-    _os_log_debug_impl(&dword_186345000, v4, OS_LOG_TYPE_DEBUG, "configured client service", v8, 2u);
+    *v7 = 0;
+    _os_log_debug_impl(&dword_186345000, v3, OS_LOG_TYPE_DEBUG, "configured client service", v7, 2u);
   }
 
-  v5 = [MEMORY[0x1E698E710] protocolForProtocol:&unk_1EF570980];
-  v6 = [MEMORY[0x1E698E710] protocolForProtocol:&unk_1EF579350];
-  v7 = [MEMORY[0x1E698F470] interfaceWithIdentifier:@"BKProximitySensor"];
-  [v7 setServer:v6];
-  [v7 setClient:v5];
-  [v3 setInterface:v7];
-  [v3 setInterfaceTarget:*(a1 + 32)];
-  [v3 setQueue:*(*(a1 + 32) + 16)];
-  [v3 setInterruptionHandler:&__block_literal_global_3904];
-  [v3 setInvalidationHandler:&__block_literal_global_64_3905];
+  v4 = [MEMORY[0x1E698E710] protocolForProtocol:?];
+  v5 = [MEMORY[0x1E698E710] protocolForProtocol:?];
+  v6 = [MEMORY[0x1E698F470] interfaceWithIdentifier:?];
+  [v6 setServer:?];
+  [v6 setClient:?];
+  [v2 setInterface:?];
+  [v2 setInterfaceTarget:?];
+  [v2 setQueue:?];
+  [v2 setInterruptionHandler:?];
+  [v2 setInvalidationHandler:?];
 }
 
 void __60__BKSProximitySensorService__connectToRemoteServiceIfNeeded__block_invoke_62()
@@ -185,12 +174,12 @@ void __60__BKSProximitySensorService__connectToRemoteServiceIfNeeded__block_invo
 
 - (id)_init
 {
-  v14.receiver = self;
-  v14.super_class = BKSProximitySensorService;
-  v2 = [(BKSProximitySensorService *)&v14 init];
+  v17.receiver = self;
+  v17.super_class = BKSProximitySensorService;
+  v2 = [(BKSProximitySensorService *)&v17 init];
   if (v2)
   {
-    v3 = [MEMORY[0x1E698F4D0] queueWithName:@"com.apple.backboardd.BKSProximitySensorService"];
+    v3 = [MEMORY[0x1E698F4D0] queueWithName:?];
     bsServiceDispatchQueue = v2->_bsServiceDispatchQueue;
     v2->_bsServiceDispatchQueue = v3;
 
@@ -199,13 +188,13 @@ void __60__BKSProximitySensorService__connectToRemoteServiceIfNeeded__block_invo
     v2->_calloutQueue = queue;
 
     v7 = MEMORY[0x1E698E658];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __34__BKSProximitySensorService__init__block_invoke;
-    v12[3] = &unk_1E6F46D70;
+    v12 = MEMORY[0x1E69E9820];
+    v13 = 3221225472;
+    v14 = __34__BKSProximitySensorService__init__block_invoke;
+    v15 = &unk_1E6F46D70;
     v8 = v2;
-    v13 = v8;
-    v9 = [v7 assertionWithIdentifier:@"BKSProximitySensorService observers" stateDidChangeHandler:v12];
+    v16 = v8;
+    v9 = [v7 assertionWithIdentifier:? stateDidChangeHandler:?];
     observers = v8->_observers;
     v8->_observers = v9;
   }
@@ -219,22 +208,22 @@ void __34__BKSProximitySensorService__init__block_invoke(uint64_t a1, void *a2)
   v4 = a2;
   v5 = [v3 remoteTarget];
   v6 = MEMORY[0x1E696AD98];
-  v7 = [v4 isActive];
+  [v4 isActive];
 
-  v8 = [v6 numberWithBool:v7];
-  v9 = [v5 setObservesProximitySensorDetectionMaskChanges:v8];
+  v7 = [v6 numberWithBool:?];
+  v8 = [v5 setObservesProximitySensorDetectionMaskChanges:?];
 
-  if (v9)
+  if (v8)
   {
-    v10 = *(a1 + 32);
-    v11 = v10[3];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __34__BKSProximitySensorService__init__block_invoke_2;
-    v12[3] = &unk_1E6F47C78;
-    v13 = v10;
-    v14 = v9;
-    dispatch_async(v11, v12);
+    v9 = *(a1 + 32);
+    v10 = v9[3];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __34__BKSProximitySensorService__init__block_invoke_2;
+    v11[3] = &unk_1E6F47C78;
+    v12 = v9;
+    v13 = v8;
+    dispatch_async(v10, v11);
   }
 }
 

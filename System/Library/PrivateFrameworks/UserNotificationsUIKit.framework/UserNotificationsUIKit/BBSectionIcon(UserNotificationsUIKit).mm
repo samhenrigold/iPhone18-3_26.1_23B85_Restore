@@ -22,7 +22,7 @@
 - (void)nc_imageForFormat:()UserNotificationsUIKit scale:userInterfaceStyle:completionOnMain:
 {
   v10 = a6;
-  v11 = _NCImageGenerationQueue();
+  v11 = _NCImageGenerationQueue(v10);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __101__BBSectionIcon_UserNotificationsUIKit__nc_imageForFormat_scale_userInterfaceStyle_completionOnMain___block_invoke;
@@ -412,7 +412,7 @@ LABEL_66:
   v4 = a2;
   v5 = [a3 bundlePath];
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0(&dword_21E77E000, v6, v7, "Notification icon width does not match height: %{public}@ in bundle %{public}@", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_0_0(&dword_21E77E000, v6, v7, "Notification icon width does not match height: %{public}@ in bundle %{public}@", v8, v9, v10, v11);
 }
 
 - (void)nc_imageForFormat:()UserNotificationsUIKit scale:userInterfaceStyle:usedUserInterfaceStyle:.cold.5(uint64_t a1, void *a2, void *a3)
@@ -420,7 +420,7 @@ LABEL_66:
   v4 = a2;
   v5 = [a3 bundlePath];
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0(&dword_21E77E000, v6, v7, "Notification icon is not found: %{public}@ in bundle %{public}@", v8, v9, v10, v11, v12);
+  OUTLINED_FUNCTION_0_0(&dword_21E77E000, v6, v7, "Notification icon is not found: %{public}@ in bundle %{public}@", v8, v9, v10, v11);
 }
 
 @end

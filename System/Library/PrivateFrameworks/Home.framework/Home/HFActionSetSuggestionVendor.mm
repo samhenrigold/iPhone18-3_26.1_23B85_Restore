@@ -35,20 +35,18 @@
 
 void __61__HFActionSetSuggestionVendor_supportedBuiltInActionSetTypes__block_invoke_2()
 {
-  v7[4] = *MEMORY[0x277D85DE8];
+  v6[4] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
   v1 = *MEMORY[0x277CCF198];
-  v7[0] = *MEMORY[0x277CCF1B0];
-  v7[1] = v1;
+  v6[0] = *MEMORY[0x277CCF1B0];
+  v6[1] = v1;
   v2 = *MEMORY[0x277CCF180];
-  v7[2] = *MEMORY[0x277CCF188];
-  v7[3] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:4];
+  v6[2] = *MEMORY[0x277CCF188];
+  v6[3] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:4];
   v4 = [v0 setWithArray:v3];
   v5 = qword_280E039D0;
   qword_280E039D0 = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (HFActionSetSuggestionVendor)init
@@ -107,8 +105,8 @@ id __61__HFActionSetSuggestionVendor_initWithHome_actionSet_filter___block_invok
 
   v7 = [HFActionSetBuilder alloc];
   actionSet2 = [(HFActionSetSuggestionVendor *)self actionSet];
-  home = [(HFActionSetSuggestionVendor *)self home];
-  v10 = [(HFActionSetBuilder *)v7 initWithExistingObject:actionSet2 inHome:home];
+  v9 = objc_msgSend_home(self);
+  v10 = [(HFActionSetBuilder *)v7 initWithExistingObject:actionSet2 inHome:v9];
 
   if ([actionSetType isEqualToString:*MEMORY[0x277CCF1A8]])
   {
@@ -133,16 +131,16 @@ id __61__HFActionSetSuggestionVendor_initWithHome_actionSet_filter___block_invok
 
 - (id)_actionBuildersForBuiltInActionSetWithType:(id)type outDependentServiceTypes:(id *)types
 {
-  v71[2] = *MEMORY[0x277D85DE8];
+  v70[2] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   array = [MEMORY[0x277CBEB18] array];
   v8 = [MEMORY[0x277CBEB58] set];
   if ([typeCopy isEqualToString:*MEMORY[0x277CCF1B0]])
   {
     v9 = *MEMORY[0x277CD0E60];
-    v71[0] = *MEMORY[0x277CD0EA0];
-    v71[1] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
+    v70[0] = *MEMORY[0x277CD0EA0];
+    v70[1] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:2];
     v11 = [(HFActionSetSuggestionVendor *)self _actionBuildersToSetPowerState:1 forServicesOfTypes:v10];
     [array addObjectsFromArray:v11];
 
@@ -156,9 +154,9 @@ id __61__HFActionSetSuggestionVendor_initWithHome_actionSet_filter___block_invok
     v15 = [(HFActionSetSuggestionVendor *)self _actionBuildersToSetTargetBlindsPositionOpen:1];
     [array addObjectsFromArray:v15];
 
-    v70 = *MEMORY[0x277CD0F60];
+    v69 = *MEMORY[0x277CD0F60];
     v16 = MEMORY[0x277CBEA60];
-    v17 = &v70;
+    v17 = &v69;
     v18 = 1;
 LABEL_3:
     v19 = [v16 arrayWithObjects:v17 count:v18];
@@ -180,15 +178,15 @@ LABEL_12:
     v20 = [(HFActionSetSuggestionVendor *)self _actionBuildersToSetPowerState:0 forServicesOfTypes:v19];
     [array addObjectsFromArray:v20];
 
-    v69 = *MEMORY[0x277CD0E58];
-    v21 = v69;
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v69 count:1];
+    v68 = *MEMORY[0x277CD0E58];
+    v21 = v68;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v68 count:1];
     v23 = [(HFActionSetSuggestionVendor *)self _actionBuildersToSetTargetDoorState:1 forServicesOfTypes:v22];
     [array addObjectsFromArray:v23];
 
-    v68 = *MEMORY[0x277CD0EB0];
-    v24 = v68;
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v68 count:1];
+    v67 = *MEMORY[0x277CD0EB0];
+    v24 = v67;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v67 count:1];
     v26 = [(HFActionSetSuggestionVendor *)self _actionBuildersToSetTargetLockState:1 forServicesOfTypes:v25];
     [array addObjectsFromArray:v26];
 
@@ -196,12 +194,12 @@ LABEL_12:
     [array addObjectsFromArray:v27];
 
     v28 = *MEMORY[0x277CD0ED0];
-    v67[0] = *MEMORY[0x277CD0EA0];
-    v67[1] = v28;
-    v67[2] = v24;
-    v67[3] = v21;
-    v67[4] = *MEMORY[0x277CD0F60];
-    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:5];
+    v66[0] = *MEMORY[0x277CD0EA0];
+    v66[1] = v28;
+    v66[2] = v24;
+    v66[3] = v21;
+    v66[4] = *MEMORY[0x277CD0F60];
+    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:5];
     [v8 addObjectsFromArray:v29];
 
     types = typesCopy;
@@ -219,15 +217,15 @@ LABEL_12:
     v30 = [(HFActionSetSuggestionVendor *)self _actionBuildersToSetPowerState:0 forServicesOfTypes:v19];
     [array addObjectsFromArray:v30];
 
-    v66 = *MEMORY[0x277CD0E58];
-    v57 = v66;
-    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
+    v65 = *MEMORY[0x277CD0E58];
+    v56 = v65;
+    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v65 count:1];
     v32 = [(HFActionSetSuggestionVendor *)self _actionBuildersToSetTargetDoorState:1 forServicesOfTypes:v31];
     [array addObjectsFromArray:v32];
 
-    v65 = *MEMORY[0x277CD0EB0];
-    v33 = v65;
-    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v65 count:1];
+    v64 = *MEMORY[0x277CD0EB0];
+    v33 = v64;
+    v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v64 count:1];
     v35 = [(HFActionSetSuggestionVendor *)self _actionBuildersToSetTargetLockState:1 forServicesOfTypes:v34];
     [array addObjectsFromArray:v35];
 
@@ -235,15 +233,15 @@ LABEL_12:
     [array addObjectsFromArray:v36];
 
     v37 = *MEMORY[0x277CD0ED0];
-    v64[0] = *MEMORY[0x277CD0EA0];
-    v64[1] = v37;
+    v63[0] = *MEMORY[0x277CD0EA0];
+    v63[1] = v37;
     v38 = *MEMORY[0x277CD0F40];
-    v64[2] = *MEMORY[0x277CD0E40];
-    v64[3] = v38;
-    v64[4] = v33;
-    v64[5] = v57;
-    v64[6] = *MEMORY[0x277CD0ED8];
-    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:7];
+    v63[2] = *MEMORY[0x277CD0E40];
+    v63[3] = v38;
+    v63[4] = v33;
+    v63[5] = v56;
+    v63[6] = *MEMORY[0x277CD0ED8];
+    v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:7];
     [v8 addObjectsFromArray:v39];
 
     goto LABEL_12;
@@ -251,42 +249,42 @@ LABEL_12:
 
   if ([typeCopy isEqualToString:*MEMORY[0x277CCF180]])
   {
-    v44 = *MEMORY[0x277CD0E60];
-    v63[0] = *MEMORY[0x277CD0EA0];
-    v43 = v63[0];
-    v63[1] = v44;
-    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:2];
-    v46 = [(HFActionSetSuggestionVendor *)self _actionBuildersToSetPowerState:1 forServicesOfTypes:v45];
+    v43 = *MEMORY[0x277CD0E60];
+    v62[0] = *MEMORY[0x277CD0EA0];
+    v42 = v62[0];
+    v62[1] = v43;
+    v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
+    v45 = [(HFActionSetSuggestionVendor *)self _actionBuildersToSetPowerState:1 forServicesOfTypes:v44];
+    [array addObjectsFromArray:v45];
+
+    v46 = [(HFActionSetSuggestionVendor *)self _actionBuildersToSetLightbulbBrightness:0.7];
     [array addObjectsFromArray:v46];
 
-    v47 = [(HFActionSetSuggestionVendor *)self _actionBuildersToSetLightbulbBrightness:0.7];
-    [array addObjectsFromArray:v47];
+    v47 = +[HFColorPalette warmWhiteColor];
+    v48 = [(HFActionSetSuggestionVendor *)self _actionBuildersToSetLightbulbColorWithPaletteColor:v47];
+    [array addObjectsFromArray:v48];
 
-    v48 = +[HFColorPalette warmWhiteColor];
-    v49 = [(HFActionSetSuggestionVendor *)self _actionBuildersToSetLightbulbColorWithPaletteColor:v48];
-    [array addObjectsFromArray:v49];
-
-    v62 = *MEMORY[0x277CD0E58];
-    v50 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:1];
-    v51 = [(HFActionSetSuggestionVendor *)self _actionBuildersToSetTargetDoorState:0 forServicesOfTypes:v50];
-    [array addObjectsFromArray:v51];
+    v61 = *MEMORY[0x277CD0E58];
+    v49 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+    v50 = [(HFActionSetSuggestionVendor *)self _actionBuildersToSetTargetDoorState:0 forServicesOfTypes:v49];
+    [array addObjectsFromArray:v50];
 
     typesCopy2 = types;
-    v61 = *MEMORY[0x277CD0EB0];
-    v53 = v61;
-    v54 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
-    v55 = [(HFActionSetSuggestionVendor *)self _actionBuildersToSetTargetLockState:0 forServicesOfTypes:v54];
+    v60 = *MEMORY[0x277CD0EB0];
+    v52 = v60;
+    v53 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
+    v54 = [(HFActionSetSuggestionVendor *)self _actionBuildersToSetTargetLockState:0 forServicesOfTypes:v53];
+    [array addObjectsFromArray:v54];
+
+    v55 = [(HFActionSetSuggestionVendor *)self _actionBuildersToSetTargetSecuritySystemState:3];
     [array addObjectsFromArray:v55];
 
-    v56 = [(HFActionSetSuggestionVendor *)self _actionBuildersToSetTargetSecuritySystemState:3];
-    [array addObjectsFromArray:v56];
-
-    v60[0] = v43;
-    v60[1] = v53;
+    v59[0] = v42;
+    v59[1] = v52;
     types = typesCopy2;
-    v60[2] = *MEMORY[0x277CD0ED8];
+    v59[2] = *MEMORY[0x277CD0ED8];
     v16 = MEMORY[0x277CBEA60];
-    v17 = v60;
+    v17 = v59;
     v18 = 3;
     goto LABEL_3;
   }
@@ -297,49 +295,45 @@ LABEL_13:
     *types = [v8 copy];
   }
 
-  v59[0] = MEMORY[0x277D85DD0];
-  v59[1] = 3221225472;
-  v59[2] = __99__HFActionSetSuggestionVendor__actionBuildersForBuiltInActionSetWithType_outDependentServiceTypes___block_invoke_7;
-  v59[3] = &unk_277DF4998;
-  v59[4] = self;
-  v40 = [array na_filter:v59];
-
-  v41 = *MEMORY[0x277D85DE8];
+  v58[0] = MEMORY[0x277D85DD0];
+  v58[1] = 3221225472;
+  v58[2] = __99__HFActionSetSuggestionVendor__actionBuildersForBuiltInActionSetWithType_outDependentServiceTypes___block_invoke_7;
+  v58[3] = &unk_277DF4998;
+  v58[4] = self;
+  v40 = [array na_filter:v58];
 
   return v40;
 }
 
 void __99__HFActionSetSuggestionVendor__actionBuildersForBuiltInActionSetWithType_outDependentServiceTypes___block_invoke_2()
 {
-  v5[4] = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CD0ED0];
-  v5[0] = *MEMORY[0x277CD0EA0];
-  v5[1] = v0;
+  v4[0] = *MEMORY[0x277CD0EA0];
+  v4[1] = v0;
   v1 = *MEMORY[0x277CD0E60];
-  v5[2] = *MEMORY[0x277CD0F20];
-  v5[3] = v1;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
+  v4[2] = *MEMORY[0x277CD0F20];
+  v4[3] = v1;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:4];
   v3 = qword_280E039E0;
   qword_280E039E0 = v2;
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __99__HFActionSetSuggestionVendor__actionBuildersForBuiltInActionSetWithType_outDependentServiceTypes___block_invoke_5()
 {
-  v6[6] = *MEMORY[0x277D85DE8];
+  v5[6] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CD0ED0];
-  v6[0] = *MEMORY[0x277CD0EA0];
-  v6[1] = v0;
+  v5[0] = *MEMORY[0x277CD0EA0];
+  v5[1] = v0;
   v1 = *MEMORY[0x277CD0F40];
-  v6[2] = *MEMORY[0x277CD0E40];
-  v6[3] = v1;
+  v5[2] = *MEMORY[0x277CD0E40];
+  v5[3] = v1;
   v2 = *MEMORY[0x277CD0E60];
-  v6[4] = *MEMORY[0x277CD0F20];
-  v6[5] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:6];
+  v5[4] = *MEMORY[0x277CD0F20];
+  v5[5] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:6];
   v4 = qword_280E039F0;
   qword_280E039F0 = v3;
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __99__HFActionSetSuggestionVendor__actionBuildersForBuiltInActionSetWithType_outDependentServiceTypes___block_invoke_7(uint64_t a1, void *a2)
@@ -377,7 +371,7 @@ uint64_t __99__HFActionSetSuggestionVendor__actionBuildersForBuiltInActionSetWit
 
 HFCharacteristicWriteActionBuilder *__81__HFActionSetSuggestionVendor__actionBuildersToSetPowerState_forServicesOfTypes___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 associatedServiceType];
   v5 = v4;
@@ -395,31 +389,31 @@ HFCharacteristicWriteActionBuilder *__81__HFActionSetSuggestionVendor__actionBui
 
   if ([*(a1 + 32) containsObject:v7])
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v8 = [MEMORY[0x277CD1970] hf_powerStateCharacteristicTypes];
-    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
-      v10 = *v20;
+      v10 = *v19;
       while (2)
       {
         for (i = 0; i != v9; i = (i + 1))
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = [v3 hf_characteristicOfType:*(*(&v19 + 1) + 8 * i)];
+          v12 = [v3 hf_characteristicOfType:*(*(&v18 + 1) + 8 * i)];
           v13 = v12;
           if (v12 && ([v12 hf_isWritable] & 1) != 0)
           {
 
             v14 = [HFCharacteristicWriteActionBuilder alloc];
-            v15 = [*(a1 + 40) home];
+            v15 = objc_msgSend_home(*(a1 + 40));
             v9 = [(HFItemBuilder *)v14 initWithHome:v15];
 
             [(HFCharacteristicWriteActionBuilder *)v9 setCharacteristic:v13];
@@ -431,7 +425,7 @@ HFCharacteristicWriteActionBuilder *__81__HFActionSetSuggestionVendor__actionBui
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
         if (v9)
         {
           continue;
@@ -448,8 +442,6 @@ LABEL_17:
   {
     v9 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -515,7 +507,7 @@ HFCharacteristicWriteActionBuilder *__82__HFActionSetSuggestionVendor__actionBui
   v5 = a3;
   v6 = a2;
   v7 = [HFCharacteristicWriteActionBuilder alloc];
-  v8 = [*(a1 + 32) home];
+  v8 = objc_msgSend_home(*(a1 + 32));
   v9 = [(HFItemBuilder *)v7 initWithHome:v8];
 
   v10 = [*(a1 + 40) hf_characteristicOfType:v6];
@@ -556,7 +548,7 @@ HFCharacteristicWriteActionBuilder *__71__HFActionSetSuggestionVendor__actionBui
       if (v8)
       {
         v9 = [HFCharacteristicWriteActionBuilder alloc];
-        v10 = [*(a1 + 32) home];
+        v10 = objc_msgSend_home(*(a1 + 32));
         v11 = [(HFItemBuilder *)v9 initWithHome:v10];
 
         [(HFCharacteristicWriteActionBuilder *)v11 setCharacteristic:v6];
@@ -614,7 +606,7 @@ HFCharacteristicWriteActionBuilder *__86__HFActionSetSuggestionVendor__actionBui
     if (v6 && [v6 hf_isWritable])
     {
       v8 = [HFCharacteristicWriteActionBuilder alloc];
-      v9 = [*(a1 + 40) home];
+      v9 = objc_msgSend_home(*(a1 + 40));
       v10 = [(HFItemBuilder *)v8 initWithHome:v9];
 
       [(HFCharacteristicWriteActionBuilder *)v10 setCharacteristic:v7];
@@ -667,7 +659,7 @@ HFCharacteristicWriteActionBuilder *__86__HFActionSetSuggestionVendor__actionBui
     if (v6 && [v6 hf_isWritable])
     {
       v8 = [HFCharacteristicWriteActionBuilder alloc];
-      v9 = [*(a1 + 40) home];
+      v9 = objc_msgSend_home(*(a1 + 40));
       v10 = [(HFItemBuilder *)v8 initWithHome:v9];
 
       [(HFCharacteristicWriteActionBuilder *)v10 setCharacteristic:v7];
@@ -718,7 +710,7 @@ HFCharacteristicWriteActionBuilder *__77__HFActionSetSuggestionVendor__actionBui
     else
     {
       v8 = [HFCharacteristicWriteActionBuilder alloc];
-      v9 = [*(a1 + 32) home];
+      v9 = objc_msgSend_home(*(a1 + 32));
       v10 = [(HFItemBuilder *)v8 initWithHome:v9];
 
       [(HFCharacteristicWriteActionBuilder *)v10 setCharacteristic:v4];
@@ -791,7 +783,7 @@ HFCharacteristicWriteActionBuilder *__76__HFActionSetSuggestionVendor__actionBui
       }
 
       v14 = [HFCharacteristicWriteActionBuilder alloc];
-      v15 = [*(a1 + 32) home];
+      v15 = objc_msgSend_home(*(a1 + 32));
       v11 = [(HFItemBuilder *)v14 initWithHome:v15];
 
       [(HFCharacteristicWriteActionBuilder *)v11 setCharacteristic:v7];
@@ -910,7 +902,7 @@ HFCharacteristicWriteActionBuilder *__76__HFActionSetSuggestionVendor__actionBui
 uint64_t __76__HFActionSetSuggestionVendor__actionBuildersForCustomActionSetWithService___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 characteristic];
-  v4 = [v3 service];
+  v4 = objc_msgSend_service(v3);
   v5 = [v4 isEqual:*(a1 + 32)];
 
   return v5;
@@ -919,7 +911,7 @@ uint64_t __76__HFActionSetSuggestionVendor__actionBuildersForCustomActionSetWith
 id __76__HFActionSetSuggestionVendor__actionBuildersForCustomActionSetWithService___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = [a2 characteristic];
-  v3 = [v2 service];
+  v3 = objc_msgSend_service(v2);
 
   return v3;
 }
@@ -936,7 +928,7 @@ HFCharacteristicWriteActionBuilder *__76__HFActionSetSuggestionVendor__actionBui
 {
   v3 = a2;
   v4 = [HFCharacteristicWriteActionBuilder alloc];
-  v5 = [*(a1 + 32) home];
+  v5 = objc_msgSend_home(*(a1 + 32));
   v6 = [(HFItemBuilder *)v4 initWithHome:v5];
 
   v7 = *(a1 + 40);
@@ -956,8 +948,8 @@ HFCharacteristicWriteActionBuilder *__76__HFActionSetSuggestionVendor__actionBui
 {
   characteristicCopy = characteristic;
   v5 = MEMORY[0x277CBEB98];
-  home = [(HFActionSetSuggestionVendor *)self home];
-  accessories = [home accessories];
+  v6 = objc_msgSend_home(self);
+  accessories = [v6 accessories];
   v23[0] = MEMORY[0x277D85DD0];
   v23[1] = 3221225472;
   v23[2] = __69__HFActionSetSuggestionVendor__deriveActionForPrimaryCharacteristic___block_invoke;
@@ -973,8 +965,8 @@ HFCharacteristicWriteActionBuilder *__76__HFActionSetSuggestionVendor__actionBui
   v10 = [v9 na_filter:v22];
   v11 = [v5 setWithArray:v10];
 
-  service = [v8 service];
-  accessory = [service accessory];
+  v12 = objc_msgSend_service(v8);
+  accessory = [v12 accessory];
   room = [accessory room];
   uniqueIdentifier = [room uniqueIdentifier];
 
@@ -998,7 +990,7 @@ id __69__HFActionSetSuggestionVendor__deriveActionForPrimaryCharacteristic___blo
 {
   v2 = *(a1 + 32);
   v3 = a2;
-  v4 = [v2 service];
+  v4 = objc_msgSend_service(v2);
   v5 = [v4 serviceType];
   v6 = [v3 hf_serviceOfType:v5];
 
@@ -1087,7 +1079,7 @@ uint64_t __103__HFActionSetSuggestionVendor__deriveActionForPrimaryCharacteristi
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = [v3 characteristic];
-  v6 = [v5 service];
+  v6 = objc_msgSend_service(v5);
   if ([v4 containsObject:v6])
   {
     v7 = [v3 characteristic];
@@ -1148,9 +1140,9 @@ uint64_t __89__HFActionSetSuggestionVendor__deriveActionForSecondaryCharacterist
 {
   v3 = a2;
   v4 = [v3 characteristic];
-  v5 = [v4 service];
+  v5 = objc_msgSend_service(v4);
   v6 = [v5 serviceType];
-  v7 = [*(a1 + 32) service];
+  v7 = objc_msgSend_service(*(a1 + 32));
   v8 = [v7 serviceType];
   if ([v6 isEqualToString:v8])
   {
@@ -1161,7 +1153,7 @@ uint64_t __89__HFActionSetSuggestionVendor__deriveActionForSecondaryCharacterist
     {
       v12 = *(a1 + 40);
       v16 = [v3 characteristic];
-      [v16 service];
+      objc_msgSend_service(v16);
       v13 = v17 = v9;
       v14 = [v12 containsObject:v13];
 

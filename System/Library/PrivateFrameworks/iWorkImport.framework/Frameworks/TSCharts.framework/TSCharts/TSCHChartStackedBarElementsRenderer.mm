@@ -142,7 +142,7 @@ LABEL_7:
   CGContextClipToRectSafe();
   objc_msgSend_applyToContext_insideStroke_(strokeCopy, v13, v14, v15, v16, context, 1);
 
-  v18 = sub_2762A1B4C(path, v17, x, y, width, height);
+  v18 = sub_2762A1B4C(path, x, y, width, height, v17);
   CGContextAddPathSafe();
   CGContextStrokePath(context);
 

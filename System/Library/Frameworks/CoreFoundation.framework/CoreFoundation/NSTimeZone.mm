@@ -156,21 +156,15 @@
 
 + (NSTimeZone)allocWithZone:(_NSZone *)zone
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (NSTimeZone == self)
   {
-    result = &___immutablePlaceholderTimeZone;
+    return &___immutablePlaceholderTimeZone;
   }
 
-  else
-  {
-    v5.receiver = self;
-    v5.super_class = &OBJC_METACLASS___NSTimeZone;
-    result = objc_msgSendSuper2(&v5, sel_allocWithZone_, zone);
-  }
-
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v4.receiver = self;
+  v4.super_class = &OBJC_METACLASS___NSTimeZone;
+  return objc_msgSendSuper2(&v4, sel_allocWithZone_, zone);
 }
 
 + (NSTimeZone)timeZoneWithName:(NSString *)tzName data:(NSData *)aData

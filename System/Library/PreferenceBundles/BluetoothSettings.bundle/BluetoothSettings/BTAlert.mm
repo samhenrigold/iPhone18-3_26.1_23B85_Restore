@@ -28,13 +28,13 @@
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = sharedBluetoothSettingsLogComponent();
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     alert = self->_alert;
     *buf = 138412290;
-    v11 = alert;
+    v10 = alert;
     _os_log_impl(&dword_23C0F7000, v3, OS_LOG_TYPE_DEFAULT, "Dealloc BTAlert : %@", buf, 0xCu);
   }
 
@@ -48,10 +48,9 @@
   self->_alert = 0;
 
   [(BTAlert *)self dismiss];
-  v9.receiver = self;
-  v9.super_class = BTAlert;
-  [(BTAlert *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = BTAlert;
+  [(BTAlert *)&v8 dealloc];
 }
 
 - (void)showAlertWithResult:(id)result
@@ -63,7 +62,7 @@
   {
     if (((1 << (unsignedIntValue + 105)) & 0x40008081) != 0)
     {
-      v6 = sharedBluetoothSettingsLogComponent();
+      v6 = sharedBluetoothSettingsLogComponent(unsignedIntValue);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -192,34 +191,33 @@ LABEL_25:
 
   if ([(BTSDevice *)self->_device paired])
   {
-    device = self->_device;
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && (-[BTSDevice classicDevice](self->_device, "classicDevice"), v35 = objc_claimAutoreleasedReturnValue(), v36 = [v35 isProController], v35, v36))
+    if ((objc_opt_isKindOfClass() & 1) != 0 && (-[BTSDevice classicDevice](self->_device, "classicDevice"), v34 = objc_claimAutoreleasedReturnValue(), v35 = [v34 isProController], v34, v35))
     {
-      v37 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v38 = [v37 localizedStringForKey:@"ERROR_PRO_CONTROLLER_CONNECTION_FAILURE" value:&stru_284EE3458 table:@"Devices"];
+      v36 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v37 = [v36 localizedStringForKey:@"ERROR_PRO_CONTROLLER_CONNECTION_FAILURE" value:&stru_284EE3458 table:@"Devices"];
     }
 
     else
     {
-      v37 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v38 = [v37 localizedStringForKey:@"ERROR_GEN_CONNECTION_FAILURE" value:&stru_284EE3458 table:@"Devices"];
+      v36 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v37 = [v36 localizedStringForKey:@"ERROR_GEN_CONNECTION_FAILURE" value:&stru_284EE3458 table:@"Devices"];
     }
   }
 
   else
   {
-    v37 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v38 = [v37 localizedStringForKey:@"ERROR_GEN_PAIRING_FAILURE" value:&stru_284EE3458 table:@"Devices"];
+    v36 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v37 = [v36 localizedStringForKey:@"ERROR_GEN_PAIRING_FAILURE" value:&stru_284EE3458 table:@"Devices"];
   }
 
-  v39 = v38;
+  v38 = v37;
 
-  v40 = MEMORY[0x277CCACA8];
+  v39 = MEMORY[0x277CCACA8];
   v63 = 0;
   name5 = [(BTSDevice *)self->_device name];
-  v11 = [v40 stringWithValidatedFormat:v39 validFormatSpecifiers:@"%@" error:&v63, name5];
-  v42 = v63;
+  v11 = [v39 stringWithValidatedFormat:v38 validFormatSpecifiers:@"%@" error:&v63, name5];
+  v41 = v63;
 
   if (v11)
   {
@@ -257,10 +255,10 @@ LABEL_26:
     goto LABEL_30;
   }
 
-  v46 = sharedBluetoothSettingsLogComponent();
+  v46 = sharedBluetoothSettingsLogComponent(v42);
   if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
   {
-    [(BTAlert *)v42 showAlertWithResult:v46];
+    [(BTAlert *)v41 showAlertWithResult:v46];
   }
 
   v16 = 0;
@@ -330,13 +328,12 @@ void __31__BTAlert_showAlertWithResult___block_invoke_47(uint64_t a1)
 
 - (void)showAlertWithResult:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = a1;
-  v5 = 2112;
-  v6 = 0;
-  _os_log_error_impl(&dword_23C0F7000, a2, OS_LOG_TYPE_ERROR, "bad format string for alert (%@): %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = a1;
+  v4 = 2112;
+  v5 = 0;
+  _os_log_error_impl(&dword_23C0F7000, a2, OS_LOG_TYPE_ERROR, "bad format string for alert (%@): %@", &v2, 0x16u);
 }
 
 @end

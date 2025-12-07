@@ -51,7 +51,7 @@
 - (void)copyAll
 {
   selfCopy = self;
-  sub_1001CD160();
+  sub_1001CD160(v2);
 }
 
 - (void)previousMeasurement
@@ -90,7 +90,7 @@
 
   v8 = sub_1001D1B10(action, v10);
 
-  sub_100018F04(v10, &unk_1004A6970);
+  sub_100018F04(v10, &unk_1004A6970, &unk_1003D5710);
   return v8 & 1;
 }
 
@@ -113,13 +113,13 @@
 
   else
   {
-    memset(v6, 0, sizeof(v6));
+    memset(v7, 0, sizeof(v7));
     selfCopy2 = self;
   }
 
-  sub_1001D220C();
+  sub_1001D220C(v5);
 
-  sub_100018F04(v6, &unk_1004A6970);
+  sub_100018F04(v7, &unk_1004A6970, &unk_1003D5710);
 }
 
 - (void)showDebugController

@@ -153,28 +153,26 @@ uint64_t __47__HKCloudSyncObserver_startObservingSyncStatus__block_invoke(uint64
   return [a2 remote_startObservingSyncStatusWithCompletion:v3];
 }
 
-void __47__HKCloudSyncObserver_startObservingSyncStatus__block_invoke_2(uint64_t a1)
+void __47__HKCloudSyncObserver_startObservingSyncStatus__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v7 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
-  v2 = HKLogSync;
+  _HKInitializeLogging(a1, a2);
+  v3 = HKLogSync;
   if (os_log_type_enabled(HKLogSync, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
     v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_19197B000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: Started observing sync status", &v5, 0xCu);
+    v6 = v4;
+    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Started observing sync status", &v5, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-void __47__HKCloudSyncObserver_startObservingSyncStatus__block_invoke_172(uint64_t a1)
+void __47__HKCloudSyncObserver_startObservingSyncStatus__block_invoke_172(uint64_t a1, uint64_t a2)
 {
-  _HKInitializeLogging();
+  _HKInitializeLogging(a1, a2);
   if (os_log_type_enabled(HKLogSync, OS_LOG_TYPE_ERROR))
   {
-    __47__HKCloudSyncObserver_startObservingSyncStatus__block_invoke_172_cold_1(a1);
+    __47__HKCloudSyncObserver_startObservingSyncStatus__block_invoke_172_cold_1();
   }
 }
 
@@ -219,15 +217,14 @@ void __47__HKCloudSyncObserver_startObservingSyncStatus__block_invoke_172(uint64
 
 uint64_t __69__HKCloudSyncObserver_clientRemote_didFailToPopulateStatusWithError___block_invoke(void *a1)
 {
-  v2 = a1[4];
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = a1[4];
-    v5 = a1[5];
-    v6 = a1[6];
+    v3 = a1[4];
+    v4 = a1[5];
+    v5 = a1[6];
 
-    return [v4 cloudSyncObserver:v5 didFailToPopulateStatusWithError:v6];
+    return [v3 cloudSyncObserver:v4 didFailToPopulateStatusWithError:v5];
   }
 
   return result;
@@ -307,10 +304,10 @@ void __53__HKCloudSyncObserver_startSyncIfRestoreNotCompleted__block_invoke_3(ui
 void __53__HKCloudSyncObserver_startSyncIfRestoreNotCompleted__block_invoke_4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v3, v4);
   if (os_log_type_enabled(HKLogSync, OS_LOG_TYPE_ERROR))
   {
-    __53__HKCloudSyncObserver_startSyncIfRestoreNotCompleted__block_invoke_4_cold_1(a1);
+    __53__HKCloudSyncObserver_startSyncIfRestoreNotCompleted__block_invoke_4_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -338,9 +335,9 @@ void __53__HKCloudSyncObserver_startSyncIfRestoreNotCompleted__block_invoke_4(ui
 
 - (void)clientRemote_syncDidStart
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2(&dword_19197B000, a2, a3, "%{public}@: Called sync observer client, but progress is nil", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_2(&dword_19197B000, a2, a3, "%{public}@: Called sync observer client, but progress is nil", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)startObservingSyncRequestsMatchingFilter:(unint64_t)filter
@@ -363,12 +360,12 @@ void __53__HKCloudSyncObserver_startSyncIfRestoreNotCompleted__block_invoke_4(ui
   [(HKProxyProvider *)proxyProvider fetchProxyWithHandler:v7 errorHandler:v6];
 }
 
-void __64__HKCloudSyncObserver_startObservingSyncRequestsMatchingFilter___block_invoke_2(uint64_t a1)
+void __64__HKCloudSyncObserver_startObservingSyncRequestsMatchingFilter___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  _HKInitializeLogging();
+  _HKInitializeLogging(a1, a2);
   if (os_log_type_enabled(HKLogSync, OS_LOG_TYPE_ERROR))
   {
-    __64__HKCloudSyncObserver_startObservingSyncRequestsMatchingFilter___block_invoke_2_cold_1(a1);
+    __64__HKCloudSyncObserver_startObservingSyncRequestsMatchingFilter___block_invoke_2_cold_1();
   }
 }
 
@@ -387,12 +384,12 @@ void __64__HKCloudSyncObserver_startObservingSyncRequestsMatchingFilter___block_
   [(HKProxyProvider *)proxyProvider fetchProxyWithHandler:&__block_literal_global_30 errorHandler:v4];
 }
 
-void __48__HKCloudSyncObserver_stopObservingSyncRequests__block_invoke_2(uint64_t a1)
+void __48__HKCloudSyncObserver_stopObservingSyncRequests__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  _HKInitializeLogging();
+  _HKInitializeLogging(a1, a2);
   if (os_log_type_enabled(HKLogSync, OS_LOG_TYPE_ERROR))
   {
-    __48__HKCloudSyncObserver_stopObservingSyncRequests__block_invoke_2_cold_1(a1);
+    __48__HKCloudSyncObserver_stopObservingSyncRequests__block_invoke_2_cold_1();
   }
 }
 
@@ -442,27 +439,26 @@ void __56__HKCloudSyncObserver_clientRemote_syncRequestDidStart___block_invoke(i
 
 uint64_t __56__HKCloudSyncObserver_clientRemote_syncRequestDidStart___block_invoke_3(void *a1)
 {
-  v2 = a1[4];
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = a1[4];
-    v5 = a1[5];
-    v6 = a1[6];
-    v7 = a1[7];
+    v3 = a1[4];
+    v4 = a1[5];
+    v5 = a1[6];
+    v6 = a1[7];
 
-    return [v4 cloudSyncObserver:v5 syncStartedForRequest:v6 withProgress:v7];
+    return [v3 cloudSyncObserver:v4 syncStartedForRequest:v5 withProgress:v6];
   }
 
   return result;
 }
 
-void __56__HKCloudSyncObserver_clientRemote_syncRequestDidStart___block_invoke_4(uint64_t a1)
+void __56__HKCloudSyncObserver_clientRemote_syncRequestDidStart___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  _HKInitializeLogging();
+  _HKInitializeLogging(a1, a2);
   if (os_log_type_enabled(HKLogSync, OS_LOG_TYPE_ERROR))
   {
-    __56__HKCloudSyncObserver_clientRemote_syncRequestDidStart___block_invoke_4_cold_1(a1);
+    __56__HKCloudSyncObserver_clientRemote_syncRequestDidStart___block_invoke_4_cold_1();
   }
 }
 
@@ -491,18 +487,16 @@ void __56__HKCloudSyncObserver_clientRemote_syncRequestDidStart___block_invoke_4
 
 uint64_t __73__HKCloudSyncObserver_clientRemote_syncRequestDidComplete_success_error___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 64);
-  v3 = *(a1 + 32);
-  if (v2 == 1)
+  if (*(a1 + 64) == 1)
   {
     result = objc_opt_respondsToSelector();
     if (result)
     {
-      v5 = *(a1 + 32);
-      v6 = *(a1 + 40);
-      v7 = *(a1 + 48);
+      v3 = *(a1 + 32);
+      v4 = *(a1 + 40);
+      v5 = *(a1 + 48);
 
-      return [v5 cloudSyncObserver:v6 syncCompletedForRequest:v7];
+      return [v3 cloudSyncObserver:v4 syncCompletedForRequest:v5];
     }
   }
 
@@ -511,12 +505,12 @@ uint64_t __73__HKCloudSyncObserver_clientRemote_syncRequestDidComplete_success_e
     result = objc_opt_respondsToSelector();
     if (result)
     {
-      v8 = *(a1 + 32);
-      v9 = *(a1 + 40);
-      v10 = *(a1 + 48);
-      v11 = *(a1 + 56);
+      v6 = *(a1 + 32);
+      v7 = *(a1 + 40);
+      v8 = *(a1 + 48);
+      v9 = *(a1 + 56);
 
-      return [v8 cloudSyncObserver:v9 syncFailedForRequest:v10 error:v11];
+      return [v6 cloudSyncObserver:v7 syncFailedForRequest:v8 error:v9];
     }
   }
 
@@ -550,44 +544,39 @@ uint64_t __73__HKCloudSyncObserver_clientRemote_syncRequestDidComplete_success_e
   return [v2 serverInterface];
 }
 
-void __47__HKCloudSyncObserver_startObservingSyncStatus__block_invoke_172_cold_1(uint64_t a1)
+void __47__HKCloudSyncObserver_startObservingSyncStatus__block_invoke_172_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_2(&dword_19197B000, v1, v2, "%{public}@: Failed to call remote method startObservingSyncStatusWithCompletion:", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_19197B000, v0, v1, "%{public}@: Failed to call remote method startObservingSyncStatusWithCompletion:", v2, v3, v4, v5);
 }
 
-void __53__HKCloudSyncObserver_startSyncIfRestoreNotCompleted__block_invoke_4_cold_1(uint64_t a1)
+void __53__HKCloudSyncObserver_startSyncIfRestoreNotCompleted__block_invoke_4_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_2(&dword_19197B000, v1, v2, "%{public}@: Failed to call remote method startSyncIfRestoreNotCompletedWithUUID:completion", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_19197B000, v0, v1, "%{public}@: Failed to call remote method startSyncIfRestoreNotCompletedWithUUID:completion", v2, v3, v4, v5);
 }
 
-void __64__HKCloudSyncObserver_startObservingSyncRequestsMatchingFilter___block_invoke_2_cold_1(uint64_t a1)
+void __64__HKCloudSyncObserver_startObservingSyncRequestsMatchingFilter___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_2(&dword_19197B000, v1, v2, "%{public}@: Failed to call remote method startObservingSyncRequestsWithFilter:", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_19197B000, v0, v1, "%{public}@: Failed to call remote method startObservingSyncRequestsWithFilter:", v2, v3, v4, v5);
 }
 
-void __48__HKCloudSyncObserver_stopObservingSyncRequests__block_invoke_2_cold_1(uint64_t a1)
+void __48__HKCloudSyncObserver_stopObservingSyncRequests__block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_2(&dword_19197B000, v1, v2, "%{public}@: Failed to call remote method stopObservingSyncRequests", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_19197B000, v0, v1, "%{public}@: Failed to call remote method stopObservingSyncRequests", v2, v3, v4, v5);
 }
 
-void __56__HKCloudSyncObserver_clientRemote_syncRequestDidStart___block_invoke_4_cold_1(uint64_t a1)
+void __56__HKCloudSyncObserver_clientRemote_syncRequestDidStart___block_invoke_4_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_2(&dword_19197B000, v1, v2, "%{public}@: Failed to call remote method retrieveProgressForIdentifier::completion:", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_19197B000, v0, v1, "%{public}@: Failed to call remote method retrieveProgressForIdentifier::completion:", v2, v3, v4, v5);
 }
 
 @end

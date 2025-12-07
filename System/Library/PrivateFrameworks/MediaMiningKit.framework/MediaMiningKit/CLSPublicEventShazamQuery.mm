@@ -28,7 +28,7 @@
 {
   swift_beginAccess();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD1C98);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD1C98, &qword_22F992120);
   v2 = sub_22F989AA0();
 
   return v2;
@@ -36,17 +36,17 @@
 
 - (CLSPublicEventShazamQuery)initWithTimeLocationTuples:(id)tuples radius:(double)radius queryContext:(id)context
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD1C90);
-  v6 = sub_22F989B90();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD1C90, &qword_22F992320);
+  v7 = sub_22F989B90();
   swift_unknownObjectRetain();
-  v7 = sub_22F91BCD8(v6, radius);
+  v8 = sub_22F91BCD8(v7, context, radius);
   swift_unknownObjectRelease();
-  return v7;
+  return v8;
 }
 
 - (void)submitWithHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD1990);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DAD1990, &qword_22F991DD0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

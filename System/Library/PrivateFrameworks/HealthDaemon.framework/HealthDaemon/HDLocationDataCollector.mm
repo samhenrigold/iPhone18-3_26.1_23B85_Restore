@@ -35,7 +35,7 @@
 
 void __52__HDLocationDataCollector__queue_createSeriesSample__block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC330];
@@ -49,13 +49,13 @@ void __52__HDLocationDataCollector__queue_createSeriesSample__block_invoke(uint6
       v10 = v6;
       v11 = [v9 UUID];
       v12 = *(*(a1 + 32) + 16);
-      v16 = 138543874;
-      v17 = v8;
-      v18 = 2112;
-      v19 = v11;
-      v20 = 2112;
-      v21 = v12;
-      _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ Saved route %@ with associated workout %@.", &v16, 0x20u);
+      v15 = 138543874;
+      v16 = v8;
+      v17 = 2112;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v12;
+      _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ Saved route %@ with associated workout %@.", &v15, 0x20u);
     }
 
     v13 = [*(a1 + 32) delegate];
@@ -64,15 +64,13 @@ void __52__HDLocationDataCollector__queue_createSeriesSample__block_invoke(uint6
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v15 = *(a1 + 32);
-    v16 = 138543618;
-    v17 = v15;
-    v18 = 2114;
-    v19 = v5;
-    _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[routes] %{public}@ Error occurred while saving route: %{public}@", &v16, 0x16u);
+    v14 = *(a1 + 32);
+    v15 = 138543618;
+    v16 = v14;
+    v17 = 2114;
+    v18 = v5;
+    _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "[routes] %{public}@ Error occurred while saving route: %{public}@", &v15, 0x16u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (HDLocationDataCollector)initWithProfile:(id)profile sampleSavingDelegate:(id)delegate configuration:(id)configuration workoutUUID:(id)d
@@ -186,7 +184,7 @@ void __52__HDLocationDataCollector__queue_createSeriesSample__block_invoke(uint6
 
 - (void)_queue_deleteCurrentRoute
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   if (self)
   {
     dispatch_assert_queue_V2(*(self + 56));
@@ -200,8 +198,8 @@ void __52__HDLocationDataCollector__queue_createSeriesSample__block_invoke(uint6
       uUID = [v4 UUID];
       *buf = 138543618;
       selfCopy2 = self;
-      v21 = 2112;
-      v22 = uUID;
+      v20 = 2112;
+      v21 = uUID;
       _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ route %@ is empty, deleting.", buf, 0x16u);
     }
 
@@ -212,11 +210,11 @@ void __52__HDLocationDataCollector__queue_createSeriesSample__block_invoke(uint6
     WeakRetained = objc_loadWeakRetained((self + 8));
     dataManager = [WeakRetained dataManager];
     uUID2 = [*(self + 96) UUID];
-    v25[0] = uUID2;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
-    v18 = 0;
-    [dataManager deleteObjectsWithUUIDCollection:v11 configuration:v7 error:&v18];
-    v12 = v18;
+    v24[0] = uUID2;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+    v17 = 0;
+    [dataManager deleteObjectsWithUUIDCollection:v11 configuration:v7 error:&v17];
+    v12 = v17;
 
     if (v12)
     {
@@ -224,26 +222,24 @@ void __52__HDLocationDataCollector__queue_createSeriesSample__block_invoke(uint6
       v13 = *v2;
       if (os_log_type_enabled(*v2, OS_LOG_TYPE_ERROR))
       {
-        v15 = *(self + 96);
-        v16 = v13;
-        uUID3 = [v15 UUID];
+        v14 = *(self + 96);
+        v15 = v13;
+        uUID3 = [v14 UUID];
         *buf = 138543874;
         selfCopy2 = self;
-        v21 = 2114;
-        v22 = uUID3;
-        v23 = 2114;
-        v24 = v12;
-        _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "[routes] %{public}@ error deleting empty route %{public}@: %{public}@.", buf, 0x20u);
+        v20 = 2114;
+        v21 = uUID3;
+        v22 = 2114;
+        v23 = v12;
+        _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "[routes] %{public}@ error deleting empty route %{public}@: %{public}@.", buf, 0x20u);
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_stopUpdates
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (self)
   {
     dispatch_assert_queue_V2(*(self + 56));
@@ -252,51 +248,48 @@ void __52__HDLocationDataCollector__queue_createSeriesSample__block_invoke(uint6
     {
       _HKInitializeLogging();
       v4 = *MEMORY[0x277CCC330];
-      if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
+      if (!os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138543362;
-        selfCopy2 = self;
-        v5 = "[routes] %{public}@ Inactive collector, ignoring end request";
-        v6 = v4;
-        v7 = 12;
-LABEL_11:
-        _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, v5, &v14, v7);
+        return;
       }
+
+      v13 = 138543362;
+      selfCopy2 = self;
+      v5 = "[routes] %{public}@ Inactive collector, ignoring end request";
+      v6 = v4;
+      v7 = 12;
+      goto LABEL_11;
     }
 
-    else
-    {
-      *(self + 80) = 3;
-      workoutLocationManager = [self workoutLocationManager];
-      [workoutLocationManager removeObserver:self];
+    *(self + 80) = 3;
+    workoutLocationManager = [self workoutLocationManager];
+    [workoutLocationManager removeObserver:self];
 
-      [(HDLocationDataCollector *)self _queue_stopGPSUpdates];
-      _HKInitializeLogging();
-      v9 = *MEMORY[0x277CCC330];
-      if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
-      {
-        v11 = *(self + 136);
-        v12 = *(self + 144);
-        v14 = 138543874;
-        selfCopy2 = self;
-        v16 = 2048;
-        v17 = v11;
-        v18 = 2048;
-        v19 = v12;
-        v5 = "[routes] %{public}@ Received %tu valid locations, skipped %tu";
-        v6 = v9;
-        v7 = 32;
-        goto LABEL_11;
-      }
+    [(HDLocationDataCollector *)self _queue_stopGPSUpdates];
+    _HKInitializeLogging();
+    v9 = *MEMORY[0x277CCC330];
+    if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = *(self + 136);
+      v12 = *(self + 144);
+      v13 = 138543874;
+      selfCopy2 = self;
+      v15 = 2048;
+      v16 = v11;
+      v17 = 2048;
+      v18 = v12;
+      v5 = "[routes] %{public}@ Received %tu valid locations, skipped %tu";
+      v6 = v9;
+      v7 = 32;
+LABEL_11:
+      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, v5, &v13, v7);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_stopGPSUpdates
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (self)
   {
     dispatch_assert_queue_V2(*(self + 56));
@@ -305,9 +298,9 @@ LABEL_11:
     v3 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138543362;
+      v7 = 138543362;
       selfCopy2 = self;
-      _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ Stop elevation updates.", &v8, 0xCu);
+      _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ Stop elevation updates.", &v7, 0xCu);
     }
 
     *(self + 112) = 0xBFF0000000000000;
@@ -316,9 +309,9 @@ LABEL_11:
     v4 = *v2;
     if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138543362;
+      v7 = 138543362;
       selfCopy2 = self;
-      _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ Stop location manager GPS updates.", &v8, 0xCu);
+      _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ Stop location manager GPS updates.", &v7, 0xCu);
     }
 
     [*(self + 128) invalidate];
@@ -328,13 +321,11 @@ LABEL_11:
     workoutLocationManager = [self workoutLocationManager];
     [workoutLocationManager removeObserver:self];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopUpdates
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
@@ -351,99 +342,95 @@ LABEL_11:
   block[3] = &unk_278613968;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __38__HDLocationDataCollector_stopUpdates__block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   [(HDLocationDataCollector *)*(a1 + 32) _queue_stopUpdates];
   v2 = *(a1 + 32);
-  if (!v2)
+  if (v2)
   {
-LABEL_15:
-    v17 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  dispatch_assert_queue_V2(*(v2 + 56));
-  if (!*(v2 + 96))
-  {
-    _HKInitializeLogging();
-    v13 = *MEMORY[0x277CCC330];
-    if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
+    dispatch_assert_queue_V2(*(v2 + 56));
+    if (*(v2 + 96))
     {
-      v14 = v13;
-      v15 = NSStringFromSelector(sel__queue_freezeCurrentWorkoutRoute);
-      *buf = 138543618;
-      v24 = v2;
-      v25 = 2114;
-      v26 = v15;
-      _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ %{public}@ _route is nil.", buf, 0x16u);
-    }
-
-    goto LABEL_15;
-  }
-
-  if (*(v2 + 104) & 1) != 0 || (*(v2 + 40))
-  {
-    _HKInitializeLogging();
-    v3 = MEMORY[0x277CCC330];
-    v4 = *MEMORY[0x277CCC330];
-    if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
-    {
-      v5 = *(v2 + 96);
-      v6 = v4;
-      v7 = [v5 UUID];
-      *buf = 138543618;
-      v24 = v2;
-      v25 = 2112;
-      v26 = v7;
-      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ Freezing series sample: %@", buf, 0x16u);
-    }
-
-    v8 = [*(v2 + 96) UUID];
-    WeakRetained = objc_loadWeakRetained((v2 + 8));
-    v22 = 0;
-    v10 = [(HDSeriesSampleEntity *)HDLocationSeriesSampleEntity freezeSeriesWithIdentifier:v8 metadata:MEMORY[0x277CBEC10] profile:WeakRetained error:&v22];
-    v11 = v22;
-
-    if (!v10 || v11)
-    {
-      _HKInitializeLogging();
-      v16 = *v3;
-      if (os_log_type_enabled(*v3, OS_LOG_TYPE_ERROR))
+      if (*(v2 + 104) & 1) != 0 || (*(v2 + 40))
       {
-        v19 = *(v2 + 96);
-        v20 = v16;
-        v21 = [v19 UUID];
-        *buf = 138543874;
-        v24 = v2;
-        v25 = 2114;
-        v26 = v21;
-        v27 = 2114;
-        v28 = v11;
-        _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "[routes] %{public}@ error freezing sample UUID %{public}@: %{public}@", buf, 0x20u);
+        _HKInitializeLogging();
+        v3 = MEMORY[0x277CCC330];
+        v4 = *MEMORY[0x277CCC330];
+        if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
+        {
+          v5 = *(v2 + 96);
+          v6 = v4;
+          v7 = [v5 UUID];
+          *buf = 138543618;
+          v22 = v2;
+          v23 = 2112;
+          v24 = v7;
+          _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ Freezing series sample: %@", buf, 0x16u);
+        }
+
+        v8 = [*(v2 + 96) UUID];
+        WeakRetained = objc_loadWeakRetained((v2 + 8));
+        v20 = 0;
+        v10 = [(HDSeriesSampleEntity *)HDLocationSeriesSampleEntity freezeSeriesWithIdentifier:v8 metadata:MEMORY[0x277CBEC10] profile:WeakRetained error:&v20];
+        v11 = v20;
+
+        if (!v10 || v11)
+        {
+          _HKInitializeLogging();
+          v16 = *v3;
+          if (os_log_type_enabled(*v3, OS_LOG_TYPE_ERROR))
+          {
+            v17 = *(v2 + 96);
+            v18 = v16;
+            v19 = [v17 UUID];
+            *buf = 138543874;
+            v22 = v2;
+            v23 = 2114;
+            v24 = v19;
+            v25 = 2114;
+            v26 = v11;
+            _os_log_error_impl(&dword_228986000, v18, OS_LOG_TYPE_ERROR, "[routes] %{public}@ error freezing sample UUID %{public}@: %{public}@", buf, 0x20u);
+          }
+        }
+
+        else
+        {
+          v12 = *(v2 + 96);
+          *(v2 + 96) = 0;
+        }
+      }
+
+      else
+      {
+
+        [(HDLocationDataCollector *)v2 _queue_deleteCurrentRoute];
       }
     }
 
     else
     {
-      v12 = *(v2 + 96);
-      *(v2 + 96) = 0;
+      _HKInitializeLogging();
+      v13 = *MEMORY[0x277CCC330];
+      if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
+      {
+        v14 = v13;
+        v15 = NSStringFromSelector(sel__queue_freezeCurrentWorkoutRoute);
+        *buf = 138543618;
+        v22 = v2;
+        v23 = 2114;
+        v24 = v15;
+        _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ %{public}@ _route is nil.", buf, 0x16u);
+      }
     }
-
-    goto LABEL_15;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
-
-  [(HDLocationDataCollector *)v2 _queue_deleteCurrentRoute];
 }
 
 - (void)stopUpdatesAndDiscardData
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
@@ -460,7 +447,6 @@ LABEL_15:
   block[3] = &unk_278613968;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __52__HDLocationDataCollector_stopUpdatesAndDiscardData__block_invoke(uint64_t a1)
@@ -473,7 +459,7 @@ void __52__HDLocationDataCollector_stopUpdatesAndDiscardData__block_invoke(uint6
 
 - (void)startUpdates
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
@@ -484,12 +470,12 @@ void __52__HDLocationDataCollector_stopUpdatesAndDiscardData__block_invoke(uint6
     delegate = [(HDLocationDataCollector *)self delegate];
     *buf = 138544130;
     selfCopy = self;
-    v13 = 2112;
-    v14 = workoutUUID;
-    v15 = 1024;
-    v16 = activityType;
-    v17 = 2112;
-    v18 = delegate;
+    v12 = 2112;
+    v13 = workoutUUID;
+    v14 = 1024;
+    v15 = activityType;
+    v16 = 2112;
+    v17 = delegate;
     _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ Start location updates for workout %@ of type %d with data source %@", buf, 0x26u);
   }
 
@@ -500,12 +486,11 @@ void __52__HDLocationDataCollector_stopUpdatesAndDiscardData__block_invoke(uint6
   block[3] = &unk_278613968;
   block[4] = self;
   dispatch_async(queue, block);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __39__HDLocationDataCollector_startUpdates__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(v2 + 80) == 1)
   {
@@ -514,28 +499,25 @@ void __39__HDLocationDataCollector_startUpdates__block_invoke(uint64_t a1)
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(a1 + 32);
-      v8 = 138543362;
-      v9 = v4;
-      _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ location updates already started, ignoring start request", &v8, 0xCu);
+      v6 = 138543362;
+      v7 = v4;
+      _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ location updates already started, ignoring start request", &v6, 0xCu);
     }
-
-    v5 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
     *(v2 + 136) = 0;
     *(*(a1 + 32) + 144) = 0;
-    v6 = *(a1 + 32);
-    v7 = *MEMORY[0x277D85DE8];
+    v5 = *(a1 + 32);
 
-    [(HDLocationDataCollector *)v6 _queue_setupLocationUpdates];
+    [(HDLocationDataCollector *)v5 _queue_setupLocationUpdates];
   }
 }
 
 - (void)_queue_setupLocationUpdates
 {
-  v38[3] = *MEMORY[0x277D85DE8];
+  v37[3] = *MEMORY[0x277D85DE8];
   if (self)
   {
     dispatch_assert_queue_V2(*(self + 56));
@@ -614,13 +596,13 @@ void __39__HDLocationDataCollector_startUpdates__block_invoke(uint64_t a1)
           *(self + 120) = 0;
           objc_initWeak(buf, self);
           v14 = *(self + 160);
-          v32[0] = MEMORY[0x277D85DD0];
-          v32[1] = 3221225472;
-          v32[2] = __54__HDLocationDataCollector__queue_setupLocationUpdates__block_invoke;
-          v32[3] = &unk_27862C1B8;
-          objc_copyWeak(&v33, buf);
-          [v14 startElevationUpdatesWithHandler:v32];
-          objc_destroyWeak(&v33);
+          v31[0] = MEMORY[0x277D85DD0];
+          v31[1] = 3221225472;
+          v31[2] = __54__HDLocationDataCollector__queue_setupLocationUpdates__block_invoke;
+          v31[3] = &unk_27862C1B8;
+          objc_copyWeak(&v32, buf);
+          [v14 startElevationUpdatesWithHandler:v31];
+          objc_destroyWeak(&v32);
           objc_destroyWeak(buf);
         }
 
@@ -629,23 +611,23 @@ void __39__HDLocationDataCollector_startUpdates__block_invoke(uint64_t a1)
           dispatch_assert_queue_V2(*(self + 56));
           v15 = MEMORY[0x277CCDC70];
           localDevice = [MEMORY[0x277CCD2E8] localDevice];
-          v37[0] = *MEMORY[0x277CCE118];
+          v36[0] = *MEMORY[0x277CCE118];
           uUIDString = [*(self + 16) UUIDString];
-          v38[0] = uUIDString;
-          v37[1] = *MEMORY[0x277CCC520];
+          v37[0] = uUIDString;
+          v36[1] = *MEMORY[0x277CCC520];
           uUID = [MEMORY[0x277CCAD78] UUID];
           uUIDString2 = [uUID UUIDString];
-          v38[1] = uUIDString2;
-          v37[2] = *MEMORY[0x277CCC528];
-          v38[2] = &unk_283CB3F78;
-          v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:3];
+          v37[1] = uUIDString2;
+          v36[2] = *MEMORY[0x277CCC528];
+          v37[2] = &unk_283CB3F78;
+          v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:3];
           v21 = [v15 _workoutRouteWithDevice:localDevice metadata:v20];
           v22 = *(self + 96);
           *(self + 96) = v21;
 
           WeakRetained = objc_loadWeakRetained((self + 48));
-          v36 = *(self + 96);
-          v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+          v35 = *(self + 96);
+          v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
           databaseAssertion = [(HDLocationDataCollector *)self databaseAssertion];
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
@@ -686,8 +668,6 @@ void __39__HDLocationDataCollector_startUpdates__block_invoke(uint64_t a1)
       }
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HDLocationDataCollector__queue_setupLocationUpdates__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -713,7 +693,7 @@ void __54__HDLocationDataCollector__queue_setupLocationUpdates__block_invoke(uin
 
 - (id)databaseAssertion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (self)
   {
     os_unfair_lock_lock((self + 64));
@@ -730,9 +710,9 @@ void __54__HDLocationDataCollector__queue_setupLocationUpdates__block_invoke(uin
       WeakRetained = objc_loadWeakRetained((self + 8));
       database = [WeakRetained database];
       uUIDString = [*(self + 16) UUIDString];
-      v14 = 0;
-      v4 = [database takeAccessibilityAssertionWithOwnerIdentifier:uUIDString contextType:3 error:&v14];
-      v8 = v14;
+      v13 = 0;
+      v4 = [database takeAccessibilityAssertionWithOwnerIdentifier:uUIDString contextType:3 error:&v13];
+      v8 = v13;
 
       if (v4)
       {
@@ -764,8 +744,8 @@ void __54__HDLocationDataCollector__queue_setupLocationUpdates__block_invoke(uin
         {
           *buf = 138543618;
           selfCopy2 = self;
-          v17 = 2114;
-          v18 = v8;
+          v16 = 2114;
+          v17 = v8;
           _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "%{public}@: Failed to take database assertion with error %{public}@.", buf, 0x16u);
         }
       }
@@ -777,14 +757,12 @@ void __54__HDLocationDataCollector__queue_setupLocationUpdates__block_invoke(uin
     v4 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)pauseUpdatesAfterDelay:(unint64_t)delay
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
@@ -795,65 +773,61 @@ void __54__HDLocationDataCollector__queue_setupLocationUpdates__block_invoke(uin
   }
 
   queue = self->_queue;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __50__HDLocationDataCollector_pauseUpdatesAfterDelay___block_invoke;
-  v8[3] = &unk_2786138F8;
-  v8[4] = self;
-  v8[5] = delay;
-  dispatch_async(queue, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __50__HDLocationDataCollector_pauseUpdatesAfterDelay___block_invoke;
+  v7[3] = &unk_2786138F8;
+  v7[4] = self;
+  v7[5] = delay;
+  dispatch_async(queue, v7);
 }
 
 void __50__HDLocationDataCollector_pauseUpdatesAfterDelay___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(v2 + 80) == 2)
   {
     _HKInitializeLogging();
     v3 = *MEMORY[0x277CCC330];
-    if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 32);
-      v14 = 138543362;
-      v15 = v4;
-      v5 = "[routes] %{public}@ location updates already paused, ignoring end request";
-      v6 = v3;
-      v7 = 12;
-LABEL_10:
-      _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, v5, &v14, v7);
-      goto LABEL_11;
+      return;
     }
 
-    goto LABEL_11;
+    v4 = *(a1 + 32);
+    v12 = 138543362;
+    v13 = v4;
+    v5 = "[routes] %{public}@ location updates already paused, ignoring end request";
+    v6 = v3;
+    v7 = 12;
+LABEL_10:
+    _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, v5, &v12, v7);
+    return;
   }
 
   if ((*(v2 + 88) - 3) >= 2)
   {
     _HKInitializeLogging();
-    v10 = *MEMORY[0x277CCC330];
-    if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
+    v9 = *MEMORY[0x277CCC330];
+    if (!os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(a1 + 32);
-      v12 = *(v11 + 88);
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 1024;
-      v17 = v12;
-      v5 = "[routes] %{public}@ Last status was %d, location not approved";
-      v6 = v10;
-      v7 = 18;
-      goto LABEL_10;
+      return;
     }
 
-LABEL_11:
-    v13 = *MEMORY[0x277D85DE8];
-    return;
+    v10 = *(a1 + 32);
+    v11 = *(v10 + 88);
+    v12 = 138543618;
+    v13 = v10;
+    v14 = 1024;
+    v15 = v11;
+    v5 = "[routes] %{public}@ Last status was %d, location not approved";
+    v6 = v9;
+    v7 = 18;
+    goto LABEL_10;
   }
 
   v8 = *(a1 + 40);
-  v9 = *MEMORY[0x277D85DE8];
 
   [(HDLocationDataCollector *)v2 _queue_pauseLocationUpdatesAfterDelay:v8];
 }
@@ -911,7 +885,7 @@ void __65__HDLocationDataCollector__queue_pauseLocationUpdatesAfterDelay___block
 
 - (void)resumeUpdates
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
@@ -928,12 +902,11 @@ void __65__HDLocationDataCollector__queue_pauseLocationUpdatesAfterDelay___block
   block[3] = &unk_278613968;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __40__HDLocationDataCollector_resumeUpdates__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = v2[10];
   if (v3)
@@ -942,60 +915,58 @@ void __40__HDLocationDataCollector_resumeUpdates__block_invoke(uint64_t a1)
     {
       _HKInitializeLogging();
       v5 = *MEMORY[0x277CCC330];
-      if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
+      if (!os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
       {
-        v6 = *(a1 + 32);
-        v17 = 138543362;
-        v18 = v6;
-        v7 = "[routes] %{public}@ location updates already started or ended, ignoring resume request";
-        v8 = v5;
-        v9 = 12;
-LABEL_9:
-        _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, v7, &v17, v9);
+        return;
       }
+
+      v6 = *(a1 + 32);
+      v14 = 138543362;
+      v15 = v6;
+      v7 = "[routes] %{public}@ location updates already started or ended, ignoring resume request";
+      v8 = v5;
+      v9 = 12;
     }
 
     else
     {
       v2[10] = 1;
-      v11 = *(a1 + 32);
-      if ((*(v11 + 88) - 3) < 2)
+      v10 = *(a1 + 32);
+      if ((*(v10 + 88) - 3) < 2)
       {
-        v12 = *MEMORY[0x277D85DE8];
 
-        [(HDLocationDataCollector *)v11 _queue_resumeWorkout];
+        [(HDLocationDataCollector *)v10 _queue_resumeWorkout];
         return;
       }
 
       _HKInitializeLogging();
-      v14 = *MEMORY[0x277CCC330];
-      if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
+      v11 = *MEMORY[0x277CCC330];
+      if (!os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
       {
-        v15 = *(a1 + 32);
-        v16 = *(v15 + 88);
-        v17 = 138543618;
-        v18 = v15;
-        v19 = 1024;
-        v20 = v16;
-        v7 = "[routes] %{public}@ Last status was %d, location not approved";
-        v8 = v14;
-        v9 = 18;
-        goto LABEL_9;
+        return;
       }
+
+      v12 = *(a1 + 32);
+      v13 = *(v12 + 88);
+      v14 = 138543618;
+      v15 = v12;
+      v16 = 1024;
+      v17 = v13;
+      v7 = "[routes] %{public}@ Last status was %d, location not approved";
+      v8 = v11;
+      v9 = 18;
     }
 
-    v10 = *MEMORY[0x277D85DE8];
+    _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, v7, &v14, v9);
     return;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   [v2 startUpdates];
 }
 
 - (void)_queue_resumeWorkout
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (self)
   {
     dispatch_assert_queue_V2(*(self + 56));
@@ -1006,11 +977,11 @@ LABEL_9:
       if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
       {
         v4 = *(self + 112);
-        v6 = 138543618;
+        v5 = 138543618;
         selfCopy2 = self;
-        v8 = 2048;
-        v9 = v4;
-        _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ GPS was stopped; restart GPS. Last paused time: %f", &v6, 0x16u);
+        v7 = 2048;
+        v8 = v4;
+        _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ GPS was stopped; restart GPS. Last paused time: %f", &v5, 0x16u);
       }
 
       *(self + 112) = 0xBFF0000000000000;
@@ -1023,88 +994,82 @@ LABEL_9:
       v2 = *MEMORY[0x277CCC330];
       if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
       {
-        v6 = 138543362;
+        v5 = 138543362;
         selfCopy2 = self;
-        _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ We resumed the workout before GPS was stopped. Don't restart GPS", &v6, 0xCu);
+        _os_log_impl(&dword_228986000, v2, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ We resumed the workout before GPS was stopped. Don't restart GPS", &v5, 0xCu);
       }
 
       *(self + 112) = 0xBFF0000000000000;
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __54__HDLocationDataCollector__handleElevationData_error___block_invoke(uint64_t a1)
+void __54__HDLocationDataCollector__handleElevationData_error___block_invoke(void *a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 32) || (v4 = *(a1 + 40)) == 0)
+  v22 = *MEMORY[0x277D85DE8];
+  if (a1[4] || (v3 = a1[5]) == 0)
   {
     _HKInitializeLogging();
     v2 = *MEMORY[0x277CCC330];
-    if (!os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-LABEL_3:
-      v3 = *MEMORY[0x277D85DE8];
+      v12 = a1[6];
+      v13 = *(v12 + 160);
+      v14 = a1[4];
+      *buf = 138543874;
+      v17 = v12;
+      v18 = 2112;
+      v19 = v13;
+      v20 = 2114;
+      v21 = v14;
+      v10 = "[routes] [elevation] %{public}@ Error updating: %@, %{public}@";
+      v11 = v2;
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+    v4 = [v3 elevationAscended];
+    v5 = v4;
+    v6 = a1[6];
+    if (*(v6 + 112) > 0.0)
+    {
+      *(v6 + 120) = v4;
       return;
     }
 
-    v14 = *(a1 + 48);
-    v15 = *(v14 + 160);
-    v16 = *(a1 + 32);
-    *buf = 138543874;
-    v19 = v14;
-    v20 = 2112;
-    v21 = v15;
-    v22 = 2114;
-    v23 = v16;
-    v11 = "[routes] [elevation] %{public}@ Error updating: %@, %{public}@";
-    v12 = v2;
-LABEL_16:
-    _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, v11, buf, 0x20u);
-    goto LABEL_3;
-  }
-
-  v5 = [v4 elevationAscended];
-  v6 = v5;
-  v7 = *(a1 + 48);
-  if (*(v7 + 112) > 0.0)
-  {
-    *(v7 + 120) = v5;
-    goto LABEL_3;
-  }
-
-  v8 = *(v7 + 120);
-  if (v5 < v8)
-  {
-    _HKInitializeLogging();
-    v9 = *MEMORY[0x277CCC330];
-    if (!os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
+    v7 = *(v6 + 120);
+    if (v4 >= v7)
     {
-      goto LABEL_3;
+      if (v4 && v4 != v7)
+      {
+        *(v6 + 120) = v4;
+        v15 = [a1[6] delegate];
+        [v15 elevationUpdated:v5 - v7];
+      }
     }
 
-    v10 = *(a1 + 48);
-    *buf = 138543874;
-    v19 = v10;
-    v20 = 2048;
-    v21 = v6;
-    v22 = 2048;
-    v23 = v8;
-    v11 = "[routes] [elevation] %{public}@ Error  currentElevationGain: %lu is less than previousGain:%lu";
-    v12 = v9;
-    goto LABEL_16;
+    else
+    {
+      _HKInitializeLogging();
+      v8 = *MEMORY[0x277CCC330];
+      if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
+      {
+        v9 = a1[6];
+        *buf = 138543874;
+        v17 = v9;
+        v18 = 2048;
+        v19 = v5;
+        v20 = 2048;
+        v21 = v7;
+        v10 = "[routes] [elevation] %{public}@ Error  currentElevationGain: %lu is less than previousGain:%lu";
+        v11 = v8;
+LABEL_16:
+        _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, v10, buf, 0x20u);
+      }
+    }
   }
-
-  if (!v5 || v5 == v8)
-  {
-    goto LABEL_3;
-  }
-
-  *(v7 + 120) = v5;
-  v17 = [*(a1 + 48) delegate];
-  [v17 elevationUpdated:v6 - v8];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)healthLocationManager:(id)manager didChangeAuthorizationStatus:(int)status
@@ -1121,7 +1086,7 @@ LABEL_16:
 
 void __78__HDLocationDataCollector_healthLocationManager_didChangeAuthorizationStatus___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 40) - 3;
   if (v1 < 2 != (*(*(a1 + 32) + 88) - 3) < 2)
   {
@@ -1133,13 +1098,13 @@ void __78__HDLocationDataCollector_healthLocationManager_didChangeAuthorizationS
       v5 = *(a1 + 32);
       v6 = *(v5 + 88);
       v7 = *(a1 + 40);
-      v19 = 138543874;
-      v20 = v5;
-      v21 = 1024;
-      v22 = v6;
-      v23 = 1024;
-      v24 = v7;
-      _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ Did change location authorization (%d -> %d)", &v19, 0x18u);
+      v18 = 138543874;
+      v19 = v5;
+      v20 = 1024;
+      v21 = v6;
+      v22 = 1024;
+      v23 = v7;
+      _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ Did change location authorization (%d -> %d)", &v18, 0x18u);
     }
 
     *(*(a1 + 32) + 88) = *(a1 + 40);
@@ -1150,9 +1115,9 @@ void __78__HDLocationDataCollector_healthLocationManager_didChangeAuthorizationS
       if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
       {
         v13 = *(a1 + 32);
-        v19 = 138543362;
-        v20 = v13;
-        _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ Location authorization change: pause location updates.", &v19, 0xCu);
+        v18 = 138543362;
+        v19 = v13;
+        _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ Location authorization change: pause location updates.", &v18, 0xCu);
       }
 
       v14 = [MEMORY[0x277CBEBD0] standardUserDefaults];
@@ -1182,9 +1147,9 @@ void __78__HDLocationDataCollector_healthLocationManager_didChangeAuthorizationS
         if (v10)
         {
           v17 = *(a1 + 32);
-          v19 = 138543362;
-          v20 = v17;
-          _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ Location authorization change: start location updates.", &v19, 0xCu);
+          v18 = 138543362;
+          v19 = v17;
+          _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ Location authorization change: start location updates.", &v18, 0xCu);
         }
 
         [(HDLocationDataCollector *)*(a1 + 32) _queue_setupLocationUpdates];
@@ -1195,17 +1160,15 @@ void __78__HDLocationDataCollector_healthLocationManager_didChangeAuthorizationS
         if (v10)
         {
           v11 = *(a1 + 32);
-          v19 = 138543362;
-          v20 = v11;
-          _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ Location authorization change: resume location updates.", &v19, 0xCu);
+          v18 = 138543362;
+          v19 = v11;
+          _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "[routes] %{public}@ Location authorization change: resume location updates.", &v18, 0xCu);
         }
 
         [(HDLocationDataCollector *)*(a1 + 32) _queue_resumeWorkout];
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)healthLocationManager:(id)manager didUpdateLocations:(id)locations
@@ -1224,40 +1187,40 @@ void __78__HDLocationDataCollector_healthLocationManager_didChangeAuthorizationS
 
 void __68__HDLocationDataCollector_healthLocationManager_didUpdateLocations___block_invoke(uint64_t a1)
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 112) <= 0.0)
   {
     v2 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(*(a1 + 40), "count")}];
+    v47 = 0u;
     v48 = 0u;
     v49 = 0u;
     v50 = 0u;
-    v51 = 0u;
     v3 = *(a1 + 40);
-    v4 = [v3 countByEnumeratingWithState:&v48 objects:v64 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v47 objects:v63 count:16];
     if (v4)
     {
       v6 = v4;
-      v7 = *v49;
+      v7 = *v48;
       v8 = MEMORY[0x277CCC330];
       *&v5 = 138543874;
-      v44 = v5;
-      v45 = v3;
+      v43 = v5;
+      v44 = v3;
       do
       {
         v9 = 0;
         do
         {
-          if (*v49 != v7)
+          if (*v48 != v7)
           {
             objc_enumerationMutation(v3);
           }
 
-          v10 = *(*(&v48 + 1) + 8 * v9);
+          v10 = *(*(&v47 + 1) + 8 * v9);
           _HKInitializeLogging();
           v11 = *v8;
           if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEBUG))
           {
-            v46 = *(a1 + 32);
+            v45 = *(a1 + 32);
             v15 = v11;
             [v10 coordinate];
             v17 = v16;
@@ -1271,21 +1234,21 @@ void __68__HDLocationDataCollector_healthLocationManager_didUpdateLocations___bl
             v25 = [v10 type];
             v26 = [v10 timestamp];
             *buf = 138544898;
-            v53 = v46;
-            v54 = 2048;
-            *v55 = v17;
-            *&v55[8] = 2048;
-            *&v55[10] = v19;
-            v56 = 2048;
-            v57 = v21;
-            v58 = 2048;
-            v59 = v23;
-            v60 = 1024;
-            v61 = v25;
+            v52 = v45;
+            v53 = 2048;
+            *v54 = v17;
+            *&v54[8] = 2048;
+            *&v54[10] = v19;
+            v55 = 2048;
+            v56 = v21;
+            v57 = 2048;
+            v58 = v23;
+            v59 = 1024;
+            v60 = v25;
             v2 = v24;
-            v3 = v45;
-            v62 = 2112;
-            v63 = v26;
+            v3 = v44;
+            v61 = 2112;
+            v62 = v26;
             _os_log_debug_impl(&dword_228986000, v15, OS_LOG_TYPE_DEBUG, "[routes] %{public}@ Did update with location. coord (%f %f) altitude: %f speed: %f, type: %d date: %@", buf, 0x44u);
           }
 
@@ -1305,13 +1268,13 @@ void __68__HDLocationDataCollector_healthLocationManager_didUpdateLocations___bl
               v28 = v14;
               v29 = [v10 type];
               [v10 horizontalAccuracy];
-              *buf = v44;
-              v53 = v27;
-              v3 = v45;
-              v54 = 1024;
-              *v55 = v29;
-              *&v55[4] = 2048;
-              *&v55[6] = v30;
+              *buf = v43;
+              v52 = v27;
+              v3 = v44;
+              v53 = 1024;
+              *v54 = v29;
+              *&v54[4] = 2048;
+              *&v54[6] = v30;
               _os_log_debug_impl(&dword_228986000, v28, OS_LOG_TYPE_DEBUG, "[routes] %{public}@ Skipped adding location of type: %d, horizontal accuracy: %g", buf, 0x1Cu);
             }
 
@@ -1323,7 +1286,7 @@ void __68__HDLocationDataCollector_healthLocationManager_didUpdateLocations___bl
         }
 
         while (v6 != v9);
-        v6 = [v3 countByEnumeratingWithState:&v48 objects:v64 count:16];
+        v6 = [v3 countByEnumeratingWithState:&v47 objects:v63 count:16];
       }
 
       while (v6);
@@ -1337,9 +1300,9 @@ void __68__HDLocationDataCollector_healthLocationManager_didUpdateLocations___bl
         v32 = [v31 UUID];
         v33 = [(HDLocationDataCollector *)*(a1 + 32) databaseAssertion];
         WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
-        v47 = 0;
-        v35 = [HDLocationSeriesSampleEntity insertLocationData:v2 seriesIdentifier:v32 assertion:v33 profile:WeakRetained error:&v47];
-        v36 = v47;
+        v46 = 0;
+        v35 = [HDLocationSeriesSampleEntity insertLocationData:v2 seriesIdentifier:v32 assertion:v33 profile:WeakRetained error:&v46];
+        v36 = v46;
 
         if (v35)
         {
@@ -1359,41 +1322,37 @@ void __68__HDLocationDataCollector_healthLocationManager_didUpdateLocations___bl
           v41 = *MEMORY[0x277CCC330];
           if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
           {
-            v43 = *(a1 + 32);
+            v42 = *(a1 + 32);
             *buf = 138543618;
-            v53 = v43;
-            v54 = 2114;
-            *v55 = v36;
+            v52 = v42;
+            v53 = 2114;
+            *v54 = v36;
             _os_log_error_impl(&dword_228986000, v41, OS_LOG_TYPE_ERROR, "[routes] %{public}@ Did not successfully save location. Error: %{public}@", buf, 0x16u);
           }
         }
       }
     }
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)healthLocationManager:(id)manager didFailWithError:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   errorCopy = error;
   _HKInitializeLogging();
   v8 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEBUG))
   {
-    v10 = v8;
-    v11 = 138543874;
+    v9 = v8;
+    v10 = 138543874;
     selfCopy = self;
-    v13 = 2112;
-    v14 = managerCopy;
-    v15 = 1024;
+    v12 = 2112;
+    v13 = managerCopy;
+    v14 = 1024;
     code = [errorCopy code];
-    _os_log_debug_impl(&dword_228986000, v10, OS_LOG_TYPE_DEBUG, "[routes] %{public}@ %@ failed to get location with error: %d", &v11, 0x1Cu);
+    _os_log_debug_impl(&dword_228986000, v9, OS_LOG_TYPE_DEBUG, "[routes] %{public}@ %@ failed to get location with error: %d", &v10, 0x1Cu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

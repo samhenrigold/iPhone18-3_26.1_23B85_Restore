@@ -11,7 +11,7 @@
 
 - (void)_locked_establishConnection
 {
-  v16 = *MEMORY[0x1E69E9840];
+  *&v14[5] = *MEMORY[0x1E69E9840];
   if (!self->_conn)
   {
     logHandle = self->_logHandle;
@@ -19,7 +19,7 @@
     {
       serviceName = self->_serviceName;
       *buf = 138412290;
-      v15 = serviceName;
+      *v14 = serviceName;
       _os_log_impl(&dword_1A7F47000, logHandle, OS_LOG_TYPE_DEFAULT, "Establishing new connection to %@ .", buf, 0xCu);
     }
 
@@ -31,32 +31,33 @@
     [(NSXPCConnection *)self->_conn setExportedObject:self->_serverInitiatedRequestHandler];
     [(NSXPCConnection *)self->_conn setExportedInterface:self->_allowlistedClientInterface];
     objc_initWeak(&location, self);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __50___PASXPCClientHelper__locked_establishConnection__block_invoke;
-    v11[3] = &unk_1E77F22C0;
-    objc_copyWeak(&v12, &location);
-    [(NSXPCConnection *)self->_conn setInterruptionHandler:v11];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __50___PASXPCClientHelper__locked_establishConnection__block_invoke_7;
-    v9[3] = &unk_1E77F22C0;
-    objc_copyWeak(&v10, &location);
-    [(NSXPCConnection *)self->_conn setInvalidationHandler:v9];
-    if (self->_allowSystemToUserConnection && xpc_user_sessions_enabled())
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __50___PASXPCClientHelper__locked_establishConnection__block_invoke;
+    v10[3] = &unk_1E77F22C0;
+    objc_copyWeak(&v11, &location);
+    [(NSXPCConnection *)self->_conn setInterruptionHandler:v10];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __50___PASXPCClientHelper__locked_establishConnection__block_invoke_7;
+    v8[3] = &unk_1E77F22C0;
+    objc_copyWeak(&v9, &location);
+    [(NSXPCConnection *)self->_conn setInvalidationHandler:v8];
+    if (self->_allowSystemToUserConnection)
     {
-      xpc_user_sessions_get_foreground_uid();
-      _xpcConnection = [(NSXPCConnection *)self->_conn _xpcConnection];
-      xpc_connection_set_target_user_session_uid();
+      if (xpc_user_sessions_enabled())
+      {
+        xpc_user_sessions_get_foreground_uid();
+        _xpcConnection = [(NSXPCConnection *)self->_conn _xpcConnection];
+        xpc_connection_set_target_user_session_uid();
+      }
     }
 
     [(NSXPCConnection *)self->_conn resume];
-    objc_destroyWeak(&v10);
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v9);
+    objc_destroyWeak(&v11);
     objc_destroyWeak(&location);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

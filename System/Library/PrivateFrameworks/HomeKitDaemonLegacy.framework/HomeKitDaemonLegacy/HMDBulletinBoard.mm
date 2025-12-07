@@ -84,6 +84,7 @@
 - (void)removeBulletinsUsingPredicate:(id)predicate;
 - (void)removeCameraClipBulletinsForCameraProfile:(id)profile;
 - (void)removeImageFilesForNotificationRequests:(id)requests;
+- (void)removeNotificationRequestsWithIdentifiers:(id)identifiers shouldDeleteAttachments:(BOOL)attachments;
 - (void)removeWalletKeyOnboardingBulletinForHome:(id)home;
 - (void)resolveDisplayNameForChangedCharacteristic:(id)characteristic completion:(id)completion;
 - (void)updateContent:(id)content forNotificationWithRequestIdentifier:(id)identifier;
@@ -118,7 +119,7 @@
 
 - (void)_handleDidReceiveNotificationResponse:(id)response completionHandler:(id)handler
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   handlerCopy = handler;
   workQueue = [(HMDBulletinBoard *)self workQueue];
@@ -136,11 +137,11 @@
   {
     v16 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v55 = v16;
-    v56 = 2112;
-    v57 = responseCopy;
-    v58 = 2112;
-    v59 = userInfo;
+    v54 = v16;
+    v55 = 2112;
+    v56 = responseCopy;
+    v57 = 2112;
+    v58 = userInfo;
     _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Did receive notification response: %@ with context: %@", buf, 0x20u);
   }
 
@@ -160,8 +161,8 @@
       notification3 = [responseCopy notification];
       request3 = [notification3 request];
       identifier = [request3 identifier];
-      v53 = identifier;
-      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
+      v52 = identifier;
+      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
       [(HMDBulletinBoard *)selfCopy removeNotificationRequestsWithIdentifiers:v26 shouldDeleteAttachments:1];
 
 LABEL_22:
@@ -187,8 +188,8 @@ LABEL_17:
     goto LABEL_23;
   }
 
-  v49 = actionIdentifier2;
-  v50 = v28;
+  v48 = actionIdentifier2;
+  v49 = v28;
   homeManager = [(HMDBulletinBoard *)selfCopy homeManager];
   v32 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v27];
   v33 = [homeManager _homeWithUUID:v32];
@@ -198,14 +199,14 @@ LABEL_17:
     v39 = objc_autoreleasePoolPush();
     v40 = selfCopy;
     v41 = HMFGetOSLogHandle();
-    v28 = v50;
+    v28 = v49;
     if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
       v42 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v55 = v42;
-      v56 = 2112;
-      v57 = v27;
+      v54 = v42;
+      v55 = 2112;
+      v56 = v27;
       _os_log_impl(&dword_2531F8000, v41, OS_LOG_TYPE_ERROR, "%{public}@No home with UUID %@ found", buf, 0x16u);
     }
 
@@ -215,40 +216,40 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v34 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v50];
+  v34 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v49];
   v35 = v33;
   v36 = [v33 triggerWithUUID:v34];
 
   if (v36)
   {
-    v37 = v49;
-    v38 = [v49 isEqualToString:@"trigger_execute"];
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __76__HMDBulletinBoard__handleDidReceiveNotificationResponse_completionHandler___block_invoke;
-    v51[3] = &unk_2797358C8;
-    v51[4] = selfCopy;
-    v52 = v36;
-    [v52 userDidConfirmExecute:v38 completionHandler:v51];
+    v37 = v48;
+    v38 = [v48 isEqualToString:@"trigger_execute"];
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __76__HMDBulletinBoard__handleDidReceiveNotificationResponse_completionHandler___block_invoke;
+    v50[3] = &unk_2797358C8;
+    v50[4] = selfCopy;
+    v51 = v36;
+    [v51 userDidConfirmExecute:v38 completionHandler:v50];
   }
 
   else
   {
     v43 = objc_autoreleasePoolPush();
-    v48 = selfCopy;
+    v47 = selfCopy;
     v44 = HMFGetOSLogHandle();
-    v37 = v49;
+    v37 = v48;
     if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v45 = v47 = v43;
+      v45 = v46 = v43;
       *buf = 138543618;
-      v55 = v45;
-      v56 = 2112;
-      v57 = v50;
+      v54 = v45;
+      v55 = 2112;
+      v56 = v49;
       _os_log_impl(&dword_2531F8000, v44, OS_LOG_TYPE_ERROR, "%{public}@No trigger with UUID %@ found", buf, 0x16u);
 
-      v43 = v47;
+      v43 = v46;
     }
 
     objc_autoreleasePoolPop(v43);
@@ -261,13 +262,11 @@ LABEL_17:
   }
 
 LABEL_23:
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __76__HMDBulletinBoard__handleDidReceiveNotificationResponse_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -277,23 +276,21 @@ void __76__HMDBulletinBoard__handleDidReceiveNotificationResponse_completionHand
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Trigger execution error after user confirms: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Trigger execution error after user confirms: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
     +[HMDBulletinUIManager presentExecutionErrorDialogForTrigger:partialSuccess:](HMDBulletinUIManager, "presentExecutionErrorDialogForTrigger:partialSuccess:", *(a1 + 40), [v3 code] == 64);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateDoorbellUserInfo:(id)info withSignificantEventUserInfo:(id)userInfo
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   userInfoCopy = userInfo;
   workQueue = [(HMDBulletinBoard *)self workQueue];
@@ -322,17 +319,15 @@ void __76__HMDBulletinBoard__handleDidReceiveNotificationResponse_completionHand
   if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
     v21 = HMFGetLogIdentifier();
-    v23 = 138543618;
-    v24 = v21;
-    v25 = 2112;
-    v26 = dictionary;
-    _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@Merging user info: %@ from significant event notification into doorbell notification", &v23, 0x16u);
+    v22 = 138543618;
+    v23 = v21;
+    v24 = 2112;
+    v25 = dictionary;
+    _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@Merging user info: %@ from significant event notification into doorbell notification", &v22, 0x16u);
   }
 
   objc_autoreleasePoolPop(v18);
   [infoCopy addEntriesFromDictionary:dictionary];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_submitCameraClipSignificantEventDetailsFromBulletin:(id)bulletin
@@ -465,16 +460,16 @@ BOOL __86__HMDBulletinBoard__submitDoorbellEventDetailsFromBulletinWithDate_sign
 
 - (id)_copyItemAtURL:(id)l toDirectory:(id)directory
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   lCopy = l;
   directoryCopy = directory;
   workQueue = [(HMDBulletinBoard *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
   fileManager = [(HMDBulletinBoard *)self fileManager];
-  v31 = 0;
-  v10 = [fileManager createDirectoryAtURL:directoryCopy withIntermediateDirectories:1 attributes:0 error:&v31];
-  v11 = v31;
+  v30 = 0;
+  v10 = [fileManager createDirectoryAtURL:directoryCopy withIntermediateDirectories:1 attributes:0 error:&v30];
+  v11 = v30;
 
   if (v10)
   {
@@ -484,9 +479,9 @@ BOOL __86__HMDBulletinBoard__submitDoorbellEventDetailsFromBulletinWithDate_sign
 
     v15 = [directoryCopy URLByAppendingPathComponent:v14];
     fileManager2 = [(HMDBulletinBoard *)self fileManager];
-    v30 = v11;
-    v17 = [fileManager2 copyItemAtURL:lCopy toURL:v15 error:&v30];
-    v18 = v30;
+    v29 = v11;
+    v17 = [fileManager2 copyItemAtURL:lCopy toURL:v15 error:&v29];
+    v18 = v29;
 
     if (v17)
     {
@@ -502,13 +497,13 @@ BOOL __86__HMDBulletinBoard__submitDoorbellEventDetailsFromBulletinWithDate_sign
       {
         v27 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v33 = v27;
-        v34 = 2112;
-        v35 = lCopy;
-        v36 = 2112;
-        v37 = v15;
-        v38 = 2112;
-        v39 = v18;
+        v32 = v27;
+        v33 = 2112;
+        v34 = lCopy;
+        v35 = 2112;
+        v36 = v15;
+        v37 = 2112;
+        v38 = v18;
         _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@Failed to item from %@ to %@: %@", buf, 0x2Au);
       }
 
@@ -528,11 +523,11 @@ BOOL __86__HMDBulletinBoard__submitDoorbellEventDetailsFromBulletinWithDate_sign
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v33 = v23;
-      v34 = 2112;
-      v35 = directoryCopy;
-      v36 = 2112;
-      v37 = v11;
+      v32 = v23;
+      v33 = 2112;
+      v34 = directoryCopy;
+      v35 = 2112;
+      v36 = v11;
       _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to create directory at URL %@: %@", buf, 0x20u);
     }
 
@@ -540,7 +535,6 @@ BOOL __86__HMDBulletinBoard__submitDoorbellEventDetailsFromBulletinWithDate_sign
     v19 = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -619,7 +613,7 @@ uint64_t __73__HMDBulletinBoard__doorbellPressNotificationsNearDate_forCameraPro
   dispatch_assert_queue_V2(workQueue);
 
   notificationRequestsByIdentifier = [(HMDBulletinBoard *)self notificationRequestsByIdentifier];
-  v7 = [notificationRequestsByIdentifier copy];
+  v7 = objc_msgSend_copy(notificationRequestsByIdentifier);
 
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 3221225472;
@@ -643,7 +637,7 @@ id __71__HMDBulletinBoard_notificationRequestsByIdentifierForCameraClipUUIDs___b
 
 - (void)_updateMessageForDoorbellPressNotificationRequestWithIdentifier:(id)identifier usingSignificantEvents:(id)events cameraProfile:(id)profile
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   eventsCopy = events;
   profileCopy = profile;
@@ -689,28 +683,28 @@ id __71__HMDBulletinBoard_notificationRequestsByIdentifierForCameraClipUUIDs___b
       v31 = HMFGetLogIdentifier();
       body = [v15 body];
       [v15 userInfo];
-      v33 = v43 = profileCopy;
+      v33 = v42 = profileCopy;
       [v15 attachments];
-      v42 = v28;
+      v41 = v28;
       v34 = identifierCopy;
       v36 = v35 = eventsCopy;
       *buf = 138544386;
-      v45 = v31;
-      v46 = 2112;
-      v47 = v13;
-      v48 = 2112;
-      v49 = body;
-      v50 = 2112;
-      v51 = v33;
-      v52 = 2112;
-      v53 = v36;
+      v44 = v31;
+      v45 = 2112;
+      v46 = v13;
+      v47 = 2112;
+      v48 = body;
+      v49 = 2112;
+      v50 = v33;
+      v51 = 2112;
+      v52 = v36;
       _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_INFO, "%{public}@Updating doorbell press notification %@ with body: %@, userInfo: %@, attachments: %@", buf, 0x34u);
 
       eventsCopy = v35;
       identifierCopy = v34;
-      v28 = v42;
+      v28 = v41;
 
-      profileCopy = v43;
+      profileCopy = v42;
     }
 
     objc_autoreleasePoolPop(v28);
@@ -726,21 +720,19 @@ id __71__HMDBulletinBoard_notificationRequestsByIdentifierForCameraClipUUIDs___b
     {
       v40 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v45 = v40;
-      v46 = 2112;
-      v47 = identifierCopy;
+      v44 = v40;
+      v45 = 2112;
+      v46 = identifierCopy;
       _os_log_impl(&dword_2531F8000, v39, OS_LOG_TYPE_INFO, "%{public}@Did not find request with identifier: %@, so doing nothing", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v37);
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateDoorbellPressNotificationsWithSignificantEventBulletin:(id)bulletin
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   bulletinCopy = bulletin;
   workQueue = [(HMDBulletinBoard *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -758,42 +750,42 @@ id __71__HMDBulletinBoard_notificationRequestsByIdentifierForCameraClipUUIDs___b
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v65 = v12;
-      v66 = 2112;
-      v67 = v8;
+      v64 = v12;
+      v65 = 2112;
+      v66 = v8;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Found recent doorbell press notifications to update: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
     v61 = 0u;
-    v51 = v8;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
+    v50 = v8;
     obj = v8;
-    v56 = [obj countByEnumeratingWithState:&v60 objects:v74 count:16];
-    if (v56)
+    v55 = [obj countByEnumeratingWithState:&v59 objects:v73 count:16];
+    if (v55)
     {
-      v54 = *v61;
-      v57 = *MEMORY[0x277CD26B8];
-      v55 = bulletinCopy;
+      v53 = *v60;
+      v56 = *MEMORY[0x277CD26B8];
+      v54 = bulletinCopy;
       do
       {
-        for (i = 0; i != v56; ++i)
+        for (i = 0; i != v55; ++i)
         {
-          if (*v61 != v54)
+          if (*v60 != v53)
           {
             objc_enumerationMutation(obj);
           }
 
-          v58 = *(*(&v60 + 1) + 8 * i);
-          content = [v58 content];
+          v57 = *(*(&v59 + 1) + 8 * i);
+          content = [v57 content];
           v15 = [content mutableCopy];
 
           previewImageFilePathURL = [bulletinCopy previewImageFilePathURL];
 
           userInfo = [v15 userInfo];
-          v18 = [userInfo objectForKeyedSubscript:v57];
+          v18 = [userInfo objectForKeyedSubscript:v56];
           v19 = v18;
           if (previewImageFilePathURL)
           {
@@ -802,9 +794,9 @@ id __71__HMDBulletinBoard_notificationRequestsByIdentifierForCameraClipUUIDs___b
             {
               v20 = [MEMORY[0x277CBEBC0] fileURLWithPath:v19];
               fileManager = [(HMDBulletinBoard *)selfCopy fileManager];
-              v59 = 0;
-              v22 = [fileManager removeItemAtURL:v20 error:&v59];
-              v23 = v59;
+              v58 = 0;
+              v22 = [fileManager removeItemAtURL:v20 error:&v58];
+              v23 = v58;
 
               if ((v22 & 1) == 0)
               {
@@ -814,16 +806,16 @@ id __71__HMDBulletinBoard_notificationRequestsByIdentifierForCameraClipUUIDs___b
                 if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
                 {
                   HMFGetLogIdentifier();
-                  v27 = v52 = v24;
+                  v27 = v51 = v24;
                   *buf = 138543874;
-                  v65 = v27;
-                  v66 = 2112;
-                  v67 = v20;
-                  v68 = 2112;
-                  v69 = v23;
+                  v64 = v27;
+                  v65 = 2112;
+                  v66 = v20;
+                  v67 = 2112;
+                  v68 = v23;
                   _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove old notification image: %@ with error: %@", buf, 0x20u);
 
-                  v24 = v52;
+                  v24 = v51;
                 }
 
                 objc_autoreleasePoolPop(v24);
@@ -844,7 +836,7 @@ id __71__HMDBulletinBoard_notificationRequestsByIdentifierForCameraClipUUIDs___b
 
             v29 = MEMORY[0x277CBEBC0];
             userInfo2 = [v15 userInfo];
-            v31 = [userInfo2 objectForKeyedSubscript:v57];
+            v31 = [userInfo2 objectForKeyedSubscript:v56];
             v19 = [v29 fileURLWithPath:v31];
 
             previewImageFilePathURL2 = [(HMDBulletinBoard *)selfCopy fileManager];
@@ -886,40 +878,38 @@ LABEL_20:
             userInfo5 = [v15 userInfo];
             attachments = [v15 attachments];
             *buf = 138544386;
-            v65 = v45;
-            v66 = 2112;
-            v67 = v58;
-            v68 = 2112;
-            v69 = body;
-            v70 = 2112;
-            v71 = userInfo5;
-            v72 = 2112;
-            v73 = attachments;
+            v64 = v45;
+            v65 = 2112;
+            v66 = v57;
+            v67 = 2112;
+            v68 = body;
+            v69 = 2112;
+            v70 = userInfo5;
+            v71 = 2112;
+            v72 = attachments;
             _os_log_impl(&dword_2531F8000, v44, OS_LOG_TYPE_INFO, "%{public}@Updating doorbell press notification %@ with body: %@, userInfo: %@, attachments: %@", buf, 0x34u);
           }
 
           objc_autoreleasePoolPop(v42);
-          identifier = [v58 identifier];
+          identifier = [v57 identifier];
           [(HMDBulletinBoard *)v43 updateContent:v15 forNotificationWithRequestIdentifier:identifier];
 
-          bulletinCopy = v55;
+          bulletinCopy = v54;
         }
 
-        v56 = [obj countByEnumeratingWithState:&v60 objects:v74 count:16];
+        v55 = [obj countByEnumeratingWithState:&v59 objects:v73 count:16];
       }
 
-      while (v56);
+      while (v55);
     }
 
-    v8 = v51;
+    v8 = v50;
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldPostBulletinOnCurrentValueChangeForCharacteristic:(id)characteristic includeChangeFromNil:(BOOL)nil
 {
-  v99 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   workQueue = [(HMDBulletinBoard *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -933,9 +923,9 @@ LABEL_20:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v82 = v11;
-      v83 = 2112;
-      v84 = characteristicCopy;
+      v81 = v11;
+      v82 = 2112;
+      v83 = characteristicCopy;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Skipping bulletin for characteristic: %@", buf, 0x16u);
     }
 
@@ -964,37 +954,37 @@ LABEL_20:
     service = [(__CFString *)characteristicCopy service];
     contextID = [service contextID];
     type2 = [(__CFString *)characteristicCopy type];
-    v24 = [HMDBulletinBoard characteristicTupleKeyFromServiceContextID:contextID currentType:type2];
+    v23 = [HMDBulletinBoard characteristicTupleKeyFromServiceContextID:contextID currentType:type2];
 
     type3 = [(__CFString *)characteristicCopy type];
-    v26 = [type3 isEqualToString:*MEMORY[0x277CFE608]];
-    if (v26)
+    v25 = [type3 isEqualToString:*MEMORY[0x277CFE608]];
+    if (v25)
     {
       value = [(__CFString *)characteristicCopy value];
       if ([(__objc2_class *)value isEqual:&unk_286627B50])
       {
 
 LABEL_32:
-        v45 = objc_autoreleasePoolPush();
+        v44 = objc_autoreleasePoolPush();
         selfCopy2 = self;
-        v47 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+        v46 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
         {
-          v48 = HMFGetLogIdentifier();
+          v47 = HMFGetLogIdentifier();
           instanceID = [(__CFString *)characteristicCopy instanceID];
           value2 = [(__CFString *)characteristicCopy value];
           *buf = 138543874;
-          v82 = v48;
-          v83 = 2112;
-          v84 = instanceID;
-          v85 = 2112;
-          v86 = value2;
-          _os_log_impl(&dword_2531F8000, v47, OS_LOG_TYPE_INFO, "%{public}@Should post bulletin for characteristic instanceId: %@ value:%@ because this is lock jammed or security system triggered", buf, 0x20u);
+          v81 = v47;
+          v82 = 2112;
+          v83 = instanceID;
+          v84 = 2112;
+          v85 = value2;
+          _os_log_impl(&dword_2531F8000, v46, OS_LOG_TYPE_INFO, "%{public}@Should post bulletin for characteristic instanceId: %@ value:%@ because this is lock jammed or security system triggered", buf, 0x20u);
         }
 
-        objc_autoreleasePoolPop(v45);
+        objc_autoreleasePoolPop(v44);
         characteristicTuplesByKey = [(HMDBulletinBoard *)selfCopy2 characteristicTuplesByKey];
-        [characteristicTuplesByKey removeObjectForKey:v24];
+        [characteristicTuplesByKey removeObjectForKey:v23];
         LOBYTE(changedByThisDevice2) = 1;
 LABEL_60:
 
@@ -1003,17 +993,17 @@ LABEL_60:
     }
 
     type4 = [(__CFString *)characteristicCopy type];
-    v80 = v24;
+    v79 = v23;
     if ([type4 isEqualToString:*MEMORY[0x277CFE620]])
     {
       value3 = [(__CFString *)characteristicCopy value];
-      v29 = [value3 isEqual:&unk_286627B68];
+      v28 = [value3 isEqual:&unk_286627B68];
 
-      if (v26)
+      if (v25)
       {
 
-        v24 = v80;
-        if (v29)
+        v23 = v79;
+        if (v28)
         {
           goto LABEL_32;
         }
@@ -1022,8 +1012,8 @@ LABEL_60:
       else
       {
 
-        v24 = v80;
-        if (v29)
+        v23 = v79;
+        if (v28)
         {
           goto LABEL_32;
         }
@@ -1033,56 +1023,56 @@ LABEL_60:
     else
     {
 
-      if (v26)
+      if (v25)
       {
       }
     }
 
     characteristicTuplesByKey2 = [(HMDBulletinBoard *)self characteristicTuplesByKey];
-    characteristicTuplesByKey = [characteristicTuplesByKey2 objectForKeyedSubscript:v24];
+    characteristicTuplesByKey = [characteristicTuplesByKey2 objectForKeyedSubscript:v23];
 
     if (!characteristicTuplesByKey)
     {
-      v36 = objc_autoreleasePoolPush();
+      v35 = objc_autoreleasePoolPush();
       selfCopy3 = self;
-      v38 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+      v37 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
       {
         HMFGetLogIdentifier();
-        v39 = v77 = v36;
+        v38 = v76 = v35;
         if (v12)
         {
-          v40 = @"not post";
+          v39 = @"not post";
         }
 
         else
         {
-          v40 = @"post";
+          v39 = @"post";
         }
 
         instanceID2 = [(__CFString *)characteristicCopy instanceID];
         value4 = [(__CFString *)characteristicCopy value];
+        v42 = HMFBooleanToString();
         v43 = HMFBooleanToString();
-        v44 = HMFBooleanToString();
         *buf = 138544642;
-        v82 = v39;
-        v83 = 2112;
-        v84 = v40;
-        v85 = 2112;
-        v86 = instanceID2;
-        v87 = 2112;
-        v88 = value4;
-        v89 = 2112;
-        v90 = v43;
-        v91 = 2112;
-        v92 = v44;
-        _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_INFO, "%{public}@Should %@ bulletin for characteristic instanceId: %@ value:%@ includeChangeFromNil: %@ because tuple not present and initial update is %@", buf, 0x3Eu);
+        v81 = v38;
+        v82 = 2112;
+        v83 = v39;
+        v84 = 2112;
+        v85 = instanceID2;
+        v86 = 2112;
+        v87 = value4;
+        v88 = 2112;
+        v89 = v42;
+        v90 = 2112;
+        v91 = v43;
+        _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_INFO, "%{public}@Should %@ bulletin for characteristic instanceId: %@ value:%@ includeChangeFromNil: %@ because tuple not present and initial update is %@", buf, 0x3Eu);
 
-        v24 = v80;
-        v36 = v77;
+        v23 = v79;
+        v35 = v76;
       }
 
-      objc_autoreleasePoolPop(v36);
+      objc_autoreleasePoolPop(v35);
       characteristicTuplesByKey = 0;
       LOBYTE(changedByThisDevice2) = !v12;
       goto LABEL_60;
@@ -1090,18 +1080,18 @@ LABEL_60:
 
     targetStateNumber = [characteristicTuplesByKey targetStateNumber];
     stateNumber = [(__CFString *)characteristicCopy stateNumber];
-    v34 = HAPCompareStateNumberWithRollover();
+    v33 = HAPCompareStateNumberWithRollover();
 
-    if (v34 == 1)
+    if (v33 == 1)
     {
-      v35 = 1;
+      v34 = 1;
       goto LABEL_24;
     }
 
     targetValue = [characteristicTuplesByKey targetValue];
-    v52 = [HMDBulletinBoard presentationValueOfCharacteristic:characteristicCopy equalTo:targetValue];
+    v51 = [HMDBulletinBoard presentationValueOfCharacteristic:characteristicCopy equalTo:targetValue];
 
-    if (v52)
+    if (v51)
     {
       LOBYTE(changedByThisDevice2) = ([characteristicTuplesByKey changedByThisDevice] | v12) ^ 1;
       type5 = [(__CFString *)characteristicCopy type];
@@ -1110,7 +1100,7 @@ LABEL_60:
         value5 = [(__CFString *)characteristicCopy value];
         if ([value5 integerValue] == 2)
         {
-          v35 = v34;
+          v34 = v33;
           targetValue2 = [characteristicTuplesByKey targetValue];
           integerValue = [targetValue2 integerValue];
 
@@ -1120,18 +1110,18 @@ LABEL_60:
           }
 
 LABEL_50:
-          v24 = v80;
+          v23 = v79;
 LABEL_54:
           characteristicTuplesByKey3 = [(HMDBulletinBoard *)self characteristicTuplesByKey];
-          [characteristicTuplesByKey3 removeObjectForKey:v24];
+          [characteristicTuplesByKey3 removeObjectForKey:v23];
 
           goto LABEL_55;
         }
 
-        v24 = v80;
+        v23 = v79;
       }
 
-      v35 = v34;
+      v34 = v33;
 
       goto LABEL_54;
     }
@@ -1139,10 +1129,10 @@ LABEL_54:
     targetStateNumber2 = [characteristicTuplesByKey targetStateNumber];
     if (targetStateNumber2)
     {
-      v58 = targetStateNumber2;
+      v57 = targetStateNumber2;
       stateNumber2 = [(__CFString *)characteristicCopy stateNumber];
-      v60 = stateNumber2;
-      if (!stateNumber2 || v34)
+      v59 = stateNumber2;
+      if (!stateNumber2 || v33)
       {
       }
 
@@ -1152,18 +1142,18 @@ LABEL_54:
 
         if (!changedByThisDevice)
         {
-          v35 = 0;
+          v34 = 0;
           LOBYTE(changedByThisDevice2) = 0;
           goto LABEL_55;
         }
       }
     }
 
-    v35 = v34;
+    v34 = v33;
     targetValue3 = [characteristicTuplesByKey targetValue];
     if (targetValue3)
     {
-      v63 = targetValue3;
+      v62 = targetValue3;
       changedByThisDevice2 = [characteristicTuplesByKey changedByThisDevice];
 
       if (!changedByThisDevice2)
@@ -1177,53 +1167,53 @@ LABEL_54:
 LABEL_24:
       LOBYTE(changedByThisDevice2) = 0;
 LABEL_55:
-      v65 = objc_autoreleasePoolPush();
+      v64 = objc_autoreleasePoolPush();
       selfCopy4 = self;
-      v67 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
+      v66 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
       {
-        v78 = HMFGetLogIdentifier();
-        v68 = @"same/newer";
-        if (v35 == 1)
+        v77 = HMFGetLogIdentifier();
+        v67 = @"same/newer";
+        if (v34 == 1)
         {
-          v68 = @"older";
+          v67 = @"older";
         }
 
-        v75 = v68;
+        v74 = v67;
         targetValue4 = [characteristicTuplesByKey targetValue];
         targetStateNumber3 = [characteristicTuplesByKey targetStateNumber];
-        v76 = HMFBooleanToString();
+        v75 = HMFBooleanToString();
         [characteristicTuplesByKey changedByThisDevice];
-        v69 = HMFBooleanToString();
+        v68 = HMFBooleanToString();
         HMFBooleanToString();
-        v70 = v79 = selfCopy4;
+        v69 = v78 = selfCopy4;
+        v70 = HMFBooleanToString();
         v71 = HMFBooleanToString();
-        v72 = HMFBooleanToString();
         *buf = 138545410;
-        v82 = v78;
-        v83 = 2112;
-        v84 = v75;
-        v85 = 2112;
-        v86 = targetValue4;
-        v87 = 2112;
-        v88 = targetStateNumber3;
-        v89 = 2112;
-        v90 = v76;
-        v91 = 2112;
-        v92 = v69;
-        v93 = 2112;
-        v94 = v70;
-        v95 = 2112;
-        v96 = v71;
-        v97 = 2112;
-        v98 = v72;
-        _os_log_impl(&dword_2531F8000, v67, OS_LOG_TYPE_INFO, "%{public}@Should post bulletin: Target/Current - Current is: %@, Cached Target Value: %@ Cached Target State: %@ waitForTargetMatch: %@ changedByThisDevice: %@ initialUpdate: %@, shouldPostBulletin: %@, includeChangeFromNil: %@", buf, 0x5Cu);
+        v81 = v77;
+        v82 = 2112;
+        v83 = v74;
+        v84 = 2112;
+        v85 = targetValue4;
+        v86 = 2112;
+        v87 = targetStateNumber3;
+        v88 = 2112;
+        v89 = v75;
+        v90 = 2112;
+        v91 = v68;
+        v92 = 2112;
+        v93 = v69;
+        v94 = 2112;
+        v95 = v70;
+        v96 = 2112;
+        v97 = v71;
+        _os_log_impl(&dword_2531F8000, v66, OS_LOG_TYPE_INFO, "%{public}@Should post bulletin: Target/Current - Current is: %@, Cached Target Value: %@ Cached Target State: %@ waitForTargetMatch: %@ changedByThisDevice: %@ initialUpdate: %@, shouldPostBulletin: %@, includeChangeFromNil: %@", buf, 0x5Cu);
 
-        selfCopy4 = v79;
+        selfCopy4 = v78;
       }
 
-      objc_autoreleasePoolPop(v65);
-      v24 = v80;
+      objc_autoreleasePoolPop(v64);
+      v23 = v79;
       goto LABEL_60;
     }
 
@@ -1235,7 +1225,6 @@ LABEL_9:
   LOBYTE(changedByThisDevice2) = 0;
 LABEL_10:
 
-  v18 = *MEMORY[0x277D85DE8];
   return changedByThisDevice2 & 1;
 }
 
@@ -1365,7 +1354,7 @@ LABEL_31:
 
 - (void)_updateCharacteristicTupleFor:(id)for withCurrentType:(id)type changedByThisDevice:(BOOL)device
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   forCopy = for;
   typeCopy = type;
   workQueue = [(HMDBulletinBoard *)self workQueue];
@@ -1374,24 +1363,7 @@ LABEL_31:
   service = [forCopy service];
   v11 = [service findCharacteristicWithType:typeCopy];
   stateNumber = [forCopy stateNumber];
-  if (!stateNumber)
-  {
-    goto LABEL_7;
-  }
-
-  v13 = stateNumber;
-  stateNumber2 = [v11 stateNumber];
-
-  if (!stateNumber2)
-  {
-    goto LABEL_7;
-  }
-
-  stateNumber3 = [v11 stateNumber];
-  stateNumber4 = [forCopy stateNumber];
-  v17 = HAPCompareStateNumberWithRollover();
-
-  if (v17 == 1)
+  if (stateNumber && (v13 = stateNumber, [v11 stateNumber], v14 = objc_claimAutoreleasedReturnValue(), v14, v13, v14) && (objc_msgSend(v11, "stateNumber"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(forCopy, "stateNumber"), v16 = objc_claimAutoreleasedReturnValue(), v17 = HAPCompareStateNumberWithRollover(), v16, v15, v17 == 1))
   {
     v18 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -1399,14 +1371,14 @@ LABEL_31:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       v21 = HMFGetLogIdentifier();
-      stateNumber5 = [forCopy stateNumber];
-      stateNumber6 = [v11 stateNumber];
+      stateNumber2 = [forCopy stateNumber];
+      stateNumber3 = [v11 stateNumber];
       *buf = 138543874;
-      v40 = v21;
-      v41 = 2112;
-      v42 = stateNumber5;
-      v43 = 2112;
-      v44 = stateNumber6;
+      v39 = v21;
+      v40 = 2112;
+      v41 = stateNumber2;
+      v42 = 2112;
+      v43 = stateNumber3;
       _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@Not creating tuple because target state number is stale: %@:%@", buf, 0x20u);
     }
 
@@ -1415,8 +1387,7 @@ LABEL_31:
 
   else
   {
-LABEL_7:
-    v38 = v11;
+    v37 = v11;
     contextID = [service contextID];
     v25 = [HMDBulletinBoard characteristicTupleKeyFromServiceContextID:contextID currentType:typeCopy];
 
@@ -1444,15 +1415,13 @@ LABEL_7:
     }
 
     contextID2 = [service contextID];
-    stateNumber7 = [forCopy stateNumber];
+    stateNumber4 = [forCopy stateNumber];
     v35 = [HMDBulletinCharacteristicTuple tupleWithServiceContextID:"tupleWithServiceContextID:currentType:targetValue:targetStateNumber:changedByThisDevice:" currentType:contextID2 targetValue:? targetStateNumber:? changedByThisDevice:?];
     characteristicTuplesByKey2 = [(HMDBulletinBoard *)self characteristicTuplesByKey];
     [characteristicTuplesByKey2 setObject:v35 forKeyedSubscript:v25];
 
-    v11 = v38;
+    v11 = v37;
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_hasDuplicateBulletinForSnapshotCharacteristic:(id)characteristic
@@ -1644,7 +1613,7 @@ uint64_t __59__HMDBulletinBoard__hasDuplicateBulletinForCharacteristic___block_i
 
 - (id)_insertRequestWithTitle:(id)title snapshotData:(id)data message:(id)message requestIdentifier:(id)identifier date:(id)date bulletinType:(unint64_t)type actionURL:(id)l bulletinContext:(id)self0 actionContext:(id)self1 interruptionLevel:(unint64_t)self2 logEventTopic:(int64_t)self3
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   titleCopy = title;
   dataCopy = data;
   messageCopy = message;
@@ -1656,12 +1625,12 @@ uint64_t __59__HMDBulletinBoard__hasDuplicateBulletinForCharacteristic___block_i
   workQueue = [(HMDBulletinBoard *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v70 = contextCopy;
+  v69 = contextCopy;
   v24 = [contextCopy mutableCopy];
-  v69 = actionContextCopy;
+  v68 = actionContextCopy;
   if (!dataCopy)
   {
-    v68 = 0;
+    v67 = 0;
     if (!lCopy)
     {
       goto LABEL_13;
@@ -1686,7 +1655,7 @@ uint64_t __59__HMDBulletinBoard__hasDuplicateBulletinForCharacteristic___block_i
   {
     v31 = [MEMORY[0x277CBEBC0] fileURLWithPath:v30];
     fileManager = [(HMDBulletinBoard *)self fileManager];
-    v68 = [HMDBulletinBoard createImageAttachmentByHardLinkingFile:v31 fileManager:fileManager];
+    v67 = [HMDBulletinBoard createImageAttachmentByHardLinkingFile:v31 fileManager:fileManager];
 
     v33 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -1695,19 +1664,19 @@ uint64_t __59__HMDBulletinBoard__hasDuplicateBulletinForCharacteristic___block_i
     {
       v36 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v73 = v36;
-      v74 = 2112;
-      v75 = v68;
+      v72 = v36;
+      v73 = 2112;
+      v74 = v67;
       _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_INFO, "%{public}@Adding attachments: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v33);
-    actionContextCopy = v69;
+    actionContextCopy = v68;
   }
 
   else
   {
-    v68 = 0;
+    v67 = 0;
   }
 
   if (lCopy)
@@ -1720,9 +1689,9 @@ LABEL_10:
     {
       v40 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v73 = v40;
-      v74 = 2112;
-      v75 = lCopy;
+      v72 = v40;
+      v73 = 2112;
+      v74 = lCopy;
       _os_log_impl(&dword_2531F8000, v39, OS_LOG_TYPE_INFO, "%{public}@Setting default action with URL: %@", buf, 0x16u);
     }
 
@@ -1733,7 +1702,7 @@ LABEL_10:
 
 LABEL_13:
   v42 = 0;
-  v64 = lCopy;
+  v63 = lCopy;
   if (!type)
   {
     v55 = &HMDBulletinCategoryNormalType;
@@ -1816,60 +1785,59 @@ LABEL_26:
 
   [v24 addEntriesFromDictionary:legacyWatchOSCategoryMap_legacyWatchOSCategoryMap];
 LABEL_31:
-  v56 = [v70 hmf_stringForKey:@"home"];
+  v56 = [v69 hmf_stringForKey:@"home"];
   v57 = [(HMDBulletinBoard *)self threadIdentifierForGroupingWithHomeWithUUIDString:v56];
   notificationCenter = [(HMDBulletinBoard *)self notificationCenter];
-  LOBYTE(v63) = v42;
+  LOBYTE(v62) = v42;
   selfCopy3 = self;
-  v60 = [notificationCenter showNotificationWithTitle:titleCopy body:messageCopy threadIdentifier:v57 categoryIdentifier:v44 requestIdentifier:identifierCopy date:dateCopy attachments:v68 userInfo:v24 shouldIgnoreDoNotDisturb:v63 interruptionLevel:level logEventTopic:topic];
+  v60 = [notificationCenter showNotificationWithTitle:titleCopy body:messageCopy threadIdentifier:v57 categoryIdentifier:v44 requestIdentifier:identifierCopy date:dateCopy attachments:v67 userInfo:v24 shouldIgnoreDoNotDisturb:v62 interruptionLevel:level logEventTopic:topic];
 
   [(HMDBulletinBoard *)selfCopy3 addNotificationRequest:v60 forIdentifier:identifierCopy];
-  v61 = *MEMORY[0x277D85DE8];
 
   return v60;
 }
 
 - (void)removeImageFilesForNotificationRequests:(id)requests
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   requestsCopy = requests;
   workQueue = [(HMDBulletinBoard *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   obj = requestsCopy;
-  v6 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
+  v6 = [obj countByEnumeratingWithState:&v28 objects:v38 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v30;
+    v9 = *v29;
     v10 = *MEMORY[0x277CD26B8];
     *&v7 = 138543874;
-    v25 = v7;
+    v24 = v7;
     do
     {
       v11 = 0;
-      v26 = v8;
+      v25 = v8;
       do
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        content = [*(*(&v29 + 1) + 8 * v11) content];
+        content = [*(*(&v28 + 1) + 8 * v11) content];
         userInfo = [content userInfo];
         v14 = [userInfo objectForKeyedSubscript:v10];
 
         if (v14)
         {
           defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-          v28 = 0;
-          [defaultManager removeItemAtPath:v14 error:&v28];
-          v16 = v28;
+          v27 = 0;
+          [defaultManager removeItemAtPath:v14 error:&v27];
+          v16 = v27;
 
           v17 = objc_autoreleasePoolPush();
           selfCopy = self;
@@ -1880,18 +1848,18 @@ LABEL_31:
             v20 = v10;
             v21 = v9;
             v23 = v22 = self;
-            *buf = v25;
-            v34 = v23;
-            v35 = 2112;
-            v36 = v14;
-            v37 = 2112;
-            v38 = v16;
+            *buf = v24;
+            v33 = v23;
+            v34 = 2112;
+            v35 = v14;
+            v36 = 2112;
+            v37 = v16;
             _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Removed the bulletin snapshot file at %@ with result %@", buf, 0x20u);
 
             self = v22;
             v9 = v21;
             v10 = v20;
-            v8 = v26;
+            v8 = v25;
           }
 
           objc_autoreleasePoolPop(v17);
@@ -1901,13 +1869,11 @@ LABEL_31:
       }
 
       while (v8 != v11);
-      v8 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
+      v8 = [obj countByEnumeratingWithState:&v28 objects:v38 count:16];
     }
 
     while (v8);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertHH2AutoMigratedSuccessBulletin
@@ -1923,16 +1889,16 @@ LABEL_31:
 
 void __56__HMDBulletinBoard_insertHH2AutoMigratedSuccessBulletin__block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v23 = HMDLocalizedStringForKey(@"HH2_AUTO_MIGRATED_SUCCESS_TITLE");
+  v29 = *MEMORY[0x277D85DE8];
+  v22 = HMDLocalizedStringForKey(@"HH2_AUTO_MIGRATED_SUCCESS_TITLE");
   v2 = HMDLocalizedStringForKey(@"HH2_AUTO_MIGRATED_SUCCESS_BODY");
   v3 = [MEMORY[0x277CCAD78] UUID];
   v4 = [v3 UUIDString];
 
-  v22 = [MEMORY[0x277CD1878] tupleWithQueryType:7 uuidString:0];
+  v21 = [MEMORY[0x277CD1878] tupleWithQueryType:7 uuidString:0];
   v5 = generateURLForHomeKitObject();
   v6 = [MEMORY[0x277CBEB38] dictionary];
-  v21 = v5;
+  v20 = v5;
   v7 = [v5 absoluteString];
   [v6 setObject:v7 forKey:*MEMORY[0x277CD13D8]];
 
@@ -1948,23 +1914,22 @@ void __56__HMDBulletinBoard_insertHH2AutoMigratedSuccessBulletin__block_invoke(u
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v25 = v14;
-    v26 = 2112;
-    v27 = v23;
-    v28 = 2112;
-    v29 = v2;
+    v24 = v14;
+    v25 = 2112;
+    v26 = v22;
+    v27 = 2112;
+    v28 = v2;
     _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Inserting new bulletin with title: %@, message: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v11);
   v15 = [*(a1 + 32) notificationCenter];
   v16 = [MEMORY[0x277CBEAA8] date];
-  v17 = [v6 copy];
-  LOBYTE(v20) = 0;
-  v18 = [v15 showNotificationWithTitle:v23 body:v2 threadIdentifier:v10 categoryIdentifier:@"HMDBBNormalType" requestIdentifier:v4 date:v16 attachments:0 userInfo:v17 shouldIgnoreDoNotDisturb:v20 interruptionLevel:1 logEventTopic:23];
+  v17 = objc_msgSend_copy(v6);
+  LOBYTE(v19) = 0;
+  v18 = [v15 showNotificationWithTitle:v22 body:v2 threadIdentifier:v10 categoryIdentifier:@"HMDBBNormalType" requestIdentifier:v4 date:v16 attachments:0 userInfo:v17 shouldIgnoreDoNotDisturb:v19 interruptionLevel:1 logEventTopic:23];
 
   [*(a1 + 32) addNotificationRequest:v18 forIdentifier:v4];
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertHH2UpgradeRecommendationBulletin:(unint64_t)bulletin
@@ -1981,8 +1946,8 @@ void __56__HMDBulletinBoard_insertHH2AutoMigratedSuccessBulletin__block_invoke(u
 
 void __59__HMDBulletinBoard_insertHH2UpgradeRecommendationBulletin___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v22 = HMDLocalizedStringForKey(@"HH2_UPGRADE_REQUIRED_TITLE");
+  v28 = *MEMORY[0x277D85DE8];
+  v21 = HMDLocalizedStringForKey(@"HH2_UPGRADE_REQUIRED_TITLE");
   v2 = *(a1 + 40);
   if (v2 > 2)
   {
@@ -2014,28 +1979,27 @@ void __59__HMDBulletinBoard_insertHH2UpgradeRecommendationBulletin___block_invok
   {
     v15 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v24 = v15;
-    v25 = 2112;
-    v26 = v22;
-    v27 = 2112;
-    v28 = v3;
+    v23 = v15;
+    v24 = 2112;
+    v25 = v21;
+    v26 = 2112;
+    v27 = v3;
     _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Inserting new bulletin with title: %@, message: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v12);
   v16 = [*(a1 + 32) notificationCenter];
   v17 = [MEMORY[0x277CBEAA8] date];
-  v18 = [v7 copy];
-  LOBYTE(v21) = 0;
-  v19 = [v16 showNotificationWithTitle:v22 body:v3 threadIdentifier:v11 categoryIdentifier:@"HMDBBNormalType" requestIdentifier:v5 date:v17 attachments:0 userInfo:v18 shouldIgnoreDoNotDisturb:v21 interruptionLevel:1 logEventTopic:23];
+  v18 = objc_msgSend_copy(v7);
+  LOBYTE(v20) = 0;
+  v19 = [v16 showNotificationWithTitle:v21 body:v3 threadIdentifier:v11 categoryIdentifier:@"HMDBBNormalType" requestIdentifier:v5 date:v17 attachments:0 userInfo:v18 shouldIgnoreDoNotDisturb:v20 interruptionLevel:1 logEventTopic:23];
 
   [*(a1 + 32) addNotificationRequest:v19 forIdentifier:v5];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)messageForWindowCharacteristic:(id)characteristic personName:(id)name
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   nameCopy = name;
   workQueue = [(HMDBulletinBoard *)self workQueue];
@@ -2083,17 +2047,17 @@ LABEL_12:
 
   v19 = @"BULLETIN_WINDOW_ACTION_CLOSED";
 LABEL_7:
-  v48 = v15;
+  v47 = v15;
   if (nameCopy)
   {
     v20 = [(__CFString *)v19 stringByAppendingString:@"_WITH_PERSON"];
     v21 = MEMORY[0x277CCACA8];
-    v49 = v20;
+    v48 = v20;
     v22 = HMDLocalizedStringForKey(v20);
-    v52 = 0;
+    v51 = 0;
     composedName = [v15 composedName];
-    nameCopy = [v21 localizedStringWithValidatedFormat:v22 validFormatSpecifiers:@"%@ %@" error:&v52, composedName, nameCopy];
-    v25 = v52;
+    nameCopy = [v21 localizedStringWithValidatedFormat:v22 validFormatSpecifiers:@"%@ %@" error:&v51, composedName, nameCopy];
+    v25 = v51;
 
     if (!nameCopy)
     {
@@ -2103,21 +2067,21 @@ LABEL_7:
       {
         v28 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v54 = v28;
-        v55 = 2112;
-        v29 = v49;
-        v56 = v49;
-        v57 = 2112;
-        v58 = @"%@ %@";
-        v59 = 2112;
-        v60 = v25;
+        v53 = v28;
+        v54 = 2112;
+        v29 = v48;
+        v55 = v48;
+        v56 = 2112;
+        v57 = @"%@ %@";
+        v58 = 2112;
+        v59 = v25;
 LABEL_18:
         _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
 
 LABEL_20:
         objc_autoreleasePoolPop(v26);
         v35 = 0;
-        v49 = v29;
+        v48 = v29;
         nameCopy = v29;
         goto LABEL_21;
       }
@@ -2130,12 +2094,12 @@ LABEL_20:
   {
     v31 = [(__CFString *)v19 stringByAppendingString:@"_WITHOUT_PERSON"];
     v32 = MEMORY[0x277CCACA8];
-    v49 = v31;
+    v48 = v31;
     v33 = HMDLocalizedStringForKey(v31);
-    v51 = 0;
+    v50 = 0;
     composedName2 = [v15 composedName];
-    nameCopy = [v32 localizedStringWithValidatedFormat:v33 validFormatSpecifiers:@"%@" error:&v51, composedName2];
-    v25 = v51;
+    nameCopy = [v32 localizedStringWithValidatedFormat:v33 validFormatSpecifiers:@"%@" error:&v50, composedName2];
+    v25 = v50;
 
     if (!nameCopy)
     {
@@ -2145,19 +2109,19 @@ LABEL_20:
       {
         v28 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v54 = v28;
-        v55 = 2112;
-        v29 = v49;
-        v56 = v49;
-        v57 = 2112;
-        v58 = @"%@";
-        v59 = 2112;
-        v60 = v25;
+        v53 = v28;
+        v54 = 2112;
+        v29 = v48;
+        v55 = v48;
+        v56 = 2112;
+        v57 = @"%@";
+        v58 = 2112;
+        v59 = v25;
         goto LABEL_18;
       }
 
 LABEL_19:
-      v29 = v49;
+      v29 = v48;
       goto LABEL_20;
     }
   }
@@ -2168,9 +2132,9 @@ LABEL_21:
 
   v37 = MEMORY[0x277CCACA8];
   v38 = HMDLocalizedStringForKey(@"BULLETIN_WINDOW_MESSAGE");
-  v50 = 0;
-  v39 = [v37 localizedStringWithValidatedFormat:v38 validFormatSpecifiers:@"%@" error:&v50, v36];
-  v40 = v50;
+  v49 = 0;
+  v39 = [v37 localizedStringWithValidatedFormat:v38 validFormatSpecifiers:@"%@" error:&v49, v36];
+  v40 = v49;
 
   v41 = v39;
   if (!v39)
@@ -2180,18 +2144,18 @@ LABEL_21:
     if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v44 = v47 = v42;
+      v44 = v46 = v42;
       *buf = 138544130;
-      v54 = v44;
-      v55 = 2112;
-      v56 = @"BULLETIN_WINDOW_MESSAGE";
-      v57 = 2112;
-      v58 = @"%@";
-      v59 = 2112;
-      v60 = v40;
+      v53 = v44;
+      v54 = 2112;
+      v55 = @"BULLETIN_WINDOW_MESSAGE";
+      v56 = 2112;
+      v57 = @"%@";
+      v58 = 2112;
+      v59 = v40;
       _os_log_impl(&dword_2531F8000, v43, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
 
-      v42 = v47;
+      v42 = v46;
     }
 
     objc_autoreleasePoolPop(v42);
@@ -2200,17 +2164,15 @@ LABEL_21:
 
   v30 = v41;
 
-  v15 = v48;
+  v15 = v47;
 LABEL_26:
-
-  v45 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
 
 - (id)messageForSecuritySystemCharacteristic:(id)characteristic personName:(id)name
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   nameCopy = name;
   workQueue = [(HMDBulletinBoard *)self workQueue];
@@ -2280,12 +2242,12 @@ LABEL_15:
   {
     v20 = [(__CFString *)v19 stringByAppendingString:@"_WITH_PERSON"];
     v21 = MEMORY[0x277CCACA8];
-    v46 = v20;
+    v45 = v20;
     v22 = HMDLocalizedStringForKey(v20);
-    v49 = 0;
+    v48 = 0;
     composedName = [v15 composedName];
-    nameCopy = [v21 localizedStringWithValidatedFormat:v22 validFormatSpecifiers:@"%@ %@" error:&v49, composedName, nameCopy];
-    v25 = v49;
+    nameCopy = [v21 localizedStringWithValidatedFormat:v22 validFormatSpecifiers:@"%@ %@" error:&v48, composedName, nameCopy];
+    v25 = v48;
 
     if (!nameCopy)
     {
@@ -2295,21 +2257,21 @@ LABEL_15:
       {
         v28 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v51 = v28;
-        v52 = 2112;
-        nameCopy = v46;
-        v53 = v46;
-        v54 = 2112;
-        v55 = @"%@ %@";
-        v56 = 2112;
-        v57 = v25;
+        v50 = v28;
+        v51 = 2112;
+        nameCopy = v45;
+        v52 = v45;
+        v53 = 2112;
+        v54 = @"%@ %@";
+        v55 = 2112;
+        v56 = v25;
 LABEL_24:
         _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
 
 LABEL_26:
         objc_autoreleasePoolPop(v26);
         v34 = 0;
-        v46 = nameCopy;
+        v45 = nameCopy;
         goto LABEL_27;
       }
 
@@ -2321,12 +2283,12 @@ LABEL_26:
   {
     v30 = [(__CFString *)v19 stringByAppendingString:@"_WITHOUT_PERSON"];
     v31 = MEMORY[0x277CCACA8];
-    v46 = v30;
+    v45 = v30;
     v32 = HMDLocalizedStringForKey(v30);
-    v48 = 0;
+    v47 = 0;
     composedName2 = [v15 composedName];
-    nameCopy = [v31 localizedStringWithValidatedFormat:v32 validFormatSpecifiers:@"%@" error:&v48, composedName2];
-    v25 = v48;
+    nameCopy = [v31 localizedStringWithValidatedFormat:v32 validFormatSpecifiers:@"%@" error:&v47, composedName2];
+    v25 = v47;
 
     if (!nameCopy)
     {
@@ -2336,19 +2298,19 @@ LABEL_26:
       {
         v28 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v51 = v28;
-        v52 = 2112;
-        nameCopy = v46;
-        v53 = v46;
-        v54 = 2112;
-        v55 = @"%@";
-        v56 = 2112;
-        v57 = v25;
+        v50 = v28;
+        v51 = 2112;
+        nameCopy = v45;
+        v52 = v45;
+        v53 = 2112;
+        v54 = @"%@";
+        v55 = 2112;
+        v56 = v25;
         goto LABEL_24;
       }
 
 LABEL_25:
-      nameCopy = v46;
+      nameCopy = v45;
       goto LABEL_26;
     }
   }
@@ -2359,9 +2321,9 @@ LABEL_27:
 
   v36 = MEMORY[0x277CCACA8];
   v37 = HMDLocalizedStringForKey(@"BULLETIN_SECURITY_SYSTEM_MESSAGE");
-  v47 = 0;
-  v38 = [v36 localizedStringWithValidatedFormat:v37 validFormatSpecifiers:@"%@" error:&v47, v35];
-  v39 = v47;
+  v46 = 0;
+  v38 = [v36 localizedStringWithValidatedFormat:v37 validFormatSpecifiers:@"%@" error:&v46, v35];
+  v39 = v46;
 
   v40 = v38;
   if (!v38)
@@ -2372,13 +2334,13 @@ LABEL_27:
     {
       v43 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v51 = v43;
-      v52 = 2112;
-      v53 = @"BULLETIN_SECURITY_SYSTEM_MESSAGE";
-      v54 = 2112;
-      v55 = @"%@";
-      v56 = 2112;
-      v57 = v39;
+      v50 = v43;
+      v51 = 2112;
+      v52 = @"BULLETIN_SECURITY_SYSTEM_MESSAGE";
+      v53 = 2112;
+      v54 = @"%@";
+      v55 = 2112;
+      v56 = v39;
       _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
     }
 
@@ -2389,14 +2351,13 @@ LABEL_27:
   v29 = v40;
 
 LABEL_32:
-  v44 = *MEMORY[0x277D85DE8];
 
   return v29;
 }
 
 - (id)messageForGarageDoorCharacteristic:(id)characteristic personName:(id)name
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   nameCopy = name;
   workQueue = [(HMDBulletinBoard *)self workQueue];
@@ -2444,17 +2405,17 @@ LABEL_8:
 
   v19 = @"BULLETIN_DOOR_ACTION_OPENED";
 LABEL_10:
-  v48 = v15;
+  v47 = v15;
   if (nameCopy)
   {
     v21 = [(__CFString *)v19 stringByAppendingString:@"_WITH_PERSON"];
     v22 = MEMORY[0x277CCACA8];
-    v49 = v21;
+    v48 = v21;
     v23 = HMDLocalizedStringForKey(v21);
-    v52 = 0;
+    v51 = 0;
     composedName = [v15 composedName];
-    nameCopy = [v22 localizedStringWithValidatedFormat:v23 validFormatSpecifiers:@"%@ %@" error:&v52, composedName, nameCopy];
-    v26 = v52;
+    nameCopy = [v22 localizedStringWithValidatedFormat:v23 validFormatSpecifiers:@"%@ %@" error:&v51, composedName, nameCopy];
+    v26 = v51;
 
     if (!nameCopy)
     {
@@ -2464,21 +2425,21 @@ LABEL_10:
       {
         v29 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v54 = v29;
-        v55 = 2112;
-        v30 = v49;
-        v56 = v49;
-        v57 = 2112;
-        v58 = @"%@ %@";
-        v59 = 2112;
-        v60 = v26;
+        v53 = v29;
+        v54 = 2112;
+        v30 = v48;
+        v55 = v48;
+        v56 = 2112;
+        v57 = @"%@ %@";
+        v58 = 2112;
+        v59 = v26;
 LABEL_18:
         _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
 
 LABEL_20:
         objc_autoreleasePoolPop(v27);
         v35 = 0;
-        v49 = v30;
+        v48 = v30;
         nameCopy = v30;
         goto LABEL_21;
       }
@@ -2491,12 +2452,12 @@ LABEL_20:
   {
     v31 = [(__CFString *)v19 stringByAppendingString:@"_WITHOUT_PERSON"];
     v32 = MEMORY[0x277CCACA8];
-    v49 = v31;
+    v48 = v31;
     v33 = HMDLocalizedStringForKey(v31);
-    v51 = 0;
+    v50 = 0;
     composedName2 = [v15 composedName];
-    nameCopy = [v32 localizedStringWithValidatedFormat:v33 validFormatSpecifiers:@"%@" error:&v51, composedName2];
-    v26 = v51;
+    nameCopy = [v32 localizedStringWithValidatedFormat:v33 validFormatSpecifiers:@"%@" error:&v50, composedName2];
+    v26 = v50;
 
     if (!nameCopy)
     {
@@ -2506,19 +2467,19 @@ LABEL_20:
       {
         v29 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v54 = v29;
-        v55 = 2112;
-        v30 = v49;
-        v56 = v49;
-        v57 = 2112;
-        v58 = @"%@";
-        v59 = 2112;
-        v60 = v26;
+        v53 = v29;
+        v54 = 2112;
+        v30 = v48;
+        v55 = v48;
+        v56 = 2112;
+        v57 = @"%@";
+        v58 = 2112;
+        v59 = v26;
         goto LABEL_18;
       }
 
 LABEL_19:
-      v30 = v49;
+      v30 = v48;
       goto LABEL_20;
     }
   }
@@ -2529,9 +2490,9 @@ LABEL_21:
 
   v37 = MEMORY[0x277CCACA8];
   v38 = HMDLocalizedStringForKey(@"BULLETIN_DOOR_MESSAGE");
-  v50 = 0;
-  v39 = [v37 localizedStringWithValidatedFormat:v38 validFormatSpecifiers:@"%@" error:&v50, v36];
-  v40 = v50;
+  v49 = 0;
+  v39 = [v37 localizedStringWithValidatedFormat:v38 validFormatSpecifiers:@"%@" error:&v49, v36];
+  v40 = v49;
 
   v41 = v39;
   if (!v39)
@@ -2541,18 +2502,18 @@ LABEL_21:
     if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v44 = v47 = v42;
+      v44 = v46 = v42;
       *buf = 138544130;
-      v54 = v44;
-      v55 = 2112;
-      v56 = @"BULLETIN_DOOR_MESSAGE";
-      v57 = 2112;
-      v58 = @"%@";
-      v59 = 2112;
-      v60 = v40;
+      v53 = v44;
+      v54 = 2112;
+      v55 = @"BULLETIN_DOOR_MESSAGE";
+      v56 = 2112;
+      v57 = @"%@";
+      v58 = 2112;
+      v59 = v40;
       _os_log_impl(&dword_2531F8000, v43, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
 
-      v42 = v47;
+      v42 = v46;
     }
 
     objc_autoreleasePoolPop(v42);
@@ -2561,10 +2522,8 @@ LABEL_21:
 
   v20 = v41;
 
-  v15 = v48;
+  v15 = v47;
 LABEL_26:
-
-  v45 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -2599,7 +2558,7 @@ LABEL_26:
 
 void __74__HMDBulletinBoard_resolveDisplayNameForChangedCharacteristic_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -2612,9 +2571,9 @@ void __74__HMDBulletinBoard_resolveDisplayNameForChangedCharacteristic_completio
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v11;
-      v23 = 2112;
-      v24 = v5;
+      v21 = v11;
+      v22 = 2112;
+      v23 = v5;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Resolved notification context to result: %@", buf, 0x16u);
     }
 
@@ -2625,12 +2584,12 @@ void __74__HMDBulletinBoard_resolveDisplayNameForChangedCharacteristic_completio
     {
       v13 = [*(a1 + 40) home];
       v14 = [v13 users];
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __74__HMDBulletinBoard_resolveDisplayNameForChangedCharacteristic_completion___block_invoke_239;
-      v19[3] = &unk_27972E540;
-      v20 = v5;
-      v15 = [v14 na_firstObjectPassingTest:v19];
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __74__HMDBulletinBoard_resolveDisplayNameForChangedCharacteristic_completion___block_invoke_239;
+      v18[3] = &unk_27972E540;
+      v19 = v5;
+      v15 = [v14 na_firstObjectPassingTest:v18];
 
       [v15 isCurrentUser];
     }
@@ -2645,17 +2604,15 @@ void __74__HMDBulletinBoard_resolveDisplayNameForChangedCharacteristic_completio
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v16;
-      v23 = 2112;
-      v24 = v6;
+      v21 = v16;
+      v22 = 2112;
+      v23 = v6;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Failed to resolve notification context with error: %@, creating bulletin without display name", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
     (*(*(a1 + 56) + 16))();
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __74__HMDBulletinBoard_resolveDisplayNameForChangedCharacteristic_completion___block_invoke_239(uint64_t a1, void *a2)
@@ -2669,7 +2626,7 @@ uint64_t __74__HMDBulletinBoard_resolveDisplayNameForChangedCharacteristic_compl
 
 - (void)insertBulletinForChangedSecureClassCharacteristic:(id)characteristic
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   workQueue = [(HMDBulletinBoard *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -2705,13 +2662,13 @@ uint64_t __74__HMDBulletinBoard_resolveDisplayNameForChangedCharacteristic_compl
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v54 = v18;
-        v55 = 2112;
-        v56 = v9;
-        v57 = 2112;
-        v58 = v10;
-        v59 = 2112;
-        v60 = v33;
+        v53 = v18;
+        v54 = 2112;
+        v55 = v9;
+        v56 = 2112;
+        v57 = v10;
+        v58 = 2112;
+        v59 = v33;
         _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Cannot generate action URL with homeUUID: %@ serviceUUID: %@ characteristicUUID: %@", buf, 0x2Au);
       }
 
@@ -2720,44 +2677,44 @@ uint64_t __74__HMDBulletinBoard_resolveDisplayNameForChangedCharacteristic_compl
 
     else
     {
-      v41 = [MEMORY[0x277CD1878] tupleWithQueryType:0 uuidString:v9];
-      v39 = [MEMORY[0x277CD1878] tupleWithQueryType:2 uuidString:v10];
-      v40 = [MEMORY[0x277CD1878] tupleWithQueryType:3 uuidString:v12];
+      v40 = [MEMORY[0x277CD1878] tupleWithQueryType:0 uuidString:v9];
+      v38 = [MEMORY[0x277CD1878] tupleWithQueryType:2 uuidString:v10];
+      v39 = [MEMORY[0x277CD1878] tupleWithQueryType:3 uuidString:v12];
       v23 = MEMORY[0x277CBEB98];
-      v52[0] = v41;
-      v52[1] = v40;
-      [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
-      v24 = v38 = v12;
+      v51[0] = v40;
+      v51[1] = v39;
+      [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
+      v24 = v37 = v12;
       v25 = [v23 setWithArray:v24];
-      v36 = generateURLForHomeKitObject();
+      v35 = generateURLForHomeKitObject();
 
       name = [home name];
       date = [MEMORY[0x277CBEAA8] date];
       [MEMORY[0x277CCAD78] UUID];
-      v27 = v42 = v9;
+      v27 = v41 = v9;
       uUIDString = [v27 UUIDString];
 
       v29 = [HMDBulletinBoard interruptionLevelForChangedCharacteristic:characteristicCopy];
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 3221225472;
-      v44[2] = __70__HMDBulletinBoard_insertBulletinForChangedSecureClassCharacteristic___block_invoke;
-      v44[3] = &unk_2797245D8;
-      v44[4] = self;
-      v45 = characteristicCopy;
-      v46 = v8;
-      v47 = name;
-      v48 = uUIDString;
-      v49 = date;
-      v50 = v36;
-      v51 = v29;
-      v37 = v36;
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __70__HMDBulletinBoard_insertBulletinForChangedSecureClassCharacteristic___block_invoke;
+      v43[3] = &unk_2797245D8;
+      v43[4] = self;
+      v44 = characteristicCopy;
+      v45 = v8;
+      v46 = name;
+      v47 = uUIDString;
+      v48 = date;
+      v49 = v35;
+      v50 = v29;
+      v36 = v35;
       v30 = date;
       v31 = uUIDString;
       v32 = name;
-      v33 = v38;
-      [(HMDBulletinBoard *)self resolveDisplayNameForChangedCharacteristic:v45 completion:v44];
+      v33 = v37;
+      [(HMDBulletinBoard *)self resolveDisplayNameForChangedCharacteristic:v44 completion:v43];
 
-      v9 = v42;
+      v9 = v41;
     }
   }
 
@@ -2770,16 +2727,14 @@ uint64_t __74__HMDBulletinBoard_resolveDisplayNameForChangedCharacteristic_compl
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v54 = v22;
-      v55 = 2112;
-      v56 = characteristicCopy;
+      v53 = v22;
+      v54 = 2112;
+      v55 = characteristicCopy;
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Not creating a bulletin for characteristic because home is nil: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v19);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __70__HMDBulletinBoard_insertBulletinForChangedSecureClassCharacteristic___block_invoke(uint64_t a1, void *a2, char a3)
@@ -2812,7 +2767,7 @@ void __70__HMDBulletinBoard_insertBulletinForChangedSecureClassCharacteristic___
 
 void __70__HMDBulletinBoard_insertBulletinForChangedSecureClassCharacteristic___block_invoke_2(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(a1 + 104) != 1)
   {
@@ -2841,11 +2796,11 @@ LABEL_23:
           v24 = HMFGetLogIdentifier();
           v25 = *(a1 + 56);
           *buf = 138543874;
-          v34 = v24;
-          v35 = 2112;
-          v36 = v11;
-          v37 = 2112;
-          v38 = v25;
+          v33 = v24;
+          v34 = 2112;
+          v35 = v11;
+          v36 = 2112;
+          v37 = v25;
           _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Inserting new bulletin with message: %@, userInfo: %@", buf, 0x20u);
         }
 
@@ -2892,9 +2847,9 @@ LABEL_27:
         v30 = HMFGetLogIdentifier();
         v31 = *(a1 + 48);
         *buf = 138543618;
-        v34 = v30;
-        v35 = 2112;
-        v36 = v31;
+        v33 = v30;
+        v34 = 2112;
+        v35 = v31;
         _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_DEBUG, "%{public}@Characteristic value does not require bulletin: %@", buf, 0x16u);
       }
 
@@ -2957,19 +2912,17 @@ LABEL_19:
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v34 = v6;
+    v33 = v6;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Resolved notification context to current user, skipping bulletin", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
 LABEL_31:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_insertImageBulletinsForChangedCharacteristics:(id)characteristics snapshotData:(id)data completion:(id)completion
 {
-  v186 = *MEMORY[0x277D85DE8];
+  v184 = *MEMORY[0x277D85DE8];
   characteristicsCopy = characteristics;
   dataCopy = data;
   completionCopy = completion;
@@ -2977,41 +2930,40 @@ LABEL_31:
   dispatch_assert_queue_V2(workQueue);
 
   array = [MEMORY[0x277CBEB18] array];
+  v168 = 0u;
+  v169 = 0u;
   v170 = 0u;
   v171 = 0u;
-  v172 = 0u;
-  v173 = 0u;
   v10 = characteristicsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v170 objects:v185 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v168 objects:v183 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v171;
-    v164 = *MEMORY[0x277CFE660];
-    v163 = *MEMORY[0x277CFE880];
-    v149 = *MEMORY[0x277CD26B8];
-    v147 = *MEMORY[0x277CCF360];
-    v148 = *MEMORY[0x277CCF308];
-    v146 = *MEMORY[0x277CCF328];
-    v133 = *MEMORY[0x277CCF340];
-    v132 = *MEMORY[0x277CCF320];
-    v131 = *MEMORY[0x277CFE840];
-    v134 = *MEMORY[0x277CCF358];
+    v13 = *v169;
+    v162 = *MEMORY[0x277CFE660];
+    v161 = *MEMORY[0x277CFE880];
+    v147 = *MEMORY[0x277CD26B8];
+    v146 = *MEMORY[0x277CCF308];
+    v145 = *MEMORY[0x277CCF328];
+    v132 = *MEMORY[0x277CCF340];
+    v131 = *MEMORY[0x277CCF320];
+    v130 = *MEMORY[0x277CFE840];
+    v133 = *MEMORY[0x277CCF358];
     selfCopy = self;
-    v153 = v10;
-    v165 = *v171;
+    v151 = v10;
+    v163 = *v169;
     do
     {
       v14 = 0;
-      v158 = v12;
+      v156 = v12;
       do
       {
-        if (*v171 != v13)
+        if (*v169 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v170 + 1) + 8 * v14);
+        v15 = *(*(&v168 + 1) + 8 * v14);
         value = [v15 value];
         if (value)
         {
@@ -3028,12 +2980,12 @@ LABEL_9:
             {
               v27 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v178 = v27;
-              v179 = 2112;
-              v180 = v15;
+              v176 = v27;
+              v177 = 2112;
+              v178 = v15;
               _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@Bulletin board changed characteristic's service or service name is nil: %@", buf, 0x16u);
 
-              v13 = v165;
+              v13 = v163;
             }
 
             objc_autoreleasePoolPop(v24);
@@ -3041,7 +2993,7 @@ LABEL_9:
           }
 
           type = [v20 type];
-          v23 = [type isEqual:v163];
+          v23 = [type isEqual:v161];
 
           if (v23)
           {
@@ -3066,24 +3018,24 @@ LABEL_16:
               service2 = [v15 service];
               bulletinBoardNotification2 = [service2 bulletinBoardNotification];
               *buf = 138543874;
-              v178 = v55;
+              v176 = v55;
+              v177 = 2112;
+              v178 = v15;
               v179 = 2112;
-              v180 = v15;
-              v181 = 2112;
-              v182 = bulletinBoardNotification2;
+              v180 = bulletinBoardNotification2;
               _os_log_impl(&dword_2531F8000, v36, OS_LOG_TYPE_INFO, "%{public}@Not posting bulletin for %@ as it is not enabled: %@", buf, 0x20u);
             }
 
             objc_autoreleasePoolPop(v34);
-            v58 = [dataCopy objectForKeyedSubscript:v149];
+            v58 = [dataCopy objectForKeyedSubscript:v147];
 
             if (v58)
             {
               defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-              v60 = [dataCopy objectForKeyedSubscript:v149];
-              v166 = 0;
-              [defaultManager removeItemAtPath:v60 error:&v166];
-              v61 = v166;
+              v60 = [dataCopy objectForKeyedSubscript:v147];
+              v164 = 0;
+              [defaultManager removeItemAtPath:v60 error:&v164];
+              v61 = v164;
 
               v62 = objc_autoreleasePoolPush();
               v63 = selfCopy3;
@@ -3092,20 +3044,20 @@ LABEL_16:
               {
                 v65 = HMFGetLogIdentifier();
                 *buf = 138543874;
-                v178 = v65;
+                v176 = v65;
+                v177 = 2112;
+                v178 = dataCopy;
                 v179 = 2112;
-                v180 = dataCopy;
-                v181 = 2112;
-                v182 = v61;
+                v180 = v61;
                 _os_log_impl(&dword_2531F8000, v64, OS_LOG_TYPE_INFO, "%{public}@Removed the bulletin snapshot file at %@ as it not being posted with result %@", buf, 0x20u);
               }
 
               objc_autoreleasePoolPop(v62);
             }
 
-            v10 = v153;
-            v12 = v158;
-            v13 = v165;
+            v10 = v151;
+            v12 = v156;
+            v13 = v163;
             goto LABEL_16;
           }
 
@@ -3113,9 +3065,9 @@ LABEL_16:
           {
             v38 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v178 = v38;
-            v179 = 2112;
-            v180 = v15;
+            v176 = v38;
+            v177 = 2112;
+            v178 = v15;
             _os_log_impl(&dword_2531F8000, v36, OS_LOG_TYPE_INFO, "%{public}@Posting bulletin for changed characteristic: %@", buf, 0x16u);
           }
 
@@ -3124,32 +3076,32 @@ LABEL_16:
           bulletinBoardNotification3 = [v20 bulletinBoardNotification];
           notificationServiceGroup = [bulletinBoardNotification3 notificationServiceGroup];
 
-          v152 = notificationServiceGroup;
+          v150 = notificationServiceGroup;
           cameraProfiles = [notificationServiceGroup cameraProfiles];
           firstObject = [cameraProfiles firstObject];
 
           bulletinContext = [v15 bulletinContext];
           v44 = [bulletinContext mutableCopy];
 
-          v159 = [HMDBulletinCategory bulletinReasonForChangedCharacteristic:v15];
+          v157 = [HMDBulletinCategory bulletinReasonForChangedCharacteristic:v15];
           [v44 setObject:? forKeyedSubscript:?];
           contextSPIUniqueIdentifier = [firstObject contextSPIUniqueIdentifier];
           uUIDString = [contextSPIUniqueIdentifier UUIDString];
-          [v44 setObject:uUIDString forKeyedSubscript:v148];
+          [v44 setObject:uUIDString forKeyedSubscript:v146];
 
-          v150 = selfCopy3;
-          v157 = [(HMDBulletinBoard *)selfCopy3 titleNameForChangedCharacteristic:v15];
+          v148 = selfCopy3;
+          v155 = [(HMDBulletinBoard *)selfCopy3 titleNameForChangedCharacteristic:v15];
           bulletinBoardNotification4 = [v20 bulletinBoardNotification];
           notificationServiceGroup2 = [bulletinBoardNotification4 notificationServiceGroup];
-          v155 = firstObject;
+          v153 = firstObject;
           uniqueIdentifier = [firstObject uniqueIdentifier];
           v50 = [notificationServiceGroup2 actionContextForCameraProfileID:uniqueIdentifier];
 
           v51 = v50;
           v52 = [v50 objectForKey:@"categoryID"];
 
-          v160 = v44;
-          v154 = v50;
+          v158 = v44;
+          v152 = v50;
           if (v52)
           {
             if (dataCopy)
@@ -3163,13 +3115,13 @@ LABEL_16:
               v54 = 0;
             }
 
-            v75 = v157;
-            v74 = v150;
-            v76 = [v160 hmf_stringForKey:v146];
+            v75 = v155;
+            v74 = v148;
+            v76 = [v158 hmf_stringForKey:v145];
             if (v76)
             {
               v66 = v76;
-              v77 = [v51 hmf_stringForKey:v148];
+              v77 = [v51 hmf_stringForKey:v146];
               if (v77)
               {
                 v67 = v77;
@@ -3181,21 +3133,21 @@ LABEL_43:
 
                 v79 = [MEMORY[0x277CBEB98] set];
                 type2 = [v15 type];
-                v143 = v54;
-                if (![type2 isEqualToString:v164])
+                v142 = v54;
+                if (![type2 isEqualToString:v162])
                 {
                   v99 = dataCopy;
                   goto LABEL_72;
                 }
 
                 type3 = [v20 type];
-                v82 = [type3 isEqualToString:v131];
+                v82 = [type3 isEqualToString:v130];
 
                 if (v82)
                 {
                   doorbellBulletinUtilities = [(HMDBulletinBoard *)v74 doorbellBulletinUtilities];
                   v84 = date;
-                  v85 = [doorbellBulletinUtilities significantEventsRelevantToDoorbellPressAtDate:date forCameraProfile:v155];
+                  v85 = [doorbellBulletinUtilities significantEventsRelevantToDoorbellPressAtDate:date forCameraProfile:v153];
 
                   if ([v85 hmf_isEmpty])
                   {
@@ -3206,21 +3158,21 @@ LABEL_43:
                     {
                       v89 = HMFGetLogIdentifier();
                       *buf = 138543362;
-                      v178 = v89;
+                      v176 = v89;
                       _os_log_impl(&dword_2531F8000, v88, OS_LOG_TYPE_INFO, "%{public}@Did not find significant events for doorbell press so fetching from the cloud", buf, 0xCu);
                     }
 
                     objc_autoreleasePoolPop(v86);
                     doorbellBulletinUtilities2 = [(HMDBulletinBoard *)v87 doorbellBulletinUtilities];
-                    v167[0] = MEMORY[0x277D85DD0];
-                    v167[1] = 3221225472;
-                    v167[2] = __91__HMDBulletinBoard__insertImageBulletinsForChangedCharacteristics_snapshotData_completion___block_invoke;
-                    v167[3] = &unk_27972F318;
-                    v167[4] = v87;
-                    v168 = uUIDString2;
-                    v169 = v155;
+                    v165[0] = MEMORY[0x277D85DD0];
+                    v165[1] = 3221225472;
+                    v165[2] = __91__HMDBulletinBoard__insertImageBulletinsForChangedCharacteristics_snapshotData_completion___block_invoke;
+                    v165[3] = &unk_27972F318;
+                    v165[4] = v87;
+                    v166 = uUIDString2;
+                    v167 = v153;
                     v84 = date;
-                    [doorbellBulletinUtilities2 fetchSignificantEventsRelevantToDoorbellPressAtDate:date forCameraProfile:v169 completion:v167];
+                    [doorbellBulletinUtilities2 fetchSignificantEventsRelevantToDoorbellPressAtDate:date forCameraProfile:v167 completion:v165];
                   }
 
                   [(HMDBulletinBoard *)v74 _submitDoorbellEventDetailsFromBulletinWithDate:v84 significantEvents:v85];
@@ -3231,51 +3183,51 @@ LABEL_43:
 
                   if (v93)
                   {
-                    v138 = v85;
-                    v140 = v91;
+                    v137 = v85;
+                    v139 = v91;
                     content = [v93 content];
                     userInfo = [content userInfo];
-                    [(HMDBulletinBoard *)v74 _updateDoorbellUserInfo:v160 withSignificantEventUserInfo:userInfo];
+                    [(HMDBulletinBoard *)v74 _updateDoorbellUserInfo:v158 withSignificantEventUserInfo:userInfo];
 
                     content2 = [v93 content];
                     userInfo2 = [content2 userInfo];
-                    v98 = [userInfo2 objectForKeyedSubscript:v149];
+                    v98 = [userInfo2 objectForKeyedSubscript:v147];
 
                     v99 = dataCopy;
                     if (dataCopy)
                     {
-                      v91 = v140;
+                      v91 = v139;
                     }
 
                     else
                     {
-                      v91 = v140;
+                      v91 = v139;
                       if (v98)
                       {
                         v100 = objc_autoreleasePoolPush();
-                        v162 = v74;
+                        v160 = v74;
                         v101 = HMFGetOSLogHandle();
                         if (os_log_type_enabled(v101, OS_LOG_TYPE_INFO))
                         {
                           HMFGetLogIdentifier();
-                          v102 = v129 = v100;
+                          v102 = v128 = v100;
                           *buf = 138543362;
-                          v178 = v102;
+                          v176 = v102;
                           _os_log_impl(&dword_2531F8000, v101, OS_LOG_TYPE_INFO, "%{public}@No snapshotData was provided, so using whatever we had in the mostRecentCoalescedPersonNotification", buf, 0xCu);
 
-                          v100 = v129;
+                          v100 = v128;
                         }
 
                         objc_autoreleasePoolPop(v100);
-                        v174 = v149;
-                        v175 = v98;
-                        v99 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v175 forKeys:&v174 count:1];
-                        v91 = v140;
-                        [v140 removeObject:v93];
+                        v172 = v147;
+                        v173 = v98;
+                        v99 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v173 forKeys:&v172 count:1];
+                        v91 = v139;
+                        [v139 removeObject:v93];
                       }
                     }
 
-                    v85 = v138;
+                    v85 = v137;
                   }
 
                   else
@@ -3294,7 +3246,7 @@ LABEL_72:
                   v99 = dataCopy;
                 }
 
-                if ([v159 isEqualToString:v134])
+                if ([v157 isEqualToString:v133])
                 {
                   v117 = 9;
                 }
@@ -3304,7 +3256,7 @@ LABEL_72:
                   v117 = 8;
                 }
 
-                v141 = v79;
+                v140 = v79;
                 v118 = [(HMDBulletinBoard *)v74 messageForChangedCharacteristic:v15 withSignificantEvents:v79];
                 v119 = [HMDBulletinBoard interruptionLevelForChangedCharacteristic:v15];
                 v120 = objc_autoreleasePoolPush();
@@ -3315,48 +3267,48 @@ LABEL_72:
                 {
                   v123 = HMFGetLogIdentifier();
                   *buf = 138544130;
-                  v178 = v123;
+                  v176 = v123;
+                  v177 = 2112;
+                  v178 = v118;
                   v179 = 2112;
-                  v180 = v118;
+                  v180 = v158;
                   v181 = 2112;
-                  v182 = v160;
-                  v183 = 2112;
-                  v184 = dataCopy;
+                  v182 = dataCopy;
                   _os_log_impl(&dword_2531F8000, v122, OS_LOG_TYPE_INFO, "%{public}@Inserting new bulletin with message: %@, userInfo: %@, snapshotData: %@", buf, 0x2Au);
 
                   v99 = dataCopy;
                 }
 
                 objc_autoreleasePoolPop(v120);
-                v128 = v119;
-                v116 = v154;
+                v127 = v119;
+                v116 = v152;
                 v111 = date;
-                v124 = [(HMDBulletinBoard *)v121 _insertRequestWithTitle:v157 snapshotData:v99 message:v118 requestIdentifier:uUIDString2 date:date bulletinType:v143 actionURL:context bulletinContext:v160 actionContext:v154 interruptionLevel:v128 logEventTopic:v117];
+                v124 = [(HMDBulletinBoard *)v121 _insertRequestWithTitle:v155 snapshotData:v99 message:v118 requestIdentifier:uUIDString2 date:date bulletinType:v142 actionURL:context bulletinContext:v158 actionContext:v152 interruptionLevel:v127 logEventTopic:v117];
                 identifier = [v124 identifier];
                 [array addObject:identifier];
 
-                v70 = v160;
-                v75 = v157;
+                v70 = v158;
+                v75 = v155;
 
                 self = selfCopy;
-                v12 = v158;
-                v13 = v165;
+                v12 = v156;
+                v13 = v163;
 LABEL_79:
 
-                v10 = v153;
+                v10 = v151;
                 goto LABEL_16;
               }
 
               v112 = objc_autoreleasePoolPush();
-              v113 = v150;
+              v113 = v148;
               v114 = HMFGetOSLogHandle();
               if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
               {
                 v115 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v178 = v115;
-                v179 = 2112;
-                v180 = v154;
+                v176 = v115;
+                v177 = 2112;
+                v178 = v152;
                 _os_log_impl(&dword_2531F8000, v114, OS_LOG_TYPE_ERROR, "%{public}@Camera UUID is absent in action context: %@", buf, 0x16u);
 
                 self = selfCopy;
@@ -3368,82 +3320,82 @@ LABEL_79:
             else
             {
               v103 = objc_autoreleasePoolPush();
-              v104 = v150;
+              v104 = v148;
               v105 = HMFGetOSLogHandle();
               if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
               {
                 v106 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v178 = v106;
-                v179 = 2112;
-                v180 = v160;
+                v176 = v106;
+                v177 = 2112;
+                v178 = v158;
                 _os_log_impl(&dword_2531F8000, v105, OS_LOG_TYPE_ERROR, "%{public}@Home UUID is absent in bulletin context: %@", buf, 0x16u);
               }
 
               objc_autoreleasePoolPop(v103);
             }
 
-            v12 = v158;
+            v12 = v156;
             v111 = date;
-            v70 = v160;
+            v70 = v158;
           }
 
           else
           {
-            v66 = [v44 objectForKeyedSubscript:v146];
-            v67 = [v44 objectForKeyedSubscript:v133];
-            v68 = [v44 objectForKeyedSubscript:v132];
+            v66 = [v44 objectForKeyedSubscript:v145];
+            v67 = [v44 objectForKeyedSubscript:v132];
+            v68 = [v44 objectForKeyedSubscript:v131];
             v69 = v68;
             v70 = v44;
             if (v66 && v67 && v68)
             {
-              v142 = [MEMORY[0x277CD1878] tupleWithQueryType:0 uuidString:v66];
-              v137 = [MEMORY[0x277CD1878] tupleWithQueryType:2 uuidString:v67];
-              v139 = [MEMORY[0x277CD1878] tupleWithQueryType:3 uuidString:v69];
+              v141 = [MEMORY[0x277CD1878] tupleWithQueryType:0 uuidString:v66];
+              v136 = [MEMORY[0x277CD1878] tupleWithQueryType:2 uuidString:v67];
+              v138 = [MEMORY[0x277CD1878] tupleWithQueryType:3 uuidString:v69];
               v71 = MEMORY[0x277CBEB98];
-              v176[0] = v142;
-              v176[1] = v139;
-              v72 = [MEMORY[0x277CBEA60] arrayWithObjects:v176 count:2];
+              v174[0] = v141;
+              v174[1] = v138;
+              v72 = [MEMORY[0x277CBEA60] arrayWithObjects:v174 count:2];
               v73 = [v71 setWithArray:v72];
               context = generateURLForHomeKitObject();
 
               v54 = 0;
-              v74 = v150;
+              v74 = v148;
               goto LABEL_43;
             }
 
             v107 = v68;
             contexta = objc_autoreleasePoolPush();
-            v108 = v150;
+            v108 = v148;
             v109 = HMFGetOSLogHandle();
             if (os_log_type_enabled(v109, OS_LOG_TYPE_ERROR))
             {
               v110 = HMFGetLogIdentifier();
               *buf = 138544130;
-              v178 = v110;
+              v176 = v110;
+              v177 = 2112;
+              v178 = v66;
               v179 = 2112;
-              v180 = v66;
+              v180 = v67;
               v181 = 2112;
-              v182 = v67;
-              v183 = 2112;
-              v184 = v107;
+              v182 = v107;
               _os_log_impl(&dword_2531F8000, v109, OS_LOG_TYPE_ERROR, "%{public}@Cannot generate action URL with homeUUID: %@ serviceUUID: %@ characteristicUUID: %@", buf, 0x2Au);
 
-              v70 = v160;
+              v70 = v158;
             }
 
             objc_autoreleasePoolPop(contexta);
-            v75 = v157;
-            v12 = v158;
+            v75 = v155;
+            v12 = v156;
             v111 = date;
           }
 
-          v116 = v154;
+          v116 = v152;
           goto LABEL_79;
         }
 
         type4 = [v15 type];
-        v18 = [type4 isEqualToString:v164];
+        v18 = [type4 isEqualToString:v162];
 
         if (v18)
         {
@@ -3457,12 +3409,12 @@ LABEL_79:
         {
           v31 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v178 = v31;
-          v179 = 2112;
-          v180 = v15;
+          v176 = v31;
+          v177 = 2112;
+          v178 = v15;
           _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@Bulletin board changed characteristic value is nil: %@", buf, 0x16u);
 
-          v13 = v165;
+          v13 = v163;
         }
 
         objc_autoreleasePoolPop(v28);
@@ -3471,7 +3423,7 @@ LABEL_17:
       }
 
       while (v12 != v14);
-      v126 = [v10 countByEnumeratingWithState:&v170 objects:v185 count:16];
+      v126 = [v10 countByEnumeratingWithState:&v168 objects:v183 count:16];
       v12 = v126;
     }
 
@@ -3482,8 +3434,6 @@ LABEL_17:
   {
     completionCopy[2](completionCopy, array);
   }
-
-  v127 = *MEMORY[0x277D85DE8];
 }
 
 void __91__HMDBulletinBoard__insertImageBulletinsForChangedCharacteristics_snapshotData_completion___block_invoke(uint64_t a1, void *a2)
@@ -3528,27 +3478,25 @@ uint64_t __91__HMDBulletinBoard__insertImageBulletinsForChangedCharacteristics_s
 
 uint64_t __91__HMDBulletinBoard__insertImageBulletinsForChangedCharacteristics_snapshotData_completion___block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Updating message for doorbell press notification after fetching significant events from the cloud", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Updating message for doorbell press notification after fetching significant events from the cloud", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _updateMessageForDoorbellPressNotificationRequestWithIdentifier:*(a1 + 40) usingSignificantEvents:*(a1 + 48) cameraProfile:*(a1 + 56)];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _updateMessageForDoorbellPressNotificationRequestWithIdentifier:*(a1 + 40) usingSignificantEvents:*(a1 + 48) cameraProfile:*(a1 + 56)];
 }
 
 - (id)removeRedundantSignificantEventNotificationsForSignificantEvents:(id)events
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   workQueue = [(HMDBulletinBoard *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -3563,11 +3511,11 @@ uint64_t __91__HMDBulletinBoard__insertImageBulletinsForChangedCharacteristics_s
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v18 = 138543618;
-    v19 = v12;
-    v20 = 2112;
-    v21 = v8;
-    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Removing significant event notifications (due to doorbell notification): %@", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = v12;
+    v19 = 2112;
+    v20 = v8;
+    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Removing significant event notifications (due to doorbell notification): %@", &v17, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -3577,14 +3525,12 @@ uint64_t __91__HMDBulletinBoard__insertImageBulletinsForChangedCharacteristics_s
   [(HMDBulletinBoard *)selfCopy removeNotificationRequestsWithIdentifiers:v14 shouldDeleteAttachments:0];
   allObjects2 = [v8 allObjects];
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return allObjects2;
 }
 
 - (id)titleNameForChangedCharacteristic:(id)characteristic
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   accessory = [characteristicCopy accessory];
   type = [characteristicCopy type];
@@ -3609,10 +3555,10 @@ LABEL_9:
 
   v9 = MEMORY[0x277CCACA8];
   v10 = HMDLocalizedStringForKey(@"BULLETIN_KEYPAD_DISABLED_TITLE");
-  v22 = 0;
+  v21 = 0;
   name2 = [accessory name];
-  v12 = [v9 localizedStringWithValidatedFormat:v10 validFormatSpecifiers:@"%@" error:&v22, name2];
-  v13 = v22;
+  v12 = [v9 localizedStringWithValidatedFormat:v10 validFormatSpecifiers:@"%@" error:&v21, name2];
+  v13 = v21;
 
   v14 = v12;
   if (!v12)
@@ -3623,13 +3569,13 @@ LABEL_9:
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v24 = v17;
-      v25 = 2112;
-      v26 = @"BULLETIN_KEYPAD_DISABLED_TITLE";
-      v27 = 2112;
-      v28 = @"%@";
-      v29 = 2112;
-      v30 = v13;
+      v23 = v17;
+      v24 = 2112;
+      v25 = @"BULLETIN_KEYPAD_DISABLED_TITLE";
+      v26 = 2112;
+      v27 = @"%@";
+      v28 = 2112;
+      v29 = v13;
       _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
     }
 
@@ -3640,14 +3586,13 @@ LABEL_9:
   name = v14;
 
 LABEL_10:
-  v20 = *MEMORY[0x277D85DE8];
 
   return name;
 }
 
 - (id)messageForLockCharacteristic:(id)characteristic personName:(id)name
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   nameCopy = name;
   workQueue = [(HMDBulletinBoard *)self workQueue];
@@ -3703,11 +3648,11 @@ LABEL_19:
 LABEL_11:
   v20 = MEMORY[0x277CCACA8];
   v21 = HMDLocalizedStringForKey(v19);
-  v46 = 0;
-  v43 = v15;
+  v45 = 0;
+  v42 = v15;
   composedName = [v15 composedName];
-  v23 = [v20 localizedStringWithValidatedFormat:v21 validFormatSpecifiers:@"%@" error:&v46, composedName];
-  v24 = v46;
+  v23 = [v20 localizedStringWithValidatedFormat:v21 validFormatSpecifiers:@"%@" error:&v45, composedName];
+  v24 = v45;
 
   v25 = v23;
   if (!v23)
@@ -3717,18 +3662,18 @@ LABEL_11:
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v28 = v42 = v26;
+      v28 = v41 = v26;
       *buf = 138544130;
-      v48 = v28;
-      v49 = 2112;
-      v50 = v19;
-      v51 = 2112;
-      v52 = @"%@";
-      v53 = 2112;
-      v54 = v24;
+      v47 = v28;
+      v48 = 2112;
+      v49 = v19;
+      v50 = 2112;
+      v51 = @"%@";
+      v52 = 2112;
+      v53 = v24;
       _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
 
-      v26 = v42;
+      v26 = v41;
     }
 
     objc_autoreleasePoolPop(v26);
@@ -3741,9 +3686,9 @@ LABEL_11:
   if (nameCopy)
   {
     v31 = HMDLocalizedStringForKey(@"BULLETIN_LOCK_MESSAGE_WITH_PERSON");
-    v45 = 0;
-    nameCopy = [v30 localizedStringWithValidatedFormat:v31 validFormatSpecifiers:@"%@ %@" error:&v45, v29, nameCopy];
-    v33 = v45;
+    v44 = 0;
+    nameCopy = [v30 localizedStringWithValidatedFormat:v31 validFormatSpecifiers:@"%@ %@" error:&v44, v29, nameCopy];
+    v33 = v44;
 
     if (!nameCopy)
     {
@@ -3754,13 +3699,13 @@ LABEL_11:
       {
         v36 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v48 = v36;
-        v49 = 2112;
-        v50 = @"BULLETIN_LOCK_MESSAGE_WITH_PERSON";
-        v51 = 2112;
-        v52 = @"%@ %@";
-        v53 = 2112;
-        v54 = v33;
+        v47 = v36;
+        v48 = 2112;
+        v49 = @"BULLETIN_LOCK_MESSAGE_WITH_PERSON";
+        v50 = 2112;
+        v51 = @"%@ %@";
+        v52 = 2112;
+        v53 = v33;
 LABEL_24:
         _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
 
@@ -3774,9 +3719,9 @@ LABEL_24:
   else
   {
     v38 = HMDLocalizedStringForKey(@"BULLETIN_LOCK_MESSAGE_WITHOUT_PERSON");
-    v44 = 0;
-    nameCopy = [v30 localizedStringWithValidatedFormat:v38 validFormatSpecifiers:@"%@" error:&v44, v29];
-    v33 = v44;
+    v43 = 0;
+    nameCopy = [v30 localizedStringWithValidatedFormat:v38 validFormatSpecifiers:@"%@" error:&v43, v29];
+    v33 = v43;
 
     if (!nameCopy)
     {
@@ -3787,18 +3732,18 @@ LABEL_24:
       {
         v36 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v48 = v36;
-        v49 = 2112;
-        v50 = @"BULLETIN_LOCK_MESSAGE_WITHOUT_PERSON";
-        v51 = 2112;
-        v52 = @"%@";
-        v53 = 2112;
-        v54 = v33;
+        v47 = v36;
+        v48 = 2112;
+        v49 = @"BULLETIN_LOCK_MESSAGE_WITHOUT_PERSON";
+        v50 = 2112;
+        v51 = @"%@";
+        v52 = 2112;
+        v53 = v33;
         goto LABEL_24;
       }
 
 LABEL_25:
-      v15 = v43;
+      v15 = v42;
 
       objc_autoreleasePoolPop(v34);
       v39 = 0;
@@ -3807,12 +3752,11 @@ LABEL_25:
   }
 
   v39 = nameCopy;
-  v15 = v43;
+  v15 = v42;
 LABEL_26:
   v37 = nameCopy;
 
 LABEL_27:
-  v40 = *MEMORY[0x277D85DE8];
 
   return v37;
 }
@@ -3888,7 +3832,7 @@ LABEL_10:
 
 - (void)addNotificationRequest:(id)request forIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   identifierCopy = identifier;
   workQueue = [(HMDBulletinBoard *)self workQueue];
@@ -3900,13 +3844,13 @@ LABEL_10:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v15 = 138543874;
-    v16 = v12;
-    v17 = 2112;
-    v18 = requestCopy;
-    v19 = 2112;
-    v20 = identifierCopy;
-    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Adding Notification Request: %@ requestIdentifier:%@", &v15, 0x20u);
+    v14 = 138543874;
+    v15 = v12;
+    v16 = 2112;
+    v17 = requestCopy;
+    v18 = 2112;
+    v19 = identifierCopy;
+    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Adding Notification Request: %@ requestIdentifier:%@", &v14, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -3915,8 +3859,130 @@ LABEL_10:
 
   [(HMDBulletinBoard *)selfCopy cullBulletinsToCount:20];
   [(HMDBulletinBoard *)selfCopy archive];
+}
 
-  v14 = *MEMORY[0x277D85DE8];
+- (void)removeNotificationRequestsWithIdentifiers:(id)identifiers shouldDeleteAttachments:(BOOL)attachments
+{
+  attachmentsCopy = attachments;
+  v54 = *MEMORY[0x277D85DE8];
+  identifiersCopy = identifiers;
+  workQueue = [(HMDBulletinBoard *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  obj = identifiersCopy;
+  v41 = [obj countByEnumeratingWithState:&v43 objects:v53 count:16];
+  if (v41)
+  {
+    v9 = *v44;
+    v40 = *MEMORY[0x277CD26B8];
+    *&v8 = 138543874;
+    v37 = v8;
+    selfCopy = self;
+    do
+    {
+      for (i = 0; i != v41; ++i)
+      {
+        if (*v44 != v9)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v11 = *(*(&v43 + 1) + 8 * i);
+        notificationRequestsByIdentifier = [(HMDBulletinBoard *)self notificationRequestsByIdentifier];
+        v13 = [notificationRequestsByIdentifier objectForKeyedSubscript:v11];
+
+        if (v13)
+        {
+          v14 = objc_autoreleasePoolPush();
+          selfCopy2 = self;
+          v16 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+          {
+            v17 = HMFGetLogIdentifier();
+            *buf = 138543618;
+            v48 = v17;
+            v49 = 2112;
+            v50 = v11;
+            _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Removing notification request with identifier: %@", buf, 0x16u);
+          }
+
+          objc_autoreleasePoolPop(v14);
+          notificationRequestsByIdentifier2 = [(HMDBulletinBoard *)selfCopy2 notificationRequestsByIdentifier];
+          [notificationRequestsByIdentifier2 setObject:0 forKeyedSubscript:v11];
+
+          content = [v13 content];
+          userInfo = [content userInfo];
+          v21 = [userInfo objectForKeyedSubscript:v40];
+
+          if (attachmentsCopy && v21)
+          {
+            v22 = v9;
+            v23 = attachmentsCopy;
+            defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+            v42 = 0;
+            v25 = [defaultManager removeItemAtPath:v21 error:&v42];
+            v26 = v42;
+
+            v27 = objc_autoreleasePoolPush();
+            v28 = selfCopy2;
+            v29 = HMFGetOSLogHandle();
+            v30 = v29;
+            if (v25)
+            {
+              if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+              {
+                v31 = HMFGetLogIdentifier();
+                *buf = 138543618;
+                v48 = v31;
+                v49 = 2112;
+                v50 = v21;
+                v32 = v30;
+                v33 = OS_LOG_TYPE_INFO;
+                v34 = "%{public}@Removed the bulletin snapshot file at %@";
+                v35 = 22;
+                goto LABEL_16;
+              }
+            }
+
+            else if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+            {
+              v31 = HMFGetLogIdentifier();
+              *buf = v37;
+              v48 = v31;
+              v49 = 2112;
+              v50 = v21;
+              v51 = 2112;
+              v52 = v26;
+              v32 = v30;
+              v33 = OS_LOG_TYPE_ERROR;
+              v34 = "%{public}@Failed to remove the bulletin snapshot file at %@: %@";
+              v35 = 32;
+LABEL_16:
+              _os_log_impl(&dword_2531F8000, v32, v33, v34, buf, v35);
+            }
+
+            objc_autoreleasePoolPop(v27);
+            attachmentsCopy = v23;
+            v9 = v22;
+            self = selfCopy;
+          }
+        }
+      }
+
+      v41 = [obj countByEnumeratingWithState:&v43 objects:v53 count:16];
+    }
+
+    while (v41);
+  }
+
+  notificationCenter = [(HMDBulletinBoard *)self notificationCenter];
+  [notificationCenter removeNotificationRequestsWithIdentifiers:obj];
+
+  [(HMDBulletinBoard *)self archive];
 }
 
 - (void)removeBulletinsUsingPredicate:(id)predicate
@@ -3935,7 +4001,7 @@ LABEL_10:
 
 - (void)cullBulletinsToCount:(unint64_t)count
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   notificationRequestsByIdentifier = [(HMDBulletinBoard *)self notificationRequestsByIdentifier];
   v6 = [notificationRequestsByIdentifier count];
 
@@ -3947,34 +4013,34 @@ LABEL_10:
     v10 = [MEMORY[0x277CCAA78] indexSetWithIndexesInRange:{count, v8}];
     v11 = [notificationRequestsSortedByDate objectsAtIndexes:v10];
     v12 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v11, "count")}];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v13 = v11;
-    v14 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v25;
+      v16 = *v24;
       do
       {
         v17 = 0;
         do
         {
-          if (*v25 != v16)
+          if (*v24 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          identifier = [*(*(&v24 + 1) + 8 * v17) identifier];
+          identifier = [*(*(&v23 + 1) + 8 * v17) identifier];
           [v12 addObject:identifier];
 
           ++v17;
         }
 
         while (v15 != v17);
-        v15 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
       }
 
       while (v15);
@@ -3987,22 +4053,20 @@ LABEL_10:
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v22;
-      v30 = 2112;
-      v31 = v12;
+      v28 = v22;
+      v29 = 2112;
+      v30 = v12;
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Culling bulletin with identifiers: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v19);
     [(HMDBulletinBoard *)selfCopy removeNotificationRequestsWithIdentifiers:v12 shouldDeleteAttachments:1];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateContent:(id)content forNotificationWithRequestIdentifier:(id)identifier
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   contentCopy = content;
   identifierCopy = identifier;
   v8 = objc_autoreleasePoolPush();
@@ -4011,13 +4075,13 @@ LABEL_10:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v22 = 138543874;
-    v23 = v11;
-    v24 = 2112;
-    v25 = identifierCopy;
-    v26 = 2112;
-    v27 = contentCopy;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating notification with request identifier %@ with content: %@", &v22, 0x20u);
+    v21 = 138543874;
+    v22 = v11;
+    v23 = 2112;
+    v24 = identifierCopy;
+    v25 = 2112;
+    v26 = contentCopy;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating notification with request identifier %@ with content: %@", &v21, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -4034,21 +4098,17 @@ LABEL_10:
   notificationCenter = [(HMDBulletinBoard *)selfCopy notificationCenter];
   identifier2 = [v13 identifier];
   [notificationCenter updateContent:contentCopy forNotificationWithRequestIdentifier:identifier2];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)notificationRequestsSortedByDate
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   notificationRequestsByIdentifier = [(HMDBulletinBoard *)self notificationRequestsByIdentifier];
   allValues = [notificationRequestsByIdentifier allValues];
   v4 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"content.date" ascending:0];
-  v9[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   v6 = [allValues sortedArrayUsingDescriptors:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -4080,13 +4140,11 @@ LABEL_10:
 
 void __47__HMDBulletinBoard_removeBulletinWithRecordID___block_invoke(uint64_t a1)
 {
-  v4[1] = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v4[0] = *(a1 + 40);
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
+  v3[0] = *(a1 + 40);
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
   [v1 removeNotificationRequestsWithIdentifiers:v2 shouldDeleteAttachments:1];
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeCameraClipBulletinsForCameraProfile:(id)profile
@@ -4325,14 +4383,14 @@ uint64_t __43__HMDBulletinBoard_removeBulletinsForHome___block_invoke_2(uint64_t
 
 void __42__HMDBulletinBoard_refreshHomeBadgeNumber__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) homeManager];
   v8 = v7;
   if (v7)
   {
-    v24 = v6;
+    v23 = v6;
     v9 = v5;
     v10 = [v7 numberOfPendingIncomingInvitation];
     v11 = [v8 numberOfAccessoryWithNewFirmwareAvailable];
@@ -4344,17 +4402,17 @@ void __42__HMDBulletinBoard_refreshHomeBadgeNumber__block_invoke(uint64_t a1, vo
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v26 = v16;
-      v27 = 2048;
-      v28 = v10;
-      v29 = 2048;
-      v30 = v11;
+      v25 = v16;
+      v26 = 2048;
+      v27 = v10;
+      v28 = 2048;
+      v29 = v11;
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Refreshing home badge number to %lu (invitation) + %lu (firmware update).", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v13);
     v5 = v9;
-    v6 = v24;
+    v6 = v23;
     if ((v12 & 0x8000000000000000) == 0)
     {
       v17 = [*(a1 + 32) notificationCenter];
@@ -4376,14 +4434,12 @@ void __42__HMDBulletinBoard_refreshHomeBadgeNumber__block_invoke(uint64_t a1, vo
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v26 = v22;
+      v25 = v22;
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Home manager is not yet configured, bailing refreshHomeBadgeNumber.", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v19);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertNewRMVLanguageBulletinForHome:(id)home language:(id)language
@@ -4409,23 +4465,23 @@ void __42__HMDBulletinBoard_refreshHomeBadgeNumber__block_invoke(uint64_t a1, vo
 
 void __65__HMDBulletinBoard_insertNewRMVLanguageBulletinForHome_language___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) homeManager];
 
   if (v7)
   {
-    v60 = v6;
-    v61 = v5;
+    v59 = v6;
+    v60 = v5;
     v8 = [*(a1 + 40) homeBulletinContext];
     v9 = [v8 hmf_stringForKey:*MEMORY[0x277CCF328]];
 
     v10 = MEMORY[0x277CCACA8];
     v11 = HMDLocalizedStringForKey(@"BULLETIN_NEW_RMV_LANGUAGE_TITLE");
-    v63 = 0;
-    v12 = [v10 localizedStringWithValidatedFormat:v11 validFormatSpecifiers:@"%@" error:&v63, *(a1 + 48)];
-    v13 = v63;
+    v62 = 0;
+    v12 = [v10 localizedStringWithValidatedFormat:v11 validFormatSpecifiers:@"%@" error:&v62, *(a1 + 48)];
+    v13 = v62;
 
     v14 = v12;
     if (!v12)
@@ -4436,13 +4492,13 @@ void __65__HMDBulletinBoard_insertNewRMVLanguageBulletinForHome_language___block
       {
         v17 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v65 = v17;
-        v66 = 2112;
-        v67 = @"BULLETIN_NEW_RMV_LANGUAGE_TITLE";
-        v68 = 2112;
-        v69 = @"%@";
-        v70 = 2112;
-        v71 = v13;
+        v64 = v17;
+        v65 = 2112;
+        v66 = @"BULLETIN_NEW_RMV_LANGUAGE_TITLE";
+        v67 = 2112;
+        v68 = @"%@";
+        v69 = 2112;
+        v70 = v13;
         _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
       }
 
@@ -4450,13 +4506,13 @@ void __65__HMDBulletinBoard_insertNewRMVLanguageBulletinForHome_language___block
       v14 = @"BULLETIN_NEW_RMV_LANGUAGE_TITLE";
     }
 
-    v58 = v14;
+    v57 = v14;
 
     v18 = MEMORY[0x277CCACA8];
     v19 = HMDLocalizedStringForKey(@"BULLETIN_NEW_RMV_LANGUAGE_MESSAGE");
-    v62 = 0;
-    v20 = [v18 localizedStringWithValidatedFormat:v19 validFormatSpecifiers:@"%@" error:&v62, *(a1 + 48)];
-    v21 = v62;
+    v61 = 0;
+    v20 = [v18 localizedStringWithValidatedFormat:v19 validFormatSpecifiers:@"%@" error:&v61, *(a1 + 48)];
+    v21 = v61;
 
     v22 = v20;
     if (!v20)
@@ -4468,13 +4524,13 @@ void __65__HMDBulletinBoard_insertNewRMVLanguageBulletinForHome_language___block
       {
         v26 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v65 = v26;
-        v66 = 2112;
-        v67 = @"BULLETIN_NEW_RMV_LANGUAGE_MESSAGE";
-        v68 = 2112;
-        v69 = @"%@";
-        v70 = 2112;
-        v71 = v21;
+        v64 = v26;
+        v65 = 2112;
+        v66 = @"BULLETIN_NEW_RMV_LANGUAGE_MESSAGE";
+        v67 = 2112;
+        v68 = @"%@";
+        v69 = 2112;
+        v70 = v21;
         _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
       }
 
@@ -4488,16 +4544,16 @@ void __65__HMDBulletinBoard_insertNewRMVLanguageBulletinForHome_language___block
     v28 = objc_alloc_init(MEMORY[0x277CCACE0]);
     [v28 setScheme:@"com.apple.Home-private"];
     [v28 setHost:@"recognizeMyVoiceOptIn"];
-    v59 = v9;
+    v58 = v9;
     v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"showEnablementSheet=YES&homeId=%@", v9];
     [v28 setQuery:v29];
 
-    v56 = v28;
+    v55 = v28;
     v30 = [v28 URL];
     v31 = [*(a1 + 40) homeBulletinContext];
     v32 = [v31 mutableCopy];
 
-    v57 = v30;
+    v56 = v30;
     v33 = [v30 absoluteString];
     [v32 setObject:v33 forKeyedSubscript:*MEMORY[0x277CD13D8]];
 
@@ -4516,9 +4572,9 @@ void __65__HMDBulletinBoard_insertNewRMVLanguageBulletinForHome_language___block
     {
       v42 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v65 = v42;
-      v66 = 2112;
-      v67 = v27;
+      v64 = v42;
+      v65 = 2112;
+      v66 = v27;
       _os_log_impl(&dword_2531F8000, v41, OS_LOG_TYPE_INFO, "%{public}@Inserting new RMV language bulletin with message: %@", buf, 0x16u);
     }
 
@@ -4528,14 +4584,14 @@ void __65__HMDBulletinBoard_insertNewRMVLanguageBulletinForHome_language___block
 
     v45 = [*(a1 + 32) notificationCenter];
     v46 = [MEMORY[0x277CBEAA8] date];
-    v47 = [v32 copy];
-    LOBYTE(v55) = 0;
-    [v45 showNotificationWithTitle:v58 body:v27 threadIdentifier:v38 categoryIdentifier:@"HMDBBNormalType" requestIdentifier:v44 date:v46 attachments:0 userInfo:v47 shouldIgnoreDoNotDisturb:v55 interruptionLevel:1 logEventTopic:16];
+    v47 = objc_msgSend_copy(v32);
+    LOBYTE(v54) = 0;
+    [v45 showNotificationWithTitle:v57 body:v27 threadIdentifier:v38 categoryIdentifier:@"HMDBBNormalType" requestIdentifier:v44 date:v46 attachments:0 userInfo:v47 shouldIgnoreDoNotDisturb:v54 interruptionLevel:1 logEventTopic:16];
     v49 = v48 = v27;
 
     [*(a1 + 32) addNotificationRequest:v49 forIdentifier:v44];
-    v6 = v60;
-    v5 = v61;
+    v6 = v59;
+    v5 = v60;
   }
 
   else
@@ -4547,14 +4603,12 @@ void __65__HMDBulletinBoard_insertNewRMVLanguageBulletinForHome_language___block
     {
       v53 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v65 = v53;
+      v64 = v53;
       _os_log_impl(&dword_2531F8000, v52, OS_LOG_TYPE_ERROR, "%{public}@Home manager is not yet configured, can not insert new RMV language bulletin", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v50);
   }
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchAreUserNotificationsEnabledWithCompletion:(id)completion
@@ -4626,7 +4680,7 @@ void __85__HMDBulletinBoard_hasDoorbellPressNotificationToUpdateWithSignificantE
 
 - (void)insertBulletinsForMatterFirmwareUpdateInstalledInHome:(id)home hmdHAPAccessory:(id)accessory
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   accessoryCopy = accessory;
   v8 = objc_autoreleasePoolPush();
@@ -4639,11 +4693,11 @@ void __85__HMDBulletinBoard_hasDoorbellPressNotificationToUpdateWithSignificantE
     softwareUpdate = [accessoryCopy softwareUpdate];
     displayableVersion = [softwareUpdate displayableVersion];
     *buf = 138543874;
-    v31 = v11;
-    v32 = 2112;
-    v33 = name;
-    v34 = 2112;
-    v35 = displayableVersion;
+    v30 = v11;
+    v31 = 2112;
+    v32 = name;
+    v33 = 2112;
+    v34 = displayableVersion;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Firmware update UI notification is invoked for accessory = %@ displayeversion = %@", buf, 0x20u);
   }
 
@@ -4656,16 +4710,16 @@ void __85__HMDBulletinBoard_hasDoorbellPressNotificationToUpdateWithSignificantE
     workQueue = [(HMDBulletinBoard *)selfCopy workQueue];
     v18 = [v16 schedulerWithDispatchQueue:workQueue];
     v19 = [isConfiguredFuture reschedule:v18];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __90__HMDBulletinBoard_insertBulletinsForMatterFirmwareUpdateInstalledInHome_hmdHAPAccessory___block_invoke;
-    v27[3] = &unk_279724500;
-    objc_copyWeak(&v29, buf);
-    v27[4] = selfCopy;
-    v28 = accessoryCopy;
-    v20 = [v19 addCompletionBlock:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __90__HMDBulletinBoard_insertBulletinsForMatterFirmwareUpdateInstalledInHome_hmdHAPAccessory___block_invoke;
+    v26[3] = &unk_279724500;
+    objc_copyWeak(&v28, buf);
+    v26[4] = selfCopy;
+    v27 = accessoryCopy;
+    v20 = [v19 addCompletionBlock:v26];
 
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v28);
     objc_destroyWeak(buf);
   }
 
@@ -4679,21 +4733,19 @@ void __85__HMDBulletinBoard_hasDoorbellPressNotificationToUpdateWithSignificantE
       v24 = HMFGetLogIdentifier();
       name2 = [homeCopy name];
       *buf = 138543618;
-      v31 = v24;
-      v32 = 2112;
-      v33 = name2;
+      v30 = v24;
+      v31 = 2112;
+      v32 = name2;
       _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Not allowed to post bulletin for matter firmware update for home: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v21);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __90__HMDBulletinBoard_insertBulletinsForMatterFirmwareUpdateInstalledInHome_hmdHAPAccessory___block_invoke(id *a1, void *a2, void *a3)
 {
-  v71[1] = *MEMORY[0x277D85DE8];
+  v70[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained(a1 + 6);
@@ -4707,7 +4759,7 @@ void __90__HMDBulletinBoard_insertBulletinsForMatterFirmwareUpdateInstalledInHom
     {
       v50 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v64 = v50;
+      v63 = v50;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Update bulletin for stale home object; returning early.", buf, 0xCu);
     }
 
@@ -4720,11 +4772,11 @@ void __90__HMDBulletinBoard_insertBulletinsForMatterFirmwareUpdateInstalledInHom
     v13 = [a1[5] softwareUpdate];
     v14 = [v13 displayableVersion];
     *buf = 138543874;
-    v64 = v12;
-    v65 = 2112;
-    v66 = WeakRetained;
-    v67 = 2112;
-    v68 = v14;
+    v63 = v12;
+    v64 = 2112;
+    v65 = WeakRetained;
+    v66 = 2112;
+    v67 = v14;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating bulletin for firmware update installed in home: %@ with displableFirmwareVersion = %@", buf, 0x20u);
   }
 
@@ -4740,7 +4792,7 @@ void __90__HMDBulletinBoard_insertBulletinsForMatterFirmwareUpdateInstalledInHom
     {
       v53 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v64 = v53;
+      v63 = v53;
       _os_log_impl(&dword_2531F8000, v52, OS_LOG_TYPE_INFO, "%{public}@Home manager is not yet configured, bailing updateBulletinForFirmwareUpdateInHome.", buf, 0xCu);
     }
 
@@ -4749,11 +4801,11 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v59 = v6;
-  v60 = v5;
+  v58 = v6;
+  v59 = v5;
   v16 = [a1[5] softwareUpdate];
-  v61 = [v16 displayableVersion];
-  v58 = v16;
+  v60 = [v16 displayableVersion];
+  v57 = v16;
   v17 = [v16 version];
   v18 = [v17 shortVersionString];
 
@@ -4761,8 +4813,8 @@ LABEL_16:
   v20 = [a1[5] uuid];
   v21 = [v20 UUIDString];
   v22 = [v21 stringByAppendingPathComponent:@"firmwareInstalled"];
-  v56 = v18;
-  v57 = [v22 stringByAppendingPathComponent:v18];
+  v55 = v18;
+  v56 = [v22 stringByAppendingPathComponent:v18];
 
   v23 = MEMORY[0x277CD1878];
   v24 = [(__CFString *)WeakRetained contextSPIUniqueIdentifier];
@@ -4775,18 +4827,18 @@ LABEL_16:
   v30 = [v27 tupleWithQueryType:1 uuidString:v29];
 
   v31 = MEMORY[0x277CBEB98];
-  v55 = v26;
-  v71[0] = v26;
-  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:1];
+  v54 = v26;
+  v70[0] = v26;
+  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:1];
   v33 = [v31 setWithArray:v32];
   v34 = generateURLForHomeKitObject();
 
   v35 = MEMORY[0x277CCACA8];
   v36 = HMDLocalizedStringForKey(@"ACCESSORY_FIRMWARE_UPDATE_INSTALLED_BODY_SINGLE");
-  v62 = 0;
+  v61 = 0;
   v37 = v19;
-  v38 = [v35 localizedStringWithValidatedFormat:v36 validFormatSpecifiers:@"%@ %@" error:&v62, v19, v61];
-  v39 = v62;
+  v38 = [v35 localizedStringWithValidatedFormat:v36 validFormatSpecifiers:@"%@ %@" error:&v61, v19, v60];
+  v39 = v61;
 
   v40 = v38;
   if (!v38)
@@ -4797,13 +4849,13 @@ LABEL_16:
     {
       v43 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v64 = v43;
-      v65 = 2112;
-      v66 = @"ACCESSORY_FIRMWARE_UPDATE_INSTALLED_BODY_SINGLE";
-      v67 = 2112;
-      v68 = @"%@ %@";
-      v69 = 2112;
-      v70 = v39;
+      v63 = v43;
+      v64 = 2112;
+      v65 = @"ACCESSORY_FIRMWARE_UPDATE_INSTALLED_BODY_SINGLE";
+      v66 = 2112;
+      v67 = @"%@ %@";
+      v68 = 2112;
+      v69 = v39;
       _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
     }
 
@@ -4818,18 +4870,16 @@ LABEL_16:
   v46 = HMDLocalizedStringForKey(@"ACCESSORY_FIRMWARE_UPDATE_INSTALLED_TITLE");
   v47 = [MEMORY[0x277CBEAA8] date];
   v48 = [(__CFString *)WeakRetained homeBulletinContext];
-  v49 = [v45 _insertRequestWithTitle:v46 snapshotData:0 message:v44 requestIdentifier:v57 date:v47 bulletinType:0 actionURL:v34 bulletinContext:v48 actionContext:0 interruptionLevel:1 logEventTopic:19];
+  v49 = [v45 _insertRequestWithTitle:v46 snapshotData:0 message:v44 requestIdentifier:v56 date:v47 bulletinType:0 actionURL:v34 bulletinContext:v48 actionContext:0 interruptionLevel:1 logEventTopic:19];
 
-  v6 = v59;
-  v5 = v60;
+  v6 = v58;
+  v5 = v59;
 LABEL_17:
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (id)updateBulletinForFirmwareUpdateInHome:(id)home
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   if ([homeCopy shouldPostBulletin])
   {
@@ -4843,20 +4893,20 @@ LABEL_17:
     workQueue = [(HMDBulletinBoard *)self workQueue];
     v11 = [v9 schedulerWithDispatchQueue:workQueue];
     v12 = [isConfiguredFuture reschedule:v11];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __58__HMDBulletinBoard_updateBulletinForFirmwareUpdateInHome___block_invoke;
-    v24[3] = &unk_279724500;
-    objc_copyWeak(&v26, location);
-    v24[4] = self;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __58__HMDBulletinBoard_updateBulletinForFirmwareUpdateInHome___block_invoke;
+    v23[3] = &unk_279724500;
+    objc_copyWeak(&v25, location);
+    v23[4] = self;
     v13 = v7;
-    v25 = v13;
-    v14 = [v12 addCompletionBlock:v24];
+    v24 = v13;
+    v14 = [v12 addCompletionBlock:v23];
 
-    v15 = v25;
+    v15 = v24;
     v16 = v13;
 
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(location);
   }
 
@@ -4871,8 +4921,8 @@ LABEL_17:
       name = [homeCopy name];
       *location = 138543618;
       *&location[4] = v20;
-      v28 = 2112;
-      v29 = name;
+      v27 = 2112;
+      v28 = name;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Not allowed to post bulletin for firmware update for home: %@", location, 0x16u);
     }
 
@@ -4880,14 +4930,12 @@ LABEL_17:
     v16 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 void __58__HMDBulletinBoard_updateBulletinForFirmwareUpdateInHome___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -4902,12 +4950,12 @@ void __58__HMDBulletinBoard_updateBulletinForFirmwareUpdateInHome___block_invoke
       {
         v10 = MEMORY[0x277CCACA8];
         v11 = HMDLocalizedStringForKey(@"ACCESSORY_FIRMWARE_UPDATE_AVAILABLE_BODY_SINGLE");
-        v60 = 0;
+        v59 = 0;
         v12 = [v9 firstObject];
-        v13 = [v10 localizedStringWithValidatedFormat:v11 validFormatSpecifiers:@"%@" error:&v60, v12];
-        v14 = v60;
+        v13 = [v10 localizedStringWithValidatedFormat:v11 validFormatSpecifiers:@"%@" error:&v59, v12];
+        v14 = v59;
 
-        v58 = v5;
+        v57 = v5;
         if (!v13)
         {
           v15 = objc_autoreleasePoolPush();
@@ -4918,13 +4966,13 @@ void __58__HMDBulletinBoard_updateBulletinForFirmwareUpdateInHome___block_invoke
             HMFGetLogIdentifier();
             v18 = v17 = v15;
             *buf = 138544130;
-            v63 = v18;
-            v64 = 2112;
-            v65 = @"ACCESSORY_FIRMWARE_UPDATE_AVAILABLE_BODY_SINGLE";
-            v66 = 2112;
-            v67 = @"%@";
-            v68 = 2112;
-            v69 = v14;
+            v62 = v18;
+            v63 = 2112;
+            v64 = @"ACCESSORY_FIRMWARE_UPDATE_AVAILABLE_BODY_SINGLE";
+            v65 = 2112;
+            v66 = @"%@";
+            v67 = 2112;
+            v68 = v14;
 LABEL_21:
             _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
 
@@ -4948,27 +4996,27 @@ LABEL_21:
             v30 = HMFGetLogIdentifier();
             v31 = [WeakRetained name];
             *buf = 138543618;
-            v63 = v30;
-            v64 = 2112;
-            v65 = v31;
+            v62 = v30;
+            v63 = 2112;
+            v64 = v31;
             _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_INFO, "%{public}@No accessory in home %@ has firmware update. Cleaning the bulletin.", buf, 0x16u);
           }
 
           objc_autoreleasePoolPop(v27);
           v32 = *(a1 + 32);
-          v61 = *(a1 + 40);
-          v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+          v60 = *(a1 + 40);
+          v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
           [v32 removeNotificationRequestsWithIdentifiers:v33 shouldDeleteAttachments:1];
           goto LABEL_29;
         }
 
         v24 = MEMORY[0x277CCACA8];
         v25 = HMDLocalizedStringForKey(@"ACCESSORY_FIRMWARE_UPDATE_AVAILABLE_BODY_MULTIPLE");
-        v59 = 0;
-        v13 = [v24 localizedStringWithValidatedFormat:v25 validFormatSpecifiers:@"%d" error:&v59, objc_msgSend(v9, "count")];
-        v14 = v59;
+        v58 = 0;
+        v13 = [v24 localizedStringWithValidatedFormat:v25 validFormatSpecifiers:@"%d" error:&v58, objc_msgSend(v9, "count")];
+        v14 = v58;
 
-        v58 = v5;
+        v57 = v5;
         if (!v13)
         {
           v15 = objc_autoreleasePoolPush();
@@ -4979,13 +5027,13 @@ LABEL_21:
             HMFGetLogIdentifier();
             v18 = v17 = v15;
             *buf = 138544130;
-            v63 = v18;
-            v64 = 2112;
-            v65 = @"ACCESSORY_FIRMWARE_UPDATE_AVAILABLE_BODY_MULTIPLE";
-            v66 = 2112;
-            v67 = @"%d";
-            v68 = 2112;
-            v69 = v14;
+            v62 = v18;
+            v63 = 2112;
+            v64 = @"ACCESSORY_FIRMWARE_UPDATE_AVAILABLE_BODY_MULTIPLE";
+            v65 = 2112;
+            v66 = @"%d";
+            v67 = 2112;
+            v68 = v14;
             goto LABEL_21;
           }
 
@@ -5014,9 +5062,9 @@ LABEL_23:
           v39 = HMFGetLogIdentifier();
           v40 = *(a1 + 40);
           *buf = 138543618;
-          v63 = v39;
-          v64 = 2112;
-          v65 = v40;
+          v62 = v39;
+          v63 = 2112;
+          v64 = v40;
           _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_INFO, "%{public}@Bulletin with recordID (%@) already exists. Updating bulletin.", buf, 0x16u);
         }
 
@@ -5036,23 +5084,23 @@ LABEL_23:
         v45 = MEMORY[0x277CD1878];
         v46 = [WeakRetained contextSPIUniqueIdentifier];
         [v46 UUIDString];
-        v47 = v57 = v6;
+        v47 = v56 = v6;
         v44 = [v45 tupleWithQueryType:8 uuidString:v47];
 
         v48 = generateURLForHomeKitObject();
         v49 = *(a1 + 32);
-        v56 = *(a1 + 40);
+        v55 = *(a1 + 40);
         v50 = [MEMORY[0x277CBEAA8] date];
         [WeakRetained homeBulletinContext];
         v52 = v51 = v9;
         v53 = v49;
-        v6 = v57;
-        v54 = [v53 _insertRequestWithTitle:v42 snapshotData:0 message:v33 requestIdentifier:v56 date:v50 bulletinType:0 actionURL:v48 bulletinContext:v52 actionContext:0 interruptionLevel:1 logEventTopic:2];
+        v6 = v56;
+        v54 = [v53 _insertRequestWithTitle:v42 snapshotData:0 message:v33 requestIdentifier:v55 date:v50 bulletinType:0 actionURL:v48 bulletinContext:v52 actionContext:0 interruptionLevel:1 logEventTopic:2];
 
         v9 = v51;
       }
 
-      v5 = v58;
+      v5 = v57;
 LABEL_29:
 
       goto LABEL_30;
@@ -5065,7 +5113,7 @@ LABEL_29:
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v63 = v22;
+      v62 = v22;
       v23 = "%{public}@Home manager is not yet configured, bailing updateBulletinForFirmwareUpdateInHome.";
       goto LABEL_11;
     }
@@ -5080,7 +5128,7 @@ LABEL_29:
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v63 = v22;
+      v62 = v22;
       v23 = "%{public}@Update bulletin for stale home object; returning early.";
 LABEL_11:
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, v23, buf, 0xCu);
@@ -5089,8 +5137,6 @@ LABEL_11:
 
   objc_autoreleasePoolPop(v19);
 LABEL_30:
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertConnectedCHIPEcosystemsChangedBulletin:(id)bulletin
@@ -5197,7 +5243,7 @@ void __58__HMDBulletinBoard_insertCameraAccessModeChangedBulletin___block_invoke
 
 void __61__HMDBulletinBoard_insertCameraClipSignificantEventBulletin___block_invoke(uint64_t a1)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) previewImageFilePathURL];
   v3 = [*(a1 + 40) notificationRequestsByIdentifier];
   v4 = [*(a1 + 32) requestIdentifier];
@@ -5221,9 +5267,9 @@ void __61__HMDBulletinBoard_insertCameraClipSignificantEventBulletin___block_inv
     {
       v50 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v59 = v50;
-      v60 = 2112;
-      v61 = v5;
+      v58 = v50;
+      v59 = 2112;
+      v60 = v5;
       _os_log_impl(&dword_2531F8000, v49, OS_LOG_TYPE_INFO, "%{public}@Not inserting camera clip significant event bulletin because a bulletin already exists with the same body and an attachment: %@", buf, 0x16u);
     }
 
@@ -5260,7 +5306,7 @@ void __61__HMDBulletinBoard_insertCameraClipSignificantEventBulletin___block_inv
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v59 = v22;
+        v58 = v22;
         _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Silently updating existing significant event bulletin with new preview image file instead of re-notifying", buf, 0xCu);
       }
 
@@ -5272,8 +5318,8 @@ void __61__HMDBulletinBoard_insertCameraClipSignificantEventBulletin___block_inv
 
     else
     {
-      v56 = v5;
-      v57 = v2;
+      v55 = v5;
+      v56 = v2;
       v25 = [*(a1 + 32) shouldShowProvideFeedbackButton];
       v26 = @"HomeAppBulletinCategory";
       if (v25)
@@ -5281,7 +5327,7 @@ void __61__HMDBulletinBoard_insertCameraClipSignificantEventBulletin___block_inv
         v26 = @"HMDBulletinCategoryProvideCameraRecordingFeedback";
       }
 
-      v54 = v26;
+      v53 = v26;
       v27 = objc_autoreleasePoolPush();
       v28 = *(a1 + 40);
       v29 = HMFGetOSLogHandle();
@@ -5291,11 +5337,11 @@ void __61__HMDBulletinBoard_insertCameraClipSignificantEventBulletin___block_inv
         v31 = *(a1 + 32);
         v32 = [v17 userInfo];
         *buf = 138543874;
-        v59 = v30;
-        v60 = 2112;
-        v61 = v31;
-        v62 = 2112;
-        v63 = v32;
+        v58 = v30;
+        v59 = 2112;
+        v60 = v31;
+        v61 = 2112;
+        v62 = v32;
         _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_INFO, "%{public}@Showing new significant event bulletin: %@, with user info: %@", buf, 0x20u);
       }
 
@@ -5305,7 +5351,7 @@ void __61__HMDBulletinBoard_insertCameraClipSignificantEventBulletin___block_inv
       v34 = [*(a1 + 32) home];
       v35 = [v34 uuid];
       v36 = [v35 UUIDString];
-      v53 = [v33 threadIdentifierForGroupingWithHomeWithUUIDString:v36];
+      v52 = [v33 threadIdentifierForGroupingWithHomeWithUUIDString:v36];
 
       v37 = [*(a1 + 40) notificationCenter];
       v38 = [*(a1 + 32) title];
@@ -5314,22 +5360,20 @@ void __61__HMDBulletinBoard_insertCameraClipSignificantEventBulletin___block_inv
       v41 = [*(a1 + 32) dateOfOccurrence];
       v42 = [v17 attachments];
       v43 = [v17 userInfo];
-      LOBYTE(v52) = 0;
-      v24 = v54;
-      [v37 showNotificationWithTitle:v38 body:v39 threadIdentifier:v53 categoryIdentifier:v54 requestIdentifier:v40 date:v41 attachments:v42 userInfo:v43 shouldIgnoreDoNotDisturb:v52 interruptionLevel:1 logEventTopic:6];
-      v44 = v55 = v17;
+      LOBYTE(v51) = 0;
+      v24 = v53;
+      [v37 showNotificationWithTitle:v38 body:v39 threadIdentifier:v52 categoryIdentifier:v53 requestIdentifier:v40 date:v41 attachments:v42 userInfo:v43 shouldIgnoreDoNotDisturb:v51 interruptionLevel:1 logEventTopic:6];
+      v44 = v54 = v17;
 
       v45 = *(a1 + 40);
       v46 = [*(a1 + 32) requestIdentifier];
       [v45 addNotificationRequest:v44 forIdentifier:v46];
 
-      v17 = v55;
-      v5 = v56;
-      v2 = v57;
+      v17 = v54;
+      v5 = v55;
+      v2 = v56;
     }
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeWalletKeyOnboardingBulletinForHome:(id)home
@@ -5348,7 +5392,7 @@ void __61__HMDBulletinBoard_insertCameraClipSignificantEventBulletin___block_inv
 
 void __61__HMDBulletinBoard_removeWalletKeyOnboardingBulletinForHome___block_invoke(uint64_t a1)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) homeManager];
 
   if (v2)
@@ -5369,7 +5413,7 @@ void __61__HMDBulletinBoard_removeWalletKeyOnboardingBulletinForHome___block_inv
       {
         v38 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v49 = v38;
+        v48 = v38;
         _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_INFO, "%{public}@Did not find any existing lock onboarding bulletin.", buf, 0xCu);
       }
 
@@ -5380,11 +5424,11 @@ void __61__HMDBulletinBoard_removeWalletKeyOnboardingBulletinForHome___block_inv
     v8 = [v7 content];
     v9 = [v8 mutableCopy];
 
-    v46 = v9;
+    v45 = v9;
     v10 = [v9 userInfo];
     v11 = [v10 mutableCopy];
 
-    v44 = *MEMORY[0x277CD13D8];
+    v43 = *MEMORY[0x277CD13D8];
     v12 = [v11 objectForKeyedSubscript:?];
     v13 = MEMORY[0x277CCACA8];
     v14 = [*(a1 + 40) contextSPIUniqueIdentifier];
@@ -5394,45 +5438,45 @@ void __61__HMDBulletinBoard_removeWalletKeyOnboardingBulletinForHome___block_inv
     v17 = [*(a1 + 40) contextSPIUniqueIdentifier];
     v18 = [v16 stringWithValidatedFormat:@"com.apple.Home-private://locksFirmwareUpdateSetup/%@?type=%@" validFormatSpecifiers:@"%@ %@" error:0, v17, @"walletkey"];
 
-    v45 = v15;
+    v44 = v15;
     if ([v12 isEqualToString:v15])
     {
-      v43 = v18;
+      v42 = v18;
       v19 = MEMORY[0x277CCACA8];
       v20 = [*(a1 + 40) contextSPIUniqueIdentifier];
       v21 = [v19 stringWithValidatedFormat:@"com.apple.Home-private://locksFirmwareUpdateSetup/%@?type=%@" validFormatSpecifiers:@"%@ %@" error:0, v20, @"pincode"];
 
-      v42 = [MEMORY[0x277CBEBC0] URLWithString:v21];
+      v41 = [MEMORY[0x277CBEBC0] URLWithString:v21];
       v22 = objc_autoreleasePoolPush();
       v23 = *(a1 + 32);
       v24 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
         v25 = HMFGetLogIdentifier();
-        [v11 objectForKeyedSubscript:v44];
-        v41 = v22;
+        [v11 objectForKeyedSubscript:v43];
+        v40 = v22;
         v27 = v26 = v12;
         *buf = 138543874;
-        v49 = v25;
-        v50 = 2112;
-        v51 = v27;
-        v52 = 2112;
-        v53 = v42;
+        v48 = v25;
+        v49 = 2112;
+        v50 = v27;
+        v51 = 2112;
+        v52 = v41;
         _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_INFO, "%{public}@Lock onboarding bulletin already exists, updating bulletin actionURL: %@ to %@.", buf, 0x20u);
 
         v12 = v26;
-        v22 = v41;
+        v22 = v40;
       }
 
       objc_autoreleasePoolPop(v22);
-      v28 = [v42 absoluteString];
-      [v11 setObject:v28 forKeyedSubscript:v44];
+      v28 = [v41 absoluteString];
+      [v11 setObject:v28 forKeyedSubscript:v43];
 
-      v9 = v46;
-      [v46 setUserInfo:v11];
+      v9 = v45;
+      [v45 setUserInfo:v11];
       v29 = *(a1 + 32);
       v30 = [v7 identifier];
-      [v29 updateContent:v46 forNotificationWithRequestIdentifier:v30];
+      [v29 updateContent:v45 forNotificationWithRequestIdentifier:v30];
     }
 
     else
@@ -5442,17 +5486,17 @@ void __61__HMDBulletinBoard_removeWalletKeyOnboardingBulletinForHome___block_inv
 LABEL_16:
 
 LABEL_17:
-        goto LABEL_18;
+        return;
       }
 
-      v43 = v18;
+      v42 = v18;
       v39 = *(a1 + 32);
-      v47 = v5;
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
+      v46 = v5;
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
       [v39 removeNotificationRequestsWithIdentifiers:v21 shouldDeleteAttachments:1];
     }
 
-    v18 = v43;
+    v18 = v42;
     goto LABEL_16;
   }
 
@@ -5463,13 +5507,11 @@ LABEL_17:
   {
     v34 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v49 = v34;
+    v48 = v34;
     _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_ERROR, "%{public}@Home manager is not yet configured, can not remove wallet key onboarding bulletin", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v31);
-LABEL_18:
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertWalletKeyExpressModeSetUpBulletinForHome:(id)home
@@ -5488,18 +5530,18 @@ LABEL_18:
 
 void __67__HMDBulletinBoard_insertWalletKeyExpressModeSetUpBulletinForHome___block_invoke(uint64_t a1)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) homeManager];
 
   if (v2)
   {
-    v42 = HMDLocalizedStringForKey(@"BULLETIN_WALLET_KEY_EXPRESS_MODE_TITLE");
+    v41 = HMDLocalizedStringForKey(@"BULLETIN_WALLET_KEY_EXPRESS_MODE_TITLE");
     v3 = MEMORY[0x277CCACA8];
     v4 = HMDLocalizedStringForKey(@"BULLETIN_WALLET_KEY_EXPRESS_MODE_MESSAGE");
-    v43 = 0;
+    v42 = 0;
     v5 = [*(a1 + 40) name];
-    v6 = [v3 localizedStringWithValidatedFormat:v4 validFormatSpecifiers:@"%@" error:&v43, v5];
-    v7 = v43;
+    v6 = [v3 localizedStringWithValidatedFormat:v4 validFormatSpecifiers:@"%@" error:&v42, v5];
+    v7 = v42;
 
     v8 = v6;
     if (!v6)
@@ -5510,13 +5552,13 @@ void __67__HMDBulletinBoard_insertWalletKeyExpressModeSetUpBulletinForHome___blo
       {
         v11 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v45 = v11;
-        v46 = 2112;
-        v47 = @"BULLETIN_WALLET_KEY_EXPRESS_MODE_MESSAGE";
-        v48 = 2112;
-        v49 = @"%@";
-        v50 = 2112;
-        v51 = v7;
+        v44 = v11;
+        v45 = 2112;
+        v46 = @"BULLETIN_WALLET_KEY_EXPRESS_MODE_MESSAGE";
+        v47 = 2112;
+        v48 = @"%@";
+        v49 = 2112;
+        v50 = v7;
         _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
       }
 
@@ -5530,7 +5572,7 @@ void __67__HMDBulletinBoard_insertWalletKeyExpressModeSetUpBulletinForHome___blo
     v14 = [*(a1 + 40) contextSPIUniqueIdentifier];
     v15 = [v13 stringWithValidatedFormat:@"com.apple.Home-private://locksOnboarding/%@?type=%@" validFormatSpecifiers:@"%@ %@" error:0, v14, @"walletkey"];
 
-    v41 = v15;
+    v40 = v15;
     v16 = [MEMORY[0x277CBEBC0] URLWithString:v15];
     v17 = [*(a1 + 40) homeBulletinContext];
     v18 = [v17 mutableCopy];
@@ -5553,11 +5595,11 @@ void __67__HMDBulletinBoard_insertWalletKeyExpressModeSetUpBulletinForHome___blo
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v45 = v28;
-      v46 = 2112;
-      v47 = v12;
-      v48 = 2112;
-      v49 = v16;
+      v44 = v28;
+      v45 = 2112;
+      v46 = v12;
+      v47 = 2112;
+      v48 = v16;
       _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@Inserting wallet key express mode setup bulletin with message: %@ actionURL:%@", buf, 0x20u);
     }
 
@@ -5567,9 +5609,9 @@ void __67__HMDBulletinBoard_insertWalletKeyExpressModeSetUpBulletinForHome___blo
 
     v31 = [*(a1 + 32) notificationCenter];
     v32 = [MEMORY[0x277CBEAA8] date];
-    v33 = [v18 copy];
-    LOBYTE(v40) = 0;
-    v34 = [v31 showNotificationWithTitle:v42 body:v12 threadIdentifier:v24 categoryIdentifier:@"HMDBulletinCategorySuppressNotificationOnWatch" requestIdentifier:v30 date:v32 attachments:0 userInfo:v33 shouldIgnoreDoNotDisturb:v40 interruptionLevel:1 logEventTopic:17];
+    v33 = objc_msgSend_copy(v18);
+    LOBYTE(v39) = 0;
+    v34 = [v31 showNotificationWithTitle:v41 body:v12 threadIdentifier:v24 categoryIdentifier:@"HMDBulletinCategorySuppressNotificationOnWatch" requestIdentifier:v30 date:v32 attachments:0 userInfo:v33 shouldIgnoreDoNotDisturb:v39 interruptionLevel:1 logEventTopic:17];
 
     [*(a1 + 32) addNotificationRequest:v34 forIdentifier:v30];
   }
@@ -5583,14 +5625,12 @@ void __67__HMDBulletinBoard_insertWalletKeyExpressModeSetUpBulletinForHome___blo
     {
       v38 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v45 = v38;
+      v44 = v38;
       _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_ERROR, "%{public}@Home manager is not yet configured, can not insert wallet key express mode setup bulletin", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v35);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertWalletKeySupportAddedBulletinForAccessory:(id)accessory
@@ -5609,19 +5649,19 @@ void __67__HMDBulletinBoard_insertWalletKeyExpressModeSetUpBulletinForHome___blo
 
 void __68__HMDBulletinBoard_insertWalletKeySupportAddedBulletinForAccessory___block_invoke(uint64_t a1)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) homeManager];
 
   if (v2)
   {
     v3 = [*(a1 + 40) home];
-    v51 = [*(a1 + 40) name];
+    v50 = [*(a1 + 40) name];
     v4 = MEMORY[0x277CCACA8];
     v5 = HMDLocalizedStringForKey(@"BULLETIN_WALLET_KEY_SUPPORT_ADDED_MESSAGE");
-    v53 = 0;
+    v52 = 0;
     v6 = [*(a1 + 40) name];
-    v7 = [v4 localizedStringWithValidatedFormat:v5 validFormatSpecifiers:@"%@" error:&v53, v6];
-    v8 = v53;
+    v7 = [v4 localizedStringWithValidatedFormat:v5 validFormatSpecifiers:@"%@" error:&v52, v6];
+    v8 = v52;
 
     v9 = v7;
     if (!v7)
@@ -5632,13 +5672,13 @@ void __68__HMDBulletinBoard_insertWalletKeySupportAddedBulletinForAccessory___bl
       {
         v12 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v56 = v12;
-        v57 = 2112;
-        v58 = @"BULLETIN_WALLET_KEY_SUPPORT_ADDED_MESSAGE";
-        v59 = 2112;
-        v60 = @"%@";
-        v61 = 2112;
-        v62 = v8;
+        v55 = v12;
+        v56 = 2112;
+        v57 = @"BULLETIN_WALLET_KEY_SUPPORT_ADDED_MESSAGE";
+        v58 = 2112;
+        v59 = @"%@";
+        v60 = 2112;
+        v61 = v8;
         _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
       }
 
@@ -5646,7 +5686,7 @@ void __68__HMDBulletinBoard_insertWalletKeySupportAddedBulletinForAccessory___bl
       v9 = @"BULLETIN_WALLET_KEY_SUPPORT_ADDED_MESSAGE";
     }
 
-    v52 = v9;
+    v51 = v9;
 
     v13 = MEMORY[0x277CD1878];
     v14 = [*(a1 + 40) contextSPIUniqueIdentifier];
@@ -5659,11 +5699,11 @@ void __68__HMDBulletinBoard_insertWalletKeySupportAddedBulletinForAccessory___bl
     v20 = [v17 tupleWithQueryType:0 uuidString:v19];
 
     v21 = MEMORY[0x277CBEB98];
-    v49 = v20;
-    v54 = v20;
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
+    v48 = v20;
+    v53 = v20;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
     v23 = [v21 setWithArray:v22];
-    v50 = v16;
+    v49 = v16;
     v24 = generateURLForHomeKitObject();
 
     v25 = [*(a1 + 40) accessoryBulletinContext];
@@ -5687,11 +5727,11 @@ void __68__HMDBulletinBoard_insertWalletKeySupportAddedBulletinForAccessory___bl
     {
       v36 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v56 = v36;
-      v57 = 2112;
-      v58 = v52;
-      v59 = 2112;
-      v60 = v24;
+      v55 = v36;
+      v56 = 2112;
+      v57 = v51;
+      v58 = 2112;
+      v59 = v24;
       _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_DEFAULT, "%{public}@Inserting wallet key support added bulletin with message: %@ actionURL:%@", buf, 0x20u);
     }
 
@@ -5701,9 +5741,9 @@ void __68__HMDBulletinBoard_insertWalletKeySupportAddedBulletinForAccessory___bl
 
     v39 = [*(a1 + 32) notificationCenter];
     v40 = [MEMORY[0x277CBEAA8] date];
-    v41 = [v26 copy];
-    LOBYTE(v48) = 0;
-    v42 = [v39 showNotificationWithTitle:v51 body:v52 threadIdentifier:v32 categoryIdentifier:@"HMDBBNormalType" requestIdentifier:v38 date:v40 attachments:0 userInfo:v41 shouldIgnoreDoNotDisturb:v48 interruptionLevel:1 logEventTopic:17];
+    v41 = objc_msgSend_copy(v26);
+    LOBYTE(v47) = 0;
+    v42 = [v39 showNotificationWithTitle:v50 body:v51 threadIdentifier:v32 categoryIdentifier:@"HMDBBNormalType" requestIdentifier:v38 date:v40 attachments:0 userInfo:v41 shouldIgnoreDoNotDisturb:v47 interruptionLevel:1 logEventTopic:17];
 
     [*(a1 + 32) addNotificationRequest:v42 forIdentifier:v38];
   }
@@ -5717,14 +5757,12 @@ void __68__HMDBulletinBoard_insertWalletKeySupportAddedBulletinForAccessory___bl
     {
       v46 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v56 = v46;
+      v55 = v46;
       _os_log_impl(&dword_2531F8000, v45, OS_LOG_TYPE_ERROR, "%{public}@Home manager is not yet configured, can not insert wallet key support added bulletin", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v43);
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertLockOnboardingBulletinForHome:(id)home serviceType:(id)type
@@ -5746,7 +5784,7 @@ void __68__HMDBulletinBoard_insertWalletKeySupportAddedBulletinForAccessory___bl
 
 void __68__HMDBulletinBoard_insertLockOnboardingBulletinForHome_serviceType___block_invoke(uint64_t a1)
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) homeManager];
 
   if (v2)
@@ -5764,12 +5802,12 @@ void __68__HMDBulletinBoard_insertLockOnboardingBulletinForHome_serviceType___bl
       v9 = [*(a1 + 40) contextSPIUniqueIdentifier];
       v10 = [v8 stringWithValidatedFormat:@"com.apple.Home-private://locksFirmwareUpdateSetup/%@?type=%@" validFormatSpecifiers:@"%@ %@" error:0, v9, @"all"];
 
-      v61 = v10;
+      v60 = v10;
       v11 = [MEMORY[0x277CBEBC0] URLWithString:v10];
       v12 = [v7 content];
       v13 = [v12 mutableCopy];
 
-      v59 = v13;
+      v58 = v13;
       v14 = [(__CFString *)v13 userInfo];
       v15 = [v14 mutableCopy];
 
@@ -5779,20 +5817,20 @@ void __68__HMDBulletinBoard_insertLockOnboardingBulletinForHome_serviceType___bl
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         HMFGetLogIdentifier();
-        v19 = v56 = v16;
+        v19 = v55 = v16;
         v20 = *MEMORY[0x277CD13D8];
         [v15 objectForKeyedSubscript:*MEMORY[0x277CD13D8]];
         v22 = v21 = v5;
         *buf = 138543874;
-        v63 = v19;
-        v64 = 2112;
-        v65 = v22;
-        v66 = 2112;
-        v67 = v11;
+        v62 = v19;
+        v63 = 2112;
+        v64 = v22;
+        v65 = 2112;
+        v66 = v11;
         _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Lock onboarding bulletin already exists, updating bulletin actionURL: %@ to %@.", buf, 0x20u);
 
         v5 = v21;
-        v16 = v56;
+        v16 = v55;
       }
 
       else
@@ -5804,18 +5842,18 @@ void __68__HMDBulletinBoard_insertLockOnboardingBulletinForHome_serviceType___bl
       v51 = [v11 absoluteString];
       [v15 setObject:v51 forKeyedSubscript:v20];
 
-      v50 = v59;
-      [(__CFString *)v59 setUserInfo:v15];
+      v50 = v58;
+      [(__CFString *)v58 setUserInfo:v15];
       v52 = *(a1 + 32);
       [v7 identifier];
       v32 = v49 = v15;
-      [v52 updateContent:v59 forNotificationWithRequestIdentifier:v32];
+      [v52 updateContent:v58 forNotificationWithRequestIdentifier:v32];
     }
 
     else
     {
-      v57 = v5;
-      v61 = HMDLocalizedStringForKey(@"BULLETIN_LOCK_ONBOARDING_TITLE");
+      v56 = v5;
+      v60 = HMDLocalizedStringForKey(@"BULLETIN_LOCK_ONBOARDING_TITLE");
       v11 = HMDLocalizedStringForKey(@"BULLETIN_LOCK_ONBOARDING_MESSAGE");
       if (*(a1 + 48) == @"00000266-0000-1000-8000-0026BB765291")
       {
@@ -5830,10 +5868,10 @@ void __68__HMDBulletinBoard_insertLockOnboardingBulletinForHome_serviceType___bl
       v28 = v27;
       v29 = MEMORY[0x277CCACA8];
       v30 = [*(a1 + 40) contextSPIUniqueIdentifier];
-      v60 = v28;
+      v59 = v28;
       v31 = [v29 stringWithValidatedFormat:@"com.apple.Home-private://locksFirmwareUpdateSetup/%@?type=%@" validFormatSpecifiers:@"%@ %@" error:0, v30, v28];
 
-      v58 = v31;
+      v57 = v31;
       v32 = [MEMORY[0x277CBEBC0] URLWithString:v31];
       v33 = [*(a1 + 40) homeBulletinContext];
       v34 = [v33 mutableCopy];
@@ -5847,7 +5885,7 @@ void __68__HMDBulletinBoard_insertLockOnboardingBulletinForHome_serviceType___bl
       v37 = *(a1 + 32);
       v38 = [*(a1 + 40) uuid];
       v39 = [v38 UUIDString];
-      v55 = [v37 threadIdentifierForGroupingWithHomeWithUUIDString:v39];
+      v54 = [v37 threadIdentifierForGroupingWithHomeWithUUIDString:v39];
 
       v40 = objc_autoreleasePoolPush();
       v41 = *(a1 + 32);
@@ -5857,28 +5895,28 @@ void __68__HMDBulletinBoard_insertLockOnboardingBulletinForHome_serviceType___bl
         v43 = HMFGetLogIdentifier();
         v44 = *(a1 + 48);
         *buf = 138544130;
-        v63 = v43;
-        v64 = 2112;
-        v65 = v11;
-        v66 = 2112;
-        v67 = v32;
-        v68 = 2112;
-        v69 = v44;
+        v62 = v43;
+        v63 = 2112;
+        v64 = v11;
+        v65 = 2112;
+        v66 = v32;
+        v67 = 2112;
+        v68 = v44;
         _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_DEFAULT, "%{public}@Inserting lock onboarding bulletin with message: %@ actionURL:%@ for service: %@", buf, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v40);
       v45 = [*(a1 + 32) notificationCenter];
       v46 = [MEMORY[0x277CBEAA8] date];
-      v47 = [v34 copy];
-      LOBYTE(v54) = 0;
-      v5 = v57;
-      v48 = [v45 showNotificationWithTitle:v61 body:v11 threadIdentifier:v55 categoryIdentifier:@"HMDBulletinCategorySuppressNotificationOnWatch" requestIdentifier:v57 date:v46 attachments:0 userInfo:v47 shouldIgnoreDoNotDisturb:v54 interruptionLevel:1 logEventTopic:13];
+      v47 = objc_msgSend_copy(v34);
+      LOBYTE(v53) = 0;
+      v5 = v56;
+      v48 = [v45 showNotificationWithTitle:v60 body:v11 threadIdentifier:v54 categoryIdentifier:@"HMDBulletinCategorySuppressNotificationOnWatch" requestIdentifier:v56 date:v46 attachments:0 userInfo:v47 shouldIgnoreDoNotDisturb:v53 interruptionLevel:1 logEventTopic:13];
 
-      [*(a1 + 32) addNotificationRequest:v48 forIdentifier:v57];
+      [*(a1 + 32) addNotificationRequest:v48 forIdentifier:v56];
       v7 = 0;
-      v49 = v58;
-      v50 = v60;
+      v49 = v57;
+      v50 = v59;
     }
   }
 
@@ -5891,14 +5929,12 @@ void __68__HMDBulletinBoard_insertLockOnboardingBulletinForHome_serviceType___bl
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v63 = v26;
+      v62 = v26;
       _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@Home manager is not yet configured, can not insert access code onboarding bulletin", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v23);
   }
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertAccessCodeRemovedBulletinForHome:(id)home
@@ -5917,18 +5953,18 @@ void __68__HMDBulletinBoard_insertLockOnboardingBulletinForHome_serviceType___bl
 
 void __59__HMDBulletinBoard_insertAccessCodeRemovedBulletinForHome___block_invoke(uint64_t a1)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) homeManager];
 
   if (v2)
   {
-    v43 = HMDLocalizedStringForKey(@"BULLETIN_ACCESS_CODE_REMOVED_TITLE");
+    v42 = HMDLocalizedStringForKey(@"BULLETIN_ACCESS_CODE_REMOVED_TITLE");
     v3 = MEMORY[0x277CCACA8];
     v4 = HMDLocalizedStringForKey(@"BULLETIN_ACCESS_CODE_REMOVED_MESSAGE");
-    v44 = 0;
+    v43 = 0;
     v5 = [*(a1 + 40) name];
-    v6 = [v3 localizedStringWithValidatedFormat:v4 validFormatSpecifiers:@"%@" error:&v44, v5];
-    v7 = v44;
+    v6 = [v3 localizedStringWithValidatedFormat:v4 validFormatSpecifiers:@"%@" error:&v43, v5];
+    v7 = v43;
 
     v8 = v6;
     if (!v6)
@@ -5939,13 +5975,13 @@ void __59__HMDBulletinBoard_insertAccessCodeRemovedBulletinForHome___block_invok
       {
         v11 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v46 = v11;
-        v47 = 2112;
-        v48 = @"BULLETIN_ACCESS_CODE_REMOVED_MESSAGE";
-        v49 = 2112;
-        v50 = @"%@";
-        v51 = 2112;
-        v52 = v7;
+        v45 = v11;
+        v46 = 2112;
+        v47 = @"BULLETIN_ACCESS_CODE_REMOVED_MESSAGE";
+        v48 = 2112;
+        v49 = @"%@";
+        v50 = 2112;
+        v51 = v7;
         _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
       }
 
@@ -5959,12 +5995,12 @@ void __59__HMDBulletinBoard_insertAccessCodeRemovedBulletinForHome___block_invok
     v14 = [*(a1 + 40) contextSPIUniqueIdentifier];
     v15 = [v13 stringWithValidatedFormat:@"com.apple.Home-private://userLockSettings/%@" validFormatSpecifiers:@"%@" error:0, v14];
 
-    v42 = v15;
+    v41 = v15;
     v16 = [MEMORY[0x277CBEBC0] URLWithString:v15];
     v17 = [*(a1 + 40) homeBulletinContext];
     v18 = [v17 mutableCopy];
 
-    v41 = v16;
+    v40 = v16;
     v19 = [v16 absoluteString];
     [v18 setObject:v19 forKeyedSubscript:*MEMORY[0x277CD13D8]];
 
@@ -5983,9 +6019,9 @@ void __59__HMDBulletinBoard_insertAccessCodeRemovedBulletinForHome___block_invok
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v46 = v28;
-      v47 = 2112;
-      v48 = v12;
+      v45 = v28;
+      v46 = 2112;
+      v47 = v12;
       _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@Inserting access code removed bulletin with message: %@", buf, 0x16u);
     }
 
@@ -5995,9 +6031,9 @@ void __59__HMDBulletinBoard_insertAccessCodeRemovedBulletinForHome___block_invok
 
     v31 = [*(a1 + 32) notificationCenter];
     v32 = [MEMORY[0x277CBEAA8] date];
-    v33 = [v18 copy];
-    LOBYTE(v40) = 0;
-    v34 = [v31 showNotificationWithTitle:v43 body:v12 threadIdentifier:v24 categoryIdentifier:@"HMDBBNormalType" requestIdentifier:v30 date:v32 attachments:0 userInfo:v33 shouldIgnoreDoNotDisturb:v40 interruptionLevel:1 logEventTopic:1];
+    v33 = objc_msgSend_copy(v18);
+    LOBYTE(v39) = 0;
+    v34 = [v31 showNotificationWithTitle:v42 body:v12 threadIdentifier:v24 categoryIdentifier:@"HMDBBNormalType" requestIdentifier:v30 date:v32 attachments:0 userInfo:v33 shouldIgnoreDoNotDisturb:v39 interruptionLevel:1 logEventTopic:1];
 
     [*(a1 + 32) addNotificationRequest:v34 forIdentifier:v30];
   }
@@ -6011,14 +6047,12 @@ void __59__HMDBulletinBoard_insertAccessCodeRemovedBulletinForHome___block_invok
     {
       v38 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v46 = v38;
+      v45 = v38;
       _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_ERROR, "%{public}@Home manager is not yet configured, can not insert access code removed bulletin", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v35);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertAccessCodeChangedBulletinForHome:(id)home
@@ -6037,18 +6071,18 @@ void __59__HMDBulletinBoard_insertAccessCodeRemovedBulletinForHome___block_invok
 
 void __59__HMDBulletinBoard_insertAccessCodeChangedBulletinForHome___block_invoke(uint64_t a1)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) homeManager];
 
   if (v2)
   {
-    v43 = HMDLocalizedStringForKey(@"BULLETIN_ACCESS_CODE_CHANGED_TITLE");
+    v42 = HMDLocalizedStringForKey(@"BULLETIN_ACCESS_CODE_CHANGED_TITLE");
     v3 = MEMORY[0x277CCACA8];
     v4 = HMDLocalizedStringForKey(@"BULLETIN_ACCESS_CODE_CHANGED_MESSAGE");
-    v44 = 0;
+    v43 = 0;
     v5 = [*(a1 + 40) name];
-    v6 = [v3 localizedStringWithValidatedFormat:v4 validFormatSpecifiers:@"%@" error:&v44, v5];
-    v7 = v44;
+    v6 = [v3 localizedStringWithValidatedFormat:v4 validFormatSpecifiers:@"%@" error:&v43, v5];
+    v7 = v43;
 
     v8 = v6;
     if (!v6)
@@ -6059,13 +6093,13 @@ void __59__HMDBulletinBoard_insertAccessCodeChangedBulletinForHome___block_invok
       {
         v11 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v46 = v11;
-        v47 = 2112;
-        v48 = @"BULLETIN_ACCESS_CODE_CHANGED_MESSAGE";
-        v49 = 2112;
-        v50 = @"%@";
-        v51 = 2112;
-        v52 = v7;
+        v45 = v11;
+        v46 = 2112;
+        v47 = @"BULLETIN_ACCESS_CODE_CHANGED_MESSAGE";
+        v48 = 2112;
+        v49 = @"%@";
+        v50 = 2112;
+        v51 = v7;
         _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
       }
 
@@ -6079,12 +6113,12 @@ void __59__HMDBulletinBoard_insertAccessCodeChangedBulletinForHome___block_invok
     v14 = [*(a1 + 40) contextSPIUniqueIdentifier];
     v15 = [v13 stringWithValidatedFormat:@"com.apple.Home-private://userLockSettings/%@" validFormatSpecifiers:@"%@" error:0, v14];
 
-    v42 = v15;
+    v41 = v15;
     v16 = [MEMORY[0x277CBEBC0] URLWithString:v15];
     v17 = [*(a1 + 40) homeBulletinContext];
     v18 = [v17 mutableCopy];
 
-    v41 = v16;
+    v40 = v16;
     v19 = [v16 absoluteString];
     [v18 setObject:v19 forKeyedSubscript:*MEMORY[0x277CD13D8]];
 
@@ -6103,9 +6137,9 @@ void __59__HMDBulletinBoard_insertAccessCodeChangedBulletinForHome___block_invok
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v46 = v28;
-      v47 = 2112;
-      v48 = v12;
+      v45 = v28;
+      v46 = 2112;
+      v47 = v12;
       _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@Inserting access code changed bulletin with message: %@", buf, 0x16u);
     }
 
@@ -6115,9 +6149,9 @@ void __59__HMDBulletinBoard_insertAccessCodeChangedBulletinForHome___block_invok
 
     v31 = [*(a1 + 32) notificationCenter];
     v32 = [MEMORY[0x277CBEAA8] date];
-    v33 = [v18 copy];
-    LOBYTE(v40) = 0;
-    v34 = [v31 showNotificationWithTitle:v43 body:v12 threadIdentifier:v24 categoryIdentifier:@"HMDBBNormalType" requestIdentifier:v30 date:v32 attachments:0 userInfo:v33 shouldIgnoreDoNotDisturb:v40 interruptionLevel:1 logEventTopic:1];
+    v33 = objc_msgSend_copy(v18);
+    LOBYTE(v39) = 0;
+    v34 = [v31 showNotificationWithTitle:v42 body:v12 threadIdentifier:v24 categoryIdentifier:@"HMDBBNormalType" requestIdentifier:v30 date:v32 attachments:0 userInfo:v33 shouldIgnoreDoNotDisturb:v39 interruptionLevel:1 logEventTopic:1];
 
     [*(a1 + 32) addNotificationRequest:v34 forIdentifier:v30];
   }
@@ -6131,14 +6165,12 @@ void __59__HMDBulletinBoard_insertAccessCodeChangedBulletinForHome___block_invok
     {
       v38 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v46 = v38;
+      v45 = v38;
       _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_ERROR, "%{public}@Home manager is not yet configured, can not insert access code changed bulletin", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v35);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertAccessCodeAddedBulletinForHome:(id)home
@@ -6157,18 +6189,18 @@ void __59__HMDBulletinBoard_insertAccessCodeChangedBulletinForHome___block_invok
 
 void __57__HMDBulletinBoard_insertAccessCodeAddedBulletinForHome___block_invoke(uint64_t a1)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) homeManager];
 
   if (v2)
   {
-    v43 = HMDLocalizedStringForKey(@"BULLETIN_ACCESS_CODE_ADDED_TITLE");
+    v42 = HMDLocalizedStringForKey(@"BULLETIN_ACCESS_CODE_ADDED_TITLE");
     v3 = MEMORY[0x277CCACA8];
     v4 = HMDLocalizedStringForKey(@"BULLETIN_ACCESS_CODE_ADDED_MESSAGE");
-    v44 = 0;
+    v43 = 0;
     v5 = [*(a1 + 40) name];
-    v6 = [v3 localizedStringWithValidatedFormat:v4 validFormatSpecifiers:@"%@" error:&v44, v5];
-    v7 = v44;
+    v6 = [v3 localizedStringWithValidatedFormat:v4 validFormatSpecifiers:@"%@" error:&v43, v5];
+    v7 = v43;
 
     v8 = v6;
     if (!v6)
@@ -6179,13 +6211,13 @@ void __57__HMDBulletinBoard_insertAccessCodeAddedBulletinForHome___block_invoke(
       {
         v11 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v46 = v11;
-        v47 = 2112;
-        v48 = @"BULLETIN_ACCESS_CODE_ADDED_MESSAGE";
-        v49 = 2112;
-        v50 = @"%@";
-        v51 = 2112;
-        v52 = v7;
+        v45 = v11;
+        v46 = 2112;
+        v47 = @"BULLETIN_ACCESS_CODE_ADDED_MESSAGE";
+        v48 = 2112;
+        v49 = @"%@";
+        v50 = 2112;
+        v51 = v7;
         _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
       }
 
@@ -6199,12 +6231,12 @@ void __57__HMDBulletinBoard_insertAccessCodeAddedBulletinForHome___block_invoke(
     v14 = [*(a1 + 40) contextSPIUniqueIdentifier];
     v15 = [v13 stringWithValidatedFormat:@"com.apple.Home-private://userLockSettings/%@" validFormatSpecifiers:@"%@" error:0, v14];
 
-    v42 = v15;
+    v41 = v15;
     v16 = [MEMORY[0x277CBEBC0] URLWithString:v15];
     v17 = [*(a1 + 40) homeBulletinContext];
     v18 = [v17 mutableCopy];
 
-    v41 = v16;
+    v40 = v16;
     v19 = [v16 absoluteString];
     [v18 setObject:v19 forKeyedSubscript:*MEMORY[0x277CD13D8]];
 
@@ -6223,9 +6255,9 @@ void __57__HMDBulletinBoard_insertAccessCodeAddedBulletinForHome___block_invoke(
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v46 = v28;
-      v47 = 2112;
-      v48 = v12;
+      v45 = v28;
+      v46 = 2112;
+      v47 = v12;
       _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@Inserting access code added bulletin with message: %@", buf, 0x16u);
     }
 
@@ -6235,9 +6267,9 @@ void __57__HMDBulletinBoard_insertAccessCodeAddedBulletinForHome___block_invoke(
 
     v31 = [*(a1 + 32) notificationCenter];
     v32 = [MEMORY[0x277CBEAA8] date];
-    v33 = [v18 copy];
-    LOBYTE(v40) = 0;
-    v34 = [v31 showNotificationWithTitle:v43 body:v12 threadIdentifier:v24 categoryIdentifier:@"HMDBBNormalType" requestIdentifier:v30 date:v32 attachments:0 userInfo:v33 shouldIgnoreDoNotDisturb:v40 interruptionLevel:1 logEventTopic:1];
+    v33 = objc_msgSend_copy(v18);
+    LOBYTE(v39) = 0;
+    v34 = [v31 showNotificationWithTitle:v42 body:v12 threadIdentifier:v24 categoryIdentifier:@"HMDBBNormalType" requestIdentifier:v30 date:v32 attachments:0 userInfo:v33 shouldIgnoreDoNotDisturb:v39 interruptionLevel:1 logEventTopic:1];
 
     [*(a1 + 32) addNotificationRequest:v34 forIdentifier:v30];
   }
@@ -6251,14 +6283,12 @@ void __57__HMDBulletinBoard_insertAccessCodeAddedBulletinForHome___block_invoke(
     {
       v38 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v46 = v38;
+      v45 = v38;
       _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_ERROR, "%{public}@Home manager is not yet configured, can not insert access code added bulletin", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v35);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertHomeHubReachabilityBulletinForHome:(id)home reachable:(BOOL)reachable hasMultipleResidents:(BOOL)residents
@@ -6279,7 +6309,7 @@ void __57__HMDBulletinBoard_insertAccessCodeAddedBulletinForHome___block_invoke(
 
 void __92__HMDBulletinBoard_insertHomeHubReachabilityBulletinForHome_reachable_hasMultipleResidents___block_invoke(uint64_t a1)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) homeManager];
 
   if (!v2)
@@ -6291,7 +6321,7 @@ void __92__HMDBulletinBoard_insertHomeHubReachabilityBulletinForHome_reachable_h
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v45 = v8;
+      v44 = v8;
       _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Home manager is not yet configured, bailing insertBulletinsForUnreachableRecordingCamera", buf, 0xCu);
     }
 
@@ -6308,15 +6338,15 @@ void __92__HMDBulletinBoard_insertHomeHubReachabilityBulletinForHome_reachable_h
       v11 = HMFGetLogIdentifier();
       v12 = [*(a1 + 40) name];
       *buf = 138543618;
-      v45 = v11;
-      v46 = 2112;
-      v47 = v12;
+      v44 = v11;
+      v45 = 2112;
+      v46 = v12;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Not allowed to post home hub reachability bulletin for home: %@", buf, 0x16u);
     }
 
 LABEL_11:
     objc_autoreleasePoolPop(v5);
-    goto LABEL_20;
+    return;
   }
 
   v3 = [*(a1 + 40) name];
@@ -6335,18 +6365,18 @@ LABEL_11:
     v4 = @"HOME_NO_REACHABLE_HOME_HUB";
   }
 
-  v43 = HMDLocalizedStringForKey(v4);
+  v42 = HMDLocalizedStringForKey(v4);
   v13 = MEMORY[0x277CD1878];
   v14 = [*(a1 + 40) contextSPIUniqueIdentifier];
   v15 = [v14 UUIDString];
   v16 = [v13 tupleWithQueryType:0 uuidString:v15];
 
-  v42 = v16;
+  v41 = v16;
   v17 = generateURLForHomeKitObject();
   v18 = [*(a1 + 40) homeBulletinContext];
   v19 = [v18 mutableCopy];
 
-  v41 = v17;
+  v40 = v17;
   v20 = [v17 absoluteString];
   [v19 setObject:v20 forKeyedSubscript:*MEMORY[0x277CD13D8]];
 
@@ -6372,9 +6402,9 @@ LABEL_11:
     }
 
     *buf = 138543618;
-    v45 = v29;
-    v46 = 2114;
-    v47 = v31;
+    v44 = v29;
+    v45 = 2114;
+    v46 = v31;
     _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@Posting %{public}@ Home Bulletin", buf, 0x16u);
   }
 
@@ -6384,14 +6414,12 @@ LABEL_11:
 
   v34 = [*(a1 + 32) notificationCenter];
   v35 = [MEMORY[0x277CBEAA8] date];
-  v36 = [v19 copy];
-  LOBYTE(v40) = 0;
-  [v34 showNotificationWithTitle:v3 body:v43 threadIdentifier:v25 categoryIdentifier:@"HMDBBNormalType" requestIdentifier:v33 date:v35 attachments:0 userInfo:v36 shouldIgnoreDoNotDisturb:v40 interruptionLevel:1 logEventTopic:10];
+  v36 = objc_msgSend_copy(v19);
+  LOBYTE(v39) = 0;
+  [v34 showNotificationWithTitle:v3 body:v42 threadIdentifier:v25 categoryIdentifier:@"HMDBBNormalType" requestIdentifier:v33 date:v35 attachments:0 userInfo:v36 shouldIgnoreDoNotDisturb:v39 interruptionLevel:1 logEventTopic:10];
   v38 = v37 = v3;
 
   [*(a1 + 32) addNotificationRequest:v38 forIdentifier:v33];
-LABEL_20:
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertReachabilityEventBulletinForAccessory:(id)accessory reachable:(BOOL)reachable date:(id)date
@@ -6414,136 +6442,11 @@ LABEL_20:
 
 void __79__HMDBulletinBoard_insertReachabilityEventBulletinForAccessory_reachable_date___block_invoke(uint64_t a1)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) homeManager];
 
-  if (v2)
+  if (!v2)
   {
-    v3 = [*(a1 + 40) cameraProfiles];
-    v4 = [v3 count];
-
-    if (v4)
-    {
-      v5 = [*(a1 + 40) home];
-      v52 = [v5 name];
-      v6 = MEMORY[0x277CCACA8];
-      if (*(a1 + 56) == 1)
-      {
-        v7 = HMDLocalizedStringForKey(@"CAMERA_IS_REACHABLE");
-        v54 = 0;
-        v8 = [*(a1 + 40) name];
-        v9 = [v6 localizedStringWithValidatedFormat:v7 validFormatSpecifiers:@"%@" error:&v54, v8];
-        v10 = v54;
-
-        if (!v9)
-        {
-          v11 = objc_autoreleasePoolPush();
-          v12 = HMFGetOSLogHandle();
-          v9 = @"CAMERA_IS_REACHABLE";
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-          {
-            v13 = HMFGetLogIdentifier();
-            *buf = 138544130;
-            v57 = v13;
-            v58 = 2112;
-            v59 = @"CAMERA_IS_REACHABLE";
-            v60 = 2112;
-            v61 = @"%@";
-            v62 = 2112;
-            v63 = v10;
-LABEL_17:
-            _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
-
-            goto LABEL_18;
-          }
-
-          goto LABEL_18;
-        }
-      }
-
-      else
-      {
-        v19 = HMDLocalizedStringForKey(@"CAMERA_IS_UNREACHABLE");
-        v53 = 0;
-        v20 = [*(a1 + 40) name];
-        v9 = [v6 localizedStringWithValidatedFormat:v19 validFormatSpecifiers:@"%@" error:&v53, v20];
-        v10 = v53;
-
-        if (!v9)
-        {
-          v11 = objc_autoreleasePoolPush();
-          v12 = HMFGetOSLogHandle();
-          v9 = @"CAMERA_IS_UNREACHABLE";
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-          {
-            v13 = HMFGetLogIdentifier();
-            *buf = 138544130;
-            v57 = v13;
-            v58 = 2112;
-            v59 = @"CAMERA_IS_UNREACHABLE";
-            v60 = 2112;
-            v61 = @"%@";
-            v62 = 2112;
-            v63 = v10;
-            goto LABEL_17;
-          }
-
-LABEL_18:
-
-          objc_autoreleasePoolPop(v11);
-          v21 = 0;
-          goto LABEL_19;
-        }
-      }
-
-      v21 = v9;
-LABEL_19:
-      v51 = v9;
-
-      v22 = MEMORY[0x277CD1878];
-      v23 = [*(a1 + 40) contextSPIUniqueIdentifier];
-      v24 = [v23 UUIDString];
-      v49 = [v22 tupleWithQueryType:1 uuidString:v24];
-
-      v25 = MEMORY[0x277CD1878];
-      v26 = [v5 contextSPIUniqueIdentifier];
-      v27 = [v26 UUIDString];
-      v50 = [v25 tupleWithQueryType:0 uuidString:v27];
-
-      v28 = MEMORY[0x277CBEB98];
-      v55 = v50;
-      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
-      v30 = [v28 setWithArray:v29];
-      v31 = generateURLForHomeKitObject();
-
-      v32 = [*(a1 + 40) accessoryBulletinContext];
-      v33 = [v32 mutableCopy];
-
-      v34 = [v31 absoluteString];
-      [v33 setObject:v34 forKeyedSubscript:*MEMORY[0x277CD13D8]];
-
-      v35 = [v5 contextID];
-      [v33 setObject:v35 forKeyedSubscript:@"home"];
-
-      v36 = *(a1 + 32);
-      v37 = [v5 uuid];
-      [v37 UUIDString];
-      v38 = v48 = v5;
-      v39 = [v36 threadIdentifierForGroupingWithHomeWithUUIDString:v38];
-
-      v40 = [MEMORY[0x277CCAD78] UUID];
-      v41 = [v40 UUIDString];
-
-      v42 = [*(a1 + 32) notificationCenter];
-      v43 = *(a1 + 48);
-      v44 = [v33 copy];
-      LOBYTE(v47) = 0;
-      v45 = [v42 showNotificationWithTitle:v52 body:v51 threadIdentifier:v39 categoryIdentifier:@"HMDBBNormalType" requestIdentifier:v41 date:v43 attachments:0 userInfo:v44 shouldIgnoreDoNotDisturb:v47 interruptionLevel:1 logEventTopic:7];
-
-      [*(a1 + 32) addNotificationRequest:v45 forIdentifier:v41];
-      goto LABEL_20;
-    }
-
     v14 = objc_autoreleasePoolPush();
     v15 = *(a1 + 32);
     v16 = HMFGetOSLogHandle();
@@ -6551,31 +6454,155 @@ LABEL_19:
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v57 = v17;
+      v56 = v17;
+      v18 = "%{public}@Home manager is not yet configured, bailing insertReachabilityEventBulletinForAccessory";
+LABEL_11:
+      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, v18, buf, 0xCu);
+    }
+
+LABEL_12:
+
+    objc_autoreleasePoolPop(v14);
+    return;
+  }
+
+  v3 = [*(a1 + 40) cameraProfiles];
+  v4 = [v3 count];
+
+  if (!v4)
+  {
+    v14 = objc_autoreleasePoolPush();
+    v15 = *(a1 + 32);
+    v16 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      v17 = HMFGetLogIdentifier();
+      *buf = 138543362;
+      v56 = v17;
       v18 = "%{public}@Accessory without cameraProfiles is not supported for reachability event bulletin";
       goto LABEL_11;
+    }
+
+    goto LABEL_12;
+  }
+
+  v5 = [*(a1 + 40) home];
+  v51 = [v5 name];
+  v6 = MEMORY[0x277CCACA8];
+  if (*(a1 + 56) == 1)
+  {
+    v7 = HMDLocalizedStringForKey(@"CAMERA_IS_REACHABLE");
+    v53 = 0;
+    v8 = [*(a1 + 40) name];
+    v9 = [v6 localizedStringWithValidatedFormat:v7 validFormatSpecifiers:@"%@" error:&v53, v8];
+    v10 = v53;
+
+    if (!v9)
+    {
+      v11 = objc_autoreleasePoolPush();
+      v12 = HMFGetOSLogHandle();
+      v9 = @"CAMERA_IS_REACHABLE";
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      {
+        v13 = HMFGetLogIdentifier();
+        *buf = 138544130;
+        v56 = v13;
+        v57 = 2112;
+        v58 = @"CAMERA_IS_REACHABLE";
+        v59 = 2112;
+        v60 = @"%@";
+        v61 = 2112;
+        v62 = v10;
+LABEL_17:
+        _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
+
+        goto LABEL_18;
+      }
+
+      goto LABEL_18;
     }
   }
 
   else
   {
-    v14 = objc_autoreleasePoolPush();
-    v15 = *(a1 + 32);
-    v16 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v19 = HMDLocalizedStringForKey(@"CAMERA_IS_UNREACHABLE");
+    v52 = 0;
+    v20 = [*(a1 + 40) name];
+    v9 = [v6 localizedStringWithValidatedFormat:v19 validFormatSpecifiers:@"%@" error:&v52, v20];
+    v10 = v52;
+
+    if (!v9)
     {
-      v17 = HMFGetLogIdentifier();
-      *buf = 138543362;
-      v57 = v17;
-      v18 = "%{public}@Home manager is not yet configured, bailing insertReachabilityEventBulletinForAccessory";
-LABEL_11:
-      _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, v18, buf, 0xCu);
+      v11 = objc_autoreleasePoolPush();
+      v12 = HMFGetOSLogHandle();
+      v9 = @"CAMERA_IS_UNREACHABLE";
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      {
+        v13 = HMFGetLogIdentifier();
+        *buf = 138544130;
+        v56 = v13;
+        v57 = 2112;
+        v58 = @"CAMERA_IS_UNREACHABLE";
+        v59 = 2112;
+        v60 = @"%@";
+        v61 = 2112;
+        v62 = v10;
+        goto LABEL_17;
+      }
+
+LABEL_18:
+
+      objc_autoreleasePoolPop(v11);
+      v21 = 0;
+      goto LABEL_19;
     }
   }
 
-  objc_autoreleasePoolPop(v14);
-LABEL_20:
-  v46 = *MEMORY[0x277D85DE8];
+  v21 = v9;
+LABEL_19:
+  v50 = v9;
+
+  v22 = MEMORY[0x277CD1878];
+  v23 = [*(a1 + 40) contextSPIUniqueIdentifier];
+  v24 = [v23 UUIDString];
+  v48 = [v22 tupleWithQueryType:1 uuidString:v24];
+
+  v25 = MEMORY[0x277CD1878];
+  v26 = [v5 contextSPIUniqueIdentifier];
+  v27 = [v26 UUIDString];
+  v49 = [v25 tupleWithQueryType:0 uuidString:v27];
+
+  v28 = MEMORY[0x277CBEB98];
+  v54 = v49;
+  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
+  v30 = [v28 setWithArray:v29];
+  v31 = generateURLForHomeKitObject();
+
+  v32 = [*(a1 + 40) accessoryBulletinContext];
+  v33 = [v32 mutableCopy];
+
+  v34 = [v31 absoluteString];
+  [v33 setObject:v34 forKeyedSubscript:*MEMORY[0x277CD13D8]];
+
+  v35 = [v5 contextID];
+  [v33 setObject:v35 forKeyedSubscript:@"home"];
+
+  v36 = *(a1 + 32);
+  v37 = [v5 uuid];
+  [v37 UUIDString];
+  v38 = v47 = v5;
+  v39 = [v36 threadIdentifierForGroupingWithHomeWithUUIDString:v38];
+
+  v40 = [MEMORY[0x277CCAD78] UUID];
+  v41 = [v40 UUIDString];
+
+  v42 = [*(a1 + 32) notificationCenter];
+  v43 = *(a1 + 48);
+  v44 = objc_msgSend_copy(v33);
+  LOBYTE(v46) = 0;
+  v45 = [v42 showNotificationWithTitle:v51 body:v50 threadIdentifier:v39 categoryIdentifier:@"HMDBBNormalType" requestIdentifier:v41 date:v43 attachments:0 userInfo:v44 shouldIgnoreDoNotDisturb:v46 interruptionLevel:1 logEventTopic:7];
+
+  [*(a1 + 32) addNotificationRequest:v45 forIdentifier:v41];
 }
 
 - (id)insertBulletinForSecureTrigger:(id)trigger
@@ -6604,20 +6631,20 @@ LABEL_20:
 
 void __51__HMDBulletinBoard_insertBulletinForSecureTrigger___block_invoke(uint64_t a1)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) homeManager];
 
   if (v2)
   {
     v3 = [*(a1 + 40) home];
-    v38 = HMDLocalizedStringForKey(@"CONFIRM_EXECUTE_SECURE_TRIGGER_TITLE");
+    v37 = HMDLocalizedStringForKey(@"CONFIRM_EXECUTE_SECURE_TRIGGER_TITLE");
     v4 = MEMORY[0x277CCACA8];
     v5 = HMDLocalizedStringForKey(@"CONFIRM_EXECUTE_SECURE_TRIGGER_BODY");
-    v39 = 0;
+    v38 = 0;
     v6 = [v3 name];
     v7 = [*(a1 + 40) name];
-    v8 = [v4 localizedStringWithValidatedFormat:v5 validFormatSpecifiers:@"%@ %@" error:&v39, v6, v7];
-    v9 = v39;
+    v8 = [v4 localizedStringWithValidatedFormat:v5 validFormatSpecifiers:@"%@ %@" error:&v38, v6, v7];
+    v9 = v38;
 
     v10 = v8;
     if (!v8)
@@ -6628,13 +6655,13 @@ void __51__HMDBulletinBoard_insertBulletinForSecureTrigger___block_invoke(uint64
       {
         v13 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v42 = v13;
-        v43 = 2112;
-        v44 = @"CONFIRM_EXECUTE_SECURE_TRIGGER_BODY";
-        v45 = 2112;
-        v46 = @"%@ %@";
-        v47 = 2112;
-        v48 = v9;
+        v41 = v13;
+        v42 = 2112;
+        v43 = @"CONFIRM_EXECUTE_SECURE_TRIGGER_BODY";
+        v44 = 2112;
+        v45 = @"%@ %@";
+        v46 = 2112;
+        v47 = v9;
         _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
       }
 
@@ -6655,8 +6682,8 @@ void __51__HMDBulletinBoard_insertBulletinForSecureTrigger___block_invoke(uint64
     v22 = [v19 tupleWithQueryType:0 uuidString:v21];
 
     v23 = MEMORY[0x277CBEB98];
-    v40 = v22;
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
+    v39 = v22;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
     v25 = [v23 setWithArray:v24];
     v26 = generateURLForHomeKitObject();
 
@@ -6665,7 +6692,7 @@ void __51__HMDBulletinBoard_insertBulletinForSecureTrigger___block_invoke(uint64
     v29 = [MEMORY[0x277CBEAA8] date];
     v30 = [*(a1 + 40) bulletinContext];
     v31 = [*(a1 + 40) actionContext];
-    v32 = [v27 _insertRequestWithTitle:v38 snapshotData:0 message:v14 requestIdentifier:v28 date:v29 bulletinType:2 actionURL:v26 bulletinContext:v30 actionContext:v31 interruptionLevel:2 logEventTopic:4];
+    v32 = [v27 _insertRequestWithTitle:v37 snapshotData:0 message:v14 requestIdentifier:v28 date:v29 bulletinType:2 actionURL:v26 bulletinContext:v30 actionContext:v31 interruptionLevel:2 logEventTopic:4];
   }
 
   else
@@ -6677,14 +6704,12 @@ void __51__HMDBulletinBoard_insertBulletinForSecureTrigger___block_invoke(uint64
     {
       v36 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v42 = v36;
+      v41 = v36;
       _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_ERROR, "%{public}@Home manager is not yet configured, bailing insertBulletinForSecureTrigger.", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v33);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertBulletinForIncompatibleInvitationFromInviterName:(id)name homeName:(id)homeName ownedHomeIdentifier:(id)identifier
@@ -6709,7 +6734,7 @@ void __51__HMDBulletinBoard_insertBulletinForSecureTrigger___block_invoke(uint64
 
 void __104__HMDBulletinBoard_insertBulletinForIncompatibleInvitationFromInviterName_homeName_ownedHomeIdentifier___block_invoke(uint64_t a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) homeManager];
 
   if (v2)
@@ -6719,9 +6744,9 @@ void __104__HMDBulletinBoard_insertBulletinForIncompatibleInvitationFromInviterN
     if (*(a1 + 40))
     {
       v5 = HMDLocalizedStringForKey(@"INVITE_INCOMPATIBLE_HH1_BODY");
-      v36 = 0;
-      v6 = [v4 localizedStringWithValidatedFormat:v5 validFormatSpecifiers:@"%@ %@" error:&v36, *(a1 + 48), *(a1 + 40)];
-      v7 = v36;
+      v35 = 0;
+      v6 = [v4 localizedStringWithValidatedFormat:v5 validFormatSpecifiers:@"%@ %@" error:&v35, *(a1 + 48), *(a1 + 40)];
+      v7 = v35;
 
       if (!v6)
       {
@@ -6732,13 +6757,13 @@ void __104__HMDBulletinBoard_insertBulletinForIncompatibleInvitationFromInviterN
         {
           v10 = HMFGetLogIdentifier();
           *buf = 138544130;
-          v38 = v10;
-          v39 = 2112;
-          v40 = @"INVITE_INCOMPATIBLE_HH1_BODY";
-          v41 = 2112;
-          v42 = @"%@ %@";
-          v43 = 2112;
-          v44 = v7;
+          v37 = v10;
+          v38 = 2112;
+          v39 = @"INVITE_INCOMPATIBLE_HH1_BODY";
+          v40 = 2112;
+          v41 = @"%@ %@";
+          v42 = 2112;
+          v43 = v7;
 LABEL_13:
           _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
 
@@ -6752,9 +6777,9 @@ LABEL_13:
     else
     {
       v15 = HMDLocalizedStringForKey(@"INVITE_INCOMPATIBLE_HH1_NO_HOME_NAME_BODY");
-      v35 = 0;
-      v6 = [v4 localizedStringWithValidatedFormat:v15 validFormatSpecifiers:@"%@" error:&v35, *(a1 + 48)];
-      v7 = v35;
+      v34 = 0;
+      v6 = [v4 localizedStringWithValidatedFormat:v15 validFormatSpecifiers:@"%@" error:&v34, *(a1 + 48)];
+      v7 = v34;
 
       if (!v6)
       {
@@ -6765,13 +6790,13 @@ LABEL_13:
         {
           v10 = HMFGetLogIdentifier();
           *buf = 138544130;
-          v38 = v10;
-          v39 = 2112;
-          v40 = @"INVITE_INCOMPATIBLE_HH1_NO_HOME_NAME_BODY";
-          v41 = 2112;
-          v42 = @"%@";
-          v43 = 2112;
-          v44 = v7;
+          v37 = v10;
+          v38 = 2112;
+          v39 = @"INVITE_INCOMPATIBLE_HH1_NO_HOME_NAME_BODY";
+          v40 = 2112;
+          v41 = @"%@";
+          v42 = 2112;
+          v43 = v7;
           goto LABEL_13;
         }
 
@@ -6811,12 +6836,12 @@ LABEL_15:
 
     v29 = [*(a1 + 32) notificationCenter];
     v30 = [MEMORY[0x277CBEAA8] date];
-    v31 = [v18 copy];
-    LOBYTE(v34) = 0;
-    v32 = [v29 showNotificationWithTitle:v3 body:v17 threadIdentifier:v26 categoryIdentifier:@"HMDBBNormalType" requestIdentifier:v28 date:v30 attachments:0 userInfo:v31 shouldIgnoreDoNotDisturb:v34 interruptionLevel:1 logEventTopic:22];
+    v31 = objc_msgSend_copy(v18);
+    LOBYTE(v33) = 0;
+    v32 = [v29 showNotificationWithTitle:v3 body:v17 threadIdentifier:v26 categoryIdentifier:@"HMDBBNormalType" requestIdentifier:v28 date:v30 attachments:0 userInfo:v31 shouldIgnoreDoNotDisturb:v33 interruptionLevel:1 logEventTopic:22];
 
     [*(a1 + 32) addNotificationRequest:v32 forIdentifier:v28];
-    goto LABEL_18;
+    return;
   }
 
   v11 = objc_autoreleasePoolPush();
@@ -6826,49 +6851,37 @@ LABEL_15:
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v38 = v14;
+    v37 = v14;
     _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Home manager is not yet configured, bailing insertBulletinForIncomingInvitation.", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v11);
-LABEL_18:
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (id)insertBulletinForIncomingInvitation:(id)invitation
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   invitationCopy = invitation;
   identifier = [invitationCopy identifier];
   uUIDString = [identifier UUIDString];
 
   bulletinContext = [invitationCopy bulletinContext];
-  if (!bulletinContext)
-  {
-    goto LABEL_4;
-  }
-
-  v8 = bulletinContext;
-  bulletinContext2 = [invitationCopy bulletinContext];
-  v10 = [bulletinContext2 objectForKeyedSubscript:@"homeIncomingInvitation"];
-
-  if (v10)
+  if (bulletinContext && (v8 = bulletinContext, [invitationCopy bulletinContext], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "objectForKeyedSubscript:", @"homeIncomingInvitation"), v10 = objc_claimAutoreleasedReturnValue(), v10, v9, v8, v10))
   {
     workQueue = [(HMDBulletinBoard *)self workQueue];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __56__HMDBulletinBoard_insertBulletinForIncomingInvitation___block_invoke;
-    v19[3] = &unk_2797359B0;
-    v19[4] = self;
-    v20 = invitationCopy;
-    dispatch_async(workQueue, v19);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __56__HMDBulletinBoard_insertBulletinForIncomingInvitation___block_invoke;
+    v18[3] = &unk_2797359B0;
+    v18[4] = self;
+    v19 = invitationCopy;
+    dispatch_async(workQueue, v18);
 
     v12 = uUIDString;
   }
 
   else
   {
-LABEL_4:
     v13 = objc_autoreleasePoolPush();
     selfCopy = self;
     v15 = HMFGetOSLogHandle();
@@ -6876,7 +6889,7 @@ LABEL_4:
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v16;
+      v21 = v16;
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Invalid incoming invitation bulletinContext!", buf, 0xCu);
     }
 
@@ -6884,14 +6897,12 @@ LABEL_4:
     v12 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 void __56__HMDBulletinBoard_insertBulletinForIncomingInvitation___block_invoke(uint64_t a1)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) homeManager];
 
   if (v2)
@@ -6913,11 +6924,11 @@ void __56__HMDBulletinBoard_insertBulletinForIncomingInvitation___block_invoke(u
     v6 = HMDLocalizedStringForKey(@"INVITE_REQUEST_TITLE");
     v7 = MEMORY[0x277CCACA8];
     v8 = HMDLocalizedStringForKey(@"CONFIRM_INVITE_TO_HOME");
-    v41 = 0;
+    v40 = 0;
     v9 = [v5 inviterName];
     v10 = [*(a1 + 40) homeName];
-    v11 = [v7 localizedStringWithValidatedFormat:v8 validFormatSpecifiers:@"%@ %@" error:&v41, v9, v10];
-    v12 = v41;
+    v11 = [v7 localizedStringWithValidatedFormat:v8 validFormatSpecifiers:@"%@ %@" error:&v40, v9, v10];
+    v12 = v40;
 
     v13 = v11;
     if (!v11)
@@ -6928,13 +6939,13 @@ void __56__HMDBulletinBoard_insertBulletinForIncomingInvitation___block_invoke(u
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v43 = v16;
-        v44 = 2112;
-        v45 = @"CONFIRM_INVITE_TO_HOME";
-        v46 = 2112;
-        v47 = @"%@ %@";
-        v48 = 2112;
-        v49 = v12;
+        v42 = v16;
+        v43 = 2112;
+        v44 = @"CONFIRM_INVITE_TO_HOME";
+        v45 = 2112;
+        v46 = @"%@ %@";
+        v47 = 2112;
+        v48 = v12;
         _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to determined localized string for format key %@ and valid format specifiers %@: %@", buf, 0x2Au);
       }
 
@@ -6942,16 +6953,16 @@ void __56__HMDBulletinBoard_insertBulletinForIncomingInvitation___block_invoke(u
       v13 = @"CONFIRM_INVITE_TO_HOME";
     }
 
-    v38 = v5;
+    v37 = v5;
     v17 = v13;
 
     v18 = [*(a1 + 40) bulletinContext];
-    v40 = [v18 objectForKeyedSubscript:@"homeIncomingInvitation"];
+    v39 = [v18 objectForKeyedSubscript:@"homeIncomingInvitation"];
 
-    v39 = [MEMORY[0x277CD1878] tupleWithQueryType:4 uuidString:v40];
-    v37 = generateURLForHomeKitObject();
+    v38 = [MEMORY[0x277CD1878] tupleWithQueryType:4 uuidString:v39];
+    v36 = generateURLForHomeKitObject();
     v19 = [MEMORY[0x277CBEB38] dictionary];
-    v20 = [v37 absoluteString];
+    v20 = [v36 absoluteString];
     [v19 setObject:v20 forKey:*MEMORY[0x277CD13D8]];
 
     v21 = [MEMORY[0x277CCAD78] UUID];
@@ -6965,9 +6976,9 @@ void __56__HMDBulletinBoard_insertBulletinForIncomingInvitation___block_invoke(u
     v26 = [*(a1 + 32) notificationCenter];
     [MEMORY[0x277CBEAA8] date];
     v28 = v27 = v6;
-    v29 = [v19 copy];
-    LOBYTE(v36) = 0;
-    v30 = [v26 showNotificationWithTitle:v27 body:v17 threadIdentifier:v23 categoryIdentifier:@"HMDBBNormalType" requestIdentifier:v25 date:v28 attachments:0 userInfo:v29 shouldIgnoreDoNotDisturb:v36 interruptionLevel:1 logEventTopic:11];
+    v29 = objc_msgSend_copy(v19);
+    LOBYTE(v35) = 0;
+    v30 = [v26 showNotificationWithTitle:v27 body:v17 threadIdentifier:v23 categoryIdentifier:@"HMDBBNormalType" requestIdentifier:v25 date:v28 attachments:0 userInfo:v29 shouldIgnoreDoNotDisturb:v35 interruptionLevel:1 logEventTopic:11];
 
     [*(a1 + 32) addNotificationRequest:v30 forIdentifier:v25];
   }
@@ -6981,14 +6992,12 @@ void __56__HMDBulletinBoard_insertBulletinForIncomingInvitation___block_invoke(u
     {
       v34 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v43 = v34;
+      v42 = v34;
       _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_INFO, "%{public}@Home manager is not yet configured, bailing insertBulletinForIncomingInvitation.", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v31);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertBulletinsForChangedCharacteristics:(id)characteristics modifiedCharacteristics:(id)modifiedCharacteristics changedByThisDevice:(BOOL)device changeNotificationFromPrimary:(BOOL)primary completion:(id)completion
@@ -7013,32 +7022,32 @@ void __56__HMDBulletinBoard_insertBulletinForIncomingInvitation___block_invoke(u
 
 void __146__HMDBulletinBoard_insertBulletinsForChangedCharacteristics_modifiedCharacteristics_changedByThisDevice_changeNotificationFromPrimary_completion___block_invoke(uint64_t a1)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) homeManager];
 
   if (v2)
   {
-    v42 = [MEMORY[0x277CBEB18] array];
+    v41 = [MEMORY[0x277CBEB18] array];
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
     v3 = *(a1 + 40);
-    v4 = [v3 countByEnumeratingWithState:&v52 objects:v62 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v51 objects:v61 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v53;
+      v6 = *v52;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v53 != v6)
+          if (*v52 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v52 + 1) + 8 * i);
+          v8 = *(*(&v51 + 1) + 8 * i);
           v9 = +[HMDBulletinCategory targetCurrentCharacteristicTypeMap];
           v10 = [v8 type];
           v11 = [v9 objectForKeyedSubscript:v10];
@@ -7049,32 +7058,32 @@ void __146__HMDBulletinBoard_insertBulletinsForChangedCharacteristics_modifiedCh
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v52 objects:v62 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v51 objects:v61 count:16];
       }
 
       while (v5);
     }
 
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     obj = *(a1 + 40);
-    v12 = [obj countByEnumeratingWithState:&v48 objects:v61 count:16];
+    v12 = [obj countByEnumeratingWithState:&v47 objects:v60 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v49;
+      v14 = *v48;
       do
       {
         for (j = 0; j != v13; ++j)
         {
-          if (*v49 != v14)
+          if (*v48 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v48 + 1) + 8 * j);
+          v16 = *(*(&v47 + 1) + 8 * j);
           v17 = [v16 type];
           v18 = [v16 service];
           v19 = [v18 type];
@@ -7084,7 +7093,7 @@ void __146__HMDBulletinBoard_insertBulletinsForChangedCharacteristics_modifiedCh
 
             if (v20)
             {
-              [v42 addObject:v16];
+              [v41 addObject:v16];
             }
           }
 
@@ -7093,35 +7102,35 @@ void __146__HMDBulletinBoard_insertBulletinsForChangedCharacteristics_modifiedCh
           }
         }
 
-        v13 = [obj countByEnumeratingWithState:&v48 objects:v61 count:16];
+        v13 = [obj countByEnumeratingWithState:&v47 objects:v60 count:16];
       }
 
       while (v13);
     }
 
     v21 = [MEMORY[0x277CBEB18] array];
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
-    v22 = v42;
-    v23 = [v22 countByEnumeratingWithState:&v44 objects:v60 count:16];
+    v22 = v41;
+    v23 = [v22 countByEnumeratingWithState:&v43 objects:v59 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v45;
+      v25 = *v44;
       do
       {
         v26 = 0;
         do
         {
-          if (*v45 != v25)
+          if (*v44 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          v27 = *(*(&v44 + 1) + 8 * v26);
-          if ([HMDBulletinCategory isSensorDetectedCharacteristic:v27, v42])
+          v27 = *(*(&v43 + 1) + 8 * v26);
+          if ([HMDBulletinCategory isSensorDetectedCharacteristic:v27, v41])
           {
             v28 = [v27 value];
             v29 = [v28 intValue];
@@ -7146,7 +7155,7 @@ LABEL_30:
         }
 
         while (v24 != v26);
-        v30 = [v22 countByEnumeratingWithState:&v44 objects:v60 count:16];
+        v30 = [v22 countByEnumeratingWithState:&v43 objects:v59 count:16];
         v24 = v30;
       }
 
@@ -7160,9 +7169,9 @@ LABEL_30:
     {
       v34 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v57 = v34;
-      v58 = 2112;
-      v59 = v21;
+      v56 = v34;
+      v57 = 2112;
+      v58 = v21;
       _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_INFO, "%{public}@After filtering, actually posting notifications for characteristics: %@", buf, 0x16u);
     }
 
@@ -7187,7 +7196,7 @@ LABEL_30:
     {
       v39 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v57 = v39;
+      v56 = v39;
       _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_ERROR, "%{public}@Home manager is not yet configured, bailing insertBulletinsForChangedCharacteristics.", buf, 0xCu);
     }
 
@@ -7198,8 +7207,6 @@ LABEL_30:
       (*(v40 + 16))();
     }
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)insertImageBulletinsForChangedCharacteristics:(id)characteristics snapshotData:(id)data completion:(id)completion
@@ -7225,37 +7232,37 @@ LABEL_30:
 void __90__HMDBulletinBoard_insertImageBulletinsForChangedCharacteristics_snapshotData_completion___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) homeManager];
 
   if (v2)
   {
     v3 = [MEMORY[0x277CBEB18] array];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v4 = *(v1 + 40);
-    v5 = [v4 countByEnumeratingWithState:&v27 objects:v35 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v26 objects:v34 count:16];
     if (v5)
     {
       v7 = v5;
-      v8 = *v28;
+      v8 = *v27;
       *&v6 = 138543618;
-      v25 = v6;
+      v24 = v6;
       do
       {
         v9 = 0;
-        v26 = v7;
+        v25 = v7;
         do
         {
-          if (*v28 != v8)
+          if (*v27 != v8)
           {
             objc_enumerationMutation(v4);
           }
 
-          v10 = *(*(&v27 + 1) + 8 * v9);
-          if ([*(v1 + 32) _hasDuplicateBulletinForSnapshotCharacteristic:{v10, v25}])
+          v10 = *(*(&v26 + 1) + 8 * v9);
+          if ([*(v1 + 32) _hasDuplicateBulletinForSnapshotCharacteristic:{v10, v24}])
           {
             v11 = objc_autoreleasePoolPush();
             v12 = *(v1 + 32);
@@ -7267,17 +7274,17 @@ void __90__HMDBulletinBoard_insertImageBulletinsForChangedCharacteristics_snapsh
               v15 = v1;
               v16 = v4;
               v18 = v17 = v3;
-              *buf = v25;
-              v32 = v18;
-              v33 = 2112;
-              v34 = v10;
+              *buf = v24;
+              v31 = v18;
+              v32 = 2112;
+              v33 = v10;
               _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Not creating bulletin because it already exists with the same characteristic update: %@", buf, 0x16u);
 
               v3 = v17;
               v4 = v16;
               v1 = v15;
               v8 = v14;
-              v7 = v26;
+              v7 = v25;
             }
 
             objc_autoreleasePoolPop(v11);
@@ -7292,7 +7299,7 @@ void __90__HMDBulletinBoard_insertImageBulletinsForChangedCharacteristics_snapsh
         }
 
         while (v7 != v9);
-        v7 = [v4 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v7 = [v4 countByEnumeratingWithState:&v26 objects:v34 count:16];
       }
 
       while (v7);
@@ -7310,7 +7317,7 @@ void __90__HMDBulletinBoard_insertImageBulletinsForChangedCharacteristics_snapsh
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v32 = v22;
+      v31 = v22;
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Home manager is not yet configured, bailing insertImageBulletinsForChangedCharacteristics.", buf, 0xCu);
     }
 
@@ -7321,8 +7328,6 @@ void __90__HMDBulletinBoard_insertImageBulletinsForChangedCharacteristics_snapsh
       (*(v23 + 16))(v23, MEMORY[0x277CBEBF8]);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)archive
@@ -7341,16 +7346,16 @@ void __90__HMDBulletinBoard_insertImageBulletinsForChangedCharacteristics_snapsh
 
 - (HMDBulletinBoard)initWithCoder:(id)coder
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(HMDBulletinBoard *)self init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v13[0] = objc_opt_class();
-    v13[1] = objc_opt_class();
-    v13[2] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
+    v12[0] = objc_opt_class();
+    v12[1] = objc_opt_class();
+    v12[2] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"HMD.bulletinRequests"];
 
@@ -7361,13 +7366,12 @@ void __90__HMDBulletinBoard_insertImageBulletinsForChangedCharacteristics_snapsh
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)configureWithHomeManager:(id)manager
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -7376,24 +7380,22 @@ void __90__HMDBulletinBoard_insertImageBulletinsForChangedCharacteristics_snapsh
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v15 = v8;
-    v16 = 2112;
-    v17 = managerCopy;
+    v14 = v8;
+    v15 = 2112;
+    v16 = managerCopy;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Configuring with home manager: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   workQueue = [(HMDBulletinBoard *)selfCopy workQueue];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __45__HMDBulletinBoard_configureWithHomeManager___block_invoke;
-  v12[3] = &unk_2797359B0;
-  v12[4] = selfCopy;
-  v13 = managerCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __45__HMDBulletinBoard_configureWithHomeManager___block_invoke;
+  v11[3] = &unk_2797359B0;
+  v11[4] = selfCopy;
+  v12 = managerCopy;
   v10 = managerCopy;
-  dispatch_async(workQueue, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  dispatch_async(workQueue, v11);
 }
 
 void __45__HMDBulletinBoard_configureWithHomeManager___block_invoke(uint64_t a1)
@@ -7494,12 +7496,11 @@ void __45__HMDBulletinBoard_configureWithHomeManager___block_invoke_2(uint64_t a
 
 uint64_t __31__HMDBulletinBoard_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v137;
-  logCategory__hmf_once_v137 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v137;
+  logCategory__hmf_once_v137 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (BOOL)presentationValueOfCharacteristic:(id)characteristic equalTo:(id)to
@@ -7604,54 +7605,52 @@ uint64_t __31__HMDBulletinBoard_logCategory__block_invoke()
 
 void __62__HMDBulletinBoard_interruptionLevelForChangedCharacteristic___block_invoke()
 {
-  v20[4] = *MEMORY[0x277D85DE8];
-  v19[0] = *MEMORY[0x277CFE898];
-  v18 = *MEMORY[0x277CFE620];
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
-  v20[0] = v0;
-  v19[1] = *MEMORY[0x277CFE8B0];
-  v17 = *MEMORY[0x277CFE5D0];
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
-  v20[1] = v1;
-  v19[2] = *MEMORY[0x277CFE8C8];
-  v16 = *MEMORY[0x277CFE668];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
-  v20[2] = v2;
-  v19[3] = *MEMORY[0x277CFE8E8];
-  v15 = *MEMORY[0x277CFE6E8];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
-  v20[3] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:4];
+  v19[4] = *MEMORY[0x277D85DE8];
+  v18[0] = *MEMORY[0x277CFE898];
+  v17 = *MEMORY[0x277CFE620];
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+  v19[0] = v0;
+  v18[1] = *MEMORY[0x277CFE8B0];
+  v16 = *MEMORY[0x277CFE5D0];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+  v19[1] = v1;
+  v18[2] = *MEMORY[0x277CFE8C8];
+  v15 = *MEMORY[0x277CFE668];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+  v19[2] = v2;
+  v18[3] = *MEMORY[0x277CFE8E8];
+  v14 = *MEMORY[0x277CFE6E8];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v19[3] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
   v5 = interruptionLevelForChangedCharacteristic__criticalCharacteristicsByService;
   interruptionLevelForChangedCharacteristic__criticalCharacteristicsByService = v4;
 
-  v13[0] = *MEMORY[0x277CFE8A8];
-  v12 = *MEMORY[0x277CFE5C8];
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
-  v14[0] = v6;
-  v13[1] = *MEMORY[0x277CFE840];
-  v11 = *MEMORY[0x277CFE660];
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
-  v14[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v12[0] = *MEMORY[0x277CFE8A8];
+  v11 = *MEMORY[0x277CFE5C8];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+  v13[0] = v6;
+  v12[1] = *MEMORY[0x277CFE840];
+  v10 = *MEMORY[0x277CFE660];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+  v13[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
   v9 = interruptionLevelForChangedCharacteristic__timeSensitiveCharacteristicsByService;
   interruptionLevelForChangedCharacteristic__timeSensitiveCharacteristicsByService = v8;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (id)createImageAttachmentByHardLinkingFile:(id)file fileManager:(id)manager
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   managerCopy = manager;
   v8 = managerCopy;
   if (fileCopy)
   {
     heroFrameStoreDirectoryURL = [managerCopy heroFrameStoreDirectoryURL];
-    v37 = 0;
-    v10 = [v8 createDirectoryAtURL:heroFrameStoreDirectoryURL withIntermediateDirectories:1 attributes:0 error:&v37];
-    v11 = v37;
+    v36 = 0;
+    v10 = [v8 createDirectoryAtURL:heroFrameStoreDirectoryURL withIntermediateDirectories:1 attributes:0 error:&v36];
+    v11 = v36;
     if (v10)
     {
       uRLByDeletingPathExtension = [fileCopy URLByDeletingPathExtension];
@@ -7662,9 +7661,9 @@ void __62__HMDBulletinBoard_interruptionLevelForChangedCharacteristic___block_in
       v16 = [v14 stringWithFormat:@"link_%@_%@.%@", uUID, lastPathComponent, @"jpg"];
 
       v17 = [heroFrameStoreDirectoryURL URLByAppendingPathComponent:v16];
-      v36 = v11;
-      v18 = [v8 linkItemAtURL:fileCopy toURL:v17 error:&v36];
-      v19 = v36;
+      v35 = v11;
+      v18 = [v8 linkItemAtURL:fileCopy toURL:v17 error:&v35];
+      v19 = v35;
 
       if (v18)
       {
@@ -7679,18 +7678,18 @@ void __62__HMDBulletinBoard_interruptionLevelForChangedCharacteristic___block_in
         if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v32 = v35 = v29;
+          v32 = v34 = v29;
           *buf = 138544130;
-          v39 = v32;
-          v40 = 2112;
-          v41 = v17;
-          v42 = 2112;
-          v43 = fileCopy;
-          v44 = 2112;
-          v45 = v19;
+          v38 = v32;
+          v39 = 2112;
+          v40 = v17;
+          v41 = 2112;
+          v42 = fileCopy;
+          v43 = 2112;
+          v44 = v19;
           _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@Failed to create hard link: %@ to file: %@ with error %@", buf, 0x2Au);
 
-          v29 = v35;
+          v29 = v34;
         }
 
         objc_autoreleasePoolPop(v29);
@@ -7709,13 +7708,13 @@ void __62__HMDBulletinBoard_interruptionLevelForChangedCharacteristic___block_in
       {
         v28 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v39 = v28;
-        v40 = 2112;
-        v41 = fileCopy;
-        v42 = 2112;
-        v43 = heroFrameStoreDirectoryURL;
-        v44 = 2112;
-        v45 = v11;
+        v38 = v28;
+        v39 = 2112;
+        v40 = fileCopy;
+        v41 = 2112;
+        v42 = heroFrameStoreDirectoryURL;
+        v43 = 2112;
+        v44 = v11;
         _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to create attachment for file: %@, because failed to create directory at URL %@: %@", buf, 0x2Au);
       }
 
@@ -7733,7 +7732,7 @@ void __62__HMDBulletinBoard_interruptionLevelForChangedCharacteristic___block_in
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v39 = v24;
+      v38 = v24;
       _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Returning empty attachments because nil fileURL was passed", buf, 0xCu);
     }
 
@@ -7741,28 +7740,26 @@ void __62__HMDBulletinBoard_interruptionLevelForChangedCharacteristic___block_in
     v20 = MEMORY[0x277CBEBF8];
   }
 
-  v33 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 + (id)attachmentsWithFileURL:(id)l
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if (lCopy)
   {
     v5 = MEMORY[0x277CE1F90];
     uUID = [MEMORY[0x277CCAD78] UUID];
     uUIDString = [uUID UUIDString];
-    v17 = 0;
-    v8 = [v5 attachmentWithIdentifier:uUIDString URL:lCopy options:0 error:&v17];
-    v9 = v17;
+    v16 = 0;
+    v8 = [v5 attachmentWithIdentifier:uUIDString URL:lCopy options:0 error:&v16];
+    v9 = v16;
 
     if (v8)
     {
-      v18 = v8;
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+      v17 = v8;
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
     }
 
     else
@@ -7774,11 +7771,11 @@ void __62__HMDBulletinBoard_interruptionLevelForChangedCharacteristic___block_in
       {
         v14 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v20 = v14;
-        v21 = 2112;
-        v22 = lCopy;
-        v23 = 2112;
-        v24 = v9;
+        v19 = v14;
+        v20 = 2112;
+        v21 = lCopy;
+        v22 = 2112;
+        v23 = v9;
         _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to create attachment with URL %@: %@", buf, 0x20u);
       }
 
@@ -7792,14 +7789,12 @@ void __62__HMDBulletinBoard_interruptionLevelForChangedCharacteristic___block_in
     v10 = MEMORY[0x277CBEBF8];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 + (id)bulletinSupportedCharacteristicsForService:(id)service
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   v4 = +[HMDBulletinBoard _supportedSecureServices];
   type = [serviceCopy type];
@@ -7823,12 +7818,12 @@ void __62__HMDBulletinBoard_interruptionLevelForChangedCharacteristic___block_in
     goto LABEL_21;
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   characteristics = [serviceCopy characteristics];
-  v12 = [characteristics countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v12 = [characteristics countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (!v12)
   {
 
@@ -7838,19 +7833,19 @@ LABEL_20:
   }
 
   v13 = v12;
-  v22 = serviceCopy;
+  v21 = serviceCopy;
   v14 = 0;
-  v15 = *v24;
+  v15 = *v23;
   do
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v24 != v15)
+      if (*v23 != v15)
       {
         objc_enumerationMutation(characteristics);
       }
 
-      v17 = *(*(&v23 + 1) + 8 * i);
+      v17 = *(*(&v22 + 1) + 8 * i);
       type3 = [v17 type];
       v19 = [v8 containsObject:type3];
 
@@ -7865,20 +7860,18 @@ LABEL_20:
       }
     }
 
-    v13 = [characteristics countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v13 = [characteristics countByEnumeratingWithState:&v22 objects:v26 count:16];
   }
 
   while (v13);
 
-  serviceCopy = v22;
+  serviceCopy = v21;
   if (!v14)
   {
     goto LABEL_20;
   }
 
 LABEL_21:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -7899,19 +7892,17 @@ LABEL_21:
 
 void __51__HMDBulletinBoard_isCriticalNonSecureServiceType___block_invoke()
 {
-  v5[5] = *MEMORY[0x277D85DE8];
+  v4[5] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CFE8A8];
-  v5[0] = *MEMORY[0x277CFE840];
-  v5[1] = v0;
+  v4[0] = *MEMORY[0x277CFE840];
+  v4[1] = v0;
   v1 = *MEMORY[0x277CFE8C8];
-  v5[2] = *MEMORY[0x277CFE8B0];
-  v5[3] = v1;
-  v5[4] = *MEMORY[0x277CFE8E8];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:5];
+  v4[2] = *MEMORY[0x277CFE8B0];
+  v4[3] = v1;
+  v4[4] = *MEMORY[0x277CFE8E8];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:5];
   v3 = isCriticalNonSecureServiceType__criticalServices;
   isCriticalNonSecureServiceType__criticalServices = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isBulletinSupportedForNonSecureCharacteristicType:(id)type serviceType:(id)serviceType
@@ -7967,50 +7958,48 @@ void __51__HMDBulletinBoard_isCriticalNonSecureServiceType___block_invoke()
 
 void __47__HMDBulletinBoard__supportedNonSecureServices__block_invoke()
 {
-  v23[9] = *MEMORY[0x277D85DE8];
-  v22[0] = *MEMORY[0x277CFE840];
-  v21 = *MEMORY[0x277CFE660];
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
-  v23[0] = v0;
-  v22[1] = *MEMORY[0x277CFE8A8];
-  v20 = *MEMORY[0x277CFE5C8];
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
-  v23[1] = v1;
-  v22[2] = *MEMORY[0x277CFE8B0];
-  v19 = *MEMORY[0x277CFE5D0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
-  v23[2] = v2;
-  v22[3] = *MEMORY[0x277CFE8B8];
-  v18 = *MEMORY[0x277CFE5D8];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
-  v23[3] = v3;
-  v22[4] = *MEMORY[0x277CFE8C8];
-  v17 = *MEMORY[0x277CFE668];
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
-  v23[4] = v4;
-  v22[5] = *MEMORY[0x277CFE8D8];
-  v16 = *MEMORY[0x277CFE678];
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
-  v23[5] = v5;
-  v22[6] = *MEMORY[0x277CFE8E0];
-  v15 = *MEMORY[0x277CFE690];
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
-  v23[6] = v6;
-  v22[7] = *MEMORY[0x277CFE8E8];
-  v14 = *MEMORY[0x277CFE6E8];
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
-  v23[7] = v7;
-  v22[8] = *MEMORY[0x277CFE928];
+  v22[9] = *MEMORY[0x277D85DE8];
+  v21[0] = *MEMORY[0x277CFE840];
+  v20 = *MEMORY[0x277CFE660];
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+  v22[0] = v0;
+  v21[1] = *MEMORY[0x277CFE8A8];
+  v19 = *MEMORY[0x277CFE5C8];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+  v22[1] = v1;
+  v21[2] = *MEMORY[0x277CFE8B0];
+  v18 = *MEMORY[0x277CFE5D0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+  v22[2] = v2;
+  v21[3] = *MEMORY[0x277CFE8B8];
+  v17 = *MEMORY[0x277CFE5D8];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+  v22[3] = v3;
+  v21[4] = *MEMORY[0x277CFE8C8];
+  v16 = *MEMORY[0x277CFE668];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+  v22[4] = v4;
+  v21[5] = *MEMORY[0x277CFE8D8];
+  v15 = *MEMORY[0x277CFE678];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+  v22[5] = v5;
+  v21[6] = *MEMORY[0x277CFE8E0];
+  v14 = *MEMORY[0x277CFE690];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v22[6] = v6;
+  v21[7] = *MEMORY[0x277CFE8E8];
+  v13 = *MEMORY[0x277CFE6E8];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+  v22[7] = v7;
+  v21[8] = *MEMORY[0x277CFE928];
   v8 = *MEMORY[0x277CFE738];
-  v13[0] = *MEMORY[0x277CFE610];
-  v13[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
-  v23[8] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:9];
+  v12[0] = *MEMORY[0x277CFE610];
+  v12[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v22[8] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:9];
   v11 = _supportedNonSecureServices_supportedNonSecureServices;
   _supportedNonSecureServices_supportedNonSecureServices = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_supportedSecureServices
@@ -8027,49 +8016,47 @@ void __47__HMDBulletinBoard__supportedNonSecureServices__block_invoke()
 
 void __44__HMDBulletinBoard__supportedSecureServices__block_invoke()
 {
-  v20[6] = *MEMORY[0x277D85DE8];
-  v19[0] = *MEMORY[0x277CFE838];
+  v19[6] = *MEMORY[0x277D85DE8];
+  v18[0] = *MEMORY[0x277CFE838];
   v1 = *MEMORY[0x277CFE738];
-  v18[0] = *MEMORY[0x277CFE610];
-  v0 = v18[0];
-  v18[1] = v1;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
-  v20[0] = v2;
-  v19[1] = *MEMORY[0x277CFE858];
+  v17[0] = *MEMORY[0x277CFE610];
+  v0 = v17[0];
+  v17[1] = v1;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v19[0] = v2;
+  v18[1] = *MEMORY[0x277CFE858];
   v3 = *MEMORY[0x277CFE608];
-  v17[0] = *MEMORY[0x277CFE5E8];
-  v17[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
-  v20[1] = v4;
-  v19[2] = *MEMORY[0x277CFE880];
+  v16[0] = *MEMORY[0x277CFE5E8];
+  v16[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v19[1] = v4;
+  v18[2] = *MEMORY[0x277CFE880];
   v5 = *MEMORY[0x277CFE730];
-  v16[0] = v3;
-  v16[1] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
-  v20[2] = v6;
-  v19[3] = *MEMORY[0x277CFE898];
-  v15 = *MEMORY[0x277CFE620];
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
-  v20[3] = v7;
-  v19[4] = *MEMORY[0x277CFE920];
-  v14[0] = v0;
-  v14[1] = v1;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
-  v20[4] = v8;
-  v19[5] = @"00000260-0000-1000-8000-0026BB765291";
-  v13 = *MEMORY[0x277CFE5B0];
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
-  v20[5] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:6];
+  v15[0] = v3;
+  v15[1] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v19[2] = v6;
+  v18[3] = *MEMORY[0x277CFE898];
+  v14 = *MEMORY[0x277CFE620];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v19[3] = v7;
+  v18[4] = *MEMORY[0x277CFE920];
+  v13[0] = v0;
+  v13[1] = v1;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v19[4] = v8;
+  v18[5] = @"00000260-0000-1000-8000-0026BB765291";
+  v12 = *MEMORY[0x277CFE5B0];
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+  v19[5] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:6];
   v11 = _supportedSecureServices_supportedSecureServices;
   _supportedSecureServices_supportedSecureServices = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)notificationCategories
 {
-  v32[2] = *MEMORY[0x277D85DE8];
+  v31[2] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB58] set];
   if (_os_feature_enabled_impl())
   {
@@ -8085,20 +8072,20 @@ void __44__HMDBulletinBoard__supportedSecureServices__block_invoke()
     v3 = 0;
   }
 
-  v27 = v5;
-  v30 = v3;
+  v26 = v5;
+  v29 = v3;
   v6 = MEMORY[0x277CE1F80];
   v7 = HMDLocalizedStringForKey(@"CONFIRM_EXECUTE_SECURE_TRIGGER_ACTION_YES");
-  v29 = [v6 actionWithIdentifier:@"trigger_execute" title:v7 options:0 icon:v3];
+  v28 = [v6 actionWithIdentifier:@"trigger_execute" title:v7 options:0 icon:v3];
 
   v8 = MEMORY[0x277CE1F80];
   v9 = HMDLocalizedStringForKey(@"CONFIRM_EXECUTE_SECURE_TRIGGER_ACTION_NO");
-  v28 = [v8 actionWithIdentifier:@"trigger_doNotExecute" title:v9 options:0 icon:v4];
+  v27 = [v8 actionWithIdentifier:@"trigger_doNotExecute" title:v9 options:0 icon:v4];
 
   v10 = MEMORY[0x277CE1F98];
-  v32[0] = v29;
-  v32[1] = v28;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
+  v31[0] = v28;
+  v31[1] = v27;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
   v12 = MEMORY[0x277CBEBF8];
   v13 = [v10 categoryWithIdentifier:@"HMDBBSecureTrigger" actions:v11 intentIdentifiers:MEMORY[0x277CBEBF8] options:0x20000000];
 
@@ -8110,8 +8097,8 @@ void __44__HMDBulletinBoard__supportedSecureServices__block_invoke()
   v17 = [v15 actionWithIdentifier:@"provide_cameraRecordingFeedback" title:v16 options:0 icon:v5];
 
   v18 = MEMORY[0x277CE1F98];
-  v31 = v17;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+  v30 = v17;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
   v20 = [v18 categoryWithIdentifier:@"HMDBulletinCategoryProvideCameraRecordingFeedback" actions:v19 intentIdentifiers:v12 options:0x20000000];
 
   [v2 addObject:v20];
@@ -8121,9 +8108,7 @@ void __44__HMDBulletinBoard__supportedSecureServices__block_invoke()
   [v2 addObject:v22];
   v23 = [MEMORY[0x277CE1F98] categoryWithIdentifier:@"HMDBulletinCategorySuppressNotificationOnWatch" actions:v12 intentIdentifiers:v12 options:0x20000000];
   [v2 addObject:v23];
-  v24 = [v2 copy];
-
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = objc_msgSend_copy(v2);
 
   return v24;
 }
@@ -8142,7 +8127,7 @@ void __44__HMDBulletinBoard__supportedSecureServices__block_invoke()
 
 void __39__HMDBulletinBoard_sharedBulletinBoard__block_invoke()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (+[HMDDeviceCapabilities supportsUserNotifications])
   {
     v0 = +[HMDPersistentStore unarchiveBulletinBoard];
@@ -8156,9 +8141,9 @@ void __39__HMDBulletinBoard_sharedBulletinBoard__block_invoke()
       if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
         v4 = HMFGetLogIdentifier();
-        v8 = 138543362;
-        v9 = v4;
-        _os_log_impl(&dword_2531F8000, v3, OS_LOG_TYPE_INFO, "%{public}@Failed to unarchive HMDBulletinBoard", &v8, 0xCu);
+        v7 = 138543362;
+        v8 = v4;
+        _os_log_impl(&dword_2531F8000, v3, OS_LOG_TYPE_INFO, "%{public}@Failed to unarchive HMDBulletinBoard", &v7, 0xCu);
       }
 
       objc_autoreleasePoolPop(v2);
@@ -8167,8 +8152,6 @@ void __39__HMDBulletinBoard_sharedBulletinBoard__block_invoke()
       sharedBulletinBoard__bulletinBoard = v5;
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)threadIdentifierForGroupingWithUnknownHome
@@ -8181,7 +8164,7 @@ void __39__HMDBulletinBoard_sharedBulletinBoard__block_invoke()
 
 - (id)threadIdentifierForGroupingWithHomeWithUUIDString:(id)string
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   workQueue = [(HMDBulletinBoard *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -8196,12 +8179,12 @@ void __39__HMDBulletinBoard_sharedBulletinBoard__block_invoke()
   }
 
   notificationRequestsSortedByDate = [(HMDBulletinBoard *)self notificationRequestsSortedByDate];
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __88__HMDBulletinBoard_ThreadIdentifier__threadIdentifierForGroupingWithHomeWithUUIDString___block_invoke;
-  v36[3] = &unk_279733388;
-  v37 = stringCopy;
-  v9 = [notificationRequestsSortedByDate na_firstObjectPassingTest:v36];
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __88__HMDBulletinBoard_ThreadIdentifier__threadIdentifierForGroupingWithHomeWithUUIDString___block_invoke;
+  v35[3] = &unk_279733388;
+  v36 = stringCopy;
+  v9 = [notificationRequestsSortedByDate na_firstObjectPassingTest:v35];
 
   if (!v9)
   {
@@ -8217,11 +8200,11 @@ void __39__HMDBulletinBoard_sharedBulletinBoard__block_invoke()
     content = [v9 content];
     date = [content date];
     *buf = 138543874;
-    v39 = v13;
-    v40 = 2112;
-    v41 = v9;
-    v42 = 2112;
-    v43 = date;
+    v38 = v13;
+    v39 = 2112;
+    v40 = v9;
+    v41 = 2112;
+    v42 = date;
     _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Found last notification posted for this home: %@ with date: %@", buf, 0x20u);
   }
 
@@ -8246,9 +8229,9 @@ LABEL_12:
     {
       v33 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v39 = v33;
-      v40 = 2112;
-      v41 = uUIDString;
+      v38 = v33;
+      v39 = 2112;
+      v40 = uUIDString;
       _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_INFO, "%{public}@Returning a new threadIdentifier: %@", buf, 0x16u);
     }
 
@@ -8265,9 +8248,9 @@ LABEL_12:
     content3 = [v9 content];
     threadIdentifier = [content3 threadIdentifier];
     *buf = 138543618;
-    v39 = v24;
-    v40 = 2112;
-    v41 = threadIdentifier;
+    v38 = v24;
+    v39 = 2112;
+    v40 = threadIdentifier;
     _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Returning thread identifier of last notification: %@ because it was posted in allowed window", buf, 0x16u);
   }
 
@@ -8277,8 +8260,6 @@ LABEL_12:
 
 LABEL_15:
 LABEL_16:
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return uUIDString;
 }

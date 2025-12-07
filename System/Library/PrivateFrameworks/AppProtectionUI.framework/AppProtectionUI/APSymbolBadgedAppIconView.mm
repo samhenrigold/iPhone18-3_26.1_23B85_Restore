@@ -12,7 +12,7 @@
 
 + (APSymbolBadgedAppIconViewMetrics)metricsForEducation
 {
-  v5 = CGPointMake(14.0);
+  CGPointMake();
   *&retstr->var0 = xmmword_1AEA34040;
   retstr->var2.x = 14.0;
   retstr->var2.y = v5;
@@ -22,7 +22,7 @@
 
 + (APSymbolBadgedAppIconViewMetrics)metricsForExtensionShield
 {
-  v5 = CGPointMake(6.0);
+  CGPointMake();
   *&retstr->var0 = xmmword_1AEA34050;
   retstr->var2.x = 14.0;
   retstr->var2.y = v5;

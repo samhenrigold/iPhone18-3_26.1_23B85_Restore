@@ -144,43 +144,42 @@ LABEL_15:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_identifier)
   {
     PBDataWriterWriteDataField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_accountSyncIdentifier)
   {
     PBDataWriterWriteDataField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_scopeString)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_requestedScopeString)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_patientID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    receivedDate = self->_receivedDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -199,28 +198,26 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  expirationDate = self->_expirationDate;
   PBDataWriterWriteDoubleField();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_14:
-    deleted = self->_deleted;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_15:
   if (self->_messageVersion)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_syncIdentity)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -427,7 +424,6 @@ LABEL_5:
     }
   }
 
-  v10 = *(equalCopy + 84);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 84) & 2) == 0 || self->_receivedDate != *(equalCopy + 2))
@@ -462,7 +458,7 @@ LABEL_5:
     }
 
 LABEL_29:
-    v13 = 0;
+    v12 = 0;
     goto LABEL_30;
   }
 
@@ -471,7 +467,6 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  v15 = *(equalCopy + 80);
   if (self->_deleted)
   {
     if ((*(equalCopy + 80) & 1) == 0)
@@ -495,17 +490,17 @@ LABEL_24:
   syncIdentity = self->_syncIdentity;
   if (syncIdentity | *(equalCopy + 9))
   {
-    v13 = [(HDCodableSyncIdentity *)syncIdentity isEqual:?];
+    v12 = [(HDCodableSyncIdentity *)syncIdentity isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v12 = 1;
   }
 
 LABEL_30:
 
-  return v13;
+  return v12;
 }
 
 - (unint64_t)hash

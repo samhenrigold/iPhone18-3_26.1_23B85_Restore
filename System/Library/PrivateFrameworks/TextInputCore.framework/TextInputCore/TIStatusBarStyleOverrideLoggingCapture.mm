@@ -29,7 +29,7 @@
   return v2;
 }
 
-uint64_t __71__TIStatusBarStyleOverrideLoggingCapture_releaseLoggingCaptureOverride__block_invoke(uint64_t a1)
+void *__71__TIStatusBarStyleOverrideLoggingCapture_releaseLoggingCaptureOverride__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _decrementLoggingCaptureOverride];
   if (result == 1)
@@ -42,7 +42,7 @@ uint64_t __71__TIStatusBarStyleOverrideLoggingCapture_releaseLoggingCaptureOverr
   return result;
 }
 
-uint64_t __71__TIStatusBarStyleOverrideLoggingCapture_acquireLoggingCaptureOverride__block_invoke(uint64_t a1)
+void *__71__TIStatusBarStyleOverrideLoggingCapture_acquireLoggingCaptureOverride__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _incrementLoggingCaptureOverride];
   if (!result)
@@ -58,7 +58,7 @@ uint64_t __71__TIStatusBarStyleOverrideLoggingCapture_acquireLoggingCaptureOverr
 + (void)_statusBarStyleOverrideLoggingCapture:(BOOL)capture
 {
   captureCopy = capture;
-  *&v19[5] = *MEMORY[0x277D85DE8];
+  *&v18[5] = *MEMORY[0x277D85DE8];
   v4 = _sbsOverrideLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -68,9 +68,9 @@ uint64_t __71__TIStatusBarStyleOverrideLoggingCapture_acquireLoggingCaptureOverr
       v5 = "Acquire";
     }
 
-    v18 = 136315138;
-    *v19 = v5;
-    _os_log_impl(&dword_22CA55000, v4, OS_LOG_TYPE_DEFAULT, "%s 'LoggingCapture' style override assertion", &v18, 0xCu);
+    v17 = 136315138;
+    *v18 = v5;
+    _os_log_impl(&dword_22CA55000, v4, OS_LOG_TYPE_DEFAULT, "%s 'LoggingCapture' style override assertion", &v17, 0xCu);
   }
 
   v6 = _statusBarStyleOverrideLoggingCapture__pid;
@@ -124,9 +124,9 @@ uint64_t __71__TIStatusBarStyleOverrideLoggingCapture_acquireLoggingCaptureOverr
 
     else if (_statusBarStyleOverrideLoggingCapture__assertionAcquired == 1 && !_statusBarStyleOverrideLoggingCapture__timer)
     {
-      v16 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:0 repeats:&__block_literal_global_17_14385 block:2.0];
-      v17 = _statusBarStyleOverrideLoggingCapture__timer;
-      _statusBarStyleOverrideLoggingCapture__timer = v16;
+      v15 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:0 repeats:&__block_literal_global_17_14385 block:2.0];
+      v16 = _statusBarStyleOverrideLoggingCapture__timer;
+      _statusBarStyleOverrideLoggingCapture__timer = v15;
     }
   }
 
@@ -135,18 +135,16 @@ uint64_t __71__TIStatusBarStyleOverrideLoggingCapture_acquireLoggingCaptureOverr
     v14 = _sbsOverrideLog();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v18 = 67109376;
-      v19[0] = _statusBarStyleOverrideLoggingCapture__pid;
-      LOWORD(v19[1]) = 2048;
-      *(&v19[1] + 2) = _statusBarStyleOverrideLoggingCapture__assertion;
-      _os_log_error_impl(&dword_22CA55000, v14, OS_LOG_TYPE_ERROR, "Couldn't get pid %d or assertion %p.", &v18, 0x12u);
+      v17 = 67109376;
+      v18[0] = _statusBarStyleOverrideLoggingCapture__pid;
+      LOWORD(v18[1]) = 2048;
+      *(&v18[1] + 2) = _statusBarStyleOverrideLoggingCapture__assertion;
+      _os_log_error_impl(&dword_22CA55000, v14, OS_LOG_TYPE_ERROR, "Couldn't get pid %d or assertion %p.", &v17, 0x12u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __80__TIStatusBarStyleOverrideLoggingCapture__statusBarStyleOverrideLoggingCapture___block_invoke_14()
+void *__80__TIStatusBarStyleOverrideLoggingCapture__statusBarStyleOverrideLoggingCapture___block_invoke_14()
 {
   result = [_statusBarStyleOverrideLoggingCapture__assertion invalidate];
   _statusBarStyleOverrideLoggingCapture__assertionAcquired = 0;
@@ -167,7 +165,7 @@ void __80__TIStatusBarStyleOverrideLoggingCapture__statusBarStyleOverrideLogging
 
 void __80__TIStatusBarStyleOverrideLoggingCapture__statusBarStyleOverrideLoggingCapture___block_invoke(uint64_t a1, int a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = _sbsOverrideLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -177,13 +175,12 @@ void __80__TIStatusBarStyleOverrideLoggingCapture__statusBarStyleOverrideLogging
       v4 = "Acquired";
     }
 
-    v6 = 136315138;
-    v7 = v4;
-    _os_log_impl(&dword_22CA55000, v3, OS_LOG_TYPE_DEFAULT, "%s 'LoggingCapture' style override assertion.", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = v4;
+    _os_log_impl(&dword_22CA55000, v3, OS_LOG_TYPE_DEFAULT, "%s 'LoggingCapture' style override assertion.", &v5, 0xCu);
   }
 
   _statusBarStyleOverrideLoggingCapture__assertionAcquired = a2;
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (int64_t)_decrementLoggingCaptureOverride

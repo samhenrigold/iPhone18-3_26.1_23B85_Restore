@@ -25,6 +25,7 @@
 - (id)readValuesForCharacteristics:(id)characteristics;
 - (id)readValuesForCharacteristicsPassingTest:(id)test inServices:(id)services;
 - (id)staticHomeDataModelCachedValueForCharacteristic:(id)characteristic;
+- (id)writeNaturalLightEnabledState:(BOOL)state forProfile:(id)profile;
 - (id)writeValue:(id)value forCharacteristic:(id)characteristic;
 - (id)writeValuesForCharacteristics:(id)characteristics;
 - (unint64_t)cachedLoadingStateForCharacteristics:(id)characteristics actionSets:(id)sets;
@@ -59,39 +60,39 @@
 {
   characteristicCopy = characteristic;
   selfCopy = self;
-  HFCharacteristicValueManager.staticHomeDataModelCachedValue(for:)(characteristicCopy, v14);
+  HFCharacteristicValueManager.staticHomeDataModelCachedValue(for:)(characteristicCopy, &v13);
 
-  v6 = v15;
-  if (v15)
+  v6 = v14;
+  if (v14)
   {
-    v7 = __swift_project_boxed_opaque_existential_0(v14, v15);
+    v7 = __swift_project_boxed_opaque_existential_0(&v13, v14);
     v8 = *(v6 - 8);
-    v9 = *(v8 + 64);
     MEMORY[0x28223BE20](v7);
-    v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v8 + 16))(v11);
-    v12 = sub_20DD65964();
-    (*(v8 + 8))(v11, v6);
-    __swift_destroy_boxed_opaque_existential_0(v14);
+    v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v8 + 16))(v10);
+    v11 = sub_20DD65964();
+    (*(v8 + 8))(v10, v6);
+    __swift_destroy_boxed_opaque_existential_0(&v13);
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  return v12;
+  return v11;
 }
 
 - (BOOL)staticHomeDataModelHasInProgressWriteForCharacteristic:(id)characteristic
 {
   sub_20D9C7830();
-  sub_20DA5A66C(&unk_280E020F0, sub_20D9C7830);
+  sub_20DA5A66C(&unk_280E020F0, sub_20D9C7830, MEMORY[0x277D85378]);
   v4 = sub_20DD651E4();
   selfCopy = self;
-  v6 = _sSo28HFCharacteristicValueManagerC4HomeE06staticD27DataModelHasInProgressWrite3forSbShySo16HMCharacteristicCG_tF_0(v4);
+  _sSo28HFCharacteristicValueManagerC4HomeE06staticD27DataModelHasInProgressWrite3forSbShySo16HMCharacteristicCG_tF_0(v4);
+  v7 = v6;
 
-  return v6 & 1;
+  return v7 & 1;
 }
 
 - (id)createHomeStateStreamObserver
@@ -152,6 +153,65 @@
   return v6;
 }
 
+- (id)writeNaturalLightEnabledState:(BOOL)state forProfile:(id)profile
+{
+  stateCopy = state;
+  v21 = *MEMORY[0x277D85DE8];
+  profileCopy = profile;
+  if (+[HFUtilities isRunningInStoreDemoMode](HFUtilities, "isRunningInStoreDemoMode") || +[HFUtilities isPressDemoModeEnabled])
+  {
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:stateCopy];
+    objc_setAssociatedObject(profileCopy, "HF_NaturalLightDemoMode", v6, 1);
+
+    v7 = HFLogForCategory(0x3DuLL);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      LODWORD(buf) = 67109378;
+      HIDWORD(buf) = stateCopy;
+      v19 = 2112;
+      v20 = profileCopy;
+      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "Updating natural light state IN DEMO MODE to %{BOOL}d for profile: %@", &buf, 0x12u);
+    }
+
+    objc_initWeak(&buf, profileCopy);
+    v8 = +[HFHomeKitDispatcher sharedDispatcher];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __100__HFCharacteristicValueManager_HFLightProfileValueSource__writeNaturalLightEnabledState_forProfile___block_invoke;
+    v16[3] = &unk_277DF4920;
+    objc_copyWeak(&v17, &buf);
+    [v8 dispatchLightObserverMessage:v16 sender:0];
+
+    futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
+    objc_destroyWeak(&v17);
+    objc_destroyWeak(&buf);
+  }
+
+  else if (stateCopy)
+  {
+    objc_initWeak(&buf, profileCopy);
+    v11 = MEMORY[0x277D2C900];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __100__HFCharacteristicValueManager_HFLightProfileValueSource__writeNaturalLightEnabledState_forProfile___block_invoke_2;
+    v12[3] = &unk_277DF4948;
+    v15 = stateCopy;
+    v13 = profileCopy;
+    objc_copyWeak(&v14, &buf);
+    futureWithNoResult = [v11 futureWithBlock:v12];
+    objc_destroyWeak(&v14);
+
+    objc_destroyWeak(&buf);
+  }
+
+  else
+  {
+    futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
+  }
+
+  return futureWithNoResult;
+}
+
 void __100__HFCharacteristicValueManager_HFLightProfileValueSource__writeNaturalLightEnabledState_forProfile___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -162,7 +222,7 @@ void __100__HFCharacteristicValueManager_HFLightProfileValueSource__writeNatural
 
 void __100__HFCharacteristicValueManager_HFLightProfileValueSource__writeNaturalLightEnabledState_forProfile___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x3DuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -171,31 +231,29 @@ void __100__HFCharacteristicValueManager_HFLightProfileValueSource__writeNatural
     v6 = *(a1 + 32);
     v7 = [v6 settings];
     *buf = 67109634;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v6;
-    v17 = 2112;
-    v18 = v7;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v6;
+    v16 = 2112;
+    v17 = v7;
     _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Updating natural light state to %{BOOL}d for profile: %@ %@", buf, 0x1Cu);
   }
 
   v8 = *(a1 + 32);
   v9 = *(a1 + 48);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __100__HFCharacteristicValueManager_HFLightProfileValueSource__writeNaturalLightEnabledState_forProfile___block_invoke_72;
-  v11[3] = &unk_277DF3860;
-  objc_copyWeak(&v12, (a1 + 40));
-  [v8 setNaturalLightingEnabled:v9 & 1 completionHandler:v11];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __100__HFCharacteristicValueManager_HFLightProfileValueSource__writeNaturalLightEnabledState_forProfile___block_invoke_72;
+  v10[3] = &unk_277DF3860;
+  objc_copyWeak(&v11, (a1 + 40));
+  [v8 setNaturalLightingEnabled:v9 & 1 completionHandler:v10];
   [v3 finishWithNoResult];
-  objc_destroyWeak(&v12);
-
-  v10 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v11);
 }
 
 void __100__HFCharacteristicValueManager_HFLightProfileValueSource__writeNaturalLightEnabledState_forProfile___block_invoke_72(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -204,23 +262,22 @@ void __100__HFCharacteristicValueManager_HFLightProfileValueSource__writeNatural
     {
       WeakRetained = objc_loadWeakRetained((a1 + 32));
       *buf = 138412546;
-      v11 = WeakRetained;
-      v12 = 2112;
-      v13 = v3;
+      v10 = WeakRetained;
+      v11 = 2112;
+      v12 = v3;
       _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Error updating natural light state for profile %@. Error: %@", buf, 0x16u);
     }
   }
 
   v6 = +[HFHomeKitDispatcher sharedDispatcher];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __100__HFCharacteristicValueManager_HFLightProfileValueSource__writeNaturalLightEnabledState_forProfile___block_invoke_73;
-  v8[3] = &unk_277DF4920;
-  objc_copyWeak(&v9, (a1 + 32));
-  [v6 dispatchLightObserverMessage:v8 sender:0];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __100__HFCharacteristicValueManager_HFLightProfileValueSource__writeNaturalLightEnabledState_forProfile___block_invoke_73;
+  v7[3] = &unk_277DF4920;
+  objc_copyWeak(&v8, (a1 + 32));
+  [v6 dispatchLightObserverMessage:v7 sender:0];
 
-  objc_destroyWeak(&v9);
-  v7 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v8);
 }
 
 void __100__HFCharacteristicValueManager_HFLightProfileValueSource__writeNaturalLightEnabledState_forProfile___block_invoke_73(uint64_t a1, void *a2)
@@ -320,7 +377,7 @@ void __100__HFCharacteristicValueManager_HFLightProfileValueSource__writeNatural
 
 - (NSSet)characteristicsWithPendingReads
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   transactionLock = [(HFCharacteristicValueManager *)self transactionLock];
   [transactionLock lock];
 
@@ -332,42 +389,42 @@ void __100__HFCharacteristicValueManager_HFLightProfileValueSource__writeNatural
   openTransaction = [(HFCharacteristicValueManager *)self openTransaction];
   [v6 na_safeAddObject:openTransaction];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
         characteristicsToRead = [v13 characteristicsToRead];
 
         if (characteristicsToRead)
         {
           characteristicsToRead2 = [v13 characteristicsToRead];
-          v21[0] = MEMORY[0x277D85DD0];
-          v21[1] = 3221225472;
-          v21[2] = __63__HFCharacteristicValueManager_characteristicsWithPendingReads__block_invoke;
-          v21[3] = &unk_277DF6218;
-          v21[4] = v13;
-          v16 = [characteristicsToRead2 na_filter:v21];
+          v20[0] = MEMORY[0x277D85DD0];
+          v20[1] = 3221225472;
+          v20[2] = __63__HFCharacteristicValueManager_characteristicsWithPendingReads__block_invoke;
+          v20[3] = &unk_277DF6218;
+          v20[4] = v13;
+          v16 = [characteristicsToRead2 na_filter:v20];
           [v4 unionSet:v16];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v10);
@@ -375,8 +432,6 @@ void __100__HFCharacteristicValueManager_HFLightProfileValueSource__writeNatural
 
   transactionLock2 = [(HFCharacteristicValueManager *)selfCopy transactionLock];
   [transactionLock2 unlock];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -396,7 +451,7 @@ uint64_t __63__HFCharacteristicValueManager_characteristicsWithPendingReads__blo
 
 - (NSSet)characteristicsWithPendingWrites
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   transactionLock = [(HFCharacteristicValueManager *)self transactionLock];
   [transactionLock lock];
 
@@ -407,30 +462,30 @@ uint64_t __63__HFCharacteristicValueManager_characteristicsWithPendingReads__blo
   openTransaction = [(HFCharacteristicValueManager *)self openTransaction];
   [v6 na_safeAddObject:openTransaction];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [(HFCharacteristicValueManager *)self _transactionLock_characteristicsWithPendingWritesInTransacton:*(*(&v17 + 1) + 8 * i) includeDirectWrites:1 includeActionSets:1 includeActions:1, v17];
+        v13 = [(HFCharacteristicValueManager *)self _transactionLock_characteristicsWithPendingWritesInTransacton:*(*(&v16 + 1) + 8 * i) includeDirectWrites:1 includeActionSets:1 includeActions:1, v16];
         [v4 unionSet:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
@@ -438,8 +493,6 @@ uint64_t __63__HFCharacteristicValueManager_characteristicsWithPendingReads__blo
 
   transactionLock2 = [(HFCharacteristicValueManager *)self transactionLock];
   [transactionLock2 unlock];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -766,7 +819,7 @@ uint64_t __74__HFCharacteristicValueManager_loadingStateForCharacteristics_actio
   actionsCopy = actions;
   setsCopy = sets;
   writesCopy = writes;
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   transactonCopy = transacton;
   v10 = [MEMORY[0x277CBEB58] set];
   if (writesCopy)
@@ -775,30 +828,30 @@ uint64_t __74__HFCharacteristicValueManager_loadingStateForCharacteristics_actio
 
     if (writeCharacteristicRequests)
     {
-      v48 = 0u;
-      v49 = 0u;
-      v46 = 0u;
       v47 = 0u;
+      v48 = 0u;
+      v45 = 0u;
+      v46 = 0u;
       writeCharacteristicRequests2 = [transactonCopy writeCharacteristicRequests];
-      v13 = [writeCharacteristicRequests2 countByEnumeratingWithState:&v46 objects:v52 count:16];
+      v13 = [writeCharacteristicRequests2 countByEnumeratingWithState:&v45 objects:v51 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v47;
+        v15 = *v46;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v47 != v15)
+            if (*v46 != v15)
             {
               objc_enumerationMutation(writeCharacteristicRequests2);
             }
 
-            characteristic = [*(*(&v46 + 1) + 8 * i) characteristic];
+            characteristic = [*(*(&v45 + 1) + 8 * i) characteristic];
             [v10 na_safeAddObject:characteristic];
           }
 
-          v14 = [writeCharacteristicRequests2 countByEnumeratingWithState:&v46 objects:v52 count:16];
+          v14 = [writeCharacteristicRequests2 countByEnumeratingWithState:&v45 objects:v51 count:16];
         }
 
         while (v14);
@@ -812,33 +865,33 @@ uint64_t __74__HFCharacteristicValueManager_loadingStateForCharacteristics_actio
 
     if (actionSetsToExecute)
     {
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
       v43 = 0u;
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
       actionSetsToExecute2 = [transactonCopy actionSetsToExecute];
-      v20 = [actionSetsToExecute2 countByEnumeratingWithState:&v42 objects:v51 count:16];
+      v20 = [actionSetsToExecute2 countByEnumeratingWithState:&v41 objects:v50 count:16];
       if (v20)
       {
         v21 = v20;
-        v22 = *v43;
+        v22 = *v42;
         do
         {
           for (j = 0; j != v21; ++j)
           {
-            if (*v43 != v22)
+            if (*v42 != v22)
             {
               objc_enumerationMutation(actionSetsToExecute2);
             }
 
-            hf_affectedCharacteristics = [*(*(&v42 + 1) + 8 * j) hf_affectedCharacteristics];
+            hf_affectedCharacteristics = [*(*(&v41 + 1) + 8 * j) hf_affectedCharacteristics];
             if (hf_affectedCharacteristics)
             {
               [v10 unionSet:hf_affectedCharacteristics];
             }
           }
 
-          v21 = [actionSetsToExecute2 countByEnumeratingWithState:&v42 objects:v51 count:16];
+          v21 = [actionSetsToExecute2 countByEnumeratingWithState:&v41 objects:v50 count:16];
         }
 
         while (v21);
@@ -852,26 +905,26 @@ uint64_t __74__HFCharacteristicValueManager_loadingStateForCharacteristics_actio
 
     if (actionsToExecute)
     {
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
       v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       actionsToExecute2 = [transactonCopy actionsToExecute];
-      v27 = [actionsToExecute2 countByEnumeratingWithState:&v38 objects:v50 count:16];
+      v27 = [actionsToExecute2 countByEnumeratingWithState:&v37 objects:v49 count:16];
       if (v27)
       {
         v28 = v27;
-        v29 = *v39;
+        v29 = *v38;
         do
         {
           for (k = 0; k != v28; ++k)
           {
-            if (*v39 != v29)
+            if (*v38 != v29)
             {
               objc_enumerationMutation(actionsToExecute2);
             }
 
-            v31 = *(*(&v38 + 1) + 8 * k);
+            v31 = *(*(&v37 + 1) + 8 * k);
             objc_opt_class();
             v32 = v31;
             if (objc_opt_isKindOfClass())
@@ -890,15 +943,13 @@ uint64_t __74__HFCharacteristicValueManager_loadingStateForCharacteristics_actio
             [v10 na_safeAddObject:characteristic2];
           }
 
-          v28 = [actionsToExecute2 countByEnumeratingWithState:&v38 objects:v50 count:16];
+          v28 = [actionsToExecute2 countByEnumeratingWithState:&v37 objects:v49 count:16];
         }
 
         while (v28);
       }
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -912,7 +963,7 @@ uint64_t __74__HFCharacteristicValueManager_loadingStateForCharacteristics_actio
 
 - (void)beginTransactionWithReason:(id)reason readPolicy:(id)policy logger:(id)logger
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   policyCopy = policy;
   loggerCopy = logger;
@@ -960,7 +1011,7 @@ uint64_t __74__HFCharacteristicValueManager_loadingStateForCharacteristics_actio
       if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v45 = reasonCopy;
+        v44 = reasonCopy;
         _os_log_impl(&dword_20D9BF000, v33, OS_LOG_TYPE_DEFAULT, "----- OPEN TRANSACTION (%@) -----", buf, 0xCu);
       }
 
@@ -969,12 +1020,12 @@ uint64_t __74__HFCharacteristicValueManager_loadingStateForCharacteristics_actio
 
     else
     {
-      v43 = HFLogForCategory(0x3DuLL);
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+      v42 = HFLogForCategory(0x3DuLL);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(state.opaque[0]) = 138412290;
         *(state.opaque + 4) = reasonCopy;
-        _os_log_impl(&dword_20D9BF000, v43, OS_LOG_TYPE_DEFAULT, "----- OPEN TRANSACTION (%@) -----", &state, 0xCu);
+        _os_log_impl(&dword_20D9BF000, v42, OS_LOG_TYPE_DEFAULT, "----- OPEN TRANSACTION (%@) -----", &state, 0xCu);
       }
     }
 
@@ -1002,7 +1053,7 @@ uint64_t __74__HFCharacteristicValueManager_loadingStateForCharacteristics_actio
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v45 = reasonCopy;
+      v44 = reasonCopy;
       _os_log_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_DEFAULT, "Nest transaction (%@)", buf, 0xCu);
     }
 
@@ -1011,12 +1062,12 @@ uint64_t __74__HFCharacteristicValueManager_loadingStateForCharacteristics_actio
 
   else
   {
-    v42 = HFLogForCategory(0x3DuLL);
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    v41 = HFLogForCategory(0x3DuLL);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(state.opaque[0]) = 138412290;
       *(state.opaque + 4) = reasonCopy;
-      _os_log_impl(&dword_20D9BF000, v42, OS_LOG_TYPE_DEFAULT, "Nest transaction (%@)", &state, 0xCu);
+      _os_log_impl(&dword_20D9BF000, v41, OS_LOG_TYPE_DEFAULT, "Nest transaction (%@)", &state, 0xCu);
     }
   }
 
@@ -1041,13 +1092,11 @@ LABEL_17:
 
   transactionLock2 = [(HFCharacteristicValueManager *)self transactionLock];
   [transactionLock2 unlock];
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (id)readValueForCharacteristic:(id)characteristic
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v111 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   if (!characteristicCopy)
   {
@@ -1061,12 +1110,12 @@ LABEL_17:
   uniqueIdentifier = [characteristicCopy uniqueIdentifier];
   openTransaction = [(HFCharacteristicValueManager *)self openTransaction];
   readPolicy = [openTransaction readPolicy];
-  v108 = 0;
-  v9 = [readPolicy evaluateWithCharacteristic:characteristicCopy traits:&v108];
-  v10 = v108;
+  v107 = 0;
+  v9 = [readPolicy evaluateWithCharacteristic:characteristicCopy traits:&v107];
+  v10 = v107;
 
   allObjects = [v10 allObjects];
-  v84 = [allObjects componentsJoinedByString:{@", "}];
+  v83 = [allObjects componentsJoinedByString:{@", "}];
 
   openTransaction2 = [(HFCharacteristicValueManager *)self openTransaction];
   if (openTransaction2)
@@ -1092,15 +1141,15 @@ LABEL_17:
 
   if (v17)
   {
-    v75 = HFLogForCategory(0x3DuLL);
-    if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
+    v74 = HFLogForCategory(0x3DuLL);
+    if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
     {
       hf_prettyDescription = [characteristicCopy hf_prettyDescription];
       *buf = 138412546;
-      *&buf[4] = v84;
+      *&buf[4] = v83;
       *&buf[12] = 2112;
       *&buf[14] = hf_prettyDescription;
-      _os_log_impl(&dword_20D9BF000, v75, OS_LOG_TYPE_DEBUG, "Skip read (%@): %@", buf, 0x16u);
+      _os_log_impl(&dword_20D9BF000, v74, OS_LOG_TYPE_DEBUG, "Skip read (%@): %@", buf, 0x16u);
     }
   }
 
@@ -1118,7 +1167,7 @@ LABEL_17:
     {
       hf_prettyDescription2 = [characteristicCopy hf_prettyDescription];
       *buf = 138412546;
-      *&buf[4] = v84;
+      *&buf[4] = v83;
       *&buf[12] = 2112;
       *&buf[14] = hf_prettyDescription2;
       _os_log_impl(&dword_20D9BF000, v21, OS_LOG_TYPE_DEBUG, "Skip read (%@): %@", buf, 0x16u);
@@ -1130,39 +1179,39 @@ LABEL_17:
   objc_initWeak(buf, self);
   openTransaction5 = [(HFCharacteristicValueManager *)self openTransaction];
   commitFuture = [openTransaction5 commitFuture];
-  v104[0] = MEMORY[0x277D85DD0];
-  v104[1] = 3221225472;
-  v104[2] = __59__HFCharacteristicValueManager_readValueForCharacteristic___block_invoke;
-  v104[3] = &unk_277DF6330;
-  objc_copyWeak(&v107, buf);
-  v105 = characteristicCopy;
-  v106 = v10;
-  v25 = [commitFuture flatMap:v104];
+  v103[0] = MEMORY[0x277D85DD0];
+  v103[1] = 3221225472;
+  v103[2] = __59__HFCharacteristicValueManager_readValueForCharacteristic___block_invoke;
+  v103[3] = &unk_277DF6330;
+  objc_copyWeak(&v106, buf);
+  v104 = characteristicCopy;
+  v105 = v10;
+  v25 = [commitFuture flatMap:v103];
 
-  objc_destroyWeak(&v107);
+  objc_destroyWeak(&v106);
   objc_destroyWeak(buf);
   if (!v25)
   {
 LABEL_15:
-    v102 = 0u;
-    v103 = 0u;
-    v100 = 0u;
     v101 = 0u;
+    v102 = 0u;
+    v99 = 0u;
+    v100 = 0u;
     runningTransactions = [(HFCharacteristicValueManager *)self runningTransactions];
-    v27 = [runningTransactions countByEnumeratingWithState:&v100 objects:v109 count:16];
+    v27 = [runningTransactions countByEnumeratingWithState:&v99 objects:v108 count:16];
     if (v27)
     {
-      v28 = *v101;
+      v28 = *v100;
 LABEL_17:
       v29 = 0;
       while (1)
       {
-        if (*v101 != v28)
+        if (*v100 != v28)
         {
           objc_enumerationMutation(runningTransactions);
         }
 
-        readFuturesKeyedByCharacteristicIdentifier = [*(*(&v100 + 1) + 8 * v29) readFuturesKeyedByCharacteristicIdentifier];
+        readFuturesKeyedByCharacteristicIdentifier = [*(*(&v99 + 1) + 8 * v29) readFuturesKeyedByCharacteristicIdentifier];
         v31 = [readFuturesKeyedByCharacteristicIdentifier objectForKeyedSubscript:uniqueIdentifier];
 
         if (v31)
@@ -1175,7 +1224,7 @@ LABEL_17:
 
         if (v27 == ++v29)
         {
-          v27 = [runningTransactions countByEnumeratingWithState:&v100 objects:v109 count:16];
+          v27 = [runningTransactions countByEnumeratingWithState:&v99 objects:v108 count:16];
           if (v27)
           {
             goto LABEL_17;
@@ -1191,13 +1240,13 @@ LABEL_17:
 
       if (v34)
       {
-        v77 = HFLogForCategory(0x3DuLL);
-        if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
+        v76 = HFLogForCategory(0x3DuLL);
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
         {
           hf_prettyDescription3 = [characteristicCopy hf_prettyDescription];
           *buf = 138412290;
           *&buf[4] = hf_prettyDescription3;
-          _os_log_impl(&dword_20D9BF000, v77, OS_LOG_TYPE_DEBUG, "Duplicate read in other running transaction: %@", buf, 0xCu);
+          _os_log_impl(&dword_20D9BF000, v76, OS_LOG_TYPE_DEBUG, "Duplicate read in other running transaction: %@", buf, 0xCu);
         }
       }
 
@@ -1223,16 +1272,16 @@ LABEL_17:
       }
 
       objc_initWeak(buf, self);
-      v96[0] = MEMORY[0x277D85DD0];
-      v96[1] = 3221225472;
-      v96[2] = __59__HFCharacteristicValueManager_readValueForCharacteristic___block_invoke_106;
-      v96[3] = &unk_277DF6358;
-      objc_copyWeak(&v99, buf);
-      v97 = characteristicCopy;
-      v98 = v10;
-      v25 = [v31 flatMap:v96];
+      v95[0] = MEMORY[0x277D85DD0];
+      v95[1] = 3221225472;
+      v95[2] = __59__HFCharacteristicValueManager_readValueForCharacteristic___block_invoke_106;
+      v95[3] = &unk_277DF6358;
+      objc_copyWeak(&v98, buf);
+      v96 = characteristicCopy;
+      v97 = v10;
+      v25 = [v31 flatMap:v95];
 
-      objc_destroyWeak(&v99);
+      objc_destroyWeak(&v98);
       objc_destroyWeak(buf);
 
       if (v25)
@@ -1277,15 +1326,15 @@ LABEL_24:
 
       if (v49)
       {
-        v81 = HFLogForCategory(0x3DuLL);
-        if (os_log_type_enabled(v81, OS_LOG_TYPE_DEBUG))
+        v80 = HFLogForCategory(0x3DuLL);
+        if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
         {
           hf_prettyDescription5 = [characteristicCopy hf_prettyDescription];
           *buf = 138412546;
-          *&buf[4] = v84;
+          *&buf[4] = v83;
           *&buf[12] = 2112;
           *&buf[14] = hf_prettyDescription5;
-          _os_log_impl(&dword_20D9BF000, v81, OS_LOG_TYPE_DEBUG, "New read request (%@): %@", buf, 0x16u);
+          _os_log_impl(&dword_20D9BF000, v80, OS_LOG_TYPE_DEBUG, "New read request (%@): %@", buf, 0x16u);
         }
       }
 
@@ -1303,7 +1352,7 @@ LABEL_24:
         {
           hf_prettyDescription6 = [characteristicCopy hf_prettyDescription];
           *buf = 138412546;
-          *&buf[4] = v84;
+          *&buf[4] = v83;
           *&buf[12] = 2112;
           *&buf[14] = hf_prettyDescription6;
           _os_log_impl(&dword_20D9BF000, v53, OS_LOG_TYPE_DEBUG, "New read request (%@): %@", buf, 0x16u);
@@ -1321,16 +1370,16 @@ LABEL_24:
     [characteristicsToRead2 addObject:characteristicCopy];
 
     objc_initWeak(buf, self);
-    v92[0] = MEMORY[0x277D85DD0];
-    v92[1] = 3221225472;
-    v92[2] = __59__HFCharacteristicValueManager_readValueForCharacteristic___block_invoke_111;
-    v92[3] = &unk_277DF6358;
-    objc_copyWeak(&v95, buf);
-    v93 = characteristicCopy;
-    v94 = v10;
-    v25 = [v44 flatMap:v92];
+    v91[0] = MEMORY[0x277D85DD0];
+    v91[1] = 3221225472;
+    v91[2] = __59__HFCharacteristicValueManager_readValueForCharacteristic___block_invoke_111;
+    v91[3] = &unk_277DF6358;
+    objc_copyWeak(&v94, buf);
+    v92 = characteristicCopy;
+    v93 = v10;
+    v25 = [v44 flatMap:v91];
 
-    objc_destroyWeak(&v95);
+    objc_destroyWeak(&v94);
     objc_destroyWeak(buf);
 
     if (!v25)
@@ -1343,15 +1392,15 @@ LABEL_40:
 
       if (v59)
       {
-        v79 = HFLogForCategory(0x3DuLL);
-        if (os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG))
+        v78 = HFLogForCategory(0x3DuLL);
+        if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
         {
           hf_prettyDescription7 = [characteristicCopy hf_prettyDescription];
           *buf = 138412546;
-          *&buf[4] = v84;
+          *&buf[4] = v83;
           *&buf[12] = 2112;
           *&buf[14] = hf_prettyDescription7;
-          _os_log_impl(&dword_20D9BF000, v79, OS_LOG_TYPE_DEBUG, "Read request for implicit transaction (%@): %@", buf, 0x16u);
+          _os_log_impl(&dword_20D9BF000, v78, OS_LOG_TYPE_DEBUG, "Read request for implicit transaction (%@): %@", buf, 0x16u);
         }
       }
 
@@ -1368,7 +1417,7 @@ LABEL_40:
         {
           hf_prettyDescription8 = [characteristicCopy hf_prettyDescription];
           *buf = 138412546;
-          *&buf[4] = v84;
+          *&buf[4] = v83;
           *&buf[12] = 2112;
           *&buf[14] = hf_prettyDescription8;
           _os_log_impl(&dword_20D9BF000, v62, OS_LOG_TYPE_DEBUG, "Read request for implicit transaction (%@): %@", buf, 0x16u);
@@ -1385,17 +1434,17 @@ LABEL_40:
       [characteristicsToRead3 addObject:characteristicCopy];
 
       objc_initWeak(buf, self);
-      v88[0] = MEMORY[0x277D85DD0];
-      v88[1] = 3221225472;
-      v88[2] = __59__HFCharacteristicValueManager_readValueForCharacteristic___block_invoke_112;
-      v88[3] = &unk_277DF6358;
-      objc_copyWeak(&v91, buf);
-      v89 = characteristicCopy;
-      v90 = v10;
-      v25 = [v64 flatMap:v88];
+      v87[0] = MEMORY[0x277D85DD0];
+      v87[1] = 3221225472;
+      v87[2] = __59__HFCharacteristicValueManager_readValueForCharacteristic___block_invoke_112;
+      v87[3] = &unk_277DF6358;
+      objc_copyWeak(&v90, buf);
+      v88 = characteristicCopy;
+      v89 = v10;
+      v25 = [v64 flatMap:v87];
       [(HFCharacteristicValueManager *)self commitTransactionWithReason:@"characteristicValueManagerImplicitTransaction"];
 
-      objc_destroyWeak(&v91);
+      objc_destroyWeak(&v90);
       objc_destroyWeak(buf);
     }
   }
@@ -1410,18 +1459,16 @@ LABEL_45:
     [currentHandler2 handleFailureInMethod:a2 object:self file:@"HFCharacteristicValueManager.m" lineNumber:500 description:@"None of our cases were able to create a future for this request"];
   }
 
-  v85[0] = MEMORY[0x277D85DD0];
-  v85[1] = 3221225472;
-  v85[2] = __59__HFCharacteristicValueManager_readValueForCharacteristic___block_invoke_2;
-  v85[3] = &unk_277DF6380;
-  v85[4] = self;
-  v86 = characteristicCopy;
-  v87 = v10;
+  v84[0] = MEMORY[0x277D85DD0];
+  v84[1] = 3221225472;
+  v84[2] = __59__HFCharacteristicValueManager_readValueForCharacteristic___block_invoke_2;
+  v84[3] = &unk_277DF6380;
+  v84[4] = self;
+  v85 = characteristicCopy;
+  v86 = v10;
   v68 = v10;
   v69 = characteristicCopy;
-  v70 = [v25 recover:v85];
-
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = [v25 recover:v84];
 
   return v70;
 }
@@ -1502,7 +1549,7 @@ id __59__HFCharacteristicValueManager_readValueForCharacteristic___block_invoke_
 
 - (id)writeValue:(id)value forCharacteristic:(id)characteristic
 {
-  v106 = *MEMORY[0x277D85DE8];
+  v105 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   characteristicCopy = characteristic;
   if (!characteristicCopy)
@@ -1511,42 +1558,42 @@ id __59__HFCharacteristicValueManager_readValueForCharacteristic___block_invoke_
     [currentHandler handleFailureInMethod:a2 object:self file:@"HFCharacteristicValueManager.m" lineNumber:516 description:{@"Invalid parameter not satisfying: %@", @"characteristic != nil"}];
   }
 
-  v81 = a2;
+  v80 = a2;
   uniqueIdentifier = [characteristicCopy uniqueIdentifier];
   transactionLock = [(HFCharacteristicValueManager *)self transactionLock];
   [transactionLock lock];
 
-  v98 = 0u;
-  v99 = 0u;
-  v96 = 0u;
   v97 = 0u;
+  v98 = 0u;
+  v95 = 0u;
+  v96 = 0u;
   runningTransactions = [(HFCharacteristicValueManager *)self runningTransactions];
   reverseObjectEnumerator = [runningTransactions reverseObjectEnumerator];
 
-  v84 = valueCopy;
+  v83 = valueCopy;
   selfCopy = self;
-  v86 = uniqueIdentifier;
-  v87 = [reverseObjectEnumerator countByEnumeratingWithState:&v96 objects:v105 count:16];
-  if (!v87)
+  v85 = uniqueIdentifier;
+  v86 = [reverseObjectEnumerator countByEnumeratingWithState:&v95 objects:v104 count:16];
+  if (!v86)
   {
 LABEL_30:
 
     goto LABEL_31;
   }
 
-  v13 = *v97;
-  v82 = *v97;
-  v83 = reverseObjectEnumerator;
+  v13 = *v96;
+  v81 = *v96;
+  v82 = reverseObjectEnumerator;
 LABEL_5:
   v14 = 0;
   while (1)
   {
-    if (*v97 != v13)
+    if (*v96 != v13)
     {
       objc_enumerationMutation(reverseObjectEnumerator);
     }
 
-    v15 = *(*(&v96 + 1) + 8 * v14);
+    v15 = *(*(&v95 + 1) + 8 * v14);
     writeFuturesKeyedByCharacteristicIdentifier = [v15 writeFuturesKeyedByCharacteristicIdentifier];
     v17 = [writeFuturesKeyedByCharacteristicIdentifier objectForKeyedSubscript:uniqueIdentifier];
 
@@ -1555,12 +1602,12 @@ LABEL_5:
       goto LABEL_19;
     }
 
-    v94 = 0u;
-    v95 = 0u;
-    v92 = 0u;
     v93 = 0u;
+    v94 = 0u;
+    v91 = 0u;
+    v92 = 0u;
     writeCharacteristicRequests = [v15 writeCharacteristicRequests];
-    v19 = [writeCharacteristicRequests countByEnumeratingWithState:&v92 objects:v104 count:16];
+    v19 = [writeCharacteristicRequests countByEnumeratingWithState:&v91 objects:v103 count:16];
     if (v19)
     {
       break;
@@ -1568,17 +1615,17 @@ LABEL_5:
 
 LABEL_18:
 
-    valueCopy = v84;
+    valueCopy = v83;
     self = selfCopy;
-    uniqueIdentifier = v86;
-    v13 = v82;
-    reverseObjectEnumerator = v83;
+    uniqueIdentifier = v85;
+    v13 = v81;
+    reverseObjectEnumerator = v82;
 LABEL_19:
 
-    if (++v14 == v87)
+    if (++v14 == v86)
     {
-      v87 = [reverseObjectEnumerator countByEnumeratingWithState:&v96 objects:v105 count:16];
-      if (v87)
+      v86 = [reverseObjectEnumerator countByEnumeratingWithState:&v95 objects:v104 count:16];
+      if (v86)
       {
         goto LABEL_5;
       }
@@ -1588,17 +1635,17 @@ LABEL_19:
   }
 
   v20 = v19;
-  v21 = *v93;
+  v21 = *v92;
 LABEL_12:
   v22 = 0;
   while (1)
   {
-    if (*v93 != v21)
+    if (*v92 != v21)
     {
       objc_enumerationMutation(writeCharacteristicRequests);
     }
 
-    v23 = *(*(&v92 + 1) + 8 * v22);
+    v23 = *(*(&v91 + 1) + 8 * v22);
     characteristic = [v23 characteristic];
     v25 = [characteristic isEqual:characteristicCopy];
 
@@ -1609,7 +1656,7 @@ LABEL_12:
 
     if (v20 == ++v22)
     {
-      v20 = [writeCharacteristicRequests countByEnumeratingWithState:&v92 objects:v104 count:16];
+      v20 = [writeCharacteristicRequests countByEnumeratingWithState:&v91 objects:v103 count:16];
       if (v20)
       {
         goto LABEL_12;
@@ -1620,15 +1667,15 @@ LABEL_12:
   }
 
   value = [v23 value];
-  valueCopy = v84;
-  v27 = [value isEqual:v84];
+  valueCopy = v83;
+  v27 = [value isEqual:v83];
 
   if ((v27 & 1) == 0)
   {
 
     self = selfCopy;
-    uniqueIdentifier = v86;
-    reverseObjectEnumerator = v83;
+    uniqueIdentifier = v85;
+    reverseObjectEnumerator = v82;
     goto LABEL_30;
   }
 
@@ -1650,7 +1697,7 @@ LABEL_12:
     {
       hf_prettyDescription = [characteristicCopy hf_prettyDescription];
       *buf = 138412290;
-      v102 = hf_prettyDescription;
+      v101 = hf_prettyDescription;
       _os_log_impl(&dword_20D9BF000, v33, OS_LOG_TYPE_DEFAULT, "Duplicate write: %@", buf, 0xCu);
     }
 
@@ -1659,17 +1706,17 @@ LABEL_12:
 
   else
   {
-    v77 = HFLogForCategory(0x3DuLL);
-    if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
+    v76 = HFLogForCategory(0x3DuLL);
+    if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
     {
       hf_prettyDescription2 = [characteristicCopy hf_prettyDescription];
       LODWORD(state.opaque[0]) = 138412290;
       *(state.opaque + 4) = hf_prettyDescription2;
-      _os_log_impl(&dword_20D9BF000, v77, OS_LOG_TYPE_DEFAULT, "Duplicate write: %@", &state, 0xCu);
+      _os_log_impl(&dword_20D9BF000, v76, OS_LOG_TYPE_DEFAULT, "Duplicate write: %@", &state, 0xCu);
     }
   }
 
-  uniqueIdentifier = v86;
+  uniqueIdentifier = v85;
   v35 = [v17 flatMap:&__block_literal_global_49];
 
   if (v35)
@@ -1689,25 +1736,25 @@ LABEL_31:
   writeFuturesKeyedByCharacteristicIdentifier2 = [openTransaction4 writeFuturesKeyedByCharacteristicIdentifier];
   v39 = [writeFuturesKeyedByCharacteristicIdentifier2 objectForKeyedSubscript:uniqueIdentifier];
 
-  v90 = 0u;
-  v91 = 0u;
-  v88 = 0u;
   v89 = 0u;
+  v90 = 0u;
+  v87 = 0u;
+  v88 = 0u;
   writeCharacteristicRequests2 = [openTransaction4 writeCharacteristicRequests];
-  v41 = [writeCharacteristicRequests2 countByEnumeratingWithState:&v88 objects:v100 count:16];
+  v41 = [writeCharacteristicRequests2 countByEnumeratingWithState:&v87 objects:v99 count:16];
   if (v41)
   {
-    v42 = *v89;
+    v42 = *v88;
     while (2)
     {
       for (i = 0; i != v41; ++i)
       {
-        if (*v89 != v42)
+        if (*v88 != v42)
         {
           objc_enumerationMutation(writeCharacteristicRequests2);
         }
 
-        v44 = *(*(&v88 + 1) + 8 * i);
+        v44 = *(*(&v87 + 1) + 8 * i);
         characteristic2 = [v44 characteristic];
         v46 = [characteristic2 isEqual:characteristicCopy];
 
@@ -1718,7 +1765,7 @@ LABEL_31:
         }
       }
 
-      v41 = [writeCharacteristicRequests2 countByEnumeratingWithState:&v88 objects:v100 count:16];
+      v41 = [writeCharacteristicRequests2 countByEnumeratingWithState:&v87 objects:v99 count:16];
       if (v41)
       {
         continue;
@@ -1728,9 +1775,9 @@ LABEL_31:
     }
 
 LABEL_42:
-    valueCopy = v84;
+    valueCopy = v83;
     self = selfCopy;
-    uniqueIdentifier = v86;
+    uniqueIdentifier = v85;
   }
 
   if (v39)
@@ -1773,13 +1820,13 @@ LABEL_42:
       loggerActivity2 = [logger4 loggerActivity];
       os_activity_scope_enter(loggerActivity2, &state);
 
-      v71 = HFLogForCategory(0x3DuLL);
-      if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+      v70 = HFLogForCategory(0x3DuLL);
+      if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
       {
         hf_prettyDescription3 = [characteristicCopy hf_prettyDescription];
         *buf = 138412290;
-        v102 = hf_prettyDescription3;
-        _os_log_impl(&dword_20D9BF000, v71, OS_LOG_TYPE_DEFAULT, "New write request: %@", buf, 0xCu);
+        v101 = hf_prettyDescription3;
+        _os_log_impl(&dword_20D9BF000, v70, OS_LOG_TYPE_DEFAULT, "New write request: %@", buf, 0xCu);
       }
 
       os_activity_scope_leave(&state);
@@ -1787,17 +1834,17 @@ LABEL_42:
 
     else
     {
-      v79 = HFLogForCategory(0x3DuLL);
-      if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
+      v78 = HFLogForCategory(0x3DuLL);
+      if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
       {
         hf_prettyDescription4 = [characteristicCopy hf_prettyDescription];
         LODWORD(state.opaque[0]) = 138412290;
         *(state.opaque + 4) = hf_prettyDescription4;
-        _os_log_impl(&dword_20D9BF000, v79, OS_LOG_TYPE_DEFAULT, "New write request: %@", &state, 0xCu);
+        _os_log_impl(&dword_20D9BF000, v78, OS_LOG_TYPE_DEFAULT, "New write request: %@", &state, 0xCu);
       }
     }
 
-    uniqueIdentifier = v86;
+    uniqueIdentifier = v85;
     if (!v39)
     {
 LABEL_53:
@@ -1833,7 +1880,7 @@ LABEL_55:
       {
         hf_prettyDescription5 = [characteristicCopy hf_prettyDescription];
         *buf = 138412290;
-        v102 = hf_prettyDescription5;
+        v101 = hf_prettyDescription5;
         _os_log_impl(&dword_20D9BF000, v57, OS_LOG_TYPE_DEFAULT, "Write request for implicit transaction: %@", buf, 0xCu);
       }
 
@@ -1842,13 +1889,13 @@ LABEL_55:
 
     else
     {
-      v75 = HFLogForCategory(0x3DuLL);
-      if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+      v74 = HFLogForCategory(0x3DuLL);
+      if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
       {
         hf_prettyDescription6 = [characteristicCopy hf_prettyDescription];
         LODWORD(state.opaque[0]) = 138412290;
         *(state.opaque + 4) = hf_prettyDescription6;
-        _os_log_impl(&dword_20D9BF000, v75, OS_LOG_TYPE_DEFAULT, "Write request for implicit transaction: %@", &state, 0xCu);
+        _os_log_impl(&dword_20D9BF000, v74, OS_LOG_TYPE_DEFAULT, "Write request for implicit transaction: %@", &state, 0xCu);
       }
     }
 
@@ -1871,10 +1918,8 @@ LABEL_60:
   if (!v35)
   {
     currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
-    [currentHandler2 handleFailureInMethod:v81 object:self file:@"HFCharacteristicValueManager.m" lineNumber:631 description:@"None of our cases were able to create a future for this request"];
+    [currentHandler2 handleFailureInMethod:v80 object:self file:@"HFCharacteristicValueManager.m" lineNumber:631 description:@"None of our cases were able to create a future for this request"];
   }
-
-  v64 = *MEMORY[0x277D85DE8];
 
   return v35;
 }
@@ -1965,7 +2010,7 @@ uint64_t __67__HFCharacteristicValueManager_executeActionSet_completionHandler__
 
 - (id)executeActionSet:(id)set
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   setCopy = set;
   if (!setCopy)
   {
@@ -1973,30 +2018,30 @@ uint64_t __67__HFCharacteristicValueManager_executeActionSet_completionHandler__
     [currentHandler handleFailureInMethod:a2 object:self file:@"HFCharacteristicValueManager.m" lineNumber:647 description:{@"Invalid parameter not satisfying: %@", @"actionSet != nil"}];
   }
 
-  v61 = a2;
+  v60 = a2;
   transactionLock = [(HFCharacteristicValueManager *)self transactionLock];
   [transactionLock lock];
 
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
   v74 = 0u;
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
   runningTransactions = [(HFCharacteristicValueManager *)self runningTransactions];
-  v8 = [runningTransactions countByEnumeratingWithState:&v73 objects:v80 count:16];
+  v8 = [runningTransactions countByEnumeratingWithState:&v72 objects:v79 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v74;
+    v10 = *v73;
 LABEL_5:
     v11 = 0;
     while (1)
     {
-      if (*v74 != v10)
+      if (*v73 != v10)
       {
         objc_enumerationMutation(runningTransactions);
       }
 
-      v12 = *(*(&v73 + 1) + 8 * v11);
+      v12 = *(*(&v72 + 1) + 8 * v11);
       actionSetsToExecute = [v12 actionSetsToExecute];
       v14 = [actionSetsToExecute containsObject:setCopy];
 
@@ -2007,7 +2052,7 @@ LABEL_5:
 
       if (v9 == ++v11)
       {
-        v9 = [runningTransactions countByEnumeratingWithState:&v73 objects:v80 count:16];
+        v9 = [runningTransactions countByEnumeratingWithState:&v72 objects:v79 count:16];
         if (v9)
         {
           goto LABEL_5;
@@ -2034,7 +2079,7 @@ LABEL_5:
       {
         hf_prettyDescription = [setCopy hf_prettyDescription];
         *buf = 138412290;
-        v78 = hf_prettyDescription;
+        v77 = hf_prettyDescription;
         _os_log_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_DEFAULT, "Duplicate action set execution request: %@", buf, 0xCu);
       }
 
@@ -2043,13 +2088,13 @@ LABEL_5:
 
     else
     {
-      v55 = HFLogForCategory(0x3DuLL);
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+      v54 = HFLogForCategory(0x3DuLL);
+      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
       {
         hf_prettyDescription2 = [setCopy hf_prettyDescription];
         LODWORD(state.opaque[0]) = 138412290;
         *(state.opaque + 4) = hf_prettyDescription2;
-        _os_log_impl(&dword_20D9BF000, v55, OS_LOG_TYPE_DEFAULT, "Duplicate action set execution request: %@", &state, 0xCu);
+        _os_log_impl(&dword_20D9BF000, v54, OS_LOG_TYPE_DEFAULT, "Duplicate action set execution request: %@", &state, 0xCu);
       }
     }
 
@@ -2060,9 +2105,9 @@ LABEL_5:
     block[2] = __49__HFCharacteristicValueManager_executeActionSet___block_invoke;
     block[3] = &unk_277DF32A8;
     block[4] = v12;
-    v71 = setCopy;
+    v70 = setCopy;
     v24 = v22;
-    v72 = v24;
+    v71 = v24;
     dispatch_group_notify(onFinishGroup, MEMORY[0x277D85CD0], block);
 
     if (v24)
@@ -2107,7 +2152,7 @@ LABEL_11:
       {
         hf_prettyDescription3 = [setCopy hf_prettyDescription];
         *buf = 138412290;
-        v78 = hf_prettyDescription3;
+        v77 = hf_prettyDescription3;
         _os_log_impl(&dword_20D9BF000, v35, OS_LOG_TYPE_DEFAULT, "Execute action set request: %@", buf, 0xCu);
       }
 
@@ -2116,13 +2161,13 @@ LABEL_11:
 
     else
     {
-      v59 = HFLogForCategory(0x3DuLL);
-      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+      v58 = HFLogForCategory(0x3DuLL);
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
       {
         hf_prettyDescription4 = [setCopy hf_prettyDescription];
         LODWORD(state.opaque[0]) = 138412290;
         *(state.opaque + 4) = hf_prettyDescription4;
-        _os_log_impl(&dword_20D9BF000, v59, OS_LOG_TYPE_DEFAULT, "Execute action set request: %@", &state, 0xCu);
+        _os_log_impl(&dword_20D9BF000, v58, OS_LOG_TYPE_DEFAULT, "Execute action set request: %@", &state, 0xCu);
       }
     }
   }
@@ -2131,16 +2176,16 @@ LABEL_11:
   [actionSetsToExecute3 addObject:setCopy];
 
   onFinishGroup2 = [openTransaction4 onFinishGroup];
-  v66[0] = MEMORY[0x277D85DD0];
-  v66[1] = 3221225472;
-  v66[2] = __49__HFCharacteristicValueManager_executeActionSet___block_invoke_132;
-  v66[3] = &unk_277DF32A8;
-  v67 = openTransaction4;
-  v68 = setCopy;
+  v65[0] = MEMORY[0x277D85DD0];
+  v65[1] = 3221225472;
+  v65[2] = __49__HFCharacteristicValueManager_executeActionSet___block_invoke_132;
+  v65[3] = &unk_277DF32A8;
+  v66 = openTransaction4;
+  v67 = setCopy;
   v24 = v26;
-  v69 = v24;
+  v68 = v24;
   v39 = openTransaction4;
-  dispatch_group_notify(onFinishGroup2, MEMORY[0x277D85CD0], v66);
+  dispatch_group_notify(onFinishGroup2, MEMORY[0x277D85CD0], v65);
 
   if (!v24)
   {
@@ -2163,7 +2208,7 @@ LABEL_24:
       {
         hf_prettyDescription5 = [setCopy hf_prettyDescription];
         *buf = 138412290;
-        v78 = hf_prettyDescription5;
+        v77 = hf_prettyDescription5;
         _os_log_impl(&dword_20D9BF000, v45, OS_LOG_TYPE_DEFAULT, "Execute action set request in implicit transaction: %@", buf, 0xCu);
       }
 
@@ -2172,13 +2217,13 @@ LABEL_24:
 
     else
     {
-      v57 = HFLogForCategory(0x3DuLL);
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+      v56 = HFLogForCategory(0x3DuLL);
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
       {
         hf_prettyDescription6 = [setCopy hf_prettyDescription];
         LODWORD(state.opaque[0]) = 138412290;
         *(state.opaque + 4) = hf_prettyDescription6;
-        _os_log_impl(&dword_20D9BF000, v57, OS_LOG_TYPE_DEFAULT, "Execute action set request in implicit transaction: %@", &state, 0xCu);
+        _os_log_impl(&dword_20D9BF000, v56, OS_LOG_TYPE_DEFAULT, "Execute action set request in implicit transaction: %@", &state, 0xCu);
       }
     }
 
@@ -2186,16 +2231,16 @@ LABEL_24:
     [actionSetsToExecute4 addObject:setCopy];
 
     onFinishGroup3 = [openTransaction7 onFinishGroup];
-    v62[0] = MEMORY[0x277D85DD0];
-    v62[1] = 3221225472;
-    v62[2] = __49__HFCharacteristicValueManager_executeActionSet___block_invoke_133;
-    v62[3] = &unk_277DF32A8;
-    v63 = openTransaction7;
-    v64 = setCopy;
+    v61[0] = MEMORY[0x277D85DD0];
+    v61[1] = 3221225472;
+    v61[2] = __49__HFCharacteristicValueManager_executeActionSet___block_invoke_133;
+    v61[3] = &unk_277DF32A8;
+    v62 = openTransaction7;
+    v63 = setCopy;
     v24 = v40;
-    v65 = v24;
+    v64 = v24;
     v49 = openTransaction7;
-    dispatch_group_notify(onFinishGroup3, MEMORY[0x277D85CD0], v62);
+    dispatch_group_notify(onFinishGroup3, MEMORY[0x277D85CD0], v61);
 
     [(HFCharacteristicValueManager *)self commitTransactionWithReason:@"characteristicValueManagerImplicitTransaction"];
   }
@@ -2207,10 +2252,8 @@ LABEL_29:
   if (!v24)
   {
     currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
-    [currentHandler2 handleFailureInMethod:v61 object:self file:@"HFCharacteristicValueManager.m" lineNumber:714 description:@"None of our cases were able to create a future for this request"];
+    [currentHandler2 handleFailureInMethod:v60 object:self file:@"HFCharacteristicValueManager.m" lineNumber:714 description:@"None of our cases were able to create a future for this request"];
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -2265,7 +2308,7 @@ void __49__HFCharacteristicValueManager_executeActionSet___block_invoke_133(uint
 
 - (id)executeActions:(id)actions
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   actionsCopy = actions;
   if (!actionsCopy)
   {
@@ -2281,28 +2324,28 @@ void __49__HFCharacteristicValueManager_executeActionSet___block_invoke_133(uint
   v8 = &qword_20DD97000;
   if ([v7 count])
   {
-    v66 = actionsCopy;
-    v83 = 0u;
-    v84 = 0u;
-    v81 = 0u;
+    v65 = actionsCopy;
     v82 = 0u;
+    v83 = 0u;
+    v80 = 0u;
+    v81 = 0u;
     obj = [(HFCharacteristicValueManager *)self runningTransactions];
-    v70 = [obj countByEnumeratingWithState:&v81 objects:v88 count:16];
-    if (v70)
+    v69 = [obj countByEnumeratingWithState:&v80 objects:v87 count:16];
+    if (v69)
     {
-      v69 = *v82;
-      v68 = v7;
+      v68 = *v81;
+      v67 = v7;
       do
       {
         v9 = 0;
         do
         {
-          if (*v82 != v69)
+          if (*v81 != v68)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v81 + 1) + 8 * v9);
+          v10 = *(*(&v80 + 1) + 8 * v9);
           actionsToExecute = [v10 actionsToExecute];
           v12 = [actionsToExecute mutableCopy];
 
@@ -2314,13 +2357,13 @@ void __49__HFCharacteristicValueManager_executeActionSet___block_invoke_133(uint
           v16 = [writeCharacteristicRequests na_map:&__block_literal_global_142];
           [v12 unionSet:v16];
 
-          v79[0] = MEMORY[0x277D85DD0];
-          v79[1] = 3221225472;
-          v79[2] = __47__HFCharacteristicValueManager_executeActions___block_invoke_3;
-          v79[3] = &unk_277DF6430;
+          v78[0] = MEMORY[0x277D85DD0];
+          v78[1] = 3221225472;
+          v78[2] = __47__HFCharacteristicValueManager_executeActions___block_invoke_3;
+          v78[3] = &unk_277DF6430;
           v17 = v7;
-          v80 = v17;
-          v18 = [v12 na_map:v79];
+          v79 = v17;
+          v18 = [v12 na_map:v78];
           if ([v18 count])
           {
             v19 = array;
@@ -2340,9 +2383,9 @@ void __49__HFCharacteristicValueManager_executeActionSet___block_invoke_133(uint
               v26 = HFLogForCategory(0x3DuLL);
               if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
               {
-                hf_prettyDescription = [v66 hf_prettyDescription];
+                hf_prettyDescription = [v65 hf_prettyDescription];
                 *buf = 138412290;
-                v86 = hf_prettyDescription;
+                v85 = hf_prettyDescription;
                 _os_log_impl(&dword_20D9BF000, v26, OS_LOG_TYPE_DEFAULT, "Overlapping actions execution request: %@", buf, 0xCu);
               }
 
@@ -2355,7 +2398,7 @@ void __49__HFCharacteristicValueManager_executeActionSet___block_invoke_133(uint
               v32 = HFLogForCategory(0x3DuLL);
               if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
               {
-                hf_prettyDescription2 = [v66 hf_prettyDescription];
+                hf_prettyDescription2 = [v65 hf_prettyDescription];
                 LODWORD(state.opaque[0]) = 138412290;
                 *(state.opaque + 4) = hf_prettyDescription2;
                 _os_log_impl(&dword_20D9BF000, v32, OS_LOG_TYPE_DEFAULT, "Overlapping actions execution request: %@", &state, 0xCu);
@@ -2372,13 +2415,13 @@ void __49__HFCharacteristicValueManager_executeActionSet___block_invoke_133(uint
             block[2] = __47__HFCharacteristicValueManager_executeActions___block_invoke_144;
             block[3] = &unk_277DF3370;
             block[4] = v10;
-            v78 = v28;
+            v77 = v28;
             v30 = v28;
             dispatch_group_notify(onFinishGroup, MEMORY[0x277D85CD0], block);
 
             v31 = [v17 count];
             self = selfCopy2;
-            v7 = v68;
+            v7 = v67;
             if (!v31)
             {
 
@@ -2390,10 +2433,10 @@ void __49__HFCharacteristicValueManager_executeActionSet___block_invoke_133(uint
           ++v9;
         }
 
-        while (v70 != v9);
-        v34 = [obj countByEnumeratingWithState:&v81 objects:v88 count:16];
+        while (v69 != v9);
+        v34 = [obj countByEnumeratingWithState:&v80 objects:v87 count:16];
         v8 = &qword_20DD97000;
-        v70 = v34;
+        v69 = v34;
       }
 
       while (v34);
@@ -2401,7 +2444,7 @@ void __49__HFCharacteristicValueManager_executeActionSet___block_invoke_133(uint
 
 LABEL_23:
 
-    actionsCopy = v66;
+    actionsCopy = v65;
   }
 
   if ([v7 count])
@@ -2421,15 +2464,15 @@ LABEL_23:
 
       [v7 removeAllObjects];
       onFinishGroup2 = [openTransaction4 onFinishGroup];
-      v74[0] = MEMORY[0x277D85DD0];
-      v74[1] = v8[51];
-      v74[2] = __47__HFCharacteristicValueManager_executeActions___block_invoke_2_145;
-      v74[3] = &unk_277DF3370;
-      v75 = openTransaction4;
-      v76 = v36;
+      v73[0] = MEMORY[0x277D85DD0];
+      v73[1] = v8[51];
+      v73[2] = __47__HFCharacteristicValueManager_executeActions___block_invoke_2_145;
+      v73[3] = &unk_277DF3370;
+      v74 = openTransaction4;
+      v75 = v36;
       v41 = v36;
       v42 = openTransaction4;
-      dispatch_group_notify(onFinishGroup2, MEMORY[0x277D85CD0], v74);
+      dispatch_group_notify(onFinishGroup2, MEMORY[0x277D85CD0], v73);
     }
   }
 
@@ -2455,7 +2498,7 @@ LABEL_23:
       {
         hf_prettyDescription3 = [v7 hf_prettyDescription];
         *buf = 138412290;
-        v86 = hf_prettyDescription3;
+        v85 = hf_prettyDescription3;
         _os_log_impl(&dword_20D9BF000, v49, OS_LOG_TYPE_DEFAULT, "Execute actions request in implicit transaction: %@", buf, 0xCu);
       }
 
@@ -2465,16 +2508,16 @@ LABEL_23:
 
     else
     {
-      v62 = HFLogForCategory(0x3DuLL);
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+      v61 = HFLogForCategory(0x3DuLL);
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
       {
         [v7 hf_prettyDescription];
-        v64 = v63 = self;
+        v63 = v62 = self;
         LODWORD(state.opaque[0]) = 138412290;
-        *(state.opaque + 4) = v64;
-        _os_log_impl(&dword_20D9BF000, v62, OS_LOG_TYPE_DEFAULT, "Execute actions request in implicit transaction: %@", &state, 0xCu);
+        *(state.opaque + 4) = v63;
+        _os_log_impl(&dword_20D9BF000, v61, OS_LOG_TYPE_DEFAULT, "Execute actions request in implicit transaction: %@", &state, 0xCu);
 
-        self = v63;
+        self = v62;
       }
     }
 
@@ -2483,15 +2526,15 @@ LABEL_23:
 
     [v7 removeAllObjects];
     onFinishGroup3 = [openTransaction5 onFinishGroup];
-    v71[0] = MEMORY[0x277D85DD0];
-    v71[1] = v8[51];
-    v71[2] = __47__HFCharacteristicValueManager_executeActions___block_invoke_146;
-    v71[3] = &unk_277DF3370;
-    v72 = openTransaction5;
-    v73 = v43;
+    v70[0] = MEMORY[0x277D85DD0];
+    v70[1] = v8[51];
+    v70[2] = __47__HFCharacteristicValueManager_executeActions___block_invoke_146;
+    v70[3] = &unk_277DF3370;
+    v71 = openTransaction5;
+    v72 = v43;
     v53 = v43;
     v54 = openTransaction5;
-    dispatch_group_notify(onFinishGroup3, MEMORY[0x277D85CD0], v71);
+    dispatch_group_notify(onFinishGroup3, MEMORY[0x277D85CD0], v70);
 
     [(HFCharacteristicValueManager *)self commitTransactionWithReason:@"characteristicValueManagerImplicitTransaction"];
   }
@@ -2507,8 +2550,6 @@ LABEL_23:
 
   v56 = [MEMORY[0x277D2C900] combineAllFutures:array];
   v57 = [v56 flatMap:&__block_literal_global_150_1];
-
-  v58 = *MEMORY[0x277D85DE8];
 
   return v57;
 }
@@ -2634,7 +2675,7 @@ void __47__HFCharacteristicValueManager_executeActions___block_invoke_146(uint64
 
 - (void)commitTransactionWithReason:(id)reason
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   if (!reasonCopy)
   {
@@ -2707,12 +2748,12 @@ void __47__HFCharacteristicValueManager_executeActions___block_invoke_146(uint64
 
     else
     {
-      v49 = HFLogForCategory(0x3DuLL);
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+      v48 = HFLogForCategory(0x3DuLL);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         *&buf[4] = reasonCopy;
-        _os_log_impl(&dword_20D9BF000, v49, OS_LOG_TYPE_DEFAULT, "----- COMMIT TRANSACTION (%@) -----", buf, 0xCu);
+        _os_log_impl(&dword_20D9BF000, v48, OS_LOG_TYPE_DEFAULT, "----- COMMIT TRANSACTION (%@) -----", buf, 0xCu);
       }
     }
 
@@ -2727,64 +2768,64 @@ void __47__HFCharacteristicValueManager_executeActions___block_invoke_146(uint64
     v29 = dispatch_group_create();
     objc_initWeak(buf, self);
     dispatch_group_enter(v29);
-    v65[0] = MEMORY[0x277D85DD0];
-    v65[1] = 3221225472;
-    v65[2] = __60__HFCharacteristicValueManager_commitTransactionWithReason___block_invoke;
-    v65[3] = &unk_277DF6458;
-    objc_copyWeak(&v68, buf);
+    v64[0] = MEMORY[0x277D85DD0];
+    v64[1] = 3221225472;
+    v64[2] = __60__HFCharacteristicValueManager_commitTransactionWithReason___block_invoke;
+    v64[3] = &unk_277DF6458;
+    objc_copyWeak(&v67, buf);
     v30 = openTransaction;
-    v66 = v30;
+    v65 = v30;
     v31 = v29;
-    v67 = v31;
-    [(HFCharacteristicValueManager *)self _transactionLock_executeWriteTransaction:v30 completionHandler:v65];
+    v66 = v31;
+    [(HFCharacteristicValueManager *)self _transactionLock_executeWriteTransaction:v30 completionHandler:v64];
     dispatch_group_enter(v31);
-    v61[0] = MEMORY[0x277D85DD0];
-    v61[1] = 3221225472;
-    v61[2] = __60__HFCharacteristicValueManager_commitTransactionWithReason___block_invoke_160;
-    v61[3] = &unk_277DF6458;
-    objc_copyWeak(&v64, buf);
+    v60[0] = MEMORY[0x277D85DD0];
+    v60[1] = 3221225472;
+    v60[2] = __60__HFCharacteristicValueManager_commitTransactionWithReason___block_invoke_160;
+    v60[3] = &unk_277DF6458;
+    objc_copyWeak(&v63, buf);
     v32 = v30;
-    v62 = v32;
+    v61 = v32;
     v33 = v31;
-    v63 = v33;
-    [(HFCharacteristicValueManager *)self _transactionLock_executeActionSetTransaction:v32 completionHandler:v61];
+    v62 = v33;
+    [(HFCharacteristicValueManager *)self _transactionLock_executeActionSetTransaction:v32 completionHandler:v60];
     dispatch_group_enter(v33);
-    v57[0] = MEMORY[0x277D85DD0];
-    v57[1] = 3221225472;
-    v57[2] = __60__HFCharacteristicValueManager_commitTransactionWithReason___block_invoke_161;
-    v57[3] = &unk_277DF6458;
-    objc_copyWeak(&v60, buf);
+    v56[0] = MEMORY[0x277D85DD0];
+    v56[1] = 3221225472;
+    v56[2] = __60__HFCharacteristicValueManager_commitTransactionWithReason___block_invoke_161;
+    v56[3] = &unk_277DF6458;
+    objc_copyWeak(&v59, buf);
     v34 = v32;
-    v58 = v34;
+    v57 = v34;
     v35 = v33;
-    v59 = v35;
-    [(HFCharacteristicValueManager *)self _transactionLock_executeActionsTransaction:v34 completionHandler:v57];
+    v58 = v35;
+    [(HFCharacteristicValueManager *)self _transactionLock_executeActionsTransaction:v34 completionHandler:v56];
     dispatch_group_enter(v35);
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = __60__HFCharacteristicValueManager_commitTransactionWithReason___block_invoke_162;
-    v53[3] = &unk_277DF6458;
-    objc_copyWeak(&v56, buf);
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = __60__HFCharacteristicValueManager_commitTransactionWithReason___block_invoke_162;
+    v52[3] = &unk_277DF6458;
+    objc_copyWeak(&v55, buf);
     v36 = v34;
-    v54 = v36;
+    v53 = v36;
     v37 = v35;
-    v55 = v37;
-    [(HFCharacteristicValueManager *)self _transactionLock_executeReadTransaction:v36 completionHandler:v53];
+    v54 = v37;
+    [(HFCharacteristicValueManager *)self _transactionLock_executeReadTransaction:v36 completionHandler:v52];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __60__HFCharacteristicValueManager_commitTransactionWithReason___block_invoke_163;
     block[3] = &unk_277DF3A68;
-    objc_copyWeak(&v52, buf);
-    v51 = v36;
+    objc_copyWeak(&v51, buf);
+    v50 = v36;
     dispatch_group_notify(v37, MEMORY[0x277D85CD0], block);
 
-    objc_destroyWeak(&v52);
-    objc_destroyWeak(&v56);
+    objc_destroyWeak(&v51);
+    objc_destroyWeak(&v55);
 
-    objc_destroyWeak(&v60);
-    objc_destroyWeak(&v64);
+    objc_destroyWeak(&v59);
+    objc_destroyWeak(&v63);
 
-    objc_destroyWeak(&v68);
+    objc_destroyWeak(&v67);
     objc_destroyWeak(buf);
   }
 
@@ -2814,15 +2855,15 @@ void __47__HFCharacteristicValueManager_executeActions___block_invoke_146(uint64
 
     else
     {
-      v47 = HFLogForCategory(0x3DuLL);
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+      v46 = HFLogForCategory(0x3DuLL);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
       {
         clientReasonsStack7 = [openTransaction clientReasonsStack];
         *buf = 138412546;
         *&buf[4] = reasonCopy;
         *&buf[12] = 2112;
         *&buf[14] = clientReasonsStack7;
-        _os_log_impl(&dword_20D9BF000, v47, OS_LOG_TYPE_DEFAULT, "Commit nested transaction (%@). Remaining: %@", buf, 0x16u);
+        _os_log_impl(&dword_20D9BF000, v46, OS_LOG_TYPE_DEFAULT, "Commit nested transaction (%@). Remaining: %@", buf, 0x16u);
       }
     }
 
@@ -2834,8 +2875,6 @@ void __47__HFCharacteristicValueManager_executeActions___block_invoke_146(uint64
 
   v39 = NAEmptyResult();
   [commitFuture finishWithResult:v39];
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HFCharacteristicValueManager_commitTransactionWithReason___block_invoke(uint64_t a1)
@@ -3032,7 +3071,7 @@ void __60__HFCharacteristicValueManager_commitTransactionWithReason___block_invo
 
 void __60__HFCharacteristicValueManager_commitTransactionWithReason___block_invoke_163(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [WeakRetained transactionLock];
   [v3 lock];
@@ -3051,9 +3090,9 @@ void __60__HFCharacteristicValueManager_commitTransactionWithReason___block_invo
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [WeakRetained runningTransactions];
-      v20[0] = 67109120;
-      v20[1] = [v8 count] - 1;
-      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "All executions complete. Cleaning up. Remaining running transactions: %d", v20, 8u);
+      v19[0] = 67109120;
+      v19[1] = [v8 count] - 1;
+      _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "All executions complete. Cleaning up. Remaining running transactions: %d", v19, 8u);
     }
 
     os_activity_scope_leave(&state);
@@ -3061,13 +3100,13 @@ void __60__HFCharacteristicValueManager_commitTransactionWithReason___block_invo
 
   else
   {
-    v18 = HFLogForCategory(0x3DuLL);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v17 = HFLogForCategory(0x3DuLL);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = [WeakRetained runningTransactions];
+      v18 = [WeakRetained runningTransactions];
       LODWORD(state.opaque[0]) = 67109120;
-      HIDWORD(state.opaque[0]) = [v19 count] - 1;
-      _os_log_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_DEFAULT, "All executions complete. Cleaning up. Remaining running transactions: %d", &state, 8u);
+      HIDWORD(state.opaque[0]) = [v18 count] - 1;
+      _os_log_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_DEFAULT, "All executions complete. Cleaning up. Remaining running transactions: %d", &state, 8u);
     }
   }
 
@@ -3097,7 +3136,6 @@ void __60__HFCharacteristicValueManager_commitTransactionWithReason___block_invo
   [v16 unlock];
 
   dispatch_group_leave(v11);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_openTransactionCompletionFuture
@@ -3128,7 +3166,7 @@ void __60__HFCharacteristicValueManager_commitTransactionWithReason___block_invo
 
 - (void)_transactionLock_executeWriteTransaction:(id)transaction completionHandler:(id)handler
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   handlerCopy = handler;
   if (!transactionCopy)
@@ -3147,17 +3185,17 @@ void __60__HFCharacteristicValueManager_commitTransactionWithReason___block_invo
 
     if (v11)
     {
-      v37 = HFLogForCategory(0x3DuLL);
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v36 = HFLogForCategory(0x3DuLL);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
         valueWriter = [(HFCharacteristicValueManager *)self valueWriter];
         writeCharacteristicRequests2 = [transactionCopy writeCharacteristicRequests];
         hf_prettyDescription = [writeCharacteristicRequests2 hf_prettyDescription];
         *buf = 138412546;
-        v57 = valueWriter;
-        v58 = 2112;
-        v59 = hf_prettyDescription;
-        _os_log_impl(&dword_20D9BF000, v37, OS_LOG_TYPE_DEFAULT, "Start executing write with writer:%@. Characteristic requests:%@", buf, 0x16u);
+        v56 = valueWriter;
+        v57 = 2112;
+        v58 = hf_prettyDescription;
+        _os_log_impl(&dword_20D9BF000, v36, OS_LOG_TYPE_DEFAULT, "Start executing write with writer:%@. Characteristic requests:%@", buf, 0x16u);
       }
     }
 
@@ -3176,9 +3214,9 @@ void __60__HFCharacteristicValueManager_commitTransactionWithReason___block_invo
         writeCharacteristicRequests3 = [transactionCopy writeCharacteristicRequests];
         hf_prettyDescription2 = [writeCharacteristicRequests3 hf_prettyDescription];
         *buf = 138412546;
-        v57 = valueWriter2;
-        v58 = 2112;
-        v59 = hf_prettyDescription2;
+        v56 = valueWriter2;
+        v57 = 2112;
+        v58 = hf_prettyDescription2;
         _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "Start executing write with writer:%@. Characteristic requests:%@", buf, 0x16u);
       }
 
@@ -3201,13 +3239,13 @@ void __60__HFCharacteristicValueManager_commitTransactionWithReason___block_invo
     if (hf_home)
     {
       v25 = +[HFHomeKitDispatcher sharedDispatcher];
-      v51[0] = MEMORY[0x277D85DD0];
-      v51[1] = 3221225472;
-      v51[2] = __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction_completionHandler___block_invoke_2;
-      v51[3] = &unk_277DF3810;
-      v52 = hf_home;
-      v53 = v21;
-      [v25 dispatchHomeObserverMessage:v51 sender:0];
+      v50[0] = MEMORY[0x277D85DD0];
+      v50[1] = 3221225472;
+      v50[2] = __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction_completionHandler___block_invoke_2;
+      v50[3] = &unk_277DF3810;
+      v51 = hf_home;
+      v52 = v21;
+      [v25 dispatchHomeObserverMessage:v50 sender:0];
     }
 
     v26 = MEMORY[0x277CD1978];
@@ -3215,33 +3253,33 @@ void __60__HFCharacteristicValueManager_commitTransactionWithReason___block_invo
     v28 = [v26 characteristicBatchRequestWithWriteRequests:allObjects];
 
     array = [MEMORY[0x277CBEB18] array];
-    v48[0] = MEMORY[0x277D85DD0];
-    v48[1] = 3221225472;
-    v48[2] = __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction_completionHandler___block_invoke_3;
-    v48[3] = &unk_277DF64A0;
+    v47[0] = MEMORY[0x277D85DD0];
+    v47[1] = 3221225472;
+    v47[2] = __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction_completionHandler___block_invoke_3;
+    v47[3] = &unk_277DF64A0;
     v30 = transactionCopy;
-    v49 = v30;
+    v48 = v30;
     v31 = array;
-    v50 = v31;
-    [v28 setProgressHandler:v48];
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction_completionHandler___block_invoke_178;
-    v41[3] = &unk_277DF6518;
-    objc_copyWeak(&v47, &location);
-    v42 = v30;
+    v49 = v31;
+    [v28 setProgressHandler:v47];
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction_completionHandler___block_invoke_178;
+    v40[3] = &unk_277DF6518;
+    objc_copyWeak(&v46, &location);
+    v41 = v30;
     v32 = v31;
-    v43 = v32;
+    v42 = v32;
     v33 = v20;
-    v44 = v33;
+    v43 = v33;
     v34 = hf_home;
-    v45 = v34;
-    v46 = handlerCopy;
-    [v28 setCompletionHandler:v41];
+    v44 = v34;
+    v45 = handlerCopy;
+    [v28 setCompletionHandler:v40];
     valueWriter4 = [(HFCharacteristicValueManager *)self valueWriter];
     [valueWriter4 performBatchCharacteristicRequest:v28];
 
-    objc_destroyWeak(&v47);
+    objc_destroyWeak(&v46);
     objc_destroyWeak(&location);
   }
 
@@ -3249,8 +3287,6 @@ void __60__HFCharacteristicValueManager_commitTransactionWithReason___block_invo
   {
     handlerCopy[2](handlerCopy);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction_completionHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -3264,7 +3300,7 @@ void __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction
 
 void __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction_completionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) logger];
 
@@ -3288,37 +3324,37 @@ void __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction
 
   else
   {
-    v24 = HFLogForCategory(0x3DuLL);
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v23 = HFLogForCategory(0x3DuLL);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(state.opaque[0]) = 0;
-      _os_log_impl(&dword_20D9BF000, v24, OS_LOG_TYPE_DEFAULT, "Finished partial write", &state, 2u);
+      _os_log_impl(&dword_20D9BF000, v23, OS_LOG_TYPE_DEFAULT, "Finished partial write", &state, 2u);
     }
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v8 = v3;
-  v9 = [v8 countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v9)
   {
     v11 = v9;
-    v12 = *v27;
+    v12 = *v26;
     *&v10 = 138412290;
-    v25 = v10;
+    v24 = v10;
     do
     {
       v13 = 0;
       do
       {
-        if (*v27 != v12)
+        if (*v26 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v26 + 1) + 8 * v13);
+        v14 = *(*(&v25 + 1) + 8 * v13);
         v15 = [*(a1 + 32) logger];
 
         if (v15)
@@ -3333,8 +3369,8 @@ void __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction
           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             v19 = [v14 hf_prettyDescription];
-            *buf = v25;
-            v31 = v19;
+            *buf = v24;
+            v30 = v19;
             _os_log_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_DEFAULT, "     %@", buf, 0xCu);
           }
 
@@ -3347,7 +3383,7 @@ void __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             v21 = [v14 hf_prettyDescription];
-            LODWORD(state.opaque[0]) = v25;
+            LODWORD(state.opaque[0]) = v24;
             *(state.opaque + 4) = v21;
             _os_log_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_DEFAULT, "     %@", &state, 0xCu);
           }
@@ -3357,7 +3393,7 @@ void __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction
       }
 
       while (v11 != v13);
-      v22 = [v8 countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v22 = [v8 countByEnumeratingWithState:&v25 objects:v31 count:16];
       v11 = v22;
     }
 
@@ -3365,12 +3401,11 @@ void __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction
   }
 
   [*(a1 + 40) addObjectsFromArray:v8];
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction_completionHandler___block_invoke_178(id *a1, void *a2)
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained(a1 + 9);
   v5 = [WeakRetained transactionLock];
@@ -3390,7 +3425,7 @@ void __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v76 = v3;
+      v75 = v3;
       _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Finished write with error: %@.", buf, 0xCu);
     }
 
@@ -3399,51 +3434,51 @@ void __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction
 
   else
   {
-    v45 = HFLogForCategory(0x3DuLL);
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+    v44 = HFLogForCategory(0x3DuLL);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(state.opaque[0]) = 138412290;
       *(state.opaque + 4) = v3;
-      _os_log_impl(&dword_20D9BF000, v45, OS_LOG_TYPE_DEFAULT, "Finished write with error: %@.", &state, 0xCu);
+      _os_log_impl(&dword_20D9BF000, v44, OS_LOG_TYPE_DEFAULT, "Finished write with error: %@.", &state, 0xCu);
     }
   }
 
-  v47 = v3;
+  v46 = v3;
   [a1[4] setOverallWriteError:v3];
   v10 = [MEMORY[0x277CBEB58] set];
   [a1[4] setWriteCharacteristicRequests:v10];
 
   v11 = [a1[4] writeFuturesKeyedByCharacteristicIdentifier];
-  v49 = [v11 copy];
+  v48 = [v11 copy];
 
   v12 = [WeakRetained transactionLock];
   [v12 unlock];
 
-  v52 = [MEMORY[0x277CBEB38] dictionary];
-  v53 = [MEMORY[0x277CBEB58] set];
-  v51 = [MEMORY[0x277CBEB58] set];
+  v51 = [MEMORY[0x277CBEB38] dictionary];
+  v52 = [MEMORY[0x277CBEB58] set];
+  v50 = [MEMORY[0x277CBEB58] set];
   v13 = [MEMORY[0x277CBEB38] dictionary];
+  v68 = 0u;
   v69 = 0u;
   v70 = 0u;
   v71 = 0u;
-  v72 = 0u;
-  v50 = a1;
+  v49 = a1;
   v14 = a1[5];
-  v15 = [v14 countByEnumeratingWithState:&v69 objects:v74 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v68 objects:v73 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v70;
+    v17 = *v69;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v70 != v17)
+        if (*v69 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v69 + 1) + 8 * i);
+        v19 = *(*(&v68 + 1) + 8 * i);
         v20 = [v19 request];
         v21 = [v20 characteristic];
 
@@ -3451,14 +3486,14 @@ void __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction
         {
           v22 = [v19 error];
 
-          v23 = v53;
+          v23 = v52;
           if (v22)
           {
             v24 = [v19 error];
             v25 = [v21 uniqueIdentifier];
-            [v52 setObject:v24 forKeyedSubscript:v25];
+            [v51 setObject:v24 forKeyedSubscript:v25];
 
-            v23 = v51;
+            v23 = v50;
           }
 
           [v23 addObject:v21];
@@ -3472,53 +3507,53 @@ void __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v69 objects:v74 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v68 objects:v73 count:16];
     }
 
     while (v16);
   }
 
-  v62[0] = MEMORY[0x277D85DD0];
-  v62[1] = 3221225472;
-  v62[2] = __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction_completionHandler___block_invoke_182;
-  v62[3] = &unk_277DF64C8;
-  v46 = v13;
-  v63 = v46;
-  v64 = v50[4];
-  v48 = v47;
-  v65 = v48;
-  v27 = v52;
-  v66 = v27;
-  v67 = v50[6];
-  v28 = v51;
-  v68 = v28;
-  [v49 enumerateKeysAndObjectsUsingBlock:v62];
+  v61[0] = MEMORY[0x277D85DD0];
+  v61[1] = 3221225472;
+  v61[2] = __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction_completionHandler___block_invoke_182;
+  v61[3] = &unk_277DF64C8;
+  v45 = v13;
+  v62 = v45;
+  v63 = v49[4];
+  v47 = v46;
+  v64 = v47;
+  v27 = v51;
+  v65 = v27;
+  v66 = v49[6];
+  v28 = v50;
+  v67 = v28;
+  [v48 enumerateKeysAndObjectsUsingBlock:v61];
   v29 = [WeakRetained transactionLock];
   [v29 lock];
 
   v30 = [WeakRetained cachedWriteErrorsKeyedByCharacteristicIdentifier];
   [v30 addEntriesFromDictionary:v27];
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
-  v31 = v53;
-  v32 = [v31 countByEnumeratingWithState:&v58 objects:v73 count:16];
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  v31 = v52;
+  v32 = [v31 countByEnumeratingWithState:&v57 objects:v72 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v59;
+    v34 = *v58;
     do
     {
       for (j = 0; j != v33; ++j)
       {
-        if (*v59 != v34)
+        if (*v58 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        v36 = *(*(&v58 + 1) + 8 * j);
+        v36 = *(*(&v57 + 1) + 8 * j);
         v37 = [WeakRetained cachedWriteErrorsKeyedByCharacteristicIdentifier];
         v38 = [v36 uniqueIdentifier];
         [v37 removeObjectForKey:v38];
@@ -3528,7 +3563,7 @@ void __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction
         [v39 removeObjectForKey:v40];
       }
 
-      v33 = [v31 countByEnumeratingWithState:&v58 objects:v73 count:16];
+      v33 = [v31 countByEnumeratingWithState:&v57 objects:v72 count:16];
     }
 
     while (v33);
@@ -3537,31 +3572,29 @@ void __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction
   v41 = [WeakRetained transactionLock];
   [v41 unlock];
 
-  if (v50[7] && ([v31 count] || objc_msgSend(v28, "count")))
+  if (v49[7] && ([v31 count] || objc_msgSend(v28, "count")))
   {
     v42 = +[HFHomeKitDispatcher sharedDispatcher];
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction_completionHandler___block_invoke_2_188;
-    v54[3] = &unk_277DF64F0;
-    v55 = v50[7];
-    v56 = v31;
-    v57 = v28;
-    [v42 dispatchHomeObserverMessage:v54 sender:0];
+    v53[0] = MEMORY[0x277D85DD0];
+    v53[1] = 3221225472;
+    v53[2] = __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction_completionHandler___block_invoke_2_188;
+    v53[3] = &unk_277DF64F0;
+    v54 = v49[7];
+    v55 = v31;
+    v56 = v28;
+    [v42 dispatchHomeObserverMessage:v53 sender:0];
   }
 
-  v43 = v50[8];
+  v43 = v49[8];
   if (v43)
   {
     v43[2]();
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction_completionHandler___block_invoke_182(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) objectForKeyedSubscript:v5];
@@ -3586,7 +3619,7 @@ void __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v27 = v5;
+        v26 = v5;
         _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_ERROR, "Warning: No error or response for write request characteristic: %@", buf, 0xCu);
       }
 
@@ -3595,12 +3628,12 @@ void __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction
 
     else
     {
-      v20 = HFLogForCategory(0x3DuLL);
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v19 = HFLogForCategory(0x3DuLL);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         LODWORD(state.opaque[0]) = 138412290;
         *(state.opaque + 4) = v5;
-        _os_log_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_ERROR, "Warning: No error or response for write request characteristic: %@", &state, 0xCu);
+        _os_log_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_ERROR, "Warning: No error or response for write request characteristic: %@", &state, 0xCu);
       }
     }
 
@@ -3615,25 +3648,23 @@ void __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction
 
     [*(a1 + 56) setObject:v12 forKeyedSubscript:v5];
     v15 = *(a1 + 64);
-    v21 = MEMORY[0x277D85DD0];
-    v22 = 3221225472;
-    v23 = __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction_completionHandler___block_invoke_183;
-    v24 = &unk_277DF62E0;
+    v20 = MEMORY[0x277D85DD0];
+    v21 = 3221225472;
+    v22 = __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction_completionHandler___block_invoke_183;
+    v23 = &unk_277DF62E0;
     v16 = v5;
-    v25 = v16;
-    v17 = [v15 na_firstObjectPassingTest:&v21];
+    v24 = v16;
+    v17 = [v15 na_firstObjectPassingTest:&v20];
     v18 = [v17 characteristic];
 
     if (!v18)
     {
-      NSLog(&cfstr_NoCharacterist.isa, v16, v21, v22, v23, v24);
+      NSLog(&cfstr_NoCharacterist.isa, v16, v20, v21, v22, v23);
     }
 
     [*(a1 + 72) addObject:v18];
     [v6 finishWithError:v12];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction_completionHandler___block_invoke_183(uint64_t a1, void *a2)
@@ -3705,7 +3736,7 @@ void __91__HFCharacteristicValueManager__transactionLock_executeWriteTransaction
 
 void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_completionHandler___block_invoke(uint64_t a1)
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   [*(a1 + 32) set_debug_totalNumberOfIssuedBatchReadRequests:{objc_msgSend(*(a1 + 32), "_debug_totalNumberOfIssuedBatchReadRequests") + 1}];
   v3 = [*v2 transactionLock];
@@ -3725,8 +3756,8 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
 
   if (![v5 count])
   {
-    v42 = [MEMORY[0x277CCA890] currentHandler];
-    [v42 handleFailureInMethod:*(a1 + 48) object:*(a1 + 32) file:@"HFCharacteristicValueManager.m" lineNumber:1144 description:@"Inconsistant state: readTransactionsToExecute should always be non-empty on the next run loop"];
+    v41 = [MEMORY[0x277CCA890] currentHandler];
+    [v41 handleFailureInMethod:*(a1 + 48) object:*(a1 + 32) file:@"HFCharacteristicValueManager.m" lineNumber:1144 description:@"Inconsistant state: readTransactionsToExecute should always be non-empty on the next run loop"];
   }
 
   v10 = [v5 firstObject];
@@ -3771,16 +3802,16 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
 
   else
   {
-    v43 = HFLogForCategory(0x3DuLL);
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+    v42 = HFLogForCategory(0x3DuLL);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
-      v44 = [*(a1 + 32) valueReader];
-      v45 = [v14 hf_prettyDescription];
+      v43 = [*(a1 + 32) valueReader];
+      v44 = [v14 hf_prettyDescription];
       *buf = 138412546;
-      *&buf[4] = v44;
+      *&buf[4] = v43;
       *&buf[12] = 2112;
-      *&buf[14] = v45;
-      _os_log_impl(&dword_20D9BF000, v43, OS_LOG_TYPE_DEFAULT, "Start executing read with reader:%@. Characteristics to read:%@", buf, 0x16u);
+      *&buf[14] = v44;
+      _os_log_impl(&dword_20D9BF000, v42, OS_LOG_TYPE_DEFAULT, "Start executing read with reader:%@. Characteristics to read:%@", buf, 0x16u);
     }
   }
 
@@ -3792,54 +3823,54 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
   if (WeakRetained)
   {
     v25 = +[HFHomeKitDispatcher sharedDispatcher];
-    v68[0] = MEMORY[0x277D85DD0];
-    v68[1] = 3221225472;
-    v68[2] = __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_completionHandler___block_invoke_203;
-    v68[3] = &unk_277DF6560;
-    objc_copyWeak(&v70, &state);
-    v69 = v14;
-    [v25 dispatchHomeObserverMessage:v68 sender:0];
+    v67[0] = MEMORY[0x277D85DD0];
+    v67[1] = 3221225472;
+    v67[2] = __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_completionHandler___block_invoke_203;
+    v67[3] = &unk_277DF6560;
+    objc_copyWeak(&v69, &state);
+    v68 = v14;
+    [v25 dispatchHomeObserverMessage:v67 sender:0];
 
-    objc_destroyWeak(&v70);
+    objc_destroyWeak(&v69);
   }
 
   v26 = [v14 allObjects];
-  v46 = [v26 na_map:&__block_literal_global_209];
+  v45 = [v26 na_map:&__block_literal_global_209];
 
-  v27 = [MEMORY[0x277CD1978] characteristicBatchRequestWithReadRequests:v46];
+  v27 = [MEMORY[0x277CD1978] characteristicBatchRequestWithReadRequests:v45];
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v74 = 0;
-  v61[0] = MEMORY[0x277D85DD0];
-  v61[1] = 3221225472;
-  v61[2] = __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_completionHandler___block_invoke_3;
-  v61[3] = &unk_277DF65D8;
-  objc_copyWeak(&v66, &location);
-  v65 = buf;
+  v73 = 0;
+  v60[0] = MEMORY[0x277D85DD0];
+  v60[1] = 3221225472;
+  v60[2] = __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_completionHandler___block_invoke_3;
+  v60[3] = &unk_277DF65D8;
+  objc_copyWeak(&v65, &location);
+  v64 = buf;
   v28 = v11;
-  v62 = v28;
-  v63 = *(a1 + 40);
+  v61 = v28;
+  v62 = *(a1 + 40);
   v29 = v5;
-  v64 = v29;
-  objc_copyWeak(&v67, &state);
-  [v27 setProgressHandler:v61];
+  v63 = v29;
+  objc_copyWeak(&v66, &state);
+  [v27 setProgressHandler:v60];
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_completionHandler___block_invoke_4;
   aBlock[3] = &unk_277DF6600;
-  objc_copyWeak(&v59, &location);
-  v58 = buf;
+  objc_copyWeak(&v58, &location);
+  v57 = buf;
   v30 = v28;
-  v53 = v30;
+  v52 = v30;
   v31 = v29;
-  v54 = v31;
+  v53 = v31;
   v32 = v14;
-  v55 = v32;
-  v56 = *(a1 + 40);
-  objc_copyWeak(&v60, &state);
+  v54 = v32;
+  v55 = *(a1 + 40);
+  objc_copyWeak(&v59, &state);
   v33 = v7;
-  v57 = v33;
+  v56 = v33;
   v34 = _Block_copy(aBlock);
   [v27 setCompletionHandler:v34];
   v35 = [*(a1 + 32) valueReader];
@@ -3850,34 +3881,32 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
   [v36 lock];
 
   v37 = [*(a1 + 32) inFlightReadCancelationToken];
-  v47[0] = MEMORY[0x277D85DD0];
-  v47[1] = 3221225472;
-  v47[2] = __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_completionHandler___block_invoke_2_224;
-  v47[3] = &unk_277DF6628;
-  objc_copyWeak(&v51, &location);
-  v50 = buf;
+  v46[0] = MEMORY[0x277D85DD0];
+  v46[1] = 3221225472;
+  v46[2] = __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_completionHandler___block_invoke_2_224;
+  v46[3] = &unk_277DF6628;
+  objc_copyWeak(&v50, &location);
+  v49 = buf;
   v38 = v30;
-  v48 = v38;
+  v47 = v38;
   v39 = v34;
-  v49 = v39;
-  [v37 addCancelationBlock:v47];
+  v48 = v39;
+  [v37 addCancelationBlock:v46];
 
   v40 = [*(a1 + 32) transactionLock];
   [v40 unlock];
 
-  objc_destroyWeak(&v51);
-  objc_destroyWeak(&v60);
-
+  objc_destroyWeak(&v50);
   objc_destroyWeak(&v59);
-  objc_destroyWeak(&v67);
 
+  objc_destroyWeak(&v58);
   objc_destroyWeak(&v66);
+
+  objc_destroyWeak(&v65);
   _Block_object_dispose(buf, 8);
 
   objc_destroyWeak(&state);
   objc_destroyWeak(&location);
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_completionHandler___block_invoke_203(uint64_t a1, void *a2)
@@ -3892,18 +3921,18 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
 
 void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_completionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v91 = *MEMORY[0x277D85DE8];
-  v60 = a2;
+  v90 = *MEMORY[0x277D85DE8];
+  v59 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   if (*(*(*(a1 + 56) + 8) + 24) == 1)
   {
-    v64 = a1;
+    v63 = a1;
+    v60 = [MEMORY[0x277CBEB58] set];
     v61 = [MEMORY[0x277CBEB58] set];
-    v62 = [MEMORY[0x277CBEB58] set];
     v3 = [WeakRetained transactionLock];
     [v3 lock];
 
-    v4 = *(v64 + 32);
+    v4 = *(v63 + 32);
     if (v4)
     {
       state.opaque[0] = 0;
@@ -3923,35 +3952,35 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
 
     else
     {
-      v59 = HFLogForCategory(0x3DuLL);
-      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+      v58 = HFLogForCategory(0x3DuLL);
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(state.opaque[0]) = 0;
-        _os_log_impl(&dword_20D9BF000, v59, OS_LOG_TYPE_DEFAULT, "Received read responses:", &state, 2u);
+        _os_log_impl(&dword_20D9BF000, v58, OS_LOG_TYPE_DEFAULT, "Received read responses:", &state, 2u);
       }
     }
 
-    v83 = 0u;
-    v84 = 0u;
-    v81 = 0u;
     v82 = 0u;
-    v7 = v60;
-    v8 = [v7 countByEnumeratingWithState:&v81 objects:v87 count:16];
+    v83 = 0u;
+    v80 = 0u;
+    v81 = 0u;
+    v7 = v59;
+    v8 = [v7 countByEnumeratingWithState:&v80 objects:v86 count:16];
     if (v8)
     {
-      v9 = *v82;
+      v9 = *v81;
       do
       {
         v10 = 0;
         do
         {
-          if (*v82 != v9)
+          if (*v81 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v81 + 1) + 8 * v10);
-          v12 = *(v64 + 32);
+          v11 = *(*(&v80 + 1) + 8 * v10);
+          v12 = *(v63 + 32);
           if (v12)
           {
             state.opaque[0] = 0;
@@ -3964,7 +3993,7 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
             {
               v15 = [v11 hf_prettyDescription];
               *buf = 138412290;
-              v89 = v15;
+              v88 = v15;
               _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "     %@", buf, 0xCu);
             }
 
@@ -3987,33 +4016,33 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
         }
 
         while (v8 != v10);
-        v18 = [v7 countByEnumeratingWithState:&v81 objects:v87 count:16];
+        v18 = [v7 countByEnumeratingWithState:&v80 objects:v86 count:16];
         v8 = v18;
       }
 
       while (v18);
     }
 
-    v65 = [MEMORY[0x277CBEB38] dictionary];
-    v79 = 0u;
-    v80 = 0u;
-    v77 = 0u;
+    v64 = [MEMORY[0x277CBEB38] dictionary];
     v78 = 0u;
+    v79 = 0u;
+    v76 = 0u;
+    v77 = 0u;
     obj = v7;
-    v19 = [obj countByEnumeratingWithState:&v77 objects:v86 count:16];
+    v19 = [obj countByEnumeratingWithState:&v76 objects:v85 count:16];
     if (v19)
     {
-      v20 = *v78;
+      v20 = *v77;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v78 != v20)
+          if (*v77 != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v77 + 1) + 8 * i);
+          v22 = *(*(&v76 + 1) + 8 * i);
           v23 = [v22 request];
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -4041,7 +4070,7 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
           {
             if (+[HFCharacteristicValueManager _shouldTrackReadsCompleteForPerformanceTesting])
             {
-              v28 = [*(v64 + 40) logger];
+              v28 = [*(v63 + 40) logger];
               [WeakRetained _endReadsCompleteTrackingForCharacteristic:v27 withLogger:v28 didRead:1];
             }
 
@@ -4049,7 +4078,7 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
 
             if (v29)
             {
-              [v62 addObject:v27];
+              [v61 addObject:v27];
               v30 = [WeakRetained characteristicsWithCachedValues];
               [v30 removeObject:v27];
 
@@ -4061,7 +4090,7 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
 
             else
             {
-              [v61 addObject:v27];
+              [v60 addObject:v27];
               v34 = [WeakRetained mutableAllReadCharacteristics];
               [v34 addObject:v27];
 
@@ -4078,66 +4107,66 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
             }
 
             v38 = [v27 uniqueIdentifier];
-            [v65 setObject:v22 forKeyedSubscript:v38];
+            [v64 setObject:v22 forKeyedSubscript:v38];
           }
         }
 
-        v19 = [obj countByEnumeratingWithState:&v77 objects:v86 count:16];
+        v19 = [obj countByEnumeratingWithState:&v76 objects:v85 count:16];
       }
 
       while (v19);
     }
 
-    v39 = [*(v64 + 48) na_map:&__block_literal_global_216_0];
+    v39 = [*(v63 + 48) na_map:&__block_literal_global_216_0];
     v40 = [WeakRetained transactionLock];
     [v40 unlock];
 
-    v75 = 0u;
-    v76 = 0u;
-    v73 = 0u;
     v74 = 0u;
+    v75 = 0u;
+    v72 = 0u;
+    v73 = 0u;
     v41 = v39;
-    v42 = [v41 countByEnumeratingWithState:&v73 objects:v85 count:16];
+    v42 = [v41 countByEnumeratingWithState:&v72 objects:v84 count:16];
     if (v42)
     {
-      v43 = *v74;
+      v43 = *v73;
       do
       {
         for (j = 0; j != v42; ++j)
         {
-          if (*v74 != v43)
+          if (*v73 != v43)
           {
             objc_enumerationMutation(v41);
           }
 
-          v45 = *(*(&v73 + 1) + 8 * j);
-          v71[0] = MEMORY[0x277D85DD0];
-          v71[1] = 3221225472;
-          v71[2] = __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_completionHandler___block_invoke_2_217;
-          v71[3] = &unk_277DF6588;
-          v72 = v65;
-          [v45 enumerateKeysAndObjectsUsingBlock:v71];
+          v45 = *(*(&v72 + 1) + 8 * j);
+          v70[0] = MEMORY[0x277D85DD0];
+          v70[1] = 3221225472;
+          v70[2] = __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_completionHandler___block_invoke_2_217;
+          v70[3] = &unk_277DF6588;
+          v71 = v64;
+          [v45 enumerateKeysAndObjectsUsingBlock:v70];
         }
 
-        v42 = [v41 countByEnumeratingWithState:&v73 objects:v85 count:16];
+        v42 = [v41 countByEnumeratingWithState:&v72 objects:v84 count:16];
       }
 
       while (v42);
     }
 
-    v46 = objc_loadWeakRetained((v64 + 72));
+    v46 = objc_loadWeakRetained((v63 + 72));
     if (!v46)
     {
       goto LABEL_59;
     }
 
-    if ([v61 count])
+    if ([v60 count])
     {
     }
 
     else
     {
-      v53 = [v62 count] == 0;
+      v53 = [v61 count] == 0;
 
       if (v53)
       {
@@ -4148,16 +4177,16 @@ LABEL_59:
     }
 
     v54 = +[HFHomeKitDispatcher sharedDispatcher];
-    v67[0] = MEMORY[0x277D85DD0];
-    v67[1] = 3221225472;
-    v67[2] = __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_completionHandler___block_invoke_3_218;
-    v67[3] = &unk_277DF65B0;
-    objc_copyWeak(&v70, (v64 + 72));
+    v66[0] = MEMORY[0x277D85DD0];
+    v66[1] = 3221225472;
+    v66[2] = __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_completionHandler___block_invoke_3_218;
+    v66[3] = &unk_277DF65B0;
+    objc_copyWeak(&v69, (v63 + 72));
+    v67 = v60;
     v68 = v61;
-    v69 = v62;
-    [v54 dispatchHomeObserverMessage:v67 sender:0];
+    [v54 dispatchHomeObserverMessage:v66 sender:0];
 
-    objc_destroyWeak(&v70);
+    objc_destroyWeak(&v69);
     goto LABEL_59;
   }
 
@@ -4185,7 +4214,7 @@ LABEL_59:
       }
 
       *buf = 138412290;
-      v89 = v52;
+      v88 = v52;
       _os_log_impl(&dword_20D9BF000, v50, OS_LOG_TYPE_DEFAULT, "Not processing characteristic read progressHandler because the batch request is not in flight. Current state: %@", buf, 0xCu);
     }
 
@@ -4194,29 +4223,27 @@ LABEL_59:
 
   else
   {
-    v56 = HFLogForCategory(0x3DuLL);
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+    v55 = HFLogForCategory(0x3DuLL);
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
     {
-      v57 = *(*(*(v47 + 56) + 8) + 24) - 1;
-      if (v57 > 2)
+      v56 = *(*(*(v47 + 56) + 8) + 24) - 1;
+      if (v56 > 2)
       {
-        v58 = @"NotStarted";
+        v57 = @"NotStarted";
       }
 
       else
       {
-        v58 = off_277DF6780[v57];
+        v57 = off_277DF6780[v56];
       }
 
       LODWORD(state.opaque[0]) = 138412290;
-      *(state.opaque + 4) = v58;
-      _os_log_impl(&dword_20D9BF000, v56, OS_LOG_TYPE_DEFAULT, "Not processing characteristic read progressHandler because the batch request is not in flight. Current state: %@", &state, 0xCu);
+      *(state.opaque + 4) = v57;
+      _os_log_impl(&dword_20D9BF000, v55, OS_LOG_TYPE_DEFAULT, "Not processing characteristic read progressHandler because the batch request is not in flight. Current state: %@", &state, 0xCu);
     }
   }
 
 LABEL_60:
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 id __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_completionHandler___block_invoke_214(uint64_t a1, void *a2)
@@ -4249,11 +4276,11 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
 
 void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_completionHandler___block_invoke_4(uint64_t a1, void *a2)
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 80));
-  v52 = WeakRetained;
-  v53 = v3;
+  v51 = WeakRetained;
+  v52 = v3;
   if (*(*(*(a1 + 72) + 8) + 24) == 1)
   {
     v5 = WeakRetained;
@@ -4280,7 +4307,7 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v80 = v3;
+        v79 = v3;
         _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "Finished batch read with error: %@", buf, 0xCu);
       }
 
@@ -4289,36 +4316,36 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
 
     else
     {
-      v48 = HFLogForCategory(0x3DuLL);
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+      v47 = HFLogForCategory(0x3DuLL);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(state.opaque[0]) = 138412290;
         *(state.opaque + 4) = v3;
-        _os_log_impl(&dword_20D9BF000, v48, OS_LOG_TYPE_DEFAULT, "Finished batch read with error: %@", &state, 0xCu);
+        _os_log_impl(&dword_20D9BF000, v47, OS_LOG_TYPE_DEFAULT, "Finished batch read with error: %@", &state, 0xCu);
       }
     }
 
     v12 = [MEMORY[0x277CBEB18] array];
-    v74 = 0u;
-    v75 = 0u;
-    v72 = 0u;
     v73 = 0u;
+    v74 = 0u;
+    v71 = 0u;
+    v72 = 0u;
     v13 = *(a1 + 40);
-    v14 = [v13 countByEnumeratingWithState:&v72 objects:v78 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v71 objects:v77 count:16];
     if (v14)
     {
-      v15 = *v73;
+      v15 = *v72;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v73 != v15)
+          if (*v72 != v15)
           {
             objc_enumerationMutation(v13);
           }
 
-          v17 = *(*(&v72 + 1) + 8 * i);
-          [v17 setOverallReadError:v53];
+          v17 = *(*(&v71 + 1) + 8 * i);
+          [v17 setOverallReadError:v52];
           v18 = [v17 readFuturesKeyedByCharacteristicIdentifier];
           v19 = [v18 copy];
           [v12 addObject:v19];
@@ -4327,19 +4354,19 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
           [v17 setCharacteristicsToRead:v20];
         }
 
-        v14 = [v13 countByEnumeratingWithState:&v72 objects:v78 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v71 objects:v77 count:16];
       }
 
       while (v14);
     }
 
-    v21 = [v52 transactionLock];
+    v21 = [v51 transactionLock];
     [v21 unlock];
 
-    v51 = [MEMORY[0x277CBEB58] set];
-    if (v53)
+    v50 = [MEMORY[0x277CBEB58] set];
+    if (v52)
     {
-      v22 = v53;
+      v22 = v52;
     }
 
     else
@@ -4348,39 +4375,39 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
     }
 
     v28 = v22;
-    v70 = 0u;
-    v71 = 0u;
-    v68 = 0u;
     v69 = 0u;
+    v70 = 0u;
+    v67 = 0u;
+    v68 = 0u;
     obj = v12;
-    v29 = [obj countByEnumeratingWithState:&v68 objects:v77 count:16];
+    v29 = [obj countByEnumeratingWithState:&v67 objects:v76 count:16];
     if (v29)
     {
-      v30 = *v69;
+      v30 = *v68;
       do
       {
         for (j = 0; j != v29; ++j)
         {
-          if (*v69 != v30)
+          if (*v68 != v30)
           {
             objc_enumerationMutation(obj);
           }
 
-          v32 = *(*(&v68 + 1) + 8 * j);
-          v61[0] = MEMORY[0x277D85DD0];
-          v61[1] = 3221225472;
-          v61[2] = __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_completionHandler___block_invoke_221;
-          v61[3] = &unk_277DF64C8;
-          v62 = *(a1 + 48);
-          v63 = v52;
-          v64 = *(a1 + 56);
-          v65 = v53;
-          v66 = v51;
-          v67 = v28;
-          [v32 enumerateKeysAndObjectsUsingBlock:v61];
+          v32 = *(*(&v67 + 1) + 8 * j);
+          v60[0] = MEMORY[0x277D85DD0];
+          v60[1] = 3221225472;
+          v60[2] = __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_completionHandler___block_invoke_221;
+          v60[3] = &unk_277DF64C8;
+          v61 = *(a1 + 48);
+          v62 = v51;
+          v63 = *(a1 + 56);
+          v64 = v52;
+          v65 = v50;
+          v66 = v28;
+          [v32 enumerateKeysAndObjectsUsingBlock:v60];
         }
 
-        v29 = [obj countByEnumeratingWithState:&v68 objects:v77 count:16];
+        v29 = [obj countByEnumeratingWithState:&v67 objects:v76 count:16];
       }
 
       while (v29);
@@ -4389,7 +4416,7 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
     v33 = objc_loadWeakRetained((a1 + 88));
     if (v33)
     {
-      v34 = [(__CFString *)v51 count]== 0;
+      v34 = [(__CFString *)v50 count]== 0;
 
       if (!v34)
       {
@@ -4405,7 +4432,7 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
           if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v80 = v51;
+            v79 = v50;
             _os_log_impl(&dword_20D9BF000, v37, OS_LOG_TYPE_ERROR, "Warning: did not get read responses for characteristics: %@", buf, 0xCu);
           }
 
@@ -4414,56 +4441,56 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
 
         else
         {
-          v49 = HFLogForCategory(0x3DuLL);
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+          v48 = HFLogForCategory(0x3DuLL);
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
           {
             LODWORD(state.opaque[0]) = 138412290;
-            *(state.opaque + 4) = v51;
-            _os_log_impl(&dword_20D9BF000, v49, OS_LOG_TYPE_ERROR, "Warning: did not get read responses for characteristics: %@", &state, 0xCu);
+            *(state.opaque + 4) = v50;
+            _os_log_impl(&dword_20D9BF000, v48, OS_LOG_TYPE_ERROR, "Warning: did not get read responses for characteristics: %@", &state, 0xCu);
           }
         }
 
         v38 = +[HFHomeKitDispatcher sharedDispatcher];
-        v58[0] = MEMORY[0x277D85DD0];
-        v58[1] = 3221225472;
-        v58[2] = __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_completionHandler___block_invoke_223;
-        v58[3] = &unk_277DF6560;
-        objc_copyWeak(&v60, (a1 + 88));
-        v59 = v51;
-        [v38 dispatchHomeObserverMessage:v58 sender:0];
+        v57[0] = MEMORY[0x277D85DD0];
+        v57[1] = 3221225472;
+        v57[2] = __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_completionHandler___block_invoke_223;
+        v57[3] = &unk_277DF6560;
+        objc_copyWeak(&v59, (a1 + 88));
+        v58 = v50;
+        [v38 dispatchHomeObserverMessage:v57 sender:0];
 
-        objc_destroyWeak(&v60);
+        objc_destroyWeak(&v59);
       }
     }
 
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
     v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     v39 = *(a1 + 64);
-    v40 = [v39 countByEnumeratingWithState:&v54 objects:v76 count:16];
+    v40 = [v39 countByEnumeratingWithState:&v53 objects:v75 count:16];
     if (v40)
     {
-      v41 = *v55;
+      v41 = *v54;
       do
       {
         for (k = 0; k != v40; ++k)
         {
-          if (*v55 != v41)
+          if (*v54 != v41)
           {
             objc_enumerationMutation(v39);
           }
 
-          (*(*(*(&v54 + 1) + 8 * k) + 16))();
+          (*(*(*(&v53 + 1) + 8 * k) + 16))();
         }
 
-        v40 = [v39 countByEnumeratingWithState:&v54 objects:v76 count:16];
+        v40 = [v39 countByEnumeratingWithState:&v53 objects:v75 count:16];
       }
 
       while (v40);
     }
 
-    v43 = [v52 firstReadCompleteFuture];
+    v43 = [v51 firstReadCompleteFuture];
     [v43 finishWithNoResult];
   }
 
@@ -4492,7 +4519,7 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
         }
 
         *buf = 138412290;
-        v80 = v27;
+        v79 = v27;
         _os_log_impl(&dword_20D9BF000, v25, OS_LOG_TYPE_DEFAULT, "Not processing characteristic read completion handler because the batch request is not in flight. Current state: %@", buf, 0xCu);
       }
 
@@ -4501,28 +4528,26 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
 
     else
     {
-      v45 = HFLogForCategory(0x3DuLL);
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+      v44 = HFLogForCategory(0x3DuLL);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
       {
-        v46 = *(*(*(a1 + 72) + 8) + 24) - 1;
-        if (v46 > 2)
+        v45 = *(*(*(a1 + 72) + 8) + 24) - 1;
+        if (v45 > 2)
         {
-          v47 = @"NotStarted";
+          v46 = @"NotStarted";
         }
 
         else
         {
-          v47 = off_277DF6780[v46];
+          v46 = off_277DF6780[v45];
         }
 
         LODWORD(state.opaque[0]) = 138412290;
-        *(state.opaque + 4) = v47;
-        _os_log_impl(&dword_20D9BF000, v45, OS_LOG_TYPE_DEFAULT, "Not processing characteristic read completion handler because the batch request is not in flight. Current state: %@", &state, 0xCu);
+        *(state.opaque + 4) = v46;
+        _os_log_impl(&dword_20D9BF000, v44, OS_LOG_TYPE_DEFAULT, "Not processing characteristic read completion handler because the batch request is not in flight. Current state: %@", &state, 0xCu);
       }
     }
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_completionHandler___block_invoke_221(uint64_t a1, void *a2, void *a3)
@@ -4602,7 +4627,7 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
 
 void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_completionHandler___block_invoke_2_224(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (*(*(*(a1 + 48) + 8) + 24) == 1)
   {
@@ -4617,9 +4642,9 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
       v5 = HFLogForCategory(0x3DuLL);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v10 = 138412290;
-        v11 = WeakRetained;
-        _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "Cancelling in-flight read transaction: %@", &v10, 0xCu);
+        v9 = 138412290;
+        v10 = WeakRetained;
+        _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "Cancelling in-flight read transaction: %@", &v9, 0xCu);
       }
 
       os_activity_scope_leave(&state);
@@ -4627,12 +4652,12 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
 
     else
     {
-      v9 = HFLogForCategory(0x3DuLL);
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v8 = HFLogForCategory(0x3DuLL);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         LODWORD(state.opaque[0]) = 138412290;
         *(state.opaque + 4) = WeakRetained;
-        _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_ERROR, "Cancelling in-flight read transaction: %@", &state, 0xCu);
+        _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "Cancelling in-flight read transaction: %@", &state, 0xCu);
       }
     }
 
@@ -4640,13 +4665,11 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
     v7 = [MEMORY[0x277CCA9B8] hf_errorWithCode:103];
     (*(v6 + 16))(v6, v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_transactionLock_executeActionSetTransaction:(id)transaction completionHandler:(id)handler
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   handlerCopy = handler;
   if (!transactionCopy)
@@ -4654,29 +4677,29 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
     NSLog(&cfstr_NilTransaction_0.isa);
   }
 
-  v52 = transactionCopy;
+  v51 = transactionCopy;
   actionSetsToExecute = [transactionCopy actionSetsToExecute];
   v7 = [actionSetsToExecute count];
 
   if (v7)
   {
     objc_initWeak(&location, self);
-    logger = [v52 logger];
+    logger = [v51 logger];
     v9 = logger == 0;
 
     if (v9)
     {
-      v40 = HFLogForCategory(0x3DuLL);
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+      v39 = HFLogForCategory(0x3DuLL);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
         valueWriter = [(HFCharacteristicValueManager *)self valueWriter];
-        actionSetsToExecute2 = [v52 actionSetsToExecute];
+        actionSetsToExecute2 = [v51 actionSetsToExecute];
         hf_prettyDescription = [actionSetsToExecute2 hf_prettyDescription];
         *buf = 138412546;
-        v88 = valueWriter;
-        v89 = 2112;
-        v90 = hf_prettyDescription;
-        _os_log_impl(&dword_20D9BF000, v40, OS_LOG_TYPE_DEFAULT, "Start executing action sets with writer:%@. Action sets:%@", buf, 0x16u);
+        v87 = valueWriter;
+        v88 = 2112;
+        v89 = hf_prettyDescription;
+        _os_log_impl(&dword_20D9BF000, v39, OS_LOG_TYPE_DEFAULT, "Start executing action sets with writer:%@. Action sets:%@", buf, 0x16u);
       }
     }
 
@@ -4684,7 +4707,7 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
     {
       state.opaque[0] = 0;
       state.opaque[1] = 0;
-      logger2 = [v52 logger];
+      logger2 = [v51 logger];
       loggerActivity = [logger2 loggerActivity];
       os_activity_scope_enter(loggerActivity, &state);
 
@@ -4692,12 +4715,12 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         valueWriter2 = [(HFCharacteristicValueManager *)self valueWriter];
-        actionSetsToExecute3 = [v52 actionSetsToExecute];
+        actionSetsToExecute3 = [v51 actionSetsToExecute];
         hf_prettyDescription2 = [actionSetsToExecute3 hf_prettyDescription];
         *buf = 138412546;
-        v88 = valueWriter2;
-        v89 = 2112;
-        v90 = hf_prettyDescription2;
+        v87 = valueWriter2;
+        v88 = 2112;
+        v89 = hf_prettyDescription2;
         _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "Start executing action sets with writer:%@. Action sets:%@", buf, 0x16u);
       }
 
@@ -4707,7 +4730,7 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
     transactionLock = [(HFCharacteristicValueManager *)self transactionLock];
     [transactionLock lock];
 
-    v44 = [(HFCharacteristicValueManager *)self _transactionLock_characteristicsWithPendingWritesInTransacton:v52 includeDirectWrites:0 includeActionSets:1 includeActions:0];
+    v43 = [(HFCharacteristicValueManager *)self _transactionLock_characteristicsWithPendingWritesInTransacton:v51 includeDirectWrites:0 includeActionSets:1 includeActions:0];
     transactionLock2 = [(HFCharacteristicValueManager *)self transactionLock];
     [transactionLock2 unlock];
 
@@ -4717,76 +4740,76 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
     if (hf_home)
     {
       v19 = +[HFHomeKitDispatcher sharedDispatcher];
-      v81[0] = MEMORY[0x277D85DD0];
-      v81[1] = 3221225472;
-      v81[2] = __95__HFCharacteristicValueManager__transactionLock_executeActionSetTransaction_completionHandler___block_invoke;
-      v81[3] = &unk_277DF3810;
+      v80[0] = MEMORY[0x277D85DD0];
+      v80[1] = 3221225472;
+      v80[2] = __95__HFCharacteristicValueManager__transactionLock_executeActionSetTransaction_completionHandler___block_invoke;
+      v80[3] = &unk_277DF3810;
       v20 = hf_home;
-      v82 = v20;
-      v83 = v52;
-      [v19 dispatchHomeObserverMessage:v81 sender:0];
+      v81 = v20;
+      v82 = v51;
+      [v19 dispatchHomeObserverMessage:v80 sender:0];
 
       v21 = +[HFHomeKitDispatcher sharedDispatcher];
-      v78[0] = MEMORY[0x277D85DD0];
-      v78[1] = 3221225472;
-      v78[2] = __95__HFCharacteristicValueManager__transactionLock_executeActionSetTransaction_completionHandler___block_invoke_2;
-      v78[3] = &unk_277DF3810;
-      v79 = v20;
-      v80 = v44;
-      [v21 dispatchHomeObserverMessage:v78 sender:0];
+      v77[0] = MEMORY[0x277D85DD0];
+      v77[1] = 3221225472;
+      v77[2] = __95__HFCharacteristicValueManager__transactionLock_executeActionSetTransaction_completionHandler___block_invoke_2;
+      v77[3] = &unk_277DF3810;
+      v78 = v20;
+      v79 = v43;
+      [v21 dispatchHomeObserverMessage:v77 sender:0];
     }
 
     v22 = dispatch_group_create();
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    v49 = [MEMORY[0x277CBEB58] set];
     v48 = [MEMORY[0x277CBEB58] set];
+    v47 = [MEMORY[0x277CBEB58] set];
     v23 = [MEMORY[0x277CBEB58] set];
     v24 = [MEMORY[0x277CBEB58] set];
-    v76 = 0u;
-    v77 = 0u;
-    v74 = 0u;
     v75 = 0u;
-    actionSetsToExecute4 = [v52 actionSetsToExecute];
+    v76 = 0u;
+    v73 = 0u;
+    v74 = 0u;
+    actionSetsToExecute4 = [v51 actionSetsToExecute];
     obj = [actionSetsToExecute4 copy];
 
-    v26 = [obj countByEnumeratingWithState:&v74 objects:v86 count:16];
+    v26 = [obj countByEnumeratingWithState:&v73 objects:v85 count:16];
     if (v26)
     {
-      v27 = *v75;
+      v27 = *v74;
       do
       {
         v28 = 0;
         do
         {
-          if (*v75 != v27)
+          if (*v74 != v27)
           {
             objc_enumerationMutation(obj);
           }
 
-          v29 = *(*(&v74 + 1) + 8 * v28);
+          v29 = *(*(&v73 + 1) + 8 * v28);
           dispatch_group_enter(v22);
           valueWriter4 = [(HFCharacteristicValueManager *)self valueWriter];
-          v64[0] = MEMORY[0x277D85DD0];
-          v64[1] = 3221225472;
-          v64[2] = __95__HFCharacteristicValueManager__transactionLock_executeActionSetTransaction_completionHandler___block_invoke_3;
-          v64[3] = &unk_277DF6650;
-          objc_copyWeak(&v73, &location);
-          v65 = v52;
-          v66 = v29;
-          v67 = dictionary;
-          v68 = v48;
-          v69 = v24;
-          v70 = v49;
-          v71 = v23;
-          v72 = v22;
-          [valueWriter4 executeActionSet:v29 completionHandler:v64];
+          v63[0] = MEMORY[0x277D85DD0];
+          v63[1] = 3221225472;
+          v63[2] = __95__HFCharacteristicValueManager__transactionLock_executeActionSetTransaction_completionHandler___block_invoke_3;
+          v63[3] = &unk_277DF6650;
+          objc_copyWeak(&v72, &location);
+          v64 = v51;
+          v65 = v29;
+          v66 = dictionary;
+          v67 = v47;
+          v68 = v24;
+          v69 = v48;
+          v70 = v23;
+          v71 = v22;
+          [valueWriter4 executeActionSet:v29 completionHandler:v63];
 
-          objc_destroyWeak(&v73);
+          objc_destroyWeak(&v72);
           ++v28;
         }
 
         while (v26 != v28);
-        v26 = [obj countByEnumeratingWithState:&v74 objects:v86 count:16];
+        v26 = [obj countByEnumeratingWithState:&v73 objects:v85 count:16];
       }
 
       while (v26);
@@ -4796,26 +4819,26 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
     block[1] = 3221225472;
     block[2] = __95__HFCharacteristicValueManager__transactionLock_executeActionSetTransaction_completionHandler___block_invoke_227;
     block[3] = &unk_277DF6678;
-    objc_copyWeak(&v63, &location);
-    v54 = v52;
-    v55 = dictionary;
+    objc_copyWeak(&v62, &location);
+    v53 = v51;
+    v54 = dictionary;
     selfCopy = self;
-    v57 = v23;
+    v56 = v23;
     v31 = v23;
-    v58 = hf_home;
-    v59 = v24;
-    v60 = v49;
-    v61 = v48;
-    v62 = handlerCopy;
-    v32 = v48;
-    v33 = v49;
+    v57 = hf_home;
+    v58 = v24;
+    v59 = v48;
+    v60 = v47;
+    v61 = handlerCopy;
+    v32 = v47;
+    v33 = v48;
     v34 = v24;
     v35 = hf_home;
     v36 = v31;
     v37 = dictionary;
     dispatch_group_notify(v22, MEMORY[0x277D85CD0], block);
 
-    objc_destroyWeak(&v63);
+    objc_destroyWeak(&v62);
     objc_destroyWeak(&location);
     v38 = handlerCopy;
   }
@@ -4828,8 +4851,6 @@ void __90__HFCharacteristicValueManager__transactionLock_executeReadTransaction_
       handlerCopy[2](handlerCopy);
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void __95__HFCharacteristicValueManager__transactionLock_executeActionSetTransaction_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -4854,7 +4875,7 @@ void __95__HFCharacteristicValueManager__transactionLock_executeActionSetTransac
 
 void __95__HFCharacteristicValueManager__transactionLock_executeActionSetTransaction_completionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 96));
   v5 = [WeakRetained transactionLock];
@@ -4866,33 +4887,33 @@ void __95__HFCharacteristicValueManager__transactionLock_executeActionSetTransac
   {
     v7 = [*(a1 + 32) logger];
     v8 = [v7 loggerActivity];
-    os_activity_scope_enter(v8, &v22);
+    os_activity_scope_enter(v8, &v21);
 
     v9 = HFLogForCategory(0x3DuLL);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 40);
       *buf = 138412546;
-      v24 = v10;
-      v25 = 2112;
-      v26 = v3;
+      v23 = v10;
+      v24 = 2112;
+      v25 = v3;
       _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Finished action set execution: %@. Error: %@", buf, 0x16u);
     }
 
-    os_activity_scope_leave(&v22);
+    os_activity_scope_leave(&v21);
   }
 
   else
   {
-    v20 = HFLogForCategory(0x3DuLL);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v19 = HFLogForCategory(0x3DuLL);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = *(a1 + 40);
+      v20 = *(a1 + 40);
       *buf = 138412546;
-      v24 = v21;
-      v25 = 2112;
-      v26 = v3;
-      _os_log_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_DEFAULT, "Finished action set execution: %@. Error: %@", buf, 0x16u);
+      v23 = v20;
+      v24 = 2112;
+      v25 = v3;
+      _os_log_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_DEFAULT, "Finished action set execution: %@. Error: %@", buf, 0x16u);
     }
   }
 
@@ -4934,13 +4955,11 @@ LABEL_10:
   [*(a1 + v18) unionSet:v14];
   [*(a1 + v17) addObject:*(a1 + 40)];
   dispatch_group_leave(*(a1 + 88));
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __95__HFCharacteristicValueManager__transactionLock_executeActionSetTransaction_completionHandler___block_invoke_227(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 104));
   v3 = [WeakRetained transactionLock];
   [v3 lock];
@@ -4949,27 +4968,27 @@ uint64_t __95__HFCharacteristicValueManager__transactionLock_executeActionSetTra
   v4 = [*(a1 + 48) cachedExecutionErrorsKeyedByActionSetIdentifier];
   [v4 addEntriesFromDictionary:*(a1 + 40)];
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v5 = *(a1 + 56);
-  v6 = [v5 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v31;
+    v8 = *v30;
     do
     {
       v9 = 0;
       do
       {
-        if (*v31 != v8)
+        if (*v30 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v30 + 1) + 8 * v9);
+        v10 = *(*(&v29 + 1) + 8 * v9);
         v11 = [*(a1 + 48) cachedExecutionErrorsKeyedByActionSetIdentifier];
         v12 = [v10 uniqueIdentifier];
         [v11 removeObjectForKey:v12];
@@ -4978,7 +4997,7 @@ uint64_t __95__HFCharacteristicValueManager__transactionLock_executeActionSetTra
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v7);
@@ -4993,37 +5012,36 @@ uint64_t __95__HFCharacteristicValueManager__transactionLock_executeActionSetTra
     if ([*(a1 + 56) count] || objc_msgSend(*(a1 + 72), "count"))
     {
       v18 = +[HFHomeKitDispatcher sharedDispatcher];
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __95__HFCharacteristicValueManager__transactionLock_executeActionSetTransaction_completionHandler___block_invoke_2_228;
-      v26[3] = &unk_277DF64F0;
-      v27 = *(a1 + 64);
-      v28 = *(a1 + 56);
-      v29 = *(a1 + 72);
-      [v18 dispatchHomeObserverMessage:v26 sender:0];
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __95__HFCharacteristicValueManager__transactionLock_executeActionSetTransaction_completionHandler___block_invoke_2_228;
+      v25[3] = &unk_277DF64F0;
+      v26 = *(a1 + 64);
+      v27 = *(a1 + 56);
+      v28 = *(a1 + 72);
+      [v18 dispatchHomeObserverMessage:v25 sender:0];
     }
 
     if (*(a1 + 64) && ([*(a1 + 80) count] || objc_msgSend(*(a1 + 88), "count")))
     {
       v19 = +[HFHomeKitDispatcher sharedDispatcher];
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __95__HFCharacteristicValueManager__transactionLock_executeActionSetTransaction_completionHandler___block_invoke_3_231;
-      v22[3] = &unk_277DF64F0;
-      v23 = *(a1 + 64);
-      v24 = *(a1 + 80);
-      v25 = *(a1 + 88);
-      [v19 dispatchHomeObserverMessage:v22 sender:0];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __95__HFCharacteristicValueManager__transactionLock_executeActionSetTransaction_completionHandler___block_invoke_3_231;
+      v21[3] = &unk_277DF64F0;
+      v22 = *(a1 + 64);
+      v23 = *(a1 + 80);
+      v24 = *(a1 + 88);
+      [v19 dispatchHomeObserverMessage:v21 sender:0];
     }
   }
 
   result = *(a1 + 96);
   if (result)
   {
-    result = (*(result + 16))(result, v15, v16, v17);
+    return (*(result + 16))(result, v15, v16, v17);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5047,7 +5065,7 @@ void __95__HFCharacteristicValueManager__transactionLock_executeActionSetTransac
 
 - (void)_transactionLock_executeActionsTransaction:(id)transaction completionHandler:(id)handler
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   handlerCopy = handler;
   if (!transactionCopy)
@@ -5066,17 +5084,17 @@ void __95__HFCharacteristicValueManager__transactionLock_executeActionSetTransac
 
     if (v11)
     {
-      v34 = HFLogForCategory(0x3DuLL);
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v33 = HFLogForCategory(0x3DuLL);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         valueWriter = [(HFCharacteristicValueManager *)self valueWriter];
         actionsToExecute2 = [transactionCopy actionsToExecute];
         hf_prettyDescription = [actionsToExecute2 hf_prettyDescription];
         *buf = 138412546;
-        v51 = valueWriter;
-        v52 = 2112;
-        v53 = hf_prettyDescription;
-        _os_log_impl(&dword_20D9BF000, v34, OS_LOG_TYPE_DEFAULT, "Start executing actions with writer:%@. Action sets:%@", buf, 0x16u);
+        v50 = valueWriter;
+        v51 = 2112;
+        v52 = hf_prettyDescription;
+        _os_log_impl(&dword_20D9BF000, v33, OS_LOG_TYPE_DEFAULT, "Start executing actions with writer:%@. Action sets:%@", buf, 0x16u);
       }
     }
 
@@ -5095,9 +5113,9 @@ void __95__HFCharacteristicValueManager__transactionLock_executeActionSetTransac
         actionsToExecute3 = [transactionCopy actionsToExecute];
         hf_prettyDescription2 = [actionsToExecute3 hf_prettyDescription];
         *buf = 138412546;
-        v51 = valueWriter2;
-        v52 = 2112;
-        v53 = hf_prettyDescription2;
+        v50 = valueWriter2;
+        v51 = 2112;
+        v52 = hf_prettyDescription2;
         _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "Start executing actions with writer:%@. Action sets:%@", buf, 0x16u);
       }
 
@@ -5117,34 +5135,34 @@ void __95__HFCharacteristicValueManager__transactionLock_executeActionSetTransac
     if (hf_home)
     {
       v23 = +[HFHomeKitDispatcher sharedDispatcher];
-      v45[0] = MEMORY[0x277D85DD0];
-      v45[1] = 3221225472;
-      v45[2] = __93__HFCharacteristicValueManager__transactionLock_executeActionsTransaction_completionHandler___block_invoke;
-      v45[3] = &unk_277DF3810;
+      v44[0] = MEMORY[0x277D85DD0];
+      v44[1] = 3221225472;
+      v44[2] = __93__HFCharacteristicValueManager__transactionLock_executeActionsTransaction_completionHandler___block_invoke;
+      v44[3] = &unk_277DF3810;
       v24 = hf_home;
-      v46 = v24;
+      v45 = v24;
       v25 = v19;
-      v47 = v25;
-      [v23 dispatchHomeObserverMessage:v45 sender:0];
+      v46 = v25;
+      [v23 dispatchHomeObserverMessage:v44 sender:0];
 
       actionsToExecute4 = [transactionCopy actionsToExecute];
       v27 = [actionsToExecute4 copy];
 
       valueWriter4 = [(HFCharacteristicValueManager *)self valueWriter];
-      v38[0] = MEMORY[0x277D85DD0];
-      v38[1] = 3221225472;
-      v38[2] = __93__HFCharacteristicValueManager__transactionLock_executeActionsTransaction_completionHandler___block_invoke_2;
-      v38[3] = &unk_277DF6518;
-      objc_copyWeak(&v44, &location);
-      v39 = transactionCopy;
+      v37[0] = MEMORY[0x277D85DD0];
+      v37[1] = 3221225472;
+      v37[2] = __93__HFCharacteristicValueManager__transactionLock_executeActionsTransaction_completionHandler___block_invoke_2;
+      v37[3] = &unk_277DF6518;
+      objc_copyWeak(&v43, &location);
+      v38 = transactionCopy;
       v29 = v27;
-      v40 = v29;
-      v41 = v24;
-      v42 = v25;
-      v43 = handlerCopy;
-      [valueWriter4 executeActions:v29 completionHandler:v38];
+      v39 = v29;
+      v40 = v24;
+      v41 = v25;
+      v42 = handlerCopy;
+      [valueWriter4 executeActions:v29 completionHandler:v37];
 
-      objc_destroyWeak(&v44);
+      objc_destroyWeak(&v43);
     }
 
     else
@@ -5171,8 +5189,6 @@ void __95__HFCharacteristicValueManager__transactionLock_executeActionSetTransac
   {
     handlerCopy[2](handlerCopy);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __93__HFCharacteristicValueManager__transactionLock_executeActionsTransaction_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -5186,7 +5202,7 @@ void __93__HFCharacteristicValueManager__transactionLock_executeActionsTransacti
 
 void __93__HFCharacteristicValueManager__transactionLock_executeActionsTransaction_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   v5 = [WeakRetained transactionLock];
@@ -5207,9 +5223,9 @@ void __93__HFCharacteristicValueManager__transactionLock_executeActionsTransacti
     {
       v10 = *(a1 + 40);
       *buf = 138412546;
-      v30 = v10;
-      v31 = 2112;
-      v32 = v3;
+      v29 = v10;
+      v30 = 2112;
+      v31 = v3;
       _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Finished actions execution: %@. Error: %@", buf, 0x16u);
     }
 
@@ -5218,15 +5234,15 @@ void __93__HFCharacteristicValueManager__transactionLock_executeActionsTransacti
 
   else
   {
-    v22 = HFLogForCategory(0x3DuLL);
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v21 = HFLogForCategory(0x3DuLL);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = *(a1 + 40);
+      v22 = *(a1 + 40);
       *buf = 138412546;
-      v30 = v23;
-      v31 = 2112;
-      v32 = v3;
-      _os_log_impl(&dword_20D9BF000, v22, OS_LOG_TYPE_DEFAULT, "Finished actions execution: %@. Error: %@", buf, 0x16u);
+      v29 = v22;
+      v30 = 2112;
+      v31 = v3;
+      _os_log_impl(&dword_20D9BF000, v21, OS_LOG_TYPE_DEFAULT, "Finished actions execution: %@. Error: %@", buf, 0x16u);
     }
   }
 
@@ -5258,16 +5274,16 @@ void __93__HFCharacteristicValueManager__transactionLock_executeActionsTransacti
 
     v16 = v15;
     v17 = +[HFHomeKitDispatcher sharedDispatcher];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __93__HFCharacteristicValueManager__transactionLock_executeActionsTransaction_completionHandler___block_invoke_232;
-    v24[3] = &unk_277DF64F0;
-    v25 = *(a1 + 48);
-    v26 = v14;
-    v27 = v16;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __93__HFCharacteristicValueManager__transactionLock_executeActionsTransaction_completionHandler___block_invoke_232;
+    v23[3] = &unk_277DF64F0;
+    v24 = *(a1 + 48);
+    v25 = v14;
+    v26 = v16;
     v18 = v16;
     v19 = v14;
-    [v17 dispatchHomeObserverMessage:v24 sender:0];
+    [v17 dispatchHomeObserverMessage:v23 sender:0];
   }
 
   v20 = *(a1 + 64);
@@ -5275,8 +5291,6 @@ void __93__HFCharacteristicValueManager__transactionLock_executeActionsTransacti
   {
     (*(v20 + 16))();
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __93__HFCharacteristicValueManager__transactionLock_executeActionsTransaction_completionHandler___block_invoke_232(void *a1, void *a2)
@@ -5477,54 +5491,54 @@ uint64_t __75__HFCharacteristicValueManager_hasCachedReadErrorForAccessory_passi
 
 - (void)invalidateCachedValuesForAccessory:(id)accessory
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   transactionLock = [(HFCharacteristicValueManager *)self transactionLock];
   [transactionLock lock];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
-  v20 = accessoryCopy;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v19 = accessoryCopy;
   obj = [accessoryCopy services];
-  v6 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v6 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v27;
+    v8 = *v26;
     do
     {
       v9 = 0;
       do
       {
-        if (*v27 != v8)
+        if (*v26 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v26 + 1) + 8 * v9);
+        v10 = *(*(&v25 + 1) + 8 * v9);
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
         characteristics = [v10 characteristics];
-        v12 = [characteristics countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v12 = [characteristics countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v23;
+          v14 = *v22;
           do
           {
             v15 = 0;
             do
             {
-              if (*v23 != v14)
+              if (*v22 != v14)
               {
                 objc_enumerationMutation(characteristics);
               }
 
-              v16 = *(*(&v22 + 1) + 8 * v15);
+              v16 = *(*(&v21 + 1) + 8 * v15);
               characteristicsWithCachedValues = [(HFCharacteristicValueManager *)self characteristicsWithCachedValues];
               [characteristicsWithCachedValues removeObject:v16];
 
@@ -5532,7 +5546,7 @@ uint64_t __75__HFCharacteristicValueManager_hasCachedReadErrorForAccessory_passi
             }
 
             while (v13 != v15);
-            v13 = [characteristics countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v13 = [characteristics countByEnumeratingWithState:&v21 objects:v29 count:16];
           }
 
           while (v13);
@@ -5542,7 +5556,7 @@ uint64_t __75__HFCharacteristicValueManager_hasCachedReadErrorForAccessory_passi
       }
 
       while (v9 != v7);
-      v7 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v7 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v7);
@@ -5550,8 +5564,6 @@ uint64_t __75__HFCharacteristicValueManager_hasCachedReadErrorForAccessory_passi
 
   transactionLock2 = [(HFCharacteristicValueManager *)self transactionLock];
   [transactionLock2 unlock];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cachedErrorForWriteToCharacteristic:(id)characteristic
@@ -5649,7 +5661,7 @@ uint64_t __75__HFCharacteristicValueManager_hasCachedReadErrorForAccessory_passi
 
 - (void)_beginReadsCompleteTrackingForCharacteristics:(id)characteristics withLogger:(id)logger
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   characteristicsCopy = characteristics;
   loggerCopy = logger;
   readsCompleteLogger = [(HFCharacteristicValueManager *)self readsCompleteLogger];
@@ -5660,18 +5672,18 @@ uint64_t __75__HFCharacteristicValueManager_hasCachedReadErrorForAccessory_passi
     [(HFCharacteristicValueManager *)self setReadsCompleteLogger:v9];
   }
 
-  v28 = MEMORY[0x277D85DD0];
-  v29 = 3221225472;
-  v30 = __89__HFCharacteristicValueManager__beginReadsCompleteTrackingForCharacteristics_withLogger___block_invoke;
-  v31 = &unk_277DF66F0;
+  v27 = MEMORY[0x277D85DD0];
+  v28 = 3221225472;
+  v29 = __89__HFCharacteristicValueManager__beginReadsCompleteTrackingForCharacteristics_withLogger___block_invoke;
+  v30 = &unk_277DF66F0;
   selfCopy = self;
   v10 = loggerCopy;
-  v33 = v10;
-  [characteristicsCopy na_each:&v28];
+  v32 = v10;
+  [characteristicsCopy na_each:&v27];
   if (v10)
   {
     loggerActivity = [v10 loggerActivity];
-    os_activity_scope_enter(loggerActivity, &v27);
+    os_activity_scope_enter(loggerActivity, &v26);
 
     v12 = HFLogForCategory(0x3DuLL);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
@@ -5683,39 +5695,37 @@ uint64_t __75__HFCharacteristicValueManager_hasCachedReadErrorForAccessory_passi
       readsCompleteLogger4 = [(HFCharacteristicValueManager *)self readsCompleteLogger];
       v18 = [readsCompleteLogger4 numberOfAccessoriesForTransportType:2];
       *buf = 134218496;
-      v35 = v14;
-      v36 = 2048;
-      v37 = v16;
-      v38 = 2048;
-      v39 = v18;
+      v34 = v14;
+      v35 = 2048;
+      v36 = v16;
+      v37 = 2048;
+      v38 = v18;
       _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "Reads Complete Tracking: Beginning reads for %lu IP accessories, %lu BLE accessories, %lu other.", buf, 0x20u);
     }
 
-    os_activity_scope_leave(&v27);
+    os_activity_scope_leave(&v26);
   }
 
   else
   {
-    v20 = HFLogForCategory(0x3DuLL);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v19 = HFLogForCategory(0x3DuLL);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       readsCompleteLogger5 = [(HFCharacteristicValueManager *)self readsCompleteLogger];
-      v22 = [readsCompleteLogger5 numberOfAccessoriesForTransportType:0];
+      v21 = [readsCompleteLogger5 numberOfAccessoriesForTransportType:0];
       readsCompleteLogger6 = [(HFCharacteristicValueManager *)self readsCompleteLogger];
-      v24 = [readsCompleteLogger6 numberOfAccessoriesForTransportType:1];
+      v23 = [readsCompleteLogger6 numberOfAccessoriesForTransportType:1];
       readsCompleteLogger7 = [(HFCharacteristicValueManager *)self readsCompleteLogger];
-      v26 = [readsCompleteLogger7 numberOfAccessoriesForTransportType:2];
+      v25 = [readsCompleteLogger7 numberOfAccessoriesForTransportType:2];
       *buf = 134218496;
-      v35 = v22;
-      v36 = 2048;
-      v37 = v24;
-      v38 = 2048;
-      v39 = v26;
-      _os_log_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_DEFAULT, "Reads Complete Tracking: Beginning reads for %lu IP accessories, %lu BLE accessories, %lu other.", buf, 0x20u);
+      v34 = v21;
+      v35 = 2048;
+      v36 = v23;
+      v37 = 2048;
+      v38 = v25;
+      _os_log_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_DEFAULT, "Reads Complete Tracking: Beginning reads for %lu IP accessories, %lu BLE accessories, %lu other.", buf, 0x20u);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __89__HFCharacteristicValueManager__beginReadsCompleteTrackingForCharacteristics_withLogger___block_invoke(uint64_t a1, void *a2)
@@ -5729,7 +5739,7 @@ void __89__HFCharacteristicValueManager__beginReadsCompleteTrackingForCharacteri
 - (void)_endReadsCompleteTrackingForCharacteristic:(id)characteristic withLogger:(id)logger didRead:(BOOL)read
 {
   readCopy = read;
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   loggerCopy = logger;
   v10 = loggerCopy;
@@ -5738,18 +5748,18 @@ void __89__HFCharacteristicValueManager__beginReadsCompleteTrackingForCharacteri
     if (loggerCopy)
     {
       loggerActivity = [loggerCopy loggerActivity];
-      os_activity_scope_enter(loggerActivity, &v25);
+      os_activity_scope_enter(loggerActivity, &v24);
 
       v12 = HFLogForCategory(0x3DuLL);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        service = [characteristicCopy service];
-        accessory = [service accessory];
+        v13 = objc_msgSend_service(characteristicCopy);
+        accessory = [v13 accessory];
         name = [accessory name];
         *buf = 138412546;
-        v27 = characteristicCopy;
-        v28 = 2112;
-        v29 = name;
+        v26 = characteristicCopy;
+        v27 = 2112;
+        v28 = name;
         v16 = "Reads Complete Tracking: Read characteristic %@ from %@";
 LABEL_8:
         _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, v16, buf, 0x16u);
@@ -5760,19 +5770,19 @@ LABEL_8:
       goto LABEL_9;
     }
 
-    v20 = HFLogForCategory(0x3DuLL);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v19 = HFLogForCategory(0x3DuLL);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      service2 = [characteristicCopy service];
-      accessory2 = [service2 accessory];
+      v20 = objc_msgSend_service(characteristicCopy);
+      accessory2 = [v20 accessory];
       name2 = [accessory2 name];
       *buf = 138412546;
-      v27 = characteristicCopy;
-      v28 = 2112;
-      v29 = name2;
-      v24 = "Reads Complete Tracking: Read characteristic %@ from %@";
+      v26 = characteristicCopy;
+      v27 = 2112;
+      v28 = name2;
+      v23 = "Reads Complete Tracking: Read characteristic %@ from %@";
 LABEL_15:
-      _os_log_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_DEFAULT, v24, buf, 0x16u);
+      _os_log_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_DEFAULT, v23, buf, 0x16u);
 
       goto LABEL_16;
     }
@@ -5782,17 +5792,17 @@ LABEL_15:
 
   if (!loggerCopy)
   {
-    v20 = HFLogForCategory(0x3DuLL);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v19 = HFLogForCategory(0x3DuLL);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      service2 = [characteristicCopy service];
-      accessory2 = [service2 accessory];
+      v20 = objc_msgSend_service(characteristicCopy);
+      accessory2 = [v20 accessory];
       name2 = [accessory2 name];
       *buf = 138412546;
-      v27 = characteristicCopy;
-      v28 = 2112;
-      v29 = name2;
-      v24 = "Reads Complete Tracking: No read response for characteristic %@ from %@ (ignoring)";
+      v26 = characteristicCopy;
+      v27 = 2112;
+      v28 = name2;
+      v23 = "Reads Complete Tracking: No read response for characteristic %@ from %@ (ignoring)";
       goto LABEL_15;
     }
 
@@ -5802,35 +5812,33 @@ LABEL_16:
   }
 
   loggerActivity2 = [loggerCopy loggerActivity];
-  os_activity_scope_enter(loggerActivity2, &v25);
+  os_activity_scope_enter(loggerActivity2, &v24);
 
   v12 = HFLogForCategory(0x3DuLL);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    service = [characteristicCopy service];
-    accessory = [service accessory];
+    v13 = objc_msgSend_service(characteristicCopy);
+    accessory = [v13 accessory];
     name = [accessory name];
     *buf = 138412546;
-    v27 = characteristicCopy;
-    v28 = 2112;
-    v29 = name;
+    v26 = characteristicCopy;
+    v27 = 2112;
+    v28 = name;
     v16 = "Reads Complete Tracking: No read response for characteristic %@ from %@ (ignoring)";
     goto LABEL_8;
   }
 
 LABEL_9:
 
-  os_activity_scope_leave(&v25);
+  os_activity_scope_leave(&v24);
 LABEL_10:
   readsCompleteLogger = [(HFCharacteristicValueManager *)self readsCompleteLogger];
   [readsCompleteLogger markCharacteristicAsRead:characteristicCopy withLogger:v10];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)readValuesForCharacteristics:(id)characteristics
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   characteristicsCopy = characteristics;
   openTransaction = [(HFCharacteristicValueManager *)self openTransaction];
 
@@ -5839,38 +5847,38 @@ LABEL_10:
     [(HFCharacteristicValueManager *)self beginTransactionWithReason:@"characteristicValueManagerBatchReadTransaction"];
   }
 
-  v20 = [MEMORY[0x277CBEB58] set];
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
+  v19 = [MEMORY[0x277CBEB58] set];
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   obj = characteristicsCopy;
-  v6 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v6)
   {
-    v7 = *v26;
+    v7 = *v25;
     v8 = MEMORY[0x277D85DD0];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v26 != v7)
+        if (*v25 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = [(HFCharacteristicValueManager *)self readValueForCharacteristic:*(*(&v25 + 1) + 8 * i)];
-        v24[0] = v8;
-        v24[1] = 3221225472;
-        v24[2] = __61__HFCharacteristicValueManager_readValuesForCharacteristics___block_invoke;
-        v24[3] = &unk_277DF6718;
-        v24[4] = self;
-        v24[5] = a2;
-        v11 = [v10 addFailureBlock:v24];
-        [v20 addObject:v10];
+        v10 = [(HFCharacteristicValueManager *)self readValueForCharacteristic:*(*(&v24 + 1) + 8 * i)];
+        v23[0] = v8;
+        v23[1] = 3221225472;
+        v23[2] = __61__HFCharacteristicValueManager_readValuesForCharacteristics___block_invoke;
+        v23[3] = &unk_277DF6718;
+        v23[4] = self;
+        v23[5] = a2;
+        v11 = [v10 addFailureBlock:v23];
+        [v19 addObject:v10];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v6);
@@ -5878,24 +5886,22 @@ LABEL_10:
 
   objc_initWeak(&location, self);
   v12 = MEMORY[0x277D2C900];
-  allObjects = [v20 allObjects];
+  allObjects = [v19 allObjects];
   v14 = [v12 combineAllFutures:allObjects];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __61__HFCharacteristicValueManager_readValuesForCharacteristics___block_invoke_2;
-  v21[3] = &unk_277DF52E0;
-  objc_copyWeak(&v22, &location);
-  v15 = [v14 flatMap:v21];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __61__HFCharacteristicValueManager_readValuesForCharacteristics___block_invoke_2;
+  v20[3] = &unk_277DF52E0;
+  objc_copyWeak(&v21, &location);
+  v15 = [v14 flatMap:v20];
 
   if (!openTransaction)
   {
     [(HFCharacteristicValueManager *)self commitTransactionWithReason:@"characteristicValueManagerBatchReadTransaction"];
   }
 
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(&location);
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -5946,53 +5952,53 @@ uint64_t __76__HFCharacteristicValueManager_readValuesForCharacteristicTypes_inS
 
 - (id)readValuesForCharacteristicsPassingTest:(id)test inServices:(id)services
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   testCopy = test;
   servicesCopy = services;
   v7 = [MEMORY[0x277CBEB58] set];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = servicesCopy;
-  v24 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
-  if (v24)
+  v23 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+  if (v23)
   {
-    v23 = *v31;
+    v22 = *v30;
     do
     {
       v9 = 0;
       do
       {
-        if (*v31 != v23)
+        if (*v30 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = v9;
-        v10 = *(*(&v30 + 1) + 8 * v9);
+        v24 = v9;
+        v10 = *(*(&v29 + 1) + 8 * v9);
+        v25 = 0u;
         v26 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v29 = 0u;
         characteristics = [v10 characteristics];
-        v12 = [characteristics countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v12 = [characteristics countByEnumeratingWithState:&v25 objects:v33 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v27;
+          v14 = *v26;
           do
           {
             for (i = 0; i != v13; ++i)
             {
-              if (*v27 != v14)
+              if (*v26 != v14)
               {
                 objc_enumerationMutation(characteristics);
               }
 
-              v16 = *(*(&v26 + 1) + 8 * i);
-              if (!testCopy || testCopy[2](testCopy, *(*(&v26 + 1) + 8 * i)))
+              v16 = *(*(&v25 + 1) + 8 * i);
+              if (!testCopy || testCopy[2](testCopy, *(*(&v25 + 1) + 8 * i)))
               {
                 [v7 addObject:v16];
                 uniqueIdentifier = [v16 uniqueIdentifier];
@@ -6000,25 +6006,23 @@ uint64_t __76__HFCharacteristicValueManager_readValuesForCharacteristicTypes_inS
               }
             }
 
-            v13 = [characteristics countByEnumeratingWithState:&v26 objects:v34 count:16];
+            v13 = [characteristics countByEnumeratingWithState:&v25 objects:v33 count:16];
           }
 
           while (v13);
         }
 
-        v9 = v25 + 1;
+        v9 = v24 + 1;
       }
 
-      while (v25 + 1 != v24);
-      v24 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+      while (v24 + 1 != v23);
+      v23 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
-    while (v24);
+    while (v23);
   }
 
   v18 = [(HFCharacteristicValueManager *)self readValuesForCharacteristics:v7];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -6113,7 +6117,7 @@ void __43__HFCharacteristicValueManager_na_identity__block_invoke_2()
 
 - (id)_overrideCachedValueForCharacteristic:(id)characteristic value:(id)value
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   characteristicCopy = characteristic;
   valueCopy = value;
   characteristicType = [characteristicCopy characteristicType];
@@ -6129,8 +6133,8 @@ void __43__HFCharacteristicValueManager_na_identity__block_invoke_2()
 
     else
     {
-      service = [characteristicCopy service];
-      characteristics = [service characteristics];
+      v12 = objc_msgSend_service(characteristicCopy);
+      characteristics = [v12 characteristics];
       v14 = [characteristics na_firstObjectPassingTest:&__block_literal_global_248];
 
       if (v14)
@@ -6148,20 +6152,20 @@ void __43__HFCharacteristicValueManager_na_identity__block_invoke_2()
             bOOLValue = [v15 BOOLValue];
             *buf = 138413314;
             v22 = @"Off";
-            v36 = v18;
-            v37 = 2112;
+            v35 = v18;
+            v36 = 2112;
             if (bOOLValue)
             {
               v22 = @"On";
             }
 
-            v38 = v19;
-            v39 = 2112;
-            v40 = valueCopy;
-            v41 = 2112;
-            v42 = uniqueIdentifier;
-            v43 = 2112;
-            v44 = v22;
+            v37 = v19;
+            v38 = 2112;
+            v39 = valueCopy;
+            v40 = 2112;
+            v41 = uniqueIdentifier;
+            v42 = 2112;
+            v43 = v22;
             _os_log_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_DEFAULT, "%@:%@ brightness %@ (%@) associatedPowerCharacteristic powered on: %@", buf, 0x34u);
           }
         }
@@ -6172,28 +6176,28 @@ void __43__HFCharacteristicValueManager_na_identity__block_invoke_2()
           if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
             v24 = objc_opt_class();
-            v32 = NSStringFromClass(v24);
-            v31 = NSStringFromSelector(a2);
+            v31 = NSStringFromClass(v24);
+            v30 = NSStringFromSelector(a2);
             uniqueIdentifier2 = [characteristicCopy uniqueIdentifier];
-            service2 = [characteristicCopy service];
-            hf_serviceNameComponents = [service2 hf_serviceNameComponents];
+            v33 = objc_msgSend_service(characteristicCopy);
+            hf_serviceNameComponents = [v33 hf_serviceNameComponents];
             composedString = [hf_serviceNameComponents composedString];
-            service3 = [characteristicCopy service];
-            uniqueIdentifier3 = [service3 uniqueIdentifier];
+            v27 = objc_msgSend_service(characteristicCopy);
+            uniqueIdentifier3 = [v27 uniqueIdentifier];
             *buf = 138413826;
-            v36 = v32;
-            v37 = 2112;
-            v38 = v31;
-            v39 = 2112;
-            v40 = uniqueIdentifier2;
-            v41 = 2112;
-            v42 = composedString;
-            v43 = 2112;
-            v44 = uniqueIdentifier3;
-            v45 = 2112;
-            v46 = valueCopy;
-            v47 = 2112;
-            v48 = &unk_2825237A8;
+            v35 = v31;
+            v36 = 2112;
+            v37 = v30;
+            v38 = 2112;
+            v39 = uniqueIdentifier2;
+            v40 = 2112;
+            v41 = composedString;
+            v42 = 2112;
+            v43 = uniqueIdentifier3;
+            v44 = 2112;
+            v45 = valueCopy;
+            v46 = 2112;
+            v47 = &unk_2825237A8;
             _os_log_impl(&dword_20D9BF000, v23, OS_LOG_TYPE_DEFAULT, "%@:%@ Overriding cached value for characteristic (%@) in service '%@' (%@) from %@ to %@", buf, 0x48u);
           }
 
@@ -6213,7 +6217,6 @@ void __43__HFCharacteristicValueManager_na_identity__block_invoke_2()
     }
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

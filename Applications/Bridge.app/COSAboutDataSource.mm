@@ -253,7 +253,7 @@
           }
 
           v33 = [v5 specifierForID:*(*(&v65 + 1) + 8 * i)];
-          [v5 removeObject:v33];
+          objc_msgSend_removeObject_(v5);
         }
 
         v30 = [v24 countByEnumeratingWithState:&v65 objects:v69 count:16];

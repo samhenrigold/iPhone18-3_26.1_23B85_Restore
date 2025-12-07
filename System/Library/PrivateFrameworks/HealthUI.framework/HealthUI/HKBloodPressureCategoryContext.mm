@@ -363,7 +363,7 @@ LABEL_27:
     v62 = *MEMORY[0x1E696B988];
     if (os_log_type_enabled(*MEMORY[0x1E696B988], OS_LOG_TYPE_ERROR))
     {
-      [HKBloodPressureCategoryContext highlightedBloodPressureCoordinateWithCoordinate:v62 originalCoordinate:?];
+      [HKBloodPressureCategoryContext highlightedBloodPressureCoordinateWithCoordinate:v62 originalCoordinate:self];
     }
 
     identifier3 = 0;
@@ -422,14 +422,14 @@ _HKBloodPressureCoordinate *__102__HKBloodPressureCategoryContext_highlightedBlo
   return v13;
 }
 
-- (void)highlightedBloodPressureCoordinateWithCoordinate:(void *)a1 originalCoordinate:.cold.1(void *a1)
+- (void)highlightedBloodPressureCoordinateWithCoordinate:(void *)a1 originalCoordinate:(uint64_t)a2 .cold.1(void *a1, uint64_t a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v3 = 138543362;
-  v4 = objc_opt_class();
-  v2 = v4;
-  _os_log_error_impl(&dword_1C3942000, v1, OS_LOG_TYPE_ERROR, "[%{public}@]: chart coordinate does not contain average values; unable to highlight average coordinate", &v3, 0xCu);
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = a1;
+  v4 = 138543362;
+  v5 = objc_opt_class();
+  v3 = v5;
+  _os_log_error_impl(&dword_1C3942000, v2, OS_LOG_TYPE_ERROR, "[%{public}@]: chart coordinate does not contain average values; unable to highlight average coordinate", &v4, 0xCu);
 }
 
 @end

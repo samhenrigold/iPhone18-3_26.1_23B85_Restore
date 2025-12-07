@@ -54,82 +54,82 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_2491E5DA4(v7);
+  sub_2491E5DA4(v7, v8);
 }
 
 - (void)startMonitoringPreferencesChangesWithCompletionHandler:(id)handler
 {
-  v5 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EEDFC90, &qword_2491FFCB8) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EEDFC90, &qword_2491FFCB8);
   MEMORY[0x28223BE20]();
-  v7 = &v14 - v6;
-  v8 = _Block_copy(handler);
-  v9 = swift_allocObject();
-  *(v9 + 16) = v8;
-  *(v9 + 24) = self;
-  v10 = sub_2491F3E28();
-  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v6 = &v13 - v5;
+  v7 = _Block_copy(handler);
+  v8 = swift_allocObject();
+  *(v8 + 16) = v7;
+  *(v8 + 24) = self;
+  v9 = sub_2491F3E28();
+  (*(*(v9 - 8) + 56))(v6, 1, 1, v9);
+  v10 = swift_allocObject();
+  v10[2] = 0;
+  v10[3] = 0;
+  v10[4] = &unk_2491FFE80;
+  v10[5] = v8;
   v11 = swift_allocObject();
   v11[2] = 0;
   v11[3] = 0;
-  v11[4] = &unk_2491FFE80;
-  v11[5] = v9;
-  v12 = swift_allocObject();
-  v12[2] = 0;
-  v12[3] = 0;
-  v12[4] = &unk_2491FFE88;
-  v12[5] = v11;
+  v11[4] = &unk_2491FFE88;
+  v11[5] = v10;
   selfCopy = self;
-  sub_2491E9900(0, 0, v7, &unk_2491FFE90, v12);
+  sub_2491E9900(0, 0, v6, &unk_2491FFE90, v11);
 }
 
 - (void)stopMonitoringPreferenceChangesWithCompletionHandler:(id)handler
 {
-  v5 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EEDFC90, &qword_2491FFCB8) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EEDFC90, &qword_2491FFCB8);
   MEMORY[0x28223BE20]();
-  v7 = &v14 - v6;
-  v8 = _Block_copy(handler);
-  v9 = swift_allocObject();
-  *(v9 + 16) = v8;
-  *(v9 + 24) = self;
-  v10 = sub_2491F3E28();
-  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v6 = &v13 - v5;
+  v7 = _Block_copy(handler);
+  v8 = swift_allocObject();
+  *(v8 + 16) = v7;
+  *(v8 + 24) = self;
+  v9 = sub_2491F3E28();
+  (*(*(v9 - 8) + 56))(v6, 1, 1, v9);
+  v10 = swift_allocObject();
+  v10[2] = 0;
+  v10[3] = 0;
+  v10[4] = &unk_2491FFE60;
+  v10[5] = v8;
   v11 = swift_allocObject();
   v11[2] = 0;
   v11[3] = 0;
-  v11[4] = &unk_2491FFE60;
-  v11[5] = v9;
-  v12 = swift_allocObject();
-  v12[2] = 0;
-  v12[3] = 0;
-  v12[4] = &unk_2491FFE68;
-  v12[5] = v11;
+  v11[4] = &unk_2491FFE68;
+  v11[5] = v10;
   selfCopy = self;
-  sub_2491E9900(0, 0, v7, &unk_2491FFE70, v12);
+  sub_2491E9900(0, 0, v6, &unk_2491FFE70, v11);
 }
 
 - (void)getActiveLocationSharingDeviceWithCompletionHandler:(id)handler
 {
-  v5 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EEDFC90, &qword_2491FFCB8) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EEDFC90, &qword_2491FFCB8);
   MEMORY[0x28223BE20]();
-  v7 = &v14 - v6;
-  v8 = _Block_copy(handler);
-  v9 = swift_allocObject();
-  *(v9 + 16) = v8;
-  *(v9 + 24) = self;
-  v10 = sub_2491F3E28();
-  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v6 = &v13 - v5;
+  v7 = _Block_copy(handler);
+  v8 = swift_allocObject();
+  *(v8 + 16) = v7;
+  *(v8 + 24) = self;
+  v9 = sub_2491F3E28();
+  (*(*(v9 - 8) + 56))(v6, 1, 1, v9);
+  v10 = swift_allocObject();
+  v10[2] = 0;
+  v10[3] = 0;
+  v10[4] = &unk_2491FFE18;
+  v10[5] = v8;
   v11 = swift_allocObject();
   v11[2] = 0;
   v11[3] = 0;
-  v11[4] = &unk_2491FFE18;
-  v11[5] = v9;
-  v12 = swift_allocObject();
-  v12[2] = 0;
-  v12[3] = 0;
-  v12[4] = &unk_2491FFE28;
-  v12[5] = v11;
+  v11[4] = &unk_2491FFE28;
+  v11[5] = v10;
   selfCopy = self;
-  sub_2491E9900(0, 0, v7, &unk_2491FFE38, v12);
+  sub_2491E9900(0, 0, v6, &unk_2491FFE38, v11);
 }
 
 @end

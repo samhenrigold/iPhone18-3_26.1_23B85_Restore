@@ -84,28 +84,25 @@
   v8 = +[ASCWebKitSPISupport shouldApplyWorkaroundFor134591531];
   v9 = MEMORY[0x1E695DFD8];
   v10 = objc_opt_class();
+  [v9 setWithObjects:{v10, objc_opt_class(), 0}];
   if (v8)
-  {
-    v11 = [v9 setWithObjects:{v10, objc_opt_class(), 0}];
+    v11 = {;
     v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"transports"];
 
-    v13 = [ASCWebKitSPISupport asTransportsFrom:v12];
-    v14 = 0x1E696A000;
+    [ASCWebKitSPISupport asTransportsFrom:v12];
   }
 
   else
-  {
-    v14 = 0x1E696A000uLL;
-    v12 = [v9 setWithObjects:{v10, objc_opt_class(), 0}];
-    v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"transports"];
+    v12 = {;
+    [coderCopy decodeObjectOfClasses:v12 forKey:@"transports"];
   }
+  v13 = ;
 
-  v15 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"extensionOutputsCBOR"];
-  v16 = *(v14 + 3776);
-  v17 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"attachment"];
-  v18 = [(ASCSecurityKeyPublicKeyCredentialRegistration *)self initWithRelyingPartyIdentifier:v4 attestationObject:v5 rawClientDataJSON:v6 credentialID:v7 transports:v13 extensionOutputsCBOR:v15 attachment:v17];
+  v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"extensionOutputsCBOR"];
+  v15 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"attachment"];
+  v16 = [(ASCSecurityKeyPublicKeyCredentialRegistration *)self initWithRelyingPartyIdentifier:v4 attestationObject:v5 rawClientDataJSON:v6 credentialID:v7 transports:v13 extensionOutputsCBOR:v14 attachment:v15];
 
-  return v18;
+  return v16;
 }
 
 @end

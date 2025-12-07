@@ -1,955 +1,3 @@
-void sub_1B7BBBC24(uint64_t a1, void *a2)
-{
-  v45 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  if (v3)
-  {
-    v4 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      sub_1B7CFA728(a1, v3, v4);
-    }
-
-    v5 = *(a1 + 32);
-    v6 = v3;
-    v7 = *(v5 + 56);
-    *(v5 + 56) = v6;
-  }
-
-  else
-  {
-    if (IMOSLoggingEnabled())
-    {
-      v8 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
-      {
-        v11 = objc_msgSend_searchableItems(*(a1 + 32), v9, v10);
-        v14 = objc_msgSend_count(v11, v12, v13);
-        v17 = objc_msgSend_transactionID(*(a1 + 32), v15, v16);
-        v41 = 134218242;
-        v42 = v14;
-        v43 = 2112;
-        v44 = v17;
-        _os_log_impl(&dword_1B7AD5000, v8, OS_LOG_TYPE_INFO, "indexing of %ld items to spotlight with transaction ID %@ completed", &v41, 0x16u);
-      }
-    }
-
-    notify_post("com.apple.imdpersistenceagent.notification.spotlightclientstateupdated");
-    v20 = objc_msgSend_sharedPublisher(IMDSpotlightActivityPublisher, v18, v19);
-    v23 = objc_msgSend_searchableItems(*(a1 + 32), v21, v22);
-    v26 = objc_msgSend_context(*(a1 + 32), v24, v25);
-    objc_msgSend_publishItems_context_(v20, v27, v23, v26);
-
-    v7 = objc_msgSend_sharedPublisher(IMDSpotlightActivityPublisher, v28, v29);
-    v32 = objc_msgSend_rejectedItems(*(a1 + 32), v30, v31);
-    v35 = objc_msgSend_context(*(a1 + 32), v33, v34);
-    objc_msgSend_publishRejections_context_(v7, v36, v32, v35);
-  }
-
-  v39 = objc_msgSend_group(*(a1 + 32), v37, v38);
-  dispatch_group_leave(v39);
-
-  v40 = *MEMORY[0x1E69E9840];
-}
-
-void sub_1B7BBCB7C()
-{
-  v0 = [IMDCoreSpotlightRichLinkIndexer alloc];
-  v2 = objc_msgSend_initWithClass_linkType_linkSubtype_prefix_(v0, v1, 0, 0, 0, 0);
-  v3 = qword_1EBA541F0;
-  qword_1EBA541F0 = v2;
-}
-
-void sub_1B7BBCD44()
-{
-  v128[15] = *MEMORY[0x1E69E9840];
-  v127[0] = @"LPiTunesMediaSongMetadata";
-  v2 = [IMDCoreSpotlightMediaLinkIndexer alloc];
-  v123 = 0;
-  v124 = &v123;
-  v125 = 0x2050000000;
-  v3 = qword_1EBA54260;
-  v126 = qword_1EBA54260;
-  if (!qword_1EBA54260)
-  {
-    v118 = MEMORY[0x1E69E9820];
-    v119 = 3221225472;
-    v120 = sub_1B7BBFDF0;
-    v121 = &unk_1E7CB6EA8;
-    v122 = &v123;
-    sub_1B7BBFDF0(&v118, v0, v1);
-    v3 = v124[3];
-  }
-
-  v4 = v3;
-  _Block_object_dispose(&v123, 8);
-  v6 = objc_msgSend_initWithClass_linkType_prefix_(v2, v5, v3, *MEMORY[0x1E6963B30], @"song");
-  v128[0] = v6;
-  v127[1] = @"LPiTunesMediaAlbumMetadata";
-  v9 = [IMDCoreSpotlightMediaLinkIndexer alloc];
-  v123 = 0;
-  v124 = &v123;
-  v125 = 0x2050000000;
-  v10 = qword_1EBA54270;
-  v126 = qword_1EBA54270;
-  if (!qword_1EBA54270)
-  {
-    v118 = MEMORY[0x1E69E9820];
-    v119 = 3221225472;
-    v120 = sub_1B7BBFFB0;
-    v121 = &unk_1E7CB6EA8;
-    v122 = &v123;
-    sub_1B7BBFFB0(&v118, v7, v8);
-    v10 = v124[3];
-  }
-
-  v11 = v10;
-  _Block_object_dispose(&v123, 8);
-  v13 = objc_msgSend_initWithClass_linkType_prefix_(v9, v12, v10, *MEMORY[0x1E6963AE0], @"album");
-  v128[1] = v13;
-  v127[2] = @"LPiTunesMediaArtistMetadata";
-  v16 = [IMDCoreSpotlightMediaLinkIndexer alloc];
-  v123 = 0;
-  v124 = &v123;
-  v125 = 0x2050000000;
-  v17 = qword_1EBA54278;
-  v126 = qword_1EBA54278;
-  if (!qword_1EBA54278)
-  {
-    v118 = MEMORY[0x1E69E9820];
-    v119 = 3221225472;
-    v120 = sub_1B7BC0008;
-    v121 = &unk_1E7CB6EA8;
-    v122 = &v123;
-    sub_1B7BC0008(&v118, v14, v15);
-    v17 = v124[3];
-  }
-
-  v18 = v17;
-  _Block_object_dispose(&v123, 8);
-  v20 = objc_msgSend_initWithClass_linkType_prefix_(v16, v19, v17, *MEMORY[0x1E6963AE8], @"artist");
-  v128[2] = v20;
-  v127[3] = @"LPiTunesMediaMusicVideoMetadata";
-  v23 = [IMDCoreSpotlightMediaLinkIndexer alloc];
-  v123 = 0;
-  v124 = &v123;
-  v125 = 0x2050000000;
-  v24 = qword_1EBA54280;
-  v126 = qword_1EBA54280;
-  if (!qword_1EBA54280)
-  {
-    v118 = MEMORY[0x1E69E9820];
-    v119 = 3221225472;
-    v120 = sub_1B7BC0060;
-    v121 = &unk_1E7CB6EA8;
-    v122 = &v123;
-    sub_1B7BC0060(&v118, v21, v22);
-    v24 = v124[3];
-  }
-
-  v25 = v24;
-  _Block_object_dispose(&v123, 8);
-  v27 = objc_msgSend_initWithClass_linkType_prefix_(v23, v26, v24, *MEMORY[0x1E6963B00], @"music video");
-  v128[3] = v27;
-  v127[4] = @"LPiTunesMediaPodcastEpisodeMetadata";
-  v30 = [IMDCoreSpotlightMediaLinkIndexer alloc];
-  v123 = 0;
-  v124 = &v123;
-  v125 = 0x2050000000;
-  v31 = qword_1EBA54288;
-  v126 = qword_1EBA54288;
-  if (!qword_1EBA54288)
-  {
-    v118 = MEMORY[0x1E69E9820];
-    v119 = 3221225472;
-    v120 = sub_1B7BC00B8;
-    v121 = &unk_1E7CB6EA8;
-    v122 = &v123;
-    sub_1B7BC00B8(&v118, v28, v29);
-    v31 = v124[3];
-  }
-
-  v32 = v31;
-  _Block_object_dispose(&v123, 8);
-  v33 = *MEMORY[0x1E6963B18];
-  v35 = objc_msgSend_initWithClass_linkType_linkSubtype_prefix_(v30, v34, v31, *MEMORY[0x1E6963B18], @"episode", @"podcast episode");
-  v128[4] = v35;
-  v127[5] = @"LPiTunesMediaPodcastMetadata";
-  v38 = [IMDCoreSpotlightMediaLinkIndexer alloc];
-  v123 = 0;
-  v124 = &v123;
-  v125 = 0x2050000000;
-  v39 = qword_1EBA54290;
-  v126 = qword_1EBA54290;
-  if (!qword_1EBA54290)
-  {
-    v118 = MEMORY[0x1E69E9820];
-    v119 = 3221225472;
-    v120 = sub_1B7BC0110;
-    v121 = &unk_1E7CB6EA8;
-    v122 = &v123;
-    sub_1B7BC0110(&v118, v36, v37);
-    v39 = v124[3];
-  }
-
-  v40 = v39;
-  _Block_object_dispose(&v123, 8);
-  v117 = objc_msgSend_initWithClass_linkType_prefix_(v38, v41, v39, v33, @"podcast");
-  v128[5] = v117;
-  v127[6] = @"LPiTunesMediaTVEpisodeMetadata";
-  v44 = [IMDCoreSpotlightMediaLinkIndexer alloc];
-  v123 = 0;
-  v124 = &v123;
-  v125 = 0x2050000000;
-  v45 = qword_1EBA54298;
-  v126 = qword_1EBA54298;
-  if (!qword_1EBA54298)
-  {
-    v118 = MEMORY[0x1E69E9820];
-    v119 = 3221225472;
-    v120 = sub_1B7BC0168;
-    v121 = &unk_1E7CB6EA8;
-    v122 = &v123;
-    sub_1B7BC0168(&v118, v42, v43);
-    v45 = v124[3];
-  }
-
-  v46 = v45;
-  _Block_object_dispose(&v123, 8);
-  v47 = *MEMORY[0x1E6963B28];
-  v116 = objc_msgSend_initWithClass_linkType_linkSubtype_prefix_(v44, v48, v45, *MEMORY[0x1E6963B28], @"episode", @"tv show episode");
-  v128[6] = v116;
-  v127[7] = @"LPiTunesMediaTVSeasonMetadata";
-  v51 = [IMDCoreSpotlightMediaLinkIndexer alloc];
-  v123 = 0;
-  v124 = &v123;
-  v125 = 0x2050000000;
-  v52 = qword_1EBA542A0;
-  v126 = qword_1EBA542A0;
-  if (!qword_1EBA542A0)
-  {
-    v118 = MEMORY[0x1E69E9820];
-    v119 = 3221225472;
-    v120 = sub_1B7BC01C0;
-    v121 = &unk_1E7CB6EA8;
-    v122 = &v123;
-    sub_1B7BC01C0(&v118, v49, v50);
-    v52 = v124[3];
-  }
-
-  v53 = v52;
-  _Block_object_dispose(&v123, 8);
-  v115 = objc_msgSend_initWithClass_linkType_linkSubtype_prefix_(v51, v54, v52, v47, @"season", @"tv show");
-  v128[7] = v115;
-  v127[8] = @"LPiTunesMediaPlaylistMetadata";
-  v57 = [IMDCoreSpotlightMediaLinkIndexer alloc];
-  v123 = 0;
-  v124 = &v123;
-  v125 = 0x2050000000;
-  v58 = qword_1EBA542A8;
-  v126 = qword_1EBA542A8;
-  if (!qword_1EBA542A8)
-  {
-    v118 = MEMORY[0x1E69E9820];
-    v119 = 3221225472;
-    v120 = sub_1B7BC0218;
-    v121 = &unk_1E7CB6EA8;
-    v122 = &v123;
-    sub_1B7BC0218(&v118, v55, v56);
-    v58 = v124[3];
-  }
-
-  v59 = v58;
-  _Block_object_dispose(&v123, 8);
-  v114 = objc_msgSend_initWithClass_linkType_prefix_(v57, v60, v58, *MEMORY[0x1E6963B10], @"playlist");
-  v128[8] = v114;
-  v127[9] = @"LPiTunesMediaMovieMetadata";
-  v63 = [IMDCoreSpotlightMediaLinkIndexer alloc];
-  v123 = 0;
-  v124 = &v123;
-  v125 = 0x2050000000;
-  v64 = qword_1EBA542B0;
-  v126 = qword_1EBA542B0;
-  if (!qword_1EBA542B0)
-  {
-    v118 = MEMORY[0x1E69E9820];
-    v119 = 3221225472;
-    v120 = sub_1B7BC0270;
-    v121 = &unk_1E7CB6EA8;
-    v122 = &v123;
-    sub_1B7BC0270(&v118, v61, v62);
-    v64 = v124[3];
-  }
-
-  v65 = v64;
-  _Block_object_dispose(&v123, 8);
-  v66 = *MEMORY[0x1E6963AF8];
-  v113 = objc_msgSend_initWithClass_linkType_prefix_(v63, v67, v64, *MEMORY[0x1E6963AF8], @"movie");
-  v128[9] = v113;
-  v127[10] = @"LPiTunesMediaMovieBundleMetadata";
-  v70 = [IMDCoreSpotlightMediaLinkIndexer alloc];
-  v123 = 0;
-  v124 = &v123;
-  v125 = 0x2050000000;
-  v71 = qword_1EBA542B8;
-  v126 = qword_1EBA542B8;
-  if (!qword_1EBA542B8)
-  {
-    v118 = MEMORY[0x1E69E9820];
-    v119 = 3221225472;
-    v120 = sub_1B7BC02C8;
-    v121 = &unk_1E7CB6EA8;
-    v122 = &v123;
-    sub_1B7BC02C8(&v118, v68, v69);
-    v71 = v124[3];
-  }
-
-  v72 = v71;
-  _Block_object_dispose(&v123, 8);
-  v74 = objc_msgSend_initWithClass_linkType_linkSubtype_prefix_(v70, v73, v71, v66, @"bundle", @"movie bundle");
-  v128[10] = v74;
-  v127[11] = @"LPiTunesMediaRadioMetadata";
-  v77 = [IMDCoreSpotlightMediaLinkIndexer alloc];
-  v123 = 0;
-  v124 = &v123;
-  v125 = 0x2050000000;
-  v78 = qword_1EBA542C0;
-  v126 = qword_1EBA542C0;
-  if (!qword_1EBA542C0)
-  {
-    v118 = MEMORY[0x1E69E9820];
-    v119 = 3221225472;
-    v120 = sub_1B7BC0320;
-    v121 = &unk_1E7CB6EA8;
-    v122 = &v123;
-    sub_1B7BC0320(&v118, v75, v76);
-    v78 = v124[3];
-  }
-
-  v79 = v78;
-  _Block_object_dispose(&v123, 8);
-  v112 = objc_msgSend_initWithClass_linkType_prefix_(v77, v80, v78, *MEMORY[0x1E6963B20], @"radio station");
-  v128[11] = v112;
-  v127[12] = @"LPAppleTVMetadata";
-  v83 = [IMDCoreSpotlightAppleTVLinkIndexer alloc];
-  v123 = 0;
-  v124 = &v123;
-  v125 = 0x2050000000;
-  v84 = qword_1EBA542C8;
-  v126 = qword_1EBA542C8;
-  if (!qword_1EBA542C8)
-  {
-    v118 = MEMORY[0x1E69E9820];
-    v119 = 3221225472;
-    v120 = sub_1B7BC0378;
-    v121 = &unk_1E7CB6EA8;
-    v122 = &v123;
-    sub_1B7BC0378(&v118, v81, v82);
-    v84 = v124[3];
-  }
-
-  v85 = v84;
-  _Block_object_dispose(&v123, 8);
-  v87 = objc_msgSend_initWithClass_linkType_prefix_(v83, v86, v84, 0, 0);
-  v128[12] = v87;
-  v127[13] = @"LPAppleNewsMetadata";
-  v90 = [IMDCoreSpotlightNewsLinkIndexer alloc];
-  v123 = 0;
-  v124 = &v123;
-  v125 = 0x2050000000;
-  v91 = qword_1EBA542D0;
-  v126 = qword_1EBA542D0;
-  if (!qword_1EBA542D0)
-  {
-    v118 = MEMORY[0x1E69E9820];
-    v119 = 3221225472;
-    v120 = sub_1B7BC03D0;
-    v121 = &unk_1E7CB6EA8;
-    v122 = &v123;
-    sub_1B7BC03D0(&v118, v88, v89);
-    v91 = v124[3];
-  }
-
-  v92 = v91;
-  _Block_object_dispose(&v123, 8);
-  v94 = objc_msgSend_initWithClass_linkType_prefix_(v90, v93, v91, *MEMORY[0x1E6963B08], @"news");
-  v128[13] = v94;
-  v127[14] = @"LPMapMetadata";
-  v97 = [IMDCoreSpotlightMapsLinkIndexer alloc];
-  v98 = v74;
-  v99 = v35;
-  v100 = v27;
-  v101 = v20;
-  v102 = v13;
-  v103 = v6;
-  v123 = 0;
-  v124 = &v123;
-  v125 = 0x2050000000;
-  v104 = qword_1EBA542D8;
-  v126 = qword_1EBA542D8;
-  if (!qword_1EBA542D8)
-  {
-    v118 = MEMORY[0x1E69E9820];
-    v119 = 3221225472;
-    v120 = sub_1B7BC0428;
-    v121 = &unk_1E7CB6EA8;
-    v122 = &v123;
-    sub_1B7BC0428(&v118, v95, v96);
-    v104 = v124[3];
-  }
-
-  v105 = v104;
-  _Block_object_dispose(&v123, 8);
-  v107 = objc_msgSend_initWithClass_linkType_prefix_(v97, v106, v104, *MEMORY[0x1E6963AF0], @"map");
-  v128[14] = v107;
-  v109 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v108, v128, v127, 15);
-  v110 = qword_1EBA54200;
-  qword_1EBA54200 = v109;
-
-  v111 = *MEMORY[0x1E69E9840];
-}
-
-void sub_1B7BBDA58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1B7BBE0D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1B7BBE6F0()
-{
-  v0 = objc_alloc(MEMORY[0x1E6964E00]);
-  v2 = objc_msgSend_initWithKeyName_searchable_searchableByDefault_unique_multiValued_(v0, v1, @"com_apple_mobilesms_lpTitle", 1, 0, 0, 0);
-  v3 = qword_1EBA54210;
-  qword_1EBA54210 = v2;
-}
-
-void sub_1B7BBE78C()
-{
-  v0 = objc_alloc(MEMORY[0x1E6964E00]);
-  v2 = objc_msgSend_initWithKeyName_searchable_searchableByDefault_unique_multiValued_(v0, v1, @"com_apple_mobilesms_lpRichMedia", 1, 0, 1, 0);
-  v3 = qword_1EBA54220;
-  qword_1EBA54220 = v2;
-}
-
-void sub_1B7BBE828()
-{
-  v0 = objc_alloc(MEMORY[0x1E6964E00]);
-  v2 = objc_msgSend_initWithKeyName_searchable_searchableByDefault_unique_multiValued_(v0, v1, @"com_apple_mobilesms_lpPluginPaths", 0, 0, 1, 1);
-  v3 = qword_1EBA54230;
-  qword_1EBA54230 = v2;
-}
-
-void sub_1B7BBE8C4()
-{
-  v0 = objc_alloc(MEMORY[0x1E6964E00]);
-  v2 = objc_msgSend_initWithKeyName_searchable_searchableByDefault_unique_multiValued_(v0, v1, @"com_apple_mobilesms_lpDescription", 1, 0, 0, 0);
-  v3 = qword_1EBA54240;
-  qword_1EBA54240 = v2;
-}
-
-void sub_1B7BBF4EC()
-{
-  v75[15] = *MEMORY[0x1E69E9840];
-  v74[0] = @"Episode";
-  v0 = [_IMDOpenGraphSpotlightMappingInfo alloc];
-  v73 = objc_msgSend__indexerForClassName_(IMDCoreSpotlightRichLinkIndexer, v1, @"LPiTunesMediaTVEpisodeMetadata");
-  v72 = objc_msgSend_initWithOGType_indexer_(v0, v2, @"Episode", v73);
-  v75[0] = v72;
-  v74[1] = @"video.episode";
-  v3 = [_IMDOpenGraphSpotlightMappingInfo alloc];
-  v71 = objc_msgSend__indexerForClassName_(IMDCoreSpotlightRichLinkIndexer, v4, @"LPiTunesMediaTVEpisodeMetadata");
-  v70 = objc_msgSend_initWithOGType_indexer_(v3, v5, @"video.episode", v71);
-  v75[1] = v70;
-  v74[2] = @"Show";
-  v6 = [_IMDOpenGraphSpotlightMappingInfo alloc];
-  v69 = objc_msgSend__indexerForClassName_(IMDCoreSpotlightRichLinkIndexer, v7, @"LPiTunesMediaTVSeasonMetadata");
-  v68 = objc_msgSend_initWithOGType_indexer_(v6, v8, @"Show", v69);
-  v75[2] = v68;
-  v74[3] = @"video.tv_show";
-  v9 = [_IMDOpenGraphSpotlightMappingInfo alloc];
-  v67 = objc_msgSend__indexerForClassName_(IMDCoreSpotlightRichLinkIndexer, v10, @"LPiTunesMediaTVSeasonMetadata");
-  v66 = objc_msgSend_initWithOGType_indexer_(v9, v11, @"video.tv_show", v67);
-  v75[3] = v66;
-  v74[4] = @"Movie";
-  v12 = [_IMDOpenGraphSpotlightMappingInfo alloc];
-  v65 = objc_msgSend__indexerForClassName_(IMDCoreSpotlightRichLinkIndexer, v13, @"LPiTunesMediaMovieMetadata");
-  v64 = objc_msgSend_initWithOGType_indexer_(v12, v14, @"Movie", v65);
-  v75[4] = v64;
-  v74[5] = @"video.movie";
-  v15 = [_IMDOpenGraphSpotlightMappingInfo alloc];
-  v63 = objc_msgSend__indexerForClassName_(IMDCoreSpotlightRichLinkIndexer, v16, @"LPiTunesMediaMovieMetadata");
-  v62 = objc_msgSend_initWithOGType_indexer_(v15, v17, @"video.movie", v63);
-  v75[5] = v62;
-  v74[6] = @"music.song";
-  v18 = [_IMDOpenGraphSpotlightMappingInfo alloc];
-  v61 = objc_msgSend__indexerForClassName_(IMDCoreSpotlightRichLinkIndexer, v19, @"LPiTunesMediaSongMetadata");
-  v60 = objc_msgSend_initWithOGType_indexer_(v18, v20, @"music.song", v61);
-  v75[6] = v60;
-  v74[7] = @"music.album";
-  v21 = [_IMDOpenGraphSpotlightMappingInfo alloc];
-  v59 = objc_msgSend__indexerForClassName_(IMDCoreSpotlightRichLinkIndexer, v22, @"LPiTunesMediaAlbumMetadata");
-  v58 = objc_msgSend_initWithOGType_indexer_(v21, v23, @"music.album", v59);
-  v75[7] = v58;
-  v74[8] = @"music.playlist";
-  v24 = [_IMDOpenGraphSpotlightMappingInfo alloc];
-  v57 = objc_msgSend__indexerForClassName_(IMDCoreSpotlightRichLinkIndexer, v25, @"LPiTunesMediaPlaylistMetadata");
-  v56 = objc_msgSend_initWithOGType_indexer_(v24, v26, @"music.playlist", v57);
-  v75[8] = v56;
-  v74[9] = @"music.radio_station";
-  v27 = [_IMDOpenGraphSpotlightMappingInfo alloc];
-  v55 = objc_msgSend__indexerForClassName_(IMDCoreSpotlightRichLinkIndexer, v28, @"LPiTunesMediaRadioMetadata");
-  v30 = objc_msgSend_initWithOGType_indexer_(v27, v29, @"music.radio_station", v55);
-  v75[9] = v30;
-  v74[10] = @"video.other";
-  v31 = [_IMDOpenGraphSpotlightMappingInfo alloc];
-  v33 = objc_msgSend__indexerForClassName_(IMDCoreSpotlightRichLinkIndexer, v32, @"LPiTunesMediaMovieMetadata");
-  v35 = objc_msgSend_initWithOGType_indexer_(v31, v34, @"video.other", v33);
-  v75[10] = v35;
-  v74[11] = @"article";
-  v36 = [_IMDOpenGraphSpotlightMappingInfo alloc];
-  v38 = objc_msgSend__indexerForClassName_(IMDCoreSpotlightRichLinkIndexer, v37, @"LPAppleNewsMetadata");
-  v40 = objc_msgSend_initWithOGType_indexer_(v36, v39, @"article", v38);
-  v75[11] = v40;
-  v74[12] = @"book";
-  v41 = [_IMDOpenGraphSpotlightMappingInfo alloc];
-  v42 = *MEMORY[0x1E6963B38];
-  v44 = objc_msgSend_initWithOGType_prefix_linkType_linkSubType_(v41, v43, @"book", @"book", *MEMORY[0x1E6963B38], @"book");
-  v75[12] = v44;
-  v74[13] = @"profile";
-  v45 = [_IMDOpenGraphSpotlightMappingInfo alloc];
-  v47 = objc_msgSend_initWithOGType_prefix_linkType_linkSubType_(v45, v46, @"profile", @"profile", v42, @"profile");
-  v75[13] = v47;
-  v74[14] = @"recipe";
-  v48 = [_IMDOpenGraphSpotlightMappingInfo alloc];
-  v50 = objc_msgSend_initWithOGType_prefix_linkType_linkSubType_(v48, v49, @"recipe", @"recipe", v42, @"recipe");
-  v75[14] = v50;
-  v52 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v51, v75, v74, 15);
-  v53 = qword_1EBA54250;
-  qword_1EBA54250 = v52;
-
-  v54 = *MEMORY[0x1E69E9840];
-}
-
-Class sub_1B7BBFDF0(uint64_t a1, const char *a2, uint64_t a3)
-{
-  sub_1B7BBFE48(a1, a2, a3);
-  result = objc_getClass("LPiTunesMediaSongMetadata");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  if (!*(*(*(a1 + 32) + 8) + 24))
-  {
-    sub_1B7CFA8CC(result, v5, v6);
-  }
-
-  qword_1EBA54260 = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-void sub_1B7BBFE48(uint64_t a1, const char *a2, uint64_t a3)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 0;
-  if (!qword_1EBA54268)
-  {
-    v4[1] = MEMORY[0x1E69E9820];
-    v4[2] = 3221225472;
-    v4[3] = sub_1B7BBFF3C;
-    v4[4] = &unk_1E7CB6A70;
-    v4[5] = v4;
-    v5 = xmmword_1E7CBC220;
-    v6 = 0;
-    qword_1EBA54268 = _sl_dlopen();
-  }
-
-  if (!qword_1EBA54268)
-  {
-    sub_1B7CFA948(v4, a2, a3);
-  }
-
-  if (v4[0])
-  {
-    free(v4[0]);
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-uint64_t sub_1B7BBFF3C(uint64_t a1)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  result = _sl_dlopen();
-  qword_1EBA54268 = result;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-Class sub_1B7BBFFB0(uint64_t a1, const char *a2, uint64_t a3)
-{
-  sub_1B7BBFE48(a1, a2, a3);
-  result = objc_getClass("LPiTunesMediaAlbumMetadata");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  if (!*(*(*(a1 + 32) + 8) + 24))
-  {
-    sub_1B7CFA9C8(result, v5, v6);
-  }
-
-  qword_1EBA54270 = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-Class sub_1B7BC0008(uint64_t a1, const char *a2, uint64_t a3)
-{
-  sub_1B7BBFE48(a1, a2, a3);
-  result = objc_getClass("LPiTunesMediaArtistMetadata");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  if (!*(*(*(a1 + 32) + 8) + 24))
-  {
-    sub_1B7CFAA44(result, v5, v6);
-  }
-
-  qword_1EBA54278 = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-Class sub_1B7BC0060(uint64_t a1, const char *a2, uint64_t a3)
-{
-  sub_1B7BBFE48(a1, a2, a3);
-  result = objc_getClass("LPiTunesMediaMusicVideoMetadata");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  if (!*(*(*(a1 + 32) + 8) + 24))
-  {
-    sub_1B7CFAAC0(result, v5, v6);
-  }
-
-  qword_1EBA54280 = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-Class sub_1B7BC00B8(uint64_t a1, const char *a2, uint64_t a3)
-{
-  sub_1B7BBFE48(a1, a2, a3);
-  result = objc_getClass("LPiTunesMediaPodcastEpisodeMetadata");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  if (!*(*(*(a1 + 32) + 8) + 24))
-  {
-    sub_1B7CFAB3C(result, v5, v6);
-  }
-
-  qword_1EBA54288 = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-Class sub_1B7BC0110(uint64_t a1, const char *a2, uint64_t a3)
-{
-  sub_1B7BBFE48(a1, a2, a3);
-  result = objc_getClass("LPiTunesMediaPodcastMetadata");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  if (!*(*(*(a1 + 32) + 8) + 24))
-  {
-    sub_1B7CFABB8(result, v5, v6);
-  }
-
-  qword_1EBA54290 = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-Class sub_1B7BC0168(uint64_t a1, const char *a2, uint64_t a3)
-{
-  sub_1B7BBFE48(a1, a2, a3);
-  result = objc_getClass("LPiTunesMediaTVEpisodeMetadata");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  if (!*(*(*(a1 + 32) + 8) + 24))
-  {
-    sub_1B7CFAC34(result, v5, v6);
-  }
-
-  qword_1EBA54298 = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-Class sub_1B7BC01C0(uint64_t a1, const char *a2, uint64_t a3)
-{
-  sub_1B7BBFE48(a1, a2, a3);
-  result = objc_getClass("LPiTunesMediaTVSeasonMetadata");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  if (!*(*(*(a1 + 32) + 8) + 24))
-  {
-    sub_1B7CFACB0(result, v5, v6);
-  }
-
-  qword_1EBA542A0 = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-Class sub_1B7BC0218(uint64_t a1, const char *a2, uint64_t a3)
-{
-  sub_1B7BBFE48(a1, a2, a3);
-  result = objc_getClass("LPiTunesMediaPlaylistMetadata");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  if (!*(*(*(a1 + 32) + 8) + 24))
-  {
-    sub_1B7CFAD2C(result, v5, v6);
-  }
-
-  qword_1EBA542A8 = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-Class sub_1B7BC0270(uint64_t a1, const char *a2, uint64_t a3)
-{
-  sub_1B7BBFE48(a1, a2, a3);
-  result = objc_getClass("LPiTunesMediaMovieMetadata");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  if (!*(*(*(a1 + 32) + 8) + 24))
-  {
-    sub_1B7CFADA8(result, v5, v6);
-  }
-
-  qword_1EBA542B0 = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-Class sub_1B7BC02C8(uint64_t a1, const char *a2, uint64_t a3)
-{
-  sub_1B7BBFE48(a1, a2, a3);
-  result = objc_getClass("LPiTunesMediaMovieBundleMetadata");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  if (!*(*(*(a1 + 32) + 8) + 24))
-  {
-    sub_1B7CFAE24(result, v5, v6);
-  }
-
-  qword_1EBA542B8 = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-Class sub_1B7BC0320(uint64_t a1, const char *a2, uint64_t a3)
-{
-  sub_1B7BBFE48(a1, a2, a3);
-  result = objc_getClass("LPiTunesMediaRadioMetadata");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  if (!*(*(*(a1 + 32) + 8) + 24))
-  {
-    sub_1B7CFAEA0(result, v5, v6);
-  }
-
-  qword_1EBA542C0 = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-Class sub_1B7BC0378(uint64_t a1, const char *a2, uint64_t a3)
-{
-  sub_1B7BBFE48(a1, a2, a3);
-  result = objc_getClass("LPAppleTVMetadata");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  if (!*(*(*(a1 + 32) + 8) + 24))
-  {
-    sub_1B7CFAF1C(result, v5, v6);
-  }
-
-  qword_1EBA542C8 = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-Class sub_1B7BC03D0(uint64_t a1, const char *a2, uint64_t a3)
-{
-  sub_1B7BBFE48(a1, a2, a3);
-  result = objc_getClass("LPAppleNewsMetadata");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  if (!*(*(*(a1 + 32) + 8) + 24))
-  {
-    sub_1B7CFAF98(result, v5, v6);
-  }
-
-  qword_1EBA542D0 = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-Class sub_1B7BC0428(uint64_t a1, const char *a2, uint64_t a3)
-{
-  sub_1B7BBFE48(a1, a2, a3);
-  result = objc_getClass("LPMapMetadata");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  if (!*(*(*(a1 + 32) + 8) + 24))
-  {
-    sub_1B7CFB014(result, v5, v6);
-  }
-
-  qword_1EBA542D8 = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-Class sub_1B7BC0480(uint64_t a1, const char *a2, uint64_t a3)
-{
-  sub_1B7BBFE48(a1, a2, a3);
-  result = objc_getClass("LPLinkMetadataPresentationTransformer");
-  *(*(*(a1 + 32) + 8) + 24) = result;
-  if (!*(*(*(a1 + 32) + 8) + 24))
-  {
-    sub_1B7CFB090(result, v5, v6);
-  }
-
-  qword_1EBA542E0 = *(*(*(a1 + 32) + 8) + 24);
-  return result;
-}
-
-void sub_1B7BC1284(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, id location, int a28, __int16 a29, uint64_t a30)
-{
-  if (a2 == 1)
-  {
-    objc_begin_catch(exception_object);
-    objc_end_catch();
-    JUMPOUT(0x1B7BC1214);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1B7BC1404(uint64_t a1)
-{
-  v11 = *MEMORY[0x1E69E9840];
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
-  objc_msgSend_stopMainTimerAndLogAfterFailure(WeakRetained, v3, v4);
-
-  if (IMOSLoggingEnabled())
-  {
-    v5 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
-    {
-      v8 = objc_msgSend_messageGUID(*(a1 + 32), v6, v7);
-      v9 = 138412290;
-      v10 = v8;
-      _os_log_impl(&dword_1B7AD5000, v5, OS_LOG_TYPE_INFO, "Timed out indexing %@, likely have a hung thread, exiting!", &v9, 0xCu);
-    }
-  }
-
-  exit(1);
-}
-
-uint64_t sub_1B7BC1A24(void *a1)
-{
-  v1 = a1;
-  if (IMDSpotlightIndexingUsesPartialIndexersForIndexingContext(v1, v2, v3))
-  {
-    v6 = 1;
-  }
-
-  else
-  {
-    v6 = IMDSpotlightIndexingIncludesTextContentForIndexingContext(v1, v4, v5) ^ 1;
-  }
-
-  return v6;
-}
-
-void sub_1B7BC3238(uint64_t a1, uint64_t a2, void *a3)
-{
-  v5 = *(a1 + 32);
-  v8 = a3;
-  objc_msgSend_addObjectsFromArray_(v5, v6, a2);
-  objc_msgSend_addObjectsFromArray_(*(a1 + 40), v7, v8);
-}
-
-void sub_1B7BC35F4(uint64_t a1, void *a2)
-{
-  v23 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = v3;
-  if (v3)
-  {
-    v5 = IMDIndexingErrorRequestWasDeferred(v3);
-    v6 = IMLogHandleForCategory();
-    v7 = v6;
-    if (v5)
-    {
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
-      {
-        v10 = objc_msgSend_messageGUIDs(*(a1 + 32), v8, v9);
-        v21 = 134217984;
-        v22 = objc_msgSend_count(v10, v11, v12);
-        v13 = "%ld messages scheduled for indexing";
-LABEL_7:
-        _os_log_impl(&dword_1B7AD5000, v7, OS_LOG_TYPE_INFO, v13, &v21, 0xCu);
-      }
-    }
-
-    else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      sub_1B7CFB10C(a1, v4, v7);
-    }
-  }
-
-  else
-  {
-    v7 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-    {
-      v10 = objc_msgSend_messageGUIDs(*(a1 + 32), v14, v15);
-      v21 = 134217984;
-      v22 = objc_msgSend_count(v10, v16, v17);
-      v13 = "Finished index %ld messages due to selective reindexing request";
-      goto LABEL_7;
-    }
-  }
-
-  objc_msgSend__leaveGroup(*(a1 + 32), v18, v19);
-  v20 = *MEMORY[0x1E69E9840];
-}
-
-void sub_1B7BC3900(uint64_t a1, void *a2)
-{
-  v23 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  v4 = v3;
-  if (v3)
-  {
-    v5 = IMDIndexingErrorRequestWasDeferred(v3);
-    v6 = IMLogHandleForCategory();
-    v7 = v6;
-    if (v5)
-    {
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
-      {
-        v10 = objc_msgSend_chatGUIDs(*(a1 + 32), v8, v9);
-        v21 = 134217984;
-        v22 = objc_msgSend_count(v10, v11, v12);
-        v13 = "%ld chats scheduled for indexing";
-LABEL_7:
-        _os_log_impl(&dword_1B7AD5000, v7, OS_LOG_TYPE_INFO, v13, &v21, 0xCu);
-      }
-    }
-
-    else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      sub_1B7CFB1A4(a1, v4, v7);
-    }
-  }
-
-  else
-  {
-    v7 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-    {
-      v10 = objc_msgSend_chatGUIDs(*(a1 + 32), v14, v15);
-      v21 = 134217984;
-      v22 = objc_msgSend_count(v10, v16, v17);
-      v13 = "Finished index %ld chats due to selective reindexing request";
-      goto LABEL_7;
-    }
-  }
-
-  objc_msgSend__leaveGroup(*(a1 + 32), v18, v19);
-  v20 = *MEMORY[0x1E69E9840];
-}
-
 void sub_1B7BC69E0()
 {
   v0 = objc_alloc_init(IMDSpotlightQueryProvider);
@@ -959,46 +7,46 @@ void sub_1B7BC69E0()
 
 void sub_1B7BC6CB0(void *a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v9 = objc_msgSend_domain(v6, v7, v8);
-  if (objc_msgSend_isEqualToString_(v9, v10, *MEMORY[0x1E6963AD8]))
+  v10 = objc_msgSend_domain(v6, v7, v8, v9);
+  if (objc_msgSend_isEqualToString_(v10, v11, *MEMORY[0x1E6963AD8], v12))
   {
-    v13 = objc_msgSend_code(v6, v11, v12);
+    v16 = objc_msgSend_code(v6, v13, v14, v15);
 
-    if (v13 == -1003)
+    if (v16 == -1003)
     {
       if (IMOSLoggingEnabled())
       {
-        v16 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+        v20 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
-          v17 = a1[6];
+          v21 = a1[6];
           *buf = 134218498;
-          v33 = v17;
-          v34 = 1024;
-          v35 = 5;
-          v36 = 2112;
-          v37 = v6;
-          _os_log_impl(&dword_1B7AD5000, v16, OS_LOG_TYPE_INFO, "Error getting client state (attempt %lld/%d): %@", buf, 0x1Cu);
+          v36 = v21;
+          v37 = 1024;
+          v38 = 5;
+          v39 = 2112;
+          v40 = v6;
+          _os_log_impl(&dword_1B7AD5000, v20, OS_LOG_TYPE_INFO, "Error getting client state (attempt %lld/%d): %@", buf, 0x1Cu);
         }
       }
 
-      v18 = dispatch_time(0, 5000000000);
-      v19 = IMDIndexingClientRequestQueue();
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = sub_1B7BC6FC4;
-      v28[3] = &unk_1E7CBB4B0;
-      v28[4] = a1[4];
-      v20 = v6;
-      v22 = a1[5];
-      v21 = a1[6];
-      v29 = v20;
-      v31 = v21;
-      v30 = v22;
-      dispatch_after(v18, v19, v28);
+      v22 = dispatch_time(0, 5000000000);
+      v23 = IMDIndexingClientRequestQueue(v22);
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = sub_1B7BC6FC4;
+      v31[3] = &unk_1E7CBB4B0;
+      v31[4] = a1[4];
+      v24 = v6;
+      v26 = a1[5];
+      v25 = a1[6];
+      v32 = v24;
+      v34 = v25;
+      v33 = v26;
+      dispatch_after(v22, v23, v31);
 
       goto LABEL_20;
     }
@@ -1008,87 +56,85 @@ void sub_1B7BC6CB0(void *a1, void *a2, void *a3)
   {
   }
 
-  v23 = objc_msgSend_length(v5, v14, v15);
-  v24 = IMOSLoggingEnabled();
-  if (v23)
+  v27 = objc_msgSend_length(v5, v17, v18, v19);
+  v28 = IMOSLoggingEnabled();
+  if (v27)
   {
-    if (v24)
+    if (v28)
     {
-      v25 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      v29 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1B7AD5000, v25, OS_LOG_TYPE_INFO, "Spotlight client state exists", buf, 2u);
+        _os_log_impl(&dword_1B7AD5000, v29, OS_LOG_TYPE_INFO, "Spotlight client state exists", buf, 2u);
       }
     }
   }
 
-  else if (v24)
+  else if (v28)
   {
-    v26 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+    v30 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B7AD5000, v26, OS_LOG_TYPE_INFO, "Spotlight client state is empty!", buf, 2u);
+      _os_log_impl(&dword_1B7AD5000, v30, OS_LOG_TYPE_INFO, "Spotlight client state is empty!", buf, 2u);
     }
   }
 
   (*(a1[5] + 16))();
 LABEL_20:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t sub_1B7BC6FC4(void *a1)
+void sub_1B7BC7108(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v1 = a1[6];
-  v2 = a1[7] + 1;
-  return MEMORY[0x1EEE66B58](a1[4], sel__validateSpotlightClientStateWithLastError_attempts_completion_, a1[5]);
+  v7 = objc_msgSend_sharedManager(IMDSpotlightClientStateManager, a2, a3, a4);
+  objc_msgSend__currentClientStateWithCompletion_(v7, v5, *(a1 + 32), v6);
 }
 
-void sub_1B7BC7108(uint64_t a1, const char *a2, uint64_t a3)
+void sub_1B7BC71EC(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v5 = objc_msgSend_sharedManager(IMDSpotlightClientStateManager, a2, a3);
-  objc_msgSend__currentClientStateWithCompletion_(v5, v4, *(a1 + 32));
-}
+  v5 = objc_msgSend_sharedManager(IMDSpotlightClientStateManager, a2, a3, a4);
+  v20 = 0;
+  v8 = objc_msgSend_currentClientStateWithError_(v5, v6, &v20, v7);
+  v9 = v20;
 
-void sub_1B7BC71EC(uint64_t a1, const char *a2, uint64_t a3)
-{
-  v4 = objc_msgSend_sharedManager(IMDSpotlightClientStateManager, a2, a3);
-  v15 = 0;
-  v6 = objc_msgSend_currentClientStateWithError_(v4, v5, &v15);
-  v7 = v15;
-
-  if (!v7)
+  if (!v9)
   {
-    objc_msgSend_setIndexRevision_(v6, v8, 0);
-    objc_msgSend_setIndexVersion_(v6, v9, 0);
-    v12 = objc_msgSend_sharedManager(IMDSpotlightClientStateManager, v10, v11);
-    v14 = 0;
-    objc_msgSend_saveClientState_withError_(v12, v13, v6, &v14);
-    v7 = v14;
+    objc_msgSend_setIndexRevision_(v8, v10, 0, v11);
+    objc_msgSend_setIndexVersion_(v8, v12, 0, v13);
+    v17 = objc_msgSend_sharedManager(IMDSpotlightClientStateManager, v14, v15, v16);
+    v19 = 0;
+    objc_msgSend_saveClientState_withError_(v17, v18, v8, &v19);
+    v9 = v19;
   }
 
   (*(*(a1 + 32) + 16))();
 }
 
-void sub_1B7BC74D0(uint64_t a1, const char *a2, uint64_t a3)
+void sub_1B7BC74D0(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = objc_msgSend_sharedInstance(MEMORY[0x1E69A60F0], a2, a3);
-  isInternalInstall = objc_msgSend_isInternalInstall(v3, v4, v5);
+  v4 = objc_msgSend_sharedInstance(MEMORY[0x1E69A60F0], a2, a3, a4);
+  isInternalInstall = objc_msgSend_isInternalInstall(v4, v5, v6, v7);
 
   if (isInternalInstall)
   {
-    v7 = objc_alloc_init(IMSpotlightEventNotifier);
-    v8 = qword_1EDBE5C30;
-    qword_1EDBE5C30 = v7;
+    v9 = objc_alloc_init(IMSpotlightEventNotifier);
+    v10 = qword_1EDBE5C30;
+    qword_1EDBE5C30 = v9;
   }
+}
+
+void sub_1B7BC82B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_1B7BC82E4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = IMDIndexingClientRequestQueue();
+  v4 = IMDIndexingClientRequestQueue(v3);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = sub_1B7BC83B8;
@@ -1102,88 +148,86 @@ void sub_1B7BC82E4(uint64_t a1, void *a2)
   dispatch_async(v4, block);
 }
 
-void sub_1B7BC83B8(uint64_t a1, const char *a2)
+void sub_1B7BC83B8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = *(a1 + 32);
-  if (v3)
+  v5 = *(a1 + 32);
+  if (v5)
   {
-    objc_msgSend_addObject_(*(*(*(a1 + 64) + 8) + 40), a2, v3);
+    objc_msgSend_addObject_(*(*(*(a1 + 64) + 8) + 40), a2, v5, a4);
   }
 
-  objc_msgSend_removeObject_(*(a1 + 40), a2, *(a1 + 48));
-  v6 = objc_msgSend_group(*(a1 + 56), v4, v5);
-  dispatch_group_leave(v6);
+  objc_msgSend_removeObject_(*(a1 + 40), a2, *(a1 + 48), a4);
+  v9 = objc_msgSend_group(*(a1 + 56), v6, v7, v8);
+  dispatch_group_leave(v9);
 }
 
-void sub_1B7BC8428(uint64_t a1, const char *a2, uint64_t a3)
+void sub_1B7BC8428(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = a2;
-  v43[2] = *MEMORY[0x1E69E9840];
-  v5 = objc_msgSend_timing(*(a1 + 32), a2, a3);
-  objc_msgSend_stopTimingForKey_(v5, v6, @"total time for indexing messages");
+  v4 = a2;
+  v53[2] = *MEMORY[0x1E69E9840];
+  v6 = objc_msgSend_timing(*(a1 + 32), a2, a3, a4);
+  objc_msgSend_stopTimingForKey_(v6, v7, @"total time for indexing messages", v8);
 
-  if (v3)
+  if (v4)
   {
-    v9 = objc_msgSend_allObjects(*(a1 + 40), v7, v8);
-    v11 = objc_msgSend__classNamesOfObjects_(_IMDAggregateMessageIndexingJob, v10, v9);
+    v12 = objc_msgSend_allObjects(*(a1 + 40), v9, v10, v11);
+    v15 = objc_msgSend__classNamesOfObjects_(_IMDAggregateMessageIndexingJob, v13, v12, v14);
 
-    v12 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v16 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CFB5BC(v11, v12);
+      sub_1B7CFB5BC(v15, v16, v17, v18);
     }
 
-    if (!objc_msgSend_count(*(*(*(a1 + 56) + 8) + 40), v13, v14))
+    if (!objc_msgSend_count(*(*(*(a1 + 56) + 8) + 40), v19, v20, v21))
     {
-      v15 = *(*(*(a1 + 56) + 8) + 40);
-      v17 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v18 = *MEMORY[0x1E69A7C30];
-      v42[0] = *MEMORY[0x1E696A278];
-      v42[1] = @"_IMDIndexingUnfinishedJobs";
-      v19 = MEMORY[0x1E695E0F0];
-      if (v11)
+      v22 = *(*(*(a1 + 56) + 8) + 40);
+      v24 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v25 = *MEMORY[0x1E69A7C30];
+      v52[0] = *MEMORY[0x1E696A278];
+      v52[1] = @"_IMDIndexingUnfinishedJobs";
+      v26 = MEMORY[0x1E695E0F0];
+      if (v15)
       {
-        v19 = v11;
+        v26 = v15;
       }
 
-      v43[0] = @"Indexing timed out.";
-      v43[1] = v19;
-      v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v16, v43, v42, 2);
-      v22 = objc_msgSend_initWithDomain_code_userInfo_(v17, v21, v18, 2, v20);
-      objc_msgSend_addObject_(v15, v23, v22);
+      v53[0] = @"Indexing timed out.";
+      v53[1] = v26;
+      v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v23, v53, v52, 2);
+      v29 = objc_msgSend_initWithDomain_code_userInfo_(v24, v28, v25, 2, v27);
+      objc_msgSend_addObject_(v22, v30, v29, v31);
     }
   }
 
   else if (IMOSLoggingEnabled())
   {
-    v26 = OSLogHandleForIMEventCategory();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+    v35 = OSLogHandleForIMEventCategory();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
     {
-      v29 = objc_msgSend_timing(*(a1 + 32), v27, v28);
+      v39 = objc_msgSend_timing(*(a1 + 32), v36, v37, v38);
       *buf = 138412290;
-      v41 = v29;
-      _os_log_impl(&dword_1B7AD5000, v26, OS_LOG_TYPE_INFO, "Done indexing messages, time: %@", buf, 0xCu);
+      v51 = v39;
+      _os_log_impl(&dword_1B7AD5000, v35, OS_LOG_TYPE_INFO, "Done indexing messages, time: %@", buf, 0xCu);
     }
   }
 
-  if (objc_msgSend_count(*(*(*(a1 + 56) + 8) + 40), v24, v25) < 2)
+  if (objc_msgSend_count(*(*(*(a1 + 56) + 8) + 40), v32, v33, v34) < 2)
   {
-    v36 = objc_msgSend_firstObject(*(*(*(a1 + 56) + 8) + 40), v30, v31);
+    v47 = objc_msgSend_firstObject(*(*(*(a1 + 56) + 8) + 40), v40, v41, v42);
   }
 
   else
   {
-    v32 = MEMORY[0x1E696ABC0];
-    v33 = *(*(*(a1 + 56) + 8) + 40);
-    v38 = *MEMORY[0x1E696A750];
-    v39 = v33;
-    v34 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v30, &v39, &v38, 1);
-    v36 = objc_msgSend_errorWithDomain_code_userInfo_(v32, v35, @"IMDIndexingErrorDomain", 2, v34);
+    v43 = MEMORY[0x1E696ABC0];
+    v44 = *(*(*(a1 + 56) + 8) + 40);
+    v48 = *MEMORY[0x1E696A750];
+    v49 = v44;
+    v45 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v40, &v49, &v48, 1);
+    v47 = objc_msgSend_errorWithDomain_code_userInfo_(v43, v46, @"IMDIndexingErrorDomain", 2, v45);
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1B7BC8A94(uint64_t a1, void *a2, void *a3)
@@ -1191,9 +235,9 @@ void sub_1B7BC8A94(uint64_t a1, void *a2, void *a3)
   v5 = *(a1 + 32);
   v6 = a3;
   v7 = a2;
-  objc_msgSend_setProcessedAnything_(v5, v8, 1);
-  v12 = objc_msgSend_job(*(a1 + 32), v9, v10);
-  objc_msgSend_processMessageDictionary_chatDictionary_(v12, v11, v7, v6);
+  objc_msgSend_setProcessedAnything_(v5, v8, 1, v9);
+  v14 = objc_msgSend_job(*(a1 + 32), v10, v11, v12);
+  objc_msgSend_processMessageDictionary_chatDictionary_(v14, v13, v7, v6);
 }
 
 void sub_1B7BC9584()
@@ -1211,77 +255,75 @@ void sub_1B7BC97F0()
   qword_1EDBE5BA0 = v0;
 }
 
-void sub_1B7BC995C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B7BC995C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B7BC9974(uint64_t a1, const char *a2, uint64_t a3)
+void sub_1B7BC9974(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = objc_msgSend_copy(*(*(a1 + 32) + 8), a2, a3);
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  v5 = objc_msgSend_copy(*(*(a1 + 32) + 8), a2, a3, a4);
+  v6 = *(*(a1 + 40) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v5;
 }
 
-void sub_1B7BC9B2C(uint64_t a1, const char *a2)
+void sub_1B7BC9B2C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  objc_msgSend_addObject_(*(*(a1 + 32) + 8), a2, *(a1 + 40));
-  v5 = objc_msgSend_array(*(*(a1 + 32) + 8), v3, v4);
+  objc_msgSend_addObject_(*(*(a1 + 32) + 8), a2, *(a1 + 40), a4);
+  v8 = objc_msgSend_array(*(*(a1 + 32) + 8), v5, v6, v7);
   IMSetDomainValueForKey();
 }
 
-void sub_1B7BC9D0C(uint64_t a1, const char *a2)
+void sub_1B7BC9D0C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  objc_msgSend_removeObject_(*(*(a1 + 32) + 8), a2, *(a1 + 40));
-  v5 = objc_msgSend_array(*(*(a1 + 32) + 8), v3, v4);
-  v8 = objc_msgSend_count(v5, v6, v7);
-  if (v8 < 0xC9)
+  v24 = *MEMORY[0x1E69E9840];
+  objc_msgSend_removeObject_(*(*(a1 + 32) + 8), a2, *(a1 + 40), a4);
+  v8 = objc_msgSend_array(*(*(a1 + 32) + 8), v5, v6, v7);
+  v12 = objc_msgSend_count(v8, v9, v10, v11);
+  if (v12 < 0xC9)
   {
-    v12 = v5;
+    v16 = v8;
   }
 
   else
   {
-    v9 = v8;
+    v13 = v12;
     if (IMOSLoggingEnabled())
     {
-      v11 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v15 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        v19[0] = 67109120;
-        v19[1] = 200;
-        _os_log_impl(&dword_1B7AD5000, v11, OS_LOG_TYPE_INFO, "Blocklist size > %d on load, truncating", v19, 8u);
+        v23[0] = 67109120;
+        v23[1] = 200;
+        _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, "Blocklist size > %d on load, truncating", v23, 8u);
       }
     }
 
-    v12 = objc_msgSend_subarrayWithRange_(v5, v10, v9 - 200, 200);
+    v16 = objc_msgSend_subarrayWithRange_(v8, v14, v13 - 200, 200);
 
-    v13 = objc_alloc(MEMORY[0x1E695DFA0]);
-    v15 = objc_msgSend_initWithArray_(v13, v14, v12);
-    v16 = *(a1 + 32);
-    v17 = *(v16 + 8);
-    *(v16 + 8) = v15;
+    v17 = objc_alloc(MEMORY[0x1E695DFA0]);
+    v20 = objc_msgSend_initWithArray_(v17, v18, v16, v19);
+    v21 = *(a1 + 32);
+    v22 = *(v21 + 8);
+    *(v21 + 8) = v20;
   }
 
   IMSetDomainValueForKey();
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1B7BC9F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B7BC9F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1B7BC9F78(void *a1, const char *a2)
+void *sub_1B7BC9F78(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  result = objc_msgSend_containsObject_(*(a1[4] + 8), a2, a1[5]);
+  result = objc_msgSend_containsObject_(*(a1[4] + 8), a2, a1[5], a4);
   *(*(a1[6] + 8) + 24) = result;
   return result;
 }
@@ -1300,22 +342,20 @@ void sub_1B7BC9FC8()
 
 void sub_1B7BCA494(uint64_t a1, void *a2, void *a3)
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   v5 = a2;
-  v7 = a3;
-  if (*(a1 + 48) != 1 || (objc_msgSend_objectForKeyedSubscript_(v5, v6, @"attachments"), v8 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend_count(v8, v9, v10), v8, v11))
+  v8 = a3;
+  if (*(a1 + 48) != 1 || (objc_msgSend_objectForKeyedSubscript_(v5, v6, @"attachments", v7), v9 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend_count(v9, v10, v11, v12), v9, v13))
   {
     if ((*(*(a1 + 40) + 16))())
     {
-      v13 = *(a1 + 32);
-      v17[0] = v5;
-      v17[1] = v7;
-      v14 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v12, v17, 2);
-      objc_msgSend_addObject_(v13, v15, v14);
+      v15 = *(a1 + 32);
+      v19[0] = v5;
+      v19[1] = v8;
+      v16 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v14, v19, 2);
+      objc_msgSend_addObject_(v15, v17, v16, v18);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1B7BCA5DC()
@@ -1325,26 +365,26 @@ void sub_1B7BCA5DC()
   qword_1EBA53AB8 = v0;
 }
 
-void sub_1B7BCA80C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B7BCA80C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1B7BCA828(uint64_t a1, const char *a2, uint64_t a3)
+void *sub_1B7BCA828(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  result = objc_msgSend__isThrottled(*(a1 + 32), a2, a3);
+  result = objc_msgSend__isThrottled(*(a1 + 32), a2, a3, a4);
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-void sub_1B7BCA9E8(uint64_t a1, const char *a2, uint64_t a3)
+void sub_1B7BCA9E8(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  *(*(*(a1 + 48) + 8) + 24) = objc_msgSend__isThrottled(*(a1 + 32), a2, a3);
-  v4 = *(a1 + 40);
+  *(*(*(a1 + 48) + 8) + 24) = objc_msgSend__isThrottled(*(a1 + 32), a2, a3, a4);
+  v5 = *(a1 + 40);
 
-  dispatch_group_leave(v4);
+  dispatch_group_leave(v5);
 }
 
 uint64_t sub_1B7BCAA30(uint64_t a1)
@@ -1355,40 +395,37 @@ uint64_t sub_1B7BCAA30(uint64_t a1)
     sub_1B7CFB774(a1, v2);
   }
 
-  v3 = *(*(*(a1 + 40) + 8) + 24);
   return (*(*(a1 + 32) + 16))();
 }
 
 void sub_1B7BCB274(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  objc_msgSend_timeIntervalSinceDate_(v6, v7, *(a1 + 32));
-  if (v8 <= 0.0)
+  objc_msgSend_timeIntervalSinceDate_(v6, v7, *(a1 + 32), v8);
+  if (v9 <= 0.0)
   {
     if (IMOSLoggingEnabled())
     {
-      v10 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v12 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v12 = 138412546;
-        v13 = v5;
-        v14 = 2112;
-        v15 = v6;
-        _os_log_impl(&dword_1B7AD5000, v10, OS_LOG_TYPE_INFO, "Throttle for %@ expired at %@", &v12, 0x16u);
+        v13 = 138412546;
+        v14 = v5;
+        v15 = 2112;
+        v16 = v6;
+        _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_INFO, "Throttle for %@ expired at %@", &v13, 0x16u);
       }
     }
 
-    objc_msgSend_addObject_(*(a1 + 40), v9, v5);
+    objc_msgSend_addObject_(*(a1 + 40), v10, v5, v11);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1B7BCC230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1B7BCC230(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1397,141 +434,137 @@ void sub_1B7BCC264(uint64_t a1, uint64_t a2, void *a3)
 {
   v21 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v7 = objc_msgSend_objectForKeyedSubscript_(*(a1 + 32), v6, a2);
-  if (v7)
+  v8 = objc_msgSend_objectForKeyedSubscript_(*(a1 + 32), v6, a2, v7);
+  if (v8)
   {
     v18 = 0u;
     v19 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v8 = v5;
-    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v16, v20, 16);
-    if (v10)
+    v9 = v5;
+    v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v16, v20, 16);
+    if (v11)
     {
-      v12 = v10;
-      v13 = *v17;
+      v13 = v11;
+      v14 = *v17;
       do
       {
-        v14 = 0;
+        v15 = 0;
         do
         {
-          if (*v17 != v13)
+          if (*v17 != v14)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v9);
           }
 
-          objc_msgSend_setObject_forKeyedSubscript_(*(a1 + 40), v11, v7, *(*(&v16 + 1) + 8 * v14++), v16);
+          objc_msgSend_setObject_forKeyedSubscript_(*(a1 + 40), v12, v8, *(*(&v16 + 1) + 8 * v15++), v16);
         }
 
-        while (v12 != v14);
-        v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v16, v20, 16);
+        while (v13 != v15);
+        v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v16, v20, 16);
       }
 
-      while (v12);
+      while (v13);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1B7BCC544(uint64_t a1, const char *a2)
+void sub_1B7BCC544(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = *(a1 + 32);
-  v8 = objc_msgSend_arrayByApplyingSelector_(*(a1 + 40), a2, sel_guid);
-  v5 = objc_msgSend__loadChatDictionariesForMessagesWithGUIDs_(v3, v4, v8);
-  v6 = *(*(a1 + 48) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  v5 = *(a1 + 32);
+  v11 = objc_msgSend_arrayByApplyingSelector_(*(a1 + 40), a2, sel_guid, a4);
+  v8 = objc_msgSend__loadChatDictionariesForMessagesWithGUIDs_(v5, v6, v11, v7);
+  v9 = *(*(a1 + 48) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v8;
 }
 
 void sub_1B7BCC5BC(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
+  v32 = *MEMORY[0x1E69E9840];
   v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v2 = *(a1 + 32);
-  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v3, &v23, v28, 16);
+  v4 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v3, &v26, v31, 16);
   if (v4)
   {
-    v7 = v4;
-    v8 = *v24;
+    v8 = v4;
+    v9 = *v27;
     do
     {
-      v9 = 0;
+      v10 = 0;
       do
       {
-        if (*v24 != v8)
+        if (*v27 != v9)
         {
           objc_enumerationMutation(v2);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * v9);
-        if (!objc_msgSend_requiresAttachments(*(a1 + 40), v5, v6, v23) || objc_msgSend_cacheHasAttachments(v10, v5, v6))
+        v11 = *(*(&v26 + 1) + 8 * v10);
+        if (!objc_msgSend_requiresAttachments(*(a1 + 40), v5, v6, v7, v26) || objc_msgSend_cacheHasAttachments(v11, v5, v6, v7))
         {
-          v11 = *(*(*(a1 + 48) + 8) + 40);
-          v12 = objc_msgSend_guid(v10, v5, v6);
-          v14 = objc_msgSend_objectForKeyedSubscript_(v11, v13, v12);
+          v12 = *(*(*(a1 + 48) + 8) + 40);
+          v13 = objc_msgSend_guid(v11, v5, v6, v7);
+          v16 = objc_msgSend_objectForKeyedSubscript_(v12, v14, v13, v15);
 
-          if (v14)
+          if (v16)
           {
-            v17 = objc_msgSend_indexableDictionaries(*(a1 + 40), v15, v16);
-            v18 = IMCopyIndexableItemDictionaryForRecord(v10);
-            v27[0] = v18;
-            v27[1] = v14;
-            v20 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v19, v27, 2);
-            objc_msgSend_addObject_(v17, v21, v20);
+            v20 = objc_msgSend_indexableDictionaries(*(a1 + 40), v17, v18, v19);
+            v21 = IMCopyIndexableItemDictionaryForRecord(v11);
+            v30[0] = v21;
+            v30[1] = v16;
+            v23 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v22, v30, 2);
+            objc_msgSend_addObject_(v20, v24, v23, v25);
           }
         }
 
-        ++v9;
+        ++v10;
       }
 
-      while (v7 != v9);
-      v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v5, &v23, v28, 16);
+      while (v8 != v10);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v2, v5, &v26, v31, 16);
     }
 
-    while (v7);
+    while (v8);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1B7BCCA2C(uint64_t a1)
 {
-  v5 = (*(*(a1 + 40) + 16))();
-  if (objc_msgSend_count(v5, v2, v3))
+  v7 = (*(*(a1 + 40) + 16))();
+  if (objc_msgSend_count(v7, v2, v3, v4))
   {
-    objc_msgSend_addObjectsFromArray_(*(a1 + 32), v4, v5);
+    objc_msgSend_addObjectsFromArray_(*(a1 + 32), v5, v7, v6);
   }
 }
 
 void sub_1B7BCCB70()
 {
   v0 = objc_alloc(MEMORY[0x1E695E000]);
-  v2 = objc_msgSend_initWithSuiteName_(v0, v1, @"com.apple.IMCoreSpotlight");
-  v3 = qword_1EDBE5E90;
-  qword_1EDBE5E90 = v2;
+  v3 = objc_msgSend_initWithSuiteName_(v0, v1, @"com.apple.IMCoreSpotlight", v2);
+  v4 = qword_1EDBE5E90;
+  qword_1EDBE5E90 = v3;
 }
 
 BOOL IMDIndexingErrorRequestWasDeferred(void *a1)
 {
   v1 = a1;
-  v4 = objc_msgSend_domain(v1, v2, v3);
-  isEqualToString = objc_msgSend_isEqualToString_(v4, v5, @"IMDIndexingErrorDomain");
+  v5 = objc_msgSend_domain(v1, v2, v3, v4);
+  isEqualToString = objc_msgSend_isEqualToString_(v5, v6, @"IMDIndexingErrorDomain", v7);
 
   if (isEqualToString)
   {
-    v9 = ((objc_msgSend_code(v1, v7, v8) - 3) & 0xFFFFFFFFFFFFFFFDLL) == 0;
+    v12 = ((objc_msgSend_code(v1, v9, v10, v11) - 3) & 0xFFFFFFFFFFFFFFFDLL) == 0;
   }
 
   else
   {
-    v9 = 0;
+    v12 = 0;
   }
 
-  return v9;
+  return v12;
 }
 
 void sub_1B7BCD548()
@@ -1543,11 +576,11 @@ void sub_1B7BCD548()
 
 void sub_1B7BCDA8C(uint64_t a1, void *a2)
 {
-  v5 = a2;
-  if (v5)
+  v6 = a2;
+  if (v6)
   {
     objc_msgSend__deferGUIDs_forFlag_context_(*(a1 + 32), v3, *(a1 + 40), *(a1 + 64), *(a1 + 48));
-    objc_msgSend__beginThrottlingDueToIndexError_(*(a1 + 32), v4, v5);
+    objc_msgSend__beginThrottlingDueToIndexError_(*(a1 + 32), v4, v6, v5);
   }
 
   (*(*(a1 + 56) + 16))();
@@ -1601,52 +634,50 @@ void sub_1B7BCDFF8(uint64_t a1, void *a2)
   dispatch_async(v4, block);
 }
 
-void sub_1B7BCE0C0(void *a1, const char *a2)
+void sub_1B7BCE0C0(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = a1[4];
-  if (v3)
+  v5 = a1[4];
+  if (v5)
   {
-    v4 = *(*(a1[6] + 8) + 40);
-    if (!v4)
+    v6 = *(*(a1[6] + 8) + 40);
+    if (!v6)
     {
-      v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v6 = *(a1[6] + 8);
-      v7 = *(v6 + 40);
-      *(v6 + 40) = v5;
+      v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v8 = *(a1[6] + 8);
+      v9 = *(v8 + 40);
+      *(v8 + 40) = v7;
 
-      v4 = *(*(a1[6] + 8) + 40);
-      v3 = a1[4];
+      v6 = *(*(a1[6] + 8) + 40);
+      v5 = a1[4];
     }
 
-    objc_msgSend_addObject_(v4, a2, v3);
+    objc_msgSend_addObject_(v6, a2, v5, a4);
   }
 
-  v8 = a1[5];
+  v10 = a1[5];
 
-  dispatch_group_leave(v8);
+  dispatch_group_leave(v10);
 }
 
-void sub_1B7BCE140(uint64_t a1, const char *a2, uint64_t a3)
+void sub_1B7BCE140(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
-  if (objc_msgSend_count(*(*(*(a1 + 40) + 8) + 40), a2, a3) < 2)
+  v14[1] = *MEMORY[0x1E69E9840];
+  if (objc_msgSend_count(*(*(*(a1 + 40) + 8) + 40), a2, a3, a4) < 2)
   {
-    v10 = objc_msgSend_firstObject(*(*(*(a1 + 40) + 8) + 40), v4, v5);
+    v12 = objc_msgSend_firstObject(*(*(*(a1 + 40) + 8) + 40), v5, v6, v7);
   }
 
   else
   {
-    v6 = MEMORY[0x1E696ABC0];
-    v7 = *(*(*(a1 + 40) + 8) + 40);
-    v12 = *MEMORY[0x1E696A750];
-    v13[0] = v7;
-    v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v4, v13, &v12, 1);
-    v10 = objc_msgSend_errorWithDomain_code_userInfo_(v6, v9, @"IMDIndexingErrorDomain", 2, v8);
+    v8 = MEMORY[0x1E696ABC0];
+    v9 = *(*(*(a1 + 40) + 8) + 40);
+    v13 = *MEMORY[0x1E696A750];
+    v14[0] = v9;
+    v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v5, v14, &v13, 1);
+    v12 = objc_msgSend_errorWithDomain_code_userInfo_(v8, v11, @"IMDIndexingErrorDomain", 2, v10);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1B7BCE3BC(uint64_t a1, void *a2, void *a3)
@@ -1654,9 +685,9 @@ void sub_1B7BCE3BC(uint64_t a1, void *a2, void *a3)
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
   v6 = a3;
-  v11 = a2;
-  v9 = objc_msgSend_reason(v5, v7, v8);
-  objc_msgSend_deleteAttachmentGUIDs_reason_completionHandler_(v11, v10, v4, v9, v6);
+  v12 = a2;
+  v10 = objc_msgSend_reason(v5, v7, v8, v9);
+  objc_msgSend_deleteAttachmentGUIDs_reason_completionHandler_(v12, v11, v4, v10, v6);
 }
 
 void sub_1B7BCE5E0(uint64_t a1, void *a2, void *a3)
@@ -1664,9 +695,9 @@ void sub_1B7BCE5E0(uint64_t a1, void *a2, void *a3)
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
   v6 = a3;
-  v11 = a2;
-  v9 = objc_msgSend_reason(v5, v7, v8);
-  objc_msgSend_deleteMessageGUIDs_reason_completionHandler_(v11, v10, v4, v9, v6);
+  v12 = a2;
+  v10 = objc_msgSend_reason(v5, v7, v8, v9);
+  objc_msgSend_deleteMessageGUIDs_reason_completionHandler_(v12, v11, v4, v10, v6);
 }
 
 void sub_1B7BCE764(uint64_t a1, void *a2, void *a3)
@@ -1674,9 +705,9 @@ void sub_1B7BCE764(uint64_t a1, void *a2, void *a3)
   v4 = *(a1 + 32);
   v5 = *(a1 + 40);
   v6 = a3;
-  v11 = a2;
-  v9 = objc_msgSend_reason(v5, v7, v8);
-  objc_msgSend_deleteChatGUIDs_reason_completionHandler_(v11, v10, v4, v9, v6);
+  v12 = a2;
+  v10 = objc_msgSend_reason(v5, v7, v8, v9);
+  objc_msgSend_deleteChatGUIDs_reason_completionHandler_(v12, v11, v4, v10, v6);
 }
 
 void sub_1B7BCEEB0(_Unwind_Exception *a1, int a2)
@@ -1691,23 +722,23 @@ void sub_1B7BCEEB0(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1B7BCEF00(uint64_t a1, const char *a2, uint64_t a3)
+uint64_t sub_1B7BCEF00(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  if (objc_msgSend_isReindexing(*(a1 + 48), a2, a3))
+  v5 = *(a1 + 32);
+  v6 = *(a1 + 40);
+  if (objc_msgSend_isReindexing(*(a1 + 48), a2, a3, a4))
   {
-    v7 = 2;
+    v8 = 2;
   }
 
   else
   {
-    v7 = 1;
+    v8 = 1;
   }
 
-  v8 = *(a1 + 48);
+  v9 = *(a1 + 48);
 
-  return objc_msgSend__deferGUIDs_forFlag_context_(v4, v6, v5, v7, v8);
+  return objc_msgSend__deferGUIDs_forFlag_context_(v5, v7, v6, v8, v9);
 }
 
 void sub_1B7BCEF5C(uint64_t a1, void *a2)
@@ -1718,25 +749,18 @@ void sub_1B7BCEF5C(uint64_t a1, void *a2)
     v4 = IMLogHandleForCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CFB9DC(a1, v3, v4);
+      sub_1B7CFB9DC(a1, v3, v4, v5);
     }
 
     (*(*(a1 + 48) + 16))();
-    objc_msgSend__beginThrottlingDueToIndexError_(*(a1 + 40), v5, v3);
+    objc_msgSend__beginThrottlingDueToIndexError_(*(a1 + 40), v6, v3, v7);
   }
 
-  v6 = *(a1 + 56);
-  if (v6)
+  v8 = *(a1 + 56);
+  if (v8)
   {
-    (*(v6 + 16))(v6, v3);
+    (*(v8 + 16))(v8, v3);
   }
-}
-
-uint64_t sub_1B7BCF134(void *a1)
-{
-  v1 = a1[6];
-  v2 = a1[7];
-  return MEMORY[0x1EEE66B58](a1[4], sel__indexMessageGUIDs_context_completionHandler_, a1[5]);
 }
 
 void sub_1B7BCF284(uint64_t a1, void *a2, void *a3)
@@ -1768,9 +792,9 @@ void sub_1B7BCF728(uint64_t a1, void *a2, void *a3)
 {
   v4 = *(a1 + 32);
   v5 = a3;
-  v10 = a2;
-  v8 = objc_msgSend_reason(v4, v6, v7);
-  objc_msgSend_prepareForReindexingWithReason_completion_(v10, v9, v8, v5);
+  v11 = a2;
+  v9 = objc_msgSend_reason(v4, v6, v7, v8);
+  objc_msgSend_prepareForReindexingWithReason_completion_(v11, v10, v9, v5);
 }
 
 void sub_1B7BCF79C(uint64_t a1, void *a2)
@@ -1786,61 +810,61 @@ void sub_1B7BCF79C(uint64_t a1, void *a2)
   }
 
   v5 = [IMDPersistentTaskQueryProvider alloc];
-  v7 = objc_msgSend_initWithBlockingDatabaseCalls_(v5, v6, 0);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = sub_1B7BCF894;
-  v10[3] = &unk_1E7CB67C0;
-  v8 = *(a1 + 32);
-  v11 = *(a1 + 40);
-  objc_msgSend_scheduleFullReindexWithContext_completionBlock_(v7, v9, v8, v10);
+  v8 = objc_msgSend_initWithBlockingDatabaseCalls_(v5, v6, 0, v7);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = sub_1B7BCF894;
+  v11[3] = &unk_1E7CB67C0;
+  v9 = *(a1 + 32);
+  v12 = *(a1 + 40);
+  objc_msgSend_scheduleFullReindexWithContext_completionBlock_(v8, v10, v9, v11);
 }
 
 void sub_1B7BCF8A8(uint64_t a1, void *a2, void *a3)
 {
   v4 = *(a1 + 32);
   v5 = a3;
-  v10 = a2;
-  v8 = objc_msgSend_reason(v4, v6, v7);
-  objc_msgSend_setNeedsMessageReindexingWithReason_completion_(v10, v9, v8, v5);
+  v11 = a2;
+  v9 = objc_msgSend_reason(v4, v6, v7, v8);
+  objc_msgSend_setNeedsMessageReindexingWithReason_completion_(v11, v10, v9, v5);
 }
 
 void sub_1B7BCF91C(uint64_t a1, void *a2)
 {
-  v12 = a2;
-  v5 = objc_msgSend_userInfo(v12, v3, v4);
-  v7 = objc_msgSend_objectForKeyedSubscript_(v5, v6, @"IMDIndexingErrorFailedMessageGUIDs");
+  v15 = a2;
+  v6 = objc_msgSend_userInfo(v15, v3, v4, v5);
+  v9 = objc_msgSend_objectForKeyedSubscript_(v6, v7, @"IMDIndexingErrorFailedMessageGUIDs", v8);
 
-  if (objc_msgSend_count(v7, v8, v9))
+  if (objc_msgSend_count(v9, v10, v11, v12))
   {
-    objc_msgSend__deferGUIDs_forFlag_context_(*(a1 + 32), v10, v7, 2, *(a1 + 40));
+    objc_msgSend__deferGUIDs_forFlag_context_(*(a1 + 32), v13, v9, 2, *(a1 + 40));
   }
 
-  v11 = *(a1 + 48);
-  if (v11)
+  v14 = *(a1 + 48);
+  if (v14)
   {
-    (*(v11 + 16))(v11, v12);
+    (*(v14 + 16))(v14, v15);
   }
 }
 
 void sub_1B7BCFB14(void *a1, void *a2)
 {
-  v16 = a2;
-  v5 = objc_msgSend_userInfo(v16, v3, v4);
-  v7 = objc_msgSend_objectForKeyedSubscript_(v5, v6, @"IMDIndexingErrorFailedMessageGUIDs");
+  v19 = a2;
+  v6 = objc_msgSend_userInfo(v19, v3, v4, v5);
+  v9 = objc_msgSend_objectForKeyedSubscript_(v6, v7, @"IMDIndexingErrorFailedMessageGUIDs", v8);
 
-  if (objc_msgSend_count(v7, v8, v9))
+  if (objc_msgSend_count(v9, v10, v11, v12))
   {
-    v10 = a1[4];
-    v11 = [IMDIndexingContext alloc];
-    v13 = objc_msgSend_initForReindexing_reason_(v11, v12, 1, a1[6]);
-    objc_msgSend__deferGUIDs_forFlag_context_(v10, v14, v7, 2, v13);
+    v13 = a1[4];
+    v14 = [IMDIndexingContext alloc];
+    v16 = objc_msgSend_initForReindexing_reason_(v14, v15, 1, a1[6]);
+    objc_msgSend__deferGUIDs_forFlag_context_(v13, v17, v9, 2, v16);
   }
 
-  v15 = a1[5];
-  if (v15)
+  v18 = a1[5];
+  if (v18)
   {
-    (*(v15 + 16))(v15, v16);
+    (*(v18 + 16))(v18, v19);
   }
 }
 
@@ -1878,113 +902,112 @@ void sub_1B7BCFF7C(uint64_t a1, const char *a2)
   }
 }
 
-uint64_t sub_1B7BD002C(uint64_t a1, const char *a2, uint64_t a3)
+uint64_t sub_1B7BD002C(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  objc_msgSend_stopAccessingSecurityScopedResource(*(a1 + 32), a2, a3);
-  v4 = *(*(a1 + 40) + 16);
+  objc_msgSend_stopAccessingSecurityScopedResource(*(a1 + 32), a2, a3, a4);
+  v5 = *(*(a1 + 40) + 16);
 
-  return v4();
+  return v5();
 }
 
-void sub_1B7BD0124(uint64_t a1, uint64_t a2, uint64_t a3)
+void sub_1B7BD0124(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v44 = *MEMORY[0x1E69E9840];
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = sub_1B7AE1B20;
-  v40 = sub_1B7AE2598;
-  v41 = 0;
+  v41 = *MEMORY[0x1E69E9840];
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x3032000000;
+  v36 = sub_1B7AE1B20;
+  v37 = sub_1B7AE2598;
+  v38 = 0;
+  v31[0] = 0;
+  v31[1] = v31;
+  v31[2] = 0x3032000000;
+  v31[3] = sub_1B7AE1B20;
+  v31[4] = sub_1B7AE2598;
+  v32 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
   v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = sub_1B7AE1B20;
-  v34 = sub_1B7AE2598;
-  v35 = 0;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = 0;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = sub_1B7BD04CC;
   block[3] = &unk_1E7CBC658;
-  v4 = *(a1 + 48);
-  block[4] = &v26;
-  block[5] = &v36;
-  block[6] = &v30;
-  block[7] = v4;
-  IMDPersistencePerformBlock(block, 1, a3);
-  if (*(v27 + 24) != 1)
+  v5 = *(a1 + 48);
+  block[4] = &v27;
+  block[5] = &v33;
+  block[6] = v31;
+  block[7] = v5;
+  IMDPersistencePerformBlock(block, 1, a3, a4);
+  if (*(v28 + 24) != 1)
   {
     goto LABEL_17;
   }
 
-  v7 = v37[5];
-  if (v7 && objc_msgSend_count(v7, v5, v6))
+  v9 = v34[5];
+  if (v9 && objc_msgSend_count(v9, v6, v7, v8))
   {
     if (IMOSLoggingEnabled())
     {
-      v8 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v10 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v11 = objc_msgSend_count(v37[5], v9, v10);
+        v14 = objc_msgSend_count(v34[5], v11, v12, v13);
         *buf = 134217984;
-        v43 = v11;
-        _os_log_impl(&dword_1B7AD5000, v8, OS_LOG_TYPE_INFO, "Found %ld messages guids to withdraw", buf, 0xCu);
+        v40 = v14;
+        _os_log_impl(&dword_1B7AD5000, v10, OS_LOG_TYPE_INFO, "Found %ld messages guids to withdraw", buf, 0xCu);
       }
     }
 
-    v12 = *(a1 + 32);
-    v13 = v37[5];
-    v14 = [IMDIndexingContext alloc];
-    v16 = objc_msgSend_initForReindexing_reason_(v14, v15, 0, *(a1 + 56));
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = sub_1B7BD054C;
-    v23[3] = &unk_1E7CBB328;
-    v24 = *(a1 + 40);
-    objc_msgSend_deleteMessageGUIDs_context_completionHandler_(v12, v17, v13, v16, v23);
+    v15 = *(a1 + 32);
+    v16 = v34[5];
+    v17 = [IMDIndexingContext alloc];
+    v19 = objc_msgSend_initForReindexing_reason_(v17, v18, 0, *(a1 + 56));
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = sub_1B7BD054C;
+    v24[3] = &unk_1E7CBB328;
+    v25 = *(a1 + 40);
+    objc_msgSend_deleteMessageGUIDs_context_completionHandler_(v15, v20, v16, v19, v24);
 
-    v18 = 1;
+    v21 = 1;
   }
 
   else
   {
     if (IMOSLoggingEnabled())
     {
-      v19 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v22 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1B7AD5000, v19, OS_LOG_TYPE_INFO, "Found 0 messages guids to withdraw", buf, 2u);
+        _os_log_impl(&dword_1B7AD5000, v22, OS_LOG_TYPE_INFO, "Found 0 messages guids to withdraw", buf, 2u);
       }
     }
 
-    v18 = 0;
+    v21 = 0;
   }
 
-  v20 = v37[5];
-  if (v20)
+  v23 = v34[5];
+  if (v23)
   {
   }
 
-  if ((v18 & 1) == 0)
+  if ((v21 & 1) == 0)
   {
 LABEL_17:
-    v21 = v31[5];
     (*(*(a1 + 40) + 16))();
   }
 
-  _Block_object_dispose(&v26, 8);
-  _Block_object_dispose(&v30, 8);
+  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(v31, 8);
 
-  _Block_object_dispose(&v36, 8);
-  v22 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v33, 8);
 }
 
-void sub_1B7BD0458(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1B7BD0458(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   if (a2 == 1)
   {
     objc_begin_catch(exc_buf);
@@ -1993,8 +1016,8 @@ void sub_1B7BD0458(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, i
   }
 
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 144), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 144), 8);
   _Unwind_Resume(exc_buf);
 }
 
@@ -2013,11 +1036,24 @@ void sub_1B7BD04CC(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = v7;
 }
 
-uint64_t sub_1B7BD0670(uint64_t result, const char *a2)
+uint64_t sub_1B7BD05F8(uint64_t a1, const char *a2)
+{
+  v3 = *(a1 + 32);
+  v2 = *(a1 + 40);
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = sub_1B7BD0670;
+  v5[3] = &unk_1E7CBC6A8;
+  v5[4] = v3;
+  v5[5] = v2;
+  return objc_msgSend__deleteBatchOfMessagesWithBatchAmount_reason_completionHandler_(v3, a2, 2000, v2, v5);
+}
+
+id *sub_1B7BD0670(id *result, const char *a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
-    return objc_msgSend_scheduleUpdateForDeletedMessagesWithReason_(*(result + 32), a2, *(result + 40));
+    return objc_msgSend_scheduleUpdateForDeletedMessagesWithReason_(result[4], a2, result[5], a4);
   }
 
   return result;
@@ -2063,22 +1099,21 @@ void sub_1B7BD08B8(id *a1, void *a2, uint64_t a3)
   }
 }
 
-uint64_t sub_1B7BD09AC(void *a1, const char *a2, uint64_t a3)
+uint64_t sub_1B7BD09AC(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = a1[6];
-  v5 = v4;
-  if (!v4)
+  v5 = a1[6];
+  v6 = v5;
+  if (!v5)
   {
-    v5 = objc_msgSend_set(MEMORY[0x1E695DFD8], a2, a3);
+    v6 = objc_msgSend_set(MEMORY[0x1E695DFD8], a2, a3, a4);
   }
 
   v7 = a1[4];
-  v6 = a1[5];
   v8 = objc_opt_class();
   v9 = NSStringFromClass(v8);
-  objc_msgSend_setObject_forKeyedSubscript_(v7, v10, v5, v9);
+  objc_msgSend_setObject_forKeyedSubscript_(v7, v10, v6, v9);
 
-  if (!v4)
+  if (!v5)
   {
   }
 
@@ -2092,113 +1127,110 @@ void sub_1B7BD0A4C(uint64_t a1, void *a2)
   v3 = *(a1 + 32);
   v2 = *(a1 + 40);
   v4 = a2;
-  v7 = objc_msgSend_copy(v3, v5, v6);
-  (*(v2 + 16))(v2, v7, v4);
+  v8 = objc_msgSend_copy(v3, v5, v6, v7);
+  (*(v2 + 16))(v2, v8, v4);
 }
 
-void sub_1B7BD0DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B7BD0DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1B7BD0DC0(uint64_t a1)
+int64_t sub_1B7BD0DC0(IMDLegacyCoreSpotlightManager *a1, const char *a2)
 {
   result = IMDMessageRecordMaxMessageIDFromChatMessageJoin();
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  *(*&a1[1]._backpressureController->_donationInProgress + 24) = result;
   return result;
 }
 
-void sub_1B7BD0E98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B7BD0E98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B7BD0EB0(uint64_t a1, const char *a2, uint64_t a3)
+void sub_1B7BD0EB0(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = objc_msgSend_synchronousDatabase(IMDDatabase, a2, a3);
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = sub_1B7BD0F48;
-  v6[3] = &unk_1E7CB6B98;
-  v6[4] = *(a1 + 32);
-  objc_msgSend_fetchCountOfRecordType_completionHandler_(v4, v5, 0, v6);
+  v5 = objc_msgSend_synchronousDatabase(IMDDatabase, a2, a3, a4);
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = sub_1B7BD0F48;
+  v7[3] = &unk_1E7CB6B98;
+  v7[4] = *(a1 + 32);
+  objc_msgSend_fetchCountOfRecordType_completionHandler_(v5, v6, 0, v7);
 }
 
-void sub_1B7BD1000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B7BD1000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B7BD1018(uint64_t a1, const char *a2, uint64_t a3)
+void sub_1B7BD1018(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = objc_msgSend_synchronousDatabase(IMDDatabase, a2, a3);
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = sub_1B7BD10B0;
-  v6[3] = &unk_1E7CB6B98;
-  v6[4] = *(a1 + 32);
-  objc_msgSend_fetchCountOfRecordType_completionHandler_(v4, v5, 1, v6);
+  v5 = objc_msgSend_synchronousDatabase(IMDDatabase, a2, a3, a4);
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = sub_1B7BD10B0;
+  v7[3] = &unk_1E7CB6B98;
+  v7[4] = *(a1 + 32);
+  objc_msgSend_fetchCountOfRecordType_completionHandler_(v5, v6, 1, v7);
 }
 
 void sub_1B7BD1338(uint64_t a1)
 {
   v2 = [IMDIndexingContext alloc];
   v4 = objc_msgSend_initForReindexing_reason_(v2, v3, 1, 1004);
-  objc_msgSend_setPreflight_(v4, v5, 1);
-  v6 = *(a1 + 56);
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = sub_1B7BD1420;
-  v13[3] = &unk_1E7CBBDB8;
-  v7 = *(a1 + 32);
-  v10 = a1 + 40;
-  v8 = *(a1 + 40);
-  v9 = *(v10 + 8);
-  v13[4] = v7;
-  v14 = v4;
-  v15 = v6;
-  v11 = v4;
-  objc_msgSend_copyIndexableMessageDictionariesWithLimit_requireIndexableAttachments_isIndexableBlock_completionHandler_(IMDIndexingUtilities, v12, v9, v6, v13, v8);
+  objc_msgSend_setPreflight_(v4, v5, 1, v6);
+  v7 = *(a1 + 56);
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = sub_1B7BD1420;
+  v14[3] = &unk_1E7CBBDB8;
+  v8 = *(a1 + 32);
+  v11 = a1 + 40;
+  v9 = *(a1 + 40);
+  v10 = *(v11 + 8);
+  v14[4] = v8;
+  v15 = v4;
+  v16 = v7;
+  v12 = v4;
+  objc_msgSend_copyIndexableMessageDictionariesWithLimit_requireIndexableAttachments_isIndexableBlock_completionHandler_(IMDIndexingUtilities, v13, v10, v7, v14, v9);
 }
 
 uint64_t sub_1B7BD1420(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v9 = objc_msgSend_integrations(*(a1 + 32), v7, v8, 0);
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v26, v30, 16);
-  if (v11)
+  v10 = objc_msgSend_integrations(*(a1 + 32), v7, v8, v9, 0);
+  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v25, v29, 16);
+  if (v12)
   {
-    v12 = v11;
-    v13 = *v27;
-    v14 = &selRef_delegate;
+    v13 = v12;
+    v14 = *v26;
     while (2)
     {
-      v15 = 0;
-      v16 = v14[294];
-      do
+      for (i = 0; i != v13; ++i)
       {
-        if (*v27 != v13)
+        if (*v26 != v14)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v10);
         }
 
-        v17 = *(*(&v26 + 1) + 8 * v15);
+        v16 = *(*(&v25 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
-          v19 = objc_msgSend_indexableIdentifiersForMessageDict_chatDictionary_context_requireIndexableAttachments_(v17, v18, v5, v6, *(a1 + 40), *(a1 + 48));
-          v22 = objc_msgSend_count(v19, v20, v21);
+          v18 = objc_msgSend_indexableIdentifiersForMessageDict_chatDictionary_context_requireIndexableAttachments_(v16, v17, v5, v6, *(a1 + 40), *(a1 + 48));
+          v22 = objc_msgSend_count(v18, v19, v20, v21);
 
           if (v22)
           {
@@ -2206,14 +1238,10 @@ uint64_t sub_1B7BD1420(uint64_t a1, void *a2, void *a3)
             goto LABEL_12;
           }
         }
-
-        ++v15;
       }
 
-      while (v12 != v15);
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v18, &v26, v30, 16);
-      v14 = &selRef_delegate;
-      if (v12)
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v17, &v25, v29, 16);
+      if (v13)
       {
         continue;
       }
@@ -2225,7 +1253,6 @@ uint64_t sub_1B7BD1420(uint64_t a1, void *a2, void *a3)
   v23 = 0;
 LABEL_12:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -2233,48 +1260,48 @@ void sub_1B7BD167C(uint64_t a1)
 {
   v2 = [IMDIndexingContext alloc];
   v4 = objc_msgSend_initForReindexing_reason_(v2, v3, 1, 1004);
-  objc_msgSend_setPreflight_(v4, v5, 1);
-  objc_msgSend_setIgnoreRejections_(v4, v6, *(a1 + 56));
-  v7 = [IMDThreadSafeMessageDictionaryMapper alloc];
-  v8 = *(a1 + 32);
-  v9 = objc_alloc_init(MEMORY[0x1E69A6170]);
-  v11 = objc_msgSend_initForFetchingMessageGUIDs_timingCollection_(v7, v10, v8, v9);
+  objc_msgSend_setPreflight_(v4, v5, 1, v6);
+  objc_msgSend_setIgnoreRejections_(v4, v7, *(a1 + 56), v8);
+  v9 = [IMDThreadSafeMessageDictionaryMapper alloc];
+  v10 = *(a1 + 32);
+  v11 = objc_alloc_init(MEMORY[0x1E69A6170]);
+  v13 = objc_msgSend_initForFetchingMessageGUIDs_timingCollection_(v9, v12, v10, v11);
 
-  v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = sub_1B7BD1844;
   aBlock[3] = &unk_1E7CBBE08;
-  v30 = v12;
-  v13 = v12;
-  v14 = _Block_copy(aBlock);
-  v22 = MEMORY[0x1E69E9820];
-  v23 = 3221225472;
-  v24 = sub_1B7BD18E8;
-  v25 = &unk_1E7CBC748;
-  v26 = *(a1 + 40);
-  v27 = v4;
-  v28 = v14;
+  v34 = v14;
   v15 = v14;
-  v16 = v4;
-  objc_msgSend_processWithBlock_(v11, v17, &v22);
-  v18 = *(a1 + 48);
-  v21 = objc_msgSend_copy(v13, v19, v20, v22, v23, v24, v25, v26);
-  (*(v18 + 16))(v18, v21, 0);
+  v16 = _Block_copy(aBlock);
+  v26 = MEMORY[0x1E69E9820];
+  v27 = 3221225472;
+  v28 = sub_1B7BD18E8;
+  v29 = &unk_1E7CBC748;
+  v30 = *(a1 + 40);
+  v31 = v4;
+  v32 = v16;
+  v17 = v16;
+  v18 = v4;
+  objc_msgSend_processWithBlock_(v13, v19, &v26, v20);
+  v21 = *(a1 + 48);
+  v25 = objc_msgSend_copy(v15, v22, v23, v24, v26, v27, v28, v29, v30);
+  (*(v21 + 16))(v21, v25, 0);
 }
 
 void sub_1B7BD1844(uint64_t a1, void *a2, void *a3)
 {
-  v10 = a2;
+  v12 = a2;
   v5 = a3;
-  v8 = objc_msgSend_objectForKeyedSubscript_(*(a1 + 32), v6, v10);
-  if (!v8)
+  v10 = objc_msgSend_objectForKeyedSubscript_(*(a1 + 32), v6, v12, v7);
+  if (!v10)
   {
-    v8 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    objc_msgSend_setObject_forKeyedSubscript_(*(a1 + 32), v9, v8, v10);
+    v10 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    objc_msgSend_setObject_forKeyedSubscript_(*(a1 + 32), v11, v10, v12);
   }
 
-  objc_msgSend_addObjectsFromArray_(v8, v7, v5);
+  objc_msgSend_addObjectsFromArray_(v10, v8, v5, v9);
 }
 
 void sub_1B7BD18E8(uint64_t a1, void *a2, void *a3)
@@ -2286,110 +1313,108 @@ void sub_1B7BD18E8(uint64_t a1, void *a2, void *a3)
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v8 = objc_msgSend_integrations(*(a1 + 32), v6, v7);
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v22, v26, 16);
-  if (v10)
+  v9 = objc_msgSend_integrations(*(a1 + 32), v6, v7, v8);
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v22, v26, 16);
+  if (v11)
   {
-    v11 = v10;
-    v12 = *v23;
+    v12 = v11;
+    v13 = *v23;
     do
     {
-      v13 = 0;
+      v14 = 0;
       do
       {
-        if (*v23 != v12)
+        if (*v23 != v13)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * v13);
+        v15 = *(*(&v22 + 1) + 8 * v14);
         if (objc_opt_respondsToSelector())
         {
-          v16 = objc_msgSend_indexableIdentifiersForMessageDict_chatDictionary_context_requireIndexableAttachments_(v14, v15, v21, v5, *(a1 + 40), 0);
-          v17 = *(a1 + 48);
-          v18 = objc_opt_class();
-          v19 = NSStringFromClass(v18);
-          (*(v17 + 16))(v17, v19, v16);
+          v17 = objc_msgSend_indexableIdentifiersForMessageDict_chatDictionary_context_requireIndexableAttachments_(v15, v16, v21, v5, *(a1 + 40), 0);
+          v18 = *(a1 + 48);
+          v19 = objc_opt_class();
+          v20 = NSStringFromClass(v19);
+          (*(v18 + 16))(v18, v20, v17);
         }
 
-        ++v13;
+        ++v14;
       }
 
-      while (v11 != v13);
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v15, &v22, v26, 16);
+      while (v12 != v14);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v16, &v22, v26, 16);
     }
 
-    while (v11);
+    while (v12);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t IMDAttachmentRecordDeleteUsingPredicateQuery(uint64_t a1, const char *a2)
+uint64_t IMDAttachmentRecordDeleteUsingPredicateQuery(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
   if (a1)
   {
-    v2 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"WHERE %@", a1);
+    v4 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"WHERE %@", a4, a1);
   }
 
   else
   {
-    v2 = &stru_1F2FA9728;
+    v4 = &stru_1F2FA9728;
   }
 
-  v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v5 = objc_msgSend_initWithFormat_(v3, v4, @"%s%@", "DELETE FROM attachment ", v2);
+  v5 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v8 = objc_msgSend_initWithFormat_(v5, v6, @"%s%@", v7, "DELETE FROM attachment ", v4);
 
-  return v5;
+  return v8;
 }
 
-uint64_t IMDAttachmentRecordCopyFilteredUsingPredicateWithLimitQuery(uint64_t a1, const char *a2)
+uint64_t IMDAttachmentRecordCopyFilteredUsingPredicateWithLimitQuery(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
   if (a1)
   {
-    v2 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"WHERE %@", a1);
+    v4 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"WHERE %@", a4, a1);
   }
 
   else
   {
-    v2 = &stru_1F2FA9728;
+    v4 = &stru_1F2FA9728;
   }
 
-  v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v5 = objc_msgSend_initWithFormat_(v3, v4, @"%s%@", "SELECT ROWID, guid, created_date, start_date, filename, uti, mime_type, transfer_state, is_outgoing, user_info, transfer_name, total_bytes, is_sticker, sticker_user_info, attribution_info, hide_attachment, ck_sync_state, ck_server_change_token_blob, ck_record_id, original_guid, is_commsafety_sensitive, emoji_image_content_identifier, emoji_image_short_description, preview_generation_state FROM attachment ", v2);
+  v5 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v8 = objc_msgSend_initWithFormat_(v5, v6, @"%s%@", v7, "SELECT ROWID, guid, created_date, start_date, filename, uti, mime_type, transfer_state, is_outgoing, user_info, transfer_name, total_bytes, is_sticker, sticker_user_info, attribution_info, hide_attachment, ck_sync_state, ck_server_change_token_blob, ck_record_id, original_guid, is_commsafety_sensitive, emoji_image_content_identifier, emoji_image_short_description, preview_generation_state FROM attachment ", v4);
 
-  return v5;
+  return v8;
 }
 
 uint64_t IMDAttachmentRecordCopySortedAttachmentsFilteredUsingPredicateWithLimitQuery(void *a1, void *a2)
 {
   v3 = a1;
-  v6 = a2;
+  v7 = a2;
   if (v3)
   {
-    v7 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v4, @"WHERE %@", v3);
+    v8 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v4, @"WHERE %@", v6, v3);
   }
 
   else
   {
-    v7 = &stru_1F2FA9728;
+    v8 = &stru_1F2FA9728;
   }
 
-  if (objc_msgSend_count(v6, v4, v5))
+  if (objc_msgSend_count(v7, v4, v5, v6))
   {
-    v9 = objc_msgSend_componentsJoinedByString_(v6, v8, @", ");
-    v11 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v10, @"ORDER BY %@ ", v9);
+    v11 = objc_msgSend_componentsJoinedByString_(v7, v9, @", ", v10);
+    v14 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v12, @"ORDER BY %@ ", v13, v11);
   }
 
   else
   {
-    v11 = &stru_1F2FA9728;
+    v14 = &stru_1F2FA9728;
   }
 
-  v12 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v14 = objc_msgSend_initWithFormat_(v12, v13, @"%@ %@ %@ LIMIT ?", @"SELECT ROWID, guid, created_date, start_date, filename, uti, mime_type, transfer_state, is_outgoing, user_info, transfer_name, total_bytes, is_sticker, sticker_user_info, attribution_info, hide_attachment, ck_sync_state, ck_server_change_token_blob, ck_record_id, original_guid, is_commsafety_sensitive, emoji_image_content_identifier, emoji_image_short_description, preview_generation_state FROM attachment ", v7, v11);
+  v15 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v18 = objc_msgSend_initWithFormat_(v15, v16, @"%@ %@ %@ LIMIT ?", v17, @"SELECT ROWID, guid, created_date, start_date, filename, uti, mime_type, transfer_state, is_outgoing, user_info, transfer_name, total_bytes, is_sticker, sticker_user_info, attribution_info, hide_attachment, ck_sync_state, ck_server_change_token_blob, ck_record_id, original_guid, is_commsafety_sensitive, emoji_image_content_identifier, emoji_image_short_description, preview_generation_state FROM attachment ", v8, v14);
 
-  return v14;
+  return v18;
 }
 
 void sub_1B7BD1F0C(sqlite3_context *a1, int a2, sqlite3_value **a3)
@@ -2408,10 +1433,10 @@ void sub_1B7BD1F0C(sqlite3_context *a1, int a2, sqlite3_value **a3)
   }
 }
 
-uint64_t sub_1B7BD1F88(uint64_t a1, const char *a2, uint64_t a3, void *a4)
+uint64_t sub_1B7BD1F88(uint64_t a1, const char *a2, const char *a3, void *a4)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  if (objc_msgSend_length(a4, a2, a3))
+  v22 = *MEMORY[0x1E69E9840];
+  if (objc_msgSend_length(a4, a2, a3, a4))
   {
     v7 = CSDBSqliteConnectionPerformSQL();
     if (v7)
@@ -2430,14 +1455,14 @@ uint64_t sub_1B7BD1F88(uint64_t a1, const char *a2, uint64_t a3, void *a4)
       v13 = IMLogHandleForCategory();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v16 = sqlite3_errmsg(*(a1 + 8));
-        v17 = 138412802;
-        v18 = a2;
-        v19 = 1024;
-        v20 = v10;
-        v21 = 2080;
-        v22 = v16;
-        _os_log_error_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_ERROR, "%@ SQLiteResult: %d SQLite Message: %s", &v17, 0x1Cu);
+        v15 = sqlite3_errmsg(*(a1 + 8));
+        v16 = 138412802;
+        v17 = a2;
+        v18 = 1024;
+        v19 = v10;
+        v20 = 2080;
+        v21 = v15;
+        _os_log_error_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_ERROR, "%@ SQLiteResult: %d SQLite Message: %s", &v16, 0x1Cu);
       }
     }
 
@@ -2446,9 +1471,9 @@ uint64_t sub_1B7BD1F88(uint64_t a1, const char *a2, uint64_t a3, void *a4)
       v11 = IMLogHandleForCategory();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v17 = 138412290;
-        v18 = a3;
-        _os_log_impl(&dword_1B7AD5000, v11, OS_LOG_TYPE_INFO, "%@", &v17, 0xCu);
+        v16 = 138412290;
+        v17 = a3;
+        _os_log_impl(&dword_1B7AD5000, v11, OS_LOG_TYPE_INFO, "%@", &v16, 0xCu);
       }
     }
   }
@@ -2461,10 +1486,9 @@ uint64_t sub_1B7BD1F88(uint64_t a1, const char *a2, uint64_t a3, void *a4)
       sub_1B7CFBAF4(v12);
     }
 
-    v9 = 1;
+    return 1;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -2528,37 +1552,37 @@ uint64_t sub_1B7BD2514(uint64_t a1)
 uint64_t sub_1B7BD2688(uint64_t a1, uint64_t a2)
 {
   v4 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v6 = objc_msgSend_initWithFormat_(v4, v5, @"Failed to drop table: %@", a2);
-  v7 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v9 = objc_msgSend_initWithFormat_(v7, v8, @"Successfully dropped table: %@", a2);
-  v10 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v12 = objc_msgSend_initWithFormat_(v10, v11, @"DROP TABLE IF EXISTS %@;", a2);
-  v13 = sub_1B7BD1F88(a1, v6, v9, v12);
+  v7 = objc_msgSend_initWithFormat_(v4, v5, @"Failed to drop table: %@", v6, a2);
+  v8 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v11 = objc_msgSend_initWithFormat_(v8, v9, @"Successfully dropped table: %@", v10, a2);
+  v12 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v15 = objc_msgSend_initWithFormat_(v12, v13, @"DROP TABLE IF EXISTS %@;", v14, a2);
+  v16 = sub_1B7BD1F88(a1, v7, v11, v15);
 
-  return v13;
+  return v16;
 }
 
 uint64_t sub_1B7BD2744(uint64_t a1, uint64_t a2)
 {
   v4 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v6 = objc_msgSend_initWithFormat_(v4, v5, @"Failed to drop index: %@", a2);
-  v7 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v9 = objc_msgSend_initWithFormat_(v7, v8, @"Successfully dropped index: %@", a2);
-  v10 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v12 = objc_msgSend_initWithFormat_(v10, v11, @"DROP INDEX IF EXISTS %@;", a2);
-  v13 = sub_1B7BD1F88(a1, v6, v9, v12);
+  v7 = objc_msgSend_initWithFormat_(v4, v5, @"Failed to drop index: %@", v6, a2);
+  v8 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v11 = objc_msgSend_initWithFormat_(v8, v9, @"Successfully dropped index: %@", v10, a2);
+  v12 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v15 = objc_msgSend_initWithFormat_(v12, v13, @"DROP INDEX IF EXISTS %@;", v14, a2);
+  v16 = sub_1B7BD1F88(a1, v7, v11, v15);
 
-  return v13;
+  return v16;
 }
 
 uint64_t sub_1B7BD2800(uint64_t a1, uint64_t a2, void *a3)
 {
   v6 = sub_1B7BD2744(a1, a2);
   v7 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v9 = objc_msgSend_initWithFormat_(v7, v8, @"Failed to create index: %@", a2);
-  v10 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v12 = objc_msgSend_initWithFormat_(v10, v11, @"Successfully created index: %@", a2);
-  LODWORD(a3) = sub_1B7BD1F88(a1, v9, v12, a3);
+  v10 = objc_msgSend_initWithFormat_(v7, v8, @"Failed to create index: %@", v9, a2);
+  v11 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v14 = objc_msgSend_initWithFormat_(v11, v12, @"Successfully created index: %@", v13, a2);
+  LODWORD(a3) = sub_1B7BD1F88(a1, v10, v14, a3);
 
   return v6 & a3;
 }
@@ -2601,574 +1625,528 @@ uint64_t sub_1B7BD2C58(uint64_t a1)
   return v3 & sub_1B7BD1F88(a1, @"Failed to create index update message_groupid_read_index.", @"Created index message_groupid_read_index.", @"CREATE INDEX message_groupid_read_index ON message(group_id, read)");
 }
 
-uint64_t sub_1B7BD2CE0()
+uint64_t sub_1B7BD2CE0(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v0 = IMLogHandleForCategory();
-  v1 = os_log_type_enabled(v0, OS_LOG_TYPE_INFO);
-  if (v1)
+  v20 = *MEMORY[0x1E69E9840];
+  v2 = IMLogHandleForCategory();
+  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_INFO);
+  if (v3)
   {
-    LOWORD(v16[0]) = 0;
-    _os_log_impl(&dword_1B7AD5000, v0, OS_LOG_TYPE_INFO, "Create tables...", v16, 2u);
+    LOWORD(v19[0]) = 0;
+    _os_log_impl(&dword_1B7AD5000, v2, OS_LOG_TYPE_INFO, "Create tables...", v19, 2u);
   }
 
-  sub_1B7AEAEE4(v1, v2, v3);
+  sub_1B7AEAEE4(v3, v4, v5, v6);
   TablesForClass = CSDBRecordStoreCreateTablesForClass();
-  sub_1B7AE0D64(TablesForClass, v5, v6);
+  sub_1B7AE0D64(TablesForClass, v8, v9, v10);
   CSDBRecordStoreCreateTablesForClass();
   CSDBRecordStoreCreateTablesForClass();
-  v7 = CSDBSqliteConnectionStatementForSQL();
-  if (v7)
+  v11 = CSDBSqliteConnectionStatementForSQL();
+  if (v11)
   {
-    if (*(v7 + 8))
+    if (*(v11 + 8))
     {
-      v8 = CSDBSqliteStatementPerform();
+      v12 = CSDBSqliteStatementPerform();
       CSDBSqliteStatementReset();
-      if (v8 != 101)
+      if (v12 != 101)
       {
-        if (v8)
+        if (v12)
         {
-          v15 = IMLogHandleForCategory();
-          if (!os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+          v18 = IMLogHandleForCategory();
+          if (!os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
           {
             goto LABEL_10;
           }
 
-          v16[0] = 67109120;
-          v16[1] = v8;
-          v10 = "Failed to create table for handle. SQLiteError: %d";
-          v11 = v15;
-          v12 = 8;
+          v19[0] = 67109120;
+          v19[1] = v12;
+          v14 = "Failed to create table for handle. SQLiteError: %d";
+          v15 = v18;
+          v16 = 8;
           goto LABEL_9;
         }
       }
     }
   }
 
-  v9 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v13 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v16[0]) = 0;
-    v10 = "Table for handle was created successfully.";
-    v11 = v9;
-    v12 = 2;
+    LOWORD(v19[0]) = 0;
+    v14 = "Table for handle was created successfully.";
+    v15 = v13;
+    v16 = 2;
 LABEL_9:
-    _os_log_impl(&dword_1B7AD5000, v11, OS_LOG_TYPE_INFO, v10, v16, v12);
+    _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, v14, v19, v16);
   }
 
 LABEL_10:
-  sub_1B7BD2EA4();
-  sub_1B7BD2FC4();
-  sub_1B7BD30E4();
-  v13 = *MEMORY[0x1E69E9840];
+  sub_1B7BD2EA4(a1);
+  sub_1B7BD2FC4(a1);
+  sub_1B7BD30E4(a1);
   return 1;
 }
 
-void sub_1B7BD2EA4()
+void sub_1B7BD2EA4(uint64_t a1)
 {
   v9 = *MEMORY[0x1E69E9840];
-  v0 = CSDBSqliteConnectionStatementForSQL();
-  if (v0)
+  v1 = CSDBSqliteConnectionStatementForSQL();
+  if (!v1 || !*(v1 + 8) || (v2 = CSDBSqliteStatementPerform(), CSDBSqliteStatementReset(), v2 == 101) || !v2)
   {
-    if (*(v0 + 8))
+    v3 = IMLogHandleForCategory();
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v1 = CSDBSqliteStatementPerform();
-      CSDBSqliteStatementReset();
-      if (v1 != 101)
-      {
-        if (v1)
-        {
-          v7 = IMLogHandleForCategory();
-          if (!os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-          {
-            goto LABEL_8;
-          }
-
-          v8[0] = 67109120;
-          v8[1] = v1;
-          v3 = "Failed to create join table for Message <--> Attachment. SQLiteError: %d";
-          v4 = v7;
-          v5 = 8;
-          goto LABEL_7;
-        }
-      }
+      return;
     }
-  }
 
-  v2 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
-  {
     LOWORD(v8[0]) = 0;
-    v3 = "Join table for Message <--> Attachment was created successfully.";
-    v4 = v2;
-    v5 = 2;
-LABEL_7:
-    _os_log_impl(&dword_1B7AD5000, v4, OS_LOG_TYPE_INFO, v3, v8, v5);
+    v4 = "Join table for Message <--> Attachment was created successfully.";
+    v5 = v3;
+    v6 = 2;
+    goto LABEL_7;
   }
 
-LABEL_8:
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    v8[0] = 67109120;
+    v8[1] = v2;
+    v4 = "Failed to create join table for Message <--> Attachment. SQLiteError: %d";
+    v5 = v7;
+    v6 = 8;
+LABEL_7:
+    _os_log_impl(&dword_1B7AD5000, v5, OS_LOG_TYPE_INFO, v4, v8, v6);
+  }
 }
 
-void sub_1B7BD2FC4()
+void sub_1B7BD2FC4(uint64_t a1)
 {
   v9 = *MEMORY[0x1E69E9840];
-  v0 = CSDBSqliteConnectionStatementForSQL();
-  if (v0)
+  v1 = CSDBSqliteConnectionStatementForSQL();
+  if (!v1 || !*(v1 + 8) || (v2 = CSDBSqliteStatementPerform(), CSDBSqliteStatementReset(), v2 == 101) || !v2)
   {
-    if (*(v0 + 8))
+    v3 = IMLogHandleForCategory();
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v1 = CSDBSqliteStatementPerform();
-      CSDBSqliteStatementReset();
-      if (v1 != 101)
-      {
-        if (v1)
-        {
-          v7 = IMLogHandleForCategory();
-          if (!os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-          {
-            goto LABEL_8;
-          }
-
-          v8[0] = 67109120;
-          v8[1] = v1;
-          v3 = "Failed to create join table for Chat <--> Handle. SQLiteError: %d";
-          v4 = v7;
-          v5 = 8;
-          goto LABEL_7;
-        }
-      }
+      return;
     }
-  }
 
-  v2 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
-  {
     LOWORD(v8[0]) = 0;
-    v3 = "Join table for Chat <--> Handle was created successfully.";
-    v4 = v2;
-    v5 = 2;
-LABEL_7:
-    _os_log_impl(&dword_1B7AD5000, v4, OS_LOG_TYPE_INFO, v3, v8, v5);
+    v4 = "Join table for Chat <--> Handle was created successfully.";
+    v5 = v3;
+    v6 = 2;
+    goto LABEL_7;
   }
 
-LABEL_8:
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    v8[0] = 67109120;
+    v8[1] = v2;
+    v4 = "Failed to create join table for Chat <--> Handle. SQLiteError: %d";
+    v5 = v7;
+    v6 = 8;
+LABEL_7:
+    _os_log_impl(&dword_1B7AD5000, v5, OS_LOG_TYPE_INFO, v4, v8, v6);
+  }
 }
 
-void sub_1B7BD30E4()
+void sub_1B7BD30E4(uint64_t a1)
 {
   v9 = *MEMORY[0x1E69E9840];
-  v0 = CSDBSqliteConnectionStatementForSQL();
-  if (v0)
+  v1 = CSDBSqliteConnectionStatementForSQL();
+  if (!v1 || !*(v1 + 8) || (v2 = CSDBSqliteStatementPerform(), CSDBSqliteStatementReset(), v2 == 101) || !v2)
   {
-    if (*(v0 + 8))
+    v3 = IMLogHandleForCategory();
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v1 = CSDBSqliteStatementPerform();
-      CSDBSqliteStatementReset();
-      if (v1 != 101)
-      {
-        if (v1)
-        {
-          v7 = IMLogHandleForCategory();
-          if (!os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-          {
-            goto LABEL_8;
-          }
-
-          v8[0] = 67109120;
-          v8[1] = v1;
-          v3 = "Failed to create join table for Chat <--> Message. SQLiteError: %d";
-          v4 = v7;
-          v5 = 8;
-          goto LABEL_7;
-        }
-      }
+      return;
     }
-  }
 
-  v2 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
-  {
     LOWORD(v8[0]) = 0;
-    v3 = "Join table for Chat <--> Message was created successfully.";
-    v4 = v2;
-    v5 = 2;
-LABEL_7:
-    _os_log_impl(&dword_1B7AD5000, v4, OS_LOG_TYPE_INFO, v3, v8, v5);
+    v4 = "Join table for Chat <--> Message was created successfully.";
+    v5 = v3;
+    v6 = 2;
+    goto LABEL_7;
   }
 
-LABEL_8:
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    v8[0] = 67109120;
+    v8[1] = v2;
+    v4 = "Failed to create join table for Chat <--> Message. SQLiteError: %d";
+    v5 = v7;
+    v6 = 8;
+LABEL_7:
+    _os_log_impl(&dword_1B7AD5000, v5, OS_LOG_TYPE_INFO, v4, v8, v6);
+  }
 }
 
-uint64_t IMDLegacyMigrator(uint64_t *a1, const char *a2, uint64_t a3)
+uint64_t IMDLegacyMigrator(uint64_t *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v120 = *MEMORY[0x1E69E9840];
+  v121 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    v5 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CFBB38(v5, a2);
+      sub_1B7CFBB38(v6, a2, a3, a4);
     }
   }
 
-  v6 = *a1;
-  v7 = a1[1];
-  if (!v6 && (v8 = IMDatabaseLogHandle(), os_log_type_enabled(v8, OS_LOG_TYPE_ERROR)))
+  v7 = *a1;
+  v8 = a1[1];
+  if (!v7 && (v9 = IMDatabaseLogHandle(), os_log_type_enabled(v9, OS_LOG_TYPE_ERROR)))
   {
-    sub_1B7CFBBE8(v8, a2);
-    if (v7)
+    sub_1B7CFBBE8(v9, a2, a3, a4);
+    if (v8)
     {
       goto LABEL_9;
     }
   }
 
-  else if (v7)
+  else if (v8)
   {
     goto LABEL_9;
   }
 
-  v9 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v10 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    sub_1B7CFBC98(v9, a2);
+    sub_1B7CFBC98(v10, a2, a3, a4);
   }
 
 LABEL_9:
   if ((a2 - 2) <= 2)
   {
     CSDBSqliteConnectionBeginTransactionType();
-    v10 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CFBD48(a2, v10, v11);
+      sub_1B7CFBD48(a2, v11, v12, v13);
     }
 
     goto LABEL_12;
   }
 
-  if (a2 < 5 || objc_msgSend_schemaVersion(IMDLegacyRecordBridge, a2, a3) < a2)
+  if (a2 < 5 || objc_msgSend_schemaVersion(IMDLegacyRecordBridge, a2, a3, a4) < a2)
   {
-LABEL_17:
-    result = 1;
-    goto LABEL_18;
+    return 1;
   }
 
-  v17 = *(v7 + 8);
   CSDBSqliteDatabaseRegisterFunctionForDB();
   CSDBSqliteConnectionBeginTransactionType();
   if (a2 == 5)
   {
     CSDBSqliteDatabaseSetVersion();
-    v18 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v19 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v18, OS_LOG_TYPE_INFO, "Updating DB to sort by ROWID instead of date.", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v19, OS_LOG_TYPE_INFO, "Updating DB to sort by ROWID instead of date.", &v119, 2u);
     }
 
-    v19 = sub_1B7BD1F88(v7, @"MobileSMS DB Migration failed while dropping message_group_index.", @"Successfully dropped index message_group_index.", @"DROP INDEX message_group_index;");
-    v20 = sub_1B7BD1F88(v7, @"MobileSMS DB Migration failed while creating message_group_index.", @"Created index message_group_index", @"CREATE INDEX message_group_index ON message(group_id, ROWID);");
-    if (!v19 || !v20)
+    v20 = sub_1B7BD1F88(v8, @"MobileSMS DB Migration failed while dropping message_group_index.", @"Successfully dropped index message_group_index.", @"DROP INDEX message_group_index;");
+    v21 = sub_1B7BD1F88(v8, @"MobileSMS DB Migration failed while creating message_group_index.", @"Created index message_group_index", @"CREATE INDEX message_group_index ON message(group_id, ROWID);");
+    if (!v20 || !v21)
     {
       goto LABEL_12;
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_26;
+    goto LABEL_25;
   }
 
   if (a2 <= 6)
   {
-LABEL_26:
+LABEL_25:
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_27;
+    goto LABEL_26;
   }
 
   if (a2 == 7)
   {
-LABEL_27:
+LABEL_26:
     CSDBSqliteDatabaseSetVersion();
-    v21 = sub_1B7BD1F88(v7, @"Failed to create table msg_pieces.", @"Created table msg_pieces.", @"CREATE TABLE IF NOT EXISTS msg_pieces (ROWID INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, message_id INTEGER, data BLOB, part_id INTEGER, preview_part INTEGER, content_type TEXT, height INTEGER, version INTEGER, flags INTEGER, content_id TEXT, content_loc TEXT, headers BLOB);");
-    v22 = sub_1B7BD1F88(v7, @"Failed to create index pieces_message_index.", @"Created index pieces_message_index.", @"CREATE INDEX pieces_message_index ON msg_pieces(message_id);");
-    if (!v21 || !v22)
+    v22 = sub_1B7BD1F88(v8, @"Failed to create table msg_pieces.", @"Created table msg_pieces.", @"CREATE TABLE IF NOT EXISTS msg_pieces (ROWID INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, message_id INTEGER, data BLOB, part_id INTEGER, preview_part INTEGER, content_type TEXT, height INTEGER, version INTEGER, flags INTEGER, content_id TEXT, content_loc TEXT, headers BLOB);");
+    v23 = sub_1B7BD1F88(v8, @"Failed to create index pieces_message_index.", @"Created index pieces_message_index.", @"CREATE INDEX pieces_message_index ON msg_pieces(message_id);");
+    if (!v22 || !v23)
     {
       goto LABEL_12;
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_30;
+    goto LABEL_29;
   }
 
   if (a2 <= 8)
   {
-LABEL_30:
+LABEL_29:
     CSDBSqliteDatabaseSetVersion();
-    if (!sub_1B7BD28A8(v7))
+    if (!sub_1B7BD28A8(v8))
     {
       goto LABEL_12;
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_32;
+    goto LABEL_31;
   }
 
   if (a2 == 10)
   {
     CSDBSqliteDatabaseSetVersion();
-    if ((sub_1B7BD2C58(v7) & 1) == 0)
+    if ((sub_1B7BD2C58(v8) & 1) == 0)
     {
       goto LABEL_12;
     }
 
-LABEL_33:
+LABEL_32:
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_34;
+    goto LABEL_33;
   }
 
   if (a2 == 9)
   {
-LABEL_32:
+LABEL_31:
     CSDBSqliteDatabaseSetVersion();
-    if ((sub_1B7BD2C58(v7) & 1) == 0)
+    if ((sub_1B7BD2C58(v8) & 1) == 0)
     {
       goto LABEL_12;
     }
 
-    goto LABEL_33;
+    goto LABEL_32;
   }
 
   if (a2 < 0xC)
   {
-LABEL_34:
-    v23 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+LABEL_33:
+    v24 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v23, OS_LOG_TYPE_INFO, "Updating DB to support madrid.", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v24, OS_LOG_TYPE_INFO, "Updating DB to support madrid.", &v119, 2u);
     }
 
     CSDBSqliteDatabaseSetVersion();
-    v24 = sub_1B7BD2A50(v7);
-    v25 = sub_1B7BD212C(v7);
-    if (!v24 || (v25 & 1) == 0)
+    v25 = sub_1B7BD2A50(v8);
+    v26 = sub_1B7BD212C(v8);
+    if (!v25 || (v26 & 1) == 0)
     {
       goto LABEL_12;
     }
 
-    goto LABEL_38;
+    goto LABEL_37;
   }
 
   if (a2 == 12)
   {
-    v45 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+    v46 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v45, OS_LOG_TYPE_INFO, "Updating DB from version 12 to current.", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v46, OS_LOG_TYPE_INFO, "Updating DB from version 12 to current.", &v119, 2u);
     }
 
     CSDBSqliteDatabaseSetVersion();
-    v46 = sub_1B7BD1F88(v7, @"MobileSMS DB Migration failed adding madrid_error column to message table.", @"Added madrid_error column.", @"ALTER TABLE message ADD COLUMN madrid_error INTEGER;");
-    v47 = sub_1B7BD1F88(v7, @"MobileSMS DB Migration failed adding is_madrid column to message table.", @"Added column is_madrid", @"ALTER TABLE message ADD COLUMN is_madrid INTEGER;");
-    v48 = sub_1B7BD1F88(v7, @"MobileSMS DB Migration failed creating index madrid_flags_index.", @"Added index madrid_flags_index.", @"CREATE INDEX madrid_flags_index ON message(madrid_flags);");
-    if (!v46 || !v47 || (v48 & 1) == 0)
+    v47 = sub_1B7BD1F88(v8, @"MobileSMS DB Migration failed adding madrid_error column to message table.", @"Added madrid_error column.", @"ALTER TABLE message ADD COLUMN madrid_error INTEGER;");
+    v48 = sub_1B7BD1F88(v8, @"MobileSMS DB Migration failed adding is_madrid column to message table.", @"Added column is_madrid", @"ALTER TABLE message ADD COLUMN is_madrid INTEGER;");
+    v49 = sub_1B7BD1F88(v8, @"MobileSMS DB Migration failed creating index madrid_flags_index.", @"Added index madrid_flags_index.", @"CREATE INDEX madrid_flags_index ON message(madrid_flags);");
+    if (!v47 || !v48 || (v49 & 1) == 0)
     {
       goto LABEL_12;
     }
 
+LABEL_37:
+    CSDBSqliteDatabaseSetVersion();
 LABEL_38:
     CSDBSqliteDatabaseSetVersion();
-LABEL_39:
-    CSDBSqliteDatabaseSetVersion();
-    v26 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+    v27 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v26, OS_LOG_TYPE_INFO, "Updating DB from version 13 to current.", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v27, OS_LOG_TYPE_INFO, "Updating DB from version 13 to current.", &v119, 2u);
     }
 
-    v27 = sub_1B7BD1F88(v7, @"MobileSMS DB Migration failed adding column madrid_date_read.", @"Added column madrid_date_read.", @"ALTER TABLE message ADD COLUMN madrid_date_read INTEGER;");
-    v28 = sub_1B7BD1F88(v7, @"MobileSMS DB Migration failed adding column madrid_date_delivered.", @"Added column madrid_date_delivered.", @"ALTER TABLE message ADD COLUMN madrid_date_delivered INTEGER;");
-    if (!v27 || !v28)
+    v28 = sub_1B7BD1F88(v8, @"MobileSMS DB Migration failed adding column madrid_date_read.", @"Added column madrid_date_read.", @"ALTER TABLE message ADD COLUMN madrid_date_read INTEGER;");
+    v29 = sub_1B7BD1F88(v8, @"MobileSMS DB Migration failed adding column madrid_date_delivered.", @"Added column madrid_date_delivered.", @"ALTER TABLE message ADD COLUMN madrid_date_delivered INTEGER;");
+    if (!v28 || !v29)
     {
       goto LABEL_12;
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_44;
+    goto LABEL_43;
   }
 
   if (a2 < 0xE)
   {
-    goto LABEL_39;
+    goto LABEL_38;
   }
 
   if (a2 == 14)
   {
-LABEL_44:
-    v29 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+LABEL_43:
+    v30 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v29, OS_LOG_TYPE_INFO, "Updating DB from version 14 to current.", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v30, OS_LOG_TYPE_INFO, "Updating DB from version 14 to current.", &v119, 2u);
     }
 
     CSDBSqliteDatabaseSetVersion();
-    if (!sub_1B7BD24C8(v7))
+    if (!sub_1B7BD24C8(v8))
     {
       goto LABEL_12;
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_48;
+    goto LABEL_47;
   }
 
   if (a2 <= 0xF)
   {
-LABEL_48:
+LABEL_47:
     CSDBSqliteDatabaseSetVersion();
-LABEL_49:
-    v30 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+LABEL_48:
+    v31 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v30, OS_LOG_TYPE_INFO, "Adding index for group_id on group_member", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v31, OS_LOG_TYPE_INFO, "Adding index for group_id on group_member", &v119, 2u);
     }
 
     CSDBSqliteDatabaseSetVersion();
-    if (!sub_1B7BD1F88(v7, @"MobileSMS DB Migration failed adding index group_id_index", @"Added index group_id_index", @"CREATE INDEX group_id_index ON group_member(group_id);"))
+    if (!sub_1B7BD1F88(v8, @"MobileSMS DB Migration failed adding index group_id_index", @"Added index group_id_index", @"CREATE INDEX group_id_index ON group_member(group_id);"))
     {
       goto LABEL_12;
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_53;
+    goto LABEL_52;
   }
 
   if (a2 == 16)
   {
-    goto LABEL_49;
+    goto LABEL_48;
   }
 
   if (a2 <= 0x11)
   {
-LABEL_53:
-    v31 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+LABEL_52:
+    v32 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v31, OS_LOG_TYPE_INFO, "Adding support for Chats and Participants.", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v32, OS_LOG_TYPE_INFO, "Adding support for Chats and Participants.", &v119, 2u);
     }
 
     CSDBSqliteDatabaseSetVersion();
-    if (!sub_1B7BD2514(v7))
+    if (!sub_1B7BD2514(v8))
     {
       goto LABEL_12;
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_57;
+    goto LABEL_56;
   }
 
   if (a2 == 18)
   {
-LABEL_57:
-    v32 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+LABEL_56:
+    v33 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v32, OS_LOG_TYPE_INFO, "Ensuring sanity of is_madrid column.", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v33, OS_LOG_TYPE_INFO, "Ensuring sanity of is_madrid column.", &v119, 2u);
     }
 
     CSDBSqliteDatabaseSetVersion();
-    if (!sub_1B7BD1F88(v7, @"MobileSMS DB Migration failed updating the values for is_madrid.", @"Updated values for is_madrid.", @"UPDATE message SET is_madrid = 0 WHERE is_madrid IS NULL;"))
+    if (!sub_1B7BD1F88(v8, @"MobileSMS DB Migration failed updating the values for is_madrid.", @"Updated values for is_madrid.", @"UPDATE message SET is_madrid = 0 WHERE is_madrid IS NULL;"))
     {
       goto LABEL_12;
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_61;
+    goto LABEL_60;
   }
 
   if (a2 <= 0x13)
   {
-LABEL_61:
-    v33 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+LABEL_60:
+    v34 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v33, OS_LOG_TYPE_INFO, "Cleaning message indices for iMessage.", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v34, OS_LOG_TYPE_INFO, "Cleaning message indices for iMessage.", &v119, 2u);
     }
 
     CSDBSqliteDatabaseSetVersion();
-    if (!sub_1B7BD22A4(v7))
+    if (!sub_1B7BD22A4(v8))
     {
       goto LABEL_12;
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_65;
+    goto LABEL_64;
   }
 
   if (a2 == 20)
   {
-LABEL_65:
-    v34 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+LABEL_64:
+    v35 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v34, OS_LOG_TYPE_INFO, "Adding column for iMessage Account GUID", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v35, OS_LOG_TYPE_INFO, "Adding column for iMessage Account GUID", &v119, 2u);
     }
 
     CSDBSqliteDatabaseSetVersion();
-    if (!sub_1B7BD1F88(v7, @"MobileSMS DB Migration failed adding column madrid_account_guid.", @"Added column madrid_account_guid.", @"ALTER TABLE message ADD COLUMN madrid_account_guid TEXT;"))
+    if (!sub_1B7BD1F88(v8, @"MobileSMS DB Migration failed adding column madrid_account_guid.", @"Added column madrid_account_guid.", @"ALTER TABLE message ADD COLUMN madrid_account_guid TEXT;"))
     {
       goto LABEL_12;
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_69;
+    goto LABEL_68;
   }
 
   if (a2 <= 0x15)
   {
-LABEL_69:
-    v35 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+LABEL_68:
+    v36 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v35, OS_LOG_TYPE_INFO, "Moving old tables to *_legacy and adding tables for the new schema.", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v36, OS_LOG_TYPE_INFO, "Moving old tables to *_legacy and adding tables for the new schema.", &v119, 2u);
     }
 
     CSDBSqliteDatabaseSetVersion();
-    v36 = sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to rename group_member table.", @"Renamed group_member table.", @"ALTER TABLE group_member RENAME TO group_member_legacy;");
-    v37 = sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to rename madrid_attachment table.", @"Renamed madrid_attachment table.", @"ALTER TABLE madrid_attachment RENAME TO madrid_attachment_legacy;");
-    v38 = sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to rename madrid_chat table.", @"Renamed madrid_chat table.", @"ALTER TABLE madrid_chat RENAME TO madrid_chat_legacy;");
-    v39 = sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to rename group_member table.", @"Renamed message table.", @"ALTER TABLE message RENAME TO message_legacy;");
-    v40 = sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to rename msg_group table.", @"Renamed msg_group table.", @"ALTER TABLE msg_group RENAME TO msg_group_legacy;");
-    v41 = sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to rename msg_pieces table.", @"Renamed msg_pieces table.", @"ALTER TABLE msg_pieces RENAME TO msg_pieces_legacy;");
-    sub_1B7BD2CE0();
-    v42 = _IMDSMSDatabaseMigrateData_21_22(v6, v7);
-    if (!v36 || !v37 || !v38 || !v39 || !v40 || !v41 || (v42 & 1) == 0)
+    v37 = sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to rename group_member table.", @"Renamed group_member table.", @"ALTER TABLE group_member RENAME TO group_member_legacy;");
+    v38 = sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to rename madrid_attachment table.", @"Renamed madrid_attachment table.", @"ALTER TABLE madrid_attachment RENAME TO madrid_attachment_legacy;");
+    v39 = sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to rename madrid_chat table.", @"Renamed madrid_chat table.", @"ALTER TABLE madrid_chat RENAME TO madrid_chat_legacy;");
+    v40 = sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to rename group_member table.", @"Renamed message table.", @"ALTER TABLE message RENAME TO message_legacy;");
+    v41 = sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to rename msg_group table.", @"Renamed msg_group table.", @"ALTER TABLE msg_group RENAME TO msg_group_legacy;");
+    v42 = sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to rename msg_pieces table.", @"Renamed msg_pieces table.", @"ALTER TABLE msg_pieces RENAME TO msg_pieces_legacy;");
+    sub_1B7BD2CE0(v8);
+    v43 = _IMDSMSDatabaseMigrateData_21_22(v7, v8);
+    if (!v37 || !v38 || !v39 || !v40 || !v41 || !v42 || (v43 & 1) == 0)
     {
       goto LABEL_12;
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_79;
+    goto LABEL_78;
   }
 
   if (a2 == 22)
   {
-LABEL_79:
+LABEL_78:
     CSDBSqliteDatabaseSetVersion();
-    v43 = CSDBSqliteConnectionPerformSQL();
-    if ((v43 - 100) >= 2 && v43)
+    v44 = CSDBSqliteConnectionPerformSQL();
+    if ((v44 - 100) >= 2 && v44)
     {
-      if (!sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to add column is_archived to the chat table.", @"Added is_archived column to the chat table.", @"ALTER TABLE chat ADD COLUMN is_archived DEFAULT 0"))
+      if (!sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to add column is_archived to the chat table.", @"Added is_archived column to the chat table.", @"ALTER TABLE chat ADD COLUMN is_archived DEFAULT 0"))
       {
         goto LABEL_12;
       }
@@ -3176,79 +2154,79 @@ LABEL_79:
 
     else
     {
-      v44 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+      v45 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v118) = 0;
-        _os_log_impl(&dword_1B7AD5000, v44, OS_LOG_TYPE_INFO, "The is_archived column already exists on chat, skipping this step.", &v118, 2u);
+        LOWORD(v119) = 0;
+        _os_log_impl(&dword_1B7AD5000, v45, OS_LOG_TYPE_INFO, "The is_archived column already exists on chat, skipping this step.", &v119, 2u);
       }
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_142;
+    goto LABEL_141;
   }
 
   if (a2 <= 0x17)
   {
-LABEL_142:
+LABEL_141:
     CSDBSqliteDatabaseSetVersion();
-    v49 = CSDBSqliteConnectionPerformSQL();
-    v50 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
+    v50 = CSDBSqliteConnectionPerformSQL();
+    v51 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
     {
-      v118 = 67109120;
-      v119 = v49;
-      _os_log_impl(&dword_1B7AD5000, v50, OS_LOG_TYPE_INFO, "SQLite result was %d", &v118, 8u);
+      v119 = 67109120;
+      v120 = v50;
+      _os_log_impl(&dword_1B7AD5000, v51, OS_LOG_TYPE_INFO, "SQLite result was %d", &v119, 8u);
     }
 
-    if (v49 != 101 && v49)
+    if (v50 != 101 && v50)
     {
       goto LABEL_12;
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_147;
+    goto LABEL_146;
   }
 
   if (a2 == 24)
   {
-LABEL_147:
+LABEL_146:
     CSDBSqliteDatabaseSetVersion();
-    v51 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+    v52 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v51, OS_LOG_TYPE_INFO, "Fixing missing text in group field", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v52, OS_LOG_TYPE_INFO, "Fixing missing text in group field", &v119, 2u);
     }
 
-    if ((_IMDSMSDatabaseMigrateData_24_25() & 1) == 0)
+    if ((_IMDSMSDatabaseMigrateData_24_25(v7, v8) & 1) == 0)
     {
       goto LABEL_12;
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_151;
+    goto LABEL_150;
   }
 
   if (a2 <= 0x19)
   {
-LABEL_151:
+LABEL_150:
     CSDBSqliteDatabaseSetVersion();
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_152;
+    goto LABEL_151;
   }
 
   if (a2 == 26)
   {
+LABEL_151:
+    CSDBSqliteDatabaseSetVersion();
+    CSDBSqliteDatabaseSetVersion();
 LABEL_152:
     CSDBSqliteDatabaseSetVersion();
-    CSDBSqliteDatabaseSetVersion();
-LABEL_153:
-    CSDBSqliteDatabaseSetVersion();
-    v52 = CSDBSqliteConnectionPerformSQL();
-    if ((v52 - 100) >= 2 && v52)
+    v53 = CSDBSqliteConnectionPerformSQL();
+    if ((v53 - 100) >= 2 && v53)
     {
-      if (!sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to add column was_data_detected to the message table.", @"Added was_data_detected column to the message table.", @"ALTER TABLE message ADD COLUMN was_data_detected INTEGER DEFAULT 0"))
+      if (!sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to add column was_data_detected to the message table.", @"Added was_data_detected column to the message table.", @"ALTER TABLE message ADD COLUMN was_data_detected INTEGER DEFAULT 0"))
       {
         goto LABEL_12;
       }
@@ -3256,39 +2234,39 @@ LABEL_153:
 
     else
     {
-      v53 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
+      v54 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v118) = 0;
-        _os_log_impl(&dword_1B7AD5000, v53, OS_LOG_TYPE_INFO, "The was_data_detected column already exists on message, skipping this step.", &v118, 2u);
+        LOWORD(v119) = 0;
+        _os_log_impl(&dword_1B7AD5000, v54, OS_LOG_TYPE_INFO, "The was_data_detected column already exists on message, skipping this step.", &v119, 2u);
       }
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_159;
+    goto LABEL_158;
   }
 
   if (a2 <= 0x1B)
   {
-    goto LABEL_153;
+    goto LABEL_152;
   }
 
   if (a2 == 28)
   {
-LABEL_159:
+LABEL_158:
     CSDBSqliteDatabaseSetVersion();
-    v54 = CSDBSqliteConnectionPerformSQL();
-    v55 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
+    v55 = CSDBSqliteConnectionPerformSQL();
+    v56 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
     {
-      v118 = 67109120;
-      v119 = v54;
-      _os_log_impl(&dword_1B7AD5000, v55, OS_LOG_TYPE_INFO, "SQLite result was %d", &v118, 8u);
+      v119 = 67109120;
+      v120 = v55;
+      _os_log_impl(&dword_1B7AD5000, v56, OS_LOG_TYPE_INFO, "SQLite result was %d", &v119, 8u);
     }
 
-    if ((v54 - 100) >= 2 && v54)
+    if ((v55 - 100) >= 2 && v55)
     {
-      if (!sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to add column last_addressed_handle to the chat table.", @"Added last_addressed_handle column to the chat table.", @"ALTER TABLE chat ADD COLUMN last_addressed_handle TEXT"))
+      if (!sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to add column last_addressed_handle to the chat table.", @"Added last_addressed_handle column to the chat table.", @"ALTER TABLE chat ADD COLUMN last_addressed_handle TEXT"))
       {
         goto LABEL_12;
       }
@@ -3296,39 +2274,39 @@ LABEL_159:
 
     else
     {
-      v56 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+      v57 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v118) = 0;
-        _os_log_impl(&dword_1B7AD5000, v56, OS_LOG_TYPE_INFO, "The last_addressed_handle column already exists on chat, skipping this step.", &v118, 2u);
+        LOWORD(v119) = 0;
+        _os_log_impl(&dword_1B7AD5000, v57, OS_LOG_TYPE_INFO, "The last_addressed_handle column already exists on chat, skipping this step.", &v119, 2u);
       }
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_167;
+    goto LABEL_166;
   }
 
   if (a2 <= 0x1D)
   {
-LABEL_167:
+LABEL_166:
     CSDBSqliteDatabaseSetVersion();
-    if (!sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to delete V21_MIGRATION_NONCANONICAL_GROUP_HANDLE_MAP.", @"Dropped unneeded V21_MIGRATION_NONCANONICAL_GROUP_HANDLE_MAP.", @"DROP TABLE IF EXISTS V21_MIGRATION_NONCANONICAL_GROUP_HANDLE_MAP"))
+    if (!sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to delete V21_MIGRATION_NONCANONICAL_GROUP_HANDLE_MAP.", @"Dropped unneeded V21_MIGRATION_NONCANONICAL_GROUP_HANDLE_MAP.", @"DROP TABLE IF EXISTS V21_MIGRATION_NONCANONICAL_GROUP_HANDLE_MAP"))
     {
       goto LABEL_12;
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_169;
+    goto LABEL_168;
   }
 
   if (a2 == 30)
   {
-LABEL_169:
+LABEL_168:
     CSDBSqliteDatabaseSetVersion();
-    v57 = CSDBSqliteConnectionPerformSQL();
-    if ((v57 - 100) >= 2 && v57)
+    v58 = CSDBSqliteConnectionPerformSQL();
+    if ((v58 - 100) >= 2 && v58)
     {
-      if (!sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to add column was_deduplicated to the message table.", @"Added was_deduplicated column to the message table.", @"ALTER TABLE message ADD COLUMN was_deduplicated INTEGER DEFAULT 0"))
+      if (!sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to add column was_deduplicated to the message table.", @"Added was_deduplicated column to the message table.", @"ALTER TABLE message ADD COLUMN was_deduplicated INTEGER DEFAULT 0"))
       {
         goto LABEL_12;
       }
@@ -3336,104 +2314,104 @@ LABEL_169:
 
     else
     {
-      v58 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
+      v59 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v118) = 0;
-        _os_log_impl(&dword_1B7AD5000, v58, OS_LOG_TYPE_INFO, "The was_deduplicated column already exists on message, skipping this step.", &v118, 2u);
+        LOWORD(v119) = 0;
+        _os_log_impl(&dword_1B7AD5000, v59, OS_LOG_TYPE_INFO, "The was_deduplicated column already exists on message, skipping this step.", &v119, 2u);
       }
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_175;
+    goto LABEL_174;
   }
 
   if (a2 <= 0x1F)
   {
-LABEL_175:
+LABEL_174:
     CSDBSqliteDatabaseSetVersion();
-    if (!sub_1B7BD2800(v7, @"message_idx_is_read", @"CREATE INDEX message_idx_is_read ON message(is_read, is_from_me, is_finished);"))
+    if (!sub_1B7BD2800(v8, @"message_idx_is_read", @"CREATE INDEX message_idx_is_read ON message(is_read, is_from_me, is_finished);"))
     {
       goto LABEL_12;
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_177;
+    goto LABEL_176;
   }
 
   if (a2 == 32)
   {
-LABEL_177:
+LABEL_176:
     CSDBSqliteDatabaseSetVersion();
-    v59 = sub_1B7BD2800(v7, @"message_idx_failed", @"CREATE INDEX message_idx_failed ON message(is_finished, is_from_me, error)");
-    v60 = sub_1B7BD2800(v7, @"message_idx_handle", @"CREATE INDEX IF NOT EXISTS message_idx_handle ON message(handle_id, date);");
-    v61 = sub_1B7BD2800(v7, @"chat_idx_identifier", @"CREATE INDEX IF NOT EXISTS chat_idx_identifier ON chat(chat_identifier)");
-    v62 = sub_1B7BD2800(v7, @"chat_idx_room_name", @"CREATE INDEX IF NOT EXISTS chat_idx_room_name ON chat(room_name)");
-    v63 = sub_1B7BD2800(v7, @"message_idx_was_downgraded", @"CREATE INDEX IF NOT EXISTS message_idx_was_downgraded ON message(was_downgraded);");
-    v64 = sub_1B7BD2800(v7, @"chat_message_join_idx_message_id", @"CREATE INDEX IF NOT EXISTS chat_message_join_idx_message_date_id_chat_id ON chat_message_join(chat_id, message_date, message_id)");
-    if (!v59 || !v60 || !v61 || !v62 || !v63 || !v64)
+    v60 = sub_1B7BD2800(v8, @"message_idx_failed", @"CREATE INDEX message_idx_failed ON message(is_finished, is_from_me, error)");
+    v61 = sub_1B7BD2800(v8, @"message_idx_handle", @"CREATE INDEX IF NOT EXISTS message_idx_handle ON message(handle_id, date);");
+    v62 = sub_1B7BD2800(v8, @"chat_idx_identifier", @"CREATE INDEX IF NOT EXISTS chat_idx_identifier ON chat(chat_identifier)");
+    v63 = sub_1B7BD2800(v8, @"chat_idx_room_name", @"CREATE INDEX IF NOT EXISTS chat_idx_room_name ON chat(room_name)");
+    v64 = sub_1B7BD2800(v8, @"message_idx_was_downgraded", @"CREATE INDEX IF NOT EXISTS message_idx_was_downgraded ON message(was_downgraded);");
+    v65 = sub_1B7BD2800(v8, @"chat_message_join_idx_message_id", @"CREATE INDEX IF NOT EXISTS chat_message_join_idx_message_date_id_chat_id ON chat_message_join(chat_id, message_date, message_id)");
+    if (!v60 || !v61 || !v62 || !v63 || !v64 || !v65)
     {
       goto LABEL_12;
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_184;
+    goto LABEL_183;
   }
 
   if (a2 <= 0x21)
   {
-LABEL_184:
+LABEL_183:
     CSDBSqliteDatabaseSetVersion();
-    v65 = sub_1B7BD2688(v7, @"madrid_attachment_legacy");
-    v66 = sub_1B7BD2688(v7, @"group_member_legacy");
-    v67 = sub_1B7BD2688(v7, @"madrid_chat_legacy");
-    v68 = sub_1B7BD2688(v7, @"message_legacy");
-    v69 = sub_1B7BD2688(v7, @"msg_group_legacy");
-    v70 = sub_1B7BD2688(v7, @"msg_pieces_legacy");
-    if (!v65 || !v66 || !v67 || !v68 || !v69 || !v70)
+    v66 = sub_1B7BD2688(v8, @"madrid_attachment_legacy");
+    v67 = sub_1B7BD2688(v8, @"group_member_legacy");
+    v68 = sub_1B7BD2688(v8, @"madrid_chat_legacy");
+    v69 = sub_1B7BD2688(v8, @"message_legacy");
+    v70 = sub_1B7BD2688(v8, @"msg_group_legacy");
+    v71 = sub_1B7BD2688(v8, @"msg_pieces_legacy");
+    if (!v66 || !v67 || !v68 || !v69 || !v70 || !v71)
     {
       goto LABEL_12;
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_191;
+    goto LABEL_190;
   }
 
   if (a2 == 34)
   {
-LABEL_191:
-    CSDBSqliteDatabaseSetVersion();
-    v71 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
-    {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v71, OS_LOG_TYPE_INFO, "Fixing busted chat identifiers for group chats", &v118, 2u);
-    }
-
-    if ((_IMDSMSDatabaseMigrateData_34_35() & 1) == 0)
-    {
-      goto LABEL_12;
-    }
-
-    CSDBSqliteDatabaseSetVersion();
-    goto LABEL_195;
-  }
-
-  if (a2 <= 0x23)
-  {
-LABEL_195:
+LABEL_190:
     CSDBSqliteDatabaseSetVersion();
     v72 = IMLogHandleForCategory();
     if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v72, OS_LOG_TYPE_INFO, "Adding attachment is_outgoing column", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v72, OS_LOG_TYPE_INFO, "Fixing busted chat identifiers for group chats", &v119, 2u);
     }
 
-    v73 = CSDBSqliteConnectionPerformSQL();
-    if ((v73 - 100) >= 2 && v73)
+    if ((_IMDSMSDatabaseMigrateData_34_35(v7, v8) & 1) == 0)
     {
-      if (!sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to add column is_outgoing to the attachment table.", @"Added is_outgoing column to the attachment table.", @"ALTER TABLE attachment ADD COLUMN is_outgoing INTEGER DEFAULT 0"))
+      goto LABEL_12;
+    }
+
+    CSDBSqliteDatabaseSetVersion();
+    goto LABEL_194;
+  }
+
+  if (a2 <= 0x23)
+  {
+LABEL_194:
+    CSDBSqliteDatabaseSetVersion();
+    v73 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
+    {
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v73, OS_LOG_TYPE_INFO, "Adding attachment is_outgoing column", &v119, 2u);
+    }
+
+    v74 = CSDBSqliteConnectionPerformSQL();
+    if ((v74 - 100) >= 2 && v74)
+    {
+      if (!sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to add column is_outgoing to the attachment table.", @"Added is_outgoing column to the attachment table.", @"ALTER TABLE attachment ADD COLUMN is_outgoing INTEGER DEFAULT 0"))
       {
         goto LABEL_12;
       }
@@ -3441,76 +2419,76 @@ LABEL_195:
 
     else
     {
-      v74 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
+      v75 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v75, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v118) = 0;
-        _os_log_impl(&dword_1B7AD5000, v74, OS_LOG_TYPE_INFO, "The is_outgoing column already exists on attachment, skipping this step.", &v118, 2u);
+        LOWORD(v119) = 0;
+        _os_log_impl(&dword_1B7AD5000, v75, OS_LOG_TYPE_INFO, "The is_outgoing column already exists on attachment, skipping this step.", &v119, 2u);
       }
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_203;
+    goto LABEL_202;
   }
 
   if (a2 == 36)
   {
-LABEL_203:
+LABEL_202:
     CSDBSqliteDatabaseSetVersion();
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_204;
+    goto LABEL_203;
   }
 
   if (a2 <= 0x25)
   {
-LABEL_204:
-    v75 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v75, OS_LOG_TYPE_INFO))
+LABEL_203:
+    v76 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v76, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v75, OS_LOG_TYPE_INFO, "Fixing up uncanonicalized identifiers that had previously been incorrectly treated as canonicalized.", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v76, OS_LOG_TYPE_INFO, "Fixing up uncanonicalized identifiers that had previously been incorrectly treated as canonicalized.", &v119, 2u);
     }
 
     CSDBSqliteDatabaseSetVersion();
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_207;
+    goto LABEL_206;
   }
 
   if (a2 == 38)
   {
-LABEL_207:
-    v76 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v76, OS_LOG_TYPE_INFO))
+LABEL_206:
+    v77 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v76, OS_LOG_TYPE_INFO, "Fixing up uncanonicalized handle identifiers that failed to migrate due to conflicts.", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v77, OS_LOG_TYPE_INFO, "Fixing up uncanonicalized handle identifiers that failed to migrate due to conflicts.", &v119, 2u);
     }
 
     CSDBSqliteDatabaseSetVersion();
-    if ((_IMDSMSDatabaseMigrateData_38_6100() & 1) == 0)
+    if ((_IMDSMSDatabaseMigrateData_38_6100(v7, v8) & 1) == 0)
     {
       goto LABEL_12;
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_211;
+    goto LABEL_210;
   }
 
   if (a2 <= 0x17D4)
   {
-LABEL_211:
+LABEL_210:
     CSDBSqliteDatabaseSetVersion();
-    v77 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
+    v78 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v78, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v77, OS_LOG_TYPE_INFO, "Adding attachment user_info column", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v78, OS_LOG_TYPE_INFO, "Adding attachment user_info column", &v119, 2u);
     }
 
-    v78 = CSDBSqliteConnectionPerformSQL();
-    if ((v78 - 100) >= 2 && v78)
+    v79 = CSDBSqliteConnectionPerformSQL();
+    if ((v79 - 100) >= 2 && v79)
     {
-      if (!sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to add column user_info to the attachment table.", @"Added user_info column to the attachment table.", @"ALTER TABLE attachment ADD COLUMN user_info BLOB"))
+      if (!sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to add column user_info to the attachment table.", @"Added user_info column to the attachment table.", @"ALTER TABLE attachment ADD COLUMN user_info BLOB"))
       {
         goto LABEL_12;
       }
@@ -3518,33 +2496,33 @@ LABEL_211:
 
     else
     {
-      v79 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v79, OS_LOG_TYPE_INFO))
+      v80 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v80, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v118) = 0;
-        _os_log_impl(&dword_1B7AD5000, v79, OS_LOG_TYPE_INFO, "The user_info column already exists on attachment, skipping this step.", &v118, 2u);
+        LOWORD(v119) = 0;
+        _os_log_impl(&dword_1B7AD5000, v80, OS_LOG_TYPE_INFO, "The user_info column already exists on attachment, skipping this step.", &v119, 2u);
       }
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_219;
+    goto LABEL_218;
   }
 
   if (a2 <= 0x1B58)
   {
-LABEL_219:
+LABEL_218:
     CSDBSqliteDatabaseSetVersion();
-    v80 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v80, OS_LOG_TYPE_INFO))
+    v81 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v81, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v80, OS_LOG_TYPE_INFO, "Adding attachment transfer_name column", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v81, OS_LOG_TYPE_INFO, "Adding attachment transfer_name column", &v119, 2u);
     }
 
-    v81 = CSDBSqliteConnectionPerformSQL();
-    if ((v81 - 100) >= 2 && v81)
+    v82 = CSDBSqliteConnectionPerformSQL();
+    if ((v82 - 100) >= 2 && v82)
     {
-      if (!sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to add column transfer_name to the attachment table.", @"Added transfer_name column to the attachment table.", @"ALTER TABLE attachment ADD COLUMN transfer_name TEXT"))
+      if (!sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to add column transfer_name to the attachment table.", @"Added transfer_name column to the attachment table.", @"ALTER TABLE attachment ADD COLUMN transfer_name TEXT"))
       {
         goto LABEL_12;
       }
@@ -3552,33 +2530,33 @@ LABEL_219:
 
     else
     {
-      v82 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v82, OS_LOG_TYPE_INFO))
+      v83 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v83, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v118) = 0;
-        _os_log_impl(&dword_1B7AD5000, v82, OS_LOG_TYPE_INFO, "The transfer_name column already exists on attachment, skipping this step.", &v118, 2u);
+        LOWORD(v119) = 0;
+        _os_log_impl(&dword_1B7AD5000, v83, OS_LOG_TYPE_INFO, "The transfer_name column already exists on attachment, skipping this step.", &v119, 2u);
       }
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_227;
+    goto LABEL_226;
   }
 
   if (a2 == 7001)
   {
-LABEL_227:
+LABEL_226:
     CSDBSqliteDatabaseSetVersion();
-    v83 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v83, OS_LOG_TYPE_INFO))
+    v84 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v84, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v83, OS_LOG_TYPE_INFO, "Adding chat display_name column", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v84, OS_LOG_TYPE_INFO, "Adding chat display_name column", &v119, 2u);
     }
 
-    v84 = CSDBSqliteConnectionPerformSQL();
-    if ((v84 - 100) >= 2 && v84)
+    v85 = CSDBSqliteConnectionPerformSQL();
+    if ((v85 - 100) >= 2 && v85)
     {
-      if (!sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to add column display_name to the display_name table.", @"Added display_name column to the display_name table.", @"ALTER TABLE chat ADD COLUMN display_name TEXT"))
+      if (!sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to add column display_name to the display_name table.", @"Added display_name column to the display_name table.", @"ALTER TABLE chat ADD COLUMN display_name TEXT"))
       {
         goto LABEL_12;
       }
@@ -3586,33 +2564,33 @@ LABEL_227:
 
     else
     {
-      v85 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v85, OS_LOG_TYPE_INFO))
+      v86 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v118) = 0;
-        _os_log_impl(&dword_1B7AD5000, v85, OS_LOG_TYPE_INFO, "The display_name column already exists on chat, skipping this step.", &v118, 2u);
+        LOWORD(v119) = 0;
+        _os_log_impl(&dword_1B7AD5000, v86, OS_LOG_TYPE_INFO, "The display_name column already exists on chat, skipping this step.", &v119, 2u);
       }
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_235;
+    goto LABEL_234;
   }
 
   if (a2 >> 2 <= 0x6D6)
   {
-LABEL_235:
+LABEL_234:
     CSDBSqliteDatabaseSetVersion();
-    v86 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
+    v87 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v86, OS_LOG_TYPE_INFO, "Adding attachment total_bytes column", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v87, OS_LOG_TYPE_INFO, "Adding attachment total_bytes column", &v119, 2u);
     }
 
-    v87 = CSDBSqliteConnectionPerformSQL();
-    if ((v87 - 100) >= 2 && v87)
+    v88 = CSDBSqliteConnectionPerformSQL();
+    if ((v88 - 100) >= 2 && v88)
     {
-      if (!sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to add column total_bytes to the attachment table.", @"Added total_bytes column to the attachment table.", @"ALTER TABLE attachment ADD COLUMN total_bytes INTEGER DEFAULT -1"))
+      if (!sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to add column total_bytes to the attachment table.", @"Added total_bytes column to the attachment table.", @"ALTER TABLE attachment ADD COLUMN total_bytes INTEGER DEFAULT -1"))
       {
         goto LABEL_12;
       }
@@ -3620,144 +2598,144 @@ LABEL_235:
 
     else
     {
-      v88 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v88, OS_LOG_TYPE_INFO))
+      v89 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v89, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v118) = 0;
-        _os_log_impl(&dword_1B7AD5000, v88, OS_LOG_TYPE_INFO, "The transfer_name column already exists on attachment, skipping this step.", &v118, 2u);
+        LOWORD(v119) = 0;
+        _os_log_impl(&dword_1B7AD5000, v89, OS_LOG_TYPE_INFO, "The transfer_name column already exists on attachment, skipping this step.", &v119, 2u);
       }
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_243;
+    goto LABEL_242;
   }
 
   if (a2 == 7004)
   {
-LABEL_243:
-    CSDBSqliteDatabaseSetVersion();
-    v89 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v89, OS_LOG_TYPE_INFO))
-    {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v89, OS_LOG_TYPE_INFO, "Purging orphaned messages", &v118, 2u);
-    }
-
-    if (!sub_1B7BD1F88(v7, @"Purged orphaned messages failed :-(."), CFSTR("Purged orphaned messages."), CFSTR("DELETE FROM message WHERE (SELECT 1 from chat_message_join cmj WHERE message.ROWID = cmj.message_id LIMIT 1) IS NULL;"))
-    {
-      goto LABEL_12;
-    }
-
-    CSDBSqliteDatabaseSetVersion();
-    goto LABEL_247;
-  }
-
-  if (a2 >> 1 <= 0xDAE)
-  {
-LABEL_247:
+LABEL_242:
     CSDBSqliteDatabaseSetVersion();
     v90 = IMLogHandleForCategory();
     if (os_log_type_enabled(v90, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v90, OS_LOG_TYPE_INFO, "Purging orphaned messages", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v90, OS_LOG_TYPE_INFO, "Purging orphaned messages", &v119, 2u);
     }
 
-    if (!sub_1B7BD1F88(v7, @"Purged orphaned messages failed :-(."), CFSTR("Purged orphaned messages."), CFSTR("DELETE FROM message WHERE (SELECT 1 from chat_message_join cmj WHERE message.ROWID = cmj.message_id LIMIT 1) IS NULL;"))
+    if (!sub_1B7BD1F88(v8, @"Purged orphaned messages failed :-(."), @"Purged orphaned messages.", @"DELETE FROM message WHERE (SELECT 1 from chat_message_join cmj WHERE message.ROWID = cmj.message_id LIMIT 1) IS NULL;")
     {
       goto LABEL_12;
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_251;
+    goto LABEL_246;
   }
 
-  if (a2 == 7006)
+  if (a2 >> 1 <= 0xDAE)
   {
-LABEL_251:
-    CSDBSqliteDatabaseSetVersion();
-    CSDBSqliteDatabaseSetVersion();
-    goto LABEL_252;
-  }
-
-  if (a2 <= 0x1F40)
-  {
-LABEL_252:
+LABEL_246:
     CSDBSqliteDatabaseSetVersion();
     v91 = IMLogHandleForCategory();
     if (os_log_type_enabled(v91, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v91, OS_LOG_TYPE_INFO, "Adding message is_audio_message, is_played, and date_played column", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v91, OS_LOG_TYPE_INFO, "Purging orphaned messages", &v119, 2u);
     }
 
-    v92 = CSDBSqliteConnectionPerformSQL();
-    if ((v92 - 100) >= 2 && v92)
-    {
-      v94 = sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to add column is_audio_message to the message table.", @"Added is_audio_message column to the message table.", @"ALTER TABLE message ADD COLUMN is_audio_message INTEGER DEFAULT 0");
-      v95 = sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to add column is_played to the message table.", @"Added is_played column to the message table.", @"ALTER TABLE message ADD COLUMN is_played INTEGER DEFAULT 0");
-      v96 = sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to add column date_played to the message table.", @"Added date_played column to the message table.", @"ALTER TABLE message ADD COLUMN date_played INTEGER");
-      if (!v94 || !v95 || !v96)
-      {
-        goto LABEL_12;
-      }
-    }
-
-    else
-    {
-      v93 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v93, OS_LOG_TYPE_INFO))
-      {
-        LOWORD(v118) = 0;
-        _os_log_impl(&dword_1B7AD5000, v93, OS_LOG_TYPE_INFO, "The is_audio_message, is_played, and date_played columns already exist on message, skipping this step.", &v118, 2u);
-      }
-    }
-
-    CSDBSqliteDatabaseSetVersion();
-    goto LABEL_262;
-  }
-
-  if (a2 == 8001)
-  {
-LABEL_262:
-    CSDBSqliteDatabaseSetVersion();
-    v97 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v97, OS_LOG_TYPE_INFO))
-    {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v97, OS_LOG_TYPE_INFO, "Purging orphaned messages - again", &v118, 2u);
-    }
-
-    if (!sub_1B7BD1F88(v7, @"Purged orphaned messages failed :-(."), CFSTR("Purged orphaned messages."), CFSTR("DELETE FROM message WHERE (SELECT 1 from chat_message_join cmj WHERE message.ROWID = cmj.message_id LIMIT 1) IS NULL;"))
+    if (!sub_1B7BD1F88(v8, @"Purged orphaned messages failed :-(."), @"Purged orphaned messages.", @"DELETE FROM message WHERE (SELECT 1 from chat_message_join cmj WHERE message.ROWID = cmj.message_id LIMIT 1) IS NULL;")
     {
       goto LABEL_12;
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_266;
+    goto LABEL_250;
   }
 
-  if (a2 <= 0x1F42)
+  if (a2 == 7006)
   {
-LABEL_266:
+LABEL_250:
+    CSDBSqliteDatabaseSetVersion();
+    CSDBSqliteDatabaseSetVersion();
+    goto LABEL_251;
+  }
+
+  if (a2 <= 0x1F40)
+  {
+LABEL_251:
+    CSDBSqliteDatabaseSetVersion();
+    v92 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v92, OS_LOG_TYPE_INFO))
+    {
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v92, OS_LOG_TYPE_INFO, "Adding message is_audio_message, is_played, and date_played column", &v119, 2u);
+    }
+
+    v93 = CSDBSqliteConnectionPerformSQL();
+    if ((v93 - 100) >= 2 && v93)
+    {
+      v95 = sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to add column is_audio_message to the message table.", @"Added is_audio_message column to the message table.", @"ALTER TABLE message ADD COLUMN is_audio_message INTEGER DEFAULT 0");
+      v96 = sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to add column is_played to the message table.", @"Added is_played column to the message table.", @"ALTER TABLE message ADD COLUMN is_played INTEGER DEFAULT 0");
+      v97 = sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to add column date_played to the message table.", @"Added date_played column to the message table.", @"ALTER TABLE message ADD COLUMN date_played INTEGER");
+      if (!v95 || !v96 || !v97)
+      {
+        goto LABEL_12;
+      }
+    }
+
+    else
+    {
+      v94 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v94, OS_LOG_TYPE_INFO))
+      {
+        LOWORD(v119) = 0;
+        _os_log_impl(&dword_1B7AD5000, v94, OS_LOG_TYPE_INFO, "The is_audio_message, is_played, and date_played columns already exist on message, skipping this step.", &v119, 2u);
+      }
+    }
+
+    CSDBSqliteDatabaseSetVersion();
+    goto LABEL_261;
+  }
+
+  if (a2 == 8001)
+  {
+LABEL_261:
     CSDBSqliteDatabaseSetVersion();
     v98 = IMLogHandleForCategory();
     if (os_log_type_enabled(v98, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v98, OS_LOG_TYPE_INFO, "Adding message item_type, other_handle, group_title, group_action_type, share_status, share_direction", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v98, OS_LOG_TYPE_INFO, "Purging orphaned messages - again", &v119, 2u);
     }
 
-    v99 = CSDBSqliteConnectionPerformSQL();
-    if ((v99 - 100) >= 2 && v99)
+    if (!sub_1B7BD1F88(v8, @"Purged orphaned messages failed :-(."), @"Purged orphaned messages.", @"DELETE FROM message WHERE (SELECT 1 from chat_message_join cmj WHERE message.ROWID = cmj.message_id LIMIT 1) IS NULL;")
     {
-      v101 = sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to add column item_type to the message table.", @"Added item_type column to the message table.", @"ALTER TABLE message ADD COLUMN item_type INTEGER DEFAULT 0");
-      v102 = sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to add column other_handle to the message table.", @"Added other_handle column to the message table.", @"ALTER TABLE message ADD COLUMN other_handle INTEGER DEFAULT -1");
-      v103 = sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to add column group_title to the message table.", @"Added group_title column to the message table.", @"ALTER TABLE message ADD COLUMN group_title TEXT");
-      v104 = sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to add column group_action_type to the message table.", @"Added group_action_type column to the message table.", @"ALTER TABLE message ADD COLUMN group_action_type INTEGER DEFAULT 0");
-      v105 = sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to add column share_status to the message table.", @"Added share_status column to the message table.", @"ALTER TABLE message ADD COLUMN share_status INTEGER");
-      v106 = sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to add column share_direction to the message table.", @"Added share_direction column to the message table.", @"ALTER TABLE message ADD COLUMN share_direction INTEGER");
-      if (!v101 || !v102 || !v103 || !v104 || !v105 || !v106)
+      goto LABEL_12;
+    }
+
+    CSDBSqliteDatabaseSetVersion();
+    goto LABEL_265;
+  }
+
+  if (a2 <= 0x1F42)
+  {
+LABEL_265:
+    CSDBSqliteDatabaseSetVersion();
+    v99 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v99, OS_LOG_TYPE_INFO))
+    {
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v99, OS_LOG_TYPE_INFO, "Adding message item_type, other_handle, group_title, group_action_type, share_status, share_direction", &v119, 2u);
+    }
+
+    v100 = CSDBSqliteConnectionPerformSQL();
+    if ((v100 - 100) >= 2 && v100)
+    {
+      v102 = sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to add column item_type to the message table.", @"Added item_type column to the message table.", @"ALTER TABLE message ADD COLUMN item_type INTEGER DEFAULT 0");
+      v103 = sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to add column other_handle to the message table.", @"Added other_handle column to the message table.", @"ALTER TABLE message ADD COLUMN other_handle INTEGER DEFAULT -1");
+      v104 = sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to add column group_title to the message table.", @"Added group_title column to the message table.", @"ALTER TABLE message ADD COLUMN group_title TEXT");
+      v105 = sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to add column group_action_type to the message table.", @"Added group_action_type column to the message table.", @"ALTER TABLE message ADD COLUMN group_action_type INTEGER DEFAULT 0");
+      v106 = sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to add column share_status to the message table.", @"Added share_status column to the message table.", @"ALTER TABLE message ADD COLUMN share_status INTEGER");
+      v107 = sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to add column share_direction to the message table.", @"Added share_direction column to the message table.", @"ALTER TABLE message ADD COLUMN share_direction INTEGER");
+      if (!v102 || !v103 || !v104 || !v105 || !v106 || !v107)
       {
         goto LABEL_12;
       }
@@ -3765,18 +2743,18 @@ LABEL_266:
 
     else
     {
-      v100 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v100, OS_LOG_TYPE_INFO))
+      v101 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v101, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v118) = 0;
-        _os_log_impl(&dword_1B7AD5000, v100, OS_LOG_TYPE_INFO, "The item_type, other_handle, group_title, group_action_type, share_status, share_direction columns already exist on message, skipping this step.", &v118, 2u);
+        LOWORD(v119) = 0;
+        _os_log_impl(&dword_1B7AD5000, v101, OS_LOG_TYPE_INFO, "The item_type, other_handle, group_title, group_action_type, share_status, share_direction columns already exist on message, skipping this step.", &v119, 2u);
       }
     }
 
-    v107 = CSDBSqliteConnectionPerformSQL();
-    if ((v107 - 100) >= 2 && v107)
+    v108 = CSDBSqliteConnectionPerformSQL();
+    if ((v108 - 100) >= 2 && v108)
     {
-      if (!sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to add column group_id to the chat table.", @"Added group_id column to the chat table.", @"ALTER TABLE chat ADD COLUMN group_id TEXT"))
+      if (!sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to add column group_id to the chat table.", @"Added group_id column to the chat table.", @"ALTER TABLE chat ADD COLUMN group_id TEXT"))
       {
         goto LABEL_12;
       }
@@ -3784,44 +2762,44 @@ LABEL_266:
 
     else
     {
-      v108 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v108, OS_LOG_TYPE_INFO))
+      v109 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v109, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v118) = 0;
-        _os_log_impl(&dword_1B7AD5000, v108, OS_LOG_TYPE_INFO, "The group_id columns already exist on chat, skipping this step.", &v118, 2u);
+        LOWORD(v119) = 0;
+        _os_log_impl(&dword_1B7AD5000, v109, OS_LOG_TYPE_INFO, "The group_id columns already exist on chat, skipping this step.", &v119, 2u);
       }
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_284;
+    goto LABEL_283;
   }
 
   if (a2 >> 1 <= 0xFA2)
   {
-LABEL_284:
+LABEL_283:
     CSDBSqliteDatabaseSetVersion();
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_285;
+    goto LABEL_284;
   }
 
   if (a2 == 8006)
   {
-LABEL_285:
+LABEL_284:
     CSDBSqliteDatabaseSetVersion();
-    v109 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v109, OS_LOG_TYPE_INFO))
+    v110 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v110, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v109, OS_LOG_TYPE_INFO, "Adding message is_expirable, expire_state, and message_action_type column", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v110, OS_LOG_TYPE_INFO, "Adding message is_expirable, expire_state, and message_action_type column", &v119, 2u);
     }
 
-    v110 = CSDBSqliteConnectionPerformSQL();
-    if ((v110 - 100) >= 2 && v110)
+    v111 = CSDBSqliteConnectionPerformSQL();
+    if ((v111 - 100) >= 2 && v111)
     {
-      v112 = sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to add column is_expirable to the message table.", @"Added is_expirable column to the message table.", @"ALTER TABLE message ADD COLUMN is_expirable INTEGER DEFAULT 0");
-      v113 = sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to add column expire_state to the message table.", @"Added expire_state column to the message table.", @"ALTER TABLE message ADD COLUMN expire_state INTEGER DEFAULT 0");
-      v114 = sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to add column message_action_type to the message table.", @"Added message_action_type column to the message table.", @"ALTER TABLE message ADD COLUMN message_action_type INTEGER DEFAULT 0");
-      if (!v112 || !v113 || !v114)
+      v113 = sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to add column is_expirable to the message table.", @"Added is_expirable column to the message table.", @"ALTER TABLE message ADD COLUMN is_expirable INTEGER DEFAULT 0");
+      v114 = sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to add column expire_state to the message table.", @"Added expire_state column to the message table.", @"ALTER TABLE message ADD COLUMN expire_state INTEGER DEFAULT 0");
+      v115 = sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to add column message_action_type to the message table.", @"Added message_action_type column to the message table.", @"ALTER TABLE message ADD COLUMN message_action_type INTEGER DEFAULT 0");
+      if (!v113 || !v114 || !v115)
       {
         goto LABEL_12;
       }
@@ -3829,76 +2807,73 @@ LABEL_285:
 
     else
     {
-      v111 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v111, OS_LOG_TYPE_INFO))
+      v112 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v112, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v118) = 0;
-        _os_log_impl(&dword_1B7AD5000, v111, OS_LOG_TYPE_INFO, "The is_expirable, expire_state, and message_action_type columns already exist on message, skipping this step.", &v118, 2u);
+        LOWORD(v119) = 0;
+        _os_log_impl(&dword_1B7AD5000, v112, OS_LOG_TYPE_INFO, "The is_expirable, expire_state, and message_action_type columns already exist on message, skipping this step.", &v119, 2u);
       }
     }
 
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_295;
+    goto LABEL_294;
   }
 
   if (a2 >> 3 > 0x3E8)
   {
     if (a2 != 8008)
     {
-      goto LABEL_17;
+      return 1;
     }
 
-LABEL_303:
+LABEL_302:
     CSDBSqliteDatabaseSetVersion();
     CSDBSqliteDatabaseSetVersion();
-    goto LABEL_17;
+    return 1;
   }
 
-LABEL_295:
+LABEL_294:
   CSDBSqliteDatabaseSetVersion();
-  v115 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v115, OS_LOG_TYPE_INFO))
+  v116 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v116, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v118) = 0;
-    _os_log_impl(&dword_1B7AD5000, v115, OS_LOG_TYPE_INFO, "Adding message message_source column", &v118, 2u);
+    LOWORD(v119) = 0;
+    _os_log_impl(&dword_1B7AD5000, v116, OS_LOG_TYPE_INFO, "Adding message message_source column", &v119, 2u);
   }
 
-  v116 = CSDBSqliteConnectionPerformSQL();
-  if ((v116 - 100) < 2 || !v116)
+  v117 = CSDBSqliteConnectionPerformSQL();
+  if ((v117 - 100) < 2 || !v117)
   {
-    v117 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v117, OS_LOG_TYPE_INFO))
+    v118 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v118, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v118) = 0;
-      _os_log_impl(&dword_1B7AD5000, v117, OS_LOG_TYPE_INFO, "The message_source column already exists on message, skipping this step.", &v118, 2u);
+      LOWORD(v119) = 0;
+      _os_log_impl(&dword_1B7AD5000, v118, OS_LOG_TYPE_INFO, "The message_source column already exists on message, skipping this step.", &v119, 2u);
     }
 
+    goto LABEL_301;
+  }
+
+  if (sub_1B7BD1F88(v8, @"MobileSMS DB migration failed to add column message_source to the message table.", @"Added message_source column to the message table.", @"ALTER TABLE message ADD COLUMN message_source INTEGER DEFAULT 0"))
+  {
+LABEL_301:
+    CSDBSqliteDatabaseSetVersion();
     goto LABEL_302;
   }
 
-  if (sub_1B7BD1F88(v7, @"MobileSMS DB migration failed to add column message_source to the message table.", @"Added message_source column to the message table.", @"ALTER TABLE message ADD COLUMN message_source INTEGER DEFAULT 0"))
-  {
-LABEL_302:
-    CSDBSqliteDatabaseSetVersion();
-    goto LABEL_303;
-  }
-
 LABEL_12:
-  v12 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v14 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    sub_1B7CFBDE4(v6, v12);
+    sub_1B7CFBDE4(v7, v14);
   }
 
   CSDBSqliteConnectionCommit();
-  IMDPersistenceSubmitEvent(@"com.apple.MobileSMS.Migration.Migration_Failure", v13, v14);
-  result = 0;
-LABEL_18:
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  IMDPersistenceSubmitEvent(@"com.apple.MobileSMS.Migration.Migration_Failure", v15, v16, v17);
+  return 0;
 }
 
-BOOL IMDMigrateTo10001(uint64_t a1)
+BOOL IMDMigrateTo10001(void *a1)
 {
   result = IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"message", @"balloon_bundle_id", @"STRING DEFAULT NULL");
   if (result)
@@ -3910,7 +2885,7 @@ BOOL IMDMigrateTo10001(uint64_t a1)
   return result;
 }
 
-BOOL IMDMigrateTo10002(uint64_t a1)
+BOOL IMDMigrateTo10002(void *a1)
 {
   result = IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"attachment", @"is_sticker", @"INTEGER DEFAULT 0");
   if (result)
@@ -3922,7 +2897,7 @@ BOOL IMDMigrateTo10002(uint64_t a1)
   return result;
 }
 
-BOOL IMDMigrateTo10007(uint64_t a1)
+BOOL IMDMigrateTo10007(void *a1)
 {
   result = IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"message", @"associated_message_range_location", @"INTEGER DEFAULT 0");
   if (result)
@@ -3934,7 +2909,7 @@ BOOL IMDMigrateTo10007(uint64_t a1)
   return result;
 }
 
-BOOL IMDMigrateTo11001(uint64_t a1)
+BOOL IMDMigrateTo11001(void *a1)
 {
   result = IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"chat", @"server_change_token", @"TEXT");
   if (result)
@@ -3946,7 +2921,7 @@ BOOL IMDMigrateTo11001(uint64_t a1)
   return result;
 }
 
-BOOL IMDMigrateTo11005(uint64_t a1)
+BOOL IMDMigrateTo11005(void *a1)
 {
   if (!IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"message", @"ck_sync_state", @"INTEGER DEFAULT 0") || !IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"message", @"ck_record_id", @"TEXT DEFAULT NULL"))
   {
@@ -3956,7 +2931,7 @@ BOOL IMDMigrateTo11005(uint64_t a1)
   return IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"message", @"ck_record_change_tag", @"TEXT DEFAULT NULL");
 }
 
-BOOL IMDMigrateTo11006(uint64_t a1)
+BOOL IMDMigrateTo11006(void *a1)
 {
   result = IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"attachment", @"ck_sync_state", @"INTEGER DEFAULT 0");
   if (result)
@@ -3968,7 +2943,7 @@ BOOL IMDMigrateTo11006(uint64_t a1)
   return result;
 }
 
-BOOL IMDMigrateTo11011(uint64_t a1)
+BOOL IMDMigrateTo11011(void *a1)
 {
   result = IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"chat_message_join", @"message_date", @"INTEGER DEFAULT 0");
   if (result)
@@ -3980,7 +2955,7 @@ BOOL IMDMigrateTo11011(uint64_t a1)
   return result;
 }
 
-BOOL IMDMigrateTo11012(uint64_t a1)
+BOOL IMDMigrateTo11012(void *a1)
 {
   result = IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"attachment", @"original_guid", @"TEXT");
   if (result)
@@ -3992,7 +2967,7 @@ BOOL IMDMigrateTo11012(uint64_t a1)
   return result;
 }
 
-BOOL IMDMigrateTo11020(uint64_t a1)
+BOOL IMDMigrateTo11020(void *a1)
 {
   v2 = IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"chat", @"sr_server_change_token", @"TEXT");
   if (v2)
@@ -4003,7 +2978,7 @@ BOOL IMDMigrateTo11020(uint64_t a1)
   return v2;
 }
 
-BOOL IMDMigrateTo11021(uint64_t a1)
+BOOL IMDMigrateTo11021(void *a1)
 {
   if (!IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"message", @"sr_ck_sync_state", @"INTEGER DEFAULT 0") || !IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"message", @"sr_ck_record_id", @"TEXT DEFAULT NULL"))
   {
@@ -4013,7 +2988,7 @@ BOOL IMDMigrateTo11021(uint64_t a1)
   return IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"message", @"sr_ck_record_change_tag", @"TEXT DEFAULT NULL");
 }
 
-BOOL IMDMigrateTo11022(uint64_t a1)
+BOOL IMDMigrateTo11022(void *a1)
 {
   if (!IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"attachment", @"sr_ck_record_id", @"TEXT DEFAULT NULL") || !IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"attachment", @"sr_ck_sync_state", @"INTEGER DEFAULT 0"))
   {
@@ -4023,10 +2998,10 @@ BOOL IMDMigrateTo11022(uint64_t a1)
   return IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"attachment", @"sr_ck_server_change_token_blob", @"BLOB DEFAULT NULL");
 }
 
-BOOL IMDMigrateTo11023(uint64_t a1, const char *a2, uint64_t a3)
+BOOL IMDMigrateTo11023(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = objc_msgSend_sharedInstance(MEMORY[0x1E69A60F0], a2, a3);
-  if (!objc_msgSend_isInternalInstall(v4, v5, v6))
+  v5 = objc_msgSend_sharedInstance(MEMORY[0x1E69A60F0], a2, a3, a4);
+  if (!objc_msgSend_isInternalInstall(v5, v6, v7, v8))
   {
     return 1;
   }
@@ -4034,7 +3009,7 @@ BOOL IMDMigrateTo11023(uint64_t a1, const char *a2, uint64_t a3)
   return IMDSqlOperationExecuteQuery(a1, @"UPDATE chat SET room_name = chat_identifier WHERE style = 43 AND room_name is null;", 0);
 }
 
-BOOL IMDMigrateTo11024(uint64_t a1)
+BOOL IMDMigrateTo11024(void *a1)
 {
   v2 = IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"chat", @"cloudkit_record_id", @"TEXT DEFAULT NULL") && IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"chat", @"sr_cloudkit_record_id", @"TEXT DEFAULT NULL");
   v3 = IMDSqlOperationColumnExistsOnTableWithOperation(a1, @"chat", @"ck_record_system_property_blob");
@@ -4068,7 +3043,7 @@ BOOL IMDMigrateTo11024(uint64_t a1)
   return IMDSqlOperationExecuteQuery(a1, v6, 0);
 }
 
-BOOL IMDMigrateTo13000(uint64_t a1)
+BOOL IMDMigrateTo13000(void *a1)
 {
   result = IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"message", @"reply_to_guid", @"TEXT DEFAULT NULL");
   if (result)
@@ -4080,7 +3055,7 @@ BOOL IMDMigrateTo13000(uint64_t a1)
   return result;
 }
 
-uint64_t IMDMigrateTo14004(uint64_t a1)
+uint64_t IMDMigrateTo14004(void *a1)
 {
   if (IMDSqlOperationColumnExistsOnTableWithOperation(a1, @"chat", @"is_filtered"))
   {
@@ -4090,7 +3065,7 @@ uint64_t IMDMigrateTo14004(uint64_t a1)
   return 1;
 }
 
-BOOL IMDMigrateTo15003(uint64_t a1)
+BOOL IMDMigrateTo15003(void *a1)
 {
   result = IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"message", @"was_delivered_quietly", @"INTEGER DEFAULT 0");
   if (result)
@@ -4102,7 +3077,7 @@ BOOL IMDMigrateTo15003(uint64_t a1)
   return result;
 }
 
-BOOL IMDMigrateTo15005(uint64_t a1)
+BOOL IMDMigrateTo15005(void *a1)
 {
   result = IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"chat", @"syndication_date", @"INTEGER DEFAULT 0");
   if (result)
@@ -4114,14 +3089,14 @@ BOOL IMDMigrateTo15005(uint64_t a1)
   return result;
 }
 
-uint64_t IMDMigrateTo15007(uint64_t a1)
+uint64_t IMDMigrateTo15007(void *a1)
 {
   IMDSqlOperationExecuteQuery(a1, @"UPDATE chat SET syndication_type = 0", 0);
   IMDSqlOperationExecuteQuery(a1, @"UPDATE chat SET syndication_date = 0", 0);
   return 1;
 }
 
-uint64_t IMDMigrateTo15009(uint64_t a1)
+uint64_t IMDMigrateTo15009(void *a1)
 {
   if (!IMDSqlOperationExecuteQuery(a1, @"INSERT OR REPLACE INTO kvtable (key, value) VALUES ('lastFailedMessageDate', COALESCE((SELECT m.date FROM message m WHERE m.error != 0 AND m.is_from_me == 1 AND m.is_finished == 1 ORDER BY date DESC, ROWID DESC LIMIT 1), 0)), ('lastFailedMessageRowID', COALESCE((SELECT m.ROWID FROM message m WHERE m.error != 0 AND m.is_from_me == 1 AND m.is_finished == 1 ORDER BY date DESC, ROWID DESC LIMIT 1), 0));", 0))
   {
@@ -4138,31 +3113,31 @@ uint64_t IMDMigrateTo15009(uint64_t a1)
   return 1;
 }
 
-uint64_t IMDMigrateTo15010(uint64_t a1)
+uint64_t IMDMigrateTo15010(void *a1)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = sub_1B7BD5E4C;
-  v4[3] = &unk_1E7CB7920;
-  v4[4] = &v5;
-  v4[5] = a1;
-  _IMDSqlOperationRunQuery(a1, @"select name from sqlite_master where sql LIKE '%_legacy%' and type = 'index';", 0, v4);
-  if (*(v6 + 24) == 1)
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v9 = 0;
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = sub_1B7BD5E4C;
+  v5[3] = &unk_1E7CB7920;
+  v5[4] = &v6;
+  v5[5] = a1;
+  _IMDSqlOperationRunQuery(a1, @"select name from sqlite_master where sql LIKE '%_legacy%' and type = 'index';", 0, v5);
+  if (*(v7 + 24) == 1)
   {
-    IMDDropAllIndexesWithOperation(a1, 1, v2);
+    IMDDropAllIndexesWithOperation(a1, 1, v2, v3);
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   return 1;
 }
 
-void sub_1B7BD5E34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B7BD5E34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4190,7 +3165,7 @@ void sub_1B7BD5E4C(uint64_t a1)
   }
 }
 
-uint64_t IMDMigrateTo15011(uint64_t a1)
+uint64_t IMDMigrateTo15011(void *a1)
 {
   v2 = IMLogHandleForCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
@@ -4227,7 +3202,7 @@ uint64_t IMDMigrateTo15011(uint64_t a1)
   return 1;
 }
 
-BOOL IMDMigrateTo16000(uint64_t a1)
+BOOL IMDMigrateTo16000(void *a1)
 {
   result = IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"message", @"date_retracted", @"INTEGER DEFAULT 0");
   if (result)
@@ -4239,7 +3214,7 @@ BOOL IMDMigrateTo16000(uint64_t a1)
   return result;
 }
 
-BOOL IMDMigrateTo16008(uint64_t a1)
+BOOL IMDMigrateTo16008(void *a1)
 {
   v4 = 0;
   v5 = &v4;
@@ -4257,9 +3232,9 @@ BOOL IMDMigrateTo16008(uint64_t a1)
   return (v1 & 1) == 0;
 }
 
-void sub_1B7BD6384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B7BD6384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4301,61 +3276,61 @@ uint64_t IMDMigrateTo16200(sqlite3_stmt **a1)
   v3 = objc_msgSend_countByEnumeratingWithState_objects_count_(Rows, v2, &v23, v29, 16);
   if (v3)
   {
-    v6 = v3;
-    v7 = *v24;
+    v7 = v3;
+    v8 = *v24;
     do
     {
-      v8 = 0;
+      v9 = 0;
       do
       {
-        if (*v24 != v7)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(Rows);
         }
 
-        v9 = *(*(&v23 + 1) + 8 * v8);
-        v10 = objc_msgSend_objectForKeyedSubscript_(v9, v4, @"id", v20);
-        if (v10)
+        v10 = *(*(&v23 + 1) + 8 * v9);
+        v11 = objc_msgSend_objectForKeyedSubscript_(v10, v4, @"id", v6, v20);
+        if (v11)
         {
-          v11 = v10;
+          v12 = v11;
           if (MEMORY[0x1B8CAF9C0]())
           {
             if (!IMCountryCodeForNumber())
             {
-              v12 = objc_msgSend_objectForKeyedSubscript_(v9, v4, @"ROWID");
-              v13 = IMInternationalForPhoneNumberWithOptions();
-              if (v13)
+              v13 = objc_msgSend_objectForKeyedSubscript_(v10, v4, @"ROWID", v6);
+              v14 = IMInternationalForPhoneNumberWithOptions();
+              if (v14)
               {
-                v14 = v13;
-                if ((objc_msgSend_isEqualToString_(v13, v4, v11) & 1) == 0)
+                v15 = v14;
+                if ((objc_msgSend_isEqualToString_(v14, v4, v12, v6) & 1) == 0)
                 {
-                  objc_msgSend_setObject_forKeyedSubscript_(v22, v4, v14, v12);
+                  objc_msgSend_setObject_forKeyedSubscript_(v22, v4, v15, v13);
                 }
               }
             }
           }
         }
 
-        ++v8;
+        ++v9;
       }
 
-      while (v6 != v8);
-      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(Rows, v4, &v23, v29, 16);
-      v6 = v15;
+      while (v7 != v9);
+      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(Rows, v4, &v23, v29, 16);
+      v7 = v16;
     }
 
-    while (v15);
+    while (v16);
   }
 
-  if (objc_msgSend_count(v22, v4, v5, v20))
+  if (objc_msgSend_count(v22, v4, v5, v6, v20))
   {
     updated = IMDHandleCanonicalizedIDsBulkUpdateQuery(v22);
-    v17 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v18 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
       v28 = updated;
-      _os_log_impl(&dword_1B7AD5000, v17, OS_LOG_TYPE_INFO, "IMDMigrateTo16200 canonicalize handles with query: %@", buf, 0xCu);
+      _os_log_impl(&dword_1B7AD5000, v18, OS_LOG_TYPE_INFO, "IMDMigrateTo16200 canonicalize handles with query: %@", buf, 0xCu);
     }
 
     IMDSqlOperationExecuteQuery(v21, updated, 0);
@@ -4372,14 +3347,13 @@ uint64_t IMDMigrateTo16200(sqlite3_stmt **a1)
   {
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
-BOOL IMDMigrateTo17008(uint64_t a1, const char *a2, uint64_t a3)
+BOOL IMDMigrateTo17008(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = objc_msgSend_sharedInstance(MEMORY[0x1E69A60F0], a2, a3);
-  if (!objc_msgSend_isInternalInstall(v4, v5, v6))
+  v5 = objc_msgSend_sharedInstance(MEMORY[0x1E69A60F0], a2, a3, a4);
+  if (!objc_msgSend_isInternalInstall(v5, v6, v7, v8))
   {
     return 1;
   }
@@ -4387,7 +3361,7 @@ BOOL IMDMigrateTo17008(uint64_t a1, const char *a2, uint64_t a3)
   return IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"message", @"is_scheduled", @"INTEGER DEFAULT 0");
 }
 
-uint64_t IMDMigrateTo17012(uint64_t a1)
+uint64_t IMDMigrateTo17012(void *a1)
 {
   IMDSqlOperationExecuteQuery(a1, @"INSERT INTO deleted_messages (guid) SELECT guid FROM message WHERE error != 0 AND ROWID NOT IN (SELECT message_id FROM chat_message_join);", 0);
   IMDSqlOperationExecuteQuery(a1, @"INSERT INTO sync_deleted_messages (guid, recordID) SELECT guid, ck_record_id FROM message WHERE error != 0 AND ROWID NOT IN (SELECT message_id FROM chat_message_join);", 0);
@@ -4396,7 +3370,7 @@ uint64_t IMDMigrateTo17012(uint64_t a1)
   return 1;
 }
 
-BOOL IMDMigrateTo18001(uint64_t a1)
+BOOL IMDMigrateTo18001(void *a1)
 {
   result = IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"message", @"is_pending_satellite_send", @"INTEGER DEFAULT 0");
   if (result)
@@ -4408,7 +3382,7 @@ BOOL IMDMigrateTo18001(uint64_t a1)
   return result;
 }
 
-BOOL IMDMigrateTo18005(uint64_t a1)
+BOOL IMDMigrateTo18005(void *a1)
 {
   if (!IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"message", @"schedule_state", @"INTEGER DEFAULT 0") || !IMDSqlOperationExecuteQuery(a1, @"UPDATE message SET schedule_state = 2 WHERE schedule_type = 2;", 0))
   {
@@ -4418,14 +3392,14 @@ BOOL IMDMigrateTo18005(uint64_t a1)
   return IMDSqlOperationExecuteQuery(a1, @"UPDATE message SET schedule_state = 3, schedule_type = 2 WHERE schedule_type = 10;", 0);
 }
 
-BOOL IMDMigrateTo18011(uint64_t a1)
+BOOL IMDMigrateTo18011(void *a1)
 {
   v2 = IMDSqlOperationExecuteQuery(a1, @"DROP INDEX IF EXISTS message_idx_undelivered_one_to_one_imessage;", 0);
   IMDCreateIndexesWithOperation(a1, 1);
   return v2;
 }
 
-uint64_t IMDMigrateTo18012(uint64_t a1)
+uint64_t IMDMigrateTo18012(void *a1)
 {
   if (IMDSqlOperationColumnExistsOnTableWithOperation(a1, @"chat", @"is_filtered"))
   {
@@ -4435,18 +3409,18 @@ uint64_t IMDMigrateTo18012(uint64_t a1)
   return 1;
 }
 
-BOOL IMDMigrateTo18015(uint64_t a1)
+BOOL IMDMigrateTo18015(void *a1)
 {
   v2 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v5 = objc_msgSend_now(MEMORY[0x1E695DF00], v3, v4);
-  v8 = objc_msgSend___im_nanosecondTimeInterval(v5, v6, v7);
-  v10 = objc_msgSend_initWithFormat_(v2, v9, @"UPDATE message SET is_read = 1, date_read = %lld WHERE (is_read == 0 AND is_finished == 1 AND is_from_me == 0 AND item_type == 1 AND is_system_message == 0);", v8);
-  v11 = IMDSqlOperationExecuteQuery(a1, v10, 0);
+  v6 = objc_msgSend_now(MEMORY[0x1E695DF00], v3, v4, v5);
+  v10 = objc_msgSend___im_nanosecondTimeInterval(v6, v7, v8, v9);
+  v13 = objc_msgSend_initWithFormat_(v2, v11, @"UPDATE message SET is_read = 1, date_read = %lld WHERE (is_read == 0 AND is_finished == 1 AND is_from_me == 0 AND item_type == 1 AND is_system_message == 0);", v12, v10);
+  v14 = IMDSqlOperationExecuteQuery(a1, v13, 0);
 
-  return v11;
+  return v14;
 }
 
-BOOL IMDMigrateTo18017(uint64_t a1)
+BOOL IMDMigrateTo18017(void *a1)
 {
   v2 = IMDSqlOperationAddColumnIfNotExistsToTableWithOperation(a1, @"attachment", @"preview_generation_state", @"INTEGER DEFAULT 0");
   if (v2)
@@ -4457,7 +3431,7 @@ BOOL IMDMigrateTo18017(uint64_t a1)
   return v2;
 }
 
-BOOL IMDMigrateTo19004(uint64_t a1, int a2)
+BOOL IMDMigrateTo19004(void *a1, int a2)
 {
   if (a2 < 19000)
   {
@@ -4489,7 +3463,7 @@ uint64_t sub_1B7BD6D70(uint64_t a1, uint64_t a2, uint64_t a3)
     v3 = 2 * a3 - 1;
   }
 
-  return MEMORY[0x1EEE66B58](&stru_1F2FA9728, sel_stringByPaddingToLength_withString_startingAtIndex_, v3);
+  return MEMORY[0x1EEE66B58](&stru_1F2FA9728, sel_stringByPaddingToLength_withString_startingAtIndex_, v3, @"?,");
 }
 
 uint64_t IMDMessageRecordAddMessageRecord(uint64_t a1)
@@ -4510,21 +3484,21 @@ uint64_t IMDMessageRecordAddMessageRecord(uint64_t a1)
   return v1;
 }
 
-void sub_1B7BD6E40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B7BD6E40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1B7BD6E58(uint64_t result)
+uint64_t sub_1B7BD6E58(uint64_t result, uint64_t a2)
 {
   if (*(result + 40))
   {
-    v1 = result;
+    v2 = result;
     CSDBRecordStoreAddRecord();
     result = CSDBRecordSaveStore();
-    *(*(*(v1 + 32) + 8) + 24) = result;
+    *(*(*(v2 + 32) + 8) + 24) = result;
   }
 
   return result;
@@ -4532,16 +3506,16 @@ uint64_t sub_1B7BD6E58(uint64_t result)
 
 void IMDMessageRecordUnassociateMessageWithGUIDFromAttachmentWithGUID(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
     v4 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v10 = a1;
-      v11 = 2112;
-      v12 = a2;
+      v9 = a1;
+      v10 = 2112;
+      v11 = a2;
       _os_log_impl(&dword_1B7AD5000, v4, OS_LOG_TYPE_DEBUG, "IMDMessageRecordUnassociateMessageWithGUIDFromAttachmentWithGUID [MessageGUID: %@] [AttachmentGUID: %@", buf, 0x16u);
     }
   }
@@ -4551,7 +3525,7 @@ void IMDMessageRecordUnassociateMessageWithGUIDFromAttachmentWithGUID(uint64_t a
     v5 = IMDatabaseMessageEventLogHandle();
     if (!os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_14;
+      return;
     }
 
     *buf = 0;
@@ -4564,42 +3538,37 @@ void IMDMessageRecordUnassociateMessageWithGUIDFromAttachmentWithGUID(uint64_t a
     v5 = IMDatabaseMessageEventLogHandle();
     if (!os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      goto LABEL_14;
+      return;
     }
 
     *buf = 0;
     v6 = "Cannot unassociate attachment with empty attachment GUID";
 LABEL_13:
     _os_log_impl(&dword_1B7AD5000, v5, OS_LOG_TYPE_INFO, v6, buf, 2u);
-    goto LABEL_14;
+    return;
   }
 
   if (IMDIsRunningInDatabaseServerProcess())
   {
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = sub_1B7BD7068;
-    v8[3] = &unk_1E7CB81C8;
-    v8[4] = a1;
-    v8[5] = a2;
-    _IMDPerformLockedStatementBlockWithQuery(@"DELETE FROM message_attachment_join WHERE   ROWID IN(    SELECT       j.ROWID     FROM       message_attachment_join j     INNER JOIN message m ON j.message_id = m.ROWID     INNER JOIN attachment a ON j.attachment_id = a.ROWID     WHERE       m.guid = ?       AND a.guid = ?  ) ", v8);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = sub_1B7BD7068;
+    v7[3] = &unk_1E7CB81C8;
+    v7[4] = a1;
+    v7[5] = a2;
+    _IMDPerformLockedStatementBlockWithQuery(@"DELETE FROM message_attachment_join WHERE   ROWID IN(    SELECT       j.ROWID     FROM       message_attachment_join j     INNER JOIN message m ON j.message_id = m.ROWID     INNER JOIN attachment a ON j.attachment_id = a.ROWID     WHERE       m.guid = ?       AND a.guid = ?  ) ", v7);
   }
 
   else
   {
     __syncXPCIMDMessageRecordUnassociateMessageWithGUIDFromAttachmentWithGUID_IPCAction(0, a1, a2);
   }
-
-LABEL_14:
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1B7BD7068(uint64_t a1)
+void sub_1B7BD7068(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
+  v8 = *MEMORY[0x1E69E9840];
   CSDBSqliteBindTextFromCFString();
-  v3 = *(a1 + 40);
   CSDBSqliteBindTextFromCFString();
   v4 = CSDBSqliteStatementPerform();
   if (v4 != 101)
@@ -4610,14 +3579,12 @@ void sub_1B7BD7068(uint64_t a1)
       v6 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        v8[0] = 67109120;
-        v8[1] = v5;
-        _os_log_impl(&dword_1B7AD5000, v6, OS_LOG_TYPE_DEBUG, "SQLite returned %d from IMDChatRecordAddMessageIfNeeded", v8, 8u);
+        v7[0] = 67109120;
+        v7[1] = v5;
+        _os_log_impl(&dword_1B7AD5000, v6, OS_LOG_TYPE_DEBUG, "SQLite returned %d from IMDChatRecordAddMessageIfNeeded", v7, 8u);
       }
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void IMDMessageRecordDeleteOrphanedMessages()
@@ -4635,27 +3602,25 @@ void IMDMessageRecordDeleteOrphanedMessages()
       _os_log_impl(&dword_1B7AD5000, v1, OS_LOG_TYPE_DEFAULT, "Deleted %llu orphaned messages", &v10, 0xCu);
     }
 
-    v4 = objc_msgSend_sharedInstance(MEMORY[0x1E69A8168], v2, v3);
-    v6 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v5, v0);
-    objc_msgSend_trackDeleteMessages_sourceType_(v4, v7, v6, 6);
-    v8 = *MEMORY[0x1E69E9840];
+    v5 = objc_msgSend_sharedInstance(MEMORY[0x1E69A8168], v2, v3, v4);
+    v8 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v6, v0, v7);
+    objc_msgSend_trackDeleteMessages_sourceType_(v5, v9, v8, 6);
   }
 
   else
   {
-    v9 = *MEMORY[0x1E69E9840];
 
     __syncXPCIMDMessageRecordDeleteOrphanedMessages_IPCAction(0);
   }
 }
 
-void sub_1B7BD72B8()
+void sub_1B7BD72B8(uint64_t a1)
 {
-  v0 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1B7AD5000, v0, OS_LOG_TYPE_INFO, "Orphaned messages cleanup complete", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_1B7AD5000, v1, OS_LOG_TYPE_INFO, "Orphaned messages cleanup complete", v2, 2u);
   }
 }
 
@@ -4676,44 +3641,42 @@ uint64_t IMDMessageRecordCountChangesUnlocked()
   return v0;
 }
 
-void sub_1B7BD73C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B7BD73C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void IMDMessageRecordAssociateMessageWithGUIDToAttachmentWithGUID(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (IMDIsRunningInDatabaseServerProcess())
   {
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = sub_1B7BD7560;
-    v7[3] = &unk_1E7CB75B0;
-    v7[4] = a2;
-    v7[5] = a1;
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = sub_1B7BD7560;
+    v5[3] = &unk_1E7CB75B0;
+    v5[4] = a2;
+    v5[5] = a1;
     if (IMOSLoggingEnabled())
     {
       v4 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412546;
-        v9 = a1;
-        v10 = 2112;
-        v11 = a2;
+        v7 = a1;
+        v8 = 2112;
+        v9 = a2;
         _os_log_impl(&dword_1B7AD5000, v4, OS_LOG_TYPE_DEBUG, "IMDMessageRecordAssociateMessageWithGUIDToAttachmentWithGUID [MessageGUID: %@] [AttachmentGUID: %@", buf, 0x16u);
       }
     }
 
-    _IMDPerformBlock(v7);
-    v5 = *MEMORY[0x1E69E9840];
+    _IMDPerformBlock(v5);
   }
 
   else
   {
-    v6 = *MEMORY[0x1E69E9840];
 
     __syncXPCIMDMessageRecordAssociateMessageWithGUIDToAttachmentWithGUID_IPCAction(0, a1, a2);
   }
@@ -4777,7 +3740,7 @@ LABEL_16:
 
 const __CFString *IMDMessageRecordCopyMessageForGUIDUnlocked(const __CFString *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
     v2 = OSLogHandleForIMFoundationCategory();
@@ -4795,39 +3758,38 @@ const __CFString *IMDMessageRecordCopyMessageForGUIDUnlocked(const __CFString *a
     {
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v7 = 0x2020000000;
-      v8 = 0;
-      v5[0] = MEMORY[0x1E69E9820];
-      v5[1] = 3221225472;
-      v5[2] = sub_1B7BD8D7C;
-      v5[3] = &unk_1E7CB7520;
-      v5[4] = &buf;
-      v5[5] = a1;
-      _IMDPerformLockedStatementBlockWithQuery(@"SELECT ROWID, guid, text, replace, service_center, handle_id, subject, country, attributedBody, version, type, service, account, account_guid, error, date, date_read, date_delivered, is_delivered, is_finished, is_emote, is_from_me, is_empty, is_delayed, is_auto_reply, is_prepared, is_read, is_system_message, is_sent, has_dd_results, is_service_message, is_forward, was_downgraded, is_archive, cache_has_attachments, cache_roomnames, was_data_detected, was_deduplicated, is_audio_message, is_played, date_played, item_type, other_handle, group_title, group_action_type, share_status, share_direction, is_expirable, expire_state, message_action_type, message_source, associated_message_guid, associated_message_type, balloon_bundle_id, payload_data, expressive_send_style_id, associated_message_range_location, associated_message_range_length, time_expressive_send_played, message_summary_info, ck_sync_state, ck_record_id, ck_record_change_tag, destination_caller_id, is_corrupt, reply_to_guid, sort_id, is_spam, has_unseen_mention, thread_originator_guid, thread_originator_part, syndication_ranges, synced_syndication_ranges, was_delivered_quietly, did_notify_recipient, date_retracted, date_edited, date_recovered, was_detonated, part_count, is_stewie, is_sos, is_critical, bia_reference_id, is_kt_verified, fallback_hash, associated_message_emoji, is_pending_satellite_send, needs_relay, schedule_type, schedule_state, sent_or_received_off_grid, is_time_sensitive, ck_chat_id FROM message WHERE guid = ? ORDER BY message.ROWID ASC;", v5);
+      v6 = 0x2020000000;
+      v7 = 0;
+      v4[0] = MEMORY[0x1E69E9820];
+      v4[1] = 3221225472;
+      v4[2] = sub_1B7BD8D7C;
+      v4[3] = &unk_1E7CB7520;
+      v4[4] = &buf;
+      v4[5] = a1;
+      _IMDPerformLockedStatementBlockWithQuery(@"SELECT ROWID, guid, text, replace, service_center, handle_id, subject, country, attributedBody, version, type, service, account, account_guid, error, date, date_read, date_delivered, is_delivered, is_finished, is_emote, is_from_me, is_empty, is_delayed, is_auto_reply, is_prepared, is_read, is_system_message, is_sent, has_dd_results, is_service_message, is_forward, was_downgraded, is_archive, cache_has_attachments, cache_roomnames, was_data_detected, was_deduplicated, is_audio_message, is_played, date_played, item_type, other_handle, group_title, group_action_type, share_status, share_direction, is_expirable, expire_state, message_action_type, message_source, associated_message_guid, associated_message_type, balloon_bundle_id, payload_data, expressive_send_style_id, associated_message_range_location, associated_message_range_length, time_expressive_send_played, message_summary_info, ck_sync_state, ck_record_id, ck_record_change_tag, destination_caller_id, is_corrupt, reply_to_guid, sort_id, is_spam, has_unseen_mention, thread_originator_guid, thread_originator_part, syndication_ranges, synced_syndication_ranges, was_delivered_quietly, did_notify_recipient, date_retracted, date_edited, date_recovered, was_detonated, part_count, is_stewie, is_sos, is_critical, bia_reference_id, is_kt_verified, fallback_hash, associated_message_emoji, is_pending_satellite_send, needs_relay, schedule_type, schedule_state, sent_or_received_off_grid, is_time_sensitive, ck_chat_id FROM message WHERE guid = ? ORDER BY message.ROWID ASC;", v4);
       a1 = *(*(&buf + 1) + 24);
       _Block_object_dispose(&buf, 8);
     }
 
     else
     {
-      a1 = 0;
+      return 0;
     }
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
-void sub_1B7BD77C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B7BD77C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 const __CFString *IMDMessageRecordCopyMessagesForAssociatedGUID(const __CFString *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
     v2 = OSLogHandleForIMFoundationCategory();
@@ -4845,27 +3807,27 @@ const __CFString *IMDMessageRecordCopyMessagesForAssociatedGUID(const __CFString
     {
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v8 = 0x2020000000;
-      v9 = 0;
+      v7 = 0x2020000000;
+      v8 = 0;
       if (IMDIsRunningInDatabaseServerProcess())
       {
-        v6[0] = MEMORY[0x1E69E9820];
-        v6[1] = 3221225472;
-        v6[2] = sub_1B7BD7A04;
-        v6[3] = &unk_1E7CB7520;
-        v6[4] = &buf;
-        v6[5] = a1;
-        _IMDPerformLockedStatementBlockWithQuery(@"SELECT ROWID, guid, text, replace, service_center, handle_id, subject, country, attributedBody, version, type, service, account, account_guid, error, date, date_read, date_delivered, is_delivered, is_finished, is_emote, is_from_me, is_empty, is_delayed, is_auto_reply, is_prepared, is_read, is_system_message, is_sent, has_dd_results, is_service_message, is_forward, was_downgraded, is_archive, cache_has_attachments, cache_roomnames, was_data_detected, was_deduplicated, is_audio_message, is_played, date_played, item_type, other_handle, group_title, group_action_type, share_status, share_direction, is_expirable, expire_state, message_action_type, message_source, associated_message_guid, associated_message_type, balloon_bundle_id, payload_data, expressive_send_style_id, associated_message_range_location, associated_message_range_length, time_expressive_send_played, message_summary_info, ck_sync_state, ck_record_id, ck_record_change_tag, destination_caller_id, is_corrupt, reply_to_guid, sort_id, is_spam, has_unseen_mention, thread_originator_guid, thread_originator_part, syndication_ranges, synced_syndication_ranges, was_delivered_quietly, did_notify_recipient, date_retracted, date_edited, date_recovered, was_detonated, part_count, is_stewie, is_sos, is_critical, bia_reference_id, is_kt_verified, fallback_hash, associated_message_emoji, is_pending_satellite_send, needs_relay, schedule_type, schedule_state, sent_or_received_off_grid, is_time_sensitive, ck_chat_id FROM message WHERE associated_message_guid = ? ORDER BY message.ROWID ASC;", v6);
+        v5[0] = MEMORY[0x1E69E9820];
+        v5[1] = 3221225472;
+        v5[2] = sub_1B7BD7A04;
+        v5[3] = &unk_1E7CB7520;
+        v5[4] = &buf;
+        v5[5] = a1;
+        _IMDPerformLockedStatementBlockWithQuery(@"SELECT ROWID, guid, text, replace, service_center, handle_id, subject, country, attributedBody, version, type, service, account, account_guid, error, date, date_read, date_delivered, is_delivered, is_finished, is_emote, is_from_me, is_empty, is_delayed, is_auto_reply, is_prepared, is_read, is_system_message, is_sent, has_dd_results, is_service_message, is_forward, was_downgraded, is_archive, cache_has_attachments, cache_roomnames, was_data_detected, was_deduplicated, is_audio_message, is_played, date_played, item_type, other_handle, group_title, group_action_type, share_status, share_direction, is_expirable, expire_state, message_action_type, message_source, associated_message_guid, associated_message_type, balloon_bundle_id, payload_data, expressive_send_style_id, associated_message_range_location, associated_message_range_length, time_expressive_send_played, message_summary_info, ck_sync_state, ck_record_id, ck_record_change_tag, destination_caller_id, is_corrupt, reply_to_guid, sort_id, is_spam, has_unseen_mention, thread_originator_guid, thread_originator_part, syndication_ranges, synced_syndication_ranges, was_delivered_quietly, did_notify_recipient, date_retracted, date_edited, date_recovered, was_detonated, part_count, is_stewie, is_sos, is_critical, bia_reference_id, is_kt_verified, fallback_hash, associated_message_emoji, is_pending_satellite_send, needs_relay, schedule_type, schedule_state, sent_or_received_off_grid, is_time_sensitive, ck_chat_id FROM message WHERE associated_message_guid = ? ORDER BY message.ROWID ASC;", v5);
       }
 
       else
       {
-        v5[0] = MEMORY[0x1E69E9820];
-        v5[1] = 3221225472;
-        v5[2] = sub_1B7BD7B3C;
-        v5[3] = &unk_1E7CB6838;
-        v5[4] = &buf;
-        __syncXPCIMDMessageRecordCopyMessagesForAssociatedGUID_IPCAction(v5, a1);
+        v4[0] = MEMORY[0x1E69E9820];
+        v4[1] = 3221225472;
+        v4[2] = sub_1B7BD7B3C;
+        v4[3] = &unk_1E7CB6838;
+        v4[4] = &buf;
+        __syncXPCIMDMessageRecordCopyMessagesForAssociatedGUID_IPCAction(v4, a1);
       }
 
       a1 = *(*(&buf + 1) + 24);
@@ -4874,57 +3836,55 @@ const __CFString *IMDMessageRecordCopyMessagesForAssociatedGUID(const __CFString
 
     else
     {
-      a1 = 0;
+      return 0;
     }
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
-void sub_1B7BD7A04(uint64_t a1)
+void sub_1B7BD7A04(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 40);
-  v3 = CSDBSqliteBindTextFromCFString();
-  sub_1B7AEAEE4(v3, v4, v5);
-  v6 = CSDBRecordStoreProcessStatement();
-  if (v6)
+  v5 = CSDBSqliteBindTextFromCFString();
+  sub_1B7AEAEE4(v5, v6, v7, v8);
+  v9 = CSDBRecordStoreProcessStatement();
+  if (v9)
   {
-    v7 = v6;
-    Count = CFArrayGetCount(v6);
+    v10 = v9;
+    Count = CFArrayGetCount(v9);
     if (Count)
     {
-      v9 = Count;
-      v10 = 0;
-      v11 = *MEMORY[0x1E695E480];
-      v12 = MEMORY[0x1E695E9C0];
+      v12 = Count;
+      v13 = 0;
+      v14 = *MEMORY[0x1E695E480];
+      v15 = MEMORY[0x1E695E9C0];
       do
       {
-        CFArrayGetValueAtIndex(v7, v10);
+        CFArrayGetValueAtIndex(v10, v13);
         ID = CSDBRecordGetID();
-        v14 = IMDMessageRecordCreateFromRecordIDUnlocked(v11, ID);
-        v15 = *(*(a1 + 32) + 8);
-        Mutable = *(v15 + 24);
+        v17 = IMDMessageRecordCreateFromRecordIDUnlocked(v14, ID);
+        v18 = *(*(a1 + 32) + 8);
+        Mutable = *(v18 + 24);
         if (!Mutable)
         {
-          Mutable = CFArrayCreateMutable(v11, v9, v12);
-          v15 = *(*(a1 + 32) + 8);
+          Mutable = CFArrayCreateMutable(v14, v12, v15);
+          v18 = *(*(a1 + 32) + 8);
         }
 
-        *(v15 + 24) = Mutable;
-        if (v14)
+        *(v18 + 24) = Mutable;
+        if (v17)
         {
-          CFArrayAppendValue(*(*(*(a1 + 32) + 8) + 24), v14);
-          CFRelease(v14);
+          CFArrayAppendValue(*(*(*(a1 + 32) + 8) + 24), v17);
+          CFRelease(v17);
         }
 
-        ++v10;
+        ++v13;
       }
 
-      while (v9 != v10);
+      while (v12 != v13);
     }
 
-    CFRelease(v7);
+    CFRelease(v10);
   }
 }
 
@@ -5029,35 +3989,33 @@ uint64_t IMDMessageRecordCopyLastReceivedMessage()
   return v0;
 }
 
-void sub_1B7BD7EB4(uint64_t a1, const char *a2, uint64_t a3)
+void sub_1B7BD7EB4(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
   v10 = *MEMORY[0x1E69E9840];
-  sub_1B7AEAEE4(a1, a2, a3);
-  v4 = CSDBRecordStoreProcessStatement();
+  sub_1B7AEAEE4(a1, a2, a3, a4);
+  v5 = CSDBRecordStoreProcessStatement();
   if (IMOSLoggingEnabled())
   {
-    v5 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       v8 = 138412290;
-      v9 = v4;
-      _os_log_impl(&dword_1B7AD5000, v5, OS_LOG_TYPE_DEBUG, "results from last received: %@", &v8, 0xCu);
+      v9 = v5;
+      _os_log_impl(&dword_1B7AD5000, v6, OS_LOG_TYPE_DEBUG, "results from last received: %@", &v8, 0xCu);
     }
   }
 
-  if (v4)
+  if (v5)
   {
-    if (CFArrayGetCount(v4))
+    if (CFArrayGetCount(v5))
     {
-      CFArrayGetValueAtIndex(v4, 0);
+      CFArrayGetValueAtIndex(v5, 0);
       ID = CSDBRecordGetID();
       *(*(*(a1 + 32) + 8) + 24) = IMDMessageRecordCreateFromRecordIDUnlocked(*MEMORY[0x1E695E480], ID);
     }
 
-    CFRelease(v4);
+    CFRelease(v5);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t sub_1B7BD7FF4(uint64_t a1, void *a2)
@@ -5069,7 +4027,7 @@ uint64_t sub_1B7BD7FF4(uint64_t a1, void *a2)
 
 uint64_t IMDMessageRecordCopyLastReceivedMessageLimit(int64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = IMDatabaseLogHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
@@ -5078,85 +4036,79 @@ uint64_t IMDMessageRecordCopyLastReceivedMessageLimit(int64_t a1)
     _os_log_impl(&dword_1B7AD5000, v2, OS_LOG_TYPE_INFO, "IMDMessageRecordCopyLastReceivedMessageLimit with limit %lld", &buf, 0xCu);
   }
 
-  if ((a1 - 51) >= 0xFFFFFFFFFFFFFFCELL)
+  if ((a1 - 51) < 0xFFFFFFFFFFFFFFCELL)
   {
-    *&buf = 0;
-    *(&buf + 1) = &buf;
-    v11 = 0x2020000000;
-    Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
-    if (IMDIsRunningInDatabaseServerProcess())
-    {
-      v9[0] = MEMORY[0x1E69E9820];
-      v9[1] = 3221225472;
-      v9[2] = sub_1B7BD824C;
-      v9[3] = &unk_1E7CB7520;
-      v9[4] = &buf;
-      v9[5] = a1;
-      _IMDPerformLockedStatementBlockWithQuery(@"SELECT ROWID, guid, text, replace, service_center, handle_id, subject, country, attributedBody, version, type, service, account, account_guid, error, date, date_read, date_delivered, is_delivered, is_finished, is_emote, is_from_me, is_empty, is_delayed, is_auto_reply, is_prepared, is_read, is_system_message, is_sent, has_dd_results, is_service_message, is_forward, was_downgraded, is_archive, cache_has_attachments, cache_roomnames, was_data_detected, was_deduplicated, is_audio_message, is_played, date_played, item_type, other_handle, group_title, group_action_type, share_status, share_direction, is_expirable, expire_state, message_action_type, message_source, associated_message_guid, associated_message_type, balloon_bundle_id, payload_data, expressive_send_style_id, associated_message_range_location, associated_message_range_length, time_expressive_send_played, message_summary_info, ck_sync_state, ck_record_id, ck_record_change_tag, destination_caller_id, is_corrupt, reply_to_guid, sort_id, is_spam, has_unseen_mention, thread_originator_guid, thread_originator_part, syndication_ranges, synced_syndication_ranges, was_delivered_quietly, did_notify_recipient, date_retracted, date_edited, date_recovered, was_detonated, part_count, is_stewie, is_sos, is_critical, bia_reference_id, is_kt_verified, fallback_hash, associated_message_emoji, is_pending_satellite_send, needs_relay, schedule_type, schedule_state, sent_or_received_off_grid, is_time_sensitive, ck_chat_id FROM message INNER JOIN chat_message_join AS cmj ON message.ROWID = cmj.message_id WHERE error == 0 AND is_from_me == 0 AND item_type == 0 AND is_finished == 1 ORDER BY date DESC, ROWID DESC LIMIT ?;", v9);
-    }
+    return 0;
+  }
 
-    else
-    {
-      v4 = IMDatabaseLogHandle();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
-      {
-        *v8 = 0;
-        _os_log_impl(&dword_1B7AD5000, v4, OS_LOG_TYPE_INFO, "IMDMessageRecordCopyLastReceivedMessageLimit syncXPC", v8, 2u);
-      }
-
-      v7[0] = MEMORY[0x1E69E9820];
-      v7[1] = 3221225472;
-      v7[2] = sub_1B7BD834C;
-      v7[3] = &unk_1E7CB6838;
-      v7[4] = &buf;
-      __syncXPCIMDMessageRecordCopyLastReceivedMessageLimit_IPCAction(v7, a1);
-    }
-
-    v3 = *(*(&buf + 1) + 24);
-    _Block_object_dispose(&buf, 8);
+  *&buf = 0;
+  *(&buf + 1) = &buf;
+  v10 = 0x2020000000;
+  Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
+  if (IMDIsRunningInDatabaseServerProcess())
+  {
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1B7BD824C;
+    v8[3] = &unk_1E7CB7520;
+    v8[4] = &buf;
+    v8[5] = a1;
+    _IMDPerformLockedStatementBlockWithQuery(@"SELECT ROWID, guid, text, replace, service_center, handle_id, subject, country, attributedBody, version, type, service, account, account_guid, error, date, date_read, date_delivered, is_delivered, is_finished, is_emote, is_from_me, is_empty, is_delayed, is_auto_reply, is_prepared, is_read, is_system_message, is_sent, has_dd_results, is_service_message, is_forward, was_downgraded, is_archive, cache_has_attachments, cache_roomnames, was_data_detected, was_deduplicated, is_audio_message, is_played, date_played, item_type, other_handle, group_title, group_action_type, share_status, share_direction, is_expirable, expire_state, message_action_type, message_source, associated_message_guid, associated_message_type, balloon_bundle_id, payload_data, expressive_send_style_id, associated_message_range_location, associated_message_range_length, time_expressive_send_played, message_summary_info, ck_sync_state, ck_record_id, ck_record_change_tag, destination_caller_id, is_corrupt, reply_to_guid, sort_id, is_spam, has_unseen_mention, thread_originator_guid, thread_originator_part, syndication_ranges, synced_syndication_ranges, was_delivered_quietly, did_notify_recipient, date_retracted, date_edited, date_recovered, was_detonated, part_count, is_stewie, is_sos, is_critical, bia_reference_id, is_kt_verified, fallback_hash, associated_message_emoji, is_pending_satellite_send, needs_relay, schedule_type, schedule_state, sent_or_received_off_grid, is_time_sensitive, ck_chat_id FROM message INNER JOIN chat_message_join AS cmj ON message.ROWID = cmj.message_id WHERE error == 0 AND is_from_me == 0 AND item_type == 0 AND is_finished == 1 ORDER BY date DESC, ROWID DESC LIMIT ?;", v8);
   }
 
   else
   {
-    v3 = 0;
+    v4 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    {
+      *v7 = 0;
+      _os_log_impl(&dword_1B7AD5000, v4, OS_LOG_TYPE_INFO, "IMDMessageRecordCopyLastReceivedMessageLimit syncXPC", v7, 2u);
+    }
+
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = sub_1B7BD834C;
+    v6[3] = &unk_1E7CB6838;
+    v6[4] = &buf;
+    __syncXPCIMDMessageRecordCopyLastReceivedMessageLimit_IPCAction(v6, a1);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
+  v3 = *(*(&buf + 1) + 24);
+  _Block_object_dispose(&buf, 8);
   return v3;
 }
 
-void sub_1B7BD824C(uint64_t a1)
+void sub_1B7BD824C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 40);
-  v3 = CSDBSqliteBindInt64();
-  sub_1B7AEAEE4(v3, v4, v5);
-  v6 = CSDBRecordStoreProcessStatement();
-  if (v6)
+  v5 = CSDBSqliteBindInt64();
+  sub_1B7AEAEE4(v5, v6, v7, v8);
+  v9 = CSDBRecordStoreProcessStatement();
+  if (v9)
   {
-    v7 = v6;
-    if (CFArrayGetCount(v6) >= 1)
+    v10 = v9;
+    if (CFArrayGetCount(v9) >= 1)
     {
-      v8 = 0;
-      v9 = *MEMORY[0x1E695E480];
+      v11 = 0;
+      v12 = *MEMORY[0x1E695E480];
       do
       {
-        CFArrayGetValueAtIndex(v7, v8);
+        CFArrayGetValueAtIndex(v10, v11);
         ID = CSDBRecordGetID();
-        v11 = IMDMessageRecordCreateFromRecordIDUnlocked(v9, ID);
-        if (v11)
+        v14 = IMDMessageRecordCreateFromRecordIDUnlocked(v12, ID);
+        if (v14)
         {
-          v12 = v11;
-          CFArrayAppendValue(*(*(*(a1 + 32) + 8) + 24), v11);
-          CFRelease(v12);
+          v15 = v14;
+          CFArrayAppendValue(*(*(*(a1 + 32) + 8) + 24), v14);
+          CFRelease(v15);
         }
 
-        ++v8;
+        ++v11;
       }
 
-      while (v8 < CFArrayGetCount(v7));
+      while (v11 < CFArrayGetCount(v10));
     }
 
-    CFRelease(v7);
+    CFRelease(v10);
   }
 }
 
@@ -5196,7 +4148,7 @@ uint64_t sub_1B7BD83E0(uint64_t a1, uint64_t a2, void *a3)
 
 uint64_t IMDMessageRecordCopyMessageForRowID(int64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
     v2 = OSLogHandleForIMFoundationCategory();
@@ -5210,52 +4162,50 @@ uint64_t IMDMessageRecordCopyMessageForRowID(int64_t a1)
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v9 = 0x2020000000;
-  v10 = 0;
+  v8 = 0x2020000000;
+  v9 = 0;
   if (IMDIsRunningInDatabaseServerProcess())
   {
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = sub_1B7BD863C;
-    v7[3] = &unk_1E7CB7520;
-    v7[4] = &buf;
-    v7[5] = a1;
-    _IMDPerformLockedStatementBlockWithQuery(@"SELECT ROWID, guid, text, replace, service_center, handle_id, subject, country, attributedBody, version, type, service, account, account_guid, error, date, date_read, date_delivered, is_delivered, is_finished, is_emote, is_from_me, is_empty, is_delayed, is_auto_reply, is_prepared, is_read, is_system_message, is_sent, has_dd_results, is_service_message, is_forward, was_downgraded, is_archive, cache_has_attachments, cache_roomnames, was_data_detected, was_deduplicated, is_audio_message, is_played, date_played, item_type, other_handle, group_title, group_action_type, share_status, share_direction, is_expirable, expire_state, message_action_type, message_source, associated_message_guid, associated_message_type, balloon_bundle_id, payload_data, expressive_send_style_id, associated_message_range_location, associated_message_range_length, time_expressive_send_played, message_summary_info, ck_sync_state, ck_record_id, ck_record_change_tag, destination_caller_id, is_corrupt, reply_to_guid, sort_id, is_spam, has_unseen_mention, thread_originator_guid, thread_originator_part, syndication_ranges, synced_syndication_ranges, was_delivered_quietly, did_notify_recipient, date_retracted, date_edited, date_recovered, was_detonated, part_count, is_stewie, is_sos, is_critical, bia_reference_id, is_kt_verified, fallback_hash, associated_message_emoji, is_pending_satellite_send, needs_relay, schedule_type, schedule_state, sent_or_received_off_grid, is_time_sensitive, ck_chat_id FROM message WHERE ROWID = ? ORDER BY message.ROWID ASC;", v7);
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = sub_1B7BD863C;
+    v6[3] = &unk_1E7CB7520;
+    v6[4] = &buf;
+    v6[5] = a1;
+    _IMDPerformLockedStatementBlockWithQuery(@"SELECT ROWID, guid, text, replace, service_center, handle_id, subject, country, attributedBody, version, type, service, account, account_guid, error, date, date_read, date_delivered, is_delivered, is_finished, is_emote, is_from_me, is_empty, is_delayed, is_auto_reply, is_prepared, is_read, is_system_message, is_sent, has_dd_results, is_service_message, is_forward, was_downgraded, is_archive, cache_has_attachments, cache_roomnames, was_data_detected, was_deduplicated, is_audio_message, is_played, date_played, item_type, other_handle, group_title, group_action_type, share_status, share_direction, is_expirable, expire_state, message_action_type, message_source, associated_message_guid, associated_message_type, balloon_bundle_id, payload_data, expressive_send_style_id, associated_message_range_location, associated_message_range_length, time_expressive_send_played, message_summary_info, ck_sync_state, ck_record_id, ck_record_change_tag, destination_caller_id, is_corrupt, reply_to_guid, sort_id, is_spam, has_unseen_mention, thread_originator_guid, thread_originator_part, syndication_ranges, synced_syndication_ranges, was_delivered_quietly, did_notify_recipient, date_retracted, date_edited, date_recovered, was_detonated, part_count, is_stewie, is_sos, is_critical, bia_reference_id, is_kt_verified, fallback_hash, associated_message_emoji, is_pending_satellite_send, needs_relay, schedule_type, schedule_state, sent_or_received_off_grid, is_time_sensitive, ck_chat_id FROM message WHERE ROWID = ? ORDER BY message.ROWID ASC;", v6);
   }
 
   else
   {
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = sub_1B7BD86F8;
-    v6[3] = &unk_1E7CB6838;
-    v6[4] = &buf;
-    __syncXPCIMDMessageRecordCopyMessageForRowID_IPCAction(v6, a1);
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = sub_1B7BD86F8;
+    v5[3] = &unk_1E7CB6838;
+    v5[4] = &buf;
+    __syncXPCIMDMessageRecordCopyMessageForRowID_IPCAction(v5, a1);
   }
 
   v3 = *(*(&buf + 1) + 24);
   _Block_object_dispose(&buf, 8);
-  v4 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
-void sub_1B7BD863C(uint64_t a1)
+void sub_1B7BD863C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 40);
-  v3 = CSDBSqliteBindInt64();
-  sub_1B7AEAEE4(v3, v4, v5);
-  v6 = CSDBRecordStoreProcessStatement();
-  if (v6)
+  v5 = CSDBSqliteBindInt64();
+  sub_1B7AEAEE4(v5, v6, v7, v8);
+  v9 = CSDBRecordStoreProcessStatement();
+  if (v9)
   {
-    v7 = v6;
-    if (CFArrayGetCount(v6))
+    v10 = v9;
+    if (CFArrayGetCount(v9))
     {
-      CFArrayGetValueAtIndex(v7, 0);
+      CFArrayGetValueAtIndex(v10, 0);
       ID = CSDBRecordGetID();
       *(*(*(a1 + 32) + 8) + 24) = IMDMessageRecordCreateFromRecordIDUnlocked(*MEMORY[0x1E695E480], ID);
     }
 
-    CFRelease(v7);
+    CFRelease(v10);
   }
 }
 
@@ -5316,9 +4266,9 @@ uint64_t IMDMessageRecordCopyMessagesForRowIDs(const __CFArray *a1)
   return v6;
 }
 
-void sub_1B7BD889C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B7BD889C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5383,7 +4333,7 @@ uint64_t IMDMessageRecordMaxMessageIDFromChatMessageJoin()
   return v0;
 }
 
-uint64_t sub_1B7BD8AD8(uint64_t a1)
+uint64_t sub_1B7BD8AD8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = CSDBSqliteStatementInteger64Result();
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -5420,90 +4370,88 @@ uint64_t IMDMessageRecordCopyMessagesFromRowIDDescLimit(uint64_t a1, uint64_t a2
   return v4;
 }
 
-void sub_1B7BD8C64(void *a1)
+void sub_1B7BD8C64(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = a1[5];
   CSDBSqliteBindInt64();
-  v3 = a1[6];
-  v4 = CSDBSqliteBindInt64();
-  sub_1B7AEAEE4(v4, v5, v6);
-  v7 = CSDBRecordStoreProcessStatement();
+  v5 = CSDBSqliteBindInt64();
+  sub_1B7AEAEE4(v5, v6, v7, v8);
+  v9 = CSDBRecordStoreProcessStatement();
   if (*(*(a1[4] + 8) + 24))
   {
-    v8 = v7;
-    if (CFArrayGetCount(v7) >= 1)
+    v10 = v9;
+    if (CFArrayGetCount(v9) >= 1)
     {
-      v9 = 0;
-      v10 = *MEMORY[0x1E695E480];
+      v11 = 0;
+      v12 = *MEMORY[0x1E695E480];
       do
       {
-        CFArrayGetValueAtIndex(v8, v9);
+        CFArrayGetValueAtIndex(v10, v11);
         ID = CSDBRecordGetID();
-        v12 = IMDMessageRecordCreateFromRecordIDUnlocked(v10, ID);
-        if (v12)
+        v14 = IMDMessageRecordCreateFromRecordIDUnlocked(v12, ID);
+        if (v14)
         {
-          v13 = v12;
-          CFArrayAppendValue(*(*(a1[4] + 8) + 24), v12);
-          CFRelease(v13);
+          v15 = v14;
+          CFArrayAppendValue(*(*(a1[4] + 8) + 24), v14);
+          CFRelease(v15);
         }
 
-        ++v9;
+        ++v11;
       }
 
-      while (v9 < CFArrayGetCount(v8));
+      while (v11 < CFArrayGetCount(v10));
     }
 
-    CFRelease(v8);
+    CFRelease(v10);
   }
 }
 
-void sub_1B7BD8D7C(uint64_t a1)
+void sub_1B7BD8D7C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 40);
-  v3 = CSDBSqliteBindTextFromCFString();
-  sub_1B7AEAEE4(v3, v4, v5);
-  v6 = CSDBRecordStoreProcessStatement();
-  if (v6)
+  v5 = CSDBSqliteBindTextFromCFString();
+  sub_1B7AEAEE4(v5, v6, v7, v8);
+  v9 = CSDBRecordStoreProcessStatement();
+  if (v9)
   {
-    v7 = v6;
-    if (CFArrayGetCount(v6))
+    v10 = v9;
+    if (CFArrayGetCount(v9))
     {
-      CFArrayGetValueAtIndex(v7, 0);
+      CFArrayGetValueAtIndex(v10, 0);
       ID = CSDBRecordGetID();
       *(*(*(a1 + 32) + 8) + 24) = IMDMessageRecordCreateFromRecordIDUnlocked(*MEMORY[0x1E695E480], ID);
     }
 
-    CFRelease(v7);
+    CFRelease(v10);
   }
 
   else
   {
-    v9 = IMDatabaseMessageEventLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v12 = IMDatabaseMessageEventLogHandle();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_1B7AD5000, v9, OS_LOG_TYPE_INFO, "IMDMessageRecordCopyMessageForGUIDUnlocked failed to get results", v10, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_INFO, "IMDMessageRecordCopyMessageForGUIDUnlocked failed to get results", v13, 2u);
     }
   }
 }
 
-BOOL IMDMessageRecordDeleteBatchOfDeletedMessageGuids(int a1, void *a2, void *a3)
+BOOL IMDMessageRecordDeleteBatchOfDeletedMessageGuids(uint64_t a1, void *a2, void *a3)
 {
+  v5 = a1;
   if (a1 > 0)
   {
     goto LABEL_6;
   }
 
-  v54 = xmmword_1E7CBCBE8;
-  v55 = *off_1E7CBCBF8;
+  v69 = xmmword_1E7CBCBE8;
+  v70 = *off_1E7CBCBF8;
   v6 = MEMORY[0x1E696AEC0];
   v7 = IMFileLocationTrimFileName();
-  v9 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v8, &stru_1F2FA9728);
-  v11 = objc_msgSend_stringWithFormat_(v6, v10, @"Unexpected false '%@' in %s at %s:%d. %@", @"batchAmount > 0", "BOOL IMDMessageRecordDeleteBatchOfDeletedMessageGuids(int, NSArray **, NSError **)", v7, 666, v9);
-  v12 = IMGetAssertionFailureHandler();
-  if (v12)
+  v10 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v8, &stru_1F2FA9728, v9);
+  v13 = objc_msgSend_stringWithFormat_(v6, v11, @"Unexpected false '%@' in %s at %s:%d. %@", v12, @"batchAmount > 0", "BOOL IMDMessageRecordDeleteBatchOfDeletedMessageGuids(int, NSArray **, NSError **)", v7, 666, v10);
+  v14 = IMGetAssertionFailureHandler();
+  if (v14)
   {
-    v12(v11);
+    v14(v13);
     if (!a2)
     {
       goto LABEL_8;
@@ -5514,8 +4462,8 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v15 = objc_msgSend_warning(MEMORY[0x1E69A6138], v13, v14);
-  if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v18 = objc_msgSend_warning(MEMORY[0x1E69A6138], v15, v16, v17);
+  if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
 LABEL_6:
     if (!a2)
@@ -5533,102 +4481,102 @@ LABEL_6:
   }
 
 LABEL_8:
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
-  v56 = 0u;
-  v54 = 0u;
-  IMDSqlOperationInitWithSharedCSDBDatabase(&v54);
-  IMDSqlOperationBeginTransaction(&v54);
-  if (*(&v64 + 1))
+  v78 = 0u;
+  v79 = 0u;
+  v76 = 0u;
+  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
+  v69 = 0u;
+  IMDSqlOperationInitWithSharedCSDBDatabase();
+  IMDSqlOperationBeginTransaction(&v69);
+  if (*(&v79 + 1))
   {
-    v16 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v52 = 0;
-    v53 = 0;
-    sub_1B7BD9180(&v54, &v53, &v52, a1);
-    v16 = 0;
-    v19 = v53;
-    if (!*(&v64 + 1) && v53)
+    v67 = 0;
+    v68 = 0;
+    sub_1B7BD9180(&v69, &v68, &v67, v5);
+    v19 = 0;
+    v23 = v68;
+    if (!*(&v79 + 1) && v68)
     {
-      if (objc_msgSend_count(v53, v17, v18))
+      if (objc_msgSend_count(v68, v20, v21, v22))
       {
-        v22 = objc_msgSend_count(v52, v20, v21);
-        if (v22 != objc_msgSend_count(v53, v23, v24))
+        v27 = objc_msgSend_count(v67, v24, v25, v26);
+        if (v27 != objc_msgSend_count(v68, v28, v29, v30))
         {
-          v27 = MEMORY[0x1E696AEC0];
-          v28 = IMFileLocationTrimFileName();
-          v30 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v29, &stru_1F2FA9728);
-          v32 = objc_msgSend_stringWithFormat_(v27, v31, @"Unexpected false '%@' in %s at %s:%d. %@", @"rowIDs.count == guids.count", "BOOL IMDMessageRecordDeleteBatchOfDeletedMessageGuids(int, NSArray **, NSError **)", v28, 685, v30);
-          v33 = IMGetAssertionFailureHandler();
-          if (v33)
+          v34 = MEMORY[0x1E696AEC0];
+          v35 = IMFileLocationTrimFileName();
+          v38 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v36, &stru_1F2FA9728, v37);
+          v41 = objc_msgSend_stringWithFormat_(v34, v39, @"Unexpected false '%@' in %s at %s:%d. %@", v40, @"rowIDs.count == guids.count", "BOOL IMDMessageRecordDeleteBatchOfDeletedMessageGuids(int, NSArray **, NSError **)", v35, 685, v38);
+          v42 = IMGetAssertionFailureHandler();
+          if (v42)
           {
-            v33(v32);
+            v42(v41);
           }
 
           else
           {
-            v36 = objc_msgSend_warning(MEMORY[0x1E69A6138], v34, v35);
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+            v46 = objc_msgSend_warning(MEMORY[0x1E69A6138], v43, v44, v45);
+            if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
             {
               sub_1B7CED0B0();
             }
           }
         }
 
-        if (objc_msgSend_count(v52, v25, v26))
+        if (objc_msgSend_count(v67, v31, v32, v33))
         {
-          v38 = objc_msgSend_objectAtIndex_(v52, v37, 0);
-          v41 = objc_msgSend_unsignedLongLongValue(v38, v39, v40);
-          v42 = v52;
-          v45 = objc_msgSend_count(v52, v43, v44);
-          v47 = objc_msgSend_objectAtIndex_(v42, v46, v45 - 1);
-          v50 = objc_msgSend_unsignedLongLongValue(v47, v48, v49);
-          sub_1B7BD92B4(&v54, v41, v50);
+          v49 = objc_msgSend_objectAtIndex_(v67, v47, 0, v48);
+          v53 = objc_msgSend_unsignedLongLongValue(v49, v50, v51, v52);
+          v54 = v67;
+          v58 = objc_msgSend_count(v67, v55, v56, v57);
+          v61 = objc_msgSend_objectAtIndex_(v54, v59, v58 - 1, v60);
+          v65 = objc_msgSend_unsignedLongLongValue(v61, v62, v63, v64);
+          sub_1B7BD92B4(&v69, v53, v65);
         }
 
-        v16 = *(&v64 + 1) == 0;
-        if (a2 && !*(&v64 + 1))
+        v19 = *(&v79 + 1) == 0;
+        if (a2 && !*(&v79 + 1))
         {
-          *a2 = v53;
-          v16 = 1;
+          *a2 = v68;
+          v19 = 1;
         }
       }
 
       else
       {
-        v16 = 0;
+        v19 = 0;
       }
 
-      v19 = v53;
+      v23 = v68;
     }
 
-    if (v19)
+    if (v23)
     {
 
-      v53 = 0;
+      v68 = 0;
     }
 
-    if (v52)
+    if (v67)
     {
     }
   }
 
-  IMDSqlOperationCommitOrRevertTransaction(&v54);
-  IMDSqlOperationRelease(&v54, a3);
-  return v16;
+  IMDSqlOperationCommitOrRevertTransaction(&v69);
+  IMDSqlOperationRelease(&v69, a3);
+  return v19;
 }
 
-BOOL sub_1B7BD9180(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+BOOL sub_1B7BD9180(void *a1, uint64_t a2, uint64_t a3, int a4)
 {
   if (a3)
   {
@@ -5680,27 +4628,27 @@ LABEL_6:
   return _IMDSqlOperationRunQuery(a1, v10, v13, v12);
 }
 
-BOOL sub_1B7BD92B4(uint64_t a1, unint64_t a2, unint64_t a3)
+BOOL sub_1B7BD92B4(void *a1, unint64_t a2, unint64_t a3)
 {
   if (!a1)
   {
-    v29 = xmmword_1E7CBCCC8;
-    v30 = *off_1E7CBCCD8;
-    v31 = 894;
+    v35 = xmmword_1E7CBCCC8;
+    v36 = *off_1E7CBCCD8;
+    v37 = 894;
     v6 = MEMORY[0x1E696AEC0];
     v7 = IMFileLocationTrimFileName();
-    v9 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v8, &stru_1F2FA9728);
-    v11 = objc_msgSend_stringWithFormat_(v6, v10, @"Unexpected nil '%@' in %s at %s:%d. %@", @"operation", "BOOL _IMDDeleteDeletedMessagesWithRangeOfRowIDs(IMDSqlOperation *, uint64_t, uint64_t)", v7, 894, v9);
-    v12 = IMGetAssertionFailureHandler();
-    if (v12)
+    v10 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v8, &stru_1F2FA9728, v9);
+    v13 = objc_msgSend_stringWithFormat_(v6, v11, @"Unexpected nil '%@' in %s at %s:%d. %@", v12, @"operation", "BOOL _IMDDeleteDeletedMessagesWithRangeOfRowIDs(IMDSqlOperation *, uint64_t, uint64_t)", v7, 894, v10);
+    v14 = IMGetAssertionFailureHandler();
+    if (v14)
     {
-      v12(v11);
+      v14(v13);
     }
 
     else
     {
-      v15 = objc_msgSend_warning(MEMORY[0x1E69A6138], v13, v14);
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v18 = objc_msgSend_warning(MEMORY[0x1E69A6138], v15, v16, v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         sub_1B7CED0B0();
       }
@@ -5709,35 +4657,35 @@ BOOL sub_1B7BD92B4(uint64_t a1, unint64_t a2, unint64_t a3)
 
   if (a3 >= a2)
   {
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = sub_1B7BD9CA0;
-    v28[3] = &unk_1E7CBCD18;
-    v28[4] = a1;
-    v28[5] = a2;
-    v28[6] = a3;
-    v25 = _IMDSqlOperationRunQuery(a1, @"DELETE FROM deleted_messages where ROWID >= ? AND ROWID <= ?;", v28, 0);
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = sub_1B7BD9CA0;
+    v34[3] = &unk_1E7CBCD18;
+    v34[4] = a1;
+    v34[5] = a2;
+    v34[6] = a3;
+    v31 = _IMDSqlOperationRunQuery(a1, @"DELETE FROM deleted_messages where ROWID >= ? AND ROWID <= ?;", v34, 0);
     CFRelease(@"DELETE FROM deleted_messages where ROWID >= ? AND ROWID <= ?;");
   }
 
   else
   {
-    v29 = xmmword_1E7CBCCF0;
-    v30 = *off_1E7CBCD00;
-    v16 = MEMORY[0x1E696AEC0];
-    v17 = IMFileLocationTrimFileName();
-    v19 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v18, &stru_1F2FA9728);
-    v21 = objc_msgSend_stringWithFormat_(v16, v20, @"Unexpected false '%@' in %s at %s:%d. %@", @"lastRowID >= firstRowID", "BOOL _IMDDeleteDeletedMessagesWithRangeOfRowIDs(IMDSqlOperation *, uint64_t, uint64_t)", v17, 895, v19);
-    v22 = IMGetAssertionFailureHandler();
-    if (v22)
+    v35 = xmmword_1E7CBCCF0;
+    v36 = *off_1E7CBCD00;
+    v19 = MEMORY[0x1E696AEC0];
+    v20 = IMFileLocationTrimFileName();
+    v23 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v21, &stru_1F2FA9728, v22);
+    v26 = objc_msgSend_stringWithFormat_(v19, v24, @"Unexpected false '%@' in %s at %s:%d. %@", v25, @"lastRowID >= firstRowID", "BOOL _IMDDeleteDeletedMessagesWithRangeOfRowIDs(IMDSqlOperation *, uint64_t, uint64_t)", v20, 895, v23);
+    v27 = IMGetAssertionFailureHandler();
+    if (v27)
     {
-      v22(v21);
+      v27(v26);
     }
 
     else
     {
-      v26 = objc_msgSend_warning(MEMORY[0x1E69A6138], v23, v24);
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v32 = objc_msgSend_warning(MEMORY[0x1E69A6138], v28, v29, v30);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         sub_1B7CED0B0();
       }
@@ -5746,19 +4694,19 @@ BOOL sub_1B7BD92B4(uint64_t a1, unint64_t a2, unint64_t a3)
     return 0;
   }
 
-  return v25;
+  return v31;
 }
 
 void IMDMessageRecordDeleteMessagesForGUIDs(const __CFArray *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
     v4 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v11 = a1;
+      v10 = a1;
       _os_log_impl(&dword_1B7AD5000, v4, OS_LOG_TYPE_DEBUG, "IMDMessageRecordDeleteMessagesForGUIDs %@", buf, 0xCu);
     }
   }
@@ -5769,14 +4717,14 @@ void IMDMessageRecordDeleteMessagesForGUIDs(const __CFArray *a1, uint64_t a2)
     {
       Count = CFArrayGetCount(a1);
       v6 = IMDCreateQueryRemoveMessagesFromMessageTableWithMessageGuidCount(Count);
-      v9[0] = MEMORY[0x1E69E9820];
-      v9[1] = 3221225472;
-      v9[2] = sub_1B7BD9698;
-      v9[3] = &unk_1E7CBCC38;
-      v9[4] = v6;
-      v9[5] = a1;
-      v9[6] = a2;
-      IMDRunSqlOperation(v9);
+      v8[0] = MEMORY[0x1E69E9820];
+      v8[1] = 3221225472;
+      v8[2] = sub_1B7BD9698;
+      v8[3] = &unk_1E7CBCC38;
+      v8[4] = v6;
+      v8[5] = a1;
+      v8[6] = a2;
+      IMDRunSqlOperation(v8);
       CFRelease(v6);
       IMDCoreSpotlightScheduleUpdateForDeletedMessages(1006);
     }
@@ -5796,11 +4744,9 @@ void IMDMessageRecordDeleteMessagesForGUIDs(const __CFArray *a1, uint64_t a2)
       _os_log_impl(&dword_1B7AD5000, v7, OS_LOG_TYPE_INFO, "IMDMessageRecordDeleteMessagesForGUIDs has no GUIDs to delete.", buf, 2u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t sub_1B7BD9698(uint64_t a1, uint64_t a2)
+uint64_t sub_1B7BD9698(uint64_t a1, void *a2)
 {
   v7[0] = MEMORY[0x1E69E9820];
   v7[1] = 3221225472;
@@ -5811,7 +4757,7 @@ uint64_t sub_1B7BD9698(uint64_t a1, uint64_t a2)
   v7[4] = a2;
   v7[5] = v5;
   _IMDSqlOperationRunQuery(a2, v4, v7, 0);
-  if (!*(a2 + 168))
+  if (!a2[21])
   {
     IMDSqlOperationUpdateLastDeleteSequenceNumber(a2);
   }
@@ -5849,16 +4795,16 @@ void IMDSelectMessagesForDeletionAfterDaysWithQuery(uint64_t a1, const __CFStrin
   while (IMDSqlOperationHasRows(buf))
   {
     IMDSqlOperationColumnByIndex(buf, 0, v14);
-    v12 = IMDStringFromSqlColumn(v14);
-    if (v12)
+    v13 = IMDStringFromSqlColumn(v14);
+    if (v13)
     {
       if (!v10)
       {
         v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
       }
 
-      objc_msgSend_addObject_(v10, v11, v12);
-      CFRelease(v12);
+      objc_msgSend_addObject_(v10, v11, v13, v12);
+      CFRelease(v13);
     }
   }
 
@@ -5871,19 +4817,17 @@ void IMDSelectMessagesForDeletionAfterDaysWithQuery(uint64_t a1, const __CFStrin
   if (v10)
   {
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 double sub_1B7BD992C(uint64_t a1)
 {
   v2 = objc_alloc_init(MEMORY[0x1E695DF10]);
-  objc_msgSend_setDay_(v2, v3, -a1);
-  v6 = objc_msgSend_currentCalendar(MEMORY[0x1E695DEE8], v4, v5);
-  v9 = objc_msgSend_date(MEMORY[0x1E695DF00], v7, v8);
-  v11 = objc_msgSend_dateByAddingComponents_toDate_options_(v6, v10, v2, v9, 0);
+  objc_msgSend_setDay_(v2, v3, -a1, v4);
+  v8 = objc_msgSend_currentCalendar(MEMORY[0x1E695DEE8], v5, v6, v7);
+  v12 = objc_msgSend_date(MEMORY[0x1E695DF00], v9, v10, v11);
+  v14 = objc_msgSend_dateByAddingComponents_toDate_options_(v8, v13, v2, v12, 0);
 
-  return objc_msgSend___im_nanosecondTimeInterval(v11, v12, v13);
+  return objc_msgSend___im_nanosecondTimeInterval(v14, v15, v16, v17);
 }
 
 void sub_1B7BD99D0(uint64_t a1)
@@ -5891,7 +4835,7 @@ void sub_1B7BD99D0(uint64_t a1)
   v1 = *(a1 + 40);
   if (v1)
   {
-    IMDSqlStatementBindInt(*(a1 + 32) + 32, v1);
+    IMDSqlStatementBindInt((*(a1 + 32) + 32), v1);
   }
 }
 
@@ -5899,42 +4843,42 @@ void sub_1B7BD99E8(uint64_t a1)
 {
   if (IMDSqlOperationHasRows(*(a1 + 48)))
   {
-    v4 = MEMORY[0x1E69E9820];
+    v5 = MEMORY[0x1E69E9820];
     do
     {
-      v24 = 0;
-      v25 = &v24;
-      v26 = 0x2020000000;
-      v27 = -1;
-      v18 = 0;
-      v19 = &v18;
-      v20 = 0x3052000000;
-      v21 = sub_1B7AE1B30;
-      v22 = sub_1B7AE25A0;
+      v29 = 0;
+      v30 = &v29;
+      v31 = 0x2020000000;
+      v32 = -1;
       v23 = 0;
-      v5 = *(a1 + 48);
-      v14[0] = v4;
-      v14[1] = 3221225472;
-      v14[2] = sub_1B7BD9C08;
-      v14[3] = &unk_1E7CBCC80;
-      v15 = *(a1 + 32);
-      v16 = &v24;
-      v17 = &v18;
-      IMDSqlOperationIterateRow(v5, v14);
-      if (objc_msgSend_length(v19[5], v6, v7))
+      v24 = &v23;
+      v25 = 0x3052000000;
+      v26 = sub_1B7AE1B30;
+      v27 = sub_1B7AE25A0;
+      v28 = 0;
+      v6 = *(a1 + 48);
+      v19[0] = v5;
+      v19[1] = 3221225472;
+      v19[2] = sub_1B7BD9C08;
+      v19[3] = &unk_1E7CBCC80;
+      v20 = *(a1 + 32);
+      v21 = &v29;
+      v22 = &v23;
+      IMDSqlOperationIterateRow(v6, v19);
+      if (objc_msgSend_length(v24[5], v7, v8, v9))
       {
-        v9 = v25[3];
-        if ((v9 & 0x8000000000000000) == 0)
+        v12 = v30[3];
+        if ((v12 & 0x8000000000000000) == 0)
         {
-          v10 = *(a1 + 32);
-          v11 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v8, v9);
-          objc_msgSend_addObject_(v10, v12, v11);
-          objc_msgSend_addObject_(*(a1 + 40), v13, v19[5]);
+          v13 = *(a1 + 32);
+          v14 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v10, v12, v11);
+          objc_msgSend_addObject_(v13, v15, v14, v16);
+          objc_msgSend_addObject_(*(a1 + 40), v17, v24[5], v18);
         }
       }
 
-      _Block_object_dispose(&v18, 8);
-      _Block_object_dispose(&v24, 8);
+      _Block_object_dispose(&v23, 8);
+      _Block_object_dispose(&v29, 8);
     }
 
     while (IMDSqlOperationHasRows(*(a1 + 48)));
@@ -5942,28 +4886,28 @@ void sub_1B7BD99E8(uint64_t a1)
 
   if (!*(*(a1 + 48) + 168))
   {
-    if (*(a1 + 56) && objc_msgSend_count(*(a1 + 40), v2, v3))
+    if (*(a1 + 56) && objc_msgSend_count(*(a1 + 40), v2, v3, v4))
     {
       **(a1 + 56) = *(a1 + 40);
     }
 
-    if (*(a1 + 64) && objc_msgSend_count(*(a1 + 32), v2, v3))
+    if (*(a1 + 64) && objc_msgSend_count(*(a1 + 32), v2, v3, v4))
     {
       **(a1 + 64) = *(a1 + 32);
     }
   }
 }
 
-void sub_1B7BD9BE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1B7BD9BE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -6000,9 +4944,9 @@ const unsigned __int8 *sub_1B7BD9C08(const unsigned __int8 *result, __int128 *a2
 
 void sub_1B7BD9CA0(void *a1)
 {
-  IMDSqlStatementBindInt64(a1[4] + 32, a1[5]);
+  IMDSqlStatementBindInt64((a1[4] + 32), a1[5]);
   v2 = a1[6];
-  v3 = a1[4] + 32;
+  v3 = (a1[4] + 32);
 
   IMDSqlStatementBindInt64(v3, v2);
 }
@@ -6020,7 +4964,7 @@ BOOL IMDSelectDeletedMessages(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   return IMDRunSqlOperation(v5);
 }
 
-uint64_t sub_1B7BD9D5C(uint64_t a1, uint64_t a2)
+uint64_t sub_1B7BD9D5C(uint64_t a1, void *a2)
 {
   sub_1B7BD9180(a2, *(a1 + 32), *(a1 + 40), *(a1 + 56));
   v4 = *(a1 + 48);
@@ -6030,13 +4974,13 @@ uint64_t sub_1B7BD9D5C(uint64_t a1, uint64_t a2)
 
 void IMDMessageRecordDeleteMessagesOlderThanDays(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v4 = IMDatabaseLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    LODWORD(v20[0]) = 134217984;
-    *(v20 + 4) = a1;
-    _os_log_impl(&dword_1B7AD5000, v4, OS_LOG_TYPE_INFO, "IMDMessageRecordDeleteMessagesOlderThanDays %lld", v20, 0xCu);
+    LODWORD(v23[0]) = 134217984;
+    *(v23 + 4) = a1;
+    _os_log_impl(&dword_1B7AD5000, v4, OS_LOG_TYPE_INFO, "IMDMessageRecordDeleteMessagesOlderThanDays %lld", v23, 0xCu);
   }
 
   if (IMDIsRunningInDatabaseServerProcess())
@@ -6045,28 +4989,28 @@ void IMDMessageRecordDeleteMessagesOlderThanDays(uint64_t a1, void *a2)
     v6 = IMDatabaseLogHandle();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      LODWORD(v20[0]) = 134217984;
-      *(v20 + 4) = v5;
-      _os_log_impl(&dword_1B7AD5000, v6, OS_LOG_TYPE_INFO, "IMDMessageRecordDeleteMessagesOlderThanDays interval is %f", v20, 0xCu);
+      LODWORD(v23[0]) = 134217984;
+      *(v23 + 4) = v5;
+      _os_log_impl(&dword_1B7AD5000, v6, OS_LOG_TYPE_INFO, "IMDMessageRecordDeleteMessagesOlderThanDays interval is %f", v23, 0xCu);
     }
 
-    memset(v21, 0, sizeof(v21));
-    memset(v20, 0, sizeof(v20));
-    IMDSqlOperationInitWithSharedCSDBDatabase(v20);
-    _IMDSqlOperationBeginQuery(v20, @"DELETE from message WHERE date >= 1000000000.0  AND date < ?  AND NOT (group_action_type IN (1,3) AND (ROWID IN (SELECT message_id FROM message_attachment_join)))  AND NOT (ROWID IN (SELECT message_id FROM chat_recoverable_message_join));");
-    IMDSqlStatementBindInt64(v21, v5);
-    if (IMDSqlOperationFinishQuery(v20))
+    memset(v24, 0, sizeof(v24));
+    memset(v23, 0, sizeof(v23));
+    IMDSqlOperationInitWithSharedCSDBDatabase(v23);
+    _IMDSqlOperationBeginQuery(v23, @"DELETE from message WHERE date >= 1000000000.0  AND date < ?  AND NOT (group_action_type IN (1,3) AND (ROWID IN (SELECT message_id FROM message_attachment_join)))  AND NOT (ROWID IN (SELECT message_id FROM chat_recoverable_message_join));");
+    IMDSqlStatementBindInt64(v24, v5);
+    if (IMDSqlOperationFinishQuery(v23))
     {
       v7 = IMDMessageRecordCountChangesUnlocked();
-      v10 = objc_msgSend_sharedInstance(MEMORY[0x1E69A8168], v8, v9);
-      v12 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v11, v7);
-      v15 = objc_msgSend_sharedInstance(MEMORY[0x1E69A8168], v13, v14);
-      v17 = objc_msgSend_keepMessagesSourceTypeForDays_(v15, v16, a1);
-      objc_msgSend_trackDeleteMessages_sourceType_(v10, v18, v12, v17);
-      IMDSqlOperationUpdateLastDeleteSequenceNumber(v20);
+      v11 = objc_msgSend_sharedInstance(MEMORY[0x1E69A8168], v8, v9, v10);
+      v14 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v12, v7, v13);
+      v18 = objc_msgSend_sharedInstance(MEMORY[0x1E69A8168], v15, v16, v17);
+      v21 = objc_msgSend_keepMessagesSourceTypeForDays_(v18, v19, a1, v20);
+      objc_msgSend_trackDeleteMessages_sourceType_(v11, v22, v14, v21);
+      IMDSqlOperationUpdateLastDeleteSequenceNumber(v23);
     }
 
-    if (IMDSqlOperationRelease(v20, a2))
+    if (IMDSqlOperationRelease(v23, a2))
     {
       IMDCoreSpotlightScheduleUpdateForDeletedMessages(1006);
     }
@@ -6076,8 +5020,6 @@ void IMDMessageRecordDeleteMessagesOlderThanDays(uint64_t a1, void *a2)
   {
     __syncXPCIMDMessageRecordDeleteMessagesOlderThanDays_IPCAction(0, a1);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t IMDMessageRecordCopyMessagesWithRoomnameOnServiceLimit(CFStringRef theString, const __CFString *a2, int64_t a3)
@@ -6144,43 +5086,40 @@ LABEL_7:
   return 0;
 }
 
-void sub_1B7BDA13C(void *a1)
+void sub_1B7BDA13C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = a1[5];
   CSDBSqliteBindTextFromCFString();
-  v3 = a1[6];
   CSDBSqliteBindTextFromCFString();
-  v4 = a1[7];
   v5 = CSDBSqliteBindInt64();
-  sub_1B7AEAEE4(v5, v6, v7);
-  v8 = CSDBRecordStoreProcessStatement();
-  if (v8)
+  sub_1B7AEAEE4(v5, v6, v7, v8);
+  v9 = CSDBRecordStoreProcessStatement();
+  if (v9)
   {
-    v9 = v8;
-    v10 = *MEMORY[0x1E695E480];
+    v10 = v9;
+    v11 = *MEMORY[0x1E695E480];
     *(*(a1[4] + 8) + 24) = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
-    if (*(*(a1[4] + 8) + 24) && CFArrayGetCount(v9) >= 1)
+    if (*(*(a1[4] + 8) + 24) && CFArrayGetCount(v10) >= 1)
     {
-      v11 = 0;
+      v12 = 0;
       do
       {
-        CFArrayGetValueAtIndex(v9, v11);
+        CFArrayGetValueAtIndex(v10, v12);
         ID = CSDBRecordGetID();
-        v13 = IMDMessageRecordCreateFromRecordIDUnlocked(v10, ID);
-        if (v13)
+        v14 = IMDMessageRecordCreateFromRecordIDUnlocked(v11, ID);
+        if (v14)
         {
-          v14 = v13;
-          CFArrayAppendValue(*(*(a1[4] + 8) + 24), v13);
-          CFRelease(v14);
+          v15 = v14;
+          CFArrayAppendValue(*(*(a1[4] + 8) + 24), v14);
+          CFRelease(v15);
         }
 
-        ++v11;
+        ++v12;
       }
 
-      while (v11 < CFArrayGetCount(v9));
+      while (v12 < CFArrayGetCount(v10));
     }
 
-    CFRelease(v9);
+    CFRelease(v10);
   }
 }
 
@@ -6237,105 +5176,101 @@ uint64_t IMDMessageRecordCopyMessagesWithHandleIDLimit(uint64_t a1, uint64_t a2)
   return v2;
 }
 
-uint64_t sub_1B7BDA46C(uint64_t a1)
+uint64_t sub_1B7BDA46C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 40);
   CSDBSqliteBindInt();
-  v3 = *(a1 + 48);
-  v4 = CSDBSqliteBindInt();
-  sub_1B7AEAEE4(v4, v5, v6);
+  v5 = CSDBSqliteBindInt();
+  sub_1B7AEAEE4(v5, v6, v7, v8);
   result = CSDBRecordStoreProcessStatement();
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
 }
 
-uint64_t IMDMessageRecordCopyNewParticipantChangeItems()
+uint64_t IMDMessageRecordCopyNewParticipantChangeItems(uint64_t a1)
 {
-  v0 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B7AD5000, v0, OS_LOG_TYPE_DEFAULT, "IMDMessageRecordCopyNewParticipantChangeItems", buf, 2u);
+    _os_log_impl(&dword_1B7AD5000, v1, OS_LOG_TYPE_DEFAULT, "IMDMessageRecordCopyNewParticipantChangeItems", buf, 2u);
   }
 
   *buf = 0;
-  v5 = buf;
-  v6 = 0x2020000000;
-  v7 = 0;
-  v3[0] = MEMORY[0x1E69E9820];
-  v3[1] = 3221225472;
-  v3[2] = sub_1B7BDA5E0;
-  v3[3] = &unk_1E7CB7390;
-  v3[4] = buf;
-  _IMDPerformLockedStatementBlockWithQuery(@"SELECT m.ROWID, m.guid, m.text, m.replace, m.service_center, m.handle_id, m.subject, m.country, m.attributedBody, m.version, m.type, m.service, m.account, m.account_guid, m.error, m.date, m.date_read, m.date_delivered, m.is_delivered, m.is_finished, m.is_emote, m.is_from_me, m.is_empty, m.is_delayed, m.is_auto_reply, m.is_prepared, m.is_read, m.is_system_message, m.is_sent, m.has_dd_results, m.is_service_message, m.is_forward, m.was_downgraded, m.is_archive, m.cache_has_attachments, m.cache_roomnames, m.was_data_detected, m.was_deduplicated, m.is_audio_message, m.is_played, m.date_played, m.item_type, m.other_handle, m.group_title, m.group_action_type, m.share_status, m.share_direction, m.is_expirable, m.expire_state, m.message_action_type, m.message_source, m.associated_message_guid, m.associated_message_type, m.balloon_bundle_id, m.payload_data, m.expressive_send_style_id, m.associated_message_range_location, m.associated_message_range_length, m.time_expressive_send_played, m.message_summary_info, m.ck_sync_state, m.ck_record_id, m.ck_record_change_tag, m.destination_caller_id, m.is_corrupt, m.reply_to_guid, m.sort_id, m.is_spam, m.has_unseen_mention, m.thread_originator_guid, m.thread_originator_part, m.syndication_ranges, m.synced_syndication_ranges, m.was_delivered_quietly, m.did_notify_recipient, m.date_retracted, m.date_edited, m.date_recovered, m.was_detonated, m.part_count, m.is_stewie, m.is_sos, m.is_critical, m.bia_reference_id, m.is_kt_verified, m.fallback_hash, m.associated_message_emoji, m.is_pending_satellite_send, m.needs_relay, m.schedule_type, m.schedule_state, m.sent_or_received_off_grid, m.is_time_sensitive, m.ck_chat_id FROM message m  INDEXED BY message_idx_isRead_isFromMe_itemType  INNER JOIN chat_message_join cm ON cm.message_id = m.rowid  INNER JOIN chat c ON c.ROWID = cm.chat_id  WHERE m.is_read == 0  AND m.is_from_me == 0  AND m.item_type == 1  ORDER BY m.date DESC;", v3);
-  v1 = *(v5 + 3);
+  v6 = buf;
+  v7 = 0x2020000000;
+  v8 = 0;
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = sub_1B7BDA5E0;
+  v4[3] = &unk_1E7CB7390;
+  v4[4] = buf;
+  _IMDPerformLockedStatementBlockWithQuery(@"SELECT m.ROWID, m.guid, m.text, m.replace, m.service_center, m.handle_id, m.subject, m.country, m.attributedBody, m.version, m.type, m.service, m.account, m.account_guid, m.error, m.date, m.date_read, m.date_delivered, m.is_delivered, m.is_finished, m.is_emote, m.is_from_me, m.is_empty, m.is_delayed, m.is_auto_reply, m.is_prepared, m.is_read, m.is_system_message, m.is_sent, m.has_dd_results, m.is_service_message, m.is_forward, m.was_downgraded, m.is_archive, m.cache_has_attachments, m.cache_roomnames, m.was_data_detected, m.was_deduplicated, m.is_audio_message, m.is_played, m.date_played, m.item_type, m.other_handle, m.group_title, m.group_action_type, m.share_status, m.share_direction, m.is_expirable, m.expire_state, m.message_action_type, m.message_source, m.associated_message_guid, m.associated_message_type, m.balloon_bundle_id, m.payload_data, m.expressive_send_style_id, m.associated_message_range_location, m.associated_message_range_length, m.time_expressive_send_played, m.message_summary_info, m.ck_sync_state, m.ck_record_id, m.ck_record_change_tag, m.destination_caller_id, m.is_corrupt, m.reply_to_guid, m.sort_id, m.is_spam, m.has_unseen_mention, m.thread_originator_guid, m.thread_originator_part, m.syndication_ranges, m.synced_syndication_ranges, m.was_delivered_quietly, m.did_notify_recipient, m.date_retracted, m.date_edited, m.date_recovered, m.was_detonated, m.part_count, m.is_stewie, m.is_sos, m.is_critical, m.bia_reference_id, m.is_kt_verified, m.fallback_hash, m.associated_message_emoji, m.is_pending_satellite_send, m.needs_relay, m.schedule_type, m.schedule_state, m.sent_or_received_off_grid, m.is_time_sensitive, m.ck_chat_id FROM message m  INDEXED BY message_idx_isRead_isFromMe_itemType  INNER JOIN chat_message_join cm ON cm.message_id = m.rowid  INNER JOIN chat c ON c.ROWID = cm.chat_id  WHERE m.is_read == 0  AND m.is_from_me == 0  AND m.item_type == 1  ORDER BY m.date DESC;", v4);
+  v2 = *(v6 + 3);
   _Block_object_dispose(buf, 8);
-  return v1;
+  return v2;
 }
 
-void sub_1B7BDA5C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B7BDA5C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B7BDA5E0(uint64_t a1, const char *a2, uint64_t a3)
+void sub_1B7BDA5E0(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  sub_1B7AEAEE4(a1, a2, a3);
-  v4 = CSDBRecordStoreProcessStatement();
-  if (v4)
+  v20 = *MEMORY[0x1E69E9840];
+  sub_1B7AEAEE4(a1, a2, a3, a4);
+  v5 = CSDBRecordStoreProcessStatement();
+  if (v5)
   {
-    v5 = v4;
-    Count = CFArrayGetCount(v4);
+    v6 = v5;
+    Count = CFArrayGetCount(v5);
     if (Count >= 1)
     {
-      v7 = IMDatabaseLogHandle();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = IMDatabaseLogHandle();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 134217984;
-        v18 = Count;
-        _os_log_impl(&dword_1B7AD5000, v7, OS_LOG_TYPE_DEFAULT, "IMDMessageRecordCopyNewParticipantChangeItems got back %ld rows", &v17, 0xCu);
+        v18 = 134217984;
+        v19 = Count;
+        _os_log_impl(&dword_1B7AD5000, v8, OS_LOG_TYPE_DEFAULT, "IMDMessageRecordCopyNewParticipantChangeItems got back %ld rows", &v18, 0xCu);
       }
 
-      v8 = *MEMORY[0x1E695E480];
+      v9 = *MEMORY[0x1E695E480];
       Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], Count, MEMORY[0x1E695E9C0]);
       if (Mutable)
       {
-        v10 = Mutable;
-        v11 = 0;
+        v11 = Mutable;
+        v12 = 0;
         do
         {
-          CFArrayGetValueAtIndex(v5, v11);
+          CFArrayGetValueAtIndex(v6, v12);
           ID = CSDBRecordGetID();
-          v13 = IMDMessageRecordCreateFromRecordIDUnlocked(v8, ID);
-          if (v13)
+          v14 = IMDMessageRecordCreateFromRecordIDUnlocked(v9, ID);
+          if (v14)
           {
-            v15 = v13;
-            CFArrayAppendValue(v10, v13);
-            CFRelease(v15);
+            v17 = v14;
+            CFArrayAppendValue(v11, v14);
+            CFRelease(v17);
           }
 
-          ++v11;
+          ++v12;
         }
 
-        while (Count != v11);
-        objc_msgSend_sortUsingComparator_(v10, v14, &unk_1F2F9FED0);
-        *(*(*(a1 + 32) + 8) + 24) = v10;
+        while (Count != v12);
+        objc_msgSend_sortUsingComparator_(v11, v15, &unk_1F2F9FED0, v16);
+        *(*(*(a1 + 32) + 8) + 24) = v11;
       }
     }
 
-    CFRelease(v5);
+    CFRelease(v6);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t sub_1B7BDA764(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1B7BDA764(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  Date = IMDMessageRecordGetDate(a2, 0, a3);
-  Identifier = IMDMessageRecordGetDate(a3, 0, v6);
+  Date = IMDMessageRecordGetDate(a2, 0, a3, a4);
+  Identifier = IMDMessageRecordGetDate(a3, 0, v7, v8);
   if (!Date || !Identifier || Date == Identifier)
   {
     Date = IMDMessageRecordGetIdentifier(a2);
@@ -6355,20 +5290,20 @@ uint64_t sub_1B7BDA764(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void sub_1B7BDA80C(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = IMDatabaseLogHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 56);
     v4 = *(a1 + 64);
     v5 = *(a1 + 32);
-    v14 = 134218498;
-    v15 = v3;
-    v16 = 2048;
-    v17 = v4;
-    v18 = 2112;
-    v19 = v5;
-    _os_log_impl(&dword_1B7AD5000, v2, OS_LOG_TYPE_INFO, "history query %lu / %lu - %@ - in operation bind", &v14, 0x20u);
+    v12 = 134218498;
+    v13 = v3;
+    v14 = 2048;
+    v15 = v4;
+    v16 = 2112;
+    v17 = v5;
+    _os_log_impl(&dword_1B7AD5000, v2, OS_LOG_TYPE_INFO, "history query %lu / %lu - %@ - in operation bind", &v12, 0x20u);
   }
 
   v6 = *(a1 + 72);
@@ -6385,23 +5320,20 @@ void sub_1B7BDA80C(uint64_t a1)
   {
     IMDSqlStatementBindTextFromCFString(*(a1 + 72) + 32, *(a1 + 40));
     IMDSqlStatementBindTextFromCFString(*(a1 + 72) + 32, *(a1 + 48));
-    v10 = *(a1 + 96);
     AssociatedMessageGUIDFromThreadIdentifier = IMMessageCreateAssociatedMessageGUIDFromThreadIdentifier();
     IMDSqlStatementBindTextFromCFString(*(a1 + 72) + 32, AssociatedMessageGUIDFromThreadIdentifier);
   }
 
-  v12 = *(a1 + 104);
-  if (v12 >= 1)
+  v11 = *(a1 + 104);
+  if (v11 >= 1)
   {
-    IMDSqlStatementBindInt(*(a1 + 72) + 32, v12);
+    IMDSqlStatementBindInt((*(a1 + 72) + 32), v11);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1B7BDA96C(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = IMDatabaseLogHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
@@ -6409,11 +5341,11 @@ void sub_1B7BDA96C(uint64_t a1)
     v4 = *(a1 + 56);
     v5 = *(a1 + 32);
     *buf = 134218498;
-    v17 = v3;
-    v18 = 2048;
-    v19 = v4;
-    v20 = 2112;
-    v21 = v5;
+    v19 = v3;
+    v20 = 2048;
+    v21 = v4;
+    v22 = 2112;
+    v23 = v5;
     _os_log_impl(&dword_1B7AD5000, v2, OS_LOG_TYPE_INFO, "history query %lu / %lu - %@ - in operation results", buf, 0x20u);
   }
 
@@ -6422,75 +5354,73 @@ void sub_1B7BDA96C(uint64_t a1)
     v6 = IMDatabaseLogHandle();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CFC094(v6, v7);
+      sub_1B7CFC094(v6, v7, v8, v9);
     }
   }
 
   if (IMDSqlOperationHasRows(*(a1 + 64)))
   {
-    v8 = MEMORY[0x1E69E9820];
+    v10 = MEMORY[0x1E69E9820];
     do
     {
-      v9 = *(a1 + 64);
-      v15[0] = v8;
-      v15[1] = 3221225472;
-      v15[2] = sub_1B7BDAB28;
-      v15[3] = &unk_1E7CB6FA8;
-      v15[4] = *(a1 + 40);
-      IMDSqlOperationIterateRow(v9, v15);
+      v11 = *(a1 + 64);
+      v17[0] = v10;
+      v17[1] = 3221225472;
+      v17[2] = sub_1B7BDAB28;
+      v17[3] = &unk_1E7CB6FA8;
+      v17[4] = *(a1 + 40);
+      IMDSqlOperationIterateRow(v11, v17);
     }
 
     while (IMDSqlOperationHasRows(*(a1 + 64)));
   }
 
-  v10 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v12 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
-    v13 = objc_msgSend_count(*(a1 + 40), v11, v12);
+    v16 = objc_msgSend_count(*(a1 + 40), v13, v14, v15);
     *buf = 134217984;
-    v17 = v13;
-    _os_log_impl(&dword_1B7AD5000, v10, OS_LOG_TYPE_INFO, "history query got %lu rows", buf, 0xCu);
+    v19 = v16;
+    _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_INFO, "history query got %lu rows", buf, 0xCu);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t sub_1B7BDAB28(uint64_t a1, __int128 *a2)
 {
-  v10 = *a2;
-  v11 = *(a2 + 2);
-  v4 = IMDInt64FromSqlColumn(&v10);
-  if (!v4)
+  v13 = *a2;
+  v14 = *(a2 + 2);
+  v5 = IMDInt64FromSqlColumn(&v13);
+  if (!v5)
   {
-    v5 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CFC144(v5, v3);
+      sub_1B7CFC144(v6, v3, v7, v4);
     }
   }
 
-  v6 = *(a1 + 32);
-  v7 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v3, v4);
-  return objc_msgSend_addObject_(v6, v8, v7);
+  v8 = *(a1 + 32);
+  v9 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v3, v5, v4);
+  return objc_msgSend_addObject_(v8, v10, v9, v11);
 }
 
 void sub_1B7BDABB8(uint64_t a1, xpc_object_t xdict)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   value = xpc_dictionary_get_value(xdict, "array_result");
   if (value)
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v11 = 0x2020000000;
-    v12 = 0;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = sub_1B7BDAD24;
-    v9[3] = &unk_1E7CBCE00;
-    v9[4] = *(a1 + 32);
-    v9[5] = &buf;
-    xpc_array_apply(value, v9);
+    v12 = 0x2020000000;
+    v13 = 0;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = sub_1B7BDAD24;
+    v10[3] = &unk_1E7CBCE00;
+    v10[4] = *(a1 + 32);
+    v10[5] = &buf;
+    xpc_array_apply(value, v10);
     _Block_object_dispose(&buf, 8);
   }
 
@@ -6499,24 +5429,22 @@ void sub_1B7BDABB8(uint64_t a1, xpc_object_t xdict)
     v5 = IMDatabaseLogHandle();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CFC1F4(v5, v6);
+      sub_1B7CFC1F4(v5, v6, v7, v8);
     }
 
-    v7 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v9 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       LODWORD(buf) = 138412290;
       *(&buf + 4) = xdict;
-      _os_log_impl(&dword_1B7AD5000, v7, OS_LOG_TYPE_INFO, "IMDP client got null array_result back: %@", &buf, 0xCu);
+      _os_log_impl(&dword_1B7AD5000, v9, OS_LOG_TYPE_INFO, "IMDP client got null array_result back: %@", &buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t sub_1B7BDAD24(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
     *(*(*(a1 + 32) + 8) + 24) = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
@@ -6528,9 +5456,9 @@ uint64_t sub_1B7BDAD24(uint64_t a1, uint64_t a2, void *a3)
     v6 = IMDatabaseLogHandle();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_impl(&dword_1B7AD5000, v6, OS_LOG_TYPE_INFO, "history query: IMDP client got at least one message: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v5;
+      _os_log_impl(&dword_1B7AD5000, v6, OS_LOG_TYPE_INFO, "history query: IMDP client got at least one message: %@", &v8, 0xCu);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -6542,123 +5470,122 @@ uint64_t sub_1B7BDAD24(uint64_t a1, uint64_t a2, void *a3)
     CFRelease(v5);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
-const __CFArray *IMDMessageRecordCopyMessagesWithChatIdentifiersOnServicesBeforeAndAfterGUIDWithOptionalThreadIdentifier(void *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, const __CFString *a6, BOOL *a7, BOOL *a8)
+const __CFArray *IMDMessageRecordCopyMessagesWithChatIdentifiersOnServicesBeforeAndAfterGUIDWithOptionalThreadIdentifier(void *a1, char *a2, void *a3, int64_t a4, int64_t a5, const __CFString *a6, BOOL *a7, BOOL *a8)
 {
-  v97 = *MEMORY[0x1E69E9840];
-  v12 = objc_msgSend_count(a1, a2, a3);
-  v17 = objc_msgSend_count(a2, v13, v14);
+  v115 = *MEMORY[0x1E69E9840];
+  v12 = objc_msgSend_count(a1, a2, a3, a4);
+  v19 = objc_msgSend_count(a2, v13, v14, v15);
   if (a6)
   {
-    v18 = CFStringGetLength(a6) > 0;
+    v20 = CFStringGetLength(a6) > 0;
   }
 
   else
   {
-    v18 = 0;
+    v20 = 0;
   }
 
-  v19 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v15, v16);
-  isOneChatEnabled = objc_msgSend_isOneChatEnabled(v19, v20, v21);
-  if (v12 && v17 && v12 == v17)
+  v21 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v16, v17, v18);
+  isOneChatEnabled = objc_msgSend_isOneChatEnabled(v21, v22, v23, v24);
+  if (v12 && v19 && v12 == v19)
   {
-    v23 = isOneChatEnabled;
-    v24 = IMDatabaseLogHandle();
-    v25 = os_log_type_enabled(v24, OS_LOG_TYPE_INFO);
+    v26 = isOneChatEnabled;
+    v27 = IMDatabaseLogHandle();
+    v28 = os_log_type_enabled(v27, OS_LOG_TYPE_INFO);
     if (a3)
     {
-      v71 = a8;
-      if (v25)
+      v89 = a8;
+      if (v28)
       {
         *buf = 138413570;
         *&buf[4] = a1;
         *&buf[12] = 2112;
         *&buf[14] = a2;
         *&buf[22] = 2112;
-        v93 = a3;
-        *v94 = 2048;
-        *&v94[2] = a4;
-        *&v94[10] = 2048;
-        *&v94[12] = a5;
-        v95 = 2112;
-        v96 = a6;
-        _os_log_impl(&dword_1B7AD5000, v24, OS_LOG_TYPE_INFO, "IMDMessageRecordCopyMessagesWithChatIdentifiersOnServicesBeforeAndAfterGUID with ids: %@ services: %@ messageGUID: %@ numberOfMessagesBefore: %lld numberOfMessagesAfter: %lld threadIdentifier: %@", buf, 0x3Eu);
+        v111 = a3;
+        *v112 = 2048;
+        *&v112[2] = a4;
+        *&v112[10] = 2048;
+        *&v112[12] = a5;
+        v113 = 2112;
+        v114 = a6;
+        _os_log_impl(&dword_1B7AD5000, v27, OS_LOG_TYPE_INFO, "IMDMessageRecordCopyMessagesWithChatIdentifiersOnServicesBeforeAndAfterGUID with ids: %@ services: %@ messageGUID: %@ numberOfMessagesBefore: %lld numberOfMessagesAfter: %lld threadIdentifier: %@", buf, 0x3Eu);
       }
 
-      v86 = 0;
-      v87 = &v86;
-      v88 = 0x2020000000;
-      v89 = 0;
+      v104 = 0;
+      v105 = &v104;
+      v106 = 0x2020000000;
+      v107 = 0;
       if (IMDIsRunningInDatabaseServerProcess())
       {
-        if (v18)
+        if (v20)
         {
-          v90 = 0;
-          v91 = 0;
+          v108 = 0;
+          v109 = 0;
           AssociatedMessageGUIDFromThreadIdentifier = IMMessageCreateAssociatedMessageGUIDFromThreadIdentifier();
           IMMessageThreadIdentifierGetComponents();
-          if (objc_msgSend_length(v91, v27, v28) && objc_msgSend_length(v90, v29, v30))
+          if (objc_msgSend_length(v109, v30, v31, v32) && objc_msgSend_length(v108, v33, v34, v35))
           {
-            v31 = objc_alloc(MEMORY[0x1E695DFA8]);
-            v33 = objc_msgSend_initWithCapacity_(v31, v32, a4);
-            v34 = objc_alloc(MEMORY[0x1E695DFA8]);
-            v36 = objc_msgSend_initWithCapacity_(v34, v35, a5);
-            v39 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+            v36 = objc_alloc(MEMORY[0x1E695DFA8]);
+            v39 = objc_msgSend_initWithCapacity_(v36, v37, a4, v38);
+            v40 = objc_alloc(MEMORY[0x1E695DFA8]);
+            v43 = objc_msgSend_initWithCapacity_(v40, v41, a5, v42);
+            v47 = objc_alloc_init(MEMORY[0x1E695DFA8]);
             if (a4 >= 1)
             {
-              sub_1B7BE881C(@"SELECT   m.ROWID FROM   message m INDEXED BY   message_idx_thread_originator_guid INNER JOIN   chat_message_join cmj ON cmj.message_id = m.ROWID WHERE   m.thread_originator_guid = ? AND m.thread_originator_part = ?   AND m.date < (SELECT om.date FROM message om WHERE om.guid = ?) ORDER BY   m.date DESC LIMIT ?", a3, v91, v90, a4, v33);
+              sub_1B7BE881C(@"SELECT   m.ROWID FROM   message m INDEXED BY   message_idx_thread_originator_guid INNER JOIN   chat_message_join cmj ON cmj.message_id = m.ROWID WHERE   m.thread_originator_guid = ? AND m.thread_originator_part = ?   AND m.date < (SELECT om.date FROM message om WHERE om.guid = ?) ORDER BY   m.date DESC LIMIT ?", a3, v109, v108, a4, v39);
             }
 
             if (a5 >= 1)
             {
-              sub_1B7BE881C(@"SELECT   m.ROWID FROM   message m INDEXED BY   message_idx_thread_originator_guid INNER JOIN   chat_message_join cmj ON cmj.message_id = m.ROWID WHERE   m.thread_originator_guid = ? AND m.thread_originator_part = ?   AND m.date >= (SELECT om.date FROM message om WHERE om.guid = ?) ORDER BY   m.date ASC LIMIT ? + 1", a3, v91, v90, a5, v36);
+              sub_1B7BE881C(@"SELECT   m.ROWID FROM   message m INDEXED BY   message_idx_thread_originator_guid INNER JOIN   chat_message_join cmj ON cmj.message_id = m.ROWID WHERE   m.thread_originator_guid = ? AND m.thread_originator_part = ?   AND m.date >= (SELECT om.date FROM message om WHERE om.guid = ?) ORDER BY   m.date ASC LIMIT ? + 1", a3, v109, v108, a5, v43);
             }
 
-            if (objc_msgSend_length(AssociatedMessageGUIDFromThreadIdentifier, v37, v38, a8))
+            if (objc_msgSend_length(AssociatedMessageGUIDFromThreadIdentifier, v44, v45, v46, a8))
             {
-              v40 = IMDatabaseLogHandle();
-              if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+              v49 = IMDatabaseLogHandle();
+              if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
                 *&buf[4] = AssociatedMessageGUIDFromThreadIdentifier;
-                _os_log_impl(&dword_1B7AD5000, v40, OS_LOG_TYPE_DEFAULT, "Performing threaded history query for thread originator associated messages without thread_originator_guid with associated message GUID: %@", buf, 0xCu);
+                _os_log_impl(&dword_1B7AD5000, v49, OS_LOG_TYPE_DEFAULT, "Performing threaded history query for thread originator associated messages without thread_originator_guid with associated message GUID: %@", buf, 0xCu);
               }
 
               *buf = MEMORY[0x1E69E9820];
               *&buf[8] = 3221225472;
               *&buf[16] = sub_1B7BE8BE8;
-              v93 = &unk_1E7CB7B50;
-              *v94 = v39;
-              *&v94[8] = AssociatedMessageGUIDFromThreadIdentifier;
+              v111 = &unk_1E7CB7B50;
+              *v112 = v47;
+              *&v112[8] = AssociatedMessageGUIDFromThreadIdentifier;
               IMDRunSqlOperation(buf);
             }
 
-            MessagesInSet = IMDMessageRecordLoadMessagesInSet(v33, a4, 1);
-            v42 = IMDMessageRecordLoadMessagesInSet(v36, (a5 + 1), 0);
-            v45 = IMDMessageRecordLoadMessagesInSet(v39, a5, 0);
-            if (a4 >= 1 && a7 && objc_msgSend_count(MessagesInSet, v43, v44) < a4)
+            MessagesInSet = IMDMessageRecordLoadMessagesInSet(v39, a4, 1, v48);
+            v52 = IMDMessageRecordLoadMessagesInSet(v43, (a5 + 1), 0, v51);
+            v57 = IMDMessageRecordLoadMessagesInSet(v47, a5, 0, v53);
+            if (a4 >= 1 && a7 && objc_msgSend_count(MessagesInSet, v54, v55, v56) < a4)
             {
               *a7 = 0;
             }
 
-            if (a5 >= 1 && v72 && objc_msgSend_count(v42, v43, v44) < (a5 + 1))
+            if (a5 >= 1 && v90 && objc_msgSend_count(v52, v54, v55, v56) < (a5 + 1))
             {
-              *v72 = 0;
+              *v90 = 0;
             }
 
-            objc_msgSend_addObjectsFromArray_(v42, v43, v45);
-            objc_msgSend_addObjectsFromArray_(v42, v46, MessagesInSet);
+            objc_msgSend_addObjectsFromArray_(v52, v54, v57, v56);
+            objc_msgSend_addObjectsFromArray_(v52, v58, MessagesInSet, v59);
 
-            v47 = IMDatabaseLogHandle();
-            if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+            v60 = IMDatabaseLogHandle();
+            if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
             {
-              v50 = objc_msgSend_count(v42, v48, v49);
+              v64 = objc_msgSend_count(v52, v61, v62, v63);
               *buf = 134217984;
-              *&buf[4] = v50;
-              _os_log_impl(&dword_1B7AD5000, v47, OS_LOG_TYPE_DEFAULT, "Threaded history query got %llu items", buf, 0xCu);
+              *&buf[4] = v64;
+              _os_log_impl(&dword_1B7AD5000, v60, OS_LOG_TYPE_DEFAULT, "Threaded history query got %llu items", buf, 0xCu);
             }
           }
 
@@ -6666,179 +5593,176 @@ const __CFArray *IMDMessageRecordCopyMessagesWithChatIdentifiersOnServicesBefore
           {
             if (IMOSLoggingEnabled())
             {
-              v58 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
+              v72 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412802;
                 *&buf[4] = a6;
                 *&buf[12] = 2112;
-                *&buf[14] = v91;
+                *&buf[14] = v109;
                 *&buf[22] = 2112;
-                v93 = v90;
-                _os_log_impl(&dword_1B7AD5000, v58, OS_LOG_TYPE_INFO, "Bad thread identifier given to paged history query, identifier: %@ guid: %@ part: %@", buf, 0x20u);
+                v111 = v108;
+                _os_log_impl(&dword_1B7AD5000, v72, OS_LOG_TYPE_INFO, "Bad thread identifier given to paged history query, identifier: %@ guid: %@ part: %@", buf, 0x20u);
               }
             }
 
-            v42 = 0;
+            v52 = 0;
           }
 
           goto LABEL_39;
         }
 
-        v55 = a4 > 0 && a5 > 0;
-        v75 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-        if (v55)
+        v68 = a4 > 0 && a5 > 0;
+        v93 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+        if (v68)
         {
-          v56 = objc_alloc(MEMORY[0x1E695DFA8]);
-          v74 = objc_msgSend_initWithCapacity_(v56, v57, a5);
+          v69 = objc_alloc(MEMORY[0x1E695DFA8]);
+          v92 = objc_msgSend_initWithCapacity_(v69, v70, a5, v71);
         }
 
         else
         {
-          v74 = 0;
+          v92 = 0;
         }
 
-        v59 = 0;
-        v60 = v23 ^ 1;
-        v61 = MEMORY[0x1E69E9820];
+        v73 = 0;
+        v74 = v26 ^ 1;
+        v75 = MEMORY[0x1E69E9820];
         do
         {
           while (1)
           {
-            v83[0] = v61;
-            v83[1] = 3221225472;
-            v83[2] = sub_1B7BDB6B4;
-            v83[3] = &unk_1E7CBCE70;
-            v84 = 0;
-            v85 = v60;
-            v83[6] = a5;
-            v83[7] = a1;
-            v83[8] = v59;
-            v83[9] = a2;
-            v83[10] = a3;
-            v83[4] = v75;
-            v83[5] = a4;
-            IMDRunSqlOperation(v83);
-            if (v55)
+            v101[0] = v75;
+            v101[1] = 3221225472;
+            v101[2] = sub_1B7BDB6B4;
+            v101[3] = &unk_1E7CBCE70;
+            v102 = 0;
+            v103 = v74;
+            v101[6] = a5;
+            v101[7] = a1;
+            v101[8] = v73;
+            v101[9] = a2;
+            v101[10] = a3;
+            v101[4] = v93;
+            v101[5] = a4;
+            IMDRunSqlOperation(v101);
+            if (v68)
             {
               break;
             }
 
-            if (++v59 == v12)
+            if (++v73 == v12)
             {
               if (a4 < 1)
               {
-                if (v71)
+                if (v89)
                 {
-                  *v71 = objc_msgSend_count(v75, v62, v63) > a5;
+                  *v89 = objc_msgSend_count(v93, v76, v77, v78) > a5;
                 }
 
-                v64 = a7;
+                v80 = a7;
                 if (a7)
                 {
 LABEL_63:
-                  *v64 = 0;
+                  *v80 = 0;
                 }
               }
 
               else
               {
-                v64 = v71;
+                v80 = v89;
                 if (a7)
                 {
-                  *a7 = objc_msgSend_count(v75, v62, v63) > a4;
+                  *a7 = objc_msgSend_count(v93, v76, v77, v78) > a4;
                 }
 
                 a5 = a4;
-                if (v71)
+                if (v89)
                 {
                   goto LABEL_63;
                 }
               }
 
-              v65 = IMDMessageRecordLoadMessagesInSet(v75, (a5 + 1), a4 > 0);
-              v87[3] = v65;
+              v81 = IMDMessageRecordLoadMessagesInSet(v93, (a5 + 1), a4 > 0, v78);
+              v105[3] = v81;
 
               goto LABEL_38;
             }
           }
 
-          v80[0] = MEMORY[0x1E69E9820];
-          v80[1] = 3221225472;
-          v80[2] = sub_1B7BDBA74;
-          v80[3] = &unk_1E7CBCEB8;
-          v81 = 0;
-          v82 = v60;
-          v80[6] = a1;
-          v80[7] = v59;
-          v80[8] = a2;
-          v80[9] = a3;
-          v80[4] = v74;
-          v80[5] = a5;
-          IMDRunSqlOperation(v80);
-          ++v59;
+          v98[0] = MEMORY[0x1E69E9820];
+          v98[1] = 3221225472;
+          v98[2] = sub_1B7BDBA74;
+          v98[3] = &unk_1E7CBCEB8;
+          v99 = 0;
+          v100 = v74;
+          v98[6] = a1;
+          v98[7] = v73;
+          v98[8] = a2;
+          v98[9] = a3;
+          v98[4] = v92;
+          v98[5] = a5;
+          IMDRunSqlOperation(v98);
+          ++v73;
         }
 
-        while (v59 != v12);
-        v66 = IMDMessageRecordLoadMessagesInSet(v75, a4, 1);
-        v67 = IMDMessageRecordLoadMessagesInSet(v74, (a5 + 1), 0);
-        v70 = v67;
+        while (v73 != v12);
+        v82 = IMDMessageRecordLoadMessagesInSet(v93, a4, 1, v79);
+        v84 = IMDMessageRecordLoadMessagesInSet(v92, (a5 + 1), 0, v83);
+        v88 = v84;
         if (a7)
         {
-          *a7 = objc_msgSend_count(v66, v68, v69) == a4;
+          *a7 = objc_msgSend_count(v82, v85, v86, v87) == a4;
         }
 
-        if (v71)
+        if (v89)
         {
-          *v71 = objc_msgSend_count(v70, v68, v69) == a5 + 1;
+          *v89 = objc_msgSend_count(v88, v85, v86, v87) == a5 + 1;
         }
 
-        objc_msgSend_addObjectsFromArray_(v70, v68, v66, v71);
-        v87[3] = v70;
+        objc_msgSend_addObjectsFromArray_(v88, v85, v82, v87, v89);
+        v105[3] = v88;
       }
 
       else
       {
-        v79[0] = MEMORY[0x1E69E9820];
-        v79[1] = 3221225472;
-        v79[2] = sub_1B7BDBE28;
-        v79[3] = &unk_1E7CBCEE0;
-        v79[4] = &v86;
-        v79[5] = a7;
-        v79[6] = a8;
-        __syncXPCIMDMessageRecordCopyMessagesWithChatIdentifiersOnServicesBeforeAndAfterGUIDWithOptionalThreadIdentifier_IPCAction(v79, a1, a2, a3, a6, a4, a5);
+        v97[0] = MEMORY[0x1E69E9820];
+        v97[1] = 3221225472;
+        v97[2] = sub_1B7BDBE28;
+        v97[3] = &unk_1E7CBCEE0;
+        v97[4] = &v104;
+        v97[5] = a7;
+        v97[6] = a8;
+        __syncXPCIMDMessageRecordCopyMessagesWithChatIdentifiersOnServicesBeforeAndAfterGUIDWithOptionalThreadIdentifier_IPCAction(v97, a1, a2, a3, a6, a4, a5);
       }
 
 LABEL_38:
-      v42 = v87[3];
+      v52 = v105[3];
 LABEL_39:
-      _Block_object_dispose(&v86, 8);
-      goto LABEL_40;
+      _Block_object_dispose(&v104, 8);
+      return v52;
     }
 
-    if (v25)
+    if (v28)
     {
       *buf = 0;
-      _os_log_impl(&dword_1B7AD5000, v24, OS_LOG_TYPE_INFO, "IMDMessageRecordCopyMessagesWithChatIdentifiersOnServicesBeforeAndAfterGUID We have a NULL messageGUID, early returning ****--We should have not gotten to this point if we had a null messageGUID, please file a radar--****", buf, 2u);
+      _os_log_impl(&dword_1B7AD5000, v27, OS_LOG_TYPE_INFO, "IMDMessageRecordCopyMessagesWithChatIdentifiersOnServicesBeforeAndAfterGUID We have a NULL messageGUID, early returning ****--We should have not gotten to this point if we had a null messageGUID, please file a radar--****", buf, 2u);
     }
   }
 
   else
   {
-    v51 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+    v65 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
     {
       sub_1B7CFC2A4();
     }
   }
 
-  v42 = 0;
-LABEL_40:
-  v52 = *MEMORY[0x1E69E9840];
-  return v42;
+  return 0;
 }
 
-void sub_1B7BDB6B4(uint64_t a1, uint64_t a2)
+void sub_1B7BDB6B4(uint64_t a1, void *a2)
 {
   MessagesWithChatIdentifiersOnServicesBeforeAndAfterGUIDWithOptionalThreadIdentifierQuery = IMDMessageRecordGetMessagesWithChatIdentifiersOnServicesBeforeAndAfterGUIDWithOptionalThreadIdentifierQuery(*(a1 + 88), *(a1 + 89), *(a1 + 40), *(a1 + 48));
   if (!MessagesWithChatIdentifiersOnServicesBeforeAndAfterGUIDWithOptionalThreadIdentifierQuery)
@@ -6846,33 +5770,33 @@ void sub_1B7BDB6B4(uint64_t a1, uint64_t a2)
     v5 = IMDatabaseLogHandle();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CFC2E0(v5, v6);
+      sub_1B7CFC2E0(v5, v6, v7, v8);
     }
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = sub_1B7BDB7F4;
-  v11[3] = &unk_1E7CBCE20;
-  v7 = *(a1 + 56);
-  v8 = *(a1 + 64);
-  v11[4] = a2;
-  v11[5] = v7;
-  v11[6] = v8;
-  v15 = *(a1 + 89);
-  v12 = *(a1 + 72);
-  v9 = *(a1 + 48);
-  v13 = *(a1 + 40);
-  v14 = v9;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = sub_1B7BDB88C;
-  v10[3] = &unk_1E7CBCE48;
-  v10[4] = *(a1 + 32);
-  v10[5] = v13;
-  v10[6] = v9;
-  v10[7] = a2;
-  _IMDSqlOperationRunQuery(a2, MessagesWithChatIdentifiersOnServicesBeforeAndAfterGUIDWithOptionalThreadIdentifierQuery, v11, v10);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = sub_1B7BDB7F4;
+  v13[3] = &unk_1E7CBCE20;
+  v9 = *(a1 + 56);
+  v10 = *(a1 + 64);
+  v13[4] = a2;
+  v13[5] = v9;
+  v13[6] = v10;
+  v17 = *(a1 + 89);
+  v14 = *(a1 + 72);
+  v11 = *(a1 + 48);
+  v15 = *(a1 + 40);
+  v16 = v11;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = sub_1B7BDB88C;
+  v12[3] = &unk_1E7CBCE48;
+  v12[4] = *(a1 + 32);
+  v12[5] = v15;
+  v12[6] = v11;
+  v12[7] = a2;
+  _IMDSqlOperationRunQuery(a2, MessagesWithChatIdentifiersOnServicesBeforeAndAfterGUIDWithOptionalThreadIdentifierQuery, v13, v12);
   if (MessagesWithChatIdentifiersOnServicesBeforeAndAfterGUIDWithOptionalThreadIdentifierQuery)
   {
     CFRelease(MessagesWithChatIdentifiersOnServicesBeforeAndAfterGUIDWithOptionalThreadIdentifierQuery);
@@ -6898,72 +5822,70 @@ void sub_1B7BDB7F4(uint64_t a1)
     v6 = *(a1 + 80) & ~(*(a1 + 80) >> 63);
   }
 
-  v7 = *(a1 + 32) + 32;
+  v7 = (*(a1 + 32) + 32);
 
   IMDSqlStatementBindInt(v7, v6);
 }
 
 void sub_1B7BDB88C(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (!*(a1 + 32))
   {
     v2 = IMDatabaseLogHandle();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CFC390(a1, v2);
+      sub_1B7CFC390(a1, v2, v3, v4);
     }
   }
 
   if (IMDSqlOperationHasRows(*(a1 + 56)))
   {
-    v3 = MEMORY[0x1E69E9820];
+    v5 = MEMORY[0x1E69E9820];
     do
     {
-      v4 = *(a1 + 56);
-      v10[0] = v3;
-      v10[1] = 3221225472;
-      v10[2] = sub_1B7BDB9E4;
-      v10[3] = &unk_1E7CB6FA8;
-      v10[4] = *(a1 + 32);
-      IMDSqlOperationIterateRow(v4, v10);
+      v6 = *(a1 + 56);
+      v12[0] = v5;
+      v12[1] = 3221225472;
+      v12[2] = sub_1B7BDB9E4;
+      v12[3] = &unk_1E7CB6FA8;
+      v12[4] = *(a1 + 32);
+      IMDSqlOperationIterateRow(v6, v12);
     }
 
     while (IMDSqlOperationHasRows(*(a1 + 56)));
   }
 
-  v5 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v7 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v8 = objc_msgSend_count(*(a1 + 32), v6, v7);
+    v11 = objc_msgSend_count(*(a1 + 32), v8, v9, v10);
     *buf = 134217984;
-    v12 = v8;
-    _os_log_impl(&dword_1B7AD5000, v5, OS_LOG_TYPE_INFO, "Paged history query got %lu rows", buf, 0xCu);
+    v14 = v11;
+    _os_log_impl(&dword_1B7AD5000, v7, OS_LOG_TYPE_INFO, "Paged history query got %lu rows", buf, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t sub_1B7BDB9E4(uint64_t a1, __int128 *a2)
 {
-  v10 = *a2;
-  v11 = *(a2 + 2);
-  v4 = IMDInt64FromSqlColumn(&v10);
-  if (!v4)
+  v13 = *a2;
+  v14 = *(a2 + 2);
+  v5 = IMDInt64FromSqlColumn(&v13);
+  if (!v5)
   {
-    v5 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CFC45C(v5, v3);
+      sub_1B7CFC45C(v6, v3, v7, v4);
     }
   }
 
-  v6 = *(a1 + 32);
-  v7 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v3, v4);
-  return objc_msgSend_addObject_(v6, v8, v7);
+  v8 = *(a1 + 32);
+  v9 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v3, v5, v4);
+  return objc_msgSend_addObject_(v8, v10, v9, v11);
 }
 
-void sub_1B7BDBA74(uint64_t a1, uint64_t a2)
+void sub_1B7BDBA74(uint64_t a1, void *a2)
 {
   MessagesWithChatIdentifiersOnServicesBeforeAndAfterGUIDWithOptionalThreadIdentifierQuery = IMDMessageRecordGetMessagesWithChatIdentifiersOnServicesBeforeAndAfterGUIDWithOptionalThreadIdentifierQuery(*(a1 + 80), *(a1 + 81), 0, *(a1 + 40));
   if (!MessagesWithChatIdentifiersOnServicesBeforeAndAfterGUIDWithOptionalThreadIdentifierQuery)
@@ -6971,30 +5893,30 @@ void sub_1B7BDBA74(uint64_t a1, uint64_t a2)
     v5 = IMDatabaseLogHandle();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CFC50C(v5, v6);
+      sub_1B7CFC50C(v5, v6, v7, v8);
     }
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = sub_1B7BDBBB8;
-  v10[3] = &unk_1E7CBCE90;
-  v8 = *(a1 + 40);
-  v7 = *(a1 + 48);
-  v10[4] = a2;
-  v10[5] = v7;
-  v10[6] = *(a1 + 56);
-  v13 = *(a1 + 81);
-  v11 = *(a1 + 64);
-  v12 = v8;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = sub_1B7BDBC40;
-  v9[3] = &unk_1E7CB8428;
-  v9[4] = *(a1 + 32);
-  v9[5] = v8;
-  v9[6] = a2;
-  _IMDSqlOperationRunQuery(a2, MessagesWithChatIdentifiersOnServicesBeforeAndAfterGUIDWithOptionalThreadIdentifierQuery, v10, v9);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = sub_1B7BDBBB8;
+  v12[3] = &unk_1E7CBCE90;
+  v10 = *(a1 + 40);
+  v9 = *(a1 + 48);
+  v12[4] = a2;
+  v12[5] = v9;
+  v12[6] = *(a1 + 56);
+  v15 = *(a1 + 81);
+  v13 = *(a1 + 64);
+  v14 = v10;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = sub_1B7BDBC40;
+  v11[3] = &unk_1E7CB8428;
+  v11[4] = *(a1 + 32);
+  v11[5] = v10;
+  v11[6] = a2;
+  _IMDSqlOperationRunQuery(a2, MessagesWithChatIdentifiersOnServicesBeforeAndAfterGUIDWithOptionalThreadIdentifierQuery, v12, v11);
   if (MessagesWithChatIdentifiersOnServicesBeforeAndAfterGUIDWithOptionalThreadIdentifierQuery)
   {
     CFRelease(MessagesWithChatIdentifiersOnServicesBeforeAndAfterGUIDWithOptionalThreadIdentifierQuery);
@@ -7015,74 +5937,72 @@ void sub_1B7BDBBB8(uint64_t a1)
 
   IMDSqlStatementBindTextFromCFString(*(a1 + 32) + 32, *(a1 + 64));
   v6 = *(a1 + 72);
-  v7 = *(a1 + 32) + 32;
+  v7 = (*(a1 + 32) + 32);
 
   IMDSqlStatementBindInt(v7, v6);
 }
 
 void sub_1B7BDBC40(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (!*(a1 + 32))
   {
     v2 = IMDatabaseLogHandle();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CFC5BC(a1, v2);
+      sub_1B7CFC5BC(a1, v2, v3, v4);
     }
   }
 
   if (IMDSqlOperationHasRows(*(a1 + 48)))
   {
-    v3 = MEMORY[0x1E69E9820];
+    v5 = MEMORY[0x1E69E9820];
     do
     {
-      v4 = *(a1 + 48);
-      v10[0] = v3;
-      v10[1] = 3221225472;
-      v10[2] = sub_1B7BDBD98;
-      v10[3] = &unk_1E7CB6FA8;
-      v10[4] = *(a1 + 32);
-      IMDSqlOperationIterateRow(v4, v10);
+      v6 = *(a1 + 48);
+      v12[0] = v5;
+      v12[1] = 3221225472;
+      v12[2] = sub_1B7BDBD98;
+      v12[3] = &unk_1E7CB6FA8;
+      v12[4] = *(a1 + 32);
+      IMDSqlOperationIterateRow(v6, v12);
     }
 
     while (IMDSqlOperationHasRows(*(a1 + 48)));
   }
 
-  v5 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v7 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v8 = objc_msgSend_count(*(a1 + 32), v6, v7);
+    v11 = objc_msgSend_count(*(a1 + 32), v8, v9, v10);
     *buf = 134217984;
-    v12 = v8;
-    _os_log_impl(&dword_1B7AD5000, v5, OS_LOG_TYPE_INFO, "Paged history query got %lu rows for second load", buf, 0xCu);
+    v14 = v11;
+    _os_log_impl(&dword_1B7AD5000, v7, OS_LOG_TYPE_INFO, "Paged history query got %lu rows for second load", buf, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t sub_1B7BDBD98(uint64_t a1, __int128 *a2)
 {
-  v10 = *a2;
-  v11 = *(a2 + 2);
-  v4 = IMDInt64FromSqlColumn(&v10);
-  if (!v4)
+  v13 = *a2;
+  v14 = *(a2 + 2);
+  v5 = IMDInt64FromSqlColumn(&v13);
+  if (!v5)
   {
-    v5 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CFC688(v5, v3);
+      sub_1B7CFC688(v6, v3, v7, v4);
     }
   }
 
-  v6 = *(a1 + 32);
-  v7 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v3, v4);
-  return objc_msgSend_addObject_(v6, v8, v7);
+  v8 = *(a1 + 32);
+  v9 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v3, v5, v4);
+  return objc_msgSend_addObject_(v8, v10, v9, v11);
 }
 
 uint64_t sub_1B7BDBE28(uint64_t a1, xpc_object_t xdict)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   value = xpc_dictionary_get_value(xdict, "array_result");
   if (value)
   {
@@ -7099,34 +6019,33 @@ uint64_t sub_1B7BDBE28(uint64_t a1, xpc_object_t xdict)
     v5 = IMDatabaseLogHandle();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_1B7CFC738(v5, v6);
+      sub_1B7CFC738(v5, v6, v7, v8);
     }
 
-    v7 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v9 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v14 = xdict;
-      _os_log_impl(&dword_1B7AD5000, v7, OS_LOG_TYPE_INFO, "IMDMessageRecordCopyMessagesWithChatIdentifiersOnServicesBeforeAndAfterGUID IMDP client got null array_result back: %@", buf, 0xCu);
+      v15 = xdict;
+      _os_log_impl(&dword_1B7AD5000, v9, OS_LOG_TYPE_INFO, "IMDMessageRecordCopyMessagesWithChatIdentifiersOnServicesBeforeAndAfterGUID IMDP client got null array_result back: %@", buf, 0xCu);
     }
   }
 
-  v8 = xpc_dictionary_get_value(xdict, "has_messages_before");
+  v10 = xpc_dictionary_get_value(xdict, "has_messages_before");
   result = xpc_dictionary_get_value(xdict, "has_messages_after");
-  v10 = result;
-  if (v8)
-  {
-    result = xpc_BOOL_get_value(v8);
-    **(a1 + 40) = result;
-  }
-
+  v12 = result;
   if (v10)
   {
     result = xpc_BOOL_get_value(v10);
+    **(a1 + 40) = result;
+  }
+
+  if (v12)
+  {
+    result = xpc_BOOL_get_value(v12);
     **(a1 + 48) = result;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7148,89 +6067,89 @@ uint64_t sub_1B7BDBFAC(uint64_t a1, uint64_t a2, void *a3)
   return 1;
 }
 
-uint64_t IMDMessageRecordCopyFrequentRepliesForChatIdentifiersOnServicesUpToLimit(void *a1, char *a2, uint64_t a3)
+uint64_t IMDMessageRecordCopyFrequentRepliesForChatIdentifiersOnServicesUpToLimit(void *a1, char *a2, int64_t a3, uint64_t a4)
 {
-  v6 = objc_msgSend_count(a1, a2, a3);
-  v9 = objc_msgSend_count(a2, v7, v8);
-  if (v6 && v9 && v6 == v9)
+  v7 = objc_msgSend_count(a1, a2, a3, a4);
+  v11 = objc_msgSend_count(a2, v8, v9, v10);
+  if (v7 && v11 && v7 == v11)
   {
-    v34 = 0;
-    v35 = &v34;
-    v36 = 0x2020000000;
-    v37 = 0;
+    v41 = 0;
+    v42 = &v41;
+    v43 = 0x2020000000;
+    v44 = 0;
     if (IMDIsRunningInDatabaseServerProcess())
     {
-      v10 = objc_alloc(MEMORY[0x1E696AB50]);
-      v12 = objc_msgSend_initWithCapacity_(v10, v11, a3 + a3 * v6);
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = sub_1B7BDC324;
-      v33[3] = &unk_1E7CBCF08;
-      v33[4] = v12;
-      v33[5] = a3;
-      _IMDPerformLockedStatementBlockWithQuery(@"SELECT count(*) as count, m.text as reply FROM(  SELECT text FROM message WHERE is_from_me == 1 AND text != '\uFFFC' ORDER BY ROWID DESC LIMIT 1000) m GROUP BY m.text ORDER BY count DESC LIMIT ?;", v33);
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = sub_1B7BDC45C;
-      v32[3] = &unk_1E7CBCF30;
-      v32[6] = a1;
-      v32[7] = a2;
-      v32[8] = a3;
-      v32[4] = v12;
-      v32[5] = v6;
-      _IMDPerformLockedStatementBlockWithQuery(@"SELECT count(*) as count, m.text as reply FROM message m INNER JOIN chat_message_join cm ON   m.ROWID = cm.message_id WHERE m.is_from_me == 1 AND text != '\uFFFC' AND   cm.chat_id = (SELECT c.rowid FROM chat c WHERE c.chat_identifier = ? AND c.service_name = ?) GROUP BY m.text ORDER BY count DESC, m.date DESC LIMIT ?", v32);
-      v15 = objc_msgSend_allObjects(v12, v13, v14);
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = sub_1B7BDC5CC;
-      v31[3] = &unk_1E7CBCF58;
-      v31[4] = v12;
-      v17 = objc_msgSend_sortedArrayUsingComparator_(v15, v16, v31);
-      v20 = objc_msgSend_count(v17, v18, v19);
+      v12 = objc_alloc(MEMORY[0x1E696AB50]);
+      v15 = objc_msgSend_initWithCapacity_(v12, v13, a3 + a3 * v7, v14);
+      v40[0] = MEMORY[0x1E69E9820];
+      v40[1] = 3221225472;
+      v40[2] = sub_1B7BDC324;
+      v40[3] = &unk_1E7CBCF08;
+      v40[4] = v15;
+      v40[5] = a3;
+      _IMDPerformLockedStatementBlockWithQuery(@"SELECT count(*) as count, m.text as reply FROM(  SELECT text FROM message WHERE is_from_me == 1 AND text != '\uFFFC' ORDER BY ROWID DESC LIMIT 1000) m GROUP BY m.text ORDER BY count DESC LIMIT ?;", v40);
+      v39[0] = MEMORY[0x1E69E9820];
+      v39[1] = 3221225472;
+      v39[2] = sub_1B7BDC45C;
+      v39[3] = &unk_1E7CBCF30;
+      v39[6] = a1;
+      v39[7] = a2;
+      v39[8] = a3;
+      v39[4] = v15;
+      v39[5] = v7;
+      _IMDPerformLockedStatementBlockWithQuery(@"SELECT count(*) as count, m.text as reply FROM message m INNER JOIN chat_message_join cm ON   m.ROWID = cm.message_id WHERE m.is_from_me == 1 AND text != '\uFFFC' AND   cm.chat_id = (SELECT c.rowid FROM chat c WHERE c.chat_identifier = ? AND c.service_name = ?) GROUP BY m.text ORDER BY count DESC, m.date DESC LIMIT ?", v39);
+      v19 = objc_msgSend_allObjects(v15, v16, v17, v18);
+      v38[0] = MEMORY[0x1E69E9820];
+      v38[1] = 3221225472;
+      v38[2] = sub_1B7BDC5CC;
+      v38[3] = &unk_1E7CBCF58;
+      v38[4] = v15;
+      v22 = objc_msgSend_sortedArrayUsingComparator_(v19, v20, v38, v21);
+      v26 = objc_msgSend_count(v22, v23, v24, v25);
       if (a3 >= 1)
       {
-        v22 = v20;
-        v23 = 0;
-        v24 = MEMORY[0x1E695E9C0];
+        v29 = v26;
+        v30 = 0;
+        v31 = MEMORY[0x1E695E9C0];
         do
         {
-          if (!v35[3])
+          if (!v42[3])
           {
-            Mutable = CFArrayCreateMutable(0, 0, v24);
-            v35[3] = Mutable;
+            Mutable = CFArrayCreateMutable(0, 0, v31);
+            v42[3] = Mutable;
           }
 
-          if (v22 > v23)
+          if (v29 > v30)
           {
-            v26 = objc_msgSend_objectAtIndexedSubscript_(v17, v21, v23);
-            CFArrayAppendValue(v35[3], v26);
+            v33 = objc_msgSend_objectAtIndexedSubscript_(v22, v27, v30, v28);
+            CFArrayAppendValue(v42[3], v33);
           }
 
-          ++v23;
+          ++v30;
         }
 
-        while (a3 != v23);
+        while (a3 != v30);
       }
     }
 
     else
     {
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = sub_1B7BDC620;
-      v30[3] = &unk_1E7CB6838;
-      v30[4] = &v34;
-      __syncXPCIMDMessageRecordCopyFrequentRepliesForChatIdentifiersOnServicesLimit_IPCAction(v30, a1, a2, a3);
+      v37[0] = MEMORY[0x1E69E9820];
+      v37[1] = 3221225472;
+      v37[2] = sub_1B7BDC620;
+      v37[3] = &unk_1E7CB6838;
+      v37[4] = &v41;
+      __syncXPCIMDMessageRecordCopyFrequentRepliesForChatIdentifiersOnServicesLimit_IPCAction(v37, a1, a2, a3);
     }
 
-    v28 = v35[3];
-    _Block_object_dispose(&v34, 8);
+    v35 = v42[3];
+    _Block_object_dispose(&v41, 8);
   }
 
   else
   {
-    v27 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v34 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       sub_1B7CFBF4C();
     }
@@ -7238,50 +6157,49 @@ uint64_t IMDMessageRecordCopyFrequentRepliesForChatIdentifiersOnServicesUpToLimi
     return 0;
   }
 
-  return v28;
+  return v35;
 }
 
 uint64_t sub_1B7BDC324(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = *(a1 + 40);
   CSDBSqliteBindInt64();
   if (sqlite3_step(*(a4 + 8)) == 100)
   {
-    v7 = *MEMORY[0x1E695E480];
+    v6 = *MEMORY[0x1E695E480];
     do
     {
-      v8 = sqlite3_column_int(*(a4 + 8), 0);
+      v7 = sqlite3_column_int(*(a4 + 8), 0);
       if (sqlite3_column_text(*(a4 + 8), 1))
       {
-        v9 = sqlite3_column_text(*(a4 + 8), 1);
-        v10 = CFStringCreateWithCString(v7, v9, 0x8000100u);
-        v12 = v10;
-        if (v10)
+        v8 = sqlite3_column_text(*(a4 + 8), 1);
+        v9 = CFStringCreateWithCString(v6, v8, 0x8000100u);
+        v11 = v9;
+        if (v9)
         {
-          v13 = v8 < 3;
+          v12 = v7 < 3;
         }
 
         else
         {
-          v13 = 1;
+          v12 = 1;
         }
 
-        if (!v13)
+        if (!v12)
         {
-          v14 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(v10, v11, @"\uFFFC", &stru_1F2FA9728);
-          v17 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(v14, v15, @"\uFFFD", &stru_1F2FA9728);
+          v13 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(v9, v10, @"\uFFFC", &stru_1F2FA9728);
+          v17 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(v13, v14, @"\uFFFD", &stru_1F2FA9728);
           do
           {
-            objc_msgSend_addObject_(*(a1 + 32), v16, v17);
-            --v8;
+            objc_msgSend_addObject_(*(a1 + 32), v15, v17, v16);
+            --v7;
           }
 
-          while (v8);
+          while (v7);
         }
 
-        if (v12)
+        if (v11)
         {
-          CFRelease(v12);
+          CFRelease(v11);
         }
       }
     }
@@ -7305,42 +6223,41 @@ uint64_t sub_1B7BDC45C(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
       CSDBSqliteBindTextFromCFString();
       CFArrayGetValueAtIndex(*(v5 + 56), v6);
       CSDBSqliteBindTextFromCFString();
-      v8 = *(v5 + 64);
       CSDBSqliteBindInt64();
       while (sqlite3_step(*(a4 + 8)) == 100)
       {
-        v9 = sqlite3_column_int(*(a4 + 8), 0);
+        v8 = sqlite3_column_int(*(a4 + 8), 0);
         if (sqlite3_column_text(*(a4 + 8), 1))
         {
-          v10 = sqlite3_column_text(*(a4 + 8), 1);
-          v11 = CFStringCreateWithCString(v7, v10, 0x8000100u);
-          v13 = v11;
-          if (v11)
+          v9 = sqlite3_column_text(*(a4 + 8), 1);
+          v10 = CFStringCreateWithCString(v7, v9, 0x8000100u);
+          v12 = v10;
+          if (v10)
           {
-            v14 = v9 < 3;
+            v13 = v8 < 3;
           }
 
           else
           {
-            v14 = 1;
+            v13 = 1;
           }
 
-          if (!v14)
+          if (!v13)
           {
-            v15 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(v11, v12, @"\uFFFC", &stru_1F2FA9728);
-            v18 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(v15, v16, @"\uFFFD", &stru_1F2FA9728);
+            v14 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(v10, v11, @"\uFFFC", &stru_1F2FA9728);
+            v18 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(v14, v15, @"\uFFFD", &stru_1F2FA9728);
             do
             {
-              objc_msgSend_addObject_(*(v5 + 32), v17, v18);
-              --v9;
+              objc_msgSend_addObject_(*(v5 + 32), v16, v18, v17);
+              --v8;
             }
 
-            while (v9);
+            while (v8);
           }
 
-          if (v13)
+          if (v12)
           {
-            CFRelease(v13);
+            CFRelease(v12);
           }
         }
       }
@@ -7355,28 +6272,28 @@ uint64_t sub_1B7BDC45C(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_1B7BDC5CC(uint64_t a1, const char *a2, uint64_t a3)
+uint64_t sub_1B7BDC5CC(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v5 = objc_msgSend_countForObject_(*(a1 + 32), a2, a2);
-  v7 = objc_msgSend_countForObject_(*(a1 + 32), v6, a3);
-  if (v5 == v7)
+  v6 = objc_msgSend_countForObject_(*(a1 + 32), a2, a2, a4);
+  v9 = objc_msgSend_countForObject_(*(a1 + 32), v7, a3, v8);
+  if (v6 == v9)
   {
-    v8 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v8 = -1;
+    v10 = -1;
   }
 
-  if (v5 < v7)
+  if (v6 < v9)
   {
     return 1;
   }
 
   else
   {
-    return v8;
+    return v10;
   }
 }
 
@@ -7402,10 +6319,10 @@ void sub_1B7BDC620(uint64_t a1, xpc_object_t xdict)
         string = xpc_array_get_string(v4, v7);
         if (string)
         {
-          v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v10, string);
-          if (v11)
+          v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v10, string, v11);
+          if (v12)
           {
-            CFArrayAppendValue(*(*(*(a1 + 32) + 8) + 24), v11);
+            CFArrayAppendValue(*(*(*(a1 + 32) + 8) + 24), v12);
           }
         }
 
@@ -7417,47 +6334,47 @@ void sub_1B7BDC620(uint64_t a1, xpc_object_t xdict)
   }
 }
 
-uint64_t IMDMessageRecordCopyGUIDsForMessagesWithChatIdentifiersOnServices(void *a1, char *a2, uint64_t a3)
+uint64_t IMDMessageRecordCopyGUIDsForMessagesWithChatIdentifiersOnServices(void *a1, char *a2, uint64_t a3, uint64_t a4)
 {
-  v5 = objc_msgSend_count(a1, a2, a3);
-  v8 = objc_msgSend_count(a2, v6, v7);
-  if (v5 && v8 && v5 == v8)
+  v6 = objc_msgSend_count(a1, a2, a3, a4);
+  v10 = objc_msgSend_count(a2, v7, v8, v9);
+  if (v6 && v10 && v6 == v10)
   {
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x2020000000;
-    v17 = 0;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2020000000;
+    v19 = 0;
     if (IMDIsRunningInDatabaseServerProcess())
     {
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = sub_1B7BDC888;
-      v13[3] = &unk_1E7CBCD60;
-      v13[6] = a1;
-      v13[7] = a2;
-      v13[4] = &v14;
-      v13[5] = v5;
-      _IMDPerformLockedStatementBlockWithQuery(@"SELECT m.guid FROM message m INNER JOIN chat_message_join cm ON   m.ROWID = cm.message_id WHERE cm.chat_id = (SELECT c.rowid FROM chat c WHERE c.chat_identifier = ? AND c.service_name = ?)", v13);
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = sub_1B7BDC888;
+      v15[3] = &unk_1E7CBCD60;
+      v15[6] = a1;
+      v15[7] = a2;
+      v15[4] = &v16;
+      v15[5] = v6;
+      _IMDPerformLockedStatementBlockWithQuery(@"SELECT m.guid FROM message m INNER JOIN chat_message_join cm ON   m.ROWID = cm.message_id WHERE cm.chat_id = (SELECT c.rowid FROM chat c WHERE c.chat_identifier = ? AND c.service_name = ?)", v15);
     }
 
     else
     {
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = sub_1B7BDC9B8;
-      v12[3] = &unk_1E7CB6838;
-      v12[4] = &v14;
-      __syncXPCIMDMessageRecordCopyGUIDsForMessagesWithChatIdentifiersOnServices_IPCAction(v12, a1, a2);
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = sub_1B7BDC9B8;
+      v14[3] = &unk_1E7CB6838;
+      v14[4] = &v16;
+      __syncXPCIMDMessageRecordCopyGUIDsForMessagesWithChatIdentifiersOnServices_IPCAction(v14, a1, a2);
     }
 
-    v10 = v15[3];
-    _Block_object_dispose(&v14, 8);
+    v12 = v17[3];
+    _Block_object_dispose(&v16, 8);
   }
 
   else
   {
-    v9 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1B7CFBF4C();
     }
@@ -7465,7 +6382,7 @@ uint64_t IMDMessageRecordCopyGUIDsForMessagesWithChatIdentifiersOnServices(void 
     return 0;
   }
 
-  return v10;
+  return v12;
 }
 
 uint64_t sub_1B7BDC888(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -7536,10 +6453,10 @@ void sub_1B7BDC9B8(uint64_t a1, xpc_object_t xdict)
         string = xpc_array_get_string(v4, v7);
         if (string)
         {
-          v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v10, string);
-          if (v11)
+          v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v10, string, v11);
+          if (v12)
           {
-            CFArrayAppendValue(*(*(*(a1 + 32) + 8) + 24), v11);
+            CFArrayAppendValue(*(*(*(a1 + 32) + 8) + 24), v12);
           }
         }
 
@@ -7551,51 +6468,51 @@ void sub_1B7BDC9B8(uint64_t a1, xpc_object_t xdict)
   }
 }
 
-BOOL IMDMessageRecordDeleteMessagesWithGUIDsChatIdentifiersOnServices(void *a1, void *a2, void *a3)
+BOOL IMDMessageRecordDeleteMessagesWithGUIDsChatIdentifiersOnServices(void *a1, void *a2, void *a3, uint64_t a4)
 {
-  v40 = *MEMORY[0x1E69E9840];
-  v6 = objc_msgSend_count(a2, a2, a3);
-  v9 = objc_msgSend_count(a3, v7, v8);
-  v12 = objc_msgSend_count(a1, v10, v11);
-  if (v12 && v6 && v9 && v6 == v9)
+  v44 = *MEMORY[0x1E69E9840];
+  v7 = objc_msgSend_count(a2, a2, a3, a4);
+  v11 = objc_msgSend_count(a3, v8, v9, v10);
+  v15 = objc_msgSend_count(a1, v12, v13, v14);
+  if (v15 && v7 && v11 && v7 == v11)
   {
-    v13 = v12;
+    v16 = v15;
     if (IMDIsRunningInDatabaseServerProcess())
     {
-      objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x1E695DF00], v14, v15);
-      v17 = v16;
-      memset(v31, 0, sizeof(v31));
-      memset(v30, 0, sizeof(v30));
-      IMDSqlOperationInitWithSharedCSDBDatabase(v30);
-      IMDSqlOperationBeginTransaction(v30);
-      v18 = IMDMessageRecordDeleteMessagesWithGUIDsChatIdentifiersOnServicesQuery1(v13);
-      for (i = 0; i != v6; ++i)
+      objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x1E695DF00], v17, v18, v19);
+      v21 = v20;
+      memset(v35, 0, sizeof(v35));
+      memset(v34, 0, sizeof(v34));
+      IMDSqlOperationInitWithSharedCSDBDatabase(v34);
+      IMDSqlOperationBeginTransaction(v34);
+      v22 = IMDMessageRecordDeleteMessagesWithGUIDsChatIdentifiersOnServicesQuery1(v16);
+      for (i = 0; i != v7; ++i)
       {
-        _IMDSqlOperationBeginQuery(v30, v18);
+        _IMDSqlOperationBeginQuery(v34, v22);
         ValueAtIndex = CFArrayGetValueAtIndex(a2, i);
-        IMDSqlStatementBindTextFromCFString(v31, ValueAtIndex);
-        v21 = CFArrayGetValueAtIndex(a3, i);
-        IMDSqlStatementBindTextFromCFString(v31, v21);
-        IMDSqlStatementBindTextFromArrayOfCFStrings(v31, a1);
-        IMDSqlOperationFinishQuery(v30);
+        IMDSqlStatementBindTextFromCFString(v35, ValueAtIndex);
+        v25 = CFArrayGetValueAtIndex(a3, i);
+        IMDSqlStatementBindTextFromCFString(v35, v25);
+        IMDSqlStatementBindTextFromArrayOfCFStrings(v35, a1);
+        IMDSqlOperationFinishQuery(v34);
       }
 
-      IMDSqlOperationCommitOrRevertTransaction(v30);
-      v22 = IMDSqlOperationRelease(v30, 0);
-      CFRelease(v18);
-      v23 = IMDatabaseLogHandle();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      IMDSqlOperationCommitOrRevertTransaction(v34);
+      v26 = IMDSqlOperationRelease(v34, 0);
+      CFRelease(v22);
+      v27 = IMDatabaseLogHandle();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
-        objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x1E695DF00], v24, v25);
+        objc_msgSend_timeIntervalSinceReferenceDate(MEMORY[0x1E695DF00], v28, v29, v30);
         *buf = 134218752;
-        v33 = v13;
-        v34 = 2048;
-        v35 = v26 - v17;
-        v36 = 2048;
-        v37 = v6;
+        v37 = v16;
         v38 = 2048;
-        v39 = v6;
-        _os_log_impl(&dword_1B7AD5000, v23, OS_LOG_TYPE_INFO, "Deleted %ld messages in %f seconds on %ld chats and %ld services", buf, 0x2Au);
+        v39 = v31 - v21;
+        v40 = 2048;
+        v41 = v7;
+        v42 = 2048;
+        v43 = v7;
+        _os_log_impl(&dword_1B7AD5000, v27, OS_LOG_TYPE_INFO, "Deleted %ld messages in %f seconds on %ld chats and %ld services", buf, 0x2Au);
       }
 
       IMDCoreSpotlightScheduleUpdateForDeletedMessages(1006);
@@ -7604,23 +6521,22 @@ BOOL IMDMessageRecordDeleteMessagesWithGUIDsChatIdentifiersOnServices(void *a1, 
     else
     {
       __syncXPCIMDMessageRecordDeleteMessagesWithGUIDsChatIdentifiersOnServices_IPCAction(0, a1, a2, a3);
-      v22 = 1;
+      return 1;
     }
   }
 
   else
   {
-    v27 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v32 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       sub_1B7CFC7E8();
     }
 
-    v22 = 0;
+    return 0;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
-  return v22;
+  return v26;
 }
 
 void IMDMessageRecordMarkMessagesAsUnreadWithChatGUIDUpToGUIDFromMe(const __CFString *a1, uint64_t a2, int a3)
@@ -7652,27 +6568,23 @@ void IMDMessageRecordMarkMessagesAsUnreadWithChatGUIDUpToGUIDFromMe(const __CFSt
   else
   {
 
-    __syncXPCIMDMessageRecordMarkMessagesAsUnreadWithChatGUIDUpToGUIDFromMe_IPCAction(&unk_1F2FA1370, a1, a2, a3);
+    __syncXPCIMDMessageRecordMarkMessagesAsUnreadWithChatGUIDUpToGUIDFromMe_IPCAction(qword_1F2FA1370, a1, a2, a3);
   }
 }
 
-void sub_1B7BDCDE4(uint64_t a1)
+void sub_1B7BDCDE4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
+  v7 = *MEMORY[0x1E69E9840];
   CSDBSqliteBindInt64();
-  v3 = *(a1 + 40);
   CSDBSqliteBindInt64();
   v4 = CSDBSqliteStatementPerform();
   v5 = IMDatabaseLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = v4;
-    _os_log_impl(&dword_1B7AD5000, v5, OS_LOG_TYPE_DEFAULT, "SQLite returned %d from IMDMessageRecordMarkMessagesAsUnreadWithChatGUIDUpToGUIDFromMe", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = v4;
+    _os_log_impl(&dword_1B7AD5000, v5, OS_LOG_TYPE_DEFAULT, "SQLite returned %d from IMDMessageRecordMarkMessagesAsUnreadWithChatGUIDUpToGUIDFromMe", v6, 8u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void IMDMessageRecordMarkMessageGUIDUnread(uint64_t a1)
@@ -7690,29 +6602,26 @@ void IMDMessageRecordMarkMessageGUIDUnread(uint64_t a1)
   else
   {
 
-    __syncXPCIMDMessageRecordMarkMessageGUIDUnread_IPCAction(&unk_1F2FA1390, a1);
+    __syncXPCIMDMessageRecordMarkMessageGUIDUnread_IPCAction(qword_1F2FA1390, a1);
   }
 }
 
-void sub_1B7BDCF64(uint64_t a1)
+void sub_1B7BDCF64(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
+  v8 = *MEMORY[0x1E69E9840];
   CSDBSqliteBindTextFromCFString();
-  v2 = CSDBSqliteStatementPerform();
-  if (v2 != 101)
+  v4 = CSDBSqliteStatementPerform();
+  if (v4 != 101)
   {
-    v3 = v2;
-    v4 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = v4;
+    v6 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6[0] = 67109120;
-      v6[1] = v3;
-      _os_log_impl(&dword_1B7AD5000, v4, OS_LOG_TYPE_DEFAULT, "SQLite returned %d from IMDMessageRecordMarkMessageGUIDUnread", v6, 8u);
+      v7[0] = 67109120;
+      v7[1] = v5;
+      _os_log_impl(&dword_1B7AD5000, v6, OS_LOG_TYPE_DEFAULT, "SQLite returned %d from IMDMessageRecordMarkMessageGUIDUnread", v7, 8u);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t IMDMessageRecordCopyMessagesWithHandleOnServiceLimit(const __CFString *a1, const __CFString *a2, uint64_t a3)
@@ -7764,9 +6673,9 @@ uint64_t IMDMessageRecordCopyMessagesWithHandleOnServiceLimit(const __CFString *
   return v10;
 }
 
-void sub_1B7BDD19C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B7BDD19C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7805,7 +6714,7 @@ uint64_t sub_1B7BDD254(uint64_t a1, uint64_t a2, void *a3)
   return 1;
 }
 
-uint64_t IMDMessageRecordCopyMessageMatchingBodyStringWithChatIdentifiersServicesSkippingGUIDs(const __CFString *a1, const __CFString *a2, const __CFArray *a3, const __CFArray *a4, int a5, const __CFArray *a6, const __CFArray *a7, double a8)
+uint64_t IMDMessageRecordCopyMessageMatchingBodyStringWithChatIdentifiersServicesSkippingGUIDs(const __CFString *a1, const __CFString *a2, const __CFArray *a3, const __CFArray *a4, uint64_t a5, const __CFArray *a6, const __CFArray *a7, double a8)
 {
   v8 = 0;
   if (!a1 || !a2)
@@ -7840,27 +6749,17 @@ LABEL_7:
   v8 = 0;
   if (Count && v18)
   {
-    v21 = objc_msgSend_dateWithTimeIntervalSinceReferenceDate_(MEMORY[0x1E695DF00], v19, v20, a8);
-    v28 = objc_msgSend___im_nanosecondTimeInterval(v21, v22, v23);
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x2020000000;
-    v34 = 0;
+    v22 = objc_msgSend_dateWithTimeIntervalSinceReferenceDate_(MEMORY[0x1E695DF00], v19, v20, v21, a8);
+    v30 = objc_msgSend___im_nanosecondTimeInterval(v22, v23, v24, v25);
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x2020000000;
+    v36 = 0;
     if (IMDIsRunningInDatabaseServerProcess())
     {
       if (a3)
       {
-        v24 = CFArrayGetCount(a3);
-      }
-
-      else
-      {
-        v24 = 0;
-      }
-
-      if (a4)
-      {
-        v26 = CFArrayGetCount(a4);
+        v26 = CFArrayGetCount(a3);
       }
 
       else
@@ -7868,106 +6767,113 @@ LABEL_7:
         v26 = 0;
       }
 
-      v27 = IMDMessageRecordCopyMessageMatchingBodyStringWithChatIdentifiersServicesSkippingGUIDsQuery(v24, v26, a5);
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = sub_1B7BDD54C;
-      v30[3] = &unk_1E7CBCFA0;
-      v30[6] = a2;
-      v30[7] = v24;
-      v30[8] = a3;
-      v30[9] = v28;
-      v30[10] = v26;
-      v30[11] = a4;
-      v30[12] = a1;
-      v30[13] = a6;
-      v30[14] = a7;
-      v30[4] = &v31;
-      v30[5] = Count;
-      _IMDPerformLockedStatementBlockWithQuery(v27, v30);
-      if (v27)
+      if (a4)
       {
-        CFRelease(v27);
+        v28 = CFArrayGetCount(a4);
+      }
+
+      else
+      {
+        v28 = 0;
+      }
+
+      v29 = IMDMessageRecordCopyMessageMatchingBodyStringWithChatIdentifiersServicesSkippingGUIDsQuery(v26, v28, a5);
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = sub_1B7BDD54C;
+      v32[3] = &unk_1E7CBCFA0;
+      v32[6] = a2;
+      v32[7] = v26;
+      v32[8] = a3;
+      v32[9] = v30;
+      v32[10] = v28;
+      v32[11] = a4;
+      v32[12] = a1;
+      v32[13] = a6;
+      v32[14] = a7;
+      v32[4] = &v33;
+      v32[5] = Count;
+      _IMDPerformLockedStatementBlockWithQuery(v29, v32);
+      if (v29)
+      {
+        CFRelease(v29);
       }
     }
 
     else
     {
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = sub_1B7BDD6AC;
-      v29[3] = &unk_1E7CB6838;
-      v29[4] = &v31;
-      __syncXPCIMDMessageRecordCopyMessageMatchingBodyStringWithChatIdentifiersServicesSkippingGUIDs_IPCAction(v29, a1, a2, a3, a4, a5, a6, a7, a8);
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = sub_1B7BDD6AC;
+      v31[3] = &unk_1E7CB6838;
+      v31[4] = &v33;
+      __syncXPCIMDMessageRecordCopyMessageMatchingBodyStringWithChatIdentifiersServicesSkippingGUIDs_IPCAction(v31, a1, a2, a3, a4, a5, a6, a7, a8);
     }
 
-    v8 = v32[3];
-    _Block_object_dispose(&v31, 8);
+    v8 = v34[3];
+    _Block_object_dispose(&v33, 8);
   }
 
   return v8;
 }
 
-uint64_t sub_1B7BDD54C(uint64_t result)
+uint64_t sub_1B7BDD54C(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (*(result + 40))
   {
-    v1 = result;
-    v2 = 0;
-    v3 = 0;
+    v4 = result;
+    v5 = 0;
+    v6 = 0;
     do
     {
-      v4 = *(v1 + 48);
       CSDBSqliteBindTextFromCFString();
-      if (*(v1 + 56) >= 1)
-      {
-        v5 = 0;
-        do
-        {
-          CFArrayGetValueAtIndex(*(v1 + 64), v5);
-          CSDBSqliteBindTextFromCFString();
-          ++v5;
-        }
-
-        while (v5 < *(v1 + 56));
-      }
-
-      v6 = *(v1 + 72);
-      CSDBSqliteBindInt64();
-      if (*(v1 + 80) >= 1)
+      if (*(v4 + 56) >= 1)
       {
         v7 = 0;
         do
         {
-          CFArrayGetValueAtIndex(*(v1 + 88), v7);
+          CFArrayGetValueAtIndex(*(v4 + 64), v7);
           CSDBSqliteBindTextFromCFString();
           ++v7;
         }
 
-        while (v7 < *(v1 + 80));
+        while (v7 < *(v4 + 56));
       }
 
-      v8 = *(v1 + 96);
+      CSDBSqliteBindInt64();
+      if (*(v4 + 80) >= 1)
+      {
+        v8 = 0;
+        do
+        {
+          CFArrayGetValueAtIndex(*(v4 + 88), v8);
+          CSDBSqliteBindTextFromCFString();
+          ++v8;
+        }
+
+        while (v8 < *(v4 + 80));
+      }
+
       CSDBSqliteBindTextFromCFString();
-      CFArrayGetValueAtIndex(*(v1 + 104), v3);
+      CFArrayGetValueAtIndex(*(v4 + 104), v6);
       CSDBSqliteBindTextFromCFString();
-      CFArrayGetValueAtIndex(*(v1 + 112), v3);
+      CFArrayGetValueAtIndex(*(v4 + 112), v6);
       CSDBSqliteBindTextFromCFString();
       v9 = CSDBSqliteStatementInteger64Result();
-      if (v9 > v2)
+      if (v9 > v5)
       {
-        v2 = v9;
+        v5 = v9;
       }
 
       result = CSDBSqliteStatementReset();
-      ++v3;
+      ++v6;
     }
 
-    while (v3 < *(v1 + 40));
-    if (v2 > 0)
+    while (v6 < *(v4 + 40));
+    if (v5 > 0)
     {
-      result = IMDMessageRecordCreateFromRecordIDUnlocked(*MEMORY[0x1E695E480], v2);
-      *(*(*(v1 + 32) + 8) + 24) = result;
+      result = IMDMessageRecordCreateFromRecordIDUnlocked(*MEMORY[0x1E695E480], v5);
+      *(*(*(v4 + 32) + 8) + 24) = result;
     }
   }
 
@@ -7984,29 +6890,29 @@ uint64_t sub_1B7BDD6AC(uint64_t a1, void *a2)
 uint64_t IMDMessageRecordCopyMessageMatchingBodyStringWithHandleSkippingServicesSkippingGUIDs(const __CFString *a1, const __CFString *a2, const __CFArray *a3, const __CFArray *a4, double a5)
 {
   v5 = 0;
-  v33 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (a1 && a2)
   {
     if (CFStringGetLength(a1) && CFStringGetLength(a2))
     {
-      v28 = 0;
-      v29 = &v28;
-      v30 = 0x2020000000;
-      v31 = 0;
-      v13 = objc_msgSend_dateWithTimeIntervalSinceReferenceDate_(MEMORY[0x1E695DF00], v11, v12, a5);
-      v16 = objc_msgSend___im_nanosecondTimeInterval(v13, v14, v15);
+      v32 = 0;
+      v33 = &v32;
+      v34 = 0x2020000000;
+      v35 = 0;
+      v14 = objc_msgSend_dateWithTimeIntervalSinceReferenceDate_(MEMORY[0x1E695DF00], v11, v12, v13, a5);
+      v18 = objc_msgSend___im_nanosecondTimeInterval(v14, v15, v16, v17);
       if (!IMDIsRunningInDatabaseServerProcess())
       {
-        v26[0] = MEMORY[0x1E69E9820];
-        v26[1] = 3221225472;
-        v26[2] = sub_1B7BDDA6C;
-        v26[3] = &unk_1E7CB6838;
-        v26[4] = &v28;
-        __syncXPCIMDMessageRecordCopyMessageMatchingBodyStringWithHandleSkippingServicesSkippingGUIDs_IPCAction(v26, a1, a2, a3, a4, a5);
+        v30[0] = MEMORY[0x1E69E9820];
+        v30[1] = 3221225472;
+        v30[2] = sub_1B7BDDA6C;
+        v30[3] = &unk_1E7CB6838;
+        v30[4] = &v32;
+        __syncXPCIMDMessageRecordCopyMessageMatchingBodyStringWithHandleSkippingServicesSkippingGUIDs_IPCAction(v30, a1, a2, a3, a4, a5);
 LABEL_18:
-        v5 = v29[3];
-        _Block_object_dispose(&v28, 8);
-        goto LABEL_19;
+        v5 = v33[3];
+        _Block_object_dispose(&v32, 8);
+        return v5;
       }
 
       if (a3)
@@ -8015,7 +6921,7 @@ LABEL_18:
         if (a4)
         {
 LABEL_8:
-          v18 = CFArrayGetCount(a4);
+          v22 = CFArrayGetCount(a4);
           goto LABEL_13;
         }
       }
@@ -8029,82 +6935,77 @@ LABEL_8:
         }
       }
 
-      v18 = 0;
+      v22 = 0;
 LABEL_13:
-      v19 = Count;
-      v20 = IMDMessageRecordCopyMessageMatchingBodyStringWithHandleSkippingServicesSkippingGUIDsQuery(Count, v18);
-      if (!v20)
+      v23 = Count;
+      v24 = IMDMessageRecordCopyMessageMatchingBodyStringWithHandleSkippingServicesSkippingGUIDsQuery(Count, v22, v19, v20);
+      if (!v24)
       {
-        v21 = IMDatabaseLogHandle();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v25 = IMDatabaseLogHandle();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
-          v23 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v22, &stru_1F2FA9728);
-          sub_1B7CFC860(v23, v32);
+          v28 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v26, &stru_1F2FA9728, v27);
+          sub_1B7CFC860(v28, v36);
         }
       }
 
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = sub_1B7BDD978;
-      v27[3] = &unk_1E7CBCFC8;
-      v27[6] = v19;
-      v27[7] = a3;
-      v27[8] = v16;
-      v27[9] = v18;
-      v27[10] = a4;
-      v27[11] = a1;
-      v27[4] = &v28;
-      v27[5] = a2;
-      _IMDPerformLockedStatementBlockWithQuery(v20, v27);
-      if (v20)
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = sub_1B7BDD978;
+      v31[3] = &unk_1E7CBCFC8;
+      v31[6] = v23;
+      v31[7] = a3;
+      v31[8] = v18;
+      v31[9] = v22;
+      v31[10] = a4;
+      v31[11] = a1;
+      v31[4] = &v32;
+      v31[5] = a2;
+      _IMDPerformLockedStatementBlockWithQuery(v24, v31);
+      if (v24)
       {
-        CFRelease(v20);
+        CFRelease(v24);
       }
 
       goto LABEL_18;
     }
 
-    v5 = 0;
+    return 0;
   }
 
-LABEL_19:
-  v24 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
-uint64_t sub_1B7BDD978(uint64_t a1)
+uint64_t sub_1B7BDD978(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 40);
   CSDBSqliteBindTextFromCFString();
   if (*(a1 + 48) >= 1)
-  {
-    v3 = 0;
-    do
-    {
-      CFArrayGetValueAtIndex(*(a1 + 56), v3);
-      CSDBSqliteBindTextFromCFString();
-      ++v3;
-    }
-
-    while (v3 < *(a1 + 48));
-  }
-
-  v4 = *(a1 + 64);
-  CSDBSqliteBindInt64();
-  if (*(a1 + 72) >= 1)
   {
     v5 = 0;
     do
     {
-      CFArrayGetValueAtIndex(*(a1 + 80), v5);
+      CFArrayGetValueAtIndex(*(a1 + 56), v5);
       CSDBSqliteBindTextFromCFString();
       ++v5;
     }
 
-    while (v5 < *(a1 + 72));
+    while (v5 < *(a1 + 48));
   }
 
-  v6 = *(a1 + 88);
+  CSDBSqliteBindInt64();
+  if (*(a1 + 72) >= 1)
+  {
+    v6 = 0;
+    do
+    {
+      CFArrayGetValueAtIndex(*(a1 + 80), v6);
+      CSDBSqliteBindTextFromCFString();
+      ++v6;
+    }
+
+    while (v6 < *(a1 + 72));
+  }
+
   CSDBSqliteBindTextFromCFString();
   result = CSDBSqliteStatementInteger64Result();
   if (result > 0)
@@ -8126,85 +7027,78 @@ uint64_t sub_1B7BDDA6C(uint64_t a1, void *a2)
 uint64_t IMDMessageRecordCopyMessageMatchingBodyStringWithHandleMatchingServiceMatchingSOSSkippingGUID(const __CFString *a1, const __CFString *a2, uint64_t a3, uint64_t a4, uint64_t a5, double a6)
 {
   v6 = 0;
-  v33 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if (a1 && a2)
   {
     if (CFStringGetLength(a1) && CFStringGetLength(a2))
     {
-      v28 = 0;
-      v29 = &v28;
-      v30 = 0x2020000000;
-      v31 = 0;
-      v15 = objc_msgSend_dateWithTimeIntervalSinceReferenceDate_(MEMORY[0x1E695DF00], v13, v14, a6);
-      v18 = objc_msgSend___im_nanosecondTimeInterval(v15, v16, v17);
+      v30 = 0;
+      v31 = &v30;
+      v32 = 0x2020000000;
+      v33 = 0;
+      v16 = objc_msgSend_dateWithTimeIntervalSinceReferenceDate_(MEMORY[0x1E695DF00], v13, v14, v15, a6);
+      v20 = objc_msgSend___im_nanosecondTimeInterval(v16, v17, v18, v19);
       if (IMDIsRunningInDatabaseServerProcess())
       {
-        v19 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"SELECT   MAX(m.ROWID) FROM   message m   INDEXED BY message_idx_handle WHERE   m.handle_id IN(   SELECT       h.rowid     FROM       handle h     WHERE       h.id = ?  )  AND m.date >= ?   AND m.is_from_me = 0   AND m.was_deduplicated = 0   AND m.cache_roomnames IS NULL   AND m.is_sos  = ?   AND m.service = ?   AND m.guid NOT IN (?)   AND m.text = ? ");
-        if (!v19)
+        v21 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"SELECT   MAX(m.ROWID) FROM   message m   INDEXED BY message_idx_handle WHERE   m.handle_id IN(   SELECT       h.rowid     FROM       handle h     WHERE       h.id = ?  )  AND m.date >= ?   AND m.is_from_me = 0   AND m.was_deduplicated = 0   AND m.cache_roomnames IS NULL   AND m.is_sos  = ?   AND m.service = ?   AND m.guid NOT IN (?)   AND m.text = ? ");
+        if (!v21)
         {
-          v20 = IMDatabaseLogHandle();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v22 = IMDatabaseLogHandle();
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
-            v22 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v21, &stru_1F2FA9728);
-            sub_1B7CFC8BC(v22, v32);
+            v25 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v23, &stru_1F2FA9728, v24);
+            sub_1B7CFC8BC(v25, v34);
           }
         }
 
-        v26[0] = MEMORY[0x1E69E9820];
-        v26[1] = 3221225472;
-        v26[2] = sub_1B7BDDD10;
-        v26[3] = &unk_1E7CBCFF0;
-        v27 = a4;
-        v26[6] = v18;
-        v26[7] = a3;
-        v26[8] = a5;
-        v26[9] = a1;
-        v26[4] = &v28;
-        v26[5] = a2;
-        _IMDPerformLockedStatementBlockWithQuery(v19, v26);
-        if (v19)
+        v28[0] = MEMORY[0x1E69E9820];
+        v28[1] = 3221225472;
+        v28[2] = sub_1B7BDDD10;
+        v28[3] = &unk_1E7CBCFF0;
+        v29 = a4;
+        v28[6] = v20;
+        v28[7] = a3;
+        v28[8] = a5;
+        v28[9] = a1;
+        v28[4] = &v30;
+        v28[5] = a2;
+        _IMDPerformLockedStatementBlockWithQuery(v21, v28);
+        if (v21)
         {
-          CFRelease(v19);
+          CFRelease(v21);
         }
       }
 
       else
       {
-        v25[0] = MEMORY[0x1E69E9820];
-        v25[1] = 3221225472;
-        v25[2] = sub_1B7BDDDB0;
-        v25[3] = &unk_1E7CB6838;
-        v25[4] = &v28;
-        __syncXPCIMDMessageRecordCopyMessageMatchingBodyStringWithHandleMatchingServiceMatchingSOSSkippingGUID_IPCAction(v25, a1, a2, a3, a6, a4, a5);
+        v27[0] = MEMORY[0x1E69E9820];
+        v27[1] = 3221225472;
+        v27[2] = sub_1B7BDDDB0;
+        v27[3] = &unk_1E7CB6838;
+        v27[4] = &v30;
+        __syncXPCIMDMessageRecordCopyMessageMatchingBodyStringWithHandleMatchingServiceMatchingSOSSkippingGUID_IPCAction(v27, a1, a2, a3, a6, a4, a5);
       }
 
-      v6 = v29[3];
-      _Block_object_dispose(&v28, 8);
+      v6 = v31[3];
+      _Block_object_dispose(&v30, 8);
     }
 
     else
     {
-      v6 = 0;
+      return 0;
     }
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
-uint64_t sub_1B7BDDD10(uint64_t a1)
+uint64_t sub_1B7BDDD10(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 40);
   CSDBSqliteBindTextFromCFString();
-  v3 = *(a1 + 48);
   CSDBSqliteBindInt64();
-  v4 = *(a1 + 80);
   CSDBSqliteBindInt64();
-  v5 = *(a1 + 56);
   CSDBSqliteBindTextFromCFString();
-  v6 = *(a1 + 64);
   CSDBSqliteBindTextFromCFString();
-  v7 = *(a1 + 72);
   CSDBSqliteBindTextFromCFString();
   result = CSDBSqliteStatementInteger64Result();
   if (result >= 1)
@@ -8223,32 +7117,32 @@ uint64_t sub_1B7BDDDB0(uint64_t a1, void *a2)
   return result;
 }
 
-uint64_t IMDMessageRecordCopyMessageWithHandleOnServiceWithReplaceID(const __CFString *a1, const char *a2, uint64_t a3)
+uint64_t IMDMessageRecordCopyMessageWithHandleOnServiceWithReplaceID(const __CFString *a1, const __CFString *a2, int64_t a3, uint64_t a4)
 {
-  v43[1] = *MEMORY[0x1E69E9840];
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
-  v37 = 0;
-  v6 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], a2, a3);
-  if (objc_msgSend_isOneChatEnabled(v6, v7, v8))
+  v47[1] = *MEMORY[0x1E69E9840];
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
+  v7 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], a2, a3, a4);
+  if (objc_msgSend_isOneChatEnabled(v7, v8, v9, v10))
   {
-    v9 = objc_alloc(MEMORY[0x1E696AEB0]);
-    v11 = objc_msgSend_initWithKey_ascending_(v9, v10, @"rowID", 0);
-    v14 = objc_msgSend_synchronousDatabase(IMDDatabase, v12, v13);
-    v16 = objc_msgSend_predicateWithFormat_(MEMORY[0x1E696AE18], v15, @"%K == %ld", *MEMORY[0x1E69A71D8], a3);
-    v43[0] = v11;
-    v18 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v17, v43, 1);
-    v20 = objc_msgSend_predicateWithFormat_(MEMORY[0x1E696AE18], v19, @"%K == %@", *MEMORY[0x1E69A7058], a1);
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = sub_1B7BDE19C;
-    v33[3] = &unk_1E7CB6860;
-    v33[4] = &v34;
-    objc_msgSend_fetchMessageRecordsFilteredUsingPredicate_sortedUsingDescriptors_inChatsFilteredUsingPredicate_fromHandlesUsingPredicate_limit_completionHandler_(v14, v21, v16, v18, 0, v20, 1, v33);
+    v11 = objc_alloc(MEMORY[0x1E696AEB0]);
+    v13 = objc_msgSend_initWithKey_ascending_(v11, v12, @"rowID", 0);
+    v17 = objc_msgSend_synchronousDatabase(IMDDatabase, v14, v15, v16);
+    v20 = objc_msgSend_predicateWithFormat_(MEMORY[0x1E696AE18], v18, @"%K == %ld", v19, *MEMORY[0x1E69A71D8], a3);
+    v47[0] = v13;
+    v22 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v21, v47, 1);
+    v25 = objc_msgSend_predicateWithFormat_(MEMORY[0x1E696AE18], v23, @"%K == %@", v24, *MEMORY[0x1E69A7058], a1);
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = sub_1B7BDE19C;
+    v37[3] = &unk_1E7CB6860;
+    v37[4] = &v38;
+    objc_msgSend_fetchMessageRecordsFilteredUsingPredicate_sortedUsingDescriptors_inChatsFilteredUsingPredicate_fromHandlesUsingPredicate_limit_completionHandler_(v17, v26, v20, v22, 0, v25, 1, v37);
 
 LABEL_15:
-    v28 = v35[3];
+    v33 = v39[3];
     goto LABEL_16;
   }
 
@@ -8256,79 +7150,78 @@ LABEL_15:
   {
     if (IMDIsRunningInDatabaseServerProcess())
     {
-      v22 = IMDHandleRecordCopyHandleForIDOnService(a1, a2);
-      v23 = v22;
-      if (v22)
+      v27 = IMDHandleRecordCopyHandleForIDOnService(a1, a2);
+      v28 = v27;
+      if (v27)
       {
-        Identifier = IMDHandleRecordGetIdentifier(v22);
-        v39 = 0;
-        v40 = &v39;
-        v41 = 0x2020000000;
-        v42 = 0;
-        v38[0] = MEMORY[0x1E69E9820];
-        v38[1] = 3221225472;
-        v38[2] = sub_1B7BE8DCC;
-        v38[3] = &unk_1E7CBCD60;
-        v38[6] = a3;
-        v38[7] = 1;
-        v38[4] = &v39;
-        v38[5] = Identifier;
-        _IMDPerformLockedStatementBlockWithQuery(@"SELECT m.ROWID, m.guid, m.text, m.replace, m.service_center, m.handle_id, m.subject, m.country, m.attributedBody, m.version, m.type, m.service, m.account, m.account_guid, m.error, m.date, m.date_read, m.date_delivered, m.is_delivered, m.is_finished, m.is_emote, m.is_from_me, m.is_empty, m.is_delayed, m.is_auto_reply, m.is_prepared, m.is_read, m.is_system_message, m.is_sent, m.has_dd_results, m.is_service_message, m.is_forward, m.was_downgraded, m.is_archive, m.cache_has_attachments, m.cache_roomnames, m.was_data_detected, m.was_deduplicated, m.is_audio_message, m.is_played, m.date_played, m.item_type, m.other_handle, m.group_title, m.group_action_type, m.share_status, m.share_direction, m.is_expirable, m.expire_state, m.message_action_type, m.message_source, m.associated_message_guid, m.associated_message_type, m.balloon_bundle_id, m.payload_data, m.expressive_send_style_id, m.associated_message_range_location, m.associated_message_range_length, m.time_expressive_send_played, m.message_summary_info, m.ck_sync_state, m.ck_record_id, m.ck_record_change_tag, m.destination_caller_id, m.is_corrupt, m.reply_to_guid, m.sort_id, m.is_spam, m.has_unseen_mention, m.thread_originator_guid, m.thread_originator_part, m.syndication_ranges, m.synced_syndication_ranges, m.was_delivered_quietly, m.did_notify_recipient, m.date_retracted, m.date_edited, m.date_recovered, m.was_detonated, m.part_count, m.is_stewie, m.is_sos, m.is_critical, m.bia_reference_id, m.is_kt_verified, m.fallback_hash, m.associated_message_emoji, m.is_pending_satellite_send, m.needs_relay, m.schedule_type, m.schedule_state, m.sent_or_received_off_grid, m.is_time_sensitive, m.ck_chat_id FROM message m INNER JOIN chat_message_join cm ON   m.ROWID = cm.message_id INNER JOIN chat c ON   c.ROWID = cm.chat_id INNER JOIN chat_handle_join ch ON   c.ROWID = ch.chat_id WHERE   ch.handle_id = ?   AND c.room_name IS NULL   AND m.replace = ? ORDER BY m.ROWID DESC LIMIT ?", v38);
-        v25 = v40[3];
-        _Block_object_dispose(&v39, 8);
-        if (v25)
+        Identifier = IMDHandleRecordGetIdentifier(v27);
+        v43 = 0;
+        v44 = &v43;
+        v45 = 0x2020000000;
+        v46 = 0;
+        v42[0] = MEMORY[0x1E69E9820];
+        v42[1] = 3221225472;
+        v42[2] = sub_1B7BE8DCC;
+        v42[3] = &unk_1E7CBCD60;
+        v42[6] = a3;
+        v42[7] = 1;
+        v42[4] = &v43;
+        v42[5] = Identifier;
+        _IMDPerformLockedStatementBlockWithQuery(@"SELECT m.ROWID, m.guid, m.text, m.replace, m.service_center, m.handle_id, m.subject, m.country, m.attributedBody, m.version, m.type, m.service, m.account, m.account_guid, m.error, m.date, m.date_read, m.date_delivered, m.is_delivered, m.is_finished, m.is_emote, m.is_from_me, m.is_empty, m.is_delayed, m.is_auto_reply, m.is_prepared, m.is_read, m.is_system_message, m.is_sent, m.has_dd_results, m.is_service_message, m.is_forward, m.was_downgraded, m.is_archive, m.cache_has_attachments, m.cache_roomnames, m.was_data_detected, m.was_deduplicated, m.is_audio_message, m.is_played, m.date_played, m.item_type, m.other_handle, m.group_title, m.group_action_type, m.share_status, m.share_direction, m.is_expirable, m.expire_state, m.message_action_type, m.message_source, m.associated_message_guid, m.associated_message_type, m.balloon_bundle_id, m.payload_data, m.expressive_send_style_id, m.associated_message_range_location, m.associated_message_range_length, m.time_expressive_send_played, m.message_summary_info, m.ck_sync_state, m.ck_record_id, m.ck_record_change_tag, m.destination_caller_id, m.is_corrupt, m.reply_to_guid, m.sort_id, m.is_spam, m.has_unseen_mention, m.thread_originator_guid, m.thread_originator_part, m.syndication_ranges, m.synced_syndication_ranges, m.was_delivered_quietly, m.did_notify_recipient, m.date_retracted, m.date_edited, m.date_recovered, m.was_detonated, m.part_count, m.is_stewie, m.is_sos, m.is_critical, m.bia_reference_id, m.is_kt_verified, m.fallback_hash, m.associated_message_emoji, m.is_pending_satellite_send, m.needs_relay, m.schedule_type, m.schedule_state, m.sent_or_received_off_grid, m.is_time_sensitive, m.ck_chat_id FROM message m INNER JOIN chat_message_join cm ON   m.ROWID = cm.message_id INNER JOIN chat c ON   c.ROWID = cm.chat_id INNER JOIN chat_handle_join ch ON   c.ROWID = ch.chat_id WHERE   ch.handle_id = ?   AND c.room_name IS NULL   AND m.replace = ? ORDER BY m.ROWID DESC LIMIT ?", v42);
+        v30 = v44[3];
+        _Block_object_dispose(&v43, 8);
+        if (v30)
         {
-          if (CFArrayGetCount(v25))
+          if (CFArrayGetCount(v30))
           {
-            CFArrayGetValueAtIndex(v25, 0);
+            CFArrayGetValueAtIndex(v30, 0);
             ID = CSDBRecordGetID();
-            v27 = IMDMessageRecordCreateFromRecordIDUnlocked(*MEMORY[0x1E695E480], ID);
-            v35[3] = v27;
+            v32 = IMDMessageRecordCreateFromRecordIDUnlocked(*MEMORY[0x1E695E480], ID);
+            v39[3] = v32;
           }
 
-          CFRelease(v25);
+          CFRelease(v30);
         }
 
-        CFRelease(v23);
+        CFRelease(v28);
       }
     }
 
     else
     {
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = sub_1B7BDE1D4;
-      v32[3] = &unk_1E7CB6838;
-      v32[4] = &v34;
-      __syncXPCIMDMessageRecordCopyMessageWithHandleOnServiceWithReplaceID_IPCAction(v32, a1, a2, a3);
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = sub_1B7BDE1D4;
+      v36[3] = &unk_1E7CB6838;
+      v36[4] = &v38;
+      __syncXPCIMDMessageRecordCopyMessageWithHandleOnServiceWithReplaceID_IPCAction(v36, a1, a2, a3);
     }
 
     goto LABEL_15;
   }
 
-  v31 = IMDatabaseLogHandle();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+  v35 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
   {
     sub_1B7CFC824();
   }
 
-  v28 = 0;
+  v33 = 0;
 LABEL_16:
-  _Block_object_dispose(&v34, 8);
-  v29 = *MEMORY[0x1E69E9840];
-  return v28;
+  _Block_object_dispose(&v38, 8);
+  return v33;
 }
 
-void sub_1B7BDE150(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1B7BDE150(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id sub_1B7BDE19C(uint64_t a1, void *a2, uint64_t a3)
+id sub_1B7BDE19C(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  result = objc_msgSend_firstObject(a2, a2, a3);
+  result = objc_msgSend_firstObject(a2, a2, a3, a4);
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
 }
@@ -8387,45 +7280,44 @@ uint64_t IMDMessageRecordCopyUndeliveredOneToOneiMessages(int64_t a1)
   return v4;
 }
 
-void sub_1B7BDE3E8(uint64_t a1)
+void sub_1B7BDE3E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 40);
-  v3 = CSDBSqliteBindInt64();
-  sub_1B7AEAEE4(v3, v4, v5);
-  v6 = CSDBRecordStoreProcessStatement();
-  if (v6)
+  v5 = CSDBSqliteBindInt64();
+  sub_1B7AEAEE4(v5, v6, v7, v8);
+  v9 = CSDBRecordStoreProcessStatement();
+  if (v9)
   {
-    v7 = v6;
-    if (CFArrayGetCount(v6) >= 1)
+    v10 = v9;
+    if (CFArrayGetCount(v9) >= 1)
     {
       *(*(*(a1 + 32) + 8) + 24) = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
       if (*(*(*(a1 + 32) + 8) + 24))
       {
-        if (CFArrayGetCount(v7) >= 1)
+        if (CFArrayGetCount(v10) >= 1)
         {
-          v8 = 0;
-          v9 = *MEMORY[0x1E695E480];
+          v11 = 0;
+          v12 = *MEMORY[0x1E695E480];
           do
           {
-            CFArrayGetValueAtIndex(v7, v8);
+            CFArrayGetValueAtIndex(v10, v11);
             ID = CSDBRecordGetID();
-            v11 = IMDMessageRecordCreateFromRecordIDUnlocked(v9, ID);
-            if (v11)
+            v14 = IMDMessageRecordCreateFromRecordIDUnlocked(v12, ID);
+            if (v14)
             {
-              v12 = v11;
-              CFArrayAppendValue(*(*(*(a1 + 32) + 8) + 24), v11);
-              CFRelease(v12);
+              v15 = v14;
+              CFArrayAppendValue(*(*(*(a1 + 32) + 8) + 24), v14);
+              CFRelease(v15);
             }
 
-            ++v8;
+            ++v11;
           }
 
-          while (v8 < CFArrayGetCount(v7));
+          while (v11 < CFArrayGetCount(v10));
         }
       }
     }
 
-    CFRelease(v7);
+    CFRelease(v10);
   }
 }
 
@@ -8510,45 +7402,44 @@ uint64_t IMDMessageRecordCopyExpiringOrExpiredMessages(int64_t a1)
   return v4;
 }
 
-void sub_1B7BDE810(uint64_t a1)
+void sub_1B7BDE810(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 40);
-  v3 = CSDBSqliteBindInt64();
-  sub_1B7AEAEE4(v3, v4, v5);
-  v6 = CSDBRecordStoreProcessStatement();
-  if (v6)
+  v5 = CSDBSqliteBindInt64();
+  sub_1B7AEAEE4(v5, v6, v7, v8);
+  v9 = CSDBRecordStoreProcessStatement();
+  if (v9)
   {
-    v7 = v6;
-    if (CFArrayGetCount(v6) >= 1)
+    v10 = v9;
+    if (CFArrayGetCount(v9) >= 1)
     {
       *(*(*(a1 + 32) + 8) + 24) = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
       if (*(*(*(a1 + 32) + 8) + 24))
       {
-        if (CFArrayGetCount(v7) >= 1)
+        if (CFArrayGetCount(v10) >= 1)
         {
-          v8 = 0;
-          v9 = *MEMORY[0x1E695E480];
+          v11 = 0;
+          v12 = *MEMORY[0x1E695E480];
           do
           {
-            CFArrayGetValueAtIndex(v7, v8);
+            CFArrayGetValueAtIndex(v10, v11);
             ID = CSDBRecordGetID();
-            v11 = IMDMessageRecordCreateFromRecordIDUnlocked(v9, ID);
-            if (v11)
+            v14 = IMDMessageRecordCreateFromRecordIDUnlocked(v12, ID);
+            if (v14)
             {
-              v12 = v11;
-              CFArrayAppendValue(*(*(*(a1 + 32) + 8) + 24), v11);
-              CFRelease(v12);
+              v15 = v14;
+              CFArrayAppendValue(*(*(*(a1 + 32) + 8) + 24), v14);
+              CFRelease(v15);
             }
 
-            ++v8;
+            ++v11;
           }
 
-          while (v8 < CFArrayGetCount(v7));
+          while (v11 < CFArrayGetCount(v10));
         }
       }
     }
 
-    CFRelease(v7);
+    CFRelease(v10);
   }
 }
 
@@ -8633,45 +7524,44 @@ uint64_t IMDMessageRecordCopyUnsentUnfailedMessages(int64_t a1)
   return v4;
 }
 
-void sub_1B7BDEC2C(uint64_t a1)
+void sub_1B7BDEC2C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 40);
-  v3 = CSDBSqliteBindInt64();
-  sub_1B7AEAEE4(v3, v4, v5);
-  v6 = CSDBRecordStoreProcessStatement();
-  if (v6)
+  v5 = CSDBSqliteBindInt64();
+  sub_1B7AEAEE4(v5, v6, v7, v8);
+  v9 = CSDBRecordStoreProcessStatement();
+  if (v9)
   {
-    v7 = v6;
-    if (CFArrayGetCount(v6) >= 1)
+    v10 = v9;
+    if (CFArrayGetCount(v9) >= 1)
     {
       *(*(*(a1 + 32) + 8) + 24) = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
       if (*(*(*(a1 + 32) + 8) + 24))
       {
-        if (CFArrayGetCount(v7) >= 1)
+        if (CFArrayGetCount(v10) >= 1)
         {
-          v8 = 0;
-          v9 = *MEMORY[0x1E695E480];
+          v11 = 0;
+          v12 = *MEMORY[0x1E695E480];
           do
           {
-            CFArrayGetValueAtIndex(v7, v8);
+            CFArrayGetValueAtIndex(v10, v11);
             ID = CSDBRecordGetID();
-            v11 = IMDMessageRecordCreateFromRecordIDUnlocked(v9, ID);
-            if (v11)
+            v14 = IMDMessageRecordCreateFromRecordIDUnlocked(v12, ID);
+            if (v14)
             {
-              v12 = v11;
-              CFArrayAppendValue(*(*(*(a1 + 32) + 8) + 24), v11);
-              CFRelease(v12);
+              v15 = v14;
+              CFArrayAppendValue(*(*(*(a1 + 32) + 8) + 24), v14);
+              CFRelease(v15);
             }
 
-            ++v8;
+            ++v11;
           }
 
-          while (v8 < CFArrayGetCount(v7));
+          while (v11 < CFArrayGetCount(v10));
         }
       }
     }
 
-    CFRelease(v7);
+    CFRelease(v10);
   }
 }
 
@@ -8711,7 +7601,7 @@ uint64_t sub_1B7BDEE00(uint64_t a1, uint64_t a2, void *a3)
 
 uint64_t IMDMessageRecordCopyMessageActionItemsForOriginalMessageGUID(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
     v2 = OSLogHandleForIMFoundationCategory();
@@ -8727,73 +7617,71 @@ uint64_t IMDMessageRecordCopyMessageActionItemsForOriginalMessageGUID(uint64_t a
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v8 = 0x2020000000;
-    v9 = 0;
+    v7 = 0x2020000000;
+    v8 = 0;
     if (IMDIsRunningInDatabaseServerProcess())
     {
-      v6[0] = MEMORY[0x1E69E9820];
-      v6[1] = 3221225472;
-      v6[2] = sub_1B7BDF064;
-      v6[3] = &unk_1E7CB7520;
-      v6[4] = &buf;
-      v6[5] = a1;
-      _IMDPerformLockedStatementBlockWithQuery(@"SELECT ROWID, guid, text, replace, service_center, handle_id, subject, country, attributedBody, version, type, service, account, account_guid, error, date, date_read, date_delivered, is_delivered, is_finished, is_emote, is_from_me, is_empty, is_delayed, is_auto_reply, is_prepared, is_read, is_system_message, is_sent, has_dd_results, is_service_message, is_forward, was_downgraded, is_archive, cache_has_attachments, cache_roomnames, was_data_detected, was_deduplicated, is_audio_message, is_played, date_played, item_type, other_handle, group_title, group_action_type, share_status, share_direction, is_expirable, expire_state, message_action_type, message_source, associated_message_guid, associated_message_type, balloon_bundle_id, payload_data, expressive_send_style_id, associated_message_range_location, associated_message_range_length, time_expressive_send_played, message_summary_info, ck_sync_state, ck_record_id, ck_record_change_tag, destination_caller_id, is_corrupt, reply_to_guid, sort_id, is_spam, has_unseen_mention, thread_originator_guid, thread_originator_part, syndication_ranges, synced_syndication_ranges, was_delivered_quietly, did_notify_recipient, date_retracted, date_edited, date_recovered, was_detonated, part_count, is_stewie, is_sos, is_critical, bia_reference_id, is_kt_verified, fallback_hash, associated_message_emoji, is_pending_satellite_send, needs_relay, schedule_type, schedule_state, sent_or_received_off_grid, is_time_sensitive, ck_chat_id FROM message WHERE subject = ?   AND item_type = ? ORDER BY message.ROWID ASC;", v6);
+      v5[0] = MEMORY[0x1E69E9820];
+      v5[1] = 3221225472;
+      v5[2] = sub_1B7BDF064;
+      v5[3] = &unk_1E7CB7520;
+      v5[4] = &buf;
+      v5[5] = a1;
+      _IMDPerformLockedStatementBlockWithQuery(@"SELECT ROWID, guid, text, replace, service_center, handle_id, subject, country, attributedBody, version, type, service, account, account_guid, error, date, date_read, date_delivered, is_delivered, is_finished, is_emote, is_from_me, is_empty, is_delayed, is_auto_reply, is_prepared, is_read, is_system_message, is_sent, has_dd_results, is_service_message, is_forward, was_downgraded, is_archive, cache_has_attachments, cache_roomnames, was_data_detected, was_deduplicated, is_audio_message, is_played, date_played, item_type, other_handle, group_title, group_action_type, share_status, share_direction, is_expirable, expire_state, message_action_type, message_source, associated_message_guid, associated_message_type, balloon_bundle_id, payload_data, expressive_send_style_id, associated_message_range_location, associated_message_range_length, time_expressive_send_played, message_summary_info, ck_sync_state, ck_record_id, ck_record_change_tag, destination_caller_id, is_corrupt, reply_to_guid, sort_id, is_spam, has_unseen_mention, thread_originator_guid, thread_originator_part, syndication_ranges, synced_syndication_ranges, was_delivered_quietly, did_notify_recipient, date_retracted, date_edited, date_recovered, was_detonated, part_count, is_stewie, is_sos, is_critical, bia_reference_id, is_kt_verified, fallback_hash, associated_message_emoji, is_pending_satellite_send, needs_relay, schedule_type, schedule_state, sent_or_received_off_grid, is_time_sensitive, ck_chat_id FROM message WHERE subject = ?   AND item_type = ? ORDER BY message.ROWID ASC;", v5);
     }
 
     else
     {
-      v5[0] = MEMORY[0x1E69E9820];
-      v5[1] = 3221225472;
-      v5[2] = sub_1B7BDF198;
-      v5[3] = &unk_1E7CB6838;
-      v5[4] = &buf;
-      __syncXPCIMDMessageRecordCopyMessageActionItemsForOriginalMessageGUID_IPCAction(v5, a1);
+      v4[0] = MEMORY[0x1E69E9820];
+      v4[1] = 3221225472;
+      v4[2] = sub_1B7BDF198;
+      v4[3] = &unk_1E7CB6838;
+      v4[4] = &buf;
+      __syncXPCIMDMessageRecordCopyMessageActionItemsForOriginalMessageGUID_IPCAction(v4, a1);
     }
 
     a1 = *(*(&buf + 1) + 24);
     _Block_object_dispose(&buf, 8);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
-void sub_1B7BDF064(uint64_t a1)
+void sub_1B7BDF064(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 40);
   CSDBSqliteBindTextFromCFString();
-  v3 = CSDBSqliteBindInt64();
-  sub_1B7AEAEE4(v3, v4, v5);
-  v6 = CSDBRecordStoreProcessStatement();
-  if (v6)
+  v5 = CSDBSqliteBindInt64();
+  sub_1B7AEAEE4(v5, v6, v7, v8);
+  v9 = CSDBRecordStoreProcessStatement();
+  if (v9)
   {
-    v7 = v6;
-    Count = CFArrayGetCount(v6);
+    v10 = v9;
+    Count = CFArrayGetCount(v9);
     if (Count >= 1)
     {
-      v9 = *MEMORY[0x1E695E480];
+      v12 = *MEMORY[0x1E695E480];
       Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], Count, MEMORY[0x1E695E9C0]);
       if (Mutable)
       {
-        v11 = Mutable;
+        v14 = Mutable;
         for (i = 0; i != Count; ++i)
         {
-          CFArrayGetValueAtIndex(v7, i);
+          CFArrayGetValueAtIndex(v10, i);
           ID = CSDBRecordGetID();
-          v14 = IMDMessageRecordCreateFromRecordIDUnlocked(v9, ID);
-          if (v14)
+          v17 = IMDMessageRecordCreateFromRecordIDUnlocked(v12, ID);
+          if (v17)
           {
-            v15 = v14;
-            CFArrayAppendValue(v11, v14);
-            CFRelease(v15);
+            v18 = v17;
+            CFArrayAppendValue(v14, v17);
+            CFRelease(v18);
           }
         }
 
-        *(*(*(a1 + 32) + 8) + 24) = v11;
+        *(*(*(a1 + 32) + 8) + 24) = v14;
       }
     }
 
-    CFRelease(v7);
+    CFRelease(v10);
   }
 }
 
@@ -8833,75 +7721,75 @@ uint64_t sub_1B7BDF22C(uint64_t a1, uint64_t a2, void *a3)
 
 uint64_t IMDMessageRecordCountAllUnreadMessages()
 {
-  v36 = *MEMORY[0x1E69E9840];
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
-  v33 = -1;
+  v44 = *MEMORY[0x1E69E9840];
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = -1;
   if (IMDIsRunningInDatabaseServerProcess())
   {
-    v2 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v0, v1);
-    if (objc_msgSend_isUnreadCountRefactorEnabled(v2, v3, v4))
+    v3 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v0, v1, v2);
+    if (objc_msgSend_isUnreadCountRefactorEnabled(v3, v4, v5, v6))
     {
-      v7 = objc_msgSend_synchronousDatabase(IMDDatabase, v5, v6);
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = sub_1B7BDF65C;
-      v29[3] = &unk_1E7CBAE30;
-      v29[4] = &v30;
-      objc_msgSend_generateUnreadCountReportsWithCompletionHandler_(v7, v8, v29);
+      v10 = objc_msgSend_synchronousDatabase(IMDDatabase, v7, v8, v9);
+      v37[0] = MEMORY[0x1E69E9820];
+      v37[1] = 3221225472;
+      v37[2] = sub_1B7BDF65C;
+      v37[3] = &unk_1E7CBAE30;
+      v37[4] = &v38;
+      objc_msgSend_generateUnreadCountReportsWithCompletionHandler_(v10, v11, v37, v12);
     }
 
     else
     {
       if (IMOSLoggingEnabled())
       {
-        v9 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+        v13 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_1B7AD5000, v9, OS_LOG_TYPE_INFO, "Counting all unread messages...", buf, 2u);
+          _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_INFO, "Counting all unread messages...", buf, 2u);
         }
       }
 
-      v10 = objc_alloc_init(MEMORY[0x1E69A6170]);
-      objc_msgSend_startTimingForKey_(v10, v11, @"IMDMessageRecordCountAllUnreadMessages");
-      v14 = objc_msgSend_excludedFilterActions(MEMORY[0x1E69A8198], v12, v13);
-      v17 = objc_msgSend_count(v14, v15, v16);
-      v20 = IMDMessageRecordCountAllUnreadMessagesQuery(v17, v18, v19);
+      v14 = objc_alloc_init(MEMORY[0x1E69A6170]);
+      objc_msgSend_startTimingForKey_(v14, v15, @"IMDMessageRecordCountAllUnreadMessages", v16);
+      v20 = objc_msgSend_excludedFilterActions(MEMORY[0x1E69A8198], v17, v18, v19);
+      v24 = objc_msgSend_count(v20, v21, v22, v23);
+      v28 = IMDMessageRecordCountAllUnreadMessagesQuery(v24, v25, v26, v27);
       if (IMOSLoggingEnabled())
       {
-        v21 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        v29 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v35 = v14;
-          _os_log_impl(&dword_1B7AD5000, v21, OS_LOG_TYPE_INFO, "Inboxes to exclude from unread messages count: %@", buf, 0xCu);
+          v43 = v20;
+          _os_log_impl(&dword_1B7AD5000, v29, OS_LOG_TYPE_INFO, "Inboxes to exclude from unread messages count: %@", buf, 0xCu);
         }
       }
 
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = sub_1B7BDF6EC;
-      v28[3] = &unk_1E7CBD018;
-      v28[4] = v14;
-      v28[5] = &v30;
-      v28[6] = v17;
-      _IMDPerformLockedStatementBlockWithQuery(v20, v28);
-      if (v20)
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = sub_1B7BDF6EC;
+      v36[3] = &unk_1E7CBD018;
+      v36[4] = v20;
+      v36[5] = &v38;
+      v36[6] = v24;
+      _IMDPerformLockedStatementBlockWithQuery(v28, v36);
+      if (v28)
       {
-        CFRelease(v20);
+        CFRelease(v28);
       }
 
-      objc_msgSend_stopTimingForKey_(v10, v22, @"IMDMessageRecordCountAllUnreadMessages");
+      objc_msgSend_stopTimingForKey_(v14, v30, @"IMDMessageRecordCountAllUnreadMessages", v31);
       if (IMOSLoggingEnabled())
       {
-        v23 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+        v32 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v35 = v10;
-          _os_log_impl(&dword_1B7AD5000, v23, OS_LOG_TYPE_INFO, "IMDMessageRecordCountAllUnreadMessages timing: %@", buf, 0xCu);
+          v43 = v14;
+          _os_log_impl(&dword_1B7AD5000, v32, OS_LOG_TYPE_INFO, "IMDMessageRecordCountAllUnreadMessages timing: %@", buf, 0xCu);
         }
       }
     }
@@ -8909,43 +7797,42 @@ uint64_t IMDMessageRecordCountAllUnreadMessages()
 
   else
   {
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = sub_1B7BDF774;
-    v27[3] = &unk_1E7CB6838;
-    v27[4] = &v30;
-    __syncXPCIMDMessageRecordCountAllUnreadMessages_IPCAction(v27);
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = sub_1B7BDF774;
+    v35[3] = &unk_1E7CB6838;
+    v35[4] = &v38;
+    __syncXPCIMDMessageRecordCountAllUnreadMessages_IPCAction(v35);
   }
 
-  v24 = v31[3];
-  _Block_object_dispose(&v30, 8);
-  v25 = *MEMORY[0x1E69E9840];
-  return v24;
+  v33 = v39[3];
+  _Block_object_dispose(&v38, 8);
+  return v33;
 }
 
 void sub_1B7BDF65C(uint64_t a1, uint64_t a2)
 {
-  v10 = objc_alloc_init(MEMORY[0x1E69A8338]);
+  v13 = objc_alloc_init(MEMORY[0x1E69A8338]);
   v4 = objc_alloc(MEMORY[0x1E69A8330]);
-  v6 = objc_msgSend_initWithFilteringController_(v4, v5, v10);
-  objc_msgSend_replaceReports_(v6, v7, a2);
-  *(*(*(a1 + 32) + 8) + 24) = objc_msgSend_unreadCount(v6, v8, v9);
+  v7 = objc_msgSend_initWithFilteringController_(v4, v5, v13, v6);
+  objc_msgSend_replaceReports_(v7, v8, a2, v9);
+  *(*(*(a1 + 32) + 8) + 24) = objc_msgSend_unreadCount(v7, v10, v11, v12);
 }
 
-uint64_t sub_1B7BDF6EC(uint64_t a1, const char *a2)
+uint64_t sub_1B7BDF6EC(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
 {
   if (*(a1 + 48))
   {
-    v3 = 0;
+    v5 = 0;
     do
     {
-      v4 = objc_msgSend_objectAtIndexedSubscript_(*(a1 + 32), a2, v3);
-      objc_msgSend_integerValue(v4, v5, v6);
+      v6 = objc_msgSend_objectAtIndexedSubscript_(*(a1 + 32), a2, v5, a4);
+      objc_msgSend_integerValue(v6, v7, v8, v9);
       CSDBSqliteBindInt();
-      ++v3;
+      ++v5;
     }
 
-    while (v3 < *(a1 + 48));
+    while (v5 < *(a1 + 48));
   }
 
   result = CSDBSqliteStatementInteger64Result();
@@ -8960,18 +7847,18 @@ int64_t sub_1B7BDF774(uint64_t a1, xpc_object_t xdict)
   return result;
 }
 
-uint64_t IMDMessageRecordCountAllUnreadMessagesForChatGUID(const __CFString *a1)
+uint64_t IMDMessageRecordCountAllUnreadMessagesForChatGUID(const __CFString *Length)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
-  v15 = -1;
-  if (a1 && CFStringGetLength(a1) > 0)
+  v17 = *MEMORY[0x1E69E9840];
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = -1;
+  if (Length && CFStringGetLength(Length) > 0)
   {
     if (IMDIsRunningInDatabaseServerProcess())
     {
-      v2 = IMDChatRecordCopyChatForGUID(a1);
+      v2 = IMDChatRecordCopyChatForGUID(Length);
       v3 = v2;
       if (!v2 || (Identifier = IMDChatRecordGetIdentifier(v2), Identifier == -1))
       {
@@ -8981,7 +7868,7 @@ uint64_t IMDMessageRecordCountAllUnreadMessagesForChatGUID(const __CFString *a1)
           if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v17 = a1;
+            v16 = Length;
             _os_log_impl(&dword_1B7AD5000, v5, OS_LOG_TYPE_INFO, "** WARNING ** counting all unread messages for chat row id of -1 because no chat record for guid (%@) could be found!", buf, 0xCu);
           }
         }
@@ -8990,7 +7877,7 @@ uint64_t IMDMessageRecordCountAllUnreadMessagesForChatGUID(const __CFString *a1)
       }
 
       v6 = IMDMessageRecordCountAllUnreadMessagesForChatRowID(Identifier);
-      v13[3] = v6;
+      v12[3] = v6;
       if (v3)
       {
         CFRelease(v3);
@@ -8999,12 +7886,12 @@ uint64_t IMDMessageRecordCountAllUnreadMessagesForChatGUID(const __CFString *a1)
 
     else
     {
-      v11[0] = MEMORY[0x1E69E9820];
-      v11[1] = 3221225472;
-      v11[2] = sub_1B7BDFAF4;
-      v11[3] = &unk_1E7CB6838;
-      v11[4] = &v12;
-      __syncXPCIMDMessageRecordCountAllUnreadMessagesForChatGUID_IPCAction(v11, a1);
+      v10[0] = MEMORY[0x1E69E9820];
+      v10[1] = 3221225472;
+      v10[2] = sub_1B7BDFAF4;
+      v10[3] = &unk_1E7CB6838;
+      v10[4] = &v11;
+      __syncXPCIMDMessageRecordCountAllUnreadMessagesForChatGUID_IPCAction(v10, Length);
     }
   }
 
@@ -9017,9 +7904,8 @@ uint64_t IMDMessageRecordCountAllUnreadMessagesForChatGUID(const __CFString *a1)
     }
   }
 
-  v8 = v13[3];
-  _Block_object_dispose(&v12, 8);
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = v12[3];
+  _Block_object_dispose(&v11, 8);
   return v8;
 }
 
@@ -9088,32 +7974,30 @@ uint64_t IMDMessageRecordCountAllUnreadMessagesForChatRowIDUnlocked(uint64_t a1)
   return v1;
 }
 
-void sub_1B7BDFBEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B7BDFBEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1B7BDFC04(uint64_t a1)
+uint64_t sub_1B7BDFC04(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 40);
   CSDBSqliteBindInt64();
   result = CSDBSqliteStatementInteger64Result();
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
 }
 
-uint64_t sub_1B7BDFC5C(uint64_t a1)
+uint64_t sub_1B7BDFC5C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = CSDBSqliteStatementInteger64Result();
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
 }
 
-uint64_t sub_1B7BDFCA0(uint64_t a1)
+uint64_t sub_1B7BDFCA0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 40);
   CSDBSqliteBindInt64();
   result = CSDBSqliteStatementInteger64Result();
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -9131,23 +8015,23 @@ uint64_t _IMDMessageRecordCountAllUnreadMessagesForChatQuery(uint64_t a1, uint64
 {
   if ((IMDIsRunningInDatabaseServerProcess() & 1) == 0)
   {
-    v16 = xmmword_1E7CBD038;
-    v17 = *off_1E7CBD048;
-    v18 = 2651;
+    v19 = xmmword_1E7CBD038;
+    v20 = *off_1E7CBD048;
+    v21 = 2651;
     v4 = MEMORY[0x1E696AEC0];
     v5 = IMFileLocationTrimFileName();
-    v7 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v6, @"_IMDMessageRecordCountAllUnreadMessagesForAllUnreadChats can only be called from IMDPersistenceAgent");
-    v9 = objc_msgSend_stringWithFormat_(v4, v8, @"Unexpected false '%@' in %s at %s:%d. %@", @"IMDIsRunningInDatabaseServerProcess()", "void _IMDMessageRecordCountAllUnreadMessagesForChatQuery(CFStringRef, void (^)(int64_t, SInt64))", v5, 2651, v7);
-    v10 = IMGetAssertionFailureHandler();
-    if (v10)
+    v8 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v6, @"_IMDMessageRecordCountAllUnreadMessagesForAllUnreadChats can only be called from IMDPersistenceAgent", v7);
+    v11 = objc_msgSend_stringWithFormat_(v4, v9, @"Unexpected false '%@' in %s at %s:%d. %@", v10, @"IMDIsRunningInDatabaseServerProcess()", "void _IMDMessageRecordCountAllUnreadMessagesForChatQuery(CFStringRef, void (^)(int64_t, SInt64))", v5, 2651, v8);
+    v12 = IMGetAssertionFailureHandler();
+    if (v12)
     {
-      v10(v9);
+      v12(v11);
     }
 
     else
     {
-      v13 = objc_msgSend_warning(MEMORY[0x1E69A6138], v11, v12);
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v16 = objc_msgSend_warning(MEMORY[0x1E69A6138], v13, v14, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         sub_1B7CED0B0();
       }
@@ -9157,18 +8041,18 @@ uint64_t _IMDMessageRecordCountAllUnreadMessagesForChatQuery(uint64_t a1, uint64
   result = IMDIsRunningInDatabaseServerProcess();
   if (result)
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = sub_1B7BDFE90;
-    v15[3] = &unk_1E7CBD068;
-    v15[4] = a2;
-    return _IMDPerformLockedStatementBlockWithQuery(a1, v15);
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1B7BDFE90;
+    v18[3] = &unk_1E7CBD068;
+    v18[4] = a2;
+    return _IMDPerformLockedStatementBlockWithQuery(a1, v18);
   }
 
   return result;
 }
 
-uint64_t sub_1B7BDFE90(uint64_t a1)
+uint64_t sub_1B7BDFE90(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = CSDBSqliteStep();
   if (result)
@@ -9197,7 +8081,7 @@ void sub_1B7BDFF18(uint64_t a1, __int128 *a2)
     v13 = *a2;
     v14 = *(a2 + 2);
     v8 = IMDInt64FromSqlColumn(&v13);
-    v5 = objc_msgSend_numberWithLongLong_(v7, v9, v8);
+    v5 = objc_msgSend_numberWithLongLong_(v7, v9, v8, v10);
     v6 = *(a1 + 40);
     goto LABEL_5;
   }
@@ -9210,28 +8094,25 @@ void sub_1B7BDFF18(uint64_t a1, __int128 *a2)
     v6 = *(a1 + 32);
 LABEL_5:
     *(*(v6 + 8) + 40) = v5;
-    goto LABEL_9;
+    return;
   }
 
   if (IMOSLoggingEnabled())
   {
-    v10 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v11 = *(a2 + 4);
+      v12 = *(a2 + 4);
       LODWORD(v13) = 67109120;
-      DWORD1(v13) = v11;
-      _os_log_impl(&dword_1B7AD5000, v10, OS_LOG_TYPE_INFO, "Unexpected column in reply count query with index %d", &v13, 8u);
+      DWORD1(v13) = v12;
+      _os_log_impl(&dword_1B7AD5000, v11, OS_LOG_TYPE_INFO, "Unexpected column in reply count query with index %d", &v13, 8u);
     }
   }
-
-LABEL_9:
-  v12 = *MEMORY[0x1E69E9840];
 }
 
-CFMutableArrayRef IMDMessageRecordCopyAllUnplayedMessageGUIDsForChatGUID(const __CFString *a1)
+CFMutableArrayRef IMDMessageRecordCopyAllUnplayedMessageGUIDsForChatGUID(const __CFString *Length)
 {
-  if (a1 && CFStringGetLength(a1) > 0)
+  if (Length && CFStringGetLength(Length) > 0)
   {
     if (IMDIsRunningInDatabaseServerProcess())
     {
@@ -9250,7 +8131,7 @@ CFMutableArrayRef IMDMessageRecordCopyAllUnplayedMessageGUIDsForChatGUID(const _
       v8 = 3221225472;
       v9 = sub_1B7BE8E48;
       v10 = &unk_1E7CBD258;
-      v11 = a1;
+      v11 = Length;
       v12 = Mutable;
       _IMDPerformLockedDatabaseBlock(buf);
     }
@@ -9266,7 +8147,7 @@ CFMutableArrayRef IMDMessageRecordCopyAllUnplayedMessageGUIDsForChatGUID(const _
       v6[2] = sub_1B7BE0268;
       v6[3] = &unk_1E7CB6838;
       v6[4] = buf;
-      __syncXPCIMDMessageRecordCopyAllUnplayedMessageGUIDsForChatGUID_IPCAction(v6, a1);
+      __syncXPCIMDMessageRecordCopyAllUnplayedMessageGUIDsForChatGUID_IPCAction(v6, Length);
       Mutable = *(v8 + 24);
       _Block_object_dispose(buf, 8);
     }
@@ -9308,10 +8189,10 @@ void sub_1B7BE0268(uint64_t a1, xpc_object_t xdict)
         string = xpc_array_get_string(v4, v7);
         if (string)
         {
-          v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v10, string);
-          if (v11)
+          v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v10, string, v11);
+          if (v12)
           {
-            CFArrayAppendValue(*(*(*(a1 + 32) + 8) + 24), v11);
+            CFArrayAppendValue(*(*(*(a1 + 32) + 8) + 24), v12);
           }
         }
 
@@ -9325,34 +8206,34 @@ void sub_1B7BE0268(uint64_t a1, xpc_object_t xdict)
 
 uint64_t IMDMessageRecordLastFailedMessageRowID()
 {
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
-  v11 = -1;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
+  v12 = -1;
   if (IMDIsRunningInDatabaseServerProcess())
   {
-    v2 = objc_msgSend_synchronousDatabase(IMDDatabase, v0, v1);
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = sub_1B7BE0474;
-    v7[3] = &unk_1E7CB6B98;
-    v7[4] = &v8;
-    objc_msgSend_fetchInteger64ForKey_completionHandler_(v2, v3, @"lastFailedMessageRowID", v7);
+    v3 = objc_msgSend_synchronousDatabase(IMDDatabase, v0, v1, v2);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1B7BE0474;
+    v8[3] = &unk_1E7CB6B98;
+    v8[4] = &v9;
+    objc_msgSend_fetchInteger64ForKey_completionHandler_(v3, v4, @"lastFailedMessageRowID", v8);
   }
 
   else
   {
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = sub_1B7BE0484;
-    v6[3] = &unk_1E7CB6838;
-    v6[4] = &v8;
-    __syncXPCIMDMessageRecordLastFailedMessageRowID_IPCAction(v6);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = sub_1B7BE0484;
+    v7[3] = &unk_1E7CB6838;
+    v7[4] = &v9;
+    __syncXPCIMDMessageRecordLastFailedMessageRowID_IPCAction(v7);
   }
 
-  v4 = v9[3];
-  _Block_object_dispose(&v8, 8);
-  return v4;
+  v5 = v10[3];
+  _Block_object_dispose(&v9, 8);
+  return v5;
 }
 
 int64_t sub_1B7BE0484(uint64_t a1, xpc_object_t xdict)
@@ -9393,7 +8274,7 @@ uint64_t IMDMessageRecordLastSyncedMessageRowID()
   return v0;
 }
 
-uint64_t sub_1B7BE05F8(uint64_t a1)
+uint64_t sub_1B7BE05F8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = CSDBSqliteStatementInteger64Result();
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -9409,34 +8290,34 @@ int64_t sub_1B7BE063C(uint64_t a1, xpc_object_t xdict)
 
 uint64_t IMDMessageRecordLastFailedMessageDate()
 {
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
-  v11 = -1;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
+  v12 = -1;
   if (IMDIsRunningInDatabaseServerProcess())
   {
-    v2 = objc_msgSend_synchronousDatabase(IMDDatabase, v0, v1);
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = sub_1B7BE07B4;
-    v7[3] = &unk_1E7CB6B98;
-    v7[4] = &v8;
-    objc_msgSend_fetchInteger64ForKey_completionHandler_(v2, v3, @"lastFailedMessageDate", v7);
+    v3 = objc_msgSend_synchronousDatabase(IMDDatabase, v0, v1, v2);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1B7BE07B4;
+    v8[3] = &unk_1E7CB6B98;
+    v8[4] = &v9;
+    objc_msgSend_fetchInteger64ForKey_completionHandler_(v3, v4, @"lastFailedMessageDate", v8);
   }
 
   else
   {
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = sub_1B7BE07C4;
-    v6[3] = &unk_1E7CB6838;
-    v6[4] = &v8;
-    __syncXPCIMDMessageRecordLastFailedMessageDate_IPCAction(v6);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = sub_1B7BE07C4;
+    v7[3] = &unk_1E7CB6838;
+    v7[4] = &v9;
+    __syncXPCIMDMessageRecordLastFailedMessageDate_IPCAction(v7);
   }
 
-  v4 = v9[3];
-  _Block_object_dispose(&v8, 8);
-  return v4;
+  v5 = v10[3];
+  _Block_object_dispose(&v9, 8);
+  return v5;
 }
 
 int64_t sub_1B7BE07C4(uint64_t a1, xpc_object_t xdict)
@@ -9476,26 +8357,25 @@ uint64_t IMDMessageRecordGetMostRecentMessageDate()
   v0 = IMDatabaseLogHandle();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v1, v9[3]);
+    v3 = objc_msgSend_numberWithLongLong_(MEMORY[0x1E696AD98], v1, v9[3], v2);
     *buf = 138412290;
-    v13 = v2;
+    v13 = v3;
     _os_log_impl(&dword_1B7AD5000, v0, OS_LOG_TYPE_DEFAULT, "Most recent date: %@", buf, 0xCu);
   }
 
-  v3 = v9[3];
+  v4 = v9[3];
   _Block_object_dispose(&v8, 8);
-  v4 = *MEMORY[0x1E69E9840];
-  return v3;
+  return v4;
 }
 
-void sub_1B7BE09A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1B7BE09A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1B7BE09C8(uint64_t a1)
+uint64_t sub_1B7BE09C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = CSDBSqliteStatementInteger64Result();
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -9509,31 +8389,31 @@ int64_t sub_1B7BE0A0C(uint64_t a1, xpc_object_t xdict)
   return result;
 }
 
-void IMDMessageRecordMarkFailedAllUnsentUnfailedMessages()
+void IMDMessageRecordMarkFailedAllUnsentUnfailedMessages(uint64_t a1)
 {
   if (IMOSLoggingEnabled())
   {
-    v0 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+    v1 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B7AD5000, v0, OS_LOG_TYPE_DEBUG, "Marking all unsent and failed messages as sent.", buf, 2u);
+      _os_log_impl(&dword_1B7AD5000, v1, OS_LOG_TYPE_DEBUG, "Marking all unsent and failed messages as sent.", buf, 2u);
     }
   }
 
   if (IMDIsRunningInDatabaseServerProcess())
   {
     *buf = 0;
-    v5 = buf;
-    v6 = 0x2020000000;
-    v7 = 0;
-    v3[0] = MEMORY[0x1E69E9820];
-    v3[1] = 3221225472;
-    v3[2] = sub_1B7BE0C04;
-    v3[3] = &unk_1E7CB7390;
-    v3[4] = buf;
-    _IMDPerformLockedStatementBlockWithQuery(@"SELECT COUNT(*) FROM message WHERE (is_sent = 0 AND is_from_me = 1 AND error = 0)", v3);
-    if (*(v5 + 3))
+    v6 = buf;
+    v7 = 0x2020000000;
+    v8 = 0;
+    v4[0] = MEMORY[0x1E69E9820];
+    v4[1] = 3221225472;
+    v4[2] = sub_1B7BE0C04;
+    v4[3] = &unk_1E7CB7390;
+    v4[4] = buf;
+    _IMDPerformLockedStatementBlockWithQuery(@"SELECT COUNT(*) FROM message WHERE (is_sent = 0 AND is_from_me = 1 AND error = 0)", v4);
+    if (*(v6 + 3))
     {
       _IMDPerformLockedStatementBlockWithQuery(@"UPDATE message SET error = ? WHERE (is_sent = 0 AND is_from_me = 1 AND error = 0)", &unk_1F2FA13B0);
       _IMDPerformLockedStatementBlockWithQuery(@"UPDATE message SET schedule_state = 4 WHERE (is_sent = 0 AND is_from_me = 1 AND error = 39)", &unk_1F2F9FD90);
@@ -9541,11 +8421,11 @@ void IMDMessageRecordMarkFailedAllUnsentUnfailedMessages()
 
     else
     {
-      v1 = IMDatabaseLogHandle();
-      if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+      v2 = IMDatabaseLogHandle();
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
       {
-        *v2 = 0;
-        _os_log_impl(&dword_1B7AD5000, v1, OS_LOG_TYPE_DEFAULT, "No unsent unfailed messages to mark!", v2, 2u);
+        *v3 = 0;
+        _os_log_impl(&dword_1B7AD5000, v2, OS_LOG_TYPE_DEFAULT, "No unsent unfailed messages to mark!", v3, 2u);
       }
     }
 
@@ -9558,21 +8438,21 @@ void IMDMessageRecordMarkFailedAllUnsentUnfailedMessages()
   }
 }
 
-void sub_1B7BE0BCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B7BE0BCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1B7BE0C04(uint64_t a1)
+uint64_t sub_1B7BE0C04(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   *(*(*(a1 + 32) + 8) + 24) = CSDBSqliteStatementInteger64Result();
 
   return CSDBSqliteStatementPerform();
 }
 
-uint64_t sub_1B7BE0C54()
+uint64_t sub_1B7BE0C54(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   CSDBSqliteBindInt();
   CSDBSqliteStatementPerform();
@@ -9581,7 +8461,7 @@ uint64_t sub_1B7BE0C54()
   return CSDBRecordStoreInvalidateCachesWithStore();
 }
 
-uint64_t sub_1B7BE0CA8()
+uint64_t sub_1B7BE0CA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   CSDBSqliteStatementPerform();
   CSDBRecordSaveStore();
@@ -9598,7 +8478,7 @@ int64_t sub_1B7BE0CEC(uint64_t a1, xpc_object_t xdict)
 
 void IMDMessageRecordRetractNotificationsForMessagesMatchingChatGUIDs(const __CFArray *a1)
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   v2 = IMDatabaseLogHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -9608,123 +8488,1123 @@ void IMDMessageRecordRetractNotificationsForMessagesMatchingChatGUIDs(const __CF
 
   if (IMDIsRunningInDatabaseServerProcess())
   {
-    v5 = objc_msgSend_array(MEMORY[0x1E695DF70], v3, v4);
+    v6 = objc_msgSend_array(MEMORY[0x1E695DF70], v3, v4, v5);
     Count = CFArrayGetCount(a1);
     if (Count >= 1)
     {
-      v7 = 0;
+      v8 = 0;
       do
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(a1, v7);
-        v9 = IMDChatRecordCopyChatForGUID(ValueAtIndex);
-        if (v9)
+        ValueAtIndex = CFArrayGetValueAtIndex(a1, v8);
+        v10 = IMDChatRecordCopyChatForGUID(ValueAtIndex);
+        if (v10)
         {
-          v11 = v9;
-          Identifier = IMDChatRecordGetIdentifier(v9);
-          v14 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v13, Identifier);
-          objc_msgSend_addObject_(v5, v15, v14);
-          CFRelease(v11);
+          v13 = v10;
+          Identifier = IMDChatRecordGetIdentifier(v10);
+          v17 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v15, Identifier, v16);
+          objc_msgSend_addObject_(v6, v18, v17, v19);
+          CFRelease(v13);
         }
 
         else
         {
-          v16 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v10, -1);
-          objc_msgSend_addObject_(v5, v17, v16);
+          v20 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v11, -1, v12);
+          objc_msgSend_addObject_(v6, v21, v20, v22);
         }
 
-        ++v7;
+        ++v8;
       }
 
-      while (Count != v7);
+      while (Count != v8);
     }
 
-    v18 = IMDatabaseLogHandle();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v23 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B7AD5000, v18, OS_LOG_TYPE_DEFAULT, "_IMDMessageRecordCopyUnreadMessagesMatchingRecoverableChatIDs", buf, 2u);
+      _os_log_impl(&dword_1B7AD5000, v23, OS_LOG_TYPE_DEFAULT, "_IMDMessageRecordCopyUnreadMessagesMatchingRecoverableChatIDs", buf, 2u);
     }
 
-    v19 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v22 = objc_msgSend_count(v5, v20, v21);
-    if (v22)
+    v24 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v28 = objc_msgSend_count(v6, v25, v26, v27);
+    if (v28)
     {
       *buf = MEMORY[0x1E69E9820];
-      v46 = 3221225472;
-      v47 = sub_1B7BE8F64;
-      v48 = &unk_1E7CBD280;
-      v50 = v19;
-      v51 = v22;
-      v49 = v5;
+      v55 = 3221225472;
+      v56 = sub_1B7BE8F64;
+      v57 = &unk_1E7CBD280;
+      v59 = v24;
+      v60 = v28;
+      v58 = v6;
       _IMDPerformLockedDatabaseBlock(buf);
     }
 
     else
     {
 
-      v19 = 0;
+      v24 = 0;
     }
 
-    v23 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v41 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v24, &v41, v52, 16);
-    if (v25)
+    v29 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v50 = 0u;
+    v51 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v30, &v50, v61, 16);
+    if (v31)
     {
-      v28 = v25;
-      v29 = *v42;
-      v30 = *MEMORY[0x1E695E480];
+      v35 = v31;
+      v36 = *v51;
+      v37 = *MEMORY[0x1E695E480];
       do
       {
-        v31 = 0;
+        v38 = 0;
         do
         {
-          if (*v42 != v29)
+          if (*v51 != v36)
           {
-            objc_enumerationMutation(v19);
+            objc_enumerationMutation(v24);
           }
 
-          v32 = objc_msgSend_integerValue(*(*(&v41 + 1) + 8 * v31), v26, v27);
-          v33 = IMDMessageRecordCreateFromRecordIDUnlocked(v30, v32);
-          v34 = IMDMessageRecordCopyGUIDForMessage(v33);
-          objc_msgSend_addObject_(v23, v35, v34);
-          if (v34)
+          v39 = objc_msgSend_integerValue(*(*(&v50 + 1) + 8 * v38), v32, v33, v34);
+          v40 = IMDMessageRecordCreateFromRecordIDUnlocked(v37, v39);
+          v41 = IMDMessageRecordCopyGUIDForMessage(v40);
+          objc_msgSend_addObject_(v29, v42, v41, v43);
+          if (v41)
           {
-            CFRelease(v34);
+            CFRelease(v41);
           }
 
-          if (v33)
+          if (v40)
           {
-            CFRelease(v33);
+            CFRelease(v40);
           }
 
-          ++v31;
+          ++v38;
         }
 
-        while (v28 != v31);
-        v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v19, v26, &v41, v52, 16);
+        while (v35 != v38);
+        v35 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v32, &v50, v61, 16);
       }
 
-      while (v28);
+      while (v35);
     }
 
-    if (objc_msgSend_count(v23, v26, v27))
+    if (objc_msgSend_count(v29, v32, v33, v34))
     {
-      v38 = objc_msgSend_sharedInstance(IMDNotificationsController, v36, v37);
-      objc_msgSend_retractNotificationsForReadMessages_(v38, v39, v23);
+      v47 = objc_msgSend_sharedInstance(IMDNotificationsController, v44, v45, v46);
+      objc_msgSend_retractNotificationsForReadMessages_(v47, v48, v29, v49);
     }
 
-    if (v23)
+    if (v29)
     {
     }
   }
 
   else
   {
-    __asyncXPCIMDMessageRecordRetractNotificationsForChatGuids_IPCAction(&unk_1F2FA13D0, a1);
+    __asyncXPCIMDMessageRecordRetractNotificationsForChatGuids_IPCAction(qword_1F2FA13D0, a1);
+  }
+}
+
+void sub_1B7BE1044(uint64_t a1, xpc_object_t xdict)
+{
+  value = xpc_dictionary_get_value(xdict, "array_result");
+  if (value)
+  {
+    v4 = value;
+    count = xpc_array_get_count(value);
+    if (count)
+    {
+      v6 = count;
+      v7 = 0;
+      v8 = MEMORY[0x1E695E9C0];
+      do
+      {
+        if (!*(*(*(a1 + 32) + 8) + 24))
+        {
+          *(*(*(a1 + 32) + 8) + 24) = CFArrayCreateMutable(0, 0, v8);
+        }
+
+        string = xpc_array_get_string(v4, v7);
+        if (string)
+        {
+          v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v10, string, v11);
+          if (v12)
+          {
+            CFArrayAppendValue(*(*(*(a1 + 32) + 8) + 24), v12);
+          }
+        }
+
+        ++v7;
+      }
+
+      while (v6 != v7);
+    }
+  }
+}
+
+uint64_t IMDMessageRecordGetMessagesSequenceNumber()
+{
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = -1;
+  if (IMDIsRunningInDatabaseServerProcess())
+  {
+    v3[0] = MEMORY[0x1E69E9820];
+    v3[1] = 3221225472;
+    v3[2] = sub_1B7BE124C;
+    v3[3] = &unk_1E7CB7390;
+    v3[4] = &v4;
+    _IMDPerformLockedStatementBlockWithQuery(@"SELECT seq FROM SQLITE_SEQUENCE WHERE name = 'message';", v3);
   }
 
-  v40 = *MEMORY[0x1E69E9840];
+  else
+  {
+    v2[0] = MEMORY[0x1E69E9820];
+    v2[1] = 3221225472;
+    v2[2] = sub_1B7BE1298;
+    v2[3] = &unk_1E7CB6838;
+    v2[4] = &v4;
+    __syncXPCIMDMessageRecordGetMessagesSequenceNumber_IPCAction(v2);
+  }
+
+  v0 = v5[3];
+  _Block_object_dispose(&v4, 8);
+  return v0;
+}
+
+sqlite3_int64 sub_1B7BE124C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = sqlite3_step(*(a4 + 8));
+  if (result == 100)
+  {
+    result = sqlite3_column_int64(*(a4 + 8), 0);
+    *(*(*(a1 + 32) + 8) + 24) = result;
+  }
+
+  return result;
+}
+
+int64_t sub_1B7BE1298(uint64_t a1, xpc_object_t xdict)
+{
+  result = xpc_dictionary_get_int64(xdict, "int64_result");
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  return result;
+}
+
+uint64_t IMDMessageRecordCopyMessagesBetweenRowIDs(int64_t a1, int64_t a2)
+{
+  v11 = *MEMORY[0x1E69E9840];
+  if (IMOSLoggingEnabled())
+  {
+    v4 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 134218240;
+      *&buf[4] = a1;
+      *&buf[12] = 2048;
+      *&buf[14] = a2;
+      _os_log_impl(&dword_1B7AD5000, v4, OS_LOG_TYPE_DEBUG, "IMDMessageRecordCopyMessagesBetweenRowIDs [%lld:%lld]", buf, 0x16u);
+    }
+  }
+
+  *buf = 0;
+  *&buf[8] = buf;
+  *&buf[16] = 0x2020000000;
+  v10 = 0;
+  if (IMDIsRunningInDatabaseServerProcess())
+  {
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = sub_1B7BE14C4;
+    v8[3] = &unk_1E7CBD090;
+    v8[5] = a1;
+    v8[6] = a2;
+    v8[4] = buf;
+    _IMDPerformLockedDatabaseBlock(v8);
+  }
+
+  else
+  {
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = sub_1B7BE1630;
+    v7[3] = &unk_1E7CB6838;
+    v7[4] = buf;
+    __syncXPCIMDMessageRecordCopyMessagesBetweenRowIDs_IPCAction(v7, a1, a2);
+  }
+
+  v5 = *(*&buf[8] + 24);
+  _Block_object_dispose(buf, 8);
+  return v5;
+}
+
+void sub_1B7BE14C4(void *a1, uint64_t a2, uint64_t a3)
+{
+  v4 = CSDBSqliteDatabaseStatementForWriting();
+  if (v4 && *(v4 + 8))
+  {
+    CSDBSqliteBindInt64();
+    v5 = CSDBSqliteBindInt64();
+    sub_1B7AEAEE4(v5, v6, v7, v8);
+    v9 = CSDBRecordStoreProcessStatement();
+    Count = CFArrayGetCount(v9);
+    if (Count >= 1)
+    {
+      v11 = 0;
+      v12 = *MEMORY[0x1E695E480];
+      v13 = Count & 0x7FFFFFFF;
+      v14 = MEMORY[0x1E695E9C0];
+      while (1)
+      {
+        CFArrayGetValueAtIndex(v9, v11);
+        ID = CSDBRecordGetID();
+        v16 = IMDMessageRecordCreateFromRecordIDUnlocked(v12, ID);
+        v17 = v16;
+        if (!*(*(a1[4] + 8) + 24))
+        {
+          break;
+        }
+
+        if (v16)
+        {
+          goto LABEL_7;
+        }
+
+LABEL_8:
+        if (v13 == ++v11)
+        {
+          goto LABEL_12;
+        }
+      }
+
+      *(*(a1[4] + 8) + 24) = CFArrayCreateMutable(v12, v13, v14);
+      if (!v17)
+      {
+        goto LABEL_8;
+      }
+
+LABEL_7:
+      CFArrayAppendValue(*(*(a1[4] + 8) + 24), v17);
+      CFRelease(v17);
+      goto LABEL_8;
+    }
+
+LABEL_12:
+    CSDBSqliteStatementReset();
+    if (v9)
+    {
+      CFRelease(v9);
+    }
+  }
+
+  CFRelease(@"SELECT ROWID, guid, text, replace, service_center, handle_id, subject, country, attributedBody, version, type, service, account, account_guid, error, date, date_read, date_delivered, is_delivered, is_finished, is_emote, is_from_me, is_empty, is_delayed, is_auto_reply, is_prepared, is_read, is_system_message, is_sent, has_dd_results, is_service_message, is_forward, was_downgraded, is_archive, cache_has_attachments, cache_roomnames, was_data_detected, was_deduplicated, is_audio_message, is_played, date_played, item_type, other_handle, group_title, group_action_type, share_status, share_direction, is_expirable, expire_state, message_action_type, message_source, associated_message_guid, associated_message_type, balloon_bundle_id, payload_data, expressive_send_style_id, associated_message_range_location, associated_message_range_length, time_expressive_send_played, message_summary_info, ck_sync_state, ck_record_id, ck_record_change_tag, destination_caller_id, is_corrupt, reply_to_guid, sort_id, is_spam, has_unseen_mention, thread_originator_guid, thread_originator_part, syndication_ranges, synced_syndication_ranges, was_delivered_quietly, did_notify_recipient, date_retracted, date_edited, date_recovered, was_detonated, part_count, is_stewie, is_sos, is_critical, bia_reference_id, is_kt_verified, fallback_hash, associated_message_emoji, is_pending_satellite_send, needs_relay, schedule_type, schedule_state, sent_or_received_off_grid, is_time_sensitive, ck_chat_id FROM message WHERE rowID >= ?   AND rowID <= ?   AND item_type == 0 ORDER BY message.ROWID ASC;");
+}
+
+xpc_object_t sub_1B7BE1630(uint64_t a1, xpc_object_t xdict)
+{
+  result = xpc_dictionary_get_value(xdict, "array_result");
+  if (result)
+  {
+    applier[0] = MEMORY[0x1E69E9820];
+    applier[1] = 3221225472;
+    applier[2] = sub_1B7BE16C4;
+    applier[3] = &unk_1E7CB6810;
+    applier[4] = *(a1 + 32);
+    return xpc_array_apply(result, applier);
+  }
+
+  return result;
+}
+
+uint64_t sub_1B7BE16C4(uint64_t a1, uint64_t a2, void *a3)
+{
+  v5 = objc_autoreleasePoolPush();
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    *(*(*(a1 + 32) + 8) + 24) = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
+  }
+
+  v6 = _IMDCopyIMDMessageRecordFromXPCObjectClient(a3);
+  if (v6)
+  {
+    v7 = v6;
+    CFArrayAppendValue(*(*(*(a1 + 32) + 8) + 24), v6);
+    CFRelease(v7);
+  }
+
+  objc_autoreleasePoolPop(v5);
+  return 1;
+}
+
+uint64_t IMDMessageRecordCopyNewestUnreadIncomingMessagesToLimitAfterRowID(int64_t a1, int64_t a2)
+{
+  v24 = *MEMORY[0x1E69E9840];
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
+  v19 = 0;
+  if (IMDIsRunningInDatabaseServerProcess())
+  {
+    MessagesSequenceNumber = IMDMessageRecordGetMessagesSequenceNumber();
+    if ((a2 & ~(a2 >> 63)) <= MessagesSequenceNumber)
+    {
+      v6 = IMDatabaseLogHandle();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 134218240;
+        v21 = a1;
+        v22 = 2048;
+        v23 = a2 & ~(a2 >> 63);
+        _os_log_impl(&dword_1B7AD5000, v6, OS_LOG_TYPE_DEFAULT, "IMDMessageRecordCopyNewestUnreadIncomingMessagesToLimitAfterRowID limit: %lld  rowID: %lld", buf, 0x16u);
+      }
+
+      v7 = @"SELECT m.ROWID, m.guid, m.text, m.replace, m.service_center, m.handle_id, m.subject, m.country, m.attributedBody, m.version, m.type, m.service, m.account, m.account_guid, m.error, m.date, m.date_read, m.date_delivered, m.is_delivered, m.is_finished, m.is_emote, m.is_from_me, m.is_empty, m.is_delayed, m.is_auto_reply, m.is_prepared, m.is_read, m.is_system_message, m.is_sent, m.has_dd_results, m.is_service_message, m.is_forward, m.was_downgraded, m.is_archive, m.cache_has_attachments, m.cache_roomnames, m.was_data_detected, m.was_deduplicated, m.is_audio_message, m.is_played, m.date_played, m.item_type, m.other_handle, m.group_title, m.group_action_type, m.share_status, m.share_direction, m.is_expirable, m.expire_state, m.message_action_type, m.message_source, m.associated_message_guid, m.associated_message_type, m.balloon_bundle_id, m.payload_data, m.expressive_send_style_id, m.associated_message_range_location, m.associated_message_range_length, m.time_expressive_send_played, m.message_summary_info, m.ck_sync_state, m.ck_record_id, m.ck_record_change_tag, m.destination_caller_id, m.is_corrupt, m.reply_to_guid, m.sort_id, m.is_spam, m.has_unseen_mention, m.thread_originator_guid, m.thread_originator_part, m.syndication_ranges, m.synced_syndication_ranges, m.was_delivered_quietly, m.did_notify_recipient, m.date_retracted, m.date_edited, m.date_recovered, m.was_detonated, m.part_count, m.is_stewie, m.is_sos, m.is_critical, m.bia_reference_id, m.is_kt_verified, m.fallback_hash, m.associated_message_emoji, m.is_pending_satellite_send, m.needs_relay, m.schedule_type, m.schedule_state, m.sent_or_received_off_grid, m.is_time_sensitive, m.ck_chat_id FROM message m  INDEXED BY message_idx_isRead_isFromMe_itemType  INNER JOIN chat_message_join cm ON cm.message_id = m.rowid  INNER JOIN chat c ON c.ROWID = cm.chat_id  WHERE m.is_read == 0  AND m.is_finished == 1  AND m.is_from_me == 0  AND m.item_type == 0  AND m.is_system_message == 0  AND c.is_filtered != 2  ORDER BY m.date DESC, m.ROWID DESC LIMIT ?;";
+      v13[0] = MEMORY[0x1E69E9820];
+      if (a2 > 0)
+      {
+        v7 = @"SELECT m.ROWID, m.guid, m.text, m.replace, m.service_center, m.handle_id, m.subject, m.country, m.attributedBody, m.version, m.type, m.service, m.account, m.account_guid, m.error, m.date, m.date_read, m.date_delivered, m.is_delivered, m.is_finished, m.is_emote, m.is_from_me, m.is_empty, m.is_delayed, m.is_auto_reply, m.is_prepared, m.is_read, m.is_system_message, m.is_sent, m.has_dd_results, m.is_service_message, m.is_forward, m.was_downgraded, m.is_archive, m.cache_has_attachments, m.cache_roomnames, m.was_data_detected, m.was_deduplicated, m.is_audio_message, m.is_played, m.date_played, m.item_type, m.other_handle, m.group_title, m.group_action_type, m.share_status, m.share_direction, m.is_expirable, m.expire_state, m.message_action_type, m.message_source, m.associated_message_guid, m.associated_message_type, m.balloon_bundle_id, m.payload_data, m.expressive_send_style_id, m.associated_message_range_location, m.associated_message_range_length, m.time_expressive_send_played, m.message_summary_info, m.ck_sync_state, m.ck_record_id, m.ck_record_change_tag, m.destination_caller_id, m.is_corrupt, m.reply_to_guid, m.sort_id, m.is_spam, m.has_unseen_mention, m.thread_originator_guid, m.thread_originator_part, m.syndication_ranges, m.synced_syndication_ranges, m.was_delivered_quietly, m.did_notify_recipient, m.date_retracted, m.date_edited, m.date_recovered, m.was_detonated, m.part_count, m.is_stewie, m.is_sos, m.is_critical, m.bia_reference_id, m.is_kt_verified, m.fallback_hash, m.associated_message_emoji, m.is_pending_satellite_send, m.needs_relay, m.schedule_type, m.schedule_state, m.sent_or_received_off_grid, m.is_time_sensitive, m.ck_chat_id FROM message m  INDEXED BY message_idx_isRead_isFromMe_itemType  INNER JOIN chat_message_join cm ON cm.message_id = m.rowid  INNER JOIN chat c ON c.ROWID = cm.chat_id  WHERE m.ROWID > ?  AND m.is_read == 0  AND m.is_finished == 1  AND m.is_from_me == 0  AND m.item_type == 0  AND m.is_system_message == 0  AND c.is_filtered != 2  ORDER BY m.date DESC, m.ROWID DESC LIMIT ?;";
+      }
+
+      v8 = @"SELECT m.ROWID, m.guid, m.text, m.replace, m.service_center, m.handle_id, m.subject, m.country, m.attributedBody, m.version, m.type, m.service, m.account, m.account_guid, m.error, m.date, m.date_read, m.date_delivered, m.is_delivered, m.is_finished, m.is_emote, m.is_from_me, m.is_empty, m.is_delayed, m.is_auto_reply, m.is_prepared, m.is_read, m.is_system_message, m.is_sent, m.has_dd_results, m.is_service_message, m.is_forward, m.was_downgraded, m.is_archive, m.cache_has_attachments, m.cache_roomnames, m.was_data_detected, m.was_deduplicated, m.is_audio_message, m.is_played, m.date_played, m.item_type, m.other_handle, m.group_title, m.group_action_type, m.share_status, m.share_direction, m.is_expirable, m.expire_state, m.message_action_type, m.message_source, m.associated_message_guid, m.associated_message_type, m.balloon_bundle_id, m.payload_data, m.expressive_send_style_id, m.associated_message_range_location, m.associated_message_range_length, m.time_expressive_send_played, m.message_summary_info, m.ck_sync_state, m.ck_record_id, m.ck_record_change_tag, m.destination_caller_id, m.is_corrupt, m.reply_to_guid, m.sort_id, m.is_spam, m.has_unseen_mention, m.thread_originator_guid, m.thread_originator_part, m.syndication_ranges, m.synced_syndication_ranges, m.was_delivered_quietly, m.did_notify_recipient, m.date_retracted, m.date_edited, m.date_recovered, m.was_detonated, m.part_count, m.is_stewie, m.is_sos, m.is_critical, m.bia_reference_id, m.is_kt_verified, m.fallback_hash, m.associated_message_emoji, m.is_pending_satellite_send, m.needs_relay, m.schedule_type, m.schedule_state, m.sent_or_received_off_grid, m.is_time_sensitive, m.ck_chat_id FROM message m  INDEXED BY message_idx_isRead_isFromMe_itemType  INNER JOIN chat_message_join cm ON cm.message_id = m.rowid  INNER JOIN chat c ON c.ROWID = cm.chat_id  WHERE m.is_read == 0  AND m.is_finished == 1  AND m.is_from_me == 0  AND m.item_type == 0  AND m.is_system_message == 0  AND c.is_filtered != 2  ORDER BY m.ROWID DESC;";
+      v13[1] = 3221225472;
+      v13[2] = sub_1B7BE1A00;
+      v13[3] = &unk_1E7CBD0B8;
+      v14 = a2 > 0;
+      if (a2 > 0)
+      {
+        v8 = @"SELECT m.ROWID, m.guid, m.text, m.replace, m.service_center, m.handle_id, m.subject, m.country, m.attributedBody, m.version, m.type, m.service, m.account, m.account_guid, m.error, m.date, m.date_read, m.date_delivered, m.is_delivered, m.is_finished, m.is_emote, m.is_from_me, m.is_empty, m.is_delayed, m.is_auto_reply, m.is_prepared, m.is_read, m.is_system_message, m.is_sent, m.has_dd_results, m.is_service_message, m.is_forward, m.was_downgraded, m.is_archive, m.cache_has_attachments, m.cache_roomnames, m.was_data_detected, m.was_deduplicated, m.is_audio_message, m.is_played, m.date_played, m.item_type, m.other_handle, m.group_title, m.group_action_type, m.share_status, m.share_direction, m.is_expirable, m.expire_state, m.message_action_type, m.message_source, m.associated_message_guid, m.associated_message_type, m.balloon_bundle_id, m.payload_data, m.expressive_send_style_id, m.associated_message_range_location, m.associated_message_range_length, m.time_expressive_send_played, m.message_summary_info, m.ck_sync_state, m.ck_record_id, m.ck_record_change_tag, m.destination_caller_id, m.is_corrupt, m.reply_to_guid, m.sort_id, m.is_spam, m.has_unseen_mention, m.thread_originator_guid, m.thread_originator_part, m.syndication_ranges, m.synced_syndication_ranges, m.was_delivered_quietly, m.did_notify_recipient, m.date_retracted, m.date_edited, m.date_recovered, m.was_detonated, m.part_count, m.is_stewie, m.is_sos, m.is_critical, m.bia_reference_id, m.is_kt_verified, m.fallback_hash, m.associated_message_emoji, m.is_pending_satellite_send, m.needs_relay, m.schedule_type, m.schedule_state, m.sent_or_received_off_grid, m.is_time_sensitive, m.ck_chat_id FROM message m  INDEXED BY message_idx_isRead_isFromMe_itemType  INNER JOIN chat_message_join cm ON cm.message_id = m.rowid  INNER JOIN chat c ON c.ROWID = cm.chat_id  WHERE m.ROWID > ?  AND m.is_read == 0  AND m.is_finished == 1  AND m.is_from_me == 0  AND m.item_type == 0  AND m.is_system_message == 0  AND c.is_filtered != 2  ORDER BY m.ROWID DESC;";
+      }
+
+      if (a1 <= 0)
+      {
+        v9 = v8;
+      }
+
+      else
+      {
+        v9 = v7;
+      }
+
+      v15 = a1 > 0;
+      v13[5] = a2 & ~(a2 >> 63);
+      v13[6] = a1;
+      v13[4] = &v16;
+      _IMDPerformLockedStatementBlockWithQuery(v9, v13);
+    }
+
+    else
+    {
+      v5 = IMDatabaseLogHandle();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      {
+        *buf = 134218240;
+        v21 = a2 & ~(a2 >> 63);
+        v22 = 2048;
+        v23 = MessagesSequenceNumber;
+        _os_log_impl(&dword_1B7AD5000, v5, OS_LOG_TYPE_INFO, "The RowID is out of bounds.  We were asked for rows after [%lld] which exceeds the current sequence number [%lld]", buf, 0x16u);
+      }
+    }
+  }
+
+  else
+  {
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = sub_1B7BE1C34;
+    v12[3] = &unk_1E7CB6838;
+    v12[4] = &v16;
+    __syncXPCIMDMessageRecordCopyNewestUnreadIncomingMessagesToLimitAfterRowID_IPCAction(v12, a1, a2);
+  }
+
+  v10 = v17[3];
+  _Block_object_dispose(&v16, 8);
+  return v10;
+}
+
+void sub_1B7BE19D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B7BE1A00(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4)
+{
+  v4 = a1;
+  v20 = *MEMORY[0x1E69E9840];
+  if (*(a1 + 56) == 1)
+  {
+    a1 = CSDBSqliteBindInt();
+  }
+
+  if (*(v4 + 57) == 1)
+  {
+    a1 = CSDBSqliteBindInt();
+  }
+
+  sub_1B7AEAEE4(a1, a2, a3, a4);
+  v5 = CSDBRecordStoreProcessStatement();
+  if (v5)
+  {
+    v6 = v5;
+    Count = CFArrayGetCount(v5);
+    if (Count >= 1)
+    {
+      v8 = IMDatabaseLogHandle();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        v18 = 134217984;
+        v19 = Count;
+        _os_log_impl(&dword_1B7AD5000, v8, OS_LOG_TYPE_DEFAULT, "IMDMessageRecordCopyNewestUnreadIncomingMessagesAfterRowID got back %ld rows", &v18, 0xCu);
+      }
+
+      v9 = *MEMORY[0x1E695E480];
+      Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], Count, MEMORY[0x1E695E9C0]);
+      if (Mutable)
+      {
+        v11 = Mutable;
+        v12 = 0;
+        do
+        {
+          CFArrayGetValueAtIndex(v6, v12);
+          ID = CSDBRecordGetID();
+          v14 = IMDMessageRecordCreateFromRecordIDUnlocked(v9, ID);
+          if (v14)
+          {
+            v17 = v14;
+            CFArrayAppendValue(v11, v14);
+            CFRelease(v17);
+          }
+
+          ++v12;
+        }
+
+        while (Count != v12);
+        if ((*(v4 + 57) & 1) == 0)
+        {
+          objc_msgSend_sortUsingComparator_(v11, v15, &unk_1F2FA1410, v16);
+        }
+
+        *(*(*(v4 + 32) + 8) + 24) = v11;
+      }
+    }
+
+    CFRelease(v6);
+  }
+}
+
+uint64_t sub_1B7BE1BBC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  Date = IMDMessageRecordGetDate(a2, 0, a3, a4);
+  Identifier = IMDMessageRecordGetDate(a3, 0, v7, v8);
+  if (!Date || !Identifier || Date == Identifier)
+  {
+    Date = IMDMessageRecordGetIdentifier(a2);
+    Identifier = IMDMessageRecordGetIdentifier(a3);
+  }
+
+  if (Date > Identifier)
+  {
+    return 1;
+  }
+
+  else
+  {
+    return -1;
+  }
+}
+
+void sub_1B7BE1C34(uint64_t a1, xpc_object_t xdict)
+{
+  v13 = *MEMORY[0x1E69E9840];
+  value = xpc_dictionary_get_value(xdict, "array_result");
+  if (value)
+  {
+    v4 = value;
+    count = xpc_array_get_count(value);
+    v6 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 134217984;
+      v12 = count;
+      _os_log_impl(&dword_1B7AD5000, v6, OS_LOG_TYPE_DEFAULT, "IMDMessageRecordCopyNewestUnreadIncomingMessagesToLimitAfterRowID got back %zu rows from XPC", buf, 0xCu);
+    }
+
+    applier[0] = MEMORY[0x1E69E9820];
+    applier[1] = 3221225472;
+    applier[2] = sub_1B7BE1DBC;
+    applier[3] = &unk_1E7CB6810;
+    applier[4] = *(a1 + 32);
+    xpc_array_apply(v4, applier);
+  }
+
+  v7 = *(*(*(a1 + 32) + 8) + 24);
+  if (v7)
+  {
+    v8 = CFArrayGetCount(v7);
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v9 = IMDatabaseLogHandle();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    LODWORD(v12) = v8;
+    _os_log_impl(&dword_1B7AD5000, v9, OS_LOG_TYPE_DEFAULT, "IMDMessageRecordCopyNewestUnreadIncomingMessagesToLimitAfterRowID got back %d rows after deserialization", buf, 8u);
+  }
+}
+
+uint64_t sub_1B7BE1DBC(uint64_t a1, uint64_t a2, void *a3)
+{
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    *(*(*(a1 + 32) + 8) + 24) = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
+  }
+
+  v5 = _IMDCopyIMDMessageRecordFromXPCObjectClient(a3);
+  if (v5)
+  {
+    v6 = v5;
+    CFArrayAppendValue(*(*(*(a1 + 32) + 8) + 24), v5);
+    CFRelease(v6);
+  }
+
+  return 1;
+}
+
+uint64_t IMDMessageRecordCopyUnreadIncomingMessagesWithChatIdentifiersOnServicesToLimitFallbackGUID(void *a1, void *a2, int64_t a3, uint64_t a4)
+{
+  v35 = *MEMORY[0x1E69E9840];
+  v8 = IMDatabaseMessageEventLogHandle();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  {
+    LODWORD(buf) = 138412290;
+    *(&buf + 4) = a4;
+    _os_log_impl(&dword_1B7AD5000, v8, OS_LOG_TYPE_INFO, "Asked to load up to oldest unread or fallback message: %@", &buf, 0xCu);
+  }
+
+  v12 = objc_msgSend_count(a1, v9, v10, v11);
+  v16 = objc_msgSend_count(a2, v13, v14, v15);
+  v20 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v17, v18, v19);
+  isOneChatEnabled = objc_msgSend_isOneChatEnabled(v20, v21, v22, v23);
+  if (v12 && v16 && v12 == v16)
+  {
+    v25 = isOneChatEnabled;
+    *&buf = 0;
+    *(&buf + 1) = &buf;
+    v33 = 0x2020000000;
+    v34 = 0;
+    if (IMDIsRunningInDatabaseServerProcess())
+    {
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 3221225472;
+      v30[2] = sub_1B7BE2088;
+      v30[3] = &unk_1E7CB7040;
+      v31 = v25 ^ 1;
+      v30[6] = a4;
+      v30[7] = a1;
+      v30[8] = a2;
+      v30[9] = a3;
+      v30[4] = &buf;
+      v30[5] = v12;
+      _IMDPerformLockedDatabaseBlock(v30);
+    }
+
+    else
+    {
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = sub_1B7BE256C;
+      v29[3] = &unk_1E7CB6838;
+      v29[4] = &buf;
+      __syncXPCIMDMessageRecordCopyUnreadIncomingMessagesWithChatIdentifiersOnServicesToLimitFallbackGUID_IPCAction(v29, a3, a1, a2, a4);
+    }
+
+    v27 = *(*(&buf + 1) + 24);
+    _Block_object_dispose(&buf, 8);
+  }
+
+  else
+  {
+    v26 = IMDatabaseLogHandle();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    {
+      sub_1B7CFBF4C();
+    }
+
+    return 0;
+  }
+
+  return v27;
+}
+
+uint64_t sub_1B7BE2088(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v57 = *MEMORY[0x1E69E9840];
+  result = CSDBSqliteDatabaseConnectionForReading();
+  if (result)
+  {
+    CSDBSqliteConnectionBeginTransactionType();
+    if (*(a1 + 80))
+    {
+      v5 = @"SELECT * FROM( SELECT ROWID from(     SELECT m1.ROWID FROM message m1 WHERE m1.GUID = ?    UNION      SELECT m2.ROWID FROM message m2        INNER JOIN chat_message_join cm ON          m2.ROWID = cm.message_id        WHERE cm.chat_id = (SELECT c.rowid FROM chat c WHERE c.chat_identifier = ? AND c.service_name = ?)        AND m2.is_read = 0        AND m2.item_type = 0        AND m2.is_from_me = 0 )) ORDER BY ROWID ASC LIMIT 1;";
+    }
+
+    else
+    {
+      v5 = @"SELECT * FROM( SELECT ROWID from(     SELECT m1.ROWID FROM message m1 WHERE m1.GUID = ?    UNION      SELECT m2.ROWID FROM message m2        INNER JOIN chat_message_join cm ON          m2.ROWID = cm.message_id        WHERE cm.chat_id = (SELECT c.rowid FROM chat c WHERE c.chat_identifier = ?)        AND m2.is_read = 0        AND m2.item_type = 0        AND m2.is_from_me = 0 )) ORDER BY ROWID ASC LIMIT 1;";
+    }
+
+    v6 = CSDBSqliteDatabaseStatementForWriting();
+    if (v6 && *(v6 + 8) && *(a1 + 40))
+    {
+      cf = v5;
+      v7 = 0;
+      v8 = 0;
+      do
+      {
+        CSDBSqliteBindTextFromCFString();
+        CFArrayGetValueAtIndex(*(a1 + 56), v8);
+        CSDBSqliteBindTextFromCFString();
+        if (*(a1 + 80) == 1)
+        {
+          CFArrayGetValueAtIndex(*(a1 + 64), v8);
+          CSDBSqliteBindTextFromCFString();
+        }
+
+        v9 = CSDBSqliteStatementInteger64Result();
+        if (!v9)
+        {
+          v10 = IMDatabaseMessageEventLogHandle();
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+          {
+            v11 = *(a1 + 48);
+            *buf = 138412546;
+            v54 = v11;
+            v55 = 1024;
+            v56 = 0;
+            _os_log_impl(&dword_1B7AD5000, v10, OS_LOG_TYPE_INFO, "Query failed to look up message for guid: %@ error: %d", buf, 0x12u);
+          }
+        }
+
+        if (!v7 || v9 >= 1 && v9 < v7)
+        {
+          v7 = v9;
+        }
+
+        v12 = IMDatabaseLogHandle();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        {
+          *buf = 134217984;
+          v54 = v7;
+          _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_INFO, "Final adjusted row ID: %lld", buf, 0xCu);
+        }
+
+        CSDBSqliteStatementReset();
+        ++v8;
+      }
+
+      while (v8 < *(a1 + 40));
+      v5 = cf;
+    }
+
+    CFRelease(v5);
+    if (*(a1 + 80))
+    {
+      v13 = @"SELECT m.ROWID, m.guid, m.text, m.replace, m.service_center, m.handle_id, m.subject, m.country, m.attributedBody, m.version, m.type, m.service, m.account, m.account_guid, m.error, m.date, m.date_read, m.date_delivered, m.is_delivered, m.is_finished, m.is_emote, m.is_from_me, m.is_empty, m.is_delayed, m.is_auto_reply, m.is_prepared, m.is_read, m.is_system_message, m.is_sent, m.has_dd_results, m.is_service_message, m.is_forward, m.was_downgraded, m.is_archive, m.cache_has_attachments, m.cache_roomnames, m.was_data_detected, m.was_deduplicated, m.is_audio_message, m.is_played, m.date_played, m.item_type, m.other_handle, m.group_title, m.group_action_type, m.share_status, m.share_direction, m.is_expirable, m.expire_state, m.message_action_type, m.message_source, m.associated_message_guid, m.associated_message_type, m.balloon_bundle_id, m.payload_data, m.expressive_send_style_id, m.associated_message_range_location, m.associated_message_range_length, m.time_expressive_send_played, m.message_summary_info, m.ck_sync_state, m.ck_record_id, m.ck_record_change_tag, m.destination_caller_id, m.is_corrupt, m.reply_to_guid, m.sort_id, m.is_spam, m.has_unseen_mention, m.thread_originator_guid, m.thread_originator_part, m.syndication_ranges, m.synced_syndication_ranges, m.was_delivered_quietly, m.did_notify_recipient, m.date_retracted, m.date_edited, m.date_recovered, m.was_detonated, m.part_count, m.is_stewie, m.is_sos, m.is_critical, m.bia_reference_id, m.is_kt_verified, m.fallback_hash, m.associated_message_emoji, m.is_pending_satellite_send, m.needs_relay, m.schedule_type, m.schedule_state, m.sent_or_received_off_grid, m.is_time_sensitive, m.ck_chat_id FROM message m INNER JOIN chat_message_join cm ON   m.ROWID = cm.message_id WHERE cm.chat_id = (SELECT c.rowid FROM chat c WHERE c.chat_identifier = ? AND c.service_name = ?) AND m.ROWID >= ? AND m.item_type == 0  AND m.is_read == 0 ORDER BY cm.chat_id, cm.message_id DESC LIMIT ?;";
+    }
+
+    else
+    {
+      v13 = @"SELECT m.ROWID, m.guid, m.text, m.replace, m.service_center, m.handle_id, m.subject, m.country, m.attributedBody, m.version, m.type, m.service, m.account, m.account_guid, m.error, m.date, m.date_read, m.date_delivered, m.is_delivered, m.is_finished, m.is_emote, m.is_from_me, m.is_empty, m.is_delayed, m.is_auto_reply, m.is_prepared, m.is_read, m.is_system_message, m.is_sent, m.has_dd_results, m.is_service_message, m.is_forward, m.was_downgraded, m.is_archive, m.cache_has_attachments, m.cache_roomnames, m.was_data_detected, m.was_deduplicated, m.is_audio_message, m.is_played, m.date_played, m.item_type, m.other_handle, m.group_title, m.group_action_type, m.share_status, m.share_direction, m.is_expirable, m.expire_state, m.message_action_type, m.message_source, m.associated_message_guid, m.associated_message_type, m.balloon_bundle_id, m.payload_data, m.expressive_send_style_id, m.associated_message_range_location, m.associated_message_range_length, m.time_expressive_send_played, m.message_summary_info, m.ck_sync_state, m.ck_record_id, m.ck_record_change_tag, m.destination_caller_id, m.is_corrupt, m.reply_to_guid, m.sort_id, m.is_spam, m.has_unseen_mention, m.thread_originator_guid, m.thread_originator_part, m.syndication_ranges, m.synced_syndication_ranges, m.was_delivered_quietly, m.did_notify_recipient, m.date_retracted, m.date_edited, m.date_recovered, m.was_detonated, m.part_count, m.is_stewie, m.is_sos, m.is_critical, m.bia_reference_id, m.is_kt_verified, m.fallback_hash, m.associated_message_emoji, m.is_pending_satellite_send, m.needs_relay, m.schedule_type, m.schedule_state, m.sent_or_received_off_grid, m.is_time_sensitive, m.ck_chat_id FROM message m INNER JOIN chat_message_join cm ON   m.ROWID = cm.message_id WHERE cm.chat_id = (SELECT c.rowid FROM chat c WHERE c.chat_identifier = ?) AND m.ROWID >= ? AND m.item_type == 0  AND m.is_read == 0 ORDER BY cm.chat_id, cm.message_id DESC LIMIT ?;";
+    }
+
+    v14 = CSDBSqliteDatabaseStatementForWriting();
+    if (v14 && *(v14 + 8))
+    {
+      v52 = v13;
+      v15 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+      if (*(a1 + 40))
+      {
+        v16 = 0;
+        do
+        {
+          CFArrayGetValueAtIndex(*(a1 + 56), v16);
+          CSDBSqliteBindTextFromCFString();
+          if (*(a1 + 80) == 1)
+          {
+            CFArrayGetValueAtIndex(*(a1 + 64), v16);
+            CSDBSqliteBindTextFromCFString();
+          }
+
+          CSDBSqliteBindInt();
+          v17 = CSDBSqliteBindInt();
+          sub_1B7AEAEE4(v17, v18, v19, v20);
+          v21 = CSDBRecordStoreProcessStatement();
+          if (v21)
+          {
+            v22 = v21;
+            if (CFArrayGetCount(v21) && CFArrayGetCount(v22) >= 1)
+            {
+              v23 = 0;
+              do
+              {
+                CFArrayGetValueAtIndex(v22, v23);
+                v24 = objc_alloc(MEMORY[0x1E696AD98]);
+                ID = CSDBRecordGetID();
+                v30 = objc_msgSend_initWithInteger_(v24, v26, ID, v27);
+                if (v30)
+                {
+                  objc_msgSend_addObject_(v15, v28, v30, v29);
+                }
+
+                ++v23;
+              }
+
+              while (v23 < CFArrayGetCount(v22));
+            }
+
+            CFRelease(v22);
+          }
+
+          CSDBSqliteStatementReset();
+          ++v16;
+        }
+
+        while (v16 < *(a1 + 40));
+      }
+
+      v31 = objc_autoreleasePoolPush();
+      v35 = objc_msgSend_allObjects(v15, v32, v33, v34);
+      *(*(*(a1 + 32) + 8) + 24) = objc_msgSend_sortedArrayUsingComparator_(v35, v36, &unk_1F2FA1430, v37);
+      objc_autoreleasePoolPop(v31);
+
+      v38 = *(*(*(a1 + 32) + 8) + 24);
+      v13 = v52;
+      if (v38)
+      {
+        Count = CFArrayGetCount(v38);
+        if (Count << 32)
+        {
+          v40 = Count;
+          v41 = *MEMORY[0x1E695E480];
+          Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], Count, MEMORY[0x1E695E9C0]);
+          if (v40 >= 1)
+          {
+            for (i = 0; i != v40; ++i)
+            {
+              if (*(a1 + 72) <= i)
+              {
+                break;
+              }
+
+              ValueAtIndex = CFArrayGetValueAtIndex(*(*(*(a1 + 32) + 8) + 24), i);
+              v48 = objc_msgSend_integerValue(ValueAtIndex, v45, v46, v47);
+              v49 = IMDMessageRecordCreateFromRecordIDUnlocked(v41, v48);
+              if (v49)
+              {
+                v50 = v49;
+                CFArrayAppendValue(Mutable, v49);
+                CFRelease(v50);
+              }
+            }
+          }
+
+          CFRelease(*(*(*(a1 + 32) + 8) + 24));
+          *(*(*(a1 + 32) + 8) + 24) = Mutable;
+        }
+      }
+    }
+
+    CFRelease(v13);
+    CSDBSqliteConnectionCommit();
+    return CSDBSqliteDatabaseReleaseSqliteConnection();
+  }
+
+  return result;
+}
+
+xpc_object_t sub_1B7BE256C(uint64_t a1, xpc_object_t xdict)
+{
+  result = xpc_dictionary_get_value(xdict, "array_result");
+  if (result)
+  {
+    applier[0] = MEMORY[0x1E69E9820];
+    applier[1] = 3221225472;
+    applier[2] = sub_1B7BE2600;
+    applier[3] = &unk_1E7CB6810;
+    applier[4] = *(a1 + 32);
+    return xpc_array_apply(result, applier);
+  }
+
+  return result;
+}
+
+uint64_t sub_1B7BE2600(uint64_t a1, uint64_t a2, void *a3)
+{
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    *(*(*(a1 + 32) + 8) + 24) = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
+  }
+
+  v5 = _IMDCopyIMDMessageRecordFromXPCObjectClient(a3);
+  if (v5)
+  {
+    v6 = v5;
+    CFArrayAppendValue(*(*(*(a1 + 32) + 8) + 24), v5);
+    CFRelease(v6);
+  }
+
+  return 1;
+}
+
+uint64_t IMDMessageRecordCopyNewestFailedOutgoingMessagesToLimitAfterDate(int64_t a1, int64_t a2)
+{
+  v20 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  if (IMDIsRunningInDatabaseServerProcess())
+  {
+    MostRecentMessageDate = IMDMessageRecordGetMostRecentMessageDate();
+    v5 = a2 & ~(a2 >> 63);
+    if (v5 <= MostRecentMessageDate)
+    {
+      v7 = IMDatabaseLogHandle();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 134218240;
+        v17 = a1;
+        v18 = 2048;
+        v19 = v5;
+        _os_log_impl(&dword_1B7AD5000, v7, OS_LOG_TYPE_DEFAULT, "IMDMessageRecordCopyNewestFailedOutgoingMessagesToLimitAfterDate limit: %lld  date: %lld", buf, 0x16u);
+      }
+
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = sub_1B7BE28D4;
+      v11[3] = &unk_1E7CB7548;
+      v11[5] = v5;
+      v11[6] = a1;
+      v11[4] = &v12;
+      _IMDPerformLockedStatementBlockWithQuery(@"SELECT ROWID, guid, text, replace, service_center, handle_id, subject, country, attributedBody, version, type, service, account, account_guid, error, date, date_read, date_delivered, is_delivered, is_finished, is_emote, is_from_me, is_empty, is_delayed, is_auto_reply, is_prepared, is_read, is_system_message, is_sent, has_dd_results, is_service_message, is_forward, was_downgraded, is_archive, cache_has_attachments, cache_roomnames, was_data_detected, was_deduplicated, is_audio_message, is_played, date_played, item_type, other_handle, group_title, group_action_type, share_status, share_direction, is_expirable, expire_state, message_action_type, message_source, associated_message_guid, associated_message_type, balloon_bundle_id, payload_data, expressive_send_style_id, associated_message_range_location, associated_message_range_length, time_expressive_send_played, message_summary_info, ck_sync_state, ck_record_id, ck_record_change_tag, destination_caller_id, is_corrupt, reply_to_guid, sort_id, is_spam, has_unseen_mention, thread_originator_guid, thread_originator_part, syndication_ranges, synced_syndication_ranges, was_delivered_quietly, did_notify_recipient, date_retracted, date_edited, date_recovered, was_detonated, part_count, is_stewie, is_sos, is_critical, bia_reference_id, is_kt_verified, fallback_hash, associated_message_emoji, is_pending_satellite_send, needs_relay, schedule_type, schedule_state, sent_or_received_off_grid, is_time_sensitive, ck_chat_id FROM message WHERE date > ?   AND item_type == 0   AND error != 0   AND is_from_me == 1   AND is_finished == 1 ORDER BY date DESC, ROWID DESC LIMIT ?;", v11);
+    }
+
+    else
+    {
+      v6 = IMDatabaseLogHandle();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      {
+        *buf = 134218240;
+        v17 = a2 & ~(a2 >> 63);
+        v18 = 2048;
+        v19 = MostRecentMessageDate;
+        _os_log_impl(&dword_1B7AD5000, v6, OS_LOG_TYPE_INFO, "The date is out of bounds.  We were asked for rows after date: [%lld] which exceeds the most recent message [%lld]", buf, 0x16u);
+      }
+    }
+  }
+
+  else
+  {
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = sub_1B7BE2A08;
+    v10[3] = &unk_1E7CB6838;
+    v10[4] = &v12;
+    __syncXPCIMDMessageRecordCopyNewestFailedOutgoingMessagesToLimitAfterDate_IPCAction(v10, a1, a2);
+  }
+
+  v8 = v13[3];
+  _Block_object_dispose(&v12, 8);
+  return v8;
+}
+
+void sub_1B7BE28AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B7BE28D4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  CSDBSqliteBindInt64();
+  v5 = CSDBSqliteBindInt64();
+  sub_1B7AEAEE4(v5, v6, v7, v8);
+  v9 = CSDBRecordStoreProcessStatement();
+  if (v9)
+  {
+    v10 = v9;
+    Count = CFArrayGetCount(v9);
+    if (Count >= 1)
+    {
+      v12 = *MEMORY[0x1E695E480];
+      Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], Count, MEMORY[0x1E695E9C0]);
+      if (Mutable)
+      {
+        v14 = Mutable;
+        for (i = 0; i != Count; ++i)
+        {
+          CFArrayGetValueAtIndex(v10, i);
+          ID = CSDBRecordGetID();
+          v17 = IMDMessageRecordCreateFromRecordIDUnlocked(v12, ID);
+          if (v17)
+          {
+            v18 = v17;
+            CFArrayAppendValue(v14, v17);
+            CFRelease(v18);
+          }
+        }
+
+        *(*(a1[4] + 8) + 24) = v14;
+      }
+    }
+
+    CFRelease(v10);
+  }
+}
+
+xpc_object_t sub_1B7BE2A08(uint64_t a1, xpc_object_t xdict)
+{
+  result = xpc_dictionary_get_value(xdict, "array_result");
+  if (result)
+  {
+    applier[0] = MEMORY[0x1E69E9820];
+    applier[1] = 3221225472;
+    applier[2] = sub_1B7BE2A9C;
+    applier[3] = &unk_1E7CB6810;
+    applier[4] = *(a1 + 32);
+    return xpc_array_apply(result, applier);
+  }
+
+  return result;
+}
+
+uint64_t sub_1B7BE2A9C(uint64_t a1, uint64_t a2, void *a3)
+{
+  if (!*(*(*(a1 + 32) + 8) + 24))
+  {
+    *(*(*(a1 + 32) + 8) + 24) = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
+  }
+
+  v5 = _IMDCopyIMDMessageRecordFromXPCObjectClient(a3);
+  if (v5)
+  {
+    v6 = v5;
+    CFArrayAppendValue(*(*(*(a1 + 32) + 8) + 24), v5);
+    CFRelease(v6);
+  }
+
+  return 1;
+}
+
+uint64_t IMDMessageRecordCopyMessagesDataDetectionResults(int64_t a1, int64_t a2)
+{
+  v20 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  if (IMDIsRunningInDatabaseServerProcess())
+  {
+    MessagesSequenceNumber = IMDMessageRecordGetMessagesSequenceNumber();
+    v5 = a2 & ~(a2 >> 63);
+    if (v5 <= MessagesSequenceNumber)
+    {
+      if (IMOSLoggingEnabled())
+      {
+        v7 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 134218240;
+          v17 = a1;
+          v18 = 2048;
+          v19 = v5;
+          _os_log_impl(&dword_1B7AD5000, v7, OS_LOG_TYPE_DEBUG, "IMDMessageRecordCopyMessagesDataDetectionResults limit: %lld  rowID: %lld", buf, 0x16u);
+        }
+      }
+
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = sub_1B7BE2D98;
+      v11[3] = &unk_1E7CB7548;
+      v11[5] = v5;
+      v11[6] = a1;
+      v11[4] = &v12;
+      _IMDPerformLockedStatementBlockWithQuery(@"SELECT ROWID, guid, text, replace, service_center, handle_id, subject, country, attributedBody, version, type, service, account, account_guid, error, date, date_read, date_delivered, is_delivered, is_finished, is_emote, is_from_me, is_empty, is_delayed, is_auto_reply, is_prepared, is_read, is_system_message, is_sent, has_dd_results, is_service_message, is_forward, was_downgraded, is_archive, cache_has_attachments, cache_roomnames, was_data_detected, was_deduplicated, is_audio_message, is_played, date_played, item_type, other_handle, group_title, group_action_type, share_status, share_direction, is_expirable, expire_state, message_action_type, message_source, associated_message_guid, associated_message_type, balloon_bundle_id, payload_data, expressive_send_style_id, associated_message_range_location, associated_message_range_length, time_expressive_send_played, message_summary_info, ck_sync_state, ck_record_id, ck_record_change_tag, destination_caller_id, is_corrupt, reply_to_guid, sort_id, is_spam, has_unseen_mention, thread_originator_guid, thread_originator_part, syndication_ranges, synced_syndication_ranges, was_delivered_quietly, did_notify_recipient, date_retracted, date_edited, date_recovered, was_detonated, part_count, is_stewie, is_sos, is_critical, bia_reference_id, is_kt_verified, fallback_hash, associated_message_emoji, is_pending_satellite_send, needs_relay, schedule_type, schedule_state, sent_or_received_off_grid, is_time_sensitive, ck_chat_id FROM message WHERE ROWID > ?   AND item_type == 0   AND has_dd_results == 1 ORDER BY ROWID DESC LIMIT ?;", v11);
+    }
+
+    else
+    {
+      v6 = IMDatabaseLogHandle();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      {
+        *buf = 134218240;
+        v17 = a2 & ~(a2 >> 63);
+        v18 = 2048;
+        v19 = MessagesSequenceNumber;
+        _os_log_impl(&dword_1B7AD5000, v6, OS_LOG_TYPE_INFO, "The RowID is out of bounds.  We were asked for rows after [%lld] which exceeds the current sequence number [%lld]", buf, 0x16u);
+      }
+    }
+  }
+
+  else
+  {
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = sub_1B7BE2ECC;
+    v10[3] = &unk_1E7CB6838;
+    v10[4] = &v12;
+    __syncXPCIMDMessageRecordCopyMessagesDataDetectionResults_IPCAction(v10, a1, a2);
+  }
+
+  v8 = v13[3];
+  _Block_object_dispose(&v12, 8);
+  return v8;
+}
+
+void sub_1B7BE2D98(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  CSDBSqliteBindInt();
+  v5 = CSDBSqliteBindInt();
+  sub_1B7AEAEE4(v5, v6, v7, v8);
+  v9 = CSDBRecordStoreProcessStatement();
+  if (v9)
+  {
+    v10 = v9;
+    Count = CFArrayGetCount(v9);
+    if (Count >= 1)
+    {
+      v12 = *MEMORY[0x1E695E480];
+      Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], Count, MEMORY[0x1E695E9C0]);
+      if (Mutable)
+      {
+        v14 = Mutable;
+        for (i = 0; i != Count; ++i)
+        {
+          CFArrayGetValueAtIndex(v10, i);
+          ID = CSDBRecordGetID();
+          v17 = IMDMessageRecordCreateFromRecordIDUnlocked(v12, ID);
+          if (v17)
+          {
+            v18 = v17;
+            CFArrayAppendValue(v14, v17);
+            CFRelease(v18);
+          }
+        }
+
+        *(*(*(a1 + 32) + 8) + 24) = v14;
+      }
+    }
+
+    CFRelease(v10);
+  }
 }

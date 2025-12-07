@@ -3,7 +3,6 @@
 - (_OUFrame)initWithFrame:(id)frame;
 - (__CVBuffer)GetSceneColorBufferBGRA;
 - (__n128)initWithSceneYUV:(__n128)v sceneDepth:(__n128)depth referenceOriginTranform:(__n128)tranform OUCamera:(uint64_t)camera;
-- (__n128)referenceOriginTransform;
 - (__n128)setReferenceOriginTransform:(__n128)transform;
 - (__n64)GetSceneRgbToDepthRatio;
 - (double)GetCameraPoseInVisionWorld;
@@ -22,11 +21,11 @@
 
 - (_OUFrame)initWithFrame:(id)frame
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   frameCopy = frame;
-  v24.receiver = self;
-  v24.super_class = _OUFrame;
-  v5 = [(_OUFrame *)&v24 init];
+  v25.receiver = self;
+  v25.super_class = _OUFrame;
+  v5 = [(_OUFrame *)&v25 init];
   if (v5)
   {
     [frameCopy timestamp];
@@ -50,45 +49,45 @@
     v5->_sceneDepthConfidenceBuffer = CVPixelBufferRetain([frameCopy sceneDepthConfidenceBuffer]);
     v5->_semanticLabelBuffer = CVPixelBufferRetain([frameCopy semanticLabelBuffer]);
     v5->_semanticConfidenceBuffer = CVPixelBufferRetain([frameCopy semanticConfidenceBuffer]);
-    v5->_deviceOrientation = [frameCopy deviceOrientation];
+    deviceOrientation = [frameCopy deviceOrientation];
+    v5->_deviceOrientation = deviceOrientation;
     v5->_semanticLabelBufferOnWideCamera = 0;
     v5->sceneColorBufferBGRA = 0;
-    v15 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v17 = _OULoggingGetOSLogForCategoryObjectUnderstanding(deviceOrientation, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       Width = CVPixelBufferGetWidth(v5->_colorBuffer);
       Height = CVPixelBufferGetHeight(v5->_colorBuffer);
-      v20 = CVPixelBufferGetWidth(v5->_sceneDepthBuffer);
-      v21 = CVPixelBufferGetHeight(v5->_sceneDepthBuffer);
-      v22 = CVPixelBufferGetWidth(v5->_semanticLabelBuffer);
-      v23 = CVPixelBufferGetHeight(v5->_semanticLabelBuffer);
+      v21 = CVPixelBufferGetWidth(v5->_sceneDepthBuffer);
+      v22 = CVPixelBufferGetHeight(v5->_sceneDepthBuffer);
+      v23 = CVPixelBufferGetWidth(v5->_semanticLabelBuffer);
+      v24 = CVPixelBufferGetHeight(v5->_semanticLabelBuffer);
       *buf = 134219264;
-      v26 = Width;
-      v27 = 2048;
-      v28 = Height;
-      v29 = 2048;
-      v30 = v20;
-      v31 = 2048;
-      v32 = v21;
-      v33 = 2048;
-      v34 = v22;
-      v35 = 2048;
-      v36 = v23;
-      _os_log_debug_impl(&dword_25D1DB000, v15, OS_LOG_TYPE_DEBUG, "The input arframe has rgb-image (%zu x %zu), sem-depth (%zu, %zu), sem (%zu, %zu)", buf, 0x3Eu);
+      v27 = Width;
+      v28 = 2048;
+      v29 = Height;
+      v30 = 2048;
+      v31 = v21;
+      v32 = 2048;
+      v33 = v22;
+      v34 = 2048;
+      v35 = v23;
+      v36 = 2048;
+      v37 = v24;
+      _os_log_debug_impl(&dword_25D1DB000, v17, OS_LOG_TYPE_DEBUG, "The input arframe has rgb-image (%zu x %zu), sem-depth (%zu, %zu), sem (%zu, %zu)", buf, 0x3Eu);
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (_OUFrame)initWithDictionary:(id)dictionary
 {
-  v103[1] = *MEMORY[0x277D85DE8];
+  v102[1] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v101.receiver = self;
-  v101.super_class = _OUFrame;
-  v5 = [(_OUFrame *)&v101 init];
+  v100.receiver = self;
+  v100.super_class = _OUFrame;
+  v5 = [(_OUFrame *)&v100 init];
   if (!v5)
   {
     goto LABEL_36;
@@ -147,9 +146,9 @@
     *(v5 + 5) = v24;
   }
 
-  v102 = *MEMORY[0x277CC4DE8];
-  v103[0] = MEMORY[0x277CBEC10];
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v103 forKeys:&v102 count:1];
+  v101 = *MEMORY[0x277CC4DE8];
+  v102[0] = MEMORY[0x277CBEC10];
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v102 forKeys:&v101 count:1];
   v27 = [dictionaryCopy objectForKeyedSubscript:@"color_buffer"];
   v28 = v27 == 0;
 
@@ -341,7 +340,6 @@ LABEL_33:
   v94 = 0;
 LABEL_37:
 
-  v99 = *MEMORY[0x277D85DE8];
   return v94;
 }
 
@@ -414,10 +412,10 @@ LABEL_37:
 
 - (double)GetCameraPoseInVisionWorld
 {
-  v18 = ARKit_VW_RW;
-  v20 = *algn_28155B050;
-  v14 = unk_28155B070;
-  v16 = xmmword_28155B060;
+  v18 = *ARKit_VW_RW;
+  v20 = *&ARKit_VW_RW[16];
+  v14 = *&ARKit_VW_RW[48];
+  v16 = *&ARKit_VW_RW[32];
   v27 = __invert_f4(*(self + 112));
   v2 = 0;
   v22 = v27;
@@ -463,10 +461,10 @@ LABEL_37:
 
 - (double)GetSceneCameraPoseInVisionWorld
 {
-  v18 = ARKit_VW_RW;
-  v20 = *algn_28155B050;
-  v14 = unk_28155B070;
-  v16 = xmmword_28155B060;
+  v18 = *ARKit_VW_RW;
+  v20 = *&ARKit_VW_RW[16];
+  v14 = *&ARKit_VW_RW[48];
+  v16 = *&ARKit_VW_RW[32];
   v27 = __invert_f4(*(self + 112));
   v2 = 0;
   v22 = v27;
@@ -573,10 +571,11 @@ LABEL_37:
   result = self->sceneColorBufferBGRA;
   if (!result)
   {
-    if (utils::ConvertColor420fTo32BGRA(self->_sceneColorBuffer, p_sceneColorBufferBGRA, v2))
+    v6 = utils::ConvertColor420fTo32BGRA(self->_sceneColorBuffer, p_sceneColorBufferBGRA, v2);
+    if (v6)
     {
-      v6 = _OULoggingGetOSLogForCategoryObjectUnderstanding();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = _OULoggingGetOSLogForCategoryObjectUnderstanding(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [_OUFrame GetSceneColorBufferBGRA];
       }
@@ -589,15 +588,6 @@ LABEL_37:
     return *p_sceneColorBufferBGRA;
   }
 
-  return result;
-}
-
-- (__n128)referenceOriginTransform
-{
-  result = *(self + 112);
-  v2 = *(self + 128);
-  v3 = *(self + 144);
-  v4 = *(self + 160);
   return result;
 }
 

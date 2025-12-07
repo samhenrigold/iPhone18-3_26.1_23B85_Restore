@@ -21,68 +21,66 @@
 
 - (void)extendSelectorInfoWithProtocol:(id)protocol bases:(id)bases
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   protocolCopy = protocol;
   basesCopy = bases;
   if ((sub_1DF807F18(protocolCopy, basesCopy) & 1) == 0)
   {
-    v7 = sub_1DF80C018();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v6 = sub_1DF80C018();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       *buf = 68290051;
-      v12 = 2082;
-      v13 = &unk_1DF8255EF;
-      v14 = 2114;
-      v15 = protocolCopy;
-      v16 = 2114;
-      v17 = basesCopy;
-      v18 = 2082;
-      v19 = "assert";
-      v20 = 2081;
-      v21 = "__objc_no";
-      _os_log_impl(&dword_1DF7FE000, v7, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Selector extension failed!, proto:%{public, location:escape_only}@, bases:%{public, location:escape_only}@, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
+      v11 = 2082;
+      v12 = &unk_1DF8255EF;
+      v13 = 2114;
+      v14 = protocolCopy;
+      v15 = 2114;
+      v16 = basesCopy;
+      v17 = 2082;
+      v18 = "assert";
+      v19 = 2081;
+      v20 = "__objc_no";
+      _os_log_impl(&dword_1DF7FE000, v6, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Selector extension failed!, proto:%{public, location:escape_only}@, bases:%{public, location:escape_only}@, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
+    }
+
+    v7 = sub_1DF80C018();
+    if (os_signpost_enabled(v7))
+    {
+      *buf = 68290051;
+      v11 = 2082;
+      v12 = &unk_1DF8255EF;
+      v13 = 2114;
+      v14 = protocolCopy;
+      v15 = 2114;
+      v16 = basesCopy;
+      v17 = 2082;
+      v18 = "assert";
+      v19 = 2081;
+      v20 = "__objc_no";
+      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Selector extension failed!", "{msg%{public}.0s:Selector extension failed!, proto:%{public, location:escape_only}@, bases:%{public, location:escape_only}@, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
     }
 
     v8 = sub_1DF80C018();
-    if (os_signpost_enabled(v8))
-    {
-      *buf = 68290051;
-      v12 = 2082;
-      v13 = &unk_1DF8255EF;
-      v14 = 2114;
-      v15 = protocolCopy;
-      v16 = 2114;
-      v17 = basesCopy;
-      v18 = 2082;
-      v19 = "assert";
-      v20 = 2081;
-      v21 = "__objc_no";
-      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Selector extension failed!", "{msg%{public}.0s:Selector extension failed!, proto:%{public, location:escape_only}@, bases:%{public, location:escape_only}@, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
-    }
-
-    v9 = sub_1DF80C018();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 68290051;
       *&buf[4] = 0;
-      v12 = 2082;
-      v13 = &unk_1DF8255EF;
-      v14 = 2114;
-      v15 = protocolCopy;
-      v16 = 2114;
-      v17 = basesCopy;
-      v18 = 2082;
-      v19 = "assert";
-      v20 = 2081;
-      v21 = "__objc_no";
-      _os_log_impl(&dword_1DF7FE000, v9, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Selector extension failed!, proto:%{public, location:escape_only}@, bases:%{public, location:escape_only}@, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
+      v11 = 2082;
+      v12 = &unk_1DF8255EF;
+      v13 = 2114;
+      v14 = protocolCopy;
+      v15 = 2114;
+      v16 = basesCopy;
+      v17 = 2082;
+      v18 = "assert";
+      v19 = 2081;
+      v20 = "__objc_no";
+      _os_log_impl(&dword_1DF7FE000, v8, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Selector extension failed!, proto:%{public, location:escape_only}@, bases:%{public, location:escape_only}@, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLIntersiloInterface.mm", 330, "[CLIntersiloInterface extendSelectorInfoWithProtocol:bases:]");
     __break(1u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getInfoForSelector:(SEL)selector

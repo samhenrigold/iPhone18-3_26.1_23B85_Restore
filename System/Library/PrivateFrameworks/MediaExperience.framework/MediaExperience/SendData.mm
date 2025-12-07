@@ -56,38 +56,35 @@ uint64_t __endpointAggregate_SendData_block_invoke(void *a1, uint64_t a2)
   v5 = a1[5];
   v6 = a1[6];
   v7 = a1[7];
-  VTable = CMBaseObjectGetVTable();
-  v9 = *(*(VTable + 24) + 96);
-  if (!v9)
+  v8 = *(*(CMBaseObjectGetVTable() + 24) + 96);
+  if (!v8)
   {
     return 4294954514;
   }
 
-  v10 = *(VTable + 24) + 96;
-
-  return v9(v3, v4, v5, v6, v7);
+  return v8(v3, v4, v5, v6, v7);
 }
 
-uint64_t __central_SendData_block_invoke(uint64_t a1)
+uint64_t __central_SendData_block_invoke()
 {
-  OUTLINED_FUNCTION_1_4(a1);
-  if (v2)
+  OUTLINED_FUNCTION_1_4();
+  if (v1)
   {
-    v10 = 4294954511;
+    v4 = 4294954511;
   }
 
-  else if (v1[6] && (v3 = v1[7], v4 = v1[8], v5 = v1[9], v6 = v1[10], v7 = v1[6], *(*(CMBaseObjectGetVTable() + 24) + 96)))
+  else if (*(v0 + 48) && *(*(CMBaseObjectGetVTable() + 24) + 96))
   {
-    v8 = OUTLINED_FUNCTION_2_3();
-    v10 = v9(v8);
+    v2 = OUTLINED_FUNCTION_2_3();
+    v4 = v3(v2);
   }
 
   else
   {
-    v10 = 4294954514;
+    v4 = 4294954514;
   }
 
-  return OUTLINED_FUNCTION_0_3(v10);
+  return OUTLINED_FUNCTION_0_3(v4);
 }
 
 @end

@@ -361,7 +361,7 @@ uint64_t __56__CPSDaemonConnection_didDetermineAvailability_options___block_invo
   dispatch_async(connectionQueue, v4);
 }
 
-uint64_t __46__CPSDaemonConnection_didFinishTestingAtTime___block_invoke(uint64_t a1)
+void *__46__CPSDaemonConnection_didFinishTestingAtTime___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 32) usedByPPT];
   if (result)
@@ -403,47 +403,46 @@ uint64_t __46__CPSDaemonConnection_didFinishTestingAtTime___block_invoke(uint64_
   dispatch_async(connectionQueue, v7);
 }
 
-void __44__CPSDaemonConnection_registerSessionProxy___block_invoke(uint64_t a1)
+void __44__CPSDaemonConnection_registerSessionProxy___block_invoke(char *a1, uint64_t a2)
 {
+  v2 = a1;
   v13 = *MEMORY[0x277D85DE8];
-  v2 = (a1 + 32);
-  if (*(*(a1 + 32) + 32))
+  v3 = (a1 + 32);
+  if (*(*(a1 + 4) + 32))
   {
-    v3 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = CPS_LOG_CHANNEL_PREFIXClipServices(a1, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __44__CPSDaemonConnection_registerSessionProxy___block_invoke_cold_1(v2, a1, v3);
+      __44__CPSDaemonConnection_registerSessionProxy___block_invoke_cold_1(v3, v2, v4);
     }
 
-    [*v2 unregisterSessionProxy:*(*v2 + 4)];
+    a1 = [*v3 unregisterSessionProxy:*(*v3 + 4)];
   }
 
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = *(a1 + 40);
+    v6 = *(v2 + 5);
     v11 = 134217984;
-    v12 = v5;
-    _os_log_impl(&dword_2436ED000, v4, OS_LOG_TYPE_INFO, "registerSessionProxy: Registering new session proxy (%p)", &v11, 0xCu);
+    v12 = v6;
+    _os_log_impl(&dword_2436ED000, v5, OS_LOG_TYPE_INFO, "registerSessionProxy: Registering new session proxy (%p)", &v11, 0xCu);
   }
 
-  objc_storeStrong((*(a1 + 32) + 32), *(a1 + 40));
-  v6 = [*(a1 + 32) xpcConnection];
-  v7 = [v6 remoteObjectProxyWithErrorHandler:&__block_literal_global_135];
-  v8 = [*(*(a1 + 32) + 32) url];
-  v9 = [*(a1 + 40) configuration];
-  [v7 registerSessionWithURL:v8 configuration:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
+  objc_storeStrong((*(v2 + 4) + 32), *(v2 + 5));
+  v7 = [*(v2 + 4) xpcConnection];
+  v8 = [v7 remoteObjectProxyWithErrorHandler:&__block_literal_global_135];
+  v9 = [*(*(v2 + 4) + 32) url];
+  v10 = [*(v2 + 5) configuration];
+  [v8 registerSessionWithURL:v9 configuration:v10];
 }
 
 void __44__CPSDaemonConnection_registerSessionProxy___block_invoke_132(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = CPS_LOG_CHANNEL_PREFIXClipServices(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __44__CPSDaemonConnection_registerSessionProxy___block_invoke_132_cold_1(v3);
+    __44__CPSDaemonConnection_registerSessionProxy___block_invoke_132_cold_1(v4);
   }
 }
 
@@ -461,49 +460,47 @@ void __44__CPSDaemonConnection_registerSessionProxy___block_invoke_132(uint64_t 
   dispatch_async(connectionQueue, v7);
 }
 
-void __46__CPSDaemonConnection_unregisterSessionProxy___block_invoke(uint64_t a1)
+void __46__CPSDaemonConnection_unregisterSessionProxy___block_invoke(uint64_t a1, uint64_t a2)
 {
   v16 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v2 = (a1 + 32);
-  v4 = *(*(a1 + 40) + 32);
-  v5 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  v6 = v5;
-  if (v3 == v4)
+  v4 = *(a1 + 32);
+  v3 = (a1 + 32);
+  v5 = *(*(a1 + 40) + 32);
+  v6 = CPS_LOG_CHANNEL_PREFIXClipServices(a1, a2);
+  v7 = v6;
+  if (v4 == v5)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v7 = *v2;
+      v8 = *v3;
       v14 = 134217984;
-      v15 = v7;
-      _os_log_impl(&dword_2436ED000, v6, OS_LOG_TYPE_INFO, "unregisterSessionProxy: Unregistering session proxy (%p)", &v14, 0xCu);
+      v15 = v8;
+      _os_log_impl(&dword_2436ED000, v7, OS_LOG_TYPE_INFO, "unregisterSessionProxy: Unregistering session proxy (%p)", &v14, 0xCu);
     }
 
-    v8 = [*(a1 + 40) xpcConnection];
-    v9 = [v8 remoteObjectProxyWithErrorHandler:&__block_literal_global_138];
-    v10 = [*(*(a1 + 40) + 32) url];
-    [v9 unregisterSessionWithURL:v10];
+    v9 = [*(a1 + 40) xpcConnection];
+    v10 = [v9 remoteObjectProxyWithErrorHandler:&__block_literal_global_138];
+    v11 = [*(*(a1 + 40) + 32) url];
+    [v10 unregisterSessionWithURL:v11];
 
-    v11 = *(a1 + 40);
-    v12 = *(v11 + 32);
-    *(v11 + 32) = 0;
+    v12 = *(a1 + 40);
+    v13 = *(v12 + 32);
+    *(v12 + 32) = 0;
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __46__CPSDaemonConnection_unregisterSessionProxy___block_invoke_cold_1(v2, v6);
+    __46__CPSDaemonConnection_unregisterSessionProxy___block_invoke_cold_1(v3, v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __46__CPSDaemonConnection_unregisterSessionProxy___block_invoke_136(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = CPS_LOG_CHANNEL_PREFIXClipServices(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __46__CPSDaemonConnection_unregisterSessionProxy___block_invoke_136_cold_1(v3);
+    __46__CPSDaemonConnection_unregisterSessionProxy___block_invoke_136_cold_1(v4);
   }
 }
 
@@ -545,10 +542,10 @@ void __51__CPSDaemonConnection_isClipURL_completionHandler___block_invoke(uint64
 void __51__CPSDaemonConnection_isClipURL_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __51__CPSDaemonConnection_isClipURL_completionHandler___block_invoke_2_cold_1(v4);
+    __51__CPSDaemonConnection_isClipURL_completionHandler___block_invoke_2_cold_1(v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -593,16 +590,16 @@ void __75__CPSDaemonConnection_fetchClipMetadataAndImagesWithURL_completionHandl
 void __75__CPSDaemonConnection_fetchClipMetadataAndImagesWithURL_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __75__CPSDaemonConnection_fetchClipMetadataAndImagesWithURL_completionHandler___block_invoke_2_cold_1(v4);
+    __75__CPSDaemonConnection_fetchClipMetadataAndImagesWithURL_completionHandler___block_invoke_2_cold_1(v5);
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v6 = *(a1 + 32);
+  if (v6)
   {
-    (*(v5 + 16))(v5, v3);
+    (*(v6 + 16))(v6, v3);
   }
 }
 
@@ -610,31 +607,29 @@ void __75__CPSDaemonConnection_fetchClipMetadataAndImagesWithURL_completionHandl
 {
   v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  v5 = v4;
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __75__CPSDaemonConnection_fetchClipMetadataAndImagesWithURL_completionHandler___block_invoke_141_cold_1(v5);
+      __75__CPSDaemonConnection_fetchClipMetadataAndImagesWithURL_completionHandler___block_invoke_141_cold_1(v6);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v6 = *(a1 + 32);
+    v7 = *(a1 + 32);
     v9 = 138739971;
-    v10 = v6;
-    _os_log_impl(&dword_2436ED000, v5, OS_LOG_TYPE_INFO, "fetchClipMetadataAndImagesWithURL: successfully prewarmed clip with URL: %{sensitive}@", &v9, 0xCu);
+    v10 = v7;
+    _os_log_impl(&dword_2436ED000, v6, OS_LOG_TYPE_INFO, "fetchClipMetadataAndImagesWithURL: successfully prewarmed clip with URL: %{sensitive}@", &v9, 0xCu);
   }
 
-  v7 = *(a1 + 40);
-  if (v7)
+  v8 = *(a1 + 40);
+  if (v8)
   {
-    (*(v7 + 16))(v7, v3);
+    (*(v8 + 16))(v8, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prewarmClipWithURL:(id)l completionHandler:(id)handler
@@ -676,16 +671,16 @@ void __60__CPSDaemonConnection_prewarmClipWithURL_completionHandler___block_invo
 void __60__CPSDaemonConnection_prewarmClipWithURL_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __60__CPSDaemonConnection_prewarmClipWithURL_completionHandler___block_invoke_2_cold_1(v4);
+    __60__CPSDaemonConnection_prewarmClipWithURL_completionHandler___block_invoke_2_cold_1(v5);
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v6 = *(a1 + 32);
+  if (v6)
   {
-    (*(v5 + 16))(v5, v3);
+    (*(v6 + 16))(v6, v3);
   }
 }
 
@@ -693,31 +688,29 @@ void __60__CPSDaemonConnection_prewarmClipWithURL_completionHandler___block_invo
 {
   v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  v5 = v4;
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __60__CPSDaemonConnection_prewarmClipWithURL_completionHandler___block_invoke_142_cold_1(v5);
+      __60__CPSDaemonConnection_prewarmClipWithURL_completionHandler___block_invoke_142_cold_1(v6);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v6 = *(a1 + 32);
+    v7 = *(a1 + 32);
     v9 = 138739971;
-    v10 = v6;
-    _os_log_impl(&dword_2436ED000, v5, OS_LOG_TYPE_INFO, "prewarmClip: successfully prewarmed clip with URL: %{sensitive}@", &v9, 0xCu);
+    v10 = v7;
+    _os_log_impl(&dword_2436ED000, v6, OS_LOG_TYPE_INFO, "prewarmClip: successfully prewarmed clip with URL: %{sensitive}@", &v9, 0xCu);
   }
 
-  v7 = *(a1 + 40);
-  if (v7)
+  v8 = *(a1 + 40);
+  if (v8)
   {
-    (*(v7 + 16))(v7, v3);
+    (*(v8 + 16))(v8, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelPrewarmingClipWithURL:(id)l completionHandler:(id)handler
@@ -759,16 +752,16 @@ void __69__CPSDaemonConnection_cancelPrewarmingClipWithURL_completionHandler___b
 void __69__CPSDaemonConnection_cancelPrewarmingClipWithURL_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __69__CPSDaemonConnection_cancelPrewarmingClipWithURL_completionHandler___block_invoke_2_cold_1(v4);
+    __69__CPSDaemonConnection_cancelPrewarmingClipWithURL_completionHandler___block_invoke_2_cold_1(v5);
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v6 = *(a1 + 32);
+  if (v6)
   {
-    (*(v5 + 16))(v5, v3);
+    (*(v6 + 16))(v6, v3);
   }
 }
 
@@ -776,31 +769,29 @@ void __69__CPSDaemonConnection_cancelPrewarmingClipWithURL_completionHandler___b
 {
   v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  v5 = v4;
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __69__CPSDaemonConnection_cancelPrewarmingClipWithURL_completionHandler___block_invoke_143_cold_1(v5);
+      __69__CPSDaemonConnection_cancelPrewarmingClipWithURL_completionHandler___block_invoke_143_cold_1(v6);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v6 = *(a1 + 32);
+    v7 = *(a1 + 32);
     v9 = 138739971;
-    v10 = v6;
-    _os_log_impl(&dword_2436ED000, v5, OS_LOG_TYPE_INFO, "cancelPrewarm: successfully canceled prewarming clip with URL: %{sensitive}@", &v9, 0xCu);
+    v10 = v7;
+    _os_log_impl(&dword_2436ED000, v6, OS_LOG_TYPE_INFO, "cancelPrewarm: successfully canceled prewarming clip with URL: %{sensitive}@", &v9, 0xCu);
   }
 
-  v7 = *(a1 + 40);
-  if (v7)
+  v8 = *(a1 + 40);
+  if (v8)
   {
-    (*(v7 + 16))(v7, v3);
+    (*(v8 + 16))(v8, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openClipWithURL:(id)l completionHandler:(id)handler
@@ -842,16 +833,16 @@ void __57__CPSDaemonConnection_openClipWithURL_completionHandler___block_invoke(
 void __57__CPSDaemonConnection_openClipWithURL_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __57__CPSDaemonConnection_openClipWithURL_completionHandler___block_invoke_2_cold_1(v4);
+    __57__CPSDaemonConnection_openClipWithURL_completionHandler___block_invoke_2_cold_1(v5);
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v6 = *(a1 + 32);
+  if (v6)
   {
-    (*(v5 + 16))(v5, v3);
+    (*(v6 + 16))(v6, v3);
   }
 }
 
@@ -859,31 +850,29 @@ void __57__CPSDaemonConnection_openClipWithURL_completionHandler___block_invoke_
 {
   v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  v5 = v4;
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __57__CPSDaemonConnection_openClipWithURL_completionHandler___block_invoke_144_cold_1(v5);
+      __57__CPSDaemonConnection_openClipWithURL_completionHandler___block_invoke_144_cold_1(v6);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v6 = *(a1 + 32);
+    v7 = *(a1 + 32);
     v9 = 138739971;
-    v10 = v6;
-    _os_log_impl(&dword_2436ED000, v5, OS_LOG_TYPE_INFO, "openClip: successfully opened clip with URL: %{sensitive}@", &v9, 0xCu);
+    v10 = v7;
+    _os_log_impl(&dword_2436ED000, v6, OS_LOG_TYPE_INFO, "openClip: successfully opened clip with URL: %{sensitive}@", &v9, 0xCu);
   }
 
-  v7 = *(a1 + 40);
-  if (v7)
+  v8 = *(a1 + 40);
+  if (v8)
   {
-    (*(v7 + 16))(v7, v3);
+    (*(v8 + 16))(v8, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)installClipWithURL:(id)l completionHandler:(id)handler
@@ -924,16 +913,16 @@ void __60__CPSDaemonConnection_installClipWithURL_completionHandler___block_invo
 void __60__CPSDaemonConnection_installClipWithURL_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __60__CPSDaemonConnection_installClipWithURL_completionHandler___block_invoke_2_cold_1(v4);
+    __60__CPSDaemonConnection_installClipWithURL_completionHandler___block_invoke_2_cold_1(v5);
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v6 = *(a1 + 32);
+  if (v6)
   {
-    (*(v5 + 16))(v5, v3);
+    (*(v6 + 16))(v6, v3);
   }
 }
 
@@ -986,16 +975,16 @@ void __62__CPSDaemonConnection_uninstallClipWithURL_completionHandler___block_in
 void __62__CPSDaemonConnection_uninstallClipWithURL_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __62__CPSDaemonConnection_uninstallClipWithURL_completionHandler___block_invoke_2_cold_1(v4);
+    __62__CPSDaemonConnection_uninstallClipWithURL_completionHandler___block_invoke_2_cold_1(v5);
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v6 = *(a1 + 32);
+  if (v6)
   {
-    (*(v5 + 16))(v5, v3);
+    (*(v6 + 16))(v6, v3);
   }
 }
 
@@ -1048,16 +1037,16 @@ void __69__CPSDaemonConnection_uninstallClipsWithBundleIDs_completionHandler___b
 void __69__CPSDaemonConnection_uninstallClipsWithBundleIDs_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __62__CPSDaemonConnection_uninstallClipWithURL_completionHandler___block_invoke_2_cold_1(v4);
+    __62__CPSDaemonConnection_uninstallClipWithURL_completionHandler___block_invoke_2_cold_1(v5);
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v6 = *(a1 + 32);
+  if (v6)
   {
-    (*(v5 + 16))(v5, v3);
+    (*(v6 + 16))(v6, v3);
   }
 }
 
@@ -1110,16 +1099,16 @@ void __66__CPSDaemonConnection_fetchClipMetadataWithURL_completionHandler___bloc
 void __66__CPSDaemonConnection_fetchClipMetadataWithURL_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __66__CPSDaemonConnection_fetchClipMetadataWithURL_completionHandler___block_invoke_2_cold_1(v4);
+    __66__CPSDaemonConnection_fetchClipMetadataWithURL_completionHandler___block_invoke_2_cold_1(v5);
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v6 = *(a1 + 32);
+  if (v6)
   {
-    (*(v5 + 16))(v5, 0);
+    (*(v6 + 16))(v6, 0);
   }
 }
 
@@ -1169,10 +1158,10 @@ void __65__CPSDaemonConnection_fetchClipURLWithURLHash_completionHandler___block
 void __65__CPSDaemonConnection_fetchClipURLWithURLHash_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __65__CPSDaemonConnection_fetchClipURLWithURLHash_completionHandler___block_invoke_2_cold_1(v4);
+    __65__CPSDaemonConnection_fetchClipURLWithURLHash_completionHandler___block_invoke_2_cold_1(v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -1216,10 +1205,10 @@ void __81__CPSDaemonConnection_openClipWithInvocationUIIfNeededWithURL_completio
 void __81__CPSDaemonConnection_openClipWithInvocationUIIfNeededWithURL_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __81__CPSDaemonConnection_openClipWithInvocationUIIfNeededWithURL_completionHandler___block_invoke_2_cold_1(v4);
+    __81__CPSDaemonConnection_openClipWithInvocationUIIfNeededWithURL_completionHandler___block_invoke_2_cold_1(v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -1259,10 +1248,10 @@ void __76__CPSDaemonConnection_stopStallingCurrentInstallationWithCompletionHand
 void __76__CPSDaemonConnection_stopStallingCurrentInstallationWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __76__CPSDaemonConnection_stopStallingCurrentInstallationWithCompletionHandler___block_invoke_2_cold_1(v4);
+    __76__CPSDaemonConnection_stopStallingCurrentInstallationWithCompletionHandler___block_invoke_2_cold_1(v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -1310,35 +1299,36 @@ void __64__CPSDaemonConnection_openClipWithURL_launchOptions_completion___block_
 void __64__CPSDaemonConnection_openClipWithURL_launchOptions_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __64__CPSDaemonConnection_openClipWithURL_launchOptions_completion___block_invoke_2_cold_1(v4);
+    __64__CPSDaemonConnection_openClipWithURL_launchOptions_completion___block_invoke_2_cold_1(v5);
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v6 = *(a1 + 32);
+  if (v6)
   {
-    (*(v5 + 16))(v5, v3);
+    (*(v6 + 16))(v6, v3);
   }
 }
 
 void __64__CPSDaemonConnection_openClipWithURL_launchOptions_completion___block_invoke_153(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __64__CPSDaemonConnection_openClipWithURL_launchOptions_completion___block_invoke_153_cold_1(v4);
+      __64__CPSDaemonConnection_openClipWithURL_launchOptions_completion___block_invoke_153_cold_1(v6);
     }
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v7 = *(a1 + 32);
+  if (v7)
   {
-    (*(v5 + 16))(v5, v3);
+    (*(v7 + 16))(v7, v5);
   }
 }
 
@@ -1380,10 +1370,10 @@ void __72__CPSDaemonConnection_getUserNotificationConsentForBundleID_completion_
 void __72__CPSDaemonConnection_getUserNotificationConsentForBundleID_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __72__CPSDaemonConnection_getUserNotificationConsentForBundleID_completion___block_invoke_2_cold_1(v4);
+    __72__CPSDaemonConnection_getUserNotificationConsentForBundleID_completion___block_invoke_2_cold_1(v5);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -1393,12 +1383,13 @@ void __72__CPSDaemonConnection_getUserNotificationConsentForBundleID_completion_
 {
   v6 = a3;
   v7 = a4;
+  v9 = v7;
   if (v7)
   {
-    v8 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = CPS_LOG_CHANNEL_PREFIXClipServices(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __72__CPSDaemonConnection_getUserNotificationConsentForBundleID_completion___block_invoke_154_cold_1(v8);
+      __72__CPSDaemonConnection_getUserNotificationConsentForBundleID_completion___block_invoke_154_cold_1(v10);
     }
   }
 
@@ -1432,22 +1423,23 @@ void __76__CPSDaemonConnection_notifyWebClipActivationWithBundleID_referrerBundl
 void __76__CPSDaemonConnection_notifyWebClipActivationWithBundleID_referrerBundleID___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = CPS_LOG_CHANNEL_PREFIXClipServices(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __76__CPSDaemonConnection_notifyWebClipActivationWithBundleID_referrerBundleID___block_invoke_2_cold_1(v3);
+    __76__CPSDaemonConnection_notifyWebClipActivationWithBundleID_referrerBundleID___block_invoke_2_cold_1(v4);
   }
 }
 
 void __76__CPSDaemonConnection_notifyWebClipActivationWithBundleID_referrerBundleID___block_invoke_158(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v4 = v2;
   if (v2)
   {
-    v3 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = CPS_LOG_CHANNEL_PREFIXClipServices(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __76__CPSDaemonConnection_notifyWebClipActivationWithBundleID_referrerBundleID___block_invoke_158_cold_1(v3);
+      __76__CPSDaemonConnection_notifyWebClipActivationWithBundleID_referrerBundleID___block_invoke_158_cold_1(v5);
     }
   }
 }
@@ -1479,10 +1471,10 @@ void __67__CPSDaemonConnection_getLastLaunchOptionsWithBundleID_completion___blo
 void __67__CPSDaemonConnection_getLastLaunchOptionsWithBundleID_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = CPS_LOG_CHANNEL_PREFIXClipServices(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __67__CPSDaemonConnection_getLastLaunchOptionsWithBundleID_completion___block_invoke_2_cold_1(v3);
+    __67__CPSDaemonConnection_getLastLaunchOptionsWithBundleID_completion___block_invoke_2_cold_1(v4);
   }
 }
 
@@ -1518,11 +1510,11 @@ void __86__CPSDaemonConnection_checkAndConsumeShowsAppAttributionBannerForBundle
 void __86__CPSDaemonConnection_checkAndConsumeShowsAppAttributionBannerForBundleID_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  (*(*(a1 + 32) + 16))();
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = (*(*(a1 + 32) + 16))();
+  v6 = CPS_LOG_CHANNEL_PREFIXClipServices(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __86__CPSDaemonConnection_checkAndConsumeShowsAppAttributionBannerForBundleID_completion___block_invoke_2_cold_1(v4);
+    __86__CPSDaemonConnection_checkAndConsumeShowsAppAttributionBannerForBundleID_completion___block_invoke_2_cold_1(v6);
   }
 }
 
@@ -1556,10 +1548,10 @@ void __66__CPSDaemonConnection_confirmLocationWithURL_inRegion_completion___bloc
 void __66__CPSDaemonConnection_confirmLocationWithURL_inRegion_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = CPS_LOG_CHANNEL_PREFIXClipServices(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __66__CPSDaemonConnection_confirmLocationWithURL_inRegion_completion___block_invoke_2_cold_1(v3);
+    __66__CPSDaemonConnection_confirmLocationWithURL_inRegion_completion___block_invoke_2_cold_1(v4);
   }
 }
 
@@ -1590,10 +1582,10 @@ void __63__CPSDaemonConnection_performValidationWithRequest_completion___block_i
 void __63__CPSDaemonConnection_performValidationWithRequest_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = CPS_LOG_CHANNEL_PREFIXClipServices(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __63__CPSDaemonConnection_performValidationWithRequest_completion___block_invoke_2_cold_1(v3);
+    __63__CPSDaemonConnection_performValidationWithRequest_completion___block_invoke_2_cold_1(v4);
   }
 }
 
@@ -1629,11 +1621,11 @@ void __77__CPSDaemonConnection_fetchAMPMetadataForDiagnosticsWithBundleID_comple
 void __77__CPSDaemonConnection_fetchAMPMetadataForDiagnosticsWithBundleID_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  (*(*(a1 + 32) + 16))();
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = (*(*(a1 + 32) + 16))();
+  v6 = CPS_LOG_CHANNEL_PREFIXClipServices(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __77__CPSDaemonConnection_fetchAMPMetadataForDiagnosticsWithBundleID_completion___block_invoke_2_cold_1(v4);
+    __77__CPSDaemonConnection_fetchAMPMetadataForDiagnosticsWithBundleID_completion___block_invoke_2_cold_1(v6);
   }
 }
 
@@ -1669,11 +1661,11 @@ void __72__CPSDaemonConnection_fetchABRMetadataForDiagnosticsWithURL_completion_
 void __72__CPSDaemonConnection_fetchABRMetadataForDiagnosticsWithURL_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  (*(*(a1 + 32) + 16))();
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = (*(*(a1 + 32) + 16))();
+  v6 = CPS_LOG_CHANNEL_PREFIXClipServices(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __72__CPSDaemonConnection_fetchABRMetadataForDiagnosticsWithURL_completion___block_invoke_2_cold_1(v4);
+    __72__CPSDaemonConnection_fetchABRMetadataForDiagnosticsWithURL_completion___block_invoke_2_cold_1(v6);
   }
 }
 
@@ -1709,11 +1701,11 @@ void __75__CPSDaemonConnection_fetchWebClipsUUIDStringForClientBundleID_completi
 void __75__CPSDaemonConnection_fetchWebClipsUUIDStringForClientBundleID_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  (*(*(a1 + 32) + 16))();
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = (*(*(a1 + 32) + 16))();
+  v6 = CPS_LOG_CHANNEL_PREFIXClipServices(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __75__CPSDaemonConnection_fetchWebClipsUUIDStringForClientBundleID_completion___block_invoke_2_cold_1(v4);
+    __75__CPSDaemonConnection_fetchWebClipsUUIDStringForClientBundleID_completion___block_invoke_2_cold_1(v6);
   }
 }
 
@@ -1749,11 +1741,11 @@ void __74__CPSDaemonConnection_fetchWebClipsURLStringForClientBundleID_completio
 void __74__CPSDaemonConnection_fetchWebClipsURLStringForClientBundleID_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  (*(*(a1 + 32) + 16))();
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = (*(*(a1 + 32) + 16))();
+  v6 = CPS_LOG_CHANNEL_PREFIXClipServices(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __74__CPSDaemonConnection_fetchWebClipsURLStringForClientBundleID_completion___block_invoke_2_cold_1(v4);
+    __74__CPSDaemonConnection_fetchWebClipsURLStringForClientBundleID_completion___block_invoke_2_cold_1(v6);
   }
 }
 
@@ -1789,387 +1781,289 @@ void __69__CPSDaemonConnection_getWebClipDictionaryWithIdentifier_completion___b
 void __69__CPSDaemonConnection_getWebClipDictionaryWithIdentifier_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  (*(*(a1 + 32) + 16))();
-  v4 = CPS_LOG_CHANNEL_PREFIXClipServices();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = (*(*(a1 + 32) + 16))();
+  v6 = CPS_LOG_CHANNEL_PREFIXClipServices(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __69__CPSDaemonConnection_getWebClipDictionaryWithIdentifier_completion___block_invoke_2_cold_1(v4);
+    __69__CPSDaemonConnection_getWebClipDictionaryWithIdentifier_completion___block_invoke_2_cold_1(v6);
   }
 }
 
 void __44__CPSDaemonConnection_registerSessionProxy___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *(*a1 + 32);
   v4 = *(a2 + 40);
-  v6 = 134218240;
-  v7 = v3;
-  v8 = 2048;
-  v9 = v4;
-  _os_log_error_impl(&dword_2436ED000, log, OS_LOG_TYPE_ERROR, "registerSessionProxy: Existing session proxy (%p) is about to be overwritten with a new one (%p)", &v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 134218240;
+  v6 = v3;
+  v7 = 2048;
+  v8 = v4;
+  _os_log_error_impl(&dword_2436ED000, log, OS_LOG_TYPE_ERROR, "registerSessionProxy: Existing session proxy (%p) is about to be overwritten with a new one (%p)", &v5, 0x16u);
 }
 
 void __44__CPSDaemonConnection_registerSessionProxy___block_invoke_132_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "registerSessionProxy: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "registerSessionProxy: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __46__CPSDaemonConnection_unregisterSessionProxy___block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_error_impl(&dword_2436ED000, a2, OS_LOG_TYPE_ERROR, "unregisterSessionProxy: try to unregister a stale session proxy (%p)", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_error_impl(&dword_2436ED000, a2, OS_LOG_TYPE_ERROR, "unregisterSessionProxy: try to unregister a stale session proxy (%p)", &v3, 0xCu);
 }
 
 void __46__CPSDaemonConnection_unregisterSessionProxy___block_invoke_136_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "unregisterSessionProxy: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "unregisterSessionProxy: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __51__CPSDaemonConnection_isClipURL_completionHandler___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "isClipURL: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "isClipURL: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __75__CPSDaemonConnection_fetchClipMetadataAndImagesWithURL_completionHandler___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "fetchClipMetadataAndImagesWithURL: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "fetchClipMetadataAndImagesWithURL: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __75__CPSDaemonConnection_fetchClipMetadataAndImagesWithURL_completionHandler___block_invoke_141_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "fetchClipMetadataAndImagesWithURL: error when prewarming clip via daemon: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "fetchClipMetadataAndImagesWithURL: error when prewarming clip via daemon: %{public}@", v6, v7, v8, v9);
 }
 
 void __60__CPSDaemonConnection_prewarmClipWithURL_completionHandler___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "prewarmClip: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "prewarmClip: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __60__CPSDaemonConnection_prewarmClipWithURL_completionHandler___block_invoke_142_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "prewarmClip: error when prewarming clip via daemon: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "prewarmClip: error when prewarming clip via daemon: %{public}@", v6, v7, v8, v9);
 }
 
 void __69__CPSDaemonConnection_cancelPrewarmingClipWithURL_completionHandler___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "cancelPrewarm: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "cancelPrewarm: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __69__CPSDaemonConnection_cancelPrewarmingClipWithURL_completionHandler___block_invoke_143_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "cancelPrewarm: error when cancelling prewarming clip via daemon: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "cancelPrewarm: error when cancelling prewarming clip via daemon: %{public}@", v6, v7, v8, v9);
 }
 
 void __57__CPSDaemonConnection_openClipWithURL_completionHandler___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "openClip: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "openClip: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __57__CPSDaemonConnection_openClipWithURL_completionHandler___block_invoke_144_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "openClip: error when opening clip via daemon: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "openClip: error when opening clip via daemon: %{public}@", v6, v7, v8, v9);
 }
 
 void __60__CPSDaemonConnection_installClipWithURL_completionHandler___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "installClipWithURL: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "installClipWithURL: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __62__CPSDaemonConnection_uninstallClipWithURL_completionHandler___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "uninstallClipWithURL: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "uninstallClipWithURL: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __66__CPSDaemonConnection_fetchClipMetadataWithURL_completionHandler___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "fetchClipMetadataWithURL: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "fetchClipMetadataWithURL: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __65__CPSDaemonConnection_fetchClipURLWithURLHash_completionHandler___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "fetchClipMetadataWithURLHash: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "fetchClipMetadataWithURLHash: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __81__CPSDaemonConnection_openClipWithInvocationUIIfNeededWithURL_completionHandler___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "openClipWithInvocationUIIfNeededWithURL: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "openClipWithInvocationUIIfNeededWithURL: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __76__CPSDaemonConnection_stopStallingCurrentInstallationWithCompletionHandler___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "stopStallingCurrentInstallation: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "stopStallingCurrentInstallation: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __64__CPSDaemonConnection_openClipWithURL_launchOptions_completion___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "openClipWithURL:launchOptions: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "openClipWithURL:launchOptions: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __64__CPSDaemonConnection_openClipWithURL_launchOptions_completion___block_invoke_153_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "openClipWithURL:launchOptions: Fail to open clip with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "openClipWithURL:launchOptions: Fail to open clip with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __72__CPSDaemonConnection_getUserNotificationConsentForBundleID_completion___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "getUserNotificationConsentForBundleID: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "getUserNotificationConsentForBundleID: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __72__CPSDaemonConnection_getUserNotificationConsentForBundleID_completion___block_invoke_154_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "getUserNotificationConsentForBundleID: Fail to get clip notification consent with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "getUserNotificationConsentForBundleID: Fail to get clip notification consent with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __76__CPSDaemonConnection_notifyWebClipActivationWithBundleID_referrerBundleID___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "notifyWebClipActivationWithBundleID: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "notifyWebClipActivationWithBundleID: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __76__CPSDaemonConnection_notifyWebClipActivationWithBundleID_referrerBundleID___block_invoke_158_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "notifyWebClipActivationWithBundleID: failed with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "notifyWebClipActivationWithBundleID: failed with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __67__CPSDaemonConnection_getLastLaunchOptionsWithBundleID_completion___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "getLastLaunchOptionsWithBundleID: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "getLastLaunchOptionsWithBundleID: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __86__CPSDaemonConnection_checkAndConsumeShowsAppAttributionBannerForBundleID_completion___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "checkAndConsumeShowsAppAttributionBannerForBundleID: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "checkAndConsumeShowsAppAttributionBannerForBundleID: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __66__CPSDaemonConnection_confirmLocationWithURL_inRegion_completion___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "confirmLocationWithURL: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "confirmLocationWithURL: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __63__CPSDaemonConnection_performValidationWithRequest_completion___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "performValidationWithRequest: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "performValidationWithRequest: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __77__CPSDaemonConnection_fetchAMPMetadataForDiagnosticsWithBundleID_completion___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "fetchAMPMetadataForDiagnosticsWithBundleID: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "fetchAMPMetadataForDiagnosticsWithBundleID: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __72__CPSDaemonConnection_fetchABRMetadataForDiagnosticsWithURL_completion___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "fetchABRMetadataForDiagnosticsWithURL: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "fetchABRMetadataForDiagnosticsWithURL: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __75__CPSDaemonConnection_fetchWebClipsUUIDStringForClientBundleID_completion___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "fetchWebClipsUUIDStringForClientBundleID: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "fetchWebClipsUUIDStringForClientBundleID: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __74__CPSDaemonConnection_fetchWebClipsURLStringForClientBundleID_completion___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "fetchWebClipsURLStringForClientBundleID: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "fetchWebClipsURLStringForClientBundleID: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __69__CPSDaemonConnection_getWebClipDictionaryWithIdentifier_completion___block_invoke_2_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() cps_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "getWebClipDictionaryWithIdentifier: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2436ED000, v4, v5, "getWebClipDictionaryWithIdentifier: Cannot connect to daemon with error: %{public}@", v6, v7, v8, v9);
 }
 
 @end

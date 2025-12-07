@@ -1,14 +1,3 @@
-uint64_t boost::container::dtl::pair<unsigned int,applesauce::CF::DictionaryRef>::~pair(uint64_t a1)
-{
-  v2 = *(a1 + 8);
-  if (v2)
-  {
-    CFRelease(v2);
-  }
-
-  return a1;
-}
-
 const void **boost::container::dtl::value_init<applesauce::CF::DictionaryRef>::~value_init(const void **a1)
 {
   v2 = *a1;
@@ -83,7 +72,7 @@ LABEL_31:
   v16 = v15;
   v17 = *a2;
   v18 = *(a2 + 1);
-  v19 = *a2 + 16 * v18;
+  v19 = (*a2 + 16 * v18);
   v20 = v15;
   if (*a2 != a3)
   {
@@ -92,21 +81,21 @@ LABEL_31:
     do
     {
       *v20 = *v21;
-      *(v20 + 1) = v21[1];
+      v20[1] = v21[1];
       v21[1] = 0;
       v21 += 2;
-      v20 += 16;
+      v20 += 2;
     }
 
     while (v21 != a3);
   }
 
   *v20 = *a4;
-  *(v20 + 1) = *(a4 + 8);
+  v20[1] = *(a4 + 8);
   *(a4 + 8) = 0;
   if (v19 != a3)
   {
-    v22 = v20 + 24;
+    v22 = v20 + 3;
     v23 = a3;
     do
     {
@@ -149,10 +138,10 @@ LABEL_31:
   *a2 = v16;
   *(a2 + 1) = v25;
   *(a2 + 2) = v9;
-  *a1 = &v16[a3 - v14];
+  *a1 = a3 + v16 - v14;
 }
 
-BOOL boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,applesauce::CF::DictionaryRef>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::small_vector<boost::container::dtl::pair<unsigned int,applesauce::CF::DictionaryRef>,1ul,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,applesauce::CF::DictionaryRef>>,void>>::priv_insert_unique_prepare(unsigned int *a1, unsigned int **a2, unsigned int a3, unsigned int **a4)
+BOOL boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,applesauce::CF::DictionaryRef>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::small_vector<boost::container::dtl::pair<unsigned int,applesauce::CF::DictionaryRef>,1ul,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,applesauce::CF::DictionaryRef>>,void>>::priv_insert_unique_prepare(char *a1, char **a2, unsigned int a3, char **a4)
 {
   if (*a2 != a1)
   {
@@ -170,7 +159,7 @@ BOOL boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,a
       }
 
       v5 = v4 >> 1;
-      v6 = &a1[4 * (v4 >> 1)];
+      v6 = &a1[16 * (v4 >> 1)];
       v8 = *v6;
       v7 = v6 + 4;
       v4 += ~(v4 >> 1);
@@ -202,7 +191,7 @@ BOOL boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,a
   return *a1 > a3;
 }
 
-void *CA::DSP::AUDSPGraph::GraphPropertyCache::Find(CA::DSP::AUDSPGraph::GraphPropertyCache *this, uint64_t *a2, unsigned int a3)
+void *CA::DSP::AUDSPGraph::GraphPropertyCache::Find(CA::DSP::AUDSPGraph::GraphPropertyCache *this, uint64_t *a2, int a3)
 {
   v10 = a3;
   result = boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::small_vector<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,32ul,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>>,void>>::find(&v9, a2, &v10);
@@ -235,73 +224,6 @@ void *CA::DSP::AUDSPGraph::GraphPropertyCache::Find(CA::DSP::AUDSPGraph::GraphPr
   }
 
   *(this + 8) = v8;
-  return result;
-}
-
-{
-  v3 = *a2;
-  v4 = a2[1];
-  v16 = v3;
-  if (v3)
-  {
-    v5 = 1;
-  }
-
-  else
-  {
-    v5 = v4 == 0;
-  }
-
-  if (!v5)
-  {
-    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-  }
-
-  result = boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::small_vector<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,32ul,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>>,void>>::priv_lower_bound<boost::container::vec_iterator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>*,true>,unsigned int>(&v15, &v16, v3 + (v4 << 6), a3);
-  v10 = a2[1];
-  if (*a2)
-  {
-    v11 = 1;
-  }
-
-  else
-  {
-    v11 = v10 == 0;
-  }
-
-  if (!v11)
-  {
-    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-  }
-
-  v12 = (*a2 + (v10 << 6));
-  v13 = v15;
-  if (v15 != v12)
-  {
-    if (!v15)
-    {
-      __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-    }
-
-    if (*v15 > a3)
-    {
-      v13 = v12;
-    }
-  }
-
-  if (v13 == v12)
-  {
-    v14 = 0;
-    *this = -10879;
-  }
-
-  else
-  {
-    *this = v13 + 2;
-    v14 = 1;
-  }
-
-  *(this + 8) = v14;
   return result;
 }
 
@@ -379,7 +301,7 @@ LABEL_25:
     v13 = applesauce::CF::convert_as<float,0>(v12);
     v30 = v13;
     v31[0] = BYTE4(v13);
-    if (HIDWORD(v13))
+    if (v13 >> 32)
     {
       std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__assign_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>((a2 + 16), &v30, v31, 4uLL);
       goto LABEL_25;
@@ -483,12 +405,12 @@ const void **CA::DSP::Graph::SetProperty(CA::DSP::Graph *this, uint64_t a2, cons
   return result;
 }
 
-uint64_t boost::container::flat_map<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue,std::less<unsigned int>,boost::container::small_vector<std::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,32ul,void,void>>::priv_subscript(uint64_t a1, unsigned int *a2)
+uint64_t boost::container::flat_map<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue,std::less<unsigned int>,boost::container::small_vector<std::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,32ul,void,void>>::priv_subscript(char *a1, unsigned int *a2)
 {
-  v53 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 8);
-  v46 = *a1;
-  if (v46)
+  v52 = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 1);
+  v45 = *a1;
+  if (v45)
   {
     v3 = 1;
   }
@@ -503,9 +425,9 @@ uint64_t boost::container::flat_map<unsigned int,CA::DSP::AUDSPGraph::GraphPrope
     __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
   }
 
-  boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::small_vector<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,32ul,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>>,void>>::priv_lower_bound<boost::container::vec_iterator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>*,false>,unsigned int>(v43, &v46, v46 + (v2 << 6), *a2);
+  boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::small_vector<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,32ul,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>>,void>>::priv_lower_bound<boost::container::vec_iterator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>*,false>,unsigned int>(v42, &v45, v45 + (v2 << 6), *a2);
   v6 = *a1;
-  v7 = *(a1 + 8);
+  v7 = *(a1 + 1);
   if (*a1)
   {
     v8 = 1;
@@ -522,128 +444,128 @@ uint64_t boost::container::flat_map<unsigned int,CA::DSP::AUDSPGraph::GraphPrope
   }
 
   v9 = v6 + (v7 << 6);
-  v10 = v43[0];
-  if (v43[0] == v9)
+  v10 = v42[0];
+  if (v42[0] == v9)
   {
     goto LABEL_14;
   }
 
-  if (!v43[0])
+  if (!v42[0])
   {
     __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
   }
 
-  if (*a2 < *v43[0])
+  if (*a2 < *v42[0])
   {
 LABEL_14:
-    v41 = 0u;
-    v42 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v39 = 0u;
     v11 = *MEMORY[0x1E69E3C08];
     if (!*MEMORY[0x1E69E3C08])
     {
       __break(1u);
     }
 
-    *&v42 = *MEMORY[0x1E69E3C08];
+    *&v41 = *MEMORY[0x1E69E3C08];
     v12 = *a2;
-    v31 = v12;
-    v33 = 0;
-    v39 = 0;
-    *(&v40 + 1) = 0;
-    v41 = 0uLL;
-    v38 = 0;
-    LODWORD(v46) = v12;
+    v30 = v12;
     v32 = 0;
+    v38 = 0;
+    *(&v39 + 1) = 0;
+    v40 = 0uLL;
+    v37 = 0;
+    LODWORD(v45) = v12;
+    v31 = 0;
+    v46 = 0;
     v47 = 0;
-    v48 = 0;
-    v50 = 0;
-    v51 = v11;
-    v49 = 0uLL;
+    v49 = 0;
+    v50 = v11;
+    v48 = 0uLL;
     v13 = "this->priv_in_range_or_end(hint)";
+    v33 = 0;
     v34 = 0;
     v35 = 0;
-    v36 = 0;
-    v37 = v11;
-    v52 = 0;
+    v36 = v11;
+    v51 = 0;
     v14 = "flat_tree.hpp";
     v15 = 879;
     v16 = "insert_unique";
-    v43[1] = &v46;
-    v43[2] = a1;
-    if (v6 <= v43[0] && v43[0] <= v9)
+    v42[1] = &v45;
+    v42[2] = a1;
+    if (v6 <= v42[0] && v42[0] <= v9)
     {
-      v44 = 0;
-      if (v43[0] == v9)
+      v43 = 0;
+      if (v42[0] == v9)
       {
         goto LABEL_20;
       }
 
-      if (!v43[0])
+      if (!v42[0])
       {
         __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
       }
 
-      if (v12 < *v43[0])
+      if (v12 < *v42[0])
       {
 LABEL_20:
-        v44 = v43[0];
-        if (v43[0] != v6)
+        v43 = v42[0];
+        if (v42[0] != v6)
         {
-          if (!v43[0])
+          if (!v42[0])
           {
             __assert_rtn("operator--", "vector.hpp", 174, "!!m_ptr");
           }
 
-          v17 = *(v43[0] - 64);
+          v17 = *(v42[0] - 64);
           if (v17 >= v12)
           {
             if (v12 >= v17)
             {
-              v44 = (v43[0] - 64);
+              v43 = (v42[0] - 64);
               goto LABEL_40;
             }
 
-            v45 = v43[0] - 64;
-            if (!boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::small_vector<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,32ul,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>>,void>>::priv_insert_unique_prepare(v6, &v45, &v46, &v44))
+            v44 = v42[0] - 64;
+            if (!boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::small_vector<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,32ul,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>>,void>>::priv_insert_unique_prepare(v6, &v44, &v45, &v43))
             {
 LABEL_40:
-              if (!*a1 && v44)
+              if (!*a1 && v43)
               {
                 __assert_rtn("operator+", "vector.hpp", 188, "x.m_ptr || !off");
               }
 
-              v30 = v44;
+              v29 = v43;
 LABEL_43:
-              if (v49)
+              if (v48)
               {
-                *(&v49 + 1) = v49;
-                (*(*v51 + 24))(v51, v49, v50 - v49, 1);
+                *(&v48 + 1) = v48;
+                (*(*v50 + 24))(v50, v48, v49 - v48, 1);
               }
 
-              CA::DSP::ReferenceCounted<__CFDictionary const*>::~ReferenceCounted(&v47);
-              v10 = v30;
-              v43[0] = v30;
-              if (v34)
+              CA::DSP::ReferenceCounted<__CFDictionary const*>::~ReferenceCounted(&v46);
+              v10 = v29;
+              v42[0] = v29;
+              if (v33)
               {
-                v35 = v34;
-                (*(*v37 + 24))(v37, v34, v36 - v34, 1);
+                v34 = v33;
+                (*(*v36 + 24))(v36, v33, v35 - v33, 1);
               }
 
-              CA::DSP::ReferenceCounted<__CFDictionary const*>::~ReferenceCounted(&v32);
-              if (*(&v40 + 1))
+              CA::DSP::ReferenceCounted<__CFDictionary const*>::~ReferenceCounted(&v31);
+              if (*(&v39 + 1))
               {
-                *&v41 = *(&v40 + 1);
-                (*(*v42 + 24))(v42, *(&v40 + 1), *(&v41 + 1) - *(&v40 + 1), 1);
+                *&v40 = *(&v39 + 1);
+                (*(*v41 + 24))(v41, *(&v39 + 1), *(&v40 + 1) - *(&v39 + 1), 1);
               }
 
-              CA::DSP::ReferenceCounted<__CFDictionary const*>::~ReferenceCounted(&v39);
+              CA::DSP::ReferenceCounted<__CFDictionary const*>::~ReferenceCounted(&v38);
               if (!v10)
               {
                 __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
               }
 
-              goto LABEL_50;
+              return v10 + 8;
             }
           }
         }
@@ -651,28 +573,28 @@ LABEL_43:
 
       else
       {
-        v45 = v9;
-        if (!boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::small_vector<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,32ul,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>>,void>>::priv_insert_unique_prepare(v43[0], &v45, &v46, &v44))
+        v44 = v9;
+        if (!boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::small_vector<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,32ul,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>>,void>>::priv_insert_unique_prepare(v42[0], &v44, &v45, &v43))
         {
           goto LABEL_40;
         }
       }
 
-      v18 = v44;
+      v18 = v43;
       v19 = *a1;
-      if (*a1 > v44)
+      if (*a1 > v43)
       {
         goto LABEL_53;
       }
 
-      v20 = *(a1 + 8);
+      v20 = *(a1 + 1);
       if (!v19 && v20)
       {
         __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
       }
 
       v21 = v19 + (v20 << 6);
-      if (v44 > v21)
+      if (v43 > v21)
       {
 LABEL_53:
         v13 = "this->priv_in_range_or_end(position)";
@@ -683,33 +605,33 @@ LABEL_53:
 
       else
       {
-        v22 = *(a1 + 16);
+        v22 = *(a1 + 2);
         if (v22 >= v20)
         {
           if (v22 == v20)
           {
-            boost::container::vector<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::small_vector_allocator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::new_allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::new_allocator<void>,void>,boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>*,boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>>>(&v30, a1, v44, &v46);
+            boost::container::vector<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::small_vector_allocator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::new_allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::new_allocator<void>,void>,boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>*,boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>>>(&v29, a1, v43, &v45);
           }
 
           else
           {
-            if (v21 == v44)
+            if (v21 == v43)
             {
-              *v21 = v46;
-              v27 = v47;
-              v47 = 0;
+              *v21 = v45;
+              v27 = v46;
+              v46 = 0;
               *(v21 + 8) = v27;
-              *(v21 + 16) = v48;
+              *(v21 + 16) = v47;
               *(v21 + 32) = 0;
               *(v21 + 40) = 0;
               *(v21 + 24) = 0;
-              *(v21 + 48) = v51;
-              *(v21 + 24) = v49;
-              *(v21 + 40) = v50;
-              v50 = 0;
-              v49 = 0uLL;
-              *(v21 + 56) = v52;
-              ++*(a1 + 8);
+              *(v21 + 48) = v50;
+              *(v21 + 24) = v48;
+              *(v21 + 40) = v49;
+              v49 = 0;
+              v48 = 0uLL;
+              *(v21 + 56) = v51;
+              ++*(a1 + 1);
             }
 
             else
@@ -728,7 +650,7 @@ LABEL_53:
               *(v21 - 32) = 0;
               *(v21 - 24) = 0;
               *(v21 + 56) = *(v21 - 8);
-              ++*(a1 + 8);
+              ++*(a1 + 1);
               if ((v21 - 64) != v18)
               {
                 do
@@ -741,10 +663,10 @@ LABEL_53:
                 while (v26 != v18);
               }
 
-              boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>::operator=(v18, &v46);
+              boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>::operator=(v18, &v45);
             }
 
-            v30 = v18;
+            v29 = v18;
           }
 
           goto LABEL_43;
@@ -760,8 +682,6 @@ LABEL_53:
     __assert_rtn(v16, v14, v15, v13);
   }
 
-LABEL_50:
-  v28 = *MEMORY[0x1E69E9840];
   return v10 + 8;
 }
 
@@ -874,17 +794,17 @@ LABEL_31:
     do
     {
       *v19 = *v20;
-      v21 = *(v20 + 1);
-      *(v20 + 1) = 0;
+      v21 = *(v20 + 8);
+      *(v20 + 8) = 0;
       *(v19 + 1) = v21;
-      v19[16] = v20[16];
-      *(v19 + 6) = *(v20 + 6);
+      v19[16] = *(v20 + 16);
+      *(v19 + 6) = *(v20 + 48);
       *(v19 + 24) = *(v20 + 24);
-      *(v19 + 5) = *(v20 + 5);
-      *(v20 + 3) = 0;
-      *(v20 + 4) = 0;
-      *(v20 + 5) = 0;
-      v19[56] = v20[56];
+      *(v19 + 5) = *(v20 + 40);
+      *(v20 + 24) = 0;
+      *(v20 + 32) = 0;
+      *(v20 + 40) = 0;
+      v19[56] = *(v20 + 56);
       v20 += 64;
       v19 += 64;
     }
@@ -968,7 +888,7 @@ LABEL_31:
   *a2 = v16;
   *(a2 + 1) = v30;
   *(a2 + 2) = v9;
-  *a1 = &v16[a3 - v14];
+  *a1 = &a3[v16 - v14];
 }
 
 BOOL boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::small_vector<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,32ul,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>>,void>>::priv_insert_unique_prepare(uint64_t a1, uint64_t *a2, unsigned int *a3, unsigned int **a4)
@@ -1027,7 +947,7 @@ void *boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,
   return result;
 }
 
-void *std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__assign_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__assign_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = __src;
   v7 = result;
@@ -1115,7 +1035,7 @@ void *std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>:
   return result;
 }
 
-void *std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__assign_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__assign_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = __src;
   v7 = result;
@@ -1776,7 +1696,7 @@ std::logic_error *std::out_of_range::out_of_range[abi:ne200100](std::logic_error
   return result;
 }
 
-void std::vector<void const*>::resize(uint64_t *a1, unint64_t a2)
+void std::vector<void const*>::resize(const void **a1, unint64_t a2)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -1788,7 +1708,7 @@ void std::vector<void const*>::resize(uint64_t *a1, unint64_t a2)
       return;
     }
 
-    v11 = v3 + 8 * a2;
+    v11 = &v3[8 * a2];
   }
 
   else
@@ -1823,7 +1743,7 @@ void std::vector<void const*>::resize(uint64_t *a1, unint64_t a2)
     }
 
     bzero(a1[1], 8 * v6);
-    v11 = v4 + 8 * v6;
+    v11 = &v4[8 * v6];
   }
 
   a1[1] = v11;
@@ -1839,7 +1759,7 @@ void std::allocator<void const*>::allocate_at_least[abi:ne200100](unint64_t a1)
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t CA::DSP::AUDSPGraph::GetProperty(CA::DSP::AUDSPGraph *this, int a2, int a3, void *a4, void *a5)
+uint64_t CA::DSP::AUDSPGraph::GetProperty(CA::DSP::AUDSPGraph *this, int a2, int a3, void *a4, unsigned int *a5)
 {
   v31 = a4;
   if (a3)
@@ -2311,9 +2231,9 @@ const void **CA::DSP::ReferenceCounted<__CFNumber const*>::~ReferenceCounted(con
   return a1;
 }
 
-uint64_t CA::DSP::AUDSPGraph::GetGraphProperty(CA::DSP::AUDSPGraph *this, uint64_t a2, void *a3, void *a4)
+uint64_t CA::DSP::AUDSPGraph::GetGraphProperty(CA::DSP::AUDSPGraph *this, uint64_t a2, void *a3, unsigned int *a4)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   if (*(a2 + 17) == 1)
   {
     result = caulk::shared_semaphore_mutex::try_lock_shared((a2 + 608));
@@ -2321,8 +2241,6 @@ uint64_t CA::DSP::AUDSPGraph::GetGraphProperty(CA::DSP::AUDSPGraph *this, uint64
     {
       *this = -10863;
       *(this + 4) = 0;
-LABEL_30:
-      v18 = *MEMORY[0x1E69E9840];
       return result;
     }
 
@@ -2330,89 +2248,87 @@ LABEL_30:
     {
       *this = -10863;
       *(this + 4) = 0;
-      goto LABEL_29;
+      return caulk::shared_semaphore_mutex::unlock_shared((a2 + 608));
     }
 
-    CA::DSP::AUDSPGraph::GetCachedGraphProperty(&v25, a2, a3, a4);
-    if (BYTE4(v25) == 1)
+    CA::DSP::AUDSPGraph::GetCachedGraphProperty(&v23, a2, a3, a4);
+    if (BYTE4(v23) == 1)
     {
-      *(this + 4) = BYTE4(v25);
-LABEL_29:
-      result = caulk::shared_semaphore_mutex::unlock_shared((a2 + 608));
-      goto LABEL_30;
+      *(this + 4) = BYTE4(v23);
+      return caulk::shared_semaphore_mutex::unlock_shared((a2 + 608));
     }
 
-    CA::DSP::Graph::GetPropertyInfo(&v26, *(a2 + 648), a3);
-    if (v27)
+    CA::DSP::Graph::GetPropertyInfo(&v24, *(a2 + 648), a3);
+    if (v25)
     {
-      *buf = v26;
-      CA::DSP::Graph::GetProperty(&v28, *(a2 + 648), a3, a4, &buf[4]);
-      if (v29)
+      *buf = v24;
+      CA::DSP::Graph::GetProperty(&v26, *(a2 + 648), a3, a4, &buf[4]);
+      if (v27)
       {
         *(this + 4) = 1;
 LABEL_27:
-        if ((v27 & 1) == 0)
+        if ((v25 & 1) == 0)
         {
-          CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v26);
+          CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v24);
         }
 
-        goto LABEL_29;
+        return caulk::shared_semaphore_mutex::unlock_shared((a2 + 608));
       }
     }
 
     else
     {
-      v10 = v26;
-      v26 = 0;
-      v28 = v10;
-      v29 = 0;
+      v9 = v24;
+      v24 = 0;
+      v26 = v9;
+      v27 = 0;
     }
 
-    v11 = *(a2 + 680);
-    if (v11)
+    v10 = *(a2 + 680);
+    if (v10)
     {
       {
         CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
       }
 
-      v13 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+      v12 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
       if (!os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_25;
       }
 
-      v14 = *(a2 + 680);
-      v15 = bswap32(a3);
-      *&buf[1] = v15;
-      if ((v15 - 32) > 0x5E || ((v15 >> 8) - 32) > 0x5E || ((v15 << 8 >> 24) - 32) > 0x5E || ((v15 >> 24) - 32) > 0x5E)
+      v13 = *(a2 + 680);
+      v14 = bswap32(a3);
+      *&buf[1] = v14;
+      if ((v14 - 32) > 0x5E || ((v14 >> 8) - 32) > 0x5E || ((v14 << 8 >> 24) - 32) > 0x5E || ((v14 >> 24) - 32) > 0x5E)
       {
-        std::to_string(&v30, a3);
+        std::to_string(&v28, a3);
       }
 
       else
       {
         strcpy(&buf[5], "'");
         buf[0] = 39;
-        std::string::basic_string[abi:ne200100]<0>(&v30, buf);
+        std::string::basic_string[abi:ne200100]<0>(&v28, buf);
       }
 
-      v19 = &v30;
-      if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v17 = &v28;
+      if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v19 = v30.__r_.__value_.__r.__words[0];
+        v17 = v28.__r_.__value_.__r.__words[0];
       }
 
       *buf = 134218754;
       *&buf[4] = a2;
-      v32 = 2112;
-      v33 = v14;
-      v34 = 2080;
-      v35 = v19;
-      v36 = 2112;
-      v37 = v28;
-      v20 = "[%p|%@] failed to get DSP graph property %s - %@";
-      v21 = v13;
-      v22 = 42;
+      v30 = 2112;
+      v31 = v13;
+      v32 = 2080;
+      v33 = v17;
+      v34 = 2112;
+      v35 = v26;
+      v18 = "[%p|%@] failed to get DSP graph property %s - %@";
+      v19 = v12;
+      v20 = 42;
     }
 
     else
@@ -2421,56 +2337,56 @@ LABEL_27:
         CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
       }
 
-      v16 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+      v15 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
       if (!os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_25;
       }
 
-      v23 = bswap32(a3);
-      *&buf[1] = v23;
-      if ((v23 - 32) > 0x5E || ((v23 >> 8) - 32) > 0x5E || ((v23 << 8 >> 24) - 32) > 0x5E || ((v23 >> 24) - 32) > 0x5E)
+      v21 = bswap32(a3);
+      *&buf[1] = v21;
+      if ((v21 - 32) > 0x5E || ((v21 >> 8) - 32) > 0x5E || ((v21 << 8 >> 24) - 32) > 0x5E || ((v21 >> 24) - 32) > 0x5E)
       {
-        std::to_string(&v30, a3);
+        std::to_string(&v28, a3);
       }
 
       else
       {
         strcpy(&buf[5], "'");
         buf[0] = 39;
-        std::string::basic_string[abi:ne200100]<0>(&v30, buf);
+        std::string::basic_string[abi:ne200100]<0>(&v28, buf);
       }
 
-      v24 = &v30;
-      if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v22 = &v28;
+      if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v24 = v30.__r_.__value_.__r.__words[0];
+        v22 = v28.__r_.__value_.__r.__words[0];
       }
 
       *buf = 134218498;
       *&buf[4] = a2;
-      v32 = 2080;
-      v33 = v24;
-      v34 = 2112;
-      v35 = v28;
-      v20 = "[%p] failed to get DSP graph property %s - %@";
-      v21 = v16;
-      v22 = 32;
+      v30 = 2080;
+      v31 = v22;
+      v32 = 2112;
+      v33 = v26;
+      v18 = "[%p] failed to get DSP graph property %s - %@";
+      v19 = v15;
+      v20 = 32;
     }
 
-    _os_log_error_impl(&dword_1C91AE000, v21, OS_LOG_TYPE_ERROR, v20, buf, v22);
-    if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
+    _os_log_error_impl(&dword_1C91AE000, v19, OS_LOG_TYPE_ERROR, v18, buf, v20);
+    if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v30.__r_.__value_.__l.__data_);
+      operator delete(v28.__r_.__value_.__l.__data_);
     }
 
 LABEL_25:
     *this = -10863;
-    v17 = v29;
+    v16 = v27;
     *(this + 4) = 0;
-    if ((v17 & 1) == 0)
+    if ((v16 & 1) == 0)
     {
-      CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v28);
+      CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v26);
     }
 
     goto LABEL_27;
@@ -2478,7 +2394,6 @@ LABEL_25:
 
   caulk::shared_semaphore_mutex::lock_shared((a2 + 608));
   CA::DSP::AUDSPGraph::GetCachedGraphProperty(this, a2, a3, a4);
-  v9 = *MEMORY[0x1E69E9840];
 
   return caulk::shared_semaphore_mutex::unlock_shared((a2 + 608));
 }
@@ -2495,7 +2410,7 @@ void sub_1C91CD4F8(_Unwind_Exception *a1, int a2)
 
 uint64_t CA::DSP::AUDSPGraph::GetGraphProperty(CA::DSP::AUDSPGraph *this, uint64_t a2, void *a3)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   if (*(a2 + 17) == 1)
   {
     result = caulk::shared_semaphore_mutex::try_lock_shared((a2 + 608));
@@ -2503,8 +2418,6 @@ uint64_t CA::DSP::AUDSPGraph::GetGraphProperty(CA::DSP::AUDSPGraph *this, uint64
     {
       *this = -10863;
       *(this + 8) = 0;
-LABEL_42:
-      v25 = *MEMORY[0x1E69E9840];
       return result;
     }
 
@@ -2512,150 +2425,148 @@ LABEL_42:
     {
       *this = -10863;
       *(this + 8) = 0;
-LABEL_41:
-      result = caulk::shared_semaphore_mutex::unlock_shared((a2 + 608));
-      goto LABEL_42;
+      return caulk::shared_semaphore_mutex::unlock_shared((a2 + 608));
     }
 
-    CA::DSP::AUDSPGraph::GetCachedGraphProperty(&v32, a2, a3);
-    if (v33)
+    CA::DSP::AUDSPGraph::GetCachedGraphProperty(&v30, a2, a3);
+    if (v31)
     {
-      v7 = v32;
-      v32 = 0;
+      v7 = v30;
+      v30 = 0;
       *this = v7;
       *(this + 8) = 1;
 LABEL_40:
-      CA::DSP::ReferenceCounted<__CFDictionary const*>::~ReferenceCounted(&v32);
-      goto LABEL_41;
+      CA::DSP::ReferenceCounted<__CFDictionary const*>::~ReferenceCounted(&v30);
+      return caulk::shared_semaphore_mutex::unlock_shared((a2 + 608));
     }
 
-    CA::DSP::Graph::GetPropertyInfo(&v34, *(a2 + 648), a3);
-    if (v35 == 1)
+    CA::DSP::Graph::GetPropertyInfo(&v32, *(a2 + 648), a3);
+    if (v33 == 1)
     {
-      v43 = v34;
-      v9 = HIDWORD(v34);
-      v10 = *MEMORY[0x1E695E480];
-      Mutable = CFDataCreateMutable(*MEMORY[0x1E695E480], HIDWORD(v34));
+      v41 = v32;
+      v8 = HIDWORD(v32);
+      v9 = *MEMORY[0x1E695E480];
+      Mutable = CFDataCreateMutable(*MEMORY[0x1E695E480], HIDWORD(v32));
       *buf = 0;
       theData = Mutable;
       CA::DSP::ReferenceCounted<__CFData *>::~ReferenceCounted(buf);
-      CFDataSetLength(theData, v9);
+      CFDataSetLength(theData, v8);
       MutableBytePtr = CFDataGetMutableBytePtr(theData);
-      CA::DSP::Graph::GetProperty(&v46, *(a2 + 648), a3, MutableBytePtr, &v43 + 1);
-      v13 = theData;
-      v14 = v43;
-      v40 = v43;
-      v41 = theData;
+      CA::DSP::Graph::GetProperty(&v44, *(a2 + 648), a3, MutableBytePtr, &v41 + 1);
+      v12 = theData;
+      v13 = v41;
+      v38 = v41;
+      v39 = theData;
       if (theData)
       {
         CFRetain(theData);
       }
 
-      if (v46.__r_.__value_.__s.__data_[8])
+      if (v44.__r_.__value_.__s.__data_[8])
       {
-        CFDataSetLength(v13, HIDWORD(v14));
+        CFDataSetLength(v12, HIDWORD(v13));
         CFRetain(@"Data");
-        v44 = 0;
-        v45 = 0;
+        v42 = 0;
+        v43 = 0;
         *buf = @"Data";
-        CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(&v45);
-        *&buf[8] = v13;
-        if (v13)
+        CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(&v43);
+        *&buf[8] = v12;
+        if (v12)
         {
-          CFRetain(v13);
+          CFRetain(v12);
         }
 
-        v15 = 1;
-        CA::DSP::Dictionary<CA::DSP::String,CA::DSP::Data>::Create<CA::DSP::Reference<CA::DSP::String>,CA::DSP::Reference<CA::DSP::Data>>(&v36, v10, buf, 1);
+        v14 = 1;
+        CA::DSP::Dictionary<CA::DSP::String,CA::DSP::Data>::Create<CA::DSP::Reference<CA::DSP::String>,CA::DSP::Reference<CA::DSP::Data>>(&v34, v9, buf, 1);
         CA::DSP::ReferenceCounted<__CFData const*>::~ReferenceCounted(&buf[8]);
         CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(buf);
-        CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(&v44);
+        CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(&v42);
       }
 
       else
       {
-        v15 = 0;
-        v17 = v46.__r_.__value_.__r.__words[0];
-        v46.__r_.__value_.__r.__words[0] = 0;
-        v36 = v17;
+        v14 = 0;
+        v16 = v44.__r_.__value_.__r.__words[0];
+        v44.__r_.__value_.__r.__words[0] = 0;
+        v34 = v16;
       }
 
-      v37 = v15;
-      CA::DSP::ReferenceCounted<__CFData *>::~ReferenceCounted(&v41);
-      if ((v46.__r_.__value_.__s.__data_[8] & 1) == 0)
+      v35 = v14;
+      CA::DSP::ReferenceCounted<__CFData *>::~ReferenceCounted(&v39);
+      if ((v44.__r_.__value_.__s.__data_[8] & 1) == 0)
       {
-        CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v46.__r_.__value_.__l.__data_);
+        CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v44.__r_.__value_.__l.__data_);
       }
 
       CA::DSP::ReferenceCounted<__CFData *>::~ReferenceCounted(&theData);
-      if (v15)
+      if (v14)
       {
-        v18 = v36;
+        v17 = v34;
+        v34 = 0;
+        v37 = 1;
         v36 = 0;
-        v39 = 1;
-        v38 = 0;
-        *this = v18;
+        *this = v17;
         *(this + 8) = 1;
-        CA::DSP::ReferenceCounted<__CFDictionary const*>::~ReferenceCounted(&v38);
+        CA::DSP::ReferenceCounted<__CFDictionary const*>::~ReferenceCounted(&v36);
         goto LABEL_35;
       }
     }
 
     else
     {
-      v16 = v34;
-      v34 = 0;
-      v36 = v16;
-      v37 = 0;
+      v15 = v32;
+      v32 = 0;
+      v34 = v15;
+      v35 = 0;
     }
 
-    v19 = *(a2 + 680);
-    if (v19)
+    v18 = *(a2 + 680);
+    if (v18)
     {
       {
         CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
       }
 
-      v21 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+      v20 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
       if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
       {
-        v22 = *(a2 + 680);
-        v23 = bswap32(a3);
-        *&buf[1] = v23;
-        if ((v23 - 32) > 0x5E || ((v23 >> 8) - 32) > 0x5E || ((v23 << 8 >> 24) - 32) > 0x5E || ((v23 >> 24) - 32) > 0x5E)
+        v21 = *(a2 + 680);
+        v22 = bswap32(a3);
+        *&buf[1] = v22;
+        if ((v22 - 32) > 0x5E || ((v22 >> 8) - 32) > 0x5E || ((v22 << 8 >> 24) - 32) > 0x5E || ((v22 >> 24) - 32) > 0x5E)
         {
-          std::to_string(&v46, a3);
+          std::to_string(&v44, a3);
         }
 
         else
         {
           strcpy(&buf[5], "'");
           buf[0] = 39;
-          std::string::basic_string[abi:ne200100]<0>(&v46, buf);
+          std::string::basic_string[abi:ne200100]<0>(&v44, buf);
         }
 
-        v26 = &v46;
-        if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        v24 = &v44;
+        if ((v44.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v26 = v46.__r_.__value_.__r.__words[0];
+          v24 = v44.__r_.__value_.__r.__words[0];
         }
 
         *buf = 134218754;
         *&buf[4] = a2;
         *&buf[12] = 2112;
-        *&buf[14] = v22;
-        v48 = 2080;
-        v49 = v26;
-        v50 = 2112;
-        v51 = v36;
-        v27 = "[%p|%@] failed to get DSP graph property %s - %@";
-        v28 = v21;
-        v29 = 42;
+        *&buf[14] = v21;
+        v46 = 2080;
+        v47 = v24;
+        v48 = 2112;
+        v49 = v34;
+        v25 = "[%p|%@] failed to get DSP graph property %s - %@";
+        v26 = v20;
+        v27 = 42;
 LABEL_56:
-        _os_log_error_impl(&dword_1C91AE000, v28, OS_LOG_TYPE_ERROR, v27, buf, v29);
-        if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+        _os_log_error_impl(&dword_1C91AE000, v26, OS_LOG_TYPE_ERROR, v25, buf, v27);
+        if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v46.__r_.__value_.__l.__data_);
+          operator delete(v44.__r_.__value_.__l.__data_);
         }
       }
     }
@@ -2666,71 +2577,70 @@ LABEL_56:
         CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
       }
 
-      v24 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+      v23 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
       if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
       {
-        v30 = bswap32(a3);
-        *&buf[1] = v30;
-        if ((v30 - 32) > 0x5E || ((v30 >> 8) - 32) > 0x5E || ((v30 << 8 >> 24) - 32) > 0x5E || ((v30 >> 24) - 32) > 0x5E)
+        v28 = bswap32(a3);
+        *&buf[1] = v28;
+        if ((v28 - 32) > 0x5E || ((v28 >> 8) - 32) > 0x5E || ((v28 << 8 >> 24) - 32) > 0x5E || ((v28 >> 24) - 32) > 0x5E)
         {
-          std::to_string(&v46, a3);
+          std::to_string(&v44, a3);
         }
 
         else
         {
           strcpy(&buf[5], "'");
           buf[0] = 39;
-          std::string::basic_string[abi:ne200100]<0>(&v46, buf);
+          std::string::basic_string[abi:ne200100]<0>(&v44, buf);
         }
 
-        v31 = &v46;
-        if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        v29 = &v44;
+        if ((v44.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v31 = v46.__r_.__value_.__r.__words[0];
+          v29 = v44.__r_.__value_.__r.__words[0];
         }
 
         *buf = 134218498;
         *&buf[4] = a2;
         *&buf[12] = 2080;
-        *&buf[14] = v31;
-        v48 = 2112;
-        v49 = v36;
-        v27 = "[%p] failed to get DSP graph property %s - %@";
-        v28 = v24;
-        v29 = 32;
+        *&buf[14] = v29;
+        v46 = 2112;
+        v47 = v34;
+        v25 = "[%p] failed to get DSP graph property %s - %@";
+        v26 = v23;
+        v27 = 32;
         goto LABEL_56;
       }
     }
 
-    LODWORD(v38) = -10863;
-    v39 = 0;
+    LODWORD(v36) = -10863;
+    v37 = 0;
     *this = -10863;
     *(this + 8) = 0;
-    if ((v37 & 1) == 0)
+    if ((v35 & 1) == 0)
     {
-      CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v36);
+      CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v34);
 LABEL_37:
-      if ((v35 & 1) == 0)
-      {
-        CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v34);
-      }
-
       if ((v33 & 1) == 0)
       {
-        goto LABEL_41;
+        CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v32);
+      }
+
+      if ((v31 & 1) == 0)
+      {
+        return caulk::shared_semaphore_mutex::unlock_shared((a2 + 608));
       }
 
       goto LABEL_40;
     }
 
 LABEL_35:
-    CA::DSP::ReferenceCounted<__CFDictionary const*>::~ReferenceCounted(&v36);
+    CA::DSP::ReferenceCounted<__CFDictionary const*>::~ReferenceCounted(&v34);
     goto LABEL_37;
   }
 
   caulk::shared_semaphore_mutex::lock_shared((a2 + 608));
   CA::DSP::AUDSPGraph::GetCachedGraphProperty(this, a2, a3);
-  v8 = *MEMORY[0x1E69E9840];
 
   return caulk::shared_semaphore_mutex::unlock_shared((a2 + 608));
 }
@@ -2804,48 +2714,48 @@ const void **CA::DSP::ReferenceCounted<__RPBHost *>::~ReferenceCounted(const voi
 
 void *CA::DSP::AUDSPGraph::GetCachedGraphProperty(CA::DSP::AUDSPGraph *this, uint64_t a2, unsigned int a3)
 {
-  v18[1] = *MEMORY[0x1E69E9840];
-  result = CA::DSP::AUDSPGraph::GraphPropertyCache::Find(&v12, (a2 + 1208), a3);
-  if (v13 != 1)
+  v17[1] = *MEMORY[0x1E69E9840];
+  result = CA::DSP::AUDSPGraph::GraphPropertyCache::Find(&v11, (a2 + 1208), a3);
+  if (v12 != 1)
   {
     v9 = 0;
-    v10 = v12;
+    v10 = v11;
 LABEL_8:
     *this = v10;
     goto LABEL_9;
   }
 
-  v5 = v12;
-  if ((*(v12 + 48) & 1) == 0)
+  v5 = v11;
+  if ((*(v11 + 48) & 1) == 0)
   {
     v9 = 0;
     v10 = -10850;
     goto LABEL_8;
   }
 
-  if ((*(v12 + 8) & 1) == 0)
+  if ((*(v11 + 8) & 1) == 0)
   {
     CFRetain(@"Data");
     v6 = *MEMORY[0x1E695E480];
     v7 = CFDataCreate(*MEMORY[0x1E695E480], *(v5 + 16), *(v5 + 24) - *(v5 + 16));
-    v17 = 0;
-    CA::DSP::ReferenceCounted<__CFData const*>::~ReferenceCounted(&v17);
-    v15 = 0;
     v16 = 0;
-    v17 = @"Data";
-    CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(&v16);
+    CA::DSP::ReferenceCounted<__CFData const*>::~ReferenceCounted(&v16);
     v14 = 0;
-    v18[0] = v7;
-    CA::DSP::Dictionary<CA::DSP::String,CA::DSP::Type>::Create<CA::DSP::Reference<CA::DSP::String>,CA::DSP::Reference<CA::DSP::Type>>(&v16, v6, &v17, 1);
-    CA::DSP::ReferenceCounted<__CFDictionary const*>::~ReferenceCounted(v5);
-    v8 = v16;
-    v16 = 0;
-    *v5 = v8;
-    CA::DSP::ReferenceCounted<__CFDictionary const*>::~ReferenceCounted(&v16);
-    CA::DSP::ReferenceCounted<void const*>::~ReferenceCounted(v18);
-    CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(&v17);
-    CA::DSP::ReferenceCounted<__CFData const*>::~ReferenceCounted(&v14);
+    v15 = 0;
+    v16 = @"Data";
     CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(&v15);
+    v13 = 0;
+    v17[0] = v7;
+    CA::DSP::Dictionary<CA::DSP::String,CA::DSP::Type>::Create<CA::DSP::Reference<CA::DSP::String>,CA::DSP::Reference<CA::DSP::Type>>(&v15, v6, &v16, 1);
+    CA::DSP::ReferenceCounted<__CFDictionary const*>::~ReferenceCounted(v5);
+    v8 = v15;
+    v15 = 0;
+    *v5 = v8;
+    CA::DSP::ReferenceCounted<__CFDictionary const*>::~ReferenceCounted(&v15);
+    CA::DSP::ReferenceCounted<void const*>::~ReferenceCounted(v17);
+    CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(&v16);
+    CA::DSP::ReferenceCounted<__CFData const*>::~ReferenceCounted(&v13);
+    CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(&v14);
     *(v5 + 8) = 1;
   }
 
@@ -2853,7 +2763,6 @@ LABEL_8:
   v9 = 1;
 LABEL_9:
   *(this + 8) = v9;
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2867,7 +2776,7 @@ void sub_1C91CDD9C(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-const void **CA::DSP::Graph::GetPropertyInfo(CA::DSP::Graph *this, uint64_t a2, unsigned int a3)
+const void **CA::DSP::Graph::GetPropertyInfo(CA::DSP::Graph *this, uint64_t a2, uint64_t a3)
 {
   *v13 = 0;
   v11 = 0;
@@ -2950,10 +2859,10 @@ const void **CA::DSP::Graph::GetProperty(CA::DSP::Graph *this, uint64_t a2, void
 
 const void **CA::DSP::Dictionary<CA::DSP::String,CA::DSP::Data>::Create<CA::DSP::Reference<CA::DSP::String>,CA::DSP::Reference<CA::DSP::Data>>(CFDictionaryRef *a1, const __CFAllocator *a2, uint64_t *a3, CFIndex a4)
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   v8 = 8 * a4 + 8;
   MEMORY[0x1EEE9AC00](a1);
-  v10 = v24 - ((v9 + 23) & 0xFFFFFFFFFFFFFFF0);
+  v10 = v23 - ((v9 + 23) & 0xFFFFFFFFFFFFFFF0);
   bzero(v10, v8);
   if (a4)
   {
@@ -2971,7 +2880,7 @@ const void **CA::DSP::Dictionary<CA::DSP::String,CA::DSP::Data>::Create<CA::DSP:
 
     while (v13);
     MEMORY[0x1EEE9AC00](v11);
-    v17 = v24 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v17 = v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
     bzero(v17, v8);
     v18 = a3 + 1;
     v19 = v17;
@@ -2989,16 +2898,14 @@ const void **CA::DSP::Dictionary<CA::DSP::String,CA::DSP::Data>::Create<CA::DSP:
   else
   {
     MEMORY[0x1EEE9AC00](v11);
-    v17 = v24 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v17 = v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
     bzero(v17, v8);
   }
 
   v21 = CFDictionaryCreate(a2, v10, v17, a4, MEMORY[0x1E695E528], MEMORY[0x1E695E9E8]);
-  v24[0] = 0;
+  v23[0] = 0;
   *a1 = v21;
-  result = CA::DSP::ReferenceCounted<__CFDictionary const*>::~ReferenceCounted(v24);
-  v23 = *MEMORY[0x1E69E9840];
-  return result;
+  return CA::DSP::ReferenceCounted<__CFDictionary const*>::~ReferenceCounted(v23);
 }
 
 void sub_1C91CE0EC(_Unwind_Exception *a1, int a2)
@@ -3035,12 +2942,80 @@ const void **CA::DSP::ReferenceCounted<__CFData *>::~ReferenceCounted(const void
   return a1;
 }
 
+void *CA::DSP::AUDSPGraph::GraphPropertyCache::Find(CA::DSP::AUDSPGraph::GraphPropertyCache *this, uint64_t *a2, unsigned int a3)
+{
+  v3 = *a2;
+  v4 = a2[1];
+  v16 = v3;
+  if (v3)
+  {
+    v5 = 1;
+  }
+
+  else
+  {
+    v5 = v4 == 0;
+  }
+
+  if (!v5)
+  {
+    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+  }
+
+  result = boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::small_vector<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,32ul,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>>,void>>::priv_lower_bound<boost::container::vec_iterator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>*,true>,unsigned int>(&v15, &v16, v3 + (v4 << 6), a3);
+  v10 = a2[1];
+  if (*a2)
+  {
+    v11 = 1;
+  }
+
+  else
+  {
+    v11 = v10 == 0;
+  }
+
+  if (!v11)
+  {
+    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+  }
+
+  v12 = *a2 + (v10 << 6);
+  v13 = v15;
+  if (v15 != v12)
+  {
+    if (!v15)
+    {
+      __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+    }
+
+    if (*v15 > a3)
+    {
+      v13 = v12;
+    }
+  }
+
+  if (v13 == v12)
+  {
+    v14 = 0;
+    *this = -10879;
+  }
+
+  else
+  {
+    *this = v13 + 2;
+    v14 = 1;
+  }
+
+  *(this + 8) = v14;
+  return result;
+}
+
 const void **CA::DSP::Dictionary<CA::DSP::String,CA::DSP::Type>::Create<CA::DSP::Reference<CA::DSP::String>,CA::DSP::Reference<CA::DSP::Type>>(CFDictionaryRef *a1, const __CFAllocator *a2, uint64_t *a3, CFIndex a4)
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   v8 = 8 * a4 + 8;
   MEMORY[0x1EEE9AC00](a1);
-  v10 = v24 - ((v9 + 23) & 0xFFFFFFFFFFFFFFF0);
+  v10 = v23 - ((v9 + 23) & 0xFFFFFFFFFFFFFFF0);
   bzero(v10, v8);
   if (a4)
   {
@@ -3058,7 +3033,7 @@ const void **CA::DSP::Dictionary<CA::DSP::String,CA::DSP::Type>::Create<CA::DSP:
 
     while (v13);
     MEMORY[0x1EEE9AC00](v11);
-    v17 = v24 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v17 = v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
     bzero(v17, v8);
     v18 = a3 + 1;
     v19 = v17;
@@ -3076,16 +3051,14 @@ const void **CA::DSP::Dictionary<CA::DSP::String,CA::DSP::Type>::Create<CA::DSP:
   else
   {
     MEMORY[0x1EEE9AC00](v11);
-    v17 = v24 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v17 = v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
     bzero(v17, v8);
   }
 
   v21 = CFDictionaryCreate(a2, v10, v17, a4, MEMORY[0x1E695E528], MEMORY[0x1E695E9E8]);
-  v24[0] = 0;
+  v23[0] = 0;
   *a1 = v21;
-  result = CA::DSP::ReferenceCounted<__CFDictionary const*>::~ReferenceCounted(v24);
-  v23 = *MEMORY[0x1E69E9840];
-  return result;
+  return CA::DSP::ReferenceCounted<__CFDictionary const*>::~ReferenceCounted(v23);
 }
 
 void sub_1C91CE428(_Unwind_Exception *a1, int a2)
@@ -3356,22 +3329,22 @@ LABEL_44:
 BOOL *CA::DSP::AUDSPGraph::IsGraphParameterWritable(BOOL *this, uint64_t a2, uint64_t a3)
 {
   v3 = this;
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (*(a2 + 17) != 1)
   {
     *this = 1;
     this[4] = 1;
-    goto LABEL_20;
+    return this;
   }
 
   caulk::shared_semaphore_mutex::lock_shared((a2 + 608));
-  CA::DSP::Graph::GetParameterDirection(&v21, *(a2 + 648), a3);
-  if (v22 != 1)
+  CA::DSP::Graph::GetParameterDirection(&v20, *(a2 + 648), a3);
+  if (v21 != 1)
   {
-    v6 = v21;
-    v21 = 0;
-    v23 = v6;
-    v24 = 0;
+    v6 = v20;
+    v20 = 0;
+    v22 = v6;
+    v23 = 0;
     v7 = *(a2 + 680);
     if (v7)
     {
@@ -3390,33 +3363,33 @@ BOOL *CA::DSP::AUDSPGraph::IsGraphParameterWritable(BOOL *this, uint64_t a2, uin
       *&buf[1] = v11;
       if ((v11 - 32) > 0x5E || ((v11 >> 8) - 32) > 0x5E || ((v11 << 8 >> 24) - 32) > 0x5E || ((v11 >> 24) - 32) > 0x5E)
       {
-        std::to_string(&v25, a3);
+        std::to_string(&v24, a3);
       }
 
       else
       {
         strcpy(&buf[5], "'");
         buf[0] = 39;
-        std::string::basic_string[abi:ne200100]<0>(&v25, buf);
+        std::string::basic_string[abi:ne200100]<0>(&v24, buf);
       }
 
-      v15 = &v25;
-      if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v14 = &v24;
+      if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v15 = v25.__r_.__value_.__r.__words[0];
+        v14 = v24.__r_.__value_.__r.__words[0];
       }
 
       *buf = 134218754;
       *&buf[4] = a2;
-      v27 = 2112;
-      v28 = v10;
-      v29 = 2080;
-      v30 = v15;
-      v31 = 2112;
-      v32 = v23;
-      v16 = "[%p|%@] failed to set DSP graph parameter %s direction - %@";
-      v17 = v9;
-      v18 = 42;
+      v26 = 2112;
+      v27 = v10;
+      v28 = 2080;
+      v29 = v14;
+      v30 = 2112;
+      v31 = v22;
+      v15 = "[%p|%@] failed to set DSP graph parameter %s direction - %@";
+      v16 = v9;
+      v17 = 42;
     }
 
     else
@@ -3431,69 +3404,66 @@ BOOL *CA::DSP::AUDSPGraph::IsGraphParameterWritable(BOOL *this, uint64_t a2, uin
         goto LABEL_15;
       }
 
-      v19 = bswap32(a3);
-      *&buf[1] = v19;
-      if ((v19 - 32) > 0x5E || ((v19 >> 8) - 32) > 0x5E || ((v19 << 8 >> 24) - 32) > 0x5E || ((v19 >> 24) - 32) > 0x5E)
+      v18 = bswap32(a3);
+      *&buf[1] = v18;
+      if ((v18 - 32) > 0x5E || ((v18 >> 8) - 32) > 0x5E || ((v18 << 8 >> 24) - 32) > 0x5E || ((v18 >> 24) - 32) > 0x5E)
       {
-        std::to_string(&v25, a3);
+        std::to_string(&v24, a3);
       }
 
       else
       {
         strcpy(&buf[5], "'");
         buf[0] = 39;
-        std::string::basic_string[abi:ne200100]<0>(&v25, buf);
+        std::string::basic_string[abi:ne200100]<0>(&v24, buf);
       }
 
-      v20 = &v25;
-      if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v19 = &v24;
+      if ((v24.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v20 = v25.__r_.__value_.__r.__words[0];
+        v19 = v24.__r_.__value_.__r.__words[0];
       }
 
       *buf = 134218498;
       *&buf[4] = a2;
-      v27 = 2080;
-      v28 = v20;
-      v29 = 2112;
-      v30 = v23;
-      v16 = "[%p] failed to set DSP graph parameter %s direction - %@";
-      v17 = v12;
-      v18 = 32;
+      v26 = 2080;
+      v27 = v19;
+      v28 = 2112;
+      v29 = v22;
+      v15 = "[%p] failed to set DSP graph parameter %s direction - %@";
+      v16 = v12;
+      v17 = 32;
     }
 
-    _os_log_error_impl(&dword_1C91AE000, v17, OS_LOG_TYPE_ERROR, v16, buf, v18);
-    if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
+    _os_log_error_impl(&dword_1C91AE000, v16, OS_LOG_TYPE_ERROR, v15, buf, v17);
+    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v25.__r_.__value_.__l.__data_);
+      operator delete(v24.__r_.__value_.__l.__data_);
     }
 
 LABEL_15:
     *v3 = -10863;
-    v13 = v24;
+    v13 = v23;
     v3[4] = 0;
     if ((v13 & 1) == 0)
     {
-      CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v23);
+      CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v22);
     }
 
     goto LABEL_17;
   }
 
-  LOBYTE(v23) = v21 == 0;
-  v24 = 1;
-  *v3 = v21 == 0;
+  LOBYTE(v22) = v20 == 0;
+  v23 = 1;
+  *v3 = v20 == 0;
   v3[4] = 1;
 LABEL_17:
-  if ((v22 & 1) == 0)
+  if ((v21 & 1) == 0)
   {
-    CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v21);
+    CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v20);
   }
 
-  this = caulk::shared_semaphore_mutex::unlock_shared((a2 + 608));
-LABEL_20:
-  v14 = *MEMORY[0x1E69E9840];
-  return this;
+  return caulk::shared_semaphore_mutex::unlock_shared((a2 + 608));
 }
 
 void sub_1C91CEBB8(_Unwind_Exception *a1, int a2)
@@ -3506,9 +3476,9 @@ void sub_1C91CEBB8(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-uint64_t CA::DSP::AUDSPGraph::GetGraphPropertyInfo(CA::DSP::AUDSPGraph *this, uint64_t a2, unsigned int a3)
+uint64_t CA::DSP::AUDSPGraph::GetGraphPropertyInfo(CA::DSP::AUDSPGraph *this, uint64_t a2, uint64_t a3)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if (*(a2 + 17) == 1)
   {
     result = caulk::shared_semaphore_mutex::try_lock_shared((a2 + 608));
@@ -3516,80 +3486,76 @@ uint64_t CA::DSP::AUDSPGraph::GetGraphPropertyInfo(CA::DSP::AUDSPGraph *this, ui
     {
       *this = -10863;
       *(this + 8) = 0;
-LABEL_18:
-      v11 = *MEMORY[0x1E69E9840];
       return result;
     }
 
     if (*(a2 + 648))
     {
-      CA::DSP::AUDSPGraph::GetCachedGraphPropertyInfo(&v25, a2, a3);
-      if (v26 == 1)
+      CA::DSP::AUDSPGraph::GetCachedGraphPropertyInfo(&v23, a2, a3);
+      if (v24 == 1)
       {
-        v7 = v25;
+        v7 = v23;
 LABEL_14:
         *this = v7;
         *(this + 8) = 1;
-LABEL_17:
-        result = caulk::shared_semaphore_mutex::unlock_shared((a2 + 608));
-        goto LABEL_18;
+        return caulk::shared_semaphore_mutex::unlock_shared((a2 + 608));
       }
 
-      v10 = *(a2 + 648);
-      if (std::__hash_table<std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>>>::find<unsigned int>((*(v10 + 8) + 624), a3))
+      v9 = *(a2 + 648);
+      if (std::__hash_table<std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>>>::find<unsigned int>((*(v9 + 8) + 624), a3))
       {
-        CA::DSP::Graph::GetPropertyInfo(&v27, v10, a3);
-        if (v28)
+        CA::DSP::Graph::GetPropertyInfo(&v25, v9, a3);
+        if (v26)
         {
-          v7 = v27;
+          v7 = v25;
           goto LABEL_14;
         }
 
-        v12 = *(a2 + 680);
-        if (v12)
+        v10 = *(a2 + 680);
+        if (v10)
         {
           {
             CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
           }
 
-          v14 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+          v12 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
           if (!os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_29;
           }
 
-          v15 = *(a2 + 680);
-          v16 = bswap32(a3);
-          *&buf[1] = v16;
-          if ((v16 - 32) > 0x5E || ((v16 >> 8) - 32) > 0x5E || ((v16 << 8 >> 24) - 32) > 0x5E || ((v16 >> 24) - 32) > 0x5E)
+          v13 = *(a2 + 680);
+          v14 = bswap32(a3);
+          *&buf[1] = v14;
+          if ((v14 - 32) > 0x5E || ((v14 >> 8) - 32) > 0x5E || ((v14 << 8 >> 24) - 32) > 0x5E || ((v14 >> 24) - 32) > 0x5E)
           {
-            std::to_string(&v29, a3);
+            std::to_string(&v27, a3);
           }
 
           else
           {
             strcpy(&buf[5], "'");
             buf[0] = 39;
-            std::string::basic_string[abi:ne200100]<0>(&v29, buf);
+            std::string::basic_string[abi:ne200100]<0>(&v27, buf);
           }
 
-          v19 = &v29;
-          if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+          v17 = &v27;
+          if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
           {
-            v19 = v29.__r_.__value_.__r.__words[0];
+            v17 = v27.__r_.__value_.__r.__words[0];
           }
 
           *buf = 134218754;
           *&buf[4] = a2;
-          v31 = 2112;
-          v32 = v15;
-          v33 = 2080;
-          v34 = v19;
-          v35 = 2112;
-          v36 = v27;
-          v20 = "[%p|%@] failed to get DSP graph property %s info - %@";
-          v21 = v14;
-          v22 = 42;
+          v29 = 2112;
+          v30 = v13;
+          v31 = 2080;
+          v32 = v17;
+          v33 = 2112;
+          v34 = v25;
+          v18 = "[%p|%@] failed to get DSP graph property %s info - %@";
+          v19 = v12;
+          v20 = 42;
         }
 
         else
@@ -3598,77 +3564,76 @@ LABEL_17:
             CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
           }
 
-          v17 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+          v15 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
           if (!os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_29;
           }
 
-          v23 = bswap32(a3);
-          *&buf[1] = v23;
-          if ((v23 - 32) > 0x5E || ((v23 >> 8) - 32) > 0x5E || ((v23 << 8 >> 24) - 32) > 0x5E || ((v23 >> 24) - 32) > 0x5E)
+          v21 = bswap32(a3);
+          *&buf[1] = v21;
+          if ((v21 - 32) > 0x5E || ((v21 >> 8) - 32) > 0x5E || ((v21 << 8 >> 24) - 32) > 0x5E || ((v21 >> 24) - 32) > 0x5E)
           {
-            std::to_string(&v29, a3);
+            std::to_string(&v27, a3);
           }
 
           else
           {
             strcpy(&buf[5], "'");
             buf[0] = 39;
-            std::string::basic_string[abi:ne200100]<0>(&v29, buf);
+            std::string::basic_string[abi:ne200100]<0>(&v27, buf);
           }
 
-          v24 = &v29;
-          if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+          v22 = &v27;
+          if ((v27.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
           {
-            v24 = v29.__r_.__value_.__r.__words[0];
+            v22 = v27.__r_.__value_.__r.__words[0];
           }
 
           *buf = 134218498;
           *&buf[4] = a2;
-          v31 = 2080;
-          v32 = v24;
-          v33 = 2112;
-          v34 = v27;
-          v20 = "[%p] failed to get DSP graph property %s info - %@";
-          v21 = v17;
-          v22 = 32;
+          v29 = 2080;
+          v30 = v22;
+          v31 = 2112;
+          v32 = v25;
+          v18 = "[%p] failed to get DSP graph property %s info - %@";
+          v19 = v15;
+          v20 = 32;
         }
 
-        _os_log_error_impl(&dword_1C91AE000, v21, OS_LOG_TYPE_ERROR, v20, buf, v22);
-        if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+        _os_log_error_impl(&dword_1C91AE000, v19, OS_LOG_TYPE_ERROR, v18, buf, v20);
+        if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v29.__r_.__value_.__l.__data_);
+          operator delete(v27.__r_.__value_.__l.__data_);
         }
 
 LABEL_29:
         *this = -10863;
-        v18 = v28;
+        v16 = v26;
         *(this + 8) = 0;
-        if ((v18 & 1) == 0)
+        if ((v16 & 1) == 0)
         {
-          CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v27);
+          CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v25);
         }
 
-        goto LABEL_17;
+        return caulk::shared_semaphore_mutex::unlock_shared((a2 + 608));
       }
 
-      v9 = -10879;
+      v8 = -10879;
     }
 
     else
     {
-      v9 = -10863;
+      v8 = -10863;
     }
 
-    *this = v9;
+    *this = v8;
     *(this + 8) = 0;
-    goto LABEL_17;
+    return caulk::shared_semaphore_mutex::unlock_shared((a2 + 608));
   }
 
   caulk::shared_semaphore_mutex::lock_shared((a2 + 608));
   CA::DSP::AUDSPGraph::GetCachedGraphPropertyInfo(this, a2, a3);
-  v8 = *MEMORY[0x1E69E9840];
 
   return caulk::shared_semaphore_mutex::unlock_shared((a2 + 608));
 }
@@ -3711,49 +3676,49 @@ LABEL_7:
 
 uint64_t CA::DSP::AUDSPGraph::Reset(CA::DSP::AUDSPGraph *this)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   caulk::shared_semaphore_mutex::lock_shared((this + 608));
   v2 = *(this + 81);
   if (v2)
   {
-    v3 = CA::DSP::Graph::Reset(&v14, v2);
-    if ((v15 & 1) == 0)
+    v3 = CA::DSP::Graph::Reset(&v13, v2);
+    if ((v14 & 1) == 0)
     {
-      v7 = *(this + 85);
+      v6 = *(this + 85);
       Log = CA::DSP::AU::DSPGraph::GetLog(v3);
-      v9 = os_log_type_enabled(Log, OS_LOG_TYPE_ERROR);
-      if (v7)
+      v8 = os_log_type_enabled(Log, OS_LOG_TYPE_ERROR);
+      if (v6)
       {
-        if (v9)
+        if (v8)
         {
-          v10 = *(this + 85);
+          v9 = *(this + 85);
           *buf = 134218498;
-          v17 = this;
-          v18 = 2112;
-          v19 = v10;
-          v20 = 2112;
-          v21 = v14;
-          v11 = "[%p|%@] failed to reset DSP graph - %@";
-          v12 = Log;
-          v13 = 32;
+          v16 = this;
+          v17 = 2112;
+          v18 = v9;
+          v19 = 2112;
+          v20 = v13;
+          v10 = "[%p|%@] failed to reset DSP graph - %@";
+          v11 = Log;
+          v12 = 32;
 LABEL_11:
-          _os_log_error_impl(&dword_1C91AE000, v12, OS_LOG_TYPE_ERROR, v11, buf, v13);
+          _os_log_error_impl(&dword_1C91AE000, v11, OS_LOG_TYPE_ERROR, v10, buf, v12);
         }
       }
 
-      else if (v9)
+      else if (v8)
       {
         *buf = 134218242;
-        v17 = this;
-        v18 = 2112;
-        v19 = v14;
-        v11 = "[%p] failed to reset DSP graph - %@";
-        v12 = Log;
-        v13 = 22;
+        v16 = this;
+        v17 = 2112;
+        v18 = v13;
+        v10 = "[%p] failed to reset DSP graph - %@";
+        v11 = Log;
+        v12 = 22;
         goto LABEL_11;
       }
 
-      CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v14);
+      CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v13);
       v4 = 4294956433;
       goto LABEL_4;
     }
@@ -3762,13 +3727,12 @@ LABEL_11:
   v4 = 0;
 LABEL_4:
   caulk::shared_semaphore_mutex::unlock_shared((this + 608));
-  v5 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 uint64_t CA::DSP::AUDSPGraph::Cleanup(CA::DSP::AUDSPGraph *this)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   caulk::shared_semaphore_mutex::lock((this + 608));
   v2 = *(this + 85);
   if (v2)
@@ -3781,15 +3745,15 @@ uint64_t CA::DSP::AUDSPGraph::Cleanup(CA::DSP::AUDSPGraph *this)
     if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(this + 85);
-      v20 = 134218242;
-      v21 = this;
-      v22 = 2112;
-      v23 = v5;
+      v19 = 134218242;
+      v20 = this;
+      v21 = 2112;
+      v22 = v5;
       v6 = "[%p|%@] will uninitialize";
       v7 = v4;
       v8 = 22;
 LABEL_8:
-      _os_log_impl(&dword_1C91AE000, v7, OS_LOG_TYPE_DEFAULT, v6, &v20, v8);
+      _os_log_impl(&dword_1C91AE000, v7, OS_LOG_TYPE_DEFAULT, v6, &v19, v8);
     }
   }
 
@@ -3802,8 +3766,8 @@ LABEL_8:
     v9 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
     if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 134217984;
-      v21 = this;
+      v19 = 134217984;
+      v20 = this;
       v6 = "[%p] will uninitialize";
       v7 = v9;
       v8 = 12;
@@ -3829,15 +3793,15 @@ LABEL_8:
     if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEFAULT))
     {
       v13 = *(this + 85);
-      v20 = 134218242;
-      v21 = this;
-      v22 = 2112;
-      v23 = v13;
+      v19 = 134218242;
+      v20 = this;
+      v21 = 2112;
+      v22 = v13;
       v14 = "[%p|%@] did uninitialize";
       v15 = v12;
       v16 = 22;
 LABEL_18:
-      _os_log_impl(&dword_1C91AE000, v15, OS_LOG_TYPE_DEFAULT, v14, &v20, v16);
+      _os_log_impl(&dword_1C91AE000, v15, OS_LOG_TYPE_DEFAULT, v14, &v19, v16);
     }
   }
 
@@ -3850,8 +3814,8 @@ LABEL_18:
     v17 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
     if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 134217984;
-      v21 = this;
+      v19 = 134217984;
+      v20 = this;
       v14 = "[%p] did uninitialize";
       v15 = v17;
       v16 = 12;
@@ -3859,16 +3823,14 @@ LABEL_18:
     }
   }
 
-  result = caulk::shared_semaphore_mutex::unlock((this + 608));
-  v19 = *MEMORY[0x1E69E9840];
-  return result;
+  return caulk::shared_semaphore_mutex::unlock((this + 608));
 }
 
 uint64_t CA::DSP::AUDSPGraph::Initialize(CA::DSP::AUDSPGraph *this)
 {
   v552 = *MEMORY[0x1E69E9840];
   caulk::shared_semaphore_mutex::lock((this + 608));
-  v509 = this;
+  v512 = this;
   v2 = *(this + 85);
   if (v2)
   {
@@ -3928,7 +3890,7 @@ LABEL_8:
   CA::DSP::ReferenceCounted<__CFArray const*>::~ReferenceCounted(value);
   Mutable = CFDictionaryCreateMutable(allocator, 0, MEMORY[0x1E695E528], MEMORY[0x1E695E9E8]);
   *buf = 0;
-  theDict[0] = Mutable;
+  theDict.__r_.__value_.__r.__words[0] = Mutable;
   CA::DSP::ReferenceCounted<__CFDictionary *>::~ReferenceCounted(buf);
   *buf = @"sampleRate";
   CFRetain(@"sampleRate");
@@ -3938,26 +3900,26 @@ LABEL_8:
     ausdk::Throw(0xFFFFD583);
   }
 
-  CA::DSP::String::Create(allocator, value, *(Element + 80));
-  CFDictionarySetValue(theDict[0], *buf, *value);
+  CA::DSP::String::Create(value, allocator, v14, *(Element + 80));
+  CFDictionarySetValue(theDict.__r_.__value_.__l.__data_, *buf, *value);
   CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(value);
   CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(buf);
   *buf = @"numIns";
   CFRetain(@"numIns");
-  v14 = ausdk::AUScope::GetElement((this + 80), 0);
-  if (!v14)
+  v15 = ausdk::AUScope::GetElement((this + 80), 0);
+  if (!v15)
   {
     ausdk::Throw(0xFFFFD583);
   }
 
-  CA::DSP::String::Create(allocator, value, *(v14 + 108));
-  CFDictionarySetValue(theDict[0], *buf, *value);
+  CA::DSP::String::Create(value, allocator, v16, *(v15 + 108));
+  CFDictionarySetValue(theDict.__r_.__value_.__l.__data_, *buf, *value);
   CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(value);
   CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(buf);
-  v15 = *(this + 21);
-  if (v15)
+  v17 = *(this + 21);
+  if (v17)
   {
-    if (!(*(*v15 + 24))(v15))
+    if (!(*(*v17 + 24))(v17))
     {
       goto LABEL_19;
     }
@@ -3970,14 +3932,14 @@ LABEL_8:
 
   *buf = @"numOuts";
   CFRetain(@"numOuts");
-  v16 = ausdk::AUScope::GetElement((this + 128), 0);
-  if (!v16)
+  v18 = ausdk::AUScope::GetElement((this + 128), 0);
+  if (!v18)
   {
     ausdk::Throw(0xFFFFD583);
   }
 
-  CA::DSP::String::Create(allocator, value, *(v16 + 108));
-  CFDictionarySetValue(theDict[0], *buf, *value);
+  CA::DSP::String::Create(value, allocator, v19, *(v18 + 108));
+  CFDictionarySetValue(theDict.__r_.__value_.__l.__data_, *buf, *value);
   CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(value);
   CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(buf);
 LABEL_19:
@@ -3985,86 +3947,86 @@ LABEL_19:
   CFRetain(@"blockSize");
   if (*(this + 376) == 1)
   {
-    v17 = *(this + 84);
+    v21 = *(this + 84);
   }
 
   else
   {
-    v17 = 1;
+    v21 = 1;
   }
 
-  CA::DSP::String::Create(allocator, value, v17);
-  CFDictionarySetValue(theDict[0], *buf, *value);
+  CA::DSP::String::Create(value, allocator, v20, v21);
+  CFDictionarySetValue(theDict.__r_.__value_.__l.__data_, *buf, *value);
   CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(value);
-  v18 = CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(buf);
-  v19 = *(this + 87);
-  if (v19)
+  v22 = CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(buf);
+  v23 = *(this + 87);
+  if (v23)
   {
-    applesauce::CF::DictionaryRef_iterator<applesauce::CF::StringRef,applesauce::CF::StringRef>::DictionaryRef_iterator(v18, v19);
+    applesauce::CF::DictionaryRef_iterator<applesauce::CF::StringRef,applesauce::CF::StringRef>::DictionaryRef_iterator(v22, v23);
     applesauce::CF::DictionaryRef_iterator<applesauce::CF::StringRef,applesauce::CF::StringRef>::DictionaryRef_iterator(value, *(this + 87));
     *&value[8] = (*&value[24] - *&value[16]) >> 3;
     while (1)
     {
-      if (*buf && (v20 = *&buf[8], *&buf[8] != (*&buf[24] - *&buf[16]) >> 3))
+      if (*buf && (v24 = *&buf[8], *&buf[8] != (*&buf[24] - *&buf[16]) >> 3))
       {
-        v21 = *value;
+        v25 = *value;
       }
 
       else
       {
-        v21 = *value;
+        v25 = *value;
         if (!*value || *&value[8] == (*&value[24] - *&value[16]) >> 3)
         {
           break;
         }
 
-        v20 = *&buf[8];
+        v24 = *&buf[8];
       }
 
-      if (*buf == v21 && v20 == *&value[8])
+      if (*buf == v25 && v24 == *&value[8])
       {
         break;
       }
 
-      if ((v20 & 0x8000000000000000) != 0 || v20 >= (*&buf[24] - *&buf[16]) >> 3)
+      if ((v24 & 0x8000000000000000) != 0 || v24 >= (*&buf[24] - *&buf[16]) >> 3)
       {
         exception = __cxa_allocate_exception(0x10uLL);
         std::logic_error::logic_error(exception, "DictionaryRef_iterator iterator out of range.");
         exception->__vftable = (MEMORY[0x1E69E55B8] + 16);
       }
 
-      applesauce::CF::StringRef::from_get(v549, *(*&buf[16] + 8 * v20));
+      applesauce::CF::StringRef::from_get(v549, *(*&buf[16] + 8 * v24));
       applesauce::CF::StringRef::from_get(&cf, *(*&buf[40] + 8 * *&buf[8]));
-      v23 = *v549;
-      v24 = cf;
+      v27 = *v549;
+      v28 = cf.__r_.__value_.__r.__words[0];
       if (*v549)
       {
         CFRetain(*v549);
       }
 
-      cf = v24;
-      if (v24)
+      cf.__r_.__value_.__r.__words[0] = v28;
+      if (v28)
       {
-        CFRetain(v24);
-        v25 = cf;
+        CFRetain(v28);
+        v29 = cf.__r_.__value_.__r.__words[0];
       }
 
       else
       {
-        v25 = 0;
+        v29 = 0;
       }
 
-      CFDictionarySetValue(theDict[0], *v549, v25);
-      CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(&cf);
+      CFDictionarySetValue(theDict.__r_.__value_.__l.__data_, *v549, v29);
+      CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(&cf.__r_.__value_.__l.__data_);
       CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(v549);
-      if (v24)
+      if (v28)
       {
-        CFRelease(v24);
+        CFRelease(v28);
       }
 
-      if (v23)
+      if (v27)
       {
-        CFRelease(v23);
+        CFRelease(v27);
       }
 
       ++*&buf[8];
@@ -4095,41 +4057,41 @@ LABEL_19:
     }
   }
 
-  v539 = theDict[0];
-  theDict[0] = 0;
-  CA::DSP::ReferenceCounted<__CFDictionary *>::~ReferenceCounted(theDict);
-  [__t.__d_.__rep_ setPreprocessorMacroDefinitions:v539];
-  CA::DSP::ReferenceCounted<__CFDictionary const*>::~ReferenceCounted(&v539);
-  v26 = *(this + 84);
-  v27 = *(this + 83);
-  if (!v26)
+  v542 = theDict.__r_.__value_.__r.__words[0];
+  theDict.__r_.__value_.__r.__words[0] = 0;
+  CA::DSP::ReferenceCounted<__CFDictionary *>::~ReferenceCounted(&theDict.__r_.__value_.__l.__data_);
+  [__t.__d_.__rep_ setPreprocessorMacroDefinitions:v542];
+  CA::DSP::ReferenceCounted<__CFDictionary const*>::~ReferenceCounted(&v542);
+  v30 = *(this + 84);
+  v31 = *(this + 83);
+  if (!v30)
   {
-    if (!v27)
+    if (!v31)
     {
-      v36 = *(this + 85);
-      if (v36)
+      v40 = *(this + 85);
+      if (v40)
       {
         {
           CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
         }
 
-        v30 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+        v34 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
         if (!os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_119;
         }
 
-        v38 = *(this + 85);
+        v42 = *(this + 85);
         *buf = 134218242;
         *&buf[4] = this;
         *&buf[12] = 2112;
-        *&buf[14] = v38;
-        v32 = "[%p|%@] neither graph text file path nor graph text were set";
+        *&buf[14] = v42;
+        v36 = "[%p|%@] neither graph text file path nor graph text were set";
 LABEL_72:
-        v39 = v30;
-        v40 = 22;
+        v43 = v34;
+        v44 = 22;
 LABEL_106:
-        _os_log_error_impl(&dword_1C91AE000, v39, OS_LOG_TYPE_ERROR, v32, buf, v40);
+        _os_log_error_impl(&dword_1C91AE000, v43, OS_LOG_TYPE_ERROR, v36, buf, v44);
         goto LABEL_119;
       }
 
@@ -4137,7 +4099,7 @@ LABEL_106:
         CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
       }
 
-      v35 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+      v39 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
       if (!os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_119;
@@ -4145,28 +4107,28 @@ LABEL_106:
 
       *buf = 134217984;
       *&buf[4] = this;
-      v32 = "[%p] neither graph text file path nor graph text were set";
+      v36 = "[%p] neither graph text file path nor graph text were set";
 LABEL_105:
-      v39 = v35;
-      v40 = 12;
+      v43 = v39;
+      v44 = 12;
       goto LABEL_106;
     }
 
     CA::DSP::MutableGraphModel::Create(&cf, allocator);
-    theDict[0] = cf;
-    if (cf)
+    theDict.__r_.__value_.__r.__words[0] = cf.__r_.__value_.__r.__words[0];
+    if (cf.__r_.__value_.__r.__words[0])
     {
-      CFRetain(cf);
-      v33 = theDict[0];
+      CFRetain(cf.__r_.__value_.__l.__data_);
+      v37 = theDict.__r_.__value_.__r.__words[0];
     }
 
     else
     {
-      v33 = 0;
+      v37 = 0;
     }
 
-    CA::DSP::C::API::Call<unsigned char ()(__CADSPLanguageV1Interpreter *,__CFString const*,__CADSPGraphModel *,__CADSPError **)>::operator()<__CADSPLanguageV1Interpreter *,__CFString const*&,__CADSPGraphModel * const&>(buf, CADSPLanguageV1InterpreterInterpretContentsOfFile, __t.__d_.__rep_, v27, v33);
-    v41 = buf[8];
+    CA::DSP::C::API::Call<unsigned char ()(__CADSPLanguageV1Interpreter *,__CFString const*,__CADSPGraphModel *,__CADSPError **)>::operator()<__CADSPLanguageV1Interpreter *,__CFString const*&,__CADSPGraphModel * const&>(buf, CADSPLanguageV1InterpreterInterpretContentsOfFile, __t.__d_.__rep_, v31, v37);
+    v45 = buf[8];
     if (buf[8])
     {
       value[8] = buf[8];
@@ -4174,34 +4136,34 @@ LABEL_105:
 
     else
     {
-      v42 = *buf;
+      v46 = *buf;
       *buf = 0;
       *v549 = 0;
-      *value = v42;
+      *value = v46;
       CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(v549);
-      value[8] = v41;
+      value[8] = v45;
       if ((buf[8] & 1) == 0)
       {
         CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(buf);
       }
     }
 
-    CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(theDict);
+    CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(&theDict.__r_.__value_.__l.__data_);
     if (value[8] == 1)
     {
-      v43 = cf;
-      cf = 0;
-      *v549 = v43;
+      v47 = cf.__r_.__value_.__r.__words[0];
+      cf.__r_.__value_.__r.__words[0] = 0;
+      *v549 = v47;
       v549[8] = 1;
     }
 
     else
     {
-      v416 = CA::DSP::ReferenceCounted<__CADSPError *>::ReferenceCounted(buf, *value);
-      v417 = *buf;
+      v419 = CA::DSP::ReferenceCounted<__CADSPError *>::ReferenceCounted(buf, *value);
+      v420 = *buf;
       *buf = 0;
-      CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(v416);
-      *v549 = v417;
+      CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(v419);
+      *v549 = v420;
       v549[8] = 0;
       if ((value[8] & 1) == 0)
       {
@@ -4209,12 +4171,12 @@ LABEL_105:
       }
     }
 
-    CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(&cf);
-    v44 = v549[8];
+    CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(&cf.__r_.__value_.__l.__data_);
+    v48 = v549[8];
     if (v549[8] == 1)
     {
-      v45 = *v549;
-      v518 = *v549;
+      v49 = *v549;
+      v521 = *v549;
       if (!*v549)
       {
         goto LABEL_115;
@@ -4223,27 +4185,27 @@ LABEL_105:
       goto LABEL_82;
     }
 
-    v46 = *(v509 + 85);
-    if (v46)
+    v50 = *(v512 + 85);
+    if (v50)
     {
       {
         CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
       }
 
-      v48 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+      v52 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
       if (!os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_115;
       }
 
-      v49 = *(v509 + 85);
+      v53 = *(v512 + 85);
       *buf = 134218498;
-      *&buf[4] = v509;
+      *&buf[4] = v512;
       *&buf[12] = 2112;
-      *&buf[14] = v49;
+      *&buf[14] = v53;
       *&buf[22] = 2112;
       *&buf[24] = *v549;
-      v50 = "[%p|%@] failed to interpret graph file - %@";
+      v54 = "[%p|%@] failed to interpret graph file - %@";
       goto LABEL_101;
     }
 
@@ -4251,44 +4213,44 @@ LABEL_105:
       CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
     }
 
-    v59 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+    v63 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
     if (!os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_115;
     }
 
     *buf = 134218242;
-    *&buf[4] = v509;
+    *&buf[4] = v512;
     *&buf[12] = 2112;
     *&buf[14] = *v549;
-    v50 = "[%p] failed to interpret graph file - %@";
+    v54 = "[%p] failed to interpret graph file - %@";
 LABEL_113:
-    v57 = v59;
-    v58 = 22;
+    v61 = v63;
+    v62 = 22;
     goto LABEL_114;
   }
 
-  if (v27)
+  if (v31)
   {
-    v28 = *(this + 85);
-    if (v28)
+    v32 = *(this + 85);
+    if (v32)
     {
       {
         CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
       }
 
-      v30 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+      v34 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
       if (!os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_119;
       }
 
-      v31 = *(this + 85);
+      v35 = *(this + 85);
       *buf = 134218242;
       *&buf[4] = this;
       *&buf[12] = 2112;
-      *&buf[14] = v31;
-      v32 = "[%p|%@] graph text file path and graph text cannot be set simultaneously";
+      *&buf[14] = v35;
+      v36 = "[%p|%@] graph text file path and graph text cannot be set simultaneously";
       goto LABEL_72;
     }
 
@@ -4296,7 +4258,7 @@ LABEL_113:
       CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
     }
 
-    v35 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+    v39 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
     if (!os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_119;
@@ -4304,25 +4266,25 @@ LABEL_113:
 
     *buf = 134217984;
     *&buf[4] = this;
-    v32 = "[%p] graph text file path and graph text cannot be set simultaneously";
+    v36 = "[%p] graph text file path and graph text cannot be set simultaneously";
     goto LABEL_105;
   }
 
   CA::DSP::MutableGraphModel::Create(&cf, allocator);
-  theDict[0] = cf;
-  if (cf)
+  theDict.__r_.__value_.__r.__words[0] = cf.__r_.__value_.__r.__words[0];
+  if (cf.__r_.__value_.__r.__words[0])
   {
-    CFRetain(cf);
-    v34 = theDict[0];
+    CFRetain(cf.__r_.__value_.__l.__data_);
+    v38 = theDict.__r_.__value_.__r.__words[0];
   }
 
   else
   {
-    v34 = 0;
+    v38 = 0;
   }
 
-  CA::DSP::C::API::Call<unsigned char ()(__CADSPLanguageV1Interpreter *,__CFString const*,__CADSPGraphModel *,__CADSPError **)>::operator()<__CADSPLanguageV1Interpreter *,__CFString const*&,__CADSPGraphModel * const&>(buf, CADSPLanguageV1InterpreterInterpretString, __t.__d_.__rep_, v26, v34);
-  v51 = buf[8];
+  CA::DSP::C::API::Call<unsigned char ()(__CADSPLanguageV1Interpreter *,__CFString const*,__CADSPGraphModel *,__CADSPError **)>::operator()<__CADSPLanguageV1Interpreter *,__CFString const*&,__CADSPGraphModel * const&>(buf, CADSPLanguageV1InterpreterInterpretString, __t.__d_.__rep_, v30, v38);
+  v55 = buf[8];
   if (buf[8])
   {
     value[8] = buf[8];
@@ -4330,34 +4292,34 @@ LABEL_113:
 
   else
   {
-    v52 = *buf;
+    v56 = *buf;
     *buf = 0;
     *v549 = 0;
-    *value = v52;
+    *value = v56;
     CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(v549);
-    value[8] = v51;
+    value[8] = v55;
     if ((buf[8] & 1) == 0)
     {
       CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(buf);
     }
   }
 
-  CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(theDict);
+  CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(&theDict.__r_.__value_.__l.__data_);
   if (value[8] == 1)
   {
-    v53 = cf;
-    cf = 0;
-    *v549 = v53;
+    v57 = cf.__r_.__value_.__r.__words[0];
+    cf.__r_.__value_.__r.__words[0] = 0;
+    *v549 = v57;
     v549[8] = 1;
   }
 
   else
   {
-    v418 = CA::DSP::ReferenceCounted<__CADSPError *>::ReferenceCounted(buf, *value);
-    v419 = *buf;
+    v421 = CA::DSP::ReferenceCounted<__CADSPError *>::ReferenceCounted(buf, *value);
+    v422 = *buf;
     *buf = 0;
-    CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(v418);
-    *v549 = v419;
+    CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(v421);
+    *v549 = v422;
     v549[8] = 0;
     if ((value[8] & 1) == 0)
     {
@@ -4365,36 +4327,36 @@ LABEL_113:
     }
   }
 
-  CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(&cf);
-  v44 = v549[8];
+  CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(&cf.__r_.__value_.__l.__data_);
+  v48 = v549[8];
   if (v549[8] != 1)
   {
-    v54 = *(v509 + 85);
-    if (v54)
+    v58 = *(v512 + 85);
+    if (v58)
     {
       {
         CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
       }
 
-      v48 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+      v52 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
       if (!os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_115;
       }
 
-      v56 = *(v509 + 85);
+      v60 = *(v512 + 85);
       *buf = 134218498;
-      *&buf[4] = v509;
+      *&buf[4] = v512;
       *&buf[12] = 2112;
-      *&buf[14] = v56;
+      *&buf[14] = v60;
       *&buf[22] = 2112;
       *&buf[24] = *v549;
-      v50 = "[%p|%@] failed to interpret graph text - %@";
+      v54 = "[%p|%@] failed to interpret graph text - %@";
 LABEL_101:
-      v57 = v48;
-      v58 = 32;
+      v61 = v52;
+      v62 = 32;
 LABEL_114:
-      _os_log_error_impl(&dword_1C91AE000, v57, OS_LOG_TYPE_ERROR, v50, buf, v58);
+      _os_log_error_impl(&dword_1C91AE000, v61, OS_LOG_TYPE_ERROR, v54, buf, v62);
       goto LABEL_115;
     }
 
@@ -4402,33 +4364,33 @@ LABEL_114:
       CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
     }
 
-    v59 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+    v63 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
     if (!os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_115;
     }
 
     *buf = 134218242;
-    *&buf[4] = v509;
+    *&buf[4] = v512;
     *&buf[12] = 2112;
     *&buf[14] = *v549;
-    v50 = "[%p] failed to interpret graph text - %@";
+    v54 = "[%p] failed to interpret graph text - %@";
     goto LABEL_113;
   }
 
-  v45 = *v549;
-  v518 = *v549;
+  v49 = *v549;
+  v521 = *v549;
   if (*v549)
   {
 LABEL_82:
-    CFRetain(v45);
+    CFRetain(v49);
   }
 
 LABEL_115:
   if (v549[8] == 1)
   {
     CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(v549);
-    if (v44)
+    if (v48)
     {
       goto LABEL_120;
     }
@@ -4437,91 +4399,91 @@ LABEL_115:
   else
   {
     CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(v549);
-    if (v44)
+    if (v48)
     {
       goto LABEL_120;
     }
   }
 
 LABEL_119:
-  v518 = 0;
+  v521 = 0;
 LABEL_120:
   CA::DSP::ReferenceCounted<__CADSPLanguageV1Interpreter *>::~ReferenceCounted(&__t);
-  v60 = v518;
-  if (!v518)
+  v64 = v521;
+  if (!v521)
   {
-    v61 = 4294956421;
+    v65 = 4294956421;
     goto LABEL_727;
   }
 
-  if (*(v509 + 85))
+  if (*(v512 + 85))
   {
-    *buf = v518;
-    CFRetain(v518);
-    [*buf setName:*(v509 + 85)];
+    *buf = v521;
+    CFRetain(v521);
+    [*buf setName:*(v512 + 85)];
     CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(buf);
-    v60 = v518;
+    v64 = v521;
   }
 
-  *buf = v518;
-  CFRetain(v60);
-  v62 = [*buf options];
+  *buf = v521;
+  CFRetain(v64);
+  v66 = [*buf options];
   CA::DSP::ReferenceCounted<__CADSPGraphModel const*>::~ReferenceCounted(buf);
-  if (*(v509 + 3368))
+  if (*(v512 + 3368))
   {
-    v63 = 4;
+    v67 = 4;
   }
 
   else
   {
-    v63 = 0;
+    v67 = 0;
   }
 
-  *value = v518;
-  CFRetain(v518);
-  [*value setOptions:v63 | v62 & 0xFFFFFFFB];
+  *value = v521;
+  CFRetain(v521);
+  [*value setOptions:v67 | v66 & 0xFFFFFFFB];
   CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(value);
-  v64 = *(v509 + 84);
-  v65 = ausdk::AUScope::GetElement((v509 + 80), 0);
-  if (!v65)
+  v68 = *(v512 + 84);
+  v69 = ausdk::AUScope::GetElement((v512 + 80), 0);
+  if (!v69)
   {
     ausdk::Throw(0xFFFFD583);
   }
 
-  v66 = *(v65 + 80);
-  v67 = *(v509 + 376);
-  v68 = *(v509 + 85);
-  if (v68)
+  v70 = *(v69 + 80);
+  v71 = *(v512 + 376);
+  v72 = *(v512 + 85);
+  if (v72)
   {
     {
       CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
     }
 
-    v70 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+    v74 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
     if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEFAULT))
     {
-      v71 = *(v509 + 85);
-      v72 = "fixed";
+      v75 = *(v512 + 85);
+      v76 = "fixed";
       *buf = 134219010;
-      if (v67)
+      if (v71)
       {
-        v72 = "variable";
+        v76 = "variable";
       }
 
-      *&buf[4] = v509;
+      *&buf[4] = v512;
       *&buf[12] = 2112;
-      *&buf[14] = v71;
+      *&buf[14] = v75;
       *&buf[22] = 2080;
-      *&buf[24] = v72;
+      *&buf[24] = v76;
       *&buf[32] = 1024;
-      *&buf[34] = v64;
+      *&buf[34] = v68;
       *&buf[38] = 1024;
-      *&buf[40] = v66;
-      v73 = "[%p|%@] setting %s slice duration with block size %u and sample rate %u";
-      v74 = v70;
-      v75 = 44;
+      *&buf[40] = v70;
+      v77 = "[%p|%@] setting %s slice duration with block size %u and sample rate %u";
+      v78 = v74;
+      v79 = 44;
 LABEL_139:
-      _os_log_impl(&dword_1C91AE000, v74, OS_LOG_TYPE_DEFAULT, v73, buf, v75);
+      _os_log_impl(&dword_1C91AE000, v78, OS_LOG_TYPE_DEFAULT, v77, buf, v79);
     }
   }
 
@@ -4531,289 +4493,289 @@ LABEL_139:
       CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
     }
 
-    v76 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+    v80 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
     if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEFAULT))
     {
-      v77 = "fixed";
+      v81 = "fixed";
       *buf = 134218754;
       *&buf[12] = 2080;
-      *&buf[4] = v509;
-      if (v67)
+      *&buf[4] = v512;
+      if (v71)
       {
-        v77 = "variable";
+        v81 = "variable";
       }
 
-      *&buf[14] = v77;
+      *&buf[14] = v81;
       *&buf[22] = 1024;
-      *&buf[24] = v64;
+      *&buf[24] = v68;
       *&buf[28] = 1024;
-      *&buf[30] = v66;
-      v73 = "[%p] setting %s slice duration with block size %u and sample rate %u";
-      v74 = v76;
-      v75 = 34;
+      *&buf[30] = v70;
+      v77 = "[%p] setting %s slice duration with block size %u and sample rate %u";
+      v78 = v80;
+      v79 = 34;
       goto LABEL_139;
     }
   }
 
-  *buf = v518;
-  CFRetain(v518);
-  [*buf setSliceDuration:v64 | (v66 << 32)];
+  *buf = v521;
+  CFRetain(v521);
+  [*buf setSliceDuration:v68 | (v70 << 32)];
   CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(buf);
-  *value = v518;
-  CFRetain(v518);
-  [*value setSliceDurationCanVary:v67 ^ 1u];
+  *value = v521;
+  CFRetain(v521);
+  [*value setSliceDurationCanVary:v71 ^ 1u];
   CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(value);
-  cf = v518;
-  CFRetain(v518);
-  v78 = [cf audioStreamConfigurationNames];
+  cf.__r_.__value_.__r.__words[0] = v521;
+  CFRetain(v521);
+  v82 = [cf.__r_.__value_.__l.__data_ audioStreamConfigurationNames];
   *buf = 0;
-  *v549 = v78;
+  *v549 = v82;
   CA::DSP::ReferenceCounted<__CFArray const*>::~ReferenceCounted(buf);
-  CA::DSP::ReferenceCounted<__CADSPGraphModel const*>::~ReferenceCounted(&cf);
-  v79 = *v549;
+  CA::DSP::ReferenceCounted<__CADSPGraphModel const*>::~ReferenceCounted(&cf.__r_.__value_.__l.__data_);
+  v83 = *v549;
   Count = CFArrayGetCount(*v549);
-  v81 = *v549;
-  if (v79 != *v549 || Count)
+  v85 = *v549;
+  if (v83 != *v549 || Count)
   {
-    v86 = 0;
-    v502 = *v549;
-    v503 = Count - 1;
+    v90 = 0;
+    v505 = *v549;
+    v506 = Count - 1;
     do
     {
-      v87 = v86;
-      ValueAtIndex = CFArrayGetValueAtIndex(v79, v86);
-      v89 = ValueAtIndex;
+      v91 = v90;
+      ValueAtIndex = CFArrayGetValueAtIndex(v83, v90);
+      v93 = ValueAtIndex;
       if (ValueAtIndex)
       {
         CFRetain(ValueAtIndex);
       }
 
       *buf = 0;
-      theDict[0] = v89;
+      theDict.__r_.__value_.__r.__words[0] = v93;
       CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(buf);
-      __t.__d_.__rep_ = v518;
-      CFRetain(v518);
-      if ([__t.__d_.__rep_ getAudioStreamConfiguration:value forName:theDict[0]])
+      __t.__d_.__rep_ = v521;
+      CFRetain(v521);
+      if ([__t.__d_.__rep_ getAudioStreamConfiguration:value forName:theDict.__r_.__value_.__r.__words[0]])
       {
         *buf = *value;
         *&buf[16] = *&value[16];
         *&buf[32] = *&value[32];
-        v90 = 1;
+        v94 = 1;
       }
 
       else
       {
-        v90 = 0;
+        v94 = 0;
         buf[0] = 0;
       }
 
-      buf[48] = v90;
+      buf[48] = v94;
       CA::DSP::ReferenceCounted<__CADSPGraphModel const*>::~ReferenceCounted(&__t);
       if (buf[48] != 1)
       {
         goto LABEL_175;
       }
 
-      if (CFStringHasPrefix(theDict[0], @"input"))
+      if (CFStringHasPrefix(theDict.__r_.__value_.__l.__data_, @"input"))
       {
-        v91 = ausdk::AUScope::GetElement((v509 + 80), 0);
+        v95 = ausdk::AUScope::GetElement((v512 + 80), 0);
         goto LABEL_153;
       }
 
-      if (CFStringHasPrefix(theDict[0], @"output"))
+      if (CFStringHasPrefix(theDict.__r_.__value_.__l.__data_, @"output"))
       {
-        v104 = *(v509 + 21);
-        if (v104)
+        v108 = *(v512 + 21);
+        if (v108)
         {
-          if ((*(*v104 + 24))(v104))
+          if ((*(*v108 + 24))(v108))
           {
             goto LABEL_179;
           }
         }
 
-        else if (((*(v509 + 19) - *(v509 + 18)) >> 3))
+        else if (((*(v512 + 19) - *(v512 + 18)) >> 3))
         {
 LABEL_179:
-          v91 = ausdk::AUScope::GetElement((v509 + 128), 0);
+          v95 = ausdk::AUScope::GetElement((v512 + 128), 0);
 LABEL_153:
-          if (!v91)
+          if (!v95)
           {
             ausdk::Throw(0xFFFFD583);
           }
 
-          v92 = v79;
-          v93 = *(v91 + 80);
-          v94 = *(v91 + 92);
-          v95 = *(v91 + 108);
-          v96 = *buf;
-          v97 = *&buf[8];
-          v98 = *&buf[12];
-          v100 = *&buf[16];
-          v99 = *&buf[20];
-          v102 = *&buf[24];
-          v101 = *&buf[28];
-          v506 = *&buf[32];
-          if (!CFStringFind(*theDict, @"FixedChannelCount", 0).length)
+          v96 = v83;
+          v97 = *(v95 + 80);
+          v98 = *(v95 + 92);
+          v99 = *(v95 + 108);
+          v100 = *buf;
+          v101 = *&buf[8];
+          v102 = *&buf[12];
+          v104 = *&buf[16];
+          v103 = *&buf[20];
+          v106 = *&buf[24];
+          v105 = *&buf[28];
+          v509 = *&buf[32];
+          if (!CFStringFind(*&theDict, @"FixedChannelCount", 0).length)
           {
-            if ((v98 & 0x20) != 0)
-            {
-              v101 = 1;
-            }
-
-            else if (!v101)
-            {
-              v103 = (v506 + 7) >> 3;
-              goto LABEL_164;
-            }
-
-            v103 = v102 / v101;
-LABEL_164:
-            if ((v94 & 0x20) != 0)
+            if ((v102 & 0x20) != 0)
             {
               v105 = 1;
             }
 
-            else
+            else if (!v105)
             {
-              v105 = v95;
+              v107 = (v509 + 7) >> 3;
+              goto LABEL_164;
             }
 
-            v102 = v103 * v105;
-            v98 = v98 & 0xFFFFFFDF | v94 & 0x20;
-            v99 = 1;
-            v101 = v95;
-            v100 = v103 * v105;
+            v107 = v106 / v105;
+LABEL_164:
+            if ((v98 & 0x20) != 0)
+            {
+              v109 = 1;
+            }
+
+            else
+            {
+              v109 = v99;
+            }
+
+            v106 = v107 * v109;
+            v102 = v102 & 0xFFFFFFDF | v98 & 0x20;
+            v103 = 1;
+            v105 = v99;
+            v104 = v107 * v109;
           }
 
-          if (CFStringFind(*theDict, @"FixedSampleRate", 0).length)
+          if (CFStringFind(*&theDict, @"FixedSampleRate", 0).length)
           {
-            v106 = v96;
+            v110 = v100;
           }
 
           else
           {
-            v106 = v93;
+            v110 = v97;
           }
 
-          *buf = v106;
-          *&buf[8] = v97;
-          *&buf[12] = v98;
-          *&buf[16] = v100;
-          *&buf[20] = v99;
-          *&buf[24] = v102;
-          *&buf[28] = v101;
-          *&buf[32] = v506;
-          v539 = v518;
-          CFRetain(v518);
-          v79 = v92;
-          v81 = v502;
+          *buf = v110;
+          *&buf[8] = v101;
+          *&buf[12] = v102;
+          *&buf[16] = v104;
+          *&buf[20] = v103;
+          *&buf[24] = v106;
+          *&buf[28] = v105;
+          *&buf[32] = v509;
+          v542 = v521;
+          CFRetain(v521);
+          v83 = v96;
+          v85 = v505;
           if (buf[48])
           {
-            v107 = buf;
+            v111 = buf;
           }
 
           else
           {
-            v107 = 0;
+            v111 = 0;
           }
 
-          [v539 setAudioStreamConfiguration:v107 forName:theDict[0]];
-          CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(&v539);
+          [v542 setAudioStreamConfiguration:v111 forName:theDict.__r_.__value_.__r.__words[0]];
+          CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(&v542);
         }
       }
 
 LABEL_175:
-      CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(theDict);
-      v86 = v87 + 1;
+      CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(&theDict.__r_.__value_.__l.__data_);
+      v90 = v91 + 1;
     }
 
-    while (v79 != v81 || v503 != v87);
+    while (v83 != v85 || v506 != v91);
   }
 
   CA::DSP::ReferenceCounted<__CFArray const*>::~ReferenceCounted(v549);
   *buf = 0;
-  v82 = MGCopyAnswerWithError();
-  v83 = v82;
+  v86 = MGCopyAnswerWithError();
+  v87 = v86;
   if (*buf)
   {
-    if (!v82)
+    if (!v86)
     {
       goto LABEL_261;
     }
 
-    v84 = 0;
-    v85 = 0;
+    v88 = 0;
+    v89 = 0;
   }
 
   else
   {
-    if (!v82)
+    if (!v86)
     {
       goto LABEL_261;
     }
 
-    v85 = applesauce::CF::convert_as<BOOL,0>(v82);
-    v84 = v85 > 0xFFu;
+    v89 = applesauce::CF::convert_as<BOOL,0>(v86);
+    v88 = v89 > 0xFFu;
   }
 
-  CFRelease(v83);
-  if ((v84 & v85) == 1)
+  CFRelease(v87);
+  if ((v88 & v89) == 1)
   {
-    CA::DSP::AU::DSPGraph::Settings::Get<__CFString const*>(&cf, v509 + 415, @"com.apple.coreaudio.AUDSPGraph.UserPreferencesSuiteName", @"com.apple.coreaudio");
-    if (!CFPreferencesGetAppBooleanValue(@"AUDSPGraphEnableAudioCaptures", cf, 0))
+    CA::DSP::AU::DSPGraph::Settings::Get<__CFString const*>(&cf, v512 + 415, @"com.apple.coreaudio.AUDSPGraph.UserPreferencesSuiteName", @"com.apple.coreaudio");
+    if (!CFPreferencesGetAppBooleanValue(@"AUDSPGraphEnableAudioCaptures", cf.__r_.__value_.__l.__data_, 0))
     {
 LABEL_259:
-      if (cf)
+      if (cf.__r_.__value_.__r.__words[0])
       {
-        CFRelease(cf);
+        CFRelease(cf.__r_.__value_.__l.__data_);
       }
 
       goto LABEL_261;
     }
 
-    CA::DSP::AU::DSPGraph::Settings::Get<__CFString const*>(theDict, v509 + 415, @"com.apple.coreaudio.AUDSPGraph.TemporaryDirectoryPath", @"/tmp/AudioCapture/AUDSPGraph");
-    if (!theDict[0])
+    CA::DSP::AU::DSPGraph::Settings::Get<__CFString const*>(&theDict, v512 + 415, @"com.apple.coreaudio.AUDSPGraph.TemporaryDirectoryPath", @"/tmp/AudioCapture/AUDSPGraph");
+    if (!theDict.__r_.__value_.__r.__words[0])
     {
-      v421 = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(v421, "Could not construct");
+      v426 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v426, "Could not construct");
     }
 
-    applesauce::CF::convert_to<std::string,0>(buf, theDict[0]);
+    applesauce::CF::convert_to<std::string,0>(buf, theDict.__r_.__value_.__l.__data_);
     *value = *buf;
     *&value[16] = *&buf[16];
     std::__fs::filesystem::__status(value, 0);
     if (buf[0] == 255 || !buf[0])
     {
       std::__fs::filesystem::__create_directories(value, 0);
-      v108 = *(v509 + 85);
-      if (v108)
+      v112 = *(v512 + 85);
+      if (v112)
       {
         {
           CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
         }
 
-        v110 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+        v114 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
         if (!os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEBUG))
         {
           goto LABEL_196;
         }
 
-        v111 = *(v509 + 85);
-        v112 = value;
+        v115 = *(v512 + 85);
+        v116 = value;
         if (value[23] < 0)
         {
-          v112 = *value;
+          v116 = *value;
         }
 
         *buf = 134218498;
-        *&buf[4] = v509;
+        *&buf[4] = v512;
         *&buf[12] = 2112;
-        *&buf[14] = v111;
+        *&buf[14] = v115;
         *&buf[22] = 2080;
-        *&buf[24] = v112;
-        v113 = "[%p|%@] created '%s' directory";
-        v114 = v110;
-        v115 = 32;
+        *&buf[24] = v116;
+        v117 = "[%p|%@] created '%s' directory";
+        v118 = v114;
+        v119 = 32;
       }
 
       else
@@ -4822,360 +4784,360 @@ LABEL_259:
           CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
         }
 
-        v116 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+        v120 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
         if (!os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEBUG))
         {
           goto LABEL_196;
         }
 
-        v394 = value;
+        v397 = value;
         if (value[23] < 0)
         {
-          v394 = *value;
+          v397 = *value;
         }
 
         *buf = 134218242;
-        *&buf[4] = v509;
+        *&buf[4] = v512;
         *&buf[12] = 2080;
-        *&buf[14] = v394;
-        v113 = "[%p] created '%s' directory";
-        v114 = v116;
-        v115 = 22;
+        *&buf[14] = v397;
+        v117 = "[%p] created '%s' directory";
+        v118 = v120;
+        v119 = 22;
       }
 
-      _os_log_debug_impl(&dword_1C91AE000, v114, OS_LOG_TYPE_DEBUG, v113, buf, v115);
+      _os_log_debug_impl(&dword_1C91AE000, v118, OS_LOG_TYPE_DEBUG, v117, buf, v119);
     }
 
 LABEL_196:
     memset(buf, 0, sizeof(buf));
     __t.__d_.__rep_ = std::chrono::system_clock::now().__d_.__rep_;
-    v539 = std::chrono::system_clock::to_time_t(&__t);
-    v117 = localtime(&v539);
-    strftime(buf, 0x40uLL, "%Y%m%d.%H%M%S", v117);
-    v537 = v518;
-    CFRetain(v518);
-    v118 = [v518 name];
+    v542 = std::chrono::system_clock::to_time_t(&__t);
+    v121 = localtime(&v542);
+    strftime(buf, 0x40uLL, "%Y%m%d.%H%M%S", v121);
+    v540 = v521;
+    CFRetain(v521);
+    v122 = [v521 name];
     *v549 = 0;
-    theString = v118;
+    theString = v122;
     CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(v549);
-    CA::DSP::ReferenceCounted<__CADSPGraphModel const*>::~ReferenceCounted(&v537);
-    v536 = v518;
-    CFRetain(v518);
-    v119 = [v518 boxes];
+    CA::DSP::ReferenceCounted<__CADSPGraphModel const*>::~ReferenceCounted(&v540);
+    v539 = v521;
+    CFRetain(v521);
+    v123 = [v521 boxes];
     *v549 = 0;
-    theArray = v119;
+    theArray = v123;
     CA::DSP::ReferenceCounted<__CFArray const*>::~ReferenceCounted(v549);
-    CA::DSP::ReferenceCounted<__CADSPGraphModel const*>::~ReferenceCounted(&v536);
-    v120 = theArray;
-    v504 = CFArrayGetCount(theArray);
-    v507 = theArray;
-    if (v120 != theArray || v504)
+    CA::DSP::ReferenceCounted<__CADSPGraphModel const*>::~ReferenceCounted(&v539);
+    v124 = theArray;
+    v507 = CFArrayGetCount(theArray);
+    v510 = theArray;
+    if (v124 != theArray || v507)
     {
-      v121 = 0;
+      v125 = 0;
       do
       {
-        v122 = CFArrayGetValueAtIndex(v120, v121);
-        v123 = v122;
-        if (v122)
+        v126 = CFArrayGetValueAtIndex(v124, v125);
+        v127 = v126;
+        if (v126)
         {
-          CFRetain(v122);
+          CFRetain(v126);
         }
 
         *v549 = 0;
-        v535 = v123;
+        v538 = v127;
         CA::DSP::ReferenceCounted<__CADSPBoxModel const*>::~ReferenceCounted(v549);
-        v124 = v535;
-        v533 = v535;
-        if (v535)
+        v128 = v538;
+        v536 = v538;
+        if (v538)
         {
-          CFRetain(v535);
-          v124 = v533;
+          CFRetain(v538);
+          v128 = v536;
         }
 
-        v125 = [v124 name];
+        v129 = [v128 name];
         *v549 = 0;
-        appendedString = v125;
+        appendedString = v129;
         CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(v549);
-        CA::DSP::ReferenceCounted<__CADSPBoxModel const*>::~ReferenceCounted(&v533);
+        CA::DSP::ReferenceCounted<__CADSPBoxModel const*>::~ReferenceCounted(&v536);
         for (i = 0; ; ++i)
         {
-          v127 = v535;
-          v532 = v535;
-          if (v535)
+          v131 = v538;
+          v535 = v538;
+          if (v538)
           {
-            CFRetain(v535);
-            v127 = v532;
+            CFRetain(v538);
+            v131 = v535;
           }
 
-          v128 = [v127 numberOfOutputs];
-          CA::DSP::ReferenceCounted<__CADSPBoxModel const*>::~ReferenceCounted(&v532);
-          if (v128 <= i)
+          v132 = [v131 numberOfOutputs];
+          CA::DSP::ReferenceCounted<__CADSPBoxModel const*>::~ReferenceCounted(&v535);
+          if (v132 <= i)
           {
             break;
           }
 
           CA::DSP::MutableRecorderTapPointModel::Create(v549, allocator);
-          v531 = *v549;
+          v534 = *v549;
           if (*v549)
           {
             CFRetain(*v549);
           }
 
-          v129 = CFStringCreateMutable(allocator, 256);
-          v130 = v129;
-          v530 = v129;
+          v133 = CFStringCreateMutable(allocator, 256);
+          v134 = v133;
+          v533 = v133;
           if (value[23] >= 0)
           {
-            v131 = value;
+            v135 = value;
           }
 
           else
           {
-            v131 = *value;
+            v135 = *value;
           }
 
-          CFStringAppendCString(v129, v131, 0x8000100u);
-          CFStringAppendCString(v130, "/", 0x8000100u);
-          CFStringAppendCString(v130, buf, 0x8000100u);
+          CFStringAppendCString(v133, v135, 0x8000100u);
+          CFStringAppendCString(v134, "/", 0x8000100u);
+          CFStringAppendCString(v134, buf, 0x8000100u);
           if (theString && CFStringGetLength(theString))
           {
-            CFStringAppend(v130, theString);
+            CFStringAppend(v134, theString);
           }
 
           if (appendedString && CFStringGetLength(appendedString))
           {
-            CFStringAppendCString(v130, ".", 0x8000100u);
-            CFStringAppend(v130, appendedString);
+            CFStringAppendCString(v134, ".", 0x8000100u);
+            CFStringAppend(v134, appendedString);
           }
 
-          CFStringAppendFormat(v130, 0, @"[%u].caf", i);
-          [v531 setAudioFilePath:v530];
-          CA::DSP::ReferenceCounted<__CFString *>::~ReferenceCounted(&v530);
+          CFStringAppendFormat(v134, 0, @"[%u].caf", i);
+          [v534 setAudioFilePath:v533];
+          CA::DSP::ReferenceCounted<__CFString *>::~ReferenceCounted(&v533);
+          CA::DSP::ReferenceCounted<__CADSPRecorderTapPointModel *>::~ReferenceCounted(&v534);
+          v136 = *v549;
+          v532 = *v549;
+          if (*v549)
+          {
+            CFRetain(*v549);
+            v136 = v532;
+          }
+
+          [v136 setBoxName:appendedString];
+          CA::DSP::ReferenceCounted<__CADSPRecorderTapPointModel *>::~ReferenceCounted(&v532);
+          v137 = *v549;
+          v531 = *v549;
+          if (*v549)
+          {
+            CFRetain(*v549);
+            v137 = v531;
+          }
+
+          [v137 setPortIndex:i];
           CA::DSP::ReferenceCounted<__CADSPRecorderTapPointModel *>::~ReferenceCounted(&v531);
-          v132 = *v549;
+          v530 = v521;
+          CFRetain(v521);
           v529 = *v549;
           if (*v549)
           {
             CFRetain(*v549);
-            v132 = v529;
-          }
-
-          [v132 setBoxName:appendedString];
-          CA::DSP::ReferenceCounted<__CADSPRecorderTapPointModel *>::~ReferenceCounted(&v529);
-          v133 = *v549;
-          v528 = *v549;
-          if (*v549)
-          {
-            CFRetain(*v549);
-            v133 = v528;
-          }
-
-          [v133 setPortIndex:i];
-          CA::DSP::ReferenceCounted<__CADSPRecorderTapPointModel *>::~ReferenceCounted(&v528);
-          v527 = v518;
-          CFRetain(v518);
-          v526 = *v549;
-          if (*v549)
-          {
-            CFRetain(*v549);
-            v134 = v526;
+            v138 = v529;
           }
 
           else
           {
-            v134 = 0;
+            v138 = 0;
           }
 
-          [v527 addRecorderTapPoint:v134];
-          CA::DSP::ReferenceCounted<__CADSPRecorderTapPointModel const*>::~ReferenceCounted(&v526);
-          CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(&v527);
+          [v530 addRecorderTapPoint:v138];
+          CA::DSP::ReferenceCounted<__CADSPRecorderTapPointModel const*>::~ReferenceCounted(&v529);
+          CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(&v530);
           CA::DSP::ReferenceCounted<__CADSPRecorderTapPointModel *>::~ReferenceCounted(v549);
         }
 
         CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(&appendedString);
-        CA::DSP::ReferenceCounted<__CADSPBoxModel const*>::~ReferenceCounted(&v535);
-        ++v121;
+        CA::DSP::ReferenceCounted<__CADSPBoxModel const*>::~ReferenceCounted(&v538);
+        ++v125;
       }
 
-      while (v120 != v507 || v121 != v504);
+      while (v124 != v510 || v125 != v507);
     }
 
     CA::DSP::ReferenceCounted<__CFArray const*>::~ReferenceCounted(&theArray);
-    v135 = 0;
+    v139 = 0;
     theArray = 0x100000000;
     do
     {
-      v136 = *&v549[v135 - 8];
-      appendedString = v518;
-      CFRetain(v518);
-      v138 = CADSPGraphModelCopyPorts(appendedString, v136, v137);
+      v140 = *&v549[v139 - 8];
+      appendedString = v521;
+      CFRetain(v521);
+      v142 = CADSPGraphModelCopyPorts(appendedString, v140, v141);
       *v549 = 0;
-      v535 = v138;
+      v538 = v142;
       CA::DSP::ReferenceCounted<__CFArray const*>::~ReferenceCounted(v549);
       CA::DSP::ReferenceCounted<__CADSPGraphModel const*>::~ReferenceCounted(&appendedString);
-      v139 = v535;
-      v140 = CFArrayGetCount(v535);
-      v141 = v535;
-      if (v139 != v535 || v140)
+      v143 = v538;
+      v144 = CFArrayGetCount(v538);
+      v145 = v538;
+      if (v143 != v538 || v144)
       {
-        v142 = 0;
-        v143 = v140 - 1;
+        v146 = 0;
+        v147 = v144 - 1;
         do
         {
-          v144 = v142;
-          v145 = CFArrayGetValueAtIndex(v139, v142);
-          v146 = v145;
-          if (v145)
+          v148 = v146;
+          v149 = CFArrayGetValueAtIndex(v143, v146);
+          v150 = v149;
+          if (v149)
           {
-            CFRetain(v145);
+            CFRetain(v149);
           }
 
           *v549 = 0;
-          v530 = v146;
+          v533 = v150;
           CA::DSP::ReferenceCounted<__CADSPPortModel const*>::~ReferenceCounted(v549);
-          v147 = v530;
-          v524 = v530;
-          if (v530)
+          v151 = v533;
+          v527 = v533;
+          if (v533)
           {
-            CFRetain(v530);
-            v147 = v524;
+            CFRetain(v533);
+            v151 = v527;
           }
 
-          v148 = [v147 name];
+          v152 = [v151 name];
           *v549 = 0;
-          v525 = v148;
+          v528 = v152;
           CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(v549);
-          CA::DSP::ReferenceCounted<__CADSPPortModel const*>::~ReferenceCounted(&v524);
+          CA::DSP::ReferenceCounted<__CADSPPortModel const*>::~ReferenceCounted(&v527);
           CA::DSP::MutableRecorderTapPointModel::Create(v549, allocator);
-          v523 = *v549;
+          v526 = *v549;
           if (*v549)
           {
             CFRetain(*v549);
           }
 
-          v149 = CFStringCreateMutable(allocator, 256);
-          v150 = v149;
-          v522 = v149;
+          v153 = CFStringCreateMutable(allocator, 256);
+          v154 = v153;
+          v525 = v153;
           if (value[23] >= 0)
           {
-            v151 = value;
+            v155 = value;
           }
 
           else
           {
-            v151 = *value;
+            v155 = *value;
           }
 
-          CFStringAppendCString(v149, v151, 0x8000100u);
-          CFStringAppendCString(v150, "/", 0x8000100u);
-          CFStringAppendCString(v150, buf, 0x8000100u);
+          CFStringAppendCString(v153, v155, 0x8000100u);
+          CFStringAppendCString(v154, "/", 0x8000100u);
+          CFStringAppendCString(v154, buf, 0x8000100u);
           if (theString && CFStringGetLength(theString))
           {
-            CFStringAppend(v150, theString);
+            CFStringAppend(v154, theString);
           }
 
-          if (v525 && CFStringGetLength(v525))
+          if (v528 && CFStringGetLength(v528))
           {
-            CFStringAppendCString(v150, ".", 0x8000100u);
-            CFStringAppend(v150, v525);
+            CFStringAppendCString(v154, ".", 0x8000100u);
+            CFStringAppend(v154, v528);
           }
 
-          CFStringAppendCString(v150, ".caf", 0x8000100u);
-          [v523 setAudioFilePath:v522];
-          CA::DSP::ReferenceCounted<__CFString *>::~ReferenceCounted(&v522);
-          CA::DSP::ReferenceCounted<__CADSPRecorderTapPointModel *>::~ReferenceCounted(&v523);
-          v152 = *v549;
-          v521 = *v549;
+          CFStringAppendCString(v154, ".caf", 0x8000100u);
+          [v526 setAudioFilePath:v525];
+          CA::DSP::ReferenceCounted<__CFString *>::~ReferenceCounted(&v525);
+          CA::DSP::ReferenceCounted<__CADSPRecorderTapPointModel *>::~ReferenceCounted(&v526);
+          v156 = *v549;
+          v524 = *v549;
           if (*v549)
           {
             CFRetain(*v549);
-            v152 = v521;
+            v156 = v524;
           }
 
-          [v152 setBoxName:v525];
-          CA::DSP::ReferenceCounted<__CADSPRecorderTapPointModel *>::~ReferenceCounted(&v521);
-          v520 = v518;
-          CFRetain(v518);
-          v519 = *v549;
+          [v156 setBoxName:v528];
+          CA::DSP::ReferenceCounted<__CADSPRecorderTapPointModel *>::~ReferenceCounted(&v524);
+          v523 = v521;
+          CFRetain(v521);
+          v522 = *v549;
           if (*v549)
           {
             CFRetain(*v549);
-            v153 = v519;
+            v157 = v522;
           }
 
           else
           {
-            v153 = 0;
+            v157 = 0;
           }
 
-          [v520 addRecorderTapPoint:v153];
-          CA::DSP::ReferenceCounted<__CADSPRecorderTapPointModel const*>::~ReferenceCounted(&v519);
-          CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(&v520);
+          [v523 addRecorderTapPoint:v157];
+          CA::DSP::ReferenceCounted<__CADSPRecorderTapPointModel const*>::~ReferenceCounted(&v522);
+          CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(&v523);
           CA::DSP::ReferenceCounted<__CADSPRecorderTapPointModel *>::~ReferenceCounted(v549);
-          CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(&v525);
-          CA::DSP::ReferenceCounted<__CADSPPortModel const*>::~ReferenceCounted(&v530);
-          v142 = v144 + 1;
+          CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(&v528);
+          CA::DSP::ReferenceCounted<__CADSPPortModel const*>::~ReferenceCounted(&v533);
+          v146 = v148 + 1;
         }
 
-        while (v139 != v141 || v143 != v144);
+        while (v143 != v145 || v147 != v148);
       }
 
-      CA::DSP::ReferenceCounted<__CFArray const*>::~ReferenceCounted(&v535);
-      v135 += 4;
+      CA::DSP::ReferenceCounted<__CFArray const*>::~ReferenceCounted(&v538);
+      v139 += 4;
     }
 
-    while (v135 != 8);
+    while (v139 != 8);
     CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(&theString);
     if ((value[23] & 0x80000000) != 0)
     {
       operator delete(*value);
     }
 
-    if (theDict[0])
+    if (theDict.__r_.__value_.__r.__words[0])
     {
-      CFRelease(theDict[0]);
+      CFRelease(theDict.__r_.__value_.__l.__data_);
     }
 
     goto LABEL_259;
   }
 
 LABEL_261:
-  theDict[0] = v518;
-  CFRetain(v518);
+  theDict.__r_.__value_.__r.__words[0] = v521;
+  CFRetain(v521);
   *v549 = 0;
-  v154 = CADSPGraphCreateWithModel(allocator, theDict[0], v549);
-  if (v154)
+  v158 = CADSPGraphCreateWithModel(allocator, theDict.__r_.__value_.__l.__data_, v549);
+  if (v158)
   {
-    cf = 0;
+    cf.__r_.__value_.__r.__words[0] = 0;
     *buf = 0;
-    *value = v154;
+    *value = v158;
     CA::DSP::ReferenceCounted<__CADSPGraph *>::~ReferenceCounted(buf);
     value[8] = 1;
-    CA::DSP::ReferenceCounted<__CADSPGraph *>::~ReferenceCounted(&cf);
+    CA::DSP::ReferenceCounted<__CADSPGraph *>::~ReferenceCounted(&cf.__r_.__value_.__l.__data_);
   }
 
   else
   {
-    v415 = *v549;
+    v418 = *v549;
     if (!*v549)
     {
-      v415 = [[CADSPError allocWithZone:?]userInfo:"initWithCode:userInfo:", 1970170734, 0];
-      *v549 = v415;
+      v418 = [[CADSPError allocWithZone:?]userInfo:"initWithCode:userInfo:", 1970170734, 0];
+      *v549 = v418;
     }
 
-    cf = 0;
+    cf.__r_.__value_.__r.__words[0] = 0;
     *buf = 0;
-    *value = v415;
+    *value = v418;
     CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(buf);
     value[8] = 0;
-    CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(&cf);
+    CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(&cf.__r_.__value_.__l.__data_);
   }
 
-  CA::DSP::ReferenceCounted<__CADSPGraphModel const*>::~ReferenceCounted(theDict);
-  v155 = value[8];
+  CA::DSP::ReferenceCounted<__CADSPGraphModel const*>::~ReferenceCounted(&theDict.__r_.__value_.__l.__data_);
+  v159 = value[8];
   if (value[8] == 1)
   {
-    v536 = *value;
+    v539 = *value;
     if (*value)
     {
       CFRetain(*value);
@@ -5184,28 +5146,28 @@ LABEL_261:
     goto LABEL_272;
   }
 
-  v156 = *(v509 + 85);
-  if (v156)
+  v160 = *(v512 + 85);
+  if (v160)
   {
     {
       CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
     }
 
-    v158 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+    v162 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
     if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
     {
-      v159 = *(v509 + 85);
+      v163 = *(v512 + 85);
       *buf = 134218498;
-      *&buf[4] = v509;
+      *&buf[4] = v512;
       *&buf[12] = 2112;
-      *&buf[14] = v159;
+      *&buf[14] = v163;
       *&buf[22] = 2112;
       *&buf[24] = *value;
-      v160 = "[%p|%@] failed to create graph - %@";
-      v161 = v158;
-      v162 = 32;
+      v164 = "[%p|%@] failed to create graph - %@";
+      v165 = v162;
+      v166 = 32;
 LABEL_729:
-      _os_log_error_impl(&dword_1C91AE000, v161, OS_LOG_TYPE_ERROR, v160, buf, v162);
+      _os_log_error_impl(&dword_1C91AE000, v165, OS_LOG_TYPE_ERROR, v164, buf, v166);
     }
   }
 
@@ -5215,16 +5177,16 @@ LABEL_729:
       CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
     }
 
-    v163 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+    v167 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
     if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218242;
-      *&buf[4] = v509;
+      *&buf[4] = v512;
       *&buf[12] = 2112;
       *&buf[14] = *value;
-      v160 = "[%p] failed to create graph - %@";
-      v161 = v163;
-      v162 = 22;
+      v164 = "[%p] failed to create graph - %@";
+      v165 = v167;
+      v166 = 22;
       goto LABEL_729;
     }
   }
@@ -5233,10 +5195,10 @@ LABEL_272:
   if (value[8] == 1)
   {
     CA::DSP::ReferenceCounted<__CADSPGraph *>::~ReferenceCounted(value);
-    if ((v155 & 1) == 0)
+    if ((v159 & 1) == 0)
     {
 LABEL_274:
-      v536 = 0;
+      v539 = 0;
       goto LABEL_725;
     }
   }
@@ -5244,88 +5206,88 @@ LABEL_274:
   else
   {
     CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(value);
-    if ((v155 & 1) == 0)
+    if ((v159 & 1) == 0)
     {
       goto LABEL_274;
     }
   }
 
-  if (!v536)
+  if (!v539)
   {
     goto LABEL_725;
   }
 
-  CA::DSP::Graph::CopyBoxes(&v539, v536);
-  v164 = v539;
-  v166 = CA::DSP::end<CA::DSP::Box>(&v539);
-  if (v164 != v166 || v165)
+  CA::DSP::Graph::CopyBoxes(&v542, v539);
+  v168 = v542;
+  v170 = CA::DSP::end<CA::DSP::Box>(&v542);
+  if (v168 != v170 || v169)
   {
-    v231 = 0;
-    v232 = v165 - 1;
-    v233 = "enable";
-    v234 = &unk_1EC395000;
+    v235 = 0;
+    v236 = v169 - 1;
+    v237 = "enable";
+    v238 = &unk_1EC395000;
     do
     {
-      v235 = v231;
-      v236 = CFArrayGetValueAtIndex(v164, v231);
-      v237 = v236;
-      if (v236)
+      v239 = v235;
+      v240 = CFArrayGetValueAtIndex(v168, v235);
+      v241 = v240;
+      if (v240)
       {
-        CFRetain(v236);
+        CFRetain(v240);
       }
 
       *buf = 0;
-      theString = v237;
+      theString = v241;
       CA::DSP::ReferenceCounted<__CADSPBox *>::~ReferenceCounted(buf);
       *&buf[8] = 0;
-      theDict[0] = 0;
+      theDict.__r_.__value_.__r.__words[0] = 0;
       PropertyInfo = CADSPBoxGetPropertyInfo(theString, 0x25uLL, 0, &buf[8]);
-      v239 = theDict[0];
-      if (!PropertyInfo && !theDict[0])
+      v243 = theDict.__r_.__value_.__r.__words[0];
+      if (!PropertyInfo && !theDict.__r_.__value_.__r.__words[0])
       {
-        v239 = _CADSPRealTimeErrorCreate(v234[177], 1970170734, 0);
-        theDict[0] = v239;
+        v243 = _CADSPRealTimeErrorCreate(v238[177], 1970170734, 0);
+        theDict.__r_.__value_.__r.__words[0] = v243;
       }
 
-      __t.__d_.__rep_ = v239;
-      if (v239)
+      __t.__d_.__rep_ = v243;
+      if (v243)
       {
-        v240 = 0;
+        v244 = 0;
         __t.__d_.__rep_ = 0;
       }
 
       else
       {
-        v239 = *&buf[8];
-        v240 = 1;
+        v243 = *&buf[8];
+        v244 = 1;
       }
 
-      *value = v239;
-      value[8] = v240;
+      *value = v243;
+      value[8] = v244;
       CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&__t);
-      v241 = value[8];
+      v245 = value[8];
       if (value[8] == 1)
       {
-        cf = *value;
-        v543 = value[8];
+        cf.__r_.__value_.__r.__words[0] = *value;
+        cf.__r_.__value_.__s.__data_[8] = value[8];
       }
 
       else
       {
-        v250 = *value;
+        v254 = *value;
         *value = 0;
         *buf = 0;
         CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(buf);
-        cf = v250;
-        v543 = v241;
-        if ((value[8] & 1) != 0 || (CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(value), (v543 & 1) == 0))
+        cf.__r_.__value_.__r.__words[0] = v254;
+        cf.__r_.__value_.__s.__data_[8] = v245;
+        if ((value[8] & 1) != 0 || (CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(value), (cf.__r_.__value_.__s.__data_[8] & 1) == 0))
         {
-          v251 = cf;
-          cf = 0;
-          *v549 = v251;
+          v255 = cf.__r_.__value_.__r.__words[0];
+          cf.__r_.__value_.__r.__words[0] = 0;
+          *v549 = v255;
           v549[8] = 0;
           CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(v549);
-          if (v543)
+          if (cf.__r_.__value_.__s.__data_[8])
           {
             goto LABEL_446;
           }
@@ -5335,60 +5297,60 @@ LABEL_274:
         }
       }
 
-      if ((cf & 2) == 0)
+      if ((cf.__r_.__value_.__s.__data_[0] & 2) == 0)
       {
         goto LABEL_446;
       }
 
-      *buf = *(v509 + 3368);
-      CA::DSP::Box::SetProperty(value, theString, 0x25uLL, 0);
+      *buf = *(v512 + 3368);
+      CA::DSP::Box::SetProperty(value, theString, 0x25uLL, 0, buf, 4);
       if ((value[8] & 1) == 0)
       {
-        v242 = *(v509 + 85);
-        if (v242)
+        v246 = *(v512 + 85);
+        if (v246)
         {
           {
             CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
           }
 
-          v244 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+          v248 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
           if (!os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_443;
           }
 
-          v245 = v233;
-          v505 = *(v509 + 85);
-          v246 = *(v509 + 3368);
-          CA::DSP::Box::GetModel(&v537, theString);
-          v247 = [v537 name];
-          if (v246)
+          v249 = v237;
+          v508 = *(v512 + 85);
+          v250 = *(v512 + 3368);
+          CA::DSP::Box::GetModel(&v540, theString);
+          v251 = [v540 name];
+          if (v250)
           {
-            v248 = v245;
+            v252 = v249;
           }
 
           else
           {
-            v248 = "disable";
+            v252 = "disable";
           }
 
           *buf = 0;
-          *v549 = v247;
+          *v549 = v251;
           CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(buf);
           *buf = 134219010;
-          *&buf[4] = v509;
+          *&buf[4] = v512;
           *&buf[12] = 2112;
-          *&buf[14] = v505;
+          *&buf[14] = v508;
           *&buf[22] = 2080;
-          *&buf[24] = v248;
-          v233 = v245;
+          *&buf[24] = v252;
+          v237 = v249;
           *&buf[32] = 2112;
           *&buf[34] = *v549;
           *&buf[42] = 2112;
           *&buf[44] = *value;
-          _os_log_error_impl(&dword_1C91AE000, v244, OS_LOG_TYPE_ERROR, "[%p|%@] failed %s offline render mode for '%@' - %@", buf, 0x34u);
+          _os_log_error_impl(&dword_1C91AE000, v248, OS_LOG_TYPE_ERROR, "[%p|%@] failed %s offline render mode for '%@' - %@", buf, 0x34u);
           CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(v549);
-          p_theArray = &v537;
+          p_theArray = &v540;
         }
 
         else
@@ -5397,43 +5359,43 @@ LABEL_274:
             CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
           }
 
-          v253 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+          v257 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
           if (!os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_443;
           }
 
-          v254 = *(v509 + 3368);
+          v258 = *(v512 + 3368);
           CA::DSP::Box::GetModel(&theArray, theString);
-          v255 = [(__CFArray *)theArray name];
-          if (v254)
+          v259 = [(__CFArray *)theArray name];
+          if (v258)
           {
-            v256 = v233;
+            v260 = v237;
           }
 
           else
           {
-            v256 = "disable";
+            v260 = "disable";
           }
 
           *buf = 0;
-          *v549 = v255;
+          *v549 = v259;
           CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(buf);
           *buf = 134218754;
-          *&buf[4] = v509;
+          *&buf[4] = v512;
           *&buf[12] = 2080;
-          *&buf[14] = v256;
+          *&buf[14] = v260;
           *&buf[22] = 2112;
           *&buf[24] = *v549;
           *&buf[32] = 2112;
           *&buf[34] = *value;
-          _os_log_error_impl(&dword_1C91AE000, v253, OS_LOG_TYPE_ERROR, "[%p] failed %s offline render mode for '%@' - %@", buf, 0x2Au);
+          _os_log_error_impl(&dword_1C91AE000, v257, OS_LOG_TYPE_ERROR, "[%p] failed %s offline render mode for '%@' - %@", buf, 0x2Au);
           CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(v549);
           p_theArray = &theArray;
         }
 
         CA::DSP::ReferenceCounted<__CADSPBoxModel const*>::~ReferenceCounted(p_theArray);
-        v234 = &unk_1EC395000;
+        v238 = &unk_1EC395000;
       }
 
 LABEL_443:
@@ -5444,79 +5406,48 @@ LABEL_443:
 
       p_cf = value;
 LABEL_445:
-      CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(p_cf);
+      CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&p_cf->__r_.__value_.__l.__data_);
 LABEL_446:
       CA::DSP::ReferenceCounted<__CADSPBox *>::~ReferenceCounted(&theString);
-      v231 = v235 + 1;
+      v235 = v239 + 1;
     }
 
-    while (v164 != v166 || v232 != v235);
+    while (v168 != v170 || v236 != v239);
   }
 
-  CA::DSP::ReferenceCounted<__CFArray const*>::~ReferenceCounted(&v539);
-  CA::DSP::Graph::CopyBoxes(v549, v536);
-  v167 = *v549;
-  v169 = CA::DSP::end<CA::DSP::Box>(v549);
-  if (v167 != v169 || v168)
+  CA::DSP::ReferenceCounted<__CFArray const*>::~ReferenceCounted(&v542);
+  CA::DSP::Graph::CopyBoxes(v549, v539);
+  v171 = *v549;
+  v173 = CA::DSP::end<CA::DSP::Box>(v549);
+  if (v171 != v173 || v172)
   {
-    v257 = 0;
-    v258 = v168 - 1;
+    v261 = 0;
+    v262 = v172 - 1;
     do
     {
-      v259 = v257;
-      v260 = CFArrayGetValueAtIndex(v167, v257);
-      v261 = v260;
-      if (v260)
+      v263 = v261;
+      v264 = CFArrayGetValueAtIndex(v171, v261);
+      v265 = v264;
+      if (v264)
       {
-        CFRetain(v260);
+        CFRetain(v264);
       }
 
       *buf = 0;
-      cf = v261;
+      cf.__r_.__value_.__r.__words[0] = v265;
       CA::DSP::ReferenceCounted<__CADSPBox *>::~ReferenceCounted(buf);
-      (*(**(cf + 1) + 216))(buf);
+      (*(**(cf.__r_.__value_.__r.__words[0] + 8) + 216))(buf);
       if (*&buf[4] != 1685287015)
       {
         goto LABEL_474;
       }
 
-      theDict[0] = *(v509 + 99);
-      CA::DSP::Box::SetProperty(value, cf, 0x70727375uLL, 0);
+      theDict.__r_.__value_.__r.__words[0] = *(v512 + 99);
+      CA::DSP::Box::SetProperty(value, cf.__r_.__value_.__l.__data_, 0x70727375uLL, 0, &theDict, 8);
       if ((value[8] & 1) == 0)
       {
-        v262 = *(v509 + 85);
-        if (v262)
-        {
-          {
-            CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
-          }
-
-          v264 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
-          if (!os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEFAULT))
-          {
-            goto LABEL_472;
-          }
-
-          v265 = *(v509 + 85);
-          CA::DSP::Box::GetModel(&v539, cf);
-          v266 = [v539 name];
-          *buf = 0;
-          __t.__d_.__rep_ = v266;
-          CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(buf);
-          *buf = 134218754;
-          *&buf[4] = v509;
-          *&buf[12] = 2112;
-          *&buf[14] = v265;
-          *&buf[22] = 2112;
-          *&buf[24] = __t;
-          *&buf[32] = 2112;
-          *&buf[34] = *value;
-          _os_log_impl(&dword_1C91AE000, v264, OS_LOG_TYPE_DEFAULT, "[%p|%@] failed set property strip substitutions on '%@' - %@", buf, 0x2Au);
-          CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(&__t);
-          p_theString = &v539;
-        }
-
-        else
+        v266 = *(v512 + 85);
+        if (v266)
         {
           {
             CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
@@ -5528,18 +5459,49 @@ LABEL_446:
             goto LABEL_472;
           }
 
-          CA::DSP::Box::GetModel(&theString, cf);
-          v269 = [(__CFString *)theString name];
+          v269 = *(v512 + 85);
+          CA::DSP::Box::GetModel(&v542, cf.__r_.__value_.__l.__data_);
+          v270 = [v542 name];
           *buf = 0;
-          __t.__d_.__rep_ = v269;
+          __t.__d_.__rep_ = v270;
+          CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(buf);
+          *buf = 134218754;
+          *&buf[4] = v512;
+          *&buf[12] = 2112;
+          *&buf[14] = v269;
+          *&buf[22] = 2112;
+          *&buf[24] = __t;
+          *&buf[32] = 2112;
+          *&buf[34] = *value;
+          _os_log_impl(&dword_1C91AE000, v268, OS_LOG_TYPE_DEFAULT, "[%p|%@] failed set property strip substitutions on '%@' - %@", buf, 0x2Au);
+          CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(&__t);
+          p_theString = &v542;
+        }
+
+        else
+        {
+          {
+            CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
+          }
+
+          v272 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+          if (!os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEFAULT))
+          {
+            goto LABEL_472;
+          }
+
+          CA::DSP::Box::GetModel(&theString, cf.__r_.__value_.__l.__data_);
+          v273 = [(__CFString *)theString name];
+          *buf = 0;
+          __t.__d_.__rep_ = v273;
           CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(buf);
           *buf = 134218498;
-          *&buf[4] = v509;
+          *&buf[4] = v512;
           *&buf[12] = 2112;
           *&buf[14] = __t;
           *&buf[22] = 2112;
           *&buf[24] = *value;
-          _os_log_impl(&dword_1C91AE000, v268, OS_LOG_TYPE_DEFAULT, "[%p] failed set property strip substitutions on '%@' - %@", buf, 0x20u);
+          _os_log_impl(&dword_1C91AE000, v272, OS_LOG_TYPE_DEFAULT, "[%p] failed set property strip substitutions on '%@' - %@", buf, 0x20u);
           CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(&__t);
           p_theString = &theString;
         }
@@ -5554,50 +5516,50 @@ LABEL_472:
       }
 
 LABEL_474:
-      CA::DSP::ReferenceCounted<__CADSPBox *>::~ReferenceCounted(&cf);
-      v257 = v259 + 1;
+      CA::DSP::ReferenceCounted<__CADSPBox *>::~ReferenceCounted(&cf.__r_.__value_.__l.__data_);
+      v261 = v263 + 1;
     }
 
-    while (v167 != v169 || v258 != v259);
+    while (v171 != v173 || v262 != v263);
   }
 
   CA::DSP::ReferenceCounted<__CFArray const*>::~ReferenceCounted(v549);
-  v517 = v536;
-  if (v536)
+  v520 = v539;
+  if (v539)
   {
-    CFRetain(v536);
+    CFRetain(v539);
   }
 
-  v170 = *(v509 + 93);
-  v171 = *(v509 + 94);
-  if (!v170 && v171)
+  v174 = *(v512 + 93);
+  v175 = *(v512 + 94);
+  if (!v174 && v175)
   {
     __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
   }
 
-  if (v171)
+  if (v175)
   {
-    v172 = v170 + 16 * v171;
+    v176 = v174 + 16 * v175;
     do
     {
-      if (!v170)
+      if (!v174)
       {
         __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
       }
 
-      std::pair<unsigned int,applesauce::CF::DictionaryRef>::pair[abi:ne200100](buf, *v170, *(v170 + 8));
-      v173 = *&buf[8];
+      std::pair<unsigned int,applesauce::CF::DictionaryRef>::pair[abi:ne200100](buf, *v174, *(v174 + 8));
+      v177 = *&buf[8];
       if (!*&buf[8])
       {
         goto LABEL_298;
       }
 
-      *value = v517;
-      if (v517)
+      *value = v520;
+      if (v520)
       {
-        CFRetain(v517);
-        v173 = *&buf[8];
-        v174 = *buf;
+        CFRetain(v520);
+        v177 = *&buf[8];
+        v178 = *buf;
         if (!*&buf[8])
         {
           goto LABEL_294;
@@ -5606,13 +5568,13 @@ LABEL_474:
 
       else
       {
-        v174 = *buf;
+        v178 = *buf;
       }
 
-      CFRetain(v173);
+      CFRetain(v177);
 LABEL_294:
-      *v549 = v173;
-      CA::DSP::AUDSPGraph::ApplyGraphPropertyStrip(v509, value, v174, v549);
+      *v549 = v177;
+      CA::DSP::AUDSPGraph::ApplyGraphPropertyStrip(v512, value, v178, v549);
       if (*v549)
       {
         CFRelease(*v549);
@@ -5625,50 +5587,50 @@ LABEL_294:
       }
 
 LABEL_298:
-      v170 += 16;
+      v174 += 16;
     }
 
-    while (v170 != v172);
+    while (v174 != v176);
   }
 
-  CA::DSP::ReferenceCounted<__CADSPGraph *>::~ReferenceCounted(&v517);
-  v516 = v536;
-  if (v536)
+  CA::DSP::ReferenceCounted<__CADSPGraph *>::~ReferenceCounted(&v520);
+  v519 = v539;
+  if (v539)
   {
-    CFRetain(v536);
+    CFRetain(v539);
   }
 
-  v175 = *(v509 + 88);
-  v176 = *(v509 + 89);
-  if (!v175 && v176)
+  v179 = *(v512 + 88);
+  v180 = *(v512 + 89);
+  if (!v179 && v180)
   {
     __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
   }
 
-  if (v176)
+  if (v180)
   {
-    v177 = v175 + 16 * v176;
+    v181 = v179 + 16 * v180;
     do
     {
-      if (!v175)
+      if (!v179)
       {
         __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
       }
 
-      std::pair<unsigned int,applesauce::CF::DictionaryRef>::pair[abi:ne200100](buf, *v175, *(v175 + 8));
-      v178 = *&buf[8];
+      std::pair<unsigned int,applesauce::CF::DictionaryRef>::pair[abi:ne200100](buf, *v179, *(v179 + 8));
+      v182 = *&buf[8];
       if (!*&buf[8])
       {
         goto LABEL_316;
       }
 
-      *value = v516;
-      if (v516)
+      *value = v519;
+      if (v519)
       {
-        CFRetain(v516);
-        v178 = *&buf[8];
-        v179 = *buf;
-        v180 = *&buf[8] == 0;
+        CFRetain(v519);
+        v182 = *&buf[8];
+        v183 = *buf;
+        v184 = *&buf[8] == 0;
         if (!*&buf[8])
         {
           goto LABEL_312;
@@ -5677,17 +5639,17 @@ LABEL_298:
 
       else
       {
-        v179 = *buf;
-        v180 = *&buf[8] == 0;
+        v183 = *buf;
+        v184 = *&buf[8] == 0;
       }
 
-      CFRetain(v178);
+      CFRetain(v182);
 LABEL_312:
-      *v549 = v178;
-      CA::DSP::AUDSPGraph::ApplyGraphAUStrip(v509, value, v179, v549);
-      if (!v180)
+      *v549 = v182;
+      CA::DSP::AUDSPGraph::ApplyGraphAUStrip(v512, value, v183, v549);
+      if (!v184)
       {
-        CFRelease(v178);
+        CFRelease(v182);
       }
 
       CA::DSP::ReferenceCounted<__CADSPGraph *>::~ReferenceCounted(value);
@@ -5697,107 +5659,59 @@ LABEL_312:
       }
 
 LABEL_316:
-      v175 += 16;
+      v179 += 16;
     }
 
-    while (v175 != v177);
+    while (v179 != v181);
   }
 
-  CA::DSP::ReferenceCounted<__CADSPGraph *>::~ReferenceCounted(&v516);
-  v515 = v536;
-  if (v536)
+  CA::DSP::ReferenceCounted<__CADSPGraph *>::~ReferenceCounted(&v519);
+  v518 = v539;
+  if (v539)
   {
-    CFRetain(v536);
+    CFRetain(v539);
   }
 
-  v181 = *(v509 + 100);
-  v182 = *(v509 + 101);
-  if (!v181 && v182)
+  v185 = *(v512 + 100);
+  v186 = *(v512 + 101);
+  if (!v185 && v186)
   {
     __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
   }
 
-  if (v182)
+  if (v186)
   {
-    v183 = v181 + 12 * v182;
+    v187 = &v185[3 * v186];
     do
     {
-      if (!v181)
+      if (!v185)
       {
         __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
       }
 
-      if ((*(v181 + 4) & 0x100000000) == 0)
+      if ((*(v185 + 1) & 0x100000000) == 0)
       {
         goto LABEL_353;
       }
 
-      v184 = *v181;
-      LODWORD(v185) = *(v181 + 4);
-      v186 = *(v509 + 85);
-      if (v186)
+      v188 = *v185;
+      LODWORD(v189) = *(v185 + 1);
+      v190 = *(v512 + 85);
+      if (v190)
       {
         {
           CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
         }
 
-        v188 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+        v192 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
         if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEFAULT))
         {
-          v189 = *(v509 + 85);
-          v190 = bswap32(v184);
-          *&buf[1] = v190;
-          if ((v190 - 32) > 0x5E || ((v190 >> 8) - 32) > 0x5E || ((v190 << 8 >> 24) - 32) > 0x5E || ((v190 >> 24) - 32) > 0x5E)
+          v193 = *(v512 + 85);
+          v194 = bswap32(v188);
+          *&buf[1] = v194;
+          if ((v194 - 32) > 0x5E || ((v194 >> 8) - 32) > 0x5E || ((v194 << 8 >> 24) - 32) > 0x5E || ((v194 >> 24) - 32) > 0x5E)
           {
-            std::to_string(value, v184);
-          }
-
-          else
-          {
-            strcpy(&buf[5], "'");
-            buf[0] = 39;
-            std::string::basic_string[abi:ne200100]<0>(value, buf);
-          }
-
-          if (value[23] >= 0)
-          {
-            v193 = value;
-          }
-
-          else
-          {
-            v193 = *value;
-          }
-
-          *buf = 134218754;
-          *&buf[4] = v509;
-          *&buf[12] = 2112;
-          *&buf[14] = v189;
-          *&buf[22] = 2080;
-          *&buf[24] = v193;
-          *&buf[32] = 2048;
-          *&buf[34] = v185;
-          v194 = v188;
-          v195 = "[%p|%@] setting DSP graph parameter %s to %f";
-          v196 = 42;
-          goto LABEL_350;
-        }
-      }
-
-      else
-      {
-        {
-          CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
-        }
-
-        v191 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
-        if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEFAULT))
-        {
-          v192 = bswap32(v184);
-          *&buf[1] = v192;
-          if ((v192 - 32) > 0x5E || ((v192 >> 8) - 32) > 0x5E || ((v192 << 8 >> 24) - 32) > 0x5E || ((v192 >> 24) - 32) > 0x5E)
-          {
-            std::to_string(value, v184);
+            std::to_string(value, v188);
           }
 
           else
@@ -5817,186 +5731,234 @@ LABEL_316:
             v197 = *value;
           }
 
-          *buf = 134218498;
-          *&buf[4] = v509;
-          *&buf[12] = 2080;
-          *&buf[14] = v197;
-          *&buf[22] = 2048;
-          *&buf[24] = v185;
-          v194 = v191;
-          v195 = "[%p] setting DSP graph parameter %s to %f";
-          v196 = 32;
-LABEL_350:
-          _os_log_impl(&dword_1C91AE000, v194, OS_LOG_TYPE_DEFAULT, v195, buf, v196);
-          if ((value[23] & 0x80000000) != 0)
-          {
-            operator delete(*value);
-          }
+          *buf = 134218754;
+          *&buf[4] = v512;
+          *&buf[12] = 2112;
+          *&buf[14] = v193;
+          *&buf[22] = 2080;
+          *&buf[24] = v197;
+          *&buf[32] = 2048;
+          *&buf[34] = v189;
+          v198 = v192;
+          v199 = "[%p|%@] setting DSP graph parameter %s to %f";
+          v200 = 42;
+          goto LABEL_350;
         }
       }
 
-      v198 = CA::DSP::AUDSPGraph::ParameterManager::SetParameter(v549, v509 + 416, &v515, v184, v185);
-      if ((v549[8] & 1) == 0)
-      {
-        v395 = *(v509 + 85);
-        Log = CA::DSP::AU::DSPGraph::GetLog(v198);
-        v397 = os_log_type_enabled(Log, OS_LOG_TYPE_ERROR);
-        if (v395)
-        {
-          if (v397)
-          {
-            v409 = *(v509 + 85);
-            AudioDSPGraph::stringFromFourCharCode<unsigned int>(value, v184);
-            if (value[23] >= 0)
-            {
-              v410 = value;
-            }
-
-            else
-            {
-              v410 = *value;
-            }
-
-            *buf = 134218754;
-            *&buf[4] = v509;
-            *&buf[12] = 2112;
-            *&buf[14] = v409;
-            *&buf[22] = 2080;
-            *&buf[24] = v410;
-            *&buf[32] = 2112;
-            *&buf[34] = *v549;
-            v399 = "[%p|%@] failed to set DSP graph parameter %s - %@";
-            v400 = Log;
-            v401 = 42;
-            goto LABEL_763;
-          }
-        }
-
-        else if (v397)
-        {
-          AudioDSPGraph::stringFromFourCharCode<unsigned int>(value, v184);
-          if (value[23] >= 0)
-          {
-            v398 = value;
-          }
-
-          else
-          {
-            v398 = *value;
-          }
-
-          *buf = 134218498;
-          *&buf[4] = v509;
-          *&buf[12] = 2080;
-          *&buf[14] = v398;
-          *&buf[22] = 2112;
-          *&buf[24] = *v549;
-          v399 = "[%p] failed to set DSP graph parameter %s - %@";
-          v400 = Log;
-          v401 = 32;
-LABEL_763:
-          _os_log_error_impl(&dword_1C91AE000, v400, OS_LOG_TYPE_ERROR, v399, buf, v401);
-          if ((value[23] & 0x80000000) != 0)
-          {
-            operator delete(*value);
-          }
-        }
-
-        v411 = __cxa_allocate_exception(4uLL);
-        *v411 = -10875;
-      }
-
-LABEL_353:
-      v181 += 12;
-    }
-
-    while (v181 != v183);
-  }
-
-  CA::DSP::ReferenceCounted<__CADSPGraph *>::~ReferenceCounted(&v515);
-  *v514 = v536;
-  if (v536)
-  {
-    CFRetain(v536);
-  }
-
-  v199 = *(v509 + 151);
-  v200 = *(v509 + 152);
-  if (!v199 && v200)
-  {
-    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
-  }
-
-  if (v200)
-  {
-    v201 = v199 + (v200 << 6);
-    do
-    {
-      if (!v199)
-      {
-        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
-      }
-
-      *buf = *v199;
-      v202 = CA::DSP::ReferenceCounted<__CFDictionary const*>::ReferenceCounted(&buf[8], *(v199 + 8));
-      buf[16] = *(v199 + 16);
-      memset(&buf[24], 0, 24);
-      default_resource = std::pmr::get_default_resource(v202);
-      *&buf[48] = default_resource;
-      v204 = *(v199 + 24);
-      v205 = *(v199 + 32);
-      *value = &buf[24];
-      value[8] = 0;
-      v206 = v205 - v204;
-      if (v205 != v204)
-      {
-        if (v206 < 0)
-        {
-          std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__throw_length_error[abi:ne200100]();
-        }
-
-        v207 = (*(*default_resource + 16))(default_resource, v205 - v204, 1);
-        *&buf[24] = v207;
-        *&buf[32] = v207;
-        *&buf[40] = &v207[v206];
-        do
-        {
-          v208 = *v204++;
-          *v207++ = v208;
-        }
-
-        while (v204 != v205);
-        *&buf[32] = v207;
-      }
-
-      buf[56] = *(v199 + 56);
-      v209 = *&buf[24];
-      if (buf[56] != 1)
-      {
-        goto LABEL_400;
-      }
-
-      v210 = *buf;
-      v211 = *&buf[32];
-      v212 = *(v509 + 85);
-      if (v212)
+      else
       {
         {
           CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
         }
 
-        v214 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+        v195 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+        if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEFAULT))
+        {
+          v196 = bswap32(v188);
+          *&buf[1] = v196;
+          if ((v196 - 32) > 0x5E || ((v196 >> 8) - 32) > 0x5E || ((v196 << 8 >> 24) - 32) > 0x5E || ((v196 >> 24) - 32) > 0x5E)
+          {
+            std::to_string(value, v188);
+          }
+
+          else
+          {
+            strcpy(&buf[5], "'");
+            buf[0] = 39;
+            std::string::basic_string[abi:ne200100]<0>(value, buf);
+          }
+
+          if (value[23] >= 0)
+          {
+            v201 = value;
+          }
+
+          else
+          {
+            v201 = *value;
+          }
+
+          *buf = 134218498;
+          *&buf[4] = v512;
+          *&buf[12] = 2080;
+          *&buf[14] = v201;
+          *&buf[22] = 2048;
+          *&buf[24] = v189;
+          v198 = v195;
+          v199 = "[%p] setting DSP graph parameter %s to %f";
+          v200 = 32;
+LABEL_350:
+          _os_log_impl(&dword_1C91AE000, v198, OS_LOG_TYPE_DEFAULT, v199, buf, v200);
+          if ((value[23] & 0x80000000) != 0)
+          {
+            operator delete(*value);
+          }
+        }
+      }
+
+      v202 = CA::DSP::AUDSPGraph::ParameterManager::SetParameter(v549, v512 + 416, &v518, v188, v189);
+      if ((v549[8] & 1) == 0)
+      {
+        v398 = *(v512 + 85);
+        Log = CA::DSP::AU::DSPGraph::GetLog(v202);
+        v400 = os_log_type_enabled(Log, OS_LOG_TYPE_ERROR);
+        if (v398)
+        {
+          if (v400)
+          {
+            v412 = *(v512 + 85);
+            AudioDSPGraph::stringFromFourCharCode<unsigned int>(value, v188);
+            if (value[23] >= 0)
+            {
+              v413 = value;
+            }
+
+            else
+            {
+              v413 = *value;
+            }
+
+            *buf = 134218754;
+            *&buf[4] = v512;
+            *&buf[12] = 2112;
+            *&buf[14] = v412;
+            *&buf[22] = 2080;
+            *&buf[24] = v413;
+            *&buf[32] = 2112;
+            *&buf[34] = *v549;
+            v402 = "[%p|%@] failed to set DSP graph parameter %s - %@";
+            v403 = Log;
+            v404 = 42;
+            goto LABEL_763;
+          }
+        }
+
+        else if (v400)
+        {
+          AudioDSPGraph::stringFromFourCharCode<unsigned int>(value, v188);
+          if (value[23] >= 0)
+          {
+            v401 = value;
+          }
+
+          else
+          {
+            v401 = *value;
+          }
+
+          *buf = 134218498;
+          *&buf[4] = v512;
+          *&buf[12] = 2080;
+          *&buf[14] = v401;
+          *&buf[22] = 2112;
+          *&buf[24] = *v549;
+          v402 = "[%p] failed to set DSP graph parameter %s - %@";
+          v403 = Log;
+          v404 = 32;
+LABEL_763:
+          _os_log_error_impl(&dword_1C91AE000, v403, OS_LOG_TYPE_ERROR, v402, buf, v404);
+          if ((value[23] & 0x80000000) != 0)
+          {
+            operator delete(*value);
+          }
+        }
+
+        v414 = __cxa_allocate_exception(4uLL);
+        *v414 = -10875;
+      }
+
+LABEL_353:
+      v185 += 3;
+    }
+
+    while (v185 != v187);
+  }
+
+  CA::DSP::ReferenceCounted<__CADSPGraph *>::~ReferenceCounted(&v518);
+  *v517 = v539;
+  if (v539)
+  {
+    CFRetain(v539);
+  }
+
+  v203 = *(v512 + 151);
+  v204 = *(v512 + 152);
+  if (!v203 && v204)
+  {
+    __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
+  }
+
+  if (v204)
+  {
+    v205 = v203 + (v204 << 6);
+    do
+    {
+      if (!v203)
+      {
+        __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
+      }
+
+      *buf = *v203;
+      v206 = CA::DSP::ReferenceCounted<__CFDictionary const*>::ReferenceCounted(&buf[8], *(v203 + 8));
+      buf[16] = *(v203 + 16);
+      memset(&buf[24], 0, 24);
+      default_resource = std::pmr::get_default_resource(v206);
+      *&buf[48] = default_resource;
+      v208 = *(v203 + 24);
+      v209 = *(v203 + 32);
+      *value = &buf[24];
+      value[8] = 0;
+      v210 = v209 - v208;
+      if (v209 != v208)
+      {
+        if (v210 < 0)
+        {
+          std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__throw_length_error[abi:ne200100]();
+        }
+
+        v211 = (*(*default_resource + 16))(default_resource, v209 - v208, 1);
+        *&buf[24] = v211;
+        *&buf[32] = v211;
+        *&buf[40] = &v211[v210];
+        do
+        {
+          v212 = *v208++;
+          *v211++ = v212;
+        }
+
+        while (v208 != v209);
+        *&buf[32] = v211;
+      }
+
+      buf[56] = *(v203 + 56);
+      v213 = *&buf[24];
+      if (buf[56] != 1)
+      {
+        goto LABEL_400;
+      }
+
+      v214 = *buf;
+      v215 = *&buf[32];
+      v216 = *(v512 + 85);
+      if (v216)
+      {
+        {
+          CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
+        }
+
+        v218 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
         if (!os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_398;
         }
 
-        v215 = *(v509 + 85);
-        v216 = bswap32(v210);
-        *&value[1] = v216;
-        if ((v216 - 32) > 0x5E || ((v216 >> 8) - 32) > 0x5E || ((v216 << 8 >> 24) - 32) > 0x5E || ((v216 >> 24) - 32) > 0x5E)
+        v219 = *(v512 + 85);
+        v220 = bswap32(v214);
+        *&value[1] = v220;
+        if ((v220 - 32) > 0x5E || ((v220 >> 8) - 32) > 0x5E || ((v220 << 8 >> 24) - 32) > 0x5E || ((v220 >> 24) - 32) > 0x5E)
         {
-          std::to_string(v549, v210);
+          std::to_string(v549, v214);
         }
 
         else
@@ -6006,25 +5968,25 @@ LABEL_353:
           std::string::basic_string[abi:ne200100]<0>(v549, value);
         }
 
-        v219 = v549;
+        v223 = v549;
         if (v549[23] < 0)
         {
-          v219 = *v549;
+          v223 = *v549;
         }
 
         *value = 134218498;
-        *&value[4] = v509;
+        *&value[4] = v512;
         *&value[12] = 2112;
-        *&value[14] = v215;
+        *&value[14] = v219;
         *&value[22] = 2080;
-        *&value[24] = v219;
-        _os_log_impl(&dword_1C91AE000, v214, OS_LOG_TYPE_DEFAULT, "[%p|%@] setting DSP graph property %s", value, 0x20u);
+        *&value[24] = v223;
+        _os_log_impl(&dword_1C91AE000, v218, OS_LOG_TYPE_DEFAULT, "[%p|%@] setting DSP graph property %s", value, 0x20u);
         if ((v549[23] & 0x80000000) == 0)
         {
           goto LABEL_398;
         }
 
-        v220 = *v549;
+        v224 = *v549;
       }
 
       else
@@ -6033,17 +5995,17 @@ LABEL_353:
           CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
         }
 
-        v217 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+        v221 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
         if (!os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_398;
         }
 
-        v218 = bswap32(v210);
-        *&v549[1] = v218;
-        if ((v218 - 32) > 0x5E || ((v218 >> 8) - 32) > 0x5E || ((v218 << 8 >> 24) - 32) > 0x5E || ((v218 >> 24) - 32) > 0x5E)
+        v222 = bswap32(v214);
+        *&v549[1] = v222;
+        if ((v222 - 32) > 0x5E || ((v222 >> 8) - 32) > 0x5E || ((v222 << 8 >> 24) - 32) > 0x5E || ((v222 >> 24) - 32) > 0x5E)
         {
-          std::to_string(value, v210);
+          std::to_string(value, v214);
         }
 
         else
@@ -6053,154 +6015,154 @@ LABEL_353:
           std::string::basic_string[abi:ne200100]<0>(value, v549);
         }
 
-        v221 = value;
+        v225 = value;
         if (value[23] < 0)
         {
-          v221 = *value;
+          v225 = *value;
         }
 
         *v549 = 134218242;
-        *&v549[4] = v509;
+        *&v549[4] = v512;
         *&v549[12] = 2080;
-        *&v549[14] = v221;
-        _os_log_impl(&dword_1C91AE000, v217, OS_LOG_TYPE_DEFAULT, "[%p] setting DSP graph property %s", v549, 0x16u);
+        *&v549[14] = v225;
+        _os_log_impl(&dword_1C91AE000, v221, OS_LOG_TYPE_DEFAULT, "[%p] setting DSP graph property %s", v549, 0x16u);
         if ((value[23] & 0x80000000) == 0)
         {
           goto LABEL_398;
         }
 
-        v220 = *value;
+        v224 = *value;
       }
 
-      operator delete(v220);
+      operator delete(v224);
 LABEL_398:
-      v222 = CA::DSP::Graph::SetProperty(&cf, *v514, v210, v209, v211 - v209);
-      if ((v543 & 1) == 0)
+      v226 = CA::DSP::Graph::SetProperty(&cf, *v517, v214, v213, v215 - v213);
+      if ((cf.__r_.__value_.__s.__data_[8] & 1) == 0)
       {
-        v402 = *(v509 + 85);
-        v403 = CA::DSP::AU::DSPGraph::GetLog(v222);
-        v404 = os_log_type_enabled(v403, OS_LOG_TYPE_ERROR);
-        if (v402)
+        v405 = *(v512 + 85);
+        v406 = CA::DSP::AU::DSPGraph::GetLog(v226);
+        v407 = os_log_type_enabled(v406, OS_LOG_TYPE_ERROR);
+        if (v405)
         {
-          if (v404)
+          if (v407)
           {
-            v412 = *(v509 + 85);
-            AudioDSPGraph::stringFromFourCharCode<unsigned int>(v549, v210);
+            v415 = *(v512 + 85);
+            AudioDSPGraph::stringFromFourCharCode<unsigned int>(v549, v214);
             if (v549[23] >= 0)
             {
-              v413 = v549;
+              v416 = v549;
             }
 
             else
             {
-              v413 = *v549;
+              v416 = *v549;
             }
 
             *value = 134218754;
-            *&value[4] = v509;
+            *&value[4] = v512;
             *&value[12] = 2112;
-            *&value[14] = v412;
+            *&value[14] = v415;
             *&value[22] = 2080;
-            *&value[24] = v413;
+            *&value[24] = v416;
             *&value[32] = 2112;
-            *&value[34] = cf;
-            v406 = "[%p|%@] failed to set DSP graph property %s - %@";
-            v407 = v403;
-            v408 = 42;
+            *&value[34] = cf.__r_.__value_.__r.__words[0];
+            v409 = "[%p|%@] failed to set DSP graph property %s - %@";
+            v410 = v406;
+            v411 = 42;
             goto LABEL_771;
           }
         }
 
-        else if (v404)
+        else if (v407)
         {
-          AudioDSPGraph::stringFromFourCharCode<unsigned int>(v549, v210);
+          AudioDSPGraph::stringFromFourCharCode<unsigned int>(v549, v214);
           if (v549[23] >= 0)
           {
-            v405 = v549;
+            v408 = v549;
           }
 
           else
           {
-            v405 = *v549;
+            v408 = *v549;
           }
 
           *value = 134218498;
-          *&value[4] = v509;
+          *&value[4] = v512;
           *&value[12] = 2080;
-          *&value[14] = v405;
+          *&value[14] = v408;
           *&value[22] = 2112;
-          *&value[24] = cf;
-          v406 = "[%p] failed to set DSP graph property %s - %@";
-          v407 = v403;
-          v408 = 32;
+          *&value[24] = cf.__r_.__value_.__r.__words[0];
+          v409 = "[%p] failed to set DSP graph property %s - %@";
+          v410 = v406;
+          v411 = 32;
 LABEL_771:
-          _os_log_error_impl(&dword_1C91AE000, v407, OS_LOG_TYPE_ERROR, v406, value, v408);
+          _os_log_error_impl(&dword_1C91AE000, v410, OS_LOG_TYPE_ERROR, v409, value, v411);
           if ((v549[23] & 0x80000000) != 0)
           {
             operator delete(*v549);
           }
         }
 
-        v414 = __cxa_allocate_exception(4uLL);
-        *v414 = -10875;
+        v417 = __cxa_allocate_exception(4uLL);
+        *v417 = -10875;
       }
 
-      v209 = *&buf[24];
+      v213 = *&buf[24];
 LABEL_400:
-      if (v209)
+      if (v213)
       {
-        *&buf[32] = v209;
-        (*(**&buf[48] + 24))(*&buf[48], v209, *&buf[40] - v209, 1);
+        *&buf[32] = v213;
+        (*(**&buf[48] + 24))(*&buf[48], v213, *&buf[40] - v213, 1);
       }
 
       CA::DSP::ReferenceCounted<__CFDictionary const*>::~ReferenceCounted(&buf[8]);
-      v199 += 64;
+      v203 += 64;
     }
 
-    while (v199 != v201);
+    while (v203 != v205);
   }
 
-  CA::DSP::ReferenceCounted<__CADSPGraph *>::~ReferenceCounted(v514);
+  CA::DSP::ReferenceCounted<__CADSPGraph *>::~ReferenceCounted(v517);
   *v549 = 0;
-  v223 = CADSPGraphInitialize(v536, v549);
-  v224 = *v549;
-  if (!v223 && !*v549)
+  v227 = CADSPGraphInitialize(v539, v549);
+  v228 = *v549;
+  if (!v227 && !*v549)
   {
-    goto LABEL_789;
+    goto LABEL_792;
   }
 
   while (1)
   {
-    cf = v224;
-    if (v224)
+    cf.__r_.__value_.__r.__words[0] = v228;
+    if (v228)
     {
-      v225 = 0;
-      cf = 0;
-      *buf = v224;
+      v229 = 0;
+      cf.__r_.__value_.__r.__words[0] = 0;
+      *buf = v228;
     }
 
     else
     {
-      v225 = 1;
+      v229 = 1;
     }
 
-    buf[8] = v225;
-    CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(&cf);
-    v226 = buf[8];
+    buf[8] = v229;
+    CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(&cf.__r_.__value_.__l.__data_);
+    v230 = buf[8];
     if (buf[8])
     {
       value[8] = buf[8];
 LABEL_414:
-      theDict[0] = 0;
+      theDict.__r_.__value_.__r.__words[0] = 0;
       goto LABEL_415;
     }
 
-    v270 = *buf;
+    v274 = *buf;
     *buf = 0;
     *v549 = 0;
-    *value = v270;
+    *value = v274;
     CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(v549);
-    value[8] = v226;
+    value[8] = v230;
     if ((buf[8] & 1) == 0)
     {
       CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(buf);
@@ -6210,32 +6172,32 @@ LABEL_414:
       }
     }
 
-    v271 = *value;
+    v275 = *value;
     *value = 0;
-    theDict[0] = v271;
+    theDict.__r_.__value_.__r.__words[0] = v275;
     CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(value);
-    if (theDict[0])
+    if (theDict.__r_.__value_.__r.__words[0])
     {
-      v272 = *(v509 + 85);
-      if (v272)
+      v276 = *(v512 + 85);
+      if (v276)
       {
         {
           CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
         }
 
-        v274 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+        v278 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
         if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
         {
-          v275 = *(v509 + 85);
+          v279 = *(v512 + 85);
           *buf = 134218498;
-          *&buf[4] = v509;
+          *&buf[4] = v512;
           *&buf[12] = 2112;
-          *&buf[14] = v275;
+          *&buf[14] = v279;
           *&buf[22] = 2112;
-          *&buf[24] = theDict[0];
-          v276 = "[%p|%@] failed to initialize DSP graph - %@";
-          v277 = v274;
-          v278 = 32;
+          *&buf[24] = theDict.__r_.__value_.__r.__words[0];
+          v280 = "[%p|%@] failed to initialize DSP graph - %@";
+          v281 = v278;
+          v282 = 32;
           goto LABEL_743;
         }
       }
@@ -6246,31 +6208,31 @@ LABEL_414:
           CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
         }
 
-        v391 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+        v395 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
         if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218242;
-          *&buf[4] = v509;
+          *&buf[4] = v512;
           *&buf[12] = 2112;
-          *&buf[14] = theDict[0];
-          v276 = "[%p] failed to initialize DSP graph - %@";
-          v277 = v391;
-          v278 = 22;
+          *&buf[14] = theDict.__r_.__value_.__r.__words[0];
+          v280 = "[%p] failed to initialize DSP graph - %@";
+          v281 = v395;
+          v282 = 22;
 LABEL_743:
-          _os_log_error_impl(&dword_1C91AE000, v277, OS_LOG_TYPE_ERROR, v276, buf, v278);
+          _os_log_error_impl(&dword_1C91AE000, v281, OS_LOG_TYPE_ERROR, v280, buf, v282);
         }
       }
 
-      CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(theDict);
+      CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(&theDict.__r_.__value_.__l.__data_);
 LABEL_725:
-      v61 = 4294956421;
+      v65 = 4294956421;
       goto LABEL_726;
     }
 
 LABEL_415:
-    CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(theDict);
-    v227 = v536;
-    if (v536)
+    CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(&theDict.__r_.__value_.__l.__data_);
+    v231 = v539;
+    if (v539)
     {
       break;
     }
@@ -6278,81 +6240,89 @@ LABEL_415:
     *v549 = 0;
     v551 = 0u;
     memset(buf, 0, sizeof(buf));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v423 = MEMORY[0x1E69E9C10];
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v424 = 3;
+    }
+
+    else
+    {
+      v424 = 2;
+    }
+
     *value = 134217984;
     *&value[4] = 0;
-    LODWORD(v501) = 12;
-    v500 = value;
-    _os_log_send_and_compose_impl();
+    _os_log_send_and_compose_impl(v424, v549, buf, 80, &dword_1C91AE000, v423, 16, "assertion failure: inGraph != nullptr -> %llu", value);
     _os_crash_msg();
     __break(1u);
-LABEL_789:
-    v224 = [[CADSPError initWithCode:*MEMORY[0x1E695E4A8] userInfo:v500 allocWithZone:v501], "initWithCode:userInfo:", 1970170734, 0];
-    *v549 = v224;
+LABEL_792:
+    v228 = [[CADSPError allocWithZone:?]userInfo:"initWithCode:userInfo:", 1970170734, 0];
+    *v549 = v228;
   }
 
-  v228 = v509;
-  v229 = *(v509 + 15);
-  if (v229)
+  v232 = v512;
+  v233 = *(v512 + 15);
+  if (v233)
   {
-    LODWORD(v230) = (*(*v229 + 24))(v229);
-    v227 = v536;
-    v228 = v509;
-  }
-
-  else
-  {
-    v230 = (*(v509 + 13) - *(v509 + 12)) >> 3;
-  }
-
-  v279 = v227[1];
-  v281 = v279[47];
-  v280 = v279[48];
-  v282 = *(v228 + 21);
-  if (v282)
-  {
-    LODWORD(v283) = (*(*v282 + 24))(v282);
-    v279 = *(v536 + 1);
+    LODWORD(v234) = (*(*v233 + 24))(v233);
+    v231 = v539;
+    v232 = v512;
   }
 
   else
   {
-    v283 = (*(v228 + 19) - *(v228 + 18)) >> 3;
+    v234 = (*(v512 + 13) - *(v512 + 12)) >> 3;
   }
 
-  v284 = (v280 - v281) >> 3;
-  v285 = (v279[51] - v279[50]) >> 3;
-  v286 = v230 == v284 && v283 == v285;
-  v287 = v286;
-  allocatora = v287;
-  if (!v286)
+  v283 = v231[1];
+  v285 = v283[47];
+  v284 = v283[48];
+  v286 = *(v232 + 21);
+  if (v286)
   {
-    v288 = *(v509 + 85);
-    if (v288)
+    LODWORD(v287) = (*(*v286 + 24))(v286);
+    v283 = *(v539 + 1);
+  }
+
+  else
+  {
+    v287 = (*(v232 + 19) - *(v232 + 18)) >> 3;
+  }
+
+  v288 = (v284 - v285) >> 3;
+  v289 = (v283[51] - v283[50]) >> 3;
+  v290 = v234 == v288 && v287 == v289;
+  v291 = v290;
+  allocatora = v291;
+  if (!v290)
+  {
+    v292 = *(v512 + 85);
+    if (v292)
     {
       {
         CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
       }
 
-      v290 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+      v294 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
       if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
       {
-        v291 = *(v509 + 85);
+        v295 = *(v512 + 85);
         *buf = 134219266;
-        *&buf[4] = v509;
+        *&buf[4] = v512;
         *&buf[12] = 2112;
-        *&buf[14] = v291;
+        *&buf[14] = v295;
         *&buf[22] = 1024;
-        *&buf[24] = v230;
+        *&buf[24] = v234;
         *&buf[28] = 1024;
-        *&buf[30] = v283;
+        *&buf[30] = v287;
         *&buf[34] = 1024;
-        *&buf[36] = v284;
+        *&buf[36] = v288;
         *&buf[40] = 1024;
-        *&buf[42] = v285;
-        v292 = "[%p|%@] AudioUnit (%u -> %u) and DSP graph (%u -> %u) I/O bus counts don't match";
-        v293 = v290;
-        v294 = 46;
+        *&buf[42] = v289;
+        v296 = "[%p|%@] AudioUnit (%u -> %u) and DSP graph (%u -> %u) I/O bus counts don't match";
+        v297 = v294;
+        v298 = 46;
         goto LABEL_741;
       }
     }
@@ -6363,118 +6333,119 @@ LABEL_789:
         CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
       }
 
-      v295 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+      v299 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
       if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
       {
         *buf = 134219008;
-        *&buf[4] = v509;
+        *&buf[4] = v512;
         *&buf[12] = 1024;
-        *&buf[14] = v230;
+        *&buf[14] = v234;
         *&buf[18] = 1024;
-        *&buf[20] = v283;
+        *&buf[20] = v287;
         *&buf[24] = 1024;
-        *&buf[26] = v284;
+        *&buf[26] = v288;
         *&buf[30] = 1024;
-        *&buf[32] = v285;
-        v292 = "[%p] AudioUnit (%u -> %u) and DSP graph (%u -> %u) I/O bus counts don't match";
-        v293 = v295;
-        v294 = 36;
+        *&buf[32] = v289;
+        v296 = "[%p] AudioUnit (%u -> %u) and DSP graph (%u -> %u) I/O bus counts don't match";
+        v297 = v299;
+        v298 = 36;
 LABEL_741:
-        _os_log_error_impl(&dword_1C91AE000, v293, OS_LOG_TYPE_ERROR, v292, buf, v294);
+        _os_log_error_impl(&dword_1C91AE000, v297, OS_LOG_TYPE_ERROR, v296, buf, v298);
       }
     }
   }
 
-  if (v230 >= v284)
+  if (v234 >= v288)
   {
-    v296 = v284;
+    v300 = v288;
   }
 
   else
   {
-    v296 = v230;
+    v300 = v234;
   }
 
-  v297 = &off_1C925E000;
-  if (v296)
+  v301 = &off_1C925E000;
+  if (v300)
   {
-    for (j = 0; v296 != j; ++j)
+    v302 = 0;
+    do
     {
-      v299 = ausdk::AUScope::GetElement((v509 + 80), j);
-      if (!v299)
+      v303 = ausdk::AUScope::GetElement((v512 + 80), v302);
+      if (!v303)
       {
 LABEL_730:
         ausdk::Throw(0xFFFFD583);
       }
 
-      v300 = *(v299 + 96);
-      *value = *(v299 + 80);
-      *&value[16] = v300;
-      *&value[32] = *(v299 + 112);
-      CA::DSP::Graph::GetStreamDescription(buf, v536, j, 0);
+      v304 = *(v303 + 96);
+      *value = *(v303 + 80);
+      *&value[16] = v304;
+      *&value[32] = *(v303 + 112);
+      CA::DSP::Graph::GetStreamDescription(buf, v539, v302, 0);
       *v549 = *buf;
       *&v549[16] = *&buf[16];
       *&v549[32] = *&buf[32];
       if (*value != *buf || *&value[8] != *&v549[8] || *&value[16] != *&v549[16] || *&value[28] != *&v549[28])
       {
 LABEL_582:
-        v322 = *(v509 + 85);
-        if (v322)
+        v326 = *(v512 + 85);
+        if (v326)
         {
           {
             CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
           }
 
-          v324 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+          v328 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
           if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
           {
-            v327 = v297;
-            v328 = *(v509 + 85);
-            CA::StreamDescription::AsString(&cf, value, v325, v326);
-            if (v544 >= 0)
+            v331 = v301;
+            v332 = *(v512 + 85);
+            CA::StreamDescription::AsString(&cf, value, v329, v330);
+            if ((cf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v331 = &cf;
+              v335 = &cf;
             }
 
             else
             {
-              v331 = cf;
+              v335 = cf.__r_.__value_.__r.__words[0];
             }
 
-            v332 = *&value[12];
-            CA::StreamDescription::AsString(theDict, v549, v329, v330);
-            v333 = theDict;
-            if (v541 < 0)
+            v336 = *&value[12];
+            CA::StreamDescription::AsString(&theDict, v549, v333, v334);
+            p_theDict = &theDict;
+            if ((theDict.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
             {
-              v333 = theDict[0];
+              p_theDict = theDict.__r_.__value_.__r.__words[0];
             }
 
             *buf = 134219522;
-            *&buf[4] = v509;
+            *&buf[4] = v512;
             *&buf[12] = 2112;
-            *&buf[14] = v328;
+            *&buf[14] = v332;
             *&buf[22] = 2080;
-            *&buf[24] = v331;
+            *&buf[24] = v335;
             *&buf[32] = 2048;
-            *&buf[34] = v332;
+            *&buf[34] = v336;
             *&buf[42] = 2080;
-            *&buf[44] = v333;
+            *&buf[44] = p_theDict;
             *&buf[52] = 2048;
             *&buf[54] = *&v549[12];
             *&buf[62] = 1024;
-            LODWORD(v551) = j;
-            _os_log_error_impl(&dword_1C91AE000, v324, OS_LOG_TYPE_ERROR, "[%p|%@] AudioUnit format %s (0x%lX) and DSP graph format %s (0x%lX) for input bus %d don't match", buf, 0x44u);
-            if (v541 < 0)
+            LODWORD(v551) = v302;
+            _os_log_error_impl(&dword_1C91AE000, v328, OS_LOG_TYPE_ERROR, "[%p|%@] AudioUnit format %s (0x%lX) and DSP graph format %s (0x%lX) for input bus %d don't match", buf, 0x44u);
+            if (SHIBYTE(theDict.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(theDict[0]);
+              operator delete(theDict.__r_.__value_.__l.__data_);
             }
 
-            if (v544 < 0)
+            if (SHIBYTE(cf.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(cf);
+              operator delete(cf.__r_.__value_.__l.__data_);
             }
 
-            v297 = v327;
+            v301 = v331;
           }
         }
 
@@ -6484,141 +6455,141 @@ LABEL_582:
             CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
           }
 
-          v334 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+          v338 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
           if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
           {
-            CA::StreamDescription::AsString(&cf, value, v335, v336);
-            if (v544 >= 0)
+            CA::StreamDescription::AsString(&cf, value, v339, v340);
+            if ((cf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v339 = &cf;
+              v343 = &cf;
             }
 
             else
             {
-              v339 = cf;
+              v343 = cf.__r_.__value_.__r.__words[0];
             }
 
-            v340 = *&value[12];
-            CA::StreamDescription::AsString(theDict, v549, v337, v338);
-            v341 = theDict;
-            if (v541 < 0)
+            v344 = *&value[12];
+            CA::StreamDescription::AsString(&theDict, v549, v341, v342);
+            v345 = &theDict;
+            if ((theDict.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
             {
-              v341 = theDict[0];
+              v345 = theDict.__r_.__value_.__r.__words[0];
             }
 
             *buf = 134219266;
-            *&buf[4] = v509;
+            *&buf[4] = v512;
             *&buf[12] = 2080;
-            *&buf[14] = v339;
+            *&buf[14] = v343;
             *&buf[22] = 2048;
-            *&buf[24] = v340;
+            *&buf[24] = v344;
             *&buf[32] = 2080;
-            *&buf[34] = v341;
+            *&buf[34] = v345;
             *&buf[42] = 2048;
             *&buf[44] = *&v549[12];
             *&buf[52] = 1024;
-            *&buf[54] = j;
-            _os_log_error_impl(&dword_1C91AE000, v334, OS_LOG_TYPE_ERROR, "[%p] AudioUnit format %s (0x%lX) and DSP graph format %s (0x%lX) for input bus %d don't match", buf, 0x3Au);
-            if (v541 < 0)
+            *&buf[54] = v302;
+            _os_log_error_impl(&dword_1C91AE000, v338, OS_LOG_TYPE_ERROR, "[%p] AudioUnit format %s (0x%lX) and DSP graph format %s (0x%lX) for input bus %d don't match", buf, 0x3Au);
+            if (SHIBYTE(theDict.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(theDict[0]);
+              operator delete(theDict.__r_.__value_.__l.__data_);
             }
 
-            if (v544 < 0)
+            if (SHIBYTE(cf.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(cf);
+              operator delete(cf.__r_.__value_.__l.__data_);
             }
           }
         }
 
-        continue;
+        goto LABEL_597;
       }
 
-      v301 = *&value[12];
+      v305 = *&value[12];
       if (*&value[8] != 1819304813)
       {
-        v305 = *&v549[12];
+        v309 = *&v549[12];
         goto LABEL_581;
       }
 
-      v302 = *&value[12] & 0x7FFFFFFF;
+      v306 = *&value[12] & 0x7FFFFFFF;
       if ((*&value[12] & 0x7FFFFFFF) == 0)
       {
-        v302 = *&value[12];
+        v306 = *&value[12];
       }
 
       if (*&value[24])
       {
         if ((value[12] & 0x20) != 0)
         {
-          v303 = 1;
+          v307 = 1;
         }
 
         else
         {
-          v303 = *&value[28];
+          v307 = *&value[28];
         }
 
-        if (v303)
+        if (v307)
         {
-          v303 = 8 * (*&value[24] / v303);
-          v304 = v303 == *&value[32];
+          v307 = 8 * (*&value[24] / v307);
+          v308 = v307 == *&value[32];
           goto LABEL_527;
         }
       }
 
       else
       {
-        v303 = 0;
+        v307 = 0;
       }
 
-      v304 = *&value[32] == 0;
+      v308 = *&value[32] == 0;
 LABEL_527:
-      v306 = v304;
-      v307 = v302 & 0xFFFFFFBF;
-      if (v306)
+      v310 = v308;
+      v311 = v306 & 0xFFFFFFBF;
+      if (v310)
       {
-        v308 = v307 | 8;
+        v312 = v311 | 8;
       }
 
       else
       {
-        v308 = v307;
+        v312 = v311;
       }
 
-      v309 = value[32] & 7;
-      v310 = v303 == *&value[32] && v309 == 0;
-      v301 = v308 & 0xFFFFFFAF;
-      if (!v310)
+      v313 = value[32] & 7;
+      v314 = v307 == *&value[32] && v313 == 0;
+      v305 = v312 & 0xFFFFFFAF;
+      if (!v314)
       {
-        v301 = v308;
+        v305 = v312;
       }
 
-      if (v301)
+      if (v305)
       {
-        v301 &= 0xFFFFFFBB;
+        v305 &= 0xFFFFFFBB;
       }
 
-      if ((v301 & 8) != 0 && *&value[32] <= 8u)
+      if ((v305 & 8) != 0 && *&value[32] <= 8u)
       {
-        v301 &= 2u;
+        v305 &= 2u;
       }
 
       if (*&value[28] == 1)
       {
-        v301 &= ~0x20u;
+        v305 &= ~0x20u;
       }
 
-      if (!v301)
+      if (!v305)
       {
-        v301 = 0x80000000;
+        v305 = 0x80000000;
       }
 
-      v312 = *&v549[24];
-      v313 = *&v549[12] & 0x7FFFFFFF;
+      v316 = *&v549[24];
+      v317 = *&v549[12] & 0x7FFFFFFF;
       if ((*&v549[12] & 0x7FFFFFFF) == 0)
       {
-        v313 = *&v549[12];
+        v317 = *&v549[12];
       }
 
       if (!*&v549[24])
@@ -6628,160 +6599,165 @@ LABEL_527:
 
       if ((v549[12] & 0x20) != 0)
       {
-        v314 = 1;
+        v318 = 1;
       }
 
       else
       {
-        v314 = *&value[28];
+        v318 = *&value[28];
       }
 
-      if (!v314)
+      if (!v318)
       {
-        v312 = 0;
+        v316 = 0;
 LABEL_558:
-        v315 = *&value[32] == 0;
+        v319 = *&value[32] == 0;
         goto LABEL_559;
       }
 
-      v312 = 8 * (*&v549[24] / v314);
-      v315 = v312 == *&value[32];
+      v316 = 8 * (*&v549[24] / v318);
+      v319 = v316 == *&value[32];
 LABEL_559:
-      v316 = v315;
-      v317 = v313 & 0xFFFFFFBF;
-      if (v316)
-      {
-        v317 |= 8u;
-      }
-
-      v318 = v312 == *&value[32] && v309 == 0;
-      v319 = v317 & 0xFFFFFFAF;
-      if (!v318)
-      {
-        v319 = v317;
-      }
-
-      if (v319)
-      {
-        v319 &= 0xFFFFFFBB;
-      }
-
-      v320 = (v319 & 8) == 0 || *&value[32] > 8u;
-      v321 = v319 & 2;
+      v320 = v319;
+      v321 = v317 & 0xFFFFFFBF;
       if (v320)
       {
-        v321 = v319;
+        v321 |= 8u;
+      }
+
+      v322 = v316 == *&value[32] && v313 == 0;
+      v323 = v321 & 0xFFFFFFAF;
+      if (!v322)
+      {
+        v323 = v321;
+      }
+
+      if (v323)
+      {
+        v323 &= 0xFFFFFFBB;
+      }
+
+      v324 = (v323 & 8) == 0 || *&value[32] > 8u;
+      v325 = v323 & 2;
+      if (v324)
+      {
+        v325 = v323;
       }
 
       if (*&value[28] == 1)
       {
-        v305 = v321 & 0xFFFFFFDF;
+        v309 = v325 & 0xFFFFFFDF;
       }
 
       else
       {
-        v305 = v321;
+        v309 = v325;
       }
 
-      if (!v305)
+      if (!v309)
       {
-        v305 = 0x80000000;
+        v309 = 0x80000000;
       }
 
 LABEL_581:
-      if (v301 != v305)
+      if (v305 != v309)
       {
         goto LABEL_582;
       }
+
+LABEL_597:
+      v302 = (v302 + 1);
     }
+
+    while (v300 != v302);
   }
 
-  if (v283 >= v285)
+  if (v287 >= v289)
   {
-    v342 = v285;
+    v346 = v289;
   }
 
   else
   {
-    v342 = v283;
+    v346 = v287;
   }
 
-  if (v342)
+  if (v346)
   {
-    v343 = 0;
-    v508 = *(v297 + 501);
+    v347 = 0;
+    v511 = *(v301 + 501);
     do
     {
-      v344 = ausdk::AUScope::GetElement((v509 + 128), v343);
-      if (!v344)
+      v348 = ausdk::AUScope::GetElement((v512 + 128), v347);
+      if (!v348)
       {
         goto LABEL_730;
       }
 
-      v345 = *(v344 + 96);
-      *value = *(v344 + 80);
-      *&value[16] = v345;
-      *&value[32] = *(v344 + 112);
-      CA::DSP::Graph::GetStreamDescription(buf, v536, v343, 1);
+      v349 = *(v348 + 96);
+      *value = *(v348 + 80);
+      *&value[16] = v349;
+      *&value[32] = *(v348 + 112);
+      CA::DSP::Graph::GetStreamDescription(buf, v539, v347, 1);
       *v549 = *buf;
       *&v549[16] = *&buf[16];
       *&v549[32] = *&buf[32];
       if (*value != *buf || *&value[8] != *&v549[8] || *&value[16] != *&v549[16] || *&value[28] != *&v549[28])
       {
 LABEL_689:
-        v367 = *(v509 + 85);
-        if (v367)
+        v371 = *(v512 + 85);
+        if (v371)
         {
           {
             CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
           }
 
-          v369 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+          v373 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
           if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
           {
-            v372 = *(v509 + 85);
-            CA::StreamDescription::AsString(&cf, value, v370, v371);
-            if (v544 >= 0)
+            v376 = *(v512 + 85);
+            CA::StreamDescription::AsString(&cf, value, v374, v375);
+            if ((cf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v375 = &cf;
+              v379 = &cf;
             }
 
             else
             {
-              v375 = cf;
+              v379 = cf.__r_.__value_.__r.__words[0];
             }
 
-            v376 = *&value[12];
-            CA::StreamDescription::AsString(theDict, v549, v373, v374);
-            v377 = theDict;
-            if (v541 < 0)
+            v380 = *&value[12];
+            CA::StreamDescription::AsString(&theDict, v549, v377, v378);
+            v381 = &theDict;
+            if ((theDict.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
             {
-              v377 = theDict[0];
+              v381 = theDict.__r_.__value_.__r.__words[0];
             }
 
-            *buf = v508;
-            *&buf[4] = v509;
+            *buf = v511;
+            *&buf[4] = v512;
             *&buf[12] = 2112;
-            *&buf[14] = v372;
+            *&buf[14] = v376;
             *&buf[22] = 2080;
-            *&buf[24] = v375;
+            *&buf[24] = v379;
             *&buf[32] = 2048;
-            *&buf[34] = v376;
+            *&buf[34] = v380;
             *&buf[42] = 2080;
-            *&buf[44] = v377;
+            *&buf[44] = v381;
             *&buf[52] = 2048;
             *&buf[54] = *&v549[12];
             *&buf[62] = 1024;
-            LODWORD(v551) = v343;
-            _os_log_error_impl(&dword_1C91AE000, v369, OS_LOG_TYPE_ERROR, "[%p|%@] AudioUnit format %s (0x%lX) and DSP graph format %s (0x%lX) for output bus %d don't match", buf, 0x44u);
-            if (v541 < 0)
+            LODWORD(v551) = v347;
+            _os_log_error_impl(&dword_1C91AE000, v373, OS_LOG_TYPE_ERROR, "[%p|%@] AudioUnit format %s (0x%lX) and DSP graph format %s (0x%lX) for output bus %d don't match", buf, 0x44u);
+            if (SHIBYTE(theDict.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(theDict[0]);
+              operator delete(theDict.__r_.__value_.__l.__data_);
             }
 
-            if (v544 < 0)
+            if (SHIBYTE(cf.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(cf);
+              operator delete(cf.__r_.__value_.__l.__data_);
             }
           }
         }
@@ -6792,49 +6768,49 @@ LABEL_689:
             CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
           }
 
-          v378 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+          v382 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
           if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
           {
-            CA::StreamDescription::AsString(&cf, value, v379, v380);
-            if (v544 >= 0)
+            CA::StreamDescription::AsString(&cf, value, v383, v384);
+            if ((cf.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v383 = &cf;
+              v387 = &cf;
             }
 
             else
             {
-              v383 = cf;
+              v387 = cf.__r_.__value_.__r.__words[0];
             }
 
-            v384 = *&value[12];
-            CA::StreamDescription::AsString(theDict, v549, v381, v382);
-            v385 = theDict;
-            if (v541 < 0)
+            v388 = *&value[12];
+            CA::StreamDescription::AsString(&theDict, v549, v385, v386);
+            v389 = &theDict;
+            if ((theDict.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
             {
-              v385 = theDict[0];
+              v389 = theDict.__r_.__value_.__r.__words[0];
             }
 
             *buf = 134219266;
-            *&buf[4] = v509;
+            *&buf[4] = v512;
             *&buf[12] = 2080;
-            *&buf[14] = v383;
+            *&buf[14] = v387;
             *&buf[22] = 2048;
-            *&buf[24] = v384;
+            *&buf[24] = v388;
             *&buf[32] = 2080;
-            *&buf[34] = v385;
+            *&buf[34] = v389;
             *&buf[42] = 2048;
             *&buf[44] = *&v549[12];
             *&buf[52] = 1024;
-            *&buf[54] = v343;
-            _os_log_error_impl(&dword_1C91AE000, v378, OS_LOG_TYPE_ERROR, "[%p] AudioUnit format %s (0x%lX) and DSP graph format %s (0x%lX) for output bus %d don't match", buf, 0x3Au);
-            if (v541 < 0)
+            *&buf[54] = v347;
+            _os_log_error_impl(&dword_1C91AE000, v382, OS_LOG_TYPE_ERROR, "[%p] AudioUnit format %s (0x%lX) and DSP graph format %s (0x%lX) for output bus %d don't match", buf, 0x3Au);
+            if (SHIBYTE(theDict.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(theDict[0]);
+              operator delete(theDict.__r_.__value_.__l.__data_);
             }
 
-            if (v544 < 0)
+            if (SHIBYTE(cf.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(cf);
+              operator delete(cf.__r_.__value_.__l.__data_);
             }
           }
         }
@@ -6842,91 +6818,91 @@ LABEL_689:
         goto LABEL_704;
       }
 
-      v346 = *&value[12];
+      v350 = *&value[12];
       if (*&value[8] != 1819304813)
       {
-        v350 = *&v549[12];
+        v354 = *&v549[12];
         goto LABEL_688;
       }
 
-      v347 = *&value[12] & 0x7FFFFFFF;
+      v351 = *&value[12] & 0x7FFFFFFF;
       if ((*&value[12] & 0x7FFFFFFF) == 0)
       {
-        v347 = *&value[12];
+        v351 = *&value[12];
       }
 
       if (*&value[24])
       {
         if ((value[12] & 0x20) != 0)
         {
-          v348 = 1;
+          v352 = 1;
         }
 
         else
         {
-          v348 = *&value[28];
+          v352 = *&value[28];
         }
 
-        if (v348)
+        if (v352)
         {
-          v348 = 8 * (*&value[24] / v348);
-          v349 = v348 == *&value[32];
+          v352 = 8 * (*&value[24] / v352);
+          v353 = v352 == *&value[32];
           goto LABEL_634;
         }
       }
 
       else
       {
-        v348 = 0;
+        v352 = 0;
       }
 
-      v349 = *&value[32] == 0;
+      v353 = *&value[32] == 0;
 LABEL_634:
-      v351 = v349;
-      v352 = v347 & 0xFFFFFFBF;
-      if (v351)
+      v355 = v353;
+      v356 = v351 & 0xFFFFFFBF;
+      if (v355)
       {
-        v353 = v352 | 8;
+        v357 = v356 | 8;
       }
 
       else
       {
-        v353 = v352;
+        v357 = v356;
       }
 
-      v354 = value[32] & 7;
-      v355 = v348 == *&value[32] && v354 == 0;
-      v346 = v353 & 0xFFFFFFAF;
-      if (!v355)
+      v358 = value[32] & 7;
+      v359 = v352 == *&value[32] && v358 == 0;
+      v350 = v357 & 0xFFFFFFAF;
+      if (!v359)
       {
-        v346 = v353;
+        v350 = v357;
       }
 
-      if (v346)
+      if (v350)
       {
-        v346 &= 0xFFFFFFBB;
+        v350 &= 0xFFFFFFBB;
       }
 
-      if ((v346 & 8) != 0 && *&value[32] <= 8u)
+      if ((v350 & 8) != 0 && *&value[32] <= 8u)
       {
-        v346 &= 2u;
+        v350 &= 2u;
       }
 
       if (*&value[28] == 1)
       {
-        v346 &= ~0x20u;
+        v350 &= ~0x20u;
       }
 
-      if (!v346)
+      if (!v350)
       {
-        v346 = 0x80000000;
+        v350 = 0x80000000;
       }
 
-      v357 = *&v549[24];
-      v358 = *&v549[12] & 0x7FFFFFFF;
+      v361 = *&v549[24];
+      v362 = *&v549[12] & 0x7FFFFFFF;
       if ((*&v549[12] & 0x7FFFFFFF) == 0)
       {
-        v358 = *&v549[12];
+        v362 = *&v549[12];
       }
 
       if (!*&v549[24])
@@ -6936,77 +6912,77 @@ LABEL_634:
 
       if ((v549[12] & 0x20) != 0)
       {
-        v359 = 1;
+        v363 = 1;
       }
 
       else
       {
-        v359 = *&value[28];
+        v363 = *&value[28];
       }
 
-      if (!v359)
+      if (!v363)
       {
-        v357 = 0;
+        v361 = 0;
 LABEL_665:
-        v360 = *&value[32] == 0;
+        v364 = *&value[32] == 0;
         goto LABEL_666;
       }
 
-      v357 = 8 * (*&v549[24] / v359);
-      v360 = v357 == *&value[32];
+      v361 = 8 * (*&v549[24] / v363);
+      v364 = v361 == *&value[32];
 LABEL_666:
-      v361 = v360;
-      v362 = v358 & 0xFFFFFFBF;
-      if (v361)
-      {
-        v362 |= 8u;
-      }
-
-      v363 = v357 == *&value[32] && v354 == 0;
-      v364 = v362 & 0xFFFFFFAF;
-      if (!v363)
-      {
-        v364 = v362;
-      }
-
-      if (v364)
-      {
-        v364 &= 0xFFFFFFBB;
-      }
-
-      v365 = (v364 & 8) == 0 || *&value[32] > 8u;
-      v366 = v364 & 2;
+      v365 = v364;
+      v366 = v362 & 0xFFFFFFBF;
       if (v365)
       {
-        v366 = v364;
+        v366 |= 8u;
+      }
+
+      v367 = v361 == *&value[32] && v358 == 0;
+      v368 = v366 & 0xFFFFFFAF;
+      if (!v367)
+      {
+        v368 = v366;
+      }
+
+      if (v368)
+      {
+        v368 &= 0xFFFFFFBB;
+      }
+
+      v369 = (v368 & 8) == 0 || *&value[32] > 8u;
+      v370 = v368 & 2;
+      if (v369)
+      {
+        v370 = v368;
       }
 
       if (*&value[28] == 1)
       {
-        v350 = v366 & 0xFFFFFFDF;
+        v354 = v370 & 0xFFFFFFDF;
       }
 
       else
       {
-        v350 = v366;
+        v354 = v370;
       }
 
-      if (!v350)
+      if (!v354)
       {
-        v350 = 0x80000000;
+        v354 = 0x80000000;
       }
 
 LABEL_688:
-      if (v346 != v350)
+      if (v350 != v354)
       {
         goto LABEL_689;
       }
 
 LABEL_704:
-      ++v343;
+      v347 = (v347 + 1);
     }
 
-    while (v342 != v343);
+    while (v346 != v347);
   }
 
   if (!allocatora)
@@ -7014,39 +6990,39 @@ LABEL_704:
     goto LABEL_725;
   }
 
-  v386 = (v509 + 648);
-  v387 = CA::DSP::ReferenceCounted<__CADSPGraph *>::~ReferenceCounted(v509 + 81);
-  CA::DSP::ReferenceCounted<__CADSPGraph *>::ReferenceCounted(v387, v536);
-  v388 = *(v509 + 100);
-  v389 = *(v509 + 101);
-  v390 = v388;
-  if (!v388)
+  v390 = (v512 + 648);
+  v391 = CA::DSP::ReferenceCounted<__CADSPGraph *>::~ReferenceCounted(v512 + 81);
+  CA::DSP::ReferenceCounted<__CADSPGraph *>::ReferenceCounted(v391, v539);
+  v392 = *(v512 + 100);
+  v393 = *(v512 + 101);
+  v394 = v392;
+  if (!v392)
   {
-    goto LABEL_847;
+    goto LABEL_850;
   }
 
   while (2)
   {
-    if (v390 != &v388[12 * v389])
+    if (v394 != &v392[12 * v393])
     {
-      if (!v390)
+      if (!v394)
       {
         __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
       }
 
-      v422 = *v390;
-      v423 = *v386;
-      if (std::__hash_table<std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>>>::find<unsigned int>((*(*v386 + 8) + 584), *v390))
+      v427 = *v394;
+      v428 = *v390;
+      if (std::__hash_table<std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>>>::find<unsigned int>((*(*v390 + 8) + 584), *v394))
       {
-        CA::DSP::Graph::GetParameterDirection(buf, v423, v422);
+        CA::DSP::Graph::GetParameterDirection(buf, v428, v427);
         if (*buf)
         {
-          v424 = 0;
+          v429 = 0;
         }
 
         else
         {
-          v424 = buf[8];
+          v429 = buf[8];
         }
 
         if ((buf[8] & 1) == 0)
@@ -7054,34 +7030,34 @@ LABEL_704:
           CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(buf);
         }
 
-        if ((v424 & 1) == 0)
+        if ((v429 & 1) == 0)
         {
-          LODWORD(v422) = *v390;
-          goto LABEL_843;
+          LODWORD(v427) = *v394;
+          goto LABEL_846;
         }
 
-LABEL_844:
-        v390 += 12;
+LABEL_847:
+        v394 += 12;
       }
 
       else
       {
-LABEL_843:
-        if (std::__hash_table<std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>>>::find<unsigned int>(v509 + 416, v422))
+LABEL_846:
+        if (std::__hash_table<std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>>>::find<unsigned int>(v512 + 416, v427))
         {
-          goto LABEL_844;
+          goto LABEL_847;
         }
 
-        boost::container::vector<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphParameterValue>,boost::container::small_vector_allocator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphParameterValue>,boost::container::new_allocator<void>,void>,void>::erase(buf, v509 + 100, v390);
-        v390 = *buf;
+        boost::container::vector<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphParameterValue>,boost::container::small_vector_allocator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphParameterValue>,boost::container::new_allocator<void>,void>,void>::erase(buf, v512 + 100, v394);
+        v394 = *buf;
       }
 
-      v388 = *(v509 + 100);
-      v389 = *(v509 + 101);
-      if (!v388)
+      v392 = *(v512 + 100);
+      v393 = *(v512 + 101);
+      if (!v392)
       {
-LABEL_847:
-        if (v389)
+LABEL_850:
+        if (v393)
         {
           __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
         }
@@ -7093,133 +7069,133 @@ LABEL_847:
     break;
   }
 
-  CA::DSP::Graph::GetModel(v549, *v386);
-  v425 = [*v549 parameters];
+  CA::DSP::Graph::GetModel(v549, *v390);
+  v430 = [*v549 parameters];
   *buf = 0;
-  *value = v425;
+  *value = v430;
   CA::DSP::ReferenceCounted<__CFArray const*>::~ReferenceCounted(buf);
   CA::DSP::ReferenceCounted<__CADSPGraphModel const*>::~ReferenceCounted(v549);
-  v426 = *value;
-  v428 = CA::DSP::end<CA::DSP::ParameterModel>(value);
-  if (v426 != v428 || v427)
+  v431 = *value;
+  v433 = CA::DSP::end<CA::DSP::ParameterModel>(value);
+  if (v431 != v433 || v432)
   {
-    v429 = 0;
-    v430 = v427 - 1;
+    v434 = 0;
+    v435 = v432 - 1;
     do
     {
-      v431 = v429;
-      v432 = CFArrayGetValueAtIndex(v426, v429);
-      v433 = v432;
-      if (v432)
+      v436 = v434;
+      v437 = CFArrayGetValueAtIndex(v431, v434);
+      v438 = v437;
+      if (v437)
       {
-        CFRetain(v432);
+        CFRetain(v437);
       }
 
       *buf = 0;
-      cf = v433;
+      cf.__r_.__value_.__r.__words[0] = v438;
       CA::DSP::ReferenceCounted<__CADSPParameterModel const*>::~ReferenceCounted(buf);
-      v434 = cf;
-      theDict[0] = cf;
-      if (cf)
+      v439 = cf.__r_.__value_.__r.__words[0];
+      theDict.__r_.__value_.__r.__words[0] = cf.__r_.__value_.__r.__words[0];
+      if (cf.__r_.__value_.__r.__words[0])
       {
-        CFRetain(cf);
-        v434 = theDict[0];
+        CFRetain(cf.__r_.__value_.__l.__data_);
+        v439 = theDict.__r_.__value_.__r.__words[0];
       }
 
-      v435 = [(__CFDictionary *)v434 ID];
-      CA::DSP::ReferenceCounted<__CADSPParameterModel const*>::~ReferenceCounted(theDict);
-      *buf = v435;
-      rep = cf;
-      __t.__d_.__rep_ = cf;
-      if (cf)
+      v440 = [v439 ID];
+      CA::DSP::ReferenceCounted<__CADSPParameterModel const*>::~ReferenceCounted(&theDict.__r_.__value_.__l.__data_);
+      *buf = v440;
+      rep = cf.__r_.__value_.__r.__words[0];
+      __t.__d_.__rep_ = cf.__r_.__value_.__r.__words[0];
+      if (cf.__r_.__value_.__r.__words[0])
       {
-        CFRetain(cf);
+        CFRetain(cf.__r_.__value_.__l.__data_);
         rep = __t.__d_.__rep_;
       }
 
-      v437 = [rep direction];
+      v442 = [rep direction];
       CA::DSP::ReferenceCounted<__CADSPParameterModel const*>::~ReferenceCounted(&__t);
-      if (!v437)
+      if (!v442)
       {
-        boost::container::flat_map<unsigned int,CA::DSP::AUDSPGraph::GraphParameterValue,std::less<unsigned int>,boost::container::small_vector<std::pair<unsigned int,CA::DSP::AUDSPGraph::GraphParameterValue>,32ul,void,void>>::priv_subscript(v509 + 100, buf);
+        boost::container::flat_map<unsigned int,CA::DSP::AUDSPGraph::GraphParameterValue,std::less<unsigned int>,boost::container::small_vector<std::pair<unsigned int,CA::DSP::AUDSPGraph::GraphParameterValue>,32ul,void,void>>::priv_subscript(v512 + 100, buf);
       }
 
-      CA::DSP::ReferenceCounted<__CADSPParameterModel const*>::~ReferenceCounted(&cf);
-      v429 = v431 + 1;
+      CA::DSP::ReferenceCounted<__CADSPParameterModel const*>::~ReferenceCounted(&cf.__r_.__value_.__l.__data_);
+      v434 = v436 + 1;
     }
 
-    while (v426 != v428 || v430 != v431);
+    while (v431 != v433 || v435 != v436);
   }
 
   CA::DSP::ReferenceCounted<__CFArray const*>::~ReferenceCounted(value);
-  for (k = *(v509 + 418); k; k = *k)
+  for (j = *(v512 + 418); j; j = *j)
   {
-    *value = *(k + 4);
-    boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphParameterValue>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::small_vector<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphParameterValue>,32ul,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphParameterValue>>,void>>::find(buf, v509 + 100, value);
-    v439 = *(v509 + 100);
-    v440 = *(v509 + 101);
-    if (v439)
+    *value = *(j + 4);
+    boost::container::dtl::flat_tree<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphParameterValue>,boost::container::dtl::select1st<unsigned int>,std::less<unsigned int>,boost::container::small_vector<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphParameterValue>,32ul,boost::container::new_allocator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphParameterValue>>,void>>::find(buf, v512 + 100, value);
+    v444 = *(v512 + 100);
+    v445 = *(v512 + 101);
+    if (v444)
     {
-      v441 = 1;
+      v446 = 1;
     }
 
     else
     {
-      v441 = v440 == 0;
+      v446 = v445 == 0;
     }
 
-    if (!v441)
+    if (!v446)
     {
       __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
     }
 
-    if (*buf == v439 + 12 * v440)
+    if (*buf == v444 + 12 * v445)
     {
-      boost::container::flat_map<unsigned int,CA::DSP::AUDSPGraph::GraphParameterValue,std::less<unsigned int>,boost::container::small_vector<std::pair<unsigned int,CA::DSP::AUDSPGraph::GraphParameterValue>,32ul,void,void>>::priv_subscript(v509 + 100, value);
+      boost::container::flat_map<unsigned int,CA::DSP::AUDSPGraph::GraphParameterValue,std::less<unsigned int>,boost::container::small_vector<std::pair<unsigned int,CA::DSP::AUDSPGraph::GraphParameterValue>,32ul,void,void>>::priv_subscript(v512 + 100, value);
     }
   }
 
-  v442 = *(v509 + 151);
-  v443 = *(v509 + 152);
-  v444 = v442;
-  if (!v442)
+  v447 = *(v512 + 151);
+  v448 = *(v512 + 152);
+  v449 = v447;
+  if (!v447)
   {
-    goto LABEL_887;
+    goto LABEL_890;
   }
 
   while (2)
   {
-    if (v444 != &v442[16 * v443])
+    if (v449 != &v447[16 * v448])
     {
-      if (!v444)
+      if (!v449)
       {
         __assert_rtn("operator*", "vector.hpp", 156, "!!m_ptr");
       }
 
-      v445 = *v444;
-      v446 = *v386;
-      if (std::__hash_table<std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>>>::find<unsigned int>((*(*v386 + 8) + 624), *v444))
+      v450 = *v449;
+      v451 = *v390;
+      if (std::__hash_table<std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,CA::DSP::AUDSPGraph::ParameterManager::MetaParameter>>>::find<unsigned int>((*(*v390 + 8) + 624), *v449))
       {
-        CA::DSP::C::API::Call<unsigned char ()(__CADSPGraph *,unsigned int,CADSPDirection *,__CADSPRealTimeError **)>::operator()<__CADSPGraph *,unsigned int &,CA::DSP::C::API::Tags::Result<CADSPDirection> const&>(buf, CADSPGraphGetPropertyDirection, v446, v445);
-        v447 = buf[8];
+        CA::DSP::C::API::Call<unsigned char ()(__CADSPGraph *,unsigned int,CADSPDirection *,__CADSPRealTimeError **)>::operator()<__CADSPGraph *,unsigned int &,CA::DSP::C::API::Tags::Result<CADSPDirection> const&>(buf, CADSPGraphGetPropertyDirection, v451, v450);
+        v452 = buf[8];
         if (buf[8] == 1)
         {
           if (!*buf)
           {
-LABEL_883:
-            v444 += 16;
-            goto LABEL_886;
+LABEL_886:
+            v449 += 16;
+            goto LABEL_889;
           }
         }
 
         else
         {
-          v448 = *buf;
+          v453 = *buf;
           *buf = 0;
           *v549 = 0;
-          *value = v448;
+          *value = v453;
           CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(v549);
-          value[8] = v447;
+          value[8] = v452;
           if ((buf[8] & 1) != 0 || (CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(buf), (value[8] & 1) == 0))
           {
             CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(value);
@@ -7227,20 +7203,20 @@ LABEL_883:
 
           else if ((value[8] & (*value == 0)) != 0)
           {
-            goto LABEL_883;
+            goto LABEL_886;
           }
         }
       }
 
-      boost::container::vector<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::small_vector_allocator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::new_allocator<void>,void>,void>::erase(buf, v509 + 151, v444);
-      v444 = *buf;
-LABEL_886:
-      v442 = *(v509 + 151);
-      v443 = *(v509 + 152);
-      if (!v442)
+      boost::container::vector<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::small_vector_allocator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::new_allocator<void>,void>,void>::erase(buf, v512 + 151, v449);
+      v449 = *buf;
+LABEL_889:
+      v447 = *(v512 + 151);
+      v448 = *(v512 + 152);
+      if (!v447)
       {
-LABEL_887:
-        if (v443)
+LABEL_890:
+        if (v448)
         {
           __assert_rtn("operator+=", "vector.hpp", 181, "m_ptr || !off");
         }
@@ -7252,72 +7228,72 @@ LABEL_887:
     break;
   }
 
-  CA::DSP::Graph::GetModel(v549, *v386);
-  v449 = [*v549 properties];
+  CA::DSP::Graph::GetModel(v549, *v390);
+  v454 = [*v549 properties];
   *buf = 0;
-  *value = v449;
+  *value = v454;
   CA::DSP::ReferenceCounted<__CFArray const*>::~ReferenceCounted(buf);
   CA::DSP::ReferenceCounted<__CADSPGraphModel const*>::~ReferenceCounted(v549);
-  v450 = CFArrayGetCount(*value);
-  v451 = *value;
-  if (v449 != *value || v450)
+  v455 = CFArrayGetCount(*value);
+  v456 = *value;
+  if (v454 != *value || v455)
   {
-    v452 = 0;
-    v453 = v450 - 1;
+    v457 = 0;
+    v458 = v455 - 1;
     do
     {
-      v454 = v452;
-      v455 = CFArrayGetValueAtIndex(v449, v452);
-      v456 = v455;
-      if (v455)
+      v459 = v457;
+      v460 = CFArrayGetValueAtIndex(v454, v457);
+      v461 = v460;
+      if (v460)
       {
-        CFRetain(v455);
+        CFRetain(v460);
       }
 
       *buf = 0;
-      cf = v456;
+      cf.__r_.__value_.__r.__words[0] = v461;
       CA::DSP::ReferenceCounted<__CADSPPropertyModel const*>::~ReferenceCounted(buf);
-      v457 = cf;
-      theDict[0] = cf;
-      if (cf)
+      v462 = cf.__r_.__value_.__r.__words[0];
+      theDict.__r_.__value_.__r.__words[0] = cf.__r_.__value_.__r.__words[0];
+      if (cf.__r_.__value_.__r.__words[0])
       {
-        CFRetain(cf);
-        v457 = theDict[0];
+        CFRetain(cf.__r_.__value_.__l.__data_);
+        v462 = theDict.__r_.__value_.__r.__words[0];
       }
 
-      v458 = [(__CFDictionary *)v457 ID];
-      CA::DSP::ReferenceCounted<__CADSPPropertyModel const*>::~ReferenceCounted(theDict);
-      LODWORD(v539) = v458;
-      v459 = cf;
-      __t.__d_.__rep_ = cf;
-      if (cf)
+      v463 = [v462 ID];
+      CA::DSP::ReferenceCounted<__CADSPPropertyModel const*>::~ReferenceCounted(&theDict.__r_.__value_.__l.__data_);
+      LODWORD(v542) = v463;
+      v464 = cf.__r_.__value_.__r.__words[0];
+      __t.__d_.__rep_ = cf.__r_.__value_.__r.__words[0];
+      if (cf.__r_.__value_.__r.__words[0])
       {
-        CFRetain(cf);
-        v459 = __t.__d_.__rep_;
+        CFRetain(cf.__r_.__value_.__l.__data_);
+        v464 = __t.__d_.__rep_;
       }
 
-      v460 = [v459 direction];
+      v465 = [v464 direction];
       CA::DSP::ReferenceCounted<__CADSPPropertyModel const*>::~ReferenceCounted(&__t);
-      if (!v460)
+      if (!v465)
       {
-        CA::DSP::Graph::GetPropertyInfo(buf, *v386, v458);
-        if (buf[8] != 1 || (boost::container::flat_map<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue,std::less<unsigned int>,boost::container::small_vector<std::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,32ul,void,void>>::priv_subscript(v509 + 1208, &v539), (buf[8] & 1) == 0))
+        CA::DSP::Graph::GetPropertyInfo(buf, *v390, v463);
+        if (buf[8] != 1 || (boost::container::flat_map<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue,std::less<unsigned int>,boost::container::small_vector<std::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,32ul,void,void>>::priv_subscript(v512 + 1208, &v542), (buf[8] & 1) == 0))
         {
           CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(buf);
         }
       }
 
-      CA::DSP::ReferenceCounted<__CADSPPropertyModel const*>::~ReferenceCounted(&cf);
-      v452 = v454 + 1;
+      CA::DSP::ReferenceCounted<__CADSPPropertyModel const*>::~ReferenceCounted(&cf.__r_.__value_.__l.__data_);
+      v457 = v459 + 1;
     }
 
-    while (v449 != v451 || v453 != v454);
+    while (v454 != v456 || v458 != v459);
   }
 
   CA::DSP::ReferenceCounted<__CFArray const*>::~ReferenceCounted(value);
-  if ((*(v509 + 3312) & 1) == 0 && *(v509 + 3304) == 1)
+  if ((*(v512 + 3312) & 1) == 0 && *(v512 + 3304) == 1)
   {
-    CA::DSP::AUDSPGraph::RPBConnection::Resume(*(v509 + 412));
+    CA::DSP::AUDSPGraph::RPBConnection::Resume(*(v512 + 412));
   }
 
   {
@@ -7326,165 +7302,165 @@ LABEL_887:
 
   if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEBUG))
   {
-    v461 = *(v509 + 85);
+    v466 = *(v512 + 85);
     {
       CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
     }
 
-    v462 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
-    v463 = os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEBUG);
-    if (v461)
+    v467 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+    v468 = os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEBUG);
+    if (v466)
     {
-      if (v463)
+      if (v468)
       {
-        v464 = *(v509 + 85);
-        CA::DSP::Graph::GetLatency(value, v536);
-        v465 = 0x7FF8000000000000;
+        v469 = *(v512 + 85);
+        CA::DSP::Graph::GetLatency(value, v539);
+        v470 = 0x7FF8000000000000;
         if (value[8])
         {
-          v465 = *value;
+          v470 = *value;
         }
 
         *buf = 134218498;
-        *&buf[4] = v509;
+        *&buf[4] = v512;
         *&buf[12] = 2112;
-        *&buf[14] = v464;
+        *&buf[14] = v469;
         *&buf[22] = 2048;
-        *&buf[24] = v465;
-        v466 = "[%p|%@] total DSP graph latency is %f seconds";
-        v467 = v462;
-        v468 = 32;
-        goto LABEL_960;
+        *&buf[24] = v470;
+        v471 = "[%p|%@] total DSP graph latency is %f seconds";
+        v472 = v467;
+        v473 = 32;
+        goto LABEL_963;
       }
     }
 
-    else if (v463)
+    else if (v468)
     {
-      CA::DSP::Graph::GetLatency(value, v536);
-      v499 = 0x7FF8000000000000;
+      CA::DSP::Graph::GetLatency(value, v539);
+      v504 = 0x7FF8000000000000;
       if (value[8])
       {
-        v499 = *value;
+        v504 = *value;
       }
 
       *buf = 134218240;
-      *&buf[4] = v509;
+      *&buf[4] = v512;
       *&buf[12] = 2048;
-      *&buf[14] = v499;
-      v466 = "[%p] total DSP graph latency is %f seconds";
-      v467 = v462;
-      v468 = 22;
-LABEL_960:
-      _os_log_debug_impl(&dword_1C91AE000, v467, OS_LOG_TYPE_DEBUG, v466, buf, v468);
+      *&buf[14] = v504;
+      v471 = "[%p] total DSP graph latency is %f seconds";
+      v472 = v467;
+      v473 = 22;
+LABEL_963:
+      _os_log_debug_impl(&dword_1C91AE000, v472, OS_LOG_TYPE_DEBUG, v471, buf, v473);
       if ((value[8] & 1) == 0)
       {
         CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(value);
       }
     }
 
-    CA::DSP::Graph::CopyBoxes(theDict, v536);
-    v469 = theDict[0];
-    v471 = CA::DSP::end<CA::DSP::Box>(theDict);
-    if (v469 == v471 && !v470)
+    CA::DSP::Graph::CopyBoxes(&theDict, v539);
+    v474 = theDict.__r_.__value_.__r.__words[0];
+    v476 = CA::DSP::end<CA::DSP::Box>(&theDict);
+    if (v474 == v476 && !v475)
     {
-LABEL_918:
-      CA::DSP::ReferenceCounted<__CFArray const*>::~ReferenceCounted(theDict);
-      goto LABEL_919;
+LABEL_921:
+      CA::DSP::ReferenceCounted<__CFArray const*>::~ReferenceCounted(&theDict.__r_.__value_.__l.__data_);
+      goto LABEL_922;
     }
 
-    v479 = 0;
-    v480 = v470 - 1;
-    v481 = &dword_1C91AE000;
-    v482 = "[%p|%@] DSP graph latency for box '%@' is %f seconds";
+    v484 = 0;
+    v485 = v475 - 1;
+    v486 = &dword_1C91AE000;
+    v487 = "[%p|%@] DSP graph latency for box '%@' is %f seconds";
     while (2)
     {
-      v483 = v479;
-      v484 = CFArrayGetValueAtIndex(v469, v479);
-      v485 = v484;
-      if (v484)
+      v488 = v484;
+      v489 = CFArrayGetValueAtIndex(v474, v484);
+      v490 = v489;
+      if (v489)
       {
-        CFRetain(v484);
+        CFRetain(v489);
       }
 
       *buf = 0;
-      __t.__d_.__rep_ = v485;
+      __t.__d_.__rep_ = v490;
       CA::DSP::ReferenceCounted<__CADSPBox *>::~ReferenceCounted(buf);
-      v539 = 0;
+      v542 = 0;
       LODWORD(theString) = 8;
       *v549 = 0;
-      Property = CADSPBoxGetProperty(__t.__d_.__rep_, 0xCuLL, 0, &v539, &theString);
-      v487 = *v549;
+      Property = CADSPBoxGetProperty(__t.__d_.__rep_, 0xCuLL, 0, &v542, &theString);
+      v492 = *v549;
       if (!Property && !*v549)
       {
-        v487 = _CADSPRealTimeErrorCreate(gCADSPRealTimeSafeAllocator, 1970170734, 0);
-        *v549 = v487;
+        v492 = _CADSPRealTimeErrorCreate(gCADSPRealTimeSafeAllocator, 1970170734, 0);
+        *v549 = v492;
       }
 
-      cf = v487;
-      if (v487)
+      cf.__r_.__value_.__r.__words[0] = v492;
+      if (v492)
       {
-        v488 = 0;
-        cf = 0;
-        *buf = v487;
+        v493 = 0;
+        cf.__r_.__value_.__r.__words[0] = 0;
+        *buf = v492;
       }
 
       else
       {
-        v488 = 1;
+        v493 = 1;
       }
 
-      buf[8] = v488;
-      CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&cf);
-      v489 = buf[8];
+      buf[8] = v493;
+      CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&cf.__r_.__value_.__l.__data_);
+      v494 = buf[8];
       if (buf[8])
       {
         value[8] = buf[8];
-        goto LABEL_937;
+        goto LABEL_940;
       }
 
-      v497 = *buf;
+      v502 = *buf;
       *buf = 0;
       *v549 = 0;
-      *value = v497;
+      *value = v502;
       CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(v549);
-      value[8] = v489;
+      value[8] = v494;
       if ((buf[8] & 1) != 0 || (CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(buf), (value[8] & 1) == 0))
       {
         CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(value);
-        goto LABEL_946;
+        goto LABEL_949;
       }
 
-LABEL_937:
-      v490 = *(v509 + 85);
-      if (v490)
+LABEL_940:
+      v495 = *(v512 + 85);
+      if (v495)
       {
         {
           CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
         }
 
-        v492 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+        v497 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
         if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEBUG))
         {
-          v493 = v481;
-          v494 = v482;
-          v495 = *(v509 + 85);
-          CA::DSP::Box::GetModel(&v513, __t.__d_.__rep_);
-          CA::DSP::CopyName(value, v513);
+          v498 = v486;
+          v499 = v487;
+          v500 = *(v512 + 85);
+          CA::DSP::Box::GetModel(&v516, __t.__d_.__rep_);
+          CA::DSP::CopyName(value, v516);
           *buf = 134218754;
-          *&buf[4] = v509;
+          *&buf[4] = v512;
           *&buf[12] = 2112;
-          *&buf[14] = v495;
-          v482 = v494;
-          v481 = v493;
+          *&buf[14] = v500;
+          v487 = v499;
+          v486 = v498;
           *&buf[22] = 2112;
           *&buf[24] = *value;
           *&buf[32] = 2048;
-          *&buf[34] = v539;
-          _os_log_debug_impl(v493, v492, OS_LOG_TYPE_DEBUG, v482, buf, 0x2Au);
+          *&buf[34] = v542;
+          _os_log_debug_impl(v498, v497, OS_LOG_TYPE_DEBUG, v487, buf, 0x2Au);
           CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(value);
-          v496 = &v513;
-LABEL_950:
-          CA::DSP::ReferenceCounted<__CADSPBoxModel const*>::~ReferenceCounted(v496);
+          v501 = &v516;
+LABEL_953:
+          CA::DSP::ReferenceCounted<__CADSPBoxModel const*>::~ReferenceCounted(v501);
         }
       }
 
@@ -7494,89 +7470,89 @@ LABEL_950:
           CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
         }
 
-        v498 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+        v503 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
         if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEBUG))
         {
-          CA::DSP::Box::GetModel(&v512, __t.__d_.__rep_);
-          CA::DSP::CopyName(value, v512);
+          CA::DSP::Box::GetModel(&v515, __t.__d_.__rep_);
+          CA::DSP::CopyName(value, v515);
           *buf = 134218498;
-          *&buf[4] = v509;
+          *&buf[4] = v512;
           *&buf[12] = 2112;
           *&buf[14] = *value;
           *&buf[22] = 2048;
-          *&buf[24] = v539;
-          _os_log_debug_impl(v481, v498, OS_LOG_TYPE_DEBUG, "[%p] DSP graph latency for box '%@' is %f seconds", buf, 0x20u);
+          *&buf[24] = v542;
+          _os_log_debug_impl(v486, v503, OS_LOG_TYPE_DEBUG, "[%p] DSP graph latency for box '%@' is %f seconds", buf, 0x20u);
           CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(value);
-          v496 = &v512;
-          goto LABEL_950;
+          v501 = &v515;
+          goto LABEL_953;
         }
       }
 
-LABEL_946:
+LABEL_949:
       CA::DSP::ReferenceCounted<__CADSPBox *>::~ReferenceCounted(&__t);
-      v479 = v483 + 1;
-      if (v469 == v471 && v480 == v483)
+      v484 = v488 + 1;
+      if (v474 == v476 && v485 == v488)
       {
-        goto LABEL_918;
+        goto LABEL_921;
       }
 
       continue;
     }
   }
 
-LABEL_919:
-  v472 = *(v509 + 85);
+LABEL_922:
+  v477 = *(v512 + 85);
   {
     CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
   }
 
-  v473 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
-  v474 = os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEFAULT);
-  if (v472)
+  v478 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+  v479 = os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEFAULT);
+  if (v477)
   {
-    if (v474)
+    if (v479)
     {
-      v475 = *(v509 + 85);
+      v480 = *(v512 + 85);
       *buf = 134218242;
-      *&buf[4] = v509;
+      *&buf[4] = v512;
       *&buf[12] = 2112;
-      *&buf[14] = v475;
-      v476 = "[%p|%@] did initialize";
-      v477 = v473;
-      v478 = 22;
-      goto LABEL_925;
+      *&buf[14] = v480;
+      v481 = "[%p|%@] did initialize";
+      v482 = v478;
+      v483 = 22;
+      goto LABEL_928;
     }
   }
 
-  else if (v474)
+  else if (v479)
   {
     *buf = 134217984;
-    *&buf[4] = v509;
-    v476 = "[%p] did initialize";
-    v477 = v473;
-    v478 = 12;
-LABEL_925:
-    _os_log_impl(&dword_1C91AE000, v477, OS_LOG_TYPE_DEFAULT, v476, buf, v478);
+    *&buf[4] = v512;
+    v481 = "[%p] did initialize";
+    v482 = v478;
+    v483 = 12;
+LABEL_928:
+    _os_log_impl(&dword_1C91AE000, v482, OS_LOG_TYPE_DEFAULT, v481, buf, v483);
   }
 
-  v61 = 0;
+  v65 = 0;
 LABEL_726:
-  CA::DSP::ReferenceCounted<__CADSPGraph *>::~ReferenceCounted(&v536);
+  CA::DSP::ReferenceCounted<__CADSPGraph *>::~ReferenceCounted(&v539);
 LABEL_727:
-  CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(&v518);
-  caulk::shared_semaphore_mutex::unlock((v509 + 608));
-  v392 = *MEMORY[0x1E69E9840];
-  return v61;
+  CA::DSP::ReferenceCounted<__CADSPGraphModel *>::~ReferenceCounted(&v521);
+  caulk::shared_semaphore_mutex::unlock((v512 + 608));
+  return v65;
 }
 
-void sub_1C91D4770(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, const void *a53)
+void sub_1C91D4770(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, ...)
 {
-  if ((*(v53 - 200) & 1) == 0)
+  va_start(va, a52);
+  if ((*(v52 - 200) & 1) == 0)
   {
-    CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted((v53 - 208));
+    CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted((v52 - 208));
   }
 
-  CA::DSP::ReferenceCounted<__CADSPPropertyModel const*>::~ReferenceCounted(&a53);
+  CA::DSP::ReferenceCounted<__CADSPPropertyModel const*>::~ReferenceCounted(va);
   JUMPOUT(0x1C91D478CLL);
 }
 
@@ -7679,14 +7655,14 @@ const void **CA::DSP::ReferenceCounted<__CADSPPropertyModel const*>::~ReferenceC
   return a1;
 }
 
-void CA::StreamDescription::AsString(CA::StreamDescription *this, void *a2, double a3, int8x8_t a4)
+void CA::StreamDescription::AsString(std::string *this, void *a2, double a3, int8x8_t a4)
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   v6 = *(a2 + 2);
   if (v6 == 1718773105)
   {
-    caulk::make_string("%2u ch, %6.0f Hz, 'freq'", this, *(a2 + 7), *a2);
-    goto LABEL_69;
+    caulk::make_string(this, "%2u ch, %6.0f Hz, 'freq'", a2, *(a2 + 7), *a2);
+    return;
   }
 
   if (v6 != 1819304813)
@@ -7744,10 +7720,10 @@ void CA::StreamDescription::AsString(CA::StreamDescription *this, void *a2, doub
       }
 
       v15 = v7 == 8;
-      v55 = v7 == 8;
+      v56 = v7 == 8;
       if (v15)
       {
-        v12 = 4 * v55;
+        v12 = 4 * v56;
         goto LABEL_163;
       }
     }
@@ -7767,8 +7743,8 @@ LABEL_19:
 
     if (v15 && v14 == 0.0)
     {
-      caulk::make_string("%2u ch, %6.0f Hz", this, 0, *a2);
-      goto LABEL_69;
+      caulk::make_string(this, "%2u ch, %6.0f Hz", a2, 0, *a2);
+      return;
     }
 
     a4.i32[0] = bswap32(v6);
@@ -7777,283 +7753,282 @@ LABEL_19:
     v17.i64[1] = 0x1F0000001FLL;
     v18.i64[0] = 0x5F0000005FLL;
     v18.i64[1] = 0x5F0000005FLL;
-    *(&v60.__r_.__value_.__s + 23) = 4;
-    LODWORD(v60.__r_.__value_.__l.__data_) = vuzp1_s8(vbsl_s8(vmovn_s32(vcgtq_u32(v18, vsraq_n_s32(v17, vshlq_n_s32(vmovl_u16(v16), 0x18uLL), 0x18uLL))), v16, 0x2E002E002E002ELL), *&v14).u32[0];
-    v60.__r_.__value_.__s.__data_[4] = 0;
-    caulk::make_string("%2u ch, %6.0f Hz, %s (0x%08X) ", &v58, v13, *&v14, &v60, *(a2 + 3));
-    if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
+    *(&v61.__r_.__value_.__s + 23) = 4;
+    LODWORD(v61.__r_.__value_.__l.__data_) = vuzp1_s8(vbsl_s8(vmovn_s32(vcgtq_u32(v18, vsraq_n_s32(v17, vshlq_n_s32(vmovl_u16(v16), 0x18uLL), 0x18uLL))), v16, 0x2E002E002E002ELL), *&v14).u32[0];
+    v61.__r_.__value_.__s.__data_[4] = 0;
+    caulk::make_string(&v59, "%2u ch, %6.0f Hz, %s (0x%08X) ", a2, v13, *&v14, &v61, *(a2 + 3));
+    if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v60.__r_.__value_.__l.__data_);
+      operator delete(v61.__r_.__value_.__l.__data_);
     }
 
-    v19 = *(a2 + 2);
-    if (v19 <= 1819304812)
+    v20 = *(a2 + 2);
+    if (v20 <= 1819304812)
     {
-      if (v19 != 1634492771 && v19 != 1634497332 && v19 != 1718378851)
+      if (v20 != 1634492771 && v20 != 1634497332 && v20 != 1718378851)
       {
 LABEL_70:
-        caulk::make_string("%u bits/channel, %u bytes/packet, %u frames/packet, %u bytes/frame", &v60, *(a2 + 8), *(a2 + 4), *(a2 + 5), *(a2 + 6));
-        if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        caulk::make_string(&v61, "%u bits/channel, %u bytes/packet, %u frames/packet, %u bytes/frame", v19, *(a2 + 8), *(a2 + 4), *(a2 + 5), *(a2 + 6));
+        if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v31 = &v58;
+          v33 = &v59;
         }
 
         else
         {
-          v31 = v58.__r_.__value_.__r.__words[0];
+          v33 = v59.__r_.__value_.__r.__words[0];
         }
 
-        if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          size = HIBYTE(v58.__r_.__value_.__r.__words[2]);
+          size = HIBYTE(v59.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          size = v58.__r_.__value_.__l.__size_;
+          size = v59.__r_.__value_.__l.__size_;
         }
 
 LABEL_62:
-        v33 = std::string::insert(&v60, 0, v31, size);
-        v34 = *&v33->__r_.__value_.__l.__data_;
-        *(this + 2) = *(&v33->__r_.__value_.__l + 2);
-        *this = v34;
-        v33->__r_.__value_.__l.__size_ = 0;
-        v33->__r_.__value_.__r.__words[2] = 0;
-        v33->__r_.__value_.__r.__words[0] = 0;
-        if ((SHIBYTE(v60.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        v35 = std::string::insert(&v61, 0, v33, size);
+        v36 = *&v35->__r_.__value_.__l.__data_;
+        this->__r_.__value_.__r.__words[2] = v35->__r_.__value_.__r.__words[2];
+        *&this->__r_.__value_.__l.__data_ = v36;
+        v35->__r_.__value_.__l.__size_ = 0;
+        v35->__r_.__value_.__r.__words[2] = 0;
+        v35->__r_.__value_.__r.__words[0] = 0;
+        if ((SHIBYTE(v61.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_65;
         }
 
-        v35 = v60.__r_.__value_.__r.__words[0];
+        v37 = v61.__r_.__value_.__r.__words[0];
 LABEL_64:
-        operator delete(v35);
+        operator delete(v37);
 LABEL_65:
-        if (SHIBYTE(v58.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v59.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v58.__r_.__value_.__l.__data_);
+          operator delete(v59.__r_.__value_.__l.__data_);
         }
 
-        goto LABEL_69;
+        return;
       }
 
 LABEL_45:
-      v28 = *(a2 + 3);
-      if ((v28 - 1) < 4 || !v28 && (v19 == 1634497332 || v19 == 1936487278 || v19 == 1936487267))
+      v29 = *(a2 + 3);
+      if ((v29 - 1) < 4 || !v29 && (v20 == 1634497332 || v20 == 1936487278 || v20 == 1936487267))
       {
-        caulk::make_string("from %u-bit source, ", &v60, CA::StreamDescription::AsString(void)const::kSourceBits[v28]);
-        if ((v60.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        caulk::make_string(&v61, "from %u-bit source, ", v19, CA::StreamDescription::AsString(void)const::kSourceBits[v29]);
+        if ((v61.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v29 = &v60;
+          v30 = &v61;
         }
 
         else
         {
-          v29 = v60.__r_.__value_.__r.__words[0];
+          v30 = v61.__r_.__value_.__r.__words[0];
         }
 
-        if ((v60.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v61.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v30 = HIBYTE(v60.__r_.__value_.__r.__words[2]);
+          v31 = HIBYTE(v61.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v30 = v60.__r_.__value_.__l.__size_;
+          v31 = v61.__r_.__value_.__l.__size_;
         }
 
-        std::string::append(&v58, v29, v30);
-        if (SHIBYTE(v60.__r_.__value_.__r.__words[2]) < 0)
+        std::string::append(&v59, v30, v31);
+        if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v60.__r_.__value_.__l.__data_);
+          operator delete(v61.__r_.__value_.__l.__data_);
         }
       }
 
       else
       {
-        std::string::append(&v58, "from UNKNOWN source bit depth, ", 0x1FuLL);
+        std::string::append(&v59, "from UNKNOWN source bit depth, ", 0x1FuLL);
       }
 
-      caulk::make_string("%u frames/packet", &v60, *(a2 + 5));
-      if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      caulk::make_string(&v61, "%u frames/packet", v32, *(a2 + 5));
+      if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v31 = &v58;
-      }
-
-      else
-      {
-        v31 = v58.__r_.__value_.__r.__words[0];
-      }
-
-      if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        size = HIBYTE(v58.__r_.__value_.__r.__words[2]);
+        v33 = &v59;
       }
 
       else
       {
-        size = v58.__r_.__value_.__l.__size_;
+        v33 = v59.__r_.__value_.__r.__words[0];
+      }
+
+      if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        size = HIBYTE(v59.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        size = v59.__r_.__value_.__l.__size_;
       }
 
       goto LABEL_62;
     }
 
-    if (v19 == 1936487278 || v19 == 1936487267)
+    if (v20 == 1936487278 || v20 == 1936487267)
     {
       goto LABEL_45;
     }
 
-    if (v19 != 1819304813)
+    if (v20 != 1819304813)
     {
       goto LABEL_70;
     }
 
-    v20 = *(a2 + 3);
-    v21 = *(a2 + 6);
-    v22 = v20 & 0x20;
-    v23 = &byte_1C9279A7A;
-    if (!v21)
+    v21 = *(a2 + 3);
+    v22 = *(a2 + 6);
+    v23 = v21 & 0x20;
+    v24 = &byte_1C9279A7A;
+    if (!v22)
     {
       goto LABEL_37;
     }
 
-    if ((v20 & 0x20) != 0)
+    if ((v21 & 0x20) != 0)
     {
-      v24 = 1;
+      v25 = 1;
     }
 
     else
     {
-      v24 = *(a2 + 7);
-      if (!v24)
+      v25 = *(a2 + 7);
+      if (!v25)
       {
-        v22 = 0;
+        v23 = 0;
 LABEL_37:
-        v25 = " signed";
-        if ((v20 & 4) == 0)
+        v26 = " signed";
+        if ((v21 & 4) == 0)
         {
-          v25 = " unsigned";
+          v26 = " unsigned";
         }
 
-        if (v20)
+        if (v21)
         {
-          v26 = "float";
-        }
-
-        else
-        {
-          v26 = "integer";
-        }
-
-        if (v20)
-        {
-          v27 = &byte_1C9279A7A;
+          v27 = "float";
         }
 
         else
         {
-          v27 = v25;
+          v27 = "integer";
+        }
+
+        if (v21)
+        {
+          v28 = &byte_1C9279A7A;
+        }
+
+        else
+        {
+          v28 = v26;
         }
 
 LABEL_102:
-        v60.__r_.__value_.__s.__data_[0] = 0;
-        if (v22)
+        v61.__r_.__value_.__s.__data_[0] = 0;
+        if (v23)
         {
-          v41 = ", deinterleaved";
+          v42 = ", deinterleaved";
         }
 
         else
         {
-          v41 = &byte_1C9279A7A;
+          v42 = &byte_1C9279A7A;
         }
 
-        v42 = *(a2 + 8);
-        v38 = &byte_1C9279A7A;
+        v39 = &byte_1C9279A7A;
         v43 = &byte_1C9279A7A;
         goto LABEL_106;
       }
     }
 
-    v37 = v21 / v24;
-    if (v21 / v24 < 2)
+    v38 = v22 / v25;
+    if (v22 / v25 < 2)
     {
-      v40 = " signed";
-      if ((v20 & 4) == 0)
+      v41 = " signed";
+      if ((v21 & 4) == 0)
       {
-        v40 = " unsigned";
+        v41 = " unsigned";
       }
 
-      if (v20)
+      if (v21)
       {
-        v26 = "float";
-      }
-
-      else
-      {
-        v26 = "integer";
-      }
-
-      if (v20)
-      {
-        v27 = &byte_1C9279A7A;
+        v27 = "float";
       }
 
       else
       {
-        v27 = v40;
+        v27 = "integer";
       }
 
-      if (v24 > v21)
+      if (v21)
+      {
+        v28 = &byte_1C9279A7A;
+      }
+
+      else
+      {
+        v28 = v41;
+      }
+
+      if (v25 > v22)
       {
         goto LABEL_102;
       }
 
-      v37 = 1;
-      v38 = &byte_1C9279A7A;
+      v38 = 1;
+      v39 = &byte_1C9279A7A;
     }
 
     else
     {
-      if ((v20 & 2) != 0)
+      if ((v21 & 2) != 0)
       {
-        v38 = " big-endian";
+        v39 = " big-endian";
       }
 
       else
       {
-        v38 = " little-endian";
+        v39 = " little-endian";
       }
 
-      v39 = " unsigned";
-      if ((v20 & 4) != 0)
+      v40 = " unsigned";
+      if ((v21 & 4) != 0)
       {
-        v39 = " signed";
+        v40 = " signed";
       }
 
-      if (v20)
+      if (v21)
       {
-        v26 = "float";
-      }
-
-      else
-      {
-        v26 = "integer";
-      }
-
-      if (v20)
-      {
-        v27 = &byte_1C9279A7A;
+        v27 = "float";
       }
 
       else
       {
-        v27 = v39;
+        v27 = "integer";
+      }
+
+      if (v21)
+      {
+        v28 = &byte_1C9279A7A;
+      }
+
+      else
+      {
+        v28 = v40;
       }
     }
 
     v44 = *(a2 + 7);
-    if ((v20 & 0x20) != 0)
+    if ((v21 & 0x20) != 0)
     {
       v45 = 1;
     }
@@ -8065,17 +8040,17 @@ LABEL_102:
 
     if (v45)
     {
-      v45 = 8 * (v21 / v45);
+      v45 = 8 * (v22 / v45);
     }
 
     if (v45 == *(a2 + 8))
     {
-      v60.__r_.__value_.__s.__data_[0] = 0;
+      v61.__r_.__value_.__s.__data_[0] = 0;
     }
 
     else
     {
-      if ((v20 & 8) != 0)
+      if ((v21 & 8) != 0)
       {
         v46 = &byte_1C9279A7A;
       }
@@ -8085,21 +8060,21 @@ LABEL_102:
         v46 = "un";
       }
 
-      snprintf(&v60, 0x20uLL, "%spacked in %u bytes", v46, v37);
-      v21 = *(a2 + 6);
-      v20 = *(a2 + 3);
-      if (!v21)
+      snprintf(&v61, 0x20uLL, "%spacked in %u bytes", v46, v38);
+      v22 = *(a2 + 6);
+      v21 = *(a2 + 3);
+      if (!v22)
       {
         v47 = 0;
-        v22 = *(a2 + 3) & 0x20;
+        v23 = *(a2 + 3) & 0x20;
         goto LABEL_128;
       }
 
       v44 = *(a2 + 7);
-      v22 = *(a2 + 3) & 0x20;
+      v23 = *(a2 + 3) & 0x20;
     }
 
-    if (v22)
+    if (v23)
     {
       v47 = 1;
     }
@@ -8111,13 +8086,13 @@ LABEL_102:
 
     if (v47)
     {
-      v47 = 8 * (v21 / v47);
+      v47 = 8 * (v22 / v47);
     }
 
 LABEL_128:
     v48 = *(a2 + 8);
     v49 = " high-aligned";
-    if ((v20 & 0x10) == 0)
+    if ((v21 & 0x10) == 0)
     {
       v49 = " low-aligned";
     }
@@ -8132,21 +8107,21 @@ LABEL_128:
       v43 = v49;
     }
 
-    if (v22)
+    if (v23)
     {
-      v41 = ", deinterleaved";
+      v42 = ", deinterleaved";
     }
 
     else
     {
-      v41 = &byte_1C9279A7A;
+      v42 = &byte_1C9279A7A;
     }
 
-    if (v60.__r_.__value_.__s.__data_[0])
+    if (v61.__r_.__value_.__s.__data_[0])
     {
-      v23 = ", ";
+      v24 = ", ";
 LABEL_141:
-      if (((v20 >> 7) & 0x3F) != 0)
+      if (((v21 >> 7) & 0x3F) != 0)
       {
         snprintf(__str, 0x14uLL, "%u.%u");
       }
@@ -8156,47 +8131,47 @@ LABEL_141:
         snprintf(__str, 0x14uLL, "%u");
       }
 
-      caulk::make_string("%s-bit%s%s %s%s%s%s%s", &v57, __str, v38, v27, v26, v23, &v60, v43, v41);
-      if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      caulk::make_string(&v58, "%s-bit%s%s %s%s%s%s%s", v51, __str, v39, v28, v27, v24, &v61, v43, v42);
+      if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v51 = &v58;
+        v52 = &v59;
       }
 
       else
       {
-        v51 = v58.__r_.__value_.__r.__words[0];
+        v52 = v59.__r_.__value_.__r.__words[0];
       }
 
-      if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v59.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v52 = HIBYTE(v58.__r_.__value_.__r.__words[2]);
+        v53 = HIBYTE(v59.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v52 = v58.__r_.__value_.__l.__size_;
+        v53 = v59.__r_.__value_.__l.__size_;
       }
 
-      v53 = std::string::insert(&v57, 0, v51, v52);
-      v54 = *&v53->__r_.__value_.__l.__data_;
-      *(this + 2) = *(&v53->__r_.__value_.__l + 2);
-      *this = v54;
-      v53->__r_.__value_.__l.__size_ = 0;
-      v53->__r_.__value_.__r.__words[2] = 0;
-      v53->__r_.__value_.__r.__words[0] = 0;
-      if ((SHIBYTE(v57.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      v54 = std::string::insert(&v58, 0, v52, v53);
+      v55 = *&v54->__r_.__value_.__l.__data_;
+      this->__r_.__value_.__r.__words[2] = v54->__r_.__value_.__r.__words[2];
+      *&this->__r_.__value_.__l.__data_ = v55;
+      v54->__r_.__value_.__l.__size_ = 0;
+      v54->__r_.__value_.__r.__words[2] = 0;
+      v54->__r_.__value_.__r.__words[0] = 0;
+      if ((SHIBYTE(v58.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         goto LABEL_65;
       }
 
-      v35 = v57.__r_.__value_.__r.__words[0];
+      v37 = v58.__r_.__value_.__r.__words[0];
       goto LABEL_64;
     }
 
 LABEL_106:
     if (*v43)
     {
-      v23 = ", ";
+      v24 = ", ";
     }
 
     goto LABEL_141;
@@ -8229,22 +8204,20 @@ LABEL_106:
 LABEL_163:
   if ((v10 & 0x20) != 0)
   {
-    v56 = ", deinterleaved";
+    v57 = ", deinterleaved";
   }
 
   else
   {
-    v56 = ", interleaved";
+    v57 = ", interleaved";
   }
 
   if (v9 == 1)
   {
-    v56 = &byte_1C9279A7A;
+    v57 = &byte_1C9279A7A;
   }
 
-  caulk::make_string("%2u ch, %6.0f Hz, %s%s", this, v9, *a2, *(&off_1E8334528 + v12), v56);
-LABEL_69:
-  v36 = *MEMORY[0x1E69E9840];
+  caulk::make_string(this, "%2u ch, %6.0f Hz, %s%s", a2, v9, *a2, *(&off_1E8334528 + v12), v57);
 }
 
 void sub_1C91D5160(_Unwind_Exception *a1, int a2)
@@ -8257,46 +8230,46 @@ void sub_1C91D5160(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-void caulk::make_string(caulk *this@<X0>, uint64_t a2@<X8>, ...)
+void caulk::make_string(std::string *__return_ptr a1@<X8>, caulk *this@<X0>, const char *a3@<X1>, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   v5 = vsnprintf(0, 0, this, va);
   if (v5 <= 0)
   {
-    *a2 = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
+    a1->__r_.__value_.__r.__words[0] = 0;
+    a1->__r_.__value_.__l.__size_ = 0;
+    a1->__r_.__value_.__r.__words[2] = 0;
   }
 
   else
   {
-    *a2 = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
-    std::string::resize(a2, (v5 + 1), 0);
-    v6 = *(a2 + 23);
+    a1->__r_.__value_.__r.__words[0] = 0;
+    a1->__r_.__value_.__l.__size_ = 0;
+    a1->__r_.__value_.__r.__words[2] = 0;
+    std::string::resize(a1, (v5 + 1), 0);
+    v6 = SHIBYTE(a1->__r_.__value_.__r.__words[2]);
     if (v6 >= 0)
     {
-      v7 = a2;
+      v7 = a1;
     }
 
     else
     {
-      v7 = *a2;
+      v7 = a1->__r_.__value_.__r.__words[0];
     }
 
     if (v6 >= 0)
     {
-      v8 = *(a2 + 23);
+      size = HIBYTE(a1->__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v8 = *(a2 + 8);
+      size = a1->__r_.__value_.__l.__size_;
     }
 
-    v9 = vsnprintf(v7, v8, this, va);
-    std::string::resize(a2, v9, 0);
+    v9 = vsnprintf(v7, size, this, va);
+    std::string::resize(a1, v9, 0);
   }
 }
 
@@ -8308,23 +8281,17 @@ void std::__throw_out_of_range[abi:ne200100](const char *a1)
 
 std::string *AudioDSPGraph::stringFromFourCharCode<unsigned int>(std::string *retstr, unsigned int __val)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = bswap32(__val);
-  v6 = v2;
+  v5 = v2;
   if ((v2 - 32) > 0x5E || ((v2 >> 8) - 32) > 0x5E || ((v2 << 8 >> 24) - 32) > 0x5E || ((v2 >> 24) - 32) > 0x5E)
   {
-    result = std::to_string(retstr, __val);
+    return std::to_string(retstr, __val);
   }
 
-  else
-  {
-    v7 = 39;
-    v5 = 39;
-    result = std::string::basic_string[abi:ne200100]<0>(retstr, &v5);
-  }
-
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v6 = 39;
+  v4 = 39;
+  return std::string::basic_string[abi:ne200100]<0>(retstr, &v4);
 }
 
 void sub_1C91D5340(_Unwind_Exception *a1, int a2)
@@ -8376,44 +8343,44 @@ uint64_t std::pair<unsigned int,applesauce::CF::DictionaryRef>::~pair(uint64_t a
   return a1;
 }
 
-const void **CA::DSP::Box::SetProperty(CA::DSP::Box *this, const CADSPPropertyAddress *a2, unint64_t a3, unsigned int a4)
+const void **CA::DSP::Box::SetProperty(CA::DSP::Box *this, const CADSPPropertyAddress *a2, unint64_t a3, unsigned int a4, uint64_t a5, uint64_t a6)
 {
-  v11 = 0;
-  v5 = 0;
+  v13 = 0;
+  v7 = 0;
   if (CADSPBoxSetProperty(a2, a3, a4))
   {
-    v6 = 0;
-  }
-
-  else
-  {
-    v6 = v11 == 0;
-  }
-
-  if (v6)
-  {
-    v5 = _CADSPRealTimeErrorCreate(gCADSPRealTimeSafeAllocator, 1970170734, 0);
-    v11 = v5;
-  }
-
-  v10 = v5;
-  if (v5)
-  {
-    v10 = 0;
-    v9 = 0;
-    CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v10);
     v8 = 0;
-    v11 = 0;
-    *this = v5;
-    CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v11);
-    *(this + 8) = 0;
-    return CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v8);
   }
 
   else
   {
-    v9 = 1;
-    result = CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v10);
+    v8 = v13 == 0;
+  }
+
+  if (v8)
+  {
+    v7 = _CADSPRealTimeErrorCreate(gCADSPRealTimeSafeAllocator, 1970170734, 0);
+    v13 = v7;
+  }
+
+  v12 = v7;
+  if (v7)
+  {
+    v12 = 0;
+    v11 = 0;
+    CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v12);
+    v10 = 0;
+    v13 = 0;
+    *this = v7;
+    CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v13);
+    *(this + 8) = 0;
+    return CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v10);
+  }
+
+  else
+  {
+    v11 = 1;
+    result = CA::DSP::ReferenceCounted<__CADSPRealTimeError *>::~ReferenceCounted(&v12);
     *(this + 8) = 1;
   }
 
@@ -8464,7 +8431,7 @@ void CA::DSP::AU::DSPGraph::Settings::Get<__CFString const*>(void *a1, const __C
   *a1 = v4;
 }
 
-_BYTE *applesauce::CF::convert_to<std::string,0>(_BYTE *a1, const __CFString *a2)
+void *applesauce::CF::convert_to<std::string,0>(uint64_t a1, const __CFString *a2)
 {
   if (!a2 || (TypeID = CFStringGetTypeID(), TypeID != CFGetTypeID(a2)))
   {
@@ -8497,14 +8464,14 @@ _BYTE *applesauce::CF::convert_to<std::string,0>(_BYTE *a1, const __CFString *a2
       operator new();
     }
 
-    a1[23] = maxBufLen;
+    *(a1 + 23) = maxBufLen;
     if (v8)
     {
       bzero(a1, v8);
     }
 
-    a1[v8] = 0;
-    if (a1[23] >= 0)
+    *(a1 + v8) = 0;
+    if (*(a1 + 23) >= 0)
     {
       v9 = a1;
     }
@@ -8823,18 +8790,18 @@ const void **CA::DSP::ReferenceCounted<__CFDictionary *>::~ReferenceCounted(cons
   return a1;
 }
 
-const void **CA::DSP::String::Create@<X0>(CA::DSP::String *this@<X0>, const void **a2@<X8>, ...)
+const void **CA::DSP::String::Create@<X0>(const void **__return_ptr a1@<X8>, CA::DSP::String *this@<X0>, const __CFString *a3@<X2>, ...)
 {
-  va_start(va, a2);
-  *a2 = 0;
-  va_copy(&v8[1], va);
-  v5 = CFStringCreateWithFormatAndArguments(this, 0, @"%u", va);
-  v7 = 0;
-  CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(a2);
-  v8[0] = 0;
-  *a2 = v5;
-  CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(v8);
-  return CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(&v7);
+  va_start(va, a3);
+  *a1 = 0;
+  va_copy(&v7[1], va);
+  v4 = CFStringCreateWithFormatAndArguments(this, 0, @"%u", va);
+  v6 = 0;
+  CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(a1);
+  v7[0] = 0;
+  *a1 = v4;
+  CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(v7);
+  return CA::DSP::ReferenceCounted<__CFString const*>::~ReferenceCounted(&v6);
 }
 
 uint64_t applesauce::CF::DictionaryRef_iterator<applesauce::CF::StringRef,applesauce::CF::StringRef>::DictionaryRef_iterator(uint64_t a1, CFDictionaryRef theDict)
@@ -8950,65 +8917,65 @@ void CA::DSP::AUDSPGraph::PostConstructor(CA::DSP::AUDSPGraph *this)
 
 CFTypeRef ___ZN2CA3DSP10AUDSPGraph15PostConstructorEv_block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  CA::DSP::ReferenceCounted<__CADSPGraph *>::ReferenceCounted(&v17, *(v1 + 648));
-  if (!v17)
+  CA::DSP::ReferenceCounted<__CADSPGraph *>::ReferenceCounted(&v16, *(v1 + 648));
+  if (!v16)
   {
     goto LABEL_9;
   }
 
-  v19 = 0;
-  v2 = CADSPGraphCreateRemoteProcessingBlockHost(v17, &v19);
+  v18 = 0;
+  v2 = CADSPGraphCreateRemoteProcessingBlockHost(v16, &v18);
   if (v2)
   {
     *buf = 0;
     cf = v2;
-    v16 = 1;
+    v15 = 1;
     CA::DSP::ReferenceCounted<__RPBHost *>::~ReferenceCounted(buf);
-    v19 = 0;
+    v18 = 0;
     goto LABEL_4;
   }
 
-  v6 = v19;
-  if (!v19)
+  v5 = v18;
+  if (!v18)
   {
-    v6 = [[CADSPError allocWithZone:?]userInfo:"initWithCode:userInfo:", 1970170734, 0];
-    v19 = v6;
+    v5 = [[CADSPError allocWithZone:?]userInfo:"initWithCode:userInfo:", 1970170734, 0];
+    v18 = v5;
   }
 
-  v18 = 0;
+  v17 = 0;
   *buf = 0;
-  cf = v6;
+  cf = v5;
   CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(buf);
-  v16 = 0;
-  CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(&v18);
-  v19 = v6;
-  if (v6)
+  v15 = 0;
+  CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(&v17);
+  v18 = v5;
+  if (v5)
   {
-    CFRetain(v6);
-    v7 = *(v1 + 680);
-    if (v7)
+    CFRetain(v5);
+    v6 = *(v1 + 680);
+    if (v6)
     {
       {
         CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
       }
 
-      v9 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+      v8 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
       if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
       {
-        v10 = *(v1 + 680);
+        v9 = *(v1 + 680);
         *buf = 134218498;
         *&buf[4] = v1;
-        v21 = 2112;
-        v22 = v10;
-        v23 = 2112;
-        v24 = v19;
-        v11 = "[%p|%@] failed to create remote processing block - %@";
-        v12 = v9;
-        v13 = 32;
+        v20 = 2112;
+        v21 = v9;
+        v22 = 2112;
+        v23 = v18;
+        v10 = "[%p|%@] failed to create remote processing block - %@";
+        v11 = v8;
+        v12 = 32;
 LABEL_21:
-        _os_log_error_impl(&dword_1C91AE000, v12, OS_LOG_TYPE_ERROR, v11, buf, v13);
+        _os_log_error_impl(&dword_1C91AE000, v11, OS_LOG_TYPE_ERROR, v10, buf, v12);
       }
     }
 
@@ -9018,24 +8985,24 @@ LABEL_21:
         CA::DSP::AU::DSPGraph::GetLog(void)::sLog = os_log_create("com.apple.coreaudio", "AUDSPGraph");
       }
 
-      v14 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
+      v13 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
       if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218242;
         *&buf[4] = v1;
-        v21 = 2112;
-        v22 = v19;
-        v11 = "[%p] failed to create remote processing block - %@";
-        v12 = v14;
-        v13 = 22;
+        v20 = 2112;
+        v21 = v18;
+        v10 = "[%p] failed to create remote processing block - %@";
+        v11 = v13;
+        v12 = 22;
         goto LABEL_21;
       }
     }
   }
 
 LABEL_4:
-  CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(&v19);
-  if (v16 != 1)
+  CA::DSP::ReferenceCounted<__CADSPError *>::~ReferenceCounted(&v18);
+  if (v15 != 1)
   {
     *buf = 0;
     CA::DSP::ReferenceCounted<__RPBHost *>::~ReferenceCounted(buf);
@@ -9056,8 +9023,7 @@ LABEL_9:
   CA::DSP::ReferenceCounted<__RPBHost *>::~ReferenceCounted(buf);
   CA::DSP::ReferenceCounted<__RPBHost *>::~ReferenceCounted(&cf);
 LABEL_10:
-  CA::DSP::ReferenceCounted<__CADSPGraph *>::~ReferenceCounted(&v17);
-  v4 = *MEMORY[0x1E69E9840];
+  CA::DSP::ReferenceCounted<__CADSPGraph *>::~ReferenceCounted(&v16);
   return v3;
 }
 
@@ -9079,7 +9045,7 @@ void CA::DSP::AUDSPGraph::~AUDSPGraph(CA::DSP::AUDSPGraph *this)
 }
 
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = *(this + 85);
   if (v2)
   {
@@ -9091,15 +9057,15 @@ void CA::DSP::AUDSPGraph::~AUDSPGraph(CA::DSP::AUDSPGraph *this)
     if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(this + 85);
-      v17 = 134218242;
-      v18 = this;
-      v19 = 2112;
-      v20 = v5;
+      v16 = 134218242;
+      v17 = this;
+      v18 = 2112;
+      v19 = v5;
       v6 = "[%p|%@] destroyed";
       v7 = v4;
       v8 = 22;
 LABEL_8:
-      _os_log_impl(&dword_1C91AE000, v7, OS_LOG_TYPE_DEFAULT, v6, &v17, v8);
+      _os_log_impl(&dword_1C91AE000, v7, OS_LOG_TYPE_DEFAULT, v6, &v16, v8);
     }
   }
 
@@ -9112,8 +9078,8 @@ LABEL_8:
     v9 = CA::DSP::AU::DSPGraph::GetLog(void)::sLog;
     if (os_log_type_enabled(CA::DSP::AU::DSPGraph::GetLog(void)::sLog, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 134217984;
-      v18 = this;
+      v16 = 134217984;
+      v17 = this;
       v6 = "[%p] destroyed";
       v7 = v9;
       v8 = 12;
@@ -9183,7 +9149,6 @@ LABEL_8:
   *(this + 67) = &unk_1F48CB880;
   std::recursive_mutex::~recursive_mutex((this + 544));
   ausdk::AUBase::~AUBase(this);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C91D66E8(_Unwind_Exception *a1, int a2)
@@ -9196,7 +9161,7 @@ void sub_1C91D66E8(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void *boost::container::vector<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::small_vector_allocator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::new_allocator<void>,void>,void>::~vector(void *a1)
+void **boost::container::vector<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::small_vector_allocator<boost::container::dtl::pair<unsigned int,CA::DSP::AUDSPGraph::GraphPropertyValue>,boost::container::new_allocator<void>,void>,void>::~vector(void **a1)
 {
   v2 = a1[1];
   if (v2)
@@ -9227,7 +9192,7 @@ void *boost::container::vector<boost::container::dtl::pair<unsigned int,CA::DSP:
   return a1;
 }
 
-void *boost::container::vector<boost::container::dtl::pair<unsigned int,applesauce::CF::DictionaryRef>,boost::container::small_vector_allocator<boost::container::dtl::pair<unsigned int,applesauce::CF::DictionaryRef>,boost::container::new_allocator<void>,void>,void>::~vector(void *a1)
+void **boost::container::vector<boost::container::dtl::pair<unsigned int,applesauce::CF::DictionaryRef>,boost::container::small_vector_allocator<boost::container::dtl::pair<unsigned int,applesauce::CF::DictionaryRef>,boost::container::new_allocator<void>,void>,void>::~vector(void **a1)
 {
   v2 = a1[1];
   if (v2)
@@ -9338,12 +9303,12 @@ void sub_1C91D6E88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C91D6EEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C91D6EEC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = CADSPRPBConnection;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -9390,7 +9355,7 @@ void CA::DSP::AUDSPGraph::RPBConnection::GetHost(CA::DSP::AUDSPGraph::RPBConnect
 
 uint64_t ausdk::APFactory<ausdk::AUBaseProcessMultipleLookup,CA::DSP::AUDSPGraph>::Construct(uint64_t a1, OpaqueAudioComponentInstance *a2)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   *a1 = &unk_1F48CC178;
   *(a1 + 8) = a2;
   ausdk::ComponentBase::GetComponentDescription(__str, a2);
@@ -9435,63 +9400,63 @@ uint64_t ausdk::APFactory<ausdk::AUBaseProcessMultipleLookup,CA::DSP::AUDSPGraph
   *(a1 + 400) = 0u;
   *(a1 + 416) = 0u;
   *(a1 + 432) = 0;
+  v44 = 0;
   v45 = 0;
   v46 = 0;
-  v47 = 0;
-  ausdk::ComponentBase::GetComponentDescription(&v45, *(a1 + 8));
+  ausdk::ComponentBase::GetComponentDescription(&v44, *(a1 + 8));
   memset(__str, 0, 32);
   snprintf(__str, 0x20uLL, "AU (%p): ", *(a1 + 8));
-  v7.i32[0] = bswap32(v45);
+  v7.i32[0] = bswap32(v44);
   v8 = vzip1_s8(v7, v7);
   v9 = vbsl_s8(vcgt_u16(0x5F005F005F005FLL, (*&vadd_s16(v8, 0xE000E000E000E0) & 0xFF00FF00FF00FFLL)), v8, 0x2E002E002E002ELL);
-  *(&v40.__r_.__value_.__s + 23) = 4;
-  LODWORD(v40.__r_.__value_.__l.__data_) = vuzp1_s8(v9, v9).u32[0];
-  v40.__r_.__value_.__s.__data_[4] = 0;
+  *(&v39.__r_.__value_.__s + 23) = 4;
+  LODWORD(v39.__r_.__value_.__l.__data_) = vuzp1_s8(v9, v9).u32[0];
+  v39.__r_.__value_.__s.__data_[4] = 0;
   v10 = strlen(__str);
-  v11 = std::string::insert(&v40, 0, __str, v10);
+  v11 = std::string::insert(&v39, 0, __str, v10);
   v12 = *&v11->__r_.__value_.__l.__data_;
-  v41.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
-  *&v41.__r_.__value_.__l.__data_ = v12;
+  v40.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
+  *&v40.__r_.__value_.__l.__data_ = v12;
   v11->__r_.__value_.__l.__size_ = 0;
   v11->__r_.__value_.__r.__words[2] = 0;
   v11->__r_.__value_.__r.__words[0] = 0;
-  std::string::push_back(&v41, 47);
-  v13.i32[1] = HIDWORD(v41.__r_.__value_.__r.__words[0]);
-  v42 = v41;
-  memset(&v41, 0, sizeof(v41));
-  v13.i32[0] = bswap32(HIDWORD(v45));
+  std::string::push_back(&v40, 47);
+  v13.i32[1] = HIDWORD(v40.__r_.__value_.__r.__words[0]);
+  v41 = v40;
+  memset(&v40, 0, sizeof(v40));
+  v13.i32[0] = bswap32(HIDWORD(v44));
   v14 = vzip1_s8(v13, v13);
   v15 = vbsl_s8(vcgt_u16(0x5F005F005F005FLL, (*&vadd_s16(v14, 0xE000E000E000E0) & 0xFF00FF00FF00FFLL)), v14, 0x2E002E002E002ELL);
-  v39 = 4;
+  v38 = 4;
   *__s = vuzp1_s8(v15, v15).u32[0];
   __s[4] = 0;
-  v16 = std::string::append(&v42, __s, 4uLL);
+  v16 = std::string::append(&v41, __s, 4uLL);
   v17 = *&v16->__r_.__value_.__l.__data_;
-  v43.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
-  *&v43.__r_.__value_.__l.__data_ = v17;
+  v42.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
+  *&v42.__r_.__value_.__l.__data_ = v17;
   v16->__r_.__value_.__l.__size_ = 0;
   v16->__r_.__value_.__r.__words[2] = 0;
   v16->__r_.__value_.__r.__words[0] = 0;
-  std::string::push_back(&v43, 47);
-  v18.i32[1] = HIDWORD(v43.__r_.__value_.__r.__words[0]);
-  info = v43;
-  memset(&v43, 0, sizeof(v43));
-  v18.i32[0] = bswap32(v46);
+  std::string::push_back(&v42, 47);
+  v18.i32[1] = HIDWORD(v42.__r_.__value_.__r.__words[0]);
+  info = v42;
+  memset(&v42, 0, sizeof(v42));
+  v18.i32[0] = bswap32(v45);
   v19 = vzip1_s8(v18, v18);
   v20 = vbsl_s8(vcgt_u16(0x5F005F005F005FLL, (*&vadd_s16(v19, 0xE000E000E000E0) & 0xFF00FF00FF00FFLL)), v19, 0x2E002E002E002ELL);
-  v37 = 4;
-  *v36 = vuzp1_s8(v20, v20).u32[0];
-  v36[4] = 0;
-  v21 = std::string::append(&info, v36, 4uLL);
+  v36 = 4;
+  *v35 = vuzp1_s8(v20, v20).u32[0];
+  v35[4] = 0;
+  v21 = std::string::append(&info, v35, 4uLL);
   v22 = *&v21->__r_.__value_.__l.__data_;
   *(a1 + 456) = *(&v21->__r_.__value_.__l + 2);
   *(a1 + 440) = v22;
   v21->__r_.__value_.__l.__size_ = 0;
   v21->__r_.__value_.__r.__words[2] = 0;
   v21->__r_.__value_.__r.__words[0] = 0;
-  if (v37 < 0)
+  if (v36 < 0)
   {
-    operator delete(*v36);
+    operator delete(*v35);
   }
 
   if (SHIBYTE(info.__r_.__value_.__r.__words[2]) < 0)
@@ -9499,19 +9464,14 @@ uint64_t ausdk::APFactory<ausdk::AUBaseProcessMultipleLookup,CA::DSP::AUDSPGraph
     operator delete(info.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v43.__r_.__value_.__l.__data_);
-  }
-
-  if (v39 < 0)
-  {
-    operator delete(*__s);
-  }
-
   if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v42.__r_.__value_.__l.__data_);
+  }
+
+  if (v38 < 0)
+  {
+    operator delete(*__s);
   }
 
   if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
@@ -9522,6 +9482,11 @@ uint64_t ausdk::APFactory<ausdk::AUBaseProcessMultipleLookup,CA::DSP::AUDSPGraph
   if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v40.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v39.__r_.__value_.__l.__data_);
   }
 
   *(a1 + 328) = 0;
@@ -9539,10 +9504,10 @@ uint64_t ausdk::APFactory<ausdk::AUBaseProcessMultipleLookup,CA::DSP::AUDSPGraph
   CFRetain(@"Untitled");
   *a1 = &unk_1F48CB620;
   {
-    if (v34)
+    if (v33)
     {
-      v35 = caulk::concurrent::messenger::shared_logging_priority(v34);
-      MEMORY[0x1CCA84430](&CA::DSP::AUDSPGraph::GetMessenger(void)::sMessenger, 0, v35);
+      v34 = caulk::concurrent::messenger::shared_logging_priority(v33);
+      MEMORY[0x1CCA84430](&CA::DSP::AUDSPGraph::GetMessenger(void)::sMessenger, 0, v34);
     }
   }
 
@@ -9619,7 +9584,6 @@ LABEL_25:
     }
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return a1;
 }
 
@@ -9679,7 +9643,7 @@ uint64_t CADSPBoxGetAudioComponentDescription(uint64_t a1, uint64_t a2)
   return 1;
 }
 
-void sub_1C91D8228(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *__p, uint64_t a39, int a40, __int16 a41, char a42, char a43)
+void sub_1C91D8228(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *__p, uint64_t a39, int a40, __int16 a41, char a42, char a43)
 {
   if (a2)
   {
@@ -9734,23 +9698,17 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
 
 std::string *caulk::string_from_4cc(std::string *retstr, unsigned int __val)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = bswap32(__val);
-  v6 = v2;
+  v5 = v2;
   if ((v2 - 32) > 0x5E || ((v2 >> 8) - 32) > 0x5E || ((v2 << 8 >> 24) - 32) > 0x5E || ((v2 >> 24) - 32) > 0x5E)
   {
-    result = std::to_string(retstr, __val);
+    return std::to_string(retstr, __val);
   }
 
-  else
-  {
-    v7 = 39;
-    v5 = 39;
-    result = std::string::basic_string[abi:ne200100]<0>(retstr, &v5);
-  }
-
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v6 = 39;
+  v4 = 39;
+  return std::string::basic_string[abi:ne200100]<0>(retstr, &v4);
 }
 
 void sub_1C91D8564(_Unwind_Exception *a1, int a2)
@@ -9763,7 +9721,7 @@ void sub_1C91D8564(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-void *std::__format::__create_packed_storage[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>,std::string,std::string,std::string>(void *result, void *a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
+void *std::__format::__create_packed_storage[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>,std::string,std::string,std::string>(void *result, uint64_t **a2, uint64_t **a3, uint64_t **a4, uint64_t **a5)
 {
   v5 = *(a3 + 23);
   v6 = v5;
@@ -9834,7 +9792,7 @@ void *std::__format::__create_packed_storage[abi:ne200100]<std::basic_format_con
   return result;
 }
 
-_BYTE *std::string::basic_string<std::string_view,0>(_BYTE *__dst, void *__src, size_t __len)
+void *std::string::basic_string<std::string_view,0>(void *__dst, void *__src, size_t __len)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -9846,12 +9804,59 @@ _BYTE *std::string::basic_string<std::string_view,0>(_BYTE *__dst, void *__src, 
     operator new();
   }
 
-  __dst[23] = __len;
+  *(__dst + 23) = __len;
   if (__len)
   {
     memmove(__dst, __src, __len);
   }
 
-  __dst[__len] = 0;
+  *(__dst + __len) = 0;
   return __dst;
+}
+
+uint64_t ***std::__format::__create_packed_storage[abi:ne200100]<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>,std::string const>(unsigned long long &,std::__basic_format_arg_value<std::basic_format_context<std::back_insert_iterator<std::__format::__output_buffer<char>>,char>> *,std::string const &)::{lambda(void)#1}::operator()(uint64_t ***result)
+{
+  v1 = *result;
+  v2 = result[1];
+  v3 = *(*result + 23);
+  v4 = **result;
+  v5 = (*result)[1];
+  v6 = *v2;
+  if (*v2)
+  {
+    *result[2] = (*result[2] | (13 << v6));
+  }
+
+  else
+  {
+    *result[2] = 13;
+  }
+
+  v7 = v3;
+  if (v3 < 0)
+  {
+    v3 = v5;
+  }
+
+  if (v7 < 0)
+  {
+    v1 = v4;
+  }
+
+  *v2 = v6 + 5;
+  v8 = result[3];
+  v9 = *v8;
+  *v8 += 2;
+  *v9 = v1;
+  v9[1] = v3;
+  return result;
+}
+
+void AudioDSPGraph::BoxRegistry::~BoxRegistry(AudioDSPGraph::BoxRegistry *this)
+{
+  v2 = (this + 80);
+  std::vector<std::pair<std::string,AudioComponentDescription>>::__destroy_vector::operator()[abi:ne200100](&v2);
+  std::__hash_table<std::__hash_value_type<AudioComponentDescription,std::function<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>>,std::__unordered_map_hasher<AudioComponentDescription,std::__hash_value_type<AudioComponentDescription,std::function<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>>,std::hash<AudioComponentDescription>,AudioDSPGraph::BoxRegistry::AudioComponentDescriptionEquality,true>,std::__unordered_map_equal<AudioComponentDescription,std::__hash_value_type<AudioComponentDescription,std::function<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>>,AudioDSPGraph::BoxRegistry::AudioComponentDescriptionEquality,std::hash<AudioComponentDescription>,true>,std::allocator<std::__hash_value_type<AudioComponentDescription,std::function<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>>>>::~__hash_table(this + 40);
+
+  std::__hash_table<std::__hash_value_type<std::string,std::function<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::function<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::function<std::unique_ptr<AudioDSPGraph::Box> ()(std::string,unsigned int,unsigned int)>>>>::~__hash_table(this);
 }

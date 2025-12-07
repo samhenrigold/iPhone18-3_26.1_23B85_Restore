@@ -49,7 +49,7 @@
 {
   if (!self->_flags.needsHostingUpdate)
   {
-    v3 = TUIHostingLog();
+    v3 = TUIHostingLog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       sub_19AB50(self);
@@ -63,15 +63,15 @@
 - (void)applyLayoutAttributes:(id)attributes
 {
   attributesCopy = attributes;
-  v5 = TUIHostingLog();
+  v5 = TUIHostingLog(attributesCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_19AC0C(self, v5);
   }
 
-  v22.receiver = self;
-  v22.super_class = TUIHostingView;
-  [(TUIReusableBaseView *)&v22 applyLayoutAttributes:attributesCopy];
+  v23.receiver = self;
+  v23.super_class = TUIHostingView;
+  [(TUIReusableBaseView *)&v23 applyLayoutAttributes:attributesCopy];
 
   layoutAttributes = [(TUIReusableBaseView *)self layoutAttributes];
   renderModel = [layoutAttributes renderModel];
@@ -79,14 +79,14 @@
   hostingIdentifier = [renderModel hostingIdentifier];
   hostingProperties = [renderModel hostingProperties];
   hostingIdentifier = self->_hostingIdentifier;
-  if ((hostingIdentifier == hostingIdentifier || [(TUIHostingIdentifier *)hostingIdentifier isEqual:hostingIdentifier]) && ((hostingProperties = self->_hostingProperties, hostingProperties == hostingProperties) || [(TUIHostingProperties *)hostingProperties isEqual:hostingProperties]))
+  if (hostingIdentifier == hostingIdentifier || (v11 = [(TUIHostingIdentifier *)hostingIdentifier isEqual:hostingIdentifier], v11)) && ((hostingProperties = self->_hostingProperties, hostingProperties == hostingProperties) || (v11 = [(TUIHostingProperties *)hostingProperties isEqual:hostingProperties], (v11)))
   {
     [renderModel requestedSize];
-    if (self->_requestedSize.width != v13 || self->_requestedSize.height != v12)
+    if (self->_requestedSize.width != v14 || self->_requestedSize.height != v13)
     {
       [renderModel requestedSize];
-      self->_requestedSize.width = v15;
-      self->_requestedSize.height = v16;
+      self->_requestedSize.width = v16;
+      self->_requestedSize.height = v17;
 LABEL_20:
       [(TUIHostingView *)self setNeedsLayout];
       goto LABEL_21;
@@ -100,10 +100,10 @@ LABEL_20:
 
   else
   {
-    v17 = TUIHostingLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = TUIHostingLog(v11);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      sub_19AD14(self);
+      sub_19AD14(self, hostingIdentifier);
     }
 
     feedControllerHost = [(TUIReusableBaseView *)self feedControllerHost];
@@ -117,8 +117,8 @@ LABEL_20:
     objc_storeStrong(&self->_hostingIdentifier, hostingIdentifier);
     objc_storeStrong(&self->_hostingProperties, hostingProperties);
     [renderModel requestedSize];
-    self->_requestedSize.width = v20;
-    self->_requestedSize.height = v21;
+    self->_requestedSize.width = v21;
+    self->_requestedSize.height = v22;
     if (self->_hostingIdentifier)
     {
       [hostingController addProviderObserver:self forIdentifier:?];
@@ -147,7 +147,7 @@ LABEL_21:
 
 - (void)layoutSubviews
 {
-  v3 = TUIHostingLog();
+  v3 = TUIHostingLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_19ADC8(self, v3);
@@ -161,7 +161,7 @@ LABEL_21:
   {
     self->_flags.needsHostingUpdate = 0;
     v7 = [hostingController viewStateForIdentifier:self->_hostingIdentifier];
-    v8 = TUIHostingLog();
+    v8 = TUIHostingLog(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       feedControllerHost2 = [(TUIReusableBaseView *)self feedControllerHost];
@@ -294,7 +294,7 @@ LABEL_12:
     if (hostingIdentifier)
     {
       [hostingController removeProviderObserver:self forIdentifier:?];
-      v6 = self->_hostingIdentifier;
+      v7 = self->_hostingIdentifier;
       self->_hostingIdentifier = 0;
 
       hostingProperties = self->_hostingProperties;
@@ -314,20 +314,20 @@ LABEL_12:
 
   else if (hostingIdentifier || self->_hostedViewState)
   {
-    v10 = TUIHostingLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = TUIHostingLog(v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      sub_19AE58(&self->_hostingIdentifier, self, v10);
+      sub_19AE58(&self->_hostingIdentifier, self, v11);
     }
 
-    if (_TUIDeviceHasInternalInstall())
+    if (_TUIDeviceHasInternalInstall(v12, v13))
     {
-      v11 = [NSException alloc];
-      v12 = [NSString stringWithFormat:@"The hosting view has no hosting controller and is not cleaned up: identifier %@, viewState %@", self->_hostingIdentifier, self->_hostedViewState];
-      v13 = [v11 initWithName:@"HostingViewDetachedFromHost" reason:v12 userInfo:0];
-      v14 = v13;
+      v14 = [NSException alloc];
+      v15 = [NSString stringWithFormat:@"The hosting view has no hosting controller and is not cleaned up: identifier %@, viewState %@", self->_hostingIdentifier, self->_hostedViewState];
+      v16 = [v14 initWithName:@"HostingViewDetachedFromHost" reason:v15 userInfo:0];
+      v17 = v16;
 
-      objc_exception_throw(v13);
+      objc_exception_throw(v16);
     }
   }
 }

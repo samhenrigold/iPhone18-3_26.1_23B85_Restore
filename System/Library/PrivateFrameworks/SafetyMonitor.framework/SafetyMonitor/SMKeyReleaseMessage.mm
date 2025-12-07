@@ -148,7 +148,7 @@ LABEL_21:
 
 - (SMKeyReleaseMessage)initWithDictionary:(id)dictionary
 {
-  v129 = *MEMORY[0x277D85DE8];
+  v128 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v6 = dictionaryCopy;
   if (!dictionaryCopy)
@@ -180,13 +180,13 @@ LABEL_27:
     v49 = NSStringFromClass(v48);
     v50 = NSStringFromSelector(a2);
     *buf = 138413058;
-    v122 = v49;
-    v123 = 2112;
-    v124 = v50;
-    v125 = 1024;
+    v121 = v49;
+    v122 = 2112;
+    v123 = v50;
+    v124 = 1024;
     messageType = [objc_opt_class() messageType];
-    v127 = 1024;
-    v128 = intValue;
+    v126 = 1024;
+    v127 = intValue;
     v51 = "#SafetyCache,%@,%@,extracted non-matching message type,expected,%d,got,%d";
     v52 = v12;
     v53 = 34;
@@ -207,14 +207,14 @@ LABEL_42:
       goto LABEL_27;
     }
 
-    v57 = objc_opt_class();
-    v49 = NSStringFromClass(v57);
+    v56 = objc_opt_class();
+    v49 = NSStringFromClass(v56);
     v50 = NSStringFromSelector(a2);
     *buf = 138412802;
-    v122 = v49;
-    v123 = 2112;
-    v124 = v50;
-    v125 = 1024;
+    v121 = v49;
+    v122 = 2112;
+    v123 = v50;
+    v124 = 1024;
     messageType = intValue2;
     v51 = "#SafetyCache,%@,%@,unrecognized interface version,%d";
     v52 = v12;
@@ -245,231 +245,231 @@ LABEL_42:
         v22 = v21;
         if (v21)
         {
-          v108 = v17;
+          v107 = v17;
           v23 = MEMORY[0x277CBEAA8];
           [v21 doubleValue];
-          v111 = [v23 dateWithTimeIntervalSince1970:?];
+          v110 = [v23 dateWithTimeIntervalSince1970:?];
           v24 = [v6 valueForKey:@"latitude"];
           v25 = [v6 valueForKey:@"longitude"];
-          v120 = [v6 valueForKey:@"hunc"];
-          v119 = [v6 valueForKey:@"altitude"];
-          v118 = [v6 valueForKey:@"vunc"];
-          v117 = [v6 valueForKey:@"timeOfLocation"];
-          v116 = [v6 valueForKey:@"referenceFrame"];
+          v119 = [v6 valueForKey:@"hunc"];
+          v118 = [v6 valueForKey:@"altitude"];
+          v117 = [v6 valueForKey:@"vunc"];
+          v116 = [v6 valueForKey:@"timeOfLocation"];
+          v115 = [v6 valueForKey:@"referenceFrame"];
           v26 = [v6 valueForKey:@"speed"];
-          v114 = v24;
-          v115 = 0;
-          v110 = v22;
-          v112 = v26;
-          v113 = v25;
-          if (v24 && v25 && v120 && v119 && v118 && v117 && v116 && v26)
+          v113 = v24;
+          v114 = 0;
+          v109 = v22;
+          v111 = v26;
+          v112 = v25;
+          if (v24 && v25 && v119 && v118 && v117 && v116 && v115 && v26)
           {
             v27 = MEMORY[0x277CBEAA8];
-            [v117 doubleValue];
+            [v116 doubleValue];
             v28 = [v27 dateWithTimeIntervalSince1970:?];
             v29 = objc_alloc(MEMORY[0x277D01160]);
-            [v114 doubleValue];
+            [v113 doubleValue];
             v31 = v30;
             [v25 doubleValue];
             v33 = v32;
-            [v120 doubleValue];
-            v35 = v34;
             [v119 doubleValue];
-            v37 = v36;
+            v35 = v34;
             [v118 doubleValue];
+            v37 = v36;
+            [v117 doubleValue];
             v39 = v38;
-            intValue3 = [v116 intValue];
-            [v112 doubleValue];
+            intValue3 = [v115 intValue];
+            [v111 doubleValue];
             v41 = intValue3;
-            v22 = v110;
-            v115 = [v29 initWithLatitude:v28 longitude:v41 horizontalUncertainty:v31 altitude:v33 verticalUncertainty:v35 date:v37 referenceFrame:v39 speed:v42];
+            v22 = v109;
+            v114 = [v29 initWithLatitude:v28 longitude:v41 horizontalUncertainty:v31 altitude:v33 verticalUncertainty:v35 date:v37 referenceFrame:v39 speed:v42];
           }
 
           v43 = [v6 valueForKey:@"triggerType"];
           v44 = v43;
-          v17 = v108;
+          v17 = v107;
           if (v43)
           {
-            v106 = v43;
+            v105 = v43;
             intValue4 = [v43 intValue];
             v45 = [v6 valueForKey:@"safetyCacheKey"];
-            v46 = v111;
+            v46 = v110;
             log = v45;
             if (v45)
             {
-              v107 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v45 options:0];
-              if (v107)
+              v106 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v45 options:0];
+              if (v106)
               {
                 v47 = [v6 valueForKey:@"safetyCacheToken"];
                 if (v47)
                 {
-                  v102 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v47 options:0];
+                  v101 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v47 options:0];
                 }
 
                 else
                 {
-                  v102 = 0;
+                  v101 = 0;
                 }
 
-                v22 = v110;
-                v61 = [v6 valueForKey:@"sessionType"];
-                v105 = v47;
-                v100 = v61;
-                if (v61)
+                v22 = v109;
+                v60 = [v6 valueForKey:@"sessionType"];
+                v104 = v47;
+                v99 = v60;
+                if (v60)
                 {
-                  intValue5 = [v61 intValue];
-                  v63 = [v6 valueForKey:@"sessionDestinationType"];
-                  v101 = v63;
-                  if (v63)
+                  intValue5 = [v60 intValue];
+                  v62 = [v6 valueForKey:@"sessionDestinationType"];
+                  v100 = v62;
+                  if (v62)
                   {
-                    v99 = intValue4;
-                    intValue6 = [v63 intValue];
-                    v65 = [v6 valueForKey:@"isSOSTrigger"];
-                    bOOLValue = [v65 BOOLValue];
+                    v98 = intValue4;
+                    intValue6 = [v62 intValue];
+                    v64 = [v6 valueForKey:@"isSOSTrigger"];
+                    bOOLValue = [v64 BOOLValue];
 
-                    v66 = [v6 valueForKey:@"lowPowerModeWarningState"];
-                    v104 = v66;
-                    if (v66)
+                    v65 = [v6 valueForKey:@"lowPowerModeWarningState"];
+                    v103 = v65;
+                    if (v65)
                     {
-                      intValue7 = [v66 intValue];
+                      intValue7 = [v65 intValue];
                     }
 
                     else
                     {
                       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                       {
-                        v74 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-                        if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
+                        v73 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+                        if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
                         {
-                          v75 = objc_opt_class();
-                          v97 = NSStringFromClass(v75);
-                          v76 = NSStringFromSelector(a2);
+                          v74 = objc_opt_class();
+                          v96 = NSStringFromClass(v74);
+                          v75 = NSStringFromSelector(a2);
                           *buf = 138412546;
-                          v122 = v97;
-                          v123 = 2112;
-                          v124 = v76;
-                          _os_log_impl(&dword_26455D000, v74, OS_LOG_TYPE_INFO, "#SafetyCache,%@,%@ ,missing lowPowerModeWarningStateNumber, OK to proceed", buf, 0x16u);
+                          v121 = v96;
+                          v122 = 2112;
+                          v123 = v75;
+                          _os_log_impl(&dword_26455D000, v73, OS_LOG_TYPE_INFO, "#SafetyCache,%@,%@ ,missing lowPowerModeWarningStateNumber, OK to proceed", buf, 0x16u);
                         }
                       }
 
                       intValue7 = 0;
                     }
 
-                    LOBYTE(v96) = bOOLValue;
-                    v95 = intValue5;
-                    v22 = v110;
-                    v46 = v111;
-                    self = [(SMKeyReleaseMessage *)self initWithDate:v14 messageID:v108 sessionID:v20 triggerDate:v111 locationOfTrigger:v115 triggerType:v99 safetyCacheKey:v107 safetyCacheToken:v102 sessionType:v95 destinationType:intValue6 isSOSTrigger:v96 lowPowerModeWarningState:intValue7];
+                    LOBYTE(v95) = bOOLValue;
+                    v94 = intValue5;
+                    v22 = v109;
+                    v46 = v110;
+                    self = [(SMKeyReleaseMessage *)self initWithDate:v14 messageID:v107 sessionID:v20 triggerDate:v110 locationOfTrigger:v114 triggerType:v98 safetyCacheKey:v106 safetyCacheToken:v101 sessionType:v94 destinationType:intValue6 isSOSTrigger:v95 lowPowerModeWarningState:intValue7];
                     selfCopy = self;
-                    v44 = v106;
+                    v44 = v105;
                   }
 
                   else
                   {
-                    v104 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-                    v44 = v106;
-                    if (os_log_type_enabled(v104, OS_LOG_TYPE_ERROR))
+                    v103 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+                    v44 = v105;
+                    if (os_log_type_enabled(v103, OS_LOG_TYPE_ERROR))
                     {
-                      v92 = objc_opt_class();
-                      v93 = NSStringFromClass(v92);
-                      v94 = NSStringFromSelector(a2);
+                      v91 = objc_opt_class();
+                      v92 = NSStringFromClass(v91);
+                      v93 = NSStringFromSelector(a2);
                       *buf = 138412546;
-                      v122 = v93;
-                      v123 = 2112;
-                      v124 = v94;
-                      _os_log_error_impl(&dword_26455D000, v104, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing destinationType", buf, 0x16u);
+                      v121 = v92;
+                      v122 = 2112;
+                      v123 = v93;
+                      _os_log_error_impl(&dword_26455D000, v103, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing destinationType", buf, 0x16u);
 
-                      v44 = v106;
-                      v22 = v110;
+                      v44 = v105;
+                      v22 = v109;
                     }
 
                     selfCopy = 0;
-                    v46 = v111;
+                    v46 = v110;
                   }
                 }
 
                 else
                 {
-                  v101 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-                  if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
+                  v100 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+                  if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
                   {
-                    v89 = objc_opt_class();
-                    v90 = NSStringFromClass(v89);
-                    v91 = NSStringFromSelector(a2);
+                    v88 = objc_opt_class();
+                    v89 = NSStringFromClass(v88);
+                    v90 = NSStringFromSelector(a2);
                     *buf = 138412546;
-                    v122 = v90;
-                    v123 = 2112;
-                    v124 = v91;
-                    _os_log_error_impl(&dword_26455D000, v101, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing sessionType", buf, 0x16u);
+                    v121 = v89;
+                    v122 = 2112;
+                    v123 = v90;
+                    _os_log_error_impl(&dword_26455D000, v100, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing sessionType", buf, 0x16u);
 
-                    v22 = v110;
+                    v22 = v109;
                   }
 
                   selfCopy = 0;
-                  v44 = v106;
+                  v44 = v105;
                 }
               }
 
               else
               {
-                v105 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-                if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
+                v104 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+                if (os_log_type_enabled(v104, OS_LOG_TYPE_ERROR))
                 {
-                  v86 = objc_opt_class();
-                  v87 = NSStringFromClass(v86);
-                  v88 = NSStringFromSelector(a2);
+                  v85 = objc_opt_class();
+                  v86 = NSStringFromClass(v85);
+                  v87 = NSStringFromSelector(a2);
                   *buf = 138412546;
-                  v122 = v87;
-                  v123 = 2112;
-                  v124 = v88;
-                  _os_log_error_impl(&dword_26455D000, v105, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,failed to convert safetyCacheKey to NSData", buf, 0x16u);
+                  v121 = v86;
+                  v122 = 2112;
+                  v123 = v87;
+                  _os_log_error_impl(&dword_26455D000, v104, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,failed to convert safetyCacheKey to NSData", buf, 0x16u);
                 }
 
                 selfCopy = 0;
-                v22 = v110;
-                v44 = v106;
+                v22 = v109;
+                v44 = v105;
               }
             }
 
             else
             {
-              v107 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-              if (os_log_type_enabled(v107, OS_LOG_TYPE_ERROR))
+              v106 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+              if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
               {
-                v83 = objc_opt_class();
-                v84 = NSStringFromClass(v83);
-                v85 = NSStringFromSelector(a2);
+                v82 = objc_opt_class();
+                v83 = NSStringFromClass(v82);
+                v84 = NSStringFromSelector(a2);
                 *buf = 138412546;
-                v122 = v84;
-                v123 = 2112;
-                v124 = v85;
-                _os_log_error_impl(&dword_26455D000, v107, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing safetyCacheKey", buf, 0x16u);
+                v121 = v83;
+                v122 = 2112;
+                v123 = v84;
+                _os_log_error_impl(&dword_26455D000, v106, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing safetyCacheKey", buf, 0x16u);
 
-                v22 = v110;
+                v22 = v109;
               }
 
               selfCopy = 0;
-              v44 = v106;
+              v44 = v105;
             }
           }
 
           else
           {
             log = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-            v46 = v111;
+            v46 = v110;
             if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
             {
-              v80 = objc_opt_class();
-              v81 = NSStringFromClass(v80);
-              v82 = NSStringFromSelector(a2);
+              v79 = objc_opt_class();
+              v80 = NSStringFromClass(v79);
+              v81 = NSStringFromSelector(a2);
               *buf = 138412546;
-              v122 = v81;
-              v123 = 2112;
-              v124 = v82;
+              v121 = v80;
+              v122 = 2112;
+              v123 = v81;
               _os_log_error_impl(&dword_26455D000, log, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing triggerType", buf, 0x16u);
 
               v44 = 0;
-              v22 = v110;
+              v22 = v109;
             }
 
             selfCopy = 0;
@@ -481,13 +481,13 @@ LABEL_42:
           v46 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
           if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
           {
-            v77 = objc_opt_class();
-            v78 = NSStringFromClass(v77);
-            v79 = NSStringFromSelector(a2);
+            v76 = objc_opt_class();
+            v77 = NSStringFromClass(v76);
+            v78 = NSStringFromSelector(a2);
             *buf = 138412546;
-            v122 = v78;
-            v123 = 2112;
-            v124 = v79;
+            v121 = v77;
+            v122 = 2112;
+            v123 = v78;
             _os_log_error_impl(&dword_26455D000, v46, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing triggerTime", buf, 0x16u);
           }
 
@@ -500,13 +500,13 @@ LABEL_42:
         v22 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
         if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          v71 = objc_opt_class();
-          v72 = NSStringFromClass(v71);
-          v73 = NSStringFromSelector(a2);
+          v70 = objc_opt_class();
+          v71 = NSStringFromClass(v70);
+          v72 = NSStringFromSelector(a2);
           *buf = 138412546;
-          v122 = v72;
-          v123 = 2112;
-          v124 = v73;
+          v121 = v71;
+          v122 = 2112;
+          v123 = v72;
           _os_log_error_impl(&dword_26455D000, v22, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing sessionID", buf, 0x16u);
         }
 
@@ -519,13 +519,13 @@ LABEL_42:
       v20 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v68 = objc_opt_class();
-        v69 = NSStringFromClass(v68);
-        v70 = NSStringFromSelector(a2);
+        v67 = objc_opt_class();
+        v68 = NSStringFromClass(v67);
+        v69 = NSStringFromSelector(a2);
         *buf = 138412546;
-        v122 = v69;
-        v123 = 2112;
-        v124 = v70;
+        v121 = v68;
+        v122 = 2112;
+        v123 = v69;
         _os_log_error_impl(&dword_26455D000, v20, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing messageID", buf, 0x16u);
       }
 
@@ -538,13 +538,13 @@ LABEL_42:
     v14 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v58 = objc_opt_class();
-      v59 = NSStringFromClass(v58);
-      v60 = NSStringFromSelector(a2);
+      v57 = objc_opt_class();
+      v58 = NSStringFromClass(v57);
+      v59 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v122 = v59;
-      v123 = 2112;
-      v124 = v60;
+      v121 = v58;
+      v122 = 2112;
+      v123 = v59;
       _os_log_error_impl(&dword_26455D000, v14, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing date", buf, 0x16u);
     }
 
@@ -552,7 +552,6 @@ LABEL_42:
   }
 
 LABEL_28:
-  v55 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -653,7 +652,7 @@ LABEL_28:
 
 - (SMKeyReleaseMessage)initWithURL:(id)l
 {
-  v178 = *MEMORY[0x277D85DE8];
+  v177 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if (!lCopy)
   {
@@ -675,13 +674,13 @@ LABEL_28:
     v7 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v95 = objc_opt_class();
-      v96 = NSStringFromClass(v95);
-      v97 = NSStringFromSelector(a2);
+      v94 = objc_opt_class();
+      v95 = NSStringFromClass(v94);
+      v96 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v170 = v96;
-      v171 = 2112;
-      v172 = v97;
+      v169 = v95;
+      v170 = 2112;
+      v171 = v96;
       _os_log_error_impl(&dword_26455D000, v7, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing url components", buf, 0x16u);
     }
 
@@ -696,13 +695,13 @@ LABEL_28:
     v89 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
     {
-      v102 = objc_opt_class();
-      v103 = NSStringFromClass(v102);
-      v104 = NSStringFromSelector(a2);
+      v101 = objc_opt_class();
+      v102 = NSStringFromClass(v101);
+      v103 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v170 = v103;
-      v171 = 2112;
-      v172 = v104;
+      v169 = v102;
+      v170 = 2112;
+      v171 = v103;
       _os_log_error_impl(&dword_26455D000, v89, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing queryItems", buf, 0x16u);
     }
 
@@ -710,43 +709,44 @@ LABEL_28:
     goto LABEL_94;
   }
 
-  v167 = 0u;
-  v168 = 0u;
-  v165 = 0u;
   v166 = 0u;
-  v8 = [queryItems countByEnumeratingWithState:&v165 objects:v177 count:16];
+  v167 = 0u;
+  v164 = 0u;
+  v165 = 0u;
+  v8 = [queryItems countByEnumeratingWithState:&v164 objects:v176 count:16];
   if (!v8)
   {
     intValue = [0 intValue];
-    v160 = 0;
-    v158 = 0;
+    v159 = 0;
+    v157 = 0;
     v10 = 0;
+    v161 = 0;
     v162 = 0;
-    v163 = 0;
-    v154 = 0;
     v153 = 0;
     v152 = 0;
-    v150 = 0;
     v151 = 0;
-    v148 = 0;
     v149 = 0;
-    v146 = 0;
+    v150 = 0;
     v147 = 0;
-    v144 = 0;
+    v148 = 0;
     v145 = 0;
-    v142 = 0;
+    v146 = 0;
     v143 = 0;
-    v140 = 0;
+    v144 = 0;
     v141 = 0;
+    v142 = 0;
     v139 = 0;
+    v140 = 0;
+    v138 = 0;
     goto LABEL_91;
   }
 
   v9 = v8;
-  v163 = 0;
+  v162 = 0;
   obj = v7;
-  v137 = lCopy;
-  v138 = v5;
+  v136 = lCopy;
+  v137 = v5;
+  v138 = 0;
   v139 = 0;
   v140 = 0;
   v141 = 0;
@@ -762,22 +762,21 @@ LABEL_28:
   v151 = 0;
   v152 = 0;
   v153 = 0;
-  v154 = 0;
-  v162 = 0;
+  v161 = 0;
   v10 = 0;
-  v158 = 0;
-  v160 = 0;
-  v11 = *v166;
+  v157 = 0;
+  v159 = 0;
+  v11 = *v165;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v166 != v11)
+      if (*v165 != v11)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v165 + 1) + 8 * i);
+      v13 = *(*(&v164 + 1) + 8 * i);
       value = [v13 value];
       if (value)
       {
@@ -797,8 +796,8 @@ LABEL_28:
 
           if (v22)
           {
-            v17 = v163;
-            v163 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:value];
+            v17 = v162;
+            v162 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:value];
           }
 
           else
@@ -808,8 +807,8 @@ LABEL_28:
 
             if (v24)
             {
-              v17 = v162;
-              v162 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:value];
+              v17 = v161;
+              v161 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:value];
             }
 
             else
@@ -819,8 +818,8 @@ LABEL_28:
 
               if (v26)
               {
-                v17 = v160;
-                v160 = value;
+                v17 = v159;
+                v159 = value;
               }
 
               else
@@ -830,8 +829,8 @@ LABEL_28:
 
                 if (v28)
                 {
-                  v17 = v158;
-                  v158 = value;
+                  v17 = v157;
+                  v157 = value;
                 }
 
                 else
@@ -841,8 +840,8 @@ LABEL_28:
 
                   if (v30)
                   {
-                    v17 = v154;
-                    v154 = value;
+                    v17 = v153;
+                    v153 = value;
                   }
 
                   else
@@ -852,8 +851,8 @@ LABEL_28:
 
                     if (v32)
                     {
-                      v17 = v153;
-                      v153 = value;
+                      v17 = v152;
+                      v152 = value;
                     }
 
                     else
@@ -863,8 +862,8 @@ LABEL_28:
 
                       if (v34)
                       {
-                        v17 = v152;
-                        v152 = value;
+                        v17 = v151;
+                        v151 = value;
                       }
 
                       else
@@ -874,8 +873,8 @@ LABEL_28:
 
                         if (v36)
                         {
-                          v17 = v151;
-                          v151 = value;
+                          v17 = v150;
+                          v150 = value;
                         }
 
                         else
@@ -885,8 +884,8 @@ LABEL_28:
 
                           if (v38)
                           {
-                            v17 = v150;
-                            v150 = value;
+                            v17 = v149;
+                            v149 = value;
                           }
 
                           else
@@ -896,8 +895,8 @@ LABEL_28:
 
                             if (v40)
                             {
-                              v17 = v149;
-                              v149 = value;
+                              v17 = v148;
+                              v148 = value;
                             }
 
                             else
@@ -907,8 +906,8 @@ LABEL_28:
 
                               if (v42)
                               {
-                                v17 = v148;
-                                v148 = value;
+                                v17 = v147;
+                                v147 = value;
                               }
 
                               else
@@ -918,8 +917,8 @@ LABEL_28:
 
                                 if (v44)
                                 {
-                                  v17 = v147;
-                                  v147 = value;
+                                  v17 = v146;
+                                  v146 = value;
                                 }
 
                                 else
@@ -929,8 +928,8 @@ LABEL_28:
 
                                   if (v46)
                                   {
-                                    v17 = v146;
-                                    v146 = value;
+                                    v17 = v145;
+                                    v145 = value;
                                   }
 
                                   else
@@ -940,8 +939,8 @@ LABEL_28:
 
                                     if (v48)
                                     {
-                                      v17 = v145;
-                                      v145 = value;
+                                      v17 = v144;
+                                      v144 = value;
                                     }
 
                                     else
@@ -951,8 +950,8 @@ LABEL_28:
 
                                       if (v50)
                                       {
-                                        v17 = v144;
-                                        v144 = value;
+                                        v17 = v143;
+                                        v143 = value;
                                       }
 
                                       else
@@ -962,8 +961,8 @@ LABEL_28:
 
                                         if (v52)
                                         {
-                                          v17 = v143;
-                                          v143 = value;
+                                          v17 = v142;
+                                          v142 = value;
                                         }
 
                                         else
@@ -973,8 +972,8 @@ LABEL_28:
 
                                           if (v54)
                                           {
-                                            v17 = v142;
-                                            v142 = value;
+                                            v17 = v141;
+                                            v141 = value;
                                           }
 
                                           else
@@ -984,8 +983,8 @@ LABEL_28:
 
                                             if (v56)
                                             {
-                                              v17 = v141;
-                                              v141 = value;
+                                              v17 = v140;
+                                              v140 = value;
                                             }
 
                                             else
@@ -995,8 +994,8 @@ LABEL_28:
 
                                               if (v58)
                                               {
-                                                v17 = v140;
-                                                v140 = value;
+                                                v17 = v139;
+                                                v139 = value;
                                               }
 
                                               else
@@ -1009,8 +1008,8 @@ LABEL_28:
                                                   goto LABEL_55;
                                                 }
 
-                                                v17 = v139;
-                                                v139 = value;
+                                                v17 = v138;
+                                                v138 = value;
                                               }
                                             }
                                           }
@@ -1042,9 +1041,9 @@ LABEL_28:
           v19 = NSStringFromClass(v18);
           v20 = NSStringFromSelector(a2);
           *buf = 138412546;
-          v170 = v19;
-          v171 = 2112;
-          v172 = v20;
+          v169 = v19;
+          v170 = 2112;
+          v171 = v20;
           _os_log_error_impl(&dword_26455D000, v17, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,queryItem missing value", buf, 0x16u);
         }
       }
@@ -1052,45 +1051,45 @@ LABEL_28:
 LABEL_55:
     }
 
-    v9 = [obj countByEnumeratingWithState:&v165 objects:v177 count:16];
+    v9 = [obj countByEnumeratingWithState:&v164 objects:v176 count:16];
   }
 
   while (v9);
-  intValue = [v160 intValue];
-  if (!v160)
+  intValue = [v159 intValue];
+  if (!v159)
   {
-    v160 = 0;
-    lCopy = v137;
-    v5 = v138;
+    v159 = 0;
+    lCopy = v136;
+    v5 = v137;
     v7 = obj;
     goto LABEL_91;
   }
 
-  v5 = v138;
+  v5 = v137;
   v7 = obj;
   if ([objc_opt_class() messageType] != intValue)
   {
-    lCopy = v137;
+    lCopy = v136;
 LABEL_91:
     v65 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
     {
-      v98 = objc_opt_class();
-      v93 = NSStringFromClass(v98);
+      v97 = objc_opt_class();
+      v92 = NSStringFromClass(v97);
       NSStringFromSelector(a2);
-      v100 = v99 = v7;
+      v99 = v98 = v7;
       messageType = [objc_opt_class() messageType];
       *buf = 138413058;
-      v170 = v93;
-      v171 = 2112;
-      v172 = v100;
-      v173 = 1024;
-      v174 = messageType;
-      v175 = 1024;
-      v176 = intValue;
+      v169 = v92;
+      v170 = 2112;
+      v171 = v99;
+      v172 = 1024;
+      v173 = messageType;
+      v174 = 1024;
+      v175 = intValue;
       _os_log_error_impl(&dword_26455D000, v65, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,extracted non-matching message type,expected,%d,got,%d", buf, 0x22u);
 
-      v7 = v99;
+      v7 = v98;
       goto LABEL_100;
     }
 
@@ -1099,23 +1098,23 @@ LABEL_92:
     goto LABEL_93;
   }
 
-  intValue2 = [v158 intValue];
+  intValue2 = [v157 intValue];
   v63 = intValue2;
-  if (!v158 || intValue2 != 1)
+  if (!v157 || intValue2 != 1)
   {
     v65 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-    lCopy = v137;
+    lCopy = v136;
     if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
     {
-      v92 = objc_opt_class();
-      v93 = NSStringFromClass(v92);
-      v94 = NSStringFromSelector(a2);
+      v91 = objc_opt_class();
+      v92 = NSStringFromClass(v91);
+      v93 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v170 = v93;
-      v171 = 2112;
-      v172 = v94;
-      v173 = 1024;
-      v174 = v63;
+      v169 = v92;
+      v170 = 2112;
+      v171 = v93;
+      v172 = 1024;
+      v173 = v63;
       _os_log_error_impl(&dword_26455D000, v65, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,unrecognized interface version,%d", buf, 0x1Cu);
 
       v7 = obj;
@@ -1132,38 +1131,38 @@ LABEL_100:
     v65 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
     {
-      v116 = objc_opt_class();
-      v117 = NSStringFromClass(v116);
-      v118 = NSStringFromSelector(a2);
+      v115 = objc_opt_class();
+      v116 = NSStringFromClass(v115);
+      v117 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v170 = v117;
-      v171 = 2112;
-      v172 = v118;
+      v169 = v116;
+      v170 = 2112;
+      v171 = v117;
       _os_log_error_impl(&dword_26455D000, v65, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing date", buf, 0x16u);
     }
 
     v10 = 0;
     v88 = 0;
-    lCopy = v137;
+    lCopy = v136;
     goto LABEL_93;
   }
 
   v64 = MEMORY[0x277CBEAA8];
   [v10 doubleValue];
   v65 = [v64 dateWithTimeIntervalSince1970:?];
-  if (!v163)
+  if (!v162)
   {
     v67 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-    lCopy = v137;
+    lCopy = v136;
     if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
     {
-      v129 = objc_opt_class();
-      v130 = NSStringFromClass(v129);
-      v131 = NSStringFromSelector(a2);
+      v128 = objc_opt_class();
+      v129 = NSStringFromClass(v128);
+      v130 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v170 = v130;
-      v171 = 2112;
-      v172 = v131;
+      v169 = v129;
+      v170 = 2112;
+      v171 = v130;
       _os_log_error_impl(&dword_26455D000, v67, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing messageID", buf, 0x16u);
 
       v7 = obj;
@@ -1173,33 +1172,33 @@ LABEL_100:
     goto LABEL_135;
   }
 
-  if (!v162)
+  if (!v161)
   {
     v67 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (!os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
     {
 LABEL_110:
       v88 = 0;
-      lCopy = v137;
+      lCopy = v136;
       goto LABEL_135;
     }
 
-    v105 = objc_opt_class();
-    v106 = NSStringFromClass(v105);
-    v107 = NSStringFromSelector(a2);
+    v104 = objc_opt_class();
+    v105 = NSStringFromClass(v104);
+    v106 = NSStringFromSelector(a2);
     *buf = 138412546;
-    v170 = v106;
-    v171 = 2112;
-    v172 = v107;
-    v108 = "#SafetyCache,%@,%@,missing sessionID";
+    v169 = v105;
+    v170 = 2112;
+    v171 = v106;
+    v107 = "#SafetyCache,%@,%@,missing sessionID";
 LABEL_137:
-    _os_log_error_impl(&dword_26455D000, v67, OS_LOG_TYPE_ERROR, v108, buf, 0x16u);
+    _os_log_error_impl(&dword_26455D000, v67, OS_LOG_TYPE_ERROR, v107, buf, 0x16u);
 
     v7 = obj;
     goto LABEL_110;
   }
 
-  if (!v154)
+  if (!v153)
   {
     v67 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (!os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
@@ -1207,70 +1206,70 @@ LABEL_137:
       goto LABEL_110;
     }
 
-    v133 = objc_opt_class();
-    v106 = NSStringFromClass(v133);
-    v107 = NSStringFromSelector(a2);
+    v132 = objc_opt_class();
+    v105 = NSStringFromClass(v132);
+    v106 = NSStringFromSelector(a2);
     *buf = 138412546;
-    v170 = v106;
-    v171 = 2112;
-    v172 = v107;
-    v108 = "#SafetyCache,%@,%@,missing triggerTime";
+    v169 = v105;
+    v170 = 2112;
+    v171 = v106;
+    v107 = "#SafetyCache,%@,%@,missing triggerTime";
     goto LABEL_137;
   }
 
   v66 = MEMORY[0x277CBEAA8];
-  [v154 doubleValue];
+  [v153 doubleValue];
   v67 = [v66 dateWithTimeIntervalSince1970:?];
   v68 = 0;
-  if (v153 && v152 && v151 && v150 && v149 && v148 && v147 && v146)
+  if (v152 && v151 && v150 && v149 && v148 && v147 && v146 && v145)
   {
     v69 = MEMORY[0x277CBEAA8];
-    [v148 doubleValue];
+    [v147 doubleValue];
     v70 = [v69 dateWithTimeIntervalSince1970:?];
     v71 = objc_alloc(MEMORY[0x277D01160]);
-    [v153 doubleValue];
-    v73 = v72;
     [v152 doubleValue];
-    v75 = v74;
+    v73 = v72;
     [v151 doubleValue];
-    v77 = v76;
+    v75 = v74;
     [v150 doubleValue];
-    v79 = v78;
+    v77 = v76;
     [v149 doubleValue];
+    v79 = v78;
+    [v148 doubleValue];
     v81 = v80;
-    intValue3 = [v147 intValue];
-    [v146 doubleValue];
+    intValue3 = [v146 intValue];
+    [v145 doubleValue];
     v68 = [v71 initWithLatitude:v70 longitude:intValue3 horizontalUncertainty:v73 altitude:v75 verticalUncertainty:v77 date:v79 referenceFrame:v81 speed:v83];
   }
 
-  if (!v145)
+  if (!v144)
   {
     v86 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (!os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
     {
 LABEL_114:
       v88 = 0;
-      lCopy = v137;
+      lCopy = v136;
       goto LABEL_134;
     }
 
-    v109 = objc_opt_class();
-    v110 = NSStringFromClass(v109);
-    v111 = NSStringFromSelector(a2);
+    v108 = objc_opt_class();
+    v109 = NSStringFromClass(v108);
+    v110 = NSStringFromSelector(a2);
     *buf = 138412546;
-    v170 = v110;
-    v171 = 2112;
-    v172 = v111;
-    v112 = "#SafetyCache,%@,%@,missing triggerType";
+    v169 = v109;
+    v170 = 2112;
+    v171 = v110;
+    v111 = "#SafetyCache,%@,%@,missing triggerType";
 LABEL_139:
-    _os_log_error_impl(&dword_26455D000, v86, OS_LOG_TYPE_ERROR, v112, buf, 0x16u);
+    _os_log_error_impl(&dword_26455D000, v86, OS_LOG_TYPE_ERROR, v111, buf, 0x16u);
 
-    v5 = v138;
+    v5 = v137;
     goto LABEL_114;
   }
 
-  intValue4 = [v145 intValue];
-  if (!v144)
+  intValue4 = [v144 intValue];
+  if (!v143)
   {
     v86 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (!os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
@@ -1278,41 +1277,41 @@ LABEL_139:
       goto LABEL_114;
     }
 
-    v134 = objc_opt_class();
-    v110 = NSStringFromClass(v134);
-    v111 = NSStringFromSelector(a2);
+    v133 = objc_opt_class();
+    v109 = NSStringFromClass(v133);
+    v110 = NSStringFromSelector(a2);
     *buf = 138412546;
-    v170 = v110;
-    v171 = 2112;
-    v172 = v111;
-    v112 = "#SafetyCache,%@,%@,missing safetyCacheKey";
+    v169 = v109;
+    v170 = 2112;
+    v171 = v110;
+    v111 = "#SafetyCache,%@,%@,missing safetyCacheKey";
     goto LABEL_139;
   }
 
   v85 = intValue4;
-  v86 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v144 options:0];
+  v86 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v143 options:0];
   if (!v86)
   {
     v87 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-    lCopy = v137;
+    lCopy = v136;
     if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
     {
-      v113 = objc_opt_class();
-      v114 = NSStringFromClass(v113);
-      v115 = NSStringFromSelector(a2);
+      v112 = objc_opt_class();
+      v113 = NSStringFromClass(v112);
+      v114 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v170 = v114;
-      v171 = 2112;
-      v172 = v115;
+      v169 = v113;
+      v170 = 2112;
+      v171 = v114;
       _os_log_error_impl(&dword_26455D000, v87, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,failed to convert safetyCacheKey to NSData", buf, 0x16u);
     }
 
     goto LABEL_126;
   }
 
-  if (v143)
+  if (v142)
   {
-    v87 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v143 options:0];
+    v87 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v142 options:0];
   }
 
   else
@@ -1320,11 +1319,11 @@ LABEL_139:
     v87 = 0;
   }
 
-  lCopy = v137;
-  if (!v142)
+  lCopy = v136;
+  if (!v141)
   {
-    v124 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-    if (!os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
+    v123 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+    if (!os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
     {
 LABEL_125:
 
@@ -1333,46 +1332,46 @@ LABEL_126:
       goto LABEL_133;
     }
 
-    v125 = objc_opt_class();
-    v126 = NSStringFromClass(v125);
-    v127 = NSStringFromSelector(a2);
+    v124 = objc_opt_class();
+    v125 = NSStringFromClass(v124);
+    v126 = NSStringFromSelector(a2);
     *buf = 138412546;
-    v170 = v126;
-    v171 = 2112;
-    v172 = v127;
-    v128 = "#SafetyCache,%@,%@,missing sessionType";
+    v169 = v125;
+    v170 = 2112;
+    v171 = v126;
+    v127 = "#SafetyCache,%@,%@,missing sessionType";
 LABEL_141:
-    _os_log_error_impl(&dword_26455D000, v124, OS_LOG_TYPE_ERROR, v128, buf, 0x16u);
+    _os_log_error_impl(&dword_26455D000, v123, OS_LOG_TYPE_ERROR, v127, buf, 0x16u);
 
     goto LABEL_125;
   }
 
-  intValue5 = [v142 intValue];
-  if (!v141)
+  intValue5 = [v141 intValue];
+  if (!v140)
   {
-    v124 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-    if (!os_log_type_enabled(v124, OS_LOG_TYPE_ERROR))
+    v123 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+    if (!os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_125;
     }
 
-    v135 = objc_opt_class();
-    v126 = NSStringFromClass(v135);
-    v127 = NSStringFromSelector(a2);
+    v134 = objc_opt_class();
+    v125 = NSStringFromClass(v134);
+    v126 = NSStringFromSelector(a2);
     *buf = 138412546;
-    v170 = v126;
-    v171 = 2112;
-    v172 = v127;
-    v128 = "#SafetyCache,%@,%@,missing destinationType";
+    v169 = v125;
+    v170 = 2112;
+    v171 = v126;
+    v127 = "#SafetyCache,%@,%@,missing destinationType";
     goto LABEL_141;
   }
 
-  v120 = intValue5;
-  intValue6 = [v141 intValue];
-  bOOLValue = [v140 BOOLValue];
-  if (v139)
+  v119 = intValue5;
+  intValue6 = [v140 intValue];
+  bOOLValue = [v139 BOOLValue];
+  if (v138)
   {
-    intValue7 = [v139 intValue];
+    intValue7 = [v138 intValue];
   }
 
   else
@@ -1382,13 +1381,13 @@ LABEL_141:
       log = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
       if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
       {
-        v132 = objc_opt_class();
-        v159 = NSStringFromClass(v132);
-        v157 = NSStringFromSelector(a2);
+        v131 = objc_opt_class();
+        v158 = NSStringFromClass(v131);
+        v156 = NSStringFromSelector(a2);
         *buf = 138412546;
-        v170 = v159;
-        v171 = 2112;
-        v172 = v157;
+        v169 = v158;
+        v170 = 2112;
+        v171 = v156;
         _os_log_impl(&dword_26455D000, log, OS_LOG_TYPE_INFO, "#SafetyCache,%@,%@,missing lowPowerModeWarningState, OK to proceed", buf, 0x16u);
       }
     }
@@ -1396,26 +1395,25 @@ LABEL_141:
     intValue7 = 0;
   }
 
-  LOBYTE(v136) = bOOLValue;
-  v88 = [(SMKeyReleaseMessage *)self initWithDate:v65 messageID:v163 sessionID:v162 triggerDate:v67 locationOfTrigger:v68 triggerType:v85 safetyCacheKey:v86 safetyCacheToken:v87 sessionType:v120 destinationType:intValue6 isSOSTrigger:v136 lowPowerModeWarningState:intValue7];
+  LOBYTE(v135) = bOOLValue;
+  v88 = [(SMKeyReleaseMessage *)self initWithDate:v65 messageID:v162 sessionID:v161 triggerDate:v67 locationOfTrigger:v68 triggerType:v85 safetyCacheKey:v86 safetyCacheToken:v87 sessionType:v119 destinationType:intValue6 isSOSTrigger:v135 lowPowerModeWarningState:intValue7];
   self = v88;
-  lCopy = v137;
+  lCopy = v136;
 LABEL_133:
 
-  v5 = v138;
+  v5 = v137;
 LABEL_134:
 
   v7 = obj;
 LABEL_135:
 
 LABEL_93:
-  v89 = v160;
+  v89 = v159;
 LABEL_94:
 
 LABEL_95:
 LABEL_96:
 
-  v90 = *MEMORY[0x277D85DE8];
   return v88;
 }
 
@@ -1670,7 +1668,7 @@ LABEL_24:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   if (!coderCopy)
   {
@@ -1678,16 +1676,16 @@ LABEL_24:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v42 = "[SMKeyReleaseMessage encodeWithCoder:]";
-      v43 = 1024;
-      v44 = 594;
+      v41 = "[SMKeyReleaseMessage encodeWithCoder:]";
+      v42 = 1024;
+      v43 = 594;
       _os_log_error_impl(&dword_26455D000, v5, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: encoder (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v40.receiver = self;
-  v40.super_class = SMKeyReleaseMessage;
-  [(SMMessage *)&v40 encodeWithCoder:coderCopy];
+  v39.receiver = self;
+  v39.super_class = SMKeyReleaseMessage;
+  [(SMMessage *)&v39 encodeWithCoder:coderCopy];
   triggerDate = [(SMKeyReleaseMessage *)self triggerDate];
   [coderCopy encodeObject:triggerDate forKey:@"triggerTime"];
 
@@ -1766,13 +1764,11 @@ LABEL_24:
 
   v38 = [MEMORY[0x277CCABB0] numberWithInteger:{-[SMKeyReleaseMessage lowPowerModeWarningState](self, "lowPowerModeWarningState")}];
   [coderCopy encodeObject:v38 forKey:@"lowPowerModeWarningState"];
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (SMKeyReleaseMessage)initWithCoder:(id)coder
 {
-  v113 = *MEMORY[0x277D85DE8];
+  v112 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v6 = coderCopy;
   if (!coderCopy)
@@ -1802,13 +1798,13 @@ LABEL_28:
     v45 = NSStringFromClass(v44);
     v46 = NSStringFromSelector(a2);
     *buf = 138413058;
-    v106 = v45;
-    v107 = 2112;
-    v108 = v46;
-    v109 = 1024;
+    v105 = v45;
+    v106 = 2112;
+    v107 = v46;
+    v108 = 1024;
     messageType = [objc_opt_class() messageType];
-    v111 = 1024;
-    v112 = v7;
+    v110 = 1024;
+    v111 = v7;
     v47 = "#SafetyCache,%@,%@,extracted non-matching message type,expected,%d,got,%d";
     v48 = v9;
     v49 = 34;
@@ -1828,14 +1824,14 @@ LABEL_43:
       goto LABEL_28;
     }
 
-    v54 = objc_opt_class();
-    v45 = NSStringFromClass(v54);
+    v53 = objc_opt_class();
+    v45 = NSStringFromClass(v53);
     v46 = NSStringFromSelector(a2);
     *buf = 138412802;
-    v106 = v45;
-    v107 = 2112;
-    v108 = v46;
-    v109 = 1024;
+    v105 = v45;
+    v106 = 2112;
+    v107 = v46;
+    v108 = 1024;
     messageType = v50;
     v47 = "#SafetyCache,%@,%@,unrecognized interface version,%d";
     v48 = v9;
@@ -1857,17 +1853,17 @@ LABEL_43:
         {
           v12 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"latitude"];
           v13 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"longitude"];
-          v103 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"hunc"];
-          v102 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"altitude"];
-          v101 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"vunc"];
+          v102 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"hunc"];
+          v101 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"altitude"];
+          v100 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"vunc"];
           v14 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"timeOfLocation"];
-          v100 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"referenceFrame"];
+          v99 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"referenceFrame"];
           v15 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"speed"];
           v16 = 0;
-          v97 = v11;
-          v98 = v15;
-          v99 = v13;
-          if (v12 && v13 && v103 && v102 && v101 && v14 && v100 && v15)
+          v96 = v11;
+          v97 = v15;
+          v98 = v13;
+          if (v12 && v13 && v102 && v101 && v100 && v14 && v99 && v15)
           {
             v17 = v14;
             v18 = objc_alloc(MEMORY[0x277D01160]);
@@ -1875,15 +1871,15 @@ LABEL_43:
             v20 = v19;
             [v13 doubleValue];
             v22 = v21;
-            [v103 doubleValue];
-            v24 = v23;
             [v102 doubleValue];
-            v26 = v25;
+            v24 = v23;
             [v101 doubleValue];
+            v26 = v25;
+            [v100 doubleValue];
             v28 = v27;
             v29 = v12;
-            intValue = [v100 intValue];
-            [v98 doubleValue];
+            intValue = [v99 intValue];
+            [v97 doubleValue];
             v31 = v18;
             v14 = v17;
             v32 = intValue;
@@ -1893,89 +1889,89 @@ LABEL_43:
 
           v34 = v16;
           v35 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"triggerType"];
-          v96 = v35;
+          v95 = v35;
           if (v35)
           {
-            v92 = v12;
-            v93 = v14;
+            v91 = v12;
+            v92 = v14;
             intValue2 = [v35 intValue];
             [v6 decodeObjectOfClass:objc_opt_class() forKey:@"safetyCacheKey"];
-            v91 = v11 = v97;
-            if (v91)
+            v90 = v11 = v96;
+            if (v90)
             {
-              v95 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"safetyCacheToken"];
+              v94 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"safetyCacheToken"];
               v37 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"sessionType"];
-              v89 = v37;
+              v88 = v37;
               if (v37)
               {
                 intValue3 = [v37 intValue];
                 v39 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"sessionDestinationType"];
-                v90 = v39;
+                v89 = v39;
                 if (v39)
                 {
-                  v86 = intValue3;
-                  v87 = intValue2;
+                  v85 = intValue3;
+                  v86 = intValue2;
                   intValue4 = [v39 intValue];
                   v41 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"isSOSTrigger"];
                   intValue5 = [v41 intValue];
 
                   v42 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"lowPowerModeWarningState"];
-                  v88 = v42;
+                  v87 = v42;
                   if (v42)
                   {
                     intValue6 = [v42 intValue];
-                    v14 = v93;
+                    v14 = v92;
                   }
 
                   else
                   {
-                    v14 = v93;
+                    v14 = v92;
                     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
                     {
-                      v62 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-                      if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+                      v61 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+                      if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
                       {
-                        v63 = objc_opt_class();
-                        v64 = NSStringFromClass(v63);
-                        v65 = NSStringFromSelector(a2);
+                        v62 = objc_opt_class();
+                        v63 = NSStringFromClass(v62);
+                        v64 = NSStringFromSelector(a2);
                         *buf = 138412546;
-                        v106 = v64;
-                        v107 = 2112;
-                        v108 = v65;
-                        _os_log_impl(&dword_26455D000, v62, OS_LOG_TYPE_INFO, "#SafetyCache,%@,%@,missing lowPowerModeWarningStateNumber", buf, 0x16u);
+                        v105 = v63;
+                        v106 = 2112;
+                        v107 = v64;
+                        _os_log_impl(&dword_26455D000, v61, OS_LOG_TYPE_INFO, "#SafetyCache,%@,%@,missing lowPowerModeWarningStateNumber", buf, 0x16u);
 
-                        v14 = v93;
+                        v14 = v92;
                       }
                     }
 
                     intValue6 = 0;
                   }
 
-                  v55 = v91;
-                  LOBYTE(v84) = intValue5 != 0;
-                  self = [(SMKeyReleaseMessage *)self initWithDate:v9 messageID:v10 sessionID:v97 triggerDate:log locationOfTrigger:v34 triggerType:v87 safetyCacheKey:v91 safetyCacheToken:v95 sessionType:v86 destinationType:intValue4 isSOSTrigger:v84 lowPowerModeWarningState:intValue6];
+                  v54 = v90;
+                  LOBYTE(v83) = intValue5 != 0;
+                  self = [(SMKeyReleaseMessage *)self initWithDate:v9 messageID:v10 sessionID:v96 triggerDate:log locationOfTrigger:v34 triggerType:v86 safetyCacheKey:v90 safetyCacheToken:v94 sessionType:v85 destinationType:intValue4 isSOSTrigger:v83 lowPowerModeWarningState:intValue6];
                   selfCopy = self;
-                  v12 = v92;
+                  v12 = v91;
                 }
 
                 else
                 {
-                  v88 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-                  v12 = v92;
-                  v14 = v93;
-                  v55 = v91;
-                  if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
+                  v87 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+                  v12 = v91;
+                  v14 = v92;
+                  v54 = v90;
+                  if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
                   {
-                    v81 = objc_opt_class();
-                    v82 = NSStringFromClass(v81);
-                    v83 = NSStringFromSelector(a2);
+                    v80 = objc_opt_class();
+                    v81 = NSStringFromClass(v80);
+                    v82 = NSStringFromSelector(a2);
                     *buf = 138412546;
-                    v106 = v82;
-                    v107 = 2112;
-                    v108 = v83;
-                    _os_log_error_impl(&dword_26455D000, v88, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing destinationType", buf, 0x16u);
+                    v105 = v81;
+                    v106 = 2112;
+                    v107 = v82;
+                    _os_log_error_impl(&dword_26455D000, v87, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing destinationType", buf, 0x16u);
 
-                    v14 = v93;
+                    v14 = v92;
                   }
 
                   selfCopy = 0;
@@ -1984,66 +1980,66 @@ LABEL_43:
 
               else
               {
-                v90 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-                if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
+                v89 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+                if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
                 {
-                  v78 = objc_opt_class();
-                  v79 = NSStringFromClass(v78);
-                  v80 = NSStringFromSelector(a2);
+                  v77 = objc_opt_class();
+                  v78 = NSStringFromClass(v77);
+                  v79 = NSStringFromSelector(a2);
                   *buf = 138412546;
-                  v106 = v79;
-                  v107 = 2112;
-                  v108 = v80;
-                  _os_log_error_impl(&dword_26455D000, v90, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing sessionType", buf, 0x16u);
+                  v105 = v78;
+                  v106 = 2112;
+                  v107 = v79;
+                  _os_log_error_impl(&dword_26455D000, v89, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing sessionType", buf, 0x16u);
                 }
 
                 selfCopy = 0;
-                v12 = v92;
-                v14 = v93;
-                v55 = v91;
+                v12 = v91;
+                v14 = v92;
+                v54 = v90;
               }
             }
 
             else
             {
-              v95 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-              v12 = v92;
-              if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
+              v94 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+              v12 = v91;
+              if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
               {
-                v75 = objc_opt_class();
-                v76 = NSStringFromClass(v75);
-                v77 = NSStringFromSelector(a2);
+                v74 = objc_opt_class();
+                v75 = NSStringFromClass(v74);
+                v76 = NSStringFromSelector(a2);
                 *buf = 138412546;
-                v106 = v76;
-                v107 = 2112;
-                v108 = v77;
-                _os_log_error_impl(&dword_26455D000, v95, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing safetyCacheKey", buf, 0x16u);
+                v105 = v75;
+                v106 = 2112;
+                v107 = v76;
+                _os_log_error_impl(&dword_26455D000, v94, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing safetyCacheKey", buf, 0x16u);
 
-                v14 = v93;
+                v14 = v92;
               }
 
               selfCopy = 0;
-              v55 = 0;
+              v54 = 0;
             }
           }
 
           else
           {
-            v55 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-            v11 = v97;
-            if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+            v54 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+            v11 = v96;
+            if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
             {
-              v72 = objc_opt_class();
-              NSStringFromClass(v72);
-              v73 = v94 = v14;
-              v74 = NSStringFromSelector(a2);
+              v71 = objc_opt_class();
+              NSStringFromClass(v71);
+              v72 = v93 = v14;
+              v73 = NSStringFromSelector(a2);
               *buf = 138412546;
-              v106 = v73;
-              v107 = 2112;
-              v108 = v74;
-              _os_log_error_impl(&dword_26455D000, v55, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing triggerType", buf, 0x16u);
+              v105 = v72;
+              v106 = 2112;
+              v107 = v73;
+              _os_log_error_impl(&dword_26455D000, v54, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing triggerType", buf, 0x16u);
 
-              v14 = v94;
+              v14 = v93;
             }
 
             selfCopy = 0;
@@ -2055,13 +2051,13 @@ LABEL_43:
           v12 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
-            v69 = objc_opt_class();
-            v70 = NSStringFromClass(v69);
-            v71 = NSStringFromSelector(a2);
+            v68 = objc_opt_class();
+            v69 = NSStringFromClass(v68);
+            v70 = NSStringFromSelector(a2);
             *buf = 138412546;
-            v106 = v70;
-            v107 = 2112;
-            v108 = v71;
+            v105 = v69;
+            v106 = 2112;
+            v107 = v70;
             _os_log_error_impl(&dword_26455D000, v12, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing triggerDate", buf, 0x16u);
           }
 
@@ -2074,13 +2070,13 @@ LABEL_43:
         log = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
         if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
         {
-          v66 = objc_opt_class();
-          v67 = NSStringFromClass(v66);
-          v68 = NSStringFromSelector(a2);
+          v65 = objc_opt_class();
+          v66 = NSStringFromClass(v65);
+          v67 = NSStringFromSelector(a2);
           *buf = 138412546;
-          v106 = v67;
-          v107 = 2112;
-          v108 = v68;
+          v105 = v66;
+          v106 = 2112;
+          v107 = v67;
           _os_log_error_impl(&dword_26455D000, log, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing sessionID", buf, 0x16u);
         }
 
@@ -2093,13 +2089,13 @@ LABEL_43:
       v11 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v59 = objc_opt_class();
-        v60 = NSStringFromClass(v59);
-        v61 = NSStringFromSelector(a2);
+        v58 = objc_opt_class();
+        v59 = NSStringFromClass(v58);
+        v60 = NSStringFromSelector(a2);
         *buf = 138412546;
-        v106 = v60;
-        v107 = 2112;
-        v108 = v61;
+        v105 = v59;
+        v106 = 2112;
+        v107 = v60;
         _os_log_error_impl(&dword_26455D000, v11, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing messageID", buf, 0x16u);
       }
 
@@ -2112,13 +2108,13 @@ LABEL_43:
     v10 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v56 = objc_opt_class();
-      v57 = NSStringFromClass(v56);
-      v58 = NSStringFromSelector(a2);
+      v55 = objc_opt_class();
+      v56 = NSStringFromClass(v55);
+      v57 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v106 = v57;
-      v107 = 2112;
-      v108 = v58;
+      v105 = v56;
+      v106 = 2112;
+      v107 = v57;
       _os_log_error_impl(&dword_26455D000, v10, OS_LOG_TYPE_ERROR, "#SafetyCache,%@,%@,missing date", buf, 0x16u);
     }
 
@@ -2126,7 +2122,6 @@ LABEL_43:
   }
 
 LABEL_29:
-  v52 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

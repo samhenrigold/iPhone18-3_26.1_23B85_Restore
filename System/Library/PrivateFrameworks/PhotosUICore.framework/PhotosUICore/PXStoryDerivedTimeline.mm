@@ -50,9 +50,9 @@
   originalTimeline = [(PXStoryDerivedTimeline *)self originalTimeline];
   if (originalTimeline)
   {
-    v8 = originalTimeline;
-    [originalTimeline timeRangeForSegmentWithIdentifier:a4];
-    originalTimeline = v8;
+    v7 = originalTimeline;
+    objc_msgSend_timeRangeForSegmentWithIdentifier_(originalTimeline);
+    originalTimeline = v7;
   }
 
   else
@@ -169,7 +169,7 @@
   if (originalTimeline)
   {
     v6 = originalTimeline;
-    [originalTimeline timeRange];
+    objc_msgSend_timeRange(originalTimeline);
     originalTimeline = v6;
   }
 

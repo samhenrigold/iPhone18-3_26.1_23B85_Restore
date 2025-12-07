@@ -279,7 +279,7 @@ LABEL_17:
 {
   context = objc_autoreleasePoolPush();
   [[OISFUZipRecordInputStream alloc] initWithDataRepresentation:self->mDataRepresentation];
-  [(OISFUZipArchive *)self readEndOfCentralDirectoryFromInputStream:?];
+  objc_msgSend_readEndOfCentralDirectoryFromInputStream_(self);
   objc_autoreleasePoolPop(context);
 }
 
@@ -347,7 +347,7 @@ LABEL_17:
   retstr->var2 = var1_high;
   if (var0_high == 0xFFFF || var1_low == -1 || var1_high == -1)
   {
-    return [(OISFUZipArchive *)self readZip64EndOfCentralDirectoryFromInputStream:a4 eocdOffset:v14];
+    return objc_msgSend_readZip64EndOfCentralDirectoryFromInputStream_eocdOffset_(self);
   }
 
   return result;

@@ -10,7 +10,7 @@
 
 - (WFShortcutIconEditorViewControllerDelegate)delegate
 {
-  v2 = ShortcutIconEditorViewController.delegate.getter();
+  v2 = ShortcutIconEditorViewController.delegate.getter(self);
 
   return v2;
 }
@@ -19,7 +19,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  ShortcutIconEditorViewController.delegate.setter();
+  ShortcutIconEditorViewController.delegate.setter(delegate);
 }
 
 - (void)viewDidLoad

@@ -28,7 +28,7 @@
 
 - (void)printNode
 {
-  v3 = sub_100002740();
+  v3 = sub_100002740(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     count = self->_count;

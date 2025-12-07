@@ -1553,7 +1553,7 @@ LABEL_14:
       {
         *buf = 0;
         OUTLINED_FUNCTION_2();
-        OUTLINED_FUNCTION_7_1(v76, v77, v78, v79, v80, v81, v82, v83, v105, block, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118, buf[0]);
+        OUTLINED_FUNCTION_7_1(v76, v77, v78, v79, v80, v81, v82, v83, v105, block, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118);
       }
 
       goto LABEL_17;
@@ -1661,7 +1661,7 @@ LABEL_14:
 
 LABEL_26:
     OUTLINED_FUNCTION_2();
-    OUTLINED_FUNCTION_7_1(v37, v38, v39, v40, v41, v42, v43, v44, v105, block, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118, buf[0]);
+    OUTLINED_FUNCTION_7_1(v37, v38, v39, v40, v41, v42, v43, v44, v105, block, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118);
 LABEL_27:
 
 LABEL_28:
@@ -1705,8 +1705,9 @@ LABEL_29:
 {
   if (os_signpost_enabled(a1))
   {
+    v12 = 0;
     OUTLINED_FUNCTION_2();
-    OUTLINED_FUNCTION_8_0(v4, v5, v6, v7, v8, v9, v10, v11, 0);
+    OUTLINED_FUNCTION_8_0(v4, v5, v6, v7, v8, v9, v10, v11, v12);
   }
 
   *a2 = a1;
@@ -1717,9 +1718,10 @@ LABEL_29:
   v4 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
+    v11 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v5, v6, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires suggestions entries", v7, v8, v9, v10, 2u);
+    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v5, v6, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires suggestions entries", v7, v8, v9, v10, v11);
   }
 
   *a2 = 0;
@@ -1731,9 +1733,10 @@ LABEL_29:
   v4 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
+    v11 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v5, v6, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a completion handler", v7, v8, v9, v10, 2u);
+    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v5, v6, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a completion handler", v7, v8, v9, v10, v11);
   }
 
   *a2 = 0;

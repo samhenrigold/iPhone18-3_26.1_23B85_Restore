@@ -1,18 +1,15 @@
 uint64_t OSLogCopyFormattedString(uint64_t a1)
 {
-  v7 = *MEMORY[0x29EDCA608];
   v2 = objc_alloc(MEMORY[0x29EDB9F30]);
   v3 = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"liblog_SystemConfiguration: Not yet supported os_log formatting type: %s", a1];
   v4 = [v2 initWithString:v3];
 
-  v5 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
-uint64_t OSStateCreateStringWithData(char *__s1, uint64_t a2, unsigned int *a3)
+__CFString *OSStateCreateStringWithData(char *__s1, uint64_t a2, unsigned int *a3)
 {
   v6 = 0;
-  v14 = *MEMORY[0x29EDCA608];
   for (i = 1; ; i = 0)
   {
     v8 = i;
@@ -25,71 +22,71 @@ uint64_t OSStateCreateStringWithData(char *__s1, uint64_t a2, unsigned int *a3)
     v6 = 1;
     if ((v8 & 1) == 0)
     {
-      result = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"liblog_SystemConfiguration: Not yet supported os_state formatting type: %s", __s1];
-      v11 = *MEMORY[0x29EDCA608];
-      return result;
+      return [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"liblog_SystemConfiguration: Not yet supported os_state formatting type: %s", __s1];
     }
   }
 
-  v12 = v9[1];
-  v13 = *MEMORY[0x29EDCA608];
+  v11 = v9[1];
 
-  return v12(a2, a3);
+  return v11(a2, a3);
 }
 
-uint64_t _SC_OSStateCopyFormattedString_dnsinfo(uint64_t a1, unsigned int *a2)
+__CFString *_SC_OSStateCopyFormattedString_dnsinfo(uint64_t a1, unsigned int *a2)
 {
-  v89 = *MEMORY[0x29EDCA608];
+  v100 = *MEMORY[0x29EDCA608];
   v2 = @"No DNS configuration";
   if (!a1 || !a2)
   {
-    goto LABEL_19;
+    return v2;
   }
 
   if (a1 <= 0x37)
   {
-    result = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"DNS configuration: size error (%u < %zu)", a1, 56];
-    v5 = *MEMORY[0x29EDCA608];
-    return result;
+    return [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"DNS configuration: size error (%u < %zu)", a1, 56];
   }
 
-  v6 = a1;
-  if (bswap32(a2[12]) + 56 != a1)
+  v5 = a1;
+  v6 = bswap32(a2[12]) + 56;
+  if (v6 != a1)
   {
     v8 = _SC_LOG_DEFAULT();
-    v10 = _SC_syslog_os_log_mapping();
+    v13 = _SC_syslog_os_log_mapping();
     if (!__SC_log_enabled())
     {
-      goto LABEL_17;
+      goto LABEL_36;
     }
 
-    v87 = 0u;
+    v98 = 0u;
+    v99 = 0u;
+    v96 = 0u;
+    v97 = 0u;
+    v94 = 0u;
+    v95 = 0u;
+    v92 = 0u;
+    v93 = 0u;
+    v90 = 0u;
+    v91 = 0u;
     v88 = 0u;
-    v85 = 0u;
+    v89 = 0u;
     v86 = 0u;
-    v83 = 0u;
+    v87 = 0u;
     v84 = 0u;
-    v81 = 0u;
-    v82 = 0u;
-    v79 = 0u;
-    v80 = 0u;
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
-    v76 = 0u;
-    v73 = 0u;
-    v74 = 0u;
-    *MEMORY[0x29EDBCC58];
-    os_log_type_enabled(v8, v10);
-    v11 = _os_log_send_and_compose_impl();
+    v85 = 0u;
+    v14 = *MEMORY[0x29EDBCC58] <= 0 ? 2 : 3;
+    v15 = os_log_type_enabled(v8, v13) ? v14 : 2;
+    v80 = 134218240;
+    v81 = v6;
+    v82 = 2048;
+    v83 = v5;
+    v16 = _os_log_send_and_compose_impl(v15, 0, &v84, 256, &dword_2999D0000, v8, v13, "DNS configuration: size error (%zu != %zu)", &v80, 22);
     __SC_log_send2();
-    if (v11 == &v73)
+    if (v16 == &v84)
     {
-      goto LABEL_17;
+      goto LABEL_36;
     }
 
-    v12 = v11;
-    goto LABEL_16;
+    v17 = v16;
+    goto LABEL_35;
   }
 
   v7 = bswap32(a2[13]);
@@ -99,361 +96,401 @@ uint64_t _SC_OSStateCopyFormattedString_dnsinfo(uint64_t a1, unsigned int *a2)
     v9 = _SC_syslog_os_log_mapping();
     if (!__SC_log_enabled())
     {
-      goto LABEL_17;
+      goto LABEL_36;
     }
 
-    goto LABEL_14;
+    v98 = 0u;
+    v99 = 0u;
+    v96 = 0u;
+    v97 = 0u;
+    v94 = 0u;
+    v95 = 0u;
+    v92 = 0u;
+    v93 = 0u;
+    v90 = 0u;
+    v91 = 0u;
+    v88 = 0u;
+    v89 = 0u;
+    v86 = 0u;
+    v87 = 0u;
+    v84 = 0u;
+    v85 = 0u;
+    if (*MEMORY[0x29EDBCC58] <= 0)
+    {
+      v10 = 2;
+    }
+
+    else
+    {
+      v10 = 3;
+    }
+
+    if (os_log_type_enabled(v8, v9))
+    {
+      v11 = v10;
+    }
+
+    else
+    {
+      v11 = 2;
+    }
+
+    v12 = _os_log_send_and_compose_impl(v11, 0, &v84, 256, &dword_2999D0000, v8, v9, "DNS configuration: padding error (%u > %zu)", COERCE_DOUBLE(67109376), &v80, 18);
+LABEL_33:
+    v21 = v12;
+    __SC_log_send2();
+    if (v21 != &v84)
+    {
+      v17 = v21;
+LABEL_35:
+      free(v17);
+    }
+
+LABEL_36:
+
+    return @"DNS configuration: data error";
   }
 
   if (v7 + a1 > 0x100000)
   {
     v8 = _SC_LOG_DEFAULT();
-    v9 = _SC_syslog_os_log_mapping();
+    v18 = _SC_syslog_os_log_mapping();
     if (!__SC_log_enabled())
     {
-      goto LABEL_17;
+      goto LABEL_36;
     }
 
-LABEL_14:
-    v87 = 0u;
+    v98 = 0u;
+    v99 = 0u;
+    v96 = 0u;
+    v97 = 0u;
+    v94 = 0u;
+    v95 = 0u;
+    v92 = 0u;
+    v93 = 0u;
+    v90 = 0u;
+    v91 = 0u;
     v88 = 0u;
-    v85 = 0u;
+    v89 = 0u;
     v86 = 0u;
-    v83 = 0u;
+    v87 = 0u;
     v84 = 0u;
-    v81 = 0u;
-    v82 = 0u;
-    v79 = 0u;
-    v80 = 0u;
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
-    v76 = 0u;
-    v73 = 0u;
-    v74 = 0u;
-    *MEMORY[0x29EDBCC58];
-    os_log_type_enabled(v8, v9);
-    v13 = _os_log_send_and_compose_impl();
-    __SC_log_send2();
-    if (v13 != &v73)
+    v85 = 0u;
+    if (*MEMORY[0x29EDBCC58] <= 0)
     {
-      v12 = v13;
-LABEL_16:
-      free(v12);
-    }
-
-LABEL_17:
-
-LABEL_18:
-    v2 = @"DNS configuration: data error";
-    goto LABEL_19;
-  }
-
-  v15 = malloc_type_malloc(v7 + a1, 0xAC30884BuLL);
-  memcpy(v15, a2, v6);
-  bzero(v15 + v6, v7);
-  if (!v15)
-  {
-    goto LABEL_18;
-  }
-
-  v16 = v15[12];
-  v17 = bswap32(v15[13]);
-  v18 = bswap32(*v15);
-  *v15 = v18;
-  if (v17 < 8 * v18)
-  {
-    goto LABEL_108;
-  }
-
-  v19 = bswap32(v16);
-  v20 = v15 + 14;
-  v21 = 8 * v18;
-  v22 = 8 * v18 ? v15 + v19 + 56 : 0;
-  v23 = v17 - v21;
-  *(v15 + 1) = v22;
-  v24 = bswap32(v15[3]);
-  v15[3] = v24;
-  if (v23 < 8 * v24 || ((v25 = 8 * v24, v26 = v15 + v19 + v21 + 56, v25) ? (v27 = v26) : (v27 = 0), v28 = v23 - v25, *(v15 + 2) = v27, v29 = bswap32(v15[8]), v15[8] = v29, v28 < 8 * v29))
-  {
-LABEL_108:
-    free(v15);
-    v2 = @"DNS configuration: expansion error";
-    goto LABEL_19;
-  }
-
-  v30 = 8 * v29;
-  v31 = v26 + v25;
-  if (8 * v29)
-  {
-    v32 = v26 + v25;
-  }
-
-  else
-  {
-    v32 = 0;
-  }
-
-  *(v15 + 9) = v32;
-  if (v19 < 8)
-  {
-    v35 = 0;
-    v34 = 0;
-    v33 = 0;
-    goto LABEL_89;
-  }
-
-  v33 = 0;
-  v34 = 0;
-  v35 = 0;
-  v36 = v28 - v30;
-  v37 = v31 + v30;
-  do
-  {
-    v38 = bswap32(v20[1]);
-    v39 = bswap32(*v20);
-    if (v39 - 1 > 2)
-    {
-      goto LABEL_86;
-    }
-
-    if (v38 - 8 < 0x64)
-    {
-      goto LABEL_108;
-    }
-
-    *(v20 + 1) = 0;
-    v40 = bswap32(v20[4]);
-    v20[4] = v40;
-    if (v36 < 8 * v40)
-    {
-      goto LABEL_108;
-    }
-
-    v41 = 8 * v40;
-    v42 = 8 * v40 ? v37 : 0;
-    v43 = v36 - v41;
-    *(v20 + 5) = v42;
-    *(v20 + 14) = bswap32(*(v20 + 14)) >> 16;
-    v44 = bswap32(v20[8]);
-    v20[8] = v44;
-    if (v43 < 8 * v44)
-    {
-      goto LABEL_108;
-    }
-
-    v45 = 8 * v44;
-    v46 = v37 + v41;
-    v47 = 8 * v44 ? v46 : 0;
-    v48 = v43 - v45;
-    *(v20 + 9) = v47;
-    v49 = bswap32(v20[11]);
-    v20[11] = v49;
-    if (v48 < 8 * v49)
-    {
-      goto LABEL_108;
-    }
-
-    v50 = 8 * v49;
-    v51 = v46 + v45;
-    v52 = 8 * v49 ? v51 : 0;
-    *(v20 + 6) = v52;
-    *(v20 + 7) = 0;
-    *(v20 + 4) = vrev32q_s8(*(v20 + 4));
-    *(v20 + 10) = vrev32_s8(*(v20 + 20));
-    v53 = v38 - 108;
-    if (v38 - 108 != bswap32(v20[26]))
-    {
-      goto LABEL_108;
-    }
-
-    v54 = v20 + 2;
-    if (v53 < 8)
-    {
-      v57 = 0;
-      v56 = 0;
-      v55 = 0;
+      v19 = 2;
     }
 
     else
     {
-      v55 = 0;
-      v56 = 0;
-      v57 = 0;
-      v58 = (v20 + 27);
+      v19 = 3;
+    }
+
+    if (os_log_type_enabled(v8, v18))
+    {
+      v20 = v19;
+    }
+
+    else
+    {
+      v20 = 2;
+    }
+
+    v12 = _os_log_send_and_compose_impl(v20, 0, &v84, 256, &dword_2999D0000, v8, v18, "DNS configuration: length error (%zu > %d)", COERCE_DOUBLE(134218240), &v80, 18);
+    goto LABEL_33;
+  }
+
+  v22 = malloc_type_malloc(v7 + a1, 0xAC30884BuLL);
+  memcpy(v22, a2, v5);
+  bzero(v22 + v5, v7);
+  if (!v22)
+  {
+    return @"DNS configuration: data error";
+  }
+
+  v23 = v22[12];
+  v24 = bswap32(v22[13]);
+  v25 = bswap32(*v22);
+  *v22 = v25;
+  if (v24 < 8 * v25 || ((v26 = bswap32(v23), v27 = v22 + 14, (v28 = 8 * v25) != 0) ? (v29 = v22 + v26 + 56) : (v29 = 0), (v30 = v24 - v28, *(v22 + 1) = v29, v31 = bswap32(v22[3]), v22[3] = v31, v30 < 8 * v31) || ((v32 = 8 * v31, v33 = v22 + v26 + v28 + 56, v32) ? (v34 = v33) : (v34 = 0), v35 = v30 - v32, *(v22 + 2) = v34, v36 = bswap32(v22[8]), v22[8] = v36, v35 < 8 * v36)))
+  {
+LABEL_127:
+    free(v22);
+    return @"DNS configuration: expansion error";
+  }
+
+  v37 = 8 * v36;
+  v38 = v33 + v32;
+  if (8 * v36)
+  {
+    v39 = v33 + v32;
+  }
+
+  else
+  {
+    v39 = 0;
+  }
+
+  *(v22 + 9) = v39;
+  if (v26 < 8)
+  {
+    v42 = 0;
+    v41 = 0;
+    v40 = 0;
+    goto LABEL_108;
+  }
+
+  v40 = 0;
+  v41 = 0;
+  v42 = 0;
+  v43 = v35 - v37;
+  v44 = v38 + v37;
+  do
+  {
+    v45 = bswap32(v27[1]);
+    v46 = bswap32(*v27);
+    if (v46 - 1 > 2)
+    {
+      goto LABEL_105;
+    }
+
+    if (v45 - 8 < 0x64)
+    {
+      goto LABEL_127;
+    }
+
+    *(v27 + 1) = 0;
+    v47 = bswap32(v27[4]);
+    v27[4] = v47;
+    if (v43 < 8 * v47)
+    {
+      goto LABEL_127;
+    }
+
+    v48 = 8 * v47;
+    v49 = 8 * v47 ? v44 : 0;
+    v50 = v43 - v48;
+    *(v27 + 5) = v49;
+    *(v27 + 14) = bswap32(*(v27 + 14)) >> 16;
+    v51 = bswap32(v27[8]);
+    v27[8] = v51;
+    if (v50 < 8 * v51)
+    {
+      goto LABEL_127;
+    }
+
+    v52 = 8 * v51;
+    v53 = v44 + v48;
+    v54 = 8 * v51 ? v53 : 0;
+    v55 = v50 - v52;
+    *(v27 + 9) = v54;
+    v56 = bswap32(v27[11]);
+    v27[11] = v56;
+    if (v55 < 8 * v56)
+    {
+      goto LABEL_127;
+    }
+
+    v57 = 8 * v56;
+    v58 = v53 + v52;
+    v59 = 8 * v56 ? v58 : 0;
+    *(v27 + 6) = v59;
+    *(v27 + 7) = 0;
+    *(v27 + 4) = vrev32q_s8(*(v27 + 4));
+    *(v27 + 10) = vrev32_s8(*(v27 + 20));
+    v60 = v45 - 108;
+    if (v45 - 108 != bswap32(v27[26]))
+    {
+      goto LABEL_127;
+    }
+
+    v61 = v27 + 2;
+    if (v60 < 8)
+    {
+      v64 = 0;
+      v63 = 0;
+      v62 = 0;
+    }
+
+    else
+    {
+      v62 = 0;
+      v63 = 0;
+      v64 = 0;
+      v65 = (v27 + 27);
       do
       {
-        v59 = v58[1];
-        v60 = bswap32(*v58);
-        if (v60 <= 12)
+        v66 = v65[1];
+        v67 = bswap32(*v65);
+        if (v67 <= 12)
         {
-          switch(v60)
+          switch(v67)
           {
             case 10:
-              *v54 = v58 + 2;
+              *v61 = v65 + 2;
               break;
             case 11:
-              v63 = *(v20 + 5);
-              if (!v63)
+              v70 = *(v27 + 5);
+              if (!v70)
               {
-                goto LABEL_108;
+                goto LABEL_127;
               }
 
-              *(v63 + 8 * v57++) = v58 + 2;
+              *(v70 + 8 * v64++) = v65 + 2;
               break;
             case 12:
-              v61 = *(v20 + 9);
-              if (!v61)
+              v68 = *(v27 + 9);
+              if (!v68)
               {
-                goto LABEL_108;
+                goto LABEL_127;
               }
 
-              *(v61 + 8 * v56++) = v58 + 2;
+              *(v68 + 8 * v63++) = v65 + 2;
               break;
           }
         }
 
-        else if (v60 > 14)
+        else if (v67 > 14)
         {
-          if (v60 == 15)
+          if (v67 == 15)
           {
-            *(v20 + 11) = v58 + 2;
+            *(v27 + 11) = v65 + 2;
           }
 
-          else if (v60 == 16)
+          else if (v67 == 16)
           {
-            *(v20 + 12) = v58 + 2;
+            *(v27 + 12) = v65 + 2;
           }
         }
 
-        else if (v60 == 13)
+        else if (v67 == 13)
         {
-          v62 = *(v20 + 6);
-          if (!v62)
+          v69 = *(v27 + 6);
+          if (!v69)
           {
-            goto LABEL_108;
+            goto LABEL_127;
           }
 
-          *(v62 + 8 * v55++) = v58 + 2;
+          *(v69 + 8 * v62++) = v65 + 2;
         }
 
         else
         {
-          *(v20 + 7) = v58 + 2;
+          *(v27 + 7) = v65 + 2;
         }
 
-        v64 = bswap32(v59);
-        v58 = (v58 + v64);
-        v53 -= v64;
+        v71 = bswap32(v66);
+        v65 = (v65 + v71);
+        v60 -= v71;
       }
 
-      while (v53 > 7);
+      while (v60 > 7);
     }
 
-    if (v57 != v40 || v56 != v44 || v55 != v49)
+    if (v64 != v47 || v63 != v51 || v62 != v56)
     {
-      goto LABEL_108;
+      goto LABEL_127;
     }
 
-    v37 = v51 + v50;
-    v36 = v48 - v50;
-    switch(v39)
+    v44 = v58 + v57;
+    v43 = v55 - v57;
+    switch(v46)
     {
       case 3u:
-        v65 = *(v15 + 9);
-        if (!v65)
+        v72 = *(v22 + 9);
+        if (!v72)
         {
-          goto LABEL_108;
+          goto LABEL_127;
         }
 
-        v66 = v33++;
+        v73 = v40++;
         break;
       case 2u:
-        v65 = *(v15 + 2);
-        if (!v65)
+        v72 = *(v22 + 2);
+        if (!v72)
         {
-          goto LABEL_108;
+          goto LABEL_127;
         }
 
-        v66 = v34++;
+        v73 = v41++;
         break;
       case 1u:
-        v65 = *(v15 + 1);
-        if (!v65)
+        v72 = *(v22 + 1);
+        if (!v72)
         {
-          goto LABEL_108;
+          goto LABEL_127;
         }
 
-        v66 = v35++;
+        v73 = v42++;
         break;
       default:
-        goto LABEL_86;
+        goto LABEL_105;
     }
 
-    *(v65 + 8 * v66) = v54;
-LABEL_86:
-    v20 = (v20 + v38);
-    v19 -= v38;
+    *(v72 + 8 * v73) = v61;
+LABEL_105:
+    v27 = (v27 + v45);
+    v26 -= v45;
   }
 
-  while (v19 > 7);
-  v18 = *v15;
-LABEL_89:
-  if (v35 != v18 || v34 != v15[3] || v33 != v15[8])
+  while (v26 > 7);
+  v25 = *v22;
+LABEL_108:
+  if (v42 != v25 || v41 != v22[3] || v40 != v22[8])
   {
-    goto LABEL_108;
+    goto LABEL_127;
   }
 
   v2 = [MEMORY[0x29EDBA050] string];
   [(__CFString *)v2 appendFormat:@"%s\n", "DNS configuration"];
-  if (*v15 >= 1)
+  if (*v22 >= 1)
   {
-    v67 = 0;
+    v74 = 0;
     do
     {
-      v68 = *(*(v15 + 1) + 8 * v67++);
-      _dns_resolver_log(v15[11], v68, v67, v2);
+      v75 = *(*(v22 + 1) + 8 * v74++);
+      _dns_resolver_log(v22[11], v75, v74, v2);
     }
 
-    while (v67 < *v15);
+    while (v74 < *v22);
   }
 
-  if (v15[3] >= 1)
+  if (v22[3] >= 1)
   {
-    if (*(v15 + 2))
+    if (*(v22 + 2))
     {
       [(__CFString *)v2 appendFormat:@"%s\n", ""];
       [(__CFString *)v2 appendFormat:@"%s\n", "DNS configuration (for scoped queries)"];
-      if (v15[3] >= 1)
+      if (v22[3] >= 1)
       {
-        v69 = 0;
+        v76 = 0;
         do
         {
-          v70 = *(*(v15 + 2) + 8 * v69++);
-          _dns_resolver_log(v15[11], v70, v69, v2);
+          v77 = *(*(v22 + 2) + 8 * v76++);
+          _dns_resolver_log(v22[11], v77, v76, v2);
         }
 
-        while (v69 < v15[3]);
+        while (v76 < v22[3]);
       }
     }
   }
 
-  if (v15[8] >= 1)
+  if (v22[8] >= 1)
   {
-    if (*(v15 + 9))
+    if (*(v22 + 9))
     {
       [(__CFString *)v2 appendFormat:@"%s\n", ""];
       [(__CFString *)v2 appendFormat:@"%s\n", "DNS configuration (for service-specific queries)"];
-      if (v15[8] >= 1)
+      if (v22[8] >= 1)
       {
-        v71 = 0;
+        v78 = 0;
         do
         {
-          v72 = *(*(v15 + 9) + 8 * v71++);
-          _dns_resolver_log(v15[11], v72, v71, v2);
+          v79 = *(*(v22 + 9) + 8 * v78++);
+          _dns_resolver_log(v22[11], v79, v78, v2);
         }
 
-        while (v71 < v15[8]);
+        while (v78 < v22[8]);
       }
     }
   }
@@ -463,155 +500,135 @@ LABEL_89:
     [(__CFString *)v2 appendString:@"DNS configuration: not available"];
   }
 
-  free(v15);
-LABEL_19:
-  v14 = *MEMORY[0x29EDCA608];
+  free(v22);
   return v2;
 }
 
-uint64_t _SC_OSStateCopyFormattedString_nwi(uint64_t a1, unsigned int *a2)
+__CFString *_SC_OSStateCopyFormattedString_nwi(uint64_t a1, unsigned int *a2)
 {
-  v25 = *MEMORY[0x29EDCA608];
   v2 = @"No network information";
-  if (a1 && a2)
+  if (!a1 || !a2)
   {
-    if (a1 <= 0x97)
-    {
-      result = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"Network information: size error (%u < %zu)", a1, 56, v23, v24];
-LABEL_11:
-      v8 = *MEMORY[0x29EDCA608];
-      return result;
-    }
+    return v2;
+  }
 
-    if (*a2 != 538379777)
-    {
-      result = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"Network information: version error (%u != %u)", *a2, 538379777, v23, v24];
-      goto LABEL_11;
-    }
+  if (a1 <= 0x97)
+  {
+    return [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"Network information: size error (%u < %zu)", a1, 56, v21, v22];
+  }
 
-    v5 = a2[1];
-    v6 = 2 * v5;
-    if (4 * v5 + 112 * (2 * v5) + 40 != a1)
-    {
-      result = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"Network information: size error (%u != %zu)", a1, 4 * a2[1] + 224 * a2[1] + 40, v23, v24];
-      goto LABEL_11;
-    }
+  if (*a2 != 538379777)
+  {
+    return [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"Network information: version error (%u != %u)", *a2, 538379777, v21, v22];
+  }
 
-    v7 = a2[2];
-    if (v7 > v5)
-    {
-      result = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"Network information: ipv4 count error (%d > %d)", a2[2], a2[1], v23, v24];
-      goto LABEL_11;
-    }
+  v5 = a2[1];
+  v6 = 2 * v5;
+  if (4 * v5 + 112 * (2 * v5) + 40 != a1)
+  {
+    return [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"Network information: size error (%u != %zu)", a1, 4 * a2[1] + 224 * a2[1] + 40, v21, v22];
+  }
 
-    v9 = a2[3];
-    if (v9 > v5)
-    {
-      result = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"Network information: ipv6 count error (%d > %d)", a2[3], a2[1], v23, v24];
-      goto LABEL_11;
-    }
+  v7 = a2[2];
+  if (v7 > v5)
+  {
+    return [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"Network information: ipv4 count error (%d > %d)", a2[2], a2[1], v21, v22];
+  }
 
-    v10 = a2[4];
-    if (v10 > v5)
-    {
-      result = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"Network information: if_list count error (%d > %d)", a2[4], a2[1], v23, v24];
-      goto LABEL_11;
-    }
+  v8 = a2[3];
+  if (v8 > v5)
+  {
+    return [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"Network information: ipv6 count error (%d > %d)", a2[3], a2[1], v21, v22];
+  }
 
-    if (v7 >= 1)
+  v9 = a2[4];
+  if (v9 > v5)
+  {
+    return [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"Network information: if_list count error (%d > %d)", a2[4], a2[1], v21, v22];
+  }
+
+  if (v7 < 1)
+  {
+LABEL_21:
+    if (v8 >= 1)
     {
-      v11 = 0;
-      v12 = -v5;
-      v13 = (a2 + 16);
-      while (1)
+      v15 = 0;
+      v16 = &a2[28 * v5 + 16];
+      v17 = -v8;
+      do
       {
-        v15 = *v13;
-        v13 += 28;
-        v14 = v15;
-        if (v15)
+        v19 = *v16;
+        v16 += 28;
+        v18 = v19;
+        if (v19)
         {
-          if (v12 + v14 < 0 || v12 + v14 >= v9)
+          if ((v5 + v18) < 0 || (v5 + v18) >= v7)
           {
-            break;
+            return [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"Network information: IPv6 alias [%d] offset error (%d < 0 || %d >= %d)", -v15, v5 + v18, v5 + v18, a2[2]];
           }
         }
 
-        --v11;
-        ++v12;
-        if (-v7 == v11)
-        {
-          goto LABEL_22;
-        }
+        --v15;
+        LODWORD(v5) = v5 + 1;
       }
 
-      result = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"Network information: IPv4 alias [%d] offset error (%d < 0 || %d >= %d)", -v11, (v12 + v14), (v12 + v14), a2[3]];
-      goto LABEL_11;
+      while (v17 != v15);
     }
 
-LABEL_22:
     if (v9 >= 1)
     {
-      v16 = 0;
-      v17 = &a2[28 * v5 + 16];
-      v18 = -v9;
-      while (1)
+      v20 = &a2[28 * v6 + 10];
+      while (*v20 < v6)
       {
-        v20 = *v17;
-        v17 += 28;
-        v19 = v20;
-        if (v20)
+        ++v20;
+        if (!--v9)
         {
-          if ((v5 + v19) < 0 || (v5 + v19) >= v7)
-          {
-            break;
-          }
-        }
-
-        --v16;
-        LODWORD(v5) = v5 + 1;
-        if (v18 == v16)
-        {
-          goto LABEL_28;
+          goto LABEL_31;
         }
       }
 
-      result = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"Network information: IPv6 alias [%d] offset error (%d < 0 || %d >= %d)", -v16, v5 + v19, v5 + v19, a2[2]];
-      goto LABEL_11;
+      return [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"Network information: if_list index error (%d > %d)", *v20, 2 * a2[1], v21, v22];
     }
 
-LABEL_28:
-    if (v10 >= 1)
-    {
-      v21 = &a2[28 * v6 + 10];
-      while (*v21 < v6)
-      {
-        ++v21;
-        if (!--v10)
-        {
-          goto LABEL_32;
-        }
-      }
-
-      result = [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"Network information: if_list index error (%d > %d)", *v21, 2 * a2[1], v23, v24];
-      goto LABEL_11;
-    }
-
-LABEL_32:
+LABEL_31:
     v2 = [MEMORY[0x29EDBA050] string];
     _nwi_state_log(a2, v2);
     if (![(__CFString *)v2 length])
     {
       [(__CFString *)v2 appendString:@"Network information: not available"];
     }
+
+    return v2;
   }
 
-  v22 = *MEMORY[0x29EDCA608];
-  return v2;
+  v10 = 0;
+  v11 = -v5;
+  v12 = a2 + 16;
+  while (1)
+  {
+    v14 = *v12;
+    v12 += 28;
+    v13 = v14;
+    if (v14)
+    {
+      if ((v11 + v13) < 0 || (v11 + v13) >= v8)
+      {
+        return [objc_alloc(MEMORY[0x29EDBA0F8]) initWithFormat:@"Network information: IPv4 alias [%d] offset error (%d < 0 || %d >= %d)", -v10, v11 + v13, v11 + v13, a2[3]];
+      }
+    }
+
+    --v10;
+    ++v11;
+    if (-v7 == v10)
+    {
+      goto LABEL_21;
+    }
+  }
 }
 
 void _dns_resolver_log(unsigned int a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   v7 = a4;
   [v7 appendFormat:@"%s\n", ""];
   [v7 appendFormat:@"resolver #%d\n", a3];
@@ -637,7 +654,6 @@ void _dns_resolver_log(unsigned int a1, uint64_t a2, uint64_t a3, void *a4)
     v9 = 0;
     do
     {
-      v10 = *(*(a2 + 12) + 8 * v9);
       _SC_sockaddr_to_string();
       [v7 appendFormat:@"  nameserver[%d] : %s\n", v9++, __str];
     }
@@ -647,15 +663,15 @@ void _dns_resolver_log(unsigned int a1, uint64_t a2, uint64_t a3, void *a4)
 
   if (*(a2 + 36) >= 1)
   {
-    v11 = 0;
+    v10 = 0;
     do
     {
-      inet_ntop(2, *(*(a2 + 40) + 8 * v11), __str, 0x20u);
-      inet_ntop(2, (*(*(a2 + 40) + 8 * v11) + 4), v21, 0x20u);
-      [v7 appendFormat:@"  sortaddr[%d] : %s/%s\n", v11++, __str, v21];
+      inet_ntop(2, *(*(a2 + 40) + 8 * v10), __str, 0x20u);
+      inet_ntop(2, (*(*(a2 + 40) + 8 * v10) + 4), v19, 0x20u);
+      [v7 appendFormat:@"  sortaddr[%d] : %s/%s\n", v10++, __str, v19];
     }
 
-    while (v11 < *(a2 + 36));
+    while (v10 < *(a2 + 36));
   }
 
   if (*(a2 + 48))
@@ -677,20 +693,20 @@ void _dns_resolver_log(unsigned int a1, uint64_t a2, uint64_t a3, void *a4)
   {
     if (a1 < 0x133C785)
     {
-      v12 = 0;
+      v11 = 0;
     }
 
     else
     {
-      v12 = *(a2 + 88);
+      v11 = *(a2 + 88);
     }
 
-    if (!v12)
+    if (!v11)
     {
-      v12 = "?";
+      v11 = "?";
     }
 
-    [v7 appendFormat:@"  if_index : %u (%s)\n", *(a2 + 64), v12];
+    [v7 appendFormat:@"  if_index : %u (%s)\n", *(a2 + 64), v11];
   }
 
   if (*(a2 + 76))
@@ -698,31 +714,31 @@ void _dns_resolver_log(unsigned int a1, uint64_t a2, uint64_t a3, void *a4)
     [v7 appendFormat:@"  service_identifier : %u\n", *(a2 + 76)];
   }
 
-  v13 = *(a2 + 68);
+  v12 = *(a2 + 68);
   Mutable = CFStringCreateMutable(0, 0);
   CFStringAppend(Mutable, @"  flags    : ");
-  CFStringAppendFormat(Mutable, 0, @"0x%08x", v13);
-  if (v13)
+  CFStringAppendFormat(Mutable, 0, @"0x%08x", v12);
+  if (v12)
   {
     CFStringAppendFormat(Mutable, 0, @" (");
-    if ((v13 & 0x1000) != 0)
+    if ((v12 & 0x1000) != 0)
     {
-      v13 = v13 & 0xFFFFEFFF;
-      if (v13)
+      v12 = v12 & 0xFFFFEFFF;
+      if (v12)
       {
-        v16 = ", ";
+        v14 = ", ";
       }
 
       else
       {
-        v16 = "";
+        v14 = "";
       }
 
-      CFStringAppendFormat(Mutable, 0, @"Scoped%s", v16);
-      if ((v13 & 0x2000) == 0)
+      CFStringAppendFormat(Mutable, 0, @"Scoped%s", v14);
+      if ((v12 & 0x2000) == 0)
       {
 LABEL_30:
-        if ((v13 & 0x4000) == 0)
+        if ((v12 & 0x4000) == 0)
         {
           goto LABEL_31;
         }
@@ -731,13 +747,61 @@ LABEL_30:
       }
     }
 
-    else if ((v13 & 0x2000) == 0)
+    else if ((v12 & 0x2000) == 0)
     {
       goto LABEL_30;
     }
 
-    v13 = v13 & 0xFFFFDFFF;
-    if (v13)
+    v12 = v12 & 0xFFFFDFFF;
+    if (v12)
+    {
+      v15 = ", ";
+    }
+
+    else
+    {
+      v15 = "";
+    }
+
+    CFStringAppendFormat(Mutable, 0, @"Service-specific%s", v15);
+    if ((v12 & 0x4000) == 0)
+    {
+LABEL_31:
+      if ((v12 & 2) == 0)
+      {
+        goto LABEL_32;
+      }
+
+      goto LABEL_53;
+    }
+
+LABEL_49:
+    v12 = v12 & 0xFFFFBFFF;
+    if (v12)
+    {
+      v16 = ", ";
+    }
+
+    else
+    {
+      v16 = "";
+    }
+
+    CFStringAppendFormat(Mutable, 0, @"Supplemental%s", v16);
+    if ((v12 & 2) == 0)
+    {
+LABEL_32:
+      if ((v12 & 4) == 0)
+      {
+        goto LABEL_33;
+      }
+
+      goto LABEL_57;
+    }
+
+LABEL_53:
+    v12 = v12 & 0xFFFFFFFD;
+    if (v12)
     {
       v17 = ", ";
     }
@@ -747,21 +811,25 @@ LABEL_30:
       v17 = "";
     }
 
-    CFStringAppendFormat(Mutable, 0, @"Service-specific%s", v17);
-    if ((v13 & 0x4000) == 0)
+    CFStringAppendFormat(Mutable, 0, @"Request A records%s", v17);
+    if ((v12 & 4) == 0)
     {
-LABEL_31:
-      if ((v13 & 2) == 0)
+LABEL_33:
+      if (!v12)
       {
-        goto LABEL_32;
+LABEL_35:
+        CFStringAppend(Mutable, @""));
+        goto LABEL_36;
       }
 
-      goto LABEL_53;
+LABEL_34:
+      CFStringAppendFormat(Mutable, 0, @"0x%08x", v12);
+      goto LABEL_35;
     }
 
-LABEL_49:
-    v13 = v13 & 0xFFFFBFFF;
-    if (v13)
+LABEL_57:
+    v12 = v12 & 0xFFFFFFFB;
+    if (v12)
     {
       v18 = ", ";
     }
@@ -771,60 +839,8 @@ LABEL_49:
       v18 = "";
     }
 
-    CFStringAppendFormat(Mutable, 0, @"Supplemental%s", v18);
-    if ((v13 & 2) == 0)
-    {
-LABEL_32:
-      if ((v13 & 4) == 0)
-      {
-        goto LABEL_33;
-      }
-
-      goto LABEL_57;
-    }
-
-LABEL_53:
-    v13 = v13 & 0xFFFFFFFD;
-    if (v13)
-    {
-      v19 = ", ";
-    }
-
-    else
-    {
-      v19 = "";
-    }
-
-    CFStringAppendFormat(Mutable, 0, @"Request A records%s", v19);
-    if ((v13 & 4) == 0)
-    {
-LABEL_33:
-      if (!v13)
-      {
-LABEL_35:
-        CFStringAppend(Mutable, @""));
-        goto LABEL_36;
-      }
-
-LABEL_34:
-      CFStringAppendFormat(Mutable, 0, @"0x%08x", v13);
-      goto LABEL_35;
-    }
-
-LABEL_57:
-    v13 = v13 & 0xFFFFFFFB;
-    if (v13)
-    {
-      v20 = ", ";
-    }
-
-    else
-    {
-      v20 = "";
-    }
-
-    CFStringAppendFormat(Mutable, 0, @"Request AAAA records%s", v20);
-    if (!v13)
+    CFStringAppendFormat(Mutable, 0, @"Request AAAA records%s", v18);
+    if (!v12)
     {
       goto LABEL_35;
     }
@@ -846,13 +862,10 @@ LABEL_36:
   {
     [v7 appendFormat:@"  config id: %s\n", *(a2 + 80)];
   }
-
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 unint64_t __SCNetworkReachability_flags_string(unsigned int a1, char *__str)
 {
-  v9 = *MEMORY[0x29EDCA608];
   result = snprintf(__str, 0x64uLL, "0x%08x (", a1);
   if (a1 || result > 0x53)
   {
@@ -952,13 +965,12 @@ unint64_t __SCNetworkReachability_flags_string(unsigned int a1, char *__str)
     __str[v5 - 1] = 41;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void _nwi_state_log(unsigned int *a1, void *a2)
 {
-  v23 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   v3 = a2;
   [v3 appendFormat:@"Network information (generation %llu size=%lu)\n", nwi_state_get_generation(), 4 * a1[1] + 224 * a1[1] + 40];
   [v3 appendFormat:@"%s\n", "IPv4 network interface information"];
@@ -970,12 +982,12 @@ void _nwi_state_log(unsigned int *a1, void *a2)
   else
   {
     v4 = 0;
-    v5 = (a1 + 10);
+    v5 = a1 + 10;
     do
     {
       _nwi_ifstate_log(v5, v3);
       ++v4;
-      v5 += 112;
+      v5 += 28;
     }
 
     while (v4 < a1[2]);
@@ -1000,7 +1012,7 @@ void _nwi_state_log(unsigned int *a1, void *a2)
     {
       _nwi_ifstate_log(v9, v6);
       ++v8;
-      v9 += 112;
+      v9 += 28;
     }
 
     while (v8 < a1[3]);
@@ -1014,39 +1026,37 @@ void _nwi_state_log(unsigned int *a1, void *a2)
   if (nwi_state_get_interface_names())
   {
     MEMORY[0x2A1C7C4A8]();
-    v14 = &v21[-v13];
+    v14 = &v20[-v13];
     v15 = v12 >= 0x200 ? 512 : v12;
-    bzero(&v21[-v13], v15);
+    bzero(&v20[-v13], v15);
     interface_names = nwi_state_get_interface_names();
     if (interface_names)
     {
       v17 = interface_names;
       v18 = 17 * interface_names;
       MEMORY[0x2A1C7C4A8]();
-      bzero(&v21[-((v18 + 15) & 0x1FFFFFFF0)], v18);
+      bzero(&v20[-((v18 + 15) & 0x1FFFFFFF0)], v18);
       v19 = 0;
       do
       {
         if (v19)
         {
-          strlcat(&v21[-((v18 + 15) & 0x1FFFFFFF0)], " ", v18);
+          strlcat(&v20[-((v18 + 15) & 0x1FFFFFFF0)], " ", v18);
         }
 
-        strlcat(&v21[-((v18 + 15) & 0x1FFFFFFF0)], *&v14[v19], v18);
+        strlcat(&v20[-((v18 + 15) & 0x1FFFFFFF0)], *&v14[v19], v18);
         v19 += 8;
       }
 
       while (8 * v17 != v19);
-      [v10 appendFormat:@"Network interfaces: %s\n", &v21[-((v18 + 15) & 0x1FFFFFFF0)]];
+      [v10 appendFormat:@"Network interfaces: %s\n", &v20[-((v18 + 15) & 0x1FFFFFFF0)]];
     }
   }
-
-  v20 = *MEMORY[0x29EDCA608];
 }
 
 void _nwi_ifstate_log(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   v3 = a2;
   flags = nwi_ifstate_get_flags();
   v5 = *(a1 + 16) & 0xEFLL;
@@ -1107,29 +1117,29 @@ void _nwi_ifstate_log(uint64_t a1, void *a2)
         v10 = v7;
       }
 
-      v9 += snprintf(&v20[v9], 99 - v9, ",%p", v10);
+      v9 += snprintf(&v19[v9], 99 - v9, ",%p", v10);
     }
 
     if (v9)
     {
-      v20[v9 - 1] = 41;
+      v19[v9 - 1] = 41;
     }
   }
 
   else
   {
-    v20[0] = 0;
+    v19[0] = 0;
   }
 
   ifname = nwi_ifstate_get_ifname();
   reachability_flags = nwi_ifstate_get_reachability_flags();
-  if (!inet_ntop(*(a1 + 32), (a1 + 36), v21, 0x2Eu))
+  if (!inet_ntop(*(a1 + 32), (a1 + 36), v20, 0x2Eu))
   {
     __strlcpy_chk();
   }
 
-  [v3 appendFormat:@" %7s : flags      : %p %s\n", ifname, v6, v20];
-  [v3 appendFormat:@"           address    : %s\n", v21];
+  [v3 appendFormat:@" %7s : flags      : %p %s\n", ifname, v6, v19];
+  [v3 appendFormat:@"           address    : %s\n", v20];
   if (nwi_ifstate_get_vpn_server())
   {
     _SC_sockaddr_to_string();
@@ -1151,7 +1161,7 @@ void _nwi_ifstate_log(uint64_t a1, void *a2)
 
   if ((v13 & 0xFFFFFF) == 0xFFFFFF)
   {
-    [v3 appendFormat:@"           rank       : 0x%08x (%s, Last)\n", *(a1 + 28), v14, v18];
+    [v3 appendFormat:@"           rank       : 0x%08x (%s, Last)\n", *(a1 + 28), v14, v17];
   }
 
   else
@@ -1168,6 +1178,4 @@ void _nwi_ifstate_log(uint64_t a1, void *a2)
   }
 
   [v3 appendFormat:@"           generation : %llu\n", nwi_ifstate_get_generation()];
-
-  v17 = *MEMORY[0x29EDCA608];
 }

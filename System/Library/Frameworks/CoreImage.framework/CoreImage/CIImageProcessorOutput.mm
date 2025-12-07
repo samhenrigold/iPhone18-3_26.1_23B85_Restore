@@ -8,8 +8,10 @@
 - (unsigned)contextID;
 - (void)baseAddress;
 - (void)dealloc;
+- (void)metalCommandBuffer;
 - (void)metalTexture;
 - (void)setError:(id)error;
+- (void)surface;
 @end
 
 @implementation CIImageProcessorOutput
@@ -35,7 +37,7 @@
 
   else
   {
-    v11 = ci_logger_api();
+    v11 = ci_logger_api(self, a2);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [CIImageProcessorOutput initWithSurface:v11 texture:v12 digest:v13 allowSRGB:v14 bounds:v15 onlyMetal:v16 context:v17 tileTask:v18];
@@ -79,7 +81,7 @@
     return self->super._surface;
   }
 
-  v2 = ci_logger_api();
+  v2 = ci_logger_api(self, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     [(CIImageProcessorOutput *)v2 surface:v3];
@@ -90,70 +92,21 @@
 
 - (void)baseAddress
 {
-  if (CGRectIsEmpty(self->super._region))
-  {
-    return 0;
-  }
-
-  surface = self->super._surface;
-  if (!surface)
-  {
-    return 0;
-  }
-
-  if (IOSurfaceGetPlaneCount(surface) >= 2)
-  {
-    v4 = ci_logger_api();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      [(CIImageProcessorOutput *)v4 baseAddress:v5];
-    }
-
-    return 0;
-  }
-
-  if (self->super._onlyMetal)
-  {
-    v12 = ci_logger_api();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      [(CIImageProcessorOutput *)v12 baseAddress:v13];
-    }
-
-    return 0;
-  }
-
-  if (IOSurfaceGetCompressionTypeOfPlane())
-  {
-    v20 = ci_logger_api();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
-    {
-      [(CIImageProcessorOutput *)v20 baseAddress:v21];
-    }
-
-    return 0;
-  }
-
-  if (!self->super._surfaceLocked)
-  {
-    IOSurfaceLock(self->super._surface, 0, 0);
-    self->super._surfaceLocked = 1;
-  }
-
-  v29 = self->super._surface;
-
-  return IOSurfaceGetBaseAddress(v29);
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[CIImageProcessorOutput baseAddress]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, self, a3, "%{public}s a biplanar CIProcessorOutput cannot be accessed via its base address.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (MTLTexture)metalTexture
 {
-  if (IOSurfaceGetPlaneCount(self->super._surface) < 2)
+  PlaneCount = IOSurfaceGetPlaneCount(self->super._surface);
+  if (PlaneCount < 2)
   {
     CIMetalFormatForFormat([(CIImageProcessorInOut *)self format], 0);
     [(CIImageProcessorInOut *)self device];
-    MTLPixelFormatGetInfoForDevice();
-    v11 = ci_logger_api();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    InfoForDevice = MTLPixelFormatGetInfoForDevice();
+    v15 = ci_logger_api(InfoForDevice, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [CIImageProcessorOutput metalTexture];
     }
@@ -161,10 +114,10 @@
 
   else
   {
-    v3 = ci_logger_api();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = ci_logger_api(PlaneCount, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [(CIImageProcessorOutput *)v3 metalTexture:v4];
+      [(CIImageProcessorOutput *)v5 metalTexture:v6];
     }
   }
 
@@ -193,9 +146,9 @@ LABEL_8:
   if (v6 != 84)
   {
     {
-      v18 = device;
+      v20 = device;
       {
-        singletonMTLCommandQueue(objc_object  {objcproto9MTLDevice}*)::commandQueue = CIMetalCommandQueueCreate("com.apple.CoreImage", v18);
+        singletonMTLCommandQueue(objc_object  {objcproto9MTLDevice}*)::commandQueue = CIMetalCommandQueueCreate("com.apple.CoreImage", v20);
       }
     }
 
@@ -208,12 +161,13 @@ LABEL_8:
   CFRelease(v8);
   cmdBuffer = self->_cmdBuffer;
 LABEL_9:
-  if (([(MTLCommandBuffer *)cmdBuffer retainedReferences]& 1) == 0)
+  retainedReferences = [(MTLCommandBuffer *)cmdBuffer retainedReferences];
+  if ((retainedReferences & 1) == 0)
   {
-    v9 = ci_logger_api();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = ci_logger_api(retainedReferences, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(CIImageProcessorOutput *)v9 metalCommandBuffer:v10];
+      [(CIImageProcessorOutput *)v11 metalCommandBuffer:v12];
     }
   }
 
@@ -290,11 +244,32 @@ LABEL_9:
   }
 }
 
+- (void)initWithSurface:(NSObject *)a1 texture:(uint64_t)a2 digest:(uint64_t)a3 allowSRGB:(uint64_t)a4 bounds:(uint64_t)a5 onlyMetal:(uint64_t)a6 context:(uint64_t)a7 tileTask:(uint64_t)a8 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[CIImageProcessorOutput initWithSurface:texture:digest:allowSRGB:bounds:onlyMetal:context:tileTask:]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, a1, a3, "%{public}s Both surface and texture are nil.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)surface
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[CIImageProcessorOutput surface]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, self, a3, "%{public}s a Metal-only CIProcessorOutput cannot be accessed via an IOSurface.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)metalTexture
 {
-  OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[CIImageProcessorOutput metalTexture]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, self, a3, "%{public}s A biplanar CIProcessorOutput cannot be accessed via a Metal texture.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)metalCommandBuffer
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[CIImageProcessorOutput metalCommandBuffer]";
+  OUTLINED_FUNCTION_2_1(&dword_19CC36000, self, a3, "%{public}s command buffer provided to processor does not hold strong references to resources.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

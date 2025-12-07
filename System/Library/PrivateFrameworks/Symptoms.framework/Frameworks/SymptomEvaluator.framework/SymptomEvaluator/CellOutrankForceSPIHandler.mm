@@ -30,7 +30,7 @@
 {
   bCopy = b;
   LODWORD(v7) = fi;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   v10 = v9;
   forcePreferCellOverWiFiTimer = self->_forcePreferCellOverWiFiTimer;
@@ -45,9 +45,9 @@
   if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109376;
-    v29 = v7;
-    v30 = 2048;
-    v31 = until - v10;
+    v28 = v7;
+    v29 = 2048;
+    v30 = until - v10;
     _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "COSM handlePreferCellOverWiFi force %d delay %f", buf, 0x12u);
   }
 
@@ -115,13 +115,11 @@
     cellOutrankForcedViaSPI = [(CellOutrankForceSPIHandler *)self cellOutrankForcedViaSPI];
     [(CellOutrankForceSPIHandler *)self cellOutrankForcedViaSPIUntil];
     *buf = 67109376;
-    v29 = cellOutrankForcedViaSPI;
-    v30 = 2048;
-    v31 = v25;
+    v28 = cellOutrankForcedViaSPI;
+    v29 = 2048;
+    v30 = v25;
     _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEBUG, "COSM handlePreferCellOverWiFi exit with force %d until %f", buf, 0x12u);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __70__CellOutrankForceSPIHandler_handlePreferCellOverWiFi_until_updateDB___block_invoke(uint64_t a1)
@@ -154,15 +152,15 @@ void __70__CellOutrankForceSPIHandler_handlePreferCellOverWiFi_until_updateDB___
 
 void __78__CellOutrankForceSPIHandler_setForcePreferCellOverWiFi_autoDisableTimestamp___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   if (v2 == 0.0)
   {
     v3 = outrankLogHandle;
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "COSM SPI setForcePreferCellOverWiFi apply default delay", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "COSM SPI setForcePreferCellOverWiFi apply default delay", &v14, 2u);
     }
 
     v4 = [MEMORY[0x277CBEA80] autoupdatingCurrentCalendar];
@@ -182,15 +180,15 @@ void __78__CellOutrankForceSPIHandler_setForcePreferCellOverWiFi_autoDisableTime
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_ERROR))
     {
       v13 = *(a1 + 48);
-      v15 = 67109888;
-      v16 = v13;
-      v17 = 1024;
-      v18 = (v2 - v10);
-      v19 = 1024;
-      v20 = v10;
-      v21 = 1024;
-      v22 = v2;
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "COSM SPI setForcePreferCellOverWiFi %d, negative wait %d secs now %d until %d", &v15, 0x1Au);
+      v14 = 67109888;
+      v15 = v13;
+      v16 = 1024;
+      v17 = (v2 - v10);
+      v18 = 1024;
+      v19 = v10;
+      v20 = 1024;
+      v21 = v2;
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "COSM SPI setForcePreferCellOverWiFi %d, negative wait %d secs now %d until %d", &v14, 0x1Au);
     }
   }
 
@@ -199,17 +197,15 @@ void __78__CellOutrankForceSPIHandler_setForcePreferCellOverWiFi_autoDisableTime
     if (os_log_type_enabled(outrankLogHandle, OS_LOG_TYPE_DEBUG))
     {
       v12 = *(a1 + 48);
-      v15 = 67109376;
-      v16 = v12;
-      v17 = 1024;
-      v18 = (v2 - v10);
-      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "COSM SPI setForcePreferCellOverWiFi %d, until %d secs", &v15, 0xEu);
+      v14 = 67109376;
+      v15 = v12;
+      v16 = 1024;
+      v17 = (v2 - v10);
+      _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEBUG, "COSM SPI setForcePreferCellOverWiFi %d, until %d secs", &v14, 0xEu);
     }
 
     [*(a1 + 32) handlePreferCellOverWiFi:*(a1 + 48) until:1 updateDB:v2];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (CellOutrankForceSPIHandler)init
@@ -239,7 +235,7 @@ void __78__CellOutrankForceSPIHandler_setForcePreferCellOverWiFi_autoDisableTime
 
 void __34__CellOutrankForceSPIHandler_init__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.symptomsd.cellOutrankOverrides"];
   v3 = v2;
   if (v2)
@@ -259,11 +255,11 @@ void __34__CellOutrankForceSPIHandler_init__block_invoke(uint64_t a1)
         {
           v11 = v9;
           v12 = dateStringMillisecondsFromTimeInterval(v6);
-          v14 = 134218242;
-          v15 = v6 - v8;
-          v16 = 2114;
-          v17 = v12;
-          _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "COSM CellOutrankForceSPIHandler init: persist values for SIS override, delay %.5f for expiry time %{public}@", &v14, 0x16u);
+          v13 = 134218242;
+          v14 = v6 - v8;
+          v15 = 2114;
+          v16 = v12;
+          _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "COSM CellOutrankForceSPIHandler init: persist values for SIS override, delay %.5f for expiry time %{public}@", &v13, 0x16u);
         }
 
         [*(a1 + 32) handlePreferCellOverWiFi:1 until:0 updateDB:v6];
@@ -273,16 +269,14 @@ void __34__CellOutrankForceSPIHandler_init__block_invoke(uint64_t a1)
       {
         if (v10)
         {
-          LOWORD(v14) = 0;
-          _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "COSM CellOutrankForceSPIHandler init: delete stale values for SIS override", &v14, 2u);
+          LOWORD(v13) = 0;
+          _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "COSM CellOutrankForceSPIHandler init: delete stale values for SIS override", &v13, 2u);
         }
 
         [*(a1 + 32) deletePreferCellOverWiFiSettings];
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedInstance

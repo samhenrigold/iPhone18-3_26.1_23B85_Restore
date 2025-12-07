@@ -1,6 +1,6 @@
 @interface EGStillImagePiecemealEncodingNode
 - (EGStillImagePiecemealEncodingNode)initWithName:(id)name stillImageSettings:(id)settings resourceCoordinator:(id)coordinator portType:(id)type mode:(int)mode delegate:(id)delegate;
-- (uint64_t)_getAttachedMediaToEncodeByKeyFromSampleBuffer:(uint64_t)result;
+- (void)_getAttachedMediaToEncodeByKeyFromSampleBuffer:(void *)result;
 - (void)dealloc;
 - (void)queueManagedReceiveData:(id)data fromInputGroup:(id)group;
 @end
@@ -57,7 +57,7 @@
     if (v7)
     {
       v8 = v7;
-      v9 = [(EGStillImagePiecemealEncodingNode *)self _getAttachedMediaToEncodeByKeyFromSampleBuffer:v7];
+      v9 = [(EGStillImagePiecemealEncodingNode *)&self->super.super.super.super.isa _getAttachedMediaToEncodeByKeyFromSampleBuffer:v7];
       if ([v9 count])
       {
         v10 = CMGetAttachment(v8, *off_1E798A3C8, 0);
@@ -110,16 +110,16 @@ LABEL_14:
   [EGStillImagePiecemealEncodingNode queueManagedReceiveData:selfCopy fromInputGroup:?];
 }
 
-- (uint64_t)_getAttachedMediaToEncodeByKeyFromSampleBuffer:(uint64_t)result
+- (void)_getAttachedMediaToEncodeByKeyFromSampleBuffer:(void *)result
 {
   if (result)
   {
     v3 = result;
-    v4 = *(result + 160);
+    v4 = *(result + 40);
     if (v4 == 1)
     {
-      v5 = BWPhotoEncoderSmartStylesAttachedMediaKeysForPiecemealEncoding(*(result + 136));
-      v6 = *(v3 + 144);
+      v5 = BWPhotoEncoderSmartStylesAttachedMediaKeysForPiecemealEncoding(result[17]);
+      v6 = v3[18];
 
       return [v6 attachedMediaFromInferencesOrSampleBuffer:a2 attachedMediaKeys:v5];
     }

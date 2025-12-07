@@ -40,10 +40,42 @@
 
 - (void)dealloc
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_1(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: %@ deallocated while executing%@");
-  v2 = *MEMORY[0x277D85DE8];
+  dispatch_activate(self->_callbackQueue);
+  if (self->_logSections.sectionID)
+  {
+    v10 = *&self->_logSections.sectionID;
+    v11 = *&self->_logSections.line;
+    v3 = brc_bread_crumbs();
+    v4 = brc_default_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    {
+      [(_BRCOperation *)&v10 dealloc];
+    }
+
+    __brc_leave_section(&v10);
+  }
+
+  group = self->_group;
+  if (group)
+  {
+    dispatch_group_leave(group);
+    v6 = self->_group;
+    self->_group = 0;
+  }
+
+  if (self->_executionTransaction)
+  {
+    v7 = brc_bread_crumbs();
+    v8 = brc_default_log();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    {
+      [_BRCOperation dealloc];
+    }
+  }
+
+  v9.receiver = self;
+  v9.super_class = _BRCOperation;
+  [(_BRCOperation *)&v9 dealloc];
 }
 
 - (NSUUID)operationID
@@ -165,10 +197,42 @@ LABEL_4:
 
 - (void)schedule
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_1(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: there should be a group created for %@%@");
-  v2 = *MEMORY[0x277D85DE8];
+  if ([(_BRCOperation *)self qualityOfService]== -1)
+  {
+    qualityOfService = QOS_CLASS_UTILITY;
+  }
+
+  else
+  {
+    qualityOfService = [(_BRCOperation *)self qualityOfService];
+  }
+
+  group = [(_BRCOperation *)self group];
+
+  if (!group)
+  {
+    v5 = brc_bread_crumbs();
+    v6 = brc_default_log();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    {
+      [_BRCOperation schedule];
+    }
+
+    v7 = objc_opt_new();
+    name = [(_BRCOperation *)self name];
+    [v7 setName:name];
+
+    [(_BRCOperation *)self setGroup:v7];
+  }
+
+  internalQueue = self->_internalQueue;
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __25___BRCOperation_schedule__block_invoke;
+  block[3] = &unk_2784FF450;
+  block[4] = self;
+  v10 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, qualityOfService, 0, block);
+  dispatch_async_with_logs(internalQueue, v10);
 }
 
 - (_BRCOperation)init
@@ -180,18 +244,18 @@ LABEL_4:
 
 - (_BRCOperation)initWithName:(id)name syncContext:(id)context sessionContext:(id)sessionContext group:(id)group
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   contextCopy = context;
   sessionContextCopy = sessionContext;
   groupCopy = group;
-  v48.receiver = self;
-  v48.super_class = _BRCOperation;
-  v14 = [(_BRCOperation *)&v48 init];
+  v47.receiver = self;
+  v47.super_class = _BRCOperation;
+  v14 = [(_BRCOperation *)&v47 init];
   v15 = v14;
   if (v14)
   {
-    v45 = contextCopy;
+    v44 = contextCopy;
     [(_BRCOperation *)v14 setName:nameCopy];
     uuid_generate_random(v15->_operationUUID);
     objc_storeStrong(&v15->_sessionContext, sessionContext);
@@ -236,24 +300,24 @@ LABEL_4:
     }
 
     [(_BRCOperation *)v15 setQualityOfService:17];
-    v46 = 0uLL;
-    v47 = 0;
-    __brc_create_section(0, "[_BRCOperation initWithName:syncContext:sessionContext:group:]", 146, 0, &v46);
+    v45 = 0uLL;
+    v46 = 0;
+    __brc_create_section(0, "[_BRCOperation initWithName:syncContext:sessionContext:group:]", 146, 0, &v45);
     v35 = brc_bread_crumbs();
     v36 = brc_default_log();
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218498;
-      v50 = v46;
-      v51 = 2112;
-      v52 = v15;
-      v53 = 2112;
-      v54 = v35;
+      v49 = v45;
+      v50 = 2112;
+      v51 = v15;
+      v52 = 2112;
+      v53 = v35;
       _os_log_debug_impl(&dword_223E7A000, v36, OS_LOG_TYPE_DEBUG, "[DEBUG] ┣%llx creating operation %@%@", buf, 0x20u);
     }
 
-    v37 = v46;
-    *&v15->_logSections.line = v47;
+    v37 = v45;
+    *&v15->_logSections.line = v46;
     *&v15->_logSections.sectionID = v37;
     mEMORY[0x277D77BF8] = [MEMORY[0x277D77BF8] sharedManager];
     br_currentPersonaID = [mEMORY[0x277D77BF8] br_currentPersonaID];
@@ -265,10 +329,9 @@ LABEL_4:
     v15->_timeout = v42;
 
     v15->_maxBackoff = 1.79769313e308;
-    contextCopy = v45;
+    contextCopy = v44;
   }
 
-  v43 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -281,7 +344,7 @@ LABEL_4:
 
 - (void)setGroup:(id)group
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   logSections = self->_logSections;
   v5 = brc_bread_crumbs();
@@ -290,10 +353,10 @@ LABEL_4:
   {
     *buf = 134218498;
     sectionID = logSections.sectionID;
-    v12 = 2112;
-    v13 = groupCopy;
-    v14 = 2112;
-    v15 = v5;
+    v11 = 2112;
+    v12 = groupCopy;
+    v13 = 2112;
+    v14 = v5;
     _os_log_debug_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx now using group: %@%@", buf, 0x20u);
   }
 
@@ -301,7 +364,6 @@ LABEL_4:
   self->_operationGroup = groupCopy;
 
   __brc_leave_section(&logSections);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)stateWithContext:(id)context
@@ -354,9 +416,9 @@ LABEL_4:
 
 - (id)descriptionWithContext:(id)context
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v39 = [BRCDumpContext nowDateFromContext:contextCopy];
+  v38 = [BRCDumpContext nowDateFromContext:contextCopy];
   v5 = objc_alloc(MEMORY[0x277CCAB68]);
   v6 = [BRCDumpContext stringFromOperationUUID:self->_operationUUID context:contextCopy];
   name = [(_BRCOperation *)self name];
@@ -365,11 +427,11 @@ LABEL_4:
   selfCopy = self;
   objc_sync_enter(selfCopy);
   obj = selfCopy;
-  v40 = [(_BRCOperation *)selfCopy subclassableDescriptionWithContext:contextCopy];
-  if ([v40 length])
+  v39 = [(_BRCOperation *)selfCopy subclassableDescriptionWithContext:contextCopy];
+  if ([v39 length])
   {
     [v8 appendString:@" "];
-    [v8 appendString:v40];
+    [v8 appendString:v39];
   }
 
   v10 = [(_BRCOperation *)selfCopy stateWithContext:contextCopy];
@@ -378,11 +440,11 @@ LABEL_4:
   finishDate = selfCopy->_finishDate;
   if (!finishDate)
   {
-    finishDate = v39;
+    finishDate = v38;
   }
 
-  v37 = finishDate;
-  [(NSDate *)v37 timeIntervalSinceDate:selfCopy->_startDate];
+  v36 = finishDate;
+  [(NSDate *)v36 timeIntervalSinceDate:selfCopy->_startDate];
   v12 = [BRCDumpContext stringFromInterval:contextCopy context:?];
   [v8 appendFormat:@" duration:%@", v12];
 
@@ -408,43 +470,43 @@ LABEL_4:
   }
 
   dependencies = [(_BRCOperation *)selfCopy dependencies];
-  v42 = [dependencies mutableCopy];
+  v41 = [dependencies mutableCopy];
 
   v20 = selfCopy->_subOperations;
   objc_sync_enter(v20);
   allObjects = [(NSHashTable *)selfCopy->_subOperations allObjects];
   objc_sync_exit(v20);
 
-  v38 = allObjects;
+  v37 = allObjects;
   if ([allObjects count])
   {
     [v8 appendString:@" sub {\n"];
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     v22 = allObjects;
-    v23 = [v22 countByEnumeratingWithState:&v47 objects:v52 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v46 objects:v51 count:16];
     if (v23)
     {
-      v24 = *v48;
+      v24 = *v47;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v48 != v24)
+          if (*v47 != v24)
           {
             objc_enumerationMutation(v22);
           }
 
-          v26 = *(*(&v47 + 1) + 8 * i);
-          [v42 removeObject:v26];
+          v26 = *(*(&v46 + 1) + 8 * i);
+          [v41 removeObject:v26];
           lightweightDescription = [v26 lightweightDescription];
           v28 = [BRCDumpContext highlightedString:lightweightDescription type:2 context:contextCopy];
           [v8 appendFormat:@"    %@, \n", v28];
         }
 
-        v23 = [v22 countByEnumeratingWithState:&v47 objects:v52 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v46 objects:v51 count:16];
       }
 
       while (v23);
@@ -453,33 +515,33 @@ LABEL_4:
     [v8 appendString:@"}"];
   }
 
-  if ([v42 count])
+  if ([v41 count])
   {
     [v8 appendString:@" dep {\n"];
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
-    v29 = v42;
-    v30 = [v29 countByEnumeratingWithState:&v43 objects:v51 count:16];
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v29 = v41;
+    v30 = [v29 countByEnumeratingWithState:&v42 objects:v50 count:16];
     if (v30)
     {
-      v31 = *v44;
+      v31 = *v43;
       do
       {
         for (j = 0; j != v30; ++j)
         {
-          if (*v44 != v31)
+          if (*v43 != v31)
           {
             objc_enumerationMutation(v29);
           }
 
-          lightweightDescription2 = [*(*(&v43 + 1) + 8 * j) lightweightDescription];
+          lightweightDescription2 = [*(*(&v42 + 1) + 8 * j) lightweightDescription];
           v34 = [BRCDumpContext highlightedString:lightweightDescription2 type:2 context:contextCopy];
           [v8 appendFormat:@"    %@, \n", v34];
         }
 
-        v30 = [v29 countByEnumeratingWithState:&v43 objects:v51 count:16];
+        v30 = [v29 countByEnumeratingWithState:&v42 objects:v50 count:16];
       }
 
       while (v30);
@@ -489,7 +551,6 @@ LABEL_4:
   }
 
   objc_sync_exit(obj);
-  v35 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -578,35 +639,35 @@ LABEL_4:
 
 - (void)_executeWithPreviousError:(id)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   dispatch_assert_queue_V2(self->_callbackQueue);
   if (![(_BRCOperation *)self _finishIfCancelled])
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     dependencies = [(_BRCOperation *)self dependencies];
-    v6 = [dependencies countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [dependencies countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
-      v7 = *v16;
+      v7 = *v15;
       do
       {
         v8 = 0;
         do
         {
-          if (*v16 != v7)
+          if (*v15 != v7)
           {
             objc_enumerationMutation(dependencies);
           }
 
-          [(_BRCOperation *)self removeDependency:*(*(&v15 + 1) + 8 * v8++)];
+          [(_BRCOperation *)self removeDependency:*(*(&v14 + 1) + 8 * v8++)];
         }
 
         while (v6 != v8);
-        v6 = [dependencies countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v6 = [dependencies countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v6);
@@ -636,13 +697,11 @@ LABEL_4:
 
     [(_BRCOperation *)self _main];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleExecutionWithPreviousError:(id)error
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   dispatch_assert_queue_V2(self->_callbackQueue);
   [(_BRCOperation *)self setExecuting:0];
@@ -682,11 +741,11 @@ LABEL_4:
   {
     throttleHash = selfCopy->_throttleHash;
     *buf = 134218498;
-    v58 = v15 / 1000000000.0;
-    v59 = 2048;
-    v60 = throttleHash;
-    v61 = 2112;
-    v62 = v16;
+    v57 = v15 / 1000000000.0;
+    v58 = 2048;
+    v59 = throttleHash;
+    v60 = 2112;
+    v61 = v16;
     _os_log_debug_impl(&dword_223E7A000, v17, OS_LOG_TYPE_DEBUG, "[DEBUG] throttle backoff: %03fs for hash:0x%016llx%@", buf, 0x20u);
   }
 
@@ -791,14 +850,14 @@ LABEL_4:
       v41 = dispatch_time(0, v27);
       dispatch_source_set_timer(v35->_retryTimer, v41, 0xFFFFFFFFFFFFFFFFLL, v27 / 2);
       v42 = v35->_retryTimer;
-      v55[0] = MEMORY[0x277D85DD0];
-      v55[1] = 3221225472;
-      v55[2] = __53___BRCOperation__scheduleExecutionWithPreviousError___block_invoke;
-      v55[3] = &unk_2784FF478;
-      v55[4] = v35;
-      v56 = errorCopy;
+      v54[0] = MEMORY[0x277D85DD0];
+      v54[1] = 3221225472;
+      v54[2] = __53___BRCOperation__scheduleExecutionWithPreviousError___block_invoke;
+      v54[3] = &unk_2784FF478;
+      v54[4] = v35;
+      v55 = errorCopy;
       v43 = v42;
-      v44 = v55;
+      v44 = v54;
       v45 = v44;
       v46 = v44;
       if (*MEMORY[0x277CFB010])
@@ -831,31 +890,29 @@ LABEL_4:
     [(_BRCOperation *)selfCopy finishWithResult:0 error:errorCopy];
     objc_autoreleasePoolPop(v23);
   }
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancel
 {
-  v45 = *MEMORY[0x277D85DE8];
-  memset(v36, 0, sizeof(v36));
-  __brc_create_section(0, "[_BRCOperation cancel]", 605, 0, v36);
+  v44 = *MEMORY[0x277D85DE8];
+  memset(v35, 0, sizeof(v35));
+  __brc_create_section(0, "[_BRCOperation cancel]", 605, 0, v35);
   v3 = brc_bread_crumbs();
   v4 = brc_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    v40 = v36[0];
-    v41 = 2112;
+    v39 = v35[0];
+    v40 = 2112;
     selfCopy = self;
-    v43 = 2112;
-    v44 = v3;
+    v42 = 2112;
+    v43 = v3;
     _os_log_debug_impl(&dword_223E7A000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx cancelling %@%@", buf, 0x20u);
   }
 
-  v35.receiver = self;
-  v35.super_class = _BRCOperation;
-  [(_BRCOperation *)&v35 cancel];
+  v34.receiver = self;
+  v34.super_class = _BRCOperation;
+  [(_BRCOperation *)&v34 cancel];
   v5 = self->_subOperations;
   objc_sync_enter(v5);
   allObjects = [(NSHashTable *)self->_subOperations allObjects];
@@ -864,73 +921,73 @@ LABEL_4:
   dependencies = [(_BRCOperation *)self dependencies];
   v8 = [dependencies mutableCopy];
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   obj = allObjects;
-  v9 = [obj countByEnumeratingWithState:&v31 objects:v38 count:16];
+  v9 = [obj countByEnumeratingWithState:&v30 objects:v37 count:16];
   if (v9)
   {
-    v10 = *v32;
+    v10 = *v31;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v32 != v10)
+        if (*v31 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v31 + 1) + 8 * i);
+        v12 = *(*(&v30 + 1) + 8 * i);
         [(BRCSyncContext *)self->_syncContext cancelOperation:v12];
         [v8 removeObject:v12];
       }
 
-      v9 = [obj countByEnumeratingWithState:&v31 objects:v38 count:16];
+      v9 = [obj countByEnumeratingWithState:&v30 objects:v37 count:16];
     }
 
     while (v9);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v13 = v8;
-  v14 = [v13 countByEnumeratingWithState:&v27 objects:v37 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v26 objects:v36 count:16];
   if (v14)
   {
-    v16 = *v28;
+    v16 = *v27;
     *&v15 = 138412802;
-    v24 = v15;
+    v23 = v15;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v28 != v16)
+        if (*v27 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v27 + 1) + 8 * j);
-        [(_BRCOperation *)self removeDependency:v18, v24];
+        v18 = *(*(&v26 + 1) + 8 * j);
+        [(_BRCOperation *)self removeDependency:v18, v23];
         v19 = brc_bread_crumbs();
         v20 = brc_default_log();
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
           operationID = [(_BRCOperation *)self operationID];
-          *buf = v24;
-          v40 = v18;
-          v41 = 2112;
+          *buf = v23;
+          v39 = v18;
+          v40 = 2112;
           selfCopy = operationID;
-          v43 = 2112;
-          v44 = v19;
+          v42 = 2112;
+          v43 = v19;
           _os_log_debug_impl(&dword_223E7A000, v20, OS_LOG_TYPE_DEBUG, "[DEBUG] Removed %@ as dependency of cancelled op %@%@", buf, 0x20u);
         }
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v27 objects:v37 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v26 objects:v36 count:16];
     }
 
     while (v14);
@@ -944,8 +1001,7 @@ LABEL_4:
   block[4] = self;
   dispatch_async(callbackQueue, block);
 
-  __brc_leave_section(v36);
-  v23 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v35);
 }
 
 - (BOOL)shouldRetryForError:(id)error
@@ -968,21 +1024,21 @@ LABEL_4:
 
 - (void)finishWithResult:(id)result error:(id)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   errorCopy = error;
-  memset(v28, 0, sizeof(v28));
-  __brc_create_section(0, "[_BRCOperation finishWithResult:error:]", 652, 0, v28);
+  memset(v27, 0, sizeof(v27));
+  __brc_create_section(0, "[_BRCOperation finishWithResult:error:]", 652, 0, v27);
   v8 = brc_bread_crumbs();
   v9 = brc_default_log();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    v31 = v28[0];
-    v32 = 2112;
+    v30 = v27[0];
+    v31 = 2112;
     selfCopy = self;
-    v34 = 2112;
-    v35 = v8;
+    v33 = 2112;
+    v34 = v8;
     _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx finishing %@%@", buf, 0x20u);
   }
 
@@ -1009,30 +1065,30 @@ LABEL_4:
     finishBlock[2](finishBlock, resultCopy, errorCopy);
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   dependencies = [(_BRCOperation *)self dependencies];
-  v16 = [dependencies countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v16 = [dependencies countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v16)
   {
-    v17 = *v25;
+    v17 = *v24;
     do
     {
       v18 = 0;
       do
       {
-        if (*v25 != v17)
+        if (*v24 != v17)
         {
           objc_enumerationMutation(dependencies);
         }
 
-        [(_BRCOperation *)self removeDependency:*(*(&v24 + 1) + 8 * v18++)];
+        [(_BRCOperation *)self removeDependency:*(*(&v23 + 1) + 8 * v18++)];
       }
 
       while (v16 != v18);
-      v16 = [dependencies countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v16 = [dependencies countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v16);
@@ -1056,13 +1112,12 @@ LABEL_4:
   mainBlock = self->_mainBlock;
   self->_mainBlock = 0;
 
-  __brc_leave_section(v28);
-  v23 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v27);
 }
 
 - (void)_completedWithResult:(id)result error:(id)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   errorCopy = error;
   logSections = self->_logSections;
@@ -1070,38 +1125,38 @@ LABEL_4:
   v9 = brc_default_log();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v22 = @"failed";
+    v21 = @"failed";
     *buf = 134219522;
     if (!errorCopy)
     {
-      v22 = @"completed";
+      v21 = @"completed";
     }
 
     sectionID = logSections.sectionID;
-    v30 = 2112;
-    v23 = &stru_2837504F0;
-    v31 = &stru_2837504F0;
-    v24 = @"\nwith error: ";
+    v29 = 2112;
+    v22 = &stru_2837504F0;
+    v30 = &stru_2837504F0;
+    v23 = @"\nwith error: ";
     if (!errorCopy)
     {
-      v24 = &stru_2837504F0;
+      v23 = &stru_2837504F0;
     }
 
-    v32 = 2112;
+    v31 = 2112;
     if (errorCopy)
     {
-      v23 = errorCopy;
+      v22 = errorCopy;
     }
 
-    v33 = v22;
-    v34 = 2112;
+    v32 = v21;
+    v33 = 2112;
     selfCopy = self;
-    v36 = 2112;
-    v37 = v24;
-    v38 = 2112;
-    v39 = v23;
-    v40 = 2112;
-    v41 = v8;
+    v35 = 2112;
+    v36 = v23;
+    v37 = 2112;
+    v38 = v22;
+    v39 = 2112;
+    v40 = v8;
     _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx %@%@ %@%@%@%@", buf, 0x48u);
   }
 
@@ -1128,8 +1183,8 @@ LABEL_4:
       {
         *buf = 138412546;
         sectionID = selfCopy2;
-        v30 = 2112;
-        v31 = v12;
+        v29 = 2112;
+        v30 = v12;
         _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] We are denylisted! Not notifying about finishing %@%@", buf, 0x16u);
       }
 
@@ -1155,9 +1210,9 @@ LABEL_4:
       {
         if (!selfCopy2->_operationFailureThrottle)
         {
-          v25 = brc_bread_crumbs();
-          v26 = brc_default_log();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+          v24 = brc_bread_crumbs();
+          v25 = brc_default_log();
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
           {
             [_BRCOperation _completedWithResult:error:];
           }
@@ -1184,118 +1239,115 @@ LABEL_4:
 
 LABEL_20:
   __brc_leave_section(&logSections);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)completedWithResult:(id)result error:(id)error
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   errorCopy = error;
-  personaID = self->_personaID;
   if ((BRCurrentPersonaMatchesID() & 1) == 0)
   {
-    v12 = brc_bread_crumbs();
-    v13 = brc_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v11 = brc_bread_crumbs();
+    v12 = brc_default_log();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       [_BRCOperation completedWithResult:error:];
     }
 
-    if ([(NSString *)self->_personaID isEqualToString:@"__defaultPersonaID__"]|| (v14 = self->_personaID) == 0)
+    if ([(NSString *)self->_personaID isEqualToString:@"__defaultPersonaID__"]|| (v13 = self->_personaID) == 0)
     {
       if (completedWithResult_error____personaOnceToken != -1)
       {
         [_BRCOperation completedWithResult:error:];
       }
 
-      v15 = completedWithResult_error____personalPersona;
-      v16 = 1;
+      v14 = completedWithResult_error____personalPersona;
+      v15 = 1;
     }
 
     else
     {
-      v15 = v14;
-      v16 = 0;
+      v14 = v13;
+      v15 = 0;
     }
 
     mEMORY[0x277D77BF8] = [MEMORY[0x277D77BF8] sharedManager];
     currentPersona = [mEMORY[0x277D77BF8] currentPersona];
 
-    v43 = 0;
+    v41 = 0;
     userPersonaUniqueString = [currentPersona userPersonaUniqueString];
-    v20 = userPersonaUniqueString;
-    if (userPersonaUniqueString == v15 || [(NSString *)userPersonaUniqueString isEqualToString:v15])
+    v19 = userPersonaUniqueString;
+    if (userPersonaUniqueString == v14 || [(NSString *)userPersonaUniqueString isEqualToString:v14])
     {
-      v21 = 0;
+      v20 = 0;
     }
 
     else
     {
       if (voucher_process_can_use_arbitrary_personas())
       {
-        v42 = 0;
-        v26 = [currentPersona copyCurrentPersonaContextWithError:&v42];
-        v27 = v42;
-        v28 = v43;
-        v43 = v26;
+        v40 = 0;
+        v24 = [currentPersona copyCurrentPersonaContextWithError:&v40];
+        v25 = v40;
+        v26 = v41;
+        v41 = v24;
 
-        if (v27)
+        if (v25)
         {
-          v29 = brc_bread_crumbs();
-          v30 = brc_default_log();
-          if (os_log_type_enabled(v30, 0x90u))
+          v27 = brc_bread_crumbs();
+          v28 = brc_default_log();
+          if (os_log_type_enabled(v28, 0x90u))
           {
             [_BRCOperation completedWithResult:error:];
           }
         }
 
-        v21 = [currentPersona br_generateAndRestorePersonaContextWithPersonaUniqueString:v15];
+        v20 = [currentPersona br_generateAndRestorePersonaContextWithPersonaUniqueString:v14];
 
-        if (!v21)
+        if (!v20)
         {
           goto LABEL_14;
         }
 
-        v31 = brc_bread_crumbs();
-        v32 = brc_default_log();
-        if (os_log_type_enabled(v32, 0x90u))
+        v29 = brc_bread_crumbs();
+        v30 = brc_default_log();
+        if (os_log_type_enabled(v30, 0x90u))
         {
-          v33 = self->_personaID;
+          personaID = self->_personaID;
           *buf = 138412802;
-          v45 = v33;
+          v43 = personaID;
+          v44 = 2112;
+          v45 = v20;
           v46 = 2112;
-          v47 = v21;
-          v48 = 2112;
-          v49 = v31;
-          _os_log_error_impl(&dword_223E7A000, v32, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
+          v47 = v29;
+          _os_log_error_impl(&dword_223E7A000, v30, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
         }
       }
 
       else
       {
-        if (!v16 || ([currentPersona isDataSeparatedPersona] & 1) != 0)
+        if (!v15 || ([currentPersona isDataSeparatedPersona] & 1) != 0)
         {
-          v34 = brc_bread_crumbs();
-          v35 = brc_default_log();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+          v32 = brc_bread_crumbs();
+          v33 = brc_default_log();
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
           {
             [_BRCOperation completedWithResult:error:];
           }
 
-          v21 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:0];
+          v20 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:0];
           goto LABEL_14;
         }
 
-        v31 = brc_bread_crumbs();
-        v32 = brc_default_log();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+        v29 = brc_bread_crumbs();
+        v30 = brc_default_log();
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
         {
           [_BRCOperation completedWithResult:error:];
         }
 
-        v21 = 0;
+        v20 = 0;
       }
     }
 
@@ -1306,30 +1358,29 @@ LABEL_14:
     block[2] = __43___BRCOperation_completedWithResult_error___block_invoke_122;
     block[3] = &unk_2784FF4A0;
     block[4] = self;
-    v40 = resultCopy;
-    v41 = errorCopy;
-    v23 = errorCopy;
-    v24 = resultCopy;
+    v38 = resultCopy;
+    v39 = errorCopy;
+    v22 = errorCopy;
+    v23 = resultCopy;
     dispatch_async(callbackQueue, block);
 
     _BRRestorePersona();
     goto LABEL_15;
   }
 
-  v9 = self->_callbackQueue;
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __43___BRCOperation_completedWithResult_error___block_invoke_2;
-  v36[3] = &unk_2784FF4A0;
-  v36[4] = self;
-  v37 = resultCopy;
-  v38 = errorCopy;
-  v10 = errorCopy;
-  v11 = resultCopy;
-  dispatch_async(v9, v36);
+  v8 = self->_callbackQueue;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __43___BRCOperation_completedWithResult_error___block_invoke_2;
+  v34[3] = &unk_2784FF4A0;
+  v34[4] = self;
+  v35 = resultCopy;
+  v36 = errorCopy;
+  v9 = errorCopy;
+  v10 = resultCopy;
+  dispatch_async(v8, v34);
 
 LABEL_15:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setDeviceConfigurationHeaderOnCKOp:(id)op
@@ -1426,7 +1477,7 @@ LABEL_15:
 
 - (void)addDependency:(id)dependency
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dependencyCopy = dependency;
   if ([(_BRCOperation *)self nonDiscretionary])
   {
@@ -1440,27 +1491,25 @@ LABEL_15:
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412802;
-          v10 = dependencyCopy;
-          v11 = 2112;
+          v9 = dependencyCopy;
+          v10 = 2112;
           selfCopy = self;
-          v13 = 2112;
-          v14 = v5;
+          v12 = 2112;
+          v13 = v5;
           _os_log_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEFAULT, "[WARNING] Adding discretionary op %@ as a dependency of a non-discretionary op %@%@", buf, 0x20u);
         }
       }
     }
   }
 
-  v8.receiver = self;
-  v8.super_class = _BRCOperation;
-  [(_BRCOperation *)&v8 addDependency:dependencyCopy];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = _BRCOperation;
+  [(_BRCOperation *)&v7 addDependency:dependencyCopy];
 }
 
 - (void)blockOnHighPriorityOperation:(id)operation
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   if (([(_BRCOperation *)self isCancelled]& 1) == 0)
   {
@@ -1472,36 +1521,36 @@ LABEL_15:
       operationID2 = [operationCopy operationID];
       *location = 138412802;
       *&location[4] = operationID;
-      v29 = 2112;
-      v30 = operationID2;
-      v31 = 2112;
-      v32 = v5;
+      v28 = 2112;
+      v29 = operationID2;
+      v30 = 2112;
+      v31 = v5;
       _os_log_debug_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] Blocking %@ on high priority operation %@%@", location, 0x20u);
     }
 
     [(_BRCOperation *)self addDependency:operationCopy];
     v7 = self->_subOperations;
     objc_sync_enter(v7);
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v8 = self->_subOperations;
-    v9 = [(NSHashTable *)v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v9 = [(NSHashTable *)v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v9)
     {
-      v10 = *v24;
+      v10 = *v23;
       do
       {
         v11 = 0;
         do
         {
-          if (*v24 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v23 + 1) + 8 * v11);
+          v12 = *(*(&v22 + 1) + 8 * v11);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -1517,7 +1566,7 @@ LABEL_15:
         }
 
         while (v9 != v11);
-        v9 = [(NSHashTable *)v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v9 = [(NSHashTable *)v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v9);
@@ -1533,22 +1582,20 @@ LABEL_15:
     completionBlock = [operationCopy completionBlock];
     dispatch_group_enter(self->_highPriorityWaitGroup);
     objc_initWeak(location, self);
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __46___BRCOperation_blockOnHighPriorityOperation___block_invoke;
-    v20[3] = &unk_2784FF518;
-    objc_copyWeak(&v22, location);
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __46___BRCOperation_blockOnHighPriorityOperation___block_invoke;
+    v19[3] = &unk_2784FF518;
+    objc_copyWeak(&v21, location);
     v16 = completionBlock;
-    v21 = v16;
-    [operationCopy setCompletionBlock:v20];
+    v20 = v16;
+    [operationCopy setCompletionBlock:v19];
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(location);
 
     objc_sync_exit(v7);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)associateCKOperationsToEventMetric:(id)metric
@@ -1561,7 +1608,7 @@ LABEL_15:
 
 - (void)cancelAfterDelay:(double)delay
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (delay != 0.0)
   {
     selfCopy = self;
@@ -1591,13 +1638,13 @@ LABEL_15:
         v10 = brc_default_log();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
-          v26 = [(_BRCOperation *)selfCopy description];
+          v25 = [(_BRCOperation *)selfCopy description];
           *buf = 134218498;
-          v29 = v8 / 0x3B9ACA00;
-          v30 = 2112;
-          v31 = v26;
-          v32 = 2112;
-          v33 = v9;
+          v28 = v8 / 0x3B9ACA00;
+          v29 = 2112;
+          v30 = v25;
+          v31 = 2112;
+          v32 = v9;
           _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] Launching timeout timer of %llu seconds for operation %@%@", buf, 0x20u);
         }
 
@@ -1607,13 +1654,13 @@ LABEL_15:
         selfCopy->_timeoutTimer = v12;
 
         v14 = selfCopy->_timeoutTimer;
-        v27[0] = MEMORY[0x277D85DD0];
-        v27[1] = 3221225472;
-        v27[2] = __34___BRCOperation_cancelAfterDelay___block_invoke;
-        v27[3] = &unk_2784FF450;
-        v27[4] = selfCopy;
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __34___BRCOperation_cancelAfterDelay___block_invoke;
+        v26[3] = &unk_2784FF450;
+        v26[4] = selfCopy;
         v15 = v14;
-        v16 = v27;
+        v16 = v26;
         v17 = v15;
         v18 = v16;
         v19 = v18;
@@ -1633,13 +1680,10 @@ LABEL_15:
 
     objc_sync_exit(selfCopy);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)error
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1647,109 +1691,74 @@ LABEL_15:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: self.finished%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: self.finished%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleExecutionWithPreviousError:(double)a1 .cold.1(double a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5 = 134218242;
-  v6 = a1;
+  v7 = *MEMORY[0x277D85DE8];
+  v4 = 134218242;
+  v5 = a1;
   OUTLINED_FUNCTION_4_0();
-  v7 = v1;
-  OUTLINED_FUNCTION_8(&dword_223E7A000, v2, v3, "[DEBUG] server provided backoff: %.03fs%@", &v5);
-  v4 = *MEMORY[0x277D85DE8];
+  v6 = v1;
+  OUTLINED_FUNCTION_8(&dword_223E7A000, v2, v3, "[DEBUG] server provided backoff: %.03fs%@", &v4);
 }
 
 - (void)_scheduleExecutionWithPreviousError:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] cancelling operation since reached to maximal allowed backoff%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] cancelling operation since reached to maximal allowed backoff%@", v1, 0xCu);
 }
 
 - (void)_scheduleExecutionWithPreviousError:(double)a1 .cold.3(double a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5 = 134218242;
-  v6 = a1;
+  v7 = *MEMORY[0x277D85DE8];
+  v4 = 134218242;
+  v5 = a1;
   OUTLINED_FUNCTION_4_0();
-  v7 = v1;
-  OUTLINED_FUNCTION_8(&dword_223E7A000, v2, v3, "[DEBUG] attempting execution again in %.03fs%@", &v5);
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_scheduleExecutionWithPreviousError:.cold.4()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_1(&dword_223E7A000, v0, v1, "[CRIT] %@ has been denylisted and won't be attempted again%@");
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = v1;
+  OUTLINED_FUNCTION_8(&dword_223E7A000, v2, v3, "[DEBUG] attempting execution again in %.03fs%@", &v4);
 }
 
 - (void)_scheduleExecutionWithPreviousError:.cold.5()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] throttle backoff is greater than max.  Failing the operation%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_completedWithResult:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] CloudKit account is temporarily unavailable. Invalidating account status after %@%@");
   v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1();
+  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] throttle backoff is greater than max.  Failing the operation%@", v1, 0xCu);
 }
 
 - (void)_completedWithResult:error:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_223E7A000, v0, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: _operationFailureThrottle%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)completedWithResult:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_1(&dword_223E7A000, v0, v1, "[CRIT] Completed operation %@ with different persona than we started with%@");
   v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1();
+  _os_log_fault_impl(&dword_223E7A000, v0, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: _operationFailureThrottle%@", v1, 0xCu);
 }
 
 - (void)completedWithResult:error:.cold.3()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_223E7A000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] Not allowed to adopt persona but data-separatedness matches%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_223E7A000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] Not allowed to adopt persona but data-separatedness matches%@", v1, 0xCu);
 }
 
 - (void)completedWithResult:error:.cold.4()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_223E7A000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] Not allowed to adopt persona - should fallback persona%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_223E7A000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] Not allowed to adopt persona - should fallback persona%@", v1, 0xCu);
 }
 
 - (void)completedWithResult:error:.cold.5()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] won't restore persona: %@%@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] won't restore persona: %@%@", v1, 0x16u);
 }
 
 - (void)addSubOperation:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1757,15 +1766,12 @@ LABEL_15:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: _syncContext%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: _syncContext%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addSubOperation:asCompletionOf:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1773,10 +1779,8 @@ LABEL_15:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: _syncContext%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: _syncContext%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelAfterDelay:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3)

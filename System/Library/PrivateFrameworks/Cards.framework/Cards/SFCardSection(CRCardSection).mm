@@ -26,27 +26,27 @@
 
 - (id)parametersForInteraction:()CRCardSection
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v4 = a3;
   intent = [v4 intent];
   intentResponse = [v4 intentResponse];
-  v32 = intent;
+  v31 = intent;
   _intentInstanceDescription = [intent _intentInstanceDescription];
   name = [_intentInstanceDescription name];
   responseName = [_intentInstanceDescription responseName];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   backingCardSection = [self backingCardSection];
   parameterKeyPaths = [backingCardSection parameterKeyPaths];
 
-  v10 = [parameterKeyPaths countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v10 = [parameterKeyPaths countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (!v10)
   {
 
 LABEL_23:
-    if ([v32 _type] == 2)
+    if ([v31 _type] == 2)
     {
       v12 = objc_alloc_init(MEMORY[0x277CBEB58]);
     }
@@ -60,20 +60,20 @@ LABEL_23:
   }
 
   v11 = v10;
-  v28 = _intentInstanceDescription;
-  v29 = v4;
+  v27 = _intentInstanceDescription;
+  v28 = v4;
   v12 = 0;
-  v13 = *v34;
+  v13 = *v33;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v34 != v13)
+      if (*v33 != v13)
       {
         objc_enumerationMutation(parameterKeyPaths);
       }
 
-      v15 = *(*(&v33 + 1) + 8 * i);
+      v15 = *(*(&v32 + 1) + 8 * i);
       v16 = [v15 rangeOfString:@"."];
       if (v16 == 0x7FFFFFFFFFFFFFFFLL && v17 == 0)
       {
@@ -105,13 +105,13 @@ LABEL_23:
       }
     }
 
-    v11 = [parameterKeyPaths countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v11 = [parameterKeyPaths countByEnumeratingWithState:&v32 objects:v36 count:16];
   }
 
   while (v11);
 
-  _intentInstanceDescription = v28;
-  v4 = v29;
+  _intentInstanceDescription = v27;
+  v4 = v28;
   if (!v12)
   {
     goto LABEL_23;
@@ -120,14 +120,12 @@ LABEL_23:
 LABEL_26:
   v25 = [v12 copy];
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v25;
 }
 
 - (id)actionCommands
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB18];
   backingCardSection = [self backingCardSection];
   commands = [backingCardSection commands];
@@ -151,32 +149,32 @@ LABEL_26:
 
   if (punchoutOptions)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v13 = punchoutOptions;
-    v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v24;
+      v16 = *v23;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v24 != v16)
+          if (*v23 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v23 + 1) + 8 * i);
+          v18 = *(*(&v22 + 1) + 8 * i);
           v19 = objc_alloc_init(CRPunchoutCommand);
-          [(CRPunchoutCommand *)v19 setPunchout:v18, v23];
+          [(CRPunchoutCommand *)v19 setPunchout:v18, v22];
           [v5 addObject:v19];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v15);
@@ -184,8 +182,6 @@ LABEL_26:
   }
 
   v20 = [v5 copy];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -224,13 +220,12 @@ LABEL_26:
 
 - (void)cardSectionIdentifier
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_24327C000, log, OS_LOG_TYPE_ERROR, "Card section %@ does not have a card section identifier. This is a requirement. Category CRCardSection on SFCardSection is setting one (%@) on the client's behalf as a workaround", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_24327C000, log, OS_LOG_TYPE_ERROR, "Card section %@ does not have a card section identifier. This is a requirement. Category CRCardSection on SFCardSection is setting one (%@) on the client's behalf as a workaround", &v3, 0x16u);
 }
 
 @end

@@ -58,7 +58,6 @@
   if (self->_whichEvent_Type == 100)
   {
     self->_whichEvent_Type = 0;
-    siriSetupContext = self->_siriSetupContext;
     self->_siriSetupContext = 0;
     MEMORY[0x2821F96F8]();
   }

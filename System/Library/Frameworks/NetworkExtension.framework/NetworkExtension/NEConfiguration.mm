@@ -9,7 +9,6 @@
 - (BOOL)ingestDisconnectOptions:(void *)options;
 - (BOOL)isEnabled;
 - (BOOL)isEqual:(id)equal;
-- (BOOL)isSupportedBySC;
 - (BOOL)isTransparentProxy;
 - (BOOL)setAppLayerVPNUUID:(id)d andSafariDomains:(id)domains;
 - (BOOL)setAssociatedDomains:(id)domains;
@@ -24,6 +23,7 @@
 - (BOOL)setPerAppRuleSettings:(id)settings withAppIdentifier:(id)identifier;
 - (BOOL)setPerAppUUID:(id)d andSafariDomains:(id)domains;
 - (BOOL)setProfileInfo:(id)info;
+- (BOOL)setRestrictDomains:(BOOL)domains;
 - (BOOL)setSMBDomains:(id)domains;
 - (BOOL)usesPolicyBasedRouting;
 - (NEConfiguration)initWithCoder:(id)coder;
@@ -63,8 +63,9 @@
 - (uint64_t)updateFromSCService:(void *)service;
 - (uint64_t)validateStrings:(uint64_t)strings;
 - (unint64_t)hash;
+- (unint64_t)isSupportedBySC;
 - (void)applyOverrides;
-- (void)clearKeychainInDomain:(void *)domain;
+- (void)clearKeychainInDomain:(void *)result;
 - (void)copyPasswordsFromSystemKeychain;
 - (void)encodeWithCoder:(id)coder;
 - (void)syncWithKeychainInDomain:(void *)domain;
@@ -119,10 +120,10 @@
 
 - (void)applyOverrides
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if (!os_variant_has_internal_content() || csr_check())
   {
-    goto LABEL_33;
+    return;
   }
 
   v3 = SCPreferencesCreate(*MEMORY[0x1E695E480], @"NEHelper control settings", @"/Library/Preferences/com.apple.networkextension.control.plist");
@@ -166,36 +167,36 @@ LABEL_6:
 LABEL_12:
   if (isa_nsdictionary(v6))
   {
-    v21 = v6;
+    v20 = v6;
     name = [(NEConfiguration *)self name];
-    v20 = [v21 objectForKeyedSubscript:name];
+    v19 = [v20 objectForKeyedSubscript:name];
 
-    v9 = v20;
-    if (isa_nsdictionary(v20))
+    v9 = v19;
+    if (isa_nsdictionary(v19))
     {
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
       v23 = 0u;
-      v10 = v20;
-      v11 = [v10 countByEnumeratingWithState:&v22 objects:v32 count:16];
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
+      v10 = v19;
+      v11 = [v10 countByEnumeratingWithState:&v21 objects:v31 count:16];
       if (v11)
       {
-        v12 = *v23;
+        v12 = *v22;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v23 != v12)
+            if (*v22 != v12)
             {
               objc_enumerationMutation(v10);
             }
 
-            v14 = *(*(&v22 + 1) + 8 * i);
+            v14 = *(*(&v21 + 1) + 8 * i);
             if (isa_nsstring(v14))
             {
               v15 = [v10 objectForKeyedSubscript:v14];
-              if (isa_nsstring(v15) && [v15 isEqualToString:@"nil"])
+              if (isa_nsstring(v15) && objc_msgSend_isEqualToString_(v15))
               {
 
                 v15 = 0;
@@ -207,11 +208,11 @@ LABEL_12:
               {
                 name2 = [(NEConfiguration *)self name];
                 *buf = 138412802;
-                v27 = name2;
-                v28 = 2112;
-                v29 = v14;
-                v30 = 2112;
-                v31 = v15;
+                v26 = name2;
+                v27 = 2112;
+                v28 = v14;
+                v29 = 2112;
+                v30 = v15;
                 _os_log_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_DEFAULT, "%@: configuration overrides set %@ to %@", buf, 0x20u);
               }
             }
@@ -223,33 +224,30 @@ LABEL_12:
               {
                 name3 = [(NEConfiguration *)self name];
                 *buf = 138412546;
-                v27 = name3;
-                v28 = 2112;
-                v29 = v14;
+                v26 = name3;
+                v27 = 2112;
+                v28 = v14;
                 _os_log_error_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_ERROR, "%@: Key path in overrides is not a string: %@", buf, 0x16u);
               }
             }
           }
 
-          v11 = [v10 countByEnumeratingWithState:&v22 objects:v32 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v21 objects:v31 count:16];
         }
 
         while (v11);
       }
 
-      v9 = v20;
+      v9 = v19;
     }
 
-    v6 = v21;
+    v6 = v20;
   }
-
-LABEL_33:
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyPasswordsFromSystemKeychain
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = [(NEConfiguration *)self VPN];
   protocol = [v3 protocol];
 
@@ -258,39 +256,37 @@ LABEL_33:
     [protocol copyPasswordsFromKeychainInDomain:0];
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   relay = [(NEConfiguration *)self relay];
   relays = [relay relays];
 
-  v8 = [relays countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [relays countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(relays);
         }
 
-        [*(*(&v13 + 1) + 8 * v11++) copyPasswordsFromKeychainInDomain:0];
+        [*(*(&v12 + 1) + 8 * v11++) copyPasswordsFromKeychainInDomain:0];
       }
 
       while (v9 != v11);
-      v9 = [relays countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [relays countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEnabled
@@ -429,7 +425,7 @@ LABEL_23:
 
 - (NSString)pluginType
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   pluginType = [(NEConfiguration *)self VPN];
   if (pluginType)
   {
@@ -465,9 +461,9 @@ LABEL_23:
       pluginType2 = [protocol4 pluginType];
       if (pluginType)
       {
-        v17 = [pluginType isEqualToString:pluginType2];
+        isEqualToString = objc_msgSend_isEqualToString_(pluginType);
 
-        if (v17)
+        if (isEqualToString)
         {
           goto LABEL_12;
         }
@@ -497,7 +493,7 @@ LABEL_12:
   pluginType3 = [provider pluginType];
   if (pluginType)
   {
-    v22 = [pluginType isEqualToString:pluginType3];
+    v22 = objc_msgSend_isEqualToString_(pluginType);
 
     if (v22)
     {
@@ -526,7 +522,7 @@ LABEL_18:
   pluginType4 = [protocol5 pluginType];
   if (pluginType)
   {
-    v27 = [pluginType isEqualToString:pluginType4];
+    v27 = objc_msgSend_isEqualToString_(pluginType);
 
     if (v27)
     {
@@ -554,7 +550,7 @@ LABEL_24:
   pluginType5 = [appPush2 pluginType];
   if (pluginType)
   {
-    v31 = [pluginType isEqualToString:pluginType5];
+    v31 = objc_msgSend_isEqualToString_(pluginType);
 
     if (v31)
     {
@@ -584,7 +580,7 @@ LABEL_33:
   appBundleIdentifier = [urlFilter2 appBundleIdentifier];
   if (pluginType)
   {
-    v35 = [pluginType isEqualToString:appBundleIdentifier];
+    v35 = objc_msgSend_isEqualToString_(pluginType);
 
     if (v35)
     {
@@ -600,11 +596,11 @@ LABEL_33:
     v36 = ne_log_obj();
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
     {
-      v43 = 136315394;
-      v44 = "[NEConfiguration pluginType]";
-      v45 = 2112;
-      v46 = appBundleIdentifier;
-      _os_log_debug_impl(&dword_1BA83C000, v36, OS_LOG_TYPE_DEBUG, "%s: pluginType is %@", &v43, 0x16u);
+      v42 = 136315394;
+      v43 = "[NEConfiguration pluginType]";
+      v44 = 2112;
+      v45 = appBundleIdentifier;
+      _os_log_debug_impl(&dword_1BA83C000, v36, OS_LOG_TYPE_DEBUG, "%s: pluginType is %@", &v42, 0x16u);
     }
   }
 
@@ -620,7 +616,7 @@ LABEL_38:
   pluginType6 = [hotspot2 pluginType];
   if (appBundleIdentifier)
   {
-    v40 = [appBundleIdentifier isEqualToString:pluginType6];
+    v40 = objc_msgSend_isEqualToString_(appBundleIdentifier);
 
     if (v40)
     {
@@ -637,29 +633,28 @@ LABEL_38:
 
   appBundleIdentifier = pluginType6;
 LABEL_44:
-  v41 = *MEMORY[0x1E69E9840];
 
   return appBundleIdentifier;
 }
 
-- (void)clearKeychainInDomain:(void *)domain
+- (void)clearKeychainInDomain:(void *)result
 {
-  v50 = *MEMORY[0x1E69E9840];
-  if (!domain)
+  v49 = *MEMORY[0x1E69E9840];
+  if (!result)
   {
-    goto LABEL_24;
+    return;
   }
 
-  if ([domain grade] != 2)
+  if ([result grade] != 2)
   {
     goto LABEL_7;
   }
 
-  v4 = [domain VPN];
+  v4 = [result VPN];
   protocol = [v4 protocol];
   if ([protocol type] != 1)
   {
-    v6 = [domain VPN];
+    v6 = [result VPN];
     protocol2 = [v6 protocol];
     type = [protocol2 type];
 
@@ -676,16 +671,16 @@ LABEL_7:
 LABEL_6:
   v9 = 0;
 LABEL_8:
-  v10 = [domain VPN];
+  v10 = [result VPN];
   if (v10)
   {
     v11 = v10;
-    v12 = [domain VPN];
+    v12 = [result VPN];
     protocol3 = [v12 protocol];
 
     if (protocol3)
     {
-      appVPN3 = [domain VPN];
+      appVPN3 = [result VPN];
 LABEL_14:
       interfaceProtocolMapping = appVPN3;
       protocol4 = [appVPN3 protocol];
@@ -695,105 +690,103 @@ LABEL_14:
     }
   }
 
-  appVPN = [domain appVPN];
+  appVPN = [result appVPN];
   if (appVPN)
   {
     v16 = appVPN;
-    appVPN2 = [domain appVPN];
+    appVPN2 = [result appVPN];
     protocol5 = [appVPN2 protocol];
 
     if (protocol5)
     {
-      appVPN3 = [domain appVPN];
+      appVPN3 = [result appVPN];
       goto LABEL_14;
     }
   }
 
-  alwaysOnVPN = [domain alwaysOnVPN];
+  alwaysOnVPN = [result alwaysOnVPN];
 
   if (!alwaysOnVPN)
   {
     goto LABEL_16;
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
-  alwaysOnVPN2 = [domain alwaysOnVPN];
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  alwaysOnVPN2 = [result alwaysOnVPN];
   interfaceProtocolMapping = [alwaysOnVPN2 interfaceProtocolMapping];
 
-  v32 = [interfaceProtocolMapping countByEnumeratingWithState:&v44 objects:v49 count:16];
-  if (v32)
+  v31 = [interfaceProtocolMapping countByEnumeratingWithState:&v43 objects:v48 count:16];
+  if (v31)
   {
-    v33 = v32;
-    v34 = *v45;
+    v32 = v31;
+    v33 = *v44;
     do
     {
-      for (i = 0; i != v33; ++i)
+      for (i = 0; i != v32; ++i)
       {
-        if (*v45 != v34)
+        if (*v44 != v33)
         {
           objc_enumerationMutation(interfaceProtocolMapping);
         }
 
-        v36 = *(*(&v44 + 1) + 8 * i);
-        alwaysOnVPN3 = [domain alwaysOnVPN];
+        v35 = *(*(&v43 + 1) + 8 * i);
+        alwaysOnVPN3 = [result alwaysOnVPN];
         interfaceProtocolMapping2 = [alwaysOnVPN3 interfaceProtocolMapping];
-        v39 = [interfaceProtocolMapping2 objectForKeyedSubscript:v36];
+        v38 = [interfaceProtocolMapping2 objectForKeyedSubscript:v35];
 
-        [v39 removeKeychainItemsInDomain:a2 keepIdentity:v9];
+        [v38 removeKeychainItemsInDomain:a2 keepIdentity:v9];
       }
 
-      v33 = [interfaceProtocolMapping countByEnumeratingWithState:&v44 objects:v49 count:16];
+      v32 = [interfaceProtocolMapping countByEnumeratingWithState:&v43 objects:v48 count:16];
     }
 
-    while (v33);
+    while (v32);
   }
 
 LABEL_15:
 
 LABEL_16:
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
-  relay = [domain relay];
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  relay = [result relay];
   relays = [relay relays];
 
-  v23 = [relays countByEnumeratingWithState:&v40 objects:v48 count:16];
+  v23 = [relays countByEnumeratingWithState:&v39 objects:v47 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v41;
+    v25 = *v40;
     do
     {
       for (j = 0; j != v24; ++j)
       {
-        if (*v41 != v25)
+        if (*v40 != v25)
         {
           objc_enumerationMutation(relays);
         }
 
-        v27 = *(*(&v40 + 1) + 8 * j);
-        payloadInfo = [domain payloadInfo];
+        v27 = *(*(&v39 + 1) + 8 * j);
+        payloadInfo = [result payloadInfo];
         [v27 clearKeychainItemsInDomain:a2 removeItems:payloadInfo == 0];
       }
 
-      v24 = [relays countByEnumeratingWithState:&v40 objects:v48 count:16];
+      v24 = [relays countByEnumeratingWithState:&v39 objects:v47 count:16];
     }
 
     while (v24);
   }
 
-  [(NEConfiguration *)domain syncWithKeychainInDomain:a2];
-LABEL_24:
-  v29 = *MEMORY[0x1E69E9840];
+  [(NEConfiguration *)result syncWithKeychainInDomain:a2];
 }
 
 - (void)syncWithKeychainInDomain:(void *)domain
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v4 = [domain VPN];
   if (v4)
   {
@@ -828,29 +821,29 @@ LABEL_24:
 
   if (alwaysOnVPN)
   {
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     alwaysOnVPN2 = [domain alwaysOnVPN];
     interfaceProtocolMapping = [alwaysOnVPN2 interfaceProtocolMapping];
 
-    v19 = [interfaceProtocolMapping countByEnumeratingWithState:&v38 objects:v43 count:16];
+    v19 = [interfaceProtocolMapping countByEnumeratingWithState:&v37 objects:v42 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v39;
+      v21 = *v38;
       do
       {
         v22 = 0;
         do
         {
-          if (*v39 != v21)
+          if (*v38 != v21)
           {
             objc_enumerationMutation(interfaceProtocolMapping);
           }
 
-          v23 = *(*(&v38 + 1) + 8 * v22);
+          v23 = *(*(&v37 + 1) + 8 * v22);
           alwaysOnVPN3 = [domain alwaysOnVPN];
           interfaceProtocolMapping2 = [alwaysOnVPN3 interfaceProtocolMapping];
           v26 = [interfaceProtocolMapping2 objectForKeyedSubscript:v23];
@@ -860,46 +853,44 @@ LABEL_24:
         }
 
         while (v20 != v22);
-        v20 = [interfaceProtocolMapping countByEnumeratingWithState:&v38 objects:v43 count:16];
+        v20 = [interfaceProtocolMapping countByEnumeratingWithState:&v37 objects:v42 count:16];
       }
 
       while (v20);
     }
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   relay = [domain relay];
   relays = [relay relays];
 
-  v29 = [relays countByEnumeratingWithState:&v34 objects:v42 count:16];
+  v29 = [relays countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v35;
+    v31 = *v34;
     do
     {
       v32 = 0;
       do
       {
-        if (*v35 != v31)
+        if (*v34 != v31)
         {
           objc_enumerationMutation(relays);
         }
 
-        [*(*(&v34 + 1) + 8 * v32++) syncWithKeychainInDomain:a2 configuration:domain suffix:0];
+        [*(*(&v33 + 1) + 8 * v32++) syncWithKeychainInDomain:a2 configuration:domain suffix:0];
       }
 
       while (v30 != v32);
-      v30 = [relays countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v30 = [relays countByEnumeratingWithState:&v33 objects:v41 count:16];
     }
 
     while (v30);
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (id)descriptionWithOptions:(unint64_t)options
@@ -1105,55 +1096,51 @@ LABEL_34:
 
 - (NSObject)copyMachOUUIDsFromBundleIdentifier:(uint64_t)identifier
 {
-  v12 = *MEMORY[0x1E69E9840];
-  if (identifier)
+  v11 = *MEMORY[0x1E69E9840];
+  if (!identifier)
   {
-    if (a2)
+    return 0;
+  }
+
+  if (a2)
+  {
+    v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v3 = NEHelperCacheCopyAppUUIDMapping();
+    v4 = v3;
+    if (v3 && MEMORY[0x1BFAFC5E0](v3) == MEMORY[0x1E69E9E50])
     {
-      v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v3 = NEHelperCacheCopyAppUUIDMapping();
-      v4 = v3;
-      if (v3 && MEMORY[0x1BFAFC5E0](v3) == MEMORY[0x1E69E9E50])
-      {
-        applier[0] = MEMORY[0x1E69E9820];
-        applier[1] = 3221225472;
-        applier[2] = __54__NEConfiguration_copyMachOUUIDsFromBundleIdentifier___block_invoke;
-        applier[3] = &unk_1E7F09530;
-        v9 = v2;
-        xpc_array_apply(v4, applier);
-      }
+      applier[0] = MEMORY[0x1E69E9820];
+      applier[1] = 3221225472;
+      applier[2] = __54__NEConfiguration_copyMachOUUIDsFromBundleIdentifier___block_invoke;
+      applier[3] = &unk_1E7F09530;
+      v8 = v2;
+      xpc_array_apply(v4, applier);
+    }
 
-      if ([v2 count])
-      {
-        v5 = v2;
-      }
-
-      else
-      {
-        v5 = 0;
-      }
+    if ([v2 count])
+    {
+      v5 = v2;
     }
 
     else
     {
-      v2 = ne_log_obj();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
-      {
-        *buf = 136315138;
-        v11 = "[NEConfiguration copyMachOUUIDsFromBundleIdentifier:]";
-        _os_log_fault_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_FAULT, "%s called with null bundleIdentifier", buf, 0xCu);
-      }
-
       v5 = 0;
     }
   }
 
   else
   {
+    v2 = ne_log_obj();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 136315138;
+      v10 = "[NEConfiguration copyMachOUUIDsFromBundleIdentifier:]";
+      _os_log_fault_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_FAULT, "%s called with null bundleIdentifier", buf, 0xCu);
+    }
+
     v5 = 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -1579,7 +1566,7 @@ uint64_t __54__NEConfiguration_copyMachOUUIDsFromBundleIdentifier___block_invoke
 
 + (NEConfiguration)configurationWithProfilePayload:(id)payload grade:(int64_t)grade
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   payloadCopy = payload;
   v6 = [[NEProfilePayloadBase alloc] initWithPayload:payloadCopy];
   v7 = [payloadCopy objectForKeyedSubscript:@"PayloadType"];
@@ -1595,7 +1582,7 @@ uint64_t __54__NEConfiguration_copyMachOUUIDsFromBundleIdentifier___block_invoke
 
     else
     {
-      if ([v7 isEqualToString:@"com.apple.webcontent-filter"])
+      if (objc_msgSend_isEqualToString_(v7))
       {
         v10 = @"PluginBundleID";
       }
@@ -1609,7 +1596,7 @@ uint64_t __54__NEConfiguration_copyMachOUUIDsFromBundleIdentifier___block_invoke
     }
   }
 
-  if ([v7 isEqualToString:@"com.apple.vpn.managed"])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     v11 = [[NEConfiguration alloc] initWithVPNPayload:v6 configurationName:v8 grade:grade];
 LABEL_22:
@@ -1617,54 +1604,52 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  if ([v7 isEqualToString:@"com.apple.vpn.managed.alwayson"])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     v11 = [[NEConfiguration alloc] initWithAlwaysOnVPNPayload:v6 configurationName:v8 grade:grade];
     goto LABEL_22;
   }
 
-  if ([v7 isEqualToString:@"com.apple.vpn.managed.applayer"])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     v11 = [[NEConfiguration alloc] initWithAppLayerVPNPayload:v6 configurationName:v8 grade:grade];
     goto LABEL_22;
   }
 
-  if ([v7 isEqualToString:@"com.apple.webcontent-filter"])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     v11 = [[NEConfiguration alloc] initWithContentFilterPayload:v6 configurationName:v8 grade:grade];
     goto LABEL_22;
   }
 
-  if ([v7 isEqualToString:@"com.apple.networkusagerules"])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     v11 = [[NEConfiguration alloc] initWithPathControllerPayload:v6 configurationName:v8 grade:grade];
     goto LABEL_22;
   }
 
-  if ([v7 isEqualToString:@"com.apple.dnsSettings.managed"])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     v11 = [[NEConfiguration alloc] initWithDNSSettingsPayload:v6 configurationName:v8 grade:grade];
     goto LABEL_22;
   }
 
-  if ([v7 isEqualToString:@"com.apple.relay.managed"])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     v11 = [[NEConfiguration alloc] initWithRelayPayload:v6 configurationName:v8 grade:grade];
     goto LABEL_22;
   }
 
-  v15 = ne_log_obj();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v14 = ne_log_obj();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    v16 = 138412290;
-    v17 = v7;
-    _os_log_error_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_ERROR, "Failed to create a NEConfiguration from profile payload with type '%@'", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = v7;
+    _os_log_error_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_ERROR, "Failed to create a NEConfiguration from profile payload with type '%@'", &v15, 0xCu);
   }
 
   v12 = 0;
 LABEL_23:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -1727,32 +1712,32 @@ LABEL_23:
 
 - (uint64_t)validateStrings:(uint64_t)strings
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (strings)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       while (2)
       {
         v9 = 0;
         do
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          if (!isa_nsstring(*(*(&v13 + 1) + 8 * v9)))
+          if (!isa_nsstring(*(*(&v12 + 1) + 8 * v9)))
           {
             v10 = 0;
             goto LABEL_12;
@@ -1762,7 +1747,7 @@ LABEL_23:
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v7)
         {
           continue;
@@ -1781,7 +1766,6 @@ LABEL_12:
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -1822,6 +1806,54 @@ LABEL_5:
 LABEL_10:
 
   return v7;
+}
+
+- (BOOL)setRestrictDomains:(BOOL)domains
+{
+  domainsCopy = domains;
+  appVPN = [(NEConfiguration *)self appVPN];
+
+  if (appVPN)
+  {
+    appVPN2 = [(NEConfiguration *)self appVPN];
+    [appVPN2 setRestrictDomains:domainsCopy];
+LABEL_8:
+
+    return 1;
+  }
+
+  relay = [(NEConfiguration *)self relay];
+
+  if (relay)
+  {
+    if (domainsCopy)
+    {
+      relay2 = [(NEConfiguration *)self relay];
+      perApp = [relay2 perApp];
+
+      if (!perApp)
+      {
+        v10 = objc_alloc_init(NEPerApp);
+        relay3 = [(NEConfiguration *)self relay];
+        [relay3 setPerApp:v10];
+      }
+    }
+
+    appVPN2 = [(NEConfiguration *)self relay];
+    perApp2 = [appVPN2 perApp];
+    [perApp2 setRestrictDomains:domainsCopy];
+
+    goto LABEL_8;
+  }
+
+  v14 = ne_log_obj();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  {
+    *v15 = 0;
+    _os_log_error_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_ERROR, "Cannot restrict domains, configuration is not a per-app VPN or relay configuration", v15, 2u);
+  }
+
+  return 0;
 }
 
 - (BOOL)setContactsDomains:(id)domains accountIdentifiers:(id)identifiers
@@ -1996,7 +2028,7 @@ LABEL_29:
 
 - (BOOL)setMailDomains:(id)domains accountIdentifiers:(id)identifiers
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   domainsCopy = domains;
   identifiersCopy = identifiers;
   if ([(NEConfiguration *)self validateStrings:domainsCopy]&& [(NEConfiguration *)self validateStrings:identifiersCopy])
@@ -2041,13 +2073,13 @@ LABEL_25:
               goto LABEL_26;
             }
 
-            v16 = 138412290;
-            v17 = @"com.apple.mobilenotes";
+            v15 = 138412290;
+            v16 = @"com.apple.mobilenotes";
             v11 = "Failed to add an app rule for %@";
             v12 = v10;
             v13 = 12;
 LABEL_23:
-            _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, v11, &v16, v13);
+            _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, v11, &v15, v13);
             goto LABEL_25;
           }
 
@@ -2057,7 +2089,7 @@ LABEL_23:
             goto LABEL_25;
           }
 
-          LOWORD(v16) = 0;
+          LOWORD(v15) = 0;
           v11 = "Failed to add an app rule for exchangesyncd";
         }
 
@@ -2069,7 +2101,7 @@ LABEL_23:
             goto LABEL_25;
           }
 
-          LOWORD(v16) = 0;
+          LOWORD(v15) = 0;
           v11 = "Failed to add an app rule for maild";
         }
       }
@@ -2082,7 +2114,7 @@ LABEL_23:
           goto LABEL_25;
         }
 
-        LOWORD(v16) = 0;
+        LOWORD(v15) = 0;
         v11 = "Failed to add an app rule for Mail";
       }
 
@@ -2101,30 +2133,29 @@ LABEL_23:
 
 LABEL_27:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (BOOL)setSMBDomains:(id)domains
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   domainsCopy = domains;
   if ([domainsCopy count])
   {
-    v12[0] = @"DNSDomainMatch";
-    v12[1] = @"Path";
-    v13[0] = domainsCopy;
-    v13[1] = @"/System/Library/PrivateFrameworks/SMBClientProvider.framework/smbclientd";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v11[0] = @"DNSDomainMatch";
+    v11[1] = @"Path";
+    v12[0] = domainsCopy;
+    v12[1] = @"/System/Library/PrivateFrameworks/SMBClientProvider.framework/smbclientd";
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
     v6 = [(NEConfiguration *)self setPerAppRuleSettings:v5 withAppIdentifier:@"com.apple.smbclientd"];
     if (!v6)
     {
       v7 = ne_log_obj();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v10 = 138412290;
-        v11 = domainsCopy;
-        _os_log_error_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_ERROR, "Failed to add an app rule for SMB domains (%@)", &v10, 0xCu);
+        v9 = 138412290;
+        v10 = domainsCopy;
+        _os_log_error_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_ERROR, "Failed to add an app rule for SMB domains (%@)", &v9, 0xCu);
       }
     }
   }
@@ -2134,42 +2165,40 @@ LABEL_27:
     v6 = 1;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (BOOL)setAppLayerVPNUUID:(id)d andSafariDomains:(id)domains
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dCopy = d;
   domainsCopy = domains;
   v8 = ne_log_obj();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 136315394;
-    v13 = "[NEConfiguration(NEProfileIngestionMethods) setAppLayerVPNUUID:andSafariDomains:]";
-    v14 = 2112;
-    v15 = dCopy;
-    _os_log_debug_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEBUG, "%s: vpnUUID %@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[NEConfiguration(NEProfileIngestionMethods) setAppLayerVPNUUID:andSafariDomains:]";
+    v13 = 2112;
+    v14 = dCopy;
+    _os_log_debug_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEBUG, "%s: vpnUUID %@", &v11, 0x16u);
   }
 
   v9 = [(NEConfiguration *)self setPerAppUUID:dCopy andSafariDomains:domainsCopy];
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (BOOL)setPerAppUUID:(id)d andSafariDomains:(id)domains
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dCopy = d;
   domainsCopy = domains;
   v8 = ne_log_obj();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v20 = "[NEConfiguration(NEProfileIngestionMethods) setPerAppUUID:andSafariDomains:]";
-    v21 = 2112;
-    v22 = dCopy;
+    v19 = "[NEConfiguration(NEProfileIngestionMethods) setPerAppUUID:andSafariDomains:]";
+    v20 = 2112;
+    v21 = dCopy;
     _os_log_debug_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEBUG, "%s: perAppUUID %@", buf, 0x16u);
   }
 
@@ -2185,10 +2214,10 @@ LABEL_27:
     [v10 setObject:domainsCopy forKeyedSubscript:@"DNSDomainMatch"];
     if ([(NEConfiguration *)self setPerAppRuleSettings:v10 withAppIdentifier:@"com.apple.mobilesafari"])
     {
-      v17 = @"DNSDomainMatch";
-      v18 = domainsCopy;
+      v16 = @"DNSDomainMatch";
+      v17 = domainsCopy;
       v11 = 1;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
       v13 = [(NEConfiguration *)self setPerAppRuleSettings:v12 withAppIdentifier:@"com.apple.webapp"];
 
       if (v13)
@@ -2224,13 +2253,12 @@ LABEL_16:
   v11 = 1;
 LABEL_14:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (BOOL)setPerAppRuleSettings:(id)settings withAppIdentifier:(id)identifier
 {
-  v88 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   settingsCopy = settings;
   identifierCopy = identifier;
   appVPN = [(NEConfiguration *)self appVPN];
@@ -2271,10 +2299,10 @@ LABEL_8:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412546;
-    v83 = objc_opt_class();
-    v84 = 2112;
-    v85 = identifierCopy;
-    v31 = v83;
+    v82 = objc_opt_class();
+    v83 = 2112;
+    v84 = identifierCopy;
+    v31 = v82;
     _os_log_debug_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_DEBUG, "%@ setPerAppRuleSettings: appID %@", buf, 0x16u);
   }
 
@@ -2290,7 +2318,7 @@ LABEL_16:
 
     v50 = objc_opt_class();
     *buf = 138412290;
-    v83 = v50;
+    v82 = v50;
     v19 = v50;
     _os_log_error_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_ERROR, "%@ setPerAppRuleSettings: perApp not initialized", buf, 0xCu);
 LABEL_55:
@@ -2305,11 +2333,11 @@ LABEL_55:
     {
       v53 = objc_opt_class();
       *buf = 138412802;
-      v83 = v53;
-      v84 = 2112;
-      v85 = identifierCopy;
-      v86 = 2112;
-      v87 = settingsCopy;
+      v82 = v53;
+      v83 = 2112;
+      v84 = identifierCopy;
+      v85 = 2112;
+      v86 = settingsCopy;
       v54 = v53;
       _os_log_debug_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_DEBUG, "%@ setPerAppRuleSettings: skip rule setting for empty ID or rules %@, %@", buf, 0x20u);
     }
@@ -2339,17 +2367,17 @@ LABEL_55:
       v30 = ne_log_obj();
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        v59 = objc_opt_class();
-        v75 = v59;
-        v60 = [settingsCopy objectForKeyedSubscript:@"AccountIdentifierMatch"];
-        v61 = objc_opt_class();
+        v58 = objc_opt_class();
+        v74 = v58;
+        v59 = [settingsCopy objectForKeyedSubscript:@"AccountIdentifierMatch"];
+        v60 = objc_opt_class();
         *buf = 138412802;
-        v83 = v59;
-        v84 = 2112;
-        v85 = @"AccountIdentifierMatch";
-        v86 = 2112;
-        v87 = v61;
-        v62 = v61;
+        v82 = v58;
+        v83 = 2112;
+        v84 = @"AccountIdentifierMatch";
+        v85 = 2112;
+        v86 = v60;
+        v61 = v60;
         _os_log_error_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_ERROR, "%@ setPerAppRuleSettings: failed to set %@, unsupported type %@", buf, 0x20u);
       }
 
@@ -2374,17 +2402,17 @@ LABEL_55:
     v32 = ne_log_obj();
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      v63 = objc_opt_class();
-      v76 = v63;
-      v64 = [settingsCopy objectForKeyedSubscript:@"DNSDomainMatch"];
-      v65 = objc_opt_class();
+      v62 = objc_opt_class();
+      v75 = v62;
+      v63 = [settingsCopy objectForKeyedSubscript:@"DNSDomainMatch"];
+      v64 = objc_opt_class();
       *buf = 138412802;
-      v83 = v63;
-      v84 = 2112;
-      v85 = @"DNSDomainMatch";
-      v86 = 2112;
-      v87 = v65;
-      v66 = v65;
+      v82 = v62;
+      v83 = 2112;
+      v84 = @"DNSDomainMatch";
+      v85 = 2112;
+      v86 = v64;
+      v65 = v64;
       _os_log_error_impl(&dword_1BA83C000, v32, OS_LOG_TYPE_ERROR, "%@ setPerAppRuleSettings: failed to set %@, unsupported type %@", buf, 0x20u);
     }
 
@@ -2410,11 +2438,11 @@ LABEL_27:
     }
   }
 
-  v73 = settingsCopy;
-  v74 = v21;
-  v71 = appVPN;
-  v72 = identifierCopy;
-  v70 = perApp2;
+  v72 = settingsCopy;
+  v73 = v21;
+  v70 = appVPN;
+  v71 = identifierCopy;
+  v69 = perApp2;
   if (appVPN)
   {
     v29 = appVPN;
@@ -2426,30 +2454,30 @@ LABEL_27:
   }
 
   [v29 appRules];
+  v78 = 0u;
   v79 = 0u;
-  v80 = 0u;
-  v77 = 0u;
-  v33 = v78 = 0u;
-  v34 = [v33 countByEnumeratingWithState:&v77 objects:v81 count:16];
+  v76 = 0u;
+  v33 = v77 = 0u;
+  v34 = [v33 countByEnumeratingWithState:&v76 objects:v80 count:16];
   if (v34)
   {
     v35 = v34;
-    v36 = *v78;
+    v36 = *v77;
     while (2)
     {
       for (i = 0; i != v35; ++i)
       {
-        if (*v78 != v36)
+        if (*v77 != v36)
         {
           objc_enumerationMutation(v33);
         }
 
-        v38 = *(*(&v77 + 1) + 8 * i);
+        v38 = *(*(&v76 + 1) + 8 * i);
         matchSigningIdentifier = [v38 matchSigningIdentifier];
         matchSigningIdentifier2 = [(NEAppRule *)v19 matchSigningIdentifier];
-        v41 = [matchSigningIdentifier isEqualToString:matchSigningIdentifier2];
+        isEqualToString = objc_msgSend_isEqualToString_(matchSigningIdentifier);
 
-        if (v41)
+        if (isEqualToString)
         {
           matchDomains = [v38 matchDomains];
           matchDomains2 = [(NEAppRule *)v19 matchDomains];
@@ -2462,16 +2490,16 @@ LABEL_27:
           [v38 setMatchAccountIdentifiers:v48];
 
           v49 = v33;
-          identifierCopy = v72;
-          settingsCopy = v73;
-          perApp2 = v70;
-          appVPN = v71;
-          v21 = v74;
+          identifierCopy = v71;
+          settingsCopy = v72;
+          perApp2 = v69;
+          appVPN = v70;
+          v21 = v73;
           goto LABEL_65;
         }
       }
 
-      v35 = [v33 countByEnumeratingWithState:&v77 objects:v81 count:16];
+      v35 = [v33 countByEnumeratingWithState:&v76 objects:v80 count:16];
       if (v35)
       {
         continue;
@@ -2492,22 +2520,22 @@ LABEL_27:
   }
 
   v49 = v42;
-  appVPN = v71;
-  identifierCopy = v72;
-  perApp2 = v70;
-  settingsCopy = v73;
-  v21 = v74;
+  appVPN = v70;
+  identifierCopy = v71;
+  perApp2 = v69;
+  settingsCopy = v72;
+  v21 = v73;
   if (v42)
   {
     [v42 addObject:v19];
-    if (v71)
+    if (v70)
     {
-      v51 = v71;
+      v51 = v70;
     }
 
     else
     {
-      v51 = v70;
+      v51 = v69;
     }
 
     [v51 setAppRules:v49];
@@ -2516,22 +2544,22 @@ LABEL_65:
     v52 = ne_log_obj();
     if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
     {
-      v57 = objc_opt_class();
+      v56 = objc_opt_class();
       if (appVPN)
       {
-        v58 = appVPN;
+        v57 = appVPN;
       }
 
       else
       {
-        v58 = perApp2;
+        v57 = perApp2;
       }
 
-      appRules = [v58 appRules];
+      appRules = [v57 appRules];
       *buf = 138412546;
-      v83 = v57;
-      v84 = 2112;
-      v85 = appRules;
+      v82 = v56;
+      v83 = 2112;
+      v84 = appRules;
       _os_log_debug_impl(&dword_1BA83C000, v52, OS_LOG_TYPE_DEBUG, "%@ setPerAppRuleSettings: done with %@", buf, 0x16u);
     }
 
@@ -2543,61 +2571,60 @@ LABEL_65:
     v52 = ne_log_obj();
     if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
     {
-      v68 = objc_opt_class();
+      v67 = objc_opt_class();
       *buf = 138412290;
-      v83 = v68;
-      v69 = v68;
+      v82 = v67;
+      v68 = v67;
       _os_log_error_impl(&dword_1BA83C000, v52, OS_LOG_TYPE_ERROR, "%@ setPerAppRuleSettings: failed to allocate for app rules", buf, 0xCu);
 
-      appVPN = v71;
-      perApp2 = v70;
-      v21 = v74;
+      appVPN = v70;
+      perApp2 = v69;
+      v21 = v73;
     }
 
     v22 = 0;
   }
 
 LABEL_68:
-  v55 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (id)mergeArray:(void *)array withArray:
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   if (self)
   {
     v6 = [a2 mutableCopy];
     if ([v6 count])
     {
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
       v17 = 0u;
+      v18 = 0u;
+      v15 = 0u;
+      v16 = 0u;
       v7 = arrayCopy;
-      v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v17;
+        v10 = *v16;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v17 != v10)
+            if (*v16 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v16 + 1) + 8 * i);
-            if (([v6 containsObject:{v12, v16}] & 1) == 0)
+            v12 = *(*(&v15 + 1) + 8 * i);
+            if (([v6 containsObject:{v12, v15}] & 1) == 0)
             {
               [v6 addObject:v12];
             }
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
         }
 
         while (v9);
@@ -2614,31 +2641,29 @@ LABEL_68:
     self = v13;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return self;
 }
 
 - (BOOL)setProfileInfo:(id)info
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v5 = ne_log_large_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    *v24 = 138412546;
-    *&v24[4] = objc_opt_class();
-    *&v24[12] = 2112;
-    *&v24[14] = infoCopy;
-    v23 = *&v24[4];
-    _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "%@ setProfileInfo %@", v24, 0x16u);
+    *v23 = 138412546;
+    *&v23[4] = objc_opt_class();
+    *&v23[12] = 2112;
+    *&v23[14] = infoCopy;
+    v22 = *&v23[4];
+    _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "%@ setProfileInfo %@", v23, 0x16u);
   }
 
   payloadInfo = [(NEConfiguration *)self payloadInfo];
 
   if (payloadInfo || (v7 = objc_alloc_init(NEProfileIngestionPayloadInfo), [(NEConfiguration *)self setPayloadInfo:v7], v7, [(NEConfiguration *)self payloadInfo], v8 = objc_claimAutoreleasedReturnValue(), v8, v8))
   {
-    v9 = [infoCopy objectForKeyedSubscript:{@"PayloadOrganization", *v24, *&v24[16], v25}];
+    v9 = [infoCopy objectForKeyedSubscript:{@"PayloadOrganization", *v23, *&v23[8], v24}];
 
     if (v9)
     {
@@ -2683,33 +2708,32 @@ LABEL_68:
     v20 = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 - (BOOL)setPayloadInfoCommon:(id)common payloadOrganization:(id)organization
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   commonCopy = common;
   organizationCopy = organization;
   v8 = ne_log_obj();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    *v18 = 138412802;
-    *&v18[4] = objc_opt_class();
-    *&v18[12] = 2112;
-    *&v18[14] = commonCopy;
-    *&v18[22] = 2112;
-    v19 = organizationCopy;
-    v17 = *&v18[4];
-    _os_log_debug_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEBUG, "%@ setPayloadInfoCommon payload UUID '%@', organization '%@'", v18, 0x20u);
+    *v17 = 138412802;
+    *&v17[4] = objc_opt_class();
+    *&v17[12] = 2112;
+    *&v17[14] = commonCopy;
+    *&v17[22] = 2112;
+    v18 = organizationCopy;
+    v16 = *&v17[4];
+    _os_log_debug_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEBUG, "%@ setPayloadInfoCommon payload UUID '%@', organization '%@'", v17, 0x20u);
   }
 
   payloadInfo = [(NEConfiguration *)self payloadInfo];
 
   if (payloadInfo || (v10 = objc_alloc_init(NEProfileIngestionPayloadInfo), [(NEConfiguration *)self setPayloadInfo:v10], v10, [(NEConfiguration *)self payloadInfo], v11 = objc_claimAutoreleasedReturnValue(), v11, v11))
   {
-    v12 = [(NEConfiguration *)self payloadInfo:*v18];
+    v12 = [(NEConfiguration *)self payloadInfo:*v17];
     [v12 setPayloadUUID:commonCopy];
 
     payloadInfo2 = [(NEConfiguration *)self payloadInfo];
@@ -2728,13 +2752,12 @@ LABEL_68:
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BOOL)setPayloadInfoIdentity:(id)identity
 {
-  v93 = *MEMORY[0x1E69E9840];
+  v92 = *MEMORY[0x1E69E9840];
   identityCopy = identity;
   alwaysOnVPN = [(NEConfiguration *)self alwaysOnVPN];
 
@@ -2762,8 +2785,8 @@ LABEL_68:
   if (!self)
   {
 
-    v84 = v9;
-    v6 = v84;
+    v83 = v9;
+    v6 = v83;
     goto LABEL_70;
   }
 
@@ -2773,10 +2796,10 @@ LABEL_68:
     v18 = ne_log_obj();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v81 = objc_opt_class();
+      v80 = objc_opt_class();
       *buf = 138412290;
-      v92 = v81;
-      v82 = v81;
+      v91 = v80;
+      v81 = v80;
       _os_log_error_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_ERROR, "%@ setPayloadInfoIdentityUserNameAndPassword: missing protocol info", buf, 0xCu);
     }
 
@@ -2869,10 +2892,10 @@ LABEL_22:
       goto LABEL_38;
     }
 
-    v83 = objc_opt_class();
+    v82 = objc_opt_class();
     *buf = 138412290;
-    v92 = v83;
-    proxySettings8 = v83;
+    v91 = v82;
+    proxySettings8 = v82;
     _os_log_debug_impl(&dword_1BA83C000, v39, OS_LOG_TYPE_DEBUG, "%@ setPayloadInfoIdentityProxy: skipped, not in payload.", buf, 0xCu);
     goto LABEL_34;
   }
@@ -2947,7 +2970,7 @@ LABEL_28:
 
     v42 = objc_opt_class();
     *buf = 138412290;
-    v92 = v42;
+    v91 = v42;
     proxySettings8 = v42;
     _os_log_error_impl(&dword_1BA83C000, v39, OS_LOG_TYPE_ERROR, "%@ setPayloadInfoIdentityProxy: missing  protocol info", buf, 0xCu);
   }
@@ -3011,10 +3034,10 @@ LABEL_50:
             v66 = 0;
           }
 
-          v89 = [(NEConfiguration *)self VPN];
-          Property = [v89 protocol];
+          v88 = [(NEConfiguration *)self VPN];
+          Property = [v88 protocol];
           v69 = Property;
-          v90 = identityCopy;
+          v89 = identityCopy;
           if (Property)
           {
             Property = objc_getProperty(Property, v68, 88, 1);
@@ -3026,7 +3049,7 @@ LABEL_50:
           protocol5 = [v72 protocol];
           [protocol5 setSharedSecretKeychainItem:v71];
 
-          identityCopy = v90;
+          identityCopy = v89;
           goto LABEL_62;
         }
 
@@ -3112,7 +3135,6 @@ LABEL_64:
 
 LABEL_70:
 
-  v79 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -3157,7 +3179,7 @@ LABEL_8:
 - (id)getConfigurationProtocol
 {
   selfCopy = self;
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = [self VPN];
@@ -3182,20 +3204,19 @@ LABEL_6:
       goto LABEL_6;
     }
 
-    v10 = ne_log_obj();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v9 = ne_log_obj();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v12 = 138412290;
-      v13 = objc_opt_class();
-      v11 = v13;
-      _os_log_debug_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_DEBUG, "%@ getConfigurationProtocol: protocol info to be initialized", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = objc_opt_class();
+      v10 = v12;
+      _os_log_debug_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_DEBUG, "%@ getConfigurationProtocol: protocol info to be initialized", &v11, 0xCu);
     }
 
     selfCopy = 0;
   }
 
 LABEL_7:
-  v8 = *MEMORY[0x1E69E9840];
 
   return selfCopy;
 }
@@ -3210,7 +3231,7 @@ LABEL_7:
 
 - (id)getPendingCertificateUUIDsInternal:(void *)internal
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (internal)
@@ -3263,10 +3284,10 @@ LABEL_54:
             }
 
             pendingCertificates = [v7 pendingCertificates];
-            LODWORD(v40) = 67109378;
-            HIDWORD(v40) = v11;
-            LOWORD(v41) = 2112;
-            *(&v41 + 2) = pendingCertificates;
+            LODWORD(v39) = 67109378;
+            HIDWORD(v39) = v11;
+            LOWORD(v40) = 2112;
+            *(&v40 + 2) = pendingCertificates;
             v34 = "NEConfiguration getPendingCertificateUUIDsVPN: pending %d, cert UUIDs %@";
             goto LABEL_74;
           }
@@ -3391,13 +3412,13 @@ LABEL_60:
       }
 
       pendingCertificates = [v7 pendingCertificates];
-      LODWORD(v40) = 67109378;
-      HIDWORD(v40) = v11;
-      LOWORD(v41) = 2112;
-      *(&v41 + 2) = pendingCertificates;
+      LODWORD(v39) = 67109378;
+      HIDWORD(v39) = v11;
+      LOWORD(v40) = 2112;
+      *(&v40 + 2) = pendingCertificates;
       v34 = "NEConfiguration getPendingCertificateUUIDsAppVPN: pending %d, cert UUIDs %@";
 LABEL_74:
-      _os_log_debug_impl(&dword_1BA83C000, v32, OS_LOG_TYPE_DEBUG, v34, &v40, 0x12u);
+      _os_log_debug_impl(&dword_1BA83C000, v32, OS_LOG_TYPE_DEBUG, v34, &v39, 0x12u);
 
 LABEL_61:
       if (v11)
@@ -3526,8 +3547,6 @@ LABEL_28:
 
 LABEL_66:
 
-  v37 = *MEMORY[0x1E69E9840];
-
   return internal;
 }
 
@@ -3565,28 +3584,28 @@ LABEL_66:
 
 - (id)getPendingCertificateUUIDs:(id)ds
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = [(NEConfiguration *)self getPendingCertificateUUIDsInternal:ds];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = [v3 allKeys];
-  v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v18 + 1) + 8 * i);
+        v8 = *(*(&v17 + 1) + 8 * i);
         v9 = [v3 objectForKeyedSubscript:v8];
         v10 = [v9 objectForKeyedSubscript:@"PayloadUUID"];
         if (v10)
@@ -3603,13 +3622,11 @@ LABEL_66:
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -3646,7 +3663,7 @@ LABEL_66:
 
 - (BOOL)setCertificates:(id)certificates keyRefs:(id)refs specs:(id)specs
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   certificatesCopy = certificates;
   refsCopy = refs;
   specsCopy = specs;
@@ -3680,12 +3697,12 @@ LABEL_58:
       type = [getConfigurationProtocol type];
       v18 = 0;
       LODWORD(self) = 0;
-      v64 = v13;
+      v63 = v13;
       if (type > 3)
       {
         if (type != 4)
         {
-          v65 = 0;
+          v64 = 0;
           v19 = 0;
           if (type == 5)
           {
@@ -3698,7 +3715,7 @@ LABEL_58:
 
       else if (type != 1)
       {
-        v65 = 0;
+        v64 = 0;
         v19 = 0;
         if (type == 2)
         {
@@ -3712,26 +3729,26 @@ LABEL_58:
 LABEL_32:
           v19 = [v12 objectForKeyedSubscript:@"_PayloadCertificateRef"];
 
-          v65 = [v64 objectForKeyedSubscript:@"_PayloadCertificateRef"];
+          v64 = [v63 objectForKeyedSubscript:@"_PayloadCertificateRef"];
           v18 = [v14 objectForKeyedSubscript:@"_PayloadCertificateRef"];
           v29 = ne_log_obj();
           if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412546;
-            v67 = v18;
-            v68 = 1024;
-            LODWORD(v69) = [v18 BOOLValue];
+            v66 = v18;
+            v67 = 1024;
+            LODWORD(v68) = [v18 BOOLValue];
             _os_log_debug_impl(&dword_1BA83C000, v29, OS_LOG_TYPE_DEBUG, "NEConfiguration setCertificatesVPN: isModernSystem %@ (%d)", buf, 0x12u);
           }
 
-          if (v19 && isa_nsdata(v19) && v65 && isa_nsdata(v65))
+          if (v19 && isa_nsdata(v19) && v64 && isa_nsdata(v64))
           {
-            v63 = [NEIdentityKeychainItem alloc];
+            v62 = [NEIdentityKeychainItem alloc];
             bOOLValue = [v18 BOOLValue];
-            v61 = getConfigurationProtocol[10];
+            v60 = getConfigurationProtocol[10];
             LODWORD(self) = 1;
-            v60 = objc_getProperty(getConfigurationProtocol, v30, 88, 1);
-            v31 = [(NEKeychainItem *)v63 initWithPersistentReference:v19 keyReference:v65 isModernSystem:bOOLValue domain:v61 accessGroup:v60];
+            v59 = objc_getProperty(getConfigurationProtocol, v30, 88, 1);
+            v31 = [(NEKeychainItem *)v62 initWithPersistentReference:v19 keyReference:v64 isModernSystem:bOOLValue domain:v60 accessGroup:v59];
             objc_setProperty_atomic(getConfigurationProtocol, v32, v31, 96);
 
             goto LABEL_55;
@@ -3754,15 +3771,15 @@ LABEL_55:
         if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
         {
           *buf = 67109120;
-          LODWORD(v67) = self;
+          LODWORD(v66) = self;
           _os_log_debug_impl(&dword_1BA83C000, v43, OS_LOG_TYPE_DEBUG, "NEConfiguration setCertificatesVPN: done (OK %d)", buf, 8u);
         }
 
-        v13 = v64;
+        v13 = v63;
         goto LABEL_58;
       }
 
-      v65 = 0;
+      v64 = 0;
       v19 = 0;
       goto LABEL_51;
     }
@@ -3799,7 +3816,7 @@ LABEL_55:
           if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
           {
             *buf = 67109120;
-            LODWORD(v67) = self;
+            LODWORD(v66) = self;
             _os_log_debug_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_DEBUG, "NEConfiguration setCertificatesAppVPN: done (OK %d)", buf, 8u);
           }
         }
@@ -3828,21 +3845,14 @@ LABEL_89:
       {
         interfaceProtocolMapping = [getConfigurationProtocol2 interfaceProtocolMapping];
         *buf = 138412546;
-        v67 = v12;
-        v68 = 2112;
-        v69 = interfaceProtocolMapping;
+        v66 = v12;
+        v67 = 2112;
+        v68 = interfaceProtocolMapping;
         _os_log_debug_impl(&dword_1BA83C000, v34, OS_LOG_TYPE_DEBUG, "NEConfiguration setCertificatesAOVpn: certs %@, mapping %@", buf, 0x16u);
       }
 
-      if (!getConfigurationProtocol2)
+      if (!getConfigurationProtocol2 || ([getConfigurationProtocol2 interfaceProtocolMapping], (v35 = objc_claimAutoreleasedReturnValue()) == 0) || (v36 = v35, objc_msgSend(getConfigurationProtocol2, "interfaceProtocolMapping"), v37 = objc_claimAutoreleasedReturnValue(), v38 = objc_msgSend(v37, "count"), v37, v36, !v38))
       {
-        goto LABEL_60;
-      }
-
-      interfaceProtocolMapping2 = [getConfigurationProtocol2 interfaceProtocolMapping];
-      if (!interfaceProtocolMapping2 || (v36 = interfaceProtocolMapping2, [getConfigurationProtocol2 interfaceProtocolMapping], v37 = objc_claimAutoreleasedReturnValue(), v38 = objc_msgSend(v37, "count"), v37, v36, !v38))
-      {
-LABEL_60:
         v44 = ne_log_obj();
         if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
@@ -3853,8 +3863,8 @@ LABEL_60:
         goto LABEL_63;
       }
 
-      interfaceProtocolMapping3 = [getConfigurationProtocol2 interfaceProtocolMapping];
-      v40 = [interfaceProtocolMapping3 objectForKeyedSubscript:@"AlwaysOnVPNInterfaceCellular"];
+      interfaceProtocolMapping2 = [getConfigurationProtocol2 interfaceProtocolMapping];
+      v40 = [interfaceProtocolMapping2 objectForKeyedSubscript:@"AlwaysOnVPNInterfaceCellular"];
 
       if (v40)
       {
@@ -3871,14 +3881,14 @@ LABEL_60:
             v54 = ne_log_obj();
             if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
             {
-              v58 = "invalid";
+              v57 = "invalid";
               if (!v41)
               {
-                v58 = "missing";
+                v57 = "missing";
               }
 
               *buf = 136315138;
-              v67 = v58;
+              v66 = v57;
               _os_log_error_impl(&dword_1BA83C000, v54, OS_LOG_TYPE_ERROR, "NEConfiguration setCertificatesAOVpn: tunnel cert %s for Cellular tunnel", buf, 0xCu);
             }
 
@@ -3886,8 +3896,8 @@ LABEL_60:
           }
 
 LABEL_73:
-          interfaceProtocolMapping4 = [getConfigurationProtocol2 interfaceProtocolMapping];
-          self = [interfaceProtocolMapping4 objectForKeyedSubscript:@"AlwaysOnVPNInterfaceWiFi"];
+          interfaceProtocolMapping3 = [getConfigurationProtocol2 interfaceProtocolMapping];
+          self = [interfaceProtocolMapping3 objectForKeyedSubscript:@"AlwaysOnVPNInterfaceWiFi"];
 
           if (!self)
           {
@@ -3925,18 +3935,18 @@ LABEL_86:
             goto LABEL_86;
           }
 
-          v57 = ne_log_obj();
-          if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+          v56 = ne_log_obj();
+          if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
           {
-            v59 = "invalid";
+            v58 = "invalid";
             if (!v50)
             {
-              v59 = "missing";
+              v58 = "missing";
             }
 
             *buf = 136315138;
-            v67 = v59;
-            _os_log_error_impl(&dword_1BA83C000, v57, OS_LOG_TYPE_ERROR, "NEConfiguration setCertificatesAOVpn: tunnel cert %s for WiFi tunnel", buf, 0xCu);
+            v66 = v58;
+            _os_log_error_impl(&dword_1BA83C000, v56, OS_LOG_TYPE_ERROR, "NEConfiguration setCertificatesAOVpn: tunnel cert %s for WiFi tunnel", buf, 0xCu);
           }
 
 LABEL_63:
@@ -3996,7 +4006,7 @@ LABEL_68:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v67 = certificatesCopy;
+      v66 = certificatesCopy;
       _os_log_debug_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_DEBUG, "NEConfiguration setCertificates: malformed certificate references %@", buf, 0xCu);
     }
   }
@@ -4004,7 +4014,6 @@ LABEL_68:
   LOBYTE(self) = 0;
 LABEL_90:
 
-  v55 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -4210,7 +4219,7 @@ LABEL_28:
 
 - (uint64_t)configurePluginWithPayload:(void *)payload pluginType:(void *)type payloadType:(void *)payloadType vpnType:
 {
-  v114 = *MEMORY[0x1E69E9840];
+  v113 = *MEMORY[0x1E69E9840];
   v9 = a2;
   payloadCopy = payload;
   typeCopy = type;
@@ -4219,7 +4228,7 @@ LABEL_28:
   v14 = [payloadAtom objectForKeyedSubscript:@"VPN"];
   if (!v14)
   {
-    if ([payloadTypeCopy isEqualToString:@"TransparentProxy"])
+    if (objc_msgSend_isEqualToString_(payloadTypeCopy))
     {
       v14 = [payloadAtom objectForKeyedSubscript:@"TransparentProxy"];
     }
@@ -4234,7 +4243,7 @@ LABEL_28:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v111 = typeCopy;
+    v110 = typeCopy;
     _os_log_debug_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_DEBUG, "configurePluginWithPayload: start with type %@", buf, 0xCu);
   }
 
@@ -4253,9 +4262,9 @@ LABEL_28:
       goto LABEL_32;
     }
 
-    if ([(__CFString *)typeCopy isEqualToString:@"com.apple.vpn.managed"])
+    if (objc_msgSend_isEqualToString_(typeCopy))
     {
-      v108 = payloadTypeCopy;
+      v107 = payloadTypeCopy;
       pluginUpgradeInfo = [v9 pluginUpgradeInfo];
 
       if (pluginUpgradeInfo)
@@ -4272,7 +4281,7 @@ LABEL_28:
       if (!protocol)
       {
         v21 = off_1E7F04E28;
-        if (([v108 isEqualToString:@"TransparentProxy"] & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(v107) & 1) == 0)
         {
           v22 = [self VPN];
           tunnelType = [v22 tunnelType];
@@ -4296,11 +4305,11 @@ LABEL_28:
           if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v111 = @"com.apple.vpn.managed";
+            v110 = @"com.apple.vpn.managed";
             _os_log_error_impl(&dword_1BA83C000, v94, OS_LOG_TYPE_ERROR, "configurePluginWithPayload: failed to allocate for %@ protocol", buf, 0xCu);
           }
 
-          v109 = 0;
+          v108 = 0;
           goto LABEL_105;
         }
       }
@@ -4376,9 +4385,9 @@ LABEL_50:
           {
           }
 
-          else if (([v63 isEqualToString:@"Certificate"] & 1) == 0)
+          else if ((objc_msgSend_isEqualToString_(v63) & 1) == 0)
           {
-            if (([v63 isEqualToString:@"Password"] & 1) == 0)
+            if ((objc_msgSend_isEqualToString_(v63) & 1) == 0)
             {
               username = [protocol3 username];
               if (!username || (v92 = username, [v14 objectForKeyedSubscript:@"AuthPassword"], v93 = objc_claimAutoreleasedReturnValue(), v93, v92, !v93))
@@ -4386,12 +4395,12 @@ LABEL_50:
                 v100 = ne_log_obj();
                 if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
                 {
-                  v103 = objc_opt_class();
+                  v102 = objc_opt_class();
                   *buf = 138412546;
-                  v111 = v103;
-                  v112 = 2112;
-                  v113 = v63;
-                  v104 = v103;
+                  v110 = v102;
+                  v111 = 2112;
+                  v112 = v63;
+                  v103 = v102;
                   _os_log_error_impl(&dword_1BA83C000, v100, OS_LOG_TYPE_ERROR, "%@ configurePluginWithPayload: unsupported authen type %@.", buf, 0x16u);
                 }
 
@@ -4416,7 +4425,7 @@ LABEL_54:
 
             if ([(NEConfiguration *)self ingestDisconnectOptions:v14])
             {
-              v107 = v63;
+              v106 = v63;
               v70 = [v14 objectForKeyedSubscript:@"ProviderBundleIdentifier"];
               [protocol3 setProviderBundleIdentifier:v70];
 
@@ -4493,16 +4502,16 @@ LABEL_54:
                     if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138412290;
-                      v111 = v85;
+                      v110 = v85;
                       _os_log_error_impl(&dword_1BA83C000, v88, OS_LOG_TYPE_ERROR, "Transparent proxy order is invalid: %@", buf, 0xCu);
                     }
 
-                    v109 = 0;
+                    v108 = 0;
 LABEL_99:
 
 LABEL_104:
 LABEL_105:
-                    payloadTypeCopy = v108;
+                    payloadTypeCopy = v107;
                     goto LABEL_106;
                   }
 
@@ -4516,18 +4525,18 @@ LABEL_105:
                 serverAddress = [protocol3 serverAddress];
                 providerConfiguration = [protocol3 providerConfiguration];
                 *buf = 138412546;
-                v111 = serverAddress;
-                v112 = 2112;
-                v113 = providerConfiguration;
+                v110 = serverAddress;
+                v111 = 2112;
+                v112 = providerConfiguration;
                 _os_log_debug_impl(&dword_1BA83C000, v97, OS_LOG_TYPE_DEBUG, "configurePluginWithPayload: done, serverAddress %@, providerConfiguration %@", buf, 0x16u);
               }
 
-              v109 = 1;
+              v108 = 1;
               goto LABEL_99;
             }
 
 LABEL_103:
-            v109 = 0;
+            v108 = 0;
 
             goto LABEL_104;
           }
@@ -4555,9 +4564,9 @@ LABEL_103:
       goto LABEL_49;
     }
 
-    if ([(__CFString *)typeCopy isEqualToString:@"com.apple.vpn.managed.applayer"])
+    if (objc_msgSend_isEqualToString_(typeCopy))
     {
-      v108 = payloadTypeCopy;
+      v107 = payloadTypeCopy;
       pluginUpgradeInfo3 = [v9 pluginUpgradeInfo];
 
       if (!pluginUpgradeInfo3)
@@ -4603,11 +4612,11 @@ LABEL_36:
               if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v111 = @"com.apple.vpn.managed.applayer";
+                v110 = @"com.apple.vpn.managed.applayer";
                 _os_log_error_impl(&dword_1BA83C000, v95, OS_LOG_TYPE_ERROR, "configurePluginWithPayload: failed to allocate for %@ protocol", buf, 0xCu);
               }
 
-              v109 = 0;
+              v108 = 0;
               payloadCopy = v37;
               goto LABEL_105;
             }
@@ -4635,7 +4644,7 @@ LABEL_36:
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v111 = typeCopy;
+      v110 = typeCopy;
       v31 = "configurePluginWithPayload: unsupported payload type %@";
       v32 = v30;
       v33 = 12;
@@ -4658,26 +4667,24 @@ LABEL_30:
   }
 
 LABEL_32:
-  v109 = 0;
+  v108 = 0;
 LABEL_106:
 
-  result = v109;
-  v102 = *MEMORY[0x1E69E9840];
-  return result;
+  return v108;
 }
 
 - (BOOL)ingestDisconnectOptions:(void *)options
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   getConfigurationProtocol = [(NEConfiguration *)options getConfigurationProtocol];
   v5 = ne_log_large_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    *v17 = 138412290;
-    *&v17[4] = objc_opt_class();
-    v14 = *&v17[4];
-    _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "%@ ingestDisconnectOptions start", v17, 0xCu);
+    *v16 = 138412290;
+    *&v16[4] = objc_opt_class();
+    v13 = *&v16[4];
+    _os_log_debug_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_DEBUG, "%@ ingestDisconnectOptions start", v16, 0xCu);
   }
 
   if (getConfigurationProtocol)
@@ -4688,7 +4695,7 @@ LABEL_106:
       [getConfigurationProtocol setDisconnectOnIdle:{objc_msgSend(v6, "BOOLValue")}];
     }
 
-    v7 = [v3 objectForKeyedSubscript:{@"DisconnectOnIdleTimer", *v17}];
+    v7 = [v3 objectForKeyedSubscript:{@"DisconnectOnIdleTimer", *v16, *&v16[8]}];
 
     if (isa_nsnumber(v7))
     {
@@ -4722,17 +4729,16 @@ LABEL_106:
     v11 = ne_log_obj();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v15 = objc_opt_class();
-      *v17 = 138412290;
-      *&v17[4] = v15;
-      v16 = v15;
-      _os_log_error_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_ERROR, "%@ ingestDisconnectOptions failed: protocol not allocated", v17, 0xCu);
+      v14 = objc_opt_class();
+      *v16 = 138412290;
+      *&v16[4] = v14;
+      v15 = v14;
+      _os_log_error_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_ERROR, "%@ ingestDisconnectOptions failed: protocol not allocated", v16, 0xCu);
     }
 
     v10 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return getConfigurationProtocol != 0;
 }
 
@@ -4765,15 +4771,15 @@ LABEL_7:
 
 - (uint64_t)configurePPPWithVPNOptions:(void *)options payloadBase:
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   v6 = [a2 objectForKeyedSubscript:@"VPN"];
   getConfigurationProtocol = [(NEConfiguration *)self getConfigurationProtocol];
   v8 = ne_log_obj();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v22) = 0;
-    _os_log_debug_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEBUG, "configurePPPWithVPNOptions", &v22, 2u);
+    LOWORD(v21) = 0;
+    _os_log_debug_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEBUG, "configurePPPWithVPNOptions", &v21, 2u);
   }
 
   appVPN = [self appVPN];
@@ -4820,9 +4826,9 @@ LABEL_7:
 
           else
           {
-            v21 = [v6 objectForKeyedSubscript:@"PayloadCertificateUUID"];
+            v20 = [v6 objectForKeyedSubscript:@"PayloadCertificateUUID"];
 
-            if (!v21)
+            if (!v20)
             {
               goto LABEL_5;
             }
@@ -4839,9 +4845,9 @@ LABEL_25:
         v17 = ne_log_obj();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
-          v22 = 138412290;
-          v23 = @"VPN";
-          _os_log_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_INFO, "configurePPPWithVPNOptions: invalid %@ dictionary", &v22, 0xCu);
+          v21 = 138412290;
+          v22 = @"VPN";
+          _os_log_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_INFO, "configurePPPWithVPNOptions: invalid %@ dictionary", &v21, 0xCu);
         }
       }
 
@@ -4850,9 +4856,9 @@ LABEL_25:
         v17 = ne_log_obj();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
-          v22 = 138412290;
-          v23 = @"VPN";
-          _os_log_debug_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_DEBUG, "configurePPPWithVPNOptions: nothing to do, empty %@ dictionary", &v22, 0xCu);
+          v21 = 138412290;
+          v22 = @"VPN";
+          _os_log_debug_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_DEBUG, "configurePPPWithVPNOptions: nothing to do, empty %@ dictionary", &v21, 0xCu);
         }
       }
     }
@@ -4862,8 +4868,8 @@ LABEL_25:
       v17 = ne_log_obj();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v22) = 0;
-        _os_log_error_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_ERROR, "configurePPPWithVPNOptions: L2TP not initialized", &v22, 2u);
+        LOWORD(v21) = 0;
+        _os_log_error_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_ERROR, "configurePPPWithVPNOptions: L2TP not initialized", &v21, 2u);
       }
     }
 
@@ -4876,13 +4882,12 @@ LABEL_5:
   v11 = 1;
 LABEL_26:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (uint64_t)ingestProxyOptions:(void *)options
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   getConfigurationProtocol = [(NEConfiguration *)options getConfigurationProtocol];
   if (!getConfigurationProtocol)
@@ -4890,10 +4895,10 @@ LABEL_26:
     v5 = ne_log_obj();
     if (os_log_type_enabled(&v5->super, OS_LOG_TYPE_ERROR))
     {
-      v18 = 138412290;
-      v19 = objc_opt_class();
-      v8 = v19;
-      _os_log_error_impl(&dword_1BA83C000, &v5->super, OS_LOG_TYPE_ERROR, "%@ ingestProxyOptions: missing protocol info", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = objc_opt_class();
+      v8 = v18;
+      _os_log_error_impl(&dword_1BA83C000, &v5->super, OS_LOG_TYPE_ERROR, "%@ ingestProxyOptions: missing protocol info", &v17, 0xCu);
     }
 
     goto LABEL_14;
@@ -4903,10 +4908,10 @@ LABEL_26:
   v6 = ne_log_large_obj();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v18 = 138412290;
-    v19 = objc_opt_class();
-    v13 = v19;
-    _os_log_debug_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_DEBUG, "%@ ingestProxyOptions", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = objc_opt_class();
+    v12 = v18;
+    _os_log_debug_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_DEBUG, "%@ ingestProxyOptions", &v17, 0xCu);
   }
 
   if (!v5)
@@ -4921,15 +4926,15 @@ LABEL_26:
     v10 = ne_log_obj();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v14 = objc_opt_class();
-      v15 = v14;
-      v16 = objc_opt_class();
-      v18 = 138412546;
-      v19 = v14;
-      v20 = 2112;
-      v21 = v16;
-      v17 = v16;
-      _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "%@ ingestProxyOptions: unsupported proxy data type %@", &v18, 0x16u);
+      v13 = objc_opt_class();
+      v14 = v13;
+      v15 = objc_opt_class();
+      v17 = 138412546;
+      v18 = v13;
+      v19 = 2112;
+      v20 = v15;
+      v16 = v15;
+      _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "%@ ingestProxyOptions: unsupported proxy data type %@", &v17, 0x16u);
     }
 
 LABEL_14:
@@ -4944,13 +4949,12 @@ LABEL_10:
   v9 = 1;
 LABEL_15:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (uint64_t)configureIKE:(void *)e vpnType:(void *)type payloadBase:(void *)base vpn:
 {
-  v171 = *MEMORY[0x1E69E9840];
+  v170 = *MEMORY[0x1E69E9840];
   v9 = a2;
   eCopy = e;
   typeCopy = type;
@@ -4960,7 +4964,7 @@ LABEL_15:
   {
     v18 = objc_opt_class();
     *buf = 138412290;
-    v167 = v18;
+    v166 = v18;
     _os_log_debug_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_DEBUG, "%@ configureIKE", buf, 0xCu);
   }
 
@@ -4980,14 +4984,14 @@ LABEL_15:
 
   if (!protocol)
   {
-    if ([eCopy isEqualToString:@"IPSec"])
+    if (objc_msgSend_isEqualToString_(eCopy))
     {
       v15 = NEVPNProtocolIPSec;
     }
 
     else
     {
-      if (![eCopy isEqualToString:@"L2TP"])
+      if (!objc_msgSend_isEqualToString_(eCopy))
       {
         payloadAtom = [typeCopy payloadAtom];
         v19 = [payloadAtom objectForKeyedSubscript:@"VPNSubType"];
@@ -5030,7 +5034,7 @@ LABEL_16:
 
     v27 = objc_opt_class();
     *buf = 138412290;
-    v167 = v27;
+    v166 = v27;
     v28 = v27;
     _os_log_error_impl(&dword_1BA83C000, selfCopy3, OS_LOG_TYPE_ERROR, "%@ configureIKE failed to locate protocol for ipsec", buf, 0xCu);
     goto LABEL_111;
@@ -5052,7 +5056,7 @@ LABEL_16:
     protocol5 = [baseCopy protocol];
     protocol4 = 0;
 LABEL_26:
-    v159 = 0;
+    v158 = 0;
     goto LABEL_27;
   }
 
@@ -5061,10 +5065,10 @@ LABEL_26:
     v28 = ne_log_obj();
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      v141 = objc_opt_class();
+      v140 = objc_opt_class();
       *buf = 138412290;
-      v167 = v141;
-      v142 = v141;
+      v166 = v140;
+      v141 = v140;
       _os_log_error_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_ERROR, "%@ configureIKE failed to find protocol object for ipsec", buf, 0xCu);
     }
 
@@ -5074,7 +5078,7 @@ LABEL_111:
   }
 
   [baseCopy protocol];
-  v159 = protocol5 = 0;
+  v158 = protocol5 = 0;
   protocol4 = 0;
 LABEL_27:
   v29 = [v9 objectForKeyedSubscript:@"RemoteAddress"];
@@ -5121,7 +5125,7 @@ LABEL_27:
     [protocol10 setExcludeAPNs:bOOLValue4];
   }
 
-  v157 = baseCopy;
+  v156 = baseCopy;
   v43 = [v9 objectForKeyedSubscript:@"ExcludeDeviceCommunication"];
 
   if (isa_nsnumber(v43))
@@ -5161,7 +5165,7 @@ LABEL_27:
 
     v54 = [v9 objectForKeyedSubscript:@"XAuthPasswordEncryption"];
 
-    if (isa_nsstring(v54) && [v54 isEqualToString:@"Prompt"])
+    if (isa_nsstring(v54) && objc_msgSend_isEqualToString_(v54))
     {
       [self setExtendedAuthPasswordPrompt:1];
     }
@@ -5178,7 +5182,7 @@ LABEL_27:
     }
   }
 
-  if (!v159)
+  if (!v158)
   {
     if (protocol4)
     {
@@ -5207,14 +5211,14 @@ LABEL_27:
 
   if (v60 && isa_nsstring(v60))
   {
-    [v159 setUsername:v60];
+    [v158 setUsername:v60];
   }
 
   v61 = [v9 objectForKeyedSubscript:@"ExchangeMode"];
 
   if (v61 && isa_nsarray(v61))
   {
-    [v159 setLegacyExchangeMode:v61];
+    [v158 setLegacyExchangeMode:v61];
   }
 
   v62 = [v9 objectForKeyedSubscript:@"Proposals"];
@@ -5230,36 +5234,36 @@ LABEL_27:
     goto LABEL_99;
   }
 
-  v151 = v62;
-  v152 = typeCopy;
-  v153 = eCopy;
-  v154 = v9;
+  v150 = v62;
+  v151 = typeCopy;
+  v152 = eCopy;
+  v153 = v9;
   array = [MEMORY[0x1E695DF70] array];
+  v161 = 0u;
   v162 = 0u;
   v163 = 0u;
   v164 = 0u;
-  v165 = 0u;
-  v150 = v63;
+  v149 = v63;
   v64 = v63;
-  v65 = [v64 countByEnumeratingWithState:&v162 objects:v170 count:16];
+  v65 = [v64 countByEnumeratingWithState:&v161 objects:v169 count:16];
   if (!v65)
   {
     goto LABEL_96;
   }
 
   v66 = v65;
-  v67 = *v163;
+  v67 = *v162;
   do
   {
     v68 = 0;
     do
     {
-      if (*v163 != v67)
+      if (*v162 != v67)
       {
         objc_enumerationMutation(v64);
       }
 
-      v69 = *(*(&v162 + 1) + 8 * v68);
+      v69 = *(*(&v161 + 1) + 8 * v68);
       if (isa_nsdictionary(v69))
       {
         v70 = objc_alloc_init(NEVPNIKEv1ProposalParameters);
@@ -5272,29 +5276,29 @@ LABEL_27:
           goto LABEL_77;
         }
 
-        if ([v71 isEqualToString:@"DES"])
+        if (objc_msgSend_isEqualToString_(v71))
         {
           v75 = 1;
           goto LABEL_76;
         }
 
-        if ([v71 isEqualToString:@"3DES"])
+        if (objc_msgSend_isEqualToString_(v71))
         {
           v75 = 2;
           goto LABEL_76;
         }
 
-        if ([v71 isEqualToString:@"AES"])
+        if (objc_msgSend_isEqualToString_(v71))
         {
           v75 = 3;
           goto LABEL_76;
         }
 
-        if ([v71 isEqualToString:@"AES256"])
+        if (objc_msgSend_isEqualToString_(v71))
         {
           v75 = 4;
 LABEL_76:
-          [(NEVPNIKEv1ProposalParameters *)v70 setEncryptionAlgorithm:v75, v150];
+          [(NEVPNIKEv1ProposalParameters *)v70 setEncryptionAlgorithm:v75, v149];
           v76 = 1;
         }
 
@@ -5306,17 +5310,17 @@ LABEL_77:
 
         if (isa_nsstring(v72))
         {
-          if ([v72 isEqualToString:@"SHA1"])
+          if (objc_msgSend_isEqualToString_(v72))
           {
             v77 = 1;
             goto LABEL_83;
           }
 
-          if ([v72 isEqualToString:@"MD5"])
+          if (objc_msgSend_isEqualToString_(v72))
           {
             v77 = 2;
 LABEL_83:
-            [(NEVPNIKEv1ProposalParameters *)v70 setIntegrityAlgorithm:v77, v150];
+            [(NEVPNIKEv1ProposalParameters *)v70 setIntegrityAlgorithm:v77, v149];
             v76 = 1;
           }
         }
@@ -5327,7 +5331,7 @@ LABEL_83:
           if (!isa_nsnumber(v74))
           {
 LABEL_89:
-            [array addObject:{v70, v150}];
+            [array addObject:{v70, v149}];
             goto LABEL_90;
           }
         }
@@ -5353,7 +5357,7 @@ LABEL_91:
     }
 
     while (v66 != v68);
-    v78 = [v64 countByEnumeratingWithState:&v162 objects:v170 count:16];
+    v78 = [v64 countByEnumeratingWithState:&v161 objects:v169 count:16];
     v66 = v78;
   }
 
@@ -5362,30 +5366,30 @@ LABEL_96:
 
   if ([array count])
   {
-    [v159 setLegacyProposals:array];
+    [v158 setLegacyProposals:array];
   }
 
-  eCopy = v153;
-  v9 = v154;
-  v62 = v151;
-  typeCopy = v152;
-  v63 = v150;
+  eCopy = v152;
+  v9 = v153;
+  v62 = v150;
+  typeCopy = v151;
+  v63 = v149;
 LABEL_99:
 
 LABEL_100:
-  v43 = [v9 objectForKeyedSubscript:{@"XAuthPassword", v150}];
+  v43 = [v9 objectForKeyedSubscript:{@"XAuthPassword", v149}];
 
   if (v43)
   {
     if (isa_nsdata(v43))
     {
-      v79 = v159;
+      v79 = v158;
       goto LABEL_117;
     }
 
     if (isa_nsstring(v43))
     {
-      v79 = v159;
+      v79 = v158;
       goto LABEL_120;
     }
 
@@ -5396,9 +5400,9 @@ LABEL_100:
       v108 = v107;
       v109 = objc_opt_class();
       *buf = 138412546;
-      v167 = v107;
-      v168 = 2112;
-      v169 = v109;
+      v166 = v107;
+      v167 = 2112;
+      v168 = v109;
       v110 = v109;
       v111 = "%@ configureIKE: unsupported Xauth password data type %@";
       goto LABEL_202;
@@ -5437,14 +5441,14 @@ LABEL_113:
     v106 = ne_log_obj();
     if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
     {
+      v146 = objc_opt_class();
+      v108 = v146;
       v147 = objc_opt_class();
-      v108 = v147;
-      v148 = objc_opt_class();
       *buf = 138412546;
-      v167 = v147;
-      v168 = 2112;
-      v169 = v148;
-      v110 = v148;
+      v166 = v146;
+      v167 = 2112;
+      v168 = v147;
+      v110 = v147;
       v111 = "%@ configureIKE: unsupported password data type %@";
 LABEL_202:
       _os_log_error_impl(&dword_1BA83C000, v106, OS_LOG_TYPE_ERROR, v111, buf, 0x16u);
@@ -5453,7 +5457,7 @@ LABEL_202:
 LABEL_147:
 
     v112 = 0;
-    baseCopy = v157;
+    baseCopy = v156;
     selfCopy3 = self;
     goto LABEL_200;
   }
@@ -5474,7 +5478,7 @@ LABEL_121:
 LABEL_122:
   v89 = [v9 objectForKeyedSubscript:@"SharedSecret"];
 
-  baseCopy = v157;
+  baseCopy = v156;
   selfCopy3 = self;
   if (!v89)
   {
@@ -5502,7 +5506,7 @@ LABEL_132:
       if (!v101 || !isa_nsstring(v101))
       {
 LABEL_150:
-        if (v159 && (v113 = *MEMORY[0x1E6982440], [v9 objectForKeyedSubscript:*MEMORY[0x1E6982440]], v114 = objc_claimAutoreleasedReturnValue(), v115 = isa_nsnumber(v114), v114, v115))
+        if (v158 && (v113 = *MEMORY[0x1E6982440], [v9 objectForKeyedSubscript:*MEMORY[0x1E6982440]], v114 = objc_claimAutoreleasedReturnValue(), v115 = isa_nsnumber(v114), v114, v115))
         {
           v116 = v9;
           v117 = v113;
@@ -5545,7 +5549,7 @@ LABEL_157:
 
             if (isa_nsstring(v124))
             {
-              if ([v124 isEqualToString:@"SharedSecret"])
+              if (objc_msgSend_isEqualToString_(v124))
               {
                 v125 = protocol5;
                 if (protocol5)
@@ -5563,7 +5567,7 @@ LABEL_186:
                 goto LABEL_187;
               }
 
-              if ([v124 isEqualToString:@"Certificate"])
+              if (objc_msgSend_isEqualToString_(v124))
               {
                 v125 = protocol5;
                 if (protocol5)
@@ -5577,18 +5581,18 @@ LABEL_186:
                 goto LABEL_186;
               }
 
-              v130 = [v124 isEqualToString:@"None"];
+              isEqualToString = objc_msgSend_isEqualToString_(v124);
               v127 = protocol4;
-              if (!protocol4 || (v130 & 1) == 0)
+              if (!protocol4 || (isEqualToString & 1) == 0)
               {
                 v131 = ne_log_obj();
                 if (os_log_type_enabled(v131, OS_LOG_TYPE_ERROR))
                 {
-                  v149 = objc_opt_class();
+                  v148 = objc_opt_class();
                   *buf = 138412546;
-                  v167 = v149;
-                  v168 = 2112;
-                  v169 = v124;
+                  v166 = v148;
+                  v167 = 2112;
+                  v168 = v124;
                   _os_log_error_impl(&dword_1BA83C000, v131, OS_LOG_TYPE_ERROR, "%@ configureIKE: unsupported authentication type %@.", buf, 0x16u);
                 }
 
@@ -5608,13 +5612,13 @@ LABEL_193:
                 v135 = ne_log_obj();
                 if (os_log_type_enabled(v135, OS_LOG_TYPE_DEBUG))
                 {
-                  v138 = objc_opt_class();
-                  v139 = [selfCopy VPN];
-                  protocol14 = [v139 protocol];
+                  v137 = objc_opt_class();
+                  v138 = [selfCopy VPN];
+                  protocol14 = [v138 protocol];
                   *buf = 138412546;
-                  v167 = v138;
-                  v168 = 2112;
-                  v169 = protocol14;
+                  v166 = v137;
+                  v167 = 2112;
+                  v168 = protocol14;
                   _os_log_debug_impl(&dword_1BA83C000, v135, OS_LOG_TYPE_DEBUG, "%@ configureIKE, done with %@", buf, 0x16u);
                 }
 
@@ -5635,9 +5639,9 @@ LABEL_193:
                   {
                     v129 = objc_opt_class();
                     *buf = 138412546;
-                    v167 = v129;
-                    v168 = 2112;
-                    v169 = v124;
+                    v166 = v129;
+                    v167 = 2112;
+                    v168 = v124;
                     _os_log_error_impl(&dword_1BA83C000, v128, OS_LOG_TYPE_ERROR, "%@ configureIKE: unsupported authentication type %@.", buf, 0x16u);
                   }
 
@@ -5731,14 +5735,14 @@ LABEL_126:
   v105 = ne_log_obj();
   if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
   {
-    v143 = objc_opt_class();
-    v144 = v143;
-    v145 = objc_opt_class();
+    v142 = objc_opt_class();
+    v143 = v142;
+    v144 = objc_opt_class();
     *buf = 138412546;
-    v167 = v143;
-    v168 = 2112;
-    v169 = v145;
-    v146 = v145;
+    v166 = v142;
+    v167 = 2112;
+    v168 = v144;
+    v145 = v144;
     _os_log_error_impl(&dword_1BA83C000, v105, OS_LOG_TYPE_ERROR, "%@ configureIKE: unsupported shared secret data type %@", buf, 0x16u);
   }
 
@@ -5747,13 +5751,12 @@ LABEL_199:
   v112 = 0;
 LABEL_200:
 
-  v136 = *MEMORY[0x1E69E9840];
   return v112;
 }
 
 - (BOOL)configureVpnOnDemandRules:(void *)rules
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [rules VPN];
   if (v4)
@@ -5770,10 +5773,10 @@ LABEL_200:
   v6 = ne_log_large_obj();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    *v22 = 138412290;
-    *&v22[4] = objc_opt_class();
-    v19 = *&v22[4];
-    _os_log_debug_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_DEBUG, "%@ configureVpnOnDemandRules: start", v22, 0xCu);
+    *v21 = 138412290;
+    *&v21[4] = objc_opt_class();
+    v18 = *&v21[4];
+    _os_log_debug_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_DEBUG, "%@ configureVpnOnDemandRules: start", v21, 0xCu);
   }
 
   if (v5)
@@ -5786,12 +5789,12 @@ LABEL_200:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         v9 = objc_opt_class();
-        *v22 = 138412290;
-        *&v22[4] = v9;
+        *v21 = 138412290;
+        *&v21[4] = v9;
         v10 = v9;
         v11 = "%@ configureVpnOnDemandRules: VPN OnDemand rules already ingested. Skip current dictionary.";
 LABEL_12:
-        _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, v11, v22, 0xCu);
+        _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, v11, v21, 0xCu);
       }
     }
 
@@ -5806,7 +5809,7 @@ LABEL_12:
         [v5 setOnDemandEnabled:{objc_msgSend(v14, "BOOLValue")}];
       }
 
-      v15 = [v3 objectForKeyedSubscript:{@"DisconnectOnDemandEnabled", *v22}];
+      v15 = [v3 objectForKeyedSubscript:{@"DisconnectOnDemandEnabled", *v21, *&v21[8]}];
 
       if (isa_nsnumber(v15))
       {
@@ -5823,13 +5826,13 @@ LABEL_12:
       v16 = ne_log_obj();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        v20 = objc_opt_class();
-        *v22 = 138412546;
-        *&v22[4] = v20;
-        *&v22[12] = 2112;
-        *&v22[14] = v5;
-        v21 = v20;
-        _os_log_debug_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_DEBUG, "%@ configureVpnOnDemandRules done: onDemand rules %@", v22, 0x16u);
+        v19 = objc_opt_class();
+        *v21 = 138412546;
+        *&v21[4] = v19;
+        *&v21[12] = 2112;
+        *&v21[14] = v5;
+        v20 = v19;
+        _os_log_debug_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_DEBUG, "%@ configureVpnOnDemandRules done: onDemand rules %@", v21, 0x16u);
       }
     }
   }
@@ -5840,15 +5843,14 @@ LABEL_12:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v12 = objc_opt_class();
-      *v22 = 138412290;
-      *&v22[4] = v12;
+      *v21 = 138412290;
+      *&v21[4] = v12;
       v10 = v12;
       v11 = "%@ configureVpnOnDemandRules failed: VPN not initialized";
       goto LABEL_12;
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5 != 0;
 }
 
@@ -5857,7 +5859,7 @@ LABEL_12:
   v5 = a2;
   demandCopy = demand;
   v7 = [v5 objectForKeyedSubscript:demandCopy];
-  if ([demandCopy isEqualToString:@"L2TP"])
+  if (objc_msgSend_isEqualToString_(demandCopy))
   {
     v8 = [v5 objectForKeyedSubscript:@"PPP"];
 
@@ -5869,7 +5871,7 @@ LABEL_12:
     goto LABEL_8;
   }
 
-  if (![demandCopy isEqualToString:@"L2TP"])
+  if (!objc_msgSend_isEqualToString_(demandCopy))
   {
     v7 = 0;
 LABEL_10:
@@ -5892,14 +5894,14 @@ LABEL_11:
 
 - (uint64_t)ingestIPSecDict:(void *)dict vpnType:(void *)type vpn:
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   v7 = a2;
   dictCopy = dict;
   typeCopy = type;
   payloadAtom = [v7 payloadAtom];
-  v11 = [(__CFString *)dictCopy isEqualToString:@"IKEv2"];
+  isEqualToString = objc_msgSend_isEqualToString_(dictCopy);
   v12 = @"IPSec";
-  if (v11)
+  if (isEqualToString)
   {
     v12 = @"IKEv2";
   }
@@ -5910,28 +5912,28 @@ LABEL_11:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412546;
-    v59 = objc_opt_class();
-    v60 = 2112;
-    v61 = dictCopy;
-    v35 = v59;
+    v58 = objc_opt_class();
+    v59 = 2112;
+    v60 = dictCopy;
+    v35 = v58;
     _os_log_debug_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_DEBUG, "%@ ingestIPSecDict for type %@", buf, 0x16u);
   }
 
   if (!v14)
   {
-    v16 = [(__CFString *)dictCopy isEqualToString:@"L2TP"];
+    v16 = objc_msgSend_isEqualToString_(dictCopy);
     v14 = ne_log_obj();
     v17 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
     if ((v16 & 1) == 0)
     {
       if (v17)
       {
-        v44 = objc_opt_class();
+        v43 = objc_opt_class();
         *buf = 138412546;
-        v59 = v44;
-        v60 = 2112;
-        v61 = v13;
-        v45 = v44;
+        v58 = v43;
+        v59 = 2112;
+        v60 = v13;
+        v44 = v43;
         _os_log_error_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_ERROR, "%@ ingestIPSecDict: empty %@ dict", buf, 0x16u);
       }
 
@@ -5940,10 +5942,10 @@ LABEL_11:
 
     if (v17)
     {
-      v42 = objc_opt_class();
+      v41 = objc_opt_class();
       *buf = 138412290;
-      v59 = v42;
-      v43 = v42;
+      v58 = v41;
+      v42 = v41;
       _os_log_error_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_ERROR, "%@ ingestIPSecDict: empty IPSec dict for L2TP. Apply defaults.", buf, 0xCu);
     }
 
@@ -5958,7 +5960,7 @@ LABEL_11:
     {
       v29 = objc_opt_class();
       *buf = 138412290;
-      v59 = v29;
+      v58 = v29;
       v30 = v29;
       _os_log_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_INFO, "%@ ingestIPSecDict: can't alloc dictionary", buf, 0xCu);
     }
@@ -5969,7 +5971,7 @@ LABEL_31:
   }
 
   v19 = v18;
-  v57 = typeCopy;
+  v56 = typeCopy;
   v20 = [payloadAtom objectForKeyedSubscript:@"_certificateData"];
   if (v20)
   {
@@ -5986,12 +5988,12 @@ LABEL_31:
         v27 = [v26 objectAtIndex:0];
         if (v27)
         {
-          v56 = v27;
+          v55 = v27;
           [v19 setObject:v27 forKey:@"LocalCertificate"];
-          if (!-[__CFString isEqualToString:](dictCopy, "isEqualToString:", @"IKEv2") || ([v19 objectForKeyedSubscript:@"AuthenticationMethod"], v55 = objc_claimAutoreleasedReturnValue(), v55, v27 = v56, !v55))
+          if (!objc_msgSend_isEqualToString_(dictCopy) || ([v19 objectForKeyedSubscript:@"AuthenticationMethod"], v54 = objc_claimAutoreleasedReturnValue(), v54, v27 = v55, !v54))
           {
             [v19 setObject:@"Certificate" forKey:@"AuthenticationMethod"];
-            v27 = v56;
+            v27 = v55;
           }
         }
       }
@@ -6006,7 +6008,7 @@ LABEL_31:
   if (v31)
   {
     v21 = v31;
-    if (!-[__CFString isEqualToString:](dictCopy, "isEqualToString:", @"IKEv2") || ([v19 objectForKeyedSubscript:@"AuthenticationMethod"], v32 = objc_claimAutoreleasedReturnValue(), v32, !v32))
+    if (!objc_msgSend_isEqualToString_(dictCopy) || ([v19 objectForKeyedSubscript:@"AuthenticationMethod"], v32 = objc_claimAutoreleasedReturnValue(), v32, !v32))
     {
       [v19 setObject:@"Certificate" forKey:@"AuthenticationMethod"];
     }
@@ -6019,7 +6021,7 @@ LABEL_31:
   {
 
 LABEL_35:
-    if (!-[__CFString isEqualToString:](dictCopy, "isEqualToString:", @"IKEv2") || ([v19 objectForKeyedSubscript:@"AuthenticationMethod"], v37 = objc_claimAutoreleasedReturnValue(), v37, !v37))
+    if (!objc_msgSend_isEqualToString_(dictCopy) || ([v19 objectForKeyedSubscript:@"AuthenticationMethod"], v37 = objc_claimAutoreleasedReturnValue(), v37, !v37))
     {
       [v19 setObject:@"Certificate" forKey:@"AuthenticationMethod"];
     }
@@ -6034,47 +6036,47 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  if ([(__CFString *)dictCopy isEqualToString:@"IKEv2"]&& ([v14 objectForKeyedSubscript:@"ExtensibleSSOProvider"], v46 = objc_claimAutoreleasedReturnValue(), v46, v46))
+  if (objc_msgSend_isEqualToString_(dictCopy) && ([v14 objectForKeyedSubscript:@"ExtensibleSSOProvider"], v45 = objc_claimAutoreleasedReturnValue(), v45, v45))
   {
-    v47 = ne_log_obj();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+    v46 = ne_log_obj();
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
     {
-      v48 = objc_opt_class();
+      v47 = objc_opt_class();
       *buf = 138412290;
-      v59 = v48;
-      v49 = v48;
-      _os_log_impl(&dword_1BA83C000, v47, OS_LOG_TYPE_INFO, "%@ ingestIPSecDict: assuming authentication by certificate", buf, 0xCu);
+      v58 = v47;
+      v48 = v47;
+      _os_log_impl(&dword_1BA83C000, v46, OS_LOG_TYPE_INFO, "%@ ingestIPSecDict: assuming authentication by certificate", buf, 0xCu);
     }
 
-    v50 = @"Certificate";
+    v49 = @"Certificate";
   }
 
   else
   {
-    v51 = ne_log_obj();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+    v50 = ne_log_obj();
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
     {
-      v52 = objc_opt_class();
+      v51 = objc_opt_class();
       *buf = 138412290;
-      v59 = v52;
-      v53 = v52;
-      _os_log_impl(&dword_1BA83C000, v51, OS_LOG_TYPE_INFO, "%@ ingestIPSecDict: assuming authentication by sharedsecret", buf, 0xCu);
+      v58 = v51;
+      v52 = v51;
+      _os_log_impl(&dword_1BA83C000, v50, OS_LOG_TYPE_INFO, "%@ ingestIPSecDict: assuming authentication by sharedsecret", buf, 0xCu);
     }
 
-    if ([(__CFString *)dictCopy isEqualToString:@"IKEv2"])
+    if (objc_msgSend_isEqualToString_(dictCopy))
     {
-      v54 = [v19 objectForKeyedSubscript:@"AuthenticationMethod"];
+      v53 = [v19 objectForKeyedSubscript:@"AuthenticationMethod"];
 
-      if (v54)
+      if (v53)
       {
         goto LABEL_58;
       }
     }
 
-    v50 = @"SharedSecret";
+    v49 = @"SharedSecret";
   }
 
-  [v19 setObject:v50 forKey:@"AuthenticationMethod"];
+  [v19 setObject:v49 forKey:@"AuthenticationMethod"];
 LABEL_58:
   [v19 removeObjectForKey:@"ExportedSharedSecret"];
   [v19 removeObjectForKey:@"IPSecSharedSecretObf"];
@@ -6082,9 +6084,9 @@ LABEL_38:
   v21 = 0;
 LABEL_39:
   v38 = [v19 objectForKeyedSubscript:@"AuthenticationMethod"];
-  if (v38 && ([(__CFString *)dictCopy isEqualToString:@"IKEv2"]& 1) == 0)
+  if (v38 && (objc_msgSend_isEqualToString_(dictCopy) & 1) == 0)
   {
-    if ([v38 isEqualToString:@"Certificate"])
+    if (objc_msgSend_isEqualToString_(v38))
     {
       [v19 removeObjectForKey:@"LocalIdentifier"];
       v39 = @"LocalIdentifierType";
@@ -6098,18 +6100,17 @@ LABEL_39:
     [v19 removeObjectForKey:v39];
   }
 
-  v33 = [(NEConfiguration *)self configureIKE:v19 vpnType:dictCopy payloadBase:v7 vpn:v57];
+  v33 = [(NEConfiguration *)self configureIKE:v19 vpnType:dictCopy payloadBase:v7 vpn:v56];
 
-  typeCopy = v57;
+  typeCopy = v56;
 LABEL_46:
 
-  v40 = *MEMORY[0x1E69E9840];
   return v33;
 }
 
 - (id)initWithVPNPayload:(void *)payload configurationName:(uint64_t)name grade:
 {
-  v161 = *MEMORY[0x1E69E9840];
+  v160 = *MEMORY[0x1E69E9840];
   v7 = a2;
   payloadCopy = payload;
   if (!self)
@@ -6124,8 +6125,8 @@ LABEL_46:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v156 = objc_opt_class();
-    v38 = v156;
+    v155 = objc_opt_class();
+    v37 = v155;
     _os_log_debug_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_DEBUG, "%@ initWithVPNPayload", buf, 0xCu);
   }
 
@@ -6139,7 +6140,7 @@ LABEL_46:
 
     v31 = objc_opt_class();
     *buf = 138412290;
-    v156 = v31;
+    v155 = v31;
     v32 = v31;
     v33 = "%@ initWithVPNPayload: empty payload atom";
 LABEL_65:
@@ -6152,11 +6153,11 @@ LABEL_65:
   if (v12)
   {
     v13 = v12;
-    v154[0] = @"IPSec";
-    v154[1] = @"L2TP";
-    v154[2] = @"IKEv2";
-    v154[3] = @"VPN";
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v154 count:4];
+    v153[0] = @"IPSec";
+    v153[1] = @"L2TP";
+    v153[2] = @"IKEv2";
+    v153[3] = @"VPN";
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v153 count:4];
     if ([v14 containsObject:v13])
     {
       v15 = [self initWithName:payloadCopy grade:name];
@@ -6165,12 +6166,12 @@ LABEL_65:
         v22 = ne_log_obj();
         if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          v68 = objc_opt_class();
+          v67 = objc_opt_class();
           *buf = 138412546;
-          v156 = v68;
-          v157 = 2112;
-          v158 = payloadCopy;
-          v69 = v68;
+          v155 = v67;
+          v156 = 2112;
+          v157 = payloadCopy;
+          v68 = v67;
           _os_log_error_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_ERROR, "%@ initWithVPNPayload failed for config '%@'", buf, 0x16u);
         }
 
@@ -6198,139 +6199,112 @@ LABEL_65:
           [v21 setEnabled:bOOLValue];
         }
 
-        v153 = v14;
-        if (![v13 isEqualToString:@"L2TP"])
+        v152 = v14;
+        if (!objc_msgSend_isEqualToString_(v13))
         {
-          if (([v13 isEqualToString:@"IPSec"]& 1) != 0 || [v13 isEqualToString:@"IKEv2"])
+          if ((objc_msgSend_isEqualToString_(v13) & 1) != 0 || objc_msgSend_isEqualToString_(v13))
           {
-            v42 = ne_log_obj();
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+            v41 = ne_log_obj();
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
             {
-              v72 = objc_opt_class();
+              v71 = objc_opt_class();
               *buf = 138412546;
-              v156 = v72;
-              v157 = 2112;
-              v158 = v13;
-              v73 = v72;
-              _os_log_debug_impl(&dword_1BA83C000, v42, OS_LOG_TYPE_DEBUG, "%@ initWithVPNPayload: ingest %@", buf, 0x16u);
+              v155 = v71;
+              v156 = 2112;
+              v157 = v13;
+              v72 = v71;
+              _os_log_debug_impl(&dword_1BA83C000, v41, OS_LOG_TYPE_DEBUG, "%@ initWithVPNPayload: ingest %@", buf, 0x16u);
             }
           }
 
 LABEL_52:
-          if (([v13 isEqualToString:@"IPSec"]& 1) == 0 && ([v13 isEqualToString:@"L2TP"]& 1) == 0 && ![v13 isEqualToString:@"IKEv2"])
+          if ((objc_msgSend_isEqualToString_(v13) & 1) == 0 && (objc_msgSend_isEqualToString_(v13) & 1) == 0 && !objc_msgSend_isEqualToString_(v13) || ([self VPN], v42 = objc_claimAutoreleasedReturnValue(), v43 = -[NEConfiguration ingestIPSecDict:vpnType:vpn:](self, v9, v13, v42), v42, v43) && (!objc_msgSend_isEqualToString_(v13) || (objc_msgSend(payloadAtom, "objectForKeyedSubscript:", @"VPNSubType"), v44 = objc_claimAutoreleasedReturnValue(), objc_msgSend(payloadAtom, "objectForKeyedSubscript:", @"IKEv2"), v45 = objc_claimAutoreleasedReturnValue(), objc_msgSend(self, "VPN"), v146 = v19, v46 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v46, "protocol"), v47 = objc_claimAutoreleasedReturnValue(), v149 = ingestIKEv2Dict(v44, v45, v47), v47, v14 = v152, v46, v19 = v146, v45, v44, v149)))
           {
-            goto LABEL_178;
-          }
-
-          v43 = [self VPN];
-          v44 = [(NEConfiguration *)self ingestIPSecDict:v9 vpnType:v13 vpn:v43];
-
-          if (v44)
-          {
-            if (![v13 isEqualToString:@"IKEv2"])
+            if ((objc_msgSend_isEqualToString_(v13) & 1) != 0 || objc_msgSend_isEqualToString_(v13))
             {
-              goto LABEL_178;
-            }
-
-            v45 = [payloadAtom objectForKeyedSubscript:@"VPNSubType"];
-            v46 = [payloadAtom objectForKeyedSubscript:@"IKEv2"];
-            [self VPN];
-            v47 = v147 = v19;
-            protocol = [v47 protocol];
-            v150 = ingestIKEv2Dict(v45, v46, protocol);
-
-            v14 = v153;
-            v19 = v147;
-
-            if (v150)
-            {
-LABEL_178:
-              if (([v13 isEqualToString:@"VPN"]& 1) != 0 || [v13 isEqualToString:@"TransparentProxy"])
+              v48 = [payloadAtom objectForKeyedSubscript:@"VPNSubType"];
+              if (objc_msgSend_isEqualToString_(v13))
               {
-                v49 = [payloadAtom objectForKeyedSubscript:@"VPNSubType"];
-                if ([v13 isEqualToString:@"VPN"])
+                v150 = v48;
+                v49 = [payloadAtom objectForKeyedSubscript:v13];
+                v50 = [v49 objectForKeyedSubscript:@"ProviderType"];
+
+                if (isa_nsstring(v50) && (objc_msgSend_isEqualToString_(v50) & 1) != 0)
                 {
-                  v151 = v49;
-                  v50 = [payloadAtom objectForKeyedSubscript:v13];
-                  v51 = [v50 objectForKeyedSubscript:@"ProviderType"];
-
-                  if (isa_nsstring(v51) && ([v51 isEqualToString:@"app-proxy"] & 1) != 0)
-                  {
-                    v52 = 2;
-                  }
-
-                  else
-                  {
-                    v52 = 1;
-                  }
-
-                  v59 = [self VPN];
-                  [v59 setTunnelType:v52];
-
-                  v49 = v151;
+                  v51 = 2;
                 }
 
                 else
                 {
-                  v51 = [self VPN];
-                  [v51 setTunnelType:2];
+                  v51 = 1;
                 }
 
-                v60 = [(NEConfiguration *)self configurePluginWithPayload:v9 pluginType:v49 payloadType:@"com.apple.vpn.managed" vpnType:v13];
-                if (!v60)
-                {
-                  goto LABEL_80;
-                }
-              }
+                v58 = [self VPN];
+                [v58 setTunnelType:v51];
 
-              if (![(NEConfiguration *)self configureVpnOnDemand:payloadAtom vpnType:v13])
-              {
-LABEL_80:
-                v14 = v153;
+                v48 = v150;
               }
 
               else
               {
-                v61 = v19;
-                v62 = [payloadAtom objectForKeyedSubscript:@"PayloadCertificateHash"];
-                v63 = isa_nsdata(v62);
+                v50 = [self VPN];
+                [v50 setTunnelType:2];
+              }
 
-                if (v63)
+              v59 = [(NEConfiguration *)self configurePluginWithPayload:v9 pluginType:v48 payloadType:@"com.apple.vpn.managed" vpnType:v13];
+              if (!v59)
+              {
+                goto LABEL_80;
+              }
+            }
+
+            if (![(NEConfiguration *)self configureVpnOnDemand:payloadAtom vpnType:v13])
+            {
+LABEL_80:
+              v14 = v152;
+            }
+
+            else
+            {
+              v60 = v19;
+              v61 = [payloadAtom objectForKeyedSubscript:@"PayloadCertificateHash"];
+              v62 = isa_nsdata(v61);
+
+              if (v62)
+              {
+                v63 = [payloadAtom objectForKeyedSubscript:@"PayloadCertificateHash"];
+                v64 = [self VPN];
+                protocol = [v64 protocol];
+                [protocol setIdentityDataHash:v63];
+              }
+
+              v14 = v152;
+              v19 = v60;
+              if ([(NEConfiguration *)self ingestDNSOptions:payloadAtom]&& [(NEConfiguration *)self ingestProxyOptions:payloadAtom])
+              {
+                v66 = ne_log_obj();
+                if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
                 {
-                  v64 = [payloadAtom objectForKeyedSubscript:@"PayloadCertificateHash"];
-                  v65 = [self VPN];
-                  protocol2 = [v65 protocol];
-                  [protocol2 setIdentityDataHash:v64];
+                  v93 = objc_opt_class();
+                  v151 = v93;
+                  v147 = [self VPN];
+                  protocol2 = [v147 protocol];
+                  serverAddress = [protocol2 serverAddress];
+                  *buf = 138412546;
+                  v155 = v93;
+                  v14 = v152;
+                  v156 = 2112;
+                  v157 = serverAddress;
+                  _os_log_debug_impl(&dword_1BA83C000, v66, OS_LOG_TYPE_DEBUG, "%@ initWithVPNPayload: done, serverAddress %@", buf, 0x16u);
+
+                  v19 = v60;
                 }
 
-                v14 = v153;
-                v19 = v61;
-                if ([(NEConfiguration *)self ingestDNSOptions:payloadAtom]&& [(NEConfiguration *)self ingestProxyOptions:payloadAtom])
-                {
-                  v67 = ne_log_obj();
-                  if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
-                  {
-                    v94 = objc_opt_class();
-                    v152 = v94;
-                    v148 = [self VPN];
-                    protocol3 = [v148 protocol];
-                    serverAddress = [protocol3 serverAddress];
-                    *buf = 138412546;
-                    v156 = v94;
-                    v14 = v153;
-                    v157 = 2112;
-                    v158 = serverAddress;
-                    _os_log_debug_impl(&dword_1BA83C000, v67, OS_LOG_TYPE_DEBUG, "%@ initWithVPNPayload: done, serverAddress %@", buf, 0x16u);
-
-                    v19 = v61;
-                  }
-
-                  self = self;
-                  selfCopy = self;
+                self = self;
+                selfCopy = self;
 LABEL_42:
 
-                  goto LABEL_43;
-                }
+                goto LABEL_43;
               }
             }
           }
@@ -6339,54 +6313,54 @@ LABEL_39:
           v35 = ne_log_obj();
           if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
           {
-            v53 = objc_opt_class();
+            v52 = objc_opt_class();
             *buf = 138412290;
-            v156 = v53;
-            v54 = v19;
-            v55 = v14;
-            v56 = v53;
+            v155 = v52;
+            v53 = v19;
+            v54 = v14;
+            v55 = v52;
             _os_log_error_impl(&dword_1BA83C000, v35, OS_LOG_TYPE_ERROR, "%@ initWithVPNPayload: failed", buf, 0xCu);
 
-            v14 = v55;
-            v19 = v54;
+            v14 = v54;
+            v19 = v53;
           }
 
           selfCopy = 0;
           goto LABEL_42;
         }
 
-        v146 = v19;
+        v145 = v19;
         v22 = payloadAtom;
-        v149 = v13;
+        v148 = v13;
         v23 = [v22 objectForKeyedSubscript:@"PPP"];
         v24 = ne_log_obj();
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
-          v70 = objc_opt_class();
+          v69 = objc_opt_class();
           *buf = 138412546;
-          v156 = v70;
-          v157 = 2112;
-          v158 = v149;
-          v71 = v70;
+          v155 = v69;
+          v156 = 2112;
+          v157 = v148;
+          v70 = v69;
           _os_log_debug_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_DEBUG, "%@ ingestPPPData for %@", buf, 0x16u);
         }
 
-        v144 = v23;
+        v143 = v23;
         if (!v23)
         {
           goto LABEL_27;
         }
 
-        if (![v149 isEqualToString:@"L2TP"])
+        if (!objc_msgSend_isEqualToString_(v148))
         {
 LABEL_104:
 
-          v14 = v153;
-          v19 = v146;
+          v14 = v152;
+          v19 = v145;
           goto LABEL_38;
         }
 
-        v143 = v22;
+        v142 = v22;
         getConfigurationProtocol = [(NEConfiguration *)self getConfigurationProtocol];
         v26 = ne_log_obj();
         if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
@@ -6405,7 +6379,7 @@ LABEL_104:
         if (getConfigurationProtocol)
         {
 LABEL_20:
-          v142 = v143;
+          v141 = v142;
           getConfigurationProtocol2 = [(NEConfiguration *)self getConfigurationProtocol];
           v28 = ne_log_obj();
           if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
@@ -6425,41 +6399,41 @@ LABEL_26:
             goto LABEL_27;
           }
 
-          v140 = getConfigurationProtocol;
-          v83 = [self VPN];
-          if (v83)
+          v139 = getConfigurationProtocol;
+          v82 = [self VPN];
+          if (v82)
           {
-            v84 = getConfigurationProtocol2 == 0;
+            v83 = getConfigurationProtocol2 == 0;
           }
 
           else
           {
-            v84 = 1;
+            v83 = 1;
           }
 
-          v85 = !v84;
+          v84 = !v83;
 
-          if ((v85 & 1) == 0)
+          if ((v84 & 1) == 0)
           {
-            v92 = ne_log_obj();
-            if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
+            v91 = ne_log_obj();
+            if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_error_impl(&dword_1BA83C000, v92, OS_LOG_TYPE_ERROR, "configurePPPCommon failed: VPN not initialized", buf, 2u);
+              _os_log_error_impl(&dword_1BA83C000, v91, OS_LOG_TYPE_ERROR, "configurePPPCommon failed: VPN not initialized", buf, 2u);
             }
 
-            v93 = 0;
+            v92 = 0;
             goto LABEL_132;
           }
 
-          v136 = v85;
-          v139 = [v142 objectForKeyedSubscript:@"PPP"];
+          v135 = v84;
+          v138 = [v141 objectForKeyedSubscript:@"PPP"];
           self = [(NEConfiguration *)self getConfigurationProtocol];
-          v86 = ne_log_large_obj();
-          if (os_log_type_enabled(v86, OS_LOG_TYPE_DEBUG))
+          v85 = ne_log_large_obj();
+          if (os_log_type_enabled(v85, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_debug_impl(&dword_1BA83C000, v86, OS_LOG_TYPE_DEBUG, "ingestPPPDict start", buf, 2u);
+            _os_log_debug_impl(&dword_1BA83C000, v85, OS_LOG_TYPE_DEBUG, "ingestPPPDict start", buf, 2u);
           }
 
           appVPN3 = [self appVPN];
@@ -6468,69 +6442,69 @@ LABEL_26:
           {
 LABEL_98:
 
-            v88 = v142;
-            v89 = [v142 objectForKeyedSubscript:@"IPv4"];
-            if (isa_nsdictionary(v89))
+            v87 = v141;
+            v88 = [v141 objectForKeyedSubscript:@"IPv4"];
+            if (isa_nsdictionary(v88))
             {
-              v90 = [[NEIPv4Settings alloc] initFromLegacyDictionary:v89];
-              if (v90)
+              v89 = [[NEIPv4Settings alloc] initFromLegacyDictionary:v88];
+              if (v89)
               {
-                [getConfigurationProtocol2 setIPv4Settings:v90];
+                [getConfigurationProtocol2 setIPv4Settings:v89];
               }
 
               else
               {
-                v103 = ne_log_large_obj();
-                if (os_log_type_enabled(v103, OS_LOG_TYPE_DEBUG))
+                v102 = ne_log_large_obj();
+                if (os_log_type_enabled(v102, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 0;
-                  _os_log_debug_impl(&dword_1BA83C000, v103, OS_LOG_TYPE_DEBUG, "configurePPPCommon: IPv4 settings are Off for payload dictionary", buf, 2u);
+                  _os_log_debug_impl(&dword_1BA83C000, v102, OS_LOG_TYPE_DEBUG, "configurePPPCommon: IPv4 settings are Off for payload dictionary", buf, 2u);
                 }
               }
 
-              v88 = v142;
+              v87 = v141;
             }
 
-            v30 = [v88 objectForKeyedSubscript:@"IPv6"];
+            v30 = [v87 objectForKeyedSubscript:@"IPv6"];
 
             if (!isa_nsdictionary(v30))
             {
-              getConfigurationProtocol = v140;
+              getConfigurationProtocol = v139;
               goto LABEL_25;
             }
 
-            v93 = v30;
-            v104 = [[NEIPv6Settings alloc] initFromLegacyDictionary:v30];
-            if (v104)
+            v92 = v30;
+            v103 = [[NEIPv6Settings alloc] initFromLegacyDictionary:v30];
+            if (v103)
             {
-              v92 = v104;
-              [getConfigurationProtocol2 setIPv6Settings:v104];
+              v91 = v103;
+              [getConfigurationProtocol2 setIPv6Settings:v103];
             }
 
             else
             {
-              v105 = ne_log_obj();
-              if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
+              v104 = ne_log_obj();
+              if (os_log_type_enabled(v104, OS_LOG_TYPE_ERROR))
               {
                 *buf = 0;
-                _os_log_error_impl(&dword_1BA83C000, v105, OS_LOG_TYPE_ERROR, "configurePPPCommon: invalid IPv6 dictionary", buf, 2u);
+                _os_log_error_impl(&dword_1BA83C000, v104, OS_LOG_TYPE_ERROR, "configurePPPCommon: invalid IPv6 dictionary", buf, 2u);
               }
 
-              v92 = 0;
+              v91 = 0;
             }
 
-            v85 = v136;
+            v84 = v135;
 LABEL_132:
 
-            if ((v85 & 1) == 0)
+            if ((v84 & 1) == 0)
             {
               goto LABEL_104;
             }
 
 LABEL_27:
 
-            v14 = v153;
-            v19 = v146;
+            v14 = v152;
+            v19 = v145;
             if (([(NEConfiguration *)self configurePPPWithVPNOptions:v22 payloadBase:v9]& 1) == 0)
             {
               goto LABEL_39;
@@ -6539,9 +6513,9 @@ LABEL_27:
             goto LABEL_52;
           }
 
-          v96 = [self VPN];
+          v95 = [self VPN];
 
-          if (!v96 || !self)
+          if (!v95 || !self)
           {
             log = ne_log_obj();
             if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
@@ -6553,117 +6527,117 @@ LABEL_27:
             goto LABEL_138;
           }
 
-          if (!v139)
+          if (!v138)
           {
 LABEL_139:
 
-            v91 = v140;
-            v81 = v142;
+            v90 = v139;
+            v80 = v141;
             goto LABEL_103;
           }
 
-          v97 = [v139 objectForKeyedSubscript:@"CommRemoteAddress"];
-          v98 = v97;
-          if (v97 && isa_nsstring(v97))
+          v96 = [v138 objectForKeyedSubscript:@"CommRemoteAddress"];
+          v97 = v96;
+          if (v96 && isa_nsstring(v96))
           {
-            [self setServerAddress:v98];
+            [self setServerAddress:v97];
           }
 
-          v99 = [v139 objectForKeyedSubscript:@"AuthName"];
+          v98 = [v138 objectForKeyedSubscript:@"AuthName"];
 
-          if (v99 && isa_nsstring(v99))
+          if (v98 && isa_nsstring(v98))
           {
-            [self setUsername:v99];
+            [self setUsername:v98];
           }
 
-          v100 = [v139 objectForKeyedSubscript:@"AuthPassword"];
+          v99 = [v138 objectForKeyedSubscript:@"AuthPassword"];
 
-          log = v100;
-          if (v100)
+          log = v99;
+          if (v99)
           {
-            if (isa_nsdata(v100))
+            if (isa_nsdata(v99))
             {
-              v101 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v100 encoding:4];
+              v100 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v99 encoding:4];
 
-              v102 = v101;
+              v101 = v100;
 LABEL_149:
-              v108 = v102;
+              v107 = v101;
               loga = [NEKeychainItem alloc];
-              v109 = self[10];
-              v133 = objc_getProperty(self, v110, 88, 1);
-              v111 = [(NEKeychainItem *)loga initWithPassword:v108 domain:v109 accessGroup:v133];
-              [self setPasswordKeychainItem:v111];
+              v108 = self[10];
+              v132 = objc_getProperty(self, v109, 88, 1);
+              v110 = [(NEKeychainItem *)loga initWithPassword:v107 domain:v108 accessGroup:v132];
+              [self setPasswordKeychainItem:v110];
 
               [self setAuthenticationMethod:1];
-              log = v108;
+              log = v107;
 
 LABEL_150:
-              v112 = [v139 objectForKeyedSubscript:@"VerboseLogging"];
-              v113 = isa_nsnumber(v112);
+              v111 = [v138 objectForKeyedSubscript:@"VerboseLogging"];
+              v112 = isa_nsnumber(v111);
 
-              if (v113)
+              if (v112)
               {
-                v114 = [v139 objectForKeyedSubscript:@"VerboseLogging"];
-                [self setVerboseLoggingEnabled:{objc_msgSend(v114, "BOOLValue")}];
+                v113 = [v138 objectForKeyedSubscript:@"VerboseLogging"];
+                [self setVerboseLoggingEnabled:{objc_msgSend(v113, "BOOLValue")}];
               }
 
-              [(NEConfiguration *)self ingestDisconnectOptions:v139];
-              v115 = ne_log_obj();
-              if (os_log_type_enabled(v115, OS_LOG_TYPE_DEBUG))
+              [(NEConfiguration *)self ingestDisconnectOptions:v138];
+              v114 = ne_log_obj();
+              if (os_log_type_enabled(v114, OS_LOG_TYPE_DEBUG))
               {
-                v117 = objc_opt_class();
+                v116 = objc_opt_class();
                 *buf = 138412290;
-                v156 = v117;
-                v118 = v117;
-                _os_log_debug_impl(&dword_1BA83C000, v115, OS_LOG_TYPE_DEBUG, "%@ ingestPPPDict: done", buf, 0xCu);
+                v155 = v116;
+                v117 = v116;
+                _os_log_debug_impl(&dword_1BA83C000, v114, OS_LOG_TYPE_DEBUG, "%@ ingestPPPDict: done", buf, 0xCu);
               }
 
               goto LABEL_98;
             }
 
-            if (isa_nsstring(v100))
+            if (isa_nsstring(v99))
             {
-              v102 = v100;
+              v101 = v99;
               goto LABEL_149;
             }
 
-            v116 = ne_log_obj();
-            if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
+            v115 = ne_log_obj();
+            if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
             {
-              v123 = objc_opt_class();
-              v124 = v123;
-              v125 = objc_opt_class();
+              v122 = objc_opt_class();
+              v123 = v122;
+              v124 = objc_opt_class();
               *buf = 138412546;
-              v156 = v123;
-              v157 = 2112;
-              v158 = v125;
-              v126 = v125;
-              _os_log_error_impl(&dword_1BA83C000, v116, OS_LOG_TYPE_ERROR, "%@ ingestPPPDict: unsupported password data type %@", buf, 0x16u);
+              v155 = v122;
+              v156 = 2112;
+              v157 = v124;
+              v125 = v124;
+              _os_log_error_impl(&dword_1BA83C000, v115, OS_LOG_TYPE_ERROR, "%@ ingestPPPDict: unsupported password data type %@", buf, 0x16u);
             }
 
             goto LABEL_138;
           }
 
-          log = [v139 objectForKeyedSubscript:@"AuthProtocol"];
+          log = [v138 objectForKeyedSubscript:@"AuthProtocol"];
           if (isa_nsarray(log) && [log containsObject:@"EAP"])
           {
-            v106 = [v139 objectForKeyedSubscript:@"AuthEAPPlugins"];
-            if (!isa_nsarray(v106) || ![v106 count])
+            v105 = [v138 objectForKeyedSubscript:@"AuthEAPPlugins"];
+            if (!isa_nsarray(v105) || ![v105 count])
             {
               goto LABEL_170;
             }
 
-            v132 = [v106 objectAtIndexedSubscript:0];
-            if (!isa_nsstring(v132))
+            v131 = [v105 objectAtIndexedSubscript:0];
+            if (!isa_nsstring(v131))
             {
 LABEL_169:
 
 LABEL_170:
 LABEL_171:
-              v127 = [v139 objectForKeyedSubscript:@"TokenCard"];
-              v128 = isa_nsnumber(v127);
+              v126 = [v138 objectForKeyedSubscript:@"TokenCard"];
+              v127 = isa_nsnumber(v126);
 
-              if (v128)
+              if (v127)
               {
                 [self setAuthenticationMethod:5];
               }
@@ -6671,41 +6645,41 @@ LABEL_171:
               goto LABEL_150;
             }
 
-            if ([v132 isEqualToString:@"EAP-RSA"])
+            if (objc_msgSend_isEqualToString_(v131))
             {
-              v107 = 2;
+              v106 = 2;
 LABEL_168:
-              [self setAuthenticationMethod:v107];
+              [self setAuthenticationMethod:v106];
               goto LABEL_169;
             }
 
-            if ([v132 isEqualToString:@"EAP-TLS"])
+            if (objc_msgSend_isEqualToString_(v131))
             {
-              v107 = 3;
+              v106 = 3;
               goto LABEL_168;
             }
 
-            if ([v132 isEqualToString:@"EAP-KRB"])
+            if (objc_msgSend_isEqualToString_(v131))
             {
-              v107 = 4;
+              v106 = 4;
               goto LABEL_168;
             }
 
-            v129 = ne_log_obj();
-            if (os_log_type_enabled(v129, OS_LOG_TYPE_ERROR))
+            v128 = ne_log_obj();
+            if (os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
             {
-              v130 = objc_opt_class();
+              v129 = objc_opt_class();
               *buf = 138412802;
-              v156 = v130;
-              v157 = 2112;
-              v158 = @"AuthEAPPlugins";
-              v159 = 2112;
-              v160 = v132;
-              v131 = v130;
-              _os_log_error_impl(&dword_1BA83C000, v129, OS_LOG_TYPE_ERROR, "%@ ingestPPPDict: unsupported %@ type %@", buf, 0x20u);
+              v155 = v129;
+              v156 = 2112;
+              v157 = @"AuthEAPPlugins";
+              v158 = 2112;
+              v159 = v131;
+              v130 = v129;
+              _os_log_error_impl(&dword_1BA83C000, v128, OS_LOG_TYPE_ERROR, "%@ ingestPPPDict: unsupported %@ type %@", buf, 0x20u);
             }
 
-            v122 = v132;
+            v121 = v131;
           }
 
           else
@@ -6715,25 +6689,25 @@ LABEL_168:
               goto LABEL_171;
             }
 
-            v106 = ne_log_obj();
-            if (!os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+            v105 = ne_log_obj();
+            if (!os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_157;
             }
 
+            v118 = objc_opt_class();
+            v136 = v118;
             v119 = objc_opt_class();
-            v137 = v119;
-            v120 = objc_opt_class();
             *buf = 138412802;
-            v156 = v119;
-            v157 = 2112;
-            v158 = @"AuthProtocol";
-            v159 = 2112;
-            v160 = v120;
-            v121 = v120;
-            _os_log_error_impl(&dword_1BA83C000, v106, OS_LOG_TYPE_ERROR, "%@ ingestPPPDict: invalid %@ type %@", buf, 0x20u);
+            v155 = v118;
+            v156 = 2112;
+            v157 = @"AuthProtocol";
+            v158 = 2112;
+            v159 = v119;
+            v120 = v119;
+            _os_log_error_impl(&dword_1BA83C000, v105, OS_LOG_TYPE_ERROR, "%@ ingestPPPDict: invalid %@ type %@", buf, 0x20u);
 
-            v122 = v137;
+            v121 = v136;
           }
 
 LABEL_157:
@@ -6742,50 +6716,50 @@ LABEL_138:
           goto LABEL_139;
         }
 
-        v74 = [self VPN];
+        v73 = [self VPN];
 
-        if (v74)
+        if (v73)
         {
-          v75 = [self VPN];
-          protocol4 = [v75 protocol];
+          v74 = [self VPN];
+          protocol3 = [v74 protocol];
 
-          if (!protocol4)
+          if (!protocol3)
           {
-            v77 = objc_alloc_init(NEVPNProtocolL2TP);
-            v78 = [self VPN];
-            [v78 setProtocol:v77];
+            v76 = objc_alloc_init(NEVPNProtocolL2TP);
+            v77 = [self VPN];
+            [v77 setProtocol:v76];
           }
 
-          v79 = [self VPN];
-          protocol5 = [v79 protocol];
+          v78 = [self VPN];
+          protocol4 = [v78 protocol];
 
-          if (protocol5)
+          if (protocol4)
           {
             goto LABEL_20;
           }
 
-          v81 = ne_log_obj();
-          if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
+          v80 = ne_log_obj();
+          if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            v82 = "configureL2TPwithPPPOptions failed to allocate for L2TP";
+            v81 = "configureL2TPwithPPPOptions failed to allocate for L2TP";
 LABEL_135:
-            _os_log_error_impl(&dword_1BA83C000, v81, OS_LOG_TYPE_ERROR, v82, buf, 2u);
+            _os_log_error_impl(&dword_1BA83C000, v80, OS_LOG_TYPE_ERROR, v81, buf, 2u);
           }
         }
 
         else
         {
-          v81 = ne_log_obj();
-          if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
+          v80 = ne_log_obj();
+          if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            v82 = "configureL2TPwithPPPOptions failed: app-layer VPN not supported";
+            v81 = "configureL2TPwithPPPOptions failed: app-layer VPN not supported";
             goto LABEL_135;
           }
         }
 
-        v91 = 0;
+        v90 = 0;
 LABEL_103:
 
         goto LABEL_104;
@@ -6794,15 +6768,15 @@ LABEL_103:
       v22 = ne_log_obj();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        v39 = objc_opt_class();
+        v38 = objc_opt_class();
         *buf = 138412546;
-        v156 = v39;
-        v157 = 2112;
-        v158 = payloadCopy;
-        v40 = v39;
-        v41 = "%@ initWithVPNPayload failed, can't create VPN for config '%@'";
+        v155 = v38;
+        v156 = 2112;
+        v157 = payloadCopy;
+        v39 = v38;
+        v40 = "%@ initWithVPNPayload failed, can't create VPN for config '%@'";
 LABEL_67:
-        _os_log_error_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_ERROR, v41, buf, 0x16u);
+        _os_log_error_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_ERROR, v40, buf, 0x16u);
       }
     }
 
@@ -6811,13 +6785,13 @@ LABEL_67:
       v22 = ne_log_obj();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        v58 = objc_opt_class();
+        v57 = objc_opt_class();
         *buf = 138412546;
-        v156 = v58;
-        v157 = 2112;
-        v158 = v13;
-        v40 = v58;
-        v41 = "%@ initWithVPNPayload : VPN type '%@' not supported";
+        v155 = v57;
+        v156 = 2112;
+        v157 = v13;
+        v39 = v57;
+        v40 = "%@ initWithVPNPayload : VPN type '%@' not supported";
         goto LABEL_67;
       }
     }
@@ -6831,10 +6805,10 @@ LABEL_38:
   v13 = ne_log_obj();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    v57 = objc_opt_class();
+    v56 = objc_opt_class();
     *buf = 138412290;
-    v156 = v57;
-    v32 = v57;
+    v155 = v56;
+    v32 = v56;
     v33 = "%@ initWithVPNPayload: couldn't extract VPN type from payload";
     goto LABEL_65;
   }
@@ -6844,13 +6818,12 @@ LABEL_32:
 LABEL_43:
 
 LABEL_44:
-  v36 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (id)initWithAppLayerVPNPayload:(void *)payload configurationName:(uint64_t)name grade:
 {
-  v145[3] = *MEMORY[0x1E69E9840];
+  v144[3] = *MEMORY[0x1E69E9840];
   v7 = a2;
   payloadCopy = payload;
   if (!self)
@@ -6865,9 +6838,9 @@ LABEL_44:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v140 = objc_opt_class();
+    v139 = objc_opt_class();
     v45 = payloadAtom;
-    v46 = v140;
+    v46 = v139;
     _os_log_debug_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_DEBUG, "%@ initWithAppLayerVPNPayload", buf, 0xCu);
 
     payloadAtom = v45;
@@ -6883,7 +6856,7 @@ LABEL_44:
 
     v39 = objc_opt_class();
     *buf = 138412290;
-    v140 = v39;
+    v139 = v39;
     v40 = v39;
     v41 = "%@ initWithAppLayerVPNPayload: empty payload atom";
 LABEL_43:
@@ -6896,10 +6869,10 @@ LABEL_43:
   if (v12)
   {
     v13 = v12;
-    v145[0] = @"IPSec";
-    v145[1] = @"IKEv2";
-    v145[2] = @"VPN";
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v145 count:3];
+    v144[0] = @"IPSec";
+    v144[1] = @"IKEv2";
+    v144[2] = @"VPN";
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v144 count:3];
     if ([v14 containsObject:v13])
     {
       v15 = [self initWithName:payloadCopy grade:name];
@@ -6909,12 +6882,12 @@ LABEL_43:
         v44 = ne_log_obj();
         if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
-          v92 = objc_opt_class();
+          v91 = objc_opt_class();
           *buf = 138412546;
-          v140 = v92;
-          v141 = 2112;
-          *v142 = payloadCopy;
-          v93 = v92;
+          v139 = v91;
+          v140 = 2112;
+          *v141 = payloadCopy;
+          v92 = v91;
           _os_log_error_impl(&dword_1BA83C000, v44, OS_LOG_TYPE_ERROR, "%@ initWithAppLayerVPNPayload: initWithName failed for '%@'", buf, 0x16u);
         }
 
@@ -6952,8 +6925,8 @@ LABEL_43:
 
         if (v24)
         {
-          v127 = v9;
-          if (([v13 isEqualToString:@"IPSec"]& 1) != 0 || [v13 isEqualToString:@"IKEv2"])
+          v126 = v9;
+          if ((objc_msgSend_isEqualToString_(v13) & 1) != 0 || objc_msgSend_isEqualToString_(v13))
           {
             appVPN4 = [self appVPN];
             [appVPN4 setTunnelType:1];
@@ -6969,22 +6942,22 @@ LABEL_43:
             }
 
             v13 = v27;
-            if ([v27 isEqualToString:@"IKEv2"])
+            if (objc_msgSend_isEqualToString_(v27))
             {
               v29 = [payloadAtom objectForKeyedSubscript:@"VPNSubType"];
               [payloadAtom objectForKeyedSubscript:@"IKEv2"];
-              v30 = v125 = v27;
+              v30 = v124 = v27;
               [self appVPN];
-              v119 = v14;
+              v118 = v14;
               v32 = v31 = payloadAtom;
               protocol = [v32 protocol];
               v34 = ingestIKEv2Dict(v29, v30, protocol);
 
-              v9 = v127;
+              v9 = v126;
               payloadAtom = v31;
-              v14 = v119;
+              v14 = v118;
 
-              v13 = v125;
+              v13 = v124;
               if (!v34)
               {
                 goto LABEL_35;
@@ -6992,271 +6965,244 @@ LABEL_43:
             }
           }
 
-          v121 = payloadAtom;
-          if (![v13 isEqualToString:@"VPN"])
+          v120 = payloadAtom;
+          if (objc_msgSend_isEqualToString_(v13) && ((v35 = v13, [payloadAtom objectForKeyedSubscript:v13], v36 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v36, "objectForKeyedSubscript:", @"ProviderType"), v37 = objc_claimAutoreleasedReturnValue(), v36, !isa_nsstring(v37)) || (objc_msgSend_isEqualToString_(v37) & 1) == 0 ? (v38 = 2) : (v38 = 1), objc_msgSend(self, "appVPN"), v57 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v57, "setTunnelType:", v38), v57, objc_msgSend(v120, "objectForKeyedSubscript:", @"VPNSubType"), v58 = objc_claimAutoreleasedReturnValue(), LODWORD(v57) = -[NEConfiguration configurePluginWithPayload:pluginType:payloadType:vpnType:](self, v9, v58, @"com.apple.vpn.managed.applayer", v35), v58, v13 = v35, v37, !v57))
           {
-            goto LABEL_48;
-          }
-
-          v35 = v13;
-          v36 = [payloadAtom objectForKeyedSubscript:v13];
-          v37 = [v36 objectForKeyedSubscript:@"ProviderType"];
-
-          if (isa_nsstring(v37) && ([v37 isEqualToString:@"packet-tunnel"] & 1) != 0)
-          {
-            v38 = 1;
+            payloadAtom = v120;
           }
 
           else
           {
-            v38 = 2;
-          }
-
-          appVPN6 = [self appVPN];
-          [appVPN6 setTunnelType:v38];
-
-          v59 = [v121 objectForKeyedSubscript:@"VPNSubType"];
-          LODWORD(appVPN6) = [(NEConfiguration *)self configurePluginWithPayload:v9 pluginType:v59 payloadType:@"com.apple.vpn.managed.applayer" vpnType:v35];
-
-          v13 = v35;
-          if (!appVPN6)
-          {
-            payloadAtom = v121;
-          }
-
-          else
-          {
-LABEL_48:
-            payloadAtom = v121;
-            if ([(NEConfiguration *)self configureVpnOnDemand:v121 vpnType:v13]&& [(NEConfiguration *)self ingestProxyOptions:v121])
+            payloadAtom = v120;
+            if ([(NEConfiguration *)self configureVpnOnDemand:v120 vpnType:v13]&& [(NEConfiguration *)self ingestProxyOptions:v120])
             {
-              v60 = [v121 objectForKeyedSubscript:v13];
-              v61 = [v60 objectForKeyedSubscript:@"OnDemandMatchAppEnabled"];
+              v59 = [v120 objectForKeyedSubscript:v13];
+              v60 = [v59 objectForKeyedSubscript:@"OnDemandMatchAppEnabled"];
 
-              v62 = v61;
-              if (isa_nsnumber(v61))
+              v61 = v60;
+              if (isa_nsnumber(v60))
               {
-                bOOLValue2 = [v61 BOOLValue];
+                bOOLValue2 = [v60 BOOLValue];
                 [self appVPN];
-                v65 = v64 = v13;
-                [v65 setOnDemandEnabled:bOOLValue2];
+                v64 = v63 = v13;
+                [v64 setOnDemandEnabled:bOOLValue2];
 
-                v13 = v64;
+                v13 = v63;
               }
 
-              v117 = v62;
-              v118 = payloadCopy;
+              v116 = v61;
+              v117 = payloadCopy;
               if (ne_session_disable_restrictions())
               {
-                v66 = [v121 objectForKeyedSubscript:@"AppRules"];
-                if (isa_nsdictionary(v66))
+                v65 = [v120 objectForKeyedSubscript:@"AppRules"];
+                if (isa_nsdictionary(v65))
                 {
-                  v116 = v7;
-                  v137 = 0u;
-                  v138 = 0u;
-                  v135 = 0u;
+                  v115 = v7;
                   v136 = 0u;
-                  v67 = v66;
-                  v129 = [v67 countByEnumeratingWithState:&v135 objects:v144 count:16];
-                  if (v129)
+                  v137 = 0u;
+                  v134 = 0u;
+                  v135 = 0u;
+                  v66 = v65;
+                  v128 = [v66 countByEnumeratingWithState:&v134 objects:v143 count:16];
+                  if (v128)
                   {
-                    v68 = *v136;
-                    v124 = v66;
-                    v126 = v13;
-                    v122 = *v136;
-                    v123 = v67;
+                    v67 = *v135;
+                    v123 = v65;
+                    v125 = v13;
+                    v121 = *v135;
+                    v122 = v66;
                     do
                     {
-                      for (i = 0; i != v129; ++i)
+                      for (i = 0; i != v128; ++i)
                       {
-                        if (*v136 != v68)
+                        if (*v135 != v67)
                         {
-                          objc_enumerationMutation(v67);
+                          objc_enumerationMutation(v66);
                         }
 
-                        v70 = [v67 objectForKeyedSubscript:{*(*(&v135 + 1) + 8 * i), v116}];
-                        if (isa_nsdictionary(v70))
+                        v69 = [v66 objectForKeyedSubscript:{*(*(&v134 + 1) + 8 * i), v115}];
+                        if (isa_nsdictionary(v69))
                         {
-                          v128 = i;
-                          v71 = v9;
-                          v72 = [v70 objectForKeyedSubscript:@"ExecutableMatch"];
-                          if (isa_nsarray(v72))
+                          v127 = i;
+                          v70 = v9;
+                          v71 = [v69 objectForKeyedSubscript:@"ExecutableMatch"];
+                          if (isa_nsarray(v71))
                           {
-                            v133 = 0u;
-                            v134 = 0u;
-                            v131 = 0u;
                             v132 = 0u;
-                            v73 = v72;
-                            v74 = [v73 countByEnumeratingWithState:&v131 objects:v143 count:16];
-                            v75 = v72;
-                            if (v74)
+                            v133 = 0u;
+                            v130 = 0u;
+                            v131 = 0u;
+                            v72 = v71;
+                            v73 = [v72 countByEnumeratingWithState:&v130 objects:v142 count:16];
+                            v74 = v71;
+                            if (v73)
                             {
-                              v76 = v74;
-                              v77 = *v132;
+                              v75 = v73;
+                              v76 = *v131;
                               do
                               {
-                                for (j = 0; j != v76; ++j)
+                                for (j = 0; j != v75; ++j)
                                 {
-                                  if (*v132 != v77)
+                                  if (*v131 != v76)
                                   {
-                                    objc_enumerationMutation(v73);
+                                    objc_enumerationMutation(v72);
                                   }
 
-                                  v79 = *(*(&v131 + 1) + 8 * j);
-                                  if (isa_nsdictionary(v79))
+                                  v78 = *(*(&v130 + 1) + 8 * j);
+                                  if (isa_nsdictionary(v78))
                                   {
-                                    v80 = [v79 objectForKeyedSubscript:@"SigningIdentifier"];
-                                    if (isa_nsstring(v80))
+                                    v79 = [v78 objectForKeyedSubscript:@"SigningIdentifier"];
+                                    if (isa_nsstring(v79))
                                     {
                                       [self appVPN];
-                                      v82 = v81 = v75;
-                                      [v82 removeAppRuleByID:v80];
+                                      v81 = v80 = v74;
+                                      [v81 removeAppRuleByID:v79];
 
-                                      v75 = v81;
-                                      if (([self setPerAppRuleSettings:v70 withAppIdentifier:v80] & 1) == 0)
+                                      v74 = v80;
+                                      if (([self setPerAppRuleSettings:v69 withAppIdentifier:v79] & 1) == 0)
                                       {
-                                        v83 = ne_log_obj();
-                                        if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
+                                        v82 = ne_log_obj();
+                                        if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
                                         {
                                           *buf = 138412290;
-                                          v140 = v80;
-                                          _os_log_error_impl(&dword_1BA83C000, v83, OS_LOG_TYPE_ERROR, "initWithAppLayerVPNPayload: Could not set App-layer VPN rule for identifier %@", buf, 0xCu);
+                                          v139 = v79;
+                                          _os_log_error_impl(&dword_1BA83C000, v82, OS_LOG_TYPE_ERROR, "initWithAppLayerVPNPayload: Could not set App-layer VPN rule for identifier %@", buf, 0xCu);
                                         }
 
-                                        v75 = v81;
+                                        v74 = v80;
                                       }
                                     }
                                   }
                                 }
 
-                                v76 = [v73 countByEnumeratingWithState:&v131 objects:v143 count:16];
+                                v75 = [v72 countByEnumeratingWithState:&v130 objects:v142 count:16];
                               }
 
-                              while (v76);
+                              while (v75);
                             }
 
-                            v13 = v126;
-                            v71 = v127;
-                            v67 = v123;
-                            v66 = v124;
-                            v72 = v75;
-                            v68 = v122;
+                            v13 = v125;
+                            v70 = v126;
+                            v66 = v122;
+                            v65 = v123;
+                            v71 = v74;
+                            v67 = v121;
                           }
 
-                          v9 = v71;
-                          i = v128;
+                          v9 = v70;
+                          i = v127;
                         }
                       }
 
-                      v129 = [v67 countByEnumeratingWithState:&v135 objects:v144 count:16];
+                      v128 = [v66 countByEnumeratingWithState:&v134 objects:v143 count:16];
                     }
 
-                    while (v129);
+                    while (v128);
                   }
 
-                  v7 = v116;
+                  v7 = v115;
                 }
               }
 
-              v84 = v13;
-              appVPN7 = [self appVPN];
-              protocol2 = [appVPN7 protocol];
+              v83 = v13;
+              appVPN6 = [self appVPN];
+              protocol2 = [appVPN6 protocol];
               sliceUUID = [protocol2 sliceUUID];
               if (sliceUUID)
               {
-                v88 = sliceUUID;
-                v89 = v7;
-                appVPN8 = [self appVPN];
-                protocol3 = [appVPN8 protocol];
+                v87 = sliceUUID;
+                v88 = v7;
+                appVPN7 = [self appVPN];
+                protocol3 = [appVPN7 protocol];
                 if (([protocol3 disconnectOnIdle] & 1) == 0)
                 {
                   [self appVPN];
-                  v97 = v120 = v14;
-                  isOnDemandEnabled = [v97 isOnDemandEnabled];
+                  v96 = v119 = v14;
+                  isOnDemandEnabled = [v96 isOnDemandEnabled];
 
-                  v14 = v120;
-                  v9 = v127;
-                  payloadAtom = v121;
+                  v14 = v119;
+                  v9 = v126;
+                  payloadAtom = v120;
                   if (!isOnDemandEnabled)
                   {
                     goto LABEL_88;
                   }
 
-                  appVPN9 = [self appVPN];
-                  protocol4 = [appVPN9 protocol];
+                  appVPN8 = [self appVPN];
+                  protocol4 = [appVPN8 protocol];
                   [protocol4 setDisconnectOnIdle:1];
 
-                  appVPN10 = [self appVPN];
-                  protocol5 = [appVPN10 protocol];
+                  appVPN9 = [self appVPN];
+                  protocol5 = [appVPN9 protocol];
                   [protocol5 setDisconnectOnIdleTimeout:60];
 
-                  appVPN7 = ne_log_obj();
-                  if (os_log_type_enabled(appVPN7, OS_LOG_TYPE_INFO))
+                  appVPN6 = ne_log_obj();
+                  if (os_log_type_enabled(appVPN6, OS_LOG_TYPE_INFO))
                   {
-                    v103 = objc_opt_class();
-                    v130 = v103;
-                    appVPN11 = [self appVPN];
-                    protocol6 = [appVPN11 protocol];
+                    v102 = objc_opt_class();
+                    v129 = v102;
+                    appVPN10 = [self appVPN];
+                    protocol6 = [appVPN10 protocol];
                     disconnectOnIdle = [protocol6 disconnectOnIdle];
-                    appVPN12 = [self appVPN];
-                    protocol7 = [appVPN12 protocol];
+                    appVPN11 = [self appVPN];
+                    protocol7 = [appVPN11 protocol];
                     disconnectOnIdleTimeout = [protocol7 disconnectOnIdleTimeout];
                     *buf = 138412802;
-                    v140 = v103;
-                    v141 = 1024;
-                    *v142 = disconnectOnIdle;
-                    v14 = v120;
-                    *&v142[4] = 1024;
-                    *&v142[6] = disconnectOnIdleTimeout;
-                    _os_log_impl(&dword_1BA83C000, appVPN7, OS_LOG_TYPE_INFO, "%@ VPN Slice: onDemand on slice - disconnectOnIdle %d disconnectOnIdleTimeout %d", buf, 0x18u);
+                    v139 = v102;
+                    v140 = 1024;
+                    *v141 = disconnectOnIdle;
+                    v14 = v119;
+                    *&v141[4] = 1024;
+                    *&v141[6] = disconnectOnIdleTimeout;
+                    _os_log_impl(&dword_1BA83C000, appVPN6, OS_LOG_TYPE_INFO, "%@ VPN Slice: onDemand on slice - disconnectOnIdle %d disconnectOnIdleTimeout %d", buf, 0x18u);
 
-                    v9 = v127;
-                    payloadAtom = v121;
+                    v9 = v126;
+                    payloadAtom = v120;
                   }
 
 LABEL_87:
 
 LABEL_88:
-                  v94 = ne_log_obj();
-                  if (os_log_type_enabled(v94, OS_LOG_TYPE_DEBUG))
+                  v93 = ne_log_obj();
+                  if (os_log_type_enabled(v93, OS_LOG_TYPE_DEBUG))
                   {
-                    v110 = objc_opt_class();
-                    v111 = v110;
-                    appVPN13 = [self appVPN];
-                    protocol8 = [appVPN13 protocol];
+                    v109 = objc_opt_class();
+                    v110 = v109;
+                    appVPN12 = [self appVPN];
+                    protocol8 = [appVPN12 protocol];
                     [protocol8 serverAddress];
-                    v115 = v114 = v14;
+                    v114 = v113 = v14;
                     *buf = 138412546;
-                    v140 = v110;
-                    payloadAtom = v121;
-                    v141 = 2112;
-                    *v142 = v115;
-                    _os_log_debug_impl(&dword_1BA83C000, v94, OS_LOG_TYPE_DEBUG, "%@ initWithAppLayerVPNPayload: done, serverAddress %@", buf, 0x16u);
+                    v139 = v109;
+                    payloadAtom = v120;
+                    v140 = 2112;
+                    *v141 = v114;
+                    _os_log_debug_impl(&dword_1BA83C000, v93, OS_LOG_TYPE_DEBUG, "%@ initWithAppLayerVPNPayload: done, serverAddress %@", buf, 0x16u);
 
-                    v14 = v114;
-                    v9 = v127;
+                    v14 = v113;
+                    v9 = v126;
                   }
 
                   self = self;
                   selfCopy = self;
-                  v7 = v89;
-                  v13 = v84;
-                  v20 = v117;
-                  payloadCopy = v118;
+                  v7 = v88;
+                  v13 = v83;
+                  v20 = v116;
+                  payloadCopy = v117;
 LABEL_38:
 
                   goto LABEL_39;
                 }
 
-                v9 = v127;
+                v9 = v126;
               }
 
               else
               {
-                v89 = v7;
+                v88 = v7;
               }
 
-              payloadAtom = v121;
+              payloadAtom = v120;
               goto LABEL_87;
             }
           }
@@ -7265,14 +7211,14 @@ LABEL_35:
           v50 = ne_log_obj();
           if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
           {
-            v53 = objc_opt_class();
+            v52 = objc_opt_class();
             *buf = 138412290;
-            v140 = v53;
-            v54 = v13;
-            v55 = v53;
+            v139 = v52;
+            v53 = v13;
+            v54 = v52;
             _os_log_debug_impl(&dword_1BA83C000, v50, OS_LOG_TYPE_DEBUG, "%@ initWithAppLayerVPNPayload: failed", buf, 0xCu);
 
-            v13 = v54;
+            v13 = v53;
           }
 
           selfCopy = 0;
@@ -7283,12 +7229,12 @@ LABEL_35:
         v44 = ne_log_obj();
         if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
-          v95 = objc_opt_class();
+          v94 = objc_opt_class();
           *buf = 138412546;
-          v140 = v95;
-          v141 = 2112;
-          *v142 = v13;
-          v96 = v95;
+          v139 = v94;
+          v140 = 2112;
+          *v141 = v13;
+          v95 = v94;
           _os_log_error_impl(&dword_1BA83C000, v44, OS_LOG_TYPE_ERROR, "%@ initWithAppLayerVPNPayload failed, missing %@ configuration", buf, 0x16u);
         }
 
@@ -7304,9 +7250,9 @@ LABEL_34:
       {
         v47 = objc_opt_class();
         *buf = 138412546;
-        v140 = v47;
-        v141 = 2112;
-        *v142 = payloadCopy;
+        v139 = v47;
+        v140 = 2112;
+        *v141 = payloadCopy;
         v48 = v47;
         v49 = "%@ initWithAppLayerVPNPayload failed, can't create VPN for config '%@'";
 LABEL_45:
@@ -7320,12 +7266,12 @@ LABEL_45:
       v44 = ne_log_obj();
       if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
-        v57 = objc_opt_class();
+        v56 = objc_opt_class();
         *buf = 138412546;
-        v140 = v57;
-        v141 = 2112;
-        *v142 = v13;
-        v48 = v57;
+        v139 = v56;
+        v140 = 2112;
+        *v141 = v13;
+        v48 = v56;
         v49 = "%@ initWithVPNPayload : VPN type '%@' not supported";
         goto LABEL_45;
       }
@@ -7338,10 +7284,10 @@ LABEL_45:
   v13 = ne_log_obj();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    v56 = objc_opt_class();
+    v55 = objc_opt_class();
     *buf = 138412290;
-    v140 = v56;
-    v40 = v56;
+    v139 = v55;
+    v40 = v55;
     v41 = "%@ initWithAppLayerVPNPayload: VPN type missing";
     goto LABEL_43;
   }
@@ -7351,18 +7297,17 @@ LABEL_24:
 LABEL_39:
 
 LABEL_40:
-  v51 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (__CFString)initWithAlwaysOnVPNPayload:(void *)payload configurationName:(uint64_t)name grade:
 {
-  v239 = *MEMORY[0x1E69E9840];
+  v237 = *MEMORY[0x1E69E9840];
   v7 = a2;
   payloadCopy = payload;
   if (!self)
   {
-    v141 = 0;
+    v140 = 0;
     goto LABEL_206;
   }
 
@@ -7372,9 +7317,9 @@ LABEL_40:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v232 = objc_opt_class();
+    v230 = objc_opt_class();
     selfCopy = self;
-    v149 = v232;
+    v148 = v230;
     _os_log_debug_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_DEBUG, "%@ initWithAlwaysOnVPNPayload", buf, 0xCu);
 
     self = selfCopy;
@@ -7382,60 +7327,60 @@ LABEL_40:
 
   if (!payloadAtom)
   {
-    v140 = ne_log_obj();
-    if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
+    v139 = ne_log_obj();
+    if (os_log_type_enabled(v139, OS_LOG_TYPE_ERROR))
     {
-      v152 = objc_opt_class();
+      v151 = objc_opt_class();
       *buf = 138412290;
-      v232 = v152;
-      v153 = v152;
-      _os_log_error_impl(&dword_1BA83C000, v140, OS_LOG_TYPE_ERROR, "%@ initWithAlwaysOnVPNPayload: empty payload atom", buf, 0xCu);
+      v230 = v151;
+      v152 = v151;
+      _os_log_error_impl(&dword_1BA83C000, v139, OS_LOG_TYPE_ERROR, "%@ initWithAlwaysOnVPNPayload: empty payload atom", buf, 0xCu);
     }
 
-    v141 = 0;
+    v140 = 0;
     goto LABEL_205;
   }
 
-  v205 = [payloadAtom objectForKeyedSubscript:@"AlwaysOn"];
-  if ((isa_nsdictionary(v205) & 1) == 0)
+  v203 = [payloadAtom objectForKeyedSubscript:@"AlwaysOn"];
+  if ((isa_nsdictionary(v203) & 1) == 0)
   {
-    v142 = ne_log_obj();
-    if (os_log_type_enabled(v142, OS_LOG_TYPE_ERROR))
+    v141 = ne_log_obj();
+    if (os_log_type_enabled(v141, OS_LOG_TYPE_ERROR))
     {
-      v154 = objc_opt_class();
+      v153 = objc_opt_class();
       *buf = 138412546;
-      v232 = v154;
-      v233 = 2112;
-      v234 = @"AlwaysOn";
-      v144 = v154;
-      v145 = "%@ initWithAlwaysOnVPNPayload: missing %@ dictionary";
-      v146 = v142;
-      v147 = 22;
+      v230 = v153;
+      v231 = 2112;
+      v232 = @"AlwaysOn";
+      v143 = v153;
+      v144 = "%@ initWithAlwaysOnVPNPayload: missing %@ dictionary";
+      v145 = v141;
+      v146 = 22;
       goto LABEL_195;
     }
 
 LABEL_180:
 
 LABEL_181:
-    v141 = 0;
+    v140 = 0;
     goto LABEL_182;
   }
 
   v12 = [(__CFString *)self initWithName:payloadCopy grade:name];
   if (!v12)
   {
-    v140 = ne_log_obj();
-    if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
+    v139 = ne_log_obj();
+    if (os_log_type_enabled(v139, OS_LOG_TYPE_ERROR))
     {
-      v160 = objc_opt_class();
+      v158 = objc_opt_class();
       *buf = 138412290;
-      v232 = v160;
-      v161 = v160;
-      _os_log_error_impl(&dword_1BA83C000, v140, OS_LOG_TYPE_ERROR, "%@ initWithAlwaysOnVPNPayload failed", buf, 0xCu);
+      v230 = v158;
+      v159 = v158;
+      _os_log_error_impl(&dword_1BA83C000, v139, OS_LOG_TYPE_ERROR, "%@ initWithAlwaysOnVPNPayload failed", buf, 0xCu);
     }
 
-    v141 = 0;
-    self = v205;
+    v140 = 0;
+    self = v203;
     goto LABEL_205;
   }
 
@@ -7447,18 +7392,18 @@ LABEL_181:
 
   if (!alwaysOnVPN)
   {
-    v142 = ne_log_obj();
-    if (os_log_type_enabled(v142, OS_LOG_TYPE_ERROR))
+    v141 = ne_log_obj();
+    if (os_log_type_enabled(v141, OS_LOG_TYPE_ERROR))
     {
-      v143 = objc_opt_class();
+      v142 = objc_opt_class();
       *buf = 138412290;
-      v232 = v143;
-      v144 = v143;
-      v145 = "%@ initWithAlwaysOnVPNPayload failed, can't create VPN";
-      v146 = v142;
-      v147 = 12;
+      v230 = v142;
+      v143 = v142;
+      v144 = "%@ initWithAlwaysOnVPNPayload failed, can't create VPN";
+      v145 = v141;
+      v146 = 12;
 LABEL_195:
-      _os_log_error_impl(&dword_1BA83C000, v146, OS_LOG_TYPE_ERROR, v145, buf, v147);
+      _os_log_error_impl(&dword_1BA83C000, v145, OS_LOG_TYPE_ERROR, v144, buf, v146);
 
       goto LABEL_180;
     }
@@ -7468,60 +7413,60 @@ LABEL_195:
 
   alwaysOnVPN2 = [(__CFString *)self alwaysOnVPN];
   [alwaysOnVPN2 setEnabled:1];
-  v15 = [v205 objectForKeyedSubscript:@"UIToggleEnabled"];
+  v15 = [(__CFString *)v203 objectForKeyedSubscript:@"UIToggleEnabled"];
   if (isa_nsnumber(v15))
   {
     [alwaysOnVPN2 setToggleEnabled:{objc_msgSend(v15, "BOOLValue")}];
   }
 
-  v16 = [v205 objectForKeyedSubscript:@"AllowCaptiveWebSheet"];
+  v16 = [(__CFString *)v203 objectForKeyedSubscript:@"AllowCaptiveWebSheet"];
 
   if (isa_nsnumber(v16))
   {
     [alwaysOnVPN2 setAllowCaptiveWebSheet:{objc_msgSend(v16, "BOOLValue")}];
   }
 
-  v17 = [v205 objectForKeyedSubscript:@"AllowAllCaptiveNetworkPlugins"];
+  v17 = [(__CFString *)v203 objectForKeyedSubscript:@"AllowAllCaptiveNetworkPlugins"];
 
-  v195 = v17;
+  v193 = v17;
   if (isa_nsnumber(v17))
   {
     [alwaysOnVPN2 setAllowAllCaptiveNetworkPlugins:{objc_msgSend(v17, "BOOLValue")}];
   }
 
-  v18 = [v205 objectForKeyedSubscript:@"ServiceExceptions"];
+  v18 = [(__CFString *)v203 objectForKeyedSubscript:@"ServiceExceptions"];
   selfCopy2 = self;
-  v198 = payloadAtom;
-  v191 = payloadCopy;
-  v192 = v7;
-  v196 = v9;
+  v196 = payloadAtom;
+  v189 = payloadCopy;
+  v190 = v7;
+  v194 = v9;
   if (isa_nsarray(v18) && [v18 count])
   {
     v19 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:0];
+    v220 = 0u;
+    v221 = 0u;
     v222 = 0u;
     v223 = 0u;
-    v224 = 0u;
-    v225 = 0u;
-    v200 = v18;
+    v198 = v18;
     v20 = v18;
-    v21 = [v20 countByEnumeratingWithState:&v222 objects:v230 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v220 objects:v228 count:16];
     if (!v21)
     {
       goto LABEL_33;
     }
 
     v22 = v21;
-    v23 = *v223;
+    v23 = *v221;
     while (1)
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v223 != v23)
+        if (*v221 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = *(*(&v222 + 1) + 8 * i);
+        v25 = *(*(&v220 + 1) + 8 * i);
         v26 = [v25 objectForKeyedSubscript:@"ServiceName"];
         if (isa_nsstring(v26))
         {
@@ -7531,36 +7476,36 @@ LABEL_195:
             v28 = [v25 objectForKeyedSubscript:@"Action"];
             if (isa_nsstring(v28))
             {
-              if (([(__CFString *)v28 isEqualToString:@"Allow"]& 1) != 0)
+              if (objc_msgSend_isEqualToString_(v28))
               {
                 v29 = 1;
               }
 
               else
               {
-                if (([(__CFString *)v28 isEqualToString:@"Drop"]& 1) == 0)
+                if ((objc_msgSend_isEqualToString_(v28) & 1) == 0)
                 {
-                  v155 = ne_log_obj();
-                  if (os_log_type_enabled(v155, OS_LOG_TYPE_ERROR))
+                  v154 = ne_log_obj();
+                  if (os_log_type_enabled(v154, OS_LOG_TYPE_ERROR))
                   {
-                    v174 = objc_opt_class();
+                    v172 = objc_opt_class();
                     *buf = 138413058;
-                    v232 = v174;
+                    v230 = v172;
+                    v231 = 2112;
+                    v232 = @"ServiceExceptions";
                     v233 = 2112;
-                    v234 = @"ServiceExceptions";
+                    v234 = @"Action";
                     v235 = 2112;
-                    v236 = @"Action";
-                    v237 = 2112;
-                    v238 = v28;
-                    v175 = v174;
-                    _os_log_error_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_ERROR, "%@ initWithAlwaysOnVPNPayload: invalid %@ %@ option '%@'", buf, 0x2Au);
+                    v236 = v28;
+                    v173 = v172;
+                    _os_log_error_impl(&dword_1BA83C000, v154, OS_LOG_TYPE_ERROR, "%@ initWithAlwaysOnVPNPayload: invalid %@ %@ option '%@'", buf, 0x2Au);
                   }
 
-                  v141 = 0;
-                  v140 = v205;
-                  payloadCopy = v191;
-                  v9 = v196;
-                  payloadAtom = v198;
+                  v140 = 0;
+                  v139 = v203;
+                  payloadCopy = v189;
+                  v9 = v194;
+                  payloadAtom = v196;
                   goto LABEL_204;
                 }
 
@@ -7576,7 +7521,7 @@ LABEL_195:
         }
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v222 objects:v230 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v220 objects:v228 count:16];
       if (!v22)
       {
 LABEL_33:
@@ -7586,42 +7531,42 @@ LABEL_33:
           [alwaysOnVPN2 setServiceExceptions:v19];
         }
 
-        payloadCopy = v191;
-        v9 = v196;
-        payloadAtom = v198;
-        v18 = v200;
+        payloadCopy = v189;
+        v9 = v194;
+        payloadAtom = v196;
+        v18 = v198;
         break;
       }
     }
   }
 
-  v30 = [v205 objectForKeyedSubscript:@"ApplicationExceptions"];
+  v30 = [(__CFString *)v203 objectForKeyedSubscript:@"ApplicationExceptions"];
 
   if (isa_nsarray(v30) && [v30 count])
   {
     v31 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:0];
+    v216 = 0u;
+    v217 = 0u;
     v218 = 0u;
     v219 = 0u;
-    v220 = 0u;
-    v221 = 0u;
-    v201 = v30;
+    v199 = v30;
     v32 = v30;
-    v33 = [v32 countByEnumeratingWithState:&v218 objects:v229 count:16];
+    v33 = [v32 countByEnumeratingWithState:&v216 objects:v227 count:16];
     if (v33)
     {
       v34 = v33;
-      v35 = *v219;
+      v35 = *v217;
       v36 = 0x1E7F04000uLL;
       do
       {
         for (j = 0; j != v34; ++j)
         {
-          if (*v219 != v35)
+          if (*v217 != v35)
           {
             objc_enumerationMutation(v32);
           }
 
-          v38 = *(*(&v218 + 1) + 8 * j);
+          v38 = *(*(&v216 + 1) + 8 * j);
           v39 = [v38 objectForKeyedSubscript:@"BundleIdentifier"];
           if (isa_nsstring(v39))
           {
@@ -7650,7 +7595,7 @@ LABEL_33:
           }
         }
 
-        v34 = [v32 countByEnumeratingWithState:&v218 objects:v229 count:16];
+        v34 = [v32 countByEnumeratingWithState:&v216 objects:v227 count:16];
       }
 
       while (v34);
@@ -7661,38 +7606,38 @@ LABEL_33:
       [alwaysOnVPN2 setApplicationExceptions:v31];
     }
 
-    payloadCopy = v191;
-    v7 = v192;
-    v9 = v196;
-    payloadAtom = v198;
-    v30 = v201;
+    payloadCopy = v189;
+    v7 = v190;
+    v9 = v194;
+    payloadAtom = v196;
+    v30 = v199;
   }
 
-  v47 = [v205 objectForKeyedSubscript:@"AllowedCaptiveNetworkPlugins"];
+  v47 = [(__CFString *)v203 objectForKeyedSubscript:@"AllowedCaptiveNetworkPlugins"];
 
   if (isa_nsarray(v47) && [v47 count])
   {
     v48 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:0];
+    v212 = 0u;
+    v213 = 0u;
     v214 = 0u;
     v215 = 0u;
-    v216 = 0u;
-    v217 = 0u;
     v49 = v47;
-    v50 = [v49 countByEnumeratingWithState:&v214 objects:v228 count:16];
+    v50 = [v49 countByEnumeratingWithState:&v212 objects:v226 count:16];
     if (v50)
     {
       v51 = v50;
-      v52 = *v215;
+      v52 = *v213;
       do
       {
         for (k = 0; k != v51; ++k)
         {
-          if (*v215 != v52)
+          if (*v213 != v52)
           {
             objc_enumerationMutation(v49);
           }
 
-          v54 = [*(*(&v214 + 1) + 8 * k) objectForKeyedSubscript:@"BundleIdentifier"];
+          v54 = [*(*(&v212 + 1) + 8 * k) objectForKeyedSubscript:@"BundleIdentifier"];
           if (isa_nsstring(v54))
           {
             v55 = objc_alloc_init(NEAOVPNException);
@@ -7706,7 +7651,7 @@ LABEL_33:
           }
         }
 
-        v51 = [v49 countByEnumeratingWithState:&v214 objects:v228 count:16];
+        v51 = [v49 countByEnumeratingWithState:&v212 objects:v226 count:16];
       }
 
       while (v51);
@@ -7717,157 +7662,156 @@ LABEL_33:
       [alwaysOnVPN2 setAllowedCaptiveNetworkPlugins:v48];
     }
 
-    payloadCopy = v191;
-    v7 = v192;
-    v9 = v196;
-    payloadAtom = v198;
+    payloadCopy = v189;
+    v7 = v190;
+    v9 = v194;
+    payloadAtom = v196;
   }
 
   v57 = objc_alloc_init(MEMORY[0x1E695DF90]);
   if (!v57)
   {
-    v150 = ne_log_obj();
+    v149 = ne_log_obj();
     self = selfCopy2;
-    if (os_log_type_enabled(v150, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v149, OS_LOG_TYPE_ERROR))
     {
-      v170 = objc_opt_class();
+      v168 = objc_opt_class();
       *buf = 138412290;
-      v232 = v170;
-      v171 = v170;
-      _os_log_error_impl(&dword_1BA83C000, v150, OS_LOG_TYPE_ERROR, "%@ initWithAlwaysOnVPNPayload: failed to create tunnel configs", buf, 0xCu);
+      v230 = v168;
+      v169 = v168;
+      _os_log_error_impl(&dword_1BA83C000, v149, OS_LOG_TYPE_ERROR, "%@ initWithAlwaysOnVPNPayload: failed to create tunnel configs", buf, 0xCu);
     }
 
     goto LABEL_181;
   }
 
   v58 = v57;
-  v59 = [v205 objectForKeyedSubscript:@"TunnelConfigurations"];
+  v59 = [(__CFString *)v203 objectForKeyedSubscript:@"TunnelConfigurations"];
   if ((isa_nsarray(v59) & 1) == 0)
   {
-    v151 = ne_log_obj();
-    if (os_log_type_enabled(v151, OS_LOG_TYPE_ERROR))
+    v150 = ne_log_obj();
+    if (os_log_type_enabled(v150, OS_LOG_TYPE_ERROR))
     {
-      v172 = objc_opt_class();
+      v170 = objc_opt_class();
       *buf = 138412546;
-      v232 = v172;
-      v233 = 2112;
-      v234 = @"TunnelConfigurations";
-      v173 = v172;
-      _os_log_error_impl(&dword_1BA83C000, v151, OS_LOG_TYPE_ERROR, "%@ initWithAlwaysOnVPNPayload: missing %@ array", buf, 0x16u);
+      v230 = v170;
+      v231 = 2112;
+      v232 = @"TunnelConfigurations";
+      v171 = v170;
+      _os_log_error_impl(&dword_1BA83C000, v150, OS_LOG_TYPE_ERROR, "%@ initWithAlwaysOnVPNPayload: missing %@ array", buf, 0x16u);
     }
 
 LABEL_203:
-    v141 = 0;
-    v140 = v205;
+    v140 = 0;
+    v139 = v203;
 LABEL_204:
     self = selfCopy2;
     goto LABEL_205;
   }
 
-  v212 = 0u;
-  v213 = 0u;
   v210 = 0u;
   v211 = 0u;
+  v208 = 0u;
+  v209 = 0u;
   v60 = v59;
-  v186 = v60;
-  v193 = [v60 countByEnumeratingWithState:&v210 objects:v227 count:16];
-  if (!v193)
+  v184 = v60;
+  v191 = [v60 countByEnumeratingWithState:&v208 objects:v225 count:16];
+  if (!v191)
   {
 
     v62 = 0;
 LABEL_200:
-    v156 = ne_log_obj();
-    if (os_log_type_enabled(v156, OS_LOG_TYPE_ERROR))
+    v155 = ne_log_obj();
+    if (os_log_type_enabled(v155, OS_LOG_TYPE_ERROR))
     {
-      v176 = objc_opt_class();
+      v174 = objc_opt_class();
       *buf = 138412802;
-      v232 = v176;
+      v230 = v174;
+      v231 = 2112;
+      v232 = @"Cellular";
       v233 = 2112;
-      v234 = @"Cellular";
-      v235 = 2112;
-      v236 = @"WiFi";
-      v177 = v176;
-      _os_log_error_impl(&dword_1BA83C000, v156, OS_LOG_TYPE_ERROR, "%@ initWithAlwaysOnVPNPayload: must have one of %@ or %@ configs", buf, 0x20u);
+      v234 = @"WiFi";
+      v175 = v174;
+      _os_log_error_impl(&dword_1BA83C000, v155, OS_LOG_TYPE_ERROR, "%@ initWithAlwaysOnVPNPayload: must have one of %@ or %@ configs", buf, 0x20u);
     }
 
     goto LABEL_203;
   }
 
   v61 = 0;
-  v199 = 0;
+  v197 = 0;
   v62 = 0;
-  v63 = *v211;
-  v184 = v58;
-  v185 = *v211;
+  v63 = *v209;
+  v182 = v58;
+  v183 = *v209;
   do
   {
     v64 = 0;
     v65 = v62;
     do
     {
-      if (*v211 != v63)
+      if (*v209 != v63)
       {
         objc_enumerationMutation(v60);
       }
 
-      if (v199 & v61)
+      if (v197 & v61)
       {
 
         v62 = v65;
-        payloadCopy = v191;
-        v7 = v192;
-        v9 = v196;
+        payloadCopy = v189;
+        v7 = v190;
+        v9 = v194;
         goto LABEL_208;
       }
 
-      v202 = v64;
-      v66 = *(*(&v210 + 1) + 8 * v64);
+      v200 = v64;
+      v66 = *(*(&v208 + 1) + 8 * v64);
       if (!isa_nsdictionary(v66))
       {
         v62 = v65;
         goto LABEL_156;
       }
 
-      v190 = v65;
+      v188 = v65;
       v67 = [v66 objectForKeyedSubscript:@"Interfaces"];
-      v189 = v67;
-      v194 = v61;
+      v187 = v67;
+      v192 = v61;
       if (isa_nsarray(v67))
       {
-        v208 = 0u;
-        v209 = 0u;
         v206 = 0u;
         v207 = 0u;
+        v204 = 0u;
+        v205 = 0u;
         v68 = v67;
-        v69 = [v68 countByEnumeratingWithState:&v206 objects:v226 count:16];
+        v69 = [v68 countByEnumeratingWithState:&v204 objects:v224 count:16];
         if (v69)
         {
           v70 = v69;
           v71 = 0;
           v72 = 0;
-          v73 = *v207;
+          v73 = *v205;
           do
           {
             for (m = 0; m != v70; ++m)
             {
-              if (*v207 != v73)
+              if (*v205 != v73)
               {
                 objc_enumerationMutation(v68);
               }
 
-              v75 = *(*(&v206 + 1) + 8 * m);
-              if ([@"Cellular" isEqualToString:v75])
+              if (objc_msgSend_isEqualToString_(@"Cellular"))
               {
                 v71 = 1;
               }
 
               else
               {
-                v72 |= [@"WiFi" isEqualToString:v75];
+                v72 |= objc_msgSend_isEqualToString_(@"WiFi");
               }
             }
 
-            v70 = [v68 countByEnumeratingWithState:&v206 objects:v226 count:16];
+            v70 = [v68 countByEnumeratingWithState:&v204 objects:v224 count:16];
           }
 
           while (v70);
@@ -7880,8 +7824,8 @@ LABEL_200:
         }
 
         self = selfCopy2;
-        payloadAtom = v198;
-        v58 = v184;
+        payloadAtom = v196;
+        v58 = v182;
       }
 
       else
@@ -7891,223 +7835,223 @@ LABEL_200:
         self = selfCopy2;
       }
 
-      if (v71 & v194)
+      if (v71 & v192)
       {
-        v162 = ne_log_obj();
-        if (os_log_type_enabled(v162, OS_LOG_TYPE_ERROR))
+        v160 = ne_log_obj();
+        if (os_log_type_enabled(v160, OS_LOG_TYPE_ERROR))
         {
-          v163 = objc_opt_class();
+          v161 = objc_opt_class();
           *buf = 138412546;
-          v232 = v163;
-          v233 = 2112;
-          v234 = @"Cellular";
-          v164 = v163;
-          v165 = "%@ initWithAlwaysOnVPNPayload: multiple %@ configurations detected";
+          v230 = v161;
+          v231 = 2112;
+          v232 = @"Cellular";
+          v162 = v161;
+          v163 = "%@ initWithAlwaysOnVPNPayload: multiple %@ configurations detected";
           goto LABEL_215;
         }
 
 LABEL_217:
-        payloadCopy = v191;
-        v7 = v192;
-        v9 = v196;
-        v169 = v47;
+        payloadCopy = v189;
+        v7 = v190;
+        v9 = v194;
+        v167 = v47;
 
 LABEL_219:
         goto LABEL_181;
       }
 
-      if (v72 & v199)
+      if (v72 & v197)
       {
-        v162 = ne_log_obj();
-        if (!os_log_type_enabled(v162, OS_LOG_TYPE_ERROR))
+        v160 = ne_log_obj();
+        if (!os_log_type_enabled(v160, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_217;
         }
 
-        v166 = objc_opt_class();
+        v164 = objc_opt_class();
         *buf = 138412546;
-        v232 = v166;
-        v233 = 2112;
-        v234 = @"WiFi";
-        v164 = v166;
-        v165 = "%@ initWithAlwaysOnVPNPayload: multiple %@ configurations detected";
+        v230 = v164;
+        v231 = 2112;
+        v232 = @"WiFi";
+        v162 = v164;
+        v163 = "%@ initWithAlwaysOnVPNPayload: multiple %@ configurations detected";
 LABEL_215:
-        v167 = v162;
-        v168 = 22;
+        v165 = v160;
+        v166 = 22;
 LABEL_221:
-        _os_log_error_impl(&dword_1BA83C000, v167, OS_LOG_TYPE_ERROR, v165, buf, v168);
+        _os_log_error_impl(&dword_1BA83C000, v165, OS_LOG_TYPE_ERROR, v163, buf, v166);
 
         goto LABEL_217;
       }
 
       if (((v71 | v72) & 1) == 0)
       {
-        v162 = ne_log_obj();
-        if (!os_log_type_enabled(v162, OS_LOG_TYPE_ERROR))
+        v160 = ne_log_obj();
+        if (!os_log_type_enabled(v160, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_217;
         }
 
-        v181 = objc_opt_class();
+        v179 = objc_opt_class();
         *buf = 138412290;
-        v232 = v181;
-        v164 = v181;
-        v165 = "%@ initWithAlwaysOnVPNPayload: invalid tunnel configuration interfaces";
-        v167 = v162;
-        v168 = 12;
+        v230 = v179;
+        v162 = v179;
+        v163 = "%@ initWithAlwaysOnVPNPayload: invalid tunnel configuration interfaces";
+        v165 = v160;
+        v166 = 12;
         goto LABEL_221;
       }
 
-      v76 = [payloadAtom objectForKeyedSubscript:@"VPNSubType"];
+      v75 = [payloadAtom objectForKeyedSubscript:@"VPNSubType"];
       if (v72)
       {
-        v77 = @"WiFi";
+        v76 = @"WiFi";
       }
 
       else
       {
-        v77 = @"Cellular";
+        v76 = @"Cellular";
       }
 
-      v188 = v76;
-      v78 = v66;
-      v79 = v77;
-      v80 = objc_alloc_init(NEVPNProtocolIKEv2);
-      v81 = ne_log_large_obj();
-      if (os_log_type_enabled(v81, OS_LOG_TYPE_DEBUG))
+      v186 = v75;
+      v77 = v66;
+      v78 = v76;
+      v79 = objc_alloc_init(NEVPNProtocolIKEv2);
+      v80 = ne_log_large_obj();
+      if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_debug_impl(&dword_1BA83C000, v81, OS_LOG_TYPE_DEBUG, "NEConfiguration configureAOVPNTunnelFromTunnelDict called", buf, 2u);
+        _os_log_debug_impl(&dword_1BA83C000, v80, OS_LOG_TYPE_DEBUG, "NEConfiguration configureAOVPNTunnelFromTunnelDict called", buf, 2u);
       }
 
-      v187 = v79;
-      if (!v80)
+      v185 = v78;
+      if (!v79)
       {
-        v92 = ne_log_obj();
-        if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
+        v91 = ne_log_obj();
+        if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_error_impl(&dword_1BA83C000, v92, OS_LOG_TYPE_ERROR, "NEConfiguration configureAOVPNTunnelFromTunnelDict failed to create object", buf, 2u);
+          _os_log_error_impl(&dword_1BA83C000, v91, OS_LOG_TYPE_ERROR, "NEConfiguration configureAOVPNTunnelFromTunnelDict failed to create object", buf, 2u);
         }
 
-        v89 = 0;
+        v88 = 0;
         goto LABEL_141;
       }
 
-      v82 = [v78 objectForKeyedSubscript:@"RemoteAddress"];
-      [(NEVPNProtocol *)v80 setServerAddress:v82];
+      v81 = [v77 objectForKeyedSubscript:@"RemoteAddress"];
+      [(NEVPNProtocol *)v79 setServerAddress:v81];
 
-      v83 = [v78 objectForKeyedSubscript:@"AuthName"];
-      [(NEVPNProtocol *)v80 setUsername:v83];
+      v82 = [v77 objectForKeyedSubscript:@"AuthName"];
+      [(NEVPNProtocol *)v79 setUsername:v82];
 
-      [(NEVPNProtocol *)v80 setDisconnectOnIdleTimeout:0];
-      [(NEVPNProtocol *)v80 setDisconnectOnSleep:0];
-      [(NEVPNProtocol *)v80 setIdentityReferenceInternal:0];
-      v80->_wakeForRekey = 1;
-      [(NEVPNProtocolIKEv2 *)v80 setNatKeepAliveOffloadEnable:2];
-      if ([(__CFString *)v79 isEqualToString:@"WiFi"])
+      [(NEVPNProtocol *)v79 setDisconnectOnIdleTimeout:0];
+      [(NEVPNProtocol *)v79 setDisconnectOnSleep:0];
+      [(NEVPNProtocol *)v79 setIdentityReferenceInternal:0];
+      v79->_wakeForRekey = 1;
+      [(NEVPNProtocolIKEv2 *)v79 setNatKeepAliveOffloadEnable:2];
+      if (objc_msgSend_isEqualToString_(v78))
       {
-        v84 = 20;
+        v83 = 20;
       }
 
       else
       {
-        v84 = 110;
+        v83 = 110;
       }
 
-      [(NEVPNProtocolIKEv2 *)v80 setNatKeepAliveOffloadInterval:v84];
-      [(NEVPNProtocol *)v80 setIncludeAllNetworks:0];
-      [(NEVPNProtocol *)v80 setExcludeLocalNetworks:0];
-      [(NEVPNProtocol *)v80 setExcludeCellularServices:0];
-      [(NEVPNProtocol *)v80 setExcludeAPNs:0];
-      [(NEVPNProtocol *)v80 setExcludeDeviceCommunication:0];
-      [(NEVPNProtocol *)v80 setEnforceRoutes:0];
-      [(NEVPNProtocol *)v80 setSliceUUID:0];
-      v85 = [v78 objectForKeyedSubscript:@"ExtendedAuthEnabled"];
-      v86 = isa_nsnumber(v85);
+      [(NEVPNProtocolIKEv2 *)v79 setNatKeepAliveOffloadInterval:v83];
+      [(NEVPNProtocol *)v79 setIncludeAllNetworks:0];
+      [(NEVPNProtocol *)v79 setExcludeLocalNetworks:0];
+      [(NEVPNProtocol *)v79 setExcludeCellularServices:0];
+      [(NEVPNProtocol *)v79 setExcludeAPNs:0];
+      [(NEVPNProtocol *)v79 setExcludeDeviceCommunication:0];
+      [(NEVPNProtocol *)v79 setEnforceRoutes:0];
+      [(NEVPNProtocol *)v79 setSliceUUID:0];
+      v84 = [v77 objectForKeyedSubscript:@"ExtendedAuthEnabled"];
+      v85 = isa_nsnumber(v84);
 
-      if (v86)
+      if (v85)
       {
-        v87 = [v78 objectForKeyedSubscript:@"ExtendedAuthEnabled"];
-        -[NEVPNProtocolIPSec setUseExtendedAuthentication:](v80, "setUseExtendedAuthentication:", [v87 BOOLValue]);
+        v86 = [v77 objectForKeyedSubscript:@"ExtendedAuthEnabled"];
+        -[NEVPNProtocolIPSec setUseExtendedAuthentication:](v79, "setUseExtendedAuthentication:", [v86 BOOLValue]);
       }
 
-      v88 = [v78 objectForKeyedSubscript:@"AuthPassword"];
-      v89 = v88;
-      if (v88)
+      v87 = [v77 objectForKeyedSubscript:@"AuthPassword"];
+      v88 = v87;
+      if (v87)
       {
-        if (isa_nsdata(v88))
+        if (isa_nsdata(v87))
         {
-          v90 = v78;
-          v91 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v89 encoding:4];
+          v89 = v77;
+          v90 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v88 encoding:4];
 
-          v89 = v91;
+          v88 = v90;
         }
 
         else
         {
-          if ((isa_nsstring(v89) & 1) == 0)
+          if ((isa_nsstring(v88) & 1) == 0)
           {
-            v106 = ne_log_obj();
-            if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+            v105 = ne_log_obj();
+            if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
             {
-              v107 = objc_opt_class();
-              v108 = v78;
-              v109 = v107;
-              v110 = objc_opt_class();
+              v106 = objc_opt_class();
+              v107 = v77;
+              v108 = v106;
+              v109 = objc_opt_class();
               *buf = 138412546;
-              v232 = v107;
-              v233 = 2112;
-              v234 = v110;
-              v111 = v110;
-              _os_log_error_impl(&dword_1BA83C000, v106, OS_LOG_TYPE_ERROR, "%@ configureAOVPNTunnelFromTunnelDict: unsupported password data type %@", buf, 0x16u);
+              v230 = v106;
+              v231 = 2112;
+              v232 = v109;
+              v110 = v109;
+              _os_log_error_impl(&dword_1BA83C000, v105, OS_LOG_TYPE_ERROR, "%@ configureAOVPNTunnelFromTunnelDict: unsupported password data type %@", buf, 0x16u);
 
-              v78 = v108;
-              v58 = v184;
+              v77 = v107;
+              v58 = v182;
             }
 
             goto LABEL_140;
           }
 
-          v90 = v78;
+          v89 = v77;
         }
 
-        v93 = [NEKeychainItem alloc];
-        keychainDomain = v80->super.super._keychainDomain;
-        v96 = objc_getProperty(v80, v95, 88, 1);
-        v97 = [(NEKeychainItem *)v93 initWithPassword:v89 domain:keychainDomain accessGroup:v96];
-        [(NEVPNProtocol *)v80 setPasswordKeychainItem:v97];
+        v92 = [NEKeychainItem alloc];
+        keychainDomain = v79->super.super._keychainDomain;
+        v95 = objc_getProperty(v79, v94, 88, 1);
+        v96 = [(NEKeychainItem *)v92 initWithPassword:v88 domain:keychainDomain accessGroup:v95];
+        [(NEVPNProtocol *)v79 setPasswordKeychainItem:v96];
 
-        v78 = v90;
-        v58 = v184;
+        v77 = v89;
+        v58 = v182;
       }
 
-      if ([(NEVPNProtocolIPSec *)v80 useExtendedAuthentication])
+      if ([(NEVPNProtocolIPSec *)v79 useExtendedAuthentication])
       {
-        username = [(NEVPNProtocol *)v80 username];
+        username = [(NEVPNProtocol *)v79 username];
         if (username)
         {
-          v99 = username;
-          passwordKeychainItem = [(NEVPNProtocol *)v80 passwordKeychainItem];
+          v98 = username;
+          passwordKeychainItem = [(NEVPNProtocol *)v79 passwordKeychainItem];
 
           if (!passwordKeychainItem)
           {
-            v106 = ne_log_obj();
-            if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+            v105 = ne_log_obj();
+            if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
             {
-              v121 = objc_opt_class();
+              v120 = objc_opt_class();
               *buf = 138413058;
-              v232 = v121;
+              v230 = v120;
+              v231 = 2112;
+              v232 = @"AuthPassword";
               v233 = 2112;
-              v234 = @"AuthPassword";
+              v234 = @"AuthName";
               v235 = 2112;
-              v236 = @"AuthName";
-              v237 = 2112;
-              v238 = @"ExtendedAuthEnabled";
-              v122 = v121;
-              v123 = v106;
-              v124 = "%@ configureAOVPNTunnelFromTunnelDict: %@ required for %@ with %@ method";
-              v125 = 42;
+              v236 = @"ExtendedAuthEnabled";
+              v121 = v120;
+              v122 = v105;
+              v123 = "%@ configureAOVPNTunnelFromTunnelDict: %@ required for %@ with %@ method";
+              v124 = 42;
               goto LABEL_162;
             }
 
@@ -8116,64 +8060,64 @@ LABEL_221:
         }
       }
 
-      v101 = [v78 objectForKeyedSubscript:@"LocalIdentifier"];
-      [(NEVPNProtocolIPSec *)v80 setLocalIdentifier:v101];
+      v100 = [v77 objectForKeyedSubscript:@"LocalIdentifier"];
+      [(NEVPNProtocolIPSec *)v79 setLocalIdentifier:v100];
 
-      v102 = [v78 objectForKeyedSubscript:@"RemoteIdentifier"];
-      [(NEVPNProtocolIPSec *)v80 setRemoteIdentifier:v102];
+      v101 = [v77 objectForKeyedSubscript:@"RemoteIdentifier"];
+      [(NEVPNProtocolIPSec *)v79 setRemoteIdentifier:v101];
 
-      v103 = [v78 objectForKeyedSubscript:@"AuthenticationMethod"];
+      v102 = [v77 objectForKeyedSubscript:@"AuthenticationMethod"];
 
-      if (v103)
+      if (v102)
       {
-        if (!isa_nsstring(v103))
+        if (!isa_nsstring(v102))
         {
-          v105 = ne_log_obj();
-          if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
+          v104 = ne_log_obj();
+          if (os_log_type_enabled(v104, OS_LOG_TYPE_ERROR))
           {
-            v132 = objc_opt_class();
+            v131 = objc_opt_class();
             *buf = 138412546;
-            v232 = v132;
-            v233 = 2112;
-            v234 = v103;
-            v133 = v132;
-            _os_log_error_impl(&dword_1BA83C000, v105, OS_LOG_TYPE_ERROR, "%@ configureAOVPNTunnelFromTunnelDict: invalid authen type %@.", buf, 0x16u);
+            v230 = v131;
+            v231 = 2112;
+            v232 = v102;
+            v132 = v131;
+            _os_log_error_impl(&dword_1BA83C000, v104, OS_LOG_TYPE_ERROR, "%@ configureAOVPNTunnelFromTunnelDict: invalid authen type %@.", buf, 0x16u);
           }
 
           v62 = 0;
-          v89 = v103;
+          v88 = v102;
           goto LABEL_142;
         }
 
-        if (([(__CFString *)v103 isEqualToString:@"SharedSecret"]& 1) != 0)
+        if (objc_msgSend_isEqualToString_(v102))
         {
-          v104 = 2;
+          isEqualToString = 2;
         }
 
         else
         {
-          v104 = [(__CFString *)v103 isEqualToString:@"Certificate"];
+          isEqualToString = objc_msgSend_isEqualToString_(v102);
         }
 
-        [(NEVPNProtocolIPSec *)v80 setAuthenticationMethod:v104];
+        [(NEVPNProtocolIPSec *)v79 setAuthenticationMethod:isEqualToString];
       }
 
-      v89 = [v78 objectForKeyedSubscript:@"ProtocolType"];
+      v88 = [v77 objectForKeyedSubscript:@"ProtocolType"];
 
-      if (!v89 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || ([(__CFString *)v89 isEqualToString:@"IKEv2"]& 1) == 0)
+      if (!v88 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (objc_msgSend_isEqualToString_(v88) & 1) == 0)
       {
-        v106 = ne_log_obj();
-        if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+        v105 = ne_log_obj();
+        if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
         {
-          v126 = objc_opt_class();
+          v125 = objc_opt_class();
           *buf = 138412546;
-          v232 = v126;
-          v233 = 2112;
-          v234 = v89;
-          v122 = v126;
-          v123 = v106;
-          v124 = "%@ configureAOVPNTunnelFromTunnelDict: invalid ProtocolType (%@),  IKEv2 expected";
-          v125 = 22;
+          v230 = v125;
+          v231 = 2112;
+          v232 = v88;
+          v121 = v125;
+          v122 = v105;
+          v123 = "%@ configureAOVPNTunnelFromTunnelDict: invalid ProtocolType (%@),  IKEv2 expected";
+          v124 = 22;
           goto LABEL_162;
         }
 
@@ -8184,136 +8128,136 @@ LABEL_141:
         goto LABEL_142;
       }
 
-      v112 = [v78 objectForKeyedSubscript:@"SharedSecret"];
+      v111 = [v77 objectForKeyedSubscript:@"SharedSecret"];
 
-      if (v112)
+      if (v111)
       {
-        if (isa_nsdata(v112))
+        if (isa_nsdata(v111))
         {
-          v89 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v112 encoding:4];
+          v88 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v111 encoding:4];
         }
 
         else
         {
-          v89 = v112;
-          if ((isa_nsstring(v112) & 1) == 0)
+          v88 = v111;
+          if ((isa_nsstring(v111) & 1) == 0)
           {
-            v106 = ne_log_obj();
-            if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+            v105 = ne_log_obj();
+            if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
             {
+              v134 = objc_opt_class();
+              v181 = v134;
               v135 = objc_opt_class();
-              v183 = v135;
-              v136 = objc_opt_class();
               *buf = 138412546;
+              v230 = v134;
+              v231 = 2112;
               v232 = v135;
-              v233 = 2112;
-              v234 = v136;
-              v137 = v136;
-              _os_log_error_impl(&dword_1BA83C000, v106, OS_LOG_TYPE_ERROR, "%@ configureAOVPNTunnelFromTunnelDict: unsupported shared secret data type %@", buf, 0x16u);
+              v136 = v135;
+              _os_log_error_impl(&dword_1BA83C000, v105, OS_LOG_TYPE_ERROR, "%@ configureAOVPNTunnelFromTunnelDict: unsupported shared secret data type %@", buf, 0x16u);
             }
 
             goto LABEL_140;
           }
         }
 
-        v127 = [NEKeychainItem alloc];
-        v182 = v80->super.super._keychainDomain;
-        v129 = objc_getProperty(v80, v128, 88, 1);
-        v130 = [(NEKeychainItem *)v127 initWithPassword:v89 domain:v182 accessGroup:v129];
-        [(NEVPNProtocolIPSec *)v80 setSharedSecretKeychainItem:v130];
+        v126 = [NEKeychainItem alloc];
+        v180 = v79->super.super._keychainDomain;
+        v128 = objc_getProperty(v79, v127, 88, 1);
+        v129 = [(NEKeychainItem *)v126 initWithPassword:v88 domain:v180 accessGroup:v128];
+        [(NEVPNProtocolIPSec *)v79 setSharedSecretKeychainItem:v129];
       }
 
       else
       {
-        v89 = 0;
+        v88 = 0;
       }
 
-      if ([(NEVPNProtocolIPSec *)v80 authenticationMethod]== NEVPNIKEAuthenticationMethodSharedSecret)
+      if ([(NEVPNProtocolIPSec *)v79 authenticationMethod]== NEVPNIKEAuthenticationMethodSharedSecret)
       {
-        sharedSecretKeychainItem = [(NEVPNProtocolIPSec *)v80 sharedSecretKeychainItem];
+        sharedSecretKeychainItem = [(NEVPNProtocolIPSec *)v79 sharedSecretKeychainItem];
 
         if (!sharedSecretKeychainItem)
         {
-          v106 = ne_log_obj();
-          if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+          v105 = ne_log_obj();
+          if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
           {
-            v134 = objc_opt_class();
+            v133 = objc_opt_class();
             *buf = 138412802;
-            v232 = v134;
+            v230 = v133;
+            v231 = 2112;
+            v232 = @"SharedSecret";
             v233 = 2112;
             v234 = @"SharedSecret";
-            v235 = 2112;
-            v236 = @"SharedSecret";
-            v122 = v134;
-            v123 = v106;
-            v124 = "%@ configureAOVPNTunnelFromTunnelDict: %@ required with %@ method";
-            v125 = 32;
+            v121 = v133;
+            v122 = v105;
+            v123 = "%@ configureAOVPNTunnelFromTunnelDict: %@ required with %@ method";
+            v124 = 32;
 LABEL_162:
-            _os_log_error_impl(&dword_1BA83C000, v123, OS_LOG_TYPE_ERROR, v124, buf, v125);
+            _os_log_error_impl(&dword_1BA83C000, v122, OS_LOG_TYPE_ERROR, v123, buf, v124);
           }
 
           goto LABEL_140;
         }
       }
 
-      if (!ingestIKEv2Dict(v188, v78, v80))
+      if (!ingestIKEv2Dict(v186, v77, v79))
       {
         goto LABEL_141;
       }
 
-      v62 = v80;
+      v62 = v79;
 LABEL_142:
 
       if (!v62)
       {
-        v190 = 0;
-        payloadCopy = v191;
-        v7 = v192;
-        v9 = v196;
+        v188 = 0;
+        payloadCopy = v189;
+        v7 = v190;
+        v9 = v194;
         self = selfCopy2;
-        payloadAtom = v198;
-        v169 = v47;
+        payloadAtom = v196;
+        v167 = v47;
         goto LABEL_219;
       }
 
-      payloadAtom = v198;
+      payloadAtom = v196;
       if (v72)
       {
         [v58 setObject:v62 forKey:@"AlwaysOnVPNInterfaceWiFi"];
-        v113 = [v78 objectForKeyedSubscript:@"PayloadCertificateUUID"];
+        v112 = [v77 objectForKeyedSubscript:@"PayloadCertificateUUID"];
 
-        if (v113)
+        if (v112)
         {
-          v114 = [v78 objectForKeyedSubscript:@"PayloadCertificateUUID"];
-          [v196 addCertificatePending:v114 certificateTag:@"_PayloadCertificateRefForWifi"];
+          v113 = [v77 objectForKeyedSubscript:@"PayloadCertificateUUID"];
+          [v194 addCertificatePending:v113 certificateTag:@"_PayloadCertificateRefForWifi"];
         }
 
         if (v71)
         {
-          v115 = [(NEVPNProtocolIKEv2 *)v62 copy];
+          v114 = [(NEVPNProtocolIKEv2 *)v62 copy];
           uUID = [MEMORY[0x1E696AFB0] UUID];
-          [v115 setIdentifier:uUID];
+          [v114 setIdentifier:uUID];
 
-          [v58 setObject:v115 forKey:@"AlwaysOnVPNInterfaceCellular"];
-          v199 = 1;
+          [v58 setObject:v114 forKey:@"AlwaysOnVPNInterfaceCellular"];
+          v197 = 1;
 LABEL_150:
-          v117 = [v78 objectForKeyedSubscript:@"PayloadCertificateUUID"];
+          v116 = [v77 objectForKeyedSubscript:@"PayloadCertificateUUID"];
 
-          v118 = v78;
-          v63 = v185;
-          v60 = v186;
-          v119 = v189;
-          if (v117)
+          v117 = v77;
+          v63 = v183;
+          v60 = v184;
+          v118 = v187;
+          if (v116)
           {
-            v120 = [v118 objectForKeyedSubscript:@"PayloadCertificateUUID"];
-            [v196 addCertificatePending:v120 certificateTag:@"_PayloadCertificateRefForCellular"];
+            v119 = [v117 objectForKeyedSubscript:@"PayloadCertificateUUID"];
+            [v194 addCertificatePending:v119 certificateTag:@"_PayloadCertificateRefForCellular"];
           }
 
           v61 = 1;
           goto LABEL_155;
         }
 
-        v199 = 1;
+        v197 = 1;
       }
 
       else if (v71)
@@ -8322,66 +8266,65 @@ LABEL_150:
         goto LABEL_150;
       }
 
-      v63 = v185;
-      v60 = v186;
-      v119 = v189;
-      v61 = v194;
+      v63 = v183;
+      v60 = v184;
+      v118 = v187;
+      v61 = v192;
 LABEL_155:
 
       v65 = v62;
 LABEL_156:
-      v64 = v202 + 1;
+      v64 = v200 + 1;
     }
 
-    while (v202 + 1 != v193);
-    v138 = [v60 countByEnumeratingWithState:&v210 objects:v227 count:16];
-    v193 = v138;
+    while (v200 + 1 != v191);
+    v137 = [v60 countByEnumeratingWithState:&v208 objects:v225 count:16];
+    v191 = v137;
   }
 
-  while (v138);
-  v139 = v61 | v199;
+  while (v137);
+  v138 = v61 | v197;
 
-  payloadCopy = v191;
-  v7 = v192;
-  v9 = v196;
-  if ((v139 & 1) == 0)
+  payloadCopy = v189;
+  v7 = v190;
+  v9 = v194;
+  if ((v138 & 1) == 0)
   {
     goto LABEL_200;
   }
 
 LABEL_208:
   [alwaysOnVPN2 setInterfaceProtocolMapping:v58];
-  v159 = ne_log_obj();
-  if (os_log_type_enabled(v159, OS_LOG_TYPE_DEBUG))
+  v157 = ne_log_obj();
+  if (os_log_type_enabled(v157, OS_LOG_TYPE_DEBUG))
   {
-    v178 = objc_opt_class();
-    v203 = v178;
+    v176 = objc_opt_class();
+    v201 = v176;
     interfaceProtocolMapping = [alwaysOnVPN2 interfaceProtocolMapping];
     *buf = 138412802;
-    v232 = v178;
+    v230 = v176;
+    v231 = 2112;
+    v232 = interfaceProtocolMapping;
+    v178 = interfaceProtocolMapping;
     v233 = 2112;
-    v234 = interfaceProtocolMapping;
-    v180 = interfaceProtocolMapping;
-    v235 = 2112;
-    v236 = selfCopy2;
-    _os_log_debug_impl(&dword_1BA83C000, v159, OS_LOG_TYPE_DEBUG, "%@ initWithAlwaysOnVPNPayload: aovpn tunnel configs %@, self %@", buf, 0x20u);
+    v234 = selfCopy2;
+    _os_log_debug_impl(&dword_1BA83C000, v157, OS_LOG_TYPE_DEBUG, "%@ initWithAlwaysOnVPNPayload: aovpn tunnel configs %@, self %@", buf, 0x20u);
   }
 
-  v141 = selfCopy2;
-  self = v141;
+  v140 = selfCopy2;
+  self = v140;
 
 LABEL_182:
-  v140 = v205;
+  v139 = v203;
 LABEL_205:
 
 LABEL_206:
-  v157 = *MEMORY[0x1E69E9840];
-  return v141;
+  return v140;
 }
 
 - (NSObject)initWithContentFilterPayload:(void *)payload configurationName:(uint64_t)name grade:
 {
-  v109 = *MEMORY[0x1E69E9840];
+  v108 = *MEMORY[0x1E69E9840];
   v8 = a2;
   payloadCopy = payload;
   if (!self)
@@ -8396,8 +8339,8 @@ LABEL_206:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v106 = objc_opt_class();
-    v4 = v106;
+    v105 = objc_opt_class();
+    v4 = v105;
     _os_log_debug_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_DEBUG, "%@ initWithContentFilterPayload", buf, 0xCu);
   }
 
@@ -8410,7 +8353,7 @@ LABEL_206:
   if (v13)
   {
     v4 = [payloadAtom objectForKeyedSubscript:@"FilterType"];
-    if (([@"Plugin" isEqualToString:v4] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(@"Plugin") & 1) == 0)
     {
 
 LABEL_16:
@@ -8420,13 +8363,13 @@ LABEL_16:
         goto LABEL_17;
       }
 
-      v28 = objc_opt_class();
+      v27 = objc_opt_class();
       *buf = 138412290;
-      v106 = v28;
-      v26 = v28;
-      v27 = "%@ initWithContentFilterPayload: empty payload atom or plugin type, or wrong filter type";
+      v105 = v27;
+      v25 = v27;
+      v26 = "%@ initWithContentFilterPayload: empty payload atom or plugin type, or wrong filter type";
 LABEL_26:
-      _os_log_error_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_ERROR, v27, buf, 0xCu);
+      _os_log_error_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_ERROR, v26, buf, 0xCu);
 
       goto LABEL_17;
     }
@@ -8460,31 +8403,31 @@ LABEL_26:
         goto LABEL_17;
       }
 
-      v25 = objc_opt_class();
+      v24 = objc_opt_class();
       *buf = 138412290;
-      v106 = v25;
-      v26 = v25;
-      v27 = "%@ initWithContentFilterPayload failed, can't create content filter";
+      v105 = v24;
+      v25 = v24;
+      v26 = "%@ initWithContentFilterPayload failed, can't create content filter";
       goto LABEL_26;
     }
 
     v18 = [payloadAtom objectForKeyedSubscript:@"FilterGrade"];
     if (isa_nsstring(v18))
     {
-      if ([v18 isEqualToString:@"firewall"])
+      if (objc_msgSend_isEqualToString_(v18))
       {
         v19 = 1;
       }
 
       else
       {
-        if (([v18 isEqualToString:@"inspector"] & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(v18) & 1) == 0)
         {
           provider6 = ne_log_obj();
           if (os_log_type_enabled(provider6, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v106 = v18;
+            v105 = v18;
             _os_log_error_impl(&dword_1BA83C000, provider6, OS_LOG_TYPE_ERROR, "Invalid filter grade: %@", buf, 0xCu);
           }
 
@@ -8498,26 +8441,26 @@ LABEL_26:
       [contentFilter2 setGrade:v19];
     }
 
-    v30 = objc_alloc_init(NEFilterProviderConfiguration);
+    v29 = objc_alloc_init(NEFilterProviderConfiguration);
     contentFilter3 = [self contentFilter];
-    [contentFilter3 setProvider:v30];
+    [contentFilter3 setProvider:v29];
 
     contentFilter4 = [self contentFilter];
     provider = [contentFilter4 provider];
 
     if (provider)
     {
-      v34 = [payloadAtom objectForKeyedSubscript:@"PluginBundleID"];
+      v33 = [payloadAtom objectForKeyedSubscript:@"PluginBundleID"];
       contentFilter5 = [self contentFilter];
       provider2 = [contentFilter5 provider];
-      [provider2 setPluginType:v34];
+      [provider2 setPluginType:v33];
 
       contentFilter6 = [self contentFilter];
       provider3 = [contentFilter6 provider];
-      v40 = provider3;
+      v39 = provider3;
       if (provider3)
       {
-        objc_setProperty_atomic_copy(provider3, v39, @"com.apple.managed.vpn.shared", 96);
+        objc_setProperty_atomic_copy(provider3, v38, @"com.apple.managed.vpn.shared", 96);
       }
 
       contentFilter7 = [self contentFilter];
@@ -8530,11 +8473,11 @@ LABEL_26:
       pluginType2 = [provider5 pluginType];
       [self setApplicationIdentifier:pluginType2];
 
-      v47 = [payloadAtom objectForKeyedSubscript:@"Enabled"];
-      if (isa_nsnumber(v47))
+      v46 = [payloadAtom objectForKeyedSubscript:@"Enabled"];
+      if (isa_nsnumber(v46))
       {
-        v48 = [payloadAtom objectForKeyedSubscript:@"Enabled"];
-        bOOLValue = [v48 BOOLValue];
+        v47 = [payloadAtom objectForKeyedSubscript:@"Enabled"];
+        bOOLValue = [v47 BOOLValue];
 
         if (!bOOLValue)
         {
@@ -8542,64 +8485,64 @@ LABEL_40:
           contentFilter9 = [self contentFilter];
           provider6 = [contentFilter9 provider];
 
-          v55 = [payloadAtom objectForKeyedSubscript:@"VendorConfig"];
-          [provider6 setVendorConfiguration:v55];
+          v54 = [payloadAtom objectForKeyedSubscript:@"VendorConfig"];
+          [provider6 setVendorConfiguration:v54];
 
-          v56 = [payloadAtom objectForKeyedSubscript:@"ServerAddress"];
-          [provider6 setServerAddress:v56];
+          v55 = [payloadAtom objectForKeyedSubscript:@"ServerAddress"];
+          [provider6 setServerAddress:v55];
 
-          v57 = [payloadAtom objectForKeyedSubscript:@"UserName"];
-          [provider6 setUsername:v57];
+          v56 = [payloadAtom objectForKeyedSubscript:@"UserName"];
+          [provider6 setUsername:v56];
 
-          v58 = [payloadAtom objectForKeyedSubscript:@"Organization"];
-          [provider6 setOrganization:v58];
+          v57 = [payloadAtom objectForKeyedSubscript:@"Organization"];
+          [provider6 setOrganization:v57];
 
-          v59 = [payloadAtom objectForKeyedSubscript:@"FilterDataProviderDesignatedRequirement"];
-          [provider6 setDataProviderDesignatedRequirement:v59];
+          v58 = [payloadAtom objectForKeyedSubscript:@"FilterDataProviderDesignatedRequirement"];
+          [provider6 setDataProviderDesignatedRequirement:v58];
 
-          v60 = [payloadAtom objectForKeyedSubscript:@"FilterDataProviderBundleIdentifier"];
-          [provider6 setFilterDataProviderBundleIdentifier:v60];
+          v59 = [payloadAtom objectForKeyedSubscript:@"FilterDataProviderBundleIdentifier"];
+          [provider6 setFilterDataProviderBundleIdentifier:v59];
 
-          v61 = [payloadAtom objectForKeyedSubscript:@"FilterPacketProviderDesignatedRequirement"];
-          [provider6 setPacketProviderDesignatedRequirement:v61];
+          v60 = [payloadAtom objectForKeyedSubscript:@"FilterPacketProviderDesignatedRequirement"];
+          [provider6 setPacketProviderDesignatedRequirement:v60];
 
-          v62 = [payloadAtom objectForKeyedSubscript:@"FilterPacketProviderBundleIdentifier"];
-          [provider6 setFilterPacketProviderBundleIdentifier:v62];
+          v61 = [payloadAtom objectForKeyedSubscript:@"FilterPacketProviderBundleIdentifier"];
+          [provider6 setFilterPacketProviderBundleIdentifier:v61];
 
-          v63 = [payloadAtom objectForKeyedSubscript:@"FilterSockets"];
-          v64 = isa_nsnumber(v63);
+          v62 = [payloadAtom objectForKeyedSubscript:@"FilterSockets"];
+          v63 = isa_nsnumber(v62);
 
-          if (v64)
+          if (v63)
           {
-            v65 = [payloadAtom objectForKeyedSubscript:@"FilterSockets"];
-            -[NSObject setFilterSockets:](provider6, "setFilterSockets:", [v65 BOOLValue]);
+            v64 = [payloadAtom objectForKeyedSubscript:@"FilterSockets"];
+            -[NSObject setFilterSockets:](provider6, "setFilterSockets:", [v64 BOOLValue]);
           }
 
-          v66 = [payloadAtom objectForKeyedSubscript:@"FilterPackets"];
-          v67 = isa_nsnumber(v66);
+          v65 = [payloadAtom objectForKeyedSubscript:@"FilterPackets"];
+          v66 = isa_nsnumber(v65);
 
-          if (v67)
+          if (v66)
           {
-            v68 = [payloadAtom objectForKeyedSubscript:@"FilterPackets"];
-            -[NSObject setFilterPackets:](provider6, "setFilterPackets:", [v68 BOOLValue]);
+            v67 = [payloadAtom objectForKeyedSubscript:@"FilterPackets"];
+            -[NSObject setFilterPackets:](provider6, "setFilterPackets:", [v67 BOOLValue]);
           }
 
-          v69 = [payloadAtom objectForKeyedSubscript:@"DisableDefaultDrop"];
-          v70 = isa_nsnumber(v69);
+          v68 = [payloadAtom objectForKeyedSubscript:@"DisableDefaultDrop"];
+          v69 = isa_nsnumber(v68);
 
-          if (v70)
+          if (v69)
           {
-            v71 = [payloadAtom objectForKeyedSubscript:@"DisableDefaultDrop"];
-            -[NSObject setDisableDefaultDrop:](provider6, "setDisableDefaultDrop:", [v71 BOOLValue]);
+            v70 = [payloadAtom objectForKeyedSubscript:@"DisableDefaultDrop"];
+            -[NSObject setDisableDefaultDrop:](provider6, "setDisableDefaultDrop:", [v70 BOOLValue]);
           }
 
-          v72 = [payloadAtom objectForKeyedSubscript:@"FilterBrowsers"];
-          v73 = isa_nsnumber(v72);
+          v71 = [payloadAtom objectForKeyedSubscript:@"FilterBrowsers"];
+          v72 = isa_nsnumber(v71);
 
-          if (v73)
+          if (v72)
           {
-            v74 = [payloadAtom objectForKeyedSubscript:@"FilterBrowsers"];
-            -[NSObject setFilterBrowsers:](provider6, "setFilterBrowsers:", [v74 BOOLValue]);
+            v73 = [payloadAtom objectForKeyedSubscript:@"FilterBrowsers"];
+            -[NSObject setFilterBrowsers:](provider6, "setFilterBrowsers:", [v73 BOOLValue]);
           }
 
           if (([provider6 filterSockets]& 1) == 0 && ([provider6 filterBrowsers]& 1) == 0 && ([provider6 filterPackets]& 1) == 0)
@@ -8608,45 +8551,45 @@ LABEL_40:
             [contentFilter10 setEnabled:0];
           }
 
-          v76 = [payloadAtom objectForKeyedSubscript:@"Password"];
-          if (v76)
+          v75 = [payloadAtom objectForKeyedSubscript:@"Password"];
+          if (v75)
           {
-            v77 = v76;
+            v76 = v75;
             username = [provider6 username];
-            v103 = v18;
-            if (isa_nsdata(v77))
+            v102 = v18;
+            if (isa_nsdata(v76))
             {
-              v79 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v77 encoding:4];
+              v78 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v76 encoding:4];
 
-              v77 = v79;
+              v76 = v78;
             }
 
-            else if ((isa_nsstring(v77) & 1) == 0)
+            else if ((isa_nsstring(v76) & 1) == 0)
             {
-              v94 = ne_log_obj();
-              if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
+              v93 = ne_log_obj();
+              if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
               {
+                v97 = objc_opt_class();
+                v99 = v97;
                 v98 = objc_opt_class();
-                v100 = v98;
-                v99 = objc_opt_class();
                 *buf = 138412546;
-                v106 = v98;
-                v107 = 2112;
-                v108 = v99;
-                v102 = v99;
-                _os_log_error_impl(&dword_1BA83C000, v94, OS_LOG_TYPE_ERROR, "%@ initWithContentFilterPayload: unsupported password data type %@", buf, 0x16u);
+                v105 = v97;
+                v106 = 2112;
+                v107 = v98;
+                v101 = v98;
+                _os_log_error_impl(&dword_1BA83C000, v93, OS_LOG_TYPE_ERROR, "%@ initWithContentFilterPayload: unsupported password data type %@", buf, 0x16u);
               }
 
               selfCopy = 0;
-              v18 = v103;
+              v18 = v102;
               goto LABEL_72;
             }
 
-            v80 = v77;
-            v82 = [NEKeychainItem alloc];
+            v79 = v76;
+            v81 = [NEKeychainItem alloc];
             if (provider6)
             {
-              Property = objc_getProperty(provider6, v81, 96, 1);
+              Property = objc_getProperty(provider6, v80, 96, 1);
             }
 
             else
@@ -8654,67 +8597,67 @@ LABEL_40:
               Property = 0;
             }
 
-            v84 = Property;
-            v85 = [(NEKeychainItem *)v82 initWithPassword:v80 domain:1 accessGroup:v84];
+            v83 = Property;
+            v84 = [(NEKeychainItem *)v81 initWithPassword:v79 domain:1 accessGroup:v83];
 
-            [(NEKeychainItem *)v85 syncUsingConfiguration:self accountName:username passwordType:0 identifierSuffix:0];
-            persistentReference = [(NEKeychainItem *)v85 persistentReference];
+            [(NEKeychainItem *)v84 syncUsingConfiguration:self accountName:username passwordType:0 identifierSuffix:0];
+            persistentReference = [(NEKeychainItem *)v84 persistentReference];
             [provider6 setPasswordReference:persistentReference];
 
-            v18 = v103;
+            v18 = v102;
           }
 
           [provider6 setIdentityReference:0];
-          v87 = [payloadAtom objectForKeyedSubscript:@"PayloadCertificateUUID"];
+          v86 = [payloadAtom objectForKeyedSubscript:@"PayloadCertificateUUID"];
 
-          if (v87)
+          if (v86)
           {
-            v89 = [payloadAtom objectForKeyedSubscript:@"PayloadCertificateUUID"];
+            v88 = [payloadAtom objectForKeyedSubscript:@"PayloadCertificateUUID"];
             if (provider6)
             {
-              v90 = objc_getProperty(provider6, v88, 96, 1);
+              v89 = objc_getProperty(provider6, v87, 96, 1);
             }
 
             else
             {
-              v90 = 0;
+              v89 = 0;
             }
 
-            v91 = v90;
-            [v10 addCertificatePending:v89 certificateTag:@"_PayloadCertificateRef" accessGroup:v91];
+            v90 = v89;
+            [v10 addCertificatePending:v88 certificateTag:@"_PayloadCertificateRef" accessGroup:v90];
           }
 
           else
           {
-            v92 = [payloadAtom objectForKeyedSubscript:@"LocalCertificate"];
+            v91 = [payloadAtom objectForKeyedSubscript:@"LocalCertificate"];
 
-            if (!v92)
+            if (!v91)
             {
 LABEL_66:
-              v93 = ne_log_obj();
-              if (os_log_type_enabled(v93, OS_LOG_TYPE_DEBUG))
+              v92 = ne_log_obj();
+              if (os_log_type_enabled(v92, OS_LOG_TYPE_DEBUG))
               {
-                v95 = objc_opt_class();
-                v101 = v95;
+                v94 = objc_opt_class();
+                v100 = v94;
                 [self contentFilter];
-                v96 = v104 = v18;
-                provider7 = [v96 provider];
+                v95 = v103 = v18;
+                provider7 = [v95 provider];
                 *buf = 138412546;
-                v106 = v95;
-                v107 = 2112;
-                v108 = provider7;
-                _os_log_debug_impl(&dword_1BA83C000, v93, OS_LOG_TYPE_DEBUG, "%@ initWithContentFilterPayload: provider %@", buf, 0x16u);
+                v105 = v94;
+                v106 = 2112;
+                v107 = provider7;
+                _os_log_debug_impl(&dword_1BA83C000, v92, OS_LOG_TYPE_DEBUG, "%@ initWithContentFilterPayload: provider %@", buf, 0x16u);
 
-                v18 = v104;
+                v18 = v103;
               }
 
               selfCopy = self;
               goto LABEL_72;
             }
 
-            v89 = [payloadAtom objectForKeyedSubscript:@"LocalCertificate"];
-            v91 = setLocalCertificate(v89);
-            [provider6 setIdentityReference:v91];
+            v88 = [payloadAtom objectForKeyedSubscript:@"LocalCertificate"];
+            v90 = setLocalCertificate(v88);
+            [provider6 setIdentityReference:v90];
           }
 
           goto LABEL_66;
@@ -8734,10 +8677,10 @@ LABEL_66:
     provider6 = ne_log_obj();
     if (os_log_type_enabled(provider6, OS_LOG_TYPE_ERROR))
     {
-      v51 = objc_opt_class();
+      v50 = objc_opt_class();
       *buf = 138412290;
-      v106 = v51;
-      v52 = v51;
+      v105 = v50;
+      v51 = v50;
       _os_log_error_impl(&dword_1BA83C000, provider6, OS_LOG_TYPE_ERROR, "%@ initWithContentFilterPayload failed, can't create provider", buf, 0xCu);
     }
 
@@ -8754,10 +8697,10 @@ LABEL_72:
     goto LABEL_18;
   }
 
-  v24 = objc_opt_class();
+  v23 = objc_opt_class();
   *buf = 138412290;
-  v106 = v24;
-  v20 = v24;
+  v105 = v23;
+  v20 = v23;
   _os_log_error_impl(&dword_1BA83C000, self, OS_LOG_TYPE_ERROR, "%@ initWithContentFilterPayload failed", buf, 0xCu);
 LABEL_17:
 
@@ -8766,13 +8709,12 @@ LABEL_18:
 LABEL_19:
 
 LABEL_20:
-  v22 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (id)initWithPathControllerPayload:(void *)payload configurationName:(uint64_t)name grade:
 {
-  v84 = *MEMORY[0x1E69E9840];
+  v83 = *MEMORY[0x1E69E9840];
   v7 = a2;
   payloadCopy = payload;
   if (!self)
@@ -8786,8 +8728,8 @@ LABEL_20:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v79 = objc_opt_class();
-    v42 = v79;
+    v78 = objc_opt_class();
+    v41 = v78;
     _os_log_debug_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_DEBUG, "%@ initWithPathControllerPayload", buf, 0xCu);
   }
 
@@ -8798,7 +8740,7 @@ LABEL_20:
     {
       v36 = objc_opt_class();
       *buf = 138412290;
-      v79 = v36;
+      v78 = v36;
       v37 = v36;
       _os_log_error_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_ERROR, "%@ initWithPathControllerPayload: empty payload atom", buf, 0xCu);
     }
@@ -8812,10 +8754,10 @@ LABEL_20:
     v38 = ne_log_obj();
     if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
-      v49 = objc_opt_class();
+      v48 = objc_opt_class();
       *buf = 138412290;
-      v79 = v49;
-      v48 = v49;
+      v78 = v48;
+      v47 = v48;
       _os_log_error_impl(&dword_1BA83C000, v38, OS_LOG_TYPE_ERROR, "%@ initWithPathControllerPayload: ApplicationRules missing", buf, 0xCu);
       goto LABEL_54;
     }
@@ -8828,49 +8770,49 @@ LABEL_45:
   }
 
   nameCopy = name;
-  v76 = 0u;
-  v77 = 0u;
-  v74 = 0u;
   v75 = 0u;
+  v76 = 0u;
+  v73 = 0u;
+  v74 = 0u;
   v11 = v11;
-  v12 = [v11 countByEnumeratingWithState:&v74 objects:v83 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v73 objects:v82 count:16];
   if (!v12)
   {
     goto LABEL_29;
   }
 
   v13 = v12;
-  v14 = *v75;
-  v67 = payloadCopy;
-  v68 = v7;
-  v65 = *v75;
-  v66 = payloadAtom;
+  v14 = *v74;
+  v66 = payloadCopy;
+  v67 = v7;
+  v64 = *v74;
+  v65 = payloadAtom;
   while (2)
   {
     for (i = 0; i != v13; ++i)
     {
-      if (*v75 != v14)
+      if (*v74 != v14)
       {
         objc_enumerationMutation(v11);
       }
 
-      v16 = *(*(&v74 + 1) + 8 * i);
+      v16 = *(*(&v73 + 1) + 8 * i);
       if ((isa_nsdictionary(v16) & 1) == 0)
       {
         v18 = ne_log_obj();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v50 = objc_opt_class();
+          v49 = objc_opt_class();
           *buf = 138412290;
-          v79 = v50;
-          v51 = v50;
+          v78 = v49;
+          v50 = v49;
           _os_log_error_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_ERROR, "%@ initWithPathControllerPayload: ApplicationRules malformed", buf, 0xCu);
         }
 
 LABEL_66:
-        payloadCopy = v67;
-        v7 = v68;
-        payloadAtom = v66;
+        payloadCopy = v66;
+        v7 = v67;
+        payloadAtom = v65;
 LABEL_44:
 
         goto LABEL_45;
@@ -8885,49 +8827,49 @@ LABEL_44:
           v19 = ne_log_obj();
           if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            v54 = objc_opt_class();
+            v53 = objc_opt_class();
             *buf = 138412290;
-            v79 = v54;
-            v55 = v54;
+            v78 = v53;
+            v54 = v53;
             _os_log_error_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_ERROR, "%@ initWithPathControllerPayload: AppIdentifierMatches malformed", buf, 0xCu);
           }
 
 LABEL_43:
-          payloadCopy = v67;
-          v7 = v68;
-          payloadAtom = v66;
+          payloadCopy = v66;
+          v7 = v67;
+          payloadAtom = v65;
 
           goto LABEL_44;
         }
 
-        v72 = 0u;
-        v73 = 0u;
-        v70 = 0u;
         v71 = 0u;
+        v72 = 0u;
+        v69 = 0u;
+        v70 = 0u;
         v19 = v18;
-        v20 = [v19 countByEnumeratingWithState:&v70 objects:v82 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v69 objects:v81 count:16];
         if (v20)
         {
           v21 = v20;
-          v22 = *v71;
+          v22 = *v70;
           while (2)
           {
             for (j = 0; j != v21; ++j)
             {
-              if (*v71 != v22)
+              if (*v70 != v22)
               {
                 objc_enumerationMutation(v19);
               }
 
-              if ((isa_nsstring(*(*(&v70 + 1) + 8 * j)) & 1) == 0)
+              if ((isa_nsstring(*(*(&v69 + 1) + 8 * j)) & 1) == 0)
               {
                 v39 = ne_log_obj();
                 if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
                 {
-                  v52 = objc_opt_class();
+                  v51 = objc_opt_class();
                   *buf = 138412290;
-                  v79 = v52;
-                  v53 = v52;
+                  v78 = v51;
+                  v52 = v51;
                   _os_log_error_impl(&dword_1BA83C000, v39, OS_LOG_TYPE_ERROR, "%@ initWithPathControllerPayload: AppIdentifierMatches malformed", buf, 0xCu);
                 }
 
@@ -8936,7 +8878,7 @@ LABEL_43:
               }
             }
 
-            v21 = [v19 countByEnumeratingWithState:&v70 objects:v82 count:16];
+            v21 = [v19 countByEnumeratingWithState:&v69 objects:v81 count:16];
             if (v21)
             {
               continue;
@@ -8946,21 +8888,21 @@ LABEL_43:
           }
         }
 
-        v14 = v65;
+        v14 = v64;
       }
 
       v24 = [v16 objectForKeyedSubscript:@"AllowRoamingCellularData"];
       v25 = v24;
       if (v24 && (isa_nsnumber(v24) & 1) == 0)
       {
-        v56 = ne_log_obj();
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+        v55 = ne_log_obj();
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
         {
-          v61 = objc_opt_class();
+          v60 = objc_opt_class();
           *buf = 138412290;
-          v79 = v61;
-          v62 = v61;
-          _os_log_error_impl(&dword_1BA83C000, v56, OS_LOG_TYPE_ERROR, "%@ initWithPathControllerPayload: AllowRoamingCellularData malformed", buf, 0xCu);
+          v78 = v60;
+          v61 = v60;
+          _os_log_error_impl(&dword_1BA83C000, v55, OS_LOG_TYPE_ERROR, "%@ initWithPathControllerPayload: AllowRoamingCellularData malformed", buf, 0xCu);
         }
 
 LABEL_65:
@@ -8971,24 +8913,24 @@ LABEL_65:
       v27 = v26;
       if (v26 && (isa_nsnumber(v26) & 1) == 0)
       {
-        v57 = ne_log_obj();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+        v56 = ne_log_obj();
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
-          v63 = objc_opt_class();
+          v62 = objc_opt_class();
           *buf = 138412290;
-          v79 = v63;
-          v64 = v63;
-          _os_log_error_impl(&dword_1BA83C000, v57, OS_LOG_TYPE_ERROR, "%@ initWithPathControllerPayload: AllowCellularData malformed", buf, 0xCu);
+          v78 = v62;
+          v63 = v62;
+          _os_log_error_impl(&dword_1BA83C000, v56, OS_LOG_TYPE_ERROR, "%@ initWithPathControllerPayload: AllowCellularData malformed", buf, 0xCu);
         }
 
         goto LABEL_65;
       }
     }
 
-    v13 = [v11 countByEnumeratingWithState:&v74 objects:v83 count:16];
-    payloadCopy = v67;
-    v7 = v68;
-    payloadAtom = v66;
+    v13 = [v11 countByEnumeratingWithState:&v73 objects:v82 count:16];
+    payloadCopy = v66;
+    v7 = v67;
+    payloadAtom = v65;
     if (v13)
     {
       continue;
@@ -9002,19 +8944,19 @@ LABEL_29:
   self = [self initWithName:payloadCopy grade:nameCopy];
   if (!self)
   {
-    v43 = ne_log_obj();
-    if (!os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v42 = ne_log_obj();
+    if (!os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_51;
     }
 
-    v44 = objc_opt_class();
+    v43 = objc_opt_class();
     *buf = 138412546;
-    v79 = v44;
-    v80 = 2112;
-    v81 = payloadCopy;
-    v45 = v44;
-    v46 = "%@ initWithPathControllerPayload: initWithName failed for '%@'";
+    v78 = v43;
+    v79 = 2112;
+    v80 = payloadCopy;
+    v44 = v43;
+    v45 = "%@ initWithPathControllerPayload: initWithName failed for '%@'";
     goto LABEL_68;
   }
 
@@ -9025,30 +8967,30 @@ LABEL_29:
 
   if (!pathController)
   {
-    v43 = ne_log_obj();
-    if (!os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v42 = ne_log_obj();
+    if (!os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_51;
     }
 
-    v60 = objc_opt_class();
+    v59 = objc_opt_class();
     *buf = 138412546;
-    v79 = v60;
-    v80 = 2112;
-    v81 = payloadCopy;
-    v45 = v60;
-    v46 = "%@ initWithPathControllerPayload failed, could not create Path Controller for config '%@'";
+    v78 = v59;
+    v79 = 2112;
+    v80 = payloadCopy;
+    v44 = v59;
+    v45 = "%@ initWithPathControllerPayload failed, could not create Path Controller for config '%@'";
 LABEL_68:
-    _os_log_error_impl(&dword_1BA83C000, v43, OS_LOG_TYPE_ERROR, v46, buf, 0x16u);
+    _os_log_error_impl(&dword_1BA83C000, v42, OS_LOG_TYPE_ERROR, v45, buf, 0x16u);
 
 LABEL_51:
     v38 = ne_log_obj();
     if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
     {
-      v47 = objc_opt_class();
+      v46 = objc_opt_class();
       *buf = 138412290;
-      v79 = v47;
-      v48 = v47;
+      v78 = v46;
+      v47 = v46;
       _os_log_debug_impl(&dword_1BA83C000, v38, OS_LOG_TYPE_DEBUG, "%@ initWithPathControllerPayload: failed", buf, 0xCu);
 LABEL_54:
 
@@ -9071,10 +9013,10 @@ LABEL_54:
   v34 = ne_log_obj();
   if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
   {
-    v58 = objc_opt_class();
+    v57 = objc_opt_class();
     *buf = 138412290;
-    v79 = v58;
-    v59 = v58;
+    v78 = v57;
+    v58 = v57;
     _os_log_debug_impl(&dword_1BA83C000, v34, OS_LOG_TYPE_DEBUG, "%@ initWithPathControllerPayload: done", buf, 0xCu);
   }
 
@@ -9083,13 +9025,12 @@ LABEL_54:
 LABEL_46:
 
 LABEL_47:
-  v40 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (id)initWithDNSProxyPayload:(id)payload configurationName:(void *)name grade:(void *)grade
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   gradeCopy = grade;
   if (!payload)
@@ -9102,10 +9043,10 @@ LABEL_47:
   v8 = ne_log_large_obj();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v45 = 138412290;
-    v46 = objc_opt_class();
-    v40 = v46;
-    _os_log_debug_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEBUG, "%@ initWithDNSProxyPayload", &v45, 0xCu);
+    v44 = 138412290;
+    v45 = objc_opt_class();
+    v39 = v45;
+    _os_log_debug_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEBUG, "%@ initWithDNSProxyPayload", &v44, 0xCu);
   }
 
   if (payloadAtom)
@@ -9152,11 +9093,11 @@ LABEL_47:
           v27 = ne_log_obj();
           if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
           {
-            v42 = objc_opt_class();
-            v45 = 138412290;
-            v46 = v42;
-            v43 = v42;
-            _os_log_debug_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_DEBUG, "%@ initWithDNSProxyPayload: done", &v45, 0xCu);
+            v41 = objc_opt_class();
+            v44 = 138412290;
+            v45 = v41;
+            v42 = v41;
+            _os_log_debug_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_DEBUG, "%@ initWithDNSProxyPayload: done", &v44, 0xCu);
           }
 
           payload = payload;
@@ -9167,10 +9108,10 @@ LABEL_47:
         v29 = ne_log_obj();
         if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
-          v39 = objc_opt_class();
-          v45 = 138412290;
-          v46 = v39;
-          v31 = v39;
+          v38 = objc_opt_class();
+          v44 = 138412290;
+          v45 = v38;
+          v31 = v38;
           v32 = "%@ initWithDNSProxyPayload failed to allocate protocol";
           goto LABEL_13;
         }
@@ -9186,23 +9127,23 @@ LABEL_17:
         v29 = ne_log_obj();
         if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
         {
-          v41 = objc_opt_class();
-          v45 = 138412290;
-          v46 = v41;
-          v31 = v41;
-          _os_log_debug_impl(&dword_1BA83C000, v29, OS_LOG_TYPE_DEBUG, "%@ initWithDNSProxyPayload: failed", &v45, 0xCu);
+          v40 = objc_opt_class();
+          v44 = 138412290;
+          v45 = v40;
+          v31 = v40;
+          _os_log_debug_impl(&dword_1BA83C000, v29, OS_LOG_TYPE_DEBUG, "%@ initWithDNSProxyPayload: failed", &v44, 0xCu);
           goto LABEL_24;
         }
 
         goto LABEL_18;
       }
 
-      v44 = objc_opt_class();
-      v45 = 138412546;
-      v46 = v44;
-      v47 = 2112;
-      v48 = gradeCopy;
-      v35 = v44;
+      v43 = objc_opt_class();
+      v44 = 138412546;
+      v45 = v43;
+      v46 = 2112;
+      v47 = gradeCopy;
+      v35 = v43;
       v36 = "%@ initWithDNSProxyPayload failed, can't create dnsProxy for config '%@'";
     }
 
@@ -9215,15 +9156,15 @@ LABEL_17:
       }
 
       v34 = objc_opt_class();
-      v45 = 138412546;
-      v46 = v34;
-      v47 = 2112;
-      v48 = gradeCopy;
+      v44 = 138412546;
+      v45 = v34;
+      v46 = 2112;
+      v47 = gradeCopy;
       v35 = v34;
       v36 = "%@ initWithDNSProxyPayload: initWithName failed for '%@'";
     }
 
-    _os_log_error_impl(&dword_1BA83C000, v33, OS_LOG_TYPE_ERROR, v36, &v45, 0x16u);
+    _os_log_error_impl(&dword_1BA83C000, v33, OS_LOG_TYPE_ERROR, v36, &v44, 0x16u);
 
     goto LABEL_17;
   }
@@ -9232,12 +9173,12 @@ LABEL_17:
   if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
   {
     v30 = objc_opt_class();
-    v45 = 138412290;
-    v46 = v30;
+    v44 = 138412290;
+    v45 = v30;
     v31 = v30;
     v32 = "%@ initWithDNSProxyPayload: empty payload atom";
 LABEL_13:
-    _os_log_error_impl(&dword_1BA83C000, v29, OS_LOG_TYPE_ERROR, v32, &v45, 0xCu);
+    _os_log_error_impl(&dword_1BA83C000, v29, OS_LOG_TYPE_ERROR, v32, &v44, 0xCu);
 LABEL_24:
   }
 
@@ -9247,13 +9188,12 @@ LABEL_18:
 LABEL_19:
 
 LABEL_20:
-  v37 = *MEMORY[0x1E69E9840];
   return payloadCopy;
 }
 
 - (id)initWithDNSSettingsPayload:(void *)payload configurationName:(uint64_t)name grade:
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   v7 = a2;
   payloadCopy = payload;
   if (!self)
@@ -9268,8 +9208,8 @@ LABEL_20:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v61 = objc_opt_class();
-    v44 = v61;
+    v60 = objc_opt_class();
+    v44 = v60;
     _os_log_debug_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_DEBUG, "%@ initWithDNSSettingsPayload", buf, 0xCu);
   }
 
@@ -9278,10 +9218,10 @@ LABEL_20:
     v12 = ne_log_obj();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v49 = objc_opt_class();
+      v48 = objc_opt_class();
       *buf = 138412290;
-      v61 = v49;
-      v50 = v49;
+      v60 = v48;
+      v49 = v48;
       _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, "%@ initWithDNSSettingsPayload: empty payload atom", buf, 0xCu);
     }
 
@@ -9311,14 +9251,14 @@ LABEL_20:
     v18 = [v17 objectForKeyedSubscript:@"DNSProtocol"];
     if (isa_nsstring(v18))
     {
-      if ([v18 isEqualToString:@"HTTPS"])
+      if (objc_msgSend_isEqualToString_(v18))
       {
         v19 = off_1E7F046B8;
       }
 
       else
       {
-        if (![v18 isEqualToString:@"TLS"])
+        if (!objc_msgSend_isEqualToString_(v18))
         {
           v21 = 0;
 LABEL_19:
@@ -9333,7 +9273,7 @@ LABEL_19:
 
             v39 = objc_opt_class();
             *buf = 138412290;
-            v61 = v39;
+            v60 = v39;
             v40 = v39;
             v41 = "%@ initWithDNSSettingsPayload: failed to parse DNSSettings";
             v42 = v38;
@@ -9345,10 +9285,10 @@ LABEL_44:
             v23 = ne_log_obj();
             if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
             {
-              v51 = objc_opt_class();
+              v50 = objc_opt_class();
               *buf = 138412290;
-              v61 = v51;
-              v52 = v51;
+              v60 = v50;
+              v51 = v50;
               _os_log_debug_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_DEBUG, "%@ initWithDNSSettingsPayload: failed", buf, 0xCu);
             }
 
@@ -9378,10 +9318,10 @@ LABEL_44:
               goto LABEL_23;
             }
 
-            v59 = v21;
+            v58 = v21;
             v25 = [v17 objectForKeyedSubscript:@"LocalCertificate"];
-            v58 = setLocalCertificate(v25);
-            [v59 setIdentityReference:v58];
+            v57 = setLocalCertificate(v25);
+            [v58 setIdentityReference:v57];
           }
 
 LABEL_23:
@@ -9391,12 +9331,12 @@ LABEL_23:
             v38 = ne_log_obj();
             if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
             {
-              v55 = objc_opt_class();
+              v54 = objc_opt_class();
               *buf = 138412546;
-              v61 = v55;
-              v62 = 2112;
-              v63 = payloadCopy;
-              v56 = v55;
+              v60 = v54;
+              v61 = 2112;
+              v62 = payloadCopy;
+              v55 = v54;
               _os_log_error_impl(&dword_1BA83C000, v38, OS_LOG_TYPE_ERROR, "%@ initWithDNSSettingsPayload: initWithName failed for '%@'", buf, 0x16u);
             }
 
@@ -9434,10 +9374,10 @@ LABEL_29:
                 v37 = ne_log_obj();
                 if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
                 {
-                  v53 = objc_opt_class();
+                  v52 = objc_opt_class();
                   *buf = 138412290;
-                  v61 = v53;
-                  v54 = v53;
+                  v60 = v52;
+                  v53 = v52;
                   _os_log_debug_impl(&dword_1BA83C000, v37, OS_LOG_TYPE_DEBUG, "%@ initWithDNSSettingsPayload: done", buf, 0xCu);
                 }
 
@@ -9460,12 +9400,12 @@ LABEL_29:
             goto LABEL_44;
           }
 
-          v57 = objc_opt_class();
+          v56 = objc_opt_class();
           *buf = 138412546;
-          v61 = v57;
-          v62 = 2112;
-          v63 = payloadCopy;
-          v40 = v57;
+          v60 = v56;
+          v61 = 2112;
+          v62 = payloadCopy;
+          v40 = v56;
           v41 = "%@ initWithDNSSettingsPayload failed, could not create DNS Settings for config '%@'";
           v42 = v38;
           v43 = 22;
@@ -9490,7 +9430,7 @@ LABEL_29:
   {
     v22 = objc_opt_class();
     *buf = 138412290;
-    v61 = v22;
+    v60 = v22;
     v23 = v22;
     _os_log_error_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_ERROR, "%@ initWithDNSSettingsPayload: DNSSettings missing", buf, 0xCu);
 LABEL_46:
@@ -9502,13 +9442,12 @@ LABEL_48:
 LABEL_49:
 LABEL_50:
 
-  v47 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (id)initWithRelayPayload:(void *)payload configurationName:(uint64_t)name grade:
 {
-  v173 = *MEMORY[0x1E69E9840];
+  v172 = *MEMORY[0x1E69E9840];
   v7 = a2;
   payloadCopy = payload;
   if (!self)
@@ -9517,14 +9456,14 @@ LABEL_50:
     goto LABEL_136;
   }
 
-  v130 = v7;
-  payloadAtom = [v130 payloadAtom];
+  v129 = v7;
+  payloadAtom = [v129 payloadAtom];
   v10 = ne_log_obj();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     v95 = objc_opt_class();
     *buf = 138412290;
-    v172 = v95;
+    v171 = v95;
     _os_log_debug_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_DEBUG, "%@ initWithRelayPayload", buf, 0xCu);
   }
 
@@ -9533,10 +9472,10 @@ LABEL_50:
     v11 = ne_log_obj();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v103 = objc_opt_class();
+      v102 = objc_opt_class();
       *buf = 138412290;
-      v172 = v103;
-      v104 = v103;
+      v171 = v102;
+      v103 = v102;
       _os_log_error_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_ERROR, "%@ initWithRelayPayload failed, empty payload atom", buf, 0xCu);
     }
 
@@ -9557,7 +9496,7 @@ LABEL_133:
 
     v92 = objc_opt_class();
     *buf = 138412290;
-    v172 = v92;
+    v171 = v92;
     v93 = v92;
     v94 = "%@ initWithRelayPayload failed, relays missing";
 LABEL_128:
@@ -9573,10 +9512,10 @@ LABEL_128:
     log = ne_log_obj();
     if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
     {
-      v108 = objc_opt_class();
+      v107 = objc_opt_class();
       *buf = 138412290;
-      v172 = v108;
-      v109 = v108;
+      v171 = v107;
+      v108 = v107;
       _os_log_error_impl(&dword_1BA83C000, log, OS_LOG_TYPE_ERROR, "%@ initWithRelayPayload failed, cannot initialize", buf, 0xCu);
     }
 
@@ -9597,56 +9536,56 @@ LABEL_128:
       goto LABEL_133;
     }
 
-    v110 = objc_opt_class();
+    v109 = objc_opt_class();
     *buf = 138412290;
-    v172 = v110;
-    v93 = v110;
+    v171 = v109;
+    v93 = v109;
     v94 = "%@ initWithRelayPayload failed, cannot create relay";
     goto LABEL_128;
   }
 
-  v119 = payloadAtom;
-  v114 = payloadCopy;
+  v118 = payloadAtom;
+  v113 = payloadCopy;
   log = objc_alloc_init(MEMORY[0x1E695DF70]);
   v14 = [v11 count];
-  v120 = v14;
-  v121 = v11;
+  v119 = v14;
+  v120 = v11;
   if (!v14)
   {
 LABEL_72:
     relay2 = [self relay];
     [relay2 setRelays:log];
 
-    v56 = [v119 objectForKeyedSubscript:@"MatchDomains"];
+    v56 = [v118 objectForKeyedSubscript:@"MatchDomains"];
     if (isa_nsarray(v56))
     {
-      v145 = 0u;
-      v146 = 0u;
-      v143 = 0u;
       v144 = 0u;
+      v145 = 0u;
+      v142 = 0u;
+      v143 = 0u;
       v57 = v56;
-      v58 = [v57 countByEnumeratingWithState:&v143 objects:v166 count:16];
+      v58 = [v57 countByEnumeratingWithState:&v142 objects:v165 count:16];
       if (v58)
       {
         v59 = v58;
-        v60 = *v144;
+        v60 = *v143;
 LABEL_75:
         v61 = 0;
         while (1)
         {
-          if (*v144 != v60)
+          if (*v143 != v60)
           {
             objc_enumerationMutation(v57);
           }
 
-          if (!isa_nsstring(*(*(&v143 + 1) + 8 * v61)))
+          if (!isa_nsstring(*(*(&v142 + 1) + 8 * v61)))
           {
             break;
           }
 
           if (v59 == ++v61)
           {
-            v59 = [v57 countByEnumeratingWithState:&v143 objects:v166 count:16];
+            v59 = [v57 countByEnumeratingWithState:&v142 objects:v165 count:16];
             if (v59)
             {
               goto LABEL_75;
@@ -9666,39 +9605,39 @@ LABEL_81:
         v57 = relay3;
       }
 
-      v11 = v121;
+      v11 = v120;
     }
 
-    v17 = [v119 objectForKeyedSubscript:@"ExcludedDomains"];
+    v17 = [v118 objectForKeyedSubscript:@"ExcludedDomains"];
     if (isa_nsarray(v17))
     {
-      v141 = 0u;
-      v142 = 0u;
-      v139 = 0u;
       v140 = 0u;
+      v141 = 0u;
+      v138 = 0u;
+      v139 = 0u;
       v63 = v17;
-      v64 = [v63 countByEnumeratingWithState:&v139 objects:v165 count:16];
+      v64 = [v63 countByEnumeratingWithState:&v138 objects:v164 count:16];
       if (v64)
       {
         v65 = v64;
-        v66 = *v140;
+        v66 = *v139;
 LABEL_86:
         v67 = 0;
         while (1)
         {
-          if (*v140 != v66)
+          if (*v139 != v66)
           {
             objc_enumerationMutation(v63);
           }
 
-          if (!isa_nsstring(*(*(&v139 + 1) + 8 * v67)))
+          if (!isa_nsstring(*(*(&v138 + 1) + 8 * v67)))
           {
             break;
           }
 
           if (v65 == ++v67)
           {
-            v65 = [v63 countByEnumeratingWithState:&v139 objects:v165 count:16];
+            v65 = [v63 countByEnumeratingWithState:&v138 objects:v164 count:16];
             if (v65)
             {
               goto LABEL_86;
@@ -9718,39 +9657,39 @@ LABEL_92:
         v63 = relay4;
       }
 
-      v11 = v121;
+      v11 = v120;
     }
 
-    v69 = [v119 objectForKeyedSubscript:@"MatchFQDNs"];
+    v69 = [v118 objectForKeyedSubscript:@"MatchFQDNs"];
     if (isa_nsarray(v69))
     {
-      v137 = 0u;
-      v138 = 0u;
-      v135 = 0u;
       v136 = 0u;
+      v137 = 0u;
+      v134 = 0u;
+      v135 = 0u;
       v70 = v69;
-      v71 = [v70 countByEnumeratingWithState:&v135 objects:v164 count:16];
+      v71 = [v70 countByEnumeratingWithState:&v134 objects:v163 count:16];
       if (v71)
       {
         v72 = v71;
-        v73 = *v136;
+        v73 = *v135;
 LABEL_97:
         v74 = 0;
         while (1)
         {
-          if (*v136 != v73)
+          if (*v135 != v73)
           {
             objc_enumerationMutation(v70);
           }
 
-          if (!isa_nsstring(*(*(&v135 + 1) + 8 * v74)))
+          if (!isa_nsstring(*(*(&v134 + 1) + 8 * v74)))
           {
             break;
           }
 
           if (v72 == ++v74)
           {
-            v72 = [v70 countByEnumeratingWithState:&v135 objects:v164 count:16];
+            v72 = [v70 countByEnumeratingWithState:&v134 objects:v163 count:16];
             if (v72)
             {
               goto LABEL_97;
@@ -9770,40 +9709,40 @@ LABEL_103:
         v70 = relay5;
       }
 
-      v11 = v121;
+      v11 = v120;
     }
 
-    v76 = [v119 objectForKeyedSubscript:@"ExcludedFQDNs"];
-    v118 = v56;
+    v76 = [v118 objectForKeyedSubscript:@"ExcludedFQDNs"];
+    v117 = v56;
     if (isa_nsarray(v76))
     {
-      v133 = 0u;
-      v134 = 0u;
-      v131 = 0u;
       v132 = 0u;
+      v133 = 0u;
+      v130 = 0u;
+      v131 = 0u;
       v77 = v76;
-      v78 = [v77 countByEnumeratingWithState:&v131 objects:v163 count:16];
+      v78 = [v77 countByEnumeratingWithState:&v130 objects:v162 count:16];
       if (v78)
       {
         v79 = v78;
-        v80 = *v132;
+        v80 = *v131;
 LABEL_108:
         v81 = 0;
         while (1)
         {
-          if (*v132 != v80)
+          if (*v131 != v80)
           {
             objc_enumerationMutation(v77);
           }
 
-          if (!isa_nsstring(*(*(&v131 + 1) + 8 * v81)))
+          if (!isa_nsstring(*(*(&v130 + 1) + 8 * v81)))
           {
             break;
           }
 
           if (v79 == ++v81)
           {
-            v79 = [v77 countByEnumeratingWithState:&v131 objects:v163 count:16];
+            v79 = [v77 countByEnumeratingWithState:&v130 objects:v162 count:16];
             if (v79)
             {
               goto LABEL_108;
@@ -9823,13 +9762,13 @@ LABEL_114:
         v77 = relay6;
       }
 
-      v11 = v121;
+      v11 = v120;
     }
 
-    relay7 = [v119 objectForKeyedSubscript:@"AllowDNSFailover"];
+    relay7 = [v118 objectForKeyedSubscript:@"AllowDNSFailover"];
     if (isa_nsnumber(relay7))
     {
-      v84 = [v119 objectForKeyedSubscript:@"AllowDNSFailover"];
+      v84 = [v118 objectForKeyedSubscript:@"AllowDNSFailover"];
       bOOLValue = [v84 BOOLValue];
 
       if (!bOOLValue)
@@ -9842,24 +9781,24 @@ LABEL_114:
     }
 
 LABEL_120:
-    v86 = [NEOnDemandRule createOnDemandRulesFromLegacyDictionary:v119];
+    v86 = [NEOnDemandRule createOnDemandRulesFromLegacyDictionary:v118];
     relay8 = [self relay];
     [relay8 setOnDemandRules:v86];
 
-    v88 = [v119 objectForKeyedSubscript:@"Enabled"];
+    v88 = [v118 objectForKeyedSubscript:@"Enabled"];
     if (isa_nsnumber(v88))
     {
-      v89 = [v119 objectForKeyedSubscript:@"Enabled"];
+      v89 = [v118 objectForKeyedSubscript:@"Enabled"];
       bOOLValue2 = [v89 BOOLValue];
 
       if (!bOOLValue2)
       {
 LABEL_139:
-        v99 = [v119 objectForKeyedSubscript:@"UIToggleEnabled"];
-        if (isa_nsnumber(v99))
+        v98 = [v118 objectForKeyedSubscript:@"UIToggleEnabled"];
+        if (isa_nsnumber(v98))
         {
-          v100 = [v119 objectForKeyedSubscript:@"UIToggleEnabled"];
-          bOOLValue3 = [v100 BOOLValue];
+          v99 = [v118 objectForKeyedSubscript:@"UIToggleEnabled"];
+          bOOLValue3 = [v99 BOOLValue];
 
           if (!bOOLValue3)
           {
@@ -9877,7 +9816,7 @@ LABEL_139:
 LABEL_144:
         selfCopy = self;
 
-        v16 = v118;
+        v16 = v117;
         goto LABEL_151;
       }
     }
@@ -9902,82 +9841,82 @@ LABEL_144:
       break;
     }
 
-    v126 = v15;
+    v125 = v15;
     v17 = [v16 objectForKeyedSubscript:@"HTTP3RelayURL"];
-    v128 = [v16 objectForKeyedSubscript:@"HTTP2RelayURL"];
-    if ((isa_nsstring(v17) & 1) == 0 && (isa_nsstring(v128) & 1) == 0)
+    v127 = [v16 objectForKeyedSubscript:@"HTTP2RelayURL"];
+    if ((isa_nsstring(v17) & 1) == 0 && (isa_nsstring(v127) & 1) == 0)
     {
-      v107 = ne_log_obj();
-      if (os_log_type_enabled(v107, OS_LOG_TYPE_ERROR))
+      v106 = ne_log_obj();
+      if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
       {
-        v111 = objc_opt_class();
+        v110 = objc_opt_class();
         *buf = 138412290;
-        v172 = v111;
-        v112 = v111;
-        _os_log_error_impl(&dword_1BA83C000, v107, OS_LOG_TYPE_ERROR, "%@ initWithRelayPayload failed, relay dictionary has no URL", buf, 0xCu);
+        v171 = v110;
+        v111 = v110;
+        _os_log_error_impl(&dword_1BA83C000, v106, OS_LOG_TYPE_ERROR, "%@ initWithRelayPayload failed, relay dictionary has no URL", buf, 0xCu);
       }
 
       goto LABEL_150;
     }
 
-    v129 = objc_alloc_init(NERelay);
+    v128 = objc_alloc_init(NERelay);
     if (isa_nsstring(v17))
     {
       v18 = [MEMORY[0x1E695DFF8] URLWithString:v17];
-      [(NERelay *)v129 setHTTP3RelayURL:v18];
+      [(NERelay *)v128 setHTTP3RelayURL:v18];
     }
 
-    if (isa_nsstring(v128))
+    if (isa_nsstring(v127))
     {
-      v19 = [MEMORY[0x1E695DFF8] URLWithString:v128];
-      [(NERelay *)v129 setHTTP2RelayURL:v19];
+      v19 = [MEMORY[0x1E695DFF8] URLWithString:v127];
+      [(NERelay *)v128 setHTTP2RelayURL:v19];
     }
 
     v20 = [v16 objectForKeyedSubscript:@"DNSOverHTTPSURL"];
     if (isa_nsstring(v20))
     {
       v21 = [MEMORY[0x1E695DFF8] URLWithString:v20];
-      [(NERelay *)v129 setDnsOverHTTPSURL:v21];
+      [(NERelay *)v128 setDnsOverHTTPSURL:v21];
     }
 
     v22 = [v16 objectForKeyedSubscript:@"SyntheticDNSAnswerIPv4Prefix"];
     if (isa_nsstring(v22))
     {
-      [(NERelay *)v129 setSyntheticDNSAnswerIPv4Prefix:v22];
+      [(NERelay *)v128 setSyntheticDNSAnswerIPv4Prefix:v22];
     }
 
-    v123 = v22;
-    v124 = v20;
+    v122 = v22;
+    v123 = v20;
     v23 = [v16 objectForKeyedSubscript:@"SyntheticDNSAnswerIPv6Prefix"];
     if (isa_nsstring(v23))
     {
-      [(NERelay *)v129 setSyntheticDNSAnswerIPv6Prefix:v23];
+      [(NERelay *)v128 setSyntheticDNSAnswerIPv6Prefix:v23];
     }
 
-    v122 = v23;
-    v127 = [v16 objectForKeyedSubscript:@"AdditionalHTTPHeaderFields"];
-    if (isa_nsdictionary(v127))
+    v121 = v23;
+    v126 = [v16 objectForKeyedSubscript:@"AdditionalHTTPHeaderFields"];
+    if (isa_nsdictionary(v126))
     {
-      v161 = 0u;
-      v162 = 0u;
-      v159 = 0u;
       v160 = 0u;
-      allKeys = [v127 allKeys];
-      v25 = [allKeys countByEnumeratingWithState:&v159 objects:v170 count:16];
+      v161 = 0u;
+      v158 = 0u;
+      v159 = 0u;
+      allKeys = [v126 allKeys];
+      v25 = [allKeys countByEnumeratingWithState:&v158 objects:v169 count:16];
       if (v25)
       {
         v26 = v25;
-        v27 = *v160;
+        v27 = *v159;
         while (2)
         {
           for (i = 0; i != v26; ++i)
           {
-            if (*v160 != v27)
+            if (*v159 != v27)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            if (!isa_nsstring(*(*(&v159 + 1) + 8 * i)))
+            if (!isa_nsstring(*(*(&v158 + 1) + 8 * i)))
             {
               v29 = v16;
               v30 = 0;
@@ -9985,7 +9924,7 @@ LABEL_144:
             }
           }
 
-          v26 = [allKeys countByEnumeratingWithState:&v159 objects:v170 count:16];
+          v26 = [allKeys countByEnumeratingWithState:&v158 objects:v169 count:16];
           if (v26)
           {
             continue;
@@ -9999,35 +9938,35 @@ LABEL_144:
       v30 = 1;
 LABEL_34:
 
-      v157 = 0u;
-      v158 = 0u;
-      v155 = 0u;
       v156 = 0u;
-      allValues = [v127 allValues];
-      v32 = [allValues countByEnumeratingWithState:&v155 objects:v169 count:16];
+      v157 = 0u;
+      v154 = 0u;
+      v155 = 0u;
+      allValues = [v126 allValues];
+      v32 = [allValues countByEnumeratingWithState:&v154 objects:v168 count:16];
       if (v32)
       {
         v33 = v32;
-        v34 = *v156;
+        v34 = *v155;
         while (2)
         {
           for (j = 0; j != v33; ++j)
           {
-            if (*v156 != v34)
+            if (*v155 != v34)
             {
               objc_enumerationMutation(allValues);
             }
 
-            if (!isa_nsstring(*(*(&v155 + 1) + 8 * j)))
+            if (!isa_nsstring(*(*(&v154 + 1) + 8 * j)))
             {
 
-              v11 = v121;
+              v11 = v120;
               v16 = v29;
               goto LABEL_45;
             }
           }
 
-          v33 = [allValues countByEnumeratingWithState:&v155 objects:v169 count:16];
+          v33 = [allValues countByEnumeratingWithState:&v154 objects:v168 count:16];
           if (v33)
           {
             continue;
@@ -10037,70 +9976,70 @@ LABEL_34:
         }
       }
 
-      v11 = v121;
+      v11 = v120;
       v16 = v29;
       if (v30)
       {
-        [(NERelay *)v129 setAdditionalHTTPHeaderFields:v127];
+        [(NERelay *)v128 setAdditionalHTTPHeaderFields:v126];
       }
     }
 
 LABEL_45:
-    [(NERelay *)v129 setIdentityReference:0];
+    [(NERelay *)v128 setIdentityReference:0];
     v36 = [v16 objectForKeyedSubscript:@"PayloadCertificateUUID"];
 
     if (v36)
     {
-      v126 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%u", @"_PayloadCertificateRef", v126];
+      v125 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%u", @"_PayloadCertificateRef", v125];
       v38 = [v16 objectForKeyedSubscript:@"PayloadCertificateUUID"];
-      [v130 addCertificatePending:v38 certificateTag:v126];
+      [v129 addCertificatePending:v38 certificateTag:v125];
 
       v39 = [v16 objectForKeyedSubscript:@"PayloadIntermediateCertificateUUIDs"];
       if (isa_nsarray(v39) && [v39 count] <= 4)
       {
-        v115 = v126;
-        v116 = v17;
-        v117 = v16;
-        v153 = 0u;
-        v154 = 0u;
-        v151 = 0u;
+        v114 = v125;
+        v115 = v17;
+        v116 = v16;
         v152 = 0u;
+        v153 = 0u;
+        v150 = 0u;
+        v151 = 0u;
         v39 = v39;
-        v40 = [v39 countByEnumeratingWithState:&v151 objects:v168 count:16];
+        v40 = [v39 countByEnumeratingWithState:&v150 objects:v167 count:16];
         if (v40)
         {
           v41 = v40;
           v42 = 0;
-          v43 = *v152;
+          v43 = *v151;
           do
           {
             for (k = 0; k != v41; ++k)
             {
-              if (*v152 != v43)
+              if (*v151 != v43)
               {
                 objc_enumerationMutation(v39);
               }
 
-              v45 = *(*(&v151 + 1) + 8 * k);
+              v45 = *(*(&v150 + 1) + 8 * k);
               if (isa_nsstring(v45))
               {
-                v46 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%u-%u", @"_PayloadCertificateRef", v126, v42];
-                [v130 addCertificatePending:v45 certificateTag:v46];
+                v46 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%u-%u", @"_PayloadCertificateRef", v125, v42];
+                [v129 addCertificatePending:v45 certificateTag:v46];
                 v42 = (v42 + 1);
               }
             }
 
-            v41 = [v39 countByEnumeratingWithState:&v151 objects:v168 count:16];
+            v41 = [v39 countByEnumeratingWithState:&v150 objects:v167 count:16];
           }
 
           while (v41);
         }
 
         self = selfCopy2;
-        v11 = v121;
-        v17 = v116;
-        v16 = v117;
-        v126 = v115;
+        v11 = v120;
+        v17 = v115;
+        v16 = v116;
+        v125 = v114;
       }
 
       goto LABEL_60;
@@ -10110,9 +10049,9 @@ LABEL_45:
 
     if (v47)
     {
-      v126 = [v16 objectForKeyedSubscript:@"LocalCertificate"];
-      v39 = setLocalCertificate(v126);
-      [(NERelay *)v129 setIdentityReference:v39];
+      v125 = [v16 objectForKeyedSubscript:@"LocalCertificate"];
+      v39 = setLocalCertificate(v125);
+      [(NERelay *)v128 setIdentityReference:v39];
 LABEL_60:
     }
 
@@ -10120,33 +10059,33 @@ LABEL_60:
     if (isa_nsarray(v48))
     {
       v49 = v16;
-      v149 = 0u;
-      v150 = 0u;
-      v147 = 0u;
       v148 = 0u;
+      v149 = 0u;
+      v146 = 0u;
+      v147 = 0u;
       v50 = v48;
-      v51 = [v50 countByEnumeratingWithState:&v147 objects:v167 count:16];
+      v51 = [v50 countByEnumeratingWithState:&v146 objects:v166 count:16];
       if (v51)
       {
         v52 = v51;
-        v53 = *v148;
+        v53 = *v147;
 LABEL_64:
         v54 = 0;
         while (1)
         {
-          if (*v148 != v53)
+          if (*v147 != v53)
           {
             objc_enumerationMutation(v50);
           }
 
-          if (!isa_nsdata(*(*(&v147 + 1) + 8 * v54)))
+          if (!isa_nsdata(*(*(&v146 + 1) + 8 * v54)))
           {
             break;
           }
 
           if (v52 == ++v54)
           {
-            v52 = [v50 countByEnumeratingWithState:&v147 objects:v167 count:16];
+            v52 = [v50 countByEnumeratingWithState:&v146 objects:v166 count:16];
             if (v52)
             {
               goto LABEL_64;
@@ -10157,15 +10096,15 @@ LABEL_64:
         }
       }
 
-      [(NERelay *)v129 setRawPublicKeys:v50];
-      v11 = v121;
+      [(NERelay *)v128 setRawPublicKeys:v50];
+      v11 = v120;
       v16 = v49;
     }
 
-    [log addObject:v129];
+    [log addObject:v128];
 
-    v15 = v126 + 1;
-    if (v126 + 1 == v120)
+    v15 = v125 + 1;
+    if (v125 + 1 == v119)
     {
       goto LABEL_72;
     }
@@ -10174,10 +10113,10 @@ LABEL_64:
   v17 = ne_log_obj();
   if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    v105 = objc_opt_class();
+    v104 = objc_opt_class();
     *buf = 138412290;
-    v172 = v105;
-    v106 = v105;
+    v171 = v104;
+    v105 = v104;
     _os_log_error_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_ERROR, "%@ initWithRelayPayload failed, relay is not dictionary", buf, 0xCu);
   }
 
@@ -10185,18 +10124,17 @@ LABEL_150:
   selfCopy = 0;
 LABEL_151:
 
-  payloadCopy = v114;
-  payloadAtom = v119;
+  payloadCopy = v113;
+  payloadAtom = v118;
 LABEL_134:
 
 LABEL_135:
 LABEL_136:
 
-  v96 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
-- (BOOL)isSupportedBySC
+- (unint64_t)isSupportedBySC
 {
   selfCopy = self;
   if (self)
@@ -10240,16 +10178,15 @@ LABEL_136:
 - (uint64_t)applyChangesToSCServiceInPreferences:(void *)preferences
 {
   preferencesCopy = preferences;
-  v80 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   if (!preferences)
   {
-    goto LABEL_89;
+    return preferencesCopy;
   }
 
   if (![(NEConfiguration *)preferences isSupportedBySC])
   {
-    preferencesCopy = 1;
-    goto LABEL_89;
+    return 1;
   }
 
   pluginType = [preferencesCopy pluginType];
@@ -10279,11 +10216,11 @@ LABEL_136:
                 if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
                 {
                   Error = SCCopyLastError();
-                  v76 = 138412546;
-                  v77 = v6;
-                  v78 = 2112;
-                  v79 = Error;
-                  _os_log_error_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_ERROR, "Failed to remove SCNetworkService %@: %@", &v76, 0x16u);
+                  v75 = 138412546;
+                  v76 = v6;
+                  v77 = 2112;
+                  v78 = Error;
+                  _os_log_error_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_ERROR, "Failed to remove SCNetworkService %@: %@", &v75, 0x16u);
                 }
               }
             }
@@ -10326,13 +10263,13 @@ LABEL_136:
       if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
       {
         name2 = [preferencesCopy name];
-        v73 = SCError();
-        v74 = SCErrorString(v73);
-        v76 = 138412546;
-        v77 = name2;
-        v78 = 2080;
-        v79 = v74;
-        _os_log_error_impl(&dword_1BA83C000, v53, OS_LOG_TYPE_ERROR, "Failed to set the serve name for configuration %@: %s", &v76, 0x16u);
+        v72 = SCError();
+        v73 = SCErrorString(v72);
+        v75 = 138412546;
+        v76 = name2;
+        v77 = 2080;
+        v78 = v73;
+        _os_log_error_impl(&dword_1BA83C000, v53, OS_LOG_TYPE_ERROR, "Failed to set the serve name for configuration %@: %s", &v75, 0x16u);
       }
 
       CFRelease(i);
@@ -10352,9 +10289,9 @@ LABEL_136:
       if (os_log_type_enabled(copyLegacyDictionary, OS_LOG_TYPE_ERROR))
       {
         name3 = [preferencesCopy name];
-        v76 = 138412290;
-        v77 = name3;
-        _os_log_error_impl(&dword_1BA83C000, copyLegacyDictionary, OS_LOG_TYPE_ERROR, "Failed to create interface for configuration %@", &v76, 0xCu);
+        v75 = 138412290;
+        v76 = name3;
+        _os_log_error_impl(&dword_1BA83C000, copyLegacyDictionary, OS_LOG_TYPE_ERROR, "Failed to create interface for configuration %@", &v75, 0xCu);
       }
 
       v11 = 0;
@@ -10382,13 +10319,13 @@ LABEL_85:
       name4 = [preferencesCopy name];
       v30 = SCError();
       v31 = SCErrorString(v30);
-      v76 = 138412546;
-      v77 = name4;
-      v78 = 2080;
-      v79 = v31;
+      v75 = 138412546;
+      v76 = name4;
+      v77 = 2080;
+      v78 = v31;
       v32 = "Failed to re-set the service ID for configuration %@: %s";
 LABEL_78:
-      _os_log_error_impl(&dword_1BA83C000, copyLegacyDictionary, OS_LOG_TYPE_ERROR, v32, &v76, 0x16u);
+      _os_log_error_impl(&dword_1BA83C000, copyLegacyDictionary, OS_LOG_TYPE_ERROR, v32, &v75, 0x16u);
 
       goto LABEL_84;
     }
@@ -10407,10 +10344,10 @@ LABEL_78:
       name4 = [preferencesCopy name];
       v54 = SCError();
       v55 = SCErrorString(v54);
-      v76 = 138412546;
-      v77 = name4;
-      v78 = 2080;
-      v79 = v55;
+      v75 = 138412546;
+      v76 = name4;
+      v77 = 2080;
+      v78 = v55;
       v32 = "Failed to set the service name for configuration %@: %s";
       goto LABEL_78;
     }
@@ -10426,10 +10363,10 @@ LABEL_78:
       name4 = [preferencesCopy name];
       v58 = SCError();
       v59 = SCErrorString(v58);
-      v76 = 138412546;
-      v77 = name4;
-      v78 = 2080;
-      v79 = v59;
+      v75 = 138412546;
+      v76 = name4;
+      v77 = 2080;
+      v78 = v59;
       v32 = "Failed to set up default service configuration for configuration %@: %s";
       goto LABEL_78;
     }
@@ -10463,10 +10400,10 @@ LABEL_74:
       name4 = [preferencesCopy name];
       v64 = SCError();
       v65 = SCErrorString(v64);
-      v76 = 138412546;
-      v77 = name4;
-      v78 = 2080;
-      v79 = v65;
+      v75 = 138412546;
+      v76 = name4;
+      v77 = 2080;
+      v78 = v65;
       v32 = "Failed to add the network service for configuration %@ to the current network set: %s";
       goto LABEL_78;
     }
@@ -10516,10 +10453,10 @@ LABEL_36:
     name4 = [preferencesCopy name];
     v45 = SCError();
     v46 = SCErrorString(v45);
-    v76 = 138412546;
-    v77 = name4;
-    v78 = 2080;
-    v79 = v46;
+    v75 = 138412546;
+    v76 = name4;
+    v77 = 2080;
+    v78 = v46;
     v32 = "SCNetworkServiceSetEnabled failed for configuration %@: %s";
     goto LABEL_78;
   }
@@ -10536,10 +10473,10 @@ LABEL_36:
     name4 = [preferencesCopy name];
     v47 = SCError();
     v48 = SCErrorString(v47);
-    v76 = 138412546;
-    v77 = name4;
-    v78 = 2080;
-    v79 = v48;
+    v75 = 138412546;
+    v76 = name4;
+    v77 = 2080;
+    v78 = v48;
     v32 = "SCNetworkInterface for configuration %@ is NULL: %s";
     goto LABEL_78;
   }
@@ -10554,13 +10491,13 @@ LABEL_36:
     if (os_log_type_enabled(copyLegacyDictionary2, OS_LOG_TYPE_ERROR))
     {
       name6 = [preferencesCopy name];
-      v76 = 138412290;
-      v77 = name6;
+      v75 = 138412290;
+      v76 = name6;
       v50 = "Failed to create a legacy dictionary for configuration %@";
       v51 = copyLegacyDictionary2;
       v52 = 12;
 LABEL_60:
-      _os_log_error_impl(&dword_1BA83C000, v51, OS_LOG_TYPE_ERROR, v50, &v76, v52);
+      _os_log_error_impl(&dword_1BA83C000, v51, OS_LOG_TYPE_ERROR, v50, &v75, v52);
     }
 
 LABEL_83:
@@ -10576,10 +10513,10 @@ LABEL_83:
       name6 = [preferencesCopy name];
       v56 = SCError();
       v57 = SCErrorString(v56);
-      v76 = 138412546;
-      v77 = name6;
-      v78 = 2080;
-      v79 = v57;
+      v75 = 138412546;
+      v76 = name6;
+      v77 = 2080;
+      v78 = v57;
       v50 = "Failed to set the interface configuration for configuration %@: %s";
       v51 = copyLegacyDictionary2;
       v52 = 22;
@@ -10620,8 +10557,8 @@ LABEL_83:
       }
 
       name7 = [preferencesCopy name];
-      v76 = 138412290;
-      v77 = name7;
+      v75 = 138412290;
+      v76 = name7;
       v68 = "Failed to set the profile payload info for configuration %@";
     }
 
@@ -10636,12 +10573,12 @@ LABEL_82:
       }
 
       name7 = [preferencesCopy name];
-      v76 = 138412290;
-      v77 = name7;
+      v75 = 138412290;
+      v76 = name7;
       v68 = "Failed to create a legacy profile payload dictionary for configuration %@";
     }
 
-    _os_log_error_impl(&dword_1BA83C000, v66, OS_LOG_TYPE_ERROR, v68, &v76, 0xCu);
+    _os_log_error_impl(&dword_1BA83C000, v66, OS_LOG_TYPE_ERROR, v68, &v75, 0xCu);
 
     goto LABEL_82;
   }
@@ -10655,14 +10592,12 @@ LABEL_86:
     CFRelease(v11);
   }
 
-LABEL_89:
-  v69 = *MEMORY[0x1E69E9840];
   return preferencesCopy;
 }
 
 + (uint64_t)setConfiguration:(const __CFString *)configuration forProtocol:(const __SCNetworkService *)protocol inService:
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   v7 = SCNetworkServiceCopyProtocol(protocol, configuration);
   v8 = v7;
@@ -10673,16 +10608,15 @@ LABEL_89:
       v10 = ne_log_obj();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v16 = SCError();
-        v18 = 138412546;
+        v15 = SCError();
+        v17 = 138412546;
         configurationCopy3 = configuration;
-        v20 = 2080;
-        v21 = SCErrorString(v16);
-        _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "SCNetworkServiceAddProtocolType(%@) failed: %s", &v18, 0x16u);
+        v19 = 2080;
+        v20 = SCErrorString(v15);
+        _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "SCNetworkServiceAddProtocolType(%@) failed: %s", &v17, 0x16u);
       }
 
-      v9 = 0;
-      goto LABEL_19;
+      return 0;
     }
 
     v8 = SCNetworkServiceCopyProtocol(protocol, configuration);
@@ -10695,11 +10629,11 @@ LABEL_89:
       v11 = ne_log_obj();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v17 = SCError();
-        v18 = 138412546;
+        v16 = SCError();
+        v17 = 138412546;
         configurationCopy3 = configuration;
-        v20 = 2080;
-        v21 = SCErrorString(v17);
+        v19 = 2080;
+        v20 = SCErrorString(v16);
         v13 = "SCNetworkProtocolSetConfiguration(%@) failed: %s";
         goto LABEL_21;
       }
@@ -10712,20 +10646,20 @@ LABEL_89:
         v9 = 1;
 LABEL_18:
         CFRelease(v8);
-        goto LABEL_19;
+        return v9;
       }
 
       v11 = ne_log_obj();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         v12 = SCError();
-        v18 = 138412546;
+        v17 = 138412546;
         configurationCopy3 = configuration;
-        v20 = 2080;
-        v21 = SCErrorString(v12);
+        v19 = 2080;
+        v20 = SCErrorString(v12);
         v13 = "SCNetworkProtocolSetEnabled(%@) failed: %s";
 LABEL_21:
-        _os_log_error_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_ERROR, v13, &v18, 0x16u);
+        _os_log_error_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_ERROR, v13, &v17, 0x16u);
       }
     }
 
@@ -10733,15 +10667,12 @@ LABEL_21:
     goto LABEL_18;
   }
 
-  v9 = 1;
-LABEL_19:
-  v14 = *MEMORY[0x1E69E9840];
-  return v9;
+  return 1;
 }
 
 - (uint64_t)updateFromSCService:(void *)service
 {
-  v88 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   Interface = SCNetworkServiceGetInterface(service);
   v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithString:SCNetworkServiceGetName(service)];
   [service setName:v5];
@@ -10798,7 +10729,7 @@ LABEL_37:
         v11 = 0;
 LABEL_63:
 
-        goto LABEL_64;
+        return v11;
       }
 
       v66 = SCNetworkInterfaceGetInterface(Interface);
@@ -10877,7 +10808,7 @@ LABEL_21:
             goto LABEL_61;
           }
 
-          v86 = 138412290;
+          v85 = 138412290;
           Name = SCNetworkServiceGetName(service);
           v78 = "Failed to initialize an NEVPNApp object from service %@";
           goto LABEL_60;
@@ -10962,10 +10893,10 @@ LABEL_40:
               v76 = ne_log_obj();
               if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
               {
-                v85 = SCError();
-                v86 = 136315138;
-                Name = SCErrorString(v85);
-                _os_log_error_impl(&dword_1BA83C000, v76, OS_LOG_TYPE_ERROR, "Failed to create a SCPreferencesRef for migrating passwords: %s", &v86, 0xCu);
+                v84 = SCError();
+                v85 = 136315138;
+                Name = SCErrorString(v84);
+                _os_log_error_impl(&dword_1BA83C000, v76, OS_LOG_TYPE_ERROR, "Failed to create a SCPreferencesRef for migrating passwords: %s", &v85, 0xCu);
               }
 
               goto LABEL_54;
@@ -11012,7 +10943,7 @@ LABEL_54:
           v77 = ne_log_obj();
           if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
           {
-            v86 = 138412290;
+            v85 = 138412290;
             Name = SCNetworkServiceGetName(service);
             v78 = "Failed to initialize the NEVPNProtocol from service %@";
             goto LABEL_60;
@@ -11031,11 +10962,11 @@ LABEL_62:
           goto LABEL_61;
         }
 
-        v86 = 138412290;
+        v85 = 138412290;
         Name = SCNetworkServiceGetName(service);
         v78 = "Failed to initialize an NEVPN object from service %@";
 LABEL_60:
-        _os_log_error_impl(&dword_1BA83C000, v77, OS_LOG_TYPE_ERROR, v78, &v86, 0xCu);
+        _os_log_error_impl(&dword_1BA83C000, v77, OS_LOG_TYPE_ERROR, v78, &v85, 0xCu);
         goto LABEL_61;
       }
 
@@ -11048,10 +10979,7 @@ LABEL_60:
     goto LABEL_29;
   }
 
-  v11 = 1;
-LABEL_64:
-  v83 = *MEMORY[0x1E69E9840];
-  return v11;
+  return 1;
 }
 
 + (CFDictionaryRef)copyConfigurationForProtocol:(const __SCNetworkService *)protocol inService:

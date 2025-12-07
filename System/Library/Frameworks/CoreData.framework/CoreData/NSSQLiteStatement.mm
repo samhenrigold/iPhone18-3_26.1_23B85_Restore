@@ -44,7 +44,8 @@
 {
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
-  return [v3 stringWithFormat:@"%s <%p> on entity '%@' with sql text '%@'", class_getName(v4), self, -[NSSQLEntity name](self->_entity, "name"), self->_sqlString];
+  Name = class_getName(v4);
+  return objc_msgSend_stringWithFormat_(v3, Name, self, [(NSSQLEntity *)self->_entity name], self->_sqlString);
 }
 
 - (void)clearCaches:(void *)key

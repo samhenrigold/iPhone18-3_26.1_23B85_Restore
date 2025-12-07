@@ -98,8 +98,8 @@
             v25 = v24;
             sub_10023E000(v19, v25, @"bundle_name");
 
-            v26 = sub_1003B6560();
-            if (sub_10023E604(v19, @"IFNULL(app_install.priority, 0)") < 0)
+            v26 = sub_1003B6560(AppInstallPolicy);
+            if ((sub_10023E604(v19, @"IFNULL(app_install.priority, 0)") & 0x8000000000000000) != 0)
             {
               sub_1003B6764(v26, 3);
               sub_1003B6820(v26, 3);

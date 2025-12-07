@@ -11,7 +11,7 @@
 - (UICellConfigurationState)_bridgedConfigurationState
 {
   ObjectType = swift_getObjectType();
-  v4 = sub_100058000(&unk_10077FBB0);
+  v4 = sub_100058000(&unk_10077FBB0, &unk_1006374D0);
   __chkstk_darwin(v4 - 8);
   v6 = &v16 - v5;
   v7 = type metadata accessor for UICellConfigurationState();
@@ -74,7 +74,7 @@
 
   if (v3)
   {
-    sub_100003540(0, &qword_10076BCE0);
+    sub_100003540(0, &qword_10076BCE0, UIAccessibilityCustomAction_ptr);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -91,7 +91,7 @@
   ObjectType = swift_getObjectType();
   if (isa)
   {
-    sub_100003540(0, &qword_10076BCE0);
+    sub_100003540(0, &qword_10076BCE0, UIAccessibilityCustomAction_ptr);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
     selfCopy = self;
     isa = Array._bridgeToObjectiveC()().super.isa;

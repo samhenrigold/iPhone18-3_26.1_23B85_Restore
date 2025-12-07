@@ -24,19 +24,17 @@
 
 - (void)runAsynchronouslyWithInput:(id)input
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   inputCopy = input;
-  v8[0] = objc_opt_class();
-  v8[1] = objc_opt_class();
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __55__WFAddMusicToUpNextAction_runAsynchronouslyWithInput___block_invoke;
-  v7[3] = &unk_278C211D0;
-  v7[4] = self;
-  [inputCopy generateCollectionByCoercingToItemClasses:v5 completionHandler:v7];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[0] = objc_opt_class();
+  v7[1] = objc_opt_class();
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __55__WFAddMusicToUpNextAction_runAsynchronouslyWithInput___block_invoke;
+  v6[3] = &unk_278C211D0;
+  v6[4] = self;
+  [inputCopy generateCollectionByCoercingToItemClasses:v5 completionHandler:v6];
 }
 
 void __55__WFAddMusicToUpNextAction_runAsynchronouslyWithInput___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)

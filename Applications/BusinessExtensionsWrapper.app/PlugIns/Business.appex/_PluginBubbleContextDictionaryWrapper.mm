@@ -8,18 +8,15 @@
 
 - (NSDictionary)dictionaryValue
 {
-  v2 = *(self + OBJC_IVAR____TtC8Business37_PluginBubbleContextDictionaryWrapper_dictionaryValue);
 
-  v3.super.isa = sub_1000ABFAC().super.isa;
+  v2.super.isa = sub_1000ABFAC().super.isa;
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setDictionaryValue:(id)value
 {
-  v4 = sub_1000ABFBC();
-  v5 = *(self + OBJC_IVAR____TtC8Business37_PluginBubbleContextDictionaryWrapper_dictionaryValue);
-  *(self + OBJC_IVAR____TtC8Business37_PluginBubbleContextDictionaryWrapper_dictionaryValue) = v4;
+  *(self + OBJC_IVAR____TtC8Business37_PluginBubbleContextDictionaryWrapper_dictionaryValue) = sub_1000ABFBC();
 }
 
 - (_TtC8Business37_PluginBubbleContextDictionaryWrapper)init

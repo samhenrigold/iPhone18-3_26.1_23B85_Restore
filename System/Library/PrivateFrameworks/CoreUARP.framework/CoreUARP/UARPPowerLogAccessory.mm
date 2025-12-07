@@ -75,22 +75,22 @@
 
 void __85__UARPPowerLogAccessory_setReachableWithActiveFirmwareVersion_stagedFirmwareVersion___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(v2 + 80) == 1)
   {
     v3 = *(v2 + 24);
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v4 = *(a1 + 32);
-      v13 = 138412290;
-      v14 = v4;
-      v5 = "%@ marked reachable, but already reachable";
-      v6 = v3;
-      v7 = 12;
-LABEL_6:
-      _os_log_impl(&dword_247AA7000, v6, OS_LOG_TYPE_INFO, v5, &v13, v7);
+      return;
     }
+
+    v4 = *(a1 + 32);
+    v12 = 138412290;
+    v13 = v4;
+    v5 = "%@ marked reachable, but already reachable";
+    v6 = v3;
+    v7 = 12;
   }
 
   else
@@ -98,25 +98,26 @@ LABEL_6:
     *(v2 + 80) = 1;
     UARPPowerLogAccessoryReachable(*(*(a1 + 32) + 8), *(a1 + 40), *(a1 + 48));
     v8 = *(*(a1 + 32) + 24);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v9 = *(a1 + 32);
-      v10 = *(a1 + 40);
-      v11 = *(a1 + 48);
-      v13 = 138412802;
-      v14 = v9;
-      v15 = 2112;
-      v16 = v10;
-      v17 = 2112;
-      v18 = v11;
-      v5 = "%@ reachable activeFW=%@, stagedFW=%@";
-      v6 = v8;
-      v7 = 32;
-      goto LABEL_6;
+      return;
     }
+
+    v9 = *(a1 + 32);
+    v10 = *(a1 + 40);
+    v11 = *(a1 + 48);
+    v12 = 138412802;
+    v13 = v9;
+    v14 = 2112;
+    v15 = v10;
+    v16 = 2112;
+    v17 = v11;
+    v5 = "%@ reachable activeFW=%@, stagedFW=%@";
+    v6 = v8;
+    v7 = 32;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
+  _os_log_impl(&dword_247AA7000, v6, OS_LOG_TYPE_INFO, v5, &v12, v7);
 }
 
 - (void)setUnreachable
@@ -132,7 +133,7 @@ LABEL_6:
 
 void __39__UARPPowerLogAccessory_setUnreachable__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(v2 + 80))
   {
@@ -140,31 +141,32 @@ void __39__UARPPowerLogAccessory_setUnreachable__block_invoke(uint64_t a1)
     UARPPowerLogAccessoryUnreachable(*(*(a1 + 32) + 8));
     [*(a1 + 32) stagingStopped];
     v3 = *(*(a1 + 32) + 24);
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v4 = *(a1 + 32);
-      v8 = 138412290;
-      v9 = v4;
-      v5 = "%@ unreachable";
-LABEL_6:
-      _os_log_impl(&dword_247AA7000, v3, OS_LOG_TYPE_INFO, v5, &v8, 0xCu);
+      return;
     }
+
+    v4 = *(a1 + 32);
+    v7 = 138412290;
+    v8 = v4;
+    v5 = "%@ unreachable";
   }
 
   else
   {
     v3 = *(v2 + 24);
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v6 = *(a1 + 32);
-      v8 = 138412290;
-      v9 = v6;
-      v5 = "%@ marked unreachable, but already unreachable";
-      goto LABEL_6;
+      return;
     }
+
+    v6 = *(a1 + 32);
+    v7 = 138412290;
+    v8 = v6;
+    v5 = "%@ marked unreachable, but already unreachable";
   }
 
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_impl(&dword_247AA7000, v3, OS_LOG_TYPE_INFO, v5, &v7, 0xCu);
 }
 
 - (void)setAssetOfferedWithVersion:(id)version activeFirmwareVersion:(id)firmwareVersion
@@ -186,7 +188,7 @@ LABEL_6:
 
 void __74__UARPPowerLogAccessory_setAssetOfferedWithVersion_activeFirmwareVersion___block_invoke(id *a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = a1 + 4;
   v1 = a1[4];
   if (*(v1 + 81) == 1)
@@ -220,17 +222,15 @@ void __74__UARPPowerLogAccessory_setAssetOfferedWithVersion_activeFirmwareVersio
       v19 = a1[5];
       v18 = a1[6];
       v20 = a1[4];
-      v22 = 138412802;
-      v23 = v20;
-      v24 = 2112;
-      v25 = v18;
-      v26 = 2112;
-      v27 = v19;
-      _os_log_impl(&dword_247AA7000, v17, OS_LOG_TYPE_INFO, "%@ asset offered. offeredFW=%@, activeFW=%@", &v22, 0x20u);
+      v21 = 138412802;
+      v22 = v20;
+      v23 = 2112;
+      v24 = v18;
+      v25 = 2112;
+      v26 = v19;
+      _os_log_impl(&dword_247AA7000, v17, OS_LOG_TYPE_INFO, "%@ asset offered. offeredFW=%@, activeFW=%@", &v21, 0x20u);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setStagingCompleteForStagedFirmareVersion:(id)version activeFirmareVersion:(id)firmareVersion status:(unint64_t)status
@@ -253,7 +253,7 @@ void __74__UARPPowerLogAccessory_setAssetOfferedWithVersion_activeFirmwareVersio
 
 void __95__UARPPowerLogAccessory_setStagingCompleteForStagedFirmareVersion_activeFirmareVersion_status___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v1 = *(a1 + 32);
   if (*(v1 + 81))
@@ -266,13 +266,13 @@ void __95__UARPPowerLogAccessory_setStagingCompleteForStagedFirmareVersion_activ
       v6 = *(a1 + 40);
       v5 = *(a1 + 48);
       v7 = *(a1 + 32);
-      v16 = 138412802;
-      v17 = v7;
-      v18 = 2112;
-      v19 = v5;
-      v20 = 2112;
-      v21 = v6;
-      _os_log_impl(&dword_247AA7000, v4, OS_LOG_TYPE_INFO, "%@ staging complete. stagedFW=%@, activeFW=%@", &v16, 0x20u);
+      v15 = 138412802;
+      v16 = v7;
+      v17 = 2112;
+      v18 = v5;
+      v19 = 2112;
+      v20 = v6;
+      _os_log_impl(&dword_247AA7000, v4, OS_LOG_TYPE_INFO, "%@ staging complete. stagedFW=%@, activeFW=%@", &v15, 0x20u);
     }
   }
 
@@ -284,8 +284,6 @@ void __95__UARPPowerLogAccessory_setStagingCompleteForStagedFirmareVersion_activ
       __95__UARPPowerLogAccessory_setStagingCompleteForStagedFirmareVersion_activeFirmareVersion_status___block_invoke_cold_1(v2, v8, v9, v10, v11, v12, v13, v14);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startStagingWindowTimer
@@ -317,7 +315,7 @@ void __48__UARPPowerLogAccessory_startStagingWindowTimer__block_invoke(uint64_t 
 
 - (void)stagingWindowTimeFired
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   UARPPowerLogStagingStatus(self->_modelNumber, self->_stagingActiveFirmwareVersion, self->_stagingStagingFirmwareVersion, self->_stagingWindowStartOffset, self->_stagingWindowBytesTransferred);
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
@@ -326,22 +324,21 @@ void __48__UARPPowerLogAccessory_startStagingWindowTimer__block_invoke(uint64_t 
     stagingStagingFirmwareVersion = self->_stagingStagingFirmwareVersion;
     stagingWindowStartOffset = self->_stagingWindowStartOffset;
     stagingWindowBytesTransferred = self->_stagingWindowBytesTransferred;
-    v9 = 138413314;
+    v8 = 138413314;
     selfCopy = self;
-    v11 = 2112;
-    v12 = stagingActiveFirmwareVersion;
-    v13 = 2112;
-    v14 = stagingStagingFirmwareVersion;
-    v15 = 1024;
-    v16 = stagingWindowStartOffset;
-    v17 = 1024;
-    v18 = stagingWindowBytesTransferred;
-    _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "%@ staging timer fired. activeFW=%@, stagingFW=%@, off=%u, tx=%u", &v9, 0x2Cu);
+    v10 = 2112;
+    v11 = stagingActiveFirmwareVersion;
+    v12 = 2112;
+    v13 = stagingStagingFirmwareVersion;
+    v14 = 1024;
+    v15 = stagingWindowStartOffset;
+    v16 = 1024;
+    v17 = stagingWindowBytesTransferred;
+    _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "%@ staging timer fired. activeFW=%@, stagingFW=%@, off=%u, tx=%u", &v8, 0x2Cu);
   }
 
   self->_stagingWindowStartOffset += self->_stagingWindowBytesTransferred;
   self->_stagingWindowBytesTransferred = 0;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateStagingProgressWithRequestedOffset:(unsigned int)offset requestedLength:(unsigned int)length
@@ -440,26 +437,23 @@ void __82__UARPPowerLogAccessory_updateStagingProgressWithRequestedOffset_reques
 
 void __74__UARPPowerLogAccessory_setAssetOfferedWithVersion_activeFirmwareVersion___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a2, a3, "%@: Attemping to start staging when it is already running", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a2, a3, "%@: Attemping to start staging when it is already running", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __95__UARPPowerLogAccessory_setStagingCompleteForStagedFirmareVersion_activeFirmareVersion_status___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a2, a3, "%@: Attemping to complete staging when staging was never started", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a2, a3, "%@: Attemping to complete staging when staging was never started", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __82__UARPPowerLogAccessory_updateStagingProgressWithRequestedOffset_requestedLength___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a2, a3, "%@: Attempingt to update staging status when staging is not running", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_247AA7000, a2, a3, "%@: Attempingt to update staging status when staging is not running", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -7,6 +7,7 @@
 - (void)_invalidateConnection;
 - (void)_invalidateConnection_nolock;
 - (void)calculateCurrentRequiredSpace:(id)space callback:(id)callback;
+- (void)cancelNeRDUpdate:(BOOL)update callback:(id)callback;
 - (void)connectToServerIfNecessary;
 - (void)dealloc;
 - (void)downloadNeRDUpdate:(id)update options:(id)options progress:(id)progress completion:(id)completion;
@@ -195,7 +196,7 @@
 
 uint64_t __62__NRDUpdateBrainClientImpl__connectToServerIfNecessary_nolock__block_invoke(uint64_t a1)
 {
-  v2 = nrdSharedLogger();
+  v2 = nrdSharedLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138543362;
@@ -219,7 +220,7 @@ uint64_t __62__NRDUpdateBrainClientImpl__connectToServerIfNecessary_nolock__bloc
 
 uint64_t __62__NRDUpdateBrainClientImpl__connectToServerIfNecessary_nolock__block_invoke_139(uint64_t a1)
 {
-  v2 = nrdSharedLogger();
+  v2 = nrdSharedLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138543362;
@@ -261,68 +262,69 @@ uint64_t __62__NRDUpdateBrainClientImpl__connectToServerIfNecessary_nolock__bloc
 {
   errorCopy = error;
   handlerCopy = handler;
+  v10 = handlerCopy;
   if (errorCopy)
   {
-    v10 = nrdSharedLogger();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+    v11 = nrdSharedLogger(handlerCopy);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
     if (method)
     {
-      if (v11)
+      if (v12)
       {
-        [NRDUpdateDaemonClientImpl handleConnectionError:method method:errorCopy handler:v10];
+        [NRDUpdateDaemonClientImpl handleConnectionError:method method:errorCopy handler:v11];
       }
     }
 
-    else if (v11)
+    else if (v12)
     {
       [NRDUpdateBrainClientImpl handleConnectionError:method:handler:];
     }
 
     [(NRDUpdateBrainClientImpl *)self _invalidateConnection];
-    handlerCopy[2](handlerCopy);
+    v10[2](v10);
   }
 }
 
 - (void)ping:(id)ping
 {
   pingCopy = ping;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
-  v38 = 0;
-  v5 = nrdSharedLogger();
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
+  v39 = 0;
+  v5 = nrdSharedLogger(pingCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf.tv_sec) = 0;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Pinging NeRD update brain...", &buf, 2u);
   }
 
-  v31[0] = _NSConcreteStackBlock;
-  v31[1] = 3221225472;
-  v31[2] = __33__NRDUpdateBrainClientImpl_ping___block_invoke;
-  v31[3] = &unk_10004A098;
-  v31[4] = self;
-  v34 = "[NRDUpdateBrainClientImpl ping:]";
+  v32[0] = _NSConcreteStackBlock;
+  v32[1] = 3221225472;
+  v32[2] = __33__NRDUpdateBrainClientImpl_ping___block_invoke;
+  v32[3] = &unk_10004A098;
+  v32[4] = self;
+  v35 = "[NRDUpdateBrainClientImpl ping:]";
   v6 = pingCopy;
-  v32 = v6;
-  v33 = &v35;
-  v7 = [(NRDUpdateBrainClientImpl *)self _remoteInterfaceWithErrorHandler:v31];
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = __33__NRDUpdateBrainClientImpl_ping___block_invoke_142;
-  v28[3] = &unk_10004A110;
-  v28[4] = self;
+  v33 = v6;
+  v34 = &v36;
+  v7 = [(NRDUpdateBrainClientImpl *)self _remoteInterfaceWithErrorHandler:v32];
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = __33__NRDUpdateBrainClientImpl_ping___block_invoke_142;
+  v29[3] = &unk_10004A110;
+  v29[4] = self;
   v8 = v6;
-  v29 = v8;
-  v30 = &v35;
-  [v7 ping:v28];
+  v30 = v8;
+  v31 = &v36;
+  [v7 ping:v29];
 
-  v24[0] = _NSConcreteStackBlock;
-  v24[1] = 3221225472;
-  v25 = __33__NRDUpdateBrainClientImpl_ping___block_invoke_169;
-  v26 = &unk_100049E48;
-  v27 = &v35;
-  v9 = v24;
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v26 = __33__NRDUpdateBrainClientImpl_ping___block_invoke_169;
+  v27 = &unk_100049E48;
+  v28 = &v36;
+  v9 = v25;
   v10 = objc_autoreleasePoolPush();
   v11 = +[NSDate date];
   do
@@ -343,7 +345,7 @@ uint64_t __62__NRDUpdateBrainClientImpl__connectToServerIfNecessary_nolock__bloc
       nanosleep(&buf, 0);
     }
 
-    if (v25(v9))
+    if (v26(v9))
     {
       break;
     }
@@ -356,22 +358,22 @@ uint64_t __62__NRDUpdateBrainClientImpl__connectToServerIfNecessary_nolock__bloc
   while (v20);
 
   objc_autoreleasePoolPop(v10);
-  if ((v36[3] & 1) == 0)
+  if ((v37[3] & 1) == 0)
   {
-    v21 = nrdSharedLogger();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = nrdSharedLogger(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [NRDUpdateBrainClientImpl ping:];
     }
 
-    v40 = NSDebugDescriptionErrorKey;
-    v41 = @"timeout connecting to brain endpoint";
-    v22 = [NSDictionary dictionaryWithObjects:&v41 forKeys:&v40 count:1];
-    v23 = [NSError errorWithDomain:@"NRDUpdateErrorDomain" code:101 userInfo:v22];
-    (*(v8 + 2))(v8, v23);
+    v41 = NSDebugDescriptionErrorKey;
+    v42 = @"timeout connecting to brain endpoint";
+    v23 = [NSDictionary dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+    v24 = [NSError errorWithDomain:@"NRDUpdateErrorDomain" code:101 userInfo:v23];
+    (*(v8 + 2))(v8, v24);
   }
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v36, 8);
 }
 
 void __33__NRDUpdateBrainClientImpl_ping___block_invoke(uint64_t a1, void *a2)
@@ -391,24 +393,23 @@ void __33__NRDUpdateBrainClientImpl_ping___block_invoke(uint64_t a1, void *a2)
   [v5 handleConnectionError:v7 method:v4 handler:v8];
 }
 
-uint64_t __33__NRDUpdateBrainClientImpl_ping___block_invoke_2(void *a1)
+uint64_t __33__NRDUpdateBrainClientImpl_ping___block_invoke_2(uint64_t a1)
 {
-  v2 = nrdSharedLogger();
+  v2 = nrdSharedLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __33__NRDUpdateBrainClientImpl_ping___block_invoke_2_cold_1();
   }
 
-  v3 = a1[4];
-  result = (*(a1[5] + 16))();
-  *(*(a1[6] + 8) + 24) = 1;
+  result = (*(*(a1 + 40) + 16))();
+  *(*(*(a1 + 48) + 8) + 24) = 1;
   return result;
 }
 
 void __33__NRDUpdateBrainClientImpl_ping___block_invoke_142(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = nrdSharedLogger();
+  v4 = nrdSharedLogger(v3);
   v5 = v4;
   if (v3)
   {
@@ -446,16 +447,16 @@ void __33__NRDUpdateBrainClientImpl_ping___block_invoke_142(uint64_t a1, void *a
 void __33__NRDUpdateBrainClientImpl_ping___block_invoke_143(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
+  v6 = v5;
   if (a3)
   {
-    v6 = nrdSharedLogger();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = nrdSharedLogger(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v11 = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Could not probe for NRDUpdateBrainInterfacePrivate2.", v11, 2u);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Could not probe for NRDUpdateBrainInterfacePrivate2.", v11, 2u);
     }
 
-    v7 = *(a1 + 40);
     (*(*(a1 + 48) + 16))();
     *(*(*(a1 + 56) + 8) + 24) = 1;
   }
@@ -481,14 +482,14 @@ void __33__NRDUpdateBrainClientImpl_ping___block_invoke_143(uint64_t a1, void *a
 void __33__NRDUpdateBrainClientImpl_ping___block_invoke_150(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
-  v6 = nrdSharedLogger();
+  v6 = nrdSharedLogger(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (a3)
   {
     if (v7)
     {
-      *v23 = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "NeRD update brain does not support NRDUpdateBrainInterfacePrivate2.", v23, 2u);
+      *v22 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "NeRD update brain does not support NRDUpdateBrainInterfacePrivate2.", v22, 2u);
     }
 
     goto LABEL_8;
@@ -532,7 +533,6 @@ void __33__NRDUpdateBrainClientImpl_ping___block_invoke_150(uint64_t a1, void *a
 LABEL_8:
   }
 
-  v22 = *(a1 + 40);
   (*(*(a1 + 56) + 16))();
   *(*(*(a1 + 64) + 8) + 24) = 1;
   [*(a1 + 48) _invalidateConnection];
@@ -542,42 +542,42 @@ LABEL_8:
 {
   pingCopy = ping;
   replyCopy = reply;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
-  v41 = 0;
-  v7 = nrdSharedLogger();
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
+  v42 = 0;
+  v7 = nrdSharedLogger(replyCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf.tv_sec) = 0;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Probing NeRD update brain for NRDUpdateBrainInterfacePrivate2...", &buf, 2u);
   }
 
-  v34[0] = _NSConcreteStackBlock;
-  v34[1] = 3221225472;
-  v34[2] = __39__NRDUpdateBrainClientImpl_ping_reply___block_invoke;
-  v34[3] = &unk_10004A098;
-  v34[4] = self;
-  v37 = "[NRDUpdateBrainClientImpl ping:reply:]";
+  v35[0] = _NSConcreteStackBlock;
+  v35[1] = 3221225472;
+  v35[2] = __39__NRDUpdateBrainClientImpl_ping_reply___block_invoke;
+  v35[3] = &unk_10004A098;
+  v35[4] = self;
+  v38 = "[NRDUpdateBrainClientImpl ping:reply:]";
   v8 = replyCopy;
-  v35 = v8;
-  v36 = &v38;
-  v9 = [(NRDUpdateBrainClientImpl *)self _remoteInterfaceWithErrorHandler:v34];
-  v31[0] = _NSConcreteStackBlock;
-  v31[1] = 3221225472;
-  v31[2] = __39__NRDUpdateBrainClientImpl_ping_reply___block_invoke_3;
-  v31[3] = &unk_10004A138;
+  v36 = v8;
+  v37 = &v39;
+  v9 = [(NRDUpdateBrainClientImpl *)self _remoteInterfaceWithErrorHandler:v35];
+  v32[0] = _NSConcreteStackBlock;
+  v32[1] = 3221225472;
+  v32[2] = __39__NRDUpdateBrainClientImpl_ping_reply___block_invoke_3;
+  v32[3] = &unk_10004A138;
   v10 = v8;
-  v32 = v10;
-  v33 = &v38;
-  [v9 ping:pingCopy reply:v31];
+  v33 = v10;
+  v34 = &v39;
+  [v9 ping:pingCopy reply:v32];
 
-  v27[0] = _NSConcreteStackBlock;
-  v27[1] = 3221225472;
-  v28 = __39__NRDUpdateBrainClientImpl_ping_reply___block_invoke_4;
-  v29 = &unk_100049E48;
-  v30 = &v38;
-  v11 = v27;
+  v28[0] = _NSConcreteStackBlock;
+  v28[1] = 3221225472;
+  v29 = __39__NRDUpdateBrainClientImpl_ping_reply___block_invoke_4;
+  v30 = &unk_100049E48;
+  v31 = &v39;
+  v11 = v28;
   v12 = objc_autoreleasePoolPush();
   v13 = +[NSDate date];
   do
@@ -598,7 +598,7 @@ LABEL_8:
       nanosleep(&buf, 0);
     }
 
-    if (v28(v11))
+    if (v29(v11))
     {
       break;
     }
@@ -611,26 +611,26 @@ LABEL_8:
   while (v22);
 
   objc_autoreleasePoolPop(v12);
-  if ((v39[3] & 1) == 0)
+  if ((v40[3] & 1) == 0)
   {
-    v23 = nrdSharedLogger();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = nrdSharedLogger(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       [NRDUpdateBrainClientImpl ping:reply:];
     }
 
-    v43[0] = NSDebugDescriptionErrorKey;
-    v43[1] = @"Protocol";
-    v44[0] = @"timeout connecting to brain endpoint";
-    v44[1] = @"NRDUpdateBrainInterfacePrivate2";
-    v43[2] = @"Non-fatal";
-    v44[2] = &__kCFBooleanTrue;
-    v24 = [NSDictionary dictionaryWithObjects:v44 forKeys:v43 count:3];
-    v25 = [NSError errorWithDomain:@"NRDUpdateErrorDomain" code:101 userInfo:v24];
-    (*(v10 + 2))(v10, 0, v25);
+    v44[0] = NSDebugDescriptionErrorKey;
+    v44[1] = @"Protocol";
+    v45[0] = @"timeout connecting to brain endpoint";
+    v45[1] = @"NRDUpdateBrainInterfacePrivate2";
+    v44[2] = @"Non-fatal";
+    v45[2] = &__kCFBooleanTrue;
+    v25 = [NSDictionary dictionaryWithObjects:v45 forKeys:v44 count:3];
+    v26 = [NSError errorWithDomain:@"NRDUpdateErrorDomain" code:101 userInfo:v25];
+    (*(v10 + 2))(v10, 0, v26);
   }
 
-  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v39, 8);
 }
 
 void __39__NRDUpdateBrainClientImpl_ping_reply___block_invoke(uint64_t a1, void *a2)
@@ -650,11 +650,10 @@ void __39__NRDUpdateBrainClientImpl_ping_reply___block_invoke(uint64_t a1, void 
   [v5 handleConnectionError:v7 method:v4 handler:v8];
 }
 
-uint64_t __39__NRDUpdateBrainClientImpl_ping_reply___block_invoke_2(void *a1)
+uint64_t __39__NRDUpdateBrainClientImpl_ping_reply___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
-  result = (*(a1[5] + 16))();
-  *(*(a1[6] + 8) + 24) = 1;
+  result = (*(*(a1 + 40) + 16))();
+  *(*(*(a1 + 48) + 8) + 24) = 1;
   return result;
 }
 
@@ -984,7 +983,7 @@ void __45__NRDUpdateBrainClientImpl_finishNeRDUpdate___block_invoke_3(uint64_t a
 
 void __45__NRDUpdateBrainClientImpl_finishNeRDUpdate___block_invoke_5(id a1, int a2)
 {
-  v2 = nrdSharedLogger();
+  v2 = nrdSharedLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -1021,6 +1020,21 @@ void __67__NRDUpdateBrainClientImpl_calculateCurrentRequiredSpace_callback___blo
   v10 = v6;
   v7 = v3;
   [v5 handleConnectionError:v7 method:v4 handler:v8];
+}
+
+- (void)cancelNeRDUpdate:(BOOL)update callback:(id)callback
+{
+  updateCopy = update;
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = __54__NRDUpdateBrainClientImpl_cancelNeRDUpdate_callback___block_invoke;
+  v8[3] = &unk_100049F88;
+  callbackCopy = callback;
+  v10 = "[NRDUpdateBrainClientImpl cancelNeRDUpdate:callback:]";
+  v8[4] = self;
+  v6 = callbackCopy;
+  v7 = [(NRDUpdateBrainClientImpl *)self _remoteInterfaceWithErrorHandler:v8];
+  [v7 cancelNeRDUpdate:updateCopy callback:v6];
 }
 
 void __54__NRDUpdateBrainClientImpl_cancelNeRDUpdate_callback___block_invoke(uint64_t a1, void *a2)

@@ -73,7 +73,7 @@ void __56___UITextViewSearchableObject__setHighlightViewVisible___block_invoke_4
   }
 }
 
-uint64_t __68___UITextViewSearchableObject__updateHighlightLabelForMatchedRange___block_invoke(uint64_t a1)
+void *__68___UITextViewSearchableObject__updateHighlightLabelForMatchedRange___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _usesTransientHighlightBehavior];
   if (result)

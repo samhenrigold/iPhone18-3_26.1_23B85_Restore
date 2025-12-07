@@ -8,6 +8,7 @@
 - (void)finalize:(double)finalize;
 - (void)init;
 - (void)pauseAllTimers:(double)timers;
+- (void)transferStatus:(id)status thermalLevel:(int)level;
 - (void)updateMLEnhanceResolution:(id)resolution participantID:(id)d enabled:(BOOL)enabled currentTime:(double)time;
 - (void)updateReport:(id)report;
 - (void)updateStateWithPayload:(id)payload withTime:(double)time;
@@ -130,37 +131,37 @@ _BYTE *__51__VCDataMLEnhance_updateStateWithPayload_withTime___block_invoke_2(ui
 
 - (void)accumulate:(id)accumulate
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     self->_mlEnhanceStatus |= *(accumulate + 12);
+    v10 = 0u;
     v11 = 0u;
     v12 = 0u;
     v13 = 0u;
-    v14 = 0u;
     allKeys = [*(accumulate + 2) allKeys];
-    v6 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v6 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v12;
+      v8 = *v11;
       do
       {
         v9 = 0;
         do
         {
-          if (*v12 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          [-[VCDataMLEnhance resolutionDurationForIndex:](self resolutionDurationForIndex:{*(*(&v11 + 1) + 8 * v9)), "merge:", objc_msgSend(*(accumulate + 2), "objectForKeyedSubscript:", *(*(&v11 + 1) + 8 * v9))}];
+          [-[VCDataMLEnhance resolutionDurationForIndex:](self resolutionDurationForIndex:{*(*(&v10 + 1) + 8 * v9)), "merge:", objc_msgSend(*(accumulate + 2), "objectForKeyedSubscript:", *(*(&v10 + 1) + 8 * v9))}];
           ++v9;
         }
 
         while (v7 != v9);
-        v7 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v7 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v7);
@@ -173,86 +174,151 @@ _BYTE *__51__VCDataMLEnhance_updateStateWithPayload_withTime___block_invoke_2(ui
   {
     [VCDataMLEnhance accumulate:?];
   }
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (void)transferStatus:(id)status thermalLevel:(int)level
+{
+  v4 = *&level;
+  v21 = *MEMORY[0x277D85DE8];
+  v7 = micro(self, a2);
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  allKeys = [*(status + 2) allKeys];
+  v9 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = 0;
+    v12 = *v17;
+    do
+    {
+      for (i = 0; i != v10; ++i)
+      {
+        if (*v17 != v12)
+        {
+          objc_enumerationMutation(allKeys);
+        }
+
+        v14 = *(*(&v16 + 1) + 8 * i);
+        v15 = [(VCDataMLEnhance *)self resolutionDurationForIndex:v14];
+        if ([objc_msgSend(*(status + 2) objectForKeyedSubscript:{v14), "isPaused"}])
+        {
+          [v15 pause:v7];
+        }
+
+        else
+        {
+          [v15 resumeAtBucket:v4 currentTime:v7];
+          v11 = 1;
+        }
+      }
+
+      v10 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+    }
+
+    while (v10);
+    if ([*(status + 3) isPaused])
+    {
+      if ((v11 & 1) == 0)
+      {
+        goto LABEL_17;
+      }
+
+      goto LABEL_16;
+    }
+
+LABEL_15:
+    [(VCDurationHistogram *)self->_totalActiveDuration resumeAtBucket:v4 currentTime:v7];
+LABEL_16:
+    self->_mlEnhanceStatus = 1;
+    goto LABEL_17;
+  }
+
+  if (([*(status + 3) isPaused] & 1) == 0)
+  {
+    goto LABEL_15;
+  }
+
+LABEL_17:
+  self->_thermalLevel = v4;
 }
 
 - (void)updateReport:(id)report
 {
-  v20 = *MEMORY[0x277D85DE8];
-  [report setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithChar:", self->_mlEnhanceStatus), @"MLSFENB"}];
-  v5 = micro();
-  v15 = 0u;
+  v21 = *MEMORY[0x277D85DE8];
+  v5 = [report setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithChar:", self->_mlEnhanceStatus), @"MLSFENB"}];
+  v7 = micro(v5, v6);
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
   obj = [(NSMutableDictionary *)self->_resolutionDurations allKeys];
-  v6 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v6)
+  v8 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v8)
   {
-    v7 = v6;
-    v8 = *v16;
+    v9 = v8;
+    v10 = *v17;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v8)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
-        v11 = [MEMORY[0x277CCACA0] stringWithFormat:@"%@_%@", @"MLSW", v10];
-        v12 = [(NSMutableDictionary *)self->_resolutionDurations objectForKeyedSubscript:v10];
-        [v12 finalize:v5];
-        [report setObject:objc_msgSend(v12 forKeyedSubscript:{"description"), v11}];
+        v12 = *(*(&v16 + 1) + 8 * i);
+        v13 = [MEMORY[0x277CCACA0] stringWithFormat:@"%@_%@", @"MLSW", v12];
+        v14 = [(NSMutableDictionary *)self->_resolutionDurations objectForKeyedSubscript:v12];
+        [v14 finalize:v7];
+        [report setObject:objc_msgSend(v14 forKeyedSubscript:{"description"), v13}];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
-    while (v7);
+    while (v9);
   }
 
-  [(VCDurationHistogram *)self->_totalActiveDuration finalize:v5];
+  [(VCDurationHistogram *)self->_totalActiveDuration finalize:v7];
   [report setObject:-[VCHistogram description](self->_totalActiveDuration forKeyedSubscript:{"description"), @"MLSW"}];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isMLEnhanceActive
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   allValues = [(NSMutableDictionary *)self->_resolutionDurations allValues];
-  v4 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(allValues);
         }
 
-        if (![*(*(&v11 + 1) + 8 * v7) isPaused])
+        if (![*(*(&v10 + 1) + 8 * v7) isPaused])
         {
-          mlEnhanceLastEnabledReport = 1;
-          goto LABEL_11;
+          return 1;
         }
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         continue;
@@ -262,10 +328,7 @@ _BYTE *__51__VCDataMLEnhance_updateStateWithPayload_withTime___block_invoke_2(ui
     }
   }
 
-  mlEnhanceLastEnabledReport = self->_mlEnhanceLastEnabledReport;
-LABEL_11:
-  v9 = *MEMORY[0x277D85DE8];
-  return mlEnhanceLastEnabledReport;
+  return self->_mlEnhanceLastEnabledReport;
 }
 
 - (id)resolutionDurationForIndex:(id)index
@@ -304,85 +367,82 @@ LABEL_11:
 
 - (void)pauseAllTimers:(double)timers
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   allValues = [(NSMutableDictionary *)self->_resolutionDurations allValues];
-  v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) pause:timers];
+        [*(*(&v10 + 1) + 8 * v9++) pause:timers];
       }
 
       while (v7 != v9);
-      v7 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
 
   [(VCDurationHistogram *)self->_totalActiveDuration pause:timers];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkAndUpdateTimers:(double)timers
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if ([(VCDataMLEnhance *)self isMLEnhanceActive])
   {
-    v15 = 0u;
-    v16 = 0u;
     v13 = 0u;
     v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     allValues = [(NSMutableDictionary *)self->_resolutionDurations allValues];
-    v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v12;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v10 = *(*(&v13 + 1) + 8 * i);
+          v10 = *(*(&v11 + 1) + 8 * i);
           if (([v10 isPaused] & 1) == 0)
           {
             [v10 switchBucket:self->_thermalLevel currentTime:timers];
           }
         }
 
-        v7 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v7);
     }
 
     [(VCDurationHistogram *)self->_totalActiveDuration switchBucket:self->_thermalLevel currentTime:timers];
-    v11 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v12 = *MEMORY[0x277D85DE8];
 
     [(VCDataMLEnhance *)self pauseAllTimers:timers];
   }
@@ -390,64 +450,63 @@ LABEL_11:
 
 - (void)finalize:(double)finalize
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   allValues = [(NSMutableDictionary *)self->_resolutionDurations allValues];
-  v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) finalize:finalize];
+        [*(*(&v10 + 1) + 8 * v9++) finalize:finalize];
       }
 
       while (v7 != v9);
-      v7 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
 
   [(VCDurationHistogram *)self->_totalActiveDuration finalize:finalize];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)init
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (!objc_opt_class())
   {
     if (VRTraceGetErrorLogLevelForModule("") < 3)
     {
-      goto LABEL_10;
+      return;
     }
 
     VRTraceErrorLogLevelToCSTR(3u);
     if (!OUTLINED_FUNCTION_14_0())
     {
-      goto LABEL_10;
+      return;
     }
 
     OUTLINED_FUNCTION_3_3();
     OUTLINED_FUNCTION_0();
-    v12 = 36;
+    v11 = 36;
     OUTLINED_FUNCTION_1();
 LABEL_12:
     _os_log_error_impl(v1, v2, v3, v4, v5, v6);
-    goto LABEL_10;
+    return;
   }
 
   if (objc_opt_respondsToSelector())
@@ -466,42 +525,38 @@ LABEL_12:
     v8 = gVRTraceOSLog;
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136316162;
-      v11 = v7;
+      v9 = 136316162;
+      v10 = v7;
       OUTLINED_FUNCTION_0();
-      v12 = 36;
-      v13 = 2112;
-      v14 = v0;
-      v15 = 2048;
-      v16 = 0;
+      v11 = 36;
+      v12 = 2112;
+      v13 = v0;
+      v14 = 2048;
+      v15 = 0;
       v1 = &dword_23D4DF000;
       v4 = " [%s] %s:%d %@(%p) Failed to create MLEnhance data";
-      v5 = &v10;
+      v5 = &v9;
       v2 = v8;
       v3 = OS_LOG_TYPE_ERROR;
       v6 = 48;
       goto LABEL_12;
     }
   }
-
-LABEL_10:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accumulate:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   if (objc_opt_class() == a1)
   {
     if (VRTraceGetErrorLogLevelForModule("") < 3)
     {
-      goto LABEL_9;
+      return;
     }
 
     VRTraceErrorLogLevelToCSTR(3u);
     if (!OUTLINED_FUNCTION_14_0())
     {
-      goto LABEL_9;
+      return;
     }
 
     OUTLINED_FUNCTION_3_3();
@@ -509,7 +564,7 @@ LABEL_10:
     OUTLINED_FUNCTION_1();
 LABEL_11:
     _os_log_error_impl(v2, v3, v4, v5, v6, v7);
-    goto LABEL_9;
+    return;
   }
 
   if (objc_opt_respondsToSelector())
@@ -529,9 +584,6 @@ LABEL_11:
       goto LABEL_11;
     }
   }
-
-LABEL_9:
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

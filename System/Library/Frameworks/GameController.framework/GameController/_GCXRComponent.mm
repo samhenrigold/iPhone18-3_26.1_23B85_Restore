@@ -96,39 +96,9 @@
     }
   }
 
-  if ((handedness | 2) == 3)
+  if ((handedness | 2) == 3 && (v9 = [_GCHandSkeleton alloc], physicalInput = self->_physicalInput, memcpy(v18, &kGCBoneDataRestingLeft, sizeof(v18)), v11 = [(_GCHandSkeleton *)v9 initWithBoneData:v18 profile:physicalInput handedness:1], p_leftHandSkeleton = &self->_leftHandSkeleton, leftHandSkeleton = self->_leftHandSkeleton, self->_leftHandSkeleton = v11, leftHandSkeleton, [(NSMutableDictionary *)self->_handSkeletons setValue:self->_leftHandSkeleton forKey:@"GCHandSkeletonLeft"], handedness == 1) || (handedness & 0xFFFFFFFFFFFFFFFELL) == 2 && (v14 = [_GCHandSkeleton alloc], v15 = self->_physicalInput, memcpy(v18, &kGCBoneDataRestingRight, sizeof(v18)), v16 = [(_GCHandSkeleton *)v14 initWithBoneData:v18 profile:v15 handedness:2], p_leftHandSkeleton = &self->_rightHandSkeleton, rightHandSkeleton = self->_rightHandSkeleton, self->_rightHandSkeleton = v16, rightHandSkeleton, [(NSMutableDictionary *)self->_handSkeletons setValue:self->_rightHandSkeleton forKey:@"GCHandSkeletonRight"], handedness == 2))
   {
-    v9 = [_GCHandSkeleton alloc];
-    physicalInput = self->_physicalInput;
-    memcpy(v18, &kGCBoneDataRestingLeft, sizeof(v18));
-    v11 = [(_GCHandSkeleton *)v9 initWithBoneData:v18 profile:physicalInput handedness:1];
-    p_leftHandSkeleton = &self->_leftHandSkeleton;
-    leftHandSkeleton = self->_leftHandSkeleton;
-    self->_leftHandSkeleton = v11;
-
-    [(NSMutableDictionary *)self->_handSkeletons setValue:self->_leftHandSkeleton forKey:@"GCHandSkeletonLeft"];
-    if (handedness == 1)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  if ((handedness & 0xFFFFFFFFFFFFFFFELL) == 2)
-  {
-    v14 = [_GCHandSkeleton alloc];
-    v15 = self->_physicalInput;
-    memcpy(v18, &kGCBoneDataRestingRight, sizeof(v18));
-    v16 = [(_GCHandSkeleton *)v14 initWithBoneData:v18 profile:v15 handedness:2];
-    p_leftHandSkeleton = &self->_rightHandSkeleton;
-    rightHandSkeleton = self->_rightHandSkeleton;
-    self->_rightHandSkeleton = v16;
-
-    [(NSMutableDictionary *)self->_handSkeletons setValue:self->_rightHandSkeleton forKey:@"GCHandSkeletonRight"];
-    if (handedness == 2)
-    {
-LABEL_11:
-      [(NSMutableDictionary *)self->_handSkeletons setValue:*p_leftHandSkeleton forKey:@"GCHandSkeletonAny"];
-    }
+    [(NSMutableDictionary *)self->_handSkeletons setValue:*p_leftHandSkeleton forKey:@"GCHandSkeletonAny"];
   }
 }
 

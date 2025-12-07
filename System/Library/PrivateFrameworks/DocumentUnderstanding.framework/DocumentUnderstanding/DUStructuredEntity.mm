@@ -16,7 +16,7 @@
 
 - (NSArray)labels
 {
-  sub_232BFFF18();
+  sub_232BFFF18(self);
   type metadata accessor for DUStructuredExtractionLabel();
   v2 = sub_232CE9FD0();
 
@@ -33,19 +33,20 @@
 
 - (NSDictionary)addressComponents
 {
-  if (sub_232C003F8())
+  sub_232C003F8(self);
+  if (v5)
   {
-    type metadata accessor for NSTextCheckingKey();
-    sub_232C06FB0(&qword_27DDC65C8, 255, type metadata accessor for NSTextCheckingKey);
-    v2 = sub_232CE9C20();
+    type metadata accessor for NSTextCheckingKey(0, v2, v3, v4);
+    sub_232C06FB0(&qword_27DDC65C8, 255, type metadata accessor for NSTextCheckingKey, &unk_232CF5734);
+    v6 = sub_232CE9C20();
   }
 
   else
   {
-    v2 = 0;
+    v6 = 0;
   }
 
-  return v2;
+  return v6;
 }
 
 - (void)setAddressComponents:(id)components
@@ -53,8 +54,8 @@
   componentsCopy = components;
   if (components)
   {
-    type metadata accessor for NSTextCheckingKey();
-    sub_232C06FB0(&qword_27DDC65C8, 255, type metadata accessor for NSTextCheckingKey);
+    type metadata accessor for NSTextCheckingKey(0, a2, components, v3);
+    sub_232C06FB0(&qword_27DDC65C8, 255, type metadata accessor for NSTextCheckingKey, &unk_232CF5734);
     componentsCopy = sub_232CE9C40();
   }
 
@@ -64,7 +65,7 @@
 
 - (_TtC21DocumentUnderstanding15DUCalendarEvent)calendarEvent
 {
-  v2 = sub_232C005E8();
+  v2 = sub_232C005E8(self);
 
   return v2;
 }
@@ -78,7 +79,7 @@
 
 - (_TtC21DocumentUnderstanding13DUDisplayInfo)displayInfo
 {
-  v2 = sub_232C00854();
+  v2 = sub_232C00854(self);
 
   return v2;
 }
@@ -92,7 +93,7 @@
 
 - (_TtC21DocumentUnderstanding11DUDebugInfo)responseDebugInfo
 {
-  v2 = sub_232C009E4();
+  v2 = sub_232C009E4(self);
 
   return v2;
 }

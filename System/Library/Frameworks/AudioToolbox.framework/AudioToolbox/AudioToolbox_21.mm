@@ -3109,10 +3109,10 @@ LABEL_73:
       v71 = __sincosf_stret((v68 * 0.017453) * 0.5);
       v72 = __sincosf_stret((v70 * 0.017453) * 0.5);
       v73 = 0.0;
-      v74.f32[0] = -((v71.__sinval * v72.__sinval) - ((v71.__cosval * v72.__cosval) * 0.0));
-      v74.f32[1] = (v71.__sinval * (v72.__cosval * 0.0)) + (v72.__sinval * v71.__cosval);
-      v74.f32[2] = (v71.__cosval * (v72.__sinval * -0.0)) + (v72.__cosval * v71.__sinval);
-      v74.f32[3] = (v71.__cosval * v72.__cosval) + ((v71.__sinval * v72.__sinval) * 0.0);
+      *v74.i32 = -((v71.__sinval * v72.__sinval) - ((v71.__cosval * v72.__cosval) * 0.0));
+      *&v74.i32[1] = (v71.__sinval * (v72.__cosval * 0.0)) + (v72.__sinval * v71.__cosval);
+      *&v74.i32[2] = (v71.__cosval * (v72.__sinval * -0.0)) + (v72.__cosval * v71.__sinval);
+      *&v74.i32[3] = (v71.__cosval * v72.__cosval) + ((v71.__sinval * v72.__sinval) * 0.0);
       _X1 = 0;
       __asm
       {

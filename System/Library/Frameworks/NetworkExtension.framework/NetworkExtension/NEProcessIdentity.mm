@@ -44,11 +44,11 @@
 
 - (id)initFromXPCMessage:(id)message
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   messageCopy = message;
-  v18.receiver = self;
-  v18.super_class = NEProcessIdentity;
-  v5 = [(NEProcessIdentity *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = NEProcessIdentity;
+  v5 = [(NEProcessIdentity *)&v17 init];
   if (!v5)
   {
     goto LABEL_10;
@@ -65,7 +65,7 @@
   xpc_dictionary_get_audit_token();
   v6 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:buffer length:32];
   v7 = DWORD1(buffer[1]);
-  if (!DWORD1(buffer[1]) || (v20 = 0, memset(buffer, 0, sizeof(buffer)), proc_pidinfo(v7, 17, 1uLL, buffer, 56) != 56))
+  if (!DWORD1(buffer[1]) || (v19 = 0, memset(buffer, 0, sizeof(buffer)), proc_pidinfo(v7, 17, 1uLL, buffer, 56) != 56))
   {
 LABEL_5:
     v8 = 0;
@@ -121,7 +121,6 @@ LABEL_14:
   v14 = 0;
 LABEL_17:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -148,10 +147,10 @@ LABEL_17:
 
 - (NEProcessIdentity)initWithPID:(int)d auditToken:(id *)token
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v19.receiver = self;
-  v19.super_class = NEProcessIdentity;
-  v6 = [(NEProcessIdentity *)&v19 init];
+  v21 = *MEMORY[0x1E69E9840];
+  v18.receiver = self;
+  v18.super_class = NEProcessIdentity;
+  v6 = [(NEProcessIdentity *)&v18 init];
   if (!v6)
   {
     goto LABEL_11;
@@ -159,7 +158,7 @@ LABEL_17:
 
   if (d)
   {
-    v21 = 0;
+    v20 = 0;
     memset(buffer, 0, sizeof(buffer));
     if (proc_pidinfo(d, 17, 1uLL, buffer, 56) == 56)
     {
@@ -217,7 +216,6 @@ LABEL_11:
   v15 = 0;
 LABEL_15:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

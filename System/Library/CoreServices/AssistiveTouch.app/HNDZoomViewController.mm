@@ -29,7 +29,13 @@
   swift_allocObject();
   swift_unknownObjectWeakInit();
 
-  sub_100127018(sub_1001135E8, v9, v8, x, y, width, height);
+  v11.n128_f64[0] = v9;
+  v12.n128_f64[0] = v8;
+  v13.n128_f64[0] = x;
+  v14.n128_f64[0] = y;
+  v15.n128_f64[0] = width;
+  v16.n128_f64[0] = height;
+  sub_100127018(sub_1001135E8, v11, v12, v13, v14, v15, v16);
 }
 
 - (void)zoomOutAt:(CGPoint)at screenBounds:(CGRect)bounds

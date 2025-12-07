@@ -1,10 +1,10 @@
 @interface NSString(CGAdditions)
-- (uint64_t)enumerateComponentsSeparatedByCharactersInSet:()CGAdditions usingBlock:;
+- (_BYTE)enumerateComponentsSeparatedByCharactersInSet:()CGAdditions usingBlock:;
 @end
 
 @implementation NSString(CGAdditions)
 
-- (uint64_t)enumerateComponentsSeparatedByCharactersInSet:()CGAdditions usingBlock:
+- (_BYTE)enumerateComponentsSeparatedByCharactersInSet:()CGAdditions usingBlock:
 {
   v16 = 0;
   v7 = [self length];
@@ -28,9 +28,9 @@
       }
     }
 
-    v12 = v10 + v11;
-    v14 = v7 - (v10 + v11);
-    result = [self rangeOfCharacterFromSet:a3 options:0 range:{v10 + v11, v14}];
+    v12 = &v10[v11];
+    v14 = v7 - &v10[v11];
+    result = [self rangeOfCharacterFromSet:a3 options:0 range:{&v10[v11], v14}];
     v10 = result;
     v11 = v15;
     if (!v15)

@@ -1531,9 +1531,9 @@ LABEL_12:
   if ((*&self->_barButtonItemFlags & 0x10) == 0 && self->_title != titleCopy)
   {
     v9 = titleCopy;
-    v6 = [(NSString *)titleCopy isEqualToString:?];
+    isEqualToString = objc_msgSend_isEqualToString_(titleCopy);
     v5 = v9;
-    if (!v6)
+    if ((isEqualToString & 1) == 0)
     {
       v7 = [(NSString *)v9 copy];
       title = self->_title;
@@ -2694,7 +2694,7 @@ LABEL_12:
     _UIAppearanceTagObjectForSelector(self, a2, v23);
 
     uIBarMetricsCompact = [(_UIBarButtonItemAppearanceStorage *)self->_appearanceStorage backgroundImageForState:state style:style isMini:barMetrics == UIBarMetricsCompact];
-    if (v11 | uIBarMetricsCompact && ![(UIImage *)v11 isEqual:uIBarMetricsCompact])
+    if (v11 | uIBarMetricsCompact && (objc_msgSend_isEqual_(v11) & 1) == 0)
     {
       [(_UIBarButtonItemAppearanceStorage *)self->_appearanceStorage setBackgroundImage:v11 forState:state style:style isMini:barMetrics == UIBarMetricsCompact];
       [(UIBarButtonItem *)self _updateView];
@@ -2777,7 +2777,7 @@ LABEL_12:
 
   _UIAppearanceTagObjectForSelector(self, a2, 0);
   tintColor = [(_UIBarButtonItemAppearanceStorage *)self->_appearanceStorage tintColor];
-  if (v8 | tintColor && ![(UIColor *)v8 isEqual:tintColor])
+  if (v8 | tintColor && (objc_msgSend_isEqual_(v8) & 1) == 0)
   {
     [(_UIBarButtonItemAppearanceStorage *)self->_appearanceStorage setTintColor:v8];
     [(UIBarButtonItem *)self _updateView];
@@ -2857,7 +2857,7 @@ LABEL_12:
 
   v16 = [(_UIBarItemAppearanceStorage *)self->_appearanceStorage textAttributesForState:stateCopy3];
   v17 = v16;
-  if (v16 | _ui_attributesForDictionaryContainingUIStringDrawingKeys && ([v16 isEqual:_ui_attributesForDictionaryContainingUIStringDrawingKeys] & 1) == 0)
+  if (v16 | _ui_attributesForDictionaryContainingUIStringDrawingKeys && (objc_msgSend_isEqual_(v16) & 1) == 0)
   {
     [(_UIBarItemAppearanceStorage *)self->_appearanceStorage setTextAttributes:_ui_attributesForDictionaryContainingUIStringDrawingKeys forState:stateCopy3];
     [(UIBarButtonItem *)self _updateView];
@@ -3952,10 +3952,10 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(NSArray *)WeakRetained isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(WeakRetained, v6, v6);
 
   v8 = v11;
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v9 = [(NSArray *)v8 copy];
@@ -3991,10 +3991,10 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(NSArray *)WeakRetained isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(WeakRetained, v6, v6);
 
   v8 = v11;
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v9 = [(NSArray *)v8 copy];
@@ -4037,8 +4037,8 @@ LABEL_10:
     WeakRetained = objc_loadWeakRetained(&self->__viewOwner);
     if (objc_opt_respondsToSelector())
     {
-      menu = [(UIBarButtonItem *)self menu];
-      [WeakRetained _itemDidUpdateMenu:self fromMenu:menu];
+      v5 = objc_msgSend_menu(self);
+      [WeakRetained _itemDidUpdateMenu:self fromMenu:v5];
     }
   }
 }
@@ -4628,9 +4628,9 @@ LABEL_15:
   {
     if (WeakRetained)
     {
-      v22 = [(UIImage *)WeakRetained isEqual:v20];
+      isEqual = objc_msgSend_isEqual_(WeakRetained);
 
-      if (v22)
+      if (isEqual)
       {
         goto LABEL_17;
       }

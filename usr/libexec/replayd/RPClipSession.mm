@@ -2,6 +2,7 @@
 - (id)dispatchCaptureQueue;
 - (void)captureDidFailWithError:(id)error;
 - (void)createEncodingSessionWithWidth:(int)width withHeight:(int)height;
+- (void)didCaptureSampleWithType:(int)type withSampleBuffer:(opaqueCMSampleBuffer *)buffer withTransformFlags:(unint64_t)flags;
 - (void)encodeBuffer:(opaqueCMSampleBuffer *)buffer;
 - (void)exportClipToURL:(id)l duration:(double)duration completionHandler:(id)handler;
 - (void)handleClientApplicationDidEnterBackground;
@@ -12,10 +13,77 @@
 - (void)handleResumeCaptureWithCompletionHandler:(id)handler;
 - (void)handleResumeContextIDFailure;
 - (void)pauseSession;
+- (void)presentAcknowledgmentWithMicrophoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled withHandler:(id)handler;
+- (void)startClipWithMicrophoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled contextID:(id)d windowSize:(CGSize)size handler:(id)handler;
 - (void)stopClipWithHandler:(id)handler;
 @end
 
 @implementation RPClipSession
+
+- (void)startClipWithMicrophoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled contextID:(id)d windowSize:(CGSize)size handler:(id)handler
+{
+  height = size.height;
+  width = size.width;
+  cameraEnabledCopy = cameraEnabled;
+  enabledCopy = enabled;
+  dCopy = d;
+  handlerCopy = handler;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446978;
+    v18 = "[RPClipSession startClipWithMicrophoneEnabled:cameraEnabled:contextID:windowSize:handler:]";
+    v19 = 1024;
+    v20 = 50;
+    v21 = 2048;
+    selfCopy = self;
+    v23 = 1024;
+    sessionState = [(RPSession *)self sessionState];
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d %p starting in session state %d", buf, 0x22u);
+  }
+
+  if ([(RPSession *)self sessionState]!= 3)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "RPClipSession: attempting to start clip session when session was not in stopped state", buf, 2u);
+    }
+
+    height = [NSError _rpUserErrorForCode:-5830 userInfo:0];
+    [(RPSession *)self reportSessionEndReason:height];
+    if (!handlerCopy)
+    {
+      goto LABEL_16;
+    }
+
+LABEL_14:
+    handlerCopy[2](handlerCopy, height);
+    goto LABEL_16;
+  }
+
+  v16.receiver = self;
+  v16.super_class = RPClipSession;
+  [(RPSession *)&v16 startWithContextID:dCopy windowSize:width, height];
+  height = [(RPSession *)self checkCaptureRequirementsWithMicrophoneEnabled:enabledCopy cameraEnabled:cameraEnabledCopy windowSize:width, height];
+  if (!height)
+  {
+    [(RPClipSession *)self presentAcknowledgmentWithMicrophoneEnabled:enabledCopy cameraEnabled:cameraEnabledCopy withHandler:handlerCopy];
+    goto LABEL_16;
+  }
+
+  if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    sub_100061610();
+  }
+
+  [(RPSession *)self setSessionState:3];
+  if (handlerCopy)
+  {
+    goto LABEL_14;
+  }
+
+LABEL_16:
+}
 
 - (void)stopClipWithHandler:(id)handler
 {
@@ -234,6 +302,85 @@ LABEL_18:
     v9 = CFNumberCreate(kCFAllocatorDefault, kCFNumberFloat32Type, buf);
     VTSessionSetProperty(*p_encodeSession, kVTCompressionPropertyKey_MaxKeyFrameIntervalDuration, v9);
     CFRelease(v9);
+  }
+}
+
+- (void)presentAcknowledgmentWithMicrophoneEnabled:(BOOL)enabled cameraEnabled:(BOOL)cameraEnabled withHandler:(id)handler
+{
+  cameraEnabledCopy = cameraEnabled;
+  enabledCopy = enabled;
+  handlerCopy = handler;
+  if ([(RPSession *)self getAcknowledgementAlertResultsWithMicrophone:enabledCopy cameraEnabled:cameraEnabledCopy])
+  {
+    v9 = +[RPCaptureManager sharedInstance];
+    callingPID = self->super._callingPID;
+    microphoneEnabled = [(RPSession *)self microphoneEnabled];
+    [(RPSession *)self windowSize];
+    v13 = v12;
+    v15 = v14;
+    contextID = [(RPSession *)self contextID];
+    v17 = [NSArray arrayWithObject:contextID];
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_100021550;
+    v19[3] = &unk_1000A1840;
+    v19[4] = self;
+    v20 = handlerCopy;
+    [v9 startCaptureForDelegate:self forProcessID:callingPID shouldStartMicrophoneCapture:microphoneEnabled windowSize:0 captureType:v17 contextIDs:v19 didStartHandler:{v13, v15}];
+  }
+
+  else
+  {
+    [(RPSession *)self setSessionState:3];
+    if (handlerCopy)
+    {
+      v18 = [NSError _rpUserErrorForCode:-5801 userInfo:0];
+      (*(handlerCopy + 2))(handlerCopy, v18);
+    }
+  }
+}
+
+- (void)didCaptureSampleWithType:(int)type withSampleBuffer:(opaqueCMSampleBuffer *)buffer withTransformFlags:(unint64_t)flags
+{
+  if (buffer)
+  {
+    [(RPSession *)self updateReportingSampleCount:*&type, buffer, flags];
+    if (type)
+    {
+      v8 = sub_1000575D0(buffer, 0);
+      v9 = sub_100057804(v8);
+      if (v9)
+      {
+        v10 = v9;
+        if (type == 2)
+        {
+          [(RPClipWriter *)self->_clipWriter appendAudio2SampleBuffer:v9];
+        }
+
+        else if (type == 1)
+        {
+          [(RPClipWriter *)self->_clipWriter appendAudio1SampleBuffer:v9];
+        }
+
+        CFRelease(v10);
+      }
+
+      else if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        sub_1000619FC();
+      }
+    }
+
+    else
+    {
+
+      [(RPClipSession *)self encodeBuffer:buffer];
+    }
+  }
+
+  else if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    sub_100061A88();
   }
 }
 

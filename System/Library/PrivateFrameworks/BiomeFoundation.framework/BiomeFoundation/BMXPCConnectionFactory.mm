@@ -1,5 +1,8 @@
 @interface BMXPCConnectionFactory
 + (BMXPCConnectionFactoryDelegate)delegate;
++ (id)connectionToAccessServerInDomain:(unint64_t)domain user:(unsigned int)user useCase:(id)case options:(unsigned __int8)options;
++ (id)connectionToComputeSourceServerInDomain:(unint64_t)domain user:(unsigned int)user useCase:(id)case options:(unsigned __int8)options;
++ (id)connectionToFileServerInDomain:(unint64_t)domain user:(unsigned int)user useCase:(id)case options:(unsigned __int8)options;
 + (id)connectionToMachService:(unint64_t)service endpoint:(id)endpoint useCase:(id)case;
 + (id)defaultQueue;
 + (id)globalStrongConnectionCache;
@@ -351,6 +354,51 @@ void __54__BMXPCConnectionFactory__requestConnectionFromCaller__block_invoke_94(
   }
 }
 
++ (id)connectionToFileServerInDomain:(unint64_t)domain user:(unsigned int)user useCase:(id)case options:(unsigned __int8)options
+{
+  optionsCopy = options;
+  v7 = *&user;
+  caseCopy = case;
+  v10 = [[BMXPCConnectionFactory alloc] initWithType:1 domain:domain user:v7 useCase:caseCopy options:optionsCopy];
+
+  v11 = +[BMXPCConnectionFactory delegate];
+  [(BMXPCConnectionFactory *)v10 setDelegate:v11];
+
+  makeConnectionWrapper = [(BMXPCConnectionFactory *)v10 makeConnectionWrapper];
+
+  return makeConnectionWrapper;
+}
+
++ (id)connectionToAccessServerInDomain:(unint64_t)domain user:(unsigned int)user useCase:(id)case options:(unsigned __int8)options
+{
+  optionsCopy = options;
+  v7 = *&user;
+  caseCopy = case;
+  v10 = [[BMXPCConnectionFactory alloc] initWithType:0 domain:domain user:v7 useCase:caseCopy options:optionsCopy];
+
+  WeakRetained = objc_loadWeakRetained(&_delegate);
+  [(BMXPCConnectionFactory *)v10 setDelegate:WeakRetained];
+
+  makeConnectionWrapper = [(BMXPCConnectionFactory *)v10 makeConnectionWrapper];
+
+  return makeConnectionWrapper;
+}
+
++ (id)connectionToComputeSourceServerInDomain:(unint64_t)domain user:(unsigned int)user useCase:(id)case options:(unsigned __int8)options
+{
+  optionsCopy = options;
+  v7 = *&user;
+  caseCopy = case;
+  v10 = [[BMXPCConnectionFactory alloc] initWithType:2 domain:domain user:v7 useCase:caseCopy options:optionsCopy];
+
+  WeakRetained = objc_loadWeakRetained(&_delegate);
+  [(BMXPCConnectionFactory *)v10 setDelegate:WeakRetained];
+
+  makeConnectionWrapper = [(BMXPCConnectionFactory *)v10 makeConnectionWrapper];
+
+  return makeConnectionWrapper;
+}
+
 + (id)connectionToMachService:(unint64_t)service endpoint:(id)endpoint useCase:(id)case
 {
   v7 = MEMORY[0x1E696B0B8];
@@ -643,7 +691,7 @@ void __54__BMXPCConnectionFactory__requestConnectionFromCaller__block_invoke(uin
 
 - (void)_newConnection
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = BMStringForServiceDomain(*(self + 16));
   lowercaseString = [v4 lowercaseString];
   v6 = *(self + 8);
@@ -664,45 +712,11 @@ void __54__BMXPCConnectionFactory__requestConnectionFromCaller__block_invoke(uin
   }
 
   v9 = v8;
-  v11 = 138543618;
-  v12 = lowercaseString;
-  v13 = 2114;
-  v14 = v9;
-  _os_log_debug_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_DEBUG, "New connection to %{public}@ %{public}@", &v11, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
-}
-
-void __57__BMXPCConnectionFactory__proxyConnectionThroughCoreDuet__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_0(&dword_1AC15D000, v0, v1, "Failed to connect to CoreDuet with error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __57__BMXPCConnectionFactory__proxyConnectionThroughCoreDuet__block_invoke_90_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_0(&dword_1AC15D000, v0, v1, "Proxy connection through CoreDuet with error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __54__BMXPCConnectionFactory__requestConnectionFromCaller__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_0(&dword_1AC15D000, v0, v1, "Failed to connect to service client with error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __54__BMXPCConnectionFactory__requestConnectionFromCaller__block_invoke_94_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_0(&dword_1AC15D000, v0, v1, "Proxy connection through service client with error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v10 = 138543618;
+  v11 = lowercaseString;
+  v12 = 2114;
+  v13 = v9;
+  _os_log_debug_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_DEBUG, "New connection to %{public}@ %{public}@", &v10, 0x16u);
 }
 
 @end

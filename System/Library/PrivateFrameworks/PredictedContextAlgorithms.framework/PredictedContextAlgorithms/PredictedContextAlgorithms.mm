@@ -10,186 +10,183 @@ Swift::tuple_OpaquePointer_OpaquePointer_OpaquePointer __swiftcall DataSetFeatur
 {
   v3 = type metadata accessor for Logger();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = MEMORY[0x1EEE9AC00]();
-  v8 = &v61 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = MEMORY[0x1E69E7D40];
-  if ((*((*MEMORY[0x1E69E7D40] & *v1) + 0xC0))(v6) <= i)
+  v5 = MEMORY[0x1EEE9AC00](v3);
+  v7 = &v59 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = MEMORY[0x1E69E7D40];
+  if ((*((*MEMORY[0x1E69E7D40] & *v1) + 0xC0))(v5) <= i)
   {
     Logger.init(subsystem:category:)();
-    v36 = Logger.logObject.getter();
-    v37 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v36, v37))
+    v34 = Logger.logObject.getter();
+    v35 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v34, v35))
     {
-      v38 = swift_slowAlloc();
-      *v38 = 0;
-      _os_log_impl(&dword_1CEE74000, v36, v37, "sequence index requested was larger than number of data points", v38, 2u);
-      MEMORY[0x1D3865FA0](v38, -1, -1);
+      v36 = swift_slowAlloc();
+      *v36 = 0;
+      _os_log_impl(&dword_1CEE74000, v34, v35, "sequence index requested was larger than number of data points", v36, 2u);
+      MEMORY[0x1D3865FA0](v36, -1, -1);
     }
 
-    (*(v4 + 8))(v8, v3);
+    (*(v4 + 8))(v7, v3);
 LABEL_76:
-    v52 = MEMORY[0x1E69E7CC0];
-    v18 = MEMORY[0x1E69E7CC0];
-    v42 = MEMORY[0x1E69E7CC0];
+    v50 = MEMORY[0x1E69E7CC0];
+    v17 = MEMORY[0x1E69E7CC0];
+    v40 = MEMORY[0x1E69E7CC0];
     goto LABEL_79;
   }
 
-  v10 = *((*v9 & *v1) + 0xD8);
-  v11 = (*v9 & *v1) + 216;
-  v12 = (v10)();
-  v13 = i + v12;
-  if (__OFADD__(i, v12))
+  v9 = *((*v8 & *v1) + 0xD8);
+  v10 = (*v8 & *v1) + 216;
+  v11 = (v9)();
+  v12 = i + v11;
+  if (__OFADD__(i, v11))
   {
     goto LABEL_50;
   }
 
-  v65 = v11;
-  v14 = v12;
-  if (v13 < i)
+  v63 = v10;
+  v13 = v11;
+  if (v12 < i)
   {
     goto LABEL_51;
   }
 
-  v64 = v10;
-  v15 = (*((*v9 & *v1) + 0x90))();
+  v62 = v9;
+  v14 = (*((*v8 & *v1) + 0x90))();
   if (i < 0)
   {
     goto LABEL_52;
   }
 
-  v10 = v15;
-  v66 = v1;
-  v16 = *(v15 + 16);
-  if (v16 < i || v16 < v13)
+  v9 = v14;
+  v64 = v1;
+  v15 = *(v14 + 16);
+  if (v15 < i || v15 < v12)
   {
     goto LABEL_53;
   }
 
-  if (v16 != v14)
+  if (v15 != v13)
   {
     goto LABEL_54;
   }
 
-  for (j = i; v16; j = i)
+  for (j = i; v15; j = i)
   {
     i = 0;
-    v18 = MEMORY[0x1E69E7CC0];
-    v13 = MEMORY[0x1E69E7CC0];
-    while (i < *(v10 + 16))
+    v17 = MEMORY[0x1E69E7CC0];
+    v12 = MEMORY[0x1E69E7CC0];
+    while (i < *(v9 + 16))
     {
-      v19 = *(v10 + 8 * i + 32);
-      if (!*(v19 + 16))
+      v18 = *(v9 + 8 * i + 32);
+      if (!*(v18 + 16))
       {
         goto LABEL_42;
       }
 
-      v20 = *(v19 + 32);
-      if ((LODWORD(v20) & 0x7FFFFFFFu) > 0x7F7FFFFF)
+      v19 = *(v18 + 32);
+      if ((LODWORD(v19) & 0x7FFFFFFFu) > 0x7F7FFFFF)
       {
         goto LABEL_43;
       }
 
-      if (v20 <= -9.2234e18)
+      if (v19 <= -9.2234e18)
       {
         goto LABEL_44;
       }
 
-      if (v20 >= 9.2234e18)
+      if (v19 >= 9.2234e18)
       {
         goto LABEL_45;
       }
 
-      v21 = *(v10 + 8 * i + 32);
-
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v18 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v18 + 2) + 1, 1, v18);
+        v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v17 + 2) + 1, 1, v17);
       }
 
-      v23 = *(v18 + 2);
-      v22 = *(v18 + 3);
-      if (v23 >= v22 >> 1)
+      v21 = *(v17 + 2);
+      v20 = *(v17 + 3);
+      if (v21 >= v20 >> 1)
       {
-        v18 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v22 > 1), v23 + 1, 1, v18);
+        v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v20 > 1), v21 + 1, 1, v17);
       }
 
-      *(v18 + 2) = v23 + 1;
-      *&v18[8 * v23 + 32] = v20;
-      v24 = *(v19 + 32);
-      if ((LODWORD(v24) & 0x7FFFFFFFu) > 0x7F7FFFFF)
+      *(v17 + 2) = v21 + 1;
+      *&v17[8 * v21 + 32] = v19;
+      v22 = *(v18 + 32);
+      if ((LODWORD(v22) & 0x7FFFFFFFu) > 0x7F7FFFFF)
       {
         goto LABEL_46;
       }
 
-      if (v24 <= -9.2234e18)
+      if (v22 <= -9.2234e18)
       {
         goto LABEL_47;
       }
 
-      if (v24 >= 9.2234e18)
+      if (v22 >= 9.2234e18)
       {
         goto LABEL_48;
       }
 
-      if ((*((*v9 & *v66) + 0x138))() == v24)
+      if ((*((*v8 & *v64) + 0x138))() == v22)
       {
 
         goto LABEL_76;
       }
 
-      v25 = *(v19 + 16);
-      if (!v25)
+      v23 = *(v18 + 16);
+      if (!v23)
       {
         goto LABEL_49;
       }
 
-      v26 = v18;
-      v27 = v10;
-      v28 = v16;
-      v29 = v9;
-      v30 = v25 - 1;
-      if (v25 == 1)
+      v24 = v17;
+      v25 = v9;
+      v26 = v15;
+      v27 = v8;
+      v28 = v23 - 1;
+      if (v23 == 1)
       {
-        v31 = MEMORY[0x1E69E7CC0];
+        v29 = MEMORY[0x1E69E7CC0];
       }
 
       else
       {
         __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySfGMd, &_ss23_ContiguousArrayStorageCySfGMR);
-        v31 = swift_allocObject();
-        v32 = _swift_stdlib_malloc_size(v31);
-        v33 = v32 - 32;
-        if (v32 < 32)
+        v29 = swift_allocObject();
+        v30 = _swift_stdlib_malloc_size(v29);
+        v31 = v30 - 32;
+        if (v30 < 32)
         {
-          v33 = v32 - 29;
+          v31 = v30 - 29;
         }
 
-        v31[2] = v30;
-        v31[3] = 2 * (v33 >> 2);
-        memcpy(v31 + 4, (v19 + 36), 4 * v30);
+        v29[2] = v28;
+        v29[3] = 2 * (v31 >> 2);
+        memcpy(v29 + 4, (v18 + 36), 4 * v28);
       }
 
-      v9 = v29;
+      v8 = v27;
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v13 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v13 + 16) + 1, 1, v13, &_ss23_ContiguousArrayStorageCySaySfGGMd, &_ss23_ContiguousArrayStorageCySaySfGGMR, &_sSaySfGMd, &_sSaySfGMR);
+        v12 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v12 + 16) + 1, 1, v12, &_ss23_ContiguousArrayStorageCySaySfGGMd, &_ss23_ContiguousArrayStorageCySaySfGGMR, &_sSaySfGMd, &_sSaySfGMR);
       }
 
-      v16 = v28;
-      v35 = *(v13 + 16);
-      v34 = *(v13 + 24);
-      v10 = v27;
-      if (v35 >= v34 >> 1)
+      v15 = v26;
+      v33 = *(v12 + 16);
+      v32 = *(v12 + 24);
+      v9 = v25;
+      if (v33 >= v32 >> 1)
       {
-        v13 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v34 > 1), v35 + 1, 1, v13, &_ss23_ContiguousArrayStorageCySaySfGGMd, &_ss23_ContiguousArrayStorageCySaySfGGMR, &_sSaySfGMd, &_sSaySfGMR);
+        v12 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v32 > 1), v33 + 1, 1, v12, &_ss23_ContiguousArrayStorageCySaySfGGMd, &_ss23_ContiguousArrayStorageCySaySfGGMR, &_sSaySfGMd, &_sSaySfGMR);
       }
 
-      v18 = v26;
+      v17 = v24;
       ++i;
-      *(v13 + 16) = v35 + 1;
-      *(v13 + 8 * v35 + 32) = v31;
-      if (v16 == i)
+      *(v12 + 16) = v33 + 1;
+      *(v12 + 8 * v33 + 32) = v29;
+      if (v15 == i)
       {
         goto LABEL_56;
       }
@@ -221,28 +218,28 @@ LABEL_52:
 LABEL_53:
     __break(1u);
 LABEL_54:
-    specialized _copyCollectionToContiguousArray<A>(_:)(v10, v10 + 32, i, (2 * v13) | 1);
-    v40 = v39;
+    specialized _copyCollectionToContiguousArray<A>(_:)(v9, v9 + 32, i, (2 * v12) | 1);
+    v38 = v37;
 
-    v16 = *(v40 + 16);
-    v10 = v40;
+    v15 = *(v38 + 16);
+    v9 = v38;
   }
 
-  v18 = MEMORY[0x1E69E7CC0];
-  v13 = MEMORY[0x1E69E7CC0];
+  v17 = MEMORY[0x1E69E7CC0];
+  v12 = MEMORY[0x1E69E7CC0];
 LABEL_56:
-  v62 = v13;
-  v41 = v66;
-  v42 = *((*v9 & *v66) + 0xA8);
-  if ((v42)())
+  v60 = v12;
+  v39 = v64;
+  v40 = *((*v8 & *v64) + 0xA8);
+  if ((v40)())
   {
 
-    v44 = v64;
-    v45 = v41;
-    v46 = (v64)(v43);
-    v47 = j;
-    v61 = j + v46;
-    if (__OFADD__(j, v46))
+    v42 = v62;
+    v43 = v39;
+    v44 = (v62)(v41);
+    v45 = j;
+    v59 = j + v44;
+    if (__OFADD__(j, v44))
     {
 LABEL_84:
       __break(1u);
@@ -250,35 +247,35 @@ LABEL_84:
 
     else
     {
-      v48 = v44();
-      v49 = __OFADD__(v47, v48);
-      v47 += v48;
-      if (!v49)
+      v46 = v42();
+      v47 = __OFADD__(v45, v46);
+      v45 += v46;
+      if (!v47)
       {
-        v50 = (*((*v9 & *v41) + 0xF0))();
-        v49 = __OFADD__(v47, v50);
-        v47 += v50;
-        if (!v49)
+        v48 = (*((*v8 & *v39) + 0xF0))();
+        v47 = __OFADD__(v45, v48);
+        v45 += v48;
+        if (!v47)
         {
-          v45 = v61;
-          v51 = v47 - v61;
-          if (v47 >= v61)
+          v43 = v59;
+          v49 = v45 - v59;
+          if (v45 >= v59)
           {
-            v52 = (v42)();
-            if (!v52)
+            v50 = (v40)();
+            if (!v50)
             {
               __break(1u);
               goto LABEL_92;
             }
 
-            v42 = v52;
+            v40 = v50;
 
-            if ((v45 & 0x8000000000000000) == 0)
+            if ((v43 & 0x8000000000000000) == 0)
             {
-              v55 = *(v42 + 16);
-              if (v55 >= v45 && v55 >= v47)
+              v53 = *(v40 + 16);
+              if (v53 >= v43 && v53 >= v45)
               {
-                if (v55 == v51)
+                if (v53 == v49)
                 {
                   goto LABEL_68;
                 }
@@ -289,17 +286,17 @@ LABEL_84:
 LABEL_89:
               __break(1u);
 LABEL_90:
-              specialized _copyCollectionToContiguousArray<A>(_:)(v42, v42 + 32, v45, (2 * v47) | 1);
-              v60 = v59;
+              specialized _copyCollectionToContiguousArray<A>(_:)(v40, v40 + 32, v43, (2 * v45) | 1);
+              v58 = v57;
 
-              v55 = *(v60 + 16);
-              v42 = v60;
+              v53 = *(v58 + 16);
+              v40 = v58;
 LABEL_68:
-              v57 = 0;
-              v47 = 3741319169;
-              while (v55 != v57)
+              v55 = 0;
+              v45 = 3741319169;
+              while (v53 != v55)
               {
-                if (v57 >= *(v42 + 16))
+                if (v55 >= *(v40 + 16))
                 {
                   __break(1u);
 LABEL_81:
@@ -311,24 +308,24 @@ LABEL_83:
                   goto LABEL_84;
                 }
 
-                v58 = *(v42 + 4 * v57 + 32);
-                if ((LODWORD(v58) & 0x7FFFFFFFu) > 0x7F7FFFFF)
+                v56 = *(v40 + 4 * v55 + 32);
+                if ((LODWORD(v56) & 0x7FFFFFFFu) > 0x7F7FFFFF)
                 {
                   goto LABEL_81;
                 }
 
-                if (v58 <= -9.2234e18)
+                if (v56 <= -9.2234e18)
                 {
                   goto LABEL_82;
                 }
 
-                if (v58 >= 9.2234e18)
+                if (v56 >= 9.2234e18)
                 {
                   goto LABEL_83;
                 }
 
-                ++v57;
-                if ((*((*v9 & *v66) + 0x138))() == v58)
+                ++v55;
+                if ((*((*v8 & *v64) + 0x138))() == v56)
                 {
 
                   goto LABEL_76;
@@ -358,16 +355,16 @@ LABEL_86:
     goto LABEL_86;
   }
 
-  v42 = MEMORY[0x1E69E7CC0];
+  v40 = MEMORY[0x1E69E7CC0];
 LABEL_78:
-  v52 = v62;
+  v50 = v60;
 LABEL_79:
-  v53 = v18;
-  v54 = v42;
+  v51 = v17;
+  v52 = v40;
 LABEL_92:
-  result._2._rawValue = v54;
-  result._1._rawValue = v53;
-  result._0._rawValue = v52;
+  result._2._rawValue = v52;
+  result._1._rawValue = v51;
+  result._0._rawValue = v50;
   return result;
 }
 
@@ -383,13 +380,6 @@ uint64_t DataSetFeatureMatrix.inputSteps.getter()
   v1 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge20DataSetFeatureMatrix_inputSteps;
   swift_beginAccess();
   return *(v0 + v1);
-}
-
-uint64_t DataSetFeatureMatrix.x.getter()
-{
-  v1 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge20DataSetFeatureMatrix_x;
-  swift_beginAccess();
-  v2 = *(v0 + v1);
 }
 
 void specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
@@ -879,13 +869,6 @@ void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
   return v16;
 }
 
-uint64_t DataSetFeatureMatrix.y.getter()
-{
-  v1 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge20DataSetFeatureMatrix_y;
-  swift_beginAccess();
-  v2 = *(v0 + v1);
-}
-
 uint64_t DataSetFeatureMatrix.outputSteps.getter()
 {
   v1 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge20DataSetFeatureMatrix_outputSteps;
@@ -893,7 +876,7 @@ uint64_t DataSetFeatureMatrix.outputSteps.getter()
   return *(v0 + v1);
 }
 
-uint64_t lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -1106,7 +1089,7 @@ uint64_t DataSetFeatureMatrix.outputShape.getter()
   return *(v0 + v1);
 }
 
-size_t specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(size_t result, int64_t a2, char a3, void *a4)
+void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4)
 {
   v5 = result;
   if (a3)
@@ -1166,7 +1149,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v12 == 0x8000000000000000 && v11 == -1)
+  if ((result - v12) == 0x8000000000000000 && v11 == -1)
   {
     goto LABEL_29;
   }
@@ -1231,7 +1214,6 @@ uint64_t outlined destroy of OneHotEncoder<String>.Transformer?(uint64_t a1, uin
 
 uint64_t sub_1CEE7729C()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x1EEE6BDD0](v0, 32, 7);
 }
@@ -1324,24 +1306,16 @@ uint64_t key path getter for DataPoint.x : DataPoint@<X0>(uint64_t a1@<X0>, uint
   return result;
 }
 
-uint64_t key path setter for DataPoint.x : DataPoint(uint64_t *a1, uint64_t a2)
+uint64_t key path setter for DataPoint.x : DataPoint(void *a1, uint64_t a2)
 {
-  v2 = *a1;
-  v3 = *(**a2 + 104);
+  v2 = *(**a2 + 104);
 
-  return v3(v4);
-}
-
-uint64_t DataPoint.x.getter()
-{
-  swift_beginAccess();
-  v1 = *(v0 + 16);
+  return v2(v3);
 }
 
 uint64_t DataPoint.x.setter(uint64_t a1)
 {
   swift_beginAccess();
-  v3 = *(v1 + 16);
   *(v1 + 16) = a1;
 }
 
@@ -1352,24 +1326,16 @@ uint64_t key path getter for DataPoint.y : DataPoint@<X0>(uint64_t a1@<X0>, uint
   return result;
 }
 
-uint64_t key path setter for DataPoint.y : DataPoint(uint64_t *a1, uint64_t a2)
+uint64_t key path setter for DataPoint.y : DataPoint(void *a1, uint64_t a2)
 {
-  v2 = *a1;
-  v3 = *(**a2 + 128);
+  v2 = *(**a2 + 128);
 
-  return v3(v4);
-}
-
-uint64_t DataPoint.y.getter()
-{
-  swift_beginAccess();
-  v1 = *(v0 + 24);
+  return v2(v3);
 }
 
 uint64_t DataPoint.y.setter(uint64_t a1)
 {
   swift_beginAccess();
-  v3 = *(v1 + 24);
   *(v1 + 24) = a1;
 }
 
@@ -1390,18 +1356,12 @@ uint64_t DataPoint.init(x:y:)(uint64_t a1, uint64_t a2)
 
 uint64_t DataPoint.deinit()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 24);
 
   return v0;
 }
 
 uint64_t DataPoint.__deallocating_deinit()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 24);
 
   return MEMORY[0x1EEE6BDC0](v0, 32, 7);
 }
@@ -1413,19 +1373,17 @@ uint64_t key path getter for DataSetFeatureMatrix.x : DataSetFeatureMatrix@<X0>(
   return result;
 }
 
-uint64_t key path setter for DataSetFeatureMatrix.x : DataSetFeatureMatrix(uint64_t *a1, void **a2)
+uint64_t key path setter for DataSetFeatureMatrix.x : DataSetFeatureMatrix(void *a1, void **a2)
 {
-  v2 = *a1;
-  v3 = *((*MEMORY[0x1E69E7D40] & **a2) + 0x98);
+  v2 = *((*MEMORY[0x1E69E7D40] & **a2) + 0x98);
 
-  return v3(v4);
+  return v2(v3);
 }
 
 uint64_t DataSetFeatureMatrix.x.setter(uint64_t a1)
 {
   v3 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge20DataSetFeatureMatrix_x;
   swift_beginAccess();
-  v4 = *(v1 + v3);
   *(v1 + v3) = a1;
 }
 
@@ -1436,19 +1394,17 @@ uint64_t key path getter for DataSetFeatureMatrix.y : DataSetFeatureMatrix@<X0>(
   return result;
 }
 
-uint64_t key path setter for DataSetFeatureMatrix.y : DataSetFeatureMatrix(uint64_t *a1, void **a2)
+uint64_t key path setter for DataSetFeatureMatrix.y : DataSetFeatureMatrix(void *a1, void **a2)
 {
-  v2 = *a1;
-  v3 = *((*MEMORY[0x1E69E7D40] & **a2) + 0xB0);
+  v2 = *((*MEMORY[0x1E69E7D40] & **a2) + 0xB0);
 
-  return v3(v4);
+  return v2(v3);
 }
 
 uint64_t DataSetFeatureMatrix.y.setter(uint64_t a1)
 {
   v3 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge20DataSetFeatureMatrix_y;
   swift_beginAccess();
-  v4 = *(v1 + v3);
   *(v1 + v3) = a1;
 }
 
@@ -1579,16 +1535,15 @@ char *DataSetFeatureMatrix.init(x:y:inputSteps:outputSteps:unknownLoiId:)(uint64
 {
   v11 = type metadata accessor for Logger();
   v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x1EEE9AC00]();
-  v15 = &v36 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge20DataSetFeatureMatrix_y;
+  MEMORY[0x1EEE9AC00](v11);
+  v14 = &v35 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge20DataSetFeatureMatrix_y;
   *&v5[OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge20DataSetFeatureMatrix_y] = 0;
   *&v5[OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge20DataSetFeatureMatrix_unknownLoiId] = a5;
   *&v5[OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge20DataSetFeatureMatrix_x] = a1;
   result = swift_beginAccess();
-  *&v5[v16] = a2;
-  v18 = a3 - 1;
+  *&v5[v15] = a2;
+  v17 = a3 - 1;
   if (__OFSUB__(a3, 1))
   {
 LABEL_37:
@@ -1596,51 +1551,51 @@ LABEL_37:
     goto LABEL_38;
   }
 
-  v19 = *(a2 + 16);
-  v20 = __OFSUB__(v19, v18);
-  v21 = v19 - v18;
-  if (v20)
+  v18 = *(a2 + 16);
+  v19 = __OFSUB__(v18, v17);
+  v20 = v18 - v17;
+  if (v19)
   {
 LABEL_38:
     __break(1u);
     goto LABEL_39;
   }
 
-  v20 = __OFSUB__(v21, a4);
-  v22 = v21 - a4;
-  if (v20)
+  v19 = __OFSUB__(v20, a4);
+  v21 = v20 - a4;
+  if (v19)
   {
 LABEL_39:
     __break(1u);
     goto LABEL_40;
   }
 
-  v37 = v12;
-  v23 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge20DataSetFeatureMatrix_nDataPoints;
-  *&v5[OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge20DataSetFeatureMatrix_nDataPoints] = v22;
-  if (v22 > 0)
+  v36 = v12;
+  v22 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge20DataSetFeatureMatrix_nDataPoints;
+  *&v5[OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge20DataSetFeatureMatrix_nDataPoints] = v21;
+  if (v21 > 0)
   {
 
 LABEL_10:
     *&v5[OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge20DataSetFeatureMatrix_inputSteps] = a3;
     *&v5[OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge20DataSetFeatureMatrix_outputSteps] = a4;
-    v28 = *(a1 + 16);
-    if (!v28)
+    v27 = *(a1 + 16);
+    if (!v27)
     {
+      v28 = 0;
       v29 = 0;
-      v30 = 0;
 LABEL_27:
 
-      if (!__OFADD__(v29, 1))
+      if (!__OFADD__(v28, 1))
       {
-        *&v5[OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge20DataSetFeatureMatrix_inputShape] = v29 + 1;
-        if (!__OFADD__(v30, 1))
+        *&v5[OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge20DataSetFeatureMatrix_inputShape] = v28 + 1;
+        if (!__OFADD__(v29, 1))
         {
-          *&v5[OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge20DataSetFeatureMatrix_outputShape] = v30 + 1;
-          v35 = type metadata accessor for DataSetFeatureMatrix();
-          v38.receiver = v5;
-          v38.super_class = v35;
-          return objc_msgSendSuper2(&v38, sel_init);
+          *&v5[OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge20DataSetFeatureMatrix_outputShape] = v29 + 1;
+          v34 = type metadata accessor for DataSetFeatureMatrix();
+          v37.receiver = v5;
+          v37.super_class = v34;
+          return objc_msgSendSuper2(&v37, sel_init);
         }
 
         goto LABEL_41;
@@ -1653,69 +1608,69 @@ LABEL_41:
       goto LABEL_42;
     }
 
-    if (v28 > *(a2 + 16))
+    if (v27 > *(a2 + 16))
     {
 LABEL_42:
       __break(1u);
       goto LABEL_43;
     }
 
+    v28 = 0;
     v29 = 0;
-    v30 = 0;
-    v31 = (a2 + 32);
-    v32 = a1 + 32;
+    v30 = (a2 + 32);
+    v31 = a1 + 32;
     while (1)
     {
-      v33 = *v31;
-      if ((*v31 & 0x7FFFFFFFu) > 0x7F7FFFFF)
+      v32 = *v30;
+      if ((*v30 & 0x7FFFFFFFu) > 0x7F7FFFFF)
       {
         break;
       }
 
-      if (v33 <= -9.2234e18)
+      if (v32 <= -9.2234e18)
       {
         goto LABEL_31;
       }
 
-      if (v33 >= 9.2234e18)
+      if (v32 >= 9.2234e18)
       {
         goto LABEL_32;
       }
 
-      if (v30 <= v33)
+      if (v29 <= v32)
       {
-        v30 = v33;
+        v29 = v32;
       }
 
-      if (!*(*v32 + 16))
+      if (!*(*v31 + 16))
       {
         goto LABEL_33;
       }
 
-      v34 = *(*v32 + 32);
-      if ((LODWORD(v34) & 0x7FFFFFFFu) > 0x7F7FFFFF)
+      v33 = *(*v31 + 32);
+      if ((LODWORD(v33) & 0x7FFFFFFFu) > 0x7F7FFFFF)
       {
         goto LABEL_34;
       }
 
-      if (v34 <= -9.2234e18)
+      if (v33 <= -9.2234e18)
       {
         goto LABEL_35;
       }
 
-      if (v34 >= 9.2234e18)
+      if (v33 >= 9.2234e18)
       {
         goto LABEL_36;
       }
 
-      if (v29 <= v34)
+      if (v28 <= v33)
       {
-        v29 = v34;
+        v28 = v33;
       }
 
-      v32 += 8;
-      ++v31;
-      if (!--v28)
+      v31 += 8;
+      ++v30;
+      if (!--v27)
       {
         goto LABEL_27;
       }
@@ -1738,15 +1693,15 @@ LABEL_36:
   }
 
   Logger.init(subsystem:category:)();
-  v24 = Logger.logObject.getter();
-  v25 = static os_log_type_t.error.getter();
-  if (!os_log_type_enabled(v24, v25))
+  v23 = Logger.logObject.getter();
+  v24 = static os_log_type_t.error.getter();
+  if (!os_log_type_enabled(v23, v24))
   {
 LABEL_9:
 
-    (*(v37 + 8))(v15, v11);
+    (*(v36 + 8))(v14, v11);
     result = swift_beginAccess();
-    *&v5[v23] = 0;
+    *&v5[v22] = 0;
     goto LABEL_10;
   }
 
@@ -1755,10 +1710,10 @@ LABEL_9:
   if (!__OFADD__(a3, a4))
   {
     *(result + 4) = a3 + a4;
-    v26 = v25;
-    v27 = result;
-    _os_log_impl(&dword_1CEE74000, v24, v26, "dataset has fewer than %ld data points", result, 0xCu);
-    MEMORY[0x1D3865FA0](v27, -1, -1);
+    v25 = v24;
+    v26 = result;
+    _os_log_impl(&dword_1CEE74000, v23, v25, "dataset has fewer than %ld data points", result, 0xCu);
+    MEMORY[0x1D3865FA0](v26, -1, -1);
     goto LABEL_9;
   }
 
@@ -1928,7 +1883,7 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance PCNeura
   return Hasher._finalize()();
 }
 
-Swift::Int specialized RawRepresentable<>.hashValue.getter()
+Swift::Int specialized RawRepresentable<>.hashValue.getter(unsigned __int8 a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -1936,15 +1891,15 @@ Swift::Int specialized RawRepresentable<>.hashValue.getter()
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PCNeuralNetworkTrainingResultCode()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PCNeuralNetworkTrainingResultCode(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x1D38655B0](v1);
+  MEMORY[0x1D38655B0](v2);
   return Hasher._finalize()();
 }
 
-Swift::Int specialized RawRepresentable<>._rawHashValue(seed:)()
+Swift::Int specialized RawRepresentable<>._rawHashValue(seed:)(uint64_t a1, unsigned __int8 a2)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -1952,7 +1907,7 @@ Swift::Int specialized RawRepresentable<>._rawHashValue(seed:)()
   return Hasher._finalize()();
 }
 
-uint64_t *protocol witness for RawRepresentable.init(rawValue:) in conformance PCNeuralNetworkTrainingResultCode@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+unint64_t *protocol witness for RawRepresentable.init(rawValue:) in conformance PCNeuralNetworkTrainingResultCode@<X0>(unint64_t *result@<X0>, uint64_t a2@<X8>)
 {
   v2 = *result;
   v3 = *result > 2;
@@ -2126,11 +2081,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance NeuralN
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NeuralNetConfig.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NeuralNetConfig.CodingKeys(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x1D38655B0](v1);
+  MEMORY[0x1D38655B0](v2);
   return Hasher._finalize()();
 }
 
@@ -2172,10 +2127,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance Neural
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance NeuralNetConfig.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance NeuralNetConfig.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized NeuralNetConfig.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized NeuralNetConfig.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -2198,49 +2153,45 @@ uint64_t NeuralNetConfig.encode(to:)(void *a1)
   v3 = v1;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy28PCNeuralNetworkSupportBridge15NeuralNetConfigC10CodingKeys33_5E3324A45488CAD9EFDF1E72CC9262A7LLOGMd, &_ss22KeyedEncodingContainerVy28PCNeuralNetworkSupportBridge15NeuralNetConfigC10CodingKeys33_5E3324A45488CAD9EFDF1E72CC9262A7LLOGMR);
   v6 = *(v5 - 8);
-  v7 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00]();
-  v9 = &v19[-v8];
-  v10 = a1[4];
+  MEMORY[0x1EEE9AC00](v5);
+  v8 = &v17[-v7];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type NeuralNetConfig.CodingKeys and conformance NeuralNetConfig.CodingKeys();
-  v11 = dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v12 = MEMORY[0x1E69E7D40];
-  (*((*MEMORY[0x1E69E7D40] & *v3) + 0x80))(v11);
-  v19[15] = 0;
-  v13 = KeyedEncodingContainer.encode(_:forKey:)();
+  v9 = dispatch thunk of Encoder.container<A>(keyedBy:)();
+  v10 = MEMORY[0x1E69E7D40];
+  (*((*MEMORY[0x1E69E7D40] & *v3) + 0x80))(v9);
+  v17[15] = 0;
+  v11 = KeyedEncodingContainer.encode(_:forKey:)();
   if (!v2)
   {
-    (*((*v12 & *v3) + 0x98))(v13);
-    v19[14] = 1;
+    (*((*v10 & *v3) + 0x98))(v11);
+    v17[14] = 1;
+    v12 = KeyedEncodingContainer.encode(_:forKey:)();
+    (*((*v10 & *v3) + 0xB0))(v12);
+    v17[13] = 2;
+    v13 = KeyedEncodingContainer.encode(_:forKey:)();
+    (*((*v10 & *v3) + 0xC8))(v13);
+    v17[12] = 3;
     v14 = KeyedEncodingContainer.encode(_:forKey:)();
-    (*((*v12 & *v3) + 0xB0))(v14);
-    v19[13] = 2;
+    (*((*v10 & *v3) + 0xE0))(v14);
+    v17[11] = 4;
     v15 = KeyedEncodingContainer.encode(_:forKey:)();
-    (*((*v12 & *v3) + 0xC8))(v15);
-    v19[12] = 3;
-    v16 = KeyedEncodingContainer.encode(_:forKey:)();
-    (*((*v12 & *v3) + 0xE0))(v16);
-    v19[11] = 4;
-    v17 = KeyedEncodingContainer.encode(_:forKey:)();
-    (*((*v12 & *v3) + 0xF8))(v17);
-    v19[10] = 5;
+    (*((*v10 & *v3) + 0xF8))(v15);
+    v17[10] = 5;
     KeyedEncodingContainer.encode(_:forKey:)();
   }
 
-  return (*(v6 + 8))(v9, v5);
+  return (*(v6 + 8))(v8, v5);
 }
 
-char *NeuralNetConfig.init(from:)(uint64_t *a1)
+char *NeuralNetConfig.init(from:)(void *a1)
 {
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy28PCNeuralNetworkSupportBridge15NeuralNetConfigC10CodingKeys33_5E3324A45488CAD9EFDF1E72CC9262A7LLOGMd, &_ss22KeyedDecodingContainerVy28PCNeuralNetworkSupportBridge15NeuralNetConfigC10CodingKeys33_5E3324A45488CAD9EFDF1E72CC9262A7LLOGMR);
-  v4 = *(v16 - 8);
-  v5 = (*(v4 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00]();
-  v7 = &v13 - v6;
-  v8 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge15NeuralNetConfig_unknownLoiID;
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy28PCNeuralNetworkSupportBridge15NeuralNetConfigC10CodingKeys33_5E3324A45488CAD9EFDF1E72CC9262A7LLOGMd, &_ss22KeyedDecodingContainerVy28PCNeuralNetworkSupportBridge15NeuralNetConfigC10CodingKeys33_5E3324A45488CAD9EFDF1E72CC9262A7LLOGMR);
+  v4 = *(v14 - 8);
+  MEMORY[0x1EEE9AC00](v14);
+  v6 = &v11 - v5;
+  v7 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge15NeuralNetConfig_unknownLoiID;
   *(v1 + OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge15NeuralNetConfig_unknownLoiID) = -1;
-  v9 = a1[4];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type NeuralNetConfig.CodingKeys and conformance NeuralNetConfig.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -2253,29 +2204,29 @@ char *NeuralNetConfig.init(from:)(uint64_t *a1)
 
   else
   {
-    v15 = 0;
+    v13 = 0;
     *(v1 + OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge15NeuralNetConfig_batchSize) = KeyedDecodingContainer.decode(_:forKey:)();
-    v15 = 1;
+    v13 = 1;
     *(v1 + OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge15NeuralNetConfig_outSteps) = KeyedDecodingContainer.decode(_:forKey:)();
-    v15 = 2;
+    v13 = 2;
     *(v1 + OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge15NeuralNetConfig_hiddenLayerSize) = KeyedDecodingContainer.decode(_:forKey:)();
-    v15 = 3;
+    v13 = 3;
     *(v1 + OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge15NeuralNetConfig_epochs) = KeyedDecodingContainer.decode(_:forKey:)();
-    v15 = 4;
+    v13 = 4;
     *(v1 + OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge15NeuralNetConfig_trainOnGpu) = KeyedDecodingContainer.decode(_:forKey:)() & 1;
-    v15 = 5;
-    v11 = KeyedDecodingContainer.decode(_:forKey:)();
+    v13 = 5;
+    v9 = KeyedDecodingContainer.decode(_:forKey:)();
     swift_beginAccess();
-    *&v8[v1] = v11;
-    v12 = type metadata accessor for NeuralNetConfig();
-    v14.receiver = v1;
-    v14.super_class = v12;
-    v8 = objc_msgSendSuper2(&v14, sel_init);
-    (*(v4 + 8))(v7, v16);
+    *&v7[v1] = v9;
+    v10 = type metadata accessor for NeuralNetConfig();
+    v12.receiver = v1;
+    v12.super_class = v10;
+    v7 = objc_msgSendSuper2(&v12, sel_init);
+    (*(v4 + 8))(v6, v14);
     __swift_destroy_boxed_opaque_existential_1Tm(a1);
   }
 
-  return v8;
+  return v7;
 }
 
 uint64_t protocol witness for Decodable.init(from:) in conformance NeuralNetConfig@<X0>(uint64_t *a1@<X8>)
@@ -2291,64 +2242,60 @@ uint64_t protocol witness for Decodable.init(from:) in conformance NeuralNetConf
 
 uint64_t closure #1 in variable initialization expression of PCNeuralNetModel.model@<X0>(uint64_t a1@<X8>)
 {
-  v34 = a1;
-  v1 = *(*(type metadata accessor for TensorShape() - 8) + 64);
-  MEMORY[0x1EEE9AC00]();
-  v31 = &v25 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v33 = type metadata accessor for Reshape();
-  v3 = *(*(v33 - 8) + 64);
-  MEMORY[0x1EEE9AC00]();
-  v28 = &v25 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v30 = type metadata accessor for Dense();
-  v32 = *(v30 - 8);
-  v5 = *(v32 + 64);
-  MEMORY[0x1EEE9AC00]();
-  v7 = &v25 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v27 = type metadata accessor for ReLU();
-  v29 = *(v27 - 8);
-  v8 = *(v29 + 64);
-  MEMORY[0x1EEE9AC00]();
-  v10 = &v25 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks13ComputeDeviceVSgMd, &_s14NeuralNetworks13ComputeDeviceVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00]();
-  v13 = &v25 - v12;
-  v26 = type metadata accessor for Conv1D();
-  v14 = *(v26 - 8);
-  v15 = *(v14 + 64);
-  MEMORY[0x1EEE9AC00]();
-  v17 = &v25 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v30 = a1;
+  v1 = type metadata accessor for TensorShape();
+  MEMORY[0x1EEE9AC00](v1 - 8);
+  v27 = &v21 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v29 = type metadata accessor for Reshape();
+  MEMORY[0x1EEE9AC00](v29);
+  v24 = &v21 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v26 = type metadata accessor for Dense();
+  v28 = *(v26 - 8);
+  MEMORY[0x1EEE9AC00](v26);
+  v5 = &v21 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = type metadata accessor for ReLU();
+  v25 = *(v23 - 8);
+  MEMORY[0x1EEE9AC00](v23);
+  v7 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks13ComputeDeviceVSgMd, &_s14NeuralNetworks13ComputeDeviceVSgMR);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v10 = &v21 - v9;
+  v22 = type metadata accessor for Conv1D();
+  v11 = *(v22 - 8);
+  MEMORY[0x1EEE9AC00](v22);
+  v13 = &v21 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for ParameterInitializer();
-  v18 = type metadata accessor for ComputeDevice();
-  v19 = *(*(v18 - 8) + 56);
-  v19(v13, 1, 1, v18);
+  v14 = type metadata accessor for ComputeDevice();
+  v15 = *(*(v14 - 8) + 56);
+  v15(v10, 1, 1, v14);
   static ParameterInitializer.glorotUniform(seed:scalarType:on:)();
-  outlined destroy of OneHotEncoder<String>.Transformer?(v13, &_s14NeuralNetworks13ComputeDeviceVSgMd, &_s14NeuralNetworks13ComputeDeviceVSgMR);
+  outlined destroy of OneHotEncoder<String>.Transformer?(v10, &_s14NeuralNetworks13ComputeDeviceVSgMd, &_s14NeuralNetworks13ComputeDeviceVSgMR);
   static ParameterInitializer.zeros.getter();
   Conv1D.init(filterCount:kernelSize:stride:padding:dilation:groupCount:weightInitializer:biasInitializer:)();
   ReLU.init()();
   Flatten.init()();
-  v19(v13, 1, 1, v18);
+  v15(v10, 1, 1, v14);
   static ParameterInitializer.glorotUniform(seed:scalarType:on:)();
-  outlined destroy of OneHotEncoder<String>.Transformer?(v13, &_s14NeuralNetworks13ComputeDeviceVSgMd, &_s14NeuralNetworks13ComputeDeviceVSgMR);
+  outlined destroy of OneHotEncoder<String>.Transformer?(v10, &_s14NeuralNetworks13ComputeDeviceVSgMd, &_s14NeuralNetworks13ComputeDeviceVSgMR);
   static ParameterInitializer.zeros.getter();
   Dense.init(unitCount:weightInitializer:biasInitializer:)();
   MEMORY[0x1D3865040](&outlined read-only object #0 of closure #1 in variable initialization expression of PCNeuralNetModel.model);
-  v20 = v28;
+  v16 = v24;
   Reshape.init(_:)();
-  v21 = v30;
-  v23 = v26;
-  v22 = v27;
+  v17 = v26;
+  v19 = v22;
+  v18 = v23;
   static SequentialBuilder.buildBlock<A, B, C, D, E>(_:_:_:_:_:)();
-  outlined destroy of Reshape(v20);
-  (*(v32 + 8))(v7, v21);
-  (*(v29 + 8))(v10, v22);
-  return (*(v14 + 8))(v17, v23);
+  outlined destroy of Reshape(v16);
+  (*(v28 + 8))(v5, v17);
+  (*(v25 + 8))(v7, v18);
+  return (*(v11 + 8))(v13, v19);
 }
 
 uint64_t key path setter for PCNeuralNetModel.model : PCNeuralNetModel(uint64_t a1, void **a2)
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMd, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00]();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMd, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMR);
+  MEMORY[0x1EEE9AC00](v4);
   v6 = &v9 - v5;
   (*(v7 + 16))(&v9 - v5, a1);
   return (*((*MEMORY[0x1E69E7D40] & **a2) + 0x98))(v6);
@@ -2380,8 +2327,8 @@ void PCNeuralNetModel.config.setter(uint64_t a1)
 
 uint64_t key path setter for PCNeuralNetModel.encoderAsTransformer : PCNeuralNetModel(uint64_t a1, void **a2)
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00]();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMR);
+  MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v8 - v5;
   outlined init with copy of OneHotEncoder<String>.Transformer?(a1, &v8 - v5, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMR);
   return (*((*MEMORY[0x1E69E7D40] & **a2) + 0xC8))(v6);
@@ -2389,8 +2336,8 @@ uint64_t key path setter for PCNeuralNetModel.encoderAsTransformer : PCNeuralNet
 
 uint64_t key path setter for PCNeuralNetModel.labelEncoderAsTransformer : PCNeuralNetModel(uint64_t a1, void **a2)
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00]();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR);
+  MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v8 - v5;
   outlined init with copy of OneHotEncoder<String>.Transformer?(a1, &v8 - v5, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR);
   return (*((*MEMORY[0x1E69E7D40] & **a2) + 0xE0))(v6);
@@ -2497,7 +2444,7 @@ id PCNeuralNetModel.init(config:)(uint64_t a1)
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMd, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMR);
   type metadata accessor for Reshape();
-  lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMd, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMR);
+  lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMd, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMR, MEMORY[0x1E69B37E8]);
   Sequential.init(layers:)();
   v3 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_encoderAsTransformer;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GMR);
@@ -2512,15 +2459,12 @@ id PCNeuralNetModel.init(config:)(uint64_t a1)
   *&v1[v7] = [objc_allocWithZone(MEMORY[0x1E696AD10]) init];
   *&v1[OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_config] = a1;
   v9.receiver = v1;
-  v9.super_class = type metadata accessor for PCNeuralNetModel();
+  v9.super_class = type metadata accessor for PCNeuralNetModel(0);
   return objc_msgSendSuper2(&v9, sel_init);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance PCNeuralNetModel.CodingKeys()
+uint64_t protocol witness for Hashable.hash(into:) in conformance PCNeuralNetModel.CodingKeys(uint64_t a1)
 {
-  *v0;
-  *v0;
-  *v0;
   String.hash(into:)();
 }
 
@@ -2644,89 +2588,85 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x1EEE6BB78](a1, v2);
 }
 
-id PCNeuralNetModel.init(from:)(uint64_t a1, unint64_t a2)
+id PCNeuralNetModel.init(from:)(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
-  v52 = a1;
+  v47 = a1;
   v5 = type metadata accessor for Logger();
-  v47 = *(v5 - 8);
-  v48 = v5;
-  v6 = *(v47 + 64);
-  MEMORY[0x1EEE9AC00]();
-  v7 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00]();
-  v46 = &v41 - v8;
-  v9 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00]();
-  v45 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMd, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMR);
-  v12 = *(v11 - 8);
-  v49 = v11;
-  v50 = v12;
-  v13 = (*(v12 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00]();
-  v42 = &v41 - v14;
-  v15 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_model;
+  v42 = *(v5 - 8);
+  v43 = v5;
+  MEMORY[0x1EEE9AC00](v5);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v41 = &v36 - v7;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMR);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v40 = &v36 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMd, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMR);
+  v11 = *(v10 - 8);
+  v44 = v10;
+  v45 = v11;
+  MEMORY[0x1EEE9AC00](v10);
+  v37 = &v36 - v12;
+  v13 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_model;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMd, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMR);
   type metadata accessor for Reshape();
-  lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMd, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMR);
-  v16 = a2;
+  lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMd, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMR, MEMORY[0x1E69B37E8]);
+  v14 = a2;
   Sequential.init(layers:)();
-  v17 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_encoderAsTransformer;
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GMR);
+  v15 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_encoderAsTransformer;
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GMR);
+  (*(*(v16 - 8) + 56))(&v2[v15], 1, 1, v16);
+  v17 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_labelEncoderAsTransformer;
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMR);
   (*(*(v18 - 8) + 56))(&v2[v17], 1, 1, v18);
-  v19 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_labelEncoderAsTransformer;
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMR);
-  (*(*(v20 - 8) + 56))(&v2[v19], 1, 1, v20);
-  v43 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_inputShape;
+  v38 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_inputShape;
   *&v2[OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_inputShape] = 0;
-  v44 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_modelHasBeenTrained;
+  v39 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_modelHasBeenTrained;
   v2[OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_modelHasBeenTrained] = 0;
   v2[OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_shouldInterruptTraining] = 0;
-  v21 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_lock;
-  *&v2[v21] = [objc_allocWithZone(MEMORY[0x1E696AD10]) init];
-  v22 = type metadata accessor for JSONDecoder();
-  v23 = *(v22 + 48);
-  v24 = *(v22 + 52);
+  v19 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_lock;
+  *&v2[v19] = [objc_allocWithZone(MEMORY[0x1E696AD10]) init];
+  type metadata accessor for JSONDecoder();
   swift_allocObject();
   JSONDecoder.init()();
   swift_getObjectType();
-  v25 = type metadata accessor for PCNeuralNetModel();
-  lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type PCNeuralNetModel and conformance PCNeuralNetModel, 255, type metadata accessor for PCNeuralNetModel);
-  v51 = v16;
-  v26 = dispatch thunk of JSONDecoder.decode<A>(_:from:)();
-  v27 = v54;
-  v28 = MEMORY[0x1E69E7D40];
-  v29 = v42;
-  (*((*MEMORY[0x1E69E7D40] & *v54) + 0x90))(v26);
+  v20 = type metadata accessor for PCNeuralNetModel(0);
+  lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type PCNeuralNetModel and conformance PCNeuralNetModel, 255, type metadata accessor for PCNeuralNetModel, &protocol conformance descriptor for PCNeuralNetModel);
+  v46 = v14;
+  v21 = dispatch thunk of JSONDecoder.decode<A>(_:from:)();
+  v22 = v49;
+  v23 = MEMORY[0x1E69E7D40];
+  v24 = v37;
+  (*((*MEMORY[0x1E69E7D40] & *v49) + 0x90))(v21);
   swift_beginAccess();
-  (*(v50 + 40))(&v3[v15], v29, v49);
-  v30 = swift_endAccess();
-  v31 = v45;
-  (*((*v28 & *v27) + 0xC0))(v30);
+  (*(v45 + 40))(&v3[v13], v24, v44);
+  v25 = swift_endAccess();
+  v26 = v40;
+  (*((*v23 & *v22) + 0xC0))(v25);
   swift_beginAccess();
-  outlined assign with take of OneHotEncoder<String>.Transformer?(v31, &v3[v17], &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMR);
-  v32 = swift_endAccess();
-  v33 = v46;
-  (*((*v28 & *v27) + 0xD8))(v32);
+  outlined assign with take of OneHotEncoder<String>.Transformer?(v26, &v3[v15], &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMR);
+  v27 = swift_endAccess();
+  v28 = v41;
+  (*((*v23 & *v22) + 0xD8))(v27);
   swift_beginAccess();
-  outlined assign with take of OneHotEncoder<String>.Transformer?(v33, &v3[v19], &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR);
-  v34 = swift_endAccess();
-  *&v3[OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_config] = (*((*v28 & *v27) + 0xA8))(v34);
-  v35 = (*((*v28 & *v27) + 0xF0))();
-  v36 = v43;
-  v37 = swift_beginAccess();
-  *&v3[v36] = v35;
-  LOBYTE(v35) = (*((*v28 & *v27) + 0x108))(v37);
+  outlined assign with take of OneHotEncoder<String>.Transformer?(v28, &v3[v17], &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR);
+  v29 = swift_endAccess();
+  *&v3[OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_config] = (*((*v23 & *v22) + 0xA8))(v29);
+  v30 = (*((*v23 & *v22) + 0xF0))();
+  v31 = v38;
+  v32 = swift_beginAccess();
+  *&v3[v31] = v30;
+  LOBYTE(v30) = (*((*v23 & *v22) + 0x108))(v32);
 
-  v38 = v44;
+  v33 = v39;
   swift_beginAccess();
-  v3[v38] = v35 & 1;
-  v53.receiver = v3;
-  v53.super_class = v25;
-  v39 = objc_msgSendSuper2(&v53, sel_init);
-  outlined consume of Data._Representation(v52, v51);
-  return v39;
+  v3[v33] = v30 & 1;
+  v48.receiver = v3;
+  v48.super_class = v20;
+  v34 = objc_msgSendSuper2(&v48, sel_init);
+  outlined consume of Data._Representation(v47, v46);
+  return v34;
 }
 
 void PCNeuralNetModel.interruptTraining()(uint64_t a1, const char *a2)
@@ -2734,43 +2674,40 @@ void PCNeuralNetModel.interruptTraining()(uint64_t a1, const char *a2)
   v5 = v2;
   v6 = type metadata accessor for Logger();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = MEMORY[0x1EEE9AC00]();
-  v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = MEMORY[0x1E69E7D40];
-  v13 = *((*MEMORY[0x1E69E7D40] & *v2) + 0x138);
-  v14 = v13(v9);
-  [v14 lock];
+  v8 = MEMORY[0x1EEE9AC00](v6);
+  v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = MEMORY[0x1E69E7D40];
+  v12 = *((*MEMORY[0x1E69E7D40] & *v2) + 0x138);
+  v13 = v12(v8);
+  [v13 lock];
 
-  (*((*v12 & *v5) + 0x128))(a1);
+  (*((*v11 & *v5) + 0x128))(a1);
   Logger.init(subsystem:category:)();
-  v15 = Logger.logObject.getter();
-  v16 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v15, v16))
+  v14 = Logger.logObject.getter();
+  v15 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v14, v15))
   {
-    v17 = swift_slowAlloc();
-    *v17 = 0;
-    _os_log_impl(&dword_1CEE74000, v15, v16, a2, v17, 2u);
-    MEMORY[0x1D3865FA0](v17, -1, -1);
+    v16 = swift_slowAlloc();
+    *v16 = 0;
+    _os_log_impl(&dword_1CEE74000, v14, v15, a2, v16, 2u);
+    MEMORY[0x1D3865FA0](v16, -1, -1);
   }
 
-  v18 = (*(v7 + 8))(v11, v6);
-  v19 = v13(v18);
-  [v19 unlock];
+  v17 = (*(v7 + 8))(v10, v6);
+  v18 = v12(v17);
+  [v18 unlock];
 }
 
 uint64_t PCNeuralNetModel.getEncodedModel()()
 {
-  v0 = type metadata accessor for JSONEncoder();
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
+  type metadata accessor for JSONEncoder();
   swift_allocObject();
   JSONEncoder.init()();
-  type metadata accessor for PCNeuralNetModel();
-  lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type PCNeuralNetModel and conformance PCNeuralNetModel, 255, type metadata accessor for PCNeuralNetModel);
-  v3 = dispatch thunk of JSONEncoder.encode<A>(_:)();
+  type metadata accessor for PCNeuralNetModel(0);
+  lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type PCNeuralNetModel and conformance PCNeuralNetModel, 255, type metadata accessor for PCNeuralNetModel, &protocol conformance descriptor for PCNeuralNetModel);
+  v0 = dispatch thunk of JSONEncoder.encode<A>(_:)();
 
-  return v3;
+  return v0;
 }
 
 uint64_t PCNeuralNetModel.encodeWithLabelEncoder(array:)(uint64_t a1)
@@ -2779,13 +2716,11 @@ uint64_t PCNeuralNetModel.encodeWithLabelEncoder(array:)(uint64_t a1)
   v2[6] = v1;
   v3 = type metadata accessor for Logger();
   v2[7] = v3;
-  v4 = *(v3 - 8);
-  v2[8] = v4;
-  v5 = *(v4 + 64) + 15;
+  v2[8] = *(v3 - 8);
   v2[9] = swift_task_alloc();
   v2[10] = swift_task_alloc();
   v2[11] = swift_task_alloc();
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR);
   v2[12] = swift_task_alloc();
   v2[13] = swift_task_alloc();
   v2[14] = swift_task_alloc();
@@ -2796,191 +2731,176 @@ uint64_t PCNeuralNetModel.encodeWithLabelEncoder(array:)(uint64_t a1)
 
 uint64_t PCNeuralNetModel.encodeWithLabelEncoder(array:)()
 {
-  v106 = v0;
+  v88 = v0;
   v1 = *(v0 + 120);
-  v103 = *((*MEMORY[0x1E69E7D40] & **(v0 + 48)) + 0xD8);
-  v103();
+  v85 = *((*MEMORY[0x1E69E7D40] & **(v0 + 48)) + 0xD8);
+  v85();
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMR);
   *(v0 + 128) = v2;
   v3 = *(v2 - 8);
   *(v0 + 136) = v3;
-  v102 = *(v3 + 48);
-  v4 = v102(v1, 1, v2);
+  v84 = *(v3 + 48);
+  v4 = v84(v1, 1, v2);
   isUniquelyReferenced_nonNull_native = outlined destroy of OneHotEncoder<String>.Transformer?(v1, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR);
   if (v4 == 1)
   {
-    v6 = *(v0 + 88);
     Logger.init(subsystem:category:)();
-    v7 = Logger.logObject.getter();
-    v8 = static os_log_type_t.error.getter();
-    v9 = os_log_type_enabled(v7, v8);
-    v10 = *(v0 + 88);
-    v11 = *(v0 + 56);
-    v12 = *(v0 + 64);
-    if (v9)
+    v6 = Logger.logObject.getter();
+    v7 = static os_log_type_t.error.getter();
+    v8 = os_log_type_enabled(v6, v7);
+    v9 = *(v0 + 88);
+    v10 = *(v0 + 56);
+    v11 = *(v0 + 64);
+    if (v8)
     {
-      v13 = swift_slowAlloc();
-      *v13 = 0;
-      _os_log_impl(&dword_1CEE74000, v7, v8, "error: no label encoder exits", v13, 2u);
-      MEMORY[0x1D3865FA0](v13, -1, -1);
+      v12 = swift_slowAlloc();
+      *v12 = 0;
+      _os_log_impl(&dword_1CEE74000, v6, v7, "error: no label encoder exits", v12, 2u);
+      MEMORY[0x1D3865FA0](v12, -1, -1);
     }
 
-    (*(v12 + 8))(v10, v11);
-    v14 = 0;
+    (*(v11 + 8))(v9, v10);
+    v13 = 0;
 LABEL_53:
-    v88 = *(v0 + 112);
-    v87 = *(v0 + 120);
-    v90 = *(v0 + 96);
-    v89 = *(v0 + 104);
-    v92 = *(v0 + 80);
-    v91 = *(v0 + 88);
-    v93 = *(v0 + 72);
 
-    v94 = *(v0 + 8);
+    v76 = *(v0 + 8);
 
-    return v94(v14);
+    return v76(v13);
   }
 
-  v15 = *(v0 + 40);
-  v100 = v0;
-  v98 = *(v15 + 16);
-  if (!v98)
+  v14 = *(v0 + 40);
+  v82 = v0;
+  v80 = *(v14 + 16);
+  if (!v80)
   {
-    v17 = MEMORY[0x1E69E7CC0];
+    v16 = MEMORY[0x1E69E7CC0];
 LABEL_46:
-    *(v0 + 144) = v17;
-    v70 = *(v0 + 96);
-    v71 = *(v0 + 48);
-    (v103)(isUniquelyReferenced_nonNull_native);
-    v25 = v102(v70, 1, v2);
-    if (v25 == 1)
+    *(v0 + 144) = v16;
+    v64 = *(v0 + 96);
+    (v85)(isUniquelyReferenced_nonNull_native);
+    v23 = v84(v64, 1, v2);
+    if (v23 == 1)
     {
       goto LABEL_58;
     }
 
-    v73 = specialized _arrayForceCast<A, B>(_:)(v72);
-    *(v0 + 152) = v73;
+    v66 = specialized _arrayForceCast<A, B>(_:)(v65);
+    *(v0 + 152) = v66;
 
-    v74 = *(v73 + 16);
-    *(v0 + 160) = v74;
-    v75 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v74, 0, MEMORY[0x1E69E7CC0]);
-    v14 = v75;
-    if (v74)
+    v67 = *(v66 + 16);
+    *(v0 + 160) = v67;
+    v68 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v67, 0, MEMORY[0x1E69E7CC0]);
+    v13 = v68;
+    if (v67)
     {
-      *(v0 + 168) = v75;
+      *(v0 + 168) = v68;
       *(v0 + 176) = 0;
-      v76 = *(v0 + 152);
-      v77 = *(v76 + 40);
-      *(v0 + 184) = v77;
-      *(v0 + 16) = *(v76 + 32);
-      *(v0 + 24) = v77;
+      v69 = *(v0 + 152);
+      v70 = *(v69 + 40);
+      *(v0 + 184) = v70;
+      *(v0 + 16) = *(v69 + 32);
+      *(v0 + 24) = v70;
 
       static Task<>.checkCancellation()();
-      v83 = lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type OrdinalEncoder<String>.Transformer and conformance OrdinalEncoder<A>.Transformer, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMR);
-      v84 = *(MEMORY[0x1E69662E8] + 4);
-      v85 = swift_task_alloc();
-      *(v0 + 192) = v85;
-      *v85 = v0;
-      v85[1] = PCNeuralNetModel.encodeWithLabelEncoder(array:);
-      v29 = *(v0 + 128);
-      v86 = *(v0 + 96);
-      v25 = v0 + 32;
-      v26 = v0 + 16;
-      v27 = 0;
-      v28 = 0;
-      v30 = v83;
+      v74 = lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type OrdinalEncoder<String>.Transformer and conformance OrdinalEncoder<A>.Transformer, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMR, MEMORY[0x1E6966300]);
+      v75 = swift_task_alloc();
+      *(v0 + 192) = v75;
+      *v75 = v0;
+      v75[1] = PCNeuralNetModel.encodeWithLabelEncoder(array:);
+      v27 = *(v0 + 128);
+      v23 = v0 + 32;
+      v24 = v0 + 16;
+      v25 = 0;
+      v26 = 0;
+      v28 = v74;
 
-      return MEMORY[0x1EEDBFAF8](v25, v26, v27, v28, v29, v30);
+      return MEMORY[0x1EEDBFAF8](v23, v24, v25, v26, v27, v28);
     }
 
-    v79 = *(v0 + 144);
-    v78 = *(v0 + 152);
-    v80 = *(v0 + 128);
-    v81 = *(v0 + 136);
-    v82 = *(v0 + 96);
+    v71 = *(v0 + 128);
+    v72 = *(v0 + 136);
+    v73 = *(v0 + 96);
 
-    (*(v81 + 8))(v82, v80);
+    (*(v72 + 8))(v73, v71);
 
     goto LABEL_53;
   }
 
-  v16 = 0;
-  v97 = v15 + 32;
-  v101 = (v3 + 8);
-  v96 = (*(v0 + 64) + 8);
-  v17 = MEMORY[0x1E69E7CC0];
-  v99 = v2;
+  v15 = 0;
+  v79 = v14 + 32;
+  v83 = (v3 + 8);
+  v78 = (*(v0 + 64) + 8);
+  v16 = MEMORY[0x1E69E7CC0];
+  v81 = v2;
   while (1)
   {
-    v104 = v17;
-    v20 = *(v0 + 112);
-    v21 = *(v0 + 48);
-    v22 = (v97 + 16 * v16);
-    v23 = *v22;
-    v18 = v22[1];
+    v86 = v16;
+    v19 = *(v0 + 112);
+    v20 = (v79 + 16 * v15);
+    v21 = *v20;
+    v17 = v20[1];
 
-    (v103)(v24);
-    v25 = v102(v20, 1, v2);
-    if (v25 == 1)
+    (v85)(v22);
+    v23 = v84(v19, 1, v2);
+    if (v23 == 1)
     {
       break;
     }
 
-    v31 = *(v0 + 112);
-    v32 = OrdinalEncoder.Transformer.categories.getter();
-    v33 = *v101;
-    (*v101)(v31, v2);
-    if (*(v32 + 16))
+    v29 = *(v0 + 112);
+    v30 = OrdinalEncoder.Transformer.categories.getter();
+    v31 = *v83;
+    (*v83)(v29, v2);
+    if (*(v30 + 16))
     {
-      v34 = *(v32 + 40);
       Hasher.init(_seed:)();
       Hasher._combine(_:)(1u);
 
       String.hash(into:)();
-      v35 = Hasher._finalize()();
-      v36 = -1 << *(v32 + 32);
-      v37 = v35 & ~v36;
-      if ((*(v32 + 56 + ((v37 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v37))
+      v32 = Hasher._finalize()();
+      v33 = -1 << *(v30 + 32);
+      v34 = v32 & ~v33;
+      if ((*(v30 + 56 + ((v34 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v34))
       {
-        v38 = ~v36;
-        v39 = *(v32 + 48);
+        v35 = ~v33;
+        v36 = *(v30 + 48);
         while (1)
         {
-          v40 = (v39 + 16 * v37);
-          v41 = v40[1];
-          if (v41)
+          v37 = (v36 + 16 * v34);
+          v38 = v37[1];
+          if (v38)
           {
-            v42 = *v40 == v23 && v41 == v18;
-            if (v42 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+            v39 = *v37 == v21 && v38 == v17;
+            if (v39 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
             {
               break;
             }
           }
 
-          v37 = (v37 + 1) & v38;
-          if (((*(v32 + 56 + ((v37 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v37) & 1) == 0)
+          v34 = (v34 + 1) & v35;
+          if (((*(v30 + 56 + ((v34 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v34) & 1) == 0)
           {
             goto LABEL_24;
           }
         }
 
-        v17 = v104;
+        v16 = v86;
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
         if ((isUniquelyReferenced_nonNull_native & 1) == 0)
         {
-          isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v104 + 16) + 1, 1, v104);
-          v17 = isUniquelyReferenced_nonNull_native;
+          isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v86 + 16) + 1, 1, v86);
+          v16 = isUniquelyReferenced_nonNull_native;
         }
 
-        v2 = v99;
-        v0 = v100;
-        v44 = *(v17 + 16);
-        v43 = *(v17 + 24);
-        v45 = v44 + 1;
-        if (v44 >= v43 >> 1)
+        v2 = v81;
+        v0 = v82;
+        v41 = *(v16 + 16);
+        v40 = *(v16 + 24);
+        v42 = v41 + 1;
+        if (v41 >= v40 >> 1)
         {
-          isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v43 > 1), v44 + 1, 1, v17);
-          v17 = isUniquelyReferenced_nonNull_native;
+          isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v40 > 1), v41 + 1, 1, v16);
+          v16 = isUniquelyReferenced_nonNull_native;
         }
 
         goto LABEL_8;
@@ -2988,42 +2908,41 @@ LABEL_46:
 
 LABEL_24:
 
-      v2 = v99;
-      v0 = v100;
+      v2 = v81;
+      v0 = v82;
     }
 
-    v46 = *(v0 + 104);
-    v47 = *(v0 + 48);
+    v43 = *(v0 + 104);
 
-    (v103)(v48);
-    v25 = v102(v46, 1, v2);
-    if (v25 == 1)
+    (v85)(v44);
+    v23 = v84(v43, 1, v2);
+    if (v23 == 1)
     {
       goto LABEL_57;
     }
 
-    v49 = *(v0 + 104);
-    v50 = OrdinalEncoder.Transformer.categories.getter();
-    v33(v49, v2);
-    if (*(v50 + 16) && (v51 = *(v50 + 40), Hasher.init(_seed:)(), Hasher._combine(_:)(1u), String.hash(into:)(), v52 = Hasher._finalize()(), v53 = -1 << *(v50 + 32), v54 = v52 & ~v53, ((*(v50 + 56 + ((v54 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v54) & 1) != 0))
+    v45 = *(v0 + 104);
+    v46 = OrdinalEncoder.Transformer.categories.getter();
+    v31(v45, v2);
+    if (*(v46 + 16) && (Hasher.init(_seed:)(), Hasher._combine(_:)(1u), String.hash(into:)(), v47 = Hasher._finalize()(), v48 = -1 << *(v46 + 32), v49 = v47 & ~v48, ((*(v46 + 56 + ((v49 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v49) & 1) != 0))
     {
-      v55 = ~v53;
-      v56 = *(v50 + 48);
+      v50 = ~v48;
+      v51 = *(v46 + 48);
       while (1)
       {
-        v57 = (v56 + 16 * v54);
-        v58 = v57[1];
-        if (v58)
+        v52 = (v51 + 16 * v49);
+        v53 = v52[1];
+        if (v53)
         {
-          v59 = *v57 == 0x6E696C6576617274 && v58 == 0xE900000000000067;
-          if (v59 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+          v54 = *v52 == 0x6E696C6576617274 && v53 == 0xE900000000000067;
+          if (v54 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
           {
             break;
           }
         }
 
-        v54 = (v54 + 1) & v55;
-        if (((*(v50 + 56 + ((v54 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v54) & 1) == 0)
+        v49 = (v49 + 1) & v50;
+        if (((*(v46 + 56 + ((v49 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v49) & 1) == 0)
         {
           goto LABEL_37;
         }
@@ -3033,66 +2952,65 @@ LABEL_24:
     else
     {
 LABEL_37:
-      v60 = *(v0 + 80);
 
       Logger.init(subsystem:category:)();
 
-      v61 = Logger.logObject.getter();
-      v62 = static os_log_type_t.error.getter();
+      v55 = Logger.logObject.getter();
+      v56 = static os_log_type_t.error.getter();
 
-      v63 = os_log_type_enabled(v61, v62);
-      v64 = *(v0 + 80);
-      v65 = *(v0 + 56);
-      if (v63)
+      v57 = os_log_type_enabled(v55, v56);
+      v58 = *(v0 + 80);
+      v59 = *(v0 + 56);
+      if (v57)
       {
-        v66 = swift_slowAlloc();
-        v67 = swift_slowAlloc();
-        v105 = v67;
-        *v66 = 136315138;
-        v68 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v23, v18, &v105);
+        v60 = swift_slowAlloc();
+        v61 = swift_slowAlloc();
+        v87[0] = v61;
+        *v60 = 136315138;
+        v62 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v17, v87);
 
-        *(v66 + 4) = v68;
-        _os_log_impl(&dword_1CEE74000, v61, v62, "error: invalid loiId %s", v66, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1Tm(v67);
-        MEMORY[0x1D3865FA0](v67, -1, -1);
-        MEMORY[0x1D3865FA0](v66, -1, -1);
+        *(v60 + 4) = v62;
+        _os_log_impl(&dword_1CEE74000, v55, v56, "error: invalid loiId %s", v60, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1Tm(v61);
+        MEMORY[0x1D3865FA0](v61, -1, -1);
+        MEMORY[0x1D3865FA0](v60, -1, -1);
       }
 
       else
       {
       }
 
-      (*v96)(v64, v65);
-      v2 = v99;
-      v0 = v100;
+      (*v78)(v58, v59);
+      v2 = v81;
+      v0 = v82;
     }
 
-    v17 = v104;
+    v16 = v86;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v104 + 16) + 1, 1, v104);
-      v17 = isUniquelyReferenced_nonNull_native;
+      isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v86 + 16) + 1, 1, v86);
+      v16 = isUniquelyReferenced_nonNull_native;
     }
 
-    v44 = *(v17 + 16);
-    v69 = *(v17 + 24);
-    v45 = v44 + 1;
-    v23 = 0x6E696C6576617274;
-    if (v44 >= v69 >> 1)
+    v41 = *(v16 + 16);
+    v63 = *(v16 + 24);
+    v42 = v41 + 1;
+    v21 = 0x6E696C6576617274;
+    if (v41 >= v63 >> 1)
     {
-      isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v69 > 1), v44 + 1, 1, v17);
-      v17 = isUniquelyReferenced_nonNull_native;
+      isUniquelyReferenced_nonNull_native = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v63 > 1), v41 + 1, 1, v16);
+      v16 = isUniquelyReferenced_nonNull_native;
     }
 
-    v18 = 0xE900000000000067;
+    v17 = 0xE900000000000067;
 LABEL_8:
-    ++v16;
-    *(v17 + 16) = v45;
-    v19 = v17 + 16 * v44;
-    *(v19 + 32) = v23;
-    *(v19 + 40) = v18;
-    if (v16 == v98)
+    ++v15;
+    *(v16 + 16) = v42;
+    v18 = v16 + 16 * v41;
+    *(v18 + 32) = v21;
+    *(v18 + 40) = v17;
+    if (v15 == v80)
     {
       goto LABEL_46;
     }
@@ -3103,32 +3021,28 @@ LABEL_57:
   __break(1u);
 LABEL_58:
   __break(1u);
-  return MEMORY[0x1EEDBFAF8](v25, v26, v27, v28, v29, v30);
+  return MEMORY[0x1EEDBFAF8](v23, v24, v25, v26, v27, v28);
 }
 
 {
-  v2 = *v1;
-  v3 = *(*v1 + 192);
-  v7 = *v1;
   *(*v1 + 200) = v0;
 
   if (v0)
   {
-    v4 = *(v2 + 168);
 
-    v5 = PCNeuralNetModel.encodeWithLabelEncoder(array:);
+    v2 = PCNeuralNetModel.encodeWithLabelEncoder(array:);
   }
 
   else
   {
-    v5 = PCNeuralNetModel.encodeWithLabelEncoder(array:);
+    v2 = PCNeuralNetModel.encodeWithLabelEncoder(array:);
   }
 
-  return MEMORY[0x1EEE6DFA0](v5, 0, 0);
+  return MEMORY[0x1EEE6DFA0](v2, 0, 0);
 }
 
 {
-  v50 = v0;
+  v35 = v0;
   v1 = *(v0 + 32);
   v2 = *(v0 + 168);
   v4 = *(v2 + 2);
@@ -3138,162 +3052,135 @@ LABEL_58:
     v2 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v3 > 1), v4 + 1, 1, *(v0 + 168));
   }
 
-  v5 = *(v0 + 184);
-  v6 = *(v0 + 160);
-  v7 = *(v0 + 176) + 1;
+  v5 = *(v0 + 160);
+  v6 = *(v0 + 176) + 1;
   *(v2 + 2) = v4 + 1;
   *&v2[8 * v4 + 32] = v1;
 
-  if (v7 == v6)
+  if (v6 == v5)
   {
-    v9 = *(v0 + 144);
-    v8 = *(v0 + 152);
-    v10 = *(v0 + 128);
-    v11 = *(v0 + 136);
-    v12 = *(v0 + 96);
+    v7 = *(v0 + 128);
+    v8 = *(v0 + 136);
+    v9 = *(v0 + 96);
 
-    (*(v11 + 8))(v12, v10);
+    (*(v8 + 8))(v9, v7);
 
 LABEL_13:
-    v39 = *(v0 + 112);
-    v38 = *(v0 + 120);
-    v41 = *(v0 + 96);
-    v40 = *(v0 + 104);
-    v43 = *(v0 + 80);
-    v42 = *(v0 + 88);
-    v44 = *(v0 + 72);
 
-    v45 = *(v0 + 8);
+    v30 = *(v0 + 8);
 
-    return v45(v2);
+    return v30(v2);
   }
 
-  v13 = *(v0 + 200);
-  v14 = *(v0 + 176) + 1;
+  v10 = *(v0 + 200);
+  v11 = *(v0 + 176) + 1;
   *(v0 + 168) = v2;
-  *(v0 + 176) = v14;
-  v15 = *(v0 + 152) + 16 * v14;
-  v16 = *(v15 + 40);
-  *(v0 + 184) = v16;
-  *(v0 + 16) = *(v15 + 32);
-  *(v0 + 24) = v16;
+  *(v0 + 176) = v11;
+  v12 = *(v0 + 152) + 16 * v11;
+  v13 = *(v12 + 40);
+  *(v0 + 184) = v13;
+  *(v0 + 16) = *(v12 + 32);
+  *(v0 + 24) = v13;
 
   static Task<>.checkCancellation()();
-  if (v13)
+  if (v10)
   {
-    v17 = *(v0 + 152);
 
-    v18 = *(v0 + 72);
     (*(*(v0 + 136) + 8))(*(v0 + 96), *(v0 + 128));
     Logger.init(subsystem:category:)();
-    v19 = Logger.logObject.getter();
-    v20 = static os_log_type_t.error.getter();
-    v21 = os_log_type_enabled(v19, v20);
-    v22 = *(v0 + 144);
-    v24 = *(v0 + 64);
-    v23 = *(v0 + 72);
-    v25 = *(v0 + 56);
-    if (v21)
+    v14 = Logger.logObject.getter();
+    v15 = static os_log_type_t.error.getter();
+    v16 = os_log_type_enabled(v14, v15);
+    v18 = *(v0 + 64);
+    v17 = *(v0 + 72);
+    v19 = *(v0 + 56);
+    if (v16)
     {
-      v48 = *(v0 + 56);
-      v26 = swift_slowAlloc();
-      v27 = swift_slowAlloc();
-      v49 = v27;
-      *v26 = 136315138;
+      v33 = *(v0 + 56);
+      v20 = swift_slowAlloc();
+      v21 = swift_slowAlloc();
+      v34 = v21;
+      *v20 = 136315138;
 
-      v29 = MEMORY[0x1D3865420](v28, MEMORY[0x1E69E6158]);
-      v47 = v23;
-      v31 = v30;
+      v23 = MEMORY[0x1D3865420](v22, MEMORY[0x1E69E6158]);
+      v32 = v17;
+      v25 = v24;
 
-      v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v29, v31, &v49);
+      v26 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v23, v25, &v34);
 
-      *(v26 + 4) = v32;
-      _os_log_impl(&dword_1CEE74000, v19, v20, "error encoding array %s", v26, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v27);
-      MEMORY[0x1D3865FA0](v27, -1, -1);
-      MEMORY[0x1D3865FA0](v26, -1, -1);
+      *(v20 + 4) = v26;
+      _os_log_impl(&dword_1CEE74000, v14, v15, "error encoding array %s", v20, 0xCu);
+      __swift_destroy_boxed_opaque_existential_1Tm(v21);
+      MEMORY[0x1D3865FA0](v21, -1, -1);
+      MEMORY[0x1D3865FA0](v20, -1, -1);
 
-      (*(v24 + 8))(v47, v48);
+      (*(v18 + 8))(v32, v33);
     }
 
     else
     {
 
-      (*(v24 + 8))(v23, v25);
+      (*(v18 + 8))(v17, v19);
     }
 
     v2 = 0;
     goto LABEL_13;
   }
 
-  v33 = lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type OrdinalEncoder<String>.Transformer and conformance OrdinalEncoder<A>.Transformer, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMR);
-  v34 = *(MEMORY[0x1E69662E8] + 4);
-  v35 = swift_task_alloc();
-  *(v0 + 192) = v35;
-  *v35 = v0;
-  v35[1] = PCNeuralNetModel.encodeWithLabelEncoder(array:);
-  v36 = *(v0 + 128);
-  v37 = *(v0 + 96);
+  v27 = lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type OrdinalEncoder<String>.Transformer and conformance OrdinalEncoder<A>.Transformer, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMR, MEMORY[0x1E6966300]);
+  v28 = swift_task_alloc();
+  *(v0 + 192) = v28;
+  *v28 = v0;
+  v28[1] = PCNeuralNetModel.encodeWithLabelEncoder(array:);
+  v29 = *(v0 + 128);
 
-  return MEMORY[0x1EEDBFAF8](v0 + 32, v0 + 16, 0, 0, v36, v33);
+  return MEMORY[0x1EEDBFAF8](v0 + 32, v0 + 16, 0, 0, v29, v27);
 }
 
 {
-  v31 = v0;
-  v1 = v0[23];
-  v2 = v0[19];
+  v20 = v0;
 
-  v3 = v0[25];
-  v4 = v0[9];
+  v1 = v0[25];
   (*(v0[17] + 8))(v0[12], v0[16]);
   Logger.init(subsystem:category:)();
-  v5 = Logger.logObject.getter();
-  v6 = static os_log_type_t.error.getter();
-  v7 = os_log_type_enabled(v5, v6);
-  v8 = v0[18];
-  v9 = v0[8];
-  v10 = v0[9];
-  v11 = v0[7];
-  if (v7)
+  v2 = Logger.logObject.getter();
+  v3 = static os_log_type_t.error.getter();
+  v4 = os_log_type_enabled(v2, v3);
+  v5 = v0[8];
+  v6 = v0[9];
+  v7 = v0[7];
+  if (v4)
   {
-    v29 = v0[9];
-    v12 = swift_slowAlloc();
-    v13 = swift_slowAlloc();
-    v30 = v13;
-    *v12 = 136315138;
+    v18 = v0[9];
+    v8 = swift_slowAlloc();
+    v9 = swift_slowAlloc();
+    v19 = v9;
+    *v8 = 136315138;
 
-    v15 = MEMORY[0x1D3865420](v14, MEMORY[0x1E69E6158]);
-    v28 = v3;
-    v17 = v16;
+    v11 = MEMORY[0x1D3865420](v10, MEMORY[0x1E69E6158]);
+    v17 = v1;
+    v13 = v12;
 
-    v18 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v17, &v30);
+    v14 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v13, &v19);
 
-    *(v12 + 4) = v18;
-    _os_log_impl(&dword_1CEE74000, v5, v6, "error encoding array %s", v12, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v13);
-    MEMORY[0x1D3865FA0](v13, -1, -1);
-    MEMORY[0x1D3865FA0](v12, -1, -1);
+    *(v8 + 4) = v14;
+    _os_log_impl(&dword_1CEE74000, v2, v3, "error encoding array %s", v8, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v9);
+    MEMORY[0x1D3865FA0](v9, -1, -1);
+    MEMORY[0x1D3865FA0](v8, -1, -1);
 
-    (*(v9 + 8))(v29, v11);
+    (*(v5 + 8))(v18, v7);
   }
 
   else
   {
 
-    (*(v9 + 8))(v10, v11);
+    (*(v5 + 8))(v6, v7);
   }
 
-  v20 = v0[14];
-  v19 = v0[15];
-  v22 = v0[12];
-  v21 = v0[13];
-  v24 = v0[10];
-  v23 = v0[11];
-  v25 = v0[9];
+  v15 = v0[1];
 
-  v26 = v0[1];
-
-  return v26(0);
+  return v15(0);
 }
 
 uint64_t specialized _arrayForceCast<A, B>(_:)(uint64_t a1)
@@ -3302,29 +3189,27 @@ uint64_t specialized _arrayForceCast<A, B>(_:)(uint64_t a1)
   v2 = MEMORY[0x1E69E7CC0];
   if (v1)
   {
-    v12 = MEMORY[0x1E69E7CC0];
+    v10 = MEMORY[0x1E69E7CC0];
     specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v1, 0);
-    v2 = v12;
-    v4 = (a1 + 40);
+    v2 = v10;
+    v4 = a1 + 40;
     do
     {
-      v9 = *(v4 - 1);
-      v10 = *v4;
 
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, &_sSSSgMR);
       swift_dynamicCast();
-      v5 = v11;
-      v7 = *(v12 + 16);
-      v6 = *(v12 + 24);
+      v5 = v9;
+      v7 = *(v10 + 16);
+      v6 = *(v10 + 24);
       if (v7 >= v6 >> 1)
       {
         specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v6 > 1), v7 + 1, 1);
-        v5 = v11;
+        v5 = v9;
       }
 
-      *(v12 + 16) = v7 + 1;
-      *(v12 + 16 * v7 + 32) = v5;
-      v4 += 2;
+      *(v10 + 16) = v7 + 1;
+      *(v10 + 16 * v7 + 32) = v5;
+      v4 += 16;
       --v1;
     }
 
@@ -3334,7 +3219,7 @@ uint64_t specialized _arrayForceCast<A, B>(_:)(uint64_t a1)
   return v2;
 }
 
-uint64_t @objc closure #1 in PCNeuralNetModel.encodeWithLabelEncoder(array:)(int a1, void *aBlock, void *a3)
+uint64_t @objc closure #1 in PCNeuralNetModel.encodeWithLabelEncoder(array:)(uint64_t a1, void *aBlock, void *a3)
 {
   v3[2] = a3;
   v3[3] = _Block_copy(aBlock);
@@ -3355,23 +3240,17 @@ uint64_t PCNeuralNetModel.fitLabelEncoder(array:)(uint64_t a1)
   v2[11] = v1;
   v3 = type metadata accessor for Logger();
   v2[12] = v3;
-  v4 = *(v3 - 8);
-  v2[13] = v4;
-  v5 = *(v4 + 64) + 15;
+  v2[13] = *(v3 - 8);
   v2[14] = swift_task_alloc();
-  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR);
   v2[15] = swift_task_alloc();
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMR);
-  v2[16] = v7;
-  v8 = *(v7 - 8);
-  v2[17] = v8;
-  v9 = *(v8 + 64) + 15;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMR);
+  v2[16] = v4;
+  v2[17] = *(v4 - 8);
   v2[18] = swift_task_alloc();
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents14OrdinalEncoderVySSGMd, &_s18CreateMLComponents14OrdinalEncoderVySSGMR);
-  v2[19] = v10;
-  v11 = *(v10 - 8);
-  v2[20] = v11;
-  v12 = *(v11 + 64) + 15;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents14OrdinalEncoderVySSGMd, &_s18CreateMLComponents14OrdinalEncoderVySSGMR);
+  v2[19] = v5;
+  v2[20] = *(v5 - 8);
   v2[21] = swift_task_alloc();
 
   return MEMORY[0x1EEE6DFA0](PCNeuralNetModel.fitLabelEncoder(array:), 0, 0);
@@ -3379,50 +3258,42 @@ uint64_t PCNeuralNetModel.fitLabelEncoder(array:)(uint64_t a1)
 
 uint64_t PCNeuralNetModel.fitLabelEncoder(array:)()
 {
-  v1 = v0[21];
-  v2 = v0[10];
+  v1 = v0[10];
   OrdinalEncoder.init()();
-  v3 = specialized _arrayForceCast<A, B>(_:)(v2);
-  v0[22] = v3;
-  v0[7] = v3;
-  v4 = lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type OrdinalEncoder<String> and conformance OrdinalEncoder<A>, &_s18CreateMLComponents14OrdinalEncoderVySSGMd, &_s18CreateMLComponents14OrdinalEncoderVySSGMR);
-  v5 = *(MEMORY[0x1E6966348] + 4);
-  v6 = swift_task_alloc();
-  v0[23] = v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSSgGMd, &_sSaySSSgGMR);
-  v8 = lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type [String?] and conformance [A], &_sSaySSSgGMd, &_sSaySSSgGMR);
-  *v6 = v0;
-  v6[1] = PCNeuralNetModel.fitLabelEncoder(array:);
-  v9 = v0[21];
-  v10 = v0[18];
-  v11 = v0[19];
+  v2 = specialized _arrayForceCast<A, B>(_:)(v1);
+  v0[22] = v2;
+  v0[7] = v2;
+  v3 = lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type OrdinalEncoder<String> and conformance OrdinalEncoder<A>, &_s18CreateMLComponents14OrdinalEncoderVySSGMd, &_s18CreateMLComponents14OrdinalEncoderVySSGMR, MEMORY[0x1E6966318]);
+  v4 = swift_task_alloc();
+  v0[23] = v4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSSgGMd, &_sSaySSSgGMR);
+  v6 = lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type [String?] and conformance [A], &_sSaySSSgGMd, &_sSaySSSgGMR, MEMORY[0x1E69E6328]);
+  *v4 = v0;
+  v4[1] = PCNeuralNetModel.fitLabelEncoder(array:);
+  v7 = v0[18];
+  v8 = v0[19];
 
-  return MEMORY[0x1EEDBFB88](v10, v0 + 7, 0, 0, v7, v8, v11, v4);
+  return MEMORY[0x1EEDBFB88](v7, v0 + 7, 0, 0, v5, v6, v8, v3);
 }
 
 {
-  v2 = *v1;
-  v3 = *(*v1 + 184);
-  v4 = *v1;
   *(*v1 + 192) = v0;
-
-  v5 = *(v2 + 176);
 
   if (v0)
   {
-    v6 = PCNeuralNetModel.fitLabelEncoder(array:);
+    v2 = PCNeuralNetModel.fitLabelEncoder(array:);
   }
 
   else
   {
-    v6 = PCNeuralNetModel.fitLabelEncoder(array:);
+    v2 = PCNeuralNetModel.fitLabelEncoder(array:);
   }
 
-  return MEMORY[0x1EEE6DFA0](v6, 0, 0);
+  return MEMORY[0x1EEE6DFA0](v2, 0, 0);
 }
 
 {
-  v53 = v0;
+  v40 = v0;
   v1 = specialized _arrayForceCast<A, B>(_:)(v0[10]);
   v0[25] = v1;
   v2 = *(v1 + 16);
@@ -3431,30 +3302,25 @@ uint64_t PCNeuralNetModel.fitLabelEncoder(array:)()
   v4 = v3;
   if (!v2)
   {
-    v28 = v0[25];
-    v30 = v0[20];
-    v29 = v0[21];
-    v32 = v0[18];
-    v31 = v0[19];
-    v33 = v0[16];
-    v34 = v0[17];
-    v35 = v0[15];
-    v36 = v0[11];
+    v24 = v0[20];
+    v23 = v0[21];
+    v26 = v0[18];
+    v25 = v0[19];
+    v27 = v0[16];
+    v28 = v0[17];
+    v29 = v0[15];
+    v30 = v0[11];
 
-    (*(v34 + 16))(v35, v32, v33);
-    (*(v34 + 56))(v35, 0, 1, v33);
-    (*((*MEMORY[0x1E69E7D40] & *v36) + 0xE0))(v35);
-    (*(v34 + 8))(v32, v33);
-    (*(v30 + 8))(v29, v31);
+    (*(v28 + 16))(v29, v26, v27);
+    (*(v28 + 56))(v29, 0, 1, v27);
+    (*((*MEMORY[0x1E69E7D40] & *v30) + 0xE0))(v29);
+    (*(v28 + 8))(v26, v27);
+    (*(v24 + 8))(v23, v25);
 LABEL_11:
-    v42 = v0[21];
-    v43 = v0[18];
-    v45 = v0[14];
-    v44 = v0[15];
 
-    v46 = v0[1];
+    v34 = v0[1];
 
-    return v46(v4);
+    return v34(v4);
   }
 
   v0[27] = v3;
@@ -3469,95 +3335,83 @@ LABEL_11:
   static Task<>.checkCancellation()();
   if (v6)
   {
-    v8 = v0[25];
 
     (*(v0[17] + 8))(v0[18], v0[16]);
-    v9 = v0[14];
     Logger.init(subsystem:category:)();
-    v10 = v6;
-    v11 = Logger.logObject.getter();
-    v12 = static os_log_type_t.error.getter();
+    v8 = v6;
+    v9 = Logger.logObject.getter();
+    v10 = static os_log_type_t.error.getter();
 
-    v13 = os_log_type_enabled(v11, v12);
-    v15 = v0[20];
-    v14 = v0[21];
-    v16 = v0[19];
-    v18 = v0[13];
-    v17 = v0[14];
-    v19 = v0[12];
-    if (v13)
+    v11 = os_log_type_enabled(v9, v10);
+    v13 = v0[20];
+    v12 = v0[21];
+    v14 = v0[19];
+    v16 = v0[13];
+    v15 = v0[14];
+    v17 = v0[12];
+    if (v11)
     {
-      v51 = v0[12];
-      v20 = swift_slowAlloc();
-      v50 = v16;
-      v21 = swift_slowAlloc();
-      v52 = v21;
-      *v20 = 136315138;
+      v38 = v0[12];
+      v18 = swift_slowAlloc();
+      v37 = v14;
+      v19 = swift_slowAlloc();
+      v39 = v19;
+      *v18 = 136315138;
       swift_getErrorValue();
-      v49 = v14;
-      v23 = v0[2];
-      v22 = v0[3];
-      v24 = v0[4];
-      v25 = Error.localizedDescription.getter();
-      v48 = v17;
-      v27 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v26, &v52);
+      v20 = Error.localizedDescription.getter();
+      v36 = v15;
+      v22 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v21, &v39);
 
-      *(v20 + 4) = v27;
-      _os_log_impl(&dword_1CEE74000, v11, v12, "error: %s", v20, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v21);
-      MEMORY[0x1D3865FA0](v21, -1, -1);
-      MEMORY[0x1D3865FA0](v20, -1, -1);
+      *(v18 + 4) = v22;
+      _os_log_impl(&dword_1CEE74000, v9, v10, "error: %s", v18, 0xCu);
+      __swift_destroy_boxed_opaque_existential_1Tm(v19);
+      MEMORY[0x1D3865FA0](v19, -1, -1);
+      MEMORY[0x1D3865FA0](v18, -1, -1);
 
-      (*(v18 + 8))(v48, v51);
-      (*(v15 + 8))(v49, v50);
+      (*(v16 + 8))(v36, v38);
+      (*(v13 + 8))(v12, v37);
     }
 
     else
     {
 
-      (*(v18 + 8))(v17, v19);
-      (*(v15 + 8))(v14, v16);
+      (*(v16 + 8))(v15, v17);
+      (*(v13 + 8))(v12, v14);
     }
 
     v4 = 0;
     goto LABEL_11;
   }
 
-  v37 = lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type OrdinalEncoder<String>.Transformer and conformance OrdinalEncoder<A>.Transformer, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMR);
-  v38 = *(MEMORY[0x1E69662E8] + 4);
-  v39 = swift_task_alloc();
-  v0[30] = v39;
-  *v39 = v0;
-  v39[1] = PCNeuralNetModel.fitLabelEncoder(array:);
-  v40 = v0[18];
-  v41 = v0[16];
+  v31 = lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type OrdinalEncoder<String>.Transformer and conformance OrdinalEncoder<A>.Transformer, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMR, MEMORY[0x1E6966300]);
+  v32 = swift_task_alloc();
+  v0[30] = v32;
+  *v32 = v0;
+  v32[1] = PCNeuralNetModel.fitLabelEncoder(array:);
+  v33 = v0[16];
 
-  return MEMORY[0x1EEDBFAF8](v0 + 9, v0 + 5, 0, 0, v41, v37);
+  return MEMORY[0x1EEDBFAF8](v0 + 9, v0 + 5, 0, 0, v33, v31);
 }
 
 {
-  v2 = *v1;
-  v3 = *(*v1 + 240);
-  v7 = *v1;
   *(*v1 + 248) = v0;
 
   if (v0)
   {
-    v4 = *(v2 + 216);
 
-    v5 = PCNeuralNetModel.fitLabelEncoder(array:);
+    v2 = PCNeuralNetModel.fitLabelEncoder(array:);
   }
 
   else
   {
-    v5 = PCNeuralNetModel.fitLabelEncoder(array:);
+    v2 = PCNeuralNetModel.fitLabelEncoder(array:);
   }
 
-  return MEMORY[0x1EEE6DFA0](v5, 0, 0);
+  return MEMORY[0x1EEE6DFA0](v2, 0, 0);
 }
 
 {
-  v56 = v0;
+  v42 = v0;
   v1 = *(v0 + 72);
   v2 = *(v0 + 216);
   v4 = *(v2 + 2);
@@ -3567,245 +3421,211 @@ LABEL_11:
     v2 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v3 > 1), v4 + 1, 1, *(v0 + 216));
   }
 
-  v5 = *(v0 + 232);
-  v6 = *(v0 + 208);
-  v7 = *(v0 + 224) + 1;
+  v5 = *(v0 + 208);
+  v6 = *(v0 + 224) + 1;
   *(v2 + 2) = v4 + 1;
   *&v2[8 * v4 + 32] = v1;
 
-  if (v7 == v6)
+  if (v6 == v5)
   {
-    v8 = *(v0 + 200);
-    v10 = *(v0 + 160);
-    v9 = *(v0 + 168);
-    v12 = *(v0 + 144);
-    v11 = *(v0 + 152);
-    v13 = *(v0 + 128);
-    v14 = *(v0 + 136);
-    v15 = *(v0 + 120);
-    v16 = *(v0 + 88);
+    v8 = *(v0 + 160);
+    v7 = *(v0 + 168);
+    v10 = *(v0 + 144);
+    v9 = *(v0 + 152);
+    v11 = *(v0 + 128);
+    v12 = *(v0 + 136);
+    v13 = *(v0 + 120);
+    v14 = *(v0 + 88);
 
-    (*(v14 + 16))(v15, v12, v13);
-    (*(v14 + 56))(v15, 0, 1, v13);
-    (*((*MEMORY[0x1E69E7D40] & *v16) + 0xE0))(v15);
-    (*(v14 + 8))(v12, v13);
-    (*(v10 + 8))(v9, v11);
+    (*(v12 + 16))(v13, v10, v11);
+    (*(v12 + 56))(v13, 0, 1, v11);
+    (*((*MEMORY[0x1E69E7D40] & *v14) + 0xE0))(v13);
+    (*(v12 + 8))(v10, v11);
+    (*(v8 + 8))(v7, v9);
 LABEL_13:
-    v45 = *(v0 + 168);
-    v46 = *(v0 + 144);
-    v48 = *(v0 + 112);
-    v47 = *(v0 + 120);
 
-    v49 = *(v0 + 8);
+    v36 = *(v0 + 8);
 
-    return v49(v2);
+    return v36(v2);
   }
 
-  v17 = *(v0 + 248);
-  v18 = *(v0 + 224) + 1;
+  v15 = *(v0 + 248);
+  v16 = *(v0 + 224) + 1;
   *(v0 + 216) = v2;
-  *(v0 + 224) = v18;
-  v19 = *(v0 + 200) + 16 * v18;
-  v20 = *(v19 + 40);
-  *(v0 + 232) = v20;
-  *(v0 + 40) = *(v19 + 32);
-  *(v0 + 48) = v20;
+  *(v0 + 224) = v16;
+  v17 = *(v0 + 200) + 16 * v16;
+  v18 = *(v17 + 40);
+  *(v0 + 232) = v18;
+  *(v0 + 40) = *(v17 + 32);
+  *(v0 + 48) = v18;
 
   static Task<>.checkCancellation()();
-  if (v17)
+  if (v15)
   {
-    v21 = *(v0 + 200);
 
     (*(*(v0 + 136) + 8))(*(v0 + 144), *(v0 + 128));
-    v22 = *(v0 + 112);
     Logger.init(subsystem:category:)();
-    v23 = v17;
-    v24 = Logger.logObject.getter();
-    v25 = static os_log_type_t.error.getter();
+    v19 = v15;
+    v20 = Logger.logObject.getter();
+    v21 = static os_log_type_t.error.getter();
 
-    v26 = os_log_type_enabled(v24, v25);
-    v28 = *(v0 + 160);
-    v27 = *(v0 + 168);
-    v29 = *(v0 + 152);
-    v31 = *(v0 + 104);
-    v30 = *(v0 + 112);
-    v54 = *(v0 + 96);
-    if (v26)
+    v22 = os_log_type_enabled(v20, v21);
+    v24 = *(v0 + 160);
+    v23 = *(v0 + 168);
+    v25 = *(v0 + 152);
+    v27 = *(v0 + 104);
+    v26 = *(v0 + 112);
+    v40 = *(v0 + 96);
+    if (v22)
     {
-      v52 = *(v0 + 152);
-      v53 = *(v0 + 168);
-      v32 = swift_slowAlloc();
-      v51 = v30;
-      v33 = swift_slowAlloc();
-      v55 = v33;
-      *v32 = 136315138;
+      v39 = *(v0 + 152);
+      v28 = swift_slowAlloc();
+      v38 = v26;
+      v29 = swift_slowAlloc();
+      v41 = v29;
+      *v28 = 136315138;
       swift_getErrorValue();
-      v35 = *(v0 + 16);
-      v34 = *(v0 + 24);
-      v36 = *(v0 + 32);
-      v37 = Error.localizedDescription.getter();
-      v39 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v37, v38, &v55);
+      v30 = Error.localizedDescription.getter();
+      v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v30, v31, &v41);
 
-      *(v32 + 4) = v39;
-      _os_log_impl(&dword_1CEE74000, v24, v25, "error: %s", v32, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v33);
-      MEMORY[0x1D3865FA0](v33, -1, -1);
-      MEMORY[0x1D3865FA0](v32, -1, -1);
+      *(v28 + 4) = v32;
+      _os_log_impl(&dword_1CEE74000, v20, v21, "error: %s", v28, 0xCu);
+      __swift_destroy_boxed_opaque_existential_1Tm(v29);
+      MEMORY[0x1D3865FA0](v29, -1, -1);
+      MEMORY[0x1D3865FA0](v28, -1, -1);
 
-      (*(v31 + 8))(v51, v54);
-      (*(v28 + 8))(v53, v52);
+      (*(v27 + 8))(v38, v40);
+      (*(v24 + 8))(v23, v39);
     }
 
     else
     {
 
-      (*(v31 + 8))(v30, v54);
-      (*(v28 + 8))(v27, v29);
+      (*(v27 + 8))(v26, v40);
+      (*(v24 + 8))(v23, v25);
     }
 
     v2 = 0;
     goto LABEL_13;
   }
 
-  v40 = lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type OrdinalEncoder<String>.Transformer and conformance OrdinalEncoder<A>.Transformer, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMR);
-  v41 = *(MEMORY[0x1E69662E8] + 4);
-  v42 = swift_task_alloc();
-  *(v0 + 240) = v42;
-  *v42 = v0;
-  v42[1] = PCNeuralNetModel.fitLabelEncoder(array:);
-  v43 = *(v0 + 144);
-  v44 = *(v0 + 128);
+  v33 = lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type OrdinalEncoder<String>.Transformer and conformance OrdinalEncoder<A>.Transformer, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMR, MEMORY[0x1E6966300]);
+  v34 = swift_task_alloc();
+  *(v0 + 240) = v34;
+  *v34 = v0;
+  v34[1] = PCNeuralNetModel.fitLabelEncoder(array:);
+  v35 = *(v0 + 128);
 
-  return MEMORY[0x1EEDBFAF8](v0 + 72, v0 + 40, 0, 0, v44, v40);
+  return MEMORY[0x1EEDBFAF8](v0 + 72, v0 + 40, 0, 0, v35, v33);
 }
 
 {
-  v35 = v0;
-  v1 = v0[29];
-  v2 = v0[25];
+  v25 = v0;
 
-  v3 = v0[31];
+  v1 = v0[31];
   (*(v0[17] + 8))(v0[18], v0[16]);
-  v4 = v0[14];
   Logger.init(subsystem:category:)();
-  v5 = v3;
-  v6 = Logger.logObject.getter();
-  v7 = static os_log_type_t.error.getter();
+  v2 = v1;
+  v3 = Logger.logObject.getter();
+  v4 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(v6, v7))
+  if (os_log_type_enabled(v3, v4))
   {
-    v8 = v0[20];
-    v32 = v0[19];
-    v33 = v0[21];
-    v9 = v0[13];
-    v30 = v0[12];
-    v31 = v0[14];
-    v10 = swift_slowAlloc();
-    v11 = swift_slowAlloc();
-    v34 = v11;
-    *v10 = 136315138;
+    v5 = v0[20];
+    v22 = v0[19];
+    v23 = v0[21];
+    v6 = v0[13];
+    v20 = v0[12];
+    v21 = v0[14];
+    v7 = swift_slowAlloc();
+    v8 = swift_slowAlloc();
+    v24 = v8;
+    *v7 = 136315138;
     swift_getErrorValue();
-    v13 = v0[2];
-    v12 = v0[3];
-    v14 = v0[4];
-    v15 = Error.localizedDescription.getter();
-    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v16, &v34);
+    v9 = Error.localizedDescription.getter();
+    v11 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v10, &v24);
 
-    *(v10 + 4) = v17;
-    _os_log_impl(&dword_1CEE74000, v6, v7, "error: %s", v10, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v11);
-    MEMORY[0x1D3865FA0](v11, -1, -1);
-    MEMORY[0x1D3865FA0](v10, -1, -1);
+    *(v7 + 4) = v11;
+    _os_log_impl(&dword_1CEE74000, v3, v4, "error: %s", v7, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v8);
+    MEMORY[0x1D3865FA0](v8, -1, -1);
+    MEMORY[0x1D3865FA0](v7, -1, -1);
 
-    (*(v9 + 8))(v31, v30);
-    (*(v8 + 8))(v33, v32);
+    (*(v6 + 8))(v21, v20);
+    (*(v5 + 8))(v23, v22);
   }
 
   else
   {
-    v19 = v0[20];
-    v18 = v0[21];
-    v20 = v0[19];
-    v22 = v0[13];
-    v21 = v0[14];
-    v23 = v0[12];
+    v13 = v0[20];
+    v12 = v0[21];
+    v14 = v0[19];
+    v16 = v0[13];
+    v15 = v0[14];
+    v17 = v0[12];
 
-    (*(v22 + 8))(v21, v23);
-    (*(v19 + 8))(v18, v20);
+    (*(v16 + 8))(v15, v17);
+    (*(v13 + 8))(v12, v14);
   }
 
-  v24 = v0[21];
-  v25 = v0[18];
-  v27 = v0[14];
-  v26 = v0[15];
+  v18 = v0[1];
 
-  v28 = v0[1];
-
-  return v28(0);
+  return v18(0);
 }
 
 {
-  v33 = v0;
+  v25 = v0;
   v1 = v0[24];
-  v2 = v0[14];
   Logger.init(subsystem:category:)();
-  v3 = v1;
-  v4 = Logger.logObject.getter();
-  v5 = static os_log_type_t.error.getter();
+  v2 = v1;
+  v3 = Logger.logObject.getter();
+  v4 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(v4, v5))
+  if (os_log_type_enabled(v3, v4))
   {
-    v6 = v0[20];
-    v30 = v0[19];
-    v31 = v0[21];
-    v7 = v0[13];
-    v28 = v0[12];
-    v29 = v0[14];
+    v5 = v0[20];
+    v22 = v0[19];
+    v23 = v0[21];
+    v6 = v0[13];
+    v20 = v0[12];
+    v21 = v0[14];
+    v7 = swift_slowAlloc();
     v8 = swift_slowAlloc();
-    v9 = swift_slowAlloc();
-    v32 = v9;
-    *v8 = 136315138;
+    v24 = v8;
+    *v7 = 136315138;
     swift_getErrorValue();
-    v11 = v0[2];
-    v10 = v0[3];
-    v12 = v0[4];
-    v13 = Error.localizedDescription.getter();
-    v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v14, &v32);
+    v9 = Error.localizedDescription.getter();
+    v11 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v10, &v24);
 
-    *(v8 + 4) = v15;
-    _os_log_impl(&dword_1CEE74000, v4, v5, "error: %s", v8, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v9);
-    MEMORY[0x1D3865FA0](v9, -1, -1);
+    *(v7 + 4) = v11;
+    _os_log_impl(&dword_1CEE74000, v3, v4, "error: %s", v7, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v8);
     MEMORY[0x1D3865FA0](v8, -1, -1);
+    MEMORY[0x1D3865FA0](v7, -1, -1);
 
-    (*(v7 + 8))(v29, v28);
-    (*(v6 + 8))(v31, v30);
+    (*(v6 + 8))(v21, v20);
+    (*(v5 + 8))(v23, v22);
   }
 
   else
   {
-    v17 = v0[20];
-    v16 = v0[21];
-    v18 = v0[19];
-    v20 = v0[13];
-    v19 = v0[14];
-    v21 = v0[12];
+    v13 = v0[20];
+    v12 = v0[21];
+    v14 = v0[19];
+    v16 = v0[13];
+    v15 = v0[14];
+    v17 = v0[12];
 
-    (*(v20 + 8))(v19, v21);
-    (*(v17 + 8))(v16, v18);
+    (*(v16 + 8))(v15, v17);
+    (*(v13 + 8))(v12, v14);
   }
 
-  v22 = v0[21];
-  v23 = v0[18];
-  v25 = v0[14];
-  v24 = v0[15];
+  v18 = v0[1];
 
-  v26 = v0[1];
-
-  return v26(0);
+  return v18(0);
 }
 
-uint64_t @objc closure #1 in PCNeuralNetModel.fitLabelEncoder(array:)(int a1, void *aBlock, void *a3)
+uint64_t @objc closure #1 in PCNeuralNetModel.fitLabelEncoder(array:)(uint64_t a1, void *aBlock, void *a3)
 {
   v3[2] = a3;
   v3[3] = _Block_copy(aBlock);
@@ -3823,358 +3643,344 @@ uint64_t @objc closure #1 in PCNeuralNetModel.fitLabelEncoder(array:)(int a1, vo
 uint64_t @objc closure #1 in PCNeuralNetModel.fitLabelEncoder(array:)(uint64_t a1)
 {
   v3 = *v1;
-  v4 = *(*v1 + 40);
-  v5 = *(*v1 + 32);
-  v6 = *(*v1 + 16);
-  v7 = *v1;
+  v4 = *(*v1 + 16);
+  v5 = *v1;
 
   if (a1)
   {
-    v8.super.isa = Array._bridgeToObjectiveC()().super.isa;
+    v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
   else
   {
-    v8.super.isa = 0;
+    v6.super.isa = 0;
   }
 
-  v9 = *(v3 + 24);
-  (v9)[2](v9, v8.super.isa);
+  v7 = *(v3 + 24);
+  (v7)[2](v7, v6.super.isa);
 
-  _Block_release(v9);
-  v10 = *(v7 + 8);
+  _Block_release(v7);
+  v8 = *(v5 + 8);
 
-  return v10();
+  return v8();
 }
 
 Swift::String_optional __swiftcall PCNeuralNetModel.decodeLabel(index:)(Swift::Int index)
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMR);
   v3 = *(v2 - 8);
-  v4 = (*(v3 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00]();
-  v6 = &v14 - v5;
-  v7 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v8 = MEMORY[0x1EEE9AC00]();
-  v10 = &v14 - v9;
-  (*((*MEMORY[0x1E69E7D40] & *v1) + 0xD8))(v8);
-  if ((*(v3 + 48))(v10, 1, v2))
+  MEMORY[0x1EEE9AC00](v2);
+  v5 = &v13 - v4;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR);
+  v7 = MEMORY[0x1EEE9AC00](v6 - 8);
+  v9 = &v13 - v8;
+  (*((*MEMORY[0x1E69E7D40] & *v1) + 0xD8))(v7);
+  if ((*(v3 + 48))(v9, 1, v2))
   {
-    v11 = outlined destroy of OneHotEncoder<String>.Transformer?(v10, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR);
+    v10 = outlined destroy of OneHotEncoder<String>.Transformer?(v9, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR);
     __break(1u);
     goto LABEL_5;
   }
 
-  (*(v3 + 16))(v6, v10, v2);
-  outlined destroy of OneHotEncoder<String>.Transformer?(v10, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR);
+  (*(v3 + 16))(v5, v9, v2);
+  outlined destroy of OneHotEncoder<String>.Transformer?(v9, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR);
   OrdinalEncoder.Transformer.category(at:)();
-  v11 = (*(v3 + 8))(v6, v2);
-  v12 = v15;
-  if (!v15)
+  v10 = (*(v3 + 8))(v5, v2);
+  v11 = v14;
+  if (!v14)
   {
 LABEL_5:
     __break(1u);
     goto LABEL_6;
   }
 
-  v11 = v14;
+  v10 = v13;
 LABEL_6:
-  result.value._object = v12;
-  result.value._countAndFlagsBits = v11;
+  result.value._object = v11;
+  result.value._countAndFlagsBits = v10;
   return result;
 }
 
 void PCNeuralNetModel.trainFromTensors(datasetX:datasetY:timesteps:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v425 = a3;
-  *&v426 = a2;
-  v395 = type metadata accessor for FloatingPointRoundingRule();
-  v424 = *(v395 - 8);
-  v4 = v424[8];
-  (MEMORY[0x1EEE9AC00])();
-  v394 = &v349 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks10ScalarTypeOSgMd, &_s14NeuralNetworks10ScalarTypeOSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (MEMORY[0x1EEE9AC00])();
-  v402 = &v349 - v7;
-  v353 = type metadata accessor for TensorShape();
-  v350 = *(v353 - 8);
-  v8 = *(v350 + 64);
-  (MEMORY[0x1EEE9AC00])();
-  v423 = &v349 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v397 = type metadata accessor for Tensor();
-  v403 = *(v397 - 8);
-  v10 = *(v403 + 64);
-  v11 = (MEMORY[0x1EEE9AC00])();
-  v355 = &v349 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = MEMORY[0x1EEE9AC00](v11);
-  v356 = &v349 - v14;
-  v15 = MEMORY[0x1EEE9AC00](v13);
-  v358 = &v349 - v16;
-  v17 = MEMORY[0x1EEE9AC00](v15);
-  v366 = &v349 - v18;
-  v19 = MEMORY[0x1EEE9AC00](v17);
-  v393 = &v349 - v20;
-  v21 = MEMORY[0x1EEE9AC00](v19);
-  v392 = &v349 - v22;
-  v23 = MEMORY[0x1EEE9AC00](v21);
-  v431 = &v349 - v24;
-  v25 = MEMORY[0x1EEE9AC00](v23);
-  v416 = &v349 - v26;
-  v27 = MEMORY[0x1EEE9AC00](v25);
-  v401 = &v349 - v28;
-  v29 = MEMORY[0x1EEE9AC00](v27);
-  v430 = &v349 - v30;
-  v31 = MEMORY[0x1EEE9AC00](v29);
-  v404 = &v349 - v32;
-  v33 = MEMORY[0x1EEE9AC00](v31);
-  v419 = &v349 - v34;
-  v35 = MEMORY[0x1EEE9AC00](v33);
-  v418 = &v349 - v36;
-  MEMORY[0x1EEE9AC00](v35);
-  v433 = &v349 - v37;
-  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks13ComputeDeviceVSgMd, &_s14NeuralNetworks13ComputeDeviceVSgMR);
-  v39 = *(*(v38 - 8) + 64);
-  v40 = MEMORY[0x1EEE9AC00](v38 - 8);
-  v420 = &v349 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v415 = a3;
+  *&v416 = a2;
+  v385 = type metadata accessor for FloatingPointRoundingRule();
+  v414 = *(v385 - 8);
+  MEMORY[0x1EEE9AC00](v385);
+  v384 = &v339 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks10ScalarTypeOSgMd, &_s14NeuralNetworks10ScalarTypeOSgMR);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v392 = &v339 - v6;
+  v343 = type metadata accessor for TensorShape();
+  v340 = *(v343 - 8);
+  MEMORY[0x1EEE9AC00](v343);
+  v413 = &v339 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v387 = type metadata accessor for Tensor();
+  v393 = *(v387 - 8);
+  v8 = MEMORY[0x1EEE9AC00](v387);
+  v345 = &v339 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = MEMORY[0x1EEE9AC00](v8);
+  v346 = &v339 - v11;
+  v12 = MEMORY[0x1EEE9AC00](v10);
+  v348 = &v339 - v13;
+  v14 = MEMORY[0x1EEE9AC00](v12);
+  v356 = &v339 - v15;
+  v16 = MEMORY[0x1EEE9AC00](v14);
+  v383 = &v339 - v17;
+  v18 = MEMORY[0x1EEE9AC00](v16);
+  v382 = &v339 - v19;
+  v20 = MEMORY[0x1EEE9AC00](v18);
+  v421 = &v339 - v21;
+  v22 = MEMORY[0x1EEE9AC00](v20);
+  v406 = &v339 - v23;
+  v24 = MEMORY[0x1EEE9AC00](v22);
+  v391 = &v339 - v25;
+  v26 = MEMORY[0x1EEE9AC00](v24);
+  v420 = &v339 - v27;
+  v28 = MEMORY[0x1EEE9AC00](v26);
+  v394 = &v339 - v29;
+  v30 = MEMORY[0x1EEE9AC00](v28);
+  v409 = &v339 - v31;
+  v32 = MEMORY[0x1EEE9AC00](v30);
+  v408 = &v339 - v33;
+  MEMORY[0x1EEE9AC00](v32);
+  v423 = &v339 - v34;
+  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks13ComputeDeviceVSgMd, &_s14NeuralNetworks13ComputeDeviceVSgMR);
+  v36 = MEMORY[0x1EEE9AC00](v35 - 8);
+  v410 = &v339 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v36);
+  v412 = &v339 - v38;
+  v39 = type metadata accessor for ComputeDevice();
+  v425 = *(v39 - 8);
+  v426 = v39;
+  v40 = MEMORY[0x1EEE9AC00](v39);
+  *&v407 = &v339 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v40);
-  v422 = &v349 - v42;
-  v43 = type metadata accessor for ComputeDevice();
-  v435 = *(v43 - 8);
-  v436 = v43;
-  v44 = *(v435 + 64);
-  v45 = MEMORY[0x1EEE9AC00](v43);
-  *&v417 = &v349 - ((v46 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v45);
-  *&v421 = &v349 - v47;
-  v434 = type metadata accessor for LearningPhase();
-  v432 = *(v434 - 8);
-  v48 = *(v432 + 64);
-  MEMORY[0x1EEE9AC00](v434);
-  v429 = (&v349 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks18RegularizationKindOSgMd, &_s14NeuralNetworks18RegularizationKindOSgMR);
-  v51 = (*(*(v50 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00](v50 - 8);
-  v428 = &v349 - v52;
-  v53 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks20GradientClippingModeOSgMd, &_s14NeuralNetworks20GradientClippingModeOSgMR);
-  v54 = (*(*(v53 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00](v53 - 8);
-  v427 = &v349 - v55;
-  v365 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks4AdamVyAA10SequentialVyAEyAEyAEyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGGMd, &_s14NeuralNetworks4AdamVyAA10SequentialVyAEyAEyAEyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGGMR);
-  v56 = (*(*(v365 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00](v365);
-  v377 = &v349 - v57;
-  v384 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMd, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMR);
-  v383 = *(v384 - 8);
-  v58 = (*(v383 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00](v384);
-  v382 = &v349 - v59;
-  v60 = type metadata accessor for Logger();
-  v61 = *(v60 - 8);
-  v62 = *(v61 + 64);
-  v63 = MEMORY[0x1EEE9AC00](v60);
-  v351 = &v349 - ((v64 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v65 = MEMORY[0x1EEE9AC00](v63);
-  v352 = &v349 - v66;
-  v67 = MEMORY[0x1EEE9AC00](v65);
-  v357 = &v349 - v68;
-  v69 = MEMORY[0x1EEE9AC00](v67);
-  v364 = &v349 - v70;
-  v71 = MEMORY[0x1EEE9AC00](v69);
-  v371 = &v349 - v72;
-  v73 = MEMORY[0x1EEE9AC00](v71);
-  v354 = &v349 - v74;
-  v75 = MEMORY[0x1EEE9AC00](v73);
-  v437 = (&v349 - v76);
-  MEMORY[0x1EEE9AC00](v75);
-  v78 = &v349 - v77;
-  v379 = "modelHasBeenTrained";
-  v380 = "com.apple.CoreRoutine";
+  *&v411 = &v339 - v42;
+  v424 = type metadata accessor for LearningPhase();
+  v422 = *(v424 - 8);
+  MEMORY[0x1EEE9AC00](v424);
+  v419 = (&v339 - ((v43 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v44 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks18RegularizationKindOSgMd, &_s14NeuralNetworks18RegularizationKindOSgMR);
+  MEMORY[0x1EEE9AC00](v44 - 8);
+  v418 = &v339 - v45;
+  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks20GradientClippingModeOSgMd, &_s14NeuralNetworks20GradientClippingModeOSgMR);
+  MEMORY[0x1EEE9AC00](v46 - 8);
+  v417 = &v339 - v47;
+  v355 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks4AdamVyAA10SequentialVyAEyAEyAEyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGGMd, &_s14NeuralNetworks4AdamVyAA10SequentialVyAEyAEyAEyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGGMR);
+  MEMORY[0x1EEE9AC00](v355);
+  v367 = &v339 - v48;
+  v374 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMd, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMR);
+  v373 = *(v374 - 8);
+  MEMORY[0x1EEE9AC00](v374);
+  v372 = &v339 - v49;
+  v50 = type metadata accessor for Logger();
+  v51 = *(v50 - 8);
+  v52 = MEMORY[0x1EEE9AC00](v50);
+  v341 = &v339 - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v54 = MEMORY[0x1EEE9AC00](v52);
+  v342 = &v339 - v55;
+  v56 = MEMORY[0x1EEE9AC00](v54);
+  v347 = &v339 - v57;
+  v58 = MEMORY[0x1EEE9AC00](v56);
+  v354 = &v339 - v59;
+  v60 = MEMORY[0x1EEE9AC00](v58);
+  v361 = &v339 - v61;
+  v62 = MEMORY[0x1EEE9AC00](v60);
+  v344 = &v339 - v63;
+  v64 = MEMORY[0x1EEE9AC00](v62);
+  v427 = (&v339 - v65);
+  MEMORY[0x1EEE9AC00](v64);
+  v67 = &v339 - v66;
+  v369 = "modelHasBeenTrained";
+  v370 = "com.apple.CoreRoutine";
   Logger.init(subsystem:category:)();
-  v79 = Logger.logObject.getter();
-  v80 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v79, v80))
+  v68 = Logger.logObject.getter();
+  v69 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v68, v69))
   {
-    v81 = swift_slowAlloc();
-    *v81 = 0;
-    _os_log_impl(&dword_1CEE74000, v79, v80, "generating dataset...", v81, 2u);
-    MEMORY[0x1D3865FA0](v81, -1, -1);
+    v70 = swift_slowAlloc();
+    *v70 = 0;
+    _os_log_impl(&dword_1CEE74000, v68, v69, "generating dataset...", v70, 2u);
+    MEMORY[0x1D3865FA0](v70, -1, -1);
   }
 
-  v378 = *(v61 + 8);
-  v378(v78, v60);
-  v82 = v412;
-  v83 = MEMORY[0x1E69E7D40];
-  v84 = *((*MEMORY[0x1E69E7D40] & *v412) + 0xA8);
-  v85 = (*MEMORY[0x1E69E7D40] & *v412) + 168;
+  v368 = *(v51 + 8);
+  v368(v67, v50);
+  v71 = v402;
+  v72 = MEMORY[0x1E69E7D40];
+  v73 = *((*MEMORY[0x1E69E7D40] & *v402) + 0xA8);
+  v74 = (*MEMORY[0x1E69E7D40] & *v402) + 168;
 
-  v86 = a1;
-  v87 = v426;
+  v75 = a1;
+  v76 = v416;
 
-  v89 = (v84)(v88);
-  v90 = (*((*v83 & *v89) + 0x98))();
+  v78 = (v73)(v77);
+  v79 = (*((*v72 & *v78) + 0x98))();
 
-  v405 = v84;
-  v410 = v85;
-  v91 = v84();
-  v92 = (*((*v83 & *v91) + 0xF8))();
+  v395 = v73;
+  v400 = v74;
+  v80 = v73();
+  v81 = (*((*v72 & *v80) + 0xF8))();
 
-  v93 = objc_allocWithZone(type metadata accessor for DataSetFeatureMatrix());
-  v94 = v86;
-  v95 = v425;
-  v439 = DataSetFeatureMatrix.init(x:y:inputSteps:outputSteps:unknownLoiId:)(v94, v87, v425, v90, v92);
-  v96 = *((*v83 & *v439) + 0x108);
-  v97 = v439;
-  v98 = v96();
+  v82 = objc_allocWithZone(type metadata accessor for DataSetFeatureMatrix());
+  v83 = v75;
+  v84 = v415;
+  v429 = DataSetFeatureMatrix.init(x:y:inputSteps:outputSteps:unknownLoiId:)(v83, v76, v415, v79, v81);
+  v85 = *((*v72 & *v429) + 0x108);
+  v86 = v429;
+  v87 = v85();
 
-  v99 = (*((*v83 & *v82) + 0xF8))(v98);
-  MEMORY[0x1EEE9AC00](v99);
-  *(&v349 - 4) = v82;
-  *(&v349 - 3) = v95;
-  *(&v349 - 2) = &v439;
+  v88 = (*((*v72 & *v71) + 0xF8))(v87);
+  MEMORY[0x1EEE9AC00](v88);
+  *(&v339 - 4) = v71;
+  *(&v339 - 3) = v84;
+  *(&v339 - 2) = &v429;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMd, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMR);
   type metadata accessor for Reshape();
-  lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMd, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMR);
-  v100 = v382;
-  v101 = v83;
+  lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMd, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMR, MEMORY[0x1E69B37E8]);
+  v89 = v372;
+  v90 = v72;
   Sequential.init(layers:)();
-  (*((*v83 & *v82) + 0x98))(v100);
-  v102 = v437;
+  (*((*v72 & *v71) + 0x98))(v89);
+  v91 = v427;
   Logger.init(subsystem:category:)();
-  v103 = v82;
-  v104 = Logger.logObject.getter();
-  v105 = static os_log_type_t.info.getter();
+  v92 = v71;
+  v93 = Logger.logObject.getter();
+  v94 = static os_log_type_t.info.getter();
 
-  v106 = os_log_type_enabled(v104, v105);
-  v375 = v60;
-  v372 = v61 + 8;
-  if (v106)
+  v95 = os_log_type_enabled(v93, v94);
+  v365 = v50;
+  v362 = v51 + 8;
+  if (v95)
   {
-    v107 = swift_slowAlloc();
-    *&v426 = swift_slowAlloc();
-    v438[0] = v426;
-    *v107 = 136315138;
+    v96 = swift_slowAlloc();
+    *&v416 = swift_slowAlloc();
+    v428[0] = v416;
+    *v96 = 136315138;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
-    v108 = swift_allocObject();
-    *(v108 + 16) = xmmword_1CEF0B430;
-    v109 = v405;
-    v110 = v405();
-    v111 = (*((*MEMORY[0x1E69E7D40] & *v110) + 0x80))();
+    v97 = swift_allocObject();
+    *(v97 + 16) = xmmword_1CEF0B430;
+    v98 = v395;
+    v99 = v395();
+    v100 = (*((*MEMORY[0x1E69E7D40] & *v99) + 0x80))();
 
-    *(v108 + 32) = v111;
-    v112 = v109();
-    v113 = (*((*MEMORY[0x1E69E7D40] & *v112) + 0x98))();
+    *(v97 + 32) = v100;
+    v101 = v98();
+    v102 = (*((*MEMORY[0x1E69E7D40] & *v101) + 0x98))();
 
-    *(v108 + 40) = v113;
+    *(v97 + 40) = v102;
     swift_beginAccess();
-    v114 = *((*MEMORY[0x1E69E7D40] & *v439) + 0x120);
-    v115 = v439;
-    v116 = v114();
+    v103 = *((*MEMORY[0x1E69E7D40] & *v429) + 0x120);
+    v104 = v429;
+    v105 = v103();
 
-    *(v108 + 48) = v116;
-    v117 = MEMORY[0x1D3865420](v108, MEMORY[0x1E69E6530]);
-    v119 = v118;
+    *(v97 + 48) = v105;
+    v106 = MEMORY[0x1D3865420](v97, MEMORY[0x1E69E6530]);
+    v108 = v107;
 
-    v120 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v117, v119, v438);
+    v109 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v106, v108, v428);
 
-    *(v107 + 4) = v120;
-    _os_log_impl(&dword_1CEE74000, v104, v105, "Model output shape: %s", v107, 0xCu);
-    v121 = v426;
-    __swift_destroy_boxed_opaque_existential_1Tm(v426);
-    v101 = MEMORY[0x1E69E7D40];
-    MEMORY[0x1D3865FA0](v121, -1, -1);
-    MEMORY[0x1D3865FA0](v107, -1, -1);
+    *(v96 + 4) = v109;
+    _os_log_impl(&dword_1CEE74000, v93, v94, "Model output shape: %s", v96, 0xCu);
+    v110 = v416;
+    __swift_destroy_boxed_opaque_existential_1Tm(v416);
+    v90 = MEMORY[0x1E69E7D40];
+    MEMORY[0x1D3865FA0](v110, -1, -1);
+    MEMORY[0x1D3865FA0](v96, -1, -1);
 
-    v122 = v437;
-    v123 = v375;
+    v111 = v427;
+    v112 = v365;
   }
 
   else
   {
 
-    v122 = v102;
-    v123 = v60;
+    v111 = v91;
+    v112 = v50;
   }
 
-  v124 = (v378)(v122, v123);
-  v125 = (*v101 & *v103) + 144;
-  v126 = v382;
-  v369 = *((*v101 & *v103) + 0x90);
-  v368 = v125;
-  v369(v124);
-  v127 = type metadata accessor for GradientClippingMode();
-  v128 = v103;
-  (*(*(v127 - 8) + 56))(v427, 1, 1, v127);
-  v129 = type metadata accessor for RegularizationKind();
-  (*(*(v129 - 8) + 56))(v428, 1, 1, v129);
-  v381 = lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense>, Reshape> and conformance Sequential<A, B>, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMd, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMR);
-  v130 = v384;
+  v113 = (v368)(v111, v112);
+  v114 = (*v90 & *v92) + 144;
+  v115 = v372;
+  v359 = *((*v90 & *v92) + 0x90);
+  v358 = v114;
+  v359(v113);
+  v116 = type metadata accessor for GradientClippingMode();
+  v117 = v92;
+  (*(*(v116 - 8) + 56))(v417, 1, 1, v116);
+  v118 = type metadata accessor for RegularizationKind();
+  (*(*(v118 - 8) + 56))(v418, 1, 1, v118);
+  v371 = lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense>, Reshape> and conformance Sequential<A, B>, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMd, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMR, MEMORY[0x1E69B37E8]);
+  v119 = v374;
   Adam.init(for:learningRate:beta1:beta2:usesAMSGrad:epsilon:gradientClippingMode:regularizationKind:gradientScale:)();
-  v131 = *(v383 + 8);
-  v383 += 8;
-  v367 = v131;
-  v131(v126, v130);
-  v132 = v432;
-  v133 = v101;
-  v134 = v429;
-  v135 = v434;
-  (*(v432 + 104))(v429, *MEMORY[0x1E69B3810], v434);
-  v136 = *((*v133 & *v128) + 0xA0);
-  v137 = (*v133 & *v128) + 160;
-  v138 = v136(v438);
+  v120 = *(v373 + 8);
+  v373 += 8;
+  v357 = v120;
+  v120(v115, v119);
+  v121 = v422;
+  v122 = v90;
+  v123 = v419;
+  v124 = v424;
+  (*(v422 + 104))(v419, *MEMORY[0x1E69B3810], v424);
+  v125 = *((*v122 & *v117) + 0xA0);
+  v126 = (*v122 & *v117) + 160;
+  v127 = v125(v428);
   Layer.prepare(for:)();
-  (*(v132 + 8))(v134, v135);
-  v139 = (v138)(v438, 0);
-  v140 = v405;
-  v141 = (v405)(v139);
-  LOBYTE(v138) = (*((*v133 & *v141) + 0xE0))();
+  (*(v121 + 8))(v123, v124);
+  v128 = (v127)(v428, 0);
+  v129 = v395;
+  v130 = (v395)(v128);
+  LOBYTE(v127) = (*((*v122 & *v130) + 0xE0))();
 
-  v374 = v136;
-  v373 = v137;
-  if (v138)
+  v364 = v125;
+  v363 = v126;
+  if (v127)
   {
-    v142 = v422;
+    v131 = v412;
     static ComputeDevice.gpu.getter();
-    v144 = v435;
-    v143 = v436;
-    v145 = *(v435 + 48);
-    if (v145(v142, 1, v436) == 1)
+    v133 = v425;
+    v132 = v426;
+    v134 = *(v425 + 48);
+    if (v134(v131, 1, v426) == 1)
     {
-      v146 = v421;
+      v135 = v411;
       static ComputeDevice.cpu.getter();
-      if (v145(v142, 1, v143) != 1)
+      if (v134(v131, 1, v132) != 1)
       {
-        outlined destroy of OneHotEncoder<String>.Transformer?(v142, &_s14NeuralNetworks13ComputeDeviceVSgMd, &_s14NeuralNetworks13ComputeDeviceVSgMR);
+        outlined destroy of OneHotEncoder<String>.Transformer?(v131, &_s14NeuralNetworks13ComputeDeviceVSgMd, &_s14NeuralNetworks13ComputeDeviceVSgMR);
       }
     }
 
     else
     {
-      v146 = v421;
-      (*(v144 + 32))(v421, v142, v143);
+      v135 = v411;
+      (*(v133 + 32))(v411, v131, v132);
     }
 
-    v150 = v374(v438);
+    v139 = v364(v428);
     Layer.place(on:)();
-    (*(v144 + 8))(v146, v143);
-    v149 = v150(v438, 0);
+    (*(v133 + 8))(v135, v132);
+    v138 = v139(v428, 0);
   }
 
   else
   {
-    v147 = v417;
+    v136 = v407;
     static ComputeDevice.cpu.getter();
-    v148 = v136(v438);
+    v137 = v125(v428);
     Layer.place(on:)();
-    v144 = v435;
-    (*(v435 + 8))(v147, v436);
-    v149 = v148(v438, 0);
+    v133 = v425;
+    (*(v425 + 8))(v136, v426);
+    v138 = v137(v428, 0);
   }
 
-  v151 = (v140)(v149);
-  v152 = (*((*MEMORY[0x1E69E7D40] & *v151) + 0xC8))();
+  v140 = (v129)(v138);
+  v141 = (*((*MEMORY[0x1E69E7D40] & *v140) + 0xC8))();
 
-  v363 = v152;
-  if (v152 < 1)
+  v353 = v141;
+  if (v141 < 1)
   {
 LABEL_138:
     __break(1u);
@@ -4188,115 +3994,115 @@ LABEL_141:
   }
 
   swift_beginAccess();
-  v422 = (v403 + 16);
-  v435 = v403 + 8;
-  v391 = *MEMORY[0x1E69E7020];
-  v390 = (v424 + 13);
-  v389 = (v424 + 1);
-  v388 = (v403 + 32);
-  v153 = 1;
-  *&v154 = 134218240;
-  v359 = v154;
-  v421 = xmmword_1CEF0B450;
-  v417 = xmmword_1CEF0B460;
-  v362 = xmmword_1CEF0B440;
-  v361 = vdupq_n_s64(2uLL);
-  v360 = vdupq_n_s64(4uLL);
-  v424 = v128;
-  v155 = MEMORY[0x1E69E7D40];
-  v432 = v144 + 56;
+  v412 = (v393 + 16);
+  v425 = v393 + 8;
+  v381 = *MEMORY[0x1E69E7020];
+  v380 = v414 + 104;
+  v379 = (v414 + 8);
+  v378 = (v393 + 32);
+  v142 = 1;
+  *&v143 = 134218240;
+  v349 = v143;
+  v411 = xmmword_1CEF0B450;
+  v407 = xmmword_1CEF0B460;
+  v352 = xmmword_1CEF0B440;
+  v351 = vdupq_n_s64(2uLL);
+  v350 = vdupq_n_s64(4uLL);
+  v414 = v117;
+  v144 = MEMORY[0x1E69E7D40];
+  v422 = v133 + 56;
   while (1)
   {
-    v376 = v153;
-    v156 = v439;
-    v157 = *((*v155 & *v439) + 0xC0);
-    v158 = v439;
-    v159 = v157();
-    v411 = v158;
+    v366 = v142;
+    v145 = v429;
+    v146 = *((*v144 & *v429) + 0xC0);
+    v147 = v429;
+    v148 = v146();
+    v401 = v147;
 
-    if ((v159 & 0x8000000000000000) != 0)
+    if ((v148 & 0x8000000000000000) != 0)
     {
 LABEL_137:
       __break(1u);
       goto LABEL_138;
     }
 
-    if (!v159)
+    if (!v148)
     {
-      v160 = MEMORY[0x1E69E7CC0];
+      v149 = MEMORY[0x1E69E7CC0];
       goto LABEL_26;
     }
 
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
-    v160 = swift_allocObject();
-    v161 = _swift_stdlib_malloc_size(v160);
-    v162 = v161 - 32;
-    if (v161 < 32)
+    v149 = swift_allocObject();
+    v150 = _swift_stdlib_malloc_size(v149);
+    v151 = v150 - 32;
+    if (v150 < 32)
     {
-      v162 = v161 - 25;
+      v151 = v150 - 25;
     }
 
-    *(v160 + 16) = v159;
-    *(v160 + 24) = 2 * (v162 >> 3);
-    v163 = (v160 + 32);
-    if (v159 < 4)
+    *(v149 + 16) = v148;
+    *(v149 + 24) = 2 * (v151 >> 3);
+    v152 = (v149 + 32);
+    if (v148 < 4)
     {
-      for (i = 0; i != v159; ++i)
+      for (i = 0; i != v148; ++i)
       {
 LABEL_25:
-        *v163++ = i;
+        *v152++ = i;
       }
 
       goto LABEL_26;
     }
 
-    i = v159 & 0x7FFFFFFFFFFFFFFCLL;
-    v163 += v159 & 0x7FFFFFFFFFFFFFFCLL;
-    v165 = (v160 + 48);
-    v166 = v159 & 0x7FFFFFFFFFFFFFFCLL;
-    v167 = v362;
-    v168 = v361;
-    v169 = v360;
+    i = v148 & 0x7FFFFFFFFFFFFFFCLL;
+    v152 += v148 & 0x7FFFFFFFFFFFFFFCLL;
+    v154 = (v149 + 48);
+    v155 = v148 & 0x7FFFFFFFFFFFFFFCLL;
+    v156 = v352;
+    v157 = v351;
+    v158 = v350;
     do
     {
-      v165[-1] = v167;
-      *v165 = vaddq_s64(v167, v168);
-      v167 = vaddq_s64(v167, v169);
-      v165 += 2;
-      v166 -= 4;
+      v154[-1] = v156;
+      *v154 = vaddq_s64(v156, v157);
+      v156 = vaddq_s64(v156, v158);
+      v154 += 2;
+      v155 -= 4;
     }
 
-    while (v166);
-    if (v159 != i)
+    while (v155);
+    if (v148 != i)
     {
       goto LABEL_25;
     }
 
 LABEL_26:
-    v170 = *(v160 + 16);
-    v171 = v170 - 2;
-    if (v170 >= 2)
+    v159 = *(v149 + 16);
+    v160 = v159 - 2;
+    if (v159 >= 2)
     {
       break;
     }
 
 LABEL_49:
-    v434 = v156;
-    if (v170)
+    v424 = v145;
+    if (v159)
     {
-      v185 = 0;
-      v370 = 0;
-      v400 = v160 + 32;
-      v186 = (*v155 & *v411) + 352;
-      v399 = *((*v155 & *v411) + 0x160);
-      v398 = v186;
-      v187 = 0.0;
-      v188 = MEMORY[0x1E69E7CC0];
-      v437 = MEMORY[0x1E69E7CC0];
-      v396 = v160;
+      v174 = 0;
+      v360 = 0;
+      v390 = v149 + 32;
+      v175 = (*v144 & *v401) + 352;
+      v389 = *((*v144 & *v401) + 0x160);
+      v388 = v175;
+      v176 = 0.0;
+      v177 = MEMORY[0x1E69E7CC0];
+      v427 = MEMORY[0x1E69E7CC0];
+      v386 = v149;
       while (1)
       {
-        if (v185 >= *(v160 + 16))
+        if (v174 >= *(v149 + 16))
         {
           __break(1u);
 LABEL_135:
@@ -4306,337 +4112,338 @@ LABEL_136:
           goto LABEL_137;
         }
 
-        v415 = v185;
-        v189 = *(v400 + 8 * v185);
-        v190 = v411;
-        v191 = v399(v189);
-        v193 = v192;
-        v195 = v194;
-        v429 = v190;
+        v405 = v174;
+        v178 = *(v390 + 8 * v174);
+        v179 = v401;
+        v180 = v389(v178);
+        v182 = v181;
+        v184 = v183;
+        v419 = v179;
 
-        v196 = *(v191 + 16);
-        v414 = v188;
-        v413 = v195;
-        v428 = v193;
-        if (v196)
+        v185 = *(v180 + 16);
+        v404 = v177;
+        v403 = v184;
+        v418 = v182;
+        if (v185)
         {
           break;
         }
 
-        if (*(v193 + 2) || *(v195 + 2))
+        if (*(v182 + 2) || *(v184 + 2))
         {
-          v199 = MEMORY[0x1E69E7CC0];
+          v188 = MEMORY[0x1E69E7CC0];
 LABEL_68:
-          v205 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
-          v206 = swift_allocObject();
-          *(v206 + 16) = v421;
-          *(v206 + 32) = v196;
-          if (!*(v191 + 16))
+          v194 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
+          v195 = swift_allocObject();
+          *(v195 + 16) = v411;
+          *(v195 + 32) = v185;
+          if (!*(v180 + 16))
           {
             goto LABEL_135;
           }
 
-          v207 = v206;
-          v208 = *(v191 + 32);
+          v196 = v195;
+          v197 = *(v180 + 32);
 
-          v209 = *(v208 + 16);
+          v198 = *(v197 + 16);
 
-          *(v207 + 40) = v209;
-          MEMORY[0x1D3865040](v207);
-          v438[0] = v199;
-          v210 = *v432;
-          v211 = v420;
-          (*v432)(v420, 1, 1, v436);
-          v212 = v210;
-          v427 = v210;
-          v213 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
-          v214 = lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type [Float] and conformance [A], &_sSaySfGMd, &_sSaySfGMR);
-          v408 = v213;
-          v407 = v214;
+          *(v196 + 40) = v198;
+          MEMORY[0x1D3865040](v196);
+          v428[0] = v188;
+          v199 = *v422;
+          v200 = v410;
+          (*v422)(v410, 1, 1, v426);
+          v201 = v199;
+          v417 = v199;
+          v202 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
+          v203 = MEMORY[0x1E69E6340];
+          v204 = lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type [Float] and conformance [A], &_sSaySfGMd, &_sSaySfGMR, MEMORY[0x1E69E6340]);
+          v398 = v202;
+          v397 = v204;
           Tensor.init<A>(shape:scalars:on:)();
-          v409 = v205;
-          v215 = swift_allocObject();
-          *(v215 + 16) = v417;
-          v216 = v428;
-          *(v215 + 32) = *(v428 + 2);
+          v399 = v194;
+          v205 = swift_allocObject();
+          *(v205 + 16) = v407;
+          v206 = v418;
+          *(v205 + 32) = *(v418 + 2);
           MEMORY[0x1D3865040]();
-          v438[0] = v216;
-          v212(v211, 1, 1, v436);
+          v428[0] = v206;
+          v201(v200, 1, 1, v426);
           __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
-          lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type [Int] and conformance [A], &_sSaySiGMd, &_sSaySiGMR);
-          v217 = v418;
+          lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type [Int] and conformance [A], &_sSaySiGMd, &_sSaySiGMR, v203);
+          v207 = v408;
           Tensor.init<A>(shape:scalars:on:)();
-          v218 = v403;
-          v428 = *(v403 + 16);
-          v219 = v404;
-          v198 = v397;
-          (v428)(v404, v217, v397);
-          v220 = *((*MEMORY[0x1E69E7D40] & *v429) + 0x108);
-          v221 = v429;
-          v220();
-          v406 = v221;
+          v208 = v393;
+          v418 = *(v393 + 16);
+          v209 = v394;
+          v187 = v387;
+          (v418)(v394, v207, v387);
+          v210 = *((*MEMORY[0x1E69E7D40] & *v419) + 0x108);
+          v211 = v419;
+          v210();
+          v396 = v211;
 
-          (v427)(v211, 1, 1, v436);
-          v222 = v419;
+          (v417)(v200, 1, 1, v426);
+          v212 = v409;
           Tensor.init(oneHotAtIndices:depth:onValue:offValue:on:)();
           __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy14NeuralNetworks6TensorVGMd, &_ss23_ContiguousArrayStorageCy14NeuralNetworks6TensorVGMR);
-          v223 = *(v218 + 72);
-          v224 = v428;
-          v225 = (*(v218 + 80) + 32) & ~*(v218 + 80);
-          v226 = swift_allocObject();
-          *(v226 + 16) = v421;
-          v425 = v225;
-          v227 = v226 + v225;
-          (v224)(v227, v222, v198);
-          *&v426 = v223;
-          (v224)(v227 + v223, v433, v198);
-          v228 = type metadata accessor for ScalarType();
-          v229 = *(v228 - 8);
-          v387 = *(v229 + 56);
-          v386 = v229 + 56;
-          v387(v402, 1, 1, v228);
-          v230 = v401;
+          v213 = *(v208 + 72);
+          v214 = v418;
+          v215 = (*(v208 + 80) + 32) & ~*(v208 + 80);
+          v216 = swift_allocObject();
+          *(v216 + 16) = v411;
+          v415 = v215;
+          v217 = v216 + v215;
+          (v214)(v217, v212, v187);
+          *&v416 = v213;
+          (v214)(v217 + v213, v423, v187);
+          v218 = type metadata accessor for ScalarType();
+          v219 = *(v218 - 8);
+          v377 = *(v219 + 56);
+          v376 = v219 + 56;
+          v377(v392, 1, 1, v218);
+          v220 = v391;
           Tensor.init(concatenating:alongAxis:scalarType:)();
-          v231 = Tensor.rank.getter();
-          if (v231 < 0)
+          v221 = Tensor.rank.getter();
+          if (v221 < 0)
           {
             goto LABEL_136;
           }
 
-          v385 = v228;
-          specialized Sequence.reversed()(0, v231);
+          v375 = v218;
+          specialized Sequence.reversed()(0, v221);
           Tensor.transposed(permutation:)();
 
-          v232 = *v435;
-          (*v435)(v230, v198);
-          v429 = v232;
+          v222 = *v425;
+          (*v425)(v220, v187);
+          v419 = v222;
           Tensor.expandingShape(at:)();
-          v232(v219, v198);
-          v233 = swift_allocObject();
-          *(v233 + 16) = v417;
-          v234 = v413;
-          *(v233 + 32) = *(v413 + 2);
+          v222(v209, v187);
+          v223 = swift_allocObject();
+          *(v223 + 16) = v407;
+          v224 = v403;
+          *(v223 + 32) = *(v403 + 2);
           MEMORY[0x1D3865040]();
-          v438[0] = v234;
-          v235 = v420;
-          v236 = v436;
-          v237 = v427;
-          (v427)(v420, 1, 1, v436);
+          v428[0] = v224;
+          v225 = v410;
+          v226 = v426;
+          v227 = v417;
+          (v417)(v410, 1, 1, v426);
           Tensor.init<A>(shape:scalars:on:)();
-          v238 = v394;
-          v239 = v395;
-          (*v390)(v394, v391, v395);
+          v228 = v384;
+          v229 = v385;
+          (*v380)(v384, v381, v385);
           Tensor.cast(to:roundingRule:)();
-          (*v389)(v238, v239);
-          v240 = *((*MEMORY[0x1E69E7D40] & *v406) + 0x120);
-          v241 = v406;
-          v240();
-          v242 = v428;
-          v413 = v241;
+          (*v379)(v228, v229);
+          v230 = *((*MEMORY[0x1E69E7D40] & *v396) + 0x120);
+          v231 = v396;
+          v230();
+          v232 = v418;
+          v403 = v231;
 
-          (v237)(v235, 1, 1, v236);
+          (v227)(v225, 1, 1, v226);
           Tensor.init(oneHotAtIndices:depth:onValue:offValue:on:)();
           Tensor.expandingShape(at:)();
-          v429(v219, v198);
-          v243 = v392;
-          (v242)(v392, v430, v198);
+          v419(v209, v187);
+          v233 = v382;
+          (v232)(v382, v420, v187);
           if (swift_isUniquelyReferenced_nonNull_native())
           {
-            v244 = v393;
-            v245 = v388;
-            v246 = v414;
-            v247 = v437;
+            v234 = v383;
+            v235 = v378;
+            v236 = v404;
+            v237 = v427;
           }
 
           else
           {
-            v247 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v437[2] + 1, 1, v437);
-            v244 = v393;
-            v245 = v388;
-            v246 = v414;
+            v237 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v427[2] + 1, 1, v427);
+            v234 = v383;
+            v235 = v378;
+            v236 = v404;
           }
 
-          v249 = v247[2];
-          v248 = v247[3];
-          if (v249 >= v248 >> 1)
+          v239 = v237[2];
+          v238 = v237[3];
+          if (v239 >= v238 >> 1)
           {
-            v247 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v248 > 1, v249 + 1, 1, v247);
+            v237 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v238 > 1), v239 + 1, 1, v237);
           }
 
-          v247[2] = v249 + 1;
-          v437 = v247;
-          v250 = v247 + v425 + v249 * v426;
-          v251 = *v245;
-          (*v245)(v250, v243, v198);
-          (v242)(v244, v431, v198);
+          v237[2] = v239 + 1;
+          v427 = v237;
+          v240 = v237 + v415 + v239 * v416;
+          v241 = *v235;
+          (*v235)(v240, v233, v187);
+          (v232)(v234, v421, v187);
           if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
           {
-            v246 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v246[2] + 1, 1, v246);
+            v236 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v236[2] + 1, 1, v236);
           }
 
-          v253 = v246[2];
-          v252 = v246[3];
-          if (v253 >= v252 >> 1)
+          v243 = v236[2];
+          v242 = v236[3];
+          if (v243 >= v242 >> 1)
           {
-            v246 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v252 > 1, v253 + 1, 1, v246);
+            v236 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v242 > 1), v243 + 1, 1, v236);
           }
 
-          v246[2] = v253 + 1;
-          v254 = v251(v246 + v425 + v253 * v426, v244, v198);
-          v255 = v437[2];
-          v256 = v246;
-          v257 = v424;
-          v258 = v405;
-          v259 = (v405)(v254);
-          v260 = MEMORY[0x1E69E7D40];
-          v261 = (*((*MEMORY[0x1E69E7D40] & *v259) + 0x80))();
+          v236[2] = v243 + 1;
+          v244 = v241(v236 + v415 + v243 * v416, v234, v187);
+          v245 = v427[2];
+          v246 = v236;
+          v247 = v414;
+          v248 = v395;
+          v249 = (v395)(v244);
+          v250 = MEMORY[0x1E69E7D40];
+          v251 = (*((*MEMORY[0x1E69E7D40] & *v249) + 0x80))();
 
-          if (v255 == v261 && (v263 = v256[2], v264 = v258(), v265 = (*((*v260 & *v264) + 0x80))(), v264, v263 == v265))
+          if (v245 == v251 && (v253 = v246[2], v254 = v248(), v255 = (*((*v250 & *v254) + 0x80))(), v254, v253 == v255))
           {
-            v266 = v402;
-            v267 = v385;
-            v268 = v387;
-            v387(v402, 1, 1, v385);
-            v269 = v404;
+            v256 = v392;
+            v257 = v375;
+            v258 = v377;
+            v377(v392, 1, 1, v375);
+            v259 = v394;
             Tensor.init(concatenating:alongAxis:scalarType:)();
-            v268(v266, 1, 1, v267);
+            v258(v256, 1, 1, v257);
 
-            v270 = v401;
-            v271 = Tensor.init(concatenating:alongAxis:scalarType:)();
-            v272 = v382;
-            v273 = (v369)(v271);
-            MEMORY[0x1EEE9AC00](v273);
-            *(&v349 - 2) = v269;
-            *(&v349 - 1) = v270;
-            v274 = v270;
-            v275 = v366;
-            v276 = v384;
+            v260 = v391;
+            v261 = Tensor.init(concatenating:alongAxis:scalarType:)();
+            v262 = v372;
+            v263 = (v359)(v261);
+            MEMORY[0x1EEE9AC00](v263);
+            *(&v339 - 2) = v259;
+            *(&v339 - 1) = v260;
+            v264 = v260;
+            v265 = v356;
+            v266 = v374;
             valueWithGradient<A>(at:of:)();
-            v367(v272, v276);
-            v277 = v374(v438);
+            v357(v262, v266);
+            v267 = v364(v428);
             Adam.update(_:with:)();
 
-            v277(v438, 0);
-            (*((*MEMORY[0x1E69E7D40] & *v257) + 0x110))(1);
+            v267(v428, 0);
+            (*((*MEMORY[0x1E69E7D40] & *v247) + 0x110))(1);
             Tensor.scalar<A>(as:)();
-            v187 = v187 + *v438;
-            v278 = v429;
-            v429(v275, v198);
+            v176 = v176 + *v428;
+            v268 = v419;
+            v419(v265, v187);
 
-            v278(v274, v198);
-            v262 = (v278)(v404, v198);
-            v279 = MEMORY[0x1E69E7CC0];
-            v437 = MEMORY[0x1E69E7CC0];
+            v268(v264, v187);
+            v252 = (v268)(v394, v187);
+            v269 = MEMORY[0x1E69E7CC0];
+            v427 = MEMORY[0x1E69E7CC0];
           }
 
           else
           {
-            v279 = v256;
+            v269 = v246;
           }
 
-          v280 = v424;
-          v281 = *((*MEMORY[0x1E69E7D40] & *v424) + 0x138);
-          v282 = (v281)(v262);
-          [v282 lock];
+          v270 = v414;
+          v271 = *((*MEMORY[0x1E69E7D40] & *v414) + 0x138);
+          v272 = (v271)(v252);
+          [v272 lock];
 
-          LOBYTE(v282) = (*((*MEMORY[0x1E69E7D40] & *v280) + 0x120))();
-          v283 = v281();
-          [v283 unlock];
+          LOBYTE(v272) = (*((*MEMORY[0x1E69E7D40] & *v270) + 0x120))();
+          v273 = v271();
+          [v273 unlock];
 
-          if (v282)
+          if (v272)
           {
 LABEL_102:
 
             PCNeuralNetModel.clearTrainingInterrupt()();
-            v299 = v354;
+            v289 = v344;
             Logger.init(subsystem:category:)();
-            v300 = Logger.logObject.getter();
-            v301 = static os_log_type_t.info.getter();
-            if (os_log_type_enabled(v300, v301))
+            v290 = Logger.logObject.getter();
+            v291 = static os_log_type_t.info.getter();
+            if (os_log_type_enabled(v290, v291))
             {
-              v302 = swift_slowAlloc();
-              *v302 = 134217984;
-              *(v302 + 4) = v376;
-              _os_log_impl(&dword_1CEE74000, v300, v301, "training interrupted at epoch %ld", v302, 0xCu);
-              MEMORY[0x1D3865FA0](v302, -1, -1);
+              v292 = swift_slowAlloc();
+              *v292 = 134217984;
+              *(v292 + 4) = v366;
+              _os_log_impl(&dword_1CEE74000, v290, v291, "training interrupted at epoch %ld", v292, 0xCu);
+              MEMORY[0x1D3865FA0](v292, -1, -1);
             }
 
-            v378(v299, v375);
-            v303 = v429;
-            v429(v431, v198);
-            v303(v416, v198);
-            v303(v430, v198);
-            v303(v419, v198);
-            v303(v418, v198);
-            v303(v433, v198);
-            outlined destroy of OneHotEncoder<String>.Transformer?(v377, &_s14NeuralNetworks4AdamVyAA10SequentialVyAEyAEyAEyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGGMd, &_s14NeuralNetworks4AdamVyAA10SequentialVyAEyAEyAEyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGGMR);
+            v368(v289, v365);
+            v293 = v419;
+            v419(v421, v187);
+            v293(v406, v187);
+            v293(v420, v187);
+            v293(v409, v187);
+            v293(v408, v187);
+            v293(v423, v187);
+            outlined destroy of OneHotEncoder<String>.Transformer?(v367, &_s14NeuralNetworks4AdamVyAA10SequentialVyAEyAEyAEyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGGMd, &_s14NeuralNetworks4AdamVyAA10SequentialVyAEyAEyAEyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGGMR);
 
             return;
           }
 
-          v284 = v429;
-          v429(v431, v198);
-          v284(v416, v198);
-          v284(v430, v198);
-          v284(v419, v198);
-          v284(v418, v198);
-          v284(v433, v198);
-          v188 = v279;
+          v274 = v419;
+          v419(v421, v187);
+          v274(v406, v187);
+          v274(v420, v187);
+          v274(v409, v187);
+          v274(v408, v187);
+          v274(v423, v187);
+          v177 = v269;
         }
 
         else
         {
 
-          if (__OFADD__(v370++, 1))
+          if (__OFADD__(v360++, 1))
           {
             goto LABEL_140;
           }
         }
 
-        v160 = v396;
-        v185 = v415 + 1;
-        if (v415 + 1 == v170)
+        v149 = v386;
+        v174 = v405 + 1;
+        if (v405 + 1 == v159)
         {
 
-          v298 = v370 > 0;
+          v288 = v360 > 0;
           goto LABEL_91;
         }
       }
 
-      v197 = 0;
-      v198 = v191 + 32;
-      v199 = MEMORY[0x1E69E7CC0];
-      while (v197 < *(v191 + 16))
+      v186 = 0;
+      v187 = v180 + 32;
+      v188 = MEMORY[0x1E69E7CC0];
+      while (v186 < *(v180 + 16))
       {
-        v200 = *(*(v198 + 8 * v197) + 16);
-        if (v200)
+        v189 = *(*(v187 + 8 * v186) + 16);
+        if (v189)
         {
-          v201 = 0;
+          v190 = 0;
           while (1)
           {
-            v202 = *(v198 + 8 * v197);
-            if (v201 >= *(v202 + 16))
+            v191 = *(v187 + 8 * v186);
+            if (v190 >= *(v191 + 16))
             {
               break;
             }
 
-            v203 = *(v202 + 4 * v201 + 32);
+            v192 = *(v191 + 4 * v190 + 32);
             if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
             {
-              v199 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v199 + 2) + 1, 1, v199);
+              v188 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v188 + 2) + 1, 1, v188);
             }
 
-            v160 = *(v199 + 2);
-            v204 = *(v199 + 3);
-            if (v160 >= v204 >> 1)
+            v149 = *(v188 + 2);
+            v193 = *(v188 + 3);
+            if (v149 >= v193 >> 1)
             {
-              v199 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v204 > 1), v160 + 1, 1, v199);
+              v188 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v193 > 1), v149 + 1, 1, v188);
             }
 
-            ++v201;
-            *(v199 + 2) = v160 + 1;
-            *&v199[4 * v160 + 32] = v203;
-            if (v200 == v201)
+            ++v190;
+            *(v188 + 2) = v149 + 1;
+            *&v188[4 * v149 + 32] = v192;
+            if (v189 == v190)
             {
               goto LABEL_54;
             }
@@ -4647,7 +4454,7 @@ LABEL_102:
         }
 
 LABEL_54:
-        if (++v197 == v196)
+        if (++v186 == v185)
         {
           goto LABEL_68;
         }
@@ -4656,76 +4463,76 @@ LABEL_54:
       goto LABEL_108;
     }
 
-    v370 = 0;
-    v298 = 0;
-    v187 = 0.0;
+    v360 = 0;
+    v288 = 0;
+    v176 = 0.0;
 LABEL_91:
 
     Logger.init(subsystem:category:)();
-    v160 = v424;
-    v286 = Logger.logObject.getter();
-    v287 = static os_log_type_t.info.getter();
+    v149 = v414;
+    v276 = Logger.logObject.getter();
+    v277 = static os_log_type_t.info.getter();
 
-    v288 = os_log_type_enabled(v286, v287);
-    v170 = v375;
+    v278 = os_log_type_enabled(v276, v277);
+    v159 = v365;
+    if (v278)
+    {
+      v279 = swift_slowAlloc();
+      *v279 = v349;
+      *(v279 + 4) = v366;
+      *(v279 + 12) = 2048;
+      v280 = v395();
+      v281 = (*((*MEMORY[0x1E69E7D40] & *v280) + 0x80))();
+
+      *(v279 + 14) = v176 * v281;
+      _os_log_impl(&dword_1CEE74000, v276, v277, "Epoch: %ld, Loss: %f", v279, 0x16u);
+      MEMORY[0x1D3865FA0](v279, -1, -1);
+    }
+
+    v368(v361, v159);
     if (v288)
     {
-      v289 = swift_slowAlloc();
-      *v289 = v359;
-      *(v289 + 4) = v376;
-      *(v289 + 12) = 2048;
-      v290 = v405();
-      v291 = (*((*MEMORY[0x1E69E7D40] & *v290) + 0x80))();
-
-      *(v289 + 14) = v187 * v291;
-      _os_log_impl(&dword_1CEE74000, v286, v287, "Epoch: %ld, Loss: %f", v289, 0x16u);
-      MEMORY[0x1D3865FA0](v289, -1, -1);
-    }
-
-    v378(v371, v170);
-    if (v298)
-    {
       Logger.init(subsystem:category:)();
-      v292 = Logger.logObject.getter();
-      v293 = static os_log_type_t.info.getter();
-      if (os_log_type_enabled(v292, v293))
+      v282 = Logger.logObject.getter();
+      v283 = static os_log_type_t.info.getter();
+      if (os_log_type_enabled(v282, v283))
       {
-        v294 = swift_slowAlloc();
-        *v294 = v359;
-        *(v294 + 4) = v370;
-        *(v294 + 12) = 2048;
-        v295 = *((*MEMORY[0x1E69E7D40] & *v411) + 0xC0);
-        v296 = v411;
-        v297 = v295();
+        v284 = swift_slowAlloc();
+        *v284 = v349;
+        *(v284 + 4) = v360;
+        *(v284 + 12) = 2048;
+        v285 = *((*MEMORY[0x1E69E7D40] & *v401) + 0xC0);
+        v286 = v401;
+        v287 = v285();
 
-        *(v294 + 14) = v297;
-        _os_log_impl(&dword_1CEE74000, v292, v293, "datapoints skipped due to unknown visit history information: %ld, total datapoints: %ld", v294, 0x16u);
-        MEMORY[0x1D3865FA0](v294, -1, -1);
+        *(v284 + 14) = v287;
+        _os_log_impl(&dword_1CEE74000, v282, v283, "datapoints skipped due to unknown visit history information: %ld, total datapoints: %ld", v284, 0x16u);
+        MEMORY[0x1D3865FA0](v284, -1, -1);
       }
 
-      v378(v364, v170);
+      v368(v354, v159);
     }
 
-    if (v376 == v363)
+    if (v366 == v353)
     {
       goto LABEL_109;
     }
 
-    v153 = v376 + 1;
-    v155 = MEMORY[0x1E69E7D40];
-    if (__OFADD__(v376, 1))
+    v142 = v366 + 1;
+    v144 = MEMORY[0x1E69E7D40];
+    if (__OFADD__(v366, 1))
     {
       goto LABEL_139;
     }
   }
 
-  v172 = 0;
-  LODWORD(v173) = 1;
+  v161 = 0;
+  LODWORD(v162) = 1;
   while (1)
   {
-    v173 = (1664525 * v173 + 1013904223);
-    v175 = vcvtd_n_f64_u64(v173, 0x20uLL) * 1.84467441e19;
-    if (v175 == INFINITY)
+    v162 = (1664525 * v162 + 1013904223);
+    v164 = vcvtd_n_f64_u64(v162, 0x20uLL) * 1.84467441e19;
+    if (v164 == INFINITY)
     {
       __break(1u);
 LABEL_120:
@@ -4745,99 +4552,99 @@ LABEL_126:
       goto LABEL_127;
     }
 
-    if (v175 <= -1.0)
+    if (v164 <= -1.0)
     {
       goto LABEL_120;
     }
 
-    if (v175 >= 1.84467441e19)
+    if (v164 >= 1.84467441e19)
     {
       goto LABEL_121;
     }
 
-    v176 = v175 * v170;
-    v177 = (v175 * v170) >> 64;
-    if (v170 > v176)
+    v165 = v164 * v159;
+    v166 = (v164 * v159) >> 64;
+    if (v159 > v165)
     {
-      v178 = -v170 % v170;
-      if (v178 > v176)
+      v167 = -v159 % v159;
+      if (v167 > v165)
       {
         break;
       }
     }
 
 LABEL_39:
-    v180 = v172 + v177;
-    if (__OFADD__(v172, v177))
+    v169 = v161 + v166;
+    if (__OFADD__(v161, v166))
     {
       goto LABEL_122;
     }
 
-    if (v172 != v180)
+    if (v161 != v169)
     {
-      v181 = *(v160 + 16);
-      if (v172 >= v181)
+      v170 = *(v149 + 16);
+      if (v161 >= v170)
       {
         goto LABEL_123;
       }
 
-      if (v180 >= v181)
+      if (v169 >= v170)
       {
         goto LABEL_124;
       }
 
-      v182 = *(v160 + 32 + 8 * v172);
-      v183 = *(v160 + 32 + 8 * v180);
+      v171 = *(v149 + 32 + 8 * v161);
+      v172 = *(v149 + 32 + 8 * v169);
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v160 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(v160);
+        v149 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(v149);
       }
 
-      v184 = *(v160 + 16);
-      if (v172 >= v184)
+      v173 = *(v149 + 16);
+      if (v161 >= v173)
       {
         goto LABEL_125;
       }
 
-      *(v160 + 32 + 8 * v172) = v183;
-      if (v180 >= v184)
+      *(v149 + 32 + 8 * v161) = v172;
+      if (v169 >= v173)
       {
         goto LABEL_126;
       }
 
-      *(v160 + 32 + 8 * v180) = v182;
+      *(v149 + 32 + 8 * v169) = v171;
     }
 
-    --v170;
-    if (v172++ == v171)
+    --v159;
+    if (v161++ == v160)
     {
-      v170 = *(v160 + 16);
+      v159 = *(v149 + 16);
       goto LABEL_49;
     }
   }
 
   while (1)
   {
-    v173 = (1664525 * v173 + 1013904223);
-    v179 = vcvtd_n_f64_u64(v173, 0x20uLL) * 1.84467441e19;
-    if (v179 == INFINITY)
+    v162 = (1664525 * v162 + 1013904223);
+    v168 = vcvtd_n_f64_u64(v162, 0x20uLL) * 1.84467441e19;
+    if (v168 == INFINITY)
     {
       break;
     }
 
-    if (v179 <= -1.0)
+    if (v168 <= -1.0)
     {
       goto LABEL_106;
     }
 
-    if (v179 >= 1.84467441e19)
+    if (v168 >= 1.84467441e19)
     {
       goto LABEL_107;
     }
 
-    if (v178 <= v179 * v170)
+    if (v167 <= v168 * v159)
     {
-      v177 = (v179 * v170) >> 64;
+      v166 = (v168 * v159) >> 64;
       goto LABEL_39;
     }
   }
@@ -4850,107 +4657,107 @@ LABEL_107:
 LABEL_108:
   __break(1u);
 LABEL_109:
-  v155 = MEMORY[0x1E69E7D40];
-  v304 = (*((*MEMORY[0x1E69E7D40] & *v160) + 0x108))();
-  v305 = v423;
-  if ((v304 & 1) == 0)
+  v144 = MEMORY[0x1E69E7D40];
+  v294 = (*((*MEMORY[0x1E69E7D40] & *v149) + 0x108))();
+  v295 = v413;
+  if ((v294 & 1) == 0)
   {
-    outlined destroy of OneHotEncoder<String>.Transformer?(v377, &_s14NeuralNetworks4AdamVyAA10SequentialVyAEyAEyAEyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGGMd, &_s14NeuralNetworks4AdamVyAA10SequentialVyAEyAEyAEyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGGMR);
+    outlined destroy of OneHotEncoder<String>.Transformer?(v367, &_s14NeuralNetworks4AdamVyAA10SequentialVyAEyAEyAEyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGGMd, &_s14NeuralNetworks4AdamVyAA10SequentialVyAEyAEyAEyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGGMR);
 
     return;
   }
 
-  v306 = v382;
-  (v369)();
-  v307 = v384;
-  v308 = Layer.parameters(recursively:)();
-  v367(v306, v307);
-  v310 = *(v308 + 16);
-  if (v310)
+  v296 = v372;
+  (v359)();
+  v297 = v374;
+  v298 = Layer.parameters(recursively:)();
+  v357(v296, v297);
+  v300 = *(v298 + 16);
+  if (v300)
   {
-    v311 = 0;
-    v312 = (*(v403 + 80) + 32) & ~*(v403 + 80);
-    v425 = v308;
-    v313 = v308 + v312;
-    v431 = *(v403 + 72);
-    v433 = *(v403 + 16);
-    v427 = (v350 + 8);
-    *&v309 = 136315394;
-    v426 = v309;
-    v432 = v435 & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-    v314 = v356;
-    v428 = v160;
+    v301 = 0;
+    v302 = (*(v393 + 80) + 32) & ~*(v393 + 80);
+    v415 = v298;
+    v303 = v298 + v302;
+    v421 = *(v393 + 72);
+    v423 = *(v393 + 16);
+    v417 = (v340 + 8);
+    *&v299 = 136315394;
+    v416 = v299;
+    v422 = v425 & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+    v304 = v346;
+    v418 = v149;
     while (1)
     {
-      v436 = v310;
-      v437 = v311;
-      v315 = v358;
-      v316 = v397;
-      v317 = v433;
-      (v433)(v358, v313, v397);
+      v426 = v300;
+      v427 = v301;
+      v305 = v348;
+      v306 = v387;
+      v307 = v423;
+      (v423)(v348, v303, v387);
       Logger.init(subsystem:category:)();
-      v317(v314, v315, v316);
-      v318 = v355;
-      v317(v355, v315, v316);
-      v319 = Logger.logObject.getter();
-      v320 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v319, v320))
+      v307(v304, v305, v306);
+      v308 = v345;
+      v307(v345, v305, v306);
+      v309 = Logger.logObject.getter();
+      v310 = static os_log_type_t.default.getter();
+      if (os_log_type_enabled(v309, v310))
       {
-        v321 = swift_slowAlloc();
-        v430 = swift_slowAlloc();
-        v438[0] = v430;
-        *v321 = v426;
-        LODWORD(v429) = v320;
+        v311 = swift_slowAlloc();
+        v420 = swift_slowAlloc();
+        v428[0] = v420;
+        *v311 = v416;
+        LODWORD(v419) = v310;
         Tensor.shape.getter();
-        lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type TensorShape and conformance TensorShape, 255, MEMORY[0x1E69B3800]);
-        v322 = v305;
-        v323 = v353;
-        v324 = dispatch thunk of CustomStringConvertible.description.getter();
-        v326 = v325;
-        (*v427)(v322, v323);
-        v327 = *v435;
-        (*v435)(v314, v316);
-        v328 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v324, v326, v438);
+        lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type TensorShape and conformance TensorShape, 255, MEMORY[0x1E69B3800], MEMORY[0x1E69B3808]);
+        v312 = v295;
+        v313 = v343;
+        v314 = dispatch thunk of CustomStringConvertible.description.getter();
+        v316 = v315;
+        (*v417)(v312, v313);
+        v317 = *v425;
+        (*v425)(v304, v306);
+        v318 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v314, v316, v428);
 
-        *(v321 + 4) = v328;
-        *(v321 + 12) = 2048;
-        v329 = Tensor.scalarCount.getter();
-        v327(v318, v316);
-        *(v321 + 14) = v329;
-        _os_log_impl(&dword_1CEE74000, v319, v429, "layer shape: %s,  parameters: %ld", v321, 0x16u);
-        v330 = v430;
-        __swift_destroy_boxed_opaque_existential_1Tm(v430);
-        MEMORY[0x1D3865FA0](v330, -1, -1);
-        v331 = v321;
-        v160 = v428;
-        MEMORY[0x1D3865FA0](v331, -1, -1);
+        *(v311 + 4) = v318;
+        *(v311 + 12) = 2048;
+        v319 = Tensor.scalarCount.getter();
+        v317(v308, v306);
+        *(v311 + 14) = v319;
+        _os_log_impl(&dword_1CEE74000, v309, v419, "layer shape: %s,  parameters: %ld", v311, 0x16u);
+        v320 = v420;
+        __swift_destroy_boxed_opaque_existential_1Tm(v420);
+        MEMORY[0x1D3865FA0](v320, -1, -1);
+        v321 = v311;
+        v149 = v418;
+        MEMORY[0x1D3865FA0](v321, -1, -1);
       }
 
       else
       {
-        v327 = *v435;
-        (*v435)(v318, v316);
+        v317 = *v425;
+        (*v425)(v308, v306);
 
-        v327(v314, v316);
+        v317(v304, v306);
       }
 
-      v170 = v375;
-      v378(v357, v375);
-      v332 = v358;
-      v333 = Tensor.scalarCount.getter();
-      v327(v332, v316);
-      v311 = (v437 + v333);
-      if (__OFADD__(v437, v333))
+      v159 = v365;
+      v368(v347, v365);
+      v322 = v348;
+      v323 = Tensor.scalarCount.getter();
+      v317(v322, v306);
+      v301 = (v427 + v323);
+      if (__OFADD__(v427, v323))
       {
         goto LABEL_141;
       }
 
-      v313 += v431;
-      v310 = v436 - 1;
-      v305 = v423;
-      v314 = v356;
-      v155 = MEMORY[0x1E69E7D40];
-      if (v436 == 1)
+      v303 += v421;
+      v300 = v426 - 1;
+      v295 = v413;
+      v304 = v346;
+      v144 = MEMORY[0x1E69E7D40];
+      if (v426 == 1)
       {
 
         goto LABEL_128;
@@ -4960,159 +4767,155 @@ LABEL_109:
 
 LABEL_127:
 
-  v311 = 0;
+  v301 = 0;
 LABEL_128:
   Logger.init(subsystem:category:)();
-  v334 = v160;
-  v335 = Logger.logObject.getter();
-  v336 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v335, v336))
+  v324 = v149;
+  v325 = Logger.logObject.getter();
+  v326 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v325, v326))
   {
-    v337 = swift_slowAlloc();
-    *v337 = v359;
-    v338 = v405();
-    v339 = v311;
-    v340 = (*((*v155 & *v338) + 0x98))();
+    v327 = swift_slowAlloc();
+    *v327 = v349;
+    v328 = v395();
+    v329 = v301;
+    v330 = (*((*v144 & *v328) + 0x98))();
 
-    *(v337 + 4) = v340;
-    *(v337 + 12) = 2048;
-    v341 = *((*v155 & *v411) + 0x120);
-    v342 = v411;
-    v343 = v341();
-    v311 = v339;
-    v344 = v343;
+    *(v327 + 4) = v330;
+    *(v327 + 12) = 2048;
+    v331 = *((*v144 & *v401) + 0x120);
+    v332 = v401;
+    v333 = v331();
+    v301 = v329;
+    v334 = v333;
 
-    *(v337 + 14) = v344;
-    _os_log_impl(&dword_1CEE74000, v335, v336, "output steps: %ld,  output lois: %ld", v337, 0x16u);
-    MEMORY[0x1D3865FA0](v337, -1, -1);
+    *(v327 + 14) = v334;
+    _os_log_impl(&dword_1CEE74000, v325, v326, "output steps: %ld,  output lois: %ld", v327, 0x16u);
+    MEMORY[0x1D3865FA0](v327, -1, -1);
   }
 
   else
   {
 
-    v335 = v334;
+    v325 = v324;
   }
 
-  v345 = v351;
+  v335 = v341;
 
-  v378(v352, v170);
+  v368(v342, v159);
   Logger.init(subsystem:category:)();
-  v346 = Logger.logObject.getter();
-  v347 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v346, v347))
+  v336 = Logger.logObject.getter();
+  v337 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v336, v337))
   {
-    v348 = swift_slowAlloc();
-    *v348 = 134217984;
-    *(v348 + 4) = v311;
-    _os_log_impl(&dword_1CEE74000, v346, v347, "model size: %ld parameters", v348, 0xCu);
-    MEMORY[0x1D3865FA0](v348, -1, -1);
+    v338 = swift_slowAlloc();
+    *v338 = 134217984;
+    *(v338 + 4) = v301;
+    _os_log_impl(&dword_1CEE74000, v336, v337, "model size: %ld parameters", v338, 0xCu);
+    MEMORY[0x1D3865FA0](v338, -1, -1);
   }
 
-  v378(v345, v170);
-  outlined destroy of OneHotEncoder<String>.Transformer?(v377, &_s14NeuralNetworks4AdamVyAA10SequentialVyAEyAEyAEyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGGMd, &_s14NeuralNetworks4AdamVyAA10SequentialVyAEyAEyAEyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGGMR);
+  v368(v335, v159);
+  outlined destroy of OneHotEncoder<String>.Transformer?(v367, &_s14NeuralNetworks4AdamVyAA10SequentialVyAEyAEyAEyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGGMd, &_s14NeuralNetworks4AdamVyAA10SequentialVyAEyAEyAEyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGGMR);
 }
 
 void closure #1 in PCNeuralNetModel.trainFromTensors(datasetX:datasetY:timesteps:)(void *a1@<X0>, char *a2@<X1>, id *a3@<X2>, uint64_t a4@<X8>)
 {
-  v69 = a2;
-  v70 = a3;
-  v67 = a4;
-  v5 = *(*(type metadata accessor for TensorShape() - 8) + 64);
-  MEMORY[0x1EEE9AC00]();
-  v62 = &v53 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v64 = type metadata accessor for Reshape();
-  v7 = *(*(v64 - 8) + 64);
-  MEMORY[0x1EEE9AC00]();
-  v66 = &v53 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v65 = type metadata accessor for Dense();
-  v63 = *(v65 - 8);
-  v9 = *(v63 + 64);
-  MEMORY[0x1EEE9AC00]();
-  v60 = &v53 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v61 = type metadata accessor for ReLU();
+  v65 = a2;
+  v66 = a3;
+  v63 = a4;
+  v5 = type metadata accessor for TensorShape();
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v58 = &v49 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v60 = type metadata accessor for Reshape();
+  MEMORY[0x1EEE9AC00](v60);
+  v62 = &v49 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v61 = type metadata accessor for Dense();
   v59 = *(v61 - 8);
-  v11 = *(v59 + 64);
-  MEMORY[0x1EEE9AC00]();
-  v13 = &v53 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks13ComputeDeviceVSgMd, &_s14NeuralNetworks13ComputeDeviceVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00]();
-  v16 = &v53 - v15;
-  v17 = type metadata accessor for Conv1D();
-  v57 = *(v17 - 8);
-  v58 = v17;
-  v18 = *(v57 + 64);
-  v19 = MEMORY[0x1EEE9AC00]();
-  v21 = &v53 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = MEMORY[0x1E69E7D40];
-  v23 = *((*MEMORY[0x1E69E7D40] & *a1) + 0xA8);
-  v24 = a1;
-  v25 = (v23)(v19);
-  v68 = (*((*v22 & *v25) + 0xB0))();
+  MEMORY[0x1EEE9AC00](v61);
+  v56 = &v49 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v57 = type metadata accessor for ReLU();
+  v55 = *(v57 - 8);
+  MEMORY[0x1EEE9AC00](v57);
+  v10 = &v49 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks13ComputeDeviceVSgMd, &_s14NeuralNetworks13ComputeDeviceVSgMR);
+  MEMORY[0x1EEE9AC00](v11 - 8);
+  v13 = &v49 - v12;
+  v14 = type metadata accessor for Conv1D();
+  v53 = *(v14 - 8);
+  v54 = v14;
+  v15 = MEMORY[0x1EEE9AC00](v14);
+  v17 = &v49 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = MEMORY[0x1E69E7D40];
+  v19 = *((*MEMORY[0x1E69E7D40] & *a1) + 0xA8);
+  v20 = a1;
+  v21 = (v19)(v15);
+  v64 = (*((*v18 & *v21) + 0xB0))();
 
   type metadata accessor for ParameterInitializer();
-  v26 = type metadata accessor for ComputeDevice();
-  v27 = *(v26 - 8);
-  v28 = *(v27 + 56);
-  v53 = v27 + 56;
-  v54 = v28;
-  v28(v16, 1, 1, v26);
+  v22 = type metadata accessor for ComputeDevice();
+  v23 = *(v22 - 8);
+  v24 = *(v23 + 56);
+  v49 = v23 + 56;
+  v50 = v24;
+  v24(v13, 1, 1, v22);
   static ParameterInitializer.glorotUniform(seed:scalarType:on:)();
-  outlined destroy of OneHotEncoder<String>.Transformer?(v16, &_s14NeuralNetworks13ComputeDeviceVSgMd, &_s14NeuralNetworks13ComputeDeviceVSgMR);
+  outlined destroy of OneHotEncoder<String>.Transformer?(v13, &_s14NeuralNetworks13ComputeDeviceVSgMd, &_s14NeuralNetworks13ComputeDeviceVSgMR);
   static ParameterInitializer.zeros.getter();
-  v56 = v21;
+  v52 = v17;
   Conv1D.init(filterCount:kernelSize:stride:padding:dilation:groupCount:weightInitializer:biasInitializer:)();
-  v69 = v13;
+  v65 = v10;
   ReLU.init()();
-  v29 = Flatten.init()();
-  v68 = v24;
-  v30 = MEMORY[0x1E69E7D40];
-  v55 = v23;
-  v31 = (v23)(v29);
-  v32 = (*((*v30 & *v31) + 0x98))();
+  v25 = Flatten.init()();
+  v64 = v20;
+  v26 = MEMORY[0x1E69E7D40];
+  v51 = v19;
+  v27 = (v19)(v25);
+  v28 = (*((*v26 & *v27) + 0x98))();
 
-  v33 = v30;
-  v34 = *((*v30 & **v70) + 0x120);
-  v35 = *v70;
-  v36 = v34();
+  v29 = v26;
+  v30 = *((*v26 & **v66) + 0x120);
+  v31 = *v66;
+  v32 = v30();
 
-  if ((v32 * v36) >> 64 == (v32 * v36) >> 63)
+  if ((v28 * v32) >> 64 == (v28 * v32) >> 63)
   {
-    v54(v16, 1, 1, v26);
+    v50(v13, 1, 1, v22);
     static ParameterInitializer.glorotUniform(seed:scalarType:on:)();
-    outlined destroy of OneHotEncoder<String>.Transformer?(v16, &_s14NeuralNetworks13ComputeDeviceVSgMd, &_s14NeuralNetworks13ComputeDeviceVSgMR);
+    outlined destroy of OneHotEncoder<String>.Transformer?(v13, &_s14NeuralNetworks13ComputeDeviceVSgMd, &_s14NeuralNetworks13ComputeDeviceVSgMR);
     static ParameterInitializer.zeros.getter();
-    v37 = v60;
+    v33 = v56;
     Dense.init(unitCount:weightInitializer:biasInitializer:)();
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
-    v38 = swift_allocObject();
-    *(v38 + 16) = xmmword_1CEF0B430;
-    v39 = v55;
-    v40 = v55();
-    v41 = (*((*v30 & *v40) + 0x80))();
+    v34 = swift_allocObject();
+    *(v34 + 16) = xmmword_1CEF0B430;
+    v35 = v51;
+    v36 = v51();
+    v37 = (*((*v26 & *v36) + 0x80))();
 
-    *(v38 + 32) = v41;
-    v42 = v39();
-    v43 = (*((*v30 & *v42) + 0x98))();
+    *(v34 + 32) = v37;
+    v38 = v35();
+    v39 = (*((*v26 & *v38) + 0x98))();
 
-    *(v38 + 40) = v43;
-    v44 = *((*v33 & **v70) + 0x120);
-    v45 = *v70;
-    v46 = v44();
+    *(v34 + 40) = v39;
+    v40 = *((*v29 & **v66) + 0x120);
+    v41 = *v66;
+    v42 = v40();
 
-    *(v38 + 48) = v46;
-    MEMORY[0x1D3865040](v38);
-    v47 = v66;
+    *(v34 + 48) = v42;
+    MEMORY[0x1D3865040](v34);
+    v43 = v62;
     Reshape.init(_:)();
-    v48 = v65;
-    v49 = v56;
-    v50 = v69;
-    v51 = v58;
-    v52 = v61;
+    v44 = v61;
+    v45 = v52;
+    v46 = v65;
+    v47 = v54;
+    v48 = v57;
     static SequentialBuilder.buildBlock<A, B, C, D, E>(_:_:_:_:_:)();
-    outlined destroy of Reshape(v47);
-    (*(v63 + 8))(v37, v48);
-    (*(v59 + 8))(v50, v52);
-    (*(v57 + 8))(v49, v51);
+    outlined destroy of Reshape(v43);
+    (*(v59 + 8))(v33, v44);
+    (*(v55 + 8))(v46, v48);
+    (*(v53 + 8))(v45, v47);
   }
 
   else
@@ -5123,76 +4926,74 @@ void closure #1 in PCNeuralNetModel.trainFromTensors(datasetX:datasetY:timesteps
 
 uint64_t closure #2 in PCNeuralNetModel.trainFromTensors(datasetX:datasetY:timesteps:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v15[1] = a3;
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks13LossReductionOSgMd, &_s14NeuralNetworks13LossReductionOSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00]();
-  v5 = v15 - v4;
+  v14[1] = a3;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks13LossReductionOSgMd, &_s14NeuralNetworks13LossReductionOSgMR);
+  MEMORY[0x1EEE9AC00](v3 - 8);
+  v5 = v14 - v4;
   v6 = type metadata accessor for Tensor();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x1EEE9AC00]();
-  v10 = v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMd, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMR);
-  lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense>, Reshape> and conformance Sequential<A, B>, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMd, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMR);
+  lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense>, Reshape> and conformance Sequential<A, B>, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMd, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMR, MEMORY[0x1E69B37E8]);
   Layer.callAsFunction(_:)();
-  v11 = *MEMORY[0x1E69B3820];
-  v12 = type metadata accessor for LossReduction();
-  v13 = *(v12 - 8);
-  (*(v13 + 104))(v5, v11, v12);
-  (*(v13 + 56))(v5, 0, 1, v12);
+  v10 = *MEMORY[0x1E69B3820];
+  v11 = type metadata accessor for LossReduction();
+  v12 = *(v11 - 8);
+  (*(v12 + 104))(v5, v10, v11);
+  (*(v12 + 56))(v5, 0, 1, v11);
   softmaxCrossEntropy(logits:labels:labelSmoothing:axis:reduction:)();
   outlined destroy of OneHotEncoder<String>.Transformer?(v5, &_s14NeuralNetworks13LossReductionOSgMd, &_s14NeuralNetworks13LossReductionOSgMR);
-  return (*(v7 + 8))(v10, v6);
+  return (*(v7 + 8))(v9, v6);
 }
 
 uint64_t closure #1 in PCNeuralNetModel.predictFromTensor(xPredict:xPredictMatrix:timesteps:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  v46 = a1;
-  v41 = a3;
+  v45 = a1;
+  v40 = a3;
   v4 = type metadata accessor for TensorShape();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v40 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v39 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   Tensor.scalarCount.getter();
   Tensor.shape.getter();
-  v9 = TensorShape.subscript.getter();
-  v10 = *(v5 + 8);
-  result = v10(v8, v4);
-  if (!__OFSUB__(v9, 1))
+  v8 = TensorShape.subscript.getter();
+  v9 = *(v5 + 8);
+  result = v9(v7, v4);
+  if (!__OFSUB__(v8, 1))
   {
-    if (v9 - 1 < 0)
+    if (v8 - 1 < 0)
     {
       goto LABEL_52;
     }
 
-    v12 = 0;
-    v42 = v9 - 1;
-    v43 = MEMORY[0x1E69E7CC0];
+    v11 = 0;
+    v41 = v8 - 1;
+    v42 = MEMORY[0x1E69E7CC0];
     while (1)
     {
       Tensor.shape.getter();
-      v13 = TensorShape.subscript.getter();
-      result = v10(v8, v4);
-      if (__OFSUB__(v13, 1))
+      v12 = TensorShape.subscript.getter();
+      result = v9(v7, v4);
+      if (__OFSUB__(v12, 1))
       {
         break;
       }
 
-      if (v13 - 1 < 0)
+      if (v12 - 1 < 0)
       {
         goto LABEL_50;
       }
 
-      v14 = 0;
-      v15 = MEMORY[0x1E69E7CC0];
-      v44 = v13 - 1;
+      v13 = 0;
+      v14 = MEMORY[0x1E69E7CC0];
+      v43 = v12 - 1;
 LABEL_7:
-      v48 = v14;
+      v47 = v13;
       Tensor.shape.getter();
-      v16 = TensorShape.subscript.getter();
-      result = v10(v8, v4);
-      if (__OFSUB__(v16, 1))
+      v15 = TensorShape.subscript.getter();
+      result = v9(v7, v4);
+      if (__OFSUB__(v15, 1))
       {
         __break(1u);
 LABEL_47:
@@ -5202,22 +5003,22 @@ LABEL_48:
         break;
       }
 
-      if (v16 - 1 < 0)
+      if (v15 - 1 < 0)
       {
         goto LABEL_47;
       }
 
-      v45 = v15;
-      v17 = 0;
-      v49 = MEMORY[0x1E69E7CC0];
-      v47 = v16 - 1;
+      v44 = v14;
+      v16 = 0;
+      v48 = MEMORY[0x1E69E7CC0];
+      v46 = v15 - 1;
       while (1)
       {
         Tensor.shape.getter();
-        v18 = TensorShape.subscript.getter();
-        result = v10(v8, v4);
-        v19 = v12 * v18;
-        if ((v12 * v18) >> 64 != (v12 * v18) >> 63)
+        v17 = TensorShape.subscript.getter();
+        result = v9(v7, v4);
+        v18 = v11 * v17;
+        if ((v11 * v17) >> 64 != (v11 * v17) >> 63)
         {
           __break(1u);
 LABEL_40:
@@ -5231,103 +5032,103 @@ LABEL_43:
 LABEL_44:
           __break(1u);
 LABEL_45:
-          *v41 = v43;
+          *v40 = v42;
           return result;
         }
 
         Tensor.shape.getter();
-        v20 = TensorShape.subscript.getter();
-        result = v10(v8, v4);
-        v21 = a2;
-        v22 = v19 * v20;
-        if ((v19 * v20) >> 64 != (v19 * v20) >> 63)
+        v19 = TensorShape.subscript.getter();
+        result = v9(v7, v4);
+        v20 = a2;
+        v21 = v18 * v19;
+        if ((v18 * v19) >> 64 != (v18 * v19) >> 63)
         {
           goto LABEL_40;
         }
 
-        v23 = v21;
+        v22 = v20;
         Tensor.shape.getter();
-        v24 = TensorShape.subscript.getter();
-        result = v10(v8, v4);
-        v25 = v48 * v24;
-        if ((v48 * v24) >> 64 != (v48 * v24) >> 63)
+        v23 = TensorShape.subscript.getter();
+        result = v9(v7, v4);
+        v24 = v47 * v23;
+        if ((v47 * v23) >> 64 != (v47 * v23) >> 63)
         {
           goto LABEL_41;
         }
 
-        v26 = __OFADD__(v22, v25);
-        v27 = v22 + v25;
-        if (v26)
+        v25 = __OFADD__(v21, v24);
+        v26 = v21 + v24;
+        if (v25)
         {
           goto LABEL_42;
         }
 
-        v26 = __OFADD__(v27, v17);
-        v28 = v27 + v17;
-        if (v26)
+        v25 = __OFADD__(v26, v16);
+        v27 = v26 + v16;
+        if (v25)
         {
           goto LABEL_43;
         }
 
-        v29 = *(v46 + 4 * v28);
+        v28 = *(v45 + 4 * v27);
         result = swift_isUniquelyReferenced_nonNull_native();
         if ((result & 1) == 0)
         {
-          result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v49 + 2) + 1, 1, v49);
-          v49 = result;
+          result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v48 + 2) + 1, 1, v48);
+          v48 = result;
         }
 
-        v31 = *(v49 + 2);
-        v30 = *(v49 + 3);
-        if (v31 >= v30 >> 1)
+        v30 = *(v48 + 2);
+        v29 = *(v48 + 3);
+        if (v30 >= v29 >> 1)
         {
-          result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v30 > 1), v31 + 1, 1, v49);
-          v49 = result;
+          result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v29 > 1), v30 + 1, 1, v48);
+          v48 = result;
         }
 
-        v32 = v47;
-        v33 = v49;
-        *(v49 + 2) = v31 + 1;
-        *&v33[4 * v31 + 32] = v29;
-        if (v32 == v17)
+        v31 = v46;
+        v32 = v48;
+        *(v48 + 2) = v30 + 1;
+        *&v32[4 * v30 + 32] = v28;
+        if (v31 == v16)
         {
           break;
         }
 
-        v26 = __OFADD__(v17++, 1);
-        a2 = v23;
-        if (v26)
+        v25 = __OFADD__(v16++, 1);
+        a2 = v22;
+        if (v25)
         {
           goto LABEL_44;
         }
       }
 
-      v15 = v45;
+      v14 = v44;
       result = swift_isUniquelyReferenced_nonNull_native();
       if ((result & 1) == 0)
       {
-        result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v15[2] + 1, 1, v15, &_ss23_ContiguousArrayStorageCySaySfGGMd, &_ss23_ContiguousArrayStorageCySaySfGGMR, &_sSaySfGMd, &_sSaySfGMR);
-        v15 = result;
+        result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v14[2] + 1, 1, v14, &_ss23_ContiguousArrayStorageCySaySfGGMd, &_ss23_ContiguousArrayStorageCySaySfGGMR, &_sSaySfGMd, &_sSaySfGMR);
+        v14 = result;
       }
 
-      v35 = v15[2];
-      v34 = v15[3];
-      v36 = v48;
-      if (v35 >= v34 >> 1)
+      v34 = v14[2];
+      v33 = v14[3];
+      v35 = v47;
+      if (v34 >= v33 >> 1)
       {
-        result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v34 > 1), v35 + 1, 1, v15, &_ss23_ContiguousArrayStorageCySaySfGGMd, &_ss23_ContiguousArrayStorageCySaySfGGMR, &_sSaySfGMd, &_sSaySfGMR);
-        v36 = v48;
-        v15 = result;
+        result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v33 > 1), v34 + 1, 1, v14, &_ss23_ContiguousArrayStorageCySaySfGGMd, &_ss23_ContiguousArrayStorageCySaySfGGMR, &_sSaySfGMd, &_sSaySfGMR);
+        v35 = v47;
+        v14 = result;
       }
 
-      v15[2] = v35 + 1;
-      v15[v35 + 4] = v49;
-      if (v36 != v44)
+      v14[2] = v34 + 1;
+      v14[v34 + 4] = v48;
+      if (v35 != v43)
       {
-        v26 = __OFADD__(v36, 1);
-        v14 = v36 + 1;
-        a2 = v23;
-        if (v26)
+        v25 = __OFADD__(v35, 1);
+        v13 = v35 + 1;
+        a2 = v22;
+        if (v25)
         {
           goto LABEL_48;
         }
@@ -5338,29 +5139,29 @@ LABEL_45:
       result = swift_isUniquelyReferenced_nonNull_native();
       if ((result & 1) == 0)
       {
-        result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v43[2] + 1, 1, v43, &_ss23_ContiguousArrayStorageCySaySaySfGGGMd, &_ss23_ContiguousArrayStorageCySaySaySfGGGMR, &_sSaySaySfGGMd, &_sSaySaySfGGMR);
-        v43 = result;
+        result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v42[2] + 1, 1, v42, &_ss23_ContiguousArrayStorageCySaySaySfGGGMd, &_ss23_ContiguousArrayStorageCySaySaySfGGGMR, &_sSaySaySfGGMd, &_sSaySaySfGGMR);
+        v42 = result;
       }
 
-      v38 = v43[2];
-      v37 = v43[3];
-      if (v38 >= v37 >> 1)
+      v37 = v42[2];
+      v36 = v42[3];
+      if (v37 >= v36 >> 1)
       {
-        result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v37 > 1), v38 + 1, 1, v43, &_ss23_ContiguousArrayStorageCySaySaySfGGGMd, &_ss23_ContiguousArrayStorageCySaySaySfGGGMR, &_sSaySaySfGGMd, &_sSaySaySfGGMR);
-        v43 = result;
+        result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v36 > 1), v37 + 1, 1, v42, &_ss23_ContiguousArrayStorageCySaySaySfGGGMd, &_ss23_ContiguousArrayStorageCySaySaySfGGGMR, &_sSaySaySfGGMd, &_sSaySaySfGGMR);
+        v42 = result;
       }
 
-      v39 = v43;
-      v43[2] = v38 + 1;
-      v39[v38 + 4] = v15;
-      if (v12 == v42)
+      v38 = v42;
+      v42[2] = v37 + 1;
+      v38[v37 + 4] = v14;
+      if (v11 == v41)
       {
         goto LABEL_45;
       }
 
-      v26 = __OFADD__(v12++, 1);
-      a2 = v23;
-      if (v26)
+      v25 = __OFADD__(v11++, 1);
+      a2 = v22;
+      if (v25)
       {
         goto LABEL_53;
       }
@@ -5381,92 +5182,84 @@ LABEL_53:
 
 uint64_t PCNeuralNetModel.predictFromDataset(featureMatrix:)(void *a1)
 {
-  v202 = a1;
-  v154 = type metadata accessor for Logger();
-  v153 = *(v154 - 8);
-  v2 = *(v153 + 64);
-  MEMORY[0x1EEE9AC00](v154);
-  v155 = v151 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v181 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMd, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMR);
-  *&v194 = *(v181 - 8);
-  v4 = *(v194 + 64);
-  MEMORY[0x1EEE9AC00](v181);
-  v173 = v151 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks10ScalarTypeOSgMd, &_s14NeuralNetworks10ScalarTypeOSgMR);
-  v7 = *(*(v6 - 8) + 64);
+  v195 = a1;
+  v147 = type metadata accessor for Logger();
+  v146 = *(v147 - 8);
+  MEMORY[0x1EEE9AC00](v147);
+  v148 = v144 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v174 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMd, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMR);
+  *&v187 = *(v174 - 8);
+  MEMORY[0x1EEE9AC00](v174);
+  v166 = v144 - v3;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks10ScalarTypeOSgMd, &_s14NeuralNetworks10ScalarTypeOSgMR);
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v169 = v144 - v5;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks13ComputeDeviceVSgMd, &_s14NeuralNetworks13ComputeDeviceVSgMR);
   MEMORY[0x1EEE9AC00](v6 - 8);
-  v176 = v151 - v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks13ComputeDeviceVSgMd, &_s14NeuralNetworks13ComputeDeviceVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9 - 8);
-  v175 = v151 - v11;
-  v184 = type metadata accessor for TensorShape();
-  v190 = *(v184 - 8);
-  v12 = *(v190 + 64);
-  v13 = MEMORY[0x1EEE9AC00](v184);
-  v159 = v151 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = MEMORY[0x1EEE9AC00](v13);
-  v158 = v151 - v16;
+  v168 = v144 - v7;
+  v177 = type metadata accessor for TensorShape();
+  v183 = *(v177 - 8);
+  v8 = MEMORY[0x1EEE9AC00](v177);
+  v152 = v144 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = MEMORY[0x1EEE9AC00](v8);
+  v151 = v144 - v11;
+  v12 = MEMORY[0x1EEE9AC00](v10);
+  v165 = v144 - v13;
+  MEMORY[0x1EEE9AC00](v12);
+  v193 = v144 - v14;
+  v192 = type metadata accessor for Tensor();
+  v171 = *(v192 - 8);
+  v15 = MEMORY[0x1EEE9AC00](v192);
+  v164 = v144 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   v17 = MEMORY[0x1EEE9AC00](v15);
-  v172 = v151 - v18;
-  MEMORY[0x1EEE9AC00](v17);
-  v200 = v151 - v19;
-  v199 = type metadata accessor for Tensor();
-  v178 = *(v199 - 8);
-  v20 = *(v178 + 64);
-  v21 = MEMORY[0x1EEE9AC00](v199);
-  v171 = v151 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v163 = v144 - v18;
+  v19 = MEMORY[0x1EEE9AC00](v17);
+  v162 = v144 - v20;
+  v21 = MEMORY[0x1EEE9AC00](v19);
+  v161 = v144 - v22;
   v23 = MEMORY[0x1EEE9AC00](v21);
-  v170 = v151 - v24;
+  v160 = v144 - v24;
   v25 = MEMORY[0x1EEE9AC00](v23);
-  v169 = v151 - v26;
+  v159 = v144 - v26;
   v27 = MEMORY[0x1EEE9AC00](v25);
-  v168 = v151 - v28;
+  v167 = v144 - v28;
   v29 = MEMORY[0x1EEE9AC00](v27);
-  v167 = v151 - v30;
+  v188 = v144 - v30;
   v31 = MEMORY[0x1EEE9AC00](v29);
-  v166 = v151 - v32;
+  v191 = v144 - v32;
   v33 = MEMORY[0x1EEE9AC00](v31);
-  v174 = v151 - v34;
+  v190 = v144 - v34;
   v35 = MEMORY[0x1EEE9AC00](v33);
-  v195 = v151 - v36;
-  v37 = MEMORY[0x1EEE9AC00](v35);
-  v198 = v151 - v38;
-  v39 = MEMORY[0x1EEE9AC00](v37);
-  v197 = v151 - v40;
-  v41 = MEMORY[0x1EEE9AC00](v39);
-  v196 = v151 - v42;
-  MEMORY[0x1EEE9AC00](v41);
-  v204 = v151 - v43;
-  v203 = type metadata accessor for ComputeDevice();
-  v201 = *(v203 - 8);
-  v44 = *(v201 + 8);
-  MEMORY[0x1EEE9AC00](v203);
-  v46 = v151 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v47 = type metadata accessor for LearningPhase();
-  v48 = *(v47 - 8);
-  v49 = *(v48 + 64);
-  MEMORY[0x1EEE9AC00](v47);
-  v51 = v151 - ((v50 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v48 + 104))(v51, *MEMORY[0x1E69B3818], v47);
-  v182 = v1;
-  v52 = *((*MEMORY[0x1E69E7D40] & *v1) + 0xA0);
-  v53 = v52(&v205);
-  v54 = lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense>, Reshape> and conformance Sequential<A, B>, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMd, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMR);
+  v189 = v144 - v36;
+  MEMORY[0x1EEE9AC00](v35);
+  v197 = v144 - v37;
+  v196 = type metadata accessor for ComputeDevice();
+  v194 = *(v196 - 8);
+  MEMORY[0x1EEE9AC00](v196);
+  v39 = v144 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v40 = type metadata accessor for LearningPhase();
+  v41 = *(v40 - 8);
+  MEMORY[0x1EEE9AC00](v40);
+  v43 = v144 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v41 + 104))(v43, *MEMORY[0x1E69B3818], v40);
+  v175 = v1;
+  v44 = *((*MEMORY[0x1E69E7D40] & *v1) + 0xA0);
+  v45 = v44(&v198);
+  v46 = lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense>, Reshape> and conformance Sequential<A, B>, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMd, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMR, MEMORY[0x1E69B37E8]);
   Layer.prepare(for:)();
-  (*(v48 + 8))(v51, v47);
-  v55 = v201;
-  v56 = v53(&v205, 0);
-  v57 = MEMORY[0x1E69E7D40];
-  (*((*MEMORY[0x1E69E7D40] & *v182) + 0x1B8))(v56);
-  v58 = v52(&v205);
-  v165 = v54;
+  (*(v41 + 8))(v43, v40);
+  v47 = v194;
+  v48 = v45(&v198, 0);
+  v49 = MEMORY[0x1E69E7D40];
+  (*((*MEMORY[0x1E69E7D40] & *v175) + 0x1B8))(v48);
+  v50 = v44(&v198);
+  v158 = v46;
   Layer.place(on:)();
-  (*(v55 + 1))(v46, v203);
-  v59 = v58(&v205, 0);
-  v60 = *((*v57 & *v202) + 0xC0);
-  v61 = (*v57 & *v202) + 192;
-  result = (v60)(v59);
+  (*(v47 + 1))(v39, v196);
+  v51 = v50(&v198, 0);
+  v52 = *((*v49 & *v195) + 0xC0);
+  v53 = (*v49 & *v195) + 192;
+  result = (v52)(v51);
   if (result < 0)
   {
 LABEL_47:
@@ -5477,107 +5270,107 @@ LABEL_48:
 
   else
   {
-    v63 = result;
-    v152 = v60;
-    v151[1] = v61;
-    v64 = &v190;
+    v55 = result;
+    v145 = v52;
+    v144[1] = v53;
+    v56 = &v183;
     if (result)
     {
-      v160 = 0;
-      v65 = 0;
-      v66 = (*v57 & *v202);
-      v193 = (v55 + 56);
-      v192 = v178 + 16;
-      v183 = (v178 + 8);
-      v66 += 44;
-      v180 = *v66;
-      v179 = v66;
-      v157 = (v190 + 16);
-      v162 = (v194 + 8);
-      v161 = (v178 + 32);
-      v67 = MEMORY[0x1E69E7CC0];
-      v194 = xmmword_1CEF0B450;
-      v164 = xmmword_1CEF0B460;
-      v156 = xmmword_1CEF0B430;
-      v163 = result;
-      v191 = (v190 + 8);
+      v153 = 0;
+      v57 = 0;
+      v58 = (*v49 & *v195);
+      v186 = (v47 + 56);
+      v185 = v171 + 16;
+      v176 = (v171 + 8);
+      v58 += 44;
+      v173 = *v58;
+      v172 = v58;
+      v150 = (v183 + 16);
+      v155 = (v187 + 8);
+      v154 = (v171 + 32);
+      v59 = MEMORY[0x1E69E7CC0];
+      v187 = xmmword_1CEF0B450;
+      v157 = xmmword_1CEF0B460;
+      v149 = xmmword_1CEF0B430;
+      v156 = result;
+      v184 = (v183 + 8);
       while (1)
       {
-        v68 = v180(v65);
-        v70 = v69;
+        v60 = v173(v57);
+        v62 = v61;
 
-        result = _sSasSQRzlE2eeoiySbSayxG_ABtFZSaySfG_Tt1g5(v68, MEMORY[0x1E69E7CC0]);
-        if ((result & 1) != 0 && !*(v70 + 16))
+        result = _sSasSQRzlE2eeoiySbSayxG_ABtFZSaySfG_Tt1g5(v60, MEMORY[0x1E69E7CC0]);
+        if ((result & 1) != 0 && !*(v62 + 16))
         {
 
-          if (__OFADD__(v160, 1))
+          if (__OFADD__(v153, 1))
           {
             goto LABEL_48;
           }
 
-          ++v160;
+          ++v153;
         }
 
         else
         {
-          v190 = v65;
-          v189 = v67;
-          v71 = *(v68 + 16);
-          if (v71)
+          v183 = v57;
+          v182 = v59;
+          v63 = *(v60 + 16);
+          if (v63)
           {
-            v72 = 0;
-            v73 = v68 + 32;
-            v74 = MEMORY[0x1E69E7CC0];
+            v64 = 0;
+            v65 = v60 + 32;
+            v66 = MEMORY[0x1E69E7CC0];
             while (1)
             {
-              if (v72 >= *(v68 + 16))
+              if (v64 >= *(v60 + 16))
               {
                 __break(1u);
                 goto LABEL_45;
               }
 
-              v75 = *(*(v73 + 8 * v72) + 16);
-              if (v75)
+              v67 = *(*(v65 + 8 * v64) + 16);
+              if (v67)
               {
                 break;
               }
 
 LABEL_8:
-              if (++v72 == v71)
+              if (++v64 == v63)
               {
                 goto LABEL_20;
               }
             }
 
-            v76 = 0;
+            v68 = 0;
             while (1)
             {
-              v64 = *(v73 + 8 * v72);
-              if (v76 >= v64[2])
+              v56 = *(v65 + 8 * v64);
+              if (v68 >= v56[2])
               {
                 break;
               }
 
-              v77 = *(v64 + v76 + 8);
+              v69 = *(v56 + v68 + 8);
               result = swift_isUniquelyReferenced_nonNull_native();
               if ((result & 1) == 0)
               {
-                result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v74 + 16) + 1, 1, v74);
-                v74 = result;
+                result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v66 + 16) + 1, 1, v66);
+                v66 = result;
               }
 
-              v79 = *(v74 + 16);
-              v78 = *(v74 + 24);
-              if (v79 >= v78 >> 1)
+              v71 = *(v66 + 16);
+              v70 = *(v66 + 24);
+              if (v71 >= v70 >> 1)
               {
-                result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v78 > 1), v79 + 1, 1, v74);
-                v74 = result;
+                result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v70 > 1), v71 + 1, 1, v66);
+                v66 = result;
               }
 
-              ++v76;
-              *(v74 + 16) = v79 + 1;
-              *(v74 + 4 * v79 + 32) = v77;
-              if (v75 == v76)
+              ++v68;
+              *(v66 + 16) = v71 + 1;
+              *(v66 + 4 * v71 + 32) = v69;
+              if (v67 == v68)
               {
                 goto LABEL_8;
               }
@@ -5587,13 +5380,13 @@ LABEL_8:
             break;
           }
 
-          v74 = MEMORY[0x1E69E7CC0];
+          v66 = MEMORY[0x1E69E7CC0];
 LABEL_20:
-          v80 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
+          v72 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
           result = swift_allocObject();
-          *(result + 16) = v194;
-          *(result + 32) = v71;
-          if (!*(v68 + 16))
+          *(result + 16) = v187;
+          *(result + 32) = v63;
+          if (!*(v60 + 16))
           {
 LABEL_45:
             __break(1u);
@@ -5602,54 +5395,55 @@ LABEL_46:
             goto LABEL_47;
           }
 
-          v81 = result;
-          v82 = *(v68 + 32);
+          v73 = result;
+          v74 = *(v60 + 32);
 
-          v83 = *(v82 + 16);
+          v75 = *(v74 + 16);
 
-          *(v81 + 40) = v83;
-          MEMORY[0x1D3865040](v81);
-          v205 = v74;
-          v84 = *v193;
-          v85 = v175;
-          v86 = v203;
-          (*v193)(v175, 1, 1, v203);
-          v201 = v84;
+          *(v73 + 40) = v75;
+          MEMORY[0x1D3865040](v73);
+          v198 = v66;
+          v76 = *v186;
+          v77 = v168;
+          v78 = v196;
+          (*v186)(v168, 1, 1, v196);
+          v194 = v76;
           __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySfGMd, &_sSaySfGMR);
-          lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type [Float] and conformance [A], &_sSaySfGMd, &_sSaySfGMR);
+          v79 = MEMORY[0x1E69E6340];
+          lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type [Float] and conformance [A], &_sSaySfGMd, &_sSaySfGMR, MEMORY[0x1E69E6340]);
           Tensor.init<A>(shape:scalars:on:)();
-          v177 = v80;
-          v87 = swift_allocObject();
-          *(v87 + 16) = v164;
-          *(v87 + 32) = *(v70 + 16);
+          v170 = v72;
+          v80 = swift_allocObject();
+          *(v80 + 16) = v157;
+          *(v80 + 32) = *(v62 + 16);
           MEMORY[0x1D3865040]();
-          v205 = v70;
-          v84(v85, 1, 1, v86);
+          v198 = v62;
+          v76(v77, 1, 1, v78);
           __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
-          lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type [Int] and conformance [A], &_sSaySiGMd, &_sSaySiGMR);
-          v88 = v196;
+          lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type [Int] and conformance [A], &_sSaySiGMd, &_sSaySiGMR, v79);
+          v81 = v189;
           Tensor.init<A>(shape:scalars:on:)();
-          v89 = v178;
-          v90 = *(v178 + 16);
-          v91 = v199;
-          v92 = v90(v198, v88, v199);
-          v93 = v182;
-          (*((*MEMORY[0x1E69E7D40] & *v182) + 0xF0))(v92);
-          v201(v85, 1, 1, v203);
-          v94 = v197;
+          v82 = v171;
+          v83 = *(v171 + 16);
+          v84 = v192;
+          v85 = v83(v191, v81, v192);
+          v86 = v175;
+          (*((*MEMORY[0x1E69E7D40] & *v175) + 0xF0))(v85);
+          v194(v77, 1, 1, v196);
+          v87 = v190;
           Tensor.init(oneHotAtIndices:depth:onValue:offValue:on:)();
           __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy14NeuralNetworks6TensorVGMd, &_ss23_ContiguousArrayStorageCy14NeuralNetworks6TensorVGMR);
-          v95 = *(v89 + 72);
-          v96 = (*(v89 + 80) + 32) & ~*(v89 + 80);
-          v97 = swift_allocObject();
-          *(v97 + 16) = v194;
-          v98 = v97 + v96;
-          v90((v97 + v96), v94, v91);
-          v188 = v90;
-          v90((v98 + v95), v204, v91);
-          v99 = type metadata accessor for ScalarType();
-          (*(*(v99 - 8) + 56))(v176, 1, 1, v99);
-          v100 = v174;
+          v88 = *(v82 + 72);
+          v89 = (*(v82 + 80) + 32) & ~*(v82 + 80);
+          v90 = swift_allocObject();
+          *(v90 + 16) = v187;
+          v91 = v90 + v89;
+          v83((v90 + v89), v87, v84);
+          v181 = v83;
+          v83((v91 + v88), v197, v84);
+          v92 = type metadata accessor for ScalarType();
+          (*(*(v92 - 8) + 56))(v169, 1, 1, v92);
+          v93 = v167;
           Tensor.init(concatenating:alongAxis:scalarType:)();
           result = Tensor.rank.getter();
           if (result < 0)
@@ -5657,181 +5451,181 @@ LABEL_46:
             goto LABEL_46;
           }
 
-          v186 = v96;
-          v187 = v95;
+          v179 = v89;
+          v180 = v88;
           specialized Sequence.reversed()(0, result);
-          v101 = v198;
+          v94 = v191;
           Tensor.transposed(permutation:)();
 
-          v102 = *v183;
-          (*v183)(v100, v91);
+          v95 = *v176;
+          (*v176)(v93, v84);
           Tensor.expandingShape(at:)();
-          v201 = v102;
-          v102(v101, v91);
-          v103 = v200;
+          v194 = v95;
+          v95(v94, v84);
+          v96 = v193;
           Tensor.shape.getter();
-          v104 = TensorShape.subscript.getter();
-          v185 = *v191;
-          v105 = v185(v103, v184);
-          v106 = MEMORY[0x1E69E7D40];
-          v107 = *((*MEMORY[0x1E69E7D40] & *v93) + 0xA8);
-          v108 = v107(v105);
-          v109 = v93;
-          v110 = (*((*v106 & *v108) + 0x80))();
+          v97 = TensorShape.subscript.getter();
+          v178 = *v184;
+          v98 = v178(v96, v177);
+          v99 = MEMORY[0x1E69E7D40];
+          v100 = *((*MEMORY[0x1E69E7D40] & *v86) + 0xA8);
+          v101 = v100(v98);
+          v102 = v86;
+          v103 = (*((*v99 & *v101) + 0x80))();
 
-          if (v104 == v110)
+          if (v97 == v103)
           {
-            v111 = v173;
-            (*((*MEMORY[0x1E69E7D40] & *v109) + 0x90))();
-            v112 = v195;
-            v113 = v181;
+            v104 = v166;
+            (*((*MEMORY[0x1E69E7D40] & *v102) + 0x90))();
+            v105 = v188;
+            v106 = v174;
             Layer.callAsFunction(_:)();
-            (*v162)(v111, v113);
-            v114 = v166;
+            (*v155)(v104, v106);
+            v107 = v159;
             softmax(_:alongAxis:)();
-            v115 = v101;
-            v116 = v199;
-            v117 = v201;
-            (v201)(v115, v199);
-            v188(v167, v114, v116);
-            v67 = v189;
+            v108 = v94;
+            v109 = v192;
+            v110 = v194;
+            (v194)(v108, v192);
+            v181(v160, v107, v109);
+            v59 = v182;
             isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-            v65 = v190;
+            v57 = v183;
             if ((isUniquelyReferenced_nonNull_native & 1) == 0)
             {
-              v67 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v67[2] + 1, 1, v67);
+              v59 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v59[2] + 1, 1, v59);
             }
 
-            v63 = v163;
-            v120 = v67[2];
-            v119 = v67[3];
-            v121 = v120 + 1;
-            if (v120 >= v119 >> 1)
+            v55 = v156;
+            v113 = v59[2];
+            v112 = v59[3];
+            v114 = v113 + 1;
+            if (v113 >= v112 >> 1)
             {
-              v67 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v119 > 1, v120 + 1, 1, v67);
+              v59 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v112 > 1), v113 + 1, 1, v59);
             }
 
-            (v117)(v166, v116);
-            v122 = v167;
+            (v110)(v159, v109);
+            v115 = v160;
           }
 
           else
           {
-            v123 = v195;
-            v124 = Tensor.shape.getter();
-            v125 = v107(v124);
-            (*((*MEMORY[0x1E69E7D40] & *v125) + 0x80))();
+            v116 = v188;
+            v117 = Tensor.shape.getter();
+            v118 = v100(v117);
+            (*((*MEMORY[0x1E69E7D40] & *v118) + 0x80))();
 
-            v126 = v184;
-            (*v157)(v172, v103, v184);
+            v119 = v177;
+            (*v150)(v165, v96, v177);
             TensorShape.subscript.setter();
-            v185(v103, v126);
-            v127 = v123;
-            v128 = Tensor.broadcasted(to:)();
-            v129 = v173;
-            (*((*MEMORY[0x1E69E7D40] & *v109) + 0x90))(v128);
-            v130 = v181;
+            v178(v96, v119);
+            v120 = v116;
+            v121 = Tensor.broadcasted(to:)();
+            v122 = v166;
+            (*((*MEMORY[0x1E69E7D40] & *v102) + 0x90))(v121);
+            v123 = v174;
             Layer.callAsFunction(_:)();
-            (*v162)(v129, v130);
+            (*v155)(v122, v123);
             softmax(_:alongAxis:)();
-            v131 = v101;
-            v116 = v199;
-            (v201)(v131, v199);
-            v132 = swift_allocObject();
-            *(v132 + 16) = v156;
-            v133 = v127;
+            v124 = v94;
+            v109 = v192;
+            (v194)(v124, v192);
+            v125 = swift_allocObject();
+            *(v125 + 16) = v149;
+            v126 = v120;
             Tensor.shape.getter();
-            v134 = TensorShape.subscript.getter();
-            v135 = v103;
-            v136 = v185;
-            v185(v135, v126);
-            *(v132 + 32) = v134;
-            v137 = v158;
+            v127 = TensorShape.subscript.getter();
+            v128 = v96;
+            v129 = v178;
+            v178(v128, v119);
+            *(v125 + 32) = v127;
+            v130 = v151;
             Tensor.shape.getter();
-            v138 = TensorShape.subscript.getter();
-            v136(v137, v126);
-            *(v132 + 40) = v138;
-            v139 = v159;
+            v131 = TensorShape.subscript.getter();
+            v129(v130, v119);
+            *(v125 + 40) = v131;
+            v132 = v152;
             Tensor.shape.getter();
-            v140 = TensorShape.subscript.getter();
-            v136(v139, v126);
-            *(v132 + 48) = v140;
-            v141 = v170;
+            v133 = TensorShape.subscript.getter();
+            v129(v132, v119);
+            *(v125 + 48) = v133;
+            v134 = v163;
             Tensor.slice(lowerBounds:upperBounds:)();
 
-            v188(v171, v141, v116);
-            v67 = v189;
-            v112 = v133;
-            v142 = v126;
+            v181(v164, v134, v109);
+            v59 = v182;
+            v105 = v126;
+            v135 = v119;
             if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
             {
-              v67 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v67[2] + 1, 1, v67);
+              v59 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v59[2] + 1, 1, v59);
             }
 
-            v65 = v190;
-            v120 = v67[2];
-            v143 = v67[3];
-            v121 = v120 + 1;
-            if (v120 >= v143 >> 1)
+            v57 = v183;
+            v113 = v59[2];
+            v136 = v59[3];
+            v114 = v113 + 1;
+            if (v113 >= v136 >> 1)
             {
-              v67 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v143 > 1, v120 + 1, 1, v67);
+              v59 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v136 > 1), v113 + 1, 1, v59);
             }
 
-            v144 = v201;
-            (v201)(v170, v116);
-            (v144)(v169, v116);
-            (v144)(v168, v116);
-            v136(v172, v142);
-            v117 = v144;
-            v122 = v171;
-            v63 = v163;
+            v137 = v194;
+            (v194)(v163, v109);
+            (v137)(v162, v109);
+            (v137)(v161, v109);
+            v129(v165, v135);
+            v110 = v137;
+            v115 = v164;
+            v55 = v156;
           }
 
-          (v117)(v112, v116);
-          (v117)(v197, v116);
-          (v117)(v196, v116);
-          (v117)(v204, v116);
-          v67[2] = v121;
-          (*v161)(v67 + v186 + v120 * v187, v122, v116);
+          (v110)(v105, v109);
+          (v110)(v190, v109);
+          (v110)(v189, v109);
+          (v110)(v197, v109);
+          v59[2] = v114;
+          (*v154)(v59 + v179 + v113 * v180, v115, v109);
         }
 
-        if (++v65 == v63)
+        if (++v57 == v55)
         {
           goto LABEL_40;
         }
       }
     }
 
-    *(v64 - 32) = 0;
-    v67 = MEMORY[0x1E69E7CC0];
+    *(v56 - 32) = 0;
+    v59 = MEMORY[0x1E69E7CC0];
 LABEL_40:
     Logger.init(subsystem:category:)();
-    v145 = v202;
-    v146 = Logger.logObject.getter();
-    v147 = static os_log_type_t.info.getter();
-    if (os_log_type_enabled(v146, v147))
+    v138 = v195;
+    v139 = Logger.logObject.getter();
+    v140 = static os_log_type_t.info.getter();
+    if (os_log_type_enabled(v139, v140))
     {
-      v148 = swift_slowAlloc();
-      *v148 = 134218240;
-      *(v148 + 4) = v160;
-      *(v148 + 12) = 2048;
-      *(v148 + 14) = v152();
+      v141 = swift_slowAlloc();
+      *v141 = 134218240;
+      *(v141 + 4) = v153;
+      *(v141 + 12) = 2048;
+      *(v141 + 14) = v145();
 
-      _os_log_impl(&dword_1CEE74000, v146, v147, "datapoints skipped due to unknown visit history information: %ld, total datapoints: %ld", v148, 0x16u);
-      MEMORY[0x1D3865FA0](v148, -1, -1);
+      _os_log_impl(&dword_1CEE74000, v139, v140, "datapoints skipped due to unknown visit history information: %ld, total datapoints: %ld", v141, 0x16u);
+      MEMORY[0x1D3865FA0](v141, -1, -1);
     }
 
     else
     {
 
-      v146 = v145;
+      v139 = v138;
     }
 
-    v149 = v154;
-    v150 = v153;
+    v142 = v147;
+    v143 = v146;
 
-    (*(v150 + 8))(v155, v149);
-    return v67;
+    (*(v143 + 8))(v148, v142);
+    return v59;
   }
 
   return result;
@@ -5839,59 +5633,56 @@ LABEL_40:
 
 uint64_t PCNeuralNetModel.getBNNSComputeDevice()@<X0>(uint64_t a1@<X8>)
 {
-  v27 = type metadata accessor for Logger();
-  v2 = *(v27 - 8);
-  v3 = *(v2 + 64);
-  v4 = MEMORY[0x1EEE9AC00](v27);
-  v6 = &v26 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v4);
-  v8 = &v26 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks13ComputeDeviceVSgMd, &_s14NeuralNetworks13ComputeDeviceVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9 - 8);
-  v12 = &v26 - v11;
-  v13 = type metadata accessor for ComputeDevice();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  MEMORY[0x1EEE9AC00](v13);
-  v17 = &v26 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = type metadata accessor for Logger();
+  v2 = *(v24 - 8);
+  v3 = MEMORY[0x1EEE9AC00](v24);
+  v5 = &v23 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v3);
+  v7 = &v23 - v6;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks13ComputeDeviceVSgMd, &_s14NeuralNetworks13ComputeDeviceVSgMR);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v10 = &v23 - v9;
+  v11 = type metadata accessor for ComputeDevice();
+  v12 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v14 = &v23 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   static ComputeDevice.bnnsCPU.getter();
-  if ((*(v14 + 48))(v12, 1, v13) == 1)
+  if ((*(v12 + 48))(v10, 1, v11) == 1)
   {
-    outlined destroy of OneHotEncoder<String>.Transformer?(v12, &_s14NeuralNetworks13ComputeDeviceVSgMd, &_s14NeuralNetworks13ComputeDeviceVSgMR);
+    outlined destroy of OneHotEncoder<String>.Transformer?(v10, &_s14NeuralNetworks13ComputeDeviceVSgMd, &_s14NeuralNetworks13ComputeDeviceVSgMR);
     Logger.init(subsystem:category:)();
-    v18 = Logger.logObject.getter();
-    v19 = static os_log_type_t.info.getter();
-    if (os_log_type_enabled(v18, v19))
+    v15 = Logger.logObject.getter();
+    v16 = static os_log_type_t.info.getter();
+    if (os_log_type_enabled(v15, v16))
     {
-      v20 = swift_slowAlloc();
-      *v20 = 0;
-      _os_log_impl(&dword_1CEE74000, v18, v19, "BNNS unavailable, falling back to CPU backend", v20, 2u);
-      MEMORY[0x1D3865FA0](v20, -1, -1);
+      v17 = swift_slowAlloc();
+      *v17 = 0;
+      _os_log_impl(&dword_1CEE74000, v15, v16, "BNNS unavailable, falling back to CPU backend", v17, 2u);
+      MEMORY[0x1D3865FA0](v17, -1, -1);
     }
 
-    (*(v2 + 8))(v6, v27);
+    (*(v2 + 8))(v5, v24);
     return static ComputeDevice.cpu.getter();
   }
 
   else
   {
-    v26 = a1;
-    v22 = *(v14 + 32);
-    v22(v17, v12, v13);
+    v23 = a1;
+    v19 = *(v12 + 32);
+    v19(v14, v10, v11);
     Logger.init(subsystem:category:)();
-    v23 = Logger.logObject.getter();
-    v24 = static os_log_type_t.info.getter();
-    if (os_log_type_enabled(v23, v24))
+    v20 = Logger.logObject.getter();
+    v21 = static os_log_type_t.info.getter();
+    if (os_log_type_enabled(v20, v21))
     {
-      v25 = swift_slowAlloc();
-      *v25 = 0;
-      _os_log_impl(&dword_1CEE74000, v23, v24, "Using BNNS backend", v25, 2u);
-      MEMORY[0x1D3865FA0](v25, -1, -1);
+      v22 = swift_slowAlloc();
+      *v22 = 0;
+      _os_log_impl(&dword_1CEE74000, v20, v21, "Using BNNS backend", v22, 2u);
+      MEMORY[0x1D3865FA0](v22, -1, -1);
     }
 
-    (*(v2 + 8))(v8, v27);
-    return (v22)(v26, v17, v13);
+    (*(v2 + 8))(v7, v24);
+    return (v19)(v23, v14, v11);
   }
 }
 
@@ -5902,217 +5693,205 @@ id PCNeuralNetModel.__allocating_init()()
   return [v1 init];
 }
 
-id DataSetFeatureMatrix.__deallocating_deinit(uint64_t a1, uint64_t (*a2)(void))
+id DataSetFeatureMatrix.__deallocating_deinit(uint64_t a1, uint64_t (*a2)(uint64_t))
 {
   v4.receiver = v2;
-  v4.super_class = a2();
+  v4.super_class = a2(a1);
   return objc_msgSendSuper2(&v4, sel_dealloc);
 }
 
 uint64_t PCNeuralNetModel.encode(to:)(void *a1)
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x1EEE9AC00](v2 - 8);
-  v39 = &v39 - v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v5 - 8);
-  v40 = &v39 - v7;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMd, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMR);
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  v12 = &v39 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy28PCNeuralNetworkSupportBridge0D8NetModelC10CodingKeys33_5E3324A45488CAD9EFDF1E72CC9262A7LLOGMd, &_ss22KeyedEncodingContainerVy28PCNeuralNetworkSupportBridge0D8NetModelC10CodingKeys33_5E3324A45488CAD9EFDF1E72CC9262A7LLOGMR);
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  MEMORY[0x1EEE9AC00](v13);
-  v17 = &v39 - v16;
-  v18 = a1[4];
+  v34 = &v34 - v3;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMR);
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v35 = &v34 - v5;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMd, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMR);
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v34 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy28PCNeuralNetworkSupportBridge0D8NetModelC10CodingKeys33_5E3324A45488CAD9EFDF1E72CC9262A7LLOGMd, &_ss22KeyedEncodingContainerVy28PCNeuralNetworkSupportBridge0D8NetModelC10CodingKeys33_5E3324A45488CAD9EFDF1E72CC9262A7LLOGMR);
+  v11 = *(v10 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v13 = &v34 - v12;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type PCNeuralNetModel.CodingKeys and conformance PCNeuralNetModel.CodingKeys();
-  v19 = v42;
-  v20 = dispatch thunk of Encoder.container<A>(keyedBy:)();
-  (*((*MEMORY[0x1E69E7D40] & *v19) + 0x90))(v20);
-  v50 = 0;
-  lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense>, Reshape> and conformance <> Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense>, Reshape> and conformance <> Sequential<A, B>);
-  v43 = v17;
-  v21 = v41;
+  v14 = v37;
+  v15 = dispatch thunk of Encoder.container<A>(keyedBy:)();
+  (*((*MEMORY[0x1E69E7D40] & *v14) + 0x90))(v15);
+  v45 = 0;
+  lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense>, Reshape> and conformance <> Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense>, Reshape> and conformance <> Sequential<A, B>, MEMORY[0x1E69B37F0]);
+  v38 = v13;
+  v16 = v36;
   KeyedEncodingContainer.encode<A>(_:forKey:)();
-  if (v21)
+  if (v16)
   {
-    (*(v9 + 8))(v12, v8);
-    v22 = *(v14 + 8);
-    v23 = v43;
+    (*(v7 + 8))(v9, v6);
+    v17 = *(v11 + 8);
+    v18 = v38;
   }
 
   else
   {
-    v41 = v14;
-    v25 = (*(v9 + 8))(v12, v8);
-    v26 = MEMORY[0x1E69E7D40];
-    v27 = (*((*MEMORY[0x1E69E7D40] & *v19) + 0xA8))(v25);
-    v44 = v27;
-    v49 = 1;
+    v36 = v11;
+    v20 = (*(v7 + 8))(v9, v6);
+    v21 = MEMORY[0x1E69E7D40];
+    v22 = (*((*MEMORY[0x1E69E7D40] & *v14) + 0xA8))(v20);
+    v39 = v22;
+    v44 = 1;
     type metadata accessor for NeuralNetConfig();
-    lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type NeuralNetConfig and conformance NeuralNetConfig, v28, type metadata accessor for NeuralNetConfig);
+    lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type NeuralNetConfig and conformance NeuralNetConfig, v23, type metadata accessor for NeuralNetConfig, &protocol conformance descriptor for NeuralNetConfig);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
 
-    v29 = v40;
-    (*((*v26 & *v19) + 0xC0))();
-    v48 = 2;
+    v24 = v35;
+    (*((*v21 & *v14) + 0xC0))();
+    v43 = 2;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GMR);
-    lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type OneHotEncoder<String>.Transformer and conformance OneHotEncoder<A>.Transformer, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GMR);
+    lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type OneHotEncoder<String>.Transformer and conformance OneHotEncoder<A>.Transformer, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GMR, MEMORY[0x1E69662F0]);
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    v30 = outlined destroy of OneHotEncoder<String>.Transformer?(v29, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMR);
-    v31 = *((*v26 & *v42) + 0xD8);
-    v32 = v39;
-    v31(v30);
-    v47 = 3;
+    v25 = outlined destroy of OneHotEncoder<String>.Transformer?(v24, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMR);
+    v26 = *((*v21 & *v37) + 0xD8);
+    v27 = v34;
+    v26(v25);
+    v42 = 3;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMR);
-    lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type OrdinalEncoder<String>.Transformer and conformance OrdinalEncoder<A>.Transformer, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMR);
+    lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type OrdinalEncoder<String>.Transformer and conformance OrdinalEncoder<A>.Transformer, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMR, MEMORY[0x1E6966308]);
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    v33 = outlined destroy of OneHotEncoder<String>.Transformer?(v32, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR);
-    v34 = v42;
-    v35 = MEMORY[0x1E69E7D40];
-    (*((*MEMORY[0x1E69E7D40] & *v42) + 0xF0))(v33);
-    v46 = 4;
-    v36 = KeyedEncodingContainer.encode(_:forKey:)();
-    v37 = v41;
-    (*((*v35 & *v34) + 0x108))(v36);
-    v45 = 5;
-    v38 = v43;
+    v28 = outlined destroy of OneHotEncoder<String>.Transformer?(v27, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR);
+    v29 = v37;
+    v30 = MEMORY[0x1E69E7D40];
+    (*((*MEMORY[0x1E69E7D40] & *v37) + 0xF0))(v28);
+    v41 = 4;
+    v31 = KeyedEncodingContainer.encode(_:forKey:)();
+    v32 = v36;
+    (*((*v30 & *v29) + 0x108))(v31);
+    v40 = 5;
+    v33 = v38;
     KeyedEncodingContainer.encode(_:forKey:)();
-    v22 = *(v37 + 8);
-    v23 = v38;
+    v17 = *(v32 + 8);
+    v18 = v33;
   }
 
-  return v22(v23, v13);
+  return v17(v18, v10);
 }
 
-char *PCNeuralNetModel.init(from:)(uint64_t *a1)
+char *PCNeuralNetModel.init(from:)(void *a1)
 {
   v2 = v1;
-  v65 = a1;
+  v58 = a1;
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v49 = &v47 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v6 - 8);
-  v50 = &v47 - v8;
-  v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMd, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMR);
-  v61 = *(v56 - 8);
-  v9 = *(v61 + 64);
-  MEMORY[0x1EEE9AC00](v56);
-  v51 = &v47 - v10;
-  v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy28PCNeuralNetworkSupportBridge0D8NetModelC10CodingKeys33_5E3324A45488CAD9EFDF1E72CC9262A7LLOGMd, &_ss22KeyedDecodingContainerVy28PCNeuralNetworkSupportBridge0D8NetModelC10CodingKeys33_5E3324A45488CAD9EFDF1E72CC9262A7LLOGMR);
-  v52 = *(v54 - 8);
-  v11 = *(v52 + 64);
-  MEMORY[0x1EEE9AC00](v54);
-  v13 = &v47 - v12;
-  v14 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_model;
+  v42 = &v40 - v4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMR);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v43 = &v40 - v6;
+  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMd, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMR);
+  v54 = *(v49 - 8);
+  MEMORY[0x1EEE9AC00](v49);
+  v44 = &v40 - v7;
+  v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy28PCNeuralNetworkSupportBridge0D8NetModelC10CodingKeys33_5E3324A45488CAD9EFDF1E72CC9262A7LLOGMd, &_ss22KeyedDecodingContainerVy28PCNeuralNetworkSupportBridge0D8NetModelC10CodingKeys33_5E3324A45488CAD9EFDF1E72CC9262A7LLOGMR);
+  v45 = *(v47 - 8);
+  MEMORY[0x1EEE9AC00](v47);
+  v9 = &v40 - v8;
+  v10 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_model;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMd, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMR);
   type metadata accessor for Reshape();
-  lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMd, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMR);
-  v59 = v14;
+  lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMd, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMR, MEMORY[0x1E69B37E8]);
+  v52 = v10;
   Sequential.init(layers:)();
-  v15 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_encoderAsTransformer;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GMR);
-  v17 = *(*(v16 - 8) + 56);
-  v60 = v15;
-  v17(&v2[v15], 1, 1, v16);
-  v18 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_labelEncoderAsTransformer;
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMR);
-  v20 = *(*(v19 - 8) + 56);
-  v58 = v18;
-  v20(&v2[v18], 1, 1, v19);
-  v21 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_inputShape;
+  v11 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_encoderAsTransformer;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GMR);
+  v13 = *(*(v12 - 8) + 56);
+  v53 = v11;
+  v13(&v2[v11], 1, 1, v12);
+  v14 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_labelEncoderAsTransformer;
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMR);
+  v16 = *(*(v15 - 8) + 56);
+  v51 = v14;
+  v16(&v2[v14], 1, 1, v15);
+  v17 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_inputShape;
   *&v2[OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_inputShape] = 0;
-  v22 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_modelHasBeenTrained;
+  v18 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_modelHasBeenTrained;
   v2[OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_modelHasBeenTrained] = 0;
   v2[OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_shouldInterruptTraining] = 0;
-  v23 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_lock;
-  v24 = [objc_allocWithZone(MEMORY[0x1E696AD10]) init];
-  v55 = v23;
-  *&v2[v23] = v24;
-  v25 = v65[4];
-  __swift_project_boxed_opaque_existential_1(v65, v65[3]);
+  v19 = OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_lock;
+  v20 = [objc_allocWithZone(MEMORY[0x1E696AD10]) init];
+  v48 = v19;
+  *&v2[v19] = v20;
+  __swift_project_boxed_opaque_existential_1(v58, v58[3]);
   lazy protocol witness table accessor for type PCNeuralNetModel.CodingKeys and conformance PCNeuralNetModel.CodingKeys();
-  v53 = v13;
-  v26 = v57;
+  v46 = v9;
+  v21 = v50;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v26)
+  if (v21)
   {
-    v27 = v56;
-    v31 = v61;
-    v32 = v59;
-    v33 = v60;
-    v34 = v58;
-    __swift_destroy_boxed_opaque_existential_1Tm(v65);
-    (*(v31 + 8))(&v2[v32], v27);
-    outlined destroy of OneHotEncoder<String>.Transformer?(&v2[v33], &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMR);
-    outlined destroy of OneHotEncoder<String>.Transformer?(&v2[v34], &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR);
+    v22 = v49;
+    v26 = v54;
+    v27 = v52;
+    v28 = v53;
+    v29 = v51;
+    __swift_destroy_boxed_opaque_existential_1Tm(v58);
+    (*(v26 + 8))(&v2[v27], v22);
+    outlined destroy of OneHotEncoder<String>.Transformer?(&v2[v28], &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMR);
+    outlined destroy of OneHotEncoder<String>.Transformer?(&v2[v29], &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR);
 
-    type metadata accessor for PCNeuralNetModel();
-    v35 = *((*MEMORY[0x1E69E7D40] & *v2) + 0x30);
-    v36 = *((*MEMORY[0x1E69E7D40] & *v2) + 0x34);
+    type metadata accessor for PCNeuralNetModel(0);
     swift_deallocPartialClassInstance();
   }
 
   else
   {
-    v57 = v19;
-    v48 = v21;
-    v47 = v22;
-    v28 = v50;
-    LOBYTE(v64) = 0;
-    lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense>, Reshape> and conformance <> Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense>, Reshape> and conformance <> Sequential<A, B>);
-    v29 = v51;
-    v30 = v56;
+    v50 = v15;
+    v41 = v17;
+    v40 = v18;
+    v23 = v43;
+    LOBYTE(v57) = 0;
+    lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense>, Reshape> and conformance <> Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense>, Reshape> and conformance <> Sequential<A, B>, MEMORY[0x1E69B37F8]);
+    v24 = v44;
+    v25 = v49;
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v38 = v59;
+    v31 = v52;
     swift_beginAccess();
-    (*(v61 + 40))(&v2[v38], v29, v30);
+    (*(v54 + 40))(&v2[v31], v24, v25);
     swift_endAccess();
     type metadata accessor for NeuralNetConfig();
-    v63 = 1;
-    lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type NeuralNetConfig and conformance NeuralNetConfig, v39, type metadata accessor for NeuralNetConfig);
+    v56 = 1;
+    lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type NeuralNetConfig and conformance NeuralNetConfig, v32, type metadata accessor for NeuralNetConfig, &protocol conformance descriptor for NeuralNetConfig);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    *&v2[OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_config] = v64;
-    LOBYTE(v64) = 2;
-    lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type OneHotEncoder<String>.Transformer and conformance OneHotEncoder<A>.Transformer, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GMR);
+    *&v2[OBJC_IVAR____TtC28PCNeuralNetworkSupportBridge16PCNeuralNetModel_config] = v57;
+    LOBYTE(v57) = 2;
+    lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type OneHotEncoder<String>.Transformer and conformance OneHotEncoder<A>.Transformer, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GMR, MEMORY[0x1E69662F8]);
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v40 = v60;
+    v33 = v53;
     swift_beginAccess();
-    outlined assign with take of OneHotEncoder<String>.Transformer?(v28, &v2[v40], &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMR);
+    outlined assign with take of OneHotEncoder<String>.Transformer?(v23, &v2[v33], &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GSgMR);
     swift_endAccess();
-    LOBYTE(v64) = 3;
-    lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type OrdinalEncoder<String>.Transformer and conformance OrdinalEncoder<A>.Transformer, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMR);
-    v41 = v49;
+    LOBYTE(v57) = 3;
+    lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type OrdinalEncoder<String>.Transformer and conformance OrdinalEncoder<A>.Transformer, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMR, MEMORY[0x1E6966310]);
+    v34 = v42;
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v42 = v58;
+    v35 = v51;
     swift_beginAccess();
-    outlined assign with take of OneHotEncoder<String>.Transformer?(v41, &v2[v42], &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR);
+    outlined assign with take of OneHotEncoder<String>.Transformer?(v34, &v2[v35], &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GSgMR);
     swift_endAccess();
-    LOBYTE(v64) = 4;
-    v43 = KeyedDecodingContainer.decode(_:forKey:)();
-    v44 = v48;
+    LOBYTE(v57) = 4;
+    v36 = KeyedDecodingContainer.decode(_:forKey:)();
+    v37 = v41;
     swift_beginAccess();
-    *&v2[v44] = v43;
-    v63 = 5;
-    LOBYTE(v43) = KeyedDecodingContainer.decode(_:forKey:)();
-    v45 = v47;
+    *&v2[v37] = v36;
+    v56 = 5;
+    LOBYTE(v36) = KeyedDecodingContainer.decode(_:forKey:)();
+    v38 = v40;
     swift_beginAccess();
-    v2[v45] = v43 & 1;
-    v46 = type metadata accessor for PCNeuralNetModel();
-    v62.receiver = v2;
-    v62.super_class = v46;
-    v2 = objc_msgSendSuper2(&v62, sel_init);
-    (*(v52 + 8))(v53, v54);
-    __swift_destroy_boxed_opaque_existential_1Tm(v65);
+    v2[v38] = v36 & 1;
+    v39 = type metadata accessor for PCNeuralNetModel(0);
+    v55.receiver = v2;
+    v55.super_class = v39;
+    v2 = objc_msgSendSuper2(&v55, sel_init);
+    (*(v45 + 8))(v46, v47);
+    __swift_destroy_boxed_opaque_existential_1Tm(v58);
   }
 
   return v2;
@@ -6131,44 +5910,41 @@ uint64_t protocol witness for Decodable.init(from:) in conformance PCNeuralNetMo
 
 uint64_t _sIeghH_IeAgH_TR(uint64_t a1, uint64_t a2, int *a3)
 {
-  v7 = (a3 + *a3);
-  v4 = a3[1];
-  v5 = swift_task_alloc();
-  *(v3 + 16) = v5;
-  *v5 = v3;
-  v5[1] = _sIeghH_IeAgH_TRTQ0_;
+  v6 = (a3 + *a3);
+  v4 = swift_task_alloc();
+  *(v3 + 16) = v4;
+  *v4 = v3;
+  v4[1] = _sIeghH_IeAgH_TRTQ0_;
 
-  return v7();
+  return v6();
 }
 
 uint64_t _sIeAgH_ytIeAgHr_TR(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
 {
-  v8 = (a4 + *a4);
-  v5 = a4[1];
-  v6 = swift_task_alloc();
-  *(v4 + 16) = v6;
-  *v6 = v4;
-  v6[1] = _sIeAgH_ytIeAgHr_TRTQ0_;
+  v7 = (a4 + *a4);
+  v5 = swift_task_alloc();
+  *(v4 + 16) = v5;
+  *v5 = v4;
+  v5[1] = _sIeAgH_ytIeAgHr_TRTQ0_;
 
-  return v8();
+  return v7();
 }
 
 uint64_t _sIeAgH_ytIeAgHr_TRTQ0_()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2gq5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v9 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x1EEE9AC00]();
-  v11 = v24 - v10;
-  outlined init with copy of OneHotEncoder<String>.Transformer?(a3, v24 - v10, &_sScPSgMd, &_sScPSgMR);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v11 = v23 - v10;
+  outlined init with copy of OneHotEncoder<String>.Transformer?(a3, v23 - v10, &_sScPSgMd, &_sScPSgMR);
   v12 = type metadata accessor for TaskPriority();
   v13 = *(v12 - 8);
   if ((*(v13 + 48))(v11, 1, v12) == 1)
@@ -6180,8 +5956,8 @@ uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcnt
     }
 
 LABEL_7:
-    v15 = 0;
-    v17 = 0;
+    v14 = 0;
+    v16 = 0;
     if (a2)
     {
       goto LABEL_4;
@@ -6198,55 +5974,54 @@ LABEL_7:
   }
 
 LABEL_3:
-  v14 = *(a5 + 24);
   swift_getObjectType();
   swift_unknownObjectRetain();
-  v15 = dispatch thunk of Actor.unownedExecutor.getter();
-  v17 = v16;
+  v14 = dispatch thunk of Actor.unownedExecutor.getter();
+  v16 = v15;
   swift_unknownObjectRelease();
   if (a2)
   {
 LABEL_4:
-    v18 = String.utf8CString.getter() + 32;
-    v19 = swift_allocObject();
-    *(v19 + 16) = a4;
-    *(v19 + 24) = a5;
+    v17 = String.utf8CString.getter() + 32;
+    v18 = swift_allocObject();
+    *(v18 + 16) = a4;
+    *(v18 + 24) = a5;
 
-    if (v17 | v15)
+    if (v16 | v14)
     {
-      v25[0] = 0;
-      v25[1] = 0;
-      v20 = v25;
-      v25[2] = v15;
-      v25[3] = v17;
+      v24[0] = 0;
+      v24[1] = 0;
+      v19 = v24;
+      v24[2] = v14;
+      v24[3] = v16;
     }
 
     else
     {
-      v20 = 0;
+      v19 = 0;
     }
 
-    v24[1] = 7;
-    v24[2] = v20;
-    v24[3] = v18;
-    v22 = swift_task_create();
+    v23[1] = 7;
+    v23[2] = v19;
+    v23[3] = v17;
+    v21 = swift_task_create();
 
     outlined destroy of OneHotEncoder<String>.Transformer?(a3, &_sScPSgMd, &_sScPSgMR);
 
-    return v22;
+    return v21;
   }
 
 LABEL_8:
   outlined destroy of OneHotEncoder<String>.Transformer?(a3, &_sScPSgMd, &_sScPSgMR);
-  v21 = swift_allocObject();
-  *(v21 + 16) = a4;
-  *(v21 + 24) = a5;
-  if (v17 | v15)
+  v20 = swift_allocObject();
+  *(v20 + 16) = a4;
+  *(v20 + 24) = a5;
+  if (v16 | v14)
   {
-    v25[4] = 0;
-    v25[5] = 0;
-    v25[6] = v15;
-    v25[7] = v17;
+    v24[4] = 0;
+    v24[5] = 0;
+    v24[6] = v14;
+    v24[7] = v16;
   }
 
   return swift_task_create();
@@ -6254,27 +6029,25 @@ LABEL_8:
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tgq5(uint64_t a1, int *a2)
 {
-  v7 = (a2 + *a2);
-  v4 = a2[1];
-  v5 = swift_task_alloc();
-  *(v2 + 16) = v5;
-  *v5 = v2;
-  v5[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tgq5TQ0_;
+  v6 = (a2 + *a2);
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tgq5TQ0_;
 
-  return v7(a1);
+  return v6(a1);
 }
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tgq5TQ0_()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
-uint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = specialized _StringGuts._deconstructUTF8<A>(scratch:)(v11, 0, 0, 1, a1, a2);
@@ -6372,16 +6145,14 @@ LABEL_8:
   }
 }
 
-uint64_t _StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
+void *_StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
 {
-  v4 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
+  v3 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
   specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of _StringGuts._allocateForDeconstruct());
-  result = v4;
-  v3 = *(v4 + 16) - 1;
-  return result;
+  return v3;
 }
 
-uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
+void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -6478,7 +6249,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -6492,15 +6262,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v12, 1, v3);
+  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -6515,15 +6285,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -6532,12 +6302,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -6577,7 +6347,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -6645,7 +6414,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -6660,7 +6428,7 @@ uint64_t outlined assign with take of OneHotEncoder<String>.Transformer?(uint64_
   return a2;
 }
 
-uint64_t type metadata accessor for PCNeuralNetModel()
+uint64_t type metadata accessor for PCNeuralNetModel(uint64_t a1)
 {
   result = type metadata singleton initialization cache for PCNeuralNetModel;
   if (!type metadata singleton initialization cache for PCNeuralNetModel)
@@ -6671,29 +6439,31 @@ uint64_t type metadata accessor for PCNeuralNetModel()
   return result;
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1Tm(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1Tm(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
-void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, int64_t a2, char a3)
+void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
@@ -6988,76 +6758,74 @@ void *specialized PCNeuralNetModel.predictFromTensor(xPredict:xPredictMatrix:tim
 {
   v5 = type metadata accessor for Tensor();
   v6 = *(v5 - 8);
-  v45 = v5;
-  v46 = v6;
-  v7 = *(v6 + 64);
+  v43 = v5;
+  v44 = v6;
   MEMORY[0x1EEE9AC00](v5);
-  v9 = v42 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for Logger();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  v13 = MEMORY[0x1EEE9AC00](v10);
-  v15 = v42 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = MEMORY[0x1E69E7D40];
-  if (((*((*MEMORY[0x1E69E7D40] & *v2) + 0x108))(v13) & 1) == 0)
+  v8 = v40 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for Logger();
+  v10 = *(v9 - 8);
+  v11 = MEMORY[0x1EEE9AC00](v9);
+  v13 = v40 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = MEMORY[0x1E69E7D40];
+  if (((*((*MEMORY[0x1E69E7D40] & *v2) + 0x108))(v11) & 1) == 0)
   {
     Logger.init(subsystem:category:)();
-    v39 = Logger.logObject.getter();
-    v40 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v39, v40))
+    v37 = Logger.logObject.getter();
+    v38 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v37, v38))
     {
-      v41 = swift_slowAlloc();
-      *v41 = 0;
-      _os_log_impl(&dword_1CEE74000, v39, v40, "model has not been trained, skipping prediction", v41, 2u);
-      MEMORY[0x1D3865FA0](v41, -1, -1);
+      v39 = swift_slowAlloc();
+      *v39 = 0;
+      _os_log_impl(&dword_1CEE74000, v37, v38, "model has not been trained, skipping prediction", v39, 2u);
+      MEMORY[0x1D3865FA0](v39, -1, -1);
     }
 
-    (*(v11 + 8))(v15, v10);
+    (*(v10 + 8))(v13, v9);
     return MEMORY[0x1E69E7CC0];
   }
 
-  v17 = *((*v16 & *v2) + 0xA8);
+  v15 = *((*v14 & *v2) + 0xA8);
 
-  v19 = v17(v18);
-  v20 = (*((*v16 & *v19) + 0xF8))();
+  v17 = v15(v16);
+  v18 = (*((*v14 & *v17) + 0xF8))();
 
-  v21 = objc_allocWithZone(type metadata accessor for DataSetFeatureMatrix());
-  v22 = DataSetFeatureMatrix.init(x:inputSteps:unknownLoiId:)(a1, a2, v20);
-  v23 = PCNeuralNetModel.predictFromDataset(featureMatrix:)(v22);
-  v24 = v23[2];
-  if (!v24)
+  v19 = objc_allocWithZone(type metadata accessor for DataSetFeatureMatrix());
+  v20 = DataSetFeatureMatrix.init(x:inputSteps:unknownLoiId:)(a1, a2, v18);
+  v21 = PCNeuralNetModel.predictFromDataset(featureMatrix:)(v20);
+  v22 = v21[2];
+  if (!v22)
   {
 
     return MEMORY[0x1E69E7CC0];
   }
 
-  v42[0] = v22;
-  v42[1] = v23;
-  v44 = *(v46 + 16);
-  v25 = v23 + ((*(v46 + 80) + 32) & ~*(v46 + 80));
-  v26 = (v46 + 8);
-  v27 = MEMORY[0x1E69E7CC0];
-  v46 += 16;
-  v43 = *(v46 + 56);
-  for (i = v44(v9, v25, v45); ; i = v44(v9, v25, v30))
+  v40[0] = v20;
+  v40[1] = v21;
+  v42 = *(v44 + 16);
+  v23 = v21 + ((*(v44 + 80) + 32) & ~*(v44 + 80));
+  v24 = (v44 + 8);
+  v25 = MEMORY[0x1E69E7CC0];
+  v44 += 16;
+  v41 = *(v44 + 56);
+  for (i = v42(v8, v23, v43); ; i = v42(v8, v23, v28))
   {
     MEMORY[0x1EEE9AC00](i);
-    v42[-2] = v9;
+    v40[-2] = v8;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySaySaySfGGGMd, &_sSaySaySaySfGGGMR);
     result = Tensor.withUnsafeBytes<A>(_:)();
-    v31 = v47;
-    v32 = *(v47 + 16);
-    v33 = v27[2];
-    v34 = v33 + v32;
-    if (__OFADD__(v33, v32))
+    v29 = v45;
+    v30 = *(v45 + 16);
+    v31 = v25[2];
+    v32 = v31 + v30;
+    if (__OFADD__(v31, v30))
     {
       break;
     }
 
     result = swift_isUniquelyReferenced_nonNull_native();
-    if (result && v34 <= v27[3] >> 1)
+    if (result && v32 <= v25[3] >> 1)
     {
-      if (*(v31 + 16))
+      if (*(v29 + 16))
       {
         goto LABEL_16;
       }
@@ -7065,22 +6833,22 @@ void *specialized PCNeuralNetModel.predictFromTensor(xPredict:xPredictMatrix:tim
 
     else
     {
-      if (v33 <= v34)
+      if (v31 <= v32)
       {
-        v35 = v33 + v32;
+        v33 = v31 + v30;
       }
 
       else
       {
-        v35 = v33;
+        v33 = v31;
       }
 
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v35, 1, v27, &_ss23_ContiguousArrayStorageCySaySaySfGGGMd, &_ss23_ContiguousArrayStorageCySaySaySfGGGMR, &_sSaySaySfGGMd, &_sSaySaySfGGMR);
-      v27 = result;
-      if (*(v31 + 16))
+      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v33, 1, v25, &_ss23_ContiguousArrayStorageCySaySaySfGGGMd, &_ss23_ContiguousArrayStorageCySaySaySfGGGMR, &_sSaySaySfGGMd, &_sSaySaySfGGMR);
+      v25 = result;
+      if (*(v29 + 16))
       {
 LABEL_16:
-        if ((v27[3] >> 1) - v27[2] < v32)
+        if ((v25[3] >> 1) - v25[2] < v30)
         {
           goto LABEL_29;
         }
@@ -7088,36 +6856,36 @@ LABEL_16:
         __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySaySfGGMd, &_sSaySaySfGGMR);
         swift_arrayInitWithCopy();
 
-        if (v32)
+        if (v30)
         {
-          v36 = v27[2];
-          v37 = __OFADD__(v36, v32);
-          v38 = v36 + v32;
-          if (v37)
+          v34 = v25[2];
+          v35 = __OFADD__(v34, v30);
+          v36 = v34 + v30;
+          if (v35)
           {
             goto LABEL_30;
           }
 
-          v27[2] = v38;
+          v25[2] = v36;
         }
 
         goto LABEL_5;
       }
     }
 
-    if (v32)
+    if (v30)
     {
       goto LABEL_28;
     }
 
 LABEL_5:
-    v30 = v45;
-    (*v26)(v9, v45);
-    v25 += v43;
-    if (!--v24)
+    v28 = v43;
+    (*v24)(v8, v43);
+    v23 += v41;
+    if (!--v22)
     {
 
-      return v27;
+      return v25;
     }
   }
 
@@ -7176,17 +6944,17 @@ unint64_t lazy protocol witness table accessor for type PCNeuralNetModel.CodingK
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance <> Sequential<A, B>(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance <> Sequential<A, B>(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMd, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMR);
-    lazy protocol witness table accessor for type Sequential<Sequential<Conv1D, ReLU>, Flatten> and conformance <> Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Conv1D, ReLU>, Flatten> and conformance <> Sequential<A, B>);
-    lazy protocol witness table accessor for type Sequential<Sequential<Conv1D, ReLU>, Flatten> and conformance <> Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Conv1D, ReLU>, Flatten> and conformance <> Sequential<A, B>);
-    v3 = MEMORY[0x1E69B3850];
-    lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type Dense and conformance Dense, 255, MEMORY[0x1E69B3850]);
-    lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type Dense and conformance Dense, 255, v3);
+    lazy protocol witness table accessor for type Sequential<Sequential<Conv1D, ReLU>, Flatten> and conformance <> Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Conv1D, ReLU>, Flatten> and conformance <> Sequential<A, B>, MEMORY[0x1E69B37F8]);
+    lazy protocol witness table accessor for type Sequential<Sequential<Conv1D, ReLU>, Flatten> and conformance <> Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Conv1D, ReLU>, Flatten> and conformance <> Sequential<A, B>, MEMORY[0x1E69B37F0]);
+    v4 = MEMORY[0x1E69B3850];
+    lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type Dense and conformance Dense, 255, MEMORY[0x1E69B3850], MEMORY[0x1E69B3860]);
+    lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type Dense and conformance Dense, 255, v4, MEMORY[0x1E69B3858]);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -7194,14 +6962,14 @@ uint64_t lazy protocol witness table accessor for type Sequential<Sequential<Seq
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Sequential<Sequential<Conv1D, ReLU>, Flatten> and conformance <> Sequential<A, B>(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type Sequential<Sequential<Conv1D, ReLU>, Flatten> and conformance <> Sequential<A, B>(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s14NeuralNetworks10SequentialVyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGMd, &_s14NeuralNetworks10SequentialVyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGMR);
-    lazy protocol witness table accessor for type Sequential<Conv1D, ReLU> and conformance <> Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Conv1D, ReLU> and conformance <> Sequential<A, B>);
-    lazy protocol witness table accessor for type Sequential<Conv1D, ReLU> and conformance <> Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Conv1D, ReLU> and conformance <> Sequential<A, B>);
+    lazy protocol witness table accessor for type Sequential<Conv1D, ReLU> and conformance <> Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Conv1D, ReLU> and conformance <> Sequential<A, B>, MEMORY[0x1E69B37F8]);
+    lazy protocol witness table accessor for type Sequential<Conv1D, ReLU> and conformance <> Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Conv1D, ReLU> and conformance <> Sequential<A, B>, MEMORY[0x1E69B37F0]);
     lazy protocol witness table accessor for type Flatten and conformance Flatten();
     lazy protocol witness table accessor for type Flatten and conformance Flatten();
     result = swift_getWitnessTable();
@@ -7211,18 +6979,18 @@ uint64_t lazy protocol witness table accessor for type Sequential<Sequential<Con
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Sequential<Conv1D, ReLU> and conformance <> Sequential<A, B>(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type Sequential<Conv1D, ReLU> and conformance <> Sequential<A, B>(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s14NeuralNetworks10SequentialVyAA6Conv1DVAA4ReLUVGMd, &_s14NeuralNetworks10SequentialVyAA6Conv1DVAA4ReLUVGMR);
-    v3 = MEMORY[0x1E69B3870];
-    lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type Conv1D and conformance Conv1D, 255, MEMORY[0x1E69B3870]);
-    lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type Conv1D and conformance Conv1D, 255, v3);
-    v4 = MEMORY[0x1E69B3830];
-    lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type ReLU and conformance ReLU, 255, MEMORY[0x1E69B3830]);
-    lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type ReLU and conformance ReLU, 255, v4);
+    v4 = MEMORY[0x1E69B3870];
+    lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type Conv1D and conformance Conv1D, 255, MEMORY[0x1E69B3870], MEMORY[0x1E69B3880]);
+    lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type Conv1D and conformance Conv1D, 255, v4, MEMORY[0x1E69B3878]);
+    v5 = MEMORY[0x1E69B3830];
+    lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type ReLU and conformance ReLU, 255, MEMORY[0x1E69B3830], MEMORY[0x1E69B3840]);
+    lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type ReLU and conformance ReLU, 255, v5, MEMORY[0x1E69B3838]);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -7253,17 +7021,17 @@ unint64_t lazy protocol witness table accessor for type Flatten and conformance 
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense>, Reshape> and conformance <> Sequential<A, B>(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense>, Reshape> and conformance <> Sequential<A, B>(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMd, &_s14NeuralNetworks10SequentialVyACyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGAA7ReshapeVGMR);
-    lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance <> Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance <> Sequential<A, B>);
-    lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance <> Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance <> Sequential<A, B>);
-    v3 = MEMORY[0x1E69B38B0];
-    lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type Reshape and conformance Reshape, 255, MEMORY[0x1E69B38B0]);
-    lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type Reshape and conformance Reshape, 255, v3);
+    lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance <> Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance <> Sequential<A, B>, MEMORY[0x1E69B37F8]);
+    lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance <> Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance <> Sequential<A, B>, MEMORY[0x1E69B37F0]);
+    v4 = MEMORY[0x1E69B38B0];
+    lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type Reshape and conformance Reshape, 255, MEMORY[0x1E69B38B0], MEMORY[0x1E69B38C0]);
+    lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(&lazy protocol witness table cache variable for type Reshape and conformance Reshape, 255, v4, MEMORY[0x1E69B38B8]);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -7271,7 +7039,7 @@ uint64_t lazy protocol witness table accessor for type Sequential<Sequential<Seq
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(unint64_t *a1, uint64_t a2, void (*a3)(uint64_t))
+uint64_t lazy protocol witness table accessor for type PCNeuralNetModel and conformance PCNeuralNetModel(unint64_t *a1, uint64_t a2, uint64_t (*a3)(uint64_t), uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -7296,20 +7064,17 @@ unint64_t lazy protocol witness table accessor for type PCNeuralNetworkTrainingR
   return result;
 }
 
-void type metadata completion function for PCNeuralNetModel()
+void type metadata completion function for PCNeuralNetModel(uint64_t a1)
 {
-  type metadata accessor for Sequential<Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense>, Reshape>();
+  type metadata accessor for Sequential<Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense>, Reshape>(319);
   if (v1 <= 0x3F)
   {
-    v6 = *(v0 - 8) + 64;
     type metadata accessor for OneHotEncoder<String>.Transformer?(319, &lazy cache variable for type metadata for OneHotEncoder<String>.Transformer?, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents13OneHotEncoderV11TransformerVySS_GMR);
-    if (v3 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      v7 = *(v2 - 8) + 64;
       type metadata accessor for OneHotEncoder<String>.Transformer?(319, &lazy cache variable for type metadata for OrdinalEncoder<String>.Transformer?, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMd, &_s18CreateMLComponents14OrdinalEncoderV11TransformerVySS_GMR);
-      if (v5 <= 0x3F)
+      if (v3 <= 0x3F)
       {
-        v8 = *(v4 - 8) + 64;
         swift_updateClassMetadata2();
       }
     }
@@ -7328,49 +7093,46 @@ uint64_t dispatch thunk of PCNeuralNetModel.__allocating_init(from:)()
 uint64_t dispatch thunk of PCNeuralNetModel.encodeWithLabelEncoder(array:)(uint64_t a1)
 {
   v4 = *((*MEMORY[0x1E69E7D40] & *v1) + 0x188);
-  v8 = (v4 + *v4);
-  v5 = v4[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = dispatch thunk of PCNeuralNetModel.encodeWithLabelEncoder(array:);
+  v7 = (v4 + *v4);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = dispatch thunk of PCNeuralNetModel.encodeWithLabelEncoder(array:);
 
-  return v8(a1);
+  return v7(a1);
 }
 
 uint64_t dispatch thunk of PCNeuralNetModel.fitLabelEncoder(array:)(uint64_t a1)
 {
   v4 = *((*MEMORY[0x1E69E7D40] & *v1) + 0x190);
-  v8 = (v4 + *v4);
-  v5 = v4[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = dispatch thunk of PCNeuralNetModel.fitLabelEncoder(array:);
+  v7 = (v4 + *v4);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = dispatch thunk of PCNeuralNetModel.fitLabelEncoder(array:);
 
-  return v8(a1);
+  return v7(a1);
 }
 
 {
-  v3 = *(*v1 + 16);
-  v6 = *v1;
+  v5 = *v1;
 
-  v4 = *(v6 + 8);
+  v3 = *(v5 + 8);
 
-  return v4(a1);
+  return v3(a1);
 }
 
-void type metadata accessor for Sequential<Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense>, Reshape>()
+void type metadata accessor for Sequential<Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense>, Reshape>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for Sequential<Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense>, Reshape>)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMd, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMR);
     type metadata accessor for Reshape();
-    lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMd, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMR);
-    v0 = type metadata accessor for Sequential();
-    if (!v1)
+    lazy protocol witness table accessor for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>(&lazy protocol witness table cache variable for type Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense> and conformance Sequential<A, B>, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMd, &_s14NeuralNetworks10SequentialVyACyACyAA6Conv1DVAA4ReLUVGAA7FlattenVGAA5DenseVGMR, MEMORY[0x1E69B37E8]);
+    v1 = type metadata accessor for Sequential();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for Sequential<Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense>, Reshape>);
+      atomic_store(v1, &lazy cache variable for type metadata for Sequential<Sequential<Sequential<Sequential<Conv1D, ReLU>, Flatten>, Dense>, Reshape>);
     }
   }
 }
@@ -7567,28 +7329,26 @@ uint64_t _sIeghH_IeAgH_TRTA()
 {
   v2 = v0[2];
   v3 = v0[3];
-  v5 = v0[4];
-  v4 = v0[5];
-  v6 = swift_task_alloc();
-  *(v1 + 16) = v6;
-  *v6 = v1;
-  v6[1] = _sIeghH_IeAgH_TRTQ0_;
+  v4 = v0[4];
+  v5 = swift_task_alloc();
+  *(v1 + 16) = v5;
+  *v5 = v1;
+  v5[1] = _sIeghH_IeAgH_TRTQ0_;
 
-  return _sIeghH_IeAgH_TR(v2, v3, v5);
+  return _sIeghH_IeAgH_TR(v2, v3, v4);
 }
 
 uint64_t _sIeAgH_ytIeAgHr_TRTA(uint64_t a1)
 {
   v4 = v1[2];
   v5 = v1[3];
-  v7 = v1[4];
-  v6 = v1[5];
-  v8 = swift_task_alloc();
-  *(v2 + 16) = v8;
-  *v8 = v2;
-  v8[1] = _sIeghH_IeAgH_TRTQ0_;
+  v6 = v1[4];
+  v7 = swift_task_alloc();
+  *(v2 + 16) = v7;
+  *v7 = v2;
+  v7[1] = _sIeghH_IeAgH_TRTQ0_;
 
-  return _sIeAgH_ytIeAgHr_TR(a1, v4, v5, v7);
+  return _sIeAgH_ytIeAgHr_TR(a1, v4, v5, v6);
 }
 
 uint64_t outlined init with copy of OneHotEncoder<String>.Transformer?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
@@ -7600,26 +7360,24 @@ uint64_t outlined init with copy of OneHotEncoder<String>.Transformer?(uint64_t 
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tgq5TA(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = _sIeghH_IeAgH_TRTQ0_;
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = _sIeghH_IeAgH_TRTQ0_;
 
-  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tgq5(a1, v5);
+  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tgq5(a1, v4);
 }
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tgq5TA_70(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = _sIeAgH_ytIeAgHr_TRTQ0_;
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = _sIeAgH_ytIeAgHr_TRTQ0_;
 
-  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tgq5(a1, v5);
+  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tgq5(a1, v4);
 }
 
 uint64_t objectdestroyTm()
@@ -7644,9 +7402,7 @@ uint64_t partial apply for @objc closure #1 in PCNeuralNetModel.encodeWithLabelE
 
 uint64_t objectdestroy_56Tm()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 40);
 
   return MEMORY[0x1EEE6BDD0](v0, 48, 7);
 }
@@ -7666,9 +7422,9 @@ uint64_t outlined init with copy of Any(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-void sub_1CEE8D4B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1CEE8D4B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8815,20 +8571,20 @@ void sub_1CEEA1A9C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<double>::resize(void *a1, unint64_t a2)
+void std::vector<double>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<double>::__append(a1, a2 - v2);
+    std::vector<double>::__append(result, a2 - v2);
   }
 }
 
@@ -8842,14 +8598,14 @@ void sub_1CEEA2438(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1CEEA2588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, void **a13)
+void sub_1CEEA2588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, char *a13)
 {
   a13 = &a10;
   std::vector<std::vector<double>>::__destroy_vector::operator()[abi:ne200100](&a13);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::vector<double>>::__init_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::vector<double>>::__init_with_size[abi:ne200100]<std::vector<double>*,std::vector<double>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8859,14 +8615,14 @@ uint64_t std::vector<std::vector<double>>::__init_with_size[abi:ne200100]<std::v
   return result;
 }
 
-void sub_1CEEA2664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_1CEEA2664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<std::vector<double>>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::vector<double>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<double>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -8907,7 +8663,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x1E69E5420], MEMORY[0x1E69E52A8]);
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<double>>,std::vector<double>*,std::vector<double>*,std::vector<double>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<double>>,std::vector<double>*,std::vector<double>*,std::vector<double>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -8924,8 +8680,8 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(v4, *v6, v6[1], (v6[1] - *v6) >> 3);
-      v6 += 3;
+      std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 3);
+      v6 += 24;
       v4 = v11 + 3;
       v11 += 3;
     }
@@ -8938,7 +8694,7 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
   return v4;
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8960,7 +8716,7 @@ void sub_1CEEA292C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<double>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<double>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -9054,17 +8810,17 @@ void std::vector<std::vector<double>>::clear[abi:ne200100](uint64_t *a1)
   a1[1] = v3;
 }
 
-void *std::vector<std::vector<double>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::vector<double>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::vector<double>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::vector<double>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void std::vector<double>::__append(uint64_t a1, unint64_t a2)
@@ -9128,17 +8884,17 @@ void std::vector<double>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void *std::vector<double>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<double>::__vallocate[abi:ne200100](result, a2);
+    std::vector<double>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1CEEA2D30(_Unwind_Exception *exception_object)
@@ -9830,6 +9586,267 @@ LABEL_50:
     }
 
     while (v26 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t PCPClusterEmbeddingReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    do
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        LOBYTE(v18) = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v18 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v18 & 0x7F) << v5;
+        if ((v18 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        if (v6++ >= 9)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) > 2)
+      {
+        if (v13 == 3)
+        {
+          v14 = objc_alloc_init(PCPClusterEmbeddingLocation);
+          objc_storeStrong((a1 + 24), v14);
+          v18 = 0;
+          v19 = 0;
+          if (!PBReaderPlaceMark() || !PCPClusterEmbeddingLocationReadFrom(v14, a2))
+          {
+LABEL_37:
+
+            return 0;
+          }
+
+LABEL_33:
+          PBReaderRecallMark();
+LABEL_34:
+
+          goto LABEL_35;
+        }
+
+        if (v13 == 4)
+        {
+          v14 = objc_alloc_init(PCPClusterEmbeddingTime);
+          objc_storeStrong((a1 + 32), v14);
+          v18 = 0;
+          v19 = 0;
+          if (!PBReaderPlaceMark() || !PCPClusterEmbeddingTimeReadFrom(v14, a2))
+          {
+            goto LABEL_37;
+          }
+
+          goto LABEL_33;
+        }
+      }
+
+      else
+      {
+        if (v13 == 1)
+        {
+          v15 = PBReaderReadString();
+          v14 = *(a1 + 16);
+          *(a1 + 16) = v15;
+          goto LABEL_34;
+        }
+
+        if (v13 == 2)
+        {
+          v14 = objc_alloc_init(PCPClusterEmbeddingActivity);
+          objc_storeStrong((a1 + 8), v14);
+          v18 = 0;
+          v19 = 0;
+          if (!PBReaderPlaceMark() || !PCPClusterEmbeddingActivityReadFrom(v14, a2))
+          {
+            goto LABEL_37;
+          }
+
+          goto LABEL_33;
+        }
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_35:
+      v16 = [a2 position];
+    }
+
+    while (v16 < [a2 length]);
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t PCPClusterEmbeddingActivityReadFrom(uint64_t a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    while (1)
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        v23 = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:&v23 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v23 & 0x7F) << v5;
+        if ((v23 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        if (v6++ >= 9)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) > 2)
+      {
+        break;
+      }
+
+      if (v13 == 1)
+      {
+        v16 = PBReaderReadString();
+        v17 = 16;
+LABEL_30:
+        v19 = *(a1 + v17);
+        *(a1 + v17) = v16;
+
+        goto LABEL_33;
+      }
+
+      if (v13 != 2)
+      {
+        goto LABEL_26;
+      }
+
+      *(a1 + 40) |= 1u;
+      v22 = 0;
+      v14 = [a2 position] + 8;
+      if (v14 >= [a2 position] && (v15 = objc_msgSend(a2, "position") + 8, v15 <= objc_msgSend(a2, "length")))
+      {
+        v20 = [a2 data];
+        [v20 getBytes:&v22 range:{objc_msgSend(a2, "position"), 8}];
+
+        [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
+      }
+
+      else
+      {
+        [a2 _setError];
+      }
+
+      *(a1 + 8) = v22;
+LABEL_33:
+      v21 = [a2 position];
+      if (v21 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
+    }
+
+    if (v13 == 3)
+    {
+      v16 = PBReaderReadData();
+      v17 = 24;
+    }
+
+    else
+    {
+      if (v13 != 4)
+      {
+LABEL_26:
+        result = PBReaderSkipValueWithTag();
+        if (!result)
+        {
+          return result;
+        }
+
+        goto LABEL_33;
+      }
+
+      v16 = PBReaderReadString();
+      v17 = 32;
+    }
+
+    goto LABEL_30;
   }
 
   return [a2 hasError] ^ 1;

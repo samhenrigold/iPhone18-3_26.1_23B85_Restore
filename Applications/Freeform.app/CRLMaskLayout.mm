@@ -95,28 +95,29 @@
   infoGeometry = [(CRLMaskLayout *)self infoGeometry];
   [infoGeometry position];
   v13 = v12;
-  memset(&v22, 0, sizeof(v22));
+  memset(&v23, 0, sizeof(v23));
   [infoGeometry center];
   if (infoGeometry)
   {
-    [infoGeometry transformBasedOnPoint:sub_10011F334(v4 centeredAtPoint:{v6, v13)}];
+    v14 = sub_10011F334(v4, v6, v13);
+    objc_msgSend_transformBasedOnPoint_centeredAtPoint_(infoGeometry, v14);
   }
 
   else
   {
-    memset(&v22, 0, sizeof(v22));
+    memset(&v23, 0, sizeof(v23));
   }
 
-  v14 = [CRLCanvasLayoutGeometry alloc];
-  v21 = v22;
-  v15 = [(CRLCanvasLayoutGeometry *)v14 initWithSize:&v21 transform:v8, v10];
+  v15 = [CRLCanvasLayoutGeometry alloc];
+  v22 = v23;
+  v16 = [(CRLCanvasLayoutGeometry *)v15 initWithSize:&v22 transform:v8, v10];
   [(CRLMaskLayout *)self pathScale];
-  v17 = v16;
+  v18 = v17;
   [(CRLMaskLayout *)self pathScale];
-  CGAffineTransformMakeScale(&v21, v17, v18);
-  v19 = [(CRLCanvasLayoutGeometry *)v15 geometryByTransformingBy:&v21];
+  CGAffineTransformMakeScale(&v22, v18, v19);
+  v20 = [(CRLCanvasLayoutGeometry *)v16 geometryByTransformingBy:&v22];
 
-  return v19;
+  return v20;
 }
 
 - (id)computeInfoGeometryFromPureLayoutGeometry:(id)geometry
@@ -167,11 +168,11 @@
   memset(&v23, 0, sizeof(v23));
   if (geometry2)
   {
-    [geometry2 fullTransform];
+    objc_msgSend_fullTransform(geometry2);
     if (v17)
     {
 LABEL_12:
-      [v17 fullTransform];
+      objc_msgSend_fullTransform(v17);
       goto LABEL_15;
     }
   }
@@ -192,7 +193,7 @@ LABEL_15:
   memset(&t1, 0, sizeof(t1));
   if (geometryCopy)
   {
-    [geometryCopy fullTransform];
+    objc_msgSend_fullTransform(geometryCopy);
   }
 
   else
@@ -285,7 +286,7 @@ LABEL_15:
     stroke = imageLayout2;
     if (imageLayout2)
     {
-      [imageLayout2 layoutToMaskTransform];
+      objc_msgSend_layoutToMaskTransform(imageLayout2);
     }
 
     else
@@ -350,8 +351,8 @@ LABEL_15:
     v8 = imageLayout2;
     if (imageLayout2)
     {
-      [imageLayout2 layoutToMaskTransform];
-      [v8 originalTransformForProvidingGuides];
+      objc_msgSend_layoutToMaskTransform(imageLayout2);
+      objc_msgSend_originalTransformForProvidingGuides(v8);
     }
 
     else
@@ -386,7 +387,7 @@ LABEL_15:
   v4 = parent;
   if (parent)
   {
-    [parent transformInRoot];
+    objc_msgSend_transformInRoot(parent);
   }
 
   else
@@ -440,7 +441,7 @@ LABEL_4:
     v10 = originalImageGeometry;
     if (originalImageGeometry)
     {
-      [originalImageGeometry transform];
+      objc_msgSend_transform(originalImageGeometry);
     }
 
     else
@@ -488,7 +489,7 @@ LABEL_4:
   v19 = originalImageGeometry2;
   if (originalImageGeometry2)
   {
-    [originalImageGeometry2 transform];
+    objc_msgSend_transform(originalImageGeometry2);
   }
 
   else
@@ -613,11 +614,7 @@ LABEL_4:
   v7 = imageLayout;
   if (imageLayout)
   {
-    v8 = *&a4->c;
-    v10[0] = *&a4->a;
-    v10[1] = v8;
-    v10[2] = *&a4->tx;
-    [imageLayout layoutTransformInInfoSpace:v10];
+    objc_msgSend_layoutTransformInInfoSpace_(imageLayout, *&a4->a, *&a4->b, *&a4->c, *&a4->d, *&a4->tx, *&a4->ty);
   }
 
   else
@@ -671,7 +668,7 @@ LABEL_4:
   v13 = imageGeometry;
   if (imageGeometry)
   {
-    [imageGeometry transform];
+    objc_msgSend_transform(imageGeometry);
   }
 
   else

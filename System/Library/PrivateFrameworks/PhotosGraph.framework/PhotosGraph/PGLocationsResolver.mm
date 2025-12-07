@@ -13,47 +13,47 @@
 
 - (void)_resolve
 {
-  v108 = *MEMORY[0x277D85DE8];
+  v107 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
-  v83 = [MEMORY[0x277CCAB00] mapTableWithKeyOptions:0 valueOptions:0];
+  v82 = [MEMORY[0x277CCAB00] mapTableWithKeyOptions:0 valueOptions:0];
   array2 = [MEMORY[0x277CBEB18] array];
-  v81 = 0;
+  v80 = 0;
   if (self->_shouldCreateLocationToAddressMapTable)
   {
-    v81 = [MEMORY[0x277CCAB00] mapTableWithKeyOptions:0 valueOptions:0];
+    v80 = [MEMORY[0x277CCAB00] mapTableWithKeyOptions:0 valueOptions:0];
   }
 
-  v102 = 0u;
-  v103 = 0u;
-  v100 = 0u;
   v101 = 0u;
+  v102 = 0u;
+  v99 = 0u;
+  v100 = 0u;
   obj = self->_sortedMoments;
-  v76 = [(NSArray *)obj countByEnumeratingWithState:&v100 objects:v107 count:16];
-  if (v76)
+  v75 = [(NSArray *)obj countByEnumeratingWithState:&v99 objects:v106 count:16];
+  if (v75)
   {
-    v75 = *v101;
+    v74 = *v100;
     v3 = 0.0;
     v4 = 0.0;
     v5 = 0.0;
     while (1)
     {
-      for (i = 0; i != v76; ++i)
+      for (i = 0; i != v75; ++i)
       {
-        if (*v101 != v75)
+        if (*v100 != v74)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v100 + 1) + 8 * i);
+        v7 = *(*(&v99 + 1) + 8 * i);
         v8 = objc_autoreleasePoolPush();
         numberOfAssets = [v7 numberOfAssets];
         addressEdges = [v7 addressEdges];
+        v95 = 0u;
         v96 = 0u;
         v97 = 0u;
         v98 = 0u;
-        v99 = 0u;
         v11 = addressEdges;
-        v12 = [v11 countByEnumeratingWithState:&v96 objects:v106 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v95 objects:v105 count:16];
         if (!v12)
         {
 
@@ -62,25 +62,25 @@
         }
 
         v13 = v12;
-        v80 = v7;
-        v77 = v8;
-        v78 = i;
-        v86 = 0;
-        v88 = *v97;
+        v79 = v7;
+        v76 = v8;
+        v77 = i;
+        v85 = 0;
+        v87 = *v96;
         v14 = 0.0;
         v15 = 0.0;
         v16 = 0.0;
-        v84 = v11;
+        v83 = v11;
         do
         {
           for (j = 0; j != v13; ++j)
           {
-            if (*v97 != v88)
+            if (*v96 != v87)
             {
-              objc_enumerationMutation(v84);
+              objc_enumerationMutation(v83);
             }
 
-            v18 = *(*(&v96 + 1) + 8 * j);
+            v18 = *(*(&v95 + 1) + 8 * j);
             v19 = objc_autoreleasePoolPush();
             targetNode = [v18 targetNode];
             if (![(NSSet *)self->_ignoredAddressNodes count]|| ![(NSSet *)self->_ignoredAddressNodes containsObject:targetNode])
@@ -169,26 +169,26 @@ LABEL_29:
                       [(NSArray *)array addObject:v24];
                     }
 
-                    v38 = [v83 objectForKey:v24];
+                    v38 = [v82 objectForKey:v24];
                     universalStartDate = [v18 universalStartDate];
                     v40 = universalStartDate;
                     if (!v38 || universalStartDate && [universalStartDate compare:v38] == -1)
                     {
-                      [v83 setObject:v40 forKey:v24];
+                      [v82 setObject:v40 forKey:v24];
                     }
 
-                    if ((v86 & 1) == 0)
+                    if ((v85 & 1) == 0)
                     {
-                      [(NSArray *)array2 addObject:v80];
+                      [(NSArray *)array2 addObject:v79];
                     }
 
                     if (self->_shouldCreateLocationToAddressMapTable)
                     {
-                      v41 = [(NSMapTable *)v81 objectForKey:v24];
+                      v41 = [(NSMapTable *)v80 objectForKey:v24];
                       if (!v41)
                       {
                         v41 = [MEMORY[0x277CBEB58] set];
-                        [(NSMapTable *)v81 setObject:v41 forKey:v24];
+                        [(NSMapTable *)v80 setObject:v41 forKey:v24];
                       }
 
                       [v41 addObject:targetNode];
@@ -203,22 +203,22 @@ LABEL_29:
 
               else
               {
-                if ((v86 & 1) == 0)
+                if ((v85 & 1) == 0)
                 {
-                  [(NSArray *)array2 addObject:v80];
+                  [(NSArray *)array2 addObject:v79];
                 }
 
                 v24 = 0;
 LABEL_52:
-                v86 = 1;
+                v85 = 1;
               }
             }
 
             objc_autoreleasePoolPop(v19);
           }
 
-          v11 = v84;
-          v13 = [v84 countByEnumeratingWithState:&v96 objects:v106 count:16];
+          v11 = v83;
+          v13 = [v83 countByEnumeratingWithState:&v95 objects:v105 count:16];
         }
 
         while (v13);
@@ -228,8 +228,8 @@ LABEL_52:
           v4 = v4 + v15 / v16;
         }
 
-        v8 = v77;
-        i = v78;
+        v8 = v76;
+        i = v77;
         if (v14 > 0.0)
         {
           v3 = v3 + v14 / v16;
@@ -241,8 +241,8 @@ LABEL_61:
         objc_autoreleasePoolPop(v8);
       }
 
-      v76 = [(NSArray *)obj countByEnumeratingWithState:&v100 objects:v107 count:16];
-      if (!v76)
+      v75 = [(NSArray *)obj countByEnumeratingWithState:&v99 objects:v106 count:16];
+      if (!v75)
       {
         goto LABEL_65;
       }
@@ -254,16 +254,16 @@ LABEL_61:
   v5 = 0.0;
 LABEL_65:
 
-  v94[0] = MEMORY[0x277D85DD0];
-  v94[1] = 3221225472;
-  v94[2] = __31__PGLocationsResolver__resolve__block_invoke;
-  v94[3] = &unk_278885298;
-  v42 = v83;
-  v95 = v42;
-  [(NSArray *)array sortUsingComparator:v94];
+  v93[0] = MEMORY[0x277D85DD0];
+  v93[1] = 3221225472;
+  v93[2] = __31__PGLocationsResolver__resolve__block_invoke;
+  v93[3] = &unk_278885298;
+  v42 = v82;
+  v94 = v42;
+  [(NSArray *)array sortUsingComparator:v93];
   if (v4 > 0.0 || v3 > 0.0)
   {
-    v85 = v42;
+    v84 = v42;
     v44 = v5 - v4 - v3;
     v45 = v44;
     v46 = v5;
@@ -291,27 +291,27 @@ LABEL_65:
     v51 = [(NSArray *)array count];
     v52 = [MEMORY[0x277CBEB18] arrayWithCapacity:v51];
     v53 = [MEMORY[0x277CBEB58] setWithCapacity:v51];
+    v89 = 0u;
     v90 = 0u;
     v91 = 0u;
     v92 = 0u;
-    v93 = 0u;
-    v89 = array;
-    v54 = [(NSArray *)v89 countByEnumeratingWithState:&v90 objects:v104 count:16];
+    v88 = array;
+    v54 = [(NSArray *)v88 countByEnumeratingWithState:&v89 objects:v103 count:16];
     if (v54)
     {
       v55 = v54;
-      v56 = *v91;
-      v87 = v52;
+      v56 = *v90;
+      v86 = v52;
       do
       {
         for (k = 0; k != v55; ++k)
         {
-          if (*v91 != v56)
+          if (*v90 != v56)
           {
-            objc_enumerationMutation(v89);
+            objc_enumerationMutation(v88);
           }
 
-          v58 = *(*(&v90 + 1) + 8 * k);
+          v58 = *(*(&v89 + 1) + 8 * k);
           label2 = [v58 label];
           v60 = [PGCommonTitleUtility dimensionForLabel:label2];
 
@@ -328,7 +328,7 @@ LABEL_65:
           {
             if (self->_shouldCreateLocationToAddressMapTable)
             {
-              [(NSMapTable *)v81 removeObjectForKey:v58];
+              [(NSMapTable *)v80 removeObjectForKey:v58];
             }
           }
 
@@ -341,40 +341,40 @@ LABEL_65:
               label3 = [v61 label];
               v64 = [PGCommonTitleUtility dimensionForLabel:label3];
 
-              v52 = v87;
+              v52 = v86;
               if (v64 == v50 && ([v53 containsObject:v62] & 1) == 0)
               {
                 [v53 addObject:v62];
-                [(NSArray *)v87 addObject:v62];
+                [(NSArray *)v86 addObject:v62];
               }
 
               if (self->_shouldCreateLocationToAddressMapTable)
               {
-                v65 = [(NSMapTable *)v81 objectForKey:v58];
-                [(NSMapTable *)v81 removeObjectForKey:v58];
-                v66 = [(NSMapTable *)v81 objectForKey:v62];
+                v65 = [(NSMapTable *)v80 objectForKey:v58];
+                [(NSMapTable *)v80 removeObjectForKey:v58];
+                v66 = [(NSMapTable *)v80 objectForKey:v62];
                 if (!v66)
                 {
                   v66 = [MEMORY[0x277CBEB58] set];
-                  [(NSMapTable *)v81 setObject:v66 forKey:v62];
+                  [(NSMapTable *)v80 setObject:v66 forKey:v62];
                 }
 
                 [v66 unionSet:v65];
 
-                v52 = v87;
+                v52 = v86;
               }
             }
           }
         }
 
-        v55 = [(NSArray *)v89 countByEnumeratingWithState:&v90 objects:v104 count:16];
+        v55 = [(NSArray *)v88 countByEnumeratingWithState:&v89 objects:v103 count:16];
       }
 
       while (v55);
     }
 
     v43 = v52;
-    v42 = v85;
+    v42 = v84;
   }
 
   else
@@ -391,10 +391,8 @@ LABEL_65:
   v70 = v43;
 
   resolvedLocationNodesToAddressNodesMapTable = self->_resolvedLocationNodesToAddressNodesMapTable;
-  self->_resolvedLocationNodesToAddressNodesMapTable = v81;
-  v72 = v81;
-
-  v73 = *MEMORY[0x277D85DE8];
+  self->_resolvedLocationNodesToAddressNodesMapTable = v80;
+  v72 = v80;
 }
 
 uint64_t __31__PGLocationsResolver__resolve__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -548,22 +546,21 @@ uint64_t __31__PGLocationsResolver__resolve__block_invoke(uint64_t a1, uint64_t 
 
 - (PGLocationsResolver)initWithMomentNodes:(id)nodes incompleteLocationResolver:(id)resolver locationHelper:(id)helper
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v19[3] = *MEMORY[0x277D85DE8];
   v8 = MEMORY[0x277CCAC98];
   helperCopy = helper;
   resolverCopy = resolver;
   nodesCopy = nodes;
   v12 = [v8 sortDescriptorWithKey:@"universalStartDate" ascending:1];
   v13 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"universalEndDate" ascending:{1, v12}];
-  v20[1] = v13;
+  v19[1] = v13;
   v14 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"UUID" ascending:1];
-  v20[2] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
+  v19[2] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
 
   v16 = [nodesCopy sortedArrayUsingDescriptors:v15];
 
   v17 = [(PGLocationsResolver *)self initWithSortedMomentNodes:v16 incompleteLocationResolver:resolverCopy locationHelper:helperCopy];
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

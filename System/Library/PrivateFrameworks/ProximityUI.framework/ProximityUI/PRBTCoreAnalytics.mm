@@ -4,6 +4,8 @@
 - (PRBTCoreAnalytics)init;
 - (id)eventDictionaryWithEvent:(id)event;
 - (void)addLatestProximityLevel:(id)level;
+- (void)configureComplete:(int)complete;
+- (void)configureSession:(BOOL)session withProductUUID:(id)d;
 - (void)deinit;
 - (void)invalidPoseDetected;
 - (void)rangingFailedWithError:(id)error;
@@ -85,7 +87,7 @@
 
 - (id)eventDictionaryWithEvent:(id)event
 {
-  v34[9] = *MEMORY[0x277D85DE8];
+  v33[9] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   sessionId = [(PRBTCoreAnalytics *)self sessionId];
 
@@ -94,36 +96,36 @@
     v6 = MEMORY[0x277CCABB0];
     MachTimeSeconds = PRCommonGetMachTimeSeconds();
     [(PRBTCoreAnalytics *)self startTime];
-    v32 = [v6 numberWithDouble:MachTimeSeconds - v8];
-    v31 = [MEMORY[0x277CCABB0] numberWithInteger:{-[PRBTCoreAnalytics eventNumber](self, "eventNumber")}];
-    v30 = [MEMORY[0x277CCABB0] numberWithFloat:0.0];
+    v31 = [v6 numberWithDouble:MachTimeSeconds - v8];
+    v30 = [MEMORY[0x277CCABB0] numberWithInteger:{-[PRBTCoreAnalytics eventNumber](self, "eventNumber")}];
+    v29 = [MEMORY[0x277CCABB0] numberWithFloat:0.0];
     [(PRBTCoreAnalytics *)self setEventNumber:[(PRBTCoreAnalytics *)self eventNumber]+ 1];
-    v33[0] = @"sessionId";
+    v32[0] = @"sessionId";
     sessionId2 = [(PRBTCoreAnalytics *)self sessionId];
     uUIDString = [sessionId2 UUIDString];
-    v34[0] = uUIDString;
-    v33[1] = @"eventNumber";
-    stringValue = [v31 stringValue];
-    v34[1] = stringValue;
-    v34[2] = v32;
-    v33[2] = @"timeElapsed";
-    v33[3] = @"traveledDistance";
+    v33[0] = uUIDString;
+    v32[1] = @"eventNumber";
+    stringValue = [v30 stringValue];
+    v33[1] = stringValue;
+    v33[2] = v31;
+    v32[2] = @"timeElapsed";
+    v32[3] = @"traveledDistance";
     traveledDistance = [(PRBTCoreAnalytics *)self traveledDistance];
-    v34[3] = traveledDistance;
-    v34[4] = v30;
-    v33[4] = @"straightLineDistance";
-    v33[5] = @"btRssiEstimate";
+    v33[3] = traveledDistance;
+    v33[4] = v29;
+    v32[4] = @"straightLineDistance";
+    v32[5] = @"btRssiEstimate";
     btRssiEstimate = [(PRBTCoreAnalytics *)self btRssiEstimate];
-    v34[5] = btRssiEstimate;
-    v33[6] = @"numberOfMeasurements";
+    v33[5] = btRssiEstimate;
+    v32[6] = @"numberOfMeasurements";
     numberOfMeasurements = [(PRBTCoreAnalytics *)self numberOfMeasurements];
-    v34[6] = numberOfMeasurements;
-    v33[7] = @"numberOfPoses";
+    v33[6] = numberOfMeasurements;
+    v32[7] = @"numberOfPoses";
     numberOfPoses = [(PRBTCoreAnalytics *)self numberOfPoses];
-    v33[8] = @"eventType";
-    v34[7] = numberOfPoses;
-    v34[8] = eventCopy;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:9];
+    v32[8] = @"eventType";
+    v33[7] = numberOfPoses;
+    v33[8] = eventCopy;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:9];
 
     v17 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v16];
     runId = [(PRBTCoreAnalytics *)self runId];
@@ -161,29 +163,58 @@
     v17 = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (void)sendAnalyticsEvent:(id)event
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if (eventCopy)
   {
     logger = self->_logger;
     if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = eventCopy;
-      _os_log_impl(&dword_2613DF000, logger, OS_LOG_TYPE_DEFAULT, "Logging event %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = eventCopy;
+      _os_log_impl(&dword_2613DF000, logger, OS_LOG_TYPE_DEFAULT, "Logging event %@", &v6, 0xCu);
     }
 
     [(PRBTCoreAnalytics *)self sendLiveOnAnalytics:eventCopy];
   }
+}
 
-  v6 = *MEMORY[0x277D85DE8];
+- (void)configureSession:(BOOL)session withProductUUID:(id)d
+{
+  sessionCopy = session;
+  dCopy = d;
+  uUID = [MEMORY[0x277CCAD78] UUID];
+  [(PRBTCoreAnalytics *)self setSessionId:uUID];
+
+  [(PRBTCoreAnalytics *)self setEventNumber:0];
+  [(PRBTCoreAnalytics *)self setStartTime:PRCommonGetMachTimeSeconds()];
+  [(PRBTCoreAnalytics *)self setProductUUID:dCopy];
+  v7 = objc_alloc_init(CABTSessionData);
+  [(PRBTCoreAnalytics *)self setSessionData:v7];
+
+  sessionData = [(PRBTCoreAnalytics *)self sessionData];
+  [sessionData setProductUUID:dCopy];
+
+  v9 = [(PRBTCoreAnalytics *)self eventDictionaryWithEvent:@"Configure"];
+  sessionData2 = [(PRBTCoreAnalytics *)self sessionData];
+  [sessionData2 configure:v9 withOwner:sessionCopy];
+
+  [(PRBTCoreAnalytics *)self sendAnalyticsEvent:v9];
+}
+
+- (void)configureComplete:(int)complete
+{
+  v3 = *&complete;
+  v6 = [(PRBTCoreAnalytics *)self eventDictionaryWithEvent:@"ConfigureComplete"];
+  sessionData = [(PRBTCoreAnalytics *)self sessionData];
+  [sessionData configureComplete:v6 withTxPower:v3];
+
+  [(PRBTCoreAnalytics *)self sendAnalyticsEvent:v6];
 }
 
 - (BOOL)isRunning
@@ -216,23 +247,21 @@
 
 - (void)addLatestProximityLevel:(id)level
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   levelCopy = level;
   latestProximityLevel = [(PRBTCoreAnalytics *)self latestProximityLevel];
 
   if (latestProximityLevel)
   {
-    v11 = @"proximityLevel";
+    v10 = @"proximityLevel";
     v6 = MEMORY[0x277CCABB0];
     latestProximityLevel2 = [(PRBTCoreAnalytics *)self latestProximityLevel];
     v8 = [v6 numberWithInt:{objc_msgSend(latestProximityLevel2, "proximityLevel")}];
-    v12[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v11[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
 
     [levelCopy addEntriesFromDictionary:v9];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop

@@ -20,7 +20,7 @@
   swift_allocObject();
   HandlerManager.init()();
   *(&self->super.super.super.isa + v5) = v6;
-  result = sub_264785D94();
+  result = sub_264785D94("Fatal error", 11, 2, 0xD000000000000025, 0x80000002647955F0, "SafetyMonitorUI/DefaultInitiatorSessionDetailsViewController.swift", 66, 2, 28, 0);
   __break(1u);
   return result;
 }

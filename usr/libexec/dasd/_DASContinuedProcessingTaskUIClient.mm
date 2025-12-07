@@ -6,6 +6,7 @@
 - (int64_t)expirationEventForSuspendedActivity:(id)activity;
 - (void)activateConnection;
 - (void)activitiesBeganRunning:(id)running;
+- (void)activitiesWereCompleted:(id)completed withSuccess:(BOOL)success;
 - (void)activitiesWereSubmitted:(id)submitted;
 - (void)activitiesWereSuspended:(id)suspended;
 - (void)beginActivity:(id)activity startingProgress:(id)progress;
@@ -20,31 +21,33 @@
 - (void)updateMetadataForActivity:(id)activity;
 - (void)updateProgress:(id)progress forIdentifier:(id)identifier;
 - (void)updateProgressForActivity:(id)activity;
+- (void)updateTitle:(id)title description:(id)description forIdentifier:(id)identifier playHaptics:(BOOL)haptics;
 @end
 
 @implementation _DASContinuedProcessingTaskUIClient
 
 + (void)initialize
 {
-  if (sub_1000B6678())
+  v2 = sub_1000B6678();
+  if (v2)
   {
-    [sub_1000B4A8C() load];
-    v4 = 0;
-    v5 = &v4;
-    v6 = 0x2050000000;
-    v2 = qword_10020B730;
-    v7 = qword_10020B730;
+    [sub_1000B4A8C(v2 v3)];
+    v6 = 0;
+    v7 = &v6;
+    v8 = 0x2050000000;
+    v4 = qword_10020B730;
+    v9 = qword_10020B730;
     if (!qword_10020B730)
     {
       sub_1000B6678();
-      v5[3] = objc_getClass("APKActivityProgressTasksSpecifier");
-      qword_10020B730 = v5[3];
-      v2 = v5[3];
+      v7[3] = objc_getClass("APKActivityProgressTasksSpecifier");
+      qword_10020B730 = v7[3];
+      v4 = v7[3];
     }
 
-    v3 = v2;
-    _Block_object_dispose(&v4, 8);
-    [v2 load];
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    [v4 load];
   }
 }
 
@@ -170,7 +173,7 @@
     {
       if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
       {
-        sub_100128A94(&self->_connection);
+        sub_100128A94();
       }
 
       [(_DASContinuedProcessingTaskUIClient *)self invalidateConnection];
@@ -235,49 +238,80 @@
   descriptionCopy = description;
   progressCopy = progress;
   iCopy = i;
-  v20 = objc_alloc(sub_1000B4A8C());
-  v21 = v20;
+  v21 = objc_alloc(sub_1000B4A8C(iCopy, v20));
+  v22 = v21;
   if (progressCopy)
   {
-    v22 = [v20 initWithProgress:progressCopy];
+    v23 = [v21 initWithProgress:progressCopy];
   }
 
   else
   {
-    v23 = objc_alloc_init(NSProgress);
-    v22 = [v21 initWithProgress:v23];
+    v24 = objc_alloc_init(NSProgress);
+    v23 = [v22 initWithProgress:v24];
   }
 
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 138413058;
-    v27 = identifierCopy;
-    v28 = 2112;
-    v29 = nameCopy;
-    v30 = 2112;
-    v31 = descriptionCopy;
-    v32 = 2112;
-    v33 = bundleIdentifierCopy;
-    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "[%@] Starting activity %@ %@, bundleIdentifier: %@", &v26, 0x2Au);
+    v27 = 138413058;
+    v28 = identifierCopy;
+    v29 = 2112;
+    v30 = nameCopy;
+    v31 = 2112;
+    v32 = descriptionCopy;
+    v33 = 2112;
+    v34 = bundleIdentifierCopy;
+    _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "[%@] Starting activity %@ %@, bundleIdentifier: %@", &v27, 0x2Au);
   }
 
   server = [(_DASContinuedProcessingTaskUIClient *)self server];
-  [server startActivityForIdentifier:identifierCopy bundleIdentifier:bundleIdentifierCopy imageUTI:iCopy activityName:nameCopy activityDescription:descriptionCopy progress:v22];
+  [server startActivityForIdentifier:identifierCopy bundleIdentifier:bundleIdentifierCopy imageUTI:iCopy activityName:nameCopy activityDescription:descriptionCopy progress:v23];
+}
+
+- (void)updateTitle:(id)title description:(id)description forIdentifier:(id)identifier playHaptics:(BOOL)haptics
+{
+  hapticsCopy = haptics;
+  titleCopy = title;
+  descriptionCopy = description;
+  identifierCopy = identifier;
+  log = self->_log;
+  if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
+  {
+    v16 = @"Disabled";
+    *v17 = 138413058;
+    *&v17[4] = identifierCopy;
+    if (hapticsCopy)
+    {
+      v16 = @"Enabled";
+    }
+
+    *&v17[12] = 2112;
+    *&v17[14] = titleCopy;
+    v18 = 2112;
+    v19 = descriptionCopy;
+    v20 = 2112;
+    v21 = v16;
+    _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "[%@] Updating title to %@ and description to %@ (haptics %@)", v17, 0x2Au);
+  }
+
+  v14 = [(_DASContinuedProcessingTaskUIClient *)self server:*v17];
+  v15 = [NSNumber numberWithBool:hapticsCopy];
+  [v14 updateActivityName:titleCopy activityDescription:descriptionCopy withHaptic:v15 forIdentifier:identifierCopy];
 }
 
 - (void)updateProgress:(id)progress forIdentifier:(id)identifier
 {
   progressCopy = progress;
   identifierCopy = identifier;
-  v8 = [objc_alloc(sub_1000B4A8C()) initWithProgress:progressCopy];
+  v9 = [objc_alloc(sub_1000B4A8C(identifierCopy v8))];
   if (os_log_type_enabled(self->_log, OS_LOG_TYPE_DEBUG))
   {
     sub_100128B8C();
   }
 
   server = [(_DASContinuedProcessingTaskUIClient *)self server];
-  [server updateProgress:v8 forIdentifier:identifierCopy];
+  [server updateProgress:v9 forIdentifier:identifierCopy];
 }
 
 - (void)cleanupActivity:(id)activity didComplete:(BOOL)complete
@@ -548,6 +582,42 @@
     }
 
     while (v6);
+  }
+}
+
+- (void)activitiesWereCompleted:(id)completed withSuccess:(BOOL)success
+{
+  successCopy = success;
+  completedCopy = completed;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v7 = [completedCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v13;
+    do
+    {
+      for (i = 0; i != v8; i = i + 1)
+      {
+        if (*v13 != v9)
+        {
+          objc_enumerationMutation(completedCopy);
+        }
+
+        v11 = *(*(&v12 + 1) + 8 * i);
+        if ([v11 isContinuedProcessingTask])
+        {
+          [(_DASContinuedProcessingTaskUIClient *)self cleanupActivity:v11 didComplete:successCopy];
+        }
+      }
+
+      v8 = [completedCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v8);
   }
 }
 

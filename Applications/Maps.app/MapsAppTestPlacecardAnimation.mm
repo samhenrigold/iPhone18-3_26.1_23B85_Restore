@@ -27,28 +27,28 @@
 
 - (BOOL)runTest
 {
-  options = [(MapsAppTest *)self options];
-  _mapstest_location = [options _mapstest_location];
+  v3 = objc_msgSend_options(self, a2);
+  _mapstest_location = [v3 _mapstest_location];
 
   if (_mapstest_location)
   {
     [(MapsAppTest *)self setupForVKTest];
-    options2 = [(MapsAppTest *)self options];
-    [options2 _mapstest_jumpPoint];
+    v5 = objc_msgSend_options(self);
+    [v5 _mapstest_jumpPoint];
     v7 = v6;
     v9 = v8;
     v11 = v10;
 
-    options3 = [(MapsAppTest *)self options];
-    [options3 _mapstest_pitch];
+    v12 = objc_msgSend_options(self);
+    [v12 _mapstest_pitch];
     v14 = v13;
 
-    options4 = [(MapsAppTest *)self options];
-    [options4 _mapstest_yaw];
+    v15 = objc_msgSend_options(self);
+    [v15 _mapstest_yaw];
     v17 = v16;
 
-    options5 = [(MapsAppTest *)self options];
-    _mapstest_mapType = [options5 _mapstest_mapType];
+    v18 = objc_msgSend_options(self);
+    _mapstest_mapType = [v18 _mapstest_mapType];
 
     [(MapsAppTest *)self switchToMapType:_mapstest_mapType];
     mainVKMapView = [(MapsAppTest *)self mainVKMapView];

@@ -434,7 +434,7 @@
               v30 = v29;
               if (v21)
               {
-                [v21 transformToWP];
+                objc_msgSend_transformToWP(v21);
                 v31 = v50;
                 v33 = v51;
                 v32 = v52;
@@ -465,7 +465,7 @@
                 v38 = v47 + v15 * v33 + v48 * v13;
                 if (v21)
                 {
-                  [v21 transformFromWP];
+                  objc_msgSend_transformFromWP(v21);
                   v40 = v49;
                   v39 = v50;
                   v42 = v51;
@@ -774,7 +774,7 @@ LABEL_20:
   result = [v7 charIndexFromPoint:0 allowPastBreak:1 pastCenterGoesToNextChar:0 allowNotFound:&v9 + 1 isAtEndOfLine:&v9 leadingEdge:{x, y}];
   if (v7)
   {
-    return [v7 lineMetricsAtCharIndex:result allowEndOfLine:HIBYTE(v9)];
+    return objc_msgSend_lineMetricsAtCharIndex_allowEndOfLine_(v7);
   }
 
   *&retstr->var1 = 0u;
@@ -790,7 +790,7 @@ LABEL_20:
   if (result)
   {
 
-    return [($6D73A9620177E745173F4CF14EEA41ED *)result lineMetricsAtCharIndex:a4 allowEndOfLine:0];
+    return objc_msgSend_lineMetricsAtCharIndex_allowEndOfLine_(result);
   }
 
   else
@@ -824,7 +824,7 @@ LABEL_20:
   {
     v16 = 0uLL;
     v17 = 0uLL;
-    result = [(TSWPRep *)self lineMetricsAtCharIndex:a4, 0, 0, 0, 0];
+    result = objc_msgSend_lineMetricsAtCharIndex_(self, 0, 0, 0, 0);
     v14 = v16;
     v15 = v17;
   }
@@ -966,7 +966,7 @@ LABEL_17:
           storage = [(TSWPRep *)self storage];
           if (storage)
           {
-            [(TSWPStorage *)storage paragraphEnumeratorAtCharIndex:range styleProvider:0];
+            objc_msgSend_paragraphEnumeratorAtCharIndex_styleProvider_(storage);
           }
 
           else
@@ -986,7 +986,7 @@ LABEL_17:
 
           if (self)
           {
-            [(TSWPRep *)self transformToConvertNaturalToScaledRoot];
+            objc_msgSend_transformToConvertNaturalToScaledRoot(self);
           }
 
           else
@@ -1239,7 +1239,7 @@ LABEL_28:
       v67 = v66;
       if (v38)
       {
-        [v38 transformToWP];
+        objc_msgSend_transformToWP(v38);
       }
 
       else
@@ -1274,7 +1274,7 @@ LABEL_28:
 
     if (v38)
     {
-      [v38 transformFromWP];
+      objc_msgSend_transformFromWP(v38);
     }
 
     else
@@ -1392,7 +1392,7 @@ LABEL_90:
             if (v29)
             {
 LABEL_60:
-              [v29 transformToWP];
+              objc_msgSend_transformToWP(v29, v111);
 LABEL_76:
               v140.origin.x = v7;
               v140.origin.y = v8;
@@ -1427,7 +1427,7 @@ LABEL_76:
               b = 0.0;
               if (v29)
               {
-                [v29 transformToWP];
+                objc_msgSend_transformToWP(v29, 0.0, 0.0, 0.0, v143.size.height);
                 b = v123.b;
                 d = v123.d;
                 ty = v123.ty;
@@ -1482,7 +1482,7 @@ LABEL_76:
             v96 = v95;
             if (v29)
             {
-              [v29 transformToWP];
+              objc_msgSend_transformToWP(v29);
             }
 
             else
@@ -1531,7 +1531,7 @@ LABEL_89:
           }
 
 LABEL_82:
-          [v29 transformFromWP];
+          objc_msgSend_transformFromWP(v29, v111);
           goto LABEL_90;
         }
       }
@@ -1953,7 +1953,7 @@ uint64_t __33__TSWPRep_setNeedsDisplayInRect___block_invoke(uint64_t a1, uint64_
 LABEL_25:
           range = [(TSWPSelection *)dropSelection range];
           v21 = [TSDBezierPath outsideEdgeOfBezierPath:[TSWPColumn pathForHighlightWithRange:range columnArray:v20 pathStyle:[(TSWPRep *)self columns], 0]];
-          [(TSWPRep *)self transformToConvertNaturalToScaledRoot];
+          objc_msgSend_transformToConvertNaturalToScaledRoot(self);
           [v21 transformUsingAffineTransform:&v24];
           -[CALayer setPath:](self->_dragAndDropCaretLayer, "setPath:", [v21 CGPath]);
 LABEL_29:
@@ -2367,7 +2367,7 @@ LABEL_8:
   layout = [(TSDRep *)self layout];
   if (layout)
   {
-    [(TSDAbstractLayout *)layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -2385,7 +2385,7 @@ LABEL_8:
   v31 = [(TSDRep *)self layout:v47.origin.x];
   if (v31)
   {
-    [(TSDAbstractLayout *)v31 transformInRoot];
+    objc_msgSend_transformInRoot(v31);
   }
 
   else
@@ -2414,7 +2414,7 @@ LABEL_8:
   [(TSWPRep *)self p_updateForCurrentSelectionWithFlags:0];
 }
 
-uint64_t __26__TSWPRep_didUpdateLayer___block_invoke(uint64_t a1, void *a2)
+void *__26__TSWPRep_didUpdateLayer___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 tilingSafeHasContents];
   v5 = *(a1 + 32);
@@ -2436,7 +2436,7 @@ uint64_t __26__TSWPRep_didUpdateLayer___block_invoke(uint64_t a1, void *a2)
   return result;
 }
 
-uint64_t __26__TSWPRep_didUpdateLayer___block_invoke_2(uint64_t a1, void *a2)
+void *__26__TSWPRep_didUpdateLayer___block_invoke_2(uint64_t a1, void *a2)
 {
   [a2 bounds];
   if (!CGRectEqualToRect(v10, *(a1 + 48)))
@@ -2665,7 +2665,7 @@ uint64_t __26__TSWPRep_didUpdateLayer___block_invoke_2(uint64_t a1, void *a2)
     }
 
     v5 = [TSWPColumn pathForHighlightWithRange:self->_secondaryHighlightRange.location columnArray:self->_secondaryHighlightRange.length pathStyle:[(TSWPRep *)self columns], self->_secondaryHighlightPathStyle];
-    [(TSDRep *)self transformToConvertNaturalToLayerRelative];
+    objc_msgSend_transformToConvertNaturalToLayerRelative(self);
     [v5 transformUsingAffineTransform:&v6];
     -[CAShapeLayer setPath:](self->_secondaryHighlightLayer, "setPath:", [v5 CGPath]);
   }
@@ -2951,7 +2951,7 @@ LABEL_3:
   layout = [(TSDRep *)self layout];
   if (layout)
   {
-    [(TSDAbstractLayout *)layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -4073,7 +4073,7 @@ LABEL_13:
   memset(&v51, 0, sizeof(v51));
   if (self)
   {
-    [(TSDRep *)self transformToConvertNaturalToLayerRelative];
+    objc_msgSend_transformToConvertNaturalToLayerRelative(self, a2, glyphRect);
   }
 
   v50 = v51;
@@ -4733,7 +4733,7 @@ LABEL_45:
               memset(&r1[8], 0, 48);
               if (self)
               {
-                [(TSDRep *)self transformToConvertNaturalToLayerRelative];
+                objc_msgSend_transformToConvertNaturalToLayerRelative(self);
               }
 
               if (v28)
@@ -4900,7 +4900,7 @@ LABEL_45:
                           {
                             if (v17)
                             {
-                              [v17 transformFromWP];
+                              objc_msgSend_transformFromWP(v17);
                               b = m.b;
                               ty = m.ty;
                               v40 = m.d * 0.0;
@@ -4964,7 +4964,7 @@ LABEL_45:
                         {
                           if (v17)
                           {
-                            [v17 transformFromWP];
+                            objc_msgSend_transformFromWP(v17);
                             v47 = m.b;
                             v48 = m.ty;
                             v49 = m.d * 0.0;
@@ -5001,7 +5001,7 @@ LABEL_55:
                   memset(&m, 0, sizeof(m));
                   if (self)
                   {
-                    [(TSDRep *)self transformToConvertNaturalToLayerRelative];
+                    objc_msgSend_transformToConvertNaturalToLayerRelative(self);
                   }
 
                   r2_24 = m;
@@ -5164,7 +5164,7 @@ LABEL_55:
 
 - (CGPoint)p_pinPoint:(CGPoint)point toRect:(CGRect)rect
 {
-  v4 = TSDClampPointInRect();
+  v4 = TSDClampPointInRect(point, point.y, rect.origin.x, rect.origin.y, rect.size.width + -1.0, rect.size.height + -1.0);
   result.y = v5;
   result.x = v4;
   return result;
@@ -5725,7 +5725,7 @@ LABEL_34:
   self->_lastSelection = [(TSWPSelection *)[(TSWPRep *)self selection] copy];
 }
 
-uint64_t __46__TSWPRep_i_setNeedsDisplayForSelectionChange__block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__46__TSWPRep_i_setNeedsDisplayForSelectionChange__block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [objc_msgSend(*(a1 + 32) "storage")];
   if (result <= 0xD && ((1 << result) & 0x3C30) != 0 || (result - 8232) < 2)
@@ -5737,7 +5737,7 @@ uint64_t __46__TSWPRep_i_setNeedsDisplayForSelectionChange__block_invoke(uint64_
   return result;
 }
 
-uint64_t __46__TSWPRep_i_setNeedsDisplayForSelectionChange__block_invoke_2(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__46__TSWPRep_i_setNeedsDisplayForSelectionChange__block_invoke_2(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [objc_msgSend(*(a1 + 32) "storage")];
   if (result <= 0xD && ((1 << result) & 0x3C30) != 0 || (result - 8232) < 2)
@@ -6112,13 +6112,13 @@ uint64_t __46__TSWPRep_i_setNeedsDisplayForSelectionChange__block_invoke_2(uint6
     {
       if (self)
       {
-        [(TSDRep *)self transformToConvertNaturalToLayerRelative];
+        objc_msgSend_transformToConvertNaturalToLayerRelative(self);
       }
     }
 
     else if (self)
     {
-      [(TSWPRep *)self transformToConvertNaturalToScaledRoot];
+      objc_msgSend_transformToConvertNaturalToScaledRoot(self);
     }
 
     v54 = v55;
@@ -6229,7 +6229,7 @@ LABEL_42:
       {
         v52 = v44;
         v53 = v43;
-        [(TSDRep *)self transformToConvertNaturalToLayerRelative];
+        objc_msgSend_transformToConvertNaturalToLayerRelative(self);
 LABEL_36:
         v44 = v52;
         v43 = v53;
@@ -6255,7 +6255,7 @@ LABEL_38:
     {
       v52 = v44;
       v53 = v43;
-      [(TSWPRep *)self transformToConvertNaturalToScaledRoot];
+      objc_msgSend_transformToConvertNaturalToScaledRoot(self);
       goto LABEL_36;
     }
 
@@ -6652,7 +6652,7 @@ LABEL_38:
   layout = [(TSDRep *)self layout];
   if (layout)
   {
-    [(TSDAbstractLayout *)layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -6758,7 +6758,7 @@ LABEL_38:
     layout = [(TSDRep *)self layout];
     if (layout)
     {
-      [(TSDAbstractLayout *)layout transformInRoot];
+      objc_msgSend_transformInRoot(layout);
     }
 
     else
@@ -6875,7 +6875,7 @@ LABEL_38:
     layout = [(TSDRep *)self layout];
     if (layout)
     {
-      [(TSDAbstractLayout *)layout transformInRoot];
+      objc_msgSend_transformInRoot(layout);
     }
 
     else

@@ -9,8 +9,8 @@
 - (void)register_for_inference_monitor_eventsWithEventCallback:(id)callback completionHandler:
 {
   v4 = v3;
-  v7 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_280898898, &qword_272755E00) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280898898, &qword_272755E00);
+  MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(callback);
   v11 = _Block_copy(v4);
@@ -36,8 +36,8 @@
 
 - (void)unregister_from_inference_monitorWithObserver:(int64_t)observer completionHandler:(id)handler
 {
-  v7 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_280898898, &qword_272755E00) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280898898, &qword_272755E00);
+  MEMORY[0x28223BE20](v7 - 8);
   v9 = &v15 - v8;
   v10 = _Block_copy(handler);
   v11 = swift_allocObject();
@@ -69,7 +69,7 @@
   *(&self->super.super.isa + v3) = sub_2724BC024(MEMORY[0x277D84F90]);
   *(&self->super.super.isa + OBJC_IVAR___vp_services_Model_Manager_Impl_mCounter) = 0;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for vp_services_Model_Manager_Impl();
+  v5.super_class = type metadata accessor for vp_services_Model_Manager_Impl(0);
   return [(vp_services_Model_Manager_Impl *)&v5 init];
 }
 

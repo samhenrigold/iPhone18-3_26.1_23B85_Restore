@@ -18,7 +18,7 @@
   swift_beginAccess();
   if (*(self + v3))
   {
-    sub_20CECF940(0, &unk_27C81BF40);
+    sub_20CECF940(0, &unk_27C81BF40, 0x277D14300);
     sub_20CFE165C();
     sub_20D5663C8();
     v4 = sub_20D567CD8();
@@ -37,7 +37,7 @@
   accessoriesCopy = accessories;
   if (accessories)
   {
-    sub_20CECF940(0, &unk_27C81BF40);
+    sub_20CECF940(0, &unk_27C81BF40, 0x277D14300);
     sub_20CFE165C();
     accessoriesCopy = sub_20D567D08();
   }
@@ -54,7 +54,7 @@
 {
   if (accessories)
   {
-    sub_20CECF940(0, &unk_27C81BF40);
+    sub_20CECF940(0, &unk_27C81BF40, 0x277D14300);
     sub_20CFE165C();
     v3 = sub_20D567D08();
   }
@@ -88,7 +88,7 @@
 {
   moduleCopy = module;
   selfCopy = self;
-  v6 = sub_20CFE0DB8();
+  v6 = sub_20CFE0DB8(moduleCopy);
 
   return v6;
 }

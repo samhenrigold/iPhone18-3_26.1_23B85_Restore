@@ -6,8 +6,8 @@ void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTranspose
   v6 = **a2;
   if (v4 != *(v6 + 20) || (v7 = *(a1 + 5), v8 = a2[1], v9 = *v8, v7 != **v8))
   {
-    cva::Logger::instance(a1);
-    cva::Logger::logInCategory();
+    v10 = cva::Logger::instance(a1);
+    cva::Logger::logInCategory(v10, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", *(a1 + 4), *(a1 + 5), *(**a2 + 20), **a2[1]);
     v4 = *(a1 + 4);
     v5 = *a2;
     v6 = **a2;
@@ -36,125 +36,124 @@ void cva::assign<false,false,cva::Matrix<float,0u,0u,false>,cva::MatrixTranspose
   v27 = &v23;
   v32[0] = v28;
   v32[1] = &v24;
-  v10 = *a1;
+  v11 = *a1;
   v25 = v4;
   v26 = v7;
-  v19[0] = v4;
-  v19[1] = v7;
-  v20 = v10;
+  v20[0] = __PAIR64__(v7, v4);
+  v20[1] = v11;
   v21 = v4;
   v22 = 0;
-  cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(v19, v32);
-  v11 = *(*v5 + 16);
-  v12 = *(a1 + 5) - v11;
-  if (*(a1 + 5) > v11)
+  cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(v20, v32);
+  v12 = *(*v5 + 16);
+  v13 = *(a1 + 5) - v12;
+  if (*(a1 + 5) > v12)
   {
-    v13 = *(a1 + 4);
-    v14 = *a1 + 4 * v13 * v11;
-    v15 = v13 * v12;
-    v16 = v15 == 0;
-    if (v15)
+    v14 = *(a1 + 4);
+    v15 = *a1 + 4 * v14 * v12;
+    v16 = v14 * v13;
+    v17 = v16 == 0;
+    if (v16)
     {
-      v17 = v14;
+      v18 = v15;
     }
 
     else
     {
-      v17 = 0;
-    }
-
-    v18 = (v14 + 4 * v15);
-    if (v16)
-    {
       v18 = 0;
     }
 
-    if (v17 != v18)
+    v19 = (v15 + 4 * v16);
+    if (v17)
     {
-      bzero(v17, ((v18 - v17 - 4) & 0xFFFFFFFFFFFFFFFCLL) + 4);
+      v19 = 0;
+    }
+
+    if (v18 != v19)
+    {
+      bzero(v18, ((v19 - v18 - 4) & 0xFFFFFFFFFFFFFFFCLL) + 4);
     }
   }
 }
 
-uint64_t cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(uint64_t a1, void *a2)
+float **cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false> const> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(float **a1, void *a2)
 {
-  v4 = *(a1 + 8) - 4 * *(a1 + 20);
+  v4 = &a1[1][-*(a1 + 5)];
   if (***(*a2 + 8) == v4 || **(****(a2[1] + 16) + 8) == v4)
   {
     v5 = *a1;
-    v6 = *(a1 + 4);
-    v21[0] = 0;
-    v21[1] = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(v21, (v6 * v5));
-    v22 = v5;
-    v23 = v6;
-    cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(v21, a2);
+    v6 = *(a1 + 1);
+    v22[0] = 0;
+    v22[1] = 0;
+    cva::MatrixData<float,0ul,0ul,false>::allocate(v22, (v6 * v5));
+    v23 = v5;
+    v24 = v6;
+    cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>(v22, a2);
     v8 = *a1;
-    if (*a1 != v22 || (v9 = *(a1 + 4), v9 != v23))
+    if (*a1 != v23 || (v9 = *(a1 + 1), v9 != v24))
     {
-      cva::Logger::instance(v7);
-      cva::Logger::logInCategory();
+      v10 = cva::Logger::instance(v7);
+      cva::Logger::logInCategory(v10, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", *a1, *(a1 + 1), v23, v24);
       v8 = *a1;
-      if (*a1 != v22 || (v9 = *(a1 + 4), v9 != v23))
+      if (*a1 != v23 || (v9 = *(a1 + 1), v9 != v24))
       {
         __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
       }
     }
 
-    v10 = *(a1 + 16);
-    v11 = v8 * v9 == 0;
+    v11 = *(a1 + 4);
+    v12 = v8 * v9 == 0;
     if (v8 * v9)
     {
-      v12 = *(a1 + 8);
+      v13 = a1[1];
     }
 
     else
     {
-      v12 = 0;
-    }
-
-    v13 = *(a1 + 8) + 4 * (v10 * v9);
-    if (v11)
-    {
       v13 = 0;
     }
 
-    v14 = v21[0];
-    if (v12 != v13)
+    v14 = &a1[1][v11 * v9];
+    if (v12)
     {
-      v15 = 0;
-      v16 = v10 - v8;
-      v17 = v21[0];
+      v14 = 0;
+    }
+
+    v15 = v22[0];
+    if (v13 != v14)
+    {
+      v16 = 0;
+      v17 = v11 - v8;
+      v18 = v22[0];
       do
       {
-        v18 = *v17++;
-        *v12 = v18;
-        if (v15 + 1 >= v8)
+        v19 = *v18++;
+        *v13 = v19;
+        if (v16 + 1 >= v8)
         {
-          v19 = v16;
+          v20 = v17;
         }
 
         else
         {
-          v19 = 0;
+          v20 = 0;
         }
 
-        v12 += v19 + 1;
-        if (v15 + 1 < v8)
+        v13 += v20 + 1;
+        if (v16 + 1 < v8)
         {
-          ++v15;
+          ++v16;
         }
 
         else
         {
-          v15 = 0;
+          v16 = 0;
         }
       }
 
-      while (v12 != v13);
+      while (v13 != v14);
     }
 
-    free(v14);
+    free(v15);
   }
 
   else
@@ -170,22 +169,22 @@ void cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::Matrix<float,0u
   v4 = *(a2 + 8);
   if (*v4 == *a1 || **(a2 + 16) == *a1)
   {
-    v6 = *(v4 + 16);
-    v12 = 0;
+    v7 = *(v4 + 16);
     v13 = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(&v12, v6);
-    v14 = *(*(a2 + 8) + 16);
-    cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,1u,false>>(&v12, a2);
-    v7 = *a1;
-    v8 = *(a1 + 8);
-    v9 = v13;
-    *a1 = v12;
-    *(a1 + 8) = v9;
-    v12 = v7;
-    v13 = v8;
-    *(a1 + 16) = v14;
     v14 = 0;
-    free(v7);
+    cva::MatrixData<float,0ul,0ul,false>::allocate(&v13, v7);
+    v15 = *(*(a2 + 8) + 16);
+    cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,0u,1u,false>>(&v13, a2);
+    v8 = *a1;
+    v9 = *(a1 + 8);
+    v10 = v14;
+    *a1 = v13;
+    *(a1 + 8) = v10;
+    v13 = v8;
+    v14 = v9;
+    *(a1 + 16) = v15;
+    v15 = 0;
+    free(v8);
   }
 
   else
@@ -193,8 +192,8 @@ void cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::Matrix<float,0u
     v5 = *(a1 + 16);
     if (v5 != *(v4 + 16))
     {
-      cva::Logger::instance(a1);
-      cva::Logger::logInCategory();
+      v6 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v6, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", *(a1 + 16), 1, *(*(a2 + 8) + 16), 1);
       v5 = *(a1 + 16);
       v4 = *(a2 + 8);
       if (v5 != *(v4 + 16))
@@ -210,10 +209,10 @@ void cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::Matrix<float,0u
 
     if (v5)
     {
-      v10 = *a1;
-      v11 = 4 * v5;
+      v11 = *a1;
+      v12 = 4 * v5;
 
-      bzero(v10, v11);
+      bzero(v11, v12);
     }
   }
 }
@@ -223,22 +222,22 @@ void cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::Matrix<float,0u
   v4 = *(a2 + 8);
   if (*v4 == *a1 || *(a2 + 16) == *a1)
   {
-    v6 = *(v4 + 16);
-    v12 = 0;
+    v7 = *(v4 + 16);
     v13 = 0;
-    cva::MatrixData<float,0ul,0ul,false>::allocate(&v12, v6);
-    v14 = *(*(a2 + 8) + 16);
-    cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,9u,1u,false>>(&v12, a2);
-    v7 = *a1;
-    v8 = *(a1 + 8);
-    v9 = v13;
-    *a1 = v12;
-    *(a1 + 8) = v9;
-    v12 = v7;
-    v13 = v8;
-    *(a1 + 16) = v14;
     v14 = 0;
-    free(v7);
+    cva::MatrixData<float,0ul,0ul,false>::allocate(&v13, v7);
+    v15 = *(*(a2 + 8) + 16);
+    cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::Matrix<float,0u,0u,false>,cva::Matrix<float,9u,1u,false>>(&v13, a2);
+    v8 = *a1;
+    v9 = *(a1 + 8);
+    v10 = v14;
+    *a1 = v13;
+    *(a1 + 8) = v10;
+    v13 = v8;
+    v14 = v9;
+    *(a1 + 16) = v15;
+    v15 = 0;
+    free(v8);
   }
 
   else
@@ -246,8 +245,8 @@ void cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::Matrix<float,0u
     v5 = *(a1 + 16);
     if (v5 != *(v4 + 16))
     {
-      cva::Logger::instance(a1);
-      cva::Logger::logInCategory();
+      v6 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v6, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", *(a1 + 16), 1, *(*(a2 + 8) + 16), 1);
       v5 = *(a1 + 16);
       v4 = *(a2 + 8);
       if (v5 != *(v4 + 16))
@@ -263,10 +262,10 @@ void cva::assign<false,false,cva::Matrix<float,0u,1u,false>,cva::Matrix<float,0u
 
     if (v5)
     {
-      v10 = *a1;
-      v11 = 4 * v5;
+      v11 = *a1;
+      v12 = 4 * v5;
 
-      bzero(v10, v11);
+      bzero(v11, v12);
     }
   }
 }
@@ -281,7 +280,7 @@ uint64_t arkit::FaceTrackingData::FaceTrackingData(uint64_t a1, __int128 *a2, ui
   *(a1 + 48) = 0;
   *(a1 + 56) = 0;
   *(a1 + 40) = 0;
-  std::vector<arkit::Landmark>::__init_with_size[abi:ne200100]<arkit::Landmark*,arkit::Landmark*>(a1 + 40, *a3, a3[1], 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 2));
+  std::vector<arkit::Landmark>::__init_with_size[abi:ne200100]<arkit::Landmark*,arkit::Landmark*>((a1 + 40), *a3, a3[1], 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 2));
   return a1;
 }
 
@@ -294,50 +293,48 @@ uint64_t arkit::FaceTrackingData::FaceTrackingData(uint64_t a1, __int128 *a2, ui
   *(a1 + 48) = 0;
   *(a1 + 56) = 0;
   *(a1 + 40) = 0;
-  std::vector<arkit::Landmark>::__init_with_size[abi:ne200100]<arkit::Landmark*,arkit::Landmark*>(a1 + 40, *a3, a3[1], 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 2));
+  std::vector<arkit::Landmark>::__init_with_size[abi:ne200100]<arkit::Landmark*,arkit::Landmark*>((a1 + 40), *a3, a3[1], 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 2));
   return a1;
 }
 
-uint64_t arkit::FaceTrackingData::filteredLandmarks@<X0>(uint64_t a1@<X0>, int **a2@<X1>, uint64_t *a3@<X8>)
+void arkit::FaceTrackingData::filteredLandmarks(uint64_t a1@<X0>, int **a2@<X1>, uint64_t *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
-  result = std::vector<arkit::Landmark>::reserve(a3, a2[1] - *a2);
-  v8 = *a2;
-  v7 = a2[1];
-  if (v8 != v7)
+  std::vector<arkit::Landmark>::reserve(a3, a2[1] - *a2);
+  v7 = *a2;
+  v6 = a2[1];
+  if (v7 != v6)
   {
-    v9 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 48) - *(a1 + 40)) >> 2) - 1;
+    v8 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 48) - *(a1 + 40)) >> 2) - 1;
     do
     {
-      v10 = *v8;
-      if (v9 >= v10)
+      v9 = *v7;
+      if (v8 >= v9)
       {
-        v11 = *(a1 + 40) + 12 * v10;
-        v12 = a3[1];
-        if (v12 >= a3[2])
+        v10 = *(a1 + 40) + 12 * v9;
+        v11 = a3[1];
+        if (v11 >= a3[2])
         {
-          result = std::vector<arkit::Landmark>::__emplace_back_slow_path<arkit::Landmark const&>(a3, v11);
+          v12 = std::vector<arkit::Landmark>::__emplace_back_slow_path<arkit::Landmark const&>(a3, v10);
         }
 
         else
         {
-          *v12 = *v11;
-          *(v12 + 8) = *(v11 + 8);
-          result = v12 + 12;
+          *v11 = *v10;
+          *(v11 + 8) = *(v10 + 8);
+          v12 = v11 + 12;
         }
 
-        a3[1] = result;
+        a3[1] = v12;
       }
 
-      ++v8;
+      ++v7;
     }
 
-    while (v8 != v7);
+    while (v7 != v6);
   }
-
-  return result;
 }
 
 void sub_1C254C440(_Unwind_Exception *exception_object)
@@ -352,7 +349,7 @@ void sub_1C254C440(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<arkit::Landmark>::__init_with_size[abi:ne200100]<arkit::Landmark*,arkit::Landmark*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<arkit::Landmark>::__init_with_size[abi:ne200100]<arkit::Landmark*,arkit::Landmark*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -374,7 +371,7 @@ void sub_1C254C4E4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<arkit::Landmark>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<arkit::Landmark>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x1555555555555556)
   {
@@ -418,9 +415,9 @@ void sub_1C254C618(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void arkit::FacialLightEstimation::estimateLight(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+void arkit::FacialLightEstimation::estimateLight(uint64_t a1@<X0>, uint64_t a2@<X1>, float *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  arkit::PrecomputedFaceData::getValidSampleIDs(*(a1 + 96), &__p);
+  arkit::PrecomputedFaceData::getValidSampleIDs(&__p, *(a1 + 96));
   v8 = *(a1 + 48);
   if (v8)
   {
@@ -432,32 +429,32 @@ void arkit::FacialLightEstimation::estimateLight(uint64_t a1@<X0>, uint64_t a2@<
   }
 
   *(a1 + 48) = __p;
-  *(a1 + 64) = v80;
-  arkit::FaceTrackingData::filteredLandmarks(a3, (a1 + 48), &v96);
-  v93 = 0;
-  v94 = 0;
-  v95 = 0;
-  v9 = v96;
-  v10 = v97;
-  if (v96 != v97)
+  *(a1 + 64) = v83;
+  arkit::FaceTrackingData::filteredLandmarks(a3, (a1 + 48), &v99);
+  v96 = 0;
+  v97 = 0;
+  v98 = 0;
+  v9 = v99;
+  v10 = v100;
+  if (v99 != v100)
   {
     v11 = 0;
     do
     {
       v12 = v9[8];
-      if (v11 >= v95)
+      if (v11 >= v98)
       {
-        v13 = v93;
-        v14 = v11 - v93;
-        v15 = (v11 - v93) >> 2;
+        v13 = v96;
+        v14 = v11 - v96;
+        v15 = (v11 - v96) >> 2;
         v16 = v15 + 1;
         if ((v15 + 1) >> 62)
         {
           _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
         }
 
-        v17 = v95 - v93;
-        if ((v95 - v93) >> 1 > v16)
+        v17 = v98 - v96;
+        if ((v98 - v96) >> 1 > v16)
         {
           v16 = v17 >> 1;
         }
@@ -474,7 +471,7 @@ void arkit::FacialLightEstimation::estimateLight(uint64_t a1@<X0>, uint64_t a2@<
 
         if (v18)
         {
-          std::allocator<unsigned int>::allocate_at_least[abi:ne200100](&v93, v18);
+          std::allocator<unsigned int>::allocate_at_least[abi:ne200100](&v96, v18);
         }
 
         v19 = v15;
@@ -483,10 +480,10 @@ void arkit::FacialLightEstimation::estimateLight(uint64_t a1@<X0>, uint64_t a2@<
         *v20 = v12;
         v11 = (v20 + 1);
         memcpy(v21, v13, v14);
-        v22 = v93;
-        v93 = v21;
-        v94 = v11;
-        v95 = 0;
+        v22 = v96;
+        v96 = v21;
+        v97 = v11;
+        v98 = 0;
         if (v22)
         {
           operator delete(v22);
@@ -499,7 +496,7 @@ void arkit::FacialLightEstimation::estimateLight(uint64_t a1@<X0>, uint64_t a2@<
         v11 += 4;
       }
 
-      v94 = v11;
+      v97 = v11;
       v9 += 12;
     }
 
@@ -509,11 +506,11 @@ void arkit::FacialLightEstimation::estimateLight(uint64_t a1@<X0>, uint64_t a2@<
   if (*(a2 + 9))
   {
     kdebug_trace();
-    arkit::ChromaFilter::filter();
+    arkit::ChromaFilter::filter(a4, &v99, v23, v24, v25);
     kdebug_trace();
-    v23 = v93;
-    v24 = __p;
-    if (v94 == v93)
+    v26 = v96;
+    v27 = __p;
+    if (v97 == v96)
     {
       if (!__p)
       {
@@ -523,257 +520,257 @@ void arkit::FacialLightEstimation::estimateLight(uint64_t a1@<X0>, uint64_t a2@<
 
     else
     {
-      v25 = 0;
-      v26 = (v94 - v93) >> 2;
-      if (v26 <= 1)
+      v28 = 0;
+      v29 = (v97 - v96) >> 2;
+      if (v29 <= 1)
       {
-        v26 = 1;
+        v29 = 1;
       }
 
       do
       {
-        v27 = ((*&v24[(v25 >> 3) & 0x1FFFFFFFFFFFFFF8] >> v25) & 1) != 0 && *&v23[4 * v25] == 1;
-        *&v23[4 * v25++] = v27;
+        v30 = ((*&v27[(v28 >> 3) & 0x1FFFFFFFFFFFFFF8] >> v28) & 1) != 0 && *&v26[4 * v28] == 1;
+        *&v26[4 * v28++] = v30;
       }
 
-      while (v26 != v25);
+      while (v29 != v28);
     }
 
-    operator delete(v24);
+    operator delete(v27);
   }
 
 LABEL_29:
-  v90 = 0;
-  v91 = 0;
-  v92 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v90, *(a1 + 48), *(a1 + 56), (*(a1 + 56) - *(a1 + 48)) >> 2);
-  v28 = v93;
-  v29 = v94;
-  if (v93 != v94)
+  v93 = 0;
+  v94 = 0;
+  v95 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v93, *(a1 + 48), *(a1 + 56), (*(a1 + 56) - *(a1 + 48)) >> 2);
+  v31 = v96;
+  v32 = v97;
+  if (v96 != v97)
   {
-    v30 = v90;
+    v33 = v93;
     do
     {
-      if (*v28)
+      if (*v31)
       {
-        ++v30;
+        ++v33;
       }
 
       else
       {
-        v31 = v91 - (v30 + 1);
-        if (v91 != v30 + 1)
+        v34 = v94 - (v33 + 1);
+        if (v94 != v33 + 1)
         {
-          memmove(v30, v30 + 1, v91 - (v30 + 1));
+          memmove(v33, v33 + 1, v94 - (v33 + 1));
         }
 
-        v91 = (v30 + v31);
+        v94 = (v33 + v34);
       }
 
-      v28 += 4;
+      v31 += 4;
     }
 
-    while (v28 != v29);
+    while (v31 != v32);
   }
 
-  arkit::FaceTrackingData::filteredLandmarks(a3, &v90, &v88);
-  if (0xAAAAAAAAAAAAAAABLL * ((v89 - v88) >> 2) != v91 - v90)
+  arkit::FaceTrackingData::filteredLandmarks(a3, &v93, &v91);
+  if (0xAAAAAAAAAAAAAAABLL * ((v92 - v91) >> 2) != v94 - v93)
   {
     __assert_rtn("estimateLight", "FacialLightEstimation.cpp", 67, "sampleIndices.size() == samplePositions.size()");
   }
 
-  if (v89 == v88)
+  if (v92 == v91)
   {
     goto LABEL_44;
   }
 
-  arkit::FacialLightEstimation::populateValidImageSamples(a1, a4, &v90, &v88, &v93);
-  v32 = *(a1 + 16);
-  if (v32)
+  arkit::FacialLightEstimation::populateValidImageSamples(a1, a4, &v93, &v91, &v96);
+  v35 = *(a1 + 16);
+  if (v35)
   {
-    v33 = *a1;
-    v34 = *(a1 + 16);
+    v36 = *a1;
+    v37 = *(a1 + 16);
     do
     {
-      *v33 = powf(*v33, 2.2);
-      ++v33;
-      --v34;
+      *v36 = powf(*v36, 2.2);
+      ++v36;
+      --v37;
     }
 
-    while (v34);
+    while (v37);
   }
 
-  if (v32 == *(a1 + 88) && v32 >= *(a1 + 92))
+  if (v35 == *(a1 + 88) && v35 >= *(a1 + 92))
   {
-    v85 = 0;
-    v86 = 0;
-    v87 = 0;
-    std::vector<std::pair<float,cva::Matrix<float,1u,0u,false>>>::reserve(&v85, v32);
-    v35 = *(a1 + 88);
-    if (v35)
+    v88 = 0;
+    v89 = 0;
+    v90 = 0;
+    std::vector<std::pair<float,cva::Matrix<float,1u,0u,false>>>::reserve(&v88, v35);
+    v38 = *(a1 + 88);
+    if (v38)
     {
-      v36 = 0;
-      v37 = 0;
+      v39 = 0;
+      v40 = 0;
       do
       {
-        if (v37 >= *(a1 + 16))
+        if (v40 >= *(a1 + 16))
         {
           __assert_rtn("assert_in_bounds", "matrixmixin.h", 2283, "(i < mixed().elements()) || cva::detail::assertMessage(Index out of bounds!)");
         }
 
-        if (v37 >= v35)
+        if (v40 >= v38)
         {
           __assert_rtn("row", "matrixmixin.h", 1063, "(row < mixed().rows()) || cva::detail::assertMessage(Index out of bounds.)");
         }
 
-        v38 = *(a1 + 92);
-        v39 = *(a1 + 72) + v36;
-        LODWORD(v76) = *(*a1 + v36);
-        DWORD2(v76) = v38;
-        *&v77 = v39;
-        *(&v77 + 1) = __PAIR64__(v37, v35);
-        std::pair<float,cva::Matrix<float,1u,0u,false>>::pair[abi:ne200100]<float,cva::MatrixRef<float,1u,0u,false>,0>(&__p, &v76);
-        v40 = v86;
-        if (v86 >= v87)
+        v41 = *(a1 + 92);
+        v42 = *(a1 + 72) + v39;
+        LODWORD(v79) = *(*a1 + v39);
+        DWORD2(v79) = v41;
+        *&v80 = v42;
+        *(&v80 + 1) = __PAIR64__(v40, v38);
+        std::pair<float,cva::Matrix<float,1u,0u,false>>::pair[abi:ne200100]<float,cva::MatrixRef<float,1u,0u,false>,0>(&__p, &v79);
+        v43 = v89;
+        if (v89 >= v90)
         {
-          v42 = std::vector<std::pair<float,cva::Matrix<float,1u,0u,false>>>::__emplace_back_slow_path<std::pair<float,cva::Matrix<float,1u,0u,false>>>(&v85, &__p);
-          v41 = *(&__p + 1);
+          v45 = std::vector<std::pair<float,cva::Matrix<float,1u,0u,false>>>::__emplace_back_slow_path<std::pair<float,cva::Matrix<float,1u,0u,false>>>(&v88, &__p);
+          v44 = *(&__p + 1);
         }
 
         else
         {
-          v41 = 0;
-          *v86 = __p;
-          *(v40 + 1) = 0;
-          *(v40 + 2) = 0;
-          *(v40 + 1) = *(&__p + 1);
-          *(v40 + 2) = v80;
-          v40[6] = DWORD2(v80);
+          v44 = 0;
+          *v89 = __p;
+          *(v43 + 1) = 0;
+          *(v43 + 2) = 0;
+          *(v43 + 1) = *(&__p + 1);
+          *(v43 + 2) = v83;
+          v43[6] = DWORD2(v83);
           *(&__p + 1) = 0;
-          *&v80 = 0;
-          DWORD2(v80) = 0;
-          v42 = (v40 + 8);
+          *&v83 = 0;
+          DWORD2(v83) = 0;
+          v45 = (v43 + 8);
         }
 
-        ++v37;
-        v86 = v42;
-        free(v41);
-        v35 = *(a1 + 88);
-        v36 += 4;
+        ++v40;
+        v89 = v45;
+        free(v44);
+        v38 = *(a1 + 88);
+        v39 += 4;
       }
 
-      while (v37 < v35);
+      while (v40 < v38);
     }
 
-    arkit::runSolver(&v85, a2, &__p);
-    v76 = __p;
-    v77 = v80;
-    v78 = v81;
-    v44 = (a1 + 152);
-    v43 = *(a1 + 152);
-    *(a1 + 160) = v43;
-    v45 = v82;
-    v46 = v83;
-    if (v82 != v83)
+    arkit::runSolver(&v88, a2, &__p);
+    v79 = __p;
+    v80 = v83;
+    v81 = v84;
+    v47 = (a1 + 152);
+    v46 = *(a1 + 152);
+    *(a1 + 160) = v46;
+    v48 = v85;
+    v49 = v86;
+    if (v85 != v86)
     {
       do
       {
-        v47 = v90[*v45];
-        v48 = *(a1 + 168);
-        if (v43 >= v48)
+        v50 = v93[*v48];
+        v51 = *(a1 + 168);
+        if (v46 >= v51)
         {
-          v49 = *v44;
-          v50 = v43 - *v44;
-          v51 = (v50 >> 3) + 1;
-          if (v51 >> 61)
+          v52 = *v47;
+          v53 = v46 - *v47;
+          v54 = (v53 >> 3) + 1;
+          if (v54 >> 61)
           {
             _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE20__throw_length_errorB8ne200100Ev();
           }
 
-          v52 = v48 - v49;
-          if (v52 >> 2 > v51)
+          v55 = v51 - v52;
+          if (v55 >> 2 > v54)
           {
-            v51 = v52 >> 2;
+            v54 = v55 >> 2;
           }
 
-          if (v52 >= 0x7FFFFFFFFFFFFFF8)
+          if (v55 >= 0x7FFFFFFFFFFFFFF8)
           {
-            v53 = 0x1FFFFFFFFFFFFFFFLL;
+            v56 = 0x1FFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v53 = v51;
+            v56 = v54;
           }
 
-          if (v53)
+          if (v56)
           {
-            _ZNSt3__19allocatorIDv2_fE17allocate_at_leastB8ne200100Em(a1 + 152, v53);
+            _ZNSt3__19allocatorIDv2_fE17allocate_at_leastB8ne200100Em(a1 + 152, v56);
           }
 
-          v54 = (8 * (v50 >> 3));
-          *v54 = v47;
-          v43 = (v54 + 1);
-          memcpy(0, v49, v50);
-          v55 = *(a1 + 152);
+          v57 = (8 * (v53 >> 3));
+          *v57 = v50;
+          v46 = (v57 + 1);
+          memcpy(0, v52, v53);
+          v58 = *(a1 + 152);
           *(a1 + 152) = 0;
-          *(a1 + 160) = v43;
+          *(a1 + 160) = v46;
           *(a1 + 168) = 0;
-          if (v55)
+          if (v58)
           {
-            operator delete(v55);
+            operator delete(v58);
           }
         }
 
         else
         {
-          *v43 = v47;
-          v43 += 8;
+          *v46 = v50;
+          v46 += 8;
         }
 
-        *(a1 + 160) = v43;
-        ++v45;
+        *(a1 + 160) = v46;
+        ++v48;
       }
 
-      while (v45 != v46);
+      while (v48 != v49);
     }
 
       ;
     }
 
-    v57 = *(a3 + 16);
-    v73 = *a3;
-    v74 = v57;
-    v75 = *(a3 + 32);
-    arkit::shct::rotateShCoeff(&v76, &v73, v72);
-    v58 = *(&v73 + 2);
-    v59 = *(&v74 + 1);
-    v60 = v75;
-    v68 = atan2f(*(&v74 + 1), v75);
-    v61.f32[0] = atan2f(-v58, sqrtf((v60 * v60) + (v59 * v59)));
-    v61.f32[1] = v68;
-    v62 = vsubq_f64(xmmword_1C25ED0F0, vabsq_f64(vdivq_f64(vcvtq_f64_f32(vmul_f32(v61, vdup_n_s32(0x43340000u))), vdupq_n_s64(0x400921FB54442D18uLL))));
-    if (v62.f64[0] >= v62.f64[1])
+    v60 = *(a3 + 1);
+    v76 = *a3;
+    v77 = v60;
+    v78 = a3[8];
+    arkit::shct::rotateShCoeff(&v79, &v76, v75);
+    v61 = *(&v76 + 2);
+    v62 = *(&v77 + 1);
+    v63 = v78;
+    v71 = atan2f(*(&v77 + 1), v78);
+    v64.f32[0] = atan2f(-v61, sqrtf((v63 * v63) + (v62 * v62)));
+    v64.f32[1] = v71;
+    v65 = vsubq_f64(xmmword_1C25ED0F0, vabsq_f64(vdivq_f64(vcvtq_f64_f32(vmul_f32(v64, vdup_n_s32(0x43340000u))), vdupq_n_s64(0x400921FB54442D18uLL))));
+    if (v65.f64[0] >= v65.f64[1])
     {
-      v62.f64[0] = v62.f64[1];
+      v65.f64[0] = v65.f64[1];
     }
 
-    v63 = *a2;
-    v64 = v62.f64[0];
-    v65 = 1.0 / (expf(v64 * -0.8) + 1.0) * v63;
-    arkit::ExponentialSmoother<cva::Matrix<float,9u,1u,false>>::step(a1 + 112, v72, v70, v65);
-    v66 = v70[1];
-    *a5 = v70[0];
-    *(a5 + 16) = v66;
-    *(a5 + 32) = v71;
-    *(a5 + 36) = v84;
-    if (v82)
+    v66 = *a2;
+    v67 = v65.f64[0];
+    v68 = 1.0 / (expf(v67 * -0.8) + 1.0) * v66;
+    arkit::ExponentialSmoother<cva::Matrix<float,9u,1u,false>>::step(a1 + 112, v75, v73, v68);
+    v69 = v73[1];
+    *a5 = v73[0];
+    *(a5 + 16) = v69;
+    *(a5 + 32) = v74;
+    *(a5 + 36) = v87;
+    if (v85)
     {
-      v83 = v82;
-      operator delete(v82);
+      v86 = v85;
+      operator delete(v85);
     }
 
-    *&__p = &v85;
+    *&__p = &v88;
     std::vector<std::pair<float,cva::Matrix<float,1u,0u,false>>>::__destroy_vector::operator()[abi:ne200100](&__p);
   }
 
@@ -785,16 +782,10 @@ LABEL_44:
     *(a5 + 16) = 0u;
   }
 
-  if (v88)
+  if (v91)
   {
-    v89 = v88;
-    operator delete(v88);
-  }
-
-  if (v90)
-  {
-    v91 = v90;
-    operator delete(v90);
+    v92 = v91;
+    operator delete(v91);
   }
 
   if (v93)
@@ -807,6 +798,12 @@ LABEL_44:
   {
     v97 = v96;
     operator delete(v96);
+  }
+
+  if (v99)
+  {
+    v100 = v99;
+    operator delete(v99);
   }
 }
 
@@ -863,7 +860,7 @@ void arkit::FacialLightEstimation::populateValidImageSamples(uint64_t a1, uint64
   v11 = (v6[1] - *v6) >> 2;
   *(v9 + 88) = -1431655765 * v11;
   *(v9 + 92) = 9;
-  v55 = (v9 + 24);
+  v56 = (v9 + 24);
   cva::MatrixData<float,0ul,0ul,false>::reserve(v9 + 72, (3 * v11));
   v13 = *a3;
   v12 = a3[1];
@@ -872,12 +869,12 @@ void arkit::FacialLightEstimation::populateValidImageSamples(uint64_t a1, uint64
     v14 = 0;
     v15 = 0;
     LODWORD(v16) = 0;
-    v50 = "matrixmixin.h";
-    v51 = "(row < mixed().rows()) || cva::detail::assertMessage(Index out of bounds.)";
-    v49 = "row";
-    v53 = v9;
-    v54 = v6;
-    v52 = a2;
+    v51 = "matrixmixin.h";
+    v52 = "(row < mixed().rows()) || cva::detail::assertMessage(Index out of bounds.)";
+    v50 = "row";
+    v54 = v9;
+    v55 = v6;
+    v53 = a2;
     while (1)
     {
       v17 = (a5[1] - *a5) >> 2;
@@ -911,8 +908,8 @@ void arkit::FacialLightEstimation::populateValidImageSamples(uint64_t a1, uint64
             v22 = *(v9 + 40);
             if (v23 >= v22)
             {
-              v25 = *v55;
-              v26 = v23 - *v55;
+              v25 = *v56;
+              v26 = v23 - *v56;
               v27 = (v26 >> 2) + 1;
               if (v27 >> 62)
               {
@@ -934,7 +931,7 @@ void arkit::FacialLightEstimation::populateValidImageSamples(uint64_t a1, uint64
 
               if (v30)
               {
-                std::allocator<unsigned int>::allocate_at_least[abi:ne200100](v55, v30);
+                std::allocator<unsigned int>::allocate_at_least[abi:ne200100](v56, v30);
               }
 
               v31 = (4 * (v26 >> 2));
@@ -961,12 +958,12 @@ void arkit::FacialLightEstimation::populateValidImageSamples(uint64_t a1, uint64
             *(v9 + 32) = v24;
             v34 = v19;
             v35 = v20;
-            v58[0] = v34 | (v35 << 32);
-            v56[0] = *(a2 + 8);
+            v59[0] = v34 | (v35 << 32);
+            v57[0] = *(a2 + 8);
             do
             {
-              v36 = *(v58 + v33);
-              v37 = *(v56 + v33);
+              v36 = *(v59 + v33);
+              v37 = *(v57 + v33);
               v38 = v36 >= v37 || v33 == 4;
               v33 += 4;
             }
@@ -984,69 +981,69 @@ void arkit::FacialLightEstimation::populateValidImageSamples(uint64_t a1, uint64
 
             LOBYTE(v21) = *(*(a2 + 24) + *a2 + (*(a2 + 16) * v34 + *(a2 + 20) * v35));
             *(*v9 + 4 * v14) = LODWORD(v21) * 0.0039216;
-            RTF = arkit::PrecomputedFaceData::getRTF(*(v9 + 96), v16, v56);
+            RTF = arkit::PrecomputedFaceData::getRTF(v57, *(v9 + 96), v16);
             v40 = *(v9 + 88);
             if (v40 <= v15)
             {
-              v48 = 1063;
+              v49 = 1063;
               goto LABEL_51;
             }
 
             v41 = *(v9 + 92);
             v42 = *(v9 + 72);
-            if (v41 != v57)
+            if (v41 != v58)
             {
-              cva::Logger::instance(RTF);
-              cva::Logger::logInCategory();
-              if (v41 != v57)
+              v43 = cva::Logger::instance(RTF);
+              cva::Logger::logInCategory(v43, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", 1, v41, 1, v58);
+              if (v41 != v58)
               {
-                v48 = 163;
-                v49 = "assert_equal_size";
-                v50 = "matrixfun.h";
-                v51 = "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)";
+                v49 = 163;
+                v50 = "assert_equal_size";
+                v51 = "matrixfun.h";
+                v52 = "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)";
 LABEL_51:
-                __assert_rtn(v49, v50, v48, v51);
+                __assert_rtn(v50, v51, v49, v52);
               }
             }
 
             if (v41)
             {
-              v43 = (v42 + 4 * v15);
+              v44 = (v42 + 4 * v15);
             }
 
             else
             {
-              v43 = 0;
-            }
-
-            v44 = v42 + 4 * v15 + 4 * (v41 * v40);
-            if (!v41)
-            {
               v44 = 0;
             }
 
-            v45 = v56[0];
-            if (v43 != v44)
+            v45 = v42 + 4 * v15 + 4 * (v41 * v40);
+            if (!v41)
             {
-              v46 = v56[0];
+              v45 = 0;
+            }
+
+            v46 = v57[0];
+            if (v44 != v45)
+            {
+              v47 = v57[0];
               do
               {
-                v47 = *v46++;
-                *v43 = v47;
-                v43 += v40;
+                v48 = *v47++;
+                *v44 = v48;
+                v44 += v40;
               }
 
-              while (v43 != v44);
+              while (v44 != v45);
             }
 
             ++v15;
-            free(v45);
+            free(v46);
             LODWORD(v16) = v16 + 1;
-            v6 = v54;
+            v6 = v55;
             v13 = *a3;
             v12 = a3[1];
-            a2 = v52;
-            v9 = v53;
+            a2 = v53;
+            v9 = v54;
           }
         }
       }
@@ -1060,11 +1057,11 @@ LABEL_51:
 
   v15 = 0;
 LABEL_45:
-  cva::Matrix<float,0u,0u,false>::conservativeResize(v55 + 6, v15, 9u);
+  cva::Matrix<float,0u,0u,false>::conservativeResize(v56 + 6, v15, 9u);
   cva::Matrix<float,0u,1u,false>::conservativeResize(v9, v15, 1);
 }
 
-void *std::vector<std::pair<float,cva::Matrix<float,1u,0u,false>>>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<std::pair<float,cva::Matrix<float,1u,0u,false>>>::reserve(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 5)
   {
@@ -1079,9 +1076,9 @@ void *std::vector<std::pair<float,cva::Matrix<float,1u,0u,false>>>::reserve(void
   return result;
 }
 
-void sub_1C254D3B4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C254D3B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::pair<float,cva::Matrix<float,1u,0u,false>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1229,7 +1226,7 @@ void cva::Matrix<float,0u,0u,false>::conservativeResize(uint64_t *a1, unsigned i
   }
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1371,9 +1368,9 @@ uint64_t std::vector<std::pair<float,cva::Matrix<float,1u,0u,false>>>::__emplace
   return v15;
 }
 
-void sub_1C254D8C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C254D8C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::pair<float,cva::Matrix<float,1u,0u,false>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1392,48 +1389,48 @@ uint64_t std::pair<float,cva::Matrix<float,1u,0u,false>>::pair[abi:ne200100]<flo
   v8 = *(a2 + 16);
   if (&v8[-*(a2 + 28)] == *v5)
   {
-    v21 = 0;
     v22 = 0;
-    v11 = cva::MatrixData<float,0ul,0ul,false>::allocate(&v21, v6);
-    v23 = v6;
+    v23 = 0;
+    v11 = cva::MatrixData<float,0ul,0ul,false>::allocate(&v22, v6);
+    v24 = v6;
     if (v6 != *(a2 + 8))
     {
-      cva::Logger::instance(v11);
-      cva::Logger::logInCategory();
-      v6 = v23;
-      if (v23 != *(a2 + 8))
+      v12 = cva::Logger::instance(v11);
+      cva::Logger::logInCategory(v12, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", 1, v24, 1, *(a2 + 8));
+      v6 = v24;
+      if (v24 != *(a2 + 8))
       {
         __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
       }
     }
 
-    v12 = v21;
+    v13 = v22;
     if (v6)
     {
-      v13 = *(a2 + 16);
-      v14 = 4 * v6;
-      v15 = 4 * *(a2 + 24);
-      v16 = v21;
+      v14 = *(a2 + 16);
+      v15 = 4 * v6;
+      v16 = 4 * *(a2 + 24);
+      v17 = v22;
       do
       {
-        *v16++ = *v13;
-        v13 = (v13 + v15);
-        v14 -= 4;
+        *v17++ = *v14;
+        v14 = (v14 + v16);
+        v15 -= 4;
       }
 
-      while (v14);
+      while (v15);
     }
 
-    v17 = *(a1 + 8);
-    v18 = *(a1 + 16);
-    v19 = v22;
-    *(a1 + 8) = v12;
-    *(a1 + 16) = v19;
-    v21 = v17;
+    v18 = *(a1 + 8);
+    v19 = *(a1 + 16);
+    v20 = v23;
+    *(a1 + 8) = v13;
+    *(a1 + 16) = v20;
     v22 = v18;
+    v23 = v19;
     *(a1 + 24) = v6;
-    v23 = 0;
-    free(v17);
+    v24 = 0;
+    free(v18);
   }
 
   else if (v6)
@@ -1487,9 +1484,9 @@ void std::shared_ptr<arkit::PrecomputedFaceData>::shared_ptr[abi:ne200100]<arkit
   operator new();
 }
 
-void sub_1C254DB78(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C254DB78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<arkit::PrecomputedFaceData>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1598,68 +1595,69 @@ cva::Logger *cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixRef<float,0
   v4 = *a1;
   v5 = *(a1 + 1);
   v6 = (v5 * *a1);
-  v25[0] = 0;
-  v25[1] = 0;
-  v7 = cva::MatrixData<float,0ul,0ul,false>::allocate(v25, v6);
-  v26 = v4;
-  v27 = v5;
+  v28[0] = 0;
+  v28[1] = 0;
+  v7 = cva::MatrixData<float,0ul,0ul,false>::allocate(v28, v6);
+  v29 = v4;
+  v30 = v5;
+  v8 = MEMORY[0x1E6997750];
   if (v4 != *a2 || v5 != *(a2 + 4))
   {
-    cva::Logger::instance(v7);
-    cva::Logger::logInCategory();
-    v4 = v26;
-    if (v26 != *a2)
+    v9 = cva::Logger::instance(v7);
+    cva::Logger::logInCategory(v9, 1, *v8, "%u x %u <-> %u x %u\n", v29, v30, *a2, *(a2 + 4));
+    v4 = v29;
+    if (v29 != *a2)
     {
       goto LABEL_38;
     }
 
-    v5 = v27;
-    if (v27 != *(a2 + 4))
+    v5 = v30;
+    if (v30 != *(a2 + 4))
     {
       goto LABEL_38;
     }
 
-    v6 = (v26 * v27);
+    v6 = (v29 * v30);
   }
 
-  v8 = v25[0];
+  v10 = v28[0];
   if (v6)
   {
-    v9 = 0;
-    v10 = *(a2 + 16) - v4;
-    v11 = *(a2 + 8);
-    v12 = 4 * v6;
-    v13 = v25[0];
+    v11 = 0;
+    v12 = *(a2 + 16) - v4;
+    v13 = *(a2 + 8);
+    v14 = 4 * v6;
+    v15 = v28[0];
     do
     {
-      *v13 = *v11;
-      v13 = (v13 + 4);
-      if (v9 + 1 >= v4)
+      *v15 = *v13;
+      v15 = (v15 + 4);
+      if (v11 + 1 >= v4)
       {
-        v14 = v10;
+        v16 = v12;
       }
 
       else
       {
-        v14 = 0;
+        v16 = 0;
       }
 
-      v15 = &v11[v14];
-      if (v9 + 1 < v4)
+      v17 = &v13[v16];
+      if (v11 + 1 < v4)
       {
-        ++v9;
+        ++v11;
       }
 
       else
       {
-        v9 = 0;
+        v11 = 0;
       }
 
-      v11 = v15 + 1;
-      v12 -= 4;
+      v13 = v17 + 1;
+      v14 -= 4;
     }
 
-    while (v12);
+    while (v14);
   }
 
   if (*a1 == v4 && *(a1 + 1) == v5)
@@ -1667,71 +1665,71 @@ cva::Logger *cva::MatrixRef<float,0u,0u,false>::operator=<cva::MatrixRef<float,0
     goto LABEL_22;
   }
 
-  cva::Logger::instance(v8);
-  cva::Logger::logInCategory();
+  v18 = cva::Logger::instance(v10);
+  cva::Logger::logInCategory(v18, 1, *v8, "%u x %u <-> %u x %u\n", *a1, *(a1 + 1), v29, v30);
   v4 = *a1;
-  if (*a1 != v26 || (v5 = *(a1 + 1), v5 != v27))
+  if (*a1 != v29 || (v5 = *(a1 + 1), v5 != v30))
   {
 LABEL_38:
     __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
   }
 
-  v8 = v25[0];
+  v10 = v28[0];
   LODWORD(v6) = v4 * v5;
 LABEL_22:
-  v16 = *(a1 + 4);
+  v19 = *(a1 + 4);
   if (v6)
   {
-    v17 = *(a1 + 1);
+    v20 = *(a1 + 1);
   }
 
   else
   {
-    v17 = 0;
+    v20 = 0;
   }
 
-  v18 = *(a1 + 1) + 4 * (v16 * v5);
+  v21 = *(a1 + 1) + 4 * (v19 * v5);
   if (!v6)
   {
-    v18 = 0;
+    v21 = 0;
   }
 
-  if (v17 != v18)
+  if (v20 != v21)
   {
-    v19 = 0;
-    v20 = v16 - v4;
-    v21 = v8;
+    v22 = 0;
+    v23 = v19 - v4;
+    v24 = v10;
     do
     {
-      v22 = *v21;
-      v21 = (v21 + 4);
-      *v17 = v22;
-      if (v19 + 1 >= v4)
+      v25 = *v24;
+      v24 = (v24 + 4);
+      *v20 = v25;
+      if (v22 + 1 >= v4)
       {
-        v23 = v20;
+        v26 = v23;
       }
 
       else
       {
-        v23 = 0;
+        v26 = 0;
       }
 
-      v17 += v23 + 1;
-      if (v19 + 1 < v4)
+      v20 += v26 + 1;
+      if (v22 + 1 < v4)
       {
-        ++v19;
+        ++v22;
       }
 
       else
       {
-        v19 = 0;
+        v22 = 0;
       }
     }
 
-    while (v17 != v18);
+    while (v20 != v21);
   }
 
-  free(v8);
+  free(v10);
   return a1;
 }
 
@@ -1741,8 +1739,8 @@ cva::Logger *cva::detail::assignNoAlias<cva::MatrixRef<float,0u,0u,false>,cva::M
   v4 = *result;
   if (*result != *a2 || (v5 = *(result + 1), v5 != *(a2 + 4)))
   {
-    cva::Logger::instance(result);
-    result = cva::Logger::logInCategory();
+    v6 = cva::Logger::instance(result);
+    result = cva::Logger::logInCategory(v6, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", *v3, *(v3 + 1), *a2, *(a2 + 4));
     v4 = *v3;
     if (*v3 != *a2 || (v5 = *(v3 + 1), v5 != *(a2 + 4)))
     {
@@ -1750,64 +1748,43 @@ cva::Logger *cva::detail::assignNoAlias<cva::MatrixRef<float,0u,0u,false>,cva::M
     }
   }
 
-  v6 = v5 * v4;
-  v7 = *(v3 + 4);
+  v7 = v5 * v4;
+  v8 = *(v3 + 4);
   if (v5 * v4)
   {
-    v8 = *(v3 + 1);
+    v9 = *(v3 + 1);
   }
 
   else
   {
-    v8 = 0;
-  }
-
-  v9 = *(v3 + 1) + 4 * (v7 * v5);
-  if (!v6)
-  {
     v9 = 0;
   }
 
-  if (v8 != v9)
+  v10 = *(v3 + 1) + 4 * (v8 * v5);
+  if (!v7)
   {
     v10 = 0;
+  }
+
+  if (v9 != v10)
+  {
     v11 = 0;
-    v12 = *(a2 + 16) - v4;
-    v13 = v7 - v4;
-    if (v6)
+    v12 = 0;
+    v13 = *(a2 + 16) - v4;
+    v14 = v8 - v4;
+    if (v7)
     {
-      v14 = *(a2 + 8);
+      v15 = *(a2 + 8);
     }
 
     else
     {
-      v14 = 0;
+      v15 = 0;
     }
 
     do
     {
-      *v8 = *v14;
-      if (v10 + 1 >= v4)
-      {
-        v15 = v12;
-      }
-
-      else
-      {
-        v15 = 0;
-      }
-
-      v14 += v15 + 1;
-      if (v10 + 1 < v4)
-      {
-        ++v10;
-      }
-
-      else
-      {
-        v10 = 0;
-      }
-
+      *v9 = *v15;
       if (v11 + 1 >= v4)
       {
         v16 = v13;
@@ -1818,7 +1795,7 @@ cva::Logger *cva::detail::assignNoAlias<cva::MatrixRef<float,0u,0u,false>,cva::M
         v16 = 0;
       }
 
-      v8 += v16 + 1;
+      v15 += v16 + 1;
       if (v11 + 1 < v4)
       {
         ++v11;
@@ -1828,9 +1805,30 @@ cva::Logger *cva::detail::assignNoAlias<cva::MatrixRef<float,0u,0u,false>,cva::M
       {
         v11 = 0;
       }
+
+      if (v12 + 1 >= v4)
+      {
+        v17 = v14;
+      }
+
+      else
+      {
+        v17 = 0;
+      }
+
+      v9 += v17 + 1;
+      if (v12 + 1 < v4)
+      {
+        ++v12;
+      }
+
+      else
+      {
+        v12 = 0;
+      }
     }
 
-    while (v8 != v9);
+    while (v9 != v10);
   }
 
   return result;
@@ -1888,16 +1886,16 @@ void cva::Matrix<float,0u,1u,false>::conservativeResize(uint64_t a1, unsigned in
   }
 }
 
-unsigned int *cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float,0u,1u,false>>(unsigned int *a1, uint64_t a2)
+unsigned int *cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float,0u,1u,false>>(unsigned int *a1, _DWORD *a2)
 {
   v4 = *(a1 + 1);
-  if ((*(a2 + 8) - 4 * *(a2 + 20)) != &v4[-a1[5]])
+  if ((*(a2 + 1) - 4 * a2[5]) != &v4[-a1[5]])
   {
     v5 = *a1;
     if (*a1 != *a2)
     {
-      cva::Logger::instance(a1);
-      cva::Logger::logInCategory();
+      v6 = cva::Logger::instance(a1);
+      cva::Logger::logInCategory(v6, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", *a1, 1, *a2, 1);
       v5 = *a1;
       if (*a1 != *a2)
       {
@@ -1909,92 +1907,92 @@ unsigned int *cva::MatrixRef<float,0u,1u,false>::operator=<cva::MatrixRef<float,
 
     if (v5)
     {
-      v6 = v5;
-      v7 = *(a2 + 8);
-      v8 = 4 * v6;
+      v7 = v5;
+      v8 = *(a2 + 1);
+      v9 = 4 * v7;
       do
       {
-        v9 = *v7++;
-        *v4++ = v9;
-        v8 -= 4;
+        v10 = *v8++;
+        *v4++ = v10;
+        v9 -= 4;
       }
 
-      while (v8);
+      while (v9);
     }
 
     return a1;
   }
 
-  v10 = *a1;
-  v22[0] = 0;
-  v22[1] = 0;
-  v11 = cva::MatrixData<float,0ul,0ul,false>::allocate(v22, v10);
-  v23 = v10;
-  if (v10 != *a2)
+  v11 = *a1;
+  v25[0] = 0;
+  v25[1] = 0;
+  v12 = cva::MatrixData<float,0ul,0ul,false>::allocate(v25, v11);
+  v26 = v11;
+  if (v11 != *a2)
   {
-    cva::Logger::instance(v11);
-    cva::Logger::logInCategory();
-    v10 = v23;
-    if (v23 != *a2)
+    v13 = cva::Logger::instance(v12);
+    cva::Logger::logInCategory(v13, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", v26, 1, *a2, 1);
+    v11 = v26;
+    if (v26 != *a2)
     {
       goto LABEL_22;
     }
   }
 
-  v12 = v22[0];
-  if (v10)
+  v14 = v25[0];
+  if (v11)
   {
-    v13 = *(a2 + 8);
-    v14 = 4 * v10;
-    v15 = v22[0];
+    v15 = *(a2 + 1);
+    v16 = 4 * v11;
+    v17 = v25[0];
     do
     {
-      v16 = *v13++;
-      *v15 = v16;
-      v15 = (v15 + 4);
-      v14 -= 4;
+      v18 = *v15++;
+      *v17 = v18;
+      v17 = (v17 + 4);
+      v16 -= 4;
     }
 
-    while (v14);
+    while (v16);
   }
 
-  if (*a1 == v10)
+  if (*a1 == v11)
   {
     goto LABEL_17;
   }
 
-  cva::Logger::instance(v12);
-  cva::Logger::logInCategory();
-  v10 = *a1;
-  if (v10 != v23)
+  v19 = cva::Logger::instance(v14);
+  cva::Logger::logInCategory(v19, 1, *MEMORY[0x1E6997750], "%u x %u <-> %u x %u\n", *a1, 1, v26, 1);
+  v11 = *a1;
+  if (v11 != v26)
   {
 LABEL_22:
     __assert_rtn("assert_equal_size", "matrixfun.h", 163, "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)");
   }
 
-  v12 = v22[0];
+  v14 = v25[0];
 LABEL_17:
-  if (v10)
+  if (v11)
   {
-    v17 = *(a1 + 1);
-    v18 = 4 * v10;
-    v19 = v12;
+    v20 = *(a1 + 1);
+    v21 = 4 * v11;
+    v22 = v14;
     do
     {
-      v20 = *v19;
-      v19 = (v19 + 4);
-      *v17++ = v20;
-      v18 -= 4;
+      v23 = *v22;
+      v22 = (v22 + 4);
+      *v20++ = v23;
+      v21 -= 4;
     }
 
-    while (v18);
+    while (v21);
   }
 
-  free(v12);
+  free(v14);
   return a1;
 }
 
-char *arkit::wrap@<X0>(arkit *this@<X0>, void *a2@<X8>)
+uint64_t *arkit::wrap@<X0>(uint64_t *__return_ptr a1@<X8>, arkit *this@<X0>)
 {
   if (CVPixelBufferGetPixelFormatType(this) != 875704422)
   {
@@ -2005,33 +2003,33 @@ char *arkit::wrap@<X0>(arkit *this@<X0>, void *a2@<X8>)
   HeightOfPlane = CVPixelBufferGetHeightOfPlane(this, 0);
   BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(this, 0);
   BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(this, 0);
-  *a2 = 0;
-  a2[1] = WidthOfPlane | (HeightOfPlane << 32);
-  a2[2] = (BytesPerRowOfPlane << 32) | 1;
-  a2[3] = BaseAddressOfPlane;
-  v9 = CVPixelBufferGetWidthOfPlane(this, 1uLL);
-  v10 = v9 | (CVPixelBufferGetHeightOfPlane(this, 1uLL) << 32);
-  v11 = (CVPixelBufferGetBytesPerRowOfPlane(this, 1uLL) << 32) | 2;
-  v12 = CVPixelBufferGetBaseAddressOfPlane(this, 1uLL);
-  a2[4] = 0;
-  a2[5] = v10;
-  a2[6] = v11;
-  a2[7] = v12;
-  LODWORD(v10) = CVPixelBufferGetWidthOfPlane(this, 1uLL);
-  v13 = v10 | (CVPixelBufferGetHeightOfPlane(this, 1uLL) << 32);
-  v14 = (CVPixelBufferGetBytesPerRowOfPlane(this, 1uLL) << 32) | 2;
+  *a1 = 0;
+  a1[1] = WidthOfPlane | (HeightOfPlane << 32);
+  a1[2] = (BytesPerRowOfPlane << 32) | 1;
+  a1[3] = BaseAddressOfPlane;
+  v8 = CVPixelBufferGetWidthOfPlane(this, 1uLL);
+  v9 = v8 | (CVPixelBufferGetHeightOfPlane(this, 1uLL) << 32);
+  v10 = (CVPixelBufferGetBytesPerRowOfPlane(this, 1uLL) << 32) | 2;
+  v11 = CVPixelBufferGetBaseAddressOfPlane(this, 1uLL);
+  a1[4] = 0;
+  a1[5] = v9;
+  a1[6] = v10;
+  a1[7] = v11;
+  LODWORD(v9) = CVPixelBufferGetWidthOfPlane(this, 1uLL);
+  v12 = v9 | (CVPixelBufferGetHeightOfPlane(this, 1uLL) << 32);
+  v13 = (CVPixelBufferGetBytesPerRowOfPlane(this, 1uLL) << 32) | 2;
   result = CVPixelBufferGetBaseAddressOfPlane(this, 1uLL);
-  a2[8] = 0;
-  a2[9] = v13;
-  a2[10] = v14;
-  a2[11] = result + 1;
+  a1[8] = 0;
+  a1[9] = v12;
+  a1[10] = v13;
+  a1[11] = result + 1;
   return result;
 }
 
-void *arkit::PrecomputedFaceData::PrecomputedFaceData(void *a1, __int128 *a2)
+uint64_t *arkit::PrecomputedFaceData::PrecomputedFaceData(uint64_t *a1, __int128 *a2)
 {
   std::__optional_copy_base<std::string const,false>::__optional_copy_base[abi:ne200100](&__p, a2);
-  arkit::RTFSPContainer::loadRtfsp(a1, &__p);
+  arkit::RTFSPContainer::loadRtfsp(&__p, a1);
   if (v5 == 1 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -2079,96 +2077,97 @@ void arkit::PrecomputedFaceData::~PrecomputedFaceData(arkit::PrecomputedFaceData
   }
 }
 
-uint64_t arkit::PrecomputedFaceData::getRTF@<X0>(arkit::PrecomputedFaceData *this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+uint64_t *arkit::PrecomputedFaceData::getRTF@<X0>(void **__return_ptr a1@<X8>, arkit::PrecomputedFaceData *this@<X0>, int a3@<W1>)
 {
-  v4 = *(*this + 72) + 24 * a2;
+  v4 = *(*this + 72) + 24 * a3;
   v5 = *(v4 + 16);
-  *a3 = 0;
-  *(a3 + 8) = 0;
-  result = cva::MatrixData<float,0ul,0ul,false>::allocate(a3, v5);
+  *a1 = 0;
+  a1[1] = 0;
+  result = cva::MatrixData<float,0ul,0ul,false>::allocate(a1, v5);
   if (v5)
   {
-    result = memcpy(*a3, *v4, 4 * v5);
+    result = memcpy(*a1, *v4, 4 * v5);
   }
 
-  *(a3 + 16) = *(v4 + 16);
+  *(a1 + 4) = *(v4 + 16);
   return result;
 }
 
-void arkit::PrecomputedFaceData::getRTF(arkit::PrecomputedFaceData *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+void arkit::PrecomputedFaceData::getRTF(arkit::PrecomputedFaceData *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
   *a3 = 0;
-  *(a3 + 8) = 0;
+  a3[1] = 0;
   v6 = (a2[1] - *a2) >> 2;
   v7 = *(*a1 + 96);
-  *(a3 + 16) = v6;
-  *(a3 + 20) = v7;
+  *(a3 + 4) = v6;
+  *(a3 + 5) = v7;
   cva::MatrixData<float,0ul,0ul,false>::reserve(a3, (v7 * v6));
   v8 = *a2;
   if (a2[1] != *a2)
   {
     v9 = 0;
-    v21 = "matrixmixin.h";
-    v22 = "(row < mixed().rows()) || cva::detail::assertMessage(Index out of bounds.)";
-    v20 = "row";
+    v23 = "matrixmixin.h";
+    v24 = "(row < mixed().rows()) || cva::detail::assertMessage(Index out of bounds.)";
+    v22 = "row";
+    v10 = MEMORY[0x1E6997750];
     while (1)
     {
-      RTF = arkit::PrecomputedFaceData::getRTF(a1, *(v8 + 4 * v9), &v23);
-      v11 = *(a3 + 16);
-      if (v9 >= v11)
+      RTF = arkit::PrecomputedFaceData::getRTF(&v25, a1, *(v8 + 4 * v9));
+      v12 = *(a3 + 4);
+      if (v9 >= v12)
       {
         break;
       }
 
-      v12 = *(a3 + 20);
-      v13 = *a3;
-      if (v12 != v24)
+      v13 = *(a3 + 5);
+      v14 = *a3;
+      if (v13 != v26)
       {
-        cva::Logger::instance(RTF);
-        cva::Logger::logInCategory();
-        if (v12 != v24)
+        v15 = cva::Logger::instance(RTF);
+        cva::Logger::logInCategory(v15, 1, *v10, "%u x %u <-> %u x %u\n", 1, v13, 1, v26);
+        if (v13 != v26)
         {
-          v19 = 163;
-          v20 = "assert_equal_size";
-          v21 = "matrixfun.h";
-          v22 = "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)";
+          v21 = 163;
+          v22 = "assert_equal_size";
+          v23 = "matrixfun.h";
+          v24 = "(lhs.rows() == rhs.rows() && lhs.columns() == rhs.columns()) || cva::detail::assertMessage(Matrix sizes are not compatible!)";
 LABEL_18:
-          __assert_rtn(v20, v21, v19, v22);
+          __assert_rtn(v22, v23, v21, v24);
         }
       }
 
-      if (v12)
+      if (v13)
       {
-        v14 = (v13 + 4 * v9);
+        v16 = (v14 + 4 * v9);
       }
 
       else
       {
-        v14 = 0;
+        v16 = 0;
       }
 
-      v15 = v13 + 4 * v9 + 4 * (v12 * v11);
-      if (!v12)
+      v17 = v14 + 4 * v9 + 4 * (v13 * v12);
+      if (!v13)
       {
-        v15 = 0;
+        v17 = 0;
       }
 
-      v16 = v23;
-      if (v14 != v15)
+      v18 = v25;
+      if (v16 != v17)
       {
-        v17 = v23;
+        v19 = v25;
         do
         {
-          v18 = *v17++;
-          *v14 = v18;
-          v14 += v11;
+          v20 = *v19++;
+          *v16 = v20;
+          v16 += v12;
         }
 
-        while (v14 != v15);
+        while (v16 != v17);
       }
 
       ++v9;
-      free(v16);
+      free(v18);
       v8 = *a2;
       if (v9 >= (a2[1] - *a2) >> 2)
       {
@@ -2176,12 +2175,12 @@ LABEL_18:
       }
     }
 
-    v19 = 1063;
+    v21 = 1063;
     goto LABEL_18;
   }
 }
 
-uint64_t arkit::PrecomputedFaceData::getValidSampleIDs(arkit::PrecomputedFaceData *this, int a2)
+uint64_t arkit::PrecomputedFaceData::getValidSampleIDs(arkit::PrecomputedFaceData *this, uint64_t a2)
 {
   v2 = *(*this + 48);
   if (a2 >= ((*(*this + 56) - v2) >> 2))
@@ -2192,13 +2191,13 @@ uint64_t arkit::PrecomputedFaceData::getValidSampleIDs(arkit::PrecomputedFaceDat
   return *(v2 + 4 * a2);
 }
 
-uint64_t arkit::PrecomputedFaceData::getValidSampleIDs@<X0>(arkit::PrecomputedFaceData *this@<X0>, void *a2@<X8>)
+uint64_t *arkit::PrecomputedFaceData::getValidSampleIDs@<X0>(uint64_t *__return_ptr a1@<X8>, arkit::PrecomputedFaceData *this@<X0>)
 {
   v2 = *this;
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  return std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a2, *(v2 + 48), *(v2 + 56), (*(v2 + 56) - *(v2 + 48)) >> 2);
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  return std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1, *(v2 + 48), *(v2 + 56), (*(v2 + 56) - *(v2 + 48)) >> 2);
 }
 
 std::string *std::__optional_copy_base<std::string const,false>::__optional_copy_base[abi:ne200100](std::string *a1, __int128 *a2)
@@ -2439,7 +2438,7 @@ void sub_1C254EE54(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-arkit::Random *arkit::Random::sampleNumbers<unsigned long>@<X0>(arkit::Random *result@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
+uint64_t *arkit::Random::sampleNumbers<unsigned long>@<X0>(uint64_t *result@<X0>, unint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
   v5 = *a2;
   v6 = *result;
@@ -2524,7 +2523,7 @@ void sub_1C254F02C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-arkit::Random *arkit::Random::fisherYatesSample<unsigned long>@<X0>(arkit::Random *result@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
+uint64_t *arkit::Random::fisherYatesSample<unsigned long>@<X0>(uint64_t *result@<X0>, unint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
   v5 = *a2;
   v6 = *result;
@@ -2630,17 +2629,17 @@ void sub_1C254F1E4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<unsigned long>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<unsigned long>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(result, a2);
+    _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1C254F25C(_Unwind_Exception *exception_object)
@@ -2655,15 +2654,14 @@ void sub_1C254F25C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *arkit::RTFSPContainer::loadRtfsp@<X0>(void *result@<X0>, void *a2@<X8>)
+void arkit::RTFSPContainer::loadRtfsp(void *a1@<X0>, uint64_t *a2@<X8>)
 {
-  if ((*(result + *(*result - 24) + 32) & 1) == 0)
+  if ((*(a1 + *(*a1 - 24) + 32) & 1) == 0)
   {
     operator new();
   }
 
   *a2 = 0;
-  return result;
 }
 
 void sub_1C254FA60(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::locale a14)
@@ -2699,10 +2697,10 @@ void arkit::RTFSPContainer::~RTFSPContainer(arkit::RTFSPContainer *this)
   }
 }
 
-void std::vector<cva::Matrix<float,1u,0u,false>>::resize(void *a1, unint64_t a2)
+void std::vector<cva::Matrix<float,1u,0u,false>>::resize(void ***a1, unint64_t a2)
 {
   v3 = a1[1];
-  v4 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *a1) >> 3);
+  v4 = 0xAAAAAAAAAAAAAAABLL * (v3 - *a1);
   v5 = a2 >= v4;
   v6 = a2 - v4;
   if (v6 != 0 && v5)
@@ -2713,11 +2711,11 @@ void std::vector<cva::Matrix<float,1u,0u,false>>::resize(void *a1, unint64_t a2)
 
   else if (!v5)
   {
-    v7 = *a1 + 24 * a2;
+    v7 = &(*a1)[3 * a2];
     while (v3 != v7)
     {
-      v8 = *(v3 - 24);
-      v3 -= 24;
+      v8 = *(v3 - 3);
+      v3 -= 3;
       free(v8);
     }
 
@@ -2725,74 +2723,73 @@ void std::vector<cva::Matrix<float,1u,0u,false>>::resize(void *a1, unint64_t a2)
   }
 }
 
-uint64_t arkit::RTFSPContainer::loadRtfsp@<X0>(void *a1@<X8>, arkit::RTFSPContainer *a2@<X0>)
+uint64_t arkit::RTFSPContainer::loadRtfsp@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
 {
-  if (*(a2 + 24) != 1)
+  if (*(a1 + 24) != 1)
   {
-    arkit::RTFSPContainer::loadRtfspDefault(a2);
+    arkit::RTFSPContainer::loadRtfspDefault();
   }
 
-  return arkit::RTFSPContainer::loadRtfsp(a1);
+  return arkit::RTFSPContainer::loadRtfsp(a1, a2);
 }
 
-uint64_t arkit::RTFSPContainer::loadRtfsp@<X0>(void *a1@<X8>)
 {
-  v5[19] = *MEMORY[0x1E69E9840];
-  std::ifstream::basic_ifstream(v3);
-  if (v4[15])
+  v6[19] = *MEMORY[0x1E69E9840];
+  std::ifstream::basic_ifstream(v4, a1, 8);
+  if (v5[15])
   {
-    arkit::RTFSPContainer::loadRtfsp(v3, a1);
+    arkit::RTFSPContainer::loadRtfsp(v4, a2);
   }
 
   else
   {
-    *a1 = 0;
+    *a2 = 0;
   }
 
-  v3[0] = *MEMORY[0x1E69E54C8];
-  *(v3 + *(v3[0] - 24)) = *(MEMORY[0x1E69E54C8] + 24);
-  MEMORY[0x1C691A5C0](v4);
+  v4[0] = *MEMORY[0x1E69E54C8];
+  *(v4 + *(v4[0] - 24)) = *(MEMORY[0x1E69E54C8] + 24);
+  MEMORY[0x1C691A5C0](v5);
   std::istream::~istream();
-  return MEMORY[0x1C691A740](v5);
+  return MEMORY[0x1C691A740](v6);
 }
 
-void sub_1C254FD28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C254FD28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ifstream::~ifstream(va, MEMORY[0x1E69E54C8]);
-  MEMORY[0x1C691A740](v2 + 424);
+  MEMORY[0x1C691A740](v3 + 424);
   _Unwind_Resume(a1);
 }
 
-void sub_1C254FEF0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C254FEF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::istringstream::~istringstream(va);
-  if (*(v2 - 33) < 0)
+  if (*(v3 - 33) < 0)
   {
-    operator delete(*(v2 - 56));
+    operator delete(*(v3 - 56));
   }
 
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::ifstream::basic_ifstream(uint64_t *a1)
+uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t *a2, int a3)
 {
   a1[59] = 0;
-  v2 = MEMORY[0x1E69E5528] + 64;
+  v4 = MEMORY[0x1E69E5528] + 64;
   a1[53] = MEMORY[0x1E69E5528] + 64;
-  v3 = *(MEMORY[0x1E69E54C8] + 16);
-  v4 = *(MEMORY[0x1E69E54C8] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
-  a1[1] = 0;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 2);
-  v6 = MEMORY[0x1E69E5528] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
+  v5 = *(MEMORY[0x1E69E54C8] + 16);
+  v6 = *(MEMORY[0x1E69E54C8] + 8);
   *a1 = v6;
-  a1[53] = v2;
+  *(a1 + *(v6 - 24)) = v5;
+  a1[1] = 0;
+  v7 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v7, a1 + 2);
+  v8 = MEMORY[0x1E69E5528] + 24;
+  v7[1].__vftable = 0;
+  v7[1].__fmtflags_ = -1;
+  *a1 = v8;
+  a1[53] = v4;
   MEMORY[0x1C691A5B0](a1 + 2);
   if (!std::filebuf::open())
   {
@@ -2856,11 +2853,11 @@ uint64_t std::istringstream::~istringstream(uint64_t a1)
   return a1;
 }
 
-uint64_t std::vector<cva::Matrix<float,1u,0u,false>>::__append(uint64_t result, unint64_t a2)
+void ***std::vector<cva::Matrix<float,1u,0u,false>>::__append(void ***result, unint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (0xAAAAAAAAAAAAAAABLL * ((v5 - v4) >> 3) >= a2)
   {
     if (a2)
@@ -2880,7 +2877,7 @@ uint64_t std::vector<cva::Matrix<float,1u,0u,false>>::__append(uint64_t result, 
       v4 = v10;
     }
 
-    *(result + 8) = v4;
+    result[1] = v4;
   }
 
   else
@@ -2931,13 +2928,13 @@ uint64_t std::vector<cva::Matrix<float,1u,0u,false>>::__append(uint64_t result, 
 
     while (v13);
     *&v21 = v12 + 24 * a2;
-    v15 = *(result + 8);
+    v15 = result[1];
     v16 = v12 + *result - v15;
     std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<cva::Matrix<float,1u,0u,false>>,cva::Matrix<float,1u,0u,false>*>(result, *result, v15, v16);
     v17 = *v3;
     *v3 = v16;
-    v18 = *(v3 + 16);
-    *(v3 + 8) = v21;
+    v18 = v3[2];
+    *(v3 + 1) = v21;
     *&v21 = v17;
     *(&v21 + 1) = v18;
     v19 = v17;
@@ -2948,9 +2945,9 @@ uint64_t std::vector<cva::Matrix<float,1u,0u,false>>::__append(uint64_t result, 
   return result;
 }
 
-void sub_1C255055C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C255055C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<cva::Matrix<float,1u,0u,false>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3483,7 +3480,7 @@ id ARQATraceableDefaultEntryForResultData(void *a1)
   [v2 setObject:v4 forKeyedSubscript:@"type"];
 
   v5 = MEMORY[0x1E696AD98];
-  [v1 timestamp];
+  objc_msgSend_timestamp(v1);
   v6 = [v5 numberWithDouble:?];
   [v2 setObject:v6 forKeyedSubscript:@"timestamp"];
 
@@ -3555,16 +3552,16 @@ void ___ZL13_ARLogGeneralv_block_invoke_22()
   _ARLogGeneral(void)::logObj = v0;
 }
 
-id _ARLogGeneral_35()
+id _ARLogGeneral_35(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_37 != -1)
   {
     _ARLogGeneral_cold_1_35();
   }
 
-  v1 = _ARLogGeneral_logObj_37;
+  v2 = _ARLogGeneral_logObj_37;
 
-  return v1;
+  return v2;
 }
 
 uint64_t ARRigInputJoints()
@@ -3620,7 +3617,7 @@ uint64_t ARRigOutputJoints()
 uint64_t ARNeutralBodySkeleton3DModelTransforms(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   MEMORY[0x1EEE9AC00](a1, a2, a3, a4, a5);
-  v7[1] = *MEMORY[0x1E69E9840];
+  *(&v7 + 1) = *MEMORY[0x1E69E9840];
   {
     v6[0] = xmmword_1C25C8910;
     v6[1] = xmmword_1C25C8BC0;
@@ -3989,7 +3986,7 @@ uint64_t ARNeutralBodySkeleton3DModelTransforms(uint64_t a1, uint64_t a2, uint64
     ARNeutralBodySkeleton3DModelTransforms::dataVector = 0;
     unk_1EBF42BC0 = 0;
     qword_1EBF42BC8 = 0;
-    std::vector<simd_float4x4>::__init_with_size[abi:ne200100]<simd_float4x4 const*,simd_float4x4 const*>(&ARNeutralBodySkeleton3DModelTransforms::dataVector, v6, v7, 0x5BuLL);
+    std::vector<simd_float4x4>::__init_with_size[abi:ne200100]<simd_float4x4 const*,simd_float4x4 const*>(&ARNeutralBodySkeleton3DModelTransforms::dataVector, v6, &v7, 0x5BuLL);
     __cxa_atexit(std::vector<simd_float4x4>::~vector[abi:ne200100], &ARNeutralBodySkeleton3DModelTransforms::dataVector, &dword_1C241C000);
   }
 
@@ -4017,740 +4014,740 @@ uint64_t std::vector<simd_float4x4>::~vector[abi:ne200100](uint64_t a1)
 uint64_t ARNeutralBodySkeleton3DLocalTransforms(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   MEMORY[0x1EEE9AC00](a1, a2, a3, a4, a5);
-  v920[1] = *MEMORY[0x1E69E9840];
+  *(&v1009 + 1) = *MEMORY[0x1E69E9840];
   {
     __asm { FMOV            V0.4S, #1.0 }
 
-    v11 = ARMakeSRT(_Q0);
-    v466 = v11.n128_u32[2];
-    v465 = v11.n128_u64[0];
-    v467 = v12;
-    v469 = v13;
-    v468 = v14;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v16 = ARMakeSRT(_Q0);
-    v471 = v16.n128_u32[2];
-    v470 = v16.n128_u64[0];
-    v472 = v17;
-    v474 = v18;
-    v473 = v19;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v21 = ARMakeSRT(_Q0);
-    v476 = v21.n128_u32[2];
-    v475 = v21.n128_u64[0];
-    v477 = v22;
-    v479 = v23;
-    v478 = v24;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v26 = ARMakeSRT(_Q0);
-    v481 = v26.n128_u32[2];
-    v480 = v26.n128_u64[0];
-    v482 = v27;
-    v484 = v28;
-    v483 = v29;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v31 = ARMakeSRT(_Q0);
-    v486 = v31.n128_u32[2];
-    v485 = v31.n128_u64[0];
-    v487 = v32;
-    v489 = v33;
-    v488 = v34;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v36 = ARMakeSRT(_Q0);
-    v491 = v36.n128_u32[2];
-    v490 = v36.n128_u64[0];
-    v492 = v37;
-    v494 = v38;
-    v493 = v39;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v41 = ARMakeSRT(_Q0);
-    v496 = v41.n128_u32[2];
-    v495 = v41.n128_u64[0];
-    v497 = v42;
-    v499 = v43;
-    v498 = v44;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v46 = ARMakeSRT(_Q0);
-    v501 = v46.n128_u32[2];
-    v500 = v46.n128_u64[0];
-    v502 = v47;
-    v504 = v48;
-    v503 = v49;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v51 = ARMakeSRT(_Q0);
-    v506 = v51.n128_u32[2];
-    v505 = v51.n128_u64[0];
-    v507 = v52;
-    v509 = v53;
-    v508 = v54;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v56 = ARMakeSRT(_Q0);
-    v511 = v56.n128_u32[2];
-    v510 = v56.n128_u64[0];
-    v512 = v57;
-    v514 = v58;
-    v513 = v59;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v61 = ARMakeSRT(_Q0);
-    v516 = v61.n128_u32[2];
-    v515 = v61.n128_u64[0];
-    v517 = v62;
-    v519 = v63;
-    v518 = v64;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v66 = ARMakeSRT(_Q0);
-    v521 = v66.n128_u32[2];
-    v520 = v66.n128_u64[0];
-    v522 = v67;
-    v524 = v68;
-    v523 = v69;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v71 = ARMakeSRT(_Q0);
-    v526 = v71.n128_u32[2];
-    v525 = v71.n128_u64[0];
-    v527 = v72;
-    v529 = v73;
-    v528 = v74;
+    ARMakeSRT();
+    DWORD2(v556[0]) = v11;
+    *&v556[0] = v12;
+    v556[1] = v13;
+    v558 = v14;
+    v557 = v15;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v560 = v17;
+    v559 = v18;
+    v561 = v19;
+    v563 = v20;
+    v562 = v21;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v565 = v23;
+    v564 = v24;
+    v566 = v25;
+    v568 = v26;
+    v567 = v27;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v570 = v29;
+    v569 = v30;
+    v571 = v31;
+    v573 = v32;
+    v572 = v33;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v575 = v35;
+    v574 = v36;
+    v576 = v37;
+    v578 = v38;
+    v577 = v39;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v580 = v41;
+    v579 = v42;
+    v581 = v43;
+    v583 = v44;
+    v582 = v45;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v585 = v47;
+    v584 = v48;
+    v586 = v49;
+    v588 = v50;
+    v587 = v51;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v590 = v53;
+    v589 = v54;
+    v591 = v55;
+    v593 = v56;
+    v592 = v57;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v595 = v59;
+    v594 = v60;
+    v596 = v61;
+    v598 = v62;
+    v597 = v63;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v600 = v65;
+    v599 = v66;
+    v601 = v67;
+    v603 = v68;
+    v602 = v69;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v605 = v71;
+    v604 = v72;
+    v606 = v73;
+    v608 = v74;
+    v607 = v75;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v610 = v77;
+    v609 = v78;
+    v611 = v79;
+    v613 = v80;
+    v612 = v81;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v615 = v83;
+    v614 = v84;
+    v616 = v85;
+    v618 = v86;
+    v617 = v87;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v76 = ARMakeSRT(_Q0);
-    v531 = v76.n128_u32[2];
-    v530 = v76.n128_u64[0];
-    v532 = v77;
-    v534 = v78;
-    v533 = v79;
+    ARMakeSRT();
+    v620 = v89;
+    v619 = v90;
+    v621 = v91;
+    v623 = v92;
+    v622 = v93;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v81 = ARMakeSRT(_Q0);
-    v536 = v81.n128_u32[2];
-    v535 = v81.n128_u64[0];
-    v537 = v82;
-    v539 = v83;
-    v538 = v84;
+    ARMakeSRT();
+    v625 = v95;
+    v624 = v96;
+    v626 = v97;
+    v628 = v98;
+    v627 = v99;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v86 = ARMakeSRT(_Q0);
-    v541 = v86.n128_u32[2];
-    v540 = v86.n128_u64[0];
-    v542 = v87;
-    v544 = v88;
-    v543 = v89;
+    ARMakeSRT();
+    v630 = v101;
+    v629 = v102;
+    v631 = v103;
+    v633 = v104;
+    v632 = v105;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v91 = ARMakeSRT(_Q0);
-    v546 = v91.n128_u32[2];
-    v545 = v91.n128_u64[0];
-    v547 = v92;
-    v549 = v93;
-    v548 = v94;
+    ARMakeSRT();
+    v635 = v107;
+    v634 = v108;
+    v636 = v109;
+    v638 = v110;
+    v637 = v111;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v96 = ARMakeSRT(_Q0);
-    v551 = v96.n128_u32[2];
-    v550 = v96.n128_u64[0];
-    v552 = v97;
-    v554 = v98;
-    v553 = v99;
+    ARMakeSRT();
+    v640 = v113;
+    v639 = v114;
+    v641 = v115;
+    v643 = v116;
+    v642 = v117;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v101 = ARMakeSRT(_Q0);
-    v556 = v101.n128_u32[2];
-    v555 = v101.n128_u64[0];
-    v557 = v102;
-    v559 = v103;
-    v558 = v104;
+    ARMakeSRT();
+    v645 = v119;
+    v644 = v120;
+    v646 = v121;
+    v648 = v122;
+    v647 = v123;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v106 = ARMakeSRT(_Q0);
-    v561 = v106.n128_u32[2];
-    v560 = v106.n128_u64[0];
-    v562 = v107;
-    v564 = v108;
-    v563 = v109;
+    ARMakeSRT();
+    v650 = v125;
+    v649 = v126;
+    v651 = v127;
+    v653 = v128;
+    v652 = v129;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v111 = ARMakeSRT(_Q0);
-    v566 = v111.n128_u32[2];
-    v565 = v111.n128_u64[0];
-    v567 = v112;
-    v569 = v113;
-    v568 = v114;
+    ARMakeSRT();
+    v655 = v131;
+    v654 = v132;
+    v656 = v133;
+    v658 = v134;
+    v657 = v135;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v116 = ARMakeSRT(_Q0);
-    v571 = v116.n128_u32[2];
-    v570 = v116.n128_u64[0];
-    v572 = v117;
-    v574 = v118;
-    v573 = v119;
+    ARMakeSRT();
+    v660 = v137;
+    v659 = v138;
+    v661 = v139;
+    v663 = v140;
+    v662 = v141;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v121 = ARMakeSRT(_Q0);
-    v576 = v121.n128_u32[2];
-    v575 = v121.n128_u64[0];
-    v577 = v122;
-    v579 = v123;
-    v578 = v124;
+    ARMakeSRT();
+    v665 = v143;
+    v664 = v144;
+    v666 = v145;
+    v668 = v146;
+    v667 = v147;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v126 = ARMakeSRT(_Q0);
-    v581 = v126.n128_u32[2];
-    v580 = v126.n128_u64[0];
-    v582 = v127;
-    v584 = v128;
-    v583 = v129;
+    ARMakeSRT();
+    v670 = v149;
+    v669 = v150;
+    v671 = v151;
+    v673 = v152;
+    v672 = v153;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v131 = ARMakeSRT(_Q0);
-    v586 = v131.n128_u32[2];
-    v585 = v131.n128_u64[0];
-    v587 = v132;
-    v589 = v133;
-    v588 = v134;
+    ARMakeSRT();
+    v675 = v155;
+    v674 = v156;
+    v676 = v157;
+    v678 = v158;
+    v677 = v159;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v136 = ARMakeSRT(_Q0);
-    v591 = v136.n128_u32[2];
-    v590 = v136.n128_u64[0];
-    v592 = v137;
-    v594 = v138;
-    v593 = v139;
+    ARMakeSRT();
+    v680 = v161;
+    v679 = v162;
+    v681 = v163;
+    v683 = v164;
+    v682 = v165;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v141 = ARMakeSRT(_Q0);
-    v596 = v141.n128_u32[2];
-    v595 = v141.n128_u64[0];
-    v597 = v142;
-    v599 = v143;
-    v598 = v144;
+    ARMakeSRT();
+    v685 = v167;
+    v684 = v168;
+    v686 = v169;
+    v688 = v170;
+    v687 = v171;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v146 = ARMakeSRT(_Q0);
-    v601 = v146.n128_u32[2];
-    v600 = v146.n128_u64[0];
-    v602 = v147;
-    v604 = v148;
-    v603 = v149;
+    ARMakeSRT();
+    v690 = v173;
+    v689 = v174;
+    v691 = v175;
+    v693 = v176;
+    v692 = v177;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v151 = ARMakeSRT(_Q0);
-    v606 = v151.n128_u32[2];
-    v605 = v151.n128_u64[0];
-    v607 = v152;
-    v609 = v153;
-    v608 = v154;
+    ARMakeSRT();
+    v695 = v179;
+    v694 = v180;
+    v696 = v181;
+    v698 = v182;
+    v697 = v183;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v156 = ARMakeSRT(_Q0);
-    v611 = v156.n128_u32[2];
-    v610 = v156.n128_u64[0];
-    v612 = v157;
-    v614 = v158;
-    v613 = v159;
+    ARMakeSRT();
+    v700 = v185;
+    v699 = v186;
+    v701 = v187;
+    v703 = v188;
+    v702 = v189;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v161 = ARMakeSRT(_Q0);
-    v616 = v161.n128_u32[2];
-    v615 = v161.n128_u64[0];
-    v617 = v162;
-    v619 = v163;
-    v618 = v164;
+    ARMakeSRT();
+    v705 = v191;
+    v704 = v192;
+    v706 = v193;
+    v708 = v194;
+    v707 = v195;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v166 = ARMakeSRT(_Q0);
-    v621 = v166.n128_u32[2];
-    v620 = v166.n128_u64[0];
-    v622 = v167;
-    v624 = v168;
-    v623 = v169;
+    ARMakeSRT();
+    v710 = v197;
+    v709 = v198;
+    v711 = v199;
+    v713 = v200;
+    v712 = v201;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v171 = ARMakeSRT(_Q0);
-    v626 = v171.n128_u32[2];
-    v625 = v171.n128_u64[0];
-    v627 = v172;
-    v629 = v173;
-    v628 = v174;
+    ARMakeSRT();
+    v715 = v203;
+    v714 = v204;
+    v716 = v205;
+    v718 = v206;
+    v717 = v207;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v176 = ARMakeSRT(_Q0);
-    v631 = v176.n128_u32[2];
-    v630 = v176.n128_u64[0];
-    v632 = v177;
-    v634 = v178;
-    v633 = v179;
+    ARMakeSRT();
+    v720 = v209;
+    v719 = v210;
+    v721 = v211;
+    v723 = v212;
+    v722 = v213;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v181 = ARMakeSRT(_Q0);
-    v636 = v181.n128_u32[2];
-    v635 = v181.n128_u64[0];
-    v637 = v182;
-    v639 = v183;
-    v638 = v184;
+    ARMakeSRT();
+    v725 = v215;
+    v724 = v216;
+    v726 = v217;
+    v728 = v218;
+    v727 = v219;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v186 = ARMakeSRT(_Q0);
-    v641 = v186.n128_u32[2];
-    v640 = v186.n128_u64[0];
-    v642 = v187;
-    v644 = v188;
-    v643 = v189;
+    ARMakeSRT();
+    v730 = v221;
+    v729 = v222;
+    v731 = v223;
+    v733 = v224;
+    v732 = v225;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v191 = ARMakeSRT(_Q0);
-    v646 = v191.n128_u32[2];
-    v645 = v191.n128_u64[0];
-    v647 = v192;
-    v649 = v193;
-    v648 = v194;
+    ARMakeSRT();
+    v735 = v227;
+    v734 = v228;
+    v736 = v229;
+    v738 = v230;
+    v737 = v231;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v196 = ARMakeSRT(_Q0);
-    v651 = v196.n128_u32[2];
-    v650 = v196.n128_u64[0];
-    v652 = v197;
-    v654 = v198;
-    v653 = v199;
+    ARMakeSRT();
+    v740 = v233;
+    v739 = v234;
+    v741 = v235;
+    v743 = v236;
+    v742 = v237;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v201 = ARMakeSRT(_Q0);
-    v656 = v201.n128_u32[2];
-    v655 = v201.n128_u64[0];
-    v657 = v202;
-    v659 = v203;
-    v658 = v204;
+    ARMakeSRT();
+    v745 = v239;
+    v744 = v240;
+    v746 = v241;
+    v748 = v242;
+    v747 = v243;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v206 = ARMakeSRT(_Q0);
-    v661 = v206.n128_u32[2];
-    v660 = v206.n128_u64[0];
-    v662 = v207;
-    v664 = v208;
-    v663 = v209;
+    ARMakeSRT();
+    v750 = v245;
+    v749 = v246;
+    v751 = v247;
+    v753 = v248;
+    v752 = v249;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v211 = ARMakeSRT(_Q0);
-    v666 = v211.n128_u32[2];
-    v665 = v211.n128_u64[0];
-    v667 = v212;
-    v669 = v213;
-    v668 = v214;
+    ARMakeSRT();
+    v755 = v251;
+    v754 = v252;
+    v756 = v253;
+    v758 = v254;
+    v757 = v255;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v216 = ARMakeSRT(_Q0);
-    v671 = v216.n128_u32[2];
-    v670 = v216.n128_u64[0];
-    v672 = v217;
-    v674 = v218;
-    v673 = v219;
+    ARMakeSRT();
+    v760 = v257;
+    v759 = v258;
+    v761 = v259;
+    v763 = v260;
+    v762 = v261;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v221 = ARMakeSRT(_Q0);
-    v676 = v221.n128_u32[2];
-    v675 = v221.n128_u64[0];
-    v677 = v222;
-    v679 = v223;
-    v678 = v224;
+    ARMakeSRT();
+    v765 = v263;
+    v764 = v264;
+    v766 = v265;
+    v768 = v266;
+    v767 = v267;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v226 = ARMakeSRT(_Q0);
-    v681 = v226.n128_u32[2];
-    v680 = v226.n128_u64[0];
-    v682 = v227;
-    v684 = v228;
-    v683 = v229;
+    ARMakeSRT();
+    v770 = v269;
+    v769 = v270;
+    v771 = v271;
+    v773 = v272;
+    v772 = v273;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v231 = ARMakeSRT(_Q0);
-    v686 = v231.n128_u32[2];
-    v685 = v231.n128_u64[0];
-    v687 = v232;
-    v689 = v233;
-    v688 = v234;
+    ARMakeSRT();
+    v775 = v275;
+    v774 = v276;
+    v776 = v277;
+    v778 = v278;
+    v777 = v279;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v236 = ARMakeSRT(_Q0);
-    v691 = v236.n128_u32[2];
-    v690 = v236.n128_u64[0];
-    v692 = v237;
-    v694 = v238;
-    v693 = v239;
+    ARMakeSRT();
+    v780 = v281;
+    v779 = v282;
+    v781 = v283;
+    v783 = v284;
+    v782 = v285;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v241 = ARMakeSRT(_Q0);
-    v696 = v241.n128_u32[2];
-    v695 = v241.n128_u64[0];
-    v697 = v242;
-    v699 = v243;
-    v698 = v244;
+    ARMakeSRT();
+    v785 = v287;
+    v784 = v288;
+    v786 = v289;
+    v788 = v290;
+    v787 = v291;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v246 = ARMakeSRT(_Q0);
-    v701 = v246.n128_u32[2];
-    v700 = v246.n128_u64[0];
-    v702 = v247;
-    v704 = v248;
-    v703 = v249;
+    ARMakeSRT();
+    v790 = v293;
+    v789 = v294;
+    v791 = v295;
+    v793 = v296;
+    v792 = v297;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v251 = ARMakeSRT(_Q0);
-    v706 = v251.n128_u32[2];
-    v705 = v251.n128_u64[0];
-    v707 = v252;
-    v709 = v253;
-    v708 = v254;
+    ARMakeSRT();
+    v795 = v299;
+    v794 = v300;
+    v796 = v301;
+    v798 = v302;
+    v797 = v303;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v256 = ARMakeSRT(_Q0);
-    v711 = v256.n128_u32[2];
-    v710 = v256.n128_u64[0];
-    v712 = v257;
-    v714 = v258;
-    v713 = v259;
+    ARMakeSRT();
+    v800 = v305;
+    v799 = v306;
+    v801 = v307;
+    v803 = v308;
+    v802 = v309;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v261 = ARMakeSRT(_Q0);
-    v716 = v261.n128_u32[2];
-    v715 = v261.n128_u64[0];
-    v717 = v262;
-    v719 = v263;
-    v718 = v264;
+    ARMakeSRT();
+    v805 = v311;
+    v804 = v312;
+    v806 = v313;
+    v808 = v314;
+    v807 = v315;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v266 = ARMakeSRT(_Q0);
-    v721 = v266.n128_u32[2];
-    v720 = v266.n128_u64[0];
-    v722 = v267;
-    v724 = v268;
-    v723 = v269;
+    ARMakeSRT();
+    v810 = v317;
+    v809 = v318;
+    v811 = v319;
+    v813 = v320;
+    v812 = v321;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v271 = ARMakeSRT(_Q0);
-    v726 = v271.n128_u32[2];
-    v725 = v271.n128_u64[0];
-    v727 = v272;
-    v729 = v273;
-    v728 = v274;
+    ARMakeSRT();
+    v815 = v323;
+    v814 = v324;
+    v816 = v325;
+    v818 = v326;
+    v817 = v327;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v276 = ARMakeSRT(_Q0);
-    v731 = v276.n128_u32[2];
-    v730 = v276.n128_u64[0];
-    v732 = v277;
-    v734 = v278;
-    v733 = v279;
+    ARMakeSRT();
+    v820 = v329;
+    v819 = v330;
+    v821 = v331;
+    v823 = v332;
+    v822 = v333;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v281 = ARMakeSRT(_Q0);
-    v736 = v281.n128_u32[2];
-    v735 = v281.n128_u64[0];
-    v737 = v282;
-    v739 = v283;
-    v738 = v284;
+    ARMakeSRT();
+    v825 = v335;
+    v824 = v336;
+    v826 = v337;
+    v828 = v338;
+    v827 = v339;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v286 = ARMakeSRT(_Q0);
-    v741 = v286.n128_u32[2];
-    v740 = v286.n128_u64[0];
-    v742 = v287;
-    v744 = v288;
-    v743 = v289;
+    ARMakeSRT();
+    v830 = v341;
+    v829 = v342;
+    v831 = v343;
+    v833 = v344;
+    v832 = v345;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v291 = ARMakeSRT(_Q0);
-    v746 = v291.n128_u32[2];
-    v745 = v291.n128_u64[0];
-    v747 = v292;
-    v749 = v293;
-    v748 = v294;
+    ARMakeSRT();
+    v835 = v347;
+    v834 = v348;
+    v836 = v349;
+    v838 = v350;
+    v837 = v351;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v296 = ARMakeSRT(_Q0);
-    v751 = v296.n128_u32[2];
-    v750 = v296.n128_u64[0];
-    v752 = v297;
-    v754 = v298;
-    v753 = v299;
+    ARMakeSRT();
+    v840 = v353;
+    v839 = v354;
+    v841 = v355;
+    v843 = v356;
+    v842 = v357;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v301 = ARMakeSRT(_Q0);
-    v756 = v301.n128_u32[2];
-    v755 = v301.n128_u64[0];
-    v757 = v302;
-    v759 = v303;
-    v758 = v304;
+    ARMakeSRT();
+    v845 = v359;
+    v844 = v360;
+    v846 = v361;
+    v848 = v362;
+    v847 = v363;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v306 = ARMakeSRT(_Q0);
-    v761 = v306.n128_u32[2];
-    v760 = v306.n128_u64[0];
-    v762 = v307;
-    v764 = v308;
-    v763 = v309;
+    ARMakeSRT();
+    v850 = v365;
+    v849 = v366;
+    v851 = v367;
+    v853 = v368;
+    v852 = v369;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v311 = ARMakeSRT(_Q0);
-    v766 = v311.n128_u32[2];
-    v765 = v311.n128_u64[0];
-    v767 = v312;
-    v769 = v313;
-    v768 = v314;
+    ARMakeSRT();
+    v855 = v371;
+    v854 = v372;
+    v856 = v373;
+    v858 = v374;
+    v857 = v375;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v316 = ARMakeSRT(_Q0);
-    v771 = v316.n128_u32[2];
-    v770 = v316.n128_u64[0];
-    v772 = v317;
-    v774 = v318;
-    v773 = v319;
+    ARMakeSRT();
+    v860 = v377;
+    v859 = v378;
+    v861 = v379;
+    v863 = v380;
+    v862 = v381;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v321 = ARMakeSRT(_Q0);
-    v776 = v321.n128_u32[2];
-    v775 = v321.n128_u64[0];
-    v777 = v322;
-    v779 = v323;
-    v778 = v324;
+    ARMakeSRT();
+    v865 = v383;
+    v864 = v384;
+    v866 = v385;
+    v868 = v386;
+    v867 = v387;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v326 = ARMakeSRT(_Q0);
-    v781 = v326.n128_u32[2];
-    v780 = v326.n128_u64[0];
-    v782 = v327;
-    v784 = v328;
-    v783 = v329;
+    ARMakeSRT();
+    v870 = v389;
+    v869 = v390;
+    v871 = v391;
+    v873 = v392;
+    v872 = v393;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v331 = ARMakeSRT(_Q0);
-    v786 = v331.n128_u32[2];
-    v785 = v331.n128_u64[0];
-    v787 = v332;
-    v789 = v333;
-    v788 = v334;
+    ARMakeSRT();
+    v875 = v395;
+    v874 = v396;
+    v876 = v397;
+    v878 = v398;
+    v877 = v399;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v336 = ARMakeSRT(_Q0);
-    v791 = v336.n128_u32[2];
-    v790 = v336.n128_u64[0];
-    v792 = v337;
-    v794 = v338;
-    v793 = v339;
+    ARMakeSRT();
+    v880 = v401;
+    v879 = v402;
+    v881 = v403;
+    v883 = v404;
+    v882 = v405;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v341 = ARMakeSRT(_Q0);
-    v796 = v341.n128_u32[2];
-    v795 = v341.n128_u64[0];
-    v797 = v342;
-    v799 = v343;
-    v798 = v344;
+    ARMakeSRT();
+    v885 = v407;
+    v884 = v408;
+    v886 = v409;
+    v888 = v410;
+    v887 = v411;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v346 = ARMakeSRT(_Q0);
-    v801 = v346.n128_u32[2];
-    v800 = v346.n128_u64[0];
-    v802 = v347;
-    v804 = v348;
-    v803 = v349;
+    ARMakeSRT();
+    v890 = v413;
+    v889 = v414;
+    v891 = v415;
+    v893 = v416;
+    v892 = v417;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v351 = ARMakeSRT(_Q0);
-    v806 = v351.n128_u32[2];
-    v805 = v351.n128_u64[0];
-    v807 = v352;
-    v809 = v353;
-    v808 = v354;
+    ARMakeSRT();
+    v895 = v419;
+    v894 = v420;
+    v896 = v421;
+    v898 = v422;
+    v897 = v423;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v356 = ARMakeSRT(_Q0);
-    v811 = v356.n128_u32[2];
-    v810 = v356.n128_u64[0];
-    v812 = v357;
-    v814 = v358;
-    v813 = v359;
+    ARMakeSRT();
+    v900 = v425;
+    v899 = v426;
+    v901 = v427;
+    v903 = v428;
+    v902 = v429;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v361 = ARMakeSRT(_Q0);
-    v816 = v361.n128_u32[2];
-    v815 = v361.n128_u64[0];
-    v817 = v362;
-    v819 = v363;
-    v818 = v364;
+    ARMakeSRT();
+    v905 = v431;
+    v904 = v432;
+    v906 = v433;
+    v908 = v434;
+    v907 = v435;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v366 = ARMakeSRT(_Q0);
-    v821 = v366.n128_u32[2];
-    v820 = v366.n128_u64[0];
-    v822 = v367;
-    v824 = v368;
-    v823 = v369;
+    ARMakeSRT();
+    v910 = v437;
+    v909 = v438;
+    v911 = v439;
+    v913 = v440;
+    v912 = v441;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v371 = ARMakeSRT(_Q0);
-    v826 = v371.n128_u32[2];
-    v825 = v371.n128_u64[0];
-    v827 = v372;
-    v829 = v373;
-    v828 = v374;
+    ARMakeSRT();
+    v915 = v443;
+    v914 = v444;
+    v916 = v445;
+    v918 = v446;
+    v917 = v447;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v376 = ARMakeSRT(_Q0);
-    v831 = v376.n128_u32[2];
-    v830 = v376.n128_u64[0];
-    v832 = v377;
-    v834 = v378;
-    v833 = v379;
+    ARMakeSRT();
+    v920 = v449;
+    v919 = v450;
+    v921 = v451;
+    v923 = v452;
+    v922 = v453;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v381 = ARMakeSRT(_Q0);
-    v836 = v381.n128_u32[2];
-    v835 = v381.n128_u64[0];
-    v837 = v382;
-    v839 = v383;
-    v838 = v384;
+    ARMakeSRT();
+    v925 = v455;
+    v924 = v456;
+    v926 = v457;
+    v928 = v458;
+    v927 = v459;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v386 = ARMakeSRT(_Q0);
-    v841 = v386.n128_u32[2];
-    v840 = v386.n128_u64[0];
-    v842 = v387;
-    v844 = v388;
-    v843 = v389;
+    ARMakeSRT();
+    v930 = v461;
+    v929 = v462;
+    v931 = v463;
+    v933 = v464;
+    v932 = v465;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v391 = ARMakeSRT(_Q0);
-    v846 = v391.n128_u32[2];
-    v845 = v391.n128_u64[0];
-    v847 = v392;
-    v849 = v393;
-    v848 = v394;
+    ARMakeSRT();
+    v935 = v467;
+    v934 = v468;
+    v936 = v469;
+    v938 = v470;
+    v937 = v471;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v396 = ARMakeSRT(_Q0);
-    v851 = v396.n128_u32[2];
-    v850 = v396.n128_u64[0];
-    v852 = v397;
-    v854 = v398;
-    v853 = v399;
+    ARMakeSRT();
+    v940 = v473;
+    v939 = v474;
+    v941 = v475;
+    v943 = v476;
+    v942 = v477;
     __asm { FMOV            V0.4S, #1.0 }
 
-    v401 = ARMakeSRT(_Q0);
-    v856 = v401.n128_u32[2];
-    v855 = v401.n128_u64[0];
-    v857 = v402;
-    v859 = v403;
-    v858 = v404;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v406 = ARMakeSRT(_Q0);
-    v861 = v406.n128_u32[2];
-    v860 = v406.n128_u64[0];
-    v862 = v407;
-    v864 = v408;
-    v863 = v409;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v411 = ARMakeSRT(_Q0);
-    v866 = v411.n128_u32[2];
-    v865 = v411.n128_u64[0];
-    v867 = v412;
-    v869 = v413;
-    v868 = v414;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v416 = ARMakeSRT(_Q0);
-    v871 = v416.n128_u32[2];
-    v870 = v416.n128_u64[0];
-    v872 = v417;
-    v874 = v418;
-    v873 = v419;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v421 = ARMakeSRT(_Q0);
-    v876 = v421.n128_u32[2];
-    v875 = v421.n128_u64[0];
-    v877 = v422;
-    v879 = v423;
-    v878 = v424;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v426 = ARMakeSRT(_Q0);
-    v881 = v426.n128_u32[2];
-    v880 = v426.n128_u64[0];
-    v882 = v427;
-    v884 = v428;
-    v883 = v429;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v431 = ARMakeSRT(_Q0);
-    v886 = v431.n128_u32[2];
-    v885 = v431.n128_u64[0];
-    v887 = v432;
-    v889 = v433;
-    v888 = v434;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v436 = ARMakeSRT(_Q0);
-    v891 = v436.n128_u32[2];
-    v890 = v436.n128_u64[0];
-    v892 = v437;
-    v894 = v438;
-    v893 = v439;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v441 = ARMakeSRT(_Q0);
-    v896 = v441.n128_u32[2];
-    v895 = v441.n128_u64[0];
-    v897 = v442;
-    v899 = v443;
-    v898 = v444;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v446 = ARMakeSRT(_Q0);
-    v901 = v446.n128_u32[2];
-    v900 = v446.n128_u64[0];
-    v902 = v447;
-    v904 = v448;
-    v903 = v449;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v451 = ARMakeSRT(_Q0);
-    v906 = v451.n128_u32[2];
-    v905 = v451.n128_u64[0];
-    v907 = v452;
-    v909 = v453;
-    v908 = v454;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v456 = ARMakeSRT(_Q0);
-    v911 = v456.n128_u32[2];
-    v910 = v456.n128_u64[0];
-    v912 = v457;
-    v914 = v458;
-    v913 = v459;
-    __asm { FMOV            V0.4S, #1.0 }
-
-    v461 = ARMakeSRT(_Q0);
-    v916 = v461.n128_u32[2];
-    v915 = v461.n128_u64[0];
-    v917 = v462;
-    v919 = v463;
-    v918 = v464;
+    ARMakeSRT();
+    v945 = v479;
+    v944 = v480;
+    v946 = v481;
+    v948 = v482;
+    v947 = v483;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v950 = v485;
+    v949 = v486;
+    v951 = v487;
+    v953 = v488;
+    v952 = v489;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v955 = v491;
+    v954 = v492;
+    v956 = v493;
+    v958 = v494;
+    v957 = v495;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v960 = v497;
+    v959 = v498;
+    v961 = v499;
+    v963 = v500;
+    v962 = v501;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v965 = v503;
+    v964 = v504;
+    v966 = v505;
+    v968 = v506;
+    v967 = v507;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v970 = v509;
+    v969 = v510;
+    v971 = v511;
+    v973 = v512;
+    v972 = v513;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v975 = v515;
+    v974 = v516;
+    v976 = v517;
+    v978 = v518;
+    v977 = v519;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v980 = v521;
+    v979 = v522;
+    v981 = v523;
+    v983 = v524;
+    v982 = v525;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v985 = v527;
+    v984 = v528;
+    v986 = v529;
+    v988 = v530;
+    v987 = v531;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v990 = v533;
+    v989 = v534;
+    v991 = v535;
+    v993 = v536;
+    v992 = v537;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v995 = v539;
+    v994 = v540;
+    v996 = v541;
+    v998 = v542;
+    v997 = v543;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v1000 = v545;
+    v999 = v546;
+    v1001 = v547;
+    v1003 = v548;
+    v1002 = v549;
+    __asm { FMOV            V0.4S, #1.0 }
+
+    ARMakeSRT();
+    v1005 = v551;
+    v1004 = v552;
+    v1006 = v553;
+    v1008 = v554;
+    v1007 = v555;
     qword_1EBF42BE0 = 0;
     unk_1EBF42BE8 = 0;
     ARNeutralBodySkeleton3DLocalTransforms::dataVector = 0;
-    std::vector<ARSRT>::__init_with_size[abi:ne200100]<ARSRT const*,ARSRT const*>(&ARNeutralBodySkeleton3DLocalTransforms::dataVector, &v465, v920, 0x5BuLL);
+    std::vector<ARSRT>::__init_with_size[abi:ne200100]<ARSRT const*,ARSRT const*>(&ARNeutralBodySkeleton3DLocalTransforms::dataVector, v556, &v1009, 0x5BuLL);
     __cxa_atexit(std::vector<ARSRT>::~vector[abi:ne200100], &ARNeutralBodySkeleton3DLocalTransforms::dataVector, &dword_1C241C000);
   }
 
@@ -4775,7 +4772,7 @@ uint64_t std::vector<ARSRT>::~vector[abi:ne200100](uint64_t a1)
   return a1;
 }
 
-uint64_t std::vector<char const*>::__init_with_size[abi:ne200100]<char const* const*,char const* const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<char const*>::__init_with_size[abi:ne200100]<char const* const*,char const* const*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4797,7 +4794,7 @@ void sub_1C255D968(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<char const*>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<char const*>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -4817,143 +4814,143 @@ void std::allocator<char const*>::allocate_at_least[abi:ne200100](uint64_t a1, u
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-float arkit::btr::EstimateScaleReprojectionLinear(uint64_t a1)
+float arkit::btr::EstimateScaleReprojectionLinear(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v1 = *a1;
-  v2 = 0xEFBEFBEFBEFBEFBFLL * ((*(a1 + 8) - *a1) >> 3);
+  v5 = *a1;
+  v6 = 0xEFBEFBEFBEFBEFBFLL * ((*(a1 + 8) - *a1) >> 3);
   result = -1.0;
-  if (v2 >= 2)
+  if (v6 >= 2)
   {
-    v16[0] = 10;
-    v16[1] = 0x3CA3D70A3A83126FLL;
-    v16[2] = 5;
-    v18 = 0x3FF9999A3D4CCCCDLL;
-    v19 = 1;
-    v17 = xmmword_1C25EFF50;
-    v7 = 0;
-    v8 = xmmword_1C25EFF64;
-    v9 = *algn_1C25EFF74;
-    v10 = xmmword_1C25EFF84;
-    v11 = unk_1C25EFF94;
+    v20[0] = 10;
+    v20[1] = 0x3CA3D70A3A83126FLL;
+    v20[2] = 5;
+    v22 = 0x3FF9999A3D4CCCCDLL;
+    v23 = 1;
+    v21 = xmmword_1C25EFF50;
+    v11 = 0;
     v12 = xmmword_1C25EFF64;
     v13 = *algn_1C25EFF74;
     v14 = xmmword_1C25EFF84;
     v15 = unk_1C25EFF94;
-    v5 = v2 - 1;
-    v6 = 504;
+    v16 = xmmword_1C25EFF64;
+    v17 = *algn_1C25EFF74;
+    v18 = xmmword_1C25EFF84;
+    v19 = unk_1C25EFF94;
+    v9 = v6 - 1;
+    v10 = 504;
     do
     {
-      v6 += 504;
-      --v5;
+      v10 += 504;
+      --v9;
     }
 
-    while (v5);
-    return *&v7 / *(&v7 + 1);
+    while (v9);
+    return *&v11 / *(&v11 + 1);
   }
 
   return result;
 }
 
-__n128 arkit::btr::anonymous namespace::LinearScaleEstimatorOnline::Reset(arkit::btr::_anonymous_namespace_::LinearScaleEstimatorOnline *this, const RegistrationData *a2)
+__n128 arkit::btr::anonymous namespace::LinearScaleEstimatorOnline::Reset(arkit::btr::_anonymous_namespace_::LinearScaleEstimatorOnline *this, const RegistrationData *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v34[2] = *MEMORY[0x1E69E9840];
+  v37[2] = *MEMORY[0x1E69E9840];
   *this = 0;
   p_cam_from_vio = &a2->cam_from_vio;
-  v24 = xmmword_1C25EFF64;
-  v25 = *algn_1C25EFF74;
-  v26 = xmmword_1C25EFF84;
-  v27 = unk_1C25EFF94;
-  *&v32[0] = &a2->cam_from_vio;
-  *(&v32[0] + 1) = 4;
-  v34[0] = v32;
-  v30 = &v24;
-  v31 = 4;
-  cva::MatrixRef<float,3u,3u,false>::operator=<cva::MatrixTransposeExpr<cva::MatrixRef<float const,3u,3u,false>>>(&v30, v34);
-  v29[0] = &v24;
-  v29[1] = 4;
-  v34[0] = v29;
-  v28[0] = &a2->cam_from_vio.m_data[12];
-  v28[1] = 0xC00000004;
-  v30 = v34;
-  v31 = v28;
-  if (p_cam_from_vio == &v24)
+  v27 = xmmword_1C25EFF64;
+  v28 = *algn_1C25EFF74;
+  v29 = xmmword_1C25EFF84;
+  v30 = unk_1C25EFF94;
+  *&v35[0] = &a2->cam_from_vio;
+  *(&v35[0] + 1) = 4;
+  v37[0] = v35;
+  v33 = &v27;
+  v34 = 4;
+  cva::MatrixRef<float,3u,3u,false>::operator=<cva::MatrixTransposeExpr<cva::MatrixRef<float const,3u,3u,false>>>(&v33, v37, a3, a4, a5);
+  v32[0] = &v27;
+  v32[1] = 4;
+  v37[0] = v32;
+  v31[0] = &a2->cam_from_vio.m_data[12];
+  v31[1] = 0xC00000004;
+  v33 = v37;
+  v34 = v31;
+  if (p_cam_from_vio == &v27)
   {
-    DWORD2(v32[0]) = 0;
-    *&v32[0] = 0;
-    cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixUnaryExpr<cva::MatrixRef<float,3u,3u,false>,cva::detail::NegOp>,cva::MatrixRef<float const,3u,1u,false>>(v32, &v30);
-    *&v27 = *&v32[0];
-    DWORD2(v27) = DWORD2(v32[0]);
+    DWORD2(v35[0]) = 0;
+    *&v35[0] = 0;
+    cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixUnaryExpr<cva::MatrixRef<float,3u,3u,false>,cva::detail::NegOp>,cva::MatrixRef<float const,3u,1u,false>>(v35, &v33);
+    *&v30 = *&v35[0];
+    DWORD2(v30) = DWORD2(v35[0]);
   }
 
   else
   {
-    v6 = 0;
-    v33 = 0;
-    memset(v32, 0, sizeof(v32));
-    v7 = &v24;
-    v8 = 0x100000000;
+    v9 = 0;
+    v36 = 0;
+    memset(v35, 0, sizeof(v35));
+    v10 = &v27;
+    v11 = 0x100000000;
     do
     {
-      *(v32 + v6) = -*v7;
-      v9 = HIDWORD(v8);
-      v10 = v8 < 2;
-      if (v8 < 2)
-      {
-        v9 = 0;
-      }
-
-      v11 = &v7[v9];
-      v12 = (v8 + 1);
-      v13 = v8 & 0xFFFFFFFF00000000;
-      v7 = v11 + 1;
-      if (!v10)
+      *(v35 + v9) = -*v10;
+      v12 = HIDWORD(v11);
+      v13 = v11 < 2;
+      if (v11 < 2)
       {
         v12 = 0;
       }
 
-      v8 = v12 | v13;
-      v6 += 4;
-    }
-
-    while (v6 != 36);
-    v14 = 0;
-    v15 = v32;
-    do
-    {
-      v16 = 0;
-      v17 = 0.0;
-      v18 = &a2->cam_from_vio.m_data[12];
-      do
+      v14 = &v10[v12];
+      v15 = (v11 + 1);
+      v16 = v11 & 0xFFFFFFFF00000000;
+      v10 = v14 + 1;
+      if (!v13)
       {
-        v19 = *v18++;
-        v17 = v17 + (*(v15 + v16) * v19);
-        v16 += 12;
+        v15 = 0;
       }
 
-      while (v16 != 36);
-      *(&v28[-2] + v14++) = v17;
-      v15 = (v15 + 4);
+      v11 = v15 | v16;
+      v9 += 4;
     }
 
-    while (v14 != 3);
+    while (v9 != 36);
+    v17 = 0;
+    v18 = v35;
+    do
+    {
+      v19 = 0;
+      v20 = 0.0;
+      v21 = &a2->cam_from_vio.m_data[12];
+      do
+      {
+        v22 = *v21++;
+        v20 = v20 + (*(v18 + v19) * v22);
+        v19 += 12;
+      }
+
+      while (v19 != 36);
+      *(&v31[-2] + v17++) = v20;
+      v18 = (v18 + 4);
+    }
+
+    while (v17 != 3);
   }
 
-  v20 = v25;
-  *(this + 8) = v24;
-  *(this + 24) = v20;
-  result.n128_u64[0] = v26;
-  v21 = v27;
-  *(this + 40) = v26;
-  *(this + 56) = v21;
+  v23 = v28;
+  *(this + 8) = v27;
+  *(this + 24) = v23;
+  result.n128_u64[0] = v29;
+  v24 = v30;
+  *(this + 40) = v29;
+  *(this + 56) = v24;
   if ((this + 72) != &a2->cam_from_obj)
   {
     result = *a2->cam_from_obj.m_data;
-    v22 = *&a2->cam_from_obj.m_data[4];
-    v23 = *&a2->cam_from_obj.m_data[12];
+    v25 = *&a2->cam_from_obj.m_data[4];
+    v26 = *&a2->cam_from_obj.m_data[12];
     *(this + 104) = *&a2->cam_from_obj.m_data[8];
-    *(this + 120) = v23;
+    *(this + 120) = v26;
     *(this + 72) = result;
-    *(this + 88) = v22;
+    *(this + 88) = v25;
   }
 
   return result;
@@ -4962,11 +4959,18 @@ __n128 arkit::btr::anonymous namespace::LinearScaleEstimatorOnline::Reset(arkit:
 unint64_t arkit::btr::anonymous namespace::LinearScaleEstimatorOnline::Add(float *a1, uint64_t a2, uint64_t a3, float a4)
 {
   v6 = 0;
-  v78 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
+  v81 = 0u;
+  v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
   v7 = a2 + 356;
   v8 = a2 + 128;
   v9 = a2 + 404;
-  memset(&v75, 0, 128);
+  v77 = 0u;
+  v78 = 0u;
+  *v75[0].f32 = 0u;
+  v76 = 0u;
   do
   {
     v10 = v8 + 12 * v6;
@@ -4974,30 +4978,30 @@ unint64_t arkit::btr::anonymous namespace::LinearScaleEstimatorOnline::Add(float
     DWORD2(v71[0]) = *(v10 + 8);
     *&v73[0] = v7;
     *(&v73[0] + 1) = 4;
-    *&v76[0] = v73;
-    *(&v76[0] + 1) = v71;
-    *(v77 + 4) = 0;
-    HIDWORD(v77[0]) = 0;
-    cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixRef<float const,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(v77 + 4, v76);
+    *&v83[0] = v73;
+    *(&v83[0] + 1) = v71;
+    *(v84 + 4) = 0;
+    HIDWORD(v84[0]) = 0;
+    cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixRef<float const,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(v84 + 1, v83);
     v11 = 0;
     v12 = v6 + 1;
     DWORD2(v72[0]) = 0;
     *&v72[0] = 0;
     do
     {
-      *(v72 + v11) = *(v77 + v11 + 4) + *(v9 + v11);
+      *(v72 + v11) = *(v84 + v11 + 4) + *(v9 + v11);
       v11 += 4;
     }
 
     while (v11 != 12);
     v13 = v72 + 2;
     v14 = vld1_dup_f32(v13);
-    *(&v75 + v6++) = vdiv_f32(*&v72[0], v14);
+    v75[v6++] = vdiv_f32(*&v72[0], v14);
   }
 
   while (v12 != 16);
   v15 = 0;
-  memset(v77, 0, sizeof(v77));
+  memset(v84, 0, sizeof(v84));
   do
   {
     v16 = v8 + 12 * v15;
@@ -5007,41 +5011,41 @@ unint64_t arkit::btr::anonymous namespace::LinearScaleEstimatorOnline::Add(float
     *(&v72[0] + 1) = 4;
     *&v73[0] = v72;
     *(&v73[0] + 1) = v70;
-    *(v76 + 4) = 0;
-    HIDWORD(v76[0]) = 0;
-    cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixRef<float const,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(v76 + 4, v73);
+    *(v83 + 4) = 0;
+    HIDWORD(v83[0]) = 0;
+    cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixRef<float const,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(v83 + 1, v73);
     v17 = 0;
     DWORD2(v71[0]) = 0;
     *&v71[0] = 0;
     do
     {
-      *(v71 + v17 * 4) = *(v76 + v17 * 4 + 4) + a1[v17 + 30];
+      *(v71 + v17 * 4) = *(v83 + v17 * 4 + 4) + a1[v17 + 30];
       ++v17;
     }
 
     while (v17 != 3);
-    v18 = v77 + 12 * v15++;
+    v18 = v84 + 12 * v15++;
     *v18 = *&v71[0];
     *(v18 + 2) = DWORD2(v71[0]);
   }
 
   while (v15 != 16);
-  *&v76[0] = a2 + 420;
-  *(&v76[0] + 1) = a1 + 2;
+  *&v83[0] = a2 + 420;
+  *(&v83[0] + 1) = a1 + 2;
   memset(v73, 0, sizeof(v73));
   v74 = 0u;
-  cva::assign<false,false,cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>>(v73, v76);
+  cva::assign<false,false,cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>>(v73, v83);
   *&v71[0] = v73;
   *(&v71[0] + 1) = 4;
   *&v72[0] = v71;
-  *(&v72[0] + 1) = v77;
-  memset(v76, 0, sizeof(v76));
-  cva::assign<false,false,cva::Matrix<float,3u,16u,false>,cva::MatrixRef<float,3u,3u,false>,cva::Matrix<float,3u,16u,false>>(v76, v72);
+  *(&v72[0] + 1) = v84;
+  memset(v83, 0, sizeof(v83));
+  cva::assign<false,false,cva::Matrix<float,3u,16u,false>,cva::MatrixRef<float,3u,3u,false>,cva::Matrix<float,3u,16u,false>>(v83, v72);
   v19 = 0;
   *&v71[0] = v74;
   DWORD2(v71[0]) = DWORD2(v74);
   v20 = 0.0;
-  v21 = v76;
+  v21 = v83;
   do
   {
     v22 = 0;
@@ -5056,7 +5060,7 @@ unint64_t arkit::btr::anonymous namespace::LinearScaleEstimatorOnline::Add(float
     while (v22 != 12);
     v23 = v72 + 2;
     v24 = vld1_dup_f32(v23);
-    v25 = vsub_f32(vdiv_f32(*&v72[0], v24), *(&v75 + v19));
+    v25 = vsub_f32(vdiv_f32(*&v72[0], v24), v75[v19]);
     v20 = v20 + sqrtf(vaddv_f32(vmul_f32(v25, v25)));
     v21 = (v21 + 12);
     ++v19;
@@ -5067,14 +5071,14 @@ unint64_t arkit::btr::anonymous namespace::LinearScaleEstimatorOnline::Add(float
   if ((v20 * 0.0625) >= *(a3 + 36))
   {
     v28 = 0;
-    v29 = v76 + 2;
+    v29 = v83 + 2;
     memset(v72, 0, sizeof(v72));
-    v30 = &v75;
-    v31 = v76 + 2;
+    v30 = v75;
+    v31 = v83 + 2;
     do
     {
-      v32 = *v30;
-      v30 += 2;
+      v32 = v30->f32[0];
+      ++v30;
       *(v72 + v28) = (*v31 * v32) - *(v31 - 2);
       v31 += 3;
       v28 += 4;
@@ -5082,9 +5086,9 @@ unint64_t arkit::btr::anonymous namespace::LinearScaleEstimatorOnline::Add(float
 
     while (v28 != 64);
     v33 = 0;
-    v34 = &v75 + 1;
+    v34 = v75 + 1;
     memset(v71, 0, sizeof(v71));
-    v35 = &v75 + 1;
+    v35 = v75 + 1;
     do
     {
       v36 = *v35;
@@ -5099,11 +5103,11 @@ unint64_t arkit::btr::anonymous namespace::LinearScaleEstimatorOnline::Add(float
     v38 = *(&v74 + 2);
     v39 = *&v74;
     memset(v70, 0, sizeof(v70));
-    v40 = &v75;
+    v40 = v75;
     do
     {
-      v41 = *v40;
-      v40 += 2;
+      v41 = v40->f32[0];
+      ++v40;
       *(v70 + v37) = v39 - (v41 * v38);
       v37 += 4;
     }
@@ -5149,7 +5153,7 @@ unint64_t arkit::btr::anonymous namespace::LinearScaleEstimatorOnline::Add(float
     v48 = v67.f32[1] + v68;
     v49 = (v45 + v46) / (v67.f32[1] + v68);
     v50 = 0.0;
-    v51 = v76;
+    v51 = v83;
     do
     {
       v52 = 0;
@@ -5164,7 +5168,7 @@ unint64_t arkit::btr::anonymous namespace::LinearScaleEstimatorOnline::Add(float
       while (v52 != 3);
       v53 = &v68;
       v54 = vld1_dup_f32(v53);
-      v55 = vsub_f32(vdiv_f32(v67, v54), *(&v75 + v47));
+      v55 = vsub_f32(vdiv_f32(v67, v54), v75[v47]);
       v50 = v50 + sqrtf(vaddv_f32(vmul_f32(v55, v55)));
       v51 = (v51 + 12);
       ++v47;
@@ -5197,229 +5201,229 @@ unint64_t arkit::btr::anonymous namespace::LinearScaleEstimatorOnline::Add(float
   return v27 | (LODWORD(v26) << 32);
 }
 
-void arkit::btr::ComputeReprojectionErrorS(uint64_t a1, float a2)
+void arkit::btr::ComputeReprojectionErrorS(uint64_t a1, float a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v69 = *MEMORY[0x1E69E9840];
-  v2 = *a1;
+  v73 = *MEMORY[0x1E69E9840];
+  v6 = *a1;
   if (a2 >= 0.0 && *(a1 + 8) - *a1 >= 9uLL)
   {
-    v5 = *v2;
-    v6 = (*v2 + 356);
-    v7 = v6[1];
-    v57[0] = *v6;
-    v57[1] = v7;
-    v8 = v6[3];
-    v57[2] = v6[2];
-    v57[3] = v8;
+    v9 = *v6;
+    v10 = (*v6 + 356);
+    v11 = v10[1];
+    v61[0] = *v10;
+    v61[1] = v11;
+    v12 = v10[3];
+    v61[2] = v10[2];
+    v61[3] = v12;
     for (i = 48; i != 60; i += 4)
     {
-      *(v57 + i) = *(v57 + i) * a2;
+      *(v61 + i) = *(v61 + i) * a2;
     }
 
-    v62 = xmmword_1C25EFF64;
-    v63 = *algn_1C25EFF74;
-    v64 = xmmword_1C25EFF84;
-    v65 = unk_1C25EFF94;
-    *&v53 = v5 + 420;
-    *(&v53 + 1) = 4;
-    v66 = &v53;
-    *&v68[0] = &v62;
-    *(&v68[0] + 1) = 4;
-    cva::MatrixRef<float,3u,3u,false>::operator=<cva::MatrixTransposeExpr<cva::MatrixRef<float const,3u,3u,false>>>(v68, &v66);
-    v60 = &v62;
-    v61 = 4;
-    v66 = &v60;
-    v58 = (v5 + 468);
-    v59 = 0xC00000004;
-    *&v68[0] = &v66;
-    *(&v68[0] + 1) = &v58;
-    if ((v5 + 420) == &v62)
+    v66 = xmmword_1C25EFF64;
+    v67 = *algn_1C25EFF74;
+    v68 = xmmword_1C25EFF84;
+    v69 = unk_1C25EFF94;
+    *&v57 = v9 + 420;
+    *(&v57 + 1) = 4;
+    v70 = &v57;
+    *&v72[0] = &v66;
+    *(&v72[0] + 1) = 4;
+    cva::MatrixRef<float,3u,3u,false>::operator=<cva::MatrixTransposeExpr<cva::MatrixRef<float const,3u,3u,false>>>(v72, &v70, a4, a5, a6);
+    v64 = &v66;
+    v65 = 4;
+    v70 = &v64;
+    v62 = (v9 + 468);
+    v63 = 0xC00000004;
+    *&v72[0] = &v70;
+    *(&v72[0] + 1) = &v62;
+    if ((v9 + 420) == &v66)
     {
-      DWORD2(v53) = 0;
-      *&v53 = 0;
-      cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixUnaryExpr<cva::MatrixRef<float,3u,3u,false>,cva::detail::NegOp>,cva::MatrixRef<float const,3u,1u,false>>(&v53, v68);
-      *&v65 = v53;
-      DWORD2(v65) = DWORD2(v53);
+      DWORD2(v57) = 0;
+      *&v57 = 0;
+      cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixUnaryExpr<cva::MatrixRef<float,3u,3u,false>,cva::detail::NegOp>,cva::MatrixRef<float const,3u,1u,false>>(&v57, v72);
+      *&v69 = v57;
+      DWORD2(v69) = DWORD2(v57);
     }
 
     else
     {
-      v10 = 0;
-      LODWORD(v55) = 0;
-      v53 = 0u;
-      v54 = 0u;
-      v11 = &v62;
-      v12 = 0x100000000;
+      v14 = 0;
+      LODWORD(v59) = 0;
+      v57 = 0u;
+      v58 = 0u;
+      v15 = &v66;
+      v16 = 0x100000000;
       do
       {
-        *(&v53 + v10) = -*v11;
-        v13 = HIDWORD(v12);
-        v14 = v12 < 2;
-        if (v12 < 2)
+        *(&v57 + v14) = -*v15;
+        v17 = HIDWORD(v16);
+        v18 = v16 < 2;
+        if (v16 < 2)
         {
-          v13 = 0;
+          v17 = 0;
         }
 
-        v15 = &v11[v13];
-        v16 = (v12 + 1);
-        v17 = v12 & 0xFFFFFFFF00000000;
-        v11 = v15 + 1;
-        if (!v14)
+        v19 = &v15[v17];
+        v20 = (v16 + 1);
+        v21 = v16 & 0xFFFFFFFF00000000;
+        v15 = v19 + 1;
+        if (!v18)
         {
-          v16 = 0;
+          v20 = 0;
         }
 
-        v12 = v16 | v17;
-        v10 += 4;
+        v16 = v20 | v21;
+        v14 += 4;
       }
 
-      while (v10 != 36);
-      v18 = 0;
-      v19 = &v53;
+      while (v14 != 36);
+      v22 = 0;
+      v23 = &v57;
       do
       {
-        v20 = 0;
-        v21 = 0.0;
-        v22 = (v5 + 468);
+        v24 = 0;
+        v25 = 0.0;
+        v26 = (v9 + 468);
         do
         {
-          v23 = *v22++;
-          v21 = v21 + (*(v19 + v20) * v23);
-          v20 += 12;
+          v27 = *v26++;
+          v25 = v25 + (*(v23 + v24) * v27);
+          v24 += 12;
         }
 
-        while (v20 != 36);
-        *(&v65 + v18++) = v21;
-        v19 = (v19 + 4);
+        while (v24 != 36);
+        *(&v69 + v22++) = v25;
+        v23 = (v23 + 4);
       }
 
-      while (v18 != 3);
+      while (v22 != 3);
     }
 
-    *&v68[0] = &v62;
-    *(&v68[0] + 1) = v57;
-    v53 = 0u;
-    v54 = 0u;
-    v55 = 0u;
-    v56 = 0u;
-    cva::assign<false,false,cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>>(&v53, v68);
-    v46 = (*(a1 + 8) - *a1) >> 3;
-    if (v46 >= 2)
+    *&v72[0] = &v66;
+    *(&v72[0] + 1) = v61;
+    v57 = 0u;
+    v58 = 0u;
+    v59 = 0u;
+    v60 = 0u;
+    cva::assign<false,false,cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>>(&v57, v72);
+    v50 = (*(a1 + 8) - *a1) >> 3;
+    if (v50 >= 2)
     {
-      v24 = 0.0;
-      for (j = 1; j != v46; ++j)
+      v28 = 0.0;
+      for (j = 1; j != v50; ++j)
       {
-        v25 = 0;
-        v26 = 128;
+        v29 = 0;
+        v30 = 128;
         do
         {
-          v27 = *(*a1 + 8 * j);
-          v28 = 3 * v25;
-          LODWORD(v61) = 0;
-          v60 = 0;
-          if ((v27 + 128) == &v60)
+          v31 = *(*a1 + 8 * j);
+          v32 = 3 * v29;
+          LODWORD(v65) = 0;
+          v64 = 0;
+          if ((v31 + 128) == &v64)
           {
-            v30 = v27 + 128 + 12 * v25;
-            v31 = *v30;
-            LODWORD(v61) = *(v30 + 8);
-            v60 = v31;
+            v34 = v31 + 128 + 12 * v29;
+            v35 = *v34;
+            LODWORD(v65) = *(v34 + 8);
+            v64 = v35;
           }
 
           else
           {
             for (k = 0; k != 12; k += 4)
             {
-              *(&v60 + k) = *(v27 + v26 + k);
+              *(&v64 + k) = *(v31 + v30 + k);
             }
           }
 
-          v66 = (v27 + 356);
-          v67 = 4;
-          *&v68[0] = &v66;
-          *(&v68[0] + 1) = &v60;
-          *(&v62 + 4) = 0;
-          HIDWORD(v62) = 0;
-          cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixRef<float const,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(&v62 + 4, v68);
-          v32 = 0;
-          ++v25;
-          LODWORD(v59) = 0;
-          v58 = 0;
+          v70 = (v31 + 356);
+          v71 = 4;
+          *&v72[0] = &v70;
+          *(&v72[0] + 1) = &v64;
+          *(&v66 + 4) = 0;
+          HIDWORD(v66) = 0;
+          cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixRef<float const,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(&v66 + 1, v72);
+          v36 = 0;
+          ++v29;
+          LODWORD(v63) = 0;
+          v62 = 0;
           do
           {
-            v58.f32[v32] = *(&v62 + v32 * 4 + 4) + *(v27 + 404 + v32 * 4);
-            ++v32;
+            v62.f32[v36] = *(&v66 + v36 * 4 + 4) + *(v31 + 404 + v36 * 4);
+            ++v36;
           }
 
-          while (v32 != 3);
-          v33 = &v59;
-          v34 = vld1_dup_f32(v33);
-          v35 = v58;
-          *&v68[0] = *(*a1 + 8 * j) + 420;
-          *(&v68[0] + 1) = &v53;
-          v62 = 0u;
-          v63 = 0u;
-          v64 = 0u;
-          v65 = 0u;
-          cva::assign<false,false,cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>>(&v62, v68);
-          v36 = *(*a1 + 8 * j);
-          v49 = 0;
-          v50 = 0;
-          if ((v36 + 4 * v28 - 4 * v28 + 128) == &v49)
+          while (v36 != 3);
+          v37 = &v63;
+          v38 = vld1_dup_f32(v37);
+          v39 = v62;
+          *&v72[0] = *(*a1 + 8 * j) + 420;
+          *(&v72[0] + 1) = &v57;
+          v66 = 0u;
+          v67 = 0u;
+          v68 = 0u;
+          v69 = 0u;
+          cva::assign<false,false,cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>>(&v66, v72);
+          v40 = *(*a1 + 8 * j);
+          v53 = 0;
+          v54 = 0;
+          if ((v40 + 4 * v32 - 4 * v32 + 128) == &v53)
           {
-            v39 = 0;
-            DWORD2(v68[0]) = 0;
-            *&v68[0] = 0;
-            v40 = v36 + v26;
+            v43 = 0;
+            DWORD2(v72[0]) = 0;
+            *&v72[0] = 0;
+            v44 = v40 + v30;
             do
             {
-              *(v68 + v39) = *(v40 + v39) * a2;
-              v39 += 4;
+              *(v72 + v43) = *(v44 + v43) * a2;
+              v43 += 4;
             }
 
-            while (v39 != 12);
-            v49 = *&v68[0];
-            v50 = DWORD2(v68[0]);
+            while (v43 != 12);
+            v53 = *&v72[0];
+            v54 = DWORD2(v72[0]);
           }
 
           else
           {
-            v37 = 0;
-            v38 = v36 + v26;
+            v41 = 0;
+            v42 = v40 + v30;
             do
             {
-              *(&v49 + v37) = *(v38 + v37) * a2;
-              v37 += 4;
+              *(&v53 + v41) = *(v42 + v41) * a2;
+              v41 += 4;
             }
 
-            while (v37 != 12);
+            while (v41 != 12);
           }
 
-          v60 = &v62;
-          v61 = 4;
-          v66 = &v60;
-          v67 = &v49;
-          *(v68 + 4) = 0;
-          HIDWORD(v68[0]) = 0;
-          cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixRef<float const,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(v68 + 4, &v66);
-          v41 = 0;
-          v42 = vdiv_f32(v35, v34);
-          v52 = 0;
-          v51 = 0;
+          v64 = &v66;
+          v65 = 4;
+          v70 = &v64;
+          v71 = &v53;
+          *(v72 + 4) = 0;
+          HIDWORD(v72[0]) = 0;
+          cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixRef<float const,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(v72 + 1, &v70);
+          v45 = 0;
+          v46 = vdiv_f32(v39, v38);
+          v56 = 0;
+          v55 = 0;
           do
           {
-            v51.f32[v41] = *(v68 + v41 * 4 + 4) + *(&v65 + v41 * 4);
-            ++v41;
+            v55.f32[v45] = *(v72 + v45 * 4 + 4) + *(&v69 + v45 * 4);
+            ++v45;
           }
 
-          while (v41 != 3);
-          v43 = &v52;
-          v44 = vld1_dup_f32(v43);
-          v45 = vsub_f32(vdiv_f32(v51, v44), v42);
-          v24 = v24 + sqrtf(vaddv_f32(vmul_f32(v45, v45)));
-          v26 += 12;
+          while (v45 != 3);
+          v47 = &v56;
+          v48 = vld1_dup_f32(v47);
+          v49 = vsub_f32(vdiv_f32(v55, v48), v46);
+          v28 = v28 + sqrtf(vaddv_f32(vmul_f32(v49, v49)));
+          v30 += 12;
         }
 
-        while (v25 != 16);
+        while (v29 != 16);
       }
     }
   }
@@ -5448,419 +5452,419 @@ void arkit::btr::ScaleCorrection::ScaleCorrection(uint64_t a1, __int128 *a2)
   _ZNSt3__115allocate_sharedB8ne200100IN5arkit3btr15ScaleCorrection4ImplENS_9allocatorIS4_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
 }
 
-void arkit::btr::ScaleCorrection::EstimateScale(uint64_t a1, uint64_t a2, uint64_t a3)
+void arkit::btr::ScaleCorrection::EstimateScale(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v105 = *MEMORY[0x1E69E9840];
-  v6 = *(a1 + 56);
-  if (*(a1 + 48) == 1 && *(v6 + 5) == 1)
+  v113 = *MEMORY[0x1E69E9840];
+  v8 = *(a1 + 56);
+  if (*(a1 + 48) == 1 && *(v8 + 5) == 1)
   {
     *a3 = 6;
     return;
   }
 
-  v7 = (a2 + 420);
-  if (*(v6 + 8) == 1)
+  v9 = (a2 + 420);
+  if (*(v8 + 8) == 1)
   {
-    *(v6 + 8) = 0;
-    v93 = xmmword_1C25EFF64;
-    v94 = *algn_1C25EFF74;
-    v95 = xmmword_1C25EFF84;
-    v96[0] = unk_1C25EFF94;
-    *&v87 = a2 + 420;
-    *(&v87 + 1) = 4;
-    v103 = &v87;
-    *&v97[0] = &v93;
-    *(&v97[0] + 1) = 4;
-    cva::MatrixRef<float,3u,3u,false>::operator=<cva::MatrixTransposeExpr<cva::MatrixRef<float const,3u,3u,false>>>(v97, &v103);
-    v102[0] = &v93;
-    v102[1] = 4;
-    v103 = v102;
-    v100 = (a2 + 468);
-    v101 = 0xC00000004;
-    *&v97[0] = &v103;
-    *(&v97[0] + 1) = &v100;
-    if (v7 == &v93)
+    *(v8 + 8) = 0;
+    v101 = xmmword_1C25EFF64;
+    v102 = *algn_1C25EFF74;
+    v103 = xmmword_1C25EFF84;
+    v104[0] = unk_1C25EFF94;
+    *&v95 = a2 + 420;
+    *(&v95 + 1) = 4;
+    v111 = &v95;
+    *&v105[0] = &v101;
+    *(&v105[0] + 1) = 4;
+    cva::MatrixRef<float,3u,3u,false>::operator=<cva::MatrixTransposeExpr<cva::MatrixRef<float const,3u,3u,false>>>(v105, &v111, a3, a4, a5);
+    v110[0] = &v101;
+    v110[1] = 4;
+    v111 = v110;
+    v108 = (a2 + 468);
+    v109 = 0xC00000004;
+    *&v105[0] = &v111;
+    *(&v105[0] + 1) = &v108;
+    if (v9 == &v101)
     {
-      DWORD2(v87) = 0;
-      *&v87 = 0;
-      cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixUnaryExpr<cva::MatrixRef<float,3u,3u,false>,cva::detail::NegOp>,cva::MatrixRef<float const,3u,1u,false>>(&v87, v97);
-      *&v96[0] = v87;
-      DWORD2(v96[0]) = DWORD2(v87);
+      DWORD2(v95) = 0;
+      *&v95 = 0;
+      cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixUnaryExpr<cva::MatrixRef<float,3u,3u,false>,cva::detail::NegOp>,cva::MatrixRef<float const,3u,1u,false>>(&v95, v105);
+      *&v104[0] = v95;
+      DWORD2(v104[0]) = DWORD2(v95);
     }
 
     else
     {
-      v8 = 0;
-      LODWORD(v89) = 0;
-      v87 = 0u;
-      v88 = 0u;
-      v9 = &v93;
-      v10 = 0x100000000;
+      v10 = 0;
+      LODWORD(v97) = 0;
+      v95 = 0u;
+      v96 = 0u;
+      v11 = &v101;
+      v12 = 0x100000000;
       do
       {
-        *(&v87 + v8) = -*v9;
-        v11 = HIDWORD(v10);
-        v12 = v10 < 2;
-        if (v10 < 2)
+        *(&v95 + v10) = -*v11;
+        v13 = HIDWORD(v12);
+        v14 = v12 < 2;
+        if (v12 < 2)
         {
-          v11 = 0;
+          v13 = 0;
         }
 
-        v13 = &v9[v11];
-        v14 = (v10 + 1);
-        v15 = v10 & 0xFFFFFFFF00000000;
-        v9 = v13 + 1;
-        if (!v12)
+        v15 = &v11[v13];
+        v16 = (v12 + 1);
+        v17 = v12 & 0xFFFFFFFF00000000;
+        v11 = v15 + 1;
+        if (!v14)
         {
-          v14 = 0;
+          v16 = 0;
         }
 
-        v10 = v14 | v15;
-        v8 += 4;
+        v12 = v16 | v17;
+        v10 += 4;
       }
 
-      while (v8 != 36);
-      v16 = 0;
-      v17 = &v87;
+      while (v10 != 36);
+      v18 = 0;
+      v19 = &v95;
       do
       {
-        v18 = 0;
-        v19 = 0.0;
-        v20 = (a2 + 468);
+        v20 = 0;
+        v21 = 0.0;
+        v22 = (a2 + 468);
         do
         {
-          v21 = *v20++;
-          v19 = v19 + (*(v17 + v18) * v21);
-          v18 += 12;
+          v23 = *v22++;
+          v21 = v21 + (*(v19 + v20) * v23);
+          v20 += 12;
         }
 
-        while (v18 != 36);
-        *(v96 + v16++) = v19;
-        v17 = (v17 + 4);
+        while (v20 != 36);
+        *(v104 + v18++) = v21;
+        v19 = (v19 + 4);
       }
 
-      while (v16 != 3);
+      while (v18 != 3);
     }
 
-    v36 = v94;
-    *(v6 + 408) = v93;
-    *(v6 + 424) = v36;
-    v37 = v96[0];
-    *(v6 + 440) = v95;
-    *(v6 + 456) = v37;
-    v38 = 1;
+    v44 = v102;
+    *(v8 + 408) = v101;
+    *(v8 + 424) = v44;
+    v45 = v104[0];
+    *(v8 + 440) = v103;
+    *(v8 + 456) = v45;
+    v46 = 1;
     goto LABEL_31;
   }
 
-  *&v93 = a2 + 420;
-  *(&v93 + 1) = v6 + 408;
-  memset(v97, 0, sizeof(v97));
-  v98 = 0u;
-  cva::assign<false,false,cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>>(v97, &v93);
-  v93 = xmmword_1C25EFF64;
-  v94 = *algn_1C25EFF74;
-  v95 = xmmword_1C25EFF84;
-  v96[0] = unk_1C25EFF94;
-  *&v87 = a2 + 420;
-  *(&v87 + 1) = 4;
-  v102[0] = &v87;
-  v103 = &v93;
-  v104 = 4;
-  cva::MatrixRef<float,3u,3u,false>::operator=<cva::MatrixTransposeExpr<cva::MatrixRef<float const,3u,3u,false>>>(&v103, v102);
-  v100 = &v93;
-  v101 = 4;
-  v102[0] = &v100;
-  v99[0] = a2 + 468;
-  v99[1] = 0xC00000004;
-  v103 = v102;
-  v104 = v99;
-  if (v7 == &v93)
+  *&v101 = a2 + 420;
+  *(&v101 + 1) = v8 + 408;
+  memset(v105, 0, sizeof(v105));
+  v106 = 0u;
+  cva::assign<false,false,cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>,cva::Matrix<float,4u,4u,false>>(v105, &v101);
+  v101 = xmmword_1C25EFF64;
+  v102 = *algn_1C25EFF74;
+  v103 = xmmword_1C25EFF84;
+  v104[0] = unk_1C25EFF94;
+  *&v95 = a2 + 420;
+  *(&v95 + 1) = 4;
+  v110[0] = &v95;
+  v111 = &v101;
+  v112 = 4;
+  cva::MatrixRef<float,3u,3u,false>::operator=<cva::MatrixTransposeExpr<cva::MatrixRef<float const,3u,3u,false>>>(&v111, v110, v24, v25, v26);
+  v108 = &v101;
+  v109 = 4;
+  v110[0] = &v108;
+  v107[0] = a2 + 468;
+  v107[1] = 0xC00000004;
+  v111 = v110;
+  v112 = v107;
+  if (v9 == &v101)
   {
-    DWORD2(v87) = 0;
-    *&v87 = 0;
-    cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixUnaryExpr<cva::MatrixRef<float,3u,3u,false>,cva::detail::NegOp>,cva::MatrixRef<float const,3u,1u,false>>(&v87, &v103);
-    *&v96[0] = v87;
-    DWORD2(v96[0]) = DWORD2(v87);
+    DWORD2(v95) = 0;
+    *&v95 = 0;
+    cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixUnaryExpr<cva::MatrixRef<float,3u,3u,false>,cva::detail::NegOp>,cva::MatrixRef<float const,3u,1u,false>>(&v95, &v111);
+    *&v104[0] = v95;
+    DWORD2(v104[0]) = DWORD2(v95);
   }
 
   else
   {
-    v22 = 0;
-    LODWORD(v89) = 0;
-    v87 = 0u;
-    v88 = 0u;
-    v23 = &v93;
-    v24 = 0x100000000;
+    v30 = 0;
+    LODWORD(v97) = 0;
+    v95 = 0u;
+    v96 = 0u;
+    v31 = &v101;
+    v32 = 0x100000000;
     do
     {
-      *(&v87 + v22) = -*v23;
-      v25 = HIDWORD(v24);
-      v26 = v24 < 2;
-      if (v24 < 2)
+      *(&v95 + v30) = -*v31;
+      v33 = HIDWORD(v32);
+      v34 = v32 < 2;
+      if (v32 < 2)
       {
-        v25 = 0;
+        v33 = 0;
       }
 
-      v27 = &v23[v25];
-      v28 = (v24 + 1);
-      v29 = v24 & 0xFFFFFFFF00000000;
-      v23 = v27 + 1;
-      if (!v26)
+      v35 = &v31[v33];
+      v36 = (v32 + 1);
+      v37 = v32 & 0xFFFFFFFF00000000;
+      v31 = v35 + 1;
+      if (!v34)
       {
-        v28 = 0;
+        v36 = 0;
       }
 
-      v24 = v28 | v29;
-      v22 += 4;
+      v32 = v36 | v37;
+      v30 += 4;
     }
 
-    while (v22 != 36);
-    v30 = 0;
-    v31 = &v87;
+    while (v30 != 36);
+    v38 = 0;
+    v39 = &v95;
     do
     {
-      v32 = 0;
-      v33 = 0.0;
-      v34 = (a2 + 468);
+      v40 = 0;
+      v41 = 0.0;
+      v42 = (a2 + 468);
       do
       {
-        v35 = *v34++;
-        v33 = v33 + (*(v31 + v32) * v35);
-        v32 += 12;
+        v43 = *v42++;
+        v41 = v41 + (*(v39 + v40) * v43);
+        v40 += 12;
       }
 
-      while (v32 != 36);
-      *(v96 + v30++) = v33;
-      v31 = (v31 + 4);
+      while (v40 != 36);
+      *(v104 + v38++) = v41;
+      v39 = (v39 + 4);
     }
 
-    while (v30 != 3);
+    while (v38 != 3);
   }
 
-  v39 = v94;
-  *(v6 + 408) = v93;
-  *(v6 + 424) = v39;
-  v40 = v96[0];
-  *(v6 + 440) = v95;
-  *(v6 + 456) = v40;
-  *&v40 = vmul_f32(*(&v98 + 4), *(&v98 + 4));
-  v41 = sqrtf(((*&v98 * *&v98) + *&v40) + *(&v40 + 1));
-  if (v41 >= *(a1 + 8))
+  v47 = v102;
+  *(v8 + 408) = v101;
+  *(v8 + 424) = v47;
+  v48 = v104[0];
+  *(v8 + 440) = v103;
+  *(v8 + 456) = v48;
+  *&v48 = vmul_f32(*(&v106 + 4), *(&v106 + 4));
+  v49 = sqrtf(((*&v106 * *&v106) + *&v48) + *(&v48 + 1));
+  if (v49 >= *(a1 + 8))
   {
-    if (v41 <= *(a1 + 12))
+    if (v49 <= *(a1 + 12))
     {
-      v43 = 0;
-      v44 = *(a2 + 272);
-      v96[5] = *(a2 + 256);
-      v96[6] = v44;
-      v45 = *(a2 + 304);
-      v96[7] = *(a2 + 288);
-      v96[8] = v45;
-      v46 = *(a2 + 208);
-      v96[1] = *(a2 + 192);
-      v96[2] = v46;
-      v47 = *(a2 + 240);
-      v96[3] = *(a2 + 224);
-      v96[4] = v47;
-      v48 = *(a2 + 144);
-      v93 = *(a2 + 128);
-      v94 = v48;
-      v49 = *(a2 + 176);
-      v95 = *(a2 + 160);
-      v51.i32[1] = DWORD1(v95);
-      v96[0] = v49;
-      v50 = *(v6 + 16) + 1;
-      *(v6 + 16) = v50;
-      *v51.i32 = v50;
-      v52 = vdupq_lane_s32(v51, 0);
+      v51 = 0;
+      v52 = *(a2 + 272);
+      v104[5] = *(a2 + 256);
+      v104[6] = v52;
+      v53 = *(a2 + 304);
+      v104[7] = *(a2 + 288);
+      v104[8] = v53;
+      v54 = *(a2 + 208);
+      v104[1] = *(a2 + 192);
+      v104[2] = v54;
+      v55 = *(a2 + 240);
+      v104[3] = *(a2 + 224);
+      v104[4] = v55;
+      v56 = *(a2 + 144);
+      v101 = *(a2 + 128);
+      v102 = v56;
+      v57 = *(a2 + 176);
+      v103 = *(a2 + 160);
+      v59.i32[1] = DWORD1(v103);
+      v104[0] = v57;
+      v58 = *(v8 + 16) + 1;
+      *(v8 + 16) = v58;
+      *v59.i32 = v58;
+      v60 = vdupq_lane_s32(v59, 0);
       do
       {
-        *(v6 + 24 + v43) = vaddq_f32(*(v6 + 24 + v43), vdivq_f32(vsubq_f32(*(&v93 + v43), *(v6 + 24 + v43)), v52));
-        v43 += 16;
+        *(v8 + 24 + v51) = vaddq_f32(*(v8 + 24 + v51), vdivq_f32(vsubq_f32(*(&v101 + v51), *(v8 + 24 + v51)), v60));
+        v51 += 16;
       }
 
-      while (v43 != 192);
-      v53 = 0;
-      v54 = (v6 + 216);
+      while (v51 != 192);
+      v61 = 0;
+      v62 = (v8 + 216);
       do
       {
-        v55 = vsubq_f32(*(&v93 + v53), *(v6 + v53 + 24));
-        *(v6 + v53 + 216) = vaddq_f32(*(v6 + v53 + 216), vmulq_f32(v55, v55));
-        v53 += 16;
+        v63 = vsubq_f32(*(&v101 + v61), *(v8 + v61 + 24));
+        *(v8 + v61 + 216) = vaddq_f32(*(v8 + v61 + 216), vmulq_f32(v63, v63));
+        v61 += 16;
       }
 
-      while (v53 != 192);
-      v56 = 0;
-      v57 = 0;
-      v92 = 0;
-      v90 = 0u;
-      v91 = 0u;
-      v88 = 0u;
-      v89 = 0u;
-      v87 = 0u;
+      while (v61 != 192);
+      v64 = 0;
+      v65 = 0;
+      v100 = 0;
+      v98 = 0u;
+      v99 = 0u;
+      v96 = 0u;
+      v97 = 0u;
+      v95 = 0u;
       do
       {
-        *(&v87 + v56) = *v54 / *v51.i32;
-        v58 = HIDWORD(v57);
-        v59 = v57 < 2;
-        if (v57 < 2)
+        *(&v95 + v64) = *v62 / *v59.i32;
+        v66 = HIDWORD(v65);
+        v67 = v65 < 2;
+        if (v65 < 2)
         {
-          v58 = 0;
+          v66 = 0;
         }
 
-        v60 = &v54[v58];
-        v61 = (v57 + 1);
-        v62 = v57 & 0xFFFFFFFF00000000;
-        v54 = v60 + 1;
-        if (!v59)
+        v68 = &v62[v66];
+        v69 = (v65 + 1);
+        v70 = v65 & 0xFFFFFFFF00000000;
+        v62 = v68 + 1;
+        if (!v67)
         {
-          v61 = 0;
+          v69 = 0;
         }
 
-        v57 = v61 | v62;
-        v56 += 4;
+        v65 = v69 | v70;
+        v64 += 4;
       }
 
-      while (v56 != 84);
-      v63 = *&v87;
+      while (v64 != 84);
+      v71 = *&v95;
       for (i = 12; i != 84; i += 12)
       {
-        v63 = v63 + *(&v87 + i);
+        v71 = v71 + *(&v95 + i);
       }
 
-      v65 = 1;
-      v66 = &v87;
-      v67 = sqrtf(v63);
+      v73 = 1;
+      v74 = &v95;
+      v75 = sqrtf(v71);
       do
       {
-        v68 = *(&v87 + v65);
+        v76 = *(&v95 + v73);
         for (j = 16; j != 88; j += 12)
         {
-          v68 = v68 + *(v66 + j);
+          v76 = v76 + *(v74 + j);
         }
 
-        v70 = sqrtf(v68);
-        if (v67 < v70)
+        v78 = sqrtf(v76);
+        if (v75 < v78)
         {
-          v67 = v70;
+          v75 = v78;
         }
 
-        ++v65;
-        v66 = (v66 + 4);
+        ++v73;
+        v74 = (v74 + 4);
       }
 
-      while (v65 != 3);
-      v42 = 13;
-      if (v67 > *(a1 + 32))
+      while (v73 != 3);
+      v50 = 13;
+      if (v75 > *(a1 + 32))
       {
-        v42 = 5;
-        v41 = v67;
+        v50 = 5;
+        v49 = v75;
       }
     }
 
     else
     {
-      v42 = 2;
+      v50 = 2;
     }
   }
 
   else
   {
-    v42 = 1;
+    v50 = 1;
   }
 
-  *a3 = v42 | (LODWORD(v41) << 32);
-  if (v42 == 5 || v42 == 2)
+  *a3 = v50 | (LODWORD(v49) << 32);
+  if (v50 == 5 || v50 == 2)
   {
     _ZNSt3__115allocate_sharedB8ne200100IN5arkit3btr15ScaleCorrection4ImplENS_9allocatorIS4_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
   }
 
-  if (v42 == 13)
+  if (v50 == 13)
   {
-    v71 = *(a1 + 56);
-    if ((*(v71 + 4) & 1) == 0)
+    v79 = *(a1 + 56);
+    if ((*(v79 + 4) & 1) == 0)
     {
-      *(v71 + 4) = 1;
-      v38 = 7;
+      *(v79 + 4) = 1;
+      v46 = 7;
 LABEL_31:
-      *a3 = v38;
+      *a3 = v46;
       return;
     }
 
-    v72 = *(a3 + 4);
-    *a3 = v73;
-    v74 = *(a1 + 56);
-    if (v73 == 13)
+    v80 = *(a3 + 4);
+    *a3 = v81;
+    v82 = *(a1 + 56);
+    if (v81 == 13)
     {
-      v75 = *(v74 + 472) / *(v74 + 476);
-      v76 = v72 + *(v74 + 628);
-      *(v74 + 628) = v76;
-      v77 = *(v74 + 608) + 1;
-      *(v74 + 608) = v77;
-      if (v77 < *a1)
+      v83 = *(v82 + 472) / *(v82 + 476);
+      v84 = v80 + *(v82 + 628);
+      *(v82 + 628) = v84;
+      v85 = *(v82 + 608) + 1;
+      *(v82 + 608) = v85;
+      if (v85 < *a1)
       {
-        v78 = 7;
+        v86 = 7;
 LABEL_84:
-        *a3 = v78 | (LODWORD(v75) << 32);
-        *(a3 + 4) = HIDWORD(v73);
+        *a3 = v86 | (LODWORD(v83) << 32);
+        *(a3 + 4) = HIDWORD(v81);
         return;
       }
 
-      if (v76 < *(a1 + 28))
+      if (v84 < *(a1 + 28))
       {
-        v78 = 3;
-        v75 = v76;
+        v86 = 3;
+        v83 = v84;
         goto LABEL_84;
       }
 
-      if (*(a1 + 40) > v75 || *(a1 + 44) < v75)
+      if (*(a1 + 40) > v83 || *(a1 + 44) < v83)
       {
-        *a3 = (LODWORD(v75) << 32) | 0xB;
-        *(a3 + 4) = HIDWORD(v73);
+        *a3 = (LODWORD(v83) << 32) | 0xB;
+        *(a3 + 4) = HIDWORD(v81);
         _ZNSt3__115allocate_sharedB8ne200100IN5arkit3btr15ScaleCorrection4ImplENS_9allocatorIS4_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
       }
 
-      v80 = vabds_f32(v75, *(v74 + 624)) / fminf(v75, *(v74 + 624));
-      *(v74 + 624) = v75;
-      if (v80 >= *(a1 + 24))
+      v88 = vabds_f32(v83, *(v82 + 624)) / fminf(v83, *(v82 + 624));
+      *(v82 + 624) = v83;
+      if (v88 >= *(a1 + 24))
       {
-        *(v74 + 616) = 0;
+        *(v82 + 616) = 0;
       }
 
       else
       {
-        v81 = *(v74 + 616);
-        v84 = __CFADD__(v81, 1);
-        v82 = v81 + 1;
-        *(v74 + 616) = v82;
-        if (!v84)
+        v89 = *(v82 + 616);
+        v92 = __CFADD__(v89, 1);
+        v90 = v89 + 1;
+        *(v82 + 616) = v90;
+        if (!v92)
         {
-          v83 = *(a1 + 16);
-          v84 = v82 >= v83;
-          if (v82 >= v83)
+          v91 = *(a1 + 16);
+          v92 = v90 >= v91;
+          if (v90 >= v91)
           {
-            v85 = 0;
+            v93 = 0;
           }
 
           else
           {
-            v85 = 9;
+            v93 = 9;
           }
 
-          *a3 = v85 | (LODWORD(v75) << 32);
-          *(a3 + 4) = HIDWORD(v73);
-          if (v84)
+          *a3 = v93 | (LODWORD(v83) << 32);
+          *(a3 + 4) = HIDWORD(v81);
+          if (v92)
           {
-            v86 = *(a1 + 56);
-            *v86 = v75;
-            *(v86 + 5) = 1;
+            v94 = *(a1 + 56);
+            *v94 = v83;
+            *(v94 + 5) = 1;
           }
 
           return;
         }
       }
 
-      v78 = 10;
+      v86 = 10;
       goto LABEL_84;
     }
   }
@@ -5883,7 +5887,7 @@ double cva::assign<false,false,cva::Matrix<float,3u,16u,false>,cva::MatrixRef<fl
     v22 = 0u;
     v19 = 0u;
     v20 = 0u;
-    cva::assign<false,false,cva::Matrix<float,3u,16u,false>,cva::MatrixRef<float,3u,3u,false>,cva::Matrix<float,3u,16u,false>>(&v19);
+    cva::assign<false,false,cva::Matrix<float,3u,16u,false>,cva::MatrixRef<float,3u,3u,false>,cva::Matrix<float,3u,16u,false>>(&v19, a2);
     v13 = v28;
     *(a1 + 8) = v27;
     *(a1 + 9) = v13;
@@ -5955,7 +5959,7 @@ float *cva::assign<false,false,cva::Matrix<float,1u,1u,false>,cva::Matrix<float,
   if (*a2 == result)
   {
     v6 = 0;
-    result = cva::assign<false,false,cva::Matrix<float,1u,1u,false>,cva::Matrix<float,1u,16u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,1u,16u,false>>>(&v6);
+    result = cva::assign<false,false,cva::Matrix<float,1u,1u,false>,cva::Matrix<float,1u,16u,false>,cva::MatrixTransposeExpr<cva::Matrix<float,1u,16u,false>>>(&v6, a2);
     *v2 = v6;
   }
 
@@ -5977,15 +5981,15 @@ float *cva::assign<false,false,cva::Matrix<float,1u,1u,false>,cva::Matrix<float,
   return result;
 }
 
-uint64_t cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixRef<float const,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(uint64_t result, float **a2)
+float *cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixRef<float const,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(float *result, float **a2)
 {
   v2 = result;
   v3 = **a2;
-  if (v3 - 4 * *(*a2 + 3) == result || (v4 = a2[1], v4 == result))
+  if ((v3 - 4 * *(*a2 + 3)) == result || (v4 = a2[1], v4 == result))
   {
     v12 = 0;
     v11 = 0;
-    result = cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixRef<float const,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(&v11);
+    result = cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixRef<float const,3u,3u,false>,cva::Matrix<float,3u,1u,false>>(&v11, a2);
     *v2 = v11;
     *(v2 + 8) = v12;
   }
@@ -6016,7 +6020,7 @@ uint64_t cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixRef<f
         v8 = 0.0;
       }
 
-      *(result + 4 * v5++) = v8;
+      result[v5++] = v8;
       v3 += 4;
     }
 
@@ -6026,134 +6030,134 @@ uint64_t cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixRef<f
   return result;
 }
 
-uint64_t cva::MatrixRef<float,3u,3u,false>::operator=<cva::MatrixTransposeExpr<cva::MatrixRef<float const,3u,3u,false>>>(uint64_t result, uint64_t **a2)
+uint64_t cva::MatrixRef<float,3u,3u,false>::operator=<cva::MatrixTransposeExpr<cva::MatrixRef<float const,3u,3u,false>>>(uint64_t result, uint64_t **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *result;
-  v3 = *a2;
-  v4 = **a2;
-  if (v4 - 4 * *(*a2 + 3) == *result - 4 * *(result + 12))
+  v5 = *result;
+  v6 = *a2;
+  v7 = **a2;
+  if (v7 - 4 * *(*a2 + 3) == *result - 4 * *(result + 12))
   {
-    v15 = 0;
-    v16 = 0;
-    v29 = 0;
-    memset(v28, 0, sizeof(v28));
+    v18 = 0;
+    v19 = 0;
+    v32 = 0;
+    memset(v31, 0, sizeof(v31));
     do
     {
-      if (HIDWORD(v16) > 2 || v16 >= 3)
+      if (HIDWORD(v19) > 2 || v19 >= 3)
       {
         cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>();
       }
 
-      *(v28 + v15) = *(v4 + 4 * (HIDWORD(v16) + *(v3 + 2) * v16));
-      if (v16 >= 2)
+      *(v31 + v18) = *(v7 + 4 * (HIDWORD(v19) + *(v6 + 2) * v19));
+      if (v19 >= 2)
       {
-        v16 = (v16 & 0x300000000) + 0x100000000;
+        v19 = (v19 & 0x300000000) + 0x100000000;
       }
 
       else
       {
-        v16 = v16 & 0x300000000 | (v16 + 1) & 7;
+        v19 = v19 & 0x300000000 | (v19 + 1) & 7;
       }
 
-      v15 += 4;
+      v18 += 4;
     }
 
-    while (v15 != 36);
-    v18 = *(result + 8);
-    if (v18)
+    while (v18 != 36);
+    v21 = *(result + 8);
+    if (v21)
     {
-      v19 = &v2[3 * v18];
-      v20 = (v18 - 3) << 32;
-      v21 = v28;
+      v22 = &v5[3 * v21];
+      v23 = (v21 - 3) << 32;
+      v24 = v31;
       do
       {
-        v22 = *v21++;
-        *v2 = v22;
-        v23 = HIDWORD(v20);
-        v24 = v20 < 2;
-        if (v20 < 2)
-        {
-          v23 = 0;
-        }
-
-        v25 = &v2[v23];
-        v26 = (v20 + 1);
-        v27 = v20 & 0xFFFFFFFF00000000;
-        if (!v24)
+        v25 = *v24++;
+        *v5 = v25;
+        v26 = HIDWORD(v23);
+        v27 = v23 < 2;
+        if (v23 < 2)
         {
           v26 = 0;
         }
 
-        v20 = v26 | v27;
-        v2 = v25 + 1;
+        v28 = &v5[v26];
+        v29 = (v23 + 1);
+        v30 = v23 & 0xFFFFFFFF00000000;
+        if (!v27)
+        {
+          v29 = 0;
+        }
+
+        v23 = v29 | v30;
+        v5 = v28 + 1;
       }
 
-      while (v2 != v19);
+      while (v5 != v22);
     }
   }
 
   else
   {
-    v5 = *(result + 8);
-    if (v5)
+    v8 = *(result + 8);
+    if (v8)
     {
-      v6 = 0;
-      v7 = &v2[3 * v5];
-      v8 = (v5 - 3) << 32;
+      v9 = 0;
+      v10 = &v5[3 * v8];
+      v11 = (v8 - 3) << 32;
       do
       {
-        if (HIDWORD(v6) > 2 || v6 >= 3)
+        if (HIDWORD(v9) > 2 || v9 >= 3)
         {
           cva::detail::assignNoAlias<cva::Matrix<float,0u,0u,false>,cva::MatrixBinaryExpr<cva::MatrixSubExpr<cva::MatrixTransposeExpr<cva::Matrix<float,0u,0u,false>> const,0u,0u>,cva::MatrixRepeatExpr<cva::MatrixTransposeExpr<cva::MatrixDiagonalExpr<cva::DiagonalMatrixInverseExpr<cva::VectorAsDiagonalExpr<cva::Matrix<float,0u,1u,false>,0u,0u>> const> const>,0u,1u>,cva::detail::MulOp>>();
         }
 
-        *v2 = *(v4 + 4 * (HIDWORD(v6) + *(v3 + 2) * v6));
-        if (v6 >= 2)
+        *v5 = *(v7 + 4 * (HIDWORD(v9) + *(v6 + 2) * v9));
+        if (v9 >= 2)
         {
-          v6 = (v6 & 0x300000000) + 0x100000000;
+          v9 = (v9 & 0x300000000) + 0x100000000;
         }
 
         else
         {
-          v6 = v6 & 0x300000000 | (v6 + 1) & 7;
+          v9 = v9 & 0x300000000 | (v9 + 1) & 7;
         }
 
-        v10 = HIDWORD(v8);
-        v11 = v8 < 2;
-        if (v8 < 2)
-        {
-          v10 = 0;
-        }
-
-        v12 = &v2[v10];
-        v13 = (v8 + 1);
-        v14 = v8 & 0xFFFFFFFF00000000;
-        if (!v11)
+        v13 = HIDWORD(v11);
+        v14 = v11 < 2;
+        if (v11 < 2)
         {
           v13 = 0;
         }
 
-        v8 = v13 | v14;
-        v2 = v12 + 1;
+        v15 = &v5[v13];
+        v16 = (v11 + 1);
+        v17 = v11 & 0xFFFFFFFF00000000;
+        if (!v14)
+        {
+          v16 = 0;
+        }
+
+        v11 = v16 | v17;
+        v5 = v15 + 1;
       }
 
-      while (v2 != v7);
+      while (v5 != v10);
     }
   }
 
   return result;
 }
 
-uint64_t cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixUnaryExpr<cva::MatrixRef<float,3u,3u,false>,cva::detail::NegOp>,cva::MatrixRef<float const,3u,1u,false>>(uint64_t result, uint64_t a2)
+float **cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixUnaryExpr<cva::MatrixRef<float,3u,3u,false>,cva::detail::NegOp>,cva::MatrixRef<float const,3u,1u,false>>(float **result, float ****a2)
 {
   v2 = result;
-  v3 = *(a2 + 8);
+  v3 = a2[1];
   v4 = *v3;
-  if (*v3 - 4 * *(v3 + 12) == result)
+  if ((*v3 - 4 * *(v3 + 3)) == result)
   {
     DWORD2(v21[0]) = 0;
     *&v21[0] = 0;
-    result = cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixUnaryExpr<cva::MatrixRef<float,3u,3u,false>,cva::detail::NegOp>,cva::MatrixRef<float const,3u,1u,false>>(v21);
+    result = cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixUnaryExpr<cva::MatrixRef<float,3u,3u,false>,cva::detail::NegOp>,cva::MatrixRef<float const,3u,1u,false>>(v21, a2);
     *v2 = *&v21[0];
     *(v2 + 8) = DWORD2(v21[0]);
   }
@@ -6206,7 +6210,7 @@ uint64_t cva::assign<false,false,cva::Matrix<float,3u,1u,false>,cva::MatrixUnary
       }
 
       while (v17 != 36);
-      *(result + 4 * v15++) = v18;
+      *(result + v15++) = v18;
       v16 = (v16 + 4);
     }
 
@@ -6234,16 +6238,16 @@ void std::__shared_ptr_emplace<arkit::btr::ScaleCorrection::Impl>::__on_zero_sha
   }
 }
 
-id _ARLogGeneral_36()
+id _ARLogGeneral_36(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_38 != -1)
   {
     _ARLogGeneral_cold_1_36();
   }
 
-  v1 = _ARLogGeneral_logObj_38;
+  v2 = _ARLogGeneral_logObj_38;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ARShouldUseLogTypeError_block_invoke_44()
@@ -6266,7 +6270,7 @@ __CFString *NSStringFromCV3DVIOReturn(unsigned int a1)
   }
 }
 
-__CFString *NSStringFromCV3DSLAMConfigReturn(unsigned int a1)
+__CFString *NSStringFromCV3DSLAMConfigReturn(uint64_t a1)
 {
   if (a1 < 5)
   {
@@ -6275,7 +6279,7 @@ __CFString *NSStringFromCV3DSLAMConfigReturn(unsigned int a1)
 
   v6 = v1;
   v7 = v2;
-  v4 = _ARLogGeneral_37();
+  v4 = _ARLogGeneral_37(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *v5 = 0;
@@ -6285,19 +6289,19 @@ __CFString *NSStringFromCV3DSLAMConfigReturn(unsigned int a1)
   return &stru_1F4208A80;
 }
 
-id _ARLogGeneral_37()
+id _ARLogGeneral_37(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_39 != -1)
   {
     _ARLogGeneral_cold_1_37();
   }
 
-  v1 = _ARLogGeneral_logObj_39;
+  v2 = _ARLogGeneral_logObj_39;
 
-  return v1;
+  return v2;
 }
 
-__CFString *NSStringFromCV3DSLAMReturn(int a1)
+__CFString *NSStringFromCV3DSLAMReturn(uint64_t a1)
 {
   if (*MEMORY[0x1E698BD80] == a1)
   {
@@ -6331,7 +6335,7 @@ __CFString *NSStringFromCV3DSLAMReturn(int a1)
 
   v6 = v1;
   v7 = v2;
-  v4 = _ARLogGeneral_37();
+  v4 = _ARLogGeneral_37(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *v5 = 0;
@@ -6354,7 +6358,7 @@ __CFString *NSStringFromCV3DPosePredictionReturn(unsigned int a1)
   }
 }
 
-id NSStringFromCV3DSLAMAnchorAddedResult(uint64_t a1)
+__CFString *NSStringFromCV3DSLAMAnchorAddedResult(uint64_t a1)
 {
   v1 = a1;
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unknown (%d)", a1];
@@ -6531,15 +6535,15 @@ __CFString *NSStringFromCV3DSLAMMode(int a1)
   }
 }
 
-id ARGetAnchorIdentifierFromAnchorRef()
+id ARGetAnchorIdentifierFromAnchorRef(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v0 = CV3DSLAMAnchorCopyAnchorID();
-  if (v0)
+  v13 = *MEMORY[0x1E69E9840];
+  v1 = CV3DSLAMAnchorCopyAnchorID();
+  if (v1)
   {
-    v1 = v0;
-    v2 = [MEMORY[0x1E696AFB0] ar_UUIDWithCFUUIDRef:v0];
-    CFRelease(v1);
+    v2 = v1;
+    v3 = [MEMORY[0x1E696AFB0] ar_UUIDWithCFUUIDRef:v1];
+    CFRelease(v2);
     goto LABEL_12;
   }
 
@@ -6548,37 +6552,37 @@ id ARGetAnchorIdentifierFromAnchorRef()
     ARGetAnchorIdentifierFromAnchorRef_cold_1();
   }
 
-  v3 = ARShouldUseLogTypeError_internalOSVersion_44;
-  v4 = _ARLogGeneral_37();
-  v5 = v4;
-  if (v3 == 1)
+  v4 = ARShouldUseLogTypeError_internalOSVersion_44;
+  v5 = _ARLogGeneral_37(v1);
+  v6 = v5;
+  if (v4 == 1)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v11 = 0;
-      v6 = "Failed to retrieve anchor identifier %{public}@";
-      v7 = v5;
-      v8 = OS_LOG_TYPE_ERROR;
+      v12 = 0;
+      v7 = "Failed to retrieve anchor identifier %{public}@";
+      v8 = v6;
+      v9 = OS_LOG_TYPE_ERROR;
 LABEL_10:
-      _os_log_impl(&dword_1C241C000, v7, v8, v6, buf, 0xCu);
+      _os_log_impl(&dword_1C241C000, v8, v9, v7, buf, 0xCu);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v11 = 0;
-    v6 = "Error: Failed to retrieve anchor identifier %{public}@";
-    v7 = v5;
-    v8 = OS_LOG_TYPE_INFO;
+    v12 = 0;
+    v7 = "Error: Failed to retrieve anchor identifier %{public}@";
+    v8 = v6;
+    v9 = OS_LOG_TYPE_INFO;
     goto LABEL_10;
   }
 
-  v2 = 0;
+  v3 = 0;
 LABEL_12:
 
-  return v2;
+  return v3;
 }
 
 __CFString *NSStringFromCV3DVisualSLAMState(int a1)
@@ -6623,21 +6627,22 @@ uint64_t CV3DSLAMCameraVideoModeForResolutionAndDeviceType(void *a1, double a2, 
 
 id ARVisionDataParametersForWorldTrackingOptions(void *a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v21 = 0;
-  v2 = [v1 createSLAMCalibration:&v21];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v18 = __ARVisionDataParametersForWorldTrackingOptions_block_invoke;
-  v19 = &__block_descriptor_40_e5_v8__0l;
-  v20 = v21;
+  v23 = 0;
+  v2 = [v1 createSLAMCalibration:&v23];
+  v3 = v2;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v20 = __ARVisionDataParametersForWorldTrackingOptions_block_invoke;
+  v21 = &__block_descriptor_40_e5_v8__0l;
+  v22 = v23;
   if (!v2)
   {
-    v16 = 0;
-    [v1 createSLAMConfig:&v16 calibration:?];
+    v18 = 0;
+    [v1 createSLAMConfig:&v18 calibration:?];
     AVCaptureConfig = CV3DSLAMConfigCreateAVCaptureConfig();
-    CV3DSLAMConfigRelease();
+    v9 = CV3DSLAMConfigRelease();
     if (AVCaptureConfig)
     {
       goto LABEL_17;
@@ -6648,34 +6653,34 @@ id ARVisionDataParametersForWorldTrackingOptions(void *a1)
       ARGetAnchorIdentifierFromAnchorRef_cold_1();
     }
 
-    v8 = ARShouldUseLogTypeError_internalOSVersion_44;
-    v9 = _ARLogGeneral_37();
-    v10 = v9;
-    if (v8 == 1)
+    v10 = ARShouldUseLogTypeError_internalOSVersion_44;
+    v11 = _ARLogGeneral_37(v9);
+    v12 = v11;
+    if (v10 == 1)
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v23 = v1;
-        v24 = 2112;
-        v25 = 0;
-        v11 = "Error reading vision data output parameters for %{public}@: %@";
-        v12 = v10;
-        v13 = OS_LOG_TYPE_ERROR;
+        v25 = v1;
+        v26 = 2112;
+        v27 = 0;
+        v13 = "Error reading vision data output parameters for %{public}@: %@";
+        v14 = v12;
+        v15 = OS_LOG_TYPE_ERROR;
 LABEL_22:
-        _os_log_impl(&dword_1C241C000, v12, v13, v11, buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v14, v15, v13, buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138543618;
-      v23 = v1;
-      v24 = 2112;
-      v25 = 0;
-      v11 = "Error: Error reading vision data output parameters for %{public}@: %@";
-      v12 = v10;
-      v13 = OS_LOG_TYPE_INFO;
+      v25 = v1;
+      v26 = 2112;
+      v27 = 0;
+      v13 = "Error: Error reading vision data output parameters for %{public}@: %@";
+      v14 = v12;
+      v15 = OS_LOG_TYPE_INFO;
       goto LABEL_22;
     }
 
@@ -6687,199 +6692,201 @@ LABEL_22:
     ARGetAnchorIdentifierFromAnchorRef_cold_1();
   }
 
-  v3 = ARShouldUseLogTypeError_internalOSVersion_44;
-  v4 = _ARLogGeneral_37();
-  v5 = v4;
-  if (v3 == 1)
+  v4 = ARShouldUseLogTypeError_internalOSVersion_44;
+  v5 = _ARLogGeneral_37(v2);
+  v6 = v5;
+  if (v4 == 1)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v6 = NSStringFromCV3DSLAMCalibrationReturn(v2);
+      v7 = NSStringFromCV3DSLAMCalibrationReturn(v3);
       *buf = 138543618;
-      v23 = v1;
-      v24 = 2114;
-      v25 = v6;
-      _os_log_impl(&dword_1C241C000, v5, OS_LOG_TYPE_ERROR, "Error building slam calibration, unable to fetch vision data output parameters for %{public}@: %{public}@", buf, 0x16u);
+      v25 = v1;
+      v26 = 2114;
+      v27 = v7;
+      _os_log_impl(&dword_1C241C000, v6, OS_LOG_TYPE_ERROR, "Error building slam calibration, unable to fetch vision data output parameters for %{public}@: %{public}@", buf, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v14 = NSStringFromCV3DSLAMCalibrationReturn(v2);
+    v16 = NSStringFromCV3DSLAMCalibrationReturn(v3);
     *buf = 138543618;
-    v23 = v1;
-    v24 = 2114;
-    v25 = v14;
-    _os_log_impl(&dword_1C241C000, v5, OS_LOG_TYPE_INFO, "Error: Error building slam calibration, unable to fetch vision data output parameters for %{public}@: %{public}@", buf, 0x16u);
+    v25 = v1;
+    v26 = 2114;
+    v27 = v16;
+    _os_log_impl(&dword_1C241C000, v6, OS_LOG_TYPE_INFO, "Error: Error building slam calibration, unable to fetch vision data output parameters for %{public}@: %{public}@", buf, 0x16u);
   }
 
   AVCaptureConfig = 0;
 LABEL_17:
-  (v18)(v17);
+  v20(v19);
 
   return AVCaptureConfig;
 }
 
-uint64_t ARParseAndAddCameraCalibrationParameters(void *a1)
+uint64_t ARParseAndAddCameraCalibrationParameters(void *a1, uint64_t a2, unsigned int a3, unsigned int a4, unsigned int a5)
 {
-  v87 = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v2 = [v1 objectForKeyedSubscript:ARWorldTrackingBackWideCalibrationParametersKeyImageWidth];
-  v3 = [v2 intValue];
+  v97 = *MEMORY[0x1E69E9840];
+  v5 = a1;
+  v6 = [v5 objectForKeyedSubscript:ARWorldTrackingBackWideCalibrationParametersKeyImageWidth];
+  v7 = [v6 intValue];
 
-  v4 = [v1 objectForKeyedSubscript:ARWorldTrackingBackWideCalibrationParametersKeyImageHeight];
-  v5 = [v4 intValue];
+  v8 = [v5 objectForKeyedSubscript:ARWorldTrackingBackWideCalibrationParametersKeyImageHeight];
+  v9 = [v8 intValue];
 
-  if (v3)
+  if (v7)
   {
-    v6 = v5 == 0;
+    v11 = v9 == 0;
   }
 
   else
   {
-    v6 = 1;
+    v11 = 1;
   }
 
-  if (!v6)
+  if (!v11)
   {
-    v11 = [v1 objectForKeyedSubscript:ARWorldTrackingBackWideCalibrationParametersKeyLensType];
-    v9 = v11;
-    if (!v11)
+    v16 = [v5 objectForKeyedSubscript:ARWorldTrackingBackWideCalibrationParametersKeyLensType];
+    v14 = v16;
+    if (!v16)
     {
       if (ARShouldUseLogTypeError_onceToken_44 != -1)
       {
         ARParseAndAddCameraCalibrationParameters_cold_2();
       }
 
-      v17 = ARShouldUseLogTypeError_internalOSVersion_44;
-      v18 = _ARLogGeneral_37();
-      v12 = v18;
-      if (v17 == 1)
+      v23 = ARShouldUseLogTypeError_internalOSVersion_44;
+      v24 = _ARLogGeneral_37(v16);
+      v17 = v24;
+      if (v23 == 1)
       {
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           LODWORD(buf[0]) = 136446466;
           *(buf + 4) = "CV3DSLAMCalibrationReturn ARParseAndAddCameraCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull, CV3DSLAMCameraMode, const uint32_t, const uint32_t)";
           WORD2(buf[1]) = 2114;
           *(&buf[1] + 6) = 0;
-          _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_ERROR, "%{public}s: wrong lens type(%{public}@)", buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_ERROR, "%{public}s: wrong lens type(%{public}@)", buf, 0x16u);
         }
 
-        v10 = 1;
+        v15 = 1;
       }
 
       else
       {
-        v10 = 1;
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+        v15 = 1;
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
           LODWORD(buf[0]) = 136446466;
           *(buf + 4) = "CV3DSLAMCalibrationReturn ARParseAndAddCameraCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull, CV3DSLAMCameraMode, const uint32_t, const uint32_t)";
           WORD2(buf[1]) = 2114;
           *(&buf[1] + 6) = 0;
-          _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_INFO, "Error: %{public}s: wrong lens type(%{public}@)", buf, 0x16u);
+          _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_INFO, "Error: %{public}s: wrong lens type(%{public}@)", buf, 0x16u);
         }
       }
 
       goto LABEL_86;
     }
 
-    v12 = [v1 objectForKeyedSubscript:ARWorldTrackingBackWideCalibrationParametersKeyCameraMatrix];
-    v13 = [v12 componentsSeparatedByString:@", "];
-    if ([v13 count] <= 8)
+    v17 = [v5 objectForKeyedSubscript:ARWorldTrackingBackWideCalibrationParametersKeyCameraMatrix];
+    v18 = [v17 componentsSeparatedByString:@", "];
+    v19 = [v18 count];
+    if (v19 <= 8)
     {
       if (ARShouldUseLogTypeError_onceToken_44 != -1)
       {
         ARParseAndAddCameraCalibrationParameters_cold_2();
       }
 
-      v14 = ARShouldUseLogTypeError_internalOSVersion_44;
-      v15 = _ARLogGeneral_37();
-      v16 = v15;
-      if (v14 == 1)
+      v20 = ARShouldUseLogTypeError_internalOSVersion_44;
+      v21 = _ARLogGeneral_37(v19);
+      v22 = v21;
+      if (v20 == 1)
       {
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           LODWORD(buf[0]) = 136446466;
           *(buf + 4) = "CV3DSLAMCalibrationReturn ARParseAndAddCameraCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull, CV3DSLAMCameraMode, const uint32_t, const uint32_t)";
           WORD2(buf[1]) = 1024;
-          *(&buf[1] + 6) = [v13 count];
-          _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_ERROR, "%{public}s: wrong Intrinsics array (intrinsicsArray.count=%d)", buf, 0x12u);
+          *(&buf[1] + 6) = [v18 count];
+          _os_log_impl(&dword_1C241C000, v22, OS_LOG_TYPE_ERROR, "%{public}s: wrong Intrinsics array (intrinsicsArray.count=%d)", buf, 0x12u);
         }
 
-        v10 = 1;
+        v15 = 1;
       }
 
       else
       {
-        v10 = 1;
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+        v15 = 1;
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
         {
           LODWORD(buf[0]) = 136446466;
           *(buf + 4) = "CV3DSLAMCalibrationReturn ARParseAndAddCameraCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull, CV3DSLAMCameraMode, const uint32_t, const uint32_t)";
           WORD2(buf[1]) = 1024;
-          *(&buf[1] + 6) = [v13 count];
-          _os_log_impl(&dword_1C241C000, v16, OS_LOG_TYPE_INFO, "Error: %{public}s: wrong Intrinsics array (intrinsicsArray.count=%d)", buf, 0x12u);
+          *(&buf[1] + 6) = [v18 count];
+          _os_log_impl(&dword_1C241C000, v22, OS_LOG_TYPE_INFO, "Error: %{public}s: wrong Intrinsics array (intrinsicsArray.count=%d)", buf, 0x12u);
         }
       }
 
       goto LABEL_85;
     }
 
-    v19 = [v13 objectAtIndex:0];
-    [v19 floatValue];
+    v25 = [v18 objectAtIndex:0];
+    [v25 floatValue];
 
-    v20 = [v13 objectAtIndex:4];
-    [v20 floatValue];
+    v26 = [v18 objectAtIndex:4];
+    [v26 floatValue];
 
-    v21 = [v13 objectAtIndex:2];
-    [v21 floatValue];
+    v27 = [v18 objectAtIndex:2];
+    [v27 floatValue];
 
-    v22 = [v13 objectAtIndex:5];
-    [v22 floatValue];
+    v28 = [v18 objectAtIndex:5];
+    [v28 floatValue];
 
-    v76 = [v1 objectForKeyedSubscript:ARWorldTrackingBackWideCalibrationParametersKeyRadialDistortion];
-    v23 = [v76 componentsSeparatedByString:@", "];
-    if ([v23 count] <= 2)
+    v86 = [v5 objectForKeyedSubscript:ARWorldTrackingBackWideCalibrationParametersKeyRadialDistortion];
+    v29 = [v86 componentsSeparatedByString:@", "];
+    v30 = [v29 count];
+    if (v30 <= 2)
     {
       if (ARShouldUseLogTypeError_onceToken_44 != -1)
       {
         ARParseAndAddCameraCalibrationParameters_cold_2();
       }
 
-      v16 = v76;
-      v24 = ARShouldUseLogTypeError_internalOSVersion_44;
-      v25 = _ARLogGeneral_37();
-      v26 = v25;
-      if (v24 == 1)
+      v22 = v86;
+      v31 = ARShouldUseLogTypeError_internalOSVersion_44;
+      v32 = _ARLogGeneral_37(v30);
+      v33 = v32;
+      if (v31 == 1)
       {
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
           LODWORD(buf[0]) = 136315394;
           *(buf + 4) = "CV3DSLAMCalibrationReturn ARParseAndAddCameraCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull, CV3DSLAMCameraMode, const uint32_t, const uint32_t)";
           WORD2(buf[1]) = 1024;
-          *(&buf[1] + 6) = [v23 count];
-          v27 = "%s: wrong radialDistortionArray array (radialDistortionArray.count=%d)";
-          v28 = v26;
-          v29 = OS_LOG_TYPE_ERROR;
+          *(&buf[1] + 6) = [v29 count];
+          v34 = "%s: wrong radialDistortionArray array (radialDistortionArray.count=%d)";
+          v35 = v33;
+          v36 = OS_LOG_TYPE_ERROR;
 LABEL_48:
-          _os_log_impl(&dword_1C241C000, v28, v29, v27, buf, 0x12u);
+          _os_log_impl(&dword_1C241C000, v35, v36, v34, buf, 0x12u);
         }
       }
 
-      else if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
       {
         LODWORD(buf[0]) = 136315394;
         *(buf + 4) = "CV3DSLAMCalibrationReturn ARParseAndAddCameraCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull, CV3DSLAMCameraMode, const uint32_t, const uint32_t)";
         WORD2(buf[1]) = 1024;
-        *(&buf[1] + 6) = [v23 count];
-        v27 = "Error: %s: wrong radialDistortionArray array (radialDistortionArray.count=%d)";
-        v28 = v26;
-        v29 = OS_LOG_TYPE_INFO;
+        *(&buf[1] + 6) = [v29 count];
+        v34 = "Error: %s: wrong radialDistortionArray array (radialDistortionArray.count=%d)";
+        v35 = v33;
+        v36 = OS_LOG_TYPE_INFO;
         goto LABEL_48;
       }
 
-      v10 = 1;
+      v15 = 1;
 LABEL_84:
 
 LABEL_85:
@@ -6888,181 +6895,184 @@ LABEL_86:
       goto LABEL_87;
     }
 
-    v74 = v12;
-    v30 = 0;
-    memset(v86, 0, sizeof(v86));
+    v84 = v17;
+    v37 = 0;
+    memset(v96, 0, sizeof(v96));
     do
     {
-      v31 = [v23 objectAtIndex:v30];
-      [v31 doubleValue];
-      *(v86 + v30) = v32;
+      v38 = [v29 objectAtIndex:v37];
+      [v38 doubleValue];
+      *(v96 + v37) = v39;
 
-      ++v30;
+      ++v37;
     }
 
-    while (v30 != 4);
-    v73 = [v1 objectForKeyedSubscript:ARWorldTrackingBackWideCalibrationParametersKeyTangentialDistortion];
-    v33 = [v73 componentsSeparatedByString:{@", "}];
-    v75 = v33;
-    if ([v33 count] < 2)
+    while (v37 != 4);
+    v83 = [v5 objectForKeyedSubscript:ARWorldTrackingBackWideCalibrationParametersKeyTangentialDistortion];
+    v40 = [v83 componentsSeparatedByString:{@", "}];
+    v41 = [v40 count];
+    v85 = v40;
+    if (v41 < 2)
     {
       if (ARShouldUseLogTypeError_onceToken_44 != -1)
       {
         ARParseAndAddCameraCalibrationParameters_cold_2();
       }
 
-      v16 = v76;
-      v34 = ARShouldUseLogTypeError_internalOSVersion_44;
-      v35 = _ARLogGeneral_37();
-      v36 = v35;
-      v12 = v74;
-      if (v34 == 1)
+      v22 = v86;
+      v42 = ARShouldUseLogTypeError_internalOSVersion_44;
+      v43 = _ARLogGeneral_37(v41);
+      v44 = v43;
+      v17 = v84;
+      if (v42 == 1)
       {
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
           LODWORD(buf[0]) = 136315394;
           *(buf + 4) = "CV3DSLAMCalibrationReturn ARParseAndAddCameraCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull, CV3DSLAMCameraMode, const uint32_t, const uint32_t)";
           WORD2(buf[1]) = 1024;
-          *(&buf[1] + 6) = [v75 count];
-          v37 = "%s: wrong tangentialDistortionArray (tangentialDistortionArray.count=%d)";
-          v38 = v36;
-          v39 = OS_LOG_TYPE_ERROR;
+          *(&buf[1] + 6) = [v85 count];
+          v45 = "%s: wrong tangentialDistortionArray (tangentialDistortionArray.count=%d)";
+          v46 = v44;
+          v47 = OS_LOG_TYPE_ERROR;
 LABEL_58:
-          _os_log_impl(&dword_1C241C000, v38, v39, v37, buf, 0x12u);
+          _os_log_impl(&dword_1C241C000, v46, v47, v45, buf, 0x12u);
         }
       }
 
-      else if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
       {
         LODWORD(buf[0]) = 136315394;
         *(buf + 4) = "CV3DSLAMCalibrationReturn ARParseAndAddCameraCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull, CV3DSLAMCameraMode, const uint32_t, const uint32_t)";
         WORD2(buf[1]) = 1024;
-        *(&buf[1] + 6) = [v75 count];
-        v37 = "Error: %s: wrong tangentialDistortionArray (tangentialDistortionArray.count=%d)";
-        v38 = v36;
-        v39 = OS_LOG_TYPE_INFO;
+        *(&buf[1] + 6) = [v85 count];
+        v45 = "Error: %s: wrong tangentialDistortionArray (tangentialDistortionArray.count=%d)";
+        v46 = v44;
+        v47 = OS_LOG_TYPE_INFO;
         goto LABEL_58;
       }
 
-      v10 = 1;
+      v15 = 1;
 LABEL_83:
 
       goto LABEL_84;
     }
 
-    v40 = [v33 objectAtIndex:0];
-    [v40 doubleValue];
-    v85[3] = v41;
-    v42 = [v33 objectAtIndex:1];
-    [v42 doubleValue];
-    v85[4] = v43;
+    v48 = [v40 objectAtIndex:0];
+    [v48 doubleValue];
+    v95[3] = v49;
+    v50 = [v40 objectAtIndex:1];
+    [v50 doubleValue];
+    v95[4] = v51;
 
-    v71 = [v1 objectForKeyedSubscript:ARWorldTrackingBackWideCalibrationParametersKeyCameraToImuPosition];
-    v72 = [v71 componentsSeparatedByString:{@", "}];
-    if ([v72 count] <= 2)
+    v81 = [v5 objectForKeyedSubscript:ARWorldTrackingBackWideCalibrationParametersKeyCameraToImuPosition];
+    v82 = [v81 componentsSeparatedByString:{@", "}];
+    v52 = [v82 count];
+    if (v52 <= 2)
     {
-      v16 = v76;
+      v22 = v86;
       if (ARShouldUseLogTypeError_onceToken_44 != -1)
       {
         ARParseAndAddCameraCalibrationParameters_cold_2();
       }
 
-      v12 = v74;
-      v44 = v72;
-      v45 = ARShouldUseLogTypeError_internalOSVersion_44;
-      v46 = _ARLogGeneral_37();
-      v47 = v46;
-      if (v45 == 1)
+      v17 = v84;
+      v53 = v82;
+      v54 = ARShouldUseLogTypeError_internalOSVersion_44;
+      v55 = _ARLogGeneral_37(v52);
+      v56 = v55;
+      if (v54 == 1)
       {
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
         {
           LODWORD(buf[0]) = 136315394;
           *(buf + 4) = "CV3DSLAMCalibrationReturn ARParseAndAddCameraCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull, CV3DSLAMCameraMode, const uint32_t, const uint32_t)";
           WORD2(buf[1]) = 1024;
-          *(&buf[1] + 6) = [v72 count];
-          v48 = "%s: wrong cameraToImuPositionArray (cameraToImuPositionArray=%d)";
-          v49 = v47;
-          v50 = OS_LOG_TYPE_ERROR;
+          *(&buf[1] + 6) = [v82 count];
+          v57 = "%s: wrong cameraToImuPositionArray (cameraToImuPositionArray=%d)";
+          v58 = v56;
+          v59 = OS_LOG_TYPE_ERROR;
 LABEL_66:
-          _os_log_impl(&dword_1C241C000, v49, v50, v48, buf, 0x12u);
+          _os_log_impl(&dword_1C241C000, v58, v59, v57, buf, 0x12u);
         }
       }
 
-      else if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
       {
         LODWORD(buf[0]) = 136315394;
         *(buf + 4) = "CV3DSLAMCalibrationReturn ARParseAndAddCameraCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull, CV3DSLAMCameraMode, const uint32_t, const uint32_t)";
         WORD2(buf[1]) = 1024;
-        *(&buf[1] + 6) = [v72 count];
-        v48 = "Error: %s: wrong cameraToImuPositionArray (cameraToImuPositionArray=%d)";
-        v49 = v47;
-        v50 = OS_LOG_TYPE_INFO;
+        *(&buf[1] + 6) = [v82 count];
+        v57 = "Error: %s: wrong cameraToImuPositionArray (cameraToImuPositionArray=%d)";
+        v58 = v56;
+        v59 = OS_LOG_TYPE_INFO;
         goto LABEL_66;
       }
 
-      v10 = 1;
+      v15 = 1;
 LABEL_82:
 
       goto LABEL_83;
     }
 
-    v51 = 0;
-    memset(v85, 0, 24);
+    v60 = 0;
+    memset(v95, 0, 24);
     do
     {
-      v52 = [v72 objectAtIndex:v51];
-      [v52 doubleValue];
-      v85[v51] = v53;
+      v61 = [v82 objectAtIndex:v60];
+      [v61 doubleValue];
+      v95[v60] = v62;
 
-      ++v51;
+      ++v60;
     }
 
-    while (v51 != 3);
-    v54 = [v1 objectForKeyedSubscript:ARWorldTrackingBackWideCalibrationParametersKeyCameraToImuRotation];
-    v55 = [v54 componentsSeparatedByString:{@", "}];
-    v70 = v55;
-    if ([v55 count] < 9)
+    while (v60 != 3);
+    v63 = [v5 objectForKeyedSubscript:ARWorldTrackingBackWideCalibrationParametersKeyCameraToImuRotation];
+    v64 = [v63 componentsSeparatedByString:{@", "}];
+    v80 = v64;
+    if ([v64 count] < 9)
     {
-      v10 = 1;
-      v12 = v74;
-      v16 = v76;
-      v44 = v72;
+      v15 = 1;
+      v17 = v84;
+      v22 = v86;
+      v53 = v82;
 LABEL_81:
 
       goto LABEL_82;
     }
 
-    v69 = v54;
-    v56 = 0;
-    v84 = 0;
-    v82 = 0u;
-    v83 = 0u;
+    v79 = v63;
+    v65 = 0;
+    v94 = 0;
+    v92 = 0u;
+    v93 = 0u;
     memset(buf, 0, sizeof(buf));
     do
     {
-      v57 = [v55 objectAtIndex:v56];
-      [v57 doubleValue];
-      buf[v56] = v58;
+      v66 = [v64 objectAtIndex:v65];
+      [v66 doubleValue];
+      buf[v65] = v67;
 
-      ++v56;
+      ++v65;
     }
 
-    while (v56 != 9);
-    v59 = [v1 objectForKeyedSubscript:ARWorldTrackingBackWideCalibrationParametersKeyTimestampCorrectionForCamera];
-    [v59 doubleValue];
+    while (v65 != 9);
+    v68 = [v5 objectForKeyedSubscript:ARWorldTrackingBackWideCalibrationParametersKeyTimestampCorrectionForCamera];
+    [v68 doubleValue];
 
-    v60 = [v1 objectForKeyedSubscript:ARWorldTrackingBackWideCalibrationParametersKeyCameraReadoutTime];
-    [v60 doubleValue];
+    v69 = [v5 objectForKeyedSubscript:ARWorldTrackingBackWideCalibrationParametersKeyCameraReadoutTime];
+    [v69 doubleValue];
 
-    ARGetCV3DCameraLensDistortionModelFromLensType(v9);
-    v10 = CV3DSLAMCalibrationAddCameraParameters2();
-    v12 = v74;
-    v44 = v72;
-    v54 = v69;
-    if (!v10)
+    ARGetCV3DCameraLensDistortionModelFromLensType(v14);
+    v70 = CV3DSLAMCalibrationAddCameraParameters2();
+    v15 = v70;
+    v17 = v84;
+    v53 = v82;
+    v63 = v79;
+    if (!v70)
     {
 LABEL_80:
-      v16 = v76;
+      v22 = v86;
       goto LABEL_81;
     }
 
@@ -7071,40 +7081,40 @@ LABEL_80:
       ARGetAnchorIdentifierFromAnchorRef_cold_1();
     }
 
-    v61 = ARShouldUseLogTypeError_internalOSVersion_44;
-    v62 = _ARLogGeneral_37();
-    v63 = v62;
-    if (v61 == 1)
+    v71 = ARShouldUseLogTypeError_internalOSVersion_44;
+    v72 = _ARLogGeneral_37(v70);
+    v73 = v72;
+    if (v71 == 1)
     {
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
       {
-        v64 = NSStringFromCV3DSLAMCalibrationReturn(v10);
-        *v77 = 136315394;
-        v78 = "CV3DSLAMCalibrationReturn ARParseAndAddCameraCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull, CV3DSLAMCameraMode, const uint32_t, const uint32_t)";
-        v79 = 2112;
-        v80 = v64;
-        v65 = "%s: CV3DSLAMCalibrationAddCameraParameters failed (result=%@)";
-        v66 = v63;
-        v67 = OS_LOG_TYPE_ERROR;
+        v74 = NSStringFromCV3DSLAMCalibrationReturn(v15);
+        *v87 = 136315394;
+        v88 = "CV3DSLAMCalibrationReturn ARParseAndAddCameraCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull, CV3DSLAMCameraMode, const uint32_t, const uint32_t)";
+        v89 = 2112;
+        v90 = v74;
+        v75 = "%s: CV3DSLAMCalibrationAddCameraParameters failed (result=%@)";
+        v76 = v73;
+        v77 = OS_LOG_TYPE_ERROR;
 LABEL_78:
-        _os_log_impl(&dword_1C241C000, v66, v67, v65, v77, 0x16u);
+        _os_log_impl(&dword_1C241C000, v76, v77, v75, v87, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
     {
-      v64 = NSStringFromCV3DSLAMCalibrationReturn(v10);
-      *v77 = 136315394;
-      v78 = "CV3DSLAMCalibrationReturn ARParseAndAddCameraCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull, CV3DSLAMCameraMode, const uint32_t, const uint32_t)";
-      v79 = 2112;
-      v80 = v64;
-      v65 = "Error: %s: CV3DSLAMCalibrationAddCameraParameters failed (result=%@)";
-      v66 = v63;
-      v67 = OS_LOG_TYPE_INFO;
+      v74 = NSStringFromCV3DSLAMCalibrationReturn(v15);
+      *v87 = 136315394;
+      v88 = "CV3DSLAMCalibrationReturn ARParseAndAddCameraCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull, CV3DSLAMCameraMode, const uint32_t, const uint32_t)";
+      v89 = 2112;
+      v90 = v74;
+      v75 = "Error: %s: CV3DSLAMCalibrationAddCameraParameters failed (result=%@)";
+      v76 = v73;
+      v77 = OS_LOG_TYPE_INFO;
       goto LABEL_78;
     }
 
-    v54 = v69;
+    v63 = v79;
     goto LABEL_80;
   }
 
@@ -7113,43 +7123,43 @@ LABEL_78:
     ARParseAndAddCameraCalibrationParameters_cold_2();
   }
 
-  v7 = ARShouldUseLogTypeError_internalOSVersion_44;
-  v8 = _ARLogGeneral_37();
-  v9 = v8;
-  if (v7 == 1)
+  v12 = ARShouldUseLogTypeError_internalOSVersion_44;
+  v13 = _ARLogGeneral_37(v10);
+  v14 = v13;
+  if (v12 == 1)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       LODWORD(buf[0]) = 136446722;
       *(buf + 4) = "CV3DSLAMCalibrationReturn ARParseAndAddCameraCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull, CV3DSLAMCameraMode, const uint32_t, const uint32_t)";
       WORD2(buf[1]) = 1024;
-      *(&buf[1] + 6) = v3;
+      *(&buf[1] + 6) = v7;
       WORD1(buf[2]) = 1024;
-      HIDWORD(buf[2]) = v5;
-      _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_ERROR, "%{public}s: wrong width (%d) or height(%d)", buf, 0x18u);
+      HIDWORD(buf[2]) = v9;
+      _os_log_impl(&dword_1C241C000, v14, OS_LOG_TYPE_ERROR, "%{public}s: wrong width (%d) or height(%d)", buf, 0x18u);
     }
 
-    v10 = 1;
+    v15 = 1;
   }
 
   else
   {
-    v10 = 1;
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v15 = 1;
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       LODWORD(buf[0]) = 136446722;
       *(buf + 4) = "CV3DSLAMCalibrationReturn ARParseAndAddCameraCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull, CV3DSLAMCameraMode, const uint32_t, const uint32_t)";
       WORD2(buf[1]) = 1024;
-      *(&buf[1] + 6) = v3;
+      *(&buf[1] + 6) = v7;
       WORD1(buf[2]) = 1024;
-      HIDWORD(buf[2]) = v5;
-      _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_INFO, "Error: %{public}s: wrong width (%d) or height(%d)", buf, 0x18u);
+      HIDWORD(buf[2]) = v9;
+      _os_log_impl(&dword_1C241C000, v14, OS_LOG_TYPE_INFO, "Error: %{public}s: wrong width (%d) or height(%d)", buf, 0x18u);
     }
   }
 
 LABEL_87:
 
-  return v10;
+  return v15;
 }
 
 uint64_t ARGetCV3DCameraLensDistortionModelFromLensType(void *a1)
@@ -7172,7 +7182,8 @@ uint64_t ARGetCV3DCameraLensDistortionModelFromLensType(void *a1)
     goto LABEL_9;
   }
 
-  if ([v1 isEqualToString:@"NoDistortion"])
+  v3 = [v1 isEqualToString:@"NoDistortion"];
+  if (v3)
   {
     v2 = 3;
     goto LABEL_9;
@@ -7183,30 +7194,30 @@ uint64_t ARGetCV3DCameraLensDistortionModelFromLensType(void *a1)
     ARParseAndAddCameraCalibrationParameters_cold_2();
   }
 
-  v4 = ARShouldUseLogTypeError_internalOSVersion_44;
-  v5 = _ARLogGeneral_37();
-  v6 = v5;
-  if (v4 == 1)
+  v5 = ARShouldUseLogTypeError_internalOSVersion_44;
+  v6 = _ARLogGeneral_37(v3);
+  v7 = v6;
+  if (v5 == 1)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v12 = 0;
-      v7 = "LensType not configured in calibration directory, defaulting to Perspective";
-      v8 = &v12;
-      v9 = v6;
-      v10 = OS_LOG_TYPE_ERROR;
+      v13 = 0;
+      v8 = "LensType not configured in calibration directory, defaulting to Perspective";
+      v9 = &v13;
+      v10 = v7;
+      v11 = OS_LOG_TYPE_ERROR;
 LABEL_17:
-      _os_log_impl(&dword_1C241C000, v9, v10, v7, v8, 2u);
+      _os_log_impl(&dword_1C241C000, v10, v11, v8, v9, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v11 = 0;
-    v7 = "Error: LensType not configured in calibration directory, defaulting to Perspective";
-    v8 = &v11;
-    v9 = v6;
-    v10 = OS_LOG_TYPE_INFO;
+    v12 = 0;
+    v8 = "Error: LensType not configured in calibration directory, defaulting to Perspective";
+    v9 = &v12;
+    v10 = v7;
+    v11 = OS_LOG_TYPE_INFO;
     goto LABEL_17;
   }
 
@@ -7397,89 +7408,92 @@ LABEL_34:
   return v45;
 }
 
-uint64_t ARParseAndAddImuCalibrationParameters(void *a1)
+uint64_t ARParseAndAddImuCalibrationParameters(void *a1, uint64_t a2)
 {
-  v39[3] = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v2 = [v1 valueForKey:@"Gravity"];
-  v3 = [v2 componentsSeparatedByString:{@", "}];
-  if ([v3 count] > 2)
+  v43[3] = *MEMORY[0x1E69E9840];
+  v2 = a1;
+  v3 = [v2 valueForKey:@"Gravity"];
+  v4 = [v3 componentsSeparatedByString:{@", "}];
+  v5 = [v4 count];
+  if (v5 > 2)
   {
-    v10 = 0;
-    memset(v39, 0, 24);
+    v12 = 0;
+    memset(v43, 0, 24);
     do
     {
-      v11 = [v3 objectAtIndex:v10];
-      [v11 doubleValue];
-      v39[v10] = v12;
+      v13 = [v4 objectAtIndex:v12];
+      [v13 doubleValue];
+      v43[v12] = v14;
 
-      ++v10;
+      ++v12;
     }
 
-    while (v10 != 3);
-    v13 = [v1 valueForKey:@"ImuNoiseCharacteristics"];
-    v14 = [v13 componentsSeparatedByString:{@", "}];
-    if ([v14 count] < 4)
+    while (v12 != 3);
+    v15 = [v2 valueForKey:@"ImuNoiseCharacteristics"];
+    v16 = [v15 componentsSeparatedByString:{@", "}];
+    v17 = [v16 count];
+    if (v17 < 4)
     {
       if (ARShouldUseLogTypeError_onceToken_44 != -1)
       {
         ARParseAndAddCameraCalibrationParameters_cold_2();
       }
 
-      v15 = ARShouldUseLogTypeError_internalOSVersion_44;
-      v16 = _ARLogGeneral_37();
-      v17 = v16;
-      if (v15 == 1)
+      v18 = ARShouldUseLogTypeError_internalOSVersion_44;
+      v19 = _ARLogGeneral_37(v17);
+      v20 = v19;
+      if (v18 == 1)
       {
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
           LODWORD(buf[0]) = 136446466;
           *(buf + 4) = "CV3DSLAMCalibrationReturn ARParseAndAddImuCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull)";
           WORD2(buf[1]) = 1024;
-          *(&buf[1] + 6) = [v14 count];
-          v18 = "%{public}s: wrong imuNoiseCharacteristicsArray (imuNoiseCharacteristicsArray.count=%d)";
-          v19 = v17;
-          v20 = OS_LOG_TYPE_ERROR;
+          *(&buf[1] + 6) = [v16 count];
+          v21 = "%{public}s: wrong imuNoiseCharacteristicsArray (imuNoiseCharacteristicsArray.count=%d)";
+          v22 = v20;
+          v23 = OS_LOG_TYPE_ERROR;
 LABEL_29:
-          _os_log_impl(&dword_1C241C000, v19, v20, v18, buf, 0x12u);
+          _os_log_impl(&dword_1C241C000, v22, v23, v21, buf, 0x12u);
         }
       }
 
-      else if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      else if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         LODWORD(buf[0]) = 136446466;
         *(buf + 4) = "CV3DSLAMCalibrationReturn ARParseAndAddImuCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull)";
         WORD2(buf[1]) = 1024;
-        *(&buf[1] + 6) = [v14 count];
-        v18 = "Error: %{public}s: wrong imuNoiseCharacteristicsArray (imuNoiseCharacteristicsArray.count=%d)";
-        v19 = v17;
-        v20 = OS_LOG_TYPE_INFO;
+        *(&buf[1] + 6) = [v16 count];
+        v21 = "Error: %{public}s: wrong imuNoiseCharacteristicsArray (imuNoiseCharacteristicsArray.count=%d)";
+        v22 = v20;
+        v23 = OS_LOG_TYPE_INFO;
         goto LABEL_29;
       }
 
-      v21 = 1;
+      v24 = 1;
 LABEL_35:
 
       goto LABEL_36;
     }
 
-    v22 = 0;
+    v25 = 0;
     memset(buf, 0, sizeof(buf));
     do
     {
-      v23 = [v14 objectAtIndex:v22];
-      [v23 doubleValue];
-      buf[v22] = v24;
+      v26 = [v16 objectAtIndex:v25];
+      [v26 doubleValue];
+      buf[v25] = v27;
 
-      ++v22;
+      ++v25;
     }
 
-    while (v22 != 4);
-    v25 = [v1 valueForKey:@"AccelerometerTimestampCorrection"];
-    [v25 doubleValue];
+    while (v25 != 4);
+    v28 = [v2 valueForKey:@"AccelerometerTimestampCorrection"];
+    [v28 doubleValue];
 
-    v21 = CV3DSLAMCalibrationAddIMUParameters();
-    if (!v21)
+    v29 = CV3DSLAMCalibrationAddIMUParameters();
+    v24 = v29;
+    if (!v29)
     {
       goto LABEL_35;
     }
@@ -7489,36 +7503,36 @@ LABEL_35:
       ARGetAnchorIdentifierFromAnchorRef_cold_1();
     }
 
-    v26 = ARShouldUseLogTypeError_internalOSVersion_44;
-    v27 = _ARLogGeneral_37();
-    v28 = v27;
-    if (v26 == 1)
+    v30 = ARShouldUseLogTypeError_internalOSVersion_44;
+    v31 = _ARLogGeneral_37(v29);
+    v32 = v31;
+    if (v30 == 1)
     {
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        v29 = NSStringFromCV3DSLAMCalibrationReturn(v21);
-        v34 = 136315394;
-        v35 = "CV3DSLAMCalibrationReturn ARParseAndAddImuCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull)";
-        v36 = 2112;
-        v37 = v29;
-        v30 = "%s: CV3DSLAMCalibrationAddIMUParameters failed (result=%@)";
-        v31 = v28;
-        v32 = OS_LOG_TYPE_ERROR;
+        v33 = NSStringFromCV3DSLAMCalibrationReturn(v24);
+        v38 = 136315394;
+        v39 = "CV3DSLAMCalibrationReturn ARParseAndAddImuCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull)";
+        v40 = 2112;
+        v41 = v33;
+        v34 = "%s: CV3DSLAMCalibrationAddIMUParameters failed (result=%@)";
+        v35 = v32;
+        v36 = OS_LOG_TYPE_ERROR;
 LABEL_33:
-        _os_log_impl(&dword_1C241C000, v31, v32, v30, &v34, 0x16u);
+        _os_log_impl(&dword_1C241C000, v35, v36, v34, &v38, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
     {
-      v29 = NSStringFromCV3DSLAMCalibrationReturn(v21);
-      v34 = 136315394;
-      v35 = "CV3DSLAMCalibrationReturn ARParseAndAddImuCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull)";
-      v36 = 2112;
-      v37 = v29;
-      v30 = "Error: %s: CV3DSLAMCalibrationAddIMUParameters failed (result=%@)";
-      v31 = v28;
-      v32 = OS_LOG_TYPE_INFO;
+      v33 = NSStringFromCV3DSLAMCalibrationReturn(v24);
+      v38 = 136315394;
+      v39 = "CV3DSLAMCalibrationReturn ARParseAndAddImuCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull)";
+      v40 = 2112;
+      v41 = v33;
+      v34 = "Error: %s: CV3DSLAMCalibrationAddIMUParameters failed (result=%@)";
+      v35 = v32;
+      v36 = OS_LOG_TYPE_INFO;
       goto LABEL_33;
     }
 
@@ -7530,41 +7544,41 @@ LABEL_33:
     ARParseAndAddCameraCalibrationParameters_cold_2();
   }
 
-  v4 = ARShouldUseLogTypeError_internalOSVersion_44;
-  v5 = _ARLogGeneral_37();
-  v6 = v5;
-  if (v4 == 1)
+  v6 = ARShouldUseLogTypeError_internalOSVersion_44;
+  v7 = _ARLogGeneral_37(v5);
+  v8 = v7;
+  if (v6 == 1)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       LODWORD(buf[0]) = 136446466;
       *(buf + 4) = "CV3DSLAMCalibrationReturn ARParseAndAddImuCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull)";
       WORD2(buf[1]) = 1024;
-      *(&buf[1] + 6) = [v3 count];
-      v7 = "%{public}s: wrong gravityArray (gravityArray.count=%d)";
-      v8 = v6;
-      v9 = OS_LOG_TYPE_ERROR;
+      *(&buf[1] + 6) = [v4 count];
+      v9 = "%{public}s: wrong gravityArray (gravityArray.count=%d)";
+      v10 = v8;
+      v11 = OS_LOG_TYPE_ERROR;
 LABEL_17:
-      _os_log_impl(&dword_1C241C000, v8, v9, v7, buf, 0x12u);
+      _os_log_impl(&dword_1C241C000, v10, v11, v9, buf, 0x12u);
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf[0]) = 136446466;
     *(buf + 4) = "CV3DSLAMCalibrationReturn ARParseAndAddImuCalibrationParameters(NSDictionary *__strong _Nonnull, CV3DSLAMMutableCalibrationRef _Nonnull)";
     WORD2(buf[1]) = 1024;
-    *(&buf[1] + 6) = [v3 count];
-    v7 = "Error: %{public}s: wrong gravityArray (gravityArray.count=%d)";
-    v8 = v6;
-    v9 = OS_LOG_TYPE_INFO;
+    *(&buf[1] + 6) = [v4 count];
+    v9 = "Error: %{public}s: wrong gravityArray (gravityArray.count=%d)";
+    v10 = v8;
+    v11 = OS_LOG_TYPE_INFO;
     goto LABEL_17;
   }
 
-  v21 = 1;
+  v24 = 1;
 LABEL_36:
 
-  return v21;
+  return v24;
 }
 
 float ARGetIntrinsicsFromCalibrationDictionary(void *a1)
@@ -7589,127 +7603,129 @@ float ARGetIntrinsicsFromCalibrationDictionary(void *a1)
 
 void ARGetRadialDistortionFromCalibrationDictionary(void *a1@<X0>, _OWORD *a2@<X8>)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = [a1 objectForKey:*MEMORY[0x1E698BE20]];
   v4 = [v3 objectForKey:*MEMORY[0x1E698BE30]];
   v5 = [v4 objectForKey:*MEMORY[0x1E698BE40]];
-  if ([v5 count] < 3)
+  v6 = [v5 count];
+  if (v6 < 3)
   {
     if (ARShouldUseLogTypeError_onceToken_44 != -1)
     {
       ARParseAndAddCameraCalibrationParameters_cold_2();
     }
 
-    v15 = ARShouldUseLogTypeError_internalOSVersion_44;
-    v16 = _ARLogGeneral_37();
-    v17 = v16;
-    if (v15 == 1)
+    v16 = ARShouldUseLogTypeError_internalOSVersion_44;
+    v17 = _ARLogGeneral_37(v6);
+    v18 = v17;
+    if (v16 == 1)
     {
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v26 = [v5 count];
-        v18 = "ARGetRadialDistortionFromCalibrationDictionary: wrong radialDistortion coeffs (coefficients.count = %d)";
-        v19 = v17;
-        v20 = OS_LOG_TYPE_ERROR;
+        v27 = [v5 count];
+        v19 = "ARGetRadialDistortionFromCalibrationDictionary: wrong radialDistortion coeffs (coefficients.count = %d)";
+        v20 = v18;
+        v21 = OS_LOG_TYPE_ERROR;
 LABEL_10:
-        _os_log_impl(&dword_1C241C000, v19, v20, v18, buf, 8u);
+        _os_log_impl(&dword_1C241C000, v20, v21, v19, buf, 8u);
       }
     }
 
-    else if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v26 = [v5 count];
-      v18 = "Error: ARGetRadialDistortionFromCalibrationDictionary: wrong radialDistortion coeffs (coefficients.count = %d)";
-      v19 = v17;
-      v20 = OS_LOG_TYPE_INFO;
+      v27 = [v5 count];
+      v19 = "Error: ARGetRadialDistortionFromCalibrationDictionary: wrong radialDistortion coeffs (coefficients.count = %d)";
+      v20 = v18;
+      v21 = OS_LOG_TYPE_INFO;
       goto LABEL_10;
     }
 
-    v13 = 0uLL;
     v14 = 0uLL;
+    v15 = 0uLL;
     goto LABEL_12;
   }
 
-  v6 = [v5 objectAtIndexedSubscript:0];
-  [v6 doubleValue];
-  v23 = v7;
+  v7 = [v5 objectAtIndexedSubscript:0];
+  [v7 doubleValue];
+  v24 = v8;
 
-  v8 = [v5 objectAtIndexedSubscript:1];
-  [v8 doubleValue];
-  v21 = v9;
+  v9 = [v5 objectAtIndexedSubscript:1];
+  [v9 doubleValue];
+  v22 = v10;
 
-  v10 = [v5 objectAtIndexedSubscript:2];
-  [v10 doubleValue];
-  *&v11 = v23;
-  *(&v11 + 1) = v21;
-  v24 = v11;
-  v22 = v12;
+  v11 = [v5 objectAtIndexedSubscript:2];
+  [v11 doubleValue];
+  *&v12 = v24;
+  *(&v12 + 1) = v22;
+  v25 = v12;
+  v23 = v13;
 
-  v14 = v22;
-  v13 = v24;
+  v15 = v23;
+  v14 = v25;
 LABEL_12:
-  *a2 = v13;
-  a2[1] = v14;
+  *a2 = v14;
+  a2[1] = v15;
 }
 
 __n128 ARGetTangentialDistortionFromCalibrationDictionary(void *a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v1 = [a1 objectForKey:*MEMORY[0x1E698BE20]];
   v2 = [v1 objectForKey:*MEMORY[0x1E698BE30]];
   v3 = [v2 objectForKey:*MEMORY[0x1E698BE48]];
-  if ([v3 count] < 2)
+  v4 = [v3 count];
+  if (v4 < 2)
   {
     if (ARShouldUseLogTypeError_onceToken_44 != -1)
     {
       ARParseAndAddCameraCalibrationParameters_cold_2();
     }
 
-    v9 = ARShouldUseLogTypeError_internalOSVersion_44;
-    v10 = _ARLogGeneral_37();
-    v11 = v10;
-    if (v9 == 1)
+    v10 = ARShouldUseLogTypeError_internalOSVersion_44;
+    v11 = _ARLogGeneral_37(v4);
+    v12 = v11;
+    if (v10 == 1)
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v19 = [v3 count];
-        v12 = "ARGetTangentialDistortionFromCalibrationDictionary: wrong tangentialDistortion coeffs (coefficients.count = %d)";
-        v13 = v11;
-        v14 = OS_LOG_TYPE_ERROR;
+        v20 = [v3 count];
+        v13 = "ARGetTangentialDistortionFromCalibrationDictionary: wrong tangentialDistortion coeffs (coefficients.count = %d)";
+        v14 = v12;
+        v15 = OS_LOG_TYPE_ERROR;
 LABEL_10:
-        _os_log_impl(&dword_1C241C000, v13, v14, v12, buf, 8u);
+        _os_log_impl(&dword_1C241C000, v14, v15, v13, buf, 8u);
       }
     }
 
-    else if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v19 = [v3 count];
-      v12 = "Error: ARGetTangentialDistortionFromCalibrationDictionary: wrong tangentialDistortion coeffs (coefficients.count = %d)";
-      v13 = v11;
-      v14 = OS_LOG_TYPE_INFO;
+      v20 = [v3 count];
+      v13 = "Error: ARGetTangentialDistortionFromCalibrationDictionary: wrong tangentialDistortion coeffs (coefficients.count = %d)";
+      v14 = v12;
+      v15 = OS_LOG_TYPE_INFO;
       goto LABEL_10;
     }
 
-    v17 = 0u;
+    v18 = 0u;
     goto LABEL_12;
   }
 
-  v4 = [v3 objectAtIndexedSubscript:0];
-  [v4 doubleValue];
-  v16 = v5;
+  v5 = [v3 objectAtIndexedSubscript:0];
+  [v5 doubleValue];
+  v17 = v6;
 
-  v6 = [v3 objectAtIndexedSubscript:1];
-  [v6 doubleValue];
-  *&v7 = v16;
-  *(&v7 + 1) = v8;
-  v17 = v7;
+  v7 = [v3 objectAtIndexedSubscript:1];
+  [v7 doubleValue];
+  *&v8 = v17;
+  *(&v8 + 1) = v9;
+  v18 = v8;
 
 LABEL_12:
-  return v17;
+  return v18;
 }
 
 uint64_t ARSurfaceOrientationForPlaneDetectionType(char a1)
@@ -7868,163 +7884,164 @@ void ARReleaseHitTestIntent(uint64_t a1)
 
 uint64_t ARCreateCV3DLoggingHandle(uint64_t a1, uint64_t a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   Handle = CV3DLoggingCreateHandle();
+  v5 = Handle;
   if (a1 < 0)
   {
-    v9 = _ARLogGeneral_37();
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = _ARLogGeneral_37(Handle);
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       goto LABEL_17;
     }
 
-    LOWORD(v24) = 0;
-    v10 = "AppleCV3D API logging disabled";
-    v11 = v9;
-    v12 = OS_LOG_TYPE_INFO;
-    v13 = 2;
+    LOWORD(v26) = 0;
+    v11 = "AppleCV3D API logging disabled";
+    v12 = v10;
+    v13 = OS_LOG_TYPE_INFO;
+    v14 = 2;
     goto LABEL_16;
   }
 
-  v5 = CV3DLoggingEnable();
-  if (v5)
+  v6 = CV3DLoggingEnable();
+  if (v6)
   {
-    v6 = v5;
+    v7 = v6;
     if (ARShouldUseLogTypeError_onceToken_44 != -1)
     {
       ARParseAndAddCameraCalibrationParameters_cold_2();
     }
 
-    v7 = ARShouldUseLogTypeError_internalOSVersion_44;
-    v8 = _ARLogGeneral_37();
-    v9 = v8;
-    if (v7 == 1)
+    v8 = ARShouldUseLogTypeError_internalOSVersion_44;
+    v9 = _ARLogGeneral_37(v6);
+    v10 = v9;
+    if (v8 == 1)
     {
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_17;
       }
 
-      v24 = 67109120;
-      v25 = v6;
-      v10 = "Error enabling AppleCV3D API logging: %i";
-      v11 = v9;
-      v12 = OS_LOG_TYPE_ERROR;
+      v26 = 67109120;
+      v27 = v7;
+      v11 = "Error enabling AppleCV3D API logging: %i";
+      v12 = v10;
+      v13 = OS_LOG_TYPE_ERROR;
       goto LABEL_15;
     }
 
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
-    {
-      goto LABEL_17;
-    }
-
-    v24 = 67109120;
-    v25 = v6;
-    v10 = "Error: Error enabling AppleCV3D API logging: %i";
-  }
-
-  else
-  {
-    v9 = _ARLogGeneral_37();
     if (!os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       goto LABEL_17;
     }
 
-    v24 = 67109120;
-    v25 = a1;
-    v10 = "AppleCV3D API logging level enabled: %i";
+    v26 = 67109120;
+    v27 = v7;
+    v11 = "Error: Error enabling AppleCV3D API logging: %i";
   }
 
-  v11 = v9;
-  v12 = OS_LOG_TYPE_INFO;
+  else
+  {
+    v10 = _ARLogGeneral_37(v6);
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    {
+      goto LABEL_17;
+    }
+
+    v26 = 67109120;
+    v27 = a1;
+    v11 = "AppleCV3D API logging level enabled: %i";
+  }
+
+  v12 = v10;
+  v13 = OS_LOG_TYPE_INFO;
 LABEL_15:
-  v13 = 8;
+  v14 = 8;
 LABEL_16:
-  _os_log_impl(&dword_1C241C000, v11, v12, v10, &v24, v13);
+  _os_log_impl(&dword_1C241C000, v12, v13, v11, &v26, v14);
 LABEL_17:
 
   if (a2 < 0)
   {
-    v18 = _ARLogGeneral_37();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v20 = _ARLogGeneral_37(v15);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v24) = 0;
-      v19 = "AppleCV3D internal logging disabled";
-      v20 = v18;
-      v21 = OS_LOG_TYPE_INFO;
-      v22 = 2;
+      LOWORD(v26) = 0;
+      v21 = "AppleCV3D internal logging disabled";
+      v22 = v20;
+      v23 = OS_LOG_TYPE_INFO;
+      v24 = 2;
 LABEL_32:
-      _os_log_impl(&dword_1C241C000, v20, v21, v19, &v24, v22);
+      _os_log_impl(&dword_1C241C000, v22, v23, v21, &v26, v24);
       goto LABEL_33;
     }
 
     goto LABEL_33;
   }
 
-  v14 = CV3DLoggingEnableInternal();
-  if (!v14)
+  v16 = CV3DLoggingEnableInternal();
+  if (!v16)
   {
-    v18 = _ARLogGeneral_37();
-    if (!os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v20 = _ARLogGeneral_37(v16);
+    if (!os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       goto LABEL_33;
     }
 
-    v24 = 67109120;
-    v25 = a2;
-    v19 = "AppleCV3D internal logging level enabled: %i";
+    v26 = 67109120;
+    v27 = a2;
+    v21 = "AppleCV3D internal logging level enabled: %i";
 LABEL_30:
-    v20 = v18;
-    v21 = OS_LOG_TYPE_INFO;
+    v22 = v20;
+    v23 = OS_LOG_TYPE_INFO;
     goto LABEL_31;
   }
 
-  v15 = v14;
+  v17 = v16;
   if (ARShouldUseLogTypeError_onceToken_44 != -1)
   {
     ARGetAnchorIdentifierFromAnchorRef_cold_1();
   }
 
-  v16 = ARShouldUseLogTypeError_internalOSVersion_44;
-  v17 = _ARLogGeneral_37();
-  v18 = v17;
-  if (v16 != 1)
+  v18 = ARShouldUseLogTypeError_internalOSVersion_44;
+  v19 = _ARLogGeneral_37(v16);
+  v20 = v19;
+  if (v18 != 1)
   {
-    if (!os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       goto LABEL_33;
     }
 
-    v24 = 67109120;
-    v25 = v15;
-    v19 = "Error: Error enabling AppleCV3D internal logging: %i";
+    v26 = 67109120;
+    v27 = v17;
+    v21 = "Error: Error enabling AppleCV3D internal logging: %i";
     goto LABEL_30;
   }
 
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
-    v24 = 67109120;
-    v25 = v15;
-    v19 = "Error enabling AppleCV3D internal logging: %i";
-    v20 = v18;
-    v21 = OS_LOG_TYPE_ERROR;
+    v26 = 67109120;
+    v27 = v17;
+    v21 = "Error enabling AppleCV3D internal logging: %i";
+    v22 = v20;
+    v23 = OS_LOG_TYPE_ERROR;
 LABEL_31:
-    v22 = 8;
+    v24 = 8;
     goto LABEL_32;
   }
 
 LABEL_33:
 
-  return Handle;
+  return v5;
 }
 
 id ARAnchorsFromCV3DAnchorsArray(void *a1, double a2)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [v3 count];
-  v38 = [MEMORY[0x1E695DFA8] setWithCapacity:v4];
+  v39 = [MEMORY[0x1E695DFA8] setWithCapacity:v4];
   if (v4)
   {
     v5 = 0;
@@ -8047,7 +8064,7 @@ id ARAnchorsFromCV3DAnchorsArray(void *a1, double a2)
 
         else
         {
-          v19 = _ARLogGeneral_37();
+          v19 = _ARLogGeneral_37(0);
           if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
@@ -8060,52 +8077,53 @@ id ARAnchorsFromCV3DAnchorsArray(void *a1, double a2)
           v12 = 0;
         }
 
-        if (CV3DSLAMAnchorCopyPose())
+        v20 = CV3DSLAMAnchorCopyPose();
+        if (v20)
         {
-          v51.columns[2] = 0u;
-          v51.columns[3] = 0u;
-          v51.columns[0] = 0u;
-          v51.columns[1] = 0u;
-          v43 = __invert_f4(v51);
-          *v20.i64 = ARVisionToRenderingCoordinateTransform();
-          v24 = 0;
-          v44 = v43;
+          v52.columns[2] = 0u;
+          v52.columns[3] = 0u;
+          v52.columns[0] = 0u;
+          v52.columns[1] = 0u;
+          v44 = __invert_f4(v52);
+          *v21.i64 = ARVisionToRenderingCoordinateTransform();
+          v25 = 0;
+          v45 = v44;
           *buf = 0u;
-          v46 = 0u;
           v47 = 0u;
           v48 = 0u;
+          v49 = 0u;
           do
           {
-            *&buf[v24 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v20, COERCE_FLOAT(*&v44.columns[v24])), v21, *v44.columns[v24].f32, 1), v22, v44.columns[v24], 2), v23, v44.columns[v24], 3);
-            ++v24;
+            *&buf[v25 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v21, COERCE_FLOAT(*&v45.columns[v25])), v22, *v45.columns[v25].f32, 1), v23, v45.columns[v25], 2), v24, v45.columns[v25], 3);
+            ++v25;
           }
 
-          while (v24 != 4);
-          v41 = v46;
-          v42 = *buf;
-          v39 = v48;
-          v40 = v47;
-          *v25.i64 = ARRenderingToVisionCoordinateTransform();
-          v26 = 0;
-          v44.columns[0] = v25;
-          v44.columns[1] = v27;
-          v44.columns[2] = v28;
-          v44.columns[3] = v29;
+          while (v25 != 4);
+          v42 = v47;
+          v43 = *buf;
+          v40 = v49;
+          v41 = v48;
+          *v26.i64 = ARRenderingToVisionCoordinateTransform();
+          v27 = 0;
+          v45.columns[0] = v26;
+          v45.columns[1] = v28;
+          v45.columns[2] = v29;
+          v45.columns[3] = v30;
           *buf = 0u;
-          v46 = 0u;
           v47 = 0u;
           v48 = 0u;
+          v49 = 0u;
           do
           {
-            *&buf[v26 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v42, COERCE_FLOAT(*&v44.columns[v26])), v41, *v44.columns[v26].f32, 1), v40, v44.columns[v26], 2), v39, v44.columns[v26], 3);
-            ++v26;
+            *&buf[v27 * 16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v43, COERCE_FLOAT(*&v45.columns[v27])), v42, *v45.columns[v27].f32, 1), v41, v45.columns[v27], 2), v40, v45.columns[v27], 3);
+            ++v27;
           }
 
-          while (v26 != 4);
-          v30 = [[ARAnchor alloc] initWithIdentifier:v9 transform:*buf, *v46.i64, *v47.i64, *v48.i64];
-          [(ARAnchor *)v30 setSessionIdentifier:v12];
-          [(ARAnchor *)v30 setLastUpdateTimestamp:a2];
-          [v38 addObject:v30];
+          while (v27 != 4);
+          v31 = [[ARAnchor alloc] initWithIdentifier:v9 transform:*buf, *v47.i64, *v48.i64, *v49.i64];
+          [(ARAnchor *)v31 setSessionIdentifier:v12];
+          [(ARAnchor *)v31 setLastUpdateTimestamp:a2];
+          [v39 addObject:v31];
 
           goto LABEL_33;
         }
@@ -8115,31 +8133,31 @@ id ARAnchorsFromCV3DAnchorsArray(void *a1, double a2)
           ARGetAnchorIdentifierFromAnchorRef_cold_1();
         }
 
-        v31 = ARShouldUseLogTypeError_internalOSVersion_44;
-        v32 = _ARLogGeneral_37();
-        v33 = v32;
-        if (v31 == 1)
+        v32 = ARShouldUseLogTypeError_internalOSVersion_44;
+        v33 = _ARLogGeneral_37(v20);
+        v34 = v33;
+        if (v32 == 1)
         {
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
             *&buf[4] = 0;
-            v34 = v33;
-            v35 = OS_LOG_TYPE_ERROR;
-            v36 = "Unable to parse SLAM anchor transform: %@";
+            v35 = v34;
+            v36 = OS_LOG_TYPE_ERROR;
+            v37 = "Unable to parse SLAM anchor transform: %@";
             goto LABEL_31;
           }
         }
 
-        else if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
           *&buf[4] = 0;
-          v34 = v33;
-          v35 = OS_LOG_TYPE_INFO;
-          v36 = "Error: Unable to parse SLAM anchor transform: %@";
+          v35 = v34;
+          v36 = OS_LOG_TYPE_INFO;
+          v37 = "Error: Unable to parse SLAM anchor transform: %@";
 LABEL_31:
-          _os_log_impl(&dword_1C241C000, v34, v35, v36, buf, 0xCu);
+          _os_log_impl(&dword_1C241C000, v35, v36, v37, buf, 0xCu);
         }
 
         v6 = 0x1E696A000;
@@ -8154,7 +8172,7 @@ LABEL_33:
       }
 
       v13 = ARShouldUseLogTypeError_internalOSVersion_44;
-      v14 = _ARLogGeneral_37();
+      v14 = _ARLogGeneral_37(v7);
       v15 = v14;
       if (v13 == 1)
       {
@@ -8187,19 +8205,20 @@ LABEL_34:
     while (v5 != v4);
   }
 
-  return v38;
+  return v39;
 }
 
 id ARGetAnchorIdentifierFromCMData(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v12 = 0;
-  v11 = 0uLL;
-  v10 = 0;
-  if (MEMORY[0x1C6919870](a1, &v12, &v11, &v10))
+  v15 = *MEMORY[0x1E69E9840];
+  v13 = 0;
+  v12 = 0uLL;
+  v11 = 0;
+  v1 = MEMORY[0x1C6919870](a1, &v13, &v12, &v11);
+  if (v1)
   {
-    *buf = v11;
-    v1 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:buf];
+    *buf = v12;
+    v2 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:buf];
     goto LABEL_12;
   }
 
@@ -8208,44 +8227,44 @@ id ARGetAnchorIdentifierFromCMData(uint64_t a1)
     ARGetAnchorIdentifierFromAnchorRef_cold_1();
   }
 
-  v2 = ARShouldUseLogTypeError_internalOSVersion_44;
-  v3 = _ARLogGeneral_37();
-  v4 = v3;
-  if (v2 == 1)
+  v3 = ARShouldUseLogTypeError_internalOSVersion_44;
+  v4 = _ARLogGeneral_37(v1);
+  v5 = v4;
+  if (v3 == 1)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v5 = v10;
+      v6 = v11;
       *buf = 138412290;
-      *&buf[4] = v10;
-      v6 = "Unable to parse anchor metadata: %@";
-      v7 = v4;
-      v8 = OS_LOG_TYPE_ERROR;
+      *&buf[4] = v11;
+      v7 = "Unable to parse anchor metadata: %@";
+      v8 = v5;
+      v9 = OS_LOG_TYPE_ERROR;
 LABEL_10:
-      _os_log_impl(&dword_1C241C000, v7, v8, v6, buf, 0xCu);
+      _os_log_impl(&dword_1C241C000, v8, v9, v7, buf, 0xCu);
     }
   }
 
-  else if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v5 = v10;
+    v6 = v11;
     *buf = 138412290;
-    *&buf[4] = v10;
-    v6 = "Error: Unable to parse anchor metadata: %@";
-    v7 = v4;
-    v8 = OS_LOG_TYPE_INFO;
+    *&buf[4] = v11;
+    v7 = "Error: Unable to parse anchor metadata: %@";
+    v8 = v5;
+    v9 = OS_LOG_TYPE_INFO;
     goto LABEL_10;
   }
 
-  v1 = 0;
+  v2 = 0;
 LABEL_12:
 
-  return v1;
+  return v2;
 }
 
-__n128 ARCV3DColorComponentsForRawSemantics(unint64_t a1)
+__n128 ARCV3DColorComponentsForRawSemantics(unint64_t a1, uint64_t a2)
 {
-  if (ARDeviceSupportsJasper())
+  if (ARDeviceSupportsJasper(a1, a2))
   {
     if (_CV3DColorMappingForRawSemantics_onceToken != -1)
     {
@@ -8255,8 +8274,8 @@ __n128 ARCV3DColorComponentsForRawSemantics(unint64_t a1)
     result.n128_u64[0] = 0;
     if (a1 <= 0x64)
     {
-      v3 = &_CV3DColorMappingForRawSemantics_cv3DColors;
-      return v3[a1];
+      v4 = &_CV3DColorMappingForRawSemantics_cv3DColors;
+      return v4[a1];
     }
   }
 
@@ -8270,8 +8289,8 @@ __n128 ARCV3DColorComponentsForRawSemantics(unint64_t a1)
     result.n128_u64[0] = 0;
     if (a1 <= 0xB)
     {
-      v3 = &_CV3DColorComponentsFor12ClassModelIndex_cv3DColors;
-      return v3[a1];
+      v4 = &_CV3DColorComponentsFor12ClassModelIndex_cv3DColors;
+      return v4[a1];
     }
   }
 
@@ -8291,7 +8310,7 @@ uint64_t _CV3DRawSemanticsValueForARKitSemantics(uint64_t a1)
   }
 }
 
-__int128 *ARCV3DColorComponentsForARKitSemanticsLUT8Elements()
+__int128 *ARCV3DColorComponentsForARKitSemanticsLUT8Elements(uint64_t a1, uint64_t a2)
 {
   if (ARCV3DColorComponentsForARKitSemanticsLUT8Elements_onceToken != -1)
   {
@@ -8320,7 +8339,7 @@ double __ARCV3DColorComponentsForARKitSemanticsLUT8Elements_block_invoke()
   return result;
 }
 
-__n128 ARCV3DColorComponentsForARKitSemantics(unint64_t a1)
+__n128 ARCV3DColorComponentsForARKitSemantics(unint64_t a1, uint64_t a2)
 {
   if (ARCV3DColorComponentsForARKitSemanticsLUT8Elements_onceToken != -1)
   {
@@ -8353,6 +8372,7 @@ BOOL __ARSkipCrashOnCrash_block_invoke_1()
 uint64_t ARCreatePlaneDetectionExtentTypeForPlaneDetectionType(__int16 a1)
 {
   v2 = CV3DPlaneDetectionExtentTypesCreate();
+  v3 = v2;
   if (v2)
   {
     goto LABEL_11;
@@ -8363,30 +8383,30 @@ uint64_t ARCreatePlaneDetectionExtentTypeForPlaneDetectionType(__int16 a1)
     ARCreatePlaneDetectionExtentTypeForPlaneDetectionType();
   }
 
-  v3 = ARShouldUseLogTypeError(void)::internalOSVersion;
-  v4 = _ARLogGeneral();
-  v5 = v4;
-  if (v3 == 1)
+  v4 = ARShouldUseLogTypeError(void)::internalOSVersion;
+  v5 = _ARLogGeneral(v2);
+  v6 = v5;
+  if (v4 == 1)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v12 = 0;
-      v6 = "Could not instantiate desired extent for plane detection";
-      v7 = &v12;
-      v8 = v5;
-      v9 = OS_LOG_TYPE_ERROR;
+      v13 = 0;
+      v7 = "Could not instantiate desired extent for plane detection";
+      v8 = &v13;
+      v9 = v6;
+      v10 = OS_LOG_TYPE_ERROR;
 LABEL_9:
-      _os_log_impl(&dword_1C241C000, v8, v9, v6, v7, 2u);
+      _os_log_impl(&dword_1C241C000, v9, v10, v7, v8, 2u);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v11 = 0;
-    v6 = "Error: Could not instantiate desired extent for plane detection";
-    v7 = &v11;
-    v8 = v5;
-    v9 = OS_LOG_TYPE_INFO;
+    v12 = 0;
+    v7 = "Error: Could not instantiate desired extent for plane detection";
+    v8 = &v12;
+    v9 = v6;
+    v10 = OS_LOG_TYPE_INFO;
     goto LABEL_9;
   }
 
@@ -8403,7 +8423,7 @@ LABEL_11:
     CV3DPlaneDetectionExtentTypesSetConvexHull();
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t ARPlaneDetectionOrientationForPlaneDetectionType(char a1)
@@ -8511,7 +8531,7 @@ uint64_t ExtractParams(const PlaneDetectionConfiguration *a1)
 
 void *PlaneDetectionSession::PlaneDetectionSession(void *a1, uint64_t a2, const PlaneDetectionConfiguration *a3, void *a4, void *a5)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v9 = a4;
   v10 = a5;
   a1[1] = 0;
@@ -8529,30 +8549,30 @@ void *PlaneDetectionSession::PlaneDetectionSession(void *a1, uint64_t a2, const 
       PlaneDetectionSession::PlaneDetectionSession();
     }
 
-    v21 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v22 = _ARLogGeneral();
-    v23 = v22;
-    if (v21 == 1)
+    v22 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v23 = _ARLogGeneral(v11);
+    v24 = v23;
+    if (v22 == 1)
     {
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v41 = CFErrorCopyDescription(err);
-        v24 = "Error initializing surface detection: %@";
-        v25 = v23;
-        v26 = OS_LOG_TYPE_ERROR;
+        v43 = CFErrorCopyDescription(err);
+        v25 = "Error initializing surface detection: %@";
+        v26 = v24;
+        v27 = OS_LOG_TYPE_ERROR;
 LABEL_15:
-        _os_log_impl(&dword_1C241C000, v25, v26, v24, buf, 0xCu);
+        _os_log_impl(&dword_1C241C000, v26, v27, v25, buf, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v41 = CFErrorCopyDescription(err);
-      v24 = "Error: Error initializing surface detection: %@";
-      v25 = v23;
-      v26 = OS_LOG_TYPE_INFO;
+      v43 = CFErrorCopyDescription(err);
+      v25 = "Error: Error initializing surface detection: %@";
+      v26 = v24;
+      v27 = OS_LOG_TYPE_INFO;
       goto LABEL_15;
     }
 
@@ -8560,19 +8580,20 @@ LABEL_15:
     goto LABEL_34;
   }
 
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = ___ZN21PlaneDetectionSessionC2EP15CV3DSLAMSessionRK27PlaneDetectionConfigurationU13block_pointerFvPK27CV3DPlaneDetectionPlaneListEU13block_pointerFvPK37CV3DPlaneDetectionSingleShotPlaneListE_block_invoke;
-  v38[3] = &__block_descriptor_40_e28_v80__0____CFUUID__8____4__16l;
-  v38[4] = a2;
-  v12 = MEMORY[0x1C691B4C0](v38);
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = ___ZN21PlaneDetectionSessionC2EP15CV3DSLAMSessionRK27PlaneDetectionConfigurationU13block_pointerFvPK27CV3DPlaneDetectionPlaneListEU13block_pointerFvPK37CV3DPlaneDetectionSingleShotPlaneListE_block_invoke_2;
-  v37[3] = &__block_descriptor_40_e19_v16__0____CFUUID__8l;
-  v37[4] = a2;
-  v13 = MEMORY[0x1C691B4C0](v37);
-  if (CV3DPlaneDetectionSessionSetAnchoringFunctors())
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = ___ZN21PlaneDetectionSessionC2EP15CV3DSLAMSessionRK27PlaneDetectionConfigurationU13block_pointerFvPK27CV3DPlaneDetectionPlaneListEU13block_pointerFvPK37CV3DPlaneDetectionSingleShotPlaneListE_block_invoke;
+  v40[3] = &__block_descriptor_40_e28_v80__0____CFUUID__8____4__16l;
+  v40[4] = a2;
+  v12 = MEMORY[0x1C691B4C0](v40);
+  v39[0] = MEMORY[0x1E69E9820];
+  v39[1] = 3221225472;
+  v39[2] = ___ZN21PlaneDetectionSessionC2EP15CV3DSLAMSessionRK27PlaneDetectionConfigurationU13block_pointerFvPK27CV3DPlaneDetectionPlaneListEU13block_pointerFvPK37CV3DPlaneDetectionSingleShotPlaneListE_block_invoke_2;
+  v39[3] = &__block_descriptor_40_e19_v16__0____CFUUID__8l;
+  v39[4] = a2;
+  v13 = MEMORY[0x1C691B4C0](v39);
+  v14 = CV3DPlaneDetectionSessionSetAnchoringFunctors();
+  if (v14)
   {
     goto LABEL_21;
   }
@@ -8582,70 +8603,71 @@ LABEL_15:
     PlaneDetectionSession::PlaneDetectionSession();
   }
 
-  v14 = ARShouldUseLogTypeError(void)::internalOSVersion;
-  v15 = _ARLogGeneral();
-  v16 = v15;
-  if (v14 == 1)
+  v15 = ARShouldUseLogTypeError(void)::internalOSVersion;
+  v16 = _ARLogGeneral(v14);
+  v17 = v16;
+  if (v15 == 1)
   {
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v17 = CFErrorCopyDescription(err);
+      v18 = CFErrorCopyDescription(err);
       *buf = 138412290;
-      v41 = v17;
-      v18 = "Error setting anchoring functors: %@";
-      v19 = v16;
-      v20 = OS_LOG_TYPE_ERROR;
+      v43 = v18;
+      v19 = "Error setting anchoring functors: %@";
+      v20 = v17;
+      v21 = OS_LOG_TYPE_ERROR;
 LABEL_19:
-      _os_log_impl(&dword_1C241C000, v19, v20, v18, buf, 0xCu);
+      _os_log_impl(&dword_1C241C000, v20, v21, v19, buf, 0xCu);
     }
   }
 
-  else if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
-    v27 = CFErrorCopyDescription(err);
+    v28 = CFErrorCopyDescription(err);
     *buf = 138412290;
-    v41 = v27;
-    v18 = "Error: Error setting anchoring functors: %@";
-    v19 = v16;
-    v20 = OS_LOG_TYPE_INFO;
+    v43 = v28;
+    v19 = "Error: Error setting anchoring functors: %@";
+    v20 = v17;
+    v21 = OS_LOG_TYPE_INFO;
     goto LABEL_19;
   }
 
   CFRelease(err);
 LABEL_21:
-  if ((CV3DPlaneDetectionSessionRegisterUpdateCallback() & 1) == 0)
+  updated = CV3DPlaneDetectionSessionRegisterUpdateCallback();
+  if ((updated & 1) == 0)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       PlaneDetectionSession::PlaneDetectionSession();
     }
 
-    v28 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v29 = _ARLogGeneral();
-    v30 = v29;
-    if (v28 == 1)
+    v30 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v31 = _ARLogGeneral(updated);
+    v32 = v31;
+    if (v30 == 1)
     {
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        v31 = CFErrorCopyDescription(err);
+        v33 = CFErrorCopyDescription(err);
         *buf = 138412290;
-        v41 = v31;
-        v32 = "Error registering update callback: %@";
-        v33 = v30;
-        v34 = OS_LOG_TYPE_ERROR;
+        v43 = v33;
+        v34 = "Error registering update callback: %@";
+        v35 = v32;
+        v36 = OS_LOG_TYPE_ERROR;
 LABEL_29:
-        _os_log_impl(&dword_1C241C000, v33, v34, v32, buf, 0xCu);
+        _os_log_impl(&dword_1C241C000, v35, v36, v34, buf, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
     {
-      v35 = CFErrorCopyDescription(err);
+      v37 = CFErrorCopyDescription(err);
       *buf = 138412290;
-      v41 = v35;
-      v32 = "Error: Error registering update callback: %@";
-      v33 = v30;
-      v34 = OS_LOG_TYPE_INFO;
+      v43 = v37;
+      v34 = "Error: Error registering update callback: %@";
+      v35 = v32;
+      v36 = OS_LOG_TYPE_INFO;
       goto LABEL_29;
     }
 
@@ -8678,7 +8700,7 @@ void PlaneDetectionSession::PushSlamState(PlaneDetectionSession *this, const CV3
 uint64_t PlaneDetectionSession::PushSemanticsAndNormals(PlaneDetectionSession *this, ARSegmentationData *a2, simd_float4x4 a3, simd_float3x3 a4, double a5)
 {
   v5 = a2;
-  [(ARSegmentationData *)v5 timestamp];
+  objc_msgSend_timestamp(v5);
   [(ARSegmentationData *)v5 segmentationBuffer];
   [(ARSegmentationData *)v5 confidenceBuffer];
   [(ARSegmentationData *)v5 normalsBuffer];
@@ -8693,7 +8715,7 @@ uint64_t PlaneDetectionSession::PushDepthWithSemantics(PlaneDetectionSession *th
 {
   v7 = a2;
   v8 = a3;
-  [(ARSegmentationData *)v8 timestamp];
+  objc_msgSend_timestamp(v8);
   [(ARMLDepthData *)v7 singleFrameDepthBuffer];
   [(ARMLDepthData *)v7 confidenceBuffer];
   [(ARMLDepthData *)v7 normalsBuffer];
@@ -8706,9 +8728,9 @@ uint64_t PlaneDetectionSession::PushDepthWithSemantics(PlaneDetectionSession *th
   return 1;
 }
 
-uint64_t PlaneDetectionSession::PushJasperPointCloud(uint64_t a1, void *a2)
+uint64_t PlaneDetectionSession::PushJasperPointCloud(uint64_t a1, void *a2, double a3, double a4, double a5, double a6, __n128 a7, __n128 a8, __n128 a9, double a10, double a11)
 {
-  v2 = a2;
+  v11 = a2;
   CV3DPlaneDetectionDepthCameraFrameCreateFromAD();
   CV3DPlaneDetectionPushSparseDepthFrame();
   CV3DPlaneDetectionDepthCameraFrameRelease();
@@ -8718,11 +8740,12 @@ uint64_t PlaneDetectionSession::PushJasperPointCloud(uint64_t a1, void *a2)
 
 id PlaneDetectionSession::SerializePlanes(PlaneDetectionSession *this)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v1 = objc_opt_new();
-  if (CV3DPlaneDetectionSerialize())
+  v2 = CV3DPlaneDetectionSerialize();
+  if (v2)
   {
-    v2 = 0;
+    v3 = 0;
     goto LABEL_12;
   }
 
@@ -8731,35 +8754,35 @@ id PlaneDetectionSession::SerializePlanes(PlaneDetectionSession *this)
     PlaneDetectionSession::PlaneDetectionSession();
   }
 
-  v3 = ARShouldUseLogTypeError(void)::internalOSVersion;
-  v4 = _ARLogGeneral();
-  v5 = v4;
-  if (v3 == 1)
+  v4 = ARShouldUseLogTypeError(void)::internalOSVersion;
+  v5 = _ARLogGeneral(v2);
+  v6 = v5;
+  if (v4 == 1)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v11 = CFErrorCopyDescription(0);
-      v6 = "Failed to serialize surface data: %@";
-      v7 = v5;
-      v8 = OS_LOG_TYPE_ERROR;
+      v12 = CFErrorCopyDescription(0);
+      v7 = "Failed to serialize surface data: %@";
+      v8 = v6;
+      v9 = OS_LOG_TYPE_ERROR;
 LABEL_10:
-      _os_log_impl(&dword_1C241C000, v7, v8, v6, buf, 0xCu);
+      _os_log_impl(&dword_1C241C000, v8, v9, v7, buf, 0xCu);
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v11 = CFErrorCopyDescription(0);
-    v6 = "Error: Failed to serialize surface data: %@";
-    v7 = v5;
-    v8 = OS_LOG_TYPE_INFO;
+    v12 = CFErrorCopyDescription(0);
+    v7 = "Error: Failed to serialize surface data: %@";
+    v8 = v6;
+    v9 = OS_LOG_TYPE_INFO;
     goto LABEL_10;
   }
 
   CFRelease(0);
-  v2 = v1;
+  v3 = v1;
   v1 = 0;
 LABEL_12:
 
@@ -8768,38 +8791,39 @@ LABEL_12:
 
 void PlaneDetectionSession::LoadPlanes(PlaneDetectionSession *this, const __CFData *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  if ((CV3DPlaneDetectionLoadMap() & 1) == 0)
+  v11 = *MEMORY[0x1E69E9840];
+  Map = CV3DPlaneDetectionLoadMap();
+  if ((Map & 1) == 0)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       PlaneDetectionSession::PlaneDetectionSession();
     }
 
-    v2 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v3 = _ARLogGeneral();
-    v4 = v3;
-    if (v2 == 1)
+    v3 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v4 = _ARLogGeneral(Map);
+    v5 = v4;
+    if (v3 == 1)
     {
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v9 = CFErrorCopyDescription(0);
-        v5 = "Failed to load surface data: %@";
-        v6 = v4;
-        v7 = OS_LOG_TYPE_ERROR;
+        v10 = CFErrorCopyDescription(0);
+        v6 = "Failed to load surface data: %@";
+        v7 = v5;
+        v8 = OS_LOG_TYPE_ERROR;
 LABEL_9:
-        _os_log_impl(&dword_1C241C000, v6, v7, v5, buf, 0xCu);
+        _os_log_impl(&dword_1C241C000, v7, v8, v6, buf, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v9 = CFErrorCopyDescription(0);
-      v5 = "Error: Failed to load surface data: %@";
-      v6 = v4;
-      v7 = OS_LOG_TYPE_INFO;
+      v10 = CFErrorCopyDescription(0);
+      v6 = "Error: Failed to load surface data: %@";
+      v7 = v5;
+      v8 = OS_LOG_TYPE_INFO;
       goto LABEL_9;
     }
 
@@ -8901,120 +8925,120 @@ void ___ZL13_ARLogGeneralv_block_invoke_23()
   _ARLogGeneral(void)::logObj = v0;
 }
 
-ARRaycastResult *raycastResultFromNewAPI(float32x4_t a1, float32x4_t a2, float32x4_t a3, float32x4_t a4)
+ARRaycastResult *raycastResultFromNewAPI(uint64_t a1, float32x4_t a2, float32x4_t a3, float32x4_t a4, float32x4_t a5)
 {
-  *v4.i64 = ARVisionToRenderingCoordinateTransform();
-  v33 = v4;
-  v35 = v5;
-  v29 = v7;
-  v31 = v6;
+  *v5.i64 = ARVisionToRenderingCoordinateTransform();
+  v34 = v5;
+  v36 = v6;
+  v30 = v8;
+  v32 = v7;
   CV3DRaycastResultTransformationToWorld();
-  v8 = 0;
-  v45 = v9;
+  v9 = 0;
   v46 = v10;
   v47 = v11;
   v48 = v12;
+  v49 = v13;
   do
   {
-    *(&v49 + v8) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v33, COERCE_FLOAT(*(&v45 + v8))), v35, *&v45.f32[v8 / 4], 1), v31, *(&v45 + v8), 2), v29, *(&v45 + v8), 3);
-    v8 += 16;
+    *(&v50 + v9) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v34, COERCE_FLOAT(*(&v46 + v9))), v36, *&v46.f32[v9 / 4], 1), v32, *(&v46 + v9), 2), v30, *(&v46 + v9), 3);
+    v9 += 16;
   }
 
-  while (v8 != 64);
-  v34 = v49;
-  v36 = v50;
-  v30 = v52;
-  v32 = v51;
-  *v13.i64 = ARRenderingToVisionCoordinateTransform();
-  v14 = 0;
-  v45 = v13;
-  v46 = v15;
+  while (v9 != 64);
+  v35 = v50;
+  v37 = v51;
+  v31 = v53;
+  v33 = v52;
+  *v14.i64 = ARRenderingToVisionCoordinateTransform();
+  v15 = 0;
+  v46 = v14;
   v47 = v16;
   v48 = v17;
+  v49 = v18;
   do
   {
-    *(&v49 + v14) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v34, COERCE_FLOAT(*(&v45 + v14))), v36, *&v45.f32[v14 / 4], 1), v32, *(&v45 + v14), 2), v30, *(&v45 + v14), 3);
-    v14 += 16;
+    *(&v50 + v15) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v35, COERCE_FLOAT(*(&v46 + v15))), v37, *&v46.f32[v15 / 4], 1), v33, *(&v46 + v15), 2), v31, *(&v46 + v15), 3);
+    v15 += 16;
   }
 
-  while (v14 != 64);
-  v18 = 0;
-  v45 = v49;
+  while (v15 != 64);
+  v19 = 0;
   v46 = v50;
   v47 = v51;
   v48 = v52;
+  v49 = v53;
   do
   {
-    *(&v49 + v18) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a1, COERCE_FLOAT(*(&v45 + v18))), a2, *&v45.f32[v18 / 4], 1), a3, *(&v45 + v18), 2), a4, *(&v45 + v18), 3);
-    v18 += 16;
+    *(&v50 + v19) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a2, COERCE_FLOAT(*(&v46 + v19))), a3, *&v46.f32[v19 / 4], 1), a4, *(&v46 + v19), 2), a5, *(&v46 + v19), 3);
+    v19 += 16;
   }
 
-  while (v18 != 64);
-  v42 = *v51.i64;
-  v44 = *v52.i64;
-  v38 = *v49.i64;
-  v40 = *v50.i64;
-  v19 = CV3DRaycastResultOriginatedFrom();
-  v20 = CV3DRaycastResultExtentChecked() == *MEMORY[0x1E698BC50];
-  if (v19 == *MEMORY[0x1E698BC68])
+  while (v19 != 64);
+  v43 = *v52.i64;
+  v45 = *v53.i64;
+  v39 = *v50.i64;
+  v41 = *v51.i64;
+  v20 = CV3DRaycastResultOriginatedFrom();
+  v21 = CV3DRaycastResultExtentChecked() == *MEMORY[0x1E698BC50];
+  if (v20 == *MEMORY[0x1E698BC68])
   {
-    v21 = v20;
+    v22 = v21;
   }
 
   else
   {
-    v21 = 2;
+    v22 = 2;
   }
 
   ResultOrientation = CV3DRaycastGetResultOrientation();
-  v23 = 1;
+  v24 = 1;
   if (ResultOrientation != *MEMORY[0x1E698BC60])
   {
-    v23 = 2;
+    v24 = 2;
   }
 
   if (ResultOrientation == *MEMORY[0x1E698BC58])
   {
-    v24 = 0;
+    v25 = 0;
   }
 
   else
   {
-    v24 = v23;
+    v25 = v24;
   }
 
-  v25 = [[ARRaycastResult alloc] initWithWorldTransform:v21 target:v24 targetAlignment:v38, v40, v42, v44];
-  v26 = CV3DRaycastResultPlaneIdentifier();
-  if (v26)
+  v26 = [[ARRaycastResult alloc] initWithWorldTransform:v22 target:v25 targetAlignment:v39, v41, v43, v45];
+  v27 = CV3DRaycastResultPlaneIdentifier();
+  if (v27)
   {
-    v27 = [MEMORY[0x1E696AFB0] ar_UUIDWithCFUUIDRef:v26];
-    [(ARRaycastResult *)v25 setAnchorIdentifier:v27];
-    CFRelease(v26);
+    v28 = [MEMORY[0x1E696AFB0] ar_UUIDWithCFUUIDRef:v27];
+    [(ARRaycastResult *)v26 setAnchorIdentifier:v28];
+    CFRelease(v27);
   }
 
-  return v25;
+  return v26;
 }
 
-id raycastResultsFromNewAPI(float32x4_t a1, float32x4_t a2, float32x4_t a3, float32x4_t a4, uint64_t a5, void *a6)
+id raycastResultsFromNewAPI(uint64_t a1, void *a2, float32x4_t a3, float32x4_t a4, float32x4_t a5, float32x4_t a6)
 {
-  v17[1] = *MEMORY[0x1E69E9840];
-  v6 = a6;
+  v18[1] = *MEMORY[0x1E69E9840];
+  v6 = a2;
   v7 = objc_opt_new();
   for (i = 0; i < CV3DRayCastResultsLength(); ++i)
   {
-    CV3DRayCastResultAtIndex();
-    v9 = raycastResultFromNewAPI(a1, a2, a3, a4);
-    [v7 addObject:v9];
+    v9 = CV3DRayCastResultAtIndex();
+    v10 = raycastResultFromNewAPI(v9, a3, a4, a5, a6);
+    [v7 addObject:v10];
   }
 
   if ([v6 target] == 2)
   {
-    v10 = [v7 firstObject];
-    [v10 setTarget:2];
-    v17[0] = v10;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+    v11 = [v7 firstObject];
+    [v11 setTarget:2];
+    v18[0] = v11;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
 
-    v7 = v11;
+    v7 = v12;
   }
 
   return v7;
@@ -9022,12 +9046,12 @@ id raycastResultsFromNewAPI(float32x4_t a1, float32x4_t a2, float32x4_t a3, floa
 
 id ARRaycastResultsDictionaryFrom(const CV3DRaycastResultMap *a1, simd_float4x4 a2)
 {
-  v15 = CV3DRayCastResultMapLength();
-  if (v15)
+  v16 = CV3DRayCastResultMapLength();
+  if (v16)
   {
     v3 = objc_opt_new();
     theArray = MEMORY[0x1C6918D20](a1);
-    for (i = 0; i != v15; ++i)
+    for (i = 0; i != v16; ++i)
     {
       ValueAtIndex = CFArrayGetValueAtIndex(theArray, i);
       v6 = a1;
@@ -9038,18 +9062,18 @@ id ARRaycastResultsDictionaryFrom(const CV3DRaycastResultMap *a1, simd_float4x4 
       {
         for (j = 0; j != v8; ++j)
         {
-          CV3DRayCastResultAtIndex();
-          v10 = raycastResultFromNewAPI(a2.columns[0], a2.columns[1], a2.columns[2], a2.columns[3]);
-          v11 = [v3 objectForKeyedSubscript:v7];
+          v10 = CV3DRayCastResultAtIndex();
+          v11 = raycastResultFromNewAPI(v10, a2.columns[0], a2.columns[1], a2.columns[2], a2.columns[3]);
+          v12 = [v3 objectForKeyedSubscript:v7];
 
-          if (!v11)
+          if (!v12)
           {
-            v12 = objc_opt_new();
-            [v3 setObject:v12 forKeyedSubscript:v7];
+            v13 = objc_opt_new();
+            [v3 setObject:v13 forKeyedSubscript:v7];
           }
 
-          v13 = [v3 objectForKeyedSubscript:{v7, v15}];
-          [v13 addObject:v10];
+          v14 = [v3 objectForKeyedSubscript:{v7, v16}];
+          [v14 addObject:v11];
         }
       }
 
@@ -9244,79 +9268,81 @@ uint64_t *RaycastSession::RaycastSession(uint64_t *a1, uint64_t a2, void *a3, in
   return a1;
 }
 
-void ___ZN14RaycastSessionC2EP15CV3DSLAMSessionU13block_pointerFvPK20CV3DRaycastResultMapEb_block_invoke()
+void ___ZN14RaycastSessionC2EP15CV3DSLAMSessionU13block_pointerFvPK20CV3DRaycastResultMapEb_block_invoke(uint64_t a1, uint64_t a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  if ((CV3DSLAMSessionAddAnchor() & 1) == 0)
+  v15 = *MEMORY[0x1E69E9840];
+  v6 = CV3DSLAMSessionAddAnchor();
+  if ((v6 & 1) == 0)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       ___ZN14RaycastSessionC2EP15CV3DSLAMSessionU13block_pointerFvPK20CV3DRaycastResultMapEb_block_invoke_cold_1();
     }
 
-    v0 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v1 = _ARLogGeneral();
-    v2 = v1;
-    if (v0 == 1)
+    v7 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v8 = _ARLogGeneral(v6);
+    v9 = v8;
+    if (v7 == 1)
     {
-      if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v7 = 0;
-        v3 = "Error adding anchor: %@";
-        v4 = v2;
-        v5 = OS_LOG_TYPE_ERROR;
+        v14 = 0;
+        v10 = "Error adding anchor: %@";
+        v11 = v9;
+        v12 = OS_LOG_TYPE_ERROR;
 LABEL_9:
-        _os_log_impl(&dword_1C241C000, v4, v5, v3, buf, 0xCu);
+        _os_log_impl(&dword_1C241C000, v11, v12, v10, buf, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v7 = 0;
-      v3 = "Error: Error adding anchor: %@";
-      v4 = v2;
-      v5 = OS_LOG_TYPE_INFO;
+      v14 = 0;
+      v10 = "Error: Error adding anchor: %@";
+      v11 = v9;
+      v12 = OS_LOG_TYPE_INFO;
       goto LABEL_9;
     }
   }
 }
 
-void ___ZN14RaycastSessionC2EP15CV3DSLAMSessionU13block_pointerFvPK20CV3DRaycastResultMapEb_block_invoke_5()
+void ___ZN14RaycastSessionC2EP15CV3DSLAMSessionU13block_pointerFvPK20CV3DRaycastResultMapEb_block_invoke_5(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  if ((CV3DSLAMSessionRemoveAnchor() & 1) == 0)
+  v11 = *MEMORY[0x1E69E9840];
+  v2 = CV3DSLAMSessionRemoveAnchor();
+  if ((v2 & 1) == 0)
   {
     if (ARShouldUseLogTypeError(void)::onceToken != -1)
     {
       ___ZN14RaycastSessionC2EP15CV3DSLAMSessionU13block_pointerFvPK20CV3DRaycastResultMapEb_block_invoke_cold_1();
     }
 
-    v0 = ARShouldUseLogTypeError(void)::internalOSVersion;
-    v1 = _ARLogGeneral();
-    v2 = v1;
-    if (v0 == 1)
+    v3 = ARShouldUseLogTypeError(void)::internalOSVersion;
+    v4 = _ARLogGeneral(v2);
+    v5 = v4;
+    if (v3 == 1)
     {
-      if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v7 = 0;
-        v3 = "Error removing anchor: %@";
-        v4 = v2;
-        v5 = OS_LOG_TYPE_ERROR;
+        v10 = 0;
+        v6 = "Error removing anchor: %@";
+        v7 = v5;
+        v8 = OS_LOG_TYPE_ERROR;
 LABEL_9:
-        _os_log_impl(&dword_1C241C000, v4, v5, v3, buf, 0xCu);
+        _os_log_impl(&dword_1C241C000, v7, v8, v6, buf, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v7 = 0;
-      v3 = "Error: Error removing anchor: %@";
-      v4 = v2;
-      v5 = OS_LOG_TYPE_INFO;
+      v10 = 0;
+      v6 = "Error: Error removing anchor: %@";
+      v7 = v5;
+      v8 = OS_LOG_TYPE_INFO;
       goto LABEL_9;
     }
   }
@@ -9329,16 +9355,16 @@ uint64_t RaycastSession::PushDenseFrame(RaycastSession *this, __CVBuffer *a2, __
   return CV3DRaycastDenseFrameRelease();
 }
 
-id RaycastSession::PerformHitTest(float32x4_t a1, float32x4_t a2, float32x4_t a3, float32x4_t a4, uint64_t a5, uint64_t a6, void *a7)
+id RaycastSession::PerformHitTest(uint64_t *a1, uint64_t a2, void *a3, float32x4_t a4, float32x4_t a5, float32x4_t a6, float32x4_t a7)
 {
-  v8 = a7;
-  intentFrom(a6);
+  v8 = a3;
+  intentFrom(a2);
   v9 = MEMORY[0x1E695E0F0];
   v10 = CV3DRaycastSessionAttemptWithIntent();
   CV3DRaycastIntentRelease();
   if (v10 && CV3DRayCastResultsLength())
   {
-    v9 = raycastResultsFromNewAPI(a1, a2, a3, a4, v10, v8);
+    v9 = raycastResultsFromNewAPI(v10, v8, a4, a5, a6, a7);
   }
 
   CV3DRaycastResultListRelease();
@@ -9378,16 +9404,16 @@ void ___ZL13_ARLogGeneralv_block_invoke_24()
   _ARLogGeneral(void)::logObj = v0;
 }
 
-id _ARLogGeneral_38()
+id _ARLogGeneral_38(uint64_t a1)
 {
   if (_ARLogGeneral_onceToken_40 != -1)
   {
     _ARLogGeneral_cold_1_38();
   }
 
-  v1 = _ARLogGeneral_logObj_40;
+  v2 = _ARLogGeneral_logObj_40;
 
-  return v1;
+  return v2;
 }
 
 void ARSurfaceUseCountIsZeroCallback(void *a1, uint64_t a2)
@@ -9531,7 +9557,7 @@ id visitChildren(int a1, int a2, void *a3, void *a4, uint64_t a5, uint64_t a6, _
           v26 = ;
           [v12 appendString:v26];
 
-          v27 = visitChildren((v38 + 1), [v21 intValue], v41, obj, a5, a6, a7);
+          v27 = visitChildren(v38 + 1, [v21 intValue], v41, obj, a5, a6, a7);
           [v12 appendString:v27];
           [v12 appendFormat:@"%@}\n", v13];
         }
@@ -9668,25 +9694,4 @@ void *ARC3DNeighborSharingVertex(void *result, uint64_t a2)
   }
 
   return result;
-}
-
-uint64_t ARC3DNeighborSharingVertices(void *a1, uint64_t a2, uint64_t a3)
-{
-  if (*a1 == a2 || *a1 == a3)
-  {
-    v4 = a1[1];
-    v5 = v4 == a3 || v4 == a2;
-    v6 = 5;
-    if (v5)
-    {
-      v6 = 3;
-    }
-  }
-
-  else
-  {
-    v6 = 4;
-  }
-
-  return a1[v6];
 }

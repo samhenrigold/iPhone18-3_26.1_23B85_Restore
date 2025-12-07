@@ -164,7 +164,7 @@ LABEL_27:
 
 - (id)jsonDictionary
 {
-  v33[7] = *MEMORY[0x1E69E9840];
+  v32[7] = *MEMORY[0x1E69E9840];
   contextSnapshot = [(BMOasisAnalyticsPerceptionSLAMPayload *)self contextSnapshot];
   jsonDictionary = [contextSnapshot jsonDictionary];
 
@@ -186,68 +186,68 @@ LABEL_27:
   relocalizationSucceeded = [(BMOasisAnalyticsPerceptionSLAMPayload *)self relocalizationSucceeded];
   jsonDictionary7 = [relocalizationSucceeded jsonDictionary];
 
-  v32[0] = @"contextSnapshot";
+  v31[0] = @"contextSnapshot";
   null = jsonDictionary;
   if (!jsonDictionary)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29 = null;
-  v33[0] = null;
-  v32[1] = @"submapCreated";
+  v28 = null;
+  v32[0] = null;
+  v31[1] = @"submapCreated";
   null2 = jsonDictionary2;
   if (!jsonDictionary2)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28 = null2;
-  v33[1] = null2;
-  v32[2] = @"submapUpdated";
+  v27 = null2;
+  v32[1] = null2;
+  v31[2] = @"submapUpdated";
   null3 = jsonDictionary3;
   if (!jsonDictionary3)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v31 = jsonDictionary;
-  v27 = null3;
-  v33[2] = null3;
-  v32[3] = @"submapLoaded";
+  v30 = jsonDictionary;
+  v26 = null3;
+  v32[2] = null3;
+  v31[3] = @"submapLoaded";
   null4 = jsonDictionary4;
   if (!jsonDictionary4)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30 = jsonDictionary2;
-  v33[3] = null4;
-  v32[4] = @"trackingLost";
+  v29 = jsonDictionary2;
+  v32[3] = null4;
+  v31[4] = @"trackingLost";
   null5 = jsonDictionary5;
   if (!jsonDictionary5)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v33[4] = null5;
-  v32[5] = @"trackingState";
+  v32[4] = null5;
+  v31[5] = @"trackingState";
   null6 = jsonDictionary6;
   if (!jsonDictionary6)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v33[5] = null6;
-  v32[6] = @"relocalizationSucceeded";
+  v32[5] = null6;
+  v31[6] = @"relocalizationSucceeded";
   null7 = jsonDictionary7;
   if (!jsonDictionary7)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v33[6] = null7;
-  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:7];
+  v32[6] = null7;
+  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:7];
   if (jsonDictionary7)
   {
     if (jsonDictionary6)
@@ -285,14 +285,14 @@ LABEL_18:
 
   if (jsonDictionary3)
   {
-    if (v30)
+    if (v29)
     {
       goto LABEL_22;
     }
 
 LABEL_30:
 
-    if (v31)
+    if (v30)
     {
       goto LABEL_23;
     }
@@ -300,13 +300,13 @@ LABEL_30:
     goto LABEL_31;
   }
 
-  if (!v30)
+  if (!v29)
   {
     goto LABEL_30;
   }
 
 LABEL_22:
-  if (v31)
+  if (v30)
   {
     goto LABEL_23;
   }
@@ -314,14 +314,13 @@ LABEL_22:
 LABEL_31:
 
 LABEL_23:
-  v25 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
 
 - (BMOasisAnalyticsPerceptionSLAMPayload)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v88[1] = *MEMORY[0x1E69E9840];
+  v87[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"contextSnapshot"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -331,30 +330,30 @@ LABEL_4:
     v9 = [dictionaryCopy objectForKeyedSubscript:@"submapCreated"];
     if (!v9 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v66 = 0;
+      v65 = 0;
 LABEL_7:
       v10 = [dictionaryCopy objectForKeyedSubscript:@"submapUpdated"];
       errorCopy2 = self;
       if (!v10 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
-        v65 = 0;
+        v64 = 0;
 LABEL_10:
         v11 = [dictionaryCopy objectForKeyedSubscript:@"submapLoaded"];
         if (!v11 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
-          v61 = 0;
+          v60 = 0;
 LABEL_13:
           v12 = [dictionaryCopy objectForKeyedSubscript:@"trackingLost"];
-          v62 = v8;
+          v61 = v8;
           if (!v12 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            v60 = 0;
+            v59 = 0;
 LABEL_16:
             v13 = [dictionaryCopy objectForKeyedSubscript:@"trackingState"];
             errorCopy = error;
             if (!v13 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              v54 = 0;
+              v53 = 0;
               goto LABEL_19;
             }
 
@@ -362,9 +361,9 @@ LABEL_16:
             if (objc_opt_isKindOfClass())
             {
               v14 = v13;
-              v69 = 0;
-              v54 = [[BMOasisAnalyticsTrackingStateEvent alloc] initWithJSONDictionary:v14 error:&v69];
-              v37 = v69;
+              v68 = 0;
+              v53 = [[BMOasisAnalyticsTrackingStateEvent alloc] initWithJSONDictionary:v14 error:&v68];
+              v37 = v68;
               if (v37)
               {
                 if (error)
@@ -382,7 +381,7 @@ LABEL_19:
               {
                 v15 = 0;
 LABEL_22:
-                error = [(BMOasisAnalyticsPerceptionSLAMPayload *)errorCopy2 initWithContextSnapshot:v62 submapCreated:v66 submapUpdated:v65 submapLoaded:v61 trackingLost:v60 trackingState:v54 relocalizationSucceeded:v15];
+                error = [(BMOasisAnalyticsPerceptionSLAMPayload *)errorCopy2 initWithContextSnapshot:v61 submapCreated:v65 submapUpdated:v64 submapLoaded:v60 trackingLost:v59 trackingState:v53 relocalizationSucceeded:v15];
                 errorCopy2 = error;
 LABEL_79:
 
@@ -393,9 +392,9 @@ LABEL_79:
               if (objc_opt_isKindOfClass())
               {
                 v42 = v14;
-                v68 = 0;
-                v15 = [[BMOasisAnalyticsRelocalizationSucceededEvent alloc] initWithJSONDictionary:v42 error:&v68];
-                v43 = v68;
+                v67 = 0;
+                v15 = [[BMOasisAnalyticsRelocalizationSucceededEvent alloc] initWithJSONDictionary:v42 error:&v67];
+                v43 = v67;
                 if (!v43)
                 {
 
@@ -415,13 +414,13 @@ LABEL_78:
 
               if (error)
               {
-                v53 = objc_alloc(MEMORY[0x1E696ABC0]);
-                v51 = *MEMORY[0x1E698F240];
-                v75 = *MEMORY[0x1E696A578];
+                v52 = objc_alloc(MEMORY[0x1E696ABC0]);
+                v50 = *MEMORY[0x1E698F240];
+                v74 = *MEMORY[0x1E696A578];
                 v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"relocalizationSucceeded"];
-                v76 = v15;
-                v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
-                *errorCopy = [v53 initWithDomain:v51 code:2 userInfo:v48];
+                v75 = v15;
+                v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+                *errorCopy = [v52 initWithDomain:v50 code:2 userInfo:v48];
 
                 goto LABEL_78;
               }
@@ -433,22 +432,22 @@ LABEL_88:
 
             if (error)
             {
-              v52 = objc_alloc(MEMORY[0x1E696ABC0]);
+              v51 = objc_alloc(MEMORY[0x1E696ABC0]);
               v47 = *MEMORY[0x1E698F240];
-              v77 = *MEMORY[0x1E696A578];
-              v54 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"trackingState"];
-              v78 = v54;
-              v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
+              v76 = *MEMORY[0x1E696A578];
+              v53 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"trackingState"];
+              v77 = v53;
+              v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
               error = 0;
-              *errorCopy = [v52 initWithDomain:v47 code:2 userInfo:v14];
+              *errorCopy = [v51 initWithDomain:v47 code:2 userInfo:v14];
 LABEL_80:
             }
 
 LABEL_81:
-            v17 = v66;
+            v17 = v65;
 LABEL_82:
 
-            v8 = v62;
+            v8 = v61;
             goto LABEL_83;
           }
 
@@ -456,12 +455,12 @@ LABEL_82:
           if (objc_opt_isKindOfClass())
           {
             v13 = v12;
-            v70 = 0;
-            v60 = [[BMOasisAnalyticsTrackingLostEvent alloc] initWithJSONDictionary:v13 error:&v70];
-            v32 = v70;
+            v69 = 0;
+            v59 = [[BMOasisAnalyticsTrackingLostEvent alloc] initWithJSONDictionary:v13 error:&v69];
+            v32 = v69;
             if (v32)
             {
-              v17 = v66;
+              v17 = v65;
               if (error)
               {
                 v32 = v32;
@@ -479,19 +478,19 @@ LABEL_82:
           {
             errorCopy3 = error;
             v45 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v55 = *MEMORY[0x1E698F240];
-            v79 = *MEMORY[0x1E696A578];
-            v60 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"trackingLost"];
-            v80 = v60;
-            v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
-            v46 = [v45 initWithDomain:v55 code:2 userInfo:v13];
+            v54 = *MEMORY[0x1E698F240];
+            v78 = *MEMORY[0x1E696A578];
+            v59 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"trackingLost"];
+            v79 = v59;
+            v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
+            v46 = [v45 initWithDomain:v54 code:2 userInfo:v13];
             error = 0;
             *errorCopy3 = v46;
             goto LABEL_81;
           }
 
 LABEL_70:
-          v17 = v66;
+          v17 = v65;
 LABEL_83:
 
           goto LABEL_84;
@@ -501,12 +500,12 @@ LABEL_83:
         if (objc_opt_isKindOfClass())
         {
           v12 = v11;
-          v71 = 0;
-          v61 = [[BMOasisAnalyticsSubmapLoadedEvent alloc] initWithJSONDictionary:v12 error:&v71];
-          v26 = v71;
+          v70 = 0;
+          v60 = [[BMOasisAnalyticsSubmapLoadedEvent alloc] initWithJSONDictionary:v12 error:&v70];
+          v26 = v70;
           if (v26)
           {
-            v17 = v66;
+            v17 = v65;
             if (error)
             {
               v26 = v26;
@@ -524,14 +523,14 @@ LABEL_83:
         {
           errorCopy4 = error;
           v38 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v64 = v8;
+          v63 = v8;
           v39 = *MEMORY[0x1E698F240];
-          v81 = *MEMORY[0x1E696A578];
-          v61 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"submapLoaded"];
-          v82 = v61;
-          v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
+          v80 = *MEMORY[0x1E696A578];
+          v60 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"submapLoaded"];
+          v81 = v60;
+          v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
           v40 = v39;
-          v8 = v64;
+          v8 = v63;
           v41 = [v38 initWithDomain:v40 code:2 userInfo:v12];
           error = 0;
           *errorCopy4 = v41;
@@ -539,7 +538,7 @@ LABEL_83:
         }
 
 LABEL_61:
-        v17 = v66;
+        v17 = v65;
 LABEL_84:
 
         self = errorCopy2;
@@ -550,12 +549,12 @@ LABEL_84:
       if (objc_opt_isKindOfClass())
       {
         v11 = v10;
-        v72 = 0;
-        v65 = [[BMOasisAnalyticsSubmapUpdatedEvent alloc] initWithJSONDictionary:v11 error:&v72];
-        v19 = v72;
+        v71 = 0;
+        v64 = [[BMOasisAnalyticsSubmapUpdatedEvent alloc] initWithJSONDictionary:v11 error:&v71];
+        v19 = v71;
         if (v19)
         {
-          v17 = v66;
+          v17 = v65;
           if (error)
           {
             v19 = v19;
@@ -573,21 +572,21 @@ LABEL_84:
       {
         errorCopy5 = error;
         v33 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v63 = v8;
+        v62 = v8;
         v34 = *MEMORY[0x1E698F240];
-        v83 = *MEMORY[0x1E696A578];
-        v65 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"submapUpdated"];
-        v84 = v65;
-        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+        v82 = *MEMORY[0x1E696A578];
+        v64 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"submapUpdated"];
+        v83 = v64;
+        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
         v35 = v34;
-        v8 = v63;
+        v8 = v62;
         v36 = [v33 initWithDomain:v35 code:2 userInfo:v11];
         error = 0;
         *errorCopy5 = v36;
         goto LABEL_61;
       }
 
-      v17 = v66;
+      v17 = v65;
 LABEL_85:
 
       goto LABEL_86;
@@ -597,9 +596,9 @@ LABEL_85:
     if (objc_opt_isKindOfClass())
     {
       v10 = v9;
-      v73 = 0;
-      v17 = [[BMOasisAnalyticsSubmapCreatedEvent alloc] initWithJSONDictionary:v10 error:&v73];
-      v18 = v73;
+      v72 = 0;
+      v17 = [[BMOasisAnalyticsSubmapCreatedEvent alloc] initWithJSONDictionary:v10 error:&v72];
+      v18 = v72;
       if (v18)
       {
         if (error)
@@ -612,7 +611,7 @@ LABEL_85:
         goto LABEL_85;
       }
 
-      v66 = v17;
+      v65 = v17;
 
       goto LABEL_7;
     }
@@ -623,10 +622,10 @@ LABEL_85:
       v27 = objc_alloc(MEMORY[0x1E696ABC0]);
       v28 = v8;
       v29 = *MEMORY[0x1E698F240];
-      v85 = *MEMORY[0x1E696A578];
+      v84 = *MEMORY[0x1E696A578];
       v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"submapCreated"];
-      v86 = v17;
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
+      v85 = v17;
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
       v30 = v29;
       v8 = v28;
       v31 = [v27 initWithDomain:v30 code:2 userInfo:v10];
@@ -644,9 +643,9 @@ LABEL_86:
   if (objc_opt_isKindOfClass())
   {
     v9 = v7;
-    v74 = 0;
-    v8 = [[BMOasisAnalyticsContextSnapshotEvent alloc] initWithJSONDictionary:v9 error:&v74];
-    v16 = v74;
+    v73 = 0;
+    v8 = [[BMOasisAnalyticsContextSnapshotEvent alloc] initWithJSONDictionary:v9 error:&v73];
+    v16 = v73;
     if (v16)
     {
       if (error)
@@ -667,10 +666,10 @@ LABEL_86:
     errorCopy7 = error;
     v21 = objc_alloc(MEMORY[0x1E696ABC0]);
     v22 = *MEMORY[0x1E698F240];
-    v87 = *MEMORY[0x1E696A578];
+    v86 = *MEMORY[0x1E696A578];
     v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"contextSnapshot"];
-    v88[0] = v23;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v88 forKeys:&v87 count:1];
+    v87[0] = v23;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v87 forKeys:&v86 count:1];
     v24 = v22;
     v8 = v23;
     v25 = [v21 initWithDomain:v24 code:2 userInfo:v9];
@@ -681,7 +680,6 @@ LABEL_86:
 
 LABEL_87:
 
-  v49 = *MEMORY[0x1E69E9840];
   return error;
 }
 
@@ -1028,30 +1026,28 @@ LABEL_54:
 
 + (id)protoFields
 {
-  v12[7] = *MEMORY[0x1E69E9840];
+  v11[7] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"contextSnapshot" number:1 type:14 subMessageClass:objc_opt_class()];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"submapCreated" number:2 type:14 subMessageClass:{objc_opt_class(), v2}];
-  v12[1] = v3;
+  v11[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"submapUpdated" number:3 type:14 subMessageClass:objc_opt_class()];
-  v12[2] = v4;
+  v11[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"submapLoaded" number:4 type:14 subMessageClass:objc_opt_class()];
-  v12[3] = v5;
+  v11[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"trackingLost" number:5 type:14 subMessageClass:objc_opt_class()];
-  v12[4] = v6;
+  v11[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"trackingState" number:6 type:14 subMessageClass:objc_opt_class()];
-  v12[5] = v7;
+  v11[5] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"relocalizationSucceeded" number:7 type:14 subMessageClass:objc_opt_class()];
-  v12[6] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[6] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
 
   return v9;
 }
 
 + (id)columns
 {
-  v12[7] = *MEMORY[0x1E69E9840];
+  v11[7] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"contextSnapshot_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_796];
   v3 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"submapCreated_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_798];
   v4 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"submapUpdated_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_800];
@@ -1059,88 +1055,86 @@ LABEL_54:
   v6 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"trackingLost_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_804];
   v7 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"trackingState_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_806];
   v8 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"relocalizationSucceeded_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_808];
-  v12[0] = v2;
-  v12[1] = v3;
-  v12[2] = v4;
-  v12[3] = v5;
-  v12[4] = v6;
-  v12[5] = v7;
-  v12[6] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[0] = v2;
+  v11[1] = v3;
+  v11[2] = v4;
+  v11[3] = v5;
+  v11[4] = v6;
+  v11[5] = v7;
+  v11[6] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
 
   return v9;
 }
 
-id __48__BMOasisAnalyticsPerceptionSLAMPayload_columns__block_invoke_7(uint64_t a1, void *a2)
+id __48__BMOasisAnalyticsPerceptionSLAMPayload_columns__block_invoke_7(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 relocalizationSucceeded];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 relocalizationSucceeded];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __48__BMOasisAnalyticsPerceptionSLAMPayload_columns__block_invoke_6(uint64_t a1, void *a2)
+id __48__BMOasisAnalyticsPerceptionSLAMPayload_columns__block_invoke_6(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 trackingState];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 trackingState];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __48__BMOasisAnalyticsPerceptionSLAMPayload_columns__block_invoke_5(uint64_t a1, void *a2)
+id __48__BMOasisAnalyticsPerceptionSLAMPayload_columns__block_invoke_5(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 trackingLost];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 trackingLost];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __48__BMOasisAnalyticsPerceptionSLAMPayload_columns__block_invoke_4(uint64_t a1, void *a2)
+id __48__BMOasisAnalyticsPerceptionSLAMPayload_columns__block_invoke_4(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 submapLoaded];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 submapLoaded];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __48__BMOasisAnalyticsPerceptionSLAMPayload_columns__block_invoke_3(uint64_t a1, void *a2)
+id __48__BMOasisAnalyticsPerceptionSLAMPayload_columns__block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 submapUpdated];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 submapUpdated];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __48__BMOasisAnalyticsPerceptionSLAMPayload_columns__block_invoke_2(uint64_t a1, void *a2)
+id __48__BMOasisAnalyticsPerceptionSLAMPayload_columns__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 submapCreated];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 submapCreated];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __48__BMOasisAnalyticsPerceptionSLAMPayload_columns__block_invoke(uint64_t a1, void *a2)
+id __48__BMOasisAnalyticsPerceptionSLAMPayload_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 contextSnapshot];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 contextSnapshot];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

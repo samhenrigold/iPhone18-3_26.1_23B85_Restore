@@ -13,6 +13,7 @@
 - (void)addResultColumn:(id)column alias:(id)alias;
 - (void)ef_renderSQLExpressionInto:(id)into;
 - (void)groupByColumn:(id)column;
+- (void)orderByColumn:(id)column ascending:(BOOL)ascending;
 @end
 
 @implementation _EFSQLJoinExpression
@@ -235,6 +236,24 @@
   }
 
   [select groupByColumn:columnCopy fromTable:tableName];
+  if (!tableAlias)
+  {
+  }
+}
+
+- (void)orderByColumn:(id)column ascending:(BOOL)ascending
+{
+  ascendingCopy = ascending;
+  columnCopy = column;
+  select = [(_EFSQLJoinExpression *)self select];
+  tableAlias = [(_EFSQLJoinExpression *)self tableAlias];
+  tableName = tableAlias;
+  if (!tableAlias)
+  {
+    tableName = [(_EFSQLJoinExpression *)self tableName];
+  }
+
+  [select orderByColumn:columnCopy fromTable:tableName ascending:ascendingCopy];
   if (!tableAlias)
   {
   }

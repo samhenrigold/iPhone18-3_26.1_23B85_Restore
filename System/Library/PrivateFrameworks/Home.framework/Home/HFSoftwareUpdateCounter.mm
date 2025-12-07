@@ -130,7 +130,7 @@ void __75__HFSoftwareUpdateCounter_progressForAccessoriesDownloadingSoftwareUpda
 
 void __47__HFSoftwareUpdateCounter_initWithAccessories___block_invoke(void *a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 isFirmwareUpdateAvailable])
   {
@@ -161,7 +161,7 @@ LABEL_17:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v20 = v3;
+      v19 = v3;
       _os_log_error_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_ERROR, "Software update is ready to install but accessory not controllable: %@", buf, 0xCu);
     }
   }
@@ -194,9 +194,9 @@ LABEL_17:
         goto LABEL_19;
       }
 
-      v17 = a1[10];
-      v18 = [v3 hf_softwareUpdateHash];
-      [v17 addObject:v18];
+      v16 = a1[10];
+      v17 = [v3 hf_softwareUpdateHash];
+      [v16 addObject:v17];
 
       v14 = a1[11];
     }
@@ -211,8 +211,6 @@ LABEL_17:
   }
 
 LABEL_19:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (HFSoftwareUpdateCounter)init

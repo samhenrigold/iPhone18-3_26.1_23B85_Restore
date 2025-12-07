@@ -38,7 +38,7 @@
 
   v8 = sub_1005A4808(action, v10);
 
-  sub_1000095E8(v10, &unk_101183F30);
+  sub_1000095E8(v10, &unk_101183F30, qword_100EBF960);
   return v8 & 1;
 }
 
@@ -60,7 +60,7 @@
 
   sub_1005A4B7C();
 
-  sub_1000095E8(v6, &unk_101183F30);
+  sub_1000095E8(v6, &unk_101183F30, qword_100EBF960);
 }
 
 - (void)newPlaylistAction:(id)action

@@ -70,26 +70,24 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    pending = self->_pending;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    success = self->_success;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_errorData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -151,7 +149,6 @@
     goto LABEL_20;
   }
 
-  v5 = *(equalCopy + 20);
   if (*&self->_has)
   {
     if ((*(equalCopy + 20) & 1) == 0)
@@ -159,7 +156,6 @@
       goto LABEL_20;
     }
 
-    v8 = *(equalCopy + 16);
     if (self->_pending)
     {
       if ((*(equalCopy + 16) & 1) == 0)
@@ -187,7 +183,7 @@
     }
 
 LABEL_20:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_21;
   }
 
@@ -196,7 +192,6 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v9 = *(equalCopy + 17);
   if (self->_success)
   {
     if ((*(equalCopy + 17) & 1) == 0)
@@ -214,17 +209,17 @@ LABEL_6:
   errorData = self->_errorData;
   if (errorData | *(equalCopy + 1))
   {
-    v7 = [(NSData *)errorData isEqual:?];
+    v6 = [(NSData *)errorData isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_21:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

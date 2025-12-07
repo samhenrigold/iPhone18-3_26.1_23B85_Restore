@@ -11,8 +11,6 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v4 = *(&self->super.isa + OBJC_IVAR___RingsEntityWrapper_serializedEntity);
-  v5 = *&self->serializedEntity[OBJC_IVAR___RingsEntityWrapper_serializedEntity];
   coderCopy = coder;
   selfCopy = self;
   isa = sub_748A8().super.isa;

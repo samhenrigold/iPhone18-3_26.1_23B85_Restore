@@ -90,20 +90,18 @@
 
 + (id)_stagingDirectoryURLForUpdateCoordinator:(uint64_t)coordinator
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   v2 = a2;
   objc_opt_self();
   v3 = MEMORY[0x277CBEBC0];
   daemon = [v2 daemon];
 
   healthDirectoryPath = [daemon healthDirectoryPath];
-  v10[0] = healthDirectoryPath;
-  v10[1] = @"ontology";
-  v10[2] = @"staging";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:3];
+  v9[0] = healthDirectoryPath;
+  v9[1] = @"ontology";
+  v9[2] = @"staging";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
   v7 = [v3 fileURLWithPathComponents:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -126,14 +124,13 @@
 
 - (BOOL)insertEntry:(id)entry error:(id *)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   v6 = MEMORY[0x277CBEA60];
   entryCopy2 = entry;
   v8 = [v6 arrayWithObjects:&entryCopy count:1];
 
-  LOBYTE(error) = [(HDOntologyShardRegistry *)self insertEntries:v8 error:error, entryCopy, v12];
-  v9 = *MEMORY[0x277D85DE8];
+  LOBYTE(error) = [(HDOntologyShardRegistry *)self insertEntries:v8 error:error, entryCopy, v11];
   return error;
 }
 
@@ -151,31 +148,31 @@
 
 + (uint64_t)insertEntries:(void *)entries transaction:(uint64_t)transaction error:
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = a2;
   entriesCopy = entries;
   v8 = objc_opt_self();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = v6;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     while (2)
     {
       v13 = 0;
       do
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        if (![v8 insertEntry:*(*(&v17 + 1) + 8 * v13) transaction:entriesCopy error:{transaction, v17}])
+        if (![v8 insertEntry:*(*(&v16 + 1) + 8 * v13) transaction:entriesCopy error:{transaction, v16}])
         {
           v14 = 0;
           goto LABEL_11;
@@ -185,7 +182,7 @@
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v11)
       {
         continue;
@@ -198,7 +195,6 @@
   v14 = 1;
 LABEL_11:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -318,24 +314,24 @@ LABEL_11:
 
 + (id)importedMercuryZipTSVEntriesWithTransaction:(id)transaction error:(id *)error
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277D10B18];
   transactionCopy = transaction;
   v8 = [v6 predicateWithProperty:@"current_version" greaterThanValue:&unk_286374778];
-  v20[0] = v8;
+  v19[0] = v8;
   v9 = [MEMORY[0x277D10B18] predicateWithProperty:@"schema_type" equalToValue:*MEMORY[0x277CCC630]];
-  v20[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v19[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
 
   v11 = [MEMORY[0x277D10B20] predicateMatchingAllPredicates:v10];
   v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __77__HDOntologyShardRegistry_importedMercuryZipTSVEntriesWithTransaction_error___block_invoke;
-  v18[3] = &unk_2796B9A18;
-  v19 = v12;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __77__HDOntologyShardRegistry_importedMercuryZipTSVEntriesWithTransaction_error___block_invoke;
+  v17[3] = &unk_2796B9A18;
+  v18 = v12;
   v13 = v12;
-  LODWORD(error) = [(HDOntologyShardRegistry *)self _rawEnumerateEntriesWithPredicate:v11 orderingTerms:0 transaction:transactionCopy error:error enumerationHandler:v18];
+  LODWORD(error) = [(HDOntologyShardRegistry *)self _rawEnumerateEntriesWithPredicate:v11 orderingTerms:0 transaction:transactionCopy error:error enumerationHandler:v17];
 
   if (error)
   {
@@ -349,7 +345,6 @@ LABEL_11:
 
   v15 = v14;
 
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -523,17 +518,17 @@ uint64_t __71__HDOntologyShardRegistry_stagedShardFileEntryForEntry_entryOut_err
 
 + (uint64_t)_setAttributesForFileWithPath:(void *)path fileManager:(void *)manager error:
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v6 = a2;
   pathCopy = path;
   objc_opt_self();
   v8 = *MEMORY[0x277CCA198];
   v9 = *MEMORY[0x277CCA180];
-  v17[0] = *MEMORY[0x277CCA1B0];
-  v17[1] = v9;
-  v18[0] = v8;
-  v18[1] = &unk_286374790;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v16[0] = *MEMORY[0x277CCA1B0];
+  v16[1] = v9;
+  v17[0] = v8;
+  v17[1] = &unk_286374790;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
   v11 = [pathCopy setAttributes:v10 ofItemAtPath:v6 error:manager];
 
   if ((v11 & 1) == 0)
@@ -555,7 +550,6 @@ uint64_t __71__HDOntologyShardRegistry_stagedShardFileEntryForEntry_entryOut_err
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -725,7 +719,7 @@ LABEL_16:
 
 uint64_t __69__HDOntologyShardRegistry_deleteStagedFilesNotMatchingEntries_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 lastPathComponent];
   if ([*(a1 + 32) containsObject:v6])
@@ -752,11 +746,11 @@ LABEL_2:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = *(a1 + 48);
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2114;
-      v17 = v6;
-      _os_log_impl(&dword_2514A1000, v10, OS_LOG_TYPE_INFO, "%{public}@: deleted from staging directory %{public}@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2114;
+      v16 = v6;
+      _os_log_impl(&dword_2514A1000, v10, OS_LOG_TYPE_INFO, "%{public}@: deleted from staging directory %{public}@", &v13, 0x16u);
     }
 
     goto LABEL_2;
@@ -764,7 +758,6 @@ LABEL_2:
 
 LABEL_9:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -847,22 +840,22 @@ LABEL_9:
 
 - (int64_t)purgeableSpaceForStagedShards
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
+  v22 = *MEMORY[0x277D85DE8];
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
   v3 = objc_alloc_init(MEMORY[0x277CCAA00]);
   stagingDirectoryURL = self->_stagingDirectoryURL;
-  v13[5] = &v15;
-  v14 = 0;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __56__HDOntologyShardRegistry_purgeableSpaceForStagedShards__block_invoke;
-  v13[3] = &unk_2796B9B30;
-  v13[4] = self;
-  v5 = [HDOntologyShardRegistry _enumerateStagedShardFileURLsWithFileManager:v3 stagingDirectory:stagingDirectoryURL error:&v14 handler:v13];
-  v6 = v14;
+  v12[5] = &v14;
+  v13 = 0;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __56__HDOntologyShardRegistry_purgeableSpaceForStagedShards__block_invoke;
+  v12[3] = &unk_2796B9B30;
+  v12[4] = self;
+  v5 = [HDOntologyShardRegistry _enumerateStagedShardFileURLsWithFileManager:v3 stagingDirectory:stagingDirectoryURL error:&v13 handler:v12];
+  v6 = v13;
   if ((v5 & 1) == 0)
   {
     _HKInitializeLogging();
@@ -876,27 +869,26 @@ LABEL_9:
       {
         *buf = 138543618;
         selfCopy = self;
-        v21 = 2114;
-        v22 = v6;
+        v20 = 2114;
+        v21 = v6;
         _os_log_impl(&dword_2514A1000, v9, OS_LOG_TYPE_INFO, "%{public}@: error during enumeration to determine purgeable space: %{public}@", buf, 0x16u);
       }
     }
   }
 
-  v10 = v16[3];
+  v10 = v15[3];
 
-  _Block_object_dispose(&v15, 8);
-  v11 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v14, 8);
   return v10;
 }
 
 uint64_t __56__HDOntologyShardRegistry_purgeableSpaceForStagedShards__block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v12 = 0;
-  v4 = [v3 hk_fileSizeWithError:&v12];
-  v5 = v12;
+  v11 = 0;
+  v4 = [v3 hk_fileSizeWithError:&v11];
+  v5 = v11;
   if (v4)
   {
     *(*(*(a1 + 40) + 8) + 24) += [v4 longLongValue];
@@ -915,23 +907,22 @@ uint64_t __56__HDOntologyShardRegistry_purgeableSpaceForStagedShards__block_invo
       {
         v9 = *(a1 + 32);
         *buf = 138543874;
-        v14 = v9;
-        v15 = 2114;
-        v16 = v3;
-        v17 = 2114;
-        v18 = v5;
+        v13 = v9;
+        v14 = 2114;
+        v15 = v3;
+        v16 = 2114;
+        v17 = v5;
         _os_log_impl(&dword_2514A1000, v8, OS_LOG_TYPE_INFO, "%{public}@: unable to determine size of %{public}@: %{public}@", buf, 0x20u);
       }
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (int64_t)purgeSpaceForStagedShards
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   cachedFileHandlesAssertionQueue = self->_cachedFileHandlesAssertionQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -939,23 +930,23 @@ uint64_t __56__HDOntologyShardRegistry_purgeableSpaceForStagedShards__block_invo
   block[3] = &unk_2796B9B58;
   block[4] = self;
   dispatch_sync(cachedFileHandlesAssertionQueue, block);
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0;
   v4 = objc_alloc_init(MEMORY[0x277CCAA00]);
   stagingDirectoryURL = self->_stagingDirectoryURL;
-  v17 = 0;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __52__HDOntologyShardRegistry_purgeSpaceForStagedShards__block_invoke_2;
-  v14[3] = &unk_2796B9B80;
-  v14[4] = self;
+  v16 = 0;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __52__HDOntologyShardRegistry_purgeSpaceForStagedShards__block_invoke_2;
+  v13[3] = &unk_2796B9B80;
+  v13[4] = self;
   v6 = v4;
-  v15 = v6;
-  v16 = &v18;
-  LOBYTE(stagingDirectoryURL) = [HDOntologyShardRegistry _enumerateStagedShardFileURLsWithFileManager:v6 stagingDirectory:stagingDirectoryURL error:&v17 handler:v14];
-  v7 = v17;
+  v14 = v6;
+  v15 = &v17;
+  LOBYTE(stagingDirectoryURL) = [HDOntologyShardRegistry _enumerateStagedShardFileURLsWithFileManager:v6 stagingDirectory:stagingDirectoryURL error:&v16 handler:v13];
+  v7 = v16;
   if ((stagingDirectoryURL & 1) == 0)
   {
     _HKInitializeLogging();
@@ -969,35 +960,34 @@ uint64_t __56__HDOntologyShardRegistry_purgeableSpaceForStagedShards__block_invo
       {
         *buf = 138543618;
         selfCopy = self;
-        v25 = 2114;
-        v26 = v7;
+        v24 = 2114;
+        v25 = v7;
         _os_log_impl(&dword_2514A1000, v10, OS_LOG_TYPE_INFO, "%{public}@: error during purge enumeration: %{public}@", buf, 0x16u);
       }
     }
   }
 
-  v11 = v19[3];
+  v11 = v18[3];
 
-  _Block_object_dispose(&v18, 8);
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v17, 8);
   return v11;
 }
 
 uint64_t __52__HDOntologyShardRegistry_purgeSpaceForStagedShards__block_invoke_2(void *a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v25 = 0;
-  v4 = [v3 hk_fileSizeWithError:&v25];
-  v5 = v25;
+  v24 = 0;
+  v4 = [v3 hk_fileSizeWithError:&v24];
+  v5 = v24;
   if (v4)
   {
     if ([v4 longLongValue] >= 1)
     {
       v6 = a1[5];
-      v24 = v5;
-      v7 = [v6 removeItemAtURL:v3 error:&v24];
-      v8 = v24;
+      v23 = v5;
+      v7 = [v6 removeItemAtURL:v3 error:&v23];
+      v8 = v23;
 
       if (v7 & 1) != 0 || ([v8 hk_isCocoaNoSuchFileError])
       {
@@ -1013,9 +1003,9 @@ uint64_t __52__HDOntologyShardRegistry_purgeSpaceForStagedShards__block_invoke_2
             v12 = a1[4];
             v13 = [v3 lastPathComponent];
             *buf = 138543618;
-            v27 = v12;
-            v28 = 2114;
-            v29 = v13;
+            v26 = v12;
+            v27 = 2114;
+            v28 = v13;
             _os_log_impl(&dword_2514A1000, v11, OS_LOG_TYPE_INFO, "%{public}@: purged from staging directory %{public}@", buf, 0x16u);
           }
         }
@@ -1026,22 +1016,22 @@ uint64_t __52__HDOntologyShardRegistry_purgeSpaceForStagedShards__block_invoke_2
       else
       {
         _HKInitializeLogging();
-        v20 = HKLogHealthOntology();
-        v21 = os_log_type_enabled(v20, OS_LOG_TYPE_INFO);
+        v19 = HKLogHealthOntology();
+        v20 = os_log_type_enabled(v19, OS_LOG_TYPE_INFO);
 
-        if (v21)
+        if (v20)
         {
-          v22 = HKLogHealthOntology();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+          v21 = HKLogHealthOntology();
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
           {
-            v23 = a1[4];
+            v22 = a1[4];
             *buf = 138543874;
-            v27 = v23;
-            v28 = 2114;
-            v29 = v3;
-            v30 = 2114;
-            v31 = v8;
-            _os_log_impl(&dword_2514A1000, v22, OS_LOG_TYPE_INFO, "%{public}@: unable to purge %{public}@: %{public}@", buf, 0x20u);
+            v26 = v22;
+            v27 = 2114;
+            v28 = v3;
+            v29 = 2114;
+            v30 = v8;
+            _os_log_impl(&dword_2514A1000, v21, OS_LOG_TYPE_INFO, "%{public}@: unable to purge %{public}@: %{public}@", buf, 0x20u);
           }
         }
       }
@@ -1063,17 +1053,16 @@ uint64_t __52__HDOntologyShardRegistry_purgeSpaceForStagedShards__block_invoke_2
       {
         v17 = a1[4];
         *buf = 138543874;
-        v27 = v17;
-        v28 = 2114;
-        v29 = v3;
-        v30 = 2114;
-        v31 = v5;
+        v26 = v17;
+        v27 = 2114;
+        v28 = v3;
+        v29 = 2114;
+        v30 = v5;
         _os_log_impl(&dword_2514A1000, v16, OS_LOG_TYPE_INFO, "%{public}@: unable to determine purgeable size of %{public}@: %{public}@", buf, 0x20u);
       }
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1327,10 +1316,7 @@ uint64_t __69__HDOntologyShardRegistry_unitTesting_stagedShardFileNamesWithError
 
 uint64_t __56__HDOntologyShardRegistry_unitTesting_cachedFileHandles__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 32) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 32) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1538,35 +1524,35 @@ id __69__HDOntologyShardRegistry_deleteStagedFilesNotMatchingEntries_error___blo
 
 - (void)_assertionQueue_closeFileHandles
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (self)
   {
     dispatch_assert_queue_V2(*(self + 16));
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
     allValues = [*(self + 32) allValues];
-    v3 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v3 = [allValues countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v10;
+      v5 = *v9;
       do
       {
         v6 = 0;
         do
         {
-          if (*v10 != v5)
+          if (*v9 != v5)
           {
             objc_enumerationMutation(allValues);
           }
 
-          [*(*(&v9 + 1) + 8 * v6++) closeFile];
+          [*(*(&v8 + 1) + 8 * v6++) closeFile];
         }
 
         while (v4 != v6);
-        v4 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v4 = [allValues countByEnumeratingWithState:&v8 objects:v12 count:16];
       }
 
       while (v4);
@@ -1575,8 +1561,6 @@ id __69__HDOntologyShardRegistry_deleteStagedFilesNotMatchingEntries_error___blo
     v7 = *(self + 32);
     *(self + 32) = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_openFileHandleForEntry:(uint64_t)entry error:

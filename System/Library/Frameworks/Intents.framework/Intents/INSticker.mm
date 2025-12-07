@@ -16,11 +16,11 @@
 
 - (id)_dictionaryRepresentation
 {
-  v16[5] = *MEMORY[0x1E69E9840];
-  v15[0] = @"type";
+  v15[5] = *MEMORY[0x1E69E9840];
+  v14[0] = @"type";
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:self->_type];
-  v16[0] = v3;
-  v15[1] = @"avatarDescriptor";
+  v15[0] = v3;
+  v14[1] = @"avatarDescriptor";
   avatarDescriptor = self->_avatarDescriptor;
   null = avatarDescriptor;
   if (!avatarDescriptor)
@@ -28,8 +28,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[1] = null;
-  v15[2] = @"appBundleID";
+  v15[1] = null;
+  v14[2] = @"appBundleID";
   appBundleID = self->_appBundleID;
   null2 = appBundleID;
   if (!appBundleID)
@@ -37,8 +37,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[2] = null2;
-  v15[3] = @"stickerDescription";
+  v15[2] = null2;
+  v14[3] = @"stickerDescription";
   stickerDescription = self->_stickerDescription;
   null3 = stickerDescription;
   if (!stickerDescription)
@@ -46,8 +46,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[3] = null3;
-  v15[4] = @"emoji";
+  v15[3] = null3;
+  v14[4] = @"emoji";
   emoji = self->_emoji;
   null4 = emoji;
   if (!emoji)
@@ -55,8 +55,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[4] = null4;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:5];
+  v15[4] = null4;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:5];
   if (emoji)
   {
     if (stickerDescription)
@@ -101,7 +101,6 @@ LABEL_12:
 LABEL_19:
 
 LABEL_13:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

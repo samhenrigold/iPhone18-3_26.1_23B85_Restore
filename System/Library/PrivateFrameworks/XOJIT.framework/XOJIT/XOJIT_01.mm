@@ -1,86 +1,11 @@
-llvm::jitlink::Section **llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>,llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>::moveFromOldBuckets(llvm::jitlink::Section **result, llvm::jitlink::Section **a2, llvm::jitlink::Section **a3, unint64_t *a4)
+unint64_t llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(unsigned int *a1, uint64_t a2, char a3)
 {
-  v5 = result;
-  result[1] = 0;
-  v6 = *(result + 4);
-  if (v6)
-  {
-    v7 = *result;
-    v8 = 24 * v6;
-    do
-    {
-      *v7 = xmmword_2750C1220;
-      v7 = (v7 + 24);
-      v8 -= 24;
-    }
-
-    while (v8);
-  }
-
-  if (a2 != a3)
-  {
-    v9 = a2 + 2;
-    do
-    {
-      if (*(v9 - 2) <= 0xFFFFFFFFFFFFFFFDLL)
-      {
-        v13 = 0;
-        llvm::DenseMapBase<llvm::DenseMap<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>,llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>>::LookupBucketFor<llvm::StringRef>(v5, (v9 - 2), &v13, a4);
-        v10 = v13;
-        *v13 = *(v9 - 1);
-        v11 = *v9;
-        *v9 = 0;
-        *(v10 + 2) = v11;
-        ++*(v5 + 2);
-        result = std::unique_ptr<llvm::jitlink::Section>::~unique_ptr[abi:nn200100](v9);
-      }
-
-      v12 = v9 + 1;
-      v9 += 3;
-    }
-
-    while (v12 != a3);
-  }
-
-  return result;
-}
-
-void *llvm::jitlink::LinkGraph::addDefinedSymbol(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, char a6, char a7, int a8, char a9)
-{
-  v15 = *a4;
-  *a4 = 0;
-  v16 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(a1, 32, 3);
-  v17 = v16;
-  *v16 = v15;
-  v16[1] = a2;
-  v18 = 0x1000000000000000;
-  if (!a9)
-  {
-    v18 = 0;
-  }
-
-  v19 = 0x2000000000000000;
-  if (!a8)
-  {
-    v19 = 0;
-  }
-
-  v16[2] = ((a6 & 1) << 57) | ((a7 & 3) << 58) | v19 & 0xFE00000000000000 | v18 & 0xFE00000000000000 | a3 & 0x1FFFFFFFFFFFFFFLL;
-  v16[3] = a5;
-  v20 = *(a2 + 16);
-  v22 = v16;
-  llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::try_emplace<llvm::detail::DenseSetEmpty&>(v20 + 56, &v22, v23);
-  return v17;
-}
-
-unint64_t llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(uint64_t a1, uint64_t a2, char a3)
-{
-  *(a1 + 80) += a2;
+  *(a1 + 10) += a2;
   v5 = (1 << a3) - 1;
   v6 = -(1 << a3);
   if (*a1)
   {
-    v7 = ((v5 + *a1) & v6) - *a1 + a2 > *(a1 + 8) - *a1;
+    v7 = ((v5 + *a1) & v6) - *a1 + a2 > *(a1 + 1) - *a1;
   }
 
   else
@@ -94,7 +19,7 @@ unint64_t llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>:
     if ((v5 + a2) > 0x1000)
     {
       v9 = operator new(v5 + a2, 8uLL);
-      llvm::SmallVectorTemplateBase<std::pair<void *,unsigned long>,true>::push_back((a1 + 64), v9, v8);
+      llvm::SmallVectorTemplateBase<std::pair<void *,unsigned long>,true>::push_back(a1 + 16, v9, v8);
       return (v9 + v5) & v6;
     }
 
@@ -278,9 +203,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>::grow(uint64_t *a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -295,7 +220,7 @@ char *llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::D
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -305,8 +230,8 @@ char *llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::D
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -329,7 +254,7 @@ char *llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::D
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -496,9 +421,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseMapPair<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *>>::grow(uint64_t *a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -513,7 +438,7 @@ char *llvm::DenseMap<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::Dense
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(16 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -523,8 +448,8 @@ char *llvm::DenseMap<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::Dense
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -547,7 +472,7 @@ char *llvm::DenseMap<llvm::jitlink::Symbol *,llvm::jitlink::Symbol *,llvm::Dense
       }
 
       v11 += 2;
-      v16 += 4;
+      v16 += 32;
     }
 
     while (v14 != v11);
@@ -607,7 +532,7 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::jitlink
   return result;
 }
 
-void *llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::FindAndConstruct(uint64_t *a1, uint64_t *a2)
+uint64_t *llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::FindAndConstruct(uint64_t *a1, uint64_t *a2)
 {
   v9 = 0;
   v4 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(a1, a2, &v9);
@@ -662,9 +587,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -679,7 +604,7 @@ char *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm:
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(16 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -689,8 +614,8 @@ char *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm:
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -713,7 +638,7 @@ char *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm:
       }
 
       v11 += 2;
-      v16 += 4;
+      v16 += 32;
     }
 
     while (v14 != v11);
@@ -795,7 +720,7 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc:
   return result;
 }
 
-void *llvm::jitlink::LinkGraph::createBlock<llvm::jitlink::Section &,llvm::ArrayRef<char> &,llvm::orc::ExecutorAddr &,unsigned long long &,unsigned long long &>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, unint64_t *a5, uint64_t *a6)
+void *llvm::jitlink::LinkGraph::createBlock<llvm::jitlink::Section &,llvm::ArrayRef<char> &,llvm::orc::ExecutorAddr &,unsigned long long &,unsigned long long &>(unsigned int *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, unint64_t *a5, uint64_t *a6)
 {
   v11 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(a1, 64, 3);
   v12 = *a3;
@@ -839,27 +764,27 @@ int32x2_t llvm::DenseMapBase<llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail
   return result;
 }
 
-uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::try_emplace<llvm::detail::DenseSetEmpty&>@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a4@<X8>)
 {
-  v10 = 0;
-  result = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(a1, a2, &v10);
-  v7 = v10;
+  v11 = 0;
+  result = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(a1, a2, &v11);
+  v8 = v11;
   if (result)
   {
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    result = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::InsertIntoBucket<llvm::orc::SymbolStringPtr const&,llvm::detail::DenseSetEmpty&>(a1, v10, a2);
-    v7 = result;
-    v8 = 1;
+    result = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::InsertIntoBucket<llvm::orc::SymbolStringPtr const&,llvm::detail::DenseSetEmpty&>(a1, v11, a2);
+    v8 = result;
+    v9 = 1;
   }
 
-  v9 = *a1 + 8 * *(a1 + 16);
-  *a3 = v7;
-  *(a3 + 8) = v9;
-  *(a3 + 16) = v8;
+  v10 = *a1 + 8 * *(a1 + 16);
+  *a4 = v8;
+  *(a4 + 8) = v10;
+  *(a4 + 16) = v9;
   return result;
 }
 
@@ -975,9 +900,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -992,7 +917,7 @@ char *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -1002,8 +927,8 @@ char *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -1026,7 +951,7 @@ char *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -1254,7 +1179,7 @@ char *llvm::DenseMap<llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llv
         }
 
         v11 += 2;
-        v16 += 4;
+        v16 += 32;
       }
 
       while (v14 != v11);
@@ -1312,7 +1237,7 @@ char *llvm::DenseMap<llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llv
       }
 
       v24 += 2;
-      v29 += 4;
+      v29 += 32;
     }
 
     while (v27 != v24);
@@ -1321,7 +1246,7 @@ char *llvm::DenseMap<llvm::jitlink::Block *,unsigned long,llvm::DenseMapInfo<llv
   return result;
 }
 
-void *llvm::jitlink::LinkGraph::createBlock<llvm::jitlink::Section &,llvm::MutableArrayRef<char> &,llvm::orc::ExecutorAddr &,unsigned long long &,unsigned long long &>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, unint64_t *a5, uint64_t *a6)
+void *llvm::jitlink::LinkGraph::createBlock<llvm::jitlink::Section &,llvm::MutableArrayRef<char> &,llvm::orc::ExecutorAddr &,unsigned long long &,unsigned long long &>(unsigned int *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, unint64_t *a5, uint64_t *a6)
 {
   v11 = llvm::BumpPtrAllocatorImpl<llvm::MallocAllocator,4096ul,4096ul,128ul>::Allocate(a1, 64, 3);
   v12 = *a3;
@@ -1349,8 +1274,8 @@ void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::C
   v7 = *(*a1 + 8);
   std::mutex::lock((v7 + 16));
   v8 = *(v5 + 8);
-  *&v53[0] = *v6;
-  llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>,llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>::FindAndConstruct(v8 + 88, v53);
+  *&v52[0] = *v6;
+  llvm::DenseMapBase<llvm::DenseMap<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>,llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,xojit::ReplacementManager::DylibState>>::FindAndConstruct((v8 + 88), v52);
   v10 = v9;
   v11 = *(a2 + 119);
   if (v11 >= 0)
@@ -1363,36 +1288,35 @@ void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::C
     v12 = *(a2 + 96);
   }
 
-  v13 = *(a2 + 104);
   if (v11 >= 0)
   {
-    v14 = *(a2 + 119);
+    v13 = *(a2 + 119);
   }
 
   else
   {
-    v14 = *(a2 + 104);
+    v13 = *(a2 + 104);
   }
 
-  v15 = llvm::StringMap<xojit::ReplacementManager::DylibState::ObjectState,llvm::MallocAllocator>::try_emplace<>((v9 + 1), v12, v14);
-  v16 = *v15;
-  if (*(*v15 + 64))
+  v14 = llvm::StringMap<xojit::ReplacementManager::DylibState::ObjectState,llvm::MallocAllocator>::try_emplace<>((v9 + 1), v12, v13);
+  v15 = *v14;
+  if (*(*v14 + 64))
   {
-    v48 = a3;
-    v49 = v7;
-    v57[0] = 0;
-    v57[1] = 0;
-    v58 = 0;
-    v17 = *(v16 + 72);
-    if (v17)
+    v47 = a3;
+    v48 = v7;
+    v56[0] = 0;
+    v56[1] = 0;
+    v57 = 0;
+    v16 = *(v15 + 72);
+    if (v16)
     {
-      v18 = 16 * v17;
-      v19 = *(v16 + 56);
-      while ((*v19 | 8) == 0xFFFFFFFFFFFFFFF8)
+      v17 = 16 * v16;
+      v18 = *(v15 + 56);
+      while ((*v18 | 8) == 0xFFFFFFFFFFFFFFF8)
       {
-        v19 += 2;
-        v18 -= 16;
-        if (!v18)
+        v18 += 2;
+        v17 -= 16;
+        if (!v17)
         {
           goto LABEL_25;
         }
@@ -1401,43 +1325,43 @@ void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::C
 
     else
     {
-      v19 = *(v16 + 56);
+      v18 = *(v15 + 56);
     }
 
-    v20 = *(v16 + 56) + 16 * v17;
-    if (v19 != v20)
+    v19 = *(v15 + 56) + 16 * v16;
+    if (v18 != v19)
     {
-      v21 = *v19;
+      v20 = *v18;
 LABEL_17:
-      if (v21 != v19[1])
+      if (v20 != v18[1])
       {
-        v22 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::FindAndConstruct(v57, v19 + 1);
-        v23 = v22[1];
-        if ((v23 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+        v21 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::FindAndConstruct(v56, v18 + 1);
+        v22 = v21[1];
+        if ((v22 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
         {
-          atomic_fetch_add((v23 + 8), 0xFFFFFFFFFFFFFFFFLL);
+          atomic_fetch_add((v22 + 8), 0xFFFFFFFFFFFFFFFFLL);
         }
 
-        v24 = *v19;
-        v22[1] = *v19;
-        if ((v24 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+        v23 = *v18;
+        v21[1] = *v18;
+        if ((v23 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
         {
-          atomic_fetch_add((v24 + 8), 1uLL);
+          atomic_fetch_add((v23 + 8), 1uLL);
         }
       }
 
       while (1)
       {
-        v19 += 2;
-        if (v19 == v20)
+        v18 += 2;
+        if (v18 == v19)
         {
           break;
         }
 
-        v21 = *v19;
-        if ((*v19 | 8) != 0xFFFFFFFFFFFFFFF8)
+        v20 = *v18;
+        if ((*v18 | 8) != 0xFFFFFFFFFFFFFFF8)
         {
-          if (v19 != v20)
+          if (v18 != v19)
           {
             goto LABEL_17;
           }
@@ -1448,109 +1372,109 @@ LABEL_17:
     }
 
 LABEL_25:
-    llvm::jitlink::LinkGraph::defined_symbols(a2, v53);
-    v51[0] = v53[0];
-    v51[1] = v53[1];
-    v51[2] = v53[2];
-    v52 = v54;
+    llvm::jitlink::LinkGraph::defined_symbols(v52, a2);
+    v50[0] = v52[0];
+    v50[1] = v52[1];
+    v50[2] = v52[2];
+    v51 = v53;
+    v24 = v54;
     v25 = v55;
-    v26 = v56;
-    v27 = v54;
-    if (*&v53[0] != v55 || v54 != v56)
+    v26 = v53;
+    if (*&v52[0] != v54 || v53 != v55)
     {
       while (1)
       {
-        v28 = *v27;
-        if (**v27 && (*(v28 + 23) & 0x20) == 0)
+        v27 = *v26;
+        if (**v26 && (*(v27 + 23) & 0x20) == 0)
         {
-          v50[0] = 0;
-          if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(v57, v28, v50) && v50[0] != v57[0] + 16 * v58)
+          v49[0] = 0;
+          if (llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(v56, v27, v49) && v49[0] != v56[0] + 16 * v57)
           {
             break;
           }
         }
 
 LABEL_67:
-        llvm::jitlink::LinkGraph::nested_collection_iterator<llvm::mapped_iterator<llvm::DenseMapIterator<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>,false>,llvm::jitlink::LinkGraph::GetSectionMapEntryValue,llvm::jitlink::Section&>,llvm::detail::DenseSetImpl<llvm::jitlink::Symbol *,llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>>::Iterator,llvm::jitlink::Symbol *,&llvm::jitlink::LinkGraph::getSectionSymbols>::operator++(v51, v50);
-        v27 = v52;
-        if (*&v51[0] == v25 && v52 == v26)
+        llvm::jitlink::LinkGraph::nested_collection_iterator<llvm::mapped_iterator<llvm::DenseMapIterator<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>,false>,llvm::jitlink::LinkGraph::GetSectionMapEntryValue,llvm::jitlink::Section&>,llvm::detail::DenseSetImpl<llvm::jitlink::Symbol *,llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>>::Iterator,llvm::jitlink::Symbol *,&llvm::jitlink::LinkGraph::getSectionSymbols>::operator++(v50, v49);
+        v26 = v51;
+        if (*&v50[0] == v24 && v51 == v25)
         {
           goto LABEL_72;
         }
       }
 
-      v30 = (v50[0] + 8);
-      v31 = *(v50[0] + 8);
-      v32 = v31 - 1;
-      if ((v31 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+      v29 = (v49[0] + 8);
+      v30 = *(v49[0] + 8);
+      v31 = v30 - 1;
+      if ((v30 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
       {
-        atomic_fetch_add((v31 + 8), 1uLL);
+        atomic_fetch_add((v30 + 8), 1uLL);
       }
 
-      v50[0] = 0;
-      if (!llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((v16 + 80), v30, v50) || (v33 = v50[0], v50[0] == *(v16 + 80) + 16 * *(v16 + 96)))
+      v49[0] = 0;
+      if (!llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>,llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::JITSymbolFlags>>::LookupBucketFor<llvm::orc::SymbolStringPtr>((v15 + 80), v29, v49) || (v32 = v49[0], v49[0] == *(v15 + 80) + 16 * *(v15 + 96)))
       {
-        v34 = *(*(v28[1] + 24) + (v28[2] & 0x1FFFFFFFFFFFFFFLL) + 4);
-        if (v32 > 0xFFFFFFFFFFFFFFDFLL)
+        v33 = *(*(v27[1] + 24) + (v27[2] & 0x1FFFFFFFFFFFFFFLL) + 4);
+        if (v31 > 0xFFFFFFFFFFFFFFDFLL)
         {
-          v35 = 0;
+          v34 = 0;
           goto LABEL_45;
         }
       }
 
       else
       {
-        if (v32 <= 0xFFFFFFFFFFFFFFDFLL)
+        if (v31 <= 0xFFFFFFFFFFFFFFDFLL)
         {
-          atomic_fetch_add((v31 + 8), 0xFFFFFFFFFFFFFFFFLL);
+          atomic_fetch_add((v30 + 8), 0xFFFFFFFFFFFFFFFFLL);
         }
 
-        v31 = *(v33 + 8);
-        if ((v31 - 1) >= 0xFFFFFFFFFFFFFFE0)
+        v30 = *(v32 + 8);
+        if ((v30 - 1) >= 0xFFFFFFFFFFFFFFE0)
         {
-          v35 = 0;
-          v34 = *(*(v28[1] + 24) + (v28[2] & 0x1FFFFFFFFFFFFFFLL) + 4);
+          v34 = 0;
+          v33 = *(*(v27[1] + 24) + (v27[2] & 0x1FFFFFFFFFFFFFFLL) + 4);
           goto LABEL_45;
         }
 
-        atomic_fetch_add((v31 + 8), 1uLL);
-        v34 = *(*(v28[1] + 24) + (v28[2] & 0x1FFFFFFFFFFFFFFLL) + 4);
+        atomic_fetch_add((v30 + 8), 1uLL);
+        v33 = *(*(v27[1] + 24) + (v27[2] & 0x1FFFFFFFFFFFFFFLL) + 4);
       }
 
-      v35 = 1;
-      atomic_fetch_add((v31 + 8), 1uLL);
+      v34 = 1;
+      atomic_fetch_add((v30 + 8), 1uLL);
 LABEL_45:
-      v37 = v10[11];
-      v36 = v10[12];
-      if (v37 >= v36)
+      v36 = v10[11];
+      v35 = v10[12];
+      if (v36 >= v35)
       {
-        v39 = v10[10];
-        v40 = (v37 - v39) >> 4;
-        v41 = v40 + 1;
-        if ((v40 + 1) >> 60)
+        v38 = v10[10];
+        v39 = (v36 - v38) >> 4;
+        v40 = v39 + 1;
+        if ((v39 + 1) >> 60)
         {
           std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
         }
 
-        v42 = v36 - v39;
-        if (v42 >> 3 > v41)
+        v41 = v35 - v38;
+        if (v41 >> 3 > v40)
         {
-          v41 = v42 >> 3;
+          v40 = v41 >> 3;
         }
 
-        if (v42 >= 0x7FFFFFFFFFFFFFF0)
+        if (v41 >= 0x7FFFFFFFFFFFFFF0)
         {
-          v43 = 0xFFFFFFFFFFFFFFFLL;
+          v42 = 0xFFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v43 = v41;
+          v42 = v40;
         }
 
-        if (v43)
+        if (v42)
         {
-          if (!(v43 >> 60))
+          if (!(v42 >> 60))
           {
             operator new();
           }
@@ -1558,69 +1482,69 @@ LABEL_45:
           std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
         }
 
-        v44 = 16 * v40;
-        *v44 = v31;
-        *(v44 + 8) = v34;
-        if (v39 != v37)
+        v43 = 16 * v39;
+        *v43 = v30;
+        *(v43 + 8) = v33;
+        if (v38 != v36)
         {
-          v45 = v39;
-          v46 = 0;
+          v44 = v38;
+          v45 = 0;
           do
           {
-            *v46 = 0;
-            *v46 = *v45;
             *v45 = 0;
-            *(v46 + 8) = *(v45 + 2);
+            *v45 = *v44;
+            *v44 = 0;
+            *(v45 + 8) = *(v44 + 2);
+            v44 += 16;
             v45 += 16;
-            v46 += 16;
           }
 
-          while (v45 != v37);
+          while (v44 != v36);
           do
           {
-            if ((*v39 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
+            if ((*v38 - 1) <= 0xFFFFFFFFFFFFFFDFLL)
             {
-              atomic_fetch_add((*v39 + 8), 0xFFFFFFFFFFFFFFFFLL);
+              atomic_fetch_add((*v38 + 8), 0xFFFFFFFFFFFFFFFFLL);
             }
 
-            v39 += 16;
+            v38 += 16;
           }
 
-          while (v39 != v37);
-          v39 = v10[10];
+          while (v38 != v36);
+          v38 = v10[10];
         }
 
-        v38 = v44 + 16;
+        v37 = v43 + 16;
         v10[10] = 0;
-        v10[11] = v44 + 16;
+        v10[11] = v43 + 16;
         v10[12] = 0;
-        if (v39)
+        if (v38)
         {
-          operator delete(v39);
+          operator delete(v38);
         }
       }
 
       else
       {
-        *v37 = v31;
-        *(v37 + 2) = v34;
-        v38 = (v37 + 16);
+        *v36 = v30;
+        *(v36 + 2) = v33;
+        v37 = (v36 + 16);
       }
 
-      v10[11] = v38;
-      if (v35)
+      v10[11] = v37;
+      if (v34)
       {
-        atomic_fetch_add((v31 + 8), 0xFFFFFFFFFFFFFFFFLL);
+        atomic_fetch_add((v30 + 8), 0xFFFFFFFFFFFFFFFFLL);
       }
 
       goto LABEL_67;
     }
 
 LABEL_72:
-    *v48 = 0;
-    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::destroyAll(v57);
-    MEMORY[0x277C69E30](v57[0], 8);
-    v7 = v49;
+    *v47 = 0;
+    llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>,llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::SymbolStringPtr>>::destroyAll(v56);
+    MEMORY[0x277C69E30](v56[0], 8);
+    v7 = v48;
   }
 
   else
@@ -1631,7 +1555,7 @@ LABEL_72:
   std::mutex::unlock((v7 + 16));
 }
 
-double llvm::jitlink::LinkGraph::defined_symbols@<D0>(llvm::jitlink::LinkGraph *this@<X0>, _OWORD *a2@<X8>)
+double llvm::jitlink::LinkGraph::defined_symbols@<D0>(uint64_t *__return_ptr a1@<X8>, llvm::jitlink::LinkGraph *this@<X0>)
 {
   v3 = *(this + 25);
   v4 = *(this + 54);
@@ -1672,14 +1596,14 @@ LABEL_6:
   *&v10 = v5;
   *(&v10 + 1) = v5;
   v11 = 1;
-  llvm::jitlink::LinkGraph::nested_collection_iterator<llvm::mapped_iterator<llvm::DenseMapIterator<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>,false>,llvm::jitlink::LinkGraph::GetSectionMapEntryValue,llvm::jitlink::Section&>,llvm::detail::DenseSetImpl<llvm::jitlink::Symbol *,llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>>::Iterator,llvm::jitlink::Symbol *,&llvm::jitlink::LinkGraph::getSectionSymbols>::nested_collection_iterator((a2 + 4), &v12, &v10);
+  llvm::jitlink::LinkGraph::nested_collection_iterator<llvm::mapped_iterator<llvm::DenseMapIterator<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>,llvm::DenseMapInfo<llvm::StringRef,void>,llvm::detail::DenseMapPair<llvm::StringRef,std::unique_ptr<llvm::jitlink::Section>>,false>,llvm::jitlink::LinkGraph::GetSectionMapEntryValue,llvm::jitlink::Section&>,llvm::detail::DenseSetImpl<llvm::jitlink::Symbol *,llvm::DenseMap<llvm::jitlink::Symbol *,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>,llvm::detail::DenseSetPair<llvm::jitlink::Symbol *>>,llvm::DenseMapInfo<llvm::jitlink::Symbol *,void>>::Iterator,llvm::jitlink::Symbol *,&llvm::jitlink::LinkGraph::getSectionSymbols>::nested_collection_iterator((a1 + 8), &v12, &v10);
   v7 = v15[1];
-  *a2 = v15[0];
-  a2[1] = v7;
+  *a1 = v15[0];
+  *(a1 + 1) = v7;
   result = *&v16;
   v9 = v17;
-  a2[2] = v16;
-  a2[3] = v9;
+  *(a1 + 2) = v16;
+  *(a1 + 3) = v9;
   return result;
 }
 
@@ -1776,7 +1700,7 @@ void *llvm::jitlink::LinkGraph::nested_collection_iterator<llvm::mapped_iterator
 void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallImpl<xojit::ReplacementManager::Plugin::modifyPassConfig(llvm::orc::MaterializationResponsibility &,llvm::jitlink::LinkGraph &,llvm::jitlink::PassConfiguration &)::{lambda(llvm::jitlink::LinkGraph &)#3}>(llvm::jitlink::LinkGraph *this@<X1>, uint64_t *a2@<X0>, void *a3@<X8>)
 {
   v4 = *a2;
-  llvm::jitlink::LinkGraph::defined_symbols(this, v19);
+  llvm::jitlink::LinkGraph::defined_symbols(v19, this);
   v17[0] = v19[0];
   v17[1] = v19[1];
   v17[2] = v19[2];
@@ -1804,7 +1728,7 @@ void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::C
               v11 = 0;
               do
               {
-                v24 = v11;
+                v24[0] = v11;
                 v12 = *v10;
                 *v10 = 0;
                 if ((*(*v12 + 48))(v12, &llvm::ErrorInfoBase::ID))
@@ -1814,7 +1738,7 @@ void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::C
                 }
 
                 v23 = v12;
-                llvm::ErrorList::join(&v24, &v23, v15);
+                llvm::ErrorList::join(v24, &v23, v15);
                 v11 = v15[0];
                 v15[0] = 0;
                 if (v23)
@@ -1822,9 +1746,9 @@ void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::C
                   (*(*v23 + 8))(v23);
                 }
 
-                if (v24)
+                if (v24[0])
                 {
-                  (*(*v24 + 8))(v24);
+                  (*(*v24[0] + 8))(v24[0]);
                 }
 
                 ++v10;
@@ -1941,16 +1865,16 @@ uint64_t llvm::Expected<llvm::orc::MaterializationUnit::Interface>::~Expected(ui
   return a1;
 }
 
-uint64_t *llvm::orc::JITDylib::define<llvm::orc::BasicObjectLayerMaterializationUnit>(std::unique_ptr<llvm::orc::BasicObjectLayerMaterializationUnit> &&,llvm::IntrusiveRefCntPtr<llvm::orc::ResourceTracker>)::{lambda(void)#1}::operator()@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+uint64_t *llvm::orc::JITDylib::define<llvm::orc::BasicObjectLayerMaterializationUnit>(std::unique_ptr<llvm::orc::BasicObjectLayerMaterializationUnit> &&,llvm::IntrusiveRefCntPtr<llvm::orc::ResourceTracker>)::{lambda(void)#1}::operator()@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v4 = *a1;
-  result = llvm::orc::JITDylib::defineImpl(*a1, **(a1 + 8), a2);
+  result = llvm::orc::JITDylib::defineImpl(a2, *a1, **(a1 + 8));
   if (!*a2)
   {
     v6 = *(a1 + 16);
     if (!*v6)
     {
-      llvm::orc::JITDylib::getDefaultResourceTracker(v4, &v13);
+      llvm::orc::JITDylib::getDefaultResourceTracker(&v13, v4);
       v6 = *(a1 + 16);
       v7 = v13;
       v13 = *v6;
@@ -2051,9 +1975,9 @@ uint64_t std::__function::__value_func<void ()(llvm::DenseMap<llvm::orc::JITDyli
   return a1;
 }
 
-uint64_t llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::~Expected(uint64_t a1)
+uint64_t *llvm::Expected<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::~Expected(uint64_t *a1)
 {
-  if (*(a1 + 24))
+  if (a1[3])
   {
     v2 = *a1;
     *a1 = 0;
@@ -2097,7 +2021,7 @@ uint64_t *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef
   return a1;
 }
 
-void *llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>,llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::FindAndConstruct(uint64_t *a1, uint64_t *a2)
+uint64_t *llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>,llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::FindAndConstruct(uint64_t *a1, uint64_t *a2)
 {
   v7 = 0;
   v4 = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>,llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::LookupBucketFor<llvm::orc::SymbolStringPtr>(a1, a2, &v7);
@@ -2110,7 +2034,7 @@ void *llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::Ex
   return v5;
 }
 
-void *llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>,llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::InsertIntoBucket<llvm::orc::SymbolStringPtr const&>(uint64_t a1, void *a2, uint64_t *a3)
+uint64_t *llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>,llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::InsertIntoBucket<llvm::orc::SymbolStringPtr const&>(uint64_t a1, void *a2, uint64_t *a3)
 {
   result = llvm::DenseMapBase<llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>,llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::InsertIntoBucketImpl<llvm::orc::SymbolStringPtr>(a1, a3, a3, a2);
   if ((*result - 1) <= 0xFFFFFFFFFFFFFFDFLL)
@@ -2224,9 +2148,9 @@ LABEL_3:
   return a4;
 }
 
-void *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::grow(uint64_t a1, int a2)
+void *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>::grow(uint64_t *a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -2241,7 +2165,7 @@ void *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llv
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(24 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -2251,8 +2175,8 @@ void *llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llv
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -2365,12 +2289,12 @@ void anonymous namespace::LogManager::~LogManager(void **this)
 
 void xojit::XOJIT::Create()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (atomic_load_explicit(&qword_2809A4188, memory_order_acquire) != -1)
   {
-    v0[0] = &v1;
-    *&v2 = v0;
-    std::__call_once(&qword_2809A4188, &v2, std::__call_once_proxy[abi:nn200100]<std::tuple<xojit::XOJIT::Create(llvm::unique_function<void ()(llvm::Error)>,std::unique_ptr<llvm::orc::ExecutorProcessControl>,llvm::unique_function<llvm::Error ()(xojit::XOJIT&)>)::$_0 &&>>);
+    v4[0] = &v5;
+    *&v6 = v4;
+    std::__call_once(&qword_2809A4188, &v6, std::__call_once_proxy[abi:nn200100]<std::tuple<xojit::XOJIT::Create(llvm::unique_function<void ()(llvm::Error)>,std::unique_ptr<llvm::orc::ExecutorProcessControl>,llvm::unique_function<llvm::Error ()(xojit::XOJIT&)>)::$_0 &&>>);
   }
 
   operator new();
@@ -2378,7 +2302,7 @@ void xojit::XOJIT::Create()
 
 void xojit::XOJIT::~XOJIT(xojit::XOJIT *this)
 {
-  llvm::orc::ExecutionSession::endSession(this, &v5);
+  llvm::orc::ExecutionSession::endSession(&v5, this);
   if (v5)
   {
     v4 = v5;
@@ -2386,12 +2310,12 @@ void xojit::XOJIT::~XOJIT(xojit::XOJIT *this)
     llvm::orc::ExecutionSession::reportError(this, &v4);
     if (v4)
     {
-      (*(*v4 + 8))(v4);
+      (*(*v4 + 1))(v4);
     }
 
     if (v5)
     {
-      (*(*v5 + 8))(v5);
+      (*(*v5 + 1))(v5);
     }
   }
 
@@ -2434,7 +2358,7 @@ uint64_t llvm::orc::ExecutionSession::reportError(uint64_t a1, uint64_t *a2)
   return result;
 }
 
-_BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:nn200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -2448,22 +2372,22 @@ _BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void xojit::XOJIT::runProgramOnMainThread(uint64_t a1)
+void xojit::XOJIT::runProgramOnMainThread(llvm::orc::ExecutionSession *a1)
 {
-  v3[8] = *MEMORY[0x277D85DE8];
-  v3[0] = *(a1 + 544);
-  llvm::orc::ExecutionSession::intern(a1, "___xojit_executor_run_program_on_main_thread", 0x2CuLL, &v2);
-  llvm::orc::ExecutionSession::lookup(a1, v3, 1uLL, &v2);
+  v10[8] = *MEMORY[0x277D85DE8];
+  v10[0] = *(a1 + 68);
+  llvm::orc::ExecutionSession::intern(a1, "___xojit_executor_run_program_on_main_thread", 0x2CuLL, &v9);
+  llvm::orc::ExecutionSession::lookup(a1, v10, 1uLL, &v9);
 }
 
 void xojit::XOJIT::addNullableSymbols(uint64_t a1, uint64_t a2)
@@ -2621,102 +2545,102 @@ LABEL_5:
 
 void llvm::detail::UniqueFunctionBase<void,llvm::Error>::CallImpl<xojit::XOJIT::XOJIT(llvm::unique_function<void ()(llvm::Error)>,std::unique_ptr<llvm::orc::ExecutorProcessControl>,llvm::unique_function<llvm::Error ()(xojit::XOJIT&)>,llvm::Error&)::$_0>(uint64_t a1, uint64_t *a2)
 {
-  v26[7] = *MEMORY[0x277D85DE8];
+  v24[7] = *MEMORY[0x277D85DE8];
   v2 = *a2;
   *a2 = 0;
   v3 = _MergedGlobals_74;
   if (os_log_type_enabled(_MergedGlobals_74, OS_LOG_TYPE_ERROR))
   {
-    v24 = v2;
-    *&buf = v26;
+    v22 = v2;
+    *&buf = v24;
     *(&buf + 1) = 0x200000000;
     __p.__r_.__value_.__r.__words[0] = &buf;
-    llvm::handleAllErrors<llvm::toString(llvm::Error)::{lambda(llvm::ErrorInfoBase const&)#1}>(&v24, &__p);
-    if (v24)
+    llvm::handleAllErrors<llvm::toString(llvm::Error)::{lambda(llvm::ErrorInfoBase const&)#1}>(&v22, &__p);
+    if (v22)
     {
-      (*(*v24 + 8))(v24);
+      (*(*v22 + 8))(v22);
     }
 
-    v6 = buf;
-    v7 = DWORD2(buf);
+    v5 = buf;
+    v6 = DWORD2(buf);
     memset(&__p, 0, sizeof(__p));
     if (DWORD2(buf))
     {
-      v8 = 24 * DWORD2(buf);
-      v9 = DWORD2(buf) - 1;
-      v10 = (buf + 23);
-      v11 = v8;
+      v7 = 24 * DWORD2(buf);
+      v8 = DWORD2(buf) - 1;
+      v9 = (buf + 23);
+      v10 = v7;
       do
       {
-        v12 = *v10;
-        if (v12 < 0)
+        v11 = *v9;
+        if (v11 < 0)
         {
-          v12 = *(v10 - 15);
+          v11 = *(v9 - 15);
         }
 
-        v9 += v12;
-        v10 += 24;
-        v11 -= 24;
+        v8 += v11;
+        v9 += 24;
+        v10 -= 24;
       }
 
-      while (v11);
-      std::string::reserve(&__p, v9);
-      v13 = *(v6 + 23);
-      if (v13 >= 0)
+      while (v10);
+      std::string::reserve(&__p, v8);
+      v12 = *(v5 + 23);
+      if (v12 >= 0)
       {
-        v14 = v6;
-      }
-
-      else
-      {
-        v14 = *v6;
-      }
-
-      if (v13 >= 0)
-      {
-        v15 = *(v6 + 23);
+        v13 = v5;
       }
 
       else
       {
-        v15 = *(v6 + 8);
+        v13 = *v5;
       }
 
-      std::string::append(&__p, v14, v15);
-      if (v7 != 1)
+      if (v12 >= 0)
       {
-        v16 = v6 + 24;
-        v17 = v8 - 24;
+        v14 = *(v5 + 23);
+      }
+
+      else
+      {
+        v14 = *(v5 + 8);
+      }
+
+      std::string::append(&__p, v13, v14);
+      if (v6 != 1)
+      {
+        v15 = v5 + 24;
+        v16 = v7 - 24;
         do
         {
           std::string::append(&__p, "\n", 1uLL);
-          v18 = *(v16 + 23);
-          if (v18 >= 0)
+          v17 = *(v15 + 23);
+          if (v17 >= 0)
           {
-            v19 = v16;
+            v18 = v15;
           }
 
           else
           {
-            v19 = *v16;
+            v18 = *v15;
           }
 
-          if (v18 >= 0)
+          if (v17 >= 0)
           {
-            v20 = *(v16 + 23);
+            v19 = *(v15 + 23);
           }
 
           else
           {
-            v20 = *(v16 + 8);
+            v19 = *(v15 + 8);
           }
 
-          std::string::append(&__p, v19, v20);
-          v16 += 24;
-          v17 -= 24;
+          std::string::append(&__p, v18, v19);
+          v15 += 24;
+          v16 -= 24;
         }
 
-        while (v17);
+        while (v16);
       }
     }
 
@@ -2734,21 +2658,14 @@ void llvm::detail::UniqueFunctionBase<void,llvm::Error>::CallImpl<xojit::XOJIT::
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
-
-    goto LABEL_32;
   }
 
-  if (!v2)
+  else if (v2)
   {
-LABEL_32:
-    v22 = *MEMORY[0x277D85DE8];
-    return;
+    v4 = *(*v2 + 8);
+
+    v4(v2);
   }
-
-  v4 = *(*v2 + 8);
-  v5 = *MEMORY[0x277D85DE8];
-
-  v4(v2);
 }
 
 uint64_t llvm::handleAllErrors<llvm::toString(llvm::Error)::{lambda(llvm::ErrorInfoBase const&)#1}>(uint64_t *a1, uint64_t *a2)
@@ -2765,7 +2682,7 @@ uint64_t llvm::handleAllErrors<llvm::toString(llvm::Error)::{lambda(llvm::ErrorI
   return result;
 }
 
-uint64_t llvm::handleErrors<llvm::toString(llvm::Error)::{lambda(llvm::ErrorInfoBase const&)#1}>@<X0>(uint64_t result@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
+void *llvm::handleErrors<llvm::toString(llvm::Error)::{lambda(llvm::ErrorInfoBase const&)#1}>@<X0>(void *result@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
   v4 = *result;
   if (*result)
@@ -2804,7 +2721,7 @@ uint64_t llvm::handleErrors<llvm::toString(llvm::Error)::{lambda(llvm::ErrorInfo
 
           if (v14)
           {
-            (*(*v14 + 8))(v14);
+            (*(*v14 + 1))(v14);
           }
 
           ++v6;
@@ -3011,35 +2928,35 @@ uint64_t llvm::detail::UniqueFunctionBase<BOOL,llvm::orc::SymbolStringPtr const&
   return v4;
 }
 
-void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::orc::JITDylib &,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::CallImpl<xojit::XOJIT::XOJIT(llvm::unique_function<void ()(llvm::Error)>,std::unique_ptr<llvm::orc::ExecutorProcessControl>,llvm::unique_function<llvm::Error ()(xojit::XOJIT&)>,llvm::Error&)::$_2>(uint64_t a1, uint64_t a2, uint64_t *a3)
+void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::orc::JITDylib &,llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseMapPair<llvm::orc::SymbolStringPtr,llvm::orc::ExecutorSymbolDef>>>::CallImpl<xojit::XOJIT::XOJIT(llvm::unique_function<void ()(llvm::Error)>,std::unique_ptr<llvm::orc::ExecutorProcessControl>,llvm::unique_function<llvm::Error ()(xojit::XOJIT&)>,llvm::Error&)::$_2>(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
   v3 = *a3;
-  v4 = a3[1];
+  v4 = *(a3 + 8);
   *a3 = 0;
-  a3[1] = 0;
-  v5 = *(a3 + 4);
-  *(a3 + 4) = 0;
+  *(a3 + 8) = 0;
+  v5 = *(a3 + 16);
+  *(a3 + 16) = 0;
   v6 = *(*a1 + 72);
   v7 = *(v6 + 16);
-  v14 = *(v6 + 8);
-  v15 = v7;
+  *&v13 = *(v6 + 8);
+  *(&v13 + 1) = v7;
   if (v7)
   {
     atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v11 = v3;
+  v11[0] = v3;
   v8 = 0;
   v9 = 0;
-  v12 = v4;
-  v13 = v5;
+  v11[1] = v4;
+  v12 = v5;
   v10 = 0;
-  llvm::jitlink::absoluteSymbolsLinkGraph(v6 + 40);
+  llvm::jitlink::absoluteSymbolsLinkGraph(v6 + 40, &v13, v11);
 }
 
-void llvm::orc::ObjectLinkingLayer::add(uint64_t a1, llvm::orc::JITDylib *a2, uint64_t *a3)
+void llvm::orc::ObjectLinkingLayer::add(uint64_t a1, llvm::orc::JITDylib *a2, llvm::jitlink::LinkGraph **a3)
 {
-  llvm::orc::JITDylib::getDefaultResourceTracker(a2, &v7);
+  llvm::orc::JITDylib::getDefaultResourceTracker(&v7, a2);
   v5 = *a3;
   *a3 = 0;
   v6 = v5;
@@ -3059,7 +2976,7 @@ llvm::jitlink::LinkGraph **std::unique_ptr<llvm::jitlink::LinkGraph>::~unique_pt
   return a1;
 }
 
-void llvm::orc::ExecutionSession::runSessionLocked<llvm::orc::EPCDynamicLibrarySearchGenerator & llvm::orc::JITDylib::addGenerator<llvm::orc::EPCDynamicLibrarySearchGenerator>(std::unique_ptr<llvm::orc::EPCDynamicLibrarySearchGenerator>)::{lambda(void)#1}>(std::recursive_mutex *a1, void **a2)
+void llvm::orc::ExecutionSession::runSessionLocked<llvm::orc::EPCDynamicLibrarySearchGenerator & llvm::orc::JITDylib::addGenerator<llvm::orc::EPCDynamicLibrarySearchGenerator>(std::unique_ptr<llvm::orc::EPCDynamicLibrarySearchGenerator>)::{lambda(void)#1}>(std::recursive_mutex *a1, void *a2)
 {
   std::recursive_mutex::lock(a1);
   v4 = *a2;
@@ -3169,18 +3086,18 @@ void std::__split_buffer<std::shared_ptr<llvm::orc::DefinitionGenerator>>::clear
   }
 }
 
-uint64_t *std::shared_ptr<llvm::orc::DefinitionGenerator>::shared_ptr[abi:nn200100]<llvm::orc::EPCDynamicLibrarySearchGenerator,std::default_delete<llvm::orc::EPCDynamicLibrarySearchGenerator>,0>(uint64_t *result, uint64_t *a2)
+uint64_t *std::shared_ptr<llvm::orc::DefinitionGenerator>::shared_ptr[abi:nn200100]<llvm::orc::EPCDynamicLibrarySearchGenerator,std::default_delete<llvm::orc::EPCDynamicLibrarySearchGenerator>,0>(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
-  *result = *a2;
+  *a1 = *a2;
   if (v2)
   {
     operator new();
   }
 
-  result[1] = 0;
+  a1[1] = 0;
   *a2 = 0;
-  return result;
+  return a1;
 }
 
 void std::__shared_ptr_pointer<llvm::orc::EPCDynamicLibrarySearchGenerator  *>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
@@ -3203,18 +3120,16 @@ uint64_t std::__shared_ptr_pointer<llvm::orc::EPCDynamicLibrarySearchGenerator  
 
 void *anonymous namespace::RejectMismatchedArchitectures::modifyPassConfig(uint64_t a1, uint64_t a2, uint64_t a3, __int128 **a4)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = *a4;
-  *&v7 = a2;
-  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::insert(a4, v4, &v7);
-  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v7);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  *&v6 = a2;
+  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::insert(a4, v4, &v6);
+  return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v6);
 }
 
-uint64_t llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallImpl<anonymous namespace::RejectMismatchedArchitectures::modifyPassConfig(llvm::orc::MaterializationResponsibility &,llvm::jitlink::LinkGraph &,llvm::jitlink::PassConfiguration &)::{lambda(llvm::jitlink::LinkGraph &)#1}>@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallImpl<anonymous namespace::RejectMismatchedArchitectures::modifyPassConfig(llvm::orc::MaterializationResponsibility &,llvm::jitlink::LinkGraph &,llvm::jitlink::PassConfiguration &)::{lambda(llvm::jitlink::LinkGraph &)#1}>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
-  v4 = *(*(**result + 32) + 72);
+  v4 = *(*(**a1 + 32) + 72);
   if (*(a2 + 160) != *(v4 + 64) || *(a2 + 180) != *(v4 + 84))
   {
     std::operator+<char>();
@@ -3293,7 +3208,6 @@ uint64_t llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &
   }
 
   *a3 = 0;
-  return result;
 }
 
 void llvm::detail::UniqueFunctionBase<std::unique_ptr<llvm::orc::MaterializationUnit>,llvm::orc::MachOPlatform &,llvm::orc::MachOPlatform::HeaderOptions>::CallImpl<std::unique_ptr<llvm::orc::MaterializationUnit> (*)(llvm::orc::MachOPlatform &,llvm::orc::MachOPlatform::HeaderOptions)>(void (**a1)(uint64_t, void **), uint64_t a2, uint64_t a3)
@@ -3404,13 +3318,13 @@ void *llvm::orc::shared::detail::ResultDeserializer<long long,long long>::deseri
   return result;
 }
 
-char *llvm::orc::shared::WrapperFunctionResult::createOutOfBandError@<X0>(llvm::orc::shared::WrapperFunctionResult *this@<X0>, char **a2@<X8>)
+char *llvm::orc::shared::WrapperFunctionResult::createOutOfBandError@<X0>(char **__return_ptr a1@<X8>, llvm::orc::shared::WrapperFunctionResult *this@<X0>)
 {
-  a2[1] = 0;
-  v5 = strlen(this);
-  v6 = malloc_type_malloc(v5 + 1, 0x100004077774924uLL);
-  result = strcpy(v6, this);
-  *a2 = result;
+  a1[1] = 0;
+  v4 = strlen(this);
+  v5 = malloc_type_malloc(v4 + 1, 0x100004077774924uLL);
+  result = strcpy(v5, this);
+  *a1 = result;
   return result;
 }
 
@@ -3546,7 +3460,7 @@ void std::promise<llvm::orc::shared::WrapperFunctionResult>::set_value(uint64_t 
 
   else
   {
-    v3 = std::__throw_future_error[abi:nn200100]();
+    std::__throw_future_error[abi:nn200100]();
   }
 
   std::__assoc_state<llvm::orc::shared::WrapperFunctionResult>::set_value<llvm::orc::shared::WrapperFunctionResult>(v3, a2);
@@ -3557,7 +3471,7 @@ void std::__assoc_state<llvm::orc::shared::WrapperFunctionResult>::set_value<llv
   std::mutex::lock((a1 + 24));
   if ((*(a1 + 136) & 1) != 0 || (v7.__ptr_ = 0, v4 = *(a1 + 16), std::exception_ptr::~exception_ptr(&v7), v4))
   {
-    v5 = std::__throw_future_error[abi:nn200100]();
+    std::__throw_future_error[abi:nn200100]();
     std::__assoc_state<llvm::orc::shared::WrapperFunctionResult>::move(v5, v6);
   }
 
@@ -3581,14 +3495,14 @@ void std::__assoc_state<llvm::orc::shared::WrapperFunctionResult>::move(uint64_t
   std::mutex::lock((a1 + 24));
   std::__assoc_sub_state::__sub_wait(a1, &__lk);
   v4 = *(a1 + 16);
-  v7.__ptr_ = 0;
-  std::exception_ptr::~exception_ptr(&v7);
+  v10.__ptr_ = 0;
+  std::exception_ptr::~exception_ptr(&v10);
   if (v4)
   {
-    std::exception_ptr::exception_ptr(&v6, (a1 + 16));
-    v5.__ptr_ = &v6;
+    std::exception_ptr::exception_ptr(&v9, (a1 + 16));
+    v5.__ptr_ = &v9;
     std::rethrow_exception(v5);
-    llvm::make_error<llvm::StringError,char const(&)[51],std::error_code>();
+    llvm::make_error<llvm::StringError,char const(&)[51],std::error_code>(v6, v7, v8);
   }
 
   else
@@ -3610,20 +3524,15 @@ uint64_t _GLOBAL__sub_I_XOJIT_cpp()
 
 uint64_t XOJIT_XOJIT_LoadDylib(uint64_t a1, uint64_t a2, void *a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  (*(**(*(a1 + 72) + 128) + 16))(&v6);
-  if (v7)
+  v7 = *MEMORY[0x277D85DE8];
+  (*(**(*(a1 + 72) + 128) + 16))(&v5);
+  if (v6)
   {
-    result = v6;
+    return v5;
   }
 
-  else
-  {
-    result = 0;
-    *a3 = v6;
-  }
-
-  v5 = *MEMORY[0x277D85DE8];
+  result = 0;
+  *a3 = v5;
   return result;
 }
 
@@ -3645,49 +3554,49 @@ atomic_uint *XOJIT_XOJIT_GetPlatformJITDylibRetained(uint64_t a1)
   return v1;
 }
 
-void XOJIT_OrcRTJITDlopen(uint64_t a1)
+void XOJIT_OrcRTJITDlopen(uint64_t a1, const char *a2, void *a3)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 544);
-  if (v1)
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = *(a1 + 544);
+  if (v3)
   {
-    atomic_fetch_add_explicit(v1, 1u, memory_order_relaxed);
+    atomic_fetch_add_explicit(v3, 1u, memory_order_relaxed);
     operator new();
   }
 
   operator new();
 }
 
-void XOJIT_XOJIT_RunAsMain(uint64_t a1, char *__s, const char *a3, int a4, const char **a5)
+void XOJIT_XOJIT_RunAsMain(llvm::orc::ExecutionSession *a1, char *__s, const char *a3, unsigned int a4, const char **a5, _DWORD *a6)
 {
-  v13[6] = *MEMORY[0x277D85DE8];
-  v12[0] = v13;
-  v12[1] = 0x300000000;
+  v14[6] = *MEMORY[0x277D85DE8];
+  v13[0] = v14;
+  v13[1] = 0x300000000;
   if (a4 >= 4)
   {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(v12, v13, a4, 16);
+    llvm::SmallVectorBase<unsigned int>::grow_pod(v13, v14, a4, 16);
   }
 
   if (a4 >= 1)
   {
-    v10 = a4;
+    v11 = a4;
     do
     {
       if (*a5)
       {
-        v11 = strlen(*a5);
+        v12 = strlen(*a5);
       }
 
       else
       {
-        v11 = 0;
+        v12 = 0;
       }
 
-      llvm::SmallVectorTemplateBase<std::pair<void *,unsigned long>,true>::push_back(v12, *a5++, v11);
-      --v10;
+      llvm::SmallVectorTemplateBase<std::pair<void *,unsigned long>,true>::push_back(v13, *a5++, v12);
+      --v11;
     }
 
-    while (v10);
+    while (v11);
   }
 
   if (__s)
@@ -3709,18 +3618,18 @@ LABEL_13:
   goto LABEL_13;
 }
 
-void XOJIT_XOJIT_RunOnAnyThread(uint64_t a1)
+void XOJIT_XOJIT_RunOnAnyThread(llvm::orc::ExecutionSession *a1, const char *a2, const char *a3, int a4, char **a5, _DWORD *a6)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 544);
-  if (v2)
+  v10 = *MEMORY[0x277D85DE8];
+  v7 = *(a1 + 68);
+  if (v7)
   {
-    atomic_fetch_add_explicit(v2, 1u, memory_order_relaxed);
+    atomic_fetch_add_explicit(v7, 1u, memory_order_relaxed);
   }
 
-  v4.__begin_ = v2;
-  llvm::orc::ExecutionSession::intern(a1, "___xojit_executor_run_program_wrapper", 0x25uLL, &v3);
-  llvm::orc::ExecutionSession::lookup(a1, &v4, 1uLL, &v3);
+  v9.__begin_ = v7;
+  llvm::orc::ExecutionSession::intern(a1, "___xojit_executor_run_program_wrapper", 0x25uLL, &v8);
+  llvm::orc::ExecutionSession::lookup(a1, &v9, 1uLL, &v8);
 }
 
 void std::vector<std::string>::reserve(std::vector<std::string> *this, std::vector<std::string>::size_type __n)
@@ -3729,8 +3638,6 @@ void std::vector<std::string>::reserve(std::vector<std::string> *this, std::vect
   {
     if (__n < 0xAAAAAAAAAAAAAABLL)
     {
-      v2 = this->__end_ - this->__begin_;
-      v3.__end_cap_.__value_ = this;
       std::__allocate_at_least[abi:nn200100]<std::allocator<std::string>>(this, __n);
     }
 
@@ -3801,8 +3708,7 @@ void std::vector<std::string>::push_back[abi:nn200100](uint64_t a1, __int128 *a2
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = v4 + 24;
   }
@@ -3893,19 +3799,19 @@ void std::vector<std::string>::push_back[abi:nn200100](uint64_t a1, __int128 *a2
   *(a1 + 8) = v11;
 }
 
-void XOJIT_XOJIT_RunNewInitializers(uint64_t a1)
+void XOJIT_XOJIT_RunNewInitializers(llvm::orc::ExecutionSession *a1, uint64_t a2)
 {
-  v2[2] = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 544);
-  if (v1)
+  v3[2] = *MEMORY[0x277D85DE8];
+  v2 = *(a1 + 68);
+  if (v2)
   {
-    atomic_fetch_add_explicit(v1, 1u, memory_order_relaxed);
-    v2[0] = v1;
-    llvm::orc::ExecutionSession::lookup(a1, v2, 1uLL, "___orc_rt_jit_dlopen_wrapper", 0x1CuLL);
+    atomic_fetch_add_explicit(v2, 1u, memory_order_relaxed);
+    v3[0] = v2;
+    llvm::orc::ExecutionSession::lookup(a1, v3, 1uLL, "___orc_rt_jit_dlopen_wrapper", 0x1CuLL);
   }
 
-  v2[0] = 0;
-  llvm::orc::ExecutionSession::lookup(a1, v2, 1uLL, "___orc_rt_jit_dlopen_wrapper", 0x1CuLL);
+  v3[0] = 0;
+  llvm::orc::ExecutionSession::lookup(a1, v3, 1uLL, "___orc_rt_jit_dlopen_wrapper", 0x1CuLL);
 }
 
 xojit::ReplacementManager *XOJIT_DisposeReplacementManager(xojit::ReplacementManager *result)
@@ -3918,7 +3824,7 @@ xojit::ReplacementManager *XOJIT_DisposeReplacementManager(xojit::ReplacementMan
   return result;
 }
 
-uint64_t XOJIT_ReplacementManager_AddObjectFile(uint64_t *a1, std::string::size_type a2, uint64_t a3)
+uint64_t XOJIT_ReplacementManager_AddObjectFile(uint64_t *a1, std::string::size_type a2, std::string::size_type a3)
 {
   v6 = a3;
   xojit::ReplacementManager::addWithReplacement(a1, a2, &v6, &v7);
@@ -4005,128 +3911,120 @@ char *XOJIT_Error_ToMessage(char *a1)
 
 char *XOJIT_Error_DestroyToMessage(uint64_t a1)
 {
-  v24[6] = *MEMORY[0x277D85DE8];
-  if (a1)
+  v23[6] = *MEMORY[0x277D85DE8];
+  if (!a1)
   {
-    v21 = a1;
-    v22 = v24;
-    v23 = 0x200000000;
-    v20.__r_.__value_.__r.__words[0] = &v22;
-    llvm::handleAllErrors<llvm::toString(llvm::Error)::{lambda(llvm::ErrorInfoBase const&)#1}>(&v21, &v20);
-    if (v21)
+    return 0;
+  }
+
+  v20 = a1;
+  v21 = v23;
+  v22 = 0x200000000;
+  v19.__r_.__value_.__r.__words[0] = &v21;
+  llvm::handleAllErrors<llvm::toString(llvm::Error)::{lambda(llvm::ErrorInfoBase const&)#1}>(&v20, &v19);
+  if (v20)
+  {
+    (*(*v20 + 8))(v20);
+  }
+
+  v1 = v21;
+  v2 = v22;
+  memset(&v19, 0, sizeof(v19));
+  if (v22)
+  {
+    v3 = 24 * v22;
+    v4 = v22 - 1;
+    v5 = v21 + 23;
+    v6 = v3;
+    do
     {
-      (*(*v21 + 8))(v21);
+      v7 = *v5;
+      if (v7 < 0)
+      {
+        v7 = *(v5 - 15);
+      }
+
+      v4 += v7;
+      v5 += 24;
+      v6 -= 24;
     }
 
-    v1 = v22;
-    v2 = v23;
-    memset(&v20, 0, sizeof(v20));
-    if (v23)
+    while (v6);
+    std::string::reserve(&v19, v4);
+    v8 = v1[23];
+    if (v8 >= 0)
     {
-      v3 = 24 * v23;
-      v4 = v23 - 1;
-      v5 = v22 + 23;
-      v6 = v3;
-      do
-      {
-        v7 = *v5;
-        if (v7 < 0)
-        {
-          v7 = *(v5 - 15);
-        }
-
-        v4 += v7;
-        v5 += 24;
-        v6 -= 24;
-      }
-
-      while (v6);
-      std::string::reserve(&v20, v4);
-      v8 = v1[23];
-      if (v8 >= 0)
-      {
-        v9 = v1;
-      }
-
-      else
-      {
-        v9 = *v1;
-      }
-
-      if (v8 >= 0)
-      {
-        v10 = *(v1 + 23);
-      }
-
-      else
-      {
-        v10 = *(v1 + 1);
-      }
-
-      std::string::append(&v20, v9, v10);
-      if (v2 != 1)
-      {
-        v11 = v1 + 24;
-        v12 = v3 - 24;
-        do
-        {
-          std::string::append(&v20, "\n", 1uLL);
-          v13 = v11[23];
-          if (v13 >= 0)
-          {
-            v14 = v11;
-          }
-
-          else
-          {
-            v14 = *v11;
-          }
-
-          if (v13 >= 0)
-          {
-            v15 = *(v11 + 23);
-          }
-
-          else
-          {
-            v15 = *(v11 + 1);
-          }
-
-          std::string::append(&v20, v14, v15);
-          v11 += 24;
-          v12 -= 24;
-        }
-
-        while (v12);
-      }
-    }
-
-    llvm::SmallVector<std::string,2u>::~SmallVector(&v22);
-    if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
-    {
-      v17 = v20.__r_.__value_.__r.__words[0];
-      v16 = strdup(v20.__r_.__value_.__l.__data_);
-      operator delete(v17);
+      v9 = v1;
     }
 
     else
     {
-      v16 = strdup(&v20);
+      v9 = *v1;
+    }
+
+    if (v8 >= 0)
+    {
+      v10 = *(v1 + 23);
+    }
+
+    else
+    {
+      v10 = *(v1 + 1);
+    }
+
+    std::string::append(&v19, v9, v10);
+    if (v2 != 1)
+    {
+      v11 = v1 + 24;
+      v12 = v3 - 24;
+      do
+      {
+        std::string::append(&v19, "\n", 1uLL);
+        v13 = v11[23];
+        if (v13 >= 0)
+        {
+          v14 = v11;
+        }
+
+        else
+        {
+          v14 = *v11;
+        }
+
+        if (v13 >= 0)
+        {
+          v15 = *(v11 + 23);
+        }
+
+        else
+        {
+          v15 = *(v11 + 1);
+        }
+
+        std::string::append(&v19, v14, v15);
+        v11 += 24;
+        v12 -= 24;
+      }
+
+      while (v12);
     }
   }
 
-  else
+  llvm::SmallVector<std::string,2u>::~SmallVector(&v21);
+  if ((SHIBYTE(v19.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    v16 = 0;
+    return strdup(&v19);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = v19.__r_.__value_.__r.__words[0];
+  v16 = strdup(v19.__r_.__value_.__l.__data_);
+  operator delete(v17);
   return v16;
 }
 
-uint64_t XOJIT_MemoryBuffer_CreateWithIdentifierFromPath(_BYTE *a1, _BYTE *a2, void *a3)
+uint64_t XOJIT_MemoryBuffer_CreateWithIdentifierFromPath(const char *a1, const char *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v5 = a1;
@@ -4138,48 +4036,43 @@ uint64_t XOJIT_MemoryBuffer_CreateWithIdentifierFromPath(_BYTE *a1, _BYTE *a2, v
   }
 
   v6 = 1;
-  HIBYTE(v13) = 1;
+  HIBYTE(v12) = 1;
   if (*a2)
   {
-    v12[0] = a2;
+    v11[0] = a2;
     v6 = 3;
   }
 
-  LOBYTE(v13) = v6;
-  llvm::sys::fs::openNativeFileForRead(v12, 0, 0, &v16);
-  if (v17)
+  LOBYTE(v12) = v6;
+  llvm::sys::fs::openNativeFileForRead(v11, 0, 0, &v15);
+  if (v16)
   {
-    v7 = v16;
+    return v15;
   }
 
-  else
+  v8 = v15;
+  v9 = 1;
+  HIBYTE(v12) = 1;
+  if (*v5)
   {
-    v8 = v16;
-    v9 = 1;
-    HIBYTE(v13) = 1;
-    if (*v5)
-    {
-      v12[0] = v5;
-      v9 = 3;
-    }
-
-    LOBYTE(v13) = v9;
-    getOpenFileImpl<llvm::MemoryBuffer>(v16, v12, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0, 1, 0, 0, &v14);
-    llvm::sys::Process::SafelyCloseFileDescriptor(v8);
-    if (v15)
-    {
-      v13 = 773;
-      v12[0] = "Could not create MemoryBuffer for path ";
-      v12[1] = 39;
-      v12[2] = a2;
-      operator new();
-    }
-
-    v7 = 0;
-    *a3 = v14;
+    v11[0] = v5;
+    v9 = 3;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
+  LOBYTE(v12) = v9;
+  getOpenFileImpl<llvm::MemoryBuffer>(&v13, v15, v11, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0, 1, 0, 0);
+  llvm::sys::Process::SafelyCloseFileDescriptor(v8);
+  if (v14)
+  {
+    v12 = 773;
+    v11[0] = "Could not create MemoryBuffer for path ";
+    v11[1] = 39;
+    v11[2] = a2;
+    operator new();
+  }
+
+  v7 = 0;
+  *a3 = v13;
   return v7;
 }
 
@@ -4193,7 +4086,7 @@ uint64_t XOJIT_MemoryBuffer_Destroy(uint64_t result)
   return result;
 }
 
-uint64_t XOJIT_SymbolString_WithStringRepresentationsDo(uint64_t result, uint64_t a2, uint64_t a3)
+void *XOJIT_SymbolString_WithStringRepresentationsDo(void *result, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
@@ -4212,17 +4105,17 @@ uint64_t XOJIT_SymbolString_WithStringRepresentationsDo(uint64_t result, uint64_
   return result;
 }
 
-void XOJIT_XOJIT_CreateFromXPCWithOOPJITType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6)
+void XOJIT_XOJIT_CreateFromXPCWithOOPJITType(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t *a7)
 {
-  v6[13] = *MEMORY[0x277D85DE8];
-  v6[0] = 0;
-  xojit::createXPCEPC(a5, a6, v6);
+  v7[13] = *MEMORY[0x277D85DE8];
+  v7[0] = 0;
+  xojit::createXPCEPC(a5, a6, v7);
 }
 
-xojit::XOJIT **XOJIT_XOJIT_Destroy(xojit::XOJIT *a1)
+xojit::XOJIT **XOJIT_XOJIT_Destroy(llvm::orc::ExecutionSession *a1)
 {
   v5 = a1;
-  llvm::orc::ExecutionSession::endSession(a1, &v4);
+  llvm::orc::ExecutionSession::endSession(&v4, a1);
   if (v4)
   {
     v3 = v4;
@@ -4230,12 +4123,12 @@ xojit::XOJIT **XOJIT_XOJIT_Destroy(xojit::XOJIT *a1)
     llvm::orc::ExecutionSession::reportError(a1, &v3);
     if (v3)
     {
-      (*(*v3 + 8))(v3);
+      (*(*v3 + 1))(v3);
     }
 
     if (v4)
     {
-      (*(*v4 + 8))(v4);
+      (*(*v4 + 1))(v4);
     }
   }
 
@@ -4285,253 +4178,253 @@ atomic_uint *XOJIT_XOJIT_GetProgramJITDylibRetained(uint64_t a1)
   return v1;
 }
 
-void XOJIT_XOJIT_CreateJITDylib(std::recursive_mutex *a1, char *__s, uint64_t a3)
+void XOJIT_XOJIT_CreateJITDylib(std::recursive_mutex *a1, char *__s, uint64_t a3, atomic_uint **a4)
 {
-  v40.__r_.__value_.__s.__data_[0] = 0;
-  v43 = 0;
+  v41.__r_.__value_.__s.__data_[0] = 0;
+  v44 = 0;
   *__p = 0u;
-  memset(v45, 0, sizeof(v45));
+  memset(v46, 0, sizeof(v46));
   *__dst = 0u;
-  v47 = 0;
+  v48 = 0;
   if (a3)
   {
     if (*(a3 + 40))
     {
       if (*(a3 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(&v40, *a3, *(a3 + 8));
+        std::string::__init_copy_ctor_external(&v41, *a3, *(a3 + 8));
       }
 
       else
       {
-        v40 = *a3;
+        v41 = *a3;
       }
 
-      v41 = *(a3 + 24);
-      v42 = *(a3 + 32);
-      v43 = 1;
+      v42 = *(a3 + 24);
+      v43 = *(a3 + 32);
+      v44 = 1;
     }
 
-    if (&v40 != a3)
+    if (&v41 != a3)
     {
-      v6 = *(a3 + 48);
-      v7 = *(a3 + 56);
-      v8 = v7 - v6;
-      v9 = *&v45[0];
-      v10 = __p[0];
-      if (*&v45[0] - __p[0] < v7 - v6)
+      v7 = *(a3 + 48);
+      v8 = *(a3 + 56);
+      v9 = v8 - v7;
+      v10 = *&v46[0];
+      v11 = __p[0];
+      if (*&v46[0] - __p[0] < v8 - v7)
       {
-        v11 = 0xAAAAAAAAAAAAAAABLL * (v8 >> 4);
+        v12 = 0xAAAAAAAAAAAAAAABLL * (v9 >> 4);
         if (__p[0])
         {
-          v12 = __p[1];
-          v13 = __p[0];
+          v13 = __p[1];
+          v14 = __p[0];
           if (__p[1] != __p[0])
           {
             do
             {
-              v14 = *(v12 - 25);
-              v12 -= 6;
-              if (v14 < 0)
+              v15 = *(v13 - 25);
+              v13 -= 6;
+              if (v15 < 0)
               {
-                operator delete(*v12);
+                operator delete(*v13);
               }
             }
 
-            while (v12 != v10);
-            v13 = __p[0];
+            while (v13 != v11);
+            v14 = __p[0];
           }
 
-          __p[1] = v10;
-          operator delete(v13);
-          v9 = 0;
+          __p[1] = v11;
+          operator delete(v14);
+          v10 = 0;
           __p[0] = 0;
           __p[1] = 0;
-          *&v45[0] = 0;
+          *&v46[0] = 0;
         }
 
-        if (v11 <= 0x555555555555555)
+        if (v12 <= 0x555555555555555)
         {
-          v15 = 0xAAAAAAAAAAAAAAABLL * (v9 >> 4);
-          v16 = 2 * v15;
-          if (2 * v15 <= v11)
+          v16 = 0xAAAAAAAAAAAAAAABLL * (v10 >> 4);
+          v17 = 2 * v16;
+          if (2 * v16 <= v12)
           {
-            v16 = v11;
+            v17 = v12;
           }
 
-          if (v15 >= 0x2AAAAAAAAAAAAAALL)
+          if (v16 >= 0x2AAAAAAAAAAAAAALL)
           {
-            v17 = 0x555555555555555;
+            v18 = 0x555555555555555;
           }
 
           else
           {
-            v17 = v16;
+            v18 = v17;
           }
 
-          if (v17 <= 0x555555555555555)
+          if (v18 <= 0x555555555555555)
           {
-            std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::orc::MachOPlatform::HeaderOptions::LoadDylibCmd>>(v17);
+            std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::orc::MachOPlatform::HeaderOptions::LoadDylibCmd>>(v18);
           }
         }
 
         std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
       }
 
-      v18 = __p[1];
-      if ((__p[1] - __p[0]) >= v8)
+      v19 = __p[1];
+      if ((__p[1] - __p[0]) >= v9)
       {
-        if (v6 != v7)
+        if (v7 != v8)
         {
           do
           {
-            std::string::operator=(v10, v6);
-            v24 = *(v6 + 24);
-            LODWORD(v10[1].__r_.__value_.__r.__words[1]) = *(v6 + 32);
-            v10[1].__r_.__value_.__r.__words[0] = v24;
-            LODWORD(v10[1].__r_.__value_.__r.__words[2]) = *(v6 + 40);
-            v6 += 48;
-            v10 += 2;
+            std::string::operator=(v11, v7);
+            v25 = *(v7 + 24);
+            LODWORD(v11[1].__r_.__value_.__r.__words[1]) = *(v7 + 32);
+            v11[1].__r_.__value_.__r.__words[0] = v25;
+            LODWORD(v11[1].__r_.__value_.__r.__words[2]) = *(v7 + 40);
+            v7 += 48;
+            v11 += 2;
           }
 
-          while (v6 != v7);
-          v18 = __p[1];
+          while (v7 != v8);
+          v19 = __p[1];
         }
 
-        while (v18 != v10)
+        while (v19 != v11)
         {
-          v25 = *(v18 - 25);
-          v18 -= 6;
-          if (v25 < 0)
+          v26 = *(v19 - 25);
+          v19 -= 6;
+          if (v26 < 0)
           {
-            operator delete(*v18);
+            operator delete(*v19);
           }
         }
 
-        __p[1] = v10;
+        __p[1] = v11;
       }
 
       else
       {
-        v19 = (v6 + __p[1] - __p[0]);
+        v20 = (v7 + __p[1] - __p[0]);
         if (__p[1] != __p[0])
         {
           do
           {
-            std::string::operator=(v10, v6);
-            v20 = *(v6 + 24);
-            LODWORD(v10[1].__r_.__value_.__r.__words[1]) = *(v6 + 32);
-            v10[1].__r_.__value_.__r.__words[0] = v20;
-            LODWORD(v10[1].__r_.__value_.__r.__words[2]) = *(v6 + 40);
-            v6 += 48;
-            v10 += 2;
+            std::string::operator=(v11, v7);
+            v21 = *(v7 + 24);
+            LODWORD(v11[1].__r_.__value_.__r.__words[1]) = *(v7 + 32);
+            v11[1].__r_.__value_.__r.__words[0] = v21;
+            LODWORD(v11[1].__r_.__value_.__r.__words[2]) = *(v7 + 40);
+            v7 += 48;
+            v11 += 2;
           }
 
-          while (v6 != v19);
-          v18 = __p[1];
+          while (v7 != v20);
+          v19 = __p[1];
         }
 
-        v21 = v18;
-        if (v19 != v7)
+        v22 = v19;
+        if (v20 != v8)
         {
-          v21 = v18;
-          v22 = v18;
+          v22 = v19;
+          v23 = v19;
           do
           {
-            Dylib = std::construct_at[abi:nn200100]<llvm::orc::MachOPlatform::HeaderOptions::LoadDylibCmd,llvm::orc::MachOPlatform::HeaderOptions::LoadDylibCmd&,llvm::orc::MachOPlatform::HeaderOptions::LoadDylibCmd*>(v22, v19);
-            v19 += 3;
-            v22 = Dylib + 2;
-            v21 += 6;
+            Dylib = std::construct_at[abi:nn200100]<llvm::orc::MachOPlatform::HeaderOptions::LoadDylibCmd,llvm::orc::MachOPlatform::HeaderOptions::LoadDylibCmd&,llvm::orc::MachOPlatform::HeaderOptions::LoadDylibCmd*>(v23, v20);
+            v20 += 3;
+            v23 = Dylib + 2;
+            v22 += 6;
           }
 
-          while (v19 != v7);
+          while (v20 != v8);
         }
 
-        __p[1] = v21;
+        __p[1] = v22;
       }
 
-      std::vector<std::string>::__assign_with_size[abi:nn200100]<std::string*,std::string*>((v45 + 8), *(a3 + 72), *(a3 + 80), 0xAAAAAAAAAAAAAAABLL * ((*(a3 + 80) - *(a3 + 72)) >> 3));
-      v26 = *(a3 + 96);
-      v27 = *(a3 + 104);
-      v28 = v27 - v26;
-      v29 = v47;
-      v30 = __dst[0];
-      if (v47 - __dst[0] < v27 - v26)
+      std::vector<std::string>::__assign_with_size[abi:nn200100]<std::string*,std::string*>((v46 + 8), *(a3 + 72), *(a3 + 80), 0xAAAAAAAAAAAAAAABLL * ((*(a3 + 80) - *(a3 + 72)) >> 3));
+      v27 = *(a3 + 96);
+      v28 = *(a3 + 104);
+      v29 = v28 - v27;
+      v30 = v48;
+      v31 = __dst[0];
+      if (v48 - __dst[0] < v28 - v27)
       {
-        v31 = 0xAAAAAAAAAAAAAAABLL * (v28 >> 2);
+        v32 = 0xAAAAAAAAAAAAAAABLL * (v29 >> 2);
         if (__dst[0])
         {
           __dst[1] = __dst[0];
           operator delete(__dst[0]);
-          v29 = 0;
+          v30 = 0;
           __dst[0] = 0;
           __dst[1] = 0;
-          v47 = 0;
+          v48 = 0;
         }
 
-        if (v31 <= 0x1555555555555555)
+        if (v32 <= 0x1555555555555555)
         {
-          v32 = 0xAAAAAAAAAAAAAAABLL * (v29 >> 2);
-          v33 = 2 * v32;
-          if (2 * v32 <= v31)
+          v33 = 0xAAAAAAAAAAAAAAABLL * (v30 >> 2);
+          v34 = 2 * v33;
+          if (2 * v33 <= v32)
           {
-            v33 = 0xAAAAAAAAAAAAAAABLL * (v28 >> 2);
+            v34 = 0xAAAAAAAAAAAAAAABLL * (v29 >> 2);
           }
 
-          if (v32 >= 0xAAAAAAAAAAAAAAALL)
+          if (v33 >= 0xAAAAAAAAAAAAAAALL)
           {
-            v34 = 0x1555555555555555;
+            v35 = 0x1555555555555555;
           }
 
           else
           {
-            v34 = v33;
+            v35 = v34;
           }
 
-          if (v34 <= 0x1555555555555555)
+          if (v35 <= 0x1555555555555555)
           {
-            std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::orc::MachOPlatform::HeaderOptions::BuildVersionOpts>>(v34);
+            std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::orc::MachOPlatform::HeaderOptions::BuildVersionOpts>>(v35);
           }
         }
 
         std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
       }
 
-      v35 = __dst[1];
-      v36 = __dst[1] - __dst[0];
-      if ((__dst[1] - __dst[0]) >= v28)
+      v36 = __dst[1];
+      v37 = __dst[1] - __dst[0];
+      if ((__dst[1] - __dst[0]) >= v29)
       {
-        if (v27 != v26)
+        if (v28 != v27)
         {
-          memmove(__dst[0], v26, v27 - v26);
+          memmove(__dst[0], v27, v28 - v27);
         }
 
-        v38 = &v30[v28];
+        v39 = &v31[v29];
       }
 
       else
       {
-        v37 = &v26[v36];
+        v38 = &v27[v37];
         if (__dst[1] != __dst[0])
         {
-          memmove(__dst[0], v26, v36);
-          v35 = __dst[1];
+          memmove(__dst[0], v27, v37);
+          v36 = __dst[1];
         }
 
-        if (v27 != v37)
+        if (v28 != v38)
         {
-          memmove(v35, v37, v27 - v37);
+          memmove(v36, v38, v28 - v38);
         }
 
-        v38 = &v35[v27 - v37];
+        v39 = &v36[v28 - v38];
       }
 
-      __dst[1] = v38;
+      __dst[1] = v39;
     }
   }
 
-  std::string::basic_string[abi:nn200100]<0>(&v39, __s);
-  llvm::orc::ExecutionSession::createBareJITDylib(a1);
+  std::string::basic_string[abi:nn200100]<0>(v40, __s);
+  llvm::orc::ExecutionSession::createBareJITDylib(a1, v40);
 }
 
 void XOJIT_XOJIT_SetLoadableAtPathViaRegex(uint64_t a1, void *a2, char *__s, char *a4)
@@ -4604,7 +4497,7 @@ void XOJIT_XOJIT_RemoveJITDylibAndRelease(uint64_t a1, atomic_uint *a2)
   operator new();
 }
 
-uint64_t XOJIT_XOJIT_AddObjectFile(uint64_t a1, llvm::orc::JITDylib *a2, uint64_t a3)
+llvm::object::COFFObjectFile *XOJIT_XOJIT_AddObjectFile(uint64_t a1, llvm::orc::JITDylib *a2, uint64_t a3)
 {
   v5 = a3;
   llvm::orc::ObjectLayer::add(a1 + 352, a2, &v5, &v6);
@@ -4618,33 +4511,33 @@ uint64_t XOJIT_XOJIT_AddObjectFile(uint64_t a1, llvm::orc::JITDylib *a2, uint64_
   return v3;
 }
 
-uint64_t XOJIT_XOJIT_LinkStaticArchive(uint64_t a1, void *a2, uint64_t a3)
+uint64_t XOJIT_XOJIT_LinkStaticArchive(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v11 = a3;
-  memset(v14, 0, sizeof(v14));
+  v16 = *MEMORY[0x277D85DE8];
+  v10 = a3;
   memset(v13, 0, sizeof(v13));
-  llvm::orc::StaticLibraryDefinitionGenerator::Create(a1 + 352, &v11, v14, v13, &v15);
+  memset(v12, 0, sizeof(v12));
+  llvm::orc::StaticLibraryDefinitionGenerator::Create(a1 + 352, &v10, v13, v12, &v14);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v12);
   llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v13);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v14);
-  v4 = v11;
-  v11 = 0;
+  v4 = v10;
+  v10 = 0;
   if (v4)
   {
     (*(*v4 + 8))(v4);
   }
 
-  v5 = v15;
-  v15 = 0;
-  if ((v16 & 1) == 0)
+  v5 = v14;
+  v14 = 0;
+  if ((v15 & 1) == 0)
   {
-    v10 = v5;
-    v6 = a2[4];
-    v12[0] = a2;
-    v12[1] = &v10;
-    llvm::orc::ExecutionSession::runSessionLocked<llvm::orc::StaticLibraryDefinitionGenerator & llvm::orc::JITDylib::addGenerator<llvm::orc::StaticLibraryDefinitionGenerator>(std::unique_ptr<llvm::orc::StaticLibraryDefinitionGenerator>)::{lambda(void)#1}>(v6, v12);
-    v7 = v10;
-    v10 = 0;
+    v9 = v5;
+    v6 = *(a2 + 32);
+    v11[0] = a2;
+    v11[1] = &v9;
+    llvm::orc::ExecutionSession::runSessionLocked<llvm::orc::StaticLibraryDefinitionGenerator & llvm::orc::JITDylib::addGenerator<llvm::orc::StaticLibraryDefinitionGenerator>(std::unique_ptr<llvm::orc::StaticLibraryDefinitionGenerator>)::{lambda(void)#1}>(v6, v11);
+    v7 = v9;
+    v9 = 0;
     if (v7)
     {
       (*(*v7 + 8))(v7);
@@ -4653,50 +4546,49 @@ uint64_t XOJIT_XOJIT_LinkStaticArchive(uint64_t a1, void *a2, uint64_t a3)
     v5 = 0;
   }
 
-  llvm::Expected<std::unique_ptr<llvm::orc::EPCDynamicLibrarySearchGenerator>>::~Expected(&v15);
-  v8 = *MEMORY[0x277D85DE8];
+  llvm::Expected<std::unique_ptr<llvm::orc::EPCDynamicLibrarySearchGenerator>>::~Expected(&v14);
   return v5;
 }
 
 uint64_t XOJIT_XOJIT_LinkStaticArchiveWithForceLoad(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v24 = 0;
+  v24 = *MEMORY[0x277D85DE8];
+  v23 = 0;
   if (a4)
   {
-    *&v20 = a1 + 352;
-    *(&v20 + 1) = a2;
-    v21 = a4 == 2;
-    v22 = llvm::detail::UniqueFunctionBase<llvm::Expected<BOOL>,llvm::object::Archive &,llvm::MemoryBufferRef,unsigned long>::CallbacksHolder<llvm::orc::ForceLoadMachOArchiveMembers,llvm::orc::ForceLoadMachOArchiveMembers,void>::Callbacks + 2;
-    v7 = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v23);
-    llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v7, &v20);
-    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v20);
+    *&v19 = a1 + 352;
+    *(&v19 + 1) = a2;
+    v20 = a4 == 2;
+    v21 = llvm::detail::UniqueFunctionBase<llvm::Expected<BOOL>,llvm::object::Archive &,llvm::MemoryBufferRef,unsigned long>::CallbacksHolder<llvm::orc::ForceLoadMachOArchiveMembers,llvm::orc::ForceLoadMachOArchiveMembers,void>::Callbacks + 2;
+    v7 = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v22);
+    llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v7, &v19);
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v19);
   }
 
-  v15 = a3;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v17, &v23);
-  memset(v16, 0, sizeof(v16));
-  llvm::orc::StaticLibraryDefinitionGenerator::Create(a1 + 352, &v15, v17, v16, &v18);
+  v14 = a3;
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v16, &v22);
+  memset(v15, 0, sizeof(v15));
+  llvm::orc::StaticLibraryDefinitionGenerator::Create(a1 + 352, &v14, v16, v15, &v17);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v15);
   llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v16);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v17);
-  v8 = v15;
-  v15 = 0;
+  v8 = v14;
+  v14 = 0;
   if (v8)
   {
     (*(*v8 + 8))(v8);
   }
 
-  v9 = v18;
-  v18 = 0;
-  if ((v19 & 1) == 0)
+  v9 = v17;
+  v17 = 0;
+  if ((v18 & 1) == 0)
   {
-    v14 = v9;
+    v13 = v9;
     v10 = *(a2 + 32);
-    *&v20 = a2;
-    *(&v20 + 1) = &v14;
-    llvm::orc::ExecutionSession::runSessionLocked<llvm::orc::StaticLibraryDefinitionGenerator & llvm::orc::JITDylib::addGenerator<llvm::orc::StaticLibraryDefinitionGenerator>(std::unique_ptr<llvm::orc::StaticLibraryDefinitionGenerator>)::{lambda(void)#1}>(v10, &v20);
-    v11 = v14;
-    v14 = 0;
+    *&v19 = a2;
+    *(&v19 + 1) = &v13;
+    llvm::orc::ExecutionSession::runSessionLocked<llvm::orc::StaticLibraryDefinitionGenerator & llvm::orc::JITDylib::addGenerator<llvm::orc::StaticLibraryDefinitionGenerator>(std::unique_ptr<llvm::orc::StaticLibraryDefinitionGenerator>)::{lambda(void)#1}>(v10, &v19);
+    v11 = v13;
+    v13 = 0;
     if (v11)
     {
       (*(*v11 + 8))(v11);
@@ -4705,58 +4597,57 @@ uint64_t XOJIT_XOJIT_LinkStaticArchiveWithForceLoad(uint64_t a1, uint64_t a2, ui
     v9 = 0;
   }
 
-  llvm::Expected<std::unique_ptr<llvm::orc::EPCDynamicLibrarySearchGenerator>>::~Expected(&v18);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v23);
-  v12 = *MEMORY[0x277D85DE8];
+  llvm::Expected<std::unique_ptr<llvm::orc::EPCDynamicLibrarySearchGenerator>>::~Expected(&v17);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v22);
   return v9;
 }
 
-void XOJIT_XOJIT_SymbolLookup(uint64_t a1, int a2, uint64_t *a3, char *__s, int a5)
+void XOJIT_XOJIT_SymbolLookup(uint64_t a1, uint64_t a2, uint64_t *a3, char *__s, int a5, uint64_t a6, uint64_t a7)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   memset(__p, 0, sizeof(__p));
-  v8 = *a3;
+  v10 = *a3;
   if (*a3)
   {
-    v9 = a3 + 2;
+    v11 = a3 + 2;
     do
     {
-      v10 = *(v9 - 2);
-      *&v20 = v8;
-      DWORD2(v20) = v10;
-      std::vector<std::pair<llvm::orc::JITDylib *,llvm::orc::JITDylibLookupFlags>>::push_back[abi:nn200100](__p, &v20);
-      v11 = *v9;
-      v9 += 2;
-      v8 = v11;
+      v12 = *(v11 - 2);
+      *&v22 = v10;
+      DWORD2(v22) = v12;
+      std::vector<std::pair<llvm::orc::JITDylib *,llvm::orc::JITDylibLookupFlags>>::push_back[abi:nn200100](__p, &v22);
+      v13 = *v11;
+      v11 += 2;
+      v10 = v13;
     }
 
-    while (v11);
+    while (v13);
   }
 
-  v16 = 0uLL;
-  v17 = 0;
+  v18 = 0uLL;
+  v19 = 0;
   if (__s)
   {
-    v12 = strlen(__s);
+    v14 = strlen(__s);
   }
 
   else
   {
-    v12 = 0;
+    v14 = 0;
   }
 
-  llvm::orc::ExecutionSession::intern(a1, __s, v12, &v15);
-  llvm::orc::SymbolLookupSet::add(&v16, &v15, a5);
-  if (v15 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
+  llvm::orc::ExecutionSession::intern(a1, __s, v14, &v17);
+  llvm::orc::SymbolLookupSet::add(&v18, &v17, a5);
+  if (v17 - 1 <= 0xFFFFFFFFFFFFFFDFLL)
   {
-    atomic_fetch_add(v15 + 1, 0xFFFFFFFFFFFFFFFFLL);
+    atomic_fetch_add(v17 + 1, 0xFFFFFFFFFFFFFFFFLL);
   }
 
-  v13 = v16;
-  v14 = v17;
-  v16 = 0uLL;
-  v17 = 0;
-  std::__function::__value_func<void ()(llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>> const&)>::__value_func[abi:nn200100](v19, &llvm::orc::NoDependenciesToRegister);
+  v15 = v18;
+  v16 = v19;
+  v18 = 0uLL;
+  v19 = 0;
+  std::__function::__value_func<void ()(llvm::DenseMap<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>,llvm::DenseMapInfo<llvm::orc::JITDylib *,void>,llvm::detail::DenseMapPair<llvm::orc::JITDylib *,llvm::DenseSet<llvm::orc::SymbolStringPtr,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>>>> const&)>::__value_func[abi:nn200100](v21, &llvm::orc::NoDependenciesToRegister);
   llvm::orc::ExecutionSession::lookup();
 }
 
@@ -4821,7 +4712,7 @@ void std::vector<std::pair<llvm::orc::JITDylib *,llvm::orc::JITDylibLookupFlags>
 
 uint64_t XOJIT_XOJIT_LoadLinkableFile(uint64_t a1, char *__s, const char *a3, int a4, uint64_t *a5, unsigned int *a6)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (a4 == 2)
   {
     v11 = 2;
@@ -4843,7 +4734,7 @@ uint64_t XOJIT_XOJIT_LoadLinkableFile(uint64_t a1, char *__s, const char *a3, in
   }
 
   v13 = *(a1 + 72);
-  v21[0] = a3;
+  v20[0] = a3;
   if (a3)
   {
     v14 = strlen(a3);
@@ -4854,23 +4745,23 @@ uint64_t XOJIT_XOJIT_LoadLinkableFile(uint64_t a1, char *__s, const char *a3, in
     v14 = 0;
   }
 
-  v21[1] = v14;
-  LOBYTE(v22) = 1;
-  llvm::orc::loadLinkableFile(__s, v12, (v13 + 40), v11, v21, &v25);
-  if (v27)
+  v20[1] = v14;
+  LOBYTE(v21) = 1;
+  llvm::orc::loadLinkableFile(__s, v12, (v13 + 40), v11, v20, &v24);
+  if (v26)
   {
-    v15 = v25;
-    v25 = 0;
+    v15 = v24;
+    v24 = 0;
   }
 
   else
   {
-    if (v26 >= 2)
+    if (v25 >= 2)
     {
       v17 = " does not contain a mach-o relocatable object file or archive";
       if (*__s)
       {
-        v22 = " does not contain a mach-o relocatable object file or archive";
+        v21 = " does not contain a mach-o relocatable object file or archive";
         v18 = 3;
         v17 = __s;
       }
@@ -4880,26 +4771,25 @@ uint64_t XOJIT_XOJIT_LoadLinkableFile(uint64_t a1, char *__s, const char *a3, in
         v18 = 1;
       }
 
-      v21[0] = v17;
-      v23 = 3;
-      v24 = v18;
+      v20[0] = v17;
+      v22 = 3;
+      v23 = v18;
       getErrorErrorCat();
       operator new();
     }
 
     v15 = 0;
-    *a6 = v26;
-    v16 = v25;
-    v25 = 0;
+    *a6 = v25;
+    v16 = v24;
+    v24 = 0;
     *a5 = v16;
   }
 
-  llvm::Expected<std::pair<std::unique_ptr<llvm::MemoryBuffer>,llvm::orc::LinkableFileKind>>::~Expected(&v25);
-  v19 = *MEMORY[0x277D85DE8];
+  llvm::Expected<std::pair<std::unique_ptr<llvm::MemoryBuffer>,llvm::orc::LinkableFileKind>>::~Expected(&v24);
   return v15;
 }
 
-unint64_t *XOJIT_XOJIT_Intern(uint64_t a1, char *__s)
+size_t *XOJIT_XOJIT_Intern(uint64_t a1, char *__s)
 {
   if (__s)
   {
@@ -5121,176 +5011,170 @@ void XOJIT_MachOHeaderOptions_AddRPath(uint64_t a1, char *a2)
   }
 }
 
-uint64_t XOJIT_MachOHeaderOptions_AddBuildVersionsForExecutor(void *a1, uint64_t a2, uint64_t a3)
+uint64_t XOJIT_MachOHeaderOptions_AddBuildVersionsForExecutor(void *a1, uint64_t a2, const llvm::Triple *a3, unsigned int a4)
 {
-  v5 = llvm::orc::MachOPlatform::HeaderOptions::BuildVersionOpts::fromTriple(*(a2 + 72) + 40, a3);
-  if ((v6 & 0x100000000) == 0)
+  v6 = llvm::orc::MachOPlatform::HeaderOptions::BuildVersionOpts::fromTriple(*(a2 + 72) + 40, a3);
+  if ((v7 & 0x100000000) == 0)
   {
-    std::string::basic_string[abi:nn200100]<0>(&v31, "Could not identify build version for ");
-    v7 = *(a2 + 72);
-    v10 = *(v7 + 40);
-    v8 = v7 + 40;
-    v9 = v10;
-    v11 = *(v8 + 23);
-    if (v11 >= 0)
+    std::string::basic_string[abi:nn200100]<0>(&v32, "Could not identify build version for ");
+    v8 = *(a2 + 72);
+    v11 = *(v8 + 40);
+    v9 = v8 + 40;
+    v10 = v11;
+    v12 = *(v9 + 23);
+    if (v12 >= 0)
     {
-      v12 = v8;
+      v13 = v9;
     }
 
     else
     {
-      v12 = v9;
+      v13 = v10;
     }
 
-    if (v11 >= 0)
+    if (v12 >= 0)
     {
-      v13 = *(v8 + 23);
+      v14 = *(v9 + 23);
     }
 
     else
     {
-      v13 = *(v8 + 8);
+      v14 = *(v9 + 8);
     }
 
-    v14 = std::string::append(&v31, v12, v13);
-    v15 = v14->__r_.__value_.__r.__words[2];
-    *__p = *&v14->__r_.__value_.__l.__data_;
-    v33 = v15;
-    v14->__r_.__value_.__l.__size_ = 0;
-    v14->__r_.__value_.__r.__words[2] = 0;
-    v14->__r_.__value_.__r.__words[0] = 0;
+    v15 = std::string::append(&v32, v13, v14);
+    v16 = v15->__r_.__value_.__r.__words[2];
+    *__p = *&v15->__r_.__value_.__l.__data_;
+    v34 = v16;
+    v15->__r_.__value_.__l.__size_ = 0;
+    v15->__r_.__value_.__r.__words[2] = 0;
+    v15->__r_.__value_.__r.__words[0] = 0;
     getErrorErrorCat();
     operator new();
   }
 
-  v16 = v5;
-  v18 = a1[13];
-  v17 = a1[14];
-  if (v18 >= v17)
+  v17 = v6;
+  v19 = a1[13];
+  v18 = a1[14];
+  if (v19 >= v18)
   {
-    v20 = a1[12];
-    v21 = 0xAAAAAAAAAAAAAAABLL * ((v18 - v20) >> 2);
-    v22 = v21 + 1;
-    if (v21 + 1 > 0x1555555555555555)
+    v21 = a1[12];
+    v22 = 0xAAAAAAAAAAAAAAABLL * ((v19 - v21) >> 2);
+    v23 = v22 + 1;
+    if (v22 + 1 > 0x1555555555555555)
     {
       std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
     }
 
-    v23 = 0xAAAAAAAAAAAAAAABLL * ((v17 - v20) >> 2);
-    if (2 * v23 > v22)
+    v24 = 0xAAAAAAAAAAAAAAABLL * ((v18 - v21) >> 2);
+    if (2 * v24 > v23)
     {
-      v22 = 2 * v23;
+      v23 = 2 * v24;
     }
 
-    if (v23 >= 0xAAAAAAAAAAAAAAALL)
+    if (v24 >= 0xAAAAAAAAAAAAAAALL)
     {
-      v24 = 0x1555555555555555;
+      v25 = 0x1555555555555555;
     }
 
     else
     {
-      v24 = v22;
+      v25 = v23;
     }
 
-    if (v24)
+    if (v25)
     {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::orc::MachOPlatform::HeaderOptions::BuildVersionOpts>>(v24);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::orc::MachOPlatform::HeaderOptions::BuildVersionOpts>>(v25);
     }
 
-    v25 = 12 * v21;
-    *v25 = v16;
-    *(v25 + 8) = v6;
-    v19 = 12 * v21 + 12;
-    v26 = a1[12];
-    v27 = a1[13] - v26;
-    v28 = (12 * v21 - v27);
-    memcpy(v28, v26, v27);
-    v29 = a1[12];
-    a1[12] = v28;
-    a1[13] = v19;
+    v26 = 12 * v22;
+    *v26 = v17;
+    *(v26 + 8) = v7;
+    v20 = 12 * v22 + 12;
+    v27 = a1[12];
+    v28 = a1[13] - v27;
+    v29 = (12 * v22 - v28);
+    memcpy(v29, v27, v28);
+    v30 = a1[12];
+    a1[12] = v29;
+    a1[13] = v20;
     a1[14] = 0;
-    if (v29)
+    if (v30)
     {
-      operator delete(v29);
+      operator delete(v30);
     }
   }
 
   else
   {
-    *v18 = v5;
-    *(v18 + 8) = v6;
-    v19 = v18 + 12;
+    *v19 = v6;
+    *(v19 + 8) = v7;
+    v20 = v19 + 12;
   }
 
-  a1[13] = v19;
+  a1[13] = v20;
   return 0;
 }
 
-uint64_t XOJIT_AddNullableSymbolsFromPath(uint64_t a1, _BYTE *a2)
+uint64_t XOJIT_AddNullableSymbolsFromPath(uint64_t a1, const char *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = 1;
-  v10 = 1;
+  v9 = 1;
   if (*a2)
   {
-    v8 = a2;
+    v7 = a2;
     v3 = 3;
   }
 
-  v9 = v3;
-  llvm::orc::getDylibInterface(a1, &v8, &v11);
-  result = v11;
-  if ((v14 & 1) == 0)
+  v8 = v3;
+  llvm::orc::getDylibInterface(a1, &v7, &v10);
+  result = v10;
+  if (v13)
   {
-    v6[0] = v11;
-    v6[1] = v12;
-    v11 = 0;
-    v12 = 0;
-    v7 = v13;
-    v13 = 0;
-    xojit::XOJIT::addNullableSymbols(a1, v6);
-    llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::~DenseMap(v6);
-    if (v14)
-    {
-      result = v11;
-      v11 = 0;
-      if (!result)
-      {
-        goto LABEL_10;
-      }
-
-      (*(*result + 8))(result);
-    }
-
-    else
-    {
-      llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::~DenseMap(&v11);
-    }
-
-    result = 0;
-    goto LABEL_10;
+    v10 = 0;
+    return result;
   }
 
+  v5[0] = v10;
+  v5[1] = v11;
+  v10 = 0;
   v11 = 0;
-LABEL_10:
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = v12;
+  v12 = 0;
+  xojit::XOJIT::addNullableSymbols(a1, v5);
+  llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::~DenseMap(v5);
+  if (v13)
+  {
+    result = v10;
+    v10 = 0;
+    if (!result)
+    {
+      return result;
+    }
+
+    (*(*result + 8))(result);
+  }
+
+  else
+  {
+    llvm::DenseMap<llvm::orc::SymbolStringPtr,llvm::detail::DenseSetEmpty,llvm::DenseMapInfo<llvm::orc::SymbolStringPtr,void>,llvm::detail::DenseSetPair<llvm::orc::SymbolStringPtr>>::~DenseMap(&v10);
+  }
+
+  return 0;
 }
 
-void *std::vector<std::pair<llvm::orc::JITDylib *,llvm::orc::JITDylibLookupFlags>>::reserve(void *result, unint64_t a2)
+void std::vector<std::pair<llvm::orc::JITDylib *,llvm::orc::JITDylibLookupFlags>>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:nn200100]<std::allocator<std::pair<llvm::orc::JITDylib *,llvm::orc::JITDylibLookupFlags>>>(result, a2);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<std::pair<llvm::orc::JITDylib *,llvm::orc::JITDylibLookupFlags>>>(a1, a2);
     }
 
     std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
   }
-
-  return result;
 }
 
 void std::__allocate_at_least[abi:nn200100]<std::allocator<std::string>>(uint64_t a1, unint64_t a2)
@@ -5348,61 +5232,61 @@ uint64_t llvm::handleAllErrors<llvm::consumeError(llvm::Error)::{lambda(llvm::Er
   return result;
 }
 
-uint64_t llvm::handleErrors<llvm::consumeError(llvm::Error)::{lambda(llvm::ErrorInfoBase const&)#1}>@<X0>(uint64_t result@<X0>, uint64_t *a2@<X8>)
+void *llvm::handleErrors<llvm::consumeError(llvm::Error)::{lambda(llvm::ErrorInfoBase const&)#1}>@<X0>(void *result@<X0>, uint64_t *a3@<X8>)
 {
-  v3 = *result;
+  v4 = *result;
   if (*result)
   {
     *result = 0;
-    if ((*(*v3 + 48))(v3, &llvm::ErrorList::ID))
+    if ((*(*v4 + 48))(v4, &llvm::ErrorList::ID))
     {
-      *a2 = 0;
-      v4 = v3[1];
-      v5 = v3[2];
-      if (v4 != v5)
+      *a3 = 0;
+      v5 = v4[1];
+      v6 = v4[2];
+      if (v5 != v6)
       {
-        v6 = 0;
+        v7 = 0;
         do
         {
-          v10 = v6;
-          v7 = *v4;
-          *v4 = 0;
-          if ((*(*v7 + 48))(v7, &llvm::ErrorInfoBase::ID))
+          v11 = v7;
+          v8 = *v5;
+          *v5 = 0;
+          if ((*(*v8 + 48))(v8, &llvm::ErrorInfoBase::ID))
           {
-            (*(*v7 + 8))(v7);
-            v7 = 0;
+            (*(*v8 + 8))(v8);
+            v8 = 0;
           }
 
-          v9 = v7;
-          llvm::ErrorList::join(&v10, &v9, &v11);
-          v6 = v11;
-          *a2 = v11;
-          v11 = 0;
-          if (v9)
-          {
-            (*(*v9 + 8))(v9);
-          }
-
+          v10 = v8;
+          llvm::ErrorList::join(&v11, &v10, &v12);
+          v7 = v12;
+          *a3 = v12;
+          v12 = 0;
           if (v10)
           {
             (*(*v10 + 8))(v10);
           }
 
-          ++v4;
+          if (v11)
+          {
+            (*(*v11 + 1))(v11);
+          }
+
+          ++v5;
         }
 
-        while (v4 != v5);
+        while (v5 != v6);
       }
 
-      return (*(*v3 + 8))(v3);
+      return (*(*v4 + 8))(v4);
     }
 
     else
     {
-      v8 = v3;
-      llvm::handleErrorImpl<llvm::consumeError(llvm::Error)::{lambda(llvm::ErrorInfoBase const&)#1}>(&v8, a2);
-      result = v8;
-      v8 = 0;
+      v9 = v4;
+      llvm::handleErrorImpl<llvm::consumeError(llvm::Error)::{lambda(llvm::ErrorInfoBase const&)#1}>(&v9, a3);
+      result = v9;
+      v9 = 0;
       if (result)
       {
         return (*(*result + 8))(result);
@@ -5412,7 +5296,7 @@ uint64_t llvm::handleErrors<llvm::consumeError(llvm::Error)::{lambda(llvm::Error
 
   else
   {
-    *a2 = 0;
+    *a3 = 0;
   }
 
   return result;
@@ -5442,16 +5326,16 @@ uint64_t llvm::handleErrorImpl<llvm::consumeError(llvm::Error)::{lambda(llvm::Er
   return result;
 }
 
-void *llvm::raw_ostream::SetUnbuffered(void *this)
+llvm::raw_ostream *llvm::raw_ostream::SetUnbuffered(llvm::raw_ostream *this)
 {
   v1 = this;
-  v3 = this + 2;
-  v2 = this[2];
-  v4 = this[4];
+  v3 = (this + 16);
+  v2 = *(this + 2);
+  v4 = *(this + 4);
   v5 = v4 - v2;
   if (v4 != v2)
   {
-    this[4] = v2;
+    *(this + 4) = v2;
     this = llvm::raw_ostream::flush_tied_then_write(this, v2, v5);
   }
 
@@ -5607,7 +5491,7 @@ void std::vector<std::string>::__vdeallocate(std::vector<std::string> *this)
   }
 }
 
-void std::vector<std::string>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -5701,21 +5585,19 @@ void SymbolTableCallbackPlugin::~SymbolTableCallbackPlugin(SymbolTableCallbackPl
 
 void *SymbolTableCallbackPlugin::modifyPassConfig(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = *(*a2 + 32);
-  *&v7 = a1;
-  *(&v7 + 1) = v4;
-  v8 = &llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallbacksHolder<SymbolTableCallbackPlugin::modifyPassConfig(llvm::orc::MaterializationResponsibility &,llvm::jitlink::LinkGraph &,llvm::jitlink::PassConfiguration &)::{lambda(llvm::jitlink::LinkGraph &)#1},SymbolTableCallbackPlugin::modifyPassConfig(llvm::orc::MaterializationResponsibility &,llvm::jitlink::LinkGraph &,llvm::jitlink::PassConfiguration &)::{lambda(llvm::jitlink::LinkGraph &)#1},void>::Callbacks + 2;
-  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100](a4 + 96, &v7);
-  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v7);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  *&v6 = a1;
+  *(&v6 + 1) = v4;
+  v7 = &llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallbacksHolder<SymbolTableCallbackPlugin::modifyPassConfig(llvm::orc::MaterializationResponsibility &,llvm::jitlink::LinkGraph &,llvm::jitlink::PassConfiguration &)::{lambda(llvm::jitlink::LinkGraph &)#1},SymbolTableCallbackPlugin::modifyPassConfig(llvm::orc::MaterializationResponsibility &,llvm::jitlink::LinkGraph &,llvm::jitlink::PassConfiguration &)::{lambda(llvm::jitlink::LinkGraph &)#1},void>::Callbacks + 2;
+  std::vector<llvm::unique_function<llvm::Error ()(llvm::jitlink::LinkGraph &)>>::push_back[abi:nn200100]((a4 + 96), &v6);
+  return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v6);
 }
 
-uint64_t llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallImpl<SymbolTableCallbackPlugin::modifyPassConfig(llvm::orc::MaterializationResponsibility &,llvm::jitlink::LinkGraph &,llvm::jitlink::PassConfiguration &)::{lambda(llvm::jitlink::LinkGraph &)#1}>@<X0>(llvm::jitlink::LinkGraph *this@<X1>, uint64_t *a2@<X0>, void *a3@<X8>)
+const llvm::jitlink::Section *llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::CallImpl<SymbolTableCallbackPlugin::modifyPassConfig(llvm::orc::MaterializationResponsibility &,llvm::jitlink::LinkGraph &,llvm::jitlink::PassConfiguration &)::{lambda(llvm::jitlink::LinkGraph &)#1}>@<X0>(llvm::jitlink::LinkGraph *this@<X1>, uint64_t *a2@<X0>, void *a3@<X8>)
 {
   v6 = *a2;
-  llvm::jitlink::LinkGraph::defined_symbols(this, v18);
+  llvm::jitlink::LinkGraph::defined_symbols(v18, this);
   v16[0] = v18[0];
   v16[1] = v18[1];
   v16[2] = v18[2];
@@ -5964,7 +5846,7 @@ void llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc
 
   else
   {
-    llvm::orc::shared::WrapperFunctionResult::createOutOfBandError("Error serializing arguments to blob in call", a3);
+    llvm::orc::shared::WrapperFunctionResult::createOutOfBandError(a3, "Error serializing arguments to blob in call");
     if (*(&v10 + 1) > 8uLL || !*(&v10 + 1) && v10)
     {
       free(v10);
@@ -6017,7 +5899,7 @@ void llvm::orc::GenericNamedTaskImpl<XOJIT_ReplacementManager_AddObjectFileAsync
   JUMPOUT(0x277C69E40);
 }
 
-uint64_t llvm::orc::GenericNamedTaskImpl<XOJIT_ReplacementManager_AddObjectFileAsync::$_0>::run(void *a1)
+void *llvm::orc::GenericNamedTaskImpl<XOJIT_ReplacementManager_AddObjectFileAsync::$_0>::run(void *a1)
 {
   v2 = a1[1];
   v3 = a1[2];
@@ -6108,7 +5990,7 @@ void llvm::orc::GenericNamedTaskImpl<XOJIT_XOJIT_AddObjectFileAsync::$_0>::~Gene
   JUMPOUT(0x277C69E40);
 }
 
-uint64_t llvm::orc::GenericNamedTaskImpl<XOJIT_XOJIT_AddObjectFileAsync::$_0>::run(void *a1)
+llvm::object::COFFObjectFile *llvm::orc::GenericNamedTaskImpl<XOJIT_XOJIT_AddObjectFileAsync::$_0>::run(void *a1)
 {
   v3 = a1[1];
   v2 = a1[2];
@@ -6133,7 +6015,7 @@ uint64_t llvm::orc::GenericNamedTaskImpl<XOJIT_XOJIT_AddObjectFileAsync::$_0>::r
   return result;
 }
 
-void llvm::orc::ExecutionSession::runSessionLocked<llvm::orc::StaticLibraryDefinitionGenerator & llvm::orc::JITDylib::addGenerator<llvm::orc::StaticLibraryDefinitionGenerator>(std::unique_ptr<llvm::orc::StaticLibraryDefinitionGenerator>)::{lambda(void)#1}>(std::recursive_mutex *a1, void **a2)
+void llvm::orc::ExecutionSession::runSessionLocked<llvm::orc::StaticLibraryDefinitionGenerator & llvm::orc::JITDylib::addGenerator<llvm::orc::StaticLibraryDefinitionGenerator>(std::unique_ptr<llvm::orc::StaticLibraryDefinitionGenerator>)::{lambda(void)#1}>(std::recursive_mutex *a1, void *a2)
 {
   std::recursive_mutex::lock(a1);
   v4 = *a2;
@@ -6201,18 +6083,18 @@ void llvm::orc::ExecutionSession::runSessionLocked<llvm::orc::StaticLibraryDefin
   std::recursive_mutex::unlock(a1);
 }
 
-uint64_t *std::shared_ptr<llvm::orc::DefinitionGenerator>::shared_ptr[abi:nn200100]<llvm::orc::StaticLibraryDefinitionGenerator,std::default_delete<llvm::orc::StaticLibraryDefinitionGenerator>,0>(uint64_t *result, uint64_t *a2)
+uint64_t *std::shared_ptr<llvm::orc::DefinitionGenerator>::shared_ptr[abi:nn200100]<llvm::orc::StaticLibraryDefinitionGenerator,std::default_delete<llvm::orc::StaticLibraryDefinitionGenerator>,0>(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
-  *result = *a2;
+  *a1 = *a2;
   if (v2)
   {
     operator new();
   }
 
-  result[1] = 0;
+  a1[1] = 0;
   *a2 = 0;
-  return result;
+  return a1;
 }
 
 void std::__shared_ptr_pointer<llvm::orc::StaticLibraryDefinitionGenerator  *>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
@@ -6257,42 +6139,42 @@ void llvm::orc::GenericNamedTaskImpl<XOJIT_XOJIT_LinkStaticArchiveAsync::$_0>::~
 
 uint64_t *llvm::orc::GenericNamedTaskImpl<XOJIT_XOJIT_LinkStaticArchiveAsync::$_0>::run(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = a1[1];
   v3 = a1[2];
-  v14 = a1[3];
-  memset(v17, 0, sizeof(v17));
+  v13 = a1[3];
   memset(v16, 0, sizeof(v16));
-  llvm::orc::StaticLibraryDefinitionGenerator::Create(v2 + 352, &v14, v17, v16, &v18);
+  memset(v15, 0, sizeof(v15));
+  llvm::orc::StaticLibraryDefinitionGenerator::Create(v2 + 352, &v13, v16, v15, &v17);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v15);
   llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v16);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v17);
-  v4 = v14;
-  v14 = 0;
+  v4 = v13;
+  v13 = 0;
   if (v4)
   {
     (*(*v4 + 8))(v4);
   }
 
-  if (v19)
+  if (v18)
   {
     v6 = a1[4];
     v5 = a1[5];
-    v7 = v18;
-    v18 = 0;
+    v7 = v17;
+    v17 = 0;
     v6(v5, v7);
   }
 
   else
   {
-    v8 = v18;
-    v18 = 0;
-    v13 = v8;
-    v9 = v3[4];
-    v15[0] = v3;
-    v15[1] = &v13;
-    llvm::orc::ExecutionSession::runSessionLocked<llvm::orc::StaticLibraryDefinitionGenerator & llvm::orc::JITDylib::addGenerator<llvm::orc::StaticLibraryDefinitionGenerator>(std::unique_ptr<llvm::orc::StaticLibraryDefinitionGenerator>)::{lambda(void)#1}>(v9, v15);
-    v10 = v13;
-    v13 = 0;
+    v8 = v17;
+    v17 = 0;
+    v12 = v8;
+    v9 = *(v3 + 32);
+    v14[0] = v3;
+    v14[1] = &v12;
+    llvm::orc::ExecutionSession::runSessionLocked<llvm::orc::StaticLibraryDefinitionGenerator & llvm::orc::JITDylib::addGenerator<llvm::orc::StaticLibraryDefinitionGenerator>(std::unique_ptr<llvm::orc::StaticLibraryDefinitionGenerator>)::{lambda(void)#1}>(v9, v14);
+    v10 = v12;
+    v12 = 0;
     if (v10)
     {
       (*(*v10 + 8))(v10);
@@ -6301,9 +6183,7 @@ uint64_t *llvm::orc::GenericNamedTaskImpl<XOJIT_XOJIT_LinkStaticArchiveAsync::$_
     (a1[4])(a1[5], 0);
   }
 
-  result = llvm::Expected<std::unique_ptr<llvm::orc::EPCDynamicLibrarySearchGenerator>>::~Expected(&v18);
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return llvm::Expected<std::unique_ptr<llvm::orc::EPCDynamicLibrarySearchGenerator>>::~Expected(&v17);
 }
 
 uint64_t *llvm::detail::UniqueFunctionBase<llvm::Expected<BOOL>,llvm::object::Archive &,llvm::MemoryBufferRef,unsigned long>::CallImpl<llvm::orc::ForceLoadMachOArchiveMembers>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, __int128 *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
@@ -6338,56 +6218,56 @@ void llvm::orc::GenericNamedTaskImpl<XOJIT_XOJIT_LinkStaticArchiveWithForceLoadA
 
 void *llvm::orc::GenericNamedTaskImpl<XOJIT_XOJIT_LinkStaticArchiveWithForceLoadAsync::$_0>::run(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 8);
   v2 = *(a1 + 16);
   v4 = *(a1 + 24);
-  v26 = 0;
+  v25 = 0;
   v5 = *(a1 + 32);
   if (v5)
   {
-    *&v22 = v3 + 352;
-    *(&v22 + 1) = v2;
-    v23 = v5 == 2;
-    v24 = llvm::detail::UniqueFunctionBase<llvm::Expected<BOOL>,llvm::object::Archive &,llvm::MemoryBufferRef,unsigned long>::CallbacksHolder<llvm::orc::ForceLoadMachOArchiveMembers,llvm::orc::ForceLoadMachOArchiveMembers,void>::Callbacks + 2;
-    v6 = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v25);
-    llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, &v22);
-    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v22);
+    *&v21 = v3 + 352;
+    *(&v21 + 1) = v2;
+    v22 = v5 == 2;
+    v23 = llvm::detail::UniqueFunctionBase<llvm::Expected<BOOL>,llvm::object::Archive &,llvm::MemoryBufferRef,unsigned long>::CallbacksHolder<llvm::orc::ForceLoadMachOArchiveMembers,llvm::orc::ForceLoadMachOArchiveMembers,void>::Callbacks + 2;
+    v6 = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v24);
+    llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, &v21);
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v21);
   }
 
-  v17 = v4;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(&v22, &v25);
-  memset(v19, 0, sizeof(v19));
-  llvm::orc::StaticLibraryDefinitionGenerator::Create(v3 + 352, &v17, &v22, v19, &v20);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v19);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v22);
-  v7 = v17;
-  v17 = 0;
+  v16 = v4;
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(&v21, &v24);
+  memset(v18, 0, sizeof(v18));
+  llvm::orc::StaticLibraryDefinitionGenerator::Create(v3 + 352, &v16, &v21, v18, &v19);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v18);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v21);
+  v7 = v16;
+  v16 = 0;
   if (v7)
   {
     (*(*v7 + 8))(v7);
   }
 
-  if (v21)
+  if (v20)
   {
     v9 = *(a1 + 40);
     v8 = *(a1 + 48);
-    v10 = v20;
-    v20 = 0;
+    v10 = v19;
+    v19 = 0;
     v9(v8, v10);
   }
 
   else
   {
-    v11 = v20;
-    v20 = 0;
-    v16 = v11;
-    v12 = v2[4];
-    v18[0] = v2;
-    v18[1] = &v16;
-    llvm::orc::ExecutionSession::runSessionLocked<llvm::orc::StaticLibraryDefinitionGenerator & llvm::orc::JITDylib::addGenerator<llvm::orc::StaticLibraryDefinitionGenerator>(std::unique_ptr<llvm::orc::StaticLibraryDefinitionGenerator>)::{lambda(void)#1}>(v12, v18);
-    v13 = v16;
-    v16 = 0;
+    v11 = v19;
+    v19 = 0;
+    v15 = v11;
+    v12 = *(v2 + 32);
+    v17[0] = v2;
+    v17[1] = &v15;
+    llvm::orc::ExecutionSession::runSessionLocked<llvm::orc::StaticLibraryDefinitionGenerator & llvm::orc::JITDylib::addGenerator<llvm::orc::StaticLibraryDefinitionGenerator>(std::unique_ptr<llvm::orc::StaticLibraryDefinitionGenerator>)::{lambda(void)#1}>(v12, v17);
+    v13 = v15;
+    v15 = 0;
     if (v13)
     {
       (*(*v13 + 8))(v13);
@@ -6396,10 +6276,8 @@ void *llvm::orc::GenericNamedTaskImpl<XOJIT_XOJIT_LinkStaticArchiveWithForceLoad
     (*(a1 + 40))(*(a1 + 48), 0);
   }
 
-  llvm::Expected<std::unique_ptr<llvm::orc::EPCDynamicLibrarySearchGenerator>>::~Expected(&v20);
-  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v25);
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  llvm::Expected<std::unique_ptr<llvm::orc::EPCDynamicLibrarySearchGenerator>>::~Expected(&v19);
+  return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v24);
 }
 
 uint64_t *llvm::Expected<std::pair<std::unique_ptr<llvm::MemoryBuffer>,llvm::orc::LinkableFileKind>>::~Expected(uint64_t *a1)
@@ -6454,9 +6332,9 @@ void xojit::XOJITXPC::start(xojit::XOJITXPC *this@<X0>, void *a2@<X8>)
   *a2 = 0;
 }
 
-uint64_t ___ZN5xojit8XOJITXPC5startEv_block_invoke(uint64_t a1, void *a2)
+void *___ZN5xojit8XOJITXPC5startEv_block_invoke(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   if (MEMORY[0x277C6A910](a2) != MEMORY[0x277D86468])
   {
@@ -6473,12 +6351,12 @@ LABEL_36:
     *(v3 + 72) = 0;
     std::mutex::unlock((v3 + 8));
     v16 = *(v3 + 80);
-    v26 = v5;
-    (*(*v16 + 24))(v16, &v26);
-    result = v26;
-    if (v26)
+    v25 = v5;
+    (*(*v16 + 24))(v16, &v25);
+    result = v25;
+    if (v25)
     {
-      result = (*(*v26 + 8))(v26);
+      result = (*(*v25 + 8))(v25);
     }
 
     v17 = *(v3 + 112);
@@ -6491,28 +6369,28 @@ LABEL_36:
         v19 = *v18;
       }
 
-      (*(v17 & 0xFFFFFFFFFFFFFFF8))(&v24, v19, 0);
-      v31 = 0;
+      (*(v17 & 0xFFFFFFFFFFFFFFF8))(&v23, v19, 0);
+      v30 = 0;
       if (v18 != &__dst)
       {
         v20 = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v18);
         llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v20, &__dst);
       }
 
-      result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&__dst);
+      return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&__dst);
     }
 
-    goto LABEL_44;
+    return result;
   }
 
   uint64 = xpc_dictionary_get_uint64(a2, "opc");
-  v22 = uint64;
+  v21 = uint64;
   if (uint64 >= 2)
   {
     getErrorErrorCat();
     __dst = 3;
-    *&v30 = &getErrorErrorCat(void)::ErrorErrorCat;
-    llvm::make_error<llvm::StringError,char const(&)[38],std::error_code>();
+    *&v29 = &getErrorErrorCat(void)::ErrorErrorCat;
+    llvm::make_error<llvm::StringError,char const(&)[38],std::error_code>(&length, "XOJIT XPC message opcode unrecognized", &__dst);
   }
 
   if (uint64)
@@ -6523,8 +6401,8 @@ LABEL_36:
     if (v6 <= 7)
     {
       __dst = "No handler for opcode ";
-      *(&v30 + 1) = &v22;
-      v32 = 3075;
+      *(&v29 + 1) = &v21;
+      v31 = 3075;
       getErrorErrorCat();
       operator new();
     }
@@ -6546,8 +6424,8 @@ LABEL_36:
     v9 = xpc_dictionary_get_uint64(a2, "tag");
     length = 0;
     data = xpc_dictionary_get_data(a2, "buf", &length);
-    __dst = &v31;
-    v30 = xmmword_2750C1290;
+    __dst = &v30;
+    v29 = xmmword_2750C1290;
     llvm::SmallVectorImpl<char>::resizeImpl<false>(&__dst, length);
     if (data && length)
     {
@@ -6555,37 +6433,37 @@ LABEL_36:
     }
 
     v11 = *(v3 + 80);
-    v26 = v28;
-    v27 = xmmword_2750C1290;
-    if (v30)
+    v25 = v27;
+    v26 = xmmword_2750C1290;
+    if (v29)
     {
-      llvm::SmallVectorImpl<char>::operator=(&v26, &__dst);
+      llvm::SmallVectorImpl<char>::operator=(&v25, &__dst);
     }
 
-    (*(*v11 + 16))(&v24, v11, v7, v8, v9, &v26);
-    if (v26 != v28)
+    (*(*v11 + 16))(&v23, v11, v7, v8, v9, &v25);
+    if (v25 != v27)
     {
-      free(v26);
+      free(v25);
     }
 
-    if (__dst != &v31)
+    if (__dst != &v30)
     {
       free(__dst);
     }
 
-    if (v25)
+    if (v24)
     {
-      length = v24;
+      length = v23;
     }
 
-    else if (v24 == 1)
+    else if (v23 == 1)
     {
       (*(*v3 + 32))(v3);
       length = 0;
-      if (v25)
+      if (v24)
       {
-        v14 = v24;
-        v24 = 0;
+        v14 = v23;
+        v23 = 0;
         if (v14)
         {
           (*(*v14 + 8))(v14);
@@ -6600,12 +6478,12 @@ LABEL_36:
   }
 
   __dst = 0;
-  v26 = length;
+  v25 = length;
   length = 0;
-  llvm::ErrorList::join(&__dst, &v26, &v24);
-  if (v26)
+  llvm::ErrorList::join(&__dst, &v25, &v23);
+  if (v25)
   {
-    (*(*v26 + 8))(v26);
+    (*(*v25 + 8))(v25);
   }
 
   if (__dst)
@@ -6614,8 +6492,8 @@ LABEL_36:
   }
 
   result = length;
-  v5 = v24;
-  v24 = 0;
+  v5 = v23;
+  v23 = 0;
   if (length)
   {
     result = (*(*length + 8))(length);
@@ -6626,8 +6504,6 @@ LABEL_36:
     goto LABEL_36;
   }
 
-LABEL_44:
-  v21 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6665,10 +6541,10 @@ void xojit::XOJITXPC::disconnect(xojit::XOJITXPC *this)
   std::mutex::unlock((this + 8));
 }
 
-void xojit::createXPCEPC(uint64_t a1, int a2, void *a3)
+void xojit::createXPCEPC(void *a1, int a2, uint64_t *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v5 = a2;
+  v13 = *MEMORY[0x277D85DE8];
+  v6 = a2;
   if (!*a3)
   {
     dispatch_get_global_queue(25, 0);
@@ -6676,83 +6552,82 @@ void xojit::createXPCEPC(uint64_t a1, int a2, void *a3)
     operator new();
   }
 
-  v3 = 0;
-  v4 = 0x40000000;
+  v4 = 0;
+  v5 = 0x40000000;
   *a3 = 0;
-  v6 = &v3;
   v7 = &v4;
   v8 = &v5;
-  v9 = _MergedGlobals_2 + 2;
-  v10 = xojit::createMemAccess;
-  v11 = off_2815A4248 + 2;
+  v9 = &v6;
+  v10 = _MergedGlobals_2 + 2;
+  *&v11 = xojit::createMemAccess;
+  v12 = off_2815A4248 + 2;
   operator new();
 }
 
 uint64_t xojit::createMemAccess@<X0>(xojit *this@<X0>, uint64_t a2@<X8>)
 {
-  v10[15] = *MEMORY[0x277D85DE8];
-  v8 = 0u;
-  v9 = 0u;
+  v8[15] = *MEMORY[0x277D85DE8];
+  v6 = 0u;
   v7 = 0u;
-  v10[0] = &v7;
-  v10[1] = "__xojit_memaccess_write_uint8s";
-  v10[2] = 30;
-  v10[3] = &v7 + 8;
-  v10[4] = "__xojit_memaccess_write_uint16s";
-  v10[5] = 31;
-  v10[6] = &v8;
-  v10[7] = "__xojit_memaccess_write_uint32s";
-  v10[8] = 31;
-  v10[9] = &v8 + 8;
-  v10[10] = "__xojit_memaccess_write_uint64s";
-  v10[11] = 31;
-  v10[12] = &v9;
-  v10[13] = "__xojit_memaccess_write_buffers";
-  v10[14] = 31;
-  llvm::orc::ExecutorProcessControl::getBootstrapSymbols(this, v10, 5, &v6);
-  result = v6;
-  if (!v6)
+  v5 = 0u;
+  v8[0] = &v5;
+  v8[1] = "__xojit_memaccess_write_uint8s";
+  v8[2] = 30;
+  v8[3] = &v5 + 8;
+  v8[4] = "__xojit_memaccess_write_uint16s";
+  v8[5] = 31;
+  v8[6] = &v6;
+  v8[7] = "__xojit_memaccess_write_uint32s";
+  v8[8] = 31;
+  v8[9] = &v6 + 8;
+  v8[10] = "__xojit_memaccess_write_uint64s";
+  v8[11] = 31;
+  v8[12] = &v7;
+  v8[13] = "__xojit_memaccess_write_buffers";
+  v8[14] = 31;
+  llvm::orc::ExecutorProcessControl::getBootstrapSymbols(this, v8, 5, &v4);
+  result = v4;
+  if (!v4)
   {
     operator new();
   }
 
   *(a2 + 8) |= 1u;
   *a2 = result;
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t llvm::orc::ExecutorProcessControl::getBootstrapSymbols@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+uint64_t llvm::orc::ExecutorProcessControl::getBootstrapSymbols@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
   if (a3)
   {
-    v5 = result;
-    v6 = (a2 + 16);
-    v7 = 24 * a3;
+    v6 = result;
+    v7 = (a2 + 16);
+    v8 = 24 * a3;
     do
     {
-      result = llvm::StringMapImpl::FindKey((v5 + 160), *(v6 - 1), *v6);
-      if (result == -1 || result == *(v5 + 168))
+      result = llvm::StringMapImpl::FindKey((v6 + 160), *(v7 - 1), *v7);
+      if (result == -1 || result == *(v6 + 168))
       {
-        v11 = 1283;
-        v8 = *(v6 - 1);
-        v9 = *v6;
-        v10[0] = "Symbol ";
-        v10[2] = v8;
-        v10[3] = v9;
-        v12 = v10;
-        v13 = " not found in bootstrap symbols map";
-        v14 = 770;
+        v12 = 1283;
+        v9 = *(v7 - 1);
+        v10 = *v7;
+        v11[0] = "Symbol ";
+        v11[2] = v9;
+        v11[3] = v10;
+        v13 = v11;
+        v14 = " not found in bootstrap symbols map";
+        v15 = 770;
         getErrorErrorCat();
         operator new();
       }
 
-      **(v6 - 2) = *(*(*(v5 + 160) + 8 * result) + 8);
-      v6 += 3;
-      v7 -= 24;
+      **(v7 - 2) = *(*(*(v6 + 160) + 8 * result) + 8);
+      v7 += 3;
+      v8 -= 24;
     }
 
-    while (v7);
+    while (v8);
   }
 
   *a4 = 0;
@@ -6833,58 +6708,53 @@ void *llvm::orc::EPCGenericMemoryAccess::writePointersAsync(uint64_t a1, uint64_
 
 void *_ZN4llvm3orc6shared15WrapperFunctionIFvNS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrEhEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIS8_NSB_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIhEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_SH_JSM_EEEvSX_SO_DpRKT1_(uint64_t *a1, __int128 *a2, uint64_t *a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v7, a2);
-  _ZN4llvm3orc6shared15WrapperFunctionIFNS1_8SPSEmptyENS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrEhEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIFvS8_ENSC_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIhEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS2_ISE_E9callAsyncIS12_SJ_JSO_EEEvSZ_SQ_DpRKT1_EUlSH_S3_E_JSO_EEEvSZ_SQ_S18_(a1, v7, a3);
-  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v7);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v7 = *MEMORY[0x277D85DE8];
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, a2);
+  _ZN4llvm3orc6shared15WrapperFunctionIFNS1_8SPSEmptyENS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrEhEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIFvS8_ENSC_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIhEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS2_ISE_E9callAsyncIS12_SJ_JSO_EEEvSZ_SQ_DpRKT1_EUlSH_S3_E_JSO_EEEvSZ_SQ_S18_(a1, v6, a3);
+  return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
 }
 
 void _ZN4llvm3orc6shared15WrapperFunctionIFNS1_8SPSEmptyENS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrEhEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIFvS8_ENSC_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIhEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS2_ISE_E9callAsyncIS12_SJ_JSO_EEEvSZ_SQ_DpRKT1_EUlSH_S3_E_JSO_EEEvSZ_SQ_S18_(uint64_t *a1, __int128 *a2, uint64_t *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,unsigned char>>>,llvm::ArrayRef<llvm::orc::tpctypes::UIntWrite<unsigned char>>>(a3, &v8);
-  if (!v9 && v8)
+  v10 = *MEMORY[0x277D85DE8];
+  llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,unsigned char>>>,llvm::ArrayRef<llvm::orc::tpctypes::UIntWrite<unsigned char>>>(a3, &v7);
+  if (!v8 && v7)
   {
     getErrorErrorCat();
-    *&v10[0] = 3;
-    *(&v10[0] + 1) = &getErrorErrorCat(void)::ErrorErrorCat;
+    *&v9[0] = 3;
+    *(&v9[0] + 1) = &getErrorErrorCat(void)::ErrorErrorCat;
     llvm::make_error<llvm::StringError,char const*&,std::error_code>();
   }
 
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v10, a2);
-  if (v9 <= 8)
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v9, a2);
+  if (v8 <= 8)
   {
-    v5 = &v8;
+    v5 = &v7;
   }
 
   else
   {
-    v5 = v8;
+    v5 = v7;
   }
 
-  _ZN4llvm3orc22ExecutorProcessControl16callWrapperAsyncINS1_9RunAsTaskEZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEhEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIhEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EEvS10_SS_SR_NSL_IcEE(*a1, a1 + 2, a1[1], v10, v5, v9);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v10);
-  if (v9 >= 9)
+  _ZN4llvm3orc22ExecutorProcessControl16callWrapperAsyncINS1_9RunAsTaskEZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEhEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIhEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EEvS10_SS_SR_NSL_IcEE(*a1, a1 + 2, a1[1], v9, v5, v8);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v9);
+  if (v8 >= 9)
   {
-    v6 = v8;
+    v6 = v7;
 LABEL_9:
     free(v6);
-    goto LABEL_10;
+    return;
   }
 
-  if (!v9)
+  if (!v8)
   {
-    v6 = v8;
-    if (v8)
+    v6 = v7;
+    if (v7)
     {
       goto LABEL_9;
     }
   }
-
-LABEL_10:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,unsigned char>>>,llvm::ArrayRef<llvm::orc::tpctypes::UIntWrite<unsigned char>>>(uint64_t *a1@<X0>, char **a2@<X8>)
@@ -6920,7 +6790,7 @@ void llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc
 
   else
   {
-    llvm::orc::shared::WrapperFunctionResult::createOutOfBandError("Error serializing arguments to blob in call", a2);
+    llvm::orc::shared::WrapperFunctionResult::createOutOfBandError(a2, "Error serializing arguments to blob in call");
     if (*(&v9 + 1) > 8uLL || !*(&v9 + 1) && v9)
     {
       free(v9);
@@ -6988,44 +6858,38 @@ uint64_t llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSExecutorAddr,unsign
 
 void *_ZN4llvm3orc22ExecutorProcessControl16callWrapperAsyncINS1_9RunAsTaskEZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEhEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIhEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EEvS10_SS_SR_NSL_IcEE(uint64_t a1, uint64_t *a2, uint64_t a3, __int128 *a4, uint64_t a5, uint64_t a6)
 {
-  v12[4] = *MEMORY[0x277D85DE8];
-  _ZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEhEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIhEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerES10_(a2, a4, v12);
-  (*(*a1 + 40))(a1, a3, v12, a5, a6);
-  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v12);
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  v11[4] = *MEMORY[0x277D85DE8];
+  _ZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEhEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIhEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerES10_(a2, a4, v11);
+  (*(*a1 + 40))(a1, a3, v11, a5, a6);
+  return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v11);
 }
 
 void *_ZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEhEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIhEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerES10_@<X0>(uint64_t *a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X8>)
 {
-  v7[4] = *MEMORY[0x277D85DE8];
-  v6 = *a1;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v7, a2);
-  _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrEhEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSD_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIhEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISI_E9callAsyncIS15_SM_JSR_EEEvS12_ST_DpRKT1_EUlSK_S8_E_JSR_EEEvS12_ST_S1B_EUlNS6_21WrapperFunctionResultEE_EES2_S12_EUlS1D_E_EES12_(a3, &v6);
-  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v7);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v6[4] = *MEMORY[0x277D85DE8];
+  v5 = *a1;
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, a2);
+  _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrEhEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSD_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIhEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISI_E9callAsyncIS15_SM_JSR_EEEvS12_ST_DpRKT1_EUlSK_S8_E_JSR_EEEvS12_ST_S1B_EUlNS6_21WrapperFunctionResultEE_EES2_S12_EUlS1D_E_EES12_(a3, &v5);
+  return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
 }
 
-uint64_t _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrEhEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSD_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIhEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISI_E9callAsyncIS15_SM_JSR_EEEvS12_ST_DpRKT1_EUlSK_S8_E_JSR_EEEvS12_ST_S1B_EUlNS6_21WrapperFunctionResultEE_EES2_S12_EUlS1D_E_EES12_(uint64_t a1, uint64_t a2)
+uint64_t _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrEhEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSD_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIhEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISI_E9callAsyncIS15_SM_JSR_EEEvS12_ST_DpRKT1_EUlSK_S8_E_JSR_EEEvS12_ST_S1B_EUlNS6_21WrapperFunctionResultEE_EES2_S12_EUlS1D_E_EES12_(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v5 = *a2;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, (a2 + 8));
-  _ZN4llvm15unique_functionIFvNS_3orc6shared21WrapperFunctionResultEEEC2IZNS1_22ExecutorProcessControl9RunAsTaskclIZNS2_15WrapperFunctionIFNS2_8SPSEmptyENS2_11SPSSequenceINS2_8SPSTupleIJNS2_15SPSExecutorAddrEhEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS0_IFvNS_5ErrorEEEEJNS_8ArrayRefINS1_8tpctypes9UIntWriteIhEEEEEEEvOT0_NS1_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS17_SO_JST_EEEvS14_SV_DpRKT1_EUlSM_SB_E_JST_EEEvS14_SV_S1D_EUlS3_E_EENS7_18IncomingWFRHandlerES14_EUlS3_E_EES13_PNSt3__19enable_ifIXntsr3std7is_sameINS_12remove_cvrefIS13_E4typeES5_EE5valueEvE4typeEPNS1J_IXsr3std11disjunctionINS1I_7is_voidIvEENS1I_7is_sameIDTclclsr3stdE7declvalIS13_EEclL_ZNS1I_7declvalB8nn200100IS3_EEDTclsr3stdE9__declvalIS13_ELi0EEEvEEEEvEENS1S_IKS1V_vEENS1I_14is_convertibleIS1V_vEEEE5valueEvE4typeE(a1, &v5);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
-  v3 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
+  v4 = *a2;
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v5, (a2 + 1));
+  _ZN4llvm15unique_functionIFvNS_3orc6shared21WrapperFunctionResultEEEC2IZNS1_22ExecutorProcessControl9RunAsTaskclIZNS2_15WrapperFunctionIFNS2_8SPSEmptyENS2_11SPSSequenceINS2_8SPSTupleIJNS2_15SPSExecutorAddrEhEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS0_IFvNS_5ErrorEEEEJNS_8ArrayRefINS1_8tpctypes9UIntWriteIhEEEEEEEvOT0_NS1_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS17_SO_JST_EEEvS14_SV_DpRKT1_EUlSM_SB_E_JST_EEEvS14_SV_S1D_EUlS3_E_EENS7_18IncomingWFRHandlerES14_EUlS3_E_EES13_PNSt3__19enable_ifIXntsr3std7is_sameINS_12remove_cvrefIS13_E4typeES5_EE5valueEvE4typeEPNS1J_IXsr3std11disjunctionINS1I_7is_voidIvEENS1I_7is_sameIDTclclsr3stdE7declvalIS13_EEclL_ZNS1I_7declvalB8nn200100IS3_EEDTclsr3stdE9__declvalIS13_ELi0EEEvEEEEvEENS1S_IKS1V_vEENS1I_14is_convertibleIS1V_vEEEE5valueEvE4typeE(a1, &v4);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v5);
   return a1;
 }
 
 uint64_t _ZN4llvm15unique_functionIFvNS_3orc6shared21WrapperFunctionResultEEEC2IZNS1_22ExecutorProcessControl9RunAsTaskclIZNS2_15WrapperFunctionIFNS2_8SPSEmptyENS2_11SPSSequenceINS2_8SPSTupleIJNS2_15SPSExecutorAddrEhEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS0_IFvNS_5ErrorEEEEJNS_8ArrayRefINS1_8tpctypes9UIntWriteIhEEEEEEEvOT0_NS1_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS17_SO_JST_EEEvS14_SV_DpRKT1_EUlSM_SB_E_JST_EEEvS14_SV_S1D_EUlS3_E_EENS7_18IncomingWFRHandlerES14_EUlS3_E_EES13_PNSt3__19enable_ifIXntsr3std7is_sameINS_12remove_cvrefIS13_E4typeES5_EE5valueEvE4typeEPNS1J_IXsr3std11disjunctionINS1I_7is_voidIvEENS1I_7is_sameIDTclclsr3stdE7declvalIS13_EEclL_ZNS1I_7declvalB8nn200100IS3_EEDTclsr3stdE9__declvalIS13_ELi0EEEvEEEEvEENS1S_IKS1V_vEENS1I_14is_convertibleIS1V_vEEEE5valueEvE4typeE(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v5 = *a2;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, (a2 + 1));
-  _ZN4llvm6detail18UniqueFunctionBaseIvJNS_3orc6shared21WrapperFunctionResultEEEC2IZNS2_22ExecutorProcessControl9RunAsTaskclIZNS3_15WrapperFunctionIFNS3_8SPSEmptyENS3_11SPSSequenceINS3_8SPSTupleIJNS3_15SPSExecutorAddrEhEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS2_8tpctypes9UIntWriteIhEEEEEEEvOT0_NS2_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS18_SP_JSU_EEEvS15_SW_DpRKT1_EUlSN_SB_E_JSU_EEEvS15_SW_S1E_EUlS4_E_EENS7_18IncomingWFRHandlerES15_EUlS4_E_S1I_EES14_NS5_8CalledAsISV_EE(a1, &v5);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
-  v3 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
+  v4 = *a2;
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v5, (a2 + 1));
+  _ZN4llvm6detail18UniqueFunctionBaseIvJNS_3orc6shared21WrapperFunctionResultEEEC2IZNS2_22ExecutorProcessControl9RunAsTaskclIZNS3_15WrapperFunctionIFNS3_8SPSEmptyENS3_11SPSSequenceINS3_8SPSTupleIJNS3_15SPSExecutorAddrEhEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS2_8tpctypes9UIntWriteIhEEEEEEEvOT0_NS2_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS18_SP_JSU_EEEvS15_SW_DpRKT1_EUlSN_SB_E_JSU_EEEvS15_SW_S1E_EUlS4_E_EENS7_18IncomingWFRHandlerES15_EUlS4_E_S1I_EES14_NS5_8CalledAsISV_EE(a1, &v4);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v5);
   return a1;
 }
 
@@ -7051,10 +6915,9 @@ void _ZN4llvm6detail18UniqueFunctionBaseIvJNS_3orc6shared21WrapperFunctionResult
 
 void _ZZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEhEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIhEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerES10_ENUlS1B_E_clES1B_(uint64_t *a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3 = *a1;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v4, (a1 + 1));
-  *v5 = *a2;
+  v5 = *MEMORY[0x277D85DE8];
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v3, (a1 + 1));
+  *v4 = *a2;
   *a2 = 0;
   *(a2 + 8) = 0;
   _ZN4llvm3orc20makeGenericNamedTaskIZZNS0_22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS5_8SPSEmptyENS5_11SPSSequenceINS5_8SPSTupleIJNS5_15SPSExecutorAddrEhEEEEEEE9callAsyncIZNS2_19callSPSWrapperAsyncIFvSC_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIhEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS6_ISH_E9callAsyncIS14_SL_JSQ_EEEvS11_SS_DpRKT1_EUlSJ_S7_E_JSQ_EEEvS11_SS_S1A_EUlNS5_21WrapperFunctionResultEE_EENS2_18IncomingWFRHandlerES11_ENUlS1C_E_clES1C_EUlvE_EENSt3__110unique_ptrINS0_16GenericNamedTaskENS1H_14default_deleteIS1J_EEEES11_S13_();
@@ -7190,58 +7053,53 @@ uint64_t _ZZN4llvm3orc6shared15WrapperFunctionIFNS1_8SPSEmptyENS1_11SPSSequenceI
 
 void *_ZN4llvm3orc6shared15WrapperFunctionIFvNS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrEtEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIS8_NSB_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteItEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_SH_JSM_EEEvSX_SO_DpRKT1_(uint64_t *a1, __int128 *a2, uint64_t *a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v7, a2);
-  _ZN4llvm3orc6shared15WrapperFunctionIFNS1_8SPSEmptyENS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrEtEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIFvS8_ENSC_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteItEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS2_ISE_E9callAsyncIS12_SJ_JSO_EEEvSZ_SQ_DpRKT1_EUlSH_S3_E_JSO_EEEvSZ_SQ_S18_(a1, v7, a3);
-  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v7);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v7 = *MEMORY[0x277D85DE8];
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, a2);
+  _ZN4llvm3orc6shared15WrapperFunctionIFNS1_8SPSEmptyENS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrEtEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIFvS8_ENSC_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteItEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS2_ISE_E9callAsyncIS12_SJ_JSO_EEEvSZ_SQ_DpRKT1_EUlSH_S3_E_JSO_EEEvSZ_SQ_S18_(a1, v6, a3);
+  return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
 }
 
 void _ZN4llvm3orc6shared15WrapperFunctionIFNS1_8SPSEmptyENS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrEtEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIFvS8_ENSC_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteItEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS2_ISE_E9callAsyncIS12_SJ_JSO_EEEvSZ_SQ_DpRKT1_EUlSH_S3_E_JSO_EEEvSZ_SQ_S18_(uint64_t *a1, __int128 *a2, uint64_t *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,unsigned short>>>,llvm::ArrayRef<llvm::orc::tpctypes::UIntWrite<unsigned short>>>(a3, &v8);
-  if (!v9 && v8)
+  v10 = *MEMORY[0x277D85DE8];
+  llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,unsigned short>>>,llvm::ArrayRef<llvm::orc::tpctypes::UIntWrite<unsigned short>>>(a3, &v7);
+  if (!v8 && v7)
   {
     getErrorErrorCat();
-    *&v10[0] = 3;
-    *(&v10[0] + 1) = &getErrorErrorCat(void)::ErrorErrorCat;
+    *&v9[0] = 3;
+    *(&v9[0] + 1) = &getErrorErrorCat(void)::ErrorErrorCat;
     llvm::make_error<llvm::StringError,char const*&,std::error_code>();
   }
 
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v10, a2);
-  if (v9 <= 8)
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v9, a2);
+  if (v8 <= 8)
   {
-    v5 = &v8;
+    v5 = &v7;
   }
 
   else
   {
-    v5 = v8;
+    v5 = v7;
   }
 
-  _ZN4llvm3orc22ExecutorProcessControl16callWrapperAsyncINS1_9RunAsTaskEZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEtEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteItEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EEvS10_SS_SR_NSL_IcEE(*a1, a1 + 2, a1[1], v10, v5, v9);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v10);
-  if (v9 >= 9)
+  _ZN4llvm3orc22ExecutorProcessControl16callWrapperAsyncINS1_9RunAsTaskEZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEtEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteItEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EEvS10_SS_SR_NSL_IcEE(*a1, a1 + 2, a1[1], v9, v5, v8);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v9);
+  if (v8 >= 9)
   {
-    v6 = v8;
+    v6 = v7;
 LABEL_9:
     free(v6);
-    goto LABEL_10;
+    return;
   }
 
-  if (!v9)
+  if (!v8)
   {
-    v6 = v8;
-    if (v8)
+    v6 = v7;
+    if (v7)
     {
       goto LABEL_9;
     }
   }
-
-LABEL_10:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,unsigned short>>>,llvm::ArrayRef<llvm::orc::tpctypes::UIntWrite<unsigned short>>>(uint64_t *a1@<X0>, char **a2@<X8>)
@@ -7277,7 +7135,7 @@ void llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc
 
   else
   {
-    llvm::orc::shared::WrapperFunctionResult::createOutOfBandError("Error serializing arguments to blob in call", a2);
+    llvm::orc::shared::WrapperFunctionResult::createOutOfBandError(a2, "Error serializing arguments to blob in call");
     if (*(&v9 + 1) > 8uLL || !*(&v9 + 1) && v9)
     {
       free(v9);
@@ -7345,44 +7203,38 @@ uint64_t llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSExecutorAddr,unsign
 
 void *_ZN4llvm3orc22ExecutorProcessControl16callWrapperAsyncINS1_9RunAsTaskEZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEtEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteItEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EEvS10_SS_SR_NSL_IcEE(uint64_t a1, uint64_t *a2, uint64_t a3, __int128 *a4, uint64_t a5, uint64_t a6)
 {
-  v12[4] = *MEMORY[0x277D85DE8];
-  _ZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEtEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteItEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerES10_(a2, a4, v12);
-  (*(*a1 + 40))(a1, a3, v12, a5, a6);
-  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v12);
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  v11[4] = *MEMORY[0x277D85DE8];
+  _ZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEtEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteItEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerES10_(a2, a4, v11);
+  (*(*a1 + 40))(a1, a3, v11, a5, a6);
+  return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v11);
 }
 
 void *_ZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEtEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteItEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerES10_@<X0>(uint64_t *a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X8>)
 {
-  v7[4] = *MEMORY[0x277D85DE8];
-  v6 = *a1;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v7, a2);
-  _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrEtEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSD_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteItEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISI_E9callAsyncIS15_SM_JSR_EEEvS12_ST_DpRKT1_EUlSK_S8_E_JSR_EEEvS12_ST_S1B_EUlNS6_21WrapperFunctionResultEE_EES2_S12_EUlS1D_E_EES12_(a3, &v6);
-  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v7);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v6[4] = *MEMORY[0x277D85DE8];
+  v5 = *a1;
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, a2);
+  _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrEtEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSD_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteItEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISI_E9callAsyncIS15_SM_JSR_EEEvS12_ST_DpRKT1_EUlSK_S8_E_JSR_EEEvS12_ST_S1B_EUlNS6_21WrapperFunctionResultEE_EES2_S12_EUlS1D_E_EES12_(a3, &v5);
+  return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
 }
 
-uint64_t _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrEtEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSD_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteItEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISI_E9callAsyncIS15_SM_JSR_EEEvS12_ST_DpRKT1_EUlSK_S8_E_JSR_EEEvS12_ST_S1B_EUlNS6_21WrapperFunctionResultEE_EES2_S12_EUlS1D_E_EES12_(uint64_t a1, uint64_t a2)
+uint64_t _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrEtEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSD_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteItEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISI_E9callAsyncIS15_SM_JSR_EEEvS12_ST_DpRKT1_EUlSK_S8_E_JSR_EEEvS12_ST_S1B_EUlNS6_21WrapperFunctionResultEE_EES2_S12_EUlS1D_E_EES12_(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v5 = *a2;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, (a2 + 8));
-  _ZN4llvm15unique_functionIFvNS_3orc6shared21WrapperFunctionResultEEEC2IZNS1_22ExecutorProcessControl9RunAsTaskclIZNS2_15WrapperFunctionIFNS2_8SPSEmptyENS2_11SPSSequenceINS2_8SPSTupleIJNS2_15SPSExecutorAddrEtEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS0_IFvNS_5ErrorEEEEJNS_8ArrayRefINS1_8tpctypes9UIntWriteItEEEEEEEvOT0_NS1_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS17_SO_JST_EEEvS14_SV_DpRKT1_EUlSM_SB_E_JST_EEEvS14_SV_S1D_EUlS3_E_EENS7_18IncomingWFRHandlerES14_EUlS3_E_EES13_PNSt3__19enable_ifIXntsr3std7is_sameINS_12remove_cvrefIS13_E4typeES5_EE5valueEvE4typeEPNS1J_IXsr3std11disjunctionINS1I_7is_voidIvEENS1I_7is_sameIDTclclsr3stdE7declvalIS13_EEclL_ZNS1I_7declvalB8nn200100IS3_EEDTclsr3stdE9__declvalIS13_ELi0EEEvEEEEvEENS1S_IKS1V_vEENS1I_14is_convertibleIS1V_vEEEE5valueEvE4typeE(a1, &v5);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
-  v3 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
+  v4 = *a2;
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v5, (a2 + 1));
+  _ZN4llvm15unique_functionIFvNS_3orc6shared21WrapperFunctionResultEEEC2IZNS1_22ExecutorProcessControl9RunAsTaskclIZNS2_15WrapperFunctionIFNS2_8SPSEmptyENS2_11SPSSequenceINS2_8SPSTupleIJNS2_15SPSExecutorAddrEtEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS0_IFvNS_5ErrorEEEEJNS_8ArrayRefINS1_8tpctypes9UIntWriteItEEEEEEEvOT0_NS1_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS17_SO_JST_EEEvS14_SV_DpRKT1_EUlSM_SB_E_JST_EEEvS14_SV_S1D_EUlS3_E_EENS7_18IncomingWFRHandlerES14_EUlS3_E_EES13_PNSt3__19enable_ifIXntsr3std7is_sameINS_12remove_cvrefIS13_E4typeES5_EE5valueEvE4typeEPNS1J_IXsr3std11disjunctionINS1I_7is_voidIvEENS1I_7is_sameIDTclclsr3stdE7declvalIS13_EEclL_ZNS1I_7declvalB8nn200100IS3_EEDTclsr3stdE9__declvalIS13_ELi0EEEvEEEEvEENS1S_IKS1V_vEENS1I_14is_convertibleIS1V_vEEEE5valueEvE4typeE(a1, &v4);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v5);
   return a1;
 }
 
 uint64_t _ZN4llvm15unique_functionIFvNS_3orc6shared21WrapperFunctionResultEEEC2IZNS1_22ExecutorProcessControl9RunAsTaskclIZNS2_15WrapperFunctionIFNS2_8SPSEmptyENS2_11SPSSequenceINS2_8SPSTupleIJNS2_15SPSExecutorAddrEtEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS0_IFvNS_5ErrorEEEEJNS_8ArrayRefINS1_8tpctypes9UIntWriteItEEEEEEEvOT0_NS1_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS17_SO_JST_EEEvS14_SV_DpRKT1_EUlSM_SB_E_JST_EEEvS14_SV_S1D_EUlS3_E_EENS7_18IncomingWFRHandlerES14_EUlS3_E_EES13_PNSt3__19enable_ifIXntsr3std7is_sameINS_12remove_cvrefIS13_E4typeES5_EE5valueEvE4typeEPNS1J_IXsr3std11disjunctionINS1I_7is_voidIvEENS1I_7is_sameIDTclclsr3stdE7declvalIS13_EEclL_ZNS1I_7declvalB8nn200100IS3_EEDTclsr3stdE9__declvalIS13_ELi0EEEvEEEEvEENS1S_IKS1V_vEENS1I_14is_convertibleIS1V_vEEEE5valueEvE4typeE(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v5 = *a2;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, (a2 + 1));
-  _ZN4llvm6detail18UniqueFunctionBaseIvJNS_3orc6shared21WrapperFunctionResultEEEC2IZNS2_22ExecutorProcessControl9RunAsTaskclIZNS3_15WrapperFunctionIFNS3_8SPSEmptyENS3_11SPSSequenceINS3_8SPSTupleIJNS3_15SPSExecutorAddrEtEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS2_8tpctypes9UIntWriteItEEEEEEEvOT0_NS2_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS18_SP_JSU_EEEvS15_SW_DpRKT1_EUlSN_SB_E_JSU_EEEvS15_SW_S1E_EUlS4_E_EENS7_18IncomingWFRHandlerES15_EUlS4_E_S1I_EES14_NS5_8CalledAsISV_EE(a1, &v5);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
-  v3 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
+  v4 = *a2;
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v5, (a2 + 1));
+  _ZN4llvm6detail18UniqueFunctionBaseIvJNS_3orc6shared21WrapperFunctionResultEEEC2IZNS2_22ExecutorProcessControl9RunAsTaskclIZNS3_15WrapperFunctionIFNS3_8SPSEmptyENS3_11SPSSequenceINS3_8SPSTupleIJNS3_15SPSExecutorAddrEtEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS2_8tpctypes9UIntWriteItEEEEEEEvOT0_NS2_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS18_SP_JSU_EEEvS15_SW_DpRKT1_EUlSN_SB_E_JSU_EEEvS15_SW_S1E_EUlS4_E_EENS7_18IncomingWFRHandlerES15_EUlS4_E_S1I_EES14_NS5_8CalledAsISV_EE(a1, &v4);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v5);
   return a1;
 }
 
@@ -7408,10 +7260,9 @@ void _ZN4llvm6detail18UniqueFunctionBaseIvJNS_3orc6shared21WrapperFunctionResult
 
 void _ZZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEtEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteItEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerES10_ENUlS1B_E_clES1B_(uint64_t *a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3 = *a1;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v4, (a1 + 1));
-  *v5 = *a2;
+  v5 = *MEMORY[0x277D85DE8];
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v3, (a1 + 1));
+  *v4 = *a2;
   *a2 = 0;
   *(a2 + 8) = 0;
   _ZN4llvm3orc20makeGenericNamedTaskIZZNS0_22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS5_8SPSEmptyENS5_11SPSSequenceINS5_8SPSTupleIJNS5_15SPSExecutorAddrEtEEEEEEE9callAsyncIZNS2_19callSPSWrapperAsyncIFvSC_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteItEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS6_ISH_E9callAsyncIS14_SL_JSQ_EEEvS11_SS_DpRKT1_EUlSJ_S7_E_JSQ_EEEvS11_SS_S1A_EUlNS5_21WrapperFunctionResultEE_EENS2_18IncomingWFRHandlerES11_ENUlS1C_E_clES1C_EUlvE_EENSt3__110unique_ptrINS0_16GenericNamedTaskENS1H_14default_deleteIS1J_EEEES11_S13_();
@@ -7516,58 +7367,53 @@ LABEL_7:
 
 void *_ZN4llvm3orc6shared15WrapperFunctionIFvNS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrEjEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIS8_NSB_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIjEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_SH_JSM_EEEvSX_SO_DpRKT1_(uint64_t *a1, __int128 *a2, uint64_t *a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v7, a2);
-  _ZN4llvm3orc6shared15WrapperFunctionIFNS1_8SPSEmptyENS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrEjEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIFvS8_ENSC_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIjEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS2_ISE_E9callAsyncIS12_SJ_JSO_EEEvSZ_SQ_DpRKT1_EUlSH_S3_E_JSO_EEEvSZ_SQ_S18_(a1, v7, a3);
-  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v7);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v7 = *MEMORY[0x277D85DE8];
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, a2);
+  _ZN4llvm3orc6shared15WrapperFunctionIFNS1_8SPSEmptyENS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrEjEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIFvS8_ENSC_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIjEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS2_ISE_E9callAsyncIS12_SJ_JSO_EEEvSZ_SQ_DpRKT1_EUlSH_S3_E_JSO_EEEvSZ_SQ_S18_(a1, v6, a3);
+  return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
 }
 
 void _ZN4llvm3orc6shared15WrapperFunctionIFNS1_8SPSEmptyENS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrEjEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIFvS8_ENSC_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIjEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS2_ISE_E9callAsyncIS12_SJ_JSO_EEEvSZ_SQ_DpRKT1_EUlSH_S3_E_JSO_EEEvSZ_SQ_S18_(uint64_t *a1, __int128 *a2, uint64_t *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,unsigned int>>>,llvm::ArrayRef<llvm::orc::tpctypes::UIntWrite<unsigned int>>>(a3, &v8);
-  if (!v9 && v8)
+  v10 = *MEMORY[0x277D85DE8];
+  llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,unsigned int>>>,llvm::ArrayRef<llvm::orc::tpctypes::UIntWrite<unsigned int>>>(a3, &v7);
+  if (!v8 && v7)
   {
     getErrorErrorCat();
-    *&v10[0] = 3;
-    *(&v10[0] + 1) = &getErrorErrorCat(void)::ErrorErrorCat;
+    *&v9[0] = 3;
+    *(&v9[0] + 1) = &getErrorErrorCat(void)::ErrorErrorCat;
     llvm::make_error<llvm::StringError,char const*&,std::error_code>();
   }
 
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v10, a2);
-  if (v9 <= 8)
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v9, a2);
+  if (v8 <= 8)
   {
-    v5 = &v8;
+    v5 = &v7;
   }
 
   else
   {
-    v5 = v8;
+    v5 = v7;
   }
 
-  _ZN4llvm3orc22ExecutorProcessControl16callWrapperAsyncINS1_9RunAsTaskEZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEjEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIjEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EEvS10_SS_SR_NSL_IcEE(*a1, a1 + 2, a1[1], v10, v5, v9);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v10);
-  if (v9 >= 9)
+  _ZN4llvm3orc22ExecutorProcessControl16callWrapperAsyncINS1_9RunAsTaskEZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEjEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIjEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EEvS10_SS_SR_NSL_IcEE(*a1, a1 + 2, a1[1], v9, v5, v8);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v9);
+  if (v8 >= 9)
   {
-    v6 = v8;
+    v6 = v7;
 LABEL_9:
     free(v6);
-    goto LABEL_10;
+    return;
   }
 
-  if (!v9)
+  if (!v8)
   {
-    v6 = v8;
-    if (v8)
+    v6 = v7;
+    if (v7)
     {
       goto LABEL_9;
     }
   }
-
-LABEL_10:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,unsigned int>>>,llvm::ArrayRef<llvm::orc::tpctypes::UIntWrite<unsigned int>>>(uint64_t *a1@<X0>, char **a2@<X8>)
@@ -7603,7 +7449,7 @@ void llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc
 
   else
   {
-    llvm::orc::shared::WrapperFunctionResult::createOutOfBandError("Error serializing arguments to blob in call", a2);
+    llvm::orc::shared::WrapperFunctionResult::createOutOfBandError(a2, "Error serializing arguments to blob in call");
     if (*(&v9 + 1) > 8uLL || !*(&v9 + 1) && v9)
     {
       free(v9);
@@ -7671,44 +7517,38 @@ uint64_t llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSExecutorAddr,unsign
 
 void *_ZN4llvm3orc22ExecutorProcessControl16callWrapperAsyncINS1_9RunAsTaskEZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEjEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIjEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EEvS10_SS_SR_NSL_IcEE(uint64_t a1, uint64_t *a2, uint64_t a3, __int128 *a4, uint64_t a5, uint64_t a6)
 {
-  v12[4] = *MEMORY[0x277D85DE8];
-  _ZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEjEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIjEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerES10_(a2, a4, v12);
-  (*(*a1 + 40))(a1, a3, v12, a5, a6);
-  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v12);
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  v11[4] = *MEMORY[0x277D85DE8];
+  _ZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEjEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIjEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerES10_(a2, a4, v11);
+  (*(*a1 + 40))(a1, a3, v11, a5, a6);
+  return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v11);
 }
 
 void *_ZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEjEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIjEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerES10_@<X0>(uint64_t *a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X8>)
 {
-  v7[4] = *MEMORY[0x277D85DE8];
-  v6 = *a1;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v7, a2);
-  _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrEjEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSD_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIjEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISI_E9callAsyncIS15_SM_JSR_EEEvS12_ST_DpRKT1_EUlSK_S8_E_JSR_EEEvS12_ST_S1B_EUlNS6_21WrapperFunctionResultEE_EES2_S12_EUlS1D_E_EES12_(a3, &v6);
-  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v7);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v6[4] = *MEMORY[0x277D85DE8];
+  v5 = *a1;
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, a2);
+  _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrEjEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSD_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIjEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISI_E9callAsyncIS15_SM_JSR_EEEvS12_ST_DpRKT1_EUlSK_S8_E_JSR_EEEvS12_ST_S1B_EUlNS6_21WrapperFunctionResultEE_EES2_S12_EUlS1D_E_EES12_(a3, &v5);
+  return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
 }
 
-uint64_t _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrEjEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSD_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIjEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISI_E9callAsyncIS15_SM_JSR_EEEvS12_ST_DpRKT1_EUlSK_S8_E_JSR_EEEvS12_ST_S1B_EUlNS6_21WrapperFunctionResultEE_EES2_S12_EUlS1D_E_EES12_(uint64_t a1, uint64_t a2)
+uint64_t _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrEjEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSD_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIjEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISI_E9callAsyncIS15_SM_JSR_EEEvS12_ST_DpRKT1_EUlSK_S8_E_JSR_EEEvS12_ST_S1B_EUlNS6_21WrapperFunctionResultEE_EES2_S12_EUlS1D_E_EES12_(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v5 = *a2;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, (a2 + 8));
-  _ZN4llvm15unique_functionIFvNS_3orc6shared21WrapperFunctionResultEEEC2IZNS1_22ExecutorProcessControl9RunAsTaskclIZNS2_15WrapperFunctionIFNS2_8SPSEmptyENS2_11SPSSequenceINS2_8SPSTupleIJNS2_15SPSExecutorAddrEjEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS0_IFvNS_5ErrorEEEEJNS_8ArrayRefINS1_8tpctypes9UIntWriteIjEEEEEEEvOT0_NS1_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS17_SO_JST_EEEvS14_SV_DpRKT1_EUlSM_SB_E_JST_EEEvS14_SV_S1D_EUlS3_E_EENS7_18IncomingWFRHandlerES14_EUlS3_E_EES13_PNSt3__19enable_ifIXntsr3std7is_sameINS_12remove_cvrefIS13_E4typeES5_EE5valueEvE4typeEPNS1J_IXsr3std11disjunctionINS1I_7is_voidIvEENS1I_7is_sameIDTclclsr3stdE7declvalIS13_EEclL_ZNS1I_7declvalB8nn200100IS3_EEDTclsr3stdE9__declvalIS13_ELi0EEEvEEEEvEENS1S_IKS1V_vEENS1I_14is_convertibleIS1V_vEEEE5valueEvE4typeE(a1, &v5);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
-  v3 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
+  v4 = *a2;
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v5, (a2 + 1));
+  _ZN4llvm15unique_functionIFvNS_3orc6shared21WrapperFunctionResultEEEC2IZNS1_22ExecutorProcessControl9RunAsTaskclIZNS2_15WrapperFunctionIFNS2_8SPSEmptyENS2_11SPSSequenceINS2_8SPSTupleIJNS2_15SPSExecutorAddrEjEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS0_IFvNS_5ErrorEEEEJNS_8ArrayRefINS1_8tpctypes9UIntWriteIjEEEEEEEvOT0_NS1_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS17_SO_JST_EEEvS14_SV_DpRKT1_EUlSM_SB_E_JST_EEEvS14_SV_S1D_EUlS3_E_EENS7_18IncomingWFRHandlerES14_EUlS3_E_EES13_PNSt3__19enable_ifIXntsr3std7is_sameINS_12remove_cvrefIS13_E4typeES5_EE5valueEvE4typeEPNS1J_IXsr3std11disjunctionINS1I_7is_voidIvEENS1I_7is_sameIDTclclsr3stdE7declvalIS13_EEclL_ZNS1I_7declvalB8nn200100IS3_EEDTclsr3stdE9__declvalIS13_ELi0EEEvEEEEvEENS1S_IKS1V_vEENS1I_14is_convertibleIS1V_vEEEE5valueEvE4typeE(a1, &v4);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v5);
   return a1;
 }
 
 uint64_t _ZN4llvm15unique_functionIFvNS_3orc6shared21WrapperFunctionResultEEEC2IZNS1_22ExecutorProcessControl9RunAsTaskclIZNS2_15WrapperFunctionIFNS2_8SPSEmptyENS2_11SPSSequenceINS2_8SPSTupleIJNS2_15SPSExecutorAddrEjEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS0_IFvNS_5ErrorEEEEJNS_8ArrayRefINS1_8tpctypes9UIntWriteIjEEEEEEEvOT0_NS1_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS17_SO_JST_EEEvS14_SV_DpRKT1_EUlSM_SB_E_JST_EEEvS14_SV_S1D_EUlS3_E_EENS7_18IncomingWFRHandlerES14_EUlS3_E_EES13_PNSt3__19enable_ifIXntsr3std7is_sameINS_12remove_cvrefIS13_E4typeES5_EE5valueEvE4typeEPNS1J_IXsr3std11disjunctionINS1I_7is_voidIvEENS1I_7is_sameIDTclclsr3stdE7declvalIS13_EEclL_ZNS1I_7declvalB8nn200100IS3_EEDTclsr3stdE9__declvalIS13_ELi0EEEvEEEEvEENS1S_IKS1V_vEENS1I_14is_convertibleIS1V_vEEEE5valueEvE4typeE(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v5 = *a2;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, (a2 + 1));
-  _ZN4llvm6detail18UniqueFunctionBaseIvJNS_3orc6shared21WrapperFunctionResultEEEC2IZNS2_22ExecutorProcessControl9RunAsTaskclIZNS3_15WrapperFunctionIFNS3_8SPSEmptyENS3_11SPSSequenceINS3_8SPSTupleIJNS3_15SPSExecutorAddrEjEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS2_8tpctypes9UIntWriteIjEEEEEEEvOT0_NS2_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS18_SP_JSU_EEEvS15_SW_DpRKT1_EUlSN_SB_E_JSU_EEEvS15_SW_S1E_EUlS4_E_EENS7_18IncomingWFRHandlerES15_EUlS4_E_S1I_EES14_NS5_8CalledAsISV_EE(a1, &v5);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
-  v3 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
+  v4 = *a2;
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v5, (a2 + 1));
+  _ZN4llvm6detail18UniqueFunctionBaseIvJNS_3orc6shared21WrapperFunctionResultEEEC2IZNS2_22ExecutorProcessControl9RunAsTaskclIZNS3_15WrapperFunctionIFNS3_8SPSEmptyENS3_11SPSSequenceINS3_8SPSTupleIJNS3_15SPSExecutorAddrEjEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS2_8tpctypes9UIntWriteIjEEEEEEEvOT0_NS2_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS18_SP_JSU_EEEvS15_SW_DpRKT1_EUlSN_SB_E_JSU_EEEvS15_SW_S1E_EUlS4_E_EENS7_18IncomingWFRHandlerES15_EUlS4_E_S1I_EES14_NS5_8CalledAsISV_EE(a1, &v4);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v5);
   return a1;
 }
 
@@ -7734,10 +7574,9 @@ void _ZN4llvm6detail18UniqueFunctionBaseIvJNS_3orc6shared21WrapperFunctionResult
 
 void _ZZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEjEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIjEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerES10_ENUlS1B_E_clES1B_(uint64_t *a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3 = *a1;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v4, (a1 + 1));
-  *v5 = *a2;
+  v5 = *MEMORY[0x277D85DE8];
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v3, (a1 + 1));
+  *v4 = *a2;
   *a2 = 0;
   *(a2 + 8) = 0;
   _ZN4llvm3orc20makeGenericNamedTaskIZZNS0_22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS5_8SPSEmptyENS5_11SPSSequenceINS5_8SPSTupleIJNS5_15SPSExecutorAddrEjEEEEEEE9callAsyncIZNS2_19callSPSWrapperAsyncIFvSC_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIjEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS6_ISH_E9callAsyncIS14_SL_JSQ_EEEvS11_SS_DpRKT1_EUlSJ_S7_E_JSQ_EEEvS11_SS_S1A_EUlNS5_21WrapperFunctionResultEE_EENS2_18IncomingWFRHandlerES11_ENUlS1C_E_clES1C_EUlvE_EENSt3__110unique_ptrINS0_16GenericNamedTaskENS1H_14default_deleteIS1J_EEEES11_S13_();
@@ -7840,65 +7679,60 @@ LABEL_7:
   }
 }
 
-void *_ZN4llvm3orc6shared15WrapperFunctionIFvNS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrEyEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIS8_NSB_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIyEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_SH_JSM_EEEvSX_SO_DpRKT1_(uint64_t *a1, __int128 *a2, uint64_t a3)
+void *_ZN4llvm3orc6shared15WrapperFunctionIFvNS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrEyEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIS8_NSB_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIyEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_SH_JSM_EEEvSX_SO_DpRKT1_(uint64_t *a1, __int128 *a2, uint64_t *a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v7, a2);
-  _ZN4llvm3orc6shared15WrapperFunctionIFNS1_8SPSEmptyENS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrEyEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIFvS8_ENSC_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIyEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS2_ISE_E9callAsyncIS12_SJ_JSO_EEEvSZ_SQ_DpRKT1_EUlSH_S3_E_JSO_EEEvSZ_SQ_S18_(a1, v7, a3);
-  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v7);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v7 = *MEMORY[0x277D85DE8];
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, a2);
+  _ZN4llvm3orc6shared15WrapperFunctionIFNS1_8SPSEmptyENS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrEyEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIFvS8_ENSC_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIyEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS2_ISE_E9callAsyncIS12_SJ_JSO_EEEvSZ_SQ_DpRKT1_EUlSH_S3_E_JSO_EEEvSZ_SQ_S18_(a1, v6, a3);
+  return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
 }
 
-void _ZN4llvm3orc6shared15WrapperFunctionIFNS1_8SPSEmptyENS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrEyEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIFvS8_ENSC_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIyEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS2_ISE_E9callAsyncIS12_SJ_JSO_EEEvSZ_SQ_DpRKT1_EUlSH_S3_E_JSO_EEEvSZ_SQ_S18_(uint64_t *a1, __int128 *a2, uint64_t a3)
+void _ZN4llvm3orc6shared15WrapperFunctionIFNS1_8SPSEmptyENS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrEyEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIFvS8_ENSC_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIyEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS2_ISE_E9callAsyncIS12_SJ_JSO_EEEvSZ_SQ_DpRKT1_EUlSH_S3_E_JSO_EEEvSZ_SQ_S18_(uint64_t *a1, __int128 *a2, uint64_t *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,unsigned long long>>>,llvm::ArrayRef<llvm::orc::tpctypes::UIntWrite<unsigned long long>>>(a3, &v8);
-  if (!v9 && v8)
+  v10 = *MEMORY[0x277D85DE8];
+  llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,unsigned long long>>>,llvm::ArrayRef<llvm::orc::tpctypes::UIntWrite<unsigned long long>>>(a3, &v7);
+  if (!v8 && v7)
   {
     getErrorErrorCat();
-    *&v10[0] = 3;
-    *(&v10[0] + 1) = &getErrorErrorCat(void)::ErrorErrorCat;
+    *&v9[0] = 3;
+    *(&v9[0] + 1) = &getErrorErrorCat(void)::ErrorErrorCat;
     llvm::make_error<llvm::StringError,char const*&,std::error_code>();
   }
 
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v10, a2);
-  if (v9 <= 8)
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v9, a2);
+  if (v8 <= 8)
   {
-    v5 = &v8;
+    v5 = &v7;
   }
 
   else
   {
-    v5 = v8;
+    v5 = v7;
   }
 
-  _ZN4llvm3orc22ExecutorProcessControl16callWrapperAsyncINS1_9RunAsTaskEZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEyEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIyEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EEvS10_SS_SR_NSL_IcEE(*a1, a1 + 2, a1[1], v10, v5, v9);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v10);
-  if (v9 >= 9)
+  _ZN4llvm3orc22ExecutorProcessControl16callWrapperAsyncINS1_9RunAsTaskEZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEyEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIyEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EEvS10_SS_SR_NSL_IcEE(*a1, a1 + 2, a1[1], v9, v5, v8);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v9);
+  if (v8 >= 9)
   {
-    v6 = v8;
+    v6 = v7;
 LABEL_9:
     free(v6);
-    goto LABEL_10;
+    return;
   }
 
-  if (!v9)
+  if (!v8)
   {
-    v6 = v8;
-    if (v8)
+    v6 = v7;
+    if (v7)
     {
       goto LABEL_9;
     }
   }
-
-LABEL_10:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,unsigned long long>>>,llvm::ArrayRef<llvm::orc::tpctypes::UIntWrite<unsigned long long>>>(uint64_t a1@<X0>, char **a2@<X8>)
+void llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,unsigned long long>>>,llvm::ArrayRef<llvm::orc::tpctypes::UIntWrite<unsigned long long>>>(uint64_t *a1@<X0>, char **a2@<X8>)
 {
-  v4 = *(a1 + 8);
+  v4 = a1[1];
   v5 = (16 * v4) | 8;
   *&v8 = 0;
   *(&v8 + 1) = v5;
@@ -7923,7 +7757,7 @@ void llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc
 
   else
   {
-    llvm::orc::shared::WrapperFunctionResult::createOutOfBandError("Error serializing arguments to blob in call", a2);
+    llvm::orc::shared::WrapperFunctionResult::createOutOfBandError(a2, "Error serializing arguments to blob in call");
     if (*(&v8 + 1) > 8uLL || !*(&v8 + 1) && v8)
     {
       free(v8);
@@ -7931,18 +7765,18 @@ void llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc
   }
 }
 
-uint64_t llvm::orc::shared::SPSSerializationTraits<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,unsigned long long>>,llvm::ArrayRef<llvm::orc::tpctypes::UIntWrite<unsigned long long>>,void>::serialize(void *a1, uint64_t a2)
+uint64_t llvm::orc::shared::SPSSerializationTraits<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,unsigned long long>>,llvm::ArrayRef<llvm::orc::tpctypes::UIntWrite<unsigned long long>>,void>::serialize(void *a1, uint64_t *a2)
 {
   if (a1[1] < 8uLL)
   {
     return 0;
   }
 
-  **a1 = *(a2 + 8);
+  **a1 = a2[1];
   v3 = a1[1] - 8;
   *a1 += 8;
   a1[1] = v3;
-  v4 = *(a2 + 8);
+  v4 = a2[1];
   if (!v4)
   {
     return 1;
@@ -7991,44 +7825,38 @@ uint64_t llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSExecutorAddr,unsign
 
 void *_ZN4llvm3orc22ExecutorProcessControl16callWrapperAsyncINS1_9RunAsTaskEZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEyEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIyEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EEvS10_SS_SR_NSL_IcEE(uint64_t a1, uint64_t *a2, uint64_t a3, __int128 *a4, uint64_t a5, uint64_t a6)
 {
-  v12[4] = *MEMORY[0x277D85DE8];
-  _ZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEyEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIyEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerES10_(a2, a4, v12);
-  (*(*a1 + 40))(a1, a3, v12, a5, a6);
-  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v12);
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  v11[4] = *MEMORY[0x277D85DE8];
+  _ZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEyEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIyEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerES10_(a2, a4, v11);
+  (*(*a1 + 40))(a1, a3, v11, a5, a6);
+  return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v11);
 }
 
 void *_ZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEyEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIyEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerES10_@<X0>(uint64_t *a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X8>)
 {
-  v7[4] = *MEMORY[0x277D85DE8];
-  v6 = *a1;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v7, a2);
-  _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrEyEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSD_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIyEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISI_E9callAsyncIS15_SM_JSR_EEEvS12_ST_DpRKT1_EUlSK_S8_E_JSR_EEEvS12_ST_S1B_EUlNS6_21WrapperFunctionResultEE_EES2_S12_EUlS1D_E_EES12_(a3, &v6);
-  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v7);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v6[4] = *MEMORY[0x277D85DE8];
+  v5 = *a1;
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, a2);
+  _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrEyEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSD_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIyEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISI_E9callAsyncIS15_SM_JSR_EEEvS12_ST_DpRKT1_EUlSK_S8_E_JSR_EEEvS12_ST_S1B_EUlNS6_21WrapperFunctionResultEE_EES2_S12_EUlS1D_E_EES12_(a3, &v5);
+  return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
 }
 
-uint64_t _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrEyEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSD_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIyEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISI_E9callAsyncIS15_SM_JSR_EEEvS12_ST_DpRKT1_EUlSK_S8_E_JSR_EEEvS12_ST_S1B_EUlNS6_21WrapperFunctionResultEE_EES2_S12_EUlS1D_E_EES12_(uint64_t a1, uint64_t a2)
+uint64_t _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrEyEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSD_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIyEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISI_E9callAsyncIS15_SM_JSR_EEEvS12_ST_DpRKT1_EUlSK_S8_E_JSR_EEEvS12_ST_S1B_EUlNS6_21WrapperFunctionResultEE_EES2_S12_EUlS1D_E_EES12_(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v5 = *a2;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, (a2 + 8));
-  _ZN4llvm15unique_functionIFvNS_3orc6shared21WrapperFunctionResultEEEC2IZNS1_22ExecutorProcessControl9RunAsTaskclIZNS2_15WrapperFunctionIFNS2_8SPSEmptyENS2_11SPSSequenceINS2_8SPSTupleIJNS2_15SPSExecutorAddrEyEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS0_IFvNS_5ErrorEEEEJNS_8ArrayRefINS1_8tpctypes9UIntWriteIyEEEEEEEvOT0_NS1_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS17_SO_JST_EEEvS14_SV_DpRKT1_EUlSM_SB_E_JST_EEEvS14_SV_S1D_EUlS3_E_EENS7_18IncomingWFRHandlerES14_EUlS3_E_EES13_PNSt3__19enable_ifIXntsr3std7is_sameINS_12remove_cvrefIS13_E4typeES5_EE5valueEvE4typeEPNS1J_IXsr3std11disjunctionINS1I_7is_voidIvEENS1I_7is_sameIDTclclsr3stdE7declvalIS13_EEclL_ZNS1I_7declvalB8nn200100IS3_EEDTclsr3stdE9__declvalIS13_ELi0EEEvEEEEvEENS1S_IKS1V_vEENS1I_14is_convertibleIS1V_vEEEE5valueEvE4typeE(a1, &v5);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
-  v3 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
+  v4 = *a2;
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v5, (a2 + 1));
+  _ZN4llvm15unique_functionIFvNS_3orc6shared21WrapperFunctionResultEEEC2IZNS1_22ExecutorProcessControl9RunAsTaskclIZNS2_15WrapperFunctionIFNS2_8SPSEmptyENS2_11SPSSequenceINS2_8SPSTupleIJNS2_15SPSExecutorAddrEyEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS0_IFvNS_5ErrorEEEEJNS_8ArrayRefINS1_8tpctypes9UIntWriteIyEEEEEEEvOT0_NS1_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS17_SO_JST_EEEvS14_SV_DpRKT1_EUlSM_SB_E_JST_EEEvS14_SV_S1D_EUlS3_E_EENS7_18IncomingWFRHandlerES14_EUlS3_E_EES13_PNSt3__19enable_ifIXntsr3std7is_sameINS_12remove_cvrefIS13_E4typeES5_EE5valueEvE4typeEPNS1J_IXsr3std11disjunctionINS1I_7is_voidIvEENS1I_7is_sameIDTclclsr3stdE7declvalIS13_EEclL_ZNS1I_7declvalB8nn200100IS3_EEDTclsr3stdE9__declvalIS13_ELi0EEEvEEEEvEENS1S_IKS1V_vEENS1I_14is_convertibleIS1V_vEEEE5valueEvE4typeE(a1, &v4);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v5);
   return a1;
 }
 
 uint64_t _ZN4llvm15unique_functionIFvNS_3orc6shared21WrapperFunctionResultEEEC2IZNS1_22ExecutorProcessControl9RunAsTaskclIZNS2_15WrapperFunctionIFNS2_8SPSEmptyENS2_11SPSSequenceINS2_8SPSTupleIJNS2_15SPSExecutorAddrEyEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS0_IFvNS_5ErrorEEEEJNS_8ArrayRefINS1_8tpctypes9UIntWriteIyEEEEEEEvOT0_NS1_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS17_SO_JST_EEEvS14_SV_DpRKT1_EUlSM_SB_E_JST_EEEvS14_SV_S1D_EUlS3_E_EENS7_18IncomingWFRHandlerES14_EUlS3_E_EES13_PNSt3__19enable_ifIXntsr3std7is_sameINS_12remove_cvrefIS13_E4typeES5_EE5valueEvE4typeEPNS1J_IXsr3std11disjunctionINS1I_7is_voidIvEENS1I_7is_sameIDTclclsr3stdE7declvalIS13_EEclL_ZNS1I_7declvalB8nn200100IS3_EEDTclsr3stdE9__declvalIS13_ELi0EEEvEEEEvEENS1S_IKS1V_vEENS1I_14is_convertibleIS1V_vEEEE5valueEvE4typeE(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v5 = *a2;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, (a2 + 1));
-  _ZN4llvm6detail18UniqueFunctionBaseIvJNS_3orc6shared21WrapperFunctionResultEEEC2IZNS2_22ExecutorProcessControl9RunAsTaskclIZNS3_15WrapperFunctionIFNS3_8SPSEmptyENS3_11SPSSequenceINS3_8SPSTupleIJNS3_15SPSExecutorAddrEyEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS2_8tpctypes9UIntWriteIyEEEEEEEvOT0_NS2_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS18_SP_JSU_EEEvS15_SW_DpRKT1_EUlSN_SB_E_JSU_EEEvS15_SW_S1E_EUlS4_E_EENS7_18IncomingWFRHandlerES15_EUlS4_E_S1I_EES14_NS5_8CalledAsISV_EE(a1, &v5);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
-  v3 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
+  v4 = *a2;
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v5, (a2 + 1));
+  _ZN4llvm6detail18UniqueFunctionBaseIvJNS_3orc6shared21WrapperFunctionResultEEEC2IZNS2_22ExecutorProcessControl9RunAsTaskclIZNS3_15WrapperFunctionIFNS3_8SPSEmptyENS3_11SPSSequenceINS3_8SPSTupleIJNS3_15SPSExecutorAddrEyEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS2_8tpctypes9UIntWriteIyEEEEEEEvOT0_NS2_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS18_SP_JSU_EEEvS15_SW_DpRKT1_EUlSN_SB_E_JSU_EEEvS15_SW_S1E_EUlS4_E_EENS7_18IncomingWFRHandlerES15_EUlS4_E_S1I_EES14_NS5_8CalledAsISV_EE(a1, &v4);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v5);
   return a1;
 }
 
@@ -8054,10 +7882,9 @@ void _ZN4llvm6detail18UniqueFunctionBaseIvJNS_3orc6shared21WrapperFunctionResult
 
 void _ZZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrEyEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIyEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS13_SK_JSP_EEEvS10_SR_DpRKT1_EUlSI_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerES10_ENUlS1B_E_clES1B_(uint64_t *a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3 = *a1;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v4, (a1 + 1));
-  *v5 = *a2;
+  v5 = *MEMORY[0x277D85DE8];
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v3, (a1 + 1));
+  *v4 = *a2;
   *a2 = 0;
   *(a2 + 8) = 0;
   _ZN4llvm3orc20makeGenericNamedTaskIZZNS0_22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS5_8SPSEmptyENS5_11SPSSequenceINS5_8SPSTupleIJNS5_15SPSExecutorAddrEyEEEEEEE9callAsyncIZNS2_19callSPSWrapperAsyncIFvSC_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes9UIntWriteIyEEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS6_ISH_E9callAsyncIS14_SL_JSQ_EEEvS11_SS_DpRKT1_EUlSJ_S7_E_JSQ_EEEvS11_SS_S1A_EUlNS5_21WrapperFunctionResultEE_EENS2_18IncomingWFRHandlerES11_ENUlS1C_E_clES1C_EUlvE_EENSt3__110unique_ptrINS0_16GenericNamedTaskENS1H_14default_deleteIS1J_EEEES11_S13_();
@@ -8160,63 +7987,58 @@ LABEL_7:
   }
 }
 
-void *_ZN4llvm3orc6shared15WrapperFunctionIFvNS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrENS3_IcEEEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIS9_NSC_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes11BufferWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_SI_JSM_EEEvSX_SO_DpRKT1_(uint64_t *a1, __int128 *a2, void *a3)
+void *_ZN4llvm3orc6shared15WrapperFunctionIFvNS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrENS3_IcEEEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIS9_NSC_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes11BufferWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_SI_JSM_EEEvSX_SO_DpRKT1_(uint64_t *a1, __int128 *a2, uint64_t *a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v7, a2);
-  _ZN4llvm3orc6shared15WrapperFunctionIFNS1_8SPSEmptyENS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrENS4_IcEEEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIFvS9_ENSD_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes11BufferWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS2_ISF_E9callAsyncIS12_SK_JSO_EEEvSZ_SQ_DpRKT1_EUlSI_S3_E_JSO_EEEvSZ_SQ_S18_(a1, v7, a3);
-  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v7);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v7 = *MEMORY[0x277D85DE8];
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, a2);
+  _ZN4llvm3orc6shared15WrapperFunctionIFNS1_8SPSEmptyENS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrENS4_IcEEEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIFvS9_ENSD_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes11BufferWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS2_ISF_E9callAsyncIS12_SK_JSO_EEEvSZ_SQ_DpRKT1_EUlSI_S3_E_JSO_EEEvSZ_SQ_S18_(a1, v6, a3);
+  return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
 }
 
-void _ZN4llvm3orc6shared15WrapperFunctionIFNS1_8SPSEmptyENS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrENS4_IcEEEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIFvS9_ENSD_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes11BufferWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS2_ISF_E9callAsyncIS12_SK_JSO_EEEvSZ_SQ_DpRKT1_EUlSI_S3_E_JSO_EEEvSZ_SQ_S18_(uint64_t *a1, __int128 *a2, void *a3)
+void _ZN4llvm3orc6shared15WrapperFunctionIFNS1_8SPSEmptyENS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrENS4_IcEEEEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIFvS9_ENSD_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes11BufferWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS2_ISF_E9callAsyncIS12_SK_JSO_EEEvSZ_SQ_DpRKT1_EUlSI_S3_E_JSO_EEEvSZ_SQ_S18_(uint64_t *a1, __int128 *a2, uint64_t *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSSequence<char>>>>,llvm::ArrayRef<llvm::orc::tpctypes::BufferWrite>>(a3, &v8);
-  if (!v9 && v8)
+  v10 = *MEMORY[0x277D85DE8];
+  llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSSequence<char>>>>,llvm::ArrayRef<llvm::orc::tpctypes::BufferWrite>>(a3, &v7);
+  if (!v8 && v7)
   {
     getErrorErrorCat();
-    *&v10[0] = 3;
-    *(&v10[0] + 1) = &getErrorErrorCat(void)::ErrorErrorCat;
+    *&v9[0] = 3;
+    *(&v9[0] + 1) = &getErrorErrorCat(void)::ErrorErrorCat;
     llvm::make_error<llvm::StringError,char const*&,std::error_code>();
   }
 
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v10, a2);
-  if (v9 <= 8)
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v9, a2);
+  if (v8 <= 8)
   {
-    v5 = &v8;
+    v5 = &v7;
   }
 
   else
   {
-    v5 = v8;
+    v5 = v7;
   }
 
-  _ZN4llvm3orc22ExecutorProcessControl16callWrapperAsyncINS1_9RunAsTaskEZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrENS7_IcEEEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSC_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes11BufferWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISH_E9callAsyncIS13_SL_JSP_EEEvS10_SR_DpRKT1_EUlSJ_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EEvS10_SS_SR_NSM_IcEE(*a1, a1 + 2, a1[1], v10, v5, v9);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v10);
-  if (v9 >= 9)
+  _ZN4llvm3orc22ExecutorProcessControl16callWrapperAsyncINS1_9RunAsTaskEZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrENS7_IcEEEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSC_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes11BufferWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISH_E9callAsyncIS13_SL_JSP_EEEvS10_SR_DpRKT1_EUlSJ_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EEvS10_SS_SR_NSM_IcEE(*a1, a1 + 2, a1[1], v9, v5, v8);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v9);
+  if (v8 >= 9)
   {
-    v6 = v8;
+    v6 = v7;
 LABEL_9:
     free(v6);
-    goto LABEL_10;
+    return;
   }
 
-  if (!v9)
+  if (!v8)
   {
-    v6 = v8;
-    if (v8)
+    v6 = v7;
+    if (v7)
     {
       goto LABEL_9;
     }
   }
-
-LABEL_10:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSSequence<char>>>>,llvm::ArrayRef<llvm::orc::tpctypes::BufferWrite>>(void *a1@<X0>, char **a2@<X8>)
+void llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSSequence<char>>>>,llvm::ArrayRef<llvm::orc::tpctypes::BufferWrite>>(uint64_t *a1@<X0>, char **a2@<X8>)
 {
   v4 = a1[1];
   if (v4)
@@ -8262,7 +8084,7 @@ LABEL_8:
 
   else
   {
-    llvm::orc::shared::WrapperFunctionResult::createOutOfBandError("Error serializing arguments to blob in call", a2);
+    llvm::orc::shared::WrapperFunctionResult::createOutOfBandError(a2, "Error serializing arguments to blob in call");
   }
 
   if (v12[1] >= 9)
@@ -8283,18 +8105,18 @@ LABEL_15:
   }
 }
 
-uint64_t llvm::orc::shared::SPSSerializationTraits<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSSequence<char>>>,llvm::ArrayRef<llvm::orc::tpctypes::BufferWrite>,void>::serialize(void *a1, uint64_t a2)
+uint64_t llvm::orc::shared::SPSSerializationTraits<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSSequence<char>>>,llvm::ArrayRef<llvm::orc::tpctypes::BufferWrite>,void>::serialize(void *a1, uint64_t *a2)
 {
   if (a1[1] < 8uLL)
   {
     return 0;
   }
 
-  **a1 = *(a2 + 8);
+  **a1 = a2[1];
   v3 = a1[1] - 8;
   *a1 += 8;
   a1[1] = v3;
-  v4 = *(a2 + 8);
+  v4 = a2[1];
   if (!v4)
   {
     return 1;
@@ -8333,44 +8155,38 @@ uint64_t llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSExecutorAddr,llvm::
 
 void *_ZN4llvm3orc22ExecutorProcessControl16callWrapperAsyncINS1_9RunAsTaskEZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrENS7_IcEEEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSC_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes11BufferWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISH_E9callAsyncIS13_SL_JSP_EEEvS10_SR_DpRKT1_EUlSJ_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EEvS10_SS_SR_NSM_IcEE(uint64_t a1, uint64_t *a2, uint64_t a3, __int128 *a4, uint64_t a5, uint64_t a6)
 {
-  v12[4] = *MEMORY[0x277D85DE8];
-  _ZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrENS7_IcEEEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSC_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes11BufferWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISH_E9callAsyncIS13_SL_JSP_EEEvS10_SR_DpRKT1_EUlSJ_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerES10_(a2, a4, v12);
-  (*(*a1 + 40))(a1, a3, v12, a5, a6);
-  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v12);
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  v11[4] = *MEMORY[0x277D85DE8];
+  _ZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrENS7_IcEEEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSC_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes11BufferWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISH_E9callAsyncIS13_SL_JSP_EEEvS10_SR_DpRKT1_EUlSJ_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerES10_(a2, a4, v11);
+  (*(*a1 + 40))(a1, a3, v11, a5, a6);
+  return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v11);
 }
 
 void *_ZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrENS7_IcEEEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSC_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes11BufferWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISH_E9callAsyncIS13_SL_JSP_EEEvS10_SR_DpRKT1_EUlSJ_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerES10_@<X0>(uint64_t *a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X8>)
 {
-  v7[4] = *MEMORY[0x277D85DE8];
-  v6 = *a1;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v7, a2);
-  _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrENS9_IcEEEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSE_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes11BufferWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISJ_E9callAsyncIS15_SN_JSR_EEEvS12_ST_DpRKT1_EUlSL_S8_E_JSR_EEEvS12_ST_S1B_EUlNS6_21WrapperFunctionResultEE_EES2_S12_EUlS1D_E_EES12_(a3, &v6);
-  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v7);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v6[4] = *MEMORY[0x277D85DE8];
+  v5 = *a1;
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, a2);
+  _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrENS9_IcEEEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSE_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes11BufferWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISJ_E9callAsyncIS15_SN_JSR_EEEvS12_ST_DpRKT1_EUlSL_S8_E_JSR_EEEvS12_ST_S1B_EUlNS6_21WrapperFunctionResultEE_EES2_S12_EUlS1D_E_EES12_(a3, &v5);
+  return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
 }
 
-uint64_t _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrENS9_IcEEEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSE_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes11BufferWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISJ_E9callAsyncIS15_SN_JSR_EEEvS12_ST_DpRKT1_EUlSL_S8_E_JSR_EEEvS12_ST_S1B_EUlNS6_21WrapperFunctionResultEE_EES2_S12_EUlS1D_E_EES12_(uint64_t a1, uint64_t a2)
+uint64_t _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrENS9_IcEEEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSE_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes11BufferWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISJ_E9callAsyncIS15_SN_JSR_EEEvS12_ST_DpRKT1_EUlSL_S8_E_JSR_EEEvS12_ST_S1B_EUlNS6_21WrapperFunctionResultEE_EES2_S12_EUlS1D_E_EES12_(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v5 = *a2;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, (a2 + 8));
-  _ZN4llvm15unique_functionIFvNS_3orc6shared21WrapperFunctionResultEEEC2IZNS1_22ExecutorProcessControl9RunAsTaskclIZNS2_15WrapperFunctionIFNS2_8SPSEmptyENS2_11SPSSequenceINS2_8SPSTupleIJNS2_15SPSExecutorAddrENSC_IcEEEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSH_ES8_NS0_IFvNS_5ErrorEEEEJNS_8ArrayRefINS1_8tpctypes11BufferWriteEEEEEEvOT0_NS1_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISM_E9callAsyncIS17_SP_JST_EEEvS14_SV_DpRKT1_EUlSN_SB_E_JST_EEEvS14_SV_S1D_EUlS3_E_EENS7_18IncomingWFRHandlerES14_EUlS3_E_EES13_PNSt3__19enable_ifIXntsr3std7is_sameINS_12remove_cvrefIS13_E4typeES5_EE5valueEvE4typeEPNS1J_IXsr3std11disjunctionINS1I_7is_voidIvEENS1I_7is_sameIDTclclsr3stdE7declvalIS13_EEclL_ZNS1I_7declvalB8nn200100IS3_EEDTclsr3stdE9__declvalIS13_ELi0EEEvEEEEvEENS1S_IKS1V_vEENS1I_14is_convertibleIS1V_vEEEE5valueEvE4typeE(a1, &v5);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
-  v3 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
+  v4 = *a2;
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v5, (a2 + 1));
+  _ZN4llvm15unique_functionIFvNS_3orc6shared21WrapperFunctionResultEEEC2IZNS1_22ExecutorProcessControl9RunAsTaskclIZNS2_15WrapperFunctionIFNS2_8SPSEmptyENS2_11SPSSequenceINS2_8SPSTupleIJNS2_15SPSExecutorAddrENSC_IcEEEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSH_ES8_NS0_IFvNS_5ErrorEEEEJNS_8ArrayRefINS1_8tpctypes11BufferWriteEEEEEEvOT0_NS1_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISM_E9callAsyncIS17_SP_JST_EEEvS14_SV_DpRKT1_EUlSN_SB_E_JST_EEEvS14_SV_S1D_EUlS3_E_EENS7_18IncomingWFRHandlerES14_EUlS3_E_EES13_PNSt3__19enable_ifIXntsr3std7is_sameINS_12remove_cvrefIS13_E4typeES5_EE5valueEvE4typeEPNS1J_IXsr3std11disjunctionINS1I_7is_voidIvEENS1I_7is_sameIDTclclsr3stdE7declvalIS13_EEclL_ZNS1I_7declvalB8nn200100IS3_EEDTclsr3stdE9__declvalIS13_ELi0EEEvEEEEvEENS1S_IKS1V_vEENS1I_14is_convertibleIS1V_vEEEE5valueEvE4typeE(a1, &v4);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v5);
   return a1;
 }
 
 uint64_t _ZN4llvm15unique_functionIFvNS_3orc6shared21WrapperFunctionResultEEEC2IZNS1_22ExecutorProcessControl9RunAsTaskclIZNS2_15WrapperFunctionIFNS2_8SPSEmptyENS2_11SPSSequenceINS2_8SPSTupleIJNS2_15SPSExecutorAddrENSC_IcEEEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSH_ES8_NS0_IFvNS_5ErrorEEEEJNS_8ArrayRefINS1_8tpctypes11BufferWriteEEEEEEvOT0_NS1_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISM_E9callAsyncIS17_SP_JST_EEEvS14_SV_DpRKT1_EUlSN_SB_E_JST_EEEvS14_SV_S1D_EUlS3_E_EENS7_18IncomingWFRHandlerES14_EUlS3_E_EES13_PNSt3__19enable_ifIXntsr3std7is_sameINS_12remove_cvrefIS13_E4typeES5_EE5valueEvE4typeEPNS1J_IXsr3std11disjunctionINS1I_7is_voidIvEENS1I_7is_sameIDTclclsr3stdE7declvalIS13_EEclL_ZNS1I_7declvalB8nn200100IS3_EEDTclsr3stdE9__declvalIS13_ELi0EEEvEEEEvEENS1S_IKS1V_vEENS1I_14is_convertibleIS1V_vEEEE5valueEvE4typeE(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v5 = *a2;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, (a2 + 1));
-  _ZN4llvm6detail18UniqueFunctionBaseIvJNS_3orc6shared21WrapperFunctionResultEEEC2IZNS2_22ExecutorProcessControl9RunAsTaskclIZNS3_15WrapperFunctionIFNS3_8SPSEmptyENS3_11SPSSequenceINS3_8SPSTupleIJNS3_15SPSExecutorAddrENSC_IcEEEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSH_ES8_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS2_8tpctypes11BufferWriteEEEEEEvOT0_NS2_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISM_E9callAsyncIS18_SQ_JSU_EEEvS15_SW_DpRKT1_EUlSO_SB_E_JSU_EEEvS15_SW_S1E_EUlS4_E_EENS7_18IncomingWFRHandlerES15_EUlS4_E_S1I_EES14_NS5_8CalledAsISV_EE(a1, &v5);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
-  v3 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
+  v4 = *a2;
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v5, (a2 + 1));
+  _ZN4llvm6detail18UniqueFunctionBaseIvJNS_3orc6shared21WrapperFunctionResultEEEC2IZNS2_22ExecutorProcessControl9RunAsTaskclIZNS3_15WrapperFunctionIFNS3_8SPSEmptyENS3_11SPSSequenceINS3_8SPSTupleIJNS3_15SPSExecutorAddrENSC_IcEEEEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSH_ES8_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS2_8tpctypes11BufferWriteEEEEEEvOT0_NS2_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISM_E9callAsyncIS18_SQ_JSU_EEEvS15_SW_DpRKT1_EUlSO_SB_E_JSU_EEEvS15_SW_S1E_EUlS4_E_EENS7_18IncomingWFRHandlerES15_EUlS4_E_S1I_EES14_NS5_8CalledAsISV_EE(a1, &v4);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v5);
   return a1;
 }
 
@@ -8396,10 +8212,9 @@ void _ZN4llvm6detail18UniqueFunctionBaseIvJNS_3orc6shared21WrapperFunctionResult
 
 void _ZZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrENS7_IcEEEEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSC_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes11BufferWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISH_E9callAsyncIS13_SL_JSP_EEEvS10_SR_DpRKT1_EUlSJ_S6_E_JSP_EEEvS10_SR_S19_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerES10_ENUlS1B_E_clES1B_(uint64_t *a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3 = *a1;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v4, (a1 + 1));
-  *v5 = *a2;
+  v5 = *MEMORY[0x277D85DE8];
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v3, (a1 + 1));
+  *v4 = *a2;
   *a2 = 0;
   *(a2 + 8) = 0;
   _ZN4llvm3orc20makeGenericNamedTaskIZZNS0_22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS5_8SPSEmptyENS5_11SPSSequenceINS5_8SPSTupleIJNS5_15SPSExecutorAddrENS8_IcEEEEEEEEE9callAsyncIZNS2_19callSPSWrapperAsyncIFvSD_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes11BufferWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS6_ISI_E9callAsyncIS14_SM_JSQ_EEEvS11_SS_DpRKT1_EUlSK_S7_E_JSQ_EEEvS11_SS_S1A_EUlNS5_21WrapperFunctionResultEE_EENS2_18IncomingWFRHandlerES11_ENUlS1C_E_clES1C_EUlvE_EENSt3__110unique_ptrINS0_16GenericNamedTaskENS1H_14default_deleteIS1J_EEEES11_S13_();
@@ -8502,102 +8317,91 @@ LABEL_7:
   }
 }
 
-void *_ZN4llvm3orc6shared15WrapperFunctionIFvNS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrES5_EEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIS8_NSB_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes12PointerWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_SH_JSL_EEEvSW_SN_DpRKT1_(uint64_t *a1, __int128 *a2, uint64_t a3)
+void *_ZN4llvm3orc6shared15WrapperFunctionIFvNS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrES5_EEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIS8_NSB_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes12PointerWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_SH_JSL_EEEvSW_SN_DpRKT1_(uint64_t *a1, __int128 *a2, uint64_t *a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v7, a2);
-  _ZN4llvm3orc6shared15WrapperFunctionIFNS1_8SPSEmptyENS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrES6_EEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIFvS8_ENSC_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes12PointerWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS2_ISE_E9callAsyncIS11_SJ_JSN_EEEvSY_SP_DpRKT1_EUlSH_S3_E_JSN_EEEvSY_SP_S17_(a1, v7, a3);
-  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v7);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v7 = *MEMORY[0x277D85DE8];
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, a2);
+  _ZN4llvm3orc6shared15WrapperFunctionIFNS1_8SPSEmptyENS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrES6_EEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIFvS8_ENSC_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes12PointerWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS2_ISE_E9callAsyncIS11_SJ_JSN_EEEvSY_SP_DpRKT1_EUlSH_S3_E_JSN_EEEvSY_SP_S17_(a1, v6, a3);
+  return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
 }
 
-void _ZN4llvm3orc6shared15WrapperFunctionIFNS1_8SPSEmptyENS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrES6_EEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIFvS8_ENSC_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes12PointerWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS2_ISE_E9callAsyncIS11_SJ_JSN_EEEvSY_SP_DpRKT1_EUlSH_S3_E_JSN_EEEvSY_SP_S17_(uint64_t *a1, __int128 *a2, uint64_t a3)
+void _ZN4llvm3orc6shared15WrapperFunctionIFNS1_8SPSEmptyENS1_11SPSSequenceINS1_8SPSTupleIJNS1_15SPSExecutorAddrES6_EEEEEEE9callAsyncIZNS0_22ExecutorProcessControl19callSPSWrapperAsyncIFvS8_ENSC_9RunAsTaskENS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes12PointerWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS2_ISE_E9callAsyncIS11_SJ_JSN_EEEvSY_SP_DpRKT1_EUlSH_S3_E_JSN_EEEvSY_SP_S17_(uint64_t *a1, __int128 *a2, uint64_t *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,unsigned long long>>>,llvm::ArrayRef<llvm::orc::tpctypes::UIntWrite<unsigned long long>>>(a3, &v8);
-  if (!v9 && v8)
+  v10 = *MEMORY[0x277D85DE8];
+  llvm::orc::shared::detail::serializeViaSPSToWrapperFunctionResult<llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSSequence<llvm::orc::shared::SPSTuple<llvm::orc::shared::SPSExecutorAddr,unsigned long long>>>,llvm::ArrayRef<llvm::orc::tpctypes::UIntWrite<unsigned long long>>>(a3, &v7);
+  if (!v8 && v7)
   {
     getErrorErrorCat();
-    *&v10[0] = 3;
-    *(&v10[0] + 1) = &getErrorErrorCat(void)::ErrorErrorCat;
+    *&v9[0] = 3;
+    *(&v9[0] + 1) = &getErrorErrorCat(void)::ErrorErrorCat;
     llvm::make_error<llvm::StringError,char const*&,std::error_code>();
   }
 
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v10, a2);
-  if (v9 <= 8)
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v9, a2);
+  if (v8 <= 8)
   {
-    v5 = &v8;
+    v5 = &v7;
   }
 
   else
   {
-    v5 = v8;
+    v5 = v7;
   }
 
-  _ZN4llvm3orc22ExecutorProcessControl16callWrapperAsyncINS1_9RunAsTaskEZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrES9_EEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes12PointerWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS12_SK_JSO_EEEvSZ_SQ_DpRKT1_EUlSI_S6_E_JSO_EEEvSZ_SQ_S18_EUlNS4_21WrapperFunctionResultEE_EEvSZ_SR_SQ_NSL_IcEE(*a1, a1 + 2, a1[1], v10, v5, v9);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v10);
-  if (v9 >= 9)
+  _ZN4llvm3orc22ExecutorProcessControl16callWrapperAsyncINS1_9RunAsTaskEZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrES9_EEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes12PointerWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS12_SK_JSO_EEEvSZ_SQ_DpRKT1_EUlSI_S6_E_JSO_EEEvSZ_SQ_S18_EUlNS4_21WrapperFunctionResultEE_EEvSZ_SR_SQ_NSL_IcEE(*a1, a1 + 2, a1[1], v9, v5, v8);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v9);
+  if (v8 >= 9)
   {
-    v6 = v8;
+    v6 = v7;
 LABEL_9:
     free(v6);
-    goto LABEL_10;
+    return;
   }
 
-  if (!v9)
+  if (!v8)
   {
-    v6 = v8;
-    if (v8)
+    v6 = v7;
+    if (v7)
     {
       goto LABEL_9;
     }
   }
-
-LABEL_10:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void *_ZN4llvm3orc22ExecutorProcessControl16callWrapperAsyncINS1_9RunAsTaskEZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrES9_EEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes12PointerWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS12_SK_JSO_EEEvSZ_SQ_DpRKT1_EUlSI_S6_E_JSO_EEEvSZ_SQ_S18_EUlNS4_21WrapperFunctionResultEE_EEvSZ_SR_SQ_NSL_IcEE(uint64_t a1, uint64_t *a2, uint64_t a3, __int128 *a4, uint64_t a5, uint64_t a6)
 {
-  v12[4] = *MEMORY[0x277D85DE8];
-  _ZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrES9_EEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes12PointerWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS12_SK_JSO_EEEvSZ_SQ_DpRKT1_EUlSI_S6_E_JSO_EEEvSZ_SQ_S18_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerESZ_(a2, a4, v12);
-  (*(*a1 + 40))(a1, a3, v12, a5, a6);
-  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v12);
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  v11[4] = *MEMORY[0x277D85DE8];
+  _ZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrES9_EEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes12PointerWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS12_SK_JSO_EEEvSZ_SQ_DpRKT1_EUlSI_S6_E_JSO_EEEvSZ_SQ_S18_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerESZ_(a2, a4, v11);
+  (*(*a1 + 40))(a1, a3, v11, a5, a6);
+  return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v11);
 }
 
 void *_ZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrES9_EEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes12PointerWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS12_SK_JSO_EEEvSZ_SQ_DpRKT1_EUlSI_S6_E_JSO_EEEvSZ_SQ_S18_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerESZ_@<X0>(uint64_t *a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X8>)
 {
-  v7[4] = *MEMORY[0x277D85DE8];
-  v6 = *a1;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v7, a2);
-  _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrESB_EEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSD_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes12PointerWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISI_E9callAsyncIS14_SM_JSQ_EEEvS11_SS_DpRKT1_EUlSK_S8_E_JSQ_EEEvS11_SS_S1A_EUlNS6_21WrapperFunctionResultEE_EES2_S11_EUlS1C_E_EES11_(a3, &v6);
-  result = llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v7);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v6[4] = *MEMORY[0x277D85DE8];
+  v5 = *a1;
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, a2);
+  _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrESB_EEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSD_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes12PointerWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISI_E9callAsyncIS14_SM_JSQ_EEEvS11_SS_DpRKT1_EUlSK_S8_E_JSQ_EEEvS11_SS_S1A_EUlNS6_21WrapperFunctionResultEE_EES2_S11_EUlS1C_E_EES11_(a3, &v5);
+  return llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
 }
 
-uint64_t _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrESB_EEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSD_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes12PointerWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISI_E9callAsyncIS14_SM_JSQ_EEEvS11_SS_DpRKT1_EUlSK_S8_E_JSQ_EEEvS11_SS_S1A_EUlNS6_21WrapperFunctionResultEE_EES2_S11_EUlS1C_E_EES11_(uint64_t a1, uint64_t a2)
+uint64_t _ZN4llvm3orc22ExecutorProcessControl18IncomingWFRHandlerC2IZNS1_9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS6_8SPSEmptyENS6_11SPSSequenceINS6_8SPSTupleIJNS6_15SPSExecutorAddrESB_EEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSD_ES4_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes12PointerWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS7_ISI_E9callAsyncIS14_SM_JSQ_EEEvS11_SS_DpRKT1_EUlSK_S8_E_JSQ_EEEvS11_SS_S1A_EUlNS6_21WrapperFunctionResultEE_EES2_S11_EUlS1C_E_EES11_(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v5 = *a2;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, (a2 + 8));
-  _ZN4llvm15unique_functionIFvNS_3orc6shared21WrapperFunctionResultEEEC2IZNS1_22ExecutorProcessControl9RunAsTaskclIZNS2_15WrapperFunctionIFNS2_8SPSEmptyENS2_11SPSSequenceINS2_8SPSTupleIJNS2_15SPSExecutorAddrESE_EEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS0_IFvNS_5ErrorEEEEJNS_8ArrayRefINS1_8tpctypes12PointerWriteEEEEEEvOT0_NS1_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS16_SO_JSS_EEEvS13_SU_DpRKT1_EUlSM_SB_E_JSS_EEEvS13_SU_S1C_EUlS3_E_EENS7_18IncomingWFRHandlerES13_EUlS3_E_EES12_PNSt3__19enable_ifIXntsr3std7is_sameINS_12remove_cvrefIS12_E4typeES5_EE5valueEvE4typeEPNS1I_IXsr3std11disjunctionINS1H_7is_voidIvEENS1H_7is_sameIDTclclsr3stdE7declvalIS12_EEclL_ZNS1H_7declvalB8nn200100IS3_EEDTclsr3stdE9__declvalIS12_ELi0EEEvEEEEvEENS1R_IKS1U_vEENS1H_14is_convertibleIS1U_vEEEE5valueEvE4typeE(a1, &v5);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
-  v3 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
+  v4 = *a2;
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v5, (a2 + 1));
+  _ZN4llvm15unique_functionIFvNS_3orc6shared21WrapperFunctionResultEEEC2IZNS1_22ExecutorProcessControl9RunAsTaskclIZNS2_15WrapperFunctionIFNS2_8SPSEmptyENS2_11SPSSequenceINS2_8SPSTupleIJNS2_15SPSExecutorAddrESE_EEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS0_IFvNS_5ErrorEEEEJNS_8ArrayRefINS1_8tpctypes12PointerWriteEEEEEEvOT0_NS1_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS16_SO_JSS_EEEvS13_SU_DpRKT1_EUlSM_SB_E_JSS_EEEvS13_SU_S1C_EUlS3_E_EENS7_18IncomingWFRHandlerES13_EUlS3_E_EES12_PNSt3__19enable_ifIXntsr3std7is_sameINS_12remove_cvrefIS12_E4typeES5_EE5valueEvE4typeEPNS1I_IXsr3std11disjunctionINS1H_7is_voidIvEENS1H_7is_sameIDTclclsr3stdE7declvalIS12_EEclL_ZNS1H_7declvalB8nn200100IS3_EEDTclsr3stdE9__declvalIS12_ELi0EEEvEEEEvEENS1R_IKS1U_vEENS1H_14is_convertibleIS1U_vEEEE5valueEvE4typeE(a1, &v4);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v5);
   return a1;
 }
 
 uint64_t _ZN4llvm15unique_functionIFvNS_3orc6shared21WrapperFunctionResultEEEC2IZNS1_22ExecutorProcessControl9RunAsTaskclIZNS2_15WrapperFunctionIFNS2_8SPSEmptyENS2_11SPSSequenceINS2_8SPSTupleIJNS2_15SPSExecutorAddrESE_EEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS0_IFvNS_5ErrorEEEEJNS_8ArrayRefINS1_8tpctypes12PointerWriteEEEEEEvOT0_NS1_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS16_SO_JSS_EEEvS13_SU_DpRKT1_EUlSM_SB_E_JSS_EEEvS13_SU_S1C_EUlS3_E_EENS7_18IncomingWFRHandlerES13_EUlS3_E_EES12_PNSt3__19enable_ifIXntsr3std7is_sameINS_12remove_cvrefIS12_E4typeES5_EE5valueEvE4typeEPNS1I_IXsr3std11disjunctionINS1H_7is_voidIvEENS1H_7is_sameIDTclclsr3stdE7declvalIS12_EEclL_ZNS1H_7declvalB8nn200100IS3_EEDTclsr3stdE9__declvalIS12_ELi0EEEvEEEEvEENS1R_IKS1U_vEENS1H_14is_convertibleIS1U_vEEEE5valueEvE4typeE(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
-  v5 = *a2;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v6, (a2 + 1));
-  _ZN4llvm6detail18UniqueFunctionBaseIvJNS_3orc6shared21WrapperFunctionResultEEEC2IZNS2_22ExecutorProcessControl9RunAsTaskclIZNS3_15WrapperFunctionIFNS3_8SPSEmptyENS3_11SPSSequenceINS3_8SPSTupleIJNS3_15SPSExecutorAddrESE_EEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS2_8tpctypes12PointerWriteEEEEEEvOT0_NS2_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS17_SP_JST_EEEvS14_SV_DpRKT1_EUlSN_SB_E_JST_EEEvS14_SV_S1D_EUlS4_E_EENS7_18IncomingWFRHandlerES14_EUlS4_E_S1H_EES13_NS5_8CalledAsISU_EE(a1, &v5);
-  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v6);
-  v3 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
+  v4 = *a2;
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v5, (a2 + 1));
+  _ZN4llvm6detail18UniqueFunctionBaseIvJNS_3orc6shared21WrapperFunctionResultEEEC2IZNS2_22ExecutorProcessControl9RunAsTaskclIZNS3_15WrapperFunctionIFNS3_8SPSEmptyENS3_11SPSSequenceINS3_8SPSTupleIJNS3_15SPSExecutorAddrESE_EEEEEEE9callAsyncIZNS7_19callSPSWrapperAsyncIFvSG_ES8_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS2_8tpctypes12PointerWriteEEEEEEvOT0_NS2_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNSA_ISL_E9callAsyncIS17_SP_JST_EEEvS14_SV_DpRKT1_EUlSN_SB_E_JST_EEEvS14_SV_S1D_EUlS4_E_EENS7_18IncomingWFRHandlerES14_EUlS4_E_S1H_EES13_NS5_8CalledAsISU_EE(a1, &v4);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v5);
   return a1;
 }
 
@@ -8623,10 +8427,9 @@ void _ZN4llvm6detail18UniqueFunctionBaseIvJNS_3orc6shared21WrapperFunctionResult
 
 void _ZZN4llvm3orc22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS4_8SPSEmptyENS4_11SPSSequenceINS4_8SPSTupleIJNS4_15SPSExecutorAddrES9_EEEEEEE9callAsyncIZNS1_19callSPSWrapperAsyncIFvSB_ES2_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes12PointerWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS5_ISG_E9callAsyncIS12_SK_JSO_EEEvSZ_SQ_DpRKT1_EUlSI_S6_E_JSO_EEEvSZ_SQ_S18_EUlNS4_21WrapperFunctionResultEE_EENS1_18IncomingWFRHandlerESZ_ENUlS1A_E_clES1A_(uint64_t *a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3 = *a1;
-  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v4, (a1 + 1));
-  *v5 = *a2;
+  v5 = *MEMORY[0x277D85DE8];
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v3, (a1 + 1));
+  *v4 = *a2;
   *a2 = 0;
   *(a2 + 8) = 0;
   _ZN4llvm3orc20makeGenericNamedTaskIZZNS0_22ExecutorProcessControl9RunAsTaskclIZNS0_6shared15WrapperFunctionIFNS5_8SPSEmptyENS5_11SPSSequenceINS5_8SPSTupleIJNS5_15SPSExecutorAddrESA_EEEEEEE9callAsyncIZNS2_19callSPSWrapperAsyncIFvSC_ES3_NS_15unique_functionIFvNS_5ErrorEEEEJNS_8ArrayRefINS0_8tpctypes12PointerWriteEEEEEEvOT0_NS0_12ExecutorAddrEOT1_DpRKT2_EUlOT_PKcmE_ZNS6_ISH_E9callAsyncIS13_SL_JSP_EEEvS10_SR_DpRKT1_EUlSJ_S7_E_JSP_EEEvS10_SR_S19_EUlNS5_21WrapperFunctionResultEE_EENS2_18IncomingWFRHandlerES10_ENUlS1B_E_clES1B_EUlvE_EENSt3__110unique_ptrINS0_16GenericNamedTaskENS1G_14default_deleteIS1I_EEEES10_S12_();
@@ -8962,38 +8765,35 @@ uint64_t std::__split_buffer<std::unique_ptr<llvm::orc::Task> *,std::allocator<s
   return a1;
 }
 
-void *std::deque<std::unique_ptr<llvm::orc::Task>>::push_back(void *result, uint64_t *a2)
+void std::deque<std::unique_ptr<llvm::orc::Task>>::push_back(unint64_t *result, uint64_t *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = ((v5 - v6) << 6) - 1;
+    v6 = ((v4 - v5) << 6) - 1;
   }
 
-  v8 = result[5];
-  v9 = v8 + result[4];
-  if (v7 == v9)
+  v7 = result[5];
+  v8 = v7 + result[4];
+  if (v6 == v8)
   {
-    result = std::deque<std::unique_ptr<llvm::orc::Task>>::__add_back_capacity(result);
-    v6 = v3[1];
-    v8 = v3[5];
-    v9 = v3[4] + v8;
+    std::deque<std::unique_ptr<llvm::orc::Task>>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
-  v10 = *(v6 + ((v9 >> 6) & 0x3FFFFFFFFFFFFF8));
-  v11 = *a2;
+  v9 = *(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8));
+  v10 = *a2;
   *a2 = 0;
-  *(v10 + 8 * (v9 & 0x1FF)) = v11;
-  v3[5] = v8 + 1;
-  return result;
+  *(v9 + 8 * (v8 & 0x1FF)) = v10;
+  result[5] = v7 + 1;
 }
 
 void ___ZN12_GLOBAL__N_117GCDTaskDispatcher8dispatchENSt3__110unique_ptrIN4llvm3orc4TaskENS1_14default_deleteIS5_EEEE_block_invoke(uint64_t a1)
@@ -9041,19 +8841,19 @@ uint64_t std::deque<std::unique_ptr<llvm::orc::Task>>::pop_front(void *a1)
   return std::deque<std::unique_ptr<llvm::orc::Task>>::__maybe_remove_front_spare[abi:nn200100](a1, 1);
 }
 
-void *std::deque<std::unique_ptr<llvm::orc::Task>>::__add_back_capacity(void *a1)
+void std::deque<std::unique_ptr<llvm::orc::Task>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -9061,48 +8861,47 @@ void *std::deque<std::unique_ptr<llvm::orc::Task>>::__add_back_capacity(void *a1
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:nn200100]<std::allocator<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:nn200100]<std::allocator<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<std::unique_ptr<llvm::orc::Task> *,std::allocator<std::unique_ptr<llvm::orc::Task> *>>::emplace_back<std::unique_ptr<llvm::orc::Task> *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<std::unique_ptr<llvm::orc::Task> *,std::allocator<std::unique_ptr<llvm::orc::Task> *>>::emplace_back<std::unique_ptr<llvm::orc::Task> *&>(a1, &v9);
 }
 
-void *std::__split_buffer<std::unique_ptr<llvm::orc::Task> *,std::allocator<std::unique_ptr<llvm::orc::Task> *>>::emplace_back<std::unique_ptr<llvm::orc::Task> *&>(void *result, void *a2)
+void std::__split_buffer<std::unique_ptr<llvm::orc::Task> *,std::allocator<std::unique_ptr<llvm::orc::Task> *>>::emplace_back<std::unique_ptr<llvm::orc::Task> *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:nn200100]<std::allocator<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>>(result, v11);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -9111,28 +8910,26 @@ void *std::__split_buffer<std::unique_ptr<llvm::orc::Task> *,std::allocator<std:
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<std::unique_ptr<llvm::orc::Task> *,std::allocator<std::unique_ptr<llvm::orc::Task> *>>::emplace_front<std::unique_ptr<llvm::orc::Task> *>(const void **result, void *a2)
+void std::__split_buffer<std::unique_ptr<llvm::orc::Task> *,std::allocator<std::unique_ptr<llvm::orc::Task> *>>::emplace_front<std::unique_ptr<llvm::orc::Task> *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -9145,52 +8942,50 @@ const void **std::__split_buffer<std::unique_ptr<llvm::orc::Task> *,std::allocat
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:nn200100]<std::allocator<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>>(result, v9);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = (v6 + 8 * v8);
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  *(v5 - 8) = *a2;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<std::unique_ptr<llvm::orc::Task> *,std::allocator<std::unique_ptr<llvm::orc::Task> *> &>::emplace_back<std::unique_ptr<llvm::orc::Task> *>(void *result, void *a2)
+void std::__split_buffer<std::unique_ptr<llvm::orc::Task> *,std::allocator<std::unique_ptr<llvm::orc::Task> *> &>::emplace_back<std::unique_ptr<llvm::orc::Task> *>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:nn200100]<std::allocator<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>>(result[4], v11);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -9199,28 +8994,26 @@ void *std::__split_buffer<std::unique_ptr<llvm::orc::Task> *,std::allocator<std:
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<std::unique_ptr<llvm::orc::Task> *,std::allocator<std::unique_ptr<llvm::orc::Task> *> &>::emplace_front<std::unique_ptr<llvm::orc::Task> *&>(const void **result, void *a2)
+void std::__split_buffer<std::unique_ptr<llvm::orc::Task> *,std::allocator<std::unique_ptr<llvm::orc::Task> *> &>::emplace_front<std::unique_ptr<llvm::orc::Task> *&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -9233,29 +9026,28 @@ const void **std::__split_buffer<std::unique_ptr<llvm::orc::Task> *,std::allocat
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:nn200100]<std::allocator<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>>(result[4], v9);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 uint64_t std::deque<std::unique_ptr<llvm::orc::Task>>::__maybe_remove_front_spare[abi:nn200100](uint64_t a1, int a2)
@@ -9308,25 +9100,25 @@ LABEL_5:
   return a1;
 }
 
-uint64_t llvm::detail::UniqueFunctionBase<llvm::Expected<std::unique_ptr<llvm::jitlink::JITLinkMemoryManager>>,llvm::orc::SimpleRemoteEPC &>::CallImpl<xojit::createXPCEPC(_xpc_connection_s *,unsigned int,std::unique_ptr<llvm::orc::TaskDispatcher>)::$_0>@<X0>(uint64_t a1@<X0>, llvm::orc::SimpleRemoteEPC *a2@<X1>, uint64_t a3@<X8>)
+uint64_t llvm::detail::UniqueFunctionBase<llvm::Expected<std::unique_ptr<llvm::jitlink::JITLinkMemoryManager>>,llvm::orc::SimpleRemoteEPC &>::CallImpl<xojit::createXPCEPC(_xpc_connection_s *,unsigned int,std::unique_ptr<llvm::orc::TaskDispatcher>)::$_0>@<X0>(uint64_t **a1@<X0>, llvm::orc::SimpleRemoteEPC *a2@<X1>, uint64_t a3@<X8>, __n128 a4@<Q0>)
 {
   v58 = *MEMORY[0x277D85DE8];
-  v4 = **a1;
-  v5 = **(a1 + 16);
-  v40 = **(a1 + 8);
-  v39 = v5;
-  if (v5 >= 3)
+  v5 = **a1;
+  v6 = *a1[2];
+  v40 = *a1[1];
+  v39 = v6;
+  if (v6 >= 3)
   {
     *&v48 = "Unrecognized OOP-JIT type ";
-    *&v49 = v5;
+    *&v49 = v6;
     LOWORD(v50) = 2051;
     getErrorErrorCat();
     operator new();
   }
 
   v38 = 0;
-  result = llvm::orc::ExecutorProcessControl::getBootstrapMapValue<BOOL,BOOL>(&v48, a2, "IsSandboxed", 0xBuLL, &v38);
-  v8 = v48;
+  result = llvm::orc::ExecutorProcessControl::getBootstrapMapValue<BOOL,BOOL>(&v48, a2, "IsSandboxed", 0xBuLL, &v38, a4);
+  v10 = v48;
   if (!v48)
   {
     if ((v38 & 0x100) == 0)
@@ -9338,8 +9130,8 @@ uint64_t llvm::detail::UniqueFunctionBase<llvm::Expected<std::unique_ptr<llvm::j
     }
 
     v37 = 0;
-    result = llvm::orc::ExecutorProcessControl::getBootstrapMapValue<BOOL,BOOL>(&v48, a2, "UseOOPJIT", 9uLL, &v37);
-    v8 = v48;
+    result = llvm::orc::ExecutorProcessControl::getBootstrapMapValue<BOOL,BOOL>(&v48, a2, "UseOOPJIT", 9uLL, &v37, v9);
+    v10 = v48;
     if (!v48)
     {
       if ((v37 & 0x100) == 0)
@@ -9347,39 +9139,39 @@ uint64_t llvm::detail::UniqueFunctionBase<llvm::Expected<std::unique_ptr<llvm::j
         getErrorErrorCat();
         *&v48 = 3;
         *(&v48 + 1) = &getErrorErrorCat(void)::ErrorErrorCat;
-        llvm::make_error<llvm::StringError,char const(&)[38],std::error_code>();
+        llvm::make_error<llvm::StringError,char const(&)[38],std::error_code>(&v44, "Bootstrap map missing UseOOPJIT value", &v48);
       }
 
-      v9 = v38;
+      v11 = v38;
       memset(&v57, 0, sizeof(v57));
       if (*(a2 + 20) == 23 || (v38 & 1) == 0)
       {
-        v11 = confstr(65537, 0, 0);
-        if (!v11)
+        v12 = confstr(65537, 0, 0);
+        if (!v12)
         {
-          v23 = __error();
-          v24 = strerror(*v23);
+          v24 = __error();
+          v25 = strerror(*v24);
           LOWORD(v50) = 773;
           *&v48 = "Could not get _CS_DARWIN_USER_TEMP_DIR: ";
           *(&v48 + 1) = 40;
-          *&v49 = v24;
+          *&v49 = v25;
           getErrorErrorCat();
           operator new();
         }
 
-        v12 = v11;
-        std::string::resize(&v57, v11 - 1, 0);
+        v13 = v12;
+        std::string::resize(&v57, v12 - 1, 0);
         if ((v57.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v13 = &v57;
+          v14 = &v57;
         }
 
         else
         {
-          v13 = v57.__r_.__value_.__r.__words[0];
+          v14 = v57.__r_.__value_.__r.__words[0];
         }
 
-        confstr(65537, v13, v12);
+        confstr(65537, v14, v13);
         std::string::append(&v57, "/OOPJit/", 8uLL);
       }
 
@@ -9390,12 +9182,12 @@ uint64_t llvm::detail::UniqueFunctionBase<llvm::Expected<std::unique_ptr<llvm::j
         *&v57.__r_.__value_.__l.__data_ = *"/private/var/OOPJit/";
       }
 
-      v14 = strlen(*(&oop_jit_conversion + v5));
-      std::string::append(&v57, *(&oop_jit_conversion + v5), v14);
+      v15 = strlen(*(&oop_jit_conversion + v6));
+      std::string::append(&v57, *(&oop_jit_conversion + v6), v15);
       LOWORD(v50) = 260;
       *&v48 = &v57;
       *&v47.__val_ = llvm::sys::fs::create_directories(&v48, 1, 511);
-      v47.__cat_ = v15;
+      v47.__cat_ = v16;
       if (v47.__val_)
       {
         *&v41 = "Could not create oop-jit code file directory ";
@@ -9426,50 +9218,50 @@ uint64_t llvm::detail::UniqueFunctionBase<llvm::Expected<std::unique_ptr<llvm::j
       std::string::basic_string[abi:nn200100](&v56, size + 7);
       if ((v56.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v17 = &v56;
+        v18 = &v56;
       }
 
       else
       {
-        v17 = v56.__r_.__value_.__r.__words[0];
+        v18 = v56.__r_.__value_.__r.__words[0];
       }
 
       if (size)
       {
         if ((v57.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v18 = &v57;
+          v19 = &v57;
         }
 
         else
         {
-          v18 = v57.__r_.__value_.__r.__words[0];
+          v19 = v57.__r_.__value_.__r.__words[0];
         }
 
-        memmove(v17, v18, size);
+        memmove(v18, v19, size);
       }
 
-      strcpy(v17 + size, "/XXXXXX");
+      strcpy(v18 + size, "/XXXXXX");
       if ((v56.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v19 = &v56;
+        v20 = &v56;
       }
 
       else
       {
-        v19 = v56.__r_.__value_.__r.__words[0];
+        v20 = v56.__r_.__value_.__r.__words[0];
       }
 
-      v20 = mkdtemp(v19);
-      if (v20)
+      v21 = mkdtemp(v20);
+      if (v21)
       {
-        v21 = v20;
-        v22 = open(v20, 0x100000);
-        if (v22 != -1)
+        v22 = v21;
+        v23 = open(v21, 0x100000);
+        if (v23 != -1)
         {
           v55 &= ~1u;
-          LODWORD(v53) = v22;
-          std::string::basic_string[abi:nn200100]<0>(&v54, v21);
+          LODWORD(v53) = v23;
+          std::string::basic_string[abi:nn200100]<0>(v54, v22);
           if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(v56.__r_.__value_.__l.__data_);
@@ -9482,16 +9274,16 @@ uint64_t llvm::detail::UniqueFunctionBase<llvm::Expected<std::unique_ptr<llvm::j
 
           if (v55)
           {
-            v28 = v53;
+            v29 = v53;
             v53 = 0;
-            v56.__r_.__value_.__r.__words[0] = v28;
+            v56.__r_.__value_.__r.__words[0] = v29;
           }
 
           else
           {
             if ((v52 & 1) == 0)
             {
-              if ((v37 | v9))
+              if ((v37 | v11))
               {
                 v36 = 0;
                 *&v44 = &v36;
@@ -9512,16 +9304,15 @@ uint64_t llvm::detail::UniqueFunctionBase<llvm::Expected<std::unique_ptr<llvm::j
 
                 if (csops_audittoken())
                 {
-                  v29 = *__error();
-                  v30 = std::generic_category();
-                  LODWORD(v41) = v29;
-                  *(&v41 + 1) = v30;
-                  llvm::make_error<llvm::StringError,std::error_code,char const(&)[30]>();
+                  v30 = *__error();
+                  v31 = std::generic_category();
+                  LODWORD(v41) = v30;
+                  *(&v41 + 1) = v31;
+                  llvm::make_error<llvm::StringError,std::error_code,char const(&)[30]>(&v47.__val_, &v41);
                 }
 
-                if (v9)
+                if (v11)
                 {
-                  v31 = *MEMORY[0x277D861E8];
                   v41 = v44;
                   v42 = v45;
                   v32 = sandbox_extension_issue_file_to_process();
@@ -9539,7 +9330,7 @@ uint64_t llvm::detail::UniqueFunctionBase<llvm::Expected<std::unique_ptr<llvm::j
                   v34 = std::generic_category();
                   LODWORD(v41) = v33;
                   *(&v41 + 1) = v34;
-                  llvm::make_error<llvm::StringError,std::error_code,char const(&)[41]>();
+                  llvm::make_error<llvm::StringError,std::error_code,char const(&)[41]>(&v47.__val_, &v41);
                 }
               }
             }
@@ -9549,15 +9340,15 @@ uint64_t llvm::detail::UniqueFunctionBase<llvm::Expected<std::unique_ptr<llvm::j
           }
 
           result = llvm::Expected<std::pair<int,std::string>>::~Expected(&v53);
-          v8 = v56.__r_.__value_.__r.__words[0];
+          v10 = v56.__r_.__value_.__r.__words[0];
           goto LABEL_11;
         }
 
         v43 = 773;
         *&v41 = "Could not open code file directory";
         *(&v41 + 1) = 34;
-        *&v42 = v21;
-        v25 = ": ";
+        *&v42 = v22;
+        v26 = ": ";
       }
 
       else
@@ -9566,18 +9357,18 @@ uint64_t llvm::detail::UniqueFunctionBase<llvm::Expected<std::unique_ptr<llvm::j
         *&v41 = "Could not create code file directory ";
         *(&v41 + 1) = 37;
         *&v42 = 0;
-        v25 = " for session: ";
+        v26 = " for session: ";
       }
 
       *&v44 = &v41;
-      *&v45 = v25;
+      *&v45 = v26;
       LOWORD(v46) = 770;
-      v26 = __error();
-      v27 = strerror(*v26);
-      if (*v27)
+      v27 = __error();
+      v28 = strerror(*v27);
+      if (*v28)
       {
         *&v48 = &v44;
-        *&v49 = v27;
+        *&v49 = v28;
         LOWORD(v50) = 770;
       }
 
@@ -9595,12 +9386,11 @@ uint64_t llvm::detail::UniqueFunctionBase<llvm::Expected<std::unique_ptr<llvm::j
 
 LABEL_11:
   *(a3 + 8) = *(a3 + 8) & 0xFE | 1;
-  *a3 = v8;
-  v10 = *MEMORY[0x277D85DE8];
+  *a3 = v10;
   return result;
 }
 
-uint64_t llvm::orc::ExecutorProcessControl::getBootstrapMapValue<BOOL,BOOL>(void *a1, uint64_t a2, uint64_t *a3, unint64_t a4, uint64_t a5)
+uint64_t llvm::orc::ExecutorProcessControl::getBootstrapMapValue<BOOL,BOOL>(uint64_t *a1, uint64_t a2, uint64_t *a3, size_t a4, uint64_t a5, __n128 a6)
 {
   if (*(a5 + 1) == 1)
   {
@@ -9610,52 +9400,52 @@ uint64_t llvm::orc::ExecutorProcessControl::getBootstrapMapValue<BOOL,BOOL>(void
   result = llvm::StringMapImpl::FindKey((a2 + 136), a3, a4);
   if (result != -1 && result != *(a2 + 144))
   {
-    v11 = *(*(a2 + 136) + 8 * result);
-    v12 = *(v11 + 8);
-    if (*(v11 + 16) == v12)
+    v12 = *(*(a2 + 136) + 8 * result);
+    v13 = *(v12 + 8);
+    if (*(v12 + 16) == v13)
     {
-      v16 = 1283;
-      v13 = "Could not deserialize value for key ";
-      v14 = a3;
-      v15 = a4;
+      v17 = 1283;
+      v14 = "Could not deserialize value for key ";
+      v15 = a3;
+      v16 = a4;
       getErrorErrorCat();
       operator new();
     }
 
-    *a5 = *v12 | 0x100;
+    *a5 = *v13 | 0x100;
   }
 
   *a1 = 0;
   return result;
 }
 
-uint64_t anonymous namespace::XPCMemoryManager::getUsingDefaultNames(_anonymous_namespace_::XPCMemoryManager *this, llvm::orc::SimpleRemoteEPC *a2)
+double anonymous namespace::XPCMemoryManager::getUsingDefaultNames(_anonymous_namespace_::XPCMemoryManager *this, llvm::orc::SimpleRemoteEPC *a2)
 {
-  v11[18] = *MEMORY[0x277D85DE8];
-  v9 = 0u;
-  v10 = 0u;
+  v10[18] = *MEMORY[0x277D85DE8];
   v8 = 0u;
-  v11[0] = &v8;
-  v11[1] = "__xojit_xpcmemmgr_instance";
-  v11[2] = 26;
-  v11[3] = &v8 + 8;
-  v11[4] = "__xojit_xpcmemmgr_acquire_slab";
-  v11[5] = 30;
-  v11[6] = &v9;
-  v11[7] = "__xojit_xpcmemmgr_release_slab";
-  v11[8] = 30;
-  v11[9] = &v9 + 8;
-  v11[10] = "__xojit_xpcmemmgr_deallocate";
-  v11[11] = 28;
-  v11[12] = &v10;
-  v11[13] = "__xojit_xpcmemmgr_make_read_only";
-  v11[14] = 32;
-  v11[15] = &v10 + 8;
-  v11[16] = "__xojit_xpcmemmgr_apply_sandbox_extension";
-  v11[17] = 41;
-  result = llvm::orc::ExecutorProcessControl::getBootstrapSymbols(a2, v11, 6, &v7);
-  v4 = v7;
-  if (v7)
+  *v9 = 0u;
+  v7 = 0u;
+  v10[0] = &v7;
+  v10[1] = "__xojit_xpcmemmgr_instance";
+  v10[2] = 26;
+  v10[3] = &v7 + 8;
+  v10[4] = "__xojit_xpcmemmgr_acquire_slab";
+  v10[5] = 30;
+  v10[6] = &v8;
+  v10[7] = "__xojit_xpcmemmgr_release_slab";
+  v10[8] = 30;
+  v10[9] = &v8 + 8;
+  v10[10] = "__xojit_xpcmemmgr_deallocate";
+  v10[11] = 28;
+  v10[12] = v9;
+  v10[13] = "__xojit_xpcmemmgr_make_read_only";
+  v10[14] = 32;
+  v10[15] = &v9[1];
+  v10[16] = "__xojit_xpcmemmgr_apply_sandbox_extension";
+  v10[17] = 41;
+  llvm::orc::ExecutorProcessControl::getBootstrapSymbols(a2, v10, 6, &v6);
+  v4 = v6;
+  if (v6)
   {
     *(this + 48) |= 1u;
     *this = v4;
@@ -9664,13 +9454,13 @@ uint64_t anonymous namespace::XPCMemoryManager::getUsingDefaultNames(_anonymous_
   else
   {
     *(this + 48) &= ~1u;
-    v5 = v9;
-    *this = v8;
+    v5 = v8;
+    *this = v7;
     *(this + 1) = v5;
-    *(this + 2) = v10;
+    result = v9[0];
+    *(this + 2) = *v9;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9687,19 +9477,17 @@ BOOL xojit::XOJITXPC::withConnectionDo<anonymous namespace::XPCMemoryManager::Cr
   return v4 == 0;
 }
 
-BOOL xojit::XOJITXPC::withConnectionDo<anonymous namespace::XPCMemoryManager::CreateUsingDefaultNames(llvm::orc::SimpleRemoteEPC &,xojit::XOJITXPC&,unsigned long long,unsigned int)::$_2>(uint64_t a1, uint64_t *a2)
+BOOL xojit::XOJITXPC::withConnectionDo<anonymous namespace::XPCMemoryManager::CreateUsingDefaultNames(llvm::orc::SimpleRemoteEPC &,xojit::XOJITXPC&,unsigned long long,unsigned int)::$_2>(uint64_t a1, void *a2)
 {
   std::mutex::lock((a1 + 8));
-  v4 = *(a1 + 72);
-  if (v4)
+  v3 = *(a1 + 72);
+  if (v3)
   {
-    v5 = *a2;
-    v6 = *(a1 + 72);
     xpc_connection_get_audit_token();
   }
 
   std::mutex::unlock((a1 + 8));
-  return v4 == 0;
+  return v3 == 0;
 }
 
 uint64_t llvm::consumeError(uint64_t *a1)
@@ -9716,58 +9504,71 @@ uint64_t llvm::consumeError(uint64_t *a1)
   return result;
 }
 
-void llvm::orc::shared::WrapperFunction<llvm::orc::shared::SPSError ()(llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSSequence<char>)>::call<llvm::Error llvm::orc::ExecutorProcessControl::callSPSWrapper<llvm::orc::shared::SPSError ()(llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSSequence<char>),llvm::Error &,llvm::orc::ExecutorAddr &,llvm::StringRef>(llvm::orc::ExecutorAddr,llvm::Error &,llvm::orc::ExecutorAddr &,llvm::StringRef &&)::{lambda(char const*,unsigned long)#1},llvm::Error,llvm::orc::ExecutorAddr,llvm::StringRef>(uint64_t a1, uint64_t *a2, void *a3, void *a4, uint64_t a5)
+void llvm::orc::shared::WrapperFunction<llvm::orc::shared::SPSError ()(llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSSequence<char>)>::call<llvm::Error llvm::orc::ExecutorProcessControl::callSPSWrapper<llvm::orc::shared::SPSError ()(llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSSequence<char>),llvm::Error &,llvm::orc::ExecutorAddr &,llvm::StringRef>(llvm::orc::ExecutorAddr,llvm::Error &,llvm::orc::ExecutorAddr &,llvm::StringRef &&)::{lambda(char const*,unsigned long)#1},llvm::Error,llvm::orc::ExecutorAddr,llvm::StringRef>(void *a1, uint64_t *a2, void *a3, void *a4, uint64_t a5)
 {
   *a3 = 0;
   v8 = *(a5 + 8);
   v9 = v8 + 16;
-  v15[0] = 0;
-  v15[1] = (v8 + 16);
+  v14[0] = 0;
+  v14[1] = (v8 + 16);
   if ((v8 + 16) <= 8)
   {
-    v10 = v15;
+    v10 = v14;
   }
 
   else
   {
     v10 = malloc_type_malloc(v8 + 16, 0x100004077774924uLL);
-    v15[0] = v10;
+    v14[0] = v10;
   }
 
-  v14[0] = v10;
-  v14[1] = v9;
-  if (llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSSequence<char>>::serialize<llvm::orc::ExecutorAddr,llvm::StringRef>(v14, a4, a5))
+  v13[0] = v10;
+  v13[1] = v9;
+  if (llvm::orc::shared::SPSArgList<llvm::orc::shared::SPSExecutorAddr,llvm::orc::shared::SPSSequence<char>>::serialize<llvm::orc::ExecutorAddr,llvm::StringRef>(v13, a4, a5))
   {
-    *v13 = *v15;
+    *v12 = *v14;
   }
 
   else
   {
-    llvm::orc::shared::WrapperFunctionResult::createOutOfBandError("Error serializing arguments to blob in call", v13);
-    if (v15[1] > 8 || !v15[1] && v15[0])
+    llvm::orc::shared::WrapperFunctionResult::createOutOfBandError(v12, "Error serializing arguments to blob in call");
+    if (v14[1] > 8 || !v14[1] && v14[0])
     {
-      free(v15[0]);
+      free(v14[0]);
     }
   }
 
-  if (!v13[1])
+  if (v12[1])
   {
-    v14[0] = v13[0];
-    if (v13[0])
+    if (v12[1] <= 8)
+    {
+      v11 = v12;
+    }
+
+    else
+    {
+      v11 = v12[0];
+    }
+  }
+
+  else
+  {
+    v13[0] = v12[0];
+    if (v12[0])
     {
       getErrorErrorCat();
-      v15[0] = 3;
-      v15[1] = &getErrorErrorCat(void)::ErrorErrorCat;
+      v14[0] = 3;
+      v14[1] = &getErrorErrorCat(void)::ErrorErrorCat;
       llvm::make_error<llvm::StringError,char const*&,std::error_code>();
     }
+
+    v11 = v12;
   }
 
-  v11 = *a2;
-  v12 = a2[1];
-  llvm::orc::ExecutorProcessControl::callWrapper();
+  llvm::orc::ExecutorProcessControl::callWrapper(*a2, a2[1], v11, v12[1]);
 }
 
-void llvm::orc::shared::detail::ResultDeserializer<llvm::orc::shared::SPSError,llvm::Error>::deserialize(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void llvm::orc::shared::detail::ResultDeserializer<llvm::orc::shared::SPSError,llvm::Error>::deserialize(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
 {
   v12[0] = a2;
   v12[1] = a3;
@@ -9775,7 +9576,7 @@ void llvm::orc::shared::detail::ResultDeserializer<llvm::orc::shared::SPSError,l
   v10 = 0;
   v11 = 0;
   v9 = 0;
-  if (!llvm::orc::shared::SPSSerializationTraits<llvm::orc::shared::SPSError,llvm::orc::shared::detail::SPSSerializableError,void>::deserialize(v12, v8))
+  if ((llvm::orc::shared::SPSSerializationTraits<llvm::orc::shared::SPSError,llvm::orc::shared::detail::SPSSerializableError,void>::deserialize(v12, v8) & 1) == 0)
   {
     getErrorErrorCat();
     v12[2] = 3;
@@ -9807,7 +9608,7 @@ void llvm::orc::shared::detail::ResultDeserializer<llvm::orc::shared::SPSError,l
   }
 }
 
-BOOL llvm::orc::shared::SPSSerializationTraits<llvm::orc::shared::SPSError,llvm::orc::shared::detail::SPSSerializableError,void>::deserialize(void *a1, uint64_t a2)
+uint64_t llvm::orc::shared::SPSSerializationTraits<llvm::orc::shared::SPSError,llvm::orc::shared::detail::SPSSerializableError,void>::deserialize(void *a1, uint64_t a2)
 {
   v2 = a1[1];
   if (!v2)
@@ -9818,10 +9619,18 @@ BOOL llvm::orc::shared::SPSSerializationTraits<llvm::orc::shared::SPSError,llvm:
   v3 = *(*a1)++;
   a1[1] = v2 - 1;
   *a2 = v3;
-  return (v3 & 1) == 0 || llvm::orc::shared::SPSSerializationTraits<llvm::orc::shared::SPSSequence<char>,std::string,void>::deserialize(a1, (a2 + 8));
+  if (v3)
+  {
+    return llvm::orc::shared::SPSSerializationTraits<llvm::orc::shared::SPSSequence<char>,std::string,void>::deserialize(a1, (a2 + 8));
+  }
+
+  else
+  {
+    return 1;
+  }
 }
 
-BOOL llvm::orc::shared::SPSSerializationTraits<llvm::orc::shared::SPSSequence<char>,std::string,void>::deserialize(uint64_t a1, std::string *this)
+uint64_t llvm::orc::shared::SPSSerializationTraits<llvm::orc::shared::SPSSequence<char>,std::string,void>::deserialize(uint64_t a1, std::string *this)
 {
   v2 = *(a1 + 8);
   v3 = v2 >= 8;
@@ -9857,4 +9666,420 @@ BOOL llvm::orc::shared::SPSSerializationTraits<llvm::orc::shared::SPSSequence<ch
 
   while (v7);
   return v10;
+}
+
+void anonymous namespace::XPCMemoryManager::~XPCMemoryManager(_anonymous_namespace_::XPCMemoryManager *this)
+{
+  *this = &unk_2883E9FD8;
+  close(*(this + 32));
+  v3 = 260;
+  v2 = this + 104;
+  llvm::sys::fs::remove_directories(&v2, 1);
+}
+
+{
+}
+
+void **anonymous namespace::XPCMemoryManager::allocate(uint64_t a1, uint64_t a2, llvm::jitlink::LinkGraph *a3, __int128 *a4)
+{
+  v25 = *MEMORY[0x277D85DE8];
+  llvm::jitlink::BasicLayout::BasicLayout(&v22, a3);
+  if (v24)
+  {
+    v7 = 0;
+    v8 = 0;
+    v9 = 0;
+    v10 = 0;
+    v11 = v23;
+    do
+    {
+      v12 = *v11;
+      v13 = v12 & 7;
+      if (v13 >= 4 && v13 != 5)
+      {
+        getErrorErrorCat();
+        llvm::make_error<llvm::StringError,char const(&)[51],std::error_code>();
+      }
+
+      if ((v12 & 1) == 0)
+      {
+        getErrorErrorCat();
+        llvm::make_error<llvm::StringError,char const(&)[51],std::error_code>();
+      }
+
+      v15 = *(*(a1 + 8) + 88);
+      if (!(v15 >> v11[8]))
+      {
+        getErrorErrorCat();
+        llvm::make_error<llvm::StringError,char const(&)[51],std::error_code>();
+      }
+
+      v16 = *(v11 + 3) + *(v11 + 2);
+      if (v12 > 7)
+      {
+        if (v13 >= 4)
+        {
+          v9 += v16;
+        }
+
+        else
+        {
+          v8 += (v15 + v16 - 1) / v15 * v15;
+        }
+      }
+
+      else if (v13 >= 4)
+      {
+        v10 += v16;
+      }
+
+      else
+      {
+        v7 += (v15 + v16 - 1) / v15 * v15;
+      }
+
+      v11 += 104;
+    }
+
+    while (v11 != &v23[104 * v24]);
+  }
+
+  else
+  {
+    v10 = 0;
+    v9 = 0;
+    v8 = 0;
+    v7 = 0;
+  }
+
+  v18[0] = v7;
+  v18[1] = v8;
+  v18[2] = v10;
+  v18[3] = v9;
+  v18[4] = v22;
+  v19[0] = &v20;
+  v19[1] = 0x400000000;
+  if (v24)
+  {
+    llvm::SmallVectorImpl<std::pair<llvm::orc::AllocGroup,llvm::jitlink::BasicLayout::Segment>>::operator=(v19, &v23);
+  }
+
+  llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v21, a4);
+  llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v21);
+  llvm::SmallVector<std::pair<llvm::orc::AllocGroup,llvm::jitlink::BasicLayout::Segment>,4u>::~SmallVector(v19);
+  return llvm::SmallVector<std::pair<llvm::orc::AllocGroup,llvm::jitlink::BasicLayout::Segment>,4u>::~SmallVector(&v23);
+}
+
+void anonymous namespace::XPCMemoryManager::deallocate(void *a1, uint64_t **a2, __int128 *a3)
+{
+  v65 = *MEMORY[0x277D85DE8];
+  v3 = *a2;
+  v4 = a2[1];
+  if (*a2 != v4)
+  {
+    v40 = a3;
+    __src = 0;
+    v42 = 0;
+    v43 = 0;
+    std::vector<llvm::orc::ExecutorAddr>::reserve(&__src, v4 - v3);
+    v7 = *a2;
+    v8 = a2[1];
+    if (*a2 == v8)
+    {
+      v9 = v42;
+    }
+
+    else
+    {
+      v9 = v42;
+      do
+      {
+        v10 = *v7;
+        *v7 = -1;
+        if (v9 >= v43)
+        {
+          v11 = __src;
+          v12 = v9 - __src;
+          v13 = (v9 - __src) >> 3;
+          v14 = v13 + 1;
+          if ((v13 + 1) >> 61)
+          {
+            std::vector<std::unique_ptr<llvm::orc::ObjectLinkingLayer::Plugin>>::__throw_length_error[abi:nn200100]();
+          }
+
+          v15 = v43 - __src;
+          if ((v43 - __src) >> 2 > v14)
+          {
+            v14 = v15 >> 2;
+          }
+
+          if (v15 >= 0x7FFFFFFFFFFFFFF8)
+          {
+            v16 = 0x1FFFFFFFFFFFFFFFLL;
+          }
+
+          else
+          {
+            v16 = v14;
+          }
+
+          if (v16)
+          {
+            std::__allocate_at_least[abi:nn200100]<std::allocator<llvm::orc::ExecutorAddr>>(&__src, v16);
+          }
+
+          v17 = (v9 - __src) >> 3;
+          v18 = (8 * v13);
+          v19 = (8 * v13 - 8 * v17);
+          *v18 = v10;
+          v9 = (v18 + 1);
+          memcpy(v19, v11, v12);
+          v20 = __src;
+          __src = v19;
+          v42 = v9;
+          v43 = 0;
+          if (v20)
+          {
+            operator delete(v20);
+          }
+        }
+
+        else
+        {
+          *v9 = v10;
+          v9 += 8;
+        }
+
+        v42 = v9;
+        ++v7;
+      }
+
+      while (v7 != v8);
+    }
+
+    v22 = a1[1];
+    v23 = a1[6];
+    v46[0] = a1;
+    v46[1] = 0;
+    __dst[0] = 0;
+    __dst[1] = 0;
+    if (v9 != __src)
+    {
+      std::vector<llvm::orc::ExecutorAddr>::__vallocate[abi:nn200100](&v46[1], (v9 - __src) >> 3);
+    }
+
+    llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(&v48, v40);
+    v24 = v22[3];
+    v25 = v42 + 16 - __src;
+    if (__src == v42)
+    {
+      v26 = 16;
+    }
+
+    else
+    {
+      v26 = v42 + 16 - __src;
+    }
+
+    *&v61 = 0;
+    *(&v61 + 1) = v26;
+    if (v26 < 9)
+    {
+      if (v42 + 16 == __src)
+      {
+        llvm::orc::shared::WrapperFunctionResult::createOutOfBandError(v45, "Error serializing arguments to blob in call");
+        goto LABEL_46;
+      }
+
+      v27 = &v61;
+    }
+
+    else
+    {
+      v27 = malloc_type_malloc(v26, 0x100004077774924uLL);
+      *&v61 = v27;
+      v25 = v26;
+    }
+
+    *v27 = a1[3];
+    if ((v25 & 0xFFFFFFFFFFFFFFF8) != 8)
+    {
+      v28 = __src;
+      *(v27 + 1) = (v42 - __src) >> 3;
+      v29 = v42;
+      v30 = v28 == v42;
+      if ((v25 - 16) >= 8 && v28 != v42)
+      {
+        v31 = v27 + 1;
+        v32 = v25 - 24;
+        v33 = v28 + 8;
+        do
+        {
+          *v31++ = *(v33 - 1);
+          v30 = v33 == v29;
+          if (v33 == v29)
+          {
+            break;
+          }
+
+          v33 += 8;
+          v34 = v32 > 7;
+          v32 -= 8;
+        }
+
+        while (v34);
+      }
+
+      if (v30)
+      {
+        *v45 = v61;
+        goto LABEL_46;
+      }
+
+      v26 = *(&v61 + 1);
+    }
+
+    llvm::orc::shared::WrapperFunctionResult::createOutOfBandError(v45, "Error serializing arguments to blob in call");
+    if (v26 > 8 || !v26 && v61)
+    {
+      free(v61);
+    }
+
+LABEL_46:
+    if (!v45[1])
+    {
+      *v55 = v45[0];
+      if (v45[0])
+      {
+        getErrorErrorCat();
+        *&v61 = 3;
+        *(&v61 + 1) = &getErrorErrorCat(void)::ErrorErrorCat;
+        llvm::make_error<llvm::StringError,char const*&,std::error_code>();
+      }
+    }
+
+    *v49 = *v46;
+    v50 = *__dst;
+    __dst[0] = 0;
+    __dst[1] = 0;
+    v46[1] = 0;
+    llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v51, &v48);
+    v35 = v45[1];
+    if (v45[1] <= 8)
+    {
+      v36 = v45;
+    }
+
+    else
+    {
+      v36 = v45[0];
+    }
+
+    *v55 = v24;
+    *&v55[8] = *v49;
+    *&v55[24] = v50;
+    v49[1] = 0;
+    v50 = 0uLL;
+    llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v56, v51);
+    v57 = *v55;
+    v58 = *&v55[16];
+    v59 = *&v55[32];
+    memset(&v55[16], 0, 24);
+    llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v60, v56);
+    v61 = v57;
+    v62 = v58;
+    v63 = v59;
+    v58 = 0uLL;
+    v59 = 0;
+    llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v64, v60);
+    v37 = operator new(0x48uLL, 8uLL);
+    v52 = v37;
+    v53 = xmmword_2750C12C0;
+    v38 = v62;
+    *v37 = v61;
+    v37[1] = v38;
+    *(v37 + 4) = v63;
+    v62 = 0uLL;
+    v63 = 0;
+    llvm::detail::UniqueFunctionBase<llvm::Error,llvm::jitlink::LinkGraph &>::UniqueFunctionBase(v37 + 40, v64);
+    v54 = _ZN4llvm6detail18UniqueFunctionBaseIvJNS_3orc6shared21WrapperFunctionResultEEE15CallbacksHolderIZNS2_22ExecutorProcessControl9RunAsTaskclIZNS3_15WrapperFunctionIFNS3_8SPSErrorENS3_15SPSExecutorAddrENS3_11SPSSequenceISC_EEEE9callAsyncIZNS7_19callSPSWrapperAsyncISF_S8_ZN12_GLOBAL__N_116XPCMemoryManager10deallocateENSt3__16vectorINS_7jitlink20JITLinkMemoryManager14FinalizedAllocENSL_9allocatorISP_EEEENS_15unique_functionIFvNS_5ErrorEEEEE3__0JNS2_12ExecutorAddrENSM_ISY_NSQ_ISY_EEEEEEEvOT0_SY_OT1_DpRKT2_EUlOT_PKcmE_SX_JSY_S10_EEEvS1A_S12_DpRKT1_EUlS4_E_EENS7_18IncomingWFRHandlerES1A_EUlS4_E_S1K_vE9CallbacksE + 4;
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v64);
+    if (v62)
+    {
+      *(&v62 + 1) = v62;
+      operator delete(v62);
+    }
+
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v60);
+    if (v58)
+    {
+      *(&v58 + 1) = v58;
+      operator delete(v58);
+    }
+
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v56);
+    if (*&v55[16])
+    {
+      *&v55[24] = *&v55[16];
+      operator delete(*&v55[16]);
+    }
+
+    (*(*v22 + 40))(v22, v23, &v52, v36, v35);
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v52);
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(v51);
+    if (v49[1])
+    {
+      *&v50 = v49[1];
+      operator delete(v49[1]);
+    }
+
+    if (v45[1] < 9)
+    {
+      if (v45[1])
+      {
+        goto LABEL_65;
+      }
+
+      v39 = v45[0];
+      if (!v45[0])
+      {
+        goto LABEL_65;
+      }
+    }
+
+    else
+    {
+      v39 = v45[0];
+    }
+
+    free(v39);
+LABEL_65:
+    llvm::detail::UniqueFunctionBase<void,llvm::Error>::~UniqueFunctionBase(&v48);
+    if (v46[1])
+    {
+      __dst[0] = v46[1];
+      operator delete(v46[1]);
+    }
+
+    if (__src)
+    {
+      v42 = __src;
+      operator delete(__src);
+    }
+
+    return;
+  }
+
+  v44 = 0;
+  v21 = *(a3 + 3);
+  if ((v21 & 2) == 0)
+  {
+    a3 = *a3;
+  }
+
+  (*(v21 & 0xFFFFFFFFFFFFFFF8))(a3, &v44);
+  if (v44)
+  {
+    (*(*v44 + 8))(v44);
+  }
 }

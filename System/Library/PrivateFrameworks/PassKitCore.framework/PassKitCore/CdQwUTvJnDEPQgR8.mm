@@ -332,7 +332,7 @@ void __60__CdQwUTvJnDEPQgR8_scoreWithScoreRequest_completionHandler___block_invo
   }
 
   v3 = [*(v2 + 32) serverEndpointIdentifier];
-  if ([v3 isEqualToString:@"enable"])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = [*(a1 + 40) nonce];
 

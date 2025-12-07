@@ -8,34 +8,20 @@
 
 - (id)enumeration:(id)enumeration localizedLabelForPossibleState:(id)state
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   stateCopy = state;
   value = [stateCopy value];
   if (value && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     alCityIdentifier = [value alCityIdentifier];
-    if (!alCityIdentifier)
-    {
-      goto LABEL_8;
-    }
-
-    v8 = alCityIdentifier;
-    cityManager = [(WFTimeZonePickerParameter *)self cityManager];
-    alCityIdentifier2 = [value alCityIdentifier];
-    stringValue = [alCityIdentifier2 stringValue];
-    v23[0] = stringValue;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
-    v13 = [cityManager citiesWithIdentifiers:v12];
-    firstObject = [v13 firstObject];
-
-    if (firstObject)
+    if (alCityIdentifier && (v8 = alCityIdentifier, -[WFTimeZonePickerParameter cityManager](self, "cityManager"), v9 = objc_claimAutoreleasedReturnValue(), [value alCityIdentifier], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "stringValue"), v11 = objc_claimAutoreleasedReturnValue(), v22[0] = v11, objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v22, 1), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "citiesWithIdentifiers:", v12), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "firstObject"), value2 = objc_claimAutoreleasedReturnValue(), v13, v12, v11, v10, v9, v8, value2))
     {
       currentDevice = [MEMORY[0x1E69E0A90] currentDevice];
       if ([currentDevice isChineseRegionDevice])
       {
         v16 = +[WFTimeZonePickerParameter sensitiveCities];
-        alCityIdentifier3 = [value alCityIdentifier];
-        v18 = [v16 containsObject:alCityIdentifier3];
+        alCityIdentifier2 = [value alCityIdentifier];
+        v18 = [v16 containsObject:alCityIdentifier2];
       }
 
       else
@@ -43,14 +29,13 @@
         v18 = 0;
       }
 
-      localizedCityName = [firstObject displayNameIncludingCountry:v18];
+      localizedCityName = [value2 displayNameIncludingCountry:v18];
     }
 
     else
     {
-LABEL_8:
-      firstObject = [stateCopy value];
-      localizedCityName = [firstObject localizedCityName];
+      value2 = [stateCopy value];
+      localizedCityName = [value2 localizedCityName];
     }
 
     v19 = localizedCityName;
@@ -61,8 +46,6 @@ LABEL_8:
 
     v19 = 0;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

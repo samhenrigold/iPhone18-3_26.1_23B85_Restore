@@ -11,24 +11,24 @@
 - (const)_changeToFilters:(uint64_t)filters animation:;
 - (const)_shouldRenderSemanticStyle;
 - (float)_cubeStrengthForOffset:(uint64_t)offset;
+- (id)_updateOutputRequirements;
 - (id)provideCoreImageFilterRenderer;
 - (id)provideMetalFilterRenderer;
 - (id)provideStreamingSDOFFilterRenderer;
 - (int)semanticStyleSceneType;
 - (os_unfair_lock_s)_isDepthRenderingEnabled;
-- (uint64_t)_adjustRectanglesFromFiltersAndRegionArray:(CMAttachmentBearerRef)target withSampleBuffer:;
+- (uint64_t)_adjustRectanglesFromFiltersAndRegionArray:(CMAttachmentBearerRef)target withSampleBuffer:(uint64_t)buffer;
 - (uint64_t)_hasDepthEffect:(uint64_t)result;
 - (uint64_t)_hasMonochromeEffect:(uint64_t)result;
 - (uint64_t)_skipMonochromeDepthAnimation:(uint64_t)result;
-- (uint64_t)_updateOutputRequirements;
 - (void)_applyQueuedSemanticStyle:(uint64_t)style;
-- (void)_createMatchingPixelBufferFromSavedVideoBuffersWithTargetPts:(uint64_t)pts input:;
-- (void)_newStillImageOutputPixelBufferFromVideoPixelBuffer:(uint64_t)buffer input:;
+- (void)_createMatchingPixelBufferFromSavedVideoBuffersWithTargetPts:(void *)pts input:;
+- (void)_newStillImageOutputPixelBufferFromVideoPixelBuffer:(void *)buffer input:;
 - (void)_rebuildSemanticStyleFiltersWithSceneType:(uint64_t)type;
 - (void)_savePixelBufferForStillImageCaptureRequests:(__int128 *)requests withPts:;
 - (void)_supportedInputPixelFormats;
 - (void)_supportedOutputPixelFormats;
-- (void)_updateSemanticStyleFiltersAndRegionArrayWithSampleBuffer:(const os_unfair_lock *)buffer;
+- (void)_updateSemanticStyleFiltersAndRegionArrayWithSampleBuffer:(os_unfair_lock *)buffer;
 - (void)changeToFilters:(id)filters animated:(BOOL)animated;
 - (void)changeToFilters:(id)filters semanticStyle:(id)style animated:(BOOL)animated;
 - (void)changeToSemanticStyle:(id)style animated:(BOOL)animated;
@@ -76,12 +76,12 @@
   return result;
 }
 
-- (uint64_t)_updateOutputRequirements
+- (id)_updateOutputRequirements
 {
   if (result)
   {
     v1 = result;
-    v2 = [objc_msgSend(*(result + 512) "videoFormat")];
+    v2 = [objc_msgSend(result[64] "videoFormat")];
     if (v2)
     {
       v15 = [MEMORY[0x1E696AD98] numberWithInt:v2];
@@ -123,7 +123,7 @@
           [formatRequirements setHeight:{objc_msgSend(OUTLINED_FUNCTION_12_17(), "height")}];
           [formatRequirements setSupportedColorSpaceProperties:v3];
           [formatRequirements setSupportedPixelFormats:_supportedOutputPixelFormats];
-          ++v10;
+          v10 = (v10 + 1);
         }
 
         while (v8 != v10);
@@ -569,7 +569,7 @@ LABEL_19:
 
 - (void)didSelectFormat:(id)format forInput:(id)input forAttachedMediaKey:(id)key
 {
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     if (self->_videoInput == input)
     {
@@ -609,10 +609,10 @@ LABEL_19:
       }
     }
 
-    [(BWStreamingFilterNode *)self _updateOutputRequirements];
+    [(BWStreamingFilterNode *)&self->super.super.isa _updateOutputRequirements];
   }
 
-  else if (([key isEqualToString:@"Depth"] & 1) == 0 && (objc_msgSend(key, "isEqualToString:", 0x1F21AAC30) & 1) == 0 && (objc_msgSend(key, "isEqualToString:", 0x1F21AAC50) & 1) == 0 && (objc_msgSend(key, "isEqualToString:", 0x1F21AABF0) & 1) == 0 && (objc_msgSend(key, "isEqualToString:", 0x1F21AAC10) & 1) == 0)
+  else if ((objc_msgSend_isEqualToString_(key) & 1) == 0 && (objc_msgSend_isEqualToString_(key) & 1) == 0 && (objc_msgSend_isEqualToString_(key) & 1) == 0 && (objc_msgSend_isEqualToString_(key) & 1) == 0 && (objc_msgSend_isEqualToString_(key) & 1) == 0)
   {
     v14.receiver = self;
     v14.super_class = BWStreamingFilterNode;
@@ -744,18 +744,18 @@ LABEL_19:
 - (void)renderSampleBuffer:(opaqueCMSampleBuffer *)buffer forInput:(id)input
 {
   bufferCopy = buffer;
-  v59 = 0;
+  v60[0] = 0;
   videoInput = self->_videoInput;
-  memset(&v58, 0, sizeof(v58));
+  memset(&v59, 0, sizeof(v59));
   v7 = CMGetAttachment(buffer, *off_1E798A420, 0);
-  CMTimeMakeFromDictionary(&v58, v7);
-  if ((v58.flags & 1) == 0)
+  PresentationTimeStamp = CMTimeMakeFromDictionary(&v59, v7);
+  if ((v59.flags & 1) == 0)
   {
-    CMSampleBufferGetPresentationTimeStamp(&time, bufferCopy);
-    v58 = time;
+    PresentationTimeStamp = CMSampleBufferGetPresentationTimeStamp(&time, bufferCopy);
+    v59 = time;
   }
 
-  v8 = MEMORY[0x1E695FF58];
+  v9 = MEMORY[0x1E695FF58];
   if (videoInput == input)
   {
     if (bufferCopy)
@@ -763,25 +763,25 @@ LABEL_19:
       ImageBuffer = CMSampleBufferGetImageBuffer(bufferCopy);
       if (ImageBuffer)
       {
-        v44 = videoInput;
-        v10 = self->_receivedFrameCounter + 1;
-        self->_receivedFrameCounter = v10;
-        self->_shouldLogPerFrameLogging = v10 % self->_perFrameLoggingRatio == 0;
-        if (*v8 == 1)
+        v45 = videoInput;
+        v11 = self->_receivedFrameCounter + 1;
+        self->_receivedFrameCounter = v11;
+        self->_shouldLogPerFrameLogging = v11 % self->_perFrameLoggingRatio == 0;
+        if (*v9 == 1)
         {
-          time = v58;
+          time = v59;
           CMTimeGetSeconds(&time);
           kdebug_trace();
         }
 
-        time = v58;
+        time = v59;
         time2 = self->_lastRenderedPTS;
         if (CMTimeCompare(&time, &time2) < 0)
         {
           goto LABEL_65;
         }
 
-        self->_lastRenderedPTS = v58;
+        self->_lastRenderedPTS = v59;
         if (!self->_depthDataDeliveryEnabled)
         {
           goto LABEL_53;
@@ -790,45 +790,45 @@ LABEL_19:
         AttachedMedia = BWSampleBufferGetAttachedMedia(bufferCopy, @"Depth");
         if (AttachedMedia)
         {
-          v12 = AttachedMedia;
-          v13 = CMSampleBufferGetImageBuffer(AttachedMedia);
-          v14 = [objc_msgSend(CMGetAttachment(v12 *off_1E798A3C8];
-          self->_receivedOccludedFixedPointDisparityBuffer = v14;
-          if (v14 && self->_shouldLogPerFrameLogging && dword_1ED8444D0)
+          v13 = AttachedMedia;
+          v14 = CMSampleBufferGetImageBuffer(AttachedMedia);
+          v15 = [objc_msgSend(CMGetAttachment(v13 *off_1E798A3C8];
+          self->_receivedOccludedFixedPointDisparityBuffer = v15;
+          if (v15 && self->_shouldLogPerFrameLogging && dword_1ED8444D0)
           {
-            v56 = 0;
-            v55 = OS_LOG_TYPE_DEFAULT;
+            v57 = 0;
+            v56 = OS_LOG_TYPE_DEFAULT;
             os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-            v16 = v56;
-            if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v55))
+            v17 = v57;
+            if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, v56))
             {
-              v17 = v16;
+              v18 = v17;
             }
 
             else
             {
-              v17 = v16 & 0xFFFFFFFE;
+              v18 = v17 & 0xFFFFFFFE;
             }
 
-            if (v17)
+            if (v18)
             {
-              v18 = BWFigCaptureColorSpaceToString();
+              v19 = BWFigCaptureColorSpaceToString();
               LODWORD(time2.value) = 136315395;
               *(&time2.value + 4) = "[BWStreamingFilterNode renderSampleBuffer:forInput:]";
               LOWORD(time2.flags) = 2113;
-              *(&time2.flags + 2) = v18;
-              LODWORD(v43) = 22;
+              *(&time2.flags + 2) = v19;
+              LODWORD(v44) = 22;
               p_time2 = &time2;
               _os_log_send_and_compose_impl();
             }
 
-            v8 = MEMORY[0x1E695FF58];
-            v19 = 1;
+            v9 = MEMORY[0x1E695FF58];
+            v20 = 1;
             fig_log_call_emit_and_clean_up_after_send_and_compose();
-            if (v13)
+            if (v14)
             {
 LABEL_47:
-              if (!self->_receivedInitialFixedPointDisparityBuffer && v19)
+              if (!self->_receivedInitialFixedPointDisparityBuffer && v20)
               {
                 self->_receivedInitialFixedPointDisparityBuffer = 1;
                 goto LABEL_53;
@@ -842,9 +842,9 @@ LABEL_47:
 LABEL_53:
               if (!self->_semanticStyleRenderingEnabled)
               {
-                v32 = 0;
+                v33 = 0;
 LABEL_55:
-                CMSetAttachment(bufferCopy, @"StructuredLightRecentlyOccluded", [MEMORY[0x1E696AD98] numberWithBool:{self->_receivedOccludedFixedPointDisparityBuffer, p_time2, v43}], 1u);
+                CMSetAttachment(bufferCopy, @"StructuredLightRecentlyOccluded", [MEMORY[0x1E696AD98] numberWithBool:{self->_receivedOccludedFixedPointDisparityBuffer, p_time2, v44}], 1u);
                 os_unfair_lock_lock(&self->_renderListLock);
                 if ([(BWRenderList *)self->_nextRenderList isPrepared])
                 {
@@ -855,19 +855,19 @@ LABEL_55:
                   self->_nextRenderList = 0;
                 }
 
-                v33 = self->_currentAnimator;
-                v34 = self->_currentRenderList;
+                v34 = self->_currentAnimator;
+                v35 = self->_currentRenderList;
                 os_unfair_lock_unlock(&self->_renderListLock);
-                if (v33)
+                if (v34)
                 {
-                  interpolateParameters = [(BWRenderListAnimator *)v33 interpolateParameters];
-                  if ([(BWRenderListAnimator *)v33 isCompleted])
+                  interpolateParameters = [(BWRenderListAnimator *)v34 interpolateParameters];
+                  if ([(BWRenderListAnimator *)v34 isCompleted])
                   {
                     os_unfair_lock_lock(&self->_renderListLock);
                     if (!self->_nextAnimator && !self->_nextRenderList)
                     {
                       self->_nextAnimator = 0;
-                      self->_nextRenderList = [(BWRenderListAnimator *)v33 finalRenderList];
+                      self->_nextRenderList = [(BWRenderListAnimator *)v34 finalRenderList];
                     }
 
                     os_unfair_lock_unlock(&self->_renderListLock);
@@ -879,28 +879,28 @@ LABEL_55:
                   interpolateParameters = 0;
                 }
 
-                v36 = [(NSArray *)[(BWNode *)self outputs] objectAtIndexedSubscript:0];
+                v37 = [(NSArray *)[(BWNode *)self outputs] objectAtIndexedSubscript:0];
                 renderListProcessor = self->_renderListProcessor;
-                v51[0] = MEMORY[0x1E69E9820];
-                v51[1] = 3221225472;
-                v51[2] = __53__BWStreamingFilterNode_renderSampleBuffer_forInput___block_invoke;
-                v51[3] = &unk_1E79911C0;
-                v51[4] = self;
-                v51[5] = v36;
-                v52 = v58;
-                v51[7] = v34;
-                v51[8] = bufferCopy;
-                v53 = v32;
-                v51[6] = v33;
-                [(BWRenderListProcessor *)renderListProcessor processRenderList:v34 withParameters:interpolateParameters inputPixelBuffer:ImageBuffer inputSampleBuffer:bufferCopy resultHandler:v51];
+                v52[0] = MEMORY[0x1E69E9820];
+                v52[1] = 3221225472;
+                v52[2] = __53__BWStreamingFilterNode_renderSampleBuffer_forInput___block_invoke;
+                v52[3] = &unk_1E79911C0;
+                v52[4] = self;
+                v52[5] = v37;
+                v53 = v59;
+                v52[7] = v35;
+                v52[8] = bufferCopy;
+                v54 = v33;
+                v52[6] = v34;
+                [(BWRenderListProcessor *)renderListProcessor processRenderList:v35 withParameters:interpolateParameters inputPixelBuffer:ImageBuffer inputSampleBuffer:bufferCopy resultHandler:v52];
 LABEL_65:
                 ImageBuffer = 0;
 LABEL_66:
-                videoInput = v44;
+                videoInput = v45;
                 goto LABEL_67;
               }
 
-              if (*v8 == 1)
+              if (*v9 == 1)
               {
                 CMSampleBufferGetPresentationTimeStamp(&time2, bufferCopy);
                 time = time2;
@@ -913,7 +913,7 @@ LABEL_66:
               BWCMSampleBufferCreateCopyIncludingMetadata(bufferCopy, &time);
               lastSampleBuffer = self->_lastSampleBuffer;
               value = time.value;
-              v32 = lastSampleBuffer == bufferCopy;
+              v33 = lastSampleBuffer == bufferCopy;
               if (lastSampleBuffer == bufferCopy)
               {
                 if (!time.value)
@@ -966,7 +966,7 @@ LABEL_99:
                     }
 
                     os_unfair_lock_unlock(&self->_filterChangeLock);
-                    if (*v8 == 1)
+                    if (*v9 == 1)
                     {
                       kdebug_trace();
                     }
@@ -987,9 +987,9 @@ LABEL_99:
             }
           }
 
-          else if (v13)
+          else if (v14)
           {
-            v19 = 1;
+            v20 = 1;
             goto LABEL_47;
           }
         }
@@ -997,27 +997,27 @@ LABEL_99:
         if ([(BWFigVideoCaptureDevice *)self->_captureDevice shallowDepthOfFieldEffectEnabled:p_time2])
         {
           os_unfair_lock_lock(&self->_lastSampleBufferLock);
-          v28 = self->_lastSampleBuffer;
-          if (v28)
+          v29 = self->_lastSampleBuffer;
+          if (v29)
           {
-            v29 = CFRetain(v28);
+            v30 = CFRetain(v29);
             os_unfair_lock_unlock(&self->_lastSampleBufferLock);
-            if (v29)
+            if (v30)
             {
-              v30 = BWSampleBufferGetAttachedMedia(v29, @"Depth");
-              v31 = v30;
-              if (v30)
+              v31 = BWSampleBufferGetAttachedMedia(v30, @"Depth");
+              v32 = v31;
+              if (v31)
               {
-                v19 = CMSampleBufferGetImageBuffer(v30) != 0;
+                v20 = CMSampleBufferGetImageBuffer(v31) != 0;
               }
 
               else
               {
-                v19 = 0;
+                v20 = 0;
               }
 
-              BWSampleBufferSetAttachedMedia(bufferCopy, @"Depth", v31);
-              CFRelease(v29);
+              BWSampleBufferSetAttachedMedia(bufferCopy, @"Depth", v32);
+              CFRelease(v30);
               goto LABEL_47;
             }
           }
@@ -1033,9 +1033,9 @@ LABEL_99:
           goto LABEL_53;
         }
 
-        LOBYTE(v19) = 0;
+        LOBYTE(v20) = 0;
 LABEL_51:
-        if (!self->_receivedOccludedFixedPointDisparityBuffer && !self->_portraitAutoSuggestEnabled && !(v19 | (([(BWStreamingFilterNode *)self _isDepthRenderingEnabled]& 1) == 0)))
+        if (!self->_receivedOccludedFixedPointDisparityBuffer && !self->_portraitAutoSuggestEnabled && !(v20 | (([(BWStreamingFilterNode *)self _isDepthRenderingEnabled]& 1) == 0)))
         {
           [BWStreamingFilterNode renderSampleBuffer:forInput:];
           ImageBuffer = 0;
@@ -1050,62 +1050,62 @@ LABEL_51:
 
     else
     {
-      [BWStreamingFilterNode renderSampleBuffer:forInput:];
+      [BWStreamingFilterNode renderSampleBuffer:? forInput:?];
       ImageBuffer = 0;
     }
   }
 
   else
   {
-    time = v58;
+    time = v59;
     ImageBuffer = [(BWStreamingFilterNode *)self _createMatchingPixelBufferFromSavedVideoBuffersWithTargetPts:input input:?];
     if (ImageBuffer)
     {
-      if (BWCMSampleBufferCreateCopyWithNewPixelBuffer(bufferCopy, ImageBuffer, &self->_outputFormatDescription, &v59))
+      if (BWCMSampleBufferCreateCopyWithNewPixelBuffer(bufferCopy, ImageBuffer, &self->_outputFormatDescription, v60))
       {
         [BWStreamingFilterNode renderSampleBuffer:forInput:];
       }
 
       else
       {
-        if (!v59)
+        if (!v60[0])
         {
 LABEL_70:
           CFRelease(ImageBuffer);
           goto LABEL_71;
         }
 
-        v49 = 0u;
         v50 = 0u;
-        v47 = 0u;
+        v51 = 0u;
         v48 = 0u;
+        v49 = 0u;
         allKeys = [(NSDictionary *)self->_stillImageInputsByPortType allKeys];
-        v21 = [(NSArray *)allKeys countByEnumeratingWithState:&v47 objects:v46 count:16];
-        if (v21)
+        v22 = [(NSArray *)allKeys countByEnumeratingWithState:&v48 objects:v47 count:16];
+        if (v22)
         {
-          v22 = v21;
-          v23 = videoInput;
-          v24 = *v48;
+          v23 = v22;
+          v24 = videoInput;
+          v25 = *v49;
           while (2)
           {
-            for (i = 0; i != v22; ++i)
+            for (i = 0; i != v23; ++i)
             {
-              if (*v48 != v24)
+              if (*v49 != v25)
               {
                 objc_enumerationMutation(allKeys);
               }
 
-              v26 = *(*(&v47 + 1) + 8 * i);
-              if ([(NSDictionary *)self->_stillImageInputsByPortType objectForKeyedSubscript:v26]== input)
+              v27 = *(*(&v48 + 1) + 8 * i);
+              if ([(NSDictionary *)self->_stillImageInputsByPortType objectForKeyedSubscript:v27]== input)
               {
-                v27 = [(NSDictionary *)self->_stillImageOutputsByPortType objectForKeyedSubscript:v26];
-                [v27 emitSampleBuffer:v59];
+                v28 = [(NSDictionary *)self->_stillImageOutputsByPortType objectForKeyedSubscript:v27];
+                [v28 emitSampleBuffer:v60[0]];
                 goto LABEL_34;
               }
             }
 
-            v22 = [(NSArray *)allKeys countByEnumeratingWithState:&v47 objects:v46 count:16];
-            if (v22)
+            v23 = [(NSArray *)allKeys countByEnumeratingWithState:&v48 objects:v47 count:16];
+            if (v23)
             {
               continue;
             }
@@ -1114,7 +1114,7 @@ LABEL_70:
           }
 
 LABEL_34:
-          videoInput = v23;
+          videoInput = v24;
         }
       }
     }
@@ -1126,9 +1126,9 @@ LABEL_34:
   }
 
 LABEL_67:
-  if (v59)
+  if (v60[0])
   {
-    CFRelease(v59);
+    CFRelease(v60[0]);
   }
 
   if (ImageBuffer)
@@ -1140,20 +1140,20 @@ LABEL_71:
   previewFilterBackpressureSemaphore = self->_previewFilterBackpressureSemaphore;
   if (previewFilterBackpressureSemaphore)
   {
-    v39 = videoInput == input;
+    v40 = videoInput == input;
   }
 
   else
   {
-    v39 = 0;
+    v40 = 0;
   }
 
-  if (v39)
+  if (v40)
   {
     dispatch_semaphore_signal(previewFilterBackpressureSemaphore);
   }
 
-  if (*v8 == 1)
+  if (*v9 == 1)
   {
     kdebug_trace();
   }
@@ -1639,7 +1639,7 @@ uint64_t __81__BWStreamingFilterNode_configurationWithID_updatedFormat_didBecome
     v1 = result;
     os_unfair_lock_lock(result + 48);
     v2 = [(BWStreamingFilterNode *)v1 _hasDepthEffect:?];
-    os_unfair_lock_unlock((v1 + 192));
+    os_unfair_lock_unlock(v1 + 48);
     return v2;
   }
 
@@ -1691,8 +1691,8 @@ uint64_t __81__BWStreamingFilterNode_configurationWithID_updatedFormat_didBecome
         kdebug_trace();
       }
 
-      v11 = OUTLINED_FUNCTION_44();
-      [(BWStreamingFilterNode *)v11 _updateSemanticStyleFiltersAndRegionArrayWithSampleBuffer:v12];
+      v16 = OUTLINED_FUNCTION_44();
+      [(BWStreamingFilterNode *)v16 _updateSemanticStyleFiltersAndRegionArrayWithSampleBuffer:v17];
       os_unfair_lock_unlock((style + 384));
     }
 
@@ -1708,14 +1708,14 @@ uint64_t __81__BWStreamingFilterNode_configurationWithID_updatedFormat_didBecome
       v7 = CMGetAttachment(a2, *off_1E798A430, 0);
       if (v7)
       {
-        memset(&v14, 0, sizeof(v14));
-        CGRectMakeWithDictionaryRepresentation(v7, &v14);
-        if (!CGRectEqualToRect(*(style + 320), v14))
+        memset(&v19, 0, sizeof(v19));
+        CGRectMakeWithDictionaryRepresentation(v7, &v19);
+        if (!CGRectEqualToRect(*(style + 320), v19))
         {
-          size = v14.size;
-          *(style + 320) = v14.origin;
+          size = v19.size;
+          *(style + 320) = v19.origin;
           *(style + 336) = size;
-          [(BWStreamingFilterNode *)style _adjustRectanglesFromFiltersAndRegionArray:a2 withSampleBuffer:?];
+          [(BWStreamingFilterNode *)style _adjustRectanglesFromFiltersAndRegionArray:a2 withSampleBuffer:v8, v9, v10, v11, v12, *&v19.origin.x];
         }
       }
 
@@ -1725,8 +1725,8 @@ uint64_t __81__BWStreamingFilterNode_configurationWithID_updatedFormat_didBecome
     os_unfair_lock_unlock((style + 192));
     if (fencePortSendRight)
     {
-      v8 = OUTLINED_FUNCTION_118_0();
-      CMSetAttachment(v8, v9, v10, 1u);
+      v13 = OUTLINED_FUNCTION_118_0();
+      CMSetAttachment(v13, v14, v15, 1u);
     }
 
     if (dequeueFencedAnimation >= 1)
@@ -1772,7 +1772,7 @@ uint64_t __81__BWStreamingFilterNode_configurationWithID_updatedFormat_didBecome
   }
 }
 
-- (void)_createMatchingPixelBufferFromSavedVideoBuffersWithTargetPts:(uint64_t)pts input:
+- (void)_createMatchingPixelBufferFromSavedVideoBuffersWithTargetPts:(void *)pts input:
 {
   if (!self)
   {
@@ -1837,7 +1837,7 @@ LABEL_13:
   return v17;
 }
 
-- (void)_newStillImageOutputPixelBufferFromVideoPixelBuffer:(uint64_t)buffer input:
+- (void)_newStillImageOutputPixelBufferFromVideoPixelBuffer:(void *)buffer input:
 {
   if (!self)
   {
@@ -2036,7 +2036,7 @@ LABEL_6:
     if ((v2[75]._os_unfair_lock_opaque & 1) == 0)
     {
       v12 = *&v2[50]._os_unfair_lock_opaque;
-      v13 = OUTLINED_FUNCTION_10_0(array2, v4, v5, v6, v7, v8, v9, v10, array, v32, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, 0);
+      v13 = OUTLINED_FUNCTION_10_0(array2, v4, v5, v6, v7, v8, v9, v10, array, v32, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63);
       if (v13)
       {
         v14 = v13;
@@ -2069,7 +2069,7 @@ LABEL_6:
             isKindOfClass = [v11 addObject:v17];
           }
 
-          v14 = OUTLINED_FUNCTION_10_0(isKindOfClass, v19, v20, v21, v22, v23, v24, v25, array, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v65);
+          v14 = OUTLINED_FUNCTION_10_0(isKindOfClass, v19, v20, v21, v22, v23, v24, v25, array, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64);
         }
 
         while (v14);
@@ -2292,7 +2292,7 @@ LABEL_25:
   return v3;
 }
 
-- (void)_updateSemanticStyleFiltersAndRegionArrayWithSampleBuffer:(const os_unfair_lock *)buffer
+- (void)_updateSemanticStyleFiltersAndRegionArrayWithSampleBuffer:(os_unfair_lock *)buffer
 {
   if (buffer)
   {
@@ -2303,7 +2303,7 @@ LABEL_25:
       v4 = CMGetAttachment(a2, *off_1E798A430, 0);
       if (v4)
       {
-        CGRectMakeWithDictionaryRepresentation(v4, (bufferCopy + 320));
+        CGRectMakeWithDictionaryRepresentation(v4, &bufferCopy[80]);
       }
     }
 
@@ -2314,11 +2314,11 @@ LABEL_25:
     v10 = &OBJC_IVAR___BWStreamingFilterNode__maxLossyCompressionLevel;
     v11 = OUTLINED_FUNCTION_4_30();
     os_unfair_lock_lock(v11);
-    *(bufferCopy + 300) = 1;
-    if (v9 == 1.0 && v7 == 0.0 || !*(bufferCopy + 152))
+    LOBYTE(bufferCopy[75]._os_unfair_lock_opaque) = 1;
+    if (v9 == 1.0 && v7 == 0.0 || !*&bufferCopy[38]._os_unfair_lock_opaque)
     {
 
-      *(bufferCopy + 224) = v5;
+      *&bufferCopy[56]._os_unfair_lock_opaque = v5;
       [(BWStreamingFilterNode *)bufferCopy _buildAndChangeToFiltersWithAnimation:?];
     }
 
@@ -2340,7 +2340,7 @@ LABEL_25:
         v21 = 0;
         do
         {
-          v57 = [objc_msgSend(OUTLINED_FUNCTION_2_37() "regions")];
+          v62 = [objc_msgSend(OUTLINED_FUNCTION_2_37() "regions")];
           v22 = array;
           v23 = [objc_msgSend(OUTLINED_FUNCTION_2_37() "semanticStyles")];
           [OUTLINED_FUNCTION_2_37() regionAtIndex:v21];
@@ -2367,16 +2367,16 @@ LABEL_25:
           v35 = v19;
           v36 = v10;
           v37 = MEMORY[0x1E695DF90];
-          v67[0] = 0x1F21AA490;
-          v67[1] = 0x1F21AA4B0;
-          v68[0] = v30;
+          v72[0] = 0x1F21AA490;
+          v72[1] = 0x1F21AA4B0;
+          v73[0] = v30;
           array = v22;
-          v68[1] = v57;
+          v73[1] = v62;
           v20 = 0x1E695D000uLL;
-          v67[2] = 0x1F21AA4D0;
+          v72[2] = 0x1F21AA4D0;
           *&v38 = v26;
-          v68[2] = [MEMORY[0x1E696AD98] numberWithFloat:v38];
-          v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v68 forKeys:v67 count:3];
+          v73[2] = [MEMORY[0x1E696AD98] numberWithFloat:v38];
+          v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v73 forKeys:v72 count:3];
           v40 = v37;
           v10 = v36;
           v19 = v35;
@@ -2393,50 +2393,50 @@ LABEL_25:
       v41 = target;
       if (([(BWStreamingFilterNode *)bufferCopy _hasOverCaptureRegionsWithSampleBuffer:?]& 1) != 0)
       {
-        v58 = +[FigCaptureSemanticStyle identityStyle];
-        v42 = OUTLINED_FUNCTION_4_30();
-        os_unfair_lock_lock(v42);
+        v63 = +[FigCaptureSemanticStyle identityStyle];
+        v47 = OUTLINED_FUNCTION_4_30();
+        os_unfair_lock_lock(v47);
         OUTLINED_FUNCTION_6_23();
-        v44 = [v43 filtersForSemanticStyle:v58 sceneType:? personSegmentationEnabled:? maskVisualizationEnabled:? applyStyleBackgroundToEntireFrame:? filtersToCombine:?];
-        v45 = v20;
-        v46 = [MEMORY[0x1E695E0F0] arrayByAddingObjectsFromArray:v44];
-        v63 = 0;
-        v64 = 0.0;
-        v65 = 0x3FF0000000000000;
-        v66 = *(bufferCopy + 328);
-        v47 = [MEMORY[0x1E696B098] valueWithBytes:&v63 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
-        v48 = array;
-        v49 = MEMORY[0x1E695DF90];
-        v61[0] = 0x1F21AA490;
-        v61[1] = 0x1F21AA4B0;
-        v62[0] = v46;
-        v62[1] = v47;
-        v50 = [*(v45 + 3872) dictionaryWithObjects:v62 forKeys:v61 count:2];
-        v51 = v49;
-        array = v48;
-        [v48 addObject:{objc_msgSend(v51, "dictionaryWithDictionary:", v50)}];
+        v49 = [v48 filtersForSemanticStyle:v63 sceneType:? personSegmentationEnabled:? maskVisualizationEnabled:? applyStyleBackgroundToEntireFrame:? filtersToCombine:?];
+        v50 = v20;
+        v51 = [MEMORY[0x1E695E0F0] arrayByAddingObjectsFromArray:v49];
+        v68 = 0;
+        v69 = 0.0;
+        v70 = 0x3FF0000000000000;
+        v71 = *&bufferCopy[82]._os_unfair_lock_opaque;
+        v52 = [MEMORY[0x1E696B098] valueWithBytes:&v68 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
+        v53 = array;
+        v54 = MEMORY[0x1E695DF90];
+        v66[0] = 0x1F21AA490;
+        v66[1] = 0x1F21AA4B0;
+        v67[0] = v51;
+        v67[1] = v52;
+        v55 = [*(v50 + 3872) dictionaryWithObjects:v67 forKeys:v66 count:2];
+        v56 = v54;
+        array = v53;
+        [v53 addObject:{objc_msgSend(v56, "dictionaryWithDictionary:", v55)}];
         OUTLINED_FUNCTION_6_23();
-        v53 = [v46 arrayByAddingObjectsFromArray:{objc_msgSend(v52, "filtersForSemanticStyle:sceneType:personSegmentationEnabled:maskVisualizationEnabled:applyStyleBackgroundToEntireFrame:filtersToCombine:", v58)}];
+        v58 = [v51 arrayByAddingObjectsFromArray:{objc_msgSend(v57, "filtersForSemanticStyle:sceneType:personSegmentationEnabled:maskVisualizationEnabled:applyStyleBackgroundToEntireFrame:filtersToCombine:", v63)}];
         os_unfair_lock_unlock((bufferCopy + v10[3]));
-        v63 = 0;
-        v64 = *(bufferCopy + 328) + *(bufferCopy + 344);
-        v65 = 0x3FF0000000000000;
-        v66 = 1.0 - v64;
-        v59[0] = 0x1F21AA490;
-        v59[1] = 0x1F21AA4B0;
-        v60[0] = v53;
-        v60[1] = [MEMORY[0x1E696B098] valueWithBytes:&v63 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
+        v68 = 0;
+        v69 = *&bufferCopy[82]._os_unfair_lock_opaque + *&bufferCopy[86]._os_unfair_lock_opaque;
+        v70 = 0x3FF0000000000000;
+        v71 = 1.0 - v69;
+        v64[0] = 0x1F21AA490;
+        v64[1] = 0x1F21AA4B0;
+        v65[0] = v58;
+        v65[1] = [MEMORY[0x1E696B098] valueWithBytes:&v68 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
         v41 = target;
-        [v48 addObject:{objc_msgSend(MEMORY[0x1E695DF90], "dictionaryWithDictionary:", objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v60, v59, 2))}];
+        [v53 addObject:{objc_msgSend(MEMORY[0x1E695DF90], "dictionaryWithDictionary:", objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v65, v64, 2))}];
       }
 
-      [(BWStreamingFilterNode *)bufferCopy _adjustRectanglesFromFiltersAndRegionArray:array withSampleBuffer:v41];
-      v54 = OUTLINED_FUNCTION_4_30();
-      os_unfair_lock_lock(v54);
+      [(BWStreamingFilterNode *)bufferCopy _adjustRectanglesFromFiltersAndRegionArray:array withSampleBuffer:v41, v42, v43, v44, v45, v46, target];
+      v59 = OUTLINED_FUNCTION_4_30();
+      os_unfair_lock_lock(v59);
 
-      *(bufferCopy + 304) = [MEMORY[0x1E695DEC8] arrayWithArray:array];
-      v55 = OUTLINED_FUNCTION_4_30();
-      os_unfair_lock_unlock(v55);
+      *&bufferCopy[76]._os_unfair_lock_opaque = [MEMORY[0x1E695DEC8] arrayWithArray:array];
+      v60 = OUTLINED_FUNCTION_4_30();
+      os_unfair_lock_unlock(v60);
     }
   }
 }
@@ -2459,110 +2459,112 @@ LABEL_25:
   return result;
 }
 
-- (uint64_t)_adjustRectanglesFromFiltersAndRegionArray:(CMAttachmentBearerRef)target withSampleBuffer:
+- (uint64_t)_adjustRectanglesFromFiltersAndRegionArray:(CMAttachmentBearerRef)target withSampleBuffer:(uint64_t)buffer
 {
   if (!self)
   {
     return 0;
   }
 
-  v5 = [(BWStreamingFilterNode *)self _hasOverCaptureRegionsWithSampleBuffer:?];
-  if (v5)
+  v12 = [(BWStreamingFilterNode *)self _hasOverCaptureRegionsWithSampleBuffer:?];
+  if (v12)
   {
-    v6 = 2;
+    v13 = 2;
   }
 
   else
   {
-    v6 = 0;
+    v13 = 0;
   }
 
-  v7 = [a2 count];
-  v8 = v7;
-  v9 = v7 - v6;
-  if (v7 > v6)
+  v14 = [a2 count];
+  v17 = v14;
+  v18 = v14 - v13;
+  if (v14 > v13)
   {
-    v16 = v5;
-    v10 = 0;
-    v11 = v6 | 1;
-    v17 = ~(v6 | 1) + v7;
+    v26 = v12;
+    v19 = 0;
+    v20 = v13 | 1;
+    v27 = ~(v13 | 1) + v14;
     do
     {
-      v20 = 0u;
-      v21 = 0u;
-      [objc_msgSend(objc_msgSend(a2 objectAtIndexedSubscript:{v10), "objectForKeyedSubscript:", 0x1F21AA4B0), "getValue:", &v20}];
-      v12 = *(self + 344);
-      *(&v20 + 1) = *(self + 328);
-      *(&v21 + 1) = v12;
-      if (v8 == v11)
+      v30 = 0u;
+      v31 = 0u;
+      [objc_msgSend(objc_msgSend(a2 objectAtIndexedSubscript:{v19), "objectForKeyedSubscript:", 0x1F21AA4B0), "getValue:", &v30}];
+      v21 = *(self + 344);
+      *(&v30 + 1) = *(self + 328);
+      *(&v31 + 1) = v21;
+      if (v17 == v20)
       {
-        *&v20 = 0;
-        *&v21 = 0x3FF0000000000000;
+        *&v30 = 0;
+        *&v31 = 0x3FF0000000000000;
       }
 
-      if (v10)
+      if (v19)
       {
-        if (v9 - 1 == v10)
+        if (v18 - 1 == v19)
         {
-          if (*&v20 + *&v21 < 1.0)
+          if (*&v30 + *&v31 < 1.0)
           {
-            *&v21 = 1.0 - *&v20;
+            *&v31 = 1.0 - *&v30;
           }
 
-          v13 = [objc_msgSend(a2 objectAtIndexedSubscript:{v17), "objectForKeyedSubscript:", 0x1F21AA4B0}];
-          if (v13)
+          v22 = [objc_msgSend(a2 objectAtIndexedSubscript:{v27), "objectForKeyedSubscript:", 0x1F21AA4B0}];
+          if (v22)
           {
-            v18 = 0u;
-            v19 = 0u;
-            [v13 getValue:&v18];
-            *&v20 = *&v18 + *&v19;
-            *&v21 = 1.0 - (*&v18 + *&v19);
+            v28 = 0u;
+            v29 = 0u;
+            [v22 getValue:&v28];
+            *&v30 = *&v28 + *&v29;
+            *&v31 = 1.0 - (*&v28 + *&v29);
           }
         }
       }
 
       else
       {
-        if (*&v20 > 0.0)
+        if (*&v30 > 0.0)
         {
-          *&v21 = *&v20 + *&v21;
-          *&v20 = 0;
+          *&v31 = *&v30 + *&v31;
+          *&v30 = 0;
         }
 
-        if (v8 != v11)
+        if (v17 != v20)
         {
-          v14 = [objc_msgSend(a2 objectAtIndexedSubscript:{1), "objectForKeyedSubscript:", 0x1F21AA4B0}];
-          if (v14)
+          v23 = [objc_msgSend(a2 objectAtIndexedSubscript:{1), "objectForKeyedSubscript:", 0x1F21AA4B0}];
+          if (v23)
           {
-            v18 = 0u;
-            v19 = 0u;
-            [v14 getValue:&v18];
-            *&v21 = v18;
+            v28 = 0u;
+            v29 = 0u;
+            [v23 getValue:&v28];
+            *&v31 = v28;
           }
         }
       }
 
-      [objc_msgSend(a2 objectAtIndexedSubscript:{v10++), "setObject:forKeyedSubscript:", objc_msgSend(MEMORY[0x1E696B098], "valueWithBytes:objCType:", &v20, "{CGRect={CGPoint=dd}{CGSize=dd}}"), 0x1F21AA4B0}];
+      [objc_msgSend(a2 objectAtIndexedSubscript:{v19++), "setObject:forKeyedSubscript:", objc_msgSend(MEMORY[0x1E696B098], "valueWithBytes:objCType:", &v30, "{CGRect={CGPoint=dd}{CGSize=dd}}"), 0x1F21AA4B0}];
     }
 
-    while (v9 != v10);
-    if (v16)
+    while (v18 != v19);
+    if (v26)
     {
-      v20 = 0u;
-      v21 = 0u;
-      [objc_msgSend(objc_msgSend(a2 objectAtIndexedSubscript:{v8 - 2), "objectForKeyedSubscript:", 0x1F21AA4B0), "getValue:", &v20}];
-      *(&v21 + 1) = *(self + 328);
-      [objc_msgSend(a2 objectAtIndexedSubscript:{v8 - 2), "setObject:forKeyedSubscript:", objc_msgSend(MEMORY[0x1E696B098], "valueWithBytes:objCType:", &v20, "{CGRect={CGPoint=dd}{CGSize=dd}}"), 0x1F21AA4B0}];
-      [objc_msgSend(objc_msgSend(OUTLINED_FUNCTION_118_0() "objectAtIndexedSubscript:{"objectForKeyedSubscript:", 0x1F21AA4B0), "getValue:", &v20}")];
-      *(&v20 + 1) = *(self + 328) + *(self + 344);
-      *(&v21 + 1) = 1.0 - *(&v20 + 1);
-      [objc_msgSend(OUTLINED_FUNCTION_118_0() "objectAtIndexedSubscript:{"setObject:forKeyedSubscript:", objc_msgSend(MEMORY[0x1E696B098], "valueWithBytes:objCType:", &v20, "{CGRect={CGPoint=dd}{CGSize=dd}}"), 0x1F21AA4B0}")];
+      v30 = 0u;
+      v31 = 0u;
+      [objc_msgSend(objc_msgSend(a2 objectAtIndexedSubscript:{v17 - 2), "objectForKeyedSubscript:", 0x1F21AA4B0), "getValue:", &v30}];
+      *(&v31 + 1) = *(self + 328);
+      [objc_msgSend(a2 objectAtIndexedSubscript:{v17 - 2), "setObject:forKeyedSubscript:", objc_msgSend(MEMORY[0x1E696B098], "valueWithBytes:objCType:", &v30, "{CGRect={CGPoint=dd}{CGSize=dd}}"), 0x1F21AA4B0}];
+      [objc_msgSend(objc_msgSend(OUTLINED_FUNCTION_118_0() "objectAtIndexedSubscript:{"objectForKeyedSubscript:", 0x1F21AA4B0), "getValue:", &v30}")];
+      *(&v30 + 1) = *(self + 328) + *(self + 344);
+      *(&v31 + 1) = 1.0 - *(&v30 + 1);
+      [objc_msgSend(OUTLINED_FUNCTION_118_0() "objectAtIndexedSubscript:{"setObject:forKeyedSubscript:", objc_msgSend(MEMORY[0x1E696B098], "valueWithBytes:objCType:", &v30, "{CGRect={CGPoint=dd}{CGSize=dd}}"), 0x1F21AA4B0}")];
     }
 
     return 0;
   }
 
-  return FigSignalErrorAtGM();
+  v25 = qword_1ED8444C8;
+
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v25, 0xFFFFCE14, "<<<< BWStreamingFilterNode >>>>", 0x78E, v9, v15, v16, a9);
 }
 
 - (void)changeToSemanticStyle:(char)a3 animated:(os_unfair_lock_s *)a4 .cold.1(uint64_t a1, void *a2, char a3, os_unfair_lock_s *a4)

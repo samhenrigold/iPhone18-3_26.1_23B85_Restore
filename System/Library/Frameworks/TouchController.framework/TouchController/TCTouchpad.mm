@@ -11,7 +11,9 @@
 - (void)handleTouchEndedAtPoint:(CGPoint)point;
 - (void)handleTouchMovedAtPoint:(CGPoint)point;
 - (void)layoutIfNeeded;
+- (void)processTouch:(CGPoint)touch;
 - (void)resetDeltas;
+- (void)setEnabled:(BOOL)enabled;
 @end
 
 @implementation TCTouchpad
@@ -158,6 +160,50 @@ LABEL_14:
   }
 }
 
+- (void)processTouch:(CGPoint)touch
+{
+  if (self->_reportsRelativeValues)
+  {
+    v4 = -(touch.y - self->_touchPrevPos.y);
+    height = self->_size.height;
+    v6 = (touch.x - self->_touchPrevPos.x) / self->_size.width;
+    self->_touchPrevPos = touch;
+    v7 = v4 / height;
+  }
+
+  else
+  {
+    __asm { FMOV            V3.2D, #-0.5 }
+
+    y = touch.y;
+    __asm { FMOV            V1.2D, #1.0 }
+
+    v15 = vminnmq_f64(vdivq_f64(vsubq_f64(touch, vaddq_f64(self->_position, vmulq_f64(self->_size, _Q3))), self->_size), _Q1);
+    v16 = vmovn_s64(vcltzq_f64(v15));
+    if (v16.i8[0])
+    {
+      v17 = 0.0;
+    }
+
+    else
+    {
+      v17 = v15.f64[0];
+    }
+
+    v18 = v15.f64[1];
+    if (v16.i8[4])
+    {
+      v18 = 0.0;
+    }
+
+    v6 = v17 * 2.0 + -1.0;
+    v7 = -(v18 * 2.0 + -1.0);
+  }
+
+  WeakRetained = objc_loadWeakRetained(&self->_touchController);
+  [WeakRetained _setDirectionPadPosition:self->_label forControl:{v6, v7}];
+}
+
 - (void)handleTouchBeganAtPoint:(CGPoint)point
 {
   if (!self->pressed)
@@ -189,31 +235,31 @@ LABEL_14:
 
 - (void)collectQuadDataInto:(id)into
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   intoCopy = into;
   if (self->_enabled)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     images = [(TCControlContents *)self->_contents images];
-    v6 = [images countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v6 = [images countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v21;
+      v8 = *v20;
       do
       {
         v9 = 0;
         do
         {
-          if (*v21 != v8)
+          if (*v20 != v8)
           {
             objc_enumerationMutation(images);
           }
 
-          v10 = *(*(&v20 + 1) + 8 * v9);
+          v10 = *(*(&v19 + 1) + 8 * v9);
           v11 = objc_opt_new();
           x = self->_position.x;
           [v10 offset];
@@ -237,14 +283,24 @@ LABEL_14:
         }
 
         while (v7 != v9);
-        v7 = [images countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v7 = [images countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v7);
     }
   }
+}
 
-  v19 = *MEMORY[0x277D85DE8];
+- (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  WeakRetained = objc_loadWeakRetained(&self->_touchController);
+  [WeakRetained _setDirectionPadPosition:self->_label forControl:{0.0, 0.0}];
+
+  self->_enabled = enabledCopy;
+  collider = self->_collider;
+
+  [(TCCollider *)collider setEnabled:enabledCopy];
 }
 
 - (CGPoint)offset

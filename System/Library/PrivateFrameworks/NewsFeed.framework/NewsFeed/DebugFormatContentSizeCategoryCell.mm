@@ -24,15 +24,16 @@
 
 - (void)prepareForReuse
 {
-  v5.receiver = self;
-  v5.super_class = swift_getObjectType();
-  v2 = v5.receiver;
-  [(DebugFormatContentSizeCategoryCell *)&v5 prepareForReuse];
+  v6.receiver = self;
+  v6.super_class = swift_getObjectType();
+  v2 = v6.receiver;
+  [(DebugFormatContentSizeCategoryCell *)&v6 prepareForReuse];
   v3 = &v2[OBJC_IVAR____TtC8NewsFeed34DebugFormatContentSizeCategoryCell_onChangeBlock];
   v4 = *&v2[OBJC_IVAR____TtC8NewsFeed34DebugFormatContentSizeCategoryCell_onChangeBlock];
+  v5 = *&v2[OBJC_IVAR____TtC8NewsFeed34DebugFormatContentSizeCategoryCell_onChangeBlock + 8];
   *v3 = 0;
   *(v3 + 1) = 0;
-  sub_1D613694C(v4);
+  sub_1D613694C(v4, v5);
 }
 
 - (void)onValueChangeWithSlider:(id)slider

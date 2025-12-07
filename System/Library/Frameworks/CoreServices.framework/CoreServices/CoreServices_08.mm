@@ -1,761 +1,3 @@
-void ___ZN13LSHandlerPref4LoadEP11_LSDatabasePK9__CFArray_block_invoke(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 32);
-  v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a2];
-  [v2 addObject:?];
-}
-
-uint64_t LSHandlerPref::Save(LSHandlerPref *this, _LSDatabase *a2)
-{
-  v2 = this;
-  v18[0] = 0;
-  v18[1] = v18;
-  v18[2] = 0x3812000000;
-  v18[3] = __Block_byref_object_copy__42;
-  v18[4] = __Block_byref_object_dispose__43;
-  v18[5] = &unk_1818533FF;
-  v19 = 0;
-  Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
-  if (!Mutable)
-  {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"static OSStatus LSHandlerPref::Save(__strong LSDatabaseRef)"];
-    [v4 handleFailureInFunction:v5 file:@"LSPrefs.mm" lineNumber:1111 description:@"Failed to create empty CFArray."];
-  }
-
-  [(_LSDatabase *)v2 store];
-  v6 = *([(_LSDatabase *)v2 schema]+ 1576);
-  v11 = MEMORY[0x1E69E9820];
-  v12 = 3321888768;
-  v13 = ___ZN13LSHandlerPref4SaveEP11_LSDatabase_block_invoke;
-  v14 = &unk_1EEF63D10;
-  v7 = v2;
-  v15 = v7;
-  v16 = v18;
-  v17 = Mutable;
-  if (Mutable)
-  {
-    CFRetain(Mutable);
-  }
-
-  _CSStoreEnumerateUnits();
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3321888768;
-  v9[2] = ___ZN13LSHandlerPref4SaveEP11_LSDatabase_block_invoke_59;
-  v9[3] = &__block_descriptor_40_ea8_32c29_ZTS10CFReleaserIP9__CFArrayE_e25_v16__0____CFDictionary__8l;
-  cf = Mutable;
-  if (Mutable)
-  {
-    CFRetain(Mutable);
-  }
-
-  _LSWithMutableSecurePreferences(v9);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  cf = 0;
-  if (v17)
-  {
-    CFRelease(v17);
-  }
-
-  v17 = 0;
-
-  _Block_object_dispose(v18, 8);
-  if (v19)
-  {
-    CFRelease(v19);
-  }
-
-  if (Mutable)
-  {
-    CFRelease(Mutable);
-  }
-
-  return 0;
-}
-
-void sub_18176934C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, CFTypeRef a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, CFTypeRef a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, CFTypeRef cf)
-{
-  _Block_object_dispose(&a22, 8);
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-CFTypeRef __Block_byref_object_copy__42(uint64_t a1, uint64_t a2)
-{
-  result = *(a2 + 48);
-  *(a1 + 48) = result;
-  if (result)
-  {
-    return CFRetain(result);
-  }
-
-  return result;
-}
-
-void ___ZN13LSHandlerPref4SaveEP11_LSDatabase_block_invoke(uint64_t a1, uint64_t a2, _DWORD *a3)
-{
-  v31 = *MEMORY[0x1E69E9840];
-  if (!a3[9])
-  {
-    v12 = 8;
-    while (!a3[v12])
-    {
-      if (--v12 == 3)
-      {
-        goto LABEL_35;
-      }
-    }
-  }
-
-  v5 = *MEMORY[0x1E695E480];
-  Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  if (Mutable)
-  {
-    v7 = Mutable;
-    BindingMapIndex = _LSDatabaseFindBindingMapIndex(*(a1 + 32), a3[3]);
-    v9 = a3[2];
-    [(_LSDatabase *)*(a1 + 32) store];
-    v10 = _CSStringCopyCFString();
-    if (!v10)
-    {
-LABEL_34:
-      CFRelease(v7);
-      goto LABEL_35;
-    }
-
-    value = v10;
-    if (BindingMapIndex == 5)
-    {
-      v11 = @"LSHandlerURLScheme";
-    }
-
-    else
-    {
-      if (BindingMapIndex)
-      {
-        v13 = a3[3];
-        [(_LSDatabase *)*(a1 + 32) store];
-        v14 = _CSStringCopyCFString();
-        if (!v14)
-        {
-LABEL_33:
-          CFRelease(value);
-          goto LABEL_34;
-        }
-
-        v15 = v14;
-        CFDictionarySetValue(v7, @"LSHandlerContentTag", value);
-        CFDictionarySetValue(v7, @"LSHandlerContentTagClass", v15);
-        CFRelease(v15);
-LABEL_15:
-        v16 = CFDictionaryCreateMutable(v5, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-        v17 = *(*(a1 + 40) + 8);
-        v18 = *(v17 + 48);
-        if (v18 != v16)
-        {
-          *(v17 + 48) = v16;
-          v16 = v18;
-        }
-
-        if (v16)
-        {
-          CFRelease(v16);
-        }
-
-        v19 = 0;
-        v20 = kLSHandlerRoleKeys;
-        do
-        {
-          if (a3[v19 / 4 + 4])
-          {
-            [(_LSDatabase *)*(a1 + 32) store];
-            v21 = _CSStringCopyCFString();
-            if (!v21)
-            {
-              goto LABEL_33;
-            }
-
-            v22 = &a3[2 * v19];
-            v23 = *(v22 + 14);
-            valuePtr[0] = *(v22 + 10);
-            valuePtr[1] = v23;
-            v24 = _LSVersionNumberCopyStringRepresentation(valuePtr);
-            v25 = *(*(*(a1 + 40) + 8) + 48);
-            v26 = *v20;
-            if (v24)
-            {
-              CFDictionarySetValue(v25, *v20, v24);
-            }
-
-            else
-            {
-              CFDictionarySetValue(v25, *v20, @"-");
-            }
-
-            CFDictionarySetValue(v7, v26, v21);
-            CFRelease(v21);
-            if (v24)
-            {
-              CFRelease(v24);
-            }
-          }
-
-          ++v20;
-          v19 += 4;
-        }
-
-        while (v19 != 24);
-        if (CFDictionaryGetCount(*(*(*(a1 + 40) + 8) + 48)) >= 1)
-        {
-          CFDictionarySetValue(v7, @"LSHandlerPreferredVersions", *(*(*(a1 + 40) + 8) + 48));
-        }
-
-        *&valuePtr[0] = a3[58];
-        v27 = CFNumberCreate(v5, kCFNumberLongLongType, valuePtr);
-        CFDictionarySetValue(v7, @"LSHandlerModificationDate", v27);
-        if (v27)
-        {
-          CFRelease(v27);
-        }
-
-        CFArrayAppendValue(*(a1 + 48), v7);
-        goto LABEL_33;
-      }
-
-      v11 = @"LSHandlerContentType";
-    }
-
-    CFDictionarySetValue(v7, v11, v10);
-    goto LABEL_15;
-  }
-
-LABEL_35:
-  v28 = *MEMORY[0x1E69E9840];
-}
-
-void sub_181769734(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    CFRelease(v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-CFTypeRef __copy_helper_block_ea8_48c29_ZTS10CFReleaserIP9__CFArrayE(uint64_t a1, uint64_t a2)
-{
-  result = *(a2 + 48);
-  *(a1 + 48) = result;
-  if (result)
-  {
-    return CFRetain(result);
-  }
-
-  return result;
-}
-
-void __destroy_helper_block_ea8_48c29_ZTS10CFReleaserIP9__CFArrayE(uint64_t a1)
-{
-  v2 = *(a1 + 48);
-  if (v2)
-  {
-    CFRelease(v2);
-  }
-
-  *(a1 + 48) = 0;
-}
-
-void ___ZN13LSHandlerPref4SaveEP11_LSDatabase_block_invoke_59(uint64_t a1, CFMutableDictionaryRef theDict)
-{
-  v2 = *(a1 + 32);
-  if (v2)
-  {
-    CFDictionarySetValue(theDict, @"LSHandlers", v2);
-  }
-
-  else
-  {
-    CFDictionaryRemoveValue(theDict, @"LSHandlers");
-  }
-}
-
-CFTypeRef __copy_helper_block_ea8_32c29_ZTS10CFReleaserIP9__CFArrayE(uint64_t a1, uint64_t a2)
-{
-  result = *(a2 + 32);
-  *(a1 + 32) = result;
-  if (result)
-  {
-    return CFRetain(result);
-  }
-
-  return result;
-}
-
-void __destroy_helper_block_ea8_32c29_ZTS10CFReleaserIP9__CFArrayE(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  if (v2)
-  {
-    CFRelease(v2);
-  }
-
-  *(a1 + 32) = 0;
-}
-
-void _LSHandlerPrefRemoveAllWithBundleID(void *a1, void *a2)
-{
-  v3 = a1;
-  v4 = a2;
-  v5 = os_transaction_create();
-  if (([__LSDefaultsGetSharedInstance() isServer] & 1) != 0 || (objc_msgSend(__LSDefaultsGetSharedInstance(), "hasServer") & 1) == 0)
-  {
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = ___LSHandlerPrefRemoveAllWithBundleID_block_invoke;
-    v26[3] = &unk_1E6A1D958;
-    v27 = v3;
-    v29 = v4;
-    v28 = v5;
-    v9 = MEMORY[0x1865D71B0](v26);
-    v10 = &v27;
-    v11 = &v29;
-    v12 = &v28;
-    if (![__LSDefaultsGetSharedInstance() isServer])
-    {
-      v9[2](v9);
-      goto LABEL_8;
-    }
-
-    v14 = +[LSDBExecutionContext sharedServerInstance];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = ___LSHandlerPrefRemoveAllWithBundleID_block_invoke_66;
-    v24[3] = &unk_1E6A1A660;
-    v15 = v9;
-    v25 = v15;
-    [(LSDBExecutionContext *)v14 performAsyncWrite:v24];
-    v13 = &v25;
-    v9 = v15;
-  }
-
-  else
-  {
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = ___LSHandlerPrefRemoveAllWithBundleID_block_invoke_2;
-    v20[3] = &unk_1E6A1D980;
-    v6 = v3;
-    v21 = v6;
-    v7 = v4;
-    v23 = v7;
-    v8 = v5;
-    v22 = v8;
-    v9 = [(_LSDService *)_LSDModifyService XPCProxyWithErrorHandler:v20];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = ___LSHandlerPrefRemoveAllWithBundleID_block_invoke_70;
-    v16[3] = &unk_1E6A1D9A8;
-    v17 = v6;
-    v19 = v7;
-    v18 = v8;
-    [v9 removeAllHandlerPrefsForBundleID:v17 completionHandler:v16];
-    v10 = &v21;
-    v11 = &v23;
-    v12 = &v22;
-    v13 = &v17;
-
-    v14 = v19;
-  }
-
-LABEL_8:
-}
-
-LaunchServices::PrefsStorage *LaunchServices::PrefsStorage::PrefsStorage(LaunchServices::PrefsStorage *this)
-{
-  *this = 0xFFFFFFFF00000000;
-  *(this + 1) = 0;
-  *(this + 4) = 0;
-  *(this + 3) = [MEMORY[0x1E695DF90] dictionary];
-  v2 = [__LSDefaultsGetSharedInstance() preferencesUpdateNotificationName];
-  LaunchServices::notifyd::NotifyToken::RegisterCheck(v2, &v7);
-  LaunchServices::notifyd::NotifyToken::operator=(this + 1, &v7);
-  LaunchServices::notifyd::NotifyToken::~NotifyToken(&v7);
-
-  State = LaunchServices::notifyd::NotifyToken::getState((this + 4));
-  if (v4)
-  {
-    v5 = State;
-    os_unfair_lock_lock(this);
-    *(this + 1) = v5;
-    os_unfair_lock_unlock(this);
-  }
-
-  LaunchServices::PrefsStorage::_update(this);
-  return this;
-}
-
-void LaunchServices::PrefsStorage::_update(os_unfair_lock_s *this)
-{
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x3032000000;
-  v10 = __Block_byref_object_copy__76;
-  v11 = __Block_byref_object_dispose__77;
-  v12 = 0;
-  if (([__LSDefaultsGetSharedInstance() isServer] & 1) != 0 || (objc_msgSend(__LSDefaultsGetSharedInstance(), "hasServer") & 1) == 0)
-  {
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = ___ZN14LaunchServices12PrefsStorage7_updateEv_block_invoke;
-    v6[3] = &unk_1E6A1D8E0;
-    v6[4] = &v7;
-    _LSWithInsecurePreferences(v6);
-  }
-
-  else
-  {
-    v2 = [(_LSDService *)_LSDReadService synchronousXPCProxyWithErrorHandler:?];
-    v5[0] = MEMORY[0x1E69E9820];
-    v5[1] = 3221225472;
-    v5[2] = ___ZN14LaunchServices12PrefsStorage7_updateEv_block_invoke_79;
-    v5[3] = &unk_1E6A1D9D0;
-    v5[4] = &v7;
-    [v2 getPreferencesWithCompletionHandler:v5];
-  }
-
-  if (v8[5])
-  {
-    os_unfair_lock_lock(this + 4);
-    DeepCopy = CFPropertyListCreateDeepCopy(*MEMORY[0x1E695E480], v8[5], 1uLL);
-    v4 = *&this[6]._os_unfair_lock_opaque;
-    *&this[6]._os_unfair_lock_opaque = DeepCopy;
-
-    os_unfair_lock_unlock(this + 4);
-  }
-
-  _Block_object_dispose(&v7, 8);
-}
-
-void sub_18176A2B0(_Unwind_Exception *a1)
-{
-  _Block_object_dispose((v2 - 64), 8);
-
-  _Unwind_Resume(a1);
-}
-
-BOOL LaunchServices::PrefsStorage::_needsUpdate(LaunchServices::PrefsStorage *this)
-{
-  State = LaunchServices::notifyd::NotifyToken::getState((this + 4));
-  if ((v3 & 1) == 0)
-  {
-    return 0;
-  }
-
-  v4 = State;
-  os_unfair_lock_lock(this);
-  v6 = *(this + 1);
-  v7 = v6 != v4;
-  if (v6 != v4)
-  {
-    v8 = LaunchServices::PrefsStorage::_GetLog(v5);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
-    {
-      LaunchServices::PrefsStorage::_needsUpdate(this + 1);
-    }
-
-    *(this + 1) = v4;
-  }
-
-  os_unfair_lock_unlock(this);
-  return v7;
-}
-
-id LaunchServices::PrefsStorage::_GetLog(LaunchServices::PrefsStorage *this)
-{
-  if (LaunchServices::PrefsStorage::_GetLog(void)::once != -1)
-  {
-    LaunchServices::PrefsStorage::_GetLog();
-  }
-
-  v2 = LaunchServices::PrefsStorage::_GetLog(void)::result;
-
-  return v2;
-}
-
-uint64_t __Block_byref_object_copy__76(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void ___ZN14LaunchServices12PrefsStorage7_updateEv_block_invoke_2(uint64_t a1, void *a2)
-{
-  v2 = a2;
-  v3 = LaunchServices::PrefsStorage::_GetLog(v2);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-  {
-    ___ZN14LaunchServices12PrefsStorage7_updateEv_block_invoke_2_cold_1();
-  }
-}
-
-void ___ZN14LaunchServices12PrefsStorage7_updateEv_block_invoke_79(uint64_t a1, void *a2, void *a3)
-{
-  v6 = a2;
-  v7 = a3;
-  v8 = v7;
-  if (v6)
-  {
-    objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
-  }
-
-  else
-  {
-    v9 = LaunchServices::PrefsStorage::_GetLog(v7);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-    {
-      ___ZN14LaunchServices12PrefsStorage7_updateEv_block_invoke_2_cold_1();
-    }
-  }
-}
-
-void LaunchServices::PrefsStorage::_updateOtherProcesses(os_unfair_lock_s *this)
-{
-  os_unfair_lock_lock(this);
-  State = LaunchServices::notifyd::NotifyToken::getState(&this[1]);
-  if (v3)
-  {
-    v4 = LaunchServices::notifyd::NotifyToken::setState(&this[1], State + 1);
-    v5 = LaunchServices::PrefsStorage::_GetLog(v4);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
-    {
-      LaunchServices::PrefsStorage::_updateOtherProcesses();
-    }
-  }
-
-  os_unfair_lock_unlock(this);
-}
-
-void LaunchServices::PrefsStorage::_setNeedsUpdate(os_unfair_lock_s *this)
-{
-  os_unfair_lock_lock(this);
-  *&this[2]._os_unfair_lock_opaque = -1;
-  v3 = LaunchServices::PrefsStorage::_GetLog(v2);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
-  {
-    LaunchServices::PrefsStorage::_setNeedsUpdate(v3);
-  }
-
-  os_unfair_lock_unlock(this);
-}
-
-__CFString *LaunchServices::PrefsStorage::_GetBundleIdentifierWithAppNode(void *a1, void *a2)
-{
-  v3 = a1;
-  v13 = 0;
-  v4 = [v3 bundleIdentifierWithError:&v13];
-  v5 = v13;
-  v6 = v5;
-  if (!v4)
-  {
-    if ([v5 code] == -10813 && (objc_msgSend(v6, "domain"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isEqual:", *MEMORY[0x1E696A768]), v7, v8))
-    {
-      v10 = LaunchServices::PrefsStorage::_GetLog(v9);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
-      {
-        LaunchServices::PrefsStorage::_GetBundleIdentifierWithAppNode();
-      }
-
-      v4 = &stru_1EEF65710;
-    }
-
-    else if (a2)
-    {
-      v11 = v6;
-      v4 = 0;
-      *a2 = v6;
-    }
-
-    else
-    {
-      v4 = 0;
-    }
-  }
-
-  return v4;
-}
-
-uint64_t LaunchServices::PrefsStorage::_GetIndexOfValueForNodeInPrefsArray(LaunchServices::PrefsStorage *this, NSArray *a2, FSNode *a3)
-{
-  v25 = *MEMORY[0x1E69E9840];
-  v4 = this;
-  v5 = a2;
-  if (!v5)
-  {
-    v17 = [MEMORY[0x1E696AAA8] currentHandler];
-    v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"static NSInteger LaunchServices::PrefsStorage::_GetIndexOfValueForNodeInPrefsArray(NSArray *__strong, FSNode *__strong)"}];
-    [v17 handleFailureInFunction:v18 file:@"LSPrefs.mm" lineNumber:1426 description:{@"Invalid parameter not satisfying: %@", @"appNode != nil"}];
-  }
-
-  v6 = v5;
-  v7 = v4;
-  if (!v7)
-  {
-    v19 = [MEMORY[0x1E696AAA8] currentHandler];
-    v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"static NSInteger LaunchServices::PrefsStorage::_GetIndexOfValueInPrefsArrayWithPredicate(NSArray *__strong, const Pred &) [Pred = (lambda at /Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Info/LSPrefs.mm:1428:63)]"}];
-    [v19 handleFailureInFunction:v20 file:@"LSPrefs.mm" lineNumber:1404 description:{@"Invalid parameter not satisfying: %@", @"prefsArray != nil"}];
-  }
-
-  v8 = [(LaunchServices::PrefsStorage *)v7 count];
-  if (v8)
-  {
-    for (i = 0; i < v8; i += 2)
-    {
-      v10 = [(LaunchServices::PrefsStorage *)v7 objectAtIndexedSubscript:i];
-      if (v10 && _NSIsNSData() && (v11 = _LSAliasMatchesNode(v10, v6), v11) && (v12 = i + 1, i + 1 < v8))
-      {
-        v13 = LaunchServices::PrefsStorage::_GetLog(v11);
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
-        {
-          v14 = [(LaunchServices::PrefsStorage *)v7 objectAtIndexedSubscript:i + 1];
-          *buf = 134218243;
-          v22 = i;
-          v23 = 2113;
-          v24 = v14;
-          _os_log_debug_impl(&dword_18162D000, v13, OS_LOG_TYPE_DEBUG, "Found matched pref in prefs array at index %llu. Current value is %{private}@", buf, 0x16u);
-        }
-      }
-
-      else
-      {
-        v12 = 0x7FFFFFFFFFFFFFFFLL;
-      }
-
-      if (v12 != 0x7FFFFFFFFFFFFFFFLL)
-      {
-        break;
-      }
-    }
-  }
-
-  else
-  {
-    v12 = 0x7FFFFFFFFFFFFFFFLL;
-  }
-
-  v15 = *MEMORY[0x1E69E9840];
-  return v12;
-}
-
-BOOL LaunchServices::PrefsStorage::_SetValueForNodeInPrefsArray(void *a1, void *a2, void *a3, uint64_t a4)
-{
-  v28 = *MEMORY[0x1E69E9840];
-  v7 = a1;
-  v8 = a2;
-  v10 = a3;
-  if (v7)
-  {
-    if (v8)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  else
-  {
-    v18 = [MEMORY[0x1E696AAA8] currentHandler];
-    v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"static BOOL LaunchServices::PrefsStorage::_SetValueForNodeInPrefsArray(NSMutableArray *__strong, FSNode *__strong, __strong id, NSError *__autoreleasing *)"}];
-    [v18 handleFailureInFunction:v19 file:@"LSPrefs.mm" lineNumber:1475 description:{@"Invalid parameter not satisfying: %@", @"prefsArray != nil"}];
-
-    if (v8)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  v20 = [MEMORY[0x1E696AAA8] currentHandler];
-  v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"static BOOL LaunchServices::PrefsStorage::_SetValueForNodeInPrefsArray(NSMutableArray *__strong, FSNode *__strong, __strong id, NSError *__autoreleasing *)"}];
-  [v20 handleFailureInFunction:v21 file:@"LSPrefs.mm" lineNumber:1476 description:{@"Invalid parameter not satisfying: %@", @"appNode != nil"}];
-
-LABEL_3:
-  IndexOfValueForNodeInPrefsArray = LaunchServices::PrefsStorage::_GetIndexOfValueForNodeInPrefsArray(v7, v8, v9);
-  v12 = LaunchServices::PrefsStorage::_GetLog(IndexOfValueForNodeInPrefsArray);
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
-  if (IndexOfValueForNodeInPrefsArray == 0x7FFFFFFFFFFFFFFFLL)
-  {
-    if (v10)
-    {
-      if (v13)
-      {
-        LaunchServices::PrefsStorage::_SetValueForNodeInPrefsArray();
-      }
-
-      v12 = [(NSArray *)v8 bookmarkDataRelativeToNode:0 error:a4];
-      v14 = v12 != 0;
-      if (!v12)
-      {
-        goto LABEL_16;
-      }
-
-      [(LaunchServices::PrefsStorage *)v7 addObject:v12];
-      [(LaunchServices::PrefsStorage *)v7 addObject:v10];
-    }
-
-    else if (v13)
-    {
-      LaunchServices::PrefsStorage::_SetValueForNodeInPrefsArray();
-    }
-
-    v14 = 1;
-LABEL_16:
-
-    goto LABEL_21;
-  }
-
-  if (v10)
-  {
-    if (v13)
-    {
-      v17 = [(LaunchServices::PrefsStorage *)v7 objectAtIndexedSubscript:IndexOfValueForNodeInPrefsArray];
-      *buf = 138478339;
-      v23 = v17;
-      v24 = 2113;
-      v25 = v8;
-      v26 = 2113;
-      v27 = v10;
-      _os_log_debug_impl(&dword_18162D000, v12, OS_LOG_TYPE_DEBUG, "Replacing value %{private}@ for app node %{private}@ with value %{private}@.", buf, 0x20u);
-    }
-
-    [(LaunchServices::PrefsStorage *)v7 setObject:v10 atIndexedSubscript:IndexOfValueForNodeInPrefsArray];
-  }
-
-  else
-  {
-    if (v13)
-    {
-      LaunchServices::PrefsStorage::_SetValueForNodeInPrefsArray();
-    }
-
-    [(LaunchServices::PrefsStorage *)v7 removeObjectAtIndex:IndexOfValueForNodeInPrefsArray];
-    [(LaunchServices::PrefsStorage *)v7 removeObjectAtIndex:IndexOfValueForNodeInPrefsArray - 1];
-  }
-
-  v14 = 1;
-LABEL_21:
-
-  v15 = *MEMORY[0x1E69E9840];
-  return v14;
-}
-
 void ___ZN14LaunchServices12PrefsStorage7_GetLogEv_block_invoke()
 {
   v0 = os_log_create("com.apple.launchservices", "prefs-storage");
@@ -772,7 +14,7 @@ uint64_t LaunchServices::PrefsStorage::GetShared(LaunchServices::PrefsStorage *t
 
   if (LaunchServices::PrefsStorage::_needsUpdate(LaunchServices::PrefsStorage::GetShared(void)::result))
   {
-    LaunchServices::PrefsStorage::_update(LaunchServices::PrefsStorage::GetShared(void)::result);
+    LaunchServices::PrefsStorage::_update(LaunchServices::PrefsStorage::GetShared(void)::result, v1);
   }
 
   return LaunchServices::PrefsStorage::GetShared(void)::result;
@@ -789,75 +31,76 @@ id LaunchServices::PrefsStorage::getAllPreferences(LaunchServices::PrefsStorage 
 
 uint64_t LaunchServices::PrefsStorage::setValueForNode(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v9 = a2;
   v10 = a3;
   v11 = a4;
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
-  v37 = 0;
-  if (([__LSDefaultsGetSharedInstance() isServer] & 1) != 0 || !objc_msgSend(__LSDefaultsGetSharedInstance(), "hasServer"))
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
+  v39 = 0;
+  v13 = [__LSDefaultsGetSharedInstance(v11 v12)];
+  if ((v13 & 1) != 0 || ![__LSDefaultsGetSharedInstance(v13 v14)])
   {
     if (v9 && v10)
     {
-      v14 = LaunchServices::PrefsStorage::_GetBundleIdentifierWithAppNode(v10, a5);
-      if (v14)
+      v17 = LaunchServices::PrefsStorage::_GetBundleIdentifierWithAppNode(v10, a5);
+      if (v17)
       {
         os_unfair_lock_lock((a1 + 16));
-        v15 = [*(a1 + 24) objectForKeyedSubscript:v9];
-        v16 = [v15 objectForKeyedSubscript:v14];
-        v17 = [v16 mutableCopy];
+        v18 = [*(a1 + 24) objectForKeyedSubscript:v9];
+        v19 = [v18 objectForKeyedSubscript:v17];
+        v20 = [v19 mutableCopy];
 
-        if (!v17)
+        if (!v20)
         {
-          v17 = [MEMORY[0x1E695DF70] array];
+          v20 = [MEMORY[0x1E695DF70] array];
         }
 
-        v18 = LaunchServices::PrefsStorage::_SetValueForNodeInPrefsArray(v17, v10, v11, a5);
-        *(v35 + 24) = v18;
-        if (v18)
+        v21 = LaunchServices::PrefsStorage::_SetValueForNodeInPrefsArray(v20, v10, v11, a5);
+        *(v37 + 24) = v21;
+        if (v21)
         {
-          v19 = [*(a1 + 24) objectForKeyedSubscript:v9];
-          if (!v19)
+          v22 = [*(a1 + 24) objectForKeyedSubscript:v9];
+          if (!v22)
           {
-            v20 = LaunchServices::PrefsStorage::_GetLog(0);
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+            v23 = LaunchServices::PrefsStorage::_GetLog(0);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
             {
               LaunchServices::PrefsStorage::setValueForNode();
             }
 
-            v19 = [MEMORY[0x1E695DF90] dictionary];
+            v22 = [MEMORY[0x1E695DF90] dictionary];
             [*(a1 + 24) setObject:? forKeyedSubscript:?];
           }
 
-          v21 = [v17 copy];
-          [v19 setObject:v21 forKeyedSubscript:v14];
+          v24 = [v20 copy];
+          [v22 setObject:v24 forKeyedSubscript:v17];
 
-          v29[0] = MEMORY[0x1E69E9820];
-          v29[1] = 3221225472;
-          v29[2] = ___ZN14LaunchServices12PrefsStorage15setValueForNodeEP8NSStringP6FSNodeP11objc_objectPU15__autoreleasingP7NSError_block_invoke_103;
-          v29[3] = &unk_1E6A1DA20;
-          v30 = v9;
-          v22 = v19;
-          v31 = v22;
-          _LSWithMutableInsecurePreferences(v29);
+          v31[0] = MEMORY[0x1E69E9820];
+          v31[1] = 3221225472;
+          v31[2] = ___ZN14LaunchServices12PrefsStorage15setValueForNodeEP8NSStringP6FSNodeP11objc_objectPU15__autoreleasingP7NSError_block_invoke_103;
+          v31[3] = &unk_1E6A1DA20;
+          v32 = v9;
+          v25 = v22;
+          v33 = v25;
+          _LSWithMutableInsecurePreferences(v31);
           LaunchServices::PrefsStorage::_updateOtherProcesses(a1);
         }
 
         os_unfair_lock_unlock((a1 + 16));
-        if (*(v35 + 24) == 1)
+        if (*(v37 + 24) == 1)
         {
-          v24 = LaunchServices::PrefsStorage::_GetLog(v23);
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+          v27 = LaunchServices::PrefsStorage::_GetLog(v26);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543875;
             *&buf[4] = v9;
             *&buf[12] = 2113;
-            *&buf[14] = v14;
+            *&buf[14] = v17;
             *&buf[22] = 2113;
-            v41 = v11;
-            _os_log_debug_impl(&dword_18162D000, v24, OS_LOG_TYPE_DEBUG, "SET prefs[%{public}@][%{private}@] = %{private}@", buf, 0x20u);
+            v43 = v11;
+            _os_log_debug_impl(&dword_18162D000, v27, OS_LOG_TYPE_DEBUG, "SET prefs[%{public}@][%{private}@] = %{private}@", buf, 0x20u);
           }
         }
       }
@@ -865,10 +108,10 @@ uint64_t LaunchServices::PrefsStorage::setValueForNode(uint64_t a1, void *a2, vo
 
     else if (a5)
     {
-      v38 = *MEMORY[0x1E696A278];
-      v39 = @"invalid input parameters";
-      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-      *a5 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v25, "setValueForNode", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Info/LSPrefs.mm", 1658);
+      v40 = *MEMORY[0x1E696A278];
+      v41 = @"invalid input parameters";
+      v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+      *a5 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v28, "setValueForNode", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Info/LSPrefs.mm", 1658);
     }
   }
 
@@ -877,25 +120,25 @@ uint64_t LaunchServices::PrefsStorage::setValueForNode(uint64_t a1, void *a2, vo
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v41 = __Block_byref_object_copy__76;
-    v42 = __Block_byref_object_dispose__77;
-    v43 = 0;
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = ___ZN14LaunchServices12PrefsStorage15setValueForNodeEP8NSStringP6FSNodeP11objc_objectPU15__autoreleasingP7NSError_block_invoke;
-    v33[3] = &unk_1E6A18DF0;
-    v33[4] = buf;
-    v12 = [(_LSDService *)_LSDModifyService synchronousXPCProxyWithErrorHandler:v33];
-    v13 = [v10 URL];
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = ___ZN14LaunchServices12PrefsStorage15setValueForNodeEP8NSStringP6FSNodeP11objc_objectPU15__autoreleasingP7NSError_block_invoke_2;
-    v32[3] = &unk_1E6A1D9F8;
-    v32[4] = &v34;
-    v32[5] = buf;
-    [v12 setPreferenceValue:v11 forKey:v9 forApplicationAtURL:v13 completionHandler:v32];
+    v43 = __Block_byref_object_copy__76;
+    v44 = __Block_byref_object_dispose__77;
+    v45 = 0;
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = ___ZN14LaunchServices12PrefsStorage15setValueForNodeEP8NSStringP6FSNodeP11objc_objectPU15__autoreleasingP7NSError_block_invoke;
+    v35[3] = &unk_1E6A18DF0;
+    v35[4] = buf;
+    v15 = [(_LSDService *)_LSDModifyService synchronousXPCProxyWithErrorHandler:v35];
+    v16 = [v10 URL];
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = ___ZN14LaunchServices12PrefsStorage15setValueForNodeEP8NSStringP6FSNodeP11objc_objectPU15__autoreleasingP7NSError_block_invoke_2;
+    v34[3] = &unk_1E6A1D9F8;
+    v34[4] = &v36;
+    v34[5] = buf;
+    [v15 setPreferenceValue:v11 forKey:v9 forApplicationAtURL:v16 completionHandler:v34];
 
-    if (*(v35 + 24) == 1)
+    if (*(v37 + 24) == 1)
     {
       LaunchServices::PrefsStorage::_setNeedsUpdate(a1);
     }
@@ -908,17 +151,17 @@ uint64_t LaunchServices::PrefsStorage::setValueForNode(uint64_t a1, void *a2, vo
     _Block_object_dispose(buf, 8);
   }
 
-  v26 = *(v35 + 24);
-  _Block_object_dispose(&v34, 8);
+  v29 = *(v37 + 24);
+  _Block_object_dispose(&v36, 8);
 
-  v27 = *MEMORY[0x1E69E9840];
-  return v26 & 1;
+  return v29 & 1;
 }
 
-void sub_18176B380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_18176B380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
+  va_start(va, a26);
 
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1040,13 +283,12 @@ void _LSPreferences::_LSPreferences(_LSPreferences *this, char a2)
 
   _LSPreferences::load(this, 0);
   v7 = objc_autoreleasePoolPush();
-  v8 = [__LSDefaultsGetSharedInstance() preferencesFileChangeNotificationName];
-  LaunchServices::notifyd::NotifyToken::RegisterCheck(v8, &v10);
+  v9 = [__LSDefaultsGetSharedInstance(v7 v8)];
+  LaunchServices::notifyd::NotifyToken::RegisterCheck(&v10, v9);
   LaunchServices::notifyd::NotifyToken::operator=(v3, &v10);
   LaunchServices::notifyd::NotifyToken::~NotifyToken(&v10);
 
   objc_autoreleasePoolPop(v7);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void sub_18176BA44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int a11, char a12)
@@ -1080,18 +322,18 @@ void _LSPreferences::load(dispatch_queue_t *this, int a2)
   }
 }
 
-void ___ZN14_LSPreferences4loadEb_block_invoke(uint64_t a1)
+void ___ZN14_LSPreferences4loadEb_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  if ([__LSDefaultsGetSharedInstance() hasPersistentPreferences])
+  v2 = *(a1 + 32);
+  if ([__LSDefaultsGetSharedInstance(a1 a2)])
   {
-    v2 = *(v1 + 1);
-    *(v1 + 1) = 0;
+    v3 = *(v2 + 1);
+    *(v2 + 1) = 0;
 
-    v3 = objc_autoreleasePoolPush();
-    v4 = *v1;
-    SharedInstance = __LSDefaultsGetSharedInstance();
-    if (v4 == 1)
+    v4 = objc_autoreleasePoolPush();
+    v5 = *v2;
+    SharedInstance = __LSDefaultsGetSharedInstance(v4, v6);
+    if (v5 == 1)
     {
       [SharedInstance securePreferencesFileURL];
     }
@@ -1100,59 +342,60 @@ void ___ZN14_LSPreferences4loadEb_block_invoke(uint64_t a1)
     {
       [SharedInstance preferencesFileURL];
     }
-    v6 = ;
-    v7 = *(v1 + 2);
-    *(v1 + 2) = v6;
+    v8 = ;
+    v9 = *(v2 + 2);
+    *(v2 + 2) = v8;
 
-    objc_autoreleasePoolPop(v3);
-    applyStorageACLToURL(*v1, *(v1 + 2));
-    v8 = objc_autoreleasePoolPush();
-    v9 = objc_alloc(MEMORY[0x1E695DF20]);
-    v10 = *(v1 + 2);
-    v24 = 0;
-    v11 = [v9 initWithContentsOfURL:v10 error:&v24];
-    v12 = v24;
-    v13 = *(v1 + 1);
-    *(v1 + 1) = v11;
+    objc_autoreleasePoolPop(v4);
+    applyStorageACLToURL(*v2, *(v2 + 2));
+    v10 = objc_autoreleasePoolPush();
+    v11 = objc_alloc(MEMORY[0x1E695DF20]);
+    v12 = *(v2 + 2);
+    v26 = 0;
+    v13 = [v11 initWithContentsOfURL:v12 error:&v26];
+    v14 = v26;
+    v15 = *(v2 + 1);
+    *(v2 + 1) = v13;
 
-    if (!*(v1 + 1))
+    if (!*(v2 + 1))
     {
-      v14 = *v1;
-      v15 = *(v1 + 2);
-      v16 = dispatch_get_global_queue(-2, 0);
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = ___ZN14_LSPreferences4loadEb_block_invoke_2;
-      v20[3] = &unk_1E6A1CF98;
-      v23 = v14;
-      v21 = v15;
-      v22 = v12;
-      v17 = v15;
-      dispatch_async(v16, v20);
+      v16 = *v2;
+      v17 = *(v2 + 2);
+      v18 = dispatch_get_global_queue(-2, 0);
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = ___ZN14_LSPreferences4loadEb_block_invoke_2;
+      v22[3] = &unk_1E6A1CF98;
+      v25 = v16;
+      v23 = v17;
+      v24 = v14;
+      v19 = v17;
+      dispatch_async(v18, v22);
     }
 
-    objc_autoreleasePoolPop(v8);
+    objc_autoreleasePoolPop(v10);
   }
 
-  if (!*(v1 + 1))
+  if (!*(v2 + 1))
   {
-    v18 = objc_alloc_init(MEMORY[0x1E695DF20]);
-    v19 = *(v1 + 1);
-    *(v1 + 1) = v18;
+    v20 = objc_alloc_init(MEMORY[0x1E695DF20]);
+    v21 = *(v2 + 1);
+    *(v2 + 1) = v20;
   }
 }
 
 void applyStorageACLToURL(int a1, NSURL *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v5 = v3;
   acl_p = 0;
-  if (!a1 || ([__LSDefaultsGetSharedInstance() isInEducationMode] & 1) != 0)
+  if (!a1 || ([__LSDefaultsGetSharedInstance(v3 v4)] & 1) != 0)
   {
-    v4 = 0;
-    v5 = 0;
+    v6 = 0;
+    v7 = 0;
 LABEL_4:
-    v6 = 1;
+    v8 = 1;
     goto LABEL_24;
   }
 
@@ -1165,118 +408,118 @@ LABEL_4:
   {
     if (acl_create_entry(&acl_p, &entry_p))
     {
-      v7 = __error();
-      v8 = *MEMORY[0x1E696A798];
-      v9 = 72;
+      v9 = __error();
+      v10 = *MEMORY[0x1E696A798];
+      v11 = 72;
     }
 
     else if (mbr_identifier_to_uuid(5, "systemusers", 0xBuLL, uu))
     {
-      v7 = __error();
-      v8 = *MEMORY[0x1E696A798];
-      v9 = 82;
+      v9 = __error();
+      v10 = *MEMORY[0x1E696A798];
+      v11 = 82;
     }
 
     else if (acl_get_permset(entry_p, &permset_p))
     {
-      v7 = __error();
-      v8 = *MEMORY[0x1E696A798];
-      v9 = 88;
+      v9 = __error();
+      v10 = *MEMORY[0x1E696A798];
+      v11 = 88;
     }
 
     else if (acl_add_perm(permset_p, ACL_CHANGE_OWNER|ACL_WRITE_SECURITY|ACL_READ_SECURITY|ACL_WRITE_EXTATTRIBUTES|ACL_READ_EXTATTRIBUTES|ACL_WRITE_ATTRIBUTES|ACL_READ_ATTRIBUTES|ACL_ADD_SUBDIRECTORY|ACL_DELETE|ACL_ADD_FILE|ACL_LIST_DIRECTORY))
     {
-      v7 = __error();
-      v8 = *MEMORY[0x1E696A798];
-      v9 = 94;
+      v9 = __error();
+      v10 = *MEMORY[0x1E696A798];
+      v11 = 94;
     }
 
     else if (acl_set_permset(entry_p, permset_p))
     {
-      v7 = __error();
-      v8 = *MEMORY[0x1E696A798];
-      v9 = 100;
+      v9 = __error();
+      v10 = *MEMORY[0x1E696A798];
+      v11 = 100;
     }
 
     else if (acl_set_tag_type(entry_p, ACL_EXTENDED_ALLOW))
     {
-      v7 = __error();
-      v8 = *MEMORY[0x1E696A798];
-      v9 = 106;
+      v9 = __error();
+      v10 = *MEMORY[0x1E696A798];
+      v11 = 106;
     }
 
     else
     {
       if (!acl_set_qualifier(entry_p, uu))
       {
-        v5 = 0;
-        v4 = acl_p;
+        v7 = 0;
+        v6 = acl_p;
         goto LABEL_4;
       }
 
-      v7 = __error();
-      v8 = *MEMORY[0x1E696A798];
-      v9 = 112;
+      v9 = __error();
+      v10 = *MEMORY[0x1E696A798];
+      v11 = 112;
     }
   }
 
   else
   {
-    v7 = __error();
-    v8 = *MEMORY[0x1E696A798];
-    v9 = 66;
+    v9 = __error();
+    v10 = *MEMORY[0x1E696A798];
+    v11 = 66;
   }
 
-  v5 = _LSMakeNSErrorImpl(v8, *v7, 0, "copyPreferencesACL", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Base/LSPrefsSupport.mm", v9);
-  v10 = v5;
+  v7 = _LSMakeNSErrorImpl(v10, *v9, 0, "copyPreferencesACL", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Base/LSPrefsSupport.mm", v11);
+  v12 = v7;
   if (acl_p)
   {
     acl_free(acl_p);
   }
 
+  v8 = 0;
   v6 = 0;
-  v4 = 0;
 LABEL_24:
 
-  v11 = v5;
-  if (v6)
+  v13 = v7;
+  v14 = v13;
+  if (v8)
   {
-    if (v4)
+    if (v6)
     {
-      v12 = [(NSURL *)v3 path];
-      v13 = v12;
-      v14 = acl_set_file([v12 fileSystemRepresentation], ACL_TYPE_EXTENDED, v4) == 0;
+      v15 = [(NSURL *)v5 path];
+      v16 = v15;
+      v17 = acl_set_file([v15 fileSystemRepresentation], ACL_TYPE_EXTENDED, v6) == 0;
 
-      if (!v14)
+      if (!v17)
       {
-        v15 = *__error();
-        v16 = _LSDefaultLog();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v18 = __error();
+        v19 = *v18;
+        v20 = _LSDefaultLog(v18);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          applyStorageACLToURL(v3, v15, v16);
+          applyStorageACLToURL(v5, v19, v20);
         }
       }
 
-      acl_free(v4);
+      acl_free(v6);
     }
   }
 
   else
   {
-    v17 = _LSDefaultLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v21 = _LSDefaultLog(v13);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *uu = 138412802;
-      *&uu[4] = v3;
+      *&uu[4] = v5;
       *&uu[12] = 1024;
       *&uu[14] = a1;
-      v23 = 2112;
-      v24 = v11;
-      _os_log_error_impl(&dword_18162D000, v17, OS_LOG_TYPE_ERROR, "could not create ACL to apply to %@ (secure: %d): %@", uu, 0x1Cu);
+      v26 = 2112;
+      v27 = v14;
+      _os_log_error_impl(&dword_18162D000, v21, OS_LOG_TYPE_ERROR, "could not create ACL to apply to %@ (secure: %d): %@", uu, 0x1Cu);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void sub_18176C05C(_Unwind_Exception *a1)
@@ -1288,25 +531,24 @@ void sub_18176C05C(_Unwind_Exception *a1)
 
 void ___ZN14_LSPreferences4loadEb_block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = objc_autoreleasePoolPush();
-  v3 = _LSDefaultLog();
+  v3 = _LSDefaultLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 48);
-    v6 = [*(a1 + 32) path];
-    v7 = *(a1 + 40);
-    v8[0] = 67109634;
-    v8[1] = v5;
-    v9 = 2112;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v7;
-    _os_log_error_impl(&dword_18162D000, v3, OS_LOG_TYPE_ERROR, "Failed to read LS preferences (secure? %{BOOL}i) from %@: %@", v8, 0x1Cu);
+    v4 = *(a1 + 48);
+    v5 = [*(a1 + 32) path];
+    v6 = *(a1 + 40);
+    v7[0] = 67109634;
+    v7[1] = v4;
+    v8 = 2112;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_error_impl(&dword_18162D000, v3, OS_LOG_TYPE_ERROR, "Failed to read LS preferences (secure? %{BOOL}i) from %@: %@", v7, 0x1Cu);
   }
 
   objc_autoreleasePoolPop(v2);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void _LSPreferences::with(dispatch_queue_t *a1, uint64_t a2, void *a3)
@@ -1396,59 +638,60 @@ void ___ZN14_LSPreferences4withEPKNS_15SecurityContextEU13block_pointerFvPKvE_bl
 
 void _LSPreferences::save(_LSPreferences *this, NSDictionary *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = v3;
+  v5 = v3;
   if (v3)
   {
-    v5 = *(this + 1);
-    if (v5)
+    v6 = *(this + 1);
+    if (v6)
     {
-      v6 = v5 == v3;
+      v7 = v6 == v3;
     }
 
     else
     {
-      v6 = 1;
+      v7 = 1;
     }
 
-    if (!v6)
+    if (!v7)
     {
-      v7 = [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:v3 copyItems:1];
-      v8 = *(this + 1);
-      *(this + 1) = v7;
+      v8 = [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:v3 copyItems:1];
+      v9 = *(this + 1);
+      *(this + 1) = v8;
     }
 
-    if (*(this + 2) && [__LSDefaultsGetSharedInstance() hasPersistentPreferences])
+    if (*(this + 2) && [__LSDefaultsGetSharedInstance(v3 v4)])
     {
-      v22 = 0;
-      v9 = [MEMORY[0x1E696AE40] dataWithPropertyList:v4 format:200 options:0 error:&v22];
-      v10 = v22;
-      if (v9)
+      v24 = 0;
+      v10 = [MEMORY[0x1E696AE40] dataWithPropertyList:v5 format:200 options:0 error:&v24];
+      v11 = v24;
+      v12 = v11;
+      if (v10)
       {
-        v11 = [MEMORY[0x1E696AC08] defaultManager];
-        [v11 removeItemAtURL:*(this + 2) error:0];
+        v13 = [MEMORY[0x1E696AC08] defaultManager];
+        [v13 removeItemAtURL:*(this + 2) error:0];
 
-        v12 = *(this + 2);
-        v21 = v10;
-        LOBYTE(v11) = [v9 writeToURL:v12 options:268435457 error:&v21];
-        v13 = v21;
+        v14 = *(this + 2);
+        v23 = v12;
+        LOBYTE(v13) = [v10 writeToURL:v14 options:268435457 error:&v23];
+        v15 = v23;
 
-        v10 = v13;
-        if ((v11 & 1) == 0)
+        v12 = v15;
+        if ((v13 & 1) == 0)
         {
-          v14 = _LSDefaultLog();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v17 = _LSDefaultLog(v16);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
-            v19 = *this;
-            v20 = [*(this + 2) path];
+            v21 = *this;
+            v22 = [*(this + 2) path];
             *buf = 67109634;
-            v24 = v19;
-            v25 = 2112;
-            v26 = v20;
+            v26 = v21;
             v27 = 2112;
-            v28 = v10;
-            _os_log_error_impl(&dword_18162D000, v14, OS_LOG_TYPE_ERROR, "Failed to save LS preferences (secure? %{BOOL}i) to %@: %@", buf, 0x1Cu);
+            v28 = v22;
+            v29 = 2112;
+            v30 = v12;
+            _os_log_error_impl(&dword_18162D000, v17, OS_LOG_TYPE_ERROR, "Failed to save LS preferences (secure? %{BOOL}i) to %@: %@", buf, 0x1Cu);
           }
         }
 
@@ -1457,24 +700,22 @@ void _LSPreferences::save(_LSPreferences *this, NSDictionary *a2)
 
       else
       {
-        v15 = _LSDefaultLog();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v18 = _LSDefaultLog(v11);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v17 = *this;
-          v18 = [*(this + 2) path];
+          v19 = *this;
+          v20 = [*(this + 2) path];
           *buf = 67109634;
-          v24 = v17;
-          v25 = 2112;
-          v26 = v18;
+          v26 = v19;
           v27 = 2112;
-          v28 = v10;
-          _os_log_error_impl(&dword_18162D000, v15, OS_LOG_TYPE_ERROR, "Failed to serialize LS preferences (secure? %{BOOL}i) to %@: %@", buf, 0x1Cu);
+          v28 = v20;
+          v29 = 2112;
+          v30 = v12;
+          _os_log_error_impl(&dword_18162D000, v18, OS_LOG_TYPE_ERROR, "Failed to serialize LS preferences (secure? %{BOOL}i) to %@: %@", buf, 0x1Cu);
         }
       }
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t _LSGetProfileValidationStateFromInstallDictionary(const __CFDictionary *a1)
@@ -1514,7 +755,7 @@ __CFString *_LSProfileValidationStateGetVisualizationDescription(unsigned int a1
   }
 }
 
-void sub_18176E6A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, id a38)
+void sub_18176E6A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, id a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, id a38)
 {
   _Block_object_dispose(&a27, 8);
 
@@ -1522,7 +763,7 @@ void sub_18176E6A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_18176EF78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
+void sub_18176EF78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id a29)
 {
   _Block_object_dispose(&a24, 8);
 
@@ -1537,27 +778,28 @@ void bundleUnitsClaimingDefaultAppCategory(LSContext *a1@<X0>, uint64_t a2@<X1>,
   a3[2] = 0;
   if (_os_feature_enabled_impl())
   {
-    v6 = (LSGetDefaultAppCategoryInfoForCategory(a2) + 8);
-    LaunchServices::BindingEvaluator::CreateWithUTI(*v6, 0, &v36);
+    v6 = LSGetDefaultAppCategoryInfoForCategory(a2);
+    LaunchServices::BindingEvaluator::CreateWithUTI(&v36, *(v6 + 1), 0);
     v31 = 0;
     LaunchServices::BindingEvaluator::evaluateBindings(&v36, a1, &v31, v32);
     v7 = v31;
-    v8 = v32[0];
-    v9 = v32[1];
+    v8 = v7;
+    v9 = v32[0];
+    v10 = v32[1];
     v34 = a3;
-    while (v8 != v9)
+    while (v9 != v10)
     {
-      v33 = *v8;
-      std::back_insert_iterator<std::vector<unsigned int>>::operator=[abi:nn200100](&v34, &v33);
-      v8 += 14;
+      v33 = *v9;
+      v7 = std::back_insert_iterator<std::vector<unsigned int>>::operator=[abi:nn200100](&v34, &v33);
+      v9 += 14;
     }
 
-    if (v7)
+    if (v8)
     {
-      v10 = _LSDefaultLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = _LSDefaultLog(v7);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        bundleUnitsClaimingDefaultAppCategory(v6);
+        bundleUnitsClaimingDefaultAppCategory();
       }
     }
 
@@ -1565,49 +807,49 @@ void bundleUnitsClaimingDefaultAppCategory(LSContext *a1@<X0>, uint64_t a2@<X1>,
     std::vector<LSBinding>::__destroy_vector::operator()[abi:nn200100](&v35);
 
     LaunchServices::BindingEvaluator::~BindingEvaluator(&v36);
-    goto LABEL_42;
+    return;
   }
 
   if (a2 > 2)
   {
     if (a2 == 3)
     {
-      v23 = nonPlaceholderBundleUnitIDForIdentifier(a1, &cfstr_ComAppleMobile_1.isa);
-      v12 = v23;
-      if ((v23 & 0x100000000) == 0)
+      v24 = nonPlaceholderBundleUnitIDForIdentifier(a1, &cfstr_ComAppleMobile_1.isa);
+      v13 = v24;
+      if ((v24 & 0x100000000) == 0)
       {
-        goto LABEL_42;
+        return;
       }
 
-      v14 = a3[1];
-      v24 = a3[2];
-      if (v14 >= v24)
+      v15 = a3[1];
+      v25 = a3[2];
+      if (v15 >= v25)
       {
-        v15 = *a3;
-        v16 = v14 - *a3;
-        v17 = v16 >> 2;
-        v26 = (v16 >> 2) + 1;
-        if (v26 >> 62)
+        v16 = *a3;
+        v17 = v15 - *a3;
+        v18 = v17 >> 2;
+        v27 = (v17 >> 2) + 1;
+        if (v27 >> 62)
         {
           std::vector<os_eligibility_answer_t>::__throw_length_error[abi:nn200100]();
         }
 
-        v27 = v24 - v15;
-        if (v27 >> 1 > v26)
+        v28 = v25 - v16;
+        if (v28 >> 1 > v27)
         {
-          v26 = v27 >> 1;
+          v27 = v28 >> 1;
         }
 
-        v20 = v27 >= 0x7FFFFFFFFFFFFFFCLL;
-        v21 = 0x3FFFFFFFFFFFFFFFLL;
-        if (!v20)
+        v21 = v28 >= 0x7FFFFFFFFFFFFFFCLL;
+        v22 = 0x3FFFFFFFFFFFFFFFLL;
+        if (!v21)
         {
-          v21 = v26;
+          v22 = v27;
         }
 
-        if (v21)
+        if (v22)
         {
-          std::allocator<unsigned int>::allocate_at_least[abi:nn200100](a3, v21);
+          std::allocator<unsigned int>::allocate_at_least[abi:nn200100](a3, v22);
         }
 
         goto LABEL_39;
@@ -1618,98 +860,96 @@ void bundleUnitsClaimingDefaultAppCategory(LSContext *a1@<X0>, uint64_t a2@<X1>,
     {
       if (a2 != 4)
       {
-        goto LABEL_42;
+        return;
       }
 
-      v11 = nonPlaceholderBundleUnitIDForIdentifier(a1, &cfstr_ComAppleMobile_2.isa);
-      v12 = v11;
-      if ((v11 & 0x100000000) == 0)
+      v12 = nonPlaceholderBundleUnitIDForIdentifier(a1, &cfstr_ComAppleMobile_2.isa);
+      v13 = v12;
+      if ((v12 & 0x100000000) == 0)
       {
-        goto LABEL_42;
+        return;
       }
 
-      v14 = a3[1];
-      v13 = a3[2];
-      if (v14 >= v13)
+      v15 = a3[1];
+      v14 = a3[2];
+      if (v15 >= v14)
       {
-        v15 = *a3;
-        v16 = v14 - *a3;
-        v17 = v16 >> 2;
-        v18 = (v16 >> 2) + 1;
-        if (v18 >> 62)
+        v16 = *a3;
+        v17 = v15 - *a3;
+        v18 = v17 >> 2;
+        v19 = (v17 >> 2) + 1;
+        if (v19 >> 62)
         {
           std::vector<os_eligibility_answer_t>::__throw_length_error[abi:nn200100]();
         }
 
-        v19 = v13 - v15;
-        if (v19 >> 1 > v18)
+        v20 = v14 - v16;
+        if (v20 >> 1 > v19)
         {
-          v18 = v19 >> 1;
+          v19 = v20 >> 1;
         }
 
-        v20 = v19 >= 0x7FFFFFFFFFFFFFFCLL;
-        v21 = 0x3FFFFFFFFFFFFFFFLL;
-        if (!v20)
+        v21 = v20 >= 0x7FFFFFFFFFFFFFFCLL;
+        v22 = 0x3FFFFFFFFFFFFFFFLL;
+        if (!v21)
         {
-          v21 = v18;
+          v22 = v19;
         }
 
-        if (v21)
+        if (v22)
         {
-          std::allocator<unsigned int>::allocate_at_least[abi:nn200100](a3, v21);
+          std::allocator<unsigned int>::allocate_at_least[abi:nn200100](a3, v22);
         }
 
 LABEL_39:
-        v28 = 4 * v21;
-        *(4 * v17) = v12;
-        v25 = 4 * v17 + 4;
-        memcpy(0, v15, v16);
-        v29 = *a3;
+        v29 = (4 * v22);
+        *(4 * v18) = v13;
+        v26 = (4 * v18 + 4);
+        memcpy(0, v16, v17);
+        v30 = *a3;
         *a3 = 0;
-        a3[1] = v25;
-        a3[2] = v28;
-        if (v29)
+        a3[1] = v26;
+        a3[2] = v29;
+        if (v30)
         {
-          operator delete(v29);
+          operator delete(v30);
         }
 
         goto LABEL_41;
       }
     }
 
-    *v14 = v12;
-    v25 = (v14 + 4);
+    *v15 = v13;
+    v26 = v15 + 4;
 LABEL_41:
-    a3[1] = v25;
-    goto LABEL_42;
+    a3[1] = v26;
+    return;
   }
 
   if (a2 == 1)
   {
-    bundleUnitIDsForBindingScheme(@"https", a1, &__block_literal_global_63, &v36);
+    bundleUnitIDsForBindingScheme(&v36, @"https", a1, &__block_literal_global_63);
   }
 
   else
   {
     if (a2 != 2)
     {
-      goto LABEL_42;
+      return;
     }
 
-    bundleUnitIDsForBindingScheme(@"mailto", a1, &__block_literal_global_62_0, &v36);
+    bundleUnitIDsForBindingScheme(&v36, @"mailto", a1, &__block_literal_global_62_0);
   }
 
-  v22 = *a3;
+  v23 = *a3;
   if (*a3)
   {
-    a3[1] = v22;
-    operator delete(v22);
+    a3[1] = v23;
+    operator delete(v23);
   }
 
   *a3 = v36;
   a3[2] = v37;
-LABEL_42:
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void sub_18176F9BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
@@ -1724,23 +964,24 @@ void sub_18176F9BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void bundleUnitIDsForBindingScheme(LaunchServices::BindingEvaluator *this@<X1>, LSContext *a2@<X0>, void *a3@<X2>, void *a4@<X8>)
+void bundleUnitIDsForBindingScheme(uint64_t *__return_ptr a1@<X8>, LaunchServices::BindingEvaluator *this@<X1>, LSContext *a3@<X0>, void *a4@<X2>)
 {
   v18[22] = *MEMORY[0x1E69E9840];
-  *a4 = 0;
-  a4[1] = 0;
-  a4[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   LaunchServices::BindingEvaluator::CreateWithURLScheme(this, v18);
-  LaunchServices::BindingEvaluator::setFilter(v18, a3);
+  LaunchServices::BindingEvaluator::setFilter(v18, a4);
   v12 = 0;
-  LaunchServices::BindingEvaluator::evaluateBindings(v18, a2, &v12, &v13);
+  LaunchServices::BindingEvaluator::evaluateBindings(v18, a3, &v12, &v13);
   v7 = v12;
-  v9 = v13;
-  v8 = v14;
+  v8 = v7;
+  v10 = v13;
+  v9 = v14;
   if (v14 == v13)
   {
-    v10 = _LSDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _LSDefaultLog(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       bundleUnitIDsForBindingScheme();
     }
@@ -1748,45 +989,44 @@ void bundleUnitIDsForBindingScheme(LaunchServices::BindingEvaluator *this@<X1>, 
 
   else
   {
-    v16 = a4;
+    v16 = a1;
     do
     {
-      v15 = *v9;
+      v15 = *v10;
       std::back_insert_iterator<std::vector<unsigned int>>::operator=[abi:nn200100](&v16, &v15);
-      v9 += 14;
+      v10 += 14;
     }
 
-    while (v9 != v8);
+    while (v10 != v9);
   }
 
   v17 = &v13;
   std::vector<LSBinding>::__destroy_vector::operator()[abi:nn200100](&v17);
 
   LaunchServices::BindingEvaluator::~BindingEvaluator(v18);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
-void sub_181770180(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_181770180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v7 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
   va_copy(va2, va1);
   va_arg(va2, void);
-  va_copy(v12, va);
+  va_copy(v13, va);
   std::vector<LSBinding>::__destroy_vector::operator()[abi:nn200100](va1);
 
   LaunchServices::BindingEvaluator::~BindingEvaluator(va2);
-  v5 = *v2;
-  if (*v2)
+  v6 = *v3;
+  if (*v3)
   {
-    *(v2 + 8) = v5;
-    operator delete(v5);
+    *(v3 + 8) = v6;
+    operator delete(v6);
   }
 
   _Unwind_Resume(a1);
@@ -1794,32 +1034,26 @@ void sub_181770180(_Unwind_Exception *a1, uint64_t a2, ...)
 
 uint64_t nonPlaceholderBundleUnitIDForIdentifier(LSContext *a1, NSString *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v8 = 0;
-  memset(v9, 0, sizeof(v9));
-  v3 = _LSBundleFindWithInfo(a1, 0, a2, 0, v9, 2, 128, &v8, 0);
-  if (v3)
+  v9 = *MEMORY[0x1E69E9840];
+  v7 = 0;
+  memset(v8, 0, sizeof(v8));
+  v3 = _LSBundleFindWithInfo(a1, 0, a2, 0, v8, 2, 128, &v7, 0);
+  if (!v3)
   {
-    v4 = v3;
-    v5 = _LSDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
-    {
-      nonPlaceholderBundleUnitIDForIdentifier(a2, v4, v5);
-    }
-
-    result = 0;
+    return v7 | 0x100000000;
   }
 
-  else
+  v4 = v3;
+  v5 = _LSDefaultLog(v3);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    result = v8 | 0x100000000;
+    nonPlaceholderBundleUnitIDForIdentifier(a2, v4, v5);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
-uint64_t *std::back_insert_iterator<std::vector<unsigned int>>::operator=[abi:nn200100](uint64_t *a1, _DWORD *a2)
+uint64_t *std::back_insert_iterator<std::vector<unsigned int>>::operator=[abi:nn200100](uint64_t *a1, int *a2)
 {
   v4 = *a1;
   v6 = *(*a1 + 8);
@@ -2413,41 +1647,41 @@ LABEL_33:
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,NSString * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,NSString * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,NSString * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int,NSString * {__strong}>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,NSString * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,NSString * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,NSString * {__strong}>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int,NSString * {__strong}>>(uint64_t a1, unsigned int *a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 32);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -2467,13 +1701,13 @@ void std::__tree<std::__value_type<unsigned int,NSString * {__strong}>,std::__ma
 
 unsigned __int8 *_LSCheckRecordPISizeAndVersionReturningPIInnerBytes(void *a1, void *a2)
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   if ([a1 length] < 0x1C)
   {
-    v14 = *MEMORY[0x1E696A278];
+    v13 = *MEMORY[0x1E696A278];
     v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"data length %zu is too short", objc_msgSend(a1, "length")];
-    v15 = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v14 = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
     v10 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10810, v9, "_LSCheckRecordPISizeAndVersionReturningPIInnerBytes", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Record/LSRecord.mm", 226);
   }
 
@@ -2488,10 +1722,10 @@ unsigned __int8 *_LSCheckRecordPISizeAndVersionReturningPIInnerBytes(void *a1, v
       goto LABEL_9;
     }
 
-    v16 = *MEMORY[0x1E696A278];
+    v15 = *MEMORY[0x1E696A278];
     v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"identifier version %d is unknown", v5];
-    v17[0] = v8;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v16[0] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v10 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10650, v9, "_LSCheckRecordPISizeAndVersionReturningPIInnerBytes", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Record/LSRecord.mm", 223);
   }
 
@@ -2511,7 +1745,6 @@ unsigned __int8 *_LSCheckRecordPISizeAndVersionReturningPIInnerBytes(void *a1, v
 
 LABEL_9:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -2521,49 +1754,16 @@ _DWORD *LaunchServices::Record::findSubclassForTable(LaunchServices::Record *thi
   v3 = [(_LSDatabase *)*this schema];
   if (v3)
   {
-    if (v3[1] == v2)
+    if (v3[1] == v2 || v3[397] == v2 || v3[4] == v2 || v3[2] == v2 || v3[398] == v2 || v3[401] == v2)
     {
-      v4 = off_1E6A181E0;
-LABEL_14:
-      v5 = *v4;
       v3 = objc_opt_class();
-      goto LABEL_15;
     }
 
-    if (v3[397] == v2)
+    else
     {
-      v4 = off_1E6A18188;
-      goto LABEL_14;
+      v3 = 0;
     }
-
-    if (v3[4] == v2)
-    {
-      v4 = off_1E6A182E0;
-      goto LABEL_14;
-    }
-
-    if (v3[2] == v2)
-    {
-      v4 = off_1E6A18200;
-      goto LABEL_14;
-    }
-
-    if (v3[398] == v2)
-    {
-      v4 = off_1E6A18240;
-      goto LABEL_14;
-    }
-
-    if (v3[401] == v2)
-    {
-      v4 = off_1E6A18338;
-      goto LABEL_14;
-    }
-
-    v3 = 0;
   }
-
-LABEL_15:
 
   return v3;
 }
@@ -2617,11 +1817,11 @@ void sub_181773518(void *a1)
   objc_exception_rethrow();
 }
 
-void sub_181773AB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10)
+void sub_181773AB0(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
 {
   if (a2)
   {
-    MEMORY[0x1865D6250](v10, 0x10A0C408EF24B1CLL);
+    MEMORY[0x1865D6250](v10, 0x10A0C408EF24B1CLL, a3, a4, a5, a6, a7, a8);
 
     objc_begin_catch(exception_object);
     os_unfair_recursive_lock_unlock();
@@ -2645,40 +1845,40 @@ void sub_181773CDC(void *a1)
   objc_exception_rethrow();
 }
 
-void sub_181773ED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_181773ED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
   _Unwind_Resume(a1);
 }
 
-uint64_t __copy_helper_block_ea8_32c58_ZTSNSt3__16vectorIU6__weakP8LSRecordNS_9allocatorIS3_EEEE(uint64_t a1, uint64_t a2)
+void __copy_helper_block_ea8_32c58_ZTSNSt3__16vectorIU6__weakP8LSRecordNS_9allocatorIS3_EEEE(uint64_t a1, uint64_t a2)
 {
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
-  v2 = a1 + 32;
-  *(v2 + 16) = 0;
-  return std::vector<LSRecord * {__weak}>::__init_with_size[abi:nn200100]<LSRecord * {__weak}*,LSRecord * {__weak}*>(v2, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 3);
+  v2 = (a1 + 32);
+  v2[2] = 0;
+  std::vector<LSRecord * {__weak}>::__init_with_size[abi:nn200100]<LSRecord * {__weak}*,LSRecord * {__weak}*>(v2, *(a2 + 32), *(a2 + 40), (*(a2 + 40) - *(a2 + 32)) >> 3);
 }
 
-void std::vector<LSRecord *>::resize(void *a1, unint64_t a2, uint64_t *a3)
+void std::vector<LSRecord *>::resize(void *result, unint64_t a2, uint64_t *a3)
 {
-  v3 = (a1[1] - *a1) >> 3;
+  v3 = (result[1] - *result) >> 3;
   if (a2 <= v3)
   {
     if (a2 < v3)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<LSRecord *>::__append(a1, a2 - v3, a3);
+    std::vector<LSRecord *>::__append(result, a2 - v3, a3);
   }
 }
 
-void sub_181774A28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, id a17)
+void sub_181774A28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id a17)
 {
   LaunchServices::Database::Context::~Context(&a13);
 
@@ -2695,36 +1895,76 @@ void sub_181774FF4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void __LSRECORD_IS_CRASHING_DUE_TO_A_CALLER_BUG__(uint64_t a1, const char *a2)
+void __LSRECORD_IS_CRASHING_DUE_TO_A_CALLER_BUG__(const char *a1, const char *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (!a2)
   {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v11 = 0;
+    v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v16 = 0u;
+    v3 = MEMORY[0x1E69E9C10];
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v4 = 3;
+    }
+
+    else
+    {
+      v4 = 2;
+    }
+
+    v12 = 138412290;
+    v13 = a1;
+    _os_log_send_and_compose_impl(v4, &v11, &v16, 80, &dword_18162D000, v3, 16, "The LSRecord client attempted to perform new work after detaching from the Launch Services database. This is a bug in the caller.\nRecord Object: %@", &v12, 12);
     _os_crash_msg();
     __break(1u);
   }
 
-  v2 = a2;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  sel_getName(v2);
-  _os_log_send_and_compose_impl();
+  v5 = a2;
+  v11 = 0;
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v16 = 0u;
+  v6 = MEMORY[0x1E69E9C10];
+  v7 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+  Name = sel_getName(v5);
+  if (v7)
+  {
+    v9 = 3;
+  }
+
+  else
+  {
+    v9 = 2;
+  }
+
+  v12 = 136315394;
+  v13 = Name;
+  v14 = 2112;
+  v15 = a1;
+  LODWORD(v10) = 22;
+  _os_log_send_and_compose_impl(v9, &v11, &v16, 80, &dword_18162D000, v6, 16, "The LSRecord client attempted to invoke -%s after detaching from the Launch Services database. This is a bug in the caller.\nRecord Object: %@", &v12, v10);
   _os_crash_msg();
   __break(1u);
 }
 
-void __LAUNCH_SERVICES_CLIENT_MAY_BE_EXFILTRATING_PRIVACY_SENSITIVE_INFORMATION__()
+void __LAUNCH_SERVICES_CLIENT_MAY_BE_EXFILTRATING_PRIVACY_SENSITIVE_INFORMATION__(uint64_t a1)
 {
-  v0 = _LSRecordLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = _LSRecordLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_18162D000, v0, OS_LOG_TYPE_FAULT, "Process is attempting to encode sensitive data from Launch Services in order to send it to a non-privileged client. This is a privacy bug in this process; please file a bug report.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_18162D000, v1, OS_LOG_TYPE_FAULT, "Process is attempting to encode sensitive data from Launch Services in order to send it to a non-privileged client. This is a privacy bug in this process; please file a bug report.", v2, 2u);
   }
 }
 
-uint64_t std::vector<LSRecord * {__weak}>::__init_with_size[abi:nn200100]<LSRecord * const*,LSRecord * const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<LSRecord * {__weak}>::__init_with_size[abi:nn200100]<LSRecord * const*,LSRecord * const*>(uint64_t *result, void **a2, void **a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2734,14 +1974,12 @@ uint64_t std::vector<LSRecord * {__weak}>::__init_with_size[abi:nn200100]<LSReco
   return result;
 }
 
-uint64_t std::vector<LSRecord * {__weak}>::__init_with_size[abi:nn200100]<LSRecord * {__weak}*,LSRecord * {__weak}*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<LSRecord * {__weak}>::__init_with_size[abi:nn200100]<LSRecord * {__weak}*,LSRecord * {__weak}*>(uint64_t *a1, id *a2, id *a3, unint64_t a4)
 {
   if (a4)
   {
-    std::vector<void({block_pointer} {__strong})(void),std::allocator<void({block_pointer} {__strong})(void)>>::__vallocate[abi:nn200100](result, a4);
+    std::vector<void({block_pointer} {__strong})(void),std::allocator<void({block_pointer} {__strong})(void)>>::__vallocate[abi:nn200100](a1, a4);
   }
-
-  return result;
 }
 
 void std::vector<LSRecord *>::__append(uint64_t a1, unint64_t a2, uint64_t *a3)
@@ -2871,10 +2109,10 @@ uint64_t std::__hash_table<std::__hash_value_type<objc_selector *,objc_object * 
   return result;
 }
 
-uint64_t ___ZN14LaunchServices6RecordL24checkForExfiltrationRiskEP7NSCoder_block_invoke()
+uint64_t ___ZN14LaunchServices6RecordL24checkForExfiltrationRiskEP7NSCoder_block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = [__LSDefaultsGetSharedInstance() isServer];
-  if (result & 1) != 0 || (result = [__LSDefaultsGetSharedInstance() isInXCTestRigInsecure], (result) || (v1 = _LSGetAuditTokenForSelf(), result = _LSCheckEntitlementForAuditToken(v1, @"com.apple.private.launchservices.canEncodeSensitiveData"), result) || (v2 = _LSGetAuditTokenForSelf(), result = _LSIsAuditTokenPlatformBinary(v2), !result))
+  result = [__LSDefaultsGetSharedInstance(a1 a2)];
+  if (result & 1) != 0 || (result = [__LSDefaultsGetSharedInstance(result v3)], (result) || (v5 = _LSGetAuditTokenForSelf(result, v4), result = _LSCheckEntitlementForAuditToken(v5, @"com.apple.private.launchservices.canEncodeSensitiveData"), result) || (v7 = _LSGetAuditTokenForSelf(result, v6), result = _LSIsAuditTokenPlatformBinary(v7), !result))
   {
     LaunchServices::Record::checkForExfiltrationRisk(NSCoder *)::isSafeToSendData = 1;
   }
@@ -2928,41 +2166,41 @@ uint64_t std::unordered_map<objc_selector *,objc_object * {__strong}>::unordered
   std::__hash_table<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::__unordered_map_hasher<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::hash<objc_selector *>,std::equal_to<objc_selector *>,true>,std::__unordered_map_equal<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::equal_to<objc_selector *>,std::hash<objc_selector *>,true>,std::allocator<std::__hash_value_type<objc_selector *,objc_object * {__strong}>>>::__emplace_unique_key_args<objc_selector *,std::pair<objc_selector * const,objc_object * {__strong}> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::__unordered_map_hasher<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::hash<objc_selector *>,std::equal_to<objc_selector *>,true>,std::__unordered_map_equal<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::equal_to<objc_selector *>,std::hash<objc_selector *>,true>,std::allocator<std::__hash_value_type<objc_selector *,objc_object * {__strong}>>>::__emplace_unique_key_args<objc_selector *,std::pair<objc_selector * const,objc_object * {__strong}> const&>(a1, i + 2, i + 2);
   }
 
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::__unordered_map_hasher<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::hash<objc_selector *>,std::equal_to<objc_selector *>,true>,std::__unordered_map_equal<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::equal_to<objc_selector *>,std::hash<objc_selector *>,true>,std::allocator<std::__hash_value_type<objc_selector *,objc_object * {__strong}>>>::__emplace_unique_key_args<objc_selector *,std::pair<objc_selector * const,objc_object * {__strong}> const&>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::__unordered_map_hasher<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::hash<objc_selector *>,std::equal_to<objc_selector *>,true>,std::__unordered_map_equal<objc_selector *,std::__hash_value_type<objc_selector *,objc_object * {__strong}>,std::equal_to<objc_selector *>,std::hash<objc_selector *>,true>,std::allocator<std::__hash_value_type<objc_selector *,objc_object * {__strong}>>>::__emplace_unique_key_args<objc_selector *,std::pair<objc_selector * const,objc_object * {__strong}> const&>(void *a1, void *a2, void *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -2970,49 +2208,49 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
-void sub_181775BE8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_181775BE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,void *>>>>::~unique_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -3544,30 +2782,32 @@ void _LSPromoteiTunesMetadataKeys(const __CFDictionary *a1, __CFDictionary *a2)
 
 uint64_t _LSServer_URLIsOnTrustedCryptex(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
-  v17 = 0;
-  v1 = [[FSNode alloc] initWithURL:a1 flags:0 error:&v17];
-  v2 = v17;
+  v25 = *MEMORY[0x1E69E9840];
+  v20 = 0;
+  v1 = [[FSNode alloc] initWithURL:a1 flags:0 error:&v20];
+  v2 = v20;
+  v3 = v2;
   if (v1)
   {
-    v3 = v1;
-    _LSAssertRunningInServer("Boolean _LSServer_NodeIsOnTrustedCryptex(FSNode *__strong)");
-    v20 = 0;
-    v4 = [(FSNode *)v3 volumeNodeWithFlags:0 error:&v20];
-    v5 = v20;
-    if (v4)
+    v4 = v1;
+    _LSAssertRunningInServer("Boolean _LSServer_NodeIsOnTrustedCryptex(FSNode *__strong)", v5);
+    v23 = 0;
+    v6 = [(FSNode *)v4 volumeNodeWithFlags:0 error:&v23];
+    v7 = v23;
+    v8 = v7;
+    if (v6)
     {
-      v6 = +[FSNode rootVolumeNode];
-      if ([v4 isEqual:v6])
+      v9 = +[FSNode rootVolumeNode];
+      if ([v6 isEqual:v9])
       {
       }
 
       else
       {
-        v10 = +[FSNode prebootVolumeNode];
-        v8 = [v4 isEqual:v10];
+        v13 = +[FSNode prebootVolumeNode];
+        v11 = [v6 isEqual:v13];
 
-        if (!v8)
+        if (!v11)
         {
 LABEL_21:
 
@@ -3575,44 +2815,44 @@ LABEL_21:
         }
       }
 
-      v19 = v5;
-      v11 = [(FSNode *)v3 getFileSystemRepresentation:v21 error:&v19];
-      v12 = v19;
+      v22 = v8;
+      v14 = [(FSNode *)v4 getFileSystemRepresentation:v24 error:&v22];
+      v15 = v22;
 
-      if (v11)
+      if (v14)
       {
-        v18[0] = 0;
-        v18[1] = 0;
-        if (fsctl(v21, 0xC0104A66uLL, v18, 0))
+        v21[0] = 0;
+        v21[1] = 0;
+        if (fsctl(v24, 0xC0104A66uLL, v21, 0))
         {
-          v13 = __error();
-          v5 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], *v13, 0, "_LSServer_NodeIsOnTrustedCryptex", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Info/LSRegistration.mm", 1992);
+          v17 = __error();
+          v8 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], *v17, 0, "_LSServer_NodeIsOnTrustedCryptex", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Info/LSRegistration.mm", 1992);
 
 LABEL_15:
-          v8 = 0;
+          v11 = 0;
           goto LABEL_21;
         }
 
-        v8 = BYTE4(v18[0]);
+        v11 = BYTE4(v21[0]);
       }
 
       else
       {
-        v14 = _LSDefaultLog();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v18 = _LSDefaultLog(v16);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           _LSServer_URLIsOnTrustedCryptex_cold_1();
         }
 
-        v8 = 0;
+        v11 = 0;
       }
 
-      v5 = v12;
+      v8 = v15;
       goto LABEL_21;
     }
 
-    v9 = _LSDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v12 = _LSDefaultLog(v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       _LSServer_URLIsOnTrustedCryptex_cold_2();
     }
@@ -3620,27 +2860,26 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v7 = _LSDefaultLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v10 = _LSDefaultLog(v2);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     _LSServer_URLIsOnTrustedCryptex_cold_3();
   }
 
-  v8 = 0;
+  v11 = 0;
 LABEL_22:
 
-  v15 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v11;
 }
 
-uint64_t _LSRegisterPluginNode(LSContext *a1, void *a2, FSNode *a3, int a4, unsigned int a5, void *a6)
+uint64_t _LSRegisterPluginNode(LSContext *a1, void *a2, FSNode *a3, unsigned int a4, unsigned int a5, void *a6)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v11 = a2;
   v12 = objc_alloc_init(LSRegistrationInfo);
-  v18 = a5;
+  v17 = a5;
   v13 = [(FSNode *)v11 bookmarkDataRelativeToNode:0 error:a6];
-  if (!v13 || !_LSContainerFindOrRegisterWithNode(&a1->db, v11, a4, &v18 + 1, 0, 0, a6))
+  if (!v13 || !_LSContainerFindOrRegisterWithNode(&a1->db, v11, a4, &v17 + 1, 0, 0, a6))
   {
     goto LABEL_11;
   }
@@ -3649,18 +2888,18 @@ uint64_t _LSRegisterPluginNode(LSContext *a1, void *a2, FSNode *a3, int a4, unsi
   v12->version = 7;
   v12->action = 204;
   v12->options = a4;
-  v12->containerUnit = HIDWORD(v18);
-  if (a5 || (_LSPluginFindWithInfo(a1->db, 0, 0, 0, v11, &v18, 0), (a5 = v18) != 0))
+  v12->containerUnit = HIDWORD(v17);
+  if (a5 || (_LSPluginFindWithInfo(a1->db, 0, 0, 0, v11, &v17, 0), (a5 = v17) != 0))
   {
     v12->bundleUnit = a5;
   }
 
-  if (![(FSNode *)v11 getFileSystemRepresentation:v19 error:a6])
+  if (![(FSNode *)v11 getFileSystemRepresentation:v18 error:a6])
   {
     goto LABEL_11;
   }
 
-  v14 = _LSRegisterDirectoryNode(a1, v11, v12, v13, a3, 0, 0, &v18, v18);
+  v14 = _LSRegisterDirectoryNode(a1, v11, v12, v13, a3, 0, 0, &v17, v17);
   if (!v14)
   {
     v15 = 1;
@@ -3678,7 +2917,6 @@ LABEL_11:
   *a6 = v15 = 0;
 LABEL_12:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -3693,11 +2931,12 @@ uint64_t _LSRegisterDirectoryNode(LSContext *a1, FSNode *a2, FSNode *a3, LSRegis
   return v20;
 }
 
-BOOL _LSRegisterBundleURL(void **a1, void *a2, unsigned int a3, FSNode *a4, void *a5)
+BOOL _LSRegisterBundleURL(void **a1, void *a2, uint64_t a3, FSNode *a4, void *a5)
 {
+  v7 = a3;
   v9 = a2;
   v10 = v9;
-  if (a3)
+  if (v7)
   {
     v11 = [v9 copy];
 
@@ -3707,7 +2946,7 @@ BOOL _LSRegisterBundleURL(void **a1, void *a2, unsigned int a3, FSNode *a4, void
   v12 = [[FSNode alloc] initWithURL:v10 flags:0 error:a5];
   if (v12)
   {
-    v13 = _LSRegisterBundleNode(a1, v12, a3, a4, a5);
+    v13 = _LSRegisterBundleNode(a1, v12, v7, a4, a5);
   }
 
   else
@@ -3758,7 +2997,7 @@ BOOL _LSRegisterBundleNode(void **a1, void *a2, unsigned int a3, FSNode *a4, voi
     v17 = _LSGetLibraryBundleIdentifierAndItemIndexForNode(v11, v9, &v22);
     if (v17 && v22 == -1)
     {
-      v13 = _LSRegisterLibrary(v11, v17, 1, a5);
+      v13 = _LSRegisterLibrary(v11, v17, 1u, a5);
       goto LABEL_19;
     }
 
@@ -3807,131 +3046,137 @@ LABEL_19:
   return v13;
 }
 
-void sub_181778708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_181778708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
 
   LaunchServices::Database::Context::~Context(va);
   _Unwind_Resume(a1);
 }
 
-__guard _LSGetLibraryBundleIdentifierAndItemIndexForNode(LSContext *a1, FSNode *a2, uint64_t *a3)
+uint64_t _LSGetLibraryBundleIdentifierAndItemIndexForNode(LSContext *a1, FSNode *a2, uint64_t *a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = a2;
-  v26 = 0;
-  v25 = 0;
-  bzero(v28, 0x400uLL);
+  v28 = 0;
+  v27 = 0;
+  bzero(v30, 0x400uLL);
   *a3 = -1;
-  if (![(FSNode *)v5 getFileSystemRepresentation:v28 error:0])
+  if (![(FSNode *)v5 getFileSystemRepresentation:v30 error:0])
   {
     goto LABEL_8;
   }
 
-  v6 = strlen(v28);
-  v7 = 0;
+  v6 = strlen(v30);
+  v8 = v6;
+  v9 = 0;
   while (1)
   {
-    getLibIDs();
-    v8 = _LSPathForBundleLibraryIdentifier(_MergedGlobals_2[v7 + 1]);
-    v9 = v8;
-    if (v8)
+    getLibIDs(v6, v7);
+    v6 = _LSPathForBundleLibraryIdentifier(*&_MergedGlobals_2[v9 + 8]);
+    v10 = v6;
+    if (v6)
     {
-      v10 = *v8;
-      if (v6 > v10 && !strncasecmp(v28, v8[1], *v8) && v28[v10] == 47)
+      v11 = *v6;
+      if (v8 > v11)
       {
-        break;
+        v6 = strncasecmp(v30, *(v6 + 8), *v6);
+        if (!v6 && v30[v11] == 47)
+        {
+          break;
+        }
       }
     }
 
-    if (++v7 == 4)
+    v9 += 8;
+    if (v9 == 32)
     {
       goto LABEL_8;
     }
   }
 
-  getLibIDs();
-  v14 = _MergedGlobals_2[v7 + 1];
-  memset(v27, 0, sizeof(v27));
-  if (_LSBundleFindWithInfo(a1, 0, v14, 0, v27, 8, 128, &v26, &v25))
+  getLibIDs(v6, v7);
+  v14 = *&_MergedGlobals_2[v9 + 8];
+  memset(v29, 0, sizeof(v29));
+  v15 = _LSBundleFindWithInfo(a1, 0, v14, 0, v29, 8, 128, &v28, &v27);
+  if (v15)
   {
 LABEL_8:
-    v11 = 0;
+    v12 = 0;
   }
 
   else
   {
-    getLibIDs();
-    v11 = _MergedGlobals_2[v7 + 1];
-    if (v26)
+    getLibIDs(v15, v16);
+    v12 = *&_MergedGlobals_2[v9 + 8];
+    if (v28)
     {
-      v15 = *v9;
-      v16 = &v28[v15 + 1];
-      v17 = ~v15 + v6;
-      v18 = &off_1E6A1DD40;
-      v19 = 240;
+      v17 = *v10;
+      v18 = &v30[v17 + 1];
+      v19 = ~v17 + v8;
+      v20 = &off_1E6A1DD40;
+      v21 = 240;
       while (1)
       {
-        v20 = *(v18 - 2);
-        if (v17 > v20 && !strncasecmp(v16, *v18, *(v18 - 2)) && v16[v20] == 47)
+        v22 = *(v20 - 2);
+        if (v19 > v22 && !strncasecmp(v18, *v20, *(v20 - 2)) && v18[v22] == 47)
         {
           break;
         }
 
-        v18 += 3;
-        v19 -= 24;
-        if (!v19)
+        v20 += 3;
+        v21 -= 24;
+        if (!v21)
         {
           goto LABEL_8;
         }
       }
 
-      if (*(v25 + 468))
+      if (*(v27 + 468))
       {
-        if ([(FSNode *)v5 isDirectory])
+        v23 = [(FSNode *)v5 isDirectory];
+        if (v23)
         {
-          MEMORY[0x1EEE9AC00]();
-          strlcpy(v23 - ((v17 + 17) & 0xFFFFFFFFFFFFFFF0), v16, v17 + 2);
-          *(v23 + v17 - ((v17 + 17) & 0xFFFFFFFFFFFFFFF0)) = 47;
+          MEMORY[0x1EEE9AC00](v23);
+          strlcpy(v25 - ((v19 + 17) & 0xFFFFFFFFFFFFFFF0), v18, v19 + 2);
+          *(v25 + v19 - ((v19 + 17) & 0xFFFFFFFFFFFFFFF0)) = 47;
           [(_LSDatabase *)a1->db store];
-          v21 = _CSGetStringForCharacters();
+          v24 = _CSGetStringForCharacters();
         }
 
         else
         {
           [(_LSDatabase *)a1->db store];
-          v21 = _CSGetStringForCharacters();
+          v24 = _CSGetStringForCharacters();
         }
 
-        if (v21)
+        if (v24)
         {
           [(_LSDatabase *)a1->db store];
-          v22 = *(v25 + 468);
-          v23[0] = MEMORY[0x1E69E9820];
-          v23[1] = 3221225472;
-          v23[2] = ___ZL48_LSGetLibraryBundleIdentifierAndItemIndexForNodeP9LSContextP6FSNodePl_block_invoke;
-          v23[3] = &__block_descriptor_44_e14_v24__0I8I12_16l;
-          v24 = v21;
-          v23[4] = a3;
+          v25[0] = MEMORY[0x1E69E9820];
+          v25[1] = 3221225472;
+          v25[2] = ___ZL48_LSGetLibraryBundleIdentifierAndItemIndexForNodeP9LSContextP6FSNodePl_block_invoke;
+          v25[3] = &__block_descriptor_44_e14_v24__0I8I12_16l;
+          v26 = v24;
+          v25[4] = a3;
           _CSArrayEnumerateAllValues();
         }
       }
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-  return v11;
+  return v12;
 }
 
-BOOL _LSRegisterLibrary(uint64_t *a1, void *a2, int a3, void *a4)
+BOOL _LSRegisterLibrary(LSContext *a1, void *a2, unsigned int a3, void *a4)
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = _LSPathForBundleLibraryIdentifier(v7);
-  v25 = 0;
   v24 = 0;
   v23 = 0;
   v22 = 0;
+  v21 = 0;
   if (!v8)
   {
     if (a4)
@@ -3951,7 +3196,7 @@ BOOL _LSRegisterLibrary(uint64_t *a1, void *a2, int a3, void *a4)
     goto LABEL_30;
   }
 
-  v10 = _LSBundleFindWithNode(a1, v9, &v25, &v24);
+  v10 = _LSBundleFindWithNode(a1, v9, &v24, &v23);
   if (v10 != -9499)
   {
     if (v10)
@@ -3970,25 +3215,25 @@ LABEL_30:
       goto LABEL_31;
     }
 
-    if (!_LSBundleNeedsRegistration(a1, v9, a3, v25, v24))
+    if (!_LSBundleNeedsRegistration(a1, v9, a3, v24, v23))
     {
       goto LABEL_30;
     }
   }
 
-  if (!_LSContainerFindOrRegisterWithNode(a1, v9, a3, &v23, 0, &v22, a4))
+  if (!_LSContainerFindOrRegisterWithNode(&a1->db, v9, a3, &v22, 0, &v21, a4))
   {
     goto LABEL_30;
   }
 
-  if (!v25)
+  if (!v24)
   {
-    v18 = _LSBundleFindWithNode(a1, v9, &v25, &v24);
+    v18 = _LSBundleFindWithNode(a1, v9, &v24, &v23);
     if (v18 != -9499)
     {
       if (!v18)
       {
-        if (!_LSBundleNeedsRegistration(a1, v9, a3, v25, v24))
+        if (!_LSBundleNeedsRegistration(a1, v9, a3, v24, v23))
         {
           goto LABEL_30;
         }
@@ -4011,16 +3256,16 @@ LABEL_8:
   v11->version = 7;
   v11->action = 205;
   v11->options = a3;
-  v11->containerUnit = v23;
-  v11->bundleUnit = v25;
+  v11->containerUnit = v22;
+  v11->bundleUnit = v24;
   v11->bundleClass = 8;
-  if (_LSGetItemInfoFlagsForNode(a1, v9, &v11->itemFlags, a4) && [(FSNode *)v9 getContentModificationDate:&v11->contentModDate error:a4]&& [(FSNode *)v9 getInodeNumber:&v11->inoBundle error:a4]&& ([(FSNode *)v9 bookmarkDataRelativeToNode:v22 error:a4], (v12 = objc_claimAutoreleasedReturnValue()) != 0))
+  if (_LSGetItemInfoFlagsForNode(a1, v9, &v11->itemFlags, a4) && [(FSNode *)v9 getContentModificationDate:&v11->contentModDate error:a4]&& [(FSNode *)v9 getInodeNumber:&v11->inoBundle error:a4]&& ([(FSNode *)v9 bookmarkDataRelativeToNode:v21 error:a4], (v12 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v26 = *MEMORY[0x1E695E4F0];
-    v27[0] = v7;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v25 = *MEMORY[0x1E695E4F0];
+    v26[0] = v7;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
     v14 = [(FSNode *)v9 URL];
-    v15 = _LSDispatchRegistration(a1, v11, v12, v14, v13, &v11->bundleUnit, 0, 0, v21, v22);
+    v15 = _LSDispatchRegistration(a1, v11, v12, v14, v13, &v11->bundleUnit, 0, 0, v20, v21);
 
     v16 = v15 == 0;
     if (a4 && v15)
@@ -4035,26 +3280,25 @@ LABEL_8:
   }
 
 LABEL_31:
-  v19 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
-id getNeedsRegistrationLog(void)
+id getNeedsRegistrationLog(uint64_t a1)
 {
   if (getNeedsRegistrationLog(void)::once != -1)
   {
     getNeedsRegistrationLog();
   }
 
-  v1 = getNeedsRegistrationLog(void)::result;
+  v2 = getNeedsRegistrationLog(void)::result;
 
-  return v1;
+  return v2;
 }
 
-uint64_t _LSRegisterBundleNode(uint64_t *a1, unsigned int a2, void *a3, void *a4, unsigned int a5, FSNode *a6, const __CFArray **a7, const __CFArray **a8, const __CFURL *a9, id *a10)
+uint64_t _LSRegisterBundleNode(LSContext *a1, unsigned int a2, void *a3, void *a4, unsigned int a5, FSNode *a6, const __CFArray **a7, const __CFArray **a8, const __CFURL *a9, id *a10)
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v32 = a3;
+  v34 = *MEMORY[0x1E69E9840];
+  v31 = a3;
   v17 = a4;
   v18 = objc_alloc_init(LSRegistrationInfo);
   v18->bundleClass = _LSGetBundleClassForNode(a1, v17);
@@ -4099,25 +3343,25 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  v23 = [(FSNode *)v17 bookmarkDataRelativeToNode:v32 error:a10];
-  if (v23 && [(FSNode *)v17 getInodeNumber:&v18->inoBundle error:a10]&& [(FSNode *)v17 getFileSystemRepresentation:v34 error:a10])
+  v23 = [(FSNode *)v17 bookmarkDataRelativeToNode:v31 error:a10];
+  if (v23 && [(FSNode *)v17 getInodeNumber:&v18->inoBundle error:a10]&& [(FSNode *)v17 getFileSystemRepresentation:v33 error:a10])
   {
     if ((v18->options & 4) == 0)
     {
-      v33 = -2;
-      if (![(FSNode *)v17 getOwnerUID:&v33 error:a10])
+      v32 = -2;
+      if (![(FSNode *)v17 getOwnerUID:&v32 error:a10])
       {
         goto LABEL_32;
       }
 
-      if (!v33 && _LSPathIsTrusted(v34))
+      if (!v32 && _LSPathIsTrusted(v33))
       {
         v18->options |= 2u;
       }
     }
 
     v24 = objc_autoreleasePoolPush();
-    v25 = _LSRegisterDirectoryNode(a1, v17, v18, v23, a6, a7, a8, a9, v31);
+    v25 = _LSRegisterDirectoryNode(a1, v17, v18, v23, a6, a7, a8, a9, v30);
     objc_autoreleasePoolPop(v24);
     if (!v25)
     {
@@ -4197,7 +3441,6 @@ LABEL_32:
 
 LABEL_45:
 
-  v29 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
@@ -4232,56 +3475,56 @@ uint64_t _LSPathForBundleLibraryIdentifier(const __CFString *a1)
 
 uint64_t _LSDispatchRegistration(LSContext *a1, char *a2, LSRegistrationInfo *a3, NSData *a4, FSNode *a5, const __CFURL *a6, const __CFArray **a7, unsigned __int8 *a8, const __CFArray **a9, unsigned __int8 *a10)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v17 = a2;
   v18 = a3;
   context = objc_autoreleasePoolPush();
-  if ([__LSDefaultsGetSharedInstance() hasServer])
+  if ([__LSDefaultsGetSharedInstance(context v19)])
   {
     if ((v17[19] & 1) == 0)
     {
-      BundleDataAndRegister = _LSRegisterItemInfo(v17, v18, 0, a4, a5, a6, a7, a8);
+      v20 = _LSRegisterItemInfo(v17, v18, 0, a4, a5, a6, a7, a8);
       goto LABEL_14;
     }
   }
 
   else if (!v17)
   {
-    v20 = objc_alloc_init(LSRegistrationInfo);
+    v21 = objc_alloc_init(LSRegistrationInfo);
     goto LABEL_7;
   }
 
-  v20 = [v17 mutableCopy];
+  v21 = [v17 mutableCopy];
 LABEL_7:
-  v21 = v20;
-  BundleDataAndRegister = _LSServerCreateBundleDataAndRegister(a1, v20, v18, a4, a5, a6, a7, a8);
+  v22 = v21;
+  BundleDataAndRegister = _LSServerCreateBundleDataAndRegister(a1, v21, v18, a4, a5, a6, a7, a8);
+  v20 = BundleDataAndRegister;
   if (BundleDataAndRegister == -10675)
   {
-    if ((v21->options & 2) != 0)
+    if ((v22->options & 2) != 0)
     {
-      BundleDataAndRegister = 4294956621;
+      v20 = 4294956621;
     }
 
     else
     {
-      v22 = _LSInstallLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v24 = _LSInstallLog(BundleDataAndRegister);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v27 = a4;
-        _os_log_impl(&dword_18162D000, v22, OS_LOG_TYPE_DEFAULT, "Retrying registration of %@ with trusted bit", buf, 0xCu);
+        v28 = a4;
+        _os_log_impl(&dword_18162D000, v24, OS_LOG_TYPE_DEFAULT, "Retrying registration of %@ with trusted bit", buf, 0xCu);
       }
 
-      v21->options |= 2u;
-      BundleDataAndRegister = _LSServerCreateBundleDataAndRegister(a1, v21, v18, a4, a5, a6, a7, a8);
+      v22->options |= 2u;
+      v20 = _LSServerCreateBundleDataAndRegister(a1, v22, v18, a4, a5, a6, a7, a8);
     }
   }
 
 LABEL_14:
   objc_autoreleasePoolPop(context);
 
-  v23 = *MEMORY[0x1E69E9840];
-  return BundleDataAndRegister;
+  return v20;
 }
 
 uint64_t _LSUnregisterBundle(_LSDatabase **a1, uint64_t a2, uint64_t a3)
@@ -4291,37 +3534,38 @@ uint64_t _LSUnregisterBundle(_LSDatabase **a1, uint64_t a2, uint64_t a3)
   v49 = 0x2020000000;
   v50 = -10810;
   v6 = objc_autoreleasePoolPush();
-  if ([__LSDefaultsGetSharedInstance() isServer] & 1) == 0 && (objc_msgSend(__LSDefaultsGetSharedInstance(), "hasServer"))
+  v8 = [__LSDefaultsGetSharedInstance(v6 v7)];
+  if (v8 & 1) == 0 && ([__LSDefaultsGetSharedInstance(v8 v9)])
   {
-    v37[0] = MEMORY[0x1E69E9820];
-    v37[1] = 3221225472;
-    v37[2] = ___LSUnregisterBundle_block_invoke_186;
-    v37[3] = &unk_1E6A18DF0;
-    v37[4] = &v47;
-    v7 = [(_LSDService *)_LSDModifyService synchronousXPCProxyWithErrorHandler:v37];
     v36[0] = MEMORY[0x1E69E9820];
     v36[1] = 3221225472;
-    v36[2] = ___LSUnregisterBundle_block_invoke_2;
-    v36[3] = &unk_1E6A1CE28;
+    v36[2] = ___LSUnregisterBundle_block_invoke_186;
+    v36[3] = &unk_1E6A18DF0;
     v36[4] = &v47;
-    [v7 unregisterBundleUnit:a2 options:a3 completionHandler:v36];
+    v10 = [(_LSDService *)_LSDModifyService synchronousXPCProxyWithErrorHandler:v36];
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = ___LSUnregisterBundle_block_invoke_2;
+    v35[3] = &unk_1E6A1CE28;
+    v35[4] = &v47;
+    [v10 unregisterBundleUnit:a2 options:a3 completionHandler:v35];
     if ((a3 & 0x3000000) == 0x2000000 && !*(v48 + 6))
     {
-      v35 = 0;
-      v8 = _LSContextUpdate(a1, 1, &v35);
-      v9 = v35;
-      v10 = v9;
-      if (v8)
+      v34 = 0;
+      v11 = _LSContextUpdate(a1, 1, &v34);
+      v12 = v34;
+      v13 = v12;
+      if (v11)
       {
-        v11 = 0;
+        v14 = 0;
       }
 
       else
       {
-        v11 = _LSGetOSStatusFromNSError(v9);
+        v14 = _LSGetOSStatusFromNSError(v12);
       }
 
-      *(v48 + 6) = v11;
+      *(v48 + 6) = v14;
     }
 
     goto LABEL_37;
@@ -4331,51 +3575,50 @@ uint64_t _LSUnregisterBundle(_LSDatabase **a1, uint64_t a2, uint64_t a3)
   v44 = 0;
   v45 = 0;
   v46 = 0;
-  v12 = +[_LSDServiceDomain defaultServiceDomain];
-  v13 = LaunchServices::Database::Context::_get(&v43, v12, 0);
+  v15 = +[_LSDServiceDomain defaultServiceDomain];
+  v16 = LaunchServices::Database::Context::_get(&v43, v15, 0);
 
-  if (!v13)
+  if (!v16)
   {
-    v24 = +[_LSDServiceDomain defaultServiceDomain];
-    v25 = LaunchServices::Database::Context::_get(&v43, v24, 0);
+    v25 = +[_LSDServiceDomain defaultServiceDomain];
+    v26 = LaunchServices::Database::Context::_get(&v43, v25, 0);
 
-    if (v25)
+    if (v26)
     {
-      v26 = 0;
+      v27 = 0;
     }
 
     else
     {
-      v30 = v46;
-      v26 = v30;
-      if (v30)
+      v29 = v46;
+      v27 = v29;
+      if (v29)
       {
-        v27 = _LSGetOSStatusFromNSError(v30);
+        v28 = _LSGetOSStatusFromNSError(v29);
         goto LABEL_28;
       }
     }
 
-    v27 = 0;
+    v28 = 0;
 LABEL_28:
 
     goto LABEL_29;
   }
 
   *(v48 + 6) = 0;
-  v14 = *v13;
+  v17 = *v16;
   if ((a3 & 0x20000000) != 0)
   {
-    [(_LSDatabase *)v14 store];
-    v28 = *([(_LSDatabase *)*v13 schema]+ 1588);
+    [(_LSDatabase *)v17 store];
+    [(_LSDatabase *)*v16 schema];
     if (CSStoreGetUnit())
     {
-      v23 = _LSPluginUnregister(*v13, a2);
+      v24 = _LSPluginUnregister(*v16, a2);
 LABEL_22:
-      *(v48 + 6) = v23;
-      if (!v23)
+      *(v48 + 6) = v24;
+      if (!v24)
       {
-        _LSDatabaseGetSequenceNumber(*v13);
-        v29 = *v13;
+        _LSDatabaseGetSequenceNumber(*v16);
         _LSDatabaseSetSequenceNumber();
         if (!*(v48 + 6))
         {
@@ -4389,89 +3632,90 @@ LABEL_22:
 
   else
   {
-    [(_LSDatabase *)v14 store];
-    v15 = *([(_LSDatabase *)*v13 schema]+ 4);
+    [(_LSDatabase *)v17 store];
+    [(_LSDatabase *)*v16 schema];
     if (CSStoreGetUnit())
     {
-      v16 = _LSBundleGet(*v13, a2);
-      v17 = v16;
-      if (*(v16 + 168) == 2)
+      v18 = _LSBundleGet(*v16, a2);
+      v19 = v18;
+      if (*(v18 + 168) == 2)
       {
-        v18 = *(v16 + 12);
+        v20 = *(v18 + 12);
         v39 = 0;
         v40 = &v39;
         v41 = 0x2020000000;
         v42 = 0;
-        v19 = *v13;
-        v37[5] = MEMORY[0x1E69E9820];
-        v37[6] = 3221225472;
-        v37[7] = ___LSUnregisterBundle_block_invoke;
-        v37[8] = &unk_1E6A1DC48;
+        v21 = *v16;
+        v37[0] = MEMORY[0x1E69E9820];
+        v37[1] = 3221225472;
+        v37[2] = ___LSUnregisterBundle_block_invoke;
+        v37[3] = &unk_1E6A1DC48;
         v38 = a2;
-        v37[10] = v13;
-        v37[11] = v17;
-        v37[9] = &v39;
-        _LSDatabaseEnumeratingBindingMap(v19);
+        v37[5] = v16;
+        v37[6] = v19;
+        v37[4] = &v39;
+        _LSDatabaseEnumeratingBindingMap(v21, 6, v20, v37);
         if ((v40[3] & 1) == 0)
         {
-          v20 = *(v17 + 12);
-          v21 = _LSDatabaseGetNSStringFromString(*v13);
-          v22 = _LSAppProtectionLog();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+          v22 = _LSDatabaseGetNSStringFromString(*v16, *(v19 + 12));
+          v23 = _LSAppProtectionLog(v22);
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
           {
             _LSUnregisterBundle_cold_1();
           }
 
-          [_LSDAppProtectionClient cleanupDeletedApplication:v21];
+          [_LSDAppProtectionClient cleanupDeletedApplication:v22];
         }
 
         _Block_object_dispose(&v39, 8);
       }
 
-      v23 = _LSBundleRemove(*v13, a2, 1);
+      v24 = _LSBundleRemove(*v16, a2, 1);
       goto LABEL_22;
     }
   }
 
-  v27 = -9499;
+  v28 = -9499;
 LABEL_29:
-  *(v48 + 6) = v27;
+  *(v48 + 6) = v28;
 LABEL_30:
   if (v43 && v45 == 1)
   {
     _LSContextDestroy(v43);
   }
 
-  v31 = v44;
+  v30 = v44;
   v43 = 0;
   v44 = 0;
 
   v45 = 0;
-  v32 = v46;
+  v31 = v46;
   v46 = 0;
 
 LABEL_37:
   objc_autoreleasePoolPop(v6);
-  v33 = *(v48 + 6);
+  v32 = *(v48 + 6);
   _Block_object_dispose(&v47, 8);
-  return v33;
+  return v32;
 }
 
-void sub_181779AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_181779AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  _Block_object_dispose(&a29, 8);
-  LaunchServices::Database::Context::~Context((v30 - 144));
-  _Block_object_dispose((v30 - 112), 8);
+  va_start(va, a28);
+
+  _Block_object_dispose(va, 8);
+  LaunchServices::Database::Context::~Context((v29 - 144));
+  _Block_object_dispose((v29 - 112), 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t _LSUpdateContainerState(void *a1, uint64_t a2, uint64_t a3)
 {
   v5 = a1;
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x2020000000;
-  v63 = -10810;
+  v65 = 0;
+  v66 = &v65;
+  v67 = 0x2020000000;
+  v68 = -10810;
   if (v5)
   {
     if (a2)
@@ -4482,9 +3726,9 @@ uint64_t _LSUpdateContainerState(void *a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v37 = [MEMORY[0x1E696AAA8] currentHandler];
-    v38 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"OSStatus _LSUpdateContainerState(__strong LSDatabaseRef, LSContainerID, LSContainerData *)"}];
-    [v37 handleFailureInFunction:v38 file:@"LSRegistration.mm" lineNumber:3468 description:{@"Invalid parameter not satisfying: %@", @"inDB != NULL"}];
+    v42 = [MEMORY[0x1E696AAA8] currentHandler];
+    v43 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"OSStatus _LSUpdateContainerState(__strong LSDatabaseRef, LSContainerID, LSContainerData *)"}];
+    [v42 handleFailureInFunction:v43 file:@"LSRegistration.mm" lineNumber:3468 description:{@"Invalid parameter not satisfying: %@", @"inDB != NULL"}];
 
     if (a2)
     {
@@ -4492,194 +3736,196 @@ uint64_t _LSUpdateContainerState(void *a1, uint64_t a2, uint64_t a3)
     }
   }
 
-  v39 = [MEMORY[0x1E696AAA8] currentHandler];
-  v40 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"OSStatus _LSUpdateContainerState(__strong LSDatabaseRef, LSContainerID, LSContainerData *)"}];
-  [v39 handleFailureInFunction:v40 file:@"LSRegistration.mm" lineNumber:3469 description:{@"Invalid parameter not satisfying: %@", @"inContainerUnit != kCSStoreNullID"}];
+  v44 = [MEMORY[0x1E696AAA8] currentHandler];
+  v45 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"OSStatus _LSUpdateContainerState(__strong LSDatabaseRef, LSContainerID, LSContainerData *)"}];
+  [v44 handleFailureInFunction:v45 file:@"LSRegistration.mm" lineNumber:3469 description:{@"Invalid parameter not satisfying: %@", @"inContainerUnit != kCSStoreNullID"}];
 
 LABEL_3:
   v6 = objc_autoreleasePoolPush();
-  v7 = _LSContainerGet(v5);
+  v7 = _LSContainerGet(v5, a2);
   v8 = v7;
   if (v7)
   {
-    v52 = 0;
-    v53 = &v52;
-    v54 = 0x4812000000;
-    v55 = __Block_byref_object_copy__198;
-    v56 = __Block_byref_object_dispose__199;
-    v57 = &unk_1818533FF;
+    v57 = 0;
+    v58 = &v57;
+    v59 = 0x4812000000;
+    v60 = __Block_byref_object_copy__198;
+    v61 = __Block_byref_object_dispose__199;
+    v62 = &unk_1818533FF;
     v9 = *v7;
-    v59 = *(v7 + 16);
-    v58 = v9;
-    if (_LSContainerDataNeedsUpdate(&v58))
+    v64 = *(v7 + 16);
+    v63 = v9;
+    v10 = _LSContainerDataNeedsUpdate(&v63);
+    if (v10)
     {
-      if (([__LSDefaultsGetSharedInstance() isServer] & 1) != 0 || (objc_msgSend(__LSDefaultsGetSharedInstance(), "hasServer") & 1) == 0)
+      v12 = [__LSDefaultsGetSharedInstance(v10 v11)];
+      if ((v12 & 1) != 0 || ([__LSDefaultsGetSharedInstance(v12 v13)] & 1) == 0)
       {
-        v51 = 0;
-        v11 = *(v8 + 12);
-        if (v11)
+        v56 = 0;
+        v15 = *(v8 + 12);
+        if (v15)
         {
-          v12 = _LSAliasGet(v5, v11);
-          if (v12)
+          v16 = _LSAliasGet(v5, v15);
+          if (v16)
           {
-            v50 = 0;
-            v13 = [FSNode getVolumeIdentifier:&v51 forBookmarkData:v12 error:&v50];
-            v14 = v50;
-            v15 = v14;
-            if (v13)
+            v55 = 0;
+            v17 = [FSNode getVolumeIdentifier:&v56 forBookmarkData:v16 error:&v55];
+            v18 = v55;
+            v19 = v18;
+            if (v17)
             {
-              v16 = 0;
+              v20 = 0;
             }
 
             else
             {
-              v16 = _LSGetOSStatusFromNSError(v14);
+              v20 = _LSGetOSStatusFromNSError(v18);
             }
 
-            *(v61 + 6) = v16;
+            *(v66 + 6) = v20;
           }
 
           else
           {
-            *(v61 + 6) = -41;
+            *(v66 + 6) = -41;
           }
         }
 
         else if ((*v8 & 2) != 0)
         {
-          v17 = +[FSNode rootVolumeNode];
-          v49 = 0;
-          v18 = [v17 getVolumeIdentifier:&v51 error:&v49];
-          v19 = v49;
+          v21 = +[FSNode rootVolumeNode];
+          v54 = 0;
+          v22 = [v21 getVolumeIdentifier:&v56 error:&v54];
+          v23 = v54;
 
-          if (v18)
+          if (v22)
           {
-            v20 = 0;
+            v24 = 0;
           }
 
           else
           {
-            v20 = _LSGetOSStatusFromNSError(v19);
+            v24 = _LSGetOSStatusFromNSError(v23);
           }
 
-          *(v61 + 6) = v20;
+          *(v66 + 6) = v24;
         }
 
         else
         {
-          *(v61 + 6) = -35;
+          *(v66 + 6) = -35;
         }
 
-        v21 = v61;
-        v22 = *(v61 + 6);
-        if (v51)
+        v25 = v66;
+        v26 = *(v66 + 6);
+        if (v56)
         {
-          v23 = v22 == 0;
-        }
-
-        else
-        {
-          v23 = 0;
-        }
-
-        v24 = v53;
-        if (v23)
-        {
-          v25 = 1;
+          v27 = v26 == 0;
         }
 
         else
         {
-          v25 = -1;
+          v27 = 0;
         }
 
-        if (v22)
+        v28 = v58;
+        if (v27)
         {
-          v26 = 0;
+          v29 = 1;
         }
 
         else
         {
-          v26 = v51;
+          v29 = -1;
         }
 
-        *(v53 + 50) = v25;
-        *(v24 + 52) = v26;
-        *(v21 + 6) = 0;
-        v27 = v24[6];
-        v28 = v24[7];
-        v29 = *(v24 + 16);
-        if (v27 != *v8 || v28 != *(v8 + 8) || v29 != *(v8 + 16))
+        if (v26)
         {
-          v45[0] = MEMORY[0x1E69E9820];
-          v45[1] = 3221225472;
-          v45[2] = ___LSUpdateContainerState_block_invoke;
-          v45[3] = &unk_1E6A1DC70;
-          v47 = &v52;
-          v46 = v5;
-          v48 = a2;
-          v32 = MEMORY[0x1865D71B0](v45);
-          if ([__LSDefaultsGetSharedInstance() isServer])
+          v30 = 0;
+        }
+
+        else
+        {
+          v30 = v56;
+        }
+
+        *(v58 + 50) = v29;
+        *(v28 + 52) = v30;
+        *(v25 + 6) = 0;
+        v31 = v28[6];
+        v32 = v28[7];
+        v33 = *(v28 + 16);
+        if (v31 != *v8 || v32 != *(v8 + 8) || v33 != *(v8 + 16))
+        {
+          v50[0] = MEMORY[0x1E69E9820];
+          v50[1] = 3221225472;
+          v50[2] = ___LSUpdateContainerState_block_invoke;
+          v50[3] = &unk_1E6A1DC70;
+          v52 = &v57;
+          v51 = v5;
+          v53 = a2;
+          v36 = MEMORY[0x1865D71B0](v50);
+          if ([__LSDefaultsGetSharedInstance(v36 v37)])
           {
-            v33 = +[LSDBExecutionContext sharedServerInstance];
-            v43[0] = MEMORY[0x1E69E9820];
-            v43[1] = 3221225472;
-            v43[2] = ___LSUpdateContainerState_block_invoke_2;
-            v43[3] = &unk_1E6A1A660;
-            v44 = v32;
-            [(LSDBExecutionContext *)v33 performAsyncWrite:v43];
+            v38 = +[LSDBExecutionContext sharedServerInstance];
+            v48[0] = MEMORY[0x1E69E9820];
+            v48[1] = 3221225472;
+            v48[2] = ___LSUpdateContainerState_block_invoke_2;
+            v48[3] = &unk_1E6A1A660;
+            v49 = v36;
+            [(LSDBExecutionContext *)v38 performAsyncWrite:v48];
           }
 
           else
           {
-            v32[2](v32);
+            v36[2](v36);
           }
         }
       }
 
       else
       {
-        v42[0] = MEMORY[0x1E69E9820];
-        v42[1] = 3221225472;
-        v42[2] = ___LSUpdateContainerState_block_invoke_3;
-        v42[3] = &unk_1E6A18DF0;
-        v42[4] = &v60;
-        v10 = [(_LSDService *)_LSDModifyService synchronousXPCProxyWithErrorHandler:v42];
-        v41[0] = MEMORY[0x1E69E9820];
-        v41[1] = 3221225472;
-        v41[2] = ___LSUpdateContainerState_block_invoke_4;
-        v41[3] = &unk_1E6A1DC98;
-        v41[4] = &v60;
-        v41[5] = &v52;
-        [v10 updateContainerUnit:a2 completionHandler:v41];
+        v47[0] = MEMORY[0x1E69E9820];
+        v47[1] = 3221225472;
+        v47[2] = ___LSUpdateContainerState_block_invoke_3;
+        v47[3] = &unk_1E6A18DF0;
+        v47[4] = &v65;
+        v14 = [(_LSDService *)_LSDModifyService synchronousXPCProxyWithErrorHandler:v47];
+        v46[0] = MEMORY[0x1E69E9820];
+        v46[1] = 3221225472;
+        v46[2] = ___LSUpdateContainerState_block_invoke_4;
+        v46[3] = &unk_1E6A1DC98;
+        v46[4] = &v65;
+        v46[5] = &v57;
+        [v14 updateContainerUnit:a2 completionHandler:v46];
       }
     }
 
     else
     {
-      *(v61 + 6) = 0;
+      *(v66 + 6) = 0;
     }
 
-    if (a3 && !*(v61 + 6))
+    if (a3 && !*(v66 + 6))
     {
-      v34 = *(v53 + 16);
-      *a3 = *(v53 + 3);
-      *(a3 + 16) = v34;
+      v39 = *(v58 + 16);
+      *a3 = *(v58 + 3);
+      *(a3 + 16) = v39;
     }
 
-    _Block_object_dispose(&v52, 8);
+    _Block_object_dispose(&v57, 8);
   }
 
   else
   {
-    *(v61 + 6) = -10817;
+    *(v66 + 6) = -10817;
   }
 
   objc_autoreleasePoolPop(v6);
-  v35 = *(v61 + 6);
-  _Block_object_dispose(&v60, 8);
+  v40 = *(v66 + 6);
+  _Block_object_dispose(&v65, 8);
 
-  return v35;
+  return v40;
 }
 
 void sub_18177A274(_Unwind_Exception *a1)
@@ -4697,10 +3943,10 @@ __n128 __Block_byref_object_copy__198(__n128 *a1, __n128 *a2)
   return result;
 }
 
-uint64_t _LSRegisterTypeDeclarationsForBundle(void *a1, uint64_t a2, uint64_t a3, const void *a4, void *a5)
+uint64_t _LSRegisterTypeDeclarationsForBundle(void *a1, uint64_t a2, uint64_t a3, const void *a4, void *a5, uint64_t a6)
 {
-  v9 = a1;
-  v10 = a5;
+  v11 = a1;
+  v12 = a5;
   if (!a3)
   {
     __assert_rtn("_LSRegisterTypeDeclarationsForBundle", "LSRegistration.mm", 3674, "inBundleData");
@@ -4708,31 +3954,32 @@ uint64_t _LSRegisterTypeDeclarationsForBundle(void *a1, uint64_t a2, uint64_t a3
 
   if (*(a3 + 168) == 16)
   {
-    v11 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v11 = _LSRegisterTypeDeclarationsCommon(v9, a2, *(a3 + 476), a4, v10);
+    v13 = _LSRegisterTypeDeclarationsCommon(v11, a2, *(a3 + 476), a4, v12, a6);
   }
 
-  return v11;
+  return v13;
 }
 
-uint64_t _LSRegisterTypeDeclarationsCommon(void *a1, uint64_t a2, int a3, const void *a4, void *a5)
+uint64_t _LSRegisterTypeDeclarationsCommon(void *a1, uint64_t a2, uint64_t a3, const void *a4, void *a5, uint64_t a6)
 {
-  v8 = a1;
-  v9 = a5;
-  v10 = 0;
-  if (v8 && a3 && a4)
+  v8 = a3;
+  v9 = a1;
+  v10 = a5;
+  v11 = 0;
+  if (v9 && v8 && a4)
   {
-    v11 = CFGetTypeID(a4);
-    if (v11 == CFArrayGetTypeID())
+    v12 = CFGetTypeID(a4);
+    if (v12 == CFArrayGetTypeID())
     {
       Count = CFArrayGetCount(a4);
       if (Count < 1)
       {
-        v10 = 0;
+        v11 = 0;
       }
 
       else
@@ -4746,10 +3993,10 @@ uint64_t _LSRegisterTypeDeclarationsCommon(void *a1, uint64_t a2, int a3, const 
             CFGetTypeID(ValueAtIndex);
           }
 
-          v10 = _UTTypeAddWithDeclarationDictionary();
-          if (!v10)
+          v11 = _UTTypeAddWithDeclarationDictionary(v9);
+          if (!v11)
           {
-            [(_LSDatabase *)v8 store];
+            [(_LSDatabase *)v9 store];
             _CSArrayAppendValue();
           }
         }
@@ -4758,25 +4005,25 @@ uint64_t _LSRegisterTypeDeclarationsCommon(void *a1, uint64_t a2, int a3, const 
 
     else
     {
-      v10 = 4294956479;
+      v11 = 4294956479;
     }
   }
 
-  return v10;
+  return v11;
 }
 
-uint64_t _LSRegisterTypeDeclarationsForPlugin(void *a1, uint64_t a2, uint64_t a3, const void *a4, void *a5)
+uint64_t _LSRegisterTypeDeclarationsForPlugin(void *a1, uint64_t a2, uint64_t a3, const void *a4, void *a5, int a6)
 {
-  v9 = a1;
-  v10 = a5;
+  v11 = a1;
+  v12 = a5;
   if (!a3)
   {
     __assert_rtn("_LSRegisterTypeDeclarationsForPlugin", "LSRegistration.mm", 3694, "inPluginData");
   }
 
-  v11 = _LSRegisterTypeDeclarationsCommon(v9, a2, *(a3 + 232), a4, v10);
+  v13 = _LSRegisterTypeDeclarationsCommon(v11, a2, *(a3 + 232), a4, v12, a6 | 0x2000u);
 
-  return v11;
+  return v13;
 }
 
 uint64_t _LSRegisterDocumentTypes(uint64_t a1)
@@ -4786,276 +4033,278 @@ uint64_t _LSRegisterDocumentTypes(uint64_t a1)
   v5 = v4;
   v7 = v6;
   v9 = v8;
-  v134 = v10;
-  v159 = *MEMORY[0x1E69E9840];
-  v139 = v1;
-  v138 = v5;
+  v136 = v10;
+  v161 = *MEMORY[0x1E69E9840];
+  v141 = v1;
+  v140 = v5;
   if (v7 && (theArray = v7, v11 = CFGetTypeID(v7), v11 == CFArrayGetTypeID()))
   {
     Count = CFArrayGetCount(v7);
-    _LSBindingListBufferInit(v139, v143);
+    _LSBindingListBufferInit(v141, v145);
     if (Count >= 1)
     {
       v13 = 0;
-      v135 = v3 | 0x20;
-      v127 = v3 | 0x820;
-      v131 = *MEMORY[0x1E695E178];
+      v137 = v3 | 0x20;
+      v129 = v3 | 0x820;
+      v133 = *MEMORY[0x1E695E178];
       key = *MEMORY[0x1E695E170];
-      v124 = *MEMORY[0x1E695E168];
-      v126 = *MEMORY[0x1E695E4F0];
-      v125 = *MEMORY[0x1E695E160];
+      v126 = *MEMORY[0x1E695E168];
+      v128 = *MEMORY[0x1E695E4F0];
+      v127 = *MEMORY[0x1E695E160];
       *&v12 = 138412290;
-      v123 = v12;
+      v125 = v12;
       do
       {
         idx = v13;
         ValueAtIndex = CFArrayGetValueAtIndex(theArray, v13);
         TypeID = CFDictionaryGetTypeID();
-        if (ValueAtIndex && (!TypeID || CFGetTypeID(ValueAtIndex) == TypeID))
+        if (ValueAtIndex && ((v16 = TypeID) == 0 || (TypeID = CFGetTypeID(ValueAtIndex), TypeID == v16)))
         {
-          v16 = objc_autoreleasePoolPush();
-          v142 = [MEMORY[0x1E695DF70] array];
-          v17 = objc_opt_class();
-          v140 = [ValueAtIndex objectForKey:@"LSHandlerRank"];
-          if (v17 && v140 && (objc_opt_isKindOfClass() & 1) == 0)
-          {
-
-            v140 = 0;
-          }
-
+          v17 = objc_autoreleasePoolPush();
+          v144 = [MEMORY[0x1E695DF70] array];
           v18 = objc_opt_class();
-          v19 = [ValueAtIndex objectForKey:@"LSItemContentTypes"];
-          v20 = v19;
-          if (v18 && v19 && (objc_opt_isKindOfClass() & 1) == 0)
+          v142 = [ValueAtIndex objectForKey:@"LSHandlerRank"];
+          if (v18 && v142 && (objc_opt_isKindOfClass() & 1) == 0)
           {
 
-            v20 = 0;
+            v142 = 0;
           }
 
-          if ([v140 isEqualToString:{@"Owner", v123}] && objc_msgSend(v20, "count"))
+          v19 = objc_opt_class();
+          v20 = [ValueAtIndex objectForKey:@"LSItemContentTypes"];
+          v21 = v20;
+          if (v19 && v20 && (objc_opt_isKindOfClass() & 1) == 0)
           {
-            v21 = [MEMORY[0x1E695DF70] array];
+
+            v21 = 0;
+          }
+
+          if ([v142 isEqualToString:{@"Owner", v125}] && objc_msgSend(v21, "count"))
+          {
             v22 = [MEMORY[0x1E695DF70] array];
-            v136 = v16;
+            v23 = [MEMORY[0x1E695DF70] array];
+            v138 = v17;
+            v149 = 0u;
+            v148 = 0u;
             v147 = 0u;
             v146 = 0u;
-            v145 = 0u;
-            v144 = 0u;
-            v23 = v20;
-            v24 = [v23 countByEnumeratingWithState:&v144 objects:v149 count:16];
-            if (v24)
+            v24 = v21;
+            v25 = [v24 countByEnumeratingWithState:&v146 objects:v151 count:16];
+            if (v25)
             {
-              v25 = *v145;
+              v26 = *v147;
               do
               {
-                for (i = 0; i != v24; ++i)
+                for (i = 0; i != v25; ++i)
                 {
-                  if (*v145 != v25)
+                  if (*v147 != v26)
                   {
-                    objc_enumerationMutation(v23);
+                    objc_enumerationMutation(v24);
                   }
 
-                  v27 = *(*(&v144 + 1) + 8 * i);
+                  v28 = *(*(&v146 + 1) + 8 * i);
                   if (_NSIsNSString())
                   {
-                    if (_UTTypeIsWildcard(v27))
+                    if (_UTTypeIsWildcard(v28))
                     {
-                      v28 = v21;
+                      v29 = v22;
                     }
 
                     else
                     {
-                      v28 = v22;
+                      v29 = v23;
                     }
 
-                    [v28 addObject:v27];
+                    [v29 addObject:v28];
                   }
                 }
 
-                v24 = [v23 countByEnumeratingWithState:&v144 objects:v149 count:16];
+                v25 = [v24 countByEnumeratingWithState:&v146 objects:v151 count:16];
               }
 
-              while (v24);
+              while (v25);
             }
 
-            v16 = v136;
-            v29 = v22;
-            v30 = v21;
+            v17 = v138;
+            v30 = v23;
+            v31 = v22;
           }
 
           else
           {
-            v29 = 0;
             v30 = 0;
+            v31 = 0;
           }
 
-          if ([v30 count])
+          v34 = [v31 count];
+          if (v34)
           {
-            v33 = _LSDefaultLog();
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+            v35 = _LSDefaultLog(v34);
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
             {
-              LODWORD(v156) = v123;
-              *(&v156 + 4) = v30;
-              _os_log_debug_impl(&dword_18162D000, v33, OS_LOG_TYPE_DEBUG, "Decomposeing docuemnt claim for types: %@", &v156, 0xCu);
+              LODWORD(v158) = v125;
+              *(&v158 + 4) = v31;
+              _os_log_debug_impl(&dword_18162D000, v35, OS_LOG_TYPE_DEBUG, "Decomposeing docuemnt claim for types: %@", &v158, 0xCu);
             }
 
-            v34 = [ValueAtIndex mutableCopy];
-            [v34 setObject:v30 forKey:@"LSItemContentTypes"];
-            [v34 setObject:@"Default" forKey:@"LSHandlerRank"];
-            [(__CFArray *)v142 addObject:v34];
-            if ([v29 count])
+            v36 = [ValueAtIndex mutableCopy];
+            [v36 setObject:v31 forKey:@"LSItemContentTypes"];
+            [v36 setObject:@"Default" forKey:@"LSHandlerRank"];
+            [(__CFArray *)v144 addObject:v36];
+            if ([v30 count])
             {
-              v35 = [ValueAtIndex mutableCopy];
-              [v35 setObject:v29 forKey:@"LSItemContentTypes"];
-              [(__CFArray *)v142 addObject:v35];
+              v37 = [ValueAtIndex mutableCopy];
+              [v37 setObject:v30 forKey:@"LSItemContentTypes"];
+              [(__CFArray *)v144 addObject:v37];
             }
           }
 
           else
           {
-            [(__CFArray *)v142 addObject:ValueAtIndex];
+            [(__CFArray *)v144 addObject:ValueAtIndex];
           }
 
-          objc_autoreleasePoolPop(v16);
-          if (v142)
+          objc_autoreleasePoolPop(v17);
+          if (v144)
           {
             for (j = 0; ; ++j)
             {
-              if (j >= CFArrayGetCount(v142))
+              if (j >= CFArrayGetCount(v144))
               {
-                CFRelease(v142);
+                CFRelease(v144);
                 goto LABEL_200;
               }
 
-              v37 = CFArrayGetValueAtIndex(v142, j);
-              v38 = CFDictionaryGetTypeID();
-              if (v37 && v38 && CFGetTypeID(v37) != v38)
+              v39 = CFArrayGetValueAtIndex(v144, j);
+              v40 = CFDictionaryGetTypeID();
+              if (v39 && v40 && CFGetTypeID(v39) != v40)
               {
-                v37 = 0;
+                v39 = 0;
               }
 
-              v39 = v139;
-              v141 = v138;
-              v148 = 0;
-              v151 = 0;
-              v150 = 0u;
-              memset(v149, 0, sizeof(v149));
-              *&v156 = 0;
-              *(&v156 + 1) = &v156;
-              v157 = 0x2020000000;
-              v158 = 0;
+              v41 = v141;
+              v42 = v140;
+              v143 = v42;
+              v150 = 0;
+              v153 = 0;
+              v152 = 0u;
+              memset(v151, 0, sizeof(v151));
+              *&v158 = 0;
+              *(&v158 + 1) = &v158;
+              v159 = 0x2020000000;
+              v160 = 0;
               if (*(v9 + 20) == 6 && (*(v9 + 176) & 2) == 0)
               {
-                v40 = _LSRegistrationLog();
-                if (!os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+                v43 = _LSRegistrationLog(v42);
+                if (!os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
                 {
                   goto LABEL_98;
                 }
 
                 *buf = 134217984;
-                v153 = v134;
-                v41 = v40;
-                v42 = OS_LOG_TYPE_INFO;
-                v43 = "Skipping document claims for bundle %llu because it is Mac Catalyst but does not support open-in-place";
+                v155 = v136;
+                v44 = v43;
+                v45 = OS_LOG_TYPE_INFO;
+                v46 = "Skipping document claims for bundle %llu because it is Mac Catalyst but does not support open-in-place";
 LABEL_96:
-                v65 = 12;
+                v67 = 12;
                 goto LABEL_97;
               }
 
               if (*(v9 + 168) == 16)
               {
-                v40 = _LSDefaultLog();
-                if (!os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+                v43 = _LSDefaultLog(v42);
+                if (!os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
                 {
                   goto LABEL_98;
                 }
 
                 *buf = 134217984;
-                v153 = v134;
-                v41 = v40;
-                v42 = OS_LOG_TYPE_INFO;
-                v43 = "Skipping document claims for bundle %llu because it is a remote placeholder";
+                v155 = v136;
+                v44 = v43;
+                v45 = OS_LOG_TYPE_INFO;
+                v46 = "Skipping document claims for bundle %llu because it is a remote placeholder";
                 goto LABEL_96;
               }
 
               if ((*(v9 + 179) & 0x10) != 0)
               {
-                v40 = _LSDefaultLog();
-                if (!os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+                v43 = _LSDefaultLog(v42);
+                if (!os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
                 {
                   goto LABEL_98;
                 }
 
                 *buf = 134217984;
-                v153 = v134;
-                v41 = v40;
-                v42 = OS_LOG_TYPE_INFO;
-                v43 = "Skipping document claims for bundle %llu because it is an App Clip";
+                v155 = v136;
+                v44 = v43;
+                v45 = OS_LOG_TYPE_INFO;
+                v46 = "Skipping document claims for bundle %llu because it is an App Clip";
                 goto LABEL_96;
               }
 
-              if (v37)
+              if (v39)
               {
-                v44 = CFGetTypeID(v37);
-                if (v44 == CFDictionaryGetTypeID())
+                v47 = CFGetTypeID(v39);
+                if (v47 == CFDictionaryGetTypeID())
                 {
-                  DWORD2(v149[0]) = v135;
-                  v45 = v135;
-                  if (_LSGetBooleanFromDict(v37, @"LSDefaultShareModeCollaboration"))
+                  DWORD2(v151[0]) = v137;
+                  v48 = v137;
+                  if (_LSGetBooleanFromDict(v39, @"LSDefaultShareModeCollaboration"))
                   {
-                    v45 = v127;
-                    DWORD2(v149[0]) = v127;
+                    v48 = v129;
+                    DWORD2(v151[0]) = v129;
                   }
 
-                  if (_LSGetBooleanFromDict(v37, @"LSTypeIsPackage"))
+                  if (_LSGetBooleanFromDict(v39, @"LSTypeIsPackage"))
                   {
-                    v45 |= 8u;
-                    DWORD2(v149[0]) = v45;
+                    v48 |= 8u;
+                    DWORD2(v151[0]) = v48;
                   }
 
-                  if (_LSGetBooleanFromDict(v37, @"LSIsAppleDefaultForType"))
+                  if (_LSGetBooleanFromDict(v39, @"LSIsAppleDefaultForType"))
                   {
-                    v45 |= 1u;
-                    DWORD2(v149[0]) = v45;
-                    *(*(&v156 + 1) + 24) = 1;
+                    v48 |= 1u;
+                    DWORD2(v151[0]) = v48;
+                    *(*(&v158 + 1) + 24) = 1;
                   }
 
-                  if ((*(v9 + 164) & 0x10) != 0 || (v46 = *(v9 + 352), v47 = v39, -[_LSDatabase store](v39), v48 = _CSStringCopyCFString(), v49 = [v48 isEqualToString:@"System"], v48, v49))
+                  if ((*(v9 + 164) & 0x10) != 0 || (v49 = v41, -[_LSDatabase store](v41), v50 = _CSStringCopyCFString(), v51 = [v50 isEqualToString:@"System"], v50, v51))
                   {
-                    if (_LSGetBooleanFromDict(v37, @"LSIsAppleDefaultNoOverrideForType"))
+                    if (_LSGetBooleanFromDict(v39, @"LSIsAppleDefaultNoOverrideForType"))
                     {
-                      v45 |= 3u;
-                      DWORD2(v149[0]) = v45;
-                      *(*(&v156 + 1) + 24) = 1;
+                      v48 |= 3u;
+                      DWORD2(v151[0]) = v48;
+                      *(*(&v158 + 1) + 24) = 1;
                     }
                   }
 
                   if (*(v9 + 164))
                   {
-                    DWORD2(v149[0]) = v45 | 4;
+                    DWORD2(v151[0]) = v48 | 4;
                   }
 
-                  WORD6(v149[0]) = _LSGetHandlerRankFromDictKey(v37, v50);
-                  v137 = _LSGetRoleFromDictKey(v37, v131);
-                  HIWORD(v149[0]) = v137;
-                  v51 = *(v9 + 168);
-                  if (!v137)
+                  WORD6(v151[0]) = _LSGetHandlerRankFromDictKey(v39, v52);
+                  v139 = _LSGetRoleFromDictKey(v39, v133);
+                  HIWORD(v151[0]) = v139;
+                  v53 = *(v9 + 168);
+                  if (!v139)
                   {
-                    if (v51 == 2)
+                    if (v53 == 2)
                     {
-                      v52 = 2;
+                      v54 = 2;
                     }
 
                     else
                     {
-                      v52 = 1;
+                      v54 = 1;
                     }
 
-                    LOBYTE(v137) = v52;
-                    HIWORD(v149[0]) = v52;
+                    LOBYTE(v139) = v54;
+                    HIWORD(v151[0]) = v54;
                   }
 
-                  if (v51 == 2 || (v137 & 0x11) != 0)
+                  if (v53 == 2 || (v139 & 0x11) != 0)
                   {
                     break;
                   }
@@ -5063,55 +4312,55 @@ LABEL_96:
               }
 
 LABEL_99:
-              _Block_object_dispose(&v156, 8);
+              _Block_object_dispose(&v158, 8);
 
-              _LSBindingListBufferReset(v39, v143);
+              _LSBindingListBufferReset(v41, v145);
             }
 
-            v53 = CFStringGetTypeID();
-            Value = CFDictionaryGetValue(v37, key);
-            v55 = Value;
-            if (Value && CFGetTypeID(Value) == v53)
+            v55 = CFStringGetTypeID();
+            Value = CFDictionaryGetValue(v39, key);
+            v57 = Value;
+            if (Value && CFGetTypeID(Value) == v55)
             {
-              v56 = v55;
-              v57 = [v141 objectForKeyedSubscript:v56];
-              DWORD1(v149[1]) = LaunchServices::LocalizedString::Add(v39, v57, v56);
+              v58 = v57;
+              v59 = [v143 objectForKeyedSubscript:v58];
+              DWORD1(v151[1]) = LaunchServices::LocalizedString::Add(v41, v59, v58);
             }
 
-            if (!_LSGetBooleanFromDict(v37, @"CFBundleTypeIconSystemGenerated"))
+            if (!_LSGetBooleanFromDict(v39, @"CFBundleTypeIconSystemGenerated"))
             {
-              v58 = CFDictionaryGetValue(v37, @"CFBundleTypeIconFiles");
-              v59 = CFArrayGetTypeID();
-              if (v58 && (!v59 || CFGetTypeID(v58) == v59))
+              v60 = CFDictionaryGetValue(v39, @"CFBundleTypeIconFiles");
+              v61 = CFArrayGetTypeID();
+              if (v60 && (!v61 || CFGetTypeID(v60) == v61))
               {
-                v60 = CFArrayGetCount(v58);
-                if (v60 >= 1)
+                v62 = CFArrayGetCount(v60);
+                if (v62 >= 1)
                 {
-                  v61 = 0;
-                  v62 = 0;
+                  v63 = 0;
+                  v64 = 0;
                   do
                   {
-                    v63 = CFArrayGetValueAtIndex(v58, v62);
-                    v64 = CFStringGetTypeID();
-                    if (v63 && (!v64 || CFGetTypeID(v63) == v64))
+                    v65 = CFArrayGetValueAtIndex(v60, v64);
+                    v66 = CFStringGetTypeID();
+                    if (v65 && (!v66 || CFGetTypeID(v65) == v66))
                     {
-                      *(&v149[1] + v61++ + 3) = _LSDatabaseCreateStringForCFString(v39, v63, 0);
+                      *(&v151[1] + v63++ + 3) = _LSDatabaseCreateStringForCFString(v41, v65, 0);
                     }
 
-                    ++v62;
+                    ++v64;
                   }
 
-                  while (v62 < v60 && v61 < 8);
+                  while (v64 < v62 && v63 < 8);
                 }
               }
 
-              else if (v124)
+              else if (v126)
               {
-                v66 = CFDictionaryGetValue(v37, v124);
-                v67 = CFStringGetTypeID();
-                if (v66 && (!v67 || CFGetTypeID(v66) == v67))
+                v68 = CFDictionaryGetValue(v39, v126);
+                v69 = CFStringGetTypeID();
+                if (v68 && (!v69 || CFGetTypeID(v68) == v69))
                 {
-                  HIDWORD(v149[1]) = _LSDatabaseCreateStringForCFString(v39, v66, 0);
+                  HIDWORD(v151[1]) = _LSDatabaseCreateStringForCFString(v41, v68, 0);
                 }
               }
 
@@ -5120,226 +4369,230 @@ LABEL_99:
                 CFStringGetTypeID();
               }
 
-              v68 = CFDictionaryGetValue(v37, @"LSIconName");
-              v69 = CFStringGetTypeID();
-              if (v68 && (!v69 || CFGetTypeID(v68) == v69))
+              v70 = CFDictionaryGetValue(v39, @"LSIconName");
+              v71 = CFStringGetTypeID();
+              if (v70 && (!v71 || CFGetTypeID(v70) == v71))
               {
-                HIDWORD(v150) = _LSDatabaseCreateStringForCFString(v39, v68, 0);
+                HIDWORD(v152) = _LSDatabaseCreateStringForCFString(v41, v70, 0);
               }
             }
 
-            if (_LSGetBooleanFromDict(v37, @"NSResolvesUbiquitousConflicts") || CFDictionaryContainsKey(v37, @"NSDocumentClass"))
+            if (_LSGetBooleanFromDict(v39, @"NSResolvesUbiquitousConflicts") || CFDictionaryContainsKey(v39, @"NSDocumentClass"))
             {
-              DWORD2(v149[0]) |= 0x200u;
+              DWORD2(v151[0]) |= 0x200u;
             }
 
-            v70 = CFDictionaryGetValue(v37, @"_LSBundleLibraryDelegate");
-            v71 = CFStringGetTypeID();
-            if (v70 && v71 && CFGetTypeID(v70) != v71)
+            v72 = CFDictionaryGetValue(v39, @"_LSBundleLibraryDelegate");
+            v73 = CFStringGetTypeID();
+            if (v72 && v73 && CFGetTypeID(v72) != v73)
             {
-              v70 = 0;
+              v72 = 0;
             }
 
-            LODWORD(v151) = _LSDatabaseCreateStringForCFString(v39, v70, 0);
-            if (!v151)
+            LODWORD(v153) = _LSDatabaseCreateStringForCFString(v41, v72, 0);
+            if (!v153)
             {
               goto LABEL_129;
             }
 
-            if (v126)
+            if (v128)
             {
-              v72 = CFDictionaryGetValue(v37, v126);
-              v73 = CFStringGetTypeID();
-              if (v72 && (!v73 || CFGetTypeID(v72) == v73))
+              v74 = CFDictionaryGetValue(v39, v128);
+              v75 = CFStringGetTypeID();
+              if (v74 && (!v75 || CFGetTypeID(v74) == v75))
               {
-                v74 = DWORD2(v149[0]);
-                Length = CFStringGetLength(v72);
+                v76 = DWORD2(v151[0]);
+                Length = CFStringGetLength(v74);
                 if (Length > CFStringGetLength(@"com.apple."))
                 {
-                  v160.length = CFStringGetLength(@"com.apple.");
-                  v160.location = 0;
-                  if (CFStringCompareWithOptions(v72, @"com.apple.", v160, 1uLL) == kCFCompareEqualTo)
+                  v162.length = CFStringGetLength(@"com.apple.");
+                  v162.location = 0;
+                  if (CFStringCompareWithOptions(v74, @"com.apple.", v162, 1uLL) == kCFCompareEqualTo)
                   {
-                    v76 = v74 | 4;
+                    v78 = v76 | 4;
                     goto LABEL_128;
                   }
                 }
 
 LABEL_127:
-                v76 = v74 & 0xFFFFFFFB;
+                v78 = v76 & 0xFFFFFFFB;
 LABEL_128:
-                DWORD2(v149[0]) = v76;
+                DWORD2(v151[0]) = v78;
 LABEL_129:
-                LODWORD(v149[1]) = v134;
-                HIDWORD(v151) = 0;
-                v77 = CFDictionaryGetValue(v37, @"LSItemContentTypes");
-                v78 = CFArrayGetTypeID();
-                if (v77 && (!v78 || CFGetTypeID(v77) == v78))
+                LODWORD(v151[1]) = v136;
+                HIDWORD(v153) = 0;
+                v79 = CFDictionaryGetValue(v39, @"LSItemContentTypes");
+                v80 = CFArrayGetTypeID();
+                if (v79)
                 {
-                  v79 = CFGetTypeID(v77);
-                  if (v79 == CFArrayGetTypeID())
+                  v81 = v80;
+                  if (!v80 || (v80 = CFGetTypeID(v79), v80 == v81))
                   {
-                    v80 = CFArrayGetCount(v77);
-                    if (v80 >= 1)
+                    v82 = CFGetTypeID(v79);
+                    if (v82 == CFArrayGetTypeID())
                     {
-                      v81 = 0;
-                      v132 = 0;
-                      do
+                      v83 = CFArrayGetCount(v79);
+                      if (v83 >= 1)
                       {
-                        v82 = CFArrayGetValueAtIndex(v77, v81);
-                        v83 = CFStringGetTypeID();
-                        if (v82 && (!v83 || CFGetTypeID(v82) == v83))
+                        v84 = 0;
+                        v134 = 0;
+                        do
                         {
-                          v84 = CFStringGetTypeID();
-                          if (v84 == CFGetTypeID(v82) && ((v137 & 8) == 0 || !UTTypeEqual(v82, @"com.apple.application")))
+                          v85 = CFArrayGetValueAtIndex(v79, v84);
+                          v86 = CFStringGetTypeID();
+                          if (v85 && (!v86 || CFGetTypeID(v85) == v86))
                           {
-                            active = _UTGetActiveTypeForCFStringIdentifier(v39, v82, 0);
-                            if (active && (*(active + 9) & 2) != 0)
+                            v87 = CFStringGetTypeID();
+                            if (v87 == CFGetTypeID(v85) && ((v139 & 8) == 0 || !UTTypeEqual(v85, @"com.apple.application")))
                             {
-                              DWORD2(v149[0]) |= 0x400u;
-                              v132 = 1;
-                            }
-
-                            StringForCFString = _LSDatabaseCreateStringForCFString(v39, v82, 1);
-                            if (StringForCFString)
-                            {
-                              v87 = v39;
-                              v88 = [(_LSDatabase *)v39 schema];
-                              if (!_LSBindingListBufferAppend(v39, v143, *(v88 + 216), StringForCFString))
+                              active = _UTGetActiveTypeForCFStringIdentifier(v41, v85, 0);
+                              if (active && (*(active + 9) & 2) != 0)
                               {
-                                goto LABEL_99;
+                                DWORD2(v151[0]) |= 0x400u;
+                                v134 = 1;
                               }
 
-                              v89 = v39;
-                              [(_LSDatabase *)v39 store];
-                              _CSStringRelease();
+                              StringForCFString = _LSDatabaseCreateStringForCFString(v41, v85, 1);
+                              if (StringForCFString)
+                              {
+                                v90 = v41;
+                                v91 = [(_LSDatabase *)v41 schema];
+                                if (!_LSBindingListBufferAppend(v41, v145, *(v91 + 216), StringForCFString))
+                                {
+                                  goto LABEL_99;
+                                }
+
+                                v92 = v41;
+                                [(_LSDatabase *)v41 store];
+                                _CSStringRelease();
+                              }
                             }
                           }
+
+                          ++v84;
                         }
 
-                        ++v81;
+                        while (v83 != v84);
+                        goto LABEL_189;
                       }
-
-                      while (v80 != v81);
-                      goto LABEL_189;
                     }
-                  }
 
-                  goto LABEL_191;
+                    goto LABEL_191;
+                  }
                 }
 
                 if (*(v9 + 20) >= 2u)
                 {
-                  v104 = _LSDefaultLog();
-                  if (os_log_type_enabled(v104, OS_LOG_TYPE_INFO))
+                  v107 = _LSDefaultLog(v80);
+                  if (os_log_type_enabled(v107, OS_LOG_TYPE_INFO))
                   {
-                    v105 = *(v9 + 20);
+                    v108 = *(v9 + 20);
                     *buf = 134218240;
-                    v153 = v134;
-                    v154 = 2048;
-                    v155 = v105;
-                    _os_log_impl(&dword_18162D000, v104, OS_LOG_TYPE_INFO, "Skipping legacy claim registration for bundle %llu because it's the wrong platform (is %llu)", buf, 0x16u);
+                    v155 = v136;
+                    v156 = 2048;
+                    v157 = v108;
+                    _os_log_impl(&dword_18162D000, v107, OS_LOG_TYPE_INFO, "Skipping legacy claim registration for bundle %llu because it's the wrong platform (is %llu)", buf, 0x16u);
                   }
 
                   goto LABEL_191;
                 }
 
-                if (v125)
+                if (v127)
                 {
-                  v90 = CFDictionaryGetValue(v37, v125);
-                  v91 = CFArrayGetTypeID();
-                  if (v90 && (!v91 || CFGetTypeID(v90) == v91))
+                  v93 = CFDictionaryGetValue(v39, v127);
+                  v94 = CFArrayGetTypeID();
+                  if (v93 && (!v94 || CFGetTypeID(v93) == v94))
                   {
-                    v92 = CFArrayGetCount(v90);
-                    if (v92 >= 1)
+                    v95 = CFArrayGetCount(v93);
+                    if (v95 >= 1)
                     {
-                      v93 = 0;
-                      v132 = 0;
+                      v96 = 0;
+                      v134 = 0;
                       do
                       {
-                        v94 = CFArrayGetValueAtIndex(v90, v93);
-                        v95 = CFStringGetTypeID();
-                        if (v94 && (!v95 || CFGetTypeID(v94) == v95))
+                        v97 = CFArrayGetValueAtIndex(v93, v96);
+                        v98 = CFStringGetTypeID();
+                        if (v97 && (!v98 || CFGetTypeID(v97) == v98))
                         {
-                          v96 = CFStringGetTypeID();
-                          if (v96 == CFGetTypeID(v94) && (CFStringCompare(v94, @"app", 1uLL) || (v137 & 8) == 0))
+                          v99 = CFStringGetTypeID();
+                          if (v99 == CFGetTypeID(v97) && (CFStringCompare(v97, @"app", 1uLL) || (v139 & 8) == 0))
                           {
-                            v97 = _LSDatabaseCreateStringForCFString(v39, v94, 1);
-                            if (v97)
+                            v100 = _LSDatabaseCreateStringForCFString(v41, v97, 1);
+                            if (v100)
                             {
-                              v98 = v39;
-                              v99 = [(_LSDatabase *)v39 schema];
-                              if (!_LSBindingListBufferAppend(v39, v143, *(v99 + 320), v97))
+                              v101 = v41;
+                              v102 = [(_LSDatabase *)v41 schema];
+                              if (!_LSBindingListBufferAppend(v41, v145, *(v102 + 320), v100))
                               {
                                 goto LABEL_99;
                               }
 
-                              v100 = v39;
-                              [(_LSDatabase *)v39 store];
+                              v103 = v41;
+                              [(_LSDatabase *)v41 store];
                               _CSStringRelease();
                             }
 
-                            if (CFStringCompare(v94, @"*", 0))
+                            if (CFStringCompare(v97, @"*", 0))
                             {
-                              if (*(*(&v156 + 1) + 24))
+                              if (*(*(&v158 + 1) + 24))
                               {
-                                v101 = v39;
-                                [(_LSDatabase *)v39 store];
-                                v102 = v39;
-                                [(_LSDatabase *)v39 schema];
-                                *&v144 = MEMORY[0x1E69E9820];
-                                *(&v144 + 1) = 3221225472;
-                                *&v145 = ___ZL23_LSRegisterDocumentTypeP11_LSDatabasejPK12LSBundleDataPK14__CFDictionaryP12NSDictionaryIP8NSStringPS7_IS9_S9_EEjP19LSBindingListBuffer_block_invoke;
-                                *(&v145 + 1) = &unk_1E6A19430;
-                                v103 = v39;
-                                *&v147 = v143;
-                                *&v146 = v103;
-                                *(&v146 + 1) = &v156;
+                                v104 = v41;
+                                [(_LSDatabase *)v41 store];
+                                v105 = v41;
+                                [(_LSDatabase *)v41 schema];
+                                *&v146 = MEMORY[0x1E69E9820];
+                                *(&v146 + 1) = 3221225472;
+                                *&v147 = ___ZL23_LSRegisterDocumentTypeP11_LSDatabasejPK12LSBundleDataPK14__CFDictionaryP12NSDictionaryIP8NSStringPS7_IS9_S9_EEjP19LSBindingListBuffer_block_invoke;
+                                *(&v147 + 1) = &unk_1E6A19430;
+                                v106 = v41;
+                                *&v149 = v145;
+                                *&v148 = v106;
+                                *(&v148 + 1) = &v158;
                                 _CSStringBindingEnumerate();
                               }
                             }
 
                             else
                             {
-                              DWORD2(v149[0]) |= 0x10u;
-                              v132 = 1;
+                              DWORD2(v151[0]) |= 0x10u;
+                              v134 = 1;
                             }
                           }
                         }
 
-                        ++v93;
+                        ++v96;
                       }
 
-                      while (v92 != v93);
+                      while (v95 != v96);
 LABEL_176:
-                      v106 = CFDictionaryGetValue(v37, @"CFBundleTypeMIMETypes");
-                      v107 = CFArrayGetTypeID();
-                      if (v106 && (!v107 || CFGetTypeID(v106) == v107))
+                      v109 = CFDictionaryGetValue(v39, @"CFBundleTypeMIMETypes");
+                      v110 = CFArrayGetTypeID();
+                      if (v109 && (!v110 || CFGetTypeID(v109) == v110))
                       {
-                        v108 = CFArrayGetCount(v106);
-                        if (v108 >= 1)
+                        v111 = CFArrayGetCount(v109);
+                        if (v111 >= 1)
                         {
-                          for (k = 0; k != v108; ++k)
+                          for (k = 0; k != v111; ++k)
                           {
-                            v110 = CFArrayGetValueAtIndex(v106, k);
-                            v111 = CFStringGetTypeID();
-                            if (v110 && v111 && CFGetTypeID(v110) != v111)
+                            v113 = CFArrayGetValueAtIndex(v109, k);
+                            v114 = CFStringGetTypeID();
+                            if (v113 && v114 && CFGetTypeID(v113) != v114)
                             {
-                              v110 = 0;
+                              v113 = 0;
                             }
 
-                            v112 = _LSDatabaseCreateStringForCFString(v39, v110, 1);
-                            if (v112)
+                            v115 = _LSDatabaseCreateStringForCFString(v41, v113, 1);
+                            if (v115)
                             {
-                              v113 = v39;
-                              v114 = [(_LSDatabase *)v39 schema];
-                              if (!_LSBindingListBufferAppend(v39, v143, *(v114 + 424), v112))
+                              v116 = v41;
+                              v117 = [(_LSDatabase *)v41 schema];
+                              if (!_LSBindingListBufferAppend(v41, v145, *(v117 + 424), v115))
                               {
                                 goto LABEL_99;
                               }
 
-                              v115 = v39;
-                              [(_LSDatabase *)v39 store];
+                              v118 = v41;
+                              [(_LSDatabase *)v41 store];
                               _CSStringRelease();
                             }
                           }
@@ -5347,27 +4600,28 @@ LABEL_176:
                       }
 
 LABEL_189:
-                      if (v132)
+                      if (v134)
                       {
-                        v116 = *(_LSBundleGet(v39, v134) + 172);
-                        _LSBundleSetFlags(v39);
+                        v119 = _LSBundleGet(v41, v136);
+                        _LSBundleSetFlags(v41, v136, *(v119 + 172) | 0x10000000);
                       }
 
 LABEL_191:
-                      v117 = _LSBindingListCreate(v39, v143, &v148);
-                      if (v117 || (HIDWORD(v151) = v148, (v117 = _LSClaimAdd(v39, v149, &v148 + 1)) != 0) || (v118 = v39, [(_LSDatabase *)v39 store], v119 = *(v9 + 472), _CSArrayAppendValue(), v148) && !_LSBundleDataIsInUnsupportedLocation(v39, v9) && !_LSBundleDataGetUnsupportedFormatFlag() && (v117 = _LSBindingListActivate()) != 0)
+                      v120 = _LSBindingListCreate(v41, v145, &v150);
+                      v121 = v120;
+                      if (v120 || (HIDWORD(v153) = v150, v120 = _LSClaimAdd(v41, v151, &v150 + 1), (v121 = v120) != 0) || (v122 = v41, [(_LSDatabase *)v41 store], _CSArrayAppendValue(), v150) && !_LSBundleDataIsInUnsupportedLocation(v41, v9) && !_LSBundleDataGetUnsupportedFormatFlag() && (v120 = _LSBindingListActivate(v41), (v121 = v120) != 0))
                       {
-                        v40 = _LSRegistrationLog();
-                        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+                        v43 = _LSRegistrationLog(v120);
+                        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
                         {
                           *buf = 67109120;
-                          LODWORD(v153) = v117;
-                          v41 = v40;
-                          v42 = OS_LOG_TYPE_ERROR;
-                          v43 = "Failed to register document type with error code: %d";
-                          v65 = 8;
+                          LODWORD(v155) = v121;
+                          v44 = v43;
+                          v45 = OS_LOG_TYPE_ERROR;
+                          v46 = "Failed to register document type with error code: %d";
+                          v67 = 8;
 LABEL_97:
-                          _os_log_impl(&dword_18162D000, v41, v42, v43, buf, v65);
+                          _os_log_impl(&dword_18162D000, v44, v45, v46, buf, v67);
                         }
 
 LABEL_98:
@@ -5385,7 +4639,7 @@ LABEL_98:
                   CFArrayGetTypeID();
                 }
 
-                v132 = 0;
+                v134 = 0;
                 goto LABEL_176;
               }
             }
@@ -5395,20 +4649,20 @@ LABEL_98:
               CFStringGetTypeID();
             }
 
-            v74 = DWORD2(v149[0]);
+            v76 = DWORD2(v151[0]);
             goto LABEL_127;
           }
         }
 
         else
         {
-          v31 = _LSRegistrationLog();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          v32 = _LSRegistrationLog(TypeID);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
           {
-            v32 = CFArrayGetValueAtIndex(theArray, idx);
-            LODWORD(v149[0]) = 138477827;
-            *(v149 + 4) = v32;
-            _os_log_impl(&dword_18162D000, v31, OS_LOG_TYPE_ERROR, "Unexpected value in document types array, not dictionary as expected, but %{private}@", v149, 0xCu);
+            v33 = CFArrayGetValueAtIndex(theArray, idx);
+            LODWORD(v151[0]) = 138477827;
+            *(v151 + 4) = v33;
+            _os_log_impl(&dword_18162D000, v32, OS_LOG_TYPE_ERROR, "Unexpected value in document types array, not dictionary as expected, but %{private}@", v151, 0xCu);
           }
         }
 
@@ -5419,47 +4673,46 @@ LABEL_200:
       while (idx + 1 != Count);
     }
 
-    v120 = 0;
+    v123 = 0;
   }
 
   else
   {
-    v120 = 4294956479;
+    v123 = 4294956479;
   }
 
-  v121 = *MEMORY[0x1E69E9840];
-  return v120;
+  return v123;
 }
 
-uint64_t _LSRegisterDefaultAppsClaims(void *a1, uint64_t a2, uint64_t a3, void *a4)
+uint64_t _LSRegisterDefaultAppsClaims(void *a1, uint64_t a2, const LSBundleData *a3, void *a4)
 {
   v17 = *MEMORY[0x1E69E9840];
   v7 = a1;
   v8 = a4;
   v9 = LSCopyDefaultAppsClaimForBundle(v7, a2, a3, v8);
+  v10 = v9;
   if (v9)
   {
-    v10 = _LSDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _LSDefaultLog(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = v9;
-      _os_log_impl(&dword_18162D000, v10, OS_LOG_TYPE_DEFAULT, "Registering synthesized claim for default app categories: %@", buf, 0xCu);
+      v16 = v10;
+      _os_log_impl(&dword_18162D000, v11, OS_LOG_TYPE_DEFAULT, "Registering synthesized claim for default app categories: %@", buf, 0xCu);
     }
 
-    v14 = v9;
+    v14 = v10;
     [MEMORY[0x1E695DEC8] arrayWithObjects:&v14 count:1];
-    v11 = _LSRegisterDocumentTypes(v7);
-    CFRelease(v9);
+    v12 = _LSRegisterDocumentTypes(v7);
+    CFRelease(v10);
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-  return v11;
+  return v12;
 }
 
 void sub_18177BCC8(_Unwind_Exception *a1)
@@ -5474,18 +4727,18 @@ uint64_t _LSRegisterURLTypes(uint64_t a1)
   v1 = MEMORY[0x1EEE9AC00](a1);
   v3 = v2;
   v5 = v4;
-  v65 = v6;
-  v75 = *MEMORY[0x1E69E9840];
+  v61 = v6;
+  v71 = *MEMORY[0x1E69E9840];
   v7 = v1;
   v8 = v7;
-  v68 = 0;
+  v64 = 0;
   if (*(v5 + 168) == 16)
   {
-    v9 = _LSDefaultLog();
+    v9 = _LSDefaultLog(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       LODWORD(buf) = 134217984;
-      *(&buf + 4) = v65;
+      *(&buf + 4) = v61;
       v10 = "Skipping URL claims for bundle %llu because it is a remote placeholder";
 LABEL_96:
       _os_log_impl(&dword_18162D000, v9, OS_LOG_TYPE_INFO, v10, &buf, 0xCu);
@@ -5497,62 +4750,60 @@ LABEL_96:
 
   if ((*(v5 + 179) & 0x10) != 0)
   {
-    v9 = _LSDefaultLog();
+    v9 = _LSDefaultLog(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       LODWORD(buf) = 134217984;
-      *(&buf + 4) = v65;
+      *(&buf + 4) = v61;
       v10 = "Skipping URL claims for bundle %llu because it is an App Clip";
       goto LABEL_96;
     }
 
 LABEL_97:
 
-    v15 = 0;
+    v14 = 0;
     goto LABEL_98;
   }
 
-  _LSBindingListBufferInit(v7, v69);
-  v11 = *(v5 + 304);
-  v12 = v8;
+  _LSBindingListBufferInit(v7, v65);
+  v11 = v8;
   [(_LSDatabase *)v8 store];
   cf = _CSStringCopyCFString();
   if (!v3)
   {
 LABEL_99:
-    v15 = 0;
+    v14 = 0;
     goto LABEL_100;
   }
 
-  v13 = CFGetTypeID(v3);
-  if (v13 == CFArrayGetTypeID())
+  v12 = CFGetTypeID(v3);
+  if (v12 == CFArrayGetTypeID())
   {
     Count = CFArrayGetCount(v3);
     if (Count >= 1)
     {
-      v66 = Count;
+      v62 = Count;
+      v14 = 0;
       v15 = 0;
-      v16 = 0;
-      v64 = *MEMORY[0x1E695E178];
+      v60 = *MEMORY[0x1E695E178];
       key = *MEMORY[0x1E695E188];
-      v59 = *MEMORY[0x1E695E180];
-      v17 = *MEMORY[0x1E695E4F0];
-      v61 = *MEMORY[0x1E695E4F0];
-      v62 = *MEMORY[0x1E695E190];
+      v55 = *MEMORY[0x1E695E180];
+      v57 = *MEMORY[0x1E695E4F0];
+      v58 = *MEMORY[0x1E695E190];
       while (1)
       {
-        v74 = 0;
-        v72 = 0u;
-        v73 = 0u;
+        v70 = 0;
+        v68 = 0u;
+        v69 = 0u;
         buf = 0u;
-        v71 = 0u;
-        v67 = 0;
-        ValueAtIndex = CFArrayGetValueAtIndex(v3, v16);
+        v67 = 0u;
+        v63 = 0;
+        ValueAtIndex = CFArrayGetValueAtIndex(v3, v15);
         TypeID = CFDictionaryGetTypeID();
         if (ValueAtIndex && (!TypeID || CFGetTypeID(ValueAtIndex) == TypeID))
         {
-          v20 = CFGetTypeID(ValueAtIndex);
-          if (v20 == CFDictionaryGetTypeID())
+          v18 = CFGetTypeID(ValueAtIndex);
+          if (v18 == CFDictionaryGetTypeID())
           {
             DWORD2(buf) |= 0x40u;
             if (_LSGetBooleanFromDict(ValueAtIndex, @"LSIsAppleDefaultForScheme"))
@@ -5565,67 +4816,67 @@ LABEL_99:
               DWORD2(buf) |= 4u;
             }
 
-            WORD6(buf) = _LSGetHandlerRankFromDictKey(ValueAtIndex, v21);
-            v22 = _LSGetRoleFromDictKey(ValueAtIndex, v64);
-            v23 = v22 ? v22 : 2;
-            HIWORD(buf) = v23;
-            v24 = *(v5 + 168);
-            if (v24 == 2 || v24 == 14 || v23 == 1)
+            WORD6(buf) = _LSGetHandlerRankFromDictKey(ValueAtIndex, v19);
+            v20 = _LSGetRoleFromDictKey(ValueAtIndex, v60);
+            v21 = v20 ? v20 : 2;
+            HIWORD(buf) = v21;
+            v22 = *(v5 + 168);
+            if (v22 == 2 || v22 == 14 || v21 == 1)
             {
               Value = CFDictionaryGetValue(ValueAtIndex, @"CFBundleRequiredCapabilities");
-              v26 = CFArrayGetTypeID();
-              if (!Value || v26 && CFGetTypeID(Value) != v26)
+              v24 = CFArrayGetTypeID();
+              if (!Value || v24 && CFGetTypeID(Value) != v24)
               {
                 Value = CFDictionaryGetValue(ValueAtIndex, @"SBRequiredCapabilities");
-                v27 = CFArrayGetTypeID();
-                if (!Value || v27 && CFGetTypeID(Value) != v27)
+                v25 = CFArrayGetTypeID();
+                if (!Value || v25 && CFGetTypeID(Value) != v25)
                 {
                   goto LABEL_32;
                 }
               }
 
-              v28 = CFGetTypeID(Value);
-              if (v28 != CFArrayGetTypeID())
+              v26 = CFGetTypeID(Value);
+              if (v26 != CFArrayGetTypeID())
               {
                 goto LABEL_32;
               }
 
-              DWORD2(v71) = _LSDatabaseCreateStringArray(v8, Value, 0, 0);
-              if (DWORD2(v71))
+              DWORD2(v67) = _LSDatabaseCreateStringArray(v8, Value, 0, 0);
+              if (DWORD2(v67))
               {
-                v15 = 0;
+                v14 = 0;
 LABEL_32:
-                v29 = CFStringGetTypeID();
-                v30 = CFDictionaryGetValue(ValueAtIndex, key);
-                v31 = v30;
-                if (v30 && CFGetTypeID(v30) == v29)
+                v27 = CFStringGetTypeID();
+                v28 = CFDictionaryGetValue(ValueAtIndex, key);
+                v29 = v28;
+                if (v28 && CFGetTypeID(v28) == v27)
                 {
-                  v32 = v31;
-                  DWORD1(v71) = LaunchServices::LocalizedString::Add(v8, MEMORY[0x1E695E0F8], v32);
+                  v30 = v29;
+                  DWORD1(v67) = LaunchServices::LocalizedString::Add(v8, MEMORY[0x1E695E0F8], v30);
                 }
 
                 if (!_LSGetBooleanFromDict(ValueAtIndex, @"CFBundleTypeIconSystemGenerated"))
                 {
-                  v33 = CFDictionaryGetValue(ValueAtIndex, @"_LSIconPath");
-                  v34 = CFStringGetTypeID();
-                  if (v33 && (!v34 || CFGetTypeID(v33) == v34))
+                  v31 = CFDictionaryGetValue(ValueAtIndex, @"_LSIconPath");
+                  v32 = CFStringGetTypeID();
+                  if (v31 && (!v32 || CFGetTypeID(v31) == v32))
                   {
-                    v35 = CFStringGetTypeID();
-                    if (v35 == CFGetTypeID(v33))
+                    v33 = CFStringGetTypeID();
+                    if (v33 == CFGetTypeID(v31))
                     {
                       DWORD2(buf) |= 0x1000u;
                       goto LABEL_48;
                     }
                   }
 
-                  if (v59)
+                  if (v55)
                   {
-                    v33 = CFDictionaryGetValue(ValueAtIndex, v59);
-                    v36 = CFStringGetTypeID();
-                    if (!v33 || !v36 || CFGetTypeID(v33) == v36)
+                    v31 = CFDictionaryGetValue(ValueAtIndex, v55);
+                    v34 = CFStringGetTypeID();
+                    if (!v31 || !v34 || CFGetTypeID(v31) == v34)
                     {
 LABEL_48:
-                      HIDWORD(v71) = _LSDatabaseCreateStringForCFString(v8, v33, 0);
+                      HIDWORD(v67) = _LSDatabaseCreateStringForCFString(v8, v31, 0);
                       goto LABEL_49;
                     }
                   }
@@ -5635,83 +4886,83 @@ LABEL_48:
                     CFStringGetTypeID();
                   }
 
-                  v33 = 0;
+                  v31 = 0;
                   goto LABEL_48;
                 }
 
 LABEL_49:
-                v37 = CFDictionaryGetValue(ValueAtIndex, @"_LSBundleLibraryDelegate");
-                v38 = CFStringGetTypeID();
-                if (v37 && v38 && CFGetTypeID(v37) != v38)
+                v35 = CFDictionaryGetValue(ValueAtIndex, @"_LSBundleLibraryDelegate");
+                v36 = CFStringGetTypeID();
+                if (v35 && v36 && CFGetTypeID(v35) != v36)
                 {
-                  v37 = 0;
+                  v35 = 0;
                 }
 
-                LODWORD(v74) = _LSDatabaseCreateStringForCFString(v8, v37, 0);
-                if (!v74)
+                LODWORD(v70) = _LSDatabaseCreateStringForCFString(v8, v35, 0);
+                if (!v70)
                 {
                   goto LABEL_65;
                 }
 
-                if (v61)
+                if (v57)
                 {
-                  v39 = CFDictionaryGetValue(ValueAtIndex, v61);
-                  v40 = CFStringGetTypeID();
-                  if (v39 && (!v40 || CFGetTypeID(v39) == v40))
+                  v37 = CFDictionaryGetValue(ValueAtIndex, v57);
+                  v38 = CFStringGetTypeID();
+                  if (v37 && (!v38 || CFGetTypeID(v37) == v38))
                   {
-                    v41 = DWORD2(buf);
-                    Length = CFStringGetLength(v39);
+                    v39 = DWORD2(buf);
+                    Length = CFStringGetLength(v37);
                     if (Length > CFStringGetLength(@"com.apple."))
                     {
-                      v76.length = CFStringGetLength(@"com.apple.");
-                      v76.location = 0;
-                      if (CFStringCompareWithOptions(v39, @"com.apple.", v76, 1uLL) == kCFCompareEqualTo)
+                      v72.length = CFStringGetLength(@"com.apple.");
+                      v72.location = 0;
+                      if (CFStringCompareWithOptions(v37, @"com.apple.", v72, 1uLL) == kCFCompareEqualTo)
                       {
-                        v43 = v41 | 4;
+                        v41 = v39 | 4;
                         goto LABEL_64;
                       }
                     }
 
 LABEL_63:
-                    v43 = v41 & 0xFFFFFFFB;
+                    v41 = v39 & 0xFFFFFFFB;
 LABEL_64:
-                    DWORD2(buf) = v43;
+                    DWORD2(buf) = v41;
 LABEL_65:
-                    LODWORD(v71) = v65;
-                    HIDWORD(v74) = 0;
-                    if (!_LSGetBooleanFromDict(ValueAtIndex, @"CFBundleURLIsPrivate") || (v44 = BYTE8(buf), DWORD2(buf) |= 0x80u, (v44 & 4) != 0))
+                    LODWORD(v67) = v61;
+                    HIDWORD(v70) = 0;
+                    if (!_LSGetBooleanFromDict(ValueAtIndex, @"CFBundleURLIsPrivate") || (v42 = BYTE8(buf), DWORD2(buf) |= 0x80u, (v42 & 4) != 0))
                     {
                       if (_LSGetBooleanFromDict(ValueAtIndex, @"CFBundleURLAlwaysAvailable"))
                       {
                         DWORD2(buf) |= 0x100u;
                       }
 
-                      if (v62)
+                      if (v58)
                       {
-                        v45 = CFDictionaryGetValue(ValueAtIndex, v62);
-                        v46 = CFArrayGetTypeID();
-                        if (v45 && (!v46 || CFGetTypeID(v45) == v46))
+                        v43 = CFDictionaryGetValue(ValueAtIndex, v58);
+                        v44 = CFArrayGetTypeID();
+                        if (v43 && (!v44 || CFGetTypeID(v43) == v44))
                         {
-                          v47 = CFArrayGetCount(v45);
-                          if (v47 >= 1)
+                          v45 = CFArrayGetCount(v43);
+                          if (v45 >= 1)
                           {
-                            for (i = 0; i != v47; ++i)
+                            for (i = 0; i != v45; ++i)
                             {
-                              v49 = CFArrayGetValueAtIndex(v45, i);
-                              v50 = CFStringGetTypeID();
-                              if (v49 && (!v50 || CFGetTypeID(v49) == v50))
+                              v47 = CFArrayGetValueAtIndex(v43, i);
+                              v48 = CFStringGetTypeID();
+                              if (v47 && (!v48 || CFGetTypeID(v47) == v48))
                               {
-                                StringForCFString = _LSDatabaseCreateStringForCFString(v8, v49, 1);
+                                StringForCFString = _LSDatabaseCreateStringForCFString(v8, v47, 1);
                                 if (StringForCFString)
                                 {
-                                  v52 = v8;
-                                  v53 = [(_LSDatabase *)v8 schema];
-                                  if (!_LSBindingListBufferAppend(v8, v69, *(v53 + 736), StringForCFString))
+                                  v50 = v8;
+                                  v51 = [(_LSDatabase *)v8 schema];
+                                  if (!_LSBindingListBufferAppend(v8, v65, *(v51 + 736), StringForCFString))
                                   {
                                     goto LABEL_90;
                                   }
 
-                                  v54 = v8;
+                                  v52 = v8;
                                   [(_LSDatabase *)v8 store];
                                   _CSStringRelease();
                                 }
@@ -5726,25 +4977,24 @@ LABEL_65:
                         CFArrayGetTypeID();
                       }
 
-                      v15 = _LSBindingListCreate(v8, v69, &v67);
-                      if (!v15)
+                      v14 = _LSBindingListCreate(v8, v65, &v63);
+                      if (!v14)
                       {
-                        HIDWORD(v74) = v67;
-                        v15 = _LSClaimAdd(v8, &buf, &v68);
-                        if (!v15)
+                        HIDWORD(v70) = v63;
+                        v14 = _LSClaimAdd(v8, &buf, &v64);
+                        if (!v14)
                         {
-                          v55 = v8;
+                          v53 = v8;
                           [(_LSDatabase *)v8 store];
-                          v56 = *(v5 + 472);
                           _CSArrayAppendValue();
-                          if (!v67 || _LSBundleDataIsInUnsupportedLocation(v8, v5) || _LSBundleDataGetUnsupportedFormatFlag())
+                          if (!v63 || _LSBundleDataIsInUnsupportedLocation(v8, v5) || _LSBundleDataGetUnsupportedFormatFlag())
                           {
-                            v15 = 0;
+                            v14 = 0;
                           }
 
                           else
                           {
-                            v15 = _LSBindingListActivate();
+                            v14 = _LSBindingListActivate(v8);
                           }
                         }
                       }
@@ -5759,18 +5009,18 @@ LABEL_65:
                   CFStringGetTypeID();
                 }
 
-                v41 = DWORD2(buf);
+                v39 = DWORD2(buf);
                 goto LABEL_63;
               }
 
-              v15 = 4294957803;
+              v14 = 4294957803;
             }
           }
         }
 
 LABEL_90:
-        _LSBindingListBufferReset(v8, v69);
-        if (++v16 == v66)
+        _LSBindingListBufferReset(v8, v65);
+        if (++v15 == v62)
         {
           goto LABEL_100;
         }
@@ -5780,7 +5030,7 @@ LABEL_90:
     goto LABEL_99;
   }
 
-  v15 = 4294956479;
+  v14 = 4294956479;
 LABEL_100:
   if (cf)
   {
@@ -5789,26 +5039,26 @@ LABEL_100:
 
 LABEL_98:
 
-  v57 = *MEMORY[0x1E69E9840];
-  return v15;
+  return v14;
 }
 
 uint64_t _LSRegisterExtensionPoint(void *a1, uint64_t a2, __CFString *a3, uint64_t a4, const __CFDictionary *a5, void *a6)
 {
-  v123 = *MEMORY[0x1E69E9840];
+  v125 = *MEMORY[0x1E69E9840];
   v11 = a1;
-  if (![__LSDefaultsGetSharedInstance() hasServer])
+  v13 = [__LSDefaultsGetSharedInstance(v11 v12)];
+  if (!v13)
   {
-    if (![__LSDefaultsGetSharedInstance() isServer])
+    if (![__LSDefaultsGetSharedInstance(v13 v14)])
     {
-      v12 = 0;
+      v15 = 0;
       goto LABEL_100;
     }
 
-    v77 = v11;
-    v100 = 0;
-    v13 = _LSRegistrationLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v79 = v11;
+    v102 = 0;
+    v16 = _LSRegistrationLog(v79);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       *buf = 138413058;
       *&buf[4] = a3;
@@ -5818,15 +5068,15 @@ uint64_t _LSRegisterExtensionPoint(void *a1, uint64_t a2, __CFString *a3, uint64
       *&buf[20] = a6;
       *&buf[28] = 2112;
       *&buf[30] = a5;
-      _os_log_impl(&dword_18162D000, v13, OS_LOG_TYPE_INFO, "Registering extension point: %@ platform: %u declaring framework: %@ SDK: %@", buf, 0x26u);
+      _os_log_impl(&dword_18162D000, v16, OS_LOG_TYPE_INFO, "Registering extension point: %@ platform: %u declaring framework: %@ SDK: %@", buf, 0x26u);
     }
 
-    v78 = v77;
-    if (!v77)
+    v80 = v79;
+    if (!v79)
     {
-      v12 = _LSContextInit(&v100);
-      v78 = v100;
-      if (v12)
+      v15 = _LSContextInit(&v102);
+      v80 = v102;
+      if (v15)
       {
 LABEL_99:
 
@@ -5834,36 +5084,25 @@ LABEL_99:
       }
     }
 
-    v121 = kLSVersionNumberNull;
-    v122 = unk_1817E90C0;
-    v98 = 0;
-    v99 = 0;
-    v119 = 0u;
-    v120 = 0u;
+    v123 = kLSVersionNumberNull;
+    v124 = unk_1817E90C0;
+    v100 = 0;
+    v101 = 0;
+    v121 = 0u;
+    v122 = 0u;
     if (a5)
     {
       Value = CFDictionaryGetValue(a5, @"NSExtension");
       TypeID = CFDictionaryGetTypeID();
       if (Value && (!TypeID || CFGetTypeID(Value) == TypeID))
       {
-        v16 = CFDictionaryGetValue(Value, @"NSExtensionAttributes");
-        v17 = CFDictionaryGetTypeID();
-        if (!v16 || !v17 || CFGetTypeID(v16) == v17)
+        v19 = CFDictionaryGetValue(Value, @"NSExtensionAttributes");
+        v20 = CFDictionaryGetTypeID();
+        if (!v19 || !v20 || CFGetTypeID(v19) == v20)
         {
 LABEL_20:
-          v18 = objc_opt_class();
-          v19 = [(__CFDictionary *)a5 objectForKey:@"EXExtensionPointIsPublic"];
-          v20 = v19;
-          if (v18 && v19 && (objc_opt_isKindOfClass() & 1) == 0)
-          {
-
-            v20 = 0;
-          }
-
-          v75 = [v20 BOOLValue];
-
           v21 = objc_opt_class();
-          v22 = [(__CFDictionary *)a5 objectForKey:@"EXRequiresLegacyInfrastructure"];
+          v22 = [(__CFDictionary *)a5 objectForKey:@"EXExtensionPointIsPublic"];
           v23 = v22;
           if (v21 && v22 && (objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -5871,133 +5110,147 @@ LABEL_20:
             v23 = 0;
           }
 
-          v24 = [v23 BOOLValue];
+          v77 = [v23 BOOLValue];
 
-          if (v24)
+          v24 = objc_opt_class();
+          v25 = [(__CFDictionary *)a5 objectForKey:@"EXRequiresLegacyInfrastructure"];
+          v26 = v25;
+          if (v24 && v25 && (objc_opt_isKindOfClass() & 1) == 0)
           {
-            v74 = 1;
+
+            v26 = 0;
+          }
+
+          v27 = [v26 BOOLValue];
+
+          if (v27)
+          {
+            v76 = 1;
           }
 
           else
           {
-            v25 = objc_opt_class();
-            v26 = [(__CFDictionary *)a5 objectForKey:@"EXTCCPolicy"];
-            v27 = v26;
-            if (v25 && v26 && (objc_opt_isKindOfClass() & 1) == 0)
+            v28 = objc_opt_class();
+            v29 = [(__CFDictionary *)a5 objectForKey:@"EXTCCPolicy"];
+            v30 = v29;
+            if (v28 && v29 && (objc_opt_isKindOfClass() & 1) == 0)
             {
 
-              v27 = 0;
+              v30 = 0;
             }
 
-            if ([v27 isEqualToString:@"prompt-container-personality"])
+            if ([v30 isEqualToString:@"prompt-container-personality"])
             {
-              v28 = 1;
+              v31 = 1;
             }
 
-            else if ([v27 isEqualToString:@"prompt-host-personality"])
+            else if ([v30 isEqualToString:@"prompt-host-personality"])
             {
-              v28 = 2;
+              v31 = 2;
             }
 
             else
             {
-              v28 = 0;
+              v31 = 0;
             }
 
-            v74 = v28;
+            v76 = v31;
           }
 
-          if (v16 && (v29 = CFDictionaryGetValue(v16, @"NSExtensionPointVersion"), v30 = CFStringGetTypeID(), v29) && (!v30 || CFGetTypeID(v29) == v30))
+          if (v19 && (v32 = CFDictionaryGetValue(v19, @"NSExtensionPointVersion"), v33 = CFStringGetTypeID(), v32) && (!v33 || CFGetTypeID(v32) == v33))
           {
-            _LSGetVersionFromString(v29, buf);
-            v72 = 0;
+            _LSGetVersionFromString(v32, buf);
+            v74 = 0;
           }
 
           else
           {
-            v29 = 0;
+            v32 = 0;
             memset(buf, 0, 32);
-            v72 = 1;
+            v74 = 1;
           }
 
-          v121 = *buf;
-          v122 = *&buf[16];
-          if (!_LSExtensionPointFindWithIdentifier(v78, a3, a4, a2, &v99, &v98) && v99)
+          v123 = *buf;
+          v124 = *&buf[16];
+          v34 = _LSExtensionPointFindWithIdentifier(v80, a3, a4, a2, &v101, &v100);
+          if (!v34 && v101)
           {
-            v31 = *(v98 + 24);
-            *buf = *(v98 + 8);
-            *&buf[16] = v31;
-            v101 = v121;
-            v102 = v122;
-            if (_LSVersionNumberCompare(buf, &v101))
+            v35 = *(v100 + 24);
+            *buf = *(v100 + 8);
+            *&buf[16] = v35;
+            v103 = v123;
+            v104 = v124;
+            if (_LSVersionNumberCompare(buf, &v103))
             {
-              v32 = *(v98 + 24);
-              *buf = *(v98 + 8);
-              *&buf[16] = v32;
-              v101 = v121;
-              v102 = v122;
-              if (_LSVersionNumberCompare(buf, &v101) != -1)
+              v36 = *(v100 + 24);
+              *buf = *(v100 + 8);
+              *&buf[16] = v36;
+              v103 = v123;
+              v104 = v124;
+              v37 = _LSVersionNumberCompare(buf, &v103);
+              if (v37 != -1)
               {
-                log = _LSRegistrationLog();
+                log = _LSRegistrationLog(v37);
                 if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
                 {
-                  v33 = *(v98 + 24);
-                  v101 = *(v98 + 8);
-                  v102 = v33;
-                  v34 = _LSVersionNumberGetStringRepresentation(&v101);
+                  v38 = *(v100 + 24);
+                  v103 = *(v100 + 8);
+                  v104 = v38;
+                  v39 = _LSVersionNumberGetStringRepresentation(&v103);
                   *buf = 138412802;
                   *&buf[4] = a3;
                   *&buf[12] = 2112;
-                  *&buf[14] = v29;
+                  *&buf[14] = v32;
                   *&buf[22] = 2112;
-                  *&buf[24] = v34;
+                  *&buf[24] = v39;
                   _os_log_impl(&dword_18162D000, log, OS_LOG_TYPE_ERROR, "Not registering extension point %@, it has a lower version (%@) than existing registered extension point with that identifer (%@)", buf, 0x20u);
                 }
 
-                v12 = 0;
+                v15 = 0;
                 goto LABEL_97;
               }
             }
 
-            _LSExtensionPointRemove(v78, v99);
+            _LSExtensionPointRemove(v80, v101);
           }
 
-          if (!v16 || (v35 = CFDictionaryGetValue(v16, @"NSExtensionPointName"), v36 = CFStringGetTypeID(), !v35) || v36 && CFGetTypeID(v35) != v36)
+          if (!v19 || (v40 = CFDictionaryGetValue(v19, @"NSExtensionPointName"), v34 = CFStringGetTypeID(), !v40) || (v41 = v34) != 0 && (v34 = CFGetTypeID(v40), v34 != v41))
           {
-            v37 = _LSRegistrationLog();
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+            v42 = _LSRegistrationLog(v34);
+            if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
               *&buf[4] = a3;
-              _os_log_impl(&dword_18162D000, v37, OS_LOG_TYPE_ERROR, "ExtensionPoint %@ does not specify NSExtensionPointName", buf, 0xCu);
+              _os_log_impl(&dword_18162D000, v42, OS_LOG_TYPE_ERROR, "ExtensionPoint %@ does not specify NSExtensionPointName", buf, 0xCu);
             }
 
-            v35 = a3;
+            v40 = a3;
           }
 
-          if (!CFEqual(v35, a3))
+          v43 = CFEqual(v40, a3);
+          if (!v43)
           {
-            v38 = _LSRegistrationLog();
-            if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+            v44 = _LSRegistrationLog(v43);
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
               *&buf[4] = a3;
               *&buf[12] = 2112;
-              *&buf[14] = v35;
+              *&buf[14] = v40;
             }
           }
 
-          v39 = _LSBundleGet(v77, a2);
-          if (v39)
+          v45 = _LSBundleGet(v79, a2);
+          if (v45)
           {
-            v40 = [_LSLazyPropertyList lazyPropertyListWithDatabase:v77 unit:*(v39 + 140)];
-            v41 = [v40 objectForKey:@"com.apple.private.coreservices.definesExtensionPoint" ofClass:objc_opt_class()];
-            v42 = v41 == 0;
+            v46 = [_LSLazyPropertyList lazyPropertyListWithDatabase:v79 unit:*(v45 + 140)];
+            v47 = [v46 objectForKey:@"com.apple.private.coreservices.definesExtensionPoint" ofClass:objc_opt_class()];
+            v48 = v47 == 0;
 
-            if (v42 || ([(__CFString *)a3 hasPrefix:@"com.apple."]& 1) == 0)
+            if (v48 || ([(__CFString *)a3 hasPrefix:@"com.apple."]& 1) == 0)
             {
 
-              v75 = 2;
+              v77 = 2;
             }
 
             else
@@ -6006,100 +5259,99 @@ LABEL_20:
           }
 
           log = a5;
-          StringForCFString = _LSDatabaseCreateStringForCFString(v78, a3, 0);
-          v44 = _LSDatabaseCreateStringForCFString(v78, v35, 0);
-          if (v72)
+          StringForCFString = _LSDatabaseCreateStringForCFString(v80, a3, 0);
+          v50 = _LSDatabaseCreateStringForCFString(v80, v40, 0);
+          if (v74)
           {
             memset(buf, 0, 32);
           }
 
           else
           {
-            _LSGetVersionFromString(v29, buf);
+            _LSGetVersionFromString(v32, buf);
           }
 
-          v119 = *buf;
-          v120 = *&buf[16];
-          v73 = _LSPlistAdd(v78, log);
-          v71 = [log objectForKey:@"EXDiscoverFromHiddenApps"];
-          v45 = [v71 BOOLValue];
+          v121 = *buf;
+          v122 = *&buf[16];
+          v75 = _LSPlistAdd(v80, log);
+          v73 = [log objectForKey:@"EXDiscoverFromHiddenApps"];
+          v51 = [v73 BOOLValue];
           if (a6)
           {
-            v97 = 0;
-            LODWORD(a6) = _LSAliasAddURL(v78, a6, &v97);
-            v46 = v97;
-            if (v46)
+            v99 = 0;
+            LODWORD(a6) = _LSAliasAddURL(v80, a6, &v99);
+            v52 = v99;
+            v53 = v52;
+            if (v52)
             {
-              v47 = _LSRegistrationLog();
-              if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+              v54 = _LSRegistrationLog(v52);
+              if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412546;
                 *&buf[4] = a3;
                 *&buf[12] = 2112;
-                *&buf[14] = v46;
-                _os_log_impl(&dword_18162D000, v47, OS_LOG_TYPE_ERROR, "couldn't set declaring framework of extension point %@: %@", buf, 0x16u);
+                *&buf[14] = v53;
+                _os_log_impl(&dword_18162D000, v54, OS_LOG_TYPE_ERROR, "couldn't set declaring framework of extension point %@: %@", buf, 0x16u);
               }
             }
           }
 
-          *&buf[8] = v119;
-          v48 = v45;
+          *&buf[8] = v121;
+          v55 = v51;
           *buf = 0;
           *&buf[4] = StringForCFString;
-          *&buf[24] = v120;
-          v104 = __PAIR64__(a4, v44);
-          v105 = __PAIR64__(a6, v73);
-          v106 = a2;
-          v107 = v75;
-          LODWORD(v108) = v74;
-          *(&v108 + 4) = v45;
-          HIDWORD(v99) = _LSExtensionPointAdd(v78, buf);
-          if (!HIDWORD(v99))
+          *&buf[24] = v122;
+          v106 = __PAIR64__(a4, v50);
+          v107 = __PAIR64__(a6, v75);
+          v108 = a2;
+          v109 = v77;
+          LODWORD(v110) = v76;
+          *(&v110 + 4) = v51;
+          HIDWORD(v101) = _LSExtensionPointAdd(v80, buf);
+          if (!HIDWORD(v101))
           {
-            v12 = 4294956477;
+            v15 = 4294956477;
 LABEL_96:
 
 LABEL_97:
-            if (!v77)
+            if (!v79)
             {
-              _LSContextDestroy(&v100);
+              _LSContextDestroy(&v102);
             }
 
             goto LABEL_99;
           }
 
-          v49 = _LSBundleGet(v78, a2);
-          v50 = v49;
-          if (v49)
+          v56 = _LSBundleGet(v80, a2);
+          if (v56)
           {
-            if (*(v49 + 488))
+            if (*(v56 + 488))
             {
-              v51 = v78;
-              [(_LSDatabase *)v78 store];
-              v52 = *(v50 + 488);
+              v57 = v80;
+              [(_LSDatabase *)v80 store];
               _CSArrayAppendValue();
             }
 
             else
             {
-              v67 = v78;
-              [(_LSDatabase *)v78 store];
-              LODWORD(v101) = _CSArrayCreate();
-              if (v101)
+              v70 = v80;
+              [(_LSDatabase *)v80 store];
+              LODWORD(v103) = _CSArrayCreate();
+              if (v103)
               {
                 *buf = 0;
-                v68 = v78;
-                [(_LSDatabase *)v78 store];
-                v69 = v78;
-                v70 = *([(_LSDatabase *)v78 schema]+ 4);
+                v71 = v80;
+                [(_LSDatabase *)v80 store];
+                v72 = v80;
+                [(_LSDatabase *)v80 schema];
                 if (_CSStoreWriteToUnit())
                 {
-                  v12 = 0;
+                  v15 = 0;
                 }
 
                 else
                 {
-                  v12 = _LSGetOSStatusFromNSError(*buf);
+                  v15 = _LSGetOSStatusFromNSError(*buf);
                 }
 
                 goto LABEL_88;
@@ -6109,95 +5361,95 @@ LABEL_97:
 
           else
           {
-            v53 = _LSRegistrationLog();
-            if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+            v58 = _LSRegistrationLog(0);
+            if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
             {
               *buf = 134218242;
               *&buf[4] = a2;
               *&buf[12] = 2112;
               *&buf[14] = a3;
-              _os_log_impl(&dword_18162D000, v53, OS_LOG_TYPE_ERROR, "Failed to fetch app bundle unit: %llu for extension point: %@", buf, 0x16u);
+              _os_log_impl(&dword_18162D000, v58, OS_LOG_TYPE_ERROR, "Failed to fetch app bundle unit: %llu for extension point: %@", buf, 0x16u);
             }
           }
 
-          v12 = 0;
+          v15 = 0;
 LABEL_88:
-          v91 = 0;
-          v92 = &v91;
-          v93 = 0x3032000000;
-          v94 = __Block_byref_object_copy__47;
-          v95 = __Block_byref_object_dispose__47;
-          v96 = [MEMORY[0x1E695DFA8] set];
-          v85 = 0;
-          v86 = &v85;
-          v87 = 0x3032000000;
-          v88 = __Block_byref_object_copy__47;
-          v89 = __Block_byref_object_dispose__47;
-          v90 = [MEMORY[0x1E695DF90] dictionary];
+          v93 = 0;
+          v94 = &v93;
+          v95 = 0x3032000000;
+          v96 = __Block_byref_object_copy__47;
+          v97 = __Block_byref_object_dispose__47;
+          v98 = [MEMORY[0x1E695DFA8] set];
+          v87 = 0;
+          v88 = &v87;
+          v89 = 0x3032000000;
+          v90 = __Block_byref_object_copy__47;
+          v91 = __Block_byref_object_dispose__47;
+          v92 = [MEMORY[0x1E695DF90] dictionary];
           *buf = MEMORY[0x1E69E9820];
           *&buf[8] = 3221225472;
           *&buf[16] = ___ZL31_LSServerRegisterExtensionPointP11_LSDatabasejPK10__CFStringjPK14__CFDictionaryPK7__CFURL_block_invoke;
           *&buf[24] = &unk_1E6A1DE30;
-          v106 = 0;
-          v107 = StringForCFString;
-          v108 = v119;
-          v109 = v120;
-          v110 = v44;
-          v111 = a4;
-          v112 = v73;
-          v113 = a6;
-          v114 = a2;
-          v115 = v75;
-          v117 = v48;
-          v116 = v74;
-          v118 = v44;
-          v104 = &v85;
-          v105 = &v91;
-          v54 = v78;
-          *&buf[32] = v54;
-          v55 = MEMORY[0x1865D71B0](buf);
-          v56 = v54;
-          [(_LSDatabase *)v54 store];
-          v57 = v54;
-          v58 = *([(_LSDatabase *)v54 schema]+ 1588);
+          v108 = 0;
+          v109 = StringForCFString;
+          v110 = v121;
+          v111 = v122;
+          v112 = v50;
+          v113 = a4;
+          v114 = v75;
+          v115 = a6;
+          v116 = a2;
+          v117 = v77;
+          v119 = v55;
+          v118 = v76;
+          v120 = v50;
+          v106 = &v87;
+          v107 = &v93;
+          v59 = v80;
+          *&buf[32] = v59;
+          v60 = MEMORY[0x1865D71B0](buf);
+          v61 = v59;
+          [(_LSDatabase *)v59 store];
+          v62 = v59;
+          [(_LSDatabase *)v59 schema];
           _CSStoreEnumerateUnits();
-          v59 = v86[5];
-          v83[0] = MEMORY[0x1E69E9820];
-          v83[1] = 3221225472;
-          v83[2] = ___ZL31_LSServerRegisterExtensionPointP11_LSDatabasejPK10__CFStringjPK14__CFDictionaryPK7__CFURL_block_invoke_2;
-          v83[3] = &unk_1E6A1DE58;
-          v60 = v54;
-          v84 = v60;
-          [v59 enumerateKeysAndObjectsUsingBlock:v83];
+          v63 = v88[5];
+          v85[0] = MEMORY[0x1E69E9820];
+          v85[1] = 3221225472;
+          v85[2] = ___ZL31_LSServerRegisterExtensionPointP11_LSDatabasejPK10__CFStringjPK14__CFDictionaryPK7__CFURL_block_invoke_2;
+          v85[3] = &unk_1E6A1DE58;
+          v64 = v59;
+          v86 = v64;
+          [v63 enumerateKeysAndObjectsUsingBlock:v85];
+          v83 = 0u;
+          v84 = 0u;
           v81 = 0u;
           v82 = 0u;
-          v79 = 0u;
-          v80 = 0u;
-          v61 = v92[5];
-          v62 = [v61 countByEnumeratingWithState:&v79 objects:&v101 count:16];
-          if (v62)
+          v65 = v94[5];
+          v66 = [v65 countByEnumeratingWithState:&v81 objects:&v103 count:16];
+          if (v66)
           {
-            v63 = *v80;
+            v67 = *v82;
             do
             {
-              for (i = 0; i != v62; ++i)
+              for (i = 0; i != v66; ++i)
               {
-                if (*v80 != v63)
+                if (*v82 != v67)
                 {
-                  objc_enumerationMutation(v61);
+                  objc_enumerationMutation(v65);
                 }
 
-                _LSBindableActivate(v60, [*(*(&v79 + 1) + 8 * i) intValue]);
+                _LSBindableActivate(v64, [*(*(&v81 + 1) + 8 * i) intValue], 0xAu, v50, _LSPluginComparePriority_BindableComparitor, 0);
               }
 
-              v62 = [v61 countByEnumeratingWithState:&v79 objects:&v101 count:16];
+              v66 = [v65 countByEnumeratingWithState:&v81 objects:&v103 count:16];
             }
 
-            while (v62);
+            while (v66);
           }
 
-          _Block_object_dispose(&v85, 8);
-          _Block_object_dispose(&v91, 8);
+          _Block_object_dispose(&v87, 8);
+          _Block_object_dispose(&v93, 8);
 
           goto LABEL_96;
         }
@@ -6209,27 +5461,26 @@ LABEL_88:
       CFDictionaryGetTypeID();
     }
 
-    v16 = 0;
+    v19 = 0;
     goto LABEL_20;
   }
 
-  v12 = _LSRegisterExtensionPointClient(a3, a4, a5, a6);
+  v15 = _LSRegisterExtensionPointClient(a3, a4, a5, a6);
 LABEL_100:
 
-  v65 = *MEMORY[0x1E69E9840];
-  return v12;
+  return v15;
 }
 
 uint64_t _LSRegisterFrameworkExtensionPointIfNecessary(void *a1, int a2, __CFString *a3, uint64_t a4, const __CFDictionary *a5, void *a6)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v11 = a1;
   v12 = v11;
   if (!a2 && a6)
   {
-    v25 = 0;
     v24 = 0;
-    if (_LSExtensionPointFindWithIdentifier(v11, a3, a4, 0, &v25, &v24) || !v24 || !*(v24 + 52))
+    v23 = 0;
+    if (_LSExtensionPointFindWithIdentifier(v11, a3, a4, 0, &v24, &v23) || !v23 || !*(v23 + 52))
     {
       goto LABEL_25;
     }
@@ -6252,16 +5503,16 @@ uint64_t _LSRegisterFrameworkExtensionPointIfNecessary(void *a1, int a2, __CFStr
             {
               if (!v18 || CFGetTypeID(v17) == v18)
               {
+                v25 = 0u;
                 v26 = 0u;
-                v27 = 0u;
-                _LSGetVersionFromString(v17, &v26);
+                _LSGetVersionFromString(v17, &v25);
 LABEL_22:
-                v21 = *(v24 + 24);
-                *buf = *(v24 + 8);
-                v30 = v21;
-                v28[0] = v26;
-                v28[1] = v27;
-                if (!_LSVersionNumberCompare(buf, v28) && v25)
+                v21 = *(v23 + 24);
+                *buf = *(v23 + 8);
+                v29 = v21;
+                v27[0] = v25;
+                v27[1] = v26;
+                if (!_LSVersionNumberCompare(buf, v27) && v24)
                 {
                   v20 = 0;
                   goto LABEL_26;
@@ -6282,12 +5533,12 @@ LABEL_25:
       CFDictionaryGetTypeID();
     }
 
-    v26 = kLSVersionNumberNull;
-    v27 = unk_1817E90C0;
+    v25 = kLSVersionNumberNull;
+    v26 = unk_1817E90C0;
     goto LABEL_22;
   }
 
-  v19 = _LSRegistrationLog();
+  v19 = _LSRegistrationLog(v11);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
@@ -6297,62 +5548,61 @@ LABEL_25:
   v20 = 4294956482;
 LABEL_26:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 uint64_t _LSUnregisterExtensionPoint(void *a1, const __CFString *a2, uint64_t a3, uint64_t a4, __CFString *a5)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v9 = a1;
-  if ([__LSDefaultsGetSharedInstance() hasServer])
+  v11 = [__LSDefaultsGetSharedInstance(v9 v10)];
+  if (v11)
   {
-    v10 = _LSUnregisterExtensionPointClient(a2, a3, a5, a4);
+    v13 = _LSUnregisterExtensionPointClient(a2, a3, a5, a4);
   }
 
-  else if ([__LSDefaultsGetSharedInstance() isServer])
+  else if ([__LSDefaultsGetSharedInstance(v11 v12)])
   {
-    v11 = v9;
-    v18 = 0;
-    v12 = v11;
-    if (v11 || (v10 = _LSContextInit(&v18), v12 = v18, !v10))
+    v14 = v9;
+    v20 = 0;
+    v15 = v14;
+    if (v14 || (v13 = _LSContextInit(&v20), v15 = v20, !v13))
     {
-      v17 = 0;
-      v16 = 0;
-      v10 = _LSExtensionPointFindWithIdentifier(v12, a2, a3, a4, &v17, &v16);
-      if (!v10)
+      v19 = 0;
+      v18 = 0;
+      v13 = _LSExtensionPointFindWithIdentifier(v15, a2, a3, a4, &v19, &v18);
+      if (!v13)
       {
-        if (!a5 || (v13 = *(v16 + 24), v20[0] = *(v16 + 8), v20[1] = v13, _LSGetVersionFromString(a5, v19), !_LSVersionNumberCompare(v20, v19)))
+        if (!a5 || (v16 = *(v18 + 24), v22[0] = *(v18 + 8), v22[1] = v16, _LSGetVersionFromString(a5, v21), !_LSVersionNumberCompare(v22, v21)))
         {
-          _LSExtensionPointRemove(v12, v17);
+          _LSExtensionPointRemove(v15, v19);
         }
       }
 
-      if (!v11)
+      if (!v14)
       {
-        _LSContextDestroy(&v18);
+        _LSContextDestroy(&v20);
       }
     }
   }
 
   else
   {
-    v10 = 0;
+    v13 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-  return v10;
+  return v13;
 }
 
-uint64_t _LSRegisterPlugins(void *a1, uint64_t a2, uint64_t a3, const void *a4, const __CFDictionary *a5)
+uint64_t _LSRegisterPlugins(void *a1, int a2, unsigned int a3, const __CFDictionary *a4, const __CFDictionary *a5, int a6)
 {
-  v12 = a1;
+  v13 = a1;
   if (a4 && (Count = CFDictionaryGetCount(a4), Count >= 1))
   {
-    v8 = CFGetTypeID(a4);
-    if (v8 == CFDictionaryGetTypeID())
+    v9 = CFGetTypeID(a4);
+    if (v9 == CFDictionaryGetTypeID())
     {
-      if (!a5 || (v9 = CFGetTypeID(a5), v9 == CFDictionaryGetTypeID()))
+      if (!a5 || (v10 = CFGetTypeID(a5), v10 == CFDictionaryGetTypeID()))
       {
         CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
         if (a5)
@@ -6365,15 +5615,15 @@ uint64_t _LSRegisterPlugins(void *a1, uint64_t a2, uint64_t a3, const void *a4, 
       }
     }
 
-    v10 = 4294956479;
+    v11 = 4294956479;
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 void sub_18177E934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, void *__p, uint64_t a42, uint64_t a43, void *a44)
@@ -6393,44 +5643,44 @@ void sub_18177E934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t _LSCopyPluginsWithURL(uint64_t *a1, const __CFURL *a2)
+uint64_t _LSCopyPluginsWithURL(uint64_t *a1, const __CFURL *a2, char a3)
 {
   v10 = 0;
   v11 = &v10;
   v12 = 0x2020000000;
   v13 = 0;
-  v4 = objc_autoreleasePoolPush();
+  v5 = objc_autoreleasePoolPush();
   if (a2)
   {
-    v5 = CFURLCopyFileSystemPath(a2, kCFURLPOSIXPathStyle);
+    v6 = CFURLCopyFileSystemPath(a2, kCFURLPOSIXPathStyle);
     [(_LSDatabase *)*a1 store];
-    v6 = *([(_LSDatabase *)*a1 schema]+ 1588);
-    v9 = v5;
+    [(_LSDatabase *)*a1 schema];
+    v9 = v6;
     _CSStoreEnumerateUnits();
   }
 
-  objc_autoreleasePoolPop(v4);
+  objc_autoreleasePoolPop(v5);
   v7 = v11[3];
   _Block_object_dispose(&v10, 8);
   return v7;
 }
 
-void sub_18177EB6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18177EB6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t _LSServerBundleRegistration(id *a1, void *a2, void *a3, void *a4, const __CFDictionary *a5, unsigned int *a6, uint64_t a7, char *a8, _BYTE *a9)
+uint64_t _LSServerBundleRegistration(LSContext *a1, void *a2, void *a3, void *a4, const __CFDictionary *a5, unsigned int *a6, uint64_t a7, char *a8, unsigned __int8 *a9)
 {
-  v98 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   v13 = a2;
   v14 = a3;
-  v85 = 0;
-  v84 = 0;
-  v83 = 0;
+  v75 = 0;
+  v74 = 0;
+  v73 = 0;
   v15 = [LSRecordBuilder recordBuilderForType:0];
   v16 = 0;
   v17 = 4294956479;
@@ -6458,7 +5708,7 @@ uint64_t _LSServerBundleRegistration(id *a1, void *a2, void *a3, void *a4, const
     }
   }
 
-  v19 = *a1;
+  v19 = a1->db;
   v16 = v19;
   if (!v19)
   {
@@ -6490,125 +5740,125 @@ uint64_t _LSServerBundleRegistration(id *a1, void *a2, void *a3, void *a4, const
     Value = CFDictionaryGetValue(a5, @"ApplicationType");
     v24 = CFStringGetTypeID();
     v25 = !Value || v24 && CFGetTypeID(Value) != v24 || CFStringCompare(Value, @"SystemAppPlaceholder", 1uLL) != kCFCompareEqualTo;
-    v76 = v25;
-    v75 = _LSGetBooleanFromDict(a5, @"LSAppDowngrade");
+    v67 = v25;
+    v66 = _LSGetBooleanFromDict(a5, @"LSAppDowngrade");
     v26 = v22 == 0;
   }
 
   else
   {
     v26 = 1;
-    v75 = 0;
-    v76 = 1;
+    v66 = 0;
+    v67 = 1;
   }
 
-  v78 = v26;
+  v69 = v26;
   [(_LSDatabase *)v16 store];
-  v27 = *([(_LSDatabase *)v16 schema]+ 4);
-  v28 = v13[7];
+  [(_LSDatabase *)v16 schema];
   if (CSStoreGetUnit())
   {
-    v84 = v13[7];
-    v29 = _LSBundleGet(v16, v84);
+    v74 = v13[7];
+    v27 = _LSBundleGet(v16, v74);
+    v28 = v27;
   }
 
   else
   {
-    v73 = v13[6];
-    v30 = v16;
-    v86 = 0;
-    v87 = &v86;
-    v88 = 0x2020000000;
-    v89 = 0;
-    v74 = v14;
-    v31 = [FSNode nameForBookmarkData:"nameForBookmarkData:error:" error:?];
-    if (v31)
+    v64 = v13[6];
+    v29 = v16;
+    v76 = 0;
+    v77 = &v76;
+    v78 = 0x2020000000;
+    v79 = 0;
+    v65 = v14;
+    v30 = [FSNode nameForBookmarkData:"nameForBookmarkData:error:" error:?];
+    if (v30)
     {
-      StringForCFString = _LSDatabaseGetStringForCFString(v30, v31, 1);
+      StringForCFString = _LSDatabaseGetStringForCFString(v29, v30, 1);
 
       if (StringForCFString)
       {
-        v33 = v30;
-        [(_LSDatabase *)v30 store];
-        v34 = v30;
-        v35 = *([(_LSDatabase *)v30 schema]+ 4);
+        v32 = v29;
+        [(_LSDatabase *)v29 store];
+        v33 = v29;
+        [(_LSDatabase *)v29 schema];
         *buf = MEMORY[0x1E69E9820];
         *&buf[8] = 3221225472;
-        *&v91 = ___ZL61_LSFindExistingRegisteredBundleWithContainerMatchingAliasDataP11_LSDatabasejP6NSDataPj_block_invoke;
-        *(&v91 + 1) = &unk_1E6A1DE80;
-        v96 = StringForCFString;
-        v97 = v73;
-        v92 = v30;
-        v36 = v74;
-        v95 = &v84;
-        v93 = v36;
-        v94 = &v86;
+        *&v81 = ___ZL61_LSFindExistingRegisteredBundleWithContainerMatchingAliasDataP11_LSDatabasejP6NSDataPj_block_invoke;
+        *(&v81 + 1) = &unk_1E6A1DE80;
+        v86 = StringForCFString;
+        v87 = v64;
+        v82 = v29;
+        v34 = v65;
+        v85 = &v74;
+        v83 = v34;
+        v84 = &v76;
         _CSStoreEnumerateUnits();
       }
     }
 
-    v29 = v87[3];
-    _Block_object_dispose(&v86, 8);
+    v28 = v77[3];
+    _Block_object_dispose(&v76, 8);
   }
 
-  v85 = v29;
-  if (v29)
+  v75 = v28;
+  if (v28)
   {
-    if (v78 && (_LSGetBooleanFromDict(a4, @"_LSInfoPlistIsMissing") || _LSGetBooleanFromDict(a4, @"_LSNoExecutableInfo")) && (*(v85 + 172) & 0x20000000000200) == 0)
+    if (v69 && ((v27 = _LSGetBooleanFromDict(a4, @"_LSInfoPlistIsMissing"), v27) || (v27 = _LSGetBooleanFromDict(a4, @"_LSNoExecutableInfo"), v27)) && (*(v75 + 172) & 0x20000000000200) == 0)
     {
-      v64 = _LSInstallLog();
-      if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+      v57 = _LSInstallLog(v27);
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_18162D000, v64, OS_LOG_TYPE_DEFAULT, "skipping registration of an incomplete bundle", buf, 2u);
+        _os_log_impl(&dword_18162D000, v57, OS_LOG_TYPE_DEFAULT, "skipping registration of an incomplete bundle", buf, 2u);
       }
 
-      v37 = 1;
+      v35 = 1;
     }
 
     else
     {
-      v37 = 0;
+      v35 = 0;
     }
 
-    if ((*(v85 + 172) & 0x80) == 0 && (v13[4] & 2) == 0)
+    if ((*(v75 + 172) & 0x80) == 0 && (v13[4] & 2) == 0)
     {
-      v38 = _LSInstallLog();
-      _LSServerBundleRegistration_cold_1(v38);
+      v36 = _LSInstallLog(v27);
+      _LSServerBundleRegistration_cold_1(v36);
       v17 = 4294956621;
       goto LABEL_81;
     }
 
-    if (_LSBundleDataIsIncomplete(*a1, v85))
+    if (_LSBundleDataIsIncomplete(a1->db, v75))
     {
-      v39 = *(v85 + 513);
-      if (v39 < 0x3C)
+      v37 = *(v75 + 513);
+      if (v37 < 0x3C)
       {
-        LOBYTE(v39) = v39 + 1;
+        LOBYTE(v37) = v37 + 1;
       }
 
-      [v15 setRetries:v39];
+      [v15 setRetries:v37];
     }
 
-    if (v37)
+    if (v35)
     {
-      if (v85)
+      if (v75)
       {
-        v40 = 0;
+        v38 = 0;
 LABEL_74:
         if (a6)
         {
-          *a6 = v84;
+          *a6 = v74;
         }
 
         if (a8)
         {
-          if (!v84)
+          if (!v74)
           {
-            v40 = 0;
+            v38 = 0;
           }
 
-          *a8 = v40;
+          *a8 = v38;
         }
 
         _LSDatabaseSetSequenceNumber();
@@ -6619,23 +5869,22 @@ LABEL_74:
 
     else
     {
-      [v15 setPreviousInstallType:*(v85 + 336)];
-      v17 = _LSBundleRemove(v16, v84, 0);
+      [v15 setPreviousInstallType:*(v75 + 336)];
+      v17 = _LSBundleRemove(v16, v74, 0);
       if (v17)
       {
         goto LABEL_81;
       }
 
-      v85 = 0;
-      v84 = 0;
+      v75 = 0;
+      v74 = 0;
     }
   }
 
-  v41 = v16;
+  v39 = v16;
   [(_LSDatabase *)v16 store];
-  v42 = v16;
-  v43 = *([(_LSDatabase *)v16 schema]+ 1580);
-  v44 = v13[6];
+  v40 = v16;
+  [(_LSDatabase *)v16 schema];
   if (!CSStoreGetUnit())
   {
     v17 = 4294957797;
@@ -6644,21 +5893,21 @@ LABEL_74:
 
   if (!*MEMORY[0x1E695E4F0])
   {
-    v46 = CFStringGetTypeID();
+    v42 = CFStringGetTypeID();
 LABEL_51:
-    v45 = 0;
+    v41 = 0;
     goto LABEL_52;
   }
 
-  v45 = CFDictionaryGetValue(a4, *MEMORY[0x1E695E4F0]);
-  v46 = CFStringGetTypeID();
-  if (v45)
+  v41 = CFDictionaryGetValue(a4, *MEMORY[0x1E695E4F0]);
+  v42 = CFStringGetTypeID();
+  if (v41)
   {
-    v48 = v46;
-    if (v46)
+    v44 = v42;
+    if (v42)
     {
-      v46 = CFGetTypeID(v45);
-      if (v46 != v48)
+      v42 = CFGetTypeID(v41);
+      if (v42 != v44)
       {
         goto LABEL_51;
       }
@@ -6666,166 +5915,164 @@ LABEL_51:
   }
 
 LABEL_52:
-  _LSLogStepStart(v46, 0, v45, v47);
-  if (!v45)
+  _LSLogStepStart(v42, 0, v41, v43);
+  if (!v41)
   {
     goto LABEL_64;
   }
 
-  v49 = CFGetTypeID(v45);
-  if (v49 != CFStringGetTypeID())
+  v45 = CFGetTypeID(v41);
+  v46 = CFStringGetTypeID();
+  if (v45 != v46)
   {
     goto LABEL_64;
   }
 
-  v84 = 0;
-  v82 = 0;
-  v86 = 0;
-  if (!v76 || (*buf = kLSVersionNumberNull, v91 = unk_1817E90C0, v77 = _LSBundleFindWithInfoAndNo_IOFilter(a1, 0, v45, 0, buf, 2, 128, 0, 0, &v84, &v85, 0), *buf = kLSVersionNumberNull, v91 = unk_1817E90C0, v50 = _LSBundleFindWithInfoAndNo_IOFilter(a1, 0, v45, 0, buf, 2, 1152, 0, 0, &v82, &v86, 0), ((v77 | v50) & 1) == 0))
+  v74 = 0;
+  v72 = 0;
+  v76 = 0;
+  if (!v67 || (*buf = kLSVersionNumberNull, v81 = unk_1817E90C0, v68 = _LSBundleFindWithInfoAndNo_IOFilter(a1, 0, v41, 0, buf, 2, 128, 0, 0, &v74, &v75, 0), *buf = kLSVersionNumberNull, v81 = unk_1817E90C0, v46 = _LSBundleFindWithInfoAndNo_IOFilter(a1, 0, v41, 0, buf, 2, 1152, 0, 0, &v72, &v76, 0), ((v68 | v46) & 1) == 0))
   {
-    v53 = _LSInstallLog();
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+    v49 = _LSInstallLog(v46);
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *&buf[4] = v45;
-      _os_log_impl(&dword_18162D000, v53, OS_LOG_TYPE_DEFAULT, "No bundles to remove for %@", buf, 0xCu);
+      *&buf[4] = v41;
+      _os_log_impl(&dword_18162D000, v49, OS_LOG_TYPE_DEFAULT, "No bundles to remove for %@", buf, 0xCu);
     }
 
     goto LABEL_64;
   }
 
-  if (!v50)
+  if (!v46)
   {
     v17 = 0;
-    v86 = 0;
-    v82 = 0;
-    if (!v77)
+    v76 = 0;
+    v72 = 0;
+    if (!v68)
     {
-      v85 = 0;
-      v84 = 0;
+      v75 = 0;
+      v74 = 0;
       goto LABEL_64;
     }
 
     goto LABEL_86;
   }
 
-  v51 = _LSBundleGet(v16, v82);
-  [v15 setPreviousInstallType:*(v51 + 336)];
-  [v15 addBundleFlag:*(v51 + 172) & 0x80000];
-  v17 = _LSBundleRemove(v16, v82, 0);
-  v52 = _LSInstallLog();
-  if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+  v47 = _LSBundleGet(v16, v72);
+  [v15 setPreviousInstallType:*(v47 + 336)];
+  [v15 addBundleFlag:*(v47 + 172) & 0x80000];
+  v17 = _LSBundleRemove(v16, v72, 0);
+  v48 = _LSInstallLog(v17);
+  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    *&buf[4] = v45;
-    _os_log_impl(&dword_18162D000, v52, OS_LOG_TYPE_DEFAULT, "Removed existing registered placeholder for %@", buf, 0xCu);
+    *&buf[4] = v41;
+    _os_log_impl(&dword_18162D000, v48, OS_LOG_TYPE_DEFAULT, "Removed existing registered placeholder for %@", buf, 0xCu);
   }
 
-  v86 = 0;
-  v82 = 0;
-  if (v77)
+  v76 = 0;
+  v72 = 0;
+  if (v68)
   {
 LABEL_86:
-    if (v75)
+    if (v66)
     {
-      v65 = 1;
+      v58 = 1;
     }
 
     else
     {
-      v65 = v78;
+      v58 = v69;
     }
 
-    if (v65)
+    if (v58)
     {
-      [v15 setPreviousInstallType:{*(_LSBundleGet(v16, v84) + 336)}];
-      v17 = _LSBundleRemove(v16, v84, v75);
-      v66 = _LSInstallLog();
-      if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+      [v15 setPreviousInstallType:{*(_LSBundleGet(v16, v74) + 336)}];
+      v17 = _LSBundleRemove(v16, v74, v66);
+      v59 = _LSInstallLog(v17);
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *&buf[4] = v45;
-        _os_log_impl(&dword_18162D000, v66, OS_LOG_TYPE_DEFAULT, "Removed existing registered bundle for %@", buf, 0xCu);
+        *&buf[4] = v41;
+        _os_log_impl(&dword_18162D000, v59, OS_LOG_TYPE_DEFAULT, "Removed existing registered bundle for %@", buf, 0xCu);
       }
     }
 
     else
     {
       [v15 addBundleFlag:0x80000];
-      *buf = *(v85 + 172) | 0x400000000000;
-      v67 = v16;
+      *buf = *(v75 + 172) | 0x400000000000;
+      v60 = v16;
       [(_LSDatabase *)v16 store];
-      v68 = v16;
-      v69 = *([(_LSDatabase *)v16 schema]+ 4);
+      v61 = v16;
+      [(_LSDatabase *)v16 schema];
       _CSStoreWriteToUnit();
       if ([a4 _LS_BoolForKey:@"LSRequiresPostProcessing"])
       {
-        v81 = *(v85 + 189) | 0x2000;
-        v70 = v16;
+        v62 = v16;
         [(_LSDatabase *)v16 store];
-        v71 = v16;
-        v72 = *([(_LSDatabase *)v16 schema]+ 4);
+        v63 = v16;
+        [(_LSDatabase *)v16 schema];
         _CSStoreWriteToUnit();
       }
     }
   }
 
-  v85 = 0;
-  v84 = 0;
+  v75 = 0;
+  v74 = 0;
   if (v17 && v17 != -10814)
   {
     goto LABEL_81;
   }
 
 LABEL_64:
-  v54 = _LSDatabaseGetSequenceNumber(v16) + 1;
-  v83 = v54;
-  [v15 setSequenceNumber:v54];
+  v50 = _LSDatabaseGetSequenceNumber(v16) + 1;
+  v73 = v50;
+  [v15 setSequenceNumber:v50];
   if ([v15 parseInfoPlist:a4] && (objc_msgSend(v15, "parseInstallationInfo:", a5) & 1) != 0)
   {
     v17 = 0;
-    v55 = 1;
+    v51 = 1;
   }
 
   else
   {
-    v55 = 0;
+    v51 = 0;
     v17 = 4294967246;
   }
 
   [v15 parseActivityTypesFromDictionary:a4];
   [v15 parseNSExtensionSDKDefinitionsFromDictionary:a4];
-  _LSLogStepFinished(5, v55, v45, &cfstr_BuiltBundleRec.isa);
-  v84 = [v15 registerBundleRecord:v16 error:0];
-  v56 = [v15 registerChildItemsTrusted];
+  _LSLogStepFinished(5, v51, v41, &cfstr_BuiltBundleRec.isa);
+  v74 = [v15 registerBundleRecord:v16 error:0];
+  v52 = [v15 registerChildItemsTrusted];
   if (a9)
   {
-    *a9 = v56;
+    *a9 = v52;
   }
 
-  if (v55)
+  if (v51)
   {
-    if (v54 < v84)
+    if (v50 < v74)
     {
-      v83 = v84;
-      v57 = v16;
+      v73 = v74;
+      v53 = v16;
       [(_LSDatabase *)v16 store];
-      v58 = v16;
-      v59 = *([(_LSDatabase *)v16 schema]+ 4);
+      v54 = v16;
+      [(_LSDatabase *)v16 schema];
       _CSStoreWriteToUnit();
     }
 
-    v60 = v13[4];
-    v61 = v16;
+    v55 = v16;
     [(_LSDatabase *)v16 store];
     _CSStoreGarbageCollect();
-    v40 = 1;
+    v38 = 1;
     goto LABEL_74;
   }
 
 LABEL_81:
 
-  v62 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -6863,27 +6110,27 @@ void _LSLogStepFinished(uint64_t a1, uint64_t a2, NSString *a3, NSString *a4, ..
 
 uint64_t _LSSliceMaskForSliceArray(void *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v1 = a1;
   v2 = 0;
-  v3 = [v1 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v1 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
-    v4 = *v15;
+    v4 = *v14;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v15 != v4)
+        if (*v14 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v14 + 1) + 8 * i);
+        v6 = *(*(&v13 + 1) + 8 * i);
         v7 = [v6 type];
         if (v7 <= 16777222)
         {
@@ -6991,25 +6238,24 @@ uint64_t _LSSliceMaskForSliceArray(void *a1)
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v3);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 void _LSGetMinimumOSVersionStringAndReferencePlatformForPlatformSDKLinkage(void *a1, uint64_t a2, _OWORD *a3, id *a4, _DWORD *a5)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v8 = a1;
   v9 = a3[1];
-  v21[0] = *a3;
-  v21[1] = v9;
-  _LSMakeVersionNumber(14, 5, 0, v20);
-  if (_LSVersionNumberCompare(v21, v20) == -1)
+  v20[0] = *a3;
+  v20[1] = v9;
+  _LSMakeVersionNumber(14, 5, 0, v19);
+  if (_LSVersionNumberCompare(v20, v19) == -1)
   {
     v14 = objc_opt_class();
     v15 = [v8 objectForKey:@"LSMinimumSystemVersion"];
@@ -7065,15 +6311,13 @@ LABEL_17:
   {
     *a5 = active_platform;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
-__CFDictionary *_LSCreateRegistrationData(uint64_t *a1, void *a2, void *a3, FSNode *a4, const __CFArray **a5)
+__CFDictionary *_LSCreateRegistrationData(LSContext *a1, void *a2, void *a3, FSNode *a4, const __CFArray **a5)
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   v9 = a2;
-  if (a1 && [(_LSDatabase *)*a1 accessContext])
+  if (a1 && [(_LSDatabase *)a1->db accessContext])
   {
     _CSStoreAccessContextAssertReading();
   }
@@ -7082,87 +6326,89 @@ __CFDictionary *_LSCreateRegistrationData(uint64_t *a1, void *a2, void *a3, FSNo
   if ((v10 - 203) < 2)
   {
     v11 = v9;
+    v12 = v11;
     if (a3)
     {
-      v12 = [[FSNode alloc] initWithURL:a3 flags:48 error:0];
-      v13 = v12;
-      if (v12)
+      v13 = [[FSNode alloc] initWithURL:a3 flags:48 error:0];
+      v14 = v13;
+      if (v13)
       {
-        if ([(FSNode *)v12 isDirectory])
+        if ([(FSNode *)v13 isDirectory])
         {
-          cf = [(_LSBundleProvider *)v13 copyCFBundleWithError:0];
+          cf = [(_LSBundleProvider *)v14 copyCFBundleWithError:0];
           if (cf)
           {
-            v14 = [[_LSBundleProvider alloc] initWithURL:a3 useCacheIfPossible:1];
-            theDict = _LSCreateRegistrationDataForDirectoryNode(a1, v11, v14, v13, a4, a5, v15);
-            if ([(_LSBundleProvider *)v14 usingCachedItem])
+            v15 = [[_LSBundleProvider alloc] initWithURL:a3 useCacheIfPossible:1];
+            theDict = _LSCreateRegistrationDataForDirectoryNode(a1, v12, v15, v14, a4, a5, v16);
+            v17 = [(_LSBundleProvider *)v15 usingCachedItem];
+            if (v17)
             {
-              v16 = _LSRegistrationLog();
-              if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+              v18 = _LSRegistrationLog(v17);
+              if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138477827;
-                v67 = a3;
-                _os_log_impl(&dword_18162D000, v16, OS_LOG_TYPE_DEBUG, "Validating item %{private}@, which used the cache for registration", buf, 0xCu);
+                v68 = a3;
+                _os_log_impl(&dword_18162D000, v18, OS_LOG_TYPE_DEBUG, "Validating item %{private}@, which used the cache for registration", buf, 0xCu);
               }
 
-              v55 = [[_LSBundleProvider alloc] initWithURL:a3 useCacheIfPossible:0];
-              v18 = _LSCreateRegistrationDataForDirectoryNode(a1, v11, v55, v13, a4, a5, v17);
-              v65[0] = MEMORY[0x1E69E9820];
-              v65[1] = 3221225472;
-              v65[2] = ___ZL34_LSCreateRegistrationDataForBundleP9LSContextP18LSRegistrationInfoPK7__CFURLPK14__CFDictionaryPPK9__CFArray_block_invoke;
-              v65[3] = &__block_descriptor_40_e13_B24__0_v8_v16l;
-              v65[4] = theDict;
-              if (CFDictionaryApplyBlock(v18, v65))
+              v56 = [[_LSBundleProvider alloc] initWithURL:a3 useCacheIfPossible:0];
+              v20 = _LSCreateRegistrationDataForDirectoryNode(a1, v12, v56, v14, a4, a5, v19);
+              v66[0] = MEMORY[0x1E69E9820];
+              v66[1] = 3221225472;
+              v66[2] = ___ZL34_LSCreateRegistrationDataForBundleP9LSContextP18LSRegistrationInfoPK7__CFURLPK14__CFDictionaryPPK9__CFArray_block_invoke;
+              v66[3] = &__block_descriptor_40_e13_B24__0_v8_v16l;
+              v66[4] = theDict;
+              v21 = CFDictionaryApplyBlock(v20, v66);
+              if (v21)
               {
-                v19 = _LSRegistrationLog();
-                if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+                v22 = _LSRegistrationLog(v21);
+                if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138739971;
-                  v67 = a3;
-                  _os_log_impl(&dword_18162D000, v19, OS_LOG_TYPE_INFO, "REGISTRATION: Successfully registered %{sensitive}@ using the boot cache", buf, 0xCu);
+                  v68 = a3;
+                  _os_log_impl(&dword_18162D000, v22, OS_LOG_TYPE_INFO, "REGISTRATION: Successfully registered %{sensitive}@ using the boot cache", buf, 0xCu);
                 }
               }
 
-              if (v18)
+              if (v20)
               {
-                CFRelease(v18);
+                CFRelease(v20);
               }
             }
 
             if (theDict)
             {
-              v20 = *MEMORY[0x1E695E480];
+              v23 = *MEMORY[0x1E695E480];
               MutableCopy = CFDictionaryCreateMutableCopy(*MEMORY[0x1E695E480], 0, theDict);
               if (softLinkLNIsLinkEnabled)
               {
-                v22 = softLinkLNIsLinkEnabled(cf);
-                v23 = *MEMORY[0x1E695E4D0];
-                v24 = *MEMORY[0x1E695E4C0];
-                if (v22)
+                v25 = softLinkLNIsLinkEnabled(cf);
+                v26 = *MEMORY[0x1E695E4C0];
+                if (v25)
                 {
-                  v25 = *MEMORY[0x1E695E4D0];
+                  v27 = *MEMORY[0x1E695E4D0];
                 }
 
                 else
                 {
-                  v25 = *MEMORY[0x1E695E4C0];
+                  v27 = *MEMORY[0x1E695E4C0];
                 }
               }
 
               else
               {
-                v24 = *MEMORY[0x1E695E4C0];
-                v25 = *MEMORY[0x1E695E4C0];
+                v26 = *MEMORY[0x1E695E4C0];
+                v27 = *MEMORY[0x1E695E4C0];
               }
 
-              CFDictionaryAddValue(MutableCopy, @"_LSIsLinkEnabled", v25);
+              CFDictionaryAddValue(MutableCopy, @"_LSIsLinkEnabled", v27);
               CFRelease(theDict);
               CFRelease(cf);
               if (MutableCopy)
               {
                 if (CFDictionaryContainsKey(MutableCopy, @"bundlePersonas") || CFDictionaryContainsKey(MutableCopy, @"_LSUsesSystemPersona"))
                 {
-                  Copy = CFDictionaryCreateMutableCopy(v20, 0, MutableCopy);
+                  Copy = CFDictionaryCreateMutableCopy(v23, 0, MutableCopy);
                   CFDictionaryRemoveValue(Copy, @"bundlePersonas");
                   CFDictionaryRemoveValue(Copy, @"_LSUsesSystemPersona");
                   CFRelease(MutableCopy);
@@ -7177,15 +6423,15 @@ __CFDictionary *_LSCreateRegistrationData(uint64_t *a1, void *a2, void *a3, FSNo
                   Copy = MutableCopy;
                 }
 
-                v36 = *MEMORY[0x1E695E4F0];
-                if (!CFDictionaryContainsKey(Copy, *MEMORY[0x1E695E4F0]) || v11->action != 203)
+                v37 = *MEMORY[0x1E695E4F0];
+                if (!CFDictionaryContainsKey(Copy, *MEMORY[0x1E695E4F0]) || v12->action != 203)
                 {
                   goto LABEL_36;
                 }
 
-                if (v36)
+                if (v37)
                 {
-                  Value = CFDictionaryGetValue(Copy, v36);
+                  Value = CFDictionaryGetValue(Copy, v37);
                   TypeID = CFStringGetTypeID();
                   if (!Value || !TypeID || CFGetTypeID(Value) == TypeID)
                   {
@@ -7200,87 +6446,87 @@ __CFDictionary *_LSCreateRegistrationData(uint64_t *a1, void *a2, void *a3, FSNo
 
                 Value = 0;
 LABEL_58:
-                v39 = Value;
-                v40 = CFSetGetTypeID();
-                v41 = CFDictionaryGetValue(a4, @"LSPersonaUniqueStrings");
-                v42 = v41;
-                v56 = v24;
-                if (v41 && CFGetTypeID(v41) == v40)
+                v40 = Value;
+                v41 = CFSetGetTypeID();
+                v42 = CFDictionaryGetValue(a4, @"LSPersonaUniqueStrings");
+                v43 = v42;
+                v57 = v26;
+                if (v42 && CFGetTypeID(v42) == v41)
                 {
-                  v43 = v42;
-                  v44 = [v43 allObjects];
+                  v44 = v43;
+                  v45 = [v44 allObjects];
                 }
 
                 else
                 {
-                  v45 = +[_LSPersonaDatabase sharedInstance];
-                  v44 = [(_LSPersonaDatabase *)v45 personasWithAttributesForBundleIdentifier:v39];
-                  v43 = v45;
+                  v46 = +[_LSPersonaDatabase sharedInstance];
+                  v45 = [(_LSPersonaDatabase *)v46 personasWithAttributesForBundleIdentifier:v40];
+                  v44 = v46;
                 }
 
-                if ([v44 count])
+                v47 = [v45 count];
+                if (v47)
                 {
-                  theDicta = v39;
-                  v46 = _LSRegistrationLog();
-                  if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
+                  theDicta = v40;
+                  v48 = _LSRegistrationLog(v47);
+                  if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
                   {
                     *buf = 138543874;
-                    v67 = v44;
-                    v68 = 2114;
-                    v69 = a3;
-                    v70 = 2114;
-                    v71 = v39;
-                    _os_log_impl(&dword_18162D000, v46, OS_LOG_TYPE_INFO, "- Got personas %{public}@ for application at %{public}@/%{public}@", buf, 0x20u);
+                    v68 = v45;
+                    v69 = 2114;
+                    v70 = a3;
+                    v71 = 2114;
+                    v72 = v40;
+                    _os_log_impl(&dword_18162D000, v48, OS_LOG_TYPE_INFO, "- Got personas %{public}@ for application at %{public}@/%{public}@", buf, 0x20u);
                   }
 
-                  v63 = 0u;
                   v64 = 0u;
-                  v61 = 0u;
+                  v65 = 0u;
                   v62 = 0u;
-                  v47 = v44;
-                  v48 = [v47 countByEnumeratingWithState:&v61 objects:buf count:16];
-                  cfa = v44;
-                  v49 = 0;
-                  if (v48)
+                  v63 = 0u;
+                  v49 = v45;
+                  v50 = [v49 countByEnumeratingWithState:&v62 objects:buf count:16];
+                  cfa = v45;
+                  v51 = 0;
+                  if (v50)
                   {
-                    v50 = *v62;
+                    v52 = *v63;
                     do
                     {
-                      for (i = 0; i != v48; ++i)
+                      for (i = 0; i != v50; ++i)
                       {
-                        if (*v62 != v50)
+                        if (*v63 != v52)
                         {
-                          objc_enumerationMutation(v47);
+                          objc_enumerationMutation(v49);
                         }
 
-                        v49 |= [(_LSPersonaWithAttributes *)*(*(&v61 + 1) + 8 * i) personaType]== 3;
+                        v51 |= [(_LSPersonaWithAttributes *)*(*(&v62 + 1) + 8 * i) personaType]== 3;
                       }
 
-                      v48 = [v47 countByEnumeratingWithState:&v61 objects:buf count:16];
+                      v50 = [v49 countByEnumeratingWithState:&v62 objects:buf count:16];
                     }
 
-                    while (v48);
+                    while (v50);
                   }
 
-                  v44 = cfa;
-                  v39 = theDicta;
-                  v52 = CFDictionaryCreateMutableCopy(v20, 0, Copy);
-                  CFDictionarySetValue(v52, @"bundlePersonas", v47);
-                  v53 = *MEMORY[0x1E695E4D0];
-                  if (v49)
+                  v45 = cfa;
+                  v40 = theDicta;
+                  v54 = CFDictionaryCreateMutableCopy(v23, 0, Copy);
+                  CFDictionarySetValue(v54, @"bundlePersonas", v49);
+                  if (v51)
                   {
-                    v54 = *MEMORY[0x1E695E4D0];
+                    v55 = *MEMORY[0x1E695E4D0];
                   }
 
                   else
                   {
-                    v54 = v56;
+                    v55 = v57;
                   }
 
-                  CFDictionarySetValue(v52, @"_LSUsesSystemPersona", v54);
+                  CFDictionarySetValue(v54, @"_LSUsesSystemPersona", v55);
                   CFRelease(Copy);
-                  Copy = CFDictionaryCreateCopy(v20, v52);
-                  CFRelease(v52);
+                  Copy = CFDictionaryCreateCopy(v23, v54);
+                  CFRelease(v54);
                 }
 
                 goto LABEL_36;
@@ -7298,11 +6544,11 @@ LABEL_58:
 
     else
     {
-      v13 = _LSRegistrationLog();
-      if (os_log_type_enabled(&v13->super, OS_LOG_TYPE_ERROR))
+      v14 = _LSRegistrationLog(v11);
+      if (os_log_type_enabled(&v14->super, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_18162D000, &v13->super, OS_LOG_TYPE_ERROR, "Unexpected nil bundle URL when registering.", buf, 2u);
+        _os_log_impl(&dword_18162D000, &v14->super, OS_LOG_TYPE_ERROR, "Unexpected nil bundle URL when registering.", buf, 2u);
       }
     }
 
@@ -7314,25 +6560,25 @@ LABEL_36:
 
   if (v10 == 205)
   {
-    v26 = v9;
+    v28 = v9;
     if (a4)
     {
-      v27 = *MEMORY[0x1E695E4F0];
+      v29 = *MEMORY[0x1E695E4F0];
       if (*MEMORY[0x1E695E4F0])
       {
-        v28 = CFDictionaryGetValue(a4, *MEMORY[0x1E695E4F0]);
-        v29 = CFStringGetTypeID();
-        if (v28 && (!v29 || CFGetTypeID(v28) == v29))
+        v30 = CFDictionaryGetValue(a4, *MEMORY[0x1E695E4F0]);
+        v31 = CFStringGetTypeID();
+        if (v30 && (!v31 || CFGetTypeID(v30) == v31))
         {
-          v30 = _LSPathForBundleLibraryIdentifier(v28);
-          v31 = *MEMORY[0x1E695E480];
+          v32 = _LSPathForBundleLibraryIdentifier(v30);
+          v33 = *MEMORY[0x1E695E480];
           Copy = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-          CFDictionarySetValue(Copy, v27, v28);
-          v33 = CFURLCreateFromFileSystemRepresentation(v31, v30[1], *v30, 1u);
-          _LSAddBundleLibraryInfo(a1, v33, 0, v26, Copy, 1, 0);
-          if (v33)
+          CFDictionarySetValue(Copy, v29, v30);
+          v35 = CFURLCreateFromFileSystemRepresentation(v33, v32[1], *v32, 1u);
+          _LSAddBundleLibraryInfo(a1, v35, 0, v28, Copy, 1, 0);
+          if (v35)
           {
-            CFRelease(v33);
+            CFRelease(v35);
           }
 
           goto LABEL_39;
@@ -7354,13 +6600,12 @@ LABEL_39:
   Copy = 0;
 LABEL_40:
 
-  v34 = *MEMORY[0x1E69E9840];
   return Copy;
 }
 
-uint64_t _LSServerItemInfoRegistration(id *a1, void *a2, void *a3, void *a4, const __CFDictionary *a5, unsigned int *a6, uint64_t a7, char *a8, _BYTE *a9)
+uint64_t _LSServerItemInfoRegistration(LSContext *a1, void *a2, void *a3, void *a4, const __CFDictionary *a5, unsigned int *a6, uint64_t a7, char *a8, unsigned __int8 *a9)
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   v15 = a2;
   v17 = a3;
   v18 = v15[3];
@@ -7373,17 +6618,17 @@ uint64_t _LSServerItemInfoRegistration(id *a1, void *a2, void *a3, void *a4, con
   {
     if (v18 == 204)
     {
-      v50 = v15;
+      v51 = v15;
       v19 = v17;
+      v56 = 0;
       v55 = 0;
-      v54 = 0;
       theDict = a4;
       keys = 0;
-      v48 = v19;
+      v49 = v19;
       v20 = 0;
       if (!a1)
       {
-        v49 = 0;
+        v50 = 0;
         v21 = 4294956479;
         goto LABEL_73;
       }
@@ -7391,36 +6636,36 @@ uint64_t _LSServerItemInfoRegistration(id *a1, void *a2, void *a3, void *a4, con
       v21 = 4294956479;
       if (!v19)
       {
-        v49 = 0;
+        v50 = 0;
         goto LABEL_73;
       }
 
-      v49 = 0;
-      if (v50[3] != 204)
+      v50 = 0;
+      if (v51[3] != 204)
       {
 LABEL_73:
 
         goto LABEL_74;
       }
 
-      v22 = *a1;
+      v22 = a1->db;
       if (!v22)
       {
         v20 = 0;
-        v49 = 0;
+        v50 = 0;
         goto LABEL_73;
       }
 
-      v49 = v22;
-      if (![(_LSDatabase *)v49 store])
+      v50 = v22;
+      if (![(_LSDatabase *)v50 store])
       {
         v20 = 0;
         goto LABEL_73;
       }
 
-      v51 = 0;
-      v20 = [[FSNode alloc] initByResolvingBookmarkData:v48 relativeToNode:0 bookmarkDataIsStale:0 error:&v51];
-      v23 = v51;
+      v52 = 0;
+      v20 = [[FSNode alloc] initByResolvingBookmarkData:v49 relativeToNode:0 bookmarkDataIsStale:0 error:&v52];
+      v23 = v52;
       v24 = v23;
       if (v20)
       {
@@ -7450,6 +6695,7 @@ LABEL_73:
         goto LABEL_72;
       }
 
+      v26 = theDict;
       if (!theDict)
       {
 LABEL_29:
@@ -7467,22 +6713,22 @@ LABEL_29:
 
           *&buffer = 0;
           *(&buffer + 1) = &buffer;
-          v58 = 0x3812000000;
-          v59 = __Block_byref_object_copy__619;
-          v60 = __Block_byref_object_dispose__620;
-          v61 = &unk_1818533FF;
+          v59 = 0x3812000000;
+          v60 = __Block_byref_object_copy__619;
+          v61 = __Block_byref_object_dispose__620;
+          v62 = &unk_1818533FF;
           cf = 0;
-          v56[0] = MEMORY[0x1E69E9820];
-          v56[1] = 3221225472;
-          v56[2] = ___ZL31createInstallationDictForPluginPK10__CFString_block_invoke;
-          v56[3] = &unk_1E6A1DF30;
-          v56[4] = &buffer;
-          v56[5] = keys;
-          (softLinkMobileInstallationEnumerateAllInstalledItemDictionaries[0])(0, v56);
-          v38 = *(*(&buffer + 1) + 48);
-          if (v38)
+          v57[0] = MEMORY[0x1E69E9820];
+          v57[1] = 3221225472;
+          v57[2] = ___ZL31createInstallationDictForPluginPK10__CFString_block_invoke;
+          v57[3] = &unk_1E6A1DF30;
+          v57[4] = &buffer;
+          v57[5] = keys;
+          softLinkMobileInstallationEnumerateAllInstalledItemDictionaries(0, v57);
+          v40 = *(*(&buffer + 1) + 48);
+          if (v40)
           {
-            a5 = CFRetain(v38);
+            a5 = CFRetain(v40);
           }
 
           else
@@ -7491,6 +6737,7 @@ LABEL_29:
           }
 
           _Block_object_dispose(&buffer, 8);
+          v26 = cf;
           if (cf)
           {
             CFRelease(cf);
@@ -7499,17 +6746,17 @@ LABEL_29:
           if (!a5)
           {
 LABEL_62:
-            v42 = _LSRegistrationLog();
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+            v44 = _LSRegistrationLog(v26);
+            if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
             {
               LODWORD(buffer) = 138412290;
               *(&buffer + 4) = keys;
-              _os_log_impl(&dword_18162D000, v42, OS_LOG_TYPE_ERROR, "Cannot register app extension %@ without MobileInstallation data. Installation dictionary was NULL", &buffer, 0xCu);
+              _os_log_impl(&dword_18162D000, v44, OS_LOG_TYPE_ERROR, "Cannot register app extension %@ without MobileInstallation data. Installation dictionary was NULL", &buffer, 0xCu);
             }
 
-            v32 = 0;
-            v37 = 0;
-            v46 = 0;
+            v34 = 0;
+            v39 = 0;
+            v47 = 0;
             a5 = 0;
             v21 = 4294956479;
             goto LABEL_65;
@@ -7518,101 +6765,102 @@ LABEL_62:
 
         if (theDict && keys)
         {
-          v46 = CFDictionaryCreate(*MEMORY[0x1E695E480], &keys, &theDict, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+          v47 = CFDictionaryCreate(*MEMORY[0x1E695E480], &keys, &theDict, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
         }
 
         else
         {
-          if (CFStringGetFileSystemRepresentation(string, &buffer, 1024))
+          FileSystemRepresentation = CFStringGetFileSystemRepresentation(string, &buffer, 1024);
+          if (FileSystemRepresentation)
           {
-            v28 = _LSDefaultLog();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+            v30 = _LSDefaultLog(FileSystemRepresentation);
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
             {
               _LSServerItemInfoRegistration_cold_1();
             }
           }
 
-          v46 = 0;
+          v47 = 0;
         }
 
-        v29 = _LSGetPlugin(v49, v50[7]);
-        if (v29)
+        v31 = _LSGetPlugin(v50, v51[7]);
+        if (v31)
         {
-          v30 = v50[7];
-          v45 = *(v29 + 224);
-          v54 = v45;
-          _LSUnregisterBundle(a1, v30, 0x20000000);
-          v31 = [v20 URL];
-          v32 = _LSCopyPluginsWithURL(a1, v31);
+          v32 = v51[7];
+          v46 = *(v31 + 224);
+          v55 = v46;
+          _LSUnregisterBundle(&a1->db, v32, 0x20000000);
+          v33 = [v20 URL];
+          v34 = _LSCopyPluginsWithURL(a1, v33, 1);
 
-          if (v32)
+          if (v34)
           {
-            Count = CFArrayGetCount(v32);
+            Count = CFArrayGetCount(v34);
             if (Count >= 1)
             {
               for (i = 0; i != Count; ++i)
               {
-                ValueAtIndex = CFArrayGetValueAtIndex(v32, i);
+                ValueAtIndex = CFArrayGetValueAtIndex(v34, i);
                 TypeID = CFNumberGetTypeID();
                 if (ValueAtIndex && (!TypeID || CFGetTypeID(ValueAtIndex) == TypeID))
                 {
-                  _LSUnregisterBundle(a1, [ValueAtIndex unsignedLongLongValue], 0x20000000);
+                  _LSUnregisterBundle(&a1->db, [ValueAtIndex unsignedLongLongValue], 0x20000000);
                 }
               }
             }
 
-            CFRelease(v32);
-            v37 = 0;
-            v32 = 0;
+            CFRelease(v34);
+            v39 = 0;
+            v34 = 0;
           }
 
           else
           {
-            v37 = 0;
+            v39 = 0;
           }
 
-          v41 = v45;
+          v43 = v46;
         }
 
         else
         {
-          v39 = CFStringFind(string, @".app/", 4uLL);
-          if (v39.location == -1)
+          v41 = CFStringFind(string, @".app/", 4uLL);
+          if (v41.location == -1)
           {
-            v41 = 0;
-            v37 = 0;
-            v32 = 0;
+            v43 = 0;
+            v39 = 0;
+            v34 = 0;
           }
 
           else
           {
-            v40 = *MEMORY[0x1E695E480];
-            v64.length = v39.location + v39.length;
-            v64.location = 0;
-            v37 = CFStringCreateWithSubstring(*MEMORY[0x1E695E480], string, v64);
-            v32 = CFURLCreateWithFileSystemPath(v40, v37, kCFURLPOSIXPathStyle, 1u);
-            FSNodeCreateWithURL(v32, 0, &v55);
-            _LSBundleFindWithNode(a1, v55, &v54, 0);
-            v41 = v54;
+            v42 = *MEMORY[0x1E695E480];
+            v65.length = v41.location + v41.length;
+            v65.location = 0;
+            v39 = CFStringCreateWithSubstring(*MEMORY[0x1E695E480], string, v65);
+            v34 = CFURLCreateWithFileSystemPath(v42, v39, kCFURLPOSIXPathStyle, 1u);
+            FSNodeCreateWithURL(v34, 0, &v56);
+            _LSBundleFindWithNode(a1, v56, &v55, 0);
+            v43 = v55;
           }
         }
 
-        v21 = _LSRegisterPlugins(v49, v50[6], v41, v46, a5);
+        v21 = _LSRegisterPlugins(v50, v51[6], v43, v47, a5, 0);
 LABEL_65:
         CFRelease(string);
-        if (v32)
+        if (v34)
         {
-          CFRelease(v32);
+          CFRelease(v34);
         }
 
-        if (v37)
+        if (v39)
         {
-          CFRelease(v37);
+          CFRelease(v39);
         }
 
-        if (v46)
+        if (v47)
         {
-          CFRelease(v46);
+          CFRelease(v47);
         }
 
 LABEL_71:
@@ -7629,8 +6877,20 @@ LABEL_72:
       if (*MEMORY[0x1E695E4F0])
       {
         Value = CFDictionaryGetValue(theDict, *MEMORY[0x1E695E4F0]);
-        v27 = CFStringGetTypeID();
-        if (!Value || !v27 || CFGetTypeID(Value) == v27)
+        v26 = CFStringGetTypeID();
+        if (!Value)
+        {
+          goto LABEL_28;
+        }
+
+        v28 = v26;
+        if (!v26)
+        {
+          goto LABEL_28;
+        }
+
+        v26 = CFGetTypeID(Value);
+        if (v26 == v28)
         {
           goto LABEL_28;
         }
@@ -7638,7 +6898,7 @@ LABEL_72:
 
       else
       {
-        CFStringGetTypeID();
+        v26 = CFStringGetTypeID();
       }
 
       Value = 0;
@@ -7652,7 +6912,6 @@ LABEL_28:
 
 LABEL_74:
 
-  v43 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -7687,9 +6946,9 @@ uint64_t _LSPathIsTrusted(const char *a1)
   return 1;
 }
 
-void getLibIDs(void)
+void getLibIDs(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&_MergedGlobals_2, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals_2, memory_order_acquire) & 1) == 0)
   {
     getLibIDs();
   }
@@ -7721,32 +6980,36 @@ uint64_t _LSServerCreateBundleDataAndRegister(LSContext *a1, LSRegistrationInfo 
   v17 = _LSCreateRegistrationData(a1, v15, a4, a5, a7);
   kdebug_trace();
   kdebug_trace();
-  v19 = _LSServerItemInfoRegistration(&a1->db, v15, v16, v17, a5, a6, v18, 0, a8);
-  v20 = v19;
+  v19 = _LSServerItemInfoRegistration(a1, v15, v16, v17, a5, a6, v18, 0, a8);
+  v21 = v19;
   if (a1 && !v19)
   {
-    _LSDatabaseCommit(a1->db);
+    _LSDatabaseCommit(a1->db, v20);
   }
 
   kdebug_trace();
 
-  return v20;
+  return v21;
 }
 
 uint64_t ___ZL23_LSRegisterDocumentTypeP11_LSDatabasejPK12LSBundleDataPK14__CFDictionaryP12NSDictionaryIP8NSStringPS7_IS9_S9_EEjP19LSBindingListBuffer_block_invoke(uint64_t result, uint64_t a2, int a3, _BYTE *a4)
 {
-  if ((a3 & 3) == 0 && (a3 & 0xFFFFFFFC) != 0)
+  if ((a3 & 3) == 0)
   {
-    v5 = result;
-    v6 = *(result + 32);
-    v7 = *(result + 48);
-    v8 = *([(_LSDatabase *)v6 schema]+ 216);
-    v9 = _UTTypeGet(*(v5 + 32));
-    result = _LSBindingListBufferAppend(v6, v7, v8, *(v9 + 12));
-    if (result)
+    v4 = a3 & 0xFFFFFFFC;
+    if (v4)
     {
-      *(*(*(v5 + 40) + 8) + 24) = 0;
-      *a4 = 1;
+      v6 = result;
+      v7 = *(result + 32);
+      v8 = *(result + 48);
+      v9 = *([(_LSDatabase *)v7 schema]+ 216);
+      v10 = _UTTypeGet(*(v6 + 32), v4);
+      result = _LSBindingListBufferAppend(v7, v8, v9, *(v10 + 12));
+      if (result)
+      {
+        *(*(*(v6 + 40) + 8) + 24) = 0;
+        *a4 = 1;
+      }
     }
   }
 
@@ -7775,11 +7038,10 @@ uint64_t ___ZL31_LSServerRegisterExtensionPointP11_LSDatabasejPK10__CFStringjPK1
         v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a2];
         [v10 addObject:v11];
 
-        v12 = *(v3 + 132);
         [(_LSDatabase *)*(v3 + 32) store];
         _CSStringRetain();
         [(_LSDatabase *)*(v3 + 32) store];
-        v13 = *([(_LSDatabase *)*(v3 + 32) schema]+ 1588);
+        [(_LSDatabase *)*(v3 + 32) schema];
 
         return _CSStoreWriteToUnit();
       }
@@ -7791,19 +7053,16 @@ uint64_t ___ZL31_LSServerRegisterExtensionPointP11_LSDatabasejPK10__CFStringjPK1
 
 void ___ZL31_LSServerRegisterExtensionPointP11_LSDatabasejPK10__CFStringjPK14__CFDictionaryPK7__CFURL_block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v9 = a2;
+  v7 = a2;
   v5 = a3;
+  _LSBindableDeactivate(*(a1 + 32), [v7 intValue], 0xAu, objc_msgSend(v5, "intValue"), 0);
   v6 = *(a1 + 32);
-  v7 = [v9 intValue];
   [v5 intValue];
-  _LSBindableDeactivate(v6, v7);
-  v8 = *(a1 + 32);
-  [v5 intValue];
-  [(_LSDatabase *)v8 store];
+  [(_LSDatabase *)v6 store];
   _CSStringRelease();
 }
 
-void std::vector<void const*>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<void const*>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -7888,29 +7147,29 @@ LABEL_15:
   LSPluginAddInfoToPayloadDict(v9, v10, v8, 1, 1);
 }
 
-uint64_t _LSRegisterPlugin(_LSDatabase *a1, const LSPluginInfo *a2, __CFString *a3, const __CFString *a4, const __CFString *a5, const __CFDictionary *a6, int a7, unsigned int *a8)
+uint64_t _LSRegisterPlugin(_LSDatabase *a1, const LSPluginInfo *a2, __CFString *a3, const __CFString *a4, const __CFString *a5, const __CFDictionary *a6, unsigned int a7, unsigned int *a8)
 {
-  v146 = *MEMORY[0x1E69E9840];
+  v148 = *MEMORY[0x1E69E9840];
   v13 = a1;
+  v143 = 0u;
+  memset(v144, 0, 60);
   v141 = 0u;
-  memset(v142, 0, 60);
+  v142 = 0u;
   v139 = 0u;
   v140 = 0u;
-  v137 = 0u;
-  v138 = 0u;
-  memset(v136, 0, sizeof(v136));
-  v134 = kLSVersionNumberNull;
-  v135 = unk_1817E90C0;
-  v117 = 0;
+  memset(v138, 0, sizeof(v138));
+  v136 = kLSVersionNumberNull;
+  v137 = unk_1817E90C0;
+  v119 = 0;
   v14 = *a2;
-  v103 = *(a2 + 1);
-  v116 = 0;
-  v115 = 0;
-  if (!a6 || (v102 = a5, v104 = v14, a3) && (v15 = CFGetTypeID(a3), v15 != CFDictionaryGetTypeID()))
+  v105 = *(a2 + 1);
+  v118 = 0;
+  v117 = 0;
+  if (!a6 || (v104 = a5, v106 = v14, a3) && (v15 = CFGetTypeID(a3), v15 != CFDictionaryGetTypeID()))
   {
-    v44 = 0;
-    v32 = 4294967246;
-    goto LABEL_143;
+    v47 = 0;
+    v34 = 4294967246;
+    goto LABEL_147;
   }
 
   cf = CFDictionaryGetValue(a6, @"NSExtensionPointIdentifier");
@@ -7960,7 +7219,7 @@ uint64_t _LSRegisterPlugin(_LSDatabase *a1, const LSPluginInfo *a2, __CFString *
     v24 = a4;
   }
 
-  v105 = v24;
+  v107 = v24;
   v25 = _LSBundleGet(v13, a7);
   if (!v25 || (*(v25 + 179) & 0x10) == 0)
   {
@@ -7982,9 +7241,9 @@ uint64_t _LSRegisterPlugin(_LSDatabase *a1, const LSPluginInfo *a2, __CFString *
     {
 LABEL_39:
       v28 = *(a2 + 3);
-      v114 = 0;
-      v29 = _LSAliasAddURL(v13, v28, &v114);
-      v30 = v114;
+      v116 = 0;
+      v29 = _LSAliasAddURL(v13, v28, &v116);
+      v30 = v116;
       v31 = v30;
       if (v29)
       {
@@ -7992,81 +7251,81 @@ LABEL_39:
 
       else
       {
-        v32 = _LSGetOSStatusFromNSError(v30);
+        v34 = _LSGetOSStatusFromNSError(v30);
 
-        if (v32)
+        if (v34)
         {
           goto LABEL_103;
         }
       }
 
-      *&v136[0] = __PAIR64__(*(a2 + 48), v29);
-      if ([__LSDefaultsGetSharedInstance() isInEducationMode])
+      *&v138[0] = __PAIR64__(*(a2 + 48), v29);
+      if ([__LSDefaultsGetSharedInstance(v32 v33)])
       {
         goto LABEL_46;
       }
 
-      v33 = *(a2 + 4);
-      if (!v33)
+      v35 = *(a2 + 4);
+      if (!v35)
       {
         goto LABEL_46;
       }
 
-      v113 = 0;
-      v34 = _LSAliasAddURL(v13, v33, &v113);
-      v35 = v113;
-      v36 = v35;
-      LODWORD(v137) = v34;
-      if (v34)
+      v115 = 0;
+      v36 = _LSAliasAddURL(v13, v35, &v115);
+      v37 = v115;
+      v38 = v37;
+      LODWORD(v139) = v36;
+      if (v36)
       {
 
         goto LABEL_46;
       }
 
-      v32 = _LSGetOSStatusFromNSError(v35);
+      v34 = _LSGetOSStatusFromNSError(v37);
 
-      if (!v32)
+      if (!v34)
       {
 LABEL_46:
-        HIDWORD(v136[0]) = _LSDatabaseCreateStringForCFString(v13, *(a2 + 5), 0);
-        v37 = *(a2 + 7);
-        if (!v37)
+        HIDWORD(v138[0]) = _LSDatabaseCreateStringForCFString(v13, *(a2 + 5), 0);
+        v39 = *(a2 + 7);
+        if (!v39)
         {
           if ((*(a2 + 204) & 1) == 0)
           {
             goto LABEL_50;
           }
 
-          v37 = @"0000000000";
+          v39 = @"0000000000";
         }
 
-        LODWORD(v136[1]) = _LSDatabaseCreateStringForCFString(v13, v37, 0);
+        LODWORD(v138[1]) = _LSDatabaseCreateStringForCFString(v13, v39, 0);
 LABEL_50:
         if (cf)
         {
-          v38 = cf;
+          v40 = cf;
         }
 
         else
         {
-          v38 = Value;
+          v40 = Value;
         }
 
-        StringForCFString = _LSDatabaseCreateStringForCFString(v13, v105, 0);
+        StringForCFString = _LSDatabaseCreateStringForCFString(v13, v107, 0);
         if (v21)
         {
-          v40 = v21;
+          v42 = v21;
         }
 
         else
         {
-          v40 = v102;
+          v42 = v104;
         }
 
-        HIDWORD(v141) = StringForCFString;
-        _LSGetVersionFromString(v40, buf);
-        *(&v136[1] + 12) = *buf;
-        *(&v136[2] + 12) = *&buf[16];
+        HIDWORD(v143) = StringForCFString;
+        _LSGetVersionFromString(v42, buf);
+        *(&v138[1] + 12) = *buf;
+        *(&v138[2] + 12) = *&buf[16];
         if (a3)
         {
           _LSGetVersionFromString(a3, buf);
@@ -8077,100 +7336,101 @@ LABEL_50:
           memset(buf, 0, sizeof(buf));
         }
 
-        *(v142 + 12) = *buf;
-        *(&v142[1] + 12) = *&buf[16];
-        DWORD1(v136[1]) = v103;
+        *(v144 + 12) = *buf;
+        *(&v144[1] + 12) = *&buf[16];
+        DWORD1(v138[1]) = v105;
         if (Value)
         {
-          v41 = _LSDatabaseCreateStringForCFString(v13, Value, 0);
+          v43 = _LSDatabaseCreateStringForCFString(v13, Value, 0);
           goto LABEL_76;
         }
 
-        if (_LSExtensionPointFindWithIdentifier(v13, v38, v103, 0, &v116, &v115) == -10814)
+        v44 = _LSExtensionPointFindWithIdentifier(v13, v40, v105, 0, &v118, &v117);
+        if (v44 == -10814)
         {
-          v42 = _LSRegistrationLog();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+          v45 = _LSRegistrationLog(v44);
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
           {
             *buf = 138412546;
-            *&buf[4] = v105;
+            *&buf[4] = v107;
             *&buf[12] = 2112;
-            *&buf[14] = v38;
-            _os_log_impl(&dword_18162D000, v42, OS_LOG_TYPE_INFO, "Registering extension %@ but haven't yet registered extension point %@", buf, 0x16u);
+            *&buf[14] = v40;
+            _os_log_impl(&dword_18162D000, v45, OS_LOG_TYPE_INFO, "Registering extension %@ but haven't yet registered extension point %@", buf, 0x16u);
           }
         }
 
         else
         {
-          if (!a3 || (*buf = *(v142 + 12), *&buf[16] = *(&v142[1] + 12), v45 = *(v115 + 24), v144 = *(v115 + 8), v145 = v45, !_LSVersionNumberCompare(buf, &v144)))
+          if (!a3 || (*buf = *(v144 + 12), *&buf[16] = *(&v144[1] + 12), v48 = *(v117 + 24), v146 = *(v117 + 8), v147 = v48, (v49 = _LSVersionNumberCompare(buf, &v146)) == 0))
           {
 LABEL_72:
-            if (v115 && (v48 = *(v115 + 40), v49 = v13, [(_LSDatabase *)v13 store], _CSStringRetain(), v115))
+            if (v117 && (v52 = v13, [(_LSDatabase *)v13 store], _CSStringRetain(), v117))
             {
-              v41 = *(v115 + 40);
+              v43 = *(v117 + 40);
             }
 
             else
             {
-              v41 = 0;
+              v43 = 0;
             }
 
 LABEL_76:
-            DWORD2(v142[0]) = v41;
-            DWORD1(v142[0]) = _LSDatabaseCreateStringForCFString(v13, v38, 0);
-            DWORD1(v137) = _LSDatabaseCreateStringForCFString(v13, *(a2 + 8), 0);
-            HIDWORD(v137) = _LSDatabaseCreateStringForCFString(v13, *(a2 + 9), 0);
-            DWORD2(v136[0]) = _LSDatabaseCreateStringForCFString(v13, *(a2 + 15), 0);
-            HIDWORD(v138) = _LSDatabaseCreateStringForCFString(v13, *(a2 + 10), 0);
-            LODWORD(v139) = _LSDatabaseCreateStringForCFString(v13, *(a2 + 11), 0);
-            DWORD1(v139) = _LSDatabaseCreateStringForCFString(v13, *(a2 + 12), 0);
-            v44 = [*(a2 + 1) sortedArrayUsingSelector:sel_compare_];
+            DWORD2(v144[0]) = v43;
+            DWORD1(v144[0]) = _LSDatabaseCreateStringForCFString(v13, v40, 0);
+            DWORD1(v139) = _LSDatabaseCreateStringForCFString(v13, *(a2 + 8), 0);
+            HIDWORD(v139) = _LSDatabaseCreateStringForCFString(v13, *(a2 + 9), 0);
+            DWORD2(v138[0]) = _LSDatabaseCreateStringForCFString(v13, *(a2 + 15), 0);
+            HIDWORD(v140) = _LSDatabaseCreateStringForCFString(v13, *(a2 + 10), 0);
+            LODWORD(v141) = _LSDatabaseCreateStringForCFString(v13, *(a2 + 11), 0);
+            DWORD1(v141) = _LSDatabaseCreateStringForCFString(v13, *(a2 + 12), 0);
+            v47 = [*(a2 + 1) sortedArrayUsingSelector:sel_compare_];
             if ((*(a2 + 204) & 0x20) != 0)
             {
-              v53 = _LSAliasGet(v13, v136[0]);
-              v54 = [v53 mutableCopy];
+              v56 = _LSAliasGet(v13, LODWORD(v138[0]));
+              v57 = [v56 mutableCopy];
 
+              v113 = 0u;
+              v114 = 0u;
               v111 = 0u;
               v112 = 0u;
-              v109 = 0u;
-              v110 = 0u;
-              v55 = v44;
-              v56 = [v55 countByEnumeratingWithState:&v109 objects:v133 count:16];
-              if (v56)
+              v58 = v47;
+              v59 = [v58 countByEnumeratingWithState:&v111 objects:v135 count:16];
+              if (v59)
               {
-                v57 = *v110;
+                v60 = *v112;
                 do
                 {
-                  for (i = 0; i != v56; ++i)
+                  for (i = 0; i != v59; ++i)
                   {
-                    if (*v110 != v57)
+                    if (*v112 != v60)
                     {
-                      objc_enumerationMutation(v55);
+                      objc_enumerationMutation(v58);
                     }
 
-                    v59 = [*(*(&v109 + 1) + 8 * i) dataUsingEncoding:4];
-                    [v54 appendData:v59];
+                    v62 = [*(*(&v111 + 1) + 8 * i) dataUsingEncoding:4];
+                    [v57 appendData:v62];
                   }
 
-                  v56 = [v55 countByEnumeratingWithState:&v109 objects:v133 count:16];
+                  v59 = [v58 countByEnumeratingWithState:&v111 objects:v135 count:16];
                 }
 
-                while (v56);
+                while (v59);
               }
 
-              v60 = [MEMORY[0x1E696AFB0] _LS_UUIDWithData:v54 digestType:1];
-              v52 = [v60 UUIDString];
+              v63 = [MEMORY[0x1E696AFB0] _LS_UUIDWithData:v57 digestType:1];
+              v55 = [v63 UUIDString];
             }
 
             else
             {
-              v50 = *MEMORY[0x1E695E480];
-              v51 = CFUUIDCreate(*MEMORY[0x1E695E480]);
-              v52 = CFUUIDCreateString(v50, v51);
-              CFRelease(v51);
+              v53 = *MEMORY[0x1E695E480];
+              v54 = CFUUIDCreate(*MEMORY[0x1E695E480]);
+              v55 = CFUUIDCreateString(v53, v54);
+              CFRelease(v54);
             }
 
-            HIDWORD(v142[2]) = _LSDatabaseCreateStringForCFString(v13, v52, 0);
-            if ([v44 count])
+            HIDWORD(v144[2]) = _LSDatabaseCreateStringForCFString(v13, v55, 0);
+            if ([v47 count])
             {
               StringArray = _LSDatabaseCreateStringArray(v13, *(a2 + 1), 0, 0);
             }
@@ -8180,129 +7440,130 @@ LABEL_76:
               StringArray = 0;
             }
 
-            v62 = *(a2 + 2);
-            if (v62)
+            v65 = *(a2 + 2);
+            if (v65)
             {
-              _LSGetVersionFromString(v62, buf);
-              v134 = *buf;
-              v135 = *&buf[16];
+              _LSGetVersionFromString(v65, buf);
+              v136 = *buf;
+              v137 = *&buf[16];
             }
 
-            *(&v136[3] + 12) = v134;
-            *(&v136[4] + 12) = v135;
-            HIDWORD(v139) = _LSPlistAdd(v13, *(a2 + 13));
-            if (([__LSDefaultsGetSharedInstance() isInEducationMode] & 1) == 0)
+            *(&v138[3] + 12) = v136;
+            *(&v138[4] + 12) = v137;
+            v66 = _LSPlistAdd(v13, *(a2 + 13));
+            HIDWORD(v141) = v66;
+            if (([__LSDefaultsGetSharedInstance(v66 v67)] & 1) == 0)
             {
-              LODWORD(v140) = _LSPlistAdd(v13, *(a2 + 14));
+              LODWORD(v142) = _LSPlistAdd(v13, *(a2 + 14));
             }
 
-            DWORD2(v139) = _LSPlistAdd(v13, *(a2 + 16));
-            HIDWORD(v136[5]) = StringArray;
-            LODWORD(v142[3]) = a7;
+            DWORD2(v141) = _LSPlistAdd(v13, *(a2 + 16));
+            HIDWORD(v138[5]) = StringArray;
+            LODWORD(v144[3]) = a7;
             if ((*a2 & 4) != 0)
             {
-              v63 = _LSPluginFindWithInfo(v13, 0, *(a2 + 6), 0, 0, &v117, 0);
-              v64 = v63;
-              if (v63 && *(v63 + 184) != DWORD2(v142[0]))
+              v68 = _LSPluginFindWithInfo(v13, 0, *(a2 + 6), 0, 0, &v119, 0);
+              v69 = v68;
+              if (v68 && *(v68 + 184) != DWORD2(v144[0]))
               {
-                v32 = 0;
-                v104 &= ~4u;
+                v34 = 0;
+                v106 &= ~4u;
               }
 
               else
               {
-                LODWORD(v142[0]) = _LSDatabaseCreateStringForCFString(v13, *(a2 + 6), 0);
-                if (v64)
+                LODWORD(v144[0]) = _LSDatabaseCreateStringForCFString(v13, *(a2 + 6), 0);
+                if (v69)
                 {
-                  LODWORD(v144) = *(v64 + 168) | 8;
+                  LODWORD(v146) = *(v69 + 168) | 8;
                   *buf = 0;
-                  v65 = v13;
+                  v70 = v13;
                   [(_LSDatabase *)v13 store];
-                  v66 = v13;
-                  v67 = *([(_LSDatabase *)v13 schema]+ 1588);
+                  v71 = v13;
+                  [(_LSDatabase *)v13 schema];
                   if (_CSStoreWriteToUnit())
                   {
-                    v32 = 0;
+                    v34 = 0;
                   }
 
                   else
                   {
-                    v32 = _LSGetOSStatusFromNSError(*buf);
+                    v34 = _LSGetOSStatusFromNSError(*buf);
                   }
                 }
 
                 else
                 {
-                  v32 = 0;
+                  v34 = 0;
                 }
               }
             }
 
             else
             {
-              v32 = 0;
-              LODWORD(v142[0]) = 0;
+              v34 = 0;
+              LODWORD(v144[0]) = 0;
             }
 
-            WORD6(v140) = _LSSliceMaskForSliceArray(*(a2 + 20));
-            LODWORD(v141) = *(a2 + 50);
-            DWORD2(v141) = v104;
-            BYTE4(v141) = *(a2 + 204);
-            v68 = objc_autoreleasePoolPush();
-            v69 = [[FSNode alloc] initWithURL:*(a2 + 3) flags:0 error:0];
-            BYTE4(v140) = _LSGetDirectoryClassForNode(v69);
-
-            objc_autoreleasePoolPop(v68);
-            v70 = objc_autoreleasePoolPush();
-            v71 = [*(a2 + 17) objectForKeyedSubscript:*MEMORY[0x1E695E120]];
-            LODWORD(v138) = LaunchServices::LocalizedString::Add(v13, v71, *(a2 + 9));
-
-            objc_autoreleasePoolPop(v70);
+            WORD6(v142) = _LSSliceMaskForSliceArray(*(a2 + 20));
+            LODWORD(v143) = *(a2 + 50);
+            DWORD2(v143) = v106;
+            BYTE4(v143) = *(a2 + 204);
             v72 = objc_autoreleasePoolPush();
-            v73 = [*(a2 + 17) objectForKeyedSubscript:*MEMORY[0x1E695E4F8]];
-            DWORD2(v137) = LaunchServices::LocalizedString::Add(v13, v73, *(a2 + 9));
+            v73 = [[FSNode alloc] initWithURL:*(a2 + 3) flags:0 error:0];
+            BYTE4(v142) = _LSGetDirectoryClassForNode(v73);
 
             objc_autoreleasePoolPop(v72);
             v74 = objc_autoreleasePoolPush();
-            v75 = [*(a2 + 17) objectForKeyedSubscript:@"NSMicrophoneUsageDescription"];
-            DWORD1(v138) = LaunchServices::LocalizedString::Add(v13, v75, *(a2 + 18));
+            v75 = [*(a2 + 17) objectForKeyedSubscript:*MEMORY[0x1E695E120]];
+            LODWORD(v140) = LaunchServices::LocalizedString::Add(v13, v75, *(a2 + 9));
 
             objc_autoreleasePoolPop(v74);
-            DWORD2(v140) = _LSPlistAdd(v13, *(a2 + 19));
-            BYTE5(v140) = *(a2 + 196);
-            v131 = *(&v136[3] + 12);
-            v132 = *(&v136[4] + 12);
-            v76 = DWORD1(v136[1]) - 1;
-            if ((DWORD1(v136[1]) - 1) > 0xA)
+            v76 = objc_autoreleasePoolPush();
+            v77 = [*(a2 + 17) objectForKeyedSubscript:*MEMORY[0x1E695E4F8]];
+            DWORD2(v139) = LaunchServices::LocalizedString::Add(v13, v77, *(a2 + 9));
+
+            objc_autoreleasePoolPop(v76);
+            v78 = objc_autoreleasePoolPush();
+            v79 = [*(a2 + 17) objectForKeyedSubscript:@"NSMicrophoneUsageDescription"];
+            DWORD1(v140) = LaunchServices::LocalizedString::Add(v13, v79, *(a2 + 18));
+
+            objc_autoreleasePoolPop(v78);
+            DWORD2(v142) = _LSPlistAdd(v13, *(a2 + 19));
+            BYTE5(v142) = *(a2 + 196);
+            v133 = *(&v138[3] + 12);
+            v134 = *(&v138[4] + 12);
+            v80 = DWORD1(v138[1]) - 1;
+            if ((DWORD1(v138[1]) - 1) > 0xA)
             {
-              v77 = -1;
-              v78 = -1;
-              v79 = -1;
+              v81 = -1;
+              v82 = -1;
+              v83 = -1;
             }
 
             else
             {
-              v77 = qword_1817E8F20[v76];
-              v78 = qword_1817E8F78[v76];
-              v79 = qword_1817E8FD0[v76];
+              v81 = qword_1817E8F20[v80];
+              v82 = qword_1817E8F78[v80];
+              v83 = qword_1817E8FD0[v80];
             }
 
-            _LSMakeVersionNumber(v77, v78, v79, v143);
-            *buf = v131;
-            *&buf[16] = v132;
-            v144 = v143[0];
-            v145 = v143[1];
-            if (_LSVersionNumberCompare(buf, &v144) > 1)
+            _LSMakeVersionNumber(v81, v82, v83, v145);
+            *buf = v133;
+            *&buf[16] = v134;
+            v146 = v145[0];
+            v147 = v145[1];
+            if (_LSVersionNumberCompare(buf, &v146) > 1)
             {
-              v82 = 0;
+              v86 = 0;
             }
 
             else
             {
-              v80 = *(a2 + 22);
-              if (v80)
+              v84 = *(a2 + 22);
+              if (v84)
               {
-                Count = CFArrayGetCount(v80);
+                Count = CFArrayGetCount(v84);
               }
 
               else
@@ -8310,162 +7571,173 @@ LABEL_76:
                 Count = 0;
               }
 
-              v83 = *(a2 + 23);
-              if (v83)
+              v87 = *(a2 + 23);
+              if (v87)
               {
-                v83 = CFArrayGetCount(v83);
+                v87 = CFArrayGetCount(v87);
               }
 
-              v82 = v83 + Count;
+              v86 = v87 + Count;
             }
 
-            DWORD1(v142[3]) = _LSDatabaseCreateStringForCFString(v13, *(a2 + 21), 0);
-            if (v82)
+            DWORD1(v144[3]) = _LSDatabaseCreateStringForCFString(v13, *(a2 + 21), 0);
+            if (v86)
             {
-              v84 = v13;
+              v88 = v13;
               [(_LSDatabase *)v13 store];
-              v85 = _CSArrayCreateWithCapacity();
+              v89 = _CSArrayCreateWithCapacity();
             }
 
             else
             {
-              v85 = 0;
+              v89 = 0;
             }
 
-            DWORD2(v142[3]) = v85;
-            v129 = v142[1];
-            v130[0] = v142[2];
-            *(v130 + 12) = *(&v142[2] + 12);
+            DWORD2(v144[3]) = v89;
+            v131 = v144[1];
+            v132[0] = v144[2];
+            *(v132 + 12) = *(&v144[2] + 12);
+            v127 = v141;
+            v128 = v142;
+            v129 = v143;
+            v130 = v144[0];
+            v123 = v138[4];
+            v124 = v138[5];
             v125 = v139;
             v126 = v140;
-            v127 = v141;
-            v128 = v142[0];
-            v121 = v136[4];
-            v122 = v136[5];
-            v123 = v137;
-            v124 = v138;
-            *buf = v136[0];
-            *&buf[16] = v136[1];
-            v119 = v136[2];
-            v120 = v136[3];
-            v86 = _LSPluginAdd(v13, buf);
-            HIDWORD(v117) = v86;
-            if (v86)
+            *buf = v138[0];
+            *&buf[16] = v138[1];
+            v121 = v138[2];
+            v122 = v138[3];
+            v90 = _LSPluginAdd(v13, buf);
+            HIDWORD(v119) = v90;
+            if (v90)
             {
-              if (DWORD2(v142[3]))
+              if (DWORD2(v144[3]))
               {
+                if (BYTE4(v143))
+                {
+                  v91 = 8196;
+                }
+
+                else
+                {
+                  v91 = 0x2000;
+                }
+
                 if (a7)
                 {
-                  v87 = _LSBundleGet(v13, a7);
-                  if (v87)
+                  v92 = _LSBundleGet(v13, a7);
+                  if (v92)
                   {
-                    *(v87 + 172);
+                    if ((*(v92 + 172) & 0x80) == 0)
+                    {
+                      v91 |= 0x40u;
+                    }
                   }
                 }
 
-                _LSRegisterTypeDeclarationsForPlugin(v13, v86, v136, *(a2 + 23), *(a2 + 17));
-                _LSRegisterTypeDeclarationsForPlugin(v13, v86, v136, *(a2 + 22), *(a2 + 17));
+                _LSRegisterTypeDeclarationsForPlugin(v13, v90, v138, *(a2 + 23), *(a2 + 17), v91);
+                _LSRegisterTypeDeclarationsForPlugin(v13, v90, v138, *(a2 + 22), *(a2 + 17), v91 | 0x10);
               }
 
-              v88 = _LSBundleGet(v13, a7);
-              v89 = v88;
-              if (!v88)
+              appended = _LSBundleGet(v13, a7);
+              if (!appended)
               {
-                goto LABEL_134;
+                goto LABEL_138;
               }
 
-              if (*(v88 + 480))
+              if (*(appended + 480))
               {
-                v90 = v13;
+                v95 = v13;
                 [(_LSDatabase *)v13 store];
-                v91 = *(v89 + 480);
-                _CSArrayAppendValue();
-LABEL_134:
-                if (([__LSDefaultsGetSharedInstance() isLightweightSystemServer] & 1) == 0)
+                appended = _CSArrayAppendValue();
+LABEL_138:
+                if (([__LSDefaultsGetSharedInstance(appended v94)] & 1) == 0)
                 {
                   if (IconServicesLibrary(void)::frameworkLibrary)
                   {
-                    v96 = 1;
+                    v99 = 1;
                   }
 
                   else
                   {
                     IconServicesLibrary(void)::frameworkLibrary = dlopen("/System/Library/PrivateFrameworks/IconServices.framework/IconServices", 2);
-                    v96 = IconServicesLibrary(void)::frameworkLibrary != 0;
+                    v99 = IconServicesLibrary(void)::frameworkLibrary != 0;
                   }
 
-                  if (v105 && v96)
+                  if (v107 && v99)
                   {
-                    v97 = v105;
-                    v98 = _LSGetPluginNotificationAndIconCacheQueue();
-                    _LSRegisterPlugin(v98, &v108, v97);
+                    v100 = v107;
+                    v101 = _LSGetPluginNotificationAndIconCacheQueue(v100);
+                    _LSRegisterPlugin(v101, v110, v100);
                   }
                 }
 
-                goto LABEL_141;
+                goto LABEL_145;
               }
 
               *buf = 0;
-              v92 = v13;
+              v96 = v13;
               [(_LSDatabase *)v13 store];
-              LODWORD(v144) = _CSArrayCreate();
-              if (!v144 && (v32 = _LSGetOSStatusFromNSError(*buf), v32))
+              LODWORD(v146) = _CSArrayCreate();
+              if (!v146 && (v34 = _LSGetOSStatusFromNSError(*buf), v34))
               {
               }
 
               else
               {
-                v93 = v13;
+                v97 = v13;
                 [(_LSDatabase *)v13 store];
-                v94 = v13;
-                v95 = *([(_LSDatabase *)v13 schema]+ 4);
+                v98 = v13;
+                [(_LSDatabase *)v13 schema];
                 if (_CSStoreWriteToUnit())
                 {
 
-LABEL_133:
-                  v32 = 0;
-                  goto LABEL_134;
+LABEL_137:
+                  v34 = 0;
+                  goto LABEL_138;
                 }
 
-                v32 = _LSGetOSStatusFromNSError(*buf);
+                v34 = _LSGetOSStatusFromNSError(*buf);
 
-                if (!v32)
+                if (!v34)
                 {
-                  goto LABEL_133;
+                  goto LABEL_137;
                 }
               }
             }
 
             else
             {
-              v32 = 4294956479;
+              v34 = 4294956479;
             }
 
-LABEL_141:
-            if (v52)
+LABEL_145:
+            if (v55)
             {
-              CFRelease(v52);
+              CFRelease(v55);
             }
 
-            goto LABEL_143;
+            goto LABEL_147;
           }
 
-          v42 = _LSRegistrationLog();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+          v45 = _LSRegistrationLog(v49);
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
           {
-            v46 = *(v115 + 24);
-            v144 = *(v115 + 8);
-            v145 = v46;
-            v47 = _LSVersionNumberGetStringRepresentation(&v144);
+            v50 = *(v117 + 24);
+            v146 = *(v117 + 8);
+            v147 = v50;
+            v51 = _LSVersionNumberGetStringRepresentation(&v146);
             *buf = 138413058;
-            *&buf[4] = v105;
+            *&buf[4] = v107;
             *&buf[12] = 2112;
             *&buf[14] = a3;
             *&buf[22] = 2112;
-            *&buf[24] = v38;
-            LOWORD(v119) = 2112;
-            *(&v119 + 2) = v47;
-            _os_log_impl(&dword_18162D000, v42, OS_LOG_TYPE_INFO, "Extension %@ specified NSExtensionPointVersion %@ that does not match the active extensionPoint <%@:%@>", buf, 0x2Au);
+            *&buf[24] = v40;
+            LOWORD(v121) = 2112;
+            *(&v121 + 2) = v51;
+            _os_log_impl(&dword_18162D000, v45, OS_LOG_TYPE_INFO, "Extension %@ specified NSExtensionPointVersion %@ that does not match the active extensionPoint <%@:%@>", buf, 0x2Au);
           }
         }
 
@@ -8473,27 +7745,26 @@ LABEL_141:
       }
 
 LABEL_103:
-      v44 = 0;
-      goto LABEL_143;
+      v47 = 0;
+      goto LABEL_147;
     }
   }
 
-  v43 = _LSInstallLog();
-  if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+  v46 = _LSInstallLog(v25);
+  if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
   {
     _LSRegisterPlugin();
   }
 
-  v44 = 0;
-  v32 = 4294956645;
-LABEL_143:
-  if (HIDWORD(v117))
+  v47 = 0;
+  v34 = 4294956645;
+LABEL_147:
+  if (HIDWORD(v119))
   {
-    *a8 = HIDWORD(v117);
+    *a8 = HIDWORD(v119);
   }
 
-  v99 = *MEMORY[0x1E69E9840];
-  return v32;
+  return v34;
 }
 
 void ___ZL17_LSRegisterPluginP11_LSDatabaseRK12LSPluginInfoPK14__CFDictionaryPK10__CFStringS9_S6_jPj_block_invoke(uint64_t a1)
@@ -8504,7 +7775,7 @@ void ___ZL17_LSRegisterPluginP11_LSDatabaseRK12LSPluginInfoPK14__CFDictionaryPK1
   objc_autoreleasePoolPop(v2);
 }
 
-void ___ZL61_LSFindExistingRegisteredBundleWithContainerMatchingAliasDataP11_LSDatabasejP6NSDataPj_block_invoke(uint64_t a1, int a2, int *a3, uint64_t a4, _BYTE *a5)
+void ___ZL61_LSFindExistingRegisteredBundleWithContainerMatchingAliasDataP11_LSDatabasejP6NSDataPj_block_invoke(uint64_t a1, int a2, unsigned int *a3, uint64_t a4, _BYTE *a5)
 {
   if (!a3)
   {
@@ -8586,7 +7857,7 @@ void _LSLogStep(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5, uint6
     v12 = 0;
   }
 
-  [getAITransactionLogClass() logStep:a1 byParty:5 phase:a2 success:a3 forBundleID:v13 description:v12];
+  [(objc_class *)getAITransactionLogClass() logStep:a1 byParty:5 phase:a2 success:a3 forBundleID:v13 description:v12];
 }
 
 {
@@ -8602,7 +7873,7 @@ void _LSLogStep(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5, uint6
     v12 = 0;
   }
 
-  [getAITransactionLogClass() logStep:a1 byParty:5 phase:a2 success:a3 forBundleID:v13 description:v12];
+  [(objc_class *)getAITransactionLogClass() logStep:a1 byParty:5 phase:a2 success:a3 forBundleID:v13 description:v12];
 }
 
 Class initAITransactionLog(void)
@@ -8657,11 +7928,11 @@ id AITransactionLogFunction(void)
 
 __CFDictionary *_LSCreateRegistrationDataForDirectoryNode(LSContext *a1, LSRegistrationInfo *a2, const __CFURL *a3, _LSBundleProvider *a4, FSNode *a5, const __CFArray **a6, const __CFArray **a7)
 {
-  v205 = *MEMORY[0x1E69E9840];
-  v179 = a2;
-  v180 = a3;
-  v181 = a4;
-  v9 = [(__CFURL *)v180 infoDictionary];
+  v207 = *MEMORY[0x1E69E9840];
+  v181 = a2;
+  v182 = a3;
+  v183 = a4;
+  v9 = [(__CFURL *)v182 infoDictionary];
   Mutable = copyDeepMutableDictionary(v9);
 
   if (!Mutable)
@@ -8676,27 +7947,27 @@ __CFDictionary *_LSCreateRegistrationDataForDirectoryNode(LSContext *a1, LSRegis
   }
 
   CFDictionaryRemoveValue(Mutable, @"LSIsSecuredSystemContent");
-  if ([(_LSBundleProvider *)v181 isSecuredSystemContent])
+  if ([(_LSBundleProvider *)v183 isSecuredSystemContent])
   {
     CFDictionaryAddValue(Mutable, @"LSIsSecuredSystemContent", *MEMORY[0x1E695E4D0]);
   }
 
-  v11 = v181;
+  v11 = v183;
   *buf = MEMORY[0x1E695E110];
-  *&v199 = 0;
-  _LSNodeIsOnCryptex(v11, buf, &v199);
+  *&v201 = 0;
+  _LSNodeIsOnCryptex(v11, buf, &v201);
   v12 = *buf;
-  v13 = v199;
-  v203[0] = v12;
-  v198 = v13;
-  v14 = _LSNodeIsOnCryptex(v11, v203, &v198);
-  v15 = v203[0];
+  v13 = v201;
+  v205[0] = v12;
+  v200 = v13;
+  v14 = _LSNodeIsOnCryptex(v11, v205, &v200);
+  v15 = v205[0];
 
-  v16 = v198;
+  v16 = v200;
   if ((v14 & 1) == 0)
   {
-    v17 = _LSRegistrationLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = _LSRegistrationLog(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       _LSCreateRegistrationDataForDirectoryNode();
     }
@@ -8704,134 +7975,134 @@ __CFDictionary *_LSCreateRegistrationDataForDirectoryNode(LSContext *a1, LSRegis
 
   CFDictionarySetValue(theDict, @"_LSIsOnCryptex", v15);
 
-  v18 = v11;
+  v19 = v11;
   if (a5 && (Value = CFDictionaryGetValue(a5, @"BundleContainer"), TypeID = CFStringGetTypeID(), Value) && (!TypeID || CFGetTypeID(Value) == TypeID))
   {
-    v21 = CFURLCreateWithFileSystemPath(*MEMORY[0x1E695E480], Value, kCFURLPOSIXPathStyle, 1u);
-    v22 = _LSCopyiTunesMetadataDictionaryForAppContainerURL(v21);
-    if (v21)
-    {
-      CFRelease(v21);
-    }
-
+    v22 = CFURLCreateWithFileSystemPath(*MEMORY[0x1E695E480], Value, kCFURLPOSIXPathStyle, 1u);
+    v23 = _LSCopyiTunesMetadataDictionaryForAppContainerURL(v22);
     if (v22)
     {
-      _LSPromoteiTunesMetadataKeys(v22, theDict);
       CFRelease(v22);
     }
-  }
 
-  else
-  {
-  }
-
-  v23 = objc_autoreleasePoolPush();
-  v24 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:_LSGetDirectoryClassForNode(v18)];
-  CFDictionaryAddValue(theDict, @"_LSDirectoryClass", v24);
-  objc_autoreleasePoolPop(v23);
-  v25 = v180;
-  v26 = *[(_LSBundleProvider *)v25 provider];
-  if (v26)
-  {
-    v27 = CFRetain(v26);
-    v28 = v27;
-    if (v27)
+    if (v23)
     {
-      v30 = CFURLCopyFileSystemPath(v27, kCFURLPOSIXPathStyle);
-      if (v30)
-      {
-        _LSPathifyIconKey(v25, theDict, *MEMORY[0x1E695E130], v29);
-        _LSPathifyIconKeysInPlistKey(v25, theDict, *MEMORY[0x1E695E128], *MEMORY[0x1E695E168], v31);
-        _LSPathifyIconKeysInPlistKey(v25, theDict, *MEMORY[0x1E695E198], *MEMORY[0x1E695E180], v32);
-        _LSPathifyIconKeysInPlistKey(v25, theDict, @"UTExportedTypeDeclarations", @"UTTypeIconFile", v33);
-        _LSPathifyIconKeysInPlistKey(v25, theDict, @"UTImportedTypeDeclarations", @"UTTypeIconFile", v34);
-        CFRelease(v30);
-      }
-
-      CFRelease(v28);
+      _LSPromoteiTunesMetadataKeys(v23, theDict);
+      CFRelease(v23);
     }
   }
 
-  v35 = [(_LSBundleProvider *)v25 provider];
-  _LSPathifyReferenceAccessorysInTypeDeclarationsForKey(v35, theDict, @"UTExportedTypeDeclarations");
-  _LSPathifyReferenceAccessorysInTypeDeclarationsForKey(v35, theDict, @"UTImportedTypeDeclarations");
+  else
+  {
+  }
 
-  v190 = v18;
+  v24 = objc_autoreleasePoolPush();
+  v25 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:_LSGetDirectoryClassForNode(v19)];
+  CFDictionaryAddValue(theDict, @"_LSDirectoryClass", v25);
+  objc_autoreleasePoolPop(v24);
+  v26 = v182;
+  v27 = *[(_LSBundleProvider *)v26 provider];
+  if (v27)
+  {
+    v28 = CFRetain(v27);
+    v29 = v28;
+    if (v28)
+    {
+      v31 = CFURLCopyFileSystemPath(v28, kCFURLPOSIXPathStyle);
+      if (v31)
+      {
+        _LSPathifyIconKey(v26, theDict, *MEMORY[0x1E695E130], v30);
+        _LSPathifyIconKeysInPlistKey(v26, theDict, *MEMORY[0x1E695E128], *MEMORY[0x1E695E168], v32);
+        _LSPathifyIconKeysInPlistKey(v26, theDict, *MEMORY[0x1E695E198], *MEMORY[0x1E695E180], v33);
+        _LSPathifyIconKeysInPlistKey(v26, theDict, @"UTExportedTypeDeclarations", @"UTTypeIconFile", v34);
+        _LSPathifyIconKeysInPlistKey(v26, theDict, @"UTImportedTypeDeclarations", @"UTTypeIconFile", v35);
+        CFRelease(v31);
+      }
+
+      CFRelease(v29);
+    }
+  }
+
+  v36 = [(_LSBundleProvider *)v26 provider];
+  _LSPathifyReferenceAccessorysInTypeDeclarationsForKey(v36, theDict, @"UTExportedTypeDeclarations");
+  _LSPathifyReferenceAccessorysInTypeDeclarationsForKey(v36, theDict, @"UTImportedTypeDeclarations");
+
+  v192 = v19;
   *buf = 0;
-  LODWORD(v199) = 0;
-  v36 = *MEMORY[0x1E695E138];
+  LODWORD(v201) = 0;
+  v37 = *MEMORY[0x1E695E138];
   if (theDict)
   {
-    v37 = v36 == 0;
+    v38 = v37 == 0;
   }
 
   else
   {
-    v37 = 1;
+    v38 = 1;
   }
 
-  v38 = !v37;
-  if (v37)
+  v39 = !v38;
+  if (v38)
   {
     CFStringGetTypeID();
   }
 
   else
   {
-    v39 = CFDictionaryGetValue(theDict, *MEMORY[0x1E695E138]);
-    v40 = CFStringGetTypeID();
-    if (!v39 || !v40 || CFGetTypeID(v39) == v40)
+    v40 = CFDictionaryGetValue(theDict, *MEMORY[0x1E695E138]);
+    v41 = CFStringGetTypeID();
+    if (!v40 || !v41 || CFGetTypeID(v40) == v41)
     {
       goto LABEL_38;
     }
   }
 
-  v39 = 0;
+  v40 = 0;
 LABEL_38:
-  v41 = _LSGetRawOSTypeForPossibleString(v39);
-  v42 = *MEMORY[0x1E695E150];
+  v42 = _LSGetRawOSTypeForPossibleString(v40);
+  v43 = *MEMORY[0x1E695E150];
   if (theDict)
   {
-    v43 = v42 == 0;
+    v44 = v43 == 0;
   }
 
   else
   {
-    v43 = 1;
+    v44 = 1;
   }
 
-  v44 = !v43;
-  v191 = v44;
-  if (v43)
+  v45 = !v44;
+  v193 = v45;
+  if (v44)
   {
     CFStringGetTypeID();
 LABEL_50:
-    v45 = 0;
+    v46 = 0;
     goto LABEL_51;
   }
 
-  v45 = CFDictionaryGetValue(theDict, v42);
-  v46 = CFStringGetTypeID();
-  if (v45 && v46 && CFGetTypeID(v45) != v46)
+  v46 = CFDictionaryGetValue(theDict, v43);
+  v47 = CFStringGetTypeID();
+  if (v46 && v47 && CFGetTypeID(v46) != v47)
   {
     goto LABEL_50;
   }
 
 LABEL_51:
-  v47 = _LSGetRawOSTypeForPossibleString(v45);
-  if (([(_LSBundleProvider *)v190 getHFSType:buf creator:&v199 error:0]& 1) == 0)
+  v48 = _LSGetRawOSTypeForPossibleString(v46);
+  if (([(_LSBundleProvider *)v192 getHFSType:buf creator:&v201 error:0]& 1) == 0)
   {
     goto LABEL_106;
   }
 
-  v48 = [(_LSBundleProvider *)v190 isDirectory];
-  if (*buf != v41)
+  v49 = [(_LSBundleProvider *)v192 isDirectory];
+  if (*buf != v42)
   {
-    if (v38)
+    if (v39)
     {
-      v49 = CFDictionaryGetValue(theDict, v36);
-      v50 = CFStringGetTypeID();
-      if (!v49 || !v50 || CFGetTypeID(v49) == v50)
+      v50 = CFDictionaryGetValue(theDict, v37);
+      v51 = CFStringGetTypeID();
+      if (!v50 || !v51 || CFGetTypeID(v50) == v51)
       {
 LABEL_60:
         if (!gLogRegistrationErrors)
@@ -8839,38 +8110,38 @@ LABEL_60:
 LABEL_75:
           if (*buf)
           {
-            v61 = _LSCopyStringForOSType(*buf);
-            if (v61)
+            v62 = _LSCopyStringForOSType(*buf);
+            if (v62)
             {
-              CFDictionarySetValue(theDict, v36, v61);
-              CFRelease(v61);
+              CFDictionarySetValue(theDict, v37, v62);
+              CFRelease(v62);
             }
           }
 
           else
           {
-            CFDictionaryRemoveValue(theDict, v36);
+            CFDictionaryRemoveValue(theDict, v37);
           }
 
           goto LABEL_79;
         }
 
-        v51 = _LSCopyStringForOSType(*buf);
-        v52 = v51;
-        if (v49)
+        v52 = _LSCopyStringForOSType(*buf);
+        v53 = v52;
+        if (v50)
         {
-          v53 = _LSCopyStringForOSType(v41);
-          v54 = v53;
-          v55 = *MEMORY[0x1E695E480];
-          v56 = "file";
-          if (v48)
+          v54 = _LSCopyStringForOSType(v42);
+          v55 = v54;
+          v56 = *MEMORY[0x1E695E480];
+          v57 = "file";
+          if (v49)
           {
-            v56 = "PkgInfo";
+            v57 = "PkgInfo";
           }
 
-          v57 = CFStringCreateWithFormat(v55, 0, @"Type mismatch: %s type = '%@', plist CFBundlePackageType = '%@'", v56, v52, v53);
+          v58 = CFStringCreateWithFormat(v56, 0, @"Type mismatch: %s type = '%@', plist CFBundlePackageType = '%@'", v57, v53, v54);
 
-          if (!v57)
+          if (!v58)
           {
             goto LABEL_70;
           }
@@ -8878,33 +8149,33 @@ LABEL_75:
 
         else
         {
-          v55 = *MEMORY[0x1E695E480];
-          v58 = "file";
-          if (v48)
+          v56 = *MEMORY[0x1E695E480];
+          v59 = "file";
+          if (v49)
           {
-            v58 = "PkgInfo";
+            v59 = "PkgInfo";
           }
 
-          v57 = CFStringCreateWithFormat(v55, 0, @"Type mismatch: %s type = '%@', plist CFBundlePackageType is missing", v58, v51);
-          if (!v57)
+          v58 = CFStringCreateWithFormat(v56, 0, @"Type mismatch: %s type = '%@', plist CFBundlePackageType is missing", v59, v52);
+          if (!v58)
           {
             goto LABEL_70;
           }
         }
 
-        _LSRegistrationWarning(v190, v57);
-        CFRelease(v57);
+        _LSRegistrationWarning(v192, v58);
+        CFRelease(v58);
 LABEL_70:
-        if (v49)
+        if (v50)
         {
-          if (CFStringGetLength(v49) != 4)
+          if (CFStringGetLength(v50) != 4)
           {
-            Length = CFStringGetLength(v49);
-            v60 = CFStringCreateWithFormat(v55, 0, @"Value for CFBundlePackageType key has incorrect length %ld (should be 4)", Length);
-            if (v60)
+            Length = CFStringGetLength(v50);
+            v61 = CFStringCreateWithFormat(v56, 0, @"Value for CFBundlePackageType key has incorrect length %ld (should be 4)", Length);
+            if (v61)
             {
-              _LSRegistrationWarning(v190, v60);
-              CFRelease(v60);
+              _LSRegistrationWarning(v192, v61);
+              CFRelease(v61);
             }
           }
         }
@@ -8918,27 +8189,27 @@ LABEL_70:
       CFStringGetTypeID();
     }
 
-    v49 = 0;
+    v50 = 0;
     goto LABEL_60;
   }
 
 LABEL_79:
-  if (v199 == v47)
+  if (v201 == v48)
   {
     goto LABEL_106;
   }
 
-  if ((v191 & 1) == 0)
+  if ((v193 & 1) == 0)
   {
     CFStringGetTypeID();
 LABEL_86:
-    v62 = 0;
+    v63 = 0;
     goto LABEL_87;
   }
 
-  v62 = CFDictionaryGetValue(theDict, v42);
-  v63 = CFStringGetTypeID();
-  if (v62 && v63 && CFGetTypeID(v62) != v63)
+  v63 = CFDictionaryGetValue(theDict, v43);
+  v64 = CFStringGetTypeID();
+  if (v63 && v64 && CFGetTypeID(v63) != v64)
   {
     goto LABEL_86;
   }
@@ -8946,22 +8217,22 @@ LABEL_86:
 LABEL_87:
   if (gLogRegistrationErrors)
   {
-    v64 = _LSCopyStringForOSType(v199);
-    v65 = v64;
-    if (v62)
+    v65 = _LSCopyStringForOSType(v201);
+    v66 = v65;
+    if (v63)
     {
-      v66 = _LSCopyStringForOSType(v47);
-      v67 = v66;
-      v68 = *MEMORY[0x1E695E480];
-      v69 = "file";
-      if (v48)
+      v67 = _LSCopyStringForOSType(v48);
+      v68 = v67;
+      v69 = *MEMORY[0x1E695E480];
+      v70 = "file";
+      if (v49)
       {
-        v69 = "PkgInfo";
+        v70 = "PkgInfo";
       }
 
-      v70 = CFStringCreateWithFormat(v68, 0, @"Signature mismatch: %s signature = '%@', plist CFBundleSignature = '%@'", v69, v65, v66);
+      v71 = CFStringCreateWithFormat(v69, 0, @"Signature mismatch: %s signature = '%@', plist CFBundleSignature = '%@'", v70, v66, v67);
 
-      if (!v70)
+      if (!v71)
       {
         goto LABEL_97;
       }
@@ -8969,114 +8240,115 @@ LABEL_87:
 
     else
     {
-      v68 = *MEMORY[0x1E695E480];
-      v71 = "file";
-      if (v48)
+      v69 = *MEMORY[0x1E695E480];
+      v72 = "file";
+      if (v49)
       {
-        v71 = "PkgInfo";
+        v72 = "PkgInfo";
       }
 
-      v70 = CFStringCreateWithFormat(v68, 0, @"Signature mismatch: %s signature = '%@', plist CFBundleSignature is missing", v71, v64);
-      if (!v70)
+      v71 = CFStringCreateWithFormat(v69, 0, @"Signature mismatch: %s signature = '%@', plist CFBundleSignature is missing", v72, v65);
+      if (!v71)
       {
         goto LABEL_97;
       }
     }
 
-    _LSRegistrationWarning(v190, v70);
-    CFRelease(v70);
+    _LSRegistrationWarning(v192, v71);
+    CFRelease(v71);
 LABEL_97:
-    if (v62)
+    if (v63)
     {
-      if (CFStringGetLength(v62) != 4)
+      if (CFStringGetLength(v63) != 4)
       {
-        v72 = CFStringGetLength(v62);
-        v73 = CFStringCreateWithFormat(v68, 0, @"Value for CFBundleSignature key has incorrect length %ld (should be 4)", v72);
-        if (v73)
+        v73 = CFStringGetLength(v63);
+        v74 = CFStringCreateWithFormat(v69, 0, @"Value for CFBundleSignature key has incorrect length %ld (should be 4)", v73);
+        if (v74)
         {
-          _LSRegistrationWarning(v190, v73);
-          CFRelease(v73);
+          _LSRegistrationWarning(v192, v74);
+          CFRelease(v74);
         }
       }
     }
   }
 
-  if (v199)
+  if (v201)
   {
-    v74 = _LSCopyStringForOSType(v199);
-    if (v74)
+    v75 = _LSCopyStringForOSType(v201);
+    if (v75)
     {
-      CFDictionarySetValue(theDict, v42, v74);
-      CFRelease(v74);
+      CFDictionarySetValue(theDict, v43, v75);
+      CFRelease(v75);
     }
   }
 
   else
   {
-    CFDictionaryRemoveValue(theDict, v42);
+    CFDictionaryRemoveValue(theDict, v43);
   }
 
 LABEL_106:
 
-  v75 = v25;
-  v189 = v179;
-  v192 = v75;
-  v76 = *[(_LSBundleProvider *)v75 provider];
-  if (v76)
+  v76 = v26;
+  v191 = v181;
+  v194 = v76;
+  v77 = *[(_LSBundleProvider *)v76 provider];
+  if (v77)
   {
-    v77 = CFRetain(v76);
-    if (v77)
+    v78 = CFRetain(v77);
+    if (v78)
     {
       if (a5)
       {
-        v78 = CFDictionaryGetValue(a5, @"IsPlaceholder");
-        v79 = CFBooleanGetTypeID();
-        if (v78)
+        v79 = CFDictionaryGetValue(a5, @"IsPlaceholder");
+        v80 = CFBooleanGetTypeID();
+        if (v79)
         {
-          if (!v79 || CFGetTypeID(v78) == v79)
+          if (!v80 || CFGetTypeID(v79) == v80)
           {
-            if (CFBooleanGetValue(v78))
+            v81 = CFBooleanGetValue(v79);
+            if (v81)
             {
-              v80 = _LSRegistrationLog();
-              _LSCreateRegistrationDataForDirectoryNode(v80);
+              v82 = _LSRegistrationLog(v81);
+              _LSCreateRegistrationDataForDirectoryNode(v82);
 LABEL_153:
-              CFRelease(v77);
+              CFRelease(v78);
               goto LABEL_154;
             }
           }
         }
       }
 
-      v81 = LSBundleProvider::CFBundleCopyExecutableURL([(_LSBundleProvider *)v192 provider]);
-      if (!v81)
+      v83 = LSBundleProvider::CFBundleCopyExecutableURL([(_LSBundleProvider *)v194 provider]);
+      if (!v83)
       {
-        v87 = _LSRegistrationLog();
-        _LSCreateRegistrationDataForDirectoryNode(v87);
+        v89 = _LSRegistrationLog(0);
+        _LSCreateRegistrationDataForDirectoryNode(v89);
         goto LABEL_153;
       }
 
       if (theDict && *MEMORY[0x1E695E4E8])
       {
-        v82 = CFDictionaryGetValue(theDict, *MEMORY[0x1E695E4E8]);
-        v83 = CFStringGetTypeID();
-        if (v82 && (!v83 || CFGetTypeID(v82) == v83))
+        v84 = CFDictionaryGetValue(theDict, *MEMORY[0x1E695E4E8]);
+        v85 = CFStringGetTypeID();
+        if (v84 && (!v85 || CFGetTypeID(v84) == v85))
         {
-          PathComponent = CFURLCopyLastPathComponent(v81);
-          v85 = PathComponent;
+          PathComponent = CFURLCopyLastPathComponent(v83);
+          v87 = PathComponent;
           if (PathComponent)
           {
-            if (CFEqual(PathComponent, v82) || (v86 = _CFBundleCopyExecutableURLInDirectory()) == 0)
+            if (CFEqual(PathComponent, v84) || (v88 = _CFBundleCopyExecutableURLInDirectory()) == 0)
             {
-              v86 = v81;
+              v88 = v83;
             }
 
             else
             {
-              CFRelease(v81);
+              CFRelease(v83);
             }
 
-            v81 = v86;
-            CFRelease(v85);
+            v83 = v88;
+            CFRelease(v87);
           }
         }
       }
@@ -9086,98 +8358,100 @@ LABEL_153:
         CFStringGetTypeID();
       }
 
-      v88 = CFURLCopyAbsoluteURL(v77);
-      v89 = CFURLCopyFileSystemPath(v88, kCFURLPOSIXPathStyle);
-      v90 = CFURLCopyAbsoluteURL(v81);
-      if (v88)
-      {
-        CFRelease(v88);
-      }
-
+      v90 = CFURLCopyAbsoluteURL(v78);
       v91 = CFURLCopyFileSystemPath(v90, kCFURLPOSIXPathStyle);
-      v92 = v91;
-      if (v89)
-      {
-        if (v91)
-        {
-          v93 = [FSNode relativePathToFullPath:v91 fromBasePath:v89];
-          if (v93)
-          {
-            CFDictionaryAddValue(theDict, @"_LSExecutablePath", v93);
-          }
-
-          v94 = [[FSNode alloc] initWithURL:v81 flags:1 error:0];
-          v95 = v94;
-          if (v94)
-          {
-            if ([(FSNode *)v94 isResolvable])
-            {
-              v96 = [(FSNode *)v95 resolvedNodeWithFlags:0 error:0];
-              v97 = v96;
-              if (v96)
-              {
-                v98 = v96;
-
-                v95 = v98;
-              }
-            }
-
-            _LSAddExecutableFormatInfo();
-            if (![(FSNode *)v95 getInodeNumber:&v189->inoExec error:0])
-            {
-              v99 = _LSRegistrationLog();
-              if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
-              {
-                *buf = 138739971;
-                *&buf[4] = v95;
-                _os_log_impl(&dword_18162D000, v99, OS_LOG_TYPE_ERROR, "Unable to get iNode for executable %{sensitive}@", buf, 0xCu);
-              }
-            }
-
-            if (![(FSNode *)v95 getContentModificationDate:&v189->executableModDate error:0])
-            {
-              v100 = _LSRegistrationLog();
-              _LSCreateRegistrationDataForDirectoryNode(v100);
-            }
-          }
-
-          if (v93)
-          {
-            CFRelease(v93);
-          }
-
-          CFRelease(v92);
-        }
-
-        v92 = v89;
-      }
-
-      else if (!v91)
-      {
-        goto LABEL_150;
-      }
-
-      CFRelease(v92);
-LABEL_150:
+      v92 = CFURLCopyAbsoluteURL(v83);
       if (v90)
       {
         CFRelease(v90);
       }
 
-      CFRelease(v81);
+      v93 = CFURLCopyFileSystemPath(v92, kCFURLPOSIXPathStyle);
+      v94 = v93;
+      if (v91)
+      {
+        if (v93)
+        {
+          v95 = [FSNode relativePathToFullPath:v93 fromBasePath:v91];
+          if (v95)
+          {
+            CFDictionaryAddValue(theDict, @"_LSExecutablePath", v95);
+          }
+
+          v96 = [[FSNode alloc] initWithURL:v83 flags:1 error:0];
+          v97 = v96;
+          if (v96)
+          {
+            if ([(FSNode *)v96 isResolvable])
+            {
+              v98 = [(FSNode *)v97 resolvedNodeWithFlags:0 error:0];
+              v99 = v98;
+              if (v98)
+              {
+                v100 = v98;
+
+                v97 = v100;
+              }
+            }
+
+            _LSAddExecutableFormatInfo(v97);
+            v101 = [(FSNode *)v97 getInodeNumber:&v191->inoExec error:0];
+            if ((v101 & 1) == 0)
+            {
+              v102 = _LSRegistrationLog(v101);
+              if (os_log_type_enabled(v102, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 138739971;
+                *&buf[4] = v97;
+                _os_log_impl(&dword_18162D000, v102, OS_LOG_TYPE_ERROR, "Unable to get iNode for executable %{sensitive}@", buf, 0xCu);
+              }
+            }
+
+            v103 = [(FSNode *)v97 getContentModificationDate:&v191->executableModDate error:0];
+            if ((v103 & 1) == 0)
+            {
+              v104 = _LSRegistrationLog(v103);
+              _LSCreateRegistrationDataForDirectoryNode(v104);
+            }
+          }
+
+          if (v95)
+          {
+            CFRelease(v95);
+          }
+
+          CFRelease(v94);
+        }
+
+        v94 = v91;
+      }
+
+      else if (!v93)
+      {
+        goto LABEL_150;
+      }
+
+      CFRelease(v94);
+LABEL_150:
+      if (v92)
+      {
+        CFRelease(v92);
+      }
+
+      CFRelease(v83);
       goto LABEL_153;
     }
   }
 
 LABEL_154:
 
-  v101 = [(_LSBundleProvider *)v190 URL];
-  v102 = v101;
+  v105 = [(_LSBundleProvider *)v192 URL];
+  v106 = v105;
   if (softLink_GSIsDocumentRevision)
   {
-    v103 = softLink_GSIsDocumentRevision(v101) == 0;
+    v107 = softLink_GSIsDocumentRevision(v105) == 0;
 
-    if (!v103)
+    if (!v107)
     {
       CFDictionaryAddValue(theDict, @"_LSBundleIsInGenerationalStorage", *MEMORY[0x1E695E4D0]);
     }
@@ -9187,201 +8461,201 @@ LABEL_154:
   {
   }
 
-  v104 = LSBundleProvider::intentURLPaths([(_LSBundleProvider *)v192 provider]);
-  if (v104)
+  v108 = LSBundleProvider::intentURLPaths([(_LSBundleProvider *)v194 provider]);
+  if (v108)
   {
-    CFDictionaryAddValue(theDict, @"_LSIntentDefinitionURLs", v104);
+    CFDictionaryAddValue(theDict, @"_LSIntentDefinitionURLs", v108);
   }
 
-  v105 = LSBundleProvider::XCFBundleCopyFolderURL([(_LSBundleProvider *)v192 provider], @"Library/");
-  if (v105)
+  v109 = LSBundleProvider::XCFBundleCopyFolderURL([(_LSBundleProvider *)v194 provider], @"Library/");
+  if (v109)
   {
-    _LSAddBundleLibraryInfo(a1, v105, v192, v189, theDict, 0, a6);
-    CFRelease(v105);
+    _LSAddBundleLibraryInfo(a1, v109, v194, v191, theDict, 0, a6);
+    CFRelease(v109);
   }
 
-  if (a6 && !*a6 && (v189->options & 0x10000000) != 0)
+  if (a6 && !*a6 && (v191->options & 0x10000000) != 0)
   {
-    v106 = CFURLCreateWithFileSystemPath(*MEMORY[0x1E695E480], @"/System/Library/CoreServices/CoreTypes.bundle/", kCFURLPOSIXPathStyle, 1u);
-    v107 = [[_LSBundleProvider alloc] initWithURL:v106 useCacheIfPossible:1];
-    v108 = v107;
-    if (v107)
+    v110 = CFURLCreateWithFileSystemPath(*MEMORY[0x1E695E480], @"/System/Library/CoreServices/CoreTypes.bundle/", kCFURLPOSIXPathStyle, 1u);
+    v111 = [[_LSBundleProvider alloc] initWithURL:v110 useCacheIfPossible:1];
+    v112 = v111;
+    if (v111)
     {
-      v109 = LSBundleProvider::XCFBundleCopyFolderURL([(_LSBundleProvider *)v107 provider], @"Library/");
-      if (v109)
+      v113 = LSBundleProvider::XCFBundleCopyFolderURL([(_LSBundleProvider *)v111 provider], @"Library/");
+      if (v113)
       {
-        _LSAddBundleLibraryInfo(a1, v109, v108, v189, theDict, 0, a6);
-        CFRelease(v109);
+        _LSAddBundleLibraryInfo(a1, v113, v112, v191, theDict, 0, a6);
+        CFRelease(v113);
       }
     }
 
-    if (v106)
+    if (v110)
     {
-      CFRelease(v106);
+      CFRelease(v110);
     }
   }
 
-  if (LSBundleProvider::CFBundleGetIdentifier([(_LSBundleProvider *)v192 provider]))
+  if (LSBundleProvider::CFBundleGetIdentifier([(_LSBundleProvider *)v194 provider]))
   {
-    if ((v110 = CFStringGetTypeID(), v111 = CFDictionaryGetValue(theDict, *MEMORY[0x1E695E500]), (v112 = v111) != 0) && CFGetTypeID(v111) == v110 || (v113 = CFStringGetTypeID(), v114 = CFDictionaryGetValue(theDict, *MEMORY[0x1E695E148]), (v112 = v114) != 0) && CFGetTypeID(v114) == v113)
+    if ((v114 = CFStringGetTypeID(), v115 = CFDictionaryGetValue(theDict, *MEMORY[0x1E695E500]), (v116 = v115) != 0) && CFGetTypeID(v115) == v114 || (v117 = CFStringGetTypeID(), v118 = CFDictionaryGetValue(theDict, *MEMORY[0x1E695E148]), (v116 = v118) != 0) && CFGetTypeID(v118) == v117)
     {
-      _LSGetVersionFromString(v112, buf);
+      _LSGetVersionFromString(v116, buf);
     }
   }
 
-  v115 = LSUseLegacyLocalizationList(theDict);
-  [_LSStringLocalizer gatherLocalizedStringsForCFBundle:LSBundleProvider::bundleRef([(_LSBundleProvider *)v192 provider] infoDictionary:1 domains:"making string localizer") delegatesMightBeMainBundle:theDict legacyLocalizationList:0xFFFFFFFFLL, 0, v115];
-  cfa = LSBundleProvider::XCFBundleCopyFolderURL([(_LSBundleProvider *)v192 provider], @"Extensions/");
+  v119 = LSUseLegacyLocalizationList(theDict);
+  [_LSStringLocalizer gatherLocalizedStringsForCFBundle:LSBundleProvider::bundleRef([(_LSBundleProvider *)v194 provider] infoDictionary:1 domains:"making string localizer") delegatesMightBeMainBundle:theDict legacyLocalizationList:0xFFFFFFFFLL, 0, v119];
+  cfa = LSBundleProvider::XCFBundleCopyFolderURL([(_LSBundleProvider *)v194 provider], @"Extensions/");
   if (cfa)
   {
     context = objc_autoreleasePoolPush();
-    v195 = objc_opt_new();
-    v116 = *MEMORY[0x1E695DBB8];
-    v203[0] = *MEMORY[0x1E695DBB8];
-    v177 = [MEMORY[0x1E695DEC8] arrayWithObjects:v203 count:1];
-    v117 = [MEMORY[0x1E696AC08] defaultManager];
-    v118 = [v117 enumeratorAtURL:cfa includingPropertiesForKeys:v177 options:1 errorHandler:0];
+    v197 = objc_opt_new();
+    v120 = *MEMORY[0x1E695DBB8];
+    v205[0] = *MEMORY[0x1E695DBB8];
+    v179 = [MEMORY[0x1E695DEC8] arrayWithObjects:v205 count:1];
+    v121 = [MEMORY[0x1E696AC08] defaultManager];
+    v122 = [v121 enumeratorAtURL:cfa includingPropertiesForKeys:v179 options:1 errorHandler:0];
 
+    v203 = 0u;
+    v204 = 0u;
     v201 = 0u;
     v202 = 0u;
-    v199 = 0u;
-    v200 = 0u;
-    v119 = v118;
-    v120 = [v119 countByEnumeratingWithState:&v199 objects:buf count:16];
-    if (v120)
+    v123 = v122;
+    v124 = [v123 countByEnumeratingWithState:&v201 objects:buf count:16];
+    if (v124)
     {
-      v121 = *v200;
+      v125 = *v202;
       do
       {
-        for (i = 0; i != v120; ++i)
+        for (i = 0; i != v124; ++i)
         {
-          if (*v200 != v121)
+          if (*v202 != v125)
           {
-            objc_enumerationMutation(v119);
+            objc_enumerationMutation(v123);
           }
 
-          v123 = *(*(&v199 + 1) + 8 * i);
-          v124 = objc_autoreleasePoolPush();
-          v198 = 0;
-          v125 = [v123 getResourceValue:&v198 forKey:v116 error:0];
-          v126 = v198;
-          v127 = v126;
-          if (v126)
+          v127 = *(*(&v201 + 1) + 8 * i);
+          v128 = objc_autoreleasePoolPush();
+          v200 = 0;
+          v129 = [v127 getResourceValue:&v200 forKey:v120 error:0];
+          v130 = v200;
+          v131 = v130;
+          if (v130)
           {
-            v128 = v125;
+            v132 = v129;
           }
 
           else
           {
-            v128 = 0;
+            v132 = 0;
           }
 
-          if (v128 != 1 || ([v126 BOOLValue] & 1) != 0)
+          if (v132 != 1 || ([v130 BOOLValue] & 1) != 0)
           {
-            v129 = [v123 pathExtension];
-            v130 = v129;
-            if (v129 && (![v129 caseInsensitiveCompare:@"appexpt"] || !objc_msgSend(v130, "caseInsensitiveCompare:", @"appextensionpoint") || !objc_msgSend(v130, "caseInsensitiveCompare:", @"appextensionpoints")))
+            v133 = [v127 pathExtension];
+            v134 = v133;
+            if (v133 && (![v133 caseInsensitiveCompare:@"appexpt"] || !objc_msgSend(v134, "caseInsensitiveCompare:", @"appextensionpoint") || !objc_msgSend(v134, "caseInsensitiveCompare:", @"appextensionpoints")))
             {
-              [(__CFDictionary *)v195 addObject:v123];
+              [(__CFDictionary *)v197 addObject:v127];
             }
           }
 
-          objc_autoreleasePoolPop(v124);
+          objc_autoreleasePoolPop(v128);
         }
 
-        v120 = [v119 countByEnumeratingWithState:&v199 objects:buf count:16];
+        v124 = [v123 countByEnumeratingWithState:&v201 objects:buf count:16];
       }
 
-      while (v120);
+      while (v124);
     }
 
-    if ([(__CFDictionary *)v195 count])
+    if ([(__CFDictionary *)v197 count])
     {
-      v131 = [(__CFDictionary *)v195 copy];
-      [(__CFDictionary *)theDict setObject:v131 forKey:@"_LSBundleExtensionPoints"];
+      v135 = [(__CFDictionary *)v197 copy];
+      [(__CFDictionary *)theDict setObject:v135 forKey:@"_LSBundleExtensionPoints"];
     }
 
     objc_autoreleasePoolPop(context);
     CFRelease(cfa);
   }
 
-  if (v189->action == 204)
+  if (v191->action == 204)
   {
-    v132 = *[(_LSBundleProvider *)v192 provider];
-    if (v132)
+    v136 = *[(_LSBundleProvider *)v194 provider];
+    if (v136)
     {
-      v133 = CFRetain(v132);
-      v134 = v133;
-      if (v133)
+      v137 = CFRetain(v136);
+      v138 = v137;
+      if (v137)
       {
-        v135 = CFURLCopyFileSystemPath(v133, kCFURLPOSIXPathStyle);
-        CFDictionarySetValue(theDict, @"Path", v135);
-        CFRelease(v134);
-        CFRelease(v135);
+        v139 = CFURLCopyFileSystemPath(v137, kCFURLPOSIXPathStyle);
+        CFDictionarySetValue(theDict, @"Path", v139);
+        CFRelease(v138);
+        CFRelease(v139);
       }
     }
 
     goto LABEL_222;
   }
 
-  v136 = a5;
+  v140 = a5;
   if (a5)
   {
-    v196 = v136;
-    v137 = [(FSNode *)v136 objectForKey:@"_LSBundlePlugins"];
-    if (!v137 || !_NSIsNSDictionary() || ![v137 count])
+    v198 = v140;
+    v141 = [(FSNode *)v140 objectForKey:@"_LSBundlePlugins"];
+    if (!v141 || !_NSIsNSDictionary() || ![v141 count])
     {
 
       goto LABEL_222;
     }
 
     cfb = *MEMORY[0x1E695E480];
-    v138 = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
-    v187 = v137;
-    v139 = [v137 allValues];
+    v142 = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
+    v189 = v141;
+    v143 = [v141 allValues];
+    v203 = 0u;
+    v204 = 0u;
     v201 = 0u;
     v202 = 0u;
-    v199 = 0u;
-    v200 = 0u;
-    v140 = v139;
-    v141 = [v140 countByEnumeratingWithState:&v199 objects:buf count:16];
-    if (v141)
+    v144 = v143;
+    v145 = [v144 countByEnumeratingWithState:&v201 objects:buf count:16];
+    if (v145)
     {
-      v142 = *v200;
+      v146 = *v202;
       do
       {
-        for (j = 0; j != v141; ++j)
+        for (j = 0; j != v145; ++j)
         {
-          if (*v200 != v142)
+          if (*v202 != v146)
           {
-            objc_enumerationMutation(v140);
+            objc_enumerationMutation(v144);
           }
 
-          v144 = [*(*(&v199 + 1) + 8 * j) objectForKey:@"Path"];
-          v145 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithPath:v144 isDirectory:1];
-          LSBundleProvider::LSBundleProvider(v203, v145);
-          if (LSBundleProvider::bundleRef(v203, 1, "checking for validity"))
+          v148 = [*(*(&v201 + 1) + 8 * j) objectForKey:@"Path"];
+          v149 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithPath:v148 isDirectory:1];
+          LSBundleProvider::LSBundleProvider(v205, v149);
+          if (LSBundleProvider::bundleRef(v205, 1, "checking for validity"))
           {
-            v146 = LSBundleProvider::bundleRef(v203, 1, 0);
-            CFArrayAppendValue(v138, v146);
+            v150 = LSBundleProvider::bundleRef(v205, 1, 0);
+            CFArrayAppendValue(v142, v150);
           }
 
-          LSBundleProvider::~LSBundleProvider(v203);
+          LSBundleProvider::~LSBundleProvider(v205);
         }
 
-        v141 = [v140 countByEnumeratingWithState:&v199 objects:buf count:16];
+        v145 = [v144 countByEnumeratingWithState:&v201 objects:buf count:16];
       }
 
-      while (v141);
+      while (v145);
     }
 
-    if (v138)
+    if (v142)
     {
       if (theDict)
       {
-        v178 = CFDictionaryGetValue(theDict, @"_LSBundlePlugins");
-        v147 = CFDictionaryGetTypeID();
-        if (v178 && (!v147 || CFGetTypeID(v178) == v147))
+        v180 = CFDictionaryGetValue(theDict, @"_LSBundlePlugins");
+        v151 = CFDictionaryGetTypeID();
+        if (v180 && (!v151 || CFGetTypeID(v180) == v151))
         {
           goto LABEL_227;
         }
@@ -9392,194 +8666,792 @@ LABEL_154:
         CFDictionaryGetTypeID();
       }
 
-      if (CFArrayGetCount(v138) < 1)
+      if (CFArrayGetCount(v142) < 1)
       {
-        v178 = 0;
+        v180 = 0;
       }
 
       else
       {
-        v178 = CFDictionaryCreateMutable(cfb, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-        CFDictionarySetValue(theDict, @"_LSBundlePlugins", v178);
-        CFRelease(v178);
+        v180 = CFDictionaryCreateMutable(cfb, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+        CFDictionarySetValue(theDict, @"_LSBundlePlugins", v180);
+        CFRelease(v180);
       }
 
 LABEL_227:
-      v150 = CFDictionaryGetTypeID();
-      v151 = CFDictionaryGetValue(v196, @"_LSBundlePlugins");
-      v152 = v151;
-      if (v151)
+      v153 = CFDictionaryGetTypeID();
+      v154 = CFDictionaryGetValue(v198, @"_LSBundlePlugins");
+      v155 = v154;
+      if (v154)
       {
-        if (CFGetTypeID(v151) == v150)
+        if (CFGetTypeID(v154) == v153)
         {
-          v153 = v152;
+          v156 = v155;
         }
 
         else
         {
-          v153 = 0;
+          v156 = 0;
         }
 
-        v197 = v153;
+        v199 = v156;
       }
 
       else
       {
-        v197 = 0;
+        v199 = 0;
       }
 
-      if (CFArrayGetCount(v138) < 1)
+      if (CFArrayGetCount(v142) < 1)
       {
 LABEL_268:
-        CFRelease(v138);
+        CFRelease(v142);
         goto LABEL_222;
       }
 
-      v154 = 0;
-      v155 = *MEMORY[0x1E695E4D0];
+      v157 = 0;
       cfc = *MEMORY[0x1E695E4D0];
-      v188 = *MEMORY[0x1E695E4C0];
+      v190 = *MEMORY[0x1E695E4C0];
       while (1)
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(v138, v154);
-        v157 = _LSCopyBundleInfoDictionary(ValueAtIndex);
-        v158 = objc_autoreleasePoolPush();
-        CFAutorelease(v157);
-        v159 = [v157 _ls_normalizedPluginPlist];
-        v160 = [v159 mutableCopy];
+        ValueAtIndex = CFArrayGetValueAtIndex(v142, v157);
+        v159 = _LSCopyBundleInfoDictionary(ValueAtIndex);
+        v160 = objc_autoreleasePoolPush();
+        CFAutorelease(v159);
+        v161 = [v159 _ls_normalizedPluginPlist];
+        v162 = [v161 mutableCopy];
 
-        objc_autoreleasePoolPop(v158);
+        objc_autoreleasePoolPop(v160);
         Identifier = CFBundleGetIdentifier(ValueAtIndex);
-        v162 = CFBundleCopyBundleURL(ValueAtIndex);
-        v163 = CFBundleCopyExecutableURL(ValueAtIndex);
-        if (v162)
+        v164 = CFBundleCopyBundleURL(ValueAtIndex);
+        v165 = CFBundleCopyExecutableURL(ValueAtIndex);
+        if (v164)
         {
-          v164 = [[FSNode alloc] initWithURL:v162 flags:0 error:0];
-          if ([(FSNode *)v164 isSecuredSystemContent])
+          v166 = [[FSNode alloc] initWithURL:v164 flags:0 error:0];
+          if ([(FSNode *)v166 isSecuredSystemContent])
           {
-            CFDictionarySetValue(v160, @"LSIsSecuredSystemContent", cfc);
+            CFDictionarySetValue(v162, @"LSIsSecuredSystemContent", cfc);
           }
 
-          v165 = CFURLCopyFileSystemPath(v162, kCFURLPOSIXPathStyle);
-          CFDictionarySetValue(v160, @"Path", v165);
-          CFRelease(v162);
-          CFRelease(v165);
+          v167 = CFURLCopyFileSystemPath(v164, kCFURLPOSIXPathStyle);
+          CFDictionarySetValue(v162, @"Path", v167);
+          CFRelease(v164);
+          CFRelease(v167);
         }
 
-        if (v163)
+        if (v165)
         {
-          v166 = [[FSNode alloc] initWithURL:v163 flags:1 error:0];
-          if (v166)
+          v168 = [[FSNode alloc] initWithURL:v165 flags:1 error:0];
+          if (v168)
           {
             bzero(buf, 0x400uLL);
-            if ([(FSNode *)v166 getFileSystemRepresentation:buf error:0])
+            if ([(FSNode *)v168 getFileSystemRepresentation:buf error:0])
             {
-              *&v199 = 0;
-              v167 = open(buf, 0, 511);
-              if ((v167 & 0x80000000) == 0)
+              *&v201 = 0;
+              v169 = open(buf, 0, 511);
+              if ((v169 & 0x80000000) == 0)
               {
-                v168 = [(FSNode *)v166 getLength:&v199 error:0];
-                if (v199)
+                v170 = [(FSNode *)v168 getLength:&v201 error:0];
+                if (v201)
                 {
-                  v169 = v168;
+                  v171 = v170;
                 }
 
                 else
                 {
-                  v169 = 0;
+                  v171 = 0;
                 }
 
-                if (v169)
+                if (v171)
                 {
-                  fcntl(v167, 48, 1);
-                  v170 = objc_autoreleasePoolPush();
-                  v171 = objc_alloc_init(MEMORY[0x1E695DF70]);
-                  _LSParseLoadCommands();
-                  [(__CFDictionary *)v160 setObject:v171 forKey:@"_LSSliceInfosKey"];
+                  fcntl(v169, 48, 1);
+                  v172 = objc_autoreleasePoolPush();
+                  v173 = objc_alloc_init(MEMORY[0x1E695DF70]);
+                  _LSParseLoadCommands(v169);
+                  [(__CFDictionary *)v162 setObject:v173 forKey:@"_LSSliceInfosKey"];
 
-                  objc_autoreleasePoolPop(v170);
+                  objc_autoreleasePoolPop(v172);
                 }
 
-                close(v167);
+                close(v169);
               }
             }
           }
 
-          CFRelease(v163);
+          CFRelease(v165);
         }
 
-        if (v197)
+        if (v199)
         {
           CFDictionaryGetTypeID();
-          v172 = CFDictionaryGetValue(v197, Identifier);
-          if (v172)
+          v174 = CFDictionaryGetValue(v199, Identifier);
+          if (v174)
           {
-            CFGetTypeID(v172);
+            CFGetTypeID(v174);
           }
         }
 
-        [_LSStringLocalizer gatherLocalizedStringsForCFBundle:ValueAtIndex infoDictionary:v160 domains:3 legacyLocalizationList:LSUseLegacyLocalizationList(v160)];
-        v173 = v188;
+        [_LSStringLocalizer gatherLocalizedStringsForCFBundle:ValueAtIndex infoDictionary:v162 domains:3 legacyLocalizationList:LSUseLegacyLocalizationList(v162)];
+        v175 = v190;
         if (softLinkLNIsLinkEnabled)
         {
           if (softLinkLNIsLinkEnabled(ValueAtIndex))
           {
-            v173 = cfc;
+            v175 = cfc;
           }
 
           else
           {
-            v173 = v188;
+            v175 = v190;
           }
         }
 
-        CFDictionaryAddValue(v160, @"_LSIsLinkEnabled", v173);
-        v174 = objc_autoreleasePoolPush();
+        CFDictionaryAddValue(v162, @"_LSIsLinkEnabled", v175);
+        v176 = objc_autoreleasePoolPush();
         if (softLinkINSchemaURLsForIntentNamesWithBundle)
         {
-          v175 = softLinkINSchemaURLsForIntentNamesWithBundle(ValueAtIndex);
+          v177 = softLinkINSchemaURLsForIntentNamesWithBundle(ValueAtIndex);
         }
 
         else
         {
-          v175 = 0;
+          v177 = 0;
         }
 
-        if ([v175 count])
+        if ([v177 count])
         {
-          CFDictionarySetValue(v160, @"_LSIntentDefinitionURLs", v175);
+          CFDictionarySetValue(v162, @"_LSIntentDefinitionURLs", v177);
         }
 
-        objc_autoreleasePoolPop(v174);
+        objc_autoreleasePoolPop(v176);
         if (Identifier)
         {
-          if (v160)
+          if (v162)
           {
             break;
           }
         }
 
-        if (v160)
+        if (v162)
         {
           goto LABEL_266;
         }
 
 LABEL_267:
-        if (CFArrayGetCount(v138) <= ++v154)
+        if (CFArrayGetCount(v142) <= ++v157)
         {
           goto LABEL_268;
         }
       }
 
-      CFDictionaryAddValue(v178, Identifier, v160);
+      CFDictionaryAddValue(v180, Identifier, v162);
 LABEL_266:
-      CFRelease(v160);
+      CFRelease(v162);
       goto LABEL_267;
     }
   }
 
 LABEL_222:
 
-  v148 = *MEMORY[0x1E69E9840];
   return theDict;
+}
+
+void sub_1817840A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, void *a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+{
+  CFRelease(v35);
+  CFRelease(v34);
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t ___ZL34_LSCreateRegistrationDataForBundleP9LSContextP18LSRegistrationInfoPK7__CFURLPK14__CFDictionaryPPK9__CFArray_block_invoke(uint64_t a1, const void *a2, const void *a3)
+{
+  v21 = *MEMORY[0x1E69E9840];
+  v6 = CFDictionaryContainsKey(*(a1 + 32), a2);
+  if (v6)
+  {
+    Value = CFDictionaryGetValue(*(a1 + 32), a2);
+    v8 = CFEqual(a3, Value);
+    if (v8)
+    {
+      return 1;
+    }
+
+    v10 = _LSRegistrationLog(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v14 = CFDictionaryGetValue(*(a1 + 32), a2);
+      v15 = 138543874;
+      v16 = a2;
+      v17 = 2114;
+      v18 = a3;
+      v19 = 2114;
+      v20 = v14;
+      v11 = "REGISTRATION CACHE ERROR: Difference, %{public}@   %{public}@ vs (wrong) %{public}@";
+      v12 = v10;
+      v13 = 32;
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+    v10 = _LSRegistrationLog(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v15 = 138543618;
+      v16 = a2;
+      v17 = 2114;
+      v18 = a3;
+      v11 = "REGISTRATION CACHE ERROR: Missing, %{public}@   %{public}@";
+      v12 = v10;
+      v13 = 22;
+LABEL_8:
+      _os_log_impl(&dword_18162D000, v12, OS_LOG_TYPE_ERROR, v11, &v15, v13);
+    }
+  }
+
+  return 0;
+}
+
+void _LSAddBundleLibraryInfo(LSContext *a1, const __CFURL *a2, _LSBundleProvider *a3, LSRegistrationInfo *a4, __CFDictionary *a5, int a6, const __CFArray **a7)
+{
+  v13 = a3;
+  v14 = a4;
+  if ((v14->options & 0x10000000) != 0)
+  {
+    v31 = 0;
+    if (FSNodeCreateWithURL(a2, 1, &v31))
+    {
+LABEL_31:
+
+      goto LABEL_32;
+    }
+
+    if (a6)
+    {
+      v15 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:_LSGetDirectoryClassForNode(v31)];
+      CFDictionaryAddValue(a5, @"_LSDirectoryClass", v15);
+    }
+
+    v30 = 0;
+    *cf = 0u;
+    *v29 = 0u;
+    v16 = CFRetain(a2);
+    if (v16)
+    {
+      cf[0] = v16;
+    }
+
+    v17 = CFRetain(a5);
+    v18 = v29[0];
+    if (v29[0] != v17)
+    {
+      v29[0] = v17;
+      v17 = v18;
+    }
+
+    if (v17)
+    {
+      CFRelease(v17);
+    }
+
+    objc_storeStrong(&v30, a4);
+    if (v13)
+    {
+      v19 = *[(_LSBundleProvider *)v13 provider];
+      if (v19)
+      {
+        v20 = CFRetain(v19);
+        v21 = v20;
+        if (v20)
+        {
+          v22 = XCFURLCopyRelativeFileSystemPath(v20, a2, kCFURLPOSIXPathStyle);
+          if (!v22)
+          {
+            CFRelease(v21);
+            if (a7)
+            {
+LABEL_22:
+              v25 = v29[1];
+              if (v29[1])
+              {
+                v25 = CFRetain(v29[1]);
+              }
+
+              *a7 = v25;
+            }
+
+LABEL_25:
+
+            if (v29[1])
+            {
+              CFRelease(v29[1]);
+            }
+
+            v29[1] = 0;
+            if (v29[0])
+            {
+              CFRelease(v29[0]);
+            }
+
+            v29[0] = 0;
+            if (cf[0])
+            {
+              CFRelease(cf[0]);
+            }
+
+            goto LABEL_31;
+          }
+
+          CFDictionarySetValue(a5, @"_LSBundleLibraryPath", v22);
+          CFRelease(v22);
+          CFRelease(v21);
+        }
+      }
+    }
+
+    if ((v14->options & 0x10000000) != 0)
+    {
+      v26 = xmmword_1817E8F08;
+      v27 = 1;
+      cf[1] = &v26;
+      _LSHoistLibraryItems(a1, cf);
+    }
+
+    else
+    {
+      v23 = &kLibrarySubfolders;
+      v24 = 240;
+      do
+      {
+        cf[1] = v23;
+        _LSHoistLibraryItems(a1, cf);
+        v23 += 24;
+        v24 -= 24;
+      }
+
+      while (v24);
+    }
+
+    if (a7)
+    {
+      goto LABEL_22;
+    }
+
+    goto LABEL_25;
+  }
+
+LABEL_32:
+}
+
+void sub_1817847D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18)
+{
+  CFRelease(v20);
+  CFRelease(v21);
+  _LSHoistingState::~_LSHoistingState(&a13);
+
+  _Unwind_Resume(a1);
+}
+
+BOOL LSUseLegacyLocalizationList(const __CFDictionary *a1)
+{
+  v15 = *MEMORY[0x1E69E9840];
+  v2 = objc_opt_class();
+  v3 = [(__CFDictionary *)a1 objectForKey:@"LSExecutablePlatformKey"];
+  v4 = v3;
+  if (v2)
+  {
+    v5 = v3 == 0;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (!v5 && (objc_opt_isKindOfClass() & 1) == 0)
+  {
+
+    v4 = 0;
+  }
+
+  v6 = [v4 unsignedIntegerValue];
+
+  v7 = objc_opt_class();
+  v8 = [(__CFDictionary *)a1 objectForKey:@"LSExecutableSDKVersion"];
+  v9 = v8;
+  if (v7 && v8)
+  {
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+
+      return 0;
+    }
+  }
+
+  else if (!v8)
+  {
+    return 0;
+  }
+
+  _LSVersionNumberMakeWithString();
+  v13 = 0u;
+  v14 = 0u;
+  memset(v12, 0, sizeof(v12));
+  if (_LSVersionNumberCompare(&v13, v12))
+  {
+    v13 = 0u;
+    v14 = 0u;
+    v10 = [_LSStringLocalizer useLegacyLocalizationListForPlatform:v6 sdkVersion:_LSVersionNumberGetDYLDVersion(&v13)];
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  return v10;
+}
+
+void _LSPathifyIconKey(_LSBundleProvider *a1, __CFDictionary *a2, const __CFString *a3, const __CFString *a4)
+{
+  v19 = a1;
+  if (!a2 || !a3)
+  {
+    CFStringGetTypeID();
+    goto LABEL_13;
+  }
+
+  Value = CFDictionaryGetValue(a2, a3);
+  TypeID = CFStringGetTypeID();
+  if (Value && (!TypeID || CFGetTypeID(Value) == TypeID))
+  {
+    v8 = LSBundleProvider::copyIconResourceURL([(_LSBundleProvider *)v19 provider], Value, 0);
+    v9 = v8;
+    v10 = gLogRegistrationErrors;
+    if (v8 || !gLogRegistrationErrors)
+    {
+      if (v8)
+      {
+        v12 = CFURLCopyFileSystemPath(v8, kCFURLPOSIXPathStyle);
+        if (v12)
+        {
+          v13 = CFURLCopyFileSystemPath(*[(_LSBundleProvider *)v19 provider], kCFURLPOSIXPathStyle);
+          if (v13)
+          {
+            v14 = [FSNode relativePathToFullPath:v12 fromBasePath:v13];
+            if (v14)
+            {
+              CFDictionarySetValue(a2, @"_LSIconPath", v14);
+              CFRelease(v14);
+            }
+
+            CFRelease(v13);
+          }
+
+          goto LABEL_28;
+        }
+
+LABEL_29:
+        CFRelease(v9);
+        goto LABEL_13;
+      }
+    }
+
+    else
+    {
+      v11 = LSBundleProvider::CFBundleCopyResourceURL([(_LSBundleProvider *)v19 provider], Value, 0, 0);
+      if (v11 || (v11 = LSBundleProvider::CFBundleCopyResourceURL([(_LSBundleProvider *)v19 provider], Value, @"icns", 0)) != 0)
+      {
+        CFRelease(v11);
+      }
+
+      else
+      {
+        v18 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"Can't find referenced icon resource %@.", Value);
+        if (v18)
+        {
+          _LSRegistrationWarningPath([(_LSBundleProvider *)v19 bundlePath], v18);
+          CFRelease(v18);
+        }
+      }
+
+      v10 = gLogRegistrationErrors;
+    }
+
+    if (v10)
+    {
+      CFGetTypeID(Value);
+      ClassWithTypeID = _CFRuntimeGetClassWithTypeID();
+      v16 = "<unknown>";
+      if (ClassWithTypeID)
+      {
+        v17 = *(ClassWithTypeID + 8);
+        if (v17)
+        {
+          v16 = v17;
+        }
+      }
+
+      v9 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"For plist key %@, value has class %s (should be CFString).", a3, v16);
+      if (v9)
+      {
+        v12 = CFURLCopyFileSystemPath(*[(_LSBundleProvider *)v19 provider], kCFURLPOSIXPathStyle);
+        _LSRegistrationWarningPath(v12, v9);
+        if (v12)
+        {
+LABEL_28:
+          CFRelease(v12);
+          goto LABEL_29;
+        }
+
+        goto LABEL_29;
+      }
+    }
+  }
+
+LABEL_13:
+}
+
+void _LSPathifyIconKeysInPlistKey(_LSBundleProvider *a1, __CFDictionary *a2, const __CFString *a3, const __CFString *a4, const __CFString *a5)
+{
+  v16 = a1;
+  if (a2 && a3)
+  {
+    Value = CFDictionaryGetValue(a2, a3);
+    TypeID = CFArrayGetTypeID();
+    if (Value && (!TypeID || CFGetTypeID(Value) == TypeID))
+    {
+      v10 = CFArrayGetTypeID();
+      if (v10 == CFGetTypeID(Value))
+      {
+        Count = CFArrayGetCount(Value);
+        if (Count >= 1)
+        {
+          for (i = 0; i != Count; ++i)
+          {
+            ValueAtIndex = CFArrayGetValueAtIndex(Value, i);
+            v14 = CFDictionaryGetTypeID();
+            if (ValueAtIndex && (!v14 || CFGetTypeID(ValueAtIndex) == v14))
+            {
+              _LSPathifyIconKey(v16, ValueAtIndex, a4, v15);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  else
+  {
+    CFArrayGetTypeID();
+  }
+}
+
+void _LSPathifyReferenceAccessorysInTypeDeclarationsForKey(LSBundleProvider *a1, __CFDictionary *a2, const __CFString *a3)
+{
+  v38 = *MEMORY[0x1E69E9840];
+  TypeID = CFArrayGetTypeID();
+  Value = CFDictionaryGetValue(a2, a3);
+  if (Value)
+  {
+    v8 = Value;
+    if (CFGetTypeID(Value) == TypeID)
+    {
+      v9 = v8;
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  v28 = v9;
+  if ([v28 count])
+  {
+    v26 = a2;
+    v27 = a3;
+    v25 = v28;
+    v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v11 = v25;
+    v12 = [v11 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v13 = v12;
+    if (v12)
+    {
+      v14 = *v34;
+      do
+      {
+        v15 = 0;
+        do
+        {
+          if (*v34 != v14)
+          {
+            objc_enumerationMutation(v11);
+          }
+
+          v16 = *(*(&v33 + 1) + 8 * v15);
+          v12 = ___ZL51_LSPathifyReferenceAccessorysInTypeDeclarationsListP16LSBundleProviderP7NSArray_block_invoke(v12, v16);
+          if (v12)
+          {
+            v12 = [v10 addObject:v16];
+          }
+
+          ++v15;
+        }
+
+        while (v13 != v15);
+        v12 = [v11 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v13 = v12;
+      }
+
+      while (v12);
+    }
+
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v30 = ___ZL51_LSPathifyReferenceAccessorysInTypeDeclarationsListP16LSBundleProviderP7NSArray_block_invoke_2;
+    v31 = &__block_descriptor_40_e36___NSDictionary_16__0__NSDictionary_8l;
+    v32 = a1;
+    v17 = v10;
+    v18 = v29;
+    v19 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v17, "count")}];
+    v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v20 = v17;
+    v21 = [v20 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    if (v21)
+    {
+      v22 = *v34;
+      do
+      {
+        for (i = 0; i != v21; ++i)
+        {
+          if (*v34 != v22)
+          {
+            objc_enumerationMutation(v20);
+          }
+
+          v24 = v30(v18, *(*(&v33 + 1) + 8 * i));
+          [v19 addObject:v24];
+        }
+
+        v21 = [v20 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      }
+
+      while (v21);
+    }
+
+    CFDictionarySetValue(v26, v27, v19);
+  }
+}
+
+uint64_t ___ZL51_LSPathifyReferenceAccessorysInTypeDeclarationsListP16LSBundleProviderP7NSArray_block_invoke(uint64_t a1, void *a2)
+{
+  v2 = a2;
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  return isKindOfClass & 1;
+}
+
+id ___ZL51_LSPathifyReferenceAccessorysInTypeDeclarationsListP16LSBundleProviderP7NSArray_block_invoke_2(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = *(a1 + 32);
+  v5 = v3;
+  v6 = [v5 objectForKey:@"UTTypeReferenceAccessoryFile"];
+  v7 = v5;
+  if (v6)
+  {
+    v8 = [v5 mutableCopy];
+    [v8 removeObjectForKey:@"UTTypeReferenceAccessoryFile"];
+    v9 = LSBundleProvider::copyResourceRelativePath(v4, v6, 0, 0);
+    if (v9)
+    {
+      [v8 setObject:v9 forKey:@"_LSReferenceAccessoryResourcePath"];
+    }
+
+    v7 = [v8 mutableCopy];
+  }
+
+  return v7;
+}
+
+uint64_t (*init_GSIsDocumentRevision(const __CFURL *a1))(const __CFURL *)
+{
+  v2 = GenerationalStorageLibrary(void)::frameworkLibrary;
+  if (!GenerationalStorageLibrary(void)::frameworkLibrary)
+  {
+    v2 = dlopen("/System/Library/PrivateFrameworks/GenerationalStorage.framework/GenerationalStorage", 2);
+    GenerationalStorageLibrary(void)::frameworkLibrary = v2;
+  }
+
+  result = dlsym(v2, "_GSIsDocumentRevision");
+  softLink_GSIsDocumentRevision = result;
+  if (result)
+  {
+
+    return result(a1);
+  }
+
+  return result;
+}
+
+void _LSHoistLibraryItems(LSContext *a1, _LSHoistingState *a2)
+{
+  v4 = *(*(a2 + 1) + 8);
+  if (!v4)
+  {
+    if (!*a2)
+    {
+      return;
+    }
+
+    v8 = CFRetain(*a2);
+    if (!v8)
+    {
+      return;
+    }
+
+    goto LABEL_10;
+  }
+
+  v5 = strlen(v4);
+  v6 = MEMORY[0x1865D5760](*MEMORY[0x1E695E480], v4, v5, 1, *a2);
+  v7 = v6;
+  if (v6)
+  {
+    v8 = CFURLResourceIsReachable(v6, 0) ? CFRetain(v7) : 0;
+    CFRelease(v7);
+    if (v8)
+    {
+LABEL_10:
+      if (_LSGetBasicURLPropertyKeys(void)::once != -1)
+      {
+        _LSHoistLibraryItems();
+      }
+
+      v9[0] = MEMORY[0x1E69E9820];
+      v9[1] = 3221225472;
+      v9[2] = ___ZL20_LSHoistLibraryItemsP9LSContextP16_LSHoistingState_block_invoke;
+      v9[3] = &__block_descriptor_48_e59_v40__0____CFURLEnumerator__8____CFURL__16____CFError__24_32l;
+      v9[4] = a1;
+      v9[5] = a2;
+      XCFURLEnumerate(v8, 0, _LSGetBasicURLPropertyKeys(void)::result, v9);
+      CFRelease(v8);
+    }
+  }
 }

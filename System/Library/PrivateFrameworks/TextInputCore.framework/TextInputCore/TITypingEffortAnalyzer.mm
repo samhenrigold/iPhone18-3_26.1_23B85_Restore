@@ -10,10 +10,17 @@
 - (id)countOutput;
 - (id)keyStringWithCode:(int64_t)code fromLayout:(id)layout;
 - (int)countComposedCharactersInText:(id)text;
+- (void)addActionsForCursorEvent:(id)event lastAction:(id)action nextAction:(id)nextAction toActionSummary:(id)summary emojiSearchMode:(BOOL)mode;
+- (void)addActionsForDeleteWord:(id)word toActionSummary:(id)summary emojiSearchMode:(BOOL)mode;
+- (void)addActionsForWordEntry:(id)entry toActionSummary:(id)summary emojiSearchMode:(BOOL)mode;
 - (void)addCountsForAlignedEntry:(id)entry toOutputSummary:(id)summary;
 - (void)addCountsForEmojiInputs:(id)inputs toOutputSummary:(id)summary;
 - (void)addCountsForPropertyWithName:(id)name andEmojiSearchPropertyName:(id)propertyName contributesToTotal:(BOOL)total toActionSummary:(id)summary emojiSearchMode:(BOOL)mode;
 - (void)addCountsForWord:(id)word toOutputSummary:(id)summary;
+- (void)addKeyboardInputActionsForKeyboardInputs:(id)inputs inputMode:(id)mode toActionSummary:(id)summary andKeyboardInputTouches:(id)touches emojiSearchMode:(BOOL)searchMode;
+- (void)addPathAndCandidateBarActionsForWordEntry:(id)entry toActionSummary:(id)summary andPathTouches:(id)touches emojiSearchMode:(BOOL)mode;
+- (void)addPathWeightActionsForTouches:(id)touches withLayout:(id)layout forWord:(id)word toActionSummary:(id)summary emojiSearchMode:(BOOL)mode;
+- (void)addSpecialKeyActionsForFirstTouch:(id)touch andLastTouch:(id)lastTouch fromLayout:(id)layout toActionSummary:(id)summary emojiSearchMode:(BOOL)mode;
 - (void)addTouchRelatedActionsForTouches:(id)touches layouts:(id)layouts acceptedCandidate:(id)candidate toActionSummary:(id)summary keyboardInputTouches:(id)inputTouches pathTouches:(id)pathTouches emojiSearchMode:(BOOL)mode;
 - (void)dispatchEventWithActionSummary:(id)summary outputSummary:(id)outputSummary;
 - (void)registerEventSpec;
@@ -23,7 +30,7 @@
 
 - (void)dispatchEventWithActionSummary:(id)summary outputSummary:(id)outputSummary
 {
-  v147[86] = *MEMORY[0x277D85DE8];
+  v146[86] = *MEMORY[0x277D85DE8];
   session = self->_session;
   outputSummaryCopy = outputSummary;
   summaryCopy = summary;
@@ -36,7 +43,7 @@
   activeInputModes = [sessionParams activeInputModes];
   sessionParams2 = [(TITypingSession *)self->_session sessionParams];
   testingParameters = [sessionParams2 testingParameters];
-  v145 = keyboardState;
+  v144 = keyboardState;
   v17 = [(TIKBAnalyticsMetricsContext *)v12 initWithKeyboardState:keyboardState activeInputModes:activeInputModes testingParameters:testingParameters];
 
   userActionHistory2 = [(TITypingSession *)self->_session userActionHistory];
@@ -69,7 +76,7 @@
   }
 
   selectedText = [documentState selectedText];
-  v144 = documentState;
+  v143 = documentState;
   if (selectedText)
   {
     selectedText2 = [documentState selectedText];
@@ -98,250 +105,250 @@
   self->_hasEmojiInput = v37;
   [TIStandardTypingSessionConfidenceEvaluator calculateAlignedTypingSessionConfidence:self->_alignedSession];
   v39 = v38;
-  v146[0] = @"totalInputActions";
-  v143 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "totalInputActions")}];
-  v147[0] = v143;
-  v146[1] = @"characterKeyTaps";
-  v142 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "characterKeyTaps")}];
-  v147[1] = v142;
-  v146[2] = @"backspaceKeyTaps";
-  v141 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "backspaceKeyTaps")}];
-  v147[2] = v141;
-  v146[3] = @"spaceKeyTaps";
-  v140 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "spaceKeyTaps")}];
-  v147[3] = v140;
-  v146[4] = @"returnKeyTaps";
-  v139 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "returnKeyTaps")}];
-  v147[4] = v139;
-  v146[5] = @"shiftKeyTaps";
-  v138 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "shiftKeyTaps")}];
-  v147[5] = v138;
-  v146[6] = @"moreKeyTaps";
-  v137 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "moreKeyTaps")}];
-  v147[6] = v137;
-  v146[7] = @"emojiKeyTaps";
-  v136 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiKeyTaps")}];
-  v147[7] = v136;
-  v146[8] = @"unknownKeyTaps";
-  v135 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "unknownKeyTaps")}];
-  v147[8] = v135;
-  v146[9] = @"paths";
-  v134 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "paths")}];
-  v147[9] = v134;
-  v146[10] = @"pathsWithWeight1";
-  v133 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "pathsWithWeight1")}];
-  v147[10] = v133;
-  v146[11] = @"pathsWithWeight2";
-  v132 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "pathsWithWeight2")}];
-  v147[11] = v132;
-  v146[12] = @"pathsWithWeight3";
-  v131 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "pathsWithWeight3")}];
-  v147[12] = v131;
-  v146[13] = @"pathsWithWeight4";
-  v130 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "pathsWithWeight4")}];
-  v147[13] = v130;
-  v146[14] = @"pathsWithWeight5";
-  v129 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "pathsWithWeight5")}];
-  v147[14] = v129;
-  v146[15] = @"pathsWithWeight6";
-  v128 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "pathsWithWeight6")}];
-  v147[15] = v128;
-  v146[16] = @"pathsWithWeight7";
-  v127 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "pathsWithWeight7")}];
-  v147[16] = v127;
-  v146[17] = @"pathsWithWeight8";
-  v126 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "pathsWithWeight8")}];
-  v147[17] = v126;
-  v146[18] = @"pathsWithWeight9";
-  v125 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "pathsWithWeight9")}];
-  v147[18] = v125;
-  v146[19] = @"pathsWithWeight10";
-  v124 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "pathsWithWeight10")}];
-  v147[19] = v124;
-  v146[20] = @"flicks";
-  v123 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "flicks")}];
-  v147[20] = v123;
-  v146[21] = @"gestures";
-  v122 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "gestures")}];
-  v147[21] = v122;
-  v146[22] = @"popupVariants";
-  v121 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "popupVariants")}];
-  v147[22] = v121;
-  v146[23] = @"cursorMovements";
-  v120 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "cursorMovements")}];
-  v147[23] = v120;
-  v146[24] = @"candidateSelections";
-  v119 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "candidateSelections")}];
-  v147[24] = v119;
-  v146[25] = @"cuts";
-  v118 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "cuts")}];
-  v147[25] = v118;
-  v146[26] = @"pastes";
-  v117 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "pastes")}];
-  v147[26] = v117;
-  v146[27] = @"emojiSelections";
-  v116 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSelections")}];
-  v147[27] = v116;
-  v146[28] = @"emojiCandidateSelections";
-  v115 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiCandidateSelections")}];
-  v147[28] = v115;
-  v146[29] = @"emojiSearchCharacterKeyTaps";
-  v114 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchCharacterKeyTaps")}];
-  v147[29] = v114;
-  v146[30] = @"emojiSearchBackspaceKeyTaps";
-  v113 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchBackspaceKeyTaps")}];
-  v147[30] = v113;
-  v146[31] = @"emojiSearchSpaceKeyTaps";
-  v112 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchSpaceKeyTaps")}];
-  v147[31] = v112;
-  v146[32] = @"emojiSearchShiftKeyTaps";
-  v111 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchShiftKeyTaps")}];
-  v147[32] = v111;
-  v146[33] = @"emojiSearchMoreKeyTaps";
-  v110 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchMoreKeyTaps")}];
-  v147[33] = v110;
-  v146[34] = @"emojiSearchEmojiKeyTaps";
-  v109 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchEmojiKeyTaps")}];
-  v147[34] = v109;
-  v146[35] = @"emojiSearchUnknownKeyTaps";
-  v108 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchUnknownKeyTaps")}];
-  v147[35] = v108;
-  v146[36] = @"emojiSearchPaths";
-  v107 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPaths")}];
-  v147[36] = v107;
-  v146[37] = @"emojiSearchPathsWithWeight1";
-  v106 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPathsWithWeight1")}];
-  v147[37] = v106;
-  v146[38] = @"emojiSearchPathsWithWeight2";
-  v105 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPathsWithWeight2")}];
-  v147[38] = v105;
-  v146[39] = @"emojiSearchPathsWithWeight3";
-  v104 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPathsWithWeight3")}];
-  v147[39] = v104;
-  v146[40] = @"emojiSearchPathsWithWeight4";
-  v103 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPathsWithWeight4")}];
-  v147[40] = v103;
-  v146[41] = @"emojiSearchPathsWithWeight5";
-  v102 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPathsWithWeight5")}];
-  v147[41] = v102;
-  v146[42] = @"emojiSearchPathsWithWeight6";
-  v101 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPathsWithWeight6")}];
-  v147[42] = v101;
-  v146[43] = @"emojiSearchPathsWithWeight7";
-  v100 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPathsWithWeight7")}];
-  v147[43] = v100;
-  v146[44] = @"emojiSearchPathsWithWeight8";
-  v99 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPathsWithWeight8")}];
-  v147[44] = v99;
-  v146[45] = @"emojiSearchPathsWithWeight9";
-  v98 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPathsWithWeight9")}];
-  v147[45] = v98;
-  v146[46] = @"emojiSearchPathsWithWeight10";
-  v97 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPathsWithWeight10")}];
-  v147[46] = v97;
-  v146[47] = @"emojiSearchFlicks";
-  v96 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchFlicks")}];
-  v147[47] = v96;
-  v146[48] = @"emojiSearchGestures";
-  v95 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchGestures")}];
-  v147[48] = v95;
-  v146[49] = @"emojiSearchPopupVariants";
-  v94 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPopupVariants")}];
-  v147[49] = v94;
-  v146[50] = @"emojiSearchCursorMovements";
-  v93 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchCursorMovements")}];
-  v147[50] = v93;
-  v146[51] = @"emojiSearchCandidateSelections";
-  v92 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchCandidateSelections")}];
-  v147[51] = v92;
-  v146[52] = @"emojiSearchCuts";
-  v91 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchCuts")}];
-  v147[52] = v91;
-  v146[53] = @"emojiSearchPastes";
+  v145[0] = @"totalInputActions";
+  v142 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "totalInputActions")}];
+  v146[0] = v142;
+  v145[1] = @"characterKeyTaps";
+  v141 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "characterKeyTaps")}];
+  v146[1] = v141;
+  v145[2] = @"backspaceKeyTaps";
+  v140 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "backspaceKeyTaps")}];
+  v146[2] = v140;
+  v145[3] = @"spaceKeyTaps";
+  v139 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "spaceKeyTaps")}];
+  v146[3] = v139;
+  v145[4] = @"returnKeyTaps";
+  v138 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "returnKeyTaps")}];
+  v146[4] = v138;
+  v145[5] = @"shiftKeyTaps";
+  v137 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "shiftKeyTaps")}];
+  v146[5] = v137;
+  v145[6] = @"moreKeyTaps";
+  v136 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "moreKeyTaps")}];
+  v146[6] = v136;
+  v145[7] = @"emojiKeyTaps";
+  v135 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiKeyTaps")}];
+  v146[7] = v135;
+  v145[8] = @"unknownKeyTaps";
+  v134 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "unknownKeyTaps")}];
+  v146[8] = v134;
+  v145[9] = @"paths";
+  v133 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "paths")}];
+  v146[9] = v133;
+  v145[10] = @"pathsWithWeight1";
+  v132 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "pathsWithWeight1")}];
+  v146[10] = v132;
+  v145[11] = @"pathsWithWeight2";
+  v131 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "pathsWithWeight2")}];
+  v146[11] = v131;
+  v145[12] = @"pathsWithWeight3";
+  v130 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "pathsWithWeight3")}];
+  v146[12] = v130;
+  v145[13] = @"pathsWithWeight4";
+  v129 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "pathsWithWeight4")}];
+  v146[13] = v129;
+  v145[14] = @"pathsWithWeight5";
+  v128 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "pathsWithWeight5")}];
+  v146[14] = v128;
+  v145[15] = @"pathsWithWeight6";
+  v127 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "pathsWithWeight6")}];
+  v146[15] = v127;
+  v145[16] = @"pathsWithWeight7";
+  v126 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "pathsWithWeight7")}];
+  v146[16] = v126;
+  v145[17] = @"pathsWithWeight8";
+  v125 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "pathsWithWeight8")}];
+  v146[17] = v125;
+  v145[18] = @"pathsWithWeight9";
+  v124 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "pathsWithWeight9")}];
+  v146[18] = v124;
+  v145[19] = @"pathsWithWeight10";
+  v123 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "pathsWithWeight10")}];
+  v146[19] = v123;
+  v145[20] = @"flicks";
+  v122 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "flicks")}];
+  v146[20] = v122;
+  v145[21] = @"gestures";
+  v121 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "gestures")}];
+  v146[21] = v121;
+  v145[22] = @"popupVariants";
+  v120 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "popupVariants")}];
+  v146[22] = v120;
+  v145[23] = @"cursorMovements";
+  v119 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "cursorMovements")}];
+  v146[23] = v119;
+  v145[24] = @"candidateSelections";
+  v118 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "candidateSelections")}];
+  v146[24] = v118;
+  v145[25] = @"cuts";
+  v117 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "cuts")}];
+  v146[25] = v117;
+  v145[26] = @"pastes";
+  v116 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "pastes")}];
+  v146[26] = v116;
+  v145[27] = @"emojiSelections";
+  v115 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSelections")}];
+  v146[27] = v115;
+  v145[28] = @"emojiCandidateSelections";
+  v114 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiCandidateSelections")}];
+  v146[28] = v114;
+  v145[29] = @"emojiSearchCharacterKeyTaps";
+  v113 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchCharacterKeyTaps")}];
+  v146[29] = v113;
+  v145[30] = @"emojiSearchBackspaceKeyTaps";
+  v112 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchBackspaceKeyTaps")}];
+  v146[30] = v112;
+  v145[31] = @"emojiSearchSpaceKeyTaps";
+  v111 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchSpaceKeyTaps")}];
+  v146[31] = v111;
+  v145[32] = @"emojiSearchShiftKeyTaps";
+  v110 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchShiftKeyTaps")}];
+  v146[32] = v110;
+  v145[33] = @"emojiSearchMoreKeyTaps";
+  v109 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchMoreKeyTaps")}];
+  v146[33] = v109;
+  v145[34] = @"emojiSearchEmojiKeyTaps";
+  v108 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchEmojiKeyTaps")}];
+  v146[34] = v108;
+  v145[35] = @"emojiSearchUnknownKeyTaps";
+  v107 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchUnknownKeyTaps")}];
+  v146[35] = v107;
+  v145[36] = @"emojiSearchPaths";
+  v106 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPaths")}];
+  v146[36] = v106;
+  v145[37] = @"emojiSearchPathsWithWeight1";
+  v105 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPathsWithWeight1")}];
+  v146[37] = v105;
+  v145[38] = @"emojiSearchPathsWithWeight2";
+  v104 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPathsWithWeight2")}];
+  v146[38] = v104;
+  v145[39] = @"emojiSearchPathsWithWeight3";
+  v103 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPathsWithWeight3")}];
+  v146[39] = v103;
+  v145[40] = @"emojiSearchPathsWithWeight4";
+  v102 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPathsWithWeight4")}];
+  v146[40] = v102;
+  v145[41] = @"emojiSearchPathsWithWeight5";
+  v101 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPathsWithWeight5")}];
+  v146[41] = v101;
+  v145[42] = @"emojiSearchPathsWithWeight6";
+  v100 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPathsWithWeight6")}];
+  v146[42] = v100;
+  v145[43] = @"emojiSearchPathsWithWeight7";
+  v99 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPathsWithWeight7")}];
+  v146[43] = v99;
+  v145[44] = @"emojiSearchPathsWithWeight8";
+  v98 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPathsWithWeight8")}];
+  v146[44] = v98;
+  v145[45] = @"emojiSearchPathsWithWeight9";
+  v97 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPathsWithWeight9")}];
+  v146[45] = v97;
+  v145[46] = @"emojiSearchPathsWithWeight10";
+  v96 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPathsWithWeight10")}];
+  v146[46] = v96;
+  v145[47] = @"emojiSearchFlicks";
+  v95 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchFlicks")}];
+  v146[47] = v95;
+  v145[48] = @"emojiSearchGestures";
+  v94 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchGestures")}];
+  v146[48] = v94;
+  v145[49] = @"emojiSearchPopupVariants";
+  v93 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchPopupVariants")}];
+  v146[49] = v93;
+  v145[50] = @"emojiSearchCursorMovements";
+  v92 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchCursorMovements")}];
+  v146[50] = v92;
+  v145[51] = @"emojiSearchCandidateSelections";
+  v91 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchCandidateSelections")}];
+  v146[51] = v91;
+  v145[52] = @"emojiSearchCuts";
+  v90 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(summaryCopy, "emojiSearchCuts")}];
+  v146[52] = v90;
+  v145[53] = @"emojiSearchPastes";
   v40 = MEMORY[0x277CCABB0];
   emojiSearchPastes = [summaryCopy emojiSearchPastes];
 
-  v90 = [v40 numberWithInt:emojiSearchPastes];
-  v147[53] = v90;
-  v146[54] = @"emojisOutput";
-  v89 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(outputSummaryCopy, "emojisOutput")}];
-  v147[54] = v89;
-  v146[55] = @"wordsOutput";
-  v88 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(outputSummaryCopy, "wordsOutput")}];
-  v147[55] = v88;
-  v146[56] = @"charactersOutput";
-  v87 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(outputSummaryCopy, "charactersOutput")}];
-  v147[56] = v87;
-  v146[57] = @"char1WordsOutput";
-  v86 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(outputSummaryCopy, "char1WordsOutput")}];
-  v147[57] = v86;
-  v146[58] = @"char2WordsOutput";
-  v85 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(outputSummaryCopy, "char2WordsOutput")}];
-  v147[58] = v85;
-  v146[59] = @"char3WordsOutput";
-  v84 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(outputSummaryCopy, "char3WordsOutput")}];
-  v147[59] = v84;
-  v146[60] = @"char4WordsOutput";
-  v83 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(outputSummaryCopy, "char4WordsOutput")}];
-  v147[60] = v83;
-  v146[61] = @"char5WordsOutput";
-  v82 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(outputSummaryCopy, "char5WordsOutput")}];
-  v147[61] = v82;
-  v146[62] = @"char6WordsOutput";
-  v81 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(outputSummaryCopy, "char6WordsOutput")}];
-  v147[62] = v81;
-  v146[63] = @"char7WordsOutput";
-  v80 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(outputSummaryCopy, "char7WordsOutput")}];
-  v147[63] = v80;
-  v146[64] = @"char8WordsOutput";
-  v79 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(outputSummaryCopy, "char8WordsOutput")}];
-  v147[64] = v79;
-  v146[65] = @"char9PlusWordsOutput";
+  v89 = [v40 numberWithInt:emojiSearchPastes];
+  v146[53] = v89;
+  v145[54] = @"emojisOutput";
+  v88 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(outputSummaryCopy, "emojisOutput")}];
+  v146[54] = v88;
+  v145[55] = @"wordsOutput";
+  v87 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(outputSummaryCopy, "wordsOutput")}];
+  v146[55] = v87;
+  v145[56] = @"charactersOutput";
+  v86 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(outputSummaryCopy, "charactersOutput")}];
+  v146[56] = v86;
+  v145[57] = @"char1WordsOutput";
+  v85 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(outputSummaryCopy, "char1WordsOutput")}];
+  v146[57] = v85;
+  v145[58] = @"char2WordsOutput";
+  v84 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(outputSummaryCopy, "char2WordsOutput")}];
+  v146[58] = v84;
+  v145[59] = @"char3WordsOutput";
+  v83 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(outputSummaryCopy, "char3WordsOutput")}];
+  v146[59] = v83;
+  v145[60] = @"char4WordsOutput";
+  v82 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(outputSummaryCopy, "char4WordsOutput")}];
+  v146[60] = v82;
+  v145[61] = @"char5WordsOutput";
+  v81 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(outputSummaryCopy, "char5WordsOutput")}];
+  v146[61] = v81;
+  v145[62] = @"char6WordsOutput";
+  v80 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(outputSummaryCopy, "char6WordsOutput")}];
+  v146[62] = v80;
+  v145[63] = @"char7WordsOutput";
+  v79 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(outputSummaryCopy, "char7WordsOutput")}];
+  v146[63] = v79;
+  v145[64] = @"char8WordsOutput";
+  v78 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(outputSummaryCopy, "char8WordsOutput")}];
+  v146[64] = v78;
+  v145[65] = @"char9PlusWordsOutput";
   v42 = MEMORY[0x277CCABB0];
   char9PlusWordsOutput = [outputSummaryCopy char9PlusWordsOutput];
 
-  v78 = [v42 numberWithInt:char9PlusWordsOutput];
-  v147[65] = v78;
-  v146[66] = @"hasExistingText";
-  v76 = [MEMORY[0x277CCABB0] numberWithBool:v31 & 1];
-  v147[66] = v76;
-  v146[67] = @"hasInput";
-  v75 = [MEMORY[0x277CCABB0] numberWithBool:v32];
-  v147[67] = v75;
-  v146[68] = @"hasOutput";
-  v74 = [MEMORY[0x277CCABB0] numberWithBool:v33];
-  v147[68] = v74;
-  v146[69] = @"hasCursorMovement";
-  v73 = [MEMORY[0x277CCABB0] numberWithBool:self->_hasCursorMovement];
-  v147[69] = v73;
-  v146[70] = @"hasEmojiInput";
-  v72 = [MEMORY[0x277CCABB0] numberWithBool:self->_hasEmojiInput];
-  v147[70] = v72;
-  v146[71] = kFeatureKeyboardUsage;
+  v77 = [v42 numberWithInt:char9PlusWordsOutput];
+  v146[65] = v77;
+  v145[66] = @"hasExistingText";
+  v75 = [MEMORY[0x277CCABB0] numberWithBool:v31 & 1];
+  v146[66] = v75;
+  v145[67] = @"hasInput";
+  v74 = [MEMORY[0x277CCABB0] numberWithBool:v32];
+  v146[67] = v74;
+  v145[68] = @"hasOutput";
+  v73 = [MEMORY[0x277CCABB0] numberWithBool:v33];
+  v146[68] = v73;
+  v145[69] = @"hasCursorMovement";
+  v72 = [MEMORY[0x277CCABB0] numberWithBool:self->_hasCursorMovement];
+  v146[69] = v72;
+  v145[70] = @"hasEmojiInput";
+  v71 = [MEMORY[0x277CCABB0] numberWithBool:self->_hasEmojiInput];
+  v146[70] = v71;
+  v145[71] = kFeatureKeyboardUsage;
   featureUsageMetricsCache = [(TITypingSession *)self->_session featureUsageMetricsCache];
-  v70 = [featureUsageMetricsCache featureUsageMetricFromName:kFeatureKeyboardUsage forContext:v17];
-  v147[71] = v70;
-  v146[72] = kFeatureContinuousPathUsage;
+  v69 = [featureUsageMetricsCache featureUsageMetricFromName:kFeatureKeyboardUsage forContext:v17];
+  v146[71] = v69;
+  v145[72] = kFeatureContinuousPathUsage;
   featureUsageMetricsCache2 = [(TITypingSession *)self->_session featureUsageMetricsCache];
-  v68 = [featureUsageMetricsCache2 featureUsageMetricFromName:kFeatureContinuousPathUsage forContext:v17];
-  v147[72] = v68;
-  v146[73] = kFeatureAutocorrectionUsage;
+  v67 = [featureUsageMetricsCache2 featureUsageMetricFromName:kFeatureContinuousPathUsage forContext:v17];
+  v146[72] = v67;
+  v145[73] = kFeatureAutocorrectionUsage;
   featureUsageMetricsCache3 = [(TITypingSession *)self->_session featureUsageMetricsCache];
-  v66 = [featureUsageMetricsCache3 featureUsageMetricFromName:kFeatureAutocorrectionUsage forContext:v17];
-  v147[73] = v66;
-  v146[74] = kFeatureCandidateBarUsage;
+  v65 = [featureUsageMetricsCache3 featureUsageMetricFromName:kFeatureAutocorrectionUsage forContext:v17];
+  v146[73] = v65;
+  v145[74] = kFeatureCandidateBarUsage;
   featureUsageMetricsCache4 = [(TITypingSession *)self->_session featureUsageMetricsCache];
-  v64 = [featureUsageMetricsCache4 featureUsageMetricFromName:kFeatureCandidateBarUsage forContext:v17];
-  v147[74] = v64;
-  v146[75] = kFeatureMultilingualUsage;
+  v63 = [featureUsageMetricsCache4 featureUsageMetricFromName:kFeatureCandidateBarUsage forContext:v17];
+  v146[74] = v63;
+  v145[75] = kFeatureMultilingualUsage;
   featureUsageMetricsCache5 = [(TITypingSession *)self->_session featureUsageMetricsCache];
-  v62 = [featureUsageMetricsCache5 featureUsageMetricFromName:kFeatureMultilingualUsage forContext:v17];
-  v147[75] = v62;
-  v146[76] = kFeatureStringTypingSpeed;
+  v61 = [featureUsageMetricsCache5 featureUsageMetricFromName:kFeatureMultilingualUsage forContext:v17];
+  v146[75] = v61;
+  v145[76] = kFeatureStringTypingSpeed;
   featureUsageMetricsCache6 = [(TITypingSession *)self->_session featureUsageMetricsCache];
-  v60 = [featureUsageMetricsCache6 featureUsageMetricFromName:kFeatureStringTypingSpeed forContext:v17];
-  v147[76] = v60;
-  v146[77] = kFeatureStringAssetAvailabilityStatus;
+  v59 = [featureUsageMetricsCache6 featureUsageMetricFromName:kFeatureStringTypingSpeed forContext:v17];
+  v146[76] = v59;
+  v145[77] = kFeatureStringAssetAvailabilityStatus;
   sessionParams3 = [(TITypingSession *)self->_session sessionParams];
   assetAvailabilityStatus = [sessionParams3 assetAvailabilityStatus];
   v45 = @"Installed";
@@ -351,245 +358,241 @@
   }
 
   v46 = v45;
-  v147[77] = v46;
-  v146[78] = kFeatureStringSessionAlignmentConfidence;
+  v146[77] = v46;
+  v145[78] = kFeatureStringSessionAlignmentConfidence;
   v47 = [MEMORY[0x277D6F320] bucketRatioWithValue:10 bucketCount:v39];
-  v147[78] = v47;
-  v146[79] = kFeatureStringKeyboardLanguage;
+  v146[78] = v47;
+  v145[79] = kFeatureStringKeyboardLanguage;
   inputLanguage = [(TIAnalyticsMetricsContext *)v17 inputLanguage];
-  v147[79] = inputLanguage;
-  v146[80] = kFeatureStringKeyboardRegion;
+  v146[79] = inputLanguage;
+  v145[80] = kFeatureStringKeyboardRegion;
   inputRegion = [(TIAnalyticsMetricsContext *)v17 inputRegion];
-  v147[80] = inputRegion;
-  v146[81] = kFeatureStringKeyboardVariant;
+  v146[80] = inputRegion;
+  v145[81] = kFeatureStringKeyboardVariant;
   inputVariant = [(TIKBAnalyticsMetricsContext *)v17 inputVariant];
-  v147[81] = inputVariant;
-  v146[82] = kFeatureStringKeyboardSecondaryLanguage;
+  v146[81] = inputVariant;
+  v145[82] = kFeatureStringKeyboardSecondaryLanguage;
   secondaryLanguage = [(TIKBAnalyticsMetricsContext *)v17 secondaryLanguage];
-  v147[82] = secondaryLanguage;
-  v146[83] = kFeatureStringKeyboardSecondaryRegion;
+  v146[82] = secondaryLanguage;
+  v145[83] = kFeatureStringKeyboardSecondaryRegion;
   [(TIKBAnalyticsMetricsContext *)v17 secondaryRegion];
   v53 = v52 = v17;
-  v147[83] = v53;
-  v146[84] = kFeatureStringKeyboardLayout;
+  v146[83] = v53;
+  v145[84] = kFeatureStringKeyboardLayout;
   layoutName = [(TIKBAnalyticsMetricsContext *)v52 layoutName];
-  v147[84] = layoutName;
-  v146[85] = kFeatureStringKeyboardType;
+  v146[84] = layoutName;
+  v145[85] = kFeatureStringKeyboardType;
   v55 = [TIKBAnalyticsMetricsContext keyboardTypeEnumToString:[(TIKBAnalyticsMetricsContext *)v52 keyboardType]];
-  v147[85] = v55;
-  v77 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v147 forKeys:v146 count:86];
+  v146[85] = v55;
+  v76 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v146 forKeys:v145 count:86];
 
   mEMORY[0x277D6F318] = [MEMORY[0x277D6F318] sharedInstance];
   testingParameters2 = [(TIKBAnalyticsMetricsContext *)v52 testingParameters];
-  [mEMORY[0x277D6F318] dispatchEventWithName:@"typingEffort" payload:v77 testingParameters:testingParameters2 allowSparsePayload:0];
-
-  v58 = *MEMORY[0x277D85DE8];
+  [mEMORY[0x277D6F318] dispatchEventWithName:@"typingEffort" payload:v76 testingParameters:testingParameters2 allowSparsePayload:0];
 }
 
 - (void)registerEventSpec
 {
-  v114[86] = *MEMORY[0x277D85DE8];
-  v89 = MEMORY[0x277D6F300];
-  v113 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"totalInputActions" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[0] = v113;
-  v112 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"characterKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[1] = v112;
-  v111 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"backspaceKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[2] = v111;
-  v110 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"spaceKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[3] = v110;
-  v109 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"returnKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[4] = v109;
-  v108 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"shiftKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[5] = v108;
-  v107 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"moreKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[6] = v107;
-  v106 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[7] = v106;
-  v105 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"unknownKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[8] = v105;
-  v104 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"paths" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[9] = v104;
-  v103 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"pathsWithWeight1" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[10] = v103;
-  v102 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"pathsWithWeight2" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[11] = v102;
-  v101 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"pathsWithWeight3" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[12] = v101;
-  v100 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"pathsWithWeight4" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[13] = v100;
-  v99 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"pathsWithWeight5" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[14] = v99;
-  v98 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"pathsWithWeight6" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[15] = v98;
-  v97 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"pathsWithWeight7" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[16] = v97;
-  v96 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"pathsWithWeight8" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[17] = v96;
-  v95 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"pathsWithWeight9" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[18] = v95;
-  v94 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"pathsWithWeight10" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[19] = v94;
-  v93 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"flicks" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[20] = v93;
-  v92 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"gestures" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[21] = v92;
-  v91 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"popupVariants" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[22] = v91;
-  v88 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"cursorMovements" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[23] = v88;
-  v87 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"candidateSelections" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[24] = v87;
-  v86 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"cuts" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[25] = v86;
-  v85 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"pastes" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[26] = v85;
-  v84 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSelections" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[27] = v84;
-  v83 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiCandidateSelections" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[28] = v83;
-  v82 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchCharacterKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[29] = v82;
-  v81 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchBackspaceKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[30] = v81;
-  v80 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchSpaceKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[31] = v80;
-  v79 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchShiftKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[32] = v79;
-  v78 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchMoreKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[33] = v78;
-  v77 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchEmojiKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[34] = v77;
-  v76 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchUnknownKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[35] = v76;
-  v75 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPaths" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[36] = v75;
-  v74 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPathsWithWeight1" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[37] = v74;
-  v73 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPathsWithWeight2" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[38] = v73;
-  v72 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPathsWithWeight3" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[39] = v72;
-  v71 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPathsWithWeight4" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[40] = v71;
-  v70 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPathsWithWeight5" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[41] = v70;
-  v69 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPathsWithWeight6" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[42] = v69;
-  v68 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPathsWithWeight7" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[43] = v68;
-  v67 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPathsWithWeight8" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[44] = v67;
-  v66 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPathsWithWeight9" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[45] = v66;
-  v65 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPathsWithWeight10" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[46] = v65;
-  v64 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchFlicks" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[47] = v64;
-  v63 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchGestures" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[48] = v63;
-  v62 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPopupVariants" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[49] = v62;
-  v61 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchCursorMovements" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[50] = v61;
-  v60 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchCandidateSelections" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[51] = v60;
-  v59 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchCuts" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[52] = v59;
-  v58 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPastes" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[53] = v58;
-  v57 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojisOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[54] = v57;
-  v56 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"wordsOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[55] = v56;
-  v55 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"charactersOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[56] = v55;
-  v54 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"char1WordsOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[57] = v54;
-  v53 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"char2WordsOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[58] = v53;
-  v52 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"char3WordsOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[59] = v52;
-  v51 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"char4WordsOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[60] = v51;
-  v50 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"char5WordsOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[61] = v50;
-  v49 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"char6WordsOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[62] = v49;
-  v48 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"char7WordsOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[63] = v48;
-  v47 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"char8WordsOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[64] = v47;
-  v46 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"char9PlusWordsOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
-  v114[65] = v46;
-  v45 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"hasExistingText"];
-  v114[66] = v45;
-  v44 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"hasInput"];
-  v114[67] = v44;
-  v43 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"hasOutput"];
-  v114[68] = v43;
-  v42 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"hasCursorMovement"];
-  v114[69] = v42;
-  v41 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"hasEmojiInput"];
-  v114[70] = v41;
+  v113[86] = *MEMORY[0x277D85DE8];
+  v88 = MEMORY[0x277D6F300];
+  v112 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"totalInputActions" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[0] = v112;
+  v111 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"characterKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[1] = v111;
+  v110 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"backspaceKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[2] = v110;
+  v109 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"spaceKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[3] = v109;
+  v108 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"returnKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[4] = v108;
+  v107 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"shiftKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[5] = v107;
+  v106 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"moreKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[6] = v106;
+  v105 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[7] = v105;
+  v104 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"unknownKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[8] = v104;
+  v103 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"paths" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[9] = v103;
+  v102 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"pathsWithWeight1" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[10] = v102;
+  v101 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"pathsWithWeight2" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[11] = v101;
+  v100 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"pathsWithWeight3" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[12] = v100;
+  v99 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"pathsWithWeight4" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[13] = v99;
+  v98 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"pathsWithWeight5" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[14] = v98;
+  v97 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"pathsWithWeight6" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[15] = v97;
+  v96 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"pathsWithWeight7" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[16] = v96;
+  v95 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"pathsWithWeight8" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[17] = v95;
+  v94 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"pathsWithWeight9" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[18] = v94;
+  v93 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"pathsWithWeight10" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[19] = v93;
+  v92 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"flicks" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[20] = v92;
+  v91 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"gestures" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[21] = v91;
+  v90 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"popupVariants" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[22] = v90;
+  v87 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"cursorMovements" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[23] = v87;
+  v86 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"candidateSelections" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[24] = v86;
+  v85 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"cuts" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[25] = v85;
+  v84 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"pastes" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[26] = v84;
+  v83 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSelections" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[27] = v83;
+  v82 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiCandidateSelections" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[28] = v82;
+  v81 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchCharacterKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[29] = v81;
+  v80 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchBackspaceKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[30] = v80;
+  v79 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchSpaceKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[31] = v79;
+  v78 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchShiftKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[32] = v78;
+  v77 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchMoreKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[33] = v77;
+  v76 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchEmojiKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[34] = v76;
+  v75 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchUnknownKeyTaps" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[35] = v75;
+  v74 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPaths" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[36] = v74;
+  v73 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPathsWithWeight1" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[37] = v73;
+  v72 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPathsWithWeight2" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[38] = v72;
+  v71 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPathsWithWeight3" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[39] = v71;
+  v70 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPathsWithWeight4" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[40] = v70;
+  v69 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPathsWithWeight5" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[41] = v69;
+  v68 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPathsWithWeight6" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[42] = v68;
+  v67 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPathsWithWeight7" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[43] = v67;
+  v66 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPathsWithWeight8" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[44] = v66;
+  v65 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPathsWithWeight9" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[45] = v65;
+  v64 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPathsWithWeight10" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[46] = v64;
+  v63 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchFlicks" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[47] = v63;
+  v62 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchGestures" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[48] = v62;
+  v61 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPopupVariants" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[49] = v61;
+  v60 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchCursorMovements" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[50] = v60;
+  v59 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchCandidateSelections" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[51] = v59;
+  v58 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchCuts" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[52] = v58;
+  v57 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojiSearchPastes" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[53] = v57;
+  v56 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"emojisOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[54] = v56;
+  v55 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"wordsOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[55] = v55;
+  v54 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"charactersOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[56] = v54;
+  v53 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"char1WordsOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[57] = v53;
+  v52 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"char2WordsOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[58] = v52;
+  v51 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"char3WordsOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[59] = v51;
+  v50 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"char4WordsOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[60] = v50;
+  v49 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"char5WordsOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[61] = v49;
+  v48 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"char6WordsOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[62] = v48;
+  v47 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"char7WordsOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[63] = v47;
+  v46 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"char8WordsOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[64] = v46;
+  v45 = [MEMORY[0x277D6F308] integerFieldSpecWithName:@"char9PlusWordsOutput" minValue:&unk_28400BE80 maxValue:0 significantDigits:0];
+  v113[65] = v45;
+  v44 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"hasExistingText"];
+  v113[66] = v44;
+  v43 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"hasInput"];
+  v113[67] = v43;
+  v42 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"hasOutput"];
+  v113[68] = v42;
+  v41 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"hasCursorMovement"];
+  v113[69] = v41;
+  v40 = [MEMORY[0x277D6F308] BOOLeanFieldSpecWithName:@"hasEmojiInput"];
+  v113[70] = v40;
   v2 = MEMORY[0x277D6F308];
   v3 = kFeatureKeyboardUsage;
-  v40 = TIFeatureUsageAllowedValues();
-  v39 = [v2 stringFieldSpecWithName:v3 allowedValues:v40];
-  v114[71] = v39;
+  v39 = TIFeatureUsageAllowedValues();
+  v38 = [v2 stringFieldSpecWithName:v3 allowedValues:v39];
+  v113[71] = v38;
   v4 = MEMORY[0x277D6F308];
   v5 = kFeatureContinuousPathUsage;
-  v38 = TIFeatureUsageAllowedValues();
-  v37 = [v4 stringFieldSpecWithName:v5 allowedValues:v38];
-  v114[72] = v37;
+  v37 = TIFeatureUsageAllowedValues();
+  v36 = [v4 stringFieldSpecWithName:v5 allowedValues:v37];
+  v113[72] = v36;
   v6 = MEMORY[0x277D6F308];
   v7 = kFeatureAutocorrectionUsage;
-  v36 = TIFeatureUsageAllowedValues();
-  v35 = [v6 stringFieldSpecWithName:v7 allowedValues:v36];
-  v114[73] = v35;
+  v35 = TIFeatureUsageAllowedValues();
+  v34 = [v6 stringFieldSpecWithName:v7 allowedValues:v35];
+  v113[73] = v34;
   v8 = MEMORY[0x277D6F308];
   v9 = kFeatureCandidateBarUsage;
-  v34 = TIFeatureUsageAllowedValues();
-  v33 = [v8 stringFieldSpecWithName:v9 allowedValues:v34];
-  v114[74] = v33;
+  v33 = TIFeatureUsageAllowedValues();
+  v32 = [v8 stringFieldSpecWithName:v9 allowedValues:v33];
+  v113[74] = v32;
   v10 = MEMORY[0x277D6F308];
   v11 = kFeatureMultilingualUsage;
-  v32 = TIFeatureUsageAllowedValues();
-  v31 = [v10 stringFieldSpecWithName:v11 allowedValues:v32];
-  v114[75] = v31;
+  v31 = TIFeatureUsageAllowedValues();
+  v30 = [v10 stringFieldSpecWithName:v11 allowedValues:v31];
+  v113[75] = v30;
   v12 = MEMORY[0x277D6F308];
   v13 = kFeatureStringTypingSpeed;
-  v30 = TITypingSpeedAllowedValues();
-  v29 = [v12 stringFieldSpecWithName:v13 allowedValues:v30];
-  v114[76] = v29;
+  v29 = TITypingSpeedAllowedValues();
+  v28 = [v12 stringFieldSpecWithName:v13 allowedValues:v29];
+  v113[76] = v28;
   v14 = MEMORY[0x277D6F308];
   v15 = kFeatureStringAssetAvailabilityStatus;
-  v28 = TIAssetAvailabilityStatusAllowedValues();
-  v16 = [v14 stringFieldSpecWithName:v15 allowedValues:v28];
-  v114[77] = v16;
+  v27 = TIAssetAvailabilityStatusAllowedValues();
+  v16 = [v14 stringFieldSpecWithName:v15 allowedValues:v27];
+  v113[77] = v16;
   v17 = [MEMORY[0x277D6F308] integerFieldSpecWithName:kFeatureStringSessionAlignmentConfidence minValue:&unk_28400BE80 maxValue:&unk_28400BE98 significantDigits:0];
-  v114[78] = v17;
+  v113[78] = v17;
   v18 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardLanguage];
-  v114[79] = v18;
+  v113[79] = v18;
   v19 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardRegion];
-  v114[80] = v19;
+  v113[80] = v19;
   v20 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardVariant];
-  v114[81] = v20;
+  v113[81] = v20;
   v21 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardSecondaryLanguage];
-  v114[82] = v21;
+  v113[82] = v21;
   v22 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardSecondaryRegion];
-  v114[83] = v22;
+  v113[83] = v22;
   v23 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardLayout];
-  v114[84] = v23;
+  v113[84] = v23;
   v24 = [MEMORY[0x277D6F308] stringFieldSpecWithName:kFeatureStringKeyboardType];
-  v114[85] = v24;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v114 count:86];
-  v90 = [v89 eventSpecWithName:@"typingEffort" inputModeRequired:0 fieldSpecs:v25];
+  v113[85] = v24;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v113 count:86];
+  v89 = [v88 eventSpecWithName:@"typingEffort" inputModeRequired:0 fieldSpecs:v25];
 
   mEMORY[0x277D6F318] = [MEMORY[0x277D6F318] sharedInstance];
-  [mEMORY[0x277D6F318] registerEventSpec:v90];
-
-  v27 = *MEMORY[0x277D85DE8];
+  [mEMORY[0x277D6F318] registerEventSpec:v89];
 }
 
 - (void)addCountsForPropertyWithName:(id)name andEmojiSearchPropertyName:(id)propertyName contributesToTotal:(BOOL)total toActionSummary:(id)summary emojiSearchMode:(BOOL)mode
@@ -599,7 +602,7 @@
   nameCopy = name;
   propertyNameCopy = propertyName;
   summaryCopy = summary;
-  v14 = [nameCopy isEqualToString:@"emojiSelections"] | modeCopy;
+  v14 = objc_msgSend_isEqualToString_(nameCopy) | modeCopy;
   if (v14 == 1 && !self->_emojiPlaneActive)
   {
     [summaryCopy setEmojiKeyTaps:{objc_msgSend(summaryCopy, "emojiKeyTaps") + 1}];
@@ -679,27 +682,27 @@
 
 - (BOOL)hasEmojiInKeyboardInputs:(id)inputs
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   inputsCopy = inputs;
-  v4 = [inputsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [inputsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(inputsCopy);
         }
 
-        string = [*(*(&v11 + 1) + 8 * i) string];
-        _containsEmoji = [string _containsEmoji];
+        v7 = objc_msgSend_string(*(*(&v10 + 1) + 8 * i), v10);
+        _containsEmoji = [v7 _containsEmoji];
 
         if (_containsEmoji)
         {
@@ -708,7 +711,7 @@
         }
       }
 
-      v4 = [inputsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [inputsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -720,7 +723,6 @@
 
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -790,30 +792,30 @@ LABEL_11:
 
 - (void)addCountsForEmojiInputs:(id)inputs toOutputSummary:(id)summary
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   inputsCopy = inputs;
   summaryCopy = summary;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v7 = [inputsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [inputsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(inputsCopy);
         }
 
-        string = [*(*(&v14 + 1) + 8 * v10) string];
-        _containsEmoji = [string _containsEmoji];
+        v11 = objc_msgSend_string(*(*(&v13 + 1) + 8 * v10));
+        _containsEmoji = [v11 _containsEmoji];
 
         if (_containsEmoji)
         {
@@ -824,13 +826,11 @@ LABEL_11:
       }
 
       while (v8 != v10);
-      v8 = [inputsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [inputsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addCountsForAlignedEntry:(id)entry toOutputSummary:(id)summary
@@ -878,31 +878,31 @@ LABEL_11:
 
 - (id)countOutput
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   alignedEntries = [(TITypingSessionAligned *)self->_alignedSession alignedEntries];
-  v5 = [alignedEntries countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [alignedEntries countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(alignedEntries);
         }
 
-        [(TITypingEffortAnalyzer *)self addCountsForAlignedEntry:*(*(&v12 + 1) + 8 * i) toOutputSummary:v3];
+        [(TITypingEffortAnalyzer *)self addCountsForAlignedEntry:*(*(&v11 + 1) + 8 * i) toOutputSummary:v3];
       }
 
-      v6 = [alignedEntries countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [alignedEntries countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
@@ -910,8 +910,6 @@ LABEL_11:
 
   completeText = [(TITypingSessionAligned *)self->_alignedSession completeText];
   [v3 setCharactersOutput:{-[TITypingEffortAnalyzer countComposedCharactersInText:](self, "countComposedCharactersInText:", completeText)}];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -939,6 +937,85 @@ LABEL_11:
   }
 
   return acceptedString;
+}
+
+- (void)addActionsForCursorEvent:(id)event lastAction:(id)action nextAction:(id)nextAction toActionSummary:(id)summary emojiSearchMode:(BOOL)mode
+{
+  modeCopy = mode;
+  eventCopy = event;
+  actionCopy = action;
+  nextActionCopy = nextAction;
+  summaryCopy = summary;
+  userActionHistory = [(TITypingSession *)self->_session userActionHistory];
+  firstObject = [userActionHistory firstObject];
+  if (firstObject == eventCopy)
+  {
+
+    goto LABEL_17;
+  }
+
+  userActionHistory2 = [(TITypingSession *)self->_session userActionHistory];
+  lastObject = [userActionHistory2 lastObject];
+
+  if (lastObject == eventCopy)
+  {
+    goto LABEL_17;
+  }
+
+  keyboardState = [actionCopy keyboardState];
+  emojiSearchMode = [keyboardState emojiSearchMode];
+  v21 = emojiSearchMode;
+  if (!modeCopy)
+  {
+    if (emojiSearchMode)
+    {
+      v23 = actionCopy;
+LABEL_13:
+      actionType = [v23 actionType];
+
+      if (actionType == 2)
+      {
+        goto LABEL_17;
+      }
+
+LABEL_16:
+      [(TITypingEffortAnalyzer *)self addCountsForPropertyWithName:@"cursorMovements" andEmojiSearchPropertyName:@"emojiSearchCursorMovements" contributesToTotal:1 toActionSummary:summaryCopy emojiSearchMode:modeCopy];
+      goto LABEL_17;
+    }
+
+LABEL_15:
+
+    goto LABEL_16;
+  }
+
+  if (!v21)
+  {
+    goto LABEL_17;
+  }
+
+  keyboardState2 = [actionCopy keyboardState];
+  if (![keyboardState2 emojiSearchMode] || objc_msgSend(actionCopy, "actionType"))
+  {
+
+    goto LABEL_8;
+  }
+
+  v25 = [(TITypingEffortAnalyzer *)self isEmojiSearchCandidateSelection:actionCopy];
+
+  if (!v25)
+  {
+LABEL_8:
+    keyboardState = [nextActionCopy keyboardState];
+    if (([keyboardState emojiSearchMode] & 1) == 0)
+    {
+      v23 = nextActionCopy;
+      goto LABEL_13;
+    }
+
+    goto LABEL_15;
+  }
+
+LABEL_17:
 }
 
 - (id)keyStringWithCode:(int64_t)code fromLayout:(id)layout
@@ -980,16 +1057,232 @@ uint64_t __55__TITypingEffortAnalyzer_keyStringWithCode_fromLayout___block_invok
   return result;
 }
 
+- (void)addSpecialKeyActionsForFirstTouch:(id)touch andLastTouch:(id)lastTouch fromLayout:(id)layout toActionSummary:(id)summary emojiSearchMode:(BOOL)mode
+{
+  modeCopy = mode;
+  touchCopy = touch;
+  lastTouchCopy = lastTouch;
+  summaryCopy = summary;
+  if (layout)
+  {
+    layoutCopy = layout;
+    v15 = [lastTouchCopy forcedKeyCode] == -1;
+    v16 = touchCopy;
+    if (!v15)
+    {
+      v16 = lastTouchCopy;
+    }
+
+    v17 = -[TITypingEffortAnalyzer keyStringWithCode:fromLayout:](self, "keyStringWithCode:fromLayout:", [v16 forcedKeyCode], layoutCopy);
+
+    if (objc_msgSend_isEqualToString_(v17))
+    {
+      v18 = @"shiftKeyTaps";
+      v19 = @"emojiSearchShiftKeyTaps";
+    }
+
+    else if (objc_msgSend_isEqualToString_(v17))
+    {
+      v18 = @"moreKeyTaps";
+      v19 = @"emojiSearchMoreKeyTaps";
+    }
+
+    else if (objc_msgSend_isEqualToString_(v17))
+    {
+      v18 = @"returnKeyTaps";
+      v19 = @"emojiSearchEmojiKeyTaps";
+    }
+
+    else
+    {
+      if (!objc_msgSend_isEqualToString_(v17))
+      {
+LABEL_13:
+
+        goto LABEL_14;
+      }
+
+      v18 = @"spaceKeyTaps";
+      v19 = @"emojiSearchSpaceKeyTaps";
+    }
+
+    [(TITypingEffortAnalyzer *)self addCountsForPropertyWithName:v18 andEmojiSearchPropertyName:v19 contributesToTotal:1 toActionSummary:summaryCopy emojiSearchMode:modeCopy];
+    goto LABEL_13;
+  }
+
+LABEL_14:
+}
+
+- (void)addPathWeightActionsForTouches:(id)touches withLayout:(id)layout forWord:(id)word toActionSummary:(id)summary emojiSearchMode:(BOOL)mode
+{
+  modeCopy = mode;
+  v46 = *MEMORY[0x277D85DE8];
+  touchesCopy = touches;
+  layoutCopy = layout;
+  wordCopy = word;
+  summaryCopy = summary;
+  if (layoutCopy)
+  {
+    [layoutCopy frame];
+    v17 = v16;
+    [layoutCopy frame];
+    v19 = v18;
+    [layoutCopy frame];
+    v21 = v20;
+    [layoutCopy frame];
+    v23 = v22;
+    if (v21 <= 0.0 || v22 <= 0.0)
+    {
+      v41 = IXADefaultLogFacility();
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      {
+        v42 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Invalid layout dimensions: width: %f height: %f", "-[TITypingEffortAnalyzer addPathWeightActionsForTouches:withLayout:forWord:toActionSummary:emojiSearchMode:]", *&v21, *&v23];
+        *buf = 138412290;
+        v45 = v42;
+        _os_log_error_impl(&dword_22CA55000, v41, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      if ([touchesCopy count] < 2)
+      {
+        goto LABEL_8;
+      }
+
+      v43 = v17;
+      v24 = 0.0;
+      v25 = 1;
+      do
+      {
+        v26 = [touchesCopy objectAtIndex:v25 - 1];
+        [v26 location];
+        v27 = v23;
+        v28 = v21;
+        v30 = v29;
+        v32 = v31;
+
+        v33 = [touchesCopy objectAtIndex:v25];
+        [v33 location];
+        v35 = v34;
+        v37 = v36;
+
+        v38 = v30 - v43;
+        v21 = v28;
+        v23 = v27;
+        v24 = v24 + sqrt(((v35 - v43) / v21 - v38 / v21) * ((v35 - v43) / v21 - v38 / v21) + ((v37 - v19) / v27 - (v32 - v19) / v27) * ((v37 - v19) / v27 - (v32 - v19) / v27));
+        ++v25;
+      }
+
+      while ([touchesCopy count] > v25);
+      if (v24 >= 0.5)
+      {
+        if (v24 >= 1.0)
+        {
+          if (v24 >= 1.5)
+          {
+            if (v24 >= 2.0)
+            {
+              if (v24 >= 2.5)
+              {
+                if (v24 >= 3.0)
+                {
+                  if (v24 >= 3.5)
+                  {
+                    if (v24 >= 4.0)
+                    {
+                      if (v24 >= 4.5)
+                      {
+                        v40 = @"pathsWithWeight10";
+                      }
+
+                      else
+                      {
+                        v40 = @"pathsWithWeight9";
+                      }
+
+                      if (v24 >= 4.5)
+                      {
+                        v39 = @"emojiSearchPathsWithWeight10";
+                      }
+
+                      else
+                      {
+                        v39 = @"emojiSearchPathsWithWeight9";
+                      }
+                    }
+
+                    else
+                    {
+                      v39 = @"emojiSearchPathsWithWeight8";
+                      v40 = @"pathsWithWeight8";
+                    }
+                  }
+
+                  else
+                  {
+                    v39 = @"emojiSearchPathsWithWeight7";
+                    v40 = @"pathsWithWeight7";
+                  }
+                }
+
+                else
+                {
+                  v39 = @"emojiSearchPathsWithWeight6";
+                  v40 = @"pathsWithWeight6";
+                }
+              }
+
+              else
+              {
+                v39 = @"emojiSearchPathsWithWeight5";
+                v40 = @"pathsWithWeight5";
+              }
+            }
+
+            else
+            {
+              v39 = @"emojiSearchPathsWithWeight4";
+              v40 = @"pathsWithWeight4";
+            }
+          }
+
+          else
+          {
+            v39 = @"emojiSearchPathsWithWeight3";
+            v40 = @"pathsWithWeight3";
+          }
+        }
+
+        else
+        {
+          v39 = @"emojiSearchPathsWithWeight2";
+          v40 = @"pathsWithWeight2";
+        }
+      }
+
+      else
+      {
+LABEL_8:
+        v39 = @"emojiSearchPathsWithWeight1";
+        v40 = @"pathsWithWeight1";
+      }
+
+      [(TITypingEffortAnalyzer *)self addCountsForPropertyWithName:v40 andEmojiSearchPropertyName:v39 contributesToTotal:0 toActionSummary:summaryCopy emojiSearchMode:modeCopy];
+    }
+  }
+}
+
 - (void)addTouchRelatedActionsForTouches:(id)touches layouts:(id)layouts acceptedCandidate:(id)candidate toActionSummary:(id)summary keyboardInputTouches:(id)inputTouches pathTouches:(id)pathTouches emojiSearchMode:(BOOL)mode
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   layoutsCopy = layouts;
   candidateCopy = candidate;
   summaryCopy = summary;
   inputTouchesCopy = inputTouches;
   pathTouchesCopy = pathTouches;
   v15 = [touches mutableCopy];
-  v38 = layoutsCopy;
+  v37 = layoutsCopy;
   v16 = [layoutsCopy mutableCopy];
   if (![v15 count])
   {
@@ -1093,7 +1386,7 @@ LABEL_18:
         {
           v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s An incomplete touch path was detected", "-[TITypingEffortAnalyzer addTouchRelatedActionsForTouches:layouts:acceptedCandidate:toActionSummary:keyboardInputTouches:pathTouches:emojiSearchMode:]"];
           *buf = 138412290;
-          v45 = v36;
+          v44 = v36;
           _os_log_debug_impl(&dword_22CA55000, candidate, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
 
@@ -1122,8 +1415,85 @@ LABEL_21:
 
   while ([v15 count]);
 LABEL_33:
+}
 
-  v37 = *MEMORY[0x277D85DE8];
+- (void)addPathAndCandidateBarActionsForWordEntry:(id)entry toActionSummary:(id)summary andPathTouches:(id)touches emojiSearchMode:(BOOL)mode
+{
+  modeCopy = mode;
+  v35 = *MEMORY[0x277D85DE8];
+  entryCopy = entry;
+  summaryCopy = summary;
+  touchesCopy = touches;
+  acceptedCandidate = [entryCopy acceptedCandidate];
+  if (acceptedCandidate)
+  {
+    v14 = acceptedCandidate;
+    acceptedString = [entryCopy acceptedString];
+    if (acceptedString)
+    {
+      v16 = acceptedString;
+      acceptedString2 = [entryCopy acceptedString];
+      v18 = [acceptedString2 length];
+
+      if (v18)
+      {
+        acceptedCandidate2 = [entryCopy acceptedCandidate];
+        isContinuousPathConversion = [acceptedCandidate2 isContinuousPathConversion];
+
+        if (isContinuousPathConversion)
+        {
+          allTouches = [entryCopy allTouches];
+          v22 = [allTouches count];
+
+          if (v22)
+          {
+            allTouches2 = [entryCopy allTouches];
+            lastObject = [allTouches2 lastObject];
+            [touchesCopy addObject:lastObject];
+
+            v25 = @"paths";
+            v26 = @"emojiSearchPaths";
+            goto LABEL_11;
+          }
+
+          v31 = IXADefaultLogFacility();
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          {
+            v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s A continuous path conversion with no touch data was found.", "-[TITypingEffortAnalyzer addPathAndCandidateBarActionsForWordEntry:toActionSummary:andPathTouches:emojiSearchMode:]"];
+            *buf = 138412290;
+            v34 = v32;
+            _os_log_error_impl(&dword_22CA55000, v31, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+          }
+        }
+
+        else if (([entryCopy wordEntryType] & 4) != 0)
+        {
+          acceptedCandidate3 = [entryCopy acceptedCandidate];
+          candidate = [acceptedCandidate3 candidate];
+          _containsEmoji = [candidate _containsEmoji];
+
+          if (!_containsEmoji)
+          {
+            v25 = @"candidateSelections";
+            selfCopy2 = self;
+            v26 = 0;
+            goto LABEL_16;
+          }
+
+          v25 = @"emojiCandidateSelections";
+          v26 = @"emojiSearchCandidateSelections";
+LABEL_11:
+          selfCopy2 = self;
+LABEL_16:
+          [(TITypingEffortAnalyzer *)selfCopy2 addCountsForPropertyWithName:v25 andEmojiSearchPropertyName:v26 contributesToTotal:1 toActionSummary:summaryCopy emojiSearchMode:modeCopy];
+        }
+      }
+    }
+
+    else
+    {
+    }
+  }
 }
 
 - (BOOL)isTenKeyInputMode:(id)mode
@@ -1168,6 +1538,212 @@ LABEL_33:
   }
 
   return isGesture;
+}
+
+- (void)addKeyboardInputActionsForKeyboardInputs:(id)inputs inputMode:(id)mode toActionSummary:(id)summary andKeyboardInputTouches:(id)touches emojiSearchMode:(BOOL)searchMode
+{
+  searchModeCopy = searchMode;
+  v52 = *MEMORY[0x277D85DE8];
+  inputsCopy = inputs;
+  modeCopy = mode;
+  v14 = searchModeCopy;
+  v46 = modeCopy;
+  summaryCopy = summary;
+  touchesCopy = touches;
+  v47 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v17 = [inputsCopy countByEnumeratingWithState:&v47 objects:v51 count:16];
+  if (v17)
+  {
+    v18 = v17;
+    v19 = *v48;
+    v45 = summaryCopy;
+    v43 = inputsCopy;
+    v42 = searchModeCopy;
+    do
+    {
+      v20 = 0;
+      do
+      {
+        if (*v48 != v19)
+        {
+          objc_enumerationMutation(inputsCopy);
+        }
+
+        v21 = *(*(&v47 + 1) + 8 * v20);
+        touchEvent = [v21 touchEvent];
+
+        if (touchEvent)
+        {
+          touchEvent2 = [v21 touchEvent];
+          [touchesCopy addObject:touchEvent2];
+        }
+
+        if (([v21 isSynthesizedByAcceptingCandidate] & 1) == 0)
+        {
+          touchEvent3 = [v21 touchEvent];
+
+          if (touchEvent3)
+          {
+            goto LABEL_37;
+          }
+
+          v28 = objc_msgSend_string(v21);
+          _containsEmoji = [v28 _containsEmoji];
+
+          if (_containsEmoji)
+          {
+            selfCopy5 = self;
+            v26 = @"emojiSelections";
+            v27 = 0;
+            summaryCopy = v45;
+            goto LABEL_24;
+          }
+
+          summaryCopy = v45;
+          if (objc_msgSend_isEqualToString_(v46))
+          {
+LABEL_37:
+            if ([(TITypingEffortAnalyzer *)self isFlickInput:v21])
+            {
+              selfCopy5 = self;
+              v26 = @"flicks";
+              v27 = @"emojiSearchFlicks";
+              goto LABEL_24;
+            }
+
+            if ([(TITypingEffortAnalyzer *)self isPopupVariantInput:v21 inputMode:v46])
+            {
+              selfCopy5 = self;
+              v26 = @"popupVariants";
+              v27 = @"emojiSearchPopupVariants";
+              goto LABEL_24;
+            }
+
+            if ([v21 isBackspace])
+            {
+              selfCopy5 = self;
+              v26 = @"backspaceKeyTaps";
+              v27 = @"emojiSearchBackspaceKeyTaps";
+              goto LABEL_24;
+            }
+
+            v30 = objc_msgSend_string(v21);
+            if (objc_msgSend_isEqualToString_(v30))
+            {
+
+LABEL_23:
+              selfCopy5 = self;
+              v26 = @"spaceKeyTaps";
+              v27 = @"emojiSearchSpaceKeyTaps";
+LABEL_24:
+              [(TITypingEffortAnalyzer *)selfCopy5 addCountsForPropertyWithName:v26 andEmojiSearchPropertyName:v27 contributesToTotal:1 toActionSummary:summaryCopy emojiSearchMode:v14];
+              goto LABEL_25;
+            }
+
+            v31 = objc_msgSend_string(v21);
+            sessionParams = [(TITypingSession *)self->_session sessionParams];
+            wordSeparator = [sessionParams wordSeparator];
+            isEqualToString = objc_msgSend_isEqualToString_(v31);
+
+            inputsCopy = v43;
+            v14 = v42;
+
+            summaryCopy = v45;
+            if (isEqualToString)
+            {
+              goto LABEL_23;
+            }
+
+            v34 = objc_msgSend_string(v21);
+            v35 = objc_msgSend_isEqualToString_(v34);
+
+            if (v35)
+            {
+              selfCopy7 = self;
+              v37 = @"returnKeyTaps";
+              v38 = 0;
+            }
+
+            else
+            {
+              v39 = objc_msgSend_string(v21);
+              v40 = [v39 length];
+
+              selfCopy7 = self;
+              if (v40 == 1)
+              {
+                v37 = @"characterKeyTaps";
+                v38 = @"emojiSearchCharacterKeyTaps";
+              }
+
+              else
+              {
+                v37 = @"unknownKeyTaps";
+                v38 = @"unknownKeyTaps";
+              }
+            }
+
+            v14 = v42;
+            [(TITypingEffortAnalyzer *)selfCopy7 addCountsForPropertyWithName:v37 andEmojiSearchPropertyName:v38 contributesToTotal:1 toActionSummary:v45 emojiSearchMode:v42];
+            inputsCopy = v43;
+          }
+        }
+
+LABEL_25:
+        ++v20;
+      }
+
+      while (v18 != v20);
+      v41 = [inputsCopy countByEnumeratingWithState:&v47 objects:v51 count:16];
+      v18 = v41;
+    }
+
+    while (v41);
+  }
+}
+
+- (void)addActionsForDeleteWord:(id)word toActionSummary:(id)summary emojiSearchMode:(BOOL)mode
+{
+  modeCopy = mode;
+  summaryCopy = summary;
+  wordCopy = word;
+  v16 = objc_opt_new();
+  keyboardState = [wordCopy keyboardState];
+  inputMode = [keyboardState inputMode];
+
+  allKeyboardInputs = [wordCopy allKeyboardInputs];
+  [(TITypingEffortAnalyzer *)self addKeyboardInputActionsForKeyboardInputs:allKeyboardInputs inputMode:inputMode toActionSummary:summaryCopy andKeyboardInputTouches:v16 emojiSearchMode:modeCopy];
+
+  allTouches = [wordCopy allTouches];
+  touchLayouts = [wordCopy touchLayouts];
+
+  LOBYTE(v15) = modeCopy;
+  [(TITypingEffortAnalyzer *)self addTouchRelatedActionsForTouches:allTouches layouts:touchLayouts acceptedCandidate:0 toActionSummary:summaryCopy keyboardInputTouches:v16 pathTouches:0 emojiSearchMode:v15];
+}
+
+- (void)addActionsForWordEntry:(id)entry toActionSummary:(id)summary emojiSearchMode:(BOOL)mode
+{
+  modeCopy = mode;
+  summaryCopy = summary;
+  entryCopy = entry;
+  v18 = objc_opt_new();
+  v10 = objc_opt_new();
+  keyboardState = [entryCopy keyboardState];
+  inputMode = [keyboardState inputMode];
+
+  allKeyboardInputs = [entryCopy allKeyboardInputs];
+  [(TITypingEffortAnalyzer *)self addKeyboardInputActionsForKeyboardInputs:allKeyboardInputs inputMode:inputMode toActionSummary:summaryCopy andKeyboardInputTouches:v18 emojiSearchMode:modeCopy];
+
+  [(TITypingEffortAnalyzer *)self addPathAndCandidateBarActionsForWordEntry:entryCopy toActionSummary:summaryCopy andPathTouches:v10 emojiSearchMode:modeCopy];
+  allTouches = [entryCopy allTouches];
+  touchLayouts = [entryCopy touchLayouts];
+  acceptedCandidate = [entryCopy acceptedCandidate];
+
+  LOBYTE(v17) = modeCopy;
+  [(TITypingEffortAnalyzer *)self addTouchRelatedActionsForTouches:allTouches layouts:touchLayouts acceptedCandidate:acceptedCandidate toActionSummary:summaryCopy keyboardInputTouches:v18 pathTouches:v10 emojiSearchMode:v17];
 }
 
 - (id)countActions

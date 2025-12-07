@@ -331,7 +331,7 @@ void __44__SearchUIBiomeStreamSubscriber_latestEvent__block_invoke_cold_1(uint64
   v3 = [*(a1 + 32) streamIdentifier];
   v4 = [a2 error];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_1DA169000, v5, v6, "Fetching last event from BiomeStream (%@) failed with error: %@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1_1(&dword_1DA169000, v5, v6, "Fetching last event from BiomeStream (%@) failed with error: %@", v7, v8, v9, v10);
 }
 
 void __42__SearchUIBiomeStreamSubscriber_setupSink__block_invoke_cold_1(void *a1, void *a2)
@@ -339,7 +339,7 @@ void __42__SearchUIBiomeStreamSubscriber_setupSink__block_invoke_cold_1(void *a1
   v3 = [a1 streamIdentifier];
   v4 = [a2 error];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_1DA169000, v5, v6, "Subscription to BiomeStream (%@) failed with error: %@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1_1(&dword_1DA169000, v5, v6, "Subscription to BiomeStream (%@) failed with error: %@", v7, v8, v9, v10);
 }
 
 @end

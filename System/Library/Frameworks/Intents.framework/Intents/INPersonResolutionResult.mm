@@ -61,7 +61,7 @@ LABEL_13:
 
 - (id)_intentSlotValueForObject:(id)object slotDescription:(id)description
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   descriptionCopy = description;
   v7 = objc_alloc_init(_INPBIntentSlotValue);
@@ -71,29 +71,29 @@ LABEL_13:
     if ([descriptionCopy valueStyle] == 3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (objc_msgSend(objectCopy, "firstObject"), v8 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v8, (isKindOfClass & 1) != 0))
     {
       v10 = objectCopy;
+      v44 = 0u;
       v45 = 0u;
       v46 = 0u;
       v47 = 0u;
-      v48 = 0u;
-      v11 = [(_INPBContactList *)v10 countByEnumeratingWithState:&v45 objects:v51 count:16];
+      v11 = [(_INPBContactList *)v10 countByEnumeratingWithState:&v44 objects:v50 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v46;
+        v13 = *v45;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v46 != v13)
+            if (*v45 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = INIntentSlotValueTransformToDialingContact(*(*(&v45 + 1) + 8 * i));
+            v15 = INIntentSlotValueTransformToDialingContact(*(*(&v44 + 1) + 8 * i));
             [(_INPBIntentSlotValue *)v7 addPayloadDialingContact:v15];
           }
 
-          v12 = [(_INPBContactList *)v10 countByEnumeratingWithState:&v45 objects:v51 count:16];
+          v12 = [(_INPBContactList *)v10 countByEnumeratingWithState:&v44 objects:v50 count:16];
         }
 
         while (v12);
@@ -121,31 +121,31 @@ LABEL_13:
     if ([descriptionCopy valueStyle] == 3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (objc_msgSend(objectCopy, "firstObject"), v16 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v17 = objc_opt_isKindOfClass(), v16, (v17 & 1) != 0))
     {
       v10 = objectCopy;
+      v40 = 0u;
       v41 = 0u;
       v42 = 0u;
       v43 = 0u;
-      v44 = 0u;
-      v18 = [(_INPBContactList *)v10 countByEnumeratingWithState:&v41 objects:v50 count:16];
+      v18 = [(_INPBContactList *)v10 countByEnumeratingWithState:&v40 objects:v49 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v42;
+        v20 = *v41;
         do
         {
           for (j = 0; j != v19; ++j)
           {
-            if (*v42 != v20)
+            if (*v41 != v20)
             {
               objc_enumerationMutation(v10);
             }
 
-            v22 = INIntentSlotValueTransformToContact(*(*(&v41 + 1) + 8 * j));
+            v22 = INIntentSlotValueTransformToContact(*(*(&v40 + 1) + 8 * j));
             values = [v22 values];
             firstObject = [values firstObject];
             [(_INPBIntentSlotValue *)v7 addPayloadContactValue:firstObject];
           }
 
-          v19 = [(_INPBContactList *)v10 countByEnumeratingWithState:&v41 objects:v50 count:16];
+          v19 = [(_INPBContactList *)v10 countByEnumeratingWithState:&v40 objects:v49 count:16];
         }
 
         while (v19);
@@ -179,29 +179,29 @@ LABEL_13:
       if (objc_opt_isKindOfClass() & 1) != 0 && ([objectCopy firstObject], v25 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v26 = objc_opt_isKindOfClass(), v25, (v26))
       {
         v27 = objectCopy;
+        v36 = 0u;
         v37 = 0u;
         v38 = 0u;
         v39 = 0u;
-        v40 = 0u;
-        v28 = [v27 countByEnumeratingWithState:&v37 objects:v49 count:16];
+        v28 = [v27 countByEnumeratingWithState:&v36 objects:v48 count:16];
         if (v28)
         {
           v29 = v28;
-          v30 = *v38;
+          v30 = *v37;
           do
           {
             for (k = 0; k != v29; ++k)
             {
-              if (*v38 != v30)
+              if (*v37 != v30)
               {
                 objc_enumerationMutation(v27);
               }
 
-              v32 = INIntentSlotValueTransformToContact(*(*(&v37 + 1) + 8 * k));
+              v32 = INIntentSlotValueTransformToContact(*(*(&v36 + 1) + 8 * k));
               [(_INPBContactList *)v10 addContact:v32];
             }
 
-            v29 = [v27 countByEnumeratingWithState:&v37 objects:v49 count:16];
+            v29 = [v27 countByEnumeratingWithState:&v36 objects:v48 count:16];
           }
 
           while (v29);
@@ -229,8 +229,6 @@ LABEL_45:
   }
 
 LABEL_46:
-
-  v35 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

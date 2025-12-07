@@ -16,23 +16,23 @@
 
 - (NMCUICloudNotificationOnboardingViewController)initWithAccount:(id)account dataSource:(id)source completion:(id)completion
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   accountCopy = account;
   sourceCopy = source;
   completionCopy = completion;
   v11 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.NanoMailCompanionUI"];
   v12 = [v11 localizedStringForKey:@"CLOUD_NOTIFICATIONS_TITLE" value:&stru_286C65BF0 table:@"NanoMailCompanionUI"];
-  v21[0] = accountCopy;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = accountCopy;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   v14 = [NMCUICloudNotificationOnboardingViewController detailTextForAccounts:v13];
-  v19.receiver = self;
-  v19.super_class = NMCUICloudNotificationOnboardingViewController;
-  v15 = [(OBTableWelcomeController *)&v19 initWithTitle:v12 detailText:v14 symbolName:@"bell.badge.fill"];
+  v18.receiver = self;
+  v18.super_class = NMCUICloudNotificationOnboardingViewController;
+  v15 = [(OBTableWelcomeController *)&v18 initWithTitle:v12 detailText:v14 symbolName:@"bell.badge.fill"];
 
   if (v15)
   {
-    v20 = accountCopy;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+    v19 = accountCopy;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
     [(NMCUICloudNotificationOnboardingViewController *)v15 setAccounts:v16];
 
     [(NMCUICloudNotificationOnboardingViewController *)v15 setCompletion:completionCopy];
@@ -41,7 +41,6 @@
     [(NMCUICloudNotificationOnboardingViewController *)v15 setupView];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -165,33 +164,33 @@
 
 + (BOOL)missingCredentialsForAccounts:(id)accounts
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   accountsCopy = accounts;
-  v4 = [accountsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [accountsCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(accountsCopy);
         }
 
-        if (![NMCUICloudNotificationAccountDataSource accountHasCredentials:*(*(&v9 + 1) + 8 * i), v9])
+        if (![NMCUICloudNotificationAccountDataSource accountHasCredentials:*(*(&v8 + 1) + 8 * i), v8])
         {
           LOBYTE(v4) = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [accountsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [accountsCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -203,7 +202,6 @@
 
 LABEL_11:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -229,19 +227,19 @@ LABEL_11:
     v15 = MEMORY[0x277D750F8];
     v16 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.NanoMailCompanionUI"];
     v17 = [v16 localizedStringForKey:@"CONTINUE" value:&stru_286C65BF0 table:@"NanoMailCompanionUI"];
-    v24 = MEMORY[0x277D85DD0];
-    v25 = 3221225472;
-    v26 = __69__NMCUICloudNotificationOnboardingViewController_enableButtonTapped___block_invoke;
-    v27 = &unk_279934880;
-    objc_copyWeak(&v29, location);
+    v23 = MEMORY[0x277D85DD0];
+    v24 = 3221225472;
+    v25 = __69__NMCUICloudNotificationOnboardingViewController_enableButtonTapped___block_invoke;
+    v26 = &unk_279934880;
+    objc_copyWeak(&v28, location);
     selfCopy = self;
-    v18 = [v15 actionWithTitle:v17 style:0 handler:&v24];
+    v18 = [v15 actionWithTitle:v17 style:0 handler:&v23];
 
-    [v10 addAction:{v14, v24, v25, v26, v27}];
+    [v10 addAction:{v14, v23, v24, v25, v26}];
     [v10 addAction:v18];
     [(NMCUICloudNotificationOnboardingViewController *)self presentViewController:v10 animated:1 completion:0];
 
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v28);
     objc_destroyWeak(location);
   }
 
@@ -262,8 +260,6 @@ LABEL_11:
 
     [(NMCUICloudNotificationOnboardingViewController *)self dismissViewControllerAnimated:1 completion:self->_completion];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __69__NMCUICloudNotificationOnboardingViewController_enableButtonTapped___block_invoke(uint64_t a1)
@@ -393,63 +389,63 @@ void __84__NMCUICloudNotificationOnboardingViewController_tableView_didSelectRow
 
 void __83__NMCUICloudNotificationOnboardingViewController_accountDataSourceAccountsChanged___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277CBEB18]);
   v3 = [*(a1 + 32) accounts];
-  v19 = [v2 initWithCapacity:{objc_msgSend(v3, "count")}];
+  v18 = [v2 initWithCapacity:{objc_msgSend(v3, "count")}];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
-  v21 = a1;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v20 = a1;
   obj = [*(a1 + 40) accounts];
-  v4 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v4 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v4)
   {
     v5 = v4;
-    v20 = *v27;
+    v19 = *v26;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v27 != v20)
+        if (*v26 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v26 + 1) + 8 * i);
+        v7 = *(*(&v25 + 1) + 8 * i);
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
-        v8 = [*(v21 + 32) accounts];
-        v9 = [v8 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v8 = [*(v20 + 32) accounts];
+        v9 = [v8 countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v23;
+          v11 = *v22;
           while (2)
           {
             for (j = 0; j != v10; ++j)
             {
-              if (*v23 != v11)
+              if (*v22 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = [*(*(&v22 + 1) + 8 * j) identifier];
+              v13 = [*(*(&v21 + 1) + 8 * j) identifier];
               v14 = [v7 identifier];
               v15 = [v13 isEqualToString:v14];
 
               if (v15)
               {
-                [v19 addObject:v7];
+                [v18 addObject:v7];
                 goto LABEL_16;
               }
             }
 
-            v10 = [v8 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v21 objects:v29 count:16];
             if (v10)
             {
               continue;
@@ -462,17 +458,15 @@ void __83__NMCUICloudNotificationOnboardingViewController_accountDataSourceAccou
 LABEL_16:
       }
 
-      v5 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v5 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v5);
   }
 
-  [*(v21 + 32) setAccounts:v19];
-  v16 = [*(v21 + 32) tableView];
+  [*(v20 + 32) setAccounts:v18];
+  v16 = [*(v20 + 32) tableView];
   [v16 reloadData];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

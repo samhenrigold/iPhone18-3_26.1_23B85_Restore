@@ -1218,38 +1218,7 @@ void __74__VEFrameProcessor_processWithCommandBuffer_parameters_completionHandle
   v16.super_class = VEFrameProcessor;
   v2 = [(VEFrameProcessor *)&v16 init];
   v3 = v2;
-  if (!v2)
-  {
-    goto LABEL_6;
-  }
-
-  opticalFlow = v2->_opticalFlow;
-  v2->_opticalFlow = 0;
-
-  vsaProcessor = v3->_vsaProcessor;
-  v3->_vsaProcessor = 0;
-
-  frcProcessor = v3->_frcProcessor;
-  v3->_frcProcessor = 0;
-
-  vsrProcessor = v3->_vsrProcessor;
-  v3->_vsrProcessor = 0;
-
-  VELoggerInit(16, 0);
-  v8 = dispatch_queue_create("Process Frame  Dispatch Queue", 0);
-  processFrameQueue = v3->_processFrameQueue;
-  v3->_processFrameQueue = v8;
-
-  if (!v3->_processFrameQueue)
-  {
-    goto LABEL_6;
-  }
-
-  v10 = MTLCreateSystemDefaultDevice();
-  device = v3->_device;
-  v3->_device = v10;
-
-  if (v3->_device)
+  if (v2 && (opticalFlow = v2->_opticalFlow, v2->_opticalFlow = 0, opticalFlow, vsaProcessor = v3->_vsaProcessor, v3->_vsaProcessor = 0, vsaProcessor, frcProcessor = v3->_frcProcessor, v3->_frcProcessor = 0, frcProcessor, vsrProcessor = v3->_vsrProcessor, v3->_vsrProcessor = 0, vsrProcessor, VELoggerInit(16, 0), v8 = dispatch_queue_create("Process Frame  Dispatch Queue", 0), processFrameQueue = v3->_processFrameQueue, v3->_processFrameQueue = v8, processFrameQueue, v3->_processFrameQueue) && (v10 = MTLCreateSystemDefaultDevice(), device = v3->_device, v3->_device = v10, device, v3->_device))
   {
     v3->_sharedEventListLock._os_unfair_lock_opaque = 0;
     v3->_sharedEventListTearingDown = 0;
@@ -1264,7 +1233,6 @@ void __74__VEFrameProcessor_processWithCommandBuffer_parameters_completionHandle
 
   else
   {
-LABEL_6:
     v14 = 0;
   }
 

@@ -80,7 +80,7 @@
   return result;
 }
 
-- (unint64_t)addNewValue:(unint64_t *)a3 .cold.1(uint64_t a1, id *a2, unint64_t *a3)
+- (void)addNewValue:(unint64_t *)a3 .cold.1(uint64_t a1, id *a2, unint64_t *a3)
 {
   v6 = 0;
   v7 = 0;

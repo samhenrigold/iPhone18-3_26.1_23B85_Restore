@@ -416,73 +416,70 @@ void __46__MOWeatherManager__rehydrateWeather_handler___block_invoke_109(uint64_
 
 void __46__MOWeatherManager__rehydrateWeather_handler___block_invoke_cold_1(uint64_t a1, id *a2, NSObject *a3)
 {
-  v6 = *(a1 + 40);
-  v7 = objc_opt_class();
-  v8 = NSStringFromClass(v7);
-  v9 = NSStringFromSelector(*(a1 + 88));
-  v10 = [*a2 eventIdentifier];
-  v11 = [*a2 predominantWeather];
-  v12 = [v11 weatherSummary];
-  v13 = [*a2 predominantWeather];
-  v14 = [v13 startDate];
-  v15 = [*a2 predominantWeather];
-  v16 = [v15 endDate];
-  v17 = 138413570;
-  v18 = v8;
-  v19 = 2112;
-  v20 = v9;
-  v21 = 2112;
-  v22 = v10;
-  v23 = 2112;
-  v24 = v12;
-  v25 = 2112;
-  v26 = v14;
-  v27 = 2112;
-  v28 = v16;
-  _os_log_debug_impl(&_mh_execute_header, a3, OS_LOG_TYPE_DEBUG, "%@, %@, Just finished processing weather rehydrate for the event %@, weather condition for the first hour is %@ between %@ and %@ ", &v17, 0x3Eu);
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  v8 = NSStringFromSelector(*(a1 + 88));
+  v9 = [*a2 eventIdentifier];
+  v10 = [*a2 predominantWeather];
+  v11 = [v10 weatherSummary];
+  v12 = [*a2 predominantWeather];
+  v13 = [v12 startDate];
+  v14 = [*a2 predominantWeather];
+  v15 = [v14 endDate];
+  v16 = 138413570;
+  v17 = v7;
+  v18 = 2112;
+  v19 = v8;
+  v20 = 2112;
+  v21 = v9;
+  v22 = 2112;
+  v23 = v11;
+  v24 = 2112;
+  v25 = v13;
+  v26 = 2112;
+  v27 = v15;
+  _os_log_debug_impl(&_mh_execute_header, a3, OS_LOG_TYPE_DEBUG, "%@, %@, Just finished processing weather rehydrate for the event %@, weather condition for the first hour is %@ between %@ and %@ ", &v16, 0x3Eu);
 }
 
 void __46__MOWeatherManager__rehydrateWeather_handler___block_invoke_cold_2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v5 = *(a1 + 40);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = NSStringFromSelector(*(a1 + 88));
-  v9 = [*(a1 + 32) eventIdentifier];
-  v10 = [*(a1 + 32) predominantWeather];
-  v11 = [v10 weatherSummary];
-  v12 = [*(a1 + 32) predominantWeather];
-  v13 = [v12 startDate];
-  v14 = [*(a1 + 32) predominantWeather];
-  v15 = [v14 endDate];
+  v5 = objc_opt_class();
+  v6 = NSStringFromClass(v5);
+  v7 = NSStringFromSelector(*(a1 + 88));
+  v8 = [*(a1 + 32) eventIdentifier];
+  v9 = [*(a1 + 32) predominantWeather];
+  v10 = [v9 weatherSummary];
+  v11 = [*(a1 + 32) predominantWeather];
+  v12 = [v11 startDate];
+  v13 = [*(a1 + 32) predominantWeather];
+  v14 = [v13 endDate];
   *buf = 138413826;
-  v18 = v7;
-  v19 = 2112;
-  v20 = v8;
-  v21 = 2112;
-  v22 = a2;
-  v23 = 2112;
-  v24 = v9;
-  v25 = 2112;
-  v26 = v11;
-  v27 = 2112;
-  v28 = v13;
-  v29 = 2112;
-  v30 = v15;
+  v17 = v6;
+  v18 = 2112;
+  v19 = v7;
+  v20 = 2112;
+  v21 = a2;
+  v22 = 2112;
+  v23 = v8;
+  v24 = 2112;
+  v25 = v10;
+  v26 = 2112;
+  v27 = v12;
+  v28 = 2112;
+  v29 = v14;
   _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "%@, %@, error %@ fetching weather for the event %@, weather condition for the first hour is %@ between %@ and %@ ", buf, 0x48u);
 }
 
 void __46__MOWeatherManager__rehydrateWeather_handler___block_invoke_109_cold_1(uint64_t a1, NSObject *a2)
 {
-  v4 = *(a1 + 32);
-  v5 = objc_opt_class();
-  v6 = NSStringFromClass(v5);
-  v7 = NSStringFromSelector(*(a1 + 88));
-  v8 = 138412546;
-  v9 = v6;
-  v10 = 2112;
-  v11 = v7;
-  _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "%@, %@, nil handler", &v8, 0x16u);
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = NSStringFromSelector(*(a1 + 88));
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "%@, %@, nil handler", &v7, 0x16u);
 }
 
 @end

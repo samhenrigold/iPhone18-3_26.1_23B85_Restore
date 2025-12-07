@@ -15,7 +15,7 @@
 
 - (_SFPBRFVisualPropertyWithAction)initWithFacade:(id)facade
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBRFVisualPropertyWithAction *)self init];
   if (v5)
@@ -31,33 +31,33 @@
       v7 = 0;
     }
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     visual_elements2 = [facadeCopy visual_elements];
-    v9 = [visual_elements2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v9 = [visual_elements2 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v21;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(visual_elements2);
           }
 
-          v13 = [[_SFPBRFVisualElement alloc] initWithFacade:*(*(&v21 + 1) + 8 * i)];
+          v13 = [[_SFPBRFVisualElement alloc] initWithFacade:*(*(&v20 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [visual_elements2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v10 = [visual_elements2 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v10);
@@ -82,49 +82,48 @@
     v18 = v5;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBRFVisualPropertyWithAction)initWithDictionary:(id)dictionary
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v25.receiver = self;
-  v25.super_class = _SFPBRFVisualPropertyWithAction;
-  v5 = [(_SFPBRFVisualPropertyWithAction *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = _SFPBRFVisualPropertyWithAction;
+  v5 = [(_SFPBRFVisualPropertyWithAction *)&v24 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"visualElements"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v23 = 0u;
-      v24 = 0u;
-      v21 = 0u;
       v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       v7 = v6;
-      v8 = [v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v20 objects:v25 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v22;
+        v10 = *v21;
         do
         {
           v11 = 0;
           do
           {
-            if (*v22 != v10)
+            if (*v21 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v21 + 1) + 8 * v11);
+            v12 = *(*(&v20 + 1) + 8 * v11);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
               v13 = [_SFPBRFVisualElement alloc];
-              v14 = [(_SFPBRFVisualElement *)v13 initWithDictionary:v12, v21];
+              v14 = [(_SFPBRFVisualElement *)v13 initWithDictionary:v12, v20];
               [(_SFPBRFVisualPropertyWithAction *)v5 addVisual_elements:v14];
             }
 
@@ -132,14 +131,14 @@
           }
 
           while (v9 != v11);
-          v9 = [v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v20 objects:v25 count:16];
         }
 
         while (v9);
       }
     }
 
-    v15 = [dictionaryCopy objectForKeyedSubscript:{@"isSafeForLogging", v21}];
+    v15 = [dictionaryCopy objectForKeyedSubscript:{@"isSafeForLogging", v20}];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -157,7 +156,6 @@
     v18 = v5;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -197,7 +195,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_commandItem)
   {
@@ -224,26 +222,26 @@
   if ([(NSArray *)self->_visual_elements count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v9 = self->_visual_elements;
-    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          dictionaryRepresentation2 = [*(*(&v18 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v17 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation2)
           {
             [array addObject:dictionaryRepresentation2];
@@ -256,7 +254,7 @@
           }
         }
 
-        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v11);
@@ -264,8 +262,6 @@
 
     [dictionary setObject:array forKeyedSubscript:@"visualElements"];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -362,35 +358,34 @@ LABEL_14:
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   visual_elements = [(_SFPBRFVisualPropertyWithAction *)self visual_elements];
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v6 = [visual_elements countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [visual_elements countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(visual_elements);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [visual_elements countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [visual_elements countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -406,8 +401,6 @@ LABEL_14:
   {
     PBDataWriterWriteSubmessage();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addVisual_elements:(id)visual_elements
@@ -430,9 +423,7 @@ LABEL_14:
 
 - (void)setVisual_elements:(id)visual_elements
 {
-  v4 = [visual_elements copy];
-  visual_elements = self->_visual_elements;
-  self->_visual_elements = v4;
+  self->_visual_elements = [visual_elements copy];
 
   MEMORY[0x1EEE66BB8]();
 }

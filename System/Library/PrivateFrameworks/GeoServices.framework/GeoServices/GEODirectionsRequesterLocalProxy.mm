@@ -107,7 +107,6 @@ LABEL_18:
 
 - (void)startRequest:(id)request traits:(id)traits auditToken:(id)token useBackgroundURL:(BOOL)l requestPriority:(id)priority callbackQueue:(id)queue finished:(id)finished networkActivity:(id)self0 error:(id)self1
 {
-  lCopy = l;
   requestCopy = request;
   traitsCopy = traits;
   tokenCopy = token;
@@ -121,45 +120,37 @@ LABEL_18:
     activityCopy[2](activityCopy, 1);
   }
 
-  v23 = GEOGreenTeaGetLog();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO) && [requestCopy hasGreenTeaWithValue:1])
+  v22 = GEOGreenTeaGetLog();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO) && [requestCopy hasGreenTeaWithValue:1])
   {
     GEOGreenTeaLog();
   }
 
-  v24 = off_100080880;
-  if (!lCopy)
-  {
-    v24 = off_100080888;
-  }
-
-  v25 = *v24;
-  v51 = priorityCopy;
-  v26 = [objc_alloc(objc_opt_class()) initWithRequest:requestCopy requestPriority:priorityCopy];
-  v27 = +[GEOExperimentConfiguration sharedConfiguration];
-  _mapsAbClientMetadata = [v27 _mapsAbClientMetadata];
+  v47 = priorityCopy;
+  v23 = [objc_alloc(objc_opt_class()) initWithRequest:requestCopy requestPriority:priorityCopy];
+  v24 = +[GEOExperimentConfiguration sharedConfiguration];
+  _mapsAbClientMetadata = [v24 _mapsAbClientMetadata];
   clientDatasetMetadata = [_mapsAbClientMetadata clientDatasetMetadata];
   [requestCopy setAbClientMetadata:clientDatasetMetadata];
 
   bundleId = [tokenCopy bundleId];
-  LODWORD(v27) = [bundleId isEqualToString:MapsAppBundleId];
+  LODWORD(v24) = [bundleId isEqualToString:MapsAppBundleId];
 
-  if (v27)
+  if (v24)
   {
-    v31 = [GEOLocalTime alloc];
-    v32 = +[NSDate date];
-    v33 = [v31 initWithDate:v32];
+    v28 = [GEOLocalTime alloc];
+    v29 = +[NSDate date];
+    v30 = [v28 initWithDate:v29];
     clientCapabilities = [requestCopy clientCapabilities];
-    [clientCapabilities setRequestTime:v33];
+    [clientCapabilities setRequestTime:v30];
   }
 
   if (![requestCopy serviceTagsCount])
   {
-    v35 = +[GEOGeoServiceTag defaultTag];
-    [requestCopy addServiceTag:v35];
+    v32 = +[GEOGeoServiceTag defaultTag];
+    [requestCopy addServiceTag:v32];
   }
 
-  v36 = GeoServicesConfig_ValidateSensitiveFieldsAtSend_Directions[1];
   if (GEOConfigGetBOOL() && GEODirectionsRequestHasSensitiveFields())
   {
     [requestCopy clearSensitiveFields:0];
@@ -172,44 +163,44 @@ LABEL_18:
 
     if (!hasPrivacyMetadata)
     {
-      goto LABEL_19;
+      goto LABEL_17;
     }
 
     privacyMetadata = [traitsCopy privacyMetadata];
-    v39 = [privacyMetadata copy];
-    [requestCopy setPrivacyMetadata:v39];
+    v35 = [privacyMetadata copy];
+    [requestCopy setPrivacyMetadata:v35];
   }
 
-LABEL_19:
+LABEL_17:
   familiarWaypointRoute = [requestCopy familiarWaypointRoute];
   familarRouteUuid = [familiarWaypointRoute familarRouteUuid];
 
   familiarWaypointRoute2 = [requestCopy familiarWaypointRoute];
   [familiarWaypointRoute2 setFamilarRouteUuid:0];
 
-  v43 = 0;
+  v39 = 0;
   if ([requestCopy hasPredictedDepartureTimeDelta])
   {
     [requestCopy predictedDepartureTimeDelta];
-    v43 = [NSNumber numberWithDouble:?];
+    v39 = [NSNumber numberWithDouble:?];
     [requestCopy setHasPredictedDepartureTimeDelta:0];
   }
 
-  v52[0] = _NSConcreteStackBlock;
-  v52[1] = 3221225472;
-  v52[2] = sub_100046D5C;
-  v52[3] = &unk_100083578;
-  v55 = activityCopy;
-  v56 = finishedCopy;
-  v53 = familarRouteUuid;
-  v54 = v43;
-  v57 = errorCopy;
-  v44 = errorCopy;
-  v45 = v43;
-  v46 = familarRouteUuid;
-  v47 = finishedCopy;
-  v48 = activityCopy;
-  [(GEODirectionsRequesterLocalProxy *)self _startWithRequest:requestCopy traits:traitsCopy auditToken:tokenCopy config:v26 throttleToken:0 options:0 completionHandler:v52];
+  v48[0] = _NSConcreteStackBlock;
+  v48[1] = 3221225472;
+  v48[2] = sub_100046D5C;
+  v48[3] = &unk_100083578;
+  v51 = activityCopy;
+  v52 = finishedCopy;
+  v49 = familarRouteUuid;
+  v50 = v39;
+  v53 = errorCopy;
+  v40 = errorCopy;
+  v41 = v39;
+  v42 = familarRouteUuid;
+  v43 = finishedCopy;
+  v44 = activityCopy;
+  [(GEODirectionsRequesterLocalProxy *)self _startWithRequest:requestCopy traits:traitsCopy auditToken:tokenCopy config:v23 throttleToken:0 options:0 completionHandler:v48];
 }
 
 - (GEODirectionsRequesterLocalProxy)init

@@ -32,8 +32,8 @@
 + (id)_requestFromActivity:(id)activity
 {
   activityCopy = activity;
-  launchReason = [activityCopy launchReason];
-  v5 = [launchReason isEqualToString:*MEMORY[0x1E699A548]];
+  v4 = objc_msgSend_launchReason(activityCopy);
+  v5 = [v4 isEqualToString:*MEMORY[0x1E699A548]];
 
   if (v5)
   {
@@ -43,8 +43,8 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  launchReason2 = [activityCopy launchReason];
-  v8 = [launchReason2 isEqualToString:*MEMORY[0x1E699A568]];
+  v7 = objc_msgSend_launchReason(activityCopy);
+  v8 = [v7 isEqualToString:*MEMORY[0x1E699A568]];
 
   if (v8)
   {
@@ -52,8 +52,8 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  launchReason3 = [activityCopy launchReason];
-  v10 = [launchReason3 isEqualToString:*MEMORY[0x1E699A558]];
+  v9 = objc_msgSend_launchReason(activityCopy);
+  v10 = [v9 isEqualToString:*MEMORY[0x1E699A558]];
 
   if (v10)
   {
@@ -61,8 +61,8 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  launchReason4 = [activityCopy launchReason];
-  v12 = [launchReason4 isEqualToString:*MEMORY[0x1E699A560]];
+  v11 = objc_msgSend_launchReason(activityCopy);
+  v12 = [v11 isEqualToString:*MEMORY[0x1E699A560]];
 
   if (v12)
   {
@@ -70,8 +70,8 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  launchReason5 = [activityCopy launchReason];
-  v14 = [launchReason5 isEqualToString:*MEMORY[0x1E699A550]];
+  v13 = objc_msgSend_launchReason(activityCopy);
+  v14 = [v13 isEqualToString:*MEMORY[0x1E699A550]];
 
   if (v14)
   {
@@ -102,13 +102,10 @@ LABEL_12:
 
 + (void)_requestFromActivity:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = a1;
-  v10 = [a2 launchReason];
+  v9 = objc_msgSend_launchReason(a2);
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

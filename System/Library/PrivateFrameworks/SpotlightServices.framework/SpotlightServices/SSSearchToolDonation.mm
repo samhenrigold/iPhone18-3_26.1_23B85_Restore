@@ -10,7 +10,7 @@
   v10.receiver = self;
   v10.super_class = SSSearchToolDonation;
   v2 = [(SSSearchToolDonation *)&v10 init];
-  if (v2 && BiomeLibraryInternalLibraryCore())
+  if (v2 && BiomeLibraryInternalLibraryCore(0))
   {
     v12 = 0;
     v13 = &v12;
@@ -52,7 +52,7 @@
   dataCopy = data;
   timestampCopy = timestamp;
   dCopy = d;
-  if (BiomeLibraryInternalLibraryCore() && self->searchToolTranscriptSource)
+  if (BiomeLibraryInternalLibraryCore(0) && self->searchToolTranscriptSource)
   {
     v18 = 0;
     v19 = &v18;

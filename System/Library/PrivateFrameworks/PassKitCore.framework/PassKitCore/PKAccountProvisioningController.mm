@@ -511,7 +511,7 @@ uint64_t __44__PKAccountProvisioningController_addToIDMS__block_invoke_2(uint64_
       v6 = _Block_copy(aBlock);
       if (!self->_watchConnection)
       {
-        v7 = objc_alloc_init(getNPKCompanionAgentConnectionClass_1[0]());
+        v7 = objc_alloc_init(getNPKCompanionAgentConnectionClass_1());
         watchConnection = self->_watchConnection;
         self->_watchConnection = v7;
       }
@@ -949,9 +949,9 @@ void __57__PKAccountProvisioningController__passLibraryDidChange___block_invoke(
 {
   v8 = [a2 paymentPass];
   v6 = [v8 uniqueID];
-  v7 = [v6 isEqualToString:*(*(a1 + 32) + 72)];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  if (v7)
+  if (isEqualToString)
   {
     *a4 = 1;
     *(*(*(a1 + 40) + 8) + 24) = [objc_opt_class() _isPaymentPassActivated:v8 forAccountCredential:*(*(a1 + 32) + 16)];

@@ -33,6 +33,7 @@
 - (void)TIMED_OUT_IN_STATE_LOCAL_SOURCE_INIT:(id)t SHOULD_ABORT:(BOOL)rT;
 - (void)TIMED_OUT_IN_STATE_REMOVE_EXEC_GRAPHS:(id)s SHOULD_ABORT:(BOOL)t;
 - (void)TIMED_OUT_IN_STATE_STARTING:(id)g SHOULD_ABORT:(BOOL)t;
+- (void)TIMED_OUT_IN_STATE_SYSTEM_GRAPH_INIT:(id)t SHOULD_ABORT:(BOOL)rT;
 - (void)TIMED_OUT_IN_STATE_SYSTEM_GRAPH_NOTIFY:(id)y SHOULD_ABORT:(BOOL)t;
 - (void)armDiagnosticsTimer:(unint64_t)timer;
 - (void)armTimeoutTimer:(unint64_t)timer;
@@ -72,7 +73,7 @@
     transitionCond = v6->_transitionCond;
     v6->_transitionCond = v7;
 
-    v9 = ps_util_create_serial_dispatch_queue("com.apple.polaris.transition_monitor_timer_queue");
+    v9 = ps_util_create_serial_dispatch_queue("com.apple.polaris.transition_monitor_timer_queue", 60);
     timerQueue = v6->_timerQueue;
     v6->_timerQueue = v9;
 
@@ -138,28 +139,28 @@
 void __48__PSTransitionMonitor_updateTransitionCompleted__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = WeakRetained;
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = [WeakRetained transitionCond];
-    [v3 lock];
+    v4 = [WeakRetained transitionCond];
+    [v4 lock];
 
-    [v2 setTransitionState:12];
-    v4 = [v2 transitionCond];
-    [v4 broadcast];
+    [v3 setTransitionState:12];
+    v5 = [v3 transitionCond];
+    [v5 broadcast];
 
-    [v2 cancelTimers];
-    v5 = [v2 transitionCond];
-    [v5 unlock];
+    [v3 cancelTimers];
+    v6 = [v3 transitionCond];
+    [v6 unlock];
   }
 
   else
   {
-    v5 = __PSUtilitiesLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __PSUtilitiesLogSharedInstance(0, v2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "Could not obtain strongSelf.", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "Could not obtain strongSelf.", v7, 2u);
     }
   }
 }
@@ -288,62 +289,60 @@ void __29__PSTransitionMonitor_start___block_invoke_2(uint64_t a1)
 
 - (id)generateErrorForStateStarting
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = *MEMORY[0x277CCA450];
-  v7[1] = @"state";
-  v8[0] = @"Timed out while starting transition.";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = *MEMORY[0x277CCA450];
+  v6[1] = @"state";
+  v7[0] = @"Timed out while starting transition.";
   v2 = [PSTransitionMonitor stateToString:[(PSTransitionMonitor *)self transitionState]];
-  v8[1] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v7[1] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   v4 = [MEMORY[0x277CCA9B8] polarisErrorWithCode:-1 userInfo:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)generateErrorForStateSystemGraphInit
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
-  v37 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v36 = objc_alloc_init(MEMORY[0x277CBEB38]);
   WeakRetained = objc_loadWeakRetained(&self->_transitionManager);
   systemGraphClient = [WeakRetained systemGraphClient];
   requestState = [systemGraphClient requestState];
 
   requestedKeys = [requestState requestedKeys];
   pendingKeys = [requestState pendingKeys];
-  v34 = requestedKeys;
-  v31 = [MEMORY[0x277CBEB58] setWithSet:requestedKeys];
-  v33 = pendingKeys;
-  [v31 minusSet:pendingKeys];
+  v33 = requestedKeys;
+  v30 = [MEMORY[0x277CBEB58] setWithSet:requestedKeys];
+  v32 = pendingKeys;
+  [v30 minusSet:pendingKeys];
   selfCopy = self;
-  v35 = requestState;
+  v34 = requestState;
   v9 = [(PSTransitionMonitor *)self getPendingSystemGraphKeys:requestState];
-  v36 = v3;
+  v35 = v3;
   [v3 appendFormat:@"Timed out waiting for providers. Pending keys: {"];
   v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v11 = v9;
-  v12 = [v11 countByEnumeratingWithState:&v38 objects:v44 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v37 objects:v43 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v39;
+    v14 = *v38;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v39 != v14)
+        if (*v38 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v38 + 1) + 8 * i);
+        v16 = *(*(&v37 + 1) + 8 * i);
         v17 = objc_alloc_init(MEMORY[0x277CCAB68]);
         [v17 appendFormat:@"%@: [", v16];
         v18 = [v11 objectForKeyedSubscript:v16];
@@ -354,124 +353,114 @@ void __29__PSTransitionMonitor_start___block_invoke_2(uint64_t a1)
         [v17 appendFormat:@"]"];
         [v10 addObject:v17];
         v21 = [v11 objectForKeyedSubscript:v16];
-        [v37 setObject:v21 forKeyedSubscript:v16];
+        [v36 setObject:v21 forKeyedSubscript:v16];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v38 objects:v44 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v37 objects:v43 count:16];
     }
 
     while (v13);
   }
 
   v22 = [v10 componentsJoinedByString:{@", "}];
-  [v36 appendString:v22];
+  [v35 appendString:v22];
 
-  [v36 appendFormat:@"}. Completed keys: ["];
-  allObjects2 = [v31 allObjects];
+  [v35 appendFormat:@"}. Completed keys: ["];
+  allObjects2 = [v30 allObjects];
   v24 = [allObjects2 componentsJoinedByString:{@", "}];
-  [v36 appendString:v24];
+  [v35 appendString:v24];
 
-  [v36 appendFormat:@"]."];
+  [v35 appendFormat:@"]."];
   v25 = *MEMORY[0x277CCA450];
-  v43[0] = v36;
-  v42[0] = v25;
-  v42[1] = @"state";
+  v42[0] = v35;
+  v41[0] = v25;
+  v41[1] = @"state";
   v26 = [PSTransitionMonitor stateToString:[(PSTransitionMonitor *)selfCopy transitionState]];
-  v43[1] = v26;
-  v43[2] = v37;
-  v42[2] = @"pending";
-  v42[3] = @"completed";
-  v43[3] = v31;
-  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:4];
+  v42[1] = v26;
+  v42[2] = v36;
+  v41[2] = @"pending";
+  v41[3] = @"completed";
+  v42[3] = v30;
+  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:4];
 
   v28 = [MEMORY[0x277CCA9B8] polarisErrorWithCode:-1 userInfo:v27];
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
 
 - (id)generateErrorForStateDomainResolution
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = *MEMORY[0x277CCA450];
-  v7[1] = @"state";
-  v8[0] = @"Timed out during stream domain resolution.";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = *MEMORY[0x277CCA450];
+  v6[1] = @"state";
+  v7[0] = @"Timed out during stream domain resolution.";
   v2 = [PSTransitionMonitor stateToString:[(PSTransitionMonitor *)self transitionState]];
-  v8[1] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v7[1] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   v4 = [MEMORY[0x277CCA9B8] polarisErrorWithCode:-1 userInfo:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)generateErrorForStateLocalSourceInit
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   [(PSTransitionMonitor *)self lock];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Timed out while initializing local source %@", self->_transitionStateLocalSourceInitCurResource];
   [(PSTransitionMonitor *)self unlock];
-  v9[0] = *MEMORY[0x277CCA450];
-  v9[1] = @"state";
-  v10[0] = v3;
+  v8[0] = *MEMORY[0x277CCA450];
+  v8[1] = @"state";
+  v9[0] = v3;
   v4 = [PSTransitionMonitor stateToString:[(PSTransitionMonitor *)self transitionState]];
-  v10[1] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v9[1] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   v6 = [MEMORY[0x277CCA9B8] polarisErrorWithCode:-1 userInfo:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)generateErrorForStateBufferInit
 {
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   [(PSTransitionMonitor *)self lock];
   v3 = [objc_alloc(MEMORY[0x277CCACA8]) initWithString:self->_transitionStateBufferInitCurResource];
   [(PSTransitionMonitor *)self unlock];
   v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"Timed out while initializing resource %@", v3];
   v5 = *MEMORY[0x277CCA450];
-  v12[0] = v4;
-  v11[0] = v5;
-  v11[1] = @"state";
+  v11[0] = v4;
+  v10[0] = v5;
+  v10[1] = @"state";
   v6 = [PSTransitionMonitor stateToString:[(PSTransitionMonitor *)self transitionState]];
-  v11[2] = @"resource";
-  v12[1] = v6;
-  v12[2] = v3;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v10[2] = @"resource";
+  v11[1] = v6;
+  v11[2] = v3;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   v8 = [MEMORY[0x277CCA9B8] polarisErrorWithCode:-1 userInfo:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)generateErrorForStateGroupedTriggersInit
 {
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   [(PSTransitionMonitor *)self lock];
   v3 = [objc_alloc(MEMORY[0x277CCACA8]) initWithString:self->_transitionStateGroupedTriggersInitCurGST];
   [(PSTransitionMonitor *)self unlock];
   v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"Timed out while initializing GST for graph %@", v3];
   v5 = *MEMORY[0x277CCA450];
-  v12[0] = v4;
-  v11[0] = v5;
-  v11[1] = @"state";
+  v11[0] = v4;
+  v10[0] = v5;
+  v10[1] = @"state";
   v6 = [PSTransitionMonitor stateToString:[(PSTransitionMonitor *)self transitionState]];
-  v11[2] = @"graph";
-  v12[1] = v6;
-  v12[2] = v3;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v10[2] = @"graph";
+  v11[1] = v6;
+  v11[2] = v3;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   v8 = [MEMORY[0x277CCA9B8] polarisErrorWithCode:-1 userInfo:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -537,39 +526,39 @@ void __29__PSTransitionMonitor_start___block_invoke_2(uint64_t a1)
 
 - (id)generateErrorForStateRemoveExecutorGraphs
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v31 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
   [(PSTransitionMonitor *)self lock];
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   selfCopy = self;
   v5 = self->_subGraphsToBeRemoved;
-  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v36 objects:v43 count:16];
+  v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v35 objects:v42 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v37;
+    v8 = *v36;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v37 != v8)
+        if (*v36 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        pointerValue = [*(*(&v36 + 1) + 8 * i) pointerValue];
+        pointerValue = [*(*(&v35 + 1) + 8 * i) pointerValue];
         if (pointerValue)
         {
           v11 = pointerValue;
           if (*(pointerValue + 16) != 5)
           {
             v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:pointerValue + 113];
-            [v31 addObject:v12];
+            [v30 addObject:v12];
 
             v13 = [(PSTransitionMonitor *)selfCopy getThreadPoolInfo:*(v11 + 6792) forSubgraph:v11];
             v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", *(v11 + 6792) + 72];
@@ -578,43 +567,43 @@ void __29__PSTransitionMonitor_start___block_invoke_2(uint64_t a1)
         }
       }
 
-      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v36 objects:v43 count:16];
+      v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v35 objects:v42 count:16];
     }
 
     while (v7);
   }
 
-  v15 = [v31 componentsJoinedByString:{@", "}];
+  v15 = [v30 componentsJoinedByString:{@", "}];
   v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"Timed out while removing graphs. Pending: [%@].", v15];
   [v3 setString:v16];
 
   if ([v4 count])
   {
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     allKeys = [v4 allKeys];
-    v18 = [allKeys countByEnumeratingWithState:&v32 objects:v42 count:16];
+    v18 = [allKeys countByEnumeratingWithState:&v31 objects:v41 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v33;
+      v20 = *v32;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v33 != v20)
+          if (*v32 != v20)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v22 = *(*(&v32 + 1) + 8 * j);
+          v22 = *(*(&v31 + 1) + 8 * j);
           v23 = [v4 valueForKey:v22];
           [v3 appendFormat:@"\nThread pool: %@\n{\n%@}", v22, v23];
         }
 
-        v19 = [allKeys countByEnumeratingWithState:&v32 objects:v42 count:16];
+        v19 = [allKeys countByEnumeratingWithState:&v31 objects:v41 count:16];
       }
 
       while (v19);
@@ -623,117 +612,105 @@ void __29__PSTransitionMonitor_start___block_invoke_2(uint64_t a1)
 
   [(PSTransitionMonitor *)selfCopy unlock];
   v24 = *MEMORY[0x277CCA450];
-  v41[0] = v3;
-  v40[0] = v24;
-  v40[1] = @"state";
+  v40[0] = v3;
+  v39[0] = v24;
+  v39[1] = @"state";
   v25 = [PSTransitionMonitor stateToString:[(PSTransitionMonitor *)selfCopy transitionState]];
-  v40[2] = @"graphs";
-  v41[1] = v25;
-  v41[2] = v31;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:3];
+  v39[2] = @"graphs";
+  v40[1] = v25;
+  v40[2] = v30;
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:3];
 
   v27 = [MEMORY[0x277CCA9B8] polarisErrorWithCode:-1 userInfo:v26];
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
 
 - (id)generateErrorForStateAddExecutorGraphs
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = *MEMORY[0x277CCA450];
-  v7[1] = @"state";
-  v8[0] = @"Timed out trying to add graphs.";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = *MEMORY[0x277CCA450];
+  v6[1] = @"state";
+  v7[0] = @"Timed out trying to add graphs.";
   v2 = [PSTransitionMonitor stateToString:[(PSTransitionMonitor *)self transitionState]];
-  v8[1] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v7[1] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   v4 = [MEMORY[0x277CCA9B8] polarisErrorWithCode:-1 userInfo:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)generateErrorForStateGroupedTriggersDeinit
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = *MEMORY[0x277CCA450];
-  v7[1] = @"state";
-  v8[0] = @"Timed out during GST deinitialization.";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = *MEMORY[0x277CCA450];
+  v6[1] = @"state";
+  v7[0] = @"Timed out during GST deinitialization.";
   v2 = [PSTransitionMonitor stateToString:[(PSTransitionMonitor *)self transitionState]];
-  v8[1] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v7[1] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   v4 = [MEMORY[0x277CCA9B8] polarisErrorWithCode:-1 userInfo:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)generateErrorForStateBufferDeinit
 {
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   [(PSTransitionMonitor *)self lock];
   v3 = [objc_alloc(MEMORY[0x277CCACA8]) initWithString:self->_transitionStateBufferDeinitCurResource];
   [(PSTransitionMonitor *)self unlock];
   v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"Timed out while deinitializing resource %@", v3];
   v5 = *MEMORY[0x277CCA450];
-  v12[0] = v4;
-  v11[0] = v5;
-  v11[1] = @"state";
+  v11[0] = v4;
+  v10[0] = v5;
+  v10[1] = @"state";
   v6 = [PSTransitionMonitor stateToString:[(PSTransitionMonitor *)self transitionState]];
-  v11[2] = @"resource";
-  v12[1] = v6;
-  v12[2] = v3;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v10[2] = @"resource";
+  v11[1] = v6;
+  v11[2] = v3;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   v8 = [MEMORY[0x277CCA9B8] polarisErrorWithCode:-1 userInfo:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)generateErrorForStateLocalSourceDeinit
 {
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   [(PSTransitionMonitor *)self lock];
   v3 = [objc_alloc(MEMORY[0x277CCACA8]) initWithString:self->_transitionStateLocalSourceDeinitCurResource];
   [(PSTransitionMonitor *)self unlock];
   v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"Timed out while deinitializing local source %@", v3];
   v5 = *MEMORY[0x277CCA450];
-  v12[0] = v4;
-  v11[0] = v5;
-  v11[1] = @"state";
+  v11[0] = v4;
+  v10[0] = v5;
+  v10[1] = @"state";
   v6 = [PSTransitionMonitor stateToString:[(PSTransitionMonitor *)self transitionState]];
-  v11[2] = @"source";
-  v12[1] = v6;
-  v12[2] = v3;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v10[2] = @"source";
+  v11[1] = v6;
+  v11[2] = v3;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   v8 = [MEMORY[0x277CCA9B8] polarisErrorWithCode:-1 userInfo:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 - (id)generateErrorForStateSysGraphNotify
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = *MEMORY[0x277CCA450];
-  v7[1] = @"state";
-  v8[0] = @"Timed out during system graph completion notification.";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = *MEMORY[0x277CCA450];
+  v6[1] = @"state";
+  v7[0] = @"Timed out during system graph completion notification.";
   v2 = [PSTransitionMonitor stateToString:[(PSTransitionMonitor *)self transitionState]];
-  v8[1] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v7[1] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   v4 = [MEMORY[0x277CCA9B8] polarisErrorWithCode:-1 userInfo:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -744,6 +721,53 @@ void __29__PSTransitionMonitor_start___block_invoke_2(uint64_t a1)
   gCopy = g;
   WeakRetained = objc_loadWeakRetained(&self->_transitionManager);
   _handleTimeoutBranching(WeakRetained, gCopy, tCopy);
+}
+
+- (void)TIMED_OUT_IN_STATE_SYSTEM_GRAPH_INIT:(id)t SHOULD_ABORT:(BOOL)rT
+{
+  rTCopy = rT;
+  tCopy = t;
+  WeakRetained = objc_loadWeakRetained(&self->_transitionManager);
+  systemGraphClient = [WeakRetained systemGraphClient];
+  requestState = [systemGraphClient requestState];
+
+  v9 = [(PSTransitionMonitor *)self getPendingSystemGraphKeys:requestState];
+  allKeys = [v9 allKeys];
+  v11 = [allKeys count];
+
+  if (v11 == 1)
+  {
+    allKeys2 = [v9 allKeys];
+    v13 = [allKeys2 objectAtIndexedSubscript:0];
+
+    v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"CameraProvider"];
+    v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"ARAlgorithmProvider"];
+    v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"CalibrationProvider"];
+    if ([v13 isEqualToString:v14])
+    {
+      [(PSTransitionMonitor *)self NO_RESPONSE_FROM_REALITYCAMERA_TO_START_CAMERAS:tCopy SHOULD_ABORT:rTCopy];
+    }
+
+    else if ([v13 isEqualToString:v15])
+    {
+      [(PSTransitionMonitor *)self NO_RESPONSE_FROM_ARKIT_TO_START_RESOURCES:tCopy SHOULD_ABORT:rTCopy];
+    }
+
+    else if ([v13 isEqualToString:v16])
+    {
+      [(PSTransitionMonitor *)self NO_RESPONSE_FROM_CVCAL_TO_START_RESOURCES:tCopy SHOULD_ABORT:rTCopy];
+    }
+
+    else
+    {
+      [(PSTransitionMonitor *)self NO_RESPONSE_FROM_ARBITRARY_PRODUCER_TO_START_RESOURCES:tCopy SHOULD_ABORT:rTCopy];
+    }
+  }
+
+  else
+  {
+    [(PSTransitionMonitor *)self NO_RESPONSE_FROM_MULTIPLE_PRODUCERS_TO_START_RESOURCES:tCopy SHOULD_ABORT:rTCopy];
+  }
 }
 
 - (void)NO_RESPONSE_FROM_REALITYCAMERA_TO_START_CAMERAS:(id)s SHOULD_ABORT:(BOOL)t
@@ -868,34 +892,34 @@ void __29__PSTransitionMonitor_start___block_invoke_2(uint64_t a1)
 
 - (id)getPendingSystemGraphKeys:(id)keys
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   WeakRetained = objc_loadWeakRetained(&self->_transitionManager);
   executionSession = [WeakRetained executionSession];
   context = [executionSession context];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
-  v20 = keysCopy;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v19 = keysCopy;
   pendingKeys = [keysCopy pendingKeys];
-  v10 = [pendingKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v10 = [pendingKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v22;
+    v12 = *v21;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(pendingKeys);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
+        v14 = *(*(&v20 + 1) + 8 * i);
         v15 = [context producingExecutionSessionForResourceKey:v14];
         if (v15)
         {
@@ -917,13 +941,11 @@ void __29__PSTransitionMonitor_start___block_invoke_2(uint64_t a1)
         [v17 addObject:v14];
       }
 
-      v11 = [pendingKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [pendingKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v11);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -937,22 +959,22 @@ void __29__PSTransitionMonitor_start___block_invoke_2(uint64_t a1)
 
 + (uint64_t)stateToString:(char *)a1 .cold.1(char **a1, int a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Unknown state received: %u", a2);
-  v3 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v3))
+  v3 = asprintf(a1, "Unknown state received: %u", a2);
+  v4 = __PLSLogSharedInstance(v3);
+  if (OUTLINED_FUNCTION_5(v4))
   {
-    OUTLINED_FUNCTION_10_0(&dword_25EA3A000, v4, v5, "%s:%d Unknown state received: %u", v6, v7, v8, v9, v20, v21, 2u);
+    OUTLINED_FUNCTION_10_0(&dword_25EA3A000, v5, v6, "%s:%d Unknown state received: %u", v7, v8, v9, v10, v22, v23);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v10 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v10))
+    v12 = __PLSLogSharedInstance(v11);
+    if (OUTLINED_FUNCTION_6(v12))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v11, v12, "%s() failed to flush buffers with error code: %d", v13, v14, v15, v16, v20, v21, buf);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v22, v23);
     }
   }
 
@@ -961,30 +983,30 @@ void __29__PSTransitionMonitor_start___block_invoke_2(uint64_t a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v17 = OUTLINED_FUNCTION_0();
-  return [(PSTransitionMonitor *)v17 getError];
+  v19 = OUTLINED_FUNCTION_0();
+  return [(PSTransitionMonitor *)v19 getError];
 }
 
 - (uint64_t)getError
 {
-  v25 = *MEMORY[0x277D85DE8];
   *self = 0;
   v5 = a2;
-  asprintf(self, "Could not generate error for state %s", [a2 UTF8String]);
-  v6 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v6))
+  v6 = asprintf(self, "Could not generate error for state %s", [a2 UTF8String]);
+  v7 = __PLSLogSharedInstance(v6);
+  if (OUTLINED_FUNCTION_5(v7))
   {
     [a2 UTF8String];
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d Could not generate error for state %s", v9, v10, v11, v12, v22, v23, 2u);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Could not generate error for state %s", v10, v11, v12, v13, v24, v25);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v13 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
+    v15 = __PLSLogSharedInstance(v14);
+    if (OUTLINED_FUNCTION_6(v15))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23, buf);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21, v24, v25);
     }
   }
 
@@ -993,27 +1015,36 @@ void __29__PSTransitionMonitor_start___block_invoke_2(uint64_t a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v20 = OUTLINED_FUNCTION_0();
-  return [PSTransitionMonitor generateErrorForState:v20];
+  v22 = OUTLINED_FUNCTION_0();
+  return [PSTransitionMonitor generateErrorForState:v22];
 }
 
 - (uint64_t)generateErrorForState:(char *)a1 .cold.1(char **a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Received state Completed in transition timeout.");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "Received state Completed in transition timeout.");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v3, v4, "%s:%d Received state Completed in transition timeout.", v5, v6, v7, v8, 2u);
+    *v23 = 136315394;
+    *&v23[4] = "[PSTransitionMonitor generateErrorForState:]";
+    *&v23[12] = 1024;
+    *&v23[14] = 295;
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Received state Completed in transition timeout.", v6, v7, v8, v9, *v23, *&v23[8], *&v23[16]);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v11 = v10;
+    v12 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v12))
     {
-      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, 2u);
+      *v22 = 136315394;
+      *&v22[4] = "[PSTransitionMonitor generateErrorForState:]";
+      *&v22[12] = 1024;
+      *&v22[14] = v11;
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, *v22, *&v22[8], *&v22[16]);
     }
   }
 
@@ -1022,28 +1053,28 @@ void __29__PSTransitionMonitor_start___block_invoke_2(uint64_t a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return [(PSTransitionMonitor *)v16 generateErrorForState:v17];
+  v19 = OUTLINED_FUNCTION_0();
+  return [(PSTransitionMonitor *)v19 generateErrorForState:v20];
 }
 
 - (uint64_t)generateErrorForState:(char *)a1 .cold.2(char **a1, int a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Unknown state received: %u", a2);
-  v3 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v3))
+  v3 = asprintf(a1, "Unknown state received: %u", a2);
+  v4 = __PLSLogSharedInstance(v3);
+  if (OUTLINED_FUNCTION_5(v4))
   {
-    OUTLINED_FUNCTION_10_0(&dword_25EA3A000, v4, v5, "%s:%d Unknown state received: %u", v6, v7, v8, v9, v19, v20, 2u);
+    OUTLINED_FUNCTION_10_0(&dword_25EA3A000, v5, v6, "%s:%d Unknown state received: %u", v7, v8, v9, v10, v21, v22);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v10 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v10))
+    v12 = __PLSLogSharedInstance(v11);
+    if (OUTLINED_FUNCTION_6(v12))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v11, v12, "%s() failed to flush buffers with error code: %d", v13, v14, v15, v16, v19, v20, buf);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v21, v22);
     }
   }
 
@@ -1052,27 +1083,36 @@ void __29__PSTransitionMonitor_start___block_invoke_2(uint64_t a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v17 = OUTLINED_FUNCTION_0();
-  return [PSTransitionMonitor GRAPH_TRANSITION_TIMED_OUT:v17 WITH_ERROR:? SHOULD_ABORT:?];
+  v19 = OUTLINED_FUNCTION_0();
+  return [PSTransitionMonitor GRAPH_TRANSITION_TIMED_OUT:v19 WITH_ERROR:? SHOULD_ABORT:?];
 }
 
 - (uint64_t)GRAPH_TRANSITION_TIMED_OUT:(char *)a1 WITH_ERROR:SHOULD_ABORT:.cold.1(char **a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Received state Completed in transition timeout.");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "Received state Completed in transition timeout.");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v3, v4, "%s:%d Received state Completed in transition timeout.", v5, v6, v7, v8, 2u);
+    *v23 = 136315394;
+    *&v23[4] = "[PSTransitionMonitor GRAPH_TRANSITION_TIMED_OUT:WITH_ERROR:SHOULD_ABORT:]";
+    *&v23[12] = 1024;
+    *&v23[14] = 653;
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Received state Completed in transition timeout.", v6, v7, v8, v9, *v23, *&v23[8], *&v23[16]);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v11 = v10;
+    v12 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v12))
     {
-      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, 2u);
+      *v22 = 136315394;
+      *&v22[4] = "[PSTransitionMonitor GRAPH_TRANSITION_TIMED_OUT:WITH_ERROR:SHOULD_ABORT:]";
+      *&v22[12] = 1024;
+      *&v22[14] = v11;
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, *v22, *&v22[8], *&v22[16]);
     }
   }
 
@@ -1081,28 +1121,28 @@ void __29__PSTransitionMonitor_start___block_invoke_2(uint64_t a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return [PSTransitionMonitor GRAPH_TRANSITION_TIMED_OUT:v16 WITH_ERROR:v17 SHOULD_ABORT:?];
+  v19 = OUTLINED_FUNCTION_0();
+  return [PSTransitionMonitor GRAPH_TRANSITION_TIMED_OUT:v19 WITH_ERROR:v20 SHOULD_ABORT:?];
 }
 
 - (uint64_t)GRAPH_TRANSITION_TIMED_OUT:(char *)a1 WITH_ERROR:(int)a2 SHOULD_ABORT:.cold.2(char **a1, int a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Unknown state received: %u", a2);
-  v3 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v3))
+  v3 = asprintf(a1, "Unknown state received: %u", a2);
+  v4 = __PLSLogSharedInstance(v3);
+  if (OUTLINED_FUNCTION_5(v4))
   {
-    OUTLINED_FUNCTION_10_0(&dword_25EA3A000, v4, v5, "%s:%d Unknown state received: %u", v6, v7, v8, v9, v20, v21, 2u);
+    OUTLINED_FUNCTION_10_0(&dword_25EA3A000, v5, v6, "%s:%d Unknown state received: %u", v7, v8, v9, v10, v22, v23);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v10 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v10))
+    v12 = __PLSLogSharedInstance(v11);
+    if (OUTLINED_FUNCTION_6(v12))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v11, v12, "%s() failed to flush buffers with error code: %d", v13, v14, v15, v16, v20, v21, buf);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v22, v23);
     }
   }
 
@@ -1111,8 +1151,8 @@ void __29__PSTransitionMonitor_start___block_invoke_2(uint64_t a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v17 = OUTLINED_FUNCTION_0();
-  return _handleTimeoutBranching_cold_1(v17, v18);
+  v19 = OUTLINED_FUNCTION_0();
+  return _handleTimeoutBranching_cold_1(v19, v20);
 }
 
 @end

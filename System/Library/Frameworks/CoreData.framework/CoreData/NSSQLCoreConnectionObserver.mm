@@ -5,7 +5,7 @@
 
 uint64_t __63___NSSQLCoreConnectionObserver_initWithSQLCore_andCoordinator___block_invoke(uint64_t a1, int a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v4 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   state64 = 0;
@@ -39,9 +39,9 @@ uint64_t __63___NSSQLCoreConnectionObserver_initWithSQLCore_andCoordinator___blo
         {
           v12 = [(os_unfair_lock_s *)v7 identifier];
           *buf = 138412546;
-          v28 = v12;
-          v29 = 2048;
-          v30 = state64;
+          v27 = v12;
+          v28 = 2048;
+          v29 = state64;
           _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Remote Change Notification - observer received for  %@ with state %lld\n", buf, 0x16u);
         }
       }
@@ -53,9 +53,9 @@ uint64_t __63___NSSQLCoreConnectionObserver_initWithSQLCore_andCoordinator___blo
         {
           v14 = [(os_unfair_lock_s *)v7 identifier];
           *buf = 138412546;
-          v28 = v14;
-          v29 = 2048;
-          v30 = state64;
+          v27 = v14;
+          v28 = 2048;
+          v29 = state64;
           _os_log_impl(&dword_18565F000, v13, OS_LOG_TYPE_INFO, "CoreData: debug: Remote Change Notification - observer received for  %@ with state %lld\n", buf, 0x16u);
         }
       }
@@ -95,9 +95,9 @@ uint64_t __63___NSSQLCoreConnectionObserver_initWithSQLCore_andCoordinator___blo
           {
             v19 = [(os_unfair_lock_s *)v7 identifier];
             *buf = 138412546;
-            v28 = v19;
-            v29 = 2048;
-            v30 = state64;
+            v27 = v19;
+            v28 = 2048;
+            v29 = state64;
             _os_log_error_impl(&dword_18565F000, v18, OS_LOG_TYPE_ERROR, "CoreData: error: Remote Change Notification - PSC to post notification for store  %@ with transaction ID %lld\n", buf, 0x16u);
           }
         }
@@ -109,9 +109,9 @@ uint64_t __63___NSSQLCoreConnectionObserver_initWithSQLCore_andCoordinator___blo
           {
             v21 = [(os_unfair_lock_s *)v7 identifier];
             *buf = 138412546;
-            v28 = v21;
-            v29 = 2048;
-            v30 = state64;
+            v27 = v21;
+            v28 = 2048;
+            v29 = state64;
             _os_log_impl(&dword_18565F000, v20, OS_LOG_TYPE_INFO, "CoreData: debug: Remote Change Notification - PSC to post notification for store  %@ with transaction ID %lld\n", buf, 0x16u);
           }
         }
@@ -136,9 +136,7 @@ uint64_t __63___NSSQLCoreConnectionObserver_initWithSQLCore_andCoordinator___blo
     [(NSPersistentStoreCoordinator *)v9 _postStoreRemoteChangeNotificationsForStore:v7 andState:state64];
   }
 
-  result = [v4 drain];
-  v25 = *MEMORY[0x1E69E9840];
-  return result;
+  return [v4 drain];
 }
 
 @end

@@ -59,6 +59,8 @@
 - (PVCGPointQuad)textCornersAtTime:(SEL)time index:(id *)index forcePosterFrame:(unint64_t)frame includeDropShadow:(BOOL)shadow scale:(BOOL)scale viewSize:(CGPoint)size viewOrigin:(CGSize)origin;
 - (PVMotionEffect)initWithContentID:(id)d andDictionary:(id)dictionary;
 - (PVMotionEffect)initWithEffectID:(id)d;
+- (__n128)convertPointFromView:(__int128 *)view@<X2> atTime:(__n128 *)time@<X8> viewSize:(__n128)size@<Q1> viewOrigin:(double)origin@<D0>;
+- (__n128)getScale;
 - (double)playableAspectRatio_NoLock;
 - (double)topLevelOpacity;
 - (id)addToTopLevelTransform:(_OWORD *)transform atTime:(__int128 *)time forcePosterFrame:restrictToBounds:viewSize:viewOrigin:;
@@ -85,9 +87,6 @@
 - (int)getOSFAOption:(id)option;
 - (int)playableContentMode_NoLock;
 - (int)stillImageInverseToneMapOperator:(id)operator;
-- (int8x16_t)convertPointFromView:(uint64_t)view@<X0> atTime:(__int128 *)time@<X2> viewSize:(__n128 *)size@<X8> viewOrigin:(__n128)origin@<Q1>;
-- (int8x16_t)getScale;
-- (uint64_t)convertPointToView:(__int128 *)view withEffectToViewTransform:(_OWORD *)transform viewSize:;
 - (void)_commonInitWithProjectPathOverride:(id)override;
 - (void)_configureComponents;
 - (void)_documentDidUnload_NoLock;
@@ -102,6 +101,7 @@
 - (void)applyInspectableProperties;
 - (void)applyInspectableProperties_NoLock;
 - (void)buildDropZoneIdMap_NoLock;
+- (void)convertPointToView:(__int128 *)view withEffectToViewTransform:(_OWORD *)transform viewSize:;
 - (void)dealloc;
 - (void)deleteTemporalInspectableProperties;
 - (void)disableBackgroundMovie:(BOOL)movie;
@@ -184,7 +184,7 @@
   v11 = *index;
   if (result)
   {
-    return [(PVCGPointQuad *)result textCornersAtTime:&v11 index:frame forcePosterFrame:shadow includeDropShadow:scale scale:*&a10 viewSize:size.x viewOrigin:size.y, origin.width, origin.height];
+    return objc_msgSend_textCornersAtTime_index_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin_(result, time, &v11, frame, shadow, scale, *&a10, size.x, size.y, origin.width, origin.height);
   }
 
   retstr->c = 0u;
@@ -221,7 +221,7 @@
   v10 = *frame;
   if (result)
   {
-    return [(PVCGPointQuad *)result cornersAtTime:&v10 forcePosterFrame:shadow includeDropShadow:scale scale:*&a9 viewSize:size.x viewOrigin:size.y, origin.width, origin.height];
+    return objc_msgSend_cornersAtTime_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin_(result, time, &v10, shadow, scale, *&a9, size.x, size.y, origin.width, origin.height);
   }
 
   retstr->c = 0u;
@@ -295,7 +295,7 @@
   return result;
 }
 
-- (uint64_t)convertPointToView:(__int128 *)view withEffectToViewTransform:(_OWORD *)transform viewSize:
+- (void)convertPointToView:(__int128 *)view withEffectToViewTransform:(_OWORD *)transform viewSize:
 {
   v4 = *view;
   v5 = view[1];
@@ -317,29 +317,29 @@
   return [v6 convertPointToView:v12 withEffectToViewTransform:v13 viewSize:?];
 }
 
-- (int8x16_t)convertPointFromView:(uint64_t)view@<X0> atTime:(__int128 *)time@<X2> viewSize:(__n128 *)size@<X8> viewOrigin:(__n128)origin@<Q1>
+- (__n128)convertPointFromView:(__int128 *)view@<X2> atTime:(__n128 *)time@<X8> viewSize:(__n128)size@<Q1> viewOrigin:(double)origin@<D0>
 {
-  v5 = *(view + 280);
-  v10 = *time;
-  v11 = *(time + 2);
-  if (v5)
+  v7 = *(self + 280);
+  v12 = *view;
+  v13 = *(view + 2);
+  if (v7)
   {
-    [v5 convertPointFromView:&v10 atTime:? viewSize:? viewOrigin:?];
-    result = v8;
-    origin = v9;
-    v7 = vextq_s8(result, result, 8uLL).u64[0];
+    objc_msgSend_convertPointFromView_atTime_viewSize_viewOrigin_(v7, a2, &v12, origin, size.n128_f64[0]);
+    result = v10;
+    size = v11;
+    v9 = vextq_s8(result, result, 8uLL).u64[0];
   }
 
   else
   {
-    result.i64[0] = 0;
-    v7 = 0;
-    origin.n128_u64[0] = 0;
+    result.n128_u64[0] = 0;
+    v9 = 0;
+    size.n128_u64[0] = 0;
   }
 
-  result.i64[1] = v7;
-  *size = result;
-  size[1] = origin;
+  result.n128_u64[1] = v9;
+  *time = result;
+  time[1] = size;
   return result;
 }
 
@@ -370,27 +370,27 @@
   [(PVMotionEffectTransformComponent *)transformComponent setScale:v5];
 }
 
-- (int8x16_t)getScale
+- (__n128)getScale
 {
-  v4 = *(self + 280);
-  if (v4)
+  v7 = *(self + 280);
+  if (v7)
   {
-    [v4 getScale];
-    result = v7;
-    v6 = vextq_s8(result, result, 8uLL).u64[0];
-    a3.n128_u64[0] = v8;
+    objc_msgSend_getScale(v7, a2, a5, a6, a4.n128_f64[0]);
+    result = v10;
+    v9 = vextq_s8(result, result, 8uLL).u64[0];
+    a4.n128_u64[0] = v11;
   }
 
   else
   {
-    result.i64[0] = 0;
-    v6 = 0;
-    a3.n128_u64[0] = 0;
+    result.n128_u64[0] = 0;
+    v9 = 0;
+    a4.n128_u64[0] = 0;
   }
 
-  result.i64[1] = v6;
-  *a2 = result;
-  a2[1] = a3;
+  result.n128_u64[1] = v9;
+  *a3 = result;
+  a3[1] = a4;
   return result;
 }
 
@@ -1771,7 +1771,7 @@ LABEL_31:
       *v20 = 0u;
       v21 = 0u;
       PVGetMemUsageStats(v20);
-      OZXLoadDocument();
+      OZXLoadDocument(projectURL, &v25, &v24, -1, -1);
     }
 
     v25 = v9;
@@ -2064,7 +2064,7 @@ void __53__PVMotionEffect_deleteTemporalInspectableProperties__block_invoke(uint
 - (HGRef<HGNode>)hgNodeForTime:(id *)time inputs:(const void *)inputs renderer:(const void *)renderer igContext:(HGRef<PVInstructionGraphContext>)context
 {
   inputsCopy2 = inputs;
-  v310 = *MEMORY[0x277D85DE8];
+  v314 = *MEMORY[0x277D85DE8];
   v9 = *(inputs + 4);
   v241 = v6;
   *v6 = 0;
@@ -2098,18 +2098,18 @@ void __53__PVMotionEffect_deleteTemporalInspectableProperties__block_invoke(uint
   inputsCopy2 = inputs;
   if (v12 != v10 && *(v12 + 8) <= 2u)
   {
-    PVInputHGNodeMap<unsigned int>::GetNode(inputs, 2u, &v283);
+    PVInputHGNodeMap<unsigned int>::GetNode(inputs, 2u, &v287);
   }
 
   else
   {
 LABEL_11:
-    PVInputHGNodeMap<unsigned int>::GetNode(inputsCopy2, 0, &v283);
+    PVInputHGNodeMap<unsigned int>::GetNode(inputsCopy2, 0, &v287);
   }
 
-  if (v283.start.value)
+  if (v287.start.value)
   {
-    *v241 = v283.start.value;
+    *v241 = v287.start.value;
   }
 
   [(PVEffect *)self proxyRenderScale];
@@ -2119,10 +2119,10 @@ LABEL_11:
 
   v19 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:11];
   timedPropertiesComponent = self->super._timedPropertiesComponent;
-  *&v283.start.value = *&time->var0;
-  v283.start.epoch = time->var3;
+  *&v287.start.value = *&time->var0;
+  v287.start.epoch = time->var3;
   v240 = v19;
-  v237 = [(PVEffectTimedPropertiesComponent *)timedPropertiesComponent addTimedPropertiesToDict:v19 time:&v283];
+  v237 = [(PVEffectTimedPropertiesComponent *)timedPropertiesComponent addTimedPropertiesToDict:v19 time:&v287];
   m_Obj = context.m_Obj;
   [(NSLock *)self->_documentLock lock];
   v22 = atomic_load(&self->_docLoadStatus);
@@ -2140,9 +2140,9 @@ LABEL_11:
     v31 = HGRectMake4i(0, 0, v29, v30);
     v33 = v32;
     v34 = HGObject::operator new(0x1A0uLL);
-    *&v312.var0 = v31;
-    *&v312.var2 = v33;
-    HGSolidColor::HGSolidColor(v34, v312);
+    *&v316.var0 = v31;
+    *&v316.var2 = v33;
+    HGSolidColor::HGSolidColor(v34, v316);
   }
 
   [(PVMotionEffectTimelineComponent *)self->_timelineComponent updateSceneDuration_NoLock:self->_documentInfo];
@@ -2150,35 +2150,35 @@ LABEL_11:
   v238 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"kPVIgnoreEffectRanges"];
   if (v238 && [v238 count])
   {
-    v305 = 0u;
-    v304 = 0u;
-    v303 = 0u;
-    v302 = 0u;
+    v309 = 0u;
+    v308 = 0u;
+    v307 = 0u;
+    v306 = 0u;
     v24 = v238;
-    v25 = [v24 countByEnumeratingWithState:&v302 objects:v309 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v306 objects:v313 count:16];
     if (!v25)
     {
       goto LABEL_29;
     }
 
-    v26 = *v303;
+    v26 = *v307;
 LABEL_21:
     v27 = 0;
     while (1)
     {
-      if (*v303 != v26)
+      if (*v307 != v26)
       {
         objc_enumerationMutation(v24);
       }
 
-      v28 = *(*(&v302 + 1) + 8 * v27);
-      memset(&v283, 0, sizeof(v283));
+      v28 = *(*(&v306 + 1) + 8 * v27);
+      memset(&v287, 0, sizeof(v287));
       if (v28)
       {
-        [v28 CMTimeRangeValue];
+        objc_msgSend_CMTimeRangeValue(v28);
       }
 
-      range = v283;
+      range = v287;
       time = *time;
       if (CMTimeRangeContainsTime(&range, &time))
       {
@@ -2187,7 +2187,7 @@ LABEL_21:
 
       if (v25 == ++v27)
       {
-        v25 = [v24 countByEnumeratingWithState:&v302 objects:v309 count:16];
+        v25 = [v24 countByEnumeratingWithState:&v306 objects:v313 count:16];
         if (!v25)
         {
 LABEL_29:
@@ -2207,9 +2207,9 @@ LABEL_29:
   }
 
 LABEL_30:
-  *&v283.start.value = *&time->var0;
-  v283.start.epoch = time->var3;
-  if (![(PVMotionEffect *)self isVisibleAtTime_NoLock:&v283 timedProperties:v240 defaultProperties:self->super._inspectableProperties])
+  *&v287.start.value = *&time->var0;
+  v287.start.epoch = time->var3;
+  if (![(PVMotionEffect *)self isVisibleAtTime_NoLock:&v287 timedProperties:v240 defaultProperties:self->super._inspectableProperties])
   {
     [(NSLock *)self->super._inspectablePropertiesLock unlock];
     [(NSLock *)self->_documentLock unlock];
@@ -2328,14 +2328,14 @@ LABEL_36:
     }
   }
 
-  v57 = [(PVMotionEffectTimelineComponent *)self->_timelineComponent isForceRenderAtPosterFrameEnabled:self->super._inspectableProperties];
+  [(PVMotionEffectTimelineComponent *)self->_timelineComponent isForceRenderAtPosterFrameEnabled:self->super._inspectableProperties];
   memset(&start, 0, sizeof(start));
   timelineComponent = self->_timelineComponent;
-  v299 = *&time->var0;
+  v303 = *&time->var0;
   var3 = time->var3;
   if (timelineComponent)
   {
-    [(PVMotionEffectTimelineComponent *)timelineComponent timelineTimeFromComponentTime_NoLock:&v299 forcePosterFrame:v57 documentInfo:self->_documentInfo];
+    objc_msgSend_timelineTimeFromComponentTime_NoLock_forcePosterFrame_documentInfo_(timelineComponent);
   }
 
   else
@@ -2343,119 +2343,119 @@ LABEL_36:
     memset(&start, 0, sizeof(start));
   }
 
-  v59 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"PVRestartEffectTime"];
-  v60 = v59 == 0;
+  v58 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"PVRestartEffectTime"];
+  v59 = v58 == 0;
 
-  if (!v60)
+  if (!v59)
   {
     *&range.start.value = *&time->var0;
     range.start.epoch = time->var3;
-    [(PVEffect *)self effectRange];
-    time = v283.duration;
-    CMTimeRangeMake(&v298, &range.start, &time);
-    range = v298;
+    objc_msgSend_effectRange(self);
+    time = v287.duration;
+    CMTimeRangeMake(&v302, &range.start, &time);
+    range = v302;
     [(PVEffect *)self setEffectRange:&range];
   }
 
-  v61 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"PVResetScene"];
-  v62 = v61 == 0;
+  v60 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"PVResetScene"];
+  v61 = v60 == 0;
 
-  if (!v62)
+  if (!v61)
   {
     OZXResetScene(*self->_documentInfo);
   }
 
-  v63 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"PVDisableObjects"];
-  v64 = v63 == 0;
+  v62 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"PVDisableObjects"];
+  v63 = v62 == 0;
 
-  if (!v64)
+  if (!v63)
   {
-    v65 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"PVDisableObjects"];
-    v297 = 0u;
-    v296 = 0u;
-    v295 = 0u;
-    v294 = 0u;
-    v66 = v65;
-    v67 = [v66 countByEnumeratingWithState:&v294 objects:v308 count:16];
-    if (v67)
+    v64 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"PVDisableObjects"];
+    v301 = 0u;
+    v300 = 0u;
+    v299 = 0u;
+    v298 = 0u;
+    v65 = v64;
+    v66 = [v65 countByEnumeratingWithState:&v298 objects:v312 count:16];
+    if (v66)
     {
-      v68 = *v295;
+      v67 = *v299;
       do
       {
-        for (i = 0; i != v67; ++i)
+        for (i = 0; i != v66; ++i)
         {
-          if (*v295 != v68)
+          if (*v299 != v67)
           {
-            objc_enumerationMutation(v66);
+            objc_enumerationMutation(v65);
           }
 
-          OZXEnableObject(*self->_documentInfo, [*(*(&v294 + 1) + 8 * i) unsignedIntValue], 0);
+          OZXEnableObject(*self->_documentInfo, [*(*(&v298 + 1) + 8 * i) unsignedIntValue], 0);
         }
 
-        v67 = [v66 countByEnumeratingWithState:&v294 objects:v308 count:16];
+        v66 = [v65 countByEnumeratingWithState:&v298 objects:v312 count:16];
       }
 
-      while (v67);
+      while (v66);
     }
 
     [(NSMutableDictionary *)self->super._inspectableProperties removeObjectForKey:@"PVDisableObjects"];
   }
 
-  v70 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"PVEnvironmentMap"];
-  v71 = v70 == 0;
+  v69 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"PVEnvironmentMap"];
+  v70 = v69 == 0;
 
-  if (!v71)
+  if (!v70)
   {
-    v72 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"PVEnvironmentMap"];
-    v73 = v72;
-    OZXSetEnvironmentMap(*self->_documentInfo, [v72 CGImage]);
+    v71 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"PVEnvironmentMap"];
+    v72 = v71;
+    OZXSetEnvironmentMap(*self->_documentInfo, [v71 CGImage]);
   }
 
-  v293 = 0u;
-  v292 = 0u;
-  v291 = 0u;
-  v290 = 0u;
+  v297 = 0u;
+  v296 = 0u;
+  v295 = 0u;
+  v294 = 0u;
   allKeys = [(NSMutableDictionary *)self->super._inspectableProperties allKeys];
-  v75 = [allKeys countByEnumeratingWithState:&v290 objects:v307 count:16];
-  if (v75)
+  v74 = [allKeys countByEnumeratingWithState:&v294 objects:v311 count:16];
+  if (v74)
   {
-    v76 = *v291;
+    v75 = *v295;
     do
     {
-      for (j = 0; j != v75; ++j)
+      for (j = 0; j != v74; ++j)
       {
-        if (*v291 != v76)
+        if (*v295 != v75)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v78 = *(*(&v290 + 1) + 8 * j);
-        if ([v78 hasPrefix:@"PVSetEffectAnchor"])
+        v77 = *(*(&v294 + 1) + 8 * j);
+        if ([v77 hasPrefix:@"PVSetEffectAnchor"])
         {
-          v79 = [v78 stringByReplacingOccurrencesOfString:@"PVSetEffectAnchor" withString:&stru_2872E16E0];
-          v80 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKey:v78];
-          OZXForceSetPlaneAnchorUUID(*self->_documentInfo, v79, v80);
+          v78 = [v77 stringByReplacingOccurrencesOfString:@"PVSetEffectAnchor" withString:&stru_2872E16E0];
+          v79 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKey:v77];
+          OZXForceSetPlaneAnchorUUID(*self->_documentInfo, v78, v79);
         }
       }
 
-      v75 = [allKeys countByEnumeratingWithState:&v290 objects:v307 count:16];
+      v74 = [allKeys countByEnumeratingWithState:&v294 objects:v311 count:16];
     }
 
-    while (v75);
+    while (v74);
   }
 
   groupIDToCache = self->_groupIDToCache;
-  *&v283.start.value = *&time->var0;
-  v283.start.epoch = time->var3;
-  v82 = [(PVMotionEffect *)self isRenderCachingDisabled_NoLock:&v283];
+  *&v287.start.value = *&time->var0;
+  v287.start.epoch = time->var3;
+  v81 = [(PVMotionEffect *)self isRenderCachingDisabled_NoLock:&v287];
   if (groupIDToCache)
   {
-    v83 = v82;
+    v82 = v81;
   }
 
   else
   {
-    v83 = 1;
+    v82 = 1;
   }
 
   if (self->_lastRenderWasHDR != isRec2020LinearColorSpace)
@@ -2463,7 +2463,7 @@ LABEL_36:
     self->_cachedRenderDirty = 1;
   }
 
-  if (v83)
+  if (v82)
   {
     if (!groupIDToCache)
     {
@@ -2475,28 +2475,28 @@ LABEL_36:
 
   else
   {
-    v85 = [(PVMotionEffectTimelineComponent *)self->_timelineComponent isForceRenderAtPosterFrameEnabled:self->super._inspectableProperties];
+    v84 = [(PVMotionEffectTimelineComponent *)self->_timelineComponent isForceRenderAtPosterFrameEnabled:self->super._inspectableProperties];
     inspectableProperties = self->super._inspectableProperties;
-    if (v85)
+    if (v84)
     {
-      v87 = [(NSMutableDictionary *)inspectableProperties objectForKeyedSubscript:@"kPVEnablePosterFrameCaching"];
-      bOOLValue2 = [v87 BOOLValue];
+      v86 = [(NSMutableDictionary *)inspectableProperties objectForKeyedSubscript:@"kPVEnablePosterFrameCaching"];
+      bOOLValue2 = [v86 BOOLValue];
     }
 
     else
     {
-      v88 = [(NSMutableDictionary *)inspectableProperties objectForKeyedSubscript:@"kPVEnableLoopedRangeRenderCaching"];
-      bOOLValue2 = [v88 BOOLValue];
+      v87 = [(NSMutableDictionary *)inspectableProperties objectForKeyedSubscript:@"kPVEnableLoopedRangeRenderCaching"];
+      bOOLValue2 = [v87 BOOLValue];
 
-      memset(&v283, 0, 24);
-      v89 = self->_timelineComponent;
-      if (v89)
+      memset(&v287, 0, 24);
+      v88 = self->_timelineComponent;
+      if (v88)
       {
-        [(PVMotionEffectTimelineComponent *)v89 introDuration_NoLock];
+        objc_msgSend_introDuration_NoLock(v88);
       }
 
       range.start = start;
-      time = v283.start;
+      time = v287.start;
       if (CMTimeCompare(&range.start, &time) < 0)
       {
         bOOLValue2 = 0;
@@ -2504,8 +2504,8 @@ LABEL_36:
     }
   }
 
-  v90 = [MEMORY[0x277CCAE60] valueWithCGSize:{v48, v50}];
-  [(PVMotionEffect *)self didSetCacheInvalidatingParameter_NoLock:v90 forKey:@"kPVCachedTextureOutputSize"];
+  v89 = [MEMORY[0x277CCAE60] valueWithCGSize:{v48, v50}];
+  [(PVMotionEffect *)self didSetCacheInvalidatingParameter_NoLock:v89 forKey:@"kPVCachedTextureOutputSize"];
   OZXSetUseRenderCache(*self->_documentInfo, groupIDToCache, bOOLValue2);
   if (!bOOLValue2 || self->_cachedRenderDirty)
   {
@@ -2517,227 +2517,227 @@ LABEL_36:
 LABEL_110:
   if (![(PVMotionEffect *)self isTimeDurationIndefinite])
   {
-    memset(&v283, 0, 24);
-    v92 = self->_timelineComponent;
-    if (v92)
+    memset(&v287, 0, 24);
+    v91 = self->_timelineComponent;
+    if (v91)
     {
-      [(PVMotionEffectTimelineComponent *)v92 timelineLastFrame_NoLock];
+      objc_msgSend_timelineLastFrame_NoLock(v91);
     }
 
     range.start = start;
-    time = v283.start;
+    time = v287.start;
     if (CMTimeCompare(&range.start, &time) >= 1)
     {
-      start = v283.start;
+      start = v287.start;
     }
   }
 
   v233 = fabsf(v17 + -1.0);
-  v93 = 1.0;
+  v92 = 1.0;
   if (v50 > 0.0)
   {
-    LODWORD(v93) = *(self->_documentInfo + 4);
-    v93 = v50 / *&v93;
+    LODWORD(v92) = *(self->_documentInfo + 4);
+    v92 = v50 / *&v92;
   }
 
-  v94 = v17;
+  v93 = v17;
   if (v233 < 0.00001)
   {
-    v94 = 1.0;
+    v93 = 1.0;
   }
 
-  v95 = v94 * v93;
-  v289 = 0x3FF0000000000000;
-  v286 = 0x3FF0000000000000;
-  v283.duration.epoch = 0x3FF0000000000000;
-  v283.start.value = 0x3FF0000000000000;
-  memset(&v283.start.timescale, 0, 32);
-  v284 = 0u;
-  v285 = 0u;
-  v287 = 0u;
+  v94 = v93 * v92;
+  v293 = 0x3FF0000000000000;
+  v290 = 0x3FF0000000000000;
+  v287.duration.epoch = 0x3FF0000000000000;
+  v287.start.value = 0x3FF0000000000000;
+  memset(&v287.start.timescale, 0, 32);
   v288 = 0u;
-  if (v94 * v93 != 1.0)
+  v289 = 0u;
+  v291 = 0u;
+  v292 = 0u;
+  if (v93 * v92 != 1.0)
   {
-    *&v283.start.value = v94 * v93;
-    *&v283.start.timescale = v95 * 0.0;
-    *&v283.start.epoch = v95 * 0.0;
-    *&v283.duration.value = v95 * 0.0;
+    *&v287.start.value = v93 * v92;
+    *&v287.start.timescale = v94 * 0.0;
+    *&v287.start.epoch = v94 * 0.0;
+    *&v287.duration.value = v94 * 0.0;
   }
 
-  v91.f64[0] = v41 * 0.5;
+  v90.f64[0] = v41 * 0.5;
   v234 = v42 * 0.5;
-  v235 = v91;
-  if (v95 != -1.0)
+  v235 = v90;
+  if (v94 != -1.0)
   {
-    *&v283.duration.timescale = v95 * -0.0;
-    *&v283.duration.epoch = -(v94 * v93);
-    *&v284 = v95 * -0.0;
-    *(&v284 + 1) = v95 * -0.0;
+    *&v287.duration.timescale = v94 * -0.0;
+    *&v287.duration.epoch = -(v93 * v92);
+    *&v288 = v94 * -0.0;
+    *(&v288 + 1) = v94 * -0.0;
   }
 
-  *&v96 = *&PCMatrix44Tmpl<double>::leftTranslate(&v283, v91, v42 * 0.5, 0.0);
-  v282 = 0uLL;
+  *&v95 = *&PCMatrix44Tmpl<double>::leftTranslate(&v287, v90, v42 * 0.5, 0.0);
+  v286 = 0uLL;
   effectType = [(PVEffect *)self effectType];
   v225 = [effectType isEqualToString:@"effect.video.transition"];
 
-  v98 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKey:@"SelfieEffectUsesCameraFacing"];
+  v97 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKey:@"SelfieEffectUsesCameraFacing"];
 
   v236 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKey:@"kPVEffectPVARMetadata"];
 
-  v232 = v98;
-  v99 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"kPVTransformAnimationKey"];
+  v232 = v97;
+  v98 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"kPVTransformAnimationKey"];
   *&range.start.value = *&time->var0;
   range.start.epoch = time->var3;
-  v221 = v99;
-  v222 = [PVTransformAnimation getTransformInfoFromAnimation:v99 atTime:&range renderSize:14 contentMode:0 invertY:&time outInfo:v41, v42];
+  v221 = v98;
+  v222 = [PVTransformAnimation getTransformInfoFromAnimation:v98 atTime:&range renderSize:14 contentMode:0 invertY:&time outInfo:v41, v42];
   inputsCopy7 = inputs;
+  v282[1] = 0;
+  v282[0] = 0;
+  v281 = v282;
+  v280[1] = 0;
+  v280[0] = 0;
+  v279 = v280;
   v278[1] = 0;
   v278[0] = 0;
   v277 = v278;
   v276[1] = 0;
   v276[0] = 0;
   v275 = v276;
-  v274[1] = 0;
-  v274[0] = 0;
-  v273 = v274;
-  v272[1] = 0;
-  v272[0] = 0;
-  v271 = v272;
   PVInputHGNodeMap<unsigned int>::MapKeys(inputs, &__p);
-  v101 = __p;
-  if (__p != v270)
+  v100 = __p;
+  if (__p != v274)
   {
-    v102 = v45 * v52;
-    v103 = inputs + 32;
-    v104 = -v234;
+    v101 = v45 * v52;
+    v102 = inputs + 32;
+    v103 = -v234;
     v218 = vnegq_f64(0);
     while (1)
     {
-      v268 = *v101;
-      *&v257.var2 = 0;
-      *&v257.var0 = 0;
-      v105 = *renderer;
-      PVInputHGNodeMap<unsigned int>::GetNode(inputsCopy7, v268, &range);
-      *&v257.var0 = HGRenderer::GetDOD(v105, range.start.value);
-      *&v257.var2 = v106;
+      v272 = *v100;
+      *&v261.var2 = 0;
+      *&v261.var0 = 0;
+      v104 = *renderer;
+      PVInputHGNodeMap<unsigned int>::GetNode(inputsCopy7, v272, &range);
+      *&v261.var0 = HGRenderer::GetDOD(v104, range.start.value);
+      *&v261.var2 = v105;
       if (range.start.value)
       {
         (*(*range.start.value + 24))(range.start.value);
       }
 
-      v107 = *v103;
-      if (!*v103)
+      v106 = *v102;
+      if (!*v102)
       {
         goto LABEL_135;
       }
 
-      v108 = inputs + 32;
+      v107 = inputs + 32;
       do
       {
-        v109 = *(v107 + 8);
-        v14 = v109 >= v268;
-        v110 = v109 < v268;
+        v108 = *(v106 + 8);
+        v14 = v108 >= v272;
+        v109 = v108 < v272;
         if (v14)
         {
-          v108 = v107;
+          v107 = v106;
         }
 
-        v107 = *&v107[8 * v110];
+        v106 = *&v106[8 * v109];
       }
 
-      while (v107);
-      if (v108 != v103 && *(v108 + 8) <= v268)
+      while (v106);
+      if (v107 != v102 && *(v107 + 8) <= v272)
       {
-        *&v256.var0 = *(v108 + 40);
+        *&v260.var0 = *(v107 + 40);
       }
 
       else
       {
 LABEL_135:
-        *&v256.var0 = 0uLL;
+        *&v260.var0 = 0uLL;
       }
 
-      if (v257.var2 == v257.var0)
+      if (v261.var2 == v261.var0)
       {
         goto LABEL_204;
       }
 
-      if (v257.var3 == v257.var1)
-      {
-        goto LABEL_204;
-      }
-
-      inputsCopy7 = inputs;
-      if (HGRect::IsNull(&v257))
+      if (v261.var3 == v261.var1)
       {
         goto LABEL_204;
       }
 
       inputsCopy7 = inputs;
-      if (HGRect::IsZero(&v257))
+      if (HGRect::IsNull(&v261))
       {
         goto LABEL_204;
       }
 
-      var2 = v257.var2;
-      var0 = v257.var0;
-      v112 = (*(**context.m_Obj + 48))();
-      v113 = v257.var3;
-      var1 = v257.var1;
-      v115 = (*(**context.m_Obj + 48))();
-      PVInputHGNodeMap<unsigned int>::GetNode(inputs, v268, &v259);
-      range.start.value = &v268;
-      v116 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v277, &v268);
-      v117 = v116[5];
-      v118 = v259;
-      if (v117 == v259)
+      inputsCopy7 = inputs;
+      if (HGRect::IsZero(&v261))
       {
-        if (v117)
+        goto LABEL_204;
+      }
+
+      var2 = v261.var2;
+      var0 = v261.var0;
+      v111 = (*(**context.m_Obj + 48))();
+      v112 = v261.var3;
+      var1 = v261.var1;
+      v114 = (*(**context.m_Obj + 48))();
+      PVInputHGNodeMap<unsigned int>::GetNode(inputs, v272, &v263);
+      range.start.value = &v272;
+      v115 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v281, &v272, &std::piecewise_construct, &range);
+      v116 = v115[5];
+      v117 = v263;
+      if (v116 == v263)
+      {
+        if (v116)
         {
-          (*(*v259 + 24))();
+          (*(*v263 + 24))();
         }
       }
 
       else
       {
-        if (v117)
+        if (v116)
         {
-          (*(*v117 + 24))(v117);
-          v118 = v259;
+          (*(*v116 + 24))(v116);
+          v117 = v263;
         }
 
-        v116[5] = v118;
+        v115[5] = v117;
       }
 
-      PVInputHGNodeMap<unsigned int>::GetPixelTransform(inputs, v268, &range);
-      *&v259 = &v268;
-      v119 = (std::__tree<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v273, &v268) + 5);
-      if (&range != v119)
+      PVInputHGNodeMap<unsigned int>::GetPixelTransform(inputs, v272, &range);
+      *&v263 = &v272;
+      v118 = (std::__tree<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v277, &v272, &std::piecewise_construct, &v263) + 5);
+      if (&range != v118)
       {
-        v121 = 0;
+        v120 = 0;
         p_range = &range;
         do
         {
           for (k = 0; k != 32; k += 8)
           {
-            *(&v119->start.value + k) = *(&p_range->start.value + k);
+            *(&v118->start.value + k) = *(&p_range->start.value + k);
           }
 
-          ++v121;
-          v119 = (v119 + 32);
+          ++v120;
+          v118 = (v118 + 32);
           p_range = (p_range + 32);
         }
 
-        while (v121 != 4);
+        while (v120 != 4);
       }
 
-      v124 = *(self->_documentInfo + 21);
-      if (v124)
+      v123 = *(self->_documentInfo + 21);
+      if (v123)
       {
-        range.start.value = &v268;
-        v125 = *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v124, &v268) + 8);
-        range.start.value = &v268;
-        *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(&v271, &v268) + 8) = v125;
+        range.start.value = &v272;
+        v124 = *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(v123, &v272, &std::piecewise_construct, &range) + 8);
+        range.start.value = &v272;
+        *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(&v275, &v272, &std::piecewise_construct, &range) + 8) = v124;
       }
 
       if (v232)
@@ -2746,34 +2746,34 @@ LABEL_135:
       }
 
       conformToInputAspect = [(PVEffect *)self conformToInputAspect];
-      if ((conformToInputAspect | v225 & (v268 > 1)) == 1)
+      if ((conformToInputAspect | v225 & (v272 > 1)) == 1)
       {
-        v133 = *v103;
-        if (!*v103)
+        v132 = *v102;
+        if (!*v102)
         {
           goto LABEL_174;
         }
 
-        v134 = inputs + 32;
+        v133 = inputs + 32;
         do
         {
-          v135 = *(v133 + 8);
-          v14 = v135 >= v268;
-          v136 = v135 < v268;
+          v134 = *(v132 + 8);
+          v14 = v134 >= v272;
+          v135 = v134 < v272;
           if (v14)
           {
-            v134 = v133;
+            v133 = v132;
           }
 
-          v133 = *&v133[8 * v136];
+          v132 = *&v132[8 * v135];
         }
 
-        while (v133);
-        if (v134 != v103 && *(v134 + 8) <= v268)
+        while (v132);
+        if (v133 != v102 && *(v133 + 8) <= v272)
         {
-          *&range.start.value = *(v134 + 40);
-          v131 = *(v134 + 7);
-          v130 = *(v134 + 8);
+          *&range.start.value = *(v133 + 40);
+          v130 = *(v133 + 7);
+          v129 = *(v133 + 8);
         }
 
         else
@@ -2781,89 +2781,89 @@ LABEL_135:
 LABEL_174:
           *&range.start.timescale = 0;
           range.start.value = 0;
+          v129 = -1.0;
           v130 = -1.0;
-          v131 = -1.0;
         }
 
 LABEL_175:
-        *&v259 = &v268;
-        v137 = std::__tree<std::__value_type<unsigned int,PCRect<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCRect<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCRect<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v275, &v268);
-        v138 = *&range.start.value;
+        *&v263 = &v272;
+        v136 = std::__tree<std::__value_type<unsigned int,PCRect<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCRect<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCRect<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v279, &v272, &std::piecewise_construct, &v263);
+        v137 = *&range.start.value;
         goto LABEL_199;
       }
 
-      range.start.value = &v268;
-      v147 = std::__tree<std::__value_type<unsigned int,PCRect<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCRect<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCRect<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v275, &v268);
-      *(v147 + 5) = v282;
-      *(v147 + 7) = v220;
-      *(v147 + 8) = v229;
+      range.start.value = &v272;
+      v146 = std::__tree<std::__value_type<unsigned int,PCRect<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCRect<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCRect<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v279, &v272, &std::piecewise_construct, &range);
+      *(v146 + 5) = v286;
+      *(v146 + 7) = v220;
+      *(v146 + 8) = v229;
 LABEL_200:
-      if (v102 != 1.0)
+      if (v101 != 1.0)
       {
-        range.start.value = &v268;
-        v156 = std::__tree<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v273, &v268);
-        v157.f64[0] = -v235.f64[0];
-        PCMatrix44Tmpl<double>::leftTranslate((v156 + 5), v157, v104, 0.0);
-        range.start.value = &v268;
-        v158 = std::__tree<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v273, &v268);
-        PCMatrix44Tmpl<double>::leftScale((v158 + 5), v102, v102, 1.0);
-        range.start.value = &v268;
-        v159 = std::__tree<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v273, &v268);
-        PCMatrix44Tmpl<double>::leftTranslate((v159 + 5), v235, v234, 0.0);
+        range.start.value = &v272;
+        v155 = std::__tree<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v277, &v272, &std::piecewise_construct, &range);
+        v156.f64[0] = -v235.f64[0];
+        PCMatrix44Tmpl<double>::leftTranslate((v155 + 5), v156, v103, 0.0);
+        range.start.value = &v272;
+        v157 = std::__tree<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v277, &v272, &std::piecewise_construct, &range);
+        PCMatrix44Tmpl<double>::leftScale((v157 + 5), v101, v101, 1.0);
+        range.start.value = &v272;
+        v158 = std::__tree<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v277, &v272, &std::piecewise_construct, &range);
+        PCMatrix44Tmpl<double>::leftTranslate((v158 + 5), v235, v234, 0.0);
       }
 
       inputsCopy7 = inputs;
       if (v222)
       {
-        range.start.value = &v268;
-        v160 = std::__tree<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v273, &v268);
-        v161.f64[0] = -v235.f64[0];
-        PCMatrix44Tmpl<double>::leftTranslate((v160 + 5), v161, v104, 0.0);
-        range.start.value = &v268;
-        v162 = std::__tree<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v273, &v268);
-        PCMatrix44Tmpl<double>::leftScale((v162 + 5), v281, v281, 1.0);
-        range.start.value = &v268;
-        v163 = std::__tree<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v273, &v268);
-        v164.f64[0] = v235.f64[0] + v280.f64[0];
-        PCMatrix44Tmpl<double>::leftTranslate((v163 + 5), v164, v234 + v280.f64[1], 0.0);
+        range.start.value = &v272;
+        v159 = std::__tree<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v277, &v272, &std::piecewise_construct, &range);
+        v160.f64[0] = -v235.f64[0];
+        PCMatrix44Tmpl<double>::leftTranslate((v159 + 5), v160, v103, 0.0);
+        range.start.value = &v272;
+        v161 = std::__tree<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v277, &v272, &std::piecewise_construct, &range);
+        PCMatrix44Tmpl<double>::leftScale((v161 + 5), v285, v285, 1.0);
+        range.start.value = &v272;
+        v162 = std::__tree<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v277, &v272, &std::piecewise_construct, &range);
+        v163.f64[0] = v235.f64[0] + v284.f64[0];
+        PCMatrix44Tmpl<double>::leftTranslate((v162 + 5), v163, v234 + v284.f64[1], 0.0);
         inputsCopy7 = inputs;
       }
 
 LABEL_204:
-      if (++v101 == v270)
+      if (++v100 == v274)
       {
         goto LABEL_209;
       }
     }
 
-    if (v268 <= 1)
+    if (v272 <= 1)
     {
-      v126 = *v103;
-      if (!*v103)
+      v125 = *v102;
+      if (!*v102)
       {
         goto LABEL_164;
       }
 
-      v127 = inputs + 32;
+      v126 = inputs + 32;
       do
       {
-        v128 = *(v126 + 8);
-        v14 = v128 >= v268;
-        v129 = v128 < v268;
+        v127 = *(v125 + 8);
+        v14 = v127 >= v272;
+        v128 = v127 < v272;
         if (v14)
         {
-          v127 = v126;
+          v126 = v125;
         }
 
-        v126 = *&v126[8 * v129];
+        v125 = *&v125[8 * v128];
       }
 
-      while (v126);
-      if (v127 != v103 && *(v127 + 8) <= v268)
+      while (v125);
+      if (v126 != v102 && *(v126 + 8) <= v272)
       {
-        *&range.start.value = *(v127 + 40);
-        v131 = *(v127 + 7);
-        v130 = *(v127 + 8);
+        *&range.start.value = *(v126 + 40);
+        v130 = *(v126 + 7);
+        v129 = *(v126 + 8);
       }
 
       else
@@ -2871,342 +2871,342 @@ LABEL_204:
 LABEL_164:
         *&range.start.timescale = 0;
         range.start.value = 0;
+        v129 = -1.0;
         v130 = -1.0;
-        v131 = -1.0;
       }
 
       goto LABEL_175;
     }
 
-    v139 = ((var2 - var0) / v112);
-    v140 = ((v113 - var1) / v115);
-    v120.f64[0] = v139 * 0.5;
-    v141 = v140 * 0.5;
-    if (v268 == 2)
+    v138 = ((var2 - var0) / v111);
+    v139 = ((v112 - var1) / v114);
+    v119.f64[0] = v138 * 0.5;
+    v140 = v139 * 0.5;
+    if (v272 == 2)
     {
-      v267 = 0x3FF0000000000000;
-      v264 = 0x3FF0000000000000;
+      v271 = 0x3FF0000000000000;
+      v268 = 0x3FF0000000000000;
       range.start.value = 0x3FF0000000000000;
       memset(&range.start.timescale, 0, 24);
-      v262 = 0;
-      v263 = 0;
-      v265 = 0u;
-      v266 = 0u;
+      v266 = 0;
+      v267 = 0;
+      v269 = 0u;
+      v270 = 0u;
       *&range.duration.timescale = xmmword_260342D20;
-      v261 = v218;
-      PCMatrix44Tmpl<double>::leftTranslate(&range, v120, v141, 0.0);
-      *&v259 = &v268;
-      v142 = (std::__tree<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v273, &v268) + 5);
-      if (&range != v142)
+      v265 = v218;
+      PCMatrix44Tmpl<double>::leftTranslate(&range, v119, v140, 0.0);
+      *&v263 = &v272;
+      v141 = (std::__tree<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v277, &v272, &std::piecewise_construct, &v263) + 5);
+      if (&range != v141)
       {
-        v143 = 0;
-        v144 = &range;
+        v142 = 0;
+        v143 = &range;
         do
         {
           for (m = 0; m != 32; m += 8)
           {
-            *(&v142->start.value + m) = *(&v144->start.value + m);
+            *(&v141->start.value + m) = *(&v143->start.value + m);
           }
 
-          ++v143;
-          v142 = (v142 + 32);
-          v144 = (v144 + 32);
+          ++v142;
+          v141 = (v141 + 32);
+          v143 = (v143 + 32);
         }
 
-        while (v143 != 4);
+        while (v142 != 4);
       }
 
-      *&v259 = &v268;
-      v146 = std::__tree<std::__value_type<unsigned int,PCRect<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCRect<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCRect<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v275, &v268);
-      *(v146 + 5) = *&v256.var0;
-      *(v146 + 7) = v139;
-      *(v146 + 8) = v140;
+      *&v263 = &v272;
+      v145 = std::__tree<std::__value_type<unsigned int,PCRect<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCRect<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCRect<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v279, &v272, &std::piecewise_construct, &v263);
+      *(v145 + 5) = *&v260.var0;
+      *(v145 + 7) = v138;
+      *(v145 + 8) = v139;
       goto LABEL_200;
     }
 
-    v267 = 0x3FF0000000000000;
-    v264 = 0x3FF0000000000000;
+    v271 = 0x3FF0000000000000;
+    v268 = 0x3FF0000000000000;
     range.start.value = 0x3FF0000000000000;
     memset(&range.start.timescale, 0, 24);
-    v262 = 0;
-    v263 = 0;
-    v265 = 0u;
-    v266 = 0u;
+    v266 = 0;
+    v267 = 0;
+    v269 = 0u;
+    v270 = 0u;
     *&range.duration.timescale = xmmword_260342D20;
-    v261 = v218;
-    PCMatrix44Tmpl<double>::leftTranslate(&range, v120, v141, 0.0);
-    *&v259 = &v268;
-    v148 = (std::__tree<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v273, &v268) + 5);
-    if (&range != v148)
+    v265 = v218;
+    PCMatrix44Tmpl<double>::leftTranslate(&range, v119, v140, 0.0);
+    *&v263 = &v272;
+    v147 = (std::__tree<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCMatrix44Tmpl<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCMatrix44Tmpl<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v277, &v272, &std::piecewise_construct, &v263) + 5);
+    if (&range != v147)
     {
-      v149 = 0;
-      v150 = &range;
+      v148 = 0;
+      v149 = &range;
       do
       {
         for (n = 0; n != 32; n += 8)
         {
-          *(&v148->start.value + n) = *(&v150->start.value + n);
+          *(&v147->start.value + n) = *(&v149->start.value + n);
         }
 
-        ++v149;
-        v148 = (v148 + 32);
-        v150 = (v150 + 32);
+        ++v148;
+        v147 = (v147 + 32);
+        v149 = (v149 + 32);
       }
 
-      while (v149 != 4);
+      while (v148 != 4);
     }
 
-    v152 = *v103;
-    if (!*v103)
+    v151 = *v102;
+    if (!*v102)
     {
       goto LABEL_197;
     }
 
-    v153 = inputs + 32;
+    v152 = inputs + 32;
     do
     {
-      v154 = *(v152 + 8);
-      v14 = v154 >= v268;
-      v155 = v154 < v268;
+      v153 = *(v151 + 8);
+      v14 = v153 >= v272;
+      v154 = v153 < v272;
       if (v14)
       {
-        v153 = v152;
+        v152 = v151;
       }
 
-      v152 = *&v152[8 * v155];
+      v151 = *&v151[8 * v154];
     }
 
-    while (v152);
-    if (v153 != v103 && *(v153 + 8) <= v268)
+    while (v151);
+    if (v152 != v102 && *(v152 + 8) <= v272)
     {
-      v259 = *(v153 + 40);
-      v131 = *(v153 + 7);
-      v130 = *(v153 + 8);
+      v263 = *(v152 + 40);
+      v130 = *(v152 + 7);
+      v129 = *(v152 + 8);
     }
 
     else
     {
 LABEL_197:
-      v259 = 0uLL;
+      v263 = 0uLL;
+      v129 = -1.0;
       v130 = -1.0;
-      v131 = -1.0;
     }
 
-    v306 = &v268;
-    v137 = std::__tree<std::__value_type<unsigned int,PCRect<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCRect<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCRect<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v275, &v268);
-    v138 = v259;
+    v310 = &v272;
+    v136 = std::__tree<std::__value_type<unsigned int,PCRect<double>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PCRect<double>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PCRect<double>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v279, &v272, &std::piecewise_construct, &v310);
+    v137 = v263;
 LABEL_199:
-    *(v137 + 5) = v138;
-    *(v137 + 7) = v131;
-    *(v137 + 8) = v130;
+    *(v136 + 5) = v137;
+    *(v136 + 7) = v130;
+    *(v136 + 8) = v129;
     goto LABEL_200;
   }
 
 LABEL_209:
   if ((*(**context.m_Obj + 64))())
   {
-    v165 = 2;
+    v164 = 2;
   }
 
   else
   {
-    v165 = 0;
+    v164 = 0;
   }
 
   if ((*(**context.m_Obj + 64))())
   {
     +[PVEnvironment PVExportPrefilterValue];
-    if (v166 == 0.0)
+    if (v165 == 0.0)
     {
-      v165 = 1;
+      v164 = 1;
     }
   }
 
   if (((*(**context.m_Obj + 64))() & 1) == 0 && [(PVMotionEffect *)self isSketch])
   {
-    v165 = 1;
+    v164 = 1;
   }
 
   v219 = +[PVHostApplicationDelegateHandler sharedInstance];
-  *&v257.var2 = 0;
-  *&v257.var0 = 0;
-  v258 = 0;
-  v167 = PVInstructionGraphContext::WorkingColorSpace(*context.m_Obj);
-  PVImagePropertiesForColorSpace(v167, 0, &v257);
+  *&v261.var2 = 0;
+  *&v261.var0 = 0;
+  v262 = 0;
+  v166 = PVInstructionGraphContext::WorkingColorSpace(*context.m_Obj);
+  PVImagePropertiesForColorSpace(v166, 0, &v261);
 
-  v168 = v258;
-  v169 = v257.var1;
+  v167 = v262;
+  v168 = v261.var1;
   (*(**context.m_Obj + 48))();
   if (v233 >= 0.00001)
   {
-    v170 = v17 * v170;
+    v169 = v17 * v169;
   }
 
-  *&range.start.value = v170;
-  *(&range.start.value + 1) = v170;
-  *&v171 = v95;
-  range.start.timescale = v171;
-  LODWORD(v261.f64[0]) = v165;
-  *(v261.f64 + 4) = v169 == 16;
-  v262 = v168;
-  v263 = v168;
-  LOBYTE(v264) = isRec2020LinearColorSpace;
-  HIDWORD(v264) = [(PVMotionEffect *)self stillImageInverseToneMapOperator:self->super._inspectableProperties];
-  LOBYTE(v265) = 0;
+  *&range.start.value = v169;
+  *(&range.start.value + 1) = v169;
+  *&v170 = v94;
+  range.start.timescale = v170;
+  LODWORD(v265.f64[0]) = v164;
+  *(v265.f64 + 4) = v168 == 16;
+  v266 = v167;
+  v267 = v167;
+  LOBYTE(v268) = isRec2020LinearColorSpace;
+  HIDWORD(v268) = [(PVMotionEffect *)self stillImageInverseToneMapOperator:self->super._inspectableProperties];
+  LOBYTE(v269) = 0;
   [(PVMotionEffect *)self outputROI_NoLock:self->_documentInfo scale:fabsf(*&range.start.timescale)];
-  range.start.epoch = v172;
-  range.duration.value = v173;
-  *&range.duration.timescale = v174;
-  range.duration.epoch = v175;
-  v176 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"splitACropRect"];
-  v177 = v176;
+  range.start.epoch = v171;
+  range.duration.value = v172;
+  *&range.duration.timescale = v173;
+  range.duration.epoch = v174;
+  v175 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"splitACropRect"];
+  v176 = v175;
   v226 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"splitBCropRect"];
   v228 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"pipCropRect"];
   v230 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"pipScaleFactor"];
   (*(**context.m_Obj + 48))();
-  v178 = *(inputs + 13);
-  if (!v178)
+  v177 = *(inputs + 13);
+  if (!v177)
   {
     goto LABEL_227;
   }
 
-  v179 = inputs + 104;
+  v178 = inputs + 104;
   do
   {
-    if (v178[7])
+    if (v177[7])
     {
-      v179 = v178;
+      v178 = v177;
     }
 
-    v178 = *&v178[2 * (v178[7] == 0)];
+    v177 = *&v177[2 * (v177[7] == 0)];
   }
 
-  while (v178);
-  if (v179 != (inputs + 104) && v179[7] <= 1u)
+  while (v177);
+  if (v178 != (inputs + 104) && v178[7] <= 1u)
   {
-    v180 = v179[8] == 0;
+    v179 = v178[8] == 0;
   }
 
   else
   {
 LABEL_227:
-    v180 = 1;
+    v179 = 1;
   }
 
   LOBYTE(v217) = isRec2020LinearColorSpace;
-  [(PVMotionEffect *)self adjustCutawayInputs:&v277 splitCropRectA:v176 splitCropRectB:v226 pipRect:v228 pipScaleFactor:v230 renderScale:v180 pipNeedsCrop:v217 isHDRRender:v168 workingColorSpace:?];
-  v181 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"inputANeedsBackground"];
-  v182 = v232;
-  bOOLValue3 = [v181 BOOLValue];
+  [(PVMotionEffect *)self adjustCutawayInputs:&v281 splitCropRectA:v175 splitCropRectB:v226 pipRect:v228 pipScaleFactor:v230 renderScale:v179 pipNeedsCrop:v217 isHDRRender:v167 workingColorSpace:?];
+  v180 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"inputANeedsBackground"];
+  v181 = v232;
+  bOOLValue3 = [v180 BOOLValue];
 
-  v184 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"inputBNeedsBackground"];
-  bOOLValue4 = [v184 BOOLValue];
+  v183 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"inputBNeedsBackground"];
+  bOOLValue4 = [v183 BOOLValue];
 
-  v186 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"slideACropRect"];
+  v185 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"slideACropRect"];
   v243 = [(NSMutableDictionary *)self->super._inspectableProperties objectForKeyedSubscript:@"slideBCropRect"];
   (*(**context.m_Obj + 48))();
-  [(PVMotionEffect *)self adjustTransitionInputs:&v277 renderScale:renderer renderer:bOOLValue3 inputANeedsBackground:bOOLValue4 inputBNeedsBackground:v186 slideCropRectA:v243 slideCropRectB:?];
+  [(PVMotionEffect *)self adjustTransitionInputs:&v281 renderScale:renderer renderer:bOOLValue3 inputANeedsBackground:bOOLValue4 inputBNeedsBackground:v185 slideCropRectA:v243 slideCropRectB:?];
   [(PVMotionEffect *)self adjustPosition:self->super._inspectableProperties];
-  v187 = self->super._inspectableProperties;
-  v256 = *time;
-  [(PVMotionEffect *)self updateSketchAnimation:v187 defaultProperties:0 time:&v256];
+  v186 = self->super._inspectableProperties;
+  v260 = *time;
+  [(PVMotionEffect *)self updateSketchAnimation:v186 defaultProperties:0 time:&v260];
   [(PVMotionEffect *)self adjustCamera:self->super._inspectableProperties];
-  v188 = self->super._inspectableProperties;
-  v256 = start;
-  [(PVMotionEffect *)self applyARData:v188 time:&v256 renderParams:&range];
+  v187 = self->super._inspectableProperties;
+  v260 = start;
+  [(PVMotionEffect *)self applyARData:v187 time:&v260 renderParams:&range];
   [(PVMotionEffect *)self deleteTemporalInspectableProperties];
   motionComponents = self->_motionComponents;
-  v253[0] = MEMORY[0x277D85DD0];
-  v253[1] = *"";
-  v253[2] = __58__PVMotionEffect_hgNodeForTime_inputs_renderer_igContext___block_invoke;
-  v253[3] = &unk_279AA6248;
-  v253[4] = self;
-  v254 = *&time->var0;
-  v255 = time->var3;
-  [(NSMutableArray *)motionComponents enumerateObjectsUsingBlock:v253];
+  v257[0] = MEMORY[0x277D85DD0];
+  v257[1] = *"";
+  v257[2] = __58__PVMotionEffect_hgNodeForTime_inputs_renderer_igContext___block_invoke;
+  v257[3] = &unk_279AA6248;
+  v257[4] = self;
+  v258 = *&time->var0;
+  v259 = time->var3;
+  [(NSMutableArray *)motionComponents enumerateObjectsUsingBlock:v257];
   if (v237)
   {
     objc_storeStrong(&self->super._inspectableProperties, obj);
   }
 
-  v190 = [(PVMotionEffect *)self getOSFAOption:self->super._inspectableProperties];
+  v189 = [(PVMotionEffect *)self getOSFAOption:self->super._inspectableProperties];
   {
     [PVMotionEffect hgNodeForTime:inputs:renderer:igContext:]::rigCheckboxName = 0;
     PCString::set(&[PVMotionEffect hgNodeForTime:inputs:renderer:igContext:]::rigCheckboxName, @"IsHDR");
     __cxa_atexit(PCString::~PCString, &[PVMotionEffect hgNodeForTime:inputs:renderer:igContext:]::rigCheckboxName, &dword_25F8F0000);
-    v182 = v232;
+    v181 = v232;
   }
 
-  v191 = 0.0;
+  v190 = 0.0;
   if (isRec2020LinearColorSpace)
   {
-    v191 = 1.0;
+    v190 = 1.0;
   }
 
-  OZXSetRigValueWithName(*self->_documentInfo, &[PVMotionEffect hgNodeForTime:inputs:renderer:igContext:]::rigCheckboxName, v191);
+  OZXSetRigValueWithName(*self->_documentInfo, &[PVMotionEffect hgNodeForTime:inputs:renderer:igContext:]::rigCheckboxName, v190);
   unlock = [(NSLock *)self->super._inspectablePropertiesLock unlock];
   v193 = v236;
   if (isRec2020LinearColorSpace)
   {
-    v194 = v277;
-    if (v277 != v278)
+    v194 = v281;
+    if (v281 != v282)
     {
       do
       {
-        if (v182 && *(v194 + 8) == 1 || v193 && (*(v194 + 8) - 1) < 2)
+        if (v181 && *(v194 + 8) == 1 || v193 && (*(v194 + 8) - 1) < 2)
         {
           goto LABEL_263;
         }
 
         unlock = v194[5];
-        if (v190)
+        if (v189)
         {
           if (unlock)
           {
-            *&v259 = v194[5];
+            *&v263 = v194[5];
             (*(*unlock + 16))(unlock);
-            FxApplySimpleToneCurve(&v259, &v256, 0.7, 12.0);
-            v195 = v256.var0;
-            if (v259 == v256.var0)
+            FxApplySimpleToneCurve(&v263, &v260, 0.7, 12.0);
+            v195 = v260.var0;
+            if (v263 == v260.var0)
             {
-              if (v259)
+              if (v263)
               {
-                (*(*v256.var0 + 24))(v256.var0);
+                (*(*v260.var0 + 24))(v260.var0);
               }
             }
 
             else
             {
-              if (v259)
+              if (v263)
               {
-                (*(*v259 + 24))();
-                v195 = v256.var0;
+                (*(*v263 + 24))();
+                v195 = v260.var0;
               }
 
-              *&v259 = v195;
+              *&v263 = v195;
             }
 
-            if (v190 == 2)
+            if (v189 == 2)
             {
-              FxApplyColorConform(&v259, &kPCNCLC_Rec2020Linear, 1, &kPCNCLC_Rec709, 1, &v256.var0);
-              v196 = v256.var0;
-              if (v259 == v256.var0)
+              FxApplyColorConform(&v263, &kPCNCLC_Rec2020Linear, 1, &kPCNCLC_Rec709, 1, &v260);
+              v196 = v260.var0;
+              if (v263 == v260.var0)
               {
-                if (v259)
+                if (v263)
                 {
-                  (*(*v256.var0 + 24))(v256.var0);
+                  (*(*v260.var0 + 24))(v260.var0);
                 }
               }
 
               else
               {
-                if (v259)
+                if (v263)
                 {
-                  (*(*v259 + 24))();
-                  v196 = v256.var0;
+                  (*(*v263 + 24))();
+                  v196 = v260.var0;
                 }
 
-                *&v259 = v196;
+                *&v263 = v196;
               }
             }
 
@@ -3216,18 +3216,18 @@ LABEL_227:
 
         else
         {
-          *&v259 = v194[5];
+          *&v263 = v194[5];
           if (unlock)
           {
             (*(*unlock + 16))(unlock);
 LABEL_256:
             unlock = v194[5];
-            v197 = v259;
-            if (unlock == v259)
+            v197 = v263;
+            if (unlock == v263)
             {
               if (unlock)
               {
-                unlock = (*(*v259 + 24))(v259);
+                unlock = (*(*v263 + 24))(v263);
               }
             }
 
@@ -3236,7 +3236,7 @@ LABEL_256:
               if (unlock)
               {
                 unlock = (*(*unlock + 24))(unlock);
-                v197 = v259;
+                v197 = v263;
               }
 
               v194[5] = v197;
@@ -3273,36 +3273,36 @@ LABEL_263:
         v194 = v199;
       }
 
-      while (v199 != v278);
+      while (v199 != v282);
     }
 
-    if (v190 == 2)
+    if (v189 == 2)
     {
-      v262 = PCColorSpaceCache::cgRec709(unlock);
-      v263 = v262;
-      LOBYTE(v264) = 0;
-      HIDWORD(v264) = 0;
+      v266 = PCColorSpaceCache::cgRec709(unlock, v192);
+      v267 = v266;
+      LOBYTE(v268) = 0;
+      HIDWORD(v268) = 0;
     }
   }
 
   v201 = self->_documentInfo;
-  *&v259 = 0;
+  *&v263 = 0;
   v202 = *v201;
-  v256 = start;
-  std::map<unsigned int,HGRef<HGNode>>::map[abi:ne200100](v252, &v277);
-  std::map<unsigned int,unsigned int>::map[abi:ne200100](v251, &v271);
-  std::map<unsigned int,PCRect<double>>::map[abi:ne200100](v250, &v275);
-  std::map<unsigned int,PCMatrix44Tmpl<double>>::map[abi:ne200100](v249, &v273);
-  v203 = OZXGetFrameAsRenderGraph(v202, &v256, v252, v251, v250, v249, &range, &v283, 0, *renderer, &v259);
-  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(v249, v249[1]);
-  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(v250, v250[1]);
-  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(v251, v251[1]);
-  std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::destroy(v252, v252[1]);
-  v205 = v259;
+  v260 = start;
+  std::map<unsigned int,HGRef<HGNode>>::map[abi:ne200100](v255, &v281);
+  std::map<unsigned int,unsigned int>::map[abi:ne200100](v253, &v275);
+  std::map<unsigned int,PCRect<double>>::map[abi:ne200100](v251, &v279);
+  std::map<unsigned int,PCMatrix44Tmpl<double>>::map[abi:ne200100](v249, &v277);
+  v203 = OZXGetFrameAsRenderGraph(v202, &v260, v255, v253, v251, v249, &range, &v287, 0, *renderer, &v263);
+  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(v249, v250);
+  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(v251, v252);
+  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(v253, v254);
+  std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::destroy(v255, v256);
+  v205 = v263;
   if (!v203)
   {
     v206 = *v241;
-    if (*v241 == v259)
+    if (*v241 == v263)
     {
       v205 = *v241;
     }
@@ -3312,7 +3312,7 @@ LABEL_263:
       if (v206)
       {
         (*(*v206 + 24))(v206);
-        v205 = v259;
+        v205 = v263;
       }
 
       *v241 = v205;
@@ -3324,79 +3324,79 @@ LABEL_263:
 
     if (isRec2020LinearColorSpace)
     {
-      if (v190)
+      if (v189)
       {
         if (v205)
         {
-          v306 = v205;
+          v310 = v205;
           (*(*v205 + 16))(v205);
-          if (v190 == 2)
+          if (v189 == 2)
           {
-            FxApplyColorConform(&v306, &kPCNCLC_Rec709, 1, &kPCNCLC_Rec2020Linear, 1, &v256.var0);
-            v207 = v256.var0;
-            if (v306 == v256.var0)
+            FxApplyColorConform(&v310, &kPCNCLC_Rec709, 1, &kPCNCLC_Rec2020Linear, 1, &v260);
+            v207 = v260.var0;
+            if (v310 == v260.var0)
             {
-              if (v306)
+              if (v310)
               {
-                (*(*v256.var0 + 24))(v256.var0);
+                (*(*v260.var0 + 24))(v260.var0);
               }
             }
 
             else
             {
-              if (v306)
+              if (v310)
               {
-                (*(*v306 + 24))();
-                v207 = v256.var0;
+                (*(*v310 + 24))();
+                v207 = v260.var0;
               }
 
-              v306 = v207;
+              v310 = v207;
             }
           }
 
-          FxApplyInverseSimpleToneCurve(&v306, &v256, 0.7, 12.0);
-          v208 = v256.var0;
-          if (v306 == v256.var0)
+          FxApplyInverseSimpleToneCurve(&v310, &v260, 0.7, 12.0);
+          v208 = v260.var0;
+          if (v310 == v260.var0)
           {
-            if (v306)
+            if (v310)
             {
-              (*(*v256.var0 + 24))(v256.var0);
+              (*(*v260.var0 + 24))(v260.var0);
             }
           }
 
           else
           {
-            if (v306)
+            if (v310)
             {
-              (*(*v306 + 24))();
-              v208 = v256.var0;
+              (*(*v310 + 24))();
+              v208 = v260.var0;
             }
 
-            v306 = v208;
+            v310 = v208;
           }
         }
 
         else
         {
-          v306 = 0;
+          v310 = 0;
         }
       }
 
       else
       {
-        v306 = v205;
+        v310 = v205;
         if (v205)
         {
           (*(*v205 + 16))(v205);
         }
       }
 
-      v209 = v306;
-      if (v205 == v306)
+      v209 = v310;
+      if (v205 == v310)
       {
         if (v205)
         {
-          (*(*v306 + 24))();
+          (*(*v310 + 24))();
         }
       }
 
@@ -3405,7 +3405,7 @@ LABEL_263:
         if (v205)
         {
           (*(*v205 + 24))(v205);
-          v209 = v306;
+          v209 = v310;
         }
 
         *v241 = v209;
@@ -3424,13 +3424,13 @@ LABEL_263:
 
       v211.f64[0] = v235.f64[0];
       v211.f64[1] = v234;
-      HGXFormForScaleAroundPoint(&v248, &v256, v211, 1.0 / v17, 0);
-      v212 = v256.var0;
-      if (v210 == v256.var0)
+      HGXFormForScaleAroundPoint(&v248, &v260, v211, 1.0 / v17, 0);
+      v212 = v260.var0;
+      if (v210 == v260.var0)
       {
         if (v210)
         {
-          (*(*v256.var0 + 24))();
+          (*(*v260.var0 + 24))();
         }
       }
 
@@ -3439,11 +3439,11 @@ LABEL_263:
         if (v210)
         {
           (*(*v210 + 24))(v210);
-          v212 = v256.var0;
+          v212 = v260.var0;
         }
 
         *v241 = v212;
-        v256.var0 = 0;
+        v260.var0 = 0;
       }
 
       if (v248)
@@ -3463,13 +3463,13 @@ LABEL_263:
 
       v214.f64[0] = v235.f64[0];
       v214.f64[1] = v234;
-      HGXFormForScaleAroundPoint(&v247, &v256, v214, v281, v280);
-      v215 = v256.var0;
-      if (v213 == v256.var0)
+      HGXFormForScaleAroundPoint(&v247, &v260, v214, v285, v284);
+      v215 = v260.var0;
+      if (v213 == v260.var0)
       {
         if (v213)
         {
-          (*(*v256.var0 + 24))();
+          (*(*v260.var0 + 24))();
         }
       }
 
@@ -3478,11 +3478,11 @@ LABEL_263:
         if (v213)
         {
           (*(*v213 + 24))(v213);
-          v215 = v256.var0;
+          v215 = v260.var0;
         }
 
         *v241 = v215;
-        v256.var0 = 0;
+        v260.var0 = 0;
       }
 
       if (v247)
@@ -3492,7 +3492,7 @@ LABEL_263:
     }
 
     self->_lastRenderWasHDR = isRec2020LinearColorSpace;
-    v205 = v259;
+    v205 = v263;
   }
 
   if (v205)
@@ -3502,14 +3502,14 @@ LABEL_263:
 
   if (__p)
   {
-    v270 = __p;
+    v274 = __p;
     operator delete(__p);
   }
 
-  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(&v271, v272[0]);
-  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(&v273, v274[0]);
   std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(&v275, v276[0]);
-  std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::destroy(&v277, v278[0]);
+  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(&v277, v278[0]);
+  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(&v279, v280[0]);
+  std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::destroy(&v281, v282[0]);
 
   [(NSLock *)self->_documentLock unlock];
 LABEL_332:
@@ -3578,42 +3578,27 @@ uint64_t __58__PVMotionEffect_hgNodeForTime_inputs_renderer_igContext___block_in
     v6 = [animationCopy objectForKeyedSubscript:@"pipFadeOut"];
     if (v6)
     {
-      memset(&v20, 0, sizeof(v20));
+      memset(&v18, 0, sizeof(v18));
       [v5 floatValue];
-      CMTimeMakeWithSeconds(&v20, v7, 30);
-      memset(&v19, 0, sizeof(v19));
+      CMTimeMakeWithSeconds(&v18, v7, 30);
+      memset(&v17, 0, sizeof(v17));
       [v6 floatValue];
-      CMTimeMakeWithSeconds(&v19, v8, 30);
-      v17 = *MEMORY[0x277CC08F0];
-      *v18 = *(MEMORY[0x277CC08F0] + 16);
-      [(PVEffect *)self effectRange];
-      *&v18[8] = *&v16[8];
-      *&v18[24] = *&v16[24];
-      memset(&v14, 0, sizeof(v14));
-      timelineComponent = self->_timelineComponent;
-      v13 = v20;
-      *v16 = *v18;
-      *&v16[16] = *&v18[16];
-      v15 = v17;
-      if (timelineComponent)
-      {
-        [(PVMotionEffectTimelineComponent *)timelineComponent timelineTimeFromComponentTime_NoLock:&v13 editRange:&v15 documentInfo:self->_documentInfo];
-        timelineComponent = self->_timelineComponent;
-      }
-
-      else
-      {
-        memset(&v14, 0, sizeof(v14));
-      }
-
+      CMTimeMakeWithSeconds(&v17, v8, 30);
+      v15 = *MEMORY[0x277CC08F0];
+      *v16 = *(MEMORY[0x277CC08F0] + 16);
+      objc_msgSend_effectRange(self);
+      *&v16[8] = *&v14[8];
+      *&v16[24] = *&v14[24];
       memset(&v12, 0, sizeof(v12));
-      v11 = v19;
-      v10[0] = v17;
-      v10[1] = *v18;
-      v10[2] = *&v18[16];
+      timelineComponent = self->_timelineComponent;
+      v11 = v18;
+      *v14 = *v16;
+      *&v14[16] = *&v16[16];
+      v13 = v15;
       if (timelineComponent)
       {
-        [(PVMotionEffectTimelineComponent *)timelineComponent timelineTimeFromComponentTime_NoLock:&v11 editRange:v10 documentInfo:self->_documentInfo];
+        objc_msgSend_timelineTimeFromComponentTime_NoLock_editRange_documentInfo_(timelineComponent);
+        timelineComponent = self->_timelineComponent;
       }
 
       else
@@ -3621,7 +3606,18 @@ uint64_t __58__PVMotionEffect_hgNodeForTime_inputs_renderer_igContext___block_in
         memset(&v12, 0, sizeof(v12));
       }
 
-      OZXSetCutawayFadeInOut(*self->_documentInfo, &v14, &v12);
+      memset(&v10, 0, sizeof(v10));
+      if (timelineComponent)
+      {
+        objc_msgSend_timelineTimeFromComponentTime_NoLock_editRange_documentInfo_(timelineComponent, v15, *v16, *&v16[16], *&v17.value, v17.epoch, v10.value, *&v10.timescale, v10.epoch, *&v11.value, v11.epoch, v12.value, *&v12.timescale, v12.epoch, v13, *v14, *&v14[16], *&v14[24]);
+      }
+
+      else
+      {
+        memset(&v10, 0, sizeof(v10));
+      }
+
+      OZXSetCutawayFadeInOut(*self->_documentInfo, &v12, &v10);
     }
   }
 }
@@ -3635,7 +3631,7 @@ uint64_t __58__PVMotionEffect_hgNodeForTime_inputs_renderer_igContext___block_in
   factorCopy = factor;
   LODWORD(v99) = 0;
   v100 = &v99;
-  v20 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v99);
+  v20 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v99, &std::piecewise_construct, &v100);
   v21 = v20[5];
   if (v21)
   {
@@ -3644,7 +3640,7 @@ uint64_t __58__PVMotionEffect_hgNodeForTime_inputs_renderer_igContext___block_in
 
   LODWORD(v99) = 1;
   v100 = &v99;
-  v22 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v99);
+  v22 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v99, &std::piecewise_construct, &v100);
   v23 = v22[5];
   if (v23)
   {
@@ -3692,7 +3688,7 @@ uint64_t __58__PVMotionEffect_hgNodeForTime_inputs_renderer_igContext___block_in
     (*(*v36 + 120))(v36, 0, v21);
     LODWORD(v99) = 0;
     v100 = &v99;
-    v47 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v99);
+    v47 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v99, &std::piecewise_construct, &v100);
     v48 = v47[5];
     if (v48 != v36)
     {
@@ -3743,7 +3739,7 @@ uint64_t __58__PVMotionEffect_hgNodeForTime_inputs_renderer_igContext___block_in
       (*(*v58 + 120))(v58, 0, v23);
       LODWORD(v99) = 1;
       v100 = &v99;
-      v69 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v99);
+      v69 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v99, &std::piecewise_construct, &v100);
       v70 = v69[5];
       if (v70 != v58)
       {
@@ -3779,7 +3775,7 @@ uint64_t __58__PVMotionEffect_hgNodeForTime_inputs_renderer_igContext___block_in
         {
           LODWORD(v99) = 0;
           v100 = &v99;
-          v81 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v99);
+          v81 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v99, &std::piecewise_construct, &v100);
           v83 = v81[5];
           if (v83)
           {
@@ -3804,7 +3800,7 @@ uint64_t __58__PVMotionEffect_hgNodeForTime_inputs_renderer_igContext___block_in
           (*(*v90 + 120))(v90, 0, v23);
           LODWORD(v99) = 1;
           v100 = &v99;
-          v95 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v99);
+          v95 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v99, &std::piecewise_construct, &v100);
           v96 = v95[5];
           if (v96 != v90)
           {
@@ -3893,7 +3889,7 @@ uint64_t __58__PVMotionEffect_hgNodeForTime_inputs_renderer_igContext___block_in
   {
     LODWORD(v75) = 0;
     *&v74.var0 = &v75;
-    v18 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v75);
+    v18 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v75, &std::piecewise_construct, &v74);
     v21 = v18[5];
     if (v21)
     {
@@ -3915,7 +3911,7 @@ uint64_t __58__PVMotionEffect_hgNodeForTime_inputs_renderer_igContext___block_in
   {
     LODWORD(v75) = 1;
     *&v74.var0 = &v75;
-    v27 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v75);
+    v27 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v75, &std::piecewise_construct, &v74);
     v30 = v27[5];
     if (v30)
     {
@@ -3944,7 +3940,7 @@ uint64_t __58__PVMotionEffect_hgNodeForTime_inputs_renderer_igContext___block_in
     v45 = v44;
     LODWORD(v75) = 0;
     *&v74.var0 = &v75;
-    v46 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v75);
+    v46 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v75, &std::piecewise_construct, &v74);
     v47 = v46[5];
     if (v47)
     {
@@ -3952,6 +3948,8 @@ uint64_t __58__PVMotionEffect_hgNodeForTime_inputs_renderer_igContext___block_in
     }
 
     DOD = HGRenderer::GetDOD(*renderer, v47);
+    *&v74.var0 = 0;
+    *&v74.var2 = 0;
     *&v49 = scale;
     *&v74.var0 = [(PVMotionEffect *)self makeCropRectForDOD:DOD renderRect:v50 renderScale:v39, v41, v43, v45, v49];
     *&v74.var2 = v51;
@@ -3963,7 +3961,7 @@ uint64_t __58__PVMotionEffect_hgNodeForTime_inputs_renderer_igContext___block_in
       (*(*v52 + 120))(v52, 0, v47);
       v73 = 0;
       v75 = &v73;
-      v53 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v73);
+      v53 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v73, &std::piecewise_construct, &v75);
       v54 = v53[5];
       if (v54 != v52)
       {
@@ -3996,7 +3994,7 @@ uint64_t __58__PVMotionEffect_hgNodeForTime_inputs_renderer_igContext___block_in
     v63 = v62;
     LODWORD(v75) = 1;
     *&v74.var0 = &v75;
-    v64 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v75);
+    v64 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v75, &std::piecewise_construct, &v74);
     v65 = v64[5];
     if (v65)
     {
@@ -4015,7 +4013,7 @@ uint64_t __58__PVMotionEffect_hgNodeForTime_inputs_renderer_igContext___block_in
       (*(*v70 + 120))(v70, 0, v65);
       v73 = 1;
       v75 = &v73;
-      v71 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v73);
+      v71 = std::__tree<std::__value_type<unsigned int,HGRef<HGNode>>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,HGRef<HGNode>>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,HGRef<HGNode>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(inputs, &v73, &std::piecewise_construct, &v75);
       v72 = v71[5];
       if (v72 != v70)
       {
@@ -4294,7 +4292,7 @@ uint64_t __58__PVMotionEffect_hgNodeForTime_inputs_renderer_igContext___block_in
         v38 = 0u;
         v45 = *&time->var0;
         var3 = time->var3;
-        [v28 transformInfoAtTime:&v45];
+        objc_msgSend_transformInfoAtTime_(v28);
         v11 = 0.0;
         v13 = 0.0;
         v12 = 0.0;
@@ -4313,7 +4311,7 @@ uint64_t __58__PVMotionEffect_hgNodeForTime_inputs_renderer_igContext___block_in
         v38 = 0u;
         v45 = *&time->var0;
         var3 = time->var3;
-        [v26 transformInfoAtTime:&v45];
+        objc_msgSend_transformInfoAtTime_(v26);
         v11 = 0.0 + 0.0;
         v12 = 0.0 + 0.0;
       }
@@ -5072,7 +5070,7 @@ float64x2_t __28__PVMotionEffect_outputSize__block_invoke(uint64_t a1, uint64_t 
   return result;
 }
 
-uint64_t __27__PVMotionEffect_outputROI__block_invoke(uint64_t a1, uint64_t a2)
+void *__27__PVMotionEffect_outputROI__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) outputROI_NoLock:a2 scale:1.0];
   v4 = *(*(a1 + 40) + 8);
@@ -5163,45 +5161,45 @@ uint64_t __27__PVMotionEffect_outputROI__block_invoke(uint64_t a1, uint64_t a2)
       p_playableAspectRatio = &self->_effectOutputAspect;
     }
 
-    v14 = *p_playableAspectRatio;
+    v15 = *p_playableAspectRatio;
     documentInfo = self->_documentInfo;
-    v16 = *documentInfo;
+    v17 = *documentInfo;
     if (v12)
     {
-      OZXSetTargetDisplayAspectRatioWithNativeSize(v16, v14, documentInfo[22], documentInfo[23]);
-      v17 = [(PVMotionEffect *)self isLandscape:self->super._inspectableProperties];
-      v18 = self->_documentInfo;
-      if (v17)
+      OZXSetTargetDisplayAspectRatioWithNativeSize(v17, v15, documentInfo[22], documentInfo[23], v13);
+      v18 = [(PVMotionEffect *)self isLandscape:self->super._inspectableProperties];
+      v19 = self->_documentInfo;
+      if (v18)
       {
-        v19 = v18[22];
-        v20 = v19 / *p_effectOutputAspect / v18[7] + 0.5 + 0.0000001;
-        *(v18 + 3) = v19;
-        *(v18 + 4) = vcvtmd_s64_f64(v20);
+        v20 = v19[22];
+        v21 = v20 / *p_effectOutputAspect / v19[7] + 0.5 + 0.0000001;
+        *(v19 + 3) = v20;
+        *(v19 + 4) = vcvtmd_s64_f64(v21);
       }
 
       else
       {
-        v23 = v18[23];
-        *(v18 + 3) = vcvtmd_s64_f64(*p_effectOutputAspect * v23 / v18[7] + 0.5 + 0.0000001);
-        *(v18 + 4) = v23;
+        v24 = v19[23];
+        *(v19 + 3) = vcvtmd_s64_f64(*p_effectOutputAspect * v24 / v19[7] + 0.5 + 0.0000001);
+        *(v19 + 4) = v24;
       }
     }
 
     else
     {
-      OZXSetTargetDisplayAspectRatio(v16, v14);
-      v21 = self->_documentInfo;
-      LODWORD(v22) = *(v21 + 4);
-      *(v21 + 3) = vcvtmd_s64_f64(*p_effectOutputAspect * v22 / v21[7] + 0.5 + 0.0000001);
+      OZXSetTargetDisplayAspectRatio(v17, v15, v13);
+      v22 = self->_documentInfo;
+      LODWORD(v23) = *(v22 + 4);
+      *(v22 + 3) = vcvtmd_s64_f64(*p_effectOutputAspect * v23 / v22[7] + 0.5 + 0.0000001);
     }
 
-    v24 = [MEMORY[0x277CCABB0] numberWithDouble:?];
+    v25 = [MEMORY[0x277CCABB0] numberWithDouble:?];
     [PVMotionEffect didSetCacheInvalidatingParameter_NoLock:"didSetCacheInvalidatingParameter_NoLock:forKey:" forKey:?];
 
-    v25 = [MEMORY[0x277CCABB0] numberWithDouble:self->_playableAspectRatio];
+    v26 = [MEMORY[0x277CCABB0] numberWithDouble:self->_playableAspectRatio];
     [PVMotionEffect didSetCacheInvalidatingParameter_NoLock:"didSetCacheInvalidatingParameter_NoLock:forKey:" forKey:?];
 
-    v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_playableContentMode];
+    v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_playableContentMode];
     [PVMotionEffect didSetCacheInvalidatingParameter_NoLock:"didSetCacheInvalidatingParameter_NoLock:forKey:" forKey:?];
   }
 }
@@ -5522,7 +5520,7 @@ LABEL_13:
   return v10 & 1;
 }
 
-uint64_t __65__PVMotionEffect_didCacheInvalidatingParameterChange_NoLock_key___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__65__PVMotionEffect_didCacheInvalidatingParameterChange_NoLock_key___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 motionEffect:a1[4] shouldInvalidateCachedRenderForProperty:a1[5] oldValue:a1[6] newValue:a1[7]];
   if (result)
@@ -5580,7 +5578,7 @@ uint64_t __65__PVMotionEffect_didCacheInvalidatingParameterChange_NoLock_key___b
   return v10 & 1;
 }
 
-uint64_t __49__PVMotionEffect_isRenderCachingDisabled_NoLock___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__49__PVMotionEffect_isRenderCachingDisabled_NoLock___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v6 = *(a1 + 32);
   v7 = *(v6 + 80);
@@ -6028,7 +6026,7 @@ void __68__PVMotionEffect_publishedParameterNameToMotionEffectPropertyKeyMap__bl
     }
 
     unsignedIntValue = [v12 unsignedIntValue];
-    if (unsignedIntValue - 2 >= 3)
+    if ((unsignedIntValue - 2) >= 3)
     {
       v17 = 0;
     }
@@ -6052,7 +6050,7 @@ void __68__PVMotionEffect_publishedParameterNameToMotionEffectPropertyKeyMap__bl
     v19 = v18;
     if (v18)
     {
-      [v18 SCNMatrix4Value];
+      objc_msgSend_SCNMatrix4Value(v18);
     }
 
     else
@@ -6096,12 +6094,12 @@ void __68__PVMotionEffect_publishedParameterNameToMotionEffectPropertyKeyMap__bl
       v27 = v26;
       v29 = v28;
       [v10 cameraIntrinsics];
-      v30.f32[0] = v27;
+      v30.n128_f32[0] = v27;
       v31 = v29;
-      v30.f32[1] = v31;
+      v30.n128_f32[1] = v31;
       *&v32 = v24;
       *(&v32 + 1) = v25;
-      pv_simd_matrix_make_perspective(3, unsignedIntValue, 1, 1, v33, v34, v35, v30, v32);
+      pv_simd_matrix_make_perspective(v33, v34, v35, v30, 3, unsignedIntValue, 1, 1, v32);
       v75.columns[0] = v36;
       v75.columns[1] = v37;
       v75.columns[2] = v38;

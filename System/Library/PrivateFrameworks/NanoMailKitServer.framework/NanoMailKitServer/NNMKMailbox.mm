@@ -13,7 +13,6 @@
 - (void)addFilterType:(unint64_t)type;
 - (void)encodeWithCoder:(id)coder;
 - (void)removeFilterType:(unint64_t)type;
-- (void)resetURL;
 - (void)setMailboxId:(id)id;
 @end
 
@@ -89,46 +88,43 @@
 
 + (id)idsFromMailboxes:(id)mailboxes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   mailboxesCopy = mailboxes;
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(mailboxesCopy, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = mailboxesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        mailboxId = [*(*(&v13 + 1) + 8 * i) mailboxId];
+        mailboxId = [*(*(&v12 + 1) + 8 * i) mailboxId];
         [v4 addObject:mailboxId];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (NNMKMailbox)initWithCoder:(id)coder
 {
-  v26 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(NNMKMailbox *)self init];
   if (v5)
@@ -176,7 +172,6 @@
     v5->_databaseContentVerified = [v23 BOOLValue];
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -274,39 +269,39 @@
 
 - (BOOL)hasCompoundFilters
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v3 = [&unk_286C7BF58 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [&unk_286C7BF58 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v11;
+    v6 = *v10;
     while (2)
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(&unk_286C7BF58);
         }
 
-        v5 += -[NNMKMailbox hasFilterType:](self, "hasFilterType:", [*(*(&v10 + 1) + 8 * v7) unsignedIntegerValue]);
+        v5 += -[NNMKMailbox hasFilterType:](self, "hasFilterType:", [*(*(&v9 + 1) + 8 * v7) unsignedIntegerValue]);
         if (v5 > 1)
         {
           LOBYTE(v3) = 1;
-          goto LABEL_11;
+          return v3;
         }
 
         ++v7;
       }
 
       while (v4 != v7);
-      v3 = [&unk_286C7BF58 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [&unk_286C7BF58 countByEnumeratingWithState:&v9 objects:v13 count:16];
       v4 = v3;
       if (v3)
       {
@@ -317,8 +312,6 @@
     }
   }
 
-LABEL_11:
-  v8 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -422,13 +415,6 @@ LABEL_11:
   }
 
   return 0;
-}
-
-- (void)resetURL
-{
-  url = self->_url;
-  self->_url = 0;
-  MEMORY[0x2821F96F8]();
 }
 
 - (void)initWithCoder:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)

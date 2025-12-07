@@ -65,19 +65,19 @@
 
 + (BOOL)_migrateToCurrentUserVersionUsingDatabase:(id)database
 {
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 0;
-  v24[0] = _NSConcreteStackBlock;
-  v24[1] = 3221225472;
-  v24[2] = sub_100174164;
-  v24[3] = &unk_10032A288;
-  v24[4] = &v25;
-  [database prepareStatementForSQL:@"PRAGMA user_version;" cache:0 usingBlock:v24];
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
+  v25[0] = _NSConcreteStackBlock;
+  v25[1] = 3221225472;
+  v25[2] = sub_100174164;
+  v25[3] = &unk_10032A288;
+  v25[4] = &v26;
+  [database prepareStatementForSQL:@"PRAGMA user_version;" cache:0 usingBlock:v25];
   do
   {
-    v4 = *(v26 + 6);
+    v4 = *(v27 + 6);
     v5 = v4 >> 3;
     if (v4 >> 3 > 0x658)
     {
@@ -305,15 +305,16 @@
           if (v4 != 10100)
           {
 LABEL_154:
-            v17 = +[SSLogConfig sharedDaemonConfig];
-            if (!v17)
+            v18 = +[SSLogConfig sharedDaemonConfig];
+            if (!v18)
             {
-              v17 = +[SSLogConfig sharedConfig];
+              v18 = +[SSLogConfig sharedConfig];
             }
 
-            shouldLog = [v17 shouldLog];
-            shouldLogToDisk = [v17 shouldLogToDisk];
-            oSLogObject = [v17 OSLogObject];
+            shouldLog = [v18 shouldLog];
+            shouldLogToDisk = [v18 shouldLogToDisk];
+            oSLogObject = [v18 OSLogObject];
+            v22 = oSLogObject;
             if (shouldLogToDisk)
             {
               shouldLog |= 2u;
@@ -321,24 +322,23 @@ LABEL_154:
 
             if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
             {
-              v21 = shouldLog;
+              v23 = shouldLog;
             }
 
             else
             {
-              v21 = shouldLog & 2;
+              v23 = shouldLog & 2;
             }
 
-            if (v21)
+            if (v23)
             {
-              v22 = *(v26 + 6);
-              v29 = 67109376;
-              v30 = v22;
-              v31 = 1024;
-              v32 = 13000;
-              LODWORD(v23) = 14;
-              v14 = _os_log_send_and_compose_impl();
-              if (v14)
+              v24 = *(v27 + 6);
+              v30 = 67109376;
+              v31 = v24;
+              v32 = 1024;
+              v33 = 13000;
+              v15 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, v22, 16, "No database migration function for %d => %d", &v30, 14);
+              if (v15)
               {
                 goto LABEL_152;
               }
@@ -590,7 +590,7 @@ LABEL_141:
     v6 = v7;
   }
 
-  while ((v6(database, v26 + 24) & 1) != 0);
+  while ((v6(database, v27 + 24) & 1) != 0);
   v8 = +[SSLogConfig sharedDaemonConfig];
   if (!v8)
   {
@@ -600,6 +600,7 @@ LABEL_141:
   shouldLog2 = [v8 shouldLog];
   shouldLogToDisk2 = [v8 shouldLogToDisk];
   oSLogObject2 = [v8 OSLogObject];
+  v12 = oSLogObject2;
   if (shouldLogToDisk2)
   {
     shouldLog2 |= 2u;
@@ -607,33 +608,32 @@ LABEL_141:
 
   if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
   {
-    v12 = shouldLog2;
+    v13 = shouldLog2;
   }
 
   else
   {
-    v12 = shouldLog2 & 2;
+    v13 = shouldLog2 & 2;
   }
 
-  if (v12)
+  if (v13)
   {
-    v13 = *(v26 + 6);
-    v29 = 67109120;
-    v30 = v13;
-    LODWORD(v23) = 8;
-    v14 = _os_log_send_and_compose_impl();
-    if (v14)
+    v14 = *(v27 + 6);
+    v30 = 67109120;
+    v31 = v14;
+    v15 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, v12, 16, "Database migration failed for version: %d", &v30);
+    if (v15)
     {
 LABEL_152:
-      v15 = v14;
-      [NSString stringWithCString:v14 encoding:4, &v29, v23];
-      free(v15);
+      v16 = v15;
+      [NSString stringWithCString:v15 encoding:4];
+      free(v16);
       SSFileLog();
     }
   }
 
 LABEL_153:
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v26, 8);
   return v5 > 0x658;
 }
 

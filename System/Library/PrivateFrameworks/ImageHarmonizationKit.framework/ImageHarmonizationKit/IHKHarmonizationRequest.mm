@@ -1,9 +1,29 @@
 @interface IHKHarmonizationRequest
+- (IHKHarmonizationRequest)initWithForeground:(CGImage *)foreground background:(CGImage *)background forceHarmonization:(BOOL)harmonization;
 - (IHKHarmonizationRequest)initWithForeground:(CGImage *)foreground background:(CGImage *)background forceHarmonization:(BOOL)harmonization harmonizationStrength:(float)strength;
 - (void)dealloc;
 @end
 
 @implementation IHKHarmonizationRequest
+
+- (IHKHarmonizationRequest)initWithForeground:(CGImage *)foreground background:(CGImage *)background forceHarmonization:(BOOL)harmonization
+{
+  v8 = objc_msgSend_standardUserDefaults(MEMORY[0x277CBEBD0], a2, foreground, background, harmonization);
+  objc_msgSend_floatForKey_(v8, v9, @"com.apple.ImageHarmonizationKit.harmonizationStrength", v10, v11);
+  v13 = v12;
+
+  LODWORD(v15) = 1.0;
+  if (v13 != 0.0)
+  {
+    *&v15 = v13;
+    if (v13 < 0.0)
+    {
+      v15 = 0.0;
+    }
+  }
+
+  return objc_msgSend_initWithForeground_background_forceHarmonization_harmonizationStrength_(self, v14, foreground, background, 0, v15);
+}
 
 - (IHKHarmonizationRequest)initWithForeground:(CGImage *)foreground background:(CGImage *)background forceHarmonization:(BOOL)harmonization harmonizationStrength:(float)strength
 {

@@ -34,13 +34,14 @@
   if (delegate)
   {
     v5 = delegate;
-    if (objc_opt_respondsToSelector())
+    delegate = objc_opt_respondsToSelector();
+    if (delegate)
     {
-      [v5 printerAccessoryViewInfoButtonPressed:self];
+      delegate = [v5 printerAccessoryViewInfoButtonPressed:self];
     }
   }
 
-  MEMORY[0x2821F9730]();
+  MEMORY[0x2821F9730](delegate);
 }
 
 - (void)setPrinterState:(int)state

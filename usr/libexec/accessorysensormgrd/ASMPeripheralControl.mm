@@ -68,16 +68,20 @@
 {
   if (!self->_activateCalled)
   {
-    v7 = v2;
+    v8 = v3;
+    selfCopy = self;
     self->_activateCalled = 1;
-    if (dword_10001A398 <= 30 && (dword_10001A398 != -1 || _LogCategory_Initialize()))
+    if (dword_10001A398 <= 30)
     {
-      sub_100008E68();
+      if (dword_10001A398 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_100008E68(self, a2, v2);
+      }
     }
 
-    [(ASMPeripheralControl *)self _accessoryDiscoveryEnsureStarted:v3];
+    [(ASMPeripheralControl *)selfCopy _accessoryDiscoveryEnsureStarted:v4];
 
-    [(ASMPeripheralControl *)self _startASMExclaveDaemon];
+    [(ASMPeripheralControl *)selfCopy _startASMExclaveDaemon];
   }
 }
 
@@ -94,24 +98,28 @@
 
 - (void)_invalidate
 {
-  if (dword_10001A398 <= 30 && (dword_10001A398 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_10001A398 <= 30)
   {
-    sub_100008E84();
+    if (dword_10001A398 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_100008E84(self, a2, v2);
+    }
   }
 
-  peripheralMap = self->_peripheralMap;
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = sub_1000048D4;
-  v5[3] = &unk_100014508;
-  v5[4] = self;
-  [(NSMutableDictionary *)peripheralMap enumerateKeysAndObjectsUsingBlock:v5];
-  [(NSMutableDictionary *)self->_peripheralMap removeAllObjects];
-  v4 = self->_peripheralMap;
-  self->_peripheralMap = 0;
+  peripheralMap = selfCopy->_peripheralMap;
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_1000048D4;
+  v6[3] = &unk_100014508;
+  v6[4] = selfCopy;
+  [(NSMutableDictionary *)peripheralMap enumerateKeysAndObjectsUsingBlock:v6];
+  [(NSMutableDictionary *)selfCopy->_peripheralMap removeAllObjects];
+  v5 = selfCopy->_peripheralMap;
+  selfCopy->_peripheralMap = 0;
 
-  [(ASMPeripheralControl *)self _accessoryDiscoveryEnsureStopped];
-  self->_activateCalled = 0;
+  [(ASMPeripheralControl *)selfCopy _accessoryDiscoveryEnsureStopped];
+  selfCopy->_activateCalled = 0;
 }
 
 - (BOOL)_restartIfNeeded
@@ -153,15 +161,13 @@
   completionCopy = completion;
   if (dword_10001A398 <= 30 && (dword_10001A398 != -1 || _LogCategory_Initialize()))
   {
-    v12 = configurationCopy;
-    v13 = identifierCopy;
-    LogPrintF();
+    LogPrintF(&dword_10001A398, "[ASMPeripheralControl _modifyPeripheralConfiguration:identifier:completion:]", 30, "modifyPeripheralConfiguration: %@, identifier: %@", configurationCopy, identifierCopy);
   }
 
-  v10 = [(NSMutableDictionary *)self->_peripheralMap objectForKeyedSubscript:identifierCopy, v12, v13];
+  v10 = [(NSMutableDictionary *)self->_peripheralMap objectForKeyedSubscript:identifierCopy];
   if (!v10)
   {
-    v11 = NSErrorF();
+    v11 = NSErrorF(NSOSStatusErrorDomain, 4294960569, "peripheral not found");
     if (completionCopy)
     {
       completionCopy[2](completionCopy, v11);
@@ -206,7 +212,7 @@
 
     if (dword_10001A398 <= 30 && (dword_10001A398 != -1 || _LogCategory_Initialize()))
     {
-      sub_100008EA0();
+      sub_100008EA0(identifierCopy);
     }
 
     v17[0] = _NSConcreteStackBlock;
@@ -220,7 +226,7 @@
 
   else
   {
-    gattConnectionManager = NSErrorF();
+    gattConnectionManager = NSErrorF(NSOSStatusErrorDomain, 4294960569, "peripheral not found");
     if (completionCopy)
     {
       (*(completionCopy + 2))(completionCopy, gattConnectionManager);
@@ -266,7 +272,7 @@
     [(AADeviceManager *)v4 setDeviceLostHandler:v8];
     if (dword_10001A398 <= 30 && (dword_10001A398 != -1 || _LogCategory_Initialize()))
     {
-      sub_100008EE0();
+      sub_100008EE0(v4);
     }
 
     v6[0] = _NSConcreteStackBlock;
@@ -309,7 +315,7 @@
     {
       if (dword_10001A398 <= 30 && (dword_10001A398 != -1 || _LogCategory_Initialize()))
       {
-        sub_100009074();
+        sub_100009074(foundCopy);
       }
 
       [(ASMPeripheralControl *)self _ensureOSTransaction];
@@ -332,7 +338,7 @@
 
   else
   {
-    sub_1000090B4();
+    sub_1000090B4(foundCopy);
   }
 }
 
@@ -348,7 +354,7 @@
     {
       if (dword_10001A398 <= 30 && (dword_10001A398 != -1 || _LogCategory_Initialize()))
       {
-        sub_100009130();
+        sub_100009130(v5);
       }
 
       [(ASMPeripheralControl *)self _peripheralPerformActionsOnDisconnection:v5];
@@ -362,7 +368,7 @@
 
   else
   {
-    sub_100009170();
+    sub_100009170(lostCopy);
   }
 }
 
@@ -417,16 +423,20 @@
 {
   if (!self->_transaction)
   {
-    if (dword_10001A398 <= 30 && (dword_10001A398 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_10001A398 <= 30)
     {
-      sub_100009330();
+      if (dword_10001A398 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_100009330(self, a2, v2);
+      }
     }
 
-    v3 = os_transaction_create();
-    transaction = self->_transaction;
-    self->_transaction = v3;
+    v4 = os_transaction_create();
+    transaction = selfCopy->_transaction;
+    selfCopy->_transaction = v4;
 
-    if (!self->_transaction && dword_10001A398 <= 60 && (dword_10001A398 != -1 || _LogCategory_Initialize()))
+    if (!selfCopy->_transaction && dword_10001A398 <= 60 && (dword_10001A398 != -1 || _LogCategory_Initialize()))
     {
       sub_10000934C();
     }
@@ -443,7 +453,7 @@
     if (dword_10001A398 <= 30 && (dword_10001A398 != -1 || _LogCategory_Initialize()))
     {
 
-      LogPrintF();
+      LogPrintF(&dword_10001A398, "[ASMPeripheralControl _releaseOSTransaction]", 30, "Removing os transaction for connected peripherals.");
     }
   }
 }

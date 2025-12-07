@@ -7,31 +7,32 @@
 
 - (SKUISearchBar)init
 {
-  v8.receiver = self;
-  v8.super_class = SKUISearchBar;
-  v2 = [(SKUISearchBar *)&v8 init];
+  v11.receiver = self;
+  v11.super_class = SKUISearchBar;
+  v2 = [(SKUISearchBar *)&v11 init];
+  v4 = v2;
   if (v2)
   {
-    v3 = storeSemanticContentAttribute();
-    if (storeShouldReverseLayoutDirection())
+    v5 = storeSemanticContentAttribute(v2, v3);
+    if (storeShouldReverseLayoutDirection(v5, v6))
     {
-      v4 = 2;
+      v7 = 2;
     }
 
     else
     {
-      v4 = 0;
+      v7 = 0;
     }
 
-    [(SKUISearchBar *)v2 setSemanticContentAttribute:v3];
-    searchField = [(SKUISearchBar *)v2 searchField];
-    [searchField setSemanticContentAttribute:v3];
+    [(SKUISearchBar *)v4 setSemanticContentAttribute:v5];
+    searchField = [(SKUISearchBar *)v4 searchField];
+    [searchField setSemanticContentAttribute:v5];
 
-    searchField2 = [(SKUISearchBar *)v2 searchField];
-    [searchField2 setTextAlignment:v4];
+    searchField2 = [(SKUISearchBar *)v4 searchField];
+    [searchField2 setTextAlignment:v7];
   }
 
-  return v2;
+  return v4;
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits

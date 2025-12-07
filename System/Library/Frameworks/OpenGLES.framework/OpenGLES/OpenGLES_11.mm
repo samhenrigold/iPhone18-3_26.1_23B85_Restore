@@ -521,14 +521,14 @@ LABEL_91:
   result = glpStringBufferAppendCString(result, "_ARGP");
   if ((a2 & 2) != 0)
   {
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_91;
   }
 
   if ((a2 & 4) != 0)
   {
 LABEL_92:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_93;
   }
 
@@ -536,7 +536,7 @@ LABEL_48:
   if ((a2 & 8) != 0)
   {
 LABEL_94:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_95;
   }
 
@@ -544,7 +544,7 @@ LABEL_49:
   if ((a2 & 0x10) != 0)
   {
 LABEL_96:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_97;
   }
 
@@ -552,7 +552,7 @@ LABEL_50:
   if ((a2 & 0x20) != 0)
   {
 LABEL_98:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_99;
   }
 
@@ -560,7 +560,7 @@ LABEL_51:
   if ((a2 & 0x40) != 0)
   {
 LABEL_100:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_101;
   }
 
@@ -568,7 +568,7 @@ LABEL_52:
   if ((a2 & 0x80) != 0)
   {
 LABEL_102:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_103;
   }
 
@@ -576,7 +576,7 @@ LABEL_53:
   if ((a2 & 0x100) != 0)
   {
 LABEL_104:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_105;
   }
 
@@ -584,7 +584,7 @@ LABEL_54:
   if ((a2 & 0x200) != 0)
   {
 LABEL_106:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_107;
   }
 
@@ -592,7 +592,7 @@ LABEL_55:
   if ((a2 & 0x400) != 0)
   {
 LABEL_108:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_109;
   }
 
@@ -600,7 +600,7 @@ LABEL_56:
   if ((a2 & 0x800) != 0)
   {
 LABEL_110:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_111;
   }
 
@@ -608,7 +608,7 @@ LABEL_57:
   if ((a2 & 0x1000) != 0)
   {
 LABEL_112:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_113;
   }
 
@@ -616,7 +616,7 @@ LABEL_58:
   if ((a2 & 0x2000) != 0)
   {
 LABEL_114:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_115;
   }
 
@@ -624,7 +624,7 @@ LABEL_59:
   if ((a2 & 0x4000) != 0)
   {
 LABEL_116:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_117;
   }
 
@@ -632,7 +632,7 @@ LABEL_60:
   if ((a2 & 0x8000) != 0)
   {
 LABEL_118:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_119;
   }
 
@@ -640,7 +640,7 @@ LABEL_61:
   if ((a2 & 0x10000) != 0)
   {
 LABEL_120:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_121;
   }
 
@@ -648,7 +648,7 @@ LABEL_62:
   if ((a2 & 0x20000) != 0)
   {
 LABEL_122:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_123;
   }
 
@@ -656,7 +656,7 @@ LABEL_63:
   if ((a2 & 0x40000) != 0)
   {
 LABEL_124:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_125;
   }
 
@@ -664,7 +664,7 @@ LABEL_64:
   if ((a2 & 0x80000) != 0)
   {
 LABEL_126:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_127;
   }
 
@@ -672,7 +672,7 @@ LABEL_65:
   if ((a2 & 0x100000) != 0)
   {
 LABEL_128:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_129;
   }
 
@@ -680,7 +680,7 @@ LABEL_66:
   if ((a2 & 0x200000) != 0)
   {
 LABEL_130:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_131;
   }
 
@@ -688,7 +688,7 @@ LABEL_67:
   if ((a2 & 0x400000) != 0)
   {
 LABEL_132:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_133;
   }
 
@@ -696,7 +696,7 @@ LABEL_68:
   if ((a2 & 0x800000) != 0)
   {
 LABEL_134:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_135;
   }
 
@@ -704,7 +704,7 @@ LABEL_69:
   if ((a2 & 0x1000000) != 0)
   {
 LABEL_136:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_137;
   }
 
@@ -712,7 +712,7 @@ LABEL_70:
   if ((a2 & 0x2000000) != 0)
   {
 LABEL_138:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_139;
   }
 
@@ -720,7 +720,7 @@ LABEL_71:
   if ((a2 & 0x4000000) != 0)
   {
 LABEL_140:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_141;
   }
 
@@ -728,7 +728,7 @@ LABEL_72:
   if ((a2 & 0x8000000) != 0)
   {
 LABEL_142:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_143;
   }
 
@@ -736,7 +736,7 @@ LABEL_73:
   if ((a2 & 0x10000000) != 0)
   {
 LABEL_144:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_145;
   }
 
@@ -744,7 +744,7 @@ LABEL_74:
   if ((a2 & 0x20000000) != 0)
   {
 LABEL_146:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_147;
   }
 
@@ -752,7 +752,7 @@ LABEL_75:
   if ((a2 & 0x40000000) != 0)
   {
 LABEL_148:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_149;
   }
 
@@ -760,7 +760,7 @@ LABEL_76:
   if ((a2 & 0x80000000) != 0)
   {
 LABEL_150:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_151;
   }
 
@@ -768,7 +768,7 @@ LABEL_77:
   if ((a2 & 0x100000000) != 0)
   {
 LABEL_152:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_153;
   }
 
@@ -776,7 +776,7 @@ LABEL_78:
   if ((a2 & 0x200000000) != 0)
   {
 LABEL_154:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_155;
   }
 
@@ -784,7 +784,7 @@ LABEL_79:
   if ((a2 & 0x400000000) != 0)
   {
 LABEL_156:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_157;
   }
 
@@ -792,7 +792,7 @@ LABEL_80:
   if ((a2 & 0x800000000) != 0)
   {
 LABEL_158:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_159;
   }
 
@@ -800,7 +800,7 @@ LABEL_81:
   if ((a2 & 0x1000000000) != 0)
   {
 LABEL_160:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_161;
   }
 
@@ -808,7 +808,7 @@ LABEL_82:
   if ((a2 & 0x2000000000) != 0)
   {
 LABEL_162:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_163;
   }
 
@@ -816,7 +816,7 @@ LABEL_83:
   if ((a2 & 0x4000000000) != 0)
   {
 LABEL_164:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_165;
   }
 
@@ -824,7 +824,7 @@ LABEL_84:
   if ((a2 & 0x8000000000) != 0)
   {
 LABEL_166:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_167;
   }
 
@@ -832,7 +832,7 @@ LABEL_85:
   if ((a2 & 0x10000000000) != 0)
   {
 LABEL_168:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_169;
   }
 
@@ -840,7 +840,7 @@ LABEL_86:
   if ((a2 & 0x20000000000) != 0)
   {
 LABEL_170:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
     goto LABEL_171;
   }
 
@@ -848,7 +848,7 @@ LABEL_87:
   if ((a2 & 0x40000000000) != 0)
   {
 LABEL_172:
-    glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+    glpStringBufferAppendFormat(v3, ",");
 LABEL_173:
     result = glpStringBufferAppendCString(v3, "SAMPLE");
     if ((a2 & 0x80000000000) == 0)
@@ -866,7 +866,7 @@ LABEL_88:
   }
 
 LABEL_174:
-  glpStringBufferAppendFormat(v3, ",", v4, v5, v6, v7, v8, v9, v10);
+  glpStringBufferAppendFormat(v3, ",");
 LABEL_175:
 
   return glpStringBufferAppendCString(v3, "PRECISE");
@@ -977,21 +977,20 @@ uint64_t glpVariableObjectGetABI(uint64_t a1)
   }
 }
 
-void *glpAppendVariableObjectDescription(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *glpAppendVariableObjectDescription(uint64_t *a1, uint64_t *a2)
 {
   if (a2)
   {
-    glpStringBufferAppendFormat(a1, "*((GLPVariableObject *)%p): ", a3, a4, a5, a6, a7, a8, a2);
-    v16 = *(a2 + 48);
-    if (v16)
+    glpStringBufferAppendFormat(a1, "*((GLPVariableObject *)%p): ", a2);
+    v4 = a2[6];
+    if (v4)
     {
-      glpAppendFlagDescription(a1, v16);
+      glpAppendFlagDescription(a1, v4);
       glpStringBufferAppendCString(a1, " ");
     }
 
-    glpDumpTypeToStringBuffer(a1, *a2, v10, v11, v12, v13, v14, v15, v24);
-    v25 = *(a2 + 16);
-    return glpStringBufferAppendFormat(a1, " %.*s", v17, v18, v19, v20, v21, v22, *(a2 + 24));
+    glpDumpTypeToStringBuffer(a1, *a2);
+    return glpStringBufferAppendFormat(a1, " %.*s", *(a2 + 6), a2[2]);
   }
 
   else
@@ -1001,7 +1000,7 @@ void *glpAppendVariableObjectDescription(uint64_t *a1, uint64_t a2, uint64_t a3,
   }
 }
 
-uint64_t glpVariableObjectValidateImplicitArraySize(uint64_t a1, int a2, unsigned int a3, uint64_t **a4, __int128 *a5)
+uint64_t glpVariableObjectValidateImplicitArraySize(uint64_t a1, int a2, unsigned int a3, uint64_t a4, __int128 *a5)
 {
   v9 = *a1;
   if (a2)
@@ -1032,20 +1031,21 @@ uint64_t glpVariableObjectValidateImplicitArraySize(uint64_t a1, int a2, unsigne
     while (v10);
   }
 
-  if (glpArrayTypeGetMaxElementCount(v9) >= a3)
+  MaxElementCount = glpArrayTypeGetMaxElementCount(v9);
+  if (MaxElementCount >= a3)
   {
     return 1;
   }
 
-  v17 = *(a1 + 32);
-  v18 = *(a1 + 40);
-  v20 = *a5;
-  v21 = *(a5 + 2);
-  glpLogMessage(a4, 0, &v20, "special unsized array '%.*s' may have at most %u elements (%u requested)", v13, v14, v15, v16, v18);
+  v14 = *(a1 + 32);
+  v15 = *(a1 + 40);
+  v17 = *a5;
+  v18 = *(a5 + 2);
+  glpLogMessage(a4, 0, &v17, "special unsized array '%.*s' may have at most %u elements (%u requested)", v15, v14, MaxElementCount, a3);
   return 0;
 }
 
-uint64_t glpVariableObjectExtendImplicitArraySize(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t **a4, uint64_t a5)
+uint64_t glpVariableObjectExtendImplicitArraySize(uint64_t a1, int a2, unsigned int a3, uint64_t a4, uint64_t a5)
 {
   v11 = *a5;
   v12 = *(a5 + 16);
@@ -1069,37 +1069,34 @@ uint64_t glpVariableObjectExtendImplicitArraySize(uint64_t a1, unsigned int a2, 
 uint64_t glpGetIBVariableObjectCount(uint64_t a1, unsigned int *a2)
 {
   ElementType = a2;
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   Kind = glpTypeGetKind(a2);
   v6 = a1 == 0x20000000 || a1 == 0x40000000;
-  v11 = xmmword_23A29C2D0;
-  v7 = *(&v11 | (8 * (Kind == 3)) | (4 * v6));
+  v9 = xmmword_23A29C2D0;
+  v7 = *(&v9 | (8 * (Kind == 3)) | (4 * v6));
   if (v7 != 1)
   {
     if (v7 != 3)
     {
-      v10 = *MEMORY[0x277D85DE8];
       return 1;
     }
 
     ElementType = glpBankTypeGetElementType(ElementType);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return glpAggregateTypeGetElementCount(ElementType);
 }
 
-uint64_t glpMakeUnnamedInterfaceBlockObject(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, unsigned int *a6)
+uint64_t glpMakeUnnamedInterfaceBlockObject(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int *a6)
 {
   result = glpMakeNamedInterfaceBlockObject(a1, a2, a3, "<<BUG: printing instance name of interface block without an instance name>>", 0xDFA3F2CD0000004BLL, a4, a5, a6);
   *(result + 32) = 0;
   return result;
 }
 
-uint64_t glpMakeNamedInterfaceBlockObject(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, unsigned int *a8)
+uint64_t glpMakeNamedInterfaceBlockObject(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7, unsigned int *a8)
 {
-  v98 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   v16 = (a1[1])(*a1, 88, "Interface Block Object");
   *v16 = 0u;
   *(v16 + 16) = 0u;
@@ -1107,7 +1104,8 @@ uint64_t glpMakeNamedInterfaceBlockObject(void *a1, uint64_t a2, uint64_t a3, ui
   *(v16 + 64) = 0u;
   *(v16 + 32) = 0u;
   *(v16 + 80) = 0;
-  v95 = a6;
+  v74 = a2;
+  v75 = a6;
   v17 = a6 & 0x160000000;
   *v16 = a2;
   *(v16 + 8) = a3;
@@ -1115,7 +1113,7 @@ uint64_t glpMakeNamedInterfaceBlockObject(void *a1, uint64_t a2, uint64_t a3, ui
   *(v16 + 24) = a5;
   *(v16 + 32) = 1;
   *(v16 + 40) = a6 & 0x160000000;
-  v96 = v16;
+  v76 = v16;
   *(v16 + 64) = a8;
   if ((a6 & 0x160000000) == 0x100000000)
   {
@@ -1141,13 +1139,13 @@ uint64_t glpMakeNamedInterfaceBlockObject(void *a1, uint64_t a2, uint64_t a3, ui
     *v20 = ElementType;
     *(v20 + 8) = a7;
     *(v20 + 12) = ElementCount;
-    *(v96 + 80) = v20;
+    *(v76 + 80) = v20;
   }
 
   Kind = glpTypeGetKind(a8);
   v23 = v17 == 0x20000000 || v17 == 0x40000000;
-  v97 = xmmword_23A29C2D0;
-  v24 = *(&v97 | (8 * (Kind == 3)) | (4 * v23));
+  v77 = xmmword_23A29C2D0;
+  v24 = *(&v77 | (8 * (Kind == 3)) | (4 * v23));
   if (v24 <= 1)
   {
     v25 = a1;
@@ -1155,81 +1153,90 @@ uint64_t glpMakeNamedInterfaceBlockObject(void *a1, uint64_t a2, uint64_t a3, ui
     {
       if (v24 != 1)
       {
-        goto LABEL_46;
+        return v76;
       }
 
-      goto LABEL_30;
+      goto LABEL_33;
     }
 
 LABEL_20:
     StringBuffer = glpMakeStringBuffer(v25);
-    v33 = StringBuffer;
+    v27 = StringBuffer;
     if (v17 == 0x20000000)
     {
-      v34 = 105;
+      LODWORD(v28) = 105;
     }
 
     else
     {
-      v34 = 111;
+      LODWORD(v28) = 111;
     }
 
     if (v17 == 0x20000000)
     {
-      v35 = "in";
+      v29 = "in";
     }
 
     else
     {
-      v35 = "out";
+      v29 = "out";
     }
 
     if (v17 == 0x100000000)
     {
-      v34 = 117;
-      v36 = "uniform";
+      v28 = 117;
     }
 
     else
     {
-      LOBYTE(v36) = v35;
+      v28 = v28;
     }
 
-    glpStringBufferAppendFormat(StringBuffer, "$ib$%c$%.*s", v27, v28, v29, v30, v31, v32, v34);
-    v37 = glpMakeStringBuffer(v25);
-    glpStringBufferAppendFormat(v37, "<%s %.*s>", v38, v39, v40, v41, v42, v43, v36);
-    *(v96 + 72) = (v25[1])(*v25, 8, "Variable Object Array of Interface Block");
-    String = glpStringBufferGetString(v33);
-    v46 = v45;
-    v47 = glpStringBufferGetString(v37);
-    v49 = v48;
-    v50 = (v25[1])(*v25, 160, "Variable Object");
-    *v50 = 0u;
-    *(v50 + 16) = 0u;
-    *(v50 + 32) = 0u;
-    *(v50 + 48) = 0u;
-    *(v50 + 128) = 0u;
-    *(v50 + 144) = 0u;
-    *(v50 + 96) = 0u;
-    *(v50 + 112) = 0u;
-    *(v50 + 64) = 0u;
-    *(v50 + 80) = 0u;
-    *v50 = a8;
-    *(v50 + 8) = 0;
-    *(v50 + 40) = v49;
-    *(v50 + 48) = v95 | 0x80000000;
-    *(v50 + 16) = String;
-    *(v50 + 24) = v46;
-    *(v50 + 32) = v47;
-    *(v50 + 56) = 0;
-    *(v50 + 64) = 0;
-    *(v50 + 72) = 0;
-    **(v96 + 72) = v50;
-    v51 = *(v96 + 72);
-    v52 = *(v96 + 80);
-    *(*v51 + 80) = v96;
-    *(*v51 + 88) = v52;
-    goto LABEL_46;
+    if (v17 == 0x100000000)
+    {
+      v30 = "uniform";
+    }
+
+    else
+    {
+      v30 = v29;
+    }
+
+    glpStringBufferAppendFormat(StringBuffer, "$ib$%c$%.*s", v28, a3, a2);
+    v31 = glpMakeStringBuffer(v25);
+    glpStringBufferAppendFormat(v31, "<%s %.*s>", v30, a3, a2);
+    *(v76 + 72) = (v25[1])(*v25, 8, "Variable Object Array of Interface Block");
+    String = glpStringBufferGetString(v27);
+    v34 = v33;
+    v35 = glpStringBufferGetString(v31);
+    v37 = v36;
+    v38 = (v25[1])(*v25, 160, "Variable Object");
+    *v38 = 0u;
+    *(v38 + 16) = 0u;
+    *(v38 + 32) = 0u;
+    *(v38 + 48) = 0u;
+    *(v38 + 128) = 0u;
+    *(v38 + 144) = 0u;
+    *(v38 + 96) = 0u;
+    *(v38 + 112) = 0u;
+    *(v38 + 64) = 0u;
+    *(v38 + 80) = 0u;
+    *v38 = a8;
+    *(v38 + 8) = 0;
+    *(v38 + 40) = v37;
+    *(v38 + 48) = v75 | 0x80000000;
+    *(v38 + 16) = String;
+    *(v38 + 24) = v34;
+    *(v38 + 32) = v35;
+    *(v38 + 56) = 0;
+    *(v38 + 64) = 0;
+    *(v38 + 72) = 0;
+    **(v76 + 72) = v38;
+    v39 = *(v76 + 72);
+    v40 = *(v76 + 80);
+    *(*v39 + 80) = v76;
+    *(*v39 + 88) = v40;
+    return v76;
   }
 
   if (v24 != 3)
@@ -1237,114 +1244,119 @@ LABEL_20:
     v25 = a1;
     if (v24 != 2)
     {
-      goto LABEL_46;
+      return v76;
     }
 
     goto LABEL_20;
   }
 
-LABEL_30:
-  v53 = a8;
+LABEL_33:
+  v41 = a8;
   if (glpTypeGetKind(a8) == 3)
   {
-    v53 = glpBankTypeGetElementType(a8);
+    v41 = glpBankTypeGetElementType(a8);
   }
 
-  v54 = glpAggregateTypeGetElementCount(v53);
-  v55 = a1;
-  *(v96 + 72) = (a1[1])(*a1, 8 * v54, "Variable Object Array of Interface Block");
-  if (v54)
+  v42 = glpAggregateTypeGetElementCount(v41);
+  v43 = a1;
+  *(v76 + 72) = (a1[1])(*a1, 8 * v42, "Variable Object Array of Interface Block");
+  if (v42)
   {
-    v56 = 0;
+    v44 = 0;
     if (v17 == 0x20000000)
     {
-      v57 = 105;
+      LODWORD(v45) = 105;
     }
 
     else
     {
-      v57 = 111;
+      LODWORD(v45) = 111;
     }
 
-    v58 = "out";
+    v46 = "out";
     if (v17 == 0x20000000)
     {
-      v58 = "in";
+      v46 = "in";
     }
 
     if (v17 == 0x100000000)
     {
-      v57 = 117;
+      v45 = 117;
     }
 
-    v92 = v57;
-    v93 = v54;
-    v59 = "uniform";
+    else
+    {
+      v45 = v45;
+    }
+
+    v71 = v45;
+    v72 = v42;
+    v47 = "uniform";
     if (v17 != 0x100000000)
     {
-      LOBYTE(v59) = v58;
+      v47 = v46;
     }
 
-    v91 = v59;
-    v94 = a8;
-    v90 = v53;
+    v69 = a3;
+    v70 = v47;
+    v73 = a8;
+    v68 = v41;
     do
     {
-      glpStructTypeGetFieldName(v53, v56);
-      BankType = glpAggregateTypeGetElementType(v53, v56);
-      v61 = glpMakeStringBuffer(v55);
-      glpStringBufferAppendFormat(v61, "$ib$%c$%.*s$%.*s", v62, v63, v64, v65, v66, v67, v92);
-      v68 = glpMakeStringBuffer(v55);
-      glpStringBufferAppendFormat(v68, "<%s %.*s.%.*s>", v69, v70, v71, v72, v73, v74, v91);
+      FieldName = glpStructTypeGetFieldName(v41, v44);
+      v50 = v49;
+      BankType = glpAggregateTypeGetElementType(v41, v44);
+      v52 = glpMakeStringBuffer(v43);
+      glpStringBufferAppendFormat(v52, "$ib$%c$%.*s$%.*s", v71, v69, v74, v50, FieldName);
+      v53 = glpMakeStringBuffer(v43);
+      glpStringBufferAppendFormat(v53, "<%s %.*s.%.*s>", v70, v69, v74, v50, FieldName);
       if (glpTypeGetKind(a8) == 3)
       {
         Bank = glpBankTypeGetBank(a8);
-        v76 = glpBankTypeGetElementCount(a8);
-        BankType = glpMakeBankType(v55, Bank, BankType, v76);
+        v55 = glpBankTypeGetElementCount(a8);
+        BankType = glpMakeBankType(v43, Bank, BankType, v55);
       }
 
-      v53 = v90;
-      ElementLayout = glpAggregateTypeGetElementLayout(v90, v56);
-      v78 = glpAggregateTypeGetElementFlags(v90, v56) | v95 | 0x80000000;
-      v79 = glpStringBufferGetString(v61);
-      v81 = v80;
-      v82 = glpStringBufferGetString(v68);
-      v84 = v83;
-      v85 = (v55[1])(*v55, 160, "Variable Object");
-      *v85 = 0u;
-      *(v85 + 16) = 0u;
-      *(v85 + 32) = 0u;
-      *(v85 + 48) = 0u;
-      *(v85 + 128) = 0u;
-      *(v85 + 144) = 0u;
-      *(v85 + 96) = 0u;
-      *(v85 + 112) = 0u;
-      *(v85 + 64) = 0u;
-      *(v85 + 80) = 0u;
-      *v85 = BankType;
-      *(v85 + 8) = ElementLayout;
-      *(v85 + 40) = v84;
-      *(v85 + 48) = v78;
-      *(v85 + 16) = v79;
-      *(v85 + 24) = v81;
-      *(v85 + 32) = v82;
-      *(v85 + 56) = 0;
-      *(v85 + 64) = 0;
-      *(v85 + 72) = 0;
-      *(*(v96 + 72) + 8 * v56) = v85;
-      v86 = *(v96 + 72);
-      v87 = *(v96 + 80);
-      *(*(v86 + 8 * v56) + 80) = v96;
-      *(*(v86 + 8 * v56++) + 88) = v87;
-      a8 = v94;
+      v41 = v68;
+      ElementLayout = glpAggregateTypeGetElementLayout(v68, v44);
+      v57 = glpAggregateTypeGetElementFlags(v68, v44) | v75 | 0x80000000;
+      v58 = glpStringBufferGetString(v52);
+      v60 = v59;
+      v61 = glpStringBufferGetString(v53);
+      v63 = v62;
+      v64 = (v43[1])(*v43, 160, "Variable Object");
+      *v64 = 0u;
+      *(v64 + 16) = 0u;
+      *(v64 + 32) = 0u;
+      *(v64 + 48) = 0u;
+      *(v64 + 128) = 0u;
+      *(v64 + 144) = 0u;
+      *(v64 + 96) = 0u;
+      *(v64 + 112) = 0u;
+      *(v64 + 64) = 0u;
+      *(v64 + 80) = 0u;
+      *v64 = BankType;
+      *(v64 + 8) = ElementLayout;
+      *(v64 + 40) = v63;
+      *(v64 + 48) = v57;
+      *(v64 + 16) = v58;
+      *(v64 + 24) = v60;
+      *(v64 + 32) = v61;
+      *(v64 + 56) = 0;
+      *(v64 + 64) = 0;
+      *(v64 + 72) = 0;
+      *(*(v76 + 72) + 8 * v44) = v64;
+      v65 = *(v76 + 72);
+      v66 = *(v76 + 80);
+      *(*(v65 + 8 * v44) + 80) = v76;
+      *(*(v65 + 8 * v44++) + 88) = v66;
+      a8 = v73;
     }
 
-    while (v93 != v56);
+    while (v72 != v44);
   }
 
-LABEL_46:
-  v88 = *MEMORY[0x277D85DE8];
-  return v96;
+  return v76;
 }
 
 double glpMakeBufferObject(uint64_t a1, uint64_t a2, int a3, int a4)
@@ -1359,7 +1371,7 @@ double glpMakeBufferObject(uint64_t a1, uint64_t a2, int a3, int a4)
   return result;
 }
 
-uint64_t glpGetStructTypeFromIBType(unsigned int *a1)
+unsigned int *glpGetStructTypeFromIBType(unsigned int *a1)
 {
   if (glpTypeGetKind(a1) != 3)
   {
@@ -1371,14 +1383,12 @@ uint64_t glpGetStructTypeFromIBType(unsigned int *a1)
 
 uint64_t glpInterfaceBlockObjectGetRepresentation(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 40);
   Kind = glpTypeGetKind(*(a1 + 64));
   v4 = v1 == 0x20000000 || v1 == 0x40000000;
-  v7 = xmmword_23A29C2D0;
-  result = *(&v7 | (8 * (Kind == 3)) | (4 * v4));
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = xmmword_23A29C2D0;
+  return *(&v6 | (8 * (Kind == 3)) | (4 * v4));
 }
 
 double glpMakeOffsetObject(uint64_t a1)
@@ -1879,7 +1889,7 @@ LABEL_10:
   return result;
 }
 
-BOOL glpExtensionAllowedAndDefault(uint64_t a1, int a2)
+BOOL glpExtensionAllowedAndDefault(uint64_t a1, unsigned int a2)
 {
   GLProfile = glpCompilerGetGLProfile(a1);
   NameTable = glpCompilerGetNameTable(a1);
@@ -1901,7 +1911,7 @@ BOOL glpExtensionAllowedAndDefault(uint64_t a1, int a2)
         return !GLProfile && Language == 3;
       }
 
-      if ((a2 - 9) < 2)
+      if (a2 - 9 < 2)
       {
         return result;
       }
@@ -1928,7 +1938,7 @@ BOOL glpExtensionAllowedAndDefault(uint64_t a1, int a2)
     return GLProfile == 0;
   }
 
-  if ((a2 - 14) < 0xC)
+  if (a2 - 14 < 0xC)
   {
     return result;
   }
@@ -2075,19 +2085,19 @@ uint64_t _fixInterpolateAtInPPStreamOp(uint64_t a1, uint64_t a2, uint64_t a3, ui
     v22 = v11 + 8 * _slotInLocationForOffsetIntoUserIn(v19, v20, v21, Swizzle);
     v23 = glpIntHashGet(a3, *(v22 + 16));
     Swizzle_0 = glpMakeSwizzle_0(v23, v24, v25, v26, v27, v28, v29, v30, *(v22 + 20));
-    glpASTNodeGetLocation(v9, &v44);
-    OffsetNode = glpMakeOffsetNode(a1, &v44);
+    glpASTNodeGetLocation(v9, v44);
+    OffsetNode = glpMakeOffsetNode(a1, v44);
     glpOffsetNodeSetSwizzle(OffsetNode, Swizzle_0);
     v33 = glpASTNodeGetSaType(v23);
     PrimitiveType = glpPrimitiveTypeGetPrimitiveType(v33);
     glpOffsetNodeSetPreSwizzlePrimitiveType(OffsetNode, PrimitiveType);
     glpMakeOffsetObject(a1);
     glpOffsetNodeSetExtra(OffsetNode, v35);
-    glpASTNodeGetLocation(v9, &v44);
+    glpASTNodeGetLocation(v9, v44);
     VariableName = glpLValueNodeGetVariableName(v9);
     v38 = v37;
     Extra = glpVariableDeclarationNodeGetExtra(v23);
-    glpMakeLValueNode(a1, &v44, VariableName, v38, Extra);
+    glpMakeLValueNode(a1, v44, VariableName, v38, Extra);
     v41 = v40;
     glpDerefNodeSetOffset(v40, OffsetNode);
     v42 = glpGetPrimitiveType(1u);
@@ -2103,43 +2113,43 @@ uint64_t _fixInterpolateAtInPPStreamOp(uint64_t a1, uint64_t a2, uint64_t a3, ui
 
 uint64_t _slotInLocationForOffsetIntoUserIn(uint64_t a1, uint64_t *a2, int a3, unsigned int a4)
 {
-  v8 = glpABIGetTypeSize(0, *a2, 0);
-  Size = glpTypeSizeGetSize(v8);
-  v10 = (*(a1 + 8))(*a1, 4 * Size, "Array of vec4 types for fixing interpolateAt");
-  glpTypeGetAppleVec4Types(*a2, v10, 1, 0, 0, 0, 0, 0, 0);
+  glpABIGetTypeSize(0, *a2, 0);
+  glpTypeSizeGetSize();
+  v9 = (*(a1 + 8))(*a1, 4 * v8, "Array of vec4 types for fixing interpolateAt");
+  glpTypeGetAppleVec4Types(*a2, v9, 1, 0, 0, 0, 0, 0, 0);
   if (a3)
   {
+    v10 = 0;
     v11 = 0;
-    v12 = 0;
     do
     {
-      if (BitSetGetEquals(a2[15], v11))
+      if (BitSetGetEquals(a2[15], v10))
       {
-        v12 += glpPrimitiveTypeGetScalarCount(v10[v11]);
+        v11 += glpPrimitiveTypeGetScalarCount(v9[v10]);
       }
 
-      ++v11;
+      ++v10;
     }
 
-    while (a3 != v11);
+    while (a3 != v10);
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
   if ((a4 & 7) == 1)
   {
-    v13 = (a4 >> 3) & 3;
+    v12 = (a4 >> 3) & 3;
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  return (v12 + v13);
+  return v11 + v12;
 }
 
 uint64_t glpGetBIArchiveData(int a1, uint8_t **a2, _DWORD *a3)
@@ -2236,17 +2246,17 @@ uint64_t glpInitParseContext(uint64_t *a1, uint64_t a2)
   *a1 = glpCompilerGetLanguage(a2);
   *(a1 + 152) = 1;
   a1[98] = a2;
-  Allocator = glpCompilerGetAllocator(a2);
-  StringHash = glpMakeStringHash(Allocator);
+  glpCompilerGetAllocator();
+  StringHash = glpMakeStringHash(v4);
   a1[4] = StringHash;
-  glpStringHashPut(StringHash, "gl_DepthRangeParameters", 0x775A9C5100000017uLL, 1, v6);
-  glpStringHashPut(a1[4], "gl_FogParameters", 0x46B6471700000010uLL, 1, v7);
-  glpStringHashPut(a1[4], "gl_LightSourceParameters", 0xBE176FAB00000018, 1, v8);
-  glpStringHashPut(a1[4], "gl_LightModelParameters", 0xCD6CB4500000017uLL, 1, v9);
-  glpStringHashPut(a1[4], "gl_LightModelProducts", 0xC75531D000000015, 1, v10);
-  glpStringHashPut(a1[4], "gl_LightProducts", 0x7CA8967F00000010uLL, 1, v11);
-  glpStringHashPut(a1[4], "gl_MaterialParameters", 0xAE967D6C00000015, 1, v12);
-  glpStringHashPut(a1[4], "gl_PointParameters", 0x3E31F0AB00000012uLL, 1, v13);
+  glpStringHashPut(StringHash, "gl_DepthRangeParameters", 0x775A9C5100000017uLL, v6, 1);
+  glpStringHashPut(a1[4], "gl_FogParameters", 0x46B6471700000010uLL, v7, 1);
+  glpStringHashPut(a1[4], "gl_LightSourceParameters", 0xBE176FAB00000018, v8, 1);
+  glpStringHashPut(a1[4], "gl_LightModelParameters", 0xCD6CB4500000017uLL, v9, 1);
+  glpStringHashPut(a1[4], "gl_LightModelProducts", 0xC75531D000000015, v10, 1);
+  glpStringHashPut(a1[4], "gl_LightProducts", 0x7CA8967F00000010uLL, v11, 1);
+  glpStringHashPut(a1[4], "gl_MaterialParameters", 0xAE967D6C00000015, v12, 1);
+  glpStringHashPut(a1[4], "gl_PointParameters", 0x3E31F0AB00000012uLL, v13, 1);
   a1[9] = a1;
   glpLexerNew(a1);
 
@@ -2344,23 +2354,24 @@ uint64_t glpDestroyLayoutObject(uint64_t result, void **a2)
   return result;
 }
 
-uint64_t glpLayoutObjectAppend(uint64_t a1, uint64_t a2, uint64_t a3, int a4, unint64_t a5, void *a6, int a7)
+uint64_t glpLayoutObjectAppend(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4, unint64_t a5, void *a6, int a7)
 {
+  v10 = a4;
   v13 = (*(a1 + 8))(*a1, 24, "Layout Pair (no value)");
   *(v13 + 8) = a7;
   *(v13 + 12) = 0;
   v15 = *a3;
-  v16 = *(a3 + 16);
-  return addPair(a2, &v15, a4, a5, a6, v13);
+  v16 = *(a3 + 2);
+  return addPair(a2, &v15, v10, a5, a6, v13);
 }
 
 uint64_t addPair(uint64_t a1, __int128 *a2, int a3, unint64_t a4, void *a5, uint64_t a6)
 {
-  v98 = *a2;
-  v102 = *(a2 + 2);
+  v61 = *a2;
+  v65 = *(a2 + 2);
   v11 = *(a6 + 8);
   v12 = glpLayoutQualifierValueBehavior(v11);
-  v96 = a6;
+  v59 = a6;
   v13 = *(a6 + 12);
   if (!v12)
   {
@@ -2371,11 +2382,11 @@ uint64_t addPair(uint64_t a1, __int128 *a2, int a3, unint64_t a4, void *a5, uint
 
     if (a1)
     {
-      v14 = glpLayoutQualifierToString(v11);
+      glpLayoutQualifierToString(v11);
       InfoLog = glpCompilerGetInfoLog(a1);
-      v106 = v98;
-      v107 = v102;
-      glpLogMessage(InfoLog, 0, &v106, "Identifier '%s' in layout must not have a value", v16, v17, v18, v19, v14);
+      v69 = v61;
+      v70 = v65;
+      glpLogMessage(InfoLog, 0, &v69, "Identifier '%s' in layout must not have a value");
     }
 
     return 0;
@@ -2396,92 +2407,90 @@ LABEL_4:
   {
     if (a1)
     {
-      v58 = glpLayoutQualifierToString(v11);
-      v59 = glpCompilerGetInfoLog(a1);
-      v106 = v98;
-      v107 = v102;
-      glpLogMessage(v59, 0, &v106, "Identifier '%s' in layout must have a value", v60, v61, v62, v63, v58);
+      glpLayoutQualifierToString(v11);
+      v43 = glpCompilerGetInfoLog(a1);
+      v69 = v61;
+      v70 = v65;
+      glpLogMessage(v43, 0, &v69, "Identifier '%s' in layout must have a value");
     }
 
     return 0;
   }
 
 LABEL_9:
-  v95 = a4;
-  v20 = a1;
-  v99 = *a2;
-  v103 = *(a2 + 2);
-  v21 = *(v96 + 8);
-  v22 = glpLayoutQualifierValueBehavior(v21);
-  v23 = glpLayoutQualifierMutexGroup(v21);
-  v24 = glpLayoutMutexGroupBehavior(v23);
-  v25 = *a5;
+  v58 = a4;
+  v15 = a1;
+  v62 = *a2;
+  v66 = *(a2 + 2);
+  v16 = *(v59 + 8);
+  v17 = glpLayoutQualifierValueBehavior(v16);
+  v18 = glpLayoutQualifierMutexGroup(v16);
+  v19 = glpLayoutMutexGroupBehavior(v18);
+  v20 = *a5;
   if (*a5)
   {
-    v26 = v24;
+    v21 = v19;
     while (1)
     {
-      v27 = v25;
-      v25 = *v25;
-      v28 = *(v27 + 2);
-      v29 = glpLayoutQualifierMutexGroup(v28);
-      if (v26)
+      v22 = v20;
+      v20 = *v20;
+      v23 = *(v22 + 2);
+      v24 = glpLayoutQualifierMutexGroup(v23);
+      if (v21)
       {
-        v30 = v23 == v29;
+        v25 = v18 == v24;
       }
 
       else
       {
-        v30 = 0;
+        v25 = 0;
       }
 
-      v31 = v30;
-      if (v21 != v28 && v31 == 0)
+      v26 = v25;
+      if (v16 != v23 && v26 == 0)
       {
         goto LABEL_39;
       }
 
-      if (v22 == 1)
+      if (v17 == 1)
       {
-        if (*(v96 + 16) != *(v27 + 4))
+        if (*(v59 + 16) != *(v22 + 4))
         {
-          if (v20)
+          if (v15)
           {
-            v64 = glpCompilerGetInfoLog(v20);
-            v65 = glpLayoutQualifierToString(v21);
-            v66 = *(v96 + 16);
-            v67 = *(v27 + 4);
-            v106 = v99;
-            v107 = v103;
-            glpLogMessage(v64, 0, &v106, "New value for layout '%s' ('%d') does not match previous declaration ('%d')", v68, v69, v70, v71, v65);
+            v44 = glpCompilerGetInfoLog(v15);
+            glpLayoutQualifierToString(v16);
+            v69 = v62;
+            v70 = v66;
+            glpLogMessage(v44, 0, &v69, "New value for layout '%s' ('%d') does not match previous declaration ('%d')");
           }
 
           return 0;
         }
       }
 
-      else if ((v22 - 2) < 2)
+      else if ((v17 - 2) < 2)
       {
         goto LABEL_4;
       }
 
-      if (v26 != 2)
+      if (v21 != 2)
       {
-        if (v26 == 1)
+        if (v21 == 1)
         {
-          v33 = 0;
-          v34 = a5;
+          v28 = 0;
+          v29 = a5;
           while (1)
           {
-            v35 = v33;
-            v33 = *v34;
-            if (!*v34)
+            v30 = v28;
+            v28 = *v29;
+            if (!*v29)
             {
               break;
             }
 
-            v34 = *v34;
-            if (*(v33 + 2) == v28)
+            v29 = *v29;
+            if (*(v28 + 2) == v23)
             {
               goto LABEL_35;
             }
@@ -2491,49 +2500,49 @@ LABEL_9:
         goto LABEL_39;
       }
 
-      if (v21 != v28)
+      if (v16 != v23)
       {
-        if (v20)
+        if (v15)
         {
-          v72 = glpCompilerGetInfoLog(v20);
-          v73 = glpLayoutMutexGroupToString(v23);
-          glpLayoutQualifierToString(v21);
-          glpLayoutQualifierToString(v28);
-          v106 = v99;
-          v107 = v103;
-          glpLogMessage(v72, 0, &v106, "New %s layout '%s' does not match previous declaration ('%s')", v74, v75, v76, v77, v73);
+          v45 = glpCompilerGetInfoLog(v15);
+          glpLayoutMutexGroupToString(v18);
+          v69 = v62;
+          v70 = v66;
+          glpLayoutQualifierToString(v16);
+          glpLayoutQualifierToString(v23);
+          glpLogMessage(v45, 0, &v69, "New %s layout '%s' does not match previous declaration ('%s')");
         }
 
         return 0;
       }
 
-      v33 = 0;
-      v36 = a5;
+      v28 = 0;
+      v31 = a5;
       do
       {
-        v35 = v33;
-        v33 = *v36;
-        if (!*v36)
+        v30 = v28;
+        v28 = *v31;
+        if (!*v31)
         {
           goto LABEL_39;
         }
 
-        v36 = *v36;
+        v31 = *v31;
       }
 
-      while (*(v33 + 2) != v21);
+      while (*(v28 + 2) != v16);
 LABEL_35:
-      v37 = *v33;
-      if (v35)
+      v32 = *v28;
+      if (v30)
       {
-        *v35 = v37;
-        if (v33 == a5[1])
+        *v30 = v32;
+        if (v28 == a5[1])
         {
           goto LABEL_42;
         }
 
 LABEL_39:
-        if (!v25)
+        if (!v20)
         {
           break;
         }
@@ -2541,16 +2550,16 @@ LABEL_39:
 
       else
       {
-        *a5 = v37;
-        if (v33 != a5[1])
+        *a5 = v32;
+        if (v28 != a5[1])
         {
           goto LABEL_39;
         }
 
-        v35 = 0;
+        v30 = 0;
 LABEL_42:
-        a5[1] = v35;
-        if (!v25)
+        a5[1] = v30;
+        if (!v20)
         {
           break;
         }
@@ -2558,21 +2567,20 @@ LABEL_42:
     }
   }
 
-  v100 = *a2;
-  v104 = *(a2 + 2);
-  v38 = *(v96 + 8);
-  if (v38 == 9)
+  v63 = *a2;
+  v67 = *(a2 + 2);
+  v33 = *(v59 + 8);
+  if (v33 == 9)
   {
-    v39 = v20;
-    if (*(v96 + 16))
+    v34 = v15;
+    if (*(v59 + 16))
     {
-      if (v20)
+      if (v15)
       {
-        v46 = glpCompilerGetInfoLog(v20);
-        v47 = *(v96 + 16);
-        v106 = v100;
-        v107 = v104;
-        glpLogMessage(v46, 0, &v106, "layout(stream=%d) value must be greater than or equal to zero and may not exceed (%u)", v48, v49, v50, v51, v47);
+        v36 = glpCompilerGetInfoLog(v15);
+        v69 = v63;
+        v70 = v67;
+        glpLogMessage(v36, 0, &v69, "layout(stream=%d) value must be greater than or equal to zero and may not exceed (%u)");
       }
 
       return 0;
@@ -2581,46 +2589,45 @@ LABEL_42:
 
   else
   {
-    v39 = v20;
-    if (v38 == 18 && (*(v96 + 16) - 33) <= 0xFFFFFFDF)
+    v34 = v15;
+    if (v33 == 18 && (*(v59 + 16) - 33) <= 0xFFFFFFDF)
     {
-      if (v20)
+      if (v15)
       {
-        v40 = glpCompilerGetInfoLog(v20);
-        v41 = *(v96 + 16);
-        v106 = v100;
-        v107 = v104;
-        glpLogMessage(v40, 0, &v106, "layout(vertices=%d) value must be greater than zero and may not exceed gl_MaxPatchVertices (%u)", v42, v43, v44, v45, v41);
+        v35 = glpCompilerGetInfoLog(v15);
+        v69 = v63;
+        v70 = v67;
+        glpLogMessage(v35, 0, &v69, "layout(vertices=%d) value must be greater than zero and may not exceed gl_MaxPatchVertices (%u)");
       }
 
       return 0;
     }
   }
 
-  v101 = *a2;
-  v105 = *(a2 + 2);
-  if (v39 && a3)
+  v64 = *a2;
+  v68 = *(a2 + 2);
+  if (v34 && a3)
   {
-    NameTable = glpCompilerGetNameTable(v39);
+    NameTable = glpCompilerGetNameTable(v34);
     Language = glpNameTableGetLanguage(NameTable);
     GLSLVersion = glpNameTableGetGLSLVersion(NameTable);
-    v55 = *(v96 + 8);
-    v56 = GLSLVersion;
-    switch(v55)
+    v40 = *(v59 + 8);
+    v41 = GLSLVersion;
+    switch(v40)
     {
       case 0:
-        v83 = a3 == 2 && Language == 3;
-        v84 = !v83;
-        v85 = (v95 >> 29) & 1;
-        LODWORD(v78) = v85 & (v84 ^ 1);
-        if (!v83)
+        v51 = a3 == 2 && Language == 3;
+        v52 = !v51;
+        v53 = (v58 >> 29) & 1;
+        LODWORD(v46) = v53 & (v52 ^ 1);
+        if (!v51)
         {
-          LODWORD(v85) = 1;
+          LODWORD(v53) = 1;
         }
 
-        if (!v85)
+        if (!v53)
         {
-          LODWORD(v78) = (v95 >> 30) & 1;
+          LODWORD(v46) = (v58 >> 30) & 1;
         }
 
         goto LABEL_135;
@@ -2634,14 +2641,14 @@ LABEL_42:
 
         goto LABEL_131;
       case 3:
-        if (a3 == 2 && (v95 & 0x20000000) != 0 && Language == 3)
+        if (a3 == 2 && (v58 & 0x20000000) != 0 && Language == 3)
         {
           goto LABEL_136;
         }
 
         goto LABEL_129;
       case 5:
-        if ((v95 & 0x20000000) == 0 || a3 != 2)
+        if ((v58 & 0x20000000) == 0 || a3 != 2)
         {
           goto LABEL_141;
         }
@@ -2657,7 +2664,7 @@ LABEL_42:
 
         goto LABEL_134;
       case 9:
-        if ((v95 & 0x40000000) == 0 || (a3 & 0xFFFFFFF7) != 1)
+        if ((v58 & 0x40000000) == 0 || (a3 & 0xFFFFFFF7) != 1)
         {
           goto LABEL_141;
         }
@@ -2673,10 +2680,10 @@ LABEL_109:
           goto LABEL_136;
         }
 
-        v79 = NameTable;
-        v80 = 19;
+        v47 = NameTable;
+        v48 = 19;
 LABEL_112:
-        LODWORD(v78) = glpNameTableIsExtensionEnabled(v79, v80);
+        LODWORD(v46) = glpNameTableIsExtensionEnabled(v47, v48);
         goto LABEL_135;
       case 10:
       case 11:
@@ -2714,7 +2721,7 @@ LABEL_129:
           goto LABEL_141;
         }
 
-        v78 = HIDWORD(v95) & 1;
+        v46 = HIDWORD(v58) & 1;
         goto LABEL_135;
       case 22:
       case 23:
@@ -2723,46 +2730,46 @@ LABEL_129:
           goto LABEL_141;
         }
 
-        v78 = HIDWORD(v95) & 1;
+        v46 = HIDWORD(v58) & 1;
         goto LABEL_135;
       case 24:
       case 25:
         if (a3 == 2 || a3 == 7)
         {
-          if ((v95 & 0x100000000) != 0)
+          if ((v58 & 0x100000000) != 0)
           {
             goto LABEL_136;
           }
 
-          LODWORD(v78) = 0;
+          LODWORD(v46) = 0;
         }
 
         else
         {
-          v78 = HIDWORD(v95) & 1;
+          v46 = HIDWORD(v58) & 1;
         }
 
         if (a3 != 9)
         {
-          LODWORD(v78) = 0;
+          LODWORD(v46) = 0;
         }
 
         goto LABEL_135;
       case 26:
         if (GLSLVersion > 5 || glpNameTableIsExtensionEnabled(NameTable, 0x11u) || glpNameTableIsExtensionEnabled(NameTable, 0x15u) || glpNameTableIsExtensionEnabled(NameTable, 1u) || glpNameTableIsExtensionEnabled(NameTable, 0x23u))
         {
-          v81 = v95;
-          if ((v95 & 0x20000000) == 0 || Language)
+          v49 = v58;
+          if ((v58 & 0x20000000) == 0 || Language)
           {
-            v82 = (Language == 4) & (v95 >> 30);
+            v50 = (Language == 4) & (v58 >> 30);
           }
 
           else
           {
-            v82 = 1;
+            v50 = 1;
           }
 
-          if (v56 > 8)
+          if (v41 > 8)
           {
             goto LABEL_153;
           }
@@ -2770,8 +2777,8 @@ LABEL_129:
 
         else
         {
-          v82 = 0;
-          v81 = v95;
+          v50 = 0;
+          v49 = v58;
         }
 
         if (!glpNameTableIsExtensionEnabled(NameTable, 0x15u) && !glpNameTableIsExtensionEnabled(NameTable, 1u))
@@ -2780,42 +2787,42 @@ LABEL_129:
         }
 
 LABEL_153:
-        if (v82)
+        if (v50)
         {
-          v82 = 1;
+          v50 = 1;
         }
 
         else
         {
-          v82 = (v81 & 0x60000000) != 0 && ((v81 & 0x20000000) == 0 || Language) && ((v81 & 0x40000000) == 0 || Language != 4);
+          v50 = (v49 & 0x60000000) != 0 && ((v49 & 0x20000000) == 0 || Language) && ((v49 & 0x40000000) == 0 || Language != 4);
         }
 
 LABEL_165:
         if (a3 == 1)
         {
-          LODWORD(v78) = v82;
+          LODWORD(v46) = v50;
         }
 
         else
         {
-          LODWORD(v78) = 0;
+          LODWORD(v46) = 0;
         }
 
 LABEL_135:
-        if (v78)
+        if (v46)
         {
           goto LABEL_136;
         }
 
 LABEL_141:
-        v88 = glpCompilerGetInfoLog(v39);
-        v106 = v101;
-        v107 = v105;
-        v94 = glpLayoutQualifierToString(v55);
-        glpLogMessage(v88, 0, &v106, "Invalid use of layout '%s'", v89, v90, v91, v92, v94);
+        v56 = glpCompilerGetInfoLog(v34);
+        v69 = v64;
+        v70 = v68;
+        glpLayoutQualifierToString(v40);
+        glpLogMessage(v56, 0, &v69, "Invalid use of layout '%s'");
         break;
       case 27:
-        if ((v95 & 0x40000000) == 0 || (a3 & 0xFFFFFFF7) != 1 || Language != 4)
+        if ((v58 & 0x40000000) == 0 || (a3 & 0xFFFFFFF7) != 1 || Language != 4)
         {
           goto LABEL_141;
         }
@@ -2825,8 +2832,8 @@ LABEL_141:
           goto LABEL_136;
         }
 
-        v79 = NameTable;
-        v80 = 17;
+        v47 = NameTable;
+        v48 = 17;
         goto LABEL_112;
       case 28:
       case 29:
@@ -2859,11 +2866,11 @@ LABEL_141:
       case 80:
       case 81:
       case 83:
-        v57 = (a3 & 0xFFFFFFF7) == 1;
+        v42 = (a3 & 0xFFFFFFF7) == 1;
         goto LABEL_88;
       case 31:
       case 78:
-        LODWORD(v78) = (v95 & 0x60000000) != 0;
+        LODWORD(v46) = (v58 & 0x60000000) != 0;
         if ((a3 & 0xFFFFFFF7) != 1)
         {
           goto LABEL_141;
@@ -2878,7 +2885,7 @@ LABEL_141:
       case 95:
       case 96:
       case 97:
-        v57 = a3 == 4;
+        v42 = a3 == 4;
         goto LABEL_88;
       case 35:
       case 36:
@@ -2897,7 +2904,7 @@ LABEL_141:
         }
 
 LABEL_131:
-        LODWORD(v78) = (v95 >> 29) & 1;
+        LODWORD(v46) = (v58 >> 29) & 1;
         goto LABEL_135;
       case 68:
       case 69:
@@ -2914,21 +2921,21 @@ LABEL_131:
         }
 
 LABEL_134:
-        LODWORD(v78) = (v95 >> 30) & 1;
+        LODWORD(v46) = (v58 >> 30) & 1;
         goto LABEL_135;
       case 77:
-        LODWORD(v78) = Language == 4;
-        if ((a3 & 0xFFFFFFF7) != 1 || (v95 & 0x40000000) == 0)
+        LODWORD(v46) = Language == 4;
+        if ((a3 & 0xFFFFFFF7) != 1 || (v58 & 0x40000000) == 0)
         {
           goto LABEL_141;
         }
 
         goto LABEL_135;
       case 82:
-        v57 = a3 == 1 || a3 == 7;
+        v42 = a3 == 1 || a3 == 7;
         goto LABEL_88;
       case 84:
-        LODWORD(v78) = a3 == 7;
+        LODWORD(v46) = a3 == 7;
         if ((a3 & 0xFFFFFFF7) == 1)
         {
           goto LABEL_136;
@@ -2944,9 +2951,9 @@ LABEL_134:
         goto LABEL_136;
       case 98:
       case 99:
-        v57 = a3 == 5;
+        v42 = a3 == 5;
 LABEL_88:
-        LODWORD(v78) = v57;
+        LODWORD(v46) = v42;
         goto LABEL_135;
       default:
         goto LABEL_141;
@@ -2956,15 +2963,15 @@ LABEL_88:
   }
 
 LABEL_136:
-  *v96 = 0;
-  v86 = a5[1];
-  if (!v86)
+  *v59 = 0;
+  v54 = a5[1];
+  if (!v54)
   {
-    v86 = a5;
+    v54 = a5;
   }
 
-  *v86 = v96;
-  a5[1] = v96;
+  *v54 = v59;
+  a5[1] = v59;
   return 1;
 }
 
@@ -3989,12 +3996,12 @@ uint64_t glpLayoutMutexGroupBehavior(int a1)
 
 _DWORD *glpCompileShader(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  bzero(v19, 0x320uLL);
-  glpInitParseContext(v19, a1);
-  v21 = a3;
-  v22 = a4;
-  v23 = a5;
+  v24 = *MEMORY[0x277D85DE8];
+  bzero(v18, 0x320uLL);
+  glpInitParseContext(v18, a1);
+  v20 = a3;
+  v21 = a4;
+  v22 = a5;
   v10 = strlen(a2);
   v11 = malloc_type_malloc(v10 + 1, 0xCA0EF1E7uLL);
   if (!v11)
@@ -4002,28 +4009,27 @@ _DWORD *glpCompileShader(void *a1, const char *a2, uint64_t a3, uint64_t a4, uin
     abort();
   }
 
-  v18 = v11;
+  v17 = v11;
   strcpy(v11, a2);
-  v17 = strlen(a2);
-  if (glpPaParseStrings(v19, &v18, &v17, 1, 0) || (v24 = glpSANode(a1, v24), v24 == -1))
+  v16 = strlen(a2);
+  if (glpPaParseStrings(v18, &v17, &v16, 1u, 0) || (v23 = glpSANode(a1, v23), v23 == -1))
   {
-    glpFinalizeParseContext(v19);
-    free(v18);
-    CompiledShader = 0;
+    glpFinalizeParseContext(v18);
+    free(v17);
+    return 0;
   }
 
   else
   {
     Language = glpCompilerGetLanguage(a1);
-    CompiledShader = glpMakeCompiledShader(Language, v20, 0, 0);
+    CompiledShader = glpMakeCompiledShader(Language, v19, 0, 0);
     ValueHash = glpCompilerGetValueHash(a1);
-    glpSerializeAST(ValueHash, v24, CompiledShader + 2, CompiledShader + 2);
+    glpSerializeAST(ValueHash, v23, CompiledShader + 2, CompiledShader + 2);
     CompiledShader[3] = glpCompilerRequiresOutputPoints(a1) != 0;
-    free(v18);
-    glpFinalizeParseContext(v19);
+    free(v17);
+    glpFinalizeParseContext(v18);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return CompiledShader;
 }
 
@@ -4227,7 +4233,7 @@ void *glpLinkerAddShader(void *a1, unsigned int *a2)
   return result;
 }
 
-uint64_t serialize_bindings(void *a1, uint64_t a2)
+void *serialize_bindings(void *a1, uint64_t a2)
 {
   v4 = *(a2 + 36);
   v5 = glp_serialized_integer32_control(v4);
@@ -4709,7 +4715,7 @@ LABEL_158:
     }
 
 LABEL_106:
-    v86 = v47[1];
+    v86 = *(v47 + 1);
     v87 = glp_serialized_integer32_control(v86);
     v88 = *(a1 + 8);
     v89 = *(a1 + 9);
@@ -4935,7 +4941,7 @@ LABEL_156:
     }
 
 LABEL_157:
-    result = serialize_GLPType(a1, *(v47 + 1));
+    result = serialize_GLPType(a1, v47[1]);
     v43 = *(a2 + 32);
     goto LABEL_158;
   }
@@ -5321,7 +5327,7 @@ LABEL_103:
         v51 = 0;
       }
 
-      result = glpStringHashPut(a2, v46, v51 | v44, v21, v47);
+      result = glpStringHashPut(a2, v46, v51 | v44, v47, v21);
       if (++v16 == v8)
       {
         return result;
@@ -9570,9 +9576,10 @@ LABEL_337:
   return result;
 }
 
-void *glpLinkProgramFromLinkerOutput(uint64_t a1, int a2, _OWORD *a3)
+void *glpLinkProgramFromLinkerOutput(uint64_t a1, uint64_t a2, _OWORD *a3)
 {
-  v142 = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  v141 = *MEMORY[0x277D85DE8];
   v6 = malloc_type_calloc(1uLL, 0x148uLL, 0x1A32276BuLL);
   if (!v6)
   {
@@ -9707,32 +9714,32 @@ LABEL_284:
   }
 
   while (v8 != 5);
+  memset(v137, 0, sizeof(v137));
+  glpInitPoolAllocator(4096, 4096, v137);
+  v140 = 0;
+  v139 = 0u;
   memset(v138, 0, sizeof(v138));
-  glpInitPoolAllocator(4096, 4096, v138);
-  v141 = 0;
-  v140 = 0u;
-  memset(v139, 0, sizeof(v139));
-  glpInitDeserialContext(v139, v138, v138, a1, a2);
+  glpInitDeserialContext(v138, v137, v137, a1, v4);
   StringHash = glpMakeStringHash(&GLP_MALLOC_ALLOCATOR);
   v7[23] = StringHash;
-  deserialize_bindings(v139, StringHash);
+  deserialize_bindings(v138, StringHash);
   v26 = glpMakeStringHash(&GLP_MALLOC_ALLOCATOR);
   v7[24] = v26;
-  deserialize_bindings(v139, v26);
-  v7[10] = glpDeserializeUniformBindings(v139);
-  v27 = HIDWORD(v141);
-  v28 = v141;
-  if (HIDWORD(v141) >= v141)
+  deserialize_bindings(v138, v26);
+  v7[10] = glpDeserializeUniformBindings(v138);
+  v27 = HIDWORD(v140);
+  v28 = v140;
+  if (HIDWORD(v140) >= v140)
   {
 LABEL_283:
-    glpDeserialError(v139, 1u);
+    glpDeserialError(v138, 1u);
   }
 
-  v29 = *(&v140 + 1);
-  v30 = *(*(&v140 + 1) + HIDWORD(v141));
-  v31 = *(*(&v140 + 1) + HIDWORD(v141));
-  v32 = HIDWORD(v141) + 1;
-  ++HIDWORD(v141);
+  v29 = *(&v139 + 1);
+  v30 = *(*(&v139 + 1) + HIDWORD(v140));
+  v31 = *(*(&v139 + 1) + HIDWORD(v140));
+  v32 = HIDWORD(v140) + 1;
+  ++HIDWORD(v140);
   if (v30 < 0)
   {
     v33 = (v31 >> 1) & 7;
@@ -9742,15 +9749,15 @@ LABEL_283:
       {
         if (v33 == 6)
         {
-          if (v27 + 5 > v141)
+          if (v27 + 5 > v140)
           {
             goto LABEL_283;
           }
 
-          LODWORD(v34) = *(*(&v140 + 1) + v32);
-          HIDWORD(v141) = v27 + 5;
+          LODWORD(v34) = *(*(&v139 + 1) + v32);
+          HIDWORD(v140) = v27 + 5;
           LODWORD(v32) = v27 + 8;
-          if (v27 + 8 > v141)
+          if (v27 + 8 > v140)
           {
             goto LABEL_283;
           }
@@ -9758,12 +9765,12 @@ LABEL_283:
 
         else
         {
-          if (v27 + 9 > v141)
+          if (v27 + 9 > v140)
           {
             goto LABEL_283;
           }
 
-          v34 = *(*(&v140 + 1) + v32);
+          v34 = *(*(&v139 + 1) + v32);
           LODWORD(v32) = v27 + 9;
         }
       }
@@ -9773,14 +9780,14 @@ LABEL_283:
         v35 = v27 + 5;
         if (v33 == 4)
         {
-          if (v35 > v141)
+          if (v35 > v140)
           {
             goto LABEL_283;
           }
 
-          LODWORD(v34) = *(*(&v140 + 1) + v32);
-          HIDWORD(v141) = v27 + 5;
-          if (v27 + 5 >= v141)
+          LODWORD(v34) = *(*(&v139 + 1) + v32);
+          HIDWORD(v140) = v27 + 5;
+          if (v27 + 5 >= v140)
           {
             goto LABEL_283;
           }
@@ -9790,14 +9797,14 @@ LABEL_283:
 
         else
         {
-          if (v35 > v141)
+          if (v35 > v140)
           {
             goto LABEL_283;
           }
 
-          LODWORD(v34) = *(*(&v140 + 1) + v32);
-          HIDWORD(v141) = v27 + 5;
-          if ((v27 + 5) + 2 > v141)
+          LODWORD(v34) = *(*(&v139 + 1) + v32);
+          HIDWORD(v140) = v27 + 5;
+          if ((v27 + 5) + 2 > v140)
           {
             goto LABEL_283;
           }
@@ -9812,49 +9819,49 @@ LABEL_283:
       if (v33 == 2)
       {
         v36 = v27 + 4;
-        if (v36 > v141)
+        if (v36 > v140)
         {
           goto LABEL_283;
         }
 
-        LODWORD(v34) = *(*(&v140 + 1) + v32) | (*(*(&v140 + 1) + v32 + 2) << 16);
-        HIDWORD(v141) = v36;
+        LODWORD(v34) = *(*(&v139 + 1) + v32) | (*(*(&v139 + 1) + v32 + 2) << 16);
+        HIDWORD(v140) = v36;
         LODWORD(v32) = v36;
         goto LABEL_54;
       }
 
-      if (v27 + 5 > v141)
+      if (v27 + 5 > v140)
       {
         goto LABEL_283;
       }
 
-      LODWORD(v34) = *(*(&v140 + 1) + v32);
+      LODWORD(v34) = *(*(&v139 + 1) + v32);
       LODWORD(v32) = v27 + 5;
     }
 
     else if (v33)
     {
-      if (v27 + 3 > v141)
+      if (v27 + 3 > v140)
       {
         goto LABEL_283;
       }
 
-      LODWORD(v34) = *(*(&v140 + 1) + v32);
+      LODWORD(v34) = *(*(&v139 + 1) + v32);
       LODWORD(v32) = v27 + 3;
     }
 
     else
     {
-      if (v32 >= v141)
+      if (v32 >= v140)
       {
         goto LABEL_283;
       }
 
-      LODWORD(v34) = *(*(&v140 + 1) + v32);
+      LODWORD(v34) = *(*(&v139 + 1) + v32);
       LODWORD(v32) = v27 + 2;
     }
 
-    HIDWORD(v141) = v32;
+    HIDWORD(v140) = v32;
 LABEL_54:
     v37 = -256 << (8 * v33);
     if (v30)
@@ -9879,7 +9886,7 @@ LABEL_54:
   v39 = *(v29 + v32);
   v40 = *(v29 + v32);
   v41 = v32 + 1;
-  HIDWORD(v141) = v32 + 1;
+  HIDWORD(v140) = v32 + 1;
   if (v39 < 0)
   {
     v42 = (v40 >> 1) & 7;
@@ -9896,7 +9903,7 @@ LABEL_54:
           }
 
           LODWORD(v29) = *(v29 + v41);
-          HIDWORD(v141) = v32 + 5;
+          HIDWORD(v140) = v32 + 5;
           if (v32 + 5 >= v28)
           {
             goto LABEL_283;
@@ -9913,7 +9920,7 @@ LABEL_54:
           }
 
           LODWORD(v29) = *(v29 + v41);
-          HIDWORD(v141) = v32 + 5;
+          HIDWORD(v140) = v32 + 5;
           if ((v32 + 5) + 2 > v28)
           {
             goto LABEL_283;
@@ -9943,7 +9950,7 @@ LABEL_54:
       }
 
       LODWORD(v29) = *(v29 + v41);
-      HIDWORD(v141) = v32 + 5;
+      HIDWORD(v140) = v32 + 5;
       v45 = v32 + 8;
       if (v45 > v28)
       {
@@ -9978,7 +9985,7 @@ LABEL_54:
         }
 
 LABEL_86:
-        HIDWORD(v141) = v43;
+        HIDWORD(v140) = v43;
         goto LABEL_87;
       }
 
@@ -10003,7 +10010,7 @@ LABEL_86:
       LODWORD(v29) = *(v29 + v41) | (*(v29 + v41 + 2) << 16);
     }
 
-    HIDWORD(v141) = v45;
+    HIDWORD(v140) = v45;
 LABEL_87:
     if (v39)
     {
@@ -10021,16 +10028,16 @@ LABEL_87:
   v7[25] = 4;
   for (v7[26] = (*(&GLP_MALLOC_ALLOCATOR + 1))(GLP_MALLOC_ALLOCATOR, 16, "Vector Storage (int)"); v40; LODWORD(v40) = v40 - 1)
   {
-    v47 = HIDWORD(v141);
-    if (HIDWORD(v141) >= v141)
+    v47 = HIDWORD(v140);
+    if (HIDWORD(v140) >= v140)
     {
       goto LABEL_283;
     }
 
-    v48 = *(*(&v140 + 1) + HIDWORD(v141));
-    v49 = *(*(&v140 + 1) + HIDWORD(v141));
-    v50 = HIDWORD(v141) + 1;
-    ++HIDWORD(v141);
+    v48 = *(*(&v139 + 1) + HIDWORD(v140));
+    v49 = *(*(&v139 + 1) + HIDWORD(v140));
+    v50 = HIDWORD(v140) + 1;
+    ++HIDWORD(v140);
     if (v48 < 0)
     {
       v51 = (v49 >> 1) & 7;
@@ -10040,15 +10047,15 @@ LABEL_87:
         {
           if (v51 == 6)
           {
-            if (v47 + 5 > v141)
+            if (v47 + 5 > v140)
             {
               goto LABEL_283;
             }
 
-            LODWORD(v52) = *(*(&v140 + 1) + v50);
-            HIDWORD(v141) = v47 + 5;
+            LODWORD(v52) = *(*(&v139 + 1) + v50);
+            HIDWORD(v140) = v47 + 5;
             v53 = v47 + 8;
-            if (v53 > v141)
+            if (v53 > v140)
             {
               goto LABEL_283;
             }
@@ -10056,12 +10063,12 @@ LABEL_87:
 
           else
           {
-            if (v47 + 9 > v141)
+            if (v47 + 9 > v140)
             {
               goto LABEL_283;
             }
 
-            v52 = *(*(&v140 + 1) + v50);
+            v52 = *(*(&v139 + 1) + v50);
             v53 = v47 + 9;
           }
         }
@@ -10071,14 +10078,14 @@ LABEL_87:
           v54 = v47 + 5;
           if (v51 == 4)
           {
-            if (v54 > v141)
+            if (v54 > v140)
             {
               goto LABEL_283;
             }
 
-            LODWORD(v52) = *(*(&v140 + 1) + v50);
-            HIDWORD(v141) = v47 + 5;
-            if (v47 + 5 >= v141)
+            LODWORD(v52) = *(*(&v139 + 1) + v50);
+            HIDWORD(v140) = v47 + 5;
+            if (v47 + 5 >= v140)
             {
               goto LABEL_283;
             }
@@ -10088,14 +10095,14 @@ LABEL_87:
 
           else
           {
-            if (v54 > v141)
+            if (v54 > v140)
             {
               goto LABEL_283;
             }
 
-            LODWORD(v52) = *(*(&v140 + 1) + v50);
-            HIDWORD(v141) = v47 + 5;
-            if ((v47 + 5) + 2 > v141)
+            LODWORD(v52) = *(*(&v139 + 1) + v50);
+            HIDWORD(v140) = v47 + 5;
+            if ((v47 + 5) + 2 > v140)
             {
               goto LABEL_283;
             }
@@ -10110,49 +10117,49 @@ LABEL_87:
         if (v51 == 2)
         {
           v53 = v47 + 4;
-          if (v53 > v141)
+          if (v53 > v140)
           {
             goto LABEL_283;
           }
 
-          LODWORD(v52) = *(*(&v140 + 1) + v50) | (*(*(&v140 + 1) + v50 + 2) << 16);
+          LODWORD(v52) = *(*(&v139 + 1) + v50) | (*(*(&v139 + 1) + v50 + 2) << 16);
         }
 
         else
         {
-          if (v47 + 5 > v141)
+          if (v47 + 5 > v140)
           {
             goto LABEL_283;
           }
 
-          LODWORD(v52) = *(*(&v140 + 1) + v50);
+          LODWORD(v52) = *(*(&v139 + 1) + v50);
           v53 = v47 + 5;
         }
       }
 
       else if (v51)
       {
-        if (v47 + 3 > v141)
+        if (v47 + 3 > v140)
         {
           goto LABEL_283;
         }
 
-        LODWORD(v52) = *(*(&v140 + 1) + v50);
+        LODWORD(v52) = *(*(&v139 + 1) + v50);
         v53 = v47 + 3;
       }
 
       else
       {
-        if (v50 >= v141)
+        if (v50 >= v140)
         {
           goto LABEL_283;
         }
 
-        LODWORD(v52) = *(*(&v140 + 1) + v50);
+        LODWORD(v52) = *(*(&v139 + 1) + v50);
         v53 = v47 + 2;
       }
 
-      HIDWORD(v141) = v53;
+      HIDWORD(v140) = v53;
       v55 = -256 << (8 * v51);
       if (v48)
       {
@@ -10206,16 +10213,16 @@ LABEL_87:
     ++*(v7 + 51);
   }
 
-  v63 = HIDWORD(v141);
-  if (HIDWORD(v141) >= v141)
+  v63 = HIDWORD(v140);
+  if (HIDWORD(v140) >= v140)
   {
     goto LABEL_283;
   }
 
-  v64 = *(*(&v140 + 1) + HIDWORD(v141));
-  v65 = *(*(&v140 + 1) + HIDWORD(v141));
-  v66 = HIDWORD(v141) + 1;
-  ++HIDWORD(v141);
+  v64 = *(*(&v139 + 1) + HIDWORD(v140));
+  v65 = *(*(&v139 + 1) + HIDWORD(v140));
+  v66 = HIDWORD(v140) + 1;
+  ++HIDWORD(v140);
   if (v64 < 0)
   {
     v67 = (v65 >> 1) & 7;
@@ -10225,15 +10232,15 @@ LABEL_87:
       {
         if (v67 == 6)
         {
-          if (v63 + 5 > v141)
+          if (v63 + 5 > v140)
           {
             goto LABEL_283;
           }
 
-          LODWORD(v68) = *(*(&v140 + 1) + v66);
-          HIDWORD(v141) = v63 + 5;
+          LODWORD(v68) = *(*(&v139 + 1) + v66);
+          HIDWORD(v140) = v63 + 5;
           v69 = v63 + 8;
-          if (v69 > v141)
+          if (v69 > v140)
           {
             goto LABEL_283;
           }
@@ -10241,12 +10248,12 @@ LABEL_87:
 
         else
         {
-          if (v63 + 9 > v141)
+          if (v63 + 9 > v140)
           {
             goto LABEL_283;
           }
 
-          v68 = *(*(&v140 + 1) + v66);
+          v68 = *(*(&v139 + 1) + v66);
           v69 = v63 + 9;
         }
       }
@@ -10256,14 +10263,14 @@ LABEL_87:
         v70 = v63 + 5;
         if (v67 == 4)
         {
-          if (v70 > v141)
+          if (v70 > v140)
           {
             goto LABEL_283;
           }
 
-          LODWORD(v68) = *(*(&v140 + 1) + v66);
-          HIDWORD(v141) = v63 + 5;
-          if (v63 + 5 >= v141)
+          LODWORD(v68) = *(*(&v139 + 1) + v66);
+          HIDWORD(v140) = v63 + 5;
+          if (v63 + 5 >= v140)
           {
             goto LABEL_283;
           }
@@ -10273,14 +10280,14 @@ LABEL_87:
 
         else
         {
-          if (v70 > v141)
+          if (v70 > v140)
           {
             goto LABEL_283;
           }
 
-          LODWORD(v68) = *(*(&v140 + 1) + v66);
-          HIDWORD(v141) = v63 + 5;
-          if ((v63 + 5) + 2 > v141)
+          LODWORD(v68) = *(*(&v139 + 1) + v66);
+          HIDWORD(v140) = v63 + 5;
+          if ((v63 + 5) + 2 > v140)
           {
             goto LABEL_283;
           }
@@ -10295,49 +10302,49 @@ LABEL_87:
       if (v67 == 2)
       {
         v69 = v63 + 4;
-        if (v69 > v141)
+        if (v69 > v140)
         {
           goto LABEL_283;
         }
 
-        LODWORD(v68) = *(*(&v140 + 1) + v66) | (*(*(&v140 + 1) + v66 + 2) << 16);
+        LODWORD(v68) = *(*(&v139 + 1) + v66) | (*(*(&v139 + 1) + v66 + 2) << 16);
       }
 
       else
       {
-        if (v63 + 5 > v141)
+        if (v63 + 5 > v140)
         {
           goto LABEL_283;
         }
 
-        LODWORD(v68) = *(*(&v140 + 1) + v66);
+        LODWORD(v68) = *(*(&v139 + 1) + v66);
         v69 = v63 + 5;
       }
     }
 
     else if (v67)
     {
-      if (v63 + 3 > v141)
+      if (v63 + 3 > v140)
       {
         goto LABEL_283;
       }
 
-      LODWORD(v68) = *(*(&v140 + 1) + v66);
+      LODWORD(v68) = *(*(&v139 + 1) + v66);
       v69 = v63 + 3;
     }
 
     else
     {
-      if (v66 >= v141)
+      if (v66 >= v140)
       {
         goto LABEL_283;
       }
 
-      LODWORD(v68) = *(*(&v140 + 1) + v66);
+      LODWORD(v68) = *(*(&v139 + 1) + v66);
       v69 = v63 + 2;
     }
 
-    HIDWORD(v141) = v69;
+    HIDWORD(v140) = v69;
     v71 = -256 << (8 * v67);
     if (v64)
     {
@@ -10359,21 +10366,21 @@ LABEL_87:
   if (v65)
   {
     v75 = v65;
-    v76 = v74 + 4;
+    v76 = v74 + 2;
     while (1)
     {
-      v77 = HIDWORD(v141);
-      v78 = v141;
-      if (HIDWORD(v141) >= v141)
+      v77 = HIDWORD(v140);
+      v78 = v140;
+      if (HIDWORD(v140) >= v140)
       {
         goto LABEL_283;
       }
 
-      v79 = *(&v140 + 1);
-      v80 = *(*(&v140 + 1) + HIDWORD(v141));
-      v81 = *(*(&v140 + 1) + HIDWORD(v141));
-      v82 = HIDWORD(v141) + 1;
-      ++HIDWORD(v141);
+      v79 = *(&v139 + 1);
+      v80 = *(*(&v139 + 1) + HIDWORD(v140));
+      v81 = *(*(&v139 + 1) + HIDWORD(v140));
+      v82 = HIDWORD(v140) + 1;
+      ++HIDWORD(v140);
       if (v80 < 0)
       {
         break;
@@ -10387,7 +10394,7 @@ LABEL_200:
       }
 
       v89 = *(v79 + v82);
-      HIDWORD(v141) = v82 + 8;
+      HIDWORD(v140) = v82 + 8;
       *v76 = v89;
       v90 = v76 + 2;
       PPStreamTokenConvertParamBindingsToGeneric(v76, 1);
@@ -10405,15 +10412,15 @@ LABEL_200:
       {
         if (v83 == 6)
         {
-          if (v77 + 5 > v141)
+          if (v77 + 5 > v140)
           {
             goto LABEL_283;
           }
 
-          LODWORD(v84) = *(*(&v140 + 1) + v82);
-          HIDWORD(v141) = v77 + 5;
+          LODWORD(v84) = *(*(&v139 + 1) + v82);
+          HIDWORD(v140) = v77 + 5;
           LODWORD(v82) = v77 + 8;
-          if (v77 + 8 > v141)
+          if (v77 + 8 > v140)
           {
             goto LABEL_283;
           }
@@ -10421,12 +10428,12 @@ LABEL_200:
 
         else
         {
-          if (v77 + 9 > v141)
+          if (v77 + 9 > v140)
           {
             goto LABEL_283;
           }
 
-          v84 = *(*(&v140 + 1) + v82);
+          v84 = *(*(&v139 + 1) + v82);
           LODWORD(v82) = v77 + 9;
         }
       }
@@ -10436,14 +10443,14 @@ LABEL_200:
         v85 = v77 + 5;
         if (v83 == 4)
         {
-          if (v85 > v141)
+          if (v85 > v140)
           {
             goto LABEL_283;
           }
 
-          LODWORD(v84) = *(*(&v140 + 1) + v82);
-          HIDWORD(v141) = v77 + 5;
-          if (v77 + 5 >= v141)
+          LODWORD(v84) = *(*(&v139 + 1) + v82);
+          HIDWORD(v140) = v77 + 5;
+          if (v77 + 5 >= v140)
           {
             goto LABEL_283;
           }
@@ -10453,14 +10460,14 @@ LABEL_200:
 
         else
         {
-          if (v85 > v141)
+          if (v85 > v140)
           {
             goto LABEL_283;
           }
 
-          LODWORD(v84) = *(*(&v140 + 1) + v82);
-          HIDWORD(v141) = v77 + 5;
-          if ((v77 + 5) + 2 > v141)
+          LODWORD(v84) = *(*(&v139 + 1) + v82);
+          HIDWORD(v140) = v77 + 5;
+          if ((v77 + 5) + 2 > v140)
           {
             goto LABEL_283;
           }
@@ -10475,49 +10482,49 @@ LABEL_200:
       if (v83 == 2)
       {
         v86 = v77 + 4;
-        if (v86 > v141)
+        if (v86 > v140)
         {
           goto LABEL_283;
         }
 
-        LODWORD(v84) = *(*(&v140 + 1) + v82) | (*(*(&v140 + 1) + v82 + 2) << 16);
-        HIDWORD(v141) = v86;
+        LODWORD(v84) = *(*(&v139 + 1) + v82) | (*(*(&v139 + 1) + v82 + 2) << 16);
+        HIDWORD(v140) = v86;
         LODWORD(v82) = v86;
         goto LABEL_196;
       }
 
-      if (v77 + 5 > v141)
+      if (v77 + 5 > v140)
       {
         goto LABEL_283;
       }
 
-      LODWORD(v84) = *(*(&v140 + 1) + v82);
+      LODWORD(v84) = *(*(&v139 + 1) + v82);
       LODWORD(v82) = v77 + 5;
     }
 
     else if (v83)
     {
-      if (v77 + 3 > v141)
+      if (v77 + 3 > v140)
       {
         goto LABEL_283;
       }
 
-      LODWORD(v84) = *(*(&v140 + 1) + v82);
+      LODWORD(v84) = *(*(&v139 + 1) + v82);
       LODWORD(v82) = v77 + 3;
     }
 
     else
     {
-      if (v82 >= v141)
+      if (v82 >= v140)
       {
         goto LABEL_283;
       }
 
-      LODWORD(v84) = *(*(&v140 + 1) + v82);
+      LODWORD(v84) = *(*(&v139 + 1) + v82);
       LODWORD(v82) = v77 + 2;
     }
 
-    HIDWORD(v141) = v82;
+    HIDWORD(v140) = v82;
 LABEL_196:
     v87 = -256 << (8 * v83);
     if (v80)
@@ -10536,18 +10543,18 @@ LABEL_196:
 
 LABEL_202:
   v7[27] = v74;
-  v7[11] = glpDeserializeUniformBindings(v139);
-  v7[12] = glpDeserializeUniformBindings(v139);
-  v91 = HIDWORD(v141);
-  if (HIDWORD(v141) >= v141)
+  v7[11] = glpDeserializeUniformBindings(v138);
+  v7[12] = glpDeserializeUniformBindings(v138);
+  v91 = HIDWORD(v140);
+  if (HIDWORD(v140) >= v140)
   {
     goto LABEL_283;
   }
 
-  v92 = *(*(&v140 + 1) + HIDWORD(v141));
-  v93 = *(*(&v140 + 1) + HIDWORD(v141));
-  v94 = HIDWORD(v141) + 1;
-  ++HIDWORD(v141);
+  v92 = *(*(&v139 + 1) + HIDWORD(v140));
+  v93 = *(*(&v139 + 1) + HIDWORD(v140));
+  v94 = HIDWORD(v140) + 1;
+  ++HIDWORD(v140);
   if (v92 < 0)
   {
     v125 = (v93 >> 1) & 7;
@@ -10557,15 +10564,15 @@ LABEL_202:
       {
         if (v125 == 6)
         {
-          if (v91 + 5 > v141)
+          if (v91 + 5 > v140)
           {
             goto LABEL_283;
           }
 
-          LODWORD(v126) = *(*(&v140 + 1) + v94);
-          HIDWORD(v141) = v91 + 5;
+          LODWORD(v126) = *(*(&v139 + 1) + v94);
+          HIDWORD(v140) = v91 + 5;
           v127 = v91 + 8;
-          if (v127 > v141)
+          if (v127 > v140)
           {
             goto LABEL_283;
           }
@@ -10573,12 +10580,12 @@ LABEL_202:
 
         else
         {
-          if (v91 + 9 > v141)
+          if (v91 + 9 > v140)
           {
             goto LABEL_283;
           }
 
-          v126 = *(*(&v140 + 1) + v94);
+          v126 = *(*(&v139 + 1) + v94);
           v127 = v91 + 9;
         }
       }
@@ -10588,14 +10595,14 @@ LABEL_202:
         v128 = v91 + 5;
         if (v125 == 4)
         {
-          if (v128 > v141)
+          if (v128 > v140)
           {
             goto LABEL_283;
           }
 
-          LODWORD(v126) = *(*(&v140 + 1) + v94);
-          HIDWORD(v141) = v91 + 5;
-          if (v91 + 5 >= v141)
+          LODWORD(v126) = *(*(&v139 + 1) + v94);
+          HIDWORD(v140) = v91 + 5;
+          if (v91 + 5 >= v140)
           {
             goto LABEL_283;
           }
@@ -10605,14 +10612,14 @@ LABEL_202:
 
         else
         {
-          if (v128 > v141)
+          if (v128 > v140)
           {
             goto LABEL_283;
           }
 
-          LODWORD(v126) = *(*(&v140 + 1) + v94);
-          HIDWORD(v141) = v91 + 5;
-          if ((v91 + 5) + 2 > v141)
+          LODWORD(v126) = *(*(&v139 + 1) + v94);
+          HIDWORD(v140) = v91 + 5;
+          if ((v91 + 5) + 2 > v140)
           {
             goto LABEL_283;
           }
@@ -10627,49 +10634,49 @@ LABEL_202:
       if (v125 == 2)
       {
         v127 = v91 + 4;
-        if (v127 > v141)
+        if (v127 > v140)
         {
           goto LABEL_283;
         }
 
-        LODWORD(v126) = *(*(&v140 + 1) + v94) | (*(*(&v140 + 1) + v94 + 2) << 16);
+        LODWORD(v126) = *(*(&v139 + 1) + v94) | (*(*(&v139 + 1) + v94 + 2) << 16);
       }
 
       else
       {
-        if (v91 + 5 > v141)
+        if (v91 + 5 > v140)
         {
           goto LABEL_283;
         }
 
-        LODWORD(v126) = *(*(&v140 + 1) + v94);
+        LODWORD(v126) = *(*(&v139 + 1) + v94);
         v127 = v91 + 5;
       }
     }
 
     else if (v125)
     {
-      if (v91 + 3 > v141)
+      if (v91 + 3 > v140)
       {
         goto LABEL_283;
       }
 
-      LODWORD(v126) = *(*(&v140 + 1) + v94);
+      LODWORD(v126) = *(*(&v139 + 1) + v94);
       v127 = v91 + 3;
     }
 
     else
     {
-      if (v94 >= v141)
+      if (v94 >= v140)
       {
         goto LABEL_283;
       }
 
-      LODWORD(v126) = *(*(&v140 + 1) + v94);
+      LODWORD(v126) = *(*(&v139 + 1) + v94);
       v127 = v91 + 2;
     }
 
-    HIDWORD(v141) = v127;
+    HIDWORD(v140) = v127;
     v129 = -256 << (8 * v125);
     if (v92)
     {
@@ -10695,16 +10702,16 @@ LABEL_205:
     v7[40] = glpMakeIntHash(&GLP_MALLOC_ALLOCATOR);
     while (1)
     {
-      v96 = HIDWORD(v141);
-      if (HIDWORD(v141) >= v141)
+      v96 = HIDWORD(v140);
+      if (HIDWORD(v140) >= v140)
       {
         goto LABEL_283;
       }
 
-      v97 = *(*(&v140 + 1) + HIDWORD(v141));
-      v98 = *(*(&v140 + 1) + HIDWORD(v141));
-      v99 = HIDWORD(v141) + 1;
-      ++HIDWORD(v141);
+      v97 = *(*(&v139 + 1) + HIDWORD(v140));
+      v98 = *(*(&v139 + 1) + HIDWORD(v140));
+      v99 = HIDWORD(v140) + 1;
+      ++HIDWORD(v140);
       if (v97 < 0)
       {
         v100 = (v98 >> 1) & 7;
@@ -10714,15 +10721,15 @@ LABEL_205:
           {
             if (v100 == 6)
             {
-              if (v96 + 5 > v141)
+              if (v96 + 5 > v140)
               {
                 goto LABEL_283;
               }
 
-              LODWORD(v101) = *(*(&v140 + 1) + v99);
-              HIDWORD(v141) = v96 + 5;
+              v101 = *(*(&v139 + 1) + v99);
+              HIDWORD(v140) = v96 + 5;
               v102 = v96 + 8;
-              if (v102 > v141)
+              if (v102 > v140)
               {
                 goto LABEL_283;
               }
@@ -10730,12 +10737,12 @@ LABEL_205:
 
             else
             {
-              if (v96 + 9 > v141)
+              if (v96 + 9 > v140)
               {
                 goto LABEL_283;
               }
 
-              v101 = *(*(&v140 + 1) + v99);
+              v101 = *(*(&v139 + 1) + v99);
               v102 = v96 + 9;
             }
           }
@@ -10745,14 +10752,14 @@ LABEL_205:
             v103 = v96 + 5;
             if (v100 == 4)
             {
-              if (v103 > v141)
+              if (v103 > v140)
               {
                 goto LABEL_283;
               }
 
-              LODWORD(v101) = *(*(&v140 + 1) + v99);
-              HIDWORD(v141) = v96 + 5;
-              if (v96 + 5 >= v141)
+              v101 = *(*(&v139 + 1) + v99);
+              HIDWORD(v140) = v96 + 5;
+              if (v96 + 5 >= v140)
               {
                 goto LABEL_283;
               }
@@ -10762,14 +10769,14 @@ LABEL_205:
 
             else
             {
-              if (v103 > v141)
+              if (v103 > v140)
               {
                 goto LABEL_283;
               }
 
-              LODWORD(v101) = *(*(&v140 + 1) + v99);
-              HIDWORD(v141) = v96 + 5;
-              if ((v96 + 5) + 2 > v141)
+              v101 = *(*(&v139 + 1) + v99);
+              HIDWORD(v140) = v96 + 5;
+              if ((v96 + 5) + 2 > v140)
               {
                 goto LABEL_283;
               }
@@ -10784,49 +10791,49 @@ LABEL_205:
           if (v100 == 2)
           {
             v102 = v96 + 4;
-            if (v102 > v141)
+            if (v102 > v140)
             {
               goto LABEL_283;
             }
 
-            LODWORD(v101) = *(*(&v140 + 1) + v99) | (*(*(&v140 + 1) + v99 + 2) << 16);
+            v101 = *(*(&v139 + 1) + v99) | (*(*(&v139 + 1) + v99 + 2) << 16);
           }
 
           else
           {
-            if (v96 + 5 > v141)
+            if (v96 + 5 > v140)
             {
               goto LABEL_283;
             }
 
-            LODWORD(v101) = *(*(&v140 + 1) + v99);
+            v101 = *(*(&v139 + 1) + v99);
             v102 = v96 + 5;
           }
         }
 
         else if (v100)
         {
-          if (v96 + 3 > v141)
+          if (v96 + 3 > v140)
           {
             goto LABEL_283;
           }
 
-          LODWORD(v101) = *(*(&v140 + 1) + v99);
+          v101 = *(*(&v139 + 1) + v99);
           v102 = v96 + 3;
         }
 
         else
         {
-          if (v99 >= v141)
+          if (v99 >= v140)
           {
             goto LABEL_283;
           }
 
-          LODWORD(v101) = *(*(&v140 + 1) + v99);
+          v101 = *(*(&v139 + 1) + v99);
           v102 = v96 + 2;
         }
 
-        HIDWORD(v141) = v102;
+        HIDWORD(v140) = v102;
         v104 = -256 << (8 * v100);
         if (v97)
         {
@@ -10838,7 +10845,7 @@ LABEL_205:
           v105 = 0;
         }
 
-        LODWORD(v98) = v101 | v105;
+        v98 = v101 | v105;
       }
 
       v106 = malloc_type_malloc(0x18uLL, 0xCA0EF1E7uLL);
@@ -10851,7 +10858,7 @@ LABEL_205:
       *v106 = 0;
       v106[1] = 0;
       v106[2] = 0;
-      v108 = deserialize_GLPString(v139);
+      v108 = deserialize_GLPString(v138);
       v110 = v109;
       v111 = v109;
       v112 = malloc_type_malloc(v109, 0xCA0EF1E7uLL);
@@ -10884,17 +10891,17 @@ LABEL_205:
 
       *v107 = v113;
       *(v107 + 8) = v118 | v111;
-      v119 = HIDWORD(v141);
-      v120 = v141;
-      if (HIDWORD(v141) + 4 > v141)
+      v119 = HIDWORD(v140);
+      v120 = v140;
+      if (HIDWORD(v140) + 4 > v140)
       {
         goto LABEL_283;
       }
 
-      v121 = *(&v140 + 1);
-      v122 = *(*(&v140 + 1) + HIDWORD(v141));
-      HIDWORD(v141) += 4;
-      v123 = HIDWORD(v141);
+      v121 = *(&v139 + 1);
+      v122 = *(*(&v139 + 1) + HIDWORD(v140));
+      HIDWORD(v140) += 4;
+      v123 = HIDWORD(v140);
       *(v107 + 16) = v122;
       if (v123 + 4 > v120)
       {
@@ -10902,7 +10909,7 @@ LABEL_205:
       }
 
       v124 = *(v121 + v123);
-      HIDWORD(v141) = v119 + 8;
+      HIDWORD(v140) = v119 + 8;
       *(v107 + 20) = v124;
       glpIntHashPut(v7[40], v98, v107, v114);
       if (++v95 == v93)
@@ -10933,8 +10940,7 @@ LABEL_280:
   *(v7 + 18) = a3[1];
   *(v7 + 19) = v135;
   *(v7 + 17) = v134;
-  glpDestroyDeserialContext(v139);
-  glpDestroyPoolAllocator(v138);
-  v136 = *MEMORY[0x277D85DE8];
+  glpDestroyDeserialContext(v138);
+  glpDestroyPoolAllocator(v137);
   return v7;
 }

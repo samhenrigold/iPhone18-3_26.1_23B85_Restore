@@ -48,7 +48,7 @@ LABEL_11:
 
 - (void)setDocumentWithInt:(int)int
 {
-  v5 = OrgApacheLuceneIndexReaderUtil_subIndexWithInt_withIntArray_(int, self->docStarts_);
+  v5 = OrgApacheLuceneIndexReaderUtil_subIndexWithInt_withIntArray_(*&int, self->docStarts_);
   self->currentSubIndex_ = v5;
   mapping = self->mapping_;
   if (!mapping)

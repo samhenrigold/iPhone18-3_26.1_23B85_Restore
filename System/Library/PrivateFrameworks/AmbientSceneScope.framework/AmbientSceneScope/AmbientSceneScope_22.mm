@@ -1,290 +1,290 @@
-void sub_23F0F36D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F36D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F08FF34(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F36E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F36E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B5114(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F36F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F36F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B189C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F370C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F370C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B03EC(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F3720(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F3720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0BEF54(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F3734(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F3734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B37A4(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F3748(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F3748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0BBAEC(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F375C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F375C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0AD034(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F3770(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F3770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0ADA8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F3784(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F3784(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0BE4A4(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F3798(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F3798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F08F85C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F37AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F37AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0A871C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F37C0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F37C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0ABB84(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F37D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F37D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B0E44(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F37E8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F37E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0A9C7C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F37FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F37FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0AC5DC(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F3810(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F3810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0BB03C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F3824(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F3824(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0BC59C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F3838(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F3838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B9ADC(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F384C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F384C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0BCFF4(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F3860(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F3860(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0BDA4C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F3874(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F3874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B85D4(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F3888(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F3888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0A91CC(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F389C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F389C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0AA6D4(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F38B0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F38B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0BA58C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F38C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F38C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B7124(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F38D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F38D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B4664(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F38EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F38EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0BFA04(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F3900(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F3900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0AB12C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F3914(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F3914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B22F4(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F3928(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F3928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0C04B4(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F393C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F393C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0AEF3C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F3950(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F3950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0AF994(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F3964(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F3964(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B5BC4(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F3978(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F3978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B902C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F398C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F398C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0AE4E4(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F39A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F39A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B6674(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F39B4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F39B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B2D4C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F39C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F39C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B7B7C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F39DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0F39DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F08EE58(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0F39F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
+void sub_23F0F39F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   v21 = a20;
   a20 = 0;
   if (v21)
   {
-    (*(*v21 + 8))(v21);
+    (*(*v21 + 8))(v21, a2, a3, a4, a5, a6, a7, a8);
   }
 
   sub_23F08FF34(&a10);
@@ -7263,293 +7263,293 @@ LABEL_1205:
   }
 }
 
-void sub_23F0FCD5C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCD5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F08FF34(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCD70(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCD70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B5114(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCD84(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCD84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B189C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCD98(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCD98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B03EC(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCDAC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCDAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0BEF54(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCDC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCDC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B37A4(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCDD4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCDD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0BBAEC(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCDE8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCDE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0AD034(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCDFC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCDFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0ADA8C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCE10(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCE10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0BE4A4(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCE24(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCE24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F08F85C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCE38(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCE38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0A871C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCE4C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCE4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0ABB84(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCE60(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCE60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B0E44(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCE74(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCE74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0A9C7C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCE88(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCE88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0AC5DC(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCE9C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCE9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0BB03C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCEB0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCEB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0BC59C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCEC4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCEC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B9ADC(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCED8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0BCFF4(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCEEC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCEEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0BDA4C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCF00(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCF00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B85D4(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCF14(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCF14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0A91CC(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCF28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCF28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0AA6D4(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCF3C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCF3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0BA58C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCF50(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCF50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B7124(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCF64(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCF64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B4664(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCF78(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCF78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0BFA04(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCF8C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCF8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0AB12C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCFA0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCFA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B22F4(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCFB4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCFB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0C04B4(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCFC8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCFC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0AEF3C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCFDC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCFDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0AF994(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FCFF0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FCFF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B5BC4(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FD004(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FD004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B902C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FD018(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FD018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0AE4E4(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FD02C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FD02C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B6674(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FD040(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FD040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B2D4C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FD054(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FD054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F0B7B7C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FD068(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23F0FD068(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_23F08EE58(va);
   _Unwind_Resume(a1);
 }
 
-void sub_23F0FD07C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
+void sub_23F0FD07C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   v21 = a20;
   a20 = 0;
   if (v21)
   {
-    (*(*v21 + 8))(v21);
+    (*(*v21 + 8))(v21, a2, a3, a4, a5, a6, a7, a8);
   }
 
   sub_23F08FF34(&a10);

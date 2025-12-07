@@ -103,22 +103,22 @@
   shouldIgnoreSenderProperties = [(RCPEventDeliveryServicePool *)self shouldIgnoreSenderProperties];
   if (!propertiesCopy || shouldIgnoreSenderProperties)
   {
-    v7 = RCPLogPlayback();
+    v7 = RCPLogPlayback(shouldIgnoreSenderProperties);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_2619DE000, v7, OS_LOG_TYPE_DEFAULT, "properties were nil, or ignoring properties set. Falling back to a platform specific default sender.", buf, 2u);
     }
 
-    v8 = RCPLogPlayback();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = RCPLogPlayback(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_2619DE000, v8, OS_LOG_TYPE_DEFAULT, "defaulting to touch screen digitizer sender", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_2619DE000, v9, OS_LOG_TYPE_DEFAULT, "defaulting to touch screen digitizer sender", v12, 2u);
     }
 
-    v9 = +[RCPEventSenderProperties touchScreenDigitizerSender];
-    v6 = [(RCPEventDeliveryServicePool *)self _findServiceForSenderProperties:v9];
+    v10 = +[RCPEventSenderProperties touchScreenDigitizerSender];
+    v6 = [(RCPEventDeliveryServicePool *)self _findServiceForSenderProperties:v10];
   }
 
   else
@@ -167,7 +167,7 @@ LABEL_4:
 
 - (id)_findServiceForSenderProperties:(id)properties
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   senderID = [propertiesCopy senderID];
   if (senderID)
@@ -182,37 +182,37 @@ LABEL_4:
       v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"recap-%llX", v6];
       v9 = [RCPVirtualHIDService serviceWithIdentifier:v10 properties:propertiesCopy];
 
-      v11 = RCPLogPlayback();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = RCPLogPlayback(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v18 = v9;
-        _os_log_impl(&dword_2619DE000, v11, OS_LOG_TYPE_DEFAULT, "new virtual service %{public}@", buf, 0xCu);
+        v19 = v9;
+        _os_log_impl(&dword_2619DE000, v12, OS_LOG_TYPE_DEFAULT, "new virtual service %{public}@", buf, 0xCu);
       }
 
-      v12 = self->_deliveryServicesBySenderID;
-      v13 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v6];
-      [(NSMutableDictionary *)v12 setObject:v9 forKeyedSubscript:v13];
+      v13 = self->_deliveryServicesBySenderID;
+      v14 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v6];
+      [(NSMutableDictionary *)v13 setObject:v9 forKeyedSubscript:v14];
     }
   }
 
   else
   {
-    v14 = [(NSMutableDictionary *)self->_deliveryServicesBySenderProperties objectForKeyedSubscript:propertiesCopy];
-    if (v14)
+    v15 = [(NSMutableDictionary *)self->_deliveryServicesBySenderProperties objectForKeyedSubscript:propertiesCopy];
+    if (v15)
     {
-      v9 = v14;
+      v9 = v15;
     }
 
     else
     {
       v9 = [RCPVirtualHIDService serviceWithIdentifier:@"recapulon" properties:propertiesCopy];
-      v15 = RCPLogPlayback();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = RCPLogPlayback(v9);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v18 = v9;
-        _os_log_impl(&dword_2619DE000, v15, OS_LOG_TYPE_DEFAULT, "new virtual service %{public}@", buf, 0xCu);
+        v19 = v9;
+        _os_log_impl(&dword_2619DE000, v16, OS_LOG_TYPE_DEFAULT, "new virtual service %{public}@", buf, 0xCu);
       }
 
       [(NSMutableDictionary *)self->_deliveryServicesBySenderProperties setObject:v9 forKeyedSubscript:propertiesCopy];

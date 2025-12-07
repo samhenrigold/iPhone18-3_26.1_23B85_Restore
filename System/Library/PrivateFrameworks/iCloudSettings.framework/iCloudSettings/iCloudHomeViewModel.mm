@@ -37,7 +37,7 @@
 {
   dataclassCopy = dataclass;
   selfCopy = self;
-  sub_275888920();
+  sub_275888920(dataclassCopy);
   v7 = v6;
 
   if (v7)

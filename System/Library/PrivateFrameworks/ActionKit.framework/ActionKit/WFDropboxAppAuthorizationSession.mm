@@ -7,7 +7,7 @@
 
 - (BOOL)resumeSessionWithURL:(id)l
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   lCopy = l;
   completionHandler = [(WFDropboxAppAuthorizationSession *)self completionHandler];
   if (!completionHandler)
@@ -22,33 +22,33 @@
   {
     v8 = [MEMORY[0x277CCACE0] componentsWithURL:lCopy resolvingAgainstBaseURL:0];
     v9 = objc_opt_new();
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
-    v38 = v8;
+    v37 = v8;
     queryItems = [v8 queryItems];
-    v11 = [queryItems countByEnumeratingWithState:&v39 objects:v51 count:16];
+    v11 = [queryItems countByEnumeratingWithState:&v38 objects:v50 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v40;
+      v13 = *v39;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v40 != v13)
+          if (*v39 != v13)
           {
             objc_enumerationMutation(queryItems);
           }
 
-          v15 = *(*(&v39 + 1) + 8 * i);
+          v15 = *(*(&v38 + 1) + 8 * i);
           value = [v15 value];
           name = [v15 name];
           [v9 setValue:value forKey:name];
         }
 
-        v12 = [queryItems countByEnumeratingWithState:&v39 objects:v51 count:16];
+        v12 = [queryItems countByEnumeratingWithState:&v38 objects:v50 count:16];
       }
 
       while (v12);
@@ -61,10 +61,10 @@
     if ((v20 & 1) == 0)
     {
       v30 = MEMORY[0x277CCA9B8];
-      v49 = *MEMORY[0x277CCA450];
-      v50 = @"The state parameter on the received callback was invalid.";
+      v48 = *MEMORY[0x277CCA450];
+      v49 = @"The state parameter on the received callback was invalid.";
       v29 = 1;
-      v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+      v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
       v32 = [v30 errorWithDomain:@"WFOAuth2ErrorDomain" code:200 userInfo:v31];
       (completionHandler)[2](completionHandler, 0, v32);
 
@@ -75,9 +75,9 @@
     if (![v21 length])
     {
       v33 = MEMORY[0x277CCA9B8];
-      v47 = *MEMORY[0x277CCA450];
-      v48 = @"The oauth_token_secret parameter on the received callback was missing.";
-      v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+      v46 = *MEMORY[0x277CCA450];
+      v47 = @"The oauth_token_secret parameter on the received callback was missing.";
+      v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
       v35 = [v33 errorWithDomain:@"WFOAuth2ErrorDomain" code:200 userInfo:v34];
       (completionHandler)[2](completionHandler, 0, v35);
 
@@ -86,13 +86,13 @@
     }
 
     v22 = [WFOAuth2Credential alloc];
-    v45 = @"access_token";
-    v46 = v21;
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+    v44 = @"access_token";
+    v45 = v21;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
     v24 = [(WFOAuth2Credential *)v22 initWithResponseObject:v23];
     (completionHandler)[2](completionHandler, v24, 0);
 
-    v25 = v38;
+    v25 = v37;
     goto LABEL_15;
   }
 
@@ -107,9 +107,9 @@ LABEL_16:
   }
 
   v28 = MEMORY[0x277CCA9B8];
-  v43 = *MEMORY[0x277CCA450];
-  v44 = @"The user cancelled the request.";
-  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+  v42 = *MEMORY[0x277CCA450];
+  v43 = @"The user cancelled the request.";
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
   v9 = [v28 errorWithDomain:@"WFOAuth2ErrorDomain" code:106 userInfo:v25];
   (completionHandler)[2](completionHandler, 0, v9);
 LABEL_15:
@@ -118,13 +118,12 @@ LABEL_15:
   v29 = 1;
 LABEL_19:
 
-  v36 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
 - (WFDropboxAppAuthorizationSession)initWithClientID:(id)d completionHandler:(id)handler
 {
-  v53[3] = *MEMORY[0x277D85DE8];
+  v52[3] = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   v10 = handlerCopy;
@@ -151,13 +150,13 @@ LABEL_19:
   [currentHandler2 handleFailureInMethod:a2 object:self file:@"WFDropboxAppAuthorizationSession.m" lineNumber:32 description:{@"Invalid parameter not satisfying: %@", @"completionHandler"}];
 
 LABEL_3:
-  v51.receiver = self;
-  v51.super_class = WFDropboxAppAuthorizationSession;
-  v11 = [(WFDropboxAppAuthorizationSession *)&v51 init];
+  v50.receiver = self;
+  v50.super_class = WFDropboxAppAuthorizationSession;
+  v11 = [(WFDropboxAppAuthorizationSession *)&v50 init];
   v12 = v11;
   if (v11)
   {
-    v46 = dCopy;
+    v45 = dCopy;
     objc_storeStrong(&v11->_clientID, d);
     uUID = [MEMORY[0x277CCAD78] UUID];
     uUIDString = [uUID UUIDString];
@@ -184,38 +183,38 @@ LABEL_3:
     v12->_completionHandler = v27;
 
     v29 = [MEMORY[0x277CCAD18] queryItemWithName:@"k" value:v12->_clientID];
-    v53[0] = v29;
+    v52[0] = v29;
     v30 = [MEMORY[0x277CCAD18] queryItemWithName:@"s" value:0];
-    v53[1] = v30;
+    v52[1] = v30;
     v31 = [MEMORY[0x277CCAD18] queryItemWithName:@"state" value:v12->_state];
-    v53[2] = v31;
-    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:3];
+    v52[2] = v31;
+    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:3];
 
     v33 = objc_opt_new();
     [v33 setHost:@"1"];
     [v33 setPath:@"/connect"];
     [v33 setQueryItems:v32];
     v34 = objc_opt_new();
+    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
-    v35 = [&unk_28509CB48 countByEnumeratingWithState:&v47 objects:v52 count:16];
+    v35 = [&unk_28509CB48 countByEnumeratingWithState:&v46 objects:v51 count:16];
     if (v35)
     {
       v36 = v35;
-      v37 = *v48;
+      v37 = *v47;
       do
       {
         v38 = 0;
         do
         {
-          if (*v48 != v37)
+          if (*v47 != v37)
           {
             objc_enumerationMutation(&unk_28509CB48);
           }
 
-          [v33 setScheme:*(*(&v47 + 1) + 8 * v38)];
+          [v33 setScheme:*(*(&v46 + 1) + 8 * v38)];
           v39 = [v33 URL];
           [(NSArray *)v34 addObject:v39];
 
@@ -223,7 +222,7 @@ LABEL_3:
         }
 
         while (v36 != v38);
-        v36 = [&unk_28509CB48 countByEnumeratingWithState:&v47 objects:v52 count:16];
+        v36 = [&unk_28509CB48 countByEnumeratingWithState:&v46 objects:v51 count:16];
       }
 
       while (v36);
@@ -233,10 +232,9 @@ LABEL_3:
     v12->_authorizationURLs = v34;
 
     v41 = v12;
-    dCopy = v46;
+    dCopy = v45;
   }
 
-  v42 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

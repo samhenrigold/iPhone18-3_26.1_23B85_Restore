@@ -66,7 +66,7 @@
 
 - (VCAudioMachineLearningCoordinator)initWithConfiguration:(const tagVCAudioMachineLearningCoordinatorConfiguration *)configuration delegate:(id)delegate
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   MEMORY[0x1E128B580](&dword_1DB56E000, "@:@ VCAudioMachineLearningCoordinator-init");
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
@@ -77,26 +77,26 @@
       var4 = configuration->var4;
       var6 = configuration->var6;
       *buf = 136316674;
-      v33 = v7;
-      v34 = 2080;
-      v35 = "[VCAudioMachineLearningCoordinator initWithConfiguration:delegate:]";
-      v36 = 1024;
-      v37 = 158;
-      v38 = 2048;
+      v34 = v7;
+      v35 = 2080;
+      v36 = "[VCAudioMachineLearningCoordinator initWithConfiguration:delegate:]";
+      v37 = 1024;
+      v38 = 158;
+      v39 = 2048;
       selfCopy = self;
-      v40 = 1024;
-      v41 = var4;
-      v42 = 2048;
-      v43 = var6;
-      v44 = 2048;
+      v41 = 1024;
+      v42 = var4;
+      v43 = 2048;
+      v44 = var6;
+      v45 = 2048;
       delegateCopy = delegate;
       _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @:@ VCAudioMachineLearningCoordinator-init (%p) init with frameworkType=%d, streamToken=%ld, delegate=%p", buf, 0x40u);
     }
   }
 
-  v31.receiver = self;
-  v31.super_class = VCAudioMachineLearningCoordinator;
-  v11 = [(VCObject *)&v31 init];
+  v32.receiver = self;
+  v32.super_class = VCAudioMachineLearningCoordinator;
+  v11 = [(VCObject *)&v32 init];
   if (v11)
   {
     var2 = configuration->var2;
@@ -119,15 +119,15 @@
         {
           v15 = configuration->var4;
           *buf = 136316162;
-          v33 = v13;
-          v34 = 2080;
-          v35 = "[VCAudioMachineLearningCoordinator initWithConfiguration:delegate:]";
-          v36 = 1024;
-          v37 = 174;
-          v38 = 2048;
+          v34 = v13;
+          v35 = 2080;
+          v36 = "[VCAudioMachineLearningCoordinator initWithConfiguration:delegate:]";
+          v37 = 1024;
+          v38 = 174;
+          v39 = 2048;
           selfCopy = v11;
-          v40 = 1024;
-          v41 = v15;
+          v41 = 1024;
+          v42 = v15;
           _os_log_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @:@ VCAudioMachineLearningCoordinator-init (%p) init with frameworkType=%d", buf, 0x2Cu);
         }
       }
@@ -186,15 +186,15 @@
                 v11->_lowPriorityThresholdSeconds = NAN;
                 if (!v11->_translatorMode && (!VCFeatureFlagManager_UseAnalyzerSpeechAPI() || !VCFeatureFlagManager_EnableSpeechDetector()))
                 {
-                  v11->_lowPriorityThresholdSeconds = VCDefaults_GetInternalOSDoubleValueForKey(@"captionsLowPriorityThresholdSeconds", 0.75);
+                  v11->_lowPriorityThresholdSeconds = VCDefaults_GetInternalOSDoubleValueForKey(@"captionsLowPriorityThresholdSeconds", v26, 0.75);
                 }
 
                 if ([(VCAudioMachineLearningCoordinator *)v11 setUpAudioCaptionsUsingFrameworkType:v11->_captionsFrameworkType])
                 {
                   v11->_isReadyForCaptioning = 1;
-                  v26 = [[VCMediaAnalyzer alloc] initWithDelegate:v11 delegateQueue:v11->_delegateQueue reportingAgent:configuration->var3];
-                  v11->_mediaAnalyzer = v26;
-                  if (v26)
+                  v27 = [[VCMediaAnalyzer alloc] initWithDelegate:v11 delegateQueue:v11->_delegateQueue reportingAgent:configuration->var3];
+                  v11->_mediaAnalyzer = v27;
+                  if (v27)
                   {
                     SampleBufferAllocator = VCAudioBufferList_CreateSampleBufferAllocator();
                     v11->_audioSampleBufferAllocator = SampleBufferAllocator;
@@ -271,21 +271,21 @@ LABEL_30:
   MEMORY[0x1E128B580](&dword_1DB56E000, "@:@ VCAudioMachineLearningCoordinator-init Finished");
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
-    v28 = VRTraceErrorLogLevelToCSTR();
-    v29 = *MEMORY[0x1E6986650];
+    v29 = VRTraceErrorLogLevelToCSTR();
+    v30 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136316162;
-      v33 = v28;
-      v34 = 2080;
-      v35 = "[VCAudioMachineLearningCoordinator initWithConfiguration:delegate:]";
-      v36 = 1024;
-      v37 = 223;
-      v38 = 2048;
+      v34 = v29;
+      v35 = 2080;
+      v36 = "[VCAudioMachineLearningCoordinator initWithConfiguration:delegate:]";
+      v37 = 1024;
+      v38 = 223;
+      v39 = 2048;
       selfCopy = v11;
-      v40 = 1024;
-      v41 = v11 != 0;
-      _os_log_impl(&dword_1DB56E000, v29, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @:@ VCAudioMachineLearningCoordinator-init Finished (%p) Finished with success=%{BOOL}d", buf, 0x2Cu);
+      v41 = 1024;
+      v42 = v11 != 0;
+      _os_log_impl(&dword_1DB56E000, v30, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @:@ VCAudioMachineLearningCoordinator-init Finished (%p) Finished with success=%{BOOL}d", buf, 0x2Cu);
     }
   }
 
@@ -1410,7 +1410,7 @@ LABEL_27:
 
   _os_log_impl(&dword_1DB56E000, v10, OS_LOG_TYPE_DEFAULT, v9, v29, v11);
 LABEL_15:
-  [(VCAudioMachineLearningCoordinator *)self lockedRegisterMediaAnalyzerWithStreamToken:config->var0, *v29, *&v29[16], v30, selfCopy2, v32];
+  [(VCAudioMachineLearningCoordinator *)self lockedRegisterMediaAnalyzerWithStreamToken:config->var0, *v29, *&v29[8], v30, selfCopy2, v32];
   v15 = 1;
 LABEL_16:
   os_unfair_lock_unlock(&self->_stateLock);
@@ -1459,7 +1459,7 @@ LABEL_16:
           }
 
           [+[VCCaptionsManager defaultManager](VCCaptionsManager "defaultManager")];
-          -[VCMediaAnalyzerManager unregisterMediaAnalyzerSourceWithStreamToken:](+[VCMediaAnalyzerManager sharedInstance](VCMediaAnalyzerManager, "sharedInstance"), "unregisterMediaAnalyzerSourceWithStreamToken:", [v9 token]);
+          [+[VCMediaAnalyzerManager sharedInstance](VCMediaAnalyzerManager unregisterMediaAnalyzerSourceWithStreamToken:"unregisterMediaAnalyzerSourceWithStreamToken:", objc_msgSend_token(v9)];
           ++v8;
         }
 
@@ -1475,7 +1475,7 @@ LABEL_16:
 uint64_t __59__VCAudioMachineLearningCoordinator_unregisterStreamTokens__block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = [*(a1 + 40) token];
+  v2 = objc_msgSend_token(*(a1 + 40));
 
   return [v1 streamToken:v2 didDisableCaptions:1 error:0];
 }
@@ -1708,7 +1708,7 @@ LABEL_23:
     }
   }
 
-  [(VCAudioMachineLearningCoordinator *)self setUpForTranslatorMode:0, *v26, *&v26[16], v27, selfCopy2, v29, v30, v31];
+  [(VCAudioMachineLearningCoordinator *)self setUpForTranslatorMode:0, *v26, *&v26[8], v27, selfCopy2, v29, v30, v31];
   os_unfair_lock_unlock(&self->_stateLock);
 }
 
@@ -2477,7 +2477,7 @@ LABEL_28:
   *(&v24[1] + 8) = v8;
   if (BufferInfo)
   {
-    [BufferInfo format];
+    objc_msgSend_format(BufferInfo);
   }
 
   else
@@ -4014,7 +4014,7 @@ intptr_t ___VCAudioMachineLearningCoordinator_StopCaptioning_block_invoke(uint64
 
   _os_log_impl(v8, v9, v10, v11, v12, v13);
 LABEL_12:
-  [(VCAudioMachineLearningCoordinator *)self setUpInternalStateForReporting:modeCopy, *v47, *&v47[16]];
+  [(VCAudioMachineLearningCoordinator *)self setUpInternalStateForReporting:modeCopy, *v47, *&v47[8]];
   if (modeCopy == 1)
   {
     self->_translatorMode = 1;

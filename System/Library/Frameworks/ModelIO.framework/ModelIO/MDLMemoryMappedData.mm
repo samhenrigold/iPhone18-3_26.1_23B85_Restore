@@ -9,30 +9,30 @@
 - (MDLMemoryMappedData)initWithURL:(id)l offset:(unint64_t)offset length:(unint64_t)length
 {
   lCopy = l;
-  v25.receiver = self;
-  v25.super_class = MDLMemoryMappedData;
-  v9 = [(MDLMemoryMappedData *)&v25 init];
+  v43.receiver = self;
+  v43.super_class = MDLMemoryMappedData;
+  v9 = [(MDLMemoryMappedData *)&v43 init];
   if (v9)
   {
     v10 = sysconf(29);
-    v13 = objc_msgSend_path(lCopy, v11, v12);
-    v14 = v13;
-    v17 = objc_msgSend_UTF8String(v14, v15, v16);
-    v9->_file = fopen(v17, "r");
+    v22 = objc_msgSend_path(lCopy, v11, v12, v13, v18, v19, v20, v21, v14, v15, v16, v17);
+    v23 = v22;
+    v35 = objc_msgSend_UTF8String(v23, v24, v25, v26, v31, v32, v33, v34, v27, v28, v29, v30);
+    v9->_file = fopen(v35, "r");
 
     file = v9->_file;
     if (file)
     {
-      v19 = offset / v10 * v10;
-      v20 = offset - v19;
-      v21 = offset - v19 + length;
-      v9->_mappedFileSize = v21;
-      v22 = fileno(file);
-      v23 = mmap(0, v21, 1, 2, v22, v19);
-      v9->_mappedAddr = v23;
-      if (v23)
+      v37 = offset / v10 * v10;
+      v38 = offset - v37;
+      v39 = offset - v37 + length;
+      v9->_mappedFileSize = v39;
+      v40 = fileno(file);
+      v41 = mmap(0, v39, 1, 2, v40, v37);
+      v9->_mappedAddr = v41;
+      if (v41)
       {
-        v9->_fileStart = &v23[v20];
+        v9->_fileStart = &v41[v38];
         v9->_length = length;
       }
     }
@@ -69,15 +69,15 @@
   fileStart = self->_fileStart;
   if (fileStart)
   {
-    v4 = objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(MEMORY[0x277CBEA90], a2, fileStart, self->_length, 0);
+    v11 = objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(MEMORY[0x277CBEA90], a2, fileStart, self->_length, v6, v7, v8, v9, 0, v2, v3, v4);
   }
 
   else
   {
-    v4 = 0;
+    v11 = 0;
   }
 
-  return v4;
+  return v11;
 }
 
 @end

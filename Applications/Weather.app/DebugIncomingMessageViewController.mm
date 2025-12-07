@@ -34,7 +34,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_1003B1270();
+  v12 = sub_1003B1270(selfCopy);
 
   (*(v7 + 8))(v9, v6);
   return v12;

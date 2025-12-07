@@ -97,10 +97,7 @@
 
 uint64_t __28__BRCClientState_dictionary__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 8) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 8) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -197,10 +194,7 @@ uint64_t __28__BRCClientState_dictionary__block_invoke(uint64_t a1)
 
 uint64_t __33__BRCClientState_dataPendingSave__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _prepareToSaveStateData];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _prepareToSaveStateData];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -233,10 +227,7 @@ uint64_t __33__BRCClientState_dataPendingSave__block_invoke(uint64_t a1)
 
 uint64_t __31__BRCClientState_objectForKey___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 8) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 8) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }

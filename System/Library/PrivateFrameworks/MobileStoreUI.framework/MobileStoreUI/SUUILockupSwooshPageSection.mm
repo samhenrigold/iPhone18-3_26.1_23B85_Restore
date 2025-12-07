@@ -428,7 +428,7 @@ LABEL_6:
   v6 = pageComponent;
   if (pageComponent)
   {
-    [pageComponent lockupStyle];
+    objc_msgSend_lockupStyle(pageComponent);
   }
 
   if (self->_overlaySourceIndex != 0x7FFFFFFFFFFFFFFFLL)

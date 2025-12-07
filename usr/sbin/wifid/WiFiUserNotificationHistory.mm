@@ -2,6 +2,8 @@
 - (WiFiUserNotificationHistory)init;
 - (int)canPresentRecommendationForSSID:(id)d currentLocation:(id)location;
 - (void)dealloc;
+- (void)handleNotificationResponseForSSID:(id)d type:(int)type response:(int)response;
+- (void)presentedNotificationForSSID:(id)d type:(int)type currentLocation:(id)location;
 - (void)reset;
 - (void)resetAttemptsForSSID:(id)d;
 @end
@@ -25,6 +27,104 @@
   v3.receiver = self;
   v3.super_class = WiFiUserNotificationHistory;
   [(WiFiUserNotificationHistory *)&v3 dealloc];
+}
+
+- (void)presentedNotificationForSSID:(id)d type:(int)type currentLocation:(id)location
+{
+  if ([(NSMutableDictionary *)[(WiFiUserNotificationHistory *)self notifications:d] objectForKey:d])
+  {
+    v8 = [-[NSMutableDictionary objectForKey:](-[WiFiUserNotificationHistory notifications](self "notifications")];
+  }
+
+  else
+  {
+    v8 = objc_alloc_init(NSMutableDictionary);
+  }
+
+  v11 = v8;
+  if (location)
+  {
+    [v8 setObject:location forKey:@"location"];
+  }
+
+  v9 = +[NSDate date];
+  if (v9)
+  {
+    [v11 setObject:v9 forKey:@"date"];
+  }
+
+  [(NSMutableDictionary *)[(WiFiUserNotificationHistory *)self notifications] setObject:v11 forKey:d];
+  v10 = objc_autoreleasePoolPush();
+  if (off_100298C40)
+  {
+    [off_100298C40 WFLog:3 message:{"%s: notification info %@", "-[WiFiUserNotificationHistory presentedNotificationForSSID:type:currentLocation:]", -[WiFiUserNotificationHistory notifications](self, "notifications")}];
+  }
+
+  objc_autoreleasePoolPop(v10);
+}
+
+- (void)handleNotificationResponseForSSID:(id)d type:(int)type response:(int)response
+{
+  if (d)
+  {
+    v5 = *&response;
+    [(WiFiUserNotificationHistory *)self setLastRecommendedSSID:d, *&type];
+    v8 = [(NSMutableDictionary *)[(WiFiUserNotificationHistory *)self notifications] objectForKey:d];
+    if (v8)
+    {
+      v9 = [v8 mutableCopy];
+      [v9 setObject:+[NSNumber numberWithUnsignedInt:](NSNumber forKey:{"numberWithUnsignedInt:", v5), @"response"}];
+      v10 = [v9 objectForKey:@"attempt"];
+      if (v10)
+      {
+        v11 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v10 integerValue] + 1);
+      }
+
+      else
+      {
+        v11 = &off_1002811B8;
+      }
+
+      [v9 setObject:v11 forKey:@"attempt"];
+      [(NSMutableDictionary *)[(WiFiUserNotificationHistory *)self notifications] removeObjectForKey:d];
+      [(NSMutableDictionary *)[(WiFiUserNotificationHistory *)self notifications] setObject:v9 forKey:d];
+      v15 = objc_autoreleasePoolPush();
+      if (off_100298C40)
+      {
+        [off_100298C40 WFLog:3 message:{"%s: updating notification info %@", "-[WiFiUserNotificationHistory handleNotificationResponseForSSID:type:response:]", v9}];
+      }
+
+      objc_autoreleasePoolPop(v15);
+      if (v9)
+      {
+
+        CFRelease(v9);
+      }
+
+      return;
+    }
+
+    v14 = objc_autoreleasePoolPush();
+    if (off_100298C40)
+    {
+      [off_100298C40 WFLog:4 message:{"%s: unable to find notification info for ssid %@", "-[WiFiUserNotificationHistory handleNotificationResponseForSSID:type:response:]", d}];
+    }
+
+    v13 = v14;
+  }
+
+  else
+  {
+    v12 = objc_autoreleasePoolPush();
+    if (off_100298C40)
+    {
+      [off_100298C40 WFLog:4 message:{"%s: nil ssid", "-[WiFiUserNotificationHistory handleNotificationResponseForSSID:type:response:]"}];
+    }
+
+    v13 = v12;
+  }
+
+  objc_autoreleasePoolPop(v13);
 }
 
 - (int)canPresentRecommendationForSSID:(id)d currentLocation:(id)location

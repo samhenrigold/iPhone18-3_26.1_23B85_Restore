@@ -37,51 +37,51 @@
   if ([_ad_likelyApplicationBundleIdentifiers count])
   {
     v6 = dispatch_group_create();
-    v34[0] = 0;
-    v34[1] = v34;
-    v34[2] = 0x2020000000;
-    v35 = 0;
-    v30 = 0u;
+    v35[0] = 0;
+    v35[1] = v35;
+    v35[2] = 0x2020000000;
+    v36 = 0;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
     obj = _ad_likelyApplicationBundleIdentifiers;
-    v7 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v7 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
     if (v7)
     {
-      v8 = *v31;
+      v8 = *v32;
       v9 = BKSOpenApplicationOptionKeyActivateSuspended;
       do
       {
         for (i = 0; i != v7; i = i + 1)
         {
-          if (*v31 != v8)
+          if (*v32 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v30 + 1) + 8 * i);
+          v11 = *(*(&v31 + 1) + 8 * i);
           serviceWithDefaultShellEndpoint = [off_10058E4F8() serviceWithDefaultShellEndpoint];
           if (serviceWithDefaultShellEndpoint)
           {
             dispatch_group_enter(v6);
-            [(SAAceDomainSignal *)selfCopy _ad_recordPreheatLaunchOf:v11];
-            v13 = off_10058E500();
-            v36 = v9;
-            v37 = &__kCFBooleanTrue;
-            v14 = [NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-            v15 = [v13 optionsWithDictionary:v14];
-            v27[0] = _NSConcreteStackBlock;
-            v27[1] = 3221225472;
-            v27[2] = sub_1003025D8;
-            v27[3] = &unk_10051B660;
-            v29 = v34;
-            v28 = v6;
-            [serviceWithDefaultShellEndpoint openApplication:v11 withOptions:v15 completion:v27];
+            v13 = [(SAAceDomainSignal *)selfCopy _ad_recordPreheatLaunchOf:v11];
+            v14 = off_10058E500(v13);
+            v37 = v9;
+            v38 = &__kCFBooleanTrue;
+            v15 = [NSDictionary dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+            v16 = [v14 optionsWithDictionary:v15];
+            v28[0] = _NSConcreteStackBlock;
+            v28[1] = 3221225472;
+            v28[2] = sub_1003025D8;
+            v28[3] = &unk_10051B660;
+            v30 = v35;
+            v29 = v6;
+            [serviceWithDefaultShellEndpoint openApplication:v11 withOptions:v16 completion:v28];
           }
         }
 
-        v7 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v7 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
       }
 
       while (v7);
@@ -91,19 +91,19 @@
     block[1] = 3221225472;
     block[2] = sub_100302694;
     block[3] = &unk_10051B688;
-    v26 = v34;
-    v25 = handlerCopy;
-    v24 = requestCopy;
+    v27 = v35;
+    v26 = handlerCopy;
+    v25 = requestCopy;
     dispatch_group_notify(v6, &_dispatch_main_q, block);
 
-    _Block_object_dispose(v34, 8);
+    _Block_object_dispose(v35, 8);
   }
 
   else
   {
-    v16 = objc_alloc_init(SACommandSucceeded);
-    v17 = [requestCopy createResponseWithReplyCommand:v16];
-    (*(handlerCopy + 2))(handlerCopy, v17, 0);
+    v17 = objc_alloc_init(SACommandSucceeded);
+    v18 = [requestCopy createResponseWithReplyCommand:v17];
+    (*(handlerCopy + 2))(handlerCopy, v18, 0);
   }
 }
 
@@ -133,7 +133,7 @@
 
     v3 = qword_100590950;
     domain = [(SAAceDomainSignal *)self domain];
-    v5 = [v3 objectForKey:domain];
+    v5 = objc_msgSend_objectForKey_(v3);
 
     if (v5)
     {

@@ -15,12 +15,12 @@ void ___ef_log_EFProtectedFile_block_invoke()
 
 - (EFProtectedFile)initWithFilePath:(id)path isSensitive:(BOOL)sensitive protectionType:(id)type
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   typeCopy = type;
-  v19.receiver = self;
-  v19.super_class = EFProtectedFile;
-  v10 = [(EFProtectedFile *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = EFProtectedFile;
+  v10 = [(EFProtectedFile *)&v18 init];
   if (v10)
   {
     v11 = [[_EFProtectedFile alloc] initWithFilePath:pathCopy isSensitive:sensitive protectionType:typeCopy];
@@ -28,14 +28,13 @@ void ___ef_log_EFProtectedFile_block_invoke()
     v10->_file = v11;
 
     v13 = [_EFBackgroundProcessingAssertion alloc];
-    v20[0] = v10->_file;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+    v19[0] = v10->_file;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
     v15 = [(_EFBackgroundProcessingAssertion *)v13 initWithProtectedFiles:v14];
     assertion = v10->_assertion;
     v10->_assertion = v15;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

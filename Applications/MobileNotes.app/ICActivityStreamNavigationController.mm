@@ -140,7 +140,7 @@
 
 - (void)willEnterForeground
 {
-  v3 = sub_10015DA04(&unk_1006C1710);
+  v3 = sub_10015DA04(&unk_1006C1710, &qword_10053BA80);
   __chkstk_darwin(v3 - 8);
   v5 = &v9 - v4;
   selfCopy = self;

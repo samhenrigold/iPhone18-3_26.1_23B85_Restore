@@ -901,16 +901,17 @@ LABEL_24:
   [mainScreen scale];
   v11 = v10;
 
-  v17.width = width;
-  v17.height = height;
-  UIGraphicsBeginImageContextWithOptions(v17, opaque, v11);
-  if (+[SUUIStyledImageDataConsumer isImageCompressionEnabled])
+  v19.width = width;
+  v19.height = height;
+  UIGraphicsBeginImageContextWithOptions(v19, opaque, v11);
+  v12 = +[SUUIStyledImageDataConsumer isImageCompressionEnabled];
+  if (v12)
   {
-    HasASTCSupport = SUUIGraphicsDeviceHasASTCSupport();
+    HasASTCSupport = SUUIGraphicsDeviceHasASTCSupport(v12, v13);
     blockCopy[2](blockCopy, HasASTCSupport);
     if (HasASTCSupport)
     {
-      v13 = SUUIGraphicsGetASTCImageFromCurrentImageContext(v11);
+      v15 = SUUIGraphicsGetASTCImageFromCurrentImageContext(v11);
       goto LABEL_6;
     }
   }
@@ -920,12 +921,12 @@ LABEL_24:
     blockCopy[2](blockCopy, 0);
   }
 
-  v13 = UIGraphicsGetImageFromCurrentImageContext();
+  v15 = UIGraphicsGetImageFromCurrentImageContext();
 LABEL_6:
-  v14 = v13;
+  v16 = v15;
   UIGraphicsEndImageContext();
 
-  return v14;
+  return v16;
 }
 
 - (id)_arcRoundedImageWithBounds:(CGRect)bounds contentRect:(CGRect)rect cornerRadius:(double)radius drawBlock:(id)block
@@ -1072,7 +1073,7 @@ uint64_t __76__SUUIStyledImageDataConsumer__scaledImageWithBounds_contentRect_dr
 
 void __80__SUUIStyledImageDataConsumer__radialBlurImageWithBounds_contentRect_drawBlock___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 56);
   if (v2)
   {
@@ -1084,30 +1085,30 @@ void __80__SUUIStyledImageDataConsumer__radialBlurImageWithBounds_contentRect_dr
   v3 = *(*(a1 + 32) + 56);
   if (v3)
   {
-    v36 = 0u;
-    memset(v37, 0, 48);
+    v38 = 0u;
+    memset(v39, 0, 48);
     __asm { FMOV            V0.2D, #1.0 }
 
-    v37[3] = _Q0;
-    [v3 getRed:&v36 green:&v36 + 8 blue:v37 alpha:0];
-    *(&v37[1] + 8) = v36;
-    *(&v37[2] + 1) = *&v37[0];
+    v39[3] = _Q0;
+    [v3 getRed:&v38 green:&v38 + 8 blue:v39 alpha:0];
+    *(&v39[1] + 8) = v38;
+    *(&v39[2] + 1) = *&v39[0];
     v10 = *(a1 + 64);
     v9 = *(a1 + 72);
     *locations = xmmword_259FCAF50;
+    v37 = 0x3FF0000000000000;
+    components = v38;
+    v28 = *&v39[0];
+    v29 = 0;
+    v30 = v38;
+    v31 = *&v39[0];
+    v32 = 0x3FE3333340000000;
+    v33 = v38;
+    v34 = *&v39[0];
     v35 = 0x3FF0000000000000;
-    *components = v36;
-    components[2] = *v37;
-    components[3] = 0.0;
-    v28 = v36;
-    v29 = *&v37[0];
-    v30 = 0x3FE3333340000000;
-    v31 = v36;
-    v32 = *&v37[0];
-    v33 = 0x3FF0000000000000;
     CurrentContext = UIGraphicsGetCurrentContext();
     DeviceRGB = CGColorSpaceCreateDeviceRGB();
-    v13 = CGGradientCreateWithColorComponents(DeviceRGB, components, locations, 3uLL);
+    v13 = CGGradientCreateWithColorComponents(DeviceRGB, &components, locations, 3uLL);
     v14 = v10 * 0.25;
     v15 = *(a1 + 32);
     v16 = (v15 + 200);
@@ -1128,12 +1129,12 @@ void __80__SUUIStyledImageDataConsumer__radialBlurImageWithBounds_contentRect_dr
     }
 
     v23 = v10 * 0.5;
-    v39.x = floorf(v23);
+    v41.x = floorf(v23);
     v24 = v10 * 1.70000005;
     v25 = ceilf(v24);
     v26 = v10 * 1.89999998;
-    v39.y = v9 - v25 - v22;
-    CGContextDrawRadialGradient(CurrentContext, v13, v39, v25, v39, ceilf(v26), 2u);
+    v41.y = v9 - v25 - v22;
+    CGContextDrawRadialGradient(CurrentContext, v13, v41, v25, v41, ceilf(v26), 2u);
     CGColorSpaceRelease(DeviceRGB);
     CGGradientRelease(v13);
   }

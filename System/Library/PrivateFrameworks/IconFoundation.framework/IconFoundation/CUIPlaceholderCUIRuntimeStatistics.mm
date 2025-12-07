@@ -1,7 +1,7 @@
 @interface CUIPlaceholderCUIRuntimeStatistics
 + (id)sharedRuntimeStatistics;
 - (CUIPlaceholderCUIRuntimeStatistics)init;
-- (void)_logStatistics:(uint64_t)statistics;
+- (void)_logStatistics:(unint64_t *)statistics;
 - (void)dealloc;
 @end
 
@@ -49,20 +49,34 @@ CUIPlaceholderCUIRuntimeStatistics *__61__CUIPlaceholderCUIRuntimeStatistics_sha
   [(CUIPlaceholderCUIRuntimeStatistics *)&v3 dealloc];
 }
 
-- (void)_logStatistics:(uint64_t)statistics
+- (void)_logStatistics:(unint64_t *)statistics
 {
-  if (self)
+  if (statistics)
   {
-    atomic_load(self + 1);
-    v9 = atomic_load(self + 2);
-    atomic_load(self + 3);
-    atomic_load(self + 4);
-    atomic_load(self + 6);
-    atomic_load(self + 5);
-    atomic_load(self + 7);
-    _CUILog(2, "CoreUI: Wasted Size: %lld/%lld=%.2f%% Short Circuit lookups: %lld/%lld=%.2f%% lookups:%lld probes:%lld Missed lookups %lld/%lld=%.2f%%\n", statistics, a4, a5, a6, a7, a8, v9);
-    atomic_store(0, self + 6);
-    atomic_store(0, self + 5);
+    v2 = atomic_load(statistics + 1);
+    v3 = atomic_load(statistics + 2);
+    v4 = atomic_load(statistics + 3);
+    v5 = atomic_load(statistics + 4);
+    v6 = atomic_load(statistics + 6);
+    v7 = atomic_load(statistics + 5);
+    v8 = 0.0;
+    v9 = 0.0;
+    v10 = atomic_load(statistics + 7);
+    if (v3)
+    {
+      v9 = v2 / v3 * 100.0;
+    }
+
+    v11 = 0.0;
+    if (v5)
+    {
+      v8 = v4 / v5 * 100.0;
+      v11 = v10 / v5 * 100.0;
+    }
+
+    _CUILog(2, "CoreUI: Wasted Size: %lld/%lld=%.2f%% Short Circuit lookups: %lld/%lld=%.2f%% lookups:%lld probes:%lld Missed lookups %lld/%lld=%.2f%%\n", v3, v2, v9, v4, v5, v8, v6, v7, v10, v5, v11);
+    atomic_store(0, statistics + 6);
+    atomic_store(0, statistics + 5);
   }
 }
 

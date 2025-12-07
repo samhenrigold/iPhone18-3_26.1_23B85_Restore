@@ -15,7 +15,7 @@
 
 - (void)_xref_dispose
 {
-  _os_workgroup_interval_xref_dispose(self);
+  _os_workgroup_interval_xref_dispose(self, a2);
   v3.receiver = self;
   v3.super_class = OS_os_workgroup_interval;
   [(OS_os_workgroup *)&v3 _xref_dispose];

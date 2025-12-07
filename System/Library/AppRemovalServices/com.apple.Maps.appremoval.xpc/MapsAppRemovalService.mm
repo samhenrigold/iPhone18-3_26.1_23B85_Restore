@@ -32,7 +32,7 @@
 - (void)removeAppWithReply:(id)reply
 {
   replyCopy = reply;
-  v5 = sub_100000F88();
+  v5 = sub_100000F88(replyCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -56,7 +56,7 @@
 
 - (void)_processAppRemovalForMapsPushDaemon
 {
-  v3 = sub_100000F88();
+  v3 = sub_100000F88(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -77,7 +77,7 @@
 
 - (void)_processAppRemovalForAnalytics
 {
-  v3 = sub_100000F88();
+  v3 = sub_100000F88(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;

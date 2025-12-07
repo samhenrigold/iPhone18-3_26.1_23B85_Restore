@@ -330,9 +330,12 @@ void __46__DBLocationManager_initWithBundleIdentifier___block_invoke(uint64_t a1
 
 uint64_t __36__DBLocationManager_currentLocation__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _queue_currentLocation];
+  v2 = [*(a1 + 32) _queue_currentLocation];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (CLLocation)cachedCurrentLocation
@@ -767,19 +770,19 @@ LABEL_6:
   return _queue_cachedCurrentLocation;
 }
 
-void __43__DBLocationManager__queue_currentLocation__block_invoke()
+void __43__DBLocationManager__queue_currentLocation__block_invoke(uint64_t a1)
 {
-  v0 = DBLogForCategory(9uLL);
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = DBLogForCategory(9uLL);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __43__DBLocationManager__queue_currentLocation__block_invoke_cold_1();
   }
 }
 
-void __43__DBLocationManager__queue_currentLocation__block_invoke_102()
+void __43__DBLocationManager__queue_currentLocation__block_invoke_102(uint64_t a1)
 {
-  v0 = DBLogForCategory(9uLL);
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = DBLogForCategory(9uLL);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     __43__DBLocationManager__queue_currentLocation__block_invoke_102_cold_1();
   }

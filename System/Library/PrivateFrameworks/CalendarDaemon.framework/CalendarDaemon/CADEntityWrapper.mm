@@ -9,31 +9,31 @@
 - (CADEntityWrapper)initWithCalEntity:(void *)entity loadedValues:(id)values
 {
   valuesCopy = values;
-  v12.receiver = self;
-  v12.super_class = CADEntityWrapper;
-  v7 = [(CADEntityWrapper *)&v12 init];
-  if (v7)
+  v13.receiver = self;
+  v13.super_class = CADEntityWrapper;
+  v8 = [(CADEntityWrapper *)&v13 init];
+  if (v8)
   {
-    v7->_entityType = CalEntityGetType();
-    v7->_rowID = CalEntityGetID();
-    v8 = CADEntityCopyObjectID();
-    objectID = v7->_objectID;
-    v7->_objectID = v8;
+    v8->_entityType = CalEntityGetType();
+    v8->_rowID = CalEntityGetID();
+    v9 = CADEntityCopyObjectID(entity);
+    objectID = v8->_objectID;
+    v8->_objectID = v9;
 
-    v7->_databaseID = [(CADObjectID *)v7->_objectID databaseID];
-    if (!v7->_objectID)
+    v8->_databaseID = [(CADObjectID *)v8->_objectID databaseID];
+    if (!v8->_objectID)
     {
-      v10 = 0;
+      v11 = 0;
       goto LABEL_6;
     }
 
-    objc_storeStrong(&v7->_loadedValues, values);
+    objc_storeStrong(&v8->_loadedValues, values);
   }
 
-  v10 = v7;
+  v11 = v8;
 LABEL_6:
 
-  return v10;
+  return v11;
 }
 
 - (CADEntityWrapper)initWithCoder:(id)coder
@@ -70,25 +70,25 @@ LABEL_6:
   return v6;
 }
 
-uint64_t __34__CADEntityWrapper_initWithCoder___block_invoke()
+uint64_t __34__CADEntityWrapper_initWithCoder___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x277CBEB98];
-  v1 = objc_opt_class();
-  v2 = [v0 setWithObjects:{v1, objc_opt_class(), 0}];
-  v3 = initWithCoder__allowedKeyClasses;
-  initWithCoder__allowedKeyClasses = v2;
+  v2 = MEMORY[0x277CBEB98];
+  v3 = objc_opt_class();
+  v4 = [v2 setWithObjects:{v3, objc_opt_class(), 0}];
+  v5 = initWithCoder__allowedKeyClasses;
+  initWithCoder__allowedKeyClasses = v4;
 
-  v4 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
-  v6 = objc_opt_class();
+  v6 = MEMORY[0x277CBEB98];
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
-  v11 = [v4 setWithObjects:{v5, v6, v7, v8, v9, v10, objc_opt_class(), 0}];
-  initWithCoder__allowedObjectClasses = v11;
+  v11 = objc_opt_class();
+  v12 = objc_opt_class();
+  v13 = [v6 setWithObjects:{v7, v8, v9, v10, v11, v12, objc_opt_class(), 0}];
+  initWithCoder__allowedObjectClasses = v13;
 
-  return MEMORY[0x2821F96F8](v11);
+  return MEMORY[0x2821F96F8](v13);
 }
 
 - (void)encodeWithCoder:(id)coder

@@ -37,7 +37,6 @@
 - (uint64_t)_canPerformSetup;
 - (uint64_t)_isScrubbing;
 - (uint64_t)_preferredAuxiliaryControlsPlacement;
-- (uint64_t)_setUpMediaSelectionMenuControllerIfNeeded;
 - (uint64_t)_updateWebKitExcludedObservationState;
 - (unint64_t)indexOfSelectedMediaPresentationLanguageForMediaSelectionMenuController:(id)controller;
 - (unint64_t)mediaSelectionMenuController:(id)controller indexOfEffectivePresentationSettingForSelector:(id)selector;
@@ -62,6 +61,7 @@
 - (void)_setUpAnalysisControlIfNeeded;
 - (void)_setUpAuxiliaryControlsViewIfNeeded;
 - (void)_setUpCopySubjectControlIfNeeded;
+- (void)_setUpMediaSelectionMenuControllerIfNeeded;
 - (void)_setUpPanGestureRecognizerIfNeeded;
 - (void)_setUpTapGestureRecognizerIfNeeded;
 - (void)_setUpVisualLookupControlIfNeeded;
@@ -3019,7 +3019,7 @@ LABEL_10:
   {
     if (pressedCopy)
     {
-      [pressedCopy forwardSecondaryControlSkipInterval];
+      objc_msgSend_forwardSecondaryControlSkipInterval(pressedCopy);
     }
 
     else
@@ -3064,7 +3064,7 @@ LABEL_12:
   {
     if (pressedCopy)
     {
-      [pressedCopy backwardSecondaryControlSkipInterval];
+      objc_msgSend_backwardSecondaryControlSkipInterval(pressedCopy);
     }
 
     else
@@ -4120,16 +4120,16 @@ void __70__AVMobileChromelessControlsViewController__menuElementForRoutePicker__
   }
 }
 
-- (uint64_t)_setUpMediaSelectionMenuControllerIfNeeded
+- (void)_setUpMediaSelectionMenuControllerIfNeeded
 {
-  if (!*(result + 1512))
+  if (!result[189])
   {
     v1 = result;
     v2 = [[AVMediaSelectionMenuController alloc] initWithAudibleOptions:0 legibleOptions:0 enhanceDialogueOptions:0];
-    v3 = *(v1 + 1512);
-    *(v1 + 1512) = v2;
+    v3 = v1[189];
+    v1[189] = v2;
 
-    v4 = *(v1 + 1512);
+    v4 = v1[189];
 
     return [v4 setDelegate:v1];
   }
@@ -6046,7 +6046,7 @@ void __75__AVMobileChromelessControlsViewController__webKitExcludedObservationSe
     playerController = [self playerController];
     if ([playerController hasSeekableLiveStreamingContent] && (objc_msgSend(playerController, "isAtLiveEdge") & 1) == 0)
     {
-      obja = *(self + 1672);
+      obja = self[209];
       _timelineSlider = [(AVMobileChromelessControlsViewController *)self _timelineSlider];
       [_timelineSlider maximumValue];
       v6 = v5;
@@ -6066,9 +6066,9 @@ void __75__AVMobileChromelessControlsViewController__webKitExcludedObservationSe
     }
 
     obj = v3;
-    if (*(self + 1672) != v3)
+    if (self[209] != v3)
     {
-      objc_storeStrong((self + 1672), v3);
+      objc_storeStrong(self + 209, v3);
       [(AVMobileChromelessControlsViewController *)self _updateTimelineViewSliderMarksIfNeeded];
     }
   }
@@ -6208,10 +6208,10 @@ LABEL_17:
             colors = [v31 colors];
             if (v31)
             {
-              [v31 timeRange];
+              objc_msgSend_timeRange(v31);
               time = v61[3];
               Seconds = CMTimeGetSeconds(&time);
-              [v31 timeRange];
+              objc_msgSend_timeRange(v31);
             }
 
             else
@@ -6319,7 +6319,7 @@ void __85__AVMobileChromelessControlsViewController__addTimelineViewSliderMarksT
   {
     if (v5)
     {
-      [v5 timeRange];
+      objc_msgSend_timeRange(v5);
     }
 
     else
@@ -6343,7 +6343,7 @@ void __85__AVMobileChromelessControlsViewController__addTimelineViewSliderMarksT
     {
       if (v6)
       {
-        [v6 timeRange];
+        objc_msgSend_timeRange(v6);
       }
 
       else
@@ -6387,7 +6387,7 @@ void __75__AVMobileChromelessControlsViewController__webKitExcludedObservationSe
 void __71__AVMobileChromelessControlsViewController__updateLoadingAnimatorState__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [AVMobileChromelessControlsViewController _updateLoadingAnimatorState];
+  [(AVMobileChromelessControlsViewController *)WeakRetained _updateLoadingAnimatorState];
 }
 
 - (void)_animateSliderToTintState:(void *)state duration:(double)duration completionHandler:
@@ -6538,7 +6538,7 @@ void __61__AVMobileChromelessControlsViewController__observationSetup__block_inv
     {
       if (v9)
       {
-        [v9 forwardSecondaryControlSkipInterval];
+        objc_msgSend_forwardSecondaryControlSkipInterval(v9);
       }
 
       else
@@ -6553,7 +6553,7 @@ void __61__AVMobileChromelessControlsViewController__observationSetup__block_inv
     {
       if (v9)
       {
-        [v9 backwardSecondaryControlSkipInterval];
+        objc_msgSend_backwardSecondaryControlSkipInterval(v9);
       }
 
       else
@@ -6766,7 +6766,7 @@ void __61__AVMobileChromelessControlsViewController__observationSetup__block_inv
   *&v7 = v4;
   [v2 setTotalValue:v7];
 
-  [(AVMobileChromelessControlsViewController *)val _updateSliderMarkForLiveEdgeIfNeeded];
+  [(AVMobileChromelessControlsViewController *)&val->super.isa _updateSliderMarkForLiveEdgeIfNeeded];
   [(AVMobileChromelessControlsViewController *)val _updateTimelineViewSliderMarksIfNeeded];
   [(AVMobileChromelessControlsViewController *)val _setNeedsControlsVisibilityStateUpdate];
   v12 = [(AVMobileSliderMark *)val playerController];

@@ -10,6 +10,7 @@
 - (double)getBatteryChargeWhenEnabled;
 - (id)readDateFromDefaults;
 - (id)readParamsFromDefaults;
+- (int)toggleState:(BOOL)state withDate:(id)date withBatteryLevel:(double)level fromSource:(id)source withParams:(id)params;
 - (void)autoEnableCheck;
 - (void)batteryPercentageNotificationHandler:(int)handler;
 - (void)initAnalyticsTimers;
@@ -17,6 +18,7 @@
 - (void)pluggedInNotificationHandler:(int)handler;
 - (void)readPreferences;
 - (void)reportStateToBiome:(BOOL)biome fromSource:(id)source;
+- (void)saveDefaults:(BOOL)defaults date:(id)date batterylevel:(double)batterylevel source:(id)source withParams:(id)params;
 - (void)setPowerMode:(int64_t)mode fromSource:(id)source withParams:(id)params withCompletion:(id)completion;
 @end
 
@@ -272,6 +274,256 @@
   }
 
   return bOOLValue;
+}
+
+- (void)saveDefaults:(BOOL)defaults date:(id)date batterylevel:(double)batterylevel source:(id)source withParams:(id)params
+{
+  defaultsCopy = defaults;
+  dateCopy = date;
+  sourceCopy = source;
+  paramsCopy = params;
+  [(NSUserDefaults *)self->_defaults setBool:defaultsCopy forKey:@"state"];
+  [(NSUserDefaults *)self->_defaults setObject:dateCopy forKey:@"stateChangeDate"];
+  [(NSUserDefaults *)self->_defaults setDouble:@"stateBatteryCharge" forKey:batterylevel];
+  defaults = self->_defaults;
+  if (sourceCopy)
+  {
+    [(NSUserDefaults *)defaults setObject:sourceCopy forKey:@"source"];
+  }
+
+  else
+  {
+    [(NSUserDefaults *)defaults removeObjectForKey:@"source"];
+  }
+
+  if (paramsCopy)
+  {
+    [(NSUserDefaults *)self->_defaults setObject:paramsCopy forKey:@"params"];
+    v16 = qword_1000ACA28;
+    if (os_log_type_enabled(qword_1000ACA28, OS_LOG_TYPE_DEFAULT))
+    {
+      v20 = 138543362;
+      *v21 = paramsCopy;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "LPM: Saved params=%{public}@ to defaults", &v20, 0xCu);
+    }
+  }
+
+  [(NSUserDefaults *)self->_defaults synchronize];
+  if (os_log_type_enabled(qword_1000ACA28, OS_LOG_TYPE_DEBUG))
+  {
+    sub_1000636B0();
+  }
+
+  v17 = objc_alloc_init(NSDateFormatter);
+  [v17 setDateFormat:@"yyyy-LLL-dd HH:mm:ss ZZZZ"];
+  v18 = [v17 stringFromDate:dateCopy];
+  v19 = qword_1000ACA28;
+  if (os_log_type_enabled(qword_1000ACA28, OS_LOG_TYPE_DEFAULT))
+  {
+    v20 = 67109634;
+    *v21 = defaultsCopy;
+    *&v21[4] = 2114;
+    *&v21[6] = v18;
+    v22 = 1024;
+    batterylevelCopy = batterylevel;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "LPM: Saved state=%d date=%{public}@ battery=%d%% to defaults\n", &v20, 0x18u);
+  }
+}
+
+- (int)toggleState:(BOOL)state withDate:(id)date withBatteryLevel:(double)level fromSource:(id)source withParams:(id)params
+{
+  stateCopy = state;
+  dateCopy = date;
+  sourceCopy = source;
+  paramsCopy = params;
+  state64 = 0;
+  if (stateCopy)
+  {
+    v15 = [(NSUserDefaults *)self->_defaults valueForKey:@"wasUsedBefore"];
+
+    if (!v15)
+    {
+      v16 = [(NSUserDefaults *)self->_defaults valueForKey:@"inLostMode"];
+      if (!v16)
+      {
+        notify_post([@"com.apple.system.lowpowermode.first_time" UTF8String]);
+        [(NSUserDefaults *)self->_defaults setBool:1 forKey:@"wasUsedBefore"];
+        [(NSUserDefaults *)self->_defaults synchronize];
+        if (os_log_type_enabled(qword_1000ACA28, OS_LOG_TYPE_DEBUG))
+        {
+          sub_1000636E4();
+        }
+      }
+    }
+  }
+
+  if (notify_get_state(dword_1000ACA40, &state64))
+  {
+    if (os_log_type_enabled(qword_1000ACA28, OS_LOG_TYPE_ERROR))
+    {
+      sub_100063278();
+    }
+
+LABEL_16:
+    v17 = -1;
+    goto LABEL_17;
+  }
+
+  if (self->_enabled != (state64 != 0) && os_log_type_enabled(qword_1000ACA28, OS_LOG_TYPE_ERROR))
+  {
+    sub_100063718();
+  }
+
+  if (notify_set_state(dword_1000ACA40, stateCopy))
+  {
+    if (os_log_type_enabled(qword_1000ACA28, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000637A0();
+    }
+
+    goto LABEL_16;
+  }
+
+  if (notify_post([@"com.apple.system.lowpowermode" UTF8String]) && os_log_type_enabled(qword_1000ACA28, OS_LOG_TYPE_ERROR))
+  {
+    sub_100063830();
+  }
+
+  v19 = qword_1000ACA28;
+  if (os_log_type_enabled(qword_1000ACA28, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543618;
+    v45 = @"com.apple.system.lowpowermode";
+    v46 = 1024;
+    levelCopy = stateCopy;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "LPM: %{public}@ = %d\n", buf, 0x12u);
+  }
+
+  v20 = qword_1000ACA28;
+  if (os_log_type_enabled(qword_1000ACA28, OS_LOG_TYPE_DEFAULT))
+  {
+    v21 = "OFF";
+    if (stateCopy)
+    {
+      v21 = "ON";
+    }
+
+    *buf = 136446466;
+    v45 = v21;
+    v46 = 1024;
+    levelCopy = level;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "LPM: State is now %{public}s (battery:%d)", buf, 0x12u);
+  }
+
+  readStateFromDefaults = [(PMLowPowerModeService *)self readStateFromDefaults];
+  readDateFromDefaults = [(PMLowPowerModeService *)self readDateFromDefaults];
+  v38 = readDateFromDefaults;
+  if (readStateFromDefaults)
+  {
+    v24 = 0;
+    if (dateCopy)
+    {
+      if (!stateCopy)
+      {
+        v25 = readDateFromDefaults;
+        if (readDateFromDefaults)
+        {
+          if ([readDateFromDefaults compare:dateCopy] == -1)
+          {
+            [dateCopy timeIntervalSinceDate:v25];
+            v24 = fmin(v26 / 60.0, 1440.0);
+          }
+
+          else
+          {
+            v24 = 0;
+          }
+        }
+      }
+    }
+
+    if (stateCopy)
+    {
+      goto LABEL_38;
+    }
+
+    goto LABEL_37;
+  }
+
+  if (stateCopy)
+  {
+    v24 = 0;
+LABEL_37:
+    v36 = v24;
+    [NSNumber numberWithBool:stateCopy];
+    v27 = v37 = paramsCopy;
+    v28 = [NSNumber numberWithDouble:level];
+    v29 = [NSNumber numberWithBool:self->_pluggedIn];
+    v30 = [NSNumber numberWithUnsignedInt:v36];
+    [PMPowerModeAnalytics sendAnalyticsEvent:v27 withBatteryLevel:v28 fromSource:sourceCopy withCharger:v29 withDurationInMinutes:v30 forStream:@"com.apple.powerd.lowpowermode.event"];
+
+    paramsCopy = v37;
+  }
+
+LABEL_38:
+  [(PMLowPowerModeService *)self reportStateToBiome:stateCopy fromSource:sourceCopy];
+  [(PMLowPowerModeService *)self saveDefaults:stateCopy date:dateCopy batterylevel:sourceCopy source:paramsCopy withParams:level];
+  objc_storeStrong(&self->_source, source);
+  self->_enabled = stateCopy;
+  v31 = [dateCopy copy];
+  stateChangeDate = self->_stateChangeDate;
+  self->_stateChangeDate = v31;
+
+  self->_batteryChargeWhenEnabled = level;
+  if (stateCopy)
+  {
+    if (paramsCopy)
+    {
+      objc_storeStrong(&self->_params, params);
+    }
+  }
+
+  else
+  {
+    [(NSUserDefaults *)self->_defaults setBool:0 forKey:@"dippedBelow"];
+    [(NSUserDefaults *)self->_defaults removeObjectForKey:@"params"];
+    [(NSUserDefaults *)self->_defaults synchronize];
+    self->_dippedBelow = 0;
+    params = self->_params;
+    self->_params = 0;
+
+    v34 = qword_1000ACA28;
+    if (os_log_type_enabled(qword_1000ACA28, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "LPM: toggleState cleared dippedBelow status and params\n", buf, 2u);
+    }
+  }
+
+  if (&_PLLogTimeSensitiveRegisteredEvent)
+  {
+    source = self->_source;
+    if (self->_enabled)
+    {
+      v42 = @"source";
+      sourceCopy2 = source;
+      [NSDictionary dictionaryWithObjects:&sourceCopy2 forKeys:&v42 count:1];
+    }
+
+    else
+    {
+      v40 = @"source";
+      sourceCopy3 = source;
+      [NSDictionary dictionaryWithObjects:&sourceCopy3 forKeys:&v40 count:1];
+    }
+
+    PLLogTimeSensitiveRegisteredEvent();
+  }
+
+  v17 = 0;
+LABEL_17:
+
+  return v17;
 }
 
 - (void)reportStateToBiome:(BOOL)biome fromSource:(id)source
@@ -777,7 +1029,7 @@ LABEL_17:
   {
     if (os_log_type_enabled(qword_1000ACA28, OS_LOG_TYPE_ERROR))
     {
-      sub_100063A34(self);
+      sub_100063A34();
     }
 
     goto LABEL_17;

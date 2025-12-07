@@ -15,6 +15,7 @@
 - (void)removeBenefactor:(id)benefactor completion:(id)completion;
 - (void)removeBeneficiary:(id)beneficiary manifest:(id)manifest completion:(id)completion;
 - (void)removeInvitation:(id)invitation completion:(id)completion;
+- (void)respondToInvitation:(id)invitation accepted:(BOOL)accepted completion:(id)completion;
 - (void)sendInvitationToContact:(id)contact completion:(id)completion;
 - (void)setupBeneficiaryAliasWithAccessKey:(id)key password:(id)password firstName:(id)name lastName:(id)lastName authToken:(id)token completion:(id)completion;
 - (void)setupBeneficiaryManifest:(id)manifest contactInfo:(id)info setupAuthToken:(id)token completion:(id)completion;
@@ -44,16 +45,15 @@
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_DEBUG, "%@ deallocated.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_DEBUG, "%@ deallocated.", &v2, 0xCu);
 }
 
 - (void)fetchManifestOptionsForContact:(id)contact completion:(id)completion
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   contactCopy = contact;
   completionCopy = completion;
   if (!contactCopy)
@@ -70,57 +70,55 @@
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v8, &state);
-  v9 = _AASignpostLogSystem();
-  v10 = _AASignpostCreate(v9);
-  v12 = v11;
+  v10 = _AASignpostLogSystem(v9);
+  v11 = _AASignpostCreate(v10);
+  v13 = v12;
 
-  v13 = _AASignpostLogSystem();
-  v14 = v13;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v15 = _AASignpostLogSystem(v14);
+  v16 = v15;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "FetchContactManifestOptions", " enableTelemetry=YES ", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "FetchContactManifestOptions", " enableTelemetry=YES ", &buf, 2u);
   }
 
-  v15 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v18 = _AASignpostLogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v10;
-    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: FetchContactManifestOptions  enableTelemetry=YES ", &buf, 0xCu);
+    *(&buf + 4) = v11;
+    _os_log_impl(&dword_1B6F6A000, v18, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: FetchContactManifestOptions  enableTelemetry=YES ", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__6;
-  v34 = __Block_byref_object_dispose__6;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__6;
+  v36 = __Block_byref_object_dispose__6;
   selfCopy = self;
-  v35 = selfCopy;
+  v37 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __69__AAInheritanceController_fetchManifestOptionsForContact_completion___block_invoke;
   aBlock[3] = &unk_1E7C9BF20;
   p_buf = &buf;
-  v28 = v10;
-  v29 = v12;
-  v17 = completionCopy;
-  v26 = v17;
-  v18 = _Block_copy(aBlock);
+  v30 = v11;
+  v31 = v13;
+  v20 = completionCopy;
+  v28 = v20;
+  v21 = _Block_copy(aBlock);
   remoteService = selfCopy->_remoteService;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __69__AAInheritanceController_fetchManifestOptionsForContact_completion___block_invoke_86;
-  v23[3] = &unk_1E7C9B078;
-  v20 = v18;
-  v24 = v20;
-  v21 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v23];
-  [v21 fetchManifestOptionsForContact:contactCopy completion:v20];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __69__AAInheritanceController_fetchManifestOptionsForContact_completion___block_invoke_86;
+  v25[3] = &unk_1E7C9B078;
+  v23 = v21;
+  v26 = v23;
+  v24 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v25];
+  [v24 fetchManifestOptionsForContact:contactCopy completion:v23];
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __69__AAInheritanceController_fetchManifestOptionsForContact_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -133,7 +131,7 @@ void __69__AAInheritanceController_fetchManifestOptionsForContact_completion___b
   v8 = a2;
 
   Nanoseconds = _AASignpostGetNanoseconds(a1[6], a1[7]);
-  v10 = _AASignpostLogSystem();
+  v10 = _AASignpostLogSystem(Nanoseconds);
   v11 = v10;
   v12 = a1[6];
   if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
@@ -144,30 +142,29 @@ void __69__AAInheritanceController_fetchManifestOptionsForContact_completion___b
     _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v11, OS_SIGNPOST_INTERVAL_END, v12, "FetchContactManifestOptions", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v20, 8u);
   }
 
-  v14 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = _AASignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = Nanoseconds / 1000000000.0;
-    v16 = a1[6];
-    v17 = _AAErrorUnderlyingError(v5);
-    v18 = [v17 code];
+    v16 = Nanoseconds / 1000000000.0;
+    v17 = a1[6];
+    v18 = _AAErrorUnderlyingError(v5);
+    v19 = [v18 code];
     v20 = 134218496;
-    v21 = v16;
+    v21 = v17;
     v22 = 2048;
-    v23 = v15;
+    v23 = v16;
     v24 = 1026;
-    v25 = v18;
-    _os_log_impl(&dword_1B6F6A000, v14, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: FetchContactManifestOptions  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v20, 0x1Cu);
+    v25 = v19;
+    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: FetchContactManifestOptions  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v20, 0x1Cu);
   }
 
   (*(a1[4] + 16))();
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __69__AAInheritanceController_fetchManifestOptionsForContact_completion___block_invoke_86(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __69__AAInheritanceController_fetchManifestOptionsForContact_completion___block_invoke_86_cold_1();
@@ -178,7 +175,7 @@ void __69__AAInheritanceController_fetchManifestOptionsForContact_completion___b
 
 - (void)isRecipient:(id)recipient capableOf:(id)of completion:(id)completion
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   recipientCopy = recipient;
   ofCopy = of;
   completionCopy = completion;
@@ -201,57 +198,55 @@ void __69__AAInheritanceController_fetchManifestOptionsForContact_completion___b
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v11, &state);
-  v12 = _AASignpostLogSystem();
-  v13 = _AASignpostCreate(v12);
-  v15 = v14;
+  v13 = _AASignpostLogSystem(v12);
+  v14 = _AASignpostCreate(v13);
+  v16 = v15;
 
-  v16 = _AASignpostLogSystem();
-  v17 = v16;
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  v18 = _AASignpostLogSystem(v17);
+  v19 = v18;
+  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v13, "BeneficiaryIsRecipientCapable", " enableTelemetry=YES ", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v14, "BeneficiaryIsRecipientCapable", " enableTelemetry=YES ", &buf, 2u);
   }
 
-  v18 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v21 = _AASignpostLogSystem(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v13;
-    _os_log_impl(&dword_1B6F6A000, v18, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: BeneficiaryIsRecipientCapable  enableTelemetry=YES ", &buf, 0xCu);
+    *(&buf + 4) = v14;
+    _os_log_impl(&dword_1B6F6A000, v21, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: BeneficiaryIsRecipientCapable  enableTelemetry=YES ", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__6;
-  v37 = __Block_byref_object_dispose__6;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__6;
+  v39 = __Block_byref_object_dispose__6;
   selfCopy = self;
-  v38 = selfCopy;
+  v40 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __60__AAInheritanceController_isRecipient_capableOf_completion___block_invoke;
   aBlock[3] = &unk_1E7C9BF48;
   p_buf = &buf;
-  v31 = v13;
-  v32 = v15;
-  v20 = completionCopy;
-  v29 = v20;
-  v21 = _Block_copy(aBlock);
+  v33 = v14;
+  v34 = v16;
+  v23 = completionCopy;
+  v31 = v23;
+  v24 = _Block_copy(aBlock);
   remoteService = selfCopy->_remoteService;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __60__AAInheritanceController_isRecipient_capableOf_completion___block_invoke_95;
-  v26[3] = &unk_1E7C9B078;
-  v23 = v21;
-  v27 = v23;
-  v24 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v26];
-  [v24 isRecipient:recipientCopy capableOf:ofCopy completion:v23];
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __60__AAInheritanceController_isRecipient_capableOf_completion___block_invoke_95;
+  v28[3] = &unk_1E7C9B078;
+  v26 = v24;
+  v29 = v26;
+  v27 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v28];
+  [v27 isRecipient:recipientCopy capableOf:ofCopy completion:v26];
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __60__AAInheritanceController_isRecipient_capableOf_completion___block_invoke(void *a1, uint64_t a2)
@@ -262,7 +257,7 @@ uint64_t __60__AAInheritanceController_isRecipient_capableOf_completion___block_
   *(v4 + 40) = 0;
 
   Nanoseconds = _AASignpostGetNanoseconds(a1[6], a1[7]);
-  v7 = _AASignpostLogSystem();
+  v7 = _AASignpostLogSystem(Nanoseconds);
   v8 = v7;
   v9 = a1[6];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -272,8 +267,8 @@ uint64_t __60__AAInheritanceController_isRecipient_capableOf_completion___block_
     _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v8, OS_SIGNPOST_INTERVAL_END, v9, "BeneficiaryIsRecipientCapable", " isSupported=%{public,signpost.telemetry:number2,name=isSupported}d ", &v13, 8u);
   }
 
-  v10 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = _AASignpostLogSystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 134218496;
     v14 = a1[6];
@@ -281,23 +276,22 @@ uint64_t __60__AAInheritanceController_isRecipient_capableOf_completion___block_
     v16 = Nanoseconds / 1000000000.0;
     v17 = 1026;
     v18 = a2;
-    _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: BeneficiaryIsRecipientCapable  isSupported=%{public,signpost.telemetry:number2,name=isSupported}d ", &v13, 0x1Cu);
+    _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: BeneficiaryIsRecipientCapable  isSupported=%{public,signpost.telemetry:number2,name=isSupported}d ", &v13, 0x1Cu);
   }
 
   result = a1[4];
   if (result)
   {
-    result = (*(result + 16))(result, a2);
+    return (*(result + 16))(result, a2);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void __60__AAInheritanceController_isRecipient_capableOf_completion___block_invoke_95(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __60__AAInheritanceController_isRecipient_capableOf_completion___block_invoke_95_cold_1();
@@ -308,7 +302,7 @@ void __60__AAInheritanceController_isRecipient_capableOf_completion___block_invo
 
 - (void)setupBeneficiaryManifest:(id)manifest contactInfo:(id)info setupAuthToken:(id)token completion:(id)completion
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   manifestCopy = manifest;
   infoCopy = info;
   tokenCopy = token;
@@ -337,57 +331,55 @@ void __60__AAInheritanceController_isRecipient_capableOf_completion___block_invo
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v14, &state);
-  v15 = _AASignpostLogSystem();
-  v16 = _AASignpostCreate(v15);
-  v18 = v17;
+  v16 = _AASignpostLogSystem(v15);
+  v17 = _AASignpostCreate(v16);
+  v19 = v18;
 
-  v19 = _AASignpostLogSystem();
-  v20 = v19;
-  if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
+  v21 = _AASignpostLogSystem(v20);
+  v22 = v21;
+  if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v16, "SetupBeneficiaryManifest", " enableTelemetry=YES ", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v17, "SetupBeneficiaryManifest", " enableTelemetry=YES ", &buf, 2u);
   }
 
-  v21 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v24 = _AASignpostLogSystem(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v16;
-    _os_log_impl(&dword_1B6F6A000, v21, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: SetupBeneficiaryManifest  enableTelemetry=YES ", &buf, 0xCu);
+    *(&buf + 4) = v17;
+    _os_log_impl(&dword_1B6F6A000, v24, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: SetupBeneficiaryManifest  enableTelemetry=YES ", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__6;
-  v40 = __Block_byref_object_dispose__6;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__6;
+  v42 = __Block_byref_object_dispose__6;
   selfCopy = self;
-  v41 = selfCopy;
+  v43 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __90__AAInheritanceController_setupBeneficiaryManifest_contactInfo_setupAuthToken_completion___block_invoke;
   aBlock[3] = &unk_1E7C9BF70;
   p_buf = &buf;
-  v34 = v16;
-  v35 = v18;
-  v23 = completionCopy;
-  v32 = v23;
-  v24 = _Block_copy(aBlock);
+  v36 = v17;
+  v37 = v19;
+  v26 = completionCopy;
+  v34 = v26;
+  v27 = _Block_copy(aBlock);
   remoteService = selfCopy->_remoteService;
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __90__AAInheritanceController_setupBeneficiaryManifest_contactInfo_setupAuthToken_completion___block_invoke_106;
-  v29[3] = &unk_1E7C9B078;
-  v26 = v24;
-  v30 = v26;
-  v27 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v29];
-  [v27 setupBeneficiaryManifest:manifestCopy contactInfo:infoCopy setupAuthToken:tokenCopy completion:v26];
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __90__AAInheritanceController_setupBeneficiaryManifest_contactInfo_setupAuthToken_completion___block_invoke_106;
+  v31[3] = &unk_1E7C9B078;
+  v29 = v27;
+  v32 = v29;
+  v30 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v31];
+  [v30 setupBeneficiaryManifest:manifestCopy contactInfo:infoCopy setupAuthToken:tokenCopy completion:v29];
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __90__AAInheritanceController_setupBeneficiaryManifest_contactInfo_setupAuthToken_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -400,7 +392,7 @@ void __90__AAInheritanceController_setupBeneficiaryManifest_contactInfo_setupAut
   v8 = a2;
 
   Nanoseconds = _AASignpostGetNanoseconds(a1[6], a1[7]);
-  v10 = _AASignpostLogSystem();
+  v10 = _AASignpostLogSystem(Nanoseconds);
   v11 = v10;
   v12 = a1[6];
   if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
@@ -411,30 +403,29 @@ void __90__AAInheritanceController_setupBeneficiaryManifest_contactInfo_setupAut
     _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v11, OS_SIGNPOST_INTERVAL_END, v12, "SetupBeneficiaryManifest", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v20, 8u);
   }
 
-  v14 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = _AASignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = Nanoseconds / 1000000000.0;
-    v16 = a1[6];
-    v17 = _AAErrorUnderlyingError(v5);
-    v18 = [v17 code];
+    v16 = Nanoseconds / 1000000000.0;
+    v17 = a1[6];
+    v18 = _AAErrorUnderlyingError(v5);
+    v19 = [v18 code];
     v20 = 134218496;
-    v21 = v16;
+    v21 = v17;
     v22 = 2048;
-    v23 = v15;
+    v23 = v16;
     v24 = 1026;
-    v25 = v18;
-    _os_log_impl(&dword_1B6F6A000, v14, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: SetupBeneficiaryManifest  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v20, 0x1Cu);
+    v25 = v19;
+    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: SetupBeneficiaryManifest  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v20, 0x1Cu);
   }
 
   (*(a1[4] + 16))();
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __90__AAInheritanceController_setupBeneficiaryManifest_contactInfo_setupAuthToken_completion___block_invoke_106(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __90__AAInheritanceController_setupBeneficiaryManifest_contactInfo_setupAuthToken_completion___block_invoke_106_cold_1();
@@ -445,7 +436,7 @@ void __90__AAInheritanceController_setupBeneficiaryManifest_contactInfo_setupAut
 
 - (void)removeAccessCodeForContactInfo:(id)info completion:(id)completion
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   completionCopy = completion;
   if (!infoCopy)
@@ -462,57 +453,55 @@ void __90__AAInheritanceController_setupBeneficiaryManifest_contactInfo_setupAut
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v8, &state);
-  v9 = _AASignpostLogSystem();
-  v10 = _AASignpostCreate(v9);
-  v12 = v11;
+  v10 = _AASignpostLogSystem(v9);
+  v11 = _AASignpostCreate(v10);
+  v13 = v12;
 
-  v13 = _AASignpostLogSystem();
-  v14 = v13;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v15 = _AASignpostLogSystem(v14);
+  v16 = v15;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "RemoveAccessCode", " enableTelemetry=YES ", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "RemoveAccessCode", " enableTelemetry=YES ", &buf, 2u);
   }
 
-  v15 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v18 = _AASignpostLogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v10;
-    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: RemoveAccessCode  enableTelemetry=YES ", &buf, 0xCu);
+    *(&buf + 4) = v11;
+    _os_log_impl(&dword_1B6F6A000, v18, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: RemoveAccessCode  enableTelemetry=YES ", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__6;
-  v34 = __Block_byref_object_dispose__6;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__6;
+  v36 = __Block_byref_object_dispose__6;
   selfCopy = self;
-  v35 = selfCopy;
+  v37 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __69__AAInheritanceController_removeAccessCodeForContactInfo_completion___block_invoke;
   aBlock[3] = &unk_1E7C9B3D8;
   p_buf = &buf;
-  v28 = v10;
-  v29 = v12;
-  v17 = completionCopy;
-  v26 = v17;
-  v18 = _Block_copy(aBlock);
+  v30 = v11;
+  v31 = v13;
+  v20 = completionCopy;
+  v28 = v20;
+  v21 = _Block_copy(aBlock);
   remoteService = selfCopy->_remoteService;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __69__AAInheritanceController_removeAccessCodeForContactInfo_completion___block_invoke_107;
-  v23[3] = &unk_1E7C9B078;
-  v20 = v18;
-  v24 = v20;
-  v21 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v23];
-  [v21 removeAccessCodeForContactInfo:infoCopy completion:v20];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __69__AAInheritanceController_removeAccessCodeForContactInfo_completion___block_invoke_107;
+  v25[3] = &unk_1E7C9B078;
+  v23 = v21;
+  v26 = v23;
+  v24 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v25];
+  [v24 removeAccessCodeForContactInfo:infoCopy completion:v23];
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __69__AAInheritanceController_removeAccessCodeForContactInfo_completion___block_invoke(void *a1, void *a2)
@@ -524,7 +513,7 @@ void __69__AAInheritanceController_removeAccessCodeForContactInfo_completion___b
   *(v4 + 40) = 0;
 
   Nanoseconds = _AASignpostGetNanoseconds(a1[6], a1[7]);
-  v7 = _AASignpostLogSystem();
+  v7 = _AASignpostLogSystem(Nanoseconds);
   v8 = v7;
   v9 = a1[6];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -535,30 +524,29 @@ void __69__AAInheritanceController_removeAccessCodeForContactInfo_completion___b
     _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v8, OS_SIGNPOST_INTERVAL_END, v9, "RemoveAccessCode", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v17, 8u);
   }
 
-  v11 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _AASignpostLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = Nanoseconds / 1000000000.0;
-    v13 = a1[6];
-    v14 = _AAErrorUnderlyingError(v3);
-    v15 = [v14 code];
+    v13 = Nanoseconds / 1000000000.0;
+    v14 = a1[6];
+    v15 = _AAErrorUnderlyingError(v3);
+    v16 = [v15 code];
     v17 = 134218496;
-    v18 = v13;
+    v18 = v14;
     v19 = 2048;
-    v20 = v12;
+    v20 = v13;
     v21 = 1026;
-    v22 = v15;
-    _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: RemoveAccessCode  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v17, 0x1Cu);
+    v22 = v16;
+    _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: RemoveAccessCode  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v17, 0x1Cu);
   }
 
   (*(a1[4] + 16))();
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __69__AAInheritanceController_removeAccessCodeForContactInfo_completion___block_invoke_107(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __69__AAInheritanceController_removeAccessCodeForContactInfo_completion___block_invoke_107_cold_1();
@@ -569,7 +557,7 @@ void __69__AAInheritanceController_removeAccessCodeForContactInfo_completion___b
 
 - (void)removeBeneficiary:(id)beneficiary manifest:(id)manifest completion:(id)completion
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   beneficiaryCopy = beneficiary;
   manifestCopy = manifest;
   completionCopy = completion;
@@ -587,57 +575,55 @@ void __69__AAInheritanceController_removeAccessCodeForContactInfo_completion___b
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v11, &state);
-  v12 = _AASignpostLogSystem();
-  v13 = _AASignpostCreate(v12);
-  v15 = v14;
+  v13 = _AASignpostLogSystem(v12);
+  v14 = _AASignpostCreate(v13);
+  v16 = v15;
 
-  v16 = _AASignpostLogSystem();
-  v17 = v16;
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  v18 = _AASignpostLogSystem(v17);
+  v19 = v18;
+  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v13, "RemoveBeneficiary", " enableTelemetry=YES ", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v14, "RemoveBeneficiary", " enableTelemetry=YES ", &buf, 2u);
   }
 
-  v18 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v21 = _AASignpostLogSystem(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v13;
-    _os_log_impl(&dword_1B6F6A000, v18, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: RemoveBeneficiary  enableTelemetry=YES ", &buf, 0xCu);
+    *(&buf + 4) = v14;
+    _os_log_impl(&dword_1B6F6A000, v21, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: RemoveBeneficiary  enableTelemetry=YES ", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__6;
-  v37 = __Block_byref_object_dispose__6;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__6;
+  v39 = __Block_byref_object_dispose__6;
   selfCopy = self;
-  v38 = selfCopy;
+  v40 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __65__AAInheritanceController_removeBeneficiary_manifest_completion___block_invoke;
   aBlock[3] = &unk_1E7C9B3D8;
   p_buf = &buf;
-  v31 = v13;
-  v32 = v15;
-  v20 = completionCopy;
-  v29 = v20;
-  v21 = _Block_copy(aBlock);
+  v33 = v14;
+  v34 = v16;
+  v23 = completionCopy;
+  v31 = v23;
+  v24 = _Block_copy(aBlock);
   remoteService = selfCopy->_remoteService;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __65__AAInheritanceController_removeBeneficiary_manifest_completion___block_invoke_111;
-  v26[3] = &unk_1E7C9B078;
-  v23 = v21;
-  v27 = v23;
-  v24 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v26];
-  [v24 removeBeneficiary:beneficiaryCopy manifest:manifestCopy completion:v23];
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __65__AAInheritanceController_removeBeneficiary_manifest_completion___block_invoke_111;
+  v28[3] = &unk_1E7C9B078;
+  v26 = v24;
+  v29 = v26;
+  v27 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v28];
+  [v27 removeBeneficiary:beneficiaryCopy manifest:manifestCopy completion:v26];
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __65__AAInheritanceController_removeBeneficiary_manifest_completion___block_invoke(void *a1, void *a2)
@@ -649,7 +635,7 @@ void __65__AAInheritanceController_removeBeneficiary_manifest_completion___block
   *(v4 + 40) = 0;
 
   Nanoseconds = _AASignpostGetNanoseconds(a1[6], a1[7]);
-  v7 = _AASignpostLogSystem();
+  v7 = _AASignpostLogSystem(Nanoseconds);
   v8 = v7;
   v9 = a1[6];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -660,30 +646,29 @@ void __65__AAInheritanceController_removeBeneficiary_manifest_completion___block
     _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v8, OS_SIGNPOST_INTERVAL_END, v9, "RemoveBeneficiary", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v17, 8u);
   }
 
-  v11 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _AASignpostLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = Nanoseconds / 1000000000.0;
-    v13 = a1[6];
-    v14 = _AAErrorUnderlyingError(v3);
-    v15 = [v14 code];
+    v13 = Nanoseconds / 1000000000.0;
+    v14 = a1[6];
+    v15 = _AAErrorUnderlyingError(v3);
+    v16 = [v15 code];
     v17 = 134218496;
-    v18 = v13;
+    v18 = v14;
     v19 = 2048;
-    v20 = v12;
+    v20 = v13;
     v21 = 1026;
-    v22 = v15;
-    _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: RemoveBeneficiary  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v17, 0x1Cu);
+    v22 = v16;
+    _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: RemoveBeneficiary  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v17, 0x1Cu);
   }
 
   (*(a1[4] + 16))();
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __65__AAInheritanceController_removeBeneficiary_manifest_completion___block_invoke_111(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __65__AAInheritanceController_removeBeneficiary_manifest_completion___block_invoke_111_cold_1();
@@ -694,7 +679,7 @@ void __65__AAInheritanceController_removeBeneficiary_manifest_completion___block
 
 - (void)removeBenefactor:(id)benefactor completion:(id)completion
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   benefactorCopy = benefactor;
   completionCopy = completion;
   if (!benefactorCopy)
@@ -711,57 +696,55 @@ void __65__AAInheritanceController_removeBeneficiary_manifest_completion___block
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v8, &state);
-  v9 = _AASignpostLogSystem();
-  v10 = _AASignpostCreate(v9);
-  v12 = v11;
+  v10 = _AASignpostLogSystem(v9);
+  v11 = _AASignpostCreate(v10);
+  v13 = v12;
 
-  v13 = _AASignpostLogSystem();
-  v14 = v13;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v15 = _AASignpostLogSystem(v14);
+  v16 = v15;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "RemoveBenefactor", " enableTelemetry=YES ", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "RemoveBenefactor", " enableTelemetry=YES ", &buf, 2u);
   }
 
-  v15 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v18 = _AASignpostLogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v10;
-    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: RemoveBenefactor  enableTelemetry=YES ", &buf, 0xCu);
+    *(&buf + 4) = v11;
+    _os_log_impl(&dword_1B6F6A000, v18, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: RemoveBenefactor  enableTelemetry=YES ", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__6;
-  v34 = __Block_byref_object_dispose__6;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__6;
+  v36 = __Block_byref_object_dispose__6;
   selfCopy = self;
-  v35 = selfCopy;
+  v37 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __55__AAInheritanceController_removeBenefactor_completion___block_invoke;
   aBlock[3] = &unk_1E7C9B3D8;
   p_buf = &buf;
-  v28 = v10;
-  v29 = v12;
-  v17 = completionCopy;
-  v26 = v17;
-  v18 = _Block_copy(aBlock);
+  v30 = v11;
+  v31 = v13;
+  v20 = completionCopy;
+  v28 = v20;
+  v21 = _Block_copy(aBlock);
   remoteService = selfCopy->_remoteService;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __55__AAInheritanceController_removeBenefactor_completion___block_invoke_115;
-  v23[3] = &unk_1E7C9B078;
-  v20 = v18;
-  v24 = v20;
-  v21 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v23];
-  [v21 removeBenefactor:benefactorCopy completion:v20];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __55__AAInheritanceController_removeBenefactor_completion___block_invoke_115;
+  v25[3] = &unk_1E7C9B078;
+  v23 = v21;
+  v26 = v23;
+  v24 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v25];
+  [v24 removeBenefactor:benefactorCopy completion:v23];
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __55__AAInheritanceController_removeBenefactor_completion___block_invoke(void *a1, void *a2)
@@ -773,7 +756,7 @@ void __55__AAInheritanceController_removeBenefactor_completion___block_invoke(vo
   *(v4 + 40) = 0;
 
   Nanoseconds = _AASignpostGetNanoseconds(a1[6], a1[7]);
-  v7 = _AASignpostLogSystem();
+  v7 = _AASignpostLogSystem(Nanoseconds);
   v8 = v7;
   v9 = a1[6];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -784,30 +767,29 @@ void __55__AAInheritanceController_removeBenefactor_completion___block_invoke(vo
     _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v8, OS_SIGNPOST_INTERVAL_END, v9, "RemoveBenefactor", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v17, 8u);
   }
 
-  v11 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _AASignpostLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = Nanoseconds / 1000000000.0;
-    v13 = a1[6];
-    v14 = _AAErrorUnderlyingError(v3);
-    v15 = [v14 code];
+    v13 = Nanoseconds / 1000000000.0;
+    v14 = a1[6];
+    v15 = _AAErrorUnderlyingError(v3);
+    v16 = [v15 code];
     v17 = 134218496;
-    v18 = v13;
+    v18 = v14;
     v19 = 2048;
-    v20 = v12;
+    v20 = v13;
     v21 = 1026;
-    v22 = v15;
-    _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: RemoveBenefactor  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v17, 0x1Cu);
+    v22 = v16;
+    _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: RemoveBenefactor  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v17, 0x1Cu);
   }
 
   (*(a1[4] + 16))();
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __55__AAInheritanceController_removeBenefactor_completion___block_invoke_115(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __55__AAInheritanceController_removeBenefactor_completion___block_invoke_115_cold_1();
@@ -818,7 +800,7 @@ void __55__AAInheritanceController_removeBenefactor_completion___block_invoke_11
 
 - (void)updateAccessCodeForContactInfo:(id)info completion:(id)completion
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   completionCopy = completion;
   if (!infoCopy)
@@ -835,57 +817,55 @@ void __55__AAInheritanceController_removeBenefactor_completion___block_invoke_11
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v8, &state);
-  v9 = _AASignpostLogSystem();
-  v10 = _AASignpostCreate(v9);
-  v12 = v11;
+  v10 = _AASignpostLogSystem(v9);
+  v11 = _AASignpostCreate(v10);
+  v13 = v12;
 
-  v13 = _AASignpostLogSystem();
-  v14 = v13;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v15 = _AASignpostLogSystem(v14);
+  v16 = v15;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "UpdateAccessCode enableTelemetry=YES ", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "UpdateAccessCode enableTelemetry=YES ", "", &buf, 2u);
   }
 
-  v15 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v18 = _AASignpostLogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v10;
-    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: UpdateAccessCode enableTelemetry=YES  ", &buf, 0xCu);
+    *(&buf + 4) = v11;
+    _os_log_impl(&dword_1B6F6A000, v18, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: UpdateAccessCode enableTelemetry=YES  ", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__6;
-  v34 = __Block_byref_object_dispose__6;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__6;
+  v36 = __Block_byref_object_dispose__6;
   selfCopy = self;
-  v35 = selfCopy;
+  v37 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __69__AAInheritanceController_updateAccessCodeForContactInfo_completion___block_invoke;
   aBlock[3] = &unk_1E7C9B3D8;
   p_buf = &buf;
-  v28 = v10;
-  v29 = v12;
-  v17 = completionCopy;
-  v26 = v17;
-  v18 = _Block_copy(aBlock);
+  v30 = v11;
+  v31 = v13;
+  v20 = completionCopy;
+  v28 = v20;
+  v21 = _Block_copy(aBlock);
   remoteService = selfCopy->_remoteService;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __69__AAInheritanceController_updateAccessCodeForContactInfo_completion___block_invoke_116;
-  v23[3] = &unk_1E7C9B078;
-  v20 = v18;
-  v24 = v20;
-  v21 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v23];
-  [v21 updateAccessCodeForContactInfo:infoCopy completion:v20];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __69__AAInheritanceController_updateAccessCodeForContactInfo_completion___block_invoke_116;
+  v25[3] = &unk_1E7C9B078;
+  v23 = v21;
+  v26 = v23;
+  v24 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v25];
+  [v24 updateAccessCodeForContactInfo:infoCopy completion:v23];
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __69__AAInheritanceController_updateAccessCodeForContactInfo_completion___block_invoke(void *a1, void *a2)
@@ -897,7 +877,7 @@ void __69__AAInheritanceController_updateAccessCodeForContactInfo_completion___b
   *(v4 + 40) = 0;
 
   Nanoseconds = _AASignpostGetNanoseconds(a1[6], a1[7]);
-  v7 = _AASignpostLogSystem();
+  v7 = _AASignpostLogSystem(Nanoseconds);
   v8 = v7;
   v9 = a1[6];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -908,30 +888,29 @@ void __69__AAInheritanceController_updateAccessCodeForContactInfo_completion___b
     _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v8, OS_SIGNPOST_INTERVAL_END, v9, "UpdateAccessCode", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v17, 8u);
   }
 
-  v11 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _AASignpostLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = Nanoseconds / 1000000000.0;
-    v13 = a1[6];
-    v14 = _AAErrorUnderlyingError(v3);
-    v15 = [v14 code];
+    v13 = Nanoseconds / 1000000000.0;
+    v14 = a1[6];
+    v15 = _AAErrorUnderlyingError(v3);
+    v16 = [v15 code];
     v17 = 134218496;
-    v18 = v13;
+    v18 = v14;
     v19 = 2048;
-    v20 = v12;
+    v20 = v13;
     v21 = 1026;
-    v22 = v15;
-    _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: UpdateAccessCode  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v17, 0x1Cu);
+    v22 = v16;
+    _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: UpdateAccessCode  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v17, 0x1Cu);
   }
 
   (*(a1[4] + 16))();
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __69__AAInheritanceController_updateAccessCodeForContactInfo_completion___block_invoke_116(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __69__AAInheritanceController_updateAccessCodeForContactInfo_completion___block_invoke_116_cold_1();
@@ -942,7 +921,7 @@ void __69__AAInheritanceController_updateAccessCodeForContactInfo_completion___b
 
 - (void)updateBeneficiaryManifest:(id)manifest contactInfo:(id)info completion:(id)completion
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   manifestCopy = manifest;
   infoCopy = info;
   completionCopy = completion;
@@ -965,57 +944,55 @@ void __69__AAInheritanceController_updateAccessCodeForContactInfo_completion___b
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v11, &state);
-  v12 = _AASignpostLogSystem();
-  v13 = _AASignpostCreate(v12);
-  v15 = v14;
+  v13 = _AASignpostLogSystem(v12);
+  v14 = _AASignpostCreate(v13);
+  v16 = v15;
 
-  v16 = _AASignpostLogSystem();
-  v17 = v16;
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  v18 = _AASignpostLogSystem(v17);
+  v19 = v18;
+  if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v13, "UpdateBeneficiaryManifest enableTelemetry=YES ", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v14, "UpdateBeneficiaryManifest enableTelemetry=YES ", "", &buf, 2u);
   }
 
-  v18 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v21 = _AASignpostLogSystem(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v13;
-    _os_log_impl(&dword_1B6F6A000, v18, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: UpdateBeneficiaryManifest enableTelemetry=YES  ", &buf, 0xCu);
+    *(&buf + 4) = v14;
+    _os_log_impl(&dword_1B6F6A000, v21, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: UpdateBeneficiaryManifest enableTelemetry=YES  ", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__6;
-  v37 = __Block_byref_object_dispose__6;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__6;
+  v39 = __Block_byref_object_dispose__6;
   selfCopy = self;
-  v38 = selfCopy;
+  v40 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __76__AAInheritanceController_updateBeneficiaryManifest_contactInfo_completion___block_invoke;
   aBlock[3] = &unk_1E7C9B3D8;
   p_buf = &buf;
-  v31 = v13;
-  v32 = v15;
-  v20 = completionCopy;
-  v29 = v20;
-  v21 = _Block_copy(aBlock);
+  v33 = v14;
+  v34 = v16;
+  v23 = completionCopy;
+  v31 = v23;
+  v24 = _Block_copy(aBlock);
   remoteService = selfCopy->_remoteService;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __76__AAInheritanceController_updateBeneficiaryManifest_contactInfo_completion___block_invoke_117;
-  v26[3] = &unk_1E7C9B078;
-  v23 = v21;
-  v27 = v23;
-  v24 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v26];
-  [v24 updateBeneficiaryManifest:manifestCopy contactInfo:infoCopy completion:v23];
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __76__AAInheritanceController_updateBeneficiaryManifest_contactInfo_completion___block_invoke_117;
+  v28[3] = &unk_1E7C9B078;
+  v26 = v24;
+  v29 = v26;
+  v27 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v28];
+  [v27 updateBeneficiaryManifest:manifestCopy contactInfo:infoCopy completion:v26];
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __76__AAInheritanceController_updateBeneficiaryManifest_contactInfo_completion___block_invoke(void *a1, void *a2)
@@ -1027,7 +1004,7 @@ void __76__AAInheritanceController_updateBeneficiaryManifest_contactInfo_complet
   *(v4 + 40) = 0;
 
   Nanoseconds = _AASignpostGetNanoseconds(a1[6], a1[7]);
-  v7 = _AASignpostLogSystem();
+  v7 = _AASignpostLogSystem(Nanoseconds);
   v8 = v7;
   v9 = a1[6];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -1038,30 +1015,29 @@ void __76__AAInheritanceController_updateBeneficiaryManifest_contactInfo_complet
     _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v8, OS_SIGNPOST_INTERVAL_END, v9, "UpdateBeneficiaryManifest", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v17, 8u);
   }
 
-  v11 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _AASignpostLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = Nanoseconds / 1000000000.0;
-    v13 = a1[6];
-    v14 = _AAErrorUnderlyingError(v3);
-    v15 = [v14 code];
+    v13 = Nanoseconds / 1000000000.0;
+    v14 = a1[6];
+    v15 = _AAErrorUnderlyingError(v3);
+    v16 = [v15 code];
     v17 = 134218496;
-    v18 = v13;
+    v18 = v14;
     v19 = 2048;
-    v20 = v12;
+    v20 = v13;
     v21 = 1026;
-    v22 = v15;
-    _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: UpdateBeneficiaryManifest  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v17, 0x1Cu);
+    v22 = v16;
+    _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: UpdateBeneficiaryManifest  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v17, 0x1Cu);
   }
 
   (*(a1[4] + 16))();
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __76__AAInheritanceController_updateBeneficiaryManifest_contactInfo_completion___block_invoke_117(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __76__AAInheritanceController_updateBeneficiaryManifest_contactInfo_completion___block_invoke_117_cold_1();
@@ -1072,7 +1048,7 @@ void __76__AAInheritanceController_updateBeneficiaryManifest_contactInfo_complet
 
 - (void)fetchBeneficiariesWithCompletion:(id)completion
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (!completionCopy)
   {
@@ -1083,62 +1059,60 @@ void __76__AAInheritanceController_updateBeneficiaryManifest_contactInfo_complet
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _AASignpostLogSystem();
-  v7 = _AASignpostCreate(v6);
-  v9 = v8;
+  v7 = _AASignpostLogSystem(v6);
+  v8 = _AASignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _AASignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _AASignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "FetchBeneficiaries enableTelemetry=YES ", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "FetchBeneficiaries enableTelemetry=YES ", "", &buf, 2u);
   }
 
-  v12 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v15 = _AASignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v7;
-    _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: FetchBeneficiaries enableTelemetry=YES  ", &buf, 0xCu);
+    *(&buf + 4) = v8;
+    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: FetchBeneficiaries enableTelemetry=YES  ", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__6;
-  v31 = __Block_byref_object_dispose__6;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__6;
+  v33 = __Block_byref_object_dispose__6;
   selfCopy = self;
-  v32 = selfCopy;
+  v34 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __60__AAInheritanceController_fetchBeneficiariesWithCompletion___block_invoke;
   aBlock[3] = &unk_1E7C9B540;
   p_buf = &buf;
-  v25 = v7;
-  v26 = v9;
-  v14 = completionCopy;
-  v23 = v14;
-  v15 = _Block_copy(aBlock);
+  v27 = v8;
+  v28 = v10;
+  v17 = completionCopy;
+  v25 = v17;
+  v18 = _Block_copy(aBlock);
   remoteService = selfCopy->_remoteService;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __60__AAInheritanceController_fetchBeneficiariesWithCompletion___block_invoke_119;
-  v20[3] = &unk_1E7C9B078;
-  v17 = v15;
-  v21 = v17;
-  v18 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v20];
-  [v18 fetchBeneficiariesWithCompletion:v17];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __60__AAInheritanceController_fetchBeneficiariesWithCompletion___block_invoke_119;
+  v22[3] = &unk_1E7C9B078;
+  v20 = v18;
+  v23 = v20;
+  v21 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v22];
+  [v21 fetchBeneficiariesWithCompletion:v20];
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __60__AAInheritanceController_fetchBeneficiariesWithCompletion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1[5] + 8);
@@ -1146,53 +1120,51 @@ void __60__AAInheritanceController_fetchBeneficiariesWithCompletion___block_invo
   *(v7 + 40) = 0;
 
   Nanoseconds = _AASignpostGetNanoseconds(a1[6], a1[7]);
-  v10 = _AASignpostLogSystem();
+  v10 = _AASignpostLogSystem(Nanoseconds);
   v11 = v10;
   v12 = a1[6];
   if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     v13 = _AAErrorUnderlyingError(v6);
-    v21 = 67240192;
-    LODWORD(v22) = [v13 code];
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v11, OS_SIGNPOST_INTERVAL_END, v12, "FetchBeneficiaries", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v21, 8u);
+    v22 = 67240192;
+    LODWORD(v23) = [v13 code];
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v11, OS_SIGNPOST_INTERVAL_END, v12, "FetchBeneficiaries", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v22, 8u);
   }
 
-  v14 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = _AASignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = Nanoseconds / 1000000000.0;
-    v16 = a1[6];
-    v17 = _AAErrorUnderlyingError(v6);
-    v18 = [v17 code];
-    v21 = 134218496;
-    v22 = v16;
-    v23 = 2048;
-    v24 = v15;
-    v25 = 1026;
-    v26 = v18;
-    _os_log_impl(&dword_1B6F6A000, v14, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: FetchBeneficiaries  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v21, 0x1Cu);
+    v16 = Nanoseconds / 1000000000.0;
+    v17 = a1[6];
+    v18 = _AAErrorUnderlyingError(v6);
+    v19 = [v18 code];
+    v22 = 134218496;
+    v23 = v17;
+    v24 = 2048;
+    v25 = v16;
+    v26 = 1026;
+    v27 = v19;
+    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: FetchBeneficiaries  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v22, 0x1Cu);
   }
 
   if (a1[4])
   {
-    v19 = _AALogSystem();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v21 = _AALogSystem(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 138412290;
-      v22 = v5;
-      _os_log_impl(&dword_1B6F6A000, v19, OS_LOG_TYPE_DEFAULT, "Fetched Beneficiaries: %@", &v21, 0xCu);
+      v22 = 138412290;
+      v23 = v5;
+      _os_log_impl(&dword_1B6F6A000, v21, OS_LOG_TYPE_DEFAULT, "Fetched Beneficiaries: %@", &v22, 0xCu);
     }
 
     (*(a1[4] + 16))();
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __60__AAInheritanceController_fetchBeneficiariesWithCompletion___block_invoke_119(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __60__AAInheritanceController_fetchBeneficiariesWithCompletion___block_invoke_119_cold_1();
@@ -1203,7 +1175,7 @@ void __60__AAInheritanceController_fetchBeneficiariesWithCompletion___block_invo
 
 - (void)fetchBenefactorsWithCompletion:(id)completion
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (!completionCopy)
   {
@@ -1214,62 +1186,60 @@ void __60__AAInheritanceController_fetchBeneficiariesWithCompletion___block_invo
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _AASignpostLogSystem();
-  v7 = _AASignpostCreate(v6);
-  v9 = v8;
+  v7 = _AASignpostLogSystem(v6);
+  v8 = _AASignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _AASignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _AASignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "FetchBenefactors enableTelemetry=YES ", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "FetchBenefactors enableTelemetry=YES ", "", &buf, 2u);
   }
 
-  v12 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v15 = _AASignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v7;
-    _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: FetchBenefactors enableTelemetry=YES  ", &buf, 0xCu);
+    *(&buf + 4) = v8;
+    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: FetchBenefactors enableTelemetry=YES  ", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__6;
-  v31 = __Block_byref_object_dispose__6;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__6;
+  v33 = __Block_byref_object_dispose__6;
   selfCopy = self;
-  v32 = selfCopy;
+  v34 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __58__AAInheritanceController_fetchBenefactorsWithCompletion___block_invoke;
   aBlock[3] = &unk_1E7C9B540;
   p_buf = &buf;
-  v25 = v7;
-  v26 = v9;
-  v14 = completionCopy;
-  v23 = v14;
-  v15 = _Block_copy(aBlock);
+  v27 = v8;
+  v28 = v10;
+  v17 = completionCopy;
+  v25 = v17;
+  v18 = _Block_copy(aBlock);
   remoteService = selfCopy->_remoteService;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __58__AAInheritanceController_fetchBenefactorsWithCompletion___block_invoke_120;
-  v20[3] = &unk_1E7C9B078;
-  v17 = v15;
-  v21 = v17;
-  v18 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v20];
-  [v18 fetchBenefactorsWithCompletion:v17];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __58__AAInheritanceController_fetchBenefactorsWithCompletion___block_invoke_120;
+  v22[3] = &unk_1E7C9B078;
+  v20 = v18;
+  v23 = v20;
+  v21 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v22];
+  [v21 fetchBenefactorsWithCompletion:v20];
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __58__AAInheritanceController_fetchBenefactorsWithCompletion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1[5] + 8);
@@ -1277,53 +1247,51 @@ void __58__AAInheritanceController_fetchBenefactorsWithCompletion___block_invoke
   *(v7 + 40) = 0;
 
   Nanoseconds = _AASignpostGetNanoseconds(a1[6], a1[7]);
-  v10 = _AASignpostLogSystem();
+  v10 = _AASignpostLogSystem(Nanoseconds);
   v11 = v10;
   v12 = a1[6];
   if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     v13 = _AAErrorUnderlyingError(v6);
-    v21 = 67240192;
-    LODWORD(v22) = [v13 code];
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v11, OS_SIGNPOST_INTERVAL_END, v12, "FetchBenefactors", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v21, 8u);
+    v22 = 67240192;
+    LODWORD(v23) = [v13 code];
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v11, OS_SIGNPOST_INTERVAL_END, v12, "FetchBenefactors", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v22, 8u);
   }
 
-  v14 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = _AASignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = Nanoseconds / 1000000000.0;
-    v16 = a1[6];
-    v17 = _AAErrorUnderlyingError(v6);
-    v18 = [v17 code];
-    v21 = 134218496;
-    v22 = v16;
-    v23 = 2048;
-    v24 = v15;
-    v25 = 1026;
-    v26 = v18;
-    _os_log_impl(&dword_1B6F6A000, v14, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: FetchBenefactors  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v21, 0x1Cu);
+    v16 = Nanoseconds / 1000000000.0;
+    v17 = a1[6];
+    v18 = _AAErrorUnderlyingError(v6);
+    v19 = [v18 code];
+    v22 = 134218496;
+    v23 = v17;
+    v24 = 2048;
+    v25 = v16;
+    v26 = 1026;
+    v27 = v19;
+    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: FetchBenefactors  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v22, 0x1Cu);
   }
 
   if (a1[4])
   {
-    v19 = _AALogSystem();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v21 = _AALogSystem(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 138412290;
-      v22 = v5;
-      _os_log_impl(&dword_1B6F6A000, v19, OS_LOG_TYPE_DEFAULT, "Fetched Benefactors: %@", &v21, 0xCu);
+      v22 = 138412290;
+      v23 = v5;
+      _os_log_impl(&dword_1B6F6A000, v21, OS_LOG_TYPE_DEFAULT, "Fetched Benefactors: %@", &v22, 0xCu);
     }
 
     (*(a1[4] + 16))();
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __58__AAInheritanceController_fetchBenefactorsWithCompletion___block_invoke_120(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __58__AAInheritanceController_fetchBenefactorsWithCompletion___block_invoke_120_cold_1();
@@ -1334,7 +1302,7 @@ void __58__AAInheritanceController_fetchBenefactorsWithCompletion___block_invoke
 
 - (void)fetchSuggestedBeneficiariesWithCompletion:(id)completion
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (!completionCopy)
   {
@@ -1345,62 +1313,60 @@ void __58__AAInheritanceController_fetchBenefactorsWithCompletion___block_invoke
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _AASignpostLogSystem();
-  v7 = _AASignpostCreate(v6);
-  v9 = v8;
+  v7 = _AASignpostLogSystem(v6);
+  v8 = _AASignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _AASignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _AASignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "FetchSuggestedBeneficiaries enableTelemetry=YES ", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "FetchSuggestedBeneficiaries enableTelemetry=YES ", "", &buf, 2u);
   }
 
-  v12 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v15 = _AASignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v7;
-    _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: FetchSuggestedBeneficiaries enableTelemetry=YES  ", &buf, 0xCu);
+    *(&buf + 4) = v8;
+    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: FetchSuggestedBeneficiaries enableTelemetry=YES  ", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__6;
-  v31 = __Block_byref_object_dispose__6;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__6;
+  v33 = __Block_byref_object_dispose__6;
   selfCopy = self;
-  v32 = selfCopy;
+  v34 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __69__AAInheritanceController_fetchSuggestedBeneficiariesWithCompletion___block_invoke;
   aBlock[3] = &unk_1E7C9B540;
   p_buf = &buf;
-  v25 = v7;
-  v26 = v9;
-  v14 = completionCopy;
-  v23 = v14;
-  v15 = _Block_copy(aBlock);
+  v27 = v8;
+  v28 = v10;
+  v17 = completionCopy;
+  v25 = v17;
+  v18 = _Block_copy(aBlock);
   remoteService = selfCopy->_remoteService;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __69__AAInheritanceController_fetchSuggestedBeneficiariesWithCompletion___block_invoke_121;
-  v20[3] = &unk_1E7C9B078;
-  v17 = v15;
-  v21 = v17;
-  v18 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v20];
-  [v18 fetchSuggestedBeneficiariesWithCompletion:v17];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __69__AAInheritanceController_fetchSuggestedBeneficiariesWithCompletion___block_invoke_121;
+  v22[3] = &unk_1E7C9B078;
+  v20 = v18;
+  v23 = v20;
+  v21 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v22];
+  [v21 fetchSuggestedBeneficiariesWithCompletion:v20];
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __69__AAInheritanceController_fetchSuggestedBeneficiariesWithCompletion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1[5] + 8);
@@ -1408,53 +1374,51 @@ void __69__AAInheritanceController_fetchSuggestedBeneficiariesWithCompletion___b
   *(v7 + 40) = 0;
 
   Nanoseconds = _AASignpostGetNanoseconds(a1[6], a1[7]);
-  v10 = _AASignpostLogSystem();
+  v10 = _AASignpostLogSystem(Nanoseconds);
   v11 = v10;
   v12 = a1[6];
   if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     v13 = _AAErrorUnderlyingError(v6);
-    v21 = 67240192;
-    LODWORD(v22) = [v13 code];
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v11, OS_SIGNPOST_INTERVAL_END, v12, "FetchSuggestedBeneficiaries", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v21, 8u);
+    v22 = 67240192;
+    LODWORD(v23) = [v13 code];
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v11, OS_SIGNPOST_INTERVAL_END, v12, "FetchSuggestedBeneficiaries", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v22, 8u);
   }
 
-  v14 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = _AASignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = Nanoseconds / 1000000000.0;
-    v16 = a1[6];
-    v17 = _AAErrorUnderlyingError(v6);
-    v18 = [v17 code];
-    v21 = 134218496;
-    v22 = v16;
-    v23 = 2048;
-    v24 = v15;
-    v25 = 1026;
-    v26 = v18;
-    _os_log_impl(&dword_1B6F6A000, v14, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: FetchSuggestedBeneficiaries  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v21, 0x1Cu);
+    v16 = Nanoseconds / 1000000000.0;
+    v17 = a1[6];
+    v18 = _AAErrorUnderlyingError(v6);
+    v19 = [v18 code];
+    v22 = 134218496;
+    v23 = v17;
+    v24 = 2048;
+    v25 = v16;
+    v26 = 1026;
+    v27 = v19;
+    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: FetchSuggestedBeneficiaries  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v22, 0x1Cu);
   }
 
   if (a1[4])
   {
-    v19 = _AALogSystem();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v21 = _AALogSystem(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 138412290;
-      v22 = v5;
-      _os_log_impl(&dword_1B6F6A000, v19, OS_LOG_TYPE_DEFAULT, "Suggested Beneficiaries: %@", &v21, 0xCu);
+      v22 = 138412290;
+      v23 = v5;
+      _os_log_impl(&dword_1B6F6A000, v21, OS_LOG_TYPE_DEFAULT, "Suggested Beneficiaries: %@", &v22, 0xCu);
     }
 
     (*(a1[4] + 16))();
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __69__AAInheritanceController_fetchSuggestedBeneficiariesWithCompletion___block_invoke_121(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __69__AAInheritanceController_fetchSuggestedBeneficiariesWithCompletion___block_invoke_121_cold_1();
@@ -1465,7 +1429,7 @@ void __69__AAInheritanceController_fetchSuggestedBeneficiariesWithCompletion___b
 
 - (void)sendInvitationToContact:(id)contact completion:(id)completion
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   contactCopy = contact;
   completionCopy = completion;
   if (!contactCopy)
@@ -1482,114 +1446,110 @@ void __69__AAInheritanceController_fetchSuggestedBeneficiariesWithCompletion___b
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v8, &state);
-  v9 = _AASignpostLogSystem();
-  v10 = _AASignpostCreate(v9);
-  v12 = v11;
+  v10 = _AASignpostLogSystem(v9);
+  v11 = _AASignpostCreate(v10);
+  v13 = v12;
 
-  v13 = _AASignpostLogSystem();
-  v14 = v13;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v15 = _AASignpostLogSystem(v14);
+  v16 = v15;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "SendInvitationToContact enableTelemetry=YES ", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "SendInvitationToContact enableTelemetry=YES ", "", &buf, 2u);
   }
 
-  v15 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v18 = _AASignpostLogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v10;
-    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: SendInvitationToContact enableTelemetry=YES  ", &buf, 0xCu);
+    *(&buf + 4) = v11;
+    _os_log_impl(&dword_1B6F6A000, v18, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: SendInvitationToContact enableTelemetry=YES  ", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__6;
-  v34 = __Block_byref_object_dispose__6;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__6;
+  v36 = __Block_byref_object_dispose__6;
   selfCopy = self;
-  v35 = selfCopy;
+  v37 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __62__AAInheritanceController_sendInvitationToContact_completion___block_invoke;
   aBlock[3] = &unk_1E7C9B3D8;
   p_buf = &buf;
-  v28 = v10;
-  v29 = v12;
-  v17 = completionCopy;
-  v26 = v17;
-  v18 = _Block_copy(aBlock);
+  v30 = v11;
+  v31 = v13;
+  v20 = completionCopy;
+  v28 = v20;
+  v21 = _Block_copy(aBlock);
   remoteService = selfCopy->_remoteService;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __62__AAInheritanceController_sendInvitationToContact_completion___block_invoke_122;
-  v23[3] = &unk_1E7C9B078;
-  v20 = v18;
-  v24 = v20;
-  v21 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v23];
-  [v21 sendInvitationToContact:contactCopy completion:v20];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __62__AAInheritanceController_sendInvitationToContact_completion___block_invoke_122;
+  v25[3] = &unk_1E7C9B078;
+  v23 = v21;
+  v26 = v23;
+  v24 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v25];
+  [v24 sendInvitationToContact:contactCopy completion:v23];
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __62__AAInheritanceController_sendInvitationToContact_completion___block_invoke(void *a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1[5] + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = 0;
 
   Nanoseconds = _AASignpostGetNanoseconds(a1[6], a1[7]);
-  v7 = _AASignpostLogSystem();
+  v7 = _AASignpostLogSystem(Nanoseconds);
   v8 = v7;
   v9 = a1[6];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     v10 = _AAErrorUnderlyingError(v3);
-    v18 = 67240192;
-    LODWORD(v19) = [v10 code];
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v8, OS_SIGNPOST_INTERVAL_END, v9, "SendInvitationToContact", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v18, 8u);
+    v19 = 67240192;
+    LODWORD(v20) = [v10 code];
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v8, OS_SIGNPOST_INTERVAL_END, v9, "SendInvitationToContact", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v19, 8u);
   }
 
-  v11 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _AASignpostLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = Nanoseconds / 1000000000.0;
-    v13 = a1[6];
-    v14 = _AAErrorUnderlyingError(v3);
-    v15 = [v14 code];
-    v18 = 134218496;
-    v19 = v13;
-    v20 = 2048;
-    v21 = v12;
-    v22 = 1026;
-    v23 = v15;
-    _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: SendInvitationToContact  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v18, 0x1Cu);
+    v13 = Nanoseconds / 1000000000.0;
+    v14 = a1[6];
+    v15 = _AAErrorUnderlyingError(v3);
+    v16 = [v15 code];
+    v19 = 134218496;
+    v20 = v14;
+    v21 = 2048;
+    v22 = v13;
+    v23 = 1026;
+    v24 = v16;
+    _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: SendInvitationToContact  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v19, 0x1Cu);
   }
 
   if (a1[4])
   {
-    v16 = _AALogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v18 = _AALogSystem(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_1B6F6A000, v16, OS_LOG_TYPE_DEFAULT, "Sent Invitation.", &v18, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&dword_1B6F6A000, v18, OS_LOG_TYPE_DEFAULT, "Sent Invitation.", &v19, 2u);
     }
 
     (*(a1[4] + 16))();
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __62__AAInheritanceController_sendInvitationToContact_completion___block_invoke_122(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __62__AAInheritanceController_sendInvitationToContact_completion___block_invoke_122_cold_1();
@@ -1600,7 +1560,7 @@ void __62__AAInheritanceController_sendInvitationToContact_completion___block_in
 
 - (void)fetchInvitationsWithCompletion:(id)completion
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (!completionCopy)
   {
@@ -1611,62 +1571,60 @@ void __62__AAInheritanceController_sendInvitationToContact_completion___block_in
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _AASignpostLogSystem();
-  v7 = _AASignpostCreate(v6);
-  v9 = v8;
+  v7 = _AASignpostLogSystem(v6);
+  v8 = _AASignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _AASignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _AASignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "FetchInvitations enableTelemetry=YES ", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "FetchInvitations enableTelemetry=YES ", "", &buf, 2u);
   }
 
-  v12 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v15 = _AASignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v7;
-    _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: FetchInvitations enableTelemetry=YES  ", &buf, 0xCu);
+    *(&buf + 4) = v8;
+    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: FetchInvitations enableTelemetry=YES  ", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__6;
-  v31 = __Block_byref_object_dispose__6;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__6;
+  v33 = __Block_byref_object_dispose__6;
   selfCopy = self;
-  v32 = selfCopy;
+  v34 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __58__AAInheritanceController_fetchInvitationsWithCompletion___block_invoke;
   aBlock[3] = &unk_1E7C9B540;
   p_buf = &buf;
-  v25 = v7;
-  v26 = v9;
-  v14 = completionCopy;
-  v23 = v14;
-  v15 = _Block_copy(aBlock);
+  v27 = v8;
+  v28 = v10;
+  v17 = completionCopy;
+  v25 = v17;
+  v18 = _Block_copy(aBlock);
   remoteService = selfCopy->_remoteService;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __58__AAInheritanceController_fetchInvitationsWithCompletion___block_invoke_123;
-  v20[3] = &unk_1E7C9B078;
-  v17 = v15;
-  v21 = v17;
-  v18 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v20];
-  [v18 fetchInvitationsWithCompletion:v17];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __58__AAInheritanceController_fetchInvitationsWithCompletion___block_invoke_123;
+  v22[3] = &unk_1E7C9B078;
+  v20 = v18;
+  v23 = v20;
+  v21 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v22];
+  [v21 fetchInvitationsWithCompletion:v20];
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __58__AAInheritanceController_fetchInvitationsWithCompletion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1[5] + 8);
@@ -1674,53 +1632,51 @@ void __58__AAInheritanceController_fetchInvitationsWithCompletion___block_invoke
   *(v7 + 40) = 0;
 
   Nanoseconds = _AASignpostGetNanoseconds(a1[6], a1[7]);
-  v10 = _AASignpostLogSystem();
+  v10 = _AASignpostLogSystem(Nanoseconds);
   v11 = v10;
   v12 = a1[6];
   if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     v13 = _AAErrorUnderlyingError(v6);
-    v21 = 67240192;
-    LODWORD(v22) = [v13 code];
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v11, OS_SIGNPOST_INTERVAL_END, v12, "FetchInvitations", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v21, 8u);
+    v22 = 67240192;
+    LODWORD(v23) = [v13 code];
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v11, OS_SIGNPOST_INTERVAL_END, v12, "FetchInvitations", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v22, 8u);
   }
 
-  v14 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = _AASignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = Nanoseconds / 1000000000.0;
-    v16 = a1[6];
-    v17 = _AAErrorUnderlyingError(v6);
-    v18 = [v17 code];
-    v21 = 134218496;
-    v22 = v16;
-    v23 = 2048;
-    v24 = v15;
-    v25 = 1026;
-    v26 = v18;
-    _os_log_impl(&dword_1B6F6A000, v14, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: FetchInvitations  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v21, 0x1Cu);
+    v16 = Nanoseconds / 1000000000.0;
+    v17 = a1[6];
+    v18 = _AAErrorUnderlyingError(v6);
+    v19 = [v18 code];
+    v22 = 134218496;
+    v23 = v17;
+    v24 = 2048;
+    v25 = v16;
+    v26 = 1026;
+    v27 = v19;
+    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: FetchInvitations  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v22, 0x1Cu);
   }
 
   if (a1[4])
   {
-    v19 = _AALogSystem();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v21 = _AALogSystem(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 138412290;
-      v22 = v5;
-      _os_log_impl(&dword_1B6F6A000, v19, OS_LOG_TYPE_DEFAULT, "Fetched Invitations: %@", &v21, 0xCu);
+      v22 = 138412290;
+      v23 = v5;
+      _os_log_impl(&dword_1B6F6A000, v21, OS_LOG_TYPE_DEFAULT, "Fetched Invitations: %@", &v22, 0xCu);
     }
 
     (*(a1[4] + 16))();
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __58__AAInheritanceController_fetchInvitationsWithCompletion___block_invoke_123(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __58__AAInheritanceController_fetchInvitationsWithCompletion___block_invoke_123_cold_1();
@@ -1731,7 +1687,7 @@ void __58__AAInheritanceController_fetchInvitationsWithCompletion___block_invoke
 
 - (void)fetchInvitationWithBeneficiaryID:(id)d completion:(id)completion
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
   if (!completionCopy)
@@ -1743,62 +1699,60 @@ void __58__AAInheritanceController_fetchInvitationsWithCompletion___block_invoke
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v8, &state);
-  v9 = _AASignpostLogSystem();
-  v10 = _AASignpostCreate(v9);
-  v12 = v11;
+  v10 = _AASignpostLogSystem(v9);
+  v11 = _AASignpostCreate(v10);
+  v13 = v12;
 
-  v13 = _AASignpostLogSystem();
-  v14 = v13;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v15 = _AASignpostLogSystem(v14);
+  v16 = v15;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "BeneficiaryInvitation enableTelemetry=YES ", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "BeneficiaryInvitation enableTelemetry=YES ", "", &buf, 2u);
   }
 
-  v15 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v18 = _AASignpostLogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v10;
-    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: BeneficiaryInvitation enableTelemetry=YES  ", &buf, 0xCu);
+    *(&buf + 4) = v11;
+    _os_log_impl(&dword_1B6F6A000, v18, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: BeneficiaryInvitation enableTelemetry=YES  ", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__6;
-  v34 = __Block_byref_object_dispose__6;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__6;
+  v36 = __Block_byref_object_dispose__6;
   selfCopy = self;
-  v35 = selfCopy;
+  v37 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __71__AAInheritanceController_fetchInvitationWithBeneficiaryID_completion___block_invoke;
   aBlock[3] = &unk_1E7C9BF98;
   p_buf = &buf;
-  v28 = v10;
-  v29 = v12;
-  v17 = completionCopy;
-  v26 = v17;
-  v18 = _Block_copy(aBlock);
+  v30 = v11;
+  v31 = v13;
+  v20 = completionCopy;
+  v28 = v20;
+  v21 = _Block_copy(aBlock);
   remoteService = selfCopy->_remoteService;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __71__AAInheritanceController_fetchInvitationWithBeneficiaryID_completion___block_invoke_125;
-  v23[3] = &unk_1E7C9B078;
-  v20 = v18;
-  v24 = v20;
-  v21 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v23];
-  [v21 fetchInvitationWithBeneficiaryID:dCopy completion:v20];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __71__AAInheritanceController_fetchInvitationWithBeneficiaryID_completion___block_invoke_125;
+  v25[3] = &unk_1E7C9B078;
+  v23 = v21;
+  v26 = v23;
+  v24 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v25];
+  [v24 fetchInvitationWithBeneficiaryID:dCopy completion:v23];
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __71__AAInheritanceController_fetchInvitationWithBeneficiaryID_completion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1[5] + 8);
@@ -1806,53 +1760,51 @@ void __71__AAInheritanceController_fetchInvitationWithBeneficiaryID_completion__
   *(v7 + 40) = 0;
 
   Nanoseconds = _AASignpostGetNanoseconds(a1[6], a1[7]);
-  v10 = _AASignpostLogSystem();
+  v10 = _AASignpostLogSystem(Nanoseconds);
   v11 = v10;
   v12 = a1[6];
   if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     v13 = _AAErrorUnderlyingError(v6);
-    v21 = 67240192;
-    LODWORD(v22) = [v13 code];
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v11, OS_SIGNPOST_INTERVAL_END, v12, "BeneficiaryInvitation", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v21, 8u);
+    v22 = 67240192;
+    LODWORD(v23) = [v13 code];
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v11, OS_SIGNPOST_INTERVAL_END, v12, "BeneficiaryInvitation", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v22, 8u);
   }
 
-  v14 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = _AASignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = Nanoseconds / 1000000000.0;
-    v16 = a1[6];
-    v17 = _AAErrorUnderlyingError(v6);
-    v18 = [v17 code];
-    v21 = 134218496;
-    v22 = v16;
-    v23 = 2048;
-    v24 = v15;
-    v25 = 1026;
-    v26 = v18;
-    _os_log_impl(&dword_1B6F6A000, v14, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: BeneficiaryInvitation  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v21, 0x1Cu);
+    v16 = Nanoseconds / 1000000000.0;
+    v17 = a1[6];
+    v18 = _AAErrorUnderlyingError(v6);
+    v19 = [v18 code];
+    v22 = 134218496;
+    v23 = v17;
+    v24 = 2048;
+    v25 = v16;
+    v26 = 1026;
+    v27 = v19;
+    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: BeneficiaryInvitation  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v22, 0x1Cu);
   }
 
   if (a1[4])
   {
-    v19 = _AALogSystem();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v21 = _AALogSystem(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 138412290;
-      v22 = v5;
-      _os_log_impl(&dword_1B6F6A000, v19, OS_LOG_TYPE_DEFAULT, "Fetched Invitation: %@", &v21, 0xCu);
+      v22 = 138412290;
+      v23 = v5;
+      _os_log_impl(&dword_1B6F6A000, v21, OS_LOG_TYPE_DEFAULT, "Fetched Invitation: %@", &v22, 0xCu);
     }
 
     (*(a1[4] + 16))();
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __71__AAInheritanceController_fetchInvitationWithBeneficiaryID_completion___block_invoke_125(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __71__AAInheritanceController_fetchInvitationWithBeneficiaryID_completion___block_invoke_125_cold_1();
@@ -1863,7 +1815,7 @@ void __71__AAInheritanceController_fetchInvitationWithBeneficiaryID_completion__
 
 - (void)removeInvitation:(id)invitation completion:(id)completion
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   invitationCopy = invitation;
   completionCopy = completion;
   if (!invitationCopy)
@@ -1875,120 +1827,182 @@ void __71__AAInheritanceController_fetchInvitationWithBeneficiaryID_completion__
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v8, &state);
-  v9 = _AASignpostLogSystem();
-  v10 = _AASignpostCreate(v9);
-  v12 = v11;
+  v10 = _AASignpostLogSystem(v9);
+  v11 = _AASignpostCreate(v10);
+  v13 = v12;
 
-  v13 = _AASignpostLogSystem();
-  v14 = v13;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v15 = _AASignpostLogSystem(v14);
+  v16 = v15;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "RemoveInvitation enableTelemetry=YES ", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "RemoveInvitation enableTelemetry=YES ", "", &buf, 2u);
   }
 
-  v15 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v18 = _AASignpostLogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v10;
-    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: RemoveInvitation enableTelemetry=YES  ", &buf, 0xCu);
+    *(&buf + 4) = v11;
+    _os_log_impl(&dword_1B6F6A000, v18, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: RemoveInvitation enableTelemetry=YES  ", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__6;
-  v34 = __Block_byref_object_dispose__6;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__6;
+  v36 = __Block_byref_object_dispose__6;
   selfCopy = self;
-  v35 = selfCopy;
+  v37 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __55__AAInheritanceController_removeInvitation_completion___block_invoke;
   aBlock[3] = &unk_1E7C9B3D8;
   p_buf = &buf;
-  v28 = v10;
-  v29 = v12;
-  v17 = completionCopy;
-  v26 = v17;
-  v18 = _Block_copy(aBlock);
+  v30 = v11;
+  v31 = v13;
+  v20 = completionCopy;
+  v28 = v20;
+  v21 = _Block_copy(aBlock);
   remoteService = selfCopy->_remoteService;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __55__AAInheritanceController_removeInvitation_completion___block_invoke_129;
-  v23[3] = &unk_1E7C9B078;
-  v20 = v18;
-  v24 = v20;
-  v21 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v23];
-  [v21 removeInvitation:invitationCopy completion:v20];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __55__AAInheritanceController_removeInvitation_completion___block_invoke_129;
+  v25[3] = &unk_1E7C9B078;
+  v23 = v21;
+  v26 = v23;
+  v24 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v25];
+  [v24 removeInvitation:invitationCopy completion:v23];
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __55__AAInheritanceController_removeInvitation_completion___block_invoke(void *a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1[5] + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = 0;
 
   Nanoseconds = _AASignpostGetNanoseconds(a1[6], a1[7]);
-  v7 = _AASignpostLogSystem();
+  v7 = _AASignpostLogSystem(Nanoseconds);
   v8 = v7;
   v9 = a1[6];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     v10 = _AAErrorUnderlyingError(v3);
-    v18 = 67240192;
-    LODWORD(v19) = [v10 code];
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v8, OS_SIGNPOST_INTERVAL_END, v9, "RemoveInvitation", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v18, 8u);
+    v19 = 67240192;
+    LODWORD(v20) = [v10 code];
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v8, OS_SIGNPOST_INTERVAL_END, v9, "RemoveInvitation", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v19, 8u);
   }
 
-  v11 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _AASignpostLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = Nanoseconds / 1000000000.0;
-    v13 = a1[6];
-    v14 = _AAErrorUnderlyingError(v3);
-    v15 = [v14 code];
-    v18 = 134218496;
-    v19 = v13;
-    v20 = 2048;
-    v21 = v12;
-    v22 = 1026;
-    v23 = v15;
-    _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: RemoveInvitation  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v18, 0x1Cu);
+    v13 = Nanoseconds / 1000000000.0;
+    v14 = a1[6];
+    v15 = _AAErrorUnderlyingError(v3);
+    v16 = [v15 code];
+    v19 = 134218496;
+    v20 = v14;
+    v21 = 2048;
+    v22 = v13;
+    v23 = 1026;
+    v24 = v16;
+    _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: RemoveInvitation  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v19, 0x1Cu);
   }
 
   if (a1[4])
   {
-    v16 = _AALogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v18 = _AALogSystem(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_1B6F6A000, v16, OS_LOG_TYPE_DEFAULT, "Removed Invitation.", &v18, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&dword_1B6F6A000, v18, OS_LOG_TYPE_DEFAULT, "Removed Invitation.", &v19, 2u);
     }
 
     (*(a1[4] + 16))();
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __55__AAInheritanceController_removeInvitation_completion___block_invoke_129(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __55__AAInheritanceController_removeInvitation_completion___block_invoke_129_cold_1();
   }
 
   (*(*(a1 + 32) + 16))();
+}
+
+- (void)respondToInvitation:(id)invitation accepted:(BOOL)accepted completion:(id)completion
+{
+  acceptedCopy = accepted;
+  v40 = *MEMORY[0x1E69E9840];
+  invitationCopy = invitation;
+  completionCopy = completion;
+  if (!invitationCopy)
+  {
+    [AAInheritanceController respondToInvitation:accepted:completion:];
+  }
+
+  v10 = _os_activity_create(&dword_1B6F6A000, "inheritance-appleaccount/respond-invitation", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  state.opaque[0] = 0;
+  state.opaque[1] = 0;
+  os_activity_scope_enter(v10, &state);
+  v12 = _AASignpostLogSystem(v11);
+  v13 = _AASignpostCreate(v12);
+  v15 = v14;
+
+  v17 = _AASignpostLogSystem(v16);
+  v18 = v17;
+  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  {
+    LOWORD(buf) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v13, "RespondToInvitation enableTelemetry=YES ", "", &buf, 2u);
+  }
+
+  v20 = _AASignpostLogSystem(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  {
+    LODWORD(buf) = 134217984;
+    *(&buf + 4) = v13;
+    _os_log_impl(&dword_1B6F6A000, v20, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: RespondToInvitation enableTelemetry=YES  ", &buf, 0xCu);
+  }
+
+  *&buf = 0;
+  *(&buf + 1) = &buf;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__6;
+  v38 = __Block_byref_object_dispose__6;
+  selfCopy = self;
+  v39 = selfCopy;
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __67__AAInheritanceController_respondToInvitation_accepted_completion___block_invoke;
+  aBlock[3] = &unk_1E7C9B3D8;
+  p_buf = &buf;
+  v32 = v13;
+  v33 = v15;
+  v22 = completionCopy;
+  v30 = v22;
+  v23 = _Block_copy(aBlock);
+  remoteService = selfCopy->_remoteService;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __67__AAInheritanceController_respondToInvitation_accepted_completion___block_invoke_133;
+  v27[3] = &unk_1E7C9B078;
+  v25 = v23;
+  v28 = v25;
+  v26 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v27];
+  [v26 respondToInvitation:invitationCopy accepted:acceptedCopy completion:v25];
+
+  _Block_object_dispose(&buf, 8);
+  os_activity_scope_leave(&state);
 }
 
 void __67__AAInheritanceController_respondToInvitation_accepted_completion___block_invoke(void *a1, void *a2)
@@ -2000,7 +2014,7 @@ void __67__AAInheritanceController_respondToInvitation_accepted_completion___blo
   *(v4 + 40) = 0;
 
   Nanoseconds = _AASignpostGetNanoseconds(a1[6], a1[7]);
-  v7 = _AASignpostLogSystem();
+  v7 = _AASignpostLogSystem(Nanoseconds);
   v8 = v7;
   v9 = a1[6];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
@@ -2011,30 +2025,29 @@ void __67__AAInheritanceController_respondToInvitation_accepted_completion___blo
     _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v8, OS_SIGNPOST_INTERVAL_END, v9, "RespondToInvitation", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v17, 8u);
   }
 
-  v11 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _AASignpostLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = Nanoseconds / 1000000000.0;
-    v13 = a1[6];
-    v14 = _AAErrorUnderlyingError(v3);
-    v15 = [v14 code];
+    v13 = Nanoseconds / 1000000000.0;
+    v14 = a1[6];
+    v15 = _AAErrorUnderlyingError(v3);
+    v16 = [v15 code];
     v17 = 134218496;
-    v18 = v13;
+    v18 = v14;
     v19 = 2048;
-    v20 = v12;
+    v20 = v13;
     v21 = 1026;
-    v22 = v15;
-    _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: RespondToInvitation  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v17, 0x1Cu);
+    v22 = v16;
+    _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: RespondToInvitation  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v17, 0x1Cu);
   }
 
   (*(a1[4] + 16))();
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __67__AAInheritanceController_respondToInvitation_accepted_completion___block_invoke_133(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __67__AAInheritanceController_respondToInvitation_accepted_completion___block_invoke_133_cold_1();
@@ -2045,7 +2058,7 @@ void __67__AAInheritanceController_respondToInvitation_accepted_completion___blo
 
 - (void)fetchAllHealthInfoWithCompletion:(id)completion
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (!completionCopy)
   {
@@ -2056,62 +2069,60 @@ void __67__AAInheritanceController_respondToInvitation_accepted_completion___blo
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = _AASignpostLogSystem();
-  v7 = _AASignpostCreate(v6);
-  v9 = v8;
+  v7 = _AASignpostLogSystem(v6);
+  v8 = _AASignpostCreate(v7);
+  v10 = v9;
 
-  v10 = _AASignpostLogSystem();
-  v11 = v10;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v12 = _AASignpostLogSystem(v11);
+  v13 = v12;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v7, "FetchAllHealthInfo enableTelemetry=YES ", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v8, "FetchAllHealthInfo enableTelemetry=YES ", "", &buf, 2u);
   }
 
-  v12 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v15 = _AASignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v7;
-    _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: FetchAllHealthInfo enableTelemetry=YES  ", &buf, 0xCu);
+    *(&buf + 4) = v8;
+    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: FetchAllHealthInfo enableTelemetry=YES  ", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__6;
-  v31 = __Block_byref_object_dispose__6;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__6;
+  v33 = __Block_byref_object_dispose__6;
   selfCopy = self;
-  v32 = selfCopy;
+  v34 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __60__AAInheritanceController_fetchAllHealthInfoWithCompletion___block_invoke;
   aBlock[3] = &unk_1E7C9B540;
   p_buf = &buf;
-  v25 = v7;
-  v26 = v9;
-  v14 = completionCopy;
-  v23 = v14;
-  v15 = _Block_copy(aBlock);
+  v27 = v8;
+  v28 = v10;
+  v17 = completionCopy;
+  v25 = v17;
+  v18 = _Block_copy(aBlock);
   remoteService = selfCopy->_remoteService;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __60__AAInheritanceController_fetchAllHealthInfoWithCompletion___block_invoke_134;
-  v20[3] = &unk_1E7C9B078;
-  v17 = v15;
-  v21 = v17;
-  v18 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v20];
-  [v18 fetchAllHealthInfoWithCompletion:v17];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __60__AAInheritanceController_fetchAllHealthInfoWithCompletion___block_invoke_134;
+  v22[3] = &unk_1E7C9B078;
+  v20 = v18;
+  v23 = v20;
+  v21 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v22];
+  [v21 fetchAllHealthInfoWithCompletion:v20];
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __60__AAInheritanceController_fetchAllHealthInfoWithCompletion___block_invoke(void *a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1[5] + 8);
@@ -2119,53 +2130,51 @@ void __60__AAInheritanceController_fetchAllHealthInfoWithCompletion___block_invo
   *(v7 + 40) = 0;
 
   Nanoseconds = _AASignpostGetNanoseconds(a1[6], a1[7]);
-  v10 = _AASignpostLogSystem();
+  v10 = _AASignpostLogSystem(Nanoseconds);
   v11 = v10;
   v12 = a1[6];
   if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     v13 = _AAErrorUnderlyingError(v6);
-    v21 = 67240192;
-    LODWORD(v22) = [v13 code];
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v11, OS_SIGNPOST_INTERVAL_END, v12, "FetchAllHealthInfo", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v21, 8u);
+    v22 = 67240192;
+    LODWORD(v23) = [v13 code];
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v11, OS_SIGNPOST_INTERVAL_END, v12, "FetchAllHealthInfo", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v22, 8u);
   }
 
-  v14 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = _AASignpostLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = Nanoseconds / 1000000000.0;
-    v16 = a1[6];
-    v17 = _AAErrorUnderlyingError(v6);
-    v18 = [v17 code];
-    v21 = 134218496;
-    v22 = v16;
-    v23 = 2048;
-    v24 = v15;
-    v25 = 1026;
-    v26 = v18;
-    _os_log_impl(&dword_1B6F6A000, v14, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: FetchAllHealthInfo  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v21, 0x1Cu);
+    v16 = Nanoseconds / 1000000000.0;
+    v17 = a1[6];
+    v18 = _AAErrorUnderlyingError(v6);
+    v19 = [v18 code];
+    v22 = 134218496;
+    v23 = v17;
+    v24 = 2048;
+    v25 = v16;
+    v26 = 1026;
+    v27 = v19;
+    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: FetchAllHealthInfo  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v22, 0x1Cu);
   }
 
   if (a1[4])
   {
-    v19 = _AALogSystem();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v21 = _AALogSystem(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 138412290;
-      v22 = v5;
-      _os_log_impl(&dword_1B6F6A000, v19, OS_LOG_TYPE_DEFAULT, "Fetched Health Records: %@", &v21, 0xCu);
+      v22 = 138412290;
+      v23 = v5;
+      _os_log_impl(&dword_1B6F6A000, v21, OS_LOG_TYPE_DEFAULT, "Fetched Health Records: %@", &v22, 0xCu);
     }
 
     (*(a1[4] + 16))();
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __60__AAInheritanceController_fetchAllHealthInfoWithCompletion___block_invoke_134(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __60__AAInheritanceController_fetchAllHealthInfoWithCompletion___block_invoke_134_cold_1();
@@ -2176,7 +2185,7 @@ void __60__AAInheritanceController_fetchAllHealthInfoWithCompletion___block_invo
 
 - (void)presentInheritanceInvitationUIWithBeneficiaryID:(id)d completion:(id)completion
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
   if (!dCopy)
@@ -2193,114 +2202,110 @@ void __60__AAInheritanceController_fetchAllHealthInfoWithCompletion___block_invo
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v8, &state);
-  v9 = _AASignpostLogSystem();
-  v10 = _AASignpostCreate(v9);
-  v12 = v11;
+  v10 = _AASignpostLogSystem(v9);
+  v11 = _AASignpostCreate(v10);
+  v13 = v12;
 
-  v13 = _AASignpostLogSystem();
-  v14 = v13;
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  v15 = _AASignpostLogSystem(v14);
+  v16 = v15;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     LOWORD(buf) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v10, "PresentInheritanceInvitationUI enableTelemetry=YES ", "", &buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v11, "PresentInheritanceInvitationUI enableTelemetry=YES ", "", &buf, 2u);
   }
 
-  v15 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v18 = _AASignpostLogSystem(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v10;
-    _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: PresentInheritanceInvitationUI enableTelemetry=YES  ", &buf, 0xCu);
+    *(&buf + 4) = v11;
+    _os_log_impl(&dword_1B6F6A000, v18, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: PresentInheritanceInvitationUI enableTelemetry=YES  ", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__6;
-  v34 = __Block_byref_object_dispose__6;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__6;
+  v36 = __Block_byref_object_dispose__6;
   selfCopy = self;
-  v35 = selfCopy;
+  v37 = selfCopy;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __86__AAInheritanceController_presentInheritanceInvitationUIWithBeneficiaryID_completion___block_invoke;
   aBlock[3] = &unk_1E7C9B3D8;
   p_buf = &buf;
-  v28 = v10;
-  v29 = v12;
-  v17 = completionCopy;
-  v26 = v17;
-  v18 = _Block_copy(aBlock);
+  v30 = v11;
+  v31 = v13;
+  v20 = completionCopy;
+  v28 = v20;
+  v21 = _Block_copy(aBlock);
   remoteService = selfCopy->_remoteService;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __86__AAInheritanceController_presentInheritanceInvitationUIWithBeneficiaryID_completion___block_invoke_135;
-  v23[3] = &unk_1E7C9B078;
-  v20 = v18;
-  v24 = v20;
-  v21 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v23];
-  [v21 presentInheritanceInvitationUIWithBeneficiaryID:dCopy completion:v20];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __86__AAInheritanceController_presentInheritanceInvitationUIWithBeneficiaryID_completion___block_invoke_135;
+  v25[3] = &unk_1E7C9B078;
+  v23 = v21;
+  v26 = v23;
+  v24 = [(AAFXPCSession *)remoteService remoteServiceProxyWithErrorHandler:v25];
+  [v24 presentInheritanceInvitationUIWithBeneficiaryID:dCopy completion:v23];
 
   _Block_object_dispose(&buf, 8);
   os_activity_scope_leave(&state);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __86__AAInheritanceController_presentInheritanceInvitationUIWithBeneficiaryID_completion___block_invoke(void *a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1[5] + 8);
   v5 = *(v4 + 40);
   *(v4 + 40) = 0;
 
   Nanoseconds = _AASignpostGetNanoseconds(a1[6], a1[7]);
-  v7 = _AASignpostLogSystem();
+  v7 = _AASignpostLogSystem(Nanoseconds);
   v8 = v7;
   v9 = a1[6];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     v10 = _AAErrorUnderlyingError(v3);
-    v18 = 67240192;
-    LODWORD(v19) = [v10 code];
-    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v8, OS_SIGNPOST_INTERVAL_END, v9, "PresentInheritanceInvitationUI", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v18, 8u);
+    v19 = 67240192;
+    LODWORD(v20) = [v10 code];
+    _os_signpost_emit_with_name_impl(&dword_1B6F6A000, v8, OS_SIGNPOST_INTERVAL_END, v9, "PresentInheritanceInvitationUI", " Error=%{public,signpost.telemetry:number2,name=Error}d ", &v19, 8u);
   }
 
-  v11 = _AASignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _AASignpostLogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = Nanoseconds / 1000000000.0;
-    v13 = a1[6];
-    v14 = _AAErrorUnderlyingError(v3);
-    v15 = [v14 code];
-    v18 = 134218496;
-    v19 = v13;
-    v20 = 2048;
-    v21 = v12;
-    v22 = 1026;
-    v23 = v15;
-    _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PresentInheritanceInvitationUI  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v18, 0x1Cu);
+    v13 = Nanoseconds / 1000000000.0;
+    v14 = a1[6];
+    v15 = _AAErrorUnderlyingError(v3);
+    v16 = [v15 code];
+    v19 = 134218496;
+    v20 = v14;
+    v21 = 2048;
+    v22 = v13;
+    v23 = 1026;
+    v24 = v16;
+    _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: PresentInheritanceInvitationUI  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v19, 0x1Cu);
   }
 
   if (a1[4])
   {
-    v16 = _AALogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v18 = _AALogSystem(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_1B6F6A000, v16, OS_LOG_TYPE_DEFAULT, "Initiated invitation UI flow.", &v18, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&dword_1B6F6A000, v18, OS_LOG_TYPE_DEFAULT, "Initiated invitation UI flow.", &v19, 2u);
     }
 
     (*(a1[4] + 16))();
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __86__AAInheritanceController_presentInheritanceInvitationUIWithBeneficiaryID_completion___block_invoke_135(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __86__AAInheritanceController_presentInheritanceInvitationUIWithBeneficiaryID_completion___block_invoke_135_cold_1();
@@ -2406,11 +2411,11 @@ void __111__AAInheritanceController_setupBeneficiaryAliasWithAccessKey_password_
 
   if (*(a1 + 32))
   {
-    v12 = _AALogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = _AALogSystem(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "Setup Beneficiary Alias", v13, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_1B6F6A000, v13, OS_LOG_TYPE_DEFAULT, "Setup Beneficiary Alias", v14, 2u);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -2420,7 +2425,7 @@ void __111__AAInheritanceController_setupBeneficiaryAliasWithAccessKey_password_
 void __111__AAInheritanceController_setupBeneficiaryAliasWithAccessKey_password_firstName_lastName_authToken_completion___block_invoke_146(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AALogSystem();
+  v4 = _AALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __111__AAInheritanceController_setupBeneficiaryAliasWithAccessKey_password_firstName_lastName_authToken_completion___block_invoke_146_cold_1();
@@ -2431,76 +2436,74 @@ void __111__AAInheritanceController_setupBeneficiaryAliasWithAccessKey_password_
 
 - (void)configureRemoteInterface:(id)interface
 {
-  v28[4] = *MEMORY[0x1E69E9840];
+  v27[4] = *MEMORY[0x1E69E9840];
   interfaceCopy = interface;
-  v28[0] = objc_opt_class();
-  v28[1] = objc_opt_class();
-  v28[2] = objc_opt_class();
-  v28[3] = objc_opt_class();
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:4];
-  v4 = [MEMORY[0x1E695DFD8] setWithArray:v20];
-  [interfaceCopy setClasses:v4 forSelector:sel_setupBeneficiaryManifest_contactInfo_setupAuthToken_completion_ argumentIndex:0 ofReply:1];
-
   v27[0] = objc_opt_class();
   v27[1] = objc_opt_class();
   v27[2] = objc_opt_class();
   v27[3] = objc_opt_class();
-  v27[4] = objc_opt_class();
-  v27[5] = objc_opt_class();
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:6];
-  v5 = [MEMORY[0x1E695DFD8] setWithArray:v19];
-  [interfaceCopy setClasses:v5 forSelector:sel_fetchManifestOptionsForContact_completion_ argumentIndex:0 ofReply:1];
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:4];
+  v4 = [MEMORY[0x1E695DFD8] setWithArray:v19];
+  [interfaceCopy setClasses:v4 forSelector:sel_setupBeneficiaryManifest_contactInfo_setupAuthToken_completion_ argumentIndex:0 ofReply:1];
 
   v26[0] = objc_opt_class();
   v26[1] = objc_opt_class();
   v26[2] = objc_opt_class();
   v26[3] = objc_opt_class();
   v26[4] = objc_opt_class();
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:5];
-  v6 = [MEMORY[0x1E695DFD8] setWithArray:v18];
-  [interfaceCopy setClasses:v6 forSelector:sel_fetchBeneficiariesWithCompletion_ argumentIndex:0 ofReply:1];
+  v26[5] = objc_opt_class();
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:6];
+  v5 = [MEMORY[0x1E695DFD8] setWithArray:v18];
+  [interfaceCopy setClasses:v5 forSelector:sel_fetchManifestOptionsForContact_completion_ argumentIndex:0 ofReply:1];
 
   v25[0] = objc_opt_class();
   v25[1] = objc_opt_class();
   v25[2] = objc_opt_class();
   v25[3] = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:4];
-  v8 = [MEMORY[0x1E695DFD8] setWithArray:v7];
-  [interfaceCopy setClasses:v8 forSelector:sel_fetchBenefactorsWithCompletion_ argumentIndex:0 ofReply:1];
+  v25[4] = objc_opt_class();
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:5];
+  v6 = [MEMORY[0x1E695DFD8] setWithArray:v17];
+  [interfaceCopy setClasses:v6 forSelector:sel_fetchBeneficiariesWithCompletion_ argumentIndex:0 ofReply:1];
 
   v24[0] = objc_opt_class();
   v24[1] = objc_opt_class();
   v24[2] = objc_opt_class();
   v24[3] = objc_opt_class();
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:4];
-  v10 = [MEMORY[0x1E695DFD8] setWithArray:v9];
-  [interfaceCopy setClasses:v10 forSelector:sel_fetchSuggestedBeneficiariesWithCompletion_ argumentIndex:0 ofReply:1];
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:4];
+  v8 = [MEMORY[0x1E695DFD8] setWithArray:v7];
+  [interfaceCopy setClasses:v8 forSelector:sel_fetchBenefactorsWithCompletion_ argumentIndex:0 ofReply:1];
 
   v23[0] = objc_opt_class();
   v23[1] = objc_opt_class();
   v23[2] = objc_opt_class();
   v23[3] = objc_opt_class();
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:4];
-  v12 = [MEMORY[0x1E695DFD8] setWithArray:v11];
-  [interfaceCopy setClasses:v12 forSelector:sel_fetchInvitationsWithCompletion_ argumentIndex:0 ofReply:1];
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:4];
+  v10 = [MEMORY[0x1E695DFD8] setWithArray:v9];
+  [interfaceCopy setClasses:v10 forSelector:sel_fetchSuggestedBeneficiariesWithCompletion_ argumentIndex:0 ofReply:1];
 
   v22[0] = objc_opt_class();
   v22[1] = objc_opt_class();
   v22[2] = objc_opt_class();
   v22[3] = objc_opt_class();
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:4];
-  v14 = [MEMORY[0x1E695DFD8] setWithArray:v13];
-  [interfaceCopy setClasses:v14 forSelector:sel_fetchInvitationWithBeneficiaryID_completion_ argumentIndex:0 ofReply:1];
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:4];
+  v12 = [MEMORY[0x1E695DFD8] setWithArray:v11];
+  [interfaceCopy setClasses:v12 forSelector:sel_fetchInvitationsWithCompletion_ argumentIndex:0 ofReply:1];
 
   v21[0] = objc_opt_class();
   v21[1] = objc_opt_class();
   v21[2] = objc_opt_class();
   v21[3] = objc_opt_class();
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:4];
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:4];
+  v14 = [MEMORY[0x1E695DFD8] setWithArray:v13];
+  [interfaceCopy setClasses:v14 forSelector:sel_fetchInvitationWithBeneficiaryID_completion_ argumentIndex:0 ofReply:1];
+
+  v20[0] = objc_opt_class();
+  v20[1] = objc_opt_class();
+  v20[2] = objc_opt_class();
+  v20[3] = objc_opt_class();
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:4];
   v16 = [MEMORY[0x1E695DFD8] setWithArray:v15];
   [interfaceCopy setClasses:v16 forSelector:sel_fetchAllHealthInfoWithCompletion_ argumentIndex:0 ofReply:1];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchManifestOptionsForContact:completion:.cold.1()
@@ -2521,10 +2524,9 @@ void __111__AAInheritanceController_setupBeneficiaryAliasWithAccessKey_password_
 
 void __69__AAInheritanceController_fetchManifestOptionsForContact_completion___block_invoke_86_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)isRecipient:capableOf:completion:.cold.1()
@@ -2553,10 +2555,9 @@ void __69__AAInheritanceController_fetchManifestOptionsForContact_completion___b
 
 void __60__AAInheritanceController_isRecipient_capableOf_completion___block_invoke_95_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)setupBeneficiaryManifest:contactInfo:setupAuthToken:completion:.cold.1()
@@ -2593,10 +2594,9 @@ void __60__AAInheritanceController_isRecipient_capableOf_completion___block_invo
 
 void __90__AAInheritanceController_setupBeneficiaryManifest_contactInfo_setupAuthToken_completion___block_invoke_106_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)removeAccessCodeForContactInfo:completion:.cold.1()
@@ -2617,10 +2617,9 @@ void __90__AAInheritanceController_setupBeneficiaryManifest_contactInfo_setupAut
 
 void __69__AAInheritanceController_removeAccessCodeForContactInfo_completion___block_invoke_107_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)removeBeneficiary:manifest:completion:.cold.1()
@@ -2641,10 +2640,9 @@ void __69__AAInheritanceController_removeAccessCodeForContactInfo_completion___b
 
 void __65__AAInheritanceController_removeBeneficiary_manifest_completion___block_invoke_111_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)removeBenefactor:completion:.cold.1()
@@ -2665,10 +2663,9 @@ void __65__AAInheritanceController_removeBeneficiary_manifest_completion___block
 
 void __55__AAInheritanceController_removeBenefactor_completion___block_invoke_115_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)updateAccessCodeForContactInfo:completion:.cold.1()
@@ -2689,10 +2686,9 @@ void __55__AAInheritanceController_removeBenefactor_completion___block_invoke_11
 
 void __69__AAInheritanceController_updateAccessCodeForContactInfo_completion___block_invoke_116_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)updateBeneficiaryManifest:contactInfo:completion:.cold.1()
@@ -2721,10 +2717,9 @@ void __69__AAInheritanceController_updateAccessCodeForContactInfo_completion___b
 
 void __76__AAInheritanceController_updateBeneficiaryManifest_contactInfo_completion___block_invoke_117_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)fetchBeneficiariesWithCompletion:.cold.1()
@@ -2737,10 +2732,9 @@ void __76__AAInheritanceController_updateBeneficiaryManifest_contactInfo_complet
 
 void __60__AAInheritanceController_fetchBeneficiariesWithCompletion___block_invoke_119_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)fetchBenefactorsWithCompletion:.cold.1()
@@ -2753,10 +2747,9 @@ void __60__AAInheritanceController_fetchBeneficiariesWithCompletion___block_invo
 
 void __58__AAInheritanceController_fetchBenefactorsWithCompletion___block_invoke_120_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)fetchSuggestedBeneficiariesWithCompletion:.cold.1()
@@ -2769,10 +2762,9 @@ void __58__AAInheritanceController_fetchBenefactorsWithCompletion___block_invoke
 
 void __69__AAInheritanceController_fetchSuggestedBeneficiariesWithCompletion___block_invoke_121_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)sendInvitationToContact:completion:.cold.1()
@@ -2793,10 +2785,9 @@ void __69__AAInheritanceController_fetchSuggestedBeneficiariesWithCompletion___b
 
 void __62__AAInheritanceController_sendInvitationToContact_completion___block_invoke_122_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)fetchInvitationsWithCompletion:.cold.1()
@@ -2809,10 +2800,9 @@ void __62__AAInheritanceController_sendInvitationToContact_completion___block_in
 
 void __58__AAInheritanceController_fetchInvitationsWithCompletion___block_invoke_123_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)fetchInvitationWithBeneficiaryID:completion:.cold.1()
@@ -2825,10 +2815,9 @@ void __58__AAInheritanceController_fetchInvitationsWithCompletion___block_invoke
 
 void __71__AAInheritanceController_fetchInvitationWithBeneficiaryID_completion___block_invoke_125_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)removeInvitation:completion:.cold.1()
@@ -2841,10 +2830,9 @@ void __71__AAInheritanceController_fetchInvitationWithBeneficiaryID_completion__
 
 void __55__AAInheritanceController_removeInvitation_completion___block_invoke_129_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)respondToInvitation:accepted:completion:.cold.1()
@@ -2857,10 +2845,9 @@ void __55__AAInheritanceController_removeInvitation_completion___block_invoke_12
 
 void __67__AAInheritanceController_respondToInvitation_accepted_completion___block_invoke_133_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)fetchAllHealthInfoWithCompletion:.cold.1()
@@ -2873,10 +2860,9 @@ void __67__AAInheritanceController_respondToInvitation_accepted_completion___blo
 
 void __60__AAInheritanceController_fetchAllHealthInfoWithCompletion___block_invoke_134_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)presentInheritanceInvitationUIWithBeneficiaryID:completion:.cold.1()
@@ -2897,10 +2883,9 @@ void __60__AAInheritanceController_fetchAllHealthInfoWithCompletion___block_invo
 
 void __86__AAInheritanceController_presentInheritanceInvitationUIWithBeneficiaryID_completion___block_invoke_135_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 - (void)setupBeneficiaryAliasWithAccessKey:password:firstName:lastName:authToken:completion:.cold.1()
@@ -2937,10 +2922,9 @@ void __86__AAInheritanceController_presentInheritanceInvitationUIWithBeneficiary
 
 void __111__AAInheritanceController_setupBeneficiaryAliasWithAccessKey_password_firstName_lastName_authToken_completion___block_invoke_146_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136446466;
   OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1B6F6A000, v0, v1, "Connection to remote service to %{public}s returned an error: %{public}@", v2, v3, v4, v5, v6);
 }
 
 @end

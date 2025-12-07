@@ -69,28 +69,28 @@
 
 - (id)serializeWithError:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
+  v35 = *MEMORY[0x277D85DE8];
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v21 = 0u;
+  v24 = 0u;
   v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   TLV8BufferInit();
   hAPInstanceID = [(HAPCharacteristicValueTransitionFetch *)self HAPInstanceID];
 
@@ -100,9 +100,9 @@
   }
 
   hAPInstanceID2 = [(HAPCharacteristicValueTransitionFetch *)self HAPInstanceID];
-  v14 = 0;
-  v7 = [hAPInstanceID2 serializeWithError:&v14];
-  v8 = v14;
+  v13 = 0;
+  v7 = [hAPInstanceID2 serializeWithError:&v13];
+  v8 = v13;
 
   if (!v8)
   {
@@ -125,7 +125,7 @@
     }
 
 LABEL_8:
-    v10 = [MEMORY[0x277CBEA90] dataWithBytes:v15 length:?];
+    v10 = [MEMORY[0x277CBEA90] dataWithBytes:v14 length:?];
     v8 = 0;
     goto LABEL_11;
   }
@@ -142,8 +142,6 @@ LABEL_10:
   v10 = 0;
 LABEL_11:
   TLV8BufferFree();
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

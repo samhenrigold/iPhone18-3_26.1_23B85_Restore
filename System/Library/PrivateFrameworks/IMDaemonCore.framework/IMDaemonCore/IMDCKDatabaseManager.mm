@@ -45,10 +45,10 @@
 
 - (IMDCKDatabaseManager)init
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = IMDCKDatabaseManager;
-  v2 = [(IMDCKDatabaseManager *)&v17 init];
+  v19 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = IMDCKDatabaseManager;
+  v2 = [(IMDCKDatabaseManager *)&v16 init];
   if (v2 && (IMIsRunningInUnitTesting() & 1) == 0)
   {
     v3 = +[IMDCKUtilities sharedInstance];
@@ -63,7 +63,7 @@
         if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v19 = @"com.apple.messages.cloud";
+          v18 = @"com.apple.messages.cloud";
           _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "**** Initializing dev container with ID %@", buf, 0xCu);
         }
       }
@@ -79,7 +79,7 @@
         if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v19 = @"com.apple.messages.cloud";
+          v18 = @"com.apple.messages.cloud";
           _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Initializing production container %@", buf, 0xCu);
         }
       }
@@ -102,19 +102,18 @@
       {
         v14 = v2->_manateeContainer;
         *buf = 138412290;
-        v19 = v14;
+        v18 = v14;
         _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Manatee container %@", buf, 0xCu);
       }
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (BOOL)_serverSaysToUseOldContainer
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D18A10] sharedInstanceForBagType:1];
   v3 = [v2 objectForKey:@"use-old-nickname-container"];
   v4 = [v3 unsignedIntegerValue] != 0;
@@ -130,22 +129,21 @@
       v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:0];
       v10 = v9;
       v11 = @"NO";
-      v14 = 138412802;
+      v13 = 138412802;
       if (v7)
       {
         v11 = @"YES";
       }
 
-      v15 = v11;
-      v16 = 2112;
-      v17 = v3;
-      v18 = 2112;
-      v19 = v9;
-      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Server says to use new container? %@ {serverbagValue: %@ version: %@}", &v14, 0x20u);
+      v14 = v11;
+      v15 = 2112;
+      v16 = v3;
+      v17 = 2112;
+      v18 = v9;
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Server says to use new container? %@ {serverbagValue: %@ version: %@}", &v13, 0x20u);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7 & 1;
 }
 
@@ -164,7 +162,7 @@
 
 - (id)_nickNameContainer
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   nickNameContainer = self->_nickNameContainer;
   if (!nickNameContainer)
   {
@@ -180,9 +178,9 @@
         v8 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
-          v18 = 138412290;
-          v19 = _nickNameContainerIdentifier;
-          _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "**** Initializing dev nick name container with ID %@", &v18, 0xCu);
+          v17 = 138412290;
+          v18 = _nickNameContainerIdentifier;
+          _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "**** Initializing dev nick name container with ID %@", &v17, 0xCu);
         }
       }
 
@@ -196,9 +194,9 @@
         v10 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
-          v18 = 138412290;
-          v19 = _nickNameContainerIdentifier;
-          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Initializing production container %@", &v18, 0xCu);
+          v17 = 138412290;
+          v18 = _nickNameContainerIdentifier;
+          _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Initializing production container %@", &v17, 0xCu);
         }
       }
 
@@ -215,8 +213,6 @@
 
     nickNameContainer = *p_nickNameContainer;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return nickNameContainer;
 }

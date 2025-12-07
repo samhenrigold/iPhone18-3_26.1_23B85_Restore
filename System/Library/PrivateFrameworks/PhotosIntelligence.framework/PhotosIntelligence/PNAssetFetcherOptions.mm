@@ -22,7 +22,7 @@
 
 - (NSArray)limiters
 {
-  AssetFetcherOptions.limiters.getter();
+  AssetFetcherOptions.limiters.getter(self);
   type metadata accessor for AssetFetcherLimiter();
   v2 = sub_1C7550B3C();
 
@@ -40,7 +40,7 @@
 - (PFPseudoRandomNumberGenerator)randomGenerator
 {
   selfCopy = self;
-  v3 = sub_1C71CE784();
+  v3 = sub_1C71CE784(selfCopy);
 
   return v3;
 }
@@ -57,7 +57,7 @@
 {
   contextCopy = context;
   selfCopy = self;
-  sub_1C71CF204(contextCopy);
+  sub_1C71CF204(contextCopy, selfCopy, v5);
 }
 
 - (id)initFetchOptionsWithExcludeUUIDs:(id)ds minimumSceneVersion:(signed __int16)version predicate:(id)predicate
@@ -83,7 +83,7 @@
   selfCopy = self;
   AssetFetcherOptions.fetchLimiters.getter();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC218F60);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC218F60, &qword_1C75762F0);
   v3 = sub_1C7550B3C();
 
   return v3;
@@ -91,7 +91,7 @@
 
 - (void)setFetchLimiters:(id)limiters
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC218F60);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC218F60, &qword_1C75762F0);
   v4 = sub_1C7550B5C();
   selfCopy = self;
   AssetFetcherOptions.fetchLimiters.setter(v4);

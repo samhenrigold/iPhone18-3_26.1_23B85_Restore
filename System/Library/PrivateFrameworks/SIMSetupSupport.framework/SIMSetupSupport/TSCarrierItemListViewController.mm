@@ -11,6 +11,7 @@
 - (void)updateFooterView;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TSCarrierItemListViewController
@@ -75,6 +76,17 @@
   [tableView9 layoutIfNeeded];
 
   [(TSCarrierItemListViewController *)self updateFooterView];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  selectedCarrierItem = self->_selectedCarrierItem;
+  self->_selectedCarrierItem = 0;
+
+  v6.receiver = self;
+  v6.super_class = TSCarrierItemListViewController;
+  [(OBTableWelcomeController *)&v6 viewWillAppear:appearCopy];
 }
 
 - (void)viewDidLayoutSubviews
@@ -198,46 +210,47 @@
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v6 = [pathCopy row];
-  if (v6 >= [(NSArray *)self->_carrierItems count])
+  v7 = [(NSArray *)self->_carrierItems count];
+  if (v6 >= v7)
   {
-    v11 = _TSLogDomain();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = _TSLogDomain(v7);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [TSCarrierItemListViewController tableView:v11 didSelectRowAtIndexPath:?];
+      [TSCarrierItemListViewController tableView:v13 didSelectRowAtIndexPath:?];
     }
   }
 
   else
   {
-    v7 = -[NSArray objectAtIndexedSubscript:](self->_carrierItems, "objectAtIndexedSubscript:", [pathCopy row]);
+    v8 = -[NSArray objectAtIndexedSubscript:](self->_carrierItems, "objectAtIndexedSubscript:", [pathCopy row]);
     selectedCarrierItem = self->_selectedCarrierItem;
-    self->_selectedCarrierItem = v7;
+    self->_selectedCarrierItem = v8;
 
-    v9 = _TSLogDomain();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = _TSLogDomain(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = self->_selectedCarrierItem;
+      v12 = self->_selectedCarrierItem;
       *buf = 138412802;
-      v21 = pathCopy;
-      v22 = 2112;
-      v23 = v10;
-      v24 = 2080;
-      v25 = "[TSCarrierItemListViewController tableView:didSelectRowAtIndexPath:]";
-      _os_log_impl(&dword_262AA8000, v9, OS_LOG_TYPE_DEFAULT, "carrier item at %@: %@ @%s", buf, 0x20u);
+      v22 = pathCopy;
+      v23 = 2112;
+      v24 = v12;
+      v25 = 2080;
+      v26 = "[TSCarrierItemListViewController tableView:didSelectRowAtIndexPath:]";
+      _os_log_impl(&dword_262AA8000, v11, OS_LOG_TYPE_DEFAULT, "carrier item at %@: %@ @%s", buf, 0x20u);
     }
   }
 
-  v12 = self->_selectedCarrierItem;
-  if (v12)
+  v14 = self->_selectedCarrierItem;
+  if (v14)
   {
     client = self->_client;
-    name = [(CTCellularPlanCarrierItem *)v12 name];
-    v19 = 0;
-    [(CoreTelephonyClient *)client sendTravelBuddyCAEvent:@"purchase local plan" carrierName:name error:&v19];
-    v15 = v19;
+    name = [(CTCellularPlanCarrierItem *)v14 name];
+    v20 = 0;
+    [(CoreTelephonyClient *)client sendTravelBuddyCAEvent:@"purchase local plan" carrierName:name error:&v20];
+    v17 = v20;
 
     delegate = [(TSCarrierItemListViewController *)self delegate];
     [delegate viewControllerDidComplete:self];
@@ -245,8 +258,6 @@
 
   tableView = [(OBTableWelcomeController *)self tableView];
   [tableView deselectRowAtIndexPath:pathCopy animated:1];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepare:(id)prepare
@@ -347,23 +358,24 @@ void __67__TSCarrierItemListViewController__fetchCarrierListWithCompletion___blo
 void __67__TSCarrierItemListViewController__fetchCarrierListWithCompletion___block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v3 = WeakRetained;
   if ((*(a1 + 48) & 0x20) != 0)
   {
-    v4 = [MEMORY[0x277CF96D8] sharedManager];
-    v5[0] = MEMORY[0x277D85DD0];
-    v5[1] = 3221225472;
-    v5[2] = __67__TSCarrierItemListViewController__fetchCarrierListWithCompletion___block_invoke_3;
-    v5[3] = &unk_279B45080;
-    v6 = *(a1 + 32);
-    [v4 carrierItemsShouldUpdate:0 completion:v5];
+    v5 = [MEMORY[0x277CF96D8] sharedManager];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __67__TSCarrierItemListViewController__fetchCarrierListWithCompletion___block_invoke_3;
+    v6[3] = &unk_279B45080;
+    v7 = *(a1 + 32);
+    [v5 carrierItemsShouldUpdate:0 completion:v6];
   }
 
   else
   {
-    v3 = _TSLogDomain();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _TSLogDomain(WeakRetained);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __67__TSCarrierItemListViewController__fetchCarrierListWithCompletion___block_invoke_2_cold_1(v3);
+      __67__TSCarrierItemListViewController__fetchCarrierListWithCompletion___block_invoke_2_cold_1(v4);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -393,20 +405,18 @@ void __67__TSCarrierItemListViewController__fetchCarrierListWithCompletion___blo
 
 - (void)tableView:(os_log_t)log didSelectRowAtIndexPath:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSCarrierItemListViewController tableView:didSelectRowAtIndexPath:]";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]invalid row selection @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSCarrierItemListViewController tableView:didSelectRowAtIndexPath:]";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]invalid row selection @%s", &v1, 0xCu);
 }
 
 void __67__TSCarrierItemListViewController__fetchCarrierListWithCompletion___block_invoke_2_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[TSCarrierItemListViewController _fetchCarrierListWithCompletion:]_block_invoke_2";
-  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]CarrierPlanItemFlow is unsupprted @%s", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[TSCarrierItemListViewController _fetchCarrierListWithCompletion:]_block_invoke_2";
+  _os_log_error_impl(&dword_262AA8000, log, OS_LOG_TYPE_ERROR, "[E]CarrierPlanItemFlow is unsupprted @%s", &v1, 0xCu);
 }
 
 @end

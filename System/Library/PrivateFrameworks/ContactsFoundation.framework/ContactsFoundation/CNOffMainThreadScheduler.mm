@@ -5,9 +5,11 @@
 
 uint64_t __35___CNOffMainThreadScheduler_os_log__block_invoke()
 {
-  os_log_cn_once_object_1_1 = os_log_create("com.apple.contacts.reactive-extensions", "scheduling");
+  v0 = os_log_create("com.apple.contacts.reactive-extensions", "scheduling");
+  v1 = os_log_cn_once_object_1_1;
+  os_log_cn_once_object_1_1 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __42___CNOffMainThreadScheduler_performBlock___block_invoke(uint64_t a1)
@@ -99,18 +101,10 @@ uint64_t __70___CNOffMainThreadScheduler_afterDelay_performBlock_qualityOfServic
 void __42___CNOffMainThreadScheduler_performBlock___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_3();
-  v12 = *MEMORY[0x1E69E9840];
   [MEMORY[0x1E696AF00] isMainThread];
   OUTLINED_FUNCTION_0_2();
-  if (!v2)
-  {
-    v1 = 16;
-  }
-
-  v3 = *(v0 + v1);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1859F0000, v4, v5, "Work was requested to be performed off the main thread, but scheduler %{public}@ is performing on the main thread", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1859F0000, v0, v1, "Work was requested to be performed off the main thread, but scheduler %{public}@ is performing on the main thread", v2, v3, v4, v5);
 }
 
 @end

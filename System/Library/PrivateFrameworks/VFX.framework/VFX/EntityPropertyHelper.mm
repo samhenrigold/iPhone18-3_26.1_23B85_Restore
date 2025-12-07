@@ -218,7 +218,7 @@
   }
 
   v3 = Strong + OBJC_IVAR____TtC3VFX13EntityManager_scriptingConfig;
-  v4 = *(v3 + *(type metadata accessor for ScriptingConfiguration() + 36));
+  v4 = *(v3 + *(type metadata accessor for ScriptingConfiguration(0) + 36));
 
   return v4;
 }
@@ -258,7 +258,7 @@
 - (__n128)transform
 {
   selfCopy = self;
-  *&v2 = sub_1AFCE98B4();
+  v2.n128_f64[0] = sub_1AFCE98B4();
   v4 = v2;
 
   return v4;
@@ -305,9 +305,9 @@
     anchorCopy = anchor;
     selfCopy = self;
 
-    MEMORY[0x1EEE9AC00](v10, v11);
-    v12[2] = anchor;
-    sub_1AFCDA150(sub_1AFCF41FC, v12, v7, v6);
+    MEMORY[0x1EEE9AC00](v10);
+    v11[2] = anchor;
+    sub_1AFCDA150(sub_1AFCF41FC, v11, v7, v6);
   }
 }
 
@@ -418,6 +418,7 @@
 
 - (void)setOrientation:(char *)orientation
 {
+  v7 = v1;
   Strong = swift_weakLoadStrong();
   if (Strong)
   {
@@ -425,23 +426,25 @@
     v5 = *&orientation[OBJC_IVAR____TtC3VFX20EntityPropertyHelper_entity];
     orientationCopy = orientation;
 
-    sub_1AFC754E0(v5, v4, a2);
+    sub_1AFC754E0(v5, v4, v7);
   }
 }
 
 - (__n128)scale
 {
-  if (swift_weakLoadStrong())
+  Strong = swift_weakLoadStrong();
+  if (Strong)
   {
-    v2 = *&self[OBJC_IVAR____TtC3VFX20EntityPropertyHelper_entity];
+    v3 = Strong;
+    v4 = *&self[OBJC_IVAR____TtC3VFX20EntityPropertyHelper_entity];
     selfCopy = self;
 
-    v4 = sub_1AF5F28AC(v2);
-    if ((v5 & 1) == 0)
+    v6 = sub_1AF5F28AC(v4, v3);
+    if ((v7 & 1) == 0)
     {
-      v6 = v4;
+      v8 = v6;
 
-      result.n128_u64[0] = v6;
+      result.n128_u64[0] = v8;
       return result;
     }
   }
@@ -633,13 +636,14 @@ LABEL_7:
 
 - (BOOL)_setValue:(id)value forKeyPath:(id)path
 {
-  sub_1AFDFCEF8();
+  v6 = sub_1AFDFCEF8();
+  v8 = v7;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = sub_1AFCEDD8C(value);
+  LOBYTE(v6) = sub_1AFCEDD8C(value, v6, v8);
   swift_unknownObjectRelease();
 
-  return v7 & 1;
+  return v6 & 1;
 }
 
 - (id)_valueForKeyPath:(id)path world:(id)world

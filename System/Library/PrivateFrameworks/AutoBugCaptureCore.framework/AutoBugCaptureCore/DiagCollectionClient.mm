@@ -57,8 +57,7 @@
     [v4 setInvalidationHandler:&__block_literal_global_7];
     [v4 setInterruptionHandler:&__block_literal_global_65];
     [v4 _setTargetUserIdentifier:v3];
-    [v4 resume];
-    v13 = diagcollectLogHandle();
+    v13 = diagcollectLogHandle([v4 resume]);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -68,7 +67,7 @@
 
   else
   {
-    v11 = diagcollectLogHandle();
+    v11 = diagcollectLogHandle(currentLoginUserID);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *v15 = 0;
@@ -81,23 +80,23 @@
   return v4;
 }
 
-void __41__DiagCollectionClient_setupXPCInterface__block_invoke()
+void __41__DiagCollectionClient_setupXPCInterface__block_invoke(uint64_t a1)
 {
-  v0 = diagcollectLogHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = diagcollectLogHandle(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_241804000, v0, OS_LOG_TYPE_INFO, "DiagCollectionClient: Connection invalidated.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_241804000, v1, OS_LOG_TYPE_INFO, "DiagCollectionClient: Connection invalidated.", v2, 2u);
   }
 }
 
-void __41__DiagCollectionClient_setupXPCInterface__block_invoke_63()
+void __41__DiagCollectionClient_setupXPCInterface__block_invoke_63(uint64_t a1)
 {
-  v0 = diagcollectLogHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = diagcollectLogHandle(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_241804000, v0, OS_LOG_TYPE_INFO, "DiagCollectionClient: Connection interrupted.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_241804000, v1, OS_LOG_TYPE_INFO, "DiagCollectionClient: Connection interrupted.", v2, 2u);
   }
 }
 
@@ -108,22 +107,22 @@ void __41__DiagCollectionClient_setupXPCInterface__block_invoke_63()
   destinationCopy = destination;
   defaultManager = [v7 defaultManager];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __63__DiagCollectionClient_moveDiagnosticFilesToDestination_reply___block_invoke;
-  v15[3] = &unk_278CF0A30;
-  v15[4] = self;
-  v16 = defaultManager;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __63__DiagCollectionClient_moveDiagnosticFilesToDestination_reply___block_invoke;
+  v16[3] = &unk_278CF0A30;
+  v16[4] = self;
+  v17 = defaultManager;
   v11 = dictionary;
-  v17 = v11;
+  v18 = v11;
   v12 = defaultManager;
-  [destinationCopy enumerateKeysAndObjectsUsingBlock:v15];
+  [destinationCopy enumerateKeysAndObjectsUsingBlock:v16];
 
-  v13 = diagcollectLogHandle();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = diagcollectLogHandle(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    *v14 = 0;
-    _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_DEBUG, "DiagCollectionClient: Finished moving all DiagnosticExtension files", v14, 2u);
+    *v15 = 0;
+    _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_DEBUG, "DiagCollectionClient: Finished moving all DiagnosticExtension files", v15, 2u);
   }
 
   if (replyCopy)
@@ -137,7 +136,7 @@ void __63__DiagCollectionClient_moveDiagnosticFilesToDestination_reply___block_i
   v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = diagcollectLogHandle();
+  v7 = diagcollectLogHandle(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -168,109 +167,108 @@ void __63__DiagCollectionClient_moveDiagnosticFilesToDestination_reply___block_i
   else
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       [*(a1 + 48) setObject:v6 forKeyedSubscript:v5];
     }
 
     else
     {
-      v13 = diagcollectLogHandle();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = diagcollectLogHandle(isKindOfClass);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v14 = objc_opt_class();
-        v15 = NSStringFromClass(v14);
+        v15 = objc_opt_class();
+        v16 = NSStringFromClass(v15);
         *buf = 138412546;
-        v26 = v15;
+        v26 = v16;
         v27 = 2112;
         v28 = v6;
-        _os_log_impl(&dword_241804000, v13, OS_LOG_TYPE_ERROR, "DiagCollectionClient: Found unexpected object %@ with value %@ in DE filepaths dictionary (expected NSArray)", buf, 0x16u);
+        _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_ERROR, "DiagCollectionClient: Found unexpected object %@ with value %@ in DE filepaths dictionary (expected NSArray)", buf, 0x16u);
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __63__DiagCollectionClient_moveDiagnosticFilesToDestination_reply___block_invoke_69(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v4 = [v3 lastPathComponent];
-    if (([v4 containsString:*(a1 + 32)]& 1) == 0)
+    v5 = [v3 lastPathComponent];
+    v6 = [v5 containsString:*(a1 + 32)];
+    if ((v6 & 1) == 0)
     {
-      v5 = diagcollectLogHandle();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = diagcollectLogHandle(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = *(a1 + 32);
+        v8 = *(a1 + 32);
         *buf = 138412546;
-        v18 = v4;
-        v19 = 2112;
-        v20 = v6;
-        _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_DEFAULT, "DiagCollectionClient: WARNING - File %@ does not contain this DiagnosticExtention's identifier (%@) in the filename", buf, 0x16u);
+        v19 = v5;
+        v20 = 2112;
+        v21 = v8;
+        _os_log_impl(&dword_241804000, v7, OS_LOG_TYPE_DEFAULT, "DiagCollectionClient: WARNING - File %@ does not contain this DiagnosticExtention's identifier (%@) in the filename", buf, 0x16u);
       }
     }
 
-    v7 = [*(*(a1 + 40) + 16) stringByAppendingPathComponent:v4];
-    v8 = *(a1 + 48);
-    v16 = 0;
-    v9 = [v8 moveItemAtPath:v3 toPath:v7 error:&v16];
-    v10 = v16;
-    v11 = diagcollectLogHandle();
-    v12 = v11;
-    if (v9)
+    v9 = [*(*(a1 + 40) + 16) stringByAppendingPathComponent:v5];
+    v10 = *(a1 + 48);
+    v17 = 0;
+    v11 = [v10 moveItemAtPath:v3 toPath:v9 error:&v17];
+    v12 = v17;
+    v13 = diagcollectLogHandle(v12);
+    v14 = v13;
+    if (v11)
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v18 = v3;
-        v19 = 2112;
-        v20 = v7;
-        _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_INFO, "DiagCollectionClient: Moved file from %@ to %@", buf, 0x16u);
+        v19 = v3;
+        v20 = 2112;
+        v21 = v9;
+        _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_INFO, "DiagCollectionClient: Moved file from %@ to %@", buf, 0x16u);
       }
 
-      [*(a1 + 56) addObject:v7];
+      [*(a1 + 56) addObject:v9];
     }
 
     else
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v18 = v3;
-        v19 = 2112;
-        v20 = v7;
-        v21 = 2112;
-        v22 = v10;
-        _os_log_impl(&dword_241804000, v12, OS_LOG_TYPE_ERROR, "DiagCollectionClient: Unable to move file at %@ to %@ (%@)", buf, 0x20u);
+        v19 = v3;
+        v20 = 2112;
+        v21 = v9;
+        v22 = 2112;
+        v23 = v12;
+        _os_log_impl(&dword_241804000, v14, OS_LOG_TYPE_ERROR, "DiagCollectionClient: Unable to move file at %@ to %@ (%@)", buf, 0x20u);
       }
     }
   }
 
   else
   {
-    v4 = diagcollectLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = diagcollectLogHandle(isKindOfClass);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
       *buf = 138412546;
-      v18 = v14;
-      v19 = 2112;
-      v20 = v3;
-      _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_ERROR, "DiagCollectionClient: Found unexpected object %@ with value %@ in DE filepaths array (expected NSString)", buf, 0x16u);
+      v19 = v16;
+      v20 = 2112;
+      v21 = v3;
+      _os_log_impl(&dword_241804000, v5, OS_LOG_TYPE_ERROR, "DiagCollectionClient: Found unexpected object %@ with value %@ in DE filepaths array (expected NSString)", buf, 0x16u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)collectDEPayloadsWithIdentifier:(id)identifier diagnosticExtensionsWithParameters:(id)parameters queue:(id)queue reply:(id)reply
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   parametersCopy = parameters;
   queueCopy = queue;
@@ -283,118 +281,119 @@ void __63__DiagCollectionClient_moveDiagnosticFilesToDestination_reply___block_i
       v15 = setupXPCInterface;
       if (setupXPCInterface)
       {
-        *v48 = 0;
-        v49 = v48;
-        v50 = 0x2020000000;
-        v51 = 0;
+        *v50 = 0;
+        v51 = v50;
+        v52 = 0x2020000000;
+        v53 = 0;
         _queue = [setupXPCInterface _queue];
         v17 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, _queue);
 
-        v43[0] = MEMORY[0x277D85DD0];
-        v43[1] = 3221225472;
-        v43[2] = __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke_2;
-        v43[3] = &unk_278CF0A80;
+        v45[0] = MEMORY[0x277D85DD0];
+        v45[1] = 3221225472;
+        v45[2] = __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke_2;
+        v45[3] = &unk_278CF0A80;
         v18 = v17;
-        v44 = v18;
-        v47 = v48;
+        v46 = v18;
+        v49 = v50;
         v19 = queueCopy;
-        v45 = v19;
+        v47 = v19;
         v20 = replyCopy;
-        v46 = v20;
-        v29 = [v15 remoteObjectProxyWithErrorHandler:v43];
-        if (v29)
+        v48 = v20;
+        v21 = [v15 remoteObjectProxyWithErrorHandler:v45];
+        v31 = v21;
+        if (v21)
         {
-          v21 = diagcollectLogHandle();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+          v22 = diagcollectLogHandle(v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
           {
             *buf = 67109120;
-            v55 = 600;
-            _os_log_impl(&dword_241804000, v21, OS_LOG_TYPE_INFO, "DiagCollectionClient: calling remote service (collectPayloadsWithIdentifier:diagnosticExtensionsWithParameters:) with timeout = %d", buf, 8u);
+            v57 = 600;
+            _os_log_impl(&dword_241804000, v22, OS_LOG_TYPE_INFO, "DiagCollectionClient: calling remote service (collectPayloadsWithIdentifier:diagnosticExtensionsWithParameters:) with timeout = %d", buf, 8u);
           }
 
           if (v18)
           {
-            v22 = dispatch_time(0, 600000000000);
-            dispatch_source_set_timer(v18, v22, 0xFFFFFFFFFFFFFFFFLL, 0);
+            v24 = dispatch_time(0, 600000000000);
+            dispatch_source_set_timer(v18, v24, 0xFFFFFFFFFFFFFFFFLL, 0);
             handler[0] = MEMORY[0x277D85DD0];
             handler[1] = 3221225472;
             handler[2] = __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke_75;
             handler[3] = &unk_278CF0AA8;
-            v42 = v48;
-            v40 = v19;
-            v41 = v20;
+            v44 = v50;
+            v42 = v19;
+            v43 = v20;
             dispatch_source_set_event_handler(v18, handler);
-            v23 = diagcollectLogHandle();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+            v26 = diagcollectLogHandle(v25);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
             {
               *buf = 0;
-              _os_log_impl(&dword_241804000, v23, OS_LOG_TYPE_DEBUG, "DiagCollectionClient: Starting safeguard timer", buf, 2u);
+              _os_log_impl(&dword_241804000, v26, OS_LOG_TYPE_DEBUG, "DiagCollectionClient: Starting safeguard timer", buf, 2u);
             }
 
             dispatch_resume(v18);
-            v24 = v40;
+            v27 = v42;
           }
 
           else
           {
-            v24 = diagcollectLogHandle();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+            v27 = diagcollectLogHandle(v23);
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_241804000, v24, OS_LOG_TYPE_DEFAULT, "DiagCollectionClient: Failed to create a safeguard timer.", buf, 2u);
+              _os_log_impl(&dword_241804000, v27, OS_LOG_TYPE_DEFAULT, "DiagCollectionClient: Failed to create a safeguard timer.", buf, 2u);
             }
           }
 
-          v34[0] = MEMORY[0x277D85DD0];
-          v34[1] = 3221225472;
-          v34[2] = __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke_77;
-          v34[3] = &unk_278CF0AF8;
-          v38 = v48;
-          v35[0] = v18;
-          v35[1] = self;
-          v36 = v19;
-          v37 = v20;
-          [v29 collectPayloadsWithIdentifier:identifierCopy diagnosticExtensionsWithParameters:parametersCopy reply:v34];
+          v36[0] = MEMORY[0x277D85DD0];
+          v36[1] = 3221225472;
+          v36[2] = __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke_77;
+          v36[3] = &unk_278CF0AF8;
+          v40 = v50;
+          v37[0] = v18;
+          v37[1] = self;
+          v38 = v19;
+          v39 = v20;
+          [v31 collectPayloadsWithIdentifier:identifierCopy diagnosticExtensionsWithParameters:parametersCopy reply:v36];
 
-          v27 = v35;
+          v30 = v37;
         }
 
         else
         {
-          v26 = diagcollectLogHandle();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+          v29 = diagcollectLogHandle(0);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_241804000, v26, OS_LOG_TYPE_INFO, "DiagCollectionClient: remote service not initialized", buf, 2u);
+            _os_log_impl(&dword_241804000, v29, OS_LOG_TYPE_INFO, "DiagCollectionClient: remote service not initialized", buf, 2u);
           }
 
-          v32[0] = MEMORY[0x277D85DD0];
-          v32[1] = 3221225472;
-          v32[2] = __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke_82;
-          v32[3] = &unk_278CF0A58;
-          v27 = &v33;
-          v33 = v20;
-          dispatch_async(v19, v32);
+          v34[0] = MEMORY[0x277D85DD0];
+          v34[1] = 3221225472;
+          v34[2] = __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke_82;
+          v34[3] = &unk_278CF0A58;
+          v30 = &v35;
+          v35 = v20;
+          dispatch_async(v19, v34);
         }
 
-        _Block_object_dispose(v48, 8);
+        _Block_object_dispose(v50, 8);
       }
 
       else
       {
-        v25 = diagcollectLogHandle();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v28 = diagcollectLogHandle(0);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
-          *v48 = 0;
-          _os_log_impl(&dword_241804000, v25, OS_LOG_TYPE_ERROR, "DiagCollectionClient: Unable to establish XPC connection to DiagnosticExtension collection service", v48, 2u);
+          *v50 = 0;
+          _os_log_impl(&dword_241804000, v28, OS_LOG_TYPE_ERROR, "DiagCollectionClient: Unable to establish XPC connection to DiagnosticExtension collection service", v50, 2u);
         }
 
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke_83;
-        v30[3] = &unk_278CF0A58;
-        v31 = replyCopy;
-        dispatch_async(queueCopy, v30);
+        v32[0] = MEMORY[0x277D85DD0];
+        v32[1] = 3221225472;
+        v32[2] = __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke_83;
+        v32[3] = &unk_278CF0A58;
+        v33 = replyCopy;
+        dispatch_async(queueCopy, v32);
       }
     }
 
@@ -404,13 +403,11 @@ void __63__DiagCollectionClient_moveDiagnosticFilesToDestination_reply___block_i
       block[1] = 3221225472;
       block[2] = __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke;
       block[3] = &unk_278CF0A58;
-      v53 = replyCopy;
+      v55 = replyCopy;
       dispatch_async(queueCopy, block);
-      v15 = v53;
+      v15 = v55;
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke(uint64_t a1)
@@ -421,14 +418,14 @@ void __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExten
 
 void __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = diagcollectLogHandle();
+  v4 = diagcollectLogHandle(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = [v3 description];
     *buf = 136315138;
-    v15 = [v5 UTF8String];
+    v14 = [v5 UTF8String];
     _os_log_impl(&dword_241804000, v4, OS_LOG_TYPE_INFO, "DiagCollectionClient: remote object proxy error %s", buf, 0xCu);
   }
 
@@ -439,18 +436,16 @@ void __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExten
   }
 
   *(*(*(a1 + 56) + 8) + 24) = 1;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke_73;
-  v11[3] = &unk_278CEFF50;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke_73;
+  v10[3] = &unk_278CEFF50;
   v7 = *(a1 + 40);
   v8 = *(a1 + 48);
-  v12 = v3;
-  v13 = v8;
+  v11 = v3;
+  v12 = v8;
   v9 = v3;
-  dispatch_async(v7, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  dispatch_async(v7, v10);
 }
 
 void __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke_75(uint64_t a1)
@@ -459,7 +454,7 @@ void __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExten
   {
     v9 = v1;
     v10 = v2;
-    v4 = diagcollectLogHandle();
+    v4 = diagcollectLogHandle(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *v8 = 0;
@@ -486,7 +481,7 @@ void __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExten
 
 void __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke_77(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -506,16 +501,16 @@ void __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExten
       if (v11 != -1)
       {
 LABEL_12:
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke_78;
-        v21[3] = &unk_278CF0AD0;
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke_78;
+        v20[3] = &unk_278CF0AD0;
         v18 = *(a1 + 40);
-        v22 = *(a1 + 48);
+        v21 = *(a1 + 48);
         v19 = *(a1 + 56);
-        v23 = 0;
-        v24 = v19;
-        [v18 moveDiagnosticFilesToDestination:v7 reply:v21];
+        v22 = 0;
+        v23 = v19;
+        [v18 moveDiagnosticFilesToDestination:v7 reply:v20];
         if (v11 != -1)
         {
           sandbox_extension_release();
@@ -524,13 +519,13 @@ LABEL_12:
         goto LABEL_15;
       }
 
-      v12 = diagcollectLogHandle();
+      v12 = diagcollectLogHandle(-1);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v13 = __error();
         v14 = strerror(*v13);
         *buf = 136315138;
-        v26 = v14;
+        v25 = v14;
         v15 = "Failed to consume sandbox extension due to error: %s";
         v16 = v12;
         v17 = 12;
@@ -541,7 +536,7 @@ LABEL_10:
 
     else
     {
-      v12 = diagcollectLogHandle();
+      v12 = diagcollectLogHandle(v10);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
@@ -557,8 +552,6 @@ LABEL_10:
   }
 
 LABEL_15:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __103__DiagCollectionClient_collectDEPayloadsWithIdentifier_diagnosticExtensionsWithParameters_queue_reply___block_invoke_78(uint64_t a1, void *a2)

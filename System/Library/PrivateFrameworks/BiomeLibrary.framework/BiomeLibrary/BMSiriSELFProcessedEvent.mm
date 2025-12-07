@@ -17,7 +17,7 @@
 
 + (id)columns
 {
-  v12[7] = *MEMORY[0x1E69E9840];
+  v11[7] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"logicalTimestamp_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_24694];
   v3 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"clusterRepresentativeId_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_203];
   v4 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"componentId_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_205_24695];
@@ -25,16 +25,14 @@
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"innerType" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:2 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"messageUuid" dataType:6 requestOnly:0 fieldNumber:6 protoDataType:14 convertedType:3];
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"eventData" dataType:4 requestOnly:0 fieldNumber:7 protoDataType:14 convertedType:0];
-  v12[0] = v2;
-  v12[1] = v3;
-  v12[2] = v4;
-  v12[3] = v5;
-  v12[4] = v6;
-  v12[5] = v7;
-  v12[6] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[0] = v2;
+  v11[1] = v3;
+  v11[2] = v4;
+  v11[3] = v5;
+  v11[4] = v6;
+  v11[5] = v7;
+  v11[6] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
 
   return v9;
 }
@@ -205,7 +203,7 @@ LABEL_29:
 
 - (id)jsonDictionary
 {
-  v30[7] = *MEMORY[0x1E69E9840];
+  v29[7] = *MEMORY[0x1E69E9840];
   logicalTimestamp = [(BMSiriSELFProcessedEvent *)self logicalTimestamp];
   jsonDictionary = [logicalTimestamp jsonDictionary];
 
@@ -217,12 +215,12 @@ LABEL_29:
 
   if ([(BMSiriSELFProcessedEvent *)self hasAnyEventType])
   {
-    v28 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriSELFProcessedEvent anyEventType](self, "anyEventType")}];
+    v27 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriSELFProcessedEvent anyEventType](self, "anyEventType")}];
   }
 
   else
   {
-    v28 = 0;
+    v27 = 0;
   }
 
   if ([(BMSiriSELFProcessedEvent *)self hasInnerType])
@@ -241,67 +239,67 @@ LABEL_29:
   eventData = [(BMSiriSELFProcessedEvent *)self eventData];
   v13 = [eventData base64EncodedStringWithOptions:0];
 
-  v29[0] = @"logicalTimestamp";
+  v28[0] = @"logicalTimestamp";
   null = jsonDictionary;
   if (!jsonDictionary)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25 = null;
-  v30[0] = null;
-  v29[1] = @"clusterRepresentativeId";
+  v24 = null;
+  v29[0] = null;
+  v28[1] = @"clusterRepresentativeId";
   null2 = jsonDictionary2;
   if (!jsonDictionary2)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24 = null2;
-  v30[1] = null2;
-  v29[2] = @"componentId";
+  v23 = null2;
+  v29[1] = null2;
+  v28[2] = @"componentId";
   null3 = jsonDictionary3;
   if (!jsonDictionary3)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27 = jsonDictionary;
-  v30[2] = null3;
-  v29[3] = @"anyEventType";
-  null4 = v28;
-  if (!v28)
+  v26 = jsonDictionary;
+  v29[2] = null3;
+  v28[3] = @"anyEventType";
+  null4 = v27;
+  if (!v27)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26 = jsonDictionary2;
-  v30[3] = null4;
-  v29[4] = @"innerType";
+  v25 = jsonDictionary2;
+  v29[3] = null4;
+  v28[4] = @"innerType";
   null5 = v9;
   if (!v9)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[4] = null5;
-  v29[5] = @"messageUuid";
+  v29[4] = null5;
+  v28[5] = @"messageUuid";
   null6 = uUIDString;
   if (!uUIDString)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[5] = null6;
-  v29[6] = @"eventData";
+  v29[5] = null6;
+  v28[6] = @"eventData";
   null7 = v13;
   if (!v13)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[6] = null7;
-  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:7];
+  v29[6] = null7;
+  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:7];
   if (v13)
   {
     if (uUIDString)
@@ -333,20 +331,20 @@ LABEL_23:
 LABEL_34:
 
 LABEL_24:
-  if (!v28)
+  if (!v27)
   {
   }
 
   if (jsonDictionary3)
   {
-    if (v26)
+    if (v25)
     {
       goto LABEL_28;
     }
 
 LABEL_36:
 
-    if (v27)
+    if (v26)
     {
       goto LABEL_29;
     }
@@ -354,13 +352,13 @@ LABEL_36:
     goto LABEL_37;
   }
 
-  if (!v26)
+  if (!v25)
   {
     goto LABEL_36;
   }
 
 LABEL_28:
-  if (v27)
+  if (v26)
   {
     goto LABEL_29;
   }
@@ -368,14 +366,13 @@ LABEL_28:
 LABEL_37:
 
 LABEL_29:
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
 
 - (BMSiriSELFProcessedEvent)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v106[1] = *MEMORY[0x1E69E9840];
+  v105[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"logicalTimestamp"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -388,9 +385,9 @@ LABEL_29:
   if (objc_opt_isKindOfClass())
   {
     v9 = v7;
-    v88 = 0;
-    v8 = [[BMSiriSELFProcessedEventLogicalTimestamp alloc] initWithJSONDictionary:v9 error:&v88];
-    v19 = v88;
+    v87 = 0;
+    v8 = [[BMSiriSELFProcessedEventLogicalTimestamp alloc] initWithJSONDictionary:v9 error:&v87];
+    v19 = v87;
     if (v19)
     {
       if (error)
@@ -414,9 +411,9 @@ LABEL_4:
     if (objc_opt_isKindOfClass())
     {
       v11 = v9;
-      v87 = 0;
-      v10 = [[BMSiriSELFProcessedEventComponentIdentifier alloc] initWithJSONDictionary:v11 error:&v87];
-      v20 = v87;
+      v86 = 0;
+      v10 = [[BMSiriSELFProcessedEventComponentIdentifier alloc] initWithJSONDictionary:v11 error:&v86];
+      v20 = v86;
       if (v20)
       {
         if (error)
@@ -432,7 +429,7 @@ LABEL_4:
 LABEL_7:
       v11 = [dictionaryCopy objectForKeyedSubscript:@"componentId"];
       selfCopy = self;
-      v85 = dictionaryCopy;
+      v84 = dictionaryCopy;
       if (v11 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
         objc_opt_class();
@@ -444,30 +441,30 @@ LABEL_7:
             goto LABEL_48;
           }
 
-          v43 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v83 = v8;
-          v44 = *MEMORY[0x1E698F240];
-          v101 = *MEMORY[0x1E696A578];
-          v45 = v10;
-          v46 = objc_alloc(MEMORY[0x1E696AEC0]);
-          v70 = objc_opt_class();
-          v47 = v46;
-          v10 = v45;
-          v23 = [v47 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", v70, @"componentId"];
-          v102 = v23;
-          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
-          v48 = v44;
-          v8 = v83;
+          v42 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v82 = v8;
+          v43 = *MEMORY[0x1E698F240];
+          v100 = *MEMORY[0x1E696A578];
+          v44 = v10;
+          v45 = objc_alloc(MEMORY[0x1E696AEC0]);
+          v69 = objc_opt_class();
+          v46 = v45;
+          v10 = v44;
+          v23 = [v46 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", v69, @"componentId"];
+          v101 = v23;
+          v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
+          v47 = v43;
+          v8 = v82;
           v21 = 0;
-          *error = [v43 initWithDomain:v48 code:2 userInfo:v22];
+          *error = [v42 initWithDomain:v47 code:2 userInfo:v22];
           selfCopy2 = selfCopy;
           goto LABEL_47;
         }
 
         v22 = v11;
-        v86 = 0;
-        v23 = [[BMSiriSELFProcessedEventComponentIdentifier alloc] initWithJSONDictionary:v22 error:&v86];
-        v24 = v86;
+        v85 = 0;
+        v23 = [[BMSiriSELFProcessedEventComponentIdentifier alloc] initWithJSONDictionary:v22 error:&v85];
+        v24 = v85;
         if (v24)
         {
           selfCopy2 = selfCopy;
@@ -481,11 +478,11 @@ LABEL_7:
           goto LABEL_47;
         }
 
-        v63 = v22;
+        v62 = v22;
         v13 = v9;
         v14 = v7;
         v15 = v11;
-        v81 = v23;
+        v80 = v23;
 
         selfCopy2 = selfCopy;
       }
@@ -496,12 +493,12 @@ LABEL_7:
         v13 = v9;
         v14 = v7;
         v15 = v11;
-        v81 = 0;
+        v80 = 0;
       }
 
-      v16 = [v85 objectForKeyedSubscript:@"anyEventType"];
-      v82 = v8;
-      v78 = v16;
+      v16 = [v84 objectForKeyedSubscript:@"anyEventType"];
+      v81 = v8;
+      v77 = v16;
       if (v16 && (v17 = v16, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
         objc_opt_class();
@@ -509,9 +506,9 @@ LABEL_7:
         {
           if (!error)
           {
-            v80 = 0;
+            v79 = 0;
             v21 = 0;
-            v23 = v81;
+            v23 = v80;
             v11 = v15;
             v7 = v14;
             v9 = v13;
@@ -519,48 +516,48 @@ LABEL_7:
           }
 
           errorCopy = error;
-          v50 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v51 = v10;
-          v52 = *MEMORY[0x1E698F240];
-          v99 = *MEMORY[0x1E696A578];
-          v79 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"anyEventType"];
-          v100 = v79;
-          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v100 forKeys:&v99 count:1];
-          v53 = v52;
-          v10 = v51;
-          v80 = 0;
+          v49 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v50 = v10;
+          v51 = *MEMORY[0x1E698F240];
+          v98 = *MEMORY[0x1E696A578];
+          v78 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"anyEventType"];
+          v99 = v78;
+          v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v99 forKeys:&v98 count:1];
+          v52 = v51;
+          v10 = v50;
+          v79 = 0;
           v21 = 0;
-          *errorCopy = [v50 initWithDomain:v53 code:2 userInfo:v18];
-          v23 = v81;
+          *errorCopy = [v49 initWithDomain:v52 code:2 userInfo:v18];
+          v23 = v80;
           v11 = v15;
           v7 = v14;
           v9 = v13;
 LABEL_45:
 
-          v8 = v82;
+          v8 = v81;
 LABEL_46:
 
-          v22 = v80;
+          v22 = v79;
 LABEL_47:
 
           self = selfCopy2;
-          dictionaryCopy = v85;
+          dictionaryCopy = v84;
 LABEL_48:
 
           goto LABEL_49;
         }
 
-        v80 = v17;
+        v79 = v17;
       }
 
       else
       {
-        v80 = 0;
+        v79 = 0;
       }
 
-      v18 = [v85 objectForKeyedSubscript:@"innerType"];
+      v18 = [v84 objectForKeyedSubscript:@"innerType"];
       v11 = v15;
-      v77 = v10;
+      v76 = v10;
       if (v18)
       {
         objc_opt_class();
@@ -573,30 +570,30 @@ LABEL_48:
           {
             if (!error)
             {
-              v79 = 0;
+              v78 = 0;
               v21 = 0;
-              v23 = v81;
+              v23 = v80;
               goto LABEL_45;
             }
 
-            v54 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v55 = *MEMORY[0x1E698F240];
-            v97 = *MEMORY[0x1E696A578];
+            v53 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v54 = *MEMORY[0x1E698F240];
+            v96 = *MEMORY[0x1E696A578];
             errorCopy2 = error;
             v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"innerType"];
-            v98 = v30;
-            v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v98 forKeys:&v97 count:1];
-            v57 = [v54 initWithDomain:v55 code:2 userInfo:v31];
-            v79 = 0;
+            v97 = v30;
+            v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v97 forKeys:&v96 count:1];
+            v56 = [v53 initWithDomain:v54 code:2 userInfo:v31];
+            v78 = 0;
             v21 = 0;
-            *errorCopy2 = v57;
+            *errorCopy2 = v56;
             goto LABEL_43;
           }
 
           errorCopy5 = error;
-          v79 = v18;
+          v78 = v18;
 LABEL_35:
-          v30 = [v85 objectForKeyedSubscript:@"messageUuid"];
+          v30 = [v84 objectForKeyedSubscript:@"messageUuid"];
           if (v30 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
           {
             objc_opt_class();
@@ -608,39 +605,39 @@ LABEL_35:
                 goto LABEL_44;
               }
 
-              v58 = objc_alloc(MEMORY[0x1E696ABC0]);
-              v59 = *MEMORY[0x1E698F240];
-              v93 = *MEMORY[0x1E696A578];
+              v57 = objc_alloc(MEMORY[0x1E696ABC0]);
+              v58 = *MEMORY[0x1E698F240];
+              v92 = *MEMORY[0x1E696A578];
               v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"messageUuid"];
-              v94 = v31;
-              v60 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
-              *errorCopy5 = [v58 initWithDomain:v59 code:2 userInfo:v60];
+              v93 = v31;
+              v59 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
+              *errorCopy5 = [v57 initWithDomain:v58 code:2 userInfo:v59];
 
               v21 = 0;
 LABEL_43:
 
               selfCopy2 = selfCopy;
-              v10 = v77;
+              v10 = v76;
 LABEL_44:
-              v23 = v81;
+              v23 = v80;
 
               goto LABEL_45;
             }
 
             v31 = v30;
-            v41 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v31];
-            v32 = v85;
-            if (!v41)
+            v40 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v31];
+            v32 = v84;
+            if (!v40)
             {
               if (errorCopy5)
               {
-                v66 = objc_alloc(MEMORY[0x1E696ABC0]);
-                v67 = *MEMORY[0x1E698F240];
-                v95 = *MEMORY[0x1E696A578];
-                v68 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"-initWithUUIDString: for %@ returned nil", @"messageUuid"];
-                v96 = v68;
-                v69 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v96 forKeys:&v95 count:1];
-                *errorCopy5 = [v66 initWithDomain:v67 code:2 userInfo:v69];
+                v65 = objc_alloc(MEMORY[0x1E696ABC0]);
+                v66 = *MEMORY[0x1E698F240];
+                v94 = *MEMORY[0x1E696A578];
+                v67 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"-initWithUUIDString: for %@ returned nil", @"messageUuid"];
+                v95 = v67;
+                v68 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
+                *errorCopy5 = [v65 initWithDomain:v66 code:2 userInfo:v68];
               }
 
               v21 = 0;
@@ -648,15 +645,15 @@ LABEL_44:
               goto LABEL_43;
             }
 
-            v42 = v41;
+            v41 = v40;
 
-            v31 = v42;
+            v31 = v41;
           }
 
           else
           {
             v31 = 0;
-            v32 = v85;
+            v32 = v84;
           }
 
           v33 = [v32 objectForKeyedSubscript:@"eventData"];
@@ -676,25 +673,25 @@ LABEL_44:
 
                 if (errorCopy5)
                 {
-                  v73 = objc_alloc(MEMORY[0x1E696ABC0]);
-                  v71 = *MEMORY[0x1E698F240];
-                  v91 = *MEMORY[0x1E696A578];
-                  v61 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected format for value of field '%@', expected base64 encoding", @"eventData"];
-                  v92 = v61;
-                  v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v92 forKeys:&v91 count:1];
-                  *errorCopy5 = [v73 initWithDomain:v71 code:2 userInfo:v62];
+                  v72 = objc_alloc(MEMORY[0x1E696ABC0]);
+                  v70 = *MEMORY[0x1E698F240];
+                  v90 = *MEMORY[0x1E696A578];
+                  v60 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected format for value of field '%@', expected base64 encoding", @"eventData"];
+                  v91 = v60;
+                  v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
+                  *errorCopy5 = [v72 initWithDomain:v70 code:2 userInfo:v61];
                 }
               }
 
               else if (errorCopy5)
               {
-                v74 = objc_alloc(MEMORY[0x1E696ABC0]);
-                v72 = *MEMORY[0x1E698F240];
-                v89 = *MEMORY[0x1E696A578];
-                v64 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type (%@) for value of field '%@', expected NSData or base64 encoded NSString", objc_opt_class(), @"eventData"];
-                v90 = v64;
-                v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v90 forKeys:&v89 count:1];
-                *errorCopy5 = [v74 initWithDomain:v72 code:2 userInfo:v65];
+                v73 = objc_alloc(MEMORY[0x1E696ABC0]);
+                v71 = *MEMORY[0x1E698F240];
+                v88 = *MEMORY[0x1E696A578];
+                v63 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type (%@) for value of field '%@', expected NSData or base64 encoded NSString", objc_opt_class(), @"eventData"];
+                v89 = v63;
+                v64 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
+                *errorCopy5 = [v73 initWithDomain:v71 code:2 userInfo:v64];
               }
 
               v34 = 0;
@@ -711,7 +708,7 @@ LABEL_44:
           }
 
 LABEL_41:
-          v21 = [(BMSiriSELFProcessedEvent *)selfCopy initWithLogicalTimestamp:v82 clusterRepresentativeId:v77 componentId:v81 anyEventType:v80 innerType:v79 messageUuid:v31 eventData:v34];
+          v21 = [(BMSiriSELFProcessedEvent *)selfCopy initWithLogicalTimestamp:v81 clusterRepresentativeId:v76 componentId:v80 anyEventType:v79 innerType:v78 messageUuid:v31 eventData:v34];
           selfCopy = v21;
 LABEL_42:
 
@@ -719,13 +716,13 @@ LABEL_42:
         }
 
         errorCopy5 = error;
-        v79 = 0;
+        v78 = 0;
       }
 
       else
       {
         errorCopy5 = error;
-        v79 = 0;
+        v78 = 0;
         v7 = v14;
       }
 
@@ -736,17 +733,17 @@ LABEL_42:
     if (error)
     {
       errorCopy6 = error;
-      v37 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v38 = v8;
-      v39 = *MEMORY[0x1E698F240];
-      v103 = *MEMORY[0x1E696A578];
-      v104 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"clusterRepresentativeId"];
-      v10 = v104;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
-      v40 = v39;
-      v8 = v38;
+      v36 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v37 = v8;
+      v38 = *MEMORY[0x1E698F240];
+      v102 = *MEMORY[0x1E696A578];
+      v103 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"clusterRepresentativeId"];
+      v10 = v103;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v103 forKeys:&v102 count:1];
+      v39 = v38;
+      v8 = v37;
       v21 = 0;
-      *errorCopy6 = [v37 initWithDomain:v40 code:2 userInfo:v11];
+      *errorCopy6 = [v36 initWithDomain:v39 code:2 userInfo:v11];
       goto LABEL_48;
     }
 
@@ -764,10 +761,10 @@ LABEL_55:
   errorCopy7 = error;
   v26 = objc_alloc(MEMORY[0x1E696ABC0]);
   v27 = *MEMORY[0x1E698F240];
-  v105 = *MEMORY[0x1E696A578];
+  v104 = *MEMORY[0x1E696A578];
   v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"logicalTimestamp"];
-  v106[0] = v28;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v106 forKeys:&v105 count:1];
+  v105[0] = v28;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v105 forKeys:&v104 count:1];
   v29 = v27;
   v8 = v28;
   v21 = 0;
@@ -775,7 +772,6 @@ LABEL_55:
 LABEL_49:
 
 LABEL_50:
-  v35 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -814,13 +810,11 @@ LABEL_50:
 
   if (self->_hasAnyEventType)
   {
-    anyEventType = self->_anyEventType;
     PBDataWriterWriteInt32Field();
   }
 
   if (self->_hasInnerType)
   {
-    innerType = self->_innerType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1148,7 +1142,7 @@ LABEL_73:
 
 - (BMSiriSELFProcessedEvent)initWithLogicalTimestamp:(id)timestamp clusterRepresentativeId:(id)id componentId:(id)componentId anyEventType:(id)type innerType:(id)innerType messageUuid:(id)uuid eventData:(id)data
 {
-  v31[2] = *MEMORY[0x1E69E9840];
+  v30[2] = *MEMORY[0x1E69E9840];
   timestampCopy = timestamp;
   idCopy = id;
   componentIdCopy = componentId;
@@ -1156,9 +1150,9 @@ LABEL_73:
   innerTypeCopy = innerType;
   uuidCopy = uuid;
   dataCopy = data;
-  v30.receiver = self;
-  v30.super_class = BMSiriSELFProcessedEvent;
-  v20 = [(BMEventBase *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = BMSiriSELFProcessedEvent;
+  v20 = [(BMEventBase *)&v29 init];
   if (v20)
   {
     v20->_dataVersion = [objc_opt_class() latestDataVersion];
@@ -1193,10 +1187,10 @@ LABEL_73:
     v20->_innerType = intValue2;
     if (uuidCopy)
     {
-      v31[0] = 0;
-      v31[1] = 0;
-      [uuidCopy getUUIDBytes:v31];
-      v23 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v31 length:16];
+      v30[0] = 0;
+      v30[1] = 0;
+      [uuidCopy getUUIDBytes:v30];
+      v23 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v30 length:16];
       raw_messageUuid = v20->_raw_messageUuid;
       v20->_raw_messageUuid = v23;
     }
@@ -1210,61 +1204,58 @@ LABEL_73:
     objc_storeStrong(&v20->_eventData, data);
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 + (id)protoFields
 {
-  v12[7] = *MEMORY[0x1E69E9840];
+  v11[7] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"logicalTimestamp" number:1 type:14 subMessageClass:objc_opt_class()];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"clusterRepresentativeId" number:2 type:14 subMessageClass:{objc_opt_class(), v2}];
-  v12[1] = v3;
+  v11[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"componentId" number:3 type:14 subMessageClass:objc_opt_class()];
-  v12[2] = v4;
+  v11[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"anyEventType" number:4 type:2 subMessageClass:0];
-  v12[3] = v5;
+  v11[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"innerType" number:5 type:2 subMessageClass:0];
-  v12[4] = v6;
+  v11[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"messageUuid" number:6 type:14 subMessageClass:0];
-  v12[5] = v7;
+  v11[5] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"eventData" number:7 type:14 subMessageClass:0];
-  v12[6] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[6] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
 
   return v9;
 }
 
-id __35__BMSiriSELFProcessedEvent_columns__block_invoke_3(uint64_t a1, void *a2)
+id __35__BMSiriSELFProcessedEvent_columns__block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 componentId];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 componentId];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __35__BMSiriSELFProcessedEvent_columns__block_invoke_2(uint64_t a1, void *a2)
+id __35__BMSiriSELFProcessedEvent_columns__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 clusterRepresentativeId];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 clusterRepresentativeId];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __35__BMSiriSELFProcessedEvent_columns__block_invoke(uint64_t a1, void *a2)
+id __35__BMSiriSELFProcessedEvent_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 logicalTimestamp];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 logicalTimestamp];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

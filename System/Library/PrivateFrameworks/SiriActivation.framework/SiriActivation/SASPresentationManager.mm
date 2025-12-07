@@ -46,7 +46,7 @@
 
 - (int64_t)requestState
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E698D0A0];
   v4 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
@@ -55,8 +55,8 @@
     v6 = v4;
     currentThread = [v5 currentThread];
     *buf = 136315394;
-    v38 = "[SASPresentationManager requestState]";
-    v39 = 2048;
+    v37 = "[SASPresentationManager requestState]";
+    v38 = 2048;
     qualityOfService = [currentThread qualityOfService];
     _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", buf, 0x16u);
   }
@@ -66,16 +66,16 @@
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v38 = "[SASPresentationManager requestState]";
+    v37 = "[SASPresentationManager requestState]";
     _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", buf, 0xCu);
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   allValues = [(NSMutableDictionary *)self->_presentations allValues];
-  v10 = [allValues countByEnumeratingWithState:&v33 objects:v51 count:16];
+  v10 = [allValues countByEnumeratingWithState:&v32 objects:v50 count:16];
   if (!v10)
   {
 
@@ -90,17 +90,17 @@
   v14 = 0;
   v15 = 0;
   v16 = 0;
-  v17 = *v34;
+  v17 = *v33;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v34 != v17)
+      if (*v33 != v17)
       {
         objc_enumerationMutation(allValues);
       }
 
-      requestState = [*(*(&v33 + 1) + 8 * i) requestState];
+      requestState = [*(*(&v32 + 1) + 8 * i) requestState];
       if (requestState <= 1)
       {
         if (requestState)
@@ -134,7 +134,7 @@
       }
     }
 
-    v11 = [allValues countByEnumeratingWithState:&v33 objects:v51 count:16];
+    v11 = [allValues countByEnumeratingWithState:&v32 objects:v50 count:16];
   }
 
   while (v11);
@@ -178,19 +178,19 @@ LABEL_31:
     v28 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v13];
     v29 = SASRequestStateGetName(v20);
     *buf = 136316674;
-    v38 = "[SASPresentationManager requestState]";
-    v39 = 2112;
+    v37 = "[SASPresentationManager requestState]";
+    v38 = 2112;
     qualityOfService = v24;
-    v41 = 2112;
-    v42 = v25;
-    v43 = 2112;
-    v44 = v26;
-    v45 = 2112;
-    v46 = v27;
-    v47 = 2112;
-    v48 = v28;
-    v49 = 2112;
-    v50 = v29;
+    v40 = 2112;
+    v41 = v25;
+    v42 = 2112;
+    v43 = v26;
+    v44 = 2112;
+    v45 = v27;
+    v46 = 2112;
+    v47 = v28;
+    v48 = 2112;
+    v49 = v29;
     _os_log_impl(&dword_1C8137000, v23, OS_LOG_TYPE_DEFAULT, "%s #activation active: %@ | starting: %@ | stopping: %@ | heated: %@ | off: %@ | computed state: %@", buf, 0x48u);
   }
 
@@ -199,17 +199,16 @@ LABEL_31:
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v38 = "[SASPresentationManager requestState]";
+    v37 = "[SASPresentationManager requestState]";
     _os_log_impl(&dword_1C8137000, v30, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", buf, 0xCu);
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 - (int64_t)nextPresentationToActivate
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E698D0A0];
   v4 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
@@ -217,20 +216,20 @@ LABEL_31:
     v5 = MEMORY[0x1E696AF00];
     v6 = v4;
     currentThread = [v5 currentThread];
-    v13 = 136315394;
-    v14 = "[SASPresentationManager nextPresentationToActivate]";
-    v15 = 2048;
+    v12 = 136315394;
+    v13 = "[SASPresentationManager nextPresentationToActivate]";
+    v14 = 2048;
     qualityOfService = [currentThread qualityOfService];
-    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", &v13, 0x16u);
+    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", &v12, 0x16u);
   }
 
   os_unfair_lock_lock(&presentationsLock);
   v8 = *v3;
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[SASPresentationManager nextPresentationToActivate]";
-    _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[SASPresentationManager nextPresentationToActivate]";
+    _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", &v12, 0xCu);
   }
 
   _presentationsLock_nextPresentationToActivate = [(SASPresentationManager *)self _presentationsLock_nextPresentationToActivate];
@@ -238,18 +237,17 @@ LABEL_31:
   v10 = *v3;
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[SASPresentationManager nextPresentationToActivate]";
-    _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[SASPresentationManager nextPresentationToActivate]";
+    _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v12, 0xCu);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return _presentationsLock_nextPresentationToActivate;
 }
 
 - (int64_t)_presentationsLock_nextPresentationToActivate
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   allKeys = [(NSMutableDictionary *)self->_presentations allKeys];
   v3 = [SASPresentationDecision activationPresentationForPresentationIdentifiers:allKeys];
 
@@ -259,14 +257,13 @@ LABEL_31:
     v5 = MEMORY[0x1E696AEC0];
     v6 = v4;
     v7 = [v5 stringWithSiriPresentationIdentifier:v3];
-    v10 = 136315394;
-    v11 = "[SASPresentationManager _presentationsLock_nextPresentationToActivate]";
-    v12 = 2112;
-    v13 = v7;
-    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation identifier: %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[SASPresentationManager _presentationsLock_nextPresentationToActivate]";
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation identifier: %@", &v9, 0x16u);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -279,17 +276,17 @@ void __69__SASPresentationManager_activePresentations_deviceWonMyriadElection__b
 
 - (void)_requestStateDidChange
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   requestState = [(SASPresentationManager *)self requestState];
   v4 = [(SASPresentationManager *)self shouldRejectNewActivationsForRequestState:requestState];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __48__SASPresentationManager__requestStateDidChange__block_invoke;
-  v12[3] = &unk_1E82F3DB0;
-  v13 = !v4;
-  v12[4] = self;
-  v12[5] = requestState;
-  v5 = [SASPresentationAggregateState newWithBuilder:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __48__SASPresentationManager__requestStateDidChange__block_invoke;
+  v11[3] = &unk_1E82F3DB0;
+  v12 = !v4;
+  v11[4] = self;
+  v11[5] = requestState;
+  v5 = [SASPresentationAggregateState newWithBuilder:v11];
   lastReportedState = self->lastReportedState;
   if (!lastReportedState || (v7 = -[SASPresentationAggregateState requestState](lastReportedState, "requestState"), v7 != [v5 requestState]))
   {
@@ -298,11 +295,11 @@ void __69__SASPresentationManager_activePresentations_deviceWonMyriadElection__b
     {
       v9 = self->lastReportedState;
       *buf = 136315650;
-      v15 = "[SASPresentationManager _requestStateDidChange]";
-      v16 = 2112;
-      v17 = v9;
-      v18 = 2112;
-      v19 = v5;
+      v14 = "[SASPresentationManager _requestStateDidChange]";
+      v15 = 2112;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v5;
       _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation: oldAggregateState %@ | newAggregateState: %@", buf, 0x20u);
     }
 
@@ -311,8 +308,6 @@ void __69__SASPresentationManager_activePresentations_deviceWonMyriadElection__b
 
     objc_storeStrong(&self->lastReportedState, v5);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __48__SASPresentationManager__requestStateDidChange__block_invoke(uint64_t a1, void *a2)
@@ -351,7 +346,7 @@ void __48__SASPresentationManager__requestStateDidChange__block_invoke(uint64_t 
 
 - (void)registerSiriPresentation:(id)presentation withIdentifier:(int64_t)identifier
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   presentationCopy = presentation;
   v7 = [MEMORY[0x1E696AEC0] stringWithSiriPresentationIdentifier:identifier];
   v8 = MEMORY[0x1E698D0A0];
@@ -359,9 +354,9 @@ void __48__SASPresentationManager__requestStateDidChange__block_invoke(uint64_t 
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v42 = "[SASPresentationManager registerSiriPresentation:withIdentifier:]";
-    v43 = 2112;
-    v44 = v7;
+    v41 = "[SASPresentationManager registerSiriPresentation:withIdentifier:]";
+    v42 = 2112;
+    v43 = v7;
     _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation presentationIdentifierKey: %@", buf, 0x16u);
   }
 
@@ -373,9 +368,9 @@ void __48__SASPresentationManager__requestStateDidChange__block_invoke(uint64_t 
     currentThread = [v11 currentThread];
     qualityOfService = [currentThread qualityOfService];
     *buf = 136315394;
-    v42 = "[SASPresentationManager registerSiriPresentation:withIdentifier:]";
-    v43 = 2048;
-    v44 = qualityOfService;
+    v41 = "[SASPresentationManager registerSiriPresentation:withIdentifier:]";
+    v42 = 2048;
+    v43 = qualityOfService;
     _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", buf, 0x16u);
   }
 
@@ -384,7 +379,7 @@ void __48__SASPresentationManager__requestStateDidChange__block_invoke(uint64_t 
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v42 = "[SASPresentationManager registerSiriPresentation:withIdentifier:]";
+    v41 = "[SASPresentationManager registerSiriPresentation:withIdentifier:]";
     _os_log_impl(&dword_1C8137000, v15, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", buf, 0xCu);
   }
 
@@ -417,37 +412,37 @@ void __48__SASPresentationManager__requestStateDidChange__block_invoke(uint64_t 
   }
 
   v21 = v7;
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   allKeys2 = [(NSMutableDictionary *)self->_presentations allKeys];
-  v23 = [allKeys2 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v23 = [allKeys2 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v36;
+    v25 = *v35;
     do
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v36 != v25)
+        if (*v35 != v25)
         {
           objc_enumerationMutation(allKeys2);
         }
 
-        v27 = *(*(&v35 + 1) + 8 * i);
+        v27 = *(*(&v34 + 1) + 8 * i);
         if (([v21 isEqualToString:v27] & 1) == 0)
         {
           v28 = [(NSMutableDictionary *)self->_presentations valueForKey:v27];
           presentationState = [v28 presentationState];
-          v39 = v21;
-          v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
+          v38 = v21;
+          v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
           [(SASPresentationManager *)self _presentationsLock_broadcastPresentationStateForIdentifier:v27 presentationState:presentationState presentationIdentifiersToInform:v30];
         }
       }
 
-      v24 = [allKeys2 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v24 = [allKeys2 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v24);
@@ -458,26 +453,24 @@ void __48__SASPresentationManager__requestStateDidChange__block_invoke(uint64_t 
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v42 = "[SASPresentationManager registerSiriPresentation:withIdentifier:]";
+    v41 = "[SASPresentationManager registerSiriPresentation:withIdentifier:]";
     _os_log_impl(&dword_1C8137000, v31, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", buf, 0xCu);
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterSiriPresentationWithIdentifier:(int64_t)identifier
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E696AEC0] stringWithSiriPresentationIdentifier:identifier];
   v5 = MEMORY[0x1E698D0A0];
   v6 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 136315394;
-    v24 = "[SASPresentationManager unregisterSiriPresentationWithIdentifier:]";
-    v25 = 2112;
-    v26 = v4;
-    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation presentationIdentifierKey: %@", &v23, 0x16u);
+    v22 = 136315394;
+    v23 = "[SASPresentationManager unregisterSiriPresentationWithIdentifier:]";
+    v24 = 2112;
+    v25 = v4;
+    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation presentationIdentifierKey: %@", &v22, 0x16u);
   }
 
   v7 = *v5;
@@ -487,20 +480,20 @@ void __48__SASPresentationManager__requestStateDidChange__block_invoke(uint64_t 
     v9 = v7;
     currentThread = [v8 currentThread];
     qualityOfService = [currentThread qualityOfService];
-    v23 = 136315394;
-    v24 = "[SASPresentationManager unregisterSiriPresentationWithIdentifier:]";
-    v25 = 2048;
-    v26 = qualityOfService;
-    _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", &v23, 0x16u);
+    v22 = 136315394;
+    v23 = "[SASPresentationManager unregisterSiriPresentationWithIdentifier:]";
+    v24 = 2048;
+    v25 = qualityOfService;
+    _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", &v22, 0x16u);
   }
 
   os_unfair_lock_lock(&presentationsLock);
   v12 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = 136315138;
-    v24 = "[SASPresentationManager unregisterSiriPresentationWithIdentifier:]";
-    _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", &v23, 0xCu);
+    v22 = 136315138;
+    v23 = "[SASPresentationManager unregisterSiriPresentationWithIdentifier:]";
+    _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", &v22, 0xCu);
   }
 
   _presentationsLock_nextPresentationToActivate = [(SASPresentationManager *)self _presentationsLock_nextPresentationToActivate];
@@ -530,9 +523,9 @@ void __48__SASPresentationManager__requestStateDidChange__block_invoke(uint64_t 
     v20 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 136315138;
-      v24 = "[SASPresentationManager unregisterSiriPresentationWithIdentifier:]";
-      _os_log_impl(&dword_1C8137000, v20, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v23, 0xCu);
+      v22 = 136315138;
+      v23 = "[SASPresentationManager unregisterSiriPresentationWithIdentifier:]";
+      _os_log_impl(&dword_1C8137000, v20, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v22, 0xCu);
     }
 
     [(SASPresentationManager *)self _requestStateDidChange];
@@ -549,36 +542,33 @@ void __48__SASPresentationManager__requestStateDidChange__block_invoke(uint64_t 
     v21 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 136315138;
-      v24 = "[SASPresentationManager unregisterSiriPresentationWithIdentifier:]";
-      _os_log_impl(&dword_1C8137000, v21, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v23, 0xCu);
+      v22 = 136315138;
+      v23 = "[SASPresentationManager unregisterSiriPresentationWithIdentifier:]";
+      _os_log_impl(&dword_1C8137000, v21, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v22, 0xCu);
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestHintGlowForNextPresentation
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation tried to request hint glow %@ but it's not a registered presentation", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation tried to request hint glow %@ but it's not a registered presentation", v2, v3, v4, v5, v6);
 }
 
 - (void)preheatNextPresentationToActivateWithOptions:(id)options
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   v5 = MEMORY[0x1E698D0A0];
   v6 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 136315394;
-    v28 = "[SASPresentationManager preheatNextPresentationToActivateWithOptions:]";
-    v29 = 2112;
-    v30 = optionsCopy;
-    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation #preheat preheatNextPresentationToActivateWithOptions: %@", &v27, 0x16u);
+    v26 = 136315394;
+    v27 = "[SASPresentationManager preheatNextPresentationToActivateWithOptions:]";
+    v28 = 2112;
+    v29 = optionsCopy;
+    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation #preheat preheatNextPresentationToActivateWithOptions: %@", &v26, 0x16u);
   }
 
   v7 = *v5;
@@ -588,20 +578,20 @@ void __48__SASPresentationManager__requestStateDidChange__block_invoke(uint64_t 
     v9 = v7;
     currentThread = [v8 currentThread];
     qualityOfService = [currentThread qualityOfService];
-    v27 = 136315394;
-    v28 = "[SASPresentationManager preheatNextPresentationToActivateWithOptions:]";
-    v29 = 2048;
-    v30 = qualityOfService;
-    _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", &v27, 0x16u);
+    v26 = 136315394;
+    v27 = "[SASPresentationManager preheatNextPresentationToActivateWithOptions:]";
+    v28 = 2048;
+    v29 = qualityOfService;
+    _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", &v26, 0x16u);
   }
 
   os_unfair_lock_lock(&presentationsLock);
   v12 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 136315138;
-    v28 = "[SASPresentationManager preheatNextPresentationToActivateWithOptions:]";
-    _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", &v27, 0xCu);
+    v26 = 136315138;
+    v27 = "[SASPresentationManager preheatNextPresentationToActivateWithOptions:]";
+    _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", &v26, 0xCu);
   }
 
   _presentationsLock_nextPresentationToActivate = [(SASPresentationManager *)self _presentationsLock_nextPresentationToActivate];
@@ -621,10 +611,10 @@ void __48__SASPresentationManager__requestStateDidChange__block_invoke(uint64_t 
       goto LABEL_23;
     }
 
-    v27 = 136315138;
-    v28 = "[SASPresentationManager preheatNextPresentationToActivateWithOptions:]";
+    v26 = 136315138;
+    v27 = "[SASPresentationManager preheatNextPresentationToActivateWithOptions:]";
 LABEL_22:
-    _os_log_impl(&dword_1C8137000, v21, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v27, 0xCu);
+    _os_log_impl(&dword_1C8137000, v21, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v26, 0xCu);
     goto LABEL_23;
   }
 
@@ -656,8 +646,8 @@ LABEL_22:
       goto LABEL_23;
     }
 
-    v27 = 136315138;
-    v28 = "[SASPresentationManager preheatNextPresentationToActivateWithOptions:]";
+    v26 = 136315138;
+    v27 = "[SASPresentationManager preheatNextPresentationToActivateWithOptions:]";
     goto LABEL_22;
   }
 
@@ -672,19 +662,17 @@ LABEL_20:
   v21 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = 136315138;
-    v28 = "[SASPresentationManager preheatNextPresentationToActivateWithOptions:]";
+    v26 = 136315138;
+    v27 = "[SASPresentationManager preheatNextPresentationToActivateWithOptions:]";
     goto LABEL_22;
   }
 
 LABEL_23:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelAllPreheatedPresentations
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E698D0A0];
   v4 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
@@ -692,20 +680,20 @@ LABEL_23:
     v5 = MEMORY[0x1E696AF00];
     v6 = v4;
     currentThread = [v5 currentThread];
-    v11 = 136315394;
-    v12 = "[SASPresentationManager cancelAllPreheatedPresentations]";
-    v13 = 2048;
+    v10 = 136315394;
+    v11 = "[SASPresentationManager cancelAllPreheatedPresentations]";
+    v12 = 2048;
     qualityOfService = [currentThread qualityOfService];
-    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", &v11, 0x16u);
+    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", &v10, 0x16u);
   }
 
   os_unfair_lock_lock(&presentationsLock);
   v8 = *v3;
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315138;
-    v12 = "[SASPresentationManager cancelAllPreheatedPresentations]";
-    _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[SASPresentationManager cancelAllPreheatedPresentations]";
+    _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", &v10, 0xCu);
   }
 
   [(SASPresentationManager *)self _presentationsLock_cancelAllPreheatedPresentations];
@@ -713,40 +701,38 @@ LABEL_23:
   v9 = *v3;
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315138;
-    v12 = "[SASPresentationManager cancelAllPreheatedPresentations]";
-    _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[SASPresentationManager cancelAllPreheatedPresentations]";
+    _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_presentationsLock_cancelAllPreheatedPresentations
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   allKeys = [(NSMutableDictionary *)self->_presentations allKeys];
-  v4 = [allKeys countByEnumeratingWithState:&v21 objects:v31 count:16];
+  v4 = [allKeys countByEnumeratingWithState:&v20 objects:v30 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v22;
+    v7 = *v21;
     *&v5 = 136315650;
-    v20 = v5;
+    v19 = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
-        v10 = [(NSMutableDictionary *)self->_presentations objectForKey:v9, v20];
+        v9 = *(*(&v20 + 1) + 8 * i);
+        v10 = [(NSMutableDictionary *)self->_presentations objectForKey:v9, v19];
         requestState = [v10 requestState];
         v12 = *MEMORY[0x1E698D0A0];
         v13 = os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT);
@@ -755,9 +741,9 @@ LABEL_23:
           if (v13)
           {
             *buf = 136315394;
-            v26 = "[SASPresentationManager _presentationsLock_cancelAllPreheatedPresentations]";
-            v27 = 2112;
-            v28 = v9;
+            v25 = "[SASPresentationManager _presentationsLock_cancelAllPreheatedPresentations]";
+            v26 = 2112;
+            v27 = v9;
             _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation cancelling preheat for presentation: %@", buf, 0x16u);
           }
 
@@ -773,23 +759,21 @@ LABEL_23:
         {
           v17 = v12;
           v18 = SASRequestStateGetName([v10 requestState]);
-          *buf = v20;
-          v26 = "[SASPresentationManager _presentationsLock_cancelAllPreheatedPresentations]";
-          v27 = 2112;
-          v28 = v9;
-          v29 = 2112;
-          v30 = v18;
+          *buf = v19;
+          v25 = "[SASPresentationManager _presentationsLock_cancelAllPreheatedPresentations]";
+          v26 = 2112;
+          v27 = v9;
+          v28 = 2112;
+          v29 = v18;
           _os_log_impl(&dword_1C8137000, v17, OS_LOG_TYPE_DEFAULT, "%s #activation #noisy not cancelling preheat for presentation: %@ because it appears to be %@", buf, 0x20u);
         }
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v21 objects:v31 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v20 objects:v30 count:16];
     }
 
     while (v6);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPresentationManagerDelegate:(id)delegate
@@ -807,7 +791,7 @@ LABEL_23:
 
 - (void)_sendBlock:(id)block toPresentationWithPresentationIdentifier:(int64_t)identifier
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v7 = [MEMORY[0x1E696AEC0] stringWithSiriPresentationIdentifier:identifier];
   v8 = MEMORY[0x1E698D0A0];
@@ -817,20 +801,20 @@ LABEL_23:
     v10 = MEMORY[0x1E696AF00];
     v11 = v9;
     currentThread = [v10 currentThread];
-    v21 = 136315394;
-    v22 = "[SASPresentationManager _sendBlock:toPresentationWithPresentationIdentifier:]";
-    v23 = 2048;
+    v20 = 136315394;
+    v21 = "[SASPresentationManager _sendBlock:toPresentationWithPresentationIdentifier:]";
+    v22 = 2048;
     qualityOfService = [currentThread qualityOfService];
-    _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", &v21, 0x16u);
+    _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", &v20, 0x16u);
   }
 
   os_unfair_lock_lock(&presentationsLock);
   v13 = *v8;
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 136315138;
-    v22 = "[SASPresentationManager _sendBlock:toPresentationWithPresentationIdentifier:]";
-    _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", &v21, 0xCu);
+    v20 = 136315138;
+    v21 = "[SASPresentationManager _sendBlock:toPresentationWithPresentationIdentifier:]";
+    _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", &v20, 0xCu);
   }
 
   v14 = [(NSMutableDictionary *)self->_presentations objectForKey:v7];
@@ -844,9 +828,9 @@ LABEL_23:
     v17 = *v8;
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 136315138;
-      v22 = "[SASPresentationManager _sendBlock:toPresentationWithPresentationIdentifier:]";
-      _os_log_impl(&dword_1C8137000, v17, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v21, 0xCu);
+      v20 = 136315138;
+      v21 = "[SASPresentationManager _sendBlock:toPresentationWithPresentationIdentifier:]";
+      _os_log_impl(&dword_1C8137000, v17, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v20, 0xCu);
     }
   }
 
@@ -861,21 +845,19 @@ LABEL_23:
     v18 = *v8;
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 136315138;
-      v22 = "[SASPresentationManager _sendBlock:toPresentationWithPresentationIdentifier:]";
-      _os_log_impl(&dword_1C8137000, v18, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v21, 0xCu);
+      v20 = 136315138;
+      v21 = "[SASPresentationManager _sendBlock:toPresentationWithPresentationIdentifier:]";
+      _os_log_impl(&dword_1C8137000, v18, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v20, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_presentationManagerDelegate);
     [WeakRetained presentationManager:self didEncounterError:2];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendBlockToActivePresentations:(id)presentations
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   presentationsCopy = presentations;
   v5 = MEMORY[0x1E698D0A0];
   v6 = *MEMORY[0x1E698D0A0];
@@ -885,8 +867,8 @@ LABEL_23:
     v8 = v6;
     currentThread = [v7 currentThread];
     *buf = 136315394;
-    v26 = "[SASPresentationManager _sendBlockToActivePresentations:]";
-    v27 = 2048;
+    v25 = "[SASPresentationManager _sendBlockToActivePresentations:]";
+    v26 = 2048;
     qualityOfService = [currentThread qualityOfService];
     _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", buf, 0x16u);
   }
@@ -896,30 +878,30 @@ LABEL_23:
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v26 = "[SASPresentationManager _sendBlockToActivePresentations:]";
+    v25 = "[SASPresentationManager _sendBlockToActivePresentations:]";
     _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", buf, 0xCu);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   allValues = [(NSMutableDictionary *)self->_presentations allValues];
-  v12 = [allValues countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v12 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v21;
+    v14 = *v20;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v16 = *(*(&v20 + 1) + 8 * i);
+        v16 = *(*(&v19 + 1) + 8 * i);
         if ([v16 requestState] == 3)
         {
           presentationServer = [v16 presentationServer];
@@ -927,7 +909,7 @@ LABEL_23:
         }
       }
 
-      v13 = [allValues countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v13 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v13);
@@ -938,16 +920,14 @@ LABEL_23:
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v26 = "[SASPresentationManager _sendBlockToActivePresentations:]";
+    v25 = "[SASPresentationManager _sendBlockToActivePresentations:]";
     _os_log_impl(&dword_1C8137000, v18, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", buf, 0xCu);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendBlockToStartingPresentations:(id)presentations
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   presentationsCopy = presentations;
   v5 = MEMORY[0x1E698D0A0];
   v6 = *MEMORY[0x1E698D0A0];
@@ -957,8 +937,8 @@ LABEL_23:
     v8 = v6;
     currentThread = [v7 currentThread];
     *buf = 136315394;
-    v26 = "[SASPresentationManager _sendBlockToStartingPresentations:]";
-    v27 = 2048;
+    v25 = "[SASPresentationManager _sendBlockToStartingPresentations:]";
+    v26 = 2048;
     qualityOfService = [currentThread qualityOfService];
     _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", buf, 0x16u);
   }
@@ -968,30 +948,30 @@ LABEL_23:
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v26 = "[SASPresentationManager _sendBlockToStartingPresentations:]";
+    v25 = "[SASPresentationManager _sendBlockToStartingPresentations:]";
     _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", buf, 0xCu);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   allValues = [(NSMutableDictionary *)self->_presentations allValues];
-  v12 = [allValues countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v12 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v21;
+    v14 = *v20;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v16 = *(*(&v20 + 1) + 8 * i);
+        v16 = *(*(&v19 + 1) + 8 * i);
         if ([v16 requestState] == 2)
         {
           presentationServer = [v16 presentationServer];
@@ -999,7 +979,7 @@ LABEL_23:
         }
       }
 
-      v13 = [allValues countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v13 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v13);
@@ -1010,16 +990,14 @@ LABEL_23:
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v26 = "[SASPresentationManager _sendBlockToStartingPresentations:]";
+    v25 = "[SASPresentationManager _sendBlockToStartingPresentations:]";
     _os_log_impl(&dword_1C8137000, v18, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", buf, 0xCu);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendBlockToStoppingPresentations:(id)presentations
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   presentationsCopy = presentations;
   v5 = MEMORY[0x1E698D0A0];
   v6 = *MEMORY[0x1E698D0A0];
@@ -1029,8 +1007,8 @@ LABEL_23:
     v8 = v6;
     currentThread = [v7 currentThread];
     *buf = 136315394;
-    v26 = "[SASPresentationManager _sendBlockToStoppingPresentations:]";
-    v27 = 2048;
+    v25 = "[SASPresentationManager _sendBlockToStoppingPresentations:]";
+    v26 = 2048;
     qualityOfService = [currentThread qualityOfService];
     _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", buf, 0x16u);
   }
@@ -1040,30 +1018,30 @@ LABEL_23:
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v26 = "[SASPresentationManager _sendBlockToStoppingPresentations:]";
+    v25 = "[SASPresentationManager _sendBlockToStoppingPresentations:]";
     _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", buf, 0xCu);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   allValues = [(NSMutableDictionary *)self->_presentations allValues];
-  v12 = [allValues countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v12 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v21;
+    v14 = *v20;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v16 = *(*(&v20 + 1) + 8 * i);
+        v16 = *(*(&v19 + 1) + 8 * i);
         if ([v16 requestState] == 4)
         {
           presentationServer = [v16 presentationServer];
@@ -1071,7 +1049,7 @@ LABEL_23:
         }
       }
 
-      v13 = [allValues countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v13 = [allValues countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v13);
@@ -1082,16 +1060,14 @@ LABEL_23:
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v26 = "[SASPresentationManager _sendBlockToStoppingPresentations:]";
+    v25 = "[SASPresentationManager _sendBlockToStoppingPresentations:]";
     _os_log_impl(&dword_1C8137000, v18, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", buf, 0xCu);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendButtonEventCompletionToPresentations:(id)presentations forButtonEventType:(unint64_t)type
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   presentationsCopy = presentations;
   v6 = *MEMORY[0x1E698D0A0];
   v7 = os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT);
@@ -1104,8 +1080,8 @@ LABEL_23:
       v9 = v6;
       currentThread = [v8 currentThread];
       *buf = 136315394;
-      v54 = "[SASPresentationManager sendButtonEventCompletionToPresentations:forButtonEventType:]";
-      v55 = 2048;
+      v53 = "[SASPresentationManager sendButtonEventCompletionToPresentations:forButtonEventType:]";
+      v54 = 2048;
       qualityOfService = [currentThread qualityOfService];
       _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", buf, 0x16u);
     }
@@ -1115,34 +1091,34 @@ LABEL_23:
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v54 = "[SASPresentationManager sendButtonEventCompletionToPresentations:forButtonEventType:]";
+      v53 = "[SASPresentationManager sendButtonEventCompletionToPresentations:forButtonEventType:]";
       _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", buf, 0xCu);
     }
 
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     obj = [(NSMutableDictionary *)self->_presentations allKeys];
-    v12 = [obj countByEnumeratingWithState:&v49 objects:v61 count:16];
+    v12 = [obj countByEnumeratingWithState:&v48 objects:v60 count:16];
     if (v12)
     {
       v14 = v12;
-      v15 = *v50;
+      v15 = *v49;
       *&v13 = 136315650;
-      v45 = v13;
+      v44 = v13;
       do
       {
         v16 = 0;
         do
         {
-          if (*v50 != v15)
+          if (*v49 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v49 + 1) + 8 * v16);
-          v18 = [(NSMutableDictionary *)self->_presentations objectForKeyedSubscript:v17, v45];
+          v17 = *(*(&v48 + 1) + 8 * v16);
+          v18 = [(NSMutableDictionary *)self->_presentations objectForKeyedSubscript:v17, v44];
           requestState = [v18 requestState];
           v20 = *MEMORY[0x1E698D0A0];
           if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
@@ -1151,13 +1127,13 @@ LABEL_23:
             v22 = SASButtonEventTypeGetName(typeCopy);
             v23 = SASRequestStateGetName(requestState);
             *buf = 136315906;
-            v54 = "[SASPresentationManager sendButtonEventCompletionToPresentations:forButtonEventType:]";
-            v55 = 2112;
+            v53 = "[SASPresentationManager sendButtonEventCompletionToPresentations:forButtonEventType:]";
+            v54 = 2112;
             qualityOfService = v17;
-            v57 = 2112;
-            v58 = v22;
-            v59 = 2112;
-            v60 = v23;
+            v56 = 2112;
+            v57 = v22;
+            v58 = 2112;
+            v59 = v23;
             _os_log_impl(&dword_1C8137000, v21, OS_LOG_TYPE_DEFAULT, "%s #activation presentation: %@, type: %@, state: %@", buf, 0x2Au);
           }
 
@@ -1178,8 +1154,8 @@ LABEL_21:
               v26 = v25;
               v27 = SASRequestStateGetName(3);
               *buf = 136315394;
-              v54 = "[SASPresentationManager sendButtonEventCompletionToPresentations:forButtonEventType:]";
-              v55 = 2112;
+              v53 = "[SASPresentationManager sendButtonEventCompletionToPresentations:forButtonEventType:]";
+              v54 = 2112;
               qualityOfService = v27;
               _os_log_impl(&dword_1C8137000, v26, OS_LOG_TYPE_DEFAULT, "%s #activation enqueuing button event completion until State is %@.", buf, 0x16u);
               goto LABEL_18;
@@ -1202,12 +1178,12 @@ LABEL_21:
                 v26 = v32;
                 v27 = SASButtonEventTypeGetName(2);
                 v33 = SASRequestStateGetName(requestState);
-                *buf = v45;
-                v54 = "[SASPresentationManager sendButtonEventCompletionToPresentations:forButtonEventType:]";
-                v55 = 2112;
+                *buf = v44;
+                v53 = "[SASPresentationManager sendButtonEventCompletionToPresentations:forButtonEventType:]";
+                v54 = 2112;
                 qualityOfService = v27;
-                v57 = 2112;
-                v58 = v33;
+                v56 = 2112;
+                v57 = v33;
                 _os_log_impl(&dword_1C8137000, v26, OS_LOG_TYPE_DEFAULT, "%s #activation received %@ while request state is %@, enqueueing.", buf, 0x20u);
 
 LABEL_18:
@@ -1235,7 +1211,7 @@ LABEL_20:
               if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315138;
-                v54 = "[SASPresentationManager sendButtonEventCompletionToPresentations:forButtonEventType:]";
+                v53 = "[SASPresentationManager sendButtonEventCompletionToPresentations:forButtonEventType:]";
                 _os_log_impl(&dword_1C8137000, v37, OS_LOG_TYPE_DEFAULT, "%s #activation cancel hint glow activation for button up event", buf, 0xCu);
               }
 
@@ -1252,7 +1228,7 @@ LABEL_20:
           if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v54 = "[SASPresentationManager sendButtonEventCompletionToPresentations:forButtonEventType:]";
+            v53 = "[SASPresentationManager sendButtonEventCompletionToPresentations:forButtonEventType:]";
             _os_log_impl(&dword_1C8137000, v39, OS_LOG_TYPE_DEFAULT, "%s #activation unhandled button event, ignoring.", buf, 0xCu);
           }
 
@@ -1262,7 +1238,7 @@ LABEL_22:
         }
 
         while (v14 != v16);
-        v40 = [obj countByEnumeratingWithState:&v49 objects:v61 count:16];
+        v40 = [obj countByEnumeratingWithState:&v48 objects:v60 count:16];
         v14 = v40;
       }
 
@@ -1274,7 +1250,7 @@ LABEL_22:
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v54 = "[SASPresentationManager sendButtonEventCompletionToPresentations:forButtonEventType:]";
+      v53 = "[SASPresentationManager sendButtonEventCompletionToPresentations:forButtonEventType:]";
       v42 = "%s #activation #locks #noisy presentationsLock unlocked";
       v43 = v41;
 LABEL_42:
@@ -1285,18 +1261,16 @@ LABEL_42:
   else if (v7)
   {
     *buf = 136315138;
-    v54 = "[SASPresentationManager sendButtonEventCompletionToPresentations:forButtonEventType:]";
+    v53 = "[SASPresentationManager sendButtonEventCompletionToPresentations:forButtonEventType:]";
     v42 = "%s Received unknown button event type. Ignoring.";
     v43 = v6;
     goto LABEL_42;
   }
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)sendButtonEventCompletionToApplicableOffPresentations:(id)presentations forButtonEventType:(unint64_t)type
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   presentationsCopy = presentations;
   if (type == 3)
   {
@@ -1308,8 +1282,8 @@ LABEL_42:
       v10 = v8;
       currentThread = [v9 currentThread];
       *buf = 136315394;
-      v33 = "[SASPresentationManager sendButtonEventCompletionToApplicableOffPresentations:forButtonEventType:]";
-      v34 = 2048;
+      v32 = "[SASPresentationManager sendButtonEventCompletionToApplicableOffPresentations:forButtonEventType:]";
+      v33 = 2048;
       qualityOfService = [currentThread qualityOfService];
       _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", buf, 0x16u);
     }
@@ -1319,31 +1293,31 @@ LABEL_42:
     if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v33 = "[SASPresentationManager sendButtonEventCompletionToApplicableOffPresentations:forButtonEventType:]";
+      v32 = "[SASPresentationManager sendButtonEventCompletionToApplicableOffPresentations:forButtonEventType:]";
       _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", buf, 0xCu);
     }
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     allKeys = [(NSMutableDictionary *)self->_presentations allKeys];
-    v14 = [allKeys countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v14 = [allKeys countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v14)
     {
       v15 = v14;
-      v26 = 0;
-      v16 = *v28;
+      v25 = 0;
+      v16 = *v27;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v28 != v16)
+          if (*v27 != v16)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v18 = [(NSMutableDictionary *)self->_presentations objectForKeyedSubscript:*(*(&v27 + 1) + 8 * i)];
+          v18 = [(NSMutableDictionary *)self->_presentations objectForKeyedSubscript:*(*(&v26 + 1) + 8 * i)];
           if (![v18 requestState])
           {
             configuration = [v18 configuration];
@@ -1354,12 +1328,12 @@ LABEL_42:
               presentationServer = [v18 presentationServer];
               presentationsCopy[2](presentationsCopy, presentationServer);
 
-              v26 = 1;
+              v25 = 1;
             }
           }
         }
 
-        v15 = [allKeys countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v15 = [allKeys countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v15);
@@ -1367,7 +1341,7 @@ LABEL_42:
 
     else
     {
-      v26 = 0;
+      v25 = 0;
     }
 
     os_unfair_lock_unlock(&presentationsLock);
@@ -1375,11 +1349,11 @@ LABEL_42:
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v33 = "[SASPresentationManager sendButtonEventCompletionToApplicableOffPresentations:forButtonEventType:]";
+      v32 = "[SASPresentationManager sendButtonEventCompletionToApplicableOffPresentations:forButtonEventType:]";
       _os_log_impl(&dword_1C8137000, v23, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", buf, 0xCu);
     }
 
-    v22 = v26;
+    v22 = v25;
   }
 
   else
@@ -1387,7 +1361,6 @@ LABEL_42:
     v22 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v22 & 1;
 }
 
@@ -1552,7 +1525,7 @@ void __110__SASPresentationManager_startingAndActiveAndStoppingPresentations_pre
 
 - (void)_offButRequestedDismissalSignals_presentationDismissalRequestedWithOptions:(id)options
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   v5 = MEMORY[0x1E698D0A0];
   v6 = *MEMORY[0x1E698D0A0];
@@ -1562,8 +1535,8 @@ void __110__SASPresentationManager_startingAndActiveAndStoppingPresentations_pre
     v8 = v6;
     currentThread = [v7 currentThread];
     *buf = 136315394;
-    v30 = "[SASPresentationManager _offButRequestedDismissalSignals_presentationDismissalRequestedWithOptions:]";
-    v31 = 2048;
+    v29 = "[SASPresentationManager _offButRequestedDismissalSignals_presentationDismissalRequestedWithOptions:]";
+    v30 = 2048;
     qualityOfService = [currentThread qualityOfService];
     _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", buf, 0x16u);
   }
@@ -1573,30 +1546,30 @@ void __110__SASPresentationManager_startingAndActiveAndStoppingPresentations_pre
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v30 = "[SASPresentationManager _offButRequestedDismissalSignals_presentationDismissalRequestedWithOptions:]";
+    v29 = "[SASPresentationManager _offButRequestedDismissalSignals_presentationDismissalRequestedWithOptions:]";
     _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", buf, 0xCu);
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   allValues = [(NSMutableDictionary *)self->_presentations allValues];
-  v12 = [allValues countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v12 = [allValues countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v25;
+    v14 = *v24;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v25 != v14)
+        if (*v24 != v14)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v16 = *(*(&v24 + 1) + 8 * i);
+        v16 = *(*(&v23 + 1) + 8 * i);
         if (![v16 requestState])
         {
           configuration = [v16 configuration];
@@ -1612,7 +1585,7 @@ void __110__SASPresentationManager_startingAndActiveAndStoppingPresentations_pre
         }
       }
 
-      v13 = [allValues countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v13 = [allValues countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v13);
@@ -1623,11 +1596,9 @@ void __110__SASPresentationManager_startingAndActiveAndStoppingPresentations_pre
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v30 = "[SASPresentationManager _offButRequestedDismissalSignals_presentationDismissalRequestedWithOptions:]";
+    v29 = "[SASPresentationManager _offButRequestedDismissalSignals_presentationDismissalRequestedWithOptions:]";
     _os_log_impl(&dword_1C8137000, v22, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", buf, 0xCu);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __79__SASPresentationManager_activePresentations_bulletinManagerDidChangeBulletins__block_invoke(uint64_t a1, void *a2)
@@ -1639,7 +1610,7 @@ void __79__SASPresentationManager_activePresentations_bulletinManagerDidChangeBu
 
 - (BOOL)activePresentationsAreIdleAndQuiet
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E698D0A0];
   v4 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
@@ -1649,9 +1620,9 @@ void __79__SASPresentationManager_activePresentations_bulletinManagerDidChangeBu
     currentThread = [v5 currentThread];
     qualityOfService = [currentThread qualityOfService];
     *buf = 136315394;
-    v31 = "[SASPresentationManager activePresentationsAreIdleAndQuiet]";
-    v32 = 2048;
-    v33 = qualityOfService;
+    v30 = "[SASPresentationManager activePresentationsAreIdleAndQuiet]";
+    v31 = 2048;
+    v32 = qualityOfService;
     _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", buf, 0x16u);
   }
 
@@ -1661,30 +1632,30 @@ void __79__SASPresentationManager_activePresentations_bulletinManagerDidChangeBu
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v31 = "[SASPresentationManager activePresentationsAreIdleAndQuiet]";
+    v30 = "[SASPresentationManager activePresentationsAreIdleAndQuiet]";
     _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", buf, 0xCu);
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   allValues = [(NSMutableDictionary *)self->_presentations allValues];
-  v12 = [allValues countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v12 = [allValues countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v26;
+    v14 = *v25;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v26 != v14)
+        if (*v25 != v14)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v16 = *(*(&v25 + 1) + 8 * i);
+        v16 = *(*(&v24 + 1) + 8 * i);
         if ([v16 requestState] == 3)
         {
           presentationServer = [v16 presentationServer];
@@ -1700,7 +1671,7 @@ void __79__SASPresentationManager_activePresentations_bulletinManagerDidChangeBu
         }
       }
 
-      v13 = [allValues countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v13 = [allValues countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v13)
       {
         continue;
@@ -1724,11 +1695,10 @@ LABEL_16:
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = *(v10 + 207);
-    v31 = "[SASPresentationManager activePresentationsAreIdleAndQuiet]";
+    v30 = "[SASPresentationManager activePresentationsAreIdleAndQuiet]";
     _os_log_impl(&dword_1C8137000, v22, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", buf, 0xCu);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -1780,7 +1750,7 @@ LABEL_16:
 
 - (void)_transitionPresentationWithPresentationIdentifier:(int64_t)identifier toState:(int64_t)state
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v7 = [MEMORY[0x1E696AEC0] stringWithSiriPresentationIdentifier:?];
   v8 = MEMORY[0x1E698D0A0];
   v9 = *MEMORY[0x1E698D0A0];
@@ -1789,20 +1759,20 @@ LABEL_16:
     v10 = MEMORY[0x1E696AF00];
     v11 = v9;
     currentThread = [v10 currentThread];
-    v34 = 136315394;
-    v35 = "[SASPresentationManager _transitionPresentationWithPresentationIdentifier:toState:]";
-    v36 = 2048;
+    v33 = 136315394;
+    v34 = "[SASPresentationManager _transitionPresentationWithPresentationIdentifier:toState:]";
+    v35 = 2048;
     qualityOfService = [currentThread qualityOfService];
-    _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", &v34, 0x16u);
+    _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", &v33, 0x16u);
   }
 
   os_unfair_lock_lock(&presentationsLock);
   v13 = *v8;
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
   {
-    v34 = 136315138;
-    v35 = "[SASPresentationManager _transitionPresentationWithPresentationIdentifier:toState:]";
-    _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", &v34, 0xCu);
+    v33 = 136315138;
+    v34 = "[SASPresentationManager _transitionPresentationWithPresentationIdentifier:toState:]";
+    _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", &v33, 0xCu);
   }
 
   v14 = [(NSMutableDictionary *)self->_presentations objectForKey:v7];
@@ -1812,20 +1782,20 @@ LABEL_16:
     v23 = *v8;
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = 136315394;
-      v35 = "[SASPresentationManager _transitionPresentationWithPresentationIdentifier:toState:]";
-      v36 = 2112;
+      v33 = 136315394;
+      v34 = "[SASPresentationManager _transitionPresentationWithPresentationIdentifier:toState:]";
+      v35 = 2112;
       qualityOfService = v7;
-      _os_log_impl(&dword_1C8137000, v23, OS_LOG_TYPE_DEFAULT, "%s #activation presentation with identifier %@ isn't registered", &v34, 0x16u);
+      _os_log_impl(&dword_1C8137000, v23, OS_LOG_TYPE_DEFAULT, "%s #activation presentation with identifier %@ isn't registered", &v33, 0x16u);
     }
 
     os_unfair_lock_unlock(&presentationsLock);
     v24 = *v8;
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = 136315138;
-      v35 = "[SASPresentationManager _transitionPresentationWithPresentationIdentifier:toState:]";
-      _os_log_impl(&dword_1C8137000, v24, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v34, 0xCu);
+      v33 = 136315138;
+      v34 = "[SASPresentationManager _transitionPresentationWithPresentationIdentifier:toState:]";
+      _os_log_impl(&dword_1C8137000, v24, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v33, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_presentationManagerDelegate);
@@ -1845,24 +1815,24 @@ LABEL_16:
       v29 = v17;
       v30 = SASRequestStateGetName(state);
       v31 = SASRequestStateGetName([v15 requestState]);
-      v34 = 136315906;
-      v35 = "[SASPresentationManager _transitionPresentationWithPresentationIdentifier:toState:]";
-      v36 = 2112;
+      v33 = 136315906;
+      v34 = "[SASPresentationManager _transitionPresentationWithPresentationIdentifier:toState:]";
+      v35 = 2112;
       qualityOfService = v7;
-      v38 = 2112;
-      v39 = v30;
-      v40 = 2112;
-      v41 = v31;
-      _os_log_impl(&dword_1C8137000, v29, OS_LOG_TYPE_DEFAULT, "%s #activation presentation with identifier %@ can't transition to state: %@ from state: %@", &v34, 0x2Au);
+      v37 = 2112;
+      v38 = v30;
+      v39 = 2112;
+      v40 = v31;
+      _os_log_impl(&dword_1C8137000, v29, OS_LOG_TYPE_DEFAULT, "%s #activation presentation with identifier %@ can't transition to state: %@ from state: %@", &v33, 0x2Au);
     }
 
     os_unfair_lock_unlock(&presentationsLock);
     v32 = *v8;
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = 136315138;
-      v35 = "[SASPresentationManager _transitionPresentationWithPresentationIdentifier:toState:]";
-      _os_log_impl(&dword_1C8137000, v32, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v34, 0xCu);
+      v33 = 136315138;
+      v34 = "[SASPresentationManager _transitionPresentationWithPresentationIdentifier:toState:]";
+      _os_log_impl(&dword_1C8137000, v32, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v33, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_presentationManagerDelegate);
@@ -1880,15 +1850,15 @@ LABEL_26:
     v19 = v17;
     v20 = SASRequestStateGetName([v15 requestState]);
     v21 = SASRequestStateGetName(state);
-    v34 = 136315906;
-    v35 = "[SASPresentationManager _transitionPresentationWithPresentationIdentifier:toState:]";
-    v36 = 2112;
+    v33 = 136315906;
+    v34 = "[SASPresentationManager _transitionPresentationWithPresentationIdentifier:toState:]";
+    v35 = 2112;
     qualityOfService = v7;
-    v38 = 2112;
-    v39 = v20;
-    v40 = 2112;
-    v41 = v21;
-    _os_log_impl(&dword_1C8137000, v19, OS_LOG_TYPE_DEFAULT, "%s #activation %@: transitioning from %@ to %@", &v34, 0x2Au);
+    v37 = 2112;
+    v38 = v20;
+    v39 = 2112;
+    v40 = v21;
+    _os_log_impl(&dword_1C8137000, v19, OS_LOG_TYPE_DEFAULT, "%s #activation %@: transitioning from %@ to %@", &v33, 0x2Au);
   }
 
   [v15 setRequestState:state];
@@ -1901,9 +1871,9 @@ LABEL_26:
   v22 = *v8;
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
   {
-    v34 = 136315138;
-    v35 = "[SASPresentationManager _transitionPresentationWithPresentationIdentifier:toState:]";
-    _os_log_impl(&dword_1C8137000, v22, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v34, 0xCu);
+    v33 = 136315138;
+    v34 = "[SASPresentationManager _transitionPresentationWithPresentationIdentifier:toState:]";
+    _os_log_impl(&dword_1C8137000, v22, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v33, 0xCu);
   }
 
   [(SASPresentationManager *)self _requestStateDidChange];
@@ -1921,33 +1891,31 @@ LABEL_26:
   }
 
 LABEL_27:
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_presentationsLock_nextPresentationToActivateDidChange:(int64_t)change
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   allKeys = [(NSMutableDictionary *)self->_presentations allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if ([v10 siriPresentationIdentifier] != 3)
         {
           v11 = [(NSMutableDictionary *)self->_presentations objectForKey:v10];
@@ -1955,13 +1923,11 @@ LABEL_27:
         }
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_informPresentationOfPresentationWithPriority:(id)priority nextPresentationToActivate:(int64_t)activate
@@ -2039,7 +2005,7 @@ void __97__SASPresentationManager_presentationWithPresentationIdentifierWakeScre
 
 - (void)_setupPingTimerForPresentationIdentifier:(int64_t)identifier
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v5 = [MEMORY[0x1E696AEC0] stringWithSiriPresentationIdentifier:?];
   v6 = MEMORY[0x1E698D0A0];
   v7 = *MEMORY[0x1E698D0A0];
@@ -2049,8 +2015,8 @@ void __97__SASPresentationManager_presentationWithPresentationIdentifierWakeScre
     v9 = v7;
     currentThread = [v8 currentThread];
     *buf = 136315394;
-    v31 = "[SASPresentationManager _setupPingTimerForPresentationIdentifier:]";
-    v32 = 2048;
+    v30 = "[SASPresentationManager _setupPingTimerForPresentationIdentifier:]";
+    v31 = 2048;
     qualityOfService = [currentThread qualityOfService];
     _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", buf, 0x16u);
   }
@@ -2060,7 +2026,7 @@ void __97__SASPresentationManager_presentationWithPresentationIdentifierWakeScre
   if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v31 = "[SASPresentationManager _setupPingTimerForPresentationIdentifier:]";
+    v30 = "[SASPresentationManager _setupPingTimerForPresentationIdentifier:]";
     _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", buf, 0xCu);
   }
 
@@ -2072,15 +2038,15 @@ void __97__SASPresentationManager_presentationWithPresentationIdentifierWakeScre
     {
       objc_initWeak(buf, self);
       v14 = MEMORY[0x1E695DFF0];
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __67__SASPresentationManager__setupPingTimerForPresentationIdentifier___block_invoke;
-      v27[3] = &unk_1E82F3E90;
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __67__SASPresentationManager__setupPingTimerForPresentationIdentifier___block_invoke;
+      v26[3] = &unk_1E82F3E90;
       v15 = v13;
-      v28 = v15;
-      objc_copyWeak(v29, buf);
-      v29[1] = identifier;
-      v16 = [v14 timerWithTimeInterval:0 repeats:v27 block:1.0];
+      v27 = v15;
+      objc_copyWeak(v28, buf);
+      v28[1] = identifier;
+      v16 = [v14 timerWithTimeInterval:0 repeats:v26 block:1.0];
       pingTimer = [v15 pingTimer];
       [pingTimer invalidate];
 
@@ -2088,7 +2054,7 @@ void __97__SASPresentationManager_presentationWithPresentationIdentifierWakeScre
       currentRunLoop = [MEMORY[0x1E695DFD0] currentRunLoop];
       [currentRunLoop addTimer:v16 forMode:*MEMORY[0x1E695DA28]];
 
-      objc_destroyWeak(v29);
+      objc_destroyWeak(v28);
       objc_destroyWeak(buf);
     }
 
@@ -2100,11 +2066,11 @@ void __97__SASPresentationManager_presentationWithPresentationIdentifierWakeScre
         v23 = v22;
         v24 = SASRequestStateGetName([v13 requestState]);
         *buf = 136315650;
-        v31 = "[SASPresentationManager _setupPingTimerForPresentationIdentifier:]";
-        v32 = 2112;
+        v30 = "[SASPresentationManager _setupPingTimerForPresentationIdentifier:]";
+        v31 = 2112;
         qualityOfService = v5;
-        v34 = 2112;
-        v35 = v24;
+        v33 = 2112;
+        v34 = v24;
         _os_log_impl(&dword_1C8137000, v23, OS_LOG_TYPE_DEFAULT, "%s #pingpong not returning ping because presentation with identifier %@ is in request state %@", buf, 0x20u);
       }
     }
@@ -2114,7 +2080,7 @@ void __97__SASPresentationManager_presentationWithPresentationIdentifierWakeScre
     if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v31 = "[SASPresentationManager _setupPingTimerForPresentationIdentifier:]";
+      v30 = "[SASPresentationManager _setupPingTimerForPresentationIdentifier:]";
       _os_log_impl(&dword_1C8137000, v25, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", buf, 0xCu);
     }
   }
@@ -2125,8 +2091,8 @@ void __97__SASPresentationManager_presentationWithPresentationIdentifierWakeScre
     if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v31 = "[SASPresentationManager _setupPingTimerForPresentationIdentifier:]";
-      v32 = 2112;
+      v30 = "[SASPresentationManager _setupPingTimerForPresentationIdentifier:]";
+      v31 = 2112;
       qualityOfService = v5;
       _os_log_impl(&dword_1C8137000, v19, OS_LOG_TYPE_DEFAULT, "%s #activation presentation with identifier %@ isn't registered", buf, 0x16u);
     }
@@ -2136,20 +2102,18 @@ void __97__SASPresentationManager_presentationWithPresentationIdentifierWakeScre
     if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v31 = "[SASPresentationManager _setupPingTimerForPresentationIdentifier:]";
+      v30 = "[SASPresentationManager _setupPingTimerForPresentationIdentifier:]";
       _os_log_impl(&dword_1C8137000, v20, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", buf, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_presentationManagerDelegate);
     [WeakRetained presentationManager:self didEncounterError:3];
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __67__SASPresentationManager__setupPingTimerForPresentationIdentifier___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
@@ -2161,17 +2125,17 @@ void __67__SASPresentationManager__setupPingTimerForPresentationIdentifier___blo
     v8 = [*(a1 + 32) presentationServer];
     v9 = [v8 connection];
     v10 = [v9 remoteTarget];
-    v16 = 136316162;
-    v17 = "[SASPresentationManager _setupPingTimerForPresentationIdentifier:]_block_invoke";
-    v18 = 2112;
-    v19 = v3;
-    v20 = 2112;
-    v21 = v5;
-    v22 = 2112;
-    v23 = v7;
-    v24 = 2112;
-    v25 = v10;
-    _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s #pingpong sending ping and waiting for pong - model: %@ | server: %@ | connection: %@ | remoteTarget: %@", &v16, 0x34u);
+    v15 = 136316162;
+    v16 = "[SASPresentationManager _setupPingTimerForPresentationIdentifier:]_block_invoke";
+    v17 = 2112;
+    v18 = v3;
+    v19 = 2112;
+    v20 = v5;
+    v21 = 2112;
+    v22 = v7;
+    v23 = 2112;
+    v24 = v10;
+    _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s #pingpong sending ping and waiting for pong - model: %@ | server: %@ | connection: %@ | remoteTarget: %@", &v15, 0x34u);
   }
 
   v11 = [*(a1 + 32) presentationServer];
@@ -2181,13 +2145,11 @@ void __67__SASPresentationManager__setupPingTimerForPresentationIdentifier___blo
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained _waitForPongFromPresentationWithPresentationIdentifier:*(a1 + 48)];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_waitForPongFromPresentationWithPresentationIdentifier:(int64_t)identifier
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E696AEC0] stringWithSiriPresentationIdentifier:identifier];
   v5 = MEMORY[0x1E698D0A0];
   v6 = *MEMORY[0x1E698D0A0];
@@ -2197,8 +2159,8 @@ void __67__SASPresentationManager__setupPingTimerForPresentationIdentifier___blo
     v8 = v6;
     currentThread = [v7 currentThread];
     *buf = 136315394;
-    v27 = "[SASPresentationManager _waitForPongFromPresentationWithPresentationIdentifier:]";
-    v28 = 2048;
+    v26 = "[SASPresentationManager _waitForPongFromPresentationWithPresentationIdentifier:]";
+    v27 = 2048;
     qualityOfService = [currentThread qualityOfService];
     _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", buf, 0x16u);
   }
@@ -2208,7 +2170,7 @@ void __67__SASPresentationManager__setupPingTimerForPresentationIdentifier___blo
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v27 = "[SASPresentationManager _waitForPongFromPresentationWithPresentationIdentifier:]";
+    v26 = "[SASPresentationManager _waitForPongFromPresentationWithPresentationIdentifier:]";
     _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", buf, 0xCu);
   }
 
@@ -2217,12 +2179,12 @@ void __67__SASPresentationManager__setupPingTimerForPresentationIdentifier___blo
   {
     objc_initWeak(&location, self);
     v12 = MEMORY[0x1E695DFF0];
-    v20 = MEMORY[0x1E69E9820];
-    v21 = 3221225472;
-    v22 = __81__SASPresentationManager__waitForPongFromPresentationWithPresentationIdentifier___block_invoke;
-    v23 = &unk_1E82F3EB8;
-    objc_copyWeak(&v24, &location);
-    v13 = [v12 scheduledTimerWithTimeInterval:0 repeats:&v20 block:2.0];
+    v19 = MEMORY[0x1E69E9820];
+    v20 = 3221225472;
+    v21 = __81__SASPresentationManager__waitForPongFromPresentationWithPresentationIdentifier___block_invoke;
+    v22 = &unk_1E82F3EB8;
+    objc_copyWeak(&v23, &location);
+    v13 = [v12 scheduledTimerWithTimeInterval:0 repeats:&v19 block:2.0];
     pingTimer = [v11 pingTimer];
     [pingTimer invalidate];
 
@@ -2232,11 +2194,11 @@ void __67__SASPresentationManager__setupPingTimerForPresentationIdentifier___blo
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v27 = "[SASPresentationManager _waitForPongFromPresentationWithPresentationIdentifier:]";
+      v26 = "[SASPresentationManager _waitForPongFromPresentationWithPresentationIdentifier:]";
       _os_log_impl(&dword_1C8137000, v15, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", buf, 0xCu);
     }
 
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(&location);
   }
 
@@ -2246,8 +2208,8 @@ void __67__SASPresentationManager__setupPingTimerForPresentationIdentifier___blo
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v27 = "[SASPresentationManager _waitForPongFromPresentationWithPresentationIdentifier:]";
-      v28 = 2112;
+      v26 = "[SASPresentationManager _waitForPongFromPresentationWithPresentationIdentifier:]";
+      v27 = 2112;
       qualityOfService = v4;
       _os_log_impl(&dword_1C8137000, v16, OS_LOG_TYPE_DEFAULT, "%s #activation presentation with identifier %@ isn't registered", buf, 0x16u);
     }
@@ -2257,15 +2219,13 @@ void __67__SASPresentationManager__setupPingTimerForPresentationIdentifier___blo
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v27 = "[SASPresentationManager _waitForPongFromPresentationWithPresentationIdentifier:]";
+      v26 = "[SASPresentationManager _waitForPongFromPresentationWithPresentationIdentifier:]";
       _os_log_impl(&dword_1C8137000, v17, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", buf, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_presentationManagerDelegate);
     [WeakRetained presentationManager:self didEncounterError:3];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __81__SASPresentationManager__waitForPongFromPresentationWithPresentationIdentifier___block_invoke(uint64_t a1)
@@ -2288,14 +2248,14 @@ void __81__SASPresentationManager__waitForPongFromPresentationWithPresentationId
 
 - (void)_teardownPingTimerForPresentationIdentifier:(int64_t)identifier
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E698D0A0];
   v6 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 136315138;
-    v23 = "[SASPresentationManager _teardownPingTimerForPresentationIdentifier:]";
-    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #pingpong", &v22, 0xCu);
+    v21 = 136315138;
+    v22 = "[SASPresentationManager _teardownPingTimerForPresentationIdentifier:]";
+    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #pingpong", &v21, 0xCu);
   }
 
   v7 = [MEMORY[0x1E696AEC0] stringWithSiriPresentationIdentifier:identifier];
@@ -2306,20 +2266,20 @@ void __81__SASPresentationManager__waitForPongFromPresentationWithPresentationId
     v10 = v8;
     currentThread = [v9 currentThread];
     qualityOfService = [currentThread qualityOfService];
-    v22 = 136315394;
-    v23 = "[SASPresentationManager _teardownPingTimerForPresentationIdentifier:]";
-    v24 = 2048;
-    v25 = qualityOfService;
-    _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", &v22, 0x16u);
+    v21 = 136315394;
+    v22 = "[SASPresentationManager _teardownPingTimerForPresentationIdentifier:]";
+    v23 = 2048;
+    v24 = qualityOfService;
+    _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", &v21, 0x16u);
   }
 
   os_unfair_lock_lock(&presentationsLock);
   v13 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 136315138;
-    v23 = "[SASPresentationManager _teardownPingTimerForPresentationIdentifier:]";
-    _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", &v22, 0xCu);
+    v21 = 136315138;
+    v22 = "[SASPresentationManager _teardownPingTimerForPresentationIdentifier:]";
+    _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", &v21, 0xCu);
   }
 
   v14 = [(NSMutableDictionary *)self->_presentations objectForKey:v7];
@@ -2334,9 +2294,9 @@ void __81__SASPresentationManager__waitForPongFromPresentationWithPresentationId
     v17 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 136315138;
-      v23 = "[SASPresentationManager _teardownPingTimerForPresentationIdentifier:]";
-      _os_log_impl(&dword_1C8137000, v17, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v22, 0xCu);
+      v21 = 136315138;
+      v22 = "[SASPresentationManager _teardownPingTimerForPresentationIdentifier:]";
+      _os_log_impl(&dword_1C8137000, v17, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v21, 0xCu);
     }
   }
 
@@ -2345,58 +2305,55 @@ void __81__SASPresentationManager__waitForPongFromPresentationWithPresentationId
     v18 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 136315394;
-      v23 = "[SASPresentationManager _teardownPingTimerForPresentationIdentifier:]";
-      v24 = 2112;
-      v25 = v7;
-      _os_log_impl(&dword_1C8137000, v18, OS_LOG_TYPE_DEFAULT, "%s #activation presentation with identifier %@ isn't registered", &v22, 0x16u);
+      v21 = 136315394;
+      v22 = "[SASPresentationManager _teardownPingTimerForPresentationIdentifier:]";
+      v23 = 2112;
+      v24 = v7;
+      _os_log_impl(&dword_1C8137000, v18, OS_LOG_TYPE_DEFAULT, "%s #activation presentation with identifier %@ isn't registered", &v21, 0x16u);
     }
 
     os_unfair_lock_unlock(&presentationsLock);
     v19 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 136315138;
-      v23 = "[SASPresentationManager _teardownPingTimerForPresentationIdentifier:]";
-      _os_log_impl(&dword_1C8137000, v19, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v22, 0xCu);
+      v21 = 136315138;
+      v22 = "[SASPresentationManager _teardownPingTimerForPresentationIdentifier:]";
+      _os_log_impl(&dword_1C8137000, v19, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", &v21, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_presentationManagerDelegate);
     [WeakRetained presentationManager:self didEncounterError:4];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pongWithPresentationIdentifier:(int64_t)identifier
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     v6 = MEMORY[0x1E696AEC0];
     v7 = v5;
     v8 = [v6 stringWithSiriPresentationIdentifier:identifier];
-    v10 = 136315394;
-    v11 = "[SASPresentationManager pongWithPresentationIdentifier:]";
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_1C8137000, v7, OS_LOG_TYPE_DEFAULT, "%s #pingpong received pong with presentation identifier: %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[SASPresentationManager pongWithPresentationIdentifier:]";
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_1C8137000, v7, OS_LOG_TYPE_DEFAULT, "%s #pingpong received pong with presentation identifier: %@", &v9, 0x16u);
   }
 
   [(SASPresentationManager *)self _setupPingTimerForPresentationIdentifier:identifier];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_forceAllPresentationsOff
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E698D0A0];
   v4 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v28 = "[SASPresentationManager _forceAllPresentationsOff]";
+    v27 = "[SASPresentationManager _forceAllPresentationsOff]";
     _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s #pingpong", buf, 0xCu);
   }
 
@@ -2408,9 +2365,9 @@ void __81__SASPresentationManager__waitForPongFromPresentationWithPresentationId
     currentThread = [v6 currentThread];
     qualityOfService = [currentThread qualityOfService];
     *buf = 136315394;
-    v28 = "[SASPresentationManager _forceAllPresentationsOff]";
-    v29 = 2048;
-    v30 = qualityOfService;
+    v27 = "[SASPresentationManager _forceAllPresentationsOff]";
+    v28 = 2048;
+    v29 = qualityOfService;
     _os_log_impl(&dword_1C8137000, v7, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", buf, 0x16u);
   }
 
@@ -2419,30 +2376,30 @@ void __81__SASPresentationManager__waitForPongFromPresentationWithPresentationId
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v28 = "[SASPresentationManager _forceAllPresentationsOff]";
+    v27 = "[SASPresentationManager _forceAllPresentationsOff]";
     _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", buf, 0xCu);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   allValues = [(NSMutableDictionary *)self->_presentations allValues];
-  v12 = [allValues countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v12 = [allValues countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v23;
+    v14 = *v22;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v23 != v14)
+        if (*v22 != v14)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * i);
+        v16 = *(*(&v21 + 1) + 8 * i);
         if ([v16 requestState] == 1)
         {
           presentationServer = [v16 presentationServer];
@@ -2454,7 +2411,7 @@ void __81__SASPresentationManager__waitForPongFromPresentationWithPresentationId
         [v16 setRequestState:0];
       }
 
-      v13 = [allValues countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v13 = [allValues countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v13);
@@ -2465,17 +2422,16 @@ void __81__SASPresentationManager__waitForPongFromPresentationWithPresentationId
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v28 = "[SASPresentationManager _forceAllPresentationsOff]";
+    v27 = "[SASPresentationManager _forceAllPresentationsOff]";
     _os_log_impl(&dword_1C8137000, v20, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", buf, 0xCu);
   }
 
   [(SASPresentationManager *)self _requestStateDidChange];
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)presentationDidUpdateState:(id)state
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   v5 = MEMORY[0x1E698D0A0];
   v6 = *MEMORY[0x1E698D0A0];
@@ -2485,8 +2441,8 @@ void __81__SASPresentationManager__waitForPongFromPresentationWithPresentationId
     v8 = v6;
     currentThread = [v7 currentThread];
     *buf = 136315394;
-    v34 = "[SASPresentationManager presentationDidUpdateState:]";
-    v35 = 2048;
+    v33 = "[SASPresentationManager presentationDidUpdateState:]";
+    v34 = 2048;
     qualityOfService = [currentThread qualityOfService];
     _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", buf, 0x16u);
   }
@@ -2496,7 +2452,7 @@ void __81__SASPresentationManager__waitForPongFromPresentationWithPresentationId
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v34 = "[SASPresentationManager presentationDidUpdateState:]";
+    v33 = "[SASPresentationManager presentationDidUpdateState:]";
     _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", buf, 0xCu);
   }
 
@@ -2504,31 +2460,31 @@ void __81__SASPresentationManager__waitForPongFromPresentationWithPresentationId
   presentationIdentifier = [stateCopy presentationIdentifier];
   v13 = [(NSMutableDictionary *)presentations objectForKey:presentationIdentifier];
 
-  v27 = v13;
+  v26 = v13;
   [v13 setPresentationState:stateCopy];
   array = [MEMORY[0x1E695DF70] array];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   selfCopy = self;
   allKeys = [(NSMutableDictionary *)self->_presentations allKeys];
-  v17 = [allKeys countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v17 = [allKeys countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v29;
+    v19 = *v28;
     do
     {
       v20 = 0;
       do
       {
-        if (*v29 != v19)
+        if (*v28 != v19)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v21 = *(*(&v28 + 1) + 8 * v20);
+        v21 = *(*(&v27 + 1) + 8 * v20);
         presentationIdentifier2 = [stateCopy presentationIdentifier];
         v23 = [presentationIdentifier2 isEqualToString:v21];
 
@@ -2541,7 +2497,7 @@ void __81__SASPresentationManager__waitForPongFromPresentationWithPresentationId
       }
 
       while (v18 != v20);
-      v18 = [allKeys countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v18 = [allKeys countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v18);
@@ -2555,16 +2511,14 @@ void __81__SASPresentationManager__waitForPongFromPresentationWithPresentationId
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v34 = "[SASPresentationManager presentationDidUpdateState:]";
+    v33 = "[SASPresentationManager presentationDidUpdateState:]";
     _os_log_impl(&dword_1C8137000, v25, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", buf, 0xCu);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)presentationDidUpdateConfiguration:(id)configuration
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   v4 = MEMORY[0x1E698D0A0];
   v5 = *MEMORY[0x1E698D0A0];
@@ -2574,8 +2528,8 @@ void __81__SASPresentationManager__waitForPongFromPresentationWithPresentationId
     v7 = v5;
     currentThread = [v6 currentThread];
     *buf = 136315394;
-    v89 = "[SASPresentationManager presentationDidUpdateConfiguration:]";
-    v90 = 2048;
+    v88 = "[SASPresentationManager presentationDidUpdateConfiguration:]";
+    v89 = 2048;
     qualityOfService = [currentThread qualityOfService];
     _os_log_impl(&dword_1C8137000, v7, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock about to lock with qos: %zd", buf, 0x16u);
   }
@@ -2585,7 +2539,7 @@ void __81__SASPresentationManager__waitForPongFromPresentationWithPresentationId
   if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v89 = "[SASPresentationManager presentationDidUpdateConfiguration:]";
+    v88 = "[SASPresentationManager presentationDidUpdateConfiguration:]";
     _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock successfully locked", buf, 0xCu);
   }
 
@@ -2594,61 +2548,61 @@ void __81__SASPresentationManager__waitForPongFromPresentationWithPresentationId
   v12 = [(NSMutableDictionary *)presentations objectForKey:presentationIdentifier];
 
   configuration = [v12 configuration];
-  v49 = v12;
+  v48 = v12;
   [v12 setConfiguration:configurationCopy];
   os_unfair_lock_unlock(&presentationsLock);
   v13 = *v4;
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v89 = "[SASPresentationManager presentationDidUpdateConfiguration:]";
+    v88 = "[SASPresentationManager presentationDidUpdateConfiguration:]";
     _os_log_impl(&dword_1C8137000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy presentationsLock unlocked", buf, 0xCu);
   }
 
   array = [MEMORY[0x1E695DF70] array];
+  v77 = 0u;
   v78 = 0u;
   v79 = 0u;
   v80 = 0u;
-  v81 = 0u;
-  v50 = configurationCopy;
+  v49 = configurationCopy;
   obj = [configurationCopy sourceActiveOverridePreference];
-  v15 = [obj countByEnumeratingWithState:&v78 objects:v87 count:16];
+  v15 = [obj countByEnumeratingWithState:&v77 objects:v86 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v79;
+    v17 = *v78;
     do
     {
       v18 = 0;
       do
       {
-        if (*v79 != v17)
+        if (*v78 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v78 + 1) + 8 * v18);
+        v19 = *(*(&v77 + 1) + 8 * v18);
+        v73 = 0u;
         v74 = 0u;
         v75 = 0u;
         v76 = 0u;
-        v77 = 0u;
         sourceActiveOverridePreference = [configuration sourceActiveOverridePreference];
-        v21 = [sourceActiveOverridePreference countByEnumeratingWithState:&v74 objects:v86 count:16];
+        v21 = [sourceActiveOverridePreference countByEnumeratingWithState:&v73 objects:v85 count:16];
         if (v21)
         {
           v22 = v21;
-          v23 = *v75;
+          v23 = *v74;
           do
           {
             v24 = 0;
             do
             {
-              if (*v75 != v23)
+              if (*v74 != v23)
               {
                 objc_enumerationMutation(sourceActiveOverridePreference);
               }
 
-              siriButtonIdentifier = [*(*(&v74 + 1) + 8 * v24) siriButtonIdentifier];
+              siriButtonIdentifier = [*(*(&v73 + 1) + 8 * v24) siriButtonIdentifier];
               if (siriButtonIdentifier == [v19 siriButtonIdentifier])
               {
                 [array addObject:v19];
@@ -2658,7 +2612,7 @@ void __81__SASPresentationManager__waitForPongFromPresentationWithPresentationId
             }
 
             while (v22 != v24);
-            v22 = [sourceActiveOverridePreference countByEnumeratingWithState:&v74 objects:v86 count:16];
+            v22 = [sourceActiveOverridePreference countByEnumeratingWithState:&v73 objects:v85 count:16];
           }
 
           while (v22);
@@ -2668,53 +2622,53 @@ void __81__SASPresentationManager__waitForPongFromPresentationWithPresentationId
       }
 
       while (v18 != v16);
-      v16 = [obj countByEnumeratingWithState:&v78 objects:v87 count:16];
+      v16 = [obj countByEnumeratingWithState:&v77 objects:v86 count:16];
     }
 
     while (v16);
   }
 
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
   v71 = 0u;
-  sourceActiveOverridePreference2 = [v50 sourceActiveOverridePreference];
-  v26 = [sourceActiveOverridePreference2 countByEnumeratingWithState:&v70 objects:v85 count:16];
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
+  sourceActiveOverridePreference2 = [v49 sourceActiveOverridePreference];
+  v26 = [sourceActiveOverridePreference2 countByEnumeratingWithState:&v69 objects:v84 count:16];
   if (v26)
   {
     v27 = v26;
-    obja = *v71;
+    obja = *v70;
     do
     {
       v28 = 0;
       do
       {
-        if (*v71 != obja)
+        if (*v70 != obja)
         {
           objc_enumerationMutation(sourceActiveOverridePreference2);
         }
 
-        v29 = *(*(&v70 + 1) + 8 * v28);
+        v29 = *(*(&v69 + 1) + 8 * v28);
+        v65 = 0u;
         v66 = 0u;
         v67 = 0u;
         v68 = 0u;
-        v69 = 0u;
         WeakRetained = array;
-        v31 = [WeakRetained countByEnumeratingWithState:&v66 objects:v84 count:16];
+        v31 = [WeakRetained countByEnumeratingWithState:&v65 objects:v83 count:16];
         if (v31)
         {
           v32 = v31;
-          v33 = *v67;
+          v33 = *v66;
 LABEL_30:
           v34 = 0;
           while (1)
           {
-            if (*v67 != v33)
+            if (*v66 != v33)
             {
               objc_enumerationMutation(WeakRetained);
             }
 
-            v35 = *(*(&v66 + 1) + 8 * v34);
+            v35 = *(*(&v65 + 1) + 8 * v34);
             siriButtonIdentifier2 = [v29 siriButtonIdentifier];
             if (siriButtonIdentifier2 == [v35 siriButtonIdentifier])
             {
@@ -2723,7 +2677,7 @@ LABEL_30:
 
             if (v32 == ++v34)
             {
-              v32 = [WeakRetained countByEnumeratingWithState:&v66 objects:v84 count:16];
+              v32 = [WeakRetained countByEnumeratingWithState:&v65 objects:v83 count:16];
               if (v32)
               {
                 goto LABEL_30;
@@ -2746,53 +2700,53 @@ LABEL_36:
       }
 
       while (v28 != v27);
-      v27 = [sourceActiveOverridePreference2 countByEnumeratingWithState:&v70 objects:v85 count:16];
+      v27 = [sourceActiveOverridePreference2 countByEnumeratingWithState:&v69 objects:v84 count:16];
     }
 
     while (v27);
   }
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   sourceActiveOverridePreference3 = [configuration sourceActiveOverridePreference];
-  v37 = [sourceActiveOverridePreference3 countByEnumeratingWithState:&v62 objects:v83 count:16];
+  v37 = [sourceActiveOverridePreference3 countByEnumeratingWithState:&v61 objects:v82 count:16];
   if (v37)
   {
     v38 = v37;
-    objb = *v63;
+    objb = *v62;
     do
     {
       v39 = 0;
       do
       {
-        if (*v63 != objb)
+        if (*v62 != objb)
         {
           objc_enumerationMutation(sourceActiveOverridePreference3);
         }
 
-        v40 = *(*(&v62 + 1) + 8 * v39);
+        v40 = *(*(&v61 + 1) + 8 * v39);
+        v57 = 0u;
         v58 = 0u;
         v59 = 0u;
         v60 = 0u;
-        v61 = 0u;
         v41 = array;
-        v42 = [v41 countByEnumeratingWithState:&v58 objects:v82 count:16];
+        v42 = [v41 countByEnumeratingWithState:&v57 objects:v81 count:16];
         if (v42)
         {
           v43 = v42;
-          v44 = *v59;
+          v44 = *v58;
 LABEL_46:
           v45 = 0;
           while (1)
           {
-            if (*v59 != v44)
+            if (*v58 != v44)
             {
               objc_enumerationMutation(v41);
             }
 
-            v46 = *(*(&v58 + 1) + 8 * v45);
+            v46 = *(*(&v57 + 1) + 8 * v45);
             siriButtonIdentifier3 = [v40 siriButtonIdentifier];
             if (siriButtonIdentifier3 == [v46 siriButtonIdentifier])
             {
@@ -2801,7 +2755,7 @@ LABEL_46:
 
             if (v43 == ++v45)
             {
-              v43 = [v41 countByEnumeratingWithState:&v58 objects:v82 count:16];
+              v43 = [v41 countByEnumeratingWithState:&v57 objects:v81 count:16];
               if (v43)
               {
                 goto LABEL_46;
@@ -2824,58 +2778,56 @@ LABEL_52:
       }
 
       while (v39 != v38);
-      v38 = [sourceActiveOverridePreference3 countByEnumeratingWithState:&v62 objects:v83 count:16];
+      v38 = [sourceActiveOverridePreference3 countByEnumeratingWithState:&v61 objects:v82 count:16];
     }
 
     while (v38);
   }
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_presentationsLock_broadcastPresentationStateForIdentifier:(id)identifier presentationState:(id)state presentationIdentifiersToInform:(id)inform
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   stateCopy = state;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = inform;
-  v9 = [obj countByEnumeratingWithState:&v25 objects:v37 count:16];
+  v9 = [obj countByEnumeratingWithState:&v24 objects:v36 count:16];
   if (v9)
   {
     v11 = v9;
-    v12 = *v26;
+    v12 = *v25;
     *&v10 = 136315906;
-    v22 = v10;
+    v21 = v10;
     do
     {
       v13 = 0;
       do
       {
-        if (*v26 != v12)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v25 + 1) + 8 * v13);
+        v14 = *(*(&v24 + 1) + 8 * v13);
         v15 = *MEMORY[0x1E698D0A0];
         if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v22;
-          v30 = "[SASPresentationManager _presentationsLock_broadcastPresentationStateForIdentifier:presentationState:presentationIdentifiersToInform:]";
-          v31 = 2112;
-          v32 = v14;
-          v33 = 2112;
-          v34 = identifierCopy;
-          v35 = 2112;
-          v36 = stateCopy;
+          *buf = v21;
+          v29 = "[SASPresentationManager _presentationsLock_broadcastPresentationStateForIdentifier:presentationState:presentationIdentifiersToInform:]";
+          v30 = 2112;
+          v31 = v14;
+          v32 = 2112;
+          v33 = identifierCopy;
+          v34 = 2112;
+          v35 = stateCopy;
           _os_log_impl(&dword_1C8137000, v15, OS_LOG_TYPE_DEFAULT, "%s Sending <%@>'s state --> <%@>: %@", buf, 0x2Au);
         }
 
-        v16 = [(NSMutableDictionary *)self->_presentations objectForKey:v14, v22];
+        v16 = [(NSMutableDictionary *)self->_presentations objectForKey:v14, v21];
         v17 = -[SiriPresentationIdentifierTransport initWithSiriPresentationIdentifier:]([SiriPresentationIdentifierTransport alloc], "initWithSiriPresentationIdentifier:", [identifierCopy siriPresentationIdentifier]);
         presentationServer = [v16 presentationServer];
         connection = [presentationServer connection];
@@ -2886,95 +2838,83 @@ LABEL_52:
       }
 
       while (v11 != v13);
-      v11 = [obj countByEnumeratingWithState:&v25 objects:v37 count:16];
+      v11 = [obj countByEnumeratingWithState:&v24 objects:v36 count:16];
     }
 
     while (v11);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerSiriPresentation:withIdentifier:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation Registration of '%@' when it is already connected. Removing.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation Registration of '%@' when it is already connected. Removing.", v2, v3, v4, v5, v6);
 }
 
 - (void)unregisterSiriPresentationWithIdentifier:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation Unregister request of '%@' when it is not connected.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation Unregister request of '%@' when it is not connected.", v2, v3, v4, v5, v6);
 }
 
 - (void)preheatNextPresentationToActivateWithOptions:(void *)a3 .cold.1(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = SASRequestStateGetName([a3 requestState]);
-  v8 = 136315650;
-  v9 = "[SASPresentationManager preheatNextPresentationToActivateWithOptions:]";
-  v10 = 2112;
-  v11 = a1;
-  v12 = 2112;
-  v13 = v6;
-  _os_log_error_impl(&dword_1C8137000, v5, OS_LOG_TYPE_ERROR, "%s #activation #preheat tried to preheat %@ but it's request state is %@", &v8, 0x20u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 136315650;
+  v8 = "[SASPresentationManager preheatNextPresentationToActivateWithOptions:]";
+  v9 = 2112;
+  v10 = a1;
+  v11 = 2112;
+  v12 = v6;
+  _os_log_error_impl(&dword_1C8137000, v5, OS_LOG_TYPE_ERROR, "%s #activation #preheat tried to preheat %@ but it's request state is %@", &v7, 0x20u);
 }
 
 - (void)preheatNextPresentationToActivateWithOptions:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation #preheat tried to preheat %@ but it's not a registered presentation", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation #preheat tried to preheat %@ but it's not a registered presentation", v2, v3, v4, v5, v6);
 }
 
 - (void)_sendBlock:toPresentationWithPresentationIdentifier:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation presentation with identifier %@ isn't registered", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_1C8137000, v0, v1, "%s #activation presentation with identifier %@ isn't registered", v2, v3, v4, v5, v6);
 }
 
 - (void)_buildPresentationOptionsWithRequestOptions:(uint64_t)a3 .cold.1(void *a1, unint64_t a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = SiriPresentationRotationStyleGetName(a2);
-  v9[0] = 136315650;
+  v8[0] = 136315650;
   OUTLINED_FUNCTION_0_1();
-  v10 = v7;
-  v11 = a3;
-  _os_log_debug_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEBUG, "%s #activation Setting rotation style for presentation { rotationStyle: %@, presentation: %@ }", v9, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = v7;
+  v10 = a3;
+  _os_log_debug_impl(&dword_1C8137000, v5, OS_LOG_TYPE_DEBUG, "%s #activation Setting rotation style for presentation { rotationStyle: %@, presentation: %@ }", v8, 0x20u);
 }
 
 - (void)_buildPresentationOptionsWithRequestOptions:(char)a1 .cold.2(char a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136315394;
-  v4 = "[SASPresentationManager _buildPresentationOptionsWithRequestOptions:]";
-  v5 = 1024;
-  v6 = a1 & 1;
-  _os_log_debug_impl(&dword_1C8137000, a2, OS_LOG_TYPE_DEBUG, "%s #activation is Visual Intelligence Launch: %d", &v3, 0x12u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136315394;
+  v3 = "[SASPresentationManager _buildPresentationOptionsWithRequestOptions:]";
+  v4 = 1024;
+  v5 = a1 & 1;
+  _os_log_debug_impl(&dword_1C8137000, a2, OS_LOG_TYPE_DEBUG, "%s #activation is Visual Intelligence Launch: %d", &v2, 0x12u);
 }
 
 void __81__SASPresentationManager__waitForPongFromPresentationWithPresentationIdentifier___block_invoke_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[SASPresentationManager _waitForPongFromPresentationWithPresentationIdentifier:]_block_invoke";
-  _os_log_error_impl(&dword_1C8137000, log, OS_LOG_TYPE_ERROR, "%s #pingpong timed out waiting for pong", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[SASPresentationManager _waitForPongFromPresentationWithPresentationIdentifier:]_block_invoke";
+  _os_log_error_impl(&dword_1C8137000, log, OS_LOG_TYPE_ERROR, "%s #pingpong timed out waiting for pong", &v1, 0xCu);
 }
 
 @end

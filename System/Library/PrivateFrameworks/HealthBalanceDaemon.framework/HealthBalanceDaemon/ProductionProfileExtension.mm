@@ -7,30 +7,29 @@
 
 - (id)featureAvailabilityExtensionForFeatureIdentifier:(id)identifier
 {
-  v4 = *MEMORY[0x277CCC0F0];
-  v5 = sub_22892F0C8();
-  v7 = v6;
-  if (v5 == sub_22892F0C8() && v7 == v8)
+  v4 = sub_22892F0C8();
+  v6 = v5;
+  if (v4 == sub_22892F0C8() && v6 == v7)
   {
     selfCopy = self;
   }
 
   else
   {
-    v10 = sub_22892F818();
+    v9 = sub_22892F818();
     selfCopy2 = self;
 
-    if ((v10 & 1) == 0)
+    if ((v9 & 1) == 0)
     {
-      v12 = 0;
+      v11 = 0;
       goto LABEL_9;
     }
   }
 
-  v12 = *(&self->super.isa + OBJC_IVAR____TtC19HealthBalanceDaemon26ProductionProfileExtension_sleepingSampleAnalysisFeatureAvailabilityManager);
+  v11 = *(&self->super.isa + OBJC_IVAR____TtC19HealthBalanceDaemon26ProductionProfileExtension_sleepingSampleAnalysisFeatureAvailabilityManager);
 LABEL_9:
 
-  return v12;
+  return v11;
 }
 
 - (_TtC19HealthBalanceDaemon26ProductionProfileExtension)init

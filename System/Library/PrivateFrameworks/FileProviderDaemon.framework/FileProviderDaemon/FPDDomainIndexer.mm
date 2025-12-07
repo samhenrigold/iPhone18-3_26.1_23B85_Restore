@@ -68,7 +68,7 @@
 {
   if (self->_registeredWithScheduler)
   {
-    v3 = indexingScheduler();
+    v3 = indexingScheduler(self);
     [v3 removeWatcher:self];
 
     self->_registeredWithScheduler = 0;
@@ -150,9 +150,9 @@ void __34__FPDDomainIndexer_clearNeedsAuth__block_invoke(uint64_t a1)
 {
   extensionCopy = extension;
   domainCopy = domain;
-  v34.receiver = self;
-  v34.super_class = FPDDomainIndexer;
-  v13 = [(FPDDomainIndexer *)&v34 init];
+  v35.receiver = self;
+  v35.super_class = FPDDomainIndexer;
+  v13 = [(FPDDomainIndexer *)&v35 init];
   v14 = v13;
   if (v13)
   {
@@ -191,10 +191,10 @@ void __34__FPDDomainIndexer_clearNeedsAuth__block_invoke(uint64_t a1)
     v14->_queue = v30;
 
     v14->_maxRetryDelayInSec = 60;
-    -[FPDDomainIndexerState setNeedsIndexing:](v14->_state, "setNeedsIndexing:", [domainCopy shouldIndexWhenStart]);
+    v32 = -[FPDDomainIndexerState setNeedsIndexing:](v14->_state, "setNeedsIndexing:", [domainCopy shouldIndexWhenStart]);
     v14->_supportingIndexAll = all;
-    v32 = indexingScheduler();
-    [v32 ping];
+    v33 = indexingScheduler(v32);
+    [v33 ping];
   }
 
   return v14;
@@ -348,7 +348,7 @@ void __32__FPDDomainIndexer_setNeedsAuth__block_invoke(uint64_t a1)
 - (void)_handleOneBatchCompletionWithError:(id)error hasMoreChanges:(BOOL)changes
 {
   changesCopy = changes;
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   dispatch_assert_queue_V2(self->_queue);
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -365,27 +365,27 @@ void __32__FPDDomainIndexer_setNeedsAuth__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     fp_prettyDescription = [errorCopy fp_prettyDescription];
-    v39 = fp_prettyDescription;
-    v40 = @"success";
+    v38 = fp_prettyDescription;
+    v39 = @"success";
     if (fp_prettyDescription)
     {
-      v40 = fp_prettyDescription;
+      v39 = fp_prettyDescription;
     }
 
-    v41 = @"no";
+    v40 = @"no";
     *buf = 134218754;
-    v58 = section;
-    v59 = 2112;
+    v57 = section;
+    v58 = 2112;
     selfCopy = self;
-    v61 = 2112;
+    v60 = 2112;
     if (changesCopy)
     {
-      v41 = @"yes";
+      v40 = @"yes";
     }
 
-    v62 = v40;
-    v63 = 2112;
-    v64 = v41;
+    v61 = v39;
+    v62 = 2112;
+    v63 = v40;
     _os_log_debug_impl(&dword_1CEFC7000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx %@: handling batch index completion: %@ more-changes:%@", buf, 0x2Au);
   }
 
@@ -566,56 +566,54 @@ LABEL_36:
     goto LABEL_48;
   }
 
-  v42 = 100000000 << v34;
-  if (1000000000 * self->_maxRetryDelayInSec >= v42)
+  v41 = 100000000 << v34;
+  if (1000000000 * self->_maxRetryDelayInSec >= v41)
   {
-    v43 = v42;
+    v42 = v41;
   }
 
   else
   {
-    v43 = 1000000000 * self->_maxRetryDelayInSec;
+    v42 = 1000000000 * self->_maxRetryDelayInSec;
   }
 
-  v44 = fp_current_or_default_log();
-  if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+  v43 = fp_current_or_default_log();
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
   {
     fp_prettyDescription4 = [errorCopy fp_prettyDescription];
-    v53 = self->_consecutiveBatchErrorCount;
+    v52 = self->_consecutiveBatchErrorCount;
     *buf = 138412802;
-    v58 = fp_prettyDescription4;
-    v59 = 2048;
-    selfCopy = v43 / 0xF4240;
-    v61 = 2048;
-    v62 = v53;
-    _os_log_error_impl(&dword_1CEFC7000, v44, OS_LOG_TYPE_ERROR, "[ERROR] we received an error %@, retry in %llums (count:%lu)...", buf, 0x20u);
+    v57 = fp_prettyDescription4;
+    v58 = 2048;
+    selfCopy = v42 / 0xF4240;
+    v60 = 2048;
+    v61 = v52;
+    _os_log_error_impl(&dword_1CEFC7000, v43, OS_LOG_TYPE_ERROR, "[ERROR] we received an error %@, retry in %llums (count:%lu)...", buf, 0x20u);
   }
 
-  v45 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_queue);
+  v44 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_queue);
   p_timerSource = &self->_timerSource;
   timerSource = self->_timerSource;
-  self->_timerSource = v45;
+  self->_timerSource = v44;
 
   objc_initWeak(buf, self);
-  v48 = self->_timerSource;
-  v54[0] = MEMORY[0x1E69E9820];
-  v54[1] = 3221225472;
-  v54[2] = __70__FPDDomainIndexer__handleOneBatchCompletionWithError_hasMoreChanges___block_invoke;
-  v54[3] = &unk_1E83BE0B8;
-  objc_copyWeak(&v55, buf);
-  v49 = v48;
-  v50 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_UTILITY, 0, v54);
-  dispatch_source_set_event_handler(v49, v50);
+  v47 = self->_timerSource;
+  v53[0] = MEMORY[0x1E69E9820];
+  v53[1] = 3221225472;
+  v53[2] = __70__FPDDomainIndexer__handleOneBatchCompletionWithError_hasMoreChanges___block_invoke;
+  v53[3] = &unk_1E83BE0B8;
+  objc_copyWeak(&v54, buf);
+  v48 = v47;
+  v49 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_UTILITY, 0, v53);
+  dispatch_source_set_event_handler(v48, v49);
 
-  v51 = dispatch_time(0, v43);
-  dispatch_source_set_timer(*p_timerSource, v51, 0xFFFFFFFFFFFFFFFFLL, v43);
+  v50 = dispatch_time(0, v42);
+  dispatch_source_set_timer(*p_timerSource, v50, 0xFFFFFFFFFFFFFFFFLL, v42);
   dispatch_resume(*p_timerSource);
-  objc_destroyWeak(&v55);
+  objc_destroyWeak(&v54);
   objc_destroyWeak(buf);
 LABEL_49:
   __fp_leave_section_Debug();
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 void __70__FPDDomainIndexer__handleOneBatchCompletionWithError_hasMoreChanges___block_invoke(uint64_t a1)
@@ -645,21 +643,21 @@ void __70__FPDDomainIndexer__handleOneBatchCompletionWithError_hasMoreChanges___
   dispatch_async(queue, block);
 }
 
-uint64_t __42__FPDDomainIndexer_sharedSchedulerCanRun___block_invoke(uint64_t a1)
+uint64_t __42__FPDDomainIndexer_sharedSchedulerCanRun___block_invoke(uint64_t a1, uint64_t a2)
 {
   __fp_create_section();
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __42__FPDDomainIndexer_sharedSchedulerCanRun___block_invoke_cold_1(a1);
+    __42__FPDDomainIndexer_sharedSchedulerCanRun___block_invoke_cold_1();
   }
 
   [*(a1 + 32) _unregisterFromScheduler];
-  v3 = *(a1 + 32);
-  if (v3[40])
+  v4 = *(a1 + 32);
+  if (v4[40])
   {
-    v4 = fp_current_or_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = fp_current_or_default_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       __42__FPDDomainIndexer_sharedSchedulerCanRun___block_invoke_cold_2();
     }
@@ -667,7 +665,7 @@ uint64_t __42__FPDDomainIndexer_sharedSchedulerCanRun___block_invoke(uint64_t a1
 
   else
   {
-    [v3 __indexOneBatchIfPossibleClearingNeedsIndexing:v3[44]];
+    [v4 __indexOneBatchIfPossibleClearingNeedsIndexing:v4[44]];
   }
 
   return __fp_leave_section_Debug();
@@ -690,17 +688,17 @@ uint64_t __42__FPDDomainIndexer_sharedSchedulerCanRun___block_invoke(uint64_t a1
     {
 
 LABEL_18:
-      v16 = fp_current_or_default_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v17 = fp_current_or_default_log();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         [FPDDomainIndexer _indexOneBatchIfPossibleClearingNeedsIndexing:];
       }
 
-      goto LABEL_21;
+      return;
     }
 
-    v14 = objc_loadWeakRetained(&self->_domain);
-    isHiddenByUser = [v14 isHiddenByUser];
+    v15 = objc_loadWeakRetained(&self->_domain);
+    isHiddenByUser = [v15 isHiddenByUser];
 
     if (isHiddenByUser)
     {
@@ -713,26 +711,26 @@ LABEL_18:
   }
 
   self->_clearNeedsIndexing = indexing;
-  objc_initWeak(&location, self);
+  inited = objc_initWeak(&location, self);
   if (!self->_registeredWithScheduler)
   {
     self->_registeredWithScheduler = 1;
-    v7 = indexingScheduler();
-    [v7 addWatcher:self];
+    v8 = indexingScheduler(inited);
+    [v8 addWatcher:self];
   }
 
-  v8 = MEMORY[0x1E695DF70];
-  v9 = indexingScheduler();
-  v20[0] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
-  v11 = [v8 arrayWithArray:v10];
+  v9 = MEMORY[0x1E695DF70];
+  v10 = indexingScheduler(inited);
+  v20[0] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+  v12 = [v9 arrayWithArray:v11];
 
   if (self->_supportingIndexAll)
   {
-    v12 = [FPDSharedSystemScheduler schedulerWithLabel:@"com.apple.fileproviderd.background-download"];
-    if (v12)
+    v13 = [FPDSharedSystemScheduler schedulerWithLabel:@"com.apple.fileproviderd.background-download"];
+    if (v13)
     {
-      [v11 addObject:v12];
+      [v12 addObject:v13];
     }
   }
 
@@ -741,18 +739,16 @@ LABEL_18:
   v18[2] = __66__FPDDomainIndexer__indexOneBatchIfPossibleClearingNeedsIndexing___block_invoke;
   v18[3] = &unk_1E83C1CE0;
   v18[4] = self;
-  if (![FPDSharedSystemScheduler runIfAllowedOneSchedulerOf:v11 cb:v18])
+  if (![FPDSharedSystemScheduler runIfAllowedOneSchedulerOf:v12 cb:v18])
   {
-    v13 = fp_current_or_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = fp_current_or_default_log();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       [FPDDomainIndexer _indexOneBatchIfPossibleClearingNeedsIndexing:];
     }
   }
 
   objc_destroyWeak(&location);
-LABEL_21:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__indexOneBatchIfPossibleClearingNeedsIndexing:(BOOL)indexing
@@ -764,11 +760,11 @@ LABEL_21:
     [FPDDomainIndexer __indexOneBatchIfPossibleClearingNeedsIndexing:];
   }
 
-  section = __fp_create_section();
+  aBlock[5] = __fp_create_section();
   v5 = fp_current_or_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    [FPDDomainIndexer __indexOneBatchIfPossibleClearingNeedsIndexing:?];
+    [FPDDomainIndexer __indexOneBatchIfPossibleClearingNeedsIndexing:];
   }
 
   if (self->_invalidated)
@@ -863,9 +859,8 @@ void __67__FPDDomainIndexer___indexOneBatchIfPossibleClearingNeedsIndexing___blo
 {
   v2 = [*(a1 + 32) domain];
   v3 = [v2 log];
-  v5 = fpfs_adopt_log();
+  v4 = fpfs_adopt_log();
 
-  v4 = *(a1 + 40) != 0;
   [*(a1 + 32) _handleOneBatchCompletionWithError:? hasMoreChanges:?];
   __fp_pop_log();
 }
@@ -1008,7 +1003,7 @@ void __89__FPDDomainIndexer_signalNeedsReindexItemsWithIdentifiers_indexReason_c
 
 - (void)dropIndexForReason:(unint64_t)reason completion:(id)completion
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   state = [(FPDDomainIndexer *)self state];
   droppedIndex = [state droppedIndex];
@@ -1037,23 +1032,21 @@ void __89__FPDDomainIndexer_signalNeedsReindexItemsWithIdentifiers_indexReason_c
 
     localSpotlightIndexer = [(FPDDomainIndexer *)self localSpotlightIndexer];
     v13 = self->_domainIdentifier;
-    v23[0] = self->_spotlightDomainIdentifier;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __50__FPDDomainIndexer_dropIndexForReason_completion___block_invoke;
-    v18[3] = &unk_1E83C1DA8;
-    v18[4] = self;
-    v19 = localSpotlightIndexer;
-    v20 = v13;
-    v21 = completionCopy;
+    v22[0] = self->_spotlightDomainIdentifier;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __50__FPDDomainIndexer_dropIndexForReason_completion___block_invoke;
+    v17[3] = &unk_1E83C1DA8;
+    v17[4] = self;
+    v18 = localSpotlightIndexer;
+    v19 = v13;
+    v20 = completionCopy;
     reasonCopy = reason;
     v15 = v13;
     v16 = localSpotlightIndexer;
-    [v16 deleteSearchableItemsWithDomainIdentifiers:v14 reason:0 completionHandler:v18];
+    [v16 deleteSearchableItemsWithDomainIdentifiers:v14 reason:0 completionHandler:v17];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __50__FPDDomainIndexer_dropIndexForReason_completion___block_invoke(uint64_t a1, void *a2)
@@ -1068,7 +1061,7 @@ void __50__FPDDomainIndexer_dropIndexForReason_completion___block_invoke(uint64_
     v6 = fp_current_or_default_log();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __50__FPDDomainIndexer_dropIndexForReason_completion___block_invoke_cold_1(a1);
+      __50__FPDDomainIndexer_dropIndexForReason_completion___block_invoke_cold_1();
     }
 
     (*(*(a1 + 56) + 16))();
@@ -1116,7 +1109,7 @@ void __50__FPDDomainIndexer_dropIndexForReason_completion___block_invoke_2(uint6
     v6 = fp_current_or_default_log();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      __50__FPDDomainIndexer_dropIndexForReason_completion___block_invoke_2_cold_1(a1);
+      __50__FPDDomainIndexer_dropIndexForReason_completion___block_invoke_2_cold_1();
     }
 
     (*(*(a1 + 56) + 16))();
@@ -1152,7 +1145,7 @@ void __50__FPDDomainIndexer_dropIndexForReason_completion___block_invoke_142(uin
     v9 = fp_current_or_default_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      __50__FPDDomainIndexer_dropIndexForReason_completion___block_invoke_142_cold_1(a1);
+      __50__FPDDomainIndexer_dropIndexForReason_completion___block_invoke_142_cold_1();
     }
 
 LABEL_7:
@@ -1185,7 +1178,7 @@ LABEL_8:
     v5 = fp_current_or_default_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      [FPDDomainIndexer _signalChangesWithCompletionHandler:?];
+      [FPDDomainIndexer _signalChangesWithCompletionHandler:];
     }
 
     [(FPDDomainIndexer *)self _cancelTimer];
@@ -1199,7 +1192,7 @@ LABEL_8:
     v7 = fp_current_or_default_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      [FPDDomainIndexer _signalChangesWithCompletionHandler:?];
+      [FPDDomainIndexer _signalChangesWithCompletionHandler:];
     }
 
 LABEL_12:
@@ -1250,7 +1243,7 @@ void __55__FPDDomainIndexer_signalChangesWithCompletionHandler___block_invoke(ui
   v5 = fp_current_or_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    __55__FPDDomainIndexer_signalChangesWithCompletionHandler___block_invoke_cold_1(v2);
+    __55__FPDDomainIndexer_signalChangesWithCompletionHandler___block_invoke_cold_1();
   }
 
   if (*(*v2 + 41))
@@ -1290,33 +1283,33 @@ void __55__FPDDomainIndexer_signalChangesWithCompletionHandler___block_invoke(ui
 
 void __57__FPDDomainIndexer_setIndexingEnabled_completionHandler___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) domain];
   v3 = [v2 log];
-  v18 = fpfs_adopt_log();
+  v17 = fpfs_adopt_log();
 
   section = __fp_create_section();
-  v17 = section;
+  v16 = section;
   v5 = fp_current_or_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v13 = *(a1 + 32);
+    v12 = *(a1 + 32);
     if (*(a1 + 48))
     {
-      v14 = @"user-enabled";
+      v13 = @"user-enabled";
     }
 
     else
     {
-      v14 = @"user-disabled";
+      v13 = @"user-disabled";
     }
 
     *buf = 134218498;
-    v20 = section;
-    v21 = 2112;
-    v22 = v13;
-    v23 = 2112;
-    v24 = v14;
+    v19 = section;
+    v20 = 2112;
+    v21 = v12;
+    v22 = 2112;
+    v23 = v13;
     _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx %@: setting indexing to %@", buf, 0x20u);
   }
 
@@ -1339,13 +1332,13 @@ void __57__FPDDomainIndexer_setIndexingEnabled_completionHandler___block_invoke(
     v10 = *(a1 + 32);
     if (v9 == 1)
     {
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __57__FPDDomainIndexer_setIndexingEnabled_completionHandler___block_invoke_150;
-      v15[3] = &unk_1E83BE990;
-      v16 = *(a1 + 40);
-      [v10 _signalChangesWithCompletionHandler:v15];
-      v11 = v16;
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __57__FPDDomainIndexer_setIndexingEnabled_completionHandler___block_invoke_150;
+      v14[3] = &unk_1E83BE990;
+      v15 = *(a1 + 40);
+      [v10 _signalChangesWithCompletionHandler:v14];
+      v11 = v15;
     }
 
     else
@@ -1358,8 +1351,6 @@ void __57__FPDDomainIndexer_setIndexingEnabled_completionHandler___block_invoke(
 
   __fp_leave_section_Debug();
   __fp_pop_log();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pauseIndexingWithCompletionHandler:(id)handler
@@ -1436,23 +1427,12 @@ void __57__FPDDomainIndexer_setIndexingEnabled_completionHandler___block_invoke(
 
 void __41__FPDDomainIndexer_dumpStateTo_withName___block_invoke(uint64_t a1)
 {
-  [*(a1 + 32) write:{@"      spDomainID:     %@\n", *(*(a1 + 40) + 88)}];
-  v2 = *(a1 + 32);
-  v3 = indexingScheduler();
-  [v2 write:{@"      scheduler:      %@\n", v3}];
+  v2 = [*(a1 + 32) write:{@"      spDomainID:     %@\n", *(*(a1 + 40) + 88)}];
+  v3 = *(a1 + 32);
+  v4 = indexingScheduler(v2);
+  [v3 write:{@"      scheduler:      %@\n", v4}];
 
   if (*(*(a1 + 40) + 41))
-  {
-    v4 = "yes";
-  }
-
-  else
-  {
-    v4 = "no";
-  }
-
-  [*(a1 + 32) write:{@"      enabled:        %s\n", v4}];
-  if (*(*(a1 + 40) + 40))
   {
     v5 = "yes";
   }
@@ -1462,31 +1442,42 @@ void __41__FPDDomainIndexer_dumpStateTo_withName___block_invoke(uint64_t a1)
     v5 = "no";
   }
 
-  [*(a1 + 32) write:{@"      indexing:       %s\n", v5}];
-  v6 = [*(a1 + 40) state];
-  [v6 dumpStateTo:*(a1 + 32)];
+  [*(a1 + 32) write:{@"      enabled:        %s\n", v5}];
+  if (*(*(a1 + 40) + 40))
+  {
+    v6 = "yes";
+  }
+
+  else
+  {
+    v6 = "no";
+  }
+
+  [*(a1 + 32) write:{@"      indexing:       %s\n", v6}];
+  v7 = [*(a1 + 40) state];
+  [v7 dumpStateTo:*(a1 + 32)];
 
   [*(a1 + 32) write:{@"      errors:         %ld\n", *(*(a1 + 40) + 64)}];
   [*(a1 + 32) write:{@"      batch-indexed (since last startup): %lu\n", *(*(a1 + 40) + 48)}];
-  v7 = *(a1 + 40);
-  if (*(v7 + 72))
+  v8 = *(a1 + 40);
+  if (*(v8 + 72))
   {
-    v8 = *(a1 + 32);
-    v9 = [MEMORY[0x1E695DF00] date];
-    [v9 timeIntervalSinceDate:*(*(a1 + 40) + 72)];
-    [v8 write:{@"      on-going index started:     %.3fs ago\n", v10}];
+    v9 = *(a1 + 32);
+    v10 = [MEMORY[0x1E695DF00] date];
+    [v10 timeIntervalSinceDate:*(*(a1 + 40) + 72)];
+    [v9 write:{@"      on-going index started:     %.3fs ago\n", v11}];
 
     [*(a1 + 32) write:{@"      on-going index batch count: %lu\n", *(*(a1 + 40) + 56)}];
-    v7 = *(a1 + 40);
+    v8 = *(a1 + 40);
   }
 
-  v11 = *(v7 + 80);
-  if (v11)
+  v12 = *(v8 + 80);
+  if (v12)
   {
-    v12 = *(a1 + 32);
-    v14 = [v11 description];
-    v13 = v14;
-    [v12 write:{@"      last error: %s\n", objc_msgSend(v14, "UTF8String")}];
+    v13 = *(a1 + 32);
+    v15 = [v12 description];
+    v14 = v15;
+    [v13 write:{@"      last error: %s\n", objc_msgSend(v15, "UTF8String")}];
   }
 }
 
@@ -1562,102 +1553,32 @@ void __41__FPDDomainIndexer_dumpStateTo_withName___block_invoke_2(uint64_t a1, v
   _os_log_error_impl(&dword_1CEFC7000, log, OS_LOG_TYPE_ERROR, "[ERROR] we received an error %@, trying again (count:%lu)...", buf, 0x16u);
 }
 
-void __42__FPDDomainIndexer_sharedSchedulerCanRun___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_7_3();
-  OUTLINED_FUNCTION_1_4(&dword_1CEFC7000, v2, v3, "[DEBUG] ┏%llx %@: DAS granted us some CPU time");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-- (void)__indexOneBatchIfPossibleClearingNeedsIndexing:(uint64_t *)a1 .cold.2(uint64_t *a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
-  OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_1_4(&dword_1CEFC7000, v2, v3, "[DEBUG] ┏%llx %@: indexing one batch");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
 - (void)dropIndexForReason:completion:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dropIndexForReason:completion:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __50__FPDDomainIndexer_dropIndexForReason_completion___block_invoke_cold_1(uint64_t a1)
+void __50__FPDDomainIndexer_dropIndexForReason_completion___block_invoke_cold_1()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 48);
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2_5();
-  _os_log_error_impl(&dword_1CEFC7000, v2, OS_LOG_TYPE_ERROR, "[ERROR] Failed to drop index for domain %@; %@", v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void __50__FPDDomainIndexer_dropIndexForReason_completion___block_invoke_2_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
-  OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_9_2(&dword_1CEFC7000, v2, v3, "[CRIT] Failed to erase client state %@; %@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __50__FPDDomainIndexer_dropIndexForReason_completion___block_invoke_142_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
-  OUTLINED_FUNCTION_2_5();
-  OUTLINED_FUNCTION_9_2(&dword_1CEFC7000, v2, v3, "[CRIT] Failed verify client state %@; %@");
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_ERROR, "[ERROR] Failed to drop index for domain %@; %@", v1, 0x16u);
 }
 
 void __50__FPDDomainIndexer_dropIndexForReason_completion___block_invoke_142_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(a1 + 40));
-  OUTLINED_FUNCTION_1_6(&dword_1CEFC7000, a2, a3, "[CRIT] Failed to erase client state %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_signalChangesWithCompletionHandler:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 8);
-  OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_signalChangesWithCompletionHandler:(uint64_t)a1 .cold.3(uint64_t a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 8);
-  OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __55__FPDDomainIndexer_signalChangesWithCompletionHandler___block_invoke_cold_1(uint64_t *a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
-  OUTLINED_FUNCTION_7_3();
-  OUTLINED_FUNCTION_1_4(&dword_1CEFC7000, v2, v3, "[DEBUG] ┏%llx %@: a change was signaled");
-  v4 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 40);
+  OUTLINED_FUNCTION_1_6(&dword_1CEFC7000, a2, a3, "[CRIT] Failed to erase client state %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

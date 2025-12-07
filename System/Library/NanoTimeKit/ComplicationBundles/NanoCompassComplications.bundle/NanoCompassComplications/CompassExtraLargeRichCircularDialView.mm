@@ -8,7 +8,7 @@
 
 - (id)_ticksImageName
 {
-  if (objc_msgSend_supportsGossamer(self, a2, v2, v3))
+  if (objc_msgSend_supportsGossamer(self, a2, v2))
   {
     return @"Compass/XL/Ticks";
   }
@@ -21,7 +21,7 @@
 
 - (id)_needleNorthImageName
 {
-  if (objc_msgSend_supportsGossamer(self, a2, v2, v3))
+  if (objc_msgSend_supportsGossamer(self, a2, v2))
   {
     return @"Compass/XL/Needle North";
   }
@@ -34,7 +34,7 @@
 
 - (id)_needleSouthImageName
 {
-  if (objc_msgSend_supportsGossamer(self, a2, v2, v3))
+  if (objc_msgSend_supportsGossamer(self, a2, v2))
   {
     return 0;
   }

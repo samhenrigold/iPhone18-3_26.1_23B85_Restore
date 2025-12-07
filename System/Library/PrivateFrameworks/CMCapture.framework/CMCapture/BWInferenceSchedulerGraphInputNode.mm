@@ -52,7 +52,7 @@
     selfCopy = self;
   }
 
-  v11 = OUTLINED_FUNCTION_0_0(self, a2, buffer, requirements, metadataRequirements, storage, v6, v7, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, 0);
+  v11 = OUTLINED_FUNCTION_0_0(self, a2, buffer, requirements, metadataRequirements, storage, v6, v7, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61);
   if (v11)
   {
     v12 = v11;
@@ -68,9 +68,9 @@
 
         v15 = *(8 * i);
         attachedMediaKey = [v15 attachedMediaKey];
-        v17 = [attachedMediaKey isEqualToString:@"PrimaryFormat"];
+        isEqualToString = objc_msgSend_isEqualToString_(attachedMediaKey);
         AttachedMedia = buffer;
-        if ((v17 & 1) == 0)
+        if ((isEqualToString & 1) == 0)
         {
           AttachedMedia = BWSampleBufferGetAttachedMedia(buffer, attachedMediaKey);
         }
@@ -89,7 +89,7 @@
         v20 = [storage setPixelBuffer:ImageBuffer forRequirement:v15];
       }
 
-      v12 = OUTLINED_FUNCTION_0_0(v20, v21, v22, v23, v24, v25, v26, v27, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v63);
+      v12 = OUTLINED_FUNCTION_0_0(v20, v21, v22, v23, v24, v25, v26, v27, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62);
       if (v12)
       {
         continue;

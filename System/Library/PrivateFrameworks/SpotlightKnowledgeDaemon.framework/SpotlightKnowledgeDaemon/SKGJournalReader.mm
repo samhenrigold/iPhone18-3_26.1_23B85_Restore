@@ -26,63 +26,63 @@
 
 - (id)journalPaths
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 1;
+  v31 = *MEMORY[0x277D85DE8];
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 1;
   journalReaderResourcePath = [(SKGJournalReader *)self journalReaderResourcePath];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v3 = [defaultManager isReadableFileAtPath:journalReaderResourcePath];
 
   if (v3)
   {
-    v19 = [MEMORY[0x277CBEBC0] URLWithString:journalReaderResourcePath];
+    v18 = [MEMORY[0x277CBEBC0] URLWithString:journalReaderResourcePath];
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
     v5 = *MEMORY[0x277CBE7C0];
     v6 = [MEMORY[0x277CBEA60] arrayWithObjects:{*MEMORY[0x277CBE8E8], *MEMORY[0x277CBE7C0], 0}];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __32__SKGJournalReader_journalPaths__block_invoke;
-    v26[3] = &unk_27893D8D8;
-    v26[4] = &v27;
-    v18 = [defaultManager2 enumeratorAtURL:v19 includingPropertiesForKeys:v6 options:4 errorHandler:v26];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __32__SKGJournalReader_journalPaths__block_invoke;
+    v25[3] = &unk_27893D8D8;
+    v25[4] = &v26;
+    v17 = [defaultManager2 enumeratorAtURL:v18 includingPropertiesForKeys:v6 options:4 errorHandler:v25];
 
-    if (*(v28 + 24) == 1)
+    if (*(v27 + 24) == 1)
     {
       v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
       v23 = 0u;
-      v8 = v18;
-      v9 = [v8 countByEnumeratingWithState:&v22 objects:v31 count:16];
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
+      v8 = v17;
+      v9 = [v8 countByEnumeratingWithState:&v21 objects:v30 count:16];
       if (v9)
       {
-        v10 = *v23;
+        v10 = *v22;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v23 != v10)
+            if (*v22 != v10)
             {
               objc_enumerationMutation(v8);
             }
 
-            v12 = *(*(&v22 + 1) + 8 * i);
+            v12 = *(*(&v21 + 1) + 8 * i);
             lastPathComponent = [v12 lastPathComponent];
             v14 = [lastPathComponent hasPrefix:@"skg_"];
 
             if (v14)
             {
-              v21 = 0;
-              [v12 getResourceValue:&v21 forKey:v5 error:0];
-              v15 = v21;
+              v20 = 0;
+              [v12 getResourceValue:&v20 forKey:v5 error:0];
+              v15 = v20;
               [v7 setObject:v15 forKey:v12];
             }
           }
 
-          v9 = [v8 countByEnumeratingWithState:&v22 objects:v31 count:16];
+          v9 = [v8 countByEnumeratingWithState:&v21 objects:v30 count:16];
         }
 
         while (v9);
@@ -100,8 +100,7 @@
     v7 = 0;
   }
 
-  _Block_object_dispose(&v27, 8);
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v26, 8);
 
   return v7;
 }
@@ -118,49 +117,49 @@ BOOL __32__SKGJournalReader_journalPaths__block_invoke(uint64_t a1, uint64_t a2,
 
 - (id)eventJournalPaths
 {
-  v32[1] = *MEMORY[0x277D85DE8];
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 1;
+  v31[1] = *MEMORY[0x277D85DE8];
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 1;
   journalReaderResourcePath = [(SKGJournalReader *)self journalReaderResourcePath];
-  v20 = [MEMORY[0x277CBEBC0] URLWithString:journalReaderResourcePath];
+  v19 = [MEMORY[0x277CBEBC0] URLWithString:journalReaderResourcePath];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v4 = [defaultManager isReadableFileAtPath:journalReaderResourcePath];
-  v19 = journalReaderResourcePath;
+  v18 = journalReaderResourcePath;
 
   if (v4)
   {
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-    v32[0] = *MEMORY[0x277CBE8E8];
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __37__SKGJournalReader_eventJournalPaths__block_invoke;
-    v26[3] = &unk_27893D8D8;
-    v26[4] = &v27;
-    v7 = [defaultManager2 enumeratorAtURL:v20 includingPropertiesForKeys:v6 options:4 errorHandler:v26];
+    v31[0] = *MEMORY[0x277CBE8E8];
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __37__SKGJournalReader_eventJournalPaths__block_invoke;
+    v25[3] = &unk_27893D8D8;
+    v25[4] = &v26;
+    v7 = [defaultManager2 enumeratorAtURL:v19 includingPropertiesForKeys:v6 options:4 errorHandler:v25];
 
-    v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
+    v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v22 objects:v31 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v21 objects:v30 count:16];
     if (v9)
     {
-      v10 = *v23;
+      v10 = *v22;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * i);
+          v12 = *(*(&v21 + 1) + 8 * i);
           path = [v12 path];
           lastPathComponent = [path lastPathComponent];
           if ([lastPathComponent hasPrefix:@"evt_"])
@@ -169,7 +168,7 @@ BOOL __32__SKGJournalReader_journalPaths__block_invoke(uint64_t a1, uint64_t a2,
 
             if (v15)
             {
-              [v21 addObject:v12];
+              [v20 addObject:v12];
             }
           }
 
@@ -178,15 +177,15 @@ BOOL __32__SKGJournalReader_journalPaths__block_invoke(uint64_t a1, uint64_t a2,
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v22 objects:v31 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v21 objects:v30 count:16];
       }
 
       while (v9);
     }
 
-    if (*(v28 + 24) == 1)
+    if (*(v27 + 24) == 1)
     {
-      v16 = [v21 copy];
+      v16 = [v20 copy];
     }
 
     else
@@ -200,24 +199,23 @@ BOOL __32__SKGJournalReader_journalPaths__block_invoke(uint64_t a1, uint64_t a2,
     v16 = 0;
   }
 
-  _Block_object_dispose(&v27, 8);
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v26, 8);
 
   return v16;
 }
 
 - (BOOL)enumerateItemsOfJournalAtPath:(id)path itemAdds:(id)adds itemUpdates:(id)updates itemDeletes:(id)deletes cancelBlock:(id)block
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   addsCopy = adds;
   updatesCopy = updates;
   deletesCopy = deletes;
   blockCopy = block;
-  v53[0] = 0;
-  v53[1] = v53;
-  v53[2] = 0x2020000000;
-  v54 = 0;
+  v52[0] = 0;
+  v52[1] = v52;
+  v52[2] = 0x2020000000;
+  v53 = 0;
   makeThreadId();
   path = [pathCopy path];
   uTF8String = [path UTF8String];
@@ -233,7 +231,7 @@ BOOL __32__SKGJournalReader_journalPaths__block_invoke(uint64_t a1, uint64_t a2,
       if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         v32 = __error();
-        [SKGJournalReader enumerateItemsOfJournalAtPath:v32 itemAdds:uTF8String itemUpdates:&v59 itemDeletes:v31 cancelBlock:?];
+        [SKGJournalReader enumerateItemsOfJournalAtPath:v32 itemAdds:uTF8String itemUpdates:&v58 itemDeletes:v31 cancelBlock:?];
       }
     }
 
@@ -243,8 +241,8 @@ BOOL __32__SKGJournalReader_journalPaths__block_invoke(uint64_t a1, uint64_t a2,
   else
   {
     v21 = v18;
-    memset(&v59, 0, sizeof(v59));
-    if (fstat(v18, &v59) == -1)
+    memset(&v58, 0, sizeof(v58));
+    if (fstat(v18, &v58) == -1)
     {
       if (SKGLogGetCurrentLoggingLevel() >= 2)
       {
@@ -266,34 +264,34 @@ LABEL_40:
       goto LABEL_41;
     }
 
-    st_size = v59.st_size;
-    if (v59.st_size)
+    st_size = v58.st_size;
+    if (v58.st_size)
     {
-      v23 = mmap(0, v59.st_size, 1, 1, v21, 0);
+      v23 = mmap(0, v58.st_size, 1, 1, v21, 0);
       if (v23 != -1)
       {
         v24 = v23;
-        v52 = 0;
+        v51 = 0;
         atomic_fetch_add_explicit(MEMORY[0x277D294F0], 1u, memory_order_relaxed);
         v25 = *(MEMORY[0x277D29500] + 16);
         *buf = *MEMORY[0x277D29500];
-        v56 = v25;
+        v55 = v25;
         v26 = *(MEMORY[0x277D29500] + 48);
-        v57 = *(MEMORY[0x277D29500] + 32);
-        v58 = v26;
+        v56 = *(MEMORY[0x277D29500] + 32);
+        v57 = v26;
         v27 = setThreadIdAndInfo();
-        v51 = v27;
+        v50 = v27;
         v28 = *(MEMORY[0x277D29508] + 72 * v27 + 8) + 320 * HIDWORD(v27);
-        v50 = HIDWORD(v27);
+        v49 = HIDWORD(v27);
         *(v28 + 216) = 0;
-        v46 = *(v28 + 312);
+        v45 = *(v28 + 312);
         v29 = *(v28 + 224);
         if (v29)
         {
           v29(*(v28 + 288));
         }
 
-        *buf = v51;
+        *buf = v50;
         if (_setjmp(v28))
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -301,7 +299,7 @@ LABEL_40:
             [SKGJournalReader enumerateItemsOfJournalAtPath:itemAdds:itemUpdates:itemDeletes:cancelBlock:];
           }
 
-          *(v28 + 312) = v46;
+          *(v28 + 312) = v45;
           CIOnThreadCleanUpReset();
           dropThreadId();
           CICleanUpReset();
@@ -310,13 +308,13 @@ LABEL_40:
 
         else
         {
-          v49 = v19;
-          v48 = v20;
-          v47 = deletesCopy;
+          v48 = v19;
+          v47 = v20;
+          v46 = deletesCopy;
           v39 = MDJournalReaderProcessWithBytes() != 0;
-          v52 = 1;
-          v40 = *(MEMORY[0x277D29508] + 72 * *buf + 8) + 320 * v50;
-          *(v40 + 312) = v46;
+          v51 = 1;
+          v40 = *(MEMORY[0x277D29508] + 72 * *buf + 8) + 320 * v49;
+          *(v40 + 312) = v45;
           v41 = *(v40 + 232);
           if (v41)
           {
@@ -329,7 +327,7 @@ LABEL_40:
         }
 
         v38 = v30;
-        if ((v52 & 1) == 0)
+        if ((v51 & 1) == 0)
         {
           if (SKGLogGetCurrentLoggingLevel() >= 2)
           {
@@ -380,15 +378,13 @@ LABEL_28:
   }
 
 LABEL_41:
-  _Block_object_dispose(v53, 8);
+  _Block_object_dispose(v52, 8);
 
-  v44 = *MEMORY[0x277D85DE8];
   return v33;
 }
 
 uint64_t __95__SKGJournalReader_enumerateItemsOfJournalAtPath_itemAdds_itemUpdates_itemDeletes_cancelBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v6 = *(*(a1 + 40) + 8);
   result = (*(*(a1 + 32) + 16))();
   *a4 = *(*(*(a1 + 40) + 8) + 24);
   return result;
@@ -396,7 +392,6 @@ uint64_t __95__SKGJournalReader_enumerateItemsOfJournalAtPath_itemAdds_itemUpdat
 
 uint64_t __95__SKGJournalReader_enumerateItemsOfJournalAtPath_itemAdds_itemUpdates_itemDeletes_cancelBlock___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v6 = *(*(a1 + 40) + 8);
   result = (*(*(a1 + 32) + 16))();
   *a4 = *(*(*(a1 + 40) + 8) + 24);
   return result;
@@ -404,7 +399,6 @@ uint64_t __95__SKGJournalReader_enumerateItemsOfJournalAtPath_itemAdds_itemUpdat
 
 uint64_t __95__SKGJournalReader_enumerateItemsOfJournalAtPath_itemAdds_itemUpdates_itemDeletes_cancelBlock___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v6 = *(*(a1 + 40) + 8);
   result = (*(*(a1 + 32) + 16))();
   *a4 = *(*(*(a1 + 40) + 8) + 24);
   return result;
@@ -434,7 +428,7 @@ uint64_t __95__SKGJournalReader_enumerateItemsOfJournalAtPath_itemAdds_itemUpdat
   delBlockCopy = delBlock;
   v13 = -*MEMORY[0x277D85FA0];
   v14 = ((offset + size + *MEMORY[0x277D85FA0] - 1) & v13) + (v13 & offset);
-  v34 = 0;
+  v30 = 0;
   v15 = mmap(0, v14, 1, 1, fd, v13 & offset);
   if (v15 != -1)
   {
@@ -443,13 +437,9 @@ uint64_t __95__SKGJournalReader_enumerateItemsOfJournalAtPath_itemAdds_itemUpdat
     makeThreadId();
     v26 = v14;
     atomic_fetch_add_explicit(MEMORY[0x277D294F0], 1u, memory_order_relaxed);
-    v28 = *MEMORY[0x277D29500];
-    v29 = *(MEMORY[0x277D29500] + 16);
-    v30 = *(MEMORY[0x277D29500] + 32);
-    v31 = *(MEMORY[0x277D29500] + 48);
     v17 = setThreadIdAndInfo();
-    v32 = HIDWORD(v17);
-    v33 = v17;
+    v28 = HIDWORD(v17);
+    v29 = v17;
     v18 = MEMORY[0x277D29508];
     v19 = *(MEMORY[0x277D29508] + 72 * v17 + 8) + 320 * HIDWORD(v17);
     *(v19 + 216) = 0;
@@ -476,8 +466,8 @@ uint64_t __95__SKGJournalReader_enumerateItemsOfJournalAtPath_itemAdds_itemUpdat
 
     else
     {
-      v34 = MDJournalReaderProcessRecordBatchWithBytes() != 0;
-      v23 = *(v18 + 72 * v33 + 8) + 320 * v32;
+      v30 = MDJournalReaderProcessRecordBatchWithBytes() != 0;
+      v23 = *(v18 + 72 * v29 + 8) + 320 * v28;
       *(v23 + 312) = v20;
       v24 = *(v23 + 232);
       if (v24)
@@ -492,7 +482,7 @@ uint64_t __95__SKGJournalReader_enumerateItemsOfJournalAtPath_itemAdds_itemUpdat
     munmap(v16, v26);
   }
 
-  return v34;
+  return v30;
 }
 
 - (void)enumerateItemsOfJournalAtPath:(NSObject *)a3 itemAdds:itemUpdates:itemDeletes:cancelBlock:.cold.2(int *a1, uint64_t a2, NSObject *a3)

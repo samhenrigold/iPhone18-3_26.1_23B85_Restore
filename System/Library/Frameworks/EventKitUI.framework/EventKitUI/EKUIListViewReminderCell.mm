@@ -74,13 +74,13 @@
   _titleFont = [(EKUIListViewReminderCell *)self _titleFont];
   [(UILabel *)v20 setFont:_titleFont];
 
-  contentView = [(EKUIListViewReminderCell *)self contentView];
-  [contentView addSubview:self->_titleField];
+  v22 = objc_msgSend_contentView(self);
+  [v22 addSubview:self->_titleField];
 
   v77 = MEMORY[0x1E696ACD8];
   leadingAnchor = [(EKUIViewWithCornerRadius *)self->_backgroundView leadingAnchor];
-  contentView2 = [(EKUIListViewReminderCell *)self contentView];
-  leadingAnchor2 = [contentView2 leadingAnchor];
+  v86 = objc_msgSend_contentView(self);
+  leadingAnchor2 = [v86 leadingAnchor];
   carplayMode = [(EKUIListViewCell *)self carplayMode];
   v26 = 12.0;
   v27 = 12.0;
@@ -93,8 +93,8 @@
   v84 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:v27];
   v90[0] = v84;
   trailingAnchor = [(EKUIViewWithCornerRadius *)self->_backgroundView trailingAnchor];
-  contentView3 = [(EKUIListViewReminderCell *)self contentView];
-  trailingAnchor2 = [contentView3 trailingAnchor];
+  v82 = objc_msgSend_contentView(self);
+  trailingAnchor2 = [v82 trailingAnchor];
   if ([(EKUIListViewCell *)self carplayMode])
   {
     [(EKUIListViewCell *)self carplayBackgroundViewInsets];
@@ -104,8 +104,8 @@
   v80 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-v26];
   v90[1] = v80;
   topAnchor = [(EKUIViewWithCornerRadius *)self->_backgroundView topAnchor];
-  contentView4 = [(EKUIListViewReminderCell *)self contentView];
-  topAnchor2 = [contentView4 topAnchor];
+  v78 = objc_msgSend_contentView(self);
+  topAnchor2 = [v78 topAnchor];
   carplayMode2 = [(EKUIListViewCell *)self carplayMode];
   v34 = 4.0;
   v35 = 4.0;
@@ -122,8 +122,8 @@
   v76 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:v35];
   v90[2] = v76;
   bottomAnchor = [(EKUIViewWithCornerRadius *)self->_backgroundView bottomAnchor];
-  contentView5 = [(EKUIListViewReminderCell *)self contentView];
-  bottomAnchor2 = [contentView5 bottomAnchor];
+  v75 = objc_msgSend_contentView(self);
+  bottomAnchor2 = [v75 bottomAnchor];
   if ([(EKUIListViewCell *)self carplayMode])
   {
     [(EKUIListViewCell *)self carplayBackgroundViewInsets];
@@ -224,8 +224,8 @@
 
 - (void)_adjustNumberOfLines
 {
-  contentView = [(EKUIListViewReminderCell *)self contentView];
-  traitCollection = [contentView traitCollection];
+  v3 = objc_msgSend_contentView(self, a2);
+  traitCollection = [v3 traitCollection];
   v5 = !EKUIUsesLargeTextLayout(traitCollection);
 
   [(UILabel *)self->_timeField setNumberOfLines:v5];
@@ -344,7 +344,7 @@
 
     [(EKUIViewWithCornerRadius *)self->_backgroundView setCornerRadius:v29];
     [(EKUIListViewReminderCell *)self _updateColors];
-    if (CalendarLinkLibraryCore())
+    if (CalendarLinkLibraryCore(0))
     {
       [(EKUIListViewReminderCell *)self Cal_annotateWithEvent:eventCopy];
     }

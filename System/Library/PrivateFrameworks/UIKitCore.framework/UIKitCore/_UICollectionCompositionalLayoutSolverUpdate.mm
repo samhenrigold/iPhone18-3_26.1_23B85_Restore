@@ -1,10 +1,10 @@
 @interface _UICollectionCompositionalLayoutSolverUpdate
-+ (id)solverUpdateForVisibleBounds:(double)bounds updateItems:(double)items updateTranslator:(uint64_t)translator finalDataSourceSnapshot:(void *)snapshot;
++ (id)solverUpdateForVisibleBounds:(void *)bounds updateItems:(void *)items updateTranslator:(double)translator finalDataSourceSnapshot:(double)snapshot;
 @end
 
 @implementation _UICollectionCompositionalLayoutSolverUpdate
 
-+ (id)solverUpdateForVisibleBounds:(double)bounds updateItems:(double)items updateTranslator:(uint64_t)translator finalDataSourceSnapshot:(void *)snapshot
++ (id)solverUpdateForVisibleBounds:(void *)bounds updateItems:(void *)items updateTranslator:(double)translator finalDataSourceSnapshot:(double)snapshot
 {
   objc_opt_self();
   v15 = [_UICollectionCompositionalLayoutSolverUpdate alloc];
@@ -16,13 +16,13 @@
     v17 = v16;
     if (v16)
     {
-      *(v16 + 4) = self;
-      *(v16 + 5) = a2;
-      *(v16 + 6) = bounds;
-      *(v16 + 7) = items;
-      objc_storeStrong(v16 + 1, snapshot);
-      objc_storeStrong(v17 + 2, a7);
-      objc_storeStrong(v17 + 3, a8);
+      *(v16 + 4) = translator;
+      *(v16 + 5) = snapshot;
+      *(v16 + 6) = a7;
+      *(v16 + 7) = a8;
+      objc_storeStrong(v16 + 1, a2);
+      objc_storeStrong(v17 + 2, bounds);
+      objc_storeStrong(v17 + 3, items);
     }
   }
 

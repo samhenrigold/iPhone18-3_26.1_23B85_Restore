@@ -30,7 +30,7 @@
   listener = self->_listener;
   if (!listener)
   {
-    v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"Getting an endpoint from an invalidated BKSTouchDeliveryPolicyAssertion" userInfo:0];
+    v5 = [MEMORY[0x1E695DF30] exceptionWithName:? reason:? userInfo:?];
     objc_exception_throw(v5);
   }
 
@@ -51,23 +51,21 @@ void __39__BKSTouchDeliveryPolicyAssertion_init__block_invoke(uint64_t a1, void 
 
 - (void)invalidate
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (self->_listener)
   {
     v3 = BKLogTouchDeliveryPolicy();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       listener = self->_listener;
-      v7 = 134217984;
-      v8 = listener;
-      _os_log_impl(&dword_186345000, v3, OS_LOG_TYPE_DEFAULT, "TDPS client policy assertion invalidating <xpc_object:%p>", &v7, 0xCu);
+      v6 = 134217984;
+      v7 = listener;
+      _os_log_impl(&dword_186345000, v3, OS_LOG_TYPE_DEFAULT, "TDPS client policy assertion invalidating <xpc_object:%p>", &v6, 0xCu);
     }
 
     v5 = self->_listener;
     self->_listener = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

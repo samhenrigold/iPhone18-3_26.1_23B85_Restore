@@ -19,20 +19,20 @@
 {
   v7 = sub_1BA4A15D8();
   v8 = *(v7 - 8);
-  MEMORY[0x1EEE9AC00](v7);
-  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7, v9);
+  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1BA4A1588();
-  v11 = *(&self->super.super.super.isa + OBJC_IVAR____TtC18HealthExperienceUI40SummarySharingContactSelectionSplashView_openContactsHandler);
-  if (v11)
+  v12 = *(&self->super.super.super.isa + OBJC_IVAR____TtC18HealthExperienceUI40SummarySharingContactSelectionSplashView_openContactsHandler);
+  if (v12)
   {
-    v12 = *(&self->super.super._responderFlags + OBJC_IVAR____TtC18HealthExperienceUI40SummarySharingContactSelectionSplashView_openContactsHandler);
+    v13 = *(&self->super.super._responderFlags + OBJC_IVAR____TtC18HealthExperienceUI40SummarySharingContactSelectionSplashView_openContactsHandler);
     selfCopy = self;
-    v14 = sub_1B9F0F1B4(v11, v12);
-    v11(v14);
-    sub_1B9F0E310(v11);
+    v15 = sub_1B9F0F1B4(v12, v13);
+    v12(v15);
+    sub_1B9F0E310(v12, v13);
   }
 
-  (*(v8 + 8))(v10, v7);
+  (*(v8 + 8))(v11, v7);
   return 0;
 }
 

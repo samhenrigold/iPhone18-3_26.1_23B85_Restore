@@ -256,15 +256,15 @@ LABEL_18:
 
 - (void)invalidate
 {
-  if (self)
+  if (result)
   {
-    [(PKTextInputWritingSession *)self setCurrentTargetElement:?];
-    if ([*(self + 16) count])
+    [(PKTextInputWritingSession *)result setCurrentTargetElement:?];
+    if ([result[2] count])
     {
-      [(PKTextInputWritingSession *)self _flushPendingWritingEndedElements:?];
+      [(PKTextInputWritingSession *)result _flushPendingWritingEndedElements:?];
     }
 
-    *(self + 8) = 1;
+    *(result + 8) = 1;
   }
 }
 

@@ -349,7 +349,7 @@ void __53__PUIrisImageTileViewController_viewModel_didChange___block_invoke(uint
     v17 = 0;
     if (_livePhotoView)
     {
-      [_livePhotoView seekTime];
+      objc_msgSend_seekTime(_livePhotoView);
     }
 
     v11[0] = MEMORY[0x1E69E9820];

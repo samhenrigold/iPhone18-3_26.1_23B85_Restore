@@ -273,7 +273,7 @@ LABEL_8:
 
 - (UIFont)clockFont
 {
-  if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_StatusBarHasBoldTime, @"StatusBarHasBoldTime") & 1) != 0 || !byte_1EA95E6A4)
+  if (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_StatusBarHasBoldTime, @"StatusBarHasBoldTime") || !byte_1EA95E6A4)
   {
     normalFont = [(_UIStatusBarVisualProvider_Pad *)self normalFont];
   }
@@ -629,7 +629,7 @@ LABEL_8:
     v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v97 count:3];
     [array addObjectsFromArray:v29];
 
-    if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_StatusBarShowsDateBeforeTime, @"StatusBarShowsDateBeforeTime") & 1) != 0 || !byte_1EA95E69C)
+    if (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_StatusBarShowsDateBeforeTime, @"StatusBarShowsDateBeforeTime") || !byte_1EA95E69C)
     {
       v94[0] = selfCopy->_timePlacement;
       v94[1] = v86;
@@ -752,7 +752,7 @@ LABEL_8:
 - (id)regionIdentifiersForPartWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if ([identifierCopy isEqual:@"leadingPartIdentifier"])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     v4 = MEMORY[0x1E695DFD8];
     v9 = @"expandedLeading";
@@ -765,7 +765,7 @@ LABEL_6:
     goto LABEL_8;
   }
 
-  if ([identifierCopy isEqual:@"trailingPartIdentifier"])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     v4 = MEMORY[0x1E695DFD8];
     v9 = @"expandedTrailing";
@@ -774,14 +774,14 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  if ([identifierCopy isEqual:@"centerPartIdentifier"])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     v6 = [MEMORY[0x1E695DFD8] setWithObject:@"center"];
   }
 
   else
   {
-    if ([identifierCopy isEqual:0x1EFB9C3D0])
+    if (objc_msgSend_isEqual_(identifierCopy))
     {
       v4 = MEMORY[0x1E695DFD8];
       v10 = @"center";
@@ -790,7 +790,7 @@ LABEL_6:
       goto LABEL_3;
     }
 
-    if (([identifierCopy isEqual:0x1EFB9C3F0] & 1) != 0 || objc_msgSend(identifierCopy, "isEqual:", @"visibleExpandedPartIdentifier"))
+    if ((objc_msgSend_isEqual_(identifierCopy) & 1) != 0 || objc_msgSend_isEqual_(identifierCopy))
     {
       [MEMORY[0x1E695DFD8] setWithObjects:{@"expandedLeading", @"expandedTrailing", 0, v11}];
       goto LABEL_7;
@@ -809,7 +809,7 @@ LABEL_8:
 {
   v16[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  if ([identifierCopy isEqual:@"fittingLeadingPartIdentifier"])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     statusBar = [(_UIStatusBarVisualProvider_iOS *)self statusBar];
     if ([(_UIStatusBarVisualProvider_iOS *)self expanded])
@@ -830,7 +830,7 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  if ([identifierCopy isEqual:@"fittingTrailingPartIdentifier"])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     statusBar = [(_UIStatusBarVisualProvider_iOS *)self statusBar];
     if ([(_UIStatusBarVisualProvider_iOS *)self expanded])
@@ -848,7 +848,7 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  if ([identifierCopy isEqual:@"clockPartIdentifier"])
+  if (objc_msgSend_isEqual_(identifierCopy))
   {
     v7 = MEMORY[0x1E695DFD8];
     statusBar = +[_UIStatusBarTimeItem shortTimeDisplayIdentifier];
@@ -944,7 +944,7 @@ LABEL_6:
       break;
   }
 
-  if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_StatusBarHasBoldTime, @"StatusBarHasBoldTime") & 1) != 0 || !byte_1EA95E6A4)
+  if (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_StatusBarHasBoldTime, @"StatusBarHasBoldTime") || !byte_1EA95E6A4)
   {
     font = [v4 font];
     [v4 setEmphasizedFont:font];

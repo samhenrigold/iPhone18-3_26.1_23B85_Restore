@@ -50,9 +50,8 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  v6 = *(&self->super.super.super.isa + OBJC_IVAR____TtCC13HearingTestUI28HTUIEvaluationViewController4View_progressViewModel);
   selfCopy = self;
-  sub_20CDB6D08(immediately);
+  sub_20CDB6D08(immediately, to);
 }
 
 - (void)didTapHear
@@ -70,9 +69,9 @@
   {
     v3 = *(&self->super.super._responderFlags + OBJC_IVAR____TtCC13HearingTestUI28HTUIEvaluationViewController4View_didTapHearHandler);
     selfCopy = self;
-    v5 = sub_20CD84E14(v2);
+    v5 = sub_20CD84E14(v2, v3);
     v2(v5);
-    sub_20CD84E24(v2);
+    sub_20CD84E24(v2, v3);
   }
 
   else
@@ -80,7 +79,6 @@
     selfCopy2 = self;
   }
 
-  v7 = *(&self->super.super.super.isa + OBJC_IVAR____TtCC13HearingTestUI28HTUIEvaluationViewController4View_metalAnimation);
   sub_20CDA66F0();
 }
 

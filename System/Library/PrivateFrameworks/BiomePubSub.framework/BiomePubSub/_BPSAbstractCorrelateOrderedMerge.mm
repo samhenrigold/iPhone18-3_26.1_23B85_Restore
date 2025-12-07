@@ -157,37 +157,16 @@
   }
 
   os_unfair_lock_lock(&self->_lock);
-  if ([(_BPSAbstractCorrelateOrderedMerge *)self cancelled])
+  if (-[_BPSAbstractCorrelateOrderedMerge cancelled](self, "cancelled") || -[_BPSAbstractCorrelateOrderedMerge finished](self, "finished") || -[_BPSAbstractCorrelateOrderedMerge errored](self, "errored") || (-[_BPSAbstractCorrelateOrderedMerge subscriptions](self, "subscriptions"), v6 = objc_claimAutoreleasedReturnValue(), [v6 objectAtIndexedSubscript:index], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x1E695DFB0], "null"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "isEqual:", v8), v8, v7, v6, (v9 & 1) == 0))
   {
-    goto LABEL_8;
-  }
-
-  if ([(_BPSAbstractCorrelateOrderedMerge *)self finished])
-  {
-    goto LABEL_8;
-  }
-
-  if ([(_BPSAbstractCorrelateOrderedMerge *)self errored])
-  {
-    goto LABEL_8;
-  }
-
-  subscriptions = [(_BPSAbstractCorrelateOrderedMerge *)self subscriptions];
-  v7 = [subscriptions objectAtIndexedSubscript:index];
-  null = [MEMORY[0x1E695DFB0] null];
-  v9 = [v7 isEqual:null];
-
-  if ((v9 & 1) == 0)
-  {
-LABEL_8:
     os_unfair_lock_unlock(&self->_lock);
     [subscriptionCopy cancel];
   }
 
   else
   {
-    subscriptions2 = [(_BPSAbstractCorrelateOrderedMerge *)self subscriptions];
-    [subscriptions2 setObject:subscriptionCopy atIndexedSubscript:index];
+    subscriptions = [(_BPSAbstractCorrelateOrderedMerge *)self subscriptions];
+    [subscriptions setObject:subscriptionCopy atIndexedSubscript:index];
 
     requestsPerSubscription = [(_BPSAbstractCorrelateOrderedMerge *)self requestsPerSubscription];
     [requestsPerSubscription setObject:&unk_1F4870190 atIndexedSubscript:index];
@@ -199,7 +178,7 @@ LABEL_8:
 
 - (int64_t)receiveInput:(id)input atIndex:(unint64_t)index
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   inputCopy = input;
   selfCopy = self;
   if ([(_BPSAbstractCorrelateOrderedMerge *)selfCopy upstreamCount]<= index)
@@ -211,26 +190,26 @@ LABEL_8:
   if (![(_BPSAbstractCorrelateOrderedMerge *)selfCopy cancelled]&& ![(_BPSAbstractCorrelateOrderedMerge *)selfCopy finished]&& ![(_BPSAbstractCorrelateOrderedMerge *)selfCopy errored])
   {
     buffers = [(_BPSAbstractCorrelateOrderedMerge *)selfCopy buffers];
-    v12 = [buffers objectAtIndexedSubscript:index];
+    v11 = [buffers objectAtIndexedSubscript:index];
 
     null = [MEMORY[0x1E695DFB0] null];
-    v14 = [v12 isEqual:null];
+    v13 = [v11 isEqual:null];
 
-    if (v14)
+    if (v13)
     {
-      v28[0] = inputCopy;
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
-      v16 = [v15 mutableCopy];
+      v27[0] = inputCopy;
+      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
+      v15 = [v14 mutableCopy];
       buffers2 = [(_BPSAbstractCorrelateOrderedMerge *)selfCopy buffers];
-      [buffers2 setObject:v16 atIndexedSubscript:index];
+      [buffers2 setObject:v15 atIndexedSubscript:index];
     }
 
     else
     {
-      [v12 addObject:inputCopy];
-      if ([v12 count] >= 2)
+      [v11 addObject:inputCopy];
+      if ([v11 count] >= 2)
       {
-        [_BPSAbstractCorrelateOrderedMerge receiveInput:v12 atIndex:?];
+        [_BPSAbstractCorrelateOrderedMerge receiveInput:v11 atIndex:?];
       }
     }
 
@@ -241,33 +220,33 @@ LABEL_8:
 
     v8 = 0;
     requestsPerSubscription = [(_BPSAbstractCorrelateOrderedMerge *)selfCopy requestsPerSubscription];
-    v19 = [requestsPerSubscription objectAtIndexedSubscript:index];
+    v18 = [requestsPerSubscription objectAtIndexedSubscript:index];
 
-    if (-[_BPSAbstractCorrelateOrderedMerge isWaitingForMoreValues](selfCopy, "isWaitingForMoreValues") && [v19 integerValue] > 0)
+    if (-[_BPSAbstractCorrelateOrderedMerge isWaitingForMoreValues](selfCopy, "isWaitingForMoreValues") && [v18 integerValue] > 0)
     {
       goto LABEL_22;
     }
 
-    v27 = v12;
+    v26 = v11;
     buffers3 = [(_BPSAbstractCorrelateOrderedMerge *)selfCopy buffers];
-    v21 = [buffers3 objectAtIndexedSubscript:index];
+    v20 = [buffers3 objectAtIndexedSubscript:index];
     null2 = [MEMORY[0x1E695DFB0] null];
-    if ([v21 isEqual:null2])
+    if ([v20 isEqual:null2])
     {
 
-      v12 = v27;
+      v11 = v26;
     }
 
     else
     {
       [(_BPSAbstractCorrelateOrderedMerge *)selfCopy buffers];
-      v23 = v26 = v19;
-      v24 = [v23 objectAtIndexedSubscript:index];
-      v25 = [v24 count];
+      v22 = v25 = v18;
+      v23 = [v22 objectAtIndexedSubscript:index];
+      v24 = [v23 count];
 
-      v19 = v26;
-      v12 = v27;
-      if (v25)
+      v18 = v25;
+      v11 = v26;
+      if (v24)
       {
 LABEL_22:
         os_unfair_lock_unlock(&selfCopy->_lock);
@@ -287,7 +266,6 @@ LABEL_22:
   v8 = 0;
 LABEL_7:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

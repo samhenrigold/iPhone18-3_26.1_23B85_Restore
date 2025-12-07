@@ -2888,7 +2888,7 @@ void ausdk::APFactory<ausdk::AUBaseProcessMultipleLookup,AUSpeakerProtectionV3>:
   *(a1 + 968) = 0;
   *(a1 + 984) = 0;
   *(a1 + 976) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(a1 + 968, buf, v16, 4uLL);
+  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>((a1 + 968), buf, v16, 4uLL);
   cpms::TimeScale<float>::TimeScale(buf, "cpms_ts_i");
   cpms::TimeScale<float>::TimeScale(&cf, "cpms_ts_100");
   v4 = cf;
@@ -6199,7 +6199,7 @@ void std::__throw_bad_weak_ptr[abi:ne200100]()
   *exception = MEMORY[0x1E69E5500] + 16;
 }
 
-void AUScotty::GetChannelLayoutTags(AUScotty *this@<X0>, int a2@<W1>, void *a3@<X8>)
+void AUScotty::GetChannelLayoutTags(AUScotty *this@<X0>, int a2@<W1>, uint64_t *a3@<X8>)
 {
   v14 = *MEMORY[0x1E69E9840];
   if (a2 == 2)

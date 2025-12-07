@@ -17,29 +17,29 @@
 
 - (CoreDAVXMLData)init
 {
-  v12.receiver = self;
-  v12.super_class = CoreDAVXMLData;
-  v2 = [(CoreDAVXMLData *)&v12 init];
+  v14.receiver = self;
+  v14.super_class = CoreDAVXMLData;
+  v2 = [(CoreDAVXMLData *)&v14 init];
   if (v2)
   {
     v3 = objc_opt_new();
     dataImpl = v2->_dataImpl;
     v2->_dataImpl = v3;
 
-    initializeLibXMLParser();
+    initializeLibXMLParser(v5, v6);
     v2->_dataImpl->_writer = xmlNewTextWriterDoc(&v2->_dataImpl->_doc, 0);
     xmlTextWriterStartDocument(v2->_dataImpl->_writer, cdXMLVersion, cdXMLEncoding, 0);
-    v5 = objc_opt_new();
-    seenURIsToPrefixes = v2->_seenURIsToPrefixes;
-    v2->_seenURIsToPrefixes = v5;
-
     v7 = objc_opt_new();
-    seenURIsToDepth = v2->_seenURIsToDepth;
-    v2->_seenURIsToDepth = v7;
+    seenURIsToPrefixes = v2->_seenURIsToPrefixes;
+    v2->_seenURIsToPrefixes = v7;
 
     v9 = objc_opt_new();
+    seenURIsToDepth = v2->_seenURIsToDepth;
+    v2->_seenURIsToDepth = v9;
+
+    v11 = objc_opt_new();
     elementStack = v2->_elementStack;
-    v2->_elementStack = v9;
+    v2->_elementStack = v11;
 
     [(CoreDAVXMLData *)v2 setShouldAddFormattingSpaces:1];
   }
@@ -132,7 +132,7 @@ void __38__CoreDAVXMLData__prefixForNameSpace___block_invoke_3(uint64_t a1)
 
 - (void)_startElement:(id)element inNamespace:(id)namespace
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   namespaceCopy = namespace;
   uTF8String = [element UTF8String];
   uTF8String2 = [namespaceCopy UTF8String];
@@ -159,9 +159,9 @@ void __38__CoreDAVXMLData__prefixForNameSpace___block_invoke_3(uint64_t a1)
         v18 = v17;
         if (v17 && os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v27 = 136315138;
-          v28 = v9;
-          _os_log_impl(&dword_2452FB000, v18, OS_LOG_TYPE_ERROR, "Unknown namespace being written %s.  This will not go well", &v27, 0xCu);
+          v26 = 136315138;
+          v27 = v9;
+          _os_log_impl(&dword_2452FB000, v18, OS_LOG_TYPE_ERROR, "Unknown namespace being written %s.  This will not go well", &v26, 0xCu);
         }
 
         pointerValue = 0;
@@ -206,8 +206,6 @@ LABEL_15:
 
   xmlTextWriterStartElement(self->_dataImpl->_writer, uTF8String);
 LABEL_16:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startElement:(id)element inNamespace:(id)namespace withAttributeNamesAndValues:(id)values attributes:(char *)attributes

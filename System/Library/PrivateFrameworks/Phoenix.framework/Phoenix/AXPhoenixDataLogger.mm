@@ -230,7 +230,6 @@ void __82__AXPhoenixDataLogger_logClassifierData_isDoubleTap_startTime_endTime_c
 LABEL_31:
   objc_storeStrong(&v36, 0);
   objc_storeStrong(v38, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

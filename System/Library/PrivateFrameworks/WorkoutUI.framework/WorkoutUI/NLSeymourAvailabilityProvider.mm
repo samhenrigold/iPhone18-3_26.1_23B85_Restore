@@ -45,10 +45,10 @@
 {
   v3 = objc_allocWithZone(type metadata accessor for SeymourAvailabilityProvider());
 
-  v4 = SeymourAvailabilityProvider.init(dependencies:)();
+  v5 = SeymourAvailabilityProvider.init(dependencies:)(v4);
   swift_getObjectType();
   swift_deallocPartialClassInstance();
-  return v4;
+  return v5;
 }
 
 - (NLSeymourAvailabilityProvider)init

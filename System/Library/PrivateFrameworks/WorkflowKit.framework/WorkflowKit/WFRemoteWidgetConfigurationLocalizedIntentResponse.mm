@@ -50,7 +50,7 @@
 
 - (INIntent)localizedIntent
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   localizedIntent = self->_localizedIntent;
   if (localizedIntent)
   {
@@ -63,26 +63,26 @@ LABEL_12:
 
   if (localizedIntentData)
   {
-    v18 = 0;
+    v17 = 0;
     localizedIntentData2 = [(WFRemoteWidgetConfigurationLocalizedIntentResponse *)self localizedIntentData];
     v6 = OPACKDecodeData();
 
-    v17 = 0;
-    v7 = [MEMORY[0x1E696E880] makeFromWidgetPlistableRepresentation:v6 error:&v17];
-    v8 = v17;
+    v16 = 0;
+    v7 = [MEMORY[0x1E696E880] makeFromWidgetPlistableRepresentation:v6 error:&v16];
+    v8 = v16;
     v9 = self->_localizedIntent;
     self->_localizedIntent = v7;
 
-    if (v18)
+    if (v17)
     {
       v10 = getWFWidgetConfigurationLogObject();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v11 = [MEMORY[0x1E696AD98] numberWithInt:v18];
+        v11 = [MEMORY[0x1E696AD98] numberWithInt:v17];
         *buf = 136315394;
-        v20 = "[WFRemoteWidgetConfigurationLocalizedIntentResponse localizedIntent]";
-        v21 = 2114;
-        v22 = v11;
+        v19 = "[WFRemoteWidgetConfigurationLocalizedIntentResponse localizedIntent]";
+        v20 = 2114;
+        v21 = v11;
         _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_ERROR, "%s Error making localized intent from intent data. Status: %{public}@", buf, 0x16u);
       }
     }
@@ -93,9 +93,9 @@ LABEL_12:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v20 = "[WFRemoteWidgetConfigurationLocalizedIntentResponse localizedIntent]";
-        v21 = 2114;
-        v22 = v8;
+        v19 = "[WFRemoteWidgetConfigurationLocalizedIntentResponse localizedIntent]";
+        v20 = 2114;
+        v21 = v8;
         _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_ERROR, "%s Error making localized intent from intent data. Error: %{public}@", buf, 0x16u);
       }
     }
@@ -104,48 +104,47 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v16 = getWFWidgetConfigurationLogObject();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v15 = getWFWidgetConfigurationLogObject();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v20 = "[WFRemoteWidgetConfigurationLocalizedIntentResponse localizedIntent]";
-    _os_log_impl(&dword_1CA256000, v16, OS_LOG_TYPE_ERROR, "%s Error making localized intent from intent data: intent data is nil", buf, 0xCu);
+    v19 = "[WFRemoteWidgetConfigurationLocalizedIntentResponse localizedIntent]";
+    _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_ERROR, "%s Error making localized intent from intent data: intent data is nil", buf, 0xCu);
   }
 
   v13 = 0;
 LABEL_13:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 - (WFRemoteWidgetConfigurationLocalizedIntentResponse)initWithLocalizedIntentRepresentation:(id)representation languageCode:(id)code error:(id)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   codeCopy = code;
-  v21.receiver = self;
-  v21.super_class = WFRemoteWidgetConfigurationLocalizedIntentResponse;
-  v10 = [(WFRemoteWidgetConfigurationResponse *)&v21 initWithError:error];
+  v20.receiver = self;
+  v20.super_class = WFRemoteWidgetConfigurationLocalizedIntentResponse;
+  v10 = [(WFRemoteWidgetConfigurationResponse *)&v20 initWithError:error];
   if (v10)
   {
     if (representationCopy)
     {
-      v20 = 0;
-      v11 = MEMORY[0x1CCAA2D90](representationCopy, 0, &v20);
+      v19 = 0;
+      v11 = MEMORY[0x1CCAA2D90](representationCopy, 0, &v19);
       localizedIntentData = v10->_localizedIntentData;
       v10->_localizedIntentData = v11;
 
-      if (v20)
+      if (v19)
       {
         v13 = getWFWidgetConfigurationLogObject();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v14 = [MEMORY[0x1E696AD98] numberWithInt:v20];
+          v14 = [MEMORY[0x1E696AD98] numberWithInt:v19];
           *buf = 136315394;
-          v23 = "[WFRemoteWidgetConfigurationLocalizedIntentResponse initWithLocalizedIntentRepresentation:languageCode:error:]";
-          v24 = 2114;
-          v25 = v14;
+          v22 = "[WFRemoteWidgetConfigurationLocalizedIntentResponse initWithLocalizedIntentRepresentation:languageCode:error:]";
+          v23 = 2114;
+          v24 = v14;
           _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_ERROR, "%s Error encoding localized intent representation: %{public}@", buf, 0x16u);
         }
 
@@ -159,7 +158,7 @@ LABEL_13:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v23 = "[WFRemoteWidgetConfigurationLocalizedIntentResponse initWithLocalizedIntentRepresentation:languageCode:error:]";
+        v22 = "[WFRemoteWidgetConfigurationLocalizedIntentResponse initWithLocalizedIntentRepresentation:languageCode:error:]";
         _os_log_impl(&dword_1CA256000, v16, OS_LOG_TYPE_ERROR, "%s Error encoding localized intent representation: localized intent representation is nil", buf, 0xCu);
       }
 
@@ -176,7 +175,6 @@ LABEL_7:
   v15 = 0;
 LABEL_12:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

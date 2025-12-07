@@ -5,6 +5,7 @@
 - (void)refreshCollections:(id)collections withReason:(int)reason;
 - (void)requestAgentStopMonitoringWithCompletionBlock:(id)block;
 - (void)startMonitoring;
+- (void)syncFolderIDs:(id)ds forDataclasses:(int64_t)dataclasses isUserRequested:(BOOL)requested;
 @end
 
 @implementation SubCalAgent
@@ -54,6 +55,69 @@
   [v9 unregisterDelegate:self];
 
   blockCopy[2](blockCopy, self);
+}
+
+- (void)syncFolderIDs:(id)ds forDataclasses:(int64_t)dataclasses isUserRequested:(BOOL)requested
+{
+  requestedCopy = requested;
+  dataclassesCopy = dataclasses;
+  if ([(SubCalAgent *)self isMonitoring])
+  {
+    account = [(SubCalAgent *)self account];
+    isManagedCalendar = [account isManagedCalendar];
+
+    if (isManagedCalendar)
+    {
+      v10 = DALoggingwithCategory();
+      v11 = _CPLog_to_os_log_type[6];
+      if (os_log_type_enabled(v10, v11))
+      {
+        account2 = [(SubCalAgent *)self account];
+        subscriptionURL = [account2 subscriptionURL];
+        *buf = 138412290;
+        v23 = subscriptionURL;
+        _os_log_impl(&dword_0, v10, v11, "Ignoring refresh for calendar %@ because it is managed by a CalDAV server", buf, 0xCu);
+      }
+
+LABEL_10:
+
+      return;
+    }
+
+    if (requestedCopy)
+    {
+      account3 = [(SubCalAgent *)self account];
+      [account3 setWasUserInitiated:1];
+    }
+
+    account4 = [(SubCalAgent *)self account];
+    shouldFailAllTasks = [account4 shouldFailAllTasks];
+
+    if (shouldFailAllTasks)
+    {
+      v10 = DALoggingwithCategory();
+      v17 = _CPLog_to_os_log_type[6];
+      if (os_log_type_enabled(v10, v17))
+      {
+        account5 = [(SubCalAgent *)self account];
+        accountDescription = [account5 accountDescription];
+        publicDescription = [(SubCalAgent *)self publicDescription];
+        *buf = 138412546;
+        v23 = accountDescription;
+        v24 = 2114;
+        v25 = publicDescription;
+        _os_log_impl(&dword_0, v10, v17, "Account %@ (%{public}@) thinks it should fail all tasks.  Doing so", buf, 0x16u);
+      }
+
+      goto LABEL_10;
+    }
+
+    if ((dataclassesCopy & 4) != 0)
+    {
+      account6 = [(SubCalAgent *)self account];
+      [account6 refreshAllCalendars:requestedCopy];
+    }
+  }
 }
 
 - (void)accountDidCompleteRefresh:(id)refresh withError:(id)error

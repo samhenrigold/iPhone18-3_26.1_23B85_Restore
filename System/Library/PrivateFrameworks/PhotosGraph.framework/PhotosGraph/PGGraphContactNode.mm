@@ -56,45 +56,28 @@
   {
     v6 = [v5 objectForKeyedSubscript:@"name"];
     v7 = v6;
-    if (v6 && ![v6 isEqual:self->_name])
+    v17 = 0;
+    if (!v6 || [v6 isEqual:self->_name])
     {
-      goto LABEL_11;
-    }
 
-    v8 = [v5 objectForKeyedSubscript:@"cnid"];
-    v7 = v8;
-    if (v8)
-    {
-      if (![v8 isEqual:self->_contactIdentifier])
+      v8 = [v5 objectForKeyedSubscript:@"cnid"];
+      v7 = v8;
+      if (!v8 || [v8 isEqual:self->_contactIdentifier])
       {
-        goto LABEL_11;
+
+        v9 = [v5 objectForKeyedSubscript:@"bday"];
+        v7 = v9;
+        if (!v9 || ([v9 doubleValue], v11 = v10, -[NSDate timeIntervalSince1970](self->_birthdayDate, "timeIntervalSince1970"), v11 == v12))
+        {
+
+          v13 = [v5 objectForKeyedSubscript:@"pbday"];
+          v7 = v13;
+          if (!v13 || ([v13 doubleValue], v15 = v14, -[NSDate timeIntervalSince1970](self->_potentialBirthdayDate, "timeIntervalSince1970"), v15 == v16))
+          {
+            v17 = 1;
+          }
+        }
       }
-    }
-
-    v9 = [v5 objectForKeyedSubscript:@"bday"];
-    v7 = v9;
-    if (v9)
-    {
-      [v9 doubleValue];
-      v11 = v10;
-      [(NSDate *)self->_birthdayDate timeIntervalSince1970];
-      if (v11 != v12)
-      {
-        goto LABEL_11;
-      }
-    }
-
-    v13 = [v5 objectForKeyedSubscript:@"pbday"];
-    v7 = v13;
-    if (!v13 || ([v13 doubleValue], v15 = v14, -[NSDate timeIntervalSince1970](self->_potentialBirthdayDate, "timeIntervalSince1970"), v15 == v16))
-    {
-      v17 = 1;
-    }
-
-    else
-    {
-LABEL_11:
-      v17 = 0;
     }
   }
 
@@ -217,16 +200,14 @@ LABEL_11:
 
 + (id)filterWithContactIdentifiers:(id)identifiers
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   filter = [self filter];
-  v10 = @"cnid";
-  v11[0] = identifiersCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"cnid";
+  v10[0] = identifiersCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   v7 = [filter filterBySettingProperties:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

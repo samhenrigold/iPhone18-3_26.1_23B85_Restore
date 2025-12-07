@@ -19,7 +19,7 @@
   return v3;
 }
 
-uint64_t __49__CRKPlatformInternetDateProvider_sharedProvider__block_invoke()
+uint64_t __49__CRKPlatformInternetDateProvider_sharedProvider__block_invoke(uint64_t a1, uint64_t a2)
 {
   sharedProvider_sharedProvider = objc_opt_new();
 
@@ -55,47 +55,48 @@ uint64_t __49__CRKPlatformInternetDateProvider_sharedProvider__block_invoke()
   }
 
   fetchExistingInternetDate = [(CRKPlatformInternetDateProvider *)self fetchExistingInternetDate];
+  v7 = fetchExistingInternetDate;
   if (fetchExistingInternetDate)
   {
-    v7 = _CRKLogGeneral_20();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _CRKLogGeneral_20(fetchExistingInternetDate);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_243550000, v7, OS_LOG_TYPE_DEFAULT, "Cached time found. No attempt to fetch the internet date and time will be made.", buf, 2u);
+      _os_log_impl(&dword_243550000, v8, OS_LOG_TYPE_DEFAULT, "Cached time found. No attempt to fetch the internet date and time will be made.", buf, 2u);
     }
 
-    completionCopy[2](completionCopy, fetchExistingInternetDate, 0);
+    completionCopy[2](completionCopy, v7, 0);
   }
 
   else
   {
     completionQueue = [(CRKPlatformInternetDateProvider *)self completionQueue];
-    v9 = MEMORY[0x245D3AAD0](completionCopy);
-    [completionQueue addObject:v9];
+    v10 = MEMORY[0x245D3AAD0](completionCopy);
+    [completionQueue addObject:v10];
 
     completionQueue2 = [(CRKPlatformInternetDateProvider *)self completionQueue];
-    v11 = [completionQueue2 count];
+    v12 = [completionQueue2 count];
 
-    dateFetchingProvider = _CRKLogGeneral_20();
-    v13 = os_log_type_enabled(dateFetchingProvider, OS_LOG_TYPE_DEFAULT);
-    if (v11 < 2)
+    dateFetchingProvider = _CRKLogGeneral_20(v13);
+    v15 = os_log_type_enabled(dateFetchingProvider, OS_LOG_TYPE_DEFAULT);
+    if (v12 < 2)
     {
-      if (v13)
+      if (v15)
       {
         *buf = 0;
         _os_log_impl(&dword_243550000, dateFetchingProvider, OS_LOG_TYPE_DEFAULT, "No cached time found. Attempting to fetch the internet date and time for the first time.", buf, 2u);
       }
 
       dateFetchingProvider = [(CRKPlatformInternetDateProvider *)self dateFetchingProvider];
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __67__CRKPlatformInternetDateProvider_fetchInternetDateWithCompletion___block_invoke;
-      v14[3] = &unk_278DC34A8;
-      v14[4] = self;
-      [dateFetchingProvider fetchInternetDateWithCompletion:v14];
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __67__CRKPlatformInternetDateProvider_fetchInternetDateWithCompletion___block_invoke;
+      v16[3] = &unk_278DC34A8;
+      v16[4] = self;
+      [dateFetchingProvider fetchInternetDateWithCompletion:v16];
     }
 
-    else if (v13)
+    else if (v15)
     {
       *buf = 0;
       _os_log_impl(&dword_243550000, dateFetchingProvider, OS_LOG_TYPE_DEFAULT, "No cached time found, but a fetch for the internet date and time is already in-flight. No attempt to fetch the internet date and time will be made again.", buf, 2u);
@@ -108,7 +109,7 @@ void __67__CRKPlatformInternetDateProvider_fetchInternetDateWithCompletion___blo
   v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = _CRKLogGeneral_20();
+  v7 = _CRKLogGeneral_20(v6);
   v8 = v7;
   if (v6)
   {

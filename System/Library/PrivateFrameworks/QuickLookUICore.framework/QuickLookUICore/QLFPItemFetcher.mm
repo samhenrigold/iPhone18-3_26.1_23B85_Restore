@@ -1,6 +1,7 @@
 @interface QLFPItemFetcher
 - (BOOL)isLongFetchOperation;
 - (QLFPItemFetcher)initWithCoder:(id)coder;
+- (QLFPItemFetcher)initWithFPItem:(id)item shouldZipPackageIfNeeded:(BOOL)needed;
 - (void)_registerItemCollectionIfNeeded;
 - (void)_unregisterItemCollectionIfNeeded;
 - (void)_urlHandler:(id)handler;
@@ -11,6 +12,21 @@
 @end
 
 @implementation QLFPItemFetcher
+
+- (QLFPItemFetcher)initWithFPItem:(id)item shouldZipPackageIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  itemCopy = item;
+  v8 = [(QLUbiquitousItemFetcher *)self initWithZippingPackageIfNeeded:neededCopy];
+  v9 = v8;
+  if (v8)
+  {
+    objc_storeStrong(&v8->_fpItem, item);
+    v10 = v9;
+  }
+
+  return v9;
+}
 
 - (void)fetchContentWithAllowedOutputClasses:(id)classes inQueue:(id)queue updateBlock:(id)block completionBlock:(id)completionBlock
 {
@@ -43,23 +59,22 @@ void __92__QLFPItemFetcher_fetchContentWithAllowedOutputClasses_inQueue_updateBl
     v3 = *(a1 + 40);
     v5 = *(a1 + 48);
     v6 = *(a1 + 56);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __92__QLFPItemFetcher_fetchContentWithAllowedOutputClasses_inQueue_updateBlock_completionBlock___block_invoke_2;
-    v10[3] = &unk_279AE12C0;
-    v10[4] = v4;
-    v11 = *(a1 + 64);
-    v9.receiver = v4;
-    v9.super_class = QLFPItemFetcher;
-    objc_msgSendSuper2(&v9, sel_fetchContentWithAllowedOutputClasses_inQueue_updateBlock_completionBlock_, v3, v5, v6, v10);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __92__QLFPItemFetcher_fetchContentWithAllowedOutputClasses_inQueue_updateBlock_completionBlock___block_invoke_2;
+    v9[3] = &unk_279AE12C0;
+    v9[4] = v4;
+    v10 = *(a1 + 64);
+    v8.receiver = v4;
+    v8.super_class = QLFPItemFetcher;
+    objc_msgSendSuper2(&v8, sel_fetchContentWithAllowedOutputClasses_inQueue_updateBlock_completionBlock_, v3, v5, v6, v9);
   }
 
   else
   {
-    v7 = *(a1 + 64);
-    v8 = *(*(a1 + 64) + 16);
+    v7 = *(*(a1 + 64) + 16);
 
-    v8();
+    v7();
   }
 }
 
@@ -165,31 +180,31 @@ uint64_t __52__QLFPItemFetcher__unregisterItemCollectionIfNeeded__block_invoke(u
 
 void __31__QLFPItemFetcher__urlHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (!v5 || v6)
   {
-    v14 = MEMORY[0x277D43EF8];
-    v15 = *MEMORY[0x277D43EF8];
+    v13 = MEMORY[0x277D43EF8];
+    v14 = *MEMORY[0x277D43EF8];
     if (!*MEMORY[0x277D43EF8])
     {
       QLSInitLogging();
-      v15 = *v14;
+      v14 = *v13;
     }
 
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v16 = *(*(a1 + 32) + 80);
-      v18 = 138412546;
-      v19 = v16;
-      v20 = 2112;
-      v21 = v7;
-      _os_log_impl(&dword_261653000, v15, OS_LOG_TYPE_ERROR, "Failed to fetch url for item: %@ error:%@ #Downloading", &v18, 0x16u);
+      v15 = *(*(a1 + 32) + 80);
+      v16 = 138412546;
+      v17 = v15;
+      v18 = 2112;
+      v19 = v7;
+      _os_log_impl(&dword_261653000, v14, OS_LOG_TYPE_ERROR, "Failed to fetch url for item: %@ error:%@ #Downloading", &v16, 0x16u);
     }
 
-    v13 = *(*(a1 + 40) + 16);
+    v12 = *(*(a1 + 40) + 16);
   }
 
   else
@@ -200,13 +215,10 @@ void __31__QLFPItemFetcher__urlHandler___block_invoke(uint64_t a1, void *a2, voi
     v11 = *(v10 + 88);
     *(v10 + 88) = v9;
 
-    v12 = *(*(a1 + 32) + 88);
-    v13 = *(*(a1 + 40) + 16);
+    v12 = *(*(a1 + 40) + 16);
   }
 
-  v13();
-
-  v17 = *MEMORY[0x277D85DE8];
+  v12();
 }
 
 - (void)dealloc

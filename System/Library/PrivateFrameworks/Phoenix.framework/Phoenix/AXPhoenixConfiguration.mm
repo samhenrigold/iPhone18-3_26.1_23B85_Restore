@@ -127,7 +127,6 @@ LABEL_18:
 
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -340,7 +339,6 @@ LABEL_18:
   }
 
   objc_storeStrong(v28, 0);
-  *MEMORY[0x277D85DE8];
   v4 = v30;
 
   return v4;

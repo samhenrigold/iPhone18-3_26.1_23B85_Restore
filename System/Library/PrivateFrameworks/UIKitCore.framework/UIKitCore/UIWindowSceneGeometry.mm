@@ -177,7 +177,7 @@
   }
 }
 
-uint64_t __51__UIWindowSceneGeometry_appendDescriptionToStream___block_invoke(uint64_t a1)
+id __51__UIWindowSceneGeometry_appendDescriptionToStream___block_invoke(uint64_t a1)
 {
   if (([*(a1 + 32) hasSuccinctStyle] & 1) != 0 || (result = objc_msgSend(*(a1 + 32), "hasDebugStyle"), (result & 1) == 0))
   {

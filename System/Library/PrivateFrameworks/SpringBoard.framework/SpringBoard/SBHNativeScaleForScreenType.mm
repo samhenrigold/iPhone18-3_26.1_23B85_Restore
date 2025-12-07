@@ -3,7 +3,7 @@
 
 @implementation SBHNativeScaleForScreenType
 
-double ___SBHNativeScaleForScreenType_block_invoke(double a1)
+double ___SBHNativeScaleForScreenType_block_invoke(double a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   SBHGetScreenSpecification();
   SBHGetScreenSpecification();

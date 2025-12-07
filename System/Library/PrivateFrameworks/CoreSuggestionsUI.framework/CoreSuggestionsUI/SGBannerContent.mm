@@ -27,7 +27,7 @@
 
 - (NSAttributedString)attributedTitle
 {
-  v2 = sub_1B8193B94();
+  v2 = sub_1B8193B94(self);
 
   return v2;
 }
@@ -43,7 +43,7 @@
 
 - (NSAttributedString)attributedSubtitle
 {
-  v2 = sub_1B8193F2C();
+  v2 = sub_1B8193F2C(self);
 
   return v2;
 }
@@ -75,7 +75,7 @@
 
 - (SGSuggestionDelegate)delegate
 {
-  v2 = sub_1B8194B28();
+  v2 = sub_1B8194B28(self);
 
   return v2;
 }
@@ -85,13 +85,13 @@
   OUTLINED_FUNCTION_9_1();
   swift_unknownObjectRetain();
   v4 = v3;
-  OUTLINED_FUNCTION_0_0();
-  sub_1B8194BB0();
+  v5 = OUTLINED_FUNCTION_0_0();
+  sub_1B8194BB0(v5);
 }
 
 - (UIVisualEffectView)backgroundVisualEffectView
 {
-  v2 = sub_1B8195868();
+  v2 = sub_1B8195868(self);
 
   return v2;
 }
@@ -101,13 +101,13 @@
   OUTLINED_FUNCTION_9_1();
   v5 = v3;
   v6 = v4;
-  OUTLINED_FUNCTION_0_0();
-  sub_1B81958F0();
+  v7 = OUTLINED_FUNCTION_0_0();
+  sub_1B81958F0(v7);
 }
 
 - (UIColor)backgroundColor
 {
-  v2 = sub_1B8195A84();
+  v2 = sub_1B8195A84(self);
 
   return v2;
 }
@@ -117,13 +117,13 @@
   OUTLINED_FUNCTION_9_1();
   v5 = v3;
   v6 = v4;
-  OUTLINED_FUNCTION_0_0();
-  sub_1B8195B0C();
+  v7 = OUTLINED_FUNCTION_0_0();
+  sub_1B8195B0C(v7);
 }
 
 - (SGBannerDividerParameter)bannerDivider
 {
-  v2 = sub_1B8195CA0();
+  v2 = sub_1B8195CA0(self);
 
   return v2;
 }
@@ -133,13 +133,13 @@
   OUTLINED_FUNCTION_9_1();
   v5 = v3;
   v6 = v4;
-  OUTLINED_FUNCTION_0_0();
-  sub_1B8195D28();
+  v7 = OUTLINED_FUNCTION_0_0();
+  sub_1B8195D28(v7);
 }
 
 - (SGSuggestionAction)primaryAction
 {
-  v2 = sub_1B8196090();
+  v2 = sub_1B8196090(self);
 
   return v2;
 }
@@ -149,13 +149,13 @@
   OUTLINED_FUNCTION_9_1();
   v5 = v3;
   v6 = v4;
-  OUTLINED_FUNCTION_0_0();
-  sub_1B8196118();
+  v7 = OUTLINED_FUNCTION_0_0();
+  sub_1B8196118(v7);
 }
 
 - (SGSuggestionAction)dismissAction
 {
-  v2 = sub_1B81962AC();
+  v2 = sub_1B81962AC(self);
 
   return v2;
 }
@@ -165,13 +165,14 @@
   OUTLINED_FUNCTION_9_1();
   v5 = v3;
   v6 = v4;
-  OUTLINED_FUNCTION_0_0();
-  sub_1B8196334();
+  v7 = OUTLINED_FUNCTION_0_0();
+  sub_1B8196334(v7);
 }
 
 - (NSArray)iconSFSymbols
 {
-  if (sub_1B8196890())
+  selfCopy = self;
+  if (sub_1B8196890(self, a2))
   {
     sub_1B81F90A8();
     OUTLINED_FUNCTION_18_1();
@@ -179,26 +180,31 @@
 
   else
   {
-    self = 0;
+    selfCopy = 0;
   }
 
-  return self;
+  return selfCopy;
 }
 
 - (void)setIconSFSymbols:(id)symbols
 {
   if (symbols)
   {
-    sub_1B81F90C8();
+    v4 = sub_1B81F90C8();
+  }
+
+  else
+  {
+    v4 = 0;
   }
 
   selfCopy = self;
-  sub_1B8196978();
+  sub_1B8196978(v4, selfCopy, v5);
 }
 
 - (SGSuggestionAction)feedbackAction
 {
-  v2 = sub_1B8196D0C();
+  v2 = sub_1B8196D0C(self);
 
   return v2;
 }
@@ -208,8 +214,8 @@
   OUTLINED_FUNCTION_9_1();
   v5 = v3;
   v6 = v4;
-  OUTLINED_FUNCTION_0_0();
-  sub_1B8196D94();
+  v7 = OUTLINED_FUNCTION_0_0();
+  sub_1B8196D94(v7);
 }
 
 @end

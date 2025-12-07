@@ -1,4 +1,5 @@
 @interface AUFileParser
++ (id)auTypeString:(unsigned __int8)string;
 + (id)loadParsersFromFWDirectory:(id)directory logHandle:(id)handle productID:(id)d equivalentPIDs:(id)ds errorDomain:(id)domain STFWFirst:(id)first parsers:(id)parsers;
 - (AUFileParser)initWithFilePath:(id)path productID:(id)d equivalentPIDs:(id)ds logHandle:(id)handle errorDomain:(id)domain error:(id *)error;
 - (BOOL)personalizationRequired;
@@ -357,6 +358,166 @@ LABEL_9:
   [v6 appendData:manifestCopy];
 
   return v6;
+}
+
++ (id)auTypeString:(unsigned __int8)string
+{
+  if (string > 111)
+  {
+    if (string > 193)
+    {
+      if (string <= 195)
+      {
+        if (string == 194)
+        {
+          string = @"kAUTypeForceCal";
+        }
+
+        else
+        {
+          string = @"kAUTypeActCal";
+        }
+
+        return string;
+      }
+
+      switch(string)
+      {
+        case 0xC4u:
+          string = @"kAUTypeAccelCal";
+
+          return string;
+        case 0xC5u:
+          string = @"kAUTypeAudioCal";
+
+          return string;
+        case 0xDFu:
+          string = @"kAUTypeTest";
+
+          return string;
+      }
+    }
+
+    else if (string <= 175)
+    {
+      if (string == 112)
+      {
+        string = @"kAUTypeR1FW";
+
+        return string;
+      }
+
+      if (string == 160)
+      {
+        string = @"kAUTypeVibeWaveform";
+
+        return string;
+      }
+    }
+
+    else
+    {
+      switch(string)
+      {
+        case 0xB0u:
+          string = @"kAUTypeBootLoader";
+
+          return string;
+        case 0xC0u:
+          string = @"kAUTypeKeyCal";
+
+          return string;
+        case 0xC1u:
+          string = @"kAUTypeMTCal";
+
+          return string;
+      }
+    }
+
+LABEL_87:
+    string = [NSString stringWithFormat:@"unknown AUType (0x%02X)", string];
+
+    return string;
+  }
+
+  if (string > 63)
+  {
+    if (string <= 79)
+    {
+      if (string == 64)
+      {
+        string = @"kAUTypeAudioFW";
+
+        return string;
+      }
+
+      if (string == 65)
+      {
+        string = @"kAUTypeAudioCalFW";
+
+        return string;
+      }
+    }
+
+    else
+    {
+      switch(string)
+      {
+        case 'P':
+          string = @"kAUTypeChargerFW";
+
+          return string;
+        case 'X':
+          string = @"kAUTypePowerFW";
+
+          return string;
+          string = @"kAUTypeAccelAlgs";
+
+          return string;
+      }
+    }
+
+    goto LABEL_87;
+  }
+
+  if (string <= 31)
+  {
+    if (!string)
+    {
+      string = @"kAUTypeUnknown";
+
+      return string;
+    }
+
+    if (string == 1)
+    {
+      string = @"kAUTypeSTFW";
+
+      return string;
+    }
+
+    goto LABEL_87;
+  }
+
+  switch(string)
+  {
+    case ' ':
+      string = @"kAUTypeMTFW";
+
+      break;
+    case '0':
+      string = @"kAUTypeRadioFW";
+
+      break;
+    case '1':
+      string = @"kAUTypeRadioDiags";
+
+      return string;
+    default:
+      goto LABEL_87;
+  }
+
+  return string;
 }
 
 + (id)loadParsersFromFWDirectory:(id)directory logHandle:(id)handle productID:(id)d equivalentPIDs:(id)ds errorDomain:(id)domain STFWFirst:(id)first parsers:(id)parsers

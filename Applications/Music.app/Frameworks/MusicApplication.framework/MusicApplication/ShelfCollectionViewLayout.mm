@@ -63,7 +63,7 @@
   sub_335F5C(selfCopy, selfCopy, &v10, x, y, width, height);
   sub_336220(selfCopy, selfCopy, &v10, x, y, width, height);
 
-  sub_13C80(0, &qword_E04510);
+  sub_13C80(0, &qword_E04510, UICollectionViewLayoutAttributes_ptr);
   v8.super.isa = sub_AB9740().super.isa;
 
   return v8.super.isa;
@@ -73,7 +73,7 @@
 {
   v5 = sub_AB3820();
   v6 = *(v5 - 8);
-  __chkstk_darwin(v5);
+  __chkstk_darwin();
   v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   pathCopy = path;
@@ -89,7 +89,7 @@
 {
   v7 = sub_AB3820();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = sub_AB92A0();
   v13 = v12;
@@ -148,7 +148,7 @@
 - (void)music_collectionViewInheritedLayoutInsetsDidChange
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for ShelfCollectionViewLayout();
+  v3.super_class = type metadata accessor for ShelfCollectionViewLayout(0);
   v2 = v3.receiver;
   [(ShelfCollectionViewLayout *)&v3 music_collectionViewInheritedLayoutInsetsDidChange];
   [v2 invalidateLayout];

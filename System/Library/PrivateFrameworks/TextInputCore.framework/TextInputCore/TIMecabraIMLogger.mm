@@ -29,7 +29,7 @@ CFIndex __37__TIMecabraIMLogger_isLoggingEnabled__block_invoke()
 
 - (void)writeLogToFile
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   loggedMessage = [(TIMecabraIMLogger *)self loggedMessage];
   logFilePath = [(TIMecabraIMLogger *)self logFilePath];
   [loggedMessage writeToFile:logFilePath atomically:1 encoding:4 error:0];
@@ -45,16 +45,14 @@ CFIndex __37__TIMecabraIMLogger_isLoggingEnabled__block_invoke()
     v5 = TIOSLogFacility();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v7 = MEMORY[0x277CCACA8];
+      v6 = MEMORY[0x277CCACA8];
       logFilePath2 = [(TIMecabraIMLogger *)self logFilePath];
-      v9 = [v7 stringWithFormat:@"%s TIMecabraIM: Log is written to file %@!", "-[TIMecabraIMLogger writeLogToFile]", logFilePath2];
+      v8 = [v6 stringWithFormat:@"%s TIMecabraIM: Log is written to file %@!", "-[TIMecabraIMLogger writeLogToFile]", logFilePath2];
       *buf = 138412290;
-      v11 = v9;
+      v10 = v8;
       _os_log_debug_impl(&dword_22CA55000, v5, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endLoggingForInput:(id)input atFinalTimeMark:(unint64_t)mark
@@ -77,9 +75,9 @@ CFIndex __37__TIMecabraIMLogger_isLoggingEnabled__block_invoke()
       }
     }
 
-    string = [MEMORY[0x277CCAB68] string];
+    v10 = objc_msgSend_string(MEMORY[0x277CCAB68], v7);
     v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ ", v23];;
-    [string appendString:v11];
+    [v10 appendString:v11];
 
     if (mark)
     {
@@ -97,7 +95,7 @@ CFIndex __37__TIMecabraIMLogger_isLoggingEnabled__block_invoke()
         v16 = MEMORY[0x277CCACA8];
         v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%.3f(%.1f%%)", v14, ((v14 / v8) * 100.0)];
         v18 = [v16 stringWithFormat:@"%@ ", v17];;
-        [string appendString:v18];
+        [v10 appendString:v18];
 
         ++v12;
         --mark;
@@ -109,10 +107,10 @@ CFIndex __37__TIMecabraIMLogger_isLoggingEnabled__block_invoke()
     v19 = MEMORY[0x277CCACA8];
     v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%.3f(%.1f%%)", v8, ((v8 / v8) * 100.0)];
     v21 = [v19 stringWithFormat:@"%@\n", v20];
-    [string appendString:v21];
+    [v10 appendString:v21];
 
     loggedMessage = [(TIMecabraIMLogger *)self loggedMessage];
-    [loggedMessage appendString:string];
+    [loggedMessage appendString:v10];
 
     inputCopy = v23;
   }

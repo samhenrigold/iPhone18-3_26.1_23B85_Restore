@@ -102,7 +102,7 @@
   }
 }
 
-uint64_t __69__SBMedusaWindowDragGestureSwitcherModifier_didMoveToParentModifier___block_invoke(uint64_t a1)
+void *__69__SBMedusaWindowDragGestureSwitcherModifier_didMoveToParentModifier___block_invoke(uint64_t a1)
 {
   [*(a1 + 40) homeScreenAlpha];
   *(*(a1 + 32) + 232) = v2;
@@ -145,13 +145,13 @@ uint64_t __69__SBMedusaWindowDragGestureSwitcherModifier_didMoveToParentModifier
   if ([eventCopy phase] == 1)
   {
     v43 = objc_alloc_init(SBInvalidateAdjustedAppLayoutsSwitcherEventResponse);
-    v13 = SBAppendSwitcherModifierResponse(v43, v5);
+    v13 = SBAppendSwitcherModifierResponse();
 
     v14 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:2 updateMode:2];
-    v15 = SBAppendSwitcherModifierResponse(v14, v13);
+    v15 = SBAppendSwitcherModifierResponse();
 
     v16 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:8 updateMode:4];
-    v5 = SBAppendSwitcherModifierResponse(v16, v15);
+    v5 = SBAppendSwitcherModifierResponse();
 
     draggingAppLayoutsForWindowDrag = [(SBMedusaWindowDragGestureSwitcherModifier *)self draggingAppLayoutsForWindowDrag];
     v45[0] = MEMORY[0x277D85DD0];
@@ -220,7 +220,7 @@ uint64_t __69__SBMedusaWindowDragGestureSwitcherModifier_didMoveToParentModifier
   v9.super_class = SBMedusaWindowDragGestureSwitcherModifier;
   v6 = [(SBSwitcherModifier *)&v9 handleSceneReadyEvent:eventCopy];
 
-  v7 = SBAppendSwitcherModifierResponse(v5, v6);
+  v7 = SBAppendSwitcherModifierResponse();
 
   return v7;
 }
@@ -967,7 +967,7 @@ LABEL_13:
   v7.receiver = self;
   v7.super_class = SBMedusaWindowDragGestureSwitcherModifier;
   visibleHomeAffordanceLayoutElements = [(SBMedusaWindowDragGestureSwitcherModifier *)&v7 visibleHomeAffordanceLayoutElements];
-  if ([visibleHomeAffordanceLayoutElements containsObject:self->_selectedLeafAppLayout])
+  if (objc_msgSend_containsObject_(visibleHomeAffordanceLayoutElements))
   {
     v4 = [visibleHomeAffordanceLayoutElements mutableCopy];
     [v4 removeObject:self->_selectedLeafAppLayout];
@@ -975,7 +975,7 @@ LABEL_13:
     visibleHomeAffordanceLayoutElements = v4;
   }
 
-  if ([visibleHomeAffordanceLayoutElements containsObject:self->_initialMainAppLayout] && -[SBAppLayout containsItem:](self->_initialMainAppLayout, "containsItem:", self->_selectedDisplayItem))
+  if (objc_msgSend_containsObject_(visibleHomeAffordanceLayoutElements) && [(SBAppLayout *)self->_initialMainAppLayout containsItem:self->_selectedDisplayItem])
   {
     v5 = [visibleHomeAffordanceLayoutElements mutableCopy];
     [v5 removeObject:self->_initialMainAppLayout];

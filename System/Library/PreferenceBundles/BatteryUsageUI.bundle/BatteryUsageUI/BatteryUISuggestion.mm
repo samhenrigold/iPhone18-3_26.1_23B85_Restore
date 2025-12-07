@@ -111,7 +111,7 @@ LABEL_9:
     [(BatteryUISuggestion *)v7 setInfoText:v22];
 
     v23 = 0;
-    v53 = 0;
+    v52 = 0;
     goto LABEL_47;
   }
 
@@ -164,15 +164,15 @@ LABEL_9:
 LABEL_42:
 
 LABEL_43:
-    v53 = v24;
+    v52 = v24;
     [(BatteryUISuggestion *)v7 setIdentifier:v11];
     specifier2 = [(BatteryUISuggestion *)v7 specifier];
-    if (!+[BatteryUIResourceClass inDemoMode](BatteryUIResourceClass, "inDemoMode") || (v37 = v7->_buttonName, +[BatteryUIResourceClass containerPath], (v38 = _CFPreferencesCopyValueWithContainer()) == 0))
+    if (!+[BatteryUIResourceClass inDemoMode](BatteryUIResourceClass, "inDemoMode") || (+[BatteryUIResourceClass containerPath], (v37 = _CFPreferencesCopyValueWithContainer()) == 0))
     {
-      v38 = BatteryUILocalization(v7->_buttonName);
+      v37 = BatteryUILocalization(v7->_buttonName);
     }
 
-    [specifier2 setProperty:v38 forKey:STStorageTipEnableButtonTitleKey];
+    [specifier2 setProperty:v37 forKey:STStorageTipEnableButtonTitleKey];
 
     goto LABEL_47;
   }
@@ -217,7 +217,7 @@ LABEL_43:
       [(BatteryUISuggestion *)v7 setTitle:v27];
 
       v23 = 0;
-      v53 = 0;
+      v52 = 0;
       v11 = @"DEVICE_SETUP";
       goto LABEL_47;
     }
@@ -237,17 +237,17 @@ LABEL_43:
   v11 = @"UPGRADE";
   [(BatteryUISuggestion *)v7 setIdentifier:@"UPGRADE"];
   v23 = 0;
-  v53 = 0;
+  v52 = 0;
 LABEL_47:
   specifier3 = [(BatteryUISuggestion *)v7 specifier];
-  v40 = PSIDKey;
+  v39 = PSIDKey;
   [specifier3 setProperty:v11 forKey:PSIDKey];
 
   infoSpecifier = [(BatteryUISuggestion *)v7 infoSpecifier];
-  v42 = [(__CFString *)v11 stringByAppendingString:@"_INFO"];
-  [infoSpecifier setProperty:v42 forKey:v40];
+  v41 = [(__CFString *)v11 stringByAppendingString:@"_INFO"];
+  [infoSpecifier setProperty:v41 forKey:v39];
 
-  v43 = [NSString stringWithFormat:@"%@_TITLE", v11];
+  v42 = [NSString stringWithFormat:@"%@_TITLE", v11];
   title = [(BatteryUISuggestion *)v7 title];
   if (title)
   {
@@ -259,31 +259,31 @@ LABEL_47:
     if (+[BatteryUIResourceClass inDemoMode])
     {
       +[BatteryUIResourceClass containerPath];
-      v46 = _CFPreferencesCopyValueWithContainer();
-      if (v46)
+      v45 = _CFPreferencesCopyValueWithContainer();
+      if (v45)
       {
         goto LABEL_53;
       }
     }
 
-    title2 = BatteryUILocalization(v43);
+    title2 = BatteryUILocalization(v42);
   }
 
-  v46 = title2;
+  v45 = title2;
 LABEL_53:
-  [(BatteryUISuggestion *)v7 setTitle:v46];
+  [(BatteryUISuggestion *)v7 setTitle:v45];
 
-  v47 = objc_opt_new();
-  [(BatteryUISuggestion *)v7 setIcon:v47];
+  v46 = objc_opt_new();
+  [(BatteryUISuggestion *)v7 setIcon:v46];
 
   specifier4 = [(BatteryUISuggestion *)v7 specifier];
   [specifier4 setObject:&__kCFBooleanTrue forKeyedSubscript:PSLazyIconLoading];
 
-  v49 = [PLBatteryUIUtilities iconUTTypeIdentifierForSuggestion:type];
-  if (v49)
+  v48 = [PLBatteryUIUtilities iconUTTypeIdentifierForSuggestion:type];
+  if (v48)
   {
     specifier5 = [(BatteryUISuggestion *)v7 specifier];
-    [specifier5 setObject:v49 forKeyedSubscript:PSIconUTTypeIdentifierKey];
+    [specifier5 setObject:v48 forKeyedSubscript:PSIconUTTypeIdentifierKey];
   }
 
   [(BatteryUISuggestion *)v7 setDelegate:v7];

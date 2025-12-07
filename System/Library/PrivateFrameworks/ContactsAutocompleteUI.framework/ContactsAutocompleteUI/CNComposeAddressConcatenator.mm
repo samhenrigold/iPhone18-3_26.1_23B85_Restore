@@ -107,7 +107,7 @@ uint64_t __145___CNComposeAddressConcatenator_commaSeparatedAddressListWithAddre
     v7 = *(v3 + 16);
     v8 = *(a1 + 32);
 
-    return v7(v8);
+    return v7(v8, a2);
   }
 }
 

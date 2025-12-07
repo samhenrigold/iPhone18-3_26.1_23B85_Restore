@@ -41,12 +41,12 @@
 
 - (void)connectionInterrupted
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v8 = "[AFUserNotificationAnnouncementSpeakingStateObserver connectionInterrupted]";
+    v7 = "[AFUserNotificationAnnouncementSpeakingStateObserver connectionInterrupted]";
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -57,7 +57,6 @@
   block[3] = &unk_1E73497C8;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __76__AFUserNotificationAnnouncementSpeakingStateObserver_connectionInterrupted__block_invoke(uint64_t a1)
@@ -70,12 +69,12 @@ uint64_t __76__AFUserNotificationAnnouncementSpeakingStateObserver_connectionInt
 
 - (void)connectionInvalidated
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v8 = "[AFUserNotificationAnnouncementSpeakingStateObserver connectionInvalidated]";
+    v7 = "[AFUserNotificationAnnouncementSpeakingStateObserver connectionInvalidated]";
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -86,39 +85,37 @@ uint64_t __76__AFUserNotificationAnnouncementSpeakingStateObserver_connectionInt
   block[3] = &unk_1E73497C8;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_tearDown
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[AFUserNotificationAnnouncementSpeakingStateObserver _tearDown]";
-    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s ", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[AFUserNotificationAnnouncementSpeakingStateObserver _tearDown]";
+    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s ", &v4, 0xCu);
   }
 
   [(NSMutableSet *)self->_observingNotifications removeAllObjects];
   [(AFUserNotificationAnnouncementSpeakingStateObserver *)self _cleanUpConnection];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyObserverOfFailureForAllObservingNotifications
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if ([(NSMutableSet *)self->_observingNotifications count])
   {
     v3 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
       observingNotifications = self->_observingNotifications;
-      v8 = 136315394;
-      v9 = "[AFUserNotificationAnnouncementSpeakingStateObserver _notifyObserverOfFailureForAllObservingNotifications]";
-      v10 = 2112;
-      v11 = observingNotifications;
-      _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s Notifying all identifiers as failed. %@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[AFUserNotificationAnnouncementSpeakingStateObserver _notifyObserverOfFailureForAllObservingNotifications]";
+      v9 = 2112;
+      v10 = observingNotifications;
+      _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s Notifying all identifiers as failed. %@", &v7, 0x16u);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -127,8 +124,6 @@ uint64_t __76__AFUserNotificationAnnouncementSpeakingStateObserver_connectionInt
 
     [(NSMutableSet *)self->_observingNotifications removeAllObjects];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_currentConnection
@@ -141,19 +136,17 @@ uint64_t __76__AFUserNotificationAnnouncementSpeakingStateObserver_connectionInt
 
 void __73__AFUserNotificationAnnouncementSpeakingStateObserver__currentConnection__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[AFUserNotificationAnnouncementSpeakingStateObserver _currentConnection]_block_invoke";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s Error: %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[AFUserNotificationAnnouncementSpeakingStateObserver _currentConnection]_block_invoke";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s Error: %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_connection
@@ -213,7 +206,7 @@ void __66__AFUserNotificationAnnouncementSpeakingStateObserver__connection__bloc
 
 - (void)_speakingStateDidChange:(int64_t)change forIdentifiers:(id)identifiers
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   if ([(NSMutableSet *)self->_observingNotifications count])
   {
@@ -237,12 +230,12 @@ void __66__AFUserNotificationAnnouncementSpeakingStateObserver__connection__bloc
         }
 
         v13 = v11;
-        v17 = 136315650;
-        v18 = "[AFUserNotificationAnnouncementSpeakingStateObserver _speakingStateDidChange:forIdentifiers:]";
-        v19 = 2112;
-        v20 = v13;
-        v21 = 2112;
-        v22 = v7;
+        v16 = 136315650;
+        v17 = "[AFUserNotificationAnnouncementSpeakingStateObserver _speakingStateDidChange:forIdentifiers:]";
+        v18 = 2112;
+        v19 = v13;
+        v20 = 2112;
+        v21 = v7;
       }
 
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -252,9 +245,9 @@ void __66__AFUserNotificationAnnouncementSpeakingStateObserver__connection__bloc
 
     else if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
-      v17 = 136315138;
-      v18 = "[AFUserNotificationAnnouncementSpeakingStateObserver _speakingStateDidChange:forIdentifiers:]";
-      _os_log_error_impl(&dword_1912FE000, v9, OS_LOG_TYPE_ERROR, "%s Received a notification for speaking state changes, but we're not observing any of them.", &v17, 0xCu);
+      v16 = 136315138;
+      v17 = "[AFUserNotificationAnnouncementSpeakingStateObserver _speakingStateDidChange:forIdentifiers:]";
+      _os_log_error_impl(&dword_1912FE000, v9, OS_LOG_TYPE_ERROR, "%s Received a notification for speaking state changes, but we're not observing any of them.", &v16, 0xCu);
     }
   }
 
@@ -263,18 +256,16 @@ void __66__AFUserNotificationAnnouncementSpeakingStateObserver__connection__bloc
     v12 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
-      v17 = 136315138;
-      v18 = "[AFUserNotificationAnnouncementSpeakingStateObserver _speakingStateDidChange:forIdentifiers:]";
-      _os_log_error_impl(&dword_1912FE000, v12, OS_LOG_TYPE_ERROR, "%s Received a notification for speaking state changes, but no observers.", &v17, 0xCu);
+      v16 = 136315138;
+      v17 = "[AFUserNotificationAnnouncementSpeakingStateObserver _speakingStateDidChange:forIdentifiers:]";
+      _os_log_error_impl(&dword_1912FE000, v12, OS_LOG_TYPE_ERROR, "%s Received a notification for speaking state changes, but no observers.", &v16, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeObserverForNotificationRequestIdentifier:(id)identifier
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = [(NSMutableSet *)self->_observingNotifications containsObject:identifierCopy];
   v6 = AFSiriLogContextConnection;
@@ -283,11 +274,11 @@ void __66__AFUserNotificationAnnouncementSpeakingStateObserver__connection__bloc
   {
     if (v7)
     {
-      v10 = 136315394;
-      v11 = "[AFUserNotificationAnnouncementSpeakingStateObserver _removeObserverForNotificationRequestIdentifier:]";
-      v12 = 2112;
-      v13 = identifierCopy;
-      _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s Removing speaking state observer for notification request identifier %@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[AFUserNotificationAnnouncementSpeakingStateObserver _removeObserverForNotificationRequestIdentifier:]";
+      v11 = 2112;
+      v12 = identifierCopy;
+      _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s Removing speaking state observer for notification request identifier %@", &v9, 0x16u);
     }
 
     [(NSMutableSet *)self->_observingNotifications removeObject:identifierCopy];
@@ -296,9 +287,9 @@ void __66__AFUserNotificationAnnouncementSpeakingStateObserver__connection__bloc
       v8 = AFSiriLogContextConnection;
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
       {
-        v10 = 136315138;
-        v11 = "[AFUserNotificationAnnouncementSpeakingStateObserver _removeObserverForNotificationRequestIdentifier:]";
-        _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s No longer observing any notifications. Closing connection.", &v10, 0xCu);
+        v9 = 136315138;
+        v10 = "[AFUserNotificationAnnouncementSpeakingStateObserver _removeObserverForNotificationRequestIdentifier:]";
+        _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s No longer observing any notifications. Closing connection.", &v9, 0xCu);
       }
 
       [(AFUserNotificationAnnouncementSpeakingStateObserver *)self _cleanUpConnection];
@@ -307,30 +298,28 @@ void __66__AFUserNotificationAnnouncementSpeakingStateObserver__connection__bloc
 
   else if (v7)
   {
-    v10 = 136315394;
-    v11 = "[AFUserNotificationAnnouncementSpeakingStateObserver _removeObserverForNotificationRequestIdentifier:]";
-    v12 = 2112;
-    v13 = identifierCopy;
-    _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s Not currently observing for notification request identifier %@, ignoring.", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[AFUserNotificationAnnouncementSpeakingStateObserver _removeObserverForNotificationRequestIdentifier:]";
+    v11 = 2112;
+    v12 = identifierCopy;
+    _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s Not currently observing for notification request identifier %@, ignoring.", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startObservingNotificationWithRequestIdentifier:(id)identifier
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if ([(NSMutableSet *)self->_observingNotifications containsObject:identifierCopy])
   {
     v5 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v10 = 136315394;
-      v11 = "[AFUserNotificationAnnouncementSpeakingStateObserver _startObservingNotificationWithRequestIdentifier:]";
-      v12 = 2112;
-      v13 = identifierCopy;
-      _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s Already observing notification request identifier %@, ignoring.", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[AFUserNotificationAnnouncementSpeakingStateObserver _startObservingNotificationWithRequestIdentifier:]";
+      v11 = 2112;
+      v12 = identifierCopy;
+      _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s Already observing notification request identifier %@, ignoring.", &v9, 0x16u);
     }
   }
 
@@ -340,11 +329,11 @@ void __66__AFUserNotificationAnnouncementSpeakingStateObserver__connection__bloc
     v7 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v10 = 136315394;
-      v11 = "[AFUserNotificationAnnouncementSpeakingStateObserver _startObservingNotificationWithRequestIdentifier:]";
-      v12 = 2112;
-      v13 = identifierCopy;
-      _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s Adding speaking state observer for notification request identifier %@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[AFUserNotificationAnnouncementSpeakingStateObserver _startObservingNotificationWithRequestIdentifier:]";
+      v11 = 2112;
+      v12 = identifierCopy;
+      _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s Adding speaking state observer for notification request identifier %@", &v9, 0x16u);
     }
 
     [(NSMutableSet *)self->_observingNotifications addObject:identifierCopy];
@@ -354,8 +343,6 @@ void __66__AFUserNotificationAnnouncementSpeakingStateObserver__connection__bloc
       [_currentConnection beginObserving];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)speakingStateDidChange:(int64_t)change forIdentifiers:(id)identifiers

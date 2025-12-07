@@ -192,37 +192,38 @@ LABEL_10:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v11 = __atxlog_handle_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v12 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      [(ATXLockscreenEvent *)self initWithProto:v11];
+      [(ATXLockscreenEvent *)self initWithProto:v12];
     }
 
     goto LABEL_10;
   }
 
-  v5 = protoCopy;
-  if ([(ATXPBLockscreenEvent *)v5 hasDate]&& (v6 = [(ATXPBLockscreenEvent *)v5 date], [(ATXPBLockscreenEvent *)v5 hasEventType]))
+  v6 = protoCopy;
+  if ([(ATXPBLockscreenEvent *)v6 hasDate]&& (v7 = [(ATXPBLockscreenEvent *)v6 date], [(ATXPBLockscreenEvent *)v6 hasEventType]))
   {
-    eventType = [(ATXPBLockscreenEvent *)v5 eventType];
-    if ([(ATXPBLockscreenEvent *)v5 hasBlendingCacheId])
+    eventType = [(ATXPBLockscreenEvent *)v6 eventType];
+    if ([(ATXPBLockscreenEvent *)v6 hasBlendingCacheId])
     {
-      v8 = objc_alloc(MEMORY[0x1E696AFB0]);
-      blendingCacheId = [(ATXPBLockscreenEvent *)v5 blendingCacheId];
-      v10 = [v8 initWithUUIDString:blendingCacheId];
+      v9 = objc_alloc(MEMORY[0x1E696AFB0]);
+      blendingCacheId = [(ATXPBLockscreenEvent *)v6 blendingCacheId];
+      v11 = [v9 initWithUUIDString:blendingCacheId];
     }
 
     else
     {
-      v10 = 0;
+      v11 = 0;
     }
 
-    suggestionIds = [(ATXPBLockscreenEvent *)v5 suggestionIds];
-    v14 = [suggestionIds _pas_mappedArrayWithTransform:&__block_literal_global_46_1];
+    suggestionIds = [(ATXPBLockscreenEvent *)v6 suggestionIds];
+    v15 = [suggestionIds _pas_mappedArrayWithTransform:&__block_literal_global_46_1];
 
-    self = [(ATXLockscreenEvent *)self initWithAbsoluteDate:eventType eventType:v10 blendingCacheId:v14 suggestionIds:v6];
+    self = [(ATXLockscreenEvent *)self initWithAbsoluteDate:eventType eventType:v11 blendingCacheId:v15 suggestionIds:v7];
     selfCopy = self;
   }
 
@@ -326,7 +327,7 @@ id __36__ATXLockscreenEvent_initWithProto___block_invoke(uint64_t a1, void *a2)
   coderCopy = coder;
   v5 = MEMORY[0x1E69C5D78];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_default();
+  v7 = __atxlog_handle_default(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"protobufData" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXLockscreenEvent" errorCode:-1 logHandle:v7];
 
   if (v8 && ([coderCopy error], v9 = objc_claimAutoreleasedReturnValue(), v9, !v9))

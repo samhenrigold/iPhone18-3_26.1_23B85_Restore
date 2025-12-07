@@ -45,16 +45,16 @@
 
 - (void)run
 {
-  v28 = 0;
+  v33 = 0;
   if (!self->_bundleID)
   {
-    goto LABEL_35;
+    goto LABEL_39;
   }
 
   v3 = [objc_msgSend(objc_msgSend(+[LSApplicationProxy applicationProxyForIdentifier:](LSApplicationProxy "applicationProxyForIdentifier:{"bundleContainerURL"), "path"), "stringByAppendingPathComponent:", @"iTunesMetadata.plist"}")];
   if (!v3)
   {
-    goto LABEL_35;
+    goto LABEL_39;
   }
 
   v4 = v3;
@@ -70,140 +70,165 @@
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [v6 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
 
     if (v8)
     {
-      v9 = objc_opt_class();
-      v10 = [(NSDictionary *)self->_changeset count];
+      v10 = objc_opt_class();
+      v11 = [(NSDictionary *)self->_changeset count];
       bundleID = self->_bundleID;
-      v29 = 138413058;
-      v30 = v9;
-      v31 = 2048;
-      v32 = v10;
-      v33 = 2112;
-      v34 = bundleID;
-      v35 = 2112;
-      v36 = v4;
-      LODWORD(v26) = 42;
-      v25 = &v29;
-      v12 = _os_log_send_and_compose_impl();
-      if (v12)
+      v34 = 138413058;
+      v35 = v10;
+      v36 = 2048;
+      v37 = v11;
+      v38 = 2112;
+      v39 = bundleID;
+      v40 = 2112;
+      v41 = v4;
+      v13 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Changing %lu keys for %@ at %@", &v34, 42);
+      if (v13)
       {
-        v13 = v12;
-        v14 = [NSString stringWithCString:v12 encoding:4, &v29, v26];
-        free(v13);
-        v25 = v14;
+        v14 = v13;
+        v15 = [NSString stringWithCString:v13 encoding:4];
+        free(v14);
+        v30 = v15;
         SSFileLog();
       }
     }
 
     changeset = self->_changeset;
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3221225472;
-    v27[2] = sub_1001FE910;
-    v27[3] = &unk_10032C360;
-    v27[4] = v5;
-    [(NSDictionary *)changeset enumerateKeysAndObjectsUsingBlock:v27, v25];
-    v16 = [NSPropertyListSerialization dataWithPropertyList:v5 format:200 options:0 error:&v28];
-    if (v16)
+    v32[0] = _NSConcreteStackBlock;
+    v32[1] = 3221225472;
+    v32[2] = sub_1001FE910;
+    v32[3] = &unk_10032C360;
+    v32[4] = v5;
+    [(NSDictionary *)changeset enumerateKeysAndObjectsUsingBlock:v32, v30];
+    v17 = [NSPropertyListSerialization dataWithPropertyList:v5 format:200 options:0 error:&v33];
+    if (v17)
     {
       v5 = 1;
-      if ([(NSData *)v16 writeToFile:v4 options:1 error:&v28])
+      if ([(NSData *)v17 writeToFile:v4 options:1 error:&v33])
       {
-        goto LABEL_36;
+        goto LABEL_40;
       }
 
-      v17 = +[SSLogConfig sharedDaemonConfig];
-      if (!v17)
+      v18 = +[SSLogConfig sharedDaemonConfig];
+      if (!v18)
       {
-        v17 = +[SSLogConfig sharedConfig];
+        v18 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog2 = [v17 shouldLog];
-      if ([v17 shouldLogToDisk])
+      shouldLog2 = [v18 shouldLog];
+      if ([v18 shouldLogToDisk])
       {
-        v19 = shouldLog2 | 2;
+        LODWORD(v20) = shouldLog2 | 2;
       }
 
       else
       {
-        v19 = shouldLog2;
+        LODWORD(v20) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([v17 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject2 = [v18 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
       {
-        v19 &= 2u;
+        v20 = v20;
       }
 
-      if (!v19)
+      else
       {
-        goto LABEL_35;
+        v20 &= 2u;
       }
+
+      if (!v20)
+      {
+        goto LABEL_39;
+      }
+
+      v22 = objc_opt_class();
+      v34 = 138412546;
+      v35 = v22;
+      v36 = 2112;
+      v37 = v33;
+      LODWORD(v31) = 22;
+      v23 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Could not write property list: %@", &v34, v31);
     }
 
     else
     {
-      v20 = +[SSLogConfig sharedDaemonConfig];
-      if (!v20)
+      v24 = +[SSLogConfig sharedDaemonConfig];
+      if (!v24)
       {
-        v20 = +[SSLogConfig sharedConfig];
+        v24 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog3 = [v20 shouldLog];
-      if ([v20 shouldLogToDisk])
+      shouldLog3 = [v24 shouldLog];
+      if ([v24 shouldLogToDisk])
       {
-        v22 = shouldLog3 | 2;
+        LODWORD(v26) = shouldLog3 | 2;
       }
 
       else
       {
-        v22 = shouldLog3;
+        LODWORD(v26) = shouldLog3;
       }
 
-      if (!os_log_type_enabled([v20 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject3 = [v24 OSLogObject];
+      if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
       {
-        v22 &= 2u;
+        v26 = v26;
       }
 
-      if (!v22)
+      else
       {
-        goto LABEL_35;
+        v26 &= 2u;
       }
+
+      if (!v26)
+      {
+        goto LABEL_39;
+      }
+
+      v28 = objc_opt_class();
+      v34 = 138412546;
+      v35 = v28;
+      v36 = 2112;
+      v37 = v33;
+      LODWORD(v31) = 22;
+      v23 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%@: Could not serialize property list: %@", &v34, v31);
     }
 
-    v23 = objc_opt_class();
-    v29 = 138412546;
-    v30 = v23;
-    v31 = 2112;
-    v32 = v28;
-    LODWORD(v26) = 22;
-    v25 = &v29;
-    v5 = _os_log_send_and_compose_impl();
-    if (v5)
+    v5 = v23;
+    if (v23)
     {
-      v24 = [NSString stringWithCString:v5 encoding:4, &v29, v26];
+      v29 = [NSString stringWithCString:v23 encoding:4];
       free(v5);
-      v25 = v24;
+      v30 = v29;
       SSFileLog();
-LABEL_35:
+LABEL_39:
       v5 = 0;
     }
   }
 
-LABEL_36:
-  [(SoftwareLibraryUpdateOperation *)self setError:v28, v25];
+LABEL_40:
+  [(SoftwareLibraryUpdateOperation *)self setError:v33, v30];
   [(SoftwareLibraryUpdateOperation *)self setSuccess:v5];
 }
 

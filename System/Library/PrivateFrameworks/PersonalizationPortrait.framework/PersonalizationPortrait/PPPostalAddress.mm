@@ -261,11 +261,9 @@ LABEL_29:
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v4 = *&self->_locality;
-  v5 = [v3 initWithFormat:@"<PPPostalAddress t:'%@' st:'%@' l:'%@' sl:'%@' a:'%@' sa:'%@' pc:'%@' c:'%@'>", self->_thoroughfare, self->_subThoroughfare, self->_locality, self->_subLocality, self->_administrativeArea, self->_subAdministrativeArea, self->_postalCode, self->_country];
+  v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"<PPPostalAddress t:'%@' st:'%@' l:'%@' sl:'%@' a:'%@' sa:'%@' pc:'%@' c:'%@'>", self->_thoroughfare, self->_subThoroughfare, self->_locality, self->_subLocality, self->_administrativeArea, self->_subAdministrativeArea, self->_postalCode, self->_country];
 
-  return v5;
+  return v2;
 }
 
 - (id)singleLineNormalizedAddressString

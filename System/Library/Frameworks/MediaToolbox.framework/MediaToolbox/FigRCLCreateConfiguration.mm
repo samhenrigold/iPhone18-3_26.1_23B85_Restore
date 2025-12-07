@@ -5,7 +5,7 @@
 
 void __rcl_FigRCLCreateConfiguration_dispatcher_block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if (qword_1ED4CB6F0 != -1)
   {
@@ -39,24 +39,40 @@ LABEL_13:
       v9 = *(*(CMBaseObjectGetVTable() + 16) + 8);
       if (v9)
       {
-        memset(v13, 0, 112);
-        if (!v9(v8, v3, 0, v5, 0, 0, 0, 4, v13, 0, 0, 0, rcl_HTTPReadCallback, 0, v7 + 3, v7 + 4))
+        memset(v30, 0, 112);
+        v10 = v9(v8, v3, 0, v5, 0, 0, 0, 4, v30, 0, 0, 0, rcl_HTTPReadCallback, 0, v7 + 3, v7 + 4);
+        if (!v10)
         {
           *v7 = 0;
-          v10 = *(v2 + 16);
-          v7[1] = v10;
-          *v10 = v7;
+          v11 = *(v2 + 16);
+          v7[1] = v11;
+          *v11 = v7;
           *(v2 + 16) = v7;
           goto LABEL_13;
         }
+
+        v12 = v10;
+      }
+
+      else
+      {
+        v12 = -12782;
       }
 
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v12 = os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-      if (OUTLINED_FUNCTION_115_1(v12))
+      v14 = os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+      if (OUTLINED_FUNCTION_115_1(v14))
       {
+        v15 = *v1;
+        v24 = 136315650;
+        v25 = "rcl_IssueFigHTTPRequest";
+        v26 = 2112;
+        v27 = v15;
+        v28 = 1024;
+        v29 = v12;
+        LODWORD(v23) = 28;
         OUTLINED_FUNCTION_36();
-        _os_log_send_and_compose_impl();
+        _os_log_send_and_compose_impl(v16, v17, v18, v19, v20, v21, 0, v22, &v24, v23);
       }
 
       OUTLINED_FUNCTION_16();

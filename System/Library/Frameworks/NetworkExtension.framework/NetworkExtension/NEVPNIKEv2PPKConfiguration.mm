@@ -3,10 +3,37 @@
 - (NEVPNIKEv2PPKConfiguration)initWithCoder:(id)coder;
 - (NEVPNIKEv2PPKConfiguration)initWithIdentifier:(id)identifier keychainReference:(id)reference;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation NEVPNIKEv2PPKConfiguration
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  identifier = [(NEVPNIKEv2PPKConfiguration *)self identifier];
+  [v7 appendPrettyObject:identifier withName:@"identifier" andIndent:v5 options:options | 9];
+
+  if (self)
+  {
+    Property = objc_getProperty(self, v9, 32, 1);
+  }
+
+  else
+  {
+    Property = 0;
+  }
+
+  [v7 appendPrettyObject:Property withName:@"keychainItem" andIndent:v5 options:options | 9];
+  keychainReference = [(NEVPNIKEv2PPKConfiguration *)self keychainReference];
+  [v7 appendPrettyObject:keychainReference withName:@"keychainReference" andIndent:v5 options:options | 9];
+
+  [v7 appendPrettyBOOL:-[NEVPNIKEv2PPKConfiguration isMandatory](self withName:"isMandatory") andIndent:@"isMandatory" options:{v5, options | 8}];
+
+  return v7;
+}
 
 - (BOOL)checkValidityAndCollectErrors:(id)errors
 {

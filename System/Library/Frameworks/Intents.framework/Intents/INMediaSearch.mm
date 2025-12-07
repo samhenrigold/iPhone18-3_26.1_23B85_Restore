@@ -14,34 +14,34 @@
 
 - (id)_dictionaryRepresentation
 {
-  v29[10] = *MEMORY[0x1E69E9840];
-  v28[0] = @"mediaType";
-  v27 = [MEMORY[0x1E696AD98] numberWithInteger:self->_mediaType];
-  v29[0] = v27;
-  v28[1] = @"sortOrder";
-  v26 = [MEMORY[0x1E696AD98] numberWithInteger:self->_sortOrder];
-  v29[1] = v26;
-  v28[2] = @"mediaName";
+  v28[10] = *MEMORY[0x1E69E9840];
+  v27[0] = @"mediaType";
+  v26 = [MEMORY[0x1E696AD98] numberWithInteger:self->_mediaType];
+  v28[0] = v26;
+  v27[1] = @"sortOrder";
+  v25 = [MEMORY[0x1E696AD98] numberWithInteger:self->_sortOrder];
+  v28[1] = v25;
+  v27[2] = @"mediaName";
   mediaName = self->_mediaName;
-  v25 = mediaName;
+  v24 = mediaName;
   if (!mediaName)
   {
     mediaName = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = mediaName;
-  v29[2] = mediaName;
-  v28[3] = @"artistName";
+  v22 = mediaName;
+  v28[2] = mediaName;
+  v27[3] = @"artistName";
   artistName = self->_artistName;
-  v24 = artistName;
+  v23 = artistName;
   if (!artistName)
   {
     artistName = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = artistName;
-  v29[3] = artistName;
-  v28[4] = @"albumName";
+  v21 = artistName;
+  v28[3] = artistName;
+  v27[4] = @"albumName";
   albumName = self->_albumName;
   null = albumName;
   if (!albumName)
@@ -49,9 +49,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = null;
-  v29[4] = null;
-  v28[5] = @"genreNames";
+  v20 = null;
+  v28[4] = null;
+  v27[5] = @"genreNames";
   genreNames = self->_genreNames;
   null2 = genreNames;
   if (!genreNames)
@@ -59,9 +59,9 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19 = null2;
-  v29[5] = null2;
-  v28[6] = @"moodNames";
+  v18 = null2;
+  v28[5] = null2;
+  v27[6] = @"moodNames";
   moodNames = self->_moodNames;
   null3 = moodNames;
   if (!moodNames)
@@ -69,8 +69,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[6] = null3;
-  v28[7] = @"releaseDate";
+  v28[6] = null3;
+  v27[7] = @"releaseDate";
   releaseDate = self->_releaseDate;
   null4 = releaseDate;
   if (!releaseDate)
@@ -78,11 +78,11 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[7] = null4;
-  v28[8] = @"reference";
-  v13 = [MEMORY[0x1E696AD98] numberWithInteger:{self->_reference, v19}];
-  v29[8] = v13;
-  v28[9] = @"mediaIdentifier";
+  v28[7] = null4;
+  v27[8] = @"reference";
+  v13 = [MEMORY[0x1E696AD98] numberWithInteger:{self->_reference, v18}];
+  v28[8] = v13;
+  v27[9] = @"mediaIdentifier";
   mediaIdentifier = self->_mediaIdentifier;
   null5 = mediaIdentifier;
   if (!mediaIdentifier)
@@ -90,8 +90,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29[9] = null5;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:10];
+  v28[9] = null5;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:10];
   if (!mediaIdentifier)
   {
   }
@@ -140,15 +140,13 @@ LABEL_20:
 LABEL_31:
 
 LABEL_21:
+  if (!v23)
+  {
+  }
+
   if (!v24)
   {
   }
-
-  if (!v25)
-  {
-  }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -262,24 +260,24 @@ LABEL_21:
 
 - (INMediaSearch)initWithCoder:(id)coder
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v22 = [coderCopy decodeIntegerForKey:@"mediaType"];
-  v21 = [coderCopy decodeIntegerForKey:@"sortOrder"];
+  v21 = [coderCopy decodeIntegerForKey:@"mediaType"];
+  v20 = [coderCopy decodeIntegerForKey:@"sortOrder"];
   v4 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"mediaName"];
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"artistName"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"albumName"];
   v7 = MEMORY[0x1E695DFD8];
-  v25[0] = objc_opt_class();
-  v25[1] = objc_opt_class();
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
+  v24[0] = objc_opt_class();
+  v24[1] = objc_opt_class();
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
   v9 = [v7 setWithArray:v8];
   v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"genreNames"];
 
   v11 = MEMORY[0x1E695DFD8];
-  v24[0] = objc_opt_class();
-  v24[1] = objc_opt_class();
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+  v23[0] = objc_opt_class();
+  v23[1] = objc_opt_class();
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
   v13 = [v11 setWithArray:v12];
   v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"moodNames"];
 
@@ -287,8 +285,7 @@ LABEL_21:
   v16 = [coderCopy decodeIntegerForKey:@"reference"];
   v17 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"mediaIdentifier"];
 
-  v18 = [(INMediaSearch *)self initWithMediaType:v22 sortOrder:v21 mediaName:v4 artistName:v5 albumName:v6 genreNames:v10 moodNames:v14 releaseDate:v15 reference:v16 mediaIdentifier:v17];
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = [(INMediaSearch *)self initWithMediaType:v21 sortOrder:v20 mediaName:v4 artistName:v5 albumName:v6 genreNames:v10 moodNames:v14 releaseDate:v15 reference:v16 mediaIdentifier:v17];
   return v18;
 }
 

@@ -1,111 +1,4 @@
-void IOHIDNotificationInvalidate_cold_2(uint64_t *a1, _OWORD *a2)
-{
-  *a1 = 0;
-  a2[3] = 0u;
-  a2[4] = 0u;
-  a2[1] = 0u;
-  a2[2] = 0u;
-  *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_1_3();
-  v3 = *a1;
-  _os_crash_msg();
-  __break(1u);
-}
-
-const void *_IOHIDServiceCreateVirtual(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
-{
-  VirtualNoInit = __IOHIDServiceCreateVirtualNoInit(a1, a2, a3, a4, a5);
-  v7 = VirtualNoInit;
-  if (VirtualNoInit && !__IOHIDServiceInit(VirtualNoInit, a2))
-  {
-    CFRelease(v7);
-    return 0;
-  }
-
-  return v7;
-}
-
-uint64_t __IOHIDServiceRunLoopCompatibilityThread()
-{
-  v15 = *MEMORY[0x1E69E9840];
-  memset(&context, 0, sizeof(context));
-  v9 = 0;
-  v8 = 0;
-  pthread_setname_np("IOHIDService - RunLoopCompatibilityThread");
-  v0 = pthread_self();
-  if (!pthread_getschedparam(v0, &v8, &v9))
-  {
-    v1 = _IOHIDLog();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 67109376;
-      sched_priority = v9.sched_priority;
-      v13 = 1024;
-      v14 = v8;
-      _os_log_impl(&dword_197195000, v1, OS_LOG_TYPE_DEFAULT, "IOHIDService compatibility thread running at priority %d and schedule %d.", buf, 0xEu);
-    }
-  }
-
-  v2 = CFRunLoopSourceCreate(*MEMORY[0x1E695E480], 0, &context);
-  if (v2)
-  {
-    v3 = v2;
-    Current = CFRunLoopGetCurrent();
-    v5 = *MEMORY[0x1E695E8E0];
-    qword_1EAF1D008 = Current;
-    qword_1EAF1D010 = v5;
-    CFRunLoopAddSource(Current, v3, v5);
-    pthread_mutex_lock(&stru_1EAF1D018);
-    pthread_cond_signal(&stru_1EAF1D058);
-    pthread_mutex_unlock(&stru_1EAF1D018);
-    CFRunLoopRun();
-    CFRunLoopRemoveSource(qword_1EAF1D008, v3, qword_1EAF1D010);
-    CFRelease(v3);
-  }
-
-  v6 = *MEMORY[0x1E69E9840];
-  return 0;
-}
-
-CFMutableDictionaryRef _IOHIDServiceCopyPropertiesForClient(uint64_t a1, const __CFArray *a2, uint64_t a3)
-{
-  Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  v7 = Mutable;
-  if (Mutable)
-  {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 0x40000000;
-    v9[2] = ___IOHIDServiceCopyPropertiesForClient_block_invoke;
-    v9[3] = &__block_descriptor_tmp_64;
-    v9[4] = a1;
-    v9[5] = a3;
-    v9[6] = Mutable;
-    _IOHIDCFArrayApplyBlock(a2, v9);
-    if (!CFDictionaryGetCount(v7))
-    {
-      CFRelease(v7);
-      return 0;
-    }
-  }
-
-  return v7;
-}
-
-uint64_t __IOHIDServiceEventCompatibilityCallback(uint64_t a1, uint64_t a2, uint64_t a3, const __CFArray *a4)
-{
-  if (a1)
-  {
-    if (a4)
-    {
-      return __IOHIDServiceEventCallback(a1, a2, a3, a4);
-    }
-  }
-
-  return a1;
-}
-
-__CFDictionary *_IOHIDServiceCopyServiceRecordForClient(_DWORD *a1, CFTypeRef cf)
+__CFDictionary *_IOHIDServiceCopyServiceRecordForClient(void *a1, CFTypeRef cf)
 {
   if (cf)
   {
@@ -163,7 +56,7 @@ __CFDictionary *_IOHIDServiceCopyServiceRecordForClient(_DWORD *a1, CFTypeRef cf
 
 __CFDictionary *_IOHIDServiceCopyServiceInfoForClient(_DWORD *cf, const void *a2)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   memset(name, 0, 128);
   valuePtr = 0;
   v4 = cf[4];
@@ -278,137 +171,111 @@ __CFDictionary *_IOHIDServiceCopyServiceInfoForClient(_DWORD *cf, const void *a2
     IOObjectRelease(v4);
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return Mutable;
 }
 
-uint64_t IOHIDServiceWorkIntervalStart(uint64_t a1)
+uint64_t IOHIDServiceWorkIntervalStart()
 {
   OUTLINED_FUNCTION_4_2(*MEMORY[0x1E69E9840]);
-  if (kIOHIDServiceWorkgroupInterval)
+  if (!kIOHIDServiceWorkgroupInterval)
   {
-    OUTLINED_FUNCTION_15_1();
-    if (v5)
-    {
-      os_workgroup_interval_data_set_complexity();
-      v4 = kIOHIDServiceWorkgroupInterval;
-    }
+    return 45;
+  }
 
-    v6 = os_workgroup_interval_start(v4, v2, v1, &data);
-    if (v6)
+  OUTLINED_FUNCTION_15_1();
+  if (v3)
+  {
+    os_workgroup_interval_data_set_complexity();
+    v2 = kIOHIDServiceWorkgroupInterval;
+  }
+
+  v4 = os_workgroup_interval_start(v2, v1, v0, &data);
+  if (v4)
+  {
+    v5 = _IOHIDLogCategory(6);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = _IOHIDLogCategory(6u);
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-      {
-        v10 = *(a1 + 400);
-        v11 = *(a1 + 48);
-        OUTLINED_FUNCTION_2_8();
-        OUTLINED_FUNCTION_9_1(&dword_197195000, v12, v13, "0x%llx: os_workgroup_interval_start error: %d, service %@", v14, v15, v16, v17, v18);
-      }
+      OUTLINED_FUNCTION_2_8();
+      OUTLINED_FUNCTION_9_1(&dword_197195000, v7, v8, "0x%llx: os_workgroup_interval_start error: %d, service %@", v9, v10, v11, v12);
     }
   }
 
-  else
-  {
-    v6 = 45;
-  }
-
-  v8 = *MEMORY[0x1E69E9840];
-  return v6;
+  return v4;
 }
 
-uint64_t IOHIDServiceWorkIntervalUpdate(uint64_t a1)
+uint64_t IOHIDServiceWorkIntervalUpdate()
 {
   OUTLINED_FUNCTION_4_2(*MEMORY[0x1E69E9840]);
-  v4 = kIOHIDServiceWorkgroupInterval;
-  if (kIOHIDServiceWorkgroupInterval)
+  v2 = kIOHIDServiceWorkgroupInterval;
+  if (!kIOHIDServiceWorkgroupInterval)
   {
-    v5 = v2;
-    if (v3)
-    {
-      os_workgroup_interval_data_set_complexity();
-      v4 = kIOHIDServiceWorkgroupInterval;
-    }
+    return 45;
+  }
 
-    v6 = os_workgroup_interval_update(v4, v5, &data);
-    if (v6)
+  v3 = v0;
+  if (v1)
+  {
+    os_workgroup_interval_data_set_complexity();
+    v2 = kIOHIDServiceWorkgroupInterval;
+  }
+
+  v4 = os_workgroup_interval_update(v2, v3, &data);
+  if (v4)
+  {
+    v5 = _IOHIDLogCategory(6);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = _IOHIDLogCategory(6u);
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-      {
-        v10 = *(a1 + 400);
-        v11 = *(a1 + 48);
-        OUTLINED_FUNCTION_2_8();
-        OUTLINED_FUNCTION_9_1(&dword_197195000, v12, v13, "0x%llx: os_workgroup_interval_start error: %d, service %@", v14, v15, v16, v17, v18);
-      }
+      OUTLINED_FUNCTION_2_8();
+      OUTLINED_FUNCTION_9_1(&dword_197195000, v7, v8, "0x%llx: os_workgroup_interval_start error: %d, service %@", v9, v10, v11, v12);
     }
   }
 
-  else
-  {
-    v6 = 45;
-  }
-
-  v8 = *MEMORY[0x1E69E9840];
-  return v6;
+  return v4;
 }
 
-uint64_t IOHIDServiceWorkIntervalFinish(uint64_t a1)
+uint64_t IOHIDServiceWorkIntervalFinish()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  if (kIOHIDServiceWorkgroupInterval)
-  {
-    v2 = os_workgroup_interval_finish(kIOHIDServiceWorkgroupInterval, 0);
-    if (v2)
-    {
-      v3 = _IOHIDLogCategory(6u);
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-      {
-        v6 = *(a1 + 400);
-        v7 = *(a1 + 48);
-        OUTLINED_FUNCTION_2_8();
-        _os_log_error_impl(&dword_197195000, v3, OS_LOG_TYPE_ERROR, "0x%llx: os_workgroup_interval_finish error: %d, service %@", v8, 0x1Cu);
-      }
-    }
-  }
-
-  else
-  {
-    v2 = 45;
-  }
-
   v4 = *MEMORY[0x1E69E9840];
-  return v2;
+  if (!kIOHIDServiceWorkgroupInterval)
+  {
+    return 45;
+  }
+
+  v0 = os_workgroup_interval_finish(kIOHIDServiceWorkgroupInterval, 0);
+  if (v0)
+  {
+    v1 = _IOHIDLogCategory(6);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    {
+      OUTLINED_FUNCTION_2_8();
+      _os_log_error_impl(&dword_197195000, v1, OS_LOG_TYPE_ERROR, "0x%llx: os_workgroup_interval_finish error: %d, service %@", v3, 0x1Cu);
+    }
+  }
+
+  return v0;
 }
 
 uint64_t IOHIDServiceWorkIntervalCancel()
 {
   OUTLINED_FUNCTION_4_2(*MEMORY[0x1E69E9840]);
-  if (kIOHIDServiceWorkgroupInterval)
+  if (!kIOHIDServiceWorkgroupInterval)
   {
-    v1 = v0;
-    os_workgroup_interval_data_set_complexity();
-    v2 = os_workgroup_interval_finish(kIOHIDServiceWorkgroupInterval, &data);
-    if (v2)
+    return 45;
+  }
+
+  os_workgroup_interval_data_set_complexity();
+  v0 = os_workgroup_interval_finish(kIOHIDServiceWorkgroupInterval, &data);
+  if (v0)
+  {
+    v1 = _IOHIDLogCategory(6);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
-      v3 = _IOHIDLogCategory(6u);
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-      {
-        v6 = *(v1 + 400);
-        v7 = *(v1 + 48);
-        OUTLINED_FUNCTION_2_8();
-        OUTLINED_FUNCTION_9_1(&dword_197195000, v8, v9, "0x%llx: os_workgroup_interval_finish(cancel) error: %d, service %@", v10, v11, v12, v13, v14);
-      }
+      OUTLINED_FUNCTION_2_8();
+      OUTLINED_FUNCTION_9_1(&dword_197195000, v3, v4, "0x%llx: os_workgroup_interval_finish(cancel) error: %d, service %@", v5, v6, v7, v8);
     }
   }
 
-  else
-  {
-    v2 = 45;
-  }
-
-  v4 = *MEMORY[0x1E69E9840];
-  return v2;
+  return v0;
 }
 
 void __IOHIDServiceCreateAndCopyConnectionCache_cold_1(void *a1, _OWORD *a2)
@@ -416,8 +283,8 @@ void __IOHIDServiceCreateAndCopyConnectionCache_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1_9(a1, a2);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1();
+  v6 = OUTLINED_FUNCTION_0_4(v2, v3, v4, v5, &dword_197195000);
+  OUTLINED_FUNCTION_7_1(v6);
   __break(1u);
 }
 
@@ -426,8 +293,8 @@ void __IOHIDServiceCreateAndCopyConnectionCache_cold_2(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1_9(a1, a2);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1();
+  v6 = OUTLINED_FUNCTION_0_4(v2, v3, v4, v5, &dword_197195000);
+  OUTLINED_FUNCTION_7_1(v6);
   __break(1u);
 }
 
@@ -436,8 +303,8 @@ void __IOHIDServiceInit_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1_9(a1, a2);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1();
+  v6 = OUTLINED_FUNCTION_0_4(v2, v3, v4, v5, &dword_197195000);
+  OUTLINED_FUNCTION_7_1(v6);
   __break(1u);
 }
 
@@ -446,26 +313,24 @@ void __IOHIDServiceInit_cold_2(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1_9(a1, a2);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1();
+  v6 = OUTLINED_FUNCTION_0_4(v2, v3, v4, v5, &dword_197195000);
+  OUTLINED_FUNCTION_7_1(v6);
   __break(1u);
 }
 
-void __IOHIDServiceInit_cold_3(uint64_t *a1, int a2, _BYTE *a3)
+void __IOHIDServiceInit_cold_3(uint64_t a1, int a2, _BYTE *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v6 = _IOHIDLogCategory(6u);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v9 = *MEMORY[0x1E69E9840];
+  v5 = _IOHIDLogCategory(6);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v8 = *a1;
     OUTLINED_FUNCTION_5();
-    v10 = 1024;
-    v11 = a2;
-    _os_log_error_impl(&dword_197195000, v6, OS_LOG_TYPE_ERROR, "0x%llx: IOServiceAddInterestNotification 0x%x", v9, 0x12u);
+    v7 = 1024;
+    v8 = a2;
+    _os_log_error_impl(&dword_197195000, v5, OS_LOG_TYPE_ERROR, "0x%llx: IOServiceAddInterestNotification 0x%x", v6, 0x12u);
   }
 
   *a3 = 0;
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __IOHIDServiceInit_cold_4(uint8_t *a1, CFBundleRef bundle, CFStringRef *a3, NSObject *a4)
@@ -478,21 +343,12 @@ void __IOHIDServiceInit_cold_4(uint8_t *a1, CFBundleRef bundle, CFStringRef *a3,
 
 void __IOHIDServiceInit_cold_6(CFNumberRef *a1)
 {
-  v7[3] = *MEMORY[0x1E69E9840];
-  v7[0] = 0;
-  CFNumberGetValue(*a1, kCFNumberSInt64Type, v7);
+  v6[3] = *MEMORY[0x1E69E9840];
+  v6[0] = 0;
+  CFNumberGetValue(*a1, kCFNumberSInt64Type, v6);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1_8();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void _IOHIDServiceCreate_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _IOHIDServiceCreate_cold_3()
@@ -515,63 +371,44 @@ void _IOHIDServiceCreate_cold_4()
   }
 }
 
-void _IOHIDServiceOpen_cold_2(uint64_t a1)
+void _IOHIDServiceOpen_cold_2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 400);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void __IOHIDServiceHandleCancelTimerTimeout_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __IOHIDServiceHandleCancelTimerTimeout_cold_2(uint64_t a1)
+void __IOHIDServiceHandleCancelTimerTimeout_cold_2()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 488);
+  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5();
-  v7 = 2112;
-  v8 = v2;
-  v9 = 2112;
-  v10 = v3;
-  _os_log_fault_impl(&dword_197195000, v4, OS_LOG_TYPE_FAULT, "Service plugin %@: %@ never called cancel handler for service: %@", v6, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = 2112;
+  v5 = v0;
+  v6 = 2112;
+  v7 = v1;
+  _os_log_fault_impl(&dword_197195000, v2, OS_LOG_TYPE_FAULT, "Service plugin %@: %@ never called cancel handler for service: %@", v3, 0x20u);
 }
 
-void IOHIDServiceRegister_cold_1(uint64_t *a1)
+void IOHIDServiceRegister_cold_1()
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = _IOHIDLogCategory(0);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v0 = _IOHIDLogCategory(0);
+  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
-    v4 = *a1;
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_1_8();
-    _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
+    _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
-void IOHIDServiceConformsTo_cold_1(uint64_t a1)
+void IOHIDServiceConformsTo_cold_1()
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 400);
+  v7 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5();
-  v6 = 2080;
-  v7 = "DeviceUsagePairs";
-  v8 = 2112;
-  v9 = v2;
-  _os_log_error_impl(&dword_197195000, v3, OS_LOG_TYPE_ERROR, "0x%llx: IOHIDService property %s incorrect type: %@", v5, 0x20u);
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = 2080;
+  v4 = "DeviceUsagePairs";
+  v5 = 2112;
+  v6 = v0;
+  _os_log_error_impl(&dword_197195000, v1, OS_LOG_TYPE_ERROR, "0x%llx: IOHIDService property %s incorrect type: %@", v2, 0x20u);
 }
 
 void IOHIDServiceConformsTo_cold_2(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD *a4)
@@ -595,14 +432,6 @@ void IOHIDServiceConformsTo_cold_2(uint64_t a1, uint64_t a2, uint64_t a3, _DWORD
   }
 
   CFRelease(v4);
-}
-
-void __IOHIDServiceConformsToFunction_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _IOHIDServiceRemoveConnection_cold_2()
@@ -661,8 +490,8 @@ void __IOHIDServiceQueueWillExecute_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1_9(a1, a2);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1();
+  v6 = OUTLINED_FUNCTION_0_4(v2, v3, v4, v5, &dword_197195000);
+  OUTLINED_FUNCTION_7_1(v6);
   __break(1u);
 }
 
@@ -671,8 +500,8 @@ void __IOHIDServiceQueueDidExecute_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1_9(a1, a2);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1();
+  v6 = OUTLINED_FUNCTION_0_4(v2, v3, v4, v5, &dword_197195000);
+  OUTLINED_FUNCTION_7_1(v6);
   __break(1u);
 }
 
@@ -681,8 +510,8 @@ void IOHIDSessionCreate_cold_2(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1_9(a1, a2);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1();
+  v6 = OUTLINED_FUNCTION_0_4(v2, v3, v4, v5, &dword_197195000);
+  OUTLINED_FUNCTION_7_1(v6);
   __break(1u);
 }
 
@@ -691,8 +520,8 @@ void IOHIDSessionCreate_cold_3(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1_9(a1, a2);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1();
+  v6 = OUTLINED_FUNCTION_0_4(v2, v3, v4, v5, &dword_197195000);
+  OUTLINED_FUNCTION_7_1(v6);
   __break(1u);
 }
 
@@ -701,8 +530,8 @@ void IOHIDSessionCreate_cold_4(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1_9(a1, a2);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1();
+  v6 = OUTLINED_FUNCTION_0_4(v2, v3, v4, v5, &dword_197195000);
+  OUTLINED_FUNCTION_7_1(v6);
   __break(1u);
 }
 
@@ -711,8 +540,8 @@ void __IOHIDSessionCreate_block_invoke_cold_1(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1_9(a1, a2);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1();
+  v6 = OUTLINED_FUNCTION_0_4(v2, v3, v4, v5, &dword_197195000);
+  OUTLINED_FUNCTION_7_1(v6);
   __break(1u);
 }
 
@@ -721,31 +550,28 @@ void __IOHIDSessionCreate_block_invoke_cold_2(void *a1, _OWORD *a2)
   OUTLINED_FUNCTION_1_9(a1, a2);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_3_4();
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_7_1();
+  v6 = OUTLINED_FUNCTION_0_4(v2, v3, v4, v5, &dword_197195000);
+  OUTLINED_FUNCTION_7_1(v6);
   __break(1u);
 }
 
-_DWORD *__IOHIDSessionCreate_block_invoke_cold_3(unsigned int **a1)
+_DWORD *__IOHIDSessionCreate_block_invoke_cold_3(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   result = OUTLINED_FUNCTION_9_2(a1);
-  if (v4)
+  if (v3)
   {
-    result = OUTLINED_FUNCTION_8_2(result, v4);
+    result = OUTLINED_FUNCTION_8_2(result, v3);
     if (result)
     {
       OUTLINED_FUNCTION_5_3();
       OUTLINED_FUNCTION_8();
       OUTLINED_FUNCTION_4_3();
-      OUTLINED_FUNCTION_2_9();
-      v6 = *v1;
+      OUTLINED_FUNCTION_2_9(v4, v1, v5, v6, &dword_197195000);
       _os_crash_msg();
       __break(1u);
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -776,36 +602,34 @@ void _IOHIDSessionCopyPropertyForClient_cold_2(uint8_t *a1, uint64_t a2, uint64_
 
 void _IOHIDSessionSetPropertyForClient_cold_1(uint64_t a1, _BYTE *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = _IOHIDLogCategory(2u);
+  v7 = *MEMORY[0x1E69E9840];
+  v4 = _IOHIDLogCategory(2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     UUID = IOHIDEventSystemConnectionGetUUID(a1);
-    _os_log_impl(&dword_197195000, v4, OS_LOG_TYPE_DEFAULT, "Insufficient permissions to set kIOHIDSessionCASecureLayerOnScreenKey for UUID: %@", &v6, 0xCu);
+    _os_log_impl(&dword_197195000, v4, OS_LOG_TYPE_DEFAULT, "Insufficient permissions to set kIOHIDSessionCASecureLayerOnScreenKey for UUID: %@", &v5, 0xCu);
   }
 
   *a2 = 0;
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __IOHIDEventQueueCreatePrivate_cold_1()
+void __IOHIDEventQueueCreatePrivate_cold_1(uint64_t a1, uint64_t a2)
 {
-  v0 = _IOHIDLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = _IOHIDLog(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    *v1 = 0;
-    _os_log_error_impl(&dword_197195000, v0, OS_LOG_TYPE_ERROR, "Unable to allocate queue object via _CFRuntimeCreateInstance", v1, 2u);
+    *v3 = 0;
+    _os_log_error_impl(&dword_197195000, v2, OS_LOG_TYPE_ERROR, "Unable to allocate queue object via _CFRuntimeCreateInstance", v3, 2u);
   }
 }
 
 void IOHIDEventQueueNotify_cold_1(int a1, NSObject *a2, uint64_t a3)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v4[0] = 67109120;
-  v4[1] = a1;
-  OUTLINED_FUNCTION_1_10(&dword_197195000, a2, a3, "IOHIDEventQueueNotify:%#x", v4);
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109120;
+  v3[1] = a1;
+  OUTLINED_FUNCTION_1_10(&dword_197195000, a2, a3, "IOHIDEventQueueNotify:%#x", v3);
 }
 
 __CFDictionary *__IOHIDUserDeviceSerializeState(uint64_t a1)
@@ -821,26 +645,22 @@ __CFDictionary *__IOHIDUserDeviceSerializeState(uint64_t a1)
       IORegistryEntryGetRegistryEntryID(v3, &entryID);
     }
 
-    v4 = *(a1 + 120);
-    v5 = *MEMORY[0x1E695E4D0];
-    v6 = *MEMORY[0x1E695E4C0];
+    v4 = *MEMORY[0x1E695E4D0];
+    v5 = *MEMORY[0x1E695E4C0];
     OUTLINED_FUNCTION_4_4();
-    CFDictionarySetValue(Mutable, @"DispatchQueue", v7);
-    v8 = *(a1 + 96);
+    CFDictionarySetValue(Mutable, @"DispatchQueue", v6);
     OUTLINED_FUNCTION_4_4();
-    CFDictionarySetValue(Mutable, @"RunLoop", v9);
-    v10 = *(a1 + 160);
+    CFDictionarySetValue(Mutable, @"RunLoop", v7);
     OUTLINED_FUNCTION_4_4();
-    CFDictionarySetValue(Mutable, @"Queue", v11);
-    v12 = *(a1 + 216);
+    CFDictionarySetValue(Mutable, @"Queue", v8);
     OUTLINED_FUNCTION_4_4();
-    CFDictionarySetValue(Mutable, @"SetReportCallback", v13);
+    CFDictionarySetValue(Mutable, @"SetReportCallback", v9);
     if (!*(a1 + 232) && !*(a1 + 248))
     {
-      v5 = v6;
+      v4 = v5;
     }
 
-    CFDictionarySetValue(Mutable, @"GetReportCallback", v5);
+    CFDictionarySetValue(Mutable, @"GetReportCallback", v4);
     _IOHIDDictionaryAddSInt64(Mutable, @"RegistryID", entryID);
     _IOHIDDictionaryAddSInt64(Mutable, @"QueueCallbackTimestamp", *(a1 + 72));
     _IOHIDDictionaryAddSInt64(Mutable, @"DequeueTimestamp", *(a1 + 80));
@@ -856,7 +676,7 @@ __CFDictionary *__IOHIDUserDeviceSerializeState(uint64_t a1)
   return Mutable;
 }
 
-void *__IOHIDUserDeviceStateHandler(uint64_t a1, uint64_t a2)
+char *__IOHIDUserDeviceStateHandler(uint64_t a1, uint64_t a2)
 {
   if ((*(a2 + 16) & 0xFFFFFFFE) != 2)
   {
@@ -902,7 +722,7 @@ void *__IOHIDUserDeviceStateHandler(uint64_t a1, uint64_t a2)
 const __CFDictionary *IOHIDUserDeviceCreateWithOptions(const __CFAllocator *a1, const __CFDictionary *a2, int a3)
 {
   v3 = a2;
-  v62 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v6 = qword_1EAF1D928;
@@ -915,8 +735,7 @@ const __CFDictionary *IOHIDUserDeviceCreateWithOptions(const __CFAllocator *a1, 
     Instance = _IOHIDObjectCreateInstance(a1, v6, 0x118uLL);
     if (!Instance)
     {
-      v3 = 0;
-      goto LABEL_29;
+      return 0;
     }
 
     v8 = Instance;
@@ -938,16 +757,15 @@ const __CFDictionary *IOHIDUserDeviceCreateWithOptions(const __CFAllocator *a1, 
       v13 = IOServiceOpen(MatchingService, *MEMORY[0x1E69E9A60], 0, (v8 + 28));
       if (v13)
       {
-        v42 = v13;
-        v43 = _IOHIDLogCategory(5u);
-        if (!OUTLINED_FUNCTION_12(v43))
+        v41 = v13;
+        v42 = _IOHIDLogCategory(5);
+        if (!OUTLINED_FUNCTION_12(v42))
         {
           goto LABEL_39;
         }
 
-        v44 = *(v8 + 88);
         OUTLINED_FUNCTION_0_13();
-        *&buf[14] = v42;
+        *&buf[14] = v41;
       }
 
       else
@@ -968,7 +786,7 @@ const __CFDictionary *IOHIDUserDeviceCreateWithOptions(const __CFAllocator *a1, 
             if (!Service)
             {
               IORegistryEntryGetRegistryEntryID(*(v8 + 32), (v8 + 88));
-              v21 = _IOHIDLogCategory(5u);
+              v21 = _IOHIDLogCategory(5);
               if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
               {
                 v22 = *(v8 + 88);
@@ -997,13 +815,13 @@ const __CFDictionary *IOHIDUserDeviceCreateWithOptions(const __CFAllocator *a1, 
                   *(v8 + 184) = v25;
                   if (!v25)
                   {
-                    v26 = _IOHIDLogCategory(5u);
+                    v26 = _IOHIDLogCategory(5);
                     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
                     {
                       v27 = *(v8 + 88);
-                      *v60 = 134217984;
-                      v61 = v27;
-                      _os_log_impl(&dword_197195000, v26, OS_LOG_TYPE_DEFAULT, "0x%llx: Unable to create queue analytics", v60, 0xCu);
+                      *v55 = 134217984;
+                      v56 = v27;
+                      _os_log_impl(&dword_197195000, v26, OS_LOG_TYPE_DEFAULT, "0x%llx: Unable to create queue analytics", v55, 0xCu);
                     }
 
                     if (!*(v8 + 184))
@@ -1017,13 +835,13 @@ const __CFDictionary *IOHIDUserDeviceCreateWithOptions(const __CFAllocator *a1, 
 
                 else
                 {
-                  v47 = _IOHIDLogCategory(5u);
-                  if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+                  v45 = _IOHIDLogCategory(5);
+                  if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
                   {
-                    v48 = *(v8 + 88);
-                    *v60 = 134217984;
-                    v61 = v48;
-                    _os_log_error_impl(&dword_197195000, v47, OS_LOG_TYPE_ERROR, "0x%llx: Unable to create analytics description", v60, 0xCu);
+                    v46 = *(v8 + 88);
+                    *v55 = 134217984;
+                    v56 = v46;
+                    _os_log_error_impl(&dword_197195000, v45, OS_LOG_TYPE_ERROR, "0x%llx: Unable to create analytics description", v55, 0xCu);
                   }
                 }
 
@@ -1055,74 +873,69 @@ LABEL_39:
               v3 = 0;
 LABEL_27:
               CFRelease(v8);
-              goto LABEL_29;
+              return v3;
             }
           }
 
-          v33 = Service;
+          v32 = Service;
           CFRelease(v16);
         }
 
         else
         {
-          v33 = -536870211;
+          v32 = -536870211;
         }
 
-        v45 = _IOHIDLogCategory(5u);
-        if (OUTLINED_FUNCTION_12(v45))
+        v43 = _IOHIDLogCategory(5);
+        if (OUTLINED_FUNCTION_12(v43))
         {
-          v49 = *(v8 + 88);
-          v50 = *(v8 + 40);
           OUTLINED_FUNCTION_0_13();
-          *&buf[14] = v33;
+          *&buf[14] = v32;
           *&buf[18] = 2112;
-          *&buf[20] = v51;
+          *&buf[20] = v47;
           OUTLINED_FUNCTION_1_11();
-          _os_log_error_impl(v52, v53, v54, v55, v56, 0x1Cu);
+          _os_log_error_impl(v48, v49, v50, v51, v52, 0x1Cu);
         }
 
-        v46 = _IOHIDLogCategory(5u);
-        if (!OUTLINED_FUNCTION_12(v46))
+        v44 = _IOHIDLogCategory(5);
+        if (!OUTLINED_FUNCTION_12(v44))
         {
           goto LABEL_39;
         }
 
-        v57 = *(v8 + 88);
         OUTLINED_FUNCTION_0_13();
-        *&buf[14] = v33;
+        *&buf[14] = v32;
       }
 
       OUTLINED_FUNCTION_1_11();
-      v41 = 18;
+      v40 = 18;
     }
 
     else
     {
-      v34 = _IOHIDLogCategory(5u);
-      if (!OUTLINED_FUNCTION_12(v34))
+      v33 = _IOHIDLogCategory(5);
+      if (!OUTLINED_FUNCTION_12(v33))
       {
         goto LABEL_39;
       }
 
-      v35 = *(v8 + 88);
+      v34 = *(v8 + 88);
       *buf = 134217984;
-      *&buf[4] = v35;
+      *&buf[4] = v34;
       OUTLINED_FUNCTION_1_11();
-      v41 = 12;
+      v40 = 12;
     }
 
-    _os_log_error_impl(v36, v37, v38, v39, v40, v41);
+    _os_log_error_impl(v35, v36, v37, v38, v39, v40);
     goto LABEL_39;
   }
 
-LABEL_29:
-  v31 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 void IOHIDUserDeviceSetDispatchQueue(IOHIDUserDeviceRef device, dispatch_queue_t queue)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_5(8198);
   __IOHIDUserDeviceSetupAsyncSupport(device);
   bzero(__str, 0x100uLL);
@@ -1139,19 +952,16 @@ void IOHIDUserDeviceSetDispatchQueue(IOHIDUserDeviceRef device, dispatch_queue_t
   if (v6)
   {
     _IOHIDObjectInternalRetain(device);
-    v7 = *(device + 15);
-    v8 = dispatch_mach_create();
-    *(device + 16) = v8;
-    if (!v8)
+    v7 = dispatch_mach_create();
+    *(device + 16) = v7;
+    if (!v7)
     {
       _IOHIDObjectInternalRelease(device);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void __IOHIDUserDeviceSetupAsyncSupport_cold_2(uint64_t *a1, _OWORD *a2)
+void __IOHIDUserDeviceSetupAsyncSupport_cold_2(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -1159,14 +969,22 @@ void __IOHIDUserDeviceSetupAsyncSupport_cold_2(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0_4();
-  v3 = *a1;
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_0_4(v5, v2, v3, v4, &dword_197195000);
   _os_crash_msg();
   __break(1u);
 }
 
-void IOHIDUserDeviceSetCancelHandler_cold_1(uint64_t *a1, _OWORD *a2)
+void IOHIDUserDeviceSetCancelHandler_cold_1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -1176,24 +994,22 @@ void IOHIDUserDeviceSetCancelHandler_cold_1(uint64_t *a1, _OWORD *a2)
   *a2 = 0u;
   os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v3 = *a1;
   _os_crash_msg();
   __break(1u);
 }
 
 void IOHIDUserDeviceHandleReportWithTimeStamp_cold_1(uint64_t a1, int a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 88);
-  v5 = 134218240;
-  v6 = v3;
-  v7 = 1024;
-  v8 = a2;
-  _os_log_error_impl(&dword_197195000, log, OS_LOG_TYPE_ERROR, "0x%llx: kIOHIDResourceDeviceUserClientMethodHandleReport:%x", &v5, 0x12u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 134218240;
+  v5 = v3;
+  v6 = 1024;
+  v7 = a2;
+  _os_log_error_impl(&dword_197195000, log, OS_LOG_TYPE_ERROR, "0x%llx: kIOHIDResourceDeviceUserClientMethodHandleReport:%x", &v4, 0x12u);
 }
 
-void __IOHIDUserDeviceExtRelease_cold_1(uint64_t *a1, _OWORD *a2, unsigned int *a3)
+void __IOHIDUserDeviceExtRelease_cold_1(void *a1, _OWORD *a2, unsigned int *a3)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -1201,21 +1017,29 @@ void __IOHIDUserDeviceExtRelease_cold_1(uint64_t *a1, _OWORD *a2, unsigned int *
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+  v4 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
   atomic_load(a3);
-  OUTLINED_FUNCTION_0_4();
-  v5 = *a1;
+  if (v4)
+  {
+    v8 = 3;
+  }
+
+  else
+  {
+    v8 = 2;
+  }
+
+  OUTLINED_FUNCTION_0_4(v8, v5, v6, v7, &dword_197195000);
   _os_crash_msg();
   __break(1u);
 }
 
 void __IOMIGMachPortRelease_cold_2(mach_error_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = 136315138;
-  v5 = mach_error_string(a1);
-  _os_log_error_impl(&dword_197195000, a2, OS_LOG_TYPE_ERROR, "__IOMIGMachPortRelease mach_port_mod_refs:%s", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
+  v3 = 136315138;
+  v4 = mach_error_string(a1);
+  _os_log_error_impl(&dword_197195000, a2, OS_LOG_TYPE_ERROR, "__IOMIGMachPortRelease mach_port_mod_refs:%s", &v3, 0xCu);
 }
 
 uint64_t _IOHIDIsSerializable(uint64_t result)
@@ -1240,12 +1064,11 @@ uint64_t _IOHIDIsSerializable(uint64_t result)
 
 void _IOHIDCreateBinaryData_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_197195000, a2, OS_LOG_TYPE_ERROR, "Unable to serialize CFObject: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_197195000, a2, OS_LOG_TYPE_ERROR, "Unable to serialize CFObject: %@", &v3, 0xCu);
 }
 
 uint64_t IOHIDServiceFilterCreateWithClass(const __CFAllocator *a1, uint64_t a2, uint64_t a3, const void *a4, int a5)
@@ -1264,7 +1087,8 @@ uint64_t IOHIDServiceFilterCreateWithClass(const __CFAllocator *a1, uint64_t a2,
     v28 = _IOHIDLogCategory(0);
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      OUTLINED_FUNCTION_1_12(&dword_197195000, v29, v30, "IOHIDServiceFilterCreateWithClass Failed to initialize filter", v31, v32, v33, v34, v44, block, v46, v47, v48, v49, 0);
+      *buf = 0;
+      OUTLINED_FUNCTION_1_12(&dword_197195000, v29, v30, "IOHIDServiceFilterCreateWithClass Failed to initialize filter", v31, v32, v33, v34, v44, block, v46, v47, v48, v49);
     }
 
     return 0;
@@ -1281,7 +1105,7 @@ uint64_t IOHIDServiceFilterCreateWithClass(const __CFAllocator *a1, uint64_t a2,
     *buf = 0;
     v42 = "IOHIDServiceFilterCreateWithClass Failed to find HIDServiceFilter protocol";
 LABEL_28:
-    OUTLINED_FUNCTION_1_12(&dword_197195000, v36, v37, v42, v38, v39, v40, v41, v44, block, v46, v47, v48, v49, buf[0]);
+    OUTLINED_FUNCTION_1_12(&dword_197195000, v36, v37, v42, v38, v39, v40, v41, v44, block, v46, v47, v48, v49);
     goto LABEL_25;
   }
 
@@ -1372,13 +1196,12 @@ LABEL_25:
 
 void IOHIDServiceFilterCopyPropertyForClient_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_197195000, log, OS_LOG_TYPE_ERROR, "%@ is not serializable. result: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_197195000, log, OS_LOG_TYPE_ERROR, "%@ is not serializable. result: %@", &v3, 0x16u);
 }
 
 BOOLean_t IOHIDServiceClientConformsTo(IOHIDServiceClientRef service, uint32_t usagePage, uint32_t usage)
@@ -1406,7 +1229,7 @@ BOOLean_t IOHIDServiceClientConformsTo(IOHIDServiceClientRef service, uint32_t u
   return 1;
 }
 
-CFMutableDictionaryRef IOHIDServiceClientCopyProperties(uint64_t *a1, const __CFArray *a2)
+CFMutableDictionaryRef IOHIDServiceClientCopyProperties(__IOHIDServiceClient *a1, const __CFArray *a2)
 {
   v4 = *MEMORY[0x1E695E480];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
@@ -1434,7 +1257,7 @@ CFMutableDictionaryRef IOHIDServiceClientCopyProperties(uint64_t *a1, const __CF
   _IOHIDCFArrayApplyBlock(a2, v14);
   if (CFArrayGetCount(v8))
   {
-    v9 = _IOHIDEventSystemClientCopyPropertiesForService(a1[1], a1, v8);
+    v9 = _IOHIDEventSystemClientCopyPropertiesForService(*(a1 + 1), a1, v8);
     if (v9)
     {
       v10 = v9;
@@ -1476,30 +1299,6 @@ CFMutableDictionaryRef IOHIDServiceClientCopyProperties(uint64_t *a1, const __CF
   CFRelease(v6);
   CFRelease(v8);
   return v10;
-}
-
-void IOHIDServiceClientFastPathInit_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void IOHIDServiceClientFastPathInit_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void IOHIDServiceClientFastPathInit_cold_3()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 CFMutableDictionaryRef _IOHIDEventSystemConnectionCopyRecord(uint64_t a1)
@@ -1595,141 +1394,140 @@ CFMutableDictionaryRef _IOHIDEventSystemConnectionCopyRecord(uint64_t a1)
       {
         v33 = v32;
         os_unfair_recursive_lock_lock_with_options();
-        v34 = *(a1 + 440);
         OUTLINED_FUNCTION_1_14();
-        v73 = 0x40000000;
-        v74 = ____IOHIDEventSystemConnectionSerializeActivity_block_invoke;
-        v75 = &__block_descriptor_tmp_196;
-        v76 = a1;
-        _IOHIDSimpleQueueApplyBlock(v35, v72, v33);
+        v72 = 0x40000000;
+        v73 = ____IOHIDEventSystemConnectionSerializeActivity_block_invoke;
+        v74 = &__block_descriptor_tmp_196;
+        v75 = a1;
+        _IOHIDSimpleQueueApplyBlock(v34, v71, v33);
         os_unfair_recursive_lock_unlock();
-        v36 = OUTLINED_FUNCTION_10_2();
-        CFDictionaryAddValue(v36, v37, v38);
+        v35 = OUTLINED_FUNCTION_10_2();
+        CFDictionaryAddValue(v35, v36, v37);
         CFRelease(v33);
       }
     }
 
-    v39 = *MEMORY[0x1E695E4D0];
-    v40 = *MEMORY[0x1E695E4C0];
+    v38 = *MEMORY[0x1E695E4D0];
+    v39 = *MEMORY[0x1E695E4C0];
     if (*(a1 + 256))
     {
-      v41 = *MEMORY[0x1E695E4D0];
+      v40 = *MEMORY[0x1E695E4D0];
     }
 
     else
     {
-      v41 = *MEMORY[0x1E695E4C0];
+      v40 = *MEMORY[0x1E695E4C0];
     }
 
-    CFDictionarySetValue(v4, @"ProtectedServicesDisabled", v41);
-    v42 = CFGetAllocator(a1);
-    v43 = *(a1 + 240);
-    v44 = CFDictionaryCreateMutable(v42, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-    if (v44)
+    CFDictionarySetValue(v4, @"ProtectedServicesDisabled", v40);
+    v41 = CFGetAllocator(a1);
+    v42 = *(a1 + 240);
+    v43 = CFDictionaryCreateMutable(v41, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+    if (v43)
     {
-      v45 = v44;
-      if (*v43)
+      v44 = v43;
+      if (*v42)
+      {
+        v45 = v38;
+      }
+
+      else
+      {
+        v45 = v39;
+      }
+
+      CFDictionarySetValue(v43, @"com.apple.private.hid.client.admin", v45);
+      if ((*v42 & 2) != 0)
+      {
+        v46 = v38;
+      }
+
+      else
       {
         v46 = v39;
       }
 
-      else
+      CFDictionarySetValue(v44, @"com.apple.private.hid.client.event-monitor", v46);
+      if ((*v42 & 4) != 0)
       {
-        v46 = v40;
+        v47 = v38;
       }
 
-      CFDictionarySetValue(v44, @"com.apple.private.hid.client.admin", v46);
-      if ((*v43 & 2) != 0)
+      else
       {
         v47 = v39;
       }
 
-      else
+      CFDictionarySetValue(v44, @"com.apple.private.hid.client.event-filter", v47);
+      if ((*v42 & 8) != 0)
       {
-        v47 = v40;
+        v48 = v38;
       }
 
-      CFDictionarySetValue(v45, @"com.apple.private.hid.client.event-monitor", v47);
-      if ((*v43 & 4) != 0)
+      else
       {
         v48 = v39;
       }
 
-      else
+      CFDictionarySetValue(v44, @"com.apple.private.hid.client.event-dispatch", v48);
+      if ((*v42 & 0x10) != 0)
       {
-        v48 = v40;
+        v49 = v38;
       }
 
-      CFDictionarySetValue(v45, @"com.apple.private.hid.client.event-filter", v48);
-      if ((*v43 & 8) != 0)
+      else
       {
         v49 = v39;
       }
 
-      else
+      CFDictionarySetValue(v44, @"com.apple.private.hid.client.service-protected", v49);
+      if ((*v42 & 0x20) != 0)
       {
-        v49 = v40;
+        v50 = v38;
       }
 
-      CFDictionarySetValue(v45, @"com.apple.private.hid.client.event-dispatch", v49);
-      if ((*v43 & 0x10) != 0)
+      else
       {
         v50 = v39;
       }
 
-      else
+      CFDictionarySetValue(v44, @"com.apple.private.hid.client.motion-event-privileged", v50);
+      if ((*v42 & 0x40) != 0)
       {
-        v50 = v40;
+        v51 = v38;
       }
 
-      CFDictionarySetValue(v45, @"com.apple.private.hid.client.service-protected", v50);
-      if ((*v43 & 0x20) != 0)
+      else
       {
         v51 = v39;
       }
 
-      else
-      {
-        v51 = v40;
-      }
-
-      CFDictionarySetValue(v45, @"com.apple.private.hid.client.motion-event-privileged", v51);
-      if ((*v43 & 0x40) != 0)
-      {
-        v52 = v39;
-      }
-
-      else
-      {
-        v52 = v40;
-      }
-
-      CFDictionarySetValue(v45, @"com.apple.private.hid.client.debug-tool", v52);
-      v53 = OUTLINED_FUNCTION_10_2();
-      CFDictionaryAddValue(v53, v54, v55);
-      CFRelease(v45);
+      CFDictionarySetValue(v44, @"com.apple.private.hid.client.debug-tool", v51);
+      v52 = OUTLINED_FUNCTION_10_2();
+      CFDictionaryAddValue(v52, v53, v54);
+      CFRelease(v44);
     }
 
     if (*(a1 + 248))
     {
-      v56 = MEMORY[0x19A8DC510]();
-      v57 = CFGetAllocator(a1);
-      v58 = CFStringCreateWithCString(v57, v56, 0);
-      CFDictionaryAddValue(v4, @"ConnectionEntitlements", v58);
-      CFRelease(v58);
-      free(v56);
+      v55 = MEMORY[0x19A8DC510]();
+      v56 = CFGetAllocator(a1);
+      v57 = CFStringCreateWithCString(v56, v55, 0);
+      CFDictionaryAddValue(v4, @"ConnectionEntitlements", v57);
+      CFRelease(v57);
+      free(v55);
     }
 
-    v59 = *(a1 + 448);
-    if (v59)
+    v58 = *(a1 + 448);
+    if (v58)
     {
-      v60 = IOHIDConnectionFilterCopyProperty(v59, @"ConnectionPluginDebug");
-      if (v60)
+      v59 = IOHIDConnectionFilterCopyProperty(v58, @"ConnectionPluginDebug");
+      if (v59)
       {
-        v61 = v60;
-        v62 = OUTLINED_FUNCTION_10_2();
-        CFDictionaryAddValue(v62, v63, v64);
-        CFRelease(v61);
+        v60 = v59;
+        v61 = OUTLINED_FUNCTION_10_2();
+        CFDictionaryAddValue(v61, v62, v63);
+        CFRelease(v60);
       }
 
       else
@@ -1738,16 +1536,16 @@ CFMutableDictionaryRef _IOHIDEventSystemConnectionCopyRecord(uint64_t a1)
       }
     }
 
-    v65 = *(a1 + 24);
-    if (v65)
+    v64 = *(a1 + 24);
+    if (v64)
     {
-      v66 = _IOHIDEventQueueSerializeState(v65);
-      if (v66)
+      v65 = _IOHIDEventQueueSerializeState(v64);
+      if (v65)
       {
-        v67 = v66;
-        v68 = OUTLINED_FUNCTION_10_2();
-        CFDictionarySetValue(v68, v69, v70);
-        CFRelease(v67);
+        v66 = v65;
+        v67 = OUTLINED_FUNCTION_10_2();
+        CFDictionarySetValue(v67, v68, v69);
+        CFRelease(v66);
       }
     }
 
@@ -1757,9 +1555,9 @@ CFMutableDictionaryRef _IOHIDEventSystemConnectionCopyRecord(uint64_t a1)
   return v4;
 }
 
-CFMutableArrayRef _IOHIDEventSystemConnectionCopyEventLog(void *a1)
+CFMutableArrayRef _IOHIDEventSystemConnectionCopyEventLog(char *a1)
 {
-  if (!a1[49])
+  if (!*(a1 + 49))
   {
     return 0;
   }
@@ -1769,13 +1567,12 @@ CFMutableArrayRef _IOHIDEventSystemConnectionCopyEventLog(void *a1)
   if (Mutable)
   {
     os_unfair_recursive_lock_lock_with_options();
-    v4 = a1[49];
     OUTLINED_FUNCTION_1_14();
-    v8 = 0x40000000;
-    v9 = ___IOHIDEventSystemConnectionCopyEventLog_block_invoke;
-    v10 = &__block_descriptor_tmp_132_0;
-    v11 = a1;
-    _IOHIDSimpleQueueApplyBlock(v5, v7, Mutable);
+    v7 = 0x40000000;
+    v8 = ___IOHIDEventSystemConnectionCopyEventLog_block_invoke;
+    v9 = &__block_descriptor_tmp_132_0;
+    v10 = a1;
+    _IOHIDSimpleQueueApplyBlock(v4, v6, Mutable);
     os_unfair_recursive_lock_unlock();
   }
 
@@ -1807,12 +1604,11 @@ CFMutableDictionaryRef _IOHIDEventSystemConnectionCopyEventCounts(void *a1)
   return Mutable;
 }
 
-uint64_t __IOHIDServiceVirtualSetOutputEventCallback(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t __IOHIDServiceVirtualSetOutputEventCallback(uint64_t a1, _DWORD *a2, uint64_t a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
   v5 = 3758097085;
   _IOHIDServiceGetSenderID(a1);
-  HIDWORD(v29) = -536870212;
+  HIDWORD(v27) = -536870212;
   v6 = CFGetAllocator(a2);
   DataInternal = IOHIDEventCreateDataInternal(v6, a3);
   if (DataInternal)
@@ -1823,27 +1619,25 @@ uint64_t __IOHIDServiceVirtualSetOutputEventCallback(uint64_t a1, uint64_t a2, u
     if (v10)
     {
       v11 = v10;
-      if (*(a2 + 456))
+      if (a2[114])
       {
         LODWORD(v5) = 5;
       }
 
       else
       {
-        v5 = *(a2 + 40);
         CFDataGetBytePtr(v10);
         CFDataGetLength(v11);
         v12 = OUTLINED_FUNCTION_13_2();
-        LODWORD(v5) = iohideventsystem_output_event_to_virtual_service(v12, v13, v14, v15, v16, v17);
+        v5 = iohideventsystem_output_event_to_virtual_service(v12, v13, v14, v15, v16, v17);
         if (v5)
         {
-          v18 = _IOHIDLogCategory(9u);
+          v18 = _IOHIDLogCategory(9);
           if (OUTLINED_FUNCTION_20_0(v18))
           {
-            v19 = *(a2 + 168);
             OUTLINED_FUNCTION_2_11();
             OUTLINED_FUNCTION_8_3();
-            OUTLINED_FUNCTION_12_1(&dword_197195000, v20, v21, "%s: HIDVS ID:%llx iohideventsystem_output_event_to_virtual_service:%x", v22, v23, v24, v25, v28, v29, v30);
+            OUTLINED_FUNCTION_12_1(&dword_197195000, v19, v20, "%s: HIDVS ID:%llx iohideventsystem_output_event_to_virtual_service:%x", v21, v22, v23, v24, v26, v27);
           }
 
           __IOHIDEventSystemConnectionCheckServerStatus(v5, a2);
@@ -1854,12 +1648,12 @@ uint64_t __IOHIDServiceVirtualSetOutputEventCallback(uint64_t a1, uint64_t a2, u
       CFRelease(v11);
       if (v5)
       {
-        v5 = v5;
+        return v5;
       }
 
       else
       {
-        v5 = HIDWORD(v29);
+        return HIDWORD(v27);
       }
     }
 
@@ -1869,134 +1663,104 @@ uint64_t __IOHIDServiceVirtualSetOutputEventCallback(uint64_t a1, uint64_t a2, u
     }
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
-void _IOHIDEventSystemConnectionReleasePrivate_cold_2(uint64_t a1, mach_error_t a2, int a3, int a4, int a5, int a6, int a7, int a8)
+void _IOHIDEventSystemConnectionReleasePrivate_cold_2(int a1, mach_error_t a2, int a3, int a4, int a5, int a6, int a7, int a8)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6_3(a1, a2, a3, a4, a5, a6, a7, a8, v16, v18, v19, v20);
+  OUTLINED_FUNCTION_6_3(a1, a2, a3, a4, a5, a6, a7, a8, v14, v15, v16, v17);
   OUTLINED_FUNCTION_0_16();
-  OUTLINED_FUNCTION_3_6(&dword_197195000, v9, v10, "%s: mach_port_deallocate(notifyPort):%s", v11, v12, v13, v14, v17);
-  v15 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_6(&dword_197195000, v8, v9, "%s: mach_port_deallocate(notifyPort):%s", v10, v11, v12, v13);
 }
 
-void _IOHIDEventSystemConnectionReleasePrivate_cold_3(uint64_t a1, mach_error_t a2, int a3, int a4, int a5, int a6, int a7, int a8)
+void _IOHIDEventSystemConnectionReleasePrivate_cold_3(int a1, mach_error_t a2, int a3, int a4, int a5, int a6, int a7, int a8)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6_3(a1, a2, a3, a4, a5, a6, a7, a8, v16, v18, v19, v20);
+  OUTLINED_FUNCTION_6_3(a1, a2, a3, a4, a5, a6, a7, a8, v14, v15, v16, v17);
   OUTLINED_FUNCTION_0_16();
-  OUTLINED_FUNCTION_3_6(&dword_197195000, v9, v10, "%s: mach_port_allocate(sendPossiblePort):%s", v11, v12, v13, v14, v17);
-  v15 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_6(&dword_197195000, v8, v9, "%s: mach_port_allocate(sendPossiblePort):%s", v10, v11, v12, v13);
 }
 
-void _IOHIDEventSystemConnectionReleasePrivate_cold_4(uint64_t a1, mach_error_t a2, int a3, int a4, int a5, int a6, int a7, int a8)
+void _IOHIDEventSystemConnectionReleasePrivate_cold_4(int a1, mach_error_t a2, int a3, int a4, int a5, int a6, int a7, int a8)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6_3(a1, a2, a3, a4, a5, a6, a7, a8, v16, v18, v19, v20);
+  OUTLINED_FUNCTION_6_3(a1, a2, a3, a4, a5, a6, a7, a8, v14, v15, v16, v17);
   OUTLINED_FUNCTION_0_16();
-  OUTLINED_FUNCTION_3_6(&dword_197195000, v9, v10, "%s: mach_port_deallocate(unusedNotify):%s", v11, v12, v13, v14, v17);
-  v15 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_6(&dword_197195000, v8, v9, "%s: mach_port_deallocate(unusedNotify):%s", v10, v11, v12, v13);
 }
 
-void _IOHIDEventSystemConnectionReleasePrivate_cold_5(uint64_t a1, mach_error_t a2, int a3, int a4, int a5, int a6, int a7, int a8)
+void _IOHIDEventSystemConnectionReleasePrivate_cold_5(int a1, mach_error_t a2, int a3, int a4, int a5, int a6, int a7, int a8)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6_3(a1, a2, a3, a4, a5, a6, a7, a8, v16, v18, v19, v20);
+  OUTLINED_FUNCTION_6_3(a1, a2, a3, a4, a5, a6, a7, a8, v14, v15, v16, v17);
   OUTLINED_FUNCTION_0_16();
-  OUTLINED_FUNCTION_3_6(&dword_197195000, v9, v10, "%s: mach_port_deallocate(reply_port):%s", v11, v12, v13, v14, v17);
-  v15 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_6(&dword_197195000, v8, v9, "%s: mach_port_deallocate(reply_port):%s", v10, v11, v12, v13);
 }
 
-void _IOHIDEventSystemConnectionCreate_cold_1(uint64_t *a1)
+void _IOHIDEventSystemConnectionCreate_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_5_5();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void _IOHIDEventSystemConnectionCreate_cold_2()
+void _IOHIDEventSystemConnectionScheduleAsync_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void _IOHIDEventSystemConnectionScheduleAsync_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_11_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_11_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_1_0(&dword_197195000, v1, v2, "%s: Unable to create DISPATCH_SOURCE_TYPE_MACH_SEND for reply port", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_197195000, v0, v1, "%s: Unable to create DISPATCH_SOURCE_TYPE_MACH_SEND for reply port", v2, v3, v4, v5);
 }
 
-void _IOHIDEventSystemConnectionQueueStop_cold_1(uint64_t a1, mach_error_t a2, int a3, int a4, int a5, int a6, int a7, int a8)
+void _IOHIDEventSystemConnectionQueueStop_cold_1(int a1, mach_error_t a2, int a3, int a4, int a5, int a6, int a7, int a8)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6_3(a1, a2, a3, a4, a5, a6, a7, a8, v16, v18, v19, v20);
+  OUTLINED_FUNCTION_6_3(a1, a2, a3, a4, a5, a6, a7, a8, v14, v15, v16, v17);
   OUTLINED_FUNCTION_0_16();
-  OUTLINED_FUNCTION_3_6(&dword_197195000, v9, v10, "%s: mach_port_request_notification(notify):%s", v11, v12, v13, v14, v17);
-  v15 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_6(&dword_197195000, v8, v9, "%s: mach_port_request_notification(notify):%s", v10, v11, v12, v13);
 }
 
-void _IOHIDEventSystemConnectionQueueStop_cold_2(uint64_t a1, mach_error_t a2, int a3, int a4, int a5, int a6, int a7, int a8)
+void _IOHIDEventSystemConnectionQueueStop_cold_2(int a1, mach_error_t a2, int a3, int a4, int a5, int a6, int a7, int a8)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6_3(a1, a2, a3, a4, a5, a6, a7, a8, v16, v18, v19, v20);
+  OUTLINED_FUNCTION_6_3(a1, a2, a3, a4, a5, a6, a7, a8, v14, v15, v16, v17);
   OUTLINED_FUNCTION_0_16();
-  OUTLINED_FUNCTION_3_6(&dword_197195000, v9, v10, "%s: mach_port_deallocate(oldNotify):%s", v11, v12, v13, v14, v17);
-  v15 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_6(&dword_197195000, v8, v9, "%s: mach_port_deallocate(oldNotify):%s", v10, v11, v12, v13);
 }
 
-void _IOHIDEventSystemConnectionRemoveService_cold_1(uint64_t a1)
+void _IOHIDEventSystemConnectionRemoveService_cold_1()
 {
-  OUTLINED_FUNCTION_11_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_11_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_6();
   OUTLINED_FUNCTION_5_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void _IOHIDEventSystemConnectionPropertyChanged_cold_1(uint64_t a1)
+void _IOHIDEventSystemConnectionPropertyChanged_cold_1()
 {
-  OUTLINED_FUNCTION_11_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_11_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_6();
   OUTLINED_FUNCTION_5_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void _IOHIDEventSystemConnectionRecordClientChanged_cold_1(uint64_t a1)
+void _IOHIDEventSystemConnectionRecordClientChanged_cold_1()
 {
-  OUTLINED_FUNCTION_11_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_11_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_4_6();
   OUTLINED_FUNCTION_5_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void _IOHIDEventSystemConnectionSetProperty_cold_1(uint64_t a1)
+void _IOHIDEventSystemConnectionSetProperty_cold_1()
 {
-  OUTLINED_FUNCTION_11_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_11_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_1_0(&dword_197195000, v1, v2, "%s: Unable create activity notification", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_197195000, v0, v1, "%s: Unable create activity notification", v2, v3, v4, v5);
 }
 
-void _IOHIDEventSystemConnectionSetProperty_cold_2(uint64_t a1)
+void _IOHIDEventSystemConnectionSetProperty_cold_2()
 {
-  OUTLINED_FUNCTION_11_2(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_11_2(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_1_0(&dword_197195000, v1, v2, "%s: Unable to create activity timer", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_0(&dword_197195000, v0, v1, "%s: Unable to create activity timer", v2, v3, v4, v5);
 }
 
-uint64_t _IOHIDEventSystemConnectionSetProperty_cold_3(const __CFArray *a1, uint64_t a2)
+CFIndex _IOHIDEventSystemConnectionSetProperty_cold_3(const __CFArray *a1, uint64_t a2)
 {
   result = CFArrayGetTypeID();
   if (a1 && (v5 = result, result = CFGetTypeID(a1), result == v5) && (result = CFArrayGetCount(a1), result >= 1))
@@ -2028,7 +1792,7 @@ uint64_t _IOHIDEventSystemConnectionSetProperty_cold_3(const __CFArray *a1, uint
 
 void _IOHIDEventSystemConnectionSetProperty_cold_4(uint64_t a1, dispatch_source_t *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 432);
   if (v4)
   {
@@ -2038,16 +1802,14 @@ void _IOHIDEventSystemConnectionSetProperty_cold_4(uint64_t a1, dispatch_source_
   }
 
   *(a1 + 408) = 2;
-  v5 = _IOHIDLogCategory(9u);
+  v5 = _IOHIDLogCategory(9);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 168);
     OUTLINED_FUNCTION_5();
-    _os_log_impl(&dword_197195000, v5, OS_LOG_TYPE_DEFAULT, "%s: HID activity: stop reporting", v8, 0xCu);
+    _os_log_impl(&dword_197195000, v5, OS_LOG_TYPE_DEFAULT, "%s: HID activity: stop reporting", v6, 0xCu);
   }
 
   dispatch_source_set_timer(*a2, 0xFFFFFFFFFFFFFFFFLL, 0, 0);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t _IOHIDEventSystemConnectionSetProperty_cold_5(uint64_t a1, uint64_t a2, _BYTE *a3)
@@ -2073,26 +1835,23 @@ uint64_t _IOHIDEventSystemConnectionSetProperty_cold_5(uint64_t a1, uint64_t a2,
   return result;
 }
 
-void _IOHIDEventSystemConnectionSetProperty_cold_6(uint64_t a1, uint64_t *a2)
+void _IOHIDEventSystemConnectionSetProperty_cold_6(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v4 = _IOHIDLogCategory(9u);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v7 = *MEMORY[0x1E69E9840];
+  v2 = _IOHIDLogCategory(9);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 168);
-    v7 = *a2;
     OUTLINED_FUNCTION_4_6();
-    v11 = v8;
-    _os_log_impl(&dword_197195000, v4, OS_LOG_TYPE_DEFAULT, "%s: HID activity: start reporting with interval: %ds", v10, 0x12u);
+    v6 = v4;
+    _os_log_impl(&dword_197195000, v2, OS_LOG_TYPE_DEFAULT, "%s: HID activity: start reporting with interval: %ds", v5, 0x12u);
   }
 
-  __IOHIDEventSystemConnectionActivityNotification(a1, v5, 0);
-  v9 = *MEMORY[0x1E69E9840];
+  __IOHIDEventSystemConnectionActivityNotification(a1, v3, 0);
 }
 
 void IOHIDEventServerScheduleWithDispatchQueue(uint64_t *a1, NSObject *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   a1[4] = a2;
   if (a2)
   {
@@ -2101,21 +1860,21 @@ void IOHIDEventServerScheduleWithDispatchQueue(uint64_t *a1, NSObject *a2)
     {
 LABEL_6:
       IOMIGMachPortScheduleWithDispatchQueue(v4, a2);
-      goto LABEL_7;
+      return;
     }
 
     sp = 0;
     v5 = bootstrap_check_in(*MEMORY[0x1E69E99F8], "com.apple.iohideventsystem", &sp);
     if (v5)
     {
-      v10 = v5;
-      v11 = _IOHIDLogCategory(0);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v9 = v5;
+      v10 = _IOHIDLogCategory(0);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v12 = bootstrap_strerror(v10);
+        v11 = bootstrap_strerror(v9);
         *buf = 136315138;
-        v15 = v12;
-        _os_log_error_impl(&dword_197195000, v11, OS_LOG_TYPE_ERROR, "bootstrap_check_in() failed: %s", buf, 0xCu);
+        v14 = v11;
+        _os_log_error_impl(&dword_197195000, v10, OS_LOG_TYPE_ERROR, "bootstrap_check_in() failed: %s", buf, 0xCu);
       }
     }
 
@@ -2138,15 +1897,11 @@ LABEL_6:
       }
     }
   }
-
-LABEL_7:
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t _io_hideventsystem_dispatch_event()
 {
   OUTLINED_FUNCTION_26();
-  v23 = *MEMORY[0x1E69E9840];
   v2 = v1;
   CFDataGetTypeID();
   v3 = OUTLINED_FUNCTION_1_15();
@@ -2161,12 +1916,12 @@ uint64_t _io_hideventsystem_dispatch_event()
       {
         if (IOHIDEventSystemConnectionGetType(v6) && (*IOHIDEventSystemConnectionGetEntitlements(v6) & 8) == 0)
         {
-          v15 = _IOHIDLogCategory(0);
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          v14 = _IOHIDLogCategory(0);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             _IOHIDEventSystemConnectionGetPID(v6);
             OUTLINED_FUNCTION_0_17();
-            OUTLINED_FUNCTION_5_6(&dword_197195000, v16, v17, "Error: the client with pid %d is missing the '%s' entitlement.", v18, v19, v20, v21, v22);
+            OUTLINED_FUNCTION_5_6(&dword_197195000, v15, v16, "Error: the client with pid %d is missing the '%s' entitlement.", v17, v18, v19, v20);
           }
         }
 
@@ -2195,7 +1950,6 @@ uint64_t _io_hideventsystem_dispatch_event()
     CFRelease(v0);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -2389,7 +2143,7 @@ LABEL_14:
   return 0;
 }
 
-uint64_t _io_hideventsystem_set_element_value_for_service(unsigned int a1, UInt8 *a2, CFIndex a3, int a4, unsigned __int8 a5, int a6, int *a7)
+uint64_t _io_hideventsystem_set_element_value_for_service(unsigned int a1, UInt8 *a2, CFIndex a3, int a4, unsigned __int8 a5, uint64_t a6, int *a7)
 {
   v12 = -536870212;
   v13 = OUTLINED_FUNCTION_6_4(a3, a2);
@@ -2487,7 +2241,6 @@ uint64_t _io_hideventsystem_unregister_property_changed_notification()
 
 uint64_t _io_hideventsystem_register_event_filter(unsigned int a1, int a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
   v3 = IOMIGMachPortCacheCopy(a1);
   if (v3)
   {
@@ -2497,12 +2250,12 @@ uint64_t _io_hideventsystem_register_event_filter(unsigned int a1, int a2)
     {
       if (IOHIDEventSystemConnectionGetType(v4) && (*IOHIDEventSystemConnectionGetEntitlements(v4) & 4) == 0)
       {
-        v8 = _IOHIDLogCategory(0);
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v7 = _IOHIDLogCategory(0);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
           _IOHIDEventSystemConnectionGetPID(v4);
           OUTLINED_FUNCTION_0_17();
-          OUTLINED_FUNCTION_2_12(&dword_197195000, v9, v10, "Error: the client with pid %d is missing the '%s' entitlement.", v11, v12, v13, v14, v15);
+          OUTLINED_FUNCTION_2_12(&dword_197195000, v8, v9, "Error: the client with pid %d is missing the '%s' entitlement.", v10, v11, v12, v13);
         }
       }
 
@@ -2515,7 +2268,6 @@ uint64_t _io_hideventsystem_register_event_filter(unsigned int a1, int a2)
     CFRelease(v4);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -2539,7 +2291,6 @@ uint64_t _io_hideventsystem_unregister_event_filter(unsigned int a1)
 
 uint64_t _io_hideventsystem_register_record_client_changed_notification(unsigned int a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
   v1 = IOMIGMachPortCacheCopy(a1);
   if (v1)
   {
@@ -2549,12 +2300,12 @@ uint64_t _io_hideventsystem_register_record_client_changed_notification(unsigned
     {
       if (IOHIDEventSystemConnectionGetType(v2))
       {
-        v6 = _IOHIDLogCategory(0);
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v5 = _IOHIDLogCategory(0);
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           _IOHIDEventSystemConnectionGetPID(v2);
           OUTLINED_FUNCTION_0_17();
-          OUTLINED_FUNCTION_2_12(&dword_197195000, v7, v8, "Error: the client with pid %d is missing the '%s' entitlement.", v9, v10, v11, v12, v13);
+          OUTLINED_FUNCTION_2_12(&dword_197195000, v6, v7, "Error: the client with pid %d is missing the '%s' entitlement.", v8, v9, v10, v11);
         }
       }
 
@@ -2567,7 +2318,6 @@ uint64_t _io_hideventsystem_register_record_client_changed_notification(unsigned
     CFRelease(v2);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -2591,7 +2341,6 @@ uint64_t _io_hideventsystem_unregister_record_client_changed_notification(unsign
 
 uint64_t _io_hideventsystem_register_record_service_changed_notification(unsigned int a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
   v1 = IOMIGMachPortCacheCopy(a1);
   if (v1)
   {
@@ -2601,12 +2350,12 @@ uint64_t _io_hideventsystem_register_record_service_changed_notification(unsigne
     {
       if (IOHIDEventSystemConnectionGetType(v2))
       {
-        v6 = _IOHIDLogCategory(0);
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        v5 = _IOHIDLogCategory(0);
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           _IOHIDEventSystemConnectionGetPID(v2);
           OUTLINED_FUNCTION_0_17();
-          OUTLINED_FUNCTION_2_12(&dword_197195000, v7, v8, "Error: the client with pid %d is missing the '%s' entitlement.", v9, v10, v11, v12, v13);
+          OUTLINED_FUNCTION_2_12(&dword_197195000, v6, v7, "Error: the client with pid %d is missing the '%s' entitlement.", v8, v9, v10, v11);
         }
       }
 
@@ -2619,7 +2368,6 @@ uint64_t _io_hideventsystem_register_record_service_changed_notification(unsigne
     CFRelease(v2);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -2661,38 +2409,18 @@ uint64_t _io_hideventsystem_remove_virtual_service(unsigned int a1, const void *
   return v3;
 }
 
-void initialSetup_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void initialSetup_cold_3()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 void initialSetup_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void initialSetup_cold_5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void offloadAssertions_cold_1()
@@ -2711,20 +2439,16 @@ void offloadAssertions_cold_3()
 
 void offloadAssertions_cold_5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void offloadAssertions_cold_6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void offloadAssertions_cold_7(uint8_t *buf, uint64_t *a2, void *a3)
@@ -2737,20 +2461,16 @@ void offloadAssertions_cold_7(uint8_t *buf, uint64_t *a2, void *a3)
 
 void removeFromTimedList_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void removeFromTimedList_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void insertIntoTimedList_cold_1()
@@ -2762,123 +2482,95 @@ void insertIntoTimedList_cold_1()
 
 void insertIntoTimedList_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_14_1();
   OUTLINED_FUNCTION_6_5();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void insertIntoTimedList_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_14_1();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void getTimeoutForAssertionCategory_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void activateAsyncAssertion_cold_1(uint64_t a1, unsigned int *a2)
+void activateAsyncAssertion_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_6_5();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void activateAsyncAssertion_cold_2(uint64_t a1, unsigned int *a2)
+void activateAsyncAssertion_cold_2()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_7();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void activateAsyncAssertion_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void activateAsyncAssertion_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void activateAsyncAssertion_cold_5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void activateAsyncAssertion_cold_6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void activateAsyncAssertion_cold_7()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void activateAsyncAssertion_cold_8()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void logAsyncAssertionActivity_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void logAsyncAssertionActivity_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void createAsyncAssertion_cold_2()
@@ -2888,188 +2580,142 @@ void createAsyncAssertion_cold_2()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __createAsyncAssertion_block_invoke_cold_1(unsigned int **a1)
+void __createAsyncAssertion_block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_13_3(a1);
+  OUTLINED_FUNCTION_13_3();
   OUTLINED_FUNCTION_7_3();
   OUTLINED_FUNCTION_3_7();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void __createAsyncAssertion_block_invoke_cold_2(unsigned int **a1)
+void __createAsyncAssertion_block_invoke_cold_2()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_13_3(a1);
+  OUTLINED_FUNCTION_13_3();
   OUTLINED_FUNCTION_7_3();
   OUTLINED_FUNCTION_3_7();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void __createAsyncAssertion_block_invoke_cold_3(unsigned int **a1)
+void __createAsyncAssertion_block_invoke_cold_3()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_13_3(a1);
+  OUTLINED_FUNCTION_13_3();
   OUTLINED_FUNCTION_7_3();
   OUTLINED_FUNCTION_14_1();
   OUTLINED_FUNCTION_6_5();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void __createAsyncAssertion_block_invoke_cold_4(unsigned int **a1)
+void __createAsyncAssertion_block_invoke_cold_4()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_13_3(a1);
+  OUTLINED_FUNCTION_13_3();
   OUTLINED_FUNCTION_7_3();
   OUTLINED_FUNCTION_14_1();
   OUTLINED_FUNCTION_3_7();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void __createAsyncAssertion_block_invoke_cold_5(int **a1)
+void __createAsyncAssertion_block_invoke_cold_5()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = **a1;
   CFDictionaryGetCount(gActiveAssertionsDict);
   OUTLINED_FUNCTION_12_2();
   OUTLINED_FUNCTION_9_4();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x1Cu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void __createAsyncAssertion_block_invoke_cold_6(int **a1)
+void __createAsyncAssertion_block_invoke_cold_6()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = **a1;
   CFDictionaryGetCount(gActiveAssertionsDict);
   OUTLINED_FUNCTION_12_2();
   OUTLINED_FUNCTION_3_7();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x1Cu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
 void __createAsyncAssertion_block_invoke_cold_7()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __createAsyncAssertion_block_invoke_cold_8()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _releaseAsycnAssertion_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   CFArrayGetCount(gReleasedAssertionsList);
   OUTLINED_FUNCTION_17_2();
   OUTLINED_FUNCTION_9_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _releaseAsycnAssertion_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   CFArrayGetCount(gReleasedAssertionsList);
   OUTLINED_FUNCTION_17_2();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _releaseAsycnAssertion_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _releaseAsycnAssertion_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _releaseAsycnAssertion_cold_5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void _releaseAsycnAssertion_cold_6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void sendAsyncReleaseMsg_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void sendAsyncReleaseMsg_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void sendAsyncReleaseMsg_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   CFArrayGetCount(gAsyncAssertionActivityLog_1);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_9_4();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void sendAsyncReleaseMsg_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   CFArrayGetCount(gAsyncAssertionActivityLog_1);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void setAsyncAssertionProperties_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_7();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __setAsyncAssertionProperties_block_invoke_cold_1()
@@ -3086,268 +2732,204 @@ void __setAsyncAssertionProperties_block_invoke_cold_3()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __setAsyncAssertionProperties_block_invoke_cold_5(unsigned int *a1)
+void __setAsyncAssertionProperties_block_invoke_cold_5()
 {
-  v1 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_16_2(a1);
+  OUTLINED_FUNCTION_16_2();
   OUTLINED_FUNCTION_7_3();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void __setAsyncAssertionProperties_block_invoke_cold_6(unsigned int *a1)
+void __setAsyncAssertionProperties_block_invoke_cold_6()
 {
-  v1 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_16_2(a1);
+  OUTLINED_FUNCTION_16_2();
   OUTLINED_FUNCTION_7_3();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void __setAsyncAssertionProperties_block_invoke_cold_7(unsigned int *a1)
+void __setAsyncAssertionProperties_block_invoke_cold_7()
 {
-  v1 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_16_2(a1);
+  OUTLINED_FUNCTION_16_2();
   OUTLINED_FUNCTION_7_3();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void __setAsyncAssertionProperties_block_invoke_cold_8(unsigned int *a1)
+void __setAsyncAssertionProperties_block_invoke_cold_8()
 {
-  v1 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_16_2(a1);
+  OUTLINED_FUNCTION_16_2();
   OUTLINED_FUNCTION_7_3();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void handleAssertionLevel_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void handleAssertionLevel_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void handleAssertionLevel_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7_3();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void handleAssertionLevel_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7_3();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void handleAssertionLevel_cold_5(int *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_3_7();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void handleAssertionLevel_cold_6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void handleAssertionLevel_cold_7()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __processCheckAssertionsMsg_block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __processCheckAssertionsMsg_block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void processAssertionTimeout_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_18();
-  _os_log_error_impl(&dword_197195000, v0, OS_LOG_TYPE_ERROR, "Received a release not for gCurrentRemoteAssertion:0x%x. Received 0x%x", v2, 0xEu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_197195000, v0, OS_LOG_TYPE_ERROR, "Received a release not for gCurrentRemoteAssertion:0x%x. Received 0x%x", v1, 0xEu);
 }
 
 void processAssertionTimeout_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_18();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void processAssertionTimeout_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void processAssertionTimeout_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void processAssertionTimeout_cold_5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void processAssertionTimeout_cold_6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void processAssertionTimeout_cold_7()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_18();
   OUTLINED_FUNCTION_6_5();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void processAssertionTimeout_cold_8()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_18();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void processAssertionTimeout_cold_9()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_18();
   OUTLINED_FUNCTION_6_5();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void processAssertionTimeout_cold_10()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_18();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void processAssertionTimeout_cold_11()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7_3();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void processAssertionTimeout_cold_12()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7_3();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void processAssertionUpdateActivity_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7_3();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void processAssertionUpdateActivity_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7_3();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void handleAssertionTimeout_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void handleAssertionTimeout_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void handleAssertionTimeout_cold_3(uint8_t *a1, int *a2, _DWORD *a3)
@@ -3367,73 +2949,51 @@ void handleAssertionTimeout_cold_6()
 
 void handleAssertionTimeout_cold_8()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void handleAssertionTimeout_cold_9()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void IOPMAssertionCreateWithProperties_cold_3()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void IOPMAssertionCreateWithProperties_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void IOPMAssertionCreateWithProperties_cold_5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void IOPMAssertionSetProcessState_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_18();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __IOPMCopyAssertionActivityUpdateWithCallback_block_invoke_229_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_11_3();
   OUTLINED_FUNCTION_6_5();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __IOPMCopyAssertionActivityUpdateWithCallback_block_invoke_229_cold_4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_11_3();
   OUTLINED_FUNCTION_3_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __IOPMCopyAssertionActivityUpdateWithCallback_block_invoke_229_cold_5()
@@ -3443,7 +3003,7 @@ void __IOPMCopyAssertionActivityUpdateWithCallback_block_invoke_229_cold_5()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-uint64_t IODPControllerCreateWithService(uint64_t a1, io_registry_entry_t a2)
+uint64_t IODPControllerCreateWithService(uint64_t a1, uint64_t a2)
 {
   if (!a2 || !IOAVObjectConformsTo(a2, "IODPController"))
   {
@@ -3554,66 +3114,64 @@ uint64_t IODPControllerCreateWithService(uint64_t a1, io_registry_entry_t a2)
 uint64_t IODPControllerSetMinLaneCount()
 {
   OUTLINED_FUNCTION_26();
-  v2 = *MEMORY[0x1E69E9840];
-  v4 = OUTLINED_FUNCTION_0_19(v3);
-  result = OUTLINED_FUNCTION_1_16(v4, 4u, v5, v6, v7, v8, v9, v10, v13, v14);
+  v3 = OUTLINED_FUNCTION_0_19(v2);
+  result = OUTLINED_FUNCTION_1_16(v3, 4u, v4, v5, v6, v7, v8, v9, v11, v12);
   if (!result)
   {
     *(v1 + 40) = v0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t IODPControllerSetMaxLaneCount()
 {
   OUTLINED_FUNCTION_26();
-  v2 = *MEMORY[0x1E69E9840];
-  v4 = OUTLINED_FUNCTION_0_19(v3);
-  result = OUTLINED_FUNCTION_1_16(v4, 5u, v5, v6, v7, v8, v9, v10, v13, v14);
+  v3 = OUTLINED_FUNCTION_0_19(v2);
+  result = OUTLINED_FUNCTION_1_16(v3, 5u, v4, v5, v6, v7, v8, v9, v11, v12);
   if (!result)
   {
     *(v1 + 44) = v0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t IODPControllerSetMinLinkRate()
 {
   OUTLINED_FUNCTION_26();
-  v2 = *MEMORY[0x1E69E9840];
-  v4 = OUTLINED_FUNCTION_0_19(v3);
-  result = OUTLINED_FUNCTION_1_16(v4, 7u, v5, v6, v7, v8, v9, v10, v13, v14);
+  v3 = OUTLINED_FUNCTION_0_19(v2);
+  result = OUTLINED_FUNCTION_1_16(v3, 7u, v4, v5, v6, v7, v8, v9, v11, v12);
   if (!result)
   {
     *(v1 + 36) = v0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t IODPControllerSetMaxLinkRate()
 {
   OUTLINED_FUNCTION_26();
-  v2 = *MEMORY[0x1E69E9840];
-  v4 = OUTLINED_FUNCTION_0_19(v3);
-  result = OUTLINED_FUNCTION_1_16(v4, 8u, v5, v6, v7, v8, v9, v10, v13, v14);
+  v3 = OUTLINED_FUNCTION_0_19(v2);
+  result = OUTLINED_FUNCTION_1_16(v3, 8u, v4, v5, v6, v7, v8, v9, v11, v12);
   if (!result)
   {
     *(v1 + 37) = v0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-_OWORD *IODPDeviceCreateWithService(uint64_t a1, io_registry_entry_t a2)
+_OWORD *IODPDeviceCreateWithService(uint64_t a1, uint64_t a2)
 {
-  if (!a2 || !IOAVObjectConformsTo(a2, "IODPDevice"))
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v2 = a2;
+  if (!IOAVObjectConformsTo(a2, "IODPDevice"))
   {
     return 0;
   }
@@ -3630,8 +3188,8 @@ _OWORD *IODPDeviceCreateWithService(uint64_t a1, io_registry_entry_t a2)
     Instance[2] = 0u;
     Instance[3] = 0u;
     Instance[1] = 0u;
-    *(Instance + 4) = a2;
-    IOObjectRetain(a2);
+    *(Instance + 4) = v2;
+    IOObjectRetain(v2);
     if (!IOServiceOpen(*(v5 + 4), *MEMORY[0x1E69E9A60], 0x44504456u, v5 + 5))
     {
       v6 = IOAVDeviceCreateWithService(a1, *(v5 + 4));
@@ -3727,13 +3285,18 @@ uint64_t IODPDeviceGetSymbolErrorCount(uint64_t a1, unsigned int a2, _DWORD *a3)
     *a3 = output;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void *IODPServiceCreateWithService(uint64_t a1, io_registry_entry_t a2)
+void *IODPServiceCreateWithService(uint64_t a1, uint64_t a2)
 {
-  if (!a2 || !IOAVObjectConformsTo(a2, "IODPService"))
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v2 = a2;
+  if (!IOAVObjectConformsTo(a2, "IODPService"))
   {
     return 0;
   }
@@ -3750,8 +3313,8 @@ void *IODPServiceCreateWithService(uint64_t a1, io_registry_entry_t a2)
     Instance[2] = 0;
     Instance[3] = 0;
     Instance[4] = 0;
-    *(Instance + 4) = a2;
-    IOObjectRetain(a2);
+    *(Instance + 4) = v2;
+    IOObjectRetain(v2);
     if (!IOServiceOpen(*(v5 + 4), *MEMORY[0x1E69E9A60], 0x44505356u, v5 + 5))
     {
       v5[3] = IOAVServiceCreateWithService(a1, *(v5 + 4));
@@ -3776,7 +3339,6 @@ uint64_t IODPServiceGetSinkCount(uint64_t a1, _DWORD *a2)
     *a2 = output[0];
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3792,7 +3354,6 @@ uint64_t IODPServiceGetSymbolErrorCount(uint64_t a1, unsigned int a2, _DWORD *a3
     *a3 = output;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -3892,9 +3453,15 @@ uint64_t __IODPCopyFirstMatchingPort(const char *a1, uint64_t (*a2)(void, uint64
   }
 }
 
-io_connect_t *IOAVAudioInterfaceCreateWithService(uint64_t a1, io_registry_entry_t a2)
+io_connect_t *IOAVAudioInterfaceCreateWithService(uint64_t a1, uint64_t a2)
 {
-  if (!a2 || !IOAVObjectConformsTo(a2, "IOAVAudioInterface"))
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v2 = a2;
+  if (!IOAVObjectConformsTo(a2, "IOAVAudioInterface"))
   {
     return 0;
   }
@@ -3912,8 +3479,8 @@ io_connect_t *IOAVAudioInterfaceCreateWithService(uint64_t a1, io_registry_entry
     *(Instance + 3) = 0;
     v5 = Instance + 4;
     *(Instance + 4) = 0;
-    Instance[4] = a2;
-    IOObjectRetain(a2);
+    Instance[4] = v2;
+    IOObjectRetain(v2);
     if (IOServiceOpen(*v5, *MEMORY[0x1E69E9A60], 0, v4 + 5))
     {
       v7 = v4;
@@ -3953,9 +3520,15 @@ CFArrayRef IOAVAudioInterfaceCopyProperties(uint64_t a1)
   return v2;
 }
 
-io_connect_t *IOAVControllerCreateWithService(uint64_t a1, io_registry_entry_t a2)
+io_connect_t *IOAVControllerCreateWithService(uint64_t a1, uint64_t a2)
 {
-  if (!a2 || !IOAVObjectConformsTo(a2, "IOAVController"))
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v2 = a2;
+  if (!IOAVObjectConformsTo(a2, "IOAVController"))
   {
     return 0;
   }
@@ -3972,8 +3545,8 @@ io_connect_t *IOAVControllerCreateWithService(uint64_t a1, io_registry_entry_t a
     *(Instance + 16) = 0;
     *(Instance + 24) = 0;
     v5 = (Instance + 16);
-    *(Instance + 16) = a2;
-    IOObjectRetain(a2);
+    *(Instance + 16) = v2;
+    IOObjectRetain(v2);
     if (IOServiceOpen(*v5, *MEMORY[0x1E69E9A60], 0, v4 + 5))
     {
       v7 = v4;
@@ -4018,27 +3591,29 @@ uint64_t IOAVControllerGetPower(uint64_t a1, BOOL *a2)
   output[1] = *MEMORY[0x1E69E9840];
   output[0] = 0;
   outputCnt = 1;
-  if (a2)
+  if (!a2)
   {
-    result = IOConnectCallMethod(*(a1 + 20), 0xBu, 0, 0, 0, 0, output, &outputCnt, 0, 0);
-    if (!result)
-    {
-      *a2 = output[0] != 0;
-    }
+    return 3758097090;
   }
 
-  else
+  result = IOConnectCallMethod(*(a1 + 20), 0xBu, 0, 0, 0, 0, output, &outputCnt, 0, 0);
+  if (!result)
   {
-    result = 3758097090;
+    *a2 = output[0] != 0;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-io_connect_t *IOAVDeviceCreateWithService(uint64_t a1, io_registry_entry_t a2)
+io_connect_t *IOAVDeviceCreateWithService(uint64_t a1, uint64_t a2)
 {
-  if (!a2 || !IOAVObjectConformsTo(a2, "IOAVDevice"))
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v2 = a2;
+  if (!IOAVObjectConformsTo(a2, "IOAVDevice"))
   {
     return 0;
   }
@@ -4056,8 +3631,8 @@ io_connect_t *IOAVDeviceCreateWithService(uint64_t a1, io_registry_entry_t a2)
     *(Instance + 3) = 0;
     v5 = Instance + 4;
     *(Instance + 4) = 0;
-    Instance[4] = a2;
-    IOObjectRetain(a2);
+    Instance[4] = v2;
+    IOObjectRetain(v2);
     if (IOServiceOpen(*v5, *MEMORY[0x1E69E9A60], 0, v4 + 5))
     {
       v7 = v4;
@@ -4108,7 +3683,6 @@ uint64_t IOAVDeviceGetProtectionStatus(uint64_t a1, _DWORD *a2)
     *a2 = output[0];
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4134,9 +3708,15 @@ io_service_t *IOAVDisplayMemoryCreateWithName(uint64_t a1, const void *a2)
   return v8;
 }
 
-io_service_t *IOAVDisplayMemoryCreateWithService(uint64_t a1, io_registry_entry_t a2)
+io_service_t *IOAVDisplayMemoryCreateWithService(uint64_t a1, uint64_t a2)
 {
-  if (!a2 || !IOAVObjectConformsTo(a2, "IOAVDisplayMemory"))
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v2 = a2;
+  if (!IOAVObjectConformsTo(a2, "IOAVDisplayMemory"))
   {
     return 0;
   }
@@ -4151,8 +3731,8 @@ io_service_t *IOAVDisplayMemoryCreateWithService(uint64_t a1, io_registry_entry_
   if (Instance)
   {
     *(Instance + 16) = 0;
-    *(Instance + 16) = a2;
-    IOObjectRetain(a2);
+    *(Instance + 16) = v2;
+    IOObjectRetain(v2);
     if (IOServiceOpen(v4[4], *MEMORY[0x1E69E9A60], 0, v4 + 5))
     {
       CFRelease(v4);
@@ -4165,10 +3745,10 @@ io_service_t *IOAVDisplayMemoryCreateWithService(uint64_t a1, io_registry_entry_
 
 CFArrayRef IOAVPropertyListCreateWithCFProperties(uint64_t a1, const void *a2)
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   if (!a2)
   {
-    goto LABEL_84;
+    return 0;
   }
 
   if (qword_1ED446B10 != -1)
@@ -4183,25 +3763,25 @@ CFArrayRef IOAVPropertyListCreateWithCFProperties(uint64_t a1, const void *a2)
     {
       OUTLINED_FUNCTION_1_17();
       Count = CFArrayGetCount(a2);
-      v13 = Count;
+      v12 = Count;
       if (Count < 0x81 || (v2 = malloc_type_malloc(8 * Count, 0xC0040B8AA526DuLL)) != 0)
       {
-        v65.location = 0;
-        v65.length = v13;
-        CFArrayGetValues(a2, v65, v2);
-        if (v13 < 1)
+        v63.location = 0;
+        v63.length = v12;
+        CFArrayGetValues(a2, v63, v2);
+        if (v12 < 1)
         {
 LABEL_41:
-          v21 = CFRetain(a2);
+          v20 = CFRetain(a2);
         }
 
         else
         {
-          v14 = 0;
-          for (i = 0; i != v13; ++i)
+          v13 = 0;
+          for (i = 0; i != v12; ++i)
           {
-            v16 = IOAVPropertyListCreateWithCFProperties(a1, v2[i]);
-            if (!v16)
+            v15 = IOAVPropertyListCreateWithCFProperties(a1, v2[i]);
+            if (!v15)
             {
               if (i)
               {
@@ -4211,44 +3791,44 @@ LABEL_41:
                 }
               }
 
-              v36 = 0;
+              v35 = 0;
               goto LABEL_45;
             }
 
-            v14 |= v16 != v2[i];
-            v2[i] = v16;
+            v13 |= v15 != v2[i];
+            v2[i] = v15;
           }
 
-          if ((v14 & 1) == 0)
+          if ((v13 & 1) == 0)
           {
             goto LABEL_41;
           }
 
-          v17 = OUTLINED_FUNCTION_0_20();
-          v21 = CFArrayCreate(v17, v18, v19, v20);
+          v16 = OUTLINED_FUNCTION_0_20();
+          v20 = CFArrayCreate(v16, v17, v18, v19);
         }
 
-        v36 = v21;
-        if (v13 >= 1)
+        v35 = v20;
+        if (v12 >= 1)
         {
-          v37 = v2;
+          v36 = v2;
           do
           {
-            v38 = *v37++;
-            CFRelease(v38);
-            --v13;
+            v37 = *v36++;
+            CFRelease(v37);
+            --v12;
           }
 
-          while (v13);
+          while (v12);
         }
 
 LABEL_45:
-        if (v2 == v62)
+        if (v2 == v60)
         {
-          goto LABEL_85;
+          return v35;
         }
 
-        v39 = v2;
+        v38 = v2;
         goto LABEL_65;
       }
     }
@@ -4260,183 +3840,177 @@ LABEL_45:
         if (v5 == qword_1ED446B08)
         {
           OUTLINED_FUNCTION_1_17();
-          v40 = CFSetGetCount(a2);
-          v41 = v40;
-          if (v40 < 0x81 || (v2 = malloc_type_malloc(8 * v40, 0x80040B8603338uLL)) != 0)
+          v39 = CFSetGetCount(a2);
+          v40 = v39;
+          if (v39 < 0x81 || (v2 = malloc_type_malloc(8 * v39, 0x80040B8603338uLL)) != 0)
           {
             CFSetGetValues(a2, v2);
-            if (v41 <= 0)
+            if (v40 <= 0)
             {
-              v53 = OUTLINED_FUNCTION_0_20();
-              v48 = CFArrayCreate(v53, v54, v55, v56);
+              v52 = OUTLINED_FUNCTION_0_20();
+              v47 = CFArrayCreate(v52, v53, v54, v55);
 LABEL_67:
-              v36 = v48;
+              v35 = v47;
             }
 
             else
             {
-              v42 = 0;
+              v41 = 0;
               while (1)
               {
-                v43 = IOAVPropertyListCreateWithCFProperties(a1, v2[v42]);
-                if (!v43)
+                v42 = IOAVPropertyListCreateWithCFProperties(a1, v2[v41]);
+                if (!v42)
                 {
                   break;
                 }
 
-                v2[v42++] = v43;
-                if (v41 == v42)
+                v2[v41++] = v42;
+                if (v40 == v41)
                 {
-                  v44 = OUTLINED_FUNCTION_0_20();
-                  v48 = CFArrayCreate(v44, v45, v46, v47);
-                  v49 = v2;
+                  v43 = OUTLINED_FUNCTION_0_20();
+                  v47 = CFArrayCreate(v43, v44, v45, v46);
+                  v48 = v2;
                   do
                   {
-                    v50 = *v49++;
-                    CFRelease(v50);
-                    --v41;
+                    v49 = *v48++;
+                    CFRelease(v49);
+                    --v40;
                   }
 
-                  while (v41);
+                  while (v40);
                   goto LABEL_67;
                 }
               }
 
-              if (v42)
+              if (v41)
               {
-                for (k = 0; k != v42; ++k)
+                for (k = 0; k != v41; ++k)
                 {
                   CFRelease(v2[k]);
                 }
               }
 
-              v48 = 0;
-              v36 = 0;
+              v47 = 0;
+              v35 = 0;
             }
 
-            if (v2 != v62)
+            if (v2 != v60)
             {
               free(v2);
-              v36 = v48;
+              return v47;
             }
 
-            goto LABEL_85;
+            return v35;
           }
         }
 
-        goto LABEL_84;
+        return 0;
       }
 
       OUTLINED_FUNCTION_1_17();
-      v22 = v61;
-      bzero(v61, 0x400uLL);
-      v23 = CFDictionaryGetCount(a2);
-      v24 = v23;
-      if (v23 >= 0x81)
+      v21 = v59;
+      bzero(v59, 0x400uLL);
+      v22 = CFDictionaryGetCount(a2);
+      v23 = v22;
+      if (v22 >= 0x81)
       {
+        v24 = malloc_type_malloc(8 * v22, 0xC0040B8AA526DuLL);
+        if (!v24)
+        {
+          return 0;
+        }
+
+        v2 = v24;
         v25 = malloc_type_malloc(8 * v23, 0xC0040B8AA526DuLL);
         if (!v25)
         {
-          goto LABEL_84;
-        }
-
-        v2 = v25;
-        v26 = malloc_type_malloc(8 * v24, 0xC0040B8AA526DuLL);
-        if (!v26)
-        {
           free(v2);
-          goto LABEL_84;
+          return 0;
         }
 
-        v22 = v26;
+        v21 = v25;
       }
 
-      CFDictionaryGetKeysAndValues(a2, v2, v22);
-      if (v24 < 1)
+      CFDictionaryGetKeysAndValues(a2, v2, v21);
+      if (v23 < 1)
       {
 LABEL_57:
-        v35 = CFRetain(a2);
+        v34 = CFRetain(a2);
 LABEL_58:
-        v36 = v35;
-        if (v24 >= 1)
+        v35 = v34;
+        if (v23 >= 1)
         {
-          v51 = v22;
+          v50 = v21;
           do
           {
-            v52 = *v51++;
-            CFRelease(v52);
-            --v24;
+            v51 = *v50++;
+            CFRelease(v51);
+            --v23;
           }
 
-          while (v24);
+          while (v23);
         }
 
-        if (v2 != v62)
+        if (v2 != v60)
         {
           free(v2);
         }
 
-        if (v22 == v61)
+        if (v21 == v59)
         {
-          goto LABEL_85;
+          return v35;
         }
 
 LABEL_64:
-        v39 = v22;
+        v38 = v21;
 LABEL_65:
-        free(v39);
-LABEL_85:
-        v60 = *MEMORY[0x1E69E9840];
-        return v36;
+        free(v38);
+        return v35;
       }
 
+      v26 = 0;
       v27 = 0;
-      v28 = 0;
       while (1)
       {
-        v29 = IOAVPropertyListCreateWithCFProperties(a1, v22[v27]);
-        if (!v29)
+        v28 = IOAVPropertyListCreateWithCFProperties(a1, v21[v26]);
+        if (!v28)
         {
           break;
         }
 
-        v28 |= v29 != v22[v27];
-        v22[v27++] = v29;
-        if (v24 == v27)
+        v27 |= v28 != v21[v26];
+        v21[v26++] = v28;
+        if (v23 == v26)
         {
-          if ((v28 & 1) == 0)
+          if ((v27 & 1) == 0)
           {
             goto LABEL_57;
           }
 
-          v30 = OUTLINED_FUNCTION_0_20();
-          v35 = CFDictionaryCreate(v30, v31, v32, v24, v33, v34);
+          v29 = OUTLINED_FUNCTION_0_20();
+          v34 = CFDictionaryCreate(v29, v30, v31, v23, v32, v33);
           goto LABEL_58;
         }
       }
 
-      if (v27)
+      if (v26)
       {
-        for (m = 0; m != v27; ++m)
+        for (m = 0; m != v26; ++m)
         {
-          CFRelease(v22[m]);
+          CFRelease(v21[m]);
         }
       }
 
-      if (v22 != v61)
+      if (v21 != v59)
       {
         free(v2);
-        v36 = 0;
+        v35 = 0;
         goto LABEL_64;
       }
     }
 
-LABEL_84:
-    v36 = 0;
-    goto LABEL_85;
+    return 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return CFRetain(a2);
 }
@@ -4646,39 +4220,36 @@ uint64_t IOAVServiceCopyPhysicalAddress(uint64_t a1, uint64_t a2)
 uint64_t IOAVServiceGetProtectionStatus(uint64_t a1, _DWORD *a2)
 {
   v3 = OUTLINED_FUNCTION_0_21(a1, *MEMORY[0x1E69E9840]);
-  result = OUTLINED_FUNCTION_1_4(v3, 0x15u, v4, v5, v6, v7, v8, v9, v12, v13);
+  result = OUTLINED_FUNCTION_1_4(v3, 0x15u, v4, v5, v6, v7, v8, v9, v11, v12);
   if (!result)
   {
-    *a2 = v14;
+    *a2 = v13;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t IOAVServiceGetEncryptionStatus(uint64_t a1, _DWORD *a2)
 {
   v3 = OUTLINED_FUNCTION_0_21(a1, *MEMORY[0x1E69E9840]);
-  result = OUTLINED_FUNCTION_1_4(v3, 0x20u, v4, v5, v6, v7, v8, v9, v12, v13);
+  result = OUTLINED_FUNCTION_1_4(v3, 0x20u, v4, v5, v6, v7, v8, v9, v11, v12);
   if (!result)
   {
-    *a2 = v14;
+    *a2 = v13;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t IOAVServiceGetHDCPAuthenticatedContentType(uint64_t a1, _DWORD *a2)
 {
   v3 = OUTLINED_FUNCTION_0_21(a1, *MEMORY[0x1E69E9840]);
-  result = OUTLINED_FUNCTION_1_4(v3, 0x16u, v4, v5, v6, v7, v8, v9, v12, v13);
+  result = OUTLINED_FUNCTION_1_4(v3, 0x16u, v4, v5, v6, v7, v8, v9, v11, v12);
   if (!result)
   {
-    *a2 = v14;
+    *a2 = v13;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return result;
 }
 

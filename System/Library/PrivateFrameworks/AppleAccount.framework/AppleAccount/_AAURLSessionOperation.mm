@@ -61,9 +61,7 @@
 
   else
   {
-    v5 = [data mutableCopy];
-    v6 = self->_mutableData;
-    self->_mutableData = v5;
+    self->_mutableData = [data mutableCopy];
 
     MEMORY[0x1EEE66BB8]();
   }

@@ -19,34 +19,30 @@
     relevanceDurationInDays = &stru_2843F5C58;
   }
 
-  v13.receiver = self;
-  v13.super_class = PGSingleAssetSuggestion;
-  v5 = [(PGSingleAssetSuggestion *)&v13 description];
-  type = self->_type;
-  v7 = PHSuggestionStringWithType();
-  subtype = self->_subtype;
-  v9 = PHSuggestionStringWithSubtype();
+  v11.receiver = self;
+  v11.super_class = PGSingleAssetSuggestion;
+  v5 = [(PGSingleAssetSuggestion *)&v11 description];
+  v6 = PHSuggestionStringWithType();
+  v7 = PHSuggestionStringWithSubtype();
   uuid = [(PHAsset *)self->_asset uuid];
-  v11 = [v5 stringByAppendingFormat:@": type=%@, subtype=%@, assetUUID=%@, %@features=%@", v7, v9, uuid, relevanceDurationInDays, self->_features];
+  v9 = [v5 stringByAppendingFormat:@": type=%@, subtype=%@, assetUUID=%@, %@features=%@", v6, v7, uuid, relevanceDurationInDays, self->_features];
 
-  return v11;
+  return v9;
 }
 
 - (NSArray)keyAssets
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   if (self->_asset)
   {
-    v5[0] = self->_asset;
-    v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+    v4[0] = self->_asset;
+    v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   }
 
   else
   {
     v2 = MEMORY[0x277CBEBF8];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

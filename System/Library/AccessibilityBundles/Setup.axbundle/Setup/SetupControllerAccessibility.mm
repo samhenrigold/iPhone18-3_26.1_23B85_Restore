@@ -22,8 +22,8 @@
 
 - (id)accessibilityIdentifier
 {
-  v16 = *MEMORY[0x29EDCA608];
-  LOBYTE(v12) = 0;
+  v15 = *MEMORY[0x29EDCA608];
+  LOBYTE(v11) = 0;
   objc_opt_class();
   v3 = [(SetupControllerAccessibility *)self safeValueForKey:@"navigationFlowController"];
   v4 = [v3 safeValueForKey:@"buddyControllers"];
@@ -35,16 +35,14 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     accessibilityIdentifier = [lastObject accessibilityIdentifier];
-    v12 = 138412546;
-    v13 = lastObject;
-    v14 = 2112;
-    v15 = accessibilityIdentifier;
-    _os_log_impl(&dword_29C309000, v7, OS_LOG_TYPE_INFO, "NavBar: Buddy: identifier %@ %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = lastObject;
+    v13 = 2112;
+    v14 = accessibilityIdentifier;
+    _os_log_impl(&dword_29C309000, v7, OS_LOG_TYPE_INFO, "NavBar: Buddy: identifier %@ %@", &v11, 0x16u);
   }
 
   accessibilityIdentifier2 = [lastObject accessibilityIdentifier];
-
-  v10 = *MEMORY[0x29EDCA608];
 
   return accessibilityIdentifier2;
 }

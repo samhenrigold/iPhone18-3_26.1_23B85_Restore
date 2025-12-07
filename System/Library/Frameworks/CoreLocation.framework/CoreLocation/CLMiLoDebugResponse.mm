@@ -32,30 +32,33 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_opt_class() allocWithZone:zone];
+  v5 = objc_opt_class();
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
   exportDatabaseTablesResult = self->_exportDatabaseTablesResult;
   requestIdentifier = self->_requestIdentifier;
-  error = self->_error;
 
-  return MEMORY[0x1EEE66B58](v4, sel_initWithExportDatabaseTablesResult_requestIdentifier_error_);
+  return MEMORY[0x1EEE66B58](v8, sel_initWithExportDatabaseTablesResult_requestIdentifier_error_, exportDatabaseTablesResult, requestIdentifier);
 }
 
 - (CLMiLoDebugResponse)initWithCoder:(id)coder
 {
-  [coder decodeObjectOfClass:objc_opt_class() forKey:@"kCLMiLoConnectionCodingKeyExportDatabaseTableResult"];
-  [coder decodeObjectOfClass:objc_opt_class() forKey:@"kCLMiLoConnectionCodingKeyDebugRequestIdentifier"];
-  [coder decodeObjectOfClass:objc_opt_class() forKey:@"kCLMiLoConnectionCodingKeyDebugRequestError"];
+  v5 = objc_opt_class();
+  v7 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v6, v5, @"kCLMiLoConnectionCodingKeyExportDatabaseTableResult");
+  v8 = objc_opt_class();
+  v10 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v9, v8, @"kCLMiLoConnectionCodingKeyDebugRequestIdentifier");
+  v11 = objc_opt_class();
+  objc_msgSend_decodeObjectOfClass_forKey_(coder, v12, v11, @"kCLMiLoConnectionCodingKeyDebugRequestError");
 
-  return MEMORY[0x1EEE66B58](self, sel_initWithExportDatabaseTablesResult_requestIdentifier_error_);
+  return MEMORY[0x1EEE66B58](self, sel_initWithExportDatabaseTablesResult_requestIdentifier_error_, v7, v10);
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  [coder encodeObject:self->_exportDatabaseTablesResult forKey:@"kCLMiLoConnectionCodingKeyExportDatabaseTableResult"];
-  [coder encodeObject:self->_requestIdentifier forKey:@"kCLMiLoConnectionCodingKeyDebugRequestIdentifier"];
+  objc_msgSend_encodeObject_forKey_(coder, a2, self->_exportDatabaseTablesResult, @"kCLMiLoConnectionCodingKeyExportDatabaseTableResult");
+  objc_msgSend_encodeObject_forKey_(coder, v5, self->_requestIdentifier, @"kCLMiLoConnectionCodingKeyDebugRequestIdentifier");
   error = self->_error;
 
-  [coder encodeObject:error forKey:@"kCLMiLoConnectionCodingKeyDebugRequestError"];
+  objc_msgSend_encodeObject_forKey_(coder, v6, error, @"kCLMiLoConnectionCodingKeyDebugRequestError");
 }
 
 @end

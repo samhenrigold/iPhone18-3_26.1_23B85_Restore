@@ -47,45 +47,45 @@
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   connectionCopy = connection;
-  v6 = FTCServiceLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = FTCServiceLog(connectionCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138412290;
-    v16 = connectionCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Asked to accept connection %@", &v15, 0xCu);
+    v17 = 138412290;
+    v18 = connectionCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Asked to accept connection %@", &v17, 0xCu);
   }
 
-  v7 = [(FTConversationService *)self shouldAcceptConnection:connectionCopy];
-  v8 = FTCServiceLog();
-  v9 = v8;
-  if (v7)
+  v8 = [(FTConversationService *)self shouldAcceptConnection:connectionCopy];
+  v10 = FTCServiceLog(v8, v9);
+  v11 = v10;
+  if (v8)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
-      v16 = connectionCopy;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Entitlement found; accepting connection %@", &v15, 0xCu);
+      v17 = 138412290;
+      v18 = connectionCopy;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Entitlement found; accepting connection %@", &v17, 0xCu);
     }
 
-    v10 = [FTConversationServiceConnection alloc];
+    v12 = [FTConversationServiceConnection alloc];
     queue = [(FTConversationService *)self queue];
-    v12 = [(FTConversationServiceConnection *)v10 initWithConnection:connectionCopy queue:queue];
+    v14 = [(FTConversationServiceConnection *)v12 initWithConnection:connectionCopy queue:queue];
 
     connectionManager = [(FTConversationService *)self connectionManager];
-    [connectionManager addConnection:v12];
+    [connectionManager addConnection:v14];
   }
 
   else
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_10000CF64(connectionCopy, v9);
+      sub_10000CF64(connectionCopy, v11);
     }
 
     [connectionCopy invalidate];
   }
 
-  return v7;
+  return v8;
 }
 
 @end

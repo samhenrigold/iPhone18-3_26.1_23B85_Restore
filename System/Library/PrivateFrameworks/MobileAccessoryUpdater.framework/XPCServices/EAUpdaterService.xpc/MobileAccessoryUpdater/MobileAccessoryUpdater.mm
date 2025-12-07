@@ -1,6 +1,6 @@
-void sub_100001838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100001838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -103,7 +103,7 @@ void sub_100001BF0()
   v0 = v1[0];
   if (!qword_10002ADA0)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -116,7 +116,6 @@ LABEL_7:
 
 uint64_t sub_100001CEC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10002ADA0 = result;
   return result;
@@ -134,7 +133,7 @@ Class sub_100001D60(uint64_t a1)
 
   else
   {
-    v3 = sub_10000D3B4();
+    sub_10000D3B4();
     return [(iAUPServer *)v3 initInstanceWithByteEscape:v4, v5];
   }
 
@@ -500,22 +499,22 @@ void sub_100009718(dispatch_queue_t queue@<X3>, void *a2@<X0>, uint64_t a3@<X1>,
   dispatch_async(queue, a5);
 }
 
-uint64_t AUSandboxPlatformInitWithBundleIdentifierHomeDirectory(NSObject *a1)
+uint64_t AUSandboxPlatformInitWithBundleIdentifierHomeDirectory(NSObject *a1, const char *a2)
 {
   if (a1)
   {
-    v1 = a1;
+    v2 = a1;
   }
 
   else
   {
-    v1 = &_os_log_default;
+    v2 = &_os_log_default;
   }
 
-  bzero(v3, 0x400uLL);
+  bzero(v4, 0x400uLL);
   if ((_set_user_dir_suffix() & 1) == 0)
   {
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_10000EC08();
     }
@@ -523,9 +522,9 @@ uint64_t AUSandboxPlatformInitWithBundleIdentifierHomeDirectory(NSObject *a1)
     return 1;
   }
 
-  if (!confstr(65537, v3, 0x400uLL))
+  if (!confstr(65537, v4, 0x400uLL))
   {
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_10000EC88();
     }
@@ -536,10 +535,11 @@ uint64_t AUSandboxPlatformInitWithBundleIdentifierHomeDirectory(NSObject *a1)
   return 0;
 }
 
-void sub_10000982C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000982C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 id sub_10000A558()
@@ -638,9 +638,9 @@ id sub_10000C2E8(uint64_t a1, void *a2)
   return [v10 didFind:a2 == 0 info:v4 updateAvailable:v11 needsDownload:v12 error:a2];
 }
 
-void sub_10000C6D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10000C6D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -726,15 +726,14 @@ id sub_10000CC70(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v3 = *(a1 + 32);
-  v4 = *(v3 + 8);
   if (!a2)
   {
     return sub_10000FD4C(v3, *(v3 + 8));
   }
 
-  v5 = *(v3 + 8);
+  v4 = *(v3 + 8);
 
-  return [v5 personalizationRequest:a2];
+  return [v4 personalizationRequest:a2];
 }
 
 id sub_10000CEE4(uint64_t a1, uint64_t a2, _BYTE *a3)
@@ -755,11 +754,12 @@ id sub_10000CEE4(uint64_t a1, uint64_t a2, _BYTE *a3)
   return result;
 }
 
-id generateHashForDataAtLocationAsData(uint64_t a1, int a2, uint64_t a3)
+id generateHashForDataAtLocationAsData(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   v5 = [NSFileHandle fileHandleForReadingFromURL:a1 error:a3];
   result = 0;
-  if (a2 && v5)
+  if (v4 && v5)
   {
     v42 = 0u;
     v43 = 0u;
@@ -823,7 +823,7 @@ id generateHashForDataAtLocationAsData(uint64_t a1, int a2, uint64_t a3)
   return result;
 }
 
-id generateHashForDataAtLocation(uint64_t a1, int a2, uint64_t a3)
+id generateHashForDataAtLocation(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   HashForDataAtLocationAsData = generateHashForDataAtLocationAsData(a1, a2, a3);
   if (!HashForDataAtLocationAsData)
@@ -848,7 +848,7 @@ id generateHashForDataAtLocation(uint64_t a1, int a2, uint64_t a3)
   return v6;
 }
 
-id generateBase64HashForDataAtLocation(uint64_t a1, int a2, uint64_t a3)
+id generateBase64HashForDataAtLocation(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = generateHashForDataAtLocationAsData(a1, a2, a3);
   if (result)
@@ -962,6 +962,20 @@ uint64_t sub_10000EB94(NSObject **a1, void ***a2, void **a3, void **a4)
   a2[5] = a4;
   dispatch_async(v5, a2);
   return objc_sync_exit(a4);
+}
+
+void sub_10000EC08()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_10000982C(&_mh_execute_header, v0, v1, "failed to set temporary directory suffix: %d", v2, v3, v4, v5, v6);
+}
+
+void sub_10000EC88()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_10000982C(&_mh_execute_header, v0, v1, "failed to initialize temporary directory: %d", v2, v3, v4, v5, v6);
 }
 
 void sub_10000F1AC(uint64_t a1)

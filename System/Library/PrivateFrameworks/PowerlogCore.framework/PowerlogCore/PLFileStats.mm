@@ -238,28 +238,28 @@
 
 + (id)tableCounts
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v2 = [objc_opt_class() select:@"name" from:@"sqlite_master" where:@"type='table'"];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(*(&v14 + 1) + 8 * i) objectForKeyedSubscript:{@"name", dictionary}];
+        v7 = [*(*(&v13 + 1) + 8 * i) objectForKeyedSubscript:{@"name", dictionary}];
         if (![v7 rangeOfString:@"PL"])
         {
           v8 = [objc_opt_class() select:@"Count(*)" from:v7 where:0];
@@ -273,13 +273,11 @@
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

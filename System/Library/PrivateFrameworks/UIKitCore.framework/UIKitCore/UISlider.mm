@@ -850,9 +850,9 @@ void __34__UISlider__installVisualElement___block_invoke(uint64_t a1, void *a2)
   if (self)
   {
     v20 = v9;
-    v11 = [v9 isEqual:*(self + 480)];
+    isEqual = objc_msgSend_isEqual_(v9);
     v10 = v20;
-    if ((v11 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       if (configuration)
       {

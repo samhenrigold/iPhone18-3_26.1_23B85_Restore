@@ -11,37 +11,37 @@
 
 - (id)personInformationsWithProgress:(id)progress
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   progressCopy = progress;
   v5 = _Block_copy(progressCopy);
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x2020000000;
-  v50 = 0;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
   v46 = 0;
-  if (!v5 || (v6 = CFAbsoluteTimeGetCurrent(), v6 - v44[3] < 0.01) || (v44[3] = v6, v42 = 0, (*(v5 + 2))(v5, &v42, 0.0), v7 = *(v48 + 24) | v42, *(v48 + 24) = v7, (v7 & 1) == 0))
+  v47 = &v46;
+  v48 = 0x2020000000;
+  v49 = 0;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 0;
+  if (!v5 || (v6 = CFAbsoluteTimeGetCurrent(), v6 - v43[3] < 0.01) || (v43[3] = v6, v41 = 0, (*(v5 + 2))(v5, &v41, 0.0), v7 = *(v47 + 24) | v41, *(v47 + 24) = v7, (v7 & 1) == 0))
   {
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __85__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_personInformationsWithProgress___block_invoke;
-    v37[3] = &unk_27888A188;
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __85__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_personInformationsWithProgress___block_invoke;
+    v36[3] = &unk_27888A188;
     v9 = v5;
-    v38 = v9;
-    v39 = &v43;
-    v40 = &v47;
-    v41 = 0x3F847AE147AE147BLL;
-    [(PGPeopleWallpaperSuggesterPersonImportanceAnalyzer *)self gatherPersonInformationWithProgress:v37];
-    if (*(v48 + 24) == 1)
+    v37 = v9;
+    v38 = &v42;
+    v39 = &v46;
+    v40 = 0x3F847AE147AE147BLL;
+    [(PGPeopleWallpaperSuggesterPersonImportanceAnalyzer *)self gatherPersonInformationWithProgress:v36];
+    if (*(v47 + 24) == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v53 = 227;
-        v54 = 2080;
-        v55 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Autobahn/PGPeopleWallpaperSuggesterPersonImportanceAnalyzer.m";
+        v52 = 227;
+        v53 = 2080;
+        v54 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Autobahn/PGPeopleWallpaperSuggesterPersonImportanceAnalyzer.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -49,24 +49,24 @@
       goto LABEL_37;
     }
 
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __85__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_personInformationsWithProgress___block_invoke_252;
-    v32[3] = &unk_27888A188;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __85__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_personInformationsWithProgress___block_invoke_252;
+    v31[3] = &unk_27888A188;
     v10 = v9;
-    v33 = v10;
-    v34 = &v43;
-    v35 = &v47;
-    v36 = 0x3F847AE147AE147BLL;
-    [(PGPeopleWallpaperSuggesterPersonImportanceAnalyzer *)self gatherMomentInformationWithProgress:v32];
-    if (*(v48 + 24) == 1)
+    v32 = v10;
+    v33 = &v42;
+    v34 = &v46;
+    v35 = 0x3F847AE147AE147BLL;
+    [(PGPeopleWallpaperSuggesterPersonImportanceAnalyzer *)self gatherMomentInformationWithProgress:v31];
+    if (*(v47 + 24) == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v53 = 232;
-        v54 = 2080;
-        v55 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Autobahn/PGPeopleWallpaperSuggesterPersonImportanceAnalyzer.m";
+        v52 = 232;
+        v53 = 2080;
+        v54 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Autobahn/PGPeopleWallpaperSuggesterPersonImportanceAnalyzer.m";
         _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
       }
 
@@ -74,24 +74,24 @@
       goto LABEL_36;
     }
 
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __85__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_personInformationsWithProgress___block_invoke_253;
-    v27[3] = &unk_27888A188;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __85__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_personInformationsWithProgress___block_invoke_253;
+    v26[3] = &unk_27888A188;
     v11 = v10;
-    v28 = v11;
-    v29 = &v43;
-    v30 = &v47;
-    v31 = 0x3F847AE147AE147BLL;
-    [(PGPeopleWallpaperSuggesterPersonImportanceAnalyzer *)self computePersonImportancesWithProgress:v27];
-    if (*(v48 + 24) == 1)
+    v27 = v11;
+    v28 = &v42;
+    v29 = &v46;
+    v30 = 0x3F847AE147AE147BLL;
+    [(PGPeopleWallpaperSuggesterPersonImportanceAnalyzer *)self computePersonImportancesWithProgress:v26];
+    if (*(v47 + 24) == 1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v53 = 237;
-        v54 = 2080;
-        v55 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Autobahn/PGPeopleWallpaperSuggesterPersonImportanceAnalyzer.m";
+        v52 = 237;
+        v53 = 2080;
+        v54 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Autobahn/PGPeopleWallpaperSuggesterPersonImportanceAnalyzer.m";
         v12 = MEMORY[0x277D86220];
 LABEL_18:
         _os_log_impl(&dword_22F0FC000, v12, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -108,30 +108,30 @@ LABEL_18:
       }
 
       personInformationByPersonLocalIdentifier = self->_personInformationByPersonLocalIdentifier;
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __85__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_personInformationsWithProgress___block_invoke_254;
-      v26[3] = &unk_2788889D8;
-      v26[4] = self;
-      [(NSMutableDictionary *)personInformationByPersonLocalIdentifier enumerateKeysAndObjectsUsingBlock:v26];
-      if (!v5 || (v15 = CFAbsoluteTimeGetCurrent(), v15 - v44[3] < 0.01) || (v44[3] = v15, v42 = 0, (*(v11 + 2))(v11, &v42, 0.9), v16 = *(v48 + 24) | v42, *(v48 + 24) = v16, (v16 & 1) == 0))
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __85__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_personInformationsWithProgress___block_invoke_254;
+      v25[3] = &unk_2788889D8;
+      v25[4] = self;
+      [(NSMutableDictionary *)personInformationByPersonLocalIdentifier enumerateKeysAndObjectsUsingBlock:v25];
+      if (!v5 || (v15 = CFAbsoluteTimeGetCurrent(), v15 - v43[3] < 0.01) || (v43[3] = v15, v41 = 0, (*(v11 + 2))(v11, &v41, 0.9), v16 = *(v47 + 24) | v41, *(v47 + 24) = v16, (v16 & 1) == 0))
       {
         allValues = [(NSMutableDictionary *)self->_personInformationByPersonLocalIdentifier allValues];
         v18 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"importance" ascending:0];
-        v51[0] = v18;
+        v50[0] = v18;
         v19 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"personLocalIdentifier" ascending:0];
-        v51[1] = v19;
-        v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
+        v50[1] = v19;
+        v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:2];
         v21 = [allValues sortedArrayUsingDescriptors:v20];
 
-        if (v5 && (Current = CFAbsoluteTimeGetCurrent(), Current - v44[3] >= 0.01) && (v44[3] = Current, v42 = 0, (*(v11 + 2))(v11, &v42, 1.0), v23 = *(v48 + 24) | v42, *(v48 + 24) = v23, (v23 & 1) != 0))
+        if (v5 && (Current = CFAbsoluteTimeGetCurrent(), Current - v43[3] >= 0.01) && (v43[3] = Current, v41 = 0, (*(v11 + 2))(v11, &v41, 1.0), v23 = *(v47 + 24) | v41, *(v47 + 24) = v23, (v23 & 1) != 0))
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            v53 = 254;
-            v54 = 2080;
-            v55 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Autobahn/PGPeopleWallpaperSuggesterPersonImportanceAnalyzer.m";
+            v52 = 254;
+            v53 = 2080;
+            v54 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Autobahn/PGPeopleWallpaperSuggesterPersonImportanceAnalyzer.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -149,9 +149,9 @@ LABEL_18:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 67109378;
-        v53 = 247;
-        v54 = 2080;
-        v55 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Autobahn/PGPeopleWallpaperSuggesterPersonImportanceAnalyzer.m";
+        v52 = 247;
+        v53 = 2080;
+        v54 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Autobahn/PGPeopleWallpaperSuggesterPersonImportanceAnalyzer.m";
         v12 = MEMORY[0x277D86220];
         goto LABEL_18;
       }
@@ -169,18 +169,16 @@ LABEL_37:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    v53 = 222;
-    v54 = 2080;
-    v55 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Autobahn/PGPeopleWallpaperSuggesterPersonImportanceAnalyzer.m";
+    v52 = 222;
+    v53 = 2080;
+    v54 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Autobahn/PGPeopleWallpaperSuggesterPersonImportanceAnalyzer.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
   v8 = MEMORY[0x277CBEBF8];
 LABEL_38:
-  _Block_object_dispose(&v43, 8);
-  _Block_object_dispose(&v47, 8);
-
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v46, 8);
 
   return v8;
 }
@@ -244,36 +242,36 @@ void __85__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_personInformations
 
 void __85__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_personInformationsWithProgress___block_invoke_254(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = *(*(a1 + 32) + 24);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v25 = v5;
+    v24 = v5;
     _os_log_impl(&dword_22F0FC000, v7, OS_LOG_TYPE_INFO, "[PersonImportanceAnalyzer] \t%@", buf, 0xCu);
   }
 
-  v18 = v5;
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
+  v17 = v5;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v8 = [v6 dupedPersonLocalIdentifiers];
   v9 = [v8 allObjects];
   v10 = [v9 sortedArrayUsingSelector:sel_compare_];
 
-  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v20;
+    v13 = *v19;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(v10);
         }
@@ -281,57 +279,55 @@ void __85__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_personInformations
         v15 = *(*(a1 + 32) + 24);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
-          v16 = *(*(&v19 + 1) + 8 * i);
+          v16 = *(*(&v18 + 1) + 8 * i);
           *buf = 138412290;
-          v25 = v16;
+          v24 = v16;
           _os_log_impl(&dword_22F0FC000, v15, OS_LOG_TYPE_INFO, "[PersonImportanceAnalyzer] \t\t%@", buf, 0xCu);
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v12);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)computePersonImportancesWithProgress:(id)progress
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   progressCopy = progress;
   v5 = _Block_copy(progressCopy);
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
-  v29 = 0;
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
   v25 = 0;
-  if (!v5 || (v6 = CFAbsoluteTimeGetCurrent(), v6 - v23[3] < 0.01) || (v23[3] = v6, v21 = 0, (*(v5 + 2))(v5, &v21, 0.0), v7 = *(v27 + 24) | v21, *(v27 + 24) = v7, (v7 & 1) == 0))
+  v26 = &v25;
+  v27 = 0x2020000000;
+  v28 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
+  if (!v5 || (v6 = CFAbsoluteTimeGetCurrent(), v6 - v22[3] < 0.01) || (v22[3] = v6, v20 = 0, (*(v5 + 2))(v5, &v20, 0.0), v7 = *(v26 + 24) | v20, *(v26 + 24) = v7, (v7 & 1) == 0))
   {
     v8 = MEMORY[0x277D27688];
     allKeys = [(NSMutableDictionary *)self->_momentLocalIdentifiersByPersonLocalIdentifier allKeys];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __91__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_computePersonImportancesWithProgress___block_invoke;
-    v20[3] = &unk_278888988;
-    v20[4] = self;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __91__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_computePersonImportancesWithProgress___block_invoke_2;
-    v15[3] = &unk_2788889B0;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __91__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_computePersonImportancesWithProgress___block_invoke;
+    v19[3] = &unk_278888988;
+    v19[4] = self;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __91__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_computePersonImportancesWithProgress___block_invoke_2;
+    v14[3] = &unk_2788889B0;
     v10 = v5;
-    v19 = 0x3F847AE147AE147BLL;
-    v17 = &v22;
-    v18 = &v26;
-    v15[4] = self;
-    v16 = v10;
-    [v8 calculateStandardDeviationForItems:allKeys valueBlock:v20 result:v15];
+    v18 = 0x3F847AE147AE147BLL;
+    v16 = &v21;
+    v17 = &v25;
+    v14[4] = self;
+    v15 = v10;
+    [v8 calculateStandardDeviationForItems:allKeys valueBlock:v19 result:v14];
 
-    if (*(v27 + 24) == 1)
+    if (*(v26 + 24) == 1)
     {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
@@ -341,9 +337,9 @@ LABEL_15:
       }
 
       *buf = 67109378;
-      v31 = 215;
-      v32 = 2080;
-      v33 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Autobahn/PGPeopleWallpaperSuggesterPersonImportanceAnalyzer.m";
+      v30 = 215;
+      v31 = 2080;
+      v32 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Autobahn/PGPeopleWallpaperSuggesterPersonImportanceAnalyzer.m";
       v11 = MEMORY[0x277D86220];
     }
 
@@ -355,25 +351,25 @@ LABEL_15:
       }
 
       Current = CFAbsoluteTimeGetCurrent();
-      if (Current - v23[3] < 0.01)
+      if (Current - v22[3] < 0.01)
       {
         goto LABEL_15;
       }
 
-      v23[3] = Current;
-      v21 = 0;
-      (*(v10 + 2))(v10, &v21, 1.0);
-      v13 = *(v27 + 24) | v21;
-      *(v27 + 24) = v13;
+      v22[3] = Current;
+      v20 = 0;
+      (*(v10 + 2))(v10, &v20, 1.0);
+      v13 = *(v26 + 24) | v20;
+      *(v26 + 24) = v13;
       if ((v13 & 1) == 0 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         goto LABEL_15;
       }
 
       *buf = 67109378;
-      v31 = 217;
-      v32 = 2080;
-      v33 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Autobahn/PGPeopleWallpaperSuggesterPersonImportanceAnalyzer.m";
+      v30 = 217;
+      v31 = 2080;
+      v32 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Autobahn/PGPeopleWallpaperSuggesterPersonImportanceAnalyzer.m";
       v11 = MEMORY[0x277D86220];
     }
 
@@ -384,17 +380,15 @@ LABEL_15:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    v31 = 185;
-    v32 = 2080;
-    v33 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Autobahn/PGPeopleWallpaperSuggesterPersonImportanceAnalyzer.m";
+    v30 = 185;
+    v31 = 2080;
+    v32 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Autobahn/PGPeopleWallpaperSuggesterPersonImportanceAnalyzer.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
 LABEL_16:
-  _Block_object_dispose(&v22, 8);
-  _Block_object_dispose(&v26, 8);
-
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v25, 8);
 }
 
 double __91__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_computePersonImportancesWithProgress___block_invoke(uint64_t a1, uint64_t a2)
@@ -407,7 +401,7 @@ double __91__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_computePersonImp
 
 void __91__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_computePersonImportancesWithProgress___block_invoke_2(uint64_t a1, double a2, double a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 40) || (Current = CFAbsoluteTimeGetCurrent(), v7 = *(*(a1 + 48) + 8), Current - *(v7 + 24) < *(a1 + 64)) || (*(v7 + 24) = Current, buf[0] = 0, (*(*(a1 + 40) + 16))(0.5), *(*(*(a1 + 56) + 8) + 24) = *(*(*(a1 + 56) + 8) + 24), (*(*(*(a1 + 56) + 8) + 24) & 1) == 0))
   {
     v8 = *(a1 + 32);
@@ -415,9 +409,9 @@ void __91__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_computePersonImpor
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 134218240;
-      v33 = a3;
-      v34 = 2048;
-      v35 = a2;
+      v32 = a3;
+      v33 = 2048;
+      v34 = a2;
       _os_log_impl(&dword_22F0FC000, v9, OS_LOG_TYPE_INFO, "[PersonImportanceAnalyzer] Mean = %f, stdev = %f", buf, 0x16u);
       v8 = *(a1 + 32);
       v9 = *(v8 + 24);
@@ -427,7 +421,7 @@ void __91__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_computePersonImpor
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v33 = v10;
+      v32 = v10;
       _os_log_impl(&dword_22F0FC000, v9, OS_LOG_TYPE_INFO, "[PersonImportanceAnalyzer] Frequency for very important persons: %f", buf, 0xCu);
       v8 = *(a1 + 32);
       v9 = *(v8 + 24);
@@ -437,34 +431,34 @@ void __91__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_computePersonImpor
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v33 = v11;
+      v32 = v11;
       _os_log_impl(&dword_22F0FC000, v9, OS_LOG_TYPE_INFO, "[PersonImportanceAnalyzer] Frequency for important persons: %f", buf, 0xCu);
       v8 = *(a1 + 32);
     }
 
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v12 = [*(v8 + 80) allKeys];
-    v13 = [v12 countByEnumeratingWithState:&v28 objects:v38 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v27 objects:v37 count:16];
     if (v13)
     {
       v15 = v13;
-      v16 = *v29;
+      v16 = *v28;
       *&v14 = 138412802;
-      v27 = v14;
+      v26 = v14;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v29 != v16)
+          if (*v28 != v16)
           {
             objc_enumerationMutation(v12);
           }
 
-          v18 = *(*(&v28 + 1) + 8 * i);
-          v19 = [*(*(a1 + 32) + 80) objectForKeyedSubscript:{*&v18, v27}];
+          v18 = *(*(&v27 + 1) + 8 * i);
+          v19 = [*(*(a1 + 32) + 80) objectForKeyedSubscript:{*&v18, v26}];
           v20 = [v19 count];
 
           v21 = *(a1 + 32);
@@ -492,12 +486,12 @@ void __91__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_computePersonImpor
           v24 = *(v21 + 24);
           if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
           {
-            *buf = v27;
-            v33 = v18;
-            v34 = 2048;
-            v35 = v20;
-            v36 = 2112;
-            v37 = v23;
+            *buf = v26;
+            v32 = v18;
+            v33 = 2048;
+            v34 = v20;
+            v35 = 2112;
+            v36 = v23;
             _os_log_impl(&dword_22F0FC000, v24, OS_LOG_TYPE_INFO, "[PersonImportanceAnalyzer] Person %@: frequency = %f, importance %@", buf, 0x20u);
             v21 = *(a1 + 32);
           }
@@ -506,19 +500,17 @@ void __91__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_computePersonImpor
           [v25 mergeImportance:v22];
         }
 
-        v15 = [v12 countByEnumeratingWithState:&v28 objects:v38 count:16];
+        v15 = [v12 countByEnumeratingWithState:&v27 objects:v37 count:16];
       }
 
       while (v15);
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)gatherMomentInformationWithProgress:(id)progress
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v4 = _Block_copy(progress);
   v5 = 0.0;
   if (!v4 || (Current = CFAbsoluteTimeGetCurrent(), Current < 0.01))
@@ -565,31 +557,31 @@ LABEL_4:
     transposed = [v17 transposed];
     v21 = [transposed intersectingTargetsWith:v14];
     sources = [transposed sources];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __90__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_gatherMomentInformationWithProgress___block_invoke;
-    v26[3] = &unk_278888960;
-    v26[4] = self;
-    v27 = v21;
-    v28 = transposed;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __90__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_gatherMomentInformationWithProgress___block_invoke;
+    v25[3] = &unk_278888960;
+    v25[4] = self;
+    v26 = v21;
+    v27 = transposed;
     v23 = transposed;
     v24 = v21;
-    [sources enumerateNodesUsingBlock:v26];
+    [sources enumerateNodesUsingBlock:v25];
 
     if (v4)
     {
       if (CFAbsoluteTimeGetCurrent() - v5 >= 0.01)
       {
-        v29 = 0;
-        v4[2](v4, &v29, 1.0);
-        if (v7 | v29)
+        v28 = 0;
+        v4[2](v4, &v28, 1.0);
+        if (v7 | v28)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            v31 = 180;
-            v32 = 2080;
-            v33 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Autobahn/PGPeopleWallpaperSuggesterPersonImportanceAnalyzer.m";
+            v30 = 180;
+            v31 = 2080;
+            v32 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Autobahn/PGPeopleWallpaperSuggesterPersonImportanceAnalyzer.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
         }
@@ -599,10 +591,10 @@ LABEL_4:
     goto LABEL_20;
   }
 
-  v29 = 0;
-  v4[2](v4, &v29, 0.0);
-  v7 = v29;
-  if (v29 != 1)
+  v28 = 0;
+  v4[2](v4, &v28, 0.0);
+  v7 = v28;
+  if (v28 != 1)
   {
     v5 = Current;
     goto LABEL_4;
@@ -611,20 +603,18 @@ LABEL_4:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    v31 = 138;
-    v32 = 2080;
-    v33 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Autobahn/PGPeopleWallpaperSuggesterPersonImportanceAnalyzer.m";
+    v30 = 138;
+    v31 = 2080;
+    v32 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Suggestions/Suggesters/Autobahn/PGPeopleWallpaperSuggesterPersonImportanceAnalyzer.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
 LABEL_20:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __90__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_gatherMomentInformationWithProgress___block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 localIdentifier];
   v5 = MEMORY[0x277CCACA8];
@@ -642,7 +632,7 @@ void __90__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_gatherMomentInform
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v22 = v7;
+        v21 = v7;
         v11 = "%@: Me, ignoring";
 LABEL_7:
         _os_log_impl(&dword_22F0FC000, v10, OS_LOG_TYPE_INFO, v11, buf, 0xCu);
@@ -660,7 +650,7 @@ LABEL_7:
         }
 
         *buf = 138412290;
-        v22 = v7;
+        v21 = v7;
         v11 = "%@: Coworker and not family or favorite, ignoring";
         goto LABEL_7;
       }
@@ -679,11 +669,11 @@ LABEL_7:
         v18 = [v14 count];
         v19 = [*(a1 + 48) targetsForSourceIdentifier:v12];
         *buf = 138412802;
-        v22 = v7;
-        v23 = 1024;
-        v24 = v18;
-        v25 = 1024;
-        v26 = [v19 count];
+        v21 = v7;
+        v22 = 1024;
+        v23 = v18;
+        v24 = 1024;
+        v25 = [v19 count];
         _os_log_impl(&dword_22F0FC000, v17, OS_LOG_TYPE_INFO, "%@: %d very recent moments, %d recent moments", buf, 0x18u);
       }
     }
@@ -695,15 +685,13 @@ LABEL_7:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v22 = v7;
+      v21 = v7;
       v11 = "%@: no localIdentifier, ignoring";
       goto LABEL_7;
     }
   }
 
 LABEL_16:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)gatherPersonInformationWithProgress:(id)progress
@@ -768,7 +756,7 @@ void __90__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_gatherPersonInform
 
 void __90__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_gatherPersonInformationWithProgress___block_invoke_2(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 localIdentifier];
   if ([v4 length] && (objc_msgSend(v4, "isEqualToString:", *(*(a1 + 32) + 32)) & 1) == 0)
@@ -798,11 +786,11 @@ void __90__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_gatherPersonInform
       {
         v11 = v10;
         v12 = [v3 name];
-        v23 = 138412546;
-        v24 = v12;
-        v25 = 2112;
-        v26 = v4;
-        _os_log_impl(&dword_22F0FC000, v11, OS_LOG_TYPE_INFO, "[PersonImportanceAnalyzer] (%@, %@) is rejected because of negative feedback", &v23, 0x16u);
+        v22 = 138412546;
+        v23 = v12;
+        v24 = 2112;
+        v25 = v4;
+        _os_log_impl(&dword_22F0FC000, v11, OS_LOG_TYPE_INFO, "[PersonImportanceAnalyzer] (%@, %@) is rejected because of negative feedback", &v22, 0x16u);
       }
 
       v13 = -1;
@@ -815,11 +803,11 @@ void __90__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_gatherPersonInform
       {
         v15 = v14;
         v16 = [v3 name];
-        v23 = 138412546;
-        v24 = v16;
-        v25 = 2112;
-        v26 = v4;
-        _os_log_impl(&dword_22F0FC000, v15, OS_LOG_TYPE_INFO, "[PersonImportanceAnalyzer] (%@, %@) is very important person", &v23, 0x16u);
+        v22 = 138412546;
+        v23 = v16;
+        v24 = 2112;
+        v25 = v4;
+        _os_log_impl(&dword_22F0FC000, v15, OS_LOG_TYPE_INFO, "[PersonImportanceAnalyzer] (%@, %@) is very important person", &v22, 0x16u);
       }
 
       v13 = 2;
@@ -830,13 +818,13 @@ void __90__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_gatherPersonInform
       v17 = *(*(a1 + 32) + 24);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        v21 = v17;
-        v22 = [v3 name];
-        v23 = 138412546;
-        v24 = v22;
-        v25 = 2112;
-        v26 = v4;
-        _os_log_debug_impl(&dword_22F0FC000, v21, OS_LOG_TYPE_DEBUG, "[PersonImportanceAnalyzer] (%@, %@) is important person", &v23, 0x16u);
+        v20 = v17;
+        v21 = [v3 name];
+        v22 = 138412546;
+        v23 = v21;
+        v24 = 2112;
+        v25 = v4;
+        _os_log_debug_impl(&dword_22F0FC000, v20, OS_LOG_TYPE_DEBUG, "[PersonImportanceAnalyzer] (%@, %@) is important person", &v22, 0x16u);
       }
 
       v13 = 1;
@@ -851,8 +839,6 @@ void __90__PGPeopleWallpaperSuggesterPersonImportanceAnalyzer_gatherPersonInform
     v19 = [[PGPeopleWallpaperSuggesterPersonInformation alloc] initWithPersonLocalIdentifier:v4 importance:v13 unverifiedMergeCandidateLocalIdentifiers:v18];
     [*(*(a1 + 32) + 72) setObject:v19 forKeyedSubscript:v4];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isVeryImportantPersonWithPersonNode:(id)node

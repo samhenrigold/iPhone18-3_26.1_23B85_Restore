@@ -157,13 +157,12 @@
 
 - (id)description
 {
-  v7.receiver = self;
-  v7.super_class = REGeofenceRelevanceProvider;
-  v3 = [(REGeofenceRelevanceProvider *)&v7 description];
-  region = self->_region;
-  v5 = [v3 stringByAppendingFormat:@" region=%@ bundleIdentifier=%@", region, self->_bundleIdentifier];
+  v6.receiver = self;
+  v6.super_class = REGeofenceRelevanceProvider;
+  v3 = [(REGeofenceRelevanceProvider *)&v6 description];
+  v4 = [v3 stringByAppendingFormat:@" region=%@ bundleIdentifier=%@", self->_region, self->_bundleIdentifier];
 
-  return v5;
+  return v4;
 }
 
 @end

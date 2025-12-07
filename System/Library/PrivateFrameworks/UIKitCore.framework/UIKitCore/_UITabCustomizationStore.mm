@@ -68,7 +68,7 @@
     v8 = [objc_opt_class() _dataForKey:@"com.apple.UIKit.UITabCustomization" persistenceIdentifier:identifierCopy];
     v9 = [v8 objectForKey:@"version"];
     v10 = v9;
-    if (v9 == &unk_1EFE311F8 || v9 && (v11 = [v9 isEqual:&unk_1EFE311F8], v10, v11))
+    if (v9 == &unk_1EFE311F8 || v9 && (isEqual = objc_msgSend_isEqual_(v9), v10, isEqual))
     {
       v12 = [v8 objectForKey:@"includedItems"];
       v13 = v12;
@@ -188,7 +188,7 @@
 
     v53 = v52;
     v54 = v53;
-    if (v53 == &unk_1EFE311F8 || v53 && (v55 = [v53 isEqual:&unk_1EFE311F8], v54, v55))
+    if (v53 == &unk_1EFE311F8 || v53 && (v55 = objc_msgSend_isEqual_(v53), v54, v55))
     {
       v56 = [v51 objectForKey:@"collapsedSections"];
       v57 = [MEMORY[0x1E695DFA8] setWithArray:v56];
@@ -418,7 +418,7 @@ LABEL_9:
     while (v13);
   }
 
-  if (![identifiersCopy isEqual:customizationCopy] || -[NSMutableSet count](self->_excludedItems, "count"))
+  if (!objc_msgSend_isEqual_(identifiersCopy) || [(NSMutableSet *)self->_excludedItems count])
   {
     v25 = 0u;
     v26 = 0u;
@@ -460,11 +460,11 @@ LABEL_9:
   availableIdentifiersCopy = availableIdentifiers;
   v7 = [identifiers mutableCopy];
   [v7 intersectSet:availableIdentifiersCopy];
-  if (([(NSMutableSet *)self->_collapsedGroupIdentifiers isEqual:v7]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_collapsedGroupIdentifiers) & 1) == 0)
   {
     objc_storeStrong(&self->_collapsedGroupIdentifiers, v7);
     p_allGroupIdentifiers = &self->_allGroupIdentifiers;
-    if (([(NSSet *)self->_allGroupIdentifiers isEqual:availableIdentifiersCopy]& 1) != 0)
+    if (objc_msgSend_isEqual_(self->_allGroupIdentifiers))
     {
 LABEL_6:
       [(_UITabCustomizationStore *)self _saveSidebarState];
@@ -477,7 +477,7 @@ LABEL_5:
   }
 
   p_allGroupIdentifiers = &self->_allGroupIdentifiers;
-  if (([(NSSet *)self->_allGroupIdentifiers isEqual:availableIdentifiersCopy]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_allGroupIdentifiers) & 1) == 0)
   {
     goto LABEL_5;
   }
@@ -586,9 +586,9 @@ LABEL_7:
         goto LABEL_18;
       }
 
-      v17 = [v14 isEqual:v15];
+      isEqual = objc_msgSend_isEqual_(v14);
 
-      if ((v17 & 1) == 0)
+      if ((isEqual & 1) == 0)
       {
 LABEL_18:
         [(NSMutableDictionary *)self->_displayOrdersByIdentifier setValue:v14 forKey:identifier];
@@ -617,16 +617,18 @@ LABEL_19:
         v21 = *v24;
         do
         {
-          for (i = 0; i != v20; ++i)
+          v22 = 0;
+          do
           {
             if (*v24 != v21)
             {
               objc_enumerationMutation(children2);
             }
 
-            [(_UITabCustomizationStore *)self _saveCustomizationForTab:*(*(&v23 + 1) + 8 * i) recursive:1];
+            [(_UITabCustomizationStore *)self _saveCustomizationForTab:*(*(&v23 + 1) + 8 * v22++) recursive:1];
           }
 
+          while (v20 != v22);
           v20 = [children2 countByEnumeratingWithState:&v23 objects:v27 count:16];
         }
 

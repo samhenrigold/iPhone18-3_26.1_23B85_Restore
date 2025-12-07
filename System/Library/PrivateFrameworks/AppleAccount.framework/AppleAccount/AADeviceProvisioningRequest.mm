@@ -43,6 +43,7 @@
   v18 = 0;
   v8 = [MEMORY[0x1E696AE40] dataWithPropertyList:v7 format:100 options:0 error:&v18];
   v9 = v18;
+  v10 = v9;
   if (v8)
   {
     [v4 setHTTPBody:v8];
@@ -50,26 +51,25 @@
 
   else
   {
-    v10 = _AALogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _AALogSystem(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      localizedDescription = [v9 localizedDescription];
+      localizedDescription = [v10 localizedDescription];
       *buf = 138412290;
       v21 = localizedDescription;
-      _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+      _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
     }
   }
 
-  v12 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v13 = +[AADeviceInfo apnsToken];
-  v14 = [v12 initWithData:v13 encoding:4];
+  v13 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v14 = +[AADeviceInfo apnsToken];
+  v15 = [v13 initWithData:v14 encoding:4];
 
   [v4 addValue:@"text/plist" forHTTPHeaderField:@"Content-Type"];
-  v15 = +[AADeviceInfo udid];
-  [v4 addValue:v15 forHTTPHeaderField:@"Device-UDID"];
+  v16 = +[AADeviceInfo udid];
+  [v4 addValue:v16 forHTTPHeaderField:@"Device-UDID"];
 
-  [v4 addValue:v14 forHTTPHeaderField:@"Device-apnsToken"];
-  v16 = *MEMORY[0x1E69E9840];
+  [v4 addValue:v15 forHTTPHeaderField:@"Device-apnsToken"];
 
   return v4;
 }

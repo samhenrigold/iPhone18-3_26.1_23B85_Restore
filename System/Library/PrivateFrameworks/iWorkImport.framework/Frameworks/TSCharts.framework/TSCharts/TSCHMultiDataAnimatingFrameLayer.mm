@@ -51,13 +51,13 @@
 
 - (void)setFrame:(CGRect)frame
 {
-  v20.receiver = self;
-  v20.super_class = TSCHMultiDataAnimatingFrameLayer;
-  [(TSCHMultiDataAnimatingFrameLayer *)&v20 setFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
-  objc_msgSend_bounds(self, v4, v5, v6, v7);
-  objc_msgSend_setPresentationBounds_(self, v8, v9, v10, v11);
-  objc_msgSend_position(self, v12, v13, v14, v15);
-  objc_msgSend_setPresentationPosition_(self, v16, v17, v18, v19);
+  v18.receiver = self;
+  v18.super_class = TSCHMultiDataAnimatingFrameLayer;
+  [(TSCHMultiDataAnimatingFrameLayer *)&v18 setFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  objc_msgSend_bounds(self, v4, v5, v6);
+  objc_msgSend_setPresentationBounds_(self, v7, v8, v9, v10);
+  objc_msgSend_position(self, v11, v12, v13);
+  objc_msgSend_setPresentationPosition_(self, v14, v15, v16, v17);
 }
 
 - (void)setBounds:(CGRect)bounds

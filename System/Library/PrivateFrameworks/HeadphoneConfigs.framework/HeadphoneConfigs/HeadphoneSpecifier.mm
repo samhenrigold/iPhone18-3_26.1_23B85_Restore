@@ -17,11 +17,10 @@
   v6 = *(&selfCopy->super.super.isa + OBJC_IVAR____TtC16HeadphoneConfigs18HeadphoneSpecifier_buttonTapAction);
   if (v6)
   {
-    v7 = *(&selfCopy->super.target + OBJC_IVAR____TtC16HeadphoneConfigs18HeadphoneSpecifier_buttonTapAction);
     v6(v5);
   }
 
-  __swift_destroy_boxed_opaque_existential_0(v8);
+  __swift_destroy_boxed_opaque_existential_0(v7);
 }
 
 - (id)specifierEnabled
@@ -29,20 +28,19 @@
   v2 = *(&self->super.super.isa + OBJC_IVAR____TtC16HeadphoneConfigs18HeadphoneSpecifier_getAction);
   if (v2)
   {
-    v3 = *(&self->super.target + OBJC_IVAR____TtC16HeadphoneConfigs18HeadphoneSpecifier_getAction);
     selfCopy = self;
-    v5 = v2();
+    v4 = v2();
 
-    v6 = v5;
+    v5 = v4;
   }
 
   else
   {
     sub_2511D5484();
-    v6 = sub_251211A4C();
+    v5 = sub_251211A4C();
   }
 
-  return v6;
+  return v5;
 }
 
 - (void)setSepcifierEnabledWithEnabled:(id)enabled
@@ -50,7 +48,6 @@
   v3 = *(&self->super.super.isa + OBJC_IVAR____TtC16HeadphoneConfigs18HeadphoneSpecifier_setAction);
   if (v3)
   {
-    v5 = *(&self->super.target + OBJC_IVAR____TtC16HeadphoneConfigs18HeadphoneSpecifier_setAction);
     enabledCopy = enabled;
     selfCopy = self;
     v3(enabledCopy);

@@ -1,3 +1,37 @@
+xmlNodePtr nodePop(xmlNodePtr ctxt)
+{
+  if (ctxt)
+  {
+    properties_low = LODWORD(ctxt->properties);
+    if (properties_low < 1)
+    {
+      return 0;
+    }
+
+    else
+    {
+      nsDef = ctxt->nsDef;
+      v3 = properties_low - 1;
+      LODWORD(ctxt->properties) = properties_low - 1;
+      if (properties_low == 1)
+      {
+        v4 = 0;
+      }
+
+      else
+      {
+        v4 = *(nsDef + properties_low - 2);
+      }
+
+      ctxt->content = v4;
+      ctxt = *(&nsDef->next + v3);
+      *(&nsDef->next + v3) = 0;
+    }
+  }
+
+  return ctxt;
+}
+
 xmlChar *__cdecl xmlBufEnd(xmlChar *buf)
 {
   if (buf)
@@ -1251,16 +1285,16 @@ LABEL_51:
 int xmlCurrentChar(xmlParserCtxtPtr ctxt, int *len)
 {
   v2 = 0;
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (!ctxt || !len)
   {
-    goto LABEL_17;
+    return v2;
   }
 
   input = ctxt->input;
   if (!input || ctxt->instate == XML_PARSER_EOF)
   {
-    goto LABEL_16;
+    return 0;
   }
 
   cur = input->cur;
@@ -1268,9 +1302,7 @@ int xmlCurrentChar(xmlParserCtxtPtr ctxt, int *len)
   if (v7 >= 32)
   {
     *len = 1;
-LABEL_7:
-    v2 = *cur;
-    goto LABEL_17;
+    return *cur;
   }
 
   if (ctxt->charset != 1)
@@ -1287,14 +1319,14 @@ LABEL_7:
       goto LABEL_44;
     }
 
-    v14 = input->end - cur;
-    if (v14 <= 1)
+    v13 = input->end - cur;
+    if (v13 <= 1)
     {
       xmlParserInputGrow(input, 250);
       input = ctxt->input;
       cur = input->cur;
-      v14 = input->end - cur;
-      if (v14 < 2)
+      v13 = input->end - cur;
+      if (v13 < 2)
       {
         goto LABEL_44;
       }
@@ -1318,13 +1350,13 @@ LABEL_7:
 
     else
     {
-      if (v14 == 2)
+      if (v13 == 2)
       {
         xmlParserInputGrow(input, 250);
         input = ctxt->input;
         cur = input->cur;
-        v14 = input->end - cur;
-        if (v14 < 3)
+        v13 = input->end - cur;
+        if (v13 < 3)
         {
           goto LABEL_44;
         }
@@ -1348,12 +1380,12 @@ LABEL_7:
 
       else
       {
-        if (v14 == 3)
+        if (v13 == 3)
         {
           xmlParserInputGrow(input, 250);
           input = ctxt->input;
           cur = input->cur;
-          v14 = input->end - cur;
+          v13 = input->end - cur;
         }
 
         if ((v8 & 0xF8) != 0xF0)
@@ -1361,7 +1393,7 @@ LABEL_7:
           goto LABEL_44;
         }
 
-        if (v14 < 4)
+        if (v13 < 4)
         {
           goto LABEL_44;
         }
@@ -1372,35 +1404,35 @@ LABEL_7:
         }
 
         *len = 4;
-        v15 = ((*cur & 7) << 18) | ((cur[1] & 0x3F) << 12);
-        if (v15 < 0x10000)
+        v14 = ((*cur & 7) << 18) | ((cur[1] & 0x3F) << 12);
+        if (v14 < 0x10000)
         {
           goto LABEL_44;
         }
 
-        v2 = cur[3] & 0x3F | ((cur[2] & 0x3F) << 6) | v15;
+        v2 = cur[3] & 0x3F | ((cur[2] & 0x3F) << 6) | v14;
       }
     }
 
     if (v2 >> 11 < 0x1B)
     {
-      goto LABEL_17;
+      return v2;
     }
 
     if ((v2 - 57344) >> 1 < 0xFFF)
     {
-      goto LABEL_17;
+      return v2;
     }
 
     if (v2 - 0x10000 < 0x100000)
     {
-      goto LABEL_17;
+      return v2;
     }
 
     xmlErrEncodingInt(ctxt, "Char 0x%X out of allowed range\n", v2);
     if (ctxt->instate != XML_PARSER_EOF)
     {
-      goto LABEL_17;
+      return v2;
     }
 
     input = ctxt->input;
@@ -1409,24 +1441,24 @@ LABEL_44:
     {
       v2 = 0;
       *len = 0;
-      goto LABEL_17;
+      return v2;
     }
 
-    v23 = 0u;
-    memset(v24, 0, sizeof(v24));
-    v21 = 0u;
     v22 = 0u;
-    v19 = 0u;
+    memset(v23, 0, sizeof(v23));
     v20 = 0u;
-    v17 = 0u;
+    v21 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     *__str = 0u;
     snprintf(__str, 0x95uLL, "Bytes: 0x%02X 0x%02X 0x%02X 0x%02X\n", *input->cur, *(input->cur + 1), *(input->cur + 2), *(input->cur + 3));
     __xmlErrEncoding(ctxt, 9, "Input is not proper UTF-8, indicate encoding !\n%s", __str, 0);
     ctxt->charset = 10;
     *len = 1;
     cur = ctxt->input->cur;
-    goto LABEL_7;
+    return *cur;
   }
 
   *len = 1;
@@ -1445,9 +1477,7 @@ LABEL_44:
 
   if (input->end <= cur)
   {
-LABEL_16:
-    v2 = 0;
-    goto LABEL_17;
+    return 0;
   }
 
   xmlErrEncodingInt(ctxt, "Char 0x0 out of allowed range\n", 0);
@@ -1463,18 +1493,16 @@ LABEL_19:
 LABEL_20:
   if (v2 == 13)
   {
-    v12 = cur[1];
-    v11 = cur + 1;
-    if (v12 == 10)
+    v11 = cur[1];
+    v10 = cur + 1;
+    if (v11 == 10)
     {
-      input->cur = v11;
+      input->cur = v10;
     }
 
-    v2 = 10;
+    return 10;
   }
 
-LABEL_17:
-  v9 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -1496,392 +1524,394 @@ int xmlCopyChar(int len, xmlChar *out, int val)
 
 xmlNodePtr xmlStringLenGetNodeList(const xmlDoc *doc, const xmlChar *value, int len)
 {
-  v45 = *MEMORY[0x1E69E9840];
-  if (value && (v4 = value, (Size = xmlBufCreateSize(0)) != 0))
+  v44 = *MEMORY[0x1E69E9840];
+  if (!value)
   {
-    v7 = Size;
-    xmlBufSetAllocationScheme(Size, 4u);
-    if (len >= 1)
+    return 0;
+  }
+
+  v4 = value;
+  Size = xmlBufCreateSize(0);
+  if (!Size)
+  {
+    return 0;
+  }
+
+  v7 = Size;
+  xmlBufSetAllocationScheme(Size, 4u);
+  if (len >= 1)
+  {
+    Sibling = 0;
+    v9 = 0;
+    v10 = &v4[len];
+    v11 = v10 - 2;
+    v12 = v4;
+    while (1)
     {
-      Sibling = 0;
-      v9 = 0;
-      v10 = &v4[len];
-      v11 = v10 - 2;
-      v12 = v4;
-      while (1)
+      if (*v12 != 38)
       {
-        if (*v12 != 38)
+        if (!*v12)
         {
-          if (!*v12)
-          {
-            goto LABEL_86;
-          }
-
-          ++v12;
-          goto LABEL_85;
+          goto LABEL_86;
         }
 
-        if (v12 != v4 && xmlBufAdd(v7, v4, (v12 - v4)))
-        {
-          goto LABEL_101;
-        }
+        ++v12;
+        goto LABEL_85;
+      }
 
-        v13 = (v12 + 2);
-        if ((v12 + 2) < v10 && v12[1] == 35 && *v13 == 120)
+      if (v12 != v4 && xmlBufAdd(v7, v4, (v12 - v4)))
+      {
+        goto LABEL_101;
+      }
+
+      v13 = (v12 + 2);
+      if ((v12 + 2) < v10 && v12[1] == 35 && *v13 == 120)
+      {
+        v14 = (v12 + 3);
+        if ((v12 + 3) >= v10)
         {
-          v14 = (v12 + 3);
-          if ((v12 + 3) >= v10)
-          {
-            v15 = 0;
+          v15 = 0;
 LABEL_46:
-            v16 = 0;
-            v28 = (v12 + 4);
-            while (1)
-            {
-              if ((v15 - 48) > 9)
-              {
-                if ((v15 - 97) > 5)
-                {
-                  if ((v15 - 65) > 5)
-                  {
-                    __xmlSimpleError(2u, 1300, doc, "invalid hexadecimal character value\n", 0);
-                    v29 = 0;
-                    v16 = 0;
-                    v14 = v28 - 1;
-                    goto LABEL_61;
-                  }
-
-                  v16 = v15 + 16 * v16 - 55;
-                }
-
-                else
-                {
-                  v16 = v15 + 16 * v16 - 87;
-                }
-              }
-
-              else
-              {
-                v16 = v15 + 16 * v16 - 48;
-              }
-
-              if (v16 >= 1114112)
-              {
-                v16 = 1114112;
-              }
-
-              if (v28 >= v10)
-              {
-                v15 = 0;
-              }
-
-              else
-              {
-                v15 = *v28;
-              }
-
-              ++v28;
-              if (v15 == 59)
-              {
-                v14 = v28 - 1;
-                goto LABEL_60;
-              }
-            }
-          }
-
-          v15 = *v14;
-          if (v15 != 59)
-          {
-            goto LABEL_46;
-          }
-
           v16 = 0;
-LABEL_60:
-          v29 = 1;
-LABEL_61:
-          v12 = &v14[v29];
-          if (v16)
+          v28 = (v12 + 4);
+          while (1)
           {
-LABEL_62:
-            v44 = 0;
-            *out = 0;
-            if (v16 < 1114112)
+            if ((v15 - 48) > 9)
             {
-              v30 = v16;
+              if ((v15 - 97) > 5)
+              {
+                if ((v15 - 65) > 5)
+                {
+                  __xmlSimpleError(2u, 1300, doc, "invalid hexadecimal character value\n", 0);
+                  v29 = 0;
+                  v16 = 0;
+                  v14 = v28 - 1;
+                  goto LABEL_61;
+                }
+
+                v16 = v15 + 16 * v16 - 55;
+              }
+
+              else
+              {
+                v16 = v15 + 16 * v16 - 87;
+              }
             }
 
             else
             {
-              v30 = 65533;
+              v16 = v15 + 16 * v16 - 48;
             }
 
-            out[xmlCopyCharMultiByte(out, v30)] = 0;
-            v4 = v12;
-            if (xmlBufCat(v7, out))
+            if (v16 >= 1114112)
             {
-              goto LABEL_101;
+              v16 = 1114112;
             }
 
-            goto LABEL_85;
-          }
-
-          goto LABEL_84;
-        }
-
-        v17 = v12 + 1;
-        if ((v12 + 1) >= v10)
-        {
-          goto LABEL_92;
-        }
-
-        v18 = *v17;
-        if (v18 == 35)
-        {
-          break;
-        }
-
-        v20 = 0;
-        v21 = v11 - v12;
-        v12 += 2;
-        if (!*v17)
-        {
-LABEL_92:
-          __xmlSimpleError(2u, 1302, doc, "unterminated entity reference %15s\n", v17);
-          goto LABEL_101;
-        }
-
-        while (v18 != 59)
-        {
-          if (v21 != v20)
-          {
-            v22 = *v12++;
-            v18 = v22;
-            ++v20;
-            if (v22)
+            if (v28 >= v10)
             {
-              continue;
+              v15 = 0;
+            }
+
+            else
+            {
+              v15 = *v28;
+            }
+
+            ++v28;
+            if (v15 == 59)
+            {
+              v14 = v28 - 1;
+              goto LABEL_60;
             }
           }
-
-          goto LABEL_92;
         }
 
-        if (v20)
+        v15 = *v14;
+        if (v15 != 59)
         {
-          v41 = v11;
-          cur = Sibling;
-          v25 = xmlStrndup(v17, v20);
-          DocEntity = xmlGetDocEntity(doc, v25);
-          v27 = DocEntity;
-          if (DocEntity && DocEntity->etype == XML_INTERNAL_PREDEFINED_ENTITY)
+          goto LABEL_46;
+        }
+
+        v16 = 0;
+LABEL_60:
+        v29 = 1;
+LABEL_61:
+        v12 = &v14[v29];
+        if (v16)
+        {
+LABEL_62:
+          v43 = 0;
+          *out = 0;
+          if (v16 < 1114112)
           {
-            v11 = v41;
-            if (xmlBufCat(v7, DocEntity->content))
-            {
-              goto LABEL_101;
-            }
+            v30 = v16;
           }
 
           else
           {
-            if (!xmlBufIsEmpty(v7))
+            v30 = 65533;
+          }
+
+          out[xmlCopyCharMultiByte(out, v30)] = 0;
+          v4 = v12;
+          if (xmlBufCat(v7, out))
+          {
+            goto LABEL_101;
+          }
+
+          goto LABEL_85;
+        }
+
+        goto LABEL_84;
+      }
+
+      v17 = v12 + 1;
+      if ((v12 + 1) >= v10)
+      {
+        goto LABEL_92;
+      }
+
+      v18 = *v17;
+      if (v18 == 35)
+      {
+        break;
+      }
+
+      v20 = 0;
+      v21 = v11 - v12;
+      v12 += 2;
+      if (!*v17)
+      {
+LABEL_92:
+        __xmlSimpleError(2u, 1302, doc, "unterminated entity reference %15s\n", v17);
+        goto LABEL_101;
+      }
+
+      while (v18 != 59)
+      {
+        if (v21 != v20)
+        {
+          v22 = *v12++;
+          v18 = v22;
+          ++v20;
+          if (v22)
+          {
+            continue;
+          }
+        }
+
+        goto LABEL_92;
+      }
+
+      if (v20)
+      {
+        v40 = v11;
+        cur = Sibling;
+        v25 = xmlStrndup(v17, v20);
+        DocEntity = xmlGetDocEntity(doc, v25);
+        v27 = DocEntity;
+        if (DocEntity && DocEntity->etype == XML_INTERNAL_PREDEFINED_ENTITY)
+        {
+          v11 = v40;
+          if (xmlBufCat(v7, DocEntity->content))
+          {
+            goto LABEL_101;
+          }
+        }
+
+        else
+        {
+          if (!xmlBufIsEmpty(v7))
+          {
+            v31 = xmlNewText(0);
+            if (!v31)
             {
-              v31 = xmlNewText(0);
-              if (!v31)
-              {
-                goto LABEL_103;
-              }
-
-              v32 = v31;
-              v31->doc = doc;
-              v31->content = xmlBufDetach(v7->i64);
-              if (cur)
-              {
-                cur = xmlAddNextSibling(cur, v32);
-              }
-
-              else
-              {
-                v9 = v32;
-                cur = v32;
-              }
+              goto LABEL_103;
             }
 
-            v33 = xmlNewReference(doc, v25);
-            if (!v33)
-            {
-LABEL_103:
-              if (v25)
-              {
-                free(v25);
-              }
-
-              goto LABEL_101;
-            }
-
-            Sibling = v33;
-            if (v27)
-            {
-              if (!v27->children)
-              {
-                v27->children = -1;
-                NodeList = xmlStringGetNodeList(doc, v33->content);
-                v27->children = NodeList;
-                v27->owner = 1;
-                if (NodeList)
-                {
-                  do
-                  {
-                    v35 = NodeList;
-                    NodeList->parent = v27;
-                    NodeList = NodeList->next;
-                  }
-
-                  while (NodeList);
-                  v27->last = v35;
-                }
-              }
-            }
-
+            v32 = v31;
+            v31->doc = doc;
+            v31->content = xmlBufDetach(v7->i64);
             if (cur)
             {
-              Sibling = xmlAddNextSibling(cur, Sibling);
+              cur = xmlAddNextSibling(cur, v32);
             }
 
             else
             {
-              v9 = Sibling;
+              v9 = v32;
+              cur = v32;
             }
-
-            v11 = v41;
           }
 
-          free(v25);
-        }
-
-LABEL_84:
-        v4 = v12;
-LABEL_85:
-        if (v12 >= v10)
-        {
-LABEL_86:
-          if (v12 == v4 || !xmlBufAdd(v7, v4, (v12 - v4)))
+          v33 = xmlNewReference(doc, v25);
+          if (!v33)
           {
-            if (!xmlBufIsEmpty(v7))
+LABEL_103:
+            if (v25)
             {
-              goto LABEL_97;
+              free(v25);
             }
 
-            if (!v9)
+            goto LABEL_101;
+          }
+
+          Sibling = v33;
+          if (v27)
+          {
+            if (!v27->children)
             {
-LABEL_94:
-              v36 = xmlNewText("");
-              v9 = v36;
-              if (v36)
+              v27->children = -1;
+              NodeList = xmlStringGetNodeList(doc, v33->content);
+              v27->children = NodeList;
+              v27->owner = 1;
+              if (NodeList)
               {
-                v36->doc = doc;
+                do
+                {
+                  v35 = NodeList;
+                  NodeList->parent = v27;
+                  NodeList = NodeList->next;
+                }
+
+                while (NodeList);
+                v27->last = v35;
               }
             }
           }
 
-          goto LABEL_101;
+          if (cur)
+          {
+            Sibling = xmlAddNextSibling(cur, Sibling);
+          }
+
+          else
+          {
+            v9 = Sibling;
+          }
+
+          v11 = v40;
         }
+
+        free(v25);
       }
 
-      if (v13 >= v10)
+LABEL_84:
+      v4 = v12;
+LABEL_85:
+      if (v12 >= v10)
+      {
+LABEL_86:
+        if (v12 == v4 || !xmlBufAdd(v7, v4, (v12 - v4)))
+        {
+          if (!xmlBufIsEmpty(v7))
+          {
+            goto LABEL_97;
+          }
+
+          if (!v9)
+          {
+LABEL_94:
+            v36 = xmlNewText("");
+            v9 = v36;
+            if (v36)
+            {
+              v36->doc = doc;
+            }
+          }
+        }
+
+        goto LABEL_101;
+      }
+    }
+
+    if (v13 >= v10)
+    {
+      v19 = 0;
+    }
+
+    else
+    {
+      v19 = *v13;
+      if (v19 == 59)
+      {
+        v16 = 0;
+LABEL_36:
+        v24 = 1;
+        goto LABEL_38;
+      }
+    }
+
+    v16 = 0;
+    v23 = (v12 + 3);
+    while ((v19 - 48) <= 9)
+    {
+      v16 = v19 + 10 * v16 - 48;
+      if (v16 >= 1114112)
+      {
+        v16 = 1114112;
+      }
+
+      if (v23 >= v10)
       {
         v19 = 0;
       }
 
       else
       {
-        v19 = *v13;
-        if (v19 == 59)
-        {
-          v16 = 0;
-LABEL_36:
-          v24 = 1;
-          goto LABEL_38;
-        }
+        v19 = *v23;
       }
 
-      v16 = 0;
-      v23 = (v12 + 3);
-      while ((v19 - 48) <= 9)
+      ++v23;
+      if (v19 == 59)
       {
-        v16 = v19 + 10 * v16 - 48;
-        if (v16 >= 1114112)
-        {
-          v16 = 1114112;
-        }
-
-        if (v23 >= v10)
-        {
-          v19 = 0;
-        }
-
-        else
-        {
-          v19 = *v23;
-        }
-
-        ++v23;
-        if (v19 == 59)
-        {
-          v13 = v23 - 1;
-          goto LABEL_36;
-        }
+        v13 = v23 - 1;
+        goto LABEL_36;
       }
+    }
 
-      __xmlSimpleError(2u, 1301, doc, "invalid decimal character value\n", 0);
-      v24 = 0;
-      v16 = 0;
-      v13 = v23 - 1;
+    __xmlSimpleError(2u, 1301, doc, "invalid decimal character value\n", 0);
+    v24 = 0;
+    v16 = 0;
+    v13 = v23 - 1;
 LABEL_38:
-      v12 = &v13[v24];
-      if (v16)
-      {
-        goto LABEL_62;
-      }
-
-      goto LABEL_84;
-    }
-
-    if (xmlBufIsEmpty(v7))
+    v12 = &v13[v24];
+    if (v16)
     {
-      goto LABEL_94;
+      goto LABEL_62;
     }
 
-    v9 = 0;
-    Sibling = 0;
+    goto LABEL_84;
+  }
+
+  if (xmlBufIsEmpty(v7))
+  {
+    goto LABEL_94;
+  }
+
+  v9 = 0;
+  Sibling = 0;
 LABEL_97:
-    v37 = xmlNewText(0);
-    if (v37)
+  v37 = xmlNewText(0);
+  if (v37)
+  {
+    v38 = v37;
+    v37->doc = doc;
+    v37->content = xmlBufDetach(v7->i64);
+    if (Sibling)
     {
-      v38 = v37;
-      v37->doc = doc;
-      v37->content = xmlBufDetach(v7->i64);
-      if (Sibling)
-      {
-        xmlAddNextSibling(Sibling, v38);
-      }
-
-      else
-      {
-        v9 = v38;
-      }
+      xmlAddNextSibling(Sibling, v38);
     }
+
+    else
+    {
+      v9 = v38;
+    }
+  }
 
 LABEL_101:
-    xmlBufFree(v7);
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  v39 = *MEMORY[0x1E69E9840];
+  xmlBufFree(v7);
   return v9;
 }
 
@@ -2176,7 +2206,7 @@ xmlChar *xmlGetPropNodeValueInternal(uint64_t a1)
     return xmlStrdup(v4);
   }
 
-  result = xmlNodeListGetStringInternal(*(a1 + 64));
+  result = xmlNodeListGetStringInternal(*(a1 + 64), v3, 1, 0);
   if (!result)
   {
 LABEL_14:
@@ -2943,7 +2973,7 @@ void xmlDictFree(xmlDictPtr dict)
   }
 }
 
-uint64_t xmlBufResize(uint64_t result, unint64_t a2)
+uint64_t xmlBufResize(uint64_t result, size_t a2)
 {
   if (result)
   {
@@ -3794,6 +3824,7 @@ int xmlParseChunk(xmlParserCtxtPtr ctxt, const char *chunk, int size, int termin
     return 1;
   }
 
+  v4 = *&terminate;
   if (ctxt->wellFormed != 1 && ctxt->disableSAX == 1)
   {
     return ctxt->errNo;
@@ -3807,7 +3838,7 @@ int xmlParseChunk(xmlParserCtxtPtr ctxt, const char *chunk, int size, int termin
       xmlDetectSAX2(ctxt);
     }
 
-    if (!chunk || size < 1 || terminate)
+    if (!chunk || size < 1 || v4)
     {
       v54 = 0;
     }
@@ -3857,7 +3888,7 @@ int xmlParseChunk(xmlParserCtxtPtr ctxt, const char *chunk, int size, int termin
               {
                 InputBase = xmlBufGetInputBase(v23, v21);
                 v25 = ctxt->input->cur - ctxt->input->base;
-                v26 = xmlCharEncInput(buf, terminate);
+                v26 = xmlCharEncInput(buf, v4);
                 xmlBufSetInputBaseCur(*(buf + 32), &ctxt->input->buf, InputBase, v25);
                 if (v26 < 0)
                 {
@@ -3884,9 +3915,9 @@ LABEL_44:
         }
       }
 
-      if (terminate || v9 > 0x989680 || !v10 || !v9 || v9 - v10 < 0 || (base = ctxt->input->base) == 0 || (v34 = ctxt->instate, v34 != XML_PARSER_START_TAG) && v34 != XML_PARSER_END_TAG && (progressive = ctxt->progressive, progressive != 2) && v34 != XML_PARSER_CDATA_SECTION && progressive != 5 && v34 != XML_PARSER_DTD && progressive != 3 || memchr(&base[v10], 62, (v9 - v10) & 0x7FFFFFFF))
+      if (v4 || v9 > 0x989680 || !v10 || !v9 || v9 - v10 < 0 || (base = ctxt->input->base) == 0 || (v34 = ctxt->instate, v34 != XML_PARSER_START_TAG) && v34 != XML_PARSER_END_TAG && (progressive = ctxt->progressive, progressive != 2) && v34 != XML_PARSER_CDATA_SECTION && progressive != 5 && v34 != XML_PARSER_DTD && progressive != 3 || memchr(&base[v10], 62, (v9 - v10) & 0x7FFFFFFF))
       {
-        xmlParseTryOrFinish(ctxt, terminate);
+        xmlParseTryOrFinish(ctxt, v4);
       }
 
       v17 = 0;
@@ -3931,7 +3962,7 @@ LABEL_57:
           }
         }
 
-        if (terminate)
+        if (v4)
         {
           v42 = ctxt->input;
           if (v42)
@@ -4119,6 +4150,55 @@ unint64_t xmlBufGetInputBase(uint64_t a1, uint64_t a2)
   return result;
 }
 
+int xmlParserInputBufferPush(xmlParserInputBufferPtr in, int len, const char *buf)
+{
+  if (len < 0)
+  {
+    LODWORD(v4) = 0;
+  }
+
+  else
+  {
+    if (in && !in->error)
+    {
+      v4 = *&len;
+      if (in->encoder)
+      {
+        raw = in->raw;
+        if (!raw)
+        {
+          raw = xmlBufCreate();
+          in->raw = raw;
+        }
+
+        if (!xmlBufAdd(raw, buf, v4))
+        {
+          v8 = xmlBufUse(in->raw);
+          v9 = xmlCharEncInput(in, 1);
+          if ((v9 & 0x80000000) == 0)
+          {
+            LODWORD(v4) = v9;
+            in->rawconsumed = in->rawconsumed - xmlBufUse(in->raw) + v8;
+            return v4;
+          }
+
+          __xmlSimpleError(8u, 1544, 0, "encoder error", 0);
+          in->error = 1544;
+        }
+      }
+
+      else if (!xmlBufAdd(in->buffer, buf, *&len))
+      {
+        return v4;
+      }
+    }
+
+    LODWORD(v4) = -1;
+  }
+
+  return v4;
+}
+
 uint64_t xmlBufSetInputBaseCur(uint64_t *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   if (!a2)
@@ -4164,43 +4244,43 @@ uint64_t xmlBufSetInputBaseCur(uint64_t *a1, void *a2, uint64_t a3, uint64_t a4)
   return v5;
 }
 
-void xmlParseTryOrFinish(uint64_t a1, int a2)
+void xmlParseTryOrFinish(uint64_t *a1, int a2)
 {
-  v167 = *MEMORY[0x1E69E9840];
-  v157 = 0;
-  v2 = *(a1 + 56);
+  v166 = *MEMORY[0x1E69E9840];
+  v156 = 0;
+  v2 = a1[7];
   if (!v2)
   {
-    goto LABEL_351;
+    return;
   }
 
   if ((*(v2 + 32) - *(v2 + 24)) > 4096)
   {
     xmlSHRINK(a1);
-    *(a1 + 320) = 0;
+    a1[40] = 0;
   }
 
+  v154 = 0;
   v155 = 0;
-  v156 = 0;
-  xmlParseGetLasts(a1, &v156, &v155);
-  v5 = *(a1 + 272);
+  xmlParseGetLasts(a1, &v155, &v154);
+  v5 = *(a1 + 68);
   if (v5 == -1)
   {
-    goto LABEL_351;
+    return;
   }
 
   v6 = 0;
   while (2)
   {
-    if (*(a1 + 24) != 1 && *(a1 + 332) == 1)
+    if (*(a1 + 6) != 1 && *(a1 + 83) == 1)
     {
-      goto LABEL_351;
+      return;
     }
 
-    v7 = *(a1 + 56);
+    v7 = a1[7];
     if (!v7)
     {
-      goto LABEL_351;
+      return;
     }
 
     if (v7->buf)
@@ -4211,21 +4291,21 @@ void xmlParseTryOrFinish(uint64_t a1, int a2)
         if (raw)
         {
           IsEmpty = xmlBufIsEmpty(raw);
-          v7 = *(a1 + 56);
+          v7 = a1[7];
           if (!IsEmpty)
           {
             InputBase = xmlBufGetInputBase(v7->buf->buffer, v7);
-            v11 = *(a1 + 56);
+            v11 = a1[7];
             v12 = *(v11 + 32) - *(v11 + 24);
             xmlParserInputBufferPush(*v11, 0, "");
-            xmlBufSetInputBaseCur(*(**(a1 + 56) + 32), *(a1 + 56), InputBase, v12);
-            v7 = *(a1 + 56);
+            xmlBufSetInputBaseCur(*(*a1[7] + 32), a1[7], InputBase, v12);
+            v7 = a1[7];
           }
         }
       }
 
       length = xmlBufUse(v7->buf->buffer);
-      v7 = *(a1 + 56);
+      v7 = a1[7];
     }
 
     else
@@ -4238,16 +4318,16 @@ void xmlParseTryOrFinish(uint64_t a1, int a2)
     v16 = &base[length - cur];
     if (!v16)
     {
-      goto LABEL_351;
+      return;
     }
 
-    v5 = *(a1 + 272);
+    v5 = *(a1 + 68);
     switch(v5)
     {
       case -1:
-        goto LABEL_351;
+        return;
       case 0:
-        if (!*(a1 + 408))
+        if (!*(a1 + 102))
         {
           *in = 0;
           if (v16 >= 4)
@@ -4258,12 +4338,12 @@ void xmlParseTryOrFinish(uint64_t a1, int a2)
             goto LABEL_282;
           }
 
-          goto LABEL_351;
+          return;
         }
 
         if (v16 == 1)
         {
-          goto LABEL_351;
+          return;
         }
 
         if (*cur)
@@ -4272,7 +4352,7 @@ void xmlParseTryOrFinish(uint64_t a1, int a2)
           {
             if (v16 < 5 || !a2 && (xmlParseLookupSequence(a1, 63, 62, 0) & 0x80000000) != 0)
             {
-              goto LABEL_351;
+              return;
             }
 
             if (*a1)
@@ -4280,33 +4360,33 @@ void xmlParseTryOrFinish(uint64_t a1, int a2)
               v17 = *(*a1 + 88);
               if (v17)
               {
-                v18 = *(a1 + 8);
+                v18 = a1[1];
                 v19 = __xmlDefaultSAXLocator();
                 v17(v18, v19);
               }
             }
 
-            v20 = *(*(a1 + 56) + 32);
+            v20 = *(a1[7] + 32);
             if (v20[2] == 120 && v20[3] == 109 && v20[4] == 108)
             {
               v21 = v20[5];
               if (v21 <= 0x20 && ((1 << v21) & 0x100002600) != 0)
               {
                 xmlParseXMLDecl(a1);
-                if (*(a1 + 136) == 32)
+                if (*(a1 + 34) == 32)
                 {
                   xmlHaltParser(a1);
-                  goto LABEL_351;
+                  return;
                 }
 
-                v22 = *(a1 + 56);
-                *(a1 + 48) = *(v22 + 96);
-                if (!*(a1 + 40))
+                v22 = a1[7];
+                *(a1 + 12) = *(v22 + 96);
+                if (!a1[5])
                 {
                   v23 = *(v22 + 80);
                   if (v23)
                   {
-                    *(a1 + 40) = xmlStrdup(v23);
+                    a1[5] = xmlStrdup(v23);
                   }
                 }
 
@@ -4315,9 +4395,9 @@ void xmlParseTryOrFinish(uint64_t a1, int a2)
                   v24 = *(*a1 + 96);
                   if (v24)
                   {
-                    if (!*(a1 + 332))
+                    if (!*(a1 + 83))
                     {
-                      v24(*(a1 + 8));
+                      v24(a1[1]);
                     }
                   }
                 }
@@ -4329,7 +4409,7 @@ LABEL_198:
               }
             }
 
-            *(a1 + 32) = xmlCharStrdup("1.0");
+            a1[4] = xmlCharStrdup("1.0");
           }
 
           else
@@ -4339,14 +4419,14 @@ LABEL_198:
               v86 = *(*a1 + 88);
               if (v86)
               {
-                v87 = *(a1 + 8);
+                v87 = a1[1];
                 v88 = __xmlDefaultSAXLocator();
                 v86(v87, v88);
               }
             }
 
             v89 = xmlCharStrdup("1.0");
-            *(a1 + 32) = v89;
+            a1[4] = v89;
             if (!v89)
             {
               xmlErrMemory(a1, 0);
@@ -4359,9 +4439,9 @@ LABEL_198:
             v90 = *(*a1 + 96);
             if (v90)
             {
-              if (!*(a1 + 332))
+              if (!*(a1 + 83))
               {
-                v90(*(a1 + 8));
+                v90(a1[1]);
               }
             }
           }
@@ -4371,26 +4451,26 @@ LABEL_198:
 
         if (*a1)
         {
-          v150 = *(*a1 + 88);
-          if (v150)
+          v149 = *(*a1 + 88);
+          if (v149)
           {
-            v151 = *(a1 + 8);
-            v152 = __xmlDefaultSAXLocator();
-            v150(v151, v152);
+            v150 = a1[1];
+            v151 = __xmlDefaultSAXLocator();
+            v149(v150, v151);
           }
         }
 
 LABEL_380:
-        v143 = a1;
-        v144 = 4;
+        v142 = a1;
+        v143 = 4;
         goto LABEL_381;
       case 1:
         xmlSkipBlankChars(a1);
-        v54 = *(a1 + 56);
+        v54 = a1[7];
         if (*v54)
         {
           v55 = xmlBufUse(*(*v54 + 32));
-          v54 = *(a1 + 56);
+          v54 = a1[7];
         }
 
         else
@@ -4402,7 +4482,7 @@ LABEL_380:
         v74 = v55 - v73 + *(v54 + 24);
         if (v74 < 2)
         {
-          goto LABEL_351;
+          return;
         }
 
         v75 = *v73;
@@ -4433,20 +4513,20 @@ LABEL_380:
 
           if (!a2 && (xmlParseLookupSequence(a1, 62, 0, 0) & 0x80000000) != 0)
           {
-            v149 = 3;
+            v148 = 3;
             goto LABEL_388;
           }
 
-          *(a1 + 336) = 1;
-          *(a1 + 452) = 0;
-          *(a1 + 320) = 0;
+          *(a1 + 84) = 1;
+          *(a1 + 113) = 0;
+          a1[40] = 0;
           xmlParseDocTypeDecl(a1);
-          if (*(a1 + 272) == -1)
+          if (*(a1 + 68) == -1)
           {
-            goto LABEL_351;
+            return;
           }
 
-          if (**(*(a1 + 56) + 32) == 91)
+          if (**(a1[7] + 32) == 91)
           {
 LABEL_120:
             v5 = 3;
@@ -4454,26 +4534,26 @@ LABEL_120:
 
           else
           {
-            *(a1 + 336) = 2;
+            *(a1 + 84) = 2;
             if (*a1)
             {
-              if (!*(a1 + 332))
+              if (!*(a1 + 83))
               {
                 v116 = *(*a1 + 208);
                 if (v116)
                 {
-                  v116(*(a1 + 8), *(a1 + 344), *(a1 + 360), *(a1 + 352));
+                  v116(a1[1], a1[43], a1[45], a1[44]);
                 }
               }
             }
 
-            *(a1 + 336) = 0;
+            *(a1 + 84) = 0;
             xmlCleanSpecialAttr(a1);
             v5 = 4;
           }
 
 LABEL_329:
-          *(a1 + 272) = v5;
+          *(a1 + 68) = v5;
           goto LABEL_330;
         }
 
@@ -4482,34 +4562,32 @@ LABEL_329:
 LABEL_279:
           if (v74 < 9)
           {
-            goto LABEL_351;
+            return;
           }
 
 LABEL_280:
-          *(a1 + 272) = 6;
-          *(a1 + 452) = 6;
+          *(a1 + 68) = 6;
+          *(a1 + 113) = 6;
           goto LABEL_281;
         }
 
         if (!a2 && (xmlParseLookupSequence(a1, 45, 45, 62) & 0x80000000) != 0)
         {
 LABEL_387:
-          v149 = 5;
+          v148 = 5;
           goto LABEL_388;
         }
 
         xmlParseComment(a1);
 LABEL_145:
-        if (*(a1 + 272) != -1)
+        if (*(a1 + 68) != -1)
         {
           v5 = 1;
-          *(a1 + 272) = 1;
-          *(a1 + 452) = 1;
+          *(a1 + 68) = 1;
+          *(a1 + 113) = 1;
           goto LABEL_147;
         }
 
-LABEL_351:
-        v130 = *MEMORY[0x1E69E9840];
         return;
       case 2:
         v47 = *__xmlGenericError();
@@ -4520,10 +4598,10 @@ LABEL_351:
         v29 = cur - base;
         if (cur - base < 0)
         {
-          goto LABEL_351;
+          return;
         }
 
-        v30 = *(a1 + 320);
+        v30 = a1[40];
         if (v30 <= (v29 & 0x7FFFFFFF))
         {
           v31 = v29;
@@ -4536,7 +4614,7 @@ LABEL_351:
 
         LODWORD(v32) = v31;
         v33 = xmlBufContent(v7->buf->buffer);
-        v34 = xmlBufUse(*(**(a1 + 56) + 32));
+        v34 = xmlBufUse(*(*a1[7] + 32));
         if (v34 <= v31)
         {
           goto LABEL_349;
@@ -4603,8 +4681,8 @@ LABEL_349:
                 v129 = v32;
               }
 
-              *(a1 + 320) = v129;
-              goto LABEL_351;
+              a1[40] = v129;
+              return;
             }
 
             continue;
@@ -4663,51 +4741,51 @@ LABEL_349:
           goto LABEL_85;
         }
 
-        *(a1 + 320) = 0;
+        a1[40] = 0;
         xmlParseInternalSubset(a1);
-        if (*(a1 + 272) == -1)
+        if (*(a1 + 68) == -1)
         {
-          goto LABEL_351;
+          return;
         }
 
-        *(a1 + 336) = 2;
+        *(a1 + 84) = 2;
         if (*a1)
         {
-          if (!*(a1 + 332))
+          if (!*(a1 + 83))
           {
             v122 = *(*a1 + 208);
             if (v122)
             {
-              v122(*(a1 + 8), *(a1 + 344), *(a1 + 360), *(a1 + 352));
+              v122(a1[1], a1[43], a1[45], a1[44]);
             }
           }
         }
 
-        *(a1 + 336) = 0;
+        *(a1 + 84) = 0;
         xmlCleanSpecialAttr(a1);
-        if (*(a1 + 272) == -1)
+        if (*(a1 + 68) == -1)
         {
-          goto LABEL_351;
+          return;
         }
 
         v5 = 4;
-        *(a1 + 272) = 4;
+        *(a1 + 68) = 4;
 LABEL_147:
-        *(a1 + 320) = 0;
+        a1[40] = 0;
 LABEL_330:
         if (v5 == -1)
         {
-          goto LABEL_351;
+          return;
         }
 
         continue;
       case 4:
         xmlSkipBlankChars(a1);
-        v63 = *(a1 + 56);
+        v63 = a1[7];
         if (*v63)
         {
           v64 = xmlBufUse(*(*v63 + 32));
-          v63 = *(a1 + 56);
+          v63 = a1[7];
         }
 
         else
@@ -4719,7 +4797,7 @@ LABEL_330:
         v79 = v64 - v78 + *(v63 + 24);
         if (v79 < 2)
         {
-          goto LABEL_351;
+          return;
         }
 
         v80 = *v78;
@@ -4741,20 +4819,20 @@ LABEL_330:
 
             if (v79 < 4)
             {
-              goto LABEL_351;
+              return;
             }
           }
 
-          *(a1 + 272) = 6;
-          if (!*(a1 + 452))
+          *(a1 + 68) = 6;
+          if (!*(a1 + 113))
           {
-            *(a1 + 452) = 6;
+            *(a1 + 113) = 6;
           }
 
 LABEL_281:
-          xmlParseGetLasts(a1, &v156, &v155);
+          xmlParseGetLasts(a1, &v155, &v154);
 LABEL_282:
-          v5 = *(a1 + 272);
+          v5 = *(a1 + 68);
           goto LABEL_330;
         }
 
@@ -4762,9 +4840,9 @@ LABEL_282:
         {
           xmlParsePI(a1);
 LABEL_163:
-          if (*(a1 + 272) == -1)
+          if (*(a1 + 68) == -1)
           {
-            goto LABEL_351;
+            return;
           }
 
           v5 = 4;
@@ -4779,12 +4857,12 @@ LABEL_163:
         goto LABEL_118;
       case 6:
         *in = 0;
-        v154 = 0;
+        v153 = 0;
         line = v7->line;
-        v51 = *(a1 + 508);
-        if (v16 == 1 && *(a1 + 64) == 1)
+        v51 = *(a1 + 127);
+        if (v16 == 1 && *(a1 + 16) == 1)
         {
-          goto LABEL_351;
+          return;
         }
 
         if (*cur != 60)
@@ -4797,30 +4875,30 @@ LABEL_163:
           goto LABEL_224;
         }
 
-        if (*(a1 + 452))
+        if (*(a1 + 113))
         {
-          if (cur >= v155)
+          if (cur >= v154)
           {
-            goto LABEL_351;
+            return;
           }
         }
 
         else if ((xmlParseLookupSequence(a1, 62, 0, 0) & 0x80000000) != 0)
         {
-          goto LABEL_351;
+          return;
         }
 
 LABEL_224:
-        if (*(a1 + 376))
+        if (*(a1 + 94))
         {
-          if (**(a1 + 368) == -2)
+          if (*a1[46] == -2)
           {
             v97 = -1;
           }
 
           else
           {
-            v97 = **(a1 + 368);
+            v97 = *a1[46];
           }
         }
 
@@ -4830,9 +4908,9 @@ LABEL_224:
         }
 
         spacePush(a1, v97);
-        if (*(a1 + 504))
+        if (*(a1 + 126))
         {
-          started = xmlParseStartTag2(a1, in, &v154, &v157);
+          started = xmlParseStartTag2(a1, in, &v153, &v156);
         }
 
         else
@@ -4841,33 +4919,33 @@ LABEL_224:
         }
 
         v99 = started;
-        if (*(a1 + 272) == -1)
+        if (*(a1 + 68) == -1)
         {
-          goto LABEL_351;
+          return;
         }
 
         if (started)
         {
-          if (*(a1 + 156))
+          if (*(a1 + 39))
           {
-            if (*(a1 + 24))
+            if (*(a1 + 6))
             {
-              v100 = *(a1 + 16);
+              v100 = a1[2];
               if (v100)
               {
-                v101 = *(a1 + 80);
+                v101 = a1[10];
                 if (v101)
                 {
                   if (v101 == v100->children)
                   {
-                    *(a1 + 152) &= xmlValidateRoot((a1 + 160), v100);
+                    *(a1 + 38) &= xmlValidateRoot((a1 + 20), v100);
                   }
                 }
               }
             }
           }
 
-          v102 = *(a1 + 56);
+          v102 = a1[7];
           v103 = v102->cur;
           v104 = *v103;
           if (v104 == 62)
@@ -4887,21 +4965,21 @@ LABEL_224:
               }
 
               v105 = *a1;
-              if (*(a1 + 504))
+              if (*(a1 + 126))
               {
                 if (v105)
                 {
                   v106 = *(v105 + 240);
                   if (v106)
                   {
-                    if (!*(a1 + 332))
+                    if (!*(a1 + 83))
                     {
-                      v106(*(a1 + 8), v99, *in, v154);
+                      v106(a1[1], v99, *in, v153);
                     }
                   }
                 }
 
-                v107 = *(a1 + 508) - v51;
+                v107 = *(a1 + 127) - v51;
                 if (v107 >= 1)
                 {
                   nsPop(a1, v107);
@@ -4913,35 +4991,35 @@ LABEL_224:
                 v117 = *(v105 + 120);
                 if (v117)
                 {
-                  if (!*(a1 + 332))
+                  if (!*(a1 + 83))
                   {
-                    v117(*(a1 + 8), v99);
+                    v117(a1[1], v99);
                   }
                 }
               }
 
-              if (*(a1 + 272) == -1)
+              if (*(a1 + 68) == -1)
               {
-                goto LABEL_351;
+                return;
               }
 
-              v118 = *(a1 + 376);
+              v118 = *(a1 + 94);
               if (v118 >= 1)
               {
-                v119 = *(a1 + 384);
+                v119 = a1[48];
                 v120 = v119 + 4 * v118 - 8;
                 v121 = v118 - 1;
-                *(a1 + 376) = v121;
+                *(a1 + 94) = v121;
                 if (!v121)
                 {
                   v120 = v119;
                 }
 
-                *(a1 + 368) = v120;
+                a1[46] = v120;
                 *(v119 + 4 * v121) = -1;
               }
 
-              if (*(a1 + 296))
+              if (*(a1 + 74))
               {
                 v5 = 7;
               }
@@ -4952,18 +5030,18 @@ LABEL_224:
               }
 
 LABEL_263:
-              *(a1 + 272) = v5;
-              *(a1 + 452) = 1;
+              *(a1 + 68) = v5;
+              *(a1 + 113) = 1;
               goto LABEL_330;
             }
 
             xmlFatalErrMsgStr(a1, 73, "Couldn't find end of Start Tag %s\n", v99);
-            v108 = *(a1 + 88);
+            v108 = *(a1 + 22);
             if (v108 >= 1)
             {
-              v109 = *(a1 + 96);
+              v109 = a1[12];
               v110 = v108 - 1;
-              *(a1 + 88) = v108 - 1;
+              *(a1 + 22) = v108 - 1;
               if (v108 == 1)
               {
                 v111 = 0;
@@ -4974,53 +5052,53 @@ LABEL_263:
                 v111 = *(v109 + 8 * v108 - 16);
               }
 
-              *(a1 + 80) = v111;
+              a1[10] = v111;
               *(v109 + 8 * v110) = 0;
             }
 
-            v112 = *(a1 + 376);
+            v112 = *(a1 + 94);
             if (v112 >= 1)
             {
-              v113 = *(a1 + 384);
+              v113 = a1[48];
               v114 = v113 + 4 * v112 - 8;
               v115 = v112 - 1;
-              *(a1 + 376) = v115;
+              *(a1 + 94) = v115;
               if (!v115)
               {
                 v114 = v113;
               }
 
-              *(a1 + 368) = v114;
+              a1[46] = v114;
               *(v113 + 4 * v115) = -1;
             }
           }
 
-          nameNsPush(a1, v99, *in, v154, line, *(a1 + 508) - v51);
+          nameNsPush(a1, v99, *in, v153, line, *(a1 + 127) - v51);
           v5 = 7;
           goto LABEL_263;
         }
 
-        v145 = *(a1 + 376);
-        if (v145 >= 1)
+        v144 = *(a1 + 94);
+        if (v144 >= 1)
         {
-          v146 = *(a1 + 384);
-          v147 = v146 + 4 * v145 - 8;
-          v148 = v145 - 1;
-          *(a1 + 376) = v148;
-          if (!v148)
+          v145 = a1[48];
+          v146 = v145 + 4 * v144 - 8;
+          v147 = v144 - 1;
+          *(a1 + 94) = v147;
+          if (!v147)
           {
-            v147 = v146;
+            v146 = v145;
           }
 
-          *(a1 + 368) = v147;
-          *(v146 + 4 * v148) = -1;
+          a1[46] = v146;
+          *(v145 + 4 * v147) = -1;
         }
 
         goto LABEL_382;
       case 7:
-        if (v16 == 1 && *(a1 + 64) == 1)
+        if (v16 == 1 && *(a1 + 16) == 1)
         {
-          goto LABEL_351;
+          return;
         }
 
         v44 = *cur;
@@ -5038,10 +5116,10 @@ LABEL_263:
           {
             xmlParsePI(a1);
 LABEL_130:
-            *(a1 + 272) = 7;
-            *(a1 + 452) = 1;
+            *(a1 + 68) = 7;
+            *(a1 + 113) = 1;
 LABEL_344:
-            v128 = *(a1 + 56);
+            v128 = a1[7];
             if (consumed_low == *(v128 + 64) && cur == *(v128 + 32))
             {
               xmlFatalErr(a1, 1, "detected an error in element content\n");
@@ -5052,10 +5130,10 @@ LABEL_344:
           }
 
 LABEL_376:
-          v149 = 2;
+          v148 = 2;
 LABEL_388:
-          *(a1 + 452) = v149;
-          goto LABEL_351;
+          *(a1 + 113) = v148;
+          return;
         }
 
         if (v44 == 60 && v45 != 33)
@@ -5074,12 +5152,12 @@ LABEL_124:
             {
               if (v16 < 4)
               {
-                goto LABEL_351;
+                return;
               }
 
               v7->cur = cur + 4;
               v92 = xmlParseLookupSequence(a1, 45, 45, 62);
-              *(*(a1 + 56) + 32) -= 4;
+              *(a1[7] + 32) -= 4;
               if (!a2 && v92 < 0)
               {
                 goto LABEL_387;
@@ -5101,7 +5179,7 @@ LABEL_124:
             {
               if (!a2 && (xmlParseLookupSequence(a1, 59, 0, 0) & 0x80000000) != 0)
               {
-                goto LABEL_351;
+                return;
               }
 
               xmlParseReference(a1);
@@ -5114,23 +5192,23 @@ LABEL_124:
           if (v45 != 33)
           {
 LABEL_336:
-            if (!a2 && v16 <= 0x12B && *(a1 + 64) == 1)
+            if (!a2 && v16 <= 0x12B && *(a1 + 16) == 1)
             {
-              if (*(a1 + 452))
+              if (*(a1 + 113))
               {
-                if (cur > v156)
+                if (cur > v155)
                 {
-                  goto LABEL_351;
+                  return;
                 }
               }
 
               else if ((xmlParseLookupSequence(a1, 60, 0, 0) & 0x80000000) != 0)
               {
-                goto LABEL_351;
+                return;
               }
             }
 
-            *(a1 + 320) = 0;
+            a1[40] = 0;
             xmlParseCharData(a1, 0);
             goto LABEL_344;
           }
@@ -5154,7 +5232,7 @@ LABEL_336:
 LABEL_296:
         if (v16 <= 8)
         {
-          goto LABEL_351;
+          return;
         }
 
         goto LABEL_336;
@@ -5164,40 +5242,40 @@ LABEL_296:
         {
           if (v16 < 0x12E)
           {
-            goto LABEL_351;
+            return;
           }
 
-          v58 = *(a1 + 56);
-          v131 = v58[4];
-          v132 = xmlCheckCdataPush(v131, 300, 0);
-          v133 = v132;
-          if ((v132 & 0x80000000) == 0)
+          v58 = a1[7];
+          v130 = v58[4];
+          v131 = xmlCheckCdataPush(v130, 300, 0);
+          v132 = v131;
+          if ((v131 & 0x80000000) == 0)
           {
-            v134 = *a1;
+            v133 = *a1;
             if (*a1)
             {
-              if (!*(a1 + 332))
+              if (!*(a1 + 83))
               {
-                v135 = *(v134 + 200);
-                if (v135 || (v135 = *(v134 + 136)) != 0)
+                v134 = *(v133 + 200);
+                if (v134 || (v134 = *(v133 + 136)) != 0)
                 {
-                  v135(*(a1 + 8), v131, v132);
+                  v134(a1[1], v130, v131);
                 }
               }
             }
 
-            if (*(a1 + 272) != -1)
+            if (*(a1 + 68) != -1)
             {
-              v136 = *(a1 + 56);
-              if (v133)
+              v135 = a1[7];
+              if (v132)
               {
-                v137 = v136->cur;
-                col = v136->col;
+                v136 = v135->cur;
+                col = v135->col;
                 do
                 {
-                  if (*v137 == 10)
+                  if (*v136 == 10)
                   {
-                    ++v136->line;
+                    ++v135->line;
                     col = 1;
                   }
 
@@ -5206,37 +5284,37 @@ LABEL_296:
                     ++col;
                   }
 
-                  v136->col = col;
-                  v136->cur = ++v137;
-                  --v133;
+                  v135->col = col;
+                  v135->cur = ++v136;
+                  --v132;
                 }
 
-                while (v133);
+                while (v132);
               }
 
               else
               {
-                v137 = v136->cur;
+                v136 = v135->cur;
               }
 
-              if (!*v137)
+              if (!*v136)
               {
-                xmlParserInputGrow(v136, 250);
+                xmlParserInputGrow(v135, 250);
               }
 
-              *(a1 + 320) = 0;
+              a1[40] = 0;
             }
 
-            goto LABEL_351;
+            return;
           }
 
-          v139 = (v131 + -v132);
+          v138 = (v130 + -v131);
         }
 
         else
         {
           v57 = v56;
-          v58 = *(a1 + 56);
+          v58 = a1[7];
           v59 = v58[4];
           v60 = xmlCheckCdataPush(v59, v56, 1);
           if (v60 == v57)
@@ -5244,12 +5322,12 @@ LABEL_296:
             v61 = *a1;
             if (v57 || !v61)
             {
-              if (v57 && v61 && !*(a1 + 332))
+              if (v57 && v61 && !*(a1 + 83))
               {
                 v71 = *(v61 + 200);
                 if (v71)
                 {
-                  v71(*(a1 + 8), v59, v57);
+                  v71(a1[1], v59, v57);
                 }
 
                 else
@@ -5257,7 +5335,7 @@ LABEL_296:
                   v123 = *(v61 + 136);
                   if (v123)
                   {
-                    v123(*(a1 + 8), v59, v57);
+                    v123(a1[1], v59, v57);
                   }
                 }
               }
@@ -5266,18 +5344,18 @@ LABEL_296:
             else
             {
               v62 = *(v61 + 200);
-              if (v62 && !*(a1 + 332) && v59 - v58[3] >= 9 && !strncmp((v59 - 9), "<![CDATA[", 9uLL))
+              if (v62 && !*(a1 + 83) && v59 - v58[3] >= 9 && !strncmp((v59 - 9), "<![CDATA[", 9uLL))
               {
-                v62(*(a1 + 8), "", 0);
+                v62(a1[1], "", 0);
               }
             }
 
-            if (*(a1 + 272) == -1)
+            if (*(a1 + 68) == -1)
             {
-              goto LABEL_351;
+              return;
             }
 
-            v124 = *(a1 + 56);
+            v124 = a1[7];
             v125 = v124->col;
             v126 = (v124->cur + 1);
             v127 = ((v57 + 2) & ~((v57 + 2) >> 31)) + 1;
@@ -5305,46 +5383,46 @@ LABEL_296:
               xmlParserInputGrow(v124, 250);
             }
 
-            *(a1 + 320) = 0;
+            a1[40] = 0;
 LABEL_328:
             v5 = 7;
             goto LABEL_329;
           }
 
-          v139 = (v59 + -v60);
+          v138 = (v59 + -v60);
         }
 
-        v58[4] = v139;
-        if ((v58[5] - v139) > 3)
+        v58[4] = v138;
+        if ((v58[5] - v138) > 3)
         {
-          v165 = 0u;
-          memset(v166, 0, sizeof(v166));
-          v163 = 0u;
           v164 = 0u;
-          v161 = 0u;
+          memset(v165, 0, sizeof(v165));
           v162 = 0u;
-          v159 = 0u;
+          v163 = 0u;
           v160 = 0u;
+          v161 = 0u;
+          v158 = 0u;
+          v159 = 0u;
           *in = 0u;
-          snprintf(in, 0x95uLL, "Bytes: 0x%02X 0x%02X 0x%02X 0x%02X\n", *v139, v139[1], v139[2], v139[3]);
-          v140 = "Input is not proper UTF-8, indicate encoding !\n%s";
-          v142 = in;
-          v141 = a1;
+          snprintf(in, 0x95uLL, "Bytes: 0x%02X 0x%02X 0x%02X 0x%02X\n", *v138, v138[1], v138[2], v138[3]);
+          v139 = "Input is not proper UTF-8, indicate encoding !\n%s";
+          v141 = in;
+          v140 = a1;
         }
 
         else
         {
-          v140 = "Input is not proper UTF-8, indicate encoding !\n";
-          v141 = a1;
-          v142 = 0;
+          v139 = "Input is not proper UTF-8, indicate encoding !\n";
+          v140 = a1;
+          v141 = 0;
         }
 
-        __xmlErrEncoding(v141, 9, v140, v142, 0);
-        goto LABEL_351;
+        __xmlErrEncoding(v140, 9, v139, v141, 0);
+        return;
       case 9:
         if (v16 == 1)
         {
-          goto LABEL_351;
+          return;
         }
 
         if (a2)
@@ -5352,29 +5430,29 @@ LABEL_328:
           goto LABEL_213;
         }
 
-        if (*(a1 + 452))
+        if (*(a1 + 113))
         {
-          if (cur >= v155)
+          if (cur >= v154)
           {
-            goto LABEL_351;
+            return;
           }
         }
 
         else if ((xmlParseLookupSequence(a1, 62, 0, 0) & 0x80000000) != 0)
         {
-          goto LABEL_351;
+          return;
         }
 
 LABEL_213:
-        if (*(a1 + 504))
+        if (*(a1 + 126))
         {
-          xmlParseEndTag2(a1, (*(a1 + 536) + 24 * *(a1 + 296) - 24));
-          v93 = *(a1 + 296);
+          xmlParseEndTag2(a1, (a1[67] + 24 * *(a1 + 74) - 24));
+          v93 = *(a1 + 74);
           if (v93 >= 1)
           {
-            v94 = *(a1 + 304);
+            v94 = a1[38];
             v95 = v93 - 1;
-            *(a1 + 296) = v93 - 1;
+            *(a1 + 74) = v93 - 1;
             if (v93 == 1)
             {
               v96 = 0;
@@ -5385,7 +5463,7 @@ LABEL_213:
               v96 = *(v94 + 8 * v93 - 16);
             }
 
-            *(a1 + 288) = v96;
+            a1[36] = v96;
             *(v94 + 8 * v95) = 0;
           }
         }
@@ -5395,12 +5473,12 @@ LABEL_213:
           xmlParseEndTag1(a1);
         }
 
-        if (*(a1 + 272) == -1)
+        if (*(a1 + 68) == -1)
         {
-          goto LABEL_351;
+          return;
         }
 
-        if (*(a1 + 296))
+        if (*(a1 + 74))
         {
           goto LABEL_328;
         }
@@ -5431,11 +5509,11 @@ LABEL_118:
         goto LABEL_124;
       case 14:
         xmlSkipBlankChars(a1);
-        v67 = *(a1 + 56);
+        v67 = a1[7];
         if (*v67)
         {
           v68 = xmlBufUse(*(*v67 + 32));
-          v67 = *(a1 + 56);
+          v67 = a1[7];
         }
 
         else
@@ -5447,7 +5525,7 @@ LABEL_118:
         v83 = v68 - v82 + *(v67 + 24);
         if (v83 < 2)
         {
-          goto LABEL_351;
+          return;
         }
 
         v84 = *v82;
@@ -5461,9 +5539,9 @@ LABEL_118:
 
           xmlParsePI(a1);
 LABEL_186:
-          if (*(a1 + 272) == -1)
+          if (*(a1 + 68) == -1)
           {
-            goto LABEL_351;
+            return;
           }
 
           v5 = 14;
@@ -5485,26 +5563,26 @@ LABEL_186:
 
           if (v83 < 4)
           {
-            goto LABEL_351;
+            return;
           }
         }
 
-        v143 = a1;
-        v144 = 5;
+        v142 = a1;
+        v143 = 5;
 LABEL_381:
-        xmlFatalErr(v143, v144, 0);
+        xmlFatalErr(v142, v143, 0);
 LABEL_382:
         xmlHaltParser(a1);
         if (*a1)
         {
-          v153 = *(*a1 + 104);
-          if (v153)
+          v152 = *(*a1 + 104);
+          if (v152)
           {
-            v153(*(a1 + 8));
+            v152(a1[1]);
           }
         }
 
-        goto LABEL_351;
+        return;
       case 15:
         v65 = *__xmlGenericError();
         v66 = *__xmlGenericErrorContext();
@@ -6524,12 +6602,12 @@ xmlCharEncodingHandlerPtr xmlFindCharEncodingHandler(const char *name)
   while (1)
   {
     v1 = name;
-    v26 = *MEMORY[0x1E69E9840];
+    v24 = *MEMORY[0x1E69E9840];
     if (handlers)
     {
       if (!name)
       {
-        goto LABEL_27;
+        return 0;
       }
     }
 
@@ -6538,24 +6616,22 @@ xmlCharEncodingHandlerPtr xmlFindCharEncodingHandler(const char *name)
       xmlInitCharEncodingHandlers();
       if (!v1)
       {
-        goto LABEL_27;
+        return 0;
       }
     }
 
     if (!*v1)
     {
-LABEL_27:
-      v8 = 0;
-      goto LABEL_28;
+      return 0;
     }
 
-    v25 = 0;
-    v23 = 0u;
-    v24 = 0u;
+    v23 = 0;
     v21 = 0u;
     v22 = 0u;
-    *__s1 = 0u;
+    v19 = 0u;
     v20 = 0u;
+    *__s1 = 0u;
+    v18 = 0u;
     EncodingAlias = xmlGetEncodingAlias(v1);
     v3 = 0;
     v4 = EncodingAlias ? EncodingAlias : v1;
@@ -6609,7 +6685,7 @@ LABEL_15:
         closeIcuConverter(v11);
       }
 
-      goto LABEL_28;
+      return v8;
     }
 
     if (v9 | v10)
@@ -6622,22 +6698,21 @@ LABEL_15:
     v13 = xmlParseCharEncoding(v1);
     if (v13 == XML_CHAR_ENCODING_ERROR)
     {
-      goto LABEL_27;
+      return 0;
     }
 
     CharEncodingName = xmlGetCharEncodingName(v13);
     if (!CharEncodingName)
     {
-      goto LABEL_27;
+      return 0;
     }
 
     v15 = CharEncodingName;
     if (!strcmp(v4, CharEncodingName))
     {
-      goto LABEL_27;
+      return 0;
     }
 
-    v16 = *MEMORY[0x1E69E9840];
     name = v15;
   }
 
@@ -6646,7 +6721,7 @@ LABEL_15:
     v8 = *v6;
     if (!strcmp(__s1, **v6))
     {
-      break;
+      return v8;
     }
 
     ++v6;
@@ -6655,10 +6730,6 @@ LABEL_15:
       goto LABEL_15;
     }
   }
-
-LABEL_28:
-  v17 = *MEMORY[0x1E69E9840];
-  return v8;
 }
 
 uint64_t xmlParse3986Authority(uint64_t a1, const xmlChar **a2)
@@ -7021,18 +7092,19 @@ char *__cdecl xmlURIUnescapeString(const char *str, int len, char *target)
   return target;
 }
 
-void *openIcuConverter(uint64_t a1, int a2)
+uint64_t *openIcuConverter(uint64_t a1, int a2)
 {
   v3 = malloc_type_malloc(0x820uLL, 0x1030040634791EDuLL);
+  v5 = v3;
   if (v3)
   {
-    if (linkedOnOrAfterFall2022OSVersions())
+    if (linkedOnOrAfterFall2022OSVersions(v3, v4))
     {
-      v3[258] = v3 + 2;
-      v3[259] = v3 + 2;
+      v5[258] = (v5 + 2);
+      v5[259] = (v5 + 2);
     }
 
-    *v3 = ucnv_open();
+    *v5 = ucnv_open();
     if (a2)
     {
       ucnv_setToUCallBack();
@@ -7043,13 +7115,13 @@ void *openIcuConverter(uint64_t a1, int a2)
       ucnv_setFromUCallBack();
     }
 
-    v3[1] = ucnv_open();
+    v5[1] = ucnv_open();
   }
 
-  return v3;
+  return v5;
 }
 
-uint64_t linkedOnOrAfterFall2022OSVersions()
+uint64_t linkedOnOrAfterFall2022OSVersions(uint64_t a1, uint64_t a2)
 {
   if (linkedOnOrAfterFall2022OSVersions_once != -1)
   {
@@ -7402,7 +7474,7 @@ void **__xmlStructuredErrorContext(void)
   }
 }
 
-uint64_t xmlSwitchInputEncodingInt(xmlParserCtxt *a1, uint64_t *a2, xmlCharEncodingHandler *handler, int a4)
+uint64_t xmlSwitchInputEncodingInt(xmlError *a1, uint64_t *a2, xmlCharEncodingHandler *handler, uint64_t a4)
 {
   result = 0xFFFFFFFFLL;
   if (a2 && handler)
@@ -7424,6 +7496,7 @@ uint64_t xmlSwitchInputEncodingInt(xmlParserCtxt *a1, uint64_t *a2, xmlCharEncod
         return 0;
       }
 
+      v10 = a4;
       *(v8 + 24) = handler;
       if (xmlBufIsEmpty(*(v8 + 32)))
       {
@@ -7474,14 +7547,14 @@ uint64_t xmlSwitchInputEncodingInt(xmlParserCtxt *a1, uint64_t *a2, xmlCharEncod
         v18[7] = v17;
         v20 = xmlBufUse(v19);
         v21 = *a2;
-        if (a1->html)
+        if (HIDWORD(a1->str2))
         {
           LineInput = xmlCharEncInput(v21, 1);
         }
 
         else
         {
-          LineInput = xmlCharEncFirstLineInput(v21, a4);
+          LineInput = xmlCharEncFirstLineInput(v21, v10);
         }
 
         v23 = LineInput;
@@ -7494,7 +7567,7 @@ uint64_t xmlSwitchInputEncodingInt(xmlParserCtxt *a1, uint64_t *a2, xmlCharEncod
           return result;
         }
 
-        if (!a1->html)
+        if (!HIDWORD(a1->str2))
         {
           xmlErrInternal(a1, "switching encoding: encoder error\n", 0);
           xmlHaltParser(a1);
@@ -7890,15 +7963,15 @@ LABEL_111:
   return v11;
 }
 
-uint64_t xmlSwitchToEncodingInt(xmlParserCtxt *a1, xmlCharEncodingHandler *handler, int a3)
+uint64_t xmlSwitchToEncodingInt(xmlError *a1, xmlCharEncodingHandler *handler, uint64_t a3)
 {
   if (handler)
   {
-    input = a1->input;
-    if (input)
+    str3 = a1->str3;
+    if (str3)
     {
-      result = xmlSwitchInputEncodingInt(a1, input, handler, a3);
-      a1->charset = 1;
+      result = xmlSwitchInputEncodingInt(a1, str3, handler, a3);
+      LODWORD(a1[4].str3) = 1;
       return result;
     }
 
@@ -8122,7 +8195,7 @@ LABEL_22:
   }
 }
 
-uint64_t areBlanks(uint64_t a1, unsigned __int8 *a2, int a3)
+uint64_t areBlanks(uint64_t a1, unsigned __int8 *a2, unsigned int a3)
 {
   if (a3 >= 1)
   {
@@ -8243,7 +8316,7 @@ LABEL_25:
   return 0;
 }
 
-uint64_t areBlanks_0(void *a1, unsigned __int8 *a2, int a3, int a4)
+uint64_t areBlanks_0(void *a1, unsigned __int8 *a2, unsigned int a3, int a4)
 {
   if (*(*a1 + 144) == *(*a1 + 136))
   {
@@ -8467,103 +8540,117 @@ xmlStructuredErrorFunc *__xmlStructuredError(void)
   }
 }
 
-size_t xmlCharEncInput(uint64_t a1, int a2)
+size_t xmlCharEncInput(uint64_t a1, uint64_t a2)
 {
   *&len[60] = *MEMORY[0x1E69E9840];
-  if (a1 && *(a1 + 24) && (v3 = *(a1 + 32)) != 0 && (v4 = *(a1 + 40)) != 0)
+  if (!a1)
   {
-    result = xmlBufUse(*(a1 + 40));
-    if (result)
+    return 0xFFFFFFFFLL;
+  }
+
+  if (!*(a1 + 24))
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v3 = *(a1 + 32);
+  if (!v3)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v4 = *(a1 + 40);
+  if (!v4)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v5 = a2;
+  result = xmlBufUse(*(a1 + 40));
+  if (result)
+  {
+    v7 = 0x10000;
+    if (result < 0x10000)
     {
-      v7 = 0x10000;
-      if (result < 0x10000)
-      {
-        v7 = result;
-      }
+      v7 = result;
+    }
 
-      if (a2)
-      {
-        v8 = result;
-      }
+    if (v5)
+    {
+      v8 = result;
+    }
 
-      else
-      {
-        v8 = v7;
-      }
+    else
+    {
+      v8 = v7;
+    }
 
+    v9 = xmlBufAvail(v3);
+    if (2 * v8 >= v9)
+    {
+      xmlBufGrow(v3, 2 * v8);
       v9 = xmlBufAvail(v3);
-      if (2 * v8 >= v9)
-      {
-        xmlBufGrow(v3, 2 * v8);
-        v9 = xmlBufAvail(v3);
-      }
+    }
 
-      v10 = 0x20000;
-      if (v9 < 0x20000)
-      {
-        v10 = v9;
-      }
+    v10 = 0x20000;
+    if (v9 < 0x20000)
+    {
+      v10 = v9;
+    }
 
-      if (a2)
-      {
-        v10 = v9;
-      }
+    if (v5)
+    {
+      v10 = v9;
+    }
 
-      v19 = v10;
-      *len = v8;
-      v11 = *(a1 + 24);
-      v12 = xmlBufEnd(v3);
-      v13 = xmlBufContent(v4);
-      v14 = xmlEncInputChunk(v11, v12, &v19, v13, len, a2);
-      xmlBufShrink(v4, *len);
-      xmlBufAddLen(v3, v19);
-      if (v14 == -1)
-      {
-        v15 = -3;
-      }
+    v18 = v10;
+    *len = v8;
+    v11 = *(a1 + 24);
+    v12 = xmlBufEnd(v3);
+    v13 = xmlBufContent(v4);
+    v14 = xmlEncInputChunk(v11, v12, &v18, v13, len, v5);
+    xmlBufShrink(v4, *len);
+    xmlBufAddLen(v3, v18);
+    if (v14 == -1)
+    {
+      v15 = -3;
+    }
 
-      else
-      {
-        v15 = v14;
-      }
+    else
+    {
+      v15 = v14;
+    }
 
-      if (v15 == -2)
-      {
-        memset(&len[4], 0, 49);
-        v16 = xmlBufContent(v4);
-        snprintf(&len[4], 0x31uLL, "0x%02X 0x%02X 0x%02X 0x%02X", *v16, v16[1], v16[2], v16[3]);
-        len[53] = 0;
-        __xmlRaiseError(0, 0, 0, 0, 0, 0x1Bu, 6003, 3, 0, 0, &len[4], 0, 0, 0, 0, "input conversion failed due to input error, bytes %s\n", &len[4]);
-      }
+    if (v15 == -2)
+    {
+      memset(&len[4], 0, 49);
+      v16 = xmlBufContent(v4);
+      snprintf(&len[4], 0x31uLL, "0x%02X 0x%02X 0x%02X 0x%02X", *v16, v16[1], v16[2], v16[3]);
+      len[53] = 0;
+      __xmlRaiseError(0, 0, 0, 0, 0, 0x1Bu, 6003, 3, 0, 0, &len[4], 0, 0, 0, 0, "input conversion failed due to input error, bytes %s\n", &len[4]);
+    }
 
-      if (v15 == -3)
-      {
-        v17 = 0;
-      }
+    if (v15 == -3)
+    {
+      v17 = 0;
+    }
 
-      else
-      {
-        v17 = v15;
-      }
+    else
+    {
+      v17 = v15;
+    }
 
-      if (v17 >= 0)
-      {
-        result = v19;
-      }
+    if (v17 >= 0)
+    {
+      return v18;
+    }
 
-      else
-      {
-        result = v17;
-      }
+    else
+    {
+      return v17;
     }
   }
 
-  else
-  {
-    result = 0xFFFFFFFFLL;
-  }
-
-  v18 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8724,35 +8811,21 @@ uint64_t xmlEncInputChunk(uint64_t a1, uint64_t a2, int *a3, uint64_t a4, int *a
   }
 }
 
-uint64_t xmlUconvWrapper(uint64_t *a1, int a2, uint64_t a3, int *a4, uint64_t a5, int *a6, int a7)
+uint64_t xmlUconvWrapper(uint64_t *a1, uint64_t a2, uint64_t a3, int *a4, uint64_t a5, int *a6, int a7)
 {
-  v22 = a3;
-  v23 = a5;
+  v17 = a3;
+  v18 = a5;
   if (a4 && (v8 = a5, a5) && (v9 = a3, a3) && a6)
   {
-    linkedOnOrAfterFall2022OSVersions();
-    v14 = *a4;
-    v15 = *a6;
-    if (a2)
-    {
-      v17 = *a1;
-      v16 = a1[1];
-    }
-
-    else
-    {
-      v19 = *a1;
-      v20 = a1[1];
-    }
-
-    ucnv_convertEx();
-    *a6 = v23 - v8;
-    *a4 = v22 - v9;
-    v21 = linkedOnOrAfterFall2022OSVersions();
+    linkedOnOrAfterFall2022OSVersions(a1, a2);
+    v14 = ucnv_convertEx();
+    *a6 = v18 - v8;
+    *a4 = v17 - v9;
+    v16 = linkedOnOrAfterFall2022OSVersions(v14, v15);
     result = 0;
     if (a7)
     {
-      if (v21)
+      if (v16)
       {
         result = 0;
         a1[259] = (a1 + 2);
@@ -8845,7 +8918,7 @@ void xmlXPathRegisterAllFunctions(xmlXPathContextPtr ctxt)
 
 int htmlParseDocument(htmlParserCtxtPtr ctxt)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   xmlInitParser();
   htmlDefaultSAXHandlerInit();
   if (ctxt && (input = ctxt->input) != 0)
@@ -8885,9 +8958,9 @@ int htmlParseDocument(htmlParserCtxtPtr ctxt)
           if (xmlSwitchEncoding(ctxt, v9) < 0)
           {
             *__str = 0;
-            memset(v22, 0, 11);
+            memset(v21, 0, 11);
             snprintf(__str, 0x14uLL, "0x%02X 0x%02X 0x%02X 0x%02X", in[0], in[1], in[2], in[3]);
-            v22[11] = 0;
+            v21[11] = 0;
             if (ctxt->errNo)
             {
               errNo = ctxt->errNo;
@@ -9002,12 +9075,12 @@ int htmlParseDocument(htmlParserCtxtPtr ctxt)
 
     if (ctxt->wellFormed)
     {
-      v8 = 0;
+      return 0;
     }
 
     else
     {
-      v8 = -1;
+      return -1;
     }
   }
 
@@ -9017,7 +9090,6 @@ int htmlParseDocument(htmlParserCtxtPtr ctxt)
     htmlParseErr(ctxt, 1, "htmlParseDocument: context error\n", 0, 0);
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -9621,64 +9693,4 @@ LABEL_92:
   {
     free(v2);
   }
-}
-
-unint64_t xmlHashComputeKey(uint64_t a1, _BYTE *a2, _BYTE *a3, _BYTE *a4)
-{
-  v4 = *(a1 + 24);
-  if (a2)
-  {
-    v5 = *a2;
-    v4 += 30 * *a2;
-    if (*a2)
-    {
-      v6 = a2 + 1;
-      do
-      {
-        v4 ^= (v4 >> 3) + v5 + 32 * v4;
-        v7 = *v6++;
-        v5 = v7;
-      }
-
-      while (v7);
-    }
-  }
-
-  v8 = (32 * v4 + (v4 >> 3)) ^ v4;
-  if (a3)
-  {
-    v9 = *a3;
-    if (*a3)
-    {
-      v10 = a3 + 1;
-      do
-      {
-        v8 ^= 32 * v8 + (v8 >> 3) + v9;
-        v11 = *v10++;
-        v9 = v11;
-      }
-
-      while (v11);
-    }
-  }
-
-  v12 = (32 * v8 + (v8 >> 3)) ^ v8;
-  if (a4)
-  {
-    v13 = *a4;
-    if (*a4)
-    {
-      v14 = a4 + 1;
-      do
-      {
-        v12 ^= 32 * v12 + (v12 >> 3) + v13;
-        v15 = *v14++;
-        v13 = v15;
-      }
-
-      while (v15);
-    }
-  }
-
-  return v12 % *(a1 + 8);
 }

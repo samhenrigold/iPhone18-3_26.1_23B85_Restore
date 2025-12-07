@@ -100,34 +100,30 @@
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
   if (self->_tickleTimes.count)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = self->_tickleTimes.list[v5];
       PBDataWriterWriteInt32Field();
-      ++v5;
+      ++v4;
     }
 
-    while (v5 < self->_tickleTimes.count);
+    while (v4 < self->_tickleTimes.count);
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    recordType = self->_recordType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    operationType = self->_operationType;
 
     PBDataWriterWriteInt32Field();
   }
@@ -203,7 +199,6 @@
   IsEqual = [equal isMemberOfClass:objc_opt_class()];
   if (IsEqual)
   {
-    v6 = *(equal + 48);
     if (*&self->_has)
     {
       if ((*(equal + 48) & 1) == 0 || self->_timestamp != *(equal + 4))

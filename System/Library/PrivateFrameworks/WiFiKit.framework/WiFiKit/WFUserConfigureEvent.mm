@@ -42,28 +42,27 @@
 
 - (WFUserConfigureEvent)initWithType:(int64_t)type new:(int64_t)new old:(int64_t)old
 {
-  v19[3] = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = WFUserConfigureEvent;
-  v8 = [(WFUserConfigureEvent *)&v17 init];
+  v18[3] = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = WFUserConfigureEvent;
+  v8 = [(WFUserConfigureEvent *)&v16 init];
   v9 = v8;
   if (v8)
   {
-    v18[0] = @"type";
+    v17[0] = @"type";
     v10 = [(WFUserConfigureEvent *)v8 _eventTypeStringForType:type];
-    v19[0] = v10;
-    v18[1] = @"value";
+    v18[0] = v10;
+    v17[1] = @"value";
     v11 = [(WFUserConfigureEvent *)v9 _configureValueStringForType:new];
-    v19[1] = v11;
-    v18[2] = @"previousValue";
+    v18[1] = v11;
+    v17[2] = @"previousValue";
     v12 = [(WFUserConfigureEvent *)v9 _configureValueStringForType:old];
-    v19[2] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
+    v18[2] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
     eventDictionary = v9->_eventDictionary;
     v9->_eventDictionary = v13;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

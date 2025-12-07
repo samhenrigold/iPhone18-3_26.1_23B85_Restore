@@ -119,7 +119,7 @@ void sub_10004A5BC(id a1)
   sub_10004A5EC(1);
 }
 
-uint64_t sub_10004A5EC(int a1)
+uint64_t sub_10004A5EC(uint64_t a1)
 {
   if (a1)
   {
@@ -192,18 +192,19 @@ uint64_t sub_10004A6D4(uint64_t a1, _OWORD *a2, const char *a3, int a4, _DWORD *
   return 0;
 }
 
-uint64_t sub_10004A800(uint64_t a1, _OWORD *a2, int a3, mach_port_name_t a4, int a5, _DWORD *a6)
+uint64_t sub_10004A800(uint64_t a1, _OWORD *a2, uint64_t a3, mach_port_name_t a4, int a5, _DWORD *a6)
 {
   pidp = -1;
   if (a4 && a6)
   {
+    v9 = a3;
     v10 = 3758097136;
     *a6 = -536870212;
     v11 = a2[1];
     *atoken.val = *a2;
     *&atoken.val[4] = v11;
     audit_token_to_au32(&atoken, 0, 0, 0, 0, 0, &pidp, 0, 0);
-    v12 = sub_10004AADC(a3);
+    v12 = sub_10004AADC(v9);
     if (v12)
     {
       v13 = v12;
@@ -230,7 +231,7 @@ uint64_t sub_10004A800(uint64_t a1, _OWORD *a2, int a3, mach_port_name_t a4, int
             handler[1] = 3221225472;
             handler[2] = sub_10004AB54;
             handler[3] = &unk_100099AD0;
-            v24 = a3;
+            v24 = v9;
             dispatch_source_set_event_handler(v20, handler);
             v22[0] = _NSConcreteStackBlock;
             v22[1] = 3221225472;
@@ -244,7 +245,7 @@ uint64_t sub_10004A800(uint64_t a1, _OWORD *a2, int a3, mach_port_name_t a4, int
 
           else if (os_log_type_enabled(qword_1000AB9B0, OS_LOG_TYPE_ERROR))
           {
-            sub_10006AC70(&pidp);
+            sub_10006AC70();
           }
         }
 
@@ -260,7 +261,7 @@ uint64_t sub_10004A800(uint64_t a1, _OWORD *a2, int a3, mach_port_name_t a4, int
           atoken.val[0] = 67109632;
           atoken.val[1] = v15;
           LOWORD(atoken.val[2]) = 1024;
-          *(&atoken.val[2] + 2) = a3;
+          *(&atoken.val[2] + 2) = v9;
           HIWORD(atoken.val[3]) = 1024;
           atoken.val[4] = v14;
           _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Notification schedule request from unexepcted pid %d for connection %d. Expected pid:%d\n", &atoken, 0x14u);
@@ -270,7 +271,7 @@ uint64_t sub_10004A800(uint64_t a1, _OWORD *a2, int a3, mach_port_name_t a4, int
 
     else if (os_log_type_enabled(qword_1000AB9B0, OS_LOG_TYPE_ERROR))
     {
-      sub_10006ACE4(&pidp);
+      sub_10006ACE4();
     }
   }
 
@@ -479,8 +480,8 @@ void sub_10004AE84(int a1)
   if ((dword_1000AD088 & 8) != 0)
   {
     dword_1000AD088 &= ~8u;
-    sub_100018C6C(10, 0);
-    sub_100018C6C(18, 0);
+    sub_100018C6C(0xAu, 0);
+    sub_100018C6C(0x12u, 0);
     v2 = sub_10005E8F8();
     asl_set(v2, "com.apple.iokit.domain", "com.apple.sleepservices.sessionTerminated");
     if (sub_10001B6D0(value, 100))
@@ -937,26 +938,25 @@ void sub_10004BB38(uint64_t a1)
 {
   if (sub_10004BCA0(a1))
   {
-    v2 = *(a1 + 8);
-    if (v2)
+    if (*(a1 + 8))
     {
-      nullsub_3(v2, "PMClientStats");
+      nullsub_3();
       CFRelease(*(a1 + 8));
       *(a1 + 8) = 0;
     }
 
-    v3 = *(a1 + 16);
-    if (v3)
+    v2 = *(a1 + 16);
+    if (v2)
     {
-      dispatch_source_cancel(v3);
+      dispatch_source_cancel(v2);
       dispatch_release(*(a1 + 16));
       *(a1 + 16) = 0;
     }
 
-    v4 = *(a1 + 32);
-    if (v4)
+    v3 = *(a1 + 32);
+    if (v3)
     {
-      IOAllowPowerChange(dword_1000AD084, v4);
+      IOAllowPowerChange(dword_1000AD084, v3);
     }
 
     if (qword_1000AD078)
@@ -964,8 +964,8 @@ void sub_10004BB38(uint64_t a1)
       Count = CFArrayGetCount(qword_1000AD078);
       if (Count >= 1)
       {
-        v6 = Count;
-        for (i = 0; i != v6; ++i)
+        v5 = Count;
+        for (i = 0; i != v5; ++i)
         {
           ValueAtIndex = CFArrayGetValueAtIndex(qword_1000AD078, i);
           if (ValueAtIndex[1] == a1)
@@ -977,32 +977,32 @@ void sub_10004BB38(uint64_t a1)
 
       if (*a1)
       {
-        v9 = CFArrayGetCount(*a1);
-        if (v9 >= 1)
+        v8 = CFArrayGetCount(*a1);
+        if (v8 >= 1)
         {
-          v10 = v9;
-          for (j = 0; j != v10; ++j)
+          v9 = v8;
+          for (j = 0; j != v9; ++j)
           {
-            v12 = CFArrayGetValueAtIndex(*a1, j);
-            v13 = v12[8];
+            v11 = CFArrayGetValueAtIndex(*a1, j);
+            v12 = v11[8];
+            if (v12)
+            {
+              CFRelease(v12);
+            }
+
+            v13 = v11[9];
             if (v13)
             {
               CFRelease(v13);
             }
 
-            v14 = v12[9];
+            v14 = v11[10];
             if (v14)
             {
               CFRelease(v14);
             }
 
-            v15 = v12[10];
-            if (v15)
-            {
-              CFRelease(v15);
-            }
-
-            free(v12);
+            free(v11);
           }
         }
 
@@ -1753,7 +1753,7 @@ uint64_t sub_10004C9B4(uint64_t a1)
         CFArrayAppendValue(*v12, v19);
         if ((dword_1000AB6D0 & 4) != 0)
         {
-          nullsub_3(*(*v19 + 16), 0);
+          nullsub_3();
         }
       }
 
@@ -2313,8 +2313,9 @@ LABEL_11:
   }
 }
 
-void sub_10004DCC4(int a1)
+void sub_10004DCC4(uint64_t a1)
 {
+  v1 = a1;
   Value = CFDictionaryGetValue(qword_1000ABAC0, a1);
   if (Value)
   {
@@ -2337,7 +2338,7 @@ void sub_10004DCC4(int a1)
         v7[1] = 3221225472;
         v7[2] = sub_100050C18;
         v7[3] = &unk_10009A940;
-        v8 = a1;
+        v8 = v1;
         sub_1000047A8(v4, 7u, v7);
         v6 = v4[16];
         if (v6)
@@ -2364,8 +2365,9 @@ void sub_10004DCC4(int a1)
   }
 }
 
-void sub_10004DE30(int a1)
+void sub_10004DE30(uint64_t a1)
 {
+  v1 = a1;
   Value = CFDictionaryGetValue(qword_1000ABAC0, a1);
   if (Value && (v3 = Value, Value[136] < 0))
   {
@@ -2377,7 +2379,7 @@ void sub_10004DE30(int a1)
       v7[1] = 3221225472;
       v7[2] = sub_100050D20;
       v7[3] = &unk_10009A940;
-      v8 = a1;
+      v8 = v1;
       sub_1000047A8(v4, 8u, v7);
       v6 = v4[16];
       if (v6)
@@ -2425,7 +2427,7 @@ void sub_10004DFE4(uint64_t a1)
 {
   if ((*(a1 + 136) & 0x20) == 0 && os_log_type_enabled(qword_1000ABAB8, OS_LOG_TYPE_ERROR))
   {
-    sub_10006BF20(a1);
+    sub_10006BF20();
   }
 
   sub_100007E54(*(a1 + 96));
@@ -2456,21 +2458,22 @@ void sub_10004E03C(uint64_t a1, void *a2)
 
   else if (os_log_type_enabled(qword_1000ABAB8, OS_LOG_TYPE_ERROR))
   {
-    sub_10006BF90(a1);
+    sub_10006BF90();
   }
 }
 
-void sub_10004E178(void *a1, int a2)
+void sub_10004E178(void *a1, uint64_t a2)
 {
+  v2 = a2;
   uint64 = xpc_dictionary_get_uint64(a1, "assertionCheckToken");
   v5 = xpc_dictionary_get_uint64(a1, "assertionCheckCount");
   v6 = qword_1000AD130;
   if (uint64 == qword_1000AD130)
   {
-    if (a2)
+    if (v2)
     {
       v7 = v5;
-      Value = CFDictionaryGetValue(qword_1000ABAC0, a2);
+      Value = CFDictionaryGetValue(qword_1000ABAC0, v2);
       if (Value)
       {
         v9 = Value;
@@ -2483,7 +2486,7 @@ void sub_10004E178(void *a1, int a2)
             if (os_log_type_enabled(qword_1000ABAB8, OS_LOG_TYPE_DEFAULT))
             {
               v13 = 67109376;
-              v14 = a2;
+              v14 = v2;
               v15 = 1024;
               LODWORD(v16) = v7;
               _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Received active assertion from %d:%d blocking sleep", &v13, 0xEu);
@@ -2519,7 +2522,7 @@ void sub_10004E178(void *a1, int a2)
           if (os_log_type_enabled(qword_1000ABAB8, OS_LOG_TYPE_DEFAULT))
           {
             v13 = 67109120;
-            v14 = a2;
+            v14 = v2;
             _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Reply from pid:%d no longer considered pending. Reply likely came after timeout.\n", &v13, 8u);
           }
         }
@@ -2543,7 +2546,7 @@ void sub_10004E178(void *a1, int a2)
     if (os_log_type_enabled(qword_1000ABAB8, OS_LOG_TYPE_ERROR))
     {
       v13 = 67109632;
-      v14 = a2;
+      v14 = v2;
       v15 = 2048;
       v16 = uint64;
       v17 = 2048;
@@ -2938,7 +2941,7 @@ LABEL_6:
 void sub_10004EE5C()
 {
   v0 = sub_100002AB4();
-  nullsub_3(1, v1);
+  nullsub_3();
   if (v0 - qword_1000AD188 > 0x1D || (sub_100007E48() & 1) != 0 || !sub_10005C9D0())
   {
     if ((sub_100007E48() & 1) == 0 && (sub_10005C9D0() & 1) == 0)
@@ -2951,10 +2954,10 @@ void sub_10004EE5C()
       sub_10005CA4C(1);
     }
 
-    v3 = sub_100002290();
-    if (v3)
+    v2 = sub_100002290();
+    if (v2)
     {
-      if (IOConnectCallMethod(v3, 0xAu, 0, 0, 0, 0, 0, 0, 0, 0))
+      if (IOConnectCallMethod(v2, 0xAu, 0, 0, 0, 0, 0, 0, 0, 0))
       {
         if (os_log_type_enabled(qword_1000ABAB8, OS_LOG_TYPE_ERROR))
         {
@@ -2981,10 +2984,10 @@ void sub_10004EE5C()
 
   else
   {
-    v2 = qword_1000ABAB8;
+    v1 = qword_1000ABAB8;
     if (os_log_type_enabled(qword_1000ABAB8, OS_LOG_TYPE_DEBUG))
     {
-      sub_10006C6D4(v0, v2);
+      sub_10006C6D4(v0, v1);
     }
   }
 }
@@ -3457,7 +3460,7 @@ void sub_10004FAB0(int a1, int a2)
   }
 }
 
-uint64_t sub_10004FC8C(int a1, uint64_t a2)
+void *sub_10004FC8C(uint64_t a1, uint64_t a2)
 {
   v2 = 0;
   v32 = 0;
@@ -3476,6 +3479,7 @@ uint64_t sub_10004FC8C(int a1, uint64_t a2)
   v27 = &v28;
   if (qword_1000ABAE0 && !qword_1000AD198)
   {
+    v4 = a1;
     qword_1000AD198 = dispatch_queue_create("PM Stats offloader", 0);
     if (!qword_1000AD198)
     {
@@ -3489,7 +3493,7 @@ LABEL_26:
       goto LABEL_27;
     }
 
-    if (a1 != 1)
+    if (v4 != 1)
     {
       v2 = qword_1000AD298;
       if (qword_1000AD298)
@@ -3569,7 +3573,7 @@ LABEL_15:
               }
 
               v20 = "aggregateassertion";
-              if (a1 == 1)
+              if (v4 == 1)
               {
                 v20 = "singleassertion";
               }
@@ -3591,7 +3595,7 @@ LABEL_15:
 
         if (*v2)
         {
-          v21 = sub_100054430(*v2, a1);
+          v21 = sub_100054430(*v2, v4);
 LABEL_32:
           v2 = v21;
           goto LABEL_27;
@@ -3621,14 +3625,14 @@ LABEL_27:
   return v2;
 }
 
-void sub_10004FF94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10004FF94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3636,18 +3640,17 @@ void sub_10004FF94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void sub_10004FFC0(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   ADClientAddValueForScalarKey();
-  v3 = qword_1000ABAB8;
+  v2 = qword_1000ABAB8;
   if (os_log_type_enabled(qword_1000ABAB8, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v6 = 138412546;
-    v7 = v4;
-    v8 = 1024;
-    v9 = v5;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Add to aggd string %@ for pid %d\n", &v6, 0x12u);
+    v3 = *(a1 + 32);
+    v4 = *(a1 + 40);
+    v5 = 138412546;
+    v6 = v3;
+    v7 = 1024;
+    v8 = v4;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Add to aggd string %@ for pid %d\n", &v5, 0x12u);
   }
 
   CFRelease(*(a1 + 32));
@@ -4120,7 +4123,7 @@ void sub_100050C18(uint64_t a1, uint64_t a2)
     sub_100003488(10, a2);
     v10 = &unk_1000ABB58 + 160 * v4;
     v13 = *(v10 + 4);
-    v11 = (v10 + 32);
+    v11 = v10 + 32;
     v12 = v13;
     *a2 = v13;
     if (v13)
@@ -4133,30 +4136,30 @@ void sub_100050C18(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_100050D20(uint64_t a1, unint64_t a2)
+void sub_100050D20(uint64_t a1, uint64_t *a2)
 {
   v3 = *(a1 + 32);
-  if (*(*(a2 + 72) + 96) == v3 || *(a2 + 80) == v3)
+  if (*(a2[9] + 96) == v3 || *(a2 + 20) == v3)
   {
     v4 = *a2;
-    v5 = *(a2 + 8);
+    v5 = a2[1];
     if (*a2)
     {
       *(v4 + 8) = v5;
     }
 
     *v5 = v4;
-    *(a2 + 24) &= ~0x400u;
-    CFDictionarySetValue(*(a2 + 16), @"AssertionIsStateSuspended", kCFBooleanFalse);
+    *(a2 + 6) &= ~0x400u;
+    CFDictionarySetValue(a2[2], @"AssertionIsStateSuspended", kCFBooleanFalse);
     v6 = sub_100002AB4();
-    v7 = &unk_1000ABB58 + 160 * *(a2 + 48);
+    v7 = &unk_1000ABB58 + 160 * *(a2 + 12);
     valuePtr = 0;
-    Value = CFDictionaryGetValue(*(a2 + 16), @"AssertLevel");
+    Value = CFDictionaryGetValue(a2[2], @"AssertLevel");
     TypeID = CFNumberGetTypeID();
     if (Value && CFGetTypeID(Value) == TypeID && (CFNumberGetValue(Value, kCFNumberIntType, &valuePtr), !valuePtr))
     {
       v14 = *(v7 + 3);
-      v13 = (v7 + 24);
+      v13 = v7 + 24;
       v12 = v14;
       *a2 = v14;
       if (v14)
@@ -4165,18 +4168,18 @@ void sub_100050D20(uint64_t a1, unint64_t a2)
       }
 
       *v13 = a2;
-      *(a2 + 8) = v13;
-      *(a2 + 24) = *(a2 + 24) & 0xFFFFFFFC | 2;
+      a2[1] = v13;
+      *(a2 + 6) = a2[3] & 0xFFFFFFFC | 2;
     }
 
     else
     {
       v15 = 0.0;
-      v10 = CFDictionaryGetValue(*(a2 + 16), @"_AssertTimeoutOnResume");
+      v10 = CFDictionaryGetValue(a2[2], @"_AssertTimeoutOnResume");
       v11 = CFNumberGetTypeID();
-      if (v10 && CFGetTypeID(v10) == v11 && (CFNumberGetValue(v10, kCFNumberDoubleType, &v15), CFDictionaryRemoveValue(*(a2 + 16), @"_AssertTimeoutOnResume"), v15 != 0.0))
+      if (v10 && CFGetTypeID(v10) == v11 && (CFNumberGetValue(v10, kCFNumberDoubleType, &v15), CFDictionaryRemoveValue(a2[2], @"_AssertTimeoutOnResume"), v15 != 0.0))
       {
-        *(a2 + 40) = v6 + v15;
+        a2[5] = v6 + v15;
         sub_100008FEC(a2, v7, 1, 0);
       }
 
@@ -4359,7 +4362,7 @@ void sub_100051204(uint64_t a1)
       *(i + 24) = *(i + 24) & 0xFFFFFFFC | 2;
       ++*(a1 + 80);
       sub_100003488(5, i);
-      nullsub_3(3, i);
+      nullsub_3();
     }
 
     v4 = *(a1 + 8);
@@ -4392,7 +4395,7 @@ void sub_100051204(uint64_t a1)
         *(v4 + 24) = *(v4 + 24) & 0xFFFFFFFC | 2;
         ++*(a1 + 80);
         sub_100003488(5, v4);
-        nullsub_3(3, v4);
+        nullsub_3();
         v4 = *(a1 + 8);
       }
 
@@ -5168,11 +5171,11 @@ void sub_10005262C()
   }
 }
 
-void sub_100052780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100052780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 48), 8);
+  _Block_object_dispose((v13 - 48), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5299,7 +5302,7 @@ LABEL_15:
     v23 = &unk_1000ABB58 + 160 * *(a2 + 48);
     sub_100007FB8(a2, v23, 1);
     v26 = *(v23 + 3);
-    v25 = (v23 + 24);
+    v25 = v23 + 24;
     v24 = v26;
     *a2 = v26;
     if (v26)
@@ -5339,12 +5342,9 @@ LABEL_15:
 
 void sub_100052C90(uint64_t a1)
 {
-  v2 = (a1 + 40);
-  v1 = *(a1 + 40);
-  v3 = *(v2 - 1);
   if ((SimulateCrash() & 1) == 0 && os_log_type_enabled(qword_1000ABAB8, OS_LOG_TYPE_ERROR))
   {
-    sub_10006CB80(v2);
+    sub_10006CB80();
   }
 }
 
@@ -5512,7 +5512,7 @@ LABEL_16:
   }
 }
 
-uint64_t sub_1000531E8(unsigned int a1)
+uint64_t sub_1000531E8(int a1)
 {
   v2 = qword_1000ABAB8;
   if (os_log_type_enabled(qword_1000ABAB8, OS_LOG_TYPE_DEFAULT))
@@ -5626,7 +5626,7 @@ void sub_1000533EC(void *a1)
   }
 }
 
-void sub_10005361C()
+void sub_10005361C(uint64_t result, uint64_t a2)
 {
   if (qword_1000AD1D0 != -1)
   {
@@ -5653,9 +5653,9 @@ void sub_100053648(id a1)
   _Block_object_dispose(&v3, 8);
 }
 
-void sub_100053734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100053734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5710,7 +5710,7 @@ void sub_1000537E0()
   }
 }
 
-void sub_100053958(uint64_t a1)
+void sub_100053958(uint64_t a1, uint64_t a2)
 {
   if (&_DMIsMigrationNeeded)
   {
@@ -5719,11 +5719,11 @@ void sub_100053958(uint64_t a1)
 
   if (*(*(*(a1 + 32) + 8) + 24))
   {
-    v2 = qword_1000ABAB8;
+    v3 = qword_1000ABAB8;
     if (os_log_type_enabled(qword_1000ABAB8, OS_LOG_TYPE_DEFAULT))
     {
-      *v4 = 0;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Trial Initialization: Deferred due to pending Data Migration.", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Trial Initialization: Deferred due to pending Data Migration.", v5, 2u);
     }
   }
 
@@ -5734,9 +5734,9 @@ void sub_100053958(uint64_t a1)
       sub_10006CD68();
     }
 
-    v3 = qword_1000ABB48;
+    v4 = qword_1000ABB48;
 
-    dispatch_source_cancel(v3);
+    dispatch_source_cancel(v4);
   }
 }
 
@@ -5864,8 +5864,9 @@ void sub_100053E48(uint64_t a1)
   CFRelease(v6);
 }
 
-void *sub_100053F14(uint64_t a1, int a2)
+void *sub_100053F14(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = qword_1000ABAE0;
   TypeID = CFDictionaryGetTypeID();
   if (!v4)
@@ -5912,7 +5913,7 @@ void *sub_100053F14(uint64_t a1, int a2)
   CFDictionaryGetKeysAndValues(qword_1000ABAE0, 0, v10);
   if (v7 >= 1)
   {
-    if (a2 == 1)
+    if (v2 == 1)
     {
       v12 = @"Asssertion Duration Limit";
     }
@@ -5950,7 +5951,7 @@ void *sub_100053F14(uint64_t a1, int a2)
   {
     if (os_log_type_enabled(qword_1000ABAB8, OS_LOG_TYPE_ERROR))
     {
-      sub_10006CDB8(a1 + 32);
+      sub_10006CDB8();
     }
 
     CFRelease(v9);
@@ -6017,7 +6018,7 @@ void *sub_100053F14(uint64_t a1, int a2)
     v29 = 0;
     v30 = 0;
     v31 = "aggregateassertion";
-    if (a2 == 1)
+    if (v2 == 1)
     {
       v31 = "singleassertion";
     }
@@ -6063,7 +6064,7 @@ LABEL_42:
       }
     }
 
-    v35 = sub_100054430(*(v32 - 1), a2);
+    v35 = sub_100054430(*(v32 - 1), v2);
     v36 = qword_1000ABAB8;
     if (os_log_type_enabled(qword_1000ABAB8, OS_LOG_TYPE_DEBUG))
     {
@@ -6183,18 +6184,17 @@ int sub_100054508(id a1, __CFDictionary *a2)
 
 void sub_1000546EC(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   ADClientAddValueForScalarKey();
-  v3 = qword_1000ABAB8;
+  v2 = qword_1000ABAB8;
   if (os_log_type_enabled(qword_1000ABAB8, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v6 = 138412546;
-    v7 = v4;
-    v8 = 2048;
-    v9 = v5;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Add to aggd string %@ for pid %llu\n", &v6, 0x16u);
+    v3 = *(a1 + 32);
+    v4 = *(a1 + 40);
+    v5 = 138412546;
+    v6 = v3;
+    v7 = 2048;
+    v8 = v4;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Add to aggd string %@ for pid %llu\n", &v5, 0x16u);
   }
 
   CFRelease(*(a1 + 32));
@@ -6251,7 +6251,7 @@ void sub_1000547B0(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_100054928(uint64_t a1, unint64_t a2)
+void sub_100054928(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 40))
   {
@@ -6274,13 +6274,6 @@ void sub_100054928(uint64_t a1, unint64_t a2)
   }
 }
 
-unsigned int *sub_100054A30@<X0>(unsigned int *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
-}
-
 void sub_100054A80(id a1)
 {
   qword_1000AD2C0 = objc_alloc_init(USBDeviceMode);
@@ -6288,17 +6281,17 @@ void sub_100054A80(id a1)
   _objc_release_x1();
 }
 
-id sub_100054DF0(uint64_t a1)
+id sub_100054DF0(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) setIsACPowered:IOPSDrawingUnlimitedPower()];
-  v2 = qword_1000AC970;
+  v3 = qword_1000AC970;
   if (os_log_type_enabled(qword_1000AC970, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
-    v6[0] = 67109120;
-    v6[1] = [v3 isACPowered];
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Power source update. AC powered %d", v6, 8u);
+    v4 = *(a1 + 32);
+    v5 = v3;
+    v7[0] = 67109120;
+    v7[1] = [v4 isACPowered];
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Power source update. AC powered %d", v7, 8u);
   }
 
   return [*(a1 + 32) evaluatePowerAssertion];
@@ -6327,7 +6320,7 @@ id sub_1000558E4(uint64_t a1)
 void sub_100055A5C()
 {
   valuePtr = -1;
-  v44[0] = -1;
+  v42[0] = -1;
   v0 = sub_10001B168();
   CFProperty = IORegistryEntryCreateCFProperty(v0, @"Power Status", kCFAllocatorDefault, 0);
   if (!CFProperty)
@@ -6385,7 +6378,7 @@ LABEL_10:
     goto LABEL_72;
   }
 
-  v40 = v6;
+  v38 = v6;
   theDict = Mutable;
   if (v4 >= 1)
   {
@@ -6426,7 +6419,6 @@ LABEL_10:
         }
 
         CFNumberGetValue(*v13, kCFNumberIntType, &valuePtr);
-        v25 = valuePtr;
         if (valuePtr == dword_1000AD2D0)
         {
           goto LABEL_42;
@@ -6435,66 +6427,65 @@ LABEL_10:
 
       else
       {
-        v26 = *v13;
-        v27 = CFNumberGetTypeID();
-        if (!v26)
+        v24 = *v13;
+        v25 = CFNumberGetTypeID();
+        if (!v24)
         {
           goto LABEL_42;
         }
 
-        if (CFGetTypeID(v26) != v27)
+        if (CFGetTypeID(v24) != v25)
         {
           goto LABEL_42;
         }
 
-        CFNumberGetValue(*v13, kCFNumberIntType, v44);
-        if (v44[0] == dword_1000AB750)
+        CFNumberGetValue(*v13, kCFNumberIntType, v42);
+        if (v42[0] == dword_1000AB750)
         {
           goto LABEL_42;
         }
 
-        v28 = v44[0] == 100 || v44[0] == 110;
-        v29 = v28;
-        sub_10001AB30(32, v29);
+        v26 = v42[0] == 100 || v42[0] == 110;
+        v27 = v26;
+        sub_10001AB30(32, v27);
         sub_10001AB60();
-        v25 = v44[0];
-        if (v44[0] == 255)
+        if (v42[0] == 255)
         {
           goto LABEL_42;
         }
       }
 
-      nullsub_3(v25, v24);
+      nullsub_3();
 LABEL_42:
       ++v13;
       ++v6;
     }
   }
 
-  v30 = SCDynamicStoreCreate(0, @"IOKit Power", 0, 0);
-  v11 = v30;
-  if (!v30)
+  v28 = SCDynamicStoreCreate(0, @"IOKit Power", 0, 0);
+  v11 = v28;
+  if (!v28)
   {
 LABEL_69:
-    v6 = v40;
+    v6 = v38;
     goto LABEL_70;
   }
 
   v10 = theDict;
-  SCDynamicStoreSetMultiple(v30, theDict, 0, 0);
+  SCDynamicStoreSetMultiple(v28, theDict, 0, 0);
   if (v4 < 1)
   {
-    v6 = v40;
+    v6 = v38;
     goto LABEL_72;
   }
 
-  v31 = 0;
-  v32 = v40;
+  v29 = 0;
+  v30 = v38;
   do
   {
-    if (CFStringCompare(*v32, @"Thermal_Level_Warning", 0))
+    if (CFStringCompare(*v30, @"Thermal_Level_Warning", 0))
     {
-      if (CFStringCompare(*v32, @"Performance_Warning", 0) == kCFCompareEqualTo)
+      if (CFStringCompare(*v30, @"Performance_Warning", 0) == kCFCompareEqualTo)
       {
         if (valuePtr == dword_1000AD2D0)
         {
@@ -6504,40 +6495,40 @@ LABEL_69:
         dword_1000AD2D0 = valuePtr;
         if (valuePtr == 100)
         {
-          v31 = 1;
+          v29 = 1;
         }
       }
     }
 
     else
     {
-      if (v44[0] == dword_1000AB750)
+      if (v42[0] == dword_1000AB750)
       {
         goto LABEL_59;
       }
 
-      dword_1000AB750 = v44[0];
-      if (v44[0] == 110 || v44[0] == 100)
+      dword_1000AB750 = v42[0];
+      if (v42[0] == 110 || v42[0] == 100)
       {
-        v31 = 1;
+        v29 = 1;
       }
     }
 
-    v33 = *v32;
-    v34 = CFEqual(*v32, @"Thermal_Level_Warning");
-    v35 = "com.apple.system.power.thermal_warning";
-    if (v34 || (v36 = CFEqual(v33, @"CPU_Power_Limits"), v35 = "com.apple.system.power.CPU", v36) || (v37 = CFEqual(v33, @"Performance_Warning"), v35 = "com.apple.system.power.performance_warning", v37))
+    v31 = *v30;
+    v32 = CFEqual(*v30, @"Thermal_Level_Warning");
+    v33 = "com.apple.system.power.thermal_warning";
+    if (v32 || (v34 = CFEqual(v31, @"CPU_Power_Limits"), v33 = "com.apple.system.power.CPU", v34) || (v35 = CFEqual(v31, @"Performance_Warning"), v33 = "com.apple.system.power.performance_warning", v35))
     {
-      notify_post(v35);
+      notify_post(v33);
     }
 
 LABEL_59:
-    ++v32;
+    ++v30;
     --v4;
   }
 
   while (v4);
-  if (!v31)
+  if (!v29)
   {
     goto LABEL_69;
   }
@@ -6547,18 +6538,18 @@ LABEL_59:
     lchmod("/private/var/run/thermal", 0x1FFu);
   }
 
-  v38 = open("/private/var/run/thermal/.thermalpressure", 536871426, 511);
-  v6 = v40;
-  if ((v38 & 0x80000000) == 0)
+  v36 = open("/private/var/run/thermal/.thermalpressure", 536871426, 511);
+  v6 = v38;
+  if ((v36 & 0x80000000) == 0)
   {
-    v39 = v38;
-    memset(&v42, 0, sizeof(v42));
-    if (!fstat(v38, &v42) && v42.st_nlink == 1)
+    v37 = v36;
+    memset(&v40, 0, sizeof(v40));
+    if (!fstat(v36, &v40) && v40.st_nlink == 1)
     {
-      fchmod(v39, 0x1FFu);
+      fchmod(v37, 0x1FFu);
     }
 
-    close(v39);
+    close(v37);
   }
 
 LABEL_70:
@@ -7157,26 +7148,26 @@ uint64_t sub_100056C38(const void *a1, int a2)
     return v4;
   }
 
-  v53 = 0u;
-  v54 = 0u;
-  *aggressiveness = 0u;
+  v51 = 0u;
   v52 = 0u;
+  *aggressiveness = 0u;
+  v50 = 0u;
   sub_1000563D4(a1, @"Display Sleep Timer", kCFNumberSInt32Type, aggressiveness);
   sub_1000563D4(a1, @"Disk Sleep Timer", kCFNumberSInt32Type, aggressiveness + 1);
   sub_1000563D4(a1, @"System Sleep Timer", kCFNumberSInt32Type, &aggressiveness[1]);
   sub_1000563D4(a1, @"Wake On LAN", kCFNumberSInt32Type, (aggressiveness | 0xC));
-  sub_1000563D4(a1, @"Wake On Modem Ring", kCFNumberSInt32Type, &v52);
-  sub_1000563D4(a1, @"Automatic Restart On Power Loss", kCFNumberSInt32Type, &v52 + 1);
-  sub_1000563D4(a1, @"Sleep On Power Button", kCFNumberSInt32Type, &v52 + 2);
-  sub_1000563D4(a1, @"Wake On Clamshell Open", kCFNumberSInt32Type, &v52 + 3);
-  sub_1000563D4(a1, @"Wake On AC Change", kCFNumberSInt32Type, &v53);
-  sub_1000563D4(a1, @"Display Sleep Uses Dim", kCFNumberSInt32Type, &v53 + 1);
-  sub_1000563D4(a1, @"Mobile Motion Module", kCFNumberSInt32Type, &v53 + 2);
-  sub_1000563D4(a1, @"GPUSwitch", kCFNumberSInt32Type, &v53 + 3);
-  sub_1000563D4(a1, @"Standby Enabled", kCFNumberSInt32Type, &v54);
-  sub_1000563D4(a1, @"Standby Delay", kCFNumberSInt32Type, &v54 + 1);
-  sub_1000563D4(a1, @"AutoPowerOff Enabled", kCFNumberSInt32Type, &v54 + 2);
-  sub_1000563D4(a1, @"AutoPowerOff Delay", kCFNumberSInt32Type, &v54 + 3);
+  sub_1000563D4(a1, @"Wake On Modem Ring", kCFNumberSInt32Type, &v50);
+  sub_1000563D4(a1, @"Automatic Restart On Power Loss", kCFNumberSInt32Type, &v50 + 1);
+  sub_1000563D4(a1, @"Sleep On Power Button", kCFNumberSInt32Type, &v50 + 2);
+  sub_1000563D4(a1, @"Wake On Clamshell Open", kCFNumberSInt32Type, &v50 + 3);
+  sub_1000563D4(a1, @"Wake On AC Change", kCFNumberSInt32Type, &v51);
+  sub_1000563D4(a1, @"Display Sleep Uses Dim", kCFNumberSInt32Type, &v51 + 1);
+  sub_1000563D4(a1, @"Mobile Motion Module", kCFNumberSInt32Type, &v51 + 2);
+  sub_1000563D4(a1, @"GPUSwitch", kCFNumberSInt32Type, &v51 + 3);
+  sub_1000563D4(a1, @"Standby Enabled", kCFNumberSInt32Type, &v52);
+  sub_1000563D4(a1, @"Standby Delay", kCFNumberSInt32Type, &v52 + 1);
+  sub_1000563D4(a1, @"AutoPowerOff Enabled", kCFNumberSInt32Type, &v52 + 2);
+  sub_1000563D4(a1, @"AutoPowerOff Delay", kCFNumberSInt32Type, &v52 + 3);
   v6 = sub_10001B168();
   valuePtr = 1;
   v7 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr);
@@ -7212,7 +7203,7 @@ uint64_t sub_100056C38(const void *a1, int a2)
     {
       if (IOPMFeatureIsAvailableWithSupportedTable())
       {
-        if (DWORD1(v53))
+        if (DWORD1(v51))
         {
           v13 = v7;
         }
@@ -7233,7 +7224,7 @@ uint64_t sub_100056C38(const void *a1, int a2)
 
     else
     {
-      if (DWORD1(v53))
+      if (DWORD1(v51))
       {
         v26 = v7;
       }
@@ -7246,7 +7237,7 @@ uint64_t sub_100056C38(const void *a1, int a2)
       IORegistryEntrySetCFProperty(v6, @"Display Sleep Uses Dim", v26);
     }
 
-    if (v52)
+    if (v50)
     {
       v27 = v7;
     }
@@ -7259,7 +7250,7 @@ uint64_t sub_100056C38(const void *a1, int a2)
     IORegistryEntrySetCFProperty(v6, @"Wake On Modem Ring", v27);
     if (!a2)
     {
-      if (DWORD1(v52))
+      if (DWORD1(v50))
       {
         v29 = v7;
       }
@@ -7271,7 +7262,7 @@ uint64_t sub_100056C38(const void *a1, int a2)
 
       IORegistryEntrySetCFProperty(v6, @"Automatic Restart On Power Loss", v29);
 LABEL_63:
-      if (v53)
+      if (v51)
       {
         v30 = v7;
       }
@@ -7285,14 +7276,14 @@ LABEL_63:
       if (!a2)
       {
         v32 = &kCFBooleanFalse;
-        if (!DWORD2(v52))
+        if (!DWORD2(v50))
         {
           v32 = &kCFBooleanTrue;
         }
 
         IORegistryEntrySetCFProperty(v6, @"Sleep On Power Button", *v32);
 LABEL_76:
-        if (HIDWORD(v52))
+        if (HIDWORD(v50))
         {
           v33 = v7;
         }
@@ -7305,7 +7296,7 @@ LABEL_76:
         IORegistryEntrySetCFProperty(v6, @"Wake On Clamshell Open", v33);
         if (!a2)
         {
-          if (DWORD2(v53))
+          if (DWORD2(v51))
           {
             v35 = v7;
           }
@@ -7317,7 +7308,7 @@ LABEL_76:
 
           IORegistryEntrySetCFProperty(v6, @"MobileMotionModule", v35);
 LABEL_91:
-          v36 = CFNumberCreate(0, kCFNumberIntType, &v53 + 12);
+          v36 = CFNumberCreate(0, kCFNumberIntType, &v51 + 12);
           if (v36)
           {
             v37 = v36;
@@ -7328,14 +7319,14 @@ LABEL_91:
           if (!a2)
           {
             v39 = &kCFBooleanTrue;
-            if (!v54)
+            if (!v52)
             {
               v39 = &kCFBooleanFalse;
             }
 
             IORegistryEntrySetCFProperty(v6, @"Standby Enabled", *v39);
 LABEL_103:
-            v40 = CFNumberCreate(0, kCFNumberIntType, &v54 + 4);
+            v40 = CFNumberCreate(0, kCFNumberIntType, &v52 + 4);
             if (v40)
             {
               v41 = v40;
@@ -7346,14 +7337,14 @@ LABEL_103:
             if (!a2)
             {
               v43 = &kCFBooleanTrue;
-              if (!DWORD2(v54))
+              if (!DWORD2(v52))
               {
                 v43 = &kCFBooleanFalse;
               }
 
               IORegistryEntrySetCFProperty(v6, @"AutoPowerOff Enabled", *v43);
 LABEL_115:
-              v44 = CFNumberCreate(0, kCFNumberIntType, &v54 + 12);
+              v44 = CFNumberCreate(0, kCFNumberIntType, &v52 + 12);
               if (v44)
               {
                 v45 = v44;
@@ -7372,7 +7363,7 @@ LABEL_117:
                   byte_1000AD329 = v47;
                   byte_1000AD32A = IsAvailableWithSupportedTable;
                   sub_100018C6C(0xBu, 0);
-                  nullsub_3(v49, v50);
+                  nullsub_3();
                 }
               }
 
@@ -7393,7 +7384,7 @@ LABEL_106:
             if (IOPMFeatureIsAvailableWithSupportedTable())
             {
               v42 = &kCFBooleanTrue;
-              if (!DWORD2(v54))
+              if (!DWORD2(v52))
               {
                 v42 = &kCFBooleanFalse;
               }
@@ -7413,7 +7404,7 @@ LABEL_94:
           if (IOPMFeatureIsAvailableWithSupportedTable())
           {
             v38 = &kCFBooleanTrue;
-            if (!v54)
+            if (!v52)
             {
               v38 = &kCFBooleanFalse;
             }
@@ -7432,7 +7423,7 @@ LABEL_94:
 LABEL_80:
         if (IOPMFeatureIsAvailableWithSupportedTable())
         {
-          if (DWORD2(v53))
+          if (DWORD2(v51))
           {
             v34 = v7;
           }
@@ -7457,7 +7448,7 @@ LABEL_67:
       if (IOPMFeatureIsAvailableWithSupportedTable())
       {
         v31 = &kCFBooleanFalse;
-        if (!DWORD2(v52))
+        if (!DWORD2(v50))
         {
           v31 = &kCFBooleanTrue;
         }
@@ -7476,7 +7467,7 @@ LABEL_67:
 LABEL_52:
     if (IOPMFeatureIsAvailableWithSupportedTable())
     {
-      if (DWORD1(v52))
+      if (DWORD1(v50))
       {
         v28 = v7;
       }
@@ -8033,7 +8024,7 @@ void sub_10005CA4C(int a1)
       v1 = 1;
       sub_10004B650(1, 0);
       sub_10004B04C();
-      nullsub_3(v2, v3);
+      nullsub_3();
       byte_1000AD3A8 = 1;
     }
 
@@ -8043,12 +8034,12 @@ void sub_10005CA4C(int a1)
     }
 
     byte_1000AD3A7 = v1;
-    v4 = qword_1000AC9A0;
+    v2 = qword_1000AC9A0;
     if (os_log_type_enabled(qword_1000AC9A0, OS_LOG_TYPE_DEFAULT))
     {
-      v5[0] = 67109120;
-      v5[1] = v1;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "rootDomain's user activity state:%d\n", v5, 8u);
+      v3[0] = 67109120;
+      v3[1] = v1;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "rootDomain's user activity state:%d\n", v3, 8u);
     }
   }
 }
@@ -8334,7 +8325,7 @@ uint64_t sub_10005D168(uint64_t result)
     sub_1000113DC();
     sub_100015D90();
     sub_10004F550(v1);
-    return sub_10004D06C();
+    return sub_10004D06C(byte_1000AD424);
   }
 
   return result;
@@ -8686,20 +8677,20 @@ uint64_t sub_10005DCB0()
   return _SCDynamicStoreSetDisconnectCallBack(v0, sub_10005DD58);
 }
 
-uint64_t sub_10005DD58(uint64_t a1)
+uint64_t sub_10005DD58(uint64_t a1, uint64_t a2)
 {
-  v3 = qword_1000AC9A8;
+  v4 = qword_1000AC9A8;
   if (qword_1000AC9A8 != a1)
   {
     sub_10006E5C4();
   }
 
-  v4 = qword_1000AD470;
+  v5 = qword_1000AD470;
 
-  return SCDynamicStoreSetMultiple(v3, v4, 0, 0);
+  return SCDynamicStoreSetMultiple(v4, v5, 0, 0);
 }
 
-BOOL sub_10005DD9C(_BOOL8 result)
+const __CFString *sub_10005DD9C(const __CFString *result)
 {
   if (result)
   {
@@ -8708,7 +8699,7 @@ BOOL sub_10005DD9C(_BOOL8 result)
     if (CFGetTypeID(v1) == TypeID)
     {
       CFDictionaryRemoveValue(qword_1000AD470, v1);
-      return SCDynamicStoreRemoveValue(qword_1000AC9A8, v1) != 0;
+      return (SCDynamicStoreRemoveValue(qword_1000AC9A8, v1) != 0);
     }
 
     else
@@ -9396,7 +9387,7 @@ uint64_t sub_10005EEE4(int a1, const void *a2, unsigned int a3)
           v7 = a3;
         }
 
-        memcpy(&v16[12], a2, (v7 - 1) + 1);
+        memcpy(&v16[12], a2, v7 - 1 + 1);
       }
 
       v11 = 0u;
@@ -9517,7 +9508,7 @@ uint64_t sub_10005F144(int a1, const void *a2, unsigned int a3)
           v7 = a3;
         }
 
-        memcpy(&v22[12], a2, (v7 - 1) + 1);
+        memcpy(&v22[12], a2, v7 - 1 + 1);
       }
 
       v11 = 0u;

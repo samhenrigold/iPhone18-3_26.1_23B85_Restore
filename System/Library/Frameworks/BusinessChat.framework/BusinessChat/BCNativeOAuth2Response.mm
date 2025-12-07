@@ -8,12 +8,12 @@
 
 - (BCNativeOAuth2Response)initWithToken:(id)token error:(id)error
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   errorCopy = error;
-  v22.receiver = self;
-  v22.super_class = BCNativeOAuth2Response;
-  v9 = [(BCNativeOAuth2Response *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = BCNativeOAuth2Response;
+  v9 = [(BCNativeOAuth2Response *)&v21 init];
   v10 = v9;
   if (v9)
   {
@@ -43,20 +43,19 @@
       localizedDescription = [errorCopy localizedDescription];
       v17 = [(BCError *)v13 initWithCode:v14 domain:domain message:localizedDescription];
 
-      v23[0] = v17;
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+      v22[0] = v17;
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
       errors = v10->_errors;
       v10->_errors = v18;
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (NSDictionary)dictionaryValue
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = v3;
   if (self)
@@ -71,8 +70,8 @@
   else
   {
     [v3 setObject:0 forKeyedSubscript:@"token"];
-    v17 = NSStringFromNativeAuthStatus([0 status]);
-    [v4 setObject:v17 forKeyedSubscript:@"status"];
+    v16 = NSStringFromNativeAuthStatus([0 status]);
+    [v4 setObject:v16 forKeyedSubscript:@"status"];
 
     errors = 0;
   }
@@ -80,10 +79,10 @@
   if ([(NSArray *)errors count])
   {
     v7 = objc_opt_new();
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     if (self)
     {
       v8 = self->_errors;
@@ -95,25 +94,25 @@
     }
 
     v9 = v8;
-    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          dictionaryValue = [*(*(&v18 + 1) + 8 * i) dictionaryValue];
+          dictionaryValue = [*(*(&v17 + 1) + 8 * i) dictionaryValue];
           [v7 addObject:dictionaryValue];
         }
 
-        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v11);
@@ -121,8 +120,6 @@
 
     [v4 setObject:v7 forKeyedSubscript:@"errors"];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

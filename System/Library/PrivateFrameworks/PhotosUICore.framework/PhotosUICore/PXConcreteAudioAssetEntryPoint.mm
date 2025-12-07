@@ -10,7 +10,7 @@
 
 - (unint64_t)hash
 {
-  [(PXConcreteAudioAssetEntryPoint *)self time];
+  objc_msgSend_time(self, a2);
   v4 = (v3 * 100.0);
   fadeInKeyGainValues = [(PXConcreteAudioAssetEntryPoint *)self fadeInKeyGainValues];
   v6 = [fadeInKeyGainValues hash];
@@ -34,9 +34,9 @@
     if (objc_opt_isKindOfClass())
     {
       v5 = equalCopy;
-      [(PXConcreteAudioAssetEntryPoint *)self time];
+      objc_msgSend_time(self);
       v7 = v6;
-      [(PXConcreteAudioAssetEntryPoint *)v5 time];
+      objc_msgSend_time(v5);
       if (v7 == v8)
       {
         fadeInKeyTimeOffsets = [(PXConcreteAudioAssetEntryPoint *)self fadeInKeyTimeOffsets];
@@ -101,7 +101,7 @@ BOOL __53__PXConcreteAudioAssetEntryPoint_fadeInGainAtOffset___block_invoke(uint
   v3 = objc_alloc(MEMORY[0x1E696AEC0]);
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  [(PXConcreteAudioAssetEntryPoint *)self time];
+  objc_msgSend_time(self);
   v7 = v6;
   fadeInKeyTimeOffsets = [(PXConcreteAudioAssetEntryPoint *)self fadeInKeyTimeOffsets];
   fadeInKeyGainValues = [(PXConcreteAudioAssetEntryPoint *)self fadeInKeyGainValues];

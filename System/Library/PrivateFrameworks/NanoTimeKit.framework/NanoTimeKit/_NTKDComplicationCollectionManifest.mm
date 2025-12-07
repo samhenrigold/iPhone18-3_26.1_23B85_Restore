@@ -5,6 +5,7 @@
 - (_NTKDComplicationCollectionManifest)init;
 - (_NTKDComplicationCollectionManifest)initWithContentsOfFile:(id)file;
 - (void)setClientId:(id)id supportForComplicationDescriptorIdentifiers:(id)identifiers;
+- (void)writeToFile:(id)file atomically:(BOOL)atomically;
 @end
 
 @implementation _NTKDComplicationCollectionManifest
@@ -235,6 +236,61 @@
   }
 
   return v4;
+}
+
+- (void)writeToFile:(id)file atomically:(BOOL)atomically
+{
+  atomicallyCopy = atomically;
+  fileCopy = file;
+  v7 = +[NSMutableDictionary dictionary];
+  v8 = +[NSMutableDictionary dictionary];
+  clientToSampleTemplateFamilies = self->_clientToSampleTemplateFamilies;
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_10002B904;
+  v19[3] = &unk_10005DEF8;
+  v10 = v8;
+  v20 = v10;
+  [(NSMutableDictionary *)clientToSampleTemplateFamilies enumerateKeysAndObjectsUsingBlock:v19];
+  [v7 setObject:v10 forKey:@"ClientToSampleTemplate"];
+  [v7 setObject:self->_clientToComplicationDescriptorIdentifiers forKey:@"ClientToComplicationDescriptorIdentifiers"];
+  LODWORD(self) = [v7 writeToFile:fileCopy atomically:atomicallyCopy];
+
+  v11 = CLKLoggingObjectForDomain();
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  if (self)
+  {
+    if (v12)
+    {
+      v13 = [v7 objectForKeyedSubscript:@"ClientToComplicationDescriptorIdentifiers"];
+      allKeys = [v13 allKeys];
+      v15 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [allKeys count]);
+      v16 = [v7 objectForKeyedSubscript:@"ClientToComplicationDescriptorIdentifiers"];
+      allKeys2 = [v16 allKeys];
+      *buf = 138412546;
+      v22 = v15;
+      v23 = 2112;
+      v24 = allKeys2;
+      v18 = "Successfully wrote manifest with descriptors %@ %@";
+LABEL_6:
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v18, buf, 0x16u);
+    }
+  }
+
+  else if (v12)
+  {
+    v13 = [v7 objectForKeyedSubscript:@"ClientToComplicationDescriptorIdentifiers"];
+    allKeys = [v13 allKeys];
+    v15 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [allKeys count]);
+    v16 = [v7 objectForKeyedSubscript:@"ClientToComplicationDescriptorIdentifiers"];
+    allKeys2 = [v16 allKeys];
+    *buf = 138412546;
+    v22 = v15;
+    v23 = 2112;
+    v24 = allKeys2;
+    v18 = "Failed to write manifest with descriptors %@ %@";
+    goto LABEL_6;
+  }
 }
 
 @end

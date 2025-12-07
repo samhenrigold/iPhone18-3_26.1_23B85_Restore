@@ -12,7 +12,7 @@
   v4 = backendXPC;
   if (backendXPC)
   {
-    [backendXPC backend];
+    objc_msgSend_backend(backendXPC);
   }
 
   else
@@ -39,7 +39,7 @@
     backendXPC2 = [(DiskImageParamsXPC *)self backendXPC];
     if (backendXPC2)
     {
-      [backendXPC2 backend];
+      objc_msgSend_backend(backendXPC2);
     }
 
     else
@@ -61,7 +61,7 @@
   v7 = backendXPC3;
   if (backendXPC3)
   {
-    [backendXPC3 backend];
+    objc_msgSend_backend(backendXPC3);
   }
 
   else
@@ -91,7 +91,7 @@
   backendXPC4 = [(DiskImageParamsXPC *)self backendXPC];
   if (backendXPC4)
   {
-    [backendXPC4 backend];
+    objc_msgSend_backend(backendXPC4);
   }
 
   else
@@ -110,7 +110,7 @@
   v3 = backendXPC;
   if (backendXPC)
   {
-    [backendXPC backend];
+    objc_msgSend_backend(backendXPC);
   }
 
   else
@@ -146,7 +146,7 @@
   v4 = backendXPC;
   if (backendXPC)
   {
-    [backendXPC backend];
+    objc_msgSend_backend(backendXPC);
     backendXPC = v8;
   }
 

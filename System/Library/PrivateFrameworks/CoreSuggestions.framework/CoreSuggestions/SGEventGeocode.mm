@@ -23,75 +23,70 @@
 
 + (id)poiCategoriesFromString:(id)string
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   context = objc_autoreleasePoolPush();
-  v27 = stringCopy;
+  v26 = stringCopy;
   v4 = [stringCopy componentsSeparatedByString:{@", "}];
   v5 = objc_opt_new();
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v33;
-    v28 = *MEMORY[0x1E69A1800];
-    v29 = *MEMORY[0x1E69A1868];
-    v30 = *MEMORY[0x1E69A17C0];
-    v31 = *MEMORY[0x1E69A1740];
+    v9 = *v32;
+    v27 = *MEMORY[0x1E69A1800];
+    v28 = *MEMORY[0x1E69A1868];
+    v29 = *MEMORY[0x1E69A17C0];
+    v30 = *MEMORY[0x1E69A1740];
     v10 = *MEMORY[0x1E69A16B8];
     v11 = *MEMORY[0x1E69A1880];
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v33 != v9)
+        if (*v32 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v32 + 1) + 8 * i);
+        v13 = *(*(&v31 + 1) + 8 * i);
         v14 = [v13 isEqualToString:@"restaurant"];
         v15 = v11;
-        if (v14)
+        if ((v14 & 1) == 0)
         {
-          goto LABEL_21;
-        }
-
-        v16 = [v13 isEqualToString:@"airport"];
-        v15 = v10;
-        if (v16)
-        {
-          goto LABEL_21;
-        }
-
-        v17 = [v13 isEqualToString:@"car-rental"];
-        v15 = v31;
-        if ((v17 & 1) == 0)
-        {
-          v18 = [v13 isEqualToString:@"hotel"];
-          v15 = v30;
-          if ((v18 & 1) == 0)
+          v16 = [v13 isEqualToString:@"airport"];
+          v15 = v10;
+          if ((v16 & 1) == 0)
           {
-            v19 = [v13 isEqualToString:@"public-transport"];
-            v15 = v29;
-            if ((v19 & 1) == 0)
+            v17 = [v13 isEqualToString:@"car-rental"];
+            v15 = v30;
+            if ((v17 & 1) == 0)
             {
-              v20 = [v13 isEqualToString:@"movie-theater"];
-              v15 = v28;
-              if (!v20)
+              v18 = [v13 isEqualToString:@"hotel"];
+              v15 = v29;
+              if ((v18 & 1) == 0)
               {
-                continue;
+                v19 = [v13 isEqualToString:@"public-transport"];
+                v15 = v28;
+                if ((v19 & 1) == 0)
+                {
+                  v20 = [v13 isEqualToString:@"movie-theater"];
+                  v15 = v27;
+                  if (!v20)
+                  {
+                    continue;
+                  }
+                }
               }
             }
           }
         }
 
-LABEL_21:
         v21 = v15;
         if (v21)
         {
@@ -100,7 +95,7 @@ LABEL_21:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v8);
@@ -108,8 +103,6 @@ LABEL_21:
 
   v23 = [v5 copy];
   objc_autoreleasePoolPop(context);
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
@@ -144,21 +137,15 @@ LABEL_21:
 
 void __31__SGEventGeocode_geocodeEvent___block_invoke(uint64_t a1, void *a2)
 {
-  v53 = *MEMORY[0x1E69E9840];
-  v24 = a2;
+  v51 = *MEMORY[0x1E69E9840];
+  v22 = a2;
   v3 = dispatch_group_create();
   v4 = [*(a1 + 32) geocodeLocations];
   v5 = [v4 mutableCopy];
 
-  v47[0] = 0;
-  v47[1] = v47;
-  v47[2] = 0x2020000000;
-  v48 = 0;
   v45[0] = 0;
   v45[1] = v45;
-  v45[2] = 0x3032000000;
-  v45[3] = __Block_byref_object_copy__1359;
-  v45[4] = __Block_byref_object_dispose__1360;
+  v45[2] = 0x2020000000;
   v46 = 0;
   v43[0] = 0;
   v43[1] = v43;
@@ -166,6 +153,12 @@ void __31__SGEventGeocode_geocodeEvent___block_invoke(uint64_t a1, void *a2)
   v43[3] = __Block_byref_object_copy__1359;
   v43[4] = __Block_byref_object_dispose__1360;
   v44 = 0;
+  v41[0] = 0;
+  v41[1] = v41;
+  v41[2] = 0x3032000000;
+  v41[3] = __Block_byref_object_copy__1359;
+  v41[4] = __Block_byref_object_dispose__1360;
+  v42 = 0;
   v6 = [*(a1 + 32) geocodingMode];
   v7 = *(a1 + 40);
   v8 = [*(a1 + 32) poiFilters];
@@ -182,56 +175,54 @@ void __31__SGEventGeocode_geocodeEvent___block_invoke(uint64_t a1, void *a2)
       {
         v13 = [*(a1 + 32) loggingIdentifier];
         *buf = 67109378;
-        v50 = i;
-        v51 = 2114;
-        v52 = v13;
+        v48 = i;
+        v49 = 2114;
+        v50 = v13;
         _os_log_impl(&dword_1BA729000, v12, OS_LOG_TYPE_DEFAULT, "SGEventGeocode geocodeEvent: Starting geocoding location at index %d. [SGEvent (%{public}@)]", buf, 0x12u);
       }
 
-      v14 = *(a1 + 40);
-      v15 = objc_opt_class();
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = __31__SGEventGeocode_geocodeEvent___block_invoke_106;
-      v33[3] = &unk_1E7EFB078;
-      v34 = *(a1 + 32);
+      v14 = objc_opt_class();
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __31__SGEventGeocode_geocodeEvent___block_invoke_106;
+      v31[3] = &unk_1E7EFB078;
+      v32 = *(a1 + 32);
+      v36 = v43;
+      v15 = v11;
+      v33 = v15;
+      v37 = v41;
+      v16 = *(a1 + 40);
       v38 = v45;
-      v16 = v11;
-      v35 = v16;
-      v39 = v43;
-      v17 = *(a1 + 40);
-      v40 = v47;
-      v41 = v17;
-      v36 = v5;
-      v42 = i;
-      v37 = v3;
-      [v15 geocodeLocation:v16 usingMode:v6 withGeoFilters:v9 withCallback:v33];
+      v39 = v16;
+      v34 = v5;
+      v40 = i;
+      v35 = v3;
+      [v14 geocodeLocation:v15 usingMode:v6 withGeoFilters:v9 withCallback:v31];
     }
   }
 
-  v18 = [*(a1 + 40) _serialQueue];
+  v17 = [*(a1 + 40) _serialQueue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __31__SGEventGeocode_geocodeEvent___block_invoke_2;
   block[3] = &unk_1E7EFB0A0;
-  v29 = v43;
-  v19 = *(a1 + 32);
-  v20 = *(a1 + 40);
-  v31 = v47;
-  v32 = v20;
-  v26 = v19;
-  v27 = v5;
-  v30 = v45;
-  v28 = v24;
-  v21 = v24;
-  v22 = v5;
-  dispatch_group_notify(v3, v18, block);
+  v27 = v41;
+  v18 = *(a1 + 32);
+  v19 = *(a1 + 40);
+  v29 = v45;
+  v30 = v19;
+  v24 = v18;
+  v25 = v5;
+  v28 = v43;
+  v26 = v22;
+  v20 = v22;
+  v21 = v5;
+  dispatch_group_notify(v3, v17, block);
 
+  _Block_object_dispose(v41, 8);
   _Block_object_dispose(v43, 8);
-  _Block_object_dispose(v45, 8);
 
-  _Block_object_dispose(v47, 8);
-  v23 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v45, 8);
 }
 
 void __31__SGEventGeocode_geocodeEvent___block_invoke_106(uint64_t a1, void *a2, void *a3)
@@ -301,8 +292,8 @@ LABEL_14:
 void __31__SGEventGeocode_geocodeEvent___block_invoke_2(uint64_t a1)
 {
   v2 = a1;
-  v65 = *MEMORY[0x1E69E9840];
-  v58 = a1 + 56;
+  v64 = *MEMORY[0x1E69E9840];
+  v57 = a1 + 56;
   v3 = *(*(*(a1 + 56) + 8) + 40);
   if (v3)
   {
@@ -315,8 +306,8 @@ void __31__SGEventGeocode_geocodeEvent___block_invoke_2(uint64_t a1)
   }
 
   v5 = v4;
-  v56 = v2;
-  v57 = v2 + 64;
+  v55 = v2;
+  v56 = v2 + 64;
   v6 = *(*(*(v2 + 64) + 8) + 40);
   if (v6)
   {
@@ -340,12 +331,12 @@ void __31__SGEventGeocode_geocodeEvent___block_invoke_2(uint64_t a1)
 
   if (!v7)
   {
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
     v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
     v11 = [*(v2 + 32) geocodeLocations];
-    v12 = [v11 countByEnumeratingWithState:&v60 objects:v64 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v59 objects:v63 count:16];
     if (!v12)
     {
       v7 = 0;
@@ -354,17 +345,17 @@ void __31__SGEventGeocode_geocodeEvent___block_invoke_2(uint64_t a1)
 
     v13 = v12;
     v7 = 0;
-    v14 = *v61;
+    v14 = *v60;
     while (1)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v61 != v14)
+        if (*v60 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v1 = *(*(&v60 + 1) + 8 * i);
+        v1 = *(*(&v59 + 1) + 8 * i);
         if ([v1 geocodeIsStart])
         {
           v16 = [v1 geocodeAddress];
@@ -372,7 +363,7 @@ void __31__SGEventGeocode_geocodeEvent___block_invoke_2(uint64_t a1)
 
           if (v17)
           {
-            objc_storeStrong((*(*v57 + 8) + 40), v17);
+            objc_storeStrong((*(*v56 + 8) + 40), v17);
             v7 = v17;
             if (([v1 geocodeIsEnd]& 1) != 0)
             {
@@ -407,7 +398,7 @@ void __31__SGEventGeocode_geocodeEvent___block_invoke_2(uint64_t a1)
             {
               v5 = v17;
 LABEL_26:
-              objc_storeStrong((*(*v58 + 8) + 40), v17);
+              objc_storeStrong((*(*v57 + 8) + 40), v17);
               continue;
             }
 
@@ -416,7 +407,7 @@ LABEL_26:
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v60 objects:v64 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v59 objects:v63 count:16];
       if (!v13)
       {
 LABEL_33:
@@ -432,12 +423,12 @@ LABEL_34:
   {
   }
 
-  else if (!*(*(*v58 + 8) + 40))
+  else if (!*(*(*v57 + 8) + 40))
   {
     v21 = [*(v2 + 32) geocodeStartTimeZone];
     v22 = v21;
     v24 = v2 + 64;
-    v23 = v58;
+    v23 = v57;
 LABEL_41:
     v20 = v21;
     if (!v21)
@@ -453,7 +444,7 @@ LABEL_41:
   v20 = [*(v2 + 32) geocodeStartTimeZone];
   if (!v20)
   {
-    if (*(*(*v57 + 8) + 40))
+    if (*(*(*v56 + 8) + 40))
     {
       goto LABEL_45;
     }
@@ -461,7 +452,7 @@ LABEL_41:
     v21 = [*(v2 + 32) geocodeEndTimeZone];
     v22 = v21;
     v23 = v2 + 64;
-    v24 = v58;
+    v24 = v57;
     goto LABEL_41;
   }
 
@@ -505,7 +496,7 @@ LABEL_49:
     }
 
 LABEL_58:
-    if (*(*(*v58 + 8) + 40))
+    if (*(*(*v57 + 8) + 40))
     {
       [*(v2 + 32) geocodeEndTimeZone];
       if (objc_claimAutoreleasedReturnValue())
@@ -538,14 +529,14 @@ LABEL_58:
       {
         if (v32)
         {
-          v53 = 0;
+          v52 = 0;
           v33 = 0;
           v34 = *(v2 + 32);
 LABEL_80:
+          v53 = v29;
           v54 = v29;
-          v55 = v29;
 LABEL_81:
-          v38 = *(*(*v57 + 8) + 40);
+          v38 = *(*(*v56 + 8) + 40);
           v39 = v38;
           if (!v38)
           {
@@ -558,30 +549,30 @@ LABEL_81:
             v32 = [*(v2 + 32) geocodeEndDate];
           }
 
-          v41 = *(*(*v58 + 8) + 40);
+          v41 = *(*(*v57 + 8) + 40);
           v42 = v41;
           if (!v41)
           {
-            v42 = [*(v56 + 32) geocodeEndTimeZone];
+            v42 = [*(v55 + 32) geocodeEndTimeZone];
           }
 
-          v43 = [v34 geocodedEventWithStartDate:v55 startTimeZone:v39 endDate:v32 endTimeZone:v42 locations:*(v56 + 40)];
+          v43 = [v34 geocodedEventWithStartDate:v54 startTimeZone:v39 endDate:v32 endTimeZone:v42 locations:*(v55 + 40)];
           if (v41)
           {
             if (!v33)
             {
 LABEL_90:
-              v2 = v56;
+              v2 = v55;
               if (!v38)
               {
               }
 
               v32 = v40;
-              if (v53)
+              if (v52)
               {
               }
 
-              v29 = v54;
+              v29 = v53;
 LABEL_101:
 
               goto LABEL_102;
@@ -642,10 +633,10 @@ LABEL_71:
       {
         v33 = 1;
 LABEL_77:
-        v54 = v29;
+        v53 = v29;
         v34 = *(v2 + 32);
-        v55 = [v34 geocodeStartDate];
-        v53 = 1;
+        v54 = [v34 geocodeStartDate];
+        v52 = 1;
         goto LABEL_81;
       }
     }
@@ -654,7 +645,7 @@ LABEL_77:
     {
       if (v36)
       {
-        v53 = 0;
+        v52 = 0;
         v32 = 0;
         v34 = *(v2 + 32);
         v33 = 1;
@@ -681,7 +672,7 @@ LABEL_98:
     goto LABEL_49;
   }
 
-  if (*(*(*v58 + 8) + 40))
+  if (*(*(*v57 + 8) + 40))
   {
 LABEL_57:
     v29 = 0;
@@ -700,13 +691,11 @@ LABEL_102:
     v50 = [*(v2 + 32) geocodeLocations];
     v51 = [v45 geocodedEventWithStartDate:v46 startTimeZone:v47 endDate:v48 endTimeZone:v49 locations:v50];
 
-    v2 = v56;
+    v2 = v55;
     v43 = v51;
   }
 
   [*(v2 + 48) succeed:v43];
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 + (id)dateForUTCDate:(id)date withTimeZone:(id)zone
@@ -939,7 +928,7 @@ LABEL_15:
 
 void __72__SGEventGeocode_geocodeLocation_usingMode_withGeoFilters_withCallback___block_invoke(uint64_t a1, void *a2)
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   v3 = a2;
   [v3 coordinate];
   v5 = v4;
@@ -954,19 +943,19 @@ void __72__SGEventGeocode_geocodeLocation_usingMode_withGeoFilters_withCallback_
   {
     if (*(a1 + 120))
     {
-      v56 = @"Yes";
+      v52 = @"Yes";
     }
 
     else
     {
-      v56 = @"No";
+      v52 = @"No";
     }
 
-    v57 = [*(a1 + 32) _pas_componentsJoinedByString:{@", "}];
+    v53 = [*(a1 + 32) _pas_componentsJoinedByString:{@", "}];
     *buf = 138412546;
-    v59 = v56;
-    v60 = 2112;
-    v61 = v57;
+    v55 = v52;
+    v56 = 2112;
+    v57 = v53;
     _os_log_debug_impl(&dword_1BA729000, v11, OS_LOG_TYPE_DEBUG, "SGEventGeocode geocodeLocation: Found POI using mode SGGeocodingModePOIOnly (isAirport? : %@, filters: %@)", buf, 0x16u);
   }
 
@@ -1019,22 +1008,17 @@ void __72__SGEventGeocode_geocodeLocation_usingMode_withGeoFilters_withCallback_
   v46 = [v45 _pas_componentsJoinedByString:{@", "}];
   v47 = [MEMORY[0x1E69A2208] sharedService];
   v48 = [v47 handleForMapItem:v3];
-  v49 = *(*(*(a1 + 96) + 8) + 40);
-  v50 = [v42 geocodedLocationWithLabel:v43 address:v46 latitude:v48 longitude:*(*(*(a1 + 64) + 8) + 40) accuracy:*(*(*(a1 + 72) + 8) + 40) handle:*(*(*(a1 + 80) + 8) + 40) country:v5 state:v7 city:1.0 thoroughfare:*(*(*(a1 + 88) + 8) + 40) subThoroughfare:v49 postalCode:*(*(*(a1 + 104) + 8) + 40)];
-  v51 = *(*(a1 + 112) + 8);
-  v52 = *(v51 + 40);
-  *(v51 + 40) = v50;
+  v49 = [v42 geocodedLocationWithLabel:v43 address:v46 latitude:v48 longitude:*(*(*(a1 + 64) + 8) + 40) accuracy:*(*(*(a1 + 72) + 8) + 40) handle:*(*(*(a1 + 80) + 8) + 40) country:v5 state:v7 city:1.0 thoroughfare:*(*(*(a1 + 88) + 8) + 40) subThoroughfare:*(*(*(a1 + 96) + 8) + 40) postalCode:*(*(*(a1 + 104) + 8) + 40)];
+  v50 = *(*(a1 + 112) + 8);
+  v51 = *(v50 + 40);
+  *(v50 + 40) = v49;
 
-  v53 = *(*(*(a1 + 112) + 8) + 40);
-  v54 = *(*(*(a1 + 56) + 8) + 40);
   (*(*(a1 + 48) + 16))();
-
-  v55 = *MEMORY[0x1E69E9840];
 }
 
 void __72__SGEventGeocode_geocodeLocation_usingMode_withGeoFilters_withCallback___block_invoke_95(uint64_t a1, void *a2)
 {
-  v86 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -1100,9 +1084,9 @@ void __72__SGEventGeocode_geocodeLocation_usingMode_withGeoFilters_withCallback_
     v48 = sgEventsLogHandle();
     if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
     {
-      v69 = [*(a1 + 40) _pas_componentsJoinedByString:{@", "}];
+      v63 = [*(a1 + 40) _pas_componentsJoinedByString:{@", "}];
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v69;
+      *(&buf + 4) = v63;
       _os_log_debug_impl(&dword_1BA729000, v48, OS_LOG_TYPE_DEBUG, "SGEventGeocode geocodeLocation: Found address using mode SGGeocodingModeAddressThenPOI. Now trying to refine and look for a relevant POI w/ filters: %@", &buf, 0xCu);
     }
 
@@ -1116,44 +1100,43 @@ void __72__SGEventGeocode_geocodeLocation_usingMode_withGeoFilters_withCallback_
 
       else
       {
-        v53 = [*(a1 + 32) geocodeLabel];
-        v54 = [*(a1 + 32) geocodeAddress];
-        v55 = [v53 isEqualToString:v54];
+        v51 = [*(a1 + 32) geocodeLabel];
+        v52 = [*(a1 + 32) geocodeAddress];
+        v53 = [v51 isEqualToString:v52];
 
-        if ((v55 & 1) == 0)
+        if ((v53 & 1) == 0)
         {
-          v59 = [*(a1 + 32) geocodeLabel];
-          v60 = objc_alloc(MEMORY[0x1E69A2200]);
+          v54 = [*(a1 + 32) geocodeLabel];
+          v55 = objc_alloc(MEMORY[0x1E69A2200]);
           GEOCoordinateRegionMakeWithDistance();
-          v61 = [v60 initWithCoordinateRegion:?];
+          v56 = [v55 initWithCoordinateRegion:?];
           *&buf = 0;
           *(&buf + 1) = &buf;
-          v82 = 0x3032000000;
-          v83 = __Block_byref_object_copy__1359;
-          v84 = __Block_byref_object_dispose__1360;
-          v85 = [*(a1 + 32) geocodeLabel];
-          v62 = *(a1 + 120);
-          v63 = objc_opt_class();
-          v70[0] = MEMORY[0x1E69E9820];
-          v70[1] = 3221225472;
-          v70[2] = __72__SGEventGeocode_geocodeLocation_usingMode_withGeoFilters_withCallback___block_invoke_97;
-          v70[3] = &unk_1E7EFAFD8;
-          v79 = v9;
-          v80 = v11;
-          v64 = *(a1 + 40);
-          v65 = *(a1 + 48);
-          v67 = *(a1 + 104);
-          v66 = *(a1 + 112);
-          v72 = v65;
-          v73 = v66;
-          v68 = *(a1 + 72);
-          v74 = *(a1 + 56);
-          v75 = v68;
-          v76 = *(a1 + 88);
-          v77 = v67;
+          v76 = 0x3032000000;
+          v77 = __Block_byref_object_copy__1359;
+          v78 = __Block_byref_object_dispose__1360;
+          v79 = [*(a1 + 32) geocodeLabel];
+          v57 = objc_opt_class();
+          v64[0] = MEMORY[0x1E69E9820];
+          v64[1] = 3221225472;
+          v64[2] = __72__SGEventGeocode_geocodeLocation_usingMode_withGeoFilters_withCallback___block_invoke_97;
+          v64[3] = &unk_1E7EFAFD8;
+          v73 = v9;
+          v74 = v11;
+          v58 = *(a1 + 40);
+          v59 = *(a1 + 48);
+          v61 = *(a1 + 104);
+          v60 = *(a1 + 112);
+          v66 = v59;
+          v67 = v60;
+          v62 = *(a1 + 72);
+          v68 = *(a1 + 56);
+          v69 = v62;
+          v70 = *(a1 + 88);
+          v71 = v61;
           p_buf = &buf;
-          v71 = *(a1 + 32);
-          [v63 geocodePOIWithName:v59 ofTypes:v64 inRegion:v61 withCallback:v70];
+          v65 = *(a1 + 32);
+          [v57 geocodePOIWithName:v54 ofTypes:v58 inRegion:v56 withCallback:v64];
 
           _Block_object_dispose(&buf, 8);
           goto LABEL_10;
@@ -1161,26 +1144,20 @@ void __72__SGEventGeocode_geocodeLocation_usingMode_withGeoFilters_withCallback_
       }
     }
 
-    v56 = *(*(*(a1 + 112) + 8) + 40);
-    v57 = *(*(*(a1 + 56) + 8) + 40);
     (*(*(a1 + 48) + 16))();
   }
 
   else
   {
-    v51 = *(*(*(a1 + 112) + 8) + 40);
-    v52 = *(*(*(a1 + 56) + 8) + 40);
     (*(*(a1 + 48) + 16))();
   }
 
 LABEL_10:
-
-  v58 = *MEMORY[0x1E69E9840];
 }
 
 void __72__SGEventGeocode_geocodeLocation_usingMode_withGeoFilters_withCallback___block_invoke_101(uint64_t a1, void *a2)
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -1245,17 +1222,16 @@ void __72__SGEventGeocode_geocodeLocation_usingMode_withGeoFilters_withCallback_
       v43 = *(a1 + 32);
       if (v44 <= 10000.0)
       {
-        v55 = [v4 name];
-        v65 = [v4 geoAddress];
-        v66 = [v65 formattedAddressLines];
-        v67 = [v66 _pas_componentsJoinedByString:{@", "}];
-        v68 = [MEMORY[0x1E69A2208] sharedService];
-        v69 = [v68 handleForMapItem:v4];
-        v70 = *(*(*(a1 + 88) + 8) + 40);
-        v71 = [v43 geocodedLocationWithLabel:v55 address:v67 latitude:v69 longitude:*(*(*(a1 + 56) + 8) + 40) accuracy:*(*(*(a1 + 64) + 8) + 40) handle:*(*(*(a1 + 72) + 8) + 40) country:v39 state:v41 city:1.0 thoroughfare:*(*(*(a1 + 80) + 8) + 40) subThoroughfare:v70 postalCode:*(*(*(a1 + 96) + 8) + 40)];
-        v72 = *(*(a1 + 104) + 8);
-        v73 = *(v72 + 40);
-        *(v72 + 40) = v71;
+        v54 = [v4 name];
+        v61 = [v4 geoAddress];
+        v62 = [v61 formattedAddressLines];
+        v63 = [v62 _pas_componentsJoinedByString:{@", "}];
+        v64 = [MEMORY[0x1E69A2208] sharedService];
+        v65 = [v64 handleForMapItem:v4];
+        v66 = [v43 geocodedLocationWithLabel:v54 address:v63 latitude:v65 longitude:*(*(*(a1 + 56) + 8) + 40) accuracy:*(*(*(a1 + 64) + 8) + 40) handle:*(*(*(a1 + 72) + 8) + 40) country:v39 state:v41 city:1.0 thoroughfare:*(*(*(a1 + 80) + 8) + 40) subThoroughfare:*(*(*(a1 + 88) + 8) + 40) postalCode:*(*(*(a1 + 96) + 8) + 40)];
+        v67 = *(*(a1 + 104) + 8);
+        v68 = *(v67 + 40);
+        *(v67 + 40) = v66;
       }
 
       else
@@ -1265,58 +1241,53 @@ void __72__SGEventGeocode_geocodeLocation_usingMode_withGeoFilters_withCallback_
         [*(a1 + 32) geocodeLatitude];
         v48 = v47;
         [*(a1 + 32) geocodeLongitude];
-        v49 = *(*(*(a1 + 88) + 8) + 40);
-        v51 = [v43 geocodedLocationWithLabel:v45 address:v46 latitude:0 longitude:*(*(*(a1 + 56) + 8) + 40) accuracy:*(*(*(a1 + 64) + 8) + 40) handle:*(*(*(a1 + 72) + 8) + 40) country:v48 state:v50 city:1.0 thoroughfare:*(*(*(a1 + 80) + 8) + 40) subThoroughfare:v49 postalCode:*(*(*(a1 + 96) + 8) + 40)];
-        v52 = *(*(a1 + 104) + 8);
-        v53 = *(v52 + 40);
-        *(v52 + 40) = v51;
+        v50 = [v43 geocodedLocationWithLabel:v45 address:v46 latitude:0 longitude:*(*(*(a1 + 56) + 8) + 40) accuracy:*(*(*(a1 + 64) + 8) + 40) handle:*(*(*(a1 + 72) + 8) + 40) country:v48 state:v49 city:1.0 thoroughfare:*(*(*(a1 + 80) + 8) + 40) subThoroughfare:*(*(*(a1 + 88) + 8) + 40) postalCode:*(*(*(a1 + 96) + 8) + 40)];
+        v51 = *(*(a1 + 104) + 8);
+        v52 = *(v51 + 40);
+        *(v51 + 40) = v50;
 
-        v54 = *(*(a1 + 48) + 8);
-        v55 = *(v54 + 40);
-        *(v54 + 40) = 0;
+        v53 = *(*(a1 + 48) + 8);
+        v54 = *(v53 + 40);
+        *(v53 + 40) = 0;
       }
     }
 
     else
     {
-      v56 = *(a1 + 32);
-      v55 = [MEMORY[0x1E69A2208] sharedService];
-      v57 = [v55 handleForMapItem:v4];
-      v58 = [v56 geocodedLocationWithLatitude:v57 longitude:*(*(*(a1 + 56) + 8) + 40) accuracy:*(*(*(a1 + 64) + 8) + 40) handle:*(*(*(a1 + 72) + 8) + 40) country:*(*(*(a1 + 80) + 8) + 40) state:*(*(*(a1 + 88) + 8) + 40) city:v39 thoroughfare:v41 subThoroughfare:1.0 postalCode:*(*(*(a1 + 96) + 8) + 40)];
-      v59 = *(*(a1 + 104) + 8);
-      v60 = *(v59 + 40);
-      *(v59 + 40) = v58;
+      v55 = *(a1 + 32);
+      v54 = [MEMORY[0x1E69A2208] sharedService];
+      v56 = [v54 handleForMapItem:v4];
+      v57 = [v55 geocodedLocationWithLatitude:v56 longitude:*(*(*(a1 + 56) + 8) + 40) accuracy:*(*(*(a1 + 64) + 8) + 40) handle:*(*(*(a1 + 72) + 8) + 40) country:*(*(*(a1 + 80) + 8) + 40) state:*(*(*(a1 + 88) + 8) + 40) city:v39 thoroughfare:v41 subThoroughfare:1.0 postalCode:*(*(*(a1 + 96) + 8) + 40)];
+      v58 = *(*(a1 + 104) + 8);
+      v59 = *(v58 + 40);
+      *(v58 + 40) = v57;
     }
 
-    v61 = sgEventsLogHandle();
-    if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
+    v60 = sgEventsLogHandle();
+    if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
     {
       if (*(a1 + 120))
       {
-        v74 = @"Yes";
+        v69 = @"Yes";
       }
 
       else
       {
-        v74 = @"No";
+        v69 = @"No";
       }
 
       *buf = 138412290;
-      v76 = v74;
-      _os_log_debug_impl(&dword_1BA729000, v61, OS_LOG_TYPE_DEBUG, "SGEventGeocode geocodeLocation: Found address using mode SGGecodingModeAddressOnly. (isAirport? : %@)", buf, 0xCu);
+      v71 = v69;
+      _os_log_debug_impl(&dword_1BA729000, v60, OS_LOG_TYPE_DEBUG, "SGEventGeocode geocodeLocation: Found address using mode SGGecodingModeAddressOnly. (isAirport? : %@)", buf, 0xCu);
     }
   }
 
-  v62 = *(*(*(a1 + 104) + 8) + 40);
-  v63 = *(*(*(a1 + 48) + 8) + 40);
   (*(*(a1 + 40) + 16))();
-
-  v64 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __72__SGEventGeocode_geocodeLocation_usingMode_withGeoFilters_withCallback___block_invoke_102(uint64_t a1, void *a2)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = a2;
@@ -1384,30 +1355,26 @@ uint64_t __72__SGEventGeocode_geocodeLocation_usingMode_withGeoFilters_withCallb
     {
       if (*(a1 + 112))
       {
-        v52 = @"Yes";
+        v49 = @"Yes";
       }
 
       else
       {
-        v52 = @"No";
+        v49 = @"No";
       }
 
       *buf = 138412290;
-      v54 = v52;
+      v51 = v49;
       _os_log_debug_impl(&dword_1BA729000, v47, OS_LOG_TYPE_DEBUG, "SGEventGeocode geocodeLocation: Found address using mode SGGeocodingModeAddressWithCanonicalSearch. (isAirport? : %@)", buf, 0xCu);
     }
   }
 
-  v48 = *(*(*(a1 + 104) + 8) + 40);
-  v49 = *(*(*(a1 + 48) + 8) + 40);
-  result = (*(*(a1 + 40) + 16))();
-  v51 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 void __72__SGEventGeocode_geocodeLocation_usingMode_withGeoFilters_withCallback___block_invoke_97(void *a1, void *a2)
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -1415,124 +1382,117 @@ void __72__SGEventGeocode_geocodeLocation_usingMode_withGeoFilters_withCallback_
     [v3 coordinate];
     v6 = v5;
     v8 = v7;
-    v9 = a1[15];
-    v10 = a1[16];
     GEOMapPointForCoordinate();
     GEOMapPointForCoordinate();
     GEOMetersBetweenMapPoints();
-    if (v11 <= 500.0)
+    if (v9 <= 500.0)
     {
-      v12 = [v4 timezone];
-      v13 = *(a1[7] + 8);
-      v14 = *(v13 + 40);
-      *(v13 + 40) = v12;
+      v10 = [v4 timezone];
+      v11 = *(a1[7] + 8);
+      v12 = *(v11 + 40);
+      *(v11 + 40) = v10;
 
-      v15 = [v4 geoAddress];
-      v16 = [v15 structuredAddress];
-      v17 = [v16 country];
-      v18 = *(a1[8] + 8);
-      v19 = *(v18 + 40);
-      *(v18 + 40) = v17;
+      v13 = [v4 geoAddress];
+      v14 = [v13 structuredAddress];
+      v15 = [v14 country];
+      v16 = *(a1[8] + 8);
+      v17 = *(v16 + 40);
+      *(v16 + 40) = v15;
 
-      v20 = [v4 geoAddress];
-      v21 = [v20 structuredAddress];
-      v22 = [v21 administrativeArea];
-      v23 = *(a1[9] + 8);
-      v24 = *(v23 + 40);
-      *(v23 + 40) = v22;
+      v18 = [v4 geoAddress];
+      v19 = [v18 structuredAddress];
+      v20 = [v19 administrativeArea];
+      v21 = *(a1[9] + 8);
+      v22 = *(v21 + 40);
+      *(v21 + 40) = v20;
 
-      v25 = [v4 geoAddress];
-      v26 = [v25 structuredAddress];
-      v27 = [v26 locality];
-      v28 = *(a1[10] + 8);
-      v29 = *(v28 + 40);
-      *(v28 + 40) = v27;
+      v23 = [v4 geoAddress];
+      v24 = [v23 structuredAddress];
+      v25 = [v24 locality];
+      v26 = *(a1[10] + 8);
+      v27 = *(v26 + 40);
+      *(v26 + 40) = v25;
 
-      v30 = [v4 geoAddress];
-      v31 = [v30 structuredAddress];
-      v32 = [v31 thoroughfare];
-      v33 = *(a1[11] + 8);
-      v34 = *(v33 + 40);
-      *(v33 + 40) = v32;
+      v28 = [v4 geoAddress];
+      v29 = [v28 structuredAddress];
+      v30 = [v29 thoroughfare];
+      v31 = *(a1[11] + 8);
+      v32 = *(v31 + 40);
+      *(v31 + 40) = v30;
 
-      v35 = [v4 geoAddress];
-      v36 = [v35 structuredAddress];
-      v37 = [v36 subThoroughfare];
-      v38 = *(a1[12] + 8);
-      v39 = *(v38 + 40);
-      *(v38 + 40) = v37;
+      v33 = [v4 geoAddress];
+      v34 = [v33 structuredAddress];
+      v35 = [v34 subThoroughfare];
+      v36 = *(a1[12] + 8);
+      v37 = *(v36 + 40);
+      *(v36 + 40) = v35;
 
-      v40 = [v4 geoAddress];
-      v41 = [v40 structuredAddress];
-      v42 = [v41 postCode];
-      v43 = *(a1[13] + 8);
-      v44 = *(v43 + 40);
-      *(v43 + 40) = v42;
+      v38 = [v4 geoAddress];
+      v39 = [v38 structuredAddress];
+      v40 = [v39 postCode];
+      v41 = *(a1[13] + 8);
+      v42 = *(v41 + 40);
+      *(v41 + 40) = v40;
 
-      v45 = [v4 name];
-      v46 = [v45 lowercaseString];
-      v47 = [*(*(a1[14] + 8) + 40) lowercaseString];
-      v48 = [v46 isEqualToString:v47];
+      v43 = [v4 name];
+      v44 = [v43 lowercaseString];
+      v45 = [*(*(a1[14] + 8) + 40) lowercaseString];
+      v46 = [v44 isEqualToString:v45];
 
-      if (v48)
+      if (v46)
       {
-        v49 = a1[4];
-        v50 = [v4 name];
-        v51 = [v4 geoAddress];
-        v52 = [v51 formattedAddressLines];
-        v53 = [v52 _pas_componentsJoinedByString:{@", "}];
-        v54 = [MEMORY[0x1E69A2208] sharedService];
-        v55 = [v54 handleForMapItem:v4];
-        v56 = *(*(a1[12] + 8) + 40);
-        v57 = [v49 geocodedLocationWithLabel:v50 address:v53 latitude:v55 longitude:*(*(a1[8] + 8) + 40) accuracy:*(*(a1[9] + 8) + 40) handle:*(*(a1[10] + 8) + 40) country:v6 state:v8 city:1.0 thoroughfare:*(*(a1[11] + 8) + 40) subThoroughfare:v56 postalCode:*(*(a1[13] + 8) + 40)];
-        v58 = *(a1[6] + 8);
-        v59 = *(v58 + 40);
-        *(v58 + 40) = v57;
+        v47 = a1[4];
+        v48 = [v4 name];
+        v49 = [v4 geoAddress];
+        v50 = [v49 formattedAddressLines];
+        v51 = [v50 _pas_componentsJoinedByString:{@", "}];
+        v52 = [MEMORY[0x1E69A2208] sharedService];
+        v53 = [v52 handleForMapItem:v4];
+        v54 = [v47 geocodedLocationWithLabel:v48 address:v51 latitude:v53 longitude:*(*(a1[8] + 8) + 40) accuracy:*(*(a1[9] + 8) + 40) handle:*(*(a1[10] + 8) + 40) country:v6 state:v8 city:1.0 thoroughfare:*(*(a1[11] + 8) + 40) subThoroughfare:*(*(a1[12] + 8) + 40) postalCode:*(*(a1[13] + 8) + 40)];
+        v55 = *(a1[6] + 8);
+        v56 = *(v55 + 40);
+        *(v55 + 40) = v54;
 
-        v60 = sgEventsLogHandle();
-        if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+        v57 = sgEventsLogHandle();
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
         {
-          v61 = [v4 name];
+          v58 = [v4 name];
           *buf = 138739971;
-          v70 = v61;
-          v62 = "SGEventGeocode geocodeLocation: Found POI using mode SGGeocodingModeAddressThenPOI %{sensitive}@";
-          v63 = v60;
-          v64 = 12;
+          v64 = v58;
+          v59 = "SGEventGeocode geocodeLocation: Found POI using mode SGGeocodingModeAddressThenPOI %{sensitive}@";
+          v60 = v57;
+          v61 = 12;
 LABEL_10:
-          _os_log_debug_impl(&dword_1BA729000, v63, OS_LOG_TYPE_DEBUG, v62, buf, v64);
+          _os_log_debug_impl(&dword_1BA729000, v60, OS_LOG_TYPE_DEBUG, v59, buf, v61);
         }
       }
 
       else
       {
-        v60 = sgEventsLogHandle();
-        if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+        v57 = sgEventsLogHandle();
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
         {
-          v61 = [v4 name];
-          v68 = *(*(a1[14] + 8) + 40);
+          v58 = [v4 name];
+          v62 = *(*(a1[14] + 8) + 40);
           *buf = 138740227;
-          v70 = v61;
-          v71 = 2117;
-          v72 = v68;
-          v62 = "SGEventGeocode geocodeLocation: Found POI using mode SGGeocodingModeAddressThenPOI: %{sensitive}@, but didn't match exactly the extracted label (%{sensitive}@). Falling back on address location only";
-          v63 = v60;
-          v64 = 22;
+          v64 = v58;
+          v65 = 2117;
+          v66 = v62;
+          v59 = "SGEventGeocode geocodeLocation: Found POI using mode SGGeocodingModeAddressThenPOI: %{sensitive}@, but didn't match exactly the extracted label (%{sensitive}@). Falling back on address location only";
+          v60 = v57;
+          v61 = 22;
           goto LABEL_10;
         }
       }
     }
   }
 
-  v65 = *(*(a1[6] + 8) + 40);
-  v66 = *(*(a1[7] + 8) + 40);
   (*(a1[5] + 16))();
-
-  v67 = *MEMORY[0x1E69E9840];
 }
 
 + (id)pirResultWithHighestScoreFromData:(id)data
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v5 = [[SGAspireResult alloc] initWithData:dataCopy];
 
@@ -1540,7 +1500,7 @@ LABEL_10:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v25 = v5;
+    v24 = v5;
     _os_log_impl(&dword_1BA729000, v6, OS_LOG_TYPE_DEFAULT, "extracted location: %@", buf, 0xCu);
   }
 
@@ -1593,7 +1553,7 @@ LABEL_10:
       v19 = [v18 numberWithDouble:?];
       v11 = [(SGPIRResult *)v15 initWithLabel:title address:v14 latitude:v17 longitude:v19 timezone:0];
 
-      geoList = v22;
+      geoList = v21;
     }
 
     else
@@ -1607,55 +1567,53 @@ LABEL_10:
     v11 = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 + (id)pirResultFromData:(id)data withDistance:(double)distance fromCoordinates:(id)coordinates
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v7 = [[SGAspireResult alloc] initWithData:dataCopy];
   v8 = sgEventsLogHandle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v44 = v7;
+    v43 = v7;
     _os_log_impl(&dword_1BA729000, v8, OS_LOG_TYPE_DEFAULT, "extracted location: %@", buf, 0xCu);
   }
 
   GEOMapPointForCoordinate();
   if ([(SGAspireResult *)v7 hasGeoList])
   {
-    v33 = v7;
-    v34 = dataCopy;
+    v32 = v7;
+    v33 = dataCopy;
     geoList = [(SGAspireResult *)v7 geoList];
     pois = [geoList pois];
     v10 = [pois copy];
 
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v38 objects:v42 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v37 objects:v41 count:16];
     if (v12)
     {
       v13 = v12;
       v14 = 0;
-      v15 = *v39;
-      v35 = v11;
+      v15 = *v38;
+      v34 = v11;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v39 != v15)
+          if (*v38 != v15)
           {
             objc_enumerationMutation(v11);
           }
 
-          v17 = *(*(&v38 + 1) + 8 * i);
+          v17 = *(*(&v37 + 1) + 8 * i);
           if ([v17 hasPrefGeocode])
           {
             prefGeocode = [v17 prefGeocode];
@@ -1678,7 +1636,7 @@ LABEL_10:
                   title = 0;
                 }
 
-                v37 = v14;
+                v36 = v14;
                 if ([v17 hasAddress])
                 {
                   address = [v17 address];
@@ -1700,7 +1658,7 @@ LABEL_10:
                 v29 = [(SGPIRResult *)v24 initWithLabel:title address:v23 latitude:v26 longitude:v28 timezone:0];
 
                 v14 = v29;
-                v11 = v35;
+                v11 = v34;
               }
             }
           }
@@ -1711,7 +1669,7 @@ LABEL_10:
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v38 objects:v42 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v37 objects:v41 count:16];
       }
 
       while (v13);
@@ -1722,16 +1680,14 @@ LABEL_10:
       v14 = 0;
     }
 
-    v7 = v33;
-    dataCopy = v34;
+    v7 = v32;
+    dataCopy = v33;
   }
 
   else
   {
     v14 = 0;
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -1889,7 +1845,7 @@ uint64_t __54__SGEventGeocode_geocodeAddressUsingPIR_withCallback___block_invoke
 
 + (void)geocodePOIWithName:(id)name ofTypes:(id)types inRegion:(id)region withCallback:(id)callback
 {
-  v30[2] = *MEMORY[0x1E69E9840];
+  v29[2] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   typesCopy = types;
   regionCopy = region;
@@ -1909,23 +1865,21 @@ uint64_t __54__SGEventGeocode_geocodeAddressUsingPIR_withCallback___block_invoke
   v18 = [objc_alloc(MEMORY[0x1E69A2498]) initWithResultTypes:2];
   v19 = objc_autoreleasePoolPush();
   [MEMORY[0x1E69A2208] sharedService];
-  v20 = v25 = typesCopy;
-  v30[0] = v17;
-  v30[1] = v18;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
+  v20 = v24 = typesCopy;
+  v29[0] = v17;
+  v29[1] = v18;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
   v22 = [v20 ticketForSearchQuery:v13 filters:v21 maxResults:5 traits:defaultTraits];
 
   objc_autoreleasePoolPop(v19);
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __67__SGEventGeocode_geocodePOIWithName_ofTypes_inRegion_withCallback___block_invoke;
-  v27[3] = &unk_1E7EFAF38;
-  v28 = callbackCopy;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __67__SGEventGeocode_geocodePOIWithName_ofTypes_inRegion_withCallback___block_invoke;
+  v26[3] = &unk_1E7EFAF38;
+  v27 = callbackCopy;
   selfCopy = self;
   v23 = callbackCopy;
-  [v22 submitWithHandler:v27 networkActivity:0];
-
-  v24 = *MEMORY[0x1E69E9840];
+  [v22 submitWithHandler:v26 networkActivity:0];
 }
 
 void __67__SGEventGeocode_geocodePOIWithName_ofTypes_inRegion_withCallback___block_invoke(uint64_t a1, void *a2)
@@ -2080,35 +2034,35 @@ void __46__SGEventGeocode_geocodeAddress_withCallback___block_invoke_2(uint64_t 
 
 + (BOOL)isGeocodeCandidate:(id)candidate
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   candidateCopy = candidate;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   geocodeLocations = [candidateCopy geocodeLocations];
-  v6 = [geocodeLocations countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [geocodeLocations countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(geocodeLocations);
         }
 
-        if ([self isGeocodeCandidateLocation:*(*(&v13 + 1) + 8 * i) forEvent:candidateCopy])
+        if ([self isGeocodeCandidateLocation:*(*(&v12 + 1) + 8 * i) forEvent:candidateCopy])
         {
           v10 = 1;
           goto LABEL_11;
         }
       }
 
-      v7 = [geocodeLocations countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [geocodeLocations countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -2121,13 +2075,12 @@ void __46__SGEventGeocode_geocodeAddress_withCallback___block_invoke_2(uint64_t 
   v10 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (BOOL)isGeocodeCandidateLocation:(id)location forEvent:(id)event
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   eventCopy = event;
   v8 = [self locationIsGeocoded:locationCopy];
@@ -2147,11 +2100,11 @@ LABEL_14:
       }
 
       loggingIdentifier = [eventCopy loggingIdentifier];
-      v20 = 138543362;
-      v21 = loggingIdentifier;
+      v19 = 138543362;
+      v20 = loggingIdentifier;
       v15 = "SGEventGeocode isGeocodeCandidateLocation: Returning NO, event has no address. [SGEvent (%{public}@)]";
 LABEL_17:
-      _os_log_debug_impl(&dword_1BA729000, v13, OS_LOG_TYPE_DEBUG, v15, &v20, 0xCu);
+      _os_log_debug_impl(&dword_1BA729000, v13, OS_LOG_TYPE_DEBUG, v15, &v19, 0xCu);
 
       goto LABEL_14;
     }
@@ -2173,8 +2126,8 @@ LABEL_13:
           }
 
           loggingIdentifier = [eventCopy loggingIdentifier];
-          v20 = 138543362;
-          v21 = loggingIdentifier;
+          v19 = 138543362;
+          v20 = loggingIdentifier;
           v15 = "SGEventGeocode isGeocodeCandidateLocation: Returning NO, nothing to work with. [SGEvent (%{public}@)]";
           goto LABEL_17;
         }
@@ -2192,7 +2145,6 @@ LABEL_13:
   v17 = 1;
 LABEL_15:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 

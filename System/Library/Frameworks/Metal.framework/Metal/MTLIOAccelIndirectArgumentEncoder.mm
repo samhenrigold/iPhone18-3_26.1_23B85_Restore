@@ -51,12 +51,12 @@
 {
   length = range.length;
   location = range.location;
-  v14[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   if (([(MTLDevice *)[(_MTLIndirectArgumentEncoder *)self device] requiresRaytracingEmulation]& 1) != 0)
   {
     if (length)
     {
-      v9 = (v14 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
+      v9 = (v12 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0));
       v10 = length;
       do
       {
@@ -68,13 +68,11 @@
       while (v10);
     }
 
-    [(MTLIOAccelIndirectArgumentEncoder *)self setVisibleFunctionTables:v14 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0) withRange:location, length];
-    v12 = *MEMORY[0x1E69E9840];
+    [(MTLIOAccelIndirectArgumentEncoder *)self setVisibleFunctionTables:v12 - ((8 * length + 15) & 0xFFFFFFFFFFFFFFF0) withRange:location, length];
   }
 
   else
   {
-    v13 = *MEMORY[0x1E69E9840];
 
     [(MTLIOAccelIndirectArgumentEncoder *)self doesNotRecognizeSelector:a2];
   }

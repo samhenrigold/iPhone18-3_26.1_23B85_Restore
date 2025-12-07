@@ -63,7 +63,7 @@
 
 - (BOOL)isGDPRPrivacyAcknowledgementRequired
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   cachedValue = self->_cachedValue;
   if (cachedValue)
@@ -72,9 +72,9 @@
     p_super = BLJaliscoLog();
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEBUG))
     {
-      v12 = 67109120;
-      v13 = bOOLValue;
-      _os_log_impl(&dword_241D1F000, p_super, OS_LOG_TYPE_DEBUG, "isGDPRPrivacyAcknowledgementRequired: Got cached value %{BOOL}d", &v12, 8u);
+      v11 = 67109120;
+      v12 = bOOLValue;
+      _os_log_impl(&dword_241D1F000, p_super, OS_LOG_TYPE_DEBUG, "isGDPRPrivacyAcknowledgementRequired: Got cached value %{BOOL}d", &v11, 8u);
     }
 
     goto LABEL_11;
@@ -83,17 +83,17 @@
   v6 = BLJaliscoLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v12) = 0;
-    _os_log_impl(&dword_241D1F000, v6, OS_LOG_TYPE_DEBUG, "isGDPRPrivacyAcknowledgementRequired: No cached value", &v12, 2u);
+    LOWORD(v11) = 0;
+    _os_log_impl(&dword_241D1F000, v6, OS_LOG_TYPE_DEBUG, "isGDPRPrivacyAcknowledgementRequired: No cached value", &v11, 2u);
   }
 
   v7 = BUIsGDPRAcknowledgementNeededForBooks();
   v8 = BLJaliscoLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v12 = 67109120;
-    v13 = v7;
-    _os_log_impl(&dword_241D1F000, v8, OS_LOG_TYPE_DEBUG, "isGDPRPrivacyAcknowledgementRequired: Got %{BOOL}d", &v12, 8u);
+    v11 = 67109120;
+    v12 = v7;
+    _os_log_impl(&dword_241D1F000, v8, OS_LOG_TYPE_DEBUG, "isGDPRPrivacyAcknowledgementRequired: Got %{BOOL}d", &v11, 8u);
   }
 
   if ((v7 & 1) == 0)
@@ -110,7 +110,6 @@ LABEL_11:
   LOBYTE(bOOLValue) = 1;
 LABEL_12:
   os_unfair_lock_unlock(&self->_lock);
-  v10 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 

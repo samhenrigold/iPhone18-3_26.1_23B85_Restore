@@ -37,12 +37,12 @@ void __89__WFInputParameterMigration_migrateLegacyInputVariablesInParameterDicti
 
 void __89__WFInputParameterMigration_migrateLegacyInputVariablesInParameterDictionary_toVariable___block_invoke_2(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 objectForKey:@"Type"];
-  v5 = [v4 isEqualToString:@"Input"];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-  if (v5)
+  if (isEqualToString)
   {
     v6 = [*(a1 + 32) serializedRepresentation];
     v7 = objc_opt_class();
@@ -52,16 +52,16 @@ void __89__WFInputParameterMigration_migrateLegacyInputVariablesInParameterDicti
       v10 = getWFGeneralLogObject();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
-        v13 = 136315906;
-        v14 = "WFEnforceClass";
-        v15 = 2114;
-        v16 = v8;
-        v17 = 2114;
-        v18 = objc_opt_class();
-        v19 = 2114;
-        v20 = v7;
-        v11 = v18;
-        _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_FAULT, "%s WFInputParameterMigration failed to open record with error: %{public}@", &v13, 0x2Au);
+        v12 = 136315906;
+        v13 = "WFEnforceClass";
+        v14 = 2114;
+        v15 = v8;
+        v16 = 2114;
+        v17 = objc_opt_class();
+        v18 = 2114;
+        v19 = v7;
+        v11 = v17;
+        _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_FAULT, "%s WFInputParameterMigration failed to open record with error: %{public}@", &v12, 0x2Au);
       }
 
       v9 = 0;
@@ -74,51 +74,47 @@ void __89__WFInputParameterMigration_migrateLegacyInputVariablesInParameterDicti
 
     [v3 setDictionary:v9];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recursivelyFindDictionaryWithKey:(id)key inArray:(id)array then:(id)then
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   arrayCopy = array;
   thenCopy = then;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v11 = [arrayCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v11 = [arrayCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       v14 = 0;
       do
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(arrayCopy);
         }
 
-        [(WFInputParameterMigration *)self recursivelyFindDictionaryWithKey:keyCopy inObject:*(*(&v16 + 1) + 8 * v14++) then:thenCopy];
+        [(WFInputParameterMigration *)self recursivelyFindDictionaryWithKey:keyCopy inObject:*(*(&v15 + 1) + 8 * v14++) then:thenCopy];
       }
 
       while (v12 != v14);
-      v12 = [arrayCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v12 = [arrayCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v12);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recursivelyFindDictionaryWithKey:(id)key inDictionary:(id)dictionary then:(id)then
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   dictionaryCopy = dictionary;
   thenCopy = then;
@@ -130,37 +126,35 @@ void __89__WFInputParameterMigration_migrateLegacyInputVariablesInParameterDicti
 
   else
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v12 = dictionaryCopy;
-    v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v20;
+      v15 = *v19;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v20 != v15)
+          if (*v19 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = [v12 objectForKey:{*(*(&v19 + 1) + 8 * i), v19}];
+          v17 = [v12 objectForKey:{*(*(&v18 + 1) + 8 * i), v18}];
           [(WFInputParameterMigration *)self recursivelyFindDictionaryWithKey:keyCopy inObject:v17 then:thenCopy];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v14);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)recursivelyFindDictionaryWithKey:(id)key inObject:(id)object then:(id)then
@@ -196,9 +190,9 @@ void __89__WFInputParameterMigration_migrateLegacyInputVariablesInParameterDicti
     v11 = [actions objectAtIndex:index - 1];
 
     identifier = [v11 identifier];
-    v13 = [identifier isEqualToString:@"is.workflow.actions.getvariable"];
+    isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-    if (v13)
+    if (isEqualToString)
     {
       v8 = v11;
     }
@@ -207,7 +201,7 @@ void __89__WFInputParameterMigration_migrateLegacyInputVariablesInParameterDicti
     {
       v14 = [(WFInputParameterMigration *)self findActionProvidingInputToActionAtIndex:v9 inWorkflow:v7 reachedBeginning:0 inputActionIndex:0];
       identifier2 = [v14 identifier];
-      v16 = [identifier2 isEqualToString:@"is.workflow.actions.getvariable"];
+      v16 = objc_msgSend_isEqualToString_(identifier2);
 
       v8 = 0;
       if (v16)
@@ -367,9 +361,9 @@ LABEL_20:
 
     if (v15 && v16)
     {
-      v18 = [v15 isEqualToString:v16];
+      isEqualToString = objc_msgSend_isEqualToString_(v15);
 
-      if (v18)
+      if (isEqualToString)
       {
         goto LABEL_21;
       }
@@ -391,39 +385,39 @@ LABEL_22:
 
 - (void)migrateWorkflow
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v3 = [WFWorkflowFile alloc];
   workflow = [(WFWorkflowMigration *)self workflow];
   v5 = [(WFWorkflowFile *)v3 initWithDictionary:workflow name:@"Migrating Workflow" performMigration:0];
 
-  v41 = 0;
-  v6 = [(WFWorkflowFile *)v5 recordRepresentationWithError:&v41];
-  v7 = v41;
+  v40 = 0;
+  v6 = [(WFWorkflowFile *)v5 recordRepresentationWithError:&v40];
+  v7 = v40;
   if (v6)
   {
-    v40 = v7;
-    v8 = [[WFWorkflow alloc] initWithRecord:v6 reference:0 storageProvider:0 migrateIfNecessary:0 environment:0 error:&v40];
-    v9 = v40;
+    v39 = v7;
+    v8 = [[WFWorkflow alloc] initWithRecord:v6 reference:0 storageProvider:0 migrateIfNecessary:0 environment:0 error:&v39];
+    v9 = v39;
 
     if (v8)
     {
-      v31 = v9;
-      v33 = v6;
-      v34 = v5;
+      v30 = v9;
+      v32 = v6;
+      v33 = v5;
       v10 = objc_alloc_init(MEMORY[0x1E696AD50]);
       actions = [(WFWorkflow *)v8 actions];
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __44__WFInputParameterMigration_migrateWorkflow__block_invoke;
-      v35[3] = &unk_1E837F848;
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __44__WFInputParameterMigration_migrateWorkflow__block_invoke;
+      v34[3] = &unk_1E837F848;
       v12 = actions;
-      v36 = v12;
+      v35 = v12;
       selfCopy = self;
-      v32 = v8;
-      v38 = v8;
-      v30 = v10;
-      v39 = v30;
-      [(WFWorkflow *)v38 performBatchOperation:v35];
+      v31 = v8;
+      v37 = v8;
+      v29 = v10;
+      v38 = v29;
+      [(WFWorkflow *)v37 performBatchOperation:v34];
       v13 = objc_alloc_init(MEMORY[0x1E696AD50]);
       if ([v12 count])
       {
@@ -448,7 +442,7 @@ LABEL_22:
             [v21 setObject:uUID2 forKey:@"UUID"];
           }
 
-          if ([v19 isEqualToString:@"is.workflow.actions.getvariable"])
+          if (objc_msgSend_isEqualToString_(v19))
           {
             [v13 addIndex:v14];
           }
@@ -459,7 +453,7 @@ LABEL_22:
         while (v14 < [v12 count]);
       }
 
-      [v13 removeIndexes:v30];
+      [v13 removeIndexes:v29];
       if ([v13 count])
       {
         actions3 = [(WFWorkflowMigration *)self actions];
@@ -468,10 +462,10 @@ LABEL_22:
 
       [(WFWorkflowMigration *)self finish];
 
-      v6 = v33;
-      v5 = v34;
-      v9 = v31;
-      v8 = v32;
+      v6 = v32;
+      v5 = v33;
+      v9 = v30;
+      v8 = v31;
     }
 
     else
@@ -481,9 +475,9 @@ LABEL_22:
       {
         localizedDescription = [v9 localizedDescription];
         *buf = 136315394;
-        v43 = "[WFInputParameterMigration migrateWorkflow]";
-        v44 = 2114;
-        v45 = localizedDescription;
+        v42 = "[WFInputParameterMigration migrateWorkflow]";
+        v43 = 2114;
+        v44 = localizedDescription;
         _os_log_impl(&dword_1CA256000, v27, OS_LOG_TYPE_FAULT, "%s WFInputParameterMigration failed to open workflow with error: %{public}@", buf, 0x16u);
       }
 
@@ -500,150 +494,145 @@ LABEL_22:
     {
       localizedDescription2 = [v7 localizedDescription];
       *buf = 136315394;
-      v43 = "[WFInputParameterMigration migrateWorkflow]";
-      v44 = 2114;
-      v45 = localizedDescription2;
+      v42 = "[WFInputParameterMigration migrateWorkflow]";
+      v43 = 2114;
+      v44 = localizedDescription2;
       _os_log_impl(&dword_1CA256000, v25, OS_LOG_TYPE_FAULT, "%s WFInputParameterMigration failed to open record with error: %{public}@", buf, 0x16u);
     }
 
     [(WFWorkflowMigration *)self finish];
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
-unint64_t __44__WFInputParameterMigration_migrateWorkflow__block_invoke(id *a1)
+void *__44__WFInputParameterMigration_migrateWorkflow__block_invoke(id *a1)
 {
   v1 = a1;
-  v61 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   result = [a1[4] count];
   if (result)
   {
     v3 = 0;
-    v45 = *MEMORY[0x1E69E1458];
-    v42 = sel_initWithVariable_;
-    v43 = v1;
+    v42 = *MEMORY[0x1E69E1458];
+    v39 = sel_initWithVariable_;
+    v40 = v1;
     v4 = &off_1E836E000;
-    v5 = &off_1E836E000;
     while (1)
     {
-      v6 = objc_autoreleasePoolPush();
-      v7 = [v1[4] objectAtIndex:v3];
-      v8 = [v7 identifier];
-      v9 = [v8 isEqualToString:@"is.workflow.actions.conditional"];
+      v5 = objc_autoreleasePoolPush();
+      v6 = [v1[4] objectAtIndex:v3];
+      v7 = [v6 identifier];
+      isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-      if (v9)
+      if (isEqualToString)
       {
-        v51 = objc_opt_class();
-        v10 = @"WFInput";
+        v48 = objc_opt_class();
+        v9 = @"WFInput";
       }
 
       else
       {
-        v11 = [v7 inputParameter];
-        v10 = [v11 keyForSerialization];
-        v51 = [v11 stateClass];
+        v10 = [v6 inputParameter];
+        v9 = [v10 keyForSerialization];
+        v48 = [v10 stateClass];
       }
 
-      v12 = [v1[5] actions];
-      v13 = [v12 objectAtIndex:v3];
+      v11 = [v1[5] actions];
+      v12 = [v11 objectAtIndex:v3];
 
-      v14 = [v1[5] actionParametersKey];
-      v52 = v13;
-      v53 = [v13 objectForKey:v14];
+      v13 = [v1[5] actionParametersKey];
+      v49 = v12;
+      v50 = [v12 objectForKey:v13];
 
-      v15 = v4[22];
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && [v7 inputPassthrough] && !v10)
+      if ((objc_opt_isKindOfClass() & 1) != 0 && [v6 inputPassthrough] && !v9)
       {
-        v16 = [v1[5] findGetVariableActionProvidingInputToActionAtIndex:v3 inWorkflow:v1[6]];
-        if (v16)
+        v14 = [v1[5] findGetVariableActionProvidingInputToActionAtIndex:v3 inWorkflow:v1[6]];
+        if (v14)
         {
-          [v1[7] addIndex:{objc_msgSend(v1[4], "indexOfObject:", v16)}];
+          [v1[7] addIndex:{objc_msgSend(v1[4], "indexOfObject:", v14)}];
         }
       }
 
-      v59 = 0;
-      v58 = 0;
-      v17 = [v1[5] findActionProvidingInputToActionAtIndex:v3 inWorkflow:v1[6] reachedBeginning:&v59 inputActionIndex:&v58];
-      if (v17)
+      v56 = 0;
+      v55 = 0;
+      v15 = [v1[5] findActionProvidingInputToActionAtIndex:v3 inWorkflow:v1[6] reachedBeginning:&v56 inputActionIndex:&v55];
+      if (v15)
       {
-        v18 = objc_alloc(v5[175]);
-        v19 = [v18 initWithAction:v17 atPosition:v58];
-        v20 = [v17 outputVariableWithVariableProvider:v7 UUIDProvider:v19];
+        v16 = objc_alloc(v4[175]);
+        v17 = [v16 initWithAction:v15 atPosition:v55];
+        v18 = [v15 outputVariableWithVariableProvider:v6 UUIDProvider:v17];
       }
 
       else
       {
-        v20 = 0;
+        v18 = 0;
       }
 
-      if (v59 == 1)
+      if (v56 == 1)
       {
         break;
       }
 
 LABEL_21:
-      if (v20)
+      if (v18)
       {
-        v50 = v6;
-        if (v10 && v51)
+        v47 = v5;
+        if (v9 && v48)
         {
-          v25 = [v53 objectForKeyedSubscript:v10];
+          v23 = [v50 objectForKeyedSubscript:v9];
 
-          if ([v7 inputRequired])
+          if ([v6 inputRequired])
           {
-            if (!v25)
+            if (!v23)
             {
               goto LABEL_40;
             }
 
 LABEL_46:
-            [v1[5] migrateLegacyInputVariablesInParameterDictionary:v53 toVariable:v20];
-            v6 = v50;
+            [v1[5] migrateLegacyInputVariablesInParameterDictionary:v50 toVariable:v18];
+            v5 = v47;
             goto LABEL_47;
           }
 
-          v44 = v25;
-          v47 = v17;
-          v49 = v10;
-          v56 = 0u;
-          v57 = 0u;
+          v41 = v23;
+          v44 = v15;
+          v46 = v9;
+          v53 = 0u;
           v54 = 0u;
-          v55 = 0u;
-          v31 = [v7 containedVariables];
-          v32 = [v31 countByEnumeratingWithState:&v54 objects:v60 count:16];
-          if (v32)
+          v51 = 0u;
+          v52 = 0u;
+          v29 = [v6 containedVariables];
+          v30 = [v29 countByEnumeratingWithState:&v51 objects:v57 count:16];
+          if (v30)
           {
-            v33 = v32;
-            v34 = *v55;
+            v31 = v30;
+            v32 = *v52;
             while (2)
             {
-              for (i = 0; i != v33; ++i)
+              for (i = 0; i != v31; ++i)
               {
-                if (*v55 != v34)
+                if (*v52 != v32)
                 {
-                  objc_enumerationMutation(v31);
+                  objc_enumerationMutation(v29);
                 }
 
-                v36 = [*(*(&v54 + 1) + 8 * i) UUID];
-                v37 = [(WFVariable *)v20 UUID];
-                v38 = [v36 isEqualToString:v37];
+                v34 = [*(*(&v51 + 1) + 8 * i) UUID];
+                v35 = [(WFVariable *)v18 UUID];
+                v36 = objc_msgSend_isEqualToString_(v34);
 
-                if (v38)
+                if (v36)
                 {
 
-                  v1 = v43;
+                  v1 = v40;
                   v4 = &off_1E836E000;
-                  v5 = &off_1E836E000;
-                  v17 = v47;
-                  v10 = v49;
+                  v15 = v44;
+                  v9 = v46;
                   goto LABEL_46;
                 }
               }
 
-              v33 = [v31 countByEnumeratingWithState:&v54 objects:v60 count:16];
-              if (v33)
+              v31 = [v29 countByEnumeratingWithState:&v51 objects:v57 count:16];
+              if (v31)
               {
                 continue;
               }
@@ -652,51 +641,49 @@ LABEL_46:
             }
           }
 
-          v1 = v43;
+          v1 = v40;
           v4 = &off_1E836E000;
-          v5 = &off_1E836E000;
-          v17 = v47;
-          v10 = v49;
-          if (v44)
+          v15 = v44;
+          v9 = v46;
+          if (v41)
           {
             goto LABEL_46;
           }
 
 LABEL_40:
-          if ([(objc_class *)v51 instancesRespondToSelector:v42])
+          if ([(objc_class *)v48 instancesRespondToSelector:v39])
           {
-            v39 = v17;
-            v40 = [[v51 alloc] initWithVariable:v20];
-            v26 = [v40 serializedRepresentation];
+            v37 = v15;
+            v38 = [[v48 alloc] initWithVariable:v18];
+            v24 = [v38 serializedRepresentation];
 
-            v17 = v39;
+            v15 = v37;
           }
 
           else
           {
-            v26 = 0;
+            v24 = 0;
           }
 
-          [v53 setObject:v26 forKeyedSubscript:v10];
+          [v50 setObject:v24 forKeyedSubscript:v9];
         }
 
         else
         {
-          v26 = [v17 identifier];
-          if ([v26 isEqualToString:@"is.workflow.actions.getvariable"] && !objc_msgSend(v7, "inputPassthrough"))
+          v24 = [v15 identifier];
+          if (objc_msgSend_isEqualToString_(v24) && ![v6 inputPassthrough])
           {
-            [v7 inputTypes];
-            v27 = v5;
-            v29 = v28 = v17;
-            v30 = [v29 count];
+            [v6 inputTypes];
+            v25 = v4;
+            v27 = v26 = v15;
+            v28 = [v27 count];
 
-            v17 = v28;
-            v5 = v27;
-            v4 = &off_1E836E000;
+            v15 = v26;
+            v4 = v25;
 
-            if (v30)
+            if (v28)
             {
-              [v1[7] addIndex:{objc_msgSend(v1[4], "indexOfObject:", v17)}];
+              [v1[7] addIndex:{objc_msgSend(v1[4], "indexOfObject:", v15)}];
             }
 
             goto LABEL_46;
@@ -708,20 +695,20 @@ LABEL_40:
 
 LABEL_47:
 
-      objc_autoreleasePoolPop(v6);
+      objc_autoreleasePoolPop(v5);
       ++v3;
       result = [v1[4] count];
       if (v3 >= result)
       {
-        goto LABEL_48;
+        return result;
       }
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v21 = [v1[6] workflowTypes];
-      if (![v21 containsObject:v45])
+      v19 = [v1[6] workflowTypes];
+      if (![v19 containsObject:v42])
       {
 LABEL_20:
 
@@ -729,30 +716,26 @@ LABEL_20:
       }
 
       [v1[6] effectiveInputClasses];
-      v48 = v10;
-      v23 = v22 = v6;
-      v24 = [v7 inputContentClasses];
-      v46 = [v7 canHandleInputOfContentClasses:v23 withSupportedClasses:v24 includingCoercedTypes:1];
+      v45 = v9;
+      v21 = v20 = v5;
+      v22 = [v6 inputContentClasses];
+      v43 = [v6 canHandleInputOfContentClasses:v21 withSupportedClasses:v22 includingCoercedTypes:1];
 
-      v5 = &off_1E836E000;
       v4 = &off_1E836E000;
+      v5 = v20;
+      v9 = v45;
 
-      v6 = v22;
-      v10 = v48;
-
-      if (!v46)
+      if (!v43)
       {
         goto LABEL_21;
       }
     }
 
-    v21 = v20;
-    v20 = [[WFShortcutInputVariable alloc] initWithVariableProvider:v7 aggrandizements:0];
+    v19 = v18;
+    v18 = [[WFShortcutInputVariable alloc] initWithVariableProvider:v6 aggrandizements:0];
     goto LABEL_20;
   }
 
-LABEL_48:
-  v41 = *MEMORY[0x1E69E9840];
   return result;
 }
 

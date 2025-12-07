@@ -12,10 +12,10 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v4 = [contextCopy objectForKey:AFCorrectionContextInteractionIdKey];
+      v4 = objc_msgSend_objectForKey_(contextCopy);
       [(SASStartCorrectedSpeechRequest *)self setInteractionId:v4];
 
-      v5 = [contextCopy objectForKey:AFCorrectionContextSessionIdKey];
+      v5 = objc_msgSend_objectForKey_(contextCopy);
       [(SASStartCorrectedSpeechRequest *)self setSessionId:v5];
     }
   }

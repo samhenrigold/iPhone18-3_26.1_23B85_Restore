@@ -10,31 +10,31 @@
 
 - (id)_actionURL
 {
-  sub_245778F2C(self + OBJC_IVAR___CIDVUIProofingDisplayMessageAction__actionURL, v9, &unk_27EE292B0);
-  v2 = v10;
-  if (v10)
+  sub_245778F2C(self + OBJC_IVAR___CIDVUIProofingDisplayMessageAction__actionURL, v10, &unk_27EE292B0, &unk_2459170A0);
+  v2 = v11;
+  if (v11)
   {
-    v3 = __swift_project_boxed_opaque_existential_1(v9, v10);
+    v3 = __swift_project_boxed_opaque_existential_1(v10, v11);
     v4 = *(v2 - 8);
-    MEMORY[0x28223BE20](v3);
-    v6 = v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v4 + 16))(v6);
-    v7 = sub_245911704();
-    (*(v4 + 8))(v6, v2);
-    __swift_destroy_boxed_opaque_existential_1(v9);
+    v5 = MEMORY[0x28223BE20](v3);
+    v7 = v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v4 + 16))(v7, v5);
+    v8 = sub_245911704();
+    (*(v4 + 8))(v7, v2);
+    __swift_destroy_boxed_opaque_existential_1(v10);
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (NSURL)actionURL
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE29470);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE29470, &unk_245917350);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v13 - v4;
   selfCopy = self;
@@ -56,7 +56,7 @@
 
 - (CIDVUIProofingDisplayMessageAction)initWithTitle:(id)title actionType:(int64_t)type actionURL:(id)l
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE29470);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE29470, &unk_245917350);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = sub_245910A04();

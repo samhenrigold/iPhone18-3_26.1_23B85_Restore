@@ -115,7 +115,7 @@
   return v8;
 }
 
-uint64_t __54__SSDatabaseCacheEntry__fetchPersistentID_inDatabase___block_invoke(uint64_t a1, sqlite3_stmt *a2)
+sqlite3_int64 __54__SSDatabaseCacheEntry__fetchPersistentID_inDatabase___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
   sqlite3_bind_text(a2, 1, [*(a1 + 32) UTF8String], -1, 0);
   result = [*(a1 + 40) statementHasRowAfterStepping:a2];

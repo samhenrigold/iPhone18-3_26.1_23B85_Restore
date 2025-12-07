@@ -238,7 +238,7 @@
     v26 = v25;
 
     v27 = +[CKUIBehavior sharedBehaviors];
-    [(CKAssociatedMessageChatItem *)self geometryDescriptor];
+    objc_msgSend_geometryDescriptor(self);
     [v27 stickerScreenScale];
     [v27 stickerSizeScaledWithInitialSize:v19 imageScale:v21 userScale:v26 rectifiedScreenScale:v47 maxWidth:{v28, width}];
     v11 = v29;

@@ -68,7 +68,7 @@
       {
         v13 = __error();
         strerror(*v13);
-        v14 = *__error();
+        __error();
         fprintf(v11, "Warning: failed to seteuid() to account %s: %s (%d)\n");
       }
 
@@ -81,11 +81,11 @@
           goto LABEL_3;
         }
 
-        v15 = *v10;
-        v16 = __error();
-        strerror(*v16);
-        v17 = *__error();
-        fprintf(v15, "Warning: failed to seteuid() back to root: %s (%d)\n");
+        v14 = *v10;
+        v15 = __error();
+        strerror(*v15);
+        __error();
+        fprintf(v14, "Warning: failed to seteuid() back to root: %s (%d)\n");
       }
     }
 
@@ -138,13 +138,7 @@ LABEL_11:
     dispatch_async(v15, block);
 
     v17 = dispatch_time(0, (timeOut * 1000000000.0));
-    if (!dispatch_semaphore_wait(v16, v17))
-    {
-      goto LABEL_6;
-    }
-
-    fwrite("Warning: Command timed out.\n", 0x1CuLL, 1uLL, *v13);
-    if (*(v28 + 6))
+    if (dispatch_semaphore_wait(v16, v17) && (fwrite("Warning: Command timed out.\n", 0x1CuLL, 1uLL, *v13), *(v28 + 6)))
     {
       fprintf(*v13, "Retrying command... (attempt %ld)\n", ++v12);
       v18 = 1;
@@ -152,7 +146,6 @@ LABEL_11:
 
     else
     {
-LABEL_6:
       v18 = 0;
     }
   }
@@ -287,14 +280,14 @@ LABEL_5:
 
 + (int)_withLoggingRunCommand:(id)command arguments:(id)arguments output:(id *)output
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   commandCopy = command;
+  v20 = 0;
   v21 = 0;
-  v22 = 0;
   argumentsCopy = arguments;
-  v10 = [self _withoutLoggingRunCommand:commandCopy withArgs:argumentsCopy output:&v22 error:&v21];
-  v11 = v22;
-  v12 = v21;
+  v10 = [self _withoutLoggingRunCommand:commandCopy withArgs:argumentsCopy output:&v21 error:&v20];
+  v11 = v21;
+  v12 = v20;
   v13 = [argumentsCopy _pas_mappedArrayWithTransform:&__block_literal_global];
 
   v14 = [v13 componentsJoinedByString:{@", "}];
@@ -306,11 +299,11 @@ LABEL_5:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      *v24 = commandCopy;
-      *&v24[8] = 2112;
-      *&v24[10] = v14;
-      *&v24[18] = 2112;
-      *&v24[20] = v12;
+      *v23 = commandCopy;
+      *&v23[8] = 2112;
+      *&v23[10] = v14;
+      *&v23[18] = 2112;
+      *&v23[20] = v12;
       _os_log_error_impl(&dword_22EA6B000, v16, OS_LOG_TYPE_ERROR, "Failed to spawn subprocess %@ [%@]: %@", buf, 0x20u);
     }
 
@@ -329,11 +322,11 @@ LABEL_14:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109634;
-    *v24 = v10;
-    *&v24[4] = 2112;
-    *&v24[6] = commandCopy;
-    *&v24[14] = 2112;
-    *&v24[16] = v14;
+    *v23 = v10;
+    *&v23[4] = 2112;
+    *&v23[6] = commandCopy;
+    *&v23[14] = 2112;
+    *&v23[16] = v14;
     _os_log_impl(&dword_22EA6B000, v16, OS_LOG_TYPE_DEFAULT, "Spawned subprocess with exit code %d: %@ [%@]", buf, 0x1Cu);
   }
 
@@ -341,9 +334,9 @@ LABEL_14:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    *v24 = commandCopy;
-    *&v24[8] = 2112;
-    *&v24[10] = v11;
+    *v23 = commandCopy;
+    *&v23[8] = 2112;
+    *&v23[10] = v11;
     _os_log_impl(&dword_22EA6B000, v17, OS_LOG_TYPE_DEFAULT, "Subprocess %@ output: %@", buf, 0x16u);
   }
 
@@ -361,7 +354,6 @@ LABEL_9:
 
 LABEL_10:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -376,20 +368,19 @@ id __61__TRICCommandRunner__withLoggingRunCommand_arguments_output___block_invok
 
 + (int)runCommandAsTrialDaemonUserName:(id)name withArgs:(id)args output:(id *)output error:(id *)error
 {
-  v17[4] = *MEMORY[0x277D85DE8];
-  v17[0] = @"-q";
-  v17[1] = @"-f";
+  v16[4] = *MEMORY[0x277D85DE8];
+  v16[0] = @"-q";
+  v16[1] = @"-f";
   argsCopy = args;
   nameCopy = name;
   v12 = +[TRICEnvironmentManager trialDaemonUserName];
-  v17[2] = v12;
-  v17[3] = nameCopy;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:4];
+  v16[2] = v12;
+  v16[3] = nameCopy;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:4];
 
   v14 = [v13 arrayByAddingObjectsFromArray:argsCopy];
 
   LODWORD(error) = [self runCommand:@"/usr/bin/login" withArgs:v14 output:output error:error];
-  v15 = *MEMORY[0x277D85DE8];
   return error;
 }
 

@@ -145,20 +145,20 @@
 
 - (id)generateNameImageMaskAssetHandleForURL:()FCAdditions withAssetManager:
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   if (!v7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "assetManager"];
     *buf = 136315906;
-    v16 = "[NTPBTagRecord(FCAdditions) generateNameImageMaskAssetHandleForURL:withAssetManager:]";
-    v17 = 2080;
-    v18 = "NTPBTagRecord+FCAdditions.m";
-    v19 = 1024;
-    v20 = 41;
-    v21 = 2114;
-    v22 = v12;
+    v15 = "[NTPBTagRecord(FCAdditions) generateNameImageMaskAssetHandleForURL:withAssetManager:]";
+    v16 = 2080;
+    v17 = "NTPBTagRecord+FCAdditions.m";
+    v18 = 1024;
+    v19 = 41;
+    v20 = 2114;
+    v21 = v12;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (v6)
@@ -189,8 +189,6 @@ LABEL_4:
 
   v11 = 0;
 LABEL_10:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

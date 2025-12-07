@@ -85,16 +85,14 @@
 
 - (id)characteristicValuesForValue:(id)value
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   incrementalCharacteristicType = [(HFSimpleIncrementalControlItem *)self incrementalCharacteristicType];
-  v10 = incrementalCharacteristicType;
-  v11[0] = valueCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = incrementalCharacteristicType;
+  v10[0] = valueCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   v7 = [(HFControlItem *)self normalizedCharacteristicValuesForValues:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

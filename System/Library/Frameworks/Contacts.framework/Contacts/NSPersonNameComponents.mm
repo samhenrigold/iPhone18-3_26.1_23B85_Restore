@@ -48,26 +48,26 @@ void __57__NSPersonNameComponents_ContactsPrivate__keyPathMapping__block_invoke(
     +[NSPersonNameComponents keyPathMapping];
   }
 
-  v0 = keyPathMapping_cn_once_object_1;
+  v1 = keyPathMapping_cn_once_object_1;
 
-  return v0;
+  return v1;
 }
 
-void __64__NSPersonNameComponents_ContactsPrivate__descriptorForUsedKeys__block_invoke()
+void __64__NSPersonNameComponents_ContactsPrivate__descriptorForUsedKeys__block_invoke(uint64_t a1)
 {
-  v4 = +[NSPersonNameComponents keyPathMapping];
-  v0 = [v4 allKeys];
-  v1 = [CNAggregateKeyDescriptor keyDescriptorWithKeyDescriptors:v0 description:@"Person name components"];
-  v2 = [v1 copy];
-  v3 = descriptorForUsedKeys_cn_once_object_0;
-  descriptorForUsedKeys_cn_once_object_0 = v2;
+  v5 = +[(NSPersonNameComponents *)*(a1];
+  v1 = [v5 allKeys];
+  v2 = [CNAggregateKeyDescriptor keyDescriptorWithKeyDescriptors:v1 description:@"Person name components"];
+  v3 = [v2 copy];
+  v4 = descriptorForUsedKeys_cn_once_object_0;
+  descriptorForUsedKeys_cn_once_object_0 = v3;
 }
 
 void __64__NSPersonNameComponents_ContactsPrivate__componentsForContact___block_invoke(uint64_t a1, void *a2)
 {
   v11 = a2;
   v3 = [v11 key];
-  v4 = +[NSPersonNameComponents keyPathMapping];
+  v4 = +[(NSPersonNameComponents *)*(a1];
   v5 = [v4 objectForKeyedSubscript:v3];
 
   if (v5)
@@ -113,7 +113,7 @@ void __71__NSPersonNameComponents_ContactsPrivate__overrideComponentsInContact__
 {
   v9 = a2;
   v3 = [v9 key];
-  v4 = +[NSPersonNameComponents keyPathMapping];
+  v4 = +[(NSPersonNameComponents *)MEMORY[0x1E696ADF0]];
   v5 = [v4 objectForKeyedSubscript:v3];
 
   if (v5)
@@ -132,30 +132,30 @@ void __71__NSPersonNameComponents_ContactsPrivate__overrideComponentsInContact__
 
 + (id)keyVectorForUsedKeys
 {
-  v0 = objc_opt_self();
+  v1 = objc_opt_self();
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __64__NSPersonNameComponents_ContactsInternal__keyVectorForUsedKeys__block_invoke;
   block[3] = &__block_descriptor_40_e5_v8__0l;
-  block[4] = v0;
+  block[4] = v1;
   if (keyVectorForUsedKeys_cn_once_token_2 != -1)
   {
     dispatch_once(&keyVectorForUsedKeys_cn_once_token_2, block);
   }
 
-  v1 = keyVectorForUsedKeys_cn_once_object_2;
+  v2 = keyVectorForUsedKeys_cn_once_object_2;
 
-  return v1;
+  return v2;
 }
 
-void __64__NSPersonNameComponents_ContactsInternal__keyVectorForUsedKeys__block_invoke()
+void __64__NSPersonNameComponents_ContactsInternal__keyVectorForUsedKeys__block_invoke(uint64_t a1)
 {
-  v4 = +[NSPersonNameComponents keyPathMapping];
-  v0 = [v4 allKeys];
-  v1 = [CNContactKeyVector keyVectorWithKeys:v0];
-  v2 = [v1 copy];
-  v3 = keyVectorForUsedKeys_cn_once_object_2;
-  keyVectorForUsedKeys_cn_once_object_2 = v2;
+  v5 = +[(NSPersonNameComponents *)*(a1];
+  v1 = [v5 allKeys];
+  v2 = [CNContactKeyVector keyVectorWithKeys:v1];
+  v3 = [v2 copy];
+  v4 = keyVectorForUsedKeys_cn_once_object_2;
+  keyVectorForUsedKeys_cn_once_object_2 = v3;
 }
 
 @end

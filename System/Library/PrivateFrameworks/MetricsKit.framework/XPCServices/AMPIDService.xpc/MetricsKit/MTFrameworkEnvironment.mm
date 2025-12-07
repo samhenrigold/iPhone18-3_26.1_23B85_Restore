@@ -35,26 +35,27 @@
 - (void)setLocalDataPath:(id)path
 {
   pathCopy = path;
-  if ([pathCopy hasPrefix:@"file://"])
+  v5 = [pathCopy hasPrefix:@"file://"];
+  if (v5)
   {
-    v5 = MTMetricsKitOSLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = MTMetricsKitOSLog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = pathCopy;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "MetricsKit: Expected a path but got a full url for MTFrameworkEnvironment.setLocalDataPath. Please remove file:// from %@", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = pathCopy;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "MetricsKit: Expected a path but got a full url for MTFrameworkEnvironment.setLocalDataPath. Please remove file:// from %@", &v11, 0xCu);
     }
 
-    v6 = [NSURL URLWithString:pathCopy];
-    path = [v6 path];
+    v7 = [NSURL URLWithString:pathCopy];
+    path = [v7 path];
 
     pathCopy = path;
   }
 
-  v8 = [pathCopy stringByReplacingOccurrencesOfString:@"//" withString:@"/"];
+  v9 = [pathCopy stringByReplacingOccurrencesOfString:@"//" withString:@"/"];
 
   localDataPath = self->_localDataPath;
-  self->_localDataPath = v8;
+  self->_localDataPath = v9;
 }
 
 - (NSString)localDataPath
@@ -89,16 +90,17 @@
     v5 = v4;
     error = 0;
     v6 = SecTaskCopyValueForEntitlement(v4, entitlementCopy, &error);
+    v7 = v6;
     if (error)
     {
-      v7 = MTMetricsKitOSLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = MTMetricsKitOSLog(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v11 = entitlementCopy;
-        v12 = 2112;
-        v13 = error;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to read entitlement %@ error: %@", buf, 0x16u);
+        v12 = entitlementCopy;
+        v13 = 2112;
+        v14 = error;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "MetricsKit: Failed to read entitlement %@ error: %@", buf, 0x16u);
       }
 
       CFRelease(error);
@@ -109,10 +111,10 @@
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)secretStore

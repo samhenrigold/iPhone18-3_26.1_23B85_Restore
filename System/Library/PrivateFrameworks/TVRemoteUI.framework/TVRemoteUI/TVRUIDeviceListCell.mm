@@ -107,26 +107,27 @@
 
 - (void)setStyleProvider:(id)provider
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
+  v6 = providerCopy;
   if (self->_styleProvider != providerCopy)
   {
-    v6 = _TVRUIDevicePickerLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _TVRUIDevicePickerLog(providerCopy);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = providerCopy;
-      _os_log_impl(&dword_26CFEB000, v6, OS_LOG_TYPE_DEFAULT, "Setting new styleProvider: %@", buf, 0xCu);
+      v30 = v6;
+      _os_log_impl(&dword_26CFEB000, v7, OS_LOG_TYPE_DEFAULT, "Setting new styleProvider: %@", buf, 0xCu);
     }
 
     objc_storeStrong(&self->_styleProvider, provider);
-    v7 = _UISolariumEnabled();
+    v8 = _UISolariumEnabled();
     findMyButton = [(TVRUIDeviceListCell *)self findMyButton];
     configuration = [findMyButton configuration];
 
     styleProvider = [(TVRUIDeviceListCell *)self styleProvider];
-    v11 = styleProvider;
-    if (v7)
+    v12 = styleProvider;
+    if (v8)
     {
       [styleProvider solariumLightButtonBackgroundColor];
     }
@@ -135,20 +136,20 @@
     {
       [styleProvider buttonBackgroundColor];
     }
-    v12 = ;
-    [configuration setBaseBackgroundColor:v12];
+    v13 = ;
+    [configuration setBaseBackgroundColor:v13];
 
     styleProvider2 = [(TVRUIDeviceListCell *)self styleProvider];
     tvRemoteImage = [styleProvider2 tvRemoteImage];
     [configuration setImage:tvRemoteImage];
 
     [configuration setImagePadding:10.0];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __40__TVRUIDeviceListCell_setStyleProvider___block_invoke;
-    v27[3] = &unk_279D88740;
-    v27[4] = self;
-    [configuration setTitleTextAttributesTransformer:v27];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __40__TVRUIDeviceListCell_setStyleProvider___block_invoke;
+    v28[3] = &unk_279D88740;
+    v28[4] = self;
+    [configuration setTitleTextAttributesTransformer:v28];
     findMyButton2 = [(TVRUIDeviceListCell *)self findMyButton];
     [findMyButton2 setConfiguration:configuration];
 
@@ -227,14 +228,15 @@ id __40__TVRUIDeviceListCell_setStyleProvider___block_invoke(uint64_t a1, void *
 - (void)setFindButtonTapAction:(id)action
 {
   actionCopy = action;
+  v6 = actionCopy;
   if (self->_findButtonTapAction != actionCopy)
   {
-    v8 = actionCopy;
+    v9 = actionCopy;
     findMyButton = [(TVRUIDeviceListCell *)self findMyButton];
-    v7 = findMyButton;
-    if (v8)
+    v8 = findMyButton;
+    if (v9)
     {
-      [findMyButton addAction:v8 forControlEvents:64];
+      [findMyButton addAction:v9 forControlEvents:64];
     }
 
     else
@@ -243,9 +245,10 @@ id __40__TVRUIDeviceListCell_setStyleProvider___block_invoke(uint64_t a1, void *
     }
 
     objc_storeStrong(&self->_findButtonTapAction, action);
+    v6 = v9;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](actionCopy, v6);
 }
 
 - (void)_configureViews
@@ -496,7 +499,7 @@ id __40__TVRUIDeviceListCell_setStyleProvider___block_invoke(uint64_t a1, void *
 - (void)_updateFindMyButton
 {
   v21 = *MEMORY[0x277D85DE8];
-  v3 = _TVRUIDevicePickerLog();
+  v3 = _TVRUIDevicePickerLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     device = [(TVRUIDeviceListCell *)self device];

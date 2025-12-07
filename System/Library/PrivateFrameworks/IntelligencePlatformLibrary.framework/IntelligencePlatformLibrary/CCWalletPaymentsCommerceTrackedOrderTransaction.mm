@@ -240,9 +240,9 @@ LABEL_21:
         {
           v27 = [CCWalletPaymentsCommerceTrackedOrderTransactionPaymentMethod alloc];
           v26 = CCPBReaderReadDataNoCopy();
-          v38 = 0;
-          v28 = [(CCItemMessage *)v27 initWithData:v26 error:&v38];
-          v10 = v38;
+          v36 = 0;
+          v28 = [(CCItemMessage *)v27 initWithData:v26 error:&v36];
+          v10 = v36;
           paymentMethod = self->_paymentMethod;
           self->_paymentMethod = v28;
 
@@ -288,7 +288,6 @@ LABEL_31:
 
       v30 = objc_opt_class();
       v26 = NSStringFromClass(v30);
-      v31 = *&v6[*v9];
       v10 = CCSkipFieldErrorForMessage();
 LABEL_34:
 
@@ -312,23 +311,22 @@ LABEL_38:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v36 = 1;
+    v34 = 1;
     goto LABEL_42;
   }
 
 LABEL_39:
-  v32 = objc_opt_class();
-  v33 = NSStringFromClass(v32);
-  v34 = *&v6[*v9];
-  v35 = CCInvalidBufferErrorForMessage();
+  v31 = objc_opt_class();
+  v32 = NSStringFromClass(v31);
+  v33 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_40:
-  v36 = 0;
+  v34 = 0;
 LABEL_42:
 
-  return v36;
+  return v34;
 }
 
 - (CCWalletPaymentsCommerceTrackedOrderTransaction)initWithAmount:(id)amount isoCurrencyCode:(id)code paymentMethod:(id)method transactionIdenifier:(id)idenifier error:(id *)error
@@ -338,12 +336,11 @@ LABEL_42:
   methodCopy = method;
   idenifierCopy = idenifier;
   v16 = objc_opt_new();
-  v17 = 0x1E696A000uLL;
   if (amountCopy)
   {
     objc_opt_class();
     IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
-    v19 = 0;
+    v18 = 0;
     if (!IsInstanceOfExpectedClass)
     {
       goto LABEL_8;
@@ -353,14 +350,14 @@ LABEL_42:
     if (!codeCopy)
     {
 LABEL_4:
-      v20 = v19;
+      v19 = v18;
       if (methodCopy)
       {
         goto LABEL_5;
       }
 
 LABEL_12:
-      v19 = v20;
+      v18 = v19;
       if (!idenifierCopy)
       {
 LABEL_15:
@@ -377,7 +374,7 @@ LABEL_15:
 
   else
   {
-    v19 = 0;
+    v18 = 0;
     if (!codeCopy)
     {
       goto LABEL_4;
@@ -385,16 +382,15 @@ LABEL_15:
   }
 
   objc_opt_class();
-  v24 = CCValidateIsInstanceOfExpectedClass();
-  v20 = v19;
+  v23 = CCValidateIsInstanceOfExpectedClass();
+  v19 = v18;
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_16;
   }
 
   CCPBDataWriterWriteStringField();
-  v17 = 0x1E696A000uLL;
   if (!methodCopy)
   {
     goto LABEL_12;
@@ -402,38 +398,36 @@ LABEL_15:
 
 LABEL_5:
   objc_opt_class();
-  v21 = CCValidateIsInstanceOfExpectedClass();
-  v19 = v20;
+  v20 = CCValidateIsInstanceOfExpectedClass();
+  v18 = v19;
 
-  if (v21)
+  if (v20)
   {
     data = [methodCopy data];
     CCPBDataWriterWriteDataField();
 
-    v17 = 0x1E696A000;
     if (!idenifierCopy)
     {
       goto LABEL_15;
     }
 
 LABEL_13:
-    v25 = *(v17 + 3776);
     objc_opt_class();
-    v29 = v19;
-    v26 = CCValidateIsInstanceOfExpectedClass();
-    v20 = v19;
+    v27 = v18;
+    v24 = CCValidateIsInstanceOfExpectedClass();
+    v19 = v18;
 
-    if (v26)
+    if (v24)
     {
       CCPBDataWriterWriteStringField();
-      v19 = v20;
+      v18 = v19;
       goto LABEL_15;
     }
 
 LABEL_16:
     CCSetError();
     selfCopy = 0;
-    v19 = v20;
+    v18 = v19;
     goto LABEL_17;
   }
 

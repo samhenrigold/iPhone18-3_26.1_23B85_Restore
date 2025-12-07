@@ -166,9 +166,9 @@
 
   if (libraryAssetProvider)
   {
-    v32 = v17;
-    v33 = completionCopy;
-    v34 = presenterCopy;
+    v33 = v17;
+    v34 = completionCopy;
+    v35 = presenterCopy;
     selfCopy = self;
     v21 = assetID;
     v22 = optionsCopy;
@@ -178,55 +178,55 @@
     supplementalContentAssets = [assetCopy supplementalContentAssets];
     v26 = [supplementalContentAssets count];
 
-    v27 = sub_100152B5C();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v28 = sub_100152B5C(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v48 = assetLogID;
-      v49 = 2048;
-      v50 = v26;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "minimizedPresenterWithLibraryAsset logID:%{public}@ supplemental content count=%lu", buf, 0x16u);
+      v49 = assetLogID;
+      v50 = 2048;
+      v51 = v26;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "minimizedPresenterWithLibraryAsset logID:%{public}@ supplemental content count=%lu", buf, 0x16u);
     }
 
-    v35[0] = _NSConcreteStackBlock;
-    v35[1] = 3221225472;
-    v35[2] = sub_1001535D4;
-    v35[3] = &unk_100A08790;
-    v36 = assetLogID;
-    v43 = streamable;
+    v36[0] = _NSConcreteStackBlock;
+    v36[1] = 3221225472;
+    v36[2] = sub_1001535D4;
+    v36[3] = &unk_100A08790;
+    v37 = assetLogID;
+    v44 = streamable;
     optionsCopy = v22;
-    v37 = v22;
+    v38 = v22;
     assetID = v21;
-    v38 = v21;
-    v42 = selfCopy;
-    v39 = assetCopy;
-    presenterCopy = v34;
-    v40 = v34;
-    v44 = isAudiobook;
-    v45 = isSupplementalContent;
-    v46 = v32;
-    completionCopy = v33;
-    v41 = v33;
-    [libraryAssetProvider assetForLibraryAsset:v39 completion:v35];
+    v39 = v21;
+    v43 = selfCopy;
+    v40 = assetCopy;
+    presenterCopy = v35;
+    v41 = v35;
+    v45 = isAudiobook;
+    v46 = isSupplementalContent;
+    v47 = v33;
+    completionCopy = v34;
+    v42 = v34;
+    [libraryAssetProvider assetForLibraryAsset:v40 completion:v36];
 
-    v28 = v36;
+    v29 = v37;
   }
 
   else
   {
-    v29 = _AEBookPluginsLifeCycleLog();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v30 = _AEBookPluginsLifeCycleLog();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v48 = assetLogID;
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "minimizedPresenterWithLibraryAsset no libraryAssetProvider for logID:%{public}@", buf, 0xCu);
+      v49 = assetLogID;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "minimizedPresenterWithLibraryAsset no libraryAssetProvider for logID:%{public}@", buf, 0xCu);
     }
 
-    v30 = objc_retainBlock(completionCopy);
-    v28 = v30;
-    if (v30)
+    v31 = objc_retainBlock(completionCopy);
+    v29 = v31;
+    if (v31)
     {
-      (*(v30 + 2))(v30, 0);
+      (*(v31 + 2))(v31, 0);
     }
   }
 }

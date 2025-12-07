@@ -64,7 +64,7 @@ id __88__HFTimerTriggerSignificantTimeEventAdapter_createTriggerWithName_timeZon
 
 void __88__HFTimerTriggerSignificantTimeEventAdapter_createTriggerWithName_timeZone_recurrences___block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -72,41 +72,37 @@ void __88__HFTimerTriggerSignificantTimeEventAdapter_createTriggerWithName_timeZ
     v4 = [*(a1 + 40) eventBuilder];
     v5 = [v4 significantEvent];
     v6 = *(a1 + 48);
-    v8 = 138412802;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Created significant event trigger with name:%@ significant eventBuilder:%@ recurrence:%@", &v8, 0x20u);
+    v7 = 138412802;
+    v8 = v3;
+    v9 = 2112;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Created significant event trigger with name:%@ significant eventBuilder:%@ recurrence:%@", &v7, 0x20u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __88__HFTimerTriggerSignificantTimeEventAdapter_createTriggerWithName_timeZone_recurrences___block_invoke_36(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = [*(a1 + 40) eventBuilder];
-    v8 = [v7 significantEvent];
-    v9 = *(a1 + 48);
-    v10 = 138413058;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v9;
-    v16 = 2112;
-    v17 = v3;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to create significant event trigger with name:%@ significant eventBuilder:%@ recurrence:%@. Error: %@", &v10, 0x2Au);
+    v5 = *(a1 + 32);
+    v6 = [*(a1 + 40) eventBuilder];
+    v7 = [v6 significantEvent];
+    v8 = *(a1 + 48);
+    v9 = 138413058;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v8;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to create significant event trigger with name:%@ significant eventBuilder:%@ recurrence:%@. Error: %@", &v9, 0x2Au);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateTriggerBuilder:(id)builder recurrences:(id)recurrences inHome:(id)home
@@ -203,43 +199,39 @@ void __59__HFTimerTriggerSignificantTimeEventAdapter_updateTrigger___block_invok
 
 void __59__HFTimerTriggerSignificantTimeEventAdapter_updateTrigger___block_invoke_4(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) eventBuilder];
     v4 = [v3 significantEvent];
     v5 = [*(a1 + 40) name];
-    v7 = 138412546;
-    v8 = v4;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Updated significant event: %@ for trigger with name: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v4;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Updated significant event: %@ for trigger with name: %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HFTimerTriggerSignificantTimeEventAdapter_updateTrigger___block_invoke_39(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = [*(a1 + 32) eventBuilder];
-    v7 = [v6 significantEvent];
-    v8 = [*(a1 + 40) name];
-    v9 = 138412802;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to update significant event: %@ for trigger with name: %@. Error: %@", &v9, 0x20u);
+    v5 = [*(a1 + 32) eventBuilder];
+    v6 = [v5 significantEvent];
+    v7 = [*(a1 + 40) name];
+    v8 = 138412802;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to update significant event: %@ for trigger with name: %@. Error: %@", &v8, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

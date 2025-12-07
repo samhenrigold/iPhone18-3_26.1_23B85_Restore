@@ -185,11 +185,11 @@ LABEL_14:
 
 - (BOOL)isEqual:(id)equal
 {
-  v5 = [JavaUtilSet_class_() isInstance:equal];
+  v5 = [JavaUtilSet_class_(self a2)];
   if (v5)
   {
-    v6 = JavaUtilSet_class_();
-    if (equal && ([v6 isInstance:equal] & 1) == 0)
+    v7 = JavaUtilSet_class_(v5, v6);
+    if (equal && ([v7 isInstance:equal] & 1) == 0)
     {
       JreThrowClassCastException();
     }
@@ -201,7 +201,7 @@ LABEL_14:
 
     else
     {
-      v5 = sub_1001B6428(self, equal);
+      LODWORD(v5) = sub_1001B6428(self, equal);
       if (v5)
       {
         if (!equal)

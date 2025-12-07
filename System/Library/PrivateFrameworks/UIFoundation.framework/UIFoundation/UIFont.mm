@@ -139,17 +139,17 @@ _UICache *__26__UIFont__sharedFontCache__block_invoke()
   return result;
 }
 
-uint64_t __24__UIFont__readableWidth__block_invoke(uint64_t a1)
+uint64_t __24__UIFont__readableWidth__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v5 = __24__UIFont__readableWidth__block_invoke_2;
-  v6 = &unk_1E726E388;
-  v7 = *(a1 + 32);
-  v1 = getUIContentSizeCategoryDidChangeNotification[0]();
-  __24__UIFont__readableWidth__block_invoke_2(v4, v1);
-  v2 = getUIApplicationDidEnterBackgroundNotification[0]();
-  return v5(v4, v2);
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v6 = __24__UIFont__readableWidth__block_invoke_2;
+  v7 = &unk_1E726E388;
+  v8 = *(a1 + 32);
+  v2 = getUIContentSizeCategoryDidChangeNotification(a1, a2);
+  __24__UIFont__readableWidth__block_invoke_2(v5, v2);
+  v3 = getUIApplicationDidEnterBackgroundNotification[0]();
+  return v6(v5, v3);
 }
 
 uint64_t __24__UIFont__readableWidth__block_invoke_2(uint64_t a1, uint64_t a2)
@@ -610,7 +610,7 @@ LABEL_17:
   return _supportedDynamicFontStyles__fontStyles;
 }
 
-uint64_t __37__UIFont__supportedDynamicFontStyles__block_invoke()
+void *__37__UIFont__supportedDynamicFontStyles__block_invoke()
 {
   result = [objc_alloc(MEMORY[0x1E695DFD8]) initWithObjects:{@"UICTFontTextStyleHeadline", @"UICTFontTextStyleBody", @"UICTFontTextStyleSubhead", @"UICTFontTextStyleFootnote", @"UICTFontTextStyleCaption1", @"UICTFontTextStyleCaption2", @"UICTFontTextStyleTitle1", @"UICTFontTextStyleTitle2", @"UICTFontTextStyleTitle3", @"UICTFontTextStyleTitle4", @"UICTFontTextStyleTitle5", @"UICTFontTextStyleSubtitle", @"UICTFontTextStyleSubtitle1", @"UICTFontTextStyleSubtitle2", @"UICTFontTextStyleSubtitle3", @"UICTFontTextStyleCallout", @"UICTFontTextStyleFootnote", @"UICTFontTextStyleFootnote2", @"UICTFontTextStyleHeadline1", @"UICTFontTextStyleHeadline2", @"UICTFontTextStyleHeadline3", @"UICTFontTextStyleSubhead1", @"UICTFontTextStyleSubhead2", 0}];
   _supportedDynamicFontStyles__fontStyles = result;
@@ -1533,7 +1533,7 @@ LABEL_15:
   cGContext = [context CGContext];
   if (self)
   {
-    [(UIFont *)self _textMatrixTransformForContext:0];
+    objc_msgSend__textMatrixTransformForContext_(self);
   }
 
   else
@@ -1572,7 +1572,7 @@ LABEL_15:
   memset(&v16, 0, sizeof(v16));
   if (self)
   {
-    [(UIFont *)self _textMatrixTransformForContext:0];
+    objc_msgSend__textMatrixTransformForContext_(self);
   }
 
   UnitsPerEm = CTFontGetUnitsPerEm(self);

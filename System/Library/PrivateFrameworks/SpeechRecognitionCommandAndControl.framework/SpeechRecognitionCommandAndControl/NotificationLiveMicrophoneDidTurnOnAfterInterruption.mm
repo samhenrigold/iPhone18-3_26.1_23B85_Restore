@@ -48,10 +48,11 @@ void ___NotificationLiveMicrophoneDidTurnOnAfterInterruption_block_invoke()
 void ___NotificationLiveMicrophoneDidTurnOnAfterInterruption_block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = CACLogGeneral();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = CACLogGeneral(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       ___NotificationLiveMicrophoneDidTurnOnAfterInterruption_block_invoke_2_cold_1();
     }

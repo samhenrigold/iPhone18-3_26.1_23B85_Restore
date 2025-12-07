@@ -1,5 +1,6 @@
 @interface SAPhoneApplicationLauncher
 - (SAPhoneApplicationLauncher)init;
+- (void)addAssertion:(id)assertion forProcessId:(int)id;
 - (void)cleanupInvalidAssertions;
 - (void)openApplicationInBackgroundWithBundleId:(id)id withReason:(int64_t)reason completion:(id)completion;
 @end
@@ -23,42 +24,42 @@
 
 - (void)openApplicationInBackgroundWithBundleId:(id)id withReason:(int64_t)reason completion:(id)completion
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   idCopy = id;
   completionCopy = completion;
   reasonCopy = reason;
   v9 = [SABundleManager reasonToAttributeName:reason];
   v10 = idCopy;
-  v23 = [MEMORY[0x277D46F60] identityForEmbeddedApplicationIdentifier:idCopy];
+  v22 = [MEMORY[0x277D46F60] identityForEmbeddedApplicationIdentifier:idCopy];
   v11 = [MEMORY[0x277D46EB0] contextWithIdentity:?];
   v12 = [MEMORY[0x277D46E38] attributeWithDomain:@"com.apple.SafetyKit" name:v9];
-  v35[0] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
+  v34[0] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
   [v11 setAttributes:v13];
 
   [v11 setExplanation:v9];
   v14 = [objc_alloc(MEMORY[0x277D46EC0]) initWithContext:v11];
-  v25 = 0;
-  v26 = 0;
   v24 = 0;
-  LOBYTE(idCopy) = [v14 execute:&v26 assertion:&v25 error:&v24];
-  v15 = v26;
-  v16 = v25;
-  v17 = v24;
-  v18 = sa_default_log();
+  v25 = 0;
+  v23 = 0;
+  LOBYTE(idCopy) = [v14 execute:&v25 assertion:&v24 error:&v23];
+  v15 = v25;
+  v16 = v24;
+  v17 = v23;
+  v18 = sa_default_log(v17);
   v19 = v18;
   if (idCopy)
   {
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v28 = "[SAPhoneApplicationLauncher openApplicationInBackgroundWithBundleId:withReason:completion:]";
-      v29 = 2112;
-      v30 = v10;
-      v31 = 2048;
-      v32 = reasonCopy;
-      v33 = 2112;
-      v34 = v15;
+      v27 = "[SAPhoneApplicationLauncher openApplicationInBackgroundWithBundleId:withReason:completion:]";
+      v28 = 2112;
+      v29 = v10;
+      v30 = 2048;
+      v31 = reasonCopy;
+      v32 = 2112;
+      v33 = v15;
       _os_log_impl(&dword_23AA4D000, v19, OS_LOG_TYPE_DEFAULT, "%s - Successfully launched bundle, bundleId: %@, reason: %lu, process: %@", buf, 0x2Au);
     }
 
@@ -74,13 +75,13 @@
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v28 = "[SAPhoneApplicationLauncher openApplicationInBackgroundWithBundleId:withReason:completion:]";
-      v29 = 2112;
-      v30 = v10;
-      v31 = 2048;
-      v32 = reasonCopy;
-      v33 = 2112;
-      v34 = v17;
+      v27 = "[SAPhoneApplicationLauncher openApplicationInBackgroundWithBundleId:withReason:completion:]";
+      v28 = 2112;
+      v29 = v10;
+      v30 = 2048;
+      v31 = reasonCopy;
+      v32 = 2112;
+      v33 = v17;
       _os_log_error_impl(&dword_23AA4D000, v19, OS_LOG_TYPE_ERROR, "%s - Unable to launch bundle, bundleId: %@, reason: %lu, error: %@", buf, 0x2Au);
     }
 
@@ -89,62 +90,60 @@
       (completionCopy)[2](completionCopy, 0, v17);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanupInvalidAssertions
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = [(NSMutableDictionary *)self->_assertionMap allKeys];
-  v3 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v3 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v3)
   {
     v4 = v3;
-    v19 = *v25;
+    v18 = *v24;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v25 != v19)
+        if (*v24 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v24 + 1) + 8 * i);
+        v6 = *(*(&v23 + 1) + 8 * i);
         v7 = [(NSMutableDictionary *)self->_assertionMap objectForKeyedSubscript:v6];
         v8 = objc_opt_new();
+        v19 = 0u;
         v20 = 0u;
         v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
         v9 = v7;
-        v10 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v21;
+          v12 = *v20;
           do
           {
             for (j = 0; j != v11; ++j)
             {
-              if (*v21 != v12)
+              if (*v20 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v14 = *(*(&v20 + 1) + 8 * j);
+              v14 = *(*(&v19 + 1) + 8 * j);
               if ([v14 isValid])
               {
                 [v8 addObject:v14];
               }
             }
 
-            v11 = [v9 countByEnumeratingWithState:&v20 objects:v28 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v19 objects:v27 count:16];
           }
 
           while (v11);
@@ -163,13 +162,37 @@
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v4 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v4);
   }
+}
 
-  v17 = *MEMORY[0x277D85DE8];
+- (void)addAssertion:(id)assertion forProcessId:(int)id
+{
+  v4 = *&id;
+  assertionCopy = assertion;
+  [(SAPhoneApplicationLauncher *)self cleanupInvalidAssertions];
+  v6 = assertionCopy;
+  if (assertionCopy)
+  {
+    assertionMap = self->_assertionMap;
+    v8 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+    v9 = [(NSMutableDictionary *)assertionMap objectForKeyedSubscript:v8];
+
+    if (!v9)
+    {
+      v9 = objc_opt_new();
+      v10 = self->_assertionMap;
+      v11 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+      [(NSMutableDictionary *)v10 setObject:v9 forKeyedSubscript:v11];
+    }
+
+    [v9 addObject:assertionCopy];
+
+    v6 = assertionCopy;
+  }
 }
 
 @end

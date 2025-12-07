@@ -271,9 +271,9 @@ LABEL_61:
   return [a2 hasError] ^ 1;
 }
 
-void sub_248D066A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_248D066A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -303,7 +303,7 @@ Class __getSKViewClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -321,7 +321,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __SpriteKitLibraryCore_block_invoke()
+uint64_t __SpriteKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   SpriteKitLibraryCore_frameworkLibrary = result;
@@ -684,7 +684,7 @@ void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE9push_backB8ne200100ERKS1_(uint64
   *(a1 + 8) = v6;
 }
 
-uint64_t _ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE9push_backB8ne200100ERKS4_(uint64_t a1, uint64_t *a2)
+void *_ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE9push_backB8ne200100ERKS4_(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -695,14 +695,14 @@ uint64_t _ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE9push_backB8
   else
   {
     _ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE22__construct_one_at_endB8ne200100IJRKS4_EEEvDpOT_(a1, a2);
-    result = v3 + 24;
+    result = (v3 + 24);
   }
 
   *(a1 + 8) = result;
   return result;
 }
 
-void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<unsigned long>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -784,7 +784,7 @@ void _ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE5clearB8ne200100
   a1[1] = v3;
 }
 
-uint64_t _ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE16__init_with_sizeB8ne200100IPS4_S8_EEvT_T0_m(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE16__init_with_sizeB8ne200100IPS4_S8_EEvT_T0_m(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -794,14 +794,14 @@ uint64_t _ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE16__init_wit
   return result;
 }
 
-void sub_248D0ACD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_248D0ACD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   _ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE16__destroy_vectorclB8ne200100Ev(&a9);
   _Unwind_Resume(a1);
 }
 
-void _ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE11__vallocateB8ne200100Em(uint64_t a1, unint64_t a2)
+void _ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE11__vallocateB8ne200100Em(uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -842,7 +842,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x277D82778], MEMORY[0x277D82620]);
 }
 
-void *_ZNSt3__135__uninitialized_allocator_copy_implB8ne200100INS_9allocatorINS_6vectorIDv2_fNS1_IS3_EEEEEEPS5_S7_S7_EET2_RT_T0_T1_S8_(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *_ZNSt3__135__uninitialized_allocator_copy_implB8ne200100INS_9allocatorINS_6vectorIDv2_fNS1_IS3_EEEEEEPS5_S7_S7_EET2_RT_T0_T1_S8_(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -859,8 +859,8 @@ void *_ZNSt3__135__uninitialized_allocator_copy_implB8ne200100INS_9allocatorINS_
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(v4, *v6, v6[1], (v6[1] - *v6) >> 3);
-      v6 += 3;
+      _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 3);
+      v6 += 24;
       v4 = v11 + 3;
       v11 += 3;
     }
@@ -920,21 +920,21 @@ void _ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE16__destroy_vect
   }
 }
 
-void _ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE18__assign_with_sizeB8ne200100IPS4_S8_EEvT_T0_l(uint64_t *a1, char **a2, char **a3, unint64_t a4)
+void _ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE18__assign_with_sizeB8ne200100IPS4_S8_EEvT_T0_l(uint64_t a1, char **a2, char **a3, unint64_t a4)
 {
   v8 = *a1;
-  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a4)
+  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) < a4)
   {
     _ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE13__vdeallocateEv(a1);
     if (a4 <= 0xAAAAAAAAAAAAAAALL)
     {
-      v9 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
+      v9 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
       if (v9 <= a4)
       {
         v9 = a4;
       }
 
-      if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
+      if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
       {
         v10 = 0xAAAAAAAAAAAAAAALL;
       }
@@ -950,15 +950,15 @@ void _ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE18__assign_with_
     _ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE20__throw_length_errorB8ne200100Ev();
   }
 
-  v11 = a1[1] - v8;
+  v11 = *(a1 + 8) - v8;
   if (0xAAAAAAAAAAAAAAABLL * (v11 >> 3) >= a4)
   {
     _ZNKSt3__111__copy_implclB8ne200100IPNS_6vectorIDv2_fNS_9allocatorIS3_EEEES7_S7_EENS_4pairIT_T1_EES9_T0_SA_(&v19, a2, a3, v8);
     v13 = v12;
-    v14 = a1[1];
+    v14 = *(a1 + 8);
     if (v14 != v12)
     {
-      v15 = a1[1];
+      v15 = *(a1 + 8);
       do
       {
         v17 = *(v15 - 24);
@@ -976,13 +976,13 @@ void _ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE18__assign_with_
       while (v15 != v13);
     }
 
-    a1[1] = v13;
+    *(a1 + 8) = v13;
   }
 
   else
   {
     _ZNKSt3__111__copy_implclB8ne200100IPNS_6vectorIDv2_fNS_9allocatorIS3_EEEES7_S7_EENS_4pairIT_T1_EES9_T0_SA_(&v18, a2, (a2 + v11), v8);
-    a1[1] = _ZNSt3__135__uninitialized_allocator_copy_implB8ne200100INS_9allocatorINS_6vectorIDv2_fNS1_IS3_EEEEEEPS5_S7_S7_EET2_RT_T0_T1_S8_(a1, (a2 + v11), a3, a1[1]);
+    *(a1 + 8) = _ZNSt3__135__uninitialized_allocator_copy_implB8ne200100INS_9allocatorINS_6vectorIDv2_fNS1_IS3_EEEEEEPS5_S7_S7_EET2_RT_T0_T1_S8_(a1, a2 + v11, a3, *(a1 + 8));
   }
 }
 
@@ -998,7 +998,7 @@ void _ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE13__vdeallocateE
   }
 }
 
-char **_ZNKSt3__111__copy_implclB8ne200100IPNS_6vectorIDv2_fNS_9allocatorIS3_EEEES7_S7_EENS_4pairIT_T1_EES9_T0_SA_(int a1, char **a2, char **a3, char **a4)
+char **_ZNKSt3__111__copy_implclB8ne200100IPNS_6vectorIDv2_fNS_9allocatorIS3_EEEES7_S7_EENS_4pairIT_T1_EES9_T0_SA_(int a1, char **a2, char **a3, void **a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -1021,7 +1021,7 @@ char **_ZNKSt3__111__copy_implclB8ne200100IPNS_6vectorIDv2_fNS_9allocatorIS3_EEE
   return v5;
 }
 
-uint64_t _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1043,7 +1043,7 @@ void sub_248D0B2A4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(uint64_t a1, unint64_t a2)
+void _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE11__vallocateB8ne200100Em(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -1063,7 +1063,7 @@ void _ZNSt3__119__allocate_at_leastB8ne200100INS_9allocatorIDv2_fEEEENS_19__allo
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IPS1_S6_EEvT_T0_l(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -1138,7 +1138,7 @@ void *_ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE18__assign_with_sizeB8ne200100IP
   return result;
 }
 
-uint64_t std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1160,32 +1160,32 @@ void sub_248D0B4D0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t _ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE22__construct_one_at_endB8ne200100IJRKS4_EEEvDpOT_(uint64_t a1, uint64_t *a2)
+uint64_t *_ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE22__construct_one_at_endB8ne200100IJRKS4_EEEvDpOT_(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
   v3[1] = 0;
   v3[2] = 0;
-  result = _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(v3, *a2, a2[1], (a2[1] - *a2) >> 3);
+  result = _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(v3, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
   *(a1 + 8) = v3 + 3;
   return result;
 }
 
-uint64_t _ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE24__emplace_back_slow_pathIJRKS4_EEEPS4_DpOT_(uint64_t a1, uint64_t *a2)
+void *_ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE24__emplace_back_slow_pathIJRKS4_EEEPS4_DpOT_(char **a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     _ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE20__throw_length_errorB8ne200100Ev();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -1209,16 +1209,16 @@ uint64_t _ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE24__emplace_
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m(24 * v2, *a2, a2[1], (a2[1] - *a2) >> 3);
+  _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE16__init_with_sizeB8ne200100IPS1_S6_EEvT_T0_m((24 * v2), *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 3);
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -1227,9 +1227,9 @@ uint64_t _ZNSt3__16vectorINS0_IDv2_fNS_9allocatorIS1_EEEENS2_IS4_EEE24__emplace_
   return v8;
 }
 
-void sub_248D0B65C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_248D0B65C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _ZNSt3__114__split_bufferINS_6vectorIDv2_fNS_9allocatorIS2_EEEERNS3_IS5_EEED2Ev(va);
   _Unwind_Resume(a1);
 }
@@ -1629,9 +1629,9 @@ LABEL_35:
   return [a2 hasError] ^ 1;
 }
 
-void sub_248D13938(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_248D13938(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1668,7 +1668,7 @@ Class __getSKSceneClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1686,16 +1686,16 @@ LABEL_4:
   return result;
 }
 
-uint64_t __SpriteKitLibraryCore_block_invoke_0()
+uint64_t __SpriteKitLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   SpriteKitLibraryCore_frameworkLibrary_0 = result;
   return result;
 }
 
-void sub_248D19714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_248D19714(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1724,9 +1724,9 @@ id getSKActionClass()
   return v1;
 }
 
-void sub_248D19800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248D19800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1760,7 +1760,7 @@ uint64_t SpriteKitLibrary()
   v1 = v3[0];
   if (!SpriteKitLibraryCore_frameworkLibrary_1)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -1773,7 +1773,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __SpriteKitLibraryCore_block_invoke_1()
+uint64_t __SpriteKitLibraryCore_block_invoke_1(uint64_t a1)
 {
   result = _sl_dlopen();
   SpriteKitLibraryCore_frameworkLibrary_1 = result;
@@ -1792,7 +1792,7 @@ Class __getSKSpriteNodeClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getSKSpriteNodeClass_block_invoke_cold_1();
+    __getSKSpriteNodeClass_block_invoke_cold_1();
     return __getSKActionClass_block_invoke(v3);
   }
 
@@ -1811,7 +1811,7 @@ Class __getSKActionClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getSKActionClass_block_invoke_cold_1();
+    __getSKActionClass_block_invoke_cold_1();
     return +[(ETColorStore *)v3];
   }
 
@@ -2234,12 +2234,12 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-uint64_t ETFrameworkBundle()
+uint64_t ETFrameworkBundle(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x277CCA8D8];
-  v1 = objc_opt_class();
+  v2 = MEMORY[0x277CCA8D8];
+  v3 = objc_opt_class();
 
-  return [v0 bundleForClass:v1];
+  return [v2 bundleForClass:v3];
 }
 
 uint64_t __dateFormatterWithMilliseconds_block_invoke()
@@ -2334,9 +2334,9 @@ id getSKActionClass(void)
   return v1;
 }
 
-void sub_248D200F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248D200F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2369,9 +2369,10 @@ void sub_248D203E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_248D21934(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, _Unwind_Exception *exception_object, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_248D21934(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, _Unwind_Exception *exception_object, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  _Block_object_dispose(&a33, 8);
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
   _Block_object_dispose(&a29, 8);
 
   _Unwind_Resume(a1);
@@ -2401,9 +2402,9 @@ id getSKNodeClass(void)
   return v1;
 }
 
-void sub_248D21EA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248D21EA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2447,7 +2448,7 @@ uint64_t SpriteKitLibrary(void)
   v1 = v3[0];
   if (!SpriteKitLibraryCore(char **)::frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -2460,7 +2461,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t ___ZL20SpriteKitLibraryCorePPc_block_invoke()
+uint64_t ___ZL20SpriteKitLibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   SpriteKitLibraryCore(char **)::frameworkLibrary = result;
@@ -2505,11 +2506,10 @@ Class ___ZL14getSKNodeClassv_block_invoke(uint64_t a1)
   return result;
 }
 
-Class ___ZL19getSKShapeNodeClassv_block_invoke(uint64_t a1)
+void ___ZL19getSKShapeNodeClassv_block_invoke(uint64_t a1)
 {
   SpriteKitLibrary();
-  result = objc_getClass("SKShapeNode");
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("SKShapeNode");
   if (*(*(*(a1 + 32) + 8) + 24))
   {
     getSKShapeNodeClass(void)::softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -2517,30 +2517,28 @@ Class ___ZL19getSKShapeNodeClassv_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = ___ZL19getSKShapeNodeClassv_block_invoke_cold_1();
-    return ET_SKSetResourceBundle(v3);
+    v2 = ___ZL19getSKShapeNodeClassv_block_invoke_cold_1();
+    ET_SKSetResourceBundle(v2);
   }
-
-  return result;
 }
 
 void ET_SKSetResourceBundle(NSBundle *a1)
 {
   v1 = a1;
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2020000000;
   v2 = getSKSetResourceBundleSymbolLoc(void)::ptr;
-  v7 = getSKSetResourceBundleSymbolLoc(void)::ptr;
+  v8 = getSKSetResourceBundleSymbolLoc(void)::ptr;
   if (!getSKSetResourceBundleSymbolLoc(void)::ptr)
   {
     v3 = SpriteKitLibrary();
-    v5[3] = dlsym(v3, "SKSetResourceBundle");
-    getSKSetResourceBundleSymbolLoc(void)::ptr = v5[3];
-    v2 = v5[3];
+    v6[3] = dlsym(v3, "SKSetResourceBundle");
+    getSKSetResourceBundleSymbolLoc(void)::ptr = v6[3];
+    v2 = v6[3];
   }
 
-  _Block_object_dispose(&v4, 8);
+  _Block_object_dispose(&v5, 8);
   if (v2)
   {
     v2(v1);
@@ -2548,15 +2546,15 @@ void ET_SKSetResourceBundle(NSBundle *a1)
 
   else
   {
-    dlerror();
-    abort_report_np();
+    v4 = dlerror();
+    abort_report_np("%s", v4);
     __break(1u);
   }
 }
 
-void sub_248D225A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248D225A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
@@ -2586,9 +2584,9 @@ id getSKEmitterNodeClass(void)
   return v1;
 }
 
-void sub_248D22690(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248D22690(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2617,9 +2615,9 @@ id getSKKeyframeSequenceClass(void)
   return v1;
 }
 
-void sub_248D22770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248D22770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2657,13 +2655,17 @@ Class ___ZL26getSKKeyframeSequenceClassv_block_invoke(uint64_t a1)
   SpriteKitLibrary();
   result = objc_getClass("SKKeyframeSequence");
   *(*(*(a1 + 32) + 8) + 24) = result;
-  if (!*(*(*(a1 + 32) + 8) + 24))
+  if (*(*(*(a1 + 32) + 8) + 24))
   {
-    v3 = ___ZL26getSKKeyframeSequenceClassv_block_invoke_cold_1();
-    std::__allocate_at_least[abi:ne200100]<std::allocator<CGPoint>>(v3, v4);
+    getSKKeyframeSequenceClass(void)::softClass = *(*(*(a1 + 32) + 8) + 24);
   }
 
-  getSKKeyframeSequenceClass(void)::softClass = *(*(*(a1 + 32) + 8) + 24);
+  else
+  {
+    v3 = ___ZL26getSKKeyframeSequenceClassv_block_invoke_cold_1();
+    return std::__allocate_at_least[abi:ne200100]<std::allocator<CGPoint>>(v3, v4);
+  }
+
   return result;
 }
 
@@ -2701,9 +2703,9 @@ id getSKNodeClass()
   return v1;
 }
 
-void sub_248D23B4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248D23B4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2732,9 +2734,9 @@ id getSKTextureClass()
   return v1;
 }
 
-void sub_248D23C2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248D23C2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2763,9 +2765,9 @@ id getSKShaderClass()
   return v1;
 }
 
-void sub_248D23D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248D23D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2794,9 +2796,9 @@ id getSKUniformClass()
   return v1;
 }
 
-void sub_248D23DEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248D23DEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2825,9 +2827,9 @@ id getSKSpriteNodeClass()
   return v1;
 }
 
-void sub_248D23ECC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248D23ECC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2856,9 +2858,9 @@ id getSKActionClass_0()
   return v1;
 }
 
-void sub_248D23FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248D23FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2909,7 +2911,7 @@ uint64_t SpriteKitLibrary_0()
   v1 = v3[0];
   if (!SpriteKitLibraryCore_frameworkLibrary_2)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -2922,7 +2924,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __SpriteKitLibraryCore_block_invoke_2()
+uint64_t __SpriteKitLibraryCore_block_invoke_2(uint64_t a1)
 {
   result = _sl_dlopen();
   SpriteKitLibraryCore_frameworkLibrary_2 = result;
@@ -2969,7 +2971,7 @@ Class __getSKShaderClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getSKShaderClass_block_invoke_cold_1();
+    __getSKShaderClass_block_invoke_cold_1();
     return __getSKUniformClass_block_invoke(v3);
   }
 
@@ -2988,7 +2990,7 @@ Class __getSKUniformClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getSKUniformClass_block_invoke_cold_1();
+    __getSKUniformClass_block_invoke_cold_1();
     return __getSKSpriteNodeClass_block_invoke_0(v3);
   }
 
@@ -3007,7 +3009,7 @@ Class __getSKSpriteNodeClass_block_invoke_0(uint64_t a1)
 
   else
   {
-    v3 = __getSKSpriteNodeClass_block_invoke_cold_1();
+    __getSKSpriteNodeClass_block_invoke_cold_1();
     return __getSKActionClass_block_invoke_0(v3);
   }
 
@@ -3026,7 +3028,7 @@ Class __getSKActionClass_block_invoke_0(uint64_t a1)
 
   else
   {
-    v3 = __getSKActionClass_block_invoke_cold_1();
+    __getSKActionClass_block_invoke_cold_1();
     return +[(ETAngerMessage *)v3];
   }
 
@@ -3064,9 +3066,9 @@ id getSKUniformClass_0()
   return v1;
 }
 
-void sub_248D261C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248D261C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3095,9 +3097,9 @@ id getSKActionClass_1()
   return v1;
 }
 
-void sub_248D262A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248D262A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3138,7 +3140,7 @@ uint64_t SpriteKitLibrary_1()
   v1 = v3[0];
   if (!SpriteKitLibraryCore_frameworkLibrary_3)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -3151,7 +3153,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __SpriteKitLibraryCore_block_invoke_3()
+uint64_t __SpriteKitLibraryCore_block_invoke_3(uint64_t a1)
 {
   result = _sl_dlopen();
   SpriteKitLibraryCore_frameworkLibrary_3 = result;
@@ -3170,7 +3172,7 @@ Class __getSKUniformClass_block_invoke_0(uint64_t a1)
 
   else
   {
-    v3 = __getSKUniformClass_block_invoke_cold_1();
+    __getSKUniformClass_block_invoke_cold_1();
     return __getSKTextureClass_block_invoke_0(v3);
   }
 
@@ -3208,7 +3210,7 @@ Class __getSKShaderClass_block_invoke_0(uint64_t a1)
 
   else
   {
-    v3 = __getSKShaderClass_block_invoke_cold_1();
+    __getSKShaderClass_block_invoke_cold_1();
     return __getSKSpriteNodeClass_block_invoke_1(v3);
   }
 
@@ -3227,7 +3229,7 @@ Class __getSKSpriteNodeClass_block_invoke_1(uint64_t a1)
 
   else
   {
-    v3 = __getSKSpriteNodeClass_block_invoke_cold_1();
+    __getSKSpriteNodeClass_block_invoke_cold_1();
     return __getSKActionClass_block_invoke_1(v3);
   }
 
@@ -3246,8 +3248,8 @@ Class __getSKActionClass_block_invoke_1(uint64_t a1)
 
   else
   {
-    v3 = __getSKActionClass_block_invoke_cold_1();
-    return _endOfCurrentDay(v3);
+    __getSKActionClass_block_invoke_cold_1();
+    return _endOfCurrentDay();
   }
 
   return result;
@@ -3384,16 +3386,16 @@ void ETAggdLogMessageReceived(uint64_t a1, unsigned int a2, void *a3, double a4)
   }
 }
 
-void sub_248D27240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248D27240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_248D27C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248D27C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3401,25 +3403,26 @@ void sub_248D27C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void ET_SKSetResourceBundle(void *a1)
 {
   v1 = a1;
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v2 = getSKSetResourceBundleSymbolLoc_ptr_2;
-  v8 = getSKSetResourceBundleSymbolLoc_ptr_2;
+  v9 = getSKSetResourceBundleSymbolLoc_ptr_2;
   if (!getSKSetResourceBundleSymbolLoc_ptr_2)
   {
     v3 = SpriteKitLibrary_2();
-    v6[3] = dlsym(v3, "SKSetResourceBundle");
-    getSKSetResourceBundleSymbolLoc_ptr_2 = v6[3];
-    v2 = v6[3];
+    v7[3] = dlsym(v3, "SKSetResourceBundle");
+    getSKSetResourceBundleSymbolLoc_ptr_2 = v7[3];
+    v2 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v2)
   {
-    v4 = [ETMessage displayInScene:];
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    [ETMessage displayInScene:];
+    v5 = v4;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2(v1);
@@ -3449,9 +3452,9 @@ id getSKUniformClass_1()
   return v1;
 }
 
-void sub_248D27E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248D27E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3489,9 +3492,16 @@ id getSKActionClass_2()
   return v1;
 }
 
-void sub_248D2862C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248D2862C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_248D29088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3535,7 +3545,7 @@ uint64_t SpriteKitLibrary_2()
   v1 = v3[0];
   if (!SpriteKitLibraryCore_frameworkLibrary_4)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -3548,7 +3558,7 @@ LABEL_7:
   return v0;
 }
 
-uint64_t __SpriteKitLibraryCore_block_invoke_4()
+uint64_t __SpriteKitLibraryCore_block_invoke_4(uint64_t a1)
 {
   result = _sl_dlopen();
   SpriteKitLibraryCore_frameworkLibrary_4 = result;
@@ -3595,7 +3605,7 @@ Class __getSKUniformClass_block_invoke_1(uint64_t a1)
 
   else
   {
-    v3 = __getSKUniformClass_block_invoke_cold_1();
+    __getSKUniformClass_block_invoke_cold_1();
     return __getSKActionClass_block_invoke_2(v3);
   }
 
@@ -3614,7 +3624,7 @@ Class __getSKActionClass_block_invoke_2(uint64_t a1)
 
   else
   {
-    v3 = __getSKActionClass_block_invoke_cold_1();
+    __getSKActionClass_block_invoke_cold_1();
     return __getSKShaderClass_block_invoke_1(v3);
   }
 
@@ -3633,16 +3643,16 @@ Class __getSKShaderClass_block_invoke_1(uint64_t a1)
 
   else
   {
-    v3 = __getSKShaderClass_block_invoke_cold_1();
+    __getSKShaderClass_block_invoke_cold_1();
     return +[(DTSCanvasViewController *)v3];
   }
 
   return result;
 }
 
-void sub_248D2C350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248D2C350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

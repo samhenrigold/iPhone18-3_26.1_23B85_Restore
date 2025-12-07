@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)granularityAsString:(int)string;
+- (id)typeAsString:(int)string;
 - (int)StringAsGranularity:(id)granularity;
 - (int)StringAsType:(id)type;
 - (int)granularity;
@@ -44,6 +46,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1002065F0 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsType:(id)type
@@ -93,6 +110,21 @@
   {
     return 0;
   }
+}
+
+- (id)granularityAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100206618 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsGranularity:(id)granularity
@@ -314,14 +346,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if (has)
   {
-    granularity = self->_granularity;
     PBDataWriterWriteInt32Field();
   }
 
@@ -357,7 +387,6 @@
 
   if ((*&self->_has & 4) != 0)
   {
-    isCompleted = self->_isCompleted;
     PBDataWriterWriteBOOLField();
   }
 
@@ -366,33 +395,32 @@
     PBDataWriterWriteSubmessage();
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v9 = self->_additionalReports;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v10)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_additionalReports;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v11 = v10;
-    v12 = *v16;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v11; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v12)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v6);
         }
 
-        v14 = *(*(&v15 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v11);
+    while (v8);
   }
 
   if (self->_reportItemId)
@@ -583,7 +611,6 @@
     goto LABEL_33;
   }
 
-  v5 = *(equalCopy + 96);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 96) & 2) == 0 || self->_type != *(equalCopy + 22))
@@ -661,7 +688,6 @@
     }
   }
 
-  v12 = *(equalCopy + 96);
   if ((*&self->_has & 4) == 0)
   {
     if ((*(equalCopy + 96) & 4) == 0)
@@ -670,7 +696,7 @@
     }
 
 LABEL_33:
-    v16 = 0;
+    v14 = 0;
     goto LABEL_34;
   }
 
@@ -679,7 +705,6 @@ LABEL_33:
     goto LABEL_33;
   }
 
-  v18 = *(equalCopy + 92);
   if (self->_isCompleted)
   {
     if ((*(equalCopy + 92) & 1) == 0)
@@ -712,17 +737,17 @@ LABEL_26:
   reportItemId = self->_reportItemId;
   if (reportItemId | *(equalCopy + 8))
   {
-    v16 = [(NSString *)reportItemId isEqual:?];
+    v14 = [(NSString *)reportItemId isEqual:?];
   }
 
   else
   {
-    v16 = 1;
+    v14 = 1;
   }
 
 LABEL_34:
 
-  return v16;
+  return v14;
 }
 
 - (unint64_t)hash

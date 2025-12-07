@@ -156,7 +156,7 @@
   return accountMetadataRequest;
 }
 
-uint64_t __48__VSIdentityProviderRequest_forceAuthentication__block_invoke(uint64_t a1, void *a2)
+void *__48__VSIdentityProviderRequest_forceAuthentication__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 forceAuthentication];
   *(*(*(a1 + 32) + 8) + 24) = result;

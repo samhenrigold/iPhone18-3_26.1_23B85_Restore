@@ -1294,56 +1294,51 @@ LABEL_53:
   compressionStage2 = [secondaryManeuver compressionStage];
 
   self->_compressionStage = stage;
-  secondaryGuidanceSignID = [(CarNavigationGuidanceSign *)self secondaryGuidanceSignID];
+  [(CarNavigationGuidanceSign *)self secondaryGuidanceSignID];
 
   junctionView = [(CarNavigationGuidanceSign *)self junctionView];
   if (junctionView)
   {
-    junctionViewInfo = [(CarNavigationGuidanceSign *)self junctionViewInfo];
-    v12 = junctionViewInfo != 0;
+    [(CarNavigationGuidanceSign *)self junctionViewInfo];
   }
 
-  else
-  {
-    v12 = 0;
-  }
-
-  [CarNavigationGuidanceSignCompression compressionForStage:stage hasSecondary:secondaryGuidanceSignID != 0 hasJunctionView:v12 forDestination:[(CarNavigationGuidanceSign *)self destination]];
+  [(CarNavigationGuidanceSign *)self destination];
+  objc_msgSend_compressionForStage_hasSecondary_hasJunctionView_forDestination_(CarNavigationGuidanceSignCompression);
   primaryManeuver2 = [(CarNavigationGuidanceSign *)self primaryManeuver];
   [primaryManeuver2 setCompressionStage:0];
 
   nextPrimaryManeuver = [(CarNavigationGuidanceSign *)self nextPrimaryManeuver];
   [nextPrimaryManeuver setCompressionStage:0];
 
-  v15 = sub_10007E168();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v12 = sub_10007E168();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     destination = [(CarNavigationGuidanceSign *)self destination];
     if (destination > 4)
     {
-      v17 = @".Unknown";
+      v14 = @".Unknown";
     }
 
     else
     {
-      v17 = *(&off_101623A48 + destination);
+      v14 = *(&off_101623A48 + destination);
     }
 
-    v18 = v17;
+    v15 = v14;
     compressionStage = self->_compressionStage;
     *buf = 138413570;
-    v26 = v18;
-    v27 = 2048;
+    v23 = v15;
+    v24 = 2048;
     selfCopy = self;
-    v29 = 2048;
-    v30 = compressionStage;
-    v31 = 2048;
+    v26 = 2048;
+    v27 = compressionStage;
+    v28 = 2048;
     stageCopy = stage;
-    v33 = 2048;
-    v34 = 0;
-    v35 = 2048;
-    v36 = 0;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "%@ navSign: %p, setCompressionStage: before: %lu, after: %lu. primaryCompression: %lu, secondaryCompression: %lu", buf, 0x3Eu);
+    v30 = 2048;
+    v31 = 0;
+    v32 = 2048;
+    v33 = 0;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "%@ navSign: %p, setCompressionStage: before: %lu, after: %lu. primaryCompression: %lu, secondaryCompression: %lu", buf, 0x3Eu);
   }
 
   secondaryManeuver2 = [(CarNavigationGuidanceSign *)self secondaryManeuver];
@@ -1358,7 +1353,7 @@ LABEL_53:
   if (compressionStage != [primaryManeuver3 compressionStage])
   {
 
-    goto LABEL_13;
+    goto LABEL_12;
   }
 
   secondaryManeuver3 = [(CarNavigationGuidanceSign *)self secondaryManeuver];
@@ -1366,7 +1361,7 @@ LABEL_53:
 
   if (compressionStage2 != compressionStage3)
   {
-LABEL_13:
+LABEL_12:
     [(CarNavigationGuidanceSign *)self setNeedsLayout];
     [(CarNavigationGuidanceSign *)self layoutIfNeeded];
   }
@@ -1765,56 +1760,57 @@ LABEL_10:
 
 - (double)_heightForCompressionStage:(unint64_t)stage isMaximumCompression:(BOOL *)compression
 {
-  secondaryGuidanceSignID = [(CarNavigationGuidanceSign *)self secondaryGuidanceSignID];
+  [(CarNavigationGuidanceSign *)self secondaryGuidanceSignID];
 
   junctionView = [(CarNavigationGuidanceSign *)self junctionView];
   if (junctionView)
   {
     junctionViewInfo = [(CarNavigationGuidanceSign *)self junctionViewInfo];
-    v10 = junctionViewInfo != 0;
+    v9 = junctionViewInfo != 0;
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  [CarNavigationGuidanceSignCompression compressionForStage:stage hasSecondary:secondaryGuidanceSignID != 0 hasJunctionView:v10 forDestination:[(CarNavigationGuidanceSign *)self destination]];
+  [(CarNavigationGuidanceSign *)self destination];
+  objc_msgSend_compressionForStage_hasSecondary_hasJunctionView_forDestination_(CarNavigationGuidanceSignCompression);
   primaryManeuverView = [(CarNavigationGuidanceSign *)self primaryManeuverView];
   [primaryManeuverView sizeForCompressionStage:0];
-  v13 = v12;
+  v12 = v11;
 
+  v13 = 0.0;
   v14 = 0.0;
-  v15 = 0.0;
-  v16 = v13;
+  v15 = v12;
   if (![(CarNavigationGuidanceSign *)self _shouldForceSecondaryManeuverViewHidden])
   {
     secondaryManeuverView = [(CarNavigationGuidanceSign *)self secondaryManeuverView];
-    v16 = v13;
+    v15 = v12;
     if (secondaryManeuverView)
     {
 
       secondaryManeuverView2 = [(CarNavigationGuidanceSign *)self secondaryManeuverView];
       [secondaryManeuverView2 sizeForCompressionStage:0];
-      v15 = v19;
+      v14 = v18;
 
-      v16 = v15 + v13;
-      if (v15 > 0.0)
+      v15 = v14 + v12;
+      if (v14 > 0.0)
       {
         hairlineView = [(CarNavigationGuidanceSign *)self hairlineView];
         [hairlineView frame];
-        v16 = CGRectGetHeight(v43) + v16;
+        v15 = CGRectGetHeight(v42) + v15;
       }
     }
   }
 
-  if (v10)
+  if (v9)
   {
     junctionView2 = [(CarNavigationGuidanceSign *)self junctionView];
     [junctionView2 bounds];
-    v14 = CGRectGetWidth(v44) * 0.352657005;
+    v13 = CGRectGetWidth(v43) * 0.352657005;
 
-    v16 = v16 - v15 + v14;
+    v15 = v15 - v14 + v13;
   }
 
   if (compression)
@@ -1822,41 +1818,41 @@ LABEL_10:
     *compression = 0;
   }
 
-  v22 = sub_10007E168();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  v21 = sub_10007E168();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
     destination = [(CarNavigationGuidanceSign *)self destination];
     if (destination > 4)
     {
-      v24 = @".Unknown";
+      v23 = @".Unknown";
     }
 
     else
     {
-      v24 = *(&off_101623A48 + destination);
+      v23 = *(&off_101623A48 + destination);
     }
 
-    v25 = v24;
+    v24 = v23;
     *buf = 138414082;
-    v28 = v25;
-    v29 = 2048;
+    v27 = v24;
+    v28 = 2048;
     selfCopy = self;
-    v31 = 2048;
+    v30 = 2048;
     stageCopy = stage;
-    v33 = 2080;
-    v34 = "";
-    v35 = 2048;
-    v36 = v13;
-    v37 = 2048;
-    v38 = v15;
-    v39 = 2048;
-    v40 = v14;
-    v41 = 2048;
-    v42 = v16;
-    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "%@ navSign: %p, _heightForCompressionStage %lu%s, primary: %.1f, secondary: %.1f, junctionViewHeight: %.1f, total: %.1f", buf, 0x52u);
+    v32 = 2080;
+    v33 = "";
+    v34 = 2048;
+    v35 = v12;
+    v36 = 2048;
+    v37 = v14;
+    v38 = 2048;
+    v39 = v13;
+    v40 = 2048;
+    v41 = v15;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "%@ navSign: %p, _heightForCompressionStage %lu%s, primary: %.1f, secondary: %.1f, junctionViewHeight: %.1f, total: %.1f", buf, 0x52u);
   }
 
-  return v16;
+  return v15;
 }
 
 - (void)_hideMiniSignAnimated:(BOOL)animated

@@ -3,6 +3,7 @@
 - (IAPApplicationStateMonitor)init;
 - (NSSet)foregroundAppBundleIDs;
 - (id)applicationInfoForBundleIDSync:(id)sync;
+- (id)applicationInfoForPIDSync:(int)sync;
 - (void)dealloc;
 - (void)layoutMonitor:(id)monitor didUpdateDisplayLayout:(id)layout withContext:(id)context;
 - (void)sharedInit;
@@ -156,6 +157,17 @@
   }
 
   return result;
+}
+
+- (id)applicationInfoForPIDSync:(int)sync
+{
+  if ((&self->_appStateMonitor & 7) == 0)
+  {
+    return [(BKSApplicationStateMonitor *)self->_appStateMonitor applicationInfoForPID:*&sync];
+  }
+
+  __break(0x5516u);
+  return [(IAPApplicationStateMonitor *)self applicationInfoForPID:*&sync];
 }
 
 - (NSSet)foregroundAppBundleIDs

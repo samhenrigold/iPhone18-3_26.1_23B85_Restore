@@ -40,31 +40,31 @@
 
 - (id)filteredPlaceholders
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = [(NSMutableDictionary *)self->_placeholdersToTokens mutableCopy];
   allKeys = [v3 allKeys];
   v5 = [allKeys copy];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         v11 = [v3 objectForKeyedSubscript:v10];
         WeakRetained = objc_loadWeakRetained(&self->_collection);
         v13 = [WeakRetained tokenWithIdentifier:v11];
@@ -77,40 +77,38 @@
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)concreteToken:(id)token in:(id)in
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   inCopy = in;
-  v7 = [inCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [inCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
-    v8 = *v18;
+    v8 = *v17;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(inCopy);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         originalToken = [v10 originalToken];
         identifier = [originalToken identifier];
         identifier2 = [tokenCopy identifier];
@@ -123,7 +121,7 @@
         }
       }
 
-      v7 = [inCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [inCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v7)
       {
         continue;
@@ -135,49 +133,45 @@
 
 LABEL_11:
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)unresolvedInArray:(id)array
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   array = [MEMORY[0x277CBEB18] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = arrayCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if (([v10 isResolved] & 1) == 0)
         {
           [array addObject:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -201,7 +195,7 @@ LABEL_11:
   return v4;
 }
 
-uint64_t __40__INFSentence_containsUnresolvedTokens___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__40__INFSentence_containsUnresolvedTokens___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isResolved];
   if ((result & 1) == 0)
@@ -215,66 +209,66 @@ uint64_t __40__INFSentence_containsUnresolvedTokens___block_invoke(uint64_t a1, 
 
 - (NSString)resolvedSentence
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   [(INFSentence *)self reportCyclesIfAny];
-  v54 = [MEMORY[0x277CCAB68] stringWithString:self->_format];
+  v53 = [MEMORY[0x277CCAB68] stringWithString:self->_format];
   collection = [(INFSentence *)self collection];
   array = [MEMORY[0x277CBEB18] array];
+  v72 = 0u;
   v73 = 0u;
   v74 = 0u;
   v75 = 0u;
-  v76 = 0u;
   selfCopy = self;
   v4 = self->_placeholdersToTokens;
-  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v73 objects:v80 count:16];
+  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v72 objects:v79 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v74;
+    v7 = *v73;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v74 != v7)
+        if (*v73 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v73 + 1) + 8 * i);
+        v9 = *(*(&v72 + 1) + 8 * i);
         v10 = [(NSMutableDictionary *)selfCopy->_placeholdersToTokens objectForKeyedSubscript:v9];
         v11 = [collection tokenWithIdentifier:v10];
         v12 = [INFSentenceTokenWithContext sentenceResolvedTokenWithOriginalToken:v11 placeholderName:v9];
         [array addObject:v12];
       }
 
-      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v73 objects:v80 count:16];
+      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v72 objects:v79 count:16];
     }
 
     while (v6);
   }
 
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
   v70 = 0u;
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
   v13 = array;
-  v14 = [v13 countByEnumeratingWithState:&v69 objects:v79 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v68 objects:v78 count:16];
   v15 = selfCopy;
   obj = v13;
   if (v14)
   {
     v16 = v14;
-    v17 = *v70;
+    v17 = *v69;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v70 != v17)
+        if (*v69 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v69 + 1) + 8 * j);
+        v19 = *(*(&v68 + 1) + 8 * j);
         relationships = selfCopy->_relationships;
         placeholderName = [v19 placeholderName];
         v22 = [(NSMutableDictionary *)relationships objectForKeyedSubscript:placeholderName];
@@ -289,7 +283,7 @@ uint64_t __40__INFSentence_containsUnresolvedTokens___block_invoke(uint64_t a1, 
       }
 
       v13 = obj;
-      v16 = [obj countByEnumeratingWithState:&v69 objects:v79 count:16];
+      v16 = [obj countByEnumeratingWithState:&v68 objects:v78 count:16];
     }
 
     while (v16);
@@ -299,29 +293,29 @@ uint64_t __40__INFSentence_containsUnresolvedTokens___block_invoke(uint64_t a1, 
   {
     do
     {
-      v67 = 0u;
-      v68 = 0u;
-      v65 = 0u;
       v66 = 0u;
-      v58 = [(INFSentence *)v15 unresolvedInArray:v13];
-      v25 = [v58 countByEnumeratingWithState:&v65 objects:v78 count:16];
+      v67 = 0u;
+      v64 = 0u;
+      v65 = 0u;
+      v57 = [(INFSentence *)v15 unresolvedInArray:v13];
+      v25 = [v57 countByEnumeratingWithState:&v64 objects:v77 count:16];
       if (v25)
       {
         v26 = v25;
-        v27 = *v66;
-        v55 = *v66;
+        v27 = *v65;
+        v54 = *v65;
         do
         {
           v28 = 0;
-          v56 = v26;
+          v55 = v26;
           do
           {
-            if (*v66 != v27)
+            if (*v65 != v27)
             {
-              objc_enumerationMutation(v58);
+              objc_enumerationMutation(v57);
             }
 
-            v29 = *(*(&v65 + 1) + 8 * v28);
+            v29 = *(*(&v64 + 1) + 8 * v28);
             v30 = v15->_relationships;
             placeholderName2 = [v29 placeholderName];
             v32 = [(NSMutableDictionary *)v30 objectForKeyedSubscript:placeholderName2];
@@ -337,9 +331,9 @@ uint64_t __40__INFSentence_containsUnresolvedTokens___block_invoke(uint64_t a1, 
               v39 = [context combinedWithContext:contributingSentenceContext2];
 
               v15 = selfCopy;
-              v26 = v56;
+              v26 = v55;
 
-              v27 = v55;
+              v27 = v54;
               [v29 setContext:v39];
               [v29 setResolved:1];
 
@@ -350,7 +344,7 @@ uint64_t __40__INFSentence_containsUnresolvedTokens___block_invoke(uint64_t a1, 
           }
 
           while (v26 != v28);
-          v26 = [v58 countByEnumeratingWithState:&v65 objects:v78 count:16];
+          v26 = [v57 countByEnumeratingWithState:&v64 objects:v77 count:16];
         }
 
         while (v26);
@@ -360,26 +354,26 @@ uint64_t __40__INFSentence_containsUnresolvedTokens___block_invoke(uint64_t a1, 
     while ([(INFSentence *)v15 containsUnresolvedTokens:v13]);
   }
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   v40 = v13;
-  v41 = [v40 countByEnumeratingWithState:&v61 objects:v77 count:16];
+  v41 = [v40 countByEnumeratingWithState:&v60 objects:v76 count:16];
   if (v41)
   {
     v42 = v41;
-    v43 = *v62;
+    v43 = *v61;
     do
     {
       for (k = 0; k != v42; ++k)
       {
-        if (*v62 != v43)
+        if (*v61 != v43)
         {
           objc_enumerationMutation(v40);
         }
 
-        v45 = *(*(&v61 + 1) + 8 * k);
+        v45 = *(*(&v60 + 1) + 8 * k);
         v46 = MEMORY[0x277CCACA8];
         placeholderName3 = [v45 placeholderName];
         v48 = [v46 stringWithFormat:@"%%#@%@@", placeholderName3];
@@ -390,19 +384,17 @@ uint64_t __40__INFSentence_containsUnresolvedTokens___block_invoke(uint64_t a1, 
 
         if (v51)
         {
-          [v54 replaceOccurrencesOfString:v48 withString:v51 options:0 range:{0, objc_msgSend(v54, "length")}];
+          [v53 replaceOccurrencesOfString:v48 withString:v51 options:0 range:{0, objc_msgSend(v53, "length")}];
         }
       }
 
-      v42 = [v40 countByEnumeratingWithState:&v61 objects:v77 count:16];
+      v42 = [v40 countByEnumeratingWithState:&v60 objects:v76 count:16];
     }
 
     while (v42);
   }
 
-  v52 = *MEMORY[0x277D85DE8];
-
-  return v54;
+  return v53;
 }
 
 - (void)reportCyclesIfAny

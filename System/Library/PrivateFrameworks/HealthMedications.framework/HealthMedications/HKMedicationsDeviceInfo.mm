@@ -100,15 +100,13 @@
   v4 = objc_opt_class();
   name = self->_name;
   model = self->_model;
-  operatingSystemVersion = self->_operatingSystemVersion;
   v7 = HKNSOperatingSystemVersionString();
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:self->_scheduleCompatibilityVersion];
-  localDevice = self->_localDevice;
-  v10 = HKStringFromBool();
+  v9 = HKStringFromBool();
   uUIDString = [(NSUUID *)self->_hardwareIdentifier UUIDString];
-  v12 = [v3 stringWithFormat:@"<%@ name:%@, model:%@, operating system:%@, compatibility version: %@, localDevice: %@, hardware identifier: %@", v4, name, model, v7, v8, v10, uUIDString];
+  v11 = [v3 stringWithFormat:@"<%@ name:%@, model:%@, operating system:%@, compatibility version: %@, localDevice: %@, hardware identifier: %@", v4, name, model, v7, v8, v9, uUIDString];
 
-  return v12;
+  return v11;
 }
 
 - (BOOL)isCompatibleWithSchedule:(id)schedule
@@ -146,28 +144,7 @@
       v5 = equalCopy;
       hardwareIdentifier = self->_hardwareIdentifier;
       v7 = v5->_hardwareIdentifier;
-      if (hardwareIdentifier != v7 && (!v7 || ![(NSUUID *)hardwareIdentifier isEqual:?]))
-      {
-        goto LABEL_17;
-      }
-
-      name = self->_name;
-      v9 = v5->_name;
-      if (name != v9 && (!v9 || ![(NSString *)name isEqual:?]))
-      {
-        goto LABEL_17;
-      }
-
-      if (((model = self->_model, v11 = v5->_model, model == v11) || v11 && [(NSString *)model isEqual:?]) && (v16 = *&self->_operatingSystemVersion.majorVersion, patchVersion = self->_operatingSystemVersion.patchVersion, v14 = *&v5->_operatingSystemVersion.majorVersion, v15 = v5->_operatingSystemVersion.patchVersion, HKNSOperatingSystemVersionsEqual()) && self->_scheduleCompatibilityVersion == v5->_scheduleCompatibilityVersion)
-      {
-        v12 = self->_localDevice == v5->_localDevice;
-      }
-
-      else
-      {
-LABEL_17:
-        v12 = 0;
-      }
+      v12 = (hardwareIdentifier == v7 || v7 && [(NSUUID *)hardwareIdentifier isEqual:?]) && ((name = self->_name, v9 = v5->_name, name == v9) || v9 && [(NSString *)name isEqual:?]) && ((model = self->_model, v11 = v5->_model, model == v11) || v11 && [(NSString *)model isEqual:?]) && HKNSOperatingSystemVersionsEqual() && self->_scheduleCompatibilityVersion == v5->_scheduleCompatibilityVersion && self->_localDevice == v5->_localDevice;
     }
 
     else

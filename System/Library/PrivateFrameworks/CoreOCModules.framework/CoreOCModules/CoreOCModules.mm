@@ -1584,7 +1584,7 @@ LABEL_12:
   return v8;
 }
 
-uint64_t sub_2460D324C(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t sub_2460D324C(int a1, uint64_t a2, IOSurfaceRef *a3)
 {
   if (a2 && a3)
   {
@@ -1668,12 +1668,12 @@ uint64_t *sub_2460D37A8(uint64_t *result, uint64_t *a2)
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -1687,22 +1687,22 @@ uint64_t *sub_2460D37A8(uint64_t *result, uint64_t *a2)
 
           else
           {
-            v10 = v2[1];
+            v10 = *(v2 + 8);
             v11 = *v10;
-            v2[1] = *v10;
+            *(v2 + 8) = *v10;
             v12 = v2;
             if (v11)
             {
-              v11[2] = v2;
-              v3 = v2[2];
+              *(v11 + 16) = v2;
+              v3 = *(v2 + 16);
               v12 = *v3;
             }
 
-            v10[2] = v3;
+            *(v10 + 16) = v3;
             v3[v12 != v2] = v10;
             *v10 = v2;
-            v2[2] = v10;
-            v3 = v10[2];
+            *(v2 + 16) = v10;
+            v3 = *(v10 + 16);
             v4 = *v3;
           }
 
@@ -1736,13 +1736,13 @@ uint64_t *sub_2460D37A8(uint64_t *result, uint64_t *a2)
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v3[*v3 != v2] = v13;
             v13[1] = v2;
             v13[2] = v3;
-            v2[2] = v13;
+            *(v2 + 16) = v13;
             v3 = v13[2];
           }
 
@@ -1784,57 +1784,57 @@ uint64_t *sub_2460D37A8(uint64_t *result, uint64_t *a2)
   return result;
 }
 
-uint64_t *sub_2460D393C(void *a1, int a2)
+uint64_t *sub_2460D393C(float *a1, int a2, _DWORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_22;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_22:
     operator new();
   }
 
-  if (v3.u32[0] < 2uLL)
+  if (v4.u32[0] < 2uLL)
   {
     while (1)
     {
-      v7 = v6[1];
-      if (v7 == a2)
+      v8 = v7[1];
+      if (v8 == a2)
       {
-        if (*(v6 + 4) == a2)
+        if (*(v7 + 4) == a2)
         {
-          return v6;
+          return v7;
         }
       }
 
-      else if ((v7 & (v2 - 1)) != v4)
+      else if ((v8 & (v3 - 1)) != v5)
       {
         goto LABEL_22;
       }
 
-      v6 = *v6;
-      if (!v6)
+      v7 = *v7;
+      if (!v7)
       {
         goto LABEL_22;
       }
@@ -1843,41 +1843,41 @@ LABEL_22:
 
   while (1)
   {
-    v8 = v6[1];
-    if (v8 == a2)
+    v9 = v7[1];
+    if (v9 == a2)
     {
       break;
     }
 
-    if (v8 >= v2)
+    if (v9 >= v3)
     {
-      v8 %= v2;
+      v9 %= v3;
     }
 
-    if (v8 != v4)
+    if (v9 != v5)
     {
       goto LABEL_22;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_22;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-void sub_2460D3C34(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2460D3C34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_2460D3F94(va);
   _Unwind_Resume(a1);
 }
@@ -2036,7 +2036,7 @@ void **sub_2460D3F94(void **a1)
   return v1;
 }
 
-uint64_t OCObjectContourGetCenterOfMass(uint64_t a1, unint64_t a2, uint64_t a3)
+uint64_t OCObjectContourGetCenterOfMass(float32x2_t *a1, unint64_t a2, float32x2_t *a3)
 {
   if (a1 && a2 >= 3 && a3)
   {
@@ -2140,7 +2140,7 @@ BOOL OCObjectContourIsPointInsideObjectContour(uint64_t a1, unint64_t a2, float3
   return v3;
 }
 
-uint64_t OCCreateObjectContour(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t OCCreateObjectContour(uint64_t a1, unint64_t a2, void *a3, unint64_t *a4)
 {
   result = 4294967294;
   if (a1 && a2 >= 3 && a3 && a4)
@@ -2351,7 +2351,7 @@ uint64_t sub_2460D545C(void *a1, uint64_t a2, float32x4_t *a3, float32x2_t *a4, 
 
   else
   {
-    v15 = 51 * ((v12 - v13) >> 3) - 1;
+    v15 = 51 * (v12 - v13) - 1;
   }
 
   v16 = *(v11 + 64);
@@ -2787,7 +2787,7 @@ LABEL_60:
   v292 = v122;
   kdebug_trace();
   v316 = a3->i32[0];
-  if (!a3->i32[0] || (v333[0] = 0, v328 = 0, v123 = a5[1], v124 = a5[2], v125 = a5[3], v126 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(*a5, COERCE_FLOAT(*a4[2].f32)), v123, a4[2], 1), v124, *a4[2].f32, 2), v125, *a4[2].f32, 3), v127 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(*a5, COERCE_FLOAT(*a4[4].f32)), v123, a4[4], 1), v124, *a4[4].f32, 2), v125, *a4[4].f32, 3), v128 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(*a5, COERCE_FLOAT(*a4[6].f32)), v123, a4[6], 1), v124, *a4[6].f32, 2), v125, *a4[6].f32, 3), v329 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(*a5, COERCE_FLOAT(*a4->f32)), v123, *a4, 1), v124, *a4->f32, 2), v125, *a4->f32, 3), v330 = v126, v331 = v127, v332 = v128, sub_246138CF0(a2, &v329, v333 + 1, v333, &v328 + 1, &v328), (v129 & 1) == 0))
+  if (!a3->i32[0] || (*v333 = 0, v328 = 0, v123 = a5[1], v124 = a5[2], v125 = a5[3], v126 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(*a5, COERCE_FLOAT(*a4[2].f32)), v123, a4[2], 1), v124, *a4[2].f32, 2), v125, *a4[2].f32, 3), v127 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(*a5, COERCE_FLOAT(*a4[4].f32)), v123, a4[4], 1), v124, *a4[4].f32, 2), v125, *a4[4].f32, 3), v128 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(*a5, COERCE_FLOAT(*a4[6].f32)), v123, a4[6], 1), v124, *a4[6].f32, 2), v125, *a4[6].f32, 3), v329 = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(*a5, COERCE_FLOAT(*a4->f32)), v123, *a4, 1), v124, *a4->f32, 2), v125, *a4->f32, 3), v330 = v126, v331 = v127, v332 = v128, sub_246138CF0(a2, &v329, &v333[1], v333, &v328 + 1, &v328), (v129 & 1) == 0))
   {
     kdebug_trace();
     v320 = 0;
@@ -3233,7 +3233,7 @@ LABEL_155:
   {
     LODWORD(v325) = 0;
     LODWORD(v322[0]) = 0;
-    v333[0] = 0;
+    *v333 = 0;
     v240 = a5[1];
     v241 = a5[2];
     v242 = a5[3];
@@ -3244,11 +3244,11 @@ LABEL_155:
     v330 = v243;
     v331 = v244;
     v332 = v245;
-    sub_246138CF0(a2, &v329, &v325, v322, v333 + 1, v333);
+    sub_246138CF0(a2, &v329, &v325, v322, &v333[1], v333);
     v246 = 0;
     if (v247)
     {
-      v246 = (LODWORD(v333[0]) - HIDWORD(v333[0])) >= *(a2 + 272);
+      v246 = (v333[0] - v333[1]) >= *(a2 + 272);
       if ((LODWORD(v322[0]) - v325) >= *(a2 + 276))
       {
         v246 = 1;
@@ -3365,14 +3365,14 @@ LABEL_160:
   v332 = vmlaq_laneq_f32(v209, v205, v206, 3);
   LODWORD(v325) = 0;
   LODWORD(v322[0]) = 0;
-  v333[0] = 0;
+  *v333 = 0;
   v210 = *(a2 + 276);
   v211 = *(a2 + 272);
-  sub_246138CF0(a2, &v329, &v325, v322, v333 + 1, v333);
+  sub_246138CF0(a2, &v329, &v325, v322, &v333[1], v333);
   v212 = 0;
   if (v213)
   {
-    v212 = SHIDWORD(v333[0]) < v211 && v325 < v210 && SLODWORD(v333[0]) > 0 && SLODWORD(v322[0]) > 0;
+    v212 = v333[1] < v211 && v325 < v210 && v333[0] > 0 && SLODWORD(v322[0]) > 0;
   }
 
   if (v320.i32[0] <= 0x14u)
@@ -3798,7 +3798,7 @@ void *OCDataBufferGetBaseAddress(uint64_t a1)
   return IOSurfaceGetBaseAddress(IOSurface);
 }
 
-uint64_t OCDataBufferCreateWithIOSurface(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4)
+uint64_t OCDataBufferCreateWithIOSurface(uint64_t a1, const void *a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6)
 {
   if (!a3)
   {
@@ -3810,24 +3810,24 @@ uint64_t OCDataBufferCreateWithIOSurface(uint64_t a1, const void *a2, uint64_t a
     return 4294960635;
   }
 
-  buffer[7] = v4;
-  buffer[8] = v5;
+  buffer[7] = v6;
+  buffer[8] = v7;
   buffer[0] = 0;
-  v7 = 48;
+  v9 = 48;
   if (a4 != 2021227107)
   {
-    v7 = 4 * (a4 == 1278227250);
+    v9 = 4 * (a4 == 1278227250);
   }
 
-  v8 = v7 * a3;
-  result = sub_2460D324C(a4, v7 * a3, buffer);
+  v10 = v9 * a3;
+  result = sub_2460D324C(a4, v9 * a3, buffer);
   if (!result)
   {
     BaseAddress = IOSurfaceGetBaseAddress(buffer[0]);
-    memcpy(BaseAddress, a2, v8);
-    v11 = CVDataBufferCreateWithIOSurface();
+    memcpy(BaseAddress, a2, v10);
+    v13 = CVDataBufferCreateWithIOSurface();
     CFRelease(buffer[0]);
-    return v11;
+    return v13;
   }
 
   return result;
@@ -3917,7 +3917,7 @@ uint64_t OCImageFilterBilateralCreate(uint64_t a1, void *a2)
   return result;
 }
 
-void sub_2460D79EC(void *a1, _DWORD *a2)
+void sub_2460D79EC(uint64_t *a1, _DWORD *a2)
 {
   if (*a2 == 1)
   {
@@ -3937,7 +3937,7 @@ void sub_2460D79EC(void *a1, _DWORD *a2)
   v3 = qword_27EE3F1F0;
   if (os_log_type_enabled(qword_27EE3F1F0, OS_LOG_TYPE_ERROR))
   {
-    *v4 = 0;
+    v4[0] = 0;
     _os_log_error_impl(&dword_2460CF000, v3, OS_LOG_TYPE_ERROR, "Invalid filter-type!", v4, 2u);
   }
 
@@ -4193,7 +4193,7 @@ uint64_t OCImageFilterApplyCrossBilateralFilter(uint64_t *a1, CVPixelBufferRef p
   return result;
 }
 
-uint64_t OCExplicitFeedbackCreate(uint64_t a1, uint64_t a2)
+uint64_t OCExplicitFeedbackCreate(uint64_t *a1, uint64_t **a2)
 {
   if (a2)
   {
@@ -4214,13 +4214,13 @@ uint64_t OCExplicitFeedbackCreate(uint64_t a1, uint64_t a2)
   return 0xFFFFFFFFLL;
 }
 
-void sub_2460D8D58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_2460D8D58(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   shared_owners = v14[2].__shared_owners_;
   v14[2].__shared_owners_ = 0;
   if (shared_owners)
   {
-    MEMORY[0x24C1995D0](shared_owners, 0x1000C40FA9F20B1);
+    MEMORY[0x24C1995D0](shared_owners, 0x1000C40FA9F20B1, a3, a4, a5, a6, a7, a8);
   }
 
   std::__shared_weak_count::~__shared_weak_count(v14);
@@ -4313,7 +4313,7 @@ uint64_t OCExplicitFeedbackStop(uint64_t a1)
   }
 }
 
-uint64_t OCExplicitFeedbackProcess(void *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, int *a6, uint64_t a7, void *a8, uint64_t a9)
+uint64_t OCExplicitFeedbackProcess(void *a1, uint64_t a2, void *a3, float32x2_t *a4, int8x16_t *a5, int *a6, uint64_t a7, void *a8, uint64_t a9)
 {
   if (!a1)
   {
@@ -4364,12 +4364,12 @@ uint64_t OCExplicitFeedbackProcess(void *a1, uint64_t a2, void *a3, uint64_t a4,
   if (a5)
   {
     v21 = *a5;
-    v22 = *(a5 + 16);
-    v23 = *(a5 + 32);
+    v22 = a5[1];
+    v23 = a5[2];
     v24 = *(MEMORY[0x277D860B0] + 16);
     v25 = *(MEMORY[0x277D860B0] + 32);
     v26 = vdupq_n_s32(0x38D1B717u);
-    v27 = vandq_s8(vandq_s8(vcgeq_f32(v26, vabdq_f32(vmlaq_lane_f32(vmlaq_lane_f32(vmulq_lane_f32(v21, *v21.f32, 1), v22, *v22.f32, 1), v23, *v23.f32, 1), v24)), vcgeq_f32(v26, vabdq_f32(vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(v21, v21.f32[0]), v22, v22.f32[0]), v23, v23.f32[0]), *MEMORY[0x277D860B0]))), vcgeq_f32(v26, vabdq_f32(vmlaq_laneq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v21, v21, 2), v22, v22, 2), v23, v23, 2), v25)));
+    v27 = vandq_s8(vandq_s8(vcgeq_f32(v26, vabdq_f32(vmlaq_lane_f32(vmlaq_lane_f32(vmulq_lane_f32(v21, *v21.i8, 1), v22, *v22.i8, 1), v23, *v23.i8, 1), v24)), vcgeq_f32(v26, vabdq_f32(vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(v21, *v21.i32), v22, *v22.i32), v23, *v23.i32), *MEMORY[0x277D860B0]))), vcgeq_f32(v26, vabdq_f32(vmlaq_laneq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v21, v21, 2), v22, v22, 2), v23, v23, 2), v25)));
     v27.i32[3] = v27.i32[2];
     if ((vminvq_u32(v27) & 0x80000000) == 0)
     {
@@ -4378,9 +4378,9 @@ uint64_t OCExplicitFeedbackProcess(void *a1, uint64_t a2, void *a3, uint64_t a4,
 
     v28 = vzip1q_s32(vzip2q_s32(v21, v23), vdupq_laneq_s32(v22, 2));
     v29 = vtrn2q_s32(v21, v22);
-    v29.i32[2] = HIDWORD(*(a5 + 32));
+    v29.i32[2] = HIDWORD(a5[2].i64[0]);
     v30 = vzip1q_s32(vzip1q_s32(v21, v23), v22);
-    v31 = vandq_s8(vandq_s8(vcgeq_f32(v26, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30, v22.f32[0]), v29, *v22.f32, 1), v28, v22, 2), v24)), vcgeq_f32(v26, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30, v21.f32[0]), v29, *v21.f32, 1), v28, v21, 2), *MEMORY[0x277D860B0]))), vcgeq_f32(v26, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30, v23.f32[0]), v29, *v23.f32, 1), v28, v23, 2), v25)));
+    v31 = vandq_s8(vandq_s8(vcgeq_f32(v26, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30, *v22.i32), v29, *v22.i8, 1), v28, v22, 2), v24)), vcgeq_f32(v26, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30, *v21.i32), v29, *v21.i8, 1), v28, v21, 2), *MEMORY[0x277D860B0]))), vcgeq_f32(v26, vabdq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30, *v23.i32), v29, *v23.i8, 1), v28, v23, 2), v25)));
     v31.i32[3] = v31.i32[2];
     if ((vminvq_u32(v31) & 0x80000000) == 0)
     {
@@ -4395,7 +4395,7 @@ uint64_t OCExplicitFeedbackProcess(void *a1, uint64_t a2, void *a3, uint64_t a4,
 
     v33 = vabs_f32(vzip2_s32(*&vextq_s8(v21, v21, 8uLL), *&vextq_s8(v22, v22, 8uLL)));
     v34 = vdup_n_s32(0x38D1B717u);
-    v35 = vand_s8(vcge_f32(v34, vabs_f32(vadd_f32(vzip2_s32(*&vextq_s8(v23, v23, 8uLL), *&vextq_s8(*(a5 + 48), *(a5 + 48), 8uLL)), 0xBF80000080000000))), vcge_f32(v34, v33));
+    v35 = vand_s8(vcge_f32(v34, vabs_f32(vadd_f32(vzip2_s32(*&vextq_s8(v23, v23, 8uLL), *&vextq_s8(a5[3], a5[3], 8uLL)), 0xBF80000080000000))), vcge_f32(v34, v33));
     if ((vpmin_u32(v35, v35).u32[0] & 0x80000000) == 0)
     {
       return 4294967294;
@@ -4585,7 +4585,7 @@ LABEL_53:
   return 0;
 }
 
-uint64_t OCFrameSelectionCreate(uint64_t a1, uint64_t a2)
+uint64_t OCFrameSelectionCreate(unsigned int *a1, uint64_t *a2)
 {
   result = 4294967294;
   if (a1)
@@ -5094,17 +5094,17 @@ uint64_t OCFrameSelectionDestroy(void *a1)
 
 BOOL OCNonModularSPI_CoreAppleCVA_isSimilarSE3(simd_float4x4 a1, float32x4_t a2, float32x4_t a3, float32x4_t a4, float32x4_t a5, float a6)
 {
-  v27 = __invert_f4(a1);
-  v26[0] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v27.columns[0], a2.f32[0]), v27.columns[1], *a2.f32, 1), v27.columns[2], a2, 2), v27.columns[3], a2, 3);
-  v26[1] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v27.columns[0], a3.f32[0]), v27.columns[1], *a3.f32, 1), v27.columns[2], a3, 2), v27.columns[3], a3, 3);
-  v26[2] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v27.columns[0], a4.f32[0]), v27.columns[1], *a4.f32, 1), v27.columns[2], a4, 2), v27.columns[3], a4, 3);
-  v26[3] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v27.columns[0], a5.f32[0]), v27.columns[1], *a5.f32, 1), v27.columns[2], a5, 2), v27.columns[3], a5, 3);
-  v25[0] = v26;
-  v25[1] = 4;
-  sub_2460DA1EC(&v21, v25);
-  v14 = vmul_f32(v22, v22);
-  v15 = vmul_f32(v24, v24);
-  return sqrtf((((v21 * v21) + v14.f32[0]) + v14.f32[1]) + (((v23 * v23) + v15.f32[0]) + v15.f32[1])) < a6;
+  v19 = __invert_f4(a1);
+  v18[0] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v19.columns[0], a2.f32[0]), v19.columns[1], *a2.f32, 1), v19.columns[2], a2, 2), v19.columns[3], a2, 3);
+  v18[1] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v19.columns[0], a3.f32[0]), v19.columns[1], *a3.f32, 1), v19.columns[2], a3, 2), v19.columns[3], a3, 3);
+  v18[2] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v19.columns[0], a4.f32[0]), v19.columns[1], *a4.f32, 1), v19.columns[2], a4, 2), v19.columns[3], a4, 3);
+  v18[3] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v19.columns[0], a5.f32[0]), v19.columns[1], *a5.f32, 1), v19.columns[2], a5, 2), v19.columns[3], a5, 3);
+  v17[0] = v18;
+  v17[1] = 4;
+  sub_2460DA1EC(&v13, v17);
+  v6 = vmul_f32(v14, v14);
+  v7 = vmul_f32(v16, v16);
+  return sqrtf((((v13 * v13) + v6.f32[0]) + v6.f32[1]) + (((v15 * v15) + v7.f32[0]) + v7.f32[1])) < a6;
 }
 
 void sub_2460DA1EC(uint64_t a1, float **a2)
@@ -5707,9 +5707,9 @@ uint64_t OCMaskingStart(uint64_t a1)
   }
 }
 
-uint64_t OCMaskingCreateObjectVoxelsAndComputeBBox(float32x4_t *a1, uint64_t a2, __int128 *a3, uint64_t a4, float32x4_t *a5, uint64_t *a6, _DWORD *a7, uint64_t a8)
+uint64_t OCMaskingCreateObjectVoxelsAndComputeBBox(float32x4_t *a1, float32x4_t *a2, __int128 *a3, uint64_t a4, float32x4_t *a5, uint64_t *a6, _DWORD *a7, _OWORD *a8)
 {
-  v100 = *MEMORY[0x277D85DE8];
+  v99 = *MEMORY[0x277D85DE8];
   kdebug_trace();
   result = 0xFFFFFFFFLL;
   if (a1)
@@ -5754,40 +5754,40 @@ uint64_t OCMaskingCreateObjectVoxelsAndComputeBBox(float32x4_t *a1, uint64_t a2,
             v80 = a6;
             v24 = *a3;
             HIDWORD(v24) = 0;
-            v93 = v24;
+            v92 = v24;
+            v93 = 0;
             v94 = 0;
-            v95 = 0;
-            v25 = *(a2 + 104);
+            v25 = a2[6].i32[2];
             *__p = 0u;
-            v99 = 0u;
-            v26 = *(a2 + 16);
-            v97[3] = *a2;
-            v97[4] = v26;
-            v27 = *(a2 + 48);
-            v97[5] = *(a2 + 32);
-            v97[6] = v27;
-            v28 = *(a2 + 64);
-            v29 = *(a2 + 80);
-            v96 = xmmword_24613FA50;
-            v97[0] = v28;
-            v97[1] = v29;
+            v98 = 0u;
+            v26 = a2[1];
+            v96[3] = *a2;
+            v96[4] = v26;
+            v27 = a2[3];
+            v96[5] = a2[2];
+            v96[6] = v27;
+            v28 = a2[4];
+            v29 = a2[5];
+            v95 = xmmword_24613FA50;
+            v96[0] = v28;
+            v96[1] = v29;
             if (v25)
             {
               operator new();
             }
 
             v30 = *a2;
-            v31 = *(a2 + 16);
-            v32 = *(a2 + 32);
-            v33 = *(a2 + 48);
+            v31 = a2[1];
+            v32 = a2[2];
+            v33 = a2[3];
             v34 = vmlaq_f32(vmlaq_f32(vaddq_f32(v31, vmulq_f32(*a2, 0)), 0, v32), 0, v33);
-            v97[2] = v34;
+            v96[2] = v34;
             v35 = vmulq_f32(v34, vaddq_f32(v33, vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30, v28.f32[0]), v31, *v28.f32, 1), v32, v28, 2)));
             v34.f32[3] = v35.f32[2] + vaddv_f32(*v35.f32);
-            v97[7] = v34;
+            v96[7] = v34;
+            v89 = 0;
             v90 = 0;
             v91 = 0;
-            v92 = 0;
             BaseAddress = OCDataBufferGetBaseAddress(a4);
             v37 = MEMORY[0x24C199040](a4);
             if (v37 == 1278227250 || v37 == 2021227107)
@@ -5833,9 +5833,9 @@ uint64_t OCMaskingCreateObjectVoxelsAndComputeBBox(float32x4_t *a1, uint64_t a2,
             if ((v42 / v40))
             {
               v44 = v43;
-              sub_2460FDD5C(&v90, v43);
-              v45 = v90;
-              v46 = v90 + 2;
+              sub_2460FDD5C(&v89, v43);
+              v45 = v89;
+              v46 = v89 + 2;
               v47 = a5[2];
               v48 = vmulq_f32(v47, v47);
               v48.f32[0] = vaddv_f32(*v48.f32);
@@ -5862,12 +5862,12 @@ uint64_t OCMaskingCreateObjectVoxelsAndComputeBBox(float32x4_t *a1, uint64_t a2,
               v61 = vdupq_n_s32(0x437F0000u);
               do
               {
-                *v62.f32 = vrndm_f32(*v59[-2].f32);
+                *v62.f32 = vrndm_f32(*v59[-2].i8);
                 v62.i64[1] = __PAIR64__(1.0, COERCE_UNSIGNED_INT(floorf(COERCE_FLOAT(v59[-2].i64[1]))));
                 v63 = vaddq_f32(v62, xmmword_24613FA90);
                 v46[-2] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(*a5, v63.f32[0]), a5[1], *v63.f32, 1), a5[2], v63, 2), a5[3], v63, 3);
                 v64 = v59[-1];
-                v65 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v58, v64.f32[0]), v57, *v64.f32, 1), v56, v64, 2);
+                v65 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v58, *v64.i32), v57, *v64.i8, 1), v56, v64, 2);
                 v65.i32[3] = 0;
                 v46[-1] = v65;
                 v66 = v59->i32[0];
@@ -5891,16 +5891,16 @@ uint64_t OCMaskingCreateObjectVoxelsAndComputeBBox(float32x4_t *a1, uint64_t a2,
 LABEL_42:
             v45 = 0;
 LABEL_43:
-            v85 = 0;
-            v84 = v45;
-            v83 = -1431655765 * ((v91 - v45) >> 4);
+            v84 = 0;
+            v83.i64[1] = v45;
+            v83.i32[0] = -1431655765 * ((v90 - v45) >> 4);
             v68 = a5[1];
-            v86 = *a5;
-            v87 = v68;
+            v85 = *a5;
+            v86 = v68;
             v69 = a5[3];
-            v88 = a5[2];
-            v89 = v69;
-            if (sub_246123A08(v81->i64[0], &v83, v97, &v93, v79, v81[5].i64))
+            v87 = a5[2];
+            v88 = v69;
+            if (sub_246123A08(v81->i64[0], &v83, v96, &v92, v79, &v81[5]))
             {
               if (v80 && v82)
               {
@@ -5981,7 +5981,7 @@ void sub_2460DB6C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t OCMaskingComputeMaskFromObjectVoxels(uint64_t a1, __CVBuffer *a2, simd_float4x4 *a3, uint64_t a4, float32x4_t *a5, uint64_t a6, int a7, __CVBuffer *a8)
+uint64_t OCMaskingComputeMaskFromObjectVoxels(uint64_t a1, __CVBuffer *a2, simd_float4x4 *a3, _OWORD *a4, float32x4_t *a5, const void *a6, unsigned int a7, __CVBuffer *a8)
 {
   if (!a1)
   {
@@ -6102,12 +6102,12 @@ uint64_t OCMaskingComputeMaskFromObjectVoxels(uint64_t a1, __CVBuffer *a2, simd_
           v50 = vdupq_n_s32(0x437F0000u);
           do
           {
-            *v51.f32 = vrndm_f32(*v48[-2].f32);
+            *v51.f32 = vrndm_f32(*v48[-2].i8);
             v51.i64[1] = __PAIR64__(1.0, COERCE_UNSIGNED_INT(floorf(COERCE_FLOAT(v48[-2].i64[1]))));
             v52 = vaddq_f32(v51, xmmword_24613FA90);
             v35[-2] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(*v23, v52.f32[0]), v23[1], *v52.f32, 1), v23[2], v52, 2), v23[3], v52, 3);
             v53 = v48[-1];
-            v54 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v47, v53.f32[0]), v46, *v53.f32, 1), v45, v53, 2);
+            v54 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v47, *v53.i32), v46, *v53.i8, 1), v45, v53, 2);
             v54.i32[3] = 0;
             v35[-1] = v54;
             v55 = v48->i32[0];
@@ -6150,7 +6150,7 @@ void sub_2460DBC6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t OCMaskingComputeMaskFromBoundingBox(uint64_t a1, __CVBuffer *a2, simd_float4x4 *a3, uint64_t a4, __CVBuffer *a5)
+uint64_t OCMaskingComputeMaskFromBoundingBox(uint64_t a1, __CVBuffer *a2, simd_float4x4 *a3, float32x4_t *a4, __CVBuffer *a5)
 {
   if (!a1)
   {
@@ -6838,7 +6838,7 @@ LABEL_85:
         goto LABEL_142;
       }
 
-      v170 = v208[0];
+      v170 = *v208;
       if (a4)
       {
         *&buf = *MEMORY[0x277CF6D20];
@@ -6854,7 +6854,7 @@ LABEL_85:
           goto LABEL_142;
         }
 
-        v170 = v208[0];
+        v170 = *v208;
       }
 
       if (v77)
@@ -6864,7 +6864,7 @@ LABEL_85:
           goto LABEL_142;
         }
 
-        v170 = v208[0];
+        v170 = *v208;
       }
 
       if (sub_2460DDA88(v155, v170, theDict) && sub_2460DDBA0(v155, *v208, pixelBuffer, v180, v179) && sub_2460DDD74(v155, *v208, v153))
@@ -6941,7 +6941,7 @@ void sub_2460DDA14(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-CGImageMetadata *sub_2460DDA88(int a1, int a2, CFDictionaryRef theDict)
+CGImageMetadata *sub_2460DDA88(uint64_t a1, uint64_t a2, CFDictionaryRef theDict)
 {
   if (!theDict)
   {
@@ -6989,7 +6989,7 @@ CGImageMetadata *sub_2460DDA88(int a1, int a2, CFDictionaryRef theDict)
   return result;
 }
 
-uint64_t sub_2460DDBA0(int a1, const char *a2, CVPixelBufferRef pixelBuffer, uint64_t a4, uint64_t a5)
+uint64_t sub_2460DDBA0(uint64_t a1, const char *a2, CVPixelBufferRef pixelBuffer, uint64_t a4, uint64_t a5)
 {
   v19[1] = *MEMORY[0x277D85DE8];
   v7 = MEMORY[0x277CF6CF0];
@@ -7511,7 +7511,7 @@ void sub_2460DE72C(CFStringRef name, CFTypeRef value, uint64_t a3)
   }
 }
 
-uint64_t OCNonModularSPI_CMPhoto_update(uint64_t a1, void *a2, void *a3, void *a4, int a5, void *a6, float32x4_t a7, float32x4_t a8, float32x4_t a9, float32x4_t a10, __n128 a11, int8x16_t a12, int8x16_t a13, int8x16_t a14)
+uint64_t OCNonModularSPI_CMPhoto_update(uint64_t *a1, void *a2, void *a3, void *a4, int a5, void *a6, float32x4_t a7, float32x4_t a8, float32x4_t a9, float32x4_t a10, __n128 a11, int8x16_t a12, int8x16_t a13, int8x16_t a14)
 {
   v95 = *MEMORY[0x277D85DE8];
   v19 = a2;
@@ -7616,7 +7616,7 @@ LABEL_26:
   return v51;
 }
 
-uint64_t sub_2460DEC58(uint64_t *a1, void *a2)
+uint64_t sub_2460DEC58(void *a1, void *a2)
 {
   v84[2] = *MEMORY[0x277D85DE8];
   if (!a2)
@@ -8108,7 +8108,7 @@ uint64_t OCNonModularSPI_CMPhoto_HeicReadStart(uint64_t a1)
   }
 }
 
-uint64_t OCNonModularSPI_CMPhoto_readTimestamp(uint64_t a1, void *a2, uint64_t a3)
+uint64_t OCNonModularSPI_CMPhoto_readTimestamp(uint64_t *a1, void *a2, double *a3)
 {
   v5 = a2;
   v8 = v5;
@@ -8126,8 +8126,13 @@ uint64_t OCNonModularSPI_CMPhoto_readTimestamp(uint64_t a1, void *a2, uint64_t a
         {
           if (!v14)
           {
+            cf = 0;
+            v19 = 0;
             if (!CMPhotoDecompressionSessionCreateContainer())
             {
+              v17 = 0;
+              v18 = 0;
+              v16 = 0;
               CMPhotoDecompressionContainerGetImageCount();
             }
 
@@ -8141,7 +8146,7 @@ uint64_t OCNonModularSPI_CMPhoto_readTimestamp(uint64_t a1, void *a2, uint64_t a
   return v9;
 }
 
-uint64_t OCNonModularSPI_CMPhoto_readResolution(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+uint64_t OCNonModularSPI_CMPhoto_readResolution(uint64_t *a1, void *a2, void *a3, void *a4)
 {
   v7 = a2;
   v10 = v7;
@@ -8160,8 +8165,13 @@ uint64_t OCNonModularSPI_CMPhoto_readResolution(uint64_t a1, void *a2, uint64_t 
         {
           if (a3 && !v16)
           {
+            cf = 0;
+            v21 = 0;
             if (!CMPhotoDecompressionSessionCreateContainer())
             {
+              v19 = 0;
+              v20 = 0;
+              v18 = 0;
               CMPhotoDecompressionContainerGetImageCount();
             }
 
@@ -8175,38 +8185,38 @@ uint64_t OCNonModularSPI_CMPhoto_readResolution(uint64_t a1, void *a2, uint64_t 
   return v11;
 }
 
-uint64_t OCNonModularSPI_CMPhoto_read(uint64_t a1, void *a2)
+uint64_t OCNonModularSPI_CMPhoto_read(uint64_t *a1, void *a2, uint64_t a3)
 {
-  v3 = a2;
-  v6 = v3;
-  v7 = 4294967294;
-  if (a1 && v3 && objc_msgSend_isFileURL(v3, v4, v5))
+  v4 = a2;
+  v7 = v4;
+  v8 = 4294967294;
+  if (a1 && v4 && objc_msgSend_isFileURL(v4, v5, v6))
   {
-    v10 = objc_msgSend_pathExtension(v6, v8, v9);
-    v12 = objc_msgSend_caseInsensitiveCompare_(v10, v11, @"HEIC");
+    v11 = objc_msgSend_pathExtension(v7, v9, v10);
+    v13 = objc_msgSend_caseInsensitiveCompare_(v11, v12, @"HEIC");
 
-    if (v12)
+    if (v13)
     {
-      v7 = 4294967294;
+      v8 = 4294967294;
     }
 
     else
     {
+      v17 = 0;
       v16 = 0;
-      v15 = 0;
       if (!CMPhotoDecompressionSessionCreateContainer())
       {
-        memset(v14, 0, sizeof(v14));
-        v17 = 0;
+        memset(v15, 0, sizeof(v15));
+        v18 = 0;
         CMPhotoDecompressionContainerGetImageCount();
-        sub_2460E0EDC(v16, v14);
+        sub_2460E0EDC(v17, v15);
       }
 
-      v7 = 0xFFFFFFFFLL;
+      v8 = 0xFFFFFFFFLL;
     }
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t sub_2460E06DC(uint64_t a1, uint64_t a2, void *a3)
@@ -8308,7 +8318,7 @@ id sub_2460E0F98()
   return v1;
 }
 
-uint64_t OCNonModularSPI_CMPhoto_readThumbnail(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+uint64_t OCNonModularSPI_CMPhoto_readThumbnail(uint64_t *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v17 = *MEMORY[0x277D85DE8];
   v6 = a2;
@@ -8343,7 +8353,7 @@ uint64_t OCNonModularSPI_CMPhoto_readThumbnail(uint64_t a1, void *a2, uint64_t a
   return v10;
 }
 
-uint64_t OCNonModularSPI_CMPhoto_readVersion(uint64_t a1, void *a2, uint64_t a3)
+uint64_t OCNonModularSPI_CMPhoto_readVersion(uint64_t *a1, void *a2, void *a3)
 {
   v5 = a2;
   v8 = v5;

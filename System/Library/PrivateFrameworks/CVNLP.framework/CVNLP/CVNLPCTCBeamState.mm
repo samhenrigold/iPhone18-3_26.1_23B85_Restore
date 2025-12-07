@@ -83,24 +83,23 @@
 
 - (void)kBest:(id *)best discarded:(id *)discarded k:(unint64_t)k shouldUpdateLMState:(BOOL)state
 {
-  v91 = 0;
-  v92 = &v91;
-  v93 = 0x4812000000;
-  v94 = sub_1D9DB9D5C;
-  v95 = sub_1D9DB9D80;
-  v96 = &unk_1D9DF809A;
+  v90 = 0;
+  v91 = &v90;
+  v92 = 0x4812000000;
+  v93 = sub_1D9DB9D5C;
+  v94 = sub_1D9DB9D80;
+  v95 = &unk_1D9DF809A;
+  v97 = 0;
   v98 = 0;
-  v99 = 0;
   __p = 0;
   if (objc_msgSend_count(self->_mutablePaths, a2, best, discarded))
   {
-    v14 = v92;
+    v14 = v91;
     v15 = objc_msgSend_count(self->_mutablePaths, v11, v12, v13);
     if (v15 > (v14[8] - v14[6]) >> 3)
     {
       if (!(v15 >> 61))
       {
-        v18 = v14[7];
         operator new();
       }
 
@@ -108,98 +107,98 @@
     }
 
     mutablePaths = self->_mutablePaths;
-    v90[0] = MEMORY[0x1E69E9820];
-    v90[1] = 3221225472;
-    v90[2] = sub_1D9DB9D98;
-    v90[3] = &unk_1E858E388;
-    v90[4] = &v91;
-    objc_msgSend_enumerateKeysAndObjectsUsingBlock_(mutablePaths, v16, v90, v17);
-    v20 = v92[6];
-    v21 = v92[7];
-    kCopy = v21 - v20 - 1;
+    v89[0] = MEMORY[0x1E69E9820];
+    v89[1] = 3221225472;
+    v89[2] = sub_1D9DB9D98;
+    v89[3] = &unk_1E858E388;
+    v89[4] = &v90;
+    objc_msgSend_enumerateKeysAndObjectsUsingBlock_(mutablePaths, v16, v89, v17);
+    v19 = v91[6];
+    v20 = v91[7];
+    kCopy = v20 - v19 - 1;
     if (kCopy >= k)
     {
       kCopy = k;
     }
 
-    v23 = &v20[kCopy];
-    if (v23 != v21)
+    v22 = &v19[kCopy];
+    if (v22 != v20)
     {
       do
       {
-        v24 = v21 - v20;
-        if (v24 < 2)
+        v23 = v20 - v19;
+        if (v23 < 2)
         {
           break;
         }
 
-        if (v24 == 3)
+        if (v23 == 3)
         {
-          v61 = v20[1];
-          v62 = *(v21 - 1);
-          *(v21 - 1) = fmin(v61, v62);
-          v20[1] = fmax(v61, v62);
-          v63 = *(v21 - 1);
-          v64 = fmax(v63, *v20);
-          *(v21 - 1) = fmin(v63, *v20);
-          v65 = v20[1];
-          if (v64 > v65)
+          v60 = v19[1];
+          v61 = *(v20 - 1);
+          *(v20 - 1) = fmin(v60, v61);
+          v19[1] = fmax(v60, v61);
+          v62 = *(v20 - 1);
+          v63 = fmax(v62, *v19);
+          *(v20 - 1) = fmin(v62, *v19);
+          v64 = v19[1];
+          if (v63 > v64)
           {
-            v20[1] = v65;
+            v19[1] = v64;
           }
 
           else
           {
-            *v20 = v65;
-            v20[1] = v64;
+            *v19 = v64;
+            v19[1] = v63;
           }
 
           break;
         }
 
-        if (v24 == 2)
+        if (v23 == 2)
         {
-          v66 = *(v21 - 1);
-          v67 = *v20;
-          if (v66 > *v20)
+          v65 = *(v20 - 1);
+          v66 = *v19;
+          if (v65 > *v19)
           {
-            *v20 = v66;
-            *(v21 - 1) = v67;
+            *v19 = v65;
+            *(v20 - 1) = v66;
           }
 
           break;
         }
 
-        if (v24 <= 7)
+        if (v23 <= 7)
         {
-          while (v20 != v21 - 1)
+          while (v19 != v20 - 1)
           {
-            v68 = v20++;
-            if (v68 != v21 && v20 != v21)
+            v67 = v19++;
+            if (v67 != v20 && v19 != v20)
             {
-              v69 = *v68;
-              v70 = *v68;
-              v71 = v20;
-              v72 = v68;
-              v73 = v20;
+              v68 = *v67;
+              v69 = *v67;
+              v70 = v19;
+              v71 = v67;
+              v72 = v19;
               do
               {
-                v74 = *v73++;
-                v75 = v74 <= v70;
-                v70 = fmax(v74, v70);
-                if (!v75)
+                v73 = *v72++;
+                v74 = v73 <= v69;
+                v69 = fmax(v73, v69);
+                if (!v74)
                 {
-                  v72 = v71;
+                  v71 = v70;
                 }
 
-                v71 = v73;
+                v70 = v72;
               }
 
-              while (v73 != v21);
-              if (v72 != v68)
+              while (v72 != v20);
+              if (v71 != v67)
               {
-                *v68 = *v72;
-                *v72 = v69;
+                *v67 = *v71;
+                *v71 = v68;
               }
             }
           }
@@ -207,59 +206,59 @@
           break;
         }
 
-        v25 = &v20[(v21 - v20) >> 4];
-        v26 = v21 - 1;
-        v27 = *(v21 - 1);
-        v28 = *v25;
-        v29 = fmax(*v25, v27);
-        *v26 = fmin(*v25, v27);
-        *v25 = v29;
-        v30 = *(v21 - 1);
-        v31 = *v20;
-        v32 = fmax(v30, *v20);
-        *v26 = fmin(v30, *v20);
-        v33 = *v25;
-        v34 = *v25;
-        if (v32 <= *v25)
+        v24 = &v19[(v20 - v19) >> 4];
+        v25 = v20 - 1;
+        v26 = *(v20 - 1);
+        v27 = *v24;
+        v28 = fmax(*v24, v26);
+        *v25 = fmin(*v24, v26);
+        *v24 = v28;
+        v29 = *(v20 - 1);
+        v30 = *v19;
+        v31 = fmax(v29, *v19);
+        *v25 = fmin(v29, *v19);
+        v32 = *v24;
+        v33 = *v24;
+        if (v31 <= *v24)
         {
-          *v20 = v33;
-          v34 = v32;
+          *v19 = v32;
+          v33 = v31;
         }
 
-        v35 = v30 <= v31;
-        if (v32 <= v33)
+        v34 = v29 <= v30;
+        if (v31 <= v32)
         {
-          v35 = 1;
+          v34 = 1;
         }
 
-        *v25 = v34;
-        if (v28 <= v27)
+        *v24 = v33;
+        if (v27 <= v26)
         {
-          v35 = 1;
+          v34 = 1;
         }
 
-        v36 = *v20;
-        if (*v20 <= v34)
+        v35 = *v19;
+        if (*v19 <= v33)
         {
-          v37 = v21 - 1;
-          while (--v37 != v20)
+          v36 = v20 - 1;
+          while (--v36 != v19)
           {
-            if (*v37 > v34)
+            if (*v36 > v33)
             {
-              *v20 = *v37;
-              *v37 = v36;
-              if (v35)
+              *v19 = *v36;
+              *v36 = v35;
+              if (v34)
               {
-                v35 = 2;
+                v34 = 2;
               }
 
               else
               {
-                v35 = 1;
+                v34 = 1;
               }
 
-              v38 = v20 + 1;
-              if (v20 + 1 < v37)
+              v37 = v19 + 1;
+              if (v19 + 1 < v36)
               {
                 goto LABEL_20;
               }
@@ -268,66 +267,66 @@
             }
           }
 
-          v49 = v20 + 1;
-          if (v36 <= *v26)
+          v48 = v19 + 1;
+          if (v35 <= *v25)
           {
-            if (v49 == v26)
+            if (v48 == v25)
             {
               break;
             }
 
             while (1)
             {
-              v50 = *v49;
-              if (v36 > *v49)
+              v49 = *v48;
+              if (v35 > *v48)
               {
                 break;
               }
 
-              if (++v49 == v26)
+              if (++v48 == v25)
               {
                 goto LABEL_86;
               }
             }
 
-            *v49++ = *v26;
-            *v26 = v50;
+            *v48++ = *v25;
+            *v25 = v49;
           }
 
-          if (v49 == v26)
+          if (v48 == v25)
           {
             break;
           }
 
           while (1)
           {
-            v54 = *v20;
+            v53 = *v19;
             do
             {
-              v55 = *v49++;
-              v56 = v55;
+              v54 = *v48++;
+              v55 = v54;
             }
 
-            while (v54 <= v55);
-            v57 = v49 - 1;
+            while (v53 <= v54);
+            v56 = v48 - 1;
             do
             {
-              v58 = *--v26;
-              v59 = v58;
+              v57 = *--v25;
+              v58 = v57;
             }
 
-            while (v54 > v58);
-            if (v57 >= v26)
+            while (v53 > v57);
+            if (v56 >= v25)
             {
               break;
             }
 
-            *v57 = v59;
-            *v26 = v56;
+            *v56 = v58;
+            *v25 = v55;
           }
 
-          v20 = v49 - 1;
-          if (v57 > v23)
+          v19 = v48 - 1;
+          if (v56 > v22)
           {
             break;
           }
@@ -335,77 +334,77 @@
 
         else
         {
-          v37 = v21 - 1;
-          v38 = v20 + 1;
-          if (v20 + 1 >= v21 - 1)
+          v36 = v20 - 1;
+          v37 = v19 + 1;
+          if (v19 + 1 >= v20 - 1)
           {
 LABEL_36:
-            v43 = v38;
+            v42 = v37;
           }
 
           else
           {
 LABEL_20:
-            v39 = v38;
+            v38 = v37;
             while (1)
             {
-              v40 = *v25;
+              v39 = *v24;
               do
               {
-                v41 = *v39++;
-                v42 = v41;
+                v40 = *v38++;
+                v41 = v40;
               }
 
-              while (v41 > v40);
-              v43 = v39 - 1;
+              while (v40 > v39);
+              v42 = v38 - 1;
               do
               {
-                v44 = *--v37;
-                v45 = v44;
+                v43 = *--v36;
+                v44 = v43;
               }
 
-              while (v44 <= v40);
-              if (v43 >= v37)
+              while (v43 <= v39);
+              if (v42 >= v36)
               {
                 break;
               }
 
-              *v43 = v45;
-              *v37 = v42;
-              ++v35;
-              if (v43 == v25)
+              *v42 = v44;
+              *v36 = v41;
+              ++v34;
+              if (v42 == v24)
               {
-                v25 = v37;
+                v24 = v36;
               }
             }
           }
 
-          if (v43 != v25)
+          if (v42 != v24)
           {
-            v46 = *v43;
-            if (*v25 > *v43)
+            v45 = *v42;
+            if (*v24 > *v42)
             {
-              *v43 = *v25;
-              *v25 = v46;
-              ++v35;
+              *v42 = *v24;
+              *v24 = v45;
+              ++v34;
             }
           }
 
-          if (v43 == v23)
+          if (v42 == v22)
           {
             break;
           }
 
-          if (!v35)
+          if (!v34)
           {
-            if (v43 <= v23)
+            if (v42 <= v22)
             {
-              v51 = v43 + 1;
-              while (v51 != v21)
+              v50 = v42 + 1;
+              while (v50 != v20)
               {
-                v53 = *(v51 - 1);
-                v52 = *v51++;
-                if (v52 > v53)
+                v52 = *(v50 - 1);
+                v51 = *v50++;
+                if (v51 > v52)
                 {
                   goto LABEL_42;
                 }
@@ -414,11 +413,11 @@ LABEL_20:
 
             else
             {
-              while (v38 != v43)
+              while (v37 != v42)
               {
-                v48 = *(v38 - 1);
-                v47 = *v38++;
-                if (v47 > v48)
+                v47 = *(v37 - 1);
+                v46 = *v37++;
+                if (v46 > v47)
                 {
                   goto LABEL_42;
                 }
@@ -429,88 +428,88 @@ LABEL_20:
           }
 
 LABEL_42:
-          if (v43 <= v23)
+          if (v42 <= v22)
           {
-            v20 = v43 + 1;
+            v19 = v42 + 1;
           }
 
           else
           {
-            v21 = v43;
+            v20 = v42;
           }
         }
       }
 
-      while (v21 != v23);
+      while (v20 != v22);
 LABEL_86:
-      v20 = v92[6];
+      v19 = v91[6];
     }
 
-    v60 = v20[kCopy];
+    v59 = v19[kCopy];
   }
 
   else
   {
-    v60 = 0.0;
+    v59 = 0.0;
   }
 
+  v75 = objc_alloc_init(CVNLPCTCBeamState);
   v76 = objc_alloc_init(CVNLPCTCBeamState);
-  v77 = objc_alloc_init(CVNLPCTCBeamState);
-  v78 = self->_mutablePaths;
-  v85[0] = MEMORY[0x1E69E9820];
-  v85[1] = 3221225472;
-  v85[2] = sub_1D9DB9EFC;
-  v85[3] = &unk_1E858E3B0;
-  v88 = v60;
+  v77 = self->_mutablePaths;
+  v84[0] = MEMORY[0x1E69E9820];
+  v84[1] = 3221225472;
+  v84[2] = sub_1D9DB9EFC;
+  v84[3] = &unk_1E858E3B0;
+  v87 = v59;
+  v78 = v75;
+  v85 = v78;
+  stateCopy = state;
   v79 = v76;
   v86 = v79;
-  stateCopy = state;
-  v80 = v77;
-  v87 = v80;
-  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v78, v81, v85, v82);
+  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v77, v80, v84, v81);
   if (best)
   {
-    v83 = v79;
-    *best = v79;
+    v82 = v78;
+    *best = v78;
   }
 
   if (discarded)
   {
-    v84 = v80;
-    *discarded = v80;
+    v83 = v79;
+    *discarded = v79;
   }
 
-  _Block_object_dispose(&v91, 8);
+  _Block_object_dispose(&v90, 8);
   if (__p)
   {
-    v98 = __p;
+    v97 = __p;
     operator delete(__p);
   }
 }
 
 - (void)mergePathsWithTrailingWhitespaces
 {
-  v42 = *MEMORY[0x1E69E9840];
-  v31 = objc_msgSend_array(MEMORY[0x1E695DF70], a2, v2, v3);
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
+  v41 = *MEMORY[0x1E69E9840];
+  v30 = objc_msgSend_array(MEMORY[0x1E695DF70], a2, v2, v3);
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v5 = self->_mutablePaths;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v36, v41, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v35, v40, 16);
   if (v9)
   {
-    v10 = *v37;
+    v10 = *v36;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v37 != v10)
+        if (*v36 != v10)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v36 + 1) + 8 * i);
+        v12 = *(*(&v35 + 1) + 8 * i);
         v13 = objc_msgSend_stringByAppendingString_(v12, v7, @" ", v8);
         v18 = objc_msgSend_objectForKeyedSubscript_(self->_mutablePaths, v14, v13, v15);
         if (v18)
@@ -518,68 +517,66 @@ LABEL_86:
           v19 = objc_msgSend_objectForKeyedSubscript_(self->_mutablePaths, v16, v12, v17);
           objc_msgSend_merge_logProbCumulator_(v19, v20, v18, &unk_1F554FA30);
 
-          objc_msgSend_addObject_(v31, v21, v13, v22);
+          objc_msgSend_addObject_(v30, v21, v13, v22);
         }
       }
 
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v36, v41, 16);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v35, v40, 16);
     }
 
     while (v9);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
-  v23 = v31;
-  v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v24, &v32, v40, 16);
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v23 = v30;
+  v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v24, &v31, v39, 16);
   if (v27)
   {
-    v28 = *v33;
+    v28 = *v32;
     do
     {
       for (j = 0; j != v27; ++j)
       {
-        if (*v33 != v28)
+        if (*v32 != v28)
         {
           objc_enumerationMutation(v23);
         }
 
-        objc_msgSend_removeObjectForKey_(self->_mutablePaths, v25, *(*(&v32 + 1) + 8 * j), v26);
+        objc_msgSend_removeObjectForKey_(self->_mutablePaths, v25, *(*(&v31 + 1) + 8 * j), v26);
       }
 
-      v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v25, &v32, v40, 16);
+      v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v25, &v31, v39, 16);
     }
 
     while (v27);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)applyWordLanguageModelProbabilityToPaths
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = self->_mutablePaths;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v3, &v34, v38, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v3, &v33, v37, 16);
   if (v6)
   {
-    v7 = *v35;
+    v7 = *v34;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v35 != v7)
+        if (*v34 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = objc_msgSend_objectForKeyedSubscript_(self->_mutablePaths, v4, *(*(&v34 + 1) + 8 * i), v5);
+        v9 = objc_msgSend_objectForKeyedSubscript_(self->_mutablePaths, v4, *(*(&v33 + 1) + 8 * i), v5);
         v13 = objc_msgSend_languageResourceBundle(v9, v10, v11, v12);
         v20 = objc_msgSend_wordLanguageModel(v13, v14, v15, v16);
         if (v20)
@@ -600,13 +597,11 @@ LABEL_86:
         }
       }
 
-      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v4, &v34, v38, 16);
+      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v4, &v33, v37, 16);
     }
 
     while (v6);
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -79,10 +79,10 @@
 {
   v7 = MEMORY[0x1E6960CC0];
   *retstr = **&MEMORY[0x1E6960CC0];
-  result = [(PXTrimScrubberLayoutHelper *)self duration];
+  result = objc_msgSend_duration(self, space);
   if ((v23 & 0x1D) == 1)
   {
-    [(PXTrimScrubberLayoutHelper *)self duration];
+    objc_msgSend_duration(self);
     time2 = *v7;
     result = CMTimeCompare(&time1, &time2);
     if (result >= 1)
@@ -117,12 +117,12 @@
         v28.size.width = width;
         v28.size.height = height;
         v15 = v14 / CGRectGetWidth(v28);
-        [(PXTrimScrubberLayoutHelper *)self duration];
+        objc_msgSend_duration(self);
         v16 = v15 * CMTimeGetSeconds(&time1);
-        [(PXTrimScrubberLayoutHelper *)self duration];
+        objc_msgSend_duration(self);
         CMTimeMakeWithSeconds(retstr, v16, preferredTimescale);
         memset(&time1, 0, sizeof(time1));
-        [(PXTrimScrubberLayoutHelper *)self duration];
+        objc_msgSend_duration(self);
         CMTimeMake(&v18, 1, 60);
         CMTimeSubtract(&time2, &lhs, &v18);
         lhs = *v7;
@@ -141,7 +141,7 @@ LABEL_7:
         return result;
       }
 
-      return [(PXTrimScrubberLayoutHelper *)self duration];
+      return objc_msgSend_duration(self);
     }
   }
 
@@ -152,16 +152,16 @@ LABEL_7:
 {
   if ((time->var2 & 0x1D) == 1)
   {
-    [(PXTrimScrubberLayoutHelper *)self duration];
+    objc_msgSend_duration(self, a2);
     if ((v11 & 0x1D) == 1)
     {
-      [(PXTrimScrubberLayoutHelper *)self duration];
+      objc_msgSend_duration(self);
       v9 = **&MEMORY[0x1E6960CC0];
       if (CMTimeCompare(&time1, &v9) >= 1)
       {
         time1 = *time;
         CMTimeGetSeconds(&time1);
-        [(PXTrimScrubberLayoutHelper *)self duration];
+        objc_msgSend_duration(self);
         CMTimeGetSeconds(&time1);
         PXClamp();
       }

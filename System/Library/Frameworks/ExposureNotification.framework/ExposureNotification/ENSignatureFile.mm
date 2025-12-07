@@ -152,7 +152,7 @@ id __57__ENSignatureFile__signatureFileWithProtobufCoder_error___block_invoke(ui
   {
     if (error)
     {
-      v9 = 5;
+      ENErrorF(5, "Reading files not implemented");
       goto LABEL_10;
     }
   }
@@ -161,7 +161,7 @@ id __57__ENSignatureFile__signatureFileWithProtobufCoder_error___block_invoke(ui
   {
     if (error)
     {
-      v9 = 10;
+      ENErrorF(10, "File already open");
       goto LABEL_10;
     }
   }
@@ -177,12 +177,11 @@ id __57__ENSignatureFile__signatureFileWithProtobufCoder_error___block_invoke(ui
 
     if (error)
     {
-      v9 = 2;
-LABEL_10:
-      v10 = ENErrorF(v9);
-      v11 = v10;
+      ENErrorF(2, "Open path failed: '%s', %#m");
+      v9 = LABEL_10:;
+      v10 = v9;
       result = 0;
-      *error = v10;
+      *error = v9;
       return result;
     }
   }
@@ -197,7 +196,7 @@ LABEL_10:
   {
     if (error)
     {
-      ENErrorF(10);
+      ENErrorF(10, "File already open");
       *error = v10 = 0;
     }
 
@@ -238,20 +237,19 @@ LABEL_10:
 
     if (error)
     {
-      v12 = *__error();
-      v9 = 1;
+      v11 = *__error();
+      ENErrorF(1, "fclose failed: %#m", v11);
       goto LABEL_10;
     }
   }
 
   else if (error)
   {
-    v9 = 10;
-LABEL_10:
-    v10 = ENErrorF(v9);
-    v11 = v10;
+    ENErrorF(10, "File not open");
+    v9 = LABEL_10:;
+    v10 = v9;
     result = 0;
-    *error = v10;
+    *error = v9;
     return result;
   }
 
@@ -260,23 +258,23 @@ LABEL_10:
 
 - (BOOL)writeAndReturnError:(id *)error
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__0;
-  v40 = __Block_byref_object_dispose__0;
-  v41 = 0;
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __39__ENSignatureFile_writeAndReturnError___block_invoke;
-  v35[3] = &unk_278A4B610;
-  v35[4] = &v36;
-  v35[5] = error;
-  v27 = MEMORY[0x2383EE560](v35, a2);
+  v42 = *MEMORY[0x277D85DE8];
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__0;
+  v39 = __Block_byref_object_dispose__0;
+  v40 = 0;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __39__ENSignatureFile_writeAndReturnError___block_invoke;
+  v34[3] = &unk_278A4B610;
+  v34[4] = &v35;
+  v34[5] = error;
+  v26 = MEMORY[0x2383EE560](v34, a2);
   fileHandle = self->_fileHandle;
-  v28 = self->_outputData;
-  if (fileHandle | v28)
+  v27 = self->_outputData;
+  if (fileHandle | v27)
   {
     v5 = objc_alloc_init(ENProtobufCoder);
     v6 = v5;
@@ -285,44 +283,44 @@ LABEL_10:
       [(ENProtobufCoder *)v5 setFileHandle:fileHandle];
     }
 
-    else if (v28)
+    else if (v27)
     {
-      [(ENProtobufCoder *)v5 setWriteMutableData:v28];
+      [(ENProtobufCoder *)v5 setWriteMutableData:v27];
     }
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v7 = self->_signatures;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v31 objects:v42 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v30 objects:v41 count:16];
     if (v8)
     {
-      v9 = *v32;
+      v9 = *v31;
       do
       {
         v10 = 0;
         do
         {
-          if (*v32 != v9)
+          if (*v31 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v31 + 1) + 8 * v10);
+          v11 = *(*(&v30 + 1) + 8 * v10);
           v12 = objc_autoreleasePoolPush();
           v13 = objc_alloc_init(ENProtobufCoder);
           v14 = objc_alloc_init(MEMORY[0x277CBEB28]);
           [(ENProtobufCoder *)v13 setWriteMutableData:v14];
-          v15 = (v37 + 5);
-          obj = v37[5];
+          v15 = (v36 + 5);
+          obj = v36[5];
           LOBYTE(v11) = [v11 encodeWithProtobufCoder:v13 error:&obj];
           objc_storeStrong(v15, obj);
           v21 = 0;
           if (v11)
           {
             v16 = [v14 length];
-            if (!v16 || (v17 = v14, v18 = [v14 bytes], v19 = (v37 + 5), v29 = v37[5], v20 = -[ENProtobufCoder writeLengthDelimitedPtr:length:tag:error:](v6, "writeLengthDelimitedPtr:length:tag:error:", v18, v16, 1, &v29), objc_storeStrong(v19, v29), v20))
+            if (!v16 || (v17 = v14, v18 = [v14 bytes], v19 = (v36 + 5), v28 = v36[5], v20 = -[ENProtobufCoder writeLengthDelimitedPtr:length:tag:error:](v6, "writeLengthDelimitedPtr:length:tag:error:", v18, v16, 1, &v28), objc_storeStrong(v19, v28), v20))
             {
               v21 = 1;
             }
@@ -339,7 +337,7 @@ LABEL_10:
         }
 
         while (v8 != v10);
-        v22 = [(NSArray *)v7 countByEnumeratingWithState:&v31 objects:v42 count:16];
+        v22 = [(NSArray *)v7 countByEnumeratingWithState:&v30 objects:v41 count:16];
         v8 = v22;
       }
 
@@ -352,16 +350,15 @@ LABEL_22:
 
   else
   {
-    v26 = ENErrorF(10);
+    v25 = ENErrorF(10, "File not open");
     v23 = 0;
-    v6 = v37[5];
-    v37[5] = v26;
+    v6 = v36[5];
+    v36[5] = v25;
   }
 
-  v27[2](v27);
-  _Block_object_dispose(&v36, 8);
+  v26[2](v26);
+  _Block_object_dispose(&v35, 8);
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 

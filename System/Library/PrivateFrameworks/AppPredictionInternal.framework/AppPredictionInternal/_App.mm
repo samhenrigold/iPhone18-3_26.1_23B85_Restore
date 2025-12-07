@@ -61,16 +61,16 @@
 
   if (![v6 count])
   {
-    v7 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = __atxlog_handle_notification_management(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v14 = objc_opt_class();
-      v9 = NSStringFromClass(v14);
+      v15 = objc_opt_class();
+      v10 = NSStringFromClass(v15);
       *buf = 138412290;
-      v20 = v9;
-      v11 = "[%@] Missing bundleId. Proceeding to rank app without bundleId.";
-      v12 = v7;
-      v13 = 12;
+      v20 = v10;
+      v12 = "[%@] Missing bundleId. Proceeding to rank app without bundleId.";
+      v13 = v8;
+      v14 = 12;
       goto LABEL_7;
     }
 
@@ -79,23 +79,24 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  if ([v6 count] >= 2)
+  v7 = [v6 count];
+  if (v7 >= 2)
   {
-    v7 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = __atxlog_handle_notification_management(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
-      v10 = [v6 count];
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
+      v11 = [v6 count];
       *buf = 138412546;
-      v20 = v9;
+      v20 = v10;
       v21 = 2048;
-      v22 = v10;
-      v11 = "[%@] Expected to find exactly one bundle ID, but found %lu. Assuming first bundleId.";
-      v12 = v7;
-      v13 = 22;
+      v22 = v11;
+      v12 = "[%@] Expected to find exactly one bundle ID, but found %lu. Assuming first bundleId.";
+      v13 = v8;
+      v14 = 22;
 LABEL_7:
-      _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_INFO, v11, buf, v13);
+      _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_INFO, v12, buf, v14);
 
       goto LABEL_8;
     }
@@ -107,8 +108,6 @@ LABEL_9:
   firstObject = [v6 firstObject];
   bundleId = self->_bundleId;
   self->_bundleId = firstObject;
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setRankedGroupsFromNotificationGroups:(id)groups

@@ -123,7 +123,7 @@
   blockCopy = block;
   v10 = 0;
   p_bitmap = &self->_bitmap;
-  degas::Bitmap::begin(&self->_bitmap._bitCount, v9);
+  degas::Bitmap::begin(v9, &self->_bitmap);
   end = self->_bitmap._bitSets.__end_;
   while (1)
   {
@@ -218,7 +218,7 @@ uint64_t __61__KGElementIdentifierSet_identifierSetByFilteringUsingBlock___block
 {
   setCopy = set;
   v5 = [[KGElementIdentifierSet alloc] initWithBitmap:&self->_bitmap];
-  degas::Bitmap::intersectWith<degas::Bitmap>(&v5->_bitmap, (setCopy + 8));
+  degas::Bitmap::intersectWith<degas::Bitmap>(&v5->_bitmap, (setCopy + 8), v6, v7, v8, v9);
 
   return v5;
 }
@@ -266,7 +266,7 @@ uint64_t __61__KGElementIdentifierSet_identifierSetByFilteringUsingBlock___block
   v14 = 0u;
   memset(v15, 0, 25);
   p_bitmap = &self->_bitmap;
-  degas::Bitmap::begin(&self->_bitmap._bitCount, &v11);
+  degas::Bitmap::begin(&v11, &self->_bitmap);
   degas::Bitmap::iterator::seek(&v11, location);
   while (length)
   {
@@ -319,7 +319,7 @@ uint64_t __61__KGElementIdentifierSet_identifierSetByFilteringUsingBlock___block
 
 - (KGElementIdentifierSetIndex)startIndex
 {
-  degas::Bitmap::begin(&self->_bitmap._bitCount, v5);
+  degas::Bitmap::begin(v5, &self->_bitmap);
   v3 = [(KGElementIdentifierSet *)self indexWithIterator:v5];
   result.var1 = v4;
   result.var0 = v3;
@@ -375,7 +375,7 @@ uint64_t __61__KGElementIdentifierSet_identifierSetByFilteringUsingBlock___block
 - (NSArray)indexArray
 {
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  degas::Bitmap::begin(&self->_bitmap._bitCount, v7);
+  degas::Bitmap::begin(v7, &self->_bitmap);
   while (1)
   {
     v4 = v7[0] == &self->_bitmap && v7[1] == -1;
@@ -396,7 +396,7 @@ uint64_t __61__KGElementIdentifierSet_identifierSetByFilteringUsingBlock___block
 - (NSIndexSet)indexSet
 {
   v3 = objc_alloc_init(MEMORY[0x277CCAB58]);
-  degas::Bitmap::begin(&self->_bitmap._bitCount, v6);
+  degas::Bitmap::begin(v6, &self->_bitmap);
   while (1)
   {
     v4 = v6[0] == &self->_bitmap && v6[1] == -1;
@@ -438,41 +438,40 @@ uint64_t __61__KGElementIdentifierSet_identifierSetByFilteringUsingBlock___block
   v7 = *(bitmap + 24) - v6;
   if ((v7 >> 4))
   {
-    v8 = *&self->_bitmap._bitSets.__begin_;
     end = self->_bitmap._bitSets.__end_;
     begin = self->_bitmap._bitSets.__begin_;
     if (begin != end)
     {
-      v11 = 0;
-      v12 = (v7 >> 4);
+      v10 = 0;
+      v11 = (v7 >> 4);
       while (1)
       {
-        v13 = *(v6 + 16 * v11);
-        v14 = *begin;
-        v15 = *(*begin + 8);
-        v16 = *(v13 + 8);
-        if (v15 >= v16)
+        v12 = *(v6 + 16 * v10);
+        v13 = *begin;
+        v14 = *(*begin + 8);
+        v15 = *(v12 + 8);
+        if (v14 >= v15)
         {
-          if (v15 <= v16)
+          if (v14 <= v15)
           {
-            if ((*(v13 + 16) & *(v14 + 16)) != 0)
+            if ((*(v12 + 16) & *(v13 + 16)) != 0)
             {
 LABEL_19:
-              v23 = 1;
+              v22 = 1;
               goto LABEL_18;
             }
 
-            v17 = 0;
+            v16 = 0;
+            v17 = v12 + 20;
             v18 = v13 + 20;
-            v19 = v14 + 20;
-            while (v17 != 31)
+            while (v16 != 31)
             {
-              v20 = v17 + 1;
-              v21 = *(v19 + 4 * v17);
-              v22 = *(v18 + 4 * v17++);
-              if ((v22 & v21) != 0)
+              v19 = v16 + 1;
+              v20 = *(v18 + 4 * v16);
+              v21 = *(v17 + 4 * v16++);
+              if ((v21 & v20) != 0)
               {
-                if ((v20 - 1) < 0x1F)
+                if ((v19 - 1) < 0x1F)
                 {
                   goto LABEL_19;
                 }
@@ -484,7 +483,7 @@ LABEL_19:
             begin = (begin + 16);
           }
 
-          ++v11;
+          ++v10;
         }
 
         else
@@ -492,8 +491,8 @@ LABEL_19:
           begin = (begin + 16);
         }
 
-        v23 = 0;
-        if (begin == end || v11 >= v12)
+        v22 = 0;
+        if (begin == end || v10 >= v11)
         {
           goto LABEL_18;
         }
@@ -501,10 +500,10 @@ LABEL_19:
     }
   }
 
-  v23 = 0;
+  v22 = 0;
 LABEL_18:
 
-  return v23;
+  return v22;
 }
 
 - (KGElementIdentifierSet)initWithLiteralData:(id)data
@@ -542,87 +541,85 @@ LABEL_18:
 
 - (KGElementIdentifierSet)initWithIndexCollection:(id)collection
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   collectionCopy = collection;
-  v16.receiver = self;
-  v16.super_class = KGElementIdentifierSet;
-  v5 = [(KGElementIdentifierSet *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = KGElementIdentifierSet;
+  v5 = [(KGElementIdentifierSet *)&v15 init];
   if (v5)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v6 = collectionCopy;
-    v7 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
     if (v7)
     {
-      v8 = *v13;
+      v8 = *v12;
       do
       {
         v9 = 0;
         do
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          degas::Bitmap::setBit(&v5->_bitmap, [*(*(&v12 + 1) + 8 * v9++) unsignedLongLongValue]);
+          degas::Bitmap::setBit(&v5->_bitmap, [*(*(&v11 + 1) + 8 * v9++) unsignedLongLongValue]);
         }
 
         while (v7 != v9);
-        v7 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
       }
 
       while (v7);
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (KGElementIdentifierSet)initWithIndexArray:(id)array
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
-  v16.receiver = self;
-  v16.super_class = KGElementIdentifierSet;
-  v5 = [(KGElementIdentifierSet *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = KGElementIdentifierSet;
+  v5 = [(KGElementIdentifierSet *)&v15 init];
   if (v5)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v6 = arrayCopy;
-    v7 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
     if (v7)
     {
-      v8 = *v13;
+      v8 = *v12;
       do
       {
         v9 = 0;
         do
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          degas::Bitmap::setBit(&v5->_bitmap, [*(*(&v12 + 1) + 8 * v9++) unsignedLongLongValue]);
+          degas::Bitmap::setBit(&v5->_bitmap, [*(*(&v11 + 1) + 8 * v9++) unsignedLongLongValue]);
         }
 
         while (v7 != v9);
-        v7 = [v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
       }
 
       while (v7);
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

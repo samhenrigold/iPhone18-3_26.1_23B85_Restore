@@ -39,7 +39,7 @@
 
   selfCopy = self;
   sub_10001098C(v7, v6);
-  sub_100014F34(v7);
+  sub_100014F34(v7, v6);
 }
 
 - (void)purgeAllAssetsWithReply:(id)reply

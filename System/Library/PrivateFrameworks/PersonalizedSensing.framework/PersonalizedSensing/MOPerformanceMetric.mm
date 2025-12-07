@@ -31,21 +31,19 @@
 
 - (id)dictionary
 {
-  v11[3] = *MEMORY[0x277D85DE8];
-  v10[0] = @"MOPerformanceMetricName";
+  v10[3] = *MEMORY[0x277D85DE8];
+  v9[0] = @"MOPerformanceMetricName";
   displayName = [(MOPerformanceMetric *)self displayName];
-  v11[0] = displayName;
-  v10[1] = @"MOPerformanceMetricUnit";
+  v10[0] = displayName;
+  v9[1] = @"MOPerformanceMetricUnit";
   unit = [(MOPerformanceMetric *)self unit];
-  v11[1] = unit;
-  v10[2] = @"MOPerformanceMetricValue";
+  v10[1] = unit;
+  v9[2] = @"MOPerformanceMetricValue";
   v5 = MEMORY[0x277CCABB0];
   [(MOPerformanceMetric *)self value];
   v6 = [v5 numberWithDouble:?];
-  v11[2] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[2] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
 
   return v7;
 }

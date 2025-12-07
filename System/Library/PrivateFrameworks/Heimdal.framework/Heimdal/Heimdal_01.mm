@@ -1,4 +1,224 @@
-uint64_t sub_252253880(_krb5_context *a1, uint64_t a2, uint64_t a3, const void *a4, size_t a5)
+uint64_t krb5_encrypt_EncryptedData(_krb5_context *a1, uint64_t *a2, uint64_t a3, const void *a4, size_t a5, int a6, uint64_t a7)
+{
+  *a7 = **a2;
+  if (a6)
+  {
+    v14 = malloc_type_calloc(1uLL, 4uLL, 0x100004052888210uLL);
+    *v14 = a6;
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  *(a7 + 8) = v14;
+
+  return krb5_encrypt_ivec(a1, a2, a3, a4, a5, (a7 + 16), 0);
+}
+
+uint64_t krb5_decrypt_ivec(krb5_context a1, uint64_t *a2, uint64_t a3, const void *a4, size_t size, void *a6, uint64_t a7)
+{
+  v14 = *a2;
+  v15 = *(*a2 + 64);
+  if ((v15 & 4) != 0)
+  {
+    v22 = *(*(v14 + 56) + 24);
+    if (*(v14 + 32) + v22 <= size)
+    {
+      v27 = size - v22;
+      if ((size - v22) % *(v14 + 24))
+      {
+        goto LABEL_20;
+      }
+
+      v28 = malloc_type_malloc(size, 0xDB4AFC6BuLL);
+      if (size && !v28)
+      {
+        goto LABEL_23;
+      }
+
+      v45 = 0;
+      v46 = 0;
+      v30 = size;
+      v31 = v28;
+      memcpy(v28, a4, v30);
+      pthread_mutex_lock((a2 + 5));
+      v32 = sub_252252528(a1, a2, (a3 << 8) | 0xAAu, &v45);
+      if (v32)
+      {
+        goto LABEL_26;
+      }
+
+      v44 = v31;
+      v33 = v45;
+      v19 = sub_252252624(a1, v45);
+      pthread_mutex_unlock((a2 + 5));
+      if (v19)
+      {
+        v21 = v44;
+        goto LABEL_29;
+      }
+
+      v36 = v33;
+      v31 = v44;
+      v32 = (*(v14 + 72))(a1, v36, v44, v27, 0, a3, a7);
+      if (v32 || (v47 = v22, v48 = &v44[v27], LODWORD(v46) = **(v14 + 56), v32 = sub_252251890(a1, a2, (a3 << 8) | 0x55u, v44, v27, &v46), v32))
+      {
+LABEL_26:
+        v19 = v32;
+        v21 = v31;
+        goto LABEL_29;
+      }
+
+      v37 = *(v14 + 32);
+      memmove(v44, &v44[v37], v27 - v37);
+      v38 = malloc_type_realloc(v44, v27 - v37, 0x7576B2B3uLL);
+      a6[1] = v38;
+      v39 = v27 - v37;
+      if (v27 == v37 || v38)
+      {
+        goto LABEL_46;
+      }
+
+      v40 = v44;
+LABEL_41:
+      free(v40);
+      goto LABEL_23;
+    }
+  }
+
+  else
+  {
+    if ((v15 & 0x20) == 0)
+    {
+      if (!(size % *(v14 + 24)))
+      {
+        v16 = *(*(v14 + 48) + 24);
+        if (*(v14 + 32) + v16 <= size)
+        {
+          v17 = malloc_type_malloc(size, 0x54B768CBuLL);
+          v18 = v17;
+          if (size && !v17)
+          {
+            goto LABEL_23;
+          }
+
+          memcpy(v17, a4, size);
+          pthread_mutex_lock((a2 + 5));
+          v19 = sub_252252624(a1, a2 + 1);
+          pthread_mutex_unlock((a2 + 5));
+          if (v19)
+          {
+LABEL_11:
+            v21 = v18;
+LABEL_29:
+            free(v21);
+            return v19;
+          }
+
+          v20 = (*(v14 + 72))(a1, a2 + 1, v18, size, 0, 0, a7);
+          if (v20 || (v46 = 0, v47 = 0, v48 = 0, v20 = krb5_data_copy(&v47, &v18[*(v14 + 32)], v16), v20))
+          {
+            v19 = v20;
+            goto LABEL_11;
+          }
+
+          bzero(&v18[*(v14 + 32)], v16);
+          LODWORD(v46) = **(v14 + 48);
+          v19 = sub_252251890(a1, 0, 0, v18, size, &v46);
+          sub_25228AB34(&v46);
+          if (v19)
+          {
+            goto LABEL_11;
+          }
+
+          v41 = *(v14 + 32) + v16;
+          memmove(v18, &v18[v41], size - v41);
+          v42 = malloc_type_realloc(v18, size - v41, 0xE12EA010uLL);
+          a6[1] = v42;
+          v39 = size - v41;
+          if (size != v41 && !v42)
+          {
+            v40 = v18;
+            goto LABEL_41;
+          }
+
+LABEL_46:
+          v19 = 0;
+          *a6 = v39;
+          return v19;
+        }
+
+        goto LABEL_13;
+      }
+
+LABEL_20:
+      v19 = 2529639102;
+      krb5_clear_error_message(a1);
+      return v19;
+    }
+
+    if (size % *(v14 + 24))
+    {
+      goto LABEL_20;
+    }
+
+    v23 = *(*(v14 + 48) + 24);
+    if (size >= *(v14 + 32) + v23)
+    {
+      v43 = (*(v14 + 32) + v23);
+      v24 = malloc_type_malloc(size, 0x1087105uLL);
+      if (!v24)
+      {
+LABEL_23:
+        v19 = 12;
+        krb5_set_error_message(a1, 12, "malloc: out of memory");
+        return v19;
+      }
+
+      v25 = v24;
+      memcpy(v24, a4, size);
+      v26 = (*(v14 + 72))(a1, a2 + 1, v25, size, 0, a3, a7);
+      if (v26)
+      {
+        v19 = v26;
+        v21 = v25;
+        goto LABEL_29;
+      }
+
+      memmove(v25, &v25[v23 + *(v14 + 32)], size - v43);
+      v34 = malloc_type_realloc(v25, size - v43, 0x44CB1E21uLL);
+      a6[1] = v34;
+      if (v34)
+      {
+        v35 = 1;
+      }
+
+      else
+      {
+        v35 = size == v43;
+      }
+
+      if (v35)
+      {
+        v19 = 0;
+        *a6 = size - v43;
+        return v19;
+      }
+
+      v40 = v25;
+      goto LABEL_41;
+    }
+  }
+
+LABEL_13:
+  v19 = 2529639102;
+  krb5_set_error_message(a1, -1765328194, "Encrypted data shorter then checksum + confunder");
+  return v19;
+}
+
+uint64_t sub_252253880(_krb5_context *a1, uint64_t a2, unsigned int **a3, const void *a4, size_t a5)
 {
   v10 = *(a2 + 40);
   v11 = sub_252252624(a1, a3);
@@ -49,7 +269,7 @@ LABEL_6:
   v20 = *v10;
   if ((*v10 - 17) < 2)
   {
-    memcpy(*(*a3 + 16), v15, *(*a3 + 8));
+    memcpy(*(*a3 + 2), v15, *(*a3 + 1));
   }
 
   else
@@ -66,10 +286,10 @@ LABEL_6:
 
   v11 = 0;
 LABEL_7:
-  if (*(a3 + 8))
+  if (a3[1])
   {
     sub_252253A7C(a1, a3, a2);
-    *(a3 + 8) = 0;
+    a3[1] = 0;
   }
 
   if (v15)
@@ -198,9 +418,9 @@ LABEL_8:
   *v8 = v11;
   v12 = *a4;
   v13 = **a4;
-  if (v13 && (v13[2].contents & 0x40) == 0)
+  if (v13 && (*(v13 + 64) & 0x40) == 0)
   {
-    if (*(v13[1].contents + 3) == *&a2->length)
+    if (*(*(v13 + 40) + 24) == *&a2->length)
     {
       v14 = krb5_copy_keyblock(a1, a2, v12 + 1);
       v15 = *a4;
@@ -396,7 +616,7 @@ uint64_t krb5_random_to_key(krb5_context a1, int a2, const void *a3, unint64_t a
   {
 LABEL_5:
     v13 = 2529639062;
-    krb5_set_error_message(a1, -1765328234, "encryption type %d not supported");
+    krb5_set_error_message(a1, -1765328234, "encryption type %d not supported", a4, a5);
   }
 
   else
@@ -443,9 +663,7 @@ LABEL_5:
     else
     {
       v13 = 2529639062;
-      v18 = *(v12 + 1);
-      v19 = *(v15 + 24);
-      krb5_set_error_message(a1, -1765328234, "encryption key %s needs %d bytes of random to make an encryption key out of it");
+      krb5_set_error_message(a1, -1765328234, "encryption key %s needs %d bytes of random to make an encryption key out of it", a4, a5);
     }
   }
 
@@ -647,7 +865,7 @@ void _krb5_debug_keyblock(uint64_t a1, int a2, const char *a3, uint64_t a4)
   }
 }
 
-uint64_t sub_2522546B4(_krb5_context *a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t *a5)
+uint64_t sub_2522546B4(_krb5_context *a1, uint64_t a2, uint64_t a3, uint64_t a4, krb5_keyblock ***a5)
 {
   pthread_mutex_lock((a2 + 40));
   v10 = *(a4 + 32);
@@ -691,7 +909,7 @@ LABEL_7:
     else
     {
       v11 = (a2 + 8);
-      *a5 = a2 + 8;
+      *a5 = (a2 + 8);
     }
 
 LABEL_6:
@@ -855,32 +1073,33 @@ uint64_t krb5_data_cmp(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_252254AC4(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t sub_252254AC4(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v13[0] = 0;
-  v13[1] = &a9;
-  v10 = vasprintf(v13, a2, &a9);
-  v11 = v13[0];
+  va_start(va, a8);
+  v12[0] = 0;
+  va_copy(&v12[1], va);
+  v9 = vasprintf(v12, a2, va);
+  v10 = v12[0];
   result = 12;
-  if (v13[0])
+  if (v12[0])
   {
-    if ((v10 & 0x80000000) == 0)
+    if ((v9 & 0x80000000) == 0)
     {
       result = 0;
-      *a1 = v10;
-      a1[1] = v11;
+      *a1 = v9;
+      a1[1] = v10;
     }
   }
 
   return result;
 }
 
-uint64_t krb5_data_ct_cmp(uint64_t a1, uint64_t a2)
+uint64_t krb5_data_ct_cmp(uint64_t *a1, void *a2)
 {
   v2 = *a1;
   if (*a1 == *a2)
   {
-    return ct_memcmp(*(a1 + 8), *(a2 + 8), v2);
+    return ct_memcmp(a1[1], a2[1], v2);
   }
 
   else
@@ -948,31 +1167,30 @@ uint64_t _krb5_xcc_get_initial_ticket(_krb5_context *a1, uint64_t a2, int a3, co
     v13 = CFDictionaryCreate(0, keys, values, v12, 0, 0);
     if (!v13)
     {
-      sub_2522A7C20(0, v14, v15, v16, v17, v18, v19, v20);
+      sub_2522A7C20();
     }
 
-    v21 = v13;
-    v22 = HeimCredCreate(v13, 0);
-    if (v22)
+    v14 = v13;
+    v15 = HeimCredCreate(v13, 0);
+    if (v15)
     {
-      CFRelease(v22);
-      v23 = 0;
+      CFRelease(v15);
+      v16 = 0;
       if (!a4)
       {
 LABEL_11:
-        CFRelease(v21);
+        CFRelease(v14);
         CFRelease(v11);
-        v24 = *MEMORY[0x277D85DE8];
-        return v23;
+        return v16;
       }
     }
 
     else
     {
       sub_25226B748(a1, 5, "failed to add initial ticket request to %s\n", *(v8 + 32));
-      v27 = *(v8 + 32);
-      v23 = 22;
-      krb5_set_error_message(a1, 22, "failed to store initial ticket request to %s", v27);
+      v18 = *(v8 + 32);
+      v16 = 22;
+      krb5_set_error_message(a1, 22, "failed to store initial ticket request to %s", v18);
       if (!a4)
       {
         goto LABEL_11;
@@ -982,8 +1200,6 @@ LABEL_11:
     CFRelease(a4);
     goto LABEL_11;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return krb5_enomem(a1);
 }
@@ -1057,7 +1273,7 @@ CFIndex sub_252254F28(_krb5_context *a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_252254F94(krb5_context a1, void *a2, krb5_const_principal a3)
+CFIndex sub_252254F94(krb5_context a1, void *a2, krb5_const_principal a3)
 {
   keys[2] = *MEMORY[0x277D85DE8];
   v6 = a2[2];
@@ -1070,19 +1286,19 @@ uint64_t sub_252254F94(krb5_context a1, void *a2, krb5_const_principal a3)
   v8 = krb5_copy_principal(a1, a3, (v6 + 24));
   if (v8)
   {
-    goto LABEL_4;
+    return v8;
   }
 
-  v12 = *(v6 + 16);
-  if (v12)
+  v11 = *(v6 + 16);
+  if (v11)
   {
-    CFRelease(v12);
+    CFRelease(v11);
     *(v6 + 16) = 0;
   }
 
-  v13 = sub_252254DD0(a1, a3);
-  *(v6 + 16) = v13;
-  if (v13)
+  v12 = sub_252254DD0(a1, a3);
+  *(v6 + 16) = v12;
+  if (v12)
   {
     if (*(v6 + 8))
     {
@@ -1090,15 +1306,15 @@ uint64_t sub_252254F94(krb5_context a1, void *a2, krb5_const_principal a3)
       keys[1] = @"kHEIMAttrParentCredential";
       values[0] = @"kHEIMTypeKerberos";
       values[1] = *v6;
-      v14 = CFDictionaryCreate(0, keys, values, 2, 0, 0);
-      if (!v14)
+      v13 = CFDictionaryCreate(0, keys, values, 2, 0, 0);
+      if (!v13)
       {
-        sub_2522A7C20(0, v15, v16, v17, v18, v19, v20, v21);
+        sub_2522A7C20();
       }
 
-      v22 = v14;
-      HeimCredDeleteQuery(v14, 0);
-      CFRelease(v22);
+      v14 = v13;
+      HeimCredDeleteQuery(v13, 0);
+      CFRelease(v14);
     }
 
     else
@@ -1106,29 +1322,19 @@ uint64_t sub_252254F94(krb5_context a1, void *a2, krb5_const_principal a3)
       v8 = sub_2522562F8(a1, v6, *v6, *a2 == &krb5_xcc_temp_api_ops);
       if (v8)
       {
-LABEL_4:
-        v9 = v8;
-LABEL_5:
-        v10 = *MEMORY[0x277D85DE8];
-        return v9;
+        return v8;
       }
     }
 
     if (HeimCredSetAttribute(*(v6 + 8), @"kHEIMAttrClientName", *(v6 + 16), 0))
     {
-      v9 = 0;
+      return 0;
     }
 
-    else
-    {
-      v9 = 22;
-      krb5_set_error_message(a1, 22, "failed to store credential to %s", *(v6 + 32));
-    }
-
-    goto LABEL_5;
+    v9 = 22;
+    krb5_set_error_message(a1, 22, "failed to store credential to %s", *(v6 + 32));
+    return v9;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return krb5_enomem(a1);
 }
@@ -1184,9 +1390,9 @@ uint64_t sub_252255244(_krb5_context *a1, uint64_t a2, uint64_t *a3)
 {
   keys[9] = *MEMORY[0x277D85DE8];
   v5 = *(a2 + 16);
-  v39 = 0;
-  v40 = 0;
-  krb5_data_zero(&v39);
+  v31 = 0;
+  v32 = 0;
+  krb5_data_zero(&v31);
   v6 = a3[6];
   v7 = MEMORY[0x277CBECD0];
   if (v6 || (v6 = a3[5]) != 0)
@@ -1236,8 +1442,8 @@ uint64_t sub_252255244(_krb5_context *a1, uint64_t a2, uint64_t *a3)
     v13 = krb5_store_creds(v16, a3);
     if (!v13)
     {
-      krb5_storage_to_data(v17, &v39);
-      v18 = CFDataCreateWithBytesNoCopy(0, v40, v39, *MEMORY[0x277CBED00]);
+      krb5_storage_to_data(v17, &v31);
+      v18 = CFDataCreateWithBytesNoCopy(0, v32, v31, *MEMORY[0x277CBED00]);
       if (v18)
       {
         v19 = v18;
@@ -1283,22 +1489,22 @@ uint64_t sub_252255244(_krb5_context *a1, uint64_t a2, uint64_t *a3)
           v25 = CFDictionaryCreate(0, keys, values, v24, 0, 0);
           if (!v25)
           {
-            sub_2522A7C20(0, v26, v27, v28, v29, v30, v31, v32);
+            sub_2522A7C20();
           }
 
-          v33 = v25;
+          v26 = v25;
           if (v12)
           {
             MutableCopy = CFDictionaryCreateMutableCopy(0, 0, v25);
             CFDictionarySetValue(MutableCopy, @"kHEIMAttrExpire", v12);
-            CFRelease(v33);
-            v33 = MutableCopy;
+            CFRelease(v26);
+            v26 = MutableCopy;
           }
 
-          v35 = HeimCredCreate(v33, 0);
-          if (v35)
+          v28 = HeimCredCreate(v26, 0);
+          if (v28)
           {
-            CFRelease(v35);
+            CFRelease(v28);
             v13 = 0;
           }
 
@@ -1310,23 +1516,23 @@ uint64_t sub_252255244(_krb5_context *a1, uint64_t a2, uint64_t *a3)
           }
 
           krb5_storage_free(v17);
-          if (v33)
+          if (v26)
           {
-            CFRelease(v33);
+            CFRelease(v26);
           }
 
           CFRelease(v19);
-          v36 = v22;
+          v29 = v22;
         }
 
         else
         {
           v13 = krb5_enomem(a1);
           krb5_storage_free(v17);
-          v36 = v19;
+          v29 = v19;
         }
 
-        CFRelease(v36);
+        CFRelease(v29);
         goto LABEL_36;
       }
 
@@ -1354,8 +1560,7 @@ LABEL_36:
   }
 
 LABEL_40:
-  krb5_data_free(&v39);
-  v37 = *MEMORY[0x277D85DE8];
+  krb5_data_free(&v31);
   return v13;
 }
 
@@ -1373,15 +1578,13 @@ uint64_t sub_252255600(_krb5_context *a1, uint64_t a2, krb5_principal *a3)
   return result;
 }
 
-uint64_t sub_252255668(_krb5_context *a1, uint64_t a2, const void ***a3)
+uint64_t sub_252255668(_krb5_context *a1, uint64_t a2, CFMutableArrayRef **a3)
 {
   keys[2] = *MEMORY[0x277D85DE8];
   v3 = 2529639054;
   v4 = **(a2 + 16);
   if (!v4)
   {
-LABEL_10:
-    v20 = *MEMORY[0x277D85DE8];
     return v3;
   }
 
@@ -1396,12 +1599,12 @@ LABEL_10:
     v9 = CFDictionaryCreate(0, keys, values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     if (!v9)
     {
-      sub_2522A7C38(0, v10, v11, v12, v13, v14, v15, v16);
+      sub_2522A7C38();
     }
 
-    v17 = v9;
-    *v8 = HeimCredCopyQuery();
-    CFRelease(v17);
+    v10 = v9;
+    *v8 = HeimCredCopyQuery(v9);
+    CFRelease(v10);
     if (*v8)
     {
       v3 = 0;
@@ -1413,10 +1616,8 @@ LABEL_10:
       sub_252256488(v8);
     }
 
-    goto LABEL_10;
+    return v3;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return krb5_enomem(a1);
 }
@@ -1429,15 +1630,15 @@ uint64_t sub_2522557D8(uint64_t a1, uint64_t a2, const __CFArray ***a3, uint64_t
   {
     while (1)
     {
-      v7 = v5[1];
+      v7 = *(v5 + 8);
       if (v7 >= CFArrayGetCount(*v5))
       {
         break;
       }
 
       v8 = *v5;
-      v9 = v5[1];
-      v5[1] = (v9 + 1);
+      v9 = *(v5 + 8);
+      *(v5 + 8) = v9 + 1;
       ValueAtIndex = CFArrayGetValueAtIndex(v8, v9);
       if (!ValueAtIndex)
       {
@@ -1480,67 +1681,59 @@ uint64_t sub_2522558D0(_krb5_context *a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v5 = 2529639053;
   v6 = *(a2 + 16);
   v7 = sub_252254DD0(a1, *(a4 + 8));
-  if (v7)
+  if (!v7)
   {
-    v8 = v7;
-    keys[0] = @"kHEIMAttrParentCredential";
-    keys[1] = @"kHEIMAttrType";
-    keys[2] = @"kHEIMAttrServerName";
-    values[0] = *v6;
-    values[1] = @"kHEIMTypeKerberos";
-    values[2] = v7;
-    v9 = CFDictionaryCreate(0, keys, values, 3, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    if (!v9)
-    {
-      sub_2522A7C20(0, v10, v11, v12, v13, v14, v15, v16);
-    }
-
-    v17 = v9;
-    CFRelease(v8);
-    v18 = HeimCredDeleteQuery(v17, 0);
-    CFRelease(v17);
-    if (v18)
-    {
-      v5 = 0;
-    }
-
-    else
-    {
-      krb5_set_error_message(a1, -1765328243, "Deleted credential not found");
-    }
+    return 2529639054;
   }
 
-  else
+  v8 = v7;
+  keys[0] = @"kHEIMAttrParentCredential";
+  keys[1] = @"kHEIMAttrType";
+  keys[2] = @"kHEIMAttrServerName";
+  values[0] = *v6;
+  values[1] = @"kHEIMTypeKerberos";
+  values[2] = v7;
+  v9 = CFDictionaryCreate(0, keys, values, 3, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  if (!v9)
   {
-    v5 = 2529639054;
+    sub_2522A7C20();
   }
 
-  v19 = *MEMORY[0x277D85DE8];
+  v10 = v9;
+  CFRelease(v8);
+  v11 = HeimCredDeleteQuery(v10, 0);
+  CFRelease(v10);
+  if (v11)
+  {
+    return 0;
+  }
+
+  krb5_set_error_message(a1, -1765328243, "Deleted credential not found");
   return v5;
 }
 
-uint64_t sub_252255A1C(_krb5_context *a1, const void ***a2)
+uint64_t sub_252255A1C(_krb5_context *a1, CFMutableArrayRef **a2)
 {
   keys[2] = *MEMORY[0x277D85DE8];
   keys[0] = @"kHEIMAttrType";
   keys[1] = @"kHEIMAttrServerName";
   v4 = *MEMORY[0x277CBEEE8];
-  v19[0] = @"kHEIMTypeKerberos";
-  v19[1] = v4;
-  v19[2] = *MEMORY[0x277CBED10];
+  v10[0] = @"kHEIMTypeKerberos";
+  v10[1] = v4;
+  v10[2] = *MEMORY[0x277CBED10];
   v5 = malloc_type_calloc(1uLL, 0x10uLL, 0x1060040C2E02434uLL);
   if (v5)
   {
     v6 = v5;
-    v7 = CFDictionaryCreate(0, keys, v19, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+    v7 = CFDictionaryCreate(0, keys, v10, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
     if (!v7)
     {
-      sub_2522A7C20(0, v8, v9, v10, v11, v12, v13, v14);
+      sub_2522A7C20();
     }
 
-    v15 = v7;
-    *v6 = HeimCredCopyQuery();
-    CFRelease(v15);
+    v8 = v7;
+    *v6 = HeimCredCopyQuery(v7);
+    CFRelease(v8);
     if (*v6)
     {
       result = 0;
@@ -1550,15 +1743,12 @@ uint64_t sub_252255A1C(_krb5_context *a1, const void ***a2)
     else
     {
       sub_252256488(v6);
-      result = 2529639054;
+      return 2529639054;
     }
-
-    v18 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v17 = *MEMORY[0x277D85DE8];
 
     return krb5_enomem(a1);
   }
@@ -1838,7 +2028,6 @@ uint64_t sub_252256198(_krb5_context *a1, uint64_t *a2)
     if (!v4)
     {
       v8 = 2529639053;
-      v12 = a2[4];
       krb5_set_error_message(a1, -1765328243, "no credential for %s");
       return v8;
     }
@@ -1852,7 +2041,6 @@ uint64_t sub_252256198(_krb5_context *a1, uint64_t *a2)
     if (!v7)
     {
       v8 = 2529639053;
-      v13 = a2[4];
       krb5_set_error_message(a1, -1765328243, "no cache for %s");
       return v8;
     }
@@ -1860,15 +2048,15 @@ uint64_t sub_252256198(_krb5_context *a1, uint64_t *a2)
 
   if (!a2[3])
   {
-    v16 = 0;
+    v13 = 0;
     v9 = rk_cfstring2cstring(v7);
     if (v9)
     {
       v10 = v9;
-      krb5_parse_name(a1, v9, &v16);
+      krb5_parse_name(a1, v9, &v13);
       free(v10);
-      v11 = v16;
-      a2[3] = v16;
+      v11 = v13;
+      a2[3] = v13;
       if (v11)
       {
         return 0;
@@ -1881,7 +2069,6 @@ uint64_t sub_252256198(_krb5_context *a1, uint64_t *a2)
     }
 
     v8 = 2529639053;
-    v14 = a2[4];
     krb5_set_error_message(a1, -1765328243, "no principal for %s");
     return v8;
   }
@@ -1920,39 +2107,39 @@ CFIndex sub_2522562F8(_krb5_context *a1, void *a2, void *a3, int a4)
   v9 = CFDictionaryCreate(0, keys, values, v8, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (!v9)
   {
-    sub_2522A7C80(0, v10, v11, v12, v13, v14, v15, v16);
+    sub_2522A7C80();
   }
 
-  v17 = v9;
+  v10 = v9;
   a2[1] = HeimCredCreate(v9, &cf);
-  CFRelease(v17);
-  v25 = a2[1];
-  if (v25)
+  CFRelease(v10);
+  v15 = a2[1];
+  if (v15)
   {
     if (!a3)
     {
       if (*a2)
       {
-        sub_2522A7C50(v25, v18, v19, v20, v21, v22, v23, v24);
+        sub_2522A7C50();
       }
 
-      UUID = HeimCredGetUUID(v25);
+      UUID = HeimCredGetUUID(v15);
       *a2 = UUID;
       if (!UUID)
       {
-        sub_2522A7C68(0, v27, v28, v29, v30, v31, v32, v33);
+        sub_2522A7C68();
       }
 
       CFRetain(UUID);
     }
 
     sub_252256134(a2);
-    v34 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v34 = sub_252256C30(a1, 12, cf, "no reply from GSSCred", v21, v22, v23, v24, cf);
+    v17 = sub_252256C30(a1, 12, cf, "no reply from GSSCred", v11, v12, v13, v14);
   }
 
   if (cf)
@@ -1960,8 +2147,7 @@ CFIndex sub_2522562F8(_krb5_context *a1, void *a2, void *a3, int a4)
     CFRelease(cf);
   }
 
-  v35 = *MEMORY[0x277D85DE8];
-  return v34;
+  return v17;
 }
 
 void sub_252256488(const void **a1)
@@ -1977,7 +2163,7 @@ void sub_252256488(const void **a1)
 
 uint64_t sub_2522564C8(int a1, uint64_t a2, char *a3, char **a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v8 = HeimCredCopyDefaultCredential(@"kHEIMTypeKerberos", 0);
   if (v8)
   {
@@ -1986,13 +2172,11 @@ uint64_t sub_2522564C8(int a1, uint64_t a2, char *a3, char **a4)
     uuid_unparse(&uu.byte0, out);
     CFRelease(v9);
     asprintf(a4, "%s:%s", *(a2 + 8), out);
-    v10 = *MEMORY[0x277D85DE8];
     return 0;
   }
 
   else
   {
-    v12 = *MEMORY[0x277D85DE8];
 
     return _krb5_expand_default_cc_name(a1, a3);
   }
@@ -2151,9 +2335,9 @@ void krb5_vset_error_message(krb5_context a1, krb5_error_code a2, const char *a3
 
 const char *__cdecl krb5_get_error_message(krb5_context a1, krb5_error_code a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v15 = 0;
-  v16 = a1;
+  v16 = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v14 = a1;
   if (a2)
   {
     if (a1)
@@ -2162,14 +2346,12 @@ const char *__cdecl krb5_get_error_message(krb5_context a1, krb5_error_code a2)
       v4 = *(a1 + 35);
       if (v4 && ((v5 = *(a1 + 72), v5 == a2) || !v5))
       {
-        v13 = strdup(v4);
-        v15 = v13;
+        v12 = strdup(v4);
+        v13 = v12;
         pthread_mutex_unlock(*(a1 + 41));
-        if (v13)
+        if (v12)
         {
-LABEL_23:
-          v14 = *MEMORY[0x277D85DE8];
-          return v13;
+          return v12;
         }
       }
 
@@ -2185,43 +2367,39 @@ LABEL_23:
       }
 
 LABEL_15:
-      v12 = v6;
-LABEL_22:
-      v13 = strdup(v12);
-      goto LABEL_23;
+      v11 = v6;
+      return strdup(v11);
     }
 
-    inited = krb5_init_context(&v16);
-    v10 = inited;
-    if (v16)
+    inited = krb5_init_context(&v14);
+    v9 = inited;
+    if (v14)
     {
-      v11 = com_right_r(*(v16 + 18), a2, __dst, 0x80uLL);
-      v6 = v11;
-      if (v10)
+      v10 = com_right_r(*(v14 + 18), a2, __dst, 0x80uLL);
+      v6 = v10;
+      if (v9)
       {
-        if (v11)
+        if (v10)
         {
           goto LABEL_15;
         }
 
 LABEL_21:
-        v12 = error_message(a2);
-        if (!v12)
+        v11 = error_message(a2);
+        if (!v11)
         {
-          if (asprintf(&v15, "<unknown error: %d>", a2) == -1)
+          if (asprintf(&v13, "<unknown error: %d>", a2) == -1)
           {
-            v13 = 0;
+            return 0;
           }
 
           else
           {
-            v13 = v15;
+            return v13;
           }
-
-          goto LABEL_23;
         }
 
-        goto LABEL_22;
+        return strdup(v11);
       }
     }
 
@@ -2235,7 +2413,7 @@ LABEL_21:
       v6 = 0;
     }
 
-    krb5_free_context(v16);
+    krb5_free_context(v14);
     if (v6)
     {
       goto LABEL_15;
@@ -2243,8 +2421,6 @@ LABEL_21:
 
     goto LABEL_21;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return strdup("Success");
 }
@@ -2257,7 +2433,7 @@ void krb5_free_error_message(krb5_context a1, const char *a2)
   }
 }
 
-const char *krb5_get_err_text(uint64_t a1, int __errnum)
+char *krb5_get_err_text(uint64_t a1, int __errnum)
 {
   if (!a1 || (result = com_right(*(a1 + 144), __errnum)) == 0)
   {
@@ -2337,7 +2513,7 @@ CFIndex sub_252256ADC(_krb5_context *a1, CFIndex Code, CFErrorRef err, char *a4,
   return Code;
 }
 
-uint64_t krb5_expand_hostname(_krb5_context *a1, char *__s1, unsigned __int8 **a3)
+uint64_t krb5_expand_hostname(_krb5_context *a1, char *__s1, char **a3)
 {
   if (*(a1 + 360))
   {
@@ -2387,7 +2563,7 @@ LABEL_10:
   return sub_252256D74(a1, __s1, a3);
 }
 
-uint64_t sub_252256D74(_krb5_context *a1, char *__s1, unsigned __int8 **a3)
+uint64_t sub_252256D74(_krb5_context *a1, char *__s1, char **a3)
 {
   v5 = strdup(__s1);
   *a3 = v5;
@@ -2406,7 +2582,7 @@ uint64_t sub_252256D74(_krb5_context *a1, char *__s1, unsigned __int8 **a3)
   return v6;
 }
 
-uint64_t krb5_expand_hostname_realms(_krb5_context *a1, char *a2, unsigned __int8 **a3, char ***a4)
+uint64_t krb5_expand_hostname_realms(_krb5_context *a1, char *a2, char **a3, char ***a4)
 {
   if ((*(a1 + 360) & 1) == 0)
   {
@@ -2467,7 +2643,7 @@ LABEL_11:
   return 0;
 }
 
-uint64_t sub_252256F1C(_krb5_context *a1, char *a2, unsigned __int8 **a3, char ***a4)
+uint64_t sub_252256F1C(_krb5_context *a1, char *a2, char **a3, char ***a4)
 {
   host_realm = sub_252256D74(a1, a2, a3);
   if (!host_realm)
@@ -2485,9 +2661,9 @@ uint64_t sub_252256F1C(_krb5_context *a1, char *a2, unsigned __int8 **a3, char *
 
 uint64_t sub_252256F84(_krb5_context *a1, int a2, int a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v10[1] = 0;
-  v11 = 0;
+  v12 = *MEMORY[0x277D85DE8];
+  v9[1] = 0;
+  v10 = 0;
   if (a3)
   {
     v4 = 3;
@@ -2498,9 +2674,9 @@ uint64_t sub_252256F84(_krb5_context *a1, int a2, int a3)
     v4 = 1;
   }
 
-  v10[0] = 0;
-  WORD2(v11) = v4;
-  v5 = fcntl(a2, 9, v10);
+  v9[0] = 0;
+  WORD2(v10) = v4;
+  v5 = fcntl(a2, 9, v9);
   if ((v5 & 0x80000000) != 0)
   {
     v5 = *__error();
@@ -2528,10 +2704,10 @@ uint64_t sub_252256F84(_krb5_context *a1, int a2, int a3)
 
   if (v7)
   {
-    v5 = 0;
+    return 0;
   }
 
-  else if (v6 == 35)
+  if (v6 == 35)
   {
     v5 = 35;
     krb5_set_error_message(a1, 35, "timed out locking cache file %s");
@@ -2543,31 +2719,32 @@ uint64_t sub_252256F84(_krb5_context *a1, int a2, int a3)
     krb5_set_error_message(a1, v6, "error locking cache file %s: %s");
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 uint64_t sub_25225709C(_krb5_context *a1, int a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v6[1] = 0;
-  v6[2] = 0x200000000;
-  v6[0] = 0;
-  v3 = fcntl(a2, 9, v6);
+  v7 = *MEMORY[0x277D85DE8];
+  v5[1] = 0;
+  v5[2] = 0x200000000;
+  v5[0] = 0;
+  v3 = fcntl(a2, 9, v5);
   if ((v3 & 0x80000000) != 0)
   {
     v3 = *__error();
   }
 
   result = 0;
-  if (v3 && v3 != 22)
+  if (v3)
   {
-    strerror_r(v3, __strerrbuf, 0x80uLL);
-    krb5_set_error_message(a1, v3, "Failed to unlock file: %s", __strerrbuf);
-    result = v3;
+    if (v3 != 22)
+    {
+      strerror_r(v3, __strerrbuf, 0x80uLL);
+      krb5_set_error_message(a1, v3, "Failed to unlock file: %s", __strerrbuf);
+      return v3;
+    }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2638,38 +2815,40 @@ uint64_t sub_25225716C(_krb5_context *a1, char *a2)
 
 uint64_t sub_252257300(int a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = lseek(a1, 0, 2);
-  if (v2 < 0 || (v3 = v2, lseek(a1, 0, 0) < 0))
+  if ((v2 & 0x8000000000000000) == 0)
   {
-LABEL_10:
-    result = *__error();
-    goto LABEL_11;
-  }
-
-  memset(v8, 0, sizeof(v8));
-  if (v3)
-  {
-    do
+    v3 = v2;
+    if ((lseek(a1, 0, 0) & 0x8000000000000000) == 0)
     {
-      v4 = v3 >= 0x80 ? 128 : v3;
-      v5 = write(a1, v8, v4);
-      if (v5 < 0)
+      memset(v7, 0, sizeof(v7));
+      if (!v3)
       {
-        goto LABEL_10;
+LABEL_9:
+        fsync(a1);
+        return 0;
       }
 
-      v3 -= v5;
-    }
+      while (1)
+      {
+        v4 = v3 >= 0x80 ? 128 : v3;
+        v5 = write(a1, v7, v4);
+        if (v5 < 0)
+        {
+          break;
+        }
 
-    while (v3 >= 1);
+        v3 -= v5;
+        if (v3 < 1)
+        {
+          goto LABEL_9;
+        }
+      }
+    }
   }
 
-  fsync(a1);
-  result = 0;
-LABEL_11:
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return *__error();
 }
 
 uint64_t sub_2522573DC(uint64_t a1, uint64_t a2)
@@ -2767,20 +2946,20 @@ LABEL_9:
   return v6;
 }
 
-uint64_t sub_2522575FC(unsigned int *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_2522575FC(_krb5_context *a1, uint64_t a2, char **a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 16);
   if (v4)
   {
-    v23 = 0;
+    v21 = 0;
     unlink(*v4);
-    v7 = sub_2522585B4(a1, a2, "initialize", &v23, 2, 384);
+    v7 = sub_2522585B4(a1, a2, "initialize", &v21, 2, 384);
     if (!v7)
     {
       v8 = krb5_storage_emem();
       krb5_storage_set_eof_code(v8, -1765328242);
-      v9 = a1[63];
+      v9 = *(a1 + 63);
       if (!v9)
       {
         v9 = 4;
@@ -2792,13 +2971,13 @@ uint64_t sub_2522575FC(unsigned int *a1, uint64_t a2, uint64_t a3)
       sub_25225872C(a1, v8, *(v4 + 8));
       if (*(v4 + 8) == 4 && v11 == 0)
       {
-        if (a1[27])
+        if (*(a1 + 27))
         {
           v13 = krb5_store_int16(v8, 0xCu);
           v14 = krb5_store_int16(v8, 1u) | v13;
           v15 = v14 | krb5_store_int16(v8, 8u);
-          v16 = v15 | krb5_store_int32(v8, a1[27]);
-          v11 = v16 | krb5_store_int32(v8, a1[28]);
+          v16 = v15 | krb5_store_int32(v8, *(a1 + 27));
+          v11 = v16 | krb5_store_int32(v8, *(a1 + 28));
         }
 
         else
@@ -2807,27 +2986,25 @@ uint64_t sub_2522575FC(unsigned int *a1, uint64_t a2, uint64_t a3)
         }
       }
 
-      v19 = krb5_store_principal(v8, a3);
-      v20 = v23;
-      v7 = v19 | sub_25225877C(a1, v8, v23) | v11;
+      v18 = krb5_store_principal(v8, a3);
+      v19 = v21;
+      v7 = v18 | sub_25225877C(a1, v8, v21) | v11;
       krb5_storage_free(v8);
-      sub_25225709C(a1, v20);
-      if (close(v20) < 0 && !v7)
+      sub_25225709C(a1, v19);
+      if (close(v19) < 0 && !v7)
       {
-        v21 = __error();
-        v7 = *v21;
-        strerror_r(*v21, __strerrbuf, 0x80uLL);
+        v20 = __error();
+        v7 = *v20;
+        strerror_r(*v20, __strerrbuf, 0x80uLL);
         krb5_set_error_message(a1, v7, "close %s: %s", **(a2 + 16), __strerrbuf);
       }
     }
 
-    v22 = *MEMORY[0x277D85DE8];
     return v7;
   }
 
   else
   {
-    v17 = *MEMORY[0x277D85DE8];
 
     return sub_25226D0E0();
   }
@@ -2868,9 +3045,9 @@ uint64_t sub_2522578A0(uint64_t a1, uint64_t a2)
 
 uint64_t sub_2522578F8(_krb5_context *a1, uint64_t a2, uint64_t a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v6 = sub_2522585B4(a1, a2, "store", &v16, 9, 0);
+  v17 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v6 = sub_2522585B4(a1, a2, "store", &v15, 9, 0);
   if (!v6)
   {
     v7 = krb5_storage_emem();
@@ -2882,10 +3059,10 @@ uint64_t sub_2522578F8(_krb5_context *a1, uint64_t a2, uint64_t a3)
     }
 
     v6 = krb5_store_creds(v7, a3);
-    v13 = v16;
+    v13 = v15;
     if (!v6)
     {
-      v6 = sub_25225877C(a1, v7, v16);
+      v6 = sub_25225877C(a1, v7, v15);
     }
 
     krb5_storage_free(v7);
@@ -2898,11 +3075,10 @@ uint64_t sub_2522578F8(_krb5_context *a1, uint64_t a2, uint64_t a3)
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
-uint64_t sub_252257A7C(unsigned int *a1, uint64_t a2, void *a3)
+uint64_t sub_252257A7C(_krb5_context *a1, uint64_t a2, void *a3)
 {
   v10 = 0;
   v9 = 0;
@@ -2925,7 +3101,7 @@ uint64_t sub_252257A7C(unsigned int *a1, uint64_t a2, void *a3)
   return v5;
 }
 
-uint64_t sub_252257B1C(unsigned int *a1, uint64_t a2, int **a3)
+uint64_t sub_252257B1C(_krb5_context *a1, uint64_t a2, void **a3)
 {
   if (*(a2 + 16))
   {
@@ -2934,7 +3110,7 @@ uint64_t sub_252257B1C(unsigned int *a1, uint64_t a2, int **a3)
     if (v6)
     {
       *v6 = 0;
-      *(v6 + 1) = 0;
+      v6[1] = 0;
       v7 = sub_252258824(a1, a2, "get-frist", *a3 + 1, *a3, 0);
       if (v7)
       {
@@ -2979,15 +3155,13 @@ uint64_t sub_252257B1C(unsigned int *a1, uint64_t a2, int **a3)
 
 uint64_t sub_252257C60(_krb5_context *a1, uint64_t a2, int **a3, uint64_t a4)
 {
-  v5 = *(a2 + 16);
-  if (v5 && *a3)
+  if (*(a2 + 16) && *a3)
   {
-    v8 = *v5;
-    v9 = sub_252256F84(a1, **a3, 0);
-    if (!v9)
+    v7 = sub_252256F84(a1, **a3, 0);
+    if (!v7)
     {
-      v9 = krb5_ret_creds(*(*a3 + 1), a4);
-      if (v9)
+      v7 = krb5_ret_creds(*(*a3 + 1), a4);
+      if (v7)
       {
         krb5_clear_error_message(a1);
       }
@@ -2995,7 +3169,7 @@ uint64_t sub_252257C60(_krb5_context *a1, uint64_t a2, int **a3, uint64_t a4)
       sub_25225709C(a1, **a3);
     }
 
-    return v9;
+    return v7;
   }
 
   else
@@ -3207,7 +3381,7 @@ LABEL_7:
   return sub_25226D0E0();
 }
 
-uint64_t sub_2522581A0(int a1, void *a2)
+uint64_t sub_2522581A0(uint64_t a1, void *a2)
 {
   if (a2)
   {
@@ -3234,24 +3408,24 @@ uint64_t sub_2522581E0(_krb5_context *a1, uint64_t a2, uint64_t a3)
       v7 = *v12;
       strerror_r(*v12, __buf, 0x80uLL);
       krb5_set_error_message(a1, v7, "Rename of file from %s to %s failed: %s", **(a2 + 16), **(a3 + 16), __buf);
-      goto LABEL_23;
+      return v7;
     }
 
     if (*__error() == 18)
     {
-      *v16 = 0;
-      v7 = sub_2522585B4(a1, a2, "move/from", &v16[1], 0, 0);
+      *v15 = 0;
+      v7 = sub_2522585B4(a1, a2, "move/from", &v15[1], 0, 0);
       if (v7)
       {
-        goto LABEL_23;
+        return v7;
       }
 
       unlink(**(a3 + 16));
-      v7 = sub_2522585B4(a1, a3, "move/to", v16, 1, 384);
-      v8 = v16[1];
+      v7 = sub_2522585B4(a1, a3, "move/to", v15, 1, 384);
+      v8 = v15[1];
       if (!v7)
       {
-        v9 = v16[0];
+        v9 = v15[0];
         v10 = "Failed to write data from one file credential cache to the other";
         while (1)
         {
@@ -3288,14 +3462,14 @@ LABEL_15:
       if (v7)
       {
         sub_25225716C(a1, **(a3 + 16));
-        goto LABEL_23;
+        return v7;
       }
     }
   }
 
   __buf[0] = 0;
-  v16[1] = 0;
-  v7 = sub_252258824(a1, a3, "move", __buf, &v16[1], 0);
+  v15[1] = 0;
+  v7 = sub_252258824(a1, a3, "move", __buf, &v15[1], 0);
   if (!v7)
   {
     if (__buf[0])
@@ -3303,14 +3477,12 @@ LABEL_15:
       krb5_storage_free(__buf[0]);
     }
 
-    v13 = v16[1];
-    sub_25225709C(a1, v16[1]);
+    v13 = v15[1];
+    sub_25225709C(a1, v15[1]);
     close(v13);
   }
 
   sub_2522578A0(a1, a2);
-LABEL_23:
-  v14 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -3340,7 +3512,7 @@ uint64_t sub_252258470(_krb5_context *a1, uint64_t a2, __darwin_time_t *a3)
   return v5;
 }
 
-uint64_t sub_252258538(unsigned int *a1, uint64_t a2, void *a3)
+uint64_t sub_252258538(_krb5_context *a1, uint64_t a2, void *a3)
 {
   v8 = 0;
   v7 = 0;
@@ -3358,50 +3530,43 @@ uint64_t sub_252258538(unsigned int *a1, uint64_t a2, void *a3)
 
 uint64_t sub_2522585B4(_krb5_context *a1, uint64_t a2, const char *a3, int *a4, char a5, uint64_t a6)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = (a5 & 3) != 0;
   v8 = *(a2 + 16);
   if (v8)
   {
-    v12 = *v8;
-    v13 = open(*v8, a5, a6);
-    if (v13 < 0)
+    v11 = *v8;
+    v12 = open(*v8, a5, a6);
+    if (v12 < 0)
     {
-      v19 = __error();
-      v20 = *v19;
-      strerror_r(*v19, __strerrbuf, 0x80uLL);
-      krb5_set_error_message(a1, v20, "%s open(%s): %s", a3, v12, __strerrbuf);
+      v15 = __error();
+      v16 = *v15;
+      strerror_r(*v15, __strerrbuf, 0x80uLL);
+      krb5_set_error_message(a1, v16, "%s open(%s): %s", a3, v11, __strerrbuf);
     }
 
     else
     {
-      v14 = v13;
-      sub_252287100(v13);
-      v15 = *(a2 + 16);
-      if (v15)
+      v13 = v12;
+      sub_252287100(v12);
+      v17 = sub_252256F84(a1, v13, v7);
+      v16 = v17;
+      if (v17)
       {
-        v16 = *v15;
-      }
-
-      v20 = sub_252256F84(a1, v14, v7);
-      if (v20)
-      {
-        close(v14);
+        close(v13);
       }
 
       else
       {
-        *a4 = v14;
+        *a4 = v13;
       }
     }
 
-    v21 = *MEMORY[0x277D85DE8];
-    return v20;
+    return v16;
   }
 
   else
   {
-    v17 = *MEMORY[0x277D85DE8];
 
     return sub_25226D0E0();
   }
@@ -3450,23 +3615,23 @@ uint64_t sub_25225877C(_krb5_context *a1, uint64_t a2, int a3)
   return v6;
 }
 
-uint64_t sub_252258824(unsigned int *a1, uint64_t a2, const char *a3, uint64_t *a4, int *a5, void *a6)
+uint64_t sub_252258824(_krb5_context *a1, uint64_t a2, const char *a3, uint64_t *a4, int *a5, void *a6)
 {
   if (a6)
   {
     *a6 = 0;
   }
 
-  v34 = 0;
   v33 = 0;
-  v11 = sub_2522585B4(a1, a2, a3, &v34, 0, 0);
+  v32 = 0;
+  v11 = sub_2522585B4(a1, a2, a3, &v33, 0, 0);
   if (v11)
   {
     return v11;
   }
 
-  v12 = v34;
-  v13 = krb5_storage_from_fd(v34);
+  v12 = v33;
+  v13 = krb5_storage_from_fd(v33);
   if (!v13)
   {
     krb5_clear_error_message(a1);
@@ -3477,13 +3642,12 @@ uint64_t sub_252258824(unsigned int *a1, uint64_t a2, const char *a3, uint64_t *
   v14 = v13;
   v11 = 2529639111;
   krb5_storage_set_eof_code(v13, -1765328242);
-  v15 = krb5_ret_int8(v14, &v33 + 1);
+  v15 = krb5_ret_int8(v14, &v32 + 1);
   if (v15)
   {
     v16 = v15;
     if (v15 == -1765328242)
     {
-      v17 = **(a2 + 16);
       v11 = 2;
       krb5_set_error_message(a1, 2, "Empty credential cache file: %s");
     }
@@ -3497,28 +3661,28 @@ uint64_t sub_252258824(unsigned int *a1, uint64_t a2, const char *a3, uint64_t *
     goto LABEL_17;
   }
 
-  if (HIBYTE(v33) != 5)
+  if (HIBYTE(v32) != 5)
   {
     v11 = 2529639124;
-    v27 = **(a2 + 16);
-    v18 = "Bad version number in credential cache file: %s";
+    v26 = **(a2 + 16);
+    v17 = "Bad version number in credential cache file: %s";
 LABEL_15:
-    v19 = a1;
-    v20 = -1765328172;
+    v18 = a1;
+    v19 = -1765328172;
     goto LABEL_16;
   }
 
-  if (krb5_ret_int8(v14, &v33))
+  if (krb5_ret_int8(v14, &v32))
   {
-    v27 = **(a2 + 16);
-    v18 = "Error reading tag in cache file: %s";
+    v26 = **(a2 + 16);
+    v17 = "Error reading tag in cache file: %s";
     goto LABEL_12;
   }
 
-  v22 = v33;
-  *(*(a2 + 16) + 8) = v33;
-  sub_25225872C(a1, v14, v22);
-  if (v33 - 1 < 3)
+  v21 = v32;
+  *(*(a2 + 16) + 8) = v32;
+  sub_25225872C(a1, v14, v21);
+  if (v32 - 1 < 3)
   {
 LABEL_21:
     v11 = 0;
@@ -3527,100 +3691,100 @@ LABEL_21:
     return v11;
   }
 
-  if (v33 != 4)
+  if (v32 != 4)
   {
     v11 = 2529639124;
-    v27 = v33;
-    v28 = **(a2 + 16);
-    v18 = "Unknown version number (%d) in credential cache file: %s";
+    v26 = v32;
+    v27 = **(a2 + 16);
+    v17 = "Unknown version number (%d) in credential cache file: %s";
     goto LABEL_15;
   }
 
-  v32 = 0;
-  if (krb5_ret_int16(v14, &v32))
+  v31 = 0;
+  if (krb5_ret_int16(v14, &v31))
   {
-    v27 = **(a2 + 16);
-    v18 = "Error reading tag length in cache file: %s";
+    v26 = **(a2 + 16);
+    v17 = "Error reading tag length in cache file: %s";
     goto LABEL_12;
   }
 
-  if (v32 < 1)
+  if (v31 < 1)
   {
     goto LABEL_21;
   }
 
   while (1)
   {
-    v31 = 0;
     v30 = 0;
-    if (krb5_ret_int16(v14, &v31 + 1))
+    v29 = 0;
+    if (krb5_ret_int16(v14, &v30 + 1))
     {
-      v27 = **(a2 + 16);
-      v18 = "Error reading dtag in cache file: %s";
+      v26 = **(a2 + 16);
+      v17 = "Error reading dtag in cache file: %s";
       goto LABEL_12;
     }
 
-    if (krb5_ret_int16(v14, &v31))
+    if (krb5_ret_int16(v14, &v30))
     {
-      v27 = **(a2 + 16);
-      v18 = "Error reading dlength in cache file: %s";
+      v26 = **(a2 + 16);
+      v17 = "Error reading dlength in cache file: %s";
       goto LABEL_12;
     }
 
-    if (HIWORD(v31) != 1)
+    if (HIWORD(v30) != 1)
     {
       break;
     }
 
-    v29 = 0;
-    v23 = krb5_ret_int32(v14, &v29);
-    if (krb5_ret_int32(v14, a1 + 28) | v23)
+    v28 = 0;
+    v22 = krb5_ret_int32(v14, &v28);
+    if (krb5_ret_int32(v14, a1 + 28) | v22)
     {
-      v27 = **(a2 + 16);
-      v18 = "Error reading kdc_sec in cache file: %s";
+      v26 = **(a2 + 16);
+      v17 = "Error reading kdc_sec in cache file: %s";
       goto LABEL_12;
     }
 
-    v24 = v29;
-    a1[27] = v29;
+    v23 = v28;
+    *(a1 + 27) = v28;
     if (a6)
     {
-      *a6 = v24;
+      *a6 = v23;
     }
 
-    v25 = v31;
+    v24 = v30;
 LABEL_38:
-    v32 = v32 - v25 - 4;
-    if (v32 <= 0)
+    v31 = v31 - v24 - 4;
+    if (v31 <= 0)
     {
       goto LABEL_21;
     }
   }
 
-  v25 = v31;
-  if (v31 < 1)
+  v24 = v30;
+  if (v30 < 1)
   {
     goto LABEL_38;
   }
 
-  v26 = 0;
-  while (!krb5_ret_int8(v14, &v30))
+  v25 = 0;
+  while (!krb5_ret_int8(v14, &v29))
   {
-    ++v26;
-    v25 = v31;
-    if (v26 >= v31)
+    ++v25;
+    v24 = v30;
+    if (v25 >= v30)
     {
       goto LABEL_38;
     }
   }
 
-  v27 = **(a2 + 16);
-  v18 = "Error reading unknown tag in cache file: %s";
+  v26 = **(a2 + 16);
+  v17 = "Error reading unknown tag in cache file: %s";
 LABEL_12:
-  v19 = a1;
-  v20 = -1765328185;
+  v18 = a1;
+  v19 = -1765328185;
 LABEL_16:
-  krb5_set_error_message(v19, v20, v18, v27, v28);
+  krb5_set_error_message(v18, v19, v17, v26, v27);
 LABEL_17:
   krb5_storage_free(v14);
 LABEL_18:
@@ -3688,7 +3852,6 @@ uint64_t krb5_free_kdc_rep(uint64_t a1, _OWORD *a2)
 
 uint64_t krb5_generate_seq_number(_krb5_context *a1, uint64_t a2, int *a3)
 {
-  v5 = *MEMORY[0x277D85C28];
   result = CCRandomCopyBytes();
   if (result)
   {
@@ -3697,15 +3860,15 @@ uint64_t krb5_generate_seq_number(_krb5_context *a1, uint64_t a2, int *a3)
 
   if ((*a3 & 0x3FFFFFFE) != 0)
   {
-    v7 = *a3 & 0x3FFFFFFF;
+    v6 = *a3 & 0x3FFFFFFF;
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
-  *a3 = v7;
+  *a3 = v6;
   return result;
 }
 
@@ -3752,14 +3915,15 @@ uint64_t krb5_get_all_client_addrs(_krb5_context *a1, uint64_t a2)
   return sub_252258D90(a1, a2, v2);
 }
 
-uint64_t sub_252258D90(_krb5_context *a1, uint64_t a2, char a3)
+uint64_t sub_252258D90(_krb5_context *a1, uint64_t a2, uint64_t a3)
 {
-  v16[32] = *MEMORY[0x277D85DE8];
+  v3 = a3;
+  v15[32] = *MEMORY[0x277D85DE8];
   *a2 = 0;
   *(a2 + 8) = 0;
   if ((a3 & 8) != 0 && (sub_2522591C0(a1, a2, a3) || !*a2))
   {
-    if (gethostname(v16, 0x100uLL))
+    if (gethostname(v15, 0x100uLL))
     {
       v7 = __error();
       appended = *v7;
@@ -3768,7 +3932,7 @@ uint64_t sub_252258D90(_krb5_context *a1, uint64_t a2, char a3)
       goto LABEL_7;
     }
 
-    v9 = sub_252288EC4(v16);
+    v9 = sub_252288EC4(v15);
     if (!v9)
     {
       v13 = __error();
@@ -3795,10 +3959,10 @@ LABEL_7:
       goto LABEL_22;
     }
 
-    *v11 = *(v10 + 4);
+    *v11 = v10->h_addrtype;
     v11[2] = 0;
     v11[1] = 0;
-    v12 = krb5_data_copy(v11 + 1, *v10[3], *(v10 + 5));
+    v12 = krb5_data_copy(v11 + 1, *v10->h_addr_list, v10->h_length);
     if (v12)
     {
       appended = v12;
@@ -3808,30 +3972,30 @@ LABEL_7:
   }
 
 LABEL_2:
-  if ((a3 & 4) == 0)
+  if ((v3 & 4) == 0)
   {
     appended = 0;
     goto LABEL_22;
   }
 
-  v16[0] = 0;
-  v16[1] = 0;
-  extra_addresses = krb5_get_extra_addresses(a1, v16);
+  v15[0] = 0;
+  v15[1] = 0;
+  extra_addresses = krb5_get_extra_addresses(a1, v15);
   if (extra_addresses)
   {
     appended = extra_addresses;
 LABEL_18:
     krb5_free_addresses(a1, a2);
-    goto LABEL_24;
+    return appended;
   }
 
-  appended = krb5_append_addresses(a1, a2, v16);
+  appended = krb5_append_addresses(a1, a2, v15);
   if (appended)
   {
     goto LABEL_18;
   }
 
-  krb5_free_addresses(a1, v16);
+  krb5_free_addresses(a1, v15);
 LABEL_22:
   if (!*a2)
   {
@@ -3839,36 +4003,34 @@ LABEL_22:
     *(a2 + 8) = 0;
   }
 
-LABEL_24:
-  v14 = *MEMORY[0x277D85DE8];
   return appended;
 }
 
 uint64_t krb5_get_all_any_addrs(_krb5_context *a1, uint64_t a2)
 {
   v4 = 0;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v11 = 0;
   v12 = 0;
-  v13 = 0;
-  memset(v14, 0, sizeof(v14));
-  memset(v11, 0, sizeof(v11));
+  memset(v13, 0, sizeof(v13));
+  memset(v10, 0, sizeof(v10));
   *a2 = 0;
   v5 = 1;
   *(a2 + 8) = 0;
   do
   {
     v6 = v5;
-    v10 = 128;
-    if (!krb5_anyaddr(a1, dword_2522A9EE8[v4], v14, &v10, 0) && !krb5_sockaddr2address(a1, v14, v11))
+    v9 = 128;
+    if (!krb5_anyaddr(a1, dword_2522A9EE8[v4], v13, &v9, 0) && !krb5_sockaddr2address(a1, v13, v10))
     {
-      v13 = v11;
-      LODWORD(v12) = 1;
-      appended = krb5_append_addresses(a1, a2, &v12);
-      krb5_free_address(a1, v11);
+      v12 = v10;
+      LODWORD(v11) = 1;
+      appended = krb5_append_addresses(a1, a2, &v11);
+      krb5_free_address(a1, v10);
       if (appended)
       {
         krb5_free_addresses(a1, a2);
-        goto LABEL_10;
+        return appended;
       }
     }
 
@@ -3879,17 +4041,11 @@ uint64_t krb5_get_all_any_addrs(_krb5_context *a1, uint64_t a2)
   while ((v6 & 1) != 0);
   if (*a2)
   {
-    appended = 0;
+    return 0;
   }
 
-  else
-  {
-    appended = 6;
-    krb5_set_error_message(a1, 6, "no addresses found");
-  }
-
-LABEL_10:
-  v8 = *MEMORY[0x277D85DE8];
+  appended = 6;
+  krb5_set_error_message(a1, 6, "no addresses found");
   return appended;
 }
 
@@ -3946,22 +4102,22 @@ LABEL_10:
 
 uint64_t sub_2522591C0(_krb5_context *a1, uint64_t a2, char a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v22[1] = 0;
-  v23 = 0;
-  v22[0] = 0;
-  if (getifaddrs(&v23) == -1)
+  v25 = *MEMORY[0x277D85DE8];
+  v21[1] = 0;
+  v22 = 0;
+  v21[0] = 0;
+  if (getifaddrs(&v22) == -1)
   {
     v9 = __error();
     ignore_addresses = *v9;
     strerror(*v9);
     krb5_set_error_message(a1, ignore_addresses, "getifaddrs: %s");
-    goto LABEL_32;
+    return ignore_addresses;
   }
 
+  v23 = 0;
   v24 = 0;
-  v25 = 0;
-  v6 = &v23;
+  v6 = &v22;
   LODWORD(v7) = -1;
   do
   {
@@ -3972,18 +4128,18 @@ uint64_t sub_2522591C0(_krb5_context *a1, uint64_t a2, char a3)
   while (v6);
   if (!v7)
   {
-    MEMORY[0x25309DE30](v23);
+    MEMORY[0x25309DE30](v22);
     ignore_addresses = 6;
     krb5_set_error_message(a1, 6, "no addresses found");
-    goto LABEL_32;
+    return ignore_addresses;
   }
 
   if ((a3 & 4) != 0)
   {
-    ignore_addresses = krb5_get_ignore_addresses(a1, v22);
+    ignore_addresses = krb5_get_ignore_addresses(a1, v21);
     if (ignore_addresses)
     {
-      goto LABEL_32;
+      return ignore_addresses;
     }
   }
 
@@ -3996,15 +4152,15 @@ uint64_t sub_2522591C0(_krb5_context *a1, uint64_t a2, char a3)
   *(a2 + 8) = v10;
   if (!v10)
   {
-    krb5_free_addresses(a1, v22);
-    MEMORY[0x25309DE30](v23);
+    krb5_free_addresses(a1, v21);
+    MEMORY[0x25309DE30](v22);
     ignore_addresses = 12;
     krb5_set_error_message(a1, 12, "malloc: out of memory");
-    goto LABEL_32;
+    return ignore_addresses;
   }
 
-  v11 = v23;
-  if (v23)
+  v11 = v22;
+  if (v22)
   {
     v12 = 0;
     do
@@ -4014,7 +4170,7 @@ uint64_t sub_2522591C0(_krb5_context *a1, uint64_t a2, char a3)
         ifa_addr = v11->ifa_addr;
         if (ifa_addr)
         {
-          v14 = *&ifa_addr->sa_len == v24 && *&ifa_addr->sa_data[6] == v25;
+          v14 = *&ifa_addr->sa_len == v23 && *&ifa_addr->sa_data[6] == v24;
           if (!v14 && !krb5_sockaddr_uninteresting(ifa_addr) && (!sub_2522482B8(v11->ifa_addr) || (a3 & 1) != 0))
           {
             v15 = krb5_sockaddr2address(a1, v11->ifa_addr, *(a2 + 8) + 24 * v12);
@@ -4023,7 +4179,7 @@ uint64_t sub_2522591C0(_krb5_context *a1, uint64_t a2, char a3)
               ignore_addresses = v15;
             }
 
-            else if ((a3 & 4) != 0 && krb5_address_search(a1, (*(a2 + 8) + 24 * v12), v22))
+            else if ((a3 & 4) != 0 && krb5_address_search(a1, (*(a2 + 8) + 24 * v12), v21))
             {
               krb5_free_address(a1, *(a2 + 8) + 24 * v12);
               ignore_addresses = 0;
@@ -4057,27 +4213,27 @@ uint64_t sub_2522591C0(_krb5_context *a1, uint64_t a2, char a3)
 LABEL_34:
     if (!v12)
     {
-      v18 = v23;
-      if (v23)
+      v17 = v22;
+      if (v22)
       {
         v12 = 0;
         do
         {
-          if (v18->ifa_flags)
+          if (v17->ifa_flags)
           {
-            v19 = v18->ifa_addr;
-            if (v19)
+            v18 = v17->ifa_addr;
+            if (v18)
             {
-              v20 = *&v19->sa_len == v24 && *&v19->sa_data[6] == v25;
-              if (!v20 && !krb5_sockaddr_uninteresting(v19) && sub_2522482B8(v18->ifa_addr) && (v18->ifa_flags & 8) != 0)
+              v19 = *&v18->sa_len == v23 && *&v18->sa_data[6] == v24;
+              if (!v19 && !krb5_sockaddr_uninteresting(v18) && sub_2522482B8(v17->ifa_addr) && (v17->ifa_flags & 8) != 0)
               {
-                v21 = krb5_sockaddr2address(a1, v18->ifa_addr, *(a2 + 8) + 24 * v12);
-                if (v21)
+                v20 = krb5_sockaddr2address(a1, v17->ifa_addr, *(a2 + 8) + 24 * v12);
+                if (v20)
                 {
-                  ignore_addresses = v21;
+                  ignore_addresses = v20;
                 }
 
-                else if ((a3 & 4) != 0 && krb5_address_search(a1, (*(a2 + 8) + 24 * v12), v22))
+                else if ((a3 & 4) != 0 && krb5_address_search(a1, (*(a2 + 8) + 24 * v12), v21))
                 {
                   krb5_free_address(a1, *(a2 + 8) + 24 * v12);
                   ignore_addresses = 0;
@@ -4092,10 +4248,10 @@ LABEL_34:
             }
           }
 
-          v18 = v18->ifa_next;
+          v17 = v17->ifa_next;
         }
 
-        while (v18);
+        while (v17);
       }
 
       else
@@ -4108,10 +4264,10 @@ LABEL_34:
 LABEL_55:
   if ((a3 & 4) != 0)
   {
-    krb5_free_addresses(a1, v22);
+    krb5_free_addresses(a1, v21);
   }
 
-  MEMORY[0x25309DE30](v23);
+  MEMORY[0x25309DE30](v22);
   if (ignore_addresses)
   {
     free(*(a2 + 8));
@@ -4123,12 +4279,10 @@ LABEL_55:
     *a2 = v12;
   }
 
-LABEL_32:
-  v16 = *MEMORY[0x277D85DE8];
   return ignore_addresses;
 }
 
-uint64_t _krb5_get_krbtgt(_krb5_context *a1, _krb5_ccache *a2, char *data, krb5_creds **a4)
+uint64_t _krb5_get_krbtgt(_krb5_context *a1, _krb5_ccache *a2, char *a3, krb5_creds **a4)
 {
   v19 = 0u;
   v20 = 0u;
@@ -4142,12 +4296,12 @@ uint64_t _krb5_get_krbtgt(_krb5_context *a1, _krb5_ccache *a2, char *data, krb5_
   credentials_with_flags = krb5_cc_get_principal(a1, a2, principal);
   if (!credentials_with_flags)
   {
-    if (!data)
+    if (!a3)
     {
-      data = principal[0]->data;
+      a3 = principal[0]->data;
     }
 
-    v9 = krb5_make_principal(a1, &principal[1], data, "krbtgt", data, 0);
+    v9 = krb5_make_principal(a1, &principal[1], a3, "krbtgt", a3, 0);
     if (v9)
     {
       credentials_with_flags = v9;
@@ -4204,19 +4358,13 @@ LABEL_6:
 uint64_t sub_2522596F4(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, __int128 *a8, _OWORD *a9, char *a10, char *a11, krb5_principal *a12)
 {
   v20 = a9;
-  v88 = 0;
-  v87 = 0u;
-  memset(v86, 0, sizeof(v86));
-  v84 = 0;
-  v85 = 0;
-  *&v83.magic = 0;
-  v83.data = 0;
+  v82 = 0;
   v81 = 0u;
-  v82 = 0u;
-  v79 = 0u;
-  v80 = 0u;
-  v77 = 0u;
-  v78 = 0u;
+  memset(v80, 0, sizeof(v80));
+  v78 = 0;
+  v79 = 0;
+  *&v77.magic = 0;
+  v77.data = 0;
   v75 = 0u;
   v76 = 0u;
   v73 = 0u;
@@ -4235,20 +4383,26 @@ uint64_t sub_2522596F4(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a
   v62 = 0u;
   v59 = 0u;
   v60 = 0u;
+  v57 = 0u;
   v58 = 0u;
-  v57 = 0;
-  memset(v56, 0, sizeof(v56));
-  v55 = 0;
-  v53 = 0;
-  v54 = 0;
-  v52 = 0;
-  memset(v51, 0, sizeof(v51));
-  v50 = 0;
-  krb5_data_zero(&v83);
-  krb5_data_zero(&v84);
-  v49[1] = 0;
-  v49[0] = 0;
-  krb5_generate_random_block(&v55, 4);
+  v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  v52 = 0u;
+  v51 = 0;
+  memset(v50, 0, sizeof(v50));
+  v49 = 0;
+  v47 = 0;
+  v48 = 0;
+  v46 = 0;
+  memset(v45, 0, sizeof(v45));
+  v44 = 0;
+  krb5_data_zero(&v77);
+  krb5_data_zero(&v78);
+  v43[1] = 0;
+  v43[0] = 0;
+  krb5_generate_random_block(&v49, 4);
   if ((a4 & 0x10000000) != 0 && !a9)
   {
     v21 = a4;
@@ -4256,7 +4410,7 @@ uint64_t sub_2522596F4(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a
     v23 = a3;
     v24 = a8;
     v25 = a7;
-    v26 = decode_Ticket(*(a6 + 96), *(a6 + 88), v51, &v53);
+    v26 = decode_Ticket(*(a6 + 96), *(a6 + 88), v45, &v47);
     if (v26)
     {
       return v26;
@@ -4267,59 +4421,59 @@ uint64_t sub_2522596F4(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a
     a3 = v23;
     a1 = v22;
     a4 = v21;
-    v20 = v51;
+    v20 = v45;
   }
 
-  if (!krb5_cc_get_kdc_offset(a1, a2, &v50))
+  if (!krb5_cc_get_kdc_offset(a1, a2, &v44))
   {
-    *(a1 + 108) = v50;
+    *(a1 + 108) = v44;
   }
 
-  v27 = sub_25226895C(a1, a2, a3, a5, a4, a8, v20, a6, a7, v55, v49, &v54, v86);
+  v27 = sub_25226895C(a1, a2, a3, a5, a4, a8, v20, a6, a7, v49, v43, &v48, v80);
   if (!v27)
   {
-    v46 = a7;
-    v84 = sub_25228AD38(v86);
-    v29 = malloc_type_malloc(v84, 0x57A5F9uLL);
-    v85 = v29;
+    v40 = a7;
+    v78 = sub_25228AD38(v80);
+    v29 = malloc_type_malloc(v78, 0x57A5F9uLL);
+    v79 = v29;
     if (!v29)
     {
       v26 = 12;
       goto LABEL_9;
     }
 
-    v30 = sub_25228AD18(v29 + v84 - 1, v84, v86, &v53);
+    v30 = sub_25228AD18(v29 + v78 - 1, v78, v80, &v47);
     if (v30)
     {
       v26 = v30;
-      free(v85);
-      v85 = 0;
+      free(v79);
+      v79 = 0;
       goto LABEL_9;
     }
 
-    if (v84 != v53)
+    if (v78 != v47)
     {
       krb5_abortx(a1, "internal error in ASN.1 encoder");
     }
 
-    *&v87 = 0;
-    sub_25228AD48(v86);
-    *v47 = 0;
-    v37 = krb5_sendto_ctx_alloc(a1, v47, v31, v32, v33, v34, v35, v36);
-    if (v37)
+    *&v81 = 0;
+    sub_25228AD48(v80);
+    *v41 = 0;
+    v31 = krb5_sendto_ctx_alloc(a1, v41);
+    if (v31)
     {
-      return v37;
+      return v31;
     }
 
-    krb5_sendto_ctx_set_func(*v47, sub_25227A434, 0);
+    krb5_sendto_ctx_set_func(*v41, sub_25227A434, 0);
     if (a10)
     {
-      sub_25227A1EC(a1, *v47, a10);
+      sub_25227A1EC(a1, *v41, a10);
     }
 
     if (a11)
     {
-      sub_25227A244(a1, *v47, a11);
+      sub_25227A244(a1, *v41, a11);
     }
 
     ImpersonateBundle = HeimCredGetImpersonateBundle();
@@ -4327,49 +4481,43 @@ uint64_t sub_2522596F4(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a
     {
       if ((*(a1 + 360) & 0x10) == 0)
       {
-        v39 = ImpersonateBundle;
+        v33 = ImpersonateBundle;
         MainBundle = CFBundleGetMainBundle();
         if (MainBundle)
         {
           Identifier = CFBundleGetIdentifier(MainBundle);
-          v42 = CFStringCreateWithCString(0, v39, 0x8000100u);
-          v43 = v42;
-          if (v42 && Identifier)
+          v36 = CFStringCreateWithCString(0, v33, 0x8000100u);
+          v37 = v36;
+          if (v36 && Identifier)
           {
-            if (CFEqual(Identifier, v42))
+            if (CFEqual(Identifier, v36))
             {
               sub_25226B748(a1, 5, "Bundle identifiers match, not setting delegate");
             }
 
             else
             {
-              krb5_sendto_set_delegated_app(0, *v47, 0, 0, v39);
+              krb5_sendto_set_delegated_app(0, *v41, 0, 0, v33);
             }
 
-            a7 = v46;
+            a7 = v40;
             goto LABEL_36;
           }
 
-          a7 = v46;
-          if (v42)
+          a7 = v40;
+          if (v36)
           {
 LABEL_36:
-            CFRelease(v43);
+            CFRelease(v37);
           }
         }
       }
     }
 
-    v26 = krb5_sendto_context(a1, *v47, &v84, *(*(*(a7 + 8) + 16) + 8), &v83);
-    krb5_sendto_ctx_free(a1, *v47);
+    v26 = krb5_sendto_context(a1, *v41, &v78, *(*(*(a7 + 8) + 16) + 8), &v77);
+    krb5_sendto_ctx_free(a1, *v41);
     if (!v26)
     {
-      v81 = 0u;
-      v82 = 0u;
-      v79 = 0u;
-      v80 = 0u;
-      v77 = 0u;
-      v78 = 0u;
       v75 = 0u;
       v76 = 0u;
       v73 = 0u;
@@ -4388,13 +4536,19 @@ LABEL_36:
       v62 = 0u;
       v59 = 0u;
       v60 = 0u;
+      v57 = 0u;
       v58 = 0u;
-      if (sub_25228AF58(v83.data, *&v83.magic, &v58, &v53))
+      v55 = 0u;
+      v56 = 0u;
+      v53 = 0u;
+      v54 = 0u;
+      v52 = 0u;
+      if (sub_25228AF58(v77.data, *&v77.magic, &v52, &v47))
       {
-        if (krb5_rd_error(a1, &v83, v56))
+        if (krb5_rd_error(a1, &v77, v50))
         {
           v26 = 2529638952;
-          if (*&v83.magic && *v83.data == 4)
+          if (*&v77.magic && *v77.data == 4)
           {
             krb5_clear_error_message(a1);
             v26 = 2529639131;
@@ -4408,44 +4562,44 @@ LABEL_36:
 
         else
         {
-          v26 = krb5_error_from_rd_error(a1, v56, a6);
-          krb5_free_error_contents(a1, v56);
+          v26 = krb5_error_from_rd_error(a1, v50, a6);
+          krb5_free_error_contents(a1, v50);
         }
       }
 
       else
       {
-        *v47 = 0;
-        v48 = 0;
-        v44 = sub_252286C38(a1, v55, 0, a3, &v58);
-        if (!v44)
+        *v41 = 0;
+        v42 = 0;
+        v38 = sub_252286C38(a1, v49, 0, a3, &v52);
+        if (!v38)
         {
-          v44 = krb5_copy_principal(a1, *a6, a12);
-          if (!v44)
+          v38 = krb5_copy_principal(a1, *a6, a12);
+          if (!v38)
           {
-            v44 = krb5_copy_principal(a1, *(a6 + 8), a12 + 1);
-            if (!v44)
+            v38 = krb5_copy_principal(a1, *(a6 + 8), a12 + 1);
+            if (!v38)
             {
               a12[7] = *(a6 + 56);
               if (a8)
               {
-                v45 = 1;
+                v39 = 1;
               }
 
               else
               {
-                v45 = BYTE2(a4) & 1;
+                v39 = BYTE2(a4) & 1;
               }
 
-              *v47 = v54;
-              v48 = a3;
-              v44 = sub_252280B7C(a1, &v58, a12, (v46 + 16), 0, (v46 + 120), v55, v45, 0, sub_252269158, v47);
+              *v41 = v48;
+              v42 = a3;
+              v38 = sub_252280B7C(a1, &v52, a12, (v40 + 16), 0, (v40 + 120), v49, v39, 0, sub_252269158, v41);
             }
           }
         }
 
-        v26 = v44;
-        krb5_free_kdc_rep(a1, &v58);
+        v26 = v38;
+        krb5_free_kdc_rep(a1, &v52);
       }
     }
 
@@ -4454,49 +4608,49 @@ LABEL_36:
 
   v26 = v27;
 LABEL_9:
-  if (v20 == v51)
+  if (v20 == v45)
   {
-    free_Ticket(v51);
+    free_Ticket(v45);
   }
 
-  sub_25228AC4C(v49);
-  krb5_data_free(&v83);
-  krb5_data_free(&v84);
-  if (v54)
+  sub_25228AC4C(v43);
+  krb5_data_free(&v77);
+  krb5_data_free(&v78);
+  if (v48)
   {
-    krb5_free_keyblock(a1, v54);
+    krb5_free_keyblock(a1, v48);
   }
 
   return v26;
 }
 
-uint64_t sub_252259C30(uint64_t a1, unsigned int a2, krb5_ccache a3, uint64_t a4, __int128 *a5, __int128 *a6, _OWORD *a7, krb5_creds **a8, uint64_t **a9)
+uint64_t sub_252259C30(uint64_t a1, unsigned int a2, krb5_ccache a3, uint64_t a4, _OWORD *a5, __int128 *a6, _OWORD *a7, krb5_creds **a8, uint64_t **a9)
 {
-  *&v49.magic = 0;
-  v49.data = 0;
-  v50 = 0;
+  *&v48.magic = 0;
+  v48.data = 0;
+  v49 = 0;
   v16 = 0;
-  if (!krb5_cc_get_config(a1, a3, 0, "lkdc-hostname", &v49))
+  if (!krb5_cc_get_config(a1, a3, 0, "lkdc-hostname", &v48))
   {
-    v17 = malloc_type_malloc(*&v49.magic + 1, 0x1C97CC67uLL);
+    v17 = malloc_type_malloc(*&v48.magic + 1, 0x1C97CC67uLL);
     if (!v17)
     {
       goto LABEL_22;
     }
 
     v16 = v17;
-    memcpy(v17, v49.data, *&v49.magic);
-    v16[*&v49.magic] = 0;
-    krb5_data_free(&v49);
+    memcpy(v17, v48.data, *&v48.magic);
+    v16[*&v48.magic] = 0;
+    krb5_data_free(&v48);
   }
 
   v18 = 0;
-  if (krb5_cc_get_config(a1, a3, 0, "sitename", &v49))
+  if (krb5_cc_get_config(a1, a3, 0, "sitename", &v48))
   {
     goto LABEL_7;
   }
 
-  v19 = malloc_type_malloc(*&v49.magic + 1, 0x29F28210uLL);
+  v19 = malloc_type_malloc(*&v48.magic + 1, 0x29F28210uLL);
   if (!v19)
   {
 LABEL_22:
@@ -4506,21 +4660,21 @@ LABEL_22:
   }
 
   v18 = v19;
-  memcpy(v19, v49.data, *&v49.magic);
-  v18[*&v49.magic] = 0;
-  krb5_data_free(&v49);
+  memcpy(v19, v48.data, *&v48.magic);
+  v18[*&v48.magic] = 0;
+  krb5_data_free(&v48);
 LABEL_7:
-  v45 = a4;
-  if (!krb5_cc_get_kdc_offset(a1, a3, &v50))
+  v44 = a4;
+  if (!krb5_cc_get_kdc_offset(a1, a3, &v49))
   {
-    *(a1 + 108) = v50;
+    *(a1 + 108) = v49;
   }
 
   v20 = *(a5 + 1);
   v21 = *(v20 + 8);
   v22 = v21 <= 1 && (a2 & 0x8000) == 0;
-  v46 = a7;
-  v47 = a6;
+  v45 = a7;
+  v46 = a6;
   if (v22)
   {
     v25 = 2529638940;
@@ -4536,55 +4690,55 @@ LABEL_7:
 
   else
   {
-    v65 = 0u;
-    memset(v64, 0, sizeof(v64));
+    v64 = 0u;
+    memset(v63, 0, sizeof(v63));
     memset(creds, 0, sizeof(creds));
-    v54 = 0u;
+    v53 = 0u;
     *a8 = 0;
     realm = krb5_principal_get_realm(a1, *a5);
-    *&v55 = 0;
-    principal = krb5_make_principal(a1, &v55, realm, "krbtgt", realm, 0);
+    *&v54 = 0;
+    principal = krb5_make_principal(a1, &v54, realm, "krbtgt", realm, 0);
     if (principal)
     {
       v25 = principal;
       goto LABEL_18;
     }
 
-    v25 = sub_25225B030(a1, a3, v55, *a9, v64);
-    krb5_free_principal(a1, v55);
+    v25 = sub_25225B030(a1, a3, v54, *a9, v63);
+    krb5_free_principal(a1, v54);
     if (!v25)
     {
       v27 = a5[7];
-      v61 = a5[6];
-      v62 = v27;
-      v63 = a5[8];
+      v60 = a5[6];
+      v61 = v27;
+      v62 = a5[8];
       v28 = a5[3];
-      v57 = a5[2];
-      v58 = v28;
+      v56 = a5[2];
+      v57 = v28;
       v29 = a5[5];
-      v59 = a5[4];
-      v60 = v29;
+      v58 = a5[4];
+      v59 = v29;
       v30 = a5[1];
-      v55 = *a5;
-      v56 = v30;
-      v31 = krb5_copy_principal(a1, v20, &v55 + 1);
+      v54 = *a5;
+      v55 = v30;
+      v31 = krb5_copy_principal(a1, v20, &v54 + 1);
       if (v31)
       {
         v25 = v31;
-        v32 = v64;
+        v32 = v63;
 LABEL_27:
         krb5_free_cred_contents(a1, v32);
         goto LABEL_18;
       }
 
-      v33 = krb5_principal_set_realm(a1, *(&v55 + 1), realm);
+      v33 = krb5_principal_set_realm(a1, *(&v54 + 1), realm);
       if (!v33)
       {
-        v35 = (a2 & 0x10000) == 0 && v47 != 0;
+        v35 = (a2 & 0x10000) == 0 && v46 != 0;
         v36 = 1;
         v37 = 0uLL;
-        v44 = 1;
-        v43 = v35;
+        v43 = 1;
+        v42 = v35;
         while (1)
         {
           mcreds_48[4] = v37;
@@ -4596,16 +4750,16 @@ LABEL_27:
           mcreds[1] = v37;
           mcreds[2] = v37;
           mcreds[0] = v37;
-          if (v35 || (krb5_cc_clear_mcred(mcreds), *(&mcreds[0] + 1) = *(&v55 + 1), krb5_timeofday(a1, mcreds_48 + 2), krb5_cc_retrieve_cred(a1, a3, 0x2000000, mcreds, creds)))
+          if (v35 || (krb5_cc_clear_mcred(mcreds), *(&mcreds[0] + 1) = *(&v54 + 1), krb5_timeofday(a1, mcreds_48 + 2), krb5_cc_retrieve_cred(a1, a3, 0x2000000, mcreds, creds)))
           {
-            v38 = sub_25225B11C(a1, a3, v45, a2 | 0x8000, &v55, v64, v47, v46, v16, v18, creds);
+            v38 = sub_25225B11C(a1, a3, v44, a2 | 0x8000, &v54, v63, v46, v45, v16, v18, creds);
             if (v38)
             {
               goto LABEL_55;
             }
           }
 
-          if (krb5_principal_compare_any_realm(a1, *(&v55 + 1), *&creds[8]))
+          if (krb5_principal_compare_any_realm(a1, *(&v54 + 1), *&creds[8]))
           {
             goto LABEL_54;
           }
@@ -4632,7 +4786,6 @@ LABEL_27:
               ++v40;
               if (krb5_compare_creds(a1, 0x80000000, mcreds, v41))
               {
-                v42 = *(*&v64[8] + 24);
                 v25 = 2529639135;
                 krb5_set_error_message(a1, -1765328161, "Referral from %s loops back to realm %s");
                 goto LABEL_56;
@@ -4640,15 +4793,15 @@ LABEL_27:
             }
           }
 
-          if (v44 && (WORD4(v54) & 0x2000) != 0)
+          if (v43 && (WORD4(v53) & 0x2000) != 0)
           {
-            v44 = 1;
+            v43 = 1;
           }
 
           else
           {
-            v44 = 0;
-            DWORD2(v54) &= ~0x2000u;
+            v43 = 0;
+            DWORD2(v53) &= ~0x2000u;
           }
 
           v38 = sub_25225B22C(a1, creds, a9);
@@ -4657,19 +4810,19 @@ LABEL_27:
             goto LABEL_55;
           }
 
-          v25 = krb5_principal_set_realm(a1, *(&v55 + 1), v39);
-          krb5_free_cred_contents(a1, v64);
-          *&v64[96] = *&creds[96];
-          *&v64[112] = *&creds[112];
-          v65 = v54;
-          *&v64[32] = *&creds[32];
-          *&v64[48] = *&creds[48];
-          *&v64[64] = *&creds[64];
-          *&v64[80] = *&creds[80];
-          *v64 = *creds;
-          *&v64[16] = *&creds[16];
+          v25 = krb5_principal_set_realm(a1, *(&v54 + 1), v39);
+          krb5_free_cred_contents(a1, v63);
+          *&v63[96] = *&creds[96];
+          *&v63[112] = *&creds[112];
+          v64 = v53;
+          *&v63[32] = *&creds[32];
+          *&v63[48] = *&creds[48];
+          *&v63[64] = *&creds[64];
+          *&v63[80] = *&creds[80];
+          *v63 = *creds;
+          *&v63[16] = *&creds[16];
           v37 = 0uLL;
-          v54 = 0u;
+          v53 = 0u;
           memset(creds, 0, sizeof(creds));
           if (v25)
           {
@@ -4677,7 +4830,7 @@ LABEL_27:
           }
 
           ++v36;
-          v35 = v43;
+          v35 = v42;
           if (v36 == 18)
           {
 LABEL_54:
@@ -4691,22 +4844,22 @@ LABEL_55:
         v25 = 2529638947;
         krb5_set_error_message(a1, -1765328349, "Got back an non krbtgt ticket referrals");
 LABEL_56:
-        krb5_free_principal(a1, *(&v55 + 1));
-        krb5_free_cred_contents(a1, v64);
+        krb5_free_principal(a1, *(&v54 + 1));
+        krb5_free_cred_contents(a1, v63);
         v32 = creds;
         goto LABEL_27;
       }
 
       v25 = v33;
-      krb5_free_cred_contents(a1, v64);
-      krb5_free_principal(a1, *(&v55 + 1));
+      krb5_free_cred_contents(a1, v63);
+      krb5_free_principal(a1, *(&v54 + 1));
     }
   }
 
 LABEL_18:
   if (v25 && (a2 & 0x8000) == 0)
   {
-    v25 = sub_25225A1C4(a1, a2, a3, v45, a5, v47, v46, v16, v18, a8, a9);
+    v25 = sub_25225A1C4(a1, a2, a3, v44, a5, v46, v45, v16, v18, a8, a9);
   }
 
   free(v16);
@@ -4714,7 +4867,7 @@ LABEL_18:
   return v25;
 }
 
-uint64_t sub_25225A1C4(_krb5_context *a1, unsigned int a2, _krb5_ccache *a3, uint64_t a4, uint64_t *a5, __int128 *a6, _OWORD *a7, char *a8, char *a9, krb5_creds **a10, uint64_t **a11)
+uint64_t sub_25225A1C4(_krb5_context *a1, unsigned int a2, _krb5_ccache *a3, uint64_t a4, uint64_t *a5, __int128 *a6, _OWORD *a7, char *a8, char *a9, void **a10, uint64_t **a11)
 {
   realm = krb5_principal_get_realm(a1, *a5);
   krb5_principal_get_realm(a1, a5[1]);
@@ -5111,7 +5264,7 @@ uint64_t krb5_get_creds_opt_set_ticket(_krb5_context *a1, uint64_t a2, uint64_t 
       goto LABEL_8;
     }
 
-    a3 = sub_25228AA8C();
+    a3 = sub_25228AA8C(a3, v7);
     if (a3)
     {
       free(*(a2 + 16));
@@ -5465,7 +5618,7 @@ uint64_t sub_25225B22C(_krb5_context *a1, const krb5_creds *a2, void **a3)
   return result;
 }
 
-uint64_t sub_25225B2D8(_krb5_context *a1, unsigned int a2, _krb5_ccache *a3, uint64_t a4, uint64_t *a5, char *a6, __int128 *a7, _OWORD *a8, char *a9, char *a10, krb5_creds **a11, uint64_t **a12)
+uint64_t sub_25225B2D8(_krb5_context *a1, unsigned int a2, _krb5_ccache *a3, uint64_t a4, krb5_const_principal *a5, char *a6, __int128 *a7, _OWORD *a8, char *a9, char *a10, void **a11, uint64_t **a12)
 {
   v47 = 0;
   *a11 = 0;
@@ -5523,7 +5676,7 @@ LABEL_36:
         v20 = 0;
         if (v22)
         {
-          LODWORD((*a11)[1].server) &= ~0x2000u;
+          *(*a11 + 34) &= ~0x2000u;
         }
 
 LABEL_34:
@@ -5598,7 +5751,7 @@ LABEL_23:
 
   else
   {
-    if (krb5_principal_compare_any_realm(a1, v32->client, a5[1]) == 1)
+    if (krb5_principal_compare_any_realm(a1, v32[1], a5[1]) == 1)
     {
       v20 = 0;
       goto LABEL_43;
@@ -5752,12 +5905,12 @@ LABEL_9:
   return v12;
 }
 
-uint64_t krb5_get_default_realms(_krb5_context *a1, char *const **a2)
+uint64_t krb5_get_default_realms(const __CFArray **a1, char *const **a2)
 {
   result = sub_25225BA28(a1);
   if (!result)
   {
-    v5 = *(a1 + 9);
+    v5 = a1[9];
 
     return sub_25225B8EC(a1, v5, a2);
   }
@@ -5854,37 +6007,38 @@ krb5_error_code krb5_fwd_tgt_creds(krb5_context a1, krb5_auth_context a2, char *
   }
 
   realm = krb5_principal_get_realm(a1, a4);
-  memset(v22, 0, sizeof(v22));
+  memset(&v21.client, 0, 112);
+  v22 = 0u;
   v23 = 0;
-  v21 = a4;
-  result = krb5_make_principal(a1, v22, realm, "krbtgt", realm, 0);
+  *&v21.magic = a4;
+  result = krb5_make_principal(a1, &v21.client, realm, "krbtgt", realm, 0);
   if (!result)
   {
-    return krb5_get_forwarded_creds(a1, a2, a6, v14, comp_string, &v21, &a8->magic);
+    return krb5_get_forwarded_creds(a1, a2, a6, v14, comp_string, &v21, a8);
   }
 
   return result;
 }
 
-uint64_t krb5_get_forwarded_creds(_krb5_context *a1, uint64_t a2, _krb5_ccache *a3, uint64_t a4, const char *a5, uint64_t a6, uint64_t *a7)
+uint64_t krb5_get_forwarded_creds(_krb5_context *a1, uint64_t a2, _krb5_ccache *a3, uint64_t a4, const char *a5, krb5_creds *a6, size_t *a7)
 {
-  v82 = 0;
-  v76 = 0;
-  v74 = 0u;
+  v84 = 0;
+  v78 = 0;
+  v76 = 0u;
+  v77 = 0u;
   v75 = 0u;
-  v73 = 0u;
+  v73 = 0;
+  v74 = 0;
   v71 = 0;
   v72 = 0;
-  v69 = 0;
-  v70 = 0;
-  v68[0] = 0;
-  v68[1] = 0;
-  v78 = 0u;
-  memset(v79, 0, sizeof(v79));
-  v77 = 0x1600000005;
-  v80 = 0;
-  v81 = 0;
-  krb5_data_zero(v68);
+  v70[0] = 0;
+  v70[1] = 0;
+  v80 = 0u;
+  memset(v81, 0, sizeof(v81));
+  v79 = 0x1600000005;
+  v82 = 0;
+  v83 = 0;
+  krb5_data_zero(v70);
   if (!*(a2 + 32))
   {
     kdc_cred = 2529638921;
@@ -5892,10 +6046,10 @@ uint64_t krb5_get_forwarded_creds(_krb5_context *a1, uint64_t a2, _krb5_ccache *
     return kdc_cred;
   }
 
-  if (krb5_get_credentials(a1, 0, a3, a6, &v69))
+  if (krb5_get_credentials(a1, 0, a3, a6, &v71))
   {
     ret_value.magic = 0;
-    realm = krb5_principal_get_realm(a1, *a6);
+    realm = krb5_principal_get_realm(a1, *&a6->magic);
     krb5_appdefault_BOOLean(a1, 0, realm, "no-addresses", 1, &ret_value.magic);
     if (ret_value.magic)
     {
@@ -5908,15 +6062,15 @@ LABEL_9:
 
   else
   {
-    magic = v69[1].magic;
-    krb5_free_creds(a1, v69);
+    magic = v71[1].magic;
+    krb5_free_creds(a1, v71);
     if (!magic)
     {
       goto LABEL_9;
     }
   }
 
-  v17 = getaddrinfo(a5, 0, 0, &v70);
+  v17 = getaddrinfo(a5, 0, 0, &v72);
   if (v17)
   {
     v18 = v17;
@@ -5927,11 +6081,11 @@ LABEL_9:
     return kdc_cred;
   }
 
-  v25 = v70;
-  if (v70)
+  v25 = v72;
+  if (v72)
   {
     v26 = 0;
-    v27 = v70;
+    v27 = v72;
     do
     {
       ++v26;
@@ -5946,8 +6100,8 @@ LABEL_9:
     v26 = 0;
   }
 
-  v28 = malloc_type_realloc(v81, 24 * (v80 + v26), 0x10800404ACF7207uLL);
-  v29 = v80;
+  v28 = malloc_type_realloc(v83, 24 * (v82 + v26), 0x10800404ACF7207uLL);
+  v29 = v82;
   if (v28)
   {
     v30 = 1;
@@ -5955,26 +6109,26 @@ LABEL_9:
 
   else
   {
-    v30 = v80 == -v26;
+    v30 = v82 == -v26;
   }
 
   if (v30)
   {
-    v81 = v28;
-    if (v80 < v80 + v26)
+    v83 = v28;
+    if (v82 < v82 + v26)
     {
-      v31 = 24 * v80;
+      v31 = 24 * v82;
       do
       {
-        v32 = v81;
-        *&v81[v31] = 0;
+        v32 = v83;
+        *&v83[v31] = 0;
         krb5_data_zero(&v32[v31 + 8]);
         ++v29;
         v31 += 24;
       }
 
-      while (v29 < (v80 + v26));
-      LODWORD(v29) = v80;
+      while (v29 < (v82 + v26));
+      LODWORD(v29) = v82;
     }
 
     for (; v25; v25 = v25->ai_next)
@@ -5994,14 +6148,14 @@ LABEL_9:
           goto LABEL_39;
         }
 
-        if (krb5_address_search(a1, &ret_value, &v80))
+        if (krb5_address_search(a1, &ret_value, &v82))
         {
           krb5_free_address(a1, &ret_value);
         }
 
         else
         {
-          v34 = &v81[24 * v29];
+          v34 = &v83[24 * v29];
           v35 = *&ret_value.magic;
           *(v34 + 2) = ret_value.contents;
           *v34 = v35;
@@ -6009,31 +6163,31 @@ LABEL_9:
         }
       }
 
-      LODWORD(v80) = v29;
+      LODWORD(v82) = v29;
     }
 
-    freeaddrinfo(v70);
-    v20 = &v80;
+    freeaddrinfo(v72);
+    v20 = &v82;
     LOBYTE(magic) = 1;
 LABEL_10:
-    LODWORD(v78) = 1;
-    *(&v78 + 1) = malloc_type_calloc(1uLL, 0x48uLL, 0x1090040DEC7D988uLL);
-    if (!*(&v78 + 1))
+    LODWORD(v80) = 1;
+    *(&v80 + 1) = malloc_type_calloc(1uLL, 0x48uLL, 0x1090040DEC7D988uLL);
+    if (!*(&v80 + 1))
     {
       kdc_cred = 12;
       krb5_set_error_message(a1, 12, "malloc: out of memory");
       return kdc_cred;
     }
 
-    v67 = a7;
+    v69 = a7;
     if (!v20)
     {
-      v21 = *(a6 + 8);
+      client = a6->client;
       *&ret_value.magic = 0;
       *&ret_value.length = 0;
-      v84[0] = 0;
+      v86[0] = 0;
       krb5_data_zero(&ret_value);
-      config = krb5_cc_get_config(a1, a3, v21, "_forward", &ret_value);
+      config = krb5_cc_get_config(a1, a3, client, "_forward", &ret_value);
       if (config)
       {
         v23 = config;
@@ -6047,36 +6201,36 @@ LABEL_57:
       if (v36)
       {
         v37 = v36;
-        v23 = krb5_ret_uint32(v36, v84);
+        v23 = krb5_ret_uint32(v36, v86);
         if (!v23)
         {
-          if (v84[0] == a4)
+          if (v86[0] == a4)
           {
             v38 = malloc_type_calloc(1uLL, 0x90uLL, 0x10A0040AAA52FDDuLL);
-            v82 = v38;
+            v84 = v38;
             if (v38)
             {
               v39 = krb5_ret_creds(v37, v38);
               if (v39)
               {
                 v23 = v39;
-                if (v82)
+                if (v84)
                 {
-                  krb5_free_creds(a1, v82);
-                  v82 = 0;
+                  krb5_free_creds(a1, v84);
+                  v84 = 0;
                 }
               }
 
-              else if (*(v82 + 56) >= time(0))
+              else if (*(v84 + 56) >= time(0))
               {
                 v23 = 0;
               }
 
               else
               {
-                krb5_cc_set_config(a1, a3, v21, "_forward", 0);
-                krb5_free_creds(a1, v82);
-                v82 = 0;
+                krb5_cc_set_config(a1, a3, client, "_forward", 0);
+                krb5_free_creds(a1, v84);
+                v84 = 0;
                 v23 = -1765328352;
               }
             }
@@ -6110,11 +6264,11 @@ LABEL_57:
     }
 
 LABEL_58:
-    if (!v82)
+    if (!v84)
     {
       v41 = sub_25228A948(a4);
-      kdc_cred = krb5_get_kdc_cred(a1, a3, v41, v20, 0, a6, &v82);
-      krb5_free_addresses(a1, &v80);
+      kdc_cred = krb5_get_kdc_cred(a1, a3, v41, v20, 0, a6, &v84);
+      krb5_free_addresses(a1, &v82);
       if (kdc_cred)
       {
         goto LABEL_90;
@@ -6122,7 +6276,7 @@ LABEL_58:
 
       if (!v20)
       {
-        v42 = sub_25225C748(a1, a3, *(a6 + 8), a4, v82);
+        v42 = sub_25225C748(a1, a3, a6->client, a4, v84);
         if (v42)
         {
           sub_25226B794(a1, 1, v42, "_krb5_store_cached_forward_creds");
@@ -6130,20 +6284,20 @@ LABEL_58:
       }
     }
 
-    v40 = decode_Ticket(*(v82 + 80), *(v82 + 72), *(&v78 + 1), &v72);
+    v40 = decode_Ticket(*(v84 + 80), *(v84 + 72), *(&v80 + 1), &v74);
     if (v40)
     {
       kdc_cred = v40;
       goto LABEL_90;
     }
 
-    v76 = 0;
-    v74 = 0u;
+    v78 = 0;
+    v76 = 0u;
+    v77 = 0u;
     v75 = 0u;
-    v73 = 0u;
-    LODWORD(v73) = 1;
-    *(&v73 + 1) = malloc_type_calloc(1uLL, 0x68uLL, 0x10B00407801D9E3uLL);
-    if (!*(&v73 + 1))
+    LODWORD(v75) = 1;
+    *(&v75 + 1) = malloc_type_calloc(1uLL, 0x68uLL, 0x10B00407801D9E3uLL);
+    if (!*(&v75 + 1))
     {
       goto LABEL_88;
     }
@@ -6151,11 +6305,11 @@ LABEL_58:
     if (*a2)
     {
       *&ret_value.magic = 0;
-      v84[0] = 0;
-      krb5_us_timeofday(a1, &ret_value.magic, v84);
+      v86[0] = 0;
+      krb5_us_timeofday(a1, &ret_value.magic, v86);
       v44 = malloc_type_calloc(1uLL, 8uLL, 0x100004000313F17uLL);
-      *(&v74 + 1) = v44;
-      v43 = v67;
+      *(&v76 + 1) = v44;
+      v43 = v69;
       if (!v44)
       {
         goto LABEL_88;
@@ -6163,20 +6317,20 @@ LABEL_58:
 
       *v44 = *&ret_value.magic;
       v45 = malloc_type_calloc(1uLL, 4uLL, 0x100004052888210uLL);
-      *&v75 = v45;
+      *&v77 = v45;
       if (!v45)
       {
         goto LABEL_88;
       }
 
-      *v45 = v84[0];
+      *v45 = v86[0];
     }
 
     else
     {
-      *(&v74 + 1) = 0;
-      *&v75 = 0;
-      v43 = v67;
+      *(&v76 + 1) = 0;
+      *&v77 = 0;
+      v43 = v69;
     }
 
     v46 = *(a2 + 8);
@@ -6190,7 +6344,7 @@ LABEL_58:
 
       if ((v47 & 1) == 0)
       {
-        addrport = krb5_make_addrport(a1, &v75 + 1, v46, *(a2 + 24));
+        addrport = krb5_make_addrport(a1, &v77 + 1, v46, *(a2 + 24));
         if (addrport)
         {
           goto LABEL_96;
@@ -6206,11 +6360,11 @@ LABEL_58:
     if (*(a2 + 26))
     {
       ret_value.magic = 0;
-      v49 = krb5_principal_get_realm(a1, *(v82 + 8));
+      v49 = krb5_principal_get_realm(a1, *(v84 + 8));
       krb5_appdefault_BOOLean(a1, 0, v49, "no-addresses", 0, &ret_value.magic);
       if (!ret_value.magic)
       {
-        addrport = krb5_make_addrport(a1, &v76, *(a2 + 16), *(a2 + 26));
+        addrport = krb5_make_addrport(a1, &v78, *(a2 + 16), *(a2 + 26));
         if (addrport)
         {
           goto LABEL_96;
@@ -6220,10 +6374,11 @@ LABEL_58:
       goto LABEL_79;
     }
 
-    v76 = malloc_type_calloc(1uLL, 0x18uLL, 0x10800404ACF7207uLL);
-    if (v76)
+    v65 = malloc_type_calloc(1uLL, 0x18uLL, 0x10800404ACF7207uLL);
+    v78 = v65;
+    if (v65)
     {
-      addrport = krb5_copy_address(a1, *(a2 + 16));
+      addrport = krb5_copy_address(a1, *(a2 + 16), v65);
       if (addrport)
       {
 LABEL_96:
@@ -6232,88 +6387,89 @@ LABEL_96:
       }
 
 LABEL_79:
-      LODWORD(v73) = 1;
-      v50 = *(&v73 + 1);
-      copy_EncryptionKey();
-      v50[3] = malloc_type_calloc(1uLL, 8uLL, 0x10040436913F5uLL);
-      v51 = *v82;
-      sub_25228A694();
-      v50[4] = malloc_type_calloc(1uLL, 0x18uLL, 0x10800407C14B876uLL);
-      v52 = *v82;
-      sub_25228A708();
+      LODWORD(v75) = 1;
+      v50 = *(&v75 + 1);
+      copy_EncryptionKey(v84 + 16, *(&v75 + 1));
+      v51 = malloc_type_calloc(1uLL, 8uLL, 0x10040436913F5uLL);
+      v50[3] = v51;
+      sub_25228A694(*v84 + 24, v51);
+      v52 = malloc_type_calloc(1uLL, 0x18uLL, 0x10800407C14B876uLL);
+      v50[4] = v52;
+      sub_25228A708(*v84, v52);
       v53 = malloc_type_calloc(1uLL, 4uLL, 0x100004052888210uLL);
       v50[5] = v53;
-      *v53 = *(v82 + 136);
+      *v53 = *(v84 + 136);
       v54 = malloc_type_calloc(1uLL, 8uLL, 0x100004000313F17uLL);
       v50[6] = v54;
-      *v54 = *(v82 + 40);
+      *v54 = *(v84 + 40);
       v55 = malloc_type_calloc(1uLL, 8uLL, 0x100004000313F17uLL);
       v50[7] = v55;
-      *v55 = *(v82 + 48);
+      *v55 = *(v84 + 48);
       v56 = malloc_type_calloc(1uLL, 8uLL, 0x100004000313F17uLL);
       v50[8] = v56;
-      *v56 = *(v82 + 56);
+      *v56 = *(v84 + 56);
       v57 = malloc_type_calloc(1uLL, 8uLL, 0x100004000313F17uLL);
       v50[9] = v57;
-      *v57 = *(v82 + 64);
-      v50[10] = malloc_type_calloc(1uLL, 8uLL, 0x10040436913F5uLL);
-      v58 = *(v82 + 8);
-      sub_25228A694();
-      v50[11] = malloc_type_calloc(1uLL, 0x18uLL, 0x10800407C14B876uLL);
-      v59 = *(v82 + 8);
-      sub_25228A708();
-      v50[12] = malloc_type_calloc(1uLL, 0x10uLL, 0x1020040D5A9D86FuLL);
-      sub_25228A7B4();
-      krb5_free_creds(a1, v82);
-      v60 = sub_25228B2DC(&v73);
-      v61 = malloc_type_malloc(v60, 0xF5681FE4uLL);
-      if (v61)
+      *v57 = *(v84 + 64);
+      v58 = malloc_type_calloc(1uLL, 8uLL, 0x10040436913F5uLL);
+      v50[10] = v58;
+      sub_25228A694(*(v84 + 8) + 24, v58);
+      v59 = malloc_type_calloc(1uLL, 0x18uLL, 0x10800407C14B876uLL);
+      v50[11] = v59;
+      sub_25228A708(*(v84 + 8), v59);
+      v60 = malloc_type_calloc(1uLL, 0x10uLL, 0x1020040D5A9D86FuLL);
+      v50[12] = v60;
+      sub_25228A7B4(v84 + 120, v60);
+      krb5_free_creds(a1, v84);
+      v61 = sub_25228B2DC(&v75);
+      v62 = malloc_type_malloc(v61, 0xF5681FE4uLL);
+      if (v62)
       {
-        v62 = v61;
-        v63 = sub_25228B2BC(v61 + v60 - 1, v60, &v73, &v72);
-        if (!v63)
+        v63 = v62;
+        v64 = sub_25228B2BC(v62 + v61 - 1, v61, &v75, &v74);
+        if (!v64)
         {
-          sub_25228B2EC(&v73);
-          if (v60 == v72)
+          sub_25228B2EC(&v75);
+          if (v61 == v74)
           {
-            v64 = krb5_crypto_init(a1, *(a2 + 32), 0, &v71);
-            if (v64)
+            v66 = krb5_crypto_init(a1, *(a2 + 32), 0, &v73);
+            if (v66)
             {
               goto LABEL_94;
             }
 
-            kdc_cred = krb5_encrypt_EncryptedData(a1, v71, 14, v62, v72, 0, v79);
-            free(v62);
-            krb5_crypto_destroy(a1, v71);
+            kdc_cred = krb5_encrypt_EncryptedData(a1, v73, 14, v63, v74, 0, v81);
+            free(v63);
+            krb5_crypto_destroy(a1, v73);
             if (kdc_cred)
             {
               goto LABEL_84;
             }
 
-            v65 = sub_25228B27C(&v77);
-            v66 = malloc_type_malloc(v65, 0x5D5E8B7FuLL);
-            if (!v66)
+            v67 = sub_25228B27C(&v79);
+            v68 = malloc_type_malloc(v67, 0x5D5E8B7FuLL);
+            if (!v68)
             {
               kdc_cred = 12;
               goto LABEL_84;
             }
 
-            v62 = v66;
-            v64 = sub_25228B25C(v66 + v65 - 1, v65, &v77, &v72);
-            if (v64)
+            v63 = v68;
+            v66 = sub_25228B25C(v68 + v67 - 1, v67, &v79, &v74);
+            if (v66)
             {
 LABEL_94:
-              kdc_cred = v64;
-              free(v62);
+              kdc_cred = v66;
+              free(v63);
               goto LABEL_84;
             }
 
-            sub_25228B28C(&v77);
-            if (v65 == v72)
+            sub_25228B28C(&v79);
+            if (v67 == v74)
             {
               kdc_cred = 0;
-              *v43 = v65;
-              v43[1] = v62;
+              *v43 = v67;
+              v43[1] = v63;
               return kdc_cred;
             }
           }
@@ -6321,8 +6477,8 @@ LABEL_94:
           krb5_abortx(a1, "internal error in ASN.1 encoder");
         }
 
-        kdc_cred = v63;
-        free(v62);
+        kdc_cred = v64;
+        free(v63);
       }
 
       else
@@ -6330,9 +6486,9 @@ LABEL_94:
         kdc_cred = 12;
       }
 
-      sub_25228B2EC(&v73);
+      sub_25228B2EC(&v75);
 LABEL_84:
-      sub_25228B28C(&v77);
+      sub_25228B28C(&v79);
       return kdc_cred;
     }
 
@@ -6340,12 +6496,12 @@ LABEL_88:
     kdc_cred = 12;
     krb5_set_error_message(a1, 12, "malloc: out of memory");
 LABEL_89:
-    sub_25228B2EC(&v73);
+    sub_25228B2EC(&v75);
 LABEL_90:
-    sub_25228B28C(&v77);
-    if (v82)
+    sub_25228B28C(&v79);
+    if (v84)
     {
-      krb5_free_creds(a1, v82);
+      krb5_free_creds(a1, v84);
     }
 
     return kdc_cred;
@@ -6354,9 +6510,9 @@ LABEL_90:
   kdc_cred = 12;
   krb5_set_error_message(a1, 12, "malloc: out of memory");
 LABEL_39:
-  v20 = &v80;
-  krb5_free_addresses(a1, &v80);
-  freeaddrinfo(v70);
+  v20 = &v82;
+  krb5_free_addresses(a1, &v82);
+  freeaddrinfo(v72);
   if (!kdc_cred)
   {
     LOBYTE(magic) = 1;
@@ -6441,7 +6597,7 @@ LABEL_19:
 
   if (a3)
   {
-    v19 = !BOOL_default;
+    v19 = BOOL_default == 0;
   }
 
   else
@@ -6498,9 +6654,9 @@ LABEL_18:
 
 uint64_t sub_25225C9FC(uint64_t a1, const char *a2, void **a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   strings = krb5_config_get_strings(a1, 0, a3, a4, a5, a6, a7, a8, "libdefaults");
-  v29 = strings;
+  v28 = strings;
   if (strings)
   {
     v11 = strings;
@@ -6619,19 +6775,18 @@ uint64_t sub_25225C9FC(uint64_t a1, const char *a2, void **a3, uint64_t a4, uint
 
   v26 = 0xFFFFFFFFLL;
 LABEL_34:
-  if (v29)
+  if (v28)
   {
-    krb5_config_free_strings(v29);
+    krb5_config_free_strings(v28);
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
 krb5_error_code krb5_get_host_realm(krb5_context a1, const char *a2, char ***a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v26 = 0;
+  v28 = *MEMORY[0x277D85DE8];
+  v25 = 0;
   if (a2)
   {
     __strlcpy_chk();
@@ -6642,8 +6797,7 @@ krb5_error_code krb5_get_host_realm(krb5_context a1, const char *a2, char ***a3)
     if (gethostname(__s, 0x100uLL))
     {
       *a3 = 0;
-      v23 = *__error();
-      goto LABEL_23;
+      return *__error();
     }
 
     __s[255] = 0;
@@ -6653,8 +6807,7 @@ krb5_error_code krb5_get_host_realm(krb5_context a1, const char *a2, char ***a3)
   v6 = heim_array_create();
   if (!v6)
   {
-    v23 = 12;
-    goto LABEL_23;
+    return 12;
   }
 
   v13 = v6;
@@ -6662,21 +6815,21 @@ krb5_error_code krb5_get_host_realm(krb5_context a1, const char *a2, char ***a3)
   if (strings)
   {
     v15 = strings;
-    v26 = strings;
+    v25 = strings;
     sub_25225CE24(v13, strings);
     krb5_free_host_realm(a1, v15);
   }
 
-  v27[0] = __s;
-  v27[1] = v13;
-  krb5_plugin_run_f(a1, "krb5", "krb5_configuration", 1u, 0, v27, sub_25225CE90);
+  v26[0] = __s;
+  v26[1] = v13;
+  krb5_plugin_run_f(a1, "krb5", "krb5_configuration", 1u, 0, v26, sub_25225CE90);
   v16 = strchr(__s, 46) != 0;
-  if (!_krb5_get_host_realm_int(a1, __s, v16, &v26, v17, v18, v19, v20))
+  if (!_krb5_get_host_realm_int(a1, __s, v16, &v25, v17, v18, v19, v20))
   {
-    v21 = v26;
-    if (v26)
+    v21 = v25;
+    if (v25)
     {
-      sub_25225CE24(v13, v26);
+      sub_25225CE24(v13, v25);
       krb5_free_host_realm(a1, v21);
     }
   }
@@ -6688,7 +6841,7 @@ krb5_error_code krb5_get_host_realm(krb5_context a1, const char *a2, char ***a3)
     {
       v23 = -1765328167;
       krb5_set_error_message(a1, -1765328167, "Unable to find realm of self");
-      goto LABEL_23;
+      return v23;
     }
 
     v23 = sub_25225B8EC(a1, v13, a3);
@@ -6700,13 +6853,11 @@ krb5_error_code krb5_get_host_realm(krb5_context a1, const char *a2, char ***a3)
     v23 = 0;
 LABEL_22:
     heim_release(v13);
-    goto LABEL_23;
+    return v23;
   }
 
   v23 = -1765328167;
   krb5_set_error_message(a1, -1765328167, "Unable to find realm of host %s");
-LABEL_23:
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -6766,21 +6917,21 @@ void sub_25225CEBC(int a1, __CFArray *a2, char *cStr)
   }
 }
 
-void sub_25225CF18()
+void sub_25225CF18(uint64_t a1, int a2, int a3, uint64_t a4, int a5)
 {
-  v0 = objc_autoreleasePoolPush();
+  v5 = objc_autoreleasePoolPush();
   AnalyticsSendEventLazy();
-  objc_autoreleasePoolPop(v0);
+  objc_autoreleasePoolPop(v5);
 }
 
 uint64_t sub_25225CFCC(uint64_t a1)
 {
-  v7[4] = *MEMORY[0x277D85DE8];
-  v6[0] = @"AS_REQ_replykey_et";
-  v7[0] = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 40)];
-  v6[1] = @"AS_REQ_useret_et";
-  v7[1] = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 44)];
-  v6[2] = @"AS_REQ_preauth";
+  v6[4] = *MEMORY[0x277D85DE8];
+  v5[0] = @"AS_REQ_replykey_et";
+  v6[0] = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 40)];
+  v5[1] = @"AS_REQ_useret_et";
+  v6[1] = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 44)];
+  v5[2] = @"AS_REQ_preauth";
   v2 = [MEMORY[0x277CCACA8] stringWithCString:*(a1 + 32) encoding:4];
   v3 = @"unknown";
   if (v2)
@@ -6788,12 +6939,10 @@ uint64_t sub_25225CFCC(uint64_t a1)
     v3 = v2;
   }
 
-  v7[2] = v3;
-  v6[3] = @"AS_REQ_FAST";
-  v7[3] = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
-  result = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:4];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v6[2] = v3;
+  v5[3] = @"AS_REQ_FAST";
+  v6[3] = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
+  return [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:4];
 }
 
 uint64_t krb5_getportbyname(int a1, char *a2, char *a3, unsigned int a4)
@@ -6987,7 +7136,7 @@ void sub_25225D480(uint64_t a1, void (*a2)(uint64_t, uint64_t, void, char *, voi
   }
 }
 
-uint64_t _krb5_make_pa_enc_challange(_krb5_context *a1, _DWORD **a2, uint64_t a3, unsigned int *a4)
+uint64_t _krb5_make_pa_enc_challange(_krb5_context *a1, uint64_t *a2, uint64_t a3, unsigned int *a4)
 {
   *v23 = 0;
   v24 = 0;
@@ -7060,21 +7209,21 @@ LABEL_4:
   return v12;
 }
 
-uint64_t _krb5_validate_pa_enc_challange(_krb5_context *a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5)
+uint64_t _krb5_validate_pa_enc_challange(_krb5_context *a1, uint64_t *a2, uint64_t a3, uint64_t a4, const char *a5)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v15 = 0;
   v16 = 0;
-  v17 = 0;
-  v15[0] = 0;
-  v15[1] = 0;
-  *v14 = 0;
-  v13 = 0;
+  v14[0] = 0;
+  v14[1] = 0;
+  *v13 = 0;
   v12 = 0;
-  v7 = krb5_decrypt_EncryptedData(a1, a2, a3, a4, &v16);
+  v11 = 0;
+  v7 = krb5_decrypt_EncryptedData(a1, a2, a3, a4, &v15);
   if (!v7)
   {
-    v8 = sub_25228AD58(v17, v16, v15, &v12);
-    krb5_data_free(&v16);
+    v8 = sub_25228AD58(v16, v15, v14, &v11);
+    krb5_data_free(&v15);
     if (v8)
     {
       v7 = 2529638936;
@@ -7083,25 +7232,24 @@ uint64_t _krb5_validate_pa_enc_challange(_krb5_context *a1, uint64_t a2, uint64_
 
     else
     {
-      krb5_us_timeofday(a1, v14, &v13);
-      if (krb5_time_abs(*v14, v15[0]) <= *(a1 + 10))
+      krb5_us_timeofday(a1, v13, &v12);
+      if (krb5_time_abs(*v13, v14[0]) <= *(a1 + 10))
       {
         v7 = 0;
       }
 
       else
       {
-        krb5_format_time(a1, v15[0], v18, 0x64uLL, 1);
-        v9 = krb5_time_abs(*v14, v15[0]);
-        sub_25226B748(a1, 0, "Too large time skew, client time %s is out by %u > %d seconds -- %s", v18, v9, *(a1 + 10), a5);
+        krb5_format_time(a1, v14[0], v17, 0x64uLL, 1);
+        v9 = krb5_time_abs(*v13, v14[0]);
+        sub_25226B748(a1, 0, "Too large time skew, client time %s is out by %u > %d seconds -- %s", v17, v9, *(a1 + 10), a5);
         v7 = 2529638949;
       }
     }
 
-    sub_25228ADA8(v15);
+    sub_25228ADA8(v14);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -7142,42 +7290,39 @@ void *_krb5_srp_create(uint64_t a1)
 uint64_t _krb5_srp_create_pa(_krb5_context *a1, uint64_t a2, const krb5_principal_data *a3, const char *a4, uint64_t a5, size_t *a6)
 {
   (*(a2 + 8))();
-  v12 = ccdh_ccn_size();
-  v13 = krb5_data_alloc(a6, v12);
-  if (!v13)
+  v11 = ccdh_ccn_size();
+  v12 = krb5_data_alloc(a6, v11);
+  if (!v12)
   {
-    v28[1] = 0;
-    v29 = 0;
-    v28[0] = 0;
-    v14 = krb5_unparse_name_flags(a1, a3, 2, &v29);
-    if (v14)
+    v20[1] = 0;
+    v21 = 0;
+    v20[0] = 0;
+    v13 = krb5_unparse_name_flags(a1, a3, 2, &v21);
+    if (v13)
     {
-      v13 = v14;
+      v12 = v13;
 LABEL_7:
       krb5_data_free(a6);
-      return v13;
+      return v12;
     }
 
-    v15 = (*(a2 + 16))();
-    v16 = krb5_data_alloc(v28, *v15);
-    if (v16 || ((*(a2 + 16))(), strlen(a4), v17 = *(a5 + 8), v18 = *(a5 + 16), v19 = *(a5 + 24), v20 = *(*(a2 + 16))(), v16 = ccpbkdf2_hmac(), v16))
+    v14 = (*(a2 + 16))();
+    v15 = krb5_data_alloc(v20, *v14);
+    if (v15 || ((*(a2 + 16))(), strlen(a4), (*(a2 + 16))(), v15 = ccpbkdf2_hmac(), v15))
     {
-      v13 = v16;
-      free(v29);
+      v12 = v15;
+      free(v21);
       goto LABEL_7;
     }
 
-    v22 = _krb5_srp_create(a2);
-    if (v22)
+    v17 = _krb5_srp_create(a2);
+    if (v17)
     {
-      v23 = v22;
-      v24 = *(a5 + 8);
-      v25 = *(a5 + 16);
-      v26 = a6[1];
+      v18 = v17;
       verifier = ccsrp_generate_verifier();
-      krb5_data_free(v28);
-      krb5_xfree(v23);
-      krb5_xfree(v29);
+      krb5_data_free(v20);
+      krb5_xfree(v18);
+      krb5_xfree(v21);
       if (verifier)
       {
         return 22;
@@ -7192,13 +7337,13 @@ LABEL_7:
     else
     {
       krb5_data_free(a6);
-      krb5_data_free(v28);
-      krb5_xfree(v29);
+      krb5_data_free(v20);
+      krb5_xfree(v21);
       return 12;
     }
   }
 
-  return v13;
+  return v12;
 }
 
 uint64_t _krb5_srp_reply_key(_krb5_context *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, __int128 *a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -7221,7 +7366,7 @@ uint64_t sub_25225DAEC(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_25225DB04(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int *a9)
+uint64_t sub_25225DB04(_krb5_context *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int *a9)
 {
   if (a6)
   {
@@ -7250,7 +7395,7 @@ uint64_t sub_25225DB04(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
   return result;
 }
 
-uint64_t sub_25225DBA0(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int *a9)
+uint64_t sub_25225DBA0(_krb5_context *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int *a9)
 {
   if (a6)
   {
@@ -7306,52 +7451,51 @@ uint64_t sub_25225DC60(_krb5_context *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   {
     if (v14 == 3)
     {
-      v84 = 0;
-      v85[0] = 0;
-      v82 = 0;
-      v83[0] = 0;
+      v48 = 0;
+      v49[0] = 0;
+      v46 = 0;
+      v47[0] = 0;
       if (a6)
       {
-        if (!sub_25228B814(*(a4 + 16), *(a4 + 8), &v84, &v82))
+        if (!sub_25228B814(*(a4 + 16), *(a4 + 8), &v48, &v46))
         {
-          if (v84 != *(a3 + 24))
+          if (v48 != *(a3 + 24))
           {
             *a3 = 4;
-            sub_25228B834(&v84);
+            sub_25228B834(&v48);
             return v11;
           }
 
-          v33 = *(a3 + 16);
-          v34 = ccsrp_client_verify_session();
-          sub_25228B834(&v84);
-          if (v34)
+          v25 = ccsrp_client_verify_session();
+          sub_25228B834(&v48);
+          if (v25)
           {
-            v35 = *(a2 + 944);
-            if (v35)
+            v26 = *(a2 + 944);
+            if (v26)
             {
-              krb5_free_keyblock(a1, v35);
+              krb5_free_keyblock(a1, v26);
             }
 
-            v36 = malloc_type_calloc(1uLL, 0x18uLL, 0x10800404ACF7207uLL);
-            *(a2 + 944) = v36;
-            if (v36)
+            v27 = malloc_type_calloc(1uLL, 0x18uLL, 0x10800404ACF7207uLL);
+            *(a2 + 944) = v27;
+            if (v27)
             {
-              v37 = *(a6 + 16);
-              v86 = *(a6 + 24);
-              *&v87 = *(a6 + 40);
-              if (!_krb5_principalname2krb5_principal(a1, v83, &v86, v37))
+              v28 = *(a6 + 16);
+              v50 = *(a6 + 24);
+              *&v51 = *(a6 + 40);
+              if (!_krb5_principalname2krb5_principal(a1, v47, &v50, v28))
               {
-                v38 = *(a6 + 120);
-                v39 = *(a3 + 8);
-                v40 = *(a3 + 16);
-                v41 = MEMORY[0x25309D8B0](*(v40 + 8));
-                v42 = *(a3 + 24);
-                v43 = *(a2 + 944);
-                v86 = **(v39 + 24);
-                *&v87 = 0;
-                LODWORD(v38) = _krb5_pk_kdf(a1, &v86, v40 + 32 * v41 + 32, v42, &v83[0]->magic, 0, v38, a2 + 192, a3 + 56, 0, v43);
-                krb5_free_principal(a1, v83[0]);
-                if (!v38)
+                v29 = *(a6 + 120);
+                v30 = *(a3 + 8);
+                v31 = *(a3 + 16);
+                v32 = MEMORY[0x25309D8B0](*(v31 + 8));
+                v33 = *(a3 + 24);
+                v34 = *(a2 + 944);
+                v50 = **(v30 + 24);
+                *&v51 = 0;
+                LODWORD(v29) = _krb5_pk_kdf(a1, &v50, v31 + 32 * v32 + 32, v33, &v47[0]->magic, 0, v29, a2 + 192, a3 + 56, 0, v34);
+                krb5_free_principal(a1, v47[0]);
+                if (!v29)
                 {
                   v11 = 0;
                   *(a2 + 444) |= 4u;
@@ -7385,29 +7529,29 @@ uint64_t sub_25225DC60(_krb5_context *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   if (v14 == 1)
   {
-    v88 = 0;
-    v86 = 0u;
-    v87 = 0u;
-    v83[0] = 0;
-    v85[0] = 0;
-    v85[1] = 0;
-    v84 = 0;
-    if (sub_25228B734(*(a4 + 16), *(a4 + 8), &v86, v83))
+    v52 = 0;
+    v50 = 0u;
+    v51 = 0u;
+    v47[0] = 0;
+    v49[0] = 0;
+    v49[1] = 0;
+    v48 = 0;
+    if (sub_25228B734(*(a4 + 16), *(a4 + 8), &v50, v47))
     {
       goto LABEL_14;
     }
 
     if (!krb5_data_copy((a3 + 56), *(a4 + 16), *(a4 + 8)))
     {
-      v29 = v86;
-      if (v86)
+      v21 = v50;
+      if (v50)
       {
-        v30 = *(&v86 + 1);
-        v31 = v86;
-        while (*v30 != 1)
+        v22 = *(&v50 + 1);
+        v23 = v50;
+        while (*v22 != 1)
         {
-          v30 += 32;
-          if (!--v31)
+          v22 += 8;
+          if (!--v23)
           {
             *(a3 + 8) = 0;
             goto LABEL_26;
@@ -7415,11 +7559,11 @@ uint64_t sub_25225DC60(_krb5_context *a1, uint64_t a2, uint64_t a3, uint64_t a4,
         }
 
         *(a3 + 8) = &unk_2864726B0;
-        if (!copy_KRB5_SRP_PA())
+        if (!copy_KRB5_SRP_PA(v22, a3 + 72))
         {
-          v44 = _krb5_srp_create(*(a3 + 8));
-          *(a3 + 16) = v44;
-          if (v44)
+          v35 = _krb5_srp_create(*(a3 + 8));
+          *(a3 + 16) = v35;
+          if (v35)
           {
             *(a3 + 24) = *(*(*(a3 + 8) + 16))();
             (*(*(a3 + 8) + 8))();
@@ -7428,48 +7572,42 @@ uint64_t sub_25225DC60(_krb5_context *a1, uint64_t a2, uint64_t a3, uint64_t a4,
             {
               (*(*(a3 + 8) + 16))();
               strlen(*(a2 + 336));
-              v45 = *(v30 + 8);
-              v46 = *(v30 + 16);
-              v47 = *(v30 + 24);
-              v48 = *(a3 + 24);
-              v49 = *(a3 + 48);
-              v50 = ccpbkdf2_hmac();
-              sub_25228B754(&v86);
-              if (v50 || krb5_data_alloc(v85, *(a3 + 32)))
+              v36 = ccpbkdf2_hmac();
+              sub_25228B754(&v50);
+              if (v36 || krb5_data_alloc(v49, *(a3 + 32)))
               {
                 goto LABEL_14;
               }
 
-              v51 = *(a3 + 16);
-              LODWORD(v84) = **(a3 + 8);
+              LODWORD(v48) = **(a3 + 8);
               ccDRBGGetRngState();
               ccsrp_client_start_authentication();
-              v52 = sub_25228B784(&v84);
-              v53 = malloc_type_malloc(v52, 0xAB8E836CuLL);
-              if (v53)
+              v37 = sub_25228B784(&v48);
+              v38 = malloc_type_malloc(v37, 0xAB8E836CuLL);
+              if (v38)
               {
-                v54 = v53;
-                if (!sub_25228B764(v52 + v53 - 1, v52, &v84, v83))
+                v39 = v38;
+                if (!sub_25228B764(v37 + v38 - 1, v37, &v48, v47))
                 {
-                  v72 = sub_25228B794(&v84);
-                  if (v52 != v83[0])
+                  sub_25228B794(&v48);
+                  if (v37 != v47[0])
                   {
-                    sub_2522A7CC8(v72, v73, v74, v75, v76, v77, v78, v79);
+                    sub_2522A7CC8();
                   }
 
-                  if (krb5_padata_add(a1, a9, 250, v54, v52))
+                  if (krb5_padata_add(a1, a9, 250, v39, v37))
                   {
                     goto LABEL_58;
                   }
 
-                  v71 = 2;
+                  v43 = 2;
                   goto LABEL_60;
                 }
 
-                free(v54);
+                free(v39);
               }
 
-              sub_25228B794(&v84);
+              sub_25228B794(&v48);
 LABEL_14:
               *a3 = 4;
               return v11;
@@ -7481,12 +7619,12 @@ LABEL_14:
       else
       {
 LABEL_26:
-        sub_25226B748(a1, 0, "KDC didn't send a good SRP group for us, sent %u group(s)", v29);
+        sub_25226B748(a1, 0, "KDC didn't send a good SRP group for us, sent %u group(s)", v21);
       }
     }
 
     *a3 = 4;
-    sub_25228B754(&v86);
+    sub_25228B754(&v50);
     return v11;
   }
 
@@ -7496,102 +7634,96 @@ LABEL_18:
     krb5_abortx(a1, "internal state machine error");
   }
 
-  v84 = 0;
-  v85[0] = 0;
-  v81 = 0;
-  v82 = 0;
-  v80 = 0;
-  v83[0] = 0;
-  v83[1] = 0;
-  v16 = sub_25228B7A4(*(a4 + 16), *(a4 + 8), &v84, &v80);
-  if (v16)
+  v48 = 0;
+  v49[0] = 0;
+  v45 = 0;
+  v46 = 0;
+  v44 = 0;
+  v47[0] = 0;
+  v47[1] = 0;
+  if (sub_25228B7A4(*(a4 + 16), *(a4 + 8), &v48, &v44))
   {
     goto LABEL_14;
   }
 
-  if (v84 != *(a3 + 32))
+  if (v48 != *(a3 + 32))
   {
     goto LABEL_12;
   }
 
-  v24 = *(a5 + 24);
-  if (!v24)
+  v16 = *(a5 + 24);
+  if (!v16)
   {
-    sub_2522A7CB0(v16, v17, v18, v19, v20, v21, v22, v23);
+    sub_2522A7CB0();
   }
 
-  v25 = *(a5 + 32);
-  v26 = *v24;
-  *&v87 = *(v24 + 16);
-  v86 = v26;
-  if (_krb5_principalname2krb5_principal(a1, &v82, &v86, v25))
+  v17 = *(a5 + 32);
+  v18 = *v16;
+  *&v51 = *(v16 + 16);
+  v50 = v18;
+  if (_krb5_principalname2krb5_principal(a1, &v46, &v50, v17))
   {
     goto LABEL_12;
   }
 
-  v27 = krb5_unparse_name_flags(a1, v82, 2, &v81);
-  krb5_free_principal(a1, v82);
-  if (v27)
+  v19 = krb5_unparse_name_flags(a1, v46, 2, &v45);
+  krb5_free_principal(a1, v46);
+  if (v19)
   {
     goto LABEL_12;
   }
 
-  if (!krb5_data_alloc(v83, *(a3 + 24)))
+  if (!krb5_data_alloc(v47, *(a3 + 24)))
   {
-    sub_25226B748(a1, 5, "ccsrp client start for user: %s", v81);
-    v55 = *(a3 + 16);
-    v56 = *(a3 + 40);
-    v57 = *(a3 + 48);
-    v58 = *(a3 + 80);
-    v59 = *(a3 + 88);
-    v60 = ccsrp_client_process_challenge();
-    sub_25228B7C4(&v84);
-    if (v60)
+    sub_25226B748(a1, 5, "ccsrp client start for user: %s", v45);
+    v40 = ccsrp_client_process_challenge();
+    sub_25228B7C4(&v48);
+    if (v40)
     {
       *a3 = 4;
-      sub_25228B804(v83);
+      sub_25228B804(v47);
       return v11;
     }
 
-    v61 = sub_25228B7F4(v83);
-    v62 = malloc_type_malloc(v61, 0xCA8FADC3uLL);
-    if (!v62)
+    v41 = sub_25228B7F4(v47);
+    v42 = malloc_type_malloc(v41, 0xCA8FADC3uLL);
+    if (!v42)
     {
       goto LABEL_55;
     }
 
-    v54 = v62;
-    if (sub_25228B7D4(v62 + v61 - 1, v61, v83, &v80))
+    v39 = v42;
+    if (sub_25228B7D4(v42 + v41 - 1, v41, v47, &v44))
     {
-      free(v54);
+      free(v39);
 LABEL_55:
-      sub_25228B804(v83);
+      sub_25228B804(v47);
       goto LABEL_14;
     }
 
-    v63 = sub_25228B804(v83);
-    if (v61 != v80)
+    sub_25228B804(v47);
+    if (v41 != v44)
     {
-      sub_2522A7C98(v63, v64, v65, v66, v67, v68, v69, v70);
+      sub_2522A7C98();
     }
 
-    if (krb5_padata_add(a1, a9, 250, v54, v61))
+    if (krb5_padata_add(a1, a9, 250, v39, v41))
     {
 LABEL_58:
-      free(v54);
+      free(v39);
       goto LABEL_14;
     }
 
-    v71 = 3;
+    v43 = 3;
 LABEL_60:
-    *a3 = v71;
+    *a3 = v43;
     return 2314790668;
   }
 
-  free(v81);
+  free(v45);
 LABEL_12:
   *a3 = 4;
-  sub_25228B7C4(&v84);
+  sub_25228B7C4(&v48);
   return v11;
 }
 
@@ -7604,7 +7736,7 @@ uint64_t sub_25225E234(uint64_t a1)
   return free_KRB5_SRP_PA(a1 + 72);
 }
 
-uint64_t sub_25225E280(_krb5_context *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int *a9)
+uint64_t sub_25225E280(_krb5_context *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned int *a8, unsigned int *a9)
 {
   v34 = 0;
   memset(v40, 0, sizeof(v40));
@@ -7751,7 +7883,7 @@ uint64_t sub_25225E5B8(_krb5_context *a1, uint64_t a2, uint64_t a3)
   return 0;
 }
 
-uint64_t sub_25225E5EC(krb5_context a1, uint64_t a2, krb5_principal *a3, int a4, uint64_t a5, uint64_t a6, int a7, uint64_t a8, unsigned int *a9)
+uint64_t sub_25225E5EC(krb5_context a1, uint64_t a2, krb5_principal *a3, int a4, uint64_t a5, uint64_t a6, int a7, unsigned int *a8, unsigned int *a9)
 {
   v16 = a3 + 1;
   v15 = a3[1];
@@ -7976,37 +8108,36 @@ void sub_25225EA74(uint64_t a1)
 
 uint64_t sub_25225EA88(_krb5_context *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int *a9)
 {
-  v25 = 0;
-  v24 = 0;
+  v17 = 0;
+  v16 = 0;
   result = *(a2 + 368);
   if (result)
   {
-    v24 = result == 1;
-    v11 = sub_25228ADD8(&v24);
+    v16 = result == 1;
+    v11 = sub_25228ADD8(&v16);
     v12 = malloc_type_malloc(v11, 0x14132748uLL);
     if (v12)
     {
       v13 = v12;
-      v14 = sub_25228ADB8(v12 + v11 - 1, v11, &v24, &v25);
-      v22 = v14;
+      v14 = sub_25228ADB8(v12 + v11 - 1, v11, &v16, &v17);
       if (v14)
       {
         goto LABEL_6;
       }
 
-      if (v25 != v11)
+      if (v17 != v11)
       {
-        sub_2522A7CE0(v14, v15, v16, v17, v18, v19, v20, v21);
+        sub_2522A7CE0();
       }
 
-      v23 = krb5_padata_add(a1, a9, 128, v13, v11);
-      v22 = 0;
+      v15 = krb5_padata_add(a1, a9, 128, v13, v11);
+      v14 = 0;
       result = 0;
-      if (v23)
+      if (v15)
       {
 LABEL_6:
         free(v13);
-        return v22;
+        return v14;
       }
     }
 
@@ -8055,10 +8186,10 @@ uint64_t sub_25225EBDC(_krb5_context *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 }
 
-uint64_t sub_25225EC00(_krb5_context *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int *a9)
+uint64_t sub_25225EC00(_krb5_context *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unsigned int *a8, unsigned int *a9)
 {
   v15 = 0;
-  padata = krb5_find_padata(*(a8 + 8), *a8, 133, &v15);
+  padata = krb5_find_padata(*(a8 + 1), *a8, 133, &v15);
   v11 = padata;
   if (padata)
   {
@@ -8292,7 +8423,7 @@ LABEL_22:
   return a4;
 }
 
-int *sub_25225F024(_krb5_context *a1, uint64_t a2, uint64_t a3, int *a4, uint64_t a5)
+unsigned int *sub_25225F024(_krb5_context *a1, uint64_t a2, uint64_t a3, unsigned int *a4, size_t *a5)
 {
   v5 = *a4;
   if (!v5)
@@ -8305,7 +8436,7 @@ int *sub_25225F024(_krb5_context *a1, uint64_t a2, uint64_t a3, int *a4, uint64_
     return 0;
   }
 
-  if (sub_252261F3C(a4, a1, *a4, a4[2], *(a5 + 8), *a5, 0))
+  if (sub_252261F3C(a4, a1, *a4, a4[2], a5[1], *a5, 0))
   {
     return 0;
   }
@@ -8690,7 +8821,7 @@ uint64_t krb5_init_creds_set_sitename(_krb5_context *a1, uint64_t a2, char *__s1
   return krb5_enomem(a1);
 }
 
-uint64_t krb5_init_creds_set_source_process(uint64_t a1, uint64_t a2, unsigned __int8 *a3, int a4, char *__s1)
+uint64_t krb5_init_creds_set_source_process(uint64_t a1, uint64_t a2, _OWORD *a3, int a4, char *__s1)
 {
   *(a2 + 444) |= 8u;
   *(a2 + 408) = *a3;
@@ -8706,7 +8837,7 @@ uint64_t krb5_init_creds_set_source_process(uint64_t a1, uint64_t a2, unsigned _
     *(a2 + 432) = strdup(__s1);
   }
 
-  sub_25226B748(a1, 5, "krb5_init_creds_set_source_app: %s %d%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x", __s1, a4, *a3, a3[1], a3[2], a3[3], a3[4], a3[5], a3[6], a3[7], a3[8], a3[9], a3[10], a3[11], a3[12], a3[13], a3[14], a3[15]);
+  sub_25226B748(a1, 5, "krb5_init_creds_set_source_app: %s %d%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x", __s1, a4, *a3, *(a3 + 1), *(a3 + 2), *(a3 + 3), *(a3 + 4), *(a3 + 5), *(a3 + 6), *(a3 + 7), *(a3 + 8), *(a3 + 9), *(a3 + 10), *(a3 + 11), *(a3 + 12), *(a3 + 13), *(a3 + 14), *(a3 + 15));
   return 0;
 }
 
@@ -8746,11 +8877,12 @@ uint64_t krb5_init_creds_set_service(_krb5_context *a1, uint64_t a2, const char 
   return result;
 }
 
-uint64_t krb5_init_creds_set_pkinit_client_cert(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t krb5_init_creds_set_pkinit_client_cert(uint64_t a1, uint64_t a2, const void *a3)
 {
-  if (*(a2 + 1064))
+  v5 = *(a2 + 1064);
+  if (v5)
   {
-    hx509_cert_free();
+    hx509_cert_free(v5);
   }
 
   *(a2 + 1064) = hx509_cert_ref(a3);
@@ -9031,297 +9163,292 @@ uint64_t krb5_init_creds_set_fast_ccache(_krb5_context *a1, uint64_t a2, _krb5_c
   return krbtgt;
 }
 
-uint64_t krb5_init_creds_step(_krb5_context *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, void *a6, _DWORD *a7)
+uint64_t krb5_init_creds_step(_krb5_context *a1, int *a2, const krb5_data *a3, void *a4, uint64_t a5, void *a6, _DWORD *a7)
 {
-  v137 = *MEMORY[0x277D85DE8];
-  *&v135.tv_usec = 0;
-  v135.tv_sec = 0;
-  *&v134.tv_usec = 0;
-  v134.tv_sec = 0;
-  v133[1] = 0;
-  v133[0] = 0;
-  v132 = 0;
-  v131 = 0;
-  v130 = 0;
-  memset(v129, 0, sizeof(v129));
-  gettimeofday(&v135, 0);
+  v90 = *MEMORY[0x277D85DE8];
+  *&v88.tv_usec = 0;
+  v88.tv_sec = 0;
+  *&v87.tv_usec = 0;
+  v87.tv_sec = 0;
+  v86[1] = 0;
+  v86[0] = 0;
+  v85 = 0;
+  v84 = 0;
+  v83 = 0;
+  memset(v82, 0, sizeof(v82));
+  gettimeofday(&v88, 0);
   krb5_data_zero(a4);
-  krb5_data_zero(v133);
+  krb5_data_zero(v86);
   if (a6)
   {
     *a6 = 0;
   }
 
-  if (*(a2 + 232))
+  if (*(a2 + 29))
   {
     v14 = 0;
     goto LABEL_5;
   }
 
-  v18 = *(a2 + 376);
+  v18 = *(a2 + 47);
   if (v18)
   {
-    v19 = *(a2 + 1064);
+    v19 = *(a2 + 133);
     if (v19)
     {
       sub_2522719D8(a1, v18, v19);
     }
   }
 
-  v20 = *(a2 + 152);
-  v21 = *(a2 + 160);
+  v20 = *(a2 + 19);
+  v21 = *(a2 + 20);
   v22 = *a2;
-  *(a2 + 320) = 0;
-  *(a2 + 288) = 0u;
-  *(a2 + 304) = 0u;
-  *(a2 + 256) = 0u;
-  *(a2 + 272) = 0u;
-  *(a2 + 224) = 0u;
-  *(a2 + 240) = 0u;
-  *(a2 + 208) = 0u;
-  *(a2 + 208) = 0xA00000005;
-  *(a2 + 224) = v22;
+  *(a2 + 40) = 0;
+  *(a2 + 18) = 0u;
+  *(a2 + 19) = 0u;
+  *(a2 + 16) = 0u;
+  *(a2 + 17) = 0u;
+  *(a2 + 14) = 0u;
+  *(a2 + 15) = 0u;
+  *(a2 + 13) = 0u;
+  *(a2 + 26) = 0xA00000005;
+  a2[56] = v22;
   v23 = malloc_type_malloc(0x18uLL, 0x10800407C14B876uLL);
-  *(a2 + 232) = v23;
+  *(a2 + 29) = v23;
   if (!v23)
   {
-    goto LABEL_144;
-  }
-
-  v24 = malloc_type_calloc(1uLL, 0x18uLL, 0x10800407C14B876uLL);
-  *(a2 + 248) = v24;
-  if (!v24)
-  {
-    goto LABEL_144;
-  }
-
-  v25 = *(a2 + 232);
-  v26 = *(a2 + 8);
-  inited = _krb5_principal2principalname();
-  if (inited)
-  {
-    goto LABEL_16;
-  }
-
-  v28 = *(a2 + 8);
-  inited = sub_25228A694();
-  if (inited)
-  {
-    goto LABEL_16;
-  }
-
-  v29 = *(a2 + 248);
-  v30 = *(a2 + 16);
-  inited = _krb5_principal2principalname();
-  if (inited)
-  {
-    goto LABEL_16;
-  }
-
-  if (*(a2 + 56))
-  {
-    v63 = malloc_type_malloc(8uLL, 0x100004000313F17uLL);
-    *(a2 + 256) = v63;
-    if (!v63)
-    {
-      goto LABEL_144;
-    }
-
-    *v63 = *(a2 + 56);
-  }
-
-  if (*(a2 + 64))
-  {
-    v64 = malloc_type_calloc(1uLL, 8uLL, 0x100004000313F17uLL);
-    *(a2 + 264) = v64;
-    *v64 = *(a2 + 64);
-  }
-
-  if (*(a2 + 72))
-  {
-    v65 = malloc_type_malloc(8uLL, 0x100004000313F17uLL);
-    *(a2 + 272) = v65;
-    if (v65)
-    {
-      *v65 = *(a2 + 72);
-      goto LABEL_58;
-    }
-
-LABEL_144:
-    v16 = 12;
-    krb5_set_error_message(a1, 12, "malloc: out of memory");
     goto LABEL_145;
   }
 
+  v24 = malloc_type_calloc(1uLL, 0x18uLL, 0x10800407C14B876uLL);
+  *(a2 + 31) = v24;
+  if (!v24)
+  {
+    goto LABEL_145;
+  }
+
+  inited = _krb5_principal2principalname(*(a2 + 29), *(a2 + 1));
+  if (inited)
+  {
+    goto LABEL_16;
+  }
+
+  inited = sub_25228A694(*(a2 + 1) + 24, (a2 + 60));
+  if (inited)
+  {
+    goto LABEL_16;
+  }
+
+  inited = _krb5_principal2principalname(*(a2 + 31), *(a2 + 2));
+  if (inited)
+  {
+    goto LABEL_16;
+  }
+
+  if (*(a2 + 7))
+  {
+    v43 = malloc_type_malloc(8uLL, 0x100004000313F17uLL);
+    *(a2 + 32) = v43;
+    if (!v43)
+    {
+      goto LABEL_145;
+    }
+
+    *v43 = *(a2 + 7);
+  }
+
+  if (*(a2 + 8))
+  {
+    v44 = malloc_type_calloc(1uLL, 8uLL, 0x100004000313F17uLL);
+    *(a2 + 33) = v44;
+    *v44 = *(a2 + 8);
+  }
+
+  if (*(a2 + 9))
+  {
+    v45 = malloc_type_malloc(8uLL, 0x100004000313F17uLL);
+    *(a2 + 34) = v45;
+    if (v45)
+    {
+      *v45 = *(a2 + 9);
+      goto LABEL_58;
+    }
+
+LABEL_145:
+    v16 = 12;
+    krb5_set_error_message(a1, 12, "malloc: out of memory");
+    goto LABEL_146;
+  }
+
 LABEL_58:
-  *(a2 + 280) = 0;
-  inited = _krb5_init_etype(a1, 2, (a2 + 288), (a2 + 296), v21, v31, v32, v33);
+  a2[70] = 0;
+  inited = _krb5_init_etype(a1, 2, a2 + 72, a2 + 37, v21);
   if (inited)
   {
 LABEL_16:
     v16 = inited;
-LABEL_145:
-    sub_25228ACF4(a2 + 208);
-    *(a2 + 320) = 0;
-    *(a2 + 288) = 0u;
-    *(a2 + 304) = 0u;
-    *(a2 + 256) = 0u;
-    *(a2 + 272) = 0u;
-    *(a2 + 224) = 0u;
-    *(a2 + 240) = 0u;
-    *(a2 + 208) = 0u;
+LABEL_146:
+    sub_25228ACF4((a2 + 52));
+    *(a2 + 40) = 0;
+    *(a2 + 18) = 0u;
+    *(a2 + 19) = 0u;
+    *(a2 + 16) = 0u;
+    *(a2 + 17) = 0u;
+    *(a2 + 14) = 0u;
+    *(a2 + 15) = 0u;
+    *(a2 + 13) = 0u;
     sub_25225F530(a1, a2);
-    goto LABEL_146;
+    return v16;
   }
 
   if (!v20)
   {
-    v96 = malloc_type_malloc(0x10uLL, 0x1020040D5A9D86FuLL);
-    *(a2 + 304) = v96;
-    if (!v96)
+    v72 = malloc_type_malloc(0x10uLL, 0x1020040D5A9D86FuLL);
+    *(a2 + 38) = v72;
+    if (!v72)
     {
-      goto LABEL_144;
+      goto LABEL_145;
     }
 
-    inited = krb5_get_all_client_addrs(a1, v96);
+    inited = krb5_get_all_client_addrs(a1, v72);
     if (inited)
     {
       goto LABEL_16;
     }
 
-    v97 = (a2 + 304);
-    v98 = *(a2 + 304);
-    if (*v98)
+    v73 = a2 + 76;
+    v74 = *(a2 + 38);
+    if (*v74)
     {
-      goto LABEL_151;
+      goto LABEL_152;
     }
 
-    free(v98);
-LABEL_150:
-    *v97 = 0;
-    goto LABEL_151;
+    free(v74);
+LABEL_151:
+    *v73 = 0;
+    goto LABEL_152;
   }
 
   if (!*v20)
   {
-    v97 = (a2 + 304);
-    goto LABEL_150;
+    v73 = a2 + 76;
+    goto LABEL_151;
   }
 
-  v66 = malloc_type_malloc(0x10uLL, 0x1020040D5A9D86FuLL);
-  *(a2 + 304) = v66;
-  if (!v66)
+  v46 = malloc_type_malloc(0x10uLL, 0x1020040D5A9D86FuLL);
+  *(a2 + 38) = v46;
+  if (!v46)
   {
-    goto LABEL_144;
+    goto LABEL_145;
   }
 
-  inited = krb5_copy_addresses(a1, v20, v66);
+  inited = krb5_copy_addresses(a1, v20, v46);
   if (inited)
   {
     goto LABEL_16;
   }
 
-LABEL_151:
-  *(a2 + 216) = 0;
-  *(a2 + 312) = 0;
-  *(a2 + 320) = 0;
-  v102 = *(a2 + 940);
-  if ((v102 & 0x140) == 0)
+LABEL_152:
+  *(a2 + 27) = 0;
+  *(a2 + 39) = 0;
+  *(a2 + 40) = 0;
+  v76 = a2[235];
+  if ((v76 & 0x140) == 0)
   {
-    *(a2 + 940) = v102 | 0x80;
+    a2[235] = v76 | 0x80;
   }
 
-  *(a2 + 1048) = heim_array_create();
-  if (*(a2 + 360) || *(a2 + 352) || *(a2 + 904))
+  *(a2 + 131) = heim_array_create();
+  if (*(a2 + 45) || *(a2 + 44) || *(a2 + 113))
   {
-    if (*(a2 + 376))
+    if (*(a2 + 47))
     {
-LABEL_159:
-      sub_252262164(a1, a2, 17, v103, v104, v105, v106, v107);
-      sub_252262164(a1, a2, 15, v118, v119, v120, v121, v122);
-      goto LABEL_160;
+LABEL_160:
+      sub_252262164(a1, a2, 17);
+      sub_252262164(a1, a2, 15);
+      goto LABEL_161;
     }
 
-    sub_252262164(a1, a2, 250, v103, v104, v105, v106, v107);
-    sub_252262164(a1, a2, 138, v108, v109, v110, v111, v112);
-    sub_252262164(a1, a2, 2, v113, v114, v115, v116, v117);
+    sub_252262164(a1, a2, 250);
+    sub_252262164(a1, a2, 138);
+    sub_252262164(a1, a2, 2);
   }
 
-  if (*(a2 + 376))
+  if (*(a2 + 47))
   {
-    goto LABEL_159;
+    goto LABEL_160;
   }
 
-LABEL_160:
+LABEL_161:
   v14 = 1;
 LABEL_5:
-  v15 = *(a2 + 328);
+  v15 = a2[82];
   if (v15 >= 11)
   {
     v16 = 2529639135;
-    v123 = *(a2 + 328);
+    v77 = a2[82];
     v17 = "Looping %d times while getting initial credentials";
 LABEL_7:
-    krb5_set_error_message(a1, v16, v17, v123);
-    goto LABEL_146;
+    krb5_set_error_message(a1, v16, v17, v77);
+    return v16;
   }
 
-  v34 = v15 + 1;
-  *(a2 + 328) = v34;
-  sub_25226B748(a1, 5, "krb5_get_init_creds: loop %d", v34);
-  if (a3 && *a3)
+  v26 = v15 + 1;
+  a2[82] = v26;
+  sub_25226B748(a1, 5, "krb5_get_init_creds: loop %d", v26);
+  if (a3 && *&a3->magic)
   {
-    memset(v128, 0, sizeof(v128));
-    memset(v127, 0, sizeof(v127));
+    memset(v81, 0, sizeof(v81));
+    memset(v80, 0, sizeof(v80));
     sub_25226B748(a1, 5, "krb5_get_init_creds: processing input");
-    if (sub_25228AF28(*(a3 + 8), *a3, v127, &v131))
+    if (sub_25228AF28(a3->data, *&a3->magic, v80, &v84))
     {
       sub_25226B748(a1, 5, "krb5_get_init_creds: got an KRB-ERROR from KDC");
-      sub_25228B34C(a2 + 504);
-      v40 = krb5_rd_error(a1, a3, (a2 + 504));
-      if (v40)
+      sub_25228B34C((a2 + 126));
+      v27 = krb5_rd_error(a1, a3, a2 + 63);
+      if (v27)
       {
-        v16 = v40;
-        if (*a3)
+        v16 = v27;
+        if (*&a3->magic)
         {
-          if (**(a3 + 8) == 4)
+          if (*a3->data == 4)
           {
             v16 = 2529639131;
           }
 
           else
           {
-            v16 = v40;
+            v16 = v27;
           }
         }
 
-        v41 = "krb5_get_init_creds: failed to read error";
-        v42 = a1;
-        v43 = 5;
+        v28 = "krb5_get_init_creds: failed to read error";
+        v29 = a1;
+        v30 = 5;
         goto LABEL_26;
       }
 
-      v55 = (a2 + 488);
-      sub_25228AC4C(a2 + 488);
-      *(a2 + 488) = 0;
-      *(a2 + 496) = 0;
-      v56 = *(a2 + 600);
-      if (v56)
+      v35 = a2 + 122;
+      sub_25228AC4C((a2 + 122));
+      *(a2 + 61) = 0;
+      *(a2 + 62) = 0;
+      v36 = *(a2 + 75);
+      if (v36)
       {
-        v57 = sub_25228AC2C(v56[1], *v56, a2 + 488, 0);
-        if (v57)
+        v37 = sub_25228AC2C(v36[1], *v36, (a2 + 122), 0);
+        if (v37)
         {
-          sub_25226B794(a1, 5, v57, "Failed to decode METHOD-DATA");
+          sub_25226B794(a1, 5, v37, "Failed to decode METHOD-DATA");
         }
       }
 
-      v16 = sub_2522869C8(a1, a2 + 936, a2 + 488, a2 + 504);
+      v16 = sub_2522869C8(a1, (a2 + 234), (a2 + 122), (a2 + 126));
       if (v16)
       {
-        goto LABEL_146;
+        return v16;
       }
 
-      v16 = krb5_error_from_rd_error(a1, a2 + 504, (a2 + 8));
+      v16 = krb5_error_from_rd_error(a1, (a2 + 126), a2 + 1);
       if (_krb5_have_debug(a1))
       {
         error_message = krb5_get_error_message(a1, v16);
@@ -9336,94 +9463,93 @@ LABEL_7:
           case 0x96C73A0E:
             goto LABEL_73;
           case 0x96C73A17:
-            if ((*(a2 + 444) & 1) == 0)
+            if ((a2[111] & 1) == 0)
             {
-              v80 = *(a2 + 904);
-              if (v80)
+              v56 = *(a2 + 113);
+              if (v56)
               {
                 *(a2 + 444) |= 1u;
-                v80(a1, *(a2 + 912), 0, "Password has expired", 0, 0);
-                v81 = *(a2 + 176);
-                if (v81 && !strcmp(v81, "kadmin/changepw"))
+                v56(a1, *(a2 + 114), 0, "Password has expired", 0, 0);
+                v57 = *(a2 + 22);
+                if (v57 && !strcmp(v57, "kadmin/changepw"))
                 {
-                  v16 = 2529638935;
-                  goto LABEL_146;
+                  return 2529638935;
                 }
 
-                gettimeofday(&v134, 0);
-                sub_2522A3BC0(&v134, &v135);
-                sub_2522A3B60(a2 + 1080, &v134);
-                v16 = sub_252261124(a1, *(a2 + 8), *(a2 + 336), __s1, *(a2 + 904), *(a2 + 912), 0);
+                gettimeofday(&v87, 0);
+                sub_2522A3BC0(&v87, &v88);
+                sub_2522A3B60((a2 + 270), &v87);
+                v16 = sub_252261124(a1, *(a2 + 1), *(a2 + 42), __s1, *(a2 + 113), *(a2 + 114), 0);
                 if (v16)
                 {
-                  goto LABEL_146;
+                  return v16;
                 }
 
-                gettimeofday(&v135, 0);
+                gettimeofday(&v88, 0);
                 krb5_init_creds_set_password(a1, a2, __s1);
-                goto LABEL_104;
+                goto LABEL_105;
               }
             }
 
             break;
           case 0x96C73A18:
-            if ((*(a2 + 444) & 2) != 0)
+            if ((a2[111] & 2) != 0)
             {
-              if (!*v55)
+              if (!*v35)
               {
                 sub_25226B748(a1, 10, "Disable allow_enc_pa_rep and trying again");
                 *(a2 + 444) &= ~2u;
-LABEL_104:
-                v82 = *(a2 + 1040);
-                if (v82)
+LABEL_105:
+                v58 = *(a2 + 130);
+                if (v58)
                 {
-                  v83 = *(*(v82 + 32) + 48);
-                  if (v83)
+                  v59 = *(*(v58 + 32) + 48);
+                  if (v59)
                   {
-                    v83(a1, a2, v82 + 48);
+                    v59(a1, a2, v58 + 48);
                   }
                 }
 
                 v14 = 1;
-                goto LABEL_108;
+                goto LABEL_109;
               }
 
               v16 = 2529638936;
-              v41 = "Server send PA data with KRB-ERROR, so not a pre 1.7 MIT KDC and wont retry w/o ENC-PA-REQ";
+              v28 = "Server send PA data with KRB-ERROR, so not a pre 1.7 MIT KDC and wont retry w/o ENC-PA-REQ";
             }
 
             else
             {
-              v67 = *(a2 + 940);
-              if ((v67 & 0x80) != 0)
+              v47 = a2[235];
+              if ((v47 & 0x80) != 0)
               {
                 v16 = 2529638936;
-                v41 = "FAST disabled and got preauth failed";
+                v28 = "FAST disabled and got preauth failed";
               }
 
               else
               {
-                if ((v67 & 0x200) != 0)
+                if ((v47 & 0x200) != 0)
                 {
                   sub_25226B748(a1, 10, "preauth failed with Optimistic FAST, trying w/o FAST");
-LABEL_103:
-                  *(a2 + 940) = *(a2 + 940) & 0xFFFFFD7F | 0x80;
-                  goto LABEL_104;
+LABEL_104:
+                  a2[235] = a2[235] & 0xFFFFFD7F | 0x80;
+                  goto LABEL_105;
                 }
 
                 v16 = 2529638936;
-                v41 = "Preauth failed";
+                v28 = "Preauth failed";
               }
             }
 
-            v42 = a1;
-            v43 = 10;
+            v29 = a1;
+            v30 = 10;
 LABEL_26:
-            sub_25226B748(v42, v43, v41, v123, v124);
-            goto LABEL_146;
+            sub_25226B748(v29, v30, v28, v77, v78);
+            return v16;
         }
 
-        goto LABEL_101;
+        goto LABEL_102;
       }
 
       if (v16 <= -1765328317)
@@ -9432,19 +9558,18 @@ LABEL_26:
         {
           if (v16 == -1765328347 && !*(a1 + 27))
           {
-            krb5_set_real_time(a1, *(a2 + 528), -1);
-            v59 = *(a1 + 27);
-            sub_25226B748(a1, 10, "init_creds: err skew updateing kdc offset to %d", v59);
-            if (!v59)
+            krb5_set_real_time(a1, *(a2 + 66), -1);
+            v39 = *(a1 + 27);
+            sub_25226B748(a1, 10, "init_creds: err skew updateing kdc offset to %d", v39);
+            if (!v39)
             {
-              v16 = 2529638949;
-              goto LABEL_146;
+              return 2529638949;
             }
 
-            goto LABEL_104;
+            goto LABEL_105;
           }
 
-          goto LABEL_101;
+          goto LABEL_102;
         }
 
         goto LABEL_73;
@@ -9455,336 +9580,328 @@ LABEL_26:
         if (v16 == -1765328293)
         {
 LABEL_73:
-          if (!*v55)
+          if (!*v35)
           {
             v17 = "Preauth required but no preauth options send by KDC";
             goto LABEL_7;
           }
 
-          goto LABEL_108;
+          goto LABEL_109;
         }
 
-LABEL_101:
+LABEL_102:
         if ((*(a2 + 941) & 2) == 0)
         {
-          goto LABEL_146;
+          return v16;
         }
 
         sub_25226B748(a1, 10, "Some other error %d failed with Optimistic FAST, trying w/o FAST");
-        goto LABEL_103;
+        goto LABEL_104;
       }
 
       if ((*(a2 + 1) & 0x80) == 0)
       {
-        goto LABEL_101;
+        goto LABEL_102;
       }
 
       *&__s1[0].magic = 0;
-      v76 = *(a2 + 544);
-      if (!v76)
+      v54 = *(a2 + 68);
+      if (!v54)
       {
         v16 = 2529638980;
         v17 = "Got a client referral, not but no realm";
         goto LABEL_7;
       }
 
-      *&__s1[0].magic = *v76;
+      *&__s1[0].magic = *v54;
       sub_25226B748(a1, 5, "krb5_get_init_creds: referral to realm %s", *&__s1[0].magic);
-      if (!krb5_principal_is_krbtgt(a1, *(a2 + 16)))
+      if (!krb5_principal_is_krbtgt(a1, *(a2 + 2)))
       {
-LABEL_90:
-        free(*(a2 + 240));
-        v79 = sub_25228A694();
-        if (!v79)
+LABEL_91:
+        free(*(a2 + 30));
+        v55 = sub_25228A694(__s1, (a2 + 60));
+        if (!v55)
         {
-          v79 = krb5_principal_set_realm(a1, *(a2 + 8), **(a2 + 544));
-          if (!v79)
+          v55 = krb5_principal_set_realm(a1, *(a2 + 1), **(a2 + 68));
+          if (!v55)
           {
-            if (!krb5_unparse_name(a1, *(a2 + 8), __s1))
+            if (!krb5_unparse_name(a1, *(a2 + 1), __s1))
             {
               sub_25226B748(a1, 5, "krb5_get_init_creds: got referal to %s", *&__s1[0].magic);
               krb5_xfree(*&__s1[0].magic);
             }
 
-            goto LABEL_104;
+            goto LABEL_105;
           }
         }
 
-LABEL_111:
-        v16 = v79;
-        goto LABEL_146;
+        return v55;
       }
 
-      free(*(*(*(a2 + 16) + 16) + 8));
-      *(*(*(a2 + 16) + 16) + 8) = strdup(*&__s1[0].magic);
-      if (*(*(*(a2 + 16) + 16) + 8))
+      free(*(*(*(a2 + 2) + 16) + 8));
+      *(*(*(a2 + 2) + 16) + 8) = strdup(*&__s1[0].magic);
+      if (*(*(*(a2 + 2) + 16) + 8))
       {
-        sub_25228A6F8(*(a2 + 248));
-        v77 = *(a2 + 248);
-        v78 = *(a2 + 16);
-        v79 = _krb5_principal2principalname();
-        if (v79)
+        sub_25228A6F8(*(a2 + 31));
+        v55 = _krb5_principal2principalname(*(a2 + 31), *(a2 + 2));
+        if (v55)
         {
-          goto LABEL_111;
+          return v55;
         }
 
-        goto LABEL_90;
+        goto LABEL_91;
       }
 
-LABEL_94:
-      v16 = 12;
-      goto LABEL_146;
+      return 12;
     }
 
-    v44 = sub_25228AA6C(v128);
-    v126[0] = v44;
-    v45 = malloc_type_malloc(v44, 0x8B0CB9B6uLL);
-    v126[1] = v45;
-    if (!v45)
+    v31 = sub_25228AA6C(v81);
+    v79[0] = v31;
+    v32 = malloc_type_malloc(v31, 0x8B0CB9B6uLL);
+    v79[1] = v32;
+    if (!v32)
     {
-      goto LABEL_94;
+      return 12;
     }
 
-    v46 = v45;
-    v47 = sub_25228AA4C(v45 + v44 - 1, v44, v128, &v131);
-    if (v47)
+    v33 = v32;
+    v34 = sub_25228AA4C(v32 + v31 - 1, v31, v81, &v84);
+    if (v34)
     {
-      v16 = v47;
-      free(v46);
-      goto LABEL_146;
+      v16 = v34;
+      free(v33);
+      return v16;
     }
 
-    if (v44 != v131)
+    if (v31 != v84)
     {
-      sub_2522A7C98(v47, v48, v49, v50, v51, v52, v53, v54);
+      sub_2522A7C98();
     }
 
-    v16 = sub_252286C38(a1, *(a2 + 184), v126, a2 + 936, v127);
-    krb5_data_free(v126);
+    v16 = sub_252286C38(a1, a2[46], v79, (a2 + 234), v80);
+    krb5_data_free(v79);
     if (v16)
     {
-      goto LABEL_146;
+      return v16;
     }
 
     if ((*a2 & 0x8000) != 0)
     {
-      v60 = 30;
+      v40 = 30;
     }
 
     else
     {
-      v60 = 24;
+      v40 = 24;
     }
 
-    v61 = *(a2 + 384);
-    v62 = sub_252260D98(a1, a2, (a2 + 8), a2 + 208, v127, a5);
-    if (v62)
+    v41 = a2[96];
+    v42 = sub_252260D98(a1, a2, a2 + 1, (a2 + 52), v80, a5);
+    if (v42)
     {
 LABEL_49:
-      v16 = v62;
-      sub_25228AF48(v127);
-      goto LABEL_146;
+      v16 = v42;
+      sub_25228AF48(v80);
+      return v16;
     }
 
-    v68 = **(a2 + 944);
-    if (*(a2 + 1016))
+    v48 = **(a2 + 118);
+    if (*(a2 + 127))
     {
       memset(__s1, 0, 24);
       sub_25226B748(a1, 5, "krb5_get_init_creds: FAST strengthen_key");
-      v62 = _krb5_fast_cf2(a1, *(a2 + 1016), "strengthenkey", *(a2 + 944), "replykey", __s1, 0);
-      if (v62)
+      v42 = _krb5_fast_cf2(a1, *(a2 + 127), "strengthenkey", *(a2 + 118), "replykey", __s1, 0);
+      if (v42)
       {
         goto LABEL_49;
       }
 
       *(a2 + 444) |= 4u;
-      krb5_free_keyblock_contents(a1, *(a2 + 944));
-      v69 = *(a2 + 944);
-      v70 = *&__s1[0].magic;
-      *(v69 + 16) = __s1[0].contents;
-      *v69 = v70;
+      krb5_free_keyblock_contents(a1, *(a2 + 118));
+      v49 = *(a2 + 118);
+      v50 = *&__s1[0].magic;
+      *(v49 + 16) = __s1[0].contents;
+      *v49 = v50;
     }
 
     sub_25226B748(a1, 5, "krb5_get_init_creds: extracting ticket");
-    v71 = sub_252280B7C(a1, v127, a2 + 8, *(a2 + 944), 3, 0, *(a2 + 184), v60 & 0xFEu | ((v61 & 4) != 0), a2 + 192, 0, 0);
-    if (!v71)
+    v51 = sub_252280B7C(a1, v80, (a2 + 2), *(a2 + 118), 3, 0, a2[46], v40 & 0xFEu | ((v41 & 4) != 0), (a2 + 48), 0, 0);
+    if (!v51)
     {
-      v71 = sub_25228AF88();
-      if (!v71)
+      v51 = sub_25228AF88(&v81[6] + 8, (a2 + 190));
+      if (!v51)
       {
-        v71 = sub_252260ED8(a1, a2, v127, (a2 + 24));
+        v51 = sub_252260ED8(a1, a2, v80, (a2 + 6));
       }
     }
 
-    v16 = v71;
-    v72 = **(a2 + 944);
-    if (*(a2 + 1056))
+    v16 = v51;
+    if (*(a2 + 132))
     {
-      v73 = *(a2 + 1056);
-    }
-
-    v74 = *(a2 + 940);
-    sub_25225CF18();
-    v75 = *(a2 + 944);
-    *(a2 + 1024) = v75->magic;
-    if ((*(a2 + 444) & 4) != 0)
-    {
-      *(a2 + 1032) = v75;
+      v52 = *(a2 + 132);
     }
 
     else
     {
-      krb5_free_keyblock(a1, v75);
+      v52 = "unknown";
     }
 
-    *(a2 + 944) = 0;
-    *(a2 + 384) |= 1u;
+    sub_25225CF18(a1, v48, **(a2 + 118), v52, (a2[235] >> 12) & 1);
+    v53 = *(a2 + 118);
+    a2[256] = v53->magic;
+    if ((a2[111] & 4) != 0)
+    {
+      *(a2 + 129) = v53;
+    }
+
+    else
+    {
+      krb5_free_keyblock(a1, v53);
+    }
+
+    *(a2 + 118) = 0;
+    a2[96] |= 1u;
     *a7 = 0;
-    sub_25228AF48(v127);
-    sub_25228AFBC(&v128[6] + 8);
-    gettimeofday(&v134, 0);
-    sub_2522A3BC0(&v134, &v135);
-    sub_2522A3B60(a2 + 1080, &v134);
-    v101 = *(a2 + 1080);
-    v125 = *(a2 + 1088);
+    sub_25228AF48(v80);
+    sub_25228AFBC(&v81[6] + 8);
+    gettimeofday(&v87, 0);
+    sub_2522A3BC0(&v87, &v88);
+    sub_2522A3B60((a2 + 270), &v87);
     sub_25226B748(a1, 1, "krb5_get_init_creds: wc: %lld.%06d");
-    goto LABEL_146;
+    return v16;
   }
 
-LABEL_108:
-  v84 = *(a2 + 216);
-  if (v84)
+LABEL_109:
+  v60 = *(a2 + 27);
+  if (v60)
   {
-    sub_25228AC4C(v84);
-    free(*(a2 + 216));
-    *(a2 + 216) = 0;
+    sub_25228AC4C(v60);
+    free(*(a2 + 27));
+    *(a2 + 27) = 0;
   }
 
-  v79 = sub_252286248(a1, a2 + 936, *(*(a2 + 8) + 24), v35, v36, v37, v38, v39);
-  if (v79)
+  v55 = sub_252286248(a1, (a2 + 234), *(*(a2 + 1) + 24));
+  if (v55)
   {
-    goto LABEL_111;
+    return v55;
   }
 
-  *(a2 + 280) = *(a2 + 184);
-  v85 = malloc_type_calloc(1uLL, 0x10uLL, 0x1020040D5A9D86FuLL);
-  *(a2 + 216) = v85;
-  if (!v85)
+  a2[70] = a2[46];
+  v61 = malloc_type_calloc(1uLL, 0x10uLL, 0x1020040D5A9D86FuLL);
+  *(a2 + 27) = v61;
+  if (!v61)
   {
     v16 = 12;
-    krb5_set_error_message(a1, 12, "malloc: out of memory", v123);
-    goto LABEL_146;
+    krb5_set_error_message(a1, 12, "malloc: out of memory", v77);
+    return v16;
   }
 
-  *v85 = 0;
-  v85[1] = 0;
-  sub_25226227C(a1, (a2 + 488));
+  *v61 = 0;
+  v61[1] = 0;
+  sub_25226227C(a1, a2 + 122);
   if (!v14)
   {
-    v86 = sub_25226236C(a1, a2, a2 + 208, 0, 0, a2 + 488, *(a2 + 216));
-    if (v86 == -1980176628)
+    v62 = sub_25226236C(a1, a2, (a2 + 52), 0, 0, a2 + 122, *(a2 + 27));
+    if (v62 == -1980176628)
     {
       sub_25226B748(a1, 0, "pamech need more stepping");
     }
 
     else
     {
-      v16 = v86;
-      if (v86)
+      v16 = v62;
+      if (v62)
       {
-        goto LABEL_146;
+        return v16;
       }
 
       sub_25226B748(a1, 0, "pamech done step");
     }
   }
 
-  v87 = *(a2 + 216);
-  v88 = &dword_280C4DEA8;
-  v89 = 19;
+  v63 = *(a2 + 27);
+  v64 = &dword_280C4DEA8;
+  v65 = 19;
   do
   {
-    if ((v88[4] & 3) != 0)
+    if ((v64[4] & 3) != 0)
     {
-      v90 = *(v88 + 7);
-      if (v90)
+      v66 = *(v64 + 7);
+      if (v66)
       {
-        v90(a1, a2, 0, 0, 0, 0, 0, a2 + 488, v87);
+        v66(a1, a2, 0, 0, 0, 0, 0, (a2 + 122), v63);
       }
 
       else
       {
-        krb5_padata_add(a1, v87, *v88, 0, 0);
+        krb5_padata_add(a1, v63, *v64, 0, 0);
       }
     }
 
-    v88 += 18;
-    --v89;
+    v64 += 18;
+    --v65;
   }
 
-  while (v89);
-  v91 = *(a2 + 216);
-  if (!*v91)
+  while (v65);
+  v67 = *(a2 + 27);
+  if (!*v67)
   {
-    free(v91);
-    *(a2 + 216) = 0;
+    free(v67);
+    *(a2 + 27) = 0;
   }
 
-  v79 = sub_25228AD04();
-  if (v79)
+  v55 = sub_25228AD04((a2 + 52), v82);
+  if (v55)
   {
-    goto LABEL_111;
+    return v55;
   }
 
-  v16 = sub_25228653C(a1, a2 + 936, 0, v129);
-  krb5_data_free(v133);
+  v16 = sub_25228653C(a1, (a2 + 234), 0, v82);
+  krb5_data_free(v86);
   if (v16)
   {
-LABEL_129:
-    sub_25228ACF4(v129);
-    goto LABEL_146;
+LABEL_130:
+    sub_25228ACF4(v82);
+    return v16;
   }
 
-  krb5_data_free((a2 + 192));
-  v92 = sub_25228ACE4(v129);
-  *(a2 + 192) = v92;
-  v93 = malloc_type_malloc(v92, 0x4EFB1758uLL);
-  *(a2 + 200) = v93;
-  if (!v93)
+  krb5_data_free(a2 + 24);
+  v68 = sub_25228ACE4(v82);
+  *(a2 + 24) = v68;
+  v69 = malloc_type_malloc(v68, 0x4EFB1758uLL);
+  *(a2 + 25) = v69;
+  if (!v69)
   {
     v16 = 12;
-    goto LABEL_129;
+    goto LABEL_130;
   }
 
-  v94 = sub_25228ACC4(v93 + *(a2 + 192) - 1, *(a2 + 192), v129, &v132);
-  if (v94)
+  v70 = sub_25228ACC4(v69 + *(a2 + 24) - 1, *(a2 + 24), v82, &v85);
+  if (v70)
   {
-    v16 = v94;
-    free(*(a2 + 200));
-    *(a2 + 200) = 0;
-    goto LABEL_129;
+    v16 = v70;
+    free(*(a2 + 25));
+    *(a2 + 25) = 0;
+    goto LABEL_130;
   }
 
-  sub_25228ACF4(v129);
-  if (v132 != *(a2 + 192))
+  sub_25228ACF4(v82);
+  if (v85 != *(a2 + 24))
   {
     krb5_abortx(a1, "internal error in ASN.1 encoder");
   }
 
-  v95 = *(a2 + 200);
-  *a4 = v132;
-  a4[1] = v95;
+  v71 = *(a2 + 25);
+  *a4 = v85;
+  a4[1] = v71;
   *a7 = 1;
   if (a6)
   {
-    *a6 = *(*(a2 + 8) + 24);
+    *a6 = *(*(a2 + 1) + 24);
   }
 
-  gettimeofday(&v134, 0);
-  sub_2522A3BC0(&v134, &v135);
-  sub_2522A3B60(a2 + 1080, &v134);
-  v16 = 0;
-LABEL_146:
-  v99 = *MEMORY[0x277D85DE8];
-  return v16;
+  gettimeofday(&v87, 0);
+  sub_2522A3BC0(&v87, &v88);
+  sub_2522A3B60((a2 + 270), &v87);
+  return 0;
 }

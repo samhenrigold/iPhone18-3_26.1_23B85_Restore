@@ -17,13 +17,12 @@
 - (NSArray)decoratorOverlayRenderables
 {
   v3 = objc_opt_self();
-  sub_1005B981C(&unk_1019F4D60);
   v4 = swift_allocObject();
   v5 = *(&self->super.isa + OBJC_IVAR____TtC8Freeform30CRLiOSPencilToolShapeDecorator_previewHelper);
   *(v4 + 16) = xmmword_101465920;
   v6 = *(v5 + OBJC_IVAR____TtC8Freeform30CRLiOSPencilHoverToolPreviewer_shapeLayer);
   *(v4 + 32) = v6;
-  sub_100006370(0, &qword_1019FFFF0);
+  sub_100006370(0, &qword_1019FFFF0, CALayer_ptr);
   selfCopy = self;
   v8 = v6;
   isa = Array._bridgeToObjectiveC()().super.isa;
@@ -32,7 +31,7 @@
 
   if (!v10)
   {
-    sub_100006370(0, &qword_101A00020);
+    sub_100006370(0, &qword_101A00020, off_10182F790);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
     v10 = Array._bridgeToObjectiveC()().super.isa;
   }

@@ -18,13 +18,11 @@
 
 - (id)memoryIndexes
 {
-  v3 = OBJC_IVAR___SecureMemoryIndex_indexData;
   swift_beginAccess();
-  v4 = *(&self->super.isa + v3);
 
-  v5 = sub_247994E44();
+  v2 = sub_247994E44();
 
-  return v5;
+  return v2;
 }
 
 - (NSString)description
@@ -49,13 +47,12 @@
   v14 = OBJC_IVAR___SecureMemoryIndex_indexData;
   swift_beginAccess();
   sub_247978CAC(v11, v13);
-  v15 = *(&selfCopy->super.isa + v14);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v17 = *(&selfCopy->super.isa + v14);
+  v16 = *(&selfCopy->super.isa + v14);
   *(&selfCopy->super.isa + v14) = 0x8000000000000000;
   sub_247990CD4(v11, v13, v6, v8, isUniquelyReferenced_nonNull_native);
 
-  *(&selfCopy->super.isa + v14) = v17;
+  *(&selfCopy->super.isa + v14) = v16;
   swift_endAccess();
 
   sub_247978C04(v11, v13);

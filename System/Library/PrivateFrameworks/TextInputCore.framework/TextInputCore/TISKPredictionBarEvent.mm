@@ -1,5 +1,6 @@
 @interface TISKPredictionBarEvent
 - (id)description;
+- (id)init:(double)init emojiPrediction:(BOOL)prediction emojiSearchMode:(BOOL)mode order:(int64_t)order emojiBucketCategory:(id)category;
 - (void)reportInterKeyTiming:(id)timing previousEvent:(id)event;
 - (void)reportToSession:(id)session;
 @end
@@ -62,15 +63,15 @@ LABEL_6:
     if (emojiBucketCategory)
     {
       emojiBucketCategory2 = [(TISKPredictionBarEvent *)self emojiBucketCategory];
-      v6 = [emojiBucketCategory2 isEqualToString:@"PositiveEmoji"];
+      isEqualToString = objc_msgSend_isEqualToString_(emojiBucketCategory2);
 
-      if (v6)
+      if (isEqualToString)
       {
         [sessionCopy addSample:&unk_28400BF10 forKey:kTISKtotalPositiveEmoji];
       }
 
       emojiBucketCategory3 = [(TISKPredictionBarEvent *)self emojiBucketCategory];
-      v8 = [emojiBucketCategory3 isEqualToString:@"SadEmoji"];
+      v8 = objc_msgSend_isEqualToString_(emojiBucketCategory3);
 
       if (v8)
       {
@@ -78,7 +79,7 @@ LABEL_6:
       }
 
       emojiBucketCategory4 = [(TISKPredictionBarEvent *)self emojiBucketCategory];
-      v10 = [emojiBucketCategory4 isEqualToString:@"AnxietyEmoji"];
+      v10 = objc_msgSend_isEqualToString_(emojiBucketCategory4);
 
       if (v10)
       {
@@ -86,7 +87,7 @@ LABEL_6:
       }
 
       emojiBucketCategory5 = [(TISKPredictionBarEvent *)self emojiBucketCategory];
-      v12 = [emojiBucketCategory5 isEqualToString:@"AngerEmoji"];
+      v12 = objc_msgSend_isEqualToString_(emojiBucketCategory5);
 
       if (v12)
       {
@@ -94,7 +95,7 @@ LABEL_6:
       }
 
       emojiBucketCategory6 = [(TISKPredictionBarEvent *)self emojiBucketCategory];
-      v14 = [emojiBucketCategory6 isEqualToString:@"LowEnergyEmoji"];
+      v14 = objc_msgSend_isEqualToString_(emojiBucketCategory6);
 
       if (v14)
       {
@@ -102,7 +103,7 @@ LABEL_6:
       }
 
       emojiBucketCategory7 = [(TISKPredictionBarEvent *)self emojiBucketCategory];
-      v16 = [emojiBucketCategory7 isEqualToString:@"FeelEmoji"];
+      v16 = objc_msgSend_isEqualToString_(emojiBucketCategory7);
 
       if (v16)
       {
@@ -110,7 +111,7 @@ LABEL_6:
       }
 
       emojiBucketCategory8 = [(TISKPredictionBarEvent *)self emojiBucketCategory];
-      v18 = [emojiBucketCategory8 isEqualToString:@"ConfusedEmoji"];
+      v18 = objc_msgSend_isEqualToString_(emojiBucketCategory8);
 
       if (v18)
       {
@@ -118,6 +119,23 @@ LABEL_6:
       }
     }
   }
+}
+
+- (id)init:(double)init emojiPrediction:(BOOL)prediction emojiSearchMode:(BOOL)mode order:(int64_t)order emojiBucketCategory:(id)category
+{
+  modeCopy = mode;
+  categoryCopy = category;
+  v17.receiver = self;
+  v17.super_class = TISKPredictionBarEvent;
+  v14 = [(TISKTimestampEvent *)&v17 init:9 timestamp:modeCopy emojiSearchMode:order order:init];
+  v15 = v14;
+  if (v14)
+  {
+    *(v14 + 40) = prediction;
+    objc_storeStrong(v14 + 6, category);
+  }
+
+  return v15;
 }
 
 @end

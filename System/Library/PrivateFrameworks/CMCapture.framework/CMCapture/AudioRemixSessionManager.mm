@@ -35,15 +35,15 @@
   subscriber = self->_subscriber;
   if (subscriber)
   {
-    v7 = *s;
-    v6 = *tS;
-    return [(AudioRemixSubscriber *)subscriber finishAndGetResultsBlockingWithStartingPTS:&v7 andEndingPTS:&v6];
+    v11 = *s;
+    v10 = *tS;
+    return [(AudioRemixSubscriber *)subscriber finishAndGetResultsBlockingWithStartingPTS:&v11 andEndingPTS:&v10];
   }
 
   else
   {
-    [AudioRemixSessionManager finishAndGetResultsBlockingWithStartingPTS:? andEndingPTS:?];
-    return v7.var0;
+    [(AudioRemixSessionManager *)&v11 finishAndGetResultsBlockingWithStartingPTS:a2 andEndingPTS:s, tS, v4, v5, v6, v7];
+    return v11.var0;
   }
 }
 
@@ -64,43 +64,44 @@
 
 - (int)startNewSessionBlocking
 {
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
   [(AudioRemixSessionManager *)self abortSessionIfNeeded];
-  v3 = [objc_alloc(getSNMovieRemixRequestClass()) initWithInputAudioSampleRate:self->_sampleRate inputAudioChannelCount:self->_channelCount];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3052000000;
-  v15 = __Block_byref_object_copy__8;
-  v16 = __Block_byref_object_dispose__8;
-  v17 = dispatch_semaphore_create(0);
+  v4 = [objc_alloc(getSNMovieRemixRequestClass()) initWithInputAudioSampleRate:self->_sampleRate inputAudioChannelCount:self->_channelCount];
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3052000000;
+  v24 = __Block_byref_object_copy__8;
+  v25 = __Block_byref_object_dispose__8;
+  v26 = dispatch_semaphore_create(0);
   objc_initWeak(&location, self);
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __51__AudioRemixSessionManager_startNewSessionBlocking__block_invoke;
-  v9[3] = &unk_1E7990760;
-  objc_copyWeak(&v10, &location);
-  v9[4] = &v18;
-  v9[5] = &v12;
-  [getSNMovieRemixClass() runRequest:v3 completionHandler:v9];
-  v4 = v13[5];
-  v5 = dispatch_time(0, 2000000000);
-  v6 = dispatch_semaphore_wait(v4, v5);
-  dispatch_release(v13[5]);
-  v13[5] = 0;
-  if (v6)
+  v13 = MEMORY[0x1E69E9820];
+  v14 = 3221225472;
+  v15 = __51__AudioRemixSessionManager_startNewSessionBlocking__block_invoke;
+  v16 = &unk_1E7990760;
+  objc_copyWeak(&v19, &location);
+  v17 = &v27;
+  v18 = &v21;
+  [getSNMovieRemixClass() runRequest:v4 completionHandler:&v13];
+  v5 = v22[5];
+  v6 = dispatch_time(0, 2000000000);
+  v7 = dispatch_semaphore_wait(v5, v6);
+  dispatch_release(v22[5]);
+  v22[5] = 0;
+  if (v7)
   {
-    *(v19 + 6) = FigSignalErrorAtGM();
+    v12 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EB58E578, 0xFFFFBDA0, "<<<< BWAudioRemixAnalysisMetadataNode >>>>", 0x2F8, v2, v8, v9, v13, v14, v15, v16, v17, v18);
+    *(v28 + 6) = v12;
   }
 
-  v7 = *(v19 + 6);
-  objc_destroyWeak(&v10);
+  v10 = *(v28 + 6);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&v12, 8);
-  _Block_object_dispose(&v18, 8);
-  return v7;
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v27, 8);
+  return v10;
 }
 
 intptr_t __51__AudioRemixSessionManager_startNewSessionBlocking__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -108,11 +109,14 @@ intptr_t __51__AudioRemixSessionManager_startNewSessionBlocking__block_invoke(ui
   Weak = objc_loadWeak((a1 + 48));
   if (a3)
   {
+    v23 = 0;
+    v22 = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
-    [a3 code];
-    *(*(*(a1 + 32) + 8) + 24) = FigSignalErrorAtGM();
+    v16 = qword_1EB58E578;
+    v17 = [a3 code];
+    *(*(*(a1 + 32) + 8) + 24) = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v16, v17, "<<<< BWAudioRemixAnalysisMetadataNode >>>>", 0x2DD, v3, v18, v19, v21);
   }
 
   else if (Weak)
@@ -128,13 +132,13 @@ intptr_t __51__AudioRemixSessionManager_startNewSessionBlocking__block_invoke(ui
 
     else
     {
-      __51__AudioRemixSessionManager_startNewSessionBlocking__block_invoke_cold_2(a1);
+      __51__AudioRemixSessionManager_startNewSessionBlocking__block_invoke_cold_2(a1, v8, v9, v10, v11, v12, v13, v14);
     }
   }
 
   else
   {
-    __51__AudioRemixSessionManager_startNewSessionBlocking__block_invoke_cold_3(a1);
+    __51__AudioRemixSessionManager_startNewSessionBlocking__block_invoke_cold_3(a1, v8, v9, v10, v11, v12, v13, v14);
   }
 
   return dispatch_semaphore_signal(*(*(*(a1 + 40) + 8) + 40));
@@ -166,78 +170,79 @@ intptr_t __51__AudioRemixSessionManager_startNewSessionBlocking__block_invoke(ui
     return 0;
   }
 
-  v7 = v3;
-  v8 = v4;
-  [AudioRemixSessionManager _handleSubscriberCompletedFromCancellation:?];
-  return v6;
+  v12 = v8;
+  v13 = v9;
+  [(AudioRemixSessionManager *)&v11 _handleSubscriberCompletedFromCancellation:a2, cancellation, v3, v4, v5, v6, v7];
+  return v11;
 }
 
 - (int)_handleSessionCreated:(id)created
 {
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
-  v12 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
   if (!_FigIsNotCurrentDispatchQueue())
   {
-    FigDebugAssert3();
+    v9 = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v9, v3, v10, block, v12, v13, v14, selfCopy);
   }
 
   workQueue = self->_workQueue;
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = __50__AudioRemixSessionManager__handleSessionCreated___block_invoke;
-  block[3] = &unk_1E79907B0;
-  block[5] = created;
-  block[6] = &v9;
-  block[4] = self;
-  dispatch_sync(workQueue, block);
-  v6 = *(v10 + 6);
-  _Block_object_dispose(&v9, 8);
-  return v6;
+  block = MEMORY[0x1E69E9820];
+  v12 = 3221225472;
+  v13 = __50__AudioRemixSessionManager__handleSessionCreated___block_invoke;
+  v14 = &unk_1E79907B0;
+  createdCopy = created;
+  v17 = &v18;
+  selfCopy = self;
+  dispatch_sync(workQueue, &block);
+  v7 = *(v19 + 6);
+  _Block_object_dispose(&v18, 8);
+  return v7;
 }
 
-void __50__AudioRemixSessionManager__handleSessionCreated___block_invoke(uint64_t a1)
+void __50__AudioRemixSessionManager__handleSessionCreated___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  v2 = *(a1 + 32);
-  if (*(v2 + 24))
+  v9 = *(a1 + 32);
+  if (*(v9 + 24))
   {
-    __50__AudioRemixSessionManager__handleSessionCreated___block_invoke_cold_1(a1);
+    __50__AudioRemixSessionManager__handleSessionCreated___block_invoke_cold_1(a1, a2, a3, a4, a5, a6, a7, a8);
   }
 
   else
   {
-    *(v2 + 24) = *(a1 + 40);
-    v3 = *(*(a1 + 32) + 24);
-    if (v3)
+    *(v9 + 24) = *(a1 + 40);
+    v10 = *(*(a1 + 32) + 24);
+    if (v10)
     {
-      v4 = v3;
+      v11 = v10;
       objc_initWeak(&location, *(a1 + 32));
-      v5[0] = MEMORY[0x1E69E9820];
-      v5[1] = 3221225472;
-      v5[2] = __50__AudioRemixSessionManager__handleSessionCreated___block_invoke_2;
-      v5[3] = &unk_1E7990788;
-      v5[4] = *(a1 + 48);
-      objc_copyWeak(&v6, &location);
+      v12[0] = MEMORY[0x1E69E9820];
+      v12[1] = 3221225472;
+      v12[2] = __50__AudioRemixSessionManager__handleSessionCreated___block_invoke_2;
+      v12[3] = &unk_1E7990788;
+      v12[4] = *(a1 + 48);
+      objc_copyWeak(&v13, &location);
       [*(*(a1 + 32) + 24) setInFrameMixMode:*(*(a1 + 32) + 40)];
-      *(*(a1 + 32) + 16) = [[AudioRemixSubscriber alloc] initWithSession:*(*(a1 + 32) + 24) andNodeMetadataOutput:*(*(a1 + 32) + 32) usePIPAIngestSignalingDomain:*(*(a1 + 32) + 40) completionHandler:v5];
+      *(*(a1 + 32) + 16) = [[AudioRemixSubscriber alloc] initWithSession:*(*(a1 + 32) + 24) andNodeMetadataOutput:*(*(a1 + 32) + 32) usePIPAIngestSignalingDomain:*(*(a1 + 32) + 40) completionHandler:v12];
       [*(*(a1 + 32) + 16) activate];
-      objc_destroyWeak(&v6);
+      objc_destroyWeak(&v13);
       objc_destroyWeak(&location);
     }
 
     else
     {
-      __50__AudioRemixSessionManager__handleSessionCreated___block_invoke_cold_2(a1);
+      __50__AudioRemixSessionManager__handleSessionCreated___block_invoke_cold_2(a1, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 }
 
-uint64_t __50__AudioRemixSessionManager__handleSessionCreated___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t __50__AudioRemixSessionManager__handleSessionCreated___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
   if (a3)
   {
-    return __50__AudioRemixSessionManager__handleSessionCreated___block_invoke_2_cold_1(a1);
+    return __50__AudioRemixSessionManager__handleSessionCreated___block_invoke_2_cold_1(a1, a2, a3, a4, a5, a6, a7, a8);
   }
 
   Weak = objc_loadWeak((a1 + 40));
@@ -253,7 +258,7 @@ uint64_t __50__AudioRemixSessionManager__handleSessionCreated___block_invoke_2(u
 
   else
   {
-    result = FigSignalErrorAtGM();
+    result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EB58E578, 0xFFFFBDA0, "<<<< BWAudioRemixAnalysisMetadataNode >>>>", 0x344, v8, v12, v13, v15);
     *(*(*(a1 + 32) + 8) + 24) = result;
   }
 
@@ -268,16 +273,16 @@ uint64_t __50__AudioRemixSessionManager__handleSessionCreated___block_invoke_2(u
   }
 }
 
-- (uint64_t)finishAndGetResultsBlockingWithStartingPTS:(_DWORD *)a1 andEndingPTS:.cold.1(_DWORD *a1)
+- (uint64_t)finishAndGetResultsBlockingWithStartingPTS:(uint64_t)a3 andEndingPTS:(uint64_t)a4 .cold.1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EB58E578, 0xFFFFBDA0, "<<<< BWAudioRemixAnalysisMetadataNode >>>>", 0x29C, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }
 
-- (uint64_t)_handleSubscriberCompletedFromCancellation:(_DWORD *)a1 .cold.1(_DWORD *a1)
+- (uint64_t)_handleSubscriberCompletedFromCancellation:(uint64_t)a3 .cold.1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EB58E578, 0, "<<<< BWAudioRemixAnalysisMetadataNode >>>>", 0x31E, v8, a7, a8, v11);
   *a1 = result;
   return result;
 }

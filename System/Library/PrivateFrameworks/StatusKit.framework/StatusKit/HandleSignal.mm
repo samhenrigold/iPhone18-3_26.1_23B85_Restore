@@ -15,7 +15,7 @@ void ___HandleSignal_block_invoke(uint64_t a1)
     }
 
 LABEL_13:
-    v5 = _StatusKitAgentMainLog();
+    v5 = _StatusKitAgentMainLog(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -25,8 +25,7 @@ LABEL_13:
     v6 = +[SKAStatusServer sharedInstance];
     [v6 shutdown];
 
-    [gLocalStatusServer shutdown];
-    v7 = _StatusKitAgentMainLog();
+    v7 = _StatusKitAgentMainLog([gLocalStatusServer shutdown]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v9 = 0;
@@ -51,7 +50,7 @@ LABEL_13:
       goto LABEL_13;
     default:
 LABEL_5:
-      v3 = _StatusKitAgentMainLog();
+      v3 = _StatusKitAgentMainLog(a1);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
       {
         ___HandleSignal_block_invoke_cold_1(v2, v3);

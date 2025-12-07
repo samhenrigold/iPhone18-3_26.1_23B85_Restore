@@ -70,7 +70,7 @@
 
 - (int)processAudioSamples:(AudioBufferList *)samples timestamp:(AudioTimeStamp *)timestamp
 {
-  std::vector<float>::__insert_with_size[abi:ne200100]<float *,float *>(&self->_loudnessSampleBuffer, self->_loudnessSampleBuffer.__end_, samples->mBuffers[0].mData, samples->mBuffers[0].mData + (samples->mBuffers[0].mDataByteSize & 0xFFFFFFFFFFFFFFFCLL), samples->mBuffers[0].mDataByteSize >> 2);
+  std::vector<float>::__insert_with_size[abi:ne200100]<float *,float *>(&self->_loudnessSampleBuffer.__begin_, self->_loudnessSampleBuffer.__end_, samples->mBuffers[0].mData, samples->mBuffers[0].mData + (samples->mBuffers[0].mDataByteSize & 0xFFFFFFFFFFFFFFFCLL), samples->mBuffers[0].mDataByteSize >> 2);
   begin = self->_loudnessSampleBuffer.__begin_;
   samplesFor100ms = self->_samplesFor100ms;
   if (samplesFor100ms <= self->_loudnessSampleBuffer.__end_ - begin)

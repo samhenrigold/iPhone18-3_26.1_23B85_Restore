@@ -1,4 +1,5 @@
 @interface CCDShieldUISession
+- (CCDShieldUISession)initWithDeviceIdentifier:(id)identifier name:(id)name model:(int64_t)model placementStepSkipped:(id)skipped isDedicated:(BOOL)dedicated micOnly:(BOOL)only sessionInterruptionBlock:(id)block;
 - (NSString)bundleIdentifier;
 - (id)description;
 - (void)_setupShieldLifecycleMonitorForCurrentSession;
@@ -7,6 +8,66 @@
 @end
 
 @implementation CCDShieldUISession
+
+- (CCDShieldUISession)initWithDeviceIdentifier:(id)identifier name:(id)name model:(int64_t)model placementStepSkipped:(id)skipped isDedicated:(BOOL)dedicated micOnly:(BOOL)only sessionInterruptionBlock:(id)block
+{
+  onlyCopy = only;
+  dedicatedCopy = dedicated;
+  identifierCopy = identifier;
+  nameCopy = name;
+  skippedCopy = skipped;
+  blockCopy = block;
+  v35.receiver = self;
+  v35.super_class = CCDShieldUISession;
+  v20 = [(CCDShieldUISession *)&v35 init];
+  if (v20)
+  {
+    v21 = objc_alloc_init(CMContinuityCaptureUIConfiguration);
+    configuration = v20->_configuration;
+    v20->_configuration = v21;
+
+    [(CMContinuityCaptureUIConfiguration *)v20->_configuration setClientDeviceModel:model];
+    [(CMContinuityCaptureUIConfiguration *)v20->_configuration setClientName:nameCopy];
+    [(CMContinuityCaptureUIConfiguration *)v20->_configuration setRemoteDisplayIdentifier:identifierCopy];
+    [(CMContinuityCaptureUIConfiguration *)v20->_configuration setIsDedicated:dedicatedCopy];
+    [(CMContinuityCaptureUIConfiguration *)v20->_configuration setMicOnly:onlyCopy];
+    objc_storeStrong(&v20->_deviceIdentifier, identifier);
+    v23 = objc_opt_new();
+    uUIDString = [v23 UUIDString];
+    sessionID = v20->_sessionID;
+    v20->_sessionID = uUIDString;
+
+    v26 = objc_alloc_init(CCDPauseStateSolver);
+    pauseStateSolver = v20->_pauseStateSolver;
+    v20->_pauseStateSolver = v26;
+
+    [(CMContinuityCaptureUIConfiguration *)v20->_configuration setPlacementStepSkipped:skippedCopy];
+    v28 = objc_retainBlock(blockCopy);
+    sessionInterruptionBlock = v20->_sessionInterruptionBlock;
+    v20->_sessionInterruptionBlock = v28;
+
+    v30 = dispatch_get_global_queue(0, 0);
+    shieldUILaunchMonitorQueue = v20->_shieldUILaunchMonitorQueue;
+    v20->_shieldUILaunchMonitorQueue = v30;
+
+    if (model == 2)
+    {
+      v32 = +[CMContinuityCapturePongSoundManager sharedInstance];
+      v33 = v32;
+      if (dedicatedCopy)
+      {
+        [v32 clearPongHistory];
+      }
+
+      else
+      {
+        [v32 pongIfNeededWithShouldConsiderPongHistory:0 forIdentifier:v20->_deviceIdentifier];
+      }
+    }
+  }
+
+  return v20;
+}
 
 - (void)setupShieldLifecycleMonitorForCurrentSession
 {

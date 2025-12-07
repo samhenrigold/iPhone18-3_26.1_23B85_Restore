@@ -38,32 +38,31 @@
 
 - (void)profileDidBecomeReady:(id)ready
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC320];
   if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_DEFAULT))
   {
     v5 = v4;
-    *v8 = 138543362;
-    *&v8[4] = objc_opt_class();
-    v6 = *&v8[4];
-    _os_log_impl(&dword_269C02000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] profileDidBecomeReady", v8, 0xCu);
+    *v7 = 138543362;
+    *&v7[4] = objc_opt_class();
+    v6 = *&v7[4];
+    _os_log_impl(&dword_269C02000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] profileDidBecomeReady", v7, 0xCu);
   }
 
-  [(HDSHAccessibilityAssertionManager *)self _restoreContentProtectionObservingState];
-  v7 = *MEMORY[0x277D85DE8];
+  [(HDSHAccessibilityAssertionManager *)self _restoreContentProtectionObservingState:*v7];
 }
 
 - (BOOL)shouldBeObservingContentProtectionState
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D10718]);
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   v5 = [v3 initWithCategory:0 domainName:@"SleepTracking" profile:WeakRetained];
 
-  v16 = 0;
-  v6 = [v5 dateForKey:@"SleepTrackingSessionStartDate" error:&v16];
-  v7 = v16;
+  v15 = 0;
+  v6 = [v5 dateForKey:@"SleepTrackingSessionStartDate" error:&v15];
+  v7 = v15;
   if (v7)
   {
     _HKInitializeLogging();
@@ -73,9 +72,9 @@
       v11 = v8;
       v12 = objc_opt_class();
       *buf = 138543618;
-      v18 = v12;
-      v19 = 2114;
-      v20 = v7;
+      v17 = v12;
+      v18 = 2114;
+      v19 = v7;
       v13 = v12;
       _os_log_error_impl(&dword_269C02000, v11, OS_LOG_TYPE_ERROR, "[%{public}@] failed to read observing protection state key: %{public}@", buf, 0x16u);
 
@@ -100,14 +99,13 @@ LABEL_4:
   v10 = v9 > -86400.0;
 LABEL_7:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)setShouldBeObservingContentProtectionState:(BOOL)state
 {
   stateCopy = state;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc(MEMORY[0x277D10718]);
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   v7 = [v5 initWithCategory:0 domainName:@"SleepTracking" profile:WeakRetained];
@@ -122,9 +120,9 @@ LABEL_7:
     date = 0;
   }
 
-  v16 = 0;
-  v9 = [v7 setDate:date forKey:@"SleepTrackingSessionStartDate" error:&v16];
-  v10 = v16;
+  v15 = 0;
+  v9 = [v7 setDate:date forKey:@"SleepTrackingSessionStartDate" error:&v15];
+  v10 = v15;
   if (stateCopy)
   {
   }
@@ -135,23 +133,21 @@ LABEL_7:
     v11 = *MEMORY[0x277CCC320];
     if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_ERROR))
     {
-      v13 = v11;
-      v14 = objc_opt_class();
+      v12 = v11;
+      v13 = objc_opt_class();
       *buf = 138543618;
-      v18 = v14;
-      v19 = 2114;
-      v20 = v10;
-      v15 = v14;
-      _os_log_error_impl(&dword_269C02000, v13, OS_LOG_TYPE_ERROR, "[%{public}@] failed to set observing protection state key: %{public}@", buf, 0x16u);
+      v17 = v13;
+      v18 = 2114;
+      v19 = v10;
+      v14 = v13;
+      _os_log_error_impl(&dword_269C02000, v12, OS_LOG_TYPE_ERROR, "[%{public}@] failed to set observing protection state key: %{public}@", buf, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_restoreContentProtectionObservingState
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([(HDSHAccessibilityAssertionManager *)self shouldBeObservingContentProtectionState])
   {
     _HKInitializeLogging();
@@ -159,10 +155,10 @@ LABEL_7:
     if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_DEFAULT))
     {
       v4 = v3;
-      v10 = 138543362;
-      v11 = objc_opt_class();
-      v5 = v11;
-      _os_log_impl(&dword_269C02000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] should be observing content protection state", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = objc_opt_class();
+      v5 = v10;
+      _os_log_impl(&dword_269C02000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] should be observing content protection state", &v9, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_profile);
@@ -170,67 +166,61 @@ LABEL_7:
     contentProtectionManager = [daemon contentProtectionManager];
     [contentProtectionManager addContentProtectionObserver:self withQueue:self->_queue];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginObservingContentProtectionState
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC320];
   if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
-    *v10 = 138543362;
-    *&v10[4] = objc_opt_class();
-    v5 = *&v10[4];
-    _os_log_impl(&dword_269C02000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] beginObservingContentProtectionState", v10, 0xCu);
+    *v9 = 138543362;
+    *&v9[4] = objc_opt_class();
+    v5 = *&v9[4];
+    _os_log_impl(&dword_269C02000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] beginObservingContentProtectionState", v9, 0xCu);
   }
 
-  [(HDSHAccessibilityAssertionManager *)self setShouldBeObservingContentProtectionState:1, *v10];
+  [(HDSHAccessibilityAssertionManager *)self setShouldBeObservingContentProtectionState:1, *v9, *&v9[8]];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   daemon = [WeakRetained daemon];
   contentProtectionManager = [daemon contentProtectionManager];
   [contentProtectionManager addContentProtectionObserver:self withQueue:self->_queue];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopObservingContentProtectionState
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC320];
   if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
-    *v10 = 138543362;
-    *&v10[4] = objc_opt_class();
-    v5 = *&v10[4];
-    _os_log_impl(&dword_269C02000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] stopObservingContentProtectionState", v10, 0xCu);
+    *v9 = 138543362;
+    *&v9[4] = objc_opt_class();
+    v5 = *&v9[4];
+    _os_log_impl(&dword_269C02000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] stopObservingContentProtectionState", v9, 0xCu);
   }
 
-  [(HDSHAccessibilityAssertionManager *)self setShouldBeObservingContentProtectionState:0, *v10];
+  [(HDSHAccessibilityAssertionManager *)self setShouldBeObservingContentProtectionState:0, *v9, *&v9[8]];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   daemon = [WeakRetained daemon];
   contentProtectionManager = [daemon contentProtectionManager];
   [contentProtectionManager removeContentProtectionObserver:self];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateAccessibilityAssertion
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC320];
   if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     *buf = 138543362;
-    v10 = objc_opt_class();
-    v5 = v10;
+    v9 = objc_opt_class();
+    v5 = v9;
     _os_log_impl(&dword_269C02000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] invalidateAccessibilityAssertion", buf, 0xCu);
   }
 
@@ -241,7 +231,6 @@ LABEL_7:
   block[3] = &unk_279C830E0;
   block[4] = self;
   dispatch_sync(queue, block);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __69__HDSHAccessibilityAssertionManager_invalidateAccessibilityAssertion__block_invoke(uint64_t a1)
@@ -276,7 +265,7 @@ void __69__HDSHAccessibilityAssertionManager_invalidateAccessibilityAssertion__b
 
 - (void)contentProtectionStateChanged:(int64_t)changed previousState:(int64_t)state
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if (changed == 3 && [(HDSHAccessibilityAssertionManager *)self shouldBeObservingContentProtectionState])
   {
@@ -285,21 +274,19 @@ void __69__HDSHAccessibilityAssertionManager_invalidateAccessibilityAssertion__b
     if (os_log_type_enabled(*MEMORY[0x277CCC320], OS_LOG_TYPE_DEFAULT))
     {
       v7 = v6;
-      *v10 = 138543362;
-      *&v10[4] = objc_opt_class();
-      v8 = *&v10[4];
-      _os_log_impl(&dword_269C02000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] database is locking, taking assertion", v10, 0xCu);
+      *v9 = 138543362;
+      *&v9[4] = objc_opt_class();
+      v8 = *&v9[4];
+      _os_log_impl(&dword_269C02000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] database is locking, taking assertion", v9, 0xCu);
     }
 
-    [(HDSHAccessibilityAssertionManager *)self _queue_takeAccessibilityAssertion];
+    [(HDSHAccessibilityAssertionManager *)self _queue_takeAccessibilityAssertion:*v9];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_takeAccessibilityAssertion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCC320];
   if (self->_accessibilityAssertion)
   {
@@ -309,8 +296,8 @@ void __69__HDSHAccessibilityAssertionManager_invalidateAccessibilityAssertion__b
     {
       v5 = v4;
       *buf = 138543362;
-      v21 = objc_opt_class();
-      v6 = v21;
+      v20 = objc_opt_class();
+      v6 = v20;
       _os_log_impl(&dword_269C02000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] invalidating existing assertion", buf, 0xCu);
     }
 
@@ -321,9 +308,9 @@ void __69__HDSHAccessibilityAssertionManager_invalidateAccessibilityAssertion__b
   database = [WeakRetained database];
   v9 = objc_opt_class();
   v10 = NSStringFromClass(v9);
-  v19 = 0;
-  v11 = [database takeAccessibilityAssertionWithOwnerIdentifier:v10 timeout:&v19 error:600.0];
-  v12 = v19;
+  v18 = 0;
+  v11 = [database takeAccessibilityAssertionWithOwnerIdentifier:v10 timeout:&v18 error:600.0];
+  v12 = v18;
   accessibilityAssertion = self->_accessibilityAssertion;
   self->_accessibilityAssertion = v11;
 
@@ -333,18 +320,16 @@ void __69__HDSHAccessibilityAssertionManager_invalidateAccessibilityAssertion__b
     v14 = *v3;
     if (os_log_type_enabled(*v3, OS_LOG_TYPE_ERROR))
     {
-      v16 = v14;
-      v17 = objc_opt_class();
+      v15 = v14;
+      v16 = objc_opt_class();
       *buf = 138543618;
-      v21 = v17;
-      v22 = 2114;
-      v23 = v12;
-      v18 = v17;
-      _os_log_error_impl(&dword_269C02000, v16, OS_LOG_TYPE_ERROR, "[%{public}@] failed to take assertion with error: %{public}@", buf, 0x16u);
+      v20 = v16;
+      v21 = 2114;
+      v22 = v12;
+      v17 = v16;
+      _os_log_error_impl(&dword_269C02000, v15, OS_LOG_TYPE_ERROR, "[%{public}@] failed to take assertion with error: %{public}@", buf, 0x16u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

@@ -25,10 +25,12 @@
 - (void)_playQueuedUpVideo;
 - (void)_prepareForEditing;
 - (void)_resetVideoForListing;
+- (void)_setDateAttributes:(id)attributes animated:(BOOL)animated;
 - (void)_startScrubbingAnimationFromUIViewAnimateWithDuration;
 - (void)_unloadSnapshotContentViews;
 - (void)dealloc;
 - (void)layoutSubviews;
+- (void)setShouldShowUnsnapshotableContent:(BOOL)content;
 - (void)videoPlayerViewDidBeginPlaying:(id)playing;
 @end
 
@@ -103,6 +105,17 @@
     bottomGradientView = self->_bottomGradientView;
     self->_bottomGradientView = 0;
   }
+}
+
+- (void)setShouldShowUnsnapshotableContent:(BOOL)content
+{
+  contentCopy = content;
+  v6.receiver = self;
+  v6.super_class = NTKTimelapseFaceView;
+  [(NTKTimelapseFaceView *)&v6 setShouldShowUnsnapshotableContent:!content];
+  v5.receiver = self;
+  v5.super_class = NTKTimelapseFaceView;
+  [(NTKTimelapseFaceView *)&v5 setShouldShowUnsnapshotableContent:contentCopy];
 }
 
 - (void)_loadSnapshotContentViews
@@ -547,6 +560,116 @@
 LABEL_6:
 
   return v14;
+}
+
+- (void)_setDateAttributes:(id)attributes animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  attributesCopy = attributes;
+  if (!attributesCopy)
+  {
+    goto LABEL_18;
+  }
+
+  v7 = +[UIColor whiteColor];
+  if ([attributesCopy isComplexBackground])
+  {
+    [attributesCopy bgHue];
+    v9 = v8;
+    [attributesCopy bgSaturation];
+    v11 = v10;
+    [attributesCopy bgBrightness];
+    v13 = [UIColor colorWithHue:v9 saturation:v11 brightness:v12 alpha:0.7];
+LABEL_8:
+    v22 = 1;
+LABEL_9:
+    [attributesCopy bgHue];
+    v24 = v23;
+    [attributesCopy bgSaturation];
+    v26 = v25;
+    [attributesCopy bgBrightness];
+    v21 = [UIColor colorWithHue:v24 saturation:v26 brightness:v27 alpha:0.9];
+    goto LABEL_10;
+  }
+
+  if (([attributesCopy isColoredText] & 1) == 0)
+  {
+    v13 = 0;
+    goto LABEL_8;
+  }
+
+  [attributesCopy textHue];
+  v15 = v14;
+  [attributesCopy textSaturation];
+  v17 = v16;
+  [attributesCopy textBrightness];
+  v19 = [UIColor colorWithHue:v15 saturation:v17 brightness:v18 alpha:1.0];
+
+  [attributesCopy bgHue];
+  v21 = [UIColor colorWithHue:v20 saturation:0.15 brightness:1.0 alpha:0.9];
+  v22 = 0;
+  v13 = 0;
+  v7 = v19;
+  if (!v21)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_10:
+  [attributesCopy shadowHue];
+  v29 = v28;
+  [attributesCopy shadowSaturation];
+  v31 = v30;
+  [attributesCopy shadowBrightness];
+  v33 = [UIColor colorWithHue:v29 saturation:v31 brightness:v32 alpha:1.0];
+  objc_storeStrong(&self->_shadowColor, v33);
+  objc_storeStrong(&self->_foregroundColor, v7);
+  *(self + 80) = *(self + 80) & 0xFE | v22;
+  timeView = [(NTKTimelapseFaceView *)self timeView];
+  [(UIView *)self->_topGradientView removeFromSuperview];
+  topGradientView = self->_topGradientView;
+  self->_topGradientView = 0;
+
+  [(UIView *)self->_bottomGradientView removeFromSuperview];
+  bottomGradientView = self->_bottomGradientView;
+  self->_bottomGradientView = 0;
+
+  if (v13)
+  {
+    v37 = [(NTKTimelapseFaceView *)self _newTopGradientViewWithColor:v13];
+    v38 = self->_topGradientView;
+    self->_topGradientView = v37;
+  }
+
+  if (v21)
+  {
+    v39 = [(NTKTimelapseFaceView *)self _newBottomGradientViewWithColor:v21];
+    v40 = self->_bottomGradientView;
+    self->_bottomGradientView = v39;
+  }
+
+  if (animatedCopy)
+  {
+    v41[0] = _NSConcreteStackBlock;
+    v41[1] = 3221225472;
+    v41[2] = sub_4504;
+    v41[3] = &unk_10430;
+    v42 = timeView;
+    v43 = v7;
+    v44 = v33;
+    [UIView transitionWithView:v42 duration:5242880 options:v41 animations:0 completion:0.8];
+  }
+
+  else
+  {
+    [timeView setColor:v7];
+    [timeView setShadowColor:v33];
+  }
+
+  [(NTKTimelapseFaceView *)self _applyComplicationContentSpecificAttributesAnimated:animatedCopy];
+  [(NTKTimelapseFaceView *)self setNeedsLayout];
+
+LABEL_18:
 }
 
 - (void)_applyDataMode

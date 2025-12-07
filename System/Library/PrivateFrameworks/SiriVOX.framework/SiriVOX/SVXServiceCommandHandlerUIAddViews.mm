@@ -11,7 +11,7 @@
 
 - (void)handleCommand:(id)command withContext:(id)context taskTracker:(id)tracker completion:(id)completion
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   contextCopy = context;
   trackerCopy = tracker;
@@ -28,27 +28,27 @@
   af_dialogPhase = [v14 af_dialogPhase];
   isExpository = [af_dialogPhase isExpository];
 
-  v43 = isExpository;
+  v42 = isExpository;
   if ((isExpository & 1) == 0)
   {
     kdebug_trace();
   }
 
   context = [trackerCopy context];
-  v54[0] = MEMORY[0x277D85DD0];
-  v54[1] = 3221225472;
-  v54[2] = __87__SVXServiceCommandHandlerUIAddViews_handleCommand_withContext_taskTracker_completion___block_invoke;
-  v54[3] = &unk_279C687B8;
-  v56 = v13;
+  v53[0] = MEMORY[0x277D85DD0];
+  v53[1] = 3221225472;
+  v53[2] = __87__SVXServiceCommandHandlerUIAddViews_handleCommand_withContext_taskTracker_completion___block_invoke;
+  v53[3] = &unk_279C687B8;
+  v55 = v13;
   v18 = v14;
-  v55 = v18;
-  v19 = [context mutatedCopyWithMutator:v54];
+  v54 = v18;
+  v19 = [context mutatedCopyWithMutator:v53];
 
-  v39 = v19;
-  v44 = [trackerCopy beginChildWithContext:v19];
+  v38 = v19;
+  v43 = [trackerCopy beginChildWithContext:v19];
   objc_opt_class();
-  v42 = contextCopy;
-  v40 = v18;
+  v41 = contextCopy;
+  v39 = v18;
   if (objc_opt_isKindOfClass())
   {
     v20 = contextCopy;
@@ -67,13 +67,13 @@
     patternId = [v21 patternId];
     patternType = [v21 patternType];
     *buf = 136315906;
-    v59 = "[SVXServiceCommandHandlerUIAddViews handleCommand:withContext:taskTracker:completion:]";
-    v60 = 2112;
-    v61 = v21;
-    v62 = 2112;
-    v63 = patternId;
-    v64 = 2112;
-    v65 = patternType;
+    v58 = "[SVXServiceCommandHandlerUIAddViews handleCommand:withContext:taskTracker:completion:]";
+    v59 = 2112;
+    v60 = v21;
+    v61 = 2112;
+    v62 = patternId;
+    v63 = 2112;
+    v64 = patternType;
     _os_log_impl(&dword_2695B9000, v23, OS_LOG_TYPE_INFO, "%s preparedAddViews = %@, patternId = %@, patternType = %@", buf, 0x2Au);
   }
 
@@ -82,37 +82,37 @@
   [(SVXInstrumentationUtilities *)instrumentationUtils emitPatternExecutedEvent:instrumentationContext addViews:v21];
 
   v28 = dispatch_group_create();
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   views = [v21 views];
-  v30 = [views countByEnumeratingWithState:&v50 objects:v57 count:16];
+  v30 = [views countByEnumeratingWithState:&v49 objects:v56 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v51;
+    v32 = *v50;
     do
     {
       for (i = 0; i != v31; ++i)
       {
-        if (*v51 != v32)
+        if (*v50 != v32)
         {
           objc_enumerationMutation(views);
         }
 
-        v34 = *(*(&v50 + 1) + 8 * i);
+        v34 = *(*(&v49 + 1) + 8 * i);
         dispatch_group_enter(v28);
         aceViewHandler = self->_aceViewHandler;
-        v48[0] = MEMORY[0x277D85DD0];
-        v48[1] = 3221225472;
-        v48[2] = __87__SVXServiceCommandHandlerUIAddViews_handleCommand_withContext_taskTracker_completion___block_invoke_30;
-        v48[3] = &unk_279C67888;
-        v49 = v28;
-        [(SVXAceViewHandler *)aceViewHandler handleAceView:v34 isExpository:v43 taskTracker:v44 completion:v48];
+        v47[0] = MEMORY[0x277D85DD0];
+        v47[1] = 3221225472;
+        v47[2] = __87__SVXServiceCommandHandlerUIAddViews_handleCommand_withContext_taskTracker_completion___block_invoke_30;
+        v47[3] = &unk_279C67888;
+        v48 = v28;
+        [(SVXAceViewHandler *)aceViewHandler handleAceView:v34 isExpository:v42 taskTracker:v43 completion:v47];
       }
 
-      v31 = [views countByEnumeratingWithState:&v50 objects:v57 count:16];
+      v31 = [views countByEnumeratingWithState:&v49 objects:v56 count:16];
     }
 
     while (v31);
@@ -122,11 +122,9 @@
   block[1] = 3221225472;
   block[2] = __87__SVXServiceCommandHandlerUIAddViews_handleCommand_withContext_taskTracker_completion___block_invoke_2;
   block[3] = &unk_279C68220;
-  v47 = completionCopy;
+  v46 = completionCopy;
   v36 = completionCopy;
   dispatch_group_notify(v28, MEMORY[0x277D85CD0], block);
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 void __87__SVXServiceCommandHandlerUIAddViews_handleCommand_withContext_taskTracker_completion___block_invoke(uint64_t a1, void *a2)

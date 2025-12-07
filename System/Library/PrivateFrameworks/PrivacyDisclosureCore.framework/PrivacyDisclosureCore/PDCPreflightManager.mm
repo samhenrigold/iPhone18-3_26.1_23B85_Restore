@@ -73,26 +73,27 @@ void __48__PDCPreflightManager_isPreflightFeatureEnabled__block_invoke()
 - (BOOL)_requiresPreflightForApplication:(id)application
 {
   applicationCopy = application;
-  v10 = 0;
-  v5 = [applicationCopy findApplicationRecordWithError:&v10];
-  v6 = v10;
+  v12 = 0;
+  v5 = [applicationCopy findApplicationRecordWithError:&v12];
+  v6 = v12;
+  v8 = v6;
   if (v6)
   {
-    v7 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = PDC_LOG_CHANNEL_PREFIXPrivacyDisclosureCore(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      PDCCurrentRegulatoryDisclosureVersionForApplicationIdentity_cold_1(applicationCopy, v6, v7);
+      PDCCurrentRegulatoryDisclosureVersionForApplicationIdentity_cold_1(applicationCopy, v8, v9);
     }
 
-    v8 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v8 = [(PDCPreflightManager *)self _requiresPreflightForApplicationRecord:v5];
+    v10 = [(PDCPreflightManager *)self _requiresPreflightForApplicationRecord:v5];
   }
 
-  return v8;
+  return v10;
 }
 
 - (BOOL)_requiresPreflightForApplicationRecord:(id)record

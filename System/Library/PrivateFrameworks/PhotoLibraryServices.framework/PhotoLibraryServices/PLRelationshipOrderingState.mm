@@ -10,11 +10,11 @@
 - (unint64_t)findIndexForObjectID:(id)d newOrderValue:(int64_t)value hasOrderValueConflictWithObjectID:(id *)iD
 {
   dCopy = d;
-  if ([self->_foks count])
+  if (objc_msgSend_count(self->_foks))
   {
     v9 = [MEMORY[0x1E696AD98] numberWithLongLong:value];
-    v10 = [self->_foks indexOfObject:v9 inSortedRange:0 options:objc_msgSend(self->_foks usingComparator:{"count"), 1024, &__block_literal_global_22869}];
-    if (v10 >= [self->_oids count])
+    v10 = [self->_foks indexOfObject:v9 inSortedRange:0 options:objc_msgSend_count(self->_foks) usingComparator:{1024, &__block_literal_global_22869}];
+    if (v10 >= objc_msgSend_count(self->_oids))
     {
       if (iD)
       {
@@ -115,7 +115,7 @@ LABEL_18:
     self->_isMutable = 1;
   }
 
-  v13 = [self->_oids count];
+  v13 = objc_msgSend_count(self->_oids);
   v14 = MEMORY[0x1E6994D48];
   if (v13 < index)
   {
@@ -124,7 +124,7 @@ LABEL_18:
       v15 = __CPLAssetsdOSLogDomain();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v16 = [self->_oids count];
+        v16 = objc_msgSend_count(self->_oids);
         v28 = 134218240;
         indexCopy = index;
         v30 = 2048;
@@ -133,7 +133,7 @@ LABEL_18:
       }
     }
 
-    index = [self->_oids count];
+    index = objc_msgSend_count(self->_oids);
   }
 
   v17 = [self->_oids indexOfObject:dCopy];
@@ -216,9 +216,9 @@ LABEL_30:
   v10.receiver = self;
   v10.super_class = PLRelationshipOrderingState;
   v4 = [(PLRelationshipOrderingState *)&v10 description];
-  v5 = [v3 stringWithFormat:@"%@ isMutable=%d count=%d\n", v4, self->_isMutable, objc_msgSend(self->_oids, "count")];
+  v5 = [v3 stringWithFormat:@"%@ isMutable=%d count=%d\n", v4, self->_isMutable, objc_msgSend_count(self->_oids)];
 
-  if ([self->_oids count])
+  if (objc_msgSend_count(self->_oids))
   {
     v6 = 0;
     do
@@ -230,7 +230,7 @@ LABEL_30:
       ++v6;
     }
 
-    while ([self->_oids count] > v6);
+    while (objc_msgSend_count(self->_oids) > v6);
   }
 
   return v5;

@@ -78,7 +78,7 @@
 
 - (PXStoryView)storyView
 {
-  v2 = sub_1B3851260();
+  v2 = sub_1B3851260(self);
 
   return v2;
 }
@@ -92,8 +92,9 @@
 
 - (void)setRemainsActiveWhileApplicationIsHidden:(BOOL)hidden
 {
+  hiddenCopy = hidden;
   selfCopy = self;
-  sub_1B3851474(hidden);
+  sub_1B3851474(hiddenCopy);
 }
 
 - (PXStoryViewControllerNavigationItemHelper)navigationItemHelper
@@ -112,7 +113,7 @@
 
 - (Class)gridDecorationViewClass
 {
-  result = sub_1B385173C();
+  result = sub_1B385173C(self);
   if (result)
   {
 
@@ -148,7 +149,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1B38518D8();
+  sub_1B38518D8(delegate);
 }
 
 - (PXStoryViewControllerDismissalDelegate)dismissalDelegate
@@ -162,7 +163,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1B3851A1C();
+  sub_1B3851A1C(delegate);
 }
 
 - (PXStoryViewEnvironmentActionDelegate)viewEnvironmentActionDelegate
@@ -251,7 +252,7 @@
 - (BOOL)isModalInPresentation
 {
   selfCopy = self;
-  v3 = sub_1B38541CC();
+  v3 = sub_1B38541CC(selfCopy);
 
   return v3 & 1;
 }
@@ -259,7 +260,7 @@
 - (UIEdgeInsets)px_layoutMargins
 {
   selfCopy = self;
-  sub_1B3854454();
+  sub_1B3854454(selfCopy);
   v4 = v3;
   v6 = v5;
   v8 = v7;
@@ -279,13 +280,13 @@
 - (void)presentStyleSwitcher
 {
   selfCopy = self;
-  sub_1B385510C();
+  sub_1B385510C(selfCopy);
 }
 
 - (void)presentBrowserGrid
 {
   selfCopy = self;
-  sub_1B385542C();
+  sub_1B385542C(selfCopy);
 }
 
 - (void)presentMusicEditor
@@ -296,7 +297,7 @@
 
 - (PXStoryExportActivityHelper)exportActivityHelper
 {
-  sub_1B372D608();
+  sub_1B372D608(self, a2);
 
   return self;
 }
@@ -314,15 +315,15 @@
 
   else
   {
-    memset(v11, 0, sizeof(v11));
+    memset(v13, 0, sizeof(v13));
     swift_unknownObjectRetain();
     selfCopy2 = self;
   }
 
-  sub_1B3858AEC(item, value);
+  sub_1B3858AEC(item, value, v11, source);
   swift_unknownObjectRelease();
 
-  sub_1B371B36C(v11, &qword_1EB850170);
+  sub_1B371B36C(v13, &qword_1EB850170, &qword_1B3CF6D20);
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
@@ -344,7 +345,7 @@
   sub_1B3859460();
   v8 = v7;
 
-  sub_1B371B36C(v10, &qword_1EB850170);
+  sub_1B371B36C(v10, &qword_1EB850170, &qword_1B3CF6D20);
   return v8 & 1;
 }
 
@@ -373,7 +374,7 @@
 
   sub_1B3859A14();
 
-  sub_1B371B36C(v6, &qword_1EB850170);
+  sub_1B371B36C(v6, &qword_1EB850170, &qword_1B3CF6D20);
 }
 
 - (void)removeAssetsFromCuration:(id)curation
@@ -386,7 +387,7 @@
 - (void)deleteMemory
 {
   selfCopy = self;
-  sub_1B385A648();
+  sub_1B385A648(selfCopy, v2);
 }
 
 - (id)dismissStoryViewControllerInteractively
@@ -425,7 +426,7 @@
 {
   senderCopy = sender;
   selfCopy = self;
-  sub_1B385C7C0();
+  sub_1B385C7C0(selfCopy, v5);
 }
 
 - (void)fileRadar
@@ -456,25 +457,25 @@
 - (void)showVisualDiagnostics
 {
   selfCopy = self;
-  sub_1B385F004();
+  sub_1B385F004(selfCopy);
 }
 
 - (void)toggleMuteState
 {
   selfCopy = self;
-  sub_1B385F2A0();
+  sub_1B385F2A0(selfCopy);
 }
 
 - (void)presentTitleEditor
 {
   selfCopy = self;
-  sub_1B385F3C4();
+  sub_1B385F3C4(selfCopy);
 }
 
 - (void)presentAssetPicker
 {
   selfCopy = self;
-  sub_1B385F5C0();
+  sub_1B385F5C0(selfCopy);
 }
 
 - (id)musicFeedbackContextMenuDelegateWithAudioAssetProvidingBlock:(id)block
@@ -505,7 +506,7 @@
   transitionCopy = transition;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = sub_1B3860694();
+  v7 = sub_1B3860694(selfCopy);
 
   swift_unknownObjectRelease();
   return v7 & 1;
@@ -534,7 +535,7 @@
   sub_1B3860798();
 
   swift_unknownObjectRelease();
-  sub_1B371B36C(v11, &qword_1EB850170);
+  sub_1B371B36C(v11, &qword_1EB850170, &qword_1B3CF6D20);
 }
 
 - (void)didEndTransition:(id)transition withEndPoint:(id)point finished:(BOOL)finished
@@ -551,26 +552,26 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1B3860A50();
+  sub_1B3860A50(selfCopy);
   swift_unknownObjectRelease();
 }
 
 - (void)presentColorGradeEditor
 {
   selfCopy = self;
-  sub_1B3860CC0();
+  sub_1B3860CC0(selfCopy);
 }
 
 - (void)presentChapterInsertor
 {
   selfCopy = self;
-  sub_1B3863608();
+  sub_1B3863608(selfCopy);
 }
 
 - (void)deleteCurrentChapter
 {
   selfCopy = self;
-  sub_1B3863E88();
+  sub_1B3863E88(selfCopy);
 }
 
 - (PUStoryViewController)initWithNibName:(id)name bundle:(id)bundle
@@ -635,14 +636,14 @@
 {
   configurationCopy = configuration;
   selfCopy = self;
-  StoryViewController.didBeginExport(with:)();
+  StoryViewController.didBeginExport(with:)(selfCopy);
 }
 
 - (void)didEndExportWithConfiguration:(id)configuration
 {
   configurationCopy = configuration;
   selfCopy = self;
-  StoryViewController.didEndExport(with:)();
+  StoryViewController.didEndExport(with:)(selfCopy);
 }
 
 - (NSString)appIntentsDebugDescription

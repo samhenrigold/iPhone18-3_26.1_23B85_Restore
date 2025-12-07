@@ -56,6 +56,7 @@
 - (id)_resolvedPopoverPresentationControllerSourceItemForTab:(id *)tab;
 - (id)_responderSelectionContainerViewForResponder:(id)responder;
 - (id)_selectedViewControllerInTabBar;
+- (id)_shouldSelectTab:(uint64_t)tab;
 - (id)_tabBarWindowForInterfaceOrientation:(id)orientation;
 - (id)_tabCustomizationProxy;
 - (id)_tabs_compactTabs;
@@ -80,7 +81,6 @@
 - (int64_t)_subclassPreferredFocusedViewPrioritizationType;
 - (int64_t)_uip_preferredSidebarMode;
 - (int64_t)preferredInterfaceOrientationForPresentation;
-- (uint64_t)_shouldSelectTab:(uint64_t)tab;
 - (unint64_t)_effectiveMaxItems;
 - (unint64_t)_relevantEdgeForScrollViewObservation;
 - (unint64_t)supportedInterfaceOrientations;
@@ -1299,7 +1299,7 @@ void __62__UITabBarController__updateBarHiddenByClientStateIfNecessary__block_in
   if ((dyld_program_sdk_at_least() & 1) == 0)
   {
     v0 = _UIMainBundleIdentifier();
-    byte_1ED498E01 = [v0 isEqualToString:@"com.zhiliaoapp.musically"];
+    byte_1ED498E01 = objc_msgSend_isEqualToString_(v0);
   }
 }
 
@@ -1604,7 +1604,7 @@ LABEL_19:
     v6 = [_UIVisualStyleRegistry registryForIdiom:v5];
     v7 = [v6 visualStyleClassForStylableClass:objc_opt_class()];
 
-    if (!self->_visualStyle || ([(objc_class *)v7 isEqual:objc_opt_class()]& 1) == 0)
+    if (!self->_visualStyle || (objc_opt_class(), (objc_msgSend_isEqual_(v7) & 1) == 0))
     {
       obj = [[v7 alloc] initWithTabBarController:self];
       visualStyle = self->_visualStyle;
@@ -1908,9 +1908,9 @@ uint64_t __36__UITabBarController_initWithCoder___block_invoke_2(uint64_t a1)
     goto LABEL_8;
   }
 
-  v8 = [(NSArray *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     objc_storeStrong(&self->_compactTabIdentifiers, identifiers);
@@ -2096,9 +2096,9 @@ void __39__UITabBarController_setTabs_animated___block_invoke_2(uint64_t a1)
 
   if (v11 && v6)
   {
-    v8 = [v11 isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(v11, v11, v6);
 
-    if (v8)
+    if (isEqual)
     {
       goto LABEL_12;
     }
@@ -2386,7 +2386,7 @@ LABEL_5:
   v12 = v11;
   v13 = [(UITabBarController *)self _viewForViewController:controllerCopy];
   [v13 frame];
-  v18 = [(UIViewControllerWrapperView *)v6 wrapperViewForView:v8 wrapperFrame:v10 viewFrame:v12, v14, v15, v16, v17, UIViewControllerWrapperView, v13];
+  v18 = [UIViewControllerWrapperView wrapperViewForView:v13 wrapperFrame:v6 viewFrame:v8, v10, v12, v14, v15, v16, v17];
   [(UITabBarController *)self _layoutViewController:controllerCopy];
 
   return v18;
@@ -2695,7 +2695,7 @@ LABEL_5:
   [coordinatorCopy animateAlongsideTransition:v9 completion:0];
 }
 
-uint64_t __80__UITabBarController_willTransitionToTraitCollection_withTransitionCoordinator___block_invoke(uint64_t a1, void *a2)
+void *__80__UITabBarController_willTransitionToTraitCollection_withTransitionCoordinator___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if ((result & 1) == 0)
@@ -3008,7 +3008,7 @@ BOOL __56__UITabBarController_updateTabBarItemForViewController___block_invoke(u
   }
 }
 
-- (uint64_t)_shouldSelectTab:(uint64_t)tab
+- (id)_shouldSelectTab:(uint64_t)tab
 {
   v3 = a2;
   if (tab)
@@ -3830,19 +3830,19 @@ uint64_t __39__UITabBarController__tabs_compactTabs__block_invoke(uint64_t a1, v
   v7 = v6;
   if (v5 == v6)
   {
-    v8 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqual = 0;
     if (v5 && v6)
     {
-      v8 = [v5 isEqual:v6];
+      isEqual = objc_msgSend_isEqual_(v5);
     }
   }
 
-  return v8;
+  return isEqual;
 }
 
 - (void)_tabs_rebuildTabBarItemsAnimated:(BOOL)animated
@@ -5580,17 +5580,17 @@ LABEL_25:
   }
 }
 
-uint64_t __72__UITabBarController__hideBarWithTransition_isExplicit_duration_reason___block_invoke(uint64_t result)
+void *__72__UITabBarController__hideBarWithTransition_isExplicit_duration_reason___block_invoke(void *result)
 {
-  v1 = *(result + 40);
+  v1 = result[5];
   if (v1 == 2)
   {
-    return [*(*(result + 32) + 1104) setBottomBarSuppressedByNavigation:1 animated:*(result + 48)];
+    return [*(result[4] + 1104) setBottomBarSuppressedByNavigation:1 animated:*(result + 48)];
   }
 
   if (v1 == 1)
   {
-    return [*(*(result + 32) + 1104) setBarHidden:1 animated:*(result + 48)];
+    return [*(result[4] + 1104) setBarHidden:1 animated:*(result + 48)];
   }
 
   return result;
@@ -6058,17 +6058,17 @@ LABEL_30:
   }
 }
 
-uint64_t __72__UITabBarController__showBarWithTransition_isExplicit_duration_reason___block_invoke(uint64_t result)
+void *__72__UITabBarController__showBarWithTransition_isExplicit_duration_reason___block_invoke(void *result)
 {
-  v1 = *(result + 40);
+  v1 = result[5];
   if (v1 == 2)
   {
-    return [*(*(result + 32) + 1104) setBottomBarSuppressedByNavigation:0 animated:*(result + 48)];
+    return [*(result[4] + 1104) setBottomBarSuppressedByNavigation:0 animated:*(result + 48)];
   }
 
   if (v1 == 1)
   {
-    return [*(*(result + 32) + 1104) setBarHidden:0 animated:*(result + 48)];
+    return [*(result[4] + 1104) setBarHidden:0 animated:*(result + 48)];
   }
 
   return result;
@@ -6573,7 +6573,7 @@ void __85__UITabBarController__resumeAllTabBarBackgroundUpdatesAndUpdateIfNecess
               v22 = 1;
               if (v26 && v27)
               {
-                v22 = [v26 isEqual:v27] ^ 1;
+                v22 = objc_msgSend_isEqual_(v26) ^ 1;
               }
             }
           }
@@ -7083,10 +7083,10 @@ LABEL_17:
 
 uint64_t __51__UITabBarController__viewControllerForTabBarItem___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 tabBarItem];
-  v4 = [v3 isEqual:*(a1 + 32)];
+  v2 = [a2 tabBarItem];
+  isEqual = objc_msgSend_isEqual_(v2);
 
-  return v4;
+  return isEqual;
 }
 
 - (void)_tabBarDidChangeSelectionToItem:(id)item
@@ -7636,7 +7636,7 @@ LABEL_8:
 
     superview2 = [v43 superview];
     [v43 frame];
-    v49 = [(UIViewControllerWrapperView *)v45 wrapperViewForView:v46 frame:v47, v48, UIViewControllerWrapperView, v43];
+    v49 = [UIViewControllerWrapperView wrapperViewForView:v43 frame:v45, v46, v47, v48];
     [superview2 addSubview:v49];
   }
 
@@ -8084,7 +8084,7 @@ void __97__UITabBarController_transitionFromViewController_toViewController_tran
   }
 }
 
-uint64_t __97__UITabBarController_transitionFromViewController_toViewController_transition_shouldSetSelected___block_invoke_3(uint64_t a1, void *a2)
+void *__97__UITabBarController_transitionFromViewController_toViewController_transition_shouldSetSelected___block_invoke_3(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if ((result & 1) == 0)
@@ -9011,12 +9011,12 @@ LABEL_20:
 {
   actionCopy = action;
   currentHandler = _UIMainBundleIdentifier();
-  if (([currentHandler isEqualToString:@"com.apple.DocumentsApp"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(currentHandler) & 1) == 0)
   {
     v6 = _UIMainBundleIdentifier();
-    v7 = [v6 isEqualToString:@"com.apple.DocumentManagerUICore.Service"];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (v7)
+    if (isEqualToString)
     {
       goto LABEL_5;
     }

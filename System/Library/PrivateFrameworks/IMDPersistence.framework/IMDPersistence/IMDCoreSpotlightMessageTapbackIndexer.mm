@@ -119,29 +119,29 @@
 {
   itemCopy = item;
   updateCopy = update;
-  v11 = objc_msgSend_objectForKey_(itemCopy, v10, @"associatedMessageType");
-  v14 = v11;
-  if (v11)
+  v12 = objc_msgSend_objectForKey_(itemCopy, v10, @"associatedMessageType", v11);
+  v16 = v12;
+  if (v12)
   {
-    v15 = objc_msgSend_integerValue(v11, v12, v13);
-    if (v15)
+    v17 = objc_msgSend_integerValue(v12, v13, v14, v15);
+    if (v17)
     {
-      v17 = v15;
-      v18 = objc_msgSend__searchableAttributeFromAssociatedMessageType_(self, v16, v15);
-      v20 = objc_msgSend_objectForKey_(itemCopy, v19, @"associatedMessageGUID");
-      v22 = objc_msgSend_objectForKey_(itemCopy, v21, @"attributedBody");
-      v25 = objc_msgSend_string(v22, v23, v24);
+      v20 = v17;
+      v21 = objc_msgSend__searchableAttributeFromAssociatedMessageType_(self, v18, v17, v19);
+      v24 = objc_msgSend_objectForKey_(itemCopy, v22, @"associatedMessageGUID", v23);
+      v27 = objc_msgSend_objectForKey_(itemCopy, v25, @"attributedBody", v26);
+      v31 = objc_msgSend_string(v27, v28, v29, v30);
 
-      v26 = _IMDCoreSpotlightStrippedBody(itemCopy, @"plainBody", v25);
-      objc_msgSend_setTextContent_(updateCopy, v27, v26);
-      objc_msgSend_setMessageTapbackType_(updateCopy, v28, v18);
-      objc_msgSend_setTapbackAssociatedMessageID_(updateCopy, v29, v20);
-      objc_msgSend_setMessageType_(updateCopy, v30, @"tpbck");
-      objc_msgSend_setDisableSearchInSpotlight_(updateCopy, v31, MEMORY[0x1E695E118]);
-      if (v17 == 2006)
+      v32 = _IMDCoreSpotlightStrippedBody(itemCopy, @"plainBody", v31);
+      objc_msgSend_setTextContent_(updateCopy, v33, v32, v34);
+      objc_msgSend_setMessageTapbackType_(updateCopy, v35, v21, v36);
+      objc_msgSend_setTapbackAssociatedMessageID_(updateCopy, v37, v24, v38);
+      objc_msgSend_setMessageType_(updateCopy, v39, @"tpbck", v40);
+      objc_msgSend_setDisableSearchInSpotlight_(updateCopy, v41, MEMORY[0x1E695E118], v42);
+      if (v20 == 2006)
       {
-        v33 = objc_msgSend_objectForKey_(itemCopy, v32, @"associatedMessageEmoji");
-        objc_msgSend_setMessageTapbackStringValue_(updateCopy, v34, v33);
+        v45 = objc_msgSend_objectForKey_(itemCopy, v43, @"associatedMessageEmoji", v44);
+        objc_msgSend_setMessageTapbackStringValue_(updateCopy, v46, v45, v47);
       }
     }
   }

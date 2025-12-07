@@ -26,48 +26,45 @@
 
 - (void)didFinishUsingAssets:(id)assets
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v5 = [assetsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v5)
+  v4 = [assetsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v4)
   {
-    v6 = v5;
-    v7 = *v14;
+    v5 = v4;
+    v6 = *v11;
     do
     {
-      v8 = 0;
+      v7 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(assetsCopy);
         }
 
-        metadata = [*(*(&v13 + 1) + 8 * v8) metadata];
-        v10 = [metadata objectForKey:@"MSAssetMetadataItemID"];
+        metadata = [*(*(&v10 + 1) + 8 * v7) metadata];
+        v9 = [metadata objectForKey:@"MSAssetMetadataItemID"];
 
-        if (v10)
+        if (v9)
         {
-          engine = self->_engine;
-          [v10 unsignedLongLongValue];
+          [v9 unsignedLongLongValue];
           MMCSUnregisterFile();
         }
 
-        ++v8;
+        ++v7;
       }
 
-      while (v6 != v8);
-      v6 = [assetsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      while (v5 != v7);
+      v5 = [assetsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v6);
+    while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -111,12 +108,12 @@
 
 - (MSMMCSProtocol)initWithPersonID:(id)d path:(id)path
 {
-  v26[3] = *MEMORY[0x277D85DE8];
+  v25[3] = *MEMORY[0x277D85DE8];
   dCopy = d;
   pathCopy = path;
-  v24.receiver = self;
-  v24.super_class = MSMMCSProtocol;
-  v9 = [(MSMMCSProtocol *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = MSMMCSProtocol;
+  v9 = [(MSMMCSProtocol *)&v23 init];
   v10 = v9;
   if (v9)
   {
@@ -125,13 +122,13 @@
     [defaultManager createDirectoryAtPath:pathCopy withIntermediateDirectories:1 attributes:0 error:0];
 
     v12 = *MEMORY[0x277D25450];
-    v25[0] = *MEMORY[0x277D25448];
-    v25[1] = v12;
-    v26[0] = MEMORY[0x277CBEC38];
-    v26[1] = MEMORY[0x277CBEC38];
-    v25[2] = *MEMORY[0x277D25440];
-    v26[2] = MEMORY[0x277CBEC38];
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:3];
+    v24[0] = *MEMORY[0x277D25448];
+    v24[1] = v12;
+    v25[0] = MEMORY[0x277CBEC38];
+    v25[1] = MEMORY[0x277CBEC38];
+    v24[2] = *MEMORY[0x277D25440];
+    v25[2] = MEMORY[0x277CBEC38];
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:3];
     v13 = [MEMORY[0x277CBEA60] arrayWithObject:*MEMORY[0x277CBE640]];
     v14 = [MEMORY[0x277CBEBC0] fileURLWithPath:pathCopy];
     currentRunLoop = [MEMORY[0x277CBEB88] currentRunLoop];
@@ -150,13 +147,12 @@
     objc_storeStrong(&v10->_personID, v20);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 + (id)computeItemIDForAsset:(id)asset
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   metadata = [assetCopy metadata];
   v5 = [metadata objectForKey:@"MSAssetMetadataItemID"];
@@ -174,16 +170,16 @@
       {
         v11 = MEMORY[0x277CCAC58];
         v12 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v8];
-        v29 = 0;
-        v13 = [v11 propertyListWithData:v12 options:1 format:0 error:&v29];
-        v14 = v29;
+        v28 = 0;
+        v13 = [v11 propertyListWithData:v12 options:1 format:0 error:&v28];
+        v14 = v28;
         v15 = __masterManifest_1115;
         __masterManifest_1115 = v13;
 
         if (!__masterManifest_1115 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v31 = v14;
+          v30 = v14;
           _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to deserialize MMCS master manifest: %{public}@", buf, 0xCu);
         }
       }
@@ -224,8 +220,6 @@
     [v26 setObject:v5 forKey:@"MSAssetMetadataItemID"];
     [assetCopy setMetadata:v26];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

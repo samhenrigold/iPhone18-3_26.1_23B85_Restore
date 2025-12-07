@@ -1,10 +1,12 @@
 @interface PSConstants
++ (BOOL)setBufferDepthsForKey:(id)key writerDepth:(unsigned int)depth readerDepth:(unsigned int)readerDepth error:(id *)error;
 + (id)anePrioritiesDictionary;
 + (id)bufferCountDict;
 + (id)bufferCountDictLock;
 + (unint64_t)getOverridenANEPriorityForGraphTag:(id)tag;
 + (void)bufferDepthsFromDict:(id)dict writerDepth:(unsigned int *)depth readerDepth:(unsigned int *)readerDepth;
 + (void)getBufferDepthsForKey:(id)key writerDepth:(unsigned int *)depth readerDepth:(unsigned int *)readerDepth;
++ (void)setBufferDepthsForKey:(id)key writerDepth:(unsigned int)depth readerDepth:(unsigned int)readerDepth;
 @end
 
 @implementation PSConstants
@@ -174,6 +176,85 @@ void __38__PSConstants_anePrioritiesDictionary__block_invoke()
   [PSConstants bufferDepthsFromDict:v14 writerDepth:depth readerDepth:readerDepth];
   v15 = +[PSConstants bufferCountDictLock];
   [v15 unlock];
+}
+
++ (void)setBufferDepthsForKey:(id)key writerDepth:(unsigned int)depth readerDepth:(unsigned int)readerDepth
+{
+  v5 = *&readerDepth;
+  v6 = *&depth;
+  v17[2] = *MEMORY[0x277D85DE8];
+  keyCopy = key;
+  v8 = +[PSConstants bufferCountDictLock];
+  [v8 lock];
+
+  v9 = +[PSConstants bufferCountDict];
+  v10 = [v9 objectForKeyedSubscript:@"CustomCounts"];
+  if (!v10)
+  {
+    +[PSConstants setBufferDepthsForKey:writerDepth:readerDepth:];
+  }
+
+  v11 = v10;
+  v16[0] = @"Writer";
+  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v6];
+  v16[1] = @"Reader";
+  v17[0] = v12;
+  v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v5];
+  v17[1] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  [v11 setObject:v14 forKey:keyCopy];
+
+  v15 = +[PSConstants bufferCountDictLock];
+  [v15 unlock];
+}
+
++ (BOOL)setBufferDepthsForKey:(id)key writerDepth:(unsigned int)depth readerDepth:(unsigned int)readerDepth error:(id *)error
+{
+  v7 = *&readerDepth;
+  v8 = *&depth;
+  keyCopy = key;
+  v10 = +[PSExecutionSessionWorkarounds sharedInstance];
+  shouldAllowBufferSetterSPI = [v10 shouldAllowBufferSetterSPI];
+
+  if (shouldAllowBufferSetterSPI)
+  {
+    if ([PSRCConstants checkBufferConfigExistsForKey:keyCopy])
+    {
+      [MEMORY[0x277CCACA8] stringWithFormat:@"Buffer depth change was requested for key %@, but this key is a RC-backed stream and cannot be changed via this SPI.", keyCopy, v15, v16];
+    }
+
+    else
+    {
+      if (v8 <= v7)
+      {
+        [PSConstants setBufferDepthsForKey:keyCopy writerDepth:v8 readerDepth:v7];
+        v12 = 1;
+        goto LABEL_12;
+      }
+
+      [MEMORY[0x277CCACA8] stringWithFormat:@"Requested reader count (%d) for key %@ was less than the writer count (%d). To avoid wasting buffer allocations, the reader count must be greater than or equal to the writer count.", v7, keyCopy, v8];
+    }
+    v13 = ;
+    if (error)
+    {
+      *error = [MEMORY[0x277CCA9B8] polarisErrorWithCode:-2 description:v13];
+    }
+
+    goto LABEL_11;
+  }
+
+  if (!error)
+  {
+LABEL_11:
+    v12 = 0;
+    goto LABEL_12;
+  }
+
+  [MEMORY[0x277CCA9B8] polarisErrorWithCode:-2 description:@"Buffer setter SPI has been disabled. Please contact the Polaris team to change static buffer depths if needed."];
+  *error = v12 = 0;
+LABEL_12:
+
+  return v12;
 }
 
 @end

@@ -62,45 +62,43 @@
 
 void __41__SPBeaconSharingManager_remoteInterface__block_invoke()
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v23[2] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_287606D30];
   v1 = remoteInterface_interface_5;
   remoteInterface_interface_5 = v0;
 
   v2 = remoteInterface_interface_5;
   v3 = MEMORY[0x277CBEB98];
-  v24[0] = objc_opt_class();
-  v24[1] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+  v23[0] = objc_opt_class();
+  v23[1] = objc_opt_class();
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
   v5 = [v3 setWithArray:v4];
   [v2 setClasses:v5 forSelector:sel_allSharesWithCompletion_ argumentIndex:0 ofReply:1];
 
   v6 = remoteInterface_interface_5;
   v7 = MEMORY[0x277CBEB98];
-  v23[0] = objc_opt_class();
-  v23[1] = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+  v22[0] = objc_opt_class();
+  v22[1] = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
   v9 = [v7 setWithArray:v8];
   [v6 setClasses:v9 forSelector:sel_allSharesIncludingHiddenWithCompletion_ argumentIndex:0 ofReply:1];
 
   v10 = remoteInterface_interface_5;
   v11 = MEMORY[0x277CBEB98];
-  v22[0] = objc_opt_class();
-  v22[1] = objc_opt_class();
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v21[0] = objc_opt_class();
+  v21[1] = objc_opt_class();
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
   v13 = [v11 setWithArray:v12];
   [v10 setClasses:v13 forSelector:sel_share_recipients_shareType_completion_ argumentIndex:1 ofReply:0];
 
   v14 = remoteInterface_interface_5;
   v15 = MEMORY[0x277CBEB98];
+  v18 = objc_opt_class();
   v19 = objc_opt_class();
   v20 = objc_opt_class();
-  v21 = objc_opt_class();
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:3];
-  v17 = [v15 setWithArray:{v16, v19, v20}];
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:3];
+  v17 = [v15 setWithArray:{v16, v18, v19}];
   [v14 setClasses:v17 forSelector:sel_share_recipients_shareType_completion_ argumentIndex:1 ofReply:1];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (SPBeaconSharingXPCProtocol)proxy
@@ -119,14 +117,14 @@ void __41__SPBeaconSharingManager_remoteInterface__block_invoke()
       aBlock[1] = 3221225472;
       aBlock[2] = __31__SPBeaconSharingManager_proxy__block_invoke;
       aBlock[3] = &unk_279B58B10;
-      objc_copyWeak(&v29, location);
+      objc_copyWeak(&v28, location);
       v5 = _Block_copy(aBlock);
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __31__SPBeaconSharingManager_proxy__block_invoke_2;
-      v26[3] = &unk_279B58B10;
-      objc_copyWeak(&v27, location);
-      v6 = _Block_copy(v26);
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __31__SPBeaconSharingManager_proxy__block_invoke_2;
+      v25[3] = &unk_279B58B10;
+      objc_copyWeak(&v26, location);
+      v6 = _Block_copy(v25);
       v7 = objc_alloc(MEMORY[0x277D07BA0]);
       v8 = +[SPBeaconSharingManager exportedInterface];
       v9 = +[SPBeaconSharingManager remoteInterface];
@@ -135,8 +133,8 @@ void __41__SPBeaconSharingManager_remoteInterface__block_invoke()
       serviceDescription = self->_serviceDescription;
       self->_serviceDescription = v10;
 
-      objc_destroyWeak(&v27);
-      objc_destroyWeak(&v29);
+      objc_destroyWeak(&v26);
+      objc_destroyWeak(&v28);
       objc_destroyWeak(location);
     }
 
@@ -172,8 +170,6 @@ void __41__SPBeaconSharingManager_remoteInterface__block_invoke()
   session3 = [(SPBeaconSharingManager *)self session];
   proxy = [session3 proxy];
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return proxy;
 }
 
@@ -193,13 +189,13 @@ void __31__SPBeaconSharingManager_proxy__block_invoke_2(uint64_t a1, void *a2)
 
 - (void)interruptionHandler:(id)handler
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v10 = handlerCopy;
+    v9 = handlerCopy;
     _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "SPBeaconSharingManager: interruptionHandler %@", buf, 0xCu);
   }
 
@@ -210,13 +206,11 @@ void __31__SPBeaconSharingManager_proxy__block_invoke_2(uint64_t a1, void *a2)
   block[3] = &unk_279B58AE8;
   block[4] = self;
   dispatch_async(queue, block);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __46__SPBeaconSharingManager_interruptionHandler___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) shareUpdateBlock];
 
   if (v2)
@@ -229,7 +223,7 @@ void __46__SPBeaconSharingManager_interruptionHandler___block_invoke(uint64_t a1
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v15 = v5;
+      v14 = v5;
       _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "SPBeaconSharingManager: Will attempt to re-subscribe to share updates after %f seconds", buf, 0xCu);
     }
 
@@ -240,13 +234,13 @@ void __46__SPBeaconSharingManager_interruptionHandler___block_invoke(uint64_t a1
     block[1] = 3221225472;
     block[2] = __46__SPBeaconSharingManager_interruptionHandler___block_invoke_9;
     block[3] = &unk_279B58D88;
-    objc_copyWeak(&v13, buf);
+    objc_copyWeak(&v12, buf);
     dispatch_after(v7, v8, block);
 
     v9 = [*(a1 + 32) retryCount];
     [v9 increment];
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(buf);
   }
 
@@ -259,8 +253,6 @@ void __46__SPBeaconSharingManager_interruptionHandler___block_invoke(uint64_t a1
       _os_log_impl(&dword_2643D0000, v10, OS_LOG_TYPE_DEFAULT, "SPBeaconSharingManager: Will *NOT* attempt to re-subscribe to share updates", buf, 2u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __46__SPBeaconSharingManager_interruptionHandler___block_invoke_9(uint64_t a1)
@@ -320,18 +312,16 @@ void __46__SPBeaconSharingManager_interruptionHandler___block_invoke_10(uint64_t
 
 - (void)invalidationHandler:(id)handler
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     serviceDescription = [(SPBeaconSharingManager *)self serviceDescription];
     v6 = [serviceDescription debugDescription];
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "SPBeaconSharingManager: invalidationHandler %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "SPBeaconSharingManager: invalidationHandler %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (id)exportedInterface
@@ -348,20 +338,18 @@ void __46__SPBeaconSharingManager_interruptionHandler___block_invoke_10(uint64_t
 
 void __43__SPBeaconSharingManager_exportedInterface__block_invoke()
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2875FC0E0];
   v1 = exportedInterface_interface_4;
   exportedInterface_interface_4 = v0;
 
   v2 = exportedInterface_interface_4;
   v3 = MEMORY[0x277CBEB98];
-  v7[0] = objc_opt_class();
-  v7[1] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
   v5 = [v3 setWithArray:v4];
   [v2 setClasses:v5 forSelector:sel_receivedUpdatedShares_ argumentIndex:0 ofReply:0];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)remoteInterface
@@ -420,16 +408,16 @@ void __54__SPBeaconSharingManager_share_recipients_completion___block_invoke(id 
 
 void __54__SPBeaconSharingManager_share_recipients_completion___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     *buf = 138412546;
-    v15 = v3;
-    v16 = 2112;
-    v17 = v4;
+    v14 = v3;
+    v15 = 2112;
+    v16 = v4;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "Offering a share of %@ to %@", buf, 0x16u);
   }
 
@@ -437,40 +425,37 @@ void __54__SPBeaconSharingManager_share_recipients_completion___block_invoke_2(u
   v6 = [v5 proxy];
   v7 = *(a1 + 32);
   v8 = *(a1 + 40);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __54__SPBeaconSharingManager_share_recipients_completion___block_invoke_122;
-  v10[3] = &unk_279B59778;
-  v11 = v7;
-  v12 = *(a1 + 40);
-  v13 = *(a1 + 56);
-  [v6 share:v11 recipients:v8 shareType:2 completion:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __54__SPBeaconSharingManager_share_recipients_completion___block_invoke_122;
+  v9[3] = &unk_279B59778;
+  v10 = v7;
+  v11 = *(a1 + 40);
+  v12 = *(a1 + 56);
+  [v6 share:v10 recipients:v8 shareType:2 completion:v9];
 }
 
 void __54__SPBeaconSharingManager_share_recipients_completion___block_invoke_122(void *a1, int a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = a1[4];
     v8 = a1[5];
-    v10 = 138413058;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 1024;
-    v15 = a2;
-    v16 = 2112;
-    v17 = v5;
-    _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "Completed offering a share of %@ to %@ (%d, %@)", &v10, 0x26u);
+    v9 = 138413058;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 1024;
+    v14 = a2;
+    v15 = 2112;
+    v16 = v5;
+    _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "Completed offering a share of %@ to %@ (%d, %@)", &v9, 0x26u);
   }
 
   (*(a1[6] + 16))();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)share:(id)share recipients:(id)recipients shareType:(unint64_t)type completion:(id)completion
@@ -520,16 +505,16 @@ void __64__SPBeaconSharingManager_share_recipients_shareType_completion___block_
 
 void __64__SPBeaconSharingManager_share_recipients_shareType_completion___block_invoke_2(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     *buf = 138412546;
-    v16 = v3;
-    v17 = 2112;
-    v18 = v4;
+    v15 = v3;
+    v16 = 2112;
+    v17 = v4;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "Offering a share of %@ to %@", buf, 0x16u);
   }
 
@@ -538,40 +523,37 @@ void __64__SPBeaconSharingManager_share_recipients_shareType_completion___block_
   v7 = *(a1 + 32);
   v8 = *(a1 + 40);
   v9 = *(a1 + 64);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __64__SPBeaconSharingManager_share_recipients_shareType_completion___block_invoke_124;
-  v11[3] = &unk_279B59778;
-  v12 = v7;
-  v13 = *(a1 + 40);
-  v14 = *(a1 + 56);
-  [v6 share:v12 recipients:v8 shareType:v9 completion:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __64__SPBeaconSharingManager_share_recipients_shareType_completion___block_invoke_124;
+  v10[3] = &unk_279B59778;
+  v11 = v7;
+  v12 = *(a1 + 40);
+  v13 = *(a1 + 56);
+  [v6 share:v11 recipients:v8 shareType:v9 completion:v10];
 }
 
 void __64__SPBeaconSharingManager_share_recipients_shareType_completion___block_invoke_124(void *a1, int a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = a1[4];
     v8 = a1[5];
-    v10 = 138413058;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 1024;
-    v15 = a2;
-    v16 = 2112;
-    v17 = v5;
-    _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "Completed offering a share of %@ to %@ (%d, %@)", &v10, 0x26u);
+    v9 = 138413058;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 1024;
+    v14 = a2;
+    v15 = 2112;
+    v16 = v5;
+    _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "Completed offering a share of %@ to %@ (%d, %@)", &v9, 0x26u);
   }
 
   (*(a1[6] + 16))();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestShare:(id)share completion:(id)completion
@@ -610,49 +592,46 @@ void __50__SPBeaconSharingManager_requestShare_completion___block_invoke(id *a1)
 
 void __50__SPBeaconSharingManager_requestShare_completion___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v12 = v3;
+    v11 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "Requesting a share of %@", buf, 0xCu);
   }
 
   v4 = *(a1 + 40);
   v5 = [v4 proxy];
   v6 = *(a1 + 32);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __50__SPBeaconSharingManager_requestShare_completion___block_invoke_125;
-  v8[3] = &unk_279B597A0;
-  v9 = v6;
-  v10 = *(a1 + 48);
-  [v5 requestShare:v9 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __50__SPBeaconSharingManager_requestShare_completion___block_invoke_125;
+  v7[3] = &unk_279B597A0;
+  v8 = v6;
+  v9 = *(a1 + 48);
+  [v5 requestShare:v8 completion:v7];
 }
 
 void __50__SPBeaconSharingManager_requestShare_completion___block_invoke_125(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v9 = 138412802;
-    v10 = v7;
-    v11 = 1024;
-    v12 = a2;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "Completed requesting a share of %@ (%d, %@)", &v9, 0x1Cu);
+    v8 = 138412802;
+    v9 = v7;
+    v10 = 1024;
+    v11 = a2;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_impl(&dword_2643D0000, v6, OS_LOG_TYPE_DEFAULT, "Completed requesting a share of %@ (%d, %@)", &v8, 0x1Cu);
   }
 
   (*(*(a1 + 40) + 16))();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeShare:(id)share completion:(id)completion
@@ -691,27 +670,25 @@ void __49__SPBeaconSharingManager_removeShare_completion___block_invoke(id *a1)
 
 void __49__SPBeaconSharingManager_removeShare_completion___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "Removing share %@", buf, 0xCu);
   }
 
   v4 = *(a1 + 40);
   v5 = [v4 proxy];
   v6 = *(a1 + 32);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __49__SPBeaconSharingManager_removeShare_completion___block_invoke_126;
-  v8[3] = &unk_279B597C8;
-  v9 = *(a1 + 48);
-  [v5 removeShare:v6 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __49__SPBeaconSharingManager_removeShare_completion___block_invoke_126;
+  v7[3] = &unk_279B597C8;
+  v8 = *(a1 + 48);
+  [v5 removeShare:v6 completion:v7];
 }
 
 - (void)revokeShare:(id)share completion:(id)completion
@@ -750,27 +727,25 @@ void __49__SPBeaconSharingManager_revokeShare_completion___block_invoke(id *a1)
 
 void __49__SPBeaconSharingManager_revokeShare_completion___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "Marking revoke for share %@", buf, 0xCu);
   }
 
   v4 = *(a1 + 40);
   v5 = [v4 proxy];
   v6 = *(a1 + 32);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __49__SPBeaconSharingManager_revokeShare_completion___block_invoke_127;
-  v8[3] = &unk_279B597C8;
-  v9 = *(a1 + 48);
-  [v5 revokeShare:v6 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __49__SPBeaconSharingManager_revokeShare_completion___block_invoke_127;
+  v7[3] = &unk_279B597C8;
+  v8 = *(a1 + 48);
+  [v5 revokeShare:v6 completion:v7];
 }
 
 - (void)acceptShare:(id)share completion:(id)completion
@@ -809,27 +784,25 @@ void __49__SPBeaconSharingManager_acceptShare_completion___block_invoke(id *a1)
 
 void __49__SPBeaconSharingManager_acceptShare_completion___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "Accepting share %@", buf, 0xCu);
   }
 
   v4 = *(a1 + 40);
   v5 = [v4 proxy];
   v6 = *(a1 + 32);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __49__SPBeaconSharingManager_acceptShare_completion___block_invoke_128;
-  v8[3] = &unk_279B597C8;
-  v9 = *(a1 + 48);
-  [v5 acceptShare:v6 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __49__SPBeaconSharingManager_acceptShare_completion___block_invoke_128;
+  v7[3] = &unk_279B597C8;
+  v8 = *(a1 + 48);
+  [v5 acceptShare:v6 completion:v7];
 }
 
 - (void)declineShare:(id)share completion:(id)completion
@@ -868,27 +841,25 @@ void __50__SPBeaconSharingManager_declineShare_completion___block_invoke(id *a1)
 
 void __50__SPBeaconSharingManager_declineShare_completion___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "Declining share %@", buf, 0xCu);
   }
 
   v4 = *(a1 + 40);
   v5 = [v4 proxy];
   v6 = *(a1 + 32);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __50__SPBeaconSharingManager_declineShare_completion___block_invoke_129;
-  v8[3] = &unk_279B597C8;
-  v9 = *(a1 + 48);
-  [v5 declineShare:v6 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __50__SPBeaconSharingManager_declineShare_completion___block_invoke_129;
+  v7[3] = &unk_279B597C8;
+  v8 = *(a1 + 48);
+  [v5 declineShare:v6 completion:v7];
 }
 
 - (void)stopSharing:(id)sharing completion:(id)completion
@@ -927,27 +898,25 @@ void __49__SPBeaconSharingManager_stopSharing_completion___block_invoke(id *a1)
 
 void __49__SPBeaconSharingManager_stopSharing_completion___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "Stopping sharing for beacon %@", buf, 0xCu);
   }
 
   v4 = *(a1 + 40);
   v5 = [v4 proxy];
   v6 = *(a1 + 32);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __49__SPBeaconSharingManager_stopSharing_completion___block_invoke_130;
-  v8[3] = &unk_279B597C8;
-  v9 = *(a1 + 48);
-  [v5 stopSharing:v6 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __49__SPBeaconSharingManager_stopSharing_completion___block_invoke_130;
+  v7[3] = &unk_279B597C8;
+  v8 = *(a1 + 48);
+  [v5 stopSharing:v6 completion:v7];
 }
 
 - (void)cleanupAllRecordsOfType:(unint64_t)type completion:(id)completion
@@ -1036,27 +1005,25 @@ void __63__SPBeaconSharingManager_forceBreakAllSharesOfType_completion___block_i
 
 void __63__SPBeaconSharingManager_forceBreakAllSharesOfType_completion___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 48);
     *buf = 134217984;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "Force breaking all shares of type %lu", buf, 0xCu);
   }
 
   v4 = *(a1 + 32);
   v5 = [v4 proxy];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __63__SPBeaconSharingManager_forceBreakAllSharesOfType_completion___block_invoke_132;
-  v8[3] = &unk_279B597C8;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __63__SPBeaconSharingManager_forceBreakAllSharesOfType_completion___block_invoke_132;
+  v7[3] = &unk_279B597C8;
   v6 = *(a1 + 48);
-  v9 = *(a1 + 40);
-  [v5 forceBreakAllSharesOfType:v6 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = *(a1 + 40);
+  [v5 forceBreakAllSharesOfType:v6 completion:v7];
 }
 
 - (void)forceBreakAllSharesWithUser:(id)user completion:(id)completion
@@ -1095,27 +1062,25 @@ void __65__SPBeaconSharingManager_forceBreakAllSharesWithUser_completion___block
 
 void __65__SPBeaconSharingManager_forceBreakAllSharesWithUser_completion___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "Force breaking all shares with user %@", buf, 0xCu);
   }
 
   v4 = *(a1 + 40);
   v5 = [v4 proxy];
   v6 = *(a1 + 32);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __65__SPBeaconSharingManager_forceBreakAllSharesWithUser_completion___block_invoke_133;
-  v8[3] = &unk_279B597C8;
-  v9 = *(a1 + 48);
-  [v5 forceBreakAllSharesWithUser:v6 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __65__SPBeaconSharingManager_forceBreakAllSharesWithUser_completion___block_invoke_133;
+  v7[3] = &unk_279B597C8;
+  v8 = *(a1 + 48);
+  [v5 forceBreakAllSharesWithUser:v6 completion:v7];
 }
 
 - (void)forceDeclineShare:(id)share completion:(id)completion
@@ -1154,27 +1119,25 @@ void __55__SPBeaconSharingManager_forceDeclineShare_completion___block_invoke(id
 
 void __55__SPBeaconSharingManager_forceDeclineShare_completion___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "SPOwnerSession: Calling forceDeclineShare of shareIdentifier = %@", buf, 0xCu);
   }
 
   v4 = *(a1 + 40);
   v5 = [v4 proxy];
   v6 = *(a1 + 32);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __55__SPBeaconSharingManager_forceDeclineShare_completion___block_invoke_134;
-  v8[3] = &unk_279B597C8;
-  v9 = *(a1 + 48);
-  [v5 forceDeclineShare:v6 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __55__SPBeaconSharingManager_forceDeclineShare_completion___block_invoke_134;
+  v7[3] = &unk_279B597C8;
+  v8 = *(a1 + 48);
+  [v5 forceDeclineShare:v6 completion:v7];
 }
 
 - (void)forceStopSharing:(id)sharing completion:(id)completion
@@ -1213,27 +1176,25 @@ void __54__SPBeaconSharingManager_forceStopSharing_completion___block_invoke(id 
 
 void __54__SPBeaconSharingManager_forceStopSharing_completion___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "Force stopping sharing for beacon %@", buf, 0xCu);
   }
 
   v4 = *(a1 + 40);
   v5 = [v4 proxy];
   v6 = *(a1 + 32);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __54__SPBeaconSharingManager_forceStopSharing_completion___block_invoke_135;
-  v8[3] = &unk_279B597C8;
-  v9 = *(a1 + 48);
-  [v5 forceStopSharing:v6 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __54__SPBeaconSharingManager_forceStopSharing_completion___block_invoke_135;
+  v7[3] = &unk_279B597C8;
+  v8 = *(a1 + 48);
+  [v5 forceStopSharing:v6 completion:v7];
 }
 
 - (void)allSharesWithCompletion:(id)completion
@@ -1286,18 +1247,17 @@ void __50__SPBeaconSharingManager_allSharesWithCompletion___block_invoke_2(uint6
 
 void __50__SPBeaconSharingManager_allSharesWithCompletion___block_invoke_136(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "Completed listing all shares: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "Completed listing all shares: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)allSharesIncludingHiddenWithCompletion:(id)completion
@@ -1350,18 +1310,17 @@ void __65__SPBeaconSharingManager_allSharesIncludingHiddenWithCompletion___block
 
 void __65__SPBeaconSharingManager_allSharesIncludingHiddenWithCompletion___block_invoke_138(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "Completed listing all shares, including hidden: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "Completed listing all shares, including hidden: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startRefreshingSharesWithBlock:(id)block completion:(id)completion
@@ -1558,7 +1517,7 @@ void __84__SPBeaconSharingManager_uploadKeysWithCircleIdentifier_isInitialUpload
 
 void __84__SPBeaconSharingManager_uploadKeysWithCircleIdentifier_isInitialUpload_completion___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -1570,9 +1529,9 @@ void __84__SPBeaconSharingManager_uploadKeysWithCircleIdentifier_isInitialUpload
     }
 
     *buf = 138412546;
-    v13 = v3;
-    v14 = 2112;
-    v15 = v4;
+    v12 = v3;
+    v13 = 2112;
+    v14 = v4;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "Uploading keys for owner circle identifier: %@, priority: %@", buf, 0x16u);
   }
 
@@ -1580,14 +1539,12 @@ void __84__SPBeaconSharingManager_uploadKeysWithCircleIdentifier_isInitialUpload
   v6 = [v5 proxy];
   v7 = *(a1 + 32);
   v8 = *(a1 + 56);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __84__SPBeaconSharingManager_uploadKeysWithCircleIdentifier_isInitialUpload_completion___block_invoke_148;
-  v10[3] = &unk_279B597C8;
-  v11 = *(a1 + 48);
-  [v6 uploadKeysWithCircleIdentifier:v7 isInitialUpload:v8 completion:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __84__SPBeaconSharingManager_uploadKeysWithCircleIdentifier_isInitialUpload_completion___block_invoke_148;
+  v9[3] = &unk_279B597C8;
+  v10 = *(a1 + 48);
+  [v6 uploadKeysWithCircleIdentifier:v7 isInitialUpload:v8 completion:v9];
 }
 
 void __84__SPBeaconSharingManager_uploadKeysWithCircleIdentifier_isInitialUpload_completion___block_invoke_148(uint64_t a1, uint64_t a2, void *a3)
@@ -1641,13 +1598,13 @@ void __83__SPBeaconSharingManager_downloadKeysWithCircleIdentifier_fromBookmark_
 
 void __83__SPBeaconSharingManager_downloadKeysWithCircleIdentifier_fromBookmark_completion___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v12 = v3;
+    v11 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "Downloading keys for member circle identifier: %@", buf, 0xCu);
   }
 
@@ -1655,14 +1612,12 @@ void __83__SPBeaconSharingManager_downloadKeysWithCircleIdentifier_fromBookmark_
   v5 = [v4 proxy];
   v6 = *(a1 + 32);
   v7 = *(a1 + 56);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __83__SPBeaconSharingManager_downloadKeysWithCircleIdentifier_fromBookmark_completion___block_invoke_149;
-  v9[3] = &unk_279B597C8;
-  v10 = *(a1 + 48);
-  [v5 downloadKeysWithCircleIdentifier:v6 fromBookmark:v7 completion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __83__SPBeaconSharingManager_downloadKeysWithCircleIdentifier_fromBookmark_completion___block_invoke_149;
+  v8[3] = &unk_279B597C8;
+  v9 = *(a1 + 48);
+  [v5 downloadKeysWithCircleIdentifier:v6 fromBookmark:v7 completion:v8];
 }
 
 void __83__SPBeaconSharingManager_downloadKeysWithCircleIdentifier_fromBookmark_completion___block_invoke_149(uint64_t a1, uint64_t a2, void *a3)
@@ -1714,27 +1669,25 @@ void __62__SPBeaconSharingManager_updatedCircleIdentifiers_completion___block_in
 
 void __62__SPBeaconSharingManager_updatedCircleIdentifiers_completion___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v11 = v3;
+    v10 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "Updating circle identifiers: %@ ", buf, 0xCu);
   }
 
   v4 = *(a1 + 40);
   v5 = [v4 proxy];
   v6 = *(a1 + 32);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __62__SPBeaconSharingManager_updatedCircleIdentifiers_completion___block_invoke_150;
-  v8[3] = &unk_279B597C8;
-  v9 = *(a1 + 48);
-  [v5 updatedCircleIdentifiers:v6 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __62__SPBeaconSharingManager_updatedCircleIdentifiers_completion___block_invoke_150;
+  v7[3] = &unk_279B597C8;
+  v8 = *(a1 + 48);
+  [v5 updatedCircleIdentifiers:v6 completion:v7];
 }
 
 - (void)checkDataIntegrityWithShareIdentifier:(id)identifier completion:(id)completion
@@ -1773,7 +1726,7 @@ void __75__SPBeaconSharingManager_checkDataIntegrityWithShareIdentifier_completi
 
 void __75__SPBeaconSharingManager_checkDataIntegrityWithShareIdentifier_completion___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -1789,21 +1742,19 @@ void __75__SPBeaconSharingManager_checkDataIntegrityWithShareIdentifier_completi
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = v3;
+    v11 = v3;
     _os_log_impl(&dword_2643D0000, v4, OS_LOG_TYPE_DEFAULT, "Checking data integrity%@ ", buf, 0xCu);
   }
 
   v5 = *(a1 + 40);
   v6 = [v5 proxy];
   v7 = *(a1 + 32);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __75__SPBeaconSharingManager_checkDataIntegrityWithShareIdentifier_completion___block_invoke_158;
-  v9[3] = &unk_279B598B8;
-  v10 = *(a1 + 48);
-  [v6 checkDataIntegrityWithShareIdentifier:v7 completion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __75__SPBeaconSharingManager_checkDataIntegrityWithShareIdentifier_completion___block_invoke_158;
+  v8[3] = &unk_279B598B8;
+  v9 = *(a1 + 48);
+  [v6 checkDataIntegrityWithShareIdentifier:v7 completion:v8];
 }
 
 - (void)lookForOrphanedRecordsWithCompletion:(id)completion
@@ -1986,47 +1937,44 @@ void __56__SPBeaconSharingManager_importSharePreview_completion___block_invoke(i
 
 void __56__SPBeaconSharingManager_importSharePreview_completion___block_invoke_2(id *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [a1[4] inputUrl];
     *buf = 138412290;
-    v12 = v3;
+    v11 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "Previewing delegated share for import url %@", buf, 0xCu);
   }
 
   v4 = a1[5];
   v5 = [v4 proxy];
   v6 = a1[4];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __56__SPBeaconSharingManager_importSharePreview_completion___block_invoke_165;
-  v8[3] = &unk_279B597A0;
-  v9 = v6;
-  v10 = a1[6];
-  [v5 importSharePreview:v9 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __56__SPBeaconSharingManager_importSharePreview_completion___block_invoke_165;
+  v7[3] = &unk_279B597A0;
+  v8 = v6;
+  v9 = a1[6];
+  [v5 importSharePreview:v8 completion:v7];
 }
 
 void __56__SPBeaconSharingManager_importSharePreview_completion___block_invoke_165(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [*(a1 + 32) inputUrl];
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "Previewed delegated share for import url %@ (%@)", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v4;
+    _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "Previewed delegated share for import url %@ (%@)", &v7, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)importDelegatedShare:(id)share completion:(id)completion
@@ -2065,48 +2013,45 @@ void __58__SPBeaconSharingManager_importDelegatedShare_completion___block_invoke
 
 void __58__SPBeaconSharingManager_importDelegatedShare_completion___block_invoke_2(id *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [a1[4] inputUrl];
     *buf = 138412290;
-    v12 = v3;
+    v11 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "Importing delegated share %@", buf, 0xCu);
   }
 
   v4 = a1[5];
   v5 = [v4 proxy];
   v6 = a1[4];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __58__SPBeaconSharingManager_importDelegatedShare_completion___block_invoke_166;
-  v8[3] = &unk_279B59930;
-  v9 = v6;
-  v10 = a1[6];
-  [v5 importDelegatedShare:v9 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __58__SPBeaconSharingManager_importDelegatedShare_completion___block_invoke_166;
+  v7[3] = &unk_279B59930;
+  v8 = v6;
+  v9 = a1[6];
+  [v5 importDelegatedShare:v8 completion:v7];
 }
 
 void __58__SPBeaconSharingManager_importDelegatedShare_completion___block_invoke_166(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
   v7 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [*(a1 + 32) inputUrl];
-    v10 = 138412546;
-    v11 = v8;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "Imported delegated share %@ (%@)", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v8;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "Imported delegated share %@ (%@)", &v9, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeImportedShare:(id)share completion:(id)completion
@@ -2145,47 +2090,44 @@ void __57__SPBeaconSharingManager_removeImportedShare_completion___block_invoke(
 
 void __57__SPBeaconSharingManager_removeImportedShare_completion___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v12 = v3;
+    v11 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "Removing imported share %@", buf, 0xCu);
   }
 
   v4 = *(a1 + 40);
   v5 = [v4 proxy];
   v6 = *(a1 + 32);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __57__SPBeaconSharingManager_removeImportedShare_completion___block_invoke_168;
-  v8[3] = &unk_279B597A0;
-  v9 = v6;
-  v10 = *(a1 + 48);
-  [v5 removeImportedShare:v9 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __57__SPBeaconSharingManager_removeImportedShare_completion___block_invoke_168;
+  v7[3] = &unk_279B597A0;
+  v8 = v6;
+  v9 = *(a1 + 48);
+  [v5 removeImportedShare:v8 completion:v7];
 }
 
 void __57__SPBeaconSharingManager_removeImportedShare_completion___block_invoke_168(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "Remove imported share %@ (%@)", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v4;
+    _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "Remove imported share %@ (%@)", &v7, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)delegatedShare:(id)share completion:(id)completion
@@ -2224,48 +2166,45 @@ void __52__SPBeaconSharingManager_delegatedShare_completion___block_invoke(id *a
 
 void __52__SPBeaconSharingManager_delegatedShare_completion___block_invoke_2(id *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [a1[4] beaconIdentifier];
     *buf = 138412290;
-    v12 = v3;
+    v11 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "Creating delegated share of %@", buf, 0xCu);
   }
 
   v4 = a1[5];
   v5 = [v4 proxy];
   v6 = a1[4];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __52__SPBeaconSharingManager_delegatedShare_completion___block_invoke_169;
-  v8[3] = &unk_279B59958;
-  v9 = v6;
-  v10 = a1[6];
-  [v5 delegatedShare:v9 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __52__SPBeaconSharingManager_delegatedShare_completion___block_invoke_169;
+  v7[3] = &unk_279B59958;
+  v8 = v6;
+  v9 = a1[6];
+  [v5 delegatedShare:v8 completion:v7];
 }
 
 void __52__SPBeaconSharingManager_delegatedShare_completion___block_invoke_169(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
   v7 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [*(a1 + 32) beaconIdentifier];
-    v10 = 138412546;
-    v11 = v8;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "Created delegated share of %@ (%@)", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v8;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "Created delegated share of %@ (%@)", &v9, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopTemporaryItemLocationShare:(id)share completion:(id)completion
@@ -2304,7 +2243,7 @@ void __68__SPBeaconSharingManager_stopTemporaryItemLocationShare_completion___bl
 
 void __68__SPBeaconSharingManager_stopTemporaryItemLocationShare_completion___block_invoke_2(id *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -2312,43 +2251,40 @@ void __68__SPBeaconSharingManager_stopTemporaryItemLocationShare_completion___bl
     v4 = [a1[4] bundleIdentifier];
     v5 = [v4 appName];
     *buf = 138412546;
-    v14 = v3;
-    v15 = 2112;
-    v16 = v5;
+    v13 = v3;
+    v14 = 2112;
+    v15 = v5;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "Stopping temporary item location share of %@ to recipient %@", buf, 0x16u);
   }
 
   v6 = a1[5];
   v7 = [v6 proxy];
   v8 = a1[4];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __68__SPBeaconSharingManager_stopTemporaryItemLocationShare_completion___block_invoke_171;
-  v10[3] = &unk_279B597A0;
-  v11 = v8;
-  v12 = a1[6];
-  [v7 stopTemporaryItemLocationShare:v11 completion:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __68__SPBeaconSharingManager_stopTemporaryItemLocationShare_completion___block_invoke_171;
+  v9[3] = &unk_279B597A0;
+  v10 = v8;
+  v11 = a1[6];
+  [v7 stopTemporaryItemLocationShare:v10 completion:v9];
 }
 
 void __68__SPBeaconSharingManager_stopTemporaryItemLocationShare_completion___block_invoke_171(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [*(a1 + 32) beaconIdentifier];
-    v8 = 138412546;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "Stopped location share of %@ (%@)", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v6;
+    v9 = 2112;
+    v10 = v4;
+    _os_log_impl(&dword_2643D0000, v5, OS_LOG_TYPE_DEFAULT, "Stopped location share of %@ (%@)", &v7, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isBeaconDelegated:(id)delegated completion:(id)completion
@@ -2387,48 +2323,45 @@ void __55__SPBeaconSharingManager_isBeaconDelegated_completion___block_invoke(id
 
 void __55__SPBeaconSharingManager_isBeaconDelegated_completion___block_invoke_2(id *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [a1[4] beaconIdentifier];
     *buf = 138412290;
-    v12 = v3;
+    v11 = v3;
     _os_log_impl(&dword_2643D0000, v2, OS_LOG_TYPE_DEFAULT, "Checking if beacon %@ is delegated", buf, 0xCu);
   }
 
   v4 = a1[5];
   v5 = [v4 proxy];
   v6 = a1[4];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __55__SPBeaconSharingManager_isBeaconDelegated_completion___block_invoke_172;
-  v8[3] = &unk_279B59958;
-  v9 = v6;
-  v10 = a1[6];
-  [v5 getDelegation:v9 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __55__SPBeaconSharingManager_isBeaconDelegated_completion___block_invoke_172;
+  v7[3] = &unk_279B59958;
+  v8 = v6;
+  v9 = a1[6];
+  [v5 getDelegation:v8 completion:v7];
 }
 
 void __55__SPBeaconSharingManager_isBeaconDelegated_completion___block_invoke_172(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
   v7 = LogCategory_BeaconSharing();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [*(a1 + 32) beaconIdentifier];
-    v10 = 138412546;
-    v11 = v8;
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "Checked delegated share status of %@ , error: (%@)", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v8;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_2643D0000, v7, OS_LOG_TYPE_DEFAULT, "Checked delegated share status of %@ , error: (%@)", &v9, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedUpdatedShares:(id)shares
@@ -2496,11 +2429,10 @@ void __48__SPBeaconSharingManager_receivedUpdatedShares___block_invoke_173(uint6
 
 void __46__SPBeaconSharingManager_interruptionHandler___block_invoke_10_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2643D0000, a2, OS_LOG_TYPE_ERROR, "SPBeaconSharingManager: Error re-subscribing share updates %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2643D0000, a2, OS_LOG_TYPE_ERROR, "SPBeaconSharingManager: Error re-subscribing share updates %@", &v2, 0xCu);
 }
 
 @end

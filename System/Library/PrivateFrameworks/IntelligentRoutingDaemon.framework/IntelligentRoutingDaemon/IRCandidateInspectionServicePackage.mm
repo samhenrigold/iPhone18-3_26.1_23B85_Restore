@@ -29,29 +29,29 @@
 
 - (id)exportCandidateInspectionAsDictionary
 {
-  v48 = *MEMORY[0x277D85DE8];
-  v37 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v47 = *MEMORY[0x277D85DE8];
+  v36 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   selfCopy = self;
   rules = [(IRCandidateInspectionServicePackage *)self rules];
-  v4 = [rules countByEnumeratingWithState:&v42 objects:v47 count:16];
+  v4 = [rules countByEnumeratingWithState:&v41 objects:v46 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v43;
+    v6 = *v42;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v43 != v6)
+        if (*v42 != v6)
         {
           objc_enumerationMutation(rules);
         }
 
-        v8 = *(*(&v42 + 1) + 8 * i);
+        v8 = *(*(&v41 + 1) + 8 * i);
         v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
         evaluation = [v8 evaluation];
         if ([evaluation hasBoolean])
@@ -76,39 +76,39 @@
         }
 
         ruleName = [v8 ruleName];
-        [v37 setObject:v9 forKeyedSubscript:ruleName];
+        [v36 setObject:v9 forKeyedSubscript:ruleName];
       }
 
-      v5 = [rules countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v5 = [rules countByEnumeratingWithState:&v41 objects:v46 count:16];
     }
 
     while (v5);
   }
 
   v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   candidate = [(IRCandidateInspectionServicePackage *)selfCopy candidate];
   nodes = [candidate nodes];
 
   obj = nodes;
-  v17 = [nodes countByEnumeratingWithState:&v38 objects:v46 count:16];
+  v17 = [nodes countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v39;
+    v19 = *v38;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v39 != v19)
+        if (*v38 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v38 + 1) + 8 * j);
+        v21 = *(*(&v37 + 1) + 8 * j);
         v22 = objc_alloc_init(MEMORY[0x277CBEB38]);
         avOutpuDeviceIdentifier = [v21 avOutpuDeviceIdentifier];
         if (avOutpuDeviceIdentifier)
@@ -149,14 +149,14 @@
         [v14 addObject:v22];
       }
 
-      v18 = [obj countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v18 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
     }
 
     while (v18);
   }
 
   v29 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  [v29 setObject:v37 forKeyedSubscript:@"rules"];
+  [v29 setObject:v36 forKeyedSubscript:@"rules"];
   [v29 setObject:v14 forKeyedSubscript:@"nodes"];
   [(IRCandidateInspectionServicePackage *)selfCopy classification];
   v30 = IRCandidateClassificationToString();
@@ -165,8 +165,6 @@
   candidate2 = [(IRCandidateInspectionServicePackage *)selfCopy candidate];
   candidateIdentifier = [candidate2 candidateIdentifier];
   [v29 setObject:candidateIdentifier forKeyedSubscript:@"candidateIdentifier"];
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v29;
 }

@@ -9,7 +9,7 @@
 + (void)nonMaximumSuppression:(id)suppression output:(id)output withThreshold:(double)threshold withMetric:(int64_t)metric
 {
   outputCopy = output;
-  v9 = [suppression sortedArrayUsingComparator:&__block_literal_global_11];
+  v9 = [suppression sortedArrayUsingComparator:?];
   v10 = [v9 count];
   Mutable = CFBitVectorCreateMutable(0, v10);
   CFBitVectorSetCount(Mutable, v10);
@@ -35,7 +35,7 @@
   v17 = v13 + 2;
   do
   {
-    v18 = [v9 objectAtIndexedSubscript:v15];
+    v18 = [v9 objectAtIndexedSubscript:?];
     [v18 boundingBox];
     *(v17 - 2) = v19;
     *(v17 - 1) = v20;
@@ -62,12 +62,12 @@ LABEL_7:
     v25 = v23;
     for (i = 0; i != v10; ++i)
     {
-      v27 = [v9 objectAtIndexedSubscript:i];
+      v27 = [v9 objectAtIndexedSubscript:?];
       [v27 confidence];
       *&v28 = v28;
       v51[i] = LODWORD(v28);
 
-      v29 = [v9 objectAtIndexedSubscript:i];
+      v29 = [v9 objectAtIndexedSubscript:?];
       [v29 boundingBox];
       v34 = HMICGRectArea(v30, v31, v32, v33);
       v25[i] = v34;
@@ -151,8 +151,8 @@ LABEL_22:
 LABEL_33:
       if (!CFBitVectorGetBitAtIndex(v12, v35))
       {
-        v44 = [v9 objectAtIndexedSubscript:v35];
-        [outputCopy addObject:v44];
+        v44 = [v9 objectAtIndexedSubscript:?];
+        [outputCopy addObject:?];
 
         if (v36 < v10)
         {
@@ -206,86 +206,77 @@ BOOL __81__HMIObjectDetectionUtils_nonMaximumSuppression_output_withThreshold_wi
 
 + (void)nmsMultiClass:(id)class output:(id)output nmsConfiguration:(id)configuration
 {
-  v42 = *MEMORY[0x277D85DE8];
   classCopy = class;
   outputCopy = output;
   configurationCopy = configuration;
   v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v36 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v39 = 0u;
   obj = classCopy;
-  v10 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v10 = [obj countByEnumeratingWithState:? objects:? count:?];
   if (v10)
   {
     v11 = v10;
-    v12 = *v37;
+    v12 = MEMORY[0];
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v11; i = (i + 1))
       {
-        if (*v37 != v12)
+        if (MEMORY[0] != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v36 + 1) + 8 * i);
-        v15 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v14, "labelIndex", outputCopy)}];
-        v16 = [v9 objectForKeyedSubscript:v15];
+        v14 = MEMORY[0x277CCABB0];
+        [*(8 * i) labelIndex];
+        v15 = [v14 numberWithInt:?];
+        v16 = [v9 objectForKeyedSubscript:?];
 
         if (!v16)
         {
           v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
-          [v9 setObject:v17 forKeyedSubscript:v15];
+          [v9 setObject:? forKeyedSubscript:?];
         }
 
-        v18 = [v9 objectForKeyedSubscript:v15];
-        [v18 addObject:v14];
+        v18 = [v9 objectForKeyedSubscript:?];
+        [v18 addObject:?];
       }
 
-      v11 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v11 = [obj countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v11);
   }
 
   v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
   v20 = v9;
-  v21 = [v20 countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v21 = [v20 countByEnumeratingWithState:? objects:? count:?];
   if (v21)
   {
     v22 = v21;
-    v23 = *v33;
+    v23 = MEMORY[0];
     do
     {
-      for (j = 0; j != v22; ++j)
+      for (j = 0; j != v22; j = (j + 1))
       {
-        if (*v33 != v23)
+        if (MEMORY[0] != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = *(*(&v32 + 1) + 8 * j);
-        v26 = [configurationCopy thresholdForLabel:{v25, outputCopy}];
-        v27 = [configurationCopy metricForLabel:v25];
-        v28 = [v20 objectForKeyedSubscript:v25];
-        [v26 doubleValue];
-        [HMIObjectDetectionUtils nonMaximumSuppression:v28 output:v19 withThreshold:v27 withMetric:?];
+        v25 = [configurationCopy thresholdForLabel:outputCopy];
+        [configurationCopy metricForLabel:?];
+        v26 = [v20 objectForKeyedSubscript:?];
+        [v25 doubleValue];
+        [HMIObjectDetectionUtils nonMaximumSuppression:"nonMaximumSuppression:output:withThreshold:withMetric:" output:? withThreshold:? withMetric:?];
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v22 = [v20 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v22);
   }
 
-  v29 = [v19 sortedArrayUsingComparator:&__block_literal_global_99];
-  [outputCopy addObjectsFromArray:v29];
+  v27 = [v19 sortedArrayUsingComparator:?];
+  [outputCopy addObjectsFromArray:?];
 }
 
 BOOL __65__HMIObjectDetectionUtils_nmsMultiClass_output_nmsConfiguration___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -308,31 +299,26 @@ BOOL __65__HMIObjectDetectionUtils_nmsMultiClass_output_nmsConfiguration___block
   y = rect.origin.y;
   x = rect.origin.x;
   detectionsCopy = detections;
-  v21.origin.x = x;
-  v21.origin.y = y;
-  v21.size.width = v8;
-  v21.size.height = v7;
-  if (CGRectIsNull(v21))
+  v19.origin.x = x;
+  v19.origin.y = y;
+  v19.size.width = v8;
+  v19.size.height = v7;
+  if (CGRectIsNull(v19))
   {
     v12 = detectionsCopy;
   }
 
   else
   {
-    memset(&v19, 0, sizeof(v19));
-    CGAffineTransformMakeScale(&v19, 1.0 / width, 1.0 / height);
-    v17 = v19;
-    CGAffineTransformTranslate(&v18, &v17, x, y);
-    v19 = v18;
-    v17 = v18;
-    CGAffineTransformScale(&v18, &v17, v8, v7);
-    v19 = v18;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __78__HMIObjectDetectionUtils_convertObjectDetections_cropRect_originalImageSize___block_invoke;
-    v15[3] = &__block_descriptor_80_e28__16__0__HMIObjectDetection_8l;
-    v16 = v18;
-    v12 = [detectionsCopy na_map:v15];
+    memset(&v17, 0, sizeof(v17));
+    CGAffineTransformMakeScale(&v17, 1.0 / width, 1.0 / height);
+    v15 = v17;
+    CGAffineTransformTranslate(&v16, &v15, x, y);
+    v17 = v16;
+    v15 = v16;
+    CGAffineTransformScale(&v16, &v15, v8, v7);
+    v17 = v16;
+    v12 = [detectionsCopy na_map:{MEMORY[0x277D85DD0], 3221225472, __78__HMIObjectDetectionUtils_convertObjectDetections_cropRect_originalImageSize___block_invoke, &__block_descriptor_80_e28__16__0__HMIObjectDetection_8l, *&v16.a, *&v16.b, *&v16.c, *&v16.d, *&v16.tx, *&v16.ty}];
   }
 
   v13 = v12;
@@ -344,25 +330,20 @@ HMIObjectDetection *__78__HMIObjectDetectionUtils_convertObjectDetections_cropRe
 {
   v3 = a2;
   v4 = [HMIObjectDetection alloc];
-  v5 = [v3 labelIndex];
+  [v3 labelIndex];
   [v3 confidence];
-  v7 = v6;
   [v3 boundingBox];
-  v8 = a1[3];
-  *&v17.a = a1[2];
-  *&v17.c = v8;
-  *&v17.tx = a1[4];
-  v20 = CGRectApplyAffineTransform(v19, &v17);
-  x = v20.origin.x;
-  y = v20.origin.y;
-  width = v20.size.width;
-  height = v20.size.height;
-  v13 = [v3 yaw];
-  v14 = [v3 roll];
+  v5 = a1[3];
+  *&v10.a = a1[2];
+  *&v10.c = v5;
+  *&v10.tx = a1[4];
+  CGRectApplyAffineTransform(v12, &v10);
+  v6 = [v3 yaw];
+  v7 = [v3 roll];
 
-  v15 = [(HMIObjectDetection *)v4 initWithLabelIndex:v5 confidence:v13 boundingBox:v14 yaw:v7 roll:x, y, width, height];
+  v8 = [HMIObjectDetection initWithLabelIndex:v4 confidence:"initWithLabelIndex:confidence:boundingBox:yaw:roll:" boundingBox:? yaw:? roll:?];
 
-  return v15;
+  return v8;
 }
 
 @end

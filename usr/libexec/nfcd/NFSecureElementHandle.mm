@@ -50,13 +50,11 @@
   driver = self->_driver;
   if (!driver)
   {
-    v8 = +[NSAssertionHandler currentHandler];
-    [v8 handleFailureInMethod:a2 object:self file:@"NFSecureElementHandle.m" lineNumber:41 description:{@"Invalid parameter not satisfying: %@", @"_driver != nil"}];
+    v7 = +[NSAssertionHandler currentHandler];
+    [v7 handleFailureInMethod:a2 object:self file:@"NFSecureElementHandle.m" lineNumber:41 description:{@"Invalid parameter not satisfying: %@", @"_driver != nil"}];
 
     driver = self->_driver;
   }
-
-  identifier = self->_identifier;
 
   return sub_100015B4C(driver);
 }

@@ -10,6 +10,9 @@
 - (BOOL)getAttribute:(__CFString *)attribute value:(const __CFString *)value;
 - (GQHStyle)init;
 - (__CFString)createNamedStyle:(__CFString *)style;
+- (void)addAttribute:(__CFString *)attribute intValue:(int)value;
+- (void)addAttribute:(__CFString *)attribute ptValue:(int)value;
+- (void)addAttribute:(__CFString *)attribute pxValue:(int)value;
 - (void)addClass:(__CFString *)class;
 - (void)dealloc;
 - (void)setStyleOnCurrentNode:(id)node;
@@ -47,6 +50,30 @@
   v4.receiver = self;
   v4.super_class = GQHStyle;
   [(GQHStyle *)&v4 dealloc];
+}
+
+- (void)addAttribute:(__CFString *)attribute intValue:(int)value
+{
+  v4 = *&value;
+  value = objc_alloc_init(GQHIntNumber);
+  [(GQHIntNumber *)value setType:0 value:v4];
+  CFDictionarySetValue(self->mStyles, attribute, value);
+}
+
+- (void)addAttribute:(__CFString *)attribute pxValue:(int)value
+{
+  v4 = *&value;
+  value = objc_alloc_init(GQHIntNumber);
+  [(GQHIntNumber *)value setType:1 value:v4];
+  CFDictionarySetValue(self->mStyles, attribute, value);
+}
+
+- (void)addAttribute:(__CFString *)attribute ptValue:(int)value
+{
+  v4 = *&value;
+  value = objc_alloc_init(GQHIntNumber);
+  [(GQHIntNumber *)value setType:2 value:v4];
+  CFDictionarySetValue(self->mStyles, attribute, value);
 }
 
 - (BOOL)getAttribute:(__CFString *)attribute intValue:(int *)value

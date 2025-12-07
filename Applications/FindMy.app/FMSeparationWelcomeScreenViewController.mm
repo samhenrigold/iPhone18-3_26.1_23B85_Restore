@@ -11,7 +11,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_1004E096C();
+  sub_1004E096C(selfCopy);
 }
 
 - (void)nextAction

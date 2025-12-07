@@ -773,12 +773,12 @@ void __61__AVCVirtualTTYDevice_registerBlocksForDelegateNotifications__block_inv
   }
 }
 
-void __61__AVCVirtualTTYDevice_registerBlocksForDelegateNotifications__block_invoke_55(uint64_t a1, void *a2, uint64_t a3)
+void __61__AVCVirtualTTYDevice_registerBlocksForDelegateNotifications__block_invoke_55(uint64_t result, void *a2, uint64_t a3)
 {
   *&v21[5] = *MEMORY[0x1E69E9840];
   if (!a3 && ![a2 objectForKeyedSubscript:@"SERVERDIED"])
   {
-    v5 = [*(a1 + 32) strong];
+    v5 = [*(result + 32) strong];
     if (v5)
     {
       v6 = v5;
@@ -849,12 +849,12 @@ void __61__AVCVirtualTTYDevice_registerBlocksForDelegateNotifications__block_inv
   }
 }
 
-void __61__AVCVirtualTTYDevice_registerBlocksForDelegateNotifications__block_invoke_62(uint64_t a1, void *a2, uint64_t a3)
+void __61__AVCVirtualTTYDevice_registerBlocksForDelegateNotifications__block_invoke_62(uint64_t result, void *a2, uint64_t a3)
 {
   v39 = *MEMORY[0x1E69E9840];
   if (!a3 && ![a2 objectForKeyedSubscript:@"SERVERDIED"])
   {
-    v5 = [*(a1 + 32) strong];
+    v5 = [*(result + 32) strong];
     if (v5)
     {
       v6 = v5;
@@ -1038,7 +1038,7 @@ void __61__AVCVirtualTTYDevice_registerBlocksForDelegateNotifications__block_inv
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_29();
-  OUTLINED_FUNCTION_14_13(&dword_1DB56E000, v1, v2, "AVCVirtualTTYDevice [%s] %s:%d %@ has not started.", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_14_13(&dword_1DB56E000, v1, v2, "AVCVirtualTTYDevice [%s] %s:%d %@ has not started.", v3, v4, v5, v6);
 }
 
 void __61__AVCVirtualTTYDevice_registerBlocksForDelegateNotifications__block_invoke_55_cold_1()
@@ -1054,7 +1054,7 @@ void __61__AVCVirtualTTYDevice_registerBlocksForDelegateNotifications__block_inv
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_29();
-  OUTLINED_FUNCTION_14_13(&dword_1DB56E000, v2, v3, "AVCVirtualTTYDevice [%s] %s:%d Delegate %@ does not respond to -device:didReceiveCharacter:", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_14_13(&dword_1DB56E000, v2, v3, "AVCVirtualTTYDevice [%s] %s:%d Delegate %@ does not respond to -device:didReceiveCharacter:", v4, v5, v6, v7);
 }
 
 void __61__AVCVirtualTTYDevice_registerBlocksForDelegateNotifications__block_invoke_62_cold_1()
@@ -1083,7 +1083,7 @@ void __61__AVCVirtualTTYDevice_registerBlocksForDelegateNotifications__block_inv
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_29();
-  OUTLINED_FUNCTION_14_13(&dword_1DB56E000, v2, v3, "AVCVirtualTTYDevice [%s] %s:%d Delegate %@ does not respond to -device:didReceiveText:", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_14_13(&dword_1DB56E000, v2, v3, "AVCVirtualTTYDevice [%s] %s:%d Delegate %@ does not respond to -device:didReceiveText:", v4, v5, v6, v7);
 }
 
 @end

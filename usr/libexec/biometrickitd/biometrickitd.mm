@@ -470,7 +470,7 @@ void sub_100001678(void *a1, void (**a2)(void))
   }
 
   free(a2);
-  v7 = _os_crash();
+  _os_crash();
   __break(1u);
-  __stack_chk_fail(v7);
+  __stack_chk_fail();
 }

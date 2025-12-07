@@ -14,7 +14,7 @@
 {
   v5 = sub_1001019B4();
   __chkstk_darwin(v5);
-  v6 = sub_100007210(&qword_1001500D0);
+  v6 = sub_100007210(&qword_1001500D0, &unk_10010F5A0);
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
   v9 = &v13[-v8];
@@ -27,7 +27,7 @@
   (*(v7 + 32))(self + v10, v9, v6);
   *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC21JournalShareExtension24CanvasGridCollectionView_enforceShowCompressedAssetGrid) = 0;
   (*(v7 + 8))(self + v10, v6);
-  type metadata accessor for CanvasGridCollectionView();
+  type metadata accessor for CanvasGridCollectionView(0);
   swift_deallocPartialClassInstance();
   return 0;
 }
@@ -68,7 +68,7 @@
 - (CGSize)contentSize
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for CanvasGridCollectionView();
+  v4.super_class = type metadata accessor for CanvasGridCollectionView(0);
   [(CanvasGridCollectionView *)&v4 contentSize];
   result.height = v3;
   result.width = v2;
@@ -79,7 +79,7 @@
 {
   height = size.height;
   width = size.width;
-  v6 = type metadata accessor for CanvasGridCollectionView();
+  v6 = type metadata accessor for CanvasGridCollectionView(0);
   v16.receiver = self;
   v16.super_class = v6;
   selfCopy = self;
@@ -99,7 +99,7 @@
 - (BOOL)isAccessibilityElement
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for CanvasGridCollectionView();
+  v5.super_class = type metadata accessor for CanvasGridCollectionView(0);
   v2 = v5.receiver;
   if ([(CanvasGridCollectionView *)&v5 isAccessibilityElement])
   {
@@ -118,7 +118,7 @@
 - (BOOL)accessibilityElementsHidden
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for CanvasGridCollectionView();
+  v5.super_class = type metadata accessor for CanvasGridCollectionView(0);
   v2 = v5.receiver;
   if ([(CanvasGridCollectionView *)&v5 accessibilityElementsHidden])
   {

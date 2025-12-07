@@ -82,7 +82,7 @@ void __47___PSFeaturePreprocessor_encodeFeatureVectors___block_invoke(uint64_t a
 
 void __47___PSFeaturePreprocessor_encodeFeatureVectors___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 48) oneHotEncodedFeatureNameForFeatureName:v5 featureValue:v6];
@@ -100,14 +100,14 @@ void __47___PSFeaturePreprocessor_encodeFeatureVectors___block_invoke_2(uint64_t
     {
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v12 = *(a1 + 40);
-        v13 = 138412803;
-        v14 = v6;
-        v15 = 2112;
-        v16 = v8;
-        v17 = 2113;
-        v18 = v12;
-        _os_log_debug_impl(&dword_1B5ED1000, v10, OS_LOG_TYPE_DEBUG, "Feature value %@ produced encoded value %@ for candidate %{private}@", &v13, 0x20u);
+        v11 = *(a1 + 40);
+        v12 = 138412803;
+        v13 = v6;
+        v14 = 2112;
+        v15 = v8;
+        v16 = 2113;
+        v17 = v11;
+        _os_log_debug_impl(&dword_1B5ED1000, v10, OS_LOG_TYPE_DEBUG, "Feature value %@ produced encoded value %@ for candidate %{private}@", &v12, 0x20u);
       }
 
       [*(a1 + 32) setObject:v8 forKeyedSubscript:v5];
@@ -121,17 +121,14 @@ void __47___PSFeaturePreprocessor_encodeFeatureVectors___block_invoke_2(uint64_t
       }
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __47___PSFeaturePreprocessor_encodeFeatureVectors___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Feature %@ unexpectedly produced a nil value", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Feature %@ unexpectedly produced a nil value", &v2, 0xCu);
 }
 
 @end

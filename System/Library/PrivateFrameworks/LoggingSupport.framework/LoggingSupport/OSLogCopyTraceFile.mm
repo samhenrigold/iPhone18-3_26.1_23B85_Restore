@@ -5,75 +5,73 @@
 
 uint64_t ___OSLogCopyTraceFile_impl_block_invoke(uint64_t a1, _DWORD *a2)
 {
-  v39 = *MEMORY[0x277D85DE8];
-  if (*a2 == 24587 && (v4 = _catalog_create_with_chunk(a2, 0)) != 0)
+  v25 = *MEMORY[0x277D85DE8];
+  if (*a2 != 24587)
   {
-    v5 = v4;
-    v6 = (v4 + 64);
-    do
-    {
-      v6 = *v6;
-      if (!v6)
-      {
-        _catalog_destroy(v4);
-        goto LABEL_17;
-      }
-
-      v7 = *(*(a1 + 48) + 8);
-    }
-
-    while (v6[2] < v7 && v6[3] < v7);
-    v8 = *(a1 + 64) - a2 + *(a1 + 56);
-    v9 = *(a1 + 80);
-    v10 = *(*(a1 + 72) + 8) + 16;
-    v35 = *(a1 + 72);
-    v36 = v10;
-    v37 = a2;
-    v38 = v8;
-    v11 = _OSLogUUIDMapAddFromFile(a2, v8, v9, *(a1 + 32));
-    if (v11)
-    {
-      v12 = v11;
-      if (fcntl(*(a1 + 96), 50, v34) == -1)
-      {
-        v32 = *__error();
-        _os_assumes_log();
-      }
-
-      v13 = *(a1 + 32);
-      v14 = *(a1 + 88);
-      strerror(v12);
-      _OSLogWarningMessage(v13, "failed to index uuids: '%s' to '%s': %s (%d)", v15, v16, v17, v18, v19, v20, v34);
-    }
-
-    v21 = *(a1 + 100);
-    if (_os_trace_writev() == -1)
-    {
-      v22 = *__error();
-      if (fcntl(*(a1 + 100), 50, v34) == -1)
-      {
-        v33 = *__error();
-        _os_assumes_log();
-      }
-
-      v23 = *(a1 + 32);
-      strerror(v22);
-      _OSLogWarningMessage(v23, "failed to write file data to temp file: '%s': %s (%d)", v24, v25, v26, v27, v28, v29, v34);
-    }
-
-    *(*(*(a1 + 40) + 8) + 24) = v8 + *(*(a1 + 72) + 8) + 16;
-    _catalog_destroy(v5);
-    result = 0;
+    return 1;
   }
 
-  else
+  v4 = _catalog_create_with_chunk(a2, 0);
+  if (!v4)
   {
-LABEL_17:
-    result = 1;
+    return 1;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-  return result;
+  v5 = v4;
+  v6 = (v4 + 64);
+  do
+  {
+    v6 = *v6;
+    if (!v6)
+    {
+      _catalog_destroy(v4);
+      return 1;
+    }
+
+    v7 = *(*(a1 + 48) + 8);
+  }
+
+  while (v6[2] < v7 && v6[3] < v7);
+  v8 = *(a1 + 64) - a2 + *(a1 + 56);
+  v9 = *(a1 + 80);
+  v10 = *(*(a1 + 72) + 8) + 16;
+  v21 = *(a1 + 72);
+  v22 = v10;
+  v23 = a2;
+  v24 = v8;
+  v11 = _OSLogUUIDMapAddFromFile(a2, v8, v9, *(a1 + 32));
+  if (v11)
+  {
+    v12 = v11;
+    if (fcntl(*(a1 + 96), 50, v20) == -1)
+    {
+      __error();
+      _os_assumes_log();
+    }
+
+    v13 = *(a1 + 32);
+    v14 = *(a1 + 88);
+    v15 = strerror(v12);
+    _OSLogWarningMessage(v13, "failed to index uuids: '%s' to '%s': %s (%d)", v20, v14, v15, v12);
+  }
+
+  if (_os_trace_writev() == -1)
+  {
+    v16 = *__error();
+    if (fcntl(*(a1 + 100), 50, v20) == -1)
+    {
+      __error();
+      _os_assumes_log();
+    }
+
+    v17 = *(a1 + 32);
+    v18 = strerror(v16);
+    _OSLogWarningMessage(v17, "failed to write file data to temp file: '%s': %s (%d)", v20, v18, v16);
+  }
+
+  *(*(*(a1 + 40) + 8) + 24) = v8 + *(*(a1 + 72) + 8) + 16;
+  _catalog_destroy(v5);
+  return 0;
 }
 
 uint64_t ___OSLogCopyTraceFile_implWithRepack_block_invoke(uint64_t a1, void *a2)
@@ -144,24 +142,23 @@ uint64_t ___OSLogCopyTraceFile_implWithRepack_block_invoke_2(uint64_t a1, char *
         return 1;
       }
 
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = ___OSLogCopyTraceFile_implWithRepack_block_invoke_3;
-      v39[3] = &unk_2787AEF70;
-      v42 = v13;
-      v26 = v12;
-      v27 = *(a1 + 56);
-      v40 = v26;
-      v41 = v27;
-      _tracev3_chunk_decompress_and_enumerate_chunks_helper(a2, v14, v39);
-      v28 = *(*(*(a1 + 56) + 8) + 40);
-      if (v28)
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = ___OSLogCopyTraceFile_implWithRepack_block_invoke_3;
+      v25[3] = &unk_2787AEF70;
+      v28 = v13;
+      v19 = v12;
+      v20 = *(a1 + 56);
+      v26 = v19;
+      v27 = v20;
+      _tracev3_chunk_decompress_and_enumerate_chunks_helper(a2, v14, v25);
+      v21 = *(*(*(a1 + 56) + 8) + 40);
+      if (v21)
       {
-        v29 = *(a1 + 48);
-        v30 = [v28 userInfo];
-        v31 = [v30 description];
-        v32 = [v31 UTF8String];
-        _OSLogWarningMessage(v29, "failed to compact chunkset: %s", v33, v34, v35, v36, v37, v38, v32);
+        v22 = *(a1 + 48);
+        v23 = [v21 userInfo];
+        v24 = [v23 description];
+        _OSLogWarningMessage(v22, "failed to compact chunkset: %s", [v24 UTF8String]);
 
         objc_autoreleasePoolPop(v11);
         return 0;
@@ -188,9 +185,9 @@ LABEL_7:
     }
 
     v7 = *(*(a1 + 56) + 8);
-    v43 = *(v7 + 40);
-    v8 = _repack_ttl_compact_close_catalog(v4, &v43);
-    objc_storeStrong((v7 + 40), v43);
+    v29 = *(v7 + 40);
+    v8 = _repack_ttl_compact_close_catalog(v4, &v29);
+    objc_storeStrong((v7 + 40), v29);
     if (v8)
     {
       v4 = *(a1 + 80);
@@ -200,8 +197,7 @@ LABEL_7:
     v16 = *(a1 + 48);
     v17 = [*(*(*(a1 + 56) + 8) + 40) userInfo];
     v18 = [v17 description];
-    v19 = [v18 UTF8String];
-    _OSLogWarningMessage(v16, "failed to close catalog: %s", v20, v21, v22, v23, v24, v25, v19);
+    _OSLogWarningMessage(v16, "failed to close catalog: %s", [v18 UTF8String]);
 
     return 0;
   }
@@ -209,13 +205,11 @@ LABEL_7:
   return 1;
 }
 
-uint64_t ___OSLogCopyTraceFile_implWithRepack_block_invoke_3(void *a1)
+uint64_t ___OSLogCopyTraceFile_implWithRepack_block_invoke_3(void *a1, uint64_t a2, uint64_t a3)
 {
-  v1 = a1[6];
-  v2 = a1[4];
   v3 = *(a1[5] + 8);
   obj = *(v3 + 40);
-  v4 = _compact_chunkset();
+  v4 = _compact_chunkset(a2);
   objc_storeStrong((v3 + 40), obj);
   return v4;
 }

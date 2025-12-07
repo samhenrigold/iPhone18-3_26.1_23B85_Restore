@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)matcherNamesAsString:(int)string;
 - (int)StringAsMatcherNames:(id)names;
 - (int)matcherNamesAtIndex:(unint64_t)index;
 - (unint64_t)hash;
@@ -336,61 +337,57 @@ LABEL_26:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v12 = toCopy;
+  v8 = toCopy;
   if (self->_label)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v8;
   }
 
   if (self->_input)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v8;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    startTokenIndex = self->_startTokenIndex;
     PBDataWriterWriteUint32Field();
-    toCopy = v12;
+    toCopy = v8;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    endTokenIndex = self->_endTokenIndex;
     PBDataWriterWriteUint32Field();
-    toCopy = v12;
+    toCopy = v8;
   }
 
   if (self->_usoGraph)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v8;
   }
 
   if (*&self->_has)
   {
-    score = self->_score;
     PBDataWriterWriteDoubleField();
-    toCopy = v12;
+    toCopy = v8;
   }
 
   p_matcherNames = &self->_matcherNames;
   if (p_matcherNames->count)
   {
-    v10 = 0;
+    v7 = 0;
     do
     {
-      v11 = p_matcherNames->list[v10];
       PBDataWriterWriteInt32Field();
-      toCopy = v12;
-      ++v10;
+      toCopy = v8;
+      ++v7;
     }
 
-    while (v10 < p_matcherNames->count);
+    while (v7 < p_matcherNames->count);
   }
 }
 
@@ -515,6 +512,21 @@ LABEL_26:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)matcherNamesAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E8328158[string];
   }
 
   return v4;

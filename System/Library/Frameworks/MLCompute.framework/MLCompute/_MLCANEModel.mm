@@ -1,9 +1,21 @@
 @interface _MLCANEModel
++ (id)objectWithModel:(id)model options:(id)options qos:(unsigned int)qos plist:(id)plist;
 - (_MLCANEModel)initWithModel:(id)model options:(id)options qos:(unsigned int)qos plist:(id)plist;
 - (void)dealloc;
 @end
 
 @implementation _MLCANEModel
+
++ (id)objectWithModel:(id)model options:(id)options qos:(unsigned int)qos plist:(id)plist
+{
+  v6 = *&qos;
+  plistCopy = plist;
+  optionsCopy = options;
+  modelCopy = model;
+  v13 = [[self alloc] initWithModel:modelCopy options:optionsCopy qos:v6 plist:plistCopy];
+
+  return v13;
+}
 
 - (_MLCANEModel)initWithModel:(id)model options:(id)options qos:(unsigned int)qos plist:(id)plist
 {
@@ -27,33 +39,32 @@
 
 - (void)dealloc
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   anefModel = self->_anefModel;
   qos = self->_qos;
-  v13 = 0;
-  v6 = [(_ANEInMemoryModel *)anefModel unloadWithQoS:qos error:&v13];
-  v7 = v13;
+  v12 = 0;
+  v6 = [(_ANEInMemoryModel *)anefModel unloadWithQoS:qos error:&v12];
+  v7 = v12;
   if ((v6 & 1) == 0)
   {
     v8 = +[MLCLog framework];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = NSStringFromSelector(a2);
-      v11 = self->_anefModel;
+      v9 = NSStringFromSelector(a2);
+      v10 = self->_anefModel;
       *buf = 138412802;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v11;
-      v18 = 2112;
-      v19 = v7;
+      v14 = v9;
+      v15 = 2112;
+      v16 = v10;
+      v17 = 2112;
+      v18 = v7;
       _os_log_error_impl(&dword_238C1D000, v8, OS_LOG_TYPE_ERROR, "%@: failed to unload model=%@ : error=%@", buf, 0x20u);
     }
   }
 
-  v12.receiver = self;
-  v12.super_class = _MLCANEModel;
-  [(_MLCANEModel *)&v12 dealloc];
-  v9 = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = _MLCANEModel;
+  [(_MLCANEModel *)&v11 dealloc];
 }
 
 @end

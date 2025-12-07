@@ -296,8 +296,8 @@ LABEL_8:
 
 - (BOOL)textField:(id)field shouldChangeCharactersInRange:(_NSRange)range replacementString:(id)string
 {
-  v6 = [string isEqualToString:{@"\n", range.location, range.length}];
-  if (v6)
+  isEqualToString = objc_msgSend_isEqualToString_(string, a2, @"\n", range.location, range.length);
+  if (isEqualToString)
   {
     _accountNameText = [(SUUISignInView *)self _accountNameText];
     _applePasswordText = [(SUUISignInView *)self _applePasswordText];
@@ -324,7 +324,7 @@ LABEL_8:
     [(SUUISignInView *)self resignFirstResponder];
   }
 
-  return v6 ^ 1;
+  return isEqualToString ^ 1;
 }
 
 + (id)_borderPathWithSize:(CGSize)size

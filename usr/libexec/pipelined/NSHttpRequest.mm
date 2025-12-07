@@ -429,7 +429,7 @@ LABEL_11:
       sub_1000474A4(&v5, "Unknown http method");
       std::runtime_error::runtime_error(&v6, &v5);
       v6.__vftable = &off_1004338D0;
-      sub_10010A984(v4);
+      sub_10010A984(&v4);
     }
 
     fActiveRequest = [(NSHttpRequest *)self fActiveRequest];
@@ -546,7 +546,7 @@ LABEL_11:
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       sub_1000474A4(v19, "");
-      sub_100211F1C("Non-http response received", &__p);
+      sub_100211F1C(&__p, "Non-http response received");
       sub_1000E661C(v19, &__p, 1);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -565,47 +565,14 @@ LABEL_11:
     onHeaders = [(NSHttpRequest *)self onHeaders];
     v9 = onHeaders == 0;
 
-    if (!v9)
+    if (!v9 && (__p.__r_.__value_.__s.__data_[0] = 0, -[NSHttpRequest onHeaders](self, "onHeaders"), v10 = objc_claimAutoreleasedReturnValue(), -[NSHttpRequest fHttpResponse](self, "fHttpResponse"), v11 = objc_claimAutoreleasedReturnValue(), (v10)[2](v10, v11, &__p), v11, v10, __p.__r_.__value_.__s.__data_[0] == 1) || (v12 = objc_alloc_init(NSMutableData), -[NSHttpRequest setFReceivedData:](self, "setFReceivedData:", v12), v12, -[NSHttpRequest onProgress](self, "onProgress"), v13 = objc_claimAutoreleasedReturnValue(), LOBYTE(v12) = v13 == 0, v13, (v12 & 1) == 0) && (__p.__r_.__value_.__s.__data_[0] = 0, -[NSHttpRequest onProgress](self, "onProgress"), v14 = objc_claimAutoreleasedReturnValue(), -[NSHttpRequest fReceivedData](self, "fReceivedData"), v15 = objc_claimAutoreleasedReturnValue(), v16 = [v15 length], -[NSHttpRequest fHttpResponse](self, "fHttpResponse"), v17 = objc_claimAutoreleasedReturnValue(), (v14)[2](v14, v16, objc_msgSend(v17, "expectedContentLength"), &__p), v17, v15, v14, __p.__r_.__value_.__s.__data_[0] == 1))
     {
-      __p.__r_.__value_.__s.__data_[0] = 0;
-      onHeaders2 = [(NSHttpRequest *)self onHeaders];
-      fHttpResponse = [(NSHttpRequest *)self fHttpResponse];
-      (onHeaders2)[2](onHeaders2, fHttpResponse, &__p);
-
-      if (__p.__r_.__value_.__s.__data_[0] == 1)
-      {
-        goto LABEL_6;
-      }
-    }
-
-    v12 = objc_alloc_init(NSMutableData);
-    [(NSHttpRequest *)self setFReceivedData:v12];
-
-    onProgress = [(NSHttpRequest *)self onProgress];
-    LOBYTE(v12) = onProgress == 0;
-
-    if (v12)
-    {
-      goto LABEL_9;
-    }
-
-    __p.__r_.__value_.__s.__data_[0] = 0;
-    onProgress2 = [(NSHttpRequest *)self onProgress];
-    fReceivedData = [(NSHttpRequest *)self fReceivedData];
-    v16 = [fReceivedData length];
-    fHttpResponse2 = [(NSHttpRequest *)self fHttpResponse];
-    (onProgress2)[2](onProgress2, v16, [fHttpResponse2 expectedContentLength], &__p);
-
-    if (__p.__r_.__value_.__s.__data_[0] == 1)
-    {
-LABEL_6:
       [(NSHttpRequest *)self cancel];
       [(NSHttpRequest *)self handleCancelled:connectionCopy];
     }
 
     else
     {
-LABEL_9:
       [(NSHttpRequest *)self stopExecuting];
     }
   }
@@ -654,19 +621,7 @@ LABEL_9:
 
     onProgress = [(NSHttpRequest *)self onProgress];
 
-    if (!onProgress)
-    {
-      goto LABEL_6;
-    }
-
-    v14 = 0;
-    onProgress2 = [(NSHttpRequest *)self onProgress];
-    fReceivedData2 = [(NSHttpRequest *)self fReceivedData];
-    v12 = [fReceivedData2 length];
-    fHttpResponse = [(NSHttpRequest *)self fHttpResponse];
-    (onProgress2)[2](onProgress2, v12, [fHttpResponse expectedContentLength], &v14);
-
-    if (v14 == 1)
+    if (onProgress && (v14 = 0, -[NSHttpRequest onProgress](self, "onProgress"), v10 = objc_claimAutoreleasedReturnValue(), -[NSHttpRequest fReceivedData](self, "fReceivedData"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v11 length], -[NSHttpRequest fHttpResponse](self, "fHttpResponse"), v13 = objc_claimAutoreleasedReturnValue(), (v10)[2](v10, v12, objc_msgSend(v13, "expectedContentLength"), &v14), v13, v11, v10, v14 == 1))
     {
       [(NSHttpRequest *)self cancel];
       [(NSHttpRequest *)self handleCancelled:connectionCopy];
@@ -674,7 +629,6 @@ LABEL_9:
 
     else
     {
-LABEL_6:
       [(NSHttpRequest *)self stopExecuting];
     }
   }

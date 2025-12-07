@@ -286,31 +286,7 @@
   {
     v6 = v5;
     autoDownload = self->_autoDownload;
-    if (autoDownload != [(SUDownloadMetadata *)v6 isAutoDownload])
-    {
-      goto LABEL_18;
-    }
-
-    downloadOnly = self->_downloadOnly;
-    if (downloadOnly != [(SUDownloadMetadata *)v6 isDownloadOnly])
-    {
-      goto LABEL_18;
-    }
-
-    activeDownloadPolicyType = self->_activeDownloadPolicyType;
-    if (activeDownloadPolicyType != [(SUDownloadMetadata *)v6 activeDownloadPolicyType])
-    {
-      goto LABEL_18;
-    }
-
-    enabledFor2G = self->_enabledFor2G;
-    if (enabledFor2G != [(SUDownloadMetadata *)v6 isEnabledFor2G])
-    {
-      goto LABEL_18;
-    }
-
-    enabledFor3G = self->_enabledFor3G;
-    if (enabledFor3G == [(SUDownloadMetadata *)v6 isEnabledFor3G]&& (enabledFor4G = self->_enabledFor4G, enabledFor4G == [(SUDownloadMetadata *)v6 isEnabledFor4G]) && (enabledForWifi = self->_enabledForWifi, enabledForWifi == [(SUDownloadMetadata *)v6 isEnabledForWifi]) && (enabledOnBatteryPower = self->_enabledOnBatteryPower, enabledOnBatteryPower == [(SUDownloadMetadata *)v6 isEnabledOnBatteryPower]) && (enforceWifiOnlyOverride = self->_enforceWifiOnlyOverride, enforceWifiOnlyOverride == [(SUDownloadMetadata *)v6 enforceWifiOnlyOverride]) && (downloadFeeAgreementStatus = self->_downloadFeeAgreementStatus, downloadFeeAgreementStatus == [(SUDownloadMetadata *)v6 downloadFeeAgreementStatus]) && (termsAndConditionsAgreementStatus = self->_termsAndConditionsAgreementStatus, termsAndConditionsAgreementStatus == [(SUDownloadMetadata *)v6 termsAndConditionsAgreementStatus]))
+    if (autoDownload == [(SUDownloadMetadata *)v6 isAutoDownload]&& (downloadOnly = self->_downloadOnly, downloadOnly == [(SUDownloadMetadata *)v6 isDownloadOnly]) && (activeDownloadPolicyType = self->_activeDownloadPolicyType, activeDownloadPolicyType == [(SUDownloadMetadata *)v6 activeDownloadPolicyType]) && (enabledFor2G = self->_enabledFor2G, enabledFor2G == [(SUDownloadMetadata *)v6 isEnabledFor2G]) && (enabledFor3G = self->_enabledFor3G, enabledFor3G == [(SUDownloadMetadata *)v6 isEnabledFor3G]) && (enabledFor4G = self->_enabledFor4G, enabledFor4G == [(SUDownloadMetadata *)v6 isEnabledFor4G]) && (enabledForWifi = self->_enabledForWifi, enabledForWifi == [(SUDownloadMetadata *)v6 isEnabledForWifi]) && (enabledOnBatteryPower = self->_enabledOnBatteryPower, enabledOnBatteryPower == [(SUDownloadMetadata *)v6 isEnabledOnBatteryPower]) && (enforceWifiOnlyOverride = self->_enforceWifiOnlyOverride, enforceWifiOnlyOverride == [(SUDownloadMetadata *)v6 enforceWifiOnlyOverride]) && (downloadFeeAgreementStatus = self->_downloadFeeAgreementStatus, downloadFeeAgreementStatus == [(SUDownloadMetadata *)v6 downloadFeeAgreementStatus]) && (termsAndConditionsAgreementStatus = self->_termsAndConditionsAgreementStatus, termsAndConditionsAgreementStatus == [(SUDownloadMetadata *)v6 termsAndConditionsAgreementStatus]))
     {
       enabledForCellularRoaming = self->_enabledForCellularRoaming;
       v19 = enabledForCellularRoaming == [(SUDownloadMetadata *)v6 isEnabledForCellularRoaming];
@@ -318,7 +294,6 @@
 
     else
     {
-LABEL_18:
       v19 = 0;
     }
   }

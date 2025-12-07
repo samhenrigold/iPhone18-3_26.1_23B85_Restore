@@ -263,36 +263,35 @@
 
 - (void)securityViewBecameReady:(id)ready
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   readyCopy = ready;
   v4 = _os_activity_create(&dword_22506F000, "CKDPCSNotifier/SecurityViewBecameReady", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
-  v23.opaque[0] = 0;
-  v23.opaque[1] = 0;
-  os_activity_scope_enter(v4, &v23);
-  v5 = *MEMORY[0x277CBC908];
-  v6 = CKNotificationKey();
-  v9 = objc_msgSend_userInfo(readyCopy, v7, v8);
-  v11 = objc_msgSend_objectForKey_(v9, v10, @"view");
+  v21.opaque[0] = 0;
+  v21.opaque[1] = 0;
+  os_activity_scope_enter(v4, &v21);
+  v5 = CKNotificationKey();
+  v8 = objc_msgSend_userInfo(readyCopy, v6, v7);
+  v10 = objc_msgSend_objectForKey_(v8, v9, @"view");
 
-  if (v11)
+  if (v10)
   {
-    if (objc_msgSend_isEqualToString_(v11, v12, @"unknown"))
+    if (objc_msgSend_isEqualToString_(v10, v11, @"unknown"))
     {
-      v13 = v11;
-      v11 = 0;
+      v12 = v10;
+      v10 = 0;
     }
 
     else
     {
-      v14 = CKNotificationKey();
-      v13 = v6;
-      v6 = v14;
+      v13 = CKNotificationKey();
+      v12 = v5;
+      v5 = v13;
     }
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
   if (*MEMORY[0x277CBC880] != -1)
@@ -300,41 +299,40 @@
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
   }
 
-  v15 = *MEMORY[0x277CBC830];
+  v14 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v20 = @" named ";
-    v21 = &stru_28385ED00;
-    if (v11)
+    v18 = @" named ";
+    v19 = &stru_28385ED00;
+    if (v10)
     {
-      v21 = v11;
+      v19 = v10;
     }
 
     else
     {
-      v20 = &stru_28385ED00;
+      v18 = &stru_28385ED00;
     }
 
     *buf = 138543874;
-    v25 = v20;
-    v22 = @"Posting a notification to all clients.";
-    if (v11)
+    v23 = v18;
+    v20 = @"Posting a notification to all clients.";
+    if (v10)
     {
-      v22 = @"Posting a scoped notification.";
+      v20 = @"Posting a scoped notification.";
     }
 
-    v26 = 2114;
-    v27 = v21;
-    v28 = 2112;
-    v29 = v22;
-    _os_log_debug_impl(&dword_22506F000, v15, OS_LOG_TYPE_DEBUG, "Security view%{public}@%{public}@ became ready. %@", buf, 0x20u);
+    v24 = 2114;
+    v25 = v19;
+    v26 = 2112;
+    v27 = v20;
+    _os_log_debug_impl(&dword_22506F000, v14, OS_LOG_TYPE_DEBUG, "Security view%{public}@%{public}@ became ready. %@", buf, 0x20u);
   }
 
-  v18 = objc_msgSend_UTF8String(v6, v16, v17);
-  notify_post(v18);
+  v17 = objc_msgSend_UTF8String(v5, v15, v16);
+  notify_post(v17);
 
-  os_activity_scope_leave(&v23);
-  v19 = *MEMORY[0x277D85DE8];
+  os_activity_scope_leave(&v21);
 }
 
 - (void)dealloc
@@ -394,7 +392,7 @@
 
 - (void)addServicesWithMissingIdentities:(id)identities forManagerUUID:(id)d withAccount:(id)account
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   identitiesCopy = identities;
   dCopy = d;
   accountCopy = account;
@@ -408,30 +406,30 @@
     if (objc_msgSend_count(identitiesCopy, v18, v19))
     {
       objc_msgSend_setAccount_(v17, v20, accountCopy);
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
       v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
       v21 = identitiesCopy;
-      v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v34, v40, 16);
+      v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v33, v39, 16);
       if (v25)
       {
-        v26 = *v35;
+        v26 = *v34;
         do
         {
           for (i = 0; i != v25; ++i)
           {
-            if (*v35 != v26)
+            if (*v34 != v26)
             {
               objc_enumerationMutation(v21);
             }
 
-            v28 = *(*(&v34 + 1) + 8 * i);
+            v28 = *(*(&v33 + 1) + 8 * i);
             v29 = objc_msgSend_servicesWithMissingIdentities(v17, v23, v24);
             objc_msgSend_addObject_(v29, v30, v28);
           }
 
-          v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v23, &v34, v40, 16);
+          v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v23, &v33, v39, 16);
         }
 
         while (v25);
@@ -450,18 +448,17 @@
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v39 = dCopy;
+      v38 = dCopy;
       _os_log_error_impl(&dword_22506F000, v31, OS_LOG_TYPE_ERROR, "No manager context found for manager UUID: %@", buf, 0xCu);
     }
   }
 
   objc_sync_exit(v12);
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addMissingIdentityPublicKeys:(id)keys forManagerUUID:(id)d withAccount:(id)account
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   dCopy = d;
   accountCopy = account;
@@ -475,30 +472,30 @@
     if (objc_msgSend_count(keysCopy, v18, v19))
     {
       objc_msgSend_setAccount_(v17, v20, accountCopy);
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
       v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
       v21 = keysCopy;
-      v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v34, v40, 16);
+      v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v33, v39, 16);
       if (v25)
       {
-        v26 = *v35;
+        v26 = *v34;
         do
         {
           for (i = 0; i != v25; ++i)
           {
-            if (*v35 != v26)
+            if (*v34 != v26)
             {
               objc_enumerationMutation(v21);
             }
 
-            v28 = *(*(&v34 + 1) + 8 * i);
+            v28 = *(*(&v33 + 1) + 8 * i);
             v29 = objc_msgSend_missingIdentityPublicKeys(v17, v23, v24);
             objc_msgSend_addObject_(v29, v30, v28);
           }
 
-          v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v23, &v34, v40, 16);
+          v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v23, &v33, v39, 16);
         }
 
         while (v25);
@@ -517,13 +514,12 @@
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v39 = dCopy;
+      v38 = dCopy;
       _os_log_error_impl(&dword_22506F000, v31, OS_LOG_TYPE_ERROR, "No manager context found for manager UUID: %@", buf, 0xCu);
     }
   }
 
   objc_sync_exit(v12);
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearContextIfUnnecessaryForManagerUUID:(id)d
@@ -555,7 +551,7 @@ LABEL_2:
 
 - (void)clearServicesAndPublicKeysForManagerUUID:(id)d
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v7 = objc_msgSend_missingIdentitiesContextMap(self, v5, v6);
   objc_sync_enter(v7);
@@ -581,14 +577,13 @@ LABEL_2:
     v23 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
-      v25 = 138412290;
-      v26 = dCopy;
-      _os_log_error_impl(&dword_22506F000, v23, OS_LOG_TYPE_ERROR, "No manager context found for manager UUID: %@", &v25, 0xCu);
+      v24 = 138412290;
+      v25 = dCopy;
+      _os_log_error_impl(&dword_22506F000, v23, OS_LOG_TYPE_ERROR, "No manager context found for manager UUID: %@", &v24, 0xCu);
     }
   }
 
   objc_sync_exit(v7);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)servicesNeedingDBRReauthentication
@@ -628,7 +623,7 @@ LABEL_2:
 
 - (void)addServicesNeedingDBRReauthentication:(id)reauthentication
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   reauthenticationCopy = reauthentication;
   v7 = objc_msgSend_mutableServicesNeedingDBRReauthentication(self, v5, v6);
   objc_sync_enter(v7);
@@ -640,9 +635,9 @@ LABEL_2:
   v8 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v16 = 138412290;
-    v17 = reauthenticationCopy;
-    _os_log_debug_impl(&dword_22506F000, v8, OS_LOG_TYPE_DEBUG, "Adding services: %@ to services needing DBR re-authentication set.", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = reauthenticationCopy;
+    _os_log_debug_impl(&dword_22506F000, v8, OS_LOG_TYPE_DEBUG, "Adding services: %@ to services needing DBR re-authentication set.", &v15, 0xCu);
   }
 
   v11 = objc_msgSend_mutableServicesNeedingDBRReauthentication(self, v9, v10);
@@ -650,8 +645,6 @@ LABEL_2:
 
   objc_msgSend_invalidateCachedAccountInfo(MEMORY[0x277CBC160], v13, v14);
   objc_sync_exit(v7);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearServicesNeedingDBRReauthentication

@@ -89,7 +89,7 @@ LABEL_15:
   }
 }
 
-uint64_t __54__XPCNSClientConnection_sendMessage_data_withHandler___block_invoke(uint64_t a1, int a2, void *a3, int a4)
+uint64_t __54__XPCNSClientConnection_sendMessage_data_withHandler___block_invoke(uint64_t a1, int a2, void *a3, unsigned int a4)
 {
   v7 = a3;
   v8 = v7;

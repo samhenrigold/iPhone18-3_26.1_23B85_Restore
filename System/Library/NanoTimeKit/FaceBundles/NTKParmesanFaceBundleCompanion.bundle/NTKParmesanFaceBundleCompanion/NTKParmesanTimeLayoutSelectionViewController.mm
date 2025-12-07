@@ -102,7 +102,7 @@
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_23BFD82DC();
+  sub_23BFD82DC(selfCopy);
 }
 
 - (void)collectionView:(id)view didSelectItemAtIndexPath:(id)path
@@ -114,7 +114,7 @@
   sub_23BFF8E00();
   viewCopy = view;
   selfCopy = self;
-  sub_23BFD8634(viewCopy);
+  sub_23BFD8634(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 }

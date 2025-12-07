@@ -70,6 +70,7 @@
     controllerCopy2 = controller;
     selfCopy2 = self;
     v10 = 0;
+    v9 = 0;
   }
 
   v15 = type metadata accessor for DOCProgressCollectionViewer();
@@ -77,7 +78,7 @@
   v17.super_class = v15;
   [(DOCProgressCollectionViewer *)&v17 presentViewController:controller animated:animatedCopy completion:v10];
 
-  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v8);
+  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v8, v9);
   _Block_release(v10);
 }
 

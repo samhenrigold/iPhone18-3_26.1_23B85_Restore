@@ -13,54 +13,50 @@
 
 + (NSDictionary)properties
 {
-  v16[7] = *MEMORY[0x1E69E9840];
-  v15[0] = @"name";
-  v14 = [WFCloudKitItemProperty objectPropertyWithName:?];
-  v16[0] = v14;
-  v15[1] = @"icon_color";
+  v15[7] = *MEMORY[0x1E69E9840];
+  v14[0] = @"name";
+  v13 = [WFCloudKitItemProperty objectPropertyWithName:?];
+  v15[0] = v13;
+  v14[1] = @"icon_color";
   v2 = [WFCloudKitItemProperty objectPropertyWithName:@"iconColor"];
-  v16[1] = v2;
-  v15[2] = @"icon_glyph";
+  v15[1] = v2;
+  v14[2] = @"icon_glyph";
   v3 = [WFCloudKitItemProperty objectPropertyWithName:@"iconGlyph"];
-  v16[2] = v3;
-  v15[3] = @"icon";
+  v15[2] = v3;
+  v14[3] = @"icon";
   v4 = [MEMORY[0x1E69E0AF8] typeWithUTType:*MEMORY[0x1E6982E30]];
   v5 = [WFCloudKitItemProperty assetPropertyWithName:@"iconFile" fileType:v4 ignoredByDefault:1 encrypted:0];
-  v16[3] = v5;
-  v15[4] = @"shortcut";
+  v15[3] = v5;
+  v14[4] = @"shortcut";
   v6 = [MEMORY[0x1E69E0AF8] typeWithString:@"com.apple.shortcuts.workflow-file"];
   v7 = [WFCloudKitItemProperty assetPropertyWithName:@"shortcutFile" fileType:v6];
-  v16[4] = v7;
-  v15[5] = @"signedShortcut";
+  v15[4] = v7;
+  v14[5] = @"signedShortcut";
   v8 = [MEMORY[0x1E69E0AF8] typeWithString:@"com.apple.shortcut"];
   v9 = [WFCloudKitItemProperty assetPropertyWithName:@"signedShortcutFile" fileType:v8];
-  v16[5] = v9;
-  v15[6] = @"signingStatus";
+  v15[5] = v9;
+  v14[6] = @"signingStatus";
   v10 = [WFCloudKitItemProperty objectPropertyWithName:?];
-  v16[6] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:7];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v15[6] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:7];
 
   return v11;
 }
 
 - (id)propertiesForEventLogging
 {
-  v11[3] = *MEMORY[0x1E69E9840];
-  v10[0] = @"workflow_identifier";
+  v10[3] = *MEMORY[0x1E69E9840];
+  v9[0] = @"workflow_identifier";
   identifier = [(WFSharedShortcut *)self identifier];
   recordName = [identifier recordName];
-  v11[0] = recordName;
-  v10[1] = @"workflow_name";
+  v10[0] = recordName;
+  v9[1] = @"workflow_name";
   name = [(WFSharedShortcut *)self name];
-  v11[1] = name;
-  v10[2] = @"workflow_record_type";
+  v10[1] = name;
+  v9[2] = @"workflow_record_type";
   recordType = [objc_opt_class() recordType];
-  v11[2] = recordType;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10[2] = recordType;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
 
   return v7;
 }
@@ -141,7 +137,7 @@
 
 - (WFWorkflowRecord)workflowRecord
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (self->_workflowRecord)
   {
     goto LABEL_2;
@@ -162,7 +158,7 @@
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v32 = "[WFSharedShortcut workflowRecord]";
+      v31 = "[WFSharedShortcut workflowRecord]";
       _os_log_impl(&dword_1CA256000, v25, OS_LOG_TYPE_ERROR, "%s WFSharedShortcut doesn't have signed shortcut file", buf, 0xCu);
     }
 
@@ -175,18 +171,18 @@
   name = [(WFSharedShortcut *)self name];
   v10 = [(WFShortcutPackageFile *)v6 initWithSignedShortcutData:data shortcutName:name];
 
-  v30 = 0;
-  v11 = [(WFShortcutPackageFile *)v10 extractShortcutFileRepresentationWithError:&v30];
-  v12 = v30;
-  if (!v11 || (-[WFSharedShortcut signingStatus](self, "signingStatus"), v13 = objc_claimAutoreleasedReturnValue(), v14 = [v13 isEqualToString:@"APPROVED"], v13, (v14 & 1) == 0))
+  v29 = 0;
+  v11 = [(WFShortcutPackageFile *)v10 extractShortcutFileRepresentationWithError:&v29];
+  v12 = v29;
+  if (!v11 || ([(WFSharedShortcut *)self signingStatus], v13 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v13), v13, (isEqualToString & 1) == 0))
   {
     v24 = getWFGeneralLogObject();
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v32 = "[WFSharedShortcut workflowRecord]";
-      v33 = 2114;
-      v34 = v12;
+      v31 = "[WFSharedShortcut workflowRecord]";
+      v32 = 2114;
+      v33 = v12;
       _os_log_impl(&dword_1CA256000, v24, OS_LOG_TYPE_ERROR, "%s WFSharedShortcut was unable to verify signed shortcut: %{public}@", buf, 0x16u);
     }
 
@@ -197,12 +193,12 @@
   name2 = [(WFSharedShortcut *)self name];
   v17 = [(WFWorkflowFileDescriptor *)v15 initWithFile:v11 name:name2];
 
-  v29 = 0;
-  v18 = [[WFWorkflowFile alloc] initWithDescriptor:v17 error:&v29];
-  v19 = v29;
-  v28 = v19;
-  v20 = [(WFWorkflowFile *)v18 recordRepresentationWithError:&v28];
-  v21 = v28;
+  v28 = 0;
+  v18 = [[WFWorkflowFile alloc] initWithDescriptor:v17 error:&v28];
+  v19 = v28;
+  v27 = v19;
+  v20 = [(WFWorkflowFile *)v18 recordRepresentationWithError:&v27];
+  v21 = v27;
 
   [v20 setSource:@"ShortcutSourceCloudLink"];
   if (v20)
@@ -218,9 +214,9 @@
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v32 = "[WFSharedShortcut workflowRecord]";
-      v33 = 2114;
-      v34 = v21;
+      v31 = "[WFSharedShortcut workflowRecord]";
+      v32 = 2114;
+      v33 = v21;
       _os_log_impl(&dword_1CA256000, p_super, OS_LOG_TYPE_ERROR, "%s WFSharedShortcut was unable to load record from shortcut file: %{public}@", buf, 0x16u);
     }
   }
@@ -235,7 +231,6 @@ LABEL_2:
 LABEL_15:
   v3 = 0;
 LABEL_16:
-  v26 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

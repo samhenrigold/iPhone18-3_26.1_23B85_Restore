@@ -24,35 +24,35 @@
 
 - (void)registerForSystemPowerOnQueue:(id)queue withDelegate:(id)delegate
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   delegateCopy = delegate;
   os_unfair_lock_lock(&self->_lock);
   if (self->_lock_registered)
   {
-    v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"!_lock_registered"];
+    v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"!_lock_registered"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v19 = NSStringFromSelector(a2);
-      v20 = objc_opt_class();
-      v21 = NSStringFromClass(v20);
+      v18 = NSStringFromSelector(a2);
+      v19 = objc_opt_class();
+      v20 = NSStringFromClass(v19);
       *buf = 138544642;
-      selfCopy3 = v19;
-      v30 = 2114;
-      v31 = v21;
-      v32 = 2048;
+      selfCopy3 = v18;
+      v29 = 2114;
+      v30 = v20;
+      v31 = 2048;
       selfCopy2 = self;
-      v34 = 2114;
-      v35 = @"SWSystemSleepMonitor.m";
-      v36 = 1024;
-      *v37 = 557;
-      *&v37[4] = 2114;
-      *&v37[6] = v18;
+      v33 = 2114;
+      v34 = @"SWSystemSleepMonitor.m";
+      v35 = 1024;
+      *v36 = 557;
+      *&v36[4] = 2114;
+      *&v36[6] = v17;
       _os_log_error_impl(&dword_26C657000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v22 = v18;
-    [v18 UTF8String];
+    v21 = v17;
+    [v17 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x26C65C07CLL);
@@ -68,29 +68,29 @@
   self->_lock_systemPowerConnection = v12;
   if (!v12)
   {
-    v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_lock_systemPowerConnection != IO_OBJECT_NULL"];
+    v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_lock_systemPowerConnection != IO_OBJECT_NULL"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v24 = NSStringFromSelector(a2);
-      v25 = objc_opt_class();
-      v26 = NSStringFromClass(v25);
+      v23 = NSStringFromSelector(a2);
+      v24 = objc_opt_class();
+      v25 = NSStringFromClass(v24);
       *buf = 138544642;
-      selfCopy3 = v24;
-      v30 = 2114;
-      v31 = v26;
-      v32 = 2048;
+      selfCopy3 = v23;
+      v29 = 2114;
+      v30 = v25;
+      v31 = 2048;
       selfCopy2 = self;
-      v34 = 2114;
-      v35 = @"SWSystemSleepMonitor.m";
-      v36 = 1024;
-      *v37 = 567;
-      *&v37[4] = 2114;
-      *&v37[6] = v23;
+      v33 = 2114;
+      v34 = @"SWSystemSleepMonitor.m";
+      v35 = 1024;
+      *v36 = 567;
+      *&v36[4] = 2114;
+      *&v36[6] = v22;
       _os_log_error_impl(&dword_26C657000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v27 = v23;
-    [v23 UTF8String];
+    v26 = v22;
+    [v22 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x26C65C180);
@@ -105,52 +105,51 @@
     lock_systemPowerNotifier = self->_lock_systemPowerNotifier;
     *buf = 134219264;
     selfCopy3 = self;
-    v30 = 2048;
-    v31 = queueCopy;
-    v32 = 2048;
+    v29 = 2048;
+    v30 = queueCopy;
+    v31 = 2048;
     selfCopy2 = delegateCopy;
-    v34 = 2048;
-    v35 = lock_systemPowerConnection;
-    v36 = 2048;
-    *v37 = lock_systemPowerPort;
-    *&v37[8] = 2048;
-    *&v37[10] = lock_systemPowerNotifier;
+    v33 = 2048;
+    v34 = lock_systemPowerConnection;
+    v35 = 2048;
+    *v36 = lock_systemPowerPort;
+    *&v36[8] = 2048;
+    *&v36[10] = lock_systemPowerNotifier;
     _os_log_debug_impl(&dword_26C657000, v13, OS_LOG_TYPE_DEBUG, "%p registerForSystemPowerOnQueue:%p withDelegate:%p -- connection:%llu port:%llu notifier:%llu", buf, 0x3Eu);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (!self->_lock_invalidated)
   {
-    v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_lock_invalidated"];
+    v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_lock_invalidated"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v9 = NSStringFromSelector(a2);
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
+      v8 = NSStringFromSelector(a2);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
       *buf = 138544642;
-      v17 = v9;
-      v18 = 2114;
-      v19 = v11;
-      v20 = 2048;
+      v16 = v8;
+      v17 = 2114;
+      v18 = v10;
+      v19 = 2048;
       selfCopy = self;
-      v22 = 2114;
-      v23 = @"SWSystemSleepMonitor.m";
-      v24 = 1024;
-      v25 = 583;
-      v26 = 2114;
-      v27 = v8;
+      v21 = 2114;
+      v22 = @"SWSystemSleepMonitor.m";
+      v23 = 1024;
+      v24 = 583;
+      v25 = 2114;
+      v26 = v7;
       _os_log_error_impl(&dword_26C657000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v12 = v8;
-    [v8 UTF8String];
+    v11 = v7;
+    [v7 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x26C65C3F4);
@@ -163,19 +162,18 @@
   block[1] = 3221225472;
   block[2] = __39__SWSystemSleepMonitorProvider_dealloc__block_invoke;
   block[3] = &unk_279D430F8;
-  v15 = v4;
+  v14 = v4;
   v6 = v4;
   dispatch_async(lock_queue, block);
 
-  v13.receiver = self;
-  v13.super_class = SWSystemSleepMonitorProvider;
-  [(SWSystemSleepMonitorProvider *)&v13 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = SWSystemSleepMonitorProvider;
+  [(SWSystemSleepMonitorProvider *)&v12 dealloc];
 }
 
 - (void)invalidate
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   lock_invalidated = self->_lock_invalidated;
   self->_lock_invalidated = 1;
@@ -187,15 +185,15 @@
       lock_systemPowerConnection = self->_lock_systemPowerConnection;
       lock_systemPowerPort = self->_lock_systemPowerPort;
       lock_systemPowerNotifier = self->_lock_systemPowerNotifier;
-      v13 = 134218752;
+      v12 = 134218752;
       selfCopy2 = self;
-      v15 = 2048;
-      v16 = lock_systemPowerConnection;
-      v17 = 2048;
-      v18 = lock_systemPowerPort;
-      v19 = 2048;
-      v20 = lock_systemPowerNotifier;
-      _os_log_debug_impl(&dword_26C657000, v4, OS_LOG_TYPE_DEBUG, "%p unregisterForSystemPower -- connection:%llu port:%llu notifier:%llu", &v13, 0x2Au);
+      v14 = 2048;
+      v15 = lock_systemPowerConnection;
+      v16 = 2048;
+      v17 = lock_systemPowerPort;
+      v18 = 2048;
+      v19 = lock_systemPowerNotifier;
+      _os_log_debug_impl(&dword_26C657000, v4, OS_LOG_TYPE_DEBUG, "%p unregisterForSystemPower -- connection:%llu port:%llu notifier:%llu", &v12, 0x2Au);
     }
 
     IODeregisterForSystemPower(&self->_lock_systemPowerNotifier);
@@ -211,95 +209,92 @@
       v8 = SWLogPower();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        v13 = 134218240;
+        v12 = 134218240;
         selfCopy2 = self;
-        v15 = 2048;
-        v16 = object;
-        _os_log_debug_impl(&dword_26C657000, v8, OS_LOG_TYPE_DEBUG, "%p invalidated sleep monitor: %p", &v13, 0x16u);
+        v14 = 2048;
+        v15 = object;
+        _os_log_debug_impl(&dword_26C657000, v8, OS_LOG_TYPE_DEBUG, "%p invalidated sleep monitor: %p", &v12, 0x16u);
       }
     }
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)allowPowerChange:(int64_t)change
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (self->_lock_invalidated)
   {
-    v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"!_lock_invalidated"];
+    v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"!_lock_invalidated"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v8 = NSStringFromSelector(a2);
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
+      v7 = NSStringFromSelector(a2);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
       *buf = 138544642;
-      v13 = v8;
-      v14 = 2114;
-      v15 = v10;
-      v16 = 2048;
+      v12 = v7;
+      v13 = 2114;
+      v14 = v9;
+      v15 = 2048;
       selfCopy = self;
-      v18 = 2114;
-      v19 = @"SWSystemSleepMonitor.m";
-      v20 = 1024;
-      v21 = 614;
-      v22 = 2114;
-      v23 = v7;
+      v17 = 2114;
+      v18 = @"SWSystemSleepMonitor.m";
+      v19 = 1024;
+      v20 = 614;
+      v21 = 2114;
+      v22 = v6;
       _os_log_error_impl(&dword_26C657000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v11 = v7;
-    [v7 UTF8String];
+    v10 = v6;
+    [v6 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x26C65C7B8);
   }
 
   IOAllowPowerChange(self->_lock_systemPowerConnection, change);
-  v6 = *MEMORY[0x277D85DE8];
 
   os_unfair_lock_unlock(&self->_lock);
 }
 
 - (void)cancelPowerChange:(int64_t)change
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (self->_lock_invalidated)
   {
-    v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"!_lock_invalidated"];
+    v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"!_lock_invalidated"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v8 = NSStringFromSelector(a2);
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
+      v7 = NSStringFromSelector(a2);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
       *buf = 138544642;
-      v13 = v8;
-      v14 = 2114;
-      v15 = v10;
-      v16 = 2048;
+      v12 = v7;
+      v13 = 2114;
+      v14 = v9;
+      v15 = 2048;
       selfCopy = self;
-      v18 = 2114;
-      v19 = @"SWSystemSleepMonitor.m";
-      v20 = 1024;
-      v21 = 621;
-      v22 = 2114;
-      v23 = v7;
+      v17 = 2114;
+      v18 = @"SWSystemSleepMonitor.m";
+      v19 = 1024;
+      v20 = 621;
+      v21 = 2114;
+      v22 = v6;
       _os_log_error_impl(&dword_26C657000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v11 = v7;
-    [v7 UTF8String];
+    v10 = v6;
+    [v6 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x26C65C980);
   }
 
   IOCancelPowerChange(self->_lock_systemPowerConnection, change);
-  v6 = *MEMORY[0x277D85DE8];
 
   os_unfair_lock_unlock(&self->_lock);
 }

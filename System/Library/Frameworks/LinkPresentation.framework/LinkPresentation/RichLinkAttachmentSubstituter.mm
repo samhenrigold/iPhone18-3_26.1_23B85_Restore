@@ -97,10 +97,10 @@ LABEL_5:
     }
   }
 
-  if (self->_shouldIgnoreAppStoreMetadata && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  if (self->_shouldIgnoreAppStoreMetadata && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
   {
-    v15 = LPLogChannelFetching();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = LPLogChannelFetching(isKindOfClass, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [RichLinkAttachmentSubstituter archiver:willEncodeObject:];
     }
@@ -120,38 +120,40 @@ LABEL_22:
 
 - (id)applyAttachmentSubstitutionForObject:(id)object
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v5 = objectCopy;
     index = [v5 index];
-    if (index < [(NSArray *)self->_attachmentsForUnarchiving count])
+    v7 = [(NSArray *)self->_attachmentsForUnarchiving count];
+    if (index < v7)
     {
-      v7 = -[NSArray objectAtIndexedSubscript:](self->_attachmentsForUnarchiving, "objectAtIndexedSubscript:", [v5 index]);
+      v9 = -[NSArray objectAtIndexedSubscript:](self->_attachmentsForUnarchiving, "objectAtIndexedSubscript:", [v5 index]);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        [v5 setFileURL:v7];
+        [v5 setFileURL:v9];
 LABEL_21:
         null = [[LPARAsset alloc] _initWithARAsset:v5];
         goto LABEL_41;
       }
 
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        [v5 setData:v7];
+        [v5 setData:v9];
         goto LABEL_21;
       }
 
-      v24 = LPLogChannelFetching();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v34 = LPLogChannelFetching(isKindOfClass, v27);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = 134217984;
+        v39 = 134217984;
         index2 = [v5 index];
-        _os_log_impl(&dword_1AE886000, v24, OS_LOG_TYPE_DEFAULT, "RichLink: Link referred to attachment %ld, but it is not a URL or data", &v27, 0xCu);
+        _os_log_impl(&dword_1AE886000, v34, OS_LOG_TYPE_DEFAULT, "RichLink: Link referred to attachment %ld, but it is not a URL or data", &v39, 0xCu);
       }
 
 LABEL_31:
@@ -160,16 +162,16 @@ LABEL_31:
       goto LABEL_41;
     }
 
-    v10 = LPLogChannelFetching();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v14 = LPLogChannelFetching(v7, v8);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       index3 = [v5 index];
-      v12 = [(NSArray *)self->_attachmentsForUnarchiving count];
-      v27 = 134218240;
+      v16 = [(NSArray *)self->_attachmentsForUnarchiving count];
+      v39 = 134218240;
       index2 = index3;
-      v29 = 2048;
-      v30 = v12;
-      _os_log_impl(&dword_1AE886000, v10, OS_LOG_TYPE_DEFAULT, "RichLink: Link referred to attachment %ld, but we only have %lu", &v27, 0x16u);
+      v41 = 2048;
+      v42 = v16;
+      _os_log_impl(&dword_1AE886000, v14, OS_LOG_TYPE_DEFAULT, "RichLink: Link referred to attachment %ld, but we only have %lu", &v39, 0x16u);
     }
 
 LABEL_11:
@@ -181,121 +183,125 @@ LABEL_11:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v8 = objectCopy;
-    index4 = [v8 index];
-    if (index4 < [(NSArray *)self->_attachmentsForUnarchiving count])
+    v10 = objectCopy;
+    index4 = [v10 index];
+    v12 = [(NSArray *)self->_attachmentsForUnarchiving count];
+    if (index4 < v12)
     {
-      v7 = -[NSArray objectAtIndexedSubscript:](self->_attachmentsForUnarchiving, "objectAtIndexedSubscript:", [v8 index]);
+      v9 = -[NSArray objectAtIndexedSubscript:](self->_attachmentsForUnarchiving, "objectAtIndexedSubscript:", [v10 index]);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        [v8 setFileURL:v7];
+        [v10 setFileURL:v9];
       }
 
       else
       {
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        v32 = objc_opt_isKindOfClass();
+        if ((v32 & 1) == 0)
         {
-          v24 = LPLogChannelFetching();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v34 = LPLogChannelFetching(v32, v33);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
           {
-            v27 = 134217984;
-            index2 = [v8 index];
-            _os_log_impl(&dword_1AE886000, v24, OS_LOG_TYPE_DEFAULT, "RichLink: Link referred to attachment %ld, but it is not a URL or data", &v27, 0xCu);
+            v39 = 134217984;
+            index2 = [v10 index];
+            _os_log_impl(&dword_1AE886000, v34, OS_LOG_TYPE_DEFAULT, "RichLink: Link referred to attachment %ld, but it is not a URL or data", &v39, 0xCu);
           }
 
           goto LABEL_31;
         }
 
-        [v8 setData:v7];
+        [v10 setData:v9];
       }
 
-      null = [[LPImage alloc] _initWithImage:v8];
+      null = [[LPImage alloc] _initWithImage:v10];
       goto LABEL_41;
     }
 
-    v10 = LPLogChannelFetching();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v14 = LPLogChannelFetching(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      index5 = [v8 index];
-      v19 = [(NSArray *)self->_attachmentsForUnarchiving count];
-      v27 = 134218240;
+      index5 = [v10 index];
+      v25 = [(NSArray *)self->_attachmentsForUnarchiving count];
+      v39 = 134218240;
       index2 = index5;
-      v29 = 2048;
-      v30 = v19;
-      _os_log_impl(&dword_1AE886000, v10, OS_LOG_TYPE_DEFAULT, "RichLink: Link referred to attachment %ld, but we only have %lu", &v27, 0x16u);
+      v41 = 2048;
+      v42 = v25;
+      _os_log_impl(&dword_1AE886000, v14, OS_LOG_TYPE_DEFAULT, "RichLink: Link referred to attachment %ld, but we only have %lu", &v39, 0x16u);
     }
 
     goto LABEL_11;
   }
 
   objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-  v15 = objectCopy;
-  v16 = v15;
-  if ((isKindOfClass & 1) == 0)
+  v18 = objc_opt_isKindOfClass();
+  v19 = objectCopy;
+  v20 = v19;
+  if ((v18 & 1) == 0)
   {
     goto LABEL_43;
   }
 
-  index6 = [v15 index];
-  if (index6 < [(NSArray *)self->_attachmentsForUnarchiving count])
+  index6 = [v19 index];
+  v22 = [(NSArray *)self->_attachmentsForUnarchiving count];
+  if (index6 < v22)
   {
-    v7 = -[NSArray objectAtIndexedSubscript:](self->_attachmentsForUnarchiving, "objectAtIndexedSubscript:", [v16 index]);
+    v9 = -[NSArray objectAtIndexedSubscript:](self->_attachmentsForUnarchiving, "objectAtIndexedSubscript:", [v20 index]);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v16 setFileURL:v7];
+      [v20 setFileURL:v9];
     }
 
     else
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      v35 = objc_opt_isKindOfClass();
+      if ((v35 & 1) == 0)
       {
-        v25 = LPLogChannelFetching();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v37 = LPLogChannelFetching(v35, v36);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
         {
-          v27 = 134217984;
-          index2 = [v16 index];
-          _os_log_impl(&dword_1AE886000, v25, OS_LOG_TYPE_DEFAULT, "RichLink: Link referred to attachment %ld, but it is not a URL or data", &v27, 0xCu);
+          v39 = 134217984;
+          index2 = [v20 index];
+          _os_log_impl(&dword_1AE886000, v37, OS_LOG_TYPE_DEFAULT, "RichLink: Link referred to attachment %ld, but it is not a URL or data", &v39, 0xCu);
         }
 
         null = [MEMORY[0x1E695DFB0] null];
         goto LABEL_41;
       }
 
-      [v16 setData:v7];
+      [v20 setData:v9];
     }
 
-    null = [[LPVideo alloc] _initWithVideo:v16];
+    null = [[LPVideo alloc] _initWithVideo:v20];
 LABEL_41:
-    v16 = null;
+    v20 = null;
 
     goto LABEL_42;
   }
 
-  v21 = LPLogChannelFetching();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v29 = LPLogChannelFetching(v22, v23);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
-    index7 = [v16 index];
-    v23 = [(NSArray *)self->_attachmentsForUnarchiving count];
-    v27 = 134218240;
+    index7 = [v20 index];
+    v31 = [(NSArray *)self->_attachmentsForUnarchiving count];
+    v39 = 134218240;
     index2 = index7;
-    v29 = 2048;
-    v30 = v23;
-    _os_log_impl(&dword_1AE886000, v21, OS_LOG_TYPE_DEFAULT, "RichLink: Link referred to attachment %ld, but we only have %lu", &v27, 0x16u);
+    v41 = 2048;
+    v42 = v31;
+    _os_log_impl(&dword_1AE886000, v29, OS_LOG_TYPE_DEFAULT, "RichLink: Link referred to attachment %ld, but we only have %lu", &v39, 0x16u);
   }
 
   null2 = [MEMORY[0x1E695DFB0] null];
 LABEL_25:
-  v16 = null2;
+  v20 = null2;
 LABEL_42:
 
 LABEL_43:
 
-  return v16;
+  return v20;
 }
 
 - (id)unarchiver:(id)unarchiver didDecodeObject:(id)object

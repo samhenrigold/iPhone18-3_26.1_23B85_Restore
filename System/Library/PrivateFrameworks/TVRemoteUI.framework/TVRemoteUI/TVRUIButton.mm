@@ -348,7 +348,7 @@
 - (void)_boldTextEnabledStatusChanged:(id)changed
 {
   v10 = *MEMORY[0x277D85DE8];
-  v4 = _TVRUIViewControllerLog();
+  v4 = _TVRUIViewControllerLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315138;
@@ -365,7 +365,7 @@
 - (void)_largeTextEnabledStatusChanged:(id)changed
 {
   v10 = *MEMORY[0x277D85DE8];
-  v4 = _TVRUIViewControllerLog();
+  v4 = _TVRUIViewControllerLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315138;
@@ -382,7 +382,8 @@
 - (void)_darkenSystemColorsChanged:(id)changed
 {
   shouldShowGlass = [(TVRUIButton *)self shouldShowGlass];
-  buttonContentView = _TVRUIViewControllerLog();
+  v5 = shouldShowGlass;
+  buttonContentView = _TVRUIViewControllerLog(shouldShowGlass);
   if (os_log_type_enabled(buttonContentView, OS_LOG_TYPE_DEBUG))
   {
     [TVRUIButton _darkenSystemColorsChanged:buttonContentView];
@@ -397,7 +398,7 @@ LABEL_10:
     return;
   }
 
-  if (shouldShowGlass)
+  if (v5)
   {
     buttonBackgroundColor = 0;
   }
@@ -411,7 +412,7 @@ LABEL_10:
   buttonContentView2 = [(TVRUIButton *)self buttonContentView];
   [buttonContentView2 setBackgroundColor:buttonBackgroundColor];
 
-  if (!shouldShowGlass)
+  if ((v5 & 1) == 0)
   {
 
     goto LABEL_10;
@@ -771,16 +772,16 @@ void __24__TVRUIButton__touchUp___block_invoke(uint64_t a1)
   [*(a1 + 32) setDefaultBackgroundColor:0];
   v5 = [*(a1 + 32) buttonContentView];
   v6 = *(MEMORY[0x277CBF2C0] + 16);
-  v8[0] = *MEMORY[0x277CBF2C0];
-  v8[1] = v6;
-  v8[2] = *(MEMORY[0x277CBF2C0] + 32);
-  [v5 setTransform:v8];
+  v9[0] = *MEMORY[0x277CBF2C0];
+  v9[1] = v6;
+  v9[2] = *(MEMORY[0x277CBF2C0] + 32);
+  [v5 setTransform:v9];
 
-  v7 = _TVRUIViewControllerLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = _TVRUIViewControllerLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v8[0]) = 0;
-    _os_log_impl(&dword_26CFEB000, v7, OS_LOG_TYPE_DEFAULT, "#animation - button unhighlighter ran", v8, 2u);
+    LOWORD(v9[0]) = 0;
+    _os_log_impl(&dword_26CFEB000, v8, OS_LOG_TYPE_DEFAULT, "#animation - button unhighlighter ran", v9, 2u);
   }
 }
 
@@ -843,7 +844,7 @@ void __26__TVRUIButton__touchDown___block_invoke(uint64_t a1)
   [v5 setBackgroundColor:v4];
 
 LABEL_7:
-  memset(&v11, 0, sizeof(v11));
+  memset(&v12, 0, sizeof(v12));
   if (*(a1 + 40) == 1)
   {
     v6 = 1.1;
@@ -854,17 +855,17 @@ LABEL_7:
     v6 = 0.92;
   }
 
-  CGAffineTransformMakeScale(&v11, v6, v6);
-  v10 = v11;
+  CGAffineTransformMakeScale(&v12, v6, v6);
+  v11 = v12;
   v7 = [*(a1 + 32) buttonContentView];
-  v9 = v10;
-  [v7 setTransform:&v9];
+  v10 = v11;
+  [v7 setTransform:&v10];
 
-  v8 = _TVRUIViewControllerLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _TVRUIViewControllerLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v9.a) = 0;
-    _os_log_impl(&dword_26CFEB000, v8, OS_LOG_TYPE_DEFAULT, "#animation - button highlighter ran", &v9, 2u);
+    LOWORD(v10.a) = 0;
+    _os_log_impl(&dword_26CFEB000, v9, OS_LOG_TYPE_DEFAULT, "#animation - button highlighter ran", &v10, 2u);
   }
 }
 

@@ -72,49 +72,7 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
-  {
-    goto LABEL_8;
-  }
-
-  isValid = [(WiFiUsageNetworkIPv4Details *)self isValid];
-  if (isValid != [equalCopy isValid])
-  {
-    goto LABEL_8;
-  }
-
-  ipv4Address = [(WiFiUsageNetworkIPv4Details *)self ipv4Address];
-  ipv4Address2 = [equalCopy ipv4Address];
-  v8 = [ipv4Address isEqualToString:ipv4Address2];
-
-  if (!v8)
-  {
-    goto LABEL_8;
-  }
-
-  ipv4RouterAddress = [(WiFiUsageNetworkIPv4Details *)self ipv4RouterAddress];
-  ipv4RouterAddress2 = [equalCopy ipv4RouterAddress];
-  v11 = [ipv4RouterAddress isEqualToString:ipv4RouterAddress2];
-
-  if (!v11)
-  {
-    goto LABEL_8;
-  }
-
-  ipv4RouterMacAddress = [(WiFiUsageNetworkIPv4Details *)self ipv4RouterMacAddress];
-  ipv4RouterMacAddress2 = [equalCopy ipv4RouterMacAddress];
-  v14 = [ipv4RouterMacAddress isEqualToString:ipv4RouterMacAddress2];
-
-  if (!v14)
-  {
-    goto LABEL_8;
-  }
-
-  ipv4DefGwAddress = [(WiFiUsageNetworkIPv4Details *)self ipv4DefGwAddress];
-  ipv4DefGwAddress2 = [equalCopy ipv4DefGwAddress];
-  v17 = [ipv4DefGwAddress isEqualToString:ipv4DefGwAddress2];
-
-  if (v17)
+  if ([equalCopy isMemberOfClass:objc_opt_class()] && (v5 = -[WiFiUsageNetworkIPv4Details isValid](self, "isValid"), v5 == objc_msgSend(equalCopy, "isValid")) && (-[WiFiUsageNetworkIPv4Details ipv4Address](self, "ipv4Address"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(equalCopy, "ipv4Address"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "isEqualToString:", v7), v7, v6, v8) && (-[WiFiUsageNetworkIPv4Details ipv4RouterAddress](self, "ipv4RouterAddress"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(equalCopy, "ipv4RouterAddress"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v9, "isEqualToString:", v10), v10, v9, v11) && (-[WiFiUsageNetworkIPv4Details ipv4RouterMacAddress](self, "ipv4RouterMacAddress"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(equalCopy, "ipv4RouterMacAddress"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v12, "isEqualToString:", v13), v13, v12, v14) && (-[WiFiUsageNetworkIPv4Details ipv4DefGwAddress](self, "ipv4DefGwAddress"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(equalCopy, "ipv4DefGwAddress"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "isEqualToString:", v16), v16, v15, v17))
   {
     ipv4Subnet = [(WiFiUsageNetworkIPv4Details *)self ipv4Subnet];
     ipv4Subnet2 = [equalCopy ipv4Subnet];
@@ -123,7 +81,6 @@
 
   else
   {
-LABEL_8:
     v20 = 0;
   }
 

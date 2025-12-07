@@ -23,7 +23,7 @@
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   streamIdentifier = [(CMContinuityCaptureTransportDeviceRapportStream *)self streamIdentifier];
-  v7 = [v3 stringWithFormat:@"%@: %@ entity:%u [%p]", v5, streamIdentifier, self->_entity, self];
+  v7 = [v3 stringWithFormat:v5, streamIdentifier, self->_entity, self];
 
   return v7;
 }
@@ -40,7 +40,7 @@
 
   else
   {
-    [(RPStreamSession *)self->_stream sendEventID:@"ContinuityCaptureStreamEventID" event:v9 options:0 completion:completionCopy];
+    [RPStreamSession sendEventID:"sendEventID:event:options:completion:" event:? options:? completion:?];
   }
 }
 

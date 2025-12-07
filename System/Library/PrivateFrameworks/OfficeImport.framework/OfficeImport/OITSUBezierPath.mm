@@ -1448,7 +1448,7 @@ LABEL_13:
 
 - (BOOL)isRectangular
 {
-  v30[11] = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   LODWORD(elementCount) = [(OITSUBezierPath *)self isFlat];
   if (elementCount)
   {
@@ -1542,11 +1542,11 @@ LABEL_19:
             if (v20 > v10)
             {
               v23 = 0;
-              v24 = v30;
+              v24 = v29 + 1;
               v25 = 1;
               while (1)
               {
-                v26 = &v29[16 * (v25 % (v10 + 1))];
+                v26 = &v29[v25 % (v10 + 1)];
                 v27 = vabdd_f64(*v26, *(v24 - 1));
                 if (v27 > 0.01 != vabdd_f64(v26[1], *v24) <= 0.01 || v25 != 1 && ((v23 ^ (v27 > 0.01)) & 1) == 0)
                 {
@@ -1869,23 +1869,23 @@ LABEL_12:
 
 - (double)calculateLengthOfElement:(int64_t)element
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = 0.0;
   if (element)
   {
-    v4 = [(OITSUBezierPath *)self elementAtIndex:element allPoints:&v9];
+    v4 = [(OITSUBezierPath *)self elementAtIndex:element allPoints:&v11];
     switch(v4)
     {
       case 3:
         goto LABEL_5;
       case 2:
-        v8 = 0.0;
-        addifclose(&v9, &v8);
-        return v8;
+        v10 = 0.0;
+        addifclose(&v11, &v10, v5, v6);
+        return v10;
       case 1:
 LABEL_5:
-        v5 = (v10 - v12) * (v10 - v12) + (v9 - v11) * (v9 - v11);
-        return sqrtf(v5);
+        v7 = (v12 - v14) * (v12 - v14) + (v11 - v13) * (v11 - v13);
+        return sqrtf(v7);
     }
   }
 

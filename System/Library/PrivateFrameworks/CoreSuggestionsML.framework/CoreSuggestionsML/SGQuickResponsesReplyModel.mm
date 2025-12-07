@@ -147,34 +147,32 @@ LABEL_29:
 
 + (id)semanticClassesForArray:(id)array
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
-  v4 = 0x277CBE000uLL;
-  v5 = objc_opt_new();
-  v49 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v52 = 0u;
-  v6 = arrayCopy;
-  v7 = [v6 countByEnumeratingWithState:&v49 objects:v55 count:16];
-  if (v7)
+  v4 = objc_opt_new();
+  v43 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v5 = arrayCopy;
+  v6 = [v5 countByEnumeratingWithState:&v43 objects:v49 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v50;
-    v10 = 0x277CBE000uLL;
+    v7 = v6;
+    v8 = *v44;
+    v9 = 0x277CBE000uLL;
     while (2)
     {
-      v11 = 0;
-      v37 = v8;
+      v10 = 0;
+      v31 = v7;
       do
       {
-        if (*v50 != v9)
+        if (*v44 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v49 + 1) + 8 * v11);
-        v13 = *(v10 + 2656);
+        v11 = *(*(&v43 + 1) + 8 * v10);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -186,50 +184,48 @@ LABEL_29:
 
 LABEL_33:
 
-          v31 = 0;
+          v26 = 0;
           goto LABEL_34;
         }
 
-        v14 = *(v4 + 2840);
-        v15 = objc_opt_new();
-        v44 = 0u;
-        v45 = 0u;
-        v46 = 0u;
-        v47 = 0u;
-        v16 = v12;
-        v17 = [v16 countByEnumeratingWithState:&v44 objects:v54 count:16];
-        if (v17)
+        v12 = objc_opt_new();
+        v38 = 0u;
+        v39 = 0u;
+        v40 = 0u;
+        v41 = 0u;
+        v13 = v11;
+        v14 = [v13 countByEnumeratingWithState:&v38 objects:v48 count:16];
+        if (v14)
         {
-          v18 = *v45;
-          v38 = v5;
-          v39 = v16;
-          v34 = *v45;
-          v35 = v9;
+          v15 = *v39;
+          v32 = v4;
+          v33 = v13;
+          v28 = *v39;
+          v29 = v8;
           while (2)
           {
-            v19 = 0;
-            v36 = v17;
+            v16 = 0;
+            v30 = v14;
             do
             {
-              if (*v45 != v18)
+              if (*v39 != v15)
               {
-                objc_enumerationMutation(v16);
+                objc_enumerationMutation(v13);
               }
 
-              v20 = *(*(&v44 + 1) + 8 * v19);
+              v17 = *(*(&v38 + 1) + 8 * v16);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v21 = [objc_alloc(*(v10 + 2656)) initWithObjects:{v20, 0}];
+                v18 = [objc_alloc(*(v9 + 2656)) initWithObjects:{v17, 0}];
               }
 
               else
               {
-                v21 = v20;
+                v18 = v17;
               }
 
-              v22 = v21;
-              v23 = *(v10 + 2656);
+              v19 = v18;
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
@@ -239,34 +235,33 @@ LABEL_33:
                   _os_log_fault_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "[replyGroup isKindOfClass:NSArray.class]", buf, 2u);
                 }
 
-                v5 = v38;
+                v4 = v32;
 LABEL_32:
 
                 goto LABEL_33;
               }
 
-              v24 = v15;
-              v25 = v6;
-              v42 = 0u;
-              v43 = 0u;
-              v40 = 0u;
-              v41 = 0u;
-              v22 = v22;
-              v26 = [v22 countByEnumeratingWithState:&v40 objects:v53 count:16];
-              if (v26)
+              v20 = v12;
+              v21 = v5;
+              v36 = 0u;
+              v37 = 0u;
+              v34 = 0u;
+              v35 = 0u;
+              v19 = v19;
+              v22 = [v19 countByEnumeratingWithState:&v34 objects:v47 count:16];
+              if (v22)
               {
-                v27 = v26;
-                v28 = *v41;
+                v23 = v22;
+                v24 = *v35;
                 while (2)
                 {
-                  for (i = 0; i != v27; ++i)
+                  for (i = 0; i != v23; ++i)
                   {
-                    if (*v41 != v28)
+                    if (*v35 != v24)
                     {
-                      objc_enumerationMutation(v22);
+                      objc_enumerationMutation(v19);
                     }
 
-                    v30 = *(*(&v40 + 1) + 8 * i);
                     objc_opt_class();
                     if ((objc_opt_isKindOfClass() & 1) == 0)
                     {
@@ -276,16 +271,16 @@ LABEL_32:
                         _os_log_fault_impl(&dword_24799E000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "[string isKindOfClass:NSString.class]", buf, 2u);
                       }
 
-                      v6 = v25;
-                      v15 = v24;
-                      v5 = v38;
-                      v16 = v39;
+                      v5 = v21;
+                      v12 = v20;
+                      v4 = v32;
+                      v13 = v33;
                       goto LABEL_32;
                     }
                   }
 
-                  v27 = [v22 countByEnumeratingWithState:&v40 objects:v53 count:16];
-                  if (v27)
+                  v23 = [v19 countByEnumeratingWithState:&v34 objects:v47 count:16];
+                  if (v23)
                   {
                     continue;
                   }
@@ -294,22 +289,21 @@ LABEL_32:
                 }
               }
 
-              v15 = v24;
-              [v24 addObject:v22];
+              v12 = v20;
+              [v20 addObject:v19];
 
-              ++v19;
-              v9 = v35;
-              v6 = v25;
-              v4 = 0x277CBE000;
-              v10 = 0x277CBE000;
-              v16 = v39;
-              v18 = v34;
+              ++v16;
+              v8 = v29;
+              v5 = v21;
+              v9 = 0x277CBE000;
+              v13 = v33;
+              v15 = v28;
             }
 
-            while (v19 != v36);
-            v17 = [v39 countByEnumeratingWithState:&v44 objects:v54 count:16];
-            v5 = v38;
-            if (v17)
+            while (v16 != v30);
+            v14 = [v33 countByEnumeratingWithState:&v38 objects:v48 count:16];
+            v4 = v32;
+            if (v14)
             {
               continue;
             }
@@ -318,13 +312,13 @@ LABEL_32:
           }
         }
 
-        [v5 addObject:v15];
-        ++v11;
+        [v4 addObject:v12];
+        ++v10;
       }
 
-      while (v11 != v37);
-      v8 = [v6 countByEnumeratingWithState:&v49 objects:v55 count:16];
-      if (v8)
+      while (v10 != v31);
+      v7 = [v5 countByEnumeratingWithState:&v43 objects:v49 count:16];
+      if (v7)
       {
         continue;
       }
@@ -333,12 +327,10 @@ LABEL_32:
     }
   }
 
-  v31 = v5;
+  v26 = v4;
 LABEL_34:
 
-  v32 = *MEMORY[0x277D85DE8];
-
-  return v31;
+  return v26;
 }
 
 @end

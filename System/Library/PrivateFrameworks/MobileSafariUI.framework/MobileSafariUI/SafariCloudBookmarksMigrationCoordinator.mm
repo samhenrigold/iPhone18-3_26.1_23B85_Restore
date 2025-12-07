@@ -31,21 +31,21 @@ void __64__SafariCloudBookmarksMigrationCoordinator_migrationCoordinator__block_
 
   v3 = SafariCloudBookmarksMigrationCoordinatorLogsDirectoryURL();
   v4 = [MEMORY[0x277CCAA00] defaultManager];
-  v9 = 0;
-  v5 = [v4 createDirectoryAtURL:v3 withIntermediateDirectories:1 attributes:0 error:&v9];
-  v6 = v9;
+  v11 = 0;
+  v5 = [v4 createDirectoryAtURL:v3 withIntermediateDirectories:1 attributes:0 error:&v11];
+  v6 = v11;
 
   if ((v5 & 1) == 0)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXCloudBookmarks();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXCloudBookmarks(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __64__SafariCloudBookmarksMigrationCoordinator_migrationCoordinator__block_invoke_cold_1(v7, v6);
+      __64__SafariCloudBookmarksMigrationCoordinator_migrationCoordinator__block_invoke_cold_1(v9, v6);
     }
   }
 
-  v8 = [objc_alloc(MEMORY[0x277D49A10]) initWithDirectoryURL:v3 logName:@"migrationEligibility" maximumLogAge:60];
-  [migrationCoordinator_coordinator setKeyActionsLogger:v8];
+  v10 = [objc_alloc(MEMORY[0x277D49A10]) initWithDirectoryURL:v3 logName:@"migrationEligibility" maximumLogAge:60];
+  [migrationCoordinator_coordinator setKeyActionsLogger:v10];
 }
 
 - (BOOL)_evaluateMigrationEnabled

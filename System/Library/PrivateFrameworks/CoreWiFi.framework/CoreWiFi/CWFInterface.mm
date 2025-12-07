@@ -19,6 +19,7 @@
 - (BOOL)powerOn;
 - (BOOL)removeKnownBSS:(id)s knownNetworkProfile:(id)profile error:(id *)error;
 - (BOOL)removeKnownNetworkProfile:(id)profile reason:(int64_t)reason error:(id *)error;
+- (BOOL)reportQuickProbeResult:(BOOL)result networkProfile:(id)profile error:(id *)error;
 - (BOOL)setAWDLPeerTrafficRegistration:(id)registration error:(id *)error;
 - (BOOL)setAutoHotspotMode:(int64_t)mode error:(id *)error;
 - (BOOL)setBackgroundScanConfiguration:(id)configuration error:(id *)error;
@@ -28,8 +29,10 @@
 - (BOOL)setCompanionCountryCode:(id)code error:(id *)error;
 - (BOOL)setLinkQualityMetricConfiguration:(id)configuration error:(id *)error;
 - (BOOL)setPassword:(id)password knownNetworkProfile:(id)profile error:(id *)error;
+- (BOOL)setPower:(BOOL)power error:(id *)error;
 - (BOOL)setPrivateMACAddressMode:(int64_t)mode networkProfile:(id)profile error:(id *)error;
 - (BOOL)setPrivateMACAddressModeSystemSetting:(int64_t)setting error:(id *)error;
+- (BOOL)setRangeable:(BOOL)rangeable peerList:(id)list error:(id *)error;
 - (BOOL)setRangingIdentifier:(id)identifier error:(id *)error;
 - (BOOL)setThermalIndex:(int64_t)index error:(id *)error;
 - (BOOL)setUCMExtProfile:(id)profile error:(id *)error;
@@ -102,6 +105,7 @@
 - (id)SSIDForVendor;
 - (id)__adjustedRequestParameters;
 - (id)_knownNetworkProfilesInSameLanAsNetworkName:(id)name;
+- (id)_networkSignatureForNetwork:(id)network isBSSID:(BOOL)d;
 - (id)activities;
 - (id)authType;
 - (id)autoJoinStatistics;
@@ -186,6 +190,7 @@
 - (id)recommendedKnownNetworks;
 - (id)requestWiFiNetworkSharingAuthorizationAndReturnError:(id *)error;
 - (id)setAutoJoinDenyListForNetwork:(id)network reason:(unint64_t)reason;
+- (id)supportedChannel:(unint64_t)channel band:(unsigned int)band width:(int)width countryCode:(id)code;
 - (id)supportedChannelsWithCountryCode:(id)code;
 - (id)systemActivities;
 - (id)systemEventIDs;
@@ -260,11 +265,13 @@
 - (void)resetAutoJoinStatistics;
 - (void)sendXPCEvent:(id)event;
 - (void)setEventHandler:(id)handler;
+- (void)setPrivateMACAddressUserJoinFailureUIState:(BOOL)state networkProfile:(id)profile;
 - (void)stopAWDLPeerAssistedDiscovery;
 - (void)stopHostAPMode;
 - (void)stopMonitoringAllEvents;
 - (void)stopMonitoringEvent:(id)event;
 - (void)stopMonitoringEventType:(int64_t)type;
+- (void)updateSoftAPBand:(unsigned int)band;
 @end
 
 @implementation CWFInterface
@@ -1067,6 +1074,55 @@ LABEL_6:
   return v5;
 }
 
+- (BOOL)setPower:(BOOL)power error:(id *)error
+{
+  powerCopy = power;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = sub_1E0BC2DB0;
+  v21 = sub_1E0BC6214;
+  v22 = 0;
+  if ([(CWFXPCClient *)self->_XPCClient allowRequestType:6])
+  {
+    XPCClient = self->_XPCClient;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = sub_1E0CEAD3C;
+    v16[3] = &unk_1E86E8E30;
+    v16[4] = &v17;
+    v8 = [(CWFXPCClient *)XPCClient synchronousRemoteObjectProxyWithErrorHandler:v16];
+    __adjustedRequestParameters = [(CWFInterface *)self __adjustedRequestParameters];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = sub_1E0CEAD4C;
+    v15[3] = &unk_1E86E8E30;
+    v15[4] = &v17;
+    [v8 setPower:powerCopy requestParams:__adjustedRequestParameters reply:v15];
+  }
+
+  else
+  {
+    v13 = *MEMORY[0x1E696A798];
+    v8 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x2DuLL);
+    v14 = CWFErrorWithDescription(v13, 45, v8);
+    __adjustedRequestParameters = v18[5];
+    v18[5] = v14;
+  }
+
+  v10 = v18[5];
+  if (error && v10)
+  {
+    *error = v10;
+    v10 = v18[5];
+  }
+
+  v11 = v10 == 0;
+  _Block_object_dispose(&v17, 8);
+
+  return v11;
+}
+
 - (BOOL)setChannel:(id)channel error:(id *)error
 {
   channelCopy = channel;
@@ -1388,6 +1444,17 @@ LABEL_6:
     v6 = [(CWFXPCClient *)self->_XPCClient synchronousRemoteObjectProxyWithErrorHandler:&unk_1F5B8B060];
     __adjustedRequestParameters = [(CWFInterface *)self __adjustedRequestParameters];
     [v6 disassociateWithReason:reason requestParams:__adjustedRequestParameters reply:&unk_1F5B8B080];
+  }
+}
+
+- (void)updateSoftAPBand:(unsigned int)band
+{
+  v3 = *&band;
+  if ([(CWFXPCClient *)self->_XPCClient allowRequestType:219])
+  {
+    v6 = [(CWFXPCClient *)self->_XPCClient synchronousRemoteObjectProxyWithErrorHandler:&unk_1F5B8B0A0];
+    __adjustedRequestParameters = [(CWFInterface *)self __adjustedRequestParameters];
+    [v6 updateSoftAPBand:v3 requestParams:__adjustedRequestParameters reply:&unk_1F5B89970];
   }
 }
 
@@ -2055,6 +2122,56 @@ LABEL_6:
   {
     return v5;
   }
+}
+
+- (id)supportedChannel:(unint64_t)channel band:(unsigned int)band width:(int)width countryCode:(id)code
+{
+  v6 = *&width;
+  v7 = *&band;
+  v25 = *MEMORY[0x1E69E9840];
+  codeCopy = code;
+  v11 = [(CWFInterface *)self __flagsForChannelBand:v7 width:v6];
+  [(CWFInterface *)self supportedChannelsWithCountryCode:codeCopy];
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v12 = v23 = 0u;
+  v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v13)
+  {
+    v14 = v13;
+    v15 = *v21;
+    while (2)
+    {
+      for (i = 0; i != v14; ++i)
+      {
+        if (*v21 != v15)
+        {
+          objc_enumerationMutation(v12);
+        }
+
+        v17 = *(*(&v20 + 1) + 8 * i);
+        if ([v17 channel] == channel && (objc_msgSend(v17, "flags") & v11) != 0)
+        {
+          v18 = v17;
+          goto LABEL_12;
+        }
+      }
+
+      v14 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      if (v14)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v18 = 0;
+LABEL_12:
+
+  return v18;
 }
 
 - (unint64_t)MCSIndex
@@ -4129,32 +4246,87 @@ LABEL_6:
   return v7;
 }
 
-- (id)_knownNetworkProfilesInSameLanAsNetworkName:(id)name
+- (id)_networkSignatureForNetwork:(id)network isBSSID:(BOOL)d
 {
-  v25 = *MEMORY[0x1E69E9840];
-  nameCopy = name;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = sub_1E0BC2DB0;
-  v17 = sub_1E0BC6214;
-  v18 = 0;
-  if ([(CWFXPCClient *)self->_XPCClient allowRequestType:258])
+  dCopy = d;
+  v26 = *MEMORY[0x1E69E9840];
+  networkCopy = network;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_1E0BC2DB0;
+  v18 = sub_1E0BC6214;
+  v19 = 0;
+  if ([(CWFXPCClient *)self->_XPCClient allowRequestType:249])
   {
-    v5 = [(CWFXPCClient *)self->_XPCClient synchronousRemoteObjectProxyWithErrorHandler:&unk_1F5B8B6A0];
+    v7 = [(CWFXPCClient *)self->_XPCClient synchronousRemoteObjectProxyWithErrorHandler:&unk_1F5B89150];
     __adjustedRequestParameters = [(CWFInterface *)self __adjustedRequestParameters];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = sub_1E0CF5F24;
-    v12[3] = &unk_1E86E7708;
-    v12[4] = &v13;
-    [v5 queryKnownNetworksInSameLanAs:nameCopy requestParams:__adjustedRequestParameters reply:v12];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = sub_1E0CF5C48;
+    v13[3] = &unk_1E86E9100;
+    v13[4] = &v14;
+    [v7 queryNetworkSignatureForNetwork:networkCopy isBSSID:dCopy requestParams:__adjustedRequestParameters reply:v13];
   }
 
   else
   {
-    v10 = CWFGetOSLog();
-    if (v10)
+    v11 = CWFGetOSLog();
+    if (v11)
+    {
+      v7 = CWFGetOSLog();
+    }
+
+    else
+    {
+      v7 = MEMORY[0x1E69E9C10];
+      v12 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    {
+      v20 = 136446722;
+      v21 = "[CWFInterface _networkSignatureForNetwork:isBSSID:]";
+      v22 = 2082;
+      v23 = "CWFInterface.m";
+      v24 = 1024;
+      v25 = 3183;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 17, "[corewifi] %{public}s (%{public}s:%u) Not Supported", &v20, 28);
+    }
+  }
+
+  v9 = v15[5];
+  _Block_object_dispose(&v14, 8);
+
+  return v9;
+}
+
+- (id)_knownNetworkProfilesInSameLanAsNetworkName:(id)name
+{
+  v24 = *MEMORY[0x1E69E9840];
+  nameCopy = name;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = sub_1E0BC2DB0;
+  v16 = sub_1E0BC6214;
+  v17 = 0;
+  if ([(CWFXPCClient *)self->_XPCClient allowRequestType:258])
+  {
+    v5 = [(CWFXPCClient *)self->_XPCClient synchronousRemoteObjectProxyWithErrorHandler:&unk_1F5B8B6A0];
+    __adjustedRequestParameters = [(CWFInterface *)self __adjustedRequestParameters];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = sub_1E0CF5F24;
+    v11[3] = &unk_1E86E7708;
+    v11[4] = &v12;
+    [v5 queryKnownNetworksInSameLanAs:nameCopy requestParams:__adjustedRequestParameters reply:v11];
+  }
+
+  else
+  {
+    v9 = CWFGetOSLog();
+    if (v9)
     {
       v5 = CWFGetOSLog();
     }
@@ -4162,32 +4334,30 @@ LABEL_6:
     else
     {
       v5 = MEMORY[0x1E69E9C10];
-      v11 = MEMORY[0x1E69E9C10];
+      v10 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      v19 = 136446722;
-      v20 = "[CWFInterface _knownNetworkProfilesInSameLanAsNetworkName:]";
-      v21 = 2082;
-      v22 = "CWFInterface.m";
-      v23 = 1024;
-      v24 = 3216;
-      _os_log_send_and_compose_impl();
+      v18 = 136446722;
+      v19 = "[CWFInterface _knownNetworkProfilesInSameLanAsNetworkName:]";
+      v20 = 2082;
+      v21 = "CWFInterface.m";
+      v22 = 1024;
+      v23 = 3216;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v5, 17, "[corewifi] %{public}s (%{public}s:%u) Not Supported", &v18, 28);
     }
   }
 
-  v7 = v14[5];
-  _Block_object_dispose(&v13, 8);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = v13[5];
+  _Block_object_dispose(&v12, 8);
 
   return v7;
 }
 
 - (id)knownNetworkProfilesInSameLanAsNetworkName:(id)name
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (name)
   {
     v3 = [(CWFInterface *)self _knownNetworkProfilesInSameLanAsNetworkName:?];
@@ -4209,72 +4379,76 @@ LABEL_6:
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      _os_log_send_and_compose_impl();
+      v8 = 136446722;
+      v9 = "[CWFInterface knownNetworkProfilesInSameLanAsNetworkName:]";
+      v10 = 2082;
+      v11 = "CWFInterface.m";
+      v12 = 1024;
+      v13 = 3242;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v5, 17, "[corewifi] %{public}s (%{public}s:%u) networkName is nil", &v8, 28);
     }
 
     v3 = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (id)knownNetworkProfilesWithNetworkSignature:(id)signature
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   signatureCopy = signature;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = sub_1E0BC2DB0;
-  v19 = sub_1E0BC6214;
-  v20 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_1E0BC2DB0;
+  v18 = sub_1E0BC6214;
+  v19 = 0;
   if (signatureCopy)
   {
     if ([(CWFXPCClient *)self->_XPCClient allowRequestType:259])
     {
       v5 = [(CWFXPCClient *)self->_XPCClient synchronousRemoteObjectProxyWithErrorHandler:&unk_1F5B8B6C0];
       __adjustedRequestParameters = [(CWFInterface *)self __adjustedRequestParameters];
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = sub_1E0CF63D0;
-      v14[3] = &unk_1E86E7708;
-      v14[4] = &v15;
-      [v5 queryKnownNetworksWithNetworkSignature:signatureCopy requestParams:__adjustedRequestParameters reply:v14];
-
-      goto LABEL_4;
-    }
-
-    v11 = CWFGetOSLog();
-    if (v11)
-    {
-      v5 = CWFGetOSLog();
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = sub_1E0CF63D0;
+      v13[3] = &unk_1E86E7708;
+      v13[4] = &v14;
+      [v5 queryKnownNetworksWithNetworkSignature:signatureCopy requestParams:__adjustedRequestParameters reply:v13];
     }
 
     else
     {
-      v5 = MEMORY[0x1E69E9C10];
-      v13 = MEMORY[0x1E69E9C10];
-    }
+      v10 = CWFGetOSLog();
+      if (v10)
+      {
+        v5 = CWFGetOSLog();
+      }
 
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
-    {
-      goto LABEL_4;
-    }
+      else
+      {
+        v5 = MEMORY[0x1E69E9C10];
+        v12 = MEMORY[0x1E69E9C10];
+      }
 
-    v21 = 136446722;
-    v22 = "[CWFInterface knownNetworkProfilesWithNetworkSignature:]";
-    v23 = 2082;
-    v24 = "CWFInterface.m";
-    v25 = 1024;
-    v26 = 3260;
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      {
+        v20 = 136446722;
+        v21 = "[CWFInterface knownNetworkProfilesWithNetworkSignature:]";
+        v22 = 2082;
+        v23 = "CWFInterface.m";
+        v24 = 1024;
+        v25 = 3260;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v5, 17, "[corewifi] %{public}s (%{public}s:%u) Not Supported", &v20, 28);
+      }
+    }
   }
 
   else
   {
-    v10 = CWFGetOSLog();
-    if (v10)
+    v9 = CWFGetOSLog();
+    if (v9)
     {
       v5 = CWFGetOSLog();
     }
@@ -4282,29 +4456,23 @@ LABEL_6:
     else
     {
       v5 = MEMORY[0x1E69E9C10];
-      v12 = MEMORY[0x1E69E9C10];
+      v11 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      goto LABEL_4;
+      v20 = 136446722;
+      v21 = "[CWFInterface knownNetworkProfilesWithNetworkSignature:]";
+      v22 = 2082;
+      v23 = "CWFInterface.m";
+      v24 = 1024;
+      v25 = 3258;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v5, 17, "[corewifi] %{public}s (%{public}s:%u) networkSignature is nil", &v20, 28);
     }
-
-    v21 = 136446722;
-    v22 = "[CWFInterface knownNetworkProfilesWithNetworkSignature:]";
-    v23 = 2082;
-    v24 = "CWFInterface.m";
-    v25 = 1024;
-    v26 = 3258;
   }
 
-  _os_log_send_and_compose_impl();
-LABEL_4:
-
-  v7 = v16[5];
-  _Block_object_dispose(&v15, 8);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = v15[5];
+  _Block_object_dispose(&v14, 8);
 
   return v7;
 }
@@ -4372,7 +4540,8 @@ LABEL_4:
             v37 = v25;
             v38 = 2112;
             v39 = v13;
-            _os_log_send_and_compose_impl();
+            LODWORD(v28) = 22;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v15, 16, "[corewifi] [migrationNetwork] FAILED to add network (SSID=%@), error=%@", &v36, v28);
           }
 
           if (error)
@@ -4401,7 +4570,8 @@ LABEL_4:
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             LOWORD(v36) = 0;
-            _os_log_send_and_compose_impl();
+            LODWORD(v28) = 2;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v17, 16, "[corewifi] [migrationNetwork] FAILED to get network profile for add", &v36, v28);
           }
 
           v19 = CWFErrorDescription(v8, 5uLL);
@@ -4425,7 +4595,6 @@ LABEL_24:
   v9 = 1;
 LABEL_28:
 
-  v27 = *MEMORY[0x1E69E9840];
   return v9 & 1;
 }
 
@@ -6186,6 +6355,56 @@ LABEL_28:
   return v5;
 }
 
+- (BOOL)setRangeable:(BOOL)rangeable peerList:(id)list error:(id *)error
+{
+  rangeableCopy = rangeable;
+  listCopy = list;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = sub_1E0BC2DB0;
+  v23 = sub_1E0BC6214;
+  v24 = 0;
+  if ([(CWFXPCClient *)self->_XPCClient allowRequestType:68])
+  {
+    XPCClient = self->_XPCClient;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0CFDF68;
+    v18[3] = &unk_1E86E8E30;
+    v18[4] = &v19;
+    v10 = [(CWFXPCClient *)XPCClient synchronousRemoteObjectProxyWithErrorHandler:v18];
+    __adjustedRequestParameters = [(CWFInterface *)self __adjustedRequestParameters];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = sub_1E0CFDF78;
+    v17[3] = &unk_1E86E8E30;
+    v17[4] = &v19;
+    [v10 setRangeable:rangeableCopy peerList:listCopy requestParams:__adjustedRequestParameters reply:v17];
+  }
+
+  else
+  {
+    v15 = *MEMORY[0x1E696A798];
+    v10 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x2DuLL);
+    v16 = CWFErrorWithDescription(v15, 45, v10);
+    __adjustedRequestParameters = v20[5];
+    v20[5] = v16;
+  }
+
+  v12 = v20[5];
+  if (error && v12)
+  {
+    *error = v12;
+    v12 = v20[5];
+  }
+
+  v13 = v12 == 0;
+  _Block_object_dispose(&v19, 8);
+
+  return v13;
+}
+
 - (void)performRangingWithPeerList:(id)list timeout:(unint64_t)timeout reply:(id)reply
 {
   listCopy = list;
@@ -6858,6 +7077,18 @@ LABEL_28:
   return v11;
 }
 
+- (void)setPrivateMACAddressUserJoinFailureUIState:(BOOL)state networkProfile:(id)profile
+{
+  stateCopy = state;
+  profileCopy = profile;
+  if ([(CWFXPCClient *)self->_XPCClient allowRequestType:227])
+  {
+    v6 = [(CWFXPCClient *)self->_XPCClient synchronousRemoteObjectProxyWithErrorHandler:&unk_1F5B88FB0];
+    __adjustedRequestParameters = [(CWFInterface *)self __adjustedRequestParameters];
+    [v6 setPrivateMACAddressUserJoinFailureUIState:stateCopy networkProfile:profileCopy requestParams:__adjustedRequestParameters reply:&unk_1F5B89390];
+  }
+}
+
 - (BOOL)isQuickProbeRequiredForNetworkProfile:(id)profile
 {
   profileCopy = profile;
@@ -6881,6 +7112,56 @@ LABEL_28:
   _Block_object_dispose(&v10, 8);
 
   return v7;
+}
+
+- (BOOL)reportQuickProbeResult:(BOOL)result networkProfile:(id)profile error:(id *)error
+{
+  resultCopy = result;
+  profileCopy = profile;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = sub_1E0BC2DB0;
+  v23 = sub_1E0BC6214;
+  v24 = 0;
+  if ([(CWFXPCClient *)self->_XPCClient allowRequestType:229])
+  {
+    XPCClient = self->_XPCClient;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = sub_1E0D007AC;
+    v18[3] = &unk_1E86E8E30;
+    v18[4] = &v19;
+    v10 = [(CWFXPCClient *)XPCClient synchronousRemoteObjectProxyWithErrorHandler:v18];
+    __adjustedRequestParameters = [(CWFInterface *)self __adjustedRequestParameters];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = sub_1E0D007BC;
+    v17[3] = &unk_1E86E8E30;
+    v17[4] = &v19;
+    [v10 reportQuickProbeResult:resultCopy networkProfile:profileCopy requestParams:__adjustedRequestParameters reply:v17];
+  }
+
+  else
+  {
+    v15 = *MEMORY[0x1E696A798];
+    v10 = CWFErrorDescription(*MEMORY[0x1E696A798], 0x2DuLL);
+    v16 = CWFErrorWithDescription(v15, 45, v10);
+    __adjustedRequestParameters = v20[5];
+    v20[5] = v16;
+  }
+
+  v12 = v20[5];
+  if (error && v12)
+  {
+    *error = v12;
+    v12 = v20[5];
+  }
+
+  v13 = v12 == 0;
+  _Block_object_dispose(&v19, 8);
+
+  return v13;
 }
 
 - (id)getAutoJoinDenyList

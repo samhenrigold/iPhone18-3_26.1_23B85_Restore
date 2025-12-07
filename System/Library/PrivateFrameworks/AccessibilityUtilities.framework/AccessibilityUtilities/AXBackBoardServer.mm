@@ -137,9 +137,11 @@ LABEL_5:
 
 uint64_t __27__AXBackBoardServer_server__block_invoke()
 {
-  server_Server_2 = objc_alloc_init(AXBackBoardServer);
+  v0 = objc_alloc_init(AXBackBoardServer);
+  v1 = server_Server_2;
+  server_Server_2 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (AXBackBoardServer)init
@@ -408,7 +410,7 @@ uint64_t __27__AXBackBoardServer_server__block_invoke()
   return _shouldDispatchLocally_IsBackboard;
 }
 
-uint64_t __43__AXBackBoardServer__shouldDispatchLocally__block_invoke()
+uint64_t __43__AXBackBoardServer__shouldDispatchLocally__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = AXProcessIsBackboard();
   _shouldDispatchLocally_IsBackboard = result;
@@ -427,7 +429,7 @@ uint64_t __43__AXBackBoardServer__shouldDispatchLocally__block_invoke()
   else
   {
     protocol_getName(v3);
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"%@ did not conform to %s! This is a bad bug! Things will go wrong when AXBackBoard asks itself stuff!");
     v4 = 0;
   }
 
@@ -756,7 +758,7 @@ void __53__AXBackBoardServer_sessionIsLoginSessionWithResult___block_invoke(uint
     v38.size.width = width;
     v38.size.height = height;
     v33 = NSStringFromRect(v38);
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"could not convert frame %@ from context %lu to context %lu: %@");
 
     v23 = *MEMORY[0x1E695F058];
     v24 = *(MEMORY[0x1E695F058] + 8);
@@ -860,7 +862,7 @@ void __53__AXBackBoardServer_sessionIsLoginSessionWithResult___block_invoke(uint
     else
     {
       protocol_getName(v14);
-      _AXLogWithFacility();
+      _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"%@ did not conform to %s like it should! Bailing from %s!");
       v16 = *MEMORY[0x1E695F050];
       v18 = *(MEMORY[0x1E695F050] + 8);
       v20 = *(MEMORY[0x1E695F050] + 16);
@@ -1315,7 +1317,7 @@ LABEL_5:
 
   if (v11)
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Couldn't get zoom initial focus rect: %@");
     x = *MEMORY[0x1E695F050];
     y = *(MEMORY[0x1E695F050] + 8);
     width = *(MEMORY[0x1E695F050] + 16);
@@ -1435,20 +1437,29 @@ LABEL_5:
 uint64_t __62__AXBackBoardServer_guidedAccessEffectiveAppBundleIdentifier___block_invoke(uint64_t a1, void *a2)
 {
   v3 = [a2 payload];
-  v6 = [v3 objectForKey:@"result"];
+  v7 = [v3 objectForKey:@"result"];
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  if (objc_opt_isKindOfClass())
   {
+    v4 = v7;
   }
 
-  v4 = *(a1 + 32);
-  if (v4)
+  else
   {
-    (*(v4 + 16))();
+
+    v4 = 0;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  v5 = *(a1 + 32);
+  if (v5)
+  {
+    v8 = v4;
+    v5 = (*(v5 + 16))();
+    v4 = v8;
+  }
+
+  return MEMORY[0x1EEE66BB8](v5, v4);
 }
 
 - (id)performGuidedAccessAutomationCommand:(id)command error:(id *)error
@@ -1530,7 +1541,7 @@ uint64_t __62__AXBackBoardServer_guidedAccessEffectiveAppBundleIdentifier___bloc
   [client sendAsyncMessage:v12 withReplyHandler:v13];
 }
 
-void __93__AXBackBoardServer__sendRequestGuidedAccessSessionMessage_numberOfRetryAttempts_completion___block_invoke(uint64_t a1, void *a2, void *a3)
+void __93__AXBackBoardServer__sendRequestGuidedAccessSessionMessage_numberOfRetryAttempts_completion___block_invoke(void *a1, void *a2, void *a3)
 {
   v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -1554,24 +1565,24 @@ void __93__AXBackBoardServer__sendRequestGuidedAccessSessionMessage_numberOfRetr
   v12 = [v11 objectForKeyedSubscript:@"AXGuidedAccessPayloadKeyIsTemporaryFailure"];
   v13 = [v12 BOOLValue];
 
-  if ((v10 & 1) != 0 || !v13 || !*(a1 + 56))
+  if ((v10 & 1) != 0 || !v13 || !a1[7])
   {
 LABEL_5:
-    (*(*(a1 + 48) + 16))();
+    (*(a1[6] + 16))();
     goto LABEL_6;
   }
 
   v14 = GAXLogCommon();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
-    v15 = *(a1 + 56);
+    v15 = a1[7];
     *buf = 134217984;
     v19 = v15;
     _os_log_impl(&dword_18B15E000, v14, OS_LOG_TYPE_INFO, "Attempting to request session again after temporary failure. Attempts remaining: %lu", buf, 0xCu);
   }
 
-  v16 = *(a1 + 40);
-  v17 = *(a1 + 48);
+  v16 = a1[5];
+  v17 = a1[6];
   AXPerformBlockOnMainThreadAfterDelay();
 
 LABEL_6:
@@ -1984,7 +1995,7 @@ void __65__AXBackBoardServer_requestGuidedAccessSessionEndWithCompletion___block
 
     if (v6)
     {
-      _AXLogWithFacility();
+      _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not reset accessibility features: %@");
     }
   }
 }

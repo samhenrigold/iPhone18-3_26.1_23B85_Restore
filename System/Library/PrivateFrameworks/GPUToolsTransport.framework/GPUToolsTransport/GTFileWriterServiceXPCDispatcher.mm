@@ -27,7 +27,7 @@
 
 - (void)initiateTransfer_basePath_fromDevice_options_completionHandler_:(id)handler_ replyConnection:(id)connection
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   handler_Copy = handler_;
   connectionCopy = connection;
   v8 = gt_xpc_dictionary_create_reply(handler_Copy);
@@ -44,13 +44,13 @@
       v17 = objc_opt_class();
       nsobject = xpc_dictionary_get_nsobject(handler_Copy, "options", v17);
       service = self->_service;
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __116__GTFileWriterServiceXPCDispatcher_initiateTransfer_basePath_fromDevice_options_completionHandler__replyConnection___block_invoke;
-      v33[3] = &unk_279661440;
-      v34 = v8;
-      v35 = connectionCopy;
-      [(GTFileWriterService *)service initiateTransfer:nsarray basePath:v13 fromDevice:v16 options:nsobject completionHandler:v33];
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __116__GTFileWriterServiceXPCDispatcher_initiateTransfer_basePath_fromDevice_options_completionHandler__replyConnection___block_invoke;
+      v32[3] = &unk_279661440;
+      v33 = v8;
+      v34 = connectionCopy;
+      [(GTFileWriterService *)service initiateTransfer:nsarray basePath:v13 fromDevice:v16 options:nsobject completionHandler:v32];
     }
 
     else
@@ -72,10 +72,10 @@
       }
 
       v29 = MEMORY[0x277CCA9B8];
-      v36 = *MEMORY[0x277CCA450];
+      v35 = *MEMORY[0x277CCA450];
       v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid argument sent to service %@: %@", @"GTFileWriterServiceXPCDispatcher", @"Invalid device UDID passed to initiateTransfer"];
-      v37 = v30;
-      v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+      v36 = v30;
+      v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
       v16 = [v29 errorWithDomain:@"com.apple.gputools.transport" code:4 userInfo:v31];
 
       xpc_dictionary_set_nserror(v8, "error", v16);
@@ -102,17 +102,15 @@
     }
 
     v23 = MEMORY[0x277CCA9B8];
-    v38 = *MEMORY[0x277CCA450];
+    v37 = *MEMORY[0x277CCA450];
     v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid argument sent to service %@: %@", @"GTFileWriterServiceXPCDispatcher", @"Invalid path passed to initiateTransfer"];
-    v39[0] = v24;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+    v38[0] = v24;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
     v13 = [v23 errorWithDomain:@"com.apple.gputools.transport" code:4 userInfo:v25];
 
     xpc_dictionary_set_nserror(v8, "error", v13);
     [connectionCopy sendMessage:v8];
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __116__GTFileWriterServiceXPCDispatcher_initiateTransfer_basePath_fromDevice_options_completionHandler__replyConnection___block_invoke(uint64_t a1, uint64_t a2)
@@ -126,7 +124,7 @@ uint64_t __116__GTFileWriterServiceXPCDispatcher_initiateTransfer_basePath_fromD
 
 - (void)startTransfer_basePath_fromDevice_options_completionHandler_:(id)handler_ replyConnection:(id)connection
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   handler_Copy = handler_;
   connectionCopy = connection;
   v8 = gt_xpc_dictionary_create_reply(handler_Copy);
@@ -143,13 +141,13 @@ uint64_t __116__GTFileWriterServiceXPCDispatcher_initiateTransfer_basePath_fromD
       v17 = objc_opt_class();
       nsobject = xpc_dictionary_get_nsobject(handler_Copy, "options", v17);
       service = self->_service;
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __113__GTFileWriterServiceXPCDispatcher_startTransfer_basePath_fromDevice_options_completionHandler__replyConnection___block_invoke;
-      v33[3] = &unk_2796615A0;
-      v34 = v8;
-      v35 = connectionCopy;
-      [(GTFileWriterService *)service startTransfer:nsarray basePath:v13 fromDevice:v16 options:nsobject completionHandler:v33];
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __113__GTFileWriterServiceXPCDispatcher_startTransfer_basePath_fromDevice_options_completionHandler__replyConnection___block_invoke;
+      v32[3] = &unk_2796615A0;
+      v33 = v8;
+      v34 = connectionCopy;
+      [(GTFileWriterService *)service startTransfer:nsarray basePath:v13 fromDevice:v16 options:nsobject completionHandler:v32];
     }
 
     else
@@ -171,10 +169,10 @@ uint64_t __116__GTFileWriterServiceXPCDispatcher_initiateTransfer_basePath_fromD
       }
 
       v29 = MEMORY[0x277CCA9B8];
-      v36 = *MEMORY[0x277CCA450];
+      v35 = *MEMORY[0x277CCA450];
       v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid argument sent to service %@: %@", @"GTFileWriterServiceXPCDispatcher", @"Invalid device UDID passed to startTransfer"];
-      v37 = v30;
-      v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+      v36 = v30;
+      v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
       v16 = [v29 errorWithDomain:@"com.apple.gputools.transport" code:4 userInfo:v31];
 
       xpc_dictionary_set_nserror(v8, "error", v16);
@@ -201,17 +199,15 @@ uint64_t __116__GTFileWriterServiceXPCDispatcher_initiateTransfer_basePath_fromD
     }
 
     v23 = MEMORY[0x277CCA9B8];
-    v38 = *MEMORY[0x277CCA450];
+    v37 = *MEMORY[0x277CCA450];
     v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid argument sent to service %@: %@", @"GTFileWriterServiceXPCDispatcher", @"Invalid path passed to startTransfer"];
-    v39[0] = v24;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+    v38[0] = v24;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
     v13 = [v23 errorWithDomain:@"com.apple.gputools.transport" code:4 userInfo:v25];
 
     xpc_dictionary_set_nserror(v8, "error", v13);
     [connectionCopy sendMessage:v8];
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __113__GTFileWriterServiceXPCDispatcher_startTransfer_basePath_fromDevice_options_completionHandler__replyConnection___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -229,7 +225,7 @@ uint64_t __113__GTFileWriterServiceXPCDispatcher_startTransfer_basePath_fromDevi
 
 - (void)startTransfer_basePath_fromDevice_toDirectory_options_completionHandler_:(id)handler_ replyConnection:(id)connection
 {
-  v51[1] = *MEMORY[0x277D85DE8];
+  v50[1] = *MEMORY[0x277D85DE8];
   handler_Copy = handler_;
   connectionCopy = connection;
   v8 = gt_xpc_dictionary_create_reply(handler_Copy);
@@ -257,13 +253,13 @@ uint64_t __113__GTFileWriterServiceXPCDispatcher_startTransfer_basePath_fromDevi
         v21 = objc_opt_class();
         v22 = xpc_dictionary_get_nsobject(handler_Copy, "options", v21);
         service = self->_service;
-        v43[0] = MEMORY[0x277D85DD0];
-        v43[1] = 3221225472;
-        v43[2] = __125__GTFileWriterServiceXPCDispatcher_startTransfer_basePath_fromDevice_toDirectory_options_completionHandler__replyConnection___block_invoke;
-        v43[3] = &unk_2796615A0;
-        v44 = v8;
-        v45 = connectionCopy;
-        [(GTFileWriterService *)service startTransfer:nsarray basePath:v13 fromDevice:v16 toDirectory:nsobject options:v22 completionHandler:v43];
+        v42[0] = MEMORY[0x277D85DD0];
+        v42[1] = 3221225472;
+        v42[2] = __125__GTFileWriterServiceXPCDispatcher_startTransfer_basePath_fromDevice_toDirectory_options_completionHandler__replyConnection___block_invoke;
+        v42[3] = &unk_2796615A0;
+        v43 = v8;
+        v44 = connectionCopy;
+        [(GTFileWriterService *)service startTransfer:nsarray basePath:v13 fromDevice:v16 toDirectory:nsobject options:v22 completionHandler:v42];
       }
 
       else
@@ -284,12 +280,12 @@ uint64_t __113__GTFileWriterServiceXPCDispatcher_startTransfer_basePath_fromDevi
           fprintf(v37, "%s\n", [v38 UTF8String]);
         }
 
-        v42 = MEMORY[0x277CCA9B8];
-        v46 = *MEMORY[0x277CCA450];
+        v41 = MEMORY[0x277CCA9B8];
+        v45 = *MEMORY[0x277CCA450];
         v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid argument sent to service %@: %@", @"GTFileWriterServiceXPCDispatcher", @"Invalid destination directory passed to initiateTransfer"];
-        v47 = v39;
-        v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
-        v22 = [v42 errorWithDomain:@"com.apple.gputools.transport" code:4 userInfo:v40];
+        v46 = v39;
+        v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+        v22 = [v41 errorWithDomain:@"com.apple.gputools.transport" code:4 userInfo:v40];
 
         xpc_dictionary_set_nserror(v8, "error", v22);
         [connectionCopy sendMessage:v8];
@@ -315,10 +311,10 @@ uint64_t __113__GTFileWriterServiceXPCDispatcher_startTransfer_basePath_fromDevi
       }
 
       v33 = MEMORY[0x277CCA9B8];
-      v48 = *MEMORY[0x277CCA450];
+      v47 = *MEMORY[0x277CCA450];
       v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid argument sent to service %@: %@", @"GTFileWriterServiceXPCDispatcher", @"Invalid device UDID passed to startTransfer"];
-      v49 = v34;
-      v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+      v48 = v34;
+      v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
       v16 = [v33 errorWithDomain:@"com.apple.gputools.transport" code:4 userInfo:v35];
 
       xpc_dictionary_set_nserror(v8, "error", v16);
@@ -345,17 +341,15 @@ uint64_t __113__GTFileWriterServiceXPCDispatcher_startTransfer_basePath_fromDevi
     }
 
     v27 = MEMORY[0x277CCA9B8];
-    v50 = *MEMORY[0x277CCA450];
+    v49 = *MEMORY[0x277CCA450];
     v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid argument sent to service %@: %@", @"GTFileWriterServiceXPCDispatcher", @"Invalid path passed to startTransfer"];
-    v51[0] = v28;
-    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:&v50 count:1];
+    v50[0] = v28;
+    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:&v49 count:1];
     v13 = [v27 errorWithDomain:@"com.apple.gputools.transport" code:4 userInfo:v29];
 
     xpc_dictionary_set_nserror(v8, "error", v13);
     [connectionCopy sendMessage:v8];
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __125__GTFileWriterServiceXPCDispatcher_startTransfer_basePath_fromDevice_toDirectory_options_completionHandler__replyConnection___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -373,7 +367,7 @@ uint64_t __125__GTFileWriterServiceXPCDispatcher_startTransfer_basePath_fromDevi
 
 - (void)beginTransferSessionWithFileEntries_basePath_toDevice_options_sessionID_completionHandler_:(id)handler_ replyConnection:(id)connection
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   handler_Copy = handler_;
   connectionCopy = connection;
   v8 = gt_xpc_dictionary_create_reply(handler_Copy);
@@ -391,13 +385,13 @@ uint64_t __125__GTFileWriterServiceXPCDispatcher_startTransfer_basePath_fromDevi
       nsobject = xpc_dictionary_get_nsobject(handler_Copy, "options", v17);
       uint64 = xpc_dictionary_get_uint64(handler_Copy, "sessionID");
       service = self->_service;
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __143__GTFileWriterServiceXPCDispatcher_beginTransferSessionWithFileEntries_basePath_toDevice_options_sessionID_completionHandler__replyConnection___block_invoke;
-      v34[3] = &unk_279661440;
-      v35 = v8;
-      v36 = connectionCopy;
-      [(GTFileWriterService *)service beginTransferSessionWithFileEntries:nsarray basePath:v13 toDevice:v16 options:nsobject sessionID:uint64 completionHandler:v34];
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __143__GTFileWriterServiceXPCDispatcher_beginTransferSessionWithFileEntries_basePath_toDevice_options_sessionID_completionHandler__replyConnection___block_invoke;
+      v33[3] = &unk_279661440;
+      v34 = v8;
+      v35 = connectionCopy;
+      [(GTFileWriterService *)service beginTransferSessionWithFileEntries:nsarray basePath:v13 toDevice:v16 options:nsobject sessionID:uint64 completionHandler:v33];
     }
 
     else
@@ -419,10 +413,10 @@ uint64_t __125__GTFileWriterServiceXPCDispatcher_startTransfer_basePath_fromDevi
       }
 
       v30 = MEMORY[0x277CCA9B8];
-      v37 = *MEMORY[0x277CCA450];
+      v36 = *MEMORY[0x277CCA450];
       v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid argument sent to service %@: %@", @"GTFileWriterServiceXPCDispatcher", @"Invalid device UDID passed to beginTransferSessionWithFileEntries"];
-      v38 = v31;
-      v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+      v37 = v31;
+      v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
       v16 = [v30 errorWithDomain:@"com.apple.gputools.transport" code:4 userInfo:v32];
 
       xpc_dictionary_set_nserror(v8, "error", v16);
@@ -449,17 +443,15 @@ uint64_t __125__GTFileWriterServiceXPCDispatcher_startTransfer_basePath_fromDevi
     }
 
     v24 = MEMORY[0x277CCA9B8];
-    v39 = *MEMORY[0x277CCA450];
+    v38 = *MEMORY[0x277CCA450];
     v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid argument sent to service %@: %@", @"GTFileWriterServiceXPCDispatcher", @"Invalid path passed to beginTransferSessionWithFileEntries"];
-    v40[0] = v25;
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+    v39[0] = v25;
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
     v13 = [v24 errorWithDomain:@"com.apple.gputools.transport" code:4 userInfo:v26];
 
     xpc_dictionary_set_nserror(v8, "error", v13);
     [connectionCopy sendMessage:v8];
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __143__GTFileWriterServiceXPCDispatcher_beginTransferSessionWithFileEntries_basePath_toDevice_options_sessionID_completionHandler__replyConnection___block_invoke(uint64_t a1, uint64_t a2)

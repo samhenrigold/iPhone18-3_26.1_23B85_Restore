@@ -231,7 +231,6 @@ LABEL_9:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    normalizedDuration = self->_normalizedDuration;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 8) == 0)
@@ -251,7 +250,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  timeOfDayCos = self->_timeOfDayCos;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -266,7 +264,6 @@ LABEL_4:
   }
 
 LABEL_14:
-  timeOfDaySin = self->_timeOfDaySin;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 1) == 0)
@@ -281,7 +278,6 @@ LABEL_5:
   }
 
 LABEL_15:
-  dayOfWeekCos = self->_dayOfWeekCos;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -296,7 +292,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  dayOfWeekSin = self->_dayOfWeekSin;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -311,12 +306,10 @@ LABEL_7:
   }
 
 LABEL_17:
-  isWeekend = self->_isWeekend;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_8:
-    weekOfYear = self->_weekOfYear;
     PBDataWriterWriteUint32Field();
   }
 
@@ -610,7 +603,6 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  v7 = *(equalCopy + 52);
   if (self->_isWeekend)
   {
     if ((*(equalCopy + 52) & 1) == 0)

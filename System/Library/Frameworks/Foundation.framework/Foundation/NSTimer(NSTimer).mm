@@ -25,7 +25,7 @@
 {
   if (MEMORY[0x1E695DFF0] == self)
   {
-    return [NSCFTimer allocWithZone:?];
+    return [NSCFTimer allocWithZone:a3];
   }
 
   else

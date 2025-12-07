@@ -90,72 +90,67 @@ uint64_t __38__SHMediaLibrarySnapshot_trackChanges__block_invoke(uint64_t a1, vo
 
 - (NSArray)allItemIdentifiers
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB18];
   changes = [(SHMediaLibrarySnapshot *)self changes];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(changes, "count")}];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   changes2 = [(SHMediaLibrarySnapshot *)self changes];
-  v7 = [changes2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [changes2 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(changes2);
         }
 
-        libraryItem = [*(*(&v17 + 1) + 8 * i) libraryItem];
+        libraryItem = [*(*(&v16 + 1) + 8 * i) libraryItem];
         identifier = [libraryItem identifier];
         v13 = [identifier copy];
         [v5 addObject:v13];
       }
 
-      v8 = [changes2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [changes2 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
 
   v14 = [v5 copy];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (void)addItem:(id)item
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   v5 = [[SHMediaLibraryChange alloc] initWithLibraryItem:itemCopy changeType:1];
 
-  v8[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   [(SHMediaLibrarySnapshot *)self addChanges:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeItem:(id)item
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   v5 = [[SHMediaLibraryChange alloc] initWithLibraryItem:itemCopy changeType:3];
 
-  v8[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   [(SHMediaLibrarySnapshot *)self addChanges:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addChanges:(id)changes
@@ -183,34 +178,35 @@ uint64_t __38__SHMediaLibrarySnapshot_trackChanges__block_invoke(uint64_t a1, vo
         }
 
         v10 = *(*(&v19 + 1) + 8 * i);
-        if ([(SHMediaLibrarySnapshot *)self isConflictingChange:v10, v18])
+        v11 = [(SHMediaLibrarySnapshot *)self isConflictingChange:v10, v18];
+        if (v11)
         {
-          v11 = sh_log_object();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+          v12 = sh_log_object(v11);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             libraryItem = [v10 libraryItem];
             identifier = [libraryItem identifier];
             *buf = v18;
             v24 = identifier;
-            _os_log_impl(&dword_230F52000, v11, OS_LOG_TYPE_ERROR, "Should not try to modify and remove the same library item (%@)", buf, 0xCu);
+            _os_log_impl(&dword_230F52000, v12, OS_LOG_TYPE_ERROR, "Should not try to modify and remove the same library item (%@)", buf, 0xCu);
           }
         }
 
         else
         {
           changeset = [(SHMediaLibrarySnapshot *)self changeset];
-          v15 = [changeset indexOfObject:v10];
+          v16 = [changeset indexOfObject:v10];
 
           changeset2 = [(SHMediaLibrarySnapshot *)self changeset];
-          v11 = changeset2;
-          if (v15 == 0x7FFFFFFFFFFFFFFFLL)
+          v12 = changeset2;
+          if (v16 == 0x7FFFFFFFFFFFFFFFLL)
           {
             [changeset2 addObject:v10];
           }
 
           else
           {
-            [changeset2 replaceObjectAtIndex:v15 withObject:v10];
+            [changeset2 replaceObjectAtIndex:v16 withObject:v10];
           }
         }
       }
@@ -220,8 +216,6 @@ uint64_t __38__SHMediaLibrarySnapshot_trackChanges__block_invoke(uint64_t a1, vo
 
     while (v7);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mergeSnapshot:(id)snapshot
@@ -289,28 +283,28 @@ uint64_t __46__SHMediaLibrarySnapshot_containsLibraryItem___block_invoke(uint64_
 
 - (BOOL)validateWithBundleIdentifier:(id)identifier
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   changes = [(SHMediaLibrarySnapshot *)self changes];
-  v6 = [changes countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [changes countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(changes);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         libraryItem = [v10 libraryItem];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -336,7 +330,7 @@ uint64_t __46__SHMediaLibrarySnapshot_containsLibraryItem___block_invoke(uint64_
         }
       }
 
-      v7 = [changes countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [changes countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
@@ -345,37 +339,36 @@ uint64_t __46__SHMediaLibrarySnapshot_containsLibraryItem___block_invoke(uint64_
   v16 = 1;
 LABEL_14:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (id)tracksForChangeType:(int64_t)type
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CBEB18];
   changes = [(SHMediaLibrarySnapshot *)self changes];
   v7 = [v5 arrayWithCapacity:{objc_msgSend(changes, "count")}];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   changes2 = [(SHMediaLibrarySnapshot *)self changes];
-  v9 = [changes2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [changes2 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(changes2);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         libraryItem = [v13 libraryItem];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
@@ -388,14 +381,13 @@ LABEL_14:
         }
       }
 
-      v10 = [changes2 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [changes2 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
   }
 
   v18 = [v7 copy];
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

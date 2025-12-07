@@ -1,6 +1,7 @@
 @interface PBAPasscodeEntryViewController
 - (PBAPasscodeEntryViewController)initWithLightBackground:(BOOL)background;
 - (PBAPasscodeEntryViewControllerDelegate)delegate;
+- (void)_updatePasscodeStatusTextAnimated:(BOOL)animated;
 - (void)_userCancelledEntry;
 - (void)_userRequestedDismissal;
 - (void)didReceiveMemoryWarning;
@@ -10,7 +11,9 @@
 - (void)resetPasscodeEntryFieldForFailure:(BOOL)failure;
 - (void)setSubtitleText:(id)text;
 - (void)setTitleText:(id)text;
+- (void)setTitleText:(id)text subtitleText:(id)subtitleText animated:(BOOL)animated;
 - (void)viewDidLoad;
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear;
 @end
 
 @implementation PBAPasscodeEntryViewController
@@ -52,6 +55,21 @@
 
     [(PBAPasscodeEntryViewController *)self _updatePasscodeStatusTextAnimated:1];
   }
+}
+
+- (void)setTitleText:(id)text subtitleText:(id)subtitleText animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  subtitleTextCopy = subtitleText;
+  v9 = [text copy];
+  titleText = self->_titleText;
+  self->_titleText = v9;
+
+  v11 = [subtitleTextCopy copy];
+  subtitleText = self->_subtitleText;
+  self->_subtitleText = v11;
+
+  [(PBAPasscodeEntryViewController *)self _updatePasscodeStatusTextAnimated:animatedCopy];
 }
 
 - (void)resetPasscodeEntryFieldForFailure:(BOOL)failure
@@ -157,6 +175,22 @@
   v2.receiver = self;
   v2.super_class = PBAPasscodeEntryViewController;
   [(PBAPasscodeEntryViewController *)&v2 didReceiveMemoryWarning];
+}
+
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = PBAPasscodeEntryViewController;
+  [(PBAPasscodeEntryViewController *)&v6 viewDidMoveToWindow:window shouldAppearOrDisappear:disappear];
+  view = [(PBAPasscodeEntryViewController *)self view];
+  [view becomeFirstResponder];
+}
+
+- (void)_updatePasscodeStatusTextAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  passcodeLockView = [(PBAPasscodeEntryViewController *)self passcodeLockView];
+  [passcodeLockView updateStatusText:self->_titleText subtitle:self->_subtitleText animated:animatedCopy];
 }
 
 - (void)_userCancelledEntry

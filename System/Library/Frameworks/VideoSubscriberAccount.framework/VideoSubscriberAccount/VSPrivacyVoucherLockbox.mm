@@ -9,6 +9,7 @@
 - (void)redeemVoucher:(id)voucher;
 - (void)remoteNotifier:(id)notifier didReceiveRemoteNotificationWithUserInfo:(id)info;
 - (void)setUnredeemedVouchers:(id)vouchers;
+- (void)unredeemedVouchers;
 @end
 
 @implementation VSPrivacyVoucherLockbox
@@ -100,13 +101,13 @@
 
 - (void)setUnredeemedVouchers:(id)vouchers
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   vouchersCopy = vouchers;
-  v5 = VSDefaultLogObject();
+  v5 = VSDefaultLogObject(vouchersCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v23 = vouchersCopy;
+    v24 = vouchersCopy;
     _os_log_impl(&dword_23AB8E000, v5, OS_LOG_TYPE_DEFAULT, "Setting unredeemed vouchers: %@", buf, 0xCu);
   }
 
@@ -120,16 +121,16 @@
 
   v9 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:vouchersCopy requiringSecureCoding:1 error:0];
   _voucherArchiveURL = [(VSPrivacyVoucherLockbox *)self _voucherArchiveURL];
-  v21 = 0;
-  v11 = [v9 writeToURL:_voucherArchiveURL options:0 error:&v21];
-  v12 = v21;
+  v22 = 0;
+  v11 = [v9 writeToURL:_voucherArchiveURL options:0 error:&v22];
+  v12 = v22;
 
   if ((v11 & 1) == 0)
   {
-    v13 = VSErrorLogObject();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = VSErrorLogObject(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [(VSPrivacyVoucherLockbox *)v12 setUnredeemedVouchers:v13, v14, v15, v16, v17, v18, v19];
+      [(VSPrivacyVoucherLockbox *)v12 setUnredeemedVouchers:v14, v15, v16, v17, v18, v19, v20];
     }
   }
 
@@ -139,7 +140,7 @@
 
 - (NSArray)unredeemedVouchers
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v39[2] = *MEMORY[0x277D85DE8];
   _voucherArchiveURL = [(VSPrivacyVoucherLockbox *)self _voucherArchiveURL];
   v3 = objc_alloc_init(MEMORY[0x277CCAA00]);
   path = [_voucherArchiveURL path];
@@ -147,113 +148,114 @@
 
   if (v5)
   {
-    v36 = 0;
-    v6 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:_voucherArchiveURL options:0 error:&v36];
-    v7 = v36;
-    if (v6)
+    v38 = 0;
+    v7 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:_voucherArchiveURL options:0 error:&v38];
+    v8 = v38;
+    v9 = v8;
+    if (v7)
     {
-      v8 = v6;
-      v35 = 0;
-      v9 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v8 error:&v35];
-      v10 = v35;
-      v11 = v10;
-      if (v9)
+      v10 = v7;
+      v37 = 0;
+      v11 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v10 error:&v37];
+      v12 = v37;
+      v13 = v12;
+      if (v11)
       {
-        v33 = v10;
-        v12 = v9;
-        [v12 setDecodingFailurePolicy:1];
-        v13 = MEMORY[0x277CBEB98];
-        v37[0] = objc_opt_class();
-        v37[1] = objc_opt_class();
-        v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
-        v15 = [v13 setWithArray:v14];
+        v35 = v12;
+        v14 = v11;
+        [v14 setDecodingFailurePolicy:1];
+        v15 = MEMORY[0x277CBEB98];
+        v39[0] = objc_opt_class();
+        v39[1] = objc_opt_class();
+        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
+        v17 = [v15 setWithArray:v16];
 
-        v16 = [v12 decodeObjectOfClasses:v15 forKey:*MEMORY[0x277CCA308]];
-        v17 = v16;
-        if (v16)
+        v18 = [v14 decodeObjectOfClasses:v17 forKey:*MEMORY[0x277CCA308]];
+        v19 = v18;
+        if (v18)
         {
-          v18 = v16;
+          v20 = v18;
         }
 
         else
         {
-          v31 = VSErrorLogObject();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          v33 = VSErrorLogObject(0);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
-            [(VSPrivacyVoucherLockbox *)v31 unredeemedVouchers];
+            [(VSPrivacyVoucherLockbox *)v33 unredeemedVouchers];
           }
 
-          v18 = MEMORY[0x277CBEBF8];
+          v20 = MEMORY[0x277CBEBF8];
         }
 
-        v11 = v33;
+        v13 = v35;
       }
 
       else
       {
-        v12 = VSErrorLogObject();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v14 = VSErrorLogObject(v12);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          [(VSPrivacyVoucherLockbox *)v11 unredeemedVouchers:v12];
+          [(VSPrivacyVoucherLockbox *)v13 unredeemedVouchers:v14];
         }
 
-        v18 = MEMORY[0x277CBEBF8];
+        v20 = MEMORY[0x277CBEBF8];
       }
     }
 
     else
     {
-      v8 = VSErrorLogObject();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = VSErrorLogObject(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [(VSPrivacyVoucherLockbox *)v7 unredeemedVouchers:v8];
+        [(VSPrivacyVoucherLockbox *)v9 unredeemedVouchers:v10];
       }
 
-      v18 = MEMORY[0x277CBEBF8];
+      v20 = MEMORY[0x277CBEBF8];
     }
   }
 
   else
   {
-    v7 = VSDefaultLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = VSDefaultLogObject(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "No vouchers file exists.", buf, 2u);
+      _os_log_impl(&dword_23AB8E000, v9, OS_LOG_TYPE_DEFAULT, "No vouchers file exists.", buf, 2u);
     }
 
-    v18 = MEMORY[0x277CBEBF8];
+    v20 = MEMORY[0x277CBEBF8];
   }
 
-  return v18;
+  return v20;
 }
 
 + (id)getVouchersFromSelectedAppDescriptions:(id)descriptions forProviderID:(id)d
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   descriptionsCopy = descriptions;
   dCopy = d;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
   v8 = descriptionsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         adamID = [v13 adamID];
         stringValue = [adamID stringValue];
 
@@ -264,29 +266,43 @@
             goto LABEL_12;
           }
 
-          v16 = [[VSPrivacyConsentVoucher alloc] initWithAppAdamID:stringValue providerID:dCopy];
-          [v7 addObject:v16];
+          v17 = [[VSPrivacyConsentVoucher alloc] initWithAppAdamID:stringValue providerID:dCopy];
+          [v7 addObject:v17];
         }
 
         else
         {
-          v16 = VSErrorLogObject();
-          if (os_log_type_enabled(&v16->super, OS_LOG_TYPE_ERROR))
+          v17 = VSErrorLogObject(v16);
+          if (os_log_type_enabled(&v17->super, OS_LOG_TYPE_ERROR))
           {
-            [(VSPrivacyVoucherLockbox *)v22 getVouchersFromSelectedAppDescriptions:v13 forProviderID:&v23, &v16->super];
+            [(VSPrivacyVoucherLockbox *)v23 getVouchersFromSelectedAppDescriptions:v13 forProviderID:&v24, &v17->super];
           }
         }
 
 LABEL_12:
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v19 objects:v25 count:16];
     }
 
     while (v10);
   }
 
   return v7;
+}
+
+- (void)setUnredeemedVouchers:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_23AB8E000, a2, a3, "Unable to write vouchers: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)unredeemedVouchers
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_0(&dword_23AB8E000, a2, a3, "Unable to read vouchers file: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)getVouchersFromSelectedAppDescriptions:(void *)a3 forProviderID:(NSObject *)a4 .cold.1(uint8_t *a1, void *a2, void *a3, NSObject *a4)

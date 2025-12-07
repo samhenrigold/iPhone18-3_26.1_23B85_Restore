@@ -52,24 +52,24 @@ LABEL_6:
 
 - (id)debugDescription
 {
-  v2 = isInternalBuild();
-  v3 = MEMORY[0x277CCACA8];
+  v3 = isInternalBuild();
+  v4 = MEMORY[0x277CCACA8];
   homeUUID = [self homeUUID];
   uUIDString = [homeUUID UUIDString];
   appIdentifier = [self appIdentifier];
   accessoryUUID = [self accessoryUUID];
   uUIDString2 = [accessoryUUID UUIDString];
-  if (v2)
+  if (v3)
   {
     ownershipToken = [self ownershipToken];
     setupAuthTokenUUID = [self setupAuthTokenUUID];
     setupAuthToken = [self setupAuthToken];
     setupAccessoryPayload = [self setupAccessoryPayload];
     [setupAccessoryPayload debugDescription];
-    v13 = v16 = homeUUID;
-    v14 = [v3 stringWithFormat:@"Accessory pending setup - Home: %@, appID: %@, uuid: %@, ownershipToken: %@, authTokenUUID: %@, authToken: %@, Payload %@", uUIDString, appIdentifier, uUIDString2, ownershipToken, setupAuthTokenUUID, setupAuthToken, v13];
+    v14 = v17 = homeUUID;
+    v15 = [v4 stringWithFormat:@"Accessory pending setup - Home: %@, appID: %@, uuid: %@, ownershipToken: %@, authTokenUUID: %@, authToken: %@, Payload %@", uUIDString, appIdentifier, uUIDString2, ownershipToken, setupAuthTokenUUID, setupAuthToken, v14];
 
-    homeUUID = v16;
+    homeUUID = v17;
   }
 
   else
@@ -78,10 +78,10 @@ LABEL_6:
     setupAuthTokenUUID = HMFBooleanToString();
     setupAuthToken = [self ownershipToken];
     setupAccessoryPayload = HMFBooleanToString();
-    v14 = [v3 stringWithFormat:@"Accessory pending setup - Home: %@, appID: %@, uuid: %@, hasSetupCode: %@, hasOwnershipToken: %@", uUIDString, appIdentifier, uUIDString2, setupAuthTokenUUID, setupAccessoryPayload];
+    v15 = [v4 stringWithFormat:@"Accessory pending setup - Home: %@, appID: %@, uuid: %@, hasSetupCode: %@, hasOwnershipToken: %@", uUIDString, appIdentifier, uUIDString2, setupAuthTokenUUID, setupAccessoryPayload];
   }
 
-  return v14;
+  return v15;
 }
 
 @end

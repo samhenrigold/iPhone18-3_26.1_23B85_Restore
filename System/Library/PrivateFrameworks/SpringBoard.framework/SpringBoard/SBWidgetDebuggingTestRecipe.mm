@@ -35,20 +35,20 @@ void __46__SBWidgetDebuggingTestRecipe___systemService__block_invoke()
   dispatch_async(v3, block);
 }
 
-void __54__SBWidgetDebuggingTestRecipe__openNotificationCenter__block_invoke()
+void __54__SBWidgetDebuggingTestRecipe__openNotificationCenter__block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v0 = [objc_opt_class() __systemService];
-  v6 = *MEMORY[0x277D0AC08];
-  v1 = *MEMORY[0x277D0AB68];
-  v4[0] = *MEMORY[0x277D0AB60];
-  v4[1] = v1;
-  v5[0] = @"com.apple.TodayViewWidget";
-  v5[1] = @"com.apple.widget-extension";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-  [v0 openApplication:@"com.apple.springboard" options:v3 withResult:&__block_literal_global_14_4];
+  v8[1] = *MEMORY[0x277D85DE8];
+  v1 = [objc_opt_class() __systemService];
+  v7 = *MEMORY[0x277D0AC08];
+  v2 = *MEMORY[0x277D0AB68];
+  v5[0] = *MEMORY[0x277D0AB60];
+  v5[1] = v2;
+  v6[0] = @"com.apple.TodayViewWidget";
+  v6[1] = @"com.apple.widget-extension";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
+  v8[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  [v1 openApplication:@"com.apple.springboard" options:v4 withResult:&__block_literal_global_14_4];
 }
 
 void __54__SBWidgetDebuggingTestRecipe__openNotificationCenter__block_invoke_2(uint64_t a1, void *a2)

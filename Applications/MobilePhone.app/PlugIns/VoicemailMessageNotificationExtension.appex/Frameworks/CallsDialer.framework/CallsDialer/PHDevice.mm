@@ -39,7 +39,7 @@ void __27__PHDevice_isGeminiCapable__block_invoke(id a1)
 
   else
   {
-    v3 = PHDefaultLog();
+    v3 = PHDefaultLog(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __27__PHDevice_isGeminiCapable__block_invoke_cold_2(v3);

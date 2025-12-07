@@ -65,16 +65,16 @@
 
 - (SPUnknownProductMetadata)initWithCoder:(id)coder
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"title"];
   title = self->_title;
   self->_title = v5;
 
   v7 = MEMORY[0x277CBEB98];
-  v22[0] = objc_opt_class();
-  v22[1] = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v21[0] = objc_opt_class();
+  v21[1] = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
   v9 = [v7 setWithArray:v8];
   v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"moreDescription"];
   moreDescription = self->_moreDescription;
@@ -97,7 +97,6 @@
   image3x = self->_image3x;
   self->_image3x = v18;
 
-  v20 = *MEMORY[0x277D85DE8];
   return self;
 }
 

@@ -1,6 +1,7 @@
 @interface KSKeyboardController
 + (BOOL)_isLowStorageForOnDeviceDictationAsset;
 + (id)localizedDisplayNameForInputMode:(id)mode forDictation:(BOOL)dictation;
++ (id)localizedListForInputModes:(id)modes forDictation:(BOOL)dictation duplicatedBaseLanguages:(id)languages;
 + (id)localizedStringForGeneralKeyboardSpecifier;
 + (id)localizedStringForKeyboardController;
 + (id)singleActiveDisabledDictationLanguage;
@@ -86,6 +87,8 @@
 - (void)setWubiStandard:(id)standard specifier:(id)specifier;
 - (void)showDictationDisabledDialogForSpecifier:(id)specifier;
 - (void)showDictationEnableDialogForSpecifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation KSKeyboardController
@@ -115,7 +118,7 @@
 
 - (id)lowStorageOnDeviceAssetStringWithLinkString:(id)string
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CCA940] set];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
@@ -124,26 +127,26 @@
   mEMORY[0x277D6FFA8] = [MEMORY[0x277D6FFA8] sharedPreferencesController];
   v6 = [mEMORY[0x277D6FFA8] suggestedDictationModesForKeyboardLanguages:{objc_msgSend(objc_msgSend(MEMORY[0x277D75688], "sharedInputModeController"), "activeDictationSupportedInputModeIdentifiers")}];
   v7 = [objc_msgSend(objc_msgSend(objc_msgSend(MEMORY[0x277D756A0] "sharedPreferencesController")];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
-  v8 = [v6 countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v8 = [v6 countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v8)
   {
     v9 = v8;
-    v33 = 0;
-    v10 = *v39;
+    v32 = 0;
+    v10 = *v38;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v39 != v10)
+        if (*v38 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v38 + 1) + 8 * i);
+        v12 = *(*(&v37 + 1) + 8 * i);
         if ([objc_msgSend(v7 objectForKeyedSubscript:{objc_msgSend(v12, "identifier")), "BOOLValue"}])
         {
           [v12 identifier];
@@ -161,7 +164,7 @@
 
           if (AFOfflineDictationStatusStringIsHighQualityModelSupported())
           {
-            ++v33;
+            ++v32;
             IsInstalled = AFOfflineDictationStatusStringIsInstalled();
             identifier = [v12 identifier];
             if (IsInstalled)
@@ -185,7 +188,7 @@
         }
       }
 
-      v9 = [v6 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
     while (v9);
@@ -193,7 +196,7 @@
 
   else
   {
-    v33 = 0;
+    v32 = 0;
   }
 
   result = [array3 count];
@@ -201,35 +204,35 @@
   {
     if (![objc_opt_class() _isLowStorageForOnDeviceDictationAsset])
     {
-      goto LABEL_36;
+      return 0;
     }
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
-    v19 = [v4 countByEnumeratingWithState:&v34 objects:v42 count:16];
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v19 = [v4 countByEnumeratingWithState:&v33 objects:v41 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v35;
+      v21 = *v34;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v35 != v21)
+          if (*v34 != v21)
           {
             objc_enumerationMutation(v4);
           }
 
-          v23 = *(*(&v34 + 1) + 8 * j);
+          v23 = *(*(&v33 + 1) + 8 * j);
           if ([v4 countForObject:v23] >= 2)
           {
             [array addObject:v23];
           }
         }
 
-        v20 = [v4 countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v20 = [v4 countByEnumeratingWithState:&v33 objects:v41 count:16];
       }
 
       while (v20);
@@ -238,43 +241,43 @@
     result = [array3 count];
     if (result)
     {
-      if ([array4 count] || v33 >= 2)
+      if ([array4 count] || v32 >= 2)
       {
-        v25 = MEMORY[0x277CCACA8];
-        v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v24 = MEMORY[0x277CCACA8];
+        v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
         if ([array3 count] < 2)
         {
-          v27 = @"DICTATION_ON_DEVICE_LOW_STORAGE_WITH_LANGUAGE";
+          v26 = @"DICTATION_ON_DEVICE_LOW_STORAGE_WITH_LANGUAGE";
         }
 
         else
         {
-          v27 = [@"DICTATION_ON_DEVICE_LOW_STORAGE_WITH_LANGUAGE" stringByAppendingString:@"S"];
+          v26 = [@"DICTATION_ON_DEVICE_LOW_STORAGE_WITH_LANGUAGE" stringByAppendingString:@"S"];
         }
 
-        result = [v25 stringWithFormat:objc_msgSend(v26, "localizedStringForKey:value:table:", v27, &stru_28679E3A8, @"Keyboard", +[KSKeyboardController localizedListForInputModes:forDictation:duplicatedBaseLanguages:](KSKeyboardController, "localizedListForInputModes:forDictation:duplicatedBaseLanguages:", array3, 1, array)];
+        result = [v24 stringWithFormat:objc_msgSend(v25, "localizedStringForKey:value:table:", v26, &stru_28679E3A8, @"Keyboard", +[KSKeyboardController localizedListForInputModes:forDictation:duplicatedBaseLanguages:](KSKeyboardController, "localizedListForInputModes:forDictation:duplicatedBaseLanguages:", array3, 1, array)];
         goto LABEL_42;
       }
 
-      if (v33 == 1)
+      if (v32 == 1)
       {
         result = [objc_msgSend(MEMORY[0x277CCA8D8] bundleForClass:{objc_opt_class()), "localizedStringForKey:value:table:", @"DICTATION_ON_DEVICE_LOW_STORAGE", &stru_28679E3A8, @"Keyboard"}];
 LABEL_42:
-        if (string && result)
+        if (string)
         {
-          result = [result stringByAppendingFormat:@" %@", string];
+          if (result)
+          {
+            return [result stringByAppendingFormat:@" %@", string];
+          }
         }
 
-        goto LABEL_37;
+        return result;
       }
 
-LABEL_36:
-      result = 0;
+      return 0;
     }
   }
 
-LABEL_37:
-  v24 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -394,7 +397,7 @@ uint64_t __28__KSKeyboardController_init__block_invoke_2()
   return [v7 numberWithInt:v8];
 }
 
-uint64_t __44__KSKeyboardController_readPreferenceValue___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__44__KSKeyboardController_readPreferenceValue___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [objc_msgSend(TIInputModeGetComponentsFromIdentifier() objectForKeyedSubscript:{@"sw", "_containsSubstring:", @"Flick"}];
   if (result)
@@ -405,7 +408,7 @@ uint64_t __44__KSKeyboardController_readPreferenceValue___block_invoke(uint64_t 
   return result;
 }
 
-uint64_t __44__KSKeyboardController_readPreferenceValue___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__44__KSKeyboardController_readPreferenceValue___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [objc_msgSend(TIInputModeGetComponentsFromIdentifier() objectForKeyedSubscript:{@"sw", "_containsSubstring:", @"RTL"}];
   if (result)
@@ -457,7 +460,6 @@ uint64_t __44__KSKeyboardController_readPreferenceValue___block_invoke_2(uint64_
 
     else if ([v7 isEqualToString:@"KeyboardAssistant"] && (objc_msgSend(value, "BOOLValue") & 1) == 0)
     {
-      v15 = *MEMORY[0x277D6FBF0];
       UIKeyboardGetCurrentInputMode();
       TIInputModeGetNormalizedIdentifier();
       TIStatisticGetKeyForInputMode();
@@ -466,7 +468,6 @@ uint64_t __44__KSKeyboardController_readPreferenceValue___block_invoke_2(uint64_
 
     else if ([v7 isEqualToString:*MEMORY[0x277D76AA8]])
     {
-      v14 = *MEMORY[0x277D6FB58];
       TIStatisticGetKey();
       [value BOOLValue];
       TIStatisticScalarSetBoolean();
@@ -483,13 +484,13 @@ uint64_t __44__KSKeyboardController_readPreferenceValue___block_invoke_2(uint64_
     }
   }
 
-  v16 = *MEMORY[0x277D3FFB8];
+  v14 = *MEMORY[0x277D3FFB8];
   if ([objc_msgSend(specifier propertyForKey:{*MEMORY[0x277D3FFB8]), "isEqualToString:", @"KeyboardContinuousPathEnabled"}])
   {
-    v17 = [(KSKeyboardController *)self containsSpecifier:[(KSKeyboardController *)self deleteWordSpecifier]];
-    if (![value BOOLValue] || (v17 & 1) != 0)
+    v15 = [(KSKeyboardController *)self containsSpecifier:[(KSKeyboardController *)self deleteWordSpecifier]];
+    if (![value BOOLValue] || (v15 & 1) != 0)
     {
-      if (([value BOOLValue] & 1) == 0 && ((v17 ^ 1) & 1) == 0)
+      if (([value BOOLValue] & 1) == 0 && ((v15 ^ 1) & 1) == 0)
       {
         -[KSKeyboardController setDeleteWordSpecifierIndex:](self, "setDeleteWordSpecifierIndex:", [-[KSKeyboardController specifiers](self "specifiers")]);
         [(KSKeyboardController *)self removeSpecifier:[(KSKeyboardController *)self deleteWordSpecifier] animated:1];
@@ -500,9 +501,9 @@ uint64_t __44__KSKeyboardController_readPreferenceValue___block_invoke_2(uint64_
     {
       [(KSKeyboardController *)self deleteWordSpecifierIndex];
       deleteWordSpecifierIndex = [(KSKeyboardController *)self deleteWordSpecifierIndex];
-      v19 = [-[KSKeyboardController specifiers](self "specifiers")];
+      v17 = [-[KSKeyboardController specifiers](self "specifiers")];
       deleteWordSpecifier = [(KSKeyboardController *)self deleteWordSpecifier];
-      if (deleteWordSpecifierIndex >= v19)
+      if (deleteWordSpecifierIndex >= v17)
       {
         [(KSKeyboardController *)self addSpecifier:deleteWordSpecifier animated:1];
       }
@@ -514,12 +515,12 @@ uint64_t __44__KSKeyboardController_readPreferenceValue___block_invoke_2(uint64_
     }
   }
 
-  if ([objc_msgSend(specifier propertyForKey:{v16), "isEqualToString:", @"KeyboardPrediction"}])
+  if ([objc_msgSend(specifier propertyForKey:{v14), "isEqualToString:", @"KeyboardPrediction"}])
   {
-    v21 = [(KSKeyboardController *)self containsSpecifier:[(KSKeyboardController *)self inlineCompletionSpecifier]];
-    if (![value BOOLValue] || (v21 & 1) != 0)
+    v19 = [(KSKeyboardController *)self containsSpecifier:[(KSKeyboardController *)self inlineCompletionSpecifier]];
+    if (![value BOOLValue] || (v19 & 1) != 0)
     {
-      if (([value BOOLValue] & 1) == 0 && ((v21 ^ 1) & 1) == 0)
+      if (([value BOOLValue] & 1) == 0 && ((v19 ^ 1) & 1) == 0)
       {
         -[KSKeyboardController setInlineCompletionSpecifierIndex:](self, "setInlineCompletionSpecifierIndex:", [-[KSKeyboardController specifiers](self "specifiers")]);
         [(KSKeyboardController *)self removeSpecifier:[(KSKeyboardController *)self inlineCompletionSpecifier] animated:1];
@@ -530,9 +531,9 @@ uint64_t __44__KSKeyboardController_readPreferenceValue___block_invoke_2(uint64_
     {
       [(KSKeyboardController *)self inlineCompletionSpecifierIndex];
       inlineCompletionSpecifierIndex = [(KSKeyboardController *)self inlineCompletionSpecifierIndex];
-      v23 = [-[KSKeyboardController specifiers](self "specifiers")];
+      v21 = [-[KSKeyboardController specifiers](self "specifiers")];
       inlineCompletionSpecifier = [(KSKeyboardController *)self inlineCompletionSpecifier];
-      if (inlineCompletionSpecifierIndex >= v23)
+      if (inlineCompletionSpecifierIndex >= v21)
       {
         [(KSKeyboardController *)self addSpecifier:inlineCompletionSpecifier animated:1];
       }
@@ -544,30 +545,30 @@ uint64_t __44__KSKeyboardController_readPreferenceValue___block_invoke_2(uint64_
     }
   }
 
-  v25 = *MEMORY[0x277D3FEF8];
+  v23 = *MEMORY[0x277D3FEF8];
   if ([objc_msgSend(specifier propertyForKey:{*MEMORY[0x277D3FEF8]), "isEqualToString:", @"com.apple.InputModePreferences"}])
   {
-    v26 = @"AppleKeyboardsInputModeChangedNotification";
+    v24 = @"AppleKeyboardsInputModeChangedNotification";
   }
 
-  else if ([objc_msgSend(specifier propertyForKey:{v25), "isEqualToString:", @"com.apple.keyboard.ContinuousPath"}])
+  else if ([objc_msgSend(specifier propertyForKey:{v23), "isEqualToString:", @"com.apple.keyboard.ContinuousPath"}])
   {
-    v26 = @"AppleKeyboardsContinuousPathSettingsChangedNotification";
+    v24 = @"AppleKeyboardsContinuousPathSettingsChangedNotification";
   }
 
-  else if ([objc_msgSend(specifier propertyForKey:{v25), "isEqualToString:", @"com.apple.keyboard.predictive"}])
+  else if ([objc_msgSend(specifier propertyForKey:{v23), "isEqualToString:", @"com.apple.keyboard.predictive"}])
   {
-    v26 = @"AppleKeyboardsPredictiveChangedNotification";
+    v24 = @"AppleKeyboardsPredictiveChangedNotification";
   }
 
   else
   {
-    v26 = @"AppleKeyboardsSettingsChangedNotification";
+    v24 = @"AppleKeyboardsSettingsChangedNotification";
   }
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
 
-  CFNotificationCenterPostNotification(DarwinNotifyCenter, v26, 0, 0, 1u);
+  CFNotificationCenterPostNotification(DarwinNotifyCenter, v24, 0, 0, 1u);
 }
 
 - (id)readAutocorrectionPreferenceValue:(id)value
@@ -830,15 +831,15 @@ uint64_t __46__KSKeyboardController_feedbackFeatureEnabled__block_invoke()
 
 + (id)singleActiveDisabledDictationLanguage
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = [objc_msgSend(MEMORY[0x277D75688] "sharedInputModeController")];
   if ([v2 count] == 1 && (v3 = objc_msgSend(MEMORY[0x277D6F380], "sharedInputModeController"), (objc_opt_respondsToSelector() & 1) != 0))
   {
     v4 = [v3 defaultDictationLanguagesForKeyboardLanguage:{objc_msgSend(v2, "firstObject")}];
     if (!v4)
     {
-      v8[0] = [v2 firstObject];
-      v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+      v7[0] = [v2 firstObject];
+      v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
     }
   }
 
@@ -847,29 +848,22 @@ uint64_t __46__KSKeyboardController_feedbackFeatureEnabled__block_invoke()
     v4 = v2;
   }
 
-  if ([v4 count] != 1)
+  if ([v4 count] == 1)
   {
-LABEL_9:
-    result = 0;
-    goto LABEL_10;
-  }
-
-  v5 = [objc_msgSend(MEMORY[0x277D756A0] "sharedPreferencesController")];
-  result = [objc_msgSend(v5 valueForPreferenceKey:{*MEMORY[0x277D768A0]), "objectForKeyedSubscript:", objc_msgSend(v4, "firstObject")}];
-  if (result)
-  {
-    if (([result BOOLValue] & 1) == 0)
+    v5 = [objc_msgSend(MEMORY[0x277D756A0] "sharedPreferencesController")];
+    result = [objc_msgSend(v5 valueForPreferenceKey:{*MEMORY[0x277D768A0]), "objectForKeyedSubscript:", objc_msgSend(v4, "firstObject")}];
+    if (!result)
     {
-      result = [v4 firstObject];
-      goto LABEL_10;
+      return result;
     }
 
-    goto LABEL_9;
+    if (([result BOOLValue] & 1) == 0)
+    {
+      return [v4 firstObject];
+    }
   }
 
-LABEL_10:
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (id)dictationEnabled:(id)enabled
@@ -991,7 +985,7 @@ LABEL_10:
 - (void)dictationEnabledConfirmed:(id)confirmed
 {
   confirmedCopy = confirmed;
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   [confirmed setConfirmationAction:0];
   [(PSSpecifier *)confirmedCopy setConfirmationCancelAction:0];
   singleActiveDisabledDictationLanguage = [objc_opt_class() singleActiveDisabledDictationLanguage];
@@ -1002,9 +996,9 @@ LABEL_10:
     if (objc_opt_respondsToSelector())
     {
       v7 = [objc_msgSend(MEMORY[0x277D756A0] "sharedPreferencesController")];
-      v10 = v6;
-      v11[0] = MEMORY[0x277CBEC38];
-      [v7 setEnabledDictationLanguages:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v11, &v10, 1)}];
+      v9 = v6;
+      v10[0] = MEMORY[0x277CBEC38];
+      [v7 setEnabledDictationLanguages:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v10, &v9, 1)}];
       [objc_msgSend(objc_msgSend(MEMORY[0x277D756A0] "sharedPreferencesController")];
     }
   }
@@ -1030,7 +1024,6 @@ LABEL_10:
   }
 
   [(KSKeyboardController *)self reloadSpecifiers];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dictationEnabledCancelled:(id)cancelled
@@ -1242,18 +1235,17 @@ LABEL_10:
 
 - (void)emitNavigationEventForRootController
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.General/Keyboard"];
   v4 = +[KSKeyboardController localizedStringForGeneralKeyboardSpecifier];
   v5 = +[KSKeyboardController localizedStringForKeyboardController];
-  v7[0] = v4;
-  -[KSKeyboardController pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:title:localizedNavigationComponents:deepLink:](self, "pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:title:localizedNavigationComponents:deepLink:", @"com.apple.graphic-icon.keyboard", v5, [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1], v3);
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = v4;
+  -[KSKeyboardController pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:title:localizedNavigationComponents:deepLink:](self, "pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:title:localizedNavigationComponents:deepLink:", @"com.apple.graphic-icon.keyboard", v5, [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1], v3);
 }
 
 + (void)emitNavigationEventForSpecifier:(id)specifier viewController:(id)controller
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   v6 = objc_opt_class();
   if ([v6 isSubclassOfClass:objc_opt_class()])
   {
@@ -1263,25 +1255,41 @@ LABEL_10:
       v8 = identifier;
       v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"settings-navigation://com.apple.Settings.General/Keyboard/%@", identifier];
       v10 = [MEMORY[0x277CBEBC0] URLWithString:v9];
-      v19[0] = @"ReachableKeyboard";
-      v19[1] = @"HardwareKeyboard";
-      v20[0] = @"REACHABLE_KEYBOARD";
-      v20[1] = @"Hardware Keyboard";
-      v11 = [objc_msgSend(MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:{2), "objectForKeyedSubscript:", v8}];
+      v17[0] = @"ReachableKeyboard";
+      v17[1] = @"HardwareKeyboard";
+      v18[0] = @"REACHABLE_KEYBOARD";
+      v18[1] = @"Hardware Keyboard";
+      v11 = [objc_msgSend(MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:{2), "objectForKeyedSubscript:", v8}];
       if (v11)
       {
         v12 = v11;
         v13 = +[KSKeyboardController localizedStringForGeneralKeyboardSpecifier];
         v14 = objc_alloc(MEMORY[0x277CCAEB8]);
         currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
-        v17 = v13;
-        v18 = [v14 initWithKey:v12 table:@"Keyboard" locale:currentLocale bundleURL:{objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class()), "bundleURL")}];
-        [controller pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.keyboard" title:v18 localizedNavigationComponents:objc_msgSend(MEMORY[0x277CBEA60] deepLink:{"arrayWithObjects:count:", &v17, 2), v10}];
+        v16 = v13;
+        [controller pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.keyboard" title:objc_msgSend(v14 localizedNavigationComponents:"initWithKey:table:locale:bundleURL:" deepLink:{v12, @"Keyboard", currentLocale, objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class()), "bundleURL")), objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", &v16, 2), v10}];
       }
     }
   }
+}
 
-  v16 = *MEMORY[0x277D85DE8];
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = KSKeyboardController;
+  [(PSAppListController *)&v4 viewWillAppear:appear];
+  if (self->_needsReloadSpecifiers)
+  {
+    [(KSKeyboardController *)self reloadSpecifiers];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = KSKeyboardController;
+  [(KSKeyboardController *)&v4 viewDidAppear:appear];
+  [(KSKeyboardController *)self emitNavigationEventForRootController];
 }
 
 - (void)preferencesDidChange:(id)change
@@ -1310,7 +1318,7 @@ void __45__KSKeyboardController_preferencesDidChange___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __45__KSKeyboardController_preferencesDidChange___block_invoke_2(uint64_t a1)
+void *__45__KSKeyboardController_preferencesDidChange___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) reloadSpecifiers];
   *(*(a1 + 32) + 1481) = 0;
@@ -1327,7 +1335,7 @@ uint64_t __45__KSKeyboardController_preferencesDidChange___block_invoke_2(uint64
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __56__KSKeyboardController_managedKeyboardSettingsDidChange__block_invoke(uint64_t a1)
+void *__56__KSKeyboardController_managedKeyboardSettingsDidChange__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = [objc_msgSend(v2 "navigationController")];
@@ -1474,27 +1482,25 @@ uint64_t __56__KSKeyboardController_managedKeyboardSettingsDidChange__block_invo
 
 - (void)removeShuangpinPreferenceIfNotApplicableForGroup:(id)group
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
   sharedInputModeController = [objc_msgSend(MEMORY[0x277D75688] sharedInputModeController];
-  v5 = [sharedInputModeController countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [sharedInputModeController countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v11;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v13 != v7)
+      if (*v11 != v7)
       {
         objc_enumerationMutation(sharedInputModeController);
       }
 
-      v9 = *(*(&v12 + 1) + 8 * v8);
       if ([TIInputModeGetVariant() isEqualToString:@"Shuangpin"])
       {
         break;
@@ -1502,7 +1508,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [sharedInputModeController countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [sharedInputModeController countByEnumeratingWithState:&v10 objects:v14 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -1516,39 +1522,37 @@ LABEL_3:
   else
   {
 LABEL_9:
-    v10 = [group specifierForID:@"ShuangpinType"];
-    if (v10)
+    v9 = [group specifierForID:@"ShuangpinType"];
+    if (v9)
     {
-      [group removeObject:v10];
+      [group removeObject:v9];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeDialectPreferenceIfNotApplicableForGroup:(id)group
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   sharedInputModeController = [objc_msgSend(MEMORY[0x277D75688] sharedInputModeController];
-  v5 = [sharedInputModeController countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [sharedInputModeController countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v13 != v7)
+      if (*v12 != v7)
       {
         objc_enumerationMutation(sharedInputModeController);
       }
 
-      v9 = *(*(&v12 + 1) + 8 * v8);
+      v9 = *(*(&v11 + 1) + 8 * v8);
       if ([TIInputModeGetVariant() isEqualToString:@"Pinyin"])
       {
         if ([MEMORY[0x259C42580](v9) isEqualToString:@"Hans"])
@@ -1559,7 +1563,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [sharedInputModeController countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [sharedInputModeController countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -1579,8 +1583,6 @@ LABEL_10:
       [group removeObject:v10];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addFooterTextForDialectSpecifierForGroup:(id)group
@@ -1658,39 +1660,38 @@ LABEL_10:
 
 + (void)localizeAndSortPreferencesArray:(id)array
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v4 = [array countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [array countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(array);
         }
 
-        [*(*(&v9 + 1) + 8 * v7) setName:{objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class()), "localizedStringForKey:value:table:", objc_msgSend(*(*(&v9 + 1) + 8 * v7), "name"), &stru_28679E3A8, @"Keyboard"}];
+        [*(*(&v8 + 1) + 8 * v7) setName:{objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8], "bundleForClass:", objc_opt_class()), "localizedStringForKey:value:table:", objc_msgSend(*(*(&v8 + 1) + 8 * v7), "name"), &stru_28679E3A8, @"Keyboard"}];
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [array countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [array countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
 
   [array sortedArrayUsingComparator:&__block_literal_global_401];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __56__KSKeyboardController_localizeAndSortPreferencesArray___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1744,46 +1745,44 @@ uint64_t __56__KSKeyboardController_localizeAndSortPreferencesArray___block_invo
 
 + (int64_t)compareUsingOrderInArray:(id)array withFirst:(id)first second:(id)second
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v8 = [array countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [array countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     v11 = 1;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(array);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
+        v13 = *(*(&v15 + 1) + 8 * i);
         if ([v13 isEqualToString:first] && !objc_msgSend(v13, "isEqualToString:", second))
         {
-          v11 = -1;
-          goto LABEL_17;
+          return -1;
         }
 
         if ([v13 isEqualToString:second] && !objc_msgSend(v13, "isEqualToString:", first))
         {
-          goto LABEL_17;
+          return v11;
         }
 
         if ([v13 isEqualToString:first] && (objc_msgSend(v13, "isEqualToString:", second) & 1) != 0)
         {
-          v11 = 0;
-          goto LABEL_17;
+          return 0;
         }
       }
 
-      v9 = [array countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [array countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v9)
       {
         continue;
@@ -1793,22 +1792,19 @@ uint64_t __56__KSKeyboardController_localizeAndSortPreferencesArray___block_invo
     }
   }
 
-  v11 = [first localizedStandardCompare:second];
-LABEL_17:
-  v14 = *MEMORY[0x277D85DE8];
-  return v11;
+  return [first localizedStandardCompare:second];
 }
 
 - (void)loadPreferenceForInputModeIdentifier:(id)identifier keyboardInputMode:(id)mode addNewPreferencesToArray:(id)array defaultPreferenceIdentifiers:(id)identifiers additionalPreferenceIdentifiers:(id)preferenceIdentifiers mapPreferenceToInputMode:(id)inputMode
 {
-  v62[1] = *MEMORY[0x277D85DE8];
+  v61[1] = *MEMORY[0x277D85DE8];
   v14 = TIGetInputModeProperties();
   if (![objc_msgSend(MEMORY[0x277D75418] "currentDevice")] || (v15 = objc_msgSend(v14, "objectForKey:", @"Preferences-iPad")) == 0)
   {
     v15 = [v14 objectForKey:@"Preferences"];
   }
 
-  v58 = 0;
+  v57 = 0;
   if (AFDictationRestricted())
   {
     v16 = 0;
@@ -1816,16 +1812,16 @@ LABEL_17:
 
   else
   {
-    v16 = [MEMORY[0x277CEF270] dictationIsSupportedForLanguageCode:objc_msgSend(mode error:{"languageWithRegion"), &v58}];
+    v16 = [MEMORY[0x277CEF270] dictationIsSupportedForLanguageCode:objc_msgSend(mode error:{"languageWithRegion"), &v57}];
   }
 
   identifierCopy = identifier;
-  v62[0] = identifier;
-  [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:1];
+  v61[0] = identifier;
+  [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:1];
   v17 = UIKeyboardPredictionEnabledForInputModes();
   if (v14)
   {
-    v41 = [objc_msgSend(v14 objectForKey:{@"UIKeyboardInlineCompletion", "BOOLValue"}];
+    v40 = [objc_msgSend(v14 objectForKey:{@"UIKeyboardInlineCompletion", "BOOLValue"}];
     obj = UIKeyboardDeviceSupportsSplit();
     v18 = [objc_msgSend(v14 objectForKey:{*MEMORY[0x277D6F680]), "BOOLValue"}] ^ 1;
     v19 = [objc_msgSend(v14 objectForKey:{@"KeyboardCPAllowsDeleteWord", "BOOLValue"}] ^ 1;
@@ -1835,11 +1831,11 @@ LABEL_17:
   {
     v18 = 1;
     obj = UIKeyboardDeviceSupportsSplit();
-    v41 = 0;
+    v40 = 0;
     v19 = 1;
   }
 
-  v44 = v19;
+  v43 = v19;
   inputModeCopy = inputMode;
   if (v15)
   {
@@ -1856,7 +1852,7 @@ LABEL_21:
           if ((v18 & 1) == 0)
           {
             [array addObject:@"KeyboardContinuousPathEnabled"];
-            if ((v44 & 1) == 0)
+            if ((v43 & 1) == 0)
             {
               [array addObject:@"KeyboardContinuousPathDeleteWholeWord"];
             }
@@ -1875,7 +1871,7 @@ LABEL_21:
 
 LABEL_19:
         [array addObject:{@"KeyboardPrediction", inputModeCopy}];
-        if (v41)
+        if (v40)
         {
           [array addObject:@"KeyboardInlineCompletion"];
         }
@@ -1932,7 +1928,7 @@ LABEL_55:
   if (v17)
   {
 LABEL_56:
-    if (v41)
+    if (v40)
     {
       goto LABEL_62;
     }
@@ -1955,7 +1951,7 @@ LABEL_62:
     [array removeObject:@"KeyboardContinuousPathEnabled"];
   }
 
-  else if (!v44)
+  else if (!v43)
   {
     goto LABEL_27;
   }
@@ -1963,25 +1959,25 @@ LABEL_62:
   [array removeObject:{@"KeyboardContinuousPathDeleteWholeWord", inputModeCopy}];
 LABEL_27:
   array2 = [MEMORY[0x277CBEB18] array];
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
-  v22 = [array countByEnumeratingWithState:&v54 objects:v61 count:16];
+  v22 = [array countByEnumeratingWithState:&v53 objects:v60 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v55;
+    v24 = *v54;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v55 != v24)
+        if (*v54 != v24)
         {
           objc_enumerationMutation(array);
         }
 
-        v26 = *(*(&v54 + 1) + 8 * i);
+        v26 = *(*(&v53 + 1) + 8 * i);
         if ([v26 hasPrefix:@"!"])
         {
           [array2 addObject:v26];
@@ -1989,51 +1985,51 @@ LABEL_27:
         }
       }
 
-      v23 = [array countByEnumeratingWithState:&v54 objects:v61 count:16];
+      v23 = [array countByEnumeratingWithState:&v53 objects:v60 count:16];
     }
 
     while (v23);
   }
 
   [array removeObjectsInArray:array2];
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   obja = [v14 objectForKey:@"AdditionalPreferencesPlist"];
-  v45 = [obja countByEnumeratingWithState:&v50 objects:v60 count:16];
-  if (v45)
+  v44 = [obja countByEnumeratingWithState:&v49 objects:v59 count:16];
+  if (v44)
   {
-    v42 = *v51;
+    v41 = *v50;
     do
     {
-      for (j = 0; j != v45; ++j)
+      for (j = 0; j != v44; ++j)
       {
-        if (*v51 != v42)
+        if (*v50 != v41)
         {
           objc_enumerationMutation(obja);
         }
 
-        v28 = [(KSKeyboardController *)self loadSpecifiersFromPlistName:*(*(&v50 + 1) + 8 * j) target:self];
+        v28 = [(KSKeyboardController *)self loadSpecifiersFromPlistName:*(*(&v49 + 1) + 8 * j) target:self];
+        v45 = 0u;
         v46 = 0u;
         v47 = 0u;
         v48 = 0u;
-        v49 = 0u;
-        v29 = [v28 countByEnumeratingWithState:&v46 objects:v59 count:16];
+        v29 = [v28 countByEnumeratingWithState:&v45 objects:v58 count:16];
         if (v29)
         {
           v30 = v29;
-          v31 = *v47;
+          v31 = *v46;
           do
           {
             for (k = 0; k != v30; ++k)
             {
-              if (*v47 != v31)
+              if (*v46 != v31)
               {
                 objc_enumerationMutation(v28);
               }
 
-              v33 = *(*(&v46 + 1) + 8 * k);
+              v33 = *(*(&v45 + 1) + 8 * k);
               identifier = [v33 identifier];
               [array addObject:identifier];
               if (([preferenceIdentifiers containsObject:identifier] & 1) == 0)
@@ -2043,81 +2039,75 @@ LABEL_27:
               }
             }
 
-            v30 = [v28 countByEnumeratingWithState:&v46 objects:v59 count:16];
+            v30 = [v28 countByEnumeratingWithState:&v45 objects:v58 count:16];
           }
 
           while (v30);
         }
       }
 
-      v45 = [obja countByEnumeratingWithState:&v50 objects:v60 count:16];
+      v44 = [obja countByEnumeratingWithState:&v49 objects:v59 count:16];
     }
 
-    while (v45);
+    while (v44);
   }
 
-  [v37 setObject:array forKey:identifierCopy];
-  v35 = *MEMORY[0x277D85DE8];
+  [v36 setObject:array forKey:identifierCopy];
 }
 
 - (id)mergePreferences:(id)preferences inputModesToPreferences:(id)toPreferences
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __65__KSKeyboardController_mergePreferences_inputModesToPreferences___block_invoke;
-  v23[3] = &unk_2797F9D58;
-  v23[4] = preferences;
-  v6 = [preferences indexesOfObjectsPassingTest:v23];
-  if ([v6 count])
+  v24 = *MEMORY[0x277D85DE8];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __65__KSKeyboardController_mergePreferences_inputModesToPreferences___block_invoke;
+  v22[3] = &unk_2797F9D58;
+  v22[4] = preferences;
+  v6 = [preferences indexesOfObjectsPassingTest:v22];
+  if (![v6 count])
   {
-    preferencesCopy = [preferences mutableCopy];
-    array = [MEMORY[0x277CBEB18] array];
-    v9 = [preferences objectsAtIndexes:v6];
-    v10 = [MEMORY[0x277CBEB58] set];
-    v19 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v22 = 0u;
-    v11 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
-    if (v11)
-    {
-      v12 = v11;
-      v13 = *v20;
-      do
-      {
-        for (i = 0; i != v12; ++i)
-        {
-          if (*v20 != v13)
-          {
-            objc_enumerationMutation(v9);
-          }
+    return preferences;
+  }
 
-          v15 = *(*(&v19 + 1) + 8 * i);
-          [v10 addObjectsFromArray:v15];
-          [array addObjectsFromArray:{objc_msgSend(toPreferences, "objectForKey:", v15)}];
+  v7 = [preferences mutableCopy];
+  array = [MEMORY[0x277CBEB18] array];
+  v9 = [preferences objectsAtIndexes:v6];
+  v10 = [MEMORY[0x277CBEB58] set];
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v11 = [v9 countByEnumeratingWithState:&v18 objects:v23 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *v19;
+    do
+    {
+      for (i = 0; i != v12; ++i)
+      {
+        if (*v19 != v13)
+        {
+          objc_enumerationMutation(v9);
         }
 
-        v12 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v15 = *(*(&v18 + 1) + 8 * i);
+        [v10 addObjectsFromArray:v15];
+        [array addObjectsFromArray:{objc_msgSend(toPreferences, "objectForKey:", v15)}];
       }
 
-      while (v12);
+      v12 = [v9 countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
-    [toPreferences removeObjectsForKeys:v9];
-    [preferencesCopy removeObjectsAtIndexes:v6];
-    allObjects = [v10 allObjects];
-    [preferencesCopy insertObject:allObjects atIndex:0];
-    [toPreferences setObject:array forKey:allObjects];
+    while (v12);
   }
 
-  else
-  {
-    preferencesCopy = preferences;
-  }
-
-  v17 = *MEMORY[0x277D85DE8];
-  return preferencesCopy;
+  [toPreferences removeObjectsForKeys:v9];
+  [v7 removeObjectsAtIndexes:v6];
+  allObjects = [v10 allObjects];
+  [v7 insertObject:allObjects atIndex:0];
+  [toPreferences setObject:array forKey:allObjects];
+  return v7;
 }
 
 uint64_t __65__KSKeyboardController_mergePreferences_inputModesToPreferences___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -2147,31 +2137,31 @@ uint64_t __65__KSKeyboardController_mergePreferences_inputModesToPreferences___b
 
 - (id)addAllPreferencesToArray:(id)array mapPreferenceToInputMode:(id)mode
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v17 = [array valueForKey:@"identifier"];
+  v25 = *MEMORY[0x277D85DE8];
+  v16 = [array valueForKey:@"identifier"];
   v4 = [MEMORY[0x277CBEB58] set];
   v5 = [MEMORY[0x277CBEB58] set];
   array = [MEMORY[0x277CBEB18] array];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v7 = [objc_msgSend(MEMORY[0x277D75688] "sharedInputModeController")];
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         normalizedIdentifier = [v12 normalizedIdentifier];
         Variant = TIInputModeGetVariant();
         if (!Variant)
@@ -2183,50 +2173,49 @@ uint64_t __65__KSKeyboardController_mergePreferences_inputModesToPreferences___b
         {
           [v5 addObject:Variant];
           [array addObject:normalizedIdentifier];
-          [(KSKeyboardController *)self loadPreferenceForInputModeIdentifier:normalizedIdentifier keyboardInputMode:v12 addNewPreferencesToArray:array defaultPreferenceIdentifiers:v17 additionalPreferenceIdentifiers:v4 mapPreferenceToInputMode:mode];
+          [(KSKeyboardController *)self loadPreferenceForInputModeIdentifier:normalizedIdentifier keyboardInputMode:v12 addNewPreferencesToArray:array defaultPreferenceIdentifiers:v16 additionalPreferenceIdentifiers:v4 mapPreferenceToInputMode:mode];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return array;
 }
 
 - (id)groupPreferences:(id)preferences forMapping:(id)mapping inputModes:(id)modes
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v8 = [preferences countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v8 = [preferences countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v35;
+    v10 = *v34;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v35 != v10)
+        if (*v34 != v10)
         {
           objc_enumerationMutation(preferences);
         }
 
-        v12 = *(*(&v34 + 1) + 8 * i);
+        v12 = *(*(&v33 + 1) + 8 * i);
         identifier = [v12 identifier];
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __63__KSKeyboardController_groupPreferences_forMapping_inputModes___block_invoke;
-        v33[3] = &unk_2797F9D80;
-        v33[4] = identifier;
-        v14 = [mapping keysOfEntriesPassingTest:v33];
+        v32[0] = MEMORY[0x277D85DD0];
+        v32[1] = 3221225472;
+        v32[2] = __63__KSKeyboardController_groupPreferences_forMapping_inputModes___block_invoke;
+        v32[3] = &unk_2797F9D80;
+        v32[4] = identifier;
+        v14 = [mapping keysOfEntriesPassingTest:v32];
         if ([v14 count])
         {
           array = [dictionary objectForKeyedSubscript:v14];
@@ -2240,51 +2229,50 @@ uint64_t __65__KSKeyboardController_mergePreferences_inputModesToPreferences___b
         }
       }
 
-      v9 = [preferences countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v9 = [preferences countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v9);
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   obj = [dictionary allKeys];
-  v16 = [obj countByEnumeratingWithState:&v29 objects:v38 count:16];
+  v16 = [obj countByEnumeratingWithState:&v28 objects:v37 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v30;
+    v18 = *v29;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v30 != v18)
+        if (*v29 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v29 + 1) + 8 * j);
+        v20 = *(*(&v28 + 1) + 8 * j);
         allObjects = [v20 allObjects];
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __63__KSKeyboardController_groupPreferences_forMapping_inputModes___block_invoke_2;
-        v28[3] = &unk_2797F9DA8;
-        v28[4] = modes;
-        v22 = [allObjects sortedArrayUsingComparator:v28];
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __63__KSKeyboardController_groupPreferences_forMapping_inputModes___block_invoke_2;
+        v27[3] = &unk_2797F9DA8;
+        v27[4] = modes;
+        v22 = [allObjects sortedArrayUsingComparator:v27];
         v23 = [dictionary objectForKey:v20];
         [dictionary removeObjectForKey:v20];
         [dictionary setObject:v23 forKey:v22];
       }
 
-      v17 = [obj countByEnumeratingWithState:&v29 objects:v38 count:16];
+      v17 = [obj countByEnumeratingWithState:&v28 objects:v37 count:16];
     }
 
     while (v17);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return dictionary;
 }
 
@@ -2325,114 +2313,166 @@ int64_t __79__KSKeyboardController_sortPreferencesKeysByInputModeOrderAndCount_i
   return [KSKeyboardController compareUsingOrderInArray:v9 withFirst:v10 second:v11];
 }
 
-- (id)loadAllKeyboardPreferences
++ (id)localizedListForInputModes:(id)modes forDictation:(BOOL)dictation duplicatedBaseLanguages:(id)languages
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v3 = [(KSKeyboardController *)self loadSpecifiersFromPlistName:@"Preferences_base" target:self];
-  if (v3 && (v4 = v3, v5 = [MEMORY[0x277CBEB38] dictionary], v6 = -[KSKeyboardController addAllPreferencesToArray:mapPreferenceToInputMode:](self, "addAllPreferencesToArray:mapPreferenceToInputMode:", v4, v5), v7 = -[KSKeyboardController groupPreferences:forMapping:inputModes:](self, "groupPreferences:forMapping:inputModes:", v4, v5, v6), objc_msgSend(objc_msgSend(v7, "allKeys"), "count")))
+  dictationCopy = dictation;
+  v22 = *MEMORY[0x277D85DE8];
+  v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(modes, "count")}];
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v9 = [modes countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v9)
   {
-    v8 = [(KSKeyboardController *)self sortPreferencesKeysByInputModeOrderAndCount:v7 inputModes:v6];
-    if (![v8 count])
+    v10 = v9;
+    v11 = *v18;
+    do
     {
-      [KSKeyboardController loadAllKeyboardPreferences];
-    }
-
-    v9 = [(KSKeyboardController *)self mergePreferences:v8 inputModesToPreferences:v7];
-    if (![v9 count])
-    {
-      [KSKeyboardController loadAllKeyboardPreferences];
-    }
-
-    array = [MEMORY[0x277CBEB18] array];
-    v23 = [v8 count];
-    v22 = [v9 count];
-    v10 = [v6 count];
-    v26 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v11 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
-    if (v11)
-    {
-      v12 = v11;
-      v13 = 0;
-      v14 = *v27;
-      obj = v9;
+      v12 = 0;
       do
       {
-        for (i = 0; i != v12; ++i)
+        if (*v18 != v11)
         {
-          if (*v27 != v14)
-          {
-            objc_enumerationMutation(obj);
-          }
-
-          v16 = *(*(&v26 + 1) + 8 * i);
-          v17 = [v7 objectForKey:v16];
-          if (![v17 count])
-          {
-            [KSKeyboardController loadAllKeyboardPreferences];
-          }
-
-          if (v10 >= 2)
-          {
-            if (v13)
-            {
-              v18 = [KSKeyboardController localizedListForInputModes:v16 forDictation:0 duplicatedBaseLanguages:0];
-              goto LABEL_17;
-            }
-
-            if (v23 == v22)
-            {
-              v18 = [objc_msgSend(MEMORY[0x277CCA8D8] bundleForClass:{objc_opt_class()), "localizedStringForKey:value:table:", @"All Keyboards", &stru_28679E3A8, @"Keyboard"}];
-LABEL_17:
-              v19 = v18;
-            }
-
-            else
-            {
-              v19 = 0;
-            }
-
-            v13 = 1;
-            goto LABEL_20;
-          }
-
-          v19 = 0;
-LABEL_20:
-          [KSKeyboardController localizeAndSortPreferencesArray:v17];
-          [v17 insertObject:objc_msgSend(MEMORY[0x277D3FAD8] atIndex:{"groupSpecifierWithID:name:", @"KEYBOARD_TITLE", v19), 0}];
-          if ([v16 count] == 1)
-          {
-            [v16 firstObject];
-            if ([TIInputModeGetVariant() isEqualToString:@"Pinyin"])
-            {
-              [(KSKeyboardController *)self removeShuangpinPreferenceIfNotApplicableForGroup:v17];
-              [(KSKeyboardController *)self removeDialectPreferenceIfNotApplicableForGroup:v17];
-              [(KSKeyboardController *)self moveSpaceConfirmationPreferenceToEndAndAddFooterTextForGroup:v17];
-            }
-          }
-
-          [(KSKeyboardController *)self addFooterTextForDialectSpecifierForGroup:v17];
-          [(KSKeyboardController *)self disableLockedDownPreferencesForGroup:v17];
-          [(KSKeyboardController *)self movePeriodShortcutPreferenceToEndAndAddFooterTextForGroup:v17];
-          [(KSKeyboardController *)self moveEnableDictationPreferenceToEndAndAddFooterTextForGroup:v17];
-          [array addObjectsFromArray:v17];
+          objc_enumerationMutation(modes);
         }
 
-        v12 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v13 = *(*(&v17 + 1) + 8 * v12);
+        if ([languages containsObject:TIInputModeGetBaseLanguage()] && (v14 = TUIKeyboardDisplayNameFromIdentifier()) != 0 || (v14 = +[KSKeyboardController localizedDisplayNameForInputMode:forDictation:](KSKeyboardController, "localizedDisplayNameForInputMode:forDictation:", v13, dictationCopy)) != 0)
+        {
+          v15 = v14;
+          if (([v8 containsObject:v14] & 1) == 0)
+          {
+            [v8 addObject:v15];
+          }
+        }
+
+        ++v12;
       }
 
-      while (v12);
+      while (v10 != v12);
+      v10 = [modes countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
+
+    while (v10);
   }
 
-  else
+  return [MEMORY[0x277CCAAF0] localizedStringByJoiningStrings:v8];
+}
+
+- (id)loadAllKeyboardPreferences
+{
+  v30 = *MEMORY[0x277D85DE8];
+  v3 = [(KSKeyboardController *)self loadSpecifiersFromPlistName:@"Preferences_base" target:self];
+  if (!v3)
   {
-    array = 0;
+    return 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
+  v4 = v3;
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v6 = [(KSKeyboardController *)self addAllPreferencesToArray:v4 mapPreferenceToInputMode:dictionary];
+  v7 = [(KSKeyboardController *)self groupPreferences:v4 forMapping:dictionary inputModes:v6];
+  if (![objc_msgSend(v7 "allKeys")])
+  {
+    return 0;
+  }
+
+  v8 = [(KSKeyboardController *)self sortPreferencesKeysByInputModeOrderAndCount:v7 inputModes:v6];
+  if (![v8 count])
+  {
+    [KSKeyboardController loadAllKeyboardPreferences];
+  }
+
+  v9 = [(KSKeyboardController *)self mergePreferences:v8 inputModesToPreferences:v7];
+  if (![v9 count])
+  {
+    [KSKeyboardController loadAllKeyboardPreferences];
+  }
+
+  array = [MEMORY[0x277CBEB18] array];
+  v22 = [v8 count];
+  v21 = [v9 count];
+  v10 = [v6 count];
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = 0;
+    v14 = *v26;
+    obj = v9;
+    do
+    {
+      for (i = 0; i != v12; ++i)
+      {
+        if (*v26 != v14)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v16 = *(*(&v25 + 1) + 8 * i);
+        v17 = [v7 objectForKey:v16];
+        if (![v17 count])
+        {
+          [KSKeyboardController loadAllKeyboardPreferences];
+        }
+
+        if (v10 >= 2)
+        {
+          if (v13)
+          {
+            v18 = [KSKeyboardController localizedListForInputModes:v16 forDictation:0 duplicatedBaseLanguages:0];
+            goto LABEL_17;
+          }
+
+          if (v22 == v21)
+          {
+            v18 = [objc_msgSend(MEMORY[0x277CCA8D8] bundleForClass:{objc_opt_class()), "localizedStringForKey:value:table:", @"All Keyboards", &stru_28679E3A8, @"Keyboard"}];
+LABEL_17:
+            v19 = v18;
+          }
+
+          else
+          {
+            v19 = 0;
+          }
+
+          v13 = 1;
+          goto LABEL_20;
+        }
+
+        v19 = 0;
+LABEL_20:
+        [KSKeyboardController localizeAndSortPreferencesArray:v17];
+        [v17 insertObject:objc_msgSend(MEMORY[0x277D3FAD8] atIndex:{"groupSpecifierWithID:name:", @"KEYBOARD_TITLE", v19), 0}];
+        if ([v16 count] == 1)
+        {
+          [v16 firstObject];
+          if ([TIInputModeGetVariant() isEqualToString:@"Pinyin"])
+          {
+            [(KSKeyboardController *)self removeShuangpinPreferenceIfNotApplicableForGroup:v17];
+            [(KSKeyboardController *)self removeDialectPreferenceIfNotApplicableForGroup:v17];
+            [(KSKeyboardController *)self moveSpaceConfirmationPreferenceToEndAndAddFooterTextForGroup:v17];
+          }
+        }
+
+        [(KSKeyboardController *)self addFooterTextForDialectSpecifierForGroup:v17];
+        [(KSKeyboardController *)self disableLockedDownPreferencesForGroup:v17];
+        [(KSKeyboardController *)self movePeriodShortcutPreferenceToEndAndAddFooterTextForGroup:v17];
+        [(KSKeyboardController *)self moveEnableDictationPreferenceToEndAndAddFooterTextForGroup:v17];
+        [array addObjectsFromArray:v17];
+      }
+
+      v12 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+    }
+
+    while (v12);
+  }
+
   return array;
 }
 
@@ -2622,38 +2662,36 @@ LABEL_20:
 
 - (void)addEnabledExtensionSpecifiersToArray:(id)array
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   sharedInputModeController = [objc_msgSend(MEMORY[0x277D75688] sharedInputModeController];
-  v6 = [sharedInputModeController countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [sharedInputModeController countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(sharedInputModeController);
         }
 
-        [array addObjectsFromArray:{+[KSAddExtensionKeyboardController specifiersForExtensionInputMode:parentSpecifier:](KSAddExtensionKeyboardController, "specifiersForExtensionInputMode:parentSpecifier:", *(*(&v11 + 1) + 8 * v9++), -[KSKeyboardController specifier](self, "specifier"))}];
+        [array addObjectsFromArray:{+[KSAddExtensionKeyboardController specifiersForExtensionInputMode:parentSpecifier:](KSAddExtensionKeyboardController, "specifiersForExtensionInputMode:parentSpecifier:", *(*(&v10 + 1) + 8 * v9++), -[KSKeyboardController specifier](self, "specifier"))}];
       }
 
       while (v7 != v9);
-      v7 = [sharedInputModeController countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [sharedInputModeController countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)autoPunctuation:(id)punctuation
@@ -2772,17 +2810,16 @@ LABEL_15:
 
 - (id)reachableKeyboardSpecifier
 {
-  v8[3] = *MEMORY[0x277D85DE8];
+  v7[3] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D3FAD8];
   v4 = [objc_msgSend(MEMORY[0x277CCA8D8] bundleForClass:{objc_opt_class()), "localizedStringForKey:value:table:", @"REACHABLE_KEYBOARD", &stru_28679E3A8, @"Keyboard"}];
   v5 = [v3 preferenceSpecifierNamed:v4 target:self set:sel_setReachableKeyboardSetting_specifier_ get:sel_getReachableKeybordSetting_ detail:objc_opt_class() cell:2 edit:0];
   [v5 setProperty:@"ReachableKeyboard" forKey:*MEMORY[0x277D3FFB8]];
   [v5 setProperty:objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8] forKey:{"bundleForClass:", objc_opt_class()), "localizedStringForKey:value:table:", @"REACHABLE_EXPLANATION", &stru_28679E3A8, @"Keyboard", *MEMORY[0x277D40118]}];
-  v8[0] = [objc_msgSend(MEMORY[0x277CCA8D8] bundleForClass:{objc_opt_class()), "localizedStringForKey:value:table:", @"REACHABLE_OPTION_NONE", &stru_28679E3A8, @"Keyboard"}];
-  v8[1] = [objc_msgSend(MEMORY[0x277CCA8D8] bundleForClass:{objc_opt_class()), "localizedStringForKey:value:table:", @"REACHABLE_OPTION_LEFT", &stru_28679E3A8, @"Keyboard"}];
-  v8[2] = [objc_msgSend(MEMORY[0x277CCA8D8] bundleForClass:{objc_opt_class()), "localizedStringForKey:value:table:", @"REACHABLE_OPTION_RIGHT", &stru_28679E3A8, @"Keyboard"}];
-  [v5 setValues:&unk_2867A4B78 titles:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v8, 3)}];
-  v6 = *MEMORY[0x277D85DE8];
+  v7[0] = [objc_msgSend(MEMORY[0x277CCA8D8] bundleForClass:{objc_opt_class()), "localizedStringForKey:value:table:", @"REACHABLE_OPTION_NONE", &stru_28679E3A8, @"Keyboard"}];
+  v7[1] = [objc_msgSend(MEMORY[0x277CCA8D8] bundleForClass:{objc_opt_class()), "localizedStringForKey:value:table:", @"REACHABLE_OPTION_LEFT", &stru_28679E3A8, @"Keyboard"}];
+  v7[2] = [objc_msgSend(MEMORY[0x277CCA8D8] bundleForClass:{objc_opt_class()), "localizedStringForKey:value:table:", @"REACHABLE_OPTION_RIGHT", &stru_28679E3A8, @"Keyboard"}];
+  [v5 setValues:&unk_2867A4B78 titles:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v7, 3)}];
   return v5;
 }
 
@@ -2845,18 +2882,17 @@ LABEL_15:
 
 - (void)init
 {
-  dlerror();
-  v0 = abort_report_np();
-  [KSKeyboardController readAutocorrectionPreferenceValue:v0];
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  [KSKeyboardController readAutocorrectionPreferenceValue:];
 }
 
 - (void)feedbackFeatureEnabled
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   *buf = 138412290;
-  v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: RC_SEED_BUILD: 0 enabled: %d", "-[KSKeyboardController feedbackFeatureEnabled]", @"KeyboardAutocorrection", self & 1];
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Feedback %@: RC_SEED_BUILD: 0 enabled: %d", "-[KSKeyboardController feedbackFeatureEnabled]", @"KeyboardAutocorrection", self & 1];
   _os_log_debug_impl(&dword_255828000, a2, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

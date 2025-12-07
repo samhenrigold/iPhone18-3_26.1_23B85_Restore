@@ -65,65 +65,86 @@ void __33__PKBillPaymentCircularView_init__block_invoke(void *a1)
 
 - (void)layoutSubviews
 {
-  v31.receiver = self;
-  v31.super_class = PKBillPaymentCircularView;
-  [(PKBillPaymentCircularView *)&v31 layoutSubviews];
+  v52.receiver = self;
+  v52.super_class = PKBillPaymentCircularView;
+  [(PKBillPaymentCircularView *)&v52 layoutSubviews];
   [(PKBillPaymentCircularView *)self bounds];
-  PKSizeAlignedInRect();
   v4 = v3;
   v6 = v5;
-  v8 = v7;
-  v10 = v9;
-  v11 = PKUIGetMinScreenWidthType();
-  v12 = 3.5;
-  if (!v11)
+  v8.n128_f64[0] = v7;
+  v10 = *&v9;
+  v11.n128_f64[0] = fmin(v7, v9);
+  v12 = *MEMORY[0x1E69BB7F8];
+  v13.n128_u64[0] = v11.n128_u64[0];
+  v14.n128_u64[0] = v4;
+  v15.n128_u64[0] = v6;
+  v16.n128_u64[0] = v8.n128_u64[0];
+  v17.n128_u64[0] = v10;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v11, v13, v14, v15, v16, v17, v8);
+  v19 = v18;
+  v21 = v20;
+  v23 = v22;
+  v25 = v24;
+  v26 = PKUIGetMinScreenWidthType();
+  v33.n128_u64[0] = 3.5;
+  if (!v26)
   {
-    v12 = 3.0;
+    v33.n128_f64[0] = 3.0;
   }
 
-  v13 = v4 + v12;
-  v14 = v6 + v12;
-  v15 = 7.0;
-  if (!v11)
+  v34 = v19 + v33.n128_f64[0];
+  v35 = v21 + v33.n128_f64[0];
+  v36 = 7.0;
+  if (!v26)
   {
-    v15 = 6.0;
+    v36 = 6.0;
   }
 
-  v16 = v8 - v15;
-  v17 = v10 - v15;
+  v37 = v23 - v36;
+  v38 = v25 - v36;
   image = self->_image;
   if (image)
   {
     [(UIImage *)image size];
   }
 
-  PKSizeAlignedInRect();
-  v29 = v20;
-  v30 = v19;
-  v27 = v22;
-  v28 = v21;
-  [(UIView *)self->_primaryView setFrame:v13, v14, v16, v17];
-  layer = [(UIView *)self->_primaryView layer];
-  [layer setCornerRadius:v16 * 0.5];
-
-  [(UIView *)self->_secondaryView setFrame:v4, v6, v8, v10];
-  layer2 = [(UIView *)self->_secondaryView layer];
-  [layer2 setCornerRadius:v8 * 0.5];
-
-  [(UIImageView *)self->_imageView setFrame:v30, v29, v28, v27];
-  v32.origin.x = v4;
-  v32.origin.y = v6;
-  v32.size.width = v8;
-  v32.size.height = v10;
-  if (!CGRectEqualToRect(self->_shadowFrame, v32))
+  else
   {
-    self->_shadowFrame.origin.x = v4;
-    self->_shadowFrame.origin.y = v6;
-    self->_shadowFrame.size.width = v8;
-    self->_shadowFrame.size.height = v10;
+    v33.n128_u64[0] = *MEMORY[0x1E695F060];
+    v27.n128_u64[0] = *(MEMORY[0x1E695F060] + 8);
+  }
+
+  v28.n128_f64[0] = v19;
+  v29.n128_f64[0] = v21;
+  v30.n128_f64[0] = v23;
+  v31.n128_f64[0] = v25;
+  PKSizeAlignedInRect(v12, v33, v27, v28, v29, v30, v31, v32);
+  v50 = v41;
+  v51 = v40;
+  v48 = v43;
+  v49 = v42;
+  [(UIView *)self->_primaryView setFrame:v34, v35, v37, v38];
+  layer = [(UIView *)self->_primaryView layer];
+  [layer setCornerRadius:v37 * 0.5];
+
+  [(UIView *)self->_secondaryView setFrame:v19, v21, v23, v25];
+  layer2 = [(UIView *)self->_secondaryView layer];
+  [layer2 setCornerRadius:v23 * 0.5];
+
+  [(UIImageView *)self->_imageView setFrame:v51, v50, v49, v48];
+  v53.origin.x = v19;
+  v53.origin.y = v21;
+  v53.size.width = v23;
+  v53.size.height = v25;
+  if (!CGRectEqualToRect(self->_shadowFrame, v53))
+  {
+    self->_shadowFrame.origin.x = v19;
+    self->_shadowFrame.origin.y = v21;
+    self->_shadowFrame.size.width = v23;
+    self->_shadowFrame.size.height = v25;
     layer3 = [(PKBillPaymentCircularView *)self layer];
-    v26 = [MEMORY[0x1E69DC728] bezierPathWithOvalInRect:{v4, v6, v8, v10}];
-    [layer3 setShadowPath:{objc_msgSend(v26, "CGPath")}];
+    v47 = [MEMORY[0x1E69DC728] bezierPathWithOvalInRect:{v19, v21, v23, v25}];
+    [layer3 setShadowPath:{objc_msgSend(v47, "CGPath")}];
   }
 }
 

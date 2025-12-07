@@ -3,6 +3,8 @@
 + (id)sharedQueue;
 - (BOOL)provideImages:(id)images error:(id *)error;
 - (QLThumbnail)initWithURL:(id)l;
+- (id)imageForUseMode:(unint64_t)mode descriptor:(id)descriptor generateIfNeeded:(BOOL)needed contentRect:(CGRect *)rect error:(id *)error;
+- (id)thumbnailCreationOperationForUseMode:(unint64_t)mode descriptor:(id)descriptor generateIfNeeded:(BOOL)needed;
 @end
 
 @implementation QLThumbnail
@@ -20,6 +22,38 @@
   }
 
   return v6;
+}
+
+- (id)thumbnailCreationOperationForUseMode:(unint64_t)mode descriptor:(id)descriptor generateIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  descriptorCopy = descriptor;
+  v9 = objc_alloc_init(QLThumbnailCreationOperation);
+  [(QLThumbnailCreationOperation *)v9 setUseMode:mode];
+  [descriptorCopy size];
+  v11 = v10;
+  [descriptorCopy size];
+  if (v11 >= v12)
+  {
+    v13 = v11;
+  }
+
+  else
+  {
+    v13 = v12;
+  }
+
+  [(QLThumbnailCreationOperation *)v9 setMaximumDimension:v13];
+  [descriptorCopy scaleFactor];
+  v15 = v14;
+
+  [(QLThumbnailCreationOperation *)v9 setScaleFactor:v15];
+  v16 = [(QLThumbnail *)self url];
+  [(QLThumbnailCreationOperation *)v9 setDocumentURL:v16];
+
+  [(QLThumbnailCreationOperation *)v9 setGenerateIfNeeded:neededCopy];
+
+  return v9;
 }
 
 + (id)sharedQueue
@@ -48,45 +82,68 @@ uint64_t __26__QLThumbnail_sharedQueue__block_invoke()
 
 + (id)defaultDescriptors
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v2 = [QLThumbnailDescriptor descriptorWithSize:225.0 scaleFactor:225.0, 1.0];
-  v6[0] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
 
   return v3;
 }
 
+- (id)imageForUseMode:(unint64_t)mode descriptor:(id)descriptor generateIfNeeded:(BOOL)needed contentRect:(CGRect *)rect error:(id *)error
+{
+  v9 = [(QLThumbnail *)self thumbnailCreationOperationForUseMode:mode descriptor:descriptor generateIfNeeded:needed];
+  sharedQueue = [objc_opt_class() sharedQueue];
+  [sharedQueue addOperation:v9];
+  [v9 waitUntilFinished];
+  if (rect)
+  {
+    [v9 contentRect];
+    rect->origin.x = v11;
+    rect->origin.y = v12;
+    rect->size.width = v13;
+    rect->size.height = v14;
+  }
+
+  if (error)
+  {
+    *error = [v9 error];
+  }
+
+  image = [v9 image];
+
+  return image;
+}
+
 - (BOOL)provideImages:(id)images error:(id *)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   imagesCopy = images;
   defaultDescriptors = [objc_opt_class() defaultDescriptors];
   v8 = imagesCopy[2](imagesCopy, defaultDescriptors);
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (v10)
   {
     v11 = v10;
     v12 = 0;
-    v13 = *v35;
+    v13 = *v34;
     v14 = 0.0;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v35 != v13)
+        if (*v34 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v16 = *(*(&v34 + 1) + 8 * i);
+        v16 = *(*(&v33 + 1) + 8 * i);
         [v16 size];
         v18 = v17;
         [v16 size];
@@ -104,7 +161,7 @@ uint64_t __26__QLThumbnail_sharedQueue__block_invoke()
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v33 objects:v39 count:16];
     }
 
     while (v11);
@@ -134,7 +191,7 @@ uint64_t __26__QLThumbnail_sharedQueue__block_invoke()
     {
       url = self->_url;
       *buf = 138412290;
-      v39 = url;
+      v38 = url;
       v28 = "Saved thumbnail in additions for %@ #Thumbnail";
       v29 = v26;
       v30 = OS_LOG_TYPE_DEFAULT;
@@ -164,7 +221,7 @@ LABEL_26:
       }
 
       *buf = 138412290;
-      v39 = v31;
+      v38 = v31;
       v28 = "Could not save thumbnail in additions: %@ #Thumbnail";
       v29 = v26;
       v30 = OS_LOG_TYPE_ERROR;
@@ -172,7 +229,6 @@ LABEL_26:
     }
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v24;
 }
 

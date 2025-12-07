@@ -317,7 +317,7 @@ void __68__BMSegmentManager_initWithDirectory_fileManager_permission_config___bl
 
 void __68__BMSegmentManager_initWithDirectory_fileManager_permission_config___block_invoke_25(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = a2;
   [*(a1 + 32) updateSegmentsWithGuardedDeviceLockStateData:v3];
   if (v3)
@@ -361,10 +361,10 @@ void __68__BMSegmentManager_initWithDirectory_fileManager_permission_config___bl
       v10 = 0;
     }
 
-    v21 = 0;
+    v20 = 0;
     v11 = v10;
-    v12 = [v8 segmentWithFilename:v7 segmentNames:v9 segmentFileHandles:v11 error:&v21];
-    v13 = v21;
+    v12 = [v8 segmentWithFilename:v7 segmentNames:v9 segmentFileHandles:v11 error:&v20];
+    v13 = v20;
     v14 = *(a1 + 32);
     v15 = *(v14 + 80);
     *(v14 + 80) = v12;
@@ -374,13 +374,13 @@ void __68__BMSegmentManager_initWithDirectory_fileManager_permission_config___bl
       v16 = __biome_log_for_category();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v20 = [MEMORY[0x1E698E9C8] privacyPathname:*(*(a1 + 32) + 72)];
+        v19 = [MEMORY[0x1E698E9C8] privacyPathname:*(*(a1 + 32) + 72)];
         *buf = 138412802;
-        v23 = v7;
-        v24 = 2112;
-        v25 = v20;
-        v26 = 2112;
-        v27 = v13;
+        v22 = v7;
+        v23 = 2112;
+        v24 = v19;
+        v25 = 2112;
+        v26 = v13;
         _os_log_error_impl(&dword_1C928A000, v16, OS_LOG_TYPE_ERROR, "Unable to open framestore: %@ in %@ with error: %@", buf, 0x20u);
       }
 
@@ -389,8 +389,6 @@ void __68__BMSegmentManager_initWithDirectory_fileManager_permission_config___bl
       *(v17 + 80) = 0;
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __68__BMSegmentManager_initWithDirectory_fileManager_permission_config___block_invoke_27(uint64_t a1, int a2)
@@ -446,54 +444,54 @@ LABEL_14:
 
 - (void)pruneSegmentsToMaxSizeInBytes:(unint64_t)bytes
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (bytes && bytes != -1)
   {
-    v21[0] = 0;
-    v21[1] = v21;
-    v21[2] = 0x2020000000;
-    v21[3] = 0;
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x3032000000;
-    v18 = __Block_byref_object_copy__3;
-    v19 = __Block_byref_object_dispose__3;
-    v20 = objc_opt_new();
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __50__BMSegmentManager_pruneSegmentsToMaxSizeInBytes___block_invoke;
-    v14[3] = &unk_1E8339020;
-    v14[4] = self;
-    v14[5] = v21;
-    v14[6] = &v15;
-    v14[7] = bytes;
-    [(BMSegmentManager *)self reverseEnumerateSegmentsNamesFrom:v14 to:0.0 withBlock:-1.0];
-    if ([v16[5] count])
+    v20[0] = 0;
+    v20[1] = v20;
+    v20[2] = 0x2020000000;
+    v20[3] = 0;
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x3032000000;
+    v17 = __Block_byref_object_copy__3;
+    v18 = __Block_byref_object_dispose__3;
+    v19 = objc_opt_new();
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __50__BMSegmentManager_pruneSegmentsToMaxSizeInBytes___block_invoke;
+    v13[3] = &unk_1E8339020;
+    v13[4] = self;
+    v13[5] = v20;
+    v13[6] = &v14;
+    v13[7] = bytes;
+    [(BMSegmentManager *)self reverseEnumerateSegmentsNamesFrom:v13 to:0.0 withBlock:-1.0];
+    if ([v15[5] count])
     {
-      v12 = 0u;
-      v13 = 0u;
-      v10 = 0u;
       v11 = 0u;
-      v5 = v16[5];
-      v6 = [v5 countByEnumeratingWithState:&v10 objects:v22 count:16];
+      v12 = 0u;
+      v9 = 0u;
+      v10 = 0u;
+      v5 = v15[5];
+      v6 = [v5 countByEnumeratingWithState:&v9 objects:v21 count:16];
       if (v6)
       {
-        v7 = *v11;
+        v7 = *v10;
         do
         {
           v8 = 0;
           do
           {
-            if (*v11 != v7)
+            if (*v10 != v7)
             {
               objc_enumerationMutation(v5);
             }
 
-            [(BMSegmentManager *)self removeSegmentNamed:*(*(&v10 + 1) + 8 * v8++), v10];
+            [(BMSegmentManager *)self removeSegmentNamed:*(*(&v9 + 1) + 8 * v8++), v9];
           }
 
           while (v6 != v8);
-          v6 = [v5 countByEnumeratingWithState:&v10 objects:v22 count:16];
+          v6 = [v5 countByEnumeratingWithState:&v9 objects:v21 count:16];
         }
 
         while (v6);
@@ -502,12 +500,10 @@ LABEL_14:
       [(BMSegmentManager *)self _updateSegments];
     }
 
-    _Block_object_dispose(&v15, 8);
+    _Block_object_dispose(&v14, 8);
 
-    _Block_object_dispose(v21, 8);
+    _Block_object_dispose(v20, 8);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __50__BMSegmentManager_pruneSegmentsToMaxSizeInBytes___block_invoke(void *a1, void *a2)
@@ -553,48 +549,48 @@ void __50__BMSegmentManager_pruneSegmentsToMaxSizeInBytes___block_invoke(void *a
 
 - (void)pruneSegmentsToMaxAge:(double)age
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (age != 0.0 && age != -1.0)
   {
     Current = CFAbsoluteTimeGetCurrent();
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x3032000000;
-    v20 = __Block_byref_object_copy__3;
-    v21 = __Block_byref_object_dispose__3;
-    v22 = objc_opt_new();
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __42__BMSegmentManager_pruneSegmentsToMaxAge___block_invoke;
-    v16[3] = &unk_1E8339048;
-    *&v16[5] = Current - age;
-    v16[4] = &v17;
-    [(BMSegmentManager *)self enumerateSegmentsFrom:v16 to:0.0 withBlock:?];
-    [v18[5] removeLastObject];
-    if ([v18[5] count])
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x3032000000;
+    v19 = __Block_byref_object_copy__3;
+    v20 = __Block_byref_object_dispose__3;
+    v21 = objc_opt_new();
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __42__BMSegmentManager_pruneSegmentsToMaxAge___block_invoke;
+    v15[3] = &unk_1E8339048;
+    *&v15[5] = Current - age;
+    v15[4] = &v16;
+    [(BMSegmentManager *)self enumerateSegmentsFrom:v15 to:0.0 withBlock:?];
+    [v17[5] removeLastObject];
+    if ([v17[5] count])
     {
-      v14 = 0u;
-      v15 = 0u;
-      v12 = 0u;
       v13 = 0u;
-      v7 = v18[5];
-      v8 = [v7 countByEnumeratingWithState:&v12 objects:v23 count:16];
+      v14 = 0u;
+      v11 = 0u;
+      v12 = 0u;
+      v7 = v17[5];
+      v8 = [v7 countByEnumeratingWithState:&v11 objects:v22 count:16];
       if (v8)
       {
-        v9 = *v13;
+        v9 = *v12;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v13 != v9)
+            if (*v12 != v9)
             {
               objc_enumerationMutation(v7);
             }
 
-            [(BMSegmentManager *)self removeSegmentNamed:*(*(&v12 + 1) + 8 * i), v12];
+            [(BMSegmentManager *)self removeSegmentNamed:*(*(&v11 + 1) + 8 * i), v11];
           }
 
-          v8 = [v7 countByEnumeratingWithState:&v12 objects:v23 count:16];
+          v8 = [v7 countByEnumeratingWithState:&v11 objects:v22 count:16];
         }
 
         while (v8);
@@ -603,10 +599,8 @@ void __50__BMSegmentManager_pruneSegmentsToMaxSizeInBytes___block_invoke(void *a
       [(BMSegmentManager *)self _updateSegments];
     }
 
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v16, 8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __42__BMSegmentManager_pruneSegmentsToMaxAge___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -709,32 +703,32 @@ uint64_t __67__BMSegmentManager_indexOfSegmentContainingEventTime_fromSegments__
 
 - (void)openFiles:(id)files saveToOpenFiles:(id)openFiles
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   filesCopy = files;
   openFilesCopy = openFiles;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = filesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       v12 = 0;
       do
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * v12);
+        v13 = *(*(&v16 + 1) + 8 * v12);
         v14 = objc_autoreleasePoolPush();
-        v15 = [(BMSegmentManager *)self fileHandleForFile:v13 error:0, v17];
+        v15 = [(BMSegmentManager *)self fileHandleForFile:v13 error:0, v16];
         if (v15)
         {
           [openFilesCopy setObject:v15 forKeyedSubscript:v13];
@@ -745,18 +739,16 @@ uint64_t __67__BMSegmentManager_indexOfSegmentContainingEventTime_fromSegments__
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)fileHandleForFile:(id)file error:(id *)error
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   fileCopy = file;
   if (fileCopy)
   {
@@ -779,9 +771,9 @@ uint64_t __67__BMSegmentManager_indexOfSegmentContainingEventTime_fromSegments__
     if (error)
     {
       v10 = MEMORY[0x1E696ABC0];
-      v15 = *MEMORY[0x1E696A578];
-      v16[0] = @"Failed to create new framestore with nil filename";
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v14 = *MEMORY[0x1E696A578];
+      v15[0] = @"Failed to create new framestore with nil filename";
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
       *error = [v10 errorWithDomain:@"com.apple.biome.BiomeStorage" code:-1 userInfo:v11];
     }
 
@@ -794,21 +786,19 @@ uint64_t __67__BMSegmentManager_indexOfSegmentContainingEventTime_fromSegments__
     v9 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)orderedSegmentsInDirectory:(id)directory error:(id *)error
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
   v7 = objc_opt_new();
   v8 = objc_autoreleasePoolPush();
   fileManager = self->_fileManager;
-  v29 = 0;
-  v10 = [(BMFileManager *)fileManager contentsOfDirectoryAtPath:directoryCopy error:&v29];
-  v11 = v29;
+  v28 = 0;
+  v10 = [(BMFileManager *)fileManager contentsOfDirectoryAtPath:directoryCopy error:&v28];
+  v11 = v28;
   v12 = v11;
   if (v10)
   {
@@ -822,41 +812,41 @@ uint64_t __67__BMSegmentManager_indexOfSegmentContainingEventTime_fromSegments__
 
   if (v13)
   {
-    v24 = v8;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
+    v23 = v8;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v15 = v10;
-    v16 = [v15 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v26;
+      v18 = *v25;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v26 != v18)
+          if (*v25 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v25 + 1) + 8 * i);
+          v20 = *(*(&v24 + 1) + 8 * i);
           if ([v20 characterAtIndex:0] - 48 <= 9)
           {
             [v7 addObject:v20];
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v24 objects:v29 count:16];
       }
 
       while (v17);
     }
 
     [v7 sortUsingComparator:&__block_literal_global_0];
-    v8 = v24;
+    v8 = v23;
   }
 
   else
@@ -874,8 +864,6 @@ uint64_t __67__BMSegmentManager_indexOfSegmentContainingEventTime_fromSegments__
     v21 = v12;
     *error = v12;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -973,14 +961,14 @@ uint64_t __53__BMSegmentManager_orderedSegmentsInDirectory_error___block_invoke(
 
 void __83__BMSegmentManager__segmentAfterFrameStore_orCreateSegmentWithTimestamp_direction___block_invoke(uint64_t a1, void *a2)
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = __biome_log_for_category();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = [*(a1 + 32) segmentName];
     *buf = 138412290;
-    v55 = v5;
+    v54 = v5;
     _os_log_impl(&dword_1C928A000, v4, OS_LOG_TYPE_INFO, "_segmentAfterFrameStore: %@", buf, 0xCu);
   }
 
@@ -1008,37 +996,8 @@ void __83__BMSegmentManager__segmentAfterFrameStore_orCreateSegmentWithTimestamp
   v15 = *(*(*(a1 + 56) + 8) + 40);
   if (!v15)
   {
-    if (*(a1 + 64) || *(a1 + 48))
+    if (*(a1 + 64) || *(a1 + 48) || (([*(a1 + 40) updateSegmentsWithGuardedDeviceLockStateData:v3], v39 = *(a1 + 32), v38 = *(a1 + 40), !v3) ? (v40 = 0, v41 = 0) : (v40 = v3[2], v41 = v3[3]), v42 = *(a1 + 64), v43 = v41, objc_msgSend(v38, "nextSegmentAfterFrameStore:segmentNames:segmentFileHandles:direction:", v39, v40, v43, v42), v44 = objc_claimAutoreleasedReturnValue(), v45 = *(*(a1 + 56) + 8), v46 = *(v45 + 40), *(v45 + 40) = v44, v46, v43, v40, (v15 = *(*(*(a1 + 56) + 8) + 40)) == 0))
     {
-      goto LABEL_29;
-    }
-
-    [*(a1 + 40) updateSegmentsWithGuardedDeviceLockStateData:v3];
-    v39 = *(a1 + 32);
-    v38 = *(a1 + 40);
-    if (v3)
-    {
-      v40 = v3[2];
-      v41 = v3[3];
-    }
-
-    else
-    {
-      v40 = 0;
-      v41 = 0;
-    }
-
-    v42 = *(a1 + 64);
-    v43 = v41;
-    v44 = [v38 nextSegmentAfterFrameStore:v39 segmentNames:v40 segmentFileHandles:v43 direction:v42];
-    v45 = *(*(a1 + 56) + 8);
-    v46 = *(v45 + 40);
-    *(v45 + 40) = v44;
-
-    v15 = *(*(*(a1 + 56) + 8) + 40);
-    if (!v15)
-    {
-LABEL_29:
       if (*(a1 + 48))
       {
         v16 = __biome_log_for_category();
@@ -1085,27 +1044,27 @@ LABEL_29:
         if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v55 = v30;
+          v54 = v30;
           _os_log_impl(&dword_1C928A000, v31, OS_LOG_TYPE_INFO, "_segmentAfterFrameStore: Attempting to acquire lockfile: %@", buf, 0xCu);
         }
 
         v32 = *(a1 + 40);
         v33 = *(v32 + 8);
-        v48[0] = MEMORY[0x1E69E9820];
-        v48[1] = 3221225472;
-        v48[2] = __83__BMSegmentManager__segmentAfterFrameStore_orCreateSegmentWithTimestamp_direction___block_invoke_57;
-        v48[3] = &unk_1E8339100;
-        v48[4] = v32;
+        v47[0] = MEMORY[0x1E69E9820];
+        v47[1] = 3221225472;
+        v47[2] = __83__BMSegmentManager__segmentAfterFrameStore_orCreateSegmentWithTimestamp_direction___block_invoke_57;
+        v47[3] = &unk_1E8339100;
+        v47[4] = v32;
         v34 = v3;
         v35 = *(a1 + 56);
-        v49 = v34;
-        v52 = v35;
+        v48 = v34;
+        v51 = v35;
         v36 = *(a1 + 32);
         v37 = *(a1 + 64);
-        v50 = v36;
-        v53 = v37;
-        v51 = *(a1 + 48);
-        [v33 acquireLockfile:v30 andRunBlock:v48];
+        v49 = v36;
+        v52 = v37;
+        v50 = *(a1 + 48);
+        [v33 acquireLockfile:v30 andRunBlock:v47];
 
         v15 = *(*(*(a1 + 56) + 8) + 40);
       }
@@ -1118,13 +1077,11 @@ LABEL_29:
   }
 
   objc_storeStrong((*(a1 + 40) + 80), v15);
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 - (id)nextSegmentAfterFrameStore:(id)store segmentNames:(id)names segmentFileHandles:(id)handles direction:(unint64_t)direction
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   namesCopy = names;
   handlesCopy = handles;
@@ -1138,7 +1095,7 @@ LABEL_29:
     v11 = 1;
   }
 
-  v29 = storeCopy;
+  v28 = storeCopy;
   if (storeCopy && ([storeCopy segmentName], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(namesCopy, "indexOfObject:", v12), v12, v13 != 0x7FFFFFFFFFFFFFFFLL))
   {
     v14 = v13 + v11;
@@ -1175,9 +1132,9 @@ LABEL_29:
 
     v18 = objc_autoreleasePoolPush();
     v19 = [namesCopy objectAtIndexedSubscript:v14];
-    v32 = 0;
-    v17 = [(BMSegmentManager *)self segmentWithFilename:v19 segmentNames:namesCopy segmentFileHandles:handlesCopy error:&v32];
-    v20 = v32;
+    v31 = 0;
+    v17 = [(BMSegmentManager *)self segmentWithFilename:v19 segmentNames:namesCopy segmentFileHandles:handlesCopy error:&v31];
+    v20 = v31;
     if (direction || ([namesCopy containsObject:v19] & 1) == 0)
     {
       v21 = v15;
@@ -1187,18 +1144,18 @@ LABEL_20:
         v22 = __biome_log_for_category();
         if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          segmentName = [v29 segmentName];
-          v26 = MEMORY[0x1E698E9C8];
+          segmentName = [v28 segmentName];
+          v25 = MEMORY[0x1E698E9C8];
           path = [(BMSegmentManager *)self path];
-          v25 = [v26 privacyPathname:path];
+          v24 = [v25 privacyPathname:path];
           *buf = 138413058;
-          v34 = v19;
-          v35 = 2112;
-          v36 = segmentName;
-          v37 = 2112;
-          v38 = v25;
-          v39 = 2112;
-          v40 = v20;
+          v33 = v19;
+          v34 = 2112;
+          v35 = segmentName;
+          v36 = 2112;
+          v37 = v24;
+          v38 = 2112;
+          v39 = v20;
           _os_log_error_impl(&dword_1C928A000, v22, OS_LOG_TYPE_ERROR, "Unable to getNextSegment (%@) for prevFrameStore:%@ in:%@. Error: %@", buf, 0x2Au);
         }
       }
@@ -1219,8 +1176,6 @@ LABEL_20:
   }
 
   while (!v17);
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -1498,7 +1453,7 @@ void __46__BMSegmentManager_segmentWithFilename_error___block_invoke(void *a1, u
 
 - (id)segmentWithFilename:(id)filename segmentNames:(id)names segmentFileHandles:(id)handles error:(id *)error
 {
-  v32[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   filenameCopy = filename;
   namesCopy = names;
   handlesCopy = handles;
@@ -1508,9 +1463,9 @@ void __46__BMSegmentManager_segmentWithFilename_error___block_invoke(void *a1, u
     if (error)
     {
       v18 = MEMORY[0x1E696ABC0];
-      v31 = *MEMORY[0x1E696A578];
-      v32[0] = @"Failed to create new framestore with nil filename";
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+      v30 = *MEMORY[0x1E696A578];
+      v31[0] = @"Failed to create new framestore with nil filename";
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
       *error = [v18 errorWithDomain:@"com.apple.biome.BiomeStorage" code:-1 userInfo:v19];
     }
 
@@ -1526,9 +1481,9 @@ void __46__BMSegmentManager_segmentWithFilename_error___block_invoke(void *a1, u
   v14 = [handlesCopy objectForKeyedSubscript:filenameCopy];
   if (!v14)
   {
-    v28 = 0;
-    v14 = [(BMSegmentManager *)self fileHandleForFile:filenameCopy error:&v28];
-    v20 = v28;
+    v27 = 0;
+    v14 = [(BMSegmentManager *)self fileHandleForFile:filenameCopy error:&v27];
+    v20 = v27;
     if (!v20)
     {
       if ([(BMSegmentManager *)self shouldCacheFileDescriptors])
@@ -1567,9 +1522,9 @@ LABEL_3:
     if (error)
     {
       v23 = MEMORY[0x1E696ABC0];
-      v29 = *MEMORY[0x1E696A578];
-      v30 = @"Failed to instantiate framestore with path";
-      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+      v28 = *MEMORY[0x1E696A578];
+      v29 = @"Failed to instantiate framestore with path";
+      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
       *error = [v23 errorWithDomain:@"com.apple.biome.BiomeStorage" code:2 userInfo:v24];
     }
 
@@ -1581,7 +1536,6 @@ LABEL_3:
   }
 
 LABEL_20:
-  v26 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -1611,7 +1565,7 @@ LABEL_20:
 
 - (BOOL)removeSegmentNamed:(id)named reason:(unint64_t)reason direction:(unint64_t)direction
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   namedCopy = named;
   delegate = [(BMSegmentManager *)self delegate];
 
@@ -1619,20 +1573,20 @@ LABEL_20:
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v31 = 0x3032000000;
-    v32 = __Block_byref_object_copy__3;
-    v33 = __Block_byref_object_dispose__3;
-    v34 = 0;
+    v30 = 0x3032000000;
+    v31 = __Block_byref_object_copy__3;
+    v32 = __Block_byref_object_dispose__3;
+    v33 = 0;
     protectedState = self->_protectedState;
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __56__BMSegmentManager_removeSegmentNamed_reason_direction___block_invoke;
-    v27[3] = &unk_1E83391A0;
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __56__BMSegmentManager_removeSegmentNamed_reason_direction___block_invoke;
+    v26[3] = &unk_1E83391A0;
     p_buf = &buf;
-    v27[4] = self;
+    v26[4] = self;
     v11 = namedCopy;
-    v28 = v11;
-    [(_PASLock *)protectedState runWithLockAcquired:v27];
+    v27 = v11;
+    [(_PASLock *)protectedState runWithLockAcquired:v26];
     if (*(*(&buf + 1) + 40))
     {
       delegate2 = [(BMSegmentManager *)self delegate];
@@ -1653,17 +1607,17 @@ LABEL_20:
   }
 
   v16 = self->_protectedState;
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __56__BMSegmentManager_removeSegmentNamed_reason_direction___block_invoke_62;
-  v25[3] = &unk_1E8338F80;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __56__BMSegmentManager_removeSegmentNamed_reason_direction___block_invoke_62;
+  v24[3] = &unk_1E8338F80;
   v17 = namedCopy;
-  v26 = v17;
-  [(_PASLock *)v16 runWithLockAcquired:v25];
+  v25 = v17;
+  [(_PASLock *)v16 runWithLockAcquired:v24];
   fileManager = self->_fileManager;
-  v24 = 0;
-  v19 = [(BMFileManager *)fileManager removeFileAtPath:v13 error:&v24];
-  v20 = v24;
+  v23 = 0;
+  v19 = [(BMFileManager *)fileManager removeFileAtPath:v13 error:&v23];
+  v20 = v23;
   if (!v20)
   {
     v19 = 1;
@@ -1678,7 +1632,6 @@ LABEL_20:
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -1720,24 +1673,24 @@ void __56__BMSegmentManager_removeSegmentNamed_reason_direction___block_invoke(v
 
 void __55__BMSegmentManager_enumerateSegmentsFrom_to_withBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
-  v12 = 0;
-  v5 = [v4 segmentWithFilename:v3 error:&v12];
-  v6 = v12;
+  v11 = 0;
+  v5 = [v4 segmentWithFilename:v3 error:&v11];
+  v6 = v11;
   if (v6)
   {
     v7 = __biome_log_for_category();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = MEMORY[0x1E698E9C8];
-      v10 = [*(*(a1 + 32) + 72) stringByAppendingPathComponent:v3];
-      v11 = [v9 privacyPathname:v10];
+      v8 = MEMORY[0x1E698E9C8];
+      v9 = [*(*(a1 + 32) + 72) stringByAppendingPathComponent:v3];
+      v10 = [v8 privacyPathname:v9];
       *buf = 138543618;
-      v14 = v11;
-      v15 = 2114;
-      v16 = v6;
+      v13 = v10;
+      v14 = 2114;
+      v15 = v6;
       _os_log_error_impl(&dword_1C928A000, v7, OS_LOG_TYPE_ERROR, "Failed to open frame store %{public}@ during enumeration, error: %{public}@", buf, 0x16u);
     }
   }
@@ -1746,13 +1699,11 @@ void __55__BMSegmentManager_enumerateSegmentsFrom_to_withBlock___block_invoke(ui
   {
     (*(*(a1 + 40) + 16))();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumerateSegmentsNamesFrom:(double)from to:(double)to withBlock:(id)block
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (from > to && to != -1.0)
   {
@@ -1774,9 +1725,9 @@ void __55__BMSegmentManager_enumerateSegmentsFrom_to_withBlock___block_invoke(ui
       v14 = MEMORY[0x1E698E9C8];
       path = [(BMSegmentManager *)self path];
       v16 = [v14 privacyPathname:path];
-      *v20 = 138412290;
-      *&v20[4] = v16;
-      _os_log_impl(&dword_1C928A000, v13, OS_LOG_TYPE_INFO, "No segments to enumerate: %@", v20, 0xCu);
+      *v19 = 138412290;
+      *&v19[4] = v16;
+      _os_log_impl(&dword_1C928A000, v13, OS_LOG_TYPE_INFO, "No segments to enumerate: %@", v19, 0xCu);
     }
 
     goto LABEL_25;
@@ -1817,19 +1768,17 @@ LABEL_25:
 
   for (; v10 <= v17; ++v10)
   {
-    v20[0] = 0;
-    v18 = [segmentNames objectAtIndexedSubscript:v10, *v20];
-    blockCopy[2](blockCopy, v18, v20);
+    v19[0] = 0;
+    v18 = [segmentNames objectAtIndexedSubscript:v10, *v19];
+    blockCopy[2](blockCopy, v18, v19);
 
-    if (v20[0])
+    if (v19[0])
     {
       break;
     }
   }
 
 LABEL_26:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reverseEnumerateSegmentsFrom:(double)from to:(double)to withBlock:(id)block
@@ -1847,24 +1796,24 @@ LABEL_26:
 
 void __62__BMSegmentManager_reverseEnumerateSegmentsFrom_to_withBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
-  v12 = 0;
-  v5 = [v4 segmentWithFilename:v3 error:&v12];
-  v6 = v12;
+  v11 = 0;
+  v5 = [v4 segmentWithFilename:v3 error:&v11];
+  v6 = v11;
   if (v6)
   {
     v7 = __biome_log_for_category();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = MEMORY[0x1E698E9C8];
-      v10 = [*(*(a1 + 32) + 72) stringByAppendingPathComponent:v3];
-      v11 = [v9 privacyPathname:v10];
+      v8 = MEMORY[0x1E698E9C8];
+      v9 = [*(*(a1 + 32) + 72) stringByAppendingPathComponent:v3];
+      v10 = [v8 privacyPathname:v9];
       *buf = 138543618;
-      v14 = v11;
-      v15 = 2114;
-      v16 = v6;
+      v13 = v10;
+      v14 = 2114;
+      v15 = v6;
       _os_log_error_impl(&dword_1C928A000, v7, OS_LOG_TYPE_ERROR, "Failed to open frame store %{public}@ during reverse enumeration, error: %{public}@", buf, 0x16u);
     }
   }
@@ -1873,13 +1822,11 @@ void __62__BMSegmentManager_reverseEnumerateSegmentsFrom_to_withBlock___block_in
   {
     (*(*(a1 + 40) + 16))();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reverseEnumerateSegmentsNamesFrom:(double)from to:(double)to withBlock:(id)block
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v9 = from <= to || to == -1.0;
   if (!v9)
@@ -1902,9 +1849,9 @@ void __62__BMSegmentManager_reverseEnumerateSegmentsFrom_to_withBlock___block_in
       v14 = MEMORY[0x1E698E9C8];
       path = [(BMSegmentManager *)self path];
       v16 = [v14 privacyPathname:path];
-      *v22 = 138412290;
-      *&v22[4] = v16;
-      _os_log_impl(&dword_1C928A000, v13, OS_LOG_TYPE_INFO, "No segments to enumerate: %@", v22, 0xCu);
+      *v21 = 138412290;
+      *&v21[4] = v16;
+      _os_log_impl(&dword_1C928A000, v13, OS_LOG_TYPE_INFO, "No segments to enumerate: %@", v21, 0xCu);
     }
 
     goto LABEL_28;
@@ -1943,20 +1890,20 @@ LABEL_28:
     goto LABEL_29;
   }
 
-  v22[0] = 0;
+  v21[0] = 0;
   v18 = [segmentNames objectAtIndexedSubscript:v17];
-  blockCopy[2](blockCopy, v18, v22);
+  blockCopy[2](blockCopy, v18, v21);
 
-  if ((v22[0] & 1) == 0 && v17 != v10)
+  if ((v21[0] & 1) == 0 && v17 != v10)
   {
     v19 = v17 - 1;
     do
     {
-      v22[0] = 0;
-      v20 = [segmentNames objectAtIndexedSubscript:v19, *v22];
-      blockCopy[2](blockCopy, v20, v22);
+      v21[0] = 0;
+      v20 = [segmentNames objectAtIndexedSubscript:v19, *v21];
+      blockCopy[2](blockCopy, v20, v21);
 
-      if (v22[0])
+      if (v21[0])
       {
         break;
       }
@@ -1968,8 +1915,6 @@ LABEL_28:
   }
 
 LABEL_29:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleDeviceLockedCX
@@ -2161,7 +2106,7 @@ LABEL_8:
 
 void __56__BMSegmentManager_lastFrameStoreOrCreateWithTimestamp___block_invoke(uint64_t a1, void *a2)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = v4;
   if (v4)
@@ -2206,11 +2151,10 @@ void __56__BMSegmentManager_lastFrameStoreOrCreateWithTimestamp___block_invoke(u
 
   else if (v5)
   {
-    v35 = v5[4];
-    if (v35)
+    v33 = v5[4];
+    if (v33)
     {
-      v36 = v35;
-      v37 = v5[4];
+      v34 = v33;
       ShouldTryAgainLater = BMStorageErrorShouldTryAgainLater();
 
       if (ShouldTryAgainLater)
@@ -2234,75 +2178,71 @@ void __56__BMSegmentManager_lastFrameStoreOrCreateWithTimestamp___block_invoke(u
       _os_log_impl(&dword_1C928A000, v15, OS_LOG_TYPE_INFO, "lastFrameStoreOrCreateWithTimestamp: Attempting to create new frame store", buf, 2u);
     }
 
-    v16 = *(a1 + 32);
-    v17 = *(v16 + 72);
-    [*(v16 + 40) datastorePath];
+    [*(*(a1 + 32) + 40) datastorePath];
     objc_claimAutoreleasedReturnValue();
-    LOBYTE(v17) = [OUTLINED_FUNCTION_8_0() hasPrefix:ShouldTryAgainLater];
+    v16 = [OUTLINED_FUNCTION_8_0() hasPrefix:ShouldTryAgainLater];
 
-    if ((v17 & 1) == 0)
+    if ((v16 & 1) == 0)
     {
-      v18 = __biome_log_for_category();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+      v17 = __biome_log_for_category();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
         *buf = 0;
-        _os_log_fault_impl(&dword_1C928A000, v18, OS_LOG_TYPE_FAULT, "lastFrameStoreOrCreateWithTimestamp: Assertion Failed: [_path hasPrefix:_config.datastorePath]", buf, 2u);
+        _os_log_fault_impl(&dword_1C928A000, v17, OS_LOG_TYPE_FAULT, "lastFrameStoreOrCreateWithTimestamp: Assertion Failed: [_path hasPrefix:_config.datastorePath]", buf, 2u);
       }
     }
 
-    v19 = *(a1 + 32);
-    v20 = *(v19 + 72);
-    v21 = [*(v19 + 40) datastorePath];
-    v22 = [v20 substringFromIndex:{objc_msgSend(v21, "length")}];
+    v18 = *(a1 + 32);
+    v19 = *(v18 + 72);
+    v20 = [*(v18 + 40) datastorePath];
+    v21 = [v19 substringFromIndex:{objc_msgSend(v20, "length")}];
 
-    if ([v22 hasPrefix:@"/"])
+    if ([v21 hasPrefix:@"/"])
     {
-      v23 = [v22 substringFromIndex:1];
+      v22 = [v21 substringFromIndex:1];
 
-      v22 = v23;
+      v21 = v22;
     }
 
-    v24 = [v22 substringToIndex:{objc_msgSend(v22, "rangeOfString:", @"/"}];
+    v23 = [v21 substringToIndex:{objc_msgSend(v21, "rangeOfString:", @"/"}];
 
-    v25 = [*(*(a1 + 32) + 40) datastorePath];
-    v26 = [v25 stringByAppendingPathComponent:v24];
-    v27 = [MEMORY[0x1E698EA08] lock];
-    v28 = [v26 stringByAppendingPathComponent:v27];
+    v24 = [*(*(a1 + 32) + 40) datastorePath];
+    v25 = [v24 stringByAppendingPathComponent:v23];
+    v26 = [MEMORY[0x1E698EA08] lock];
+    v27 = [v25 stringByAppendingPathComponent:v26];
 
-    v29 = __biome_log_for_category();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+    v28 = __biome_log_for_category();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v43 = v28;
-      _os_log_impl(&dword_1C928A000, v29, OS_LOG_TYPE_INFO, "lastFrameStoreOrCreateWithTimestamp: Attempting to acquire lockfile: %@", buf, 0xCu);
+      v40 = v27;
+      _os_log_impl(&dword_1C928A000, v28, OS_LOG_TYPE_INFO, "lastFrameStoreOrCreateWithTimestamp: Attempting to acquire lockfile: %@", buf, 0xCu);
     }
 
-    v30 = *(a1 + 32);
-    v31 = *(v30 + 8);
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __56__BMSegmentManager_lastFrameStoreOrCreateWithTimestamp___block_invoke_55;
-    v38[3] = &unk_1E83390B0;
-    v38[4] = v30;
-    v32 = v5;
-    v33 = *(a1 + 40);
-    v39 = v32;
-    v40 = v33;
-    v41 = *(a1 + 48);
-    [v31 acquireLockfile:v28 andRunBlock:v38];
+    v29 = *(a1 + 32);
+    v30 = *(v29 + 8);
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = __56__BMSegmentManager_lastFrameStoreOrCreateWithTimestamp___block_invoke_55;
+    v35[3] = &unk_1E83390B0;
+    v35[4] = v29;
+    v31 = v5;
+    v32 = *(a1 + 40);
+    v36 = v31;
+    v37 = v32;
+    v38 = *(a1 + 48);
+    [v30 acquireLockfile:v27 andRunBlock:v35];
 
     v14 = *(*(*(a1 + 40) + 8) + 40);
   }
 
   objc_storeStrong((*(a1 + 32) + 80), v14);
 LABEL_22:
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 void __56__BMSegmentManager_lastFrameStoreOrCreateWithTimestamp___block_invoke_55(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) updateSegmentsWithGuardedDeviceLockStateData:*(a1 + 40)];
   v3 = *(a1 + 40);
   if (v3)
@@ -2362,53 +2302,49 @@ void __56__BMSegmentManager_lastFrameStoreOrCreateWithTimestamp___block_invoke_5
     OUTLINED_FUNCTION_1_5(v17, *(a1 + 48));
   }
 
-  OUTLINED_FUNCTION_7_1(*(a1 + 48));
+  OUTLINED_FUNCTION_7_1();
   if (!v18)
   {
-    v20 = *(a1 + 32);
     v19 = *(a1 + 40);
     if (v19)
     {
-      v21 = *(v19 + 16);
+      v20 = *(v19 + 16);
     }
 
     else
     {
-      v21 = 0;
+      v20 = 0;
     }
 
-    v22 = *(a1 + 56);
-    v23 = *(a1 + 40);
-    if (v23)
+    v21 = *(a1 + 40);
+    if (v21)
     {
-      v23 = v23[3];
+      v21 = v21[3];
     }
 
-    v24 = v23;
-    v25 = OUTLINED_FUNCTION_6_1(v21);
-    OUTLINED_FUNCTION_1_5(v25, *(a1 + 48));
+    v22 = v21;
+    v23 = OUTLINED_FUNCTION_6_1(v20);
+    OUTLINED_FUNCTION_1_5(v23, *(a1 + 48));
 
-    OUTLINED_FUNCTION_7_1(*(a1 + 48));
-    if (!v26)
+    OUTLINED_FUNCTION_7_1();
+    if (!v24)
     {
-      v27 = __biome_log_for_category();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+      v25 = __biome_log_for_category();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
       {
-        v29 = MEMORY[0x1E698E9C8];
-        v30 = [*(a1 + 32) path];
-        v31 = [v29 privacyPathname:v30];
+        v26 = MEMORY[0x1E698E9C8];
+        v27 = [*(a1 + 32) path];
+        v28 = [v26 privacyPathname:v27];
         OUTLINED_FUNCTION_4();
-        _os_log_fault_impl(&dword_1C928A000, v27, OS_LOG_TYPE_FAULT, "Unable to lastFrameStoreOrCreateWithTimestamp and   creation also failed for %@", v32, 0xCu);
+        _os_log_fault_impl(&dword_1C928A000, v25, OS_LOG_TYPE_FAULT, "Unable to lastFrameStoreOrCreateWithTimestamp and   creation also failed for %@", v29, 0xCu);
       }
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __83__BMSegmentManager__segmentAfterFrameStore_orCreateSegmentWithTimestamp_direction___block_invoke_57(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) updateSegmentsWithGuardedDeviceLockStateData:*(a1 + 40)];
   v2 = *(a1 + 40);
   v3 = *(a1 + 48);
@@ -2435,52 +2371,49 @@ void __83__BMSegmentManager__segmentAfterFrameStore_orCreateSegmentWithTimestamp
   v10 = [v4 nextSegmentAfterFrameStore:v3 segmentNames:v9 segmentFileHandles:v8 direction:v7];
   OUTLINED_FUNCTION_1_5(v10, *(a1 + 64));
 
-  OUTLINED_FUNCTION_7_1(*(a1 + 64));
+  OUTLINED_FUNCTION_7_1();
   if (!v11)
   {
-    v12 = *(a1 + 32);
     [*(a1 + 56) doubleValue];
-    v13 = *(a1 + 40);
-    if (v13)
+    v12 = *(a1 + 40);
+    if (v12)
     {
-      v14 = *(v13 + 16);
+      v13 = *(v12 + 16);
     }
 
     else
     {
-      v14 = 0;
+      v13 = 0;
     }
 
-    v15 = *(a1 + 40);
-    if (v15)
+    v14 = *(a1 + 40);
+    if (v14)
     {
-      v15 = v15[3];
+      v14 = v14[3];
     }
 
-    v16 = v15;
-    v17 = OUTLINED_FUNCTION_6_1(v14);
-    OUTLINED_FUNCTION_1_5(v17, *(a1 + 64));
+    v15 = v14;
+    v16 = OUTLINED_FUNCTION_6_1(v13);
+    OUTLINED_FUNCTION_1_5(v16, *(a1 + 64));
 
-    OUTLINED_FUNCTION_7_1(*(a1 + 64));
-    if (!v18)
+    OUTLINED_FUNCTION_7_1();
+    if (!v17)
     {
-      v19 = __biome_log_for_category();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+      v18 = __biome_log_for_category();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
       {
-        v21 = [*(a1 + 48) segmentName];
-        v22 = MEMORY[0x1E698E9C8];
-        v23 = [*(a1 + 32) path];
-        v24 = [v22 privacyPathname:v23];
-        v26 = 138412546;
-        v27 = v21;
+        v19 = [*(a1 + 48) segmentName];
+        v20 = MEMORY[0x1E698E9C8];
+        v21 = [*(a1 + 32) path];
+        v22 = [v20 privacyPathname:v21];
+        v24 = 138412546;
+        v25 = v19;
         OUTLINED_FUNCTION_9_0();
-        v28 = v25;
-        _os_log_fault_impl(&dword_1C928A000, v19, OS_LOG_TYPE_FAULT, "Unable to _segmentAfterFrameStore and creation also failed for prevStore:%@ in %@", &v26, 0x16u);
+        v26 = v23;
+        _os_log_fault_impl(&dword_1C928A000, v18, OS_LOG_TYPE_FAULT, "Unable to _segmentAfterFrameStore and creation also failed for prevStore:%@ in %@", &v24, 0x16u);
       }
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __47__BMSegmentManager_segmentContainingTimestamp___block_invoke(uint64_t a1, void *a2)
@@ -2498,47 +2431,46 @@ void __47__BMSegmentManager_segmentContainingTimestamp___block_invoke(uint64_t a
   }
 
   v6 = v5;
-  v7 = *(a1 + 32);
-  v8 = [objc_opt_class() indexOfSegmentContainingEventTime:v6 fromSegments:*(a1 + 48)];
-  if (v8 == 0x7FFFFFFFFFFFFFFFLL)
+  v7 = [objc_opt_class() indexOfSegmentContainingEventTime:v6 fromSegments:*(a1 + 48)];
+  if (v7 == 0x7FFFFFFFFFFFFFFFLL)
   {
     if (*(a1 + 48) == 0.0)
     {
-      v9 = [*(a1 + 32) segmentAfterFrameStore:0 direction:0];
-      OUTLINED_FUNCTION_1_5(v9, *(a1 + 40));
+      v8 = [*(a1 + 32) segmentAfterFrameStore:0 direction:0];
+      OUTLINED_FUNCTION_1_5(v8, *(a1 + 40));
     }
   }
 
   else
   {
-    v10 = v8;
-    if (v8 >= [v6 count])
+    v9 = v7;
+    if (v7 >= [v6 count])
     {
-      v16 = __biome_log_for_category();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+      v15 = __biome_log_for_category();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
       {
-        *v17 = 0;
-        _os_log_fault_impl(&dword_1C928A000, v16, OS_LOG_TYPE_FAULT, "Received an index beyond _segmentNames in newEnumeratorFromStartTime:", v17, 2u);
+        *v16 = 0;
+        _os_log_fault_impl(&dword_1C928A000, v15, OS_LOG_TYPE_FAULT, "Received an index beyond _segmentNames in newEnumeratorFromStartTime:", v16, 2u);
       }
     }
 
     else
     {
-      v11 = *(a1 + 32);
-      v12 = [v6 objectAtIndexedSubscript:v10];
+      v10 = *(a1 + 32);
+      v11 = [v6 objectAtIndexedSubscript:v9];
       if (v3)
       {
-        v13 = v3[3];
+        v12 = v3[3];
       }
 
       else
       {
-        v13 = 0;
+        v12 = 0;
       }
 
-      v14 = v13;
-      v15 = [v11 segmentWithFilename:v12 segmentNames:v6 segmentFileHandles:v14 error:0];
-      OUTLINED_FUNCTION_1_5(v15, *(a1 + 40));
+      v13 = v12;
+      v14 = [v10 segmentWithFilename:v11 segmentNames:v6 segmentFileHandles:v13 error:0];
+      OUTLINED_FUNCTION_1_5(v14, *(a1 + 40));
     }
   }
 
@@ -2600,7 +2532,7 @@ LABEL_8:
 
 void __68__BMSegmentManager_initWithDirectory_fileManager_permission_config___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = *(*a1 + 72);
   v6 = [*(*a1 + 40) protectionClass];
   if (v6 > 6)
@@ -2614,37 +2546,30 @@ void __68__BMSegmentManager_initWithDirectory_fileManager_permission_config___bl
   }
 
   *buf = 138413058;
-  v10 = v5;
-  v11 = 2112;
-  v12 = a2;
-  v13 = 2112;
-  v14 = v7;
-  v15 = 1024;
-  v16 = [MEMORY[0x1E69C5D08] isDeviceUnlocked];
+  v9 = v5;
+  v10 = 2112;
+  v11 = a2;
+  v12 = 2112;
+  v13 = v7;
+  v14 = 1024;
+  v15 = [MEMORY[0x1E69C5D08] isDeviceUnlocked];
   _os_log_error_impl(&dword_1C928A000, a3, OS_LOG_TYPE_ERROR, "Can't create stream folder at %@ with error %@, protectionClass: %@ isUnlocked: %hhd", buf, 0x26u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __50__BMSegmentManager_pruneSegmentsToMaxSizeInBytes___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E698E9C8] privacyPathname:a2];
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __50__BMSegmentManager_pruneSegmentsToMaxSizeInBytes___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E698E9C8] privacyPathname:a1];
   OUTLINED_FUNCTION_4();
-  _os_log_fault_impl(&dword_1C928A000, a2, OS_LOG_TYPE_FAULT, "Segment %@ is getting removed. Invalid file size of 0 bytes", v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1C928A000, a2, OS_LOG_TYPE_FAULT, "Segment %@ is getting removed. Invalid file size of 0 bytes", v4, 0xCu);
 }
 
 - (void)cacheFileDescriptorsIfNecessary:(void *)a1 .cold.1(void *a1, void *a2)
@@ -2754,50 +2679,39 @@ void __50__BMSegmentManager_pruneSegmentsToMaxSizeInBytes___block_invoke_cold_2(
 
 - (void)orderedSegmentsInDirectory:(uint64_t)a1 error:.cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [MEMORY[0x1E698E9C8] privacyPathname:a1];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)newFramestoreWithTimestamp:(uint64_t)a1 segmentNames:segmentFileHandles:.cold.3(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [MEMORY[0x1E698E9C8] privacyPathname:a1];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)newFramestoreWithTimestamp:(uint64_t)a1 segmentNames:segmentFileHandles:.cold.4(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [MEMORY[0x1E698E9C8] privacyPathname:a1];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)newFramestoreWithTimestamp:segmentNames:segmentFileHandles:.cold.5()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(&dword_1C928A000, v0, OS_LOG_TYPE_ERROR, "Failed to create new file handle with error, %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C928A000, v0, OS_LOG_TYPE_ERROR, "Failed to create new file handle with error, %@", v1, 0xCu);
 }
 
 - (void)segmentWithFilename:(void *)a1 segmentNames:segmentFileHandles:error:.cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v1 = MEMORY[0x1E698E9C8];
   v2 = [a1 attributes];
   v3 = [v2 path];
@@ -2805,38 +2719,29 @@ void __50__BMSegmentManager_pruneSegmentsToMaxSizeInBytes___block_invoke_cold_2(
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeSegmentNamed:(uint64_t)a1 reason:direction:.cold.1(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v7 = [MEMORY[0x1E698E9C8] privacyPathname:a1];
-  v8 = *__error();
+  v6 = [MEMORY[0x1E698E9C8] privacyPathname:a1];
+  __error();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumerateSegmentsNamesFrom:to:withBlock:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_1();
-  _os_log_error_impl(&dword_1C928A000, v0, OS_LOG_TYPE_ERROR, "Start date (%lf) is greater than end date (%lf)", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C928A000, v0, OS_LOG_TYPE_ERROR, "Start date (%lf) is greater than end date (%lf)", v1, 0x16u);
 }
 
 void __40__BMSegmentManager_handleDeviceLockedCX__block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*(*a1 + 72) stringByDeletingLastPathComponent];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

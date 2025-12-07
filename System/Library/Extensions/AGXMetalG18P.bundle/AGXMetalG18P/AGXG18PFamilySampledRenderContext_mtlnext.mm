@@ -202,7 +202,7 @@ LABEL_11:
     v21 = v18;
     v20 = v17;
     v19 = v16;
-    AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::drawMeshThreads(v7, &v21, &v20, &v19);
+    AGX::HWGeometryPipelineContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::drawMeshThreads(v7, &v21.var0, &v20, &v19);
   }
 
   if (*(sampled_impl + 64) == 1)
@@ -490,7 +490,7 @@ LABEL_8:
   sampled_impl = self->_sampled_impl;
   v12 = *tile;
   AGX::SampledRenderContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::duplicateShaderAddresses(sampled_impl);
-  v4 = *(sampled_impl + 6);
+  v4 = sampled_impl[6];
   v5 = *(v4 + 2392);
   memset(v13, 0, sizeof(v13));
   v6 = *(v5 + 3568);
@@ -502,8 +502,8 @@ LABEL_8:
   if (*(sampled_impl + 64) == 1)
   {
     v8 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
-    v9 = *(sampled_impl + 6);
-    v10 = *(sampled_impl + 2);
+    v9 = sampled_impl[6];
+    v10 = sampled_impl[2];
     AGX::RenderPipeline<AGX::HAL300::ObjClasses,AGX::HAL300::Classes,AGX::HAL300::Encoders>::appendProgramAddressTables(*(v9 + 7688), v8);
     v11 = *(v9 + 2120);
     if (v11)
@@ -512,7 +512,7 @@ LABEL_8:
       *(*(v9 + 2120) + 8) = 0;
     }
 
-    [*(sampled_impl + 1) addObject:{v8, *&v12.var0, v12.var2}];
+    [sampled_impl[1] addObject:{v8, *&v12.var0, v12.var2}];
   }
 }
 

@@ -13,11 +13,11 @@
 
 - (C2MultipeerDiscovery)initWithParent:(id)parent
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   parentCopy = parent;
-  v19.receiver = self;
-  v19.super_class = C2MultipeerDiscovery;
-  v5 = [(C2MultipeerDiscovery *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = C2MultipeerDiscovery;
+  v5 = [(C2MultipeerDiscovery *)&v18 init];
   v6 = v5;
   if (v5)
   {
@@ -40,7 +40,7 @@
   if (os_log_type_enabled(C2_MULTIPEER_LOG_INTERNAL_1, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = v6;
+    v20 = v6;
     _os_log_impl(&dword_242158000, v11, OS_LOG_TYPE_DEFAULT, "[%@ init]", buf, 0xCu);
   }
 
@@ -51,10 +51,9 @@
   block[2] = __39__C2MultipeerDiscovery_initWithParent___block_invoke_4;
   block[3] = &unk_278D400A0;
   v14 = v6;
-  v18 = v14;
+  v17 = v14;
   dispatch_async(queue, block);
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -187,26 +186,24 @@ uint64_t __34__C2MultipeerDiscovery_startTimer__block_invoke_2()
 
 void __45__C2MultipeerDiscovery__peerToPeerParameters__block_invoke(int a1, id a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [@"ChunkDiscovery" UTF8String];
   v4 = [@"SuperSecretPasscode" UTF8String];
   macOut = 0u;
-  v12 = 0u;
+  v11 = 0u;
   v5 = strlen(v4);
   v6 = strlen(v3);
   CCHmac(2u, v4, v5, v3, v6, &macOut);
   alloc = dispatch_data_create_alloc();
   MEMORY[0] = macOut;
-  MEMORY[0x10] = v12;
+  MEMORY[0x10] = v11;
   strlen(v3);
   v8 = dispatch_data_create_alloc();
   v9 = strlen(v3);
   memcpy(0, v3, v9);
   sec_protocol_options_add_pre_shared_key(v2, alloc, v8);
   sec_protocol_options_append_tls_ciphersuite(v2, 0xAEu);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __45__C2MultipeerDiscovery__peerToPeerParameters__block_invoke_2(uint64_t a1, void *a2)
@@ -259,7 +256,7 @@ uint64_t __32__C2MultipeerDiscovery__browser__block_invoke()
 
 void __32__C2MultipeerDiscovery__browser__block_invoke_2(uint64_t a1, NSObject *a2, void *a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v5 = a3;
   changes = nw_browse_result_get_changes(a2, v5);
   v7 = changes;
@@ -273,8 +270,8 @@ void __32__C2MultipeerDiscovery__browser__block_invoke_2(uint64_t a1, NSObject *
     v8 = C2_MULTIPEER_LOG_INTERNAL_1;
     if (os_log_type_enabled(C2_MULTIPEER_LOG_INTERNAL_1, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v38) = 0;
-      _os_log_impl(&dword_242158000, v8, OS_LOG_TYPE_INFO, "nw_browse_result_change_invalid", &v38, 2u);
+      LOWORD(v37) = 0;
+      _os_log_impl(&dword_242158000, v8, OS_LOG_TYPE_INFO, "nw_browse_result_change_invalid", &v37, 2u);
     }
   }
 
@@ -304,7 +301,7 @@ void __32__C2MultipeerDiscovery__browser__block_invoke_2(uint64_t a1, NSObject *
               goto LABEL_70;
             }
 
-            LOWORD(v38) = 0;
+            LOWORD(v37) = 0;
             v15 = "Wrong service type.";
             goto LABEL_27;
           }
@@ -320,9 +317,9 @@ void __32__C2MultipeerDiscovery__browser__block_invoke_2(uint64_t a1, NSObject *
             v18 = C2_MULTIPEER_LOG_INTERNAL_1;
             if (os_log_type_enabled(C2_MULTIPEER_LOG_INTERNAL_1, OS_LOG_TYPE_INFO))
             {
-              v38 = 138412290;
-              v39 = v17;
-              _os_log_impl(&dword_242158000, v18, OS_LOG_TYPE_INFO, "nw_browse_result_change_identical for peer %@", &v38, 0xCu);
+              v37 = 138412290;
+              v38 = v17;
+              _os_log_impl(&dword_242158000, v18, OS_LOG_TYPE_INFO, "nw_browse_result_change_identical for peer %@", &v37, 0xCu);
             }
           }
 
@@ -336,9 +333,9 @@ void __32__C2MultipeerDiscovery__browser__block_invoke_2(uint64_t a1, NSObject *
             v19 = C2_MULTIPEER_LOG_INTERNAL_1;
             if (os_log_type_enabled(C2_MULTIPEER_LOG_INTERNAL_1, OS_LOG_TYPE_INFO))
             {
-              v38 = 138412290;
-              v39 = v17;
-              _os_log_impl(&dword_242158000, v19, OS_LOG_TYPE_INFO, "nw_browse_result_change_result_added for peer %@", &v38, 0xCu);
+              v37 = 138412290;
+              v38 = v17;
+              _os_log_impl(&dword_242158000, v19, OS_LOG_TYPE_INFO, "nw_browse_result_change_result_added for peer %@", &v37, 0xCu);
             }
 
             v20 = [*(a1 + 32) parent];
@@ -358,11 +355,11 @@ void __32__C2MultipeerDiscovery__browser__block_invoke_2(uint64_t a1, NSObject *
                 goto LABEL_69;
               }
 
-              v38 = 138412290;
-              v39 = v17;
+              v37 = 138412290;
+              v38 = v17;
               v24 = "Connection already exists to peer %@";
 LABEL_68:
-              _os_log_impl(&dword_242158000, v23, OS_LOG_TYPE_INFO, v24, &v38, 0xCu);
+              _os_log_impl(&dword_242158000, v23, OS_LOG_TYPE_INFO, v24, &v37, 0xCu);
 LABEL_69:
 
               goto LABEL_70;
@@ -376,9 +373,9 @@ LABEL_69:
             v25 = C2_MULTIPEER_LOG_INTERNAL_1;
             if (os_log_type_enabled(C2_MULTIPEER_LOG_INTERNAL_1, OS_LOG_TYPE_INFO))
             {
-              v38 = 138412290;
-              v39 = v17;
-              _os_log_impl(&dword_242158000, v25, OS_LOG_TYPE_INFO, "Creating connection to %@", &v38, 0xCu);
+              v37 = 138412290;
+              v38 = v17;
+              _os_log_impl(&dword_242158000, v25, OS_LOG_TYPE_INFO, "Creating connection to %@", &v37, 0xCu);
             }
 
             v26 = [*(a1 + 32) _peerToPeerParameters];
@@ -404,9 +401,9 @@ LABEL_69:
             v34 = C2_MULTIPEER_LOG_INTERNAL_1;
             if (os_log_type_enabled(C2_MULTIPEER_LOG_INTERNAL_1, OS_LOG_TYPE_INFO))
             {
-              v38 = 138412290;
-              v39 = v17;
-              _os_log_impl(&dword_242158000, v34, OS_LOG_TYPE_INFO, "nw_browse_result_change_result_removed for peer %@", &v38, 0xCu);
+              v37 = 138412290;
+              v38 = v17;
+              _os_log_impl(&dword_242158000, v34, OS_LOG_TYPE_INFO, "nw_browse_result_change_result_removed for peer %@", &v37, 0xCu);
             }
           }
 
@@ -420,9 +417,9 @@ LABEL_69:
             v35 = C2_MULTIPEER_LOG_INTERNAL_1;
             if (os_log_type_enabled(C2_MULTIPEER_LOG_INTERNAL_1, OS_LOG_TYPE_INFO))
             {
-              v38 = 138412290;
-              v39 = v17;
-              _os_log_impl(&dword_242158000, v35, OS_LOG_TYPE_INFO, "nw_browse_result_change_interface_added for peer %@", &v38, 0xCu);
+              v37 = 138412290;
+              v38 = v17;
+              _os_log_impl(&dword_242158000, v35, OS_LOG_TYPE_INFO, "nw_browse_result_change_interface_added for peer %@", &v37, 0xCu);
             }
           }
 
@@ -436,9 +433,9 @@ LABEL_69:
             v36 = C2_MULTIPEER_LOG_INTERNAL_1;
             if (os_log_type_enabled(C2_MULTIPEER_LOG_INTERNAL_1, OS_LOG_TYPE_INFO))
             {
-              v38 = 138412290;
-              v39 = v17;
-              _os_log_impl(&dword_242158000, v36, OS_LOG_TYPE_INFO, "nw_browse_result_change_interface_removed for peer %@", &v38, 0xCu);
+              v37 = 138412290;
+              v38 = v17;
+              _os_log_impl(&dword_242158000, v36, OS_LOG_TYPE_INFO, "nw_browse_result_change_interface_removed for peer %@", &v37, 0xCu);
             }
           }
 
@@ -458,8 +455,8 @@ LABEL_69:
             goto LABEL_69;
           }
 
-          v38 = 138412290;
-          v39 = v17;
+          v37 = 138412290;
+          v38 = v17;
           v24 = "nw_browse_result_change_txt_record_changed for peer %@";
           goto LABEL_68;
         }
@@ -475,7 +472,7 @@ LABEL_69:
           goto LABEL_70;
         }
 
-        LOWORD(v38) = 0;
+        LOWORD(v37) = 0;
         v15 = "No service type.";
       }
 
@@ -492,12 +489,12 @@ LABEL_69:
           goto LABEL_70;
         }
 
-        LOWORD(v38) = 0;
+        LOWORD(v37) = 0;
         v15 = "No service name.";
       }
 
 LABEL_27:
-      _os_log_impl(&dword_242158000, v14, OS_LOG_TYPE_INFO, v15, &v38, 2u);
+      _os_log_impl(&dword_242158000, v14, OS_LOG_TYPE_INFO, v15, &v37, 2u);
 LABEL_70:
 
       goto LABEL_71;
@@ -512,13 +509,11 @@ LABEL_70:
   v16 = C2_MULTIPEER_LOG_INTERNAL_1;
   if (os_log_type_enabled(C2_MULTIPEER_LOG_INTERNAL_1, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v38) = 0;
-    _os_log_impl(&dword_242158000, v16, OS_LOG_TYPE_INFO, "No endpoint.", &v38, 2u);
+    LOWORD(v37) = 0;
+    _os_log_impl(&dword_242158000, v16, OS_LOG_TYPE_INFO, "No endpoint.", &v37, 2u);
   }
 
 LABEL_71:
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __32__C2MultipeerDiscovery__browser__block_invoke_3()
@@ -639,7 +634,7 @@ uint64_t __32__C2MultipeerDiscovery__browser__block_invoke_63()
 
 void __33__C2MultipeerDiscovery__listener__block_invoke_2(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = nw_connection_copy_endpoint(v3);
   if (v4)
@@ -661,8 +656,8 @@ void __33__C2MultipeerDiscovery__listener__block_invoke_2(uint64_t a1, void *a2)
       v10 = C2_MULTIPEER_LOG_INTERNAL_1;
       if (os_log_type_enabled(C2_MULTIPEER_LOG_INTERNAL_1, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v21) = 0;
-        _os_log_impl(&dword_242158000, v10, OS_LOG_TYPE_INFO, "Ignoring connection, unexpected conflict on UUID, something has gone terribly wrong.", &v21, 2u);
+        LOWORD(v20) = 0;
+        _os_log_impl(&dword_242158000, v10, OS_LOG_TYPE_INFO, "Ignoring connection, unexpected conflict on UUID, something has gone terribly wrong.", &v20, 2u);
       }
 
       nw_connection_cancel(v3);
@@ -679,11 +674,11 @@ void __33__C2MultipeerDiscovery__listener__block_invoke_2(uint64_t a1, void *a2)
       if (os_log_type_enabled(C2_MULTIPEER_LOG_INTERNAL_1, OS_LOG_TYPE_INFO))
       {
         v13 = v12;
-        v21 = 136315394;
+        v20 = 136315394;
         description = nw_endpoint_get_description();
-        v23 = 2112;
-        v24 = v6;
-        _os_log_impl(&dword_242158000, v13, OS_LOG_TYPE_INFO, "Accepting connection from %s with fake peer ID %@", &v21, 0x16u);
+        v22 = 2112;
+        v23 = v6;
+        _os_log_impl(&dword_242158000, v13, OS_LOG_TYPE_INFO, "Accepting connection from %s with fake peer ID %@", &v20, 0x16u);
       }
 
       v14 = [C2MultipeerNetworkConnection alloc];
@@ -707,14 +702,12 @@ void __33__C2MultipeerDiscovery__listener__block_invoke_2(uint64_t a1, void *a2)
     v11 = C2_MULTIPEER_LOG_INTERNAL_1;
     if (os_log_type_enabled(C2_MULTIPEER_LOG_INTERNAL_1, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&dword_242158000, v11, OS_LOG_TYPE_INFO, "Ignoring connection, no endpoint.", &v21, 2u);
+      LOWORD(v20) = 0;
+      _os_log_impl(&dword_242158000, v11, OS_LOG_TYPE_INFO, "Ignoring connection, no endpoint.", &v20, 2u);
     }
 
     nw_connection_cancel(v3);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __33__C2MultipeerDiscovery__listener__block_invoke_3()

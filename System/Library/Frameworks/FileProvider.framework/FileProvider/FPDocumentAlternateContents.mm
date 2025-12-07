@@ -27,33 +27,33 @@
 
 - (void)updateWithManagerAlternateContentsDictionary:(id)dictionary
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v5 = [dictionaryCopy countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v5 = [dictionaryCopy countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v21;
+    v8 = *v20;
     *&v6 = 138412546;
-    v16 = v6;
+    v15 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(dictionaryCopy);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
-        v11 = [dictionaryCopy objectForKeyedSubscript:{v10, v16}];
-        v19 = 0;
-        v12 = [FPSandboxingURLWrapper wrapperWithURL:v11 extensionClass:"com.apple.fileprovider.read-write" error:&v19];
-        v13 = v19;
+        v10 = *(*(&v19 + 1) + 8 * i);
+        v11 = [dictionaryCopy objectForKeyedSubscript:{v10, v15}];
+        v18 = 0;
+        v12 = [FPSandboxingURLWrapper wrapperWithURL:v11 extensionClass:"com.apple.fileprovider.read-write" error:&v18];
+        v13 = v18;
         if (v12)
         {
           [(FPDocumentAlternateContents *)self setAlternateContentsURLWrapper:v12 forDocumentWithItemID:v10];
@@ -66,22 +66,20 @@
           {
             fp_shortDescription = [v11 fp_shortDescription];
             fp_prettyDescription = [v13 fp_prettyDescription];
-            *buf = v16;
-            v25 = fp_shortDescription;
-            v26 = 2112;
-            v27 = fp_prettyDescription;
+            *buf = v15;
+            v24 = fp_shortDescription;
+            v25 = 2112;
+            v26 = fp_prettyDescription;
             _os_log_error_impl(&dword_1AAAE1000, v14, OS_LOG_TYPE_ERROR, "[ERROR] couldn't create a URL wrapper for URL %@: %@ - this means iWork forgot to remove the alternate URL", buf, 0x16u);
           }
         }
       }
 
-      v7 = [dictionaryCopy countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v7 = [dictionaryCopy countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAlternateContentsURLWrapper:(id)wrapper forDocumentWithItemID:(id)d

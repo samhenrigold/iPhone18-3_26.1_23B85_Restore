@@ -571,7 +571,7 @@ LABEL_61:
       v23 = 0u;
       v24 = 0u;
       v22 = 0u;
-      [(_UISwipeHandler *)self _currentSwipeInfoWithTargetOffset:1 animated:0.0 usingSpringWithStiffness:1.0];
+      objc_msgSend__currentSwipeInfoWithTargetOffset_animated_usingSpringWithStiffness_(self, 0.0, 1.0);
       swipeController = [(_UISwipeHandler *)self swipeController];
       v19 = v22;
       v20 = v23;
@@ -644,7 +644,7 @@ LABEL_19:
     v23 = 0u;
     v24 = 0u;
     v22 = 0u;
-    [(_UISwipeHandler *)self _currentSwipeInfoWithTargetOffset:1 animated:0.0 usingSpringWithStiffness:1.0];
+    objc_msgSend__currentSwipeInfoWithTargetOffset_animated_usingSpringWithStiffness_(self, 0.0, 1.0);
     swipeController = [(_UISwipeHandler *)self swipeController];
     v19 = v22;
     v20 = v23;
@@ -684,7 +684,7 @@ LABEL_19:
   v14 = swipeController2;
   if (swipeController2)
   {
-    [swipeController2 configureForSwipeDirection:direction configuration:configurationCopy startingAtTouchLocation:{x, y}];
+    objc_msgSend_configureForSwipeDirection_configuration_startingAtTouchLocation_(swipeController2, x, y);
   }
 
   else
@@ -709,7 +709,7 @@ LABEL_19:
 - (void)_cancelExistingSwipeForGestureBeganIfNecessary:(id)necessary
 {
   necessaryCopy = necessary;
-  [(_UISwipeHandler *)self currentSwipeConfig];
+  objc_msgSend_currentSwipeConfig(self);
   if (v5 && [(_UISwipeHandler *)self _delegateWantsToDismissOnTouchDownForGestureRecognizer:necessaryCopy])
   {
     [(_UISwipeHandler *)self _cancelExistingSwipe];
@@ -821,7 +821,7 @@ LABEL_19:
   v11 = 0u;
   v12 = 0u;
   v10 = 0u;
-  [(_UISwipeHandler *)self _currentSwipeInfoWithTargetOffset:animated animated:offset usingSpringWithStiffness:stiffness];
+  objc_msgSend__currentSwipeInfoWithTargetOffset_animated_usingSpringWithStiffness_(self, a2, animated, offset, stiffness);
   swipeController = [(_UISwipeHandler *)self swipeController];
   v9[0] = v10;
   v9[1] = v11;

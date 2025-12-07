@@ -1,156 +1,22 @@
-uint64_t CalDatabaseCopyNaturalLanguageSuggestedEventsMatchingSummary(os_unfair_lock_s *a1, CFStringRef theString, char a3)
-{
-  if (theString)
-  {
-    v6 = CFStringGetLength(theString) != 0;
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  v7 = CalDatabaseCopyNaturalLanguageSuggestionsCalendar(a1);
-  if (!v7)
-  {
-    return 0;
-  }
-
-  v8 = v7;
-  UID = CalCalendarGetUID();
-  CFRelease(v8);
-  SelectPrefix = CPRecordStoreCreateSelectPrefix();
-  CFStringAppend(SelectPrefix, @" WHERE calendar_id = ?");
-  if ((a3 & 1) == 0)
-  {
-    CFStringAppend(SelectPrefix, @" AND start_date > ? AND suggested_event_info_id > 0");
-  }
-
-  if (v6 && (v11 = CFStringCreateWithFormat(0, 0, @"%%%@%%", theString)) != 0)
-  {
-    v12 = v11;
-    CStringFromCFString = CalCreateCStringFromCFString(v11);
-    CFStringAppend(SelectPrefix, @" AND summary LIKE ?");
-    CFRelease(v12);
-  }
-
-  else
-  {
-    CStringFromCFString = 0;
-  }
-
-  os_unfair_lock_lock(a1 + 20);
-  RecordStore = _CalDatabaseGetRecordStore(a1);
-  v15 = RecordStore;
-  if (CDBLockingAssertionsEnabled == 1 && RecordStore != 0)
-  {
-    Context = CPRecordStoreGetContext();
-    if (Context)
-    {
-      os_unfair_lock_assert_owner(Context + 20);
-    }
-  }
-
-  Database = CPRecordStoreGetDatabase();
-  if (CDBLockingAssertionsEnabled == 1)
-  {
-    if (Database)
-    {
-      if (*(Database + 104))
-      {
-        v19 = CPRecordStoreGetContext();
-        if (v19)
-        {
-          os_unfair_lock_assert_owner(v19 + 20);
-        }
-      }
-    }
-  }
-
-  v20 = CPSqliteDatabaseStatementForReading();
-  if (v20)
-  {
-    v21 = v20;
-    sqlite3_bind_int(*(v20 + 8), 1, UID);
-    if (a3)
-    {
-      v22 = 2;
-      if (!CStringFromCFString)
-      {
-LABEL_30:
-        if (CDBLockingAssertionsEnabled == 1)
-        {
-          if (v15)
-          {
-            v27 = CPRecordStoreGetContext();
-            if (v27)
-            {
-              os_unfair_lock_assert_owner(v27 + 20);
-            }
-          }
-        }
-
-        v23 = CPRecordStoreProcessStatementWithPropertyIndices();
-        goto LABEL_35;
-      }
-    }
-
-    else
-    {
-      v24 = *(v21 + 8);
-      v25 = objc_opt_new();
-      [v25 timeIntervalSinceReferenceDate];
-      sqlite3_bind_int64(v24, 2, v26);
-
-      v22 = 3;
-      if (!CStringFromCFString)
-      {
-        goto LABEL_30;
-      }
-    }
-
-    sqlite3_bind_text(*(v21 + 8), v22, CStringFromCFString, -1, 0);
-    goto LABEL_30;
-  }
-
-  v23 = 0;
-LABEL_35:
-  if (CDBLockingAssertionsEnabled == 1)
-  {
-    os_unfair_lock_assert_owner(a1 + 20);
-  }
-
-  os_unfair_lock_unlock(a1 + 20);
-  CFRelease(SelectPrefix);
-  if (CStringFromCFString)
-  {
-    free(CStringFromCFString);
-  }
-
-  return v23;
-}
-
 id CalEventGetNaturalLanguageSuggestedEventExpirationDate(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v1 = CalCalendarItemCopyLocalStructuredData(a1);
-  v8 = 0;
-  v2 = [MEMORY[0x1E6993068] unarchiveDictionaryFromData:v1 error:&v8];
-  v3 = v8;
+  v7 = 0;
+  v2 = [MEMORY[0x1E6993068] unarchiveDictionaryFromData:v1 error:&v7];
+  v3 = v7;
   if (v3)
   {
     v4 = CDBLogHandle;
     if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v10 = v3;
+      v9 = v3;
       _os_log_impl(&dword_1DEBB1000, v4, OS_LOG_TYPE_ERROR, "Error unarchiving local structured data. Error: %@", buf, 0xCu);
     }
   }
 
   v5 = [v2 objectForKey:@"EKEventNaturalLanguageSuggestedEventExpirationDate"];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -259,7 +125,7 @@ void _CalEventSetEndDate(uint64_t a1, int a2, double a3)
 {
   v4 = a3;
   v11 = a3;
-  DateProperty = _CalRecordGetDateProperty(a1);
+  DateProperty = _CalRecordGetDateProperty(a1, 6);
   v8 = fabs(DateProperty) < 2.22044605e-16;
   v7 = vabdd_f64(v4, DateProperty);
   v8 = !v8 && v7 < 2.22044605e-16;
@@ -300,7 +166,7 @@ void _CalEventSetEndDate(uint64_t a1, int a2, double a3)
 
 void CalEventSetEndDate(uint64_t a1, double a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalEventSetEndDate(a1, 1, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -316,14 +182,14 @@ double _CalEventGetEndDateWhileLocked(uint64_t a1, int a2)
   if (a2)
   {
 
-    return _CalRecordGetDateProperty(a1);
+    return _CalRecordGetDateProperty(a1, 6);
   }
 
   else
   {
-    RecordLock = CalGetRecordLock();
+    RecordLock = CalGetRecordLock(a1);
     os_unfair_lock_lock(RecordLock);
-    DateProperty = _CalRecordGetDateProperty(a1);
+    DateProperty = _CalRecordGetDateProperty(a1, 6);
     if (RecordLock)
     {
       if (CDBLockingAssertionsEnabled == 1)
@@ -349,12 +215,12 @@ void _CalEventGetDurationUnitsWhileLocked(uint64_t a1@<X0>, const __CFTimeZone *
 
   else
   {
-    RecordLock = CalGetRecordLock();
+    RecordLock = CalGetRecordLock(a1);
     os_unfair_lock_lock(RecordLock);
   }
 
-  DateProperty = _CalRecordGetDateProperty(a1);
-  v10 = _CalRecordGetDateProperty(a1);
+  DateProperty = _CalRecordGetDateProperty(a1, 6);
+  v10 = _CalRecordGetDateProperty(a1, 4);
   CFAbsoluteTimeGetDifferenceAsGregorianUnits(a4, v10, DateProperty, a2, 0xFFFFFFuLL);
   if ((a3 & 1) == 0)
   {
@@ -376,12 +242,12 @@ uint64_t _CalEventGetDurationWhileLocked(uint64_t a1, char a2)
 
   else
   {
-    RecordLock = CalGetRecordLock();
+    RecordLock = CalGetRecordLock(a1);
     os_unfair_lock_lock(RecordLock);
   }
 
-  DateProperty = _CalRecordGetDateProperty(a1);
-  v6 = _CalRecordGetDateProperty(a1);
+  DateProperty = _CalRecordGetDateProperty(a1, 6);
+  v6 = _CalRecordGetDateProperty(a1, 4);
   if ((a2 & 1) == 0)
   {
     if (CDBLockingAssertionsEnabled == 1)
@@ -405,8 +271,8 @@ uint64_t _CalEventGetDurationWhileLocked(uint64_t a1, char a2)
 
 uint64_t _CalEventGetDuration(uint64_t a1)
 {
-  DateProperty = _CalRecordGetDateProperty(a1);
-  v3 = _CalRecordGetDateProperty(a1);
+  DateProperty = _CalRecordGetDateProperty(a1, 6);
+  v3 = _CalRecordGetDateProperty(a1, 4);
   if (DateProperty <= v3)
   {
     return 0;
@@ -420,7 +286,7 @@ uint64_t _CalEventGetDuration(uint64_t a1)
 
 void CalEventSetAllDay(uint64_t a1, unsigned int a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalRecordSetPropertyIfDifferent(a1, 8, a2);
   if (a2)
@@ -429,7 +295,7 @@ void CalEventSetAllDay(uint64_t a1, unsigned int a2)
     v8 = v5;
     if (v5)
     {
-      DateProperty = _CalRecordGetDateProperty(a1);
+      DateProperty = _CalRecordGetDateProperty(a1, 6);
       _CalEventPinAllDayBoundaries(a1, &StartDate, &DateProperty);
       _CalEventSetStartDate(a1, StartDate, v8, 0, 0);
       _CalEventSetEndDate(a1, 0, DateProperty);
@@ -446,7 +312,7 @@ void CalEventSetAllDay(uint64_t a1, unsigned int a2)
 
 BOOL CalEventIsAllDay(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   IsAllDay = _CalEventIsAllDay(a1);
   if (CDBLockingAssertionsEnabled == 1)
@@ -488,7 +354,7 @@ uint64_t _CalEventGetDefaultAlarmOffset(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t CalEventCanAddRecurrence(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -505,14 +371,14 @@ uint64_t CalEventCanAddRecurrence(uint64_t a1)
     }
   }
 
-  if (CPRecordGetProperty() >= 1 && (_CalCalendarItemGetStoreId(a1), Store = CPRecordGetStore(), _CalGetStoreWithUID(Store)))
+  if (CPRecordGetProperty() >= 1 && (StoreId = _CalCalendarItemGetStoreId(a1), Store = CPRecordGetStore(), _CalGetStoreWithUID(Store, StoreId)))
   {
-    v5 = _CalStoreSupportsRecurrencesOnDetachedEvents();
+    v6 = _CalStoreSupportsRecurrencesOnDetachedEvents();
   }
 
   else
   {
-    v5 = 1;
+    v6 = 1;
   }
 
   if (CDBLockingAssertionsEnabled == 1)
@@ -521,12 +387,12 @@ uint64_t CalEventCanAddRecurrence(uint64_t a1)
   }
 
   os_unfair_lock_unlock(RecordLock);
-  return v5;
+  return v6;
 }
 
 void CalEventAddEventAction(uint64_t a1, void *a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -557,7 +423,7 @@ void CalEventAddEventAction(uint64_t a1, void *a2)
   os_unfair_lock_unlock(RecordLock);
 }
 
-uint64_t _CalEventRemoveEventAction(uint64_t a1, void *a2)
+void *_CalEventRemoveEventAction(uint64_t a1, void *a2)
 {
   if (a1)
   {
@@ -586,7 +452,7 @@ uint64_t _CalEventRemoveEventAction(uint64_t a1, void *a2)
 
 void CalEventRemoveEventAction(uint64_t a1, void *a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalEventRemoveEventAction(a1, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -599,7 +465,7 @@ void CalEventRemoveEventAction(uint64_t a1, void *a2)
 
 CFMutableArrayRef CalEventCopyEventActions(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   v3 = _CalEventCopyEventActions(a1);
   if (CDBLockingAssertionsEnabled == 1)
@@ -640,7 +506,7 @@ CFMutableArrayRef _CalEventCopyEventActions(uint64_t a1)
 
 BOOL CalEventIsInvite(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   IsInvite = _CalCalendarItemIsInvite(a1);
   if (CDBLockingAssertionsEnabled == 1)
@@ -654,7 +520,7 @@ BOOL CalEventIsInvite(uint64_t a1)
 
 BOOL CalEventHasActionWithExternalAndFolderID(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -743,7 +609,7 @@ LABEL_23:
 
 BOOL CalEventAttendeeIsSelf(uint64_t a1, CFTypeRef a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   SelfAttendee = _CalCalendarItemGetSelfAttendee(a1);
   if (CDBLockingAssertionsEnabled == 1)
@@ -755,9 +621,9 @@ BOOL CalEventAttendeeIsSelf(uint64_t a1, CFTypeRef a2)
   return SelfAttendee == a2;
 }
 
-void CalEventSetParticipationStatusModifiedDate(_BOOL8 a1, CFAbsoluteTime a2)
+void CalEventSetParticipationStatusModifiedDate(uint64_t a1, CFAbsoluteTime a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalRecordSetDateProperty(a1, 55, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -770,9 +636,9 @@ void CalEventSetParticipationStatusModifiedDate(_BOOL8 a1, CFAbsoluteTime a2)
 
 double CalEventGetParticipationStatusModifiedDate(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
-  DateProperty = _CalRecordGetDateProperty(a1);
+  DateProperty = _CalRecordGetDateProperty(a1, 55);
   if (CDBLockingAssertionsEnabled == 1)
   {
     os_unfair_lock_assert_owner(RecordLock);
@@ -796,14 +662,14 @@ BOOL CalEventSetParticipationStatus(const void *a1, int a2)
     v6 = 0;
   }
 
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   SelfAttendee = _CalCalendarItemGetSelfAttendee(a1);
   v9 = SelfAttendee;
   if (SelfAttendee)
   {
     _CalAttendeeSetStatus(SelfAttendee, a2);
-    _CalEventMarkPropertyModified(a1);
+    _CalEventMarkPropertyModified(a1, 64);
     _CalEventMarkEventAsNeedingOccurrenceCacheUpdate(a1);
     if (v6 && (_CalCalendarGetInvitationStatus(a1) & 0x10) == 0)
     {
@@ -875,7 +741,7 @@ uint64_t CalEventGetPendingParticipationStatus(uint64_t a1)
   return PendingStatus;
 }
 
-unint64_t CalEventIsOrganizedExternally(uint64_t a1)
+uint64_t CalEventIsOrganizedExternally(uint64_t a1)
 {
   result = CalCalendarItemHasAttendees(a1, 1);
   if (result)
@@ -893,7 +759,7 @@ unint64_t CalEventIsOrganizedExternally(uint64_t a1)
   return result;
 }
 
-uint64_t CalEventIsOnCalendarThatAllowsScheduling(uint64_t a1)
+BOOL CalEventIsOnCalendarThatAllowsScheduling(uint64_t a1)
 {
   v1 = CalCalendarItemCopyCalendar(a1);
   if (!v1)
@@ -953,7 +819,7 @@ uint64_t CalEventNeedsResponse(uint64_t a1)
 
 BOOL CalEventHasOccurrenceInTheFuture(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = CalCalendarItemCopyRecurrences(a1);
   if (![(__CFArray *)v2 count])
   {
@@ -972,12 +838,12 @@ BOOL CalEventHasOccurrenceInTheFuture(uint64_t a1)
   v5 = v4;
 
   DurationWhileLocked = _CalEventGetDurationWhileLocked(a1, 0);
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v7 = v2;
-  v8 = [(__CFArray *)v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v8 = [(__CFArray *)v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (!v8)
   {
 
@@ -989,18 +855,18 @@ LABEL_16:
   v9 = v8;
   v10 = 0;
   v11 = DurationWhileLocked;
-  v12 = *v28;
+  v12 = *v27;
   v13 = *MEMORY[0x1E6993100];
   while (2)
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v28 != v12)
+      if (*v27 != v12)
       {
         objc_enumerationMutation(v7);
       }
 
-      EffectiveEndDate = CalRecurrenceGetEffectiveEndDate(*(*(&v27 + 1) + 8 * i));
+      EffectiveEndDate = CalRecurrenceGetEffectiveEndDate(*(*(&v26 + 1) + 8 * i));
       if (vabdd_f64(EffectiveEndDate, v13) < 2.22044605e-16)
       {
 
@@ -1011,7 +877,7 @@ LABEL_16:
       v10 |= EffectiveEndDate + v11 > v5;
     }
 
-    v9 = [(__CFArray *)v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v9 = [(__CFArray *)v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v9)
     {
       continue;
@@ -1036,7 +902,6 @@ LABEL_16:
 
 LABEL_17:
 
-  v25 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -1162,7 +1027,7 @@ LABEL_31:
           if (v29)
           {
             v30 = v29;
-            v31 = (CalAttendeeCopyAddress)();
+            v31 = CalAttendeeCopyAddress(v29);
             v48 = [v31 absoluteString];
             v47 = CalAttendeeCopyEmailAddress(v30);
             v32 = CalAttendeeCopyPhoneNumber(v30);
@@ -1248,7 +1113,7 @@ LABEL_5:
 
 void CalEventNotifyInvitationIfNeededWithOptions(uint64_t a1, int a2)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v4 = CalEventCopyOriginalEvent(a1);
   v5 = v4;
   if (v4)
@@ -1284,7 +1149,7 @@ void CalEventNotifyInvitationIfNeededWithOptions(uint64_t a1, int a2)
     {
       v15 = v17;
       *buf = 67109120;
-      RowID = CalCalendarItemGetRowID();
+      RowID = CalCalendarItemGetRowID(a1);
       v16 = "Marking event with UID %d as needing a notification because the self attendee needs a response";
       goto LABEL_16;
     }
@@ -1297,28 +1162,28 @@ LABEL_17:
   v13 = !v11;
   if (((!v11 | v8) & 1) == 0 && !CalEventGetInvitationChangedProperties(a1))
   {
-    v24 = CDBLogHandle;
+    v23 = CDBLogHandle;
     if (!os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_17;
     }
 
-    v15 = v24;
+    v15 = v23;
     *buf = 67109120;
-    RowID = CalCalendarItemGetRowID();
+    RowID = CalCalendarItemGetRowID(a1);
     v16 = "Marking event with UID %d as no longer needing a notification because it is in the inbox, does not need a response, and has no other reason for being there";
     goto LABEL_16;
   }
 
   if (((IsSignificantlyDetachedOptionallyIgnoringPartStat | v13 | v7) & 1) == 0 && CalEventGetInvitationChangedProperties(a1) <= 0xF)
   {
-    CalEventSetInvitationChangedProperties(a1);
+    CalEventSetInvitationChangedProperties(a1, 0);
     v14 = CDBLogHandle;
     if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v15 = v14;
       *buf = 67109120;
-      RowID = CalCalendarItemGetRowID();
+      RowID = CalCalendarItemGetRowID(a1);
       v16 = "Marking event with UID %d as no longer needing a notification because it is detached and redundant with a notification for its parent which is already in the inbox";
 LABEL_16:
       _os_log_impl(&dword_1DEBB1000, v15, OS_LOG_TYPE_DEFAULT, v16, buf, 8u);
@@ -1332,41 +1197,39 @@ LABEL_16:
 LABEL_18:
   if (!v5 && a2)
   {
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     v18 = CalEventCopyDetachedEvents(a1);
-    v19 = [(__CFArray *)v18 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v19 = [(__CFArray *)v18 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v26;
+      v21 = *v25;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v26 != v21)
+          if (*v25 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          CalEventNotifyInvitationIfNeededWithOptions(*(*(&v25 + 1) + 8 * i), 1);
+          CalEventNotifyInvitationIfNeededWithOptions(*(*(&v24 + 1) + 8 * i), 1);
         }
 
-        v20 = [(__CFArray *)v18 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v20 = [(__CFArray *)v18 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v20);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 CFTypeRef CalEventCopyOriginalEvent(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   OriginalEvent = _CalEventGetOriginalEvent(a1);
   v4 = OriginalEvent;
@@ -1386,7 +1249,7 @@ CFTypeRef CalEventCopyOriginalEvent(uint64_t a1)
 
 BOOL CalEventShouldDisplayNotification(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   InvitationStatus = _CalEventGetInvitationStatus(a1);
   if (CDBLockingAssertionsEnabled == 1)
@@ -1398,9 +1261,9 @@ BOOL CalEventShouldDisplayNotification(uint64_t a1)
   return InvitationStatus != 0;
 }
 
-void CalEventSetNeedsNotification(_BOOL8 a1, int a2)
+void CalEventSetNeedsNotification(uint64_t a1, int a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a2)
   {
@@ -1434,7 +1297,7 @@ void CalEventSetNeedsNotification(_BOOL8 a1, int a2)
 
 uint64_t CalEventGetInvitationChangedProperties(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   InvitationChangedProperties = _CalEventGetInvitationChangedProperties(a1);
   if (CDBLockingAssertionsEnabled == 1)
@@ -1446,11 +1309,12 @@ uint64_t CalEventGetInvitationChangedProperties(uint64_t a1)
   return InvitationChangedProperties;
 }
 
-void CalEventSetInvitationChangedProperties(uint64_t a1)
+void CalEventSetInvitationChangedProperties(uint64_t a1, uint64_t a2)
 {
-  RecordLock = CalGetRecordLock();
+  v2 = a2;
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
-  _CalEventSetInvitationChangedProperties(a1);
+  _CalEventSetInvitationChangedProperties(a1, v2);
   if (CDBLockingAssertionsEnabled == 1)
   {
     os_unfair_lock_assert_owner(RecordLock);
@@ -1461,7 +1325,7 @@ void CalEventSetInvitationChangedProperties(uint64_t a1)
 
 CFMutableArrayRef CalEventCopyDetachedEvents(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   v3 = _CalEventCopyDetachedEvents(a1);
   if (CDBLockingAssertionsEnabled == 1)
@@ -1512,7 +1376,7 @@ uint64_t CalDatabaseGetCountOfUnacknowledgedEventsInStore(os_unfair_lock_s *a1, 
 {
   if (a2)
   {
-    v3 = CalCopyDatabaseForRecord();
+    v3 = CalCopyDatabaseForRecord(a2);
   }
 
   else
@@ -1738,7 +1602,7 @@ uint64_t CalDatabaseCopyOfAllUnacknowledgedEventsInStore(os_unfair_lock_s *a1, u
 {
   if (a2)
   {
-    v3 = CalCopyDatabaseForRecord();
+    v3 = CalCopyDatabaseForRecord(a2);
   }
 
   else
@@ -1790,7 +1654,7 @@ const __CFString *CalDatabaseCopyOfAllEventsWithParticipantsWithProposedNewTimes
 {
   if (a2)
   {
-    v4 = CalCopyDatabaseForRecord();
+    v4 = CalCopyDatabaseForRecord(a2);
   }
 
   else
@@ -1894,7 +1758,7 @@ CFArrayRef CalDatabaseCopyOfAllNotifiableOrRepliedEventsInStore(os_unfair_lock_s
 {
   if (a2)
   {
-    v5 = CalCopyDatabaseForRecord();
+    v5 = CalCopyDatabaseForRecord(a2);
   }
 
   else
@@ -1960,26 +1824,26 @@ CFArrayRef CalDatabaseCopyOfAllNotifiableOrRepliedEventsInStore(os_unfair_lock_s
   {
     for (i = 0; i != v17; ++i)
     {
-      CFArrayGetValueAtIndex(v8, i);
-      v19 = [MEMORY[0x1E696AD98] numberWithInt:CalCalendarItemGetRowID()];
-      [v16 addObject:v19];
+      ValueAtIndex = CFArrayGetValueAtIndex(v8, i);
+      v20 = [MEMORY[0x1E696AD98] numberWithInt:CalCalendarItemGetRowID(ValueAtIndex)];
+      [v16 addObject:v20];
     }
   }
 
   for (j = 0; j != v15; ++j)
   {
-    ValueAtIndex = CFArrayGetValueAtIndex(v13, j);
-    if (ValueAtIndex)
+    v22 = CFArrayGetValueAtIndex(v13, j);
+    if (v22)
     {
-      v22 = ValueAtIndex;
-      v23 = [MEMORY[0x1E696AD98] numberWithInt:CalCalendarItemGetRowID()];
-      v24 = [v16 containsObject:v23];
+      v23 = v22;
+      v24 = [MEMORY[0x1E696AD98] numberWithInt:CalCalendarItemGetRowID(v22)];
+      v25 = [v16 containsObject:v24];
 
-      if ((v24 & 1) == 0)
+      if ((v25 & 1) == 0)
       {
-        CFArrayAppendValue(theArray, v22);
-        v25 = [MEMORY[0x1E696AD98] numberWithInt:CalCalendarItemGetRowID()];
-        [v16 addObject:v25];
+        CFArrayAppendValue(theArray, v23);
+        v26 = [MEMORY[0x1E696AD98] numberWithInt:CalCalendarItemGetRowID(v23)];
+        [v16 addObject:v26];
       }
     }
   }
@@ -2005,9 +1869,9 @@ LABEL_31:
     goto LABEL_33;
   }
 
-  v29.location = 0;
-  v29.length = v17;
-  CFArrayAppendArray(theArray, v8, v29);
+  v30.location = 0;
+  v30.length = v17;
+  CFArrayAppendArray(theArray, v8, v30);
 
   if (v8)
   {
@@ -2028,7 +1892,7 @@ uint64_t CalDatabaseCopyOfAllReadCancelledEventsInStore(os_unfair_lock_s *a1, ui
 {
   if (a2)
   {
-    v3 = CalCopyDatabaseForRecord();
+    v3 = CalCopyDatabaseForRecord(a2);
   }
 
   else
@@ -2134,7 +1998,7 @@ uint64_t CalDatabaseGetCountOfNotifiableEventsInStore(os_unfair_lock_s *a1, uint
 {
   if (a2)
   {
-    v3 = CalCopyDatabaseForRecord();
+    v3 = CalCopyDatabaseForRecord(a2);
   }
 
   else
@@ -2229,7 +2093,7 @@ uint64_t _CalEventSetInvitationStatus(uint64_t a1, unsigned int a2)
 
 void CalEventSetInvitationStatus(uint64_t a1, unsigned int a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalEventSetInvitationStatus(a1, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -2242,7 +2106,7 @@ void CalEventSetInvitationStatus(uint64_t a1, unsigned int a2)
 
 uint64_t CalEventGetInvitationStatus(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   InvitationStatus = _CalEventGetInvitationStatus(a1);
   if (CDBLockingAssertionsEnabled == 1)
@@ -2276,7 +2140,7 @@ uint64_t _CalEventGetInvitationStatus(uint64_t a1)
 
 BOOL CalEventHasBeenAlerted(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   InvitationStatus = _CalEventGetInvitationStatus(a1);
   if (CDBLockingAssertionsEnabled == 1)
@@ -2293,7 +2157,7 @@ uint64_t CalDatabaseCopyOfAllUnalertedEventsInStore(os_unfair_lock_s *a1, uint64
 {
   if (a2)
   {
-    v3 = CalCopyDatabaseForRecord();
+    v3 = CalCopyDatabaseForRecord(a2);
   }
 
   else
@@ -2486,19 +2350,19 @@ uint64_t CalAlertInviteeDeclines()
 
 BOOL CalEventCanBeMovedToAnotherCalendar(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
-  _CalCalendarItemGetStoreId(a1);
+  StoreId = _CalCalendarItemGetStoreId(a1);
   Store = CPRecordGetStore();
-  StoreWithUID = _CalGetStoreWithUID(Store);
+  StoreWithUID = _CalGetStoreWithUID(Store, StoreId);
   if (StoreWithUID)
   {
-    v5 = !_CalStoreGetBoolConstraintValue(StoreWithUID, @"CalEvent", @"CalendarNotChangeable", 0);
+    v6 = !_CalStoreGetBoolConstraintValue(StoreWithUID, @"CalEvent", @"CalendarNotChangeable", 0);
   }
 
   else
   {
-    v5 = 1;
+    v6 = 1;
   }
 
   if (CDBLockingAssertionsEnabled == 1)
@@ -2507,12 +2371,12 @@ BOOL CalEventCanBeMovedToAnotherCalendar(uint64_t a1)
   }
 
   os_unfair_lock_unlock(RecordLock);
-  return v5;
+  return v6;
 }
 
-void CalEventSetResponseComment(_BOOL8 a1, const __CFNumber *a2)
+void CalEventSetResponseComment(uint64_t a1, const __CFNumber *a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalRecordSetPropertyIfDifferent(a1, 29, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -2525,7 +2389,7 @@ void CalEventSetResponseComment(_BOOL8 a1, const __CFNumber *a2)
 
 uint64_t CalEventCopyResponseComment(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -2552,9 +2416,9 @@ uint64_t CalEventCopyResponseComment(uint64_t a1)
   return v4;
 }
 
-void CalEventSetLastSyncedResponseComment(_BOOL8 a1, const __CFNumber *a2)
+void CalEventSetLastSyncedResponseComment(uint64_t a1, const __CFNumber *a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalRecordSetPropertyIfDifferent(a1, 30, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -2567,7 +2431,7 @@ void CalEventSetLastSyncedResponseComment(_BOOL8 a1, const __CFNumber *a2)
 
 uint64_t CalEventCopyLastSyncedResponseComment(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -2655,7 +2519,7 @@ void CalSetShowCompletedReminders(uint64_t a1)
   [v4 setBooleanPreference:@"ShowCompletedReminders" value:a1 notificationName:@"com.apple.mobilecal.showCompletedRemindersChanged"];
 }
 
-void _CalEventSetOriginalEvent(void *a1, uint64_t a2)
+void _CalEventSetOriginalEvent(void *a1, void *a2)
 {
   if (a2)
   {
@@ -2674,7 +2538,7 @@ void _CalEventSetOriginalEvent(void *a1, uint64_t a2)
   }
 }
 
-uint64_t _CalEventRemoveDetachedEvent(uint64_t a1, void *a2)
+void *_CalEventRemoveDetachedEvent(uint64_t a1, void *a2)
 {
   if (a1)
   {
@@ -2701,9 +2565,9 @@ uint64_t _CalEventRemoveDetachedEvent(uint64_t a1, void *a2)
   return result;
 }
 
-void CalEventSetOriginalEvent(void *a1, uint64_t a2)
+void CalEventSetOriginalEvent(void *a1, void *a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalEventSetOriginalEvent(a1, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -2714,9 +2578,9 @@ void CalEventSetOriginalEvent(void *a1, uint64_t a2)
   os_unfair_lock_unlock(RecordLock);
 }
 
-void CalEventAddDetachedEvent(uint64_t a1, void *a2)
+void CalEventAddDetachedEvent(void *a1, void *a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalEventAddDetachedEvent(a1, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -2729,7 +2593,7 @@ void CalEventAddDetachedEvent(uint64_t a1, void *a2)
 
 void CalEventRemoveDetachedEvent(uint64_t a1, void *a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalEventRemoveDetachedEvent(a1, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -2767,7 +2631,7 @@ void _CalEventDeleteAllDetachedEvents(uint64_t a1)
 
 BOOL CalEventIsDetached(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   OriginalEvent = _CalEventGetOriginalEvent(a1);
   if (CDBLockingAssertionsEnabled == 1)
@@ -2806,7 +2670,7 @@ void _CalEventUpdateDetachedEventsRelation(uint64_t a1)
 
 void CalEventSetOriginalStartDate(uint64_t a1, CFAbsoluteTime a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalEventSetOriginalStartDate(a1, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -2819,9 +2683,9 @@ void CalEventSetOriginalStartDate(uint64_t a1, CFAbsoluteTime a2)
 
 double CalEventGetOriginalStartDate(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
-  DateProperty = _CalRecordGetDateProperty(a1);
+  DateProperty = _CalRecordGetDateProperty(a1, 11);
   if (CDBLockingAssertionsEnabled == 1)
   {
     os_unfair_lock_assert_owner(RecordLock);
@@ -2833,7 +2697,7 @@ double CalEventGetOriginalStartDate(uint64_t a1)
 
 uint64_t CalEventCopyUncachedCalendar(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -2978,7 +2842,7 @@ BOOL _CalDatabaseCalendarHasEventsWithAttendeeAsAttendeeType(uint64_t a1, uint64
   return v14;
 }
 
-uint64_t _CalDatabaseCopyNonRecurringEventsInDateRange(uint64_t a1, uint64_t a2, void *a3)
+uint64_t _CalDatabaseCopyNonRecurringEventsInDateRange(uint64_t a1, uint64_t a2, void *a3, double a4, double a5, double a6, double a7)
 {
   RecordStore = _CalDatabaseGetRecordStore(a1);
   if (RecordStore)
@@ -2995,7 +2859,7 @@ uint64_t _CalDatabaseCopyNonRecurringEventsInDateRange(uint64_t a1, uint64_t a2,
     if (CPRecordStoreGetDatabase())
     {
       SelectPrefix = CPRecordStoreCreateSelectPrefix();
-      v9 = _CalFilterCopyQuery2(a3, a1, @"_CalDatabaseCopyNonRecurringEventsInDateRange", _CalCopyEventQueryForFilter, SelectPrefix, @"has_recurrences = 0 AND hidden = 0 AND ((end_date > ? AND start_date < ?) OR (proposed_start_date > ? AND proposed_start_date < ?))");
+      v13 = _CalFilterCopyQuery2(a3, a1, @"_CalDatabaseCopyNonRecurringEventsInDateRange", _CalCopyEventQueryForFilter, SelectPrefix, @"has_recurrences = 0 AND hidden = 0 AND ((end_date > ? AND start_date < ?) OR (proposed_start_date > ? AND proposed_start_date < ?))");
       if (a2)
       {
         if (CDBLockingAssertionsEnabled)
@@ -3004,10 +2868,10 @@ uint64_t _CalDatabaseCopyNonRecurringEventsInDateRange(uint64_t a1, uint64_t a2,
           {
             if (*(*a2 + 104))
             {
-              v10 = CPRecordStoreGetContext();
-              if (v10)
+              v14 = CPRecordStoreGetContext();
+              if (v14)
               {
-                os_unfair_lock_assert_owner(v10 + 20);
+                os_unfair_lock_assert_owner(v14 + 20);
               }
             }
           }
@@ -3016,7 +2880,7 @@ uint64_t _CalDatabaseCopyNonRecurringEventsInDateRange(uint64_t a1, uint64_t a2,
 
       CPSqliteConnectionStatementForSQL();
       RecordStore = 0;
-      CFRelease(v9);
+      CFRelease(v13);
       CFRelease(SelectPrefix);
     }
 
@@ -3089,10 +2953,10 @@ uint64_t _CalDatabaseNonRecurringEventsInDateRangeRowHandler(uint64_t a1, uint64
 
 uint64_t _CalDatabaseCopyRecurringEventsPossiblyOccurringInDateRange(uint64_t a1, void *a2, const __CFString *a3, double a4, double a5, double a6, double a7)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (!_CalDatabaseGetRecordStore(a1))
   {
-    goto LABEL_27;
+    return 0;
   }
 
   if (CDBLockingAssertionsEnabled == 1)
@@ -3105,76 +2969,71 @@ uint64_t _CalDatabaseCopyRecurringEventsPossiblyOccurringInDateRange(uint64_t a1
   }
 
   Database = CPRecordStoreGetDatabase();
-  if (Database)
+  if (!Database)
   {
-    v14 = Database;
-    v15 = *MEMORY[0x1E695E480];
-    v16 = CFArrayCreate(*MEMORY[0x1E695E480], _CalDatabaseCopyRecurringEventsPossiblyOccurringInDateRange_columns, 7, 0);
-    ColumnListWithAliasAndExtraColumns = CPRecordStoreCreateColumnListWithAliasAndExtraColumns();
-    if (ColumnListWithAliasAndExtraColumns)
+    return 0;
+  }
+
+  v14 = Database;
+  v15 = *MEMORY[0x1E695E480];
+  v16 = CFArrayCreate(*MEMORY[0x1E695E480], _CalDatabaseCopyRecurringEventsPossiblyOccurringInDateRange_columns, 7, 0);
+  ColumnListWithAliasAndExtraColumns = CPRecordStoreCreateColumnListWithAliasAndExtraColumns();
+  if (ColumnListWithAliasAndExtraColumns)
+  {
+    v18 = ColumnListWithAliasAndExtraColumns;
+    CFStringAppend(ColumnListWithAliasAndExtraColumns, @" FROM CalendarItem e JOIN Recurrence r ON r.owner_id = e.ROWID");
+    v19 = _CalFilterCopyQuery2(a2, a1, @"_CalDatabaseCopyRecurringEventsPossiblyOccurringInDateRange", _CalCopyEventQueryForFilter, v18, @"entity_type = 2 AND has_recurrences = 1 AND hidden=0 AND start_date < ? ");
+    if (v19)
     {
-      v18 = ColumnListWithAliasAndExtraColumns;
-      CFStringAppend(ColumnListWithAliasAndExtraColumns, @" FROM CalendarItem e JOIN Recurrence r ON r.owner_id = e.ROWID");
-      v19 = _CalFilterCopyQuery2(a2, a1, @"_CalDatabaseCopyRecurringEventsPossiblyOccurringInDateRange", _CalCopyEventQueryForFilter, v18, @"entity_type = 2 AND has_recurrences = 1 AND hidden=0 AND start_date < ? ");
-      if (v19)
+      v20 = v19;
+      if (CDBLockingAssertionsEnabled == 1)
       {
-        v20 = v19;
-        if (CDBLockingAssertionsEnabled == 1)
+        if (*(v14 + 104))
         {
-          if (*(v14 + 104))
+          v21 = CPRecordStoreGetContext();
+          if (v21)
           {
-            v21 = CPRecordStoreGetContext();
-            if (v21)
-            {
-              os_unfair_lock_assert_owner(v21 + 20);
-            }
+            os_unfair_lock_assert_owner(v21 + 20);
           }
         }
+      }
 
-        v22 = CPSqliteDatabaseStatementForReading();
-        if (v22 && (a5 <= a7 ? (v23 = a7) : (v23 = a5), sqlite3_bind_int64(*(v22 + 8), 1, v23), CFStringGetCString(a3, buffer, 256, 0x8000100u)))
+      v22 = CPSqliteDatabaseStatementForReading();
+      if (v22 && (a5 <= a7 ? (v23 = a7) : (v23 = a5), sqlite3_bind_int64(*(v22 + 8), 1, v23), CFStringGetCString(a3, buffer, 256, 0x8000100u)))
+      {
+        CFDictionaryGetCount(0);
+        v28 = CalTimeZoneCopyCFTimeZone();
+        cf = CFTimeZoneCreateWithTimeIntervalFromGMT(v15, 0.0);
+        CFDictionaryGetValue(0, 4);
+        CFDictionaryGetValue(0, 6);
+        CFDictionaryGetValue(0, 5);
+        v24 = 0;
+        CFDictionaryGetValue(0, 0x38);
+        v25 = cf;
+        if (v28 && cf)
         {
-          CFDictionaryGetCount(0);
-          v29 = CalTimeZoneCopyCFTimeZone();
-          cf = CFTimeZoneCreateWithTimeIntervalFromGMT(v15, 0.0);
-          CFDictionaryGetValue(0, 4);
-          CFDictionaryGetValue(0, 6);
-          CFDictionaryGetValue(0, 5);
-          v24 = 0;
-          CFDictionaryGetValue(0, 0x38);
+          if (CDBLockingAssertionsEnabled == 1)
+          {
+            v26 = CPRecordStoreGetContext();
+            if (v26)
+            {
+              os_unfair_lock_assert_owner(v26 + 20);
+            }
+          }
+
+          v24 = CPRecordStoreProcessStatementWithPropertyIndices();
           v25 = cf;
-          if (v29 && cf)
-          {
-            if (CDBLockingAssertionsEnabled == 1)
-            {
-              v26 = CPRecordStoreGetContext();
-              if (v26)
-              {
-                os_unfair_lock_assert_owner(v26 + 20);
-              }
-            }
-
-            v24 = CPRecordStoreProcessStatementWithPropertyIndices();
-            v25 = cf;
-          }
-
-          if (v25)
-          {
-            CFRelease(v25);
-          }
-
-          if (v29)
-          {
-            CFRelease(v29);
-          }
         }
 
-        else
+        if (v25)
         {
-          v24 = 0;
+          CFRelease(v25);
         }
 
-        CFRelease(v20);
+        if (v28)
+        {
+          CFRelease(v28);
+        }
       }
 
       else
@@ -3182,8 +3041,7 @@ uint64_t _CalDatabaseCopyRecurringEventsPossiblyOccurringInDateRange(uint64_t a1
         v24 = 0;
       }
 
-      CFRelease(0);
-      CFRelease(v18);
+      CFRelease(v20);
     }
 
     else
@@ -3191,16 +3049,16 @@ uint64_t _CalDatabaseCopyRecurringEventsPossiblyOccurringInDateRange(uint64_t a1
       v24 = 0;
     }
 
-    CFRelease(v16);
+    CFRelease(0);
+    CFRelease(v18);
   }
 
   else
   {
-LABEL_27:
     v24 = 0;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
+  CFRelease(v16);
   return v24;
 }
 
@@ -3274,38 +3132,31 @@ LABEL_18:
       return 2;
     }
 
-    v22 = 32;
-    if (v4)
-    {
-      v22 = 40;
-    }
-
-    v23 = 16;
+    v22 = 16;
     if (!v4)
     {
-      v23 = 0;
+      v22 = 0;
     }
 
-    v24 = *(a2 + v15);
-    v25 = *(a2 + v23);
-    v26 = *(a2 + v22);
+    v23 = *(a2 + v15);
+    v24 = *(a2 + v22);
     CalAbsoluteTimeGetGregorianDateWithFallbackToDefaultTimeZone();
     GregorianDateWithFallbackToDefaultTimeZone = CalAbsoluteTimeGetGregorianDateWithFallbackToDefaultTimeZone();
-    v28 = CalAbsoluteTimeGetGregorianDateWithFallbackToDefaultTimeZone();
-    if (GregorianDateWithFallbackToDefaultTimeZone <= v28)
+    v26 = CalAbsoluteTimeGetGregorianDateWithFallbackToDefaultTimeZone();
+    if (GregorianDateWithFallbackToDefaultTimeZone <= v26)
     {
-      v29 = v16;
-      v30 = v28 + 1;
+      v27 = v16;
+      v28 = v26 + 1;
       while (1)
       {
         CalGregorianDateGetAbsoluteTimeWithFallbackToDefaultTimeZone();
-        if (v31 + v29 >= v25 && v31 <= v24)
+        if (v29 + v27 >= v24 && v29 <= v23)
         {
           break;
         }
 
         result = 0;
-        if (v30 == ++GregorianDateWithFallbackToDefaultTimeZone)
+        if (v28 == ++GregorianDateWithFallbackToDefaultTimeZone)
         {
           return result;
         }
@@ -3347,9 +3198,9 @@ const void *_CalEventCopyTravelTime(uint64_t a1)
   return v3;
 }
 
-void CalEventSetTravelTime(_BOOL8 a1, const __CFNumber *a2)
+void CalEventSetTravelTime(uint64_t a1, const __CFNumber *a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalRecordSetPropertyIfDifferent(a1, 57, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -3362,7 +3213,7 @@ void CalEventSetTravelTime(_BOOL8 a1, const __CFNumber *a2)
 
 const void *CalEventCopyTravelTime(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   v3 = _CalEventCopyTravelTime(a1);
   if (CDBLockingAssertionsEnabled == 1)
@@ -3374,9 +3225,9 @@ const void *CalEventCopyTravelTime(uint64_t a1)
   return v3;
 }
 
-void CalEventSetProposedStartDate(_BOOL8 a1, CFAbsoluteTime a2)
+void CalEventSetProposedStartDate(uint64_t a1, CFAbsoluteTime a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   CFDateRefFromCalDate = _CreateCFDateRefFromCalDate(a2);
   _CalRecordSetPropertyIfDifferent(a1, 63, CFDateRefFromCalDate);
@@ -3395,7 +3246,7 @@ void CalEventSetProposedStartDate(_BOOL8 a1, CFAbsoluteTime a2)
 
 double CalEventGetRawProposedStartDate(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   ProposedStartDate = _CalEventGetProposedStartDate(a1);
   if (CDBLockingAssertionsEnabled == 1)
@@ -3409,7 +3260,7 @@ double CalEventGetRawProposedStartDate(uint64_t a1)
 
 const void *CalEventCopyRecurrenceSet(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -3442,9 +3293,9 @@ const void *CalEventCopyRecurrenceSet(uint64_t a1)
   return v5;
 }
 
-void CalEventSetRecurrenceSet(uint64_t a1)
+void CalEventSetRecurrenceSet(uint64_t a1, uint64_t a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -3472,7 +3323,7 @@ void CalEventSetRecurrenceSet(uint64_t a1)
 
 BOOL CalEventGetFlag(uint64_t a1, uint64_t a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -3499,9 +3350,9 @@ BOOL CalEventGetFlag(uint64_t a1, uint64_t a2)
   return (Property & a2) != 0;
 }
 
-void CalEventSetFlag(uint64_t a1)
+void CalEventSetFlag(uint64_t a1, uint64_t a2, int a3)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -3525,10 +3376,10 @@ void CalEventSetFlag(uint64_t a1)
     {
       if (CPRecordGetStore())
       {
-        v4 = CPRecordStoreGetContext();
-        if (v4)
+        v6 = CPRecordStoreGetContext();
+        if (v6)
         {
-          os_unfair_lock_assert_owner(v4 + 20);
+          os_unfair_lock_assert_owner(v6 + 20);
         }
       }
     }
@@ -3545,7 +3396,7 @@ void CalEventSetFlag(uint64_t a1)
 
 uint64_t CalEventGetTravelAdvisoryBehavior(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -3572,9 +3423,9 @@ uint64_t CalEventGetTravelAdvisoryBehavior(uint64_t a1)
   return Property;
 }
 
-void CalEventSetTravelAdvisoryBehavior(_BOOL8 a1, unsigned int a2)
+void CalEventSetTravelAdvisoryBehavior(uint64_t a1, unsigned int a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalRecordSetPropertyIfDifferent(a1, 58, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -3587,110 +3438,118 @@ void CalEventSetTravelAdvisoryBehavior(_BOOL8 a1, unsigned int a2)
 
 BOOL CalEventIsCandidateForTravelAdvisories(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  if (a1)
-  {
-    if (CalCalendarItemGetStatus(a1) == 3)
-    {
-      v2 = CDBLogHandle;
-      result = os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_DEBUG);
-      if (result)
-      {
-        v4 = v2;
-        v5 = CalCalendarItemCopySummary(a1);
-        v16 = 138412290;
-        v17 = v5;
-        v6 = "Event is not a candidate for travel advisories because it is a cancelled event.  Summary: [%@]";
-LABEL_20:
-        _os_log_impl(&dword_1DEBB1000, v4, OS_LOG_TYPE_DEBUG, v6, &v16, 0xCu);
-
-        goto LABEL_21;
-      }
-    }
-
-    else if (CalEventIsAllDay(a1))
-    {
-      v8 = CDBLogHandle;
-      result = os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_DEBUG);
-      if (result)
-      {
-        v4 = v8;
-        v5 = CalCalendarItemCopySummary(a1);
-        v16 = 138412290;
-        v17 = v5;
-        v6 = "Event is not a candidate for travel advisories because it is an all-day event.  Summary: [%@]";
-        goto LABEL_20;
-      }
-    }
-
-    else if (CalEventGetParticipationStatus(a1) == 2)
-    {
-      v9 = CDBLogHandle;
-      result = os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_DEBUG);
-      if (result)
-      {
-        v4 = v9;
-        v5 = CalCalendarItemCopySummary(a1);
-        v16 = 138412290;
-        v17 = v5;
-        v6 = "Event is not a candidate for travel advisories because the user declined the event.  Summary: [%@]";
-        goto LABEL_20;
-      }
-    }
-
-    else if (CalEventGetTravelAdvisoryBehavior(a1) < 2)
-    {
-      v11 = CalCalendarItemCopyCalendar(a1);
-      if (!v11 || (v12 = v11, IsIgnoringEventAlerts = CalCalendarIsIgnoringEventAlerts(v11), CFRelease(v12), !IsIgnoringEventAlerts))
-      {
-        result = 1;
-        goto LABEL_22;
-      }
-
-      v14 = CDBLogHandle;
-      result = os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_DEBUG);
-      if (result)
-      {
-        v4 = v14;
-        v5 = CalCalendarItemCopySummary(a1);
-        v16 = 138412290;
-        v17 = v5;
-        v6 = "Event is not a candidate for travel advisories because its calendar has all event alerts disabled.  Summary: [%@]";
-        goto LABEL_20;
-      }
-    }
-
-    else
-    {
-      v10 = CDBLogHandle;
-      result = os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_DEBUG);
-      if (result)
-      {
-        v4 = v10;
-        v5 = CalCalendarItemCopySummary(a1);
-        v16 = 138412290;
-        v17 = v5;
-        v6 = "Event is not a candidate for travel advisories because its travel advisory behavior is not 'automatic' or 'enabled'.  Summary: [%@]";
-        goto LABEL_20;
-      }
-    }
-  }
-
-  else
+  v17 = *MEMORY[0x1E69E9840];
+  if (!a1)
   {
     v7 = CDBLogHandle;
     result = os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR);
-    if (result)
+    if (!result)
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_1DEBB1000, v7, OS_LOG_TYPE_ERROR, "No event given.  Will not determine travel advisory eligibility.", &v16, 2u);
-LABEL_21:
-      result = 0;
+      return result;
     }
+
+    LOWORD(v15) = 0;
+    _os_log_impl(&dword_1DEBB1000, v7, OS_LOG_TYPE_ERROR, "No event given.  Will not determine travel advisory eligibility.", &v15, 2u);
+    return 0;
   }
 
-LABEL_22:
-  v15 = *MEMORY[0x1E69E9840];
+  if (CalCalendarItemGetStatus(a1) == 3)
+  {
+    v2 = CDBLogHandle;
+    result = os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_DEBUG);
+    if (!result)
+    {
+      return result;
+    }
+
+    v4 = v2;
+    v5 = CalCalendarItemCopySummary(a1);
+    v15 = 138412290;
+    v16 = v5;
+    v6 = "Event is not a candidate for travel advisories because it is a cancelled event.  Summary: [%@]";
+    goto LABEL_20;
+  }
+
+  if (CalEventIsAllDay(a1))
+  {
+    v8 = CDBLogHandle;
+    result = os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_DEBUG);
+    if (!result)
+    {
+      return result;
+    }
+
+    v4 = v8;
+    v5 = CalCalendarItemCopySummary(a1);
+    v15 = 138412290;
+    v16 = v5;
+    v6 = "Event is not a candidate for travel advisories because it is an all-day event.  Summary: [%@]";
+    goto LABEL_20;
+  }
+
+  if (CalEventGetParticipationStatus(a1) == 2)
+  {
+    v9 = CDBLogHandle;
+    result = os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_DEBUG);
+    if (!result)
+    {
+      return result;
+    }
+
+    v4 = v9;
+    v5 = CalCalendarItemCopySummary(a1);
+    v15 = 138412290;
+    v16 = v5;
+    v6 = "Event is not a candidate for travel advisories because the user declined the event.  Summary: [%@]";
+    goto LABEL_20;
+  }
+
+  if (CalEventGetTravelAdvisoryBehavior(a1) >= 2)
+  {
+    v10 = CDBLogHandle;
+    result = os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_DEBUG);
+    if (!result)
+    {
+      return result;
+    }
+
+    v4 = v10;
+    v5 = CalCalendarItemCopySummary(a1);
+    v15 = 138412290;
+    v16 = v5;
+    v6 = "Event is not a candidate for travel advisories because its travel advisory behavior is not 'automatic' or 'enabled'.  Summary: [%@]";
+    goto LABEL_20;
+  }
+
+  v11 = CalCalendarItemCopyCalendar(a1);
+  if (!v11)
+  {
+    return 1;
+  }
+
+  v12 = v11;
+  IsIgnoringEventAlerts = CalCalendarIsIgnoringEventAlerts(v11);
+  CFRelease(v12);
+  if (!IsIgnoringEventAlerts)
+  {
+    return 1;
+  }
+
+  v14 = CDBLogHandle;
+  result = os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_DEBUG);
+  if (result)
+  {
+    v4 = v14;
+    v5 = CalCalendarItemCopySummary(a1);
+    v15 = 138412290;
+    v16 = v5;
+    v6 = "Event is not a candidate for travel advisories because its calendar has all event alerts disabled.  Summary: [%@]";
+LABEL_20:
+    _os_log_impl(&dword_1DEBB1000, v4, OS_LOG_TYPE_DEBUG, v6, &v15, 0xCu);
+
+    return 0;
+  }
+
   return result;
 }
 
@@ -3726,7 +3585,7 @@ uint64_t CalEventIsImmediatelyEligibleForTravelAdvisories(uint64_t a1)
 
 BOOL CalEventIsHidden(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   IsHidden = _CalEventIsHidden(a1);
   if (CDBLockingAssertionsEnabled == 1)
@@ -3738,9 +3597,9 @@ BOOL CalEventIsHidden(uint64_t a1)
   return IsHidden;
 }
 
-void CalEventSetHidden(_BOOL8 a1, unsigned int a2)
+void CalEventSetHidden(uint64_t a1, unsigned int a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalRecordSetPropertyIfDifferent(a1, 31, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -3751,9 +3610,9 @@ void CalEventSetHidden(_BOOL8 a1, unsigned int a2)
   os_unfair_lock_unlock(RecordLock);
 }
 
-void CalEventSetCanForward(_BOOL8 a1, unsigned int a2)
+void CalEventSetCanForward(uint64_t a1, unsigned int a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalRecordSetPropertyIfDifferent(a1, 64, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -3766,7 +3625,7 @@ void CalEventSetCanForward(_BOOL8 a1, unsigned int a2)
 
 BOOL CalEventCanForward(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -3793,9 +3652,9 @@ BOOL CalEventCanForward(uint64_t a1)
   return Property != 0;
 }
 
-void CalEventSetLocationPredictionState(_BOOL8 a1, int a2)
+void CalEventSetLocationPredictionState(uint64_t a1, int a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalRecordSetPropertyIfDifferent(a1, 65, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -3808,7 +3667,7 @@ void CalEventSetLocationPredictionState(_BOOL8 a1, int a2)
 
 uint64_t CalEventGetLocationPredictionState(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -3837,14 +3696,13 @@ uint64_t CalEventGetLocationPredictionState(uint64_t a1)
 
 BOOL CalEventHasPredictedLocation(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = CalCalendarItemCopyPreferredLocation(a1);
   v3 = v2;
   if (v2 && CalLocationHasCoordinates(v2))
   {
     CFRelease(v3);
-    v4 = 0;
-    goto LABEL_7;
+    return 0;
   }
 
   if (CalEventGetLocationPredictionState(a1))
@@ -3852,51 +3710,51 @@ BOOL CalEventHasPredictedLocation(uint64_t a1)
     v4 = 0;
     if (!v3)
     {
-      goto LABEL_7;
+      return v4;
     }
 
 LABEL_6:
     CFRelease(v3);
-    goto LABEL_7;
+    return v4;
   }
 
-  v7 = CalCalendarItemCopySummary(a1);
+  v6 = CalCalendarItemCopySummary(a1);
   if (v3)
   {
-    v8 = CalLocationCopyTitle(v3);
+    v7 = CalLocationCopyTitle(v3);
   }
 
   else
   {
-    v8 = &stru_1F59E24D8;
+    v7 = &stru_1F59E24D8;
   }
 
-  v9 = CalCalendarItemCopyCalendar(a1);
-  v10 = CalCalendarCopyUUID(v9);
-  CFRelease(v9);
-  v16 = 0;
-  v11 = [MEMORY[0x1E6992FF0] predictedLocationOfInterestForEventTitle:v7 eventLocation:v8 calendarIdentifier:v10 timeout:-1 error:&v16];
-  v12 = v16;
-  v4 = v11 != 0;
+  v8 = CalCalendarItemCopyCalendar(a1);
+  v9 = CalCalendarCopyUUID(v8);
+  CFRelease(v8);
+  v15 = 0;
+  v10 = [MEMORY[0x1E6992FF0] predictedLocationOfInterestForEventTitle:v6 eventLocation:v7 calendarIdentifier:v9 timeout:-1 error:&v15];
+  v11 = v15;
+  v4 = v10 != 0;
 
-  if (!v11)
+  if (!v10)
   {
-    if (v12)
+    if (v11)
     {
-      v13 = CDBLogHandle;
+      v12 = CDBLogHandle;
       if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v14 = v13;
-        v15 = [v12 localizedDescription];
+        v13 = v12;
+        v14 = [v11 localizedDescription];
         *buf = 138413058;
-        v18 = v7;
-        v19 = 2112;
-        v20 = v8;
-        v21 = 2112;
-        v22 = v10;
-        v23 = 2112;
-        v24 = v15;
-        _os_log_impl(&dword_1DEBB1000, v14, OS_LOG_TYPE_ERROR, "Could not fetch predicted location of interest for event title: [%@], event location: [%@], calendar identifier: [%@], error: [%@]", buf, 0x2Au);
+        v17 = v6;
+        v18 = 2112;
+        v19 = v7;
+        v20 = 2112;
+        v21 = v9;
+        v22 = 2112;
+        v23 = v14;
+        _os_log_impl(&dword_1DEBB1000, v13, OS_LOG_TYPE_ERROR, "Could not fetch predicted location of interest for event title: [%@], event location: [%@], calendar identifier: [%@], error: [%@]", buf, 0x2Au);
       }
     }
   }
@@ -3906,14 +3764,12 @@ LABEL_6:
     goto LABEL_6;
   }
 
-LABEL_7:
-  v5 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
-void CalEventSetDisallowProposeNewTime(_BOOL8 a1, unsigned int a2)
+void CalEventSetDisallowProposeNewTime(uint64_t a1, unsigned int a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalRecordSetPropertyIfDifferent(a1, 67, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -3926,7 +3782,7 @@ void CalEventSetDisallowProposeNewTime(_BOOL8 a1, unsigned int a2)
 
 BOOL CalEventDisallowProposeNewTime(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -3953,9 +3809,9 @@ BOOL CalEventDisallowProposeNewTime(uint64_t a1)
   return Property != 0;
 }
 
-void CalEventSetJunkStatus(_BOOL8 a1, const __CFNumber *a2)
+void CalEventSetJunkStatus(uint64_t a1, const __CFNumber *a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalRecordSetPropertyIfDifferent(a1, 70, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -3968,7 +3824,7 @@ void CalEventSetJunkStatus(_BOOL8 a1, const __CFNumber *a2)
 
 void _CalEventUpdateLastModifiedDate(uint64_t a1)
 {
-  v2 = CalCopyDatabaseForRecord();
+  v2 = CalCopyDatabaseForRecord(a1);
   if (v2)
   {
     v3 = v2;
@@ -4011,16 +3867,11 @@ void CalEventGetLastModifiedDate(uint64_t a1)
     MEMORY[0x1E12C5EF0]();
     CFRelease(v2);
   }
-
-  else
-  {
-    v3 = *MEMORY[0x1E6993100];
-  }
 }
 
-void CalEventSetConferenceURL(_BOOL8 a1, const __CFURL *a2)
+void CalEventSetConferenceURL(uint64_t a1, const __CFURL *a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a2)
   {
@@ -4043,7 +3894,7 @@ void CalEventSetConferenceURL(_BOOL8 a1, const __CFURL *a2)
 
 CFURLRef CalEventCopyConferenceURL(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -4100,7 +3951,7 @@ uint64_t _CalEventInvalidateDetectedConferenceURL(uint64_t a1)
 
 uint64_t CalEventCopyDetectedConferenceURL(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalEventUpdateDetectedConferenceURLIfNeeded(a1);
   if (a1)
@@ -4210,9 +4061,9 @@ uint64_t _CalEventCopyContactIdentifier(uint64_t a1)
   return CPRecordCopyProperty();
 }
 
-void CalEventSetContactIdentifier(_BOOL8 a1, const __CFNumber *a2)
+void CalEventSetContactIdentifier(uint64_t a1, const __CFNumber *a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalRecordSetPropertyIfDifferent(a1, 72, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -4225,7 +4076,7 @@ void CalEventSetContactIdentifier(_BOOL8 a1, const __CFNumber *a2)
 
 uint64_t CalEventCopyContactIdentifier(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   v3 = _CalEventCopyContactIdentifier(a1);
   if (CDBLockingAssertionsEnabled == 1)
@@ -4237,9 +4088,9 @@ uint64_t CalEventCopyContactIdentifier(uint64_t a1)
   return v3;
 }
 
-void CalEventSetContactName(_BOOL8 a1, const __CFNumber *a2)
+void CalEventSetContactName(uint64_t a1, const __CFNumber *a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalRecordSetPropertyIfDifferent(a1, 75, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -4252,7 +4103,7 @@ void CalEventSetContactName(_BOOL8 a1, const __CFNumber *a2)
 
 uint64_t CalEventCopyContactName(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -4279,7 +4130,7 @@ uint64_t CalEventCopyContactName(uint64_t a1)
   return v4;
 }
 
-uint64_t _CalEventSetInvitationChangedProperties(uint64_t a1)
+uint64_t _CalEventSetInvitationChangedProperties(uint64_t a1, unsigned int a2)
 {
   if (a1)
   {
@@ -4321,12 +4172,12 @@ uint64_t _CalEventGetInvitationChangedProperties(uint64_t a1)
 
 void CalEventAddInvitationChangedProperties(uint64_t a1, int a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   InvitationChangedProperties = _CalEventGetInvitationChangedProperties(a1);
   if ((InvitationChangedProperties | a2) != InvitationChangedProperties)
   {
-    _CalEventSetInvitationChangedProperties(a1);
+    _CalEventSetInvitationChangedProperties(a1, InvitationChangedProperties | a2);
   }
 
   if (CDBLockingAssertionsEnabled == 1)
@@ -4339,12 +4190,13 @@ void CalEventAddInvitationChangedProperties(uint64_t a1, int a2)
 
 void CalEventRemoveInvitationChangedProperties(uint64_t a1, int a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   InvitationChangedProperties = _CalEventGetInvitationChangedProperties(a1);
-  if ((InvitationChangedProperties & ~a2) != InvitationChangedProperties)
+  v6 = InvitationChangedProperties & ~a2;
+  if (v6 != InvitationChangedProperties)
   {
-    _CalEventSetInvitationChangedProperties(a1);
+    _CalEventSetInvitationChangedProperties(a1, v6);
   }
 
   if (CDBLockingAssertionsEnabled == 1)
@@ -4355,9 +4207,9 @@ void CalEventRemoveInvitationChangedProperties(uint64_t a1, int a2)
   os_unfair_lock_unlock(RecordLock);
 }
 
-void CalEventSetSpecialDayString(_BOOL8 a1, const __CFNumber *a2)
+void CalEventSetSpecialDayString(uint64_t a1, const __CFNumber *a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalRecordSetPropertyIfDifferent(a1, 127, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -4370,7 +4222,7 @@ void CalEventSetSpecialDayString(_BOOL8 a1, const __CFNumber *a2)
 
 uint64_t CalEventCopySpecialDayString(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -4397,7 +4249,7 @@ uint64_t CalEventCopySpecialDayString(uint64_t a1)
   return v4;
 }
 
-uint64_t _CalEventSetImage(void *a1, uint64_t a2)
+void *_CalEventSetImage(void *a1, void *a2)
 {
   result = _CalEventGetImage(a1);
   if (result != a2)
@@ -4444,9 +4296,9 @@ CFTypeRef _CalEventGetImage(uint64_t a1)
   return result;
 }
 
-void CalEventSetImage(void *a1, uint64_t a2)
+void CalEventSetImage(void *a1, void *a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalEventSetImage(a1, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -4459,7 +4311,7 @@ void CalEventSetImage(void *a1, uint64_t a2)
 
 CFTypeRef CalEventCopyImage(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   Image = _CalEventGetImage(a1);
   if (Image)
@@ -4481,7 +4333,7 @@ CFTypeRef CalEventCopyImage(uint64_t a1)
   return v4;
 }
 
-uint64_t _CalEventSetColor(void *a1, uint64_t a2)
+void *_CalEventSetColor(void *a1, void *a2)
 {
   result = _CalEventGetColor(a1);
   if (result != a2)
@@ -4528,9 +4380,9 @@ CFTypeRef _CalEventGetColor(uint64_t a1)
   return result;
 }
 
-void CalEventSetColor(void *a1, uint64_t a2)
+void CalEventSetColor(void *a1, void *a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalEventSetColor(a1, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -4543,7 +4395,7 @@ void CalEventSetColor(void *a1, uint64_t a2)
 
 CFTypeRef CalEventCopyColor(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   Color = _CalEventGetColor(a1);
   if (Color)
@@ -4565,9 +4417,9 @@ CFTypeRef CalEventCopyColor(uint64_t a1)
   return v4;
 }
 
-void CalEventSetCreatorTeamIdentityString(_BOOL8 a1, const __CFNumber *a2)
+void CalEventSetCreatorTeamIdentityString(uint64_t a1, const __CFNumber *a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalRecordSetPropertyIfDifferent(a1, 119, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -4580,7 +4432,7 @@ void CalEventSetCreatorTeamIdentityString(_BOOL8 a1, const __CFNumber *a2)
 
 uint64_t CalEventCopyCreatorTeamIdentityString(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -4607,9 +4459,9 @@ uint64_t CalEventCopyCreatorTeamIdentityString(uint64_t a1)
   return v4;
 }
 
-void CalEventSetCreatorIdentityString(_BOOL8 a1, const __CFNumber *a2)
+void CalEventSetCreatorIdentityString(uint64_t a1, const __CFNumber *a2)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   _CalRecordSetPropertyIfDifferent(a1, 118, a2);
   if (CDBLockingAssertionsEnabled == 1)
@@ -4622,7 +4474,7 @@ void CalEventSetCreatorIdentityString(_BOOL8 a1, const __CFNumber *a2)
 
 uint64_t CalEventCopyCreatorIdentityString(uint64_t a1)
 {
-  RecordLock = CalGetRecordLock();
+  RecordLock = CalGetRecordLock(a1);
   os_unfair_lock_lock(RecordLock);
   if (a1)
   {
@@ -4670,7 +4522,7 @@ LABEL_8:
     __assert_rtn("CalDatabaseRemoveCalendarItemChangesInCalendarToIndex", "CalEvent.m", v11, v10);
   }
 
-  v7 = CalCopyDatabaseForRecord();
+  v7 = CalCopyDatabaseForRecord(a3);
   os_unfair_lock_lock(v7 + 20);
   v12[0] = MEMORY[0x1E69E9820];
   v12[1] = 3221225472;
@@ -4694,9 +4546,9 @@ LABEL_8:
   return v8;
 }
 
-void sub_1DEC2FC78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1DEC2FC78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4713,9 +4565,6 @@ uint64_t __CalDatabaseRemoveCalendarItemChangesInCalendarToIndex_block_invoke(ui
     }
   }
 
-  v5 = *(a1 + 56);
-  v8 = *(a1 + 60);
-  v7 = *(a1 + 48);
   result = CPRecordStoreDeleteChangesForClassToIndexWhereWithBindBlock();
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
@@ -4724,14 +4573,13 @@ uint64_t __CalDatabaseRemoveCalendarItemChangesInCalendarToIndex_block_invoke(ui
 uint64_t __CalDatabaseRemoveCalendarItemChangesInCalendarToIndex_block_invoke_2(uint64_t a1, uint64_t a2, int a3)
 {
   sqlite3_bind_int(*(a2 + 8), a3, *(a1 + 40));
-  v6 = *(a2 + 8);
-  v7 = *(a1 + 32);
+  v5 = *(a2 + 8);
   ID = CPRecordGetID();
 
-  return sqlite3_bind_int(v6, a3 + 1, ID);
+  return sqlite3_bind_int(v5, a3 + 1, ID);
 }
 
-uint64_t CalDatabaseRemoveCalendarItemChangesInStoreToIndex(uint64_t a1, int a2, uint64_t a3, int a4)
+uint64_t CalDatabaseRemoveCalendarItemChangesInStoreToIndex(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if ((a2 & 0xFFFFFFFE) != 2)
   {
@@ -4743,9 +4591,11 @@ uint64_t CalDatabaseRemoveCalendarItemChangesInStoreToIndex(uint64_t a1, int a2,
     CalDatabaseRemoveCalendarItemChangesInStoreToIndex_cold_2();
   }
 
-  v7 = CalCopyDatabaseForRecord();
+  v5 = a4;
+  v6 = a2;
+  v7 = CalCopyDatabaseForRecord(a3);
   os_unfair_lock_lock(v7 + 20);
-  v8 = _CalDatabaseRemoveCalendarItemChangesInStoreToIndex(v7, a2, a3, a4);
+  v8 = _CalDatabaseRemoveCalendarItemChangesInStoreToIndex(v7, v6, a3, v5);
   if (CDBLockingAssertionsEnabled == 1)
   {
     os_unfair_lock_assert_owner(v7 + 20);
@@ -4813,9 +4663,9 @@ uint64_t CalDatabaseRemoveCalendarItemChangesWithIndices(os_unfair_lock_s *a1, u
   return v4;
 }
 
-void sub_1DEC3003C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1DEC3003C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4832,7 +4682,6 @@ uint64_t __CalDatabaseRemoveCalendarItemChangesWithIndices_block_invoke(void *a1
     }
   }
 
-  v5 = a1[6];
   result = CPRecordStoreDeleteChangesForClassWithIndices();
   *(*(a1[4] + 8) + 24) = result;
   return result;
@@ -4894,19 +4743,18 @@ uint64_t __CalDatabaseCopyCalendarItemChangesInCalendar_block_invoke(uint64_t a1
 {
   sqlite3_bind_int(*(a2 + 8), 1, *(a1 + 56));
   v4 = *(a2 + 8);
-  v5 = *(a1 + 32);
   ID = CPRecordGetID();
   sqlite3_bind_int(v4, 2, ID);
   sqlite3_bind_text(*(a2 + 8), 3, *(a1 + 40), -1, 0);
   sqlite3_bind_text(*(a2 + 8), 4, *(a1 + 40), -1, 0);
   sqlite3_bind_int(*(a2 + 8), 5, *(a1 + 56));
   result = sqlite3_bind_text(*(a2 + 8), 6, *(a1 + 40), -1, 0);
-  v8 = *(*(a1 + 48) + 344);
-  if ((v8 & 0x80000000) == 0)
+  v7 = *(*(a1 + 48) + 344);
+  if ((v7 & 0x80000000) == 0)
   {
-    v9 = *(a2 + 8);
+    v8 = *(a2 + 8);
 
-    return sqlite3_bind_int(v9, 7, v8);
+    return sqlite3_bind_int(v8, 7, v7);
   }
 
   return result;
@@ -4931,12 +4779,16 @@ uint64_t _CalDatabaseCopyCalendarItemChangesInternal(uint64_t a1, uint64_t a2, c
   {
 LABEL_5:
     v11 = 0xFFFFFFFFLL;
-    goto LABEL_23;
+    goto LABEL_39;
   }
 
   v10 = Mutable;
   *a5 = Mutable;
 LABEL_7:
+  v26 = 0;
+  v27 = 0;
+  v24 = 0;
+  v25 = 0;
   if (v10)
   {
     RecordStore = _CalDatabaseGetRecordStore(a1);
@@ -4955,7 +4807,7 @@ LABEL_7:
       }
     }
 
-    ChangesForClassWithBindBlockAndProperties = CPRecordStoreGetChangesAndChangeIndicesAndSequenceNumbersForClassWithBindBlockAndProperties();
+    ChangesForClassWithBindBlockAndProperties = CPRecordStoreGetChangesAndChangeIndicesAndSequenceNumbersForClassWithBindBlockAndProperties(RecordStore, &kCalEventClass, &v27, &v26, &v25, &v24, a3, v8, "external_id");
   }
 
   else
@@ -4979,7 +4831,55 @@ LABEL_7:
     CFRelease(a3);
   }
 
-LABEL_23:
+  v19 = v27;
+  if (v27)
+  {
+    if (v10)
+    {
+      CFDictionaryAddValue(v10, @"ID", v27);
+      v19 = v27;
+    }
+
+    CFRelease(v19);
+  }
+
+  v20 = v26;
+  if (v26)
+  {
+    if (v10)
+    {
+      CFDictionaryAddValue(v10, @"Type", v26);
+      v20 = v26;
+    }
+
+    CFRelease(v20);
+  }
+
+  v21 = v25;
+  if (v25)
+  {
+    if (v10)
+    {
+      CFDictionaryAddValue(v10, @"ChangeID", v25);
+      v21 = v25;
+    }
+
+    CFRelease(v21);
+  }
+
+  v22 = v24;
+  if (v24)
+  {
+    if (v10)
+    {
+      CFDictionaryAddValue(v10, @"SequenceNumber", v24);
+      v22 = v24;
+    }
+
+    CFRelease(v22);
+  }
+
+LABEL_39:
 
   return v11;
 }
@@ -5083,7 +4983,7 @@ CFMutableDictionaryRef CalDatabaseCopyEventMovesInCalendar(os_unfair_lock_s *a1,
 
 void CalDatabaseAmendDeleteForCalendarItemWithExternalID(os_unfair_lock_s *a1, int a2, const __CFString *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(a1 + 20);
   if (a3)
   {
@@ -5187,9 +5087,9 @@ void CalDatabaseAmendDeleteForCalendarItemWithExternalID(os_unfair_lock_s *a1, i
     v21 = CDBLogHandle;
     if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v23 = 136315138;
-      v24 = "_CalDatabaseAmendDeleteForCalendarItemWithExternalID";
-      _os_log_impl(&dword_1DEBB1000, v21, OS_LOG_TYPE_ERROR, "%s: externalID is null and it wasn't intended to be so. exiting this function now to avoid crash.", &v23, 0xCu);
+      v22 = 136315138;
+      v23 = "_CalDatabaseAmendDeleteForCalendarItemWithExternalID";
+      _os_log_impl(&dword_1DEBB1000, v21, OS_LOG_TYPE_ERROR, "%s: externalID is null and it wasn't intended to be so. exiting this function now to avoid crash.", &v22, 0xCu);
     }
   }
 
@@ -5199,7 +5099,6 @@ void CalDatabaseAmendDeleteForCalendarItemWithExternalID(os_unfair_lock_s *a1, i
   }
 
   os_unfair_lock_unlock(a1 + 20);
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 BOOL _CalDatabasePrepareCalendarItemsInStoreForMigration(uint64_t a1, void *a2, uint64_t a3)
@@ -5224,14 +5123,14 @@ BOOL _CalDatabasePrepareCalendarItemsInStoreForMigration(uint64_t a1, void *a2, 
   if (v11)
   {
     v12 = v11;
-    EnsureAllEventsHaveUIDsWithQuery(a2);
+    EnsureAllEventsHaveUIDsWithQuery(a2, v11);
     CFRelease(v12);
   }
 
   return v9;
 }
 
-void EnsureAllEventsHaveUIDsWithQuery(uint64_t a1)
+void EnsureAllEventsHaveUIDsWithQuery(uint64_t a1, uint64_t a2)
 {
   if (a1)
   {
@@ -5251,24 +5150,24 @@ void EnsureAllEventsHaveUIDsWithQuery(uint64_t a1)
     }
   }
 
-  v3 = CPSqliteConnectionStatementForSQL();
-  if (v3)
+  v4 = CPSqliteConnectionStatementForSQL();
+  if (v4)
   {
-    v4 = v3;
+    v5 = v4;
     Mutable = CFDictionaryCreateMutable(0, 0, 0, MEMORY[0x1E695E9E8]);
     if (CDBLockingAssertionsEnabled == 1)
     {
-      if (*v4)
+      if (*v5)
       {
-        v6 = **v4;
-        if (v6)
+        v7 = **v5;
+        if (v7)
         {
-          if (*(v6 + 104))
+          if (*(v7 + 104))
           {
-            v7 = CPRecordStoreGetContext();
-            if (v7)
+            v8 = CPRecordStoreGetContext();
+            if (v8)
             {
-              os_unfair_lock_assert_owner(v7 + 20);
+              os_unfair_lock_assert_owner(v8 + 20);
             }
           }
         }
@@ -5278,9 +5177,9 @@ void EnsureAllEventsHaveUIDsWithQuery(uint64_t a1)
     CPSqliteStatementSendResults();
     if (CFDictionaryGetCount(Mutable) >= 1)
     {
-      v8[0] = Mutable;
-      v8[1] = a1;
-      CFDictionaryApplyFunction(Mutable, ApplyUIDUpdate, v8);
+      v9[0] = Mutable;
+      v9[1] = a1;
+      CFDictionaryApplyFunction(Mutable, ApplyUIDUpdate, v9);
     }
 
     CFRelease(Mutable);
@@ -5748,7 +5647,7 @@ uint64_t _EventIDGatherer(uint64_t a1, CFMutableArrayRef *a2)
 
 os_unfair_lock_s *CalEventCopyNextRecurrenceInSetForEvent(uint64_t a1, int a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   ValueAtIndex = CalCopyDatabaseForEntity(a1);
   if (ValueAtIndex)
   {
@@ -5844,7 +5743,7 @@ os_unfair_lock_s *CalEventCopyNextRecurrenceInSetForEvent(uint64_t a1, int a2)
         if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v26 = v10;
+          v25 = v10;
         }
 
         v19 = 0;
@@ -5888,74 +5787,73 @@ os_unfair_lock_s *CalEventCopyNextRecurrenceInSetForEvent(uint64_t a1, int a2)
     }
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return ValueAtIndex;
 }
 
 id CalEventGetStartDateOfEarliestOccurrenceEndingAfterDateWithExclusions(uint64_t a1, void *a2, void *a3, int a4, int a5, int a6)
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   v11 = a2;
   v12 = a3;
   if (CalCalendarItemHasRecurrenceRules(a1))
   {
-    v54 = objc_alloc_init(CDBRecurrenceGenerator);
+    v53 = objc_alloc_init(CDBRecurrenceGenerator);
     v13 = CalCalendarItemCopyExceptionDatesAsCFDates(a1, 1);
-    v57 = v11;
-    v53 = v13;
+    v56 = v11;
+    v52 = v13;
     if (v13)
     {
-      v56 = [MEMORY[0x1E695DFD8] setWithArray:v13];
+      v55 = [MEMORY[0x1E695DFD8] setWithArray:v13];
     }
 
     else
     {
-      v56 = 0;
+      v55 = 0;
     }
 
-    v51 = a1;
+    v50 = a1;
     v16 = CalEventCopyDetachedEvents(a1);
-    v66[0] = MEMORY[0x1E69E9820];
-    v66[1] = 3221225472;
-    v66[2] = __CalEventGetStartDateOfEarliestOccurrenceEndingAfterDateWithExclusions_block_invoke;
-    v66[3] = &unk_1E868FEB0;
-    v55 = v12;
+    v65[0] = MEMORY[0x1E69E9820];
+    v65[1] = 3221225472;
+    v65[2] = __CalEventGetStartDateOfEarliestOccurrenceEndingAfterDateWithExclusions_block_invoke;
+    v65[3] = &unk_1E868FEB0;
+    v54 = v12;
     v17 = v12;
-    v67 = v17;
-    v52 = v16;
-    [(__CFArray *)v16 sortedArrayUsingComparator:v66];
+    v66 = v17;
+    v51 = v16;
+    [(__CFArray *)v16 sortedArrayUsingComparator:v65];
+    v61 = 0u;
     v62 = 0u;
     v63 = 0u;
-    v64 = 0u;
-    v18 = v65 = 0u;
-    v19 = [v18 countByEnumeratingWithState:&v62 objects:v69 count:16];
+    v18 = v64 = 0u;
+    v19 = [v18 countByEnumeratingWithState:&v61 objects:v68 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v63;
+      v21 = *v62;
       while (2)
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v63 != v21)
+          if (*v62 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v62 + 1) + 8 * i);
-          if ((!a4 || (CalEventIsSignificantlyDetachedOptionallyIgnoringPartStat(*(*(&v62 + 1) + 8 * i), 0) & 1) == 0) && (!a5 || CalCalendarItemGetStatus(v23) != 3) && (!a6 || CalEventGetParticipationStatus(v23) != 2))
+          v23 = *(*(&v61 + 1) + 8 * i);
+          if ((!a4 || (CalEventIsSignificantlyDetachedOptionallyIgnoringPartStat(*(*(&v61 + 1) + 8 * i), 0) & 1) == 0) && (!a5 || CalCalendarItemGetStatus(v23) != 3) && (!a6 || CalEventGetParticipationStatus(v23) != 2))
           {
             v24 = CalEventGetEndDateInTimeZone(v23, v17);
-            if ([v24 CalIsAfterDate:v57])
+            if ([v24 CalIsAfterDate:v56])
             {
-              v49 = CalEventGetStartDateInTimeZone(v23, v17);
+              v48 = CalEventGetStartDateInTimeZone(v23, v17);
 
               goto LABEL_26;
             }
           }
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v62 objects:v69 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v61 objects:v68 count:16];
         if (v20)
         {
           continue;
@@ -5965,12 +5863,12 @@ id CalEventGetStartDateOfEarliestOccurrenceEndingAfterDateWithExclusions(uint64_
       }
     }
 
-    v49 = 0;
+    v48 = 0;
 LABEL_26:
 
     if ([v18 count])
     {
-      v25 = [v56 mutableCopy];
+      v25 = [v55 mutableCopy];
       if (!v25)
       {
         v25 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v18, "count")}];
@@ -5982,31 +5880,31 @@ LABEL_26:
       v25 = 0;
     }
 
-    v60 = 0u;
-    v61 = 0u;
-    v58 = 0u;
     v59 = 0u;
+    v60 = 0u;
+    v57 = 0u;
+    v58 = 0u;
     v26 = v18;
-    v27 = [v26 countByEnumeratingWithState:&v58 objects:v68 count:16];
+    v27 = [v26 countByEnumeratingWithState:&v57 objects:v67 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v59;
+      v29 = *v58;
       do
       {
         for (j = 0; j != v28; ++j)
         {
-          if (*v59 != v29)
+          if (*v58 != v29)
           {
             objc_enumerationMutation(v26);
           }
 
-          v31 = *(*(&v58 + 1) + 8 * j);
+          v31 = *(*(&v57 + 1) + 8 * j);
           v32 = v17;
           v33 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceReferenceDate:CalEventGetOriginalStartDate(v31)];
           if (CalEventIsFloating(v31) || CalEventIsAllDay(v31))
           {
-            v34 = [v33 dateInTimeZone:v32 fromTimeZone:{0, v49}];
+            v34 = [v33 dateInTimeZone:v32 fromTimeZone:{0, v48}];
 
             v33 = v34;
           }
@@ -6014,22 +5912,22 @@ LABEL_26:
           [v25 addObject:v33];
         }
 
-        v28 = [v26 countByEnumeratingWithState:&v58 objects:v68 count:16];
+        v28 = [v26 countByEnumeratingWithState:&v57 objects:v67 count:16];
       }
 
       while (v28);
     }
 
-    DurationWhileLocked = _CalEventGetDurationWhileLocked(v51, 0);
+    DurationWhileLocked = _CalEventGetDurationWhileLocked(v50, 0);
     v36 = MEMORY[0x1E69930C8];
-    v37 = [v57 dateByAddingTimeInterval:-DurationWhileLocked];
+    v37 = [v56 dateByAddingTimeInterval:-DurationWhileLocked];
     v38 = [v36 calendarDateWithDate:v37 timeZone:v17];
 
     v39 = MEMORY[0x1E69930C8];
-    v40 = CalEventGetStartDateInTimeZone(v51, v17);
+    v40 = CalEventGetStartDateInTimeZone(v50, v17);
     v41 = [v39 calendarDateWithDate:v40 timeZone:v17];
 
-    v42 = CalCalendarItemCopyRecurrences(v51);
+    v42 = CalCalendarItemCopyRecurrences(v50);
     if (v25)
     {
       v43 = v25;
@@ -6037,14 +5935,14 @@ LABEL_26:
 
     else
     {
-      v43 = v56;
+      v43 = v55;
     }
 
-    v44 = [(CDBRecurrenceGenerator *)v54 nextOccurrenceDateWithCalRecurrences:v42 exceptionDates:v43 initialDate:v41 afterDate:v38, v49];
-    v45 = v50;
+    v44 = [(CDBRecurrenceGenerator *)v53 nextOccurrenceDateWithCalRecurrences:v42 exceptionDates:v43 initialDate:v41 afterDate:v38, v48];
+    v45 = v49;
     if (v44)
     {
-      if (!v50 || (v46 = [v50 CalIsBeforeDate:v44], v45 = v50, (v46 & 1) == 0))
+      if (!v49 || (v46 = [v49 CalIsBeforeDate:v44], v45 = v49, (v46 & 1) == 0))
       {
         v45 = v44;
       }
@@ -6052,8 +5950,8 @@ LABEL_26:
 
     v15 = v45;
 
-    v11 = v57;
-    v12 = v55;
+    v11 = v56;
+    v12 = v54;
   }
 
   else
@@ -6069,8 +5967,6 @@ LABEL_26:
       v15 = 0;
     }
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -6445,30 +6341,14 @@ void _CalEventLoadCreatedByIdentityProperties(uint64_t a1)
     }
   }
 
-  if (CPRecordGetProperty() != -1)
+  Property = CPRecordGetProperty();
+  if (Property != -1)
   {
     Store = CPRecordGetStore();
-    IdentityWithRowID = _CalGetIdentityWithRowID(Store);
+    IdentityWithRowID = _CalGetIdentityWithRowID(Store, Property);
     if (IdentityWithRowID)
     {
-      v5 = IdentityWithRowID;
-      if (a1)
-      {
-        if (CDBLockingAssertionsEnabled)
-        {
-          if (CPRecordGetStore())
-          {
-            v6 = CPRecordStoreGetContext();
-            if (v6)
-            {
-              os_unfair_lock_assert_owner(v6 + 20);
-            }
-          }
-        }
-      }
-
-      _CalIdentityGetDisplayName(v5);
-      CPRecordInitializeProperty();
+      v6 = IdentityWithRowID;
       if (a1)
       {
         if (CDBLockingAssertionsEnabled)
@@ -6484,7 +6364,7 @@ void _CalEventLoadCreatedByIdentityProperties(uint64_t a1)
         }
       }
 
-      _CalIdentityGetFirstName(v5);
+      _CalIdentityGetDisplayName(v6);
       CPRecordInitializeProperty();
       if (a1)
       {
@@ -6501,29 +6381,46 @@ void _CalEventLoadCreatedByIdentityProperties(uint64_t a1)
         }
       }
 
-      _CalIdentityGetLastName(v5);
+      _CalIdentityGetFirstName(v6);
       CPRecordInitializeProperty();
-      v9 = _CalIdentityCopyAddress(v5);
       if (a1)
       {
         if (CDBLockingAssertionsEnabled)
         {
           if (CPRecordGetStore())
           {
-            v10 = CPRecordStoreGetContext();
-            if (v10)
+            v9 = CPRecordStoreGetContext();
+            if (v9)
             {
-              os_unfair_lock_assert_owner(v10 + 20);
+              os_unfair_lock_assert_owner(v9 + 20);
+            }
+          }
+        }
+      }
+
+      _CalIdentityGetLastName(v6);
+      CPRecordInitializeProperty();
+      v10 = _CalIdentityCopyAddress(v6);
+      if (a1)
+      {
+        if (CDBLockingAssertionsEnabled)
+        {
+          if (CPRecordGetStore())
+          {
+            v11 = CPRecordStoreGetContext();
+            if (v11)
+            {
+              os_unfair_lock_assert_owner(v11 + 20);
             }
           }
         }
       }
 
       CPRecordInitializeProperty();
-      if (v9)
+      if (v10)
       {
 
-        CFRelease(v9);
+        CFRelease(v10);
       }
     }
   }
@@ -6546,30 +6443,14 @@ void _CalEventLoadModifiedByIdentityProperties(uint64_t a1)
     }
   }
 
-  if (CPRecordGetProperty() != -1)
+  Property = CPRecordGetProperty();
+  if (Property != -1)
   {
     Store = CPRecordGetStore();
-    IdentityWithRowID = _CalGetIdentityWithRowID(Store);
+    IdentityWithRowID = _CalGetIdentityWithRowID(Store, Property);
     if (IdentityWithRowID)
     {
-      v5 = IdentityWithRowID;
-      if (a1)
-      {
-        if (CDBLockingAssertionsEnabled)
-        {
-          if (CPRecordGetStore())
-          {
-            v6 = CPRecordStoreGetContext();
-            if (v6)
-            {
-              os_unfair_lock_assert_owner(v6 + 20);
-            }
-          }
-        }
-      }
-
-      _CalIdentityGetDisplayName(v5);
-      CPRecordInitializeProperty();
+      v6 = IdentityWithRowID;
       if (a1)
       {
         if (CDBLockingAssertionsEnabled)
@@ -6585,7 +6466,7 @@ void _CalEventLoadModifiedByIdentityProperties(uint64_t a1)
         }
       }
 
-      _CalIdentityGetFirstName(v5);
+      _CalIdentityGetDisplayName(v6);
       CPRecordInitializeProperty();
       if (a1)
       {
@@ -6602,29 +6483,46 @@ void _CalEventLoadModifiedByIdentityProperties(uint64_t a1)
         }
       }
 
-      _CalIdentityGetLastName(v5);
+      _CalIdentityGetFirstName(v6);
       CPRecordInitializeProperty();
-      v9 = _CalIdentityCopyAddress(v5);
       if (a1)
       {
         if (CDBLockingAssertionsEnabled)
         {
           if (CPRecordGetStore())
           {
-            v10 = CPRecordStoreGetContext();
-            if (v10)
+            v9 = CPRecordStoreGetContext();
+            if (v9)
             {
-              os_unfair_lock_assert_owner(v10 + 20);
+              os_unfair_lock_assert_owner(v9 + 20);
+            }
+          }
+        }
+      }
+
+      _CalIdentityGetLastName(v6);
+      CPRecordInitializeProperty();
+      v10 = _CalIdentityCopyAddress(v6);
+      if (a1)
+      {
+        if (CDBLockingAssertionsEnabled)
+        {
+          if (CPRecordGetStore())
+          {
+            v11 = CPRecordStoreGetContext();
+            if (v11)
+            {
+              os_unfair_lock_assert_owner(v11 + 20);
             }
           }
         }
       }
 
       CPRecordInitializeProperty();
-      if (v9)
+      if (v10)
       {
 
-        CFRelease(v9);
+        CFRelease(v10);
       }
     }
   }
@@ -7144,7 +7042,7 @@ uint64_t _CalEventRemoveOriginalEventId(uint64_t a1, int a2)
   return 0;
 }
 
-uint64_t _CalEventValidateIdentityForProperties(uint64_t a1, uint64_t a2)
+const __CFString *_CalEventValidateIdentityForProperties(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   if (a1)
   {
@@ -7170,10 +7068,10 @@ uint64_t _CalEventValidateIdentityForProperties(uint64_t a1, uint64_t a2)
       {
         if (CPRecordGetStore())
         {
-          v6 = CPRecordStoreGetContext();
-          if (v6)
+          v11 = CPRecordStoreGetContext();
+          if (v11)
           {
-            os_unfair_lock_assert_owner(v6 + 20);
+            os_unfair_lock_assert_owner(v11 + 20);
           }
         }
       }
@@ -7186,50 +7084,50 @@ uint64_t _CalEventValidateIdentityForProperties(uint64_t a1, uint64_t a2)
       {
         if (CPRecordGetStore())
         {
-          v8 = CPRecordStoreGetContext();
-          if (v8)
+          v13 = CPRecordStoreGetContext();
+          if (v13)
           {
-            os_unfair_lock_assert_owner(v8 + 20);
+            os_unfair_lock_assert_owner(v13 + 20);
           }
         }
       }
     }
 
-    v9 = CPRecordGetProperty();
+    v14 = CPRecordGetProperty();
     if (a1)
     {
       if (CDBLockingAssertionsEnabled)
       {
         if (CPRecordGetStore())
         {
-          v10 = CPRecordStoreGetContext();
-          if (v10)
+          v15 = CPRecordStoreGetContext();
+          if (v15)
           {
-            os_unfair_lock_assert_owner(v10 + 20);
+            os_unfair_lock_assert_owner(v15 + 20);
           }
         }
       }
     }
 
-    v11 = CPRecordGetProperty();
+    v16 = CPRecordGetProperty();
     if (a1)
     {
       if (CDBLockingAssertionsEnabled)
       {
         if (CPRecordGetStore())
         {
-          v12 = CPRecordStoreGetContext();
-          if (v12)
+          v17 = CPRecordStoreGetContext();
+          if (v17)
           {
-            os_unfair_lock_assert_owner(v12 + 20);
+            os_unfair_lock_assert_owner(v17 + 20);
           }
         }
       }
     }
 
     result = CPRecordGetProperty();
-    v13 = result;
-    if (Property && (result = CFStringGetLength(Property)) != 0 || v9 && (result = CFStringGetLength(v9)) != 0 || v11 && (result = CFStringGetLength(v11)) != 0)
+    v18 = result;
+    if (Property && (result = CFStringGetLength(Property)) != 0 || v14 && (result = CFStringGetLength(v14)) != 0 || v16 && (result = CFStringGetLength(v16)) != 0)
     {
       if (!a2)
       {
@@ -7239,19 +7137,19 @@ uint64_t _CalEventValidateIdentityForProperties(uint64_t a1, uint64_t a2)
 
     else
     {
-      if (!v13)
+      if (!v18)
       {
         return result;
       }
 
-      result = CFStringGetLength(v13);
+      result = CFStringGetLength(v18);
       if (!a2 || !result)
       {
         return result;
       }
     }
 
-    result = _CalIdentityGetID(Property, v9, v11, v13, a2);
+    result = _CalIdentityGetID(Property, v14, v16, v18, a2);
     if (result != -1)
     {
       if (a1)
@@ -7260,10 +7158,10 @@ uint64_t _CalEventValidateIdentityForProperties(uint64_t a1, uint64_t a2)
         {
           if (CPRecordGetStore())
           {
-            v14 = CPRecordStoreGetContext();
-            if (v14)
+            v19 = CPRecordStoreGetContext();
+            if (v19)
             {
-              os_unfair_lock_assert_owner(v14 + 20);
+              os_unfair_lock_assert_owner(v19 + 20);
             }
           }
         }
@@ -7383,202 +7281,196 @@ LABEL_9:
   return result;
 }
 
-uint64_t CalAttachmentUpdateFromICSAttachment(void *a1, void *a2)
+uint64_t CalAttachmentUpdateFromICSAttachment(void *a1, void *a2, int a3)
 {
-  v54 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  [v3 filename];
-  CalAttachmentSetFilename(a1);
-  [v3 fmtype];
-  CalAttachmentSetFormat(a1);
-  [v3 x_apple_autoarchived];
-  CalAttachmentSetAutoArchived(a1);
-  if ([v3 hasSize])
+  v55 = *MEMORY[0x1E69E9840];
+  v5 = a2;
+  CalAttachmentSetFilename(a1, [v5 filename]);
+  CalAttachmentSetFormat(a1, [v5 fmtype]);
+  CalAttachmentSetAutoArchived(a1, [v5 x_apple_autoarchived]);
+  if ([v5 hasSize])
   {
-    [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v3, "size")}];
-    CalAttachmentSetFileSize(a1);
+    CalAttachmentSetFileSize(a1, [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v5, "size")}]);
   }
 
-  if (![v3 isBinary])
+  if (![v5 isBinary])
   {
-    CalAttachmentSetIsBinary(a1);
-    v7 = [v3 value];
-    if (v7)
+    CalAttachmentSetIsBinary(a1, 0);
+    v9 = [v5 value];
+    if (v9)
     {
-      CalAttachmentSetURL(a1, v7);
-      [v3 managed_id];
-      CalAttachmentSetExternalID(a1);
+      CalAttachmentSetURL(a1, v9);
+      CalAttachmentSetExternalID(a1, [v5 managed_id]);
     }
 
-    v39 = a1;
+    v40 = a1;
 
     goto LABEL_9;
   }
 
-  CalAttachmentSetIsBinary(a1);
+  CalAttachmentSetIsBinary(a1, (*&a3 & 0x200000) == 0);
   bzero(buf, 0x401uLL);
-  v4 = CalAttachmentCopyAttachmentFile(a1);
-  if (v4)
+  v6 = CalAttachmentCopyAttachmentFile(a1);
+  if (v6)
   {
-    v5 = v4;
-    v6 = CalAttachmentFileCopyURLAppropriateForFile(v4);
-    CFRelease(v5);
+    v7 = v6;
+    v8 = CalAttachmentFileCopyURLAppropriateForFile(v6);
+    CFRelease(v7);
   }
 
   else
   {
-    v6 = 0;
+    v8 = 0;
   }
 
-  v19 = [MEMORY[0x1E696AC08] defaultManager];
-  v20 = [v19 CalTemporaryDirectoryAppropriateForURL:v6];
+  v21 = [MEMORY[0x1E696AC08] defaultManager];
+  v22 = [v21 CalTemporaryDirectoryAppropriateForURL:v8];
 
-  v21 = [v20 path];
-  v22 = [v21 stringByAppendingPathComponent:@"CalAttachmentXXXXXX"];
-  [v22 UTF8String];
-  [v22 length];
+  v23 = [v22 path];
+  v24 = [v23 stringByAppendingPathComponent:@"CalAttachmentXXXXXX"];
+  [v24 UTF8String];
+  [v24 length];
   __strncpy_chk();
   if (mkstemp(buf) == -1)
   {
-    v32 = CDBiCalendarConversionHandle;
+    v34 = CDBiCalendarConversionHandle;
     if (!os_log_type_enabled(CDBiCalendarConversionHandle, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_38;
     }
 
-    *v48 = 0;
+    *v49 = 0;
 LABEL_37:
-    _os_log_impl(&dword_1DEBB1000, v32, OS_LOG_TYPE_DEBUG, "Couldn't create a path to write the inline attachment into", v48, 2u);
+    _os_log_impl(&dword_1DEBB1000, v34, OS_LOG_TYPE_DEBUG, "Couldn't create a path to write the inline attachment into", v49, 2u);
     goto LABEL_38;
   }
 
-  v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:buf];
-  if (!v23)
+  v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:buf];
+  if (!v25)
   {
-    v32 = CDBiCalendarConversionHandle;
+    v34 = CDBiCalendarConversionHandle;
     if (!os_log_type_enabled(CDBiCalendarConversionHandle, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_38;
     }
 
-    *v48 = 0;
+    *v49 = 0;
     goto LABEL_37;
   }
 
-  v24 = v23;
-  v25 = [MEMORY[0x1E695DFF8] fileURLWithPath:v23];
-  v41 = v3;
-  v26 = [v3 value];
-  v46 = 0;
-  [v26 writeToURL:v25 options:1 error:&v46];
-  v27 = v46;
+  v26 = v25;
+  v27 = [MEMORY[0x1E695DFF8] fileURLWithPath:v25];
+  v42 = v5;
+  v28 = [v5 value];
+  v47 = 0;
+  [v28 writeToURL:v27 options:1 error:&v47];
+  v29 = v47;
 
-  v28 = [v25 path];
-  CalAttachmentFileSetDataProtection(v28);
+  v30 = [v27 path];
+  CalAttachmentFileSetDataProtection(v30);
 
-  if (!v27)
+  if (!v29)
   {
-    v35 = CalAttachmentSetFileDataAndQuarantine(a1, v24);
+    v36 = CalAttachmentSetFileDataAndQuarantine(a1, v26, 1);
     unlink(buf);
-    if (v35)
+    if (v36)
     {
-      v39 = a1;
+      v40 = a1;
 
-      v3 = v41;
+      v5 = v42;
 LABEL_9:
-      v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v41 = v3;
-      v9 = [v3 allParameters];
-      v42 = 0u;
+      v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v42 = v5;
+      v11 = [v5 allParameters];
       v43 = 0u;
       v44 = 0u;
       v45 = 0u;
-      v10 = [v9 countByEnumeratingWithState:&v42 objects:v47 count:16];
-      if (v10)
+      v46 = 0u;
+      v12 = [v11 countByEnumeratingWithState:&v43 objects:v48 count:16];
+      if (v12)
       {
-        v11 = v10;
-        v12 = *v43;
+        v13 = v12;
+        v14 = *v44;
         do
         {
-          for (i = 0; i != v11; ++i)
+          for (i = 0; i != v13; ++i)
           {
-            if (*v43 != v12)
+            if (*v44 != v14)
             {
-              objc_enumerationMutation(v9);
+              objc_enumerationMutation(v11);
             }
 
-            v14 = *(*(&v42 + 1) + 8 * i);
-            v15 = [v14 uppercaseString];
-            if ((_isSavedAttachmentParameter(v15) & 1) == 0)
+            v16 = *(*(&v43 + 1) + 8 * i);
+            v17 = [v16 uppercaseString];
+            if ((_isSavedAttachmentParameter(v17) & 1) == 0)
             {
-              v16 = [v9 objectForKey:v14];
-              if (v16)
+              v18 = [v11 objectForKey:v16];
+              if (v18)
               {
-                v17 = CDBiCalendarConversionHandle;
+                v19 = CDBiCalendarConversionHandle;
                 if (os_log_type_enabled(CDBiCalendarConversionHandle, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 138412290;
-                  v53 = v14;
-                  _os_log_impl(&dword_1DEBB1000, v17, OS_LOG_TYPE_DEBUG, "Found an unrecognized parameter: %@", buf, 0xCu);
+                  v54 = v16;
+                  _os_log_impl(&dword_1DEBB1000, v19, OS_LOG_TYPE_DEBUG, "Found an unrecognized parameter: %@", buf, 0xCu);
                 }
 
-                [v8 setObject:v16 forKey:v14];
+                [v10 setObject:v18 forKey:v16];
               }
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v42 objects:v47 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v43 objects:v48 count:16];
         }
 
-        while (v11);
+        while (v13);
       }
 
-      if ([v8 count])
+      if ([v10 count])
       {
-        CalAttachmentSetXProperties(v40, v8);
+        CalAttachmentSetXProperties(v41, v10);
       }
 
-      v18 = 1;
+      v20 = 1;
       goto LABEL_25;
     }
 
-    v36 = CDBiCalendarConversionHandle;
-    v3 = v41;
+    v37 = CDBiCalendarConversionHandle;
+    v5 = v42;
     if (os_log_type_enabled(CDBiCalendarConversionHandle, OS_LOG_TYPE_DEBUG))
     {
-      v37 = v36;
-      v38 = [v41 filename];
-      *v48 = 138412290;
-      v49 = v38;
-      _os_log_impl(&dword_1DEBB1000, v37, OS_LOG_TYPE_DEBUG, "Error setting file data (%@) in database", v48, 0xCu);
+      v38 = v37;
+      v39 = [v42 filename];
+      *v49 = 138412290;
+      v50 = v39;
+      _os_log_impl(&dword_1DEBB1000, v38, OS_LOG_TYPE_DEBUG, "Error setting file data (%@) in database", v49, 0xCu);
 
-      v3 = v41;
+      v5 = v42;
     }
 
 LABEL_38:
-    v18 = 0;
+    v20 = 0;
     goto LABEL_39;
   }
 
-  v29 = CDBiCalendarConversionHandle;
+  v31 = CDBiCalendarConversionHandle;
   if (os_log_type_enabled(CDBiCalendarConversionHandle, OS_LOG_TYPE_DEBUG))
   {
-    v30 = v29;
-    v31 = [v41 filename];
-    *v48 = 138412546;
-    v49 = v31;
-    v50 = 2112;
-    v51 = v27;
-    _os_log_impl(&dword_1DEBB1000, v30, OS_LOG_TYPE_DEBUG, "Error writing inline attachment (%@) to disk: %@", v48, 0x16u);
+    v32 = v31;
+    v33 = [v42 filename];
+    *v49 = 138412546;
+    v50 = v33;
+    v51 = 2112;
+    v52 = v29;
+    _os_log_impl(&dword_1DEBB1000, v32, OS_LOG_TYPE_DEBUG, "Error writing inline attachment (%@) to disk: %@", v49, 0x16u);
   }
 
-  v18 = 0;
+  v20 = 0;
 LABEL_25:
-  v3 = v41;
+  v5 = v42;
 LABEL_39:
 
-  v33 = *MEMORY[0x1E69E9840];
-  return v18;
+  return v20;
 }
 
 uint64_t _isSavedAttachmentParameter(void *a1)
@@ -7597,7 +7489,7 @@ uint64_t _isSavedAttachmentParameter(void *a1)
 
 const __CFURL *ICSAttachmentFromCalAttachment(uint64_t a1, int a2)
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     v6 = 0;
@@ -7693,39 +7585,39 @@ LABEL_11:
         {
           if (!buf.st_size)
           {
-            v46 = CDBiCalendarConversionHandle;
+            v45 = CDBiCalendarConversionHandle;
             if (os_log_type_enabled(CDBiCalendarConversionHandle, OS_LOG_TYPE_DEBUG))
             {
               LOWORD(context.version) = 0;
-              _os_log_impl(&dword_1DEBB1000, v46, OS_LOG_TYPE_DEBUG, "Memory mapping a zero byte file", &context, 2u);
+              _os_log_impl(&dword_1DEBB1000, v45, OS_LOG_TYPE_DEBUG, "Memory mapping a zero byte file", &context, 2u);
             }
 
             v13 = CFDataCreate(0, 0, 0);
             goto LABEL_20;
           }
 
-          v40 = mmap(0, buf.st_size, 1, 1025, v12, 0);
-          if (v40 != -1)
+          v39 = mmap(0, buf.st_size, 1, 1025, v12, 0);
+          if (v39 != -1)
           {
-            v41 = v40;
+            v40 = v39;
             context.version = 0;
             memset(&context.retain, 0, 40);
             context.info = buf.st_size;
             context.deallocate = _mmapDeallocatorCallback;
             context.preferredSize = 0;
-            v42 = CFAllocatorCreate(0, &context);
-            if (v42)
+            v41 = CFAllocatorCreate(0, &context);
+            if (v41)
             {
-              v43 = v42;
-              v44 = CFDataCreateWithBytesNoCopy(0, v41, buf.st_size, v42);
-              v45 = v41;
-              v13 = v44;
-              if (!v44)
+              v42 = v41;
+              v43 = CFDataCreateWithBytesNoCopy(0, v40, buf.st_size, v41);
+              v44 = v40;
+              v13 = v43;
+              if (!v43)
               {
-                munmap(v45, buf.st_size);
+                munmap(v44, buf.st_size);
               }
 
-              CFRelease(v43);
+              CFRelease(v42);
             }
 
             else
@@ -7733,30 +7625,30 @@ LABEL_11:
               v13 = 0;
             }
 
-            v51 = CDBiCalendarConversionHandle;
+            v50 = CDBiCalendarConversionHandle;
             if (os_log_type_enabled(CDBiCalendarConversionHandle, OS_LOG_TYPE_DEBUG))
             {
-              *v58 = 138412546;
-              v59 = v9;
-              v60 = 2048;
+              *v57 = 138412546;
+              v58 = v9;
+              v59 = 2048;
               st_size = buf.st_size;
-              _os_log_impl(&dword_1DEBB1000, v51, OS_LOG_TYPE_DEBUG, "Successfully mapped %@ (%lld bytes)", v58, 0x16u);
+              _os_log_impl(&dword_1DEBB1000, v50, OS_LOG_TYPE_DEBUG, "Successfully mapped %@ (%lld bytes)", v57, 0x16u);
             }
 
             goto LABEL_20;
           }
 
-          v47 = CDBiCalendarConversionHandle;
+          v46 = CDBiCalendarConversionHandle;
           if (os_log_type_enabled(CDBiCalendarConversionHandle, OS_LOG_TYPE_DEBUG))
           {
-            v48 = v47;
-            v49 = __error();
-            v50 = strerror(*v49);
+            v47 = v46;
+            v48 = __error();
+            v49 = strerror(*v48);
             LODWORD(context.version) = 138412546;
             *(&context.version + 4) = v9;
             WORD2(context.info) = 2080;
-            *(&context.info + 6) = v50;
-            _os_log_impl(&dword_1DEBB1000, v48, OS_LOG_TYPE_DEBUG, "Could not mmap %@: %s", &context, 0x16u);
+            *(&context.info + 6) = v49;
+            _os_log_impl(&dword_1DEBB1000, v47, OS_LOG_TYPE_DEBUG, "Could not mmap %@: %s", &context, 0x16u);
           }
         }
 
@@ -7794,7 +7686,7 @@ LABEL_32:
   }
 
 LABEL_33:
-  v52 = CalAttachmentCopyFormat(a1);
+  v51 = CalAttachmentCopyFormat(a1);
   [(__CFURL *)v6 setFmtype:?];
   if ((a2 & 1) == 0)
   {
@@ -7824,26 +7716,26 @@ LABEL_33:
     }
   }
 
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   v27 = CalAttachmentCopyXProperties(a1);
-  v28 = [v27 countByEnumeratingWithState:&v53 objects:v57 count:16];
+  v28 = [v27 countByEnumeratingWithState:&v52 objects:v56 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v54;
+    v30 = *v53;
     do
     {
       for (i = 0; i != v29; ++i)
       {
-        if (*v54 != v30)
+        if (*v53 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        v32 = *(*(&v53 + 1) + 8 * i);
+        v32 = *(*(&v52 + 1) + 8 * i);
         v33 = [v32 uppercaseString];
         isSavedAttachmentParameter = _isSavedAttachmentParameter(v33);
 
@@ -7857,7 +7749,7 @@ LABEL_33:
             if (os_log_type_enabled(CDBiCalendarConversionHandle, OS_LOG_TYPE_FAULT))
             {
               *buffer = 138543362;
-              v65 = v32;
+              v64 = v32;
               _os_log_impl(&dword_1DEBB1000, v36, OS_LOG_TYPE_FAULT, "We have a saved value for an unrecognized parameter %{public}@ on an attachment, but the property already has a parameter with that name! _isSavedAttachmentParameter may be out of date.", buffer, 0xCu);
             }
           }
@@ -7870,41 +7762,37 @@ LABEL_33:
         }
       }
 
-      v29 = [v27 countByEnumeratingWithState:&v53 objects:v57 count:16];
+      v29 = [v27 countByEnumeratingWithState:&v52 objects:v56 count:16];
     }
 
     while (v29);
   }
 
 LABEL_54:
-  v38 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 uint64_t ___isSavedAttachmentParameter_block_invoke()
 {
-  v0 = *MEMORY[0x1E69E3F28];
-  v1 = [MEMORY[0x1E695DFD8] setWithObjects:{*MEMORY[0x1E69E3F40], *MEMORY[0x1E69E3F28], *MEMORY[0x1E69E4030], *MEMORY[0x1E69E3F68], *MEMORY[0x1E69E3F60], *MEMORY[0x1E69E3D98], *MEMORY[0x1E69E3FF0], *MEMORY[0x1E69E3D30], 0}];
-  v2 = _isSavedAttachmentParameter_savedParameterNames;
-  _isSavedAttachmentParameter_savedParameterNames = v1;
+  v0 = [MEMORY[0x1E695DFD8] setWithObjects:{*MEMORY[0x1E69E3F40], *MEMORY[0x1E69E3F28], *MEMORY[0x1E69E4030], *MEMORY[0x1E69E3F68], *MEMORY[0x1E69E3F60], *MEMORY[0x1E69E3D98], *MEMORY[0x1E69E3FF0], *MEMORY[0x1E69E3D30], 0}];
+  v1 = _isSavedAttachmentParameter_savedParameterNames;
+  _isSavedAttachmentParameter_savedParameterNames = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void _mmapDeallocatorCallback(void *a1, size_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   munmap(a1, a2);
   v3 = CDBiCalendarConversionHandle;
   if (os_log_type_enabled(CDBiCalendarConversionHandle, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 134217984;
-    v6 = a2;
-    _os_log_impl(&dword_1DEBB1000, v3, OS_LOG_TYPE_DEBUG, "Unmapped %zu bytes", &v5, 0xCu);
+    v4 = 134217984;
+    v5 = a2;
+    _os_log_impl(&dword_1DEBB1000, v3, OS_LOG_TYPE_DEBUG, "Unmapped %zu bytes", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DEC35408(_Unwind_Exception *exception_object, int a2)
@@ -7925,15 +7813,16 @@ void sub_1DEC35408(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-const void *CalDatabaseCopyUpdatedCalEventFromICSEventWithOptions(void *a1, void *a2, os_unfair_lock_s *a3, uint64_t a4, _BYTE *a5, unsigned __int8 *a6, uint64_t a7, void *a8)
+const void *CalDatabaseCopyUpdatedCalEventFromICSEventWithOptions(void *a1, void *a2, os_unfair_lock_s *a3, uint64_t a4, _BYTE *a5, char *a6, uint64_t a7, void *a8)
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   v15 = a1;
   v16 = a2;
   v17 = a8;
@@ -7947,7 +7836,7 @@ const void *CalDatabaseCopyUpdatedCalEventFromICSEventWithOptions(void *a1, void
     goto LABEL_44;
   }
 
-  v64 = a6;
+  v63 = a6;
   if ((a7 & 0x2000000) != 0)
   {
     v24 = 0;
@@ -7979,7 +7868,7 @@ const void *CalDatabaseCopyUpdatedCalEventFromICSEventWithOptions(void *a1, void
   if (os_log_type_enabled(CDBiCalendarConversionHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v66 = *&v18;
+    v65 = *&v18;
     _os_log_impl(&dword_1DEBB1000, v30, OS_LOG_TYPE_DEBUG, "Searching for an event with a unique identifier matching %@", buf, 0xCu);
   }
 
@@ -8041,16 +7930,16 @@ LABEL_34:
     goto LABEL_53;
   }
 
-  v63 = v17;
+  v62 = v17;
   v34 = CDBiCalendarConversionHandle;
   if (os_log_type_enabled(CDBiCalendarConversionHandle, OS_LOG_TYPE_DEBUG))
   {
     v35 = v34;
     v36 = [v15 summary];
     *buf = 138412546;
-    v66 = *&v36;
-    v67 = 2112;
-    v68 = *&a4;
+    v65 = *&v36;
+    v66 = 2112;
+    v67 = a4;
     _os_log_impl(&dword_1DEBB1000, v35, OS_LOG_TYPE_DEBUG, "Found identity match for event %@ in calendar %@", buf, 0x16u);
   }
 
@@ -8065,99 +7954,99 @@ LABEL_34:
     }
 
     CalCalendarItemUpdateUIDFromICSComponent(Event, v15, v16);
-    v17 = v63;
+    v17 = v62;
     goto LABEL_45;
   }
 
   ModifiedDate = CalCalendarItemCopyLastModifiedDate(Event);
-  v43 = MEMORY[0x1E6993100];
+  v42 = MEMORY[0x1E6993100];
   if (ModifiedDate)
   {
-    v44 = ModifiedDate;
-    v45 = MEMORY[0x1E12C5EF0]();
-    CFRelease(v44);
-    v46 = *v43;
+    v43 = ModifiedDate;
+    v44 = MEMORY[0x1E12C5EF0]();
+    CFRelease(v43);
+    v45 = *v42;
   }
 
   else
   {
-    v46 = *MEMORY[0x1E6993100];
     v45 = *MEMORY[0x1E6993100];
+    v44 = *MEMORY[0x1E6993100];
   }
 
-  v47 = [v15 last_modified];
-  v48 = CalDateFromICSDateAsUTC(v47);
+  v46 = [v15 last_modified];
+  v47 = CalDateFromICSDateAsUTC(v46);
 
-  if (v48 == v46)
+  if (v47 == v45)
   {
-    v49 = [v15 dtstamp];
-    v48 = CalDateFromICSDateAsUTC(v49);
+    v48 = [v15 dtstamp];
+    v47 = CalDateFromICSDateAsUTC(v48);
   }
 
-  v17 = v63;
-  if (floor(v45) <= floor(v48))
+  v17 = v62;
+  if (floor(v44) <= floor(v47))
   {
 LABEL_53:
     if ((a7 & 0x100000) != 0 && Event)
     {
-      v50 = CalEventGetSequenceNumber(Event);
-      v51 = [v15 sequence];
-      if (v51 < v50)
+      v49 = CalEventGetSequenceNumber(Event);
+      v50 = [v15 sequence];
+      if (v50 < v49)
       {
-        v52 = v51;
-        v53 = CDBiCalendarConversionHandle;
+        v51 = v50;
+        v52 = CDBiCalendarConversionHandle;
         if (!os_log_type_enabled(CDBiCalendarConversionHandle, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_45;
         }
 
         *buf = 134218240;
-        *&v66 = v50;
-        v67 = 2048;
-        v68 = *&v52;
-        v54 = "ignoring imported event because the local sequence number (%lu) is greater than the imported sequence number (%lu)";
+        *&v65 = v49;
+        v66 = 2048;
+        v67 = v51;
+        v53 = "ignoring imported event because the local sequence number (%lu) is greater than the imported sequence number (%lu)";
 LABEL_71:
-        _os_log_impl(&dword_1DEBB1000, v53, OS_LOG_TYPE_DEFAULT, v54, buf, 0x16u);
+        _os_log_impl(&dword_1DEBB1000, v52, OS_LOG_TYPE_DEFAULT, v53, buf, 0x16u);
         goto LABEL_45;
       }
 
-      v55 = CalCalendarItemCopyLastModifiedDate(Event);
-      if (v55)
+      v54 = CalCalendarItemCopyLastModifiedDate(Event);
+      if (v54)
       {
-        v56 = v55;
-        v57 = MEMORY[0x1E12C5EF0]();
-        CFRelease(v56);
-        v58 = *MEMORY[0x1E6993100];
+        v55 = v54;
+        v56 = MEMORY[0x1E12C5EF0]();
+        CFRelease(v55);
+        v57 = *MEMORY[0x1E6993100];
       }
 
       else
       {
-        v58 = *MEMORY[0x1E6993100];
         v57 = *MEMORY[0x1E6993100];
+        v56 = *MEMORY[0x1E6993100];
       }
 
-      v60 = [v15 last_modified];
-      v61 = CalDateFromICSDateAsUTC(v60);
+      v59 = [v15 last_modified];
+      v60 = CalDateFromICSDateAsUTC(v59);
 
-      if (v61 == v58)
+      if (v60 == v57)
       {
-        v62 = [v15 dtstamp];
-        v61 = CalDateFromICSDateAsUTC(v62);
+        v61 = [v15 dtstamp];
+        v60 = CalDateFromICSDateAsUTC(v61);
       }
 
-      if (v57 >= v61)
+      if (v56 >= v60)
       {
-        v53 = CDBiCalendarConversionHandle;
+        v52 = CDBiCalendarConversionHandle;
         if (!os_log_type_enabled(CDBiCalendarConversionHandle, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_45;
         }
 
         *buf = 134218240;
-        v66 = v57;
-        v67 = 2048;
-        v68 = v61;
-        v54 = "ignoring imported event because the local dtstamp number (%f) is greater than the imported dtstamp (%f)";
+        v65 = v56;
+        v66 = 2048;
+        v67 = *&v60;
+        v53 = "ignoring imported event because the local dtstamp number (%f) is greater than the imported dtstamp (%f)";
         goto LABEL_71;
       }
 
@@ -8177,9 +8066,9 @@ LABEL_16:
           *a5 = 1;
         }
 
-        if (v64)
+        if (v63)
         {
-          *v64 = v28;
+          *v63 = v28;
         }
       }
 
@@ -8189,7 +8078,7 @@ LABEL_16:
         if (os_log_type_enabled(CDBiCalendarConversionHandle, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v66 = *&v15;
+          v65 = *&v15;
           _os_log_impl(&dword_1DEBB1000, v29, OS_LOG_TYPE_ERROR, "Couldn't update CalEvent from icsEvent %@", buf, 0xCu);
         }
 
@@ -8213,23 +8102,22 @@ LABEL_16:
     goto LABEL_8;
   }
 
-  v59 = CDBiCalendarConversionHandle;
+  v58 = CDBiCalendarConversionHandle;
   if (os_log_type_enabled(CDBiCalendarConversionHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_impl(&dword_1DEBB1000, v59, OS_LOG_TYPE_DEBUG, "The local event has a greater last modified date. Refusing to update this event", buf, 2u);
+    _os_log_impl(&dword_1DEBB1000, v58, OS_LOG_TYPE_DEBUG, "The local event has a greater last modified date. Refusing to update this event", buf, 2u);
   }
 
   CalCalendarItemUpdateUIDFromICSComponent(Event, v15, v16);
 LABEL_45:
 
-  v40 = *MEMORY[0x1E69E9840];
   return Event;
 }
 
-const void *CalDatabaseCopyUpdatedCalTaskFromICSTodoWithOptions(void *a1, void *a2, os_unfair_lock_s *a3, const void *a4, _BYTE *a5, uint64_t a6)
+CFTypeRef CalDatabaseCopyUpdatedCalTaskFromICSTodoWithOptions(void *a1, void *a2, os_unfair_lock_s *a3, const void *a4, _BYTE *a5, uint64_t a6)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v11 = a1;
   v12 = a2;
   v13 = v12;
@@ -8244,7 +8132,7 @@ const void *CalDatabaseCopyUpdatedCalTaskFromICSTodoWithOptions(void *a1, void *
     goto LABEL_31;
   }
 
-  v40 = v12;
+  v39 = v12;
   if ((a6 & 0x2000000) != 0)
   {
     goto LABEL_16;
@@ -8270,12 +8158,12 @@ const void *CalDatabaseCopyUpdatedCalTaskFromICSTodoWithOptions(void *a1, void *
           v22 = v21;
           v23 = [v11 summary];
           *buf = 138412546;
-          v42 = v23;
-          v43 = 2112;
-          v44 = a4;
+          v41 = v23;
+          v42 = 2112;
+          v43 = a4;
           _os_log_impl(&dword_1DEBB1000, v22, OS_LOG_TYPE_DEBUG, "Found identity match for task %@ in calendar %@", buf, 0x16u);
 
-          v13 = v40;
+          v13 = v39;
         }
 
         if ((a6 & 0x4000000) == 0)
@@ -8287,16 +8175,16 @@ const void *CalDatabaseCopyUpdatedCalTaskFromICSTodoWithOptions(void *a1, void *
         if ([v11 sequence] >= SequenceNumber)
         {
           ModifiedDate = CalCalendarItemCopyLastModifiedDate(Task);
-          v37 = MEMORY[0x1E12C5EF0]();
+          v36 = MEMORY[0x1E12C5EF0]();
           if (ModifiedDate)
           {
             CFRelease(ModifiedDate);
           }
 
-          v38 = [v11 last_modified];
-          v39 = CalDateFromICSDateAsUTC(v38);
+          v37 = [v11 last_modified];
+          v38 = CalDateFromICSDateAsUTC(v37);
 
-          if (v37 <= v39)
+          if (v36 <= v38)
           {
             goto LABEL_6;
           }
@@ -8334,7 +8222,7 @@ LABEL_16:
       v28 = v27;
       v29 = [v11 uid];
       *buf = 138412290;
-      v42 = v29;
+      v41 = v29;
       _os_log_impl(&dword_1DEBB1000, v28, OS_LOG_TYPE_DEBUG, "Couldn't find a task with external id %@ in the calendar database. Creating a new one.", buf, 0xCu);
     }
 
@@ -8362,8 +8250,8 @@ LABEL_22:
   v31 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a6];
   v32 = [v30 dictionaryWithObject:v31 forKey:@"ItemBridgeOptions"];
 
-  v13 = v40;
-  if (CalTaskUpdateFromICSTodoWithOptions(Task, v11, v40, a3, v32, v16))
+  v13 = v39;
+  if (CalTaskUpdateFromICSTodoWithOptions(Task, v11, v39, a3, v32, v16))
   {
     if (a5)
     {
@@ -8377,7 +8265,7 @@ LABEL_22:
     if (os_log_type_enabled(CDBiCalendarConversionHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v42 = v11;
+      v41 = v11;
       _os_log_impl(&dword_1DEBB1000, v33, OS_LOG_TYPE_ERROR, "Couldn't update CalTask from icsEvent %@", buf, 0xCu);
     }
 
@@ -8391,21 +8279,21 @@ LABEL_22:
   }
 
 LABEL_31:
-  v34 = *MEMORY[0x1E69E9840];
   return Task;
 }
 
-__CFArray *CalDatabaseCopyUpdatedCalEventsFromICSDocumentWithOptionsAndBatchSize(void *a1, os_unfair_lock_s *a2, int a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(id, uint64_t), uint64_t a7, unsigned int (*a8)(void, void, void), uint64_t a9, uint64_t (*a10)(void *, uint64_t), uint64_t a11, void *a12)
+__CFArray *CalDatabaseCopyUpdatedCalEventsFromICSDocumentWithOptionsAndBatchSize(void *a1, os_unfair_lock_s *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(id, uint64_t), uint64_t a7, unsigned int (*a8)(void, void, void), uint64_t a9, uint64_t (*a10)(void *, uint64_t), uint64_t a11, void *a12)
 {
   v155 = *MEMORY[0x1E69E9840];
   v17 = a1;
   v18 = a12;
   if ((a3 & 0x80000000) == 0)
   {
-    v19 = CalDatabaseCopyCalendarWithUID(a2);
+    v19 = CalDatabaseCopyCalendarWithUID(a2, a3);
     if (v19)
     {
       v20 = v19;
+      v115 = a3;
       v118 = a6;
       v21 = [v17 calendar];
       v22 = [v17 calendar];
@@ -8429,18 +8317,18 @@ __CFArray *CalDatabaseCopyUpdatedCalEventsFromICSDocumentWithOptionsAndBatchSize
       obj = v25;
       v122 = 0;
       v123 = 0;
-      v115 = v23 > 1;
+      v114 = v23 > 1;
       v120 = *v143;
       v27 = *MEMORY[0x1E6993100];
       *&v26 = 134218242;
-      v112 = v26;
+      v111 = v26;
       v125 = v18;
       v129 = v21;
       v131 = a8;
       v132 = a2;
       v116 = a7;
       v28 = v118;
-      v113 = v17;
+      v112 = v17;
 LABEL_5:
       v29 = 0;
       while (1)
@@ -8580,7 +8468,7 @@ LABEL_29:
 
         if (isKindOfClass)
         {
-          if (v115)
+          if (v114)
           {
             v58 = [v128 propertiesForName:kCalImportEventIsPhantomMaster];
             v59 = [v58 count];
@@ -8595,7 +8483,7 @@ LABEL_29:
                 if (!CalCalendarItemIsPhantomMaster(v61))
                 {
 
-                  v115 = 1;
+                  v114 = 1;
                   goto LABEL_42;
                 }
 
@@ -8606,7 +8494,7 @@ LABEL_29:
 
           buf[0] = 0;
           v62 = CalDatabaseCopyUpdatedCalEventFromICSEventWithOptions(v128, v21, v132, v20, buf, 0, a4, v18);
-          v115 |= buf[0] ^ 1;
+          v114 |= buf[0] ^ 1;
         }
 
         else
@@ -8699,7 +8587,7 @@ LABEL_42:
           v141 = 0u;
           v138 = 0u;
           v139 = 0u;
-          v134 = [v21 componentOccurrencesForKey:{v30, v112}];
+          v134 = [v21 componentOccurrencesForKey:{v30, v111}];
           v79 = [v134 countByEnumeratingWithState:&v138 objects:v150 count:16];
           if (v79)
           {
@@ -8802,9 +8690,9 @@ LABEL_79:
             while (v80);
           }
 
-          v17 = v113;
+          v17 = v112;
           a7 = v116;
-          if ((v115 & 1) == 0)
+          if ((v114 & 1) == 0)
           {
             v97 = v130;
             v98 = CDBiCalendarConversionHandle;
@@ -8812,7 +8700,7 @@ LABEL_79:
             {
               v99 = v98;
               v100 = [v97 count];
-              *buf = v112;
+              *buf = v111;
               *v153 = v100;
               *&v153[8] = 2112;
               v154 = v97;
@@ -8904,7 +8792,7 @@ LABEL_105:
             CFRelease(v20);
           }
 
-          v20 = CalDatabaseCopyCalendarWithUID(v56);
+          v20 = CalDatabaseCopyCalendarWithUID(v56, v115);
           v123 = 0;
           LOBYTE(v57) = v20 != 0;
 LABEL_114:
@@ -8960,41 +8848,40 @@ LABEL_129:
   v109 = 0;
 LABEL_131:
 
-  v110 = *MEMORY[0x1E69E9840];
   return v109;
 }
 
 id componentsWithPhantomMasterForICSCalendar(void *a1, uint64_t (*a2)(void, void *, uint64_t), uint64_t a3)
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   v5 = a1;
-  v47 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v42 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v46 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v41 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   v6 = [v5 componentKeys];
-  v7 = [v6 countByEnumeratingWithState:&v52 objects:v60 count:16];
-  v43 = v5;
+  v7 = [v6 countByEnumeratingWithState:&v51 objects:v59 count:16];
+  v42 = v5;
   if (v7)
   {
     v8 = v7;
-    v9 = *v53;
-    v44 = *v53;
-    v45 = v6;
+    v9 = *v52;
+    v43 = *v52;
+    v44 = v6;
     do
     {
       v10 = 0;
-      v46 = v8;
+      v45 = v8;
       do
       {
-        if (*v53 != v9)
+        if (*v52 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v52 + 1) + 8 * v10);
+        v11 = *(*(&v51 + 1) + 8 * v10);
         v12 = [v5 componentForKey:v11];
         if (!v12)
         {
@@ -9002,7 +8889,7 @@ id componentsWithPhantomMasterForICSCalendar(void *a1, uint64_t (*a2)(void, void
           if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v59 = v11;
+            v58 = v11;
             _os_log_impl(&dword_1DEBB1000, v13, OS_LOG_TYPE_DEBUG, "Component not found for component key: [%@].  Attempting to create a phantom master.", buf, 0xCu);
           }
 
@@ -9011,34 +8898,34 @@ id componentsWithPhantomMasterForICSCalendar(void *a1, uint64_t (*a2)(void, void
           {
             if (a2)
             {
-              v50 = 0u;
-              v51 = 0u;
-              v48 = 0u;
               v49 = 0u;
+              v50 = 0u;
+              v47 = 0u;
+              v48 = 0u;
               v15 = v14;
-              v16 = [v15 countByEnumeratingWithState:&v48 objects:v57 count:16];
+              v16 = [v15 countByEnumeratingWithState:&v47 objects:v56 count:16];
               if (v16)
               {
                 v17 = v16;
-                v18 = *v49;
+                v18 = *v48;
                 while (2)
                 {
                   for (i = 0; i != v17; ++i)
                   {
-                    if (*v49 != v18)
+                    if (*v48 != v18)
                     {
                       objc_enumerationMutation(v15);
                     }
 
-                    if (a2(*(*(&v48 + 1) + 8 * i), v11, a3))
+                    if (a2(*(*(&v47 + 1) + 8 * i), v11, a3))
                     {
 
-                      v5 = v43;
+                      v5 = v42;
                       goto LABEL_21;
                     }
                   }
 
-                  v17 = [v15 countByEnumeratingWithState:&v48 objects:v57 count:16];
+                  v17 = [v15 countByEnumeratingWithState:&v47 objects:v56 count:16];
                   if (v17)
                   {
                     continue;
@@ -9047,7 +8934,7 @@ id componentsWithPhantomMasterForICSCalendar(void *a1, uint64_t (*a2)(void, void
                   break;
                 }
 
-                v5 = v43;
+                v5 = v42;
               }
             }
 
@@ -9056,7 +8943,7 @@ id componentsWithPhantomMasterForICSCalendar(void *a1, uint64_t (*a2)(void, void
 LABEL_21:
               v15 = [v14 objectAtIndexedSubscript:0];
               v20 = [v15 uid];
-              v21 = [v47 containsObject:v20];
+              v21 = [v46 containsObject:v20];
               v22 = CDBLogHandle;
               v23 = os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_DEBUG);
               if (v21)
@@ -9064,7 +8951,7 @@ LABEL_21:
                 if (v23)
                 {
                   *buf = 138412290;
-                  v59 = v20;
+                  v58 = v20;
                   _os_log_impl(&dword_1DEBB1000, v22, OS_LOG_TYPE_DEBUG, "Phantom master with UID [%@] is scheduled to be added already.  Will not create phantom master.", buf, 0xCu);
                 }
               }
@@ -9074,11 +8961,11 @@ LABEL_21:
                 if (v23)
                 {
                   *buf = 138412290;
-                  v59 = v20;
+                  v58 = v20;
                   _os_log_impl(&dword_1DEBB1000, v22, OS_LOG_TYPE_DEBUG, "Creating a phantom master with UID: [%@].", buf, 0xCu);
                 }
 
-                [v47 addObject:v20];
+                [v46 addObject:v20];
                 objc_opt_class();
                 v24 = objc_opt_new();
                 [v24 setUid:v20];
@@ -9102,20 +8989,20 @@ LABEL_21:
                 [v24 setX_apple_serverFilename:v30];
 
                 v31 = [v15 dtstart];
-                v56 = v31;
-                v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v56 count:1];
+                v55 = v31;
+                v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v55 count:1];
                 [v24 setExdate:v32];
 
                 [v24 setPropertyValue:MEMORY[0x1E695E118] type:5012 forName:kCalImportEventIsPhantomMaster];
-                [v42 addObject:v24];
+                [v41 addObject:v24];
 
-                v5 = v43;
+                v5 = v42;
               }
             }
 
-            v9 = v44;
-            v6 = v45;
-            v8 = v46;
+            v9 = v43;
+            v6 = v44;
+            v8 = v45;
           }
         }
 
@@ -9123,31 +9010,31 @@ LABEL_21:
       }
 
       while (v10 != v8);
-      v8 = [v6 countByEnumeratingWithState:&v52 objects:v60 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v51 objects:v59 count:16];
     }
 
     while (v8);
   }
 
-  if ([v42 count])
+  if ([v41 count])
   {
     v33 = CDBLogHandle;
     if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_DEBUG))
     {
       v34 = v33;
-      v35 = [v42 count];
+      v35 = [v41 count];
       *buf = 134217984;
-      v59 = v35;
+      v58 = v35;
       _os_log_impl(&dword_1DEBB1000, v34, OS_LOG_TYPE_DEBUG, "[%lu] Phantom masters were created.  Adding them to the list of components.", buf, 0xCu);
     }
 
     v36 = objc_alloc(MEMORY[0x1E695DF70]);
-    v37 = [v43 components];
+    v37 = [v42 components];
     v38 = v36;
-    v5 = v43;
+    v5 = v42;
     v39 = [v38 initWithArray:v37];
 
-    [v39 addObjectsFromArray:v42];
+    [v39 addObjectsFromArray:v41];
   }
 
   else
@@ -9155,14 +9042,12 @@ LABEL_21:
     v39 = [v5 components];
   }
 
-  v40 = *MEMORY[0x1E69E9840];
-
   return v39;
 }
 
 __CFArray *CalItemsUpdateFromiCalendarDataWithOptionsIncludingPhantomMaster(const __CFData *a1, os_unfair_lock_s *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(id, uint64_t), uint64_t a7, uint64_t (*a8)(void, void *, uint64_t), uint64_t a9, uint64_t (*a10)(void *, uint64_t), uint64_t a11, char a12, void *a13)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v20 = a13;
   v21 = CDBLogHandle;
   v22 = os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_DEBUG);
@@ -9175,7 +9060,7 @@ __CFArray *CalItemsUpdateFromiCalendarDataWithOptionsIncludingPhantomMaster(cons
 
     v24 = v21;
     *buf = 67109120;
-    LODWORD(v38) = CFDataGetLength(a1);
+    LODWORD(v37) = CFDataGetLength(a1);
     _os_log_impl(&dword_1DEBB1000, v24, OS_LOG_TYPE_DEBUG, "Import of compressed iCalendar data requested.  DataLen: %d", buf, 8u);
   }
 
@@ -9190,15 +9075,15 @@ __CFArray *CalItemsUpdateFromiCalendarDataWithOptionsIncludingPhantomMaster(cons
     v24 = v21;
     v25 = [[v23 alloc] initWithData:a1 encoding:4];
     *buf = 138412290;
-    v38 = v25;
+    v37 = v25;
     _os_log_impl(&dword_1DEBB1000, v24, OS_LOG_TYPE_DEBUG, "Import of iCalendar data requested.  Data: [%@]", buf, 0xCu);
   }
 
 LABEL_7:
   v26 = objc_autoreleasePoolPush();
-  v36 = 0;
-  v27 = [objc_alloc(MEMORY[0x1E69E3CB0]) initWithData:a1 options:a4 error:&v36];
-  v28 = v36;
+  v35 = 0;
+  v27 = [objc_alloc(MEMORY[0x1E69E3CB0]) initWithData:a1 options:a4 error:&v35];
+  v28 = v35;
   v29 = v28;
   if (v27)
   {
@@ -9221,7 +9106,7 @@ LABEL_7:
     if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v38 = v29;
+      v37 = v29;
       _os_log_impl(&dword_1DEBB1000, v31, OS_LOG_TYPE_ERROR, "Could not parse ICSDocument from data: %@", buf, 0xCu);
     }
 
@@ -9229,25 +9114,24 @@ LABEL_7:
   }
 
   objc_autoreleasePoolPop(v26);
-  v33 = *MEMORY[0x1E69E9840];
   return updated;
 }
 
 __CFArray *CalItemsUpdateFromiCalendarDocumentWithOptionsIncludingPhantomMaster(void *a1, os_unfair_lock_s *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(id, uint64_t), uint64_t a7, uint64_t (*a8)(void, void *, uint64_t), uint64_t a9, uint64_t (*a10)(void *, uint64_t), uint64_t a11, char a12, void *a13)
 {
-  v15 = a1;
-  v16 = a13;
+  v16 = a1;
+  v17 = a13;
   if (a12)
   {
-    v17 = [v15 calendar];
-    v18 = componentsWithPhantomMasterForICSCalendar(v17, a8, a9);
-    [v17 setComponents:v18 options:2];
+    v18 = [v16 calendar];
+    v19 = componentsWithPhantomMasterForICSCalendar(v18, a8, a9);
+    [v18 setComponents:v19 options:2];
   }
 
-  UID = CalCalendarGetUID();
-  v20 = CalDatabaseCopyUpdatedCalEventsFromICSDocumentWithOptionsAndBatchSize(v15, a2, UID, a4, a5, a6, a7, a8, a9, a10, a11, v16);
+  UID = CalCalendarGetUID(a3);
+  v21 = CalDatabaseCopyUpdatedCalEventsFromICSDocumentWithOptionsAndBatchSize(v16, a2, UID, a4, a5, a6, a7, a8, a9, a10, a11, v17);
 
-  return v20;
+  return v21;
 }
 
 CFTypeRef _CalCreateiCalendarDataFromICSCalendarWithOptions(void *a1, uint64_t a2)
@@ -9321,19 +9205,19 @@ CFTypeRef CalCreateiCalendarDataFromCalEntitiesWithOptions(const __CFArray *a1, 
 
 id ICSCalendarFromCalEntitiesWithTimeZoneGenerationOptions(const __CFArray *a1, uint64_t a2, void *a3, unint64_t a4)
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = CDBLogHandle;
   if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v80 = v6;
+    v79 = v6;
     _os_log_impl(&dword_1DEBB1000, v7, OS_LOG_TYPE_DEBUG, "iCalendar items will be generated from database items.  occurrenceDate: [%@]", buf, 0xCu);
   }
 
   if (a1 && CFArrayGetCount(a1))
   {
-    v69 = a2;
+    v68 = a2;
     v8 = objc_alloc_init(MEMORY[0x1E695DFA8]);
     Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
     v10 = v6;
@@ -9343,7 +9227,7 @@ id ICSCalendarFromCalEntitiesWithTimeZoneGenerationOptions(const __CFArray *a1, 
       v10 = 0;
     }
 
-    v70 = v6;
+    v69 = v6;
     Count = CFArrayGetCount(a1);
     if (Count >= 1)
     {
@@ -9360,7 +9244,7 @@ id ICSCalendarFromCalEntitiesWithTimeZoneGenerationOptions(const __CFArray *a1, 
             v16 = ValueAtIndex;
           }
 
-          v17 = [MEMORY[0x1E696AD98] numberWithInt:CalCalendarItemGetRowID()];
+          v17 = [MEMORY[0x1E696AD98] numberWithInt:CalCalendarItemGetRowID(v16)];
           if (([v8 containsObject:v17] & 1) == 0)
           {
             [v8 addObject:v17];
@@ -9375,7 +9259,7 @@ id ICSCalendarFromCalEntitiesWithTimeZoneGenerationOptions(const __CFArray *a1, 
       }
     }
 
-    v68 = v8;
+    v67 = v8;
     v18 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v19 = CFArrayGetCount(Mutable);
     if (v19 >= 1)
@@ -9383,11 +9267,11 @@ id ICSCalendarFromCalEntitiesWithTimeZoneGenerationOptions(const __CFArray *a1, 
       v21 = v19;
       v22 = 0;
       *&v20 = 138412290;
-      v67 = v20;
-      v72 = v10;
-      v73 = v19;
-      v74 = Mutable;
-      v75 = v18;
+      v66 = v20;
+      v71 = v10;
+      v72 = v19;
+      v73 = Mutable;
+      v74 = v18;
       while (1)
       {
         v23 = CFArrayGetValueAtIndex(Mutable, v22);
@@ -9413,7 +9297,7 @@ id ICSCalendarFromCalEntitiesWithTimeZoneGenerationOptions(const __CFArray *a1, 
           }
 
           v25 = 0;
-          v21 = v73;
+          v21 = v72;
 LABEL_36:
 
 LABEL_57:
@@ -9422,7 +9306,7 @@ LABEL_57:
           {
             if (v23)
             {
-              RowID = CalCalendarItemGetRowID();
+              RowID = CalCalendarItemGetRowID(v23);
             }
 
             else
@@ -9431,14 +9315,14 @@ LABEL_57:
             }
 
             *buf = 67109120;
-            LODWORD(v80) = RowID;
+            LODWORD(v79) = RowID;
             _os_log_impl(&dword_1DEBB1000, v35, OS_LOG_TYPE_DEBUG, "Couldn't create ICSComponents for cal item with uid %d", buf, 8u);
           }
 
           goto LABEL_62;
         }
 
-        v77 = v34;
+        v76 = v34;
         v35 = [MEMORY[0x1E695DEC8] arrayWithObject:v34];
 LABEL_55:
 
@@ -9467,7 +9351,7 @@ LABEL_62:
         goto LABEL_36;
       }
 
-      v77 = v25;
+      v76 = v25;
       v26 = objc_alloc_init(MEMORY[0x1E695DF70]);
       if (!CalCalendarItemIsHidden(v23))
       {
@@ -9480,9 +9364,9 @@ LABEL_62:
           [v28 setRecurrence_id:0];
           [v28 setRelatedTo:0];
           IsAllDay = CalEventIsAllDay(v23);
-          v30 = [v77 dateByAddingTimeInterval:CalEventGetDuration(v23)];
+          v30 = [v76 dateByAddingTimeInterval:CalEventGetDuration(v23)];
           v31 = CalCalendarItemCopyEndTimeZone(v23);
-          v71 = v31;
+          v70 = v31;
           if (IsAllDay)
           {
             v32 = [v30 dateByAddingTimeInterval:1.0];
@@ -9496,15 +9380,15 @@ LABEL_62:
             v33 = ICSDateFromCFDate(v30, v31);
           }
 
-          [v28 setDtend:{v33, v67}];
+          [v28 setDtend:{v33, v66}];
           v37 = objc_opt_new();
           v38 = [MEMORY[0x1E696AD98] numberWithBool:IsAllDay];
           [v37 setObject:v38 forKey:@"ItemBridgeIsAllDay"];
 
-          CalSetStartDateOnICSComponentWithOptions(v23, v28, v77, v37);
-          v10 = v72;
-          v21 = v73;
-          v18 = v75;
+          CalSetStartDateOnICSComponentWithOptions(v23, v28, v76, v37);
+          v10 = v71;
+          v21 = v72;
+          v18 = v74;
         }
 
         if (!v28)
@@ -9517,7 +9401,7 @@ LABEL_62:
           }
 
           v35 = 0;
-          Mutable = v74;
+          Mutable = v73;
           goto LABEL_54;
         }
 
@@ -9537,8 +9421,8 @@ LABEL_62:
             v43 = MEMORY[0x1E696AD98];
             v44 = v42;
             v45 = [v43 numberWithLong:v41];
-            *buf = v67;
-            v80 = v45;
+            *buf = v66;
+            v79 = v45;
             _os_log_impl(&dword_1DEBB1000, v44, OS_LOG_TYPE_DEBUG, "This event has %@ detached events", buf, 0xCu);
           }
 
@@ -9561,7 +9445,7 @@ LABEL_62:
                   v50 = v49;
                   UID = CalEventGetUID(v47);
                   *buf = 67109120;
-                  LODWORD(v80) = UID;
+                  LODWORD(v79) = UID;
                   _os_log_impl(&dword_1DEBB1000, v50, OS_LOG_TYPE_ERROR, "Could not convert the detached event with the cal uid %d", buf, 8u);
                 }
               }
@@ -9569,22 +9453,22 @@ LABEL_62:
           }
 
           CFRelease(v40);
-          v10 = v72;
-          v21 = v73;
-          v18 = v75;
+          v10 = v71;
+          v21 = v72;
+          v18 = v74;
         }
       }
 
       v35 = v26;
-      Mutable = v74;
+      Mutable = v73;
 LABEL_54:
 
       goto LABEL_55;
     }
 
 LABEL_68:
-    v6 = v70;
-    a2 = v69;
+    v6 = v69;
+    a2 = v68;
     if (Mutable)
     {
       CFRelease(Mutable);
@@ -9608,7 +9492,7 @@ LABEL_68:
   if (v55 >= 1)
   {
     v56 = v55;
-    v76 = v18;
+    v75 = v18;
     v57 = v6;
     v58 = 0;
     v59 = 0;
@@ -9631,14 +9515,12 @@ LABEL_68:
     }
 
     v6 = v57;
-    v18 = v76;
+    v18 = v75;
     if (v59)
     {
       [v54 setX_calendarserver_access:v58];
     }
   }
-
-  v65 = *MEMORY[0x1E69E9840];
 
   return v54;
 }

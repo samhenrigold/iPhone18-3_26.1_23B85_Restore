@@ -179,7 +179,7 @@ void __78__SBSSystemNotesPresentationHandle_configuration_didChangeToPresentatio
 - (void)_invalidateWithError:(id)error locally:(BOOL)locally
 {
   locallyCopy = locally;
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   os_unfair_lock_lock(&self->_lock);
   if (!locallyCopy && !self->_lock_state)
@@ -192,21 +192,21 @@ void __78__SBSSystemNotesPresentationHandle_configuration_didChangeToPresentatio
   os_unfair_lock_unlock(&self->_lock);
   if (lock_state != 2)
   {
-    v9 = SBLogSystemNotes();
-    v10 = v9;
+    v10 = SBLogSystemNotes(v9);
+    v11 = v10;
     if (errorCopy)
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [(SBSSystemNotesPresentationHandle *)self _invalidateWithError:errorCopy locally:v10];
+        [(SBSSystemNotesPresentationHandle *)self _invalidateWithError:errorCopy locally:v11];
       }
     }
 
-    else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_19169D000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ invalidating", buf, 0xCu);
+      _os_log_impl(&dword_19169D000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ invalidating", buf, 0xCu);
     }
 
     if (locallyCopy)
@@ -215,13 +215,13 @@ void __78__SBSSystemNotesPresentationHandle_configuration_didChangeToPresentatio
     }
 
     calloutSerialQueue = self->_calloutSerialQueue;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __65__SBSSystemNotesPresentationHandle__invalidateWithError_locally___block_invoke;
-    v12[3] = &unk_1E735F7F0;
-    v12[4] = self;
-    v13 = errorCopy;
-    dispatch_async(calloutSerialQueue, v12);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __65__SBSSystemNotesPresentationHandle__invalidateWithError_locally___block_invoke;
+    v13[3] = &unk_1E735F7F0;
+    v13[4] = self;
+    v14 = errorCopy;
+    dispatch_async(calloutSerialQueue, v13);
   }
 }
 

@@ -45,10 +45,10 @@
 
 - (void)viewDidLoad
 {
-  v65[3] = *MEMORY[0x277D85DE8];
-  v63.receiver = self;
-  v63.super_class = MSDSearchResultViewController;
-  [(MSDSearchResultViewController *)&v63 viewDidLoad];
+  v64[3] = *MEMORY[0x277D85DE8];
+  v62.receiver = self;
+  v62.super_class = MSDSearchResultViewController;
+  [(MSDSearchResultViewController *)&v62 viewDidLoad];
   systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
   view = [(MSDSearchResultViewController *)self view];
   [view setBackgroundColor:systemBackgroundColor];
@@ -78,25 +78,25 @@
   view3 = [(MSDSearchResultViewController *)self view];
   safeAreaLayoutGuide = [view3 safeAreaLayoutGuide];
   topAnchor2 = [safeAreaLayoutGuide topAnchor];
-  v50 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:15.0];
-  v65[0] = v50;
+  v49 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:15.0];
+  v64[0] = v49;
   searchBar7 = [(MSDSearchResultViewController *)self searchBar];
   leadingAnchor = [searchBar7 leadingAnchor];
   view4 = [(MSDSearchResultViewController *)self view];
   safeAreaLayoutGuide2 = [view4 safeAreaLayoutGuide];
   leadingAnchor2 = [safeAreaLayoutGuide2 leadingAnchor];
   v14 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v65[1] = v14;
+  v64[1] = v14;
   searchBar8 = [(MSDSearchResultViewController *)self searchBar];
   trailingAnchor = [searchBar8 trailingAnchor];
   view5 = [(MSDSearchResultViewController *)self view];
   safeAreaLayoutGuide3 = [view5 safeAreaLayoutGuide];
   trailingAnchor2 = [safeAreaLayoutGuide3 trailingAnchor];
   v20 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v65[2] = v20;
-  v62 = [MEMORY[0x277CBEA60] arrayWithObjects:v65 count:3];
+  v64[2] = v20;
+  v61 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:3];
 
-  [MEMORY[0x277CCAAD0] activateConstraints:v62];
+  [MEMORY[0x277CCAAD0] activateConstraints:v61];
   v21 = objc_alloc(MEMORY[0x277D75B40]);
   v22 = [v21 initWithFrame:0 style:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
   [(MSDSearchResultViewController *)self setTableView:v22];
@@ -118,36 +118,34 @@
   topAnchor3 = [tableView5 topAnchor];
   searchBar9 = [(MSDSearchResultViewController *)self searchBar];
   bottomAnchor = [searchBar9 bottomAnchor];
-  v53 = [topAnchor3 constraintEqualToAnchor:bottomAnchor];
-  v64[0] = v53;
+  v52 = [topAnchor3 constraintEqualToAnchor:bottomAnchor];
+  v63[0] = v52;
   tableView6 = [(MSDSearchResultViewController *)self tableView];
   bottomAnchor2 = [tableView6 bottomAnchor];
   view7 = [(MSDSearchResultViewController *)self view];
   bottomAnchor3 = [view7 bottomAnchor];
-  v43 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
-  v64[1] = v43;
+  v42 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
+  v63[1] = v42;
   tableView7 = [(MSDSearchResultViewController *)self tableView];
   leadingAnchor3 = [tableView7 leadingAnchor];
   view8 = [(MSDSearchResultViewController *)self view];
   leadingAnchor4 = [view8 leadingAnchor];
   v31 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-  v64[2] = v31;
+  v63[2] = v31;
   tableView8 = [(MSDSearchResultViewController *)self tableView];
   trailingAnchor3 = [tableView8 trailingAnchor];
   view9 = [(MSDSearchResultViewController *)self view];
   trailingAnchor4 = [view9 trailingAnchor];
   v36 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-  v64[3] = v36;
-  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:4];
+  v63[3] = v36;
+  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:4];
 
-  [MEMORY[0x277CCAAD0] activateConstraints:v40];
+  [MEMORY[0x277CCAAD0] activateConstraints:v39];
   tableView9 = [(MSDSearchResultViewController *)self tableView];
   [tableView9 registerClass:objc_opt_class() forCellReuseIdentifier:@"StoreInfoCell"];
 
   tableView10 = [(MSDSearchResultViewController *)self tableView];
   [tableView10 registerClass:objc_opt_class() forCellReuseIdentifier:@"StoreLoading"];
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showInProgress
@@ -213,19 +211,17 @@ LABEL_11:
 
 - (void)dismissAllTopViews
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = defaultLogHandle();
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = defaultLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[MSDSearchResultViewController dismissAllTopViews]";
-    _os_log_impl(&dword_259BCA000, v3, OS_LOG_TYPE_DEFAULT, "%s - dismissing all top views", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[MSDSearchResultViewController dismissAllTopViews]";
+    _os_log_impl(&dword_259BCA000, v3, OS_LOG_TYPE_DEFAULT, "%s - dismissing all top views", &v6, 0xCu);
   }
 
   navigationController = [(MSDSearchResultViewController *)self navigationController];
   v5 = [navigationController popToRootViewControllerAnimated:1];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isShowingSearchResult
@@ -240,13 +236,13 @@ LABEL_11:
 
 - (void)searchBar:(id)bar textDidChange:(id)change
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   changeCopy = change;
-  v6 = defaultLogHandle();
+  v6 = defaultLogHandle(changeCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v20 = changeCopy;
+    v19 = changeCopy;
     _os_log_impl(&dword_259BCA000, v6, OS_LOG_TYPE_DEFAULT, "User entered search text: %{public}@", buf, 0xCu);
   }
 
@@ -266,19 +262,17 @@ LABEL_11:
 
   v12 = objc_alloc(MEMORY[0x277CBEBB8]);
   v13 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:0.5];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __57__MSDSearchResultViewController_searchBar_textDidChange___block_invoke;
-  v18[3] = &unk_2798F1D38;
-  v18[4] = self;
-  v14 = [v12 initWithFireDate:v13 interval:0 repeats:v18 block:0.0];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __57__MSDSearchResultViewController_searchBar_textDidChange___block_invoke;
+  v17[3] = &unk_2798F1D38;
+  v17[4] = self;
+  v14 = [v12 initWithFireDate:v13 interval:0 repeats:v17 block:0.0];
   [(MSDSearchResultViewController *)self setDebounceTimer:v14];
 
   currentRunLoop = [MEMORY[0x277CBEB88] currentRunLoop];
   debounceTimer4 = [(MSDSearchResultViewController *)self debounceTimer];
   [currentRunLoop addTimer:debounceTimer4 forMode:*MEMORY[0x277CBE640]];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __57__MSDSearchResultViewController_searchBar_textDidChange___block_invoke(uint64_t a1)
@@ -287,18 +281,16 @@ void __57__MSDSearchResultViewController_searchBar_textDidChange___block_invoke(
   v2 = [*(a1 + 32) searchBar];
   v3 = [v2 text];
 
-  v4 = defaultLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = defaultLogHandle(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138543362;
     v8 = v3;
-    _os_log_impl(&dword_259BCA000, v4, OS_LOG_TYPE_DEFAULT, "Processing search text: %{public}@", &v7, 0xCu);
+    _os_log_impl(&dword_259BCA000, v5, OS_LOG_TYPE_DEFAULT, "Processing search text: %{public}@", &v7, 0xCu);
   }
 
-  v5 = [*(a1 + 32) delegate];
-  [v5 didEnterSearchText:v3 forViewController:*(a1 + 32)];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = [*(a1 + 32) delegate];
+  [v6 didEnterSearchText:v3 forViewController:*(a1 + 32)];
 }
 
 - (void)searchBarSearchButtonClicked:(id)clicked
@@ -309,7 +301,7 @@ void __57__MSDSearchResultViewController_searchBar_textDidChange___block_invoke(
 
 - (void)searchBarCancelButtonClicked:(id)clicked
 {
-  v4 = defaultLogHandle();
+  v4 = defaultLogHandle(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;

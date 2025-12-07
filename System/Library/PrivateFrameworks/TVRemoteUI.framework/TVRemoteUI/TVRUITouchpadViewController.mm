@@ -30,9 +30,9 @@
 
 - (void)viewDidLoad
 {
-  v9.receiver = self;
-  v9.super_class = TVRUITouchpadViewController;
-  [(TVRUITouchpadViewController *)&v9 viewDidLoad];
+  v10.receiver = self;
+  v10.super_class = TVRUITouchpadViewController;
+  [(TVRUITouchpadViewController *)&v10 viewDidLoad];
   [(TVRUITouchpadViewController *)self _darkenSystemColorsChanged:0];
   [(TVRUITouchpadViewController *)self _setupTouchpadView];
   if (_AXSAppleTVRemoteUsesSimpleGestures())
@@ -48,16 +48,16 @@
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter addObserver:self selector:sel__simpleRemoteGesturesEnabled_ name:*MEMORY[0x277D81C30] object:0];
 
-  v4 = _TVRUIViewControllerLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = _TVRUIViewControllerLog(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_26CFEB000, v4, OS_LOG_TYPE_DEFAULT, "Registered to listen for accessibility simple remote gestures", v8, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_26CFEB000, v5, OS_LOG_TYPE_DEFAULT, "Registered to listen for accessibility simple remote gestures", v9, 2u);
   }
 
   view = [(TVRUITouchpadViewController *)self view];
-  v6 = [objc_alloc(MEMORY[0x277D75870]) initWithDelegate:self];
-  [view addInteraction:v6];
+  v7 = [objc_alloc(MEMORY[0x277D75870]) initWithDelegate:self];
+  [view addInteraction:v7];
 
   defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter2 addObserver:self selector:sel__darkenSystemColorsChanged_ name:*MEMORY[0x277D76460] object:0];
@@ -105,17 +105,17 @@
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
-  v7.receiver = self;
-  v7.super_class = TVRUITouchpadViewController;
-  [(TVRUITouchpadViewController *)&v7 viewWillDisappear:disappear];
+  v8.receiver = self;
+  v8.super_class = TVRUITouchpadViewController;
+  [(TVRUITouchpadViewController *)&v8 viewWillDisappear:disappear];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter removeObserver:self name:*MEMORY[0x277D81C30] object:0];
 
-  v5 = _TVRUIViewControllerLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _TVRUIViewControllerLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_26CFEB000, v5, OS_LOG_TYPE_DEFAULT, "Unregistered to listen for accessibility simple remote gestures", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_26CFEB000, v6, OS_LOG_TYPE_DEFAULT, "Unregistered to listen for accessibility simple remote gestures", v7, 2u);
   }
 }
 
@@ -362,7 +362,7 @@
 - (void)_toggleControlScale
 {
   v12 = *MEMORY[0x277D85DE8];
-  v3 = _TVRUIViewControllerLog();
+  v3 = _TVRUIViewControllerLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     isShowingControls = [(TVRUITouchpadViewController *)self isShowingControls];
@@ -389,7 +389,7 @@
 
 - (void)_simpleRemoteGesturesEnabled:(id)enabled
 {
-  v4 = _TVRUIViewControllerLog();
+  v4 = _TVRUIViewControllerLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -449,22 +449,23 @@
 
 - (void)pointerInteraction:(id)interaction willEnterRegion:(id)region animator:(id)animator
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v6 = _TVRUIViewControllerLog();
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = _TVRUIViewControllerLog(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[TVRUITouchpadViewController pointerInteraction:willEnterRegion:animator:]";
-    _os_log_impl(&dword_26CFEB000, v6, OS_LOG_TYPE_DEFAULT, "%s", &v8, 0xCu);
+    v9 = 136315138;
+    v10 = "[TVRUITouchpadViewController pointerInteraction:willEnterRegion:animator:]";
+    _os_log_impl(&dword_26CFEB000, v6, OS_LOG_TYPE_DEFAULT, "%s", &v9, 0xCu);
   }
 
-  if ([(TVRUITouchpadViewController *)self touchpadMode]!= 1)
+  touchpadMode = [(TVRUITouchpadViewController *)self touchpadMode];
+  if (touchpadMode != 1)
   {
-    v7 = _TVRUIViewControllerLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _TVRUIViewControllerLog(touchpadMode);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_26CFEB000, v7, OS_LOG_TYPE_DEFAULT, "Transitioning to directional controls because a pointer entered the touchpad", &v8, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_26CFEB000, v8, OS_LOG_TYPE_DEFAULT, "Transitioning to directional controls because a pointer entered the touchpad", &v9, 2u);
     }
 
     [(TVRUITouchpadViewController *)self _transitionToDirectionalControlView];
@@ -474,7 +475,7 @@
 - (void)_darkenSystemColorsChanged:(id)changed
 {
   v10 = *MEMORY[0x277D85DE8];
-  v4 = _TVRUIViewControllerLog();
+  v4 = _TVRUIViewControllerLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315138;

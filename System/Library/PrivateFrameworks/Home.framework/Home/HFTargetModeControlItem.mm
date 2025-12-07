@@ -12,35 +12,35 @@
 
 - (HFTargetModeControlItem)initWithValueSource:(id)source targetModeCharacteristicType:(id)type targetModeValueSet:(id)set primaryPowerStateControlItem:(id)item displayResults:(id)results
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   typeCopy = type;
   setCopy = set;
   itemCopy = item;
   resultsCopy = results;
   v14 = [setCopy copy];
-  v35 = @"title";
+  v34 = @"title";
   v15 = _HFLocalizedStringWithDefaultValue(@"HFControlTargetModeOff", @"HFControlTargetModeOff", 1);
-  v36[0] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+  v35[0] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
   [v14 addValue:&unk_2825249C0 displayResults:v16 addOnlyIfValid:0];
 
   objc_initWeak(&location, v14);
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __139__HFTargetModeControlItem_initWithValueSource_targetModeCharacteristicType_targetModeValueSet_primaryPowerStateControlItem_displayResults___block_invoke;
-  v31[3] = &unk_277DFEF10;
-  objc_copyWeak(&v33, &location);
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __139__HFTargetModeControlItem_initWithValueSource_targetModeCharacteristicType_targetModeValueSet_primaryPowerStateControlItem_displayResults___block_invoke;
+  v30[3] = &unk_277DFEF10;
+  objc_copyWeak(&v32, &location);
   v17 = setCopy;
-  v32 = v17;
-  [v14 setValueComparator:v31];
+  v31 = v17;
+  [v14 setValueComparator:v30];
   characteristicOptions = [itemCopy characteristicOptions];
   v19 = [MEMORY[0x277CBEB98] setWithObject:typeCopy];
   v20 = [characteristicOptions optionsByAddingCharacteristicTypes:v19 forUsage:0];
 
-  v30.receiver = self;
-  v30.super_class = HFTargetModeControlItem;
-  v21 = [(HFMultiStateControlItem *)&v30 initWithValueSource:sourceCopy multiStateCharacteristicType:typeCopy allCharacteristicOptions:v20 possibleValueSet:v14 displayResults:resultsCopy];
+  v29.receiver = self;
+  v29.super_class = HFTargetModeControlItem;
+  v21 = [(HFMultiStateControlItem *)&v29 initWithValueSource:sourceCopy multiStateCharacteristicType:typeCopy allCharacteristicOptions:v20 possibleValueSet:v14 displayResults:resultsCopy];
   v22 = v21;
   if (v21)
   {
@@ -51,10 +51,9 @@
     v22->_primaryPowerStateControlItem = v23;
   }
 
-  objc_destroyWeak(&v33);
+  objc_destroyWeak(&v32);
   objc_destroyWeak(&location);
 
-  v25 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -134,23 +133,21 @@ LABEL_12:
 
 - (id)updateWithOptions:(id)options
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   primaryPowerStateControlItem = [(HFTargetModeControlItem *)self primaryPowerStateControlItem];
   v6 = [primaryPowerStateControlItem updateWithOptions:optionsCopy];
 
   v7 = MEMORY[0x277D2C900];
-  v14.receiver = self;
-  v14.super_class = HFTargetModeControlItem;
-  v8 = [(HFItem *)&v14 updateWithOptions:optionsCopy];
+  v13.receiver = self;
+  v13.super_class = HFTargetModeControlItem;
+  v8 = [(HFItem *)&v13 updateWithOptions:optionsCopy];
 
-  v15[0] = v8;
-  v15[1] = v6;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[0] = v8;
+  v14[1] = v6;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   v10 = [v7 combineAllFutures:v9];
   v11 = [v10 flatMap:&__block_literal_global_177];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

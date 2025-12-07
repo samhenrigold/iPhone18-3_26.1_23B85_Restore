@@ -66,7 +66,7 @@
 {
   plistCopy = plist;
   v4 = [plistCopy objectForKeyedSubscript:@"Version"];
-  v5 = +[ActuationManager playlistFromPlist:forRevision:](ActuationManager, "playlistFromPlist:forRevision:", plistCopy, [v4 unsignedIntegerValue]);
+  v5 = [ActuationManager playlistFromPlist:plistCopy forRevision:objc_msgSend_unsignedIntegerValue(v4)];
   [(ActuationManager *)self setOverridePlaylist:v5];
 }
 
@@ -169,18 +169,19 @@
   ProductionPlist = MTActuatorGetProductionPlist();
   if (ProductionPlist)
   {
-    v8 = 0;
-    v3 = [NSPropertyListSerialization propertyListWithData:ProductionPlist options:0 format:0 error:&v8];
-    v4 = v8;
-    if (v3)
+    v11 = 0;
+    v4 = [NSPropertyListSerialization propertyListWithData:ProductionPlist options:0 format:0 error:&v11];
+    v5 = v11;
+    v7 = v5;
+    if (v4)
     {
-      v5 = v3;
+      v8 = v4;
     }
 
     else
     {
-      v6 = MTLoggingPlugin();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v9 = MTLoggingPlugin(v5, v6);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [ActuationManager productionPlist];
       }
@@ -189,16 +190,16 @@
 
   else
   {
-    v4 = MTLoggingPlugin();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v7 = MTLoggingPlugin(0, v2);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [ActuationManager productionPlist];
     }
 
-    v3 = 0;
+    v4 = 0;
   }
 
-  return v3;
+  return v4;
 }
 
 - (int)actuateWaveform:(id)waveform strength:(float)strength timeDilation:(float)dilation device:(__MTActuator *)device actuatorLimits:(id)limits options:(unsigned int)options
@@ -233,18 +234,19 @@
 + (id)playlistFromPlist:(id)plist forRevision:(unint64_t)revision
 {
   plistCopy = plist;
-  v6 = plistCopy;
+  v7 = plistCopy;
   if (plistCopy)
   {
-    v7 = [plistCopy objectForKeyedSubscript:@"Version"];
-    if (([v7 intValue]& 0xFFFFFFFE) == 2)
+    v8 = [plistCopy objectForKeyedSubscript:@"Version"];
+    intValue = [v8 intValue];
+    if ((intValue & 0xFFFFFFFE) == 2)
     {
-      v8 = [ActuationManager playlistFromV2OrV3Plist:v6 forRevision:revision withPlistVersion:[v7 unsignedIntegerValue]];
+      v11 = [ActuationManager playlistFromV2OrV3Plist:v7 forRevision:revision withPlistVersion:objc_msgSend_unsignedIntegerValue(v8)];
       goto LABEL_10;
     }
 
-    v9 = MTLoggingPlugin();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v12 = MTLoggingPlugin(intValue, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       +[ActuationManager playlistFromPlist:forRevision:];
     }
@@ -252,17 +254,17 @@
 
   else
   {
-    v7 = MTLoggingPlugin();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = MTLoggingPlugin(0, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       +[ActuationManager playlistFromPlist:forRevision:];
     }
   }
 
-  v8 = 0;
+  v11 = 0;
 LABEL_10:
 
-  return v8;
+  return v11;
 }
 
 + (id)playlistFromV2OrV3Plist:(id)plist forRevision:(unint64_t)revision withPlistVersion:(unint64_t)version
@@ -272,60 +274,61 @@ LABEL_10:
   v6 = [plistCopy objectForKeyedSubscript:?];
   if (v6 || ([plistCopy objectForKeyedSubscript:@"Default"], (v6 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v26 = objc_opt_new();
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
-    v30 = 0u;
+    v31 = objc_opt_new();
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     obj = v6;
-    v7 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
-    if (v7)
+    v8 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+    if (v8)
     {
-      v8 = *v30;
+      v9 = *v35;
       do
       {
-        for (i = 0; i != v7; i = i + 1)
+        for (i = 0; i != v8; i = i + 1)
         {
-          if (*v30 != v8)
+          if (*v35 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v29 + 1) + 8 * i);
-          v11 = [v10 objectForKeyedSubscript:@"ActuationID"];
-          v12 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", -[v11 intValue]);
+          v11 = *(*(&v34 + 1) + 8 * i);
+          v12 = [v11 objectForKeyedSubscript:@"ActuationID"];
+          v13 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", -[v12 intValue]);
           if (version == 3)
           {
-            v13 = [v10 objectForKeyedSubscript:@"Default"];
+            v14 = [v11 objectForKeyedSubscript:@"Default"];
           }
 
           else
           {
-            v13 = v10;
+            v14 = v11;
           }
 
-          v14 = v13;
-          v15 = [v10 objectForKeyedSubscript:@"Silent"];
-          if (v11)
+          v15 = v14;
+          v16 = [v11 objectForKeyedSubscript:@"Silent"];
+          v18 = v16;
+          if (v12)
           {
-            v16 = v14 == 0;
+            v19 = v15 == 0;
           }
 
           else
           {
-            v16 = 1;
+            v19 = 1;
           }
 
-          if (v16)
+          if (v19)
           {
-            p_super = MTLoggingPlugin();
+            p_super = MTLoggingPlugin(v16, v17);
             if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
             {
               *buf = 67109632;
-              *v34 = v11 == 0;
-              *&v34[4] = 1024;
-              *&v34[6] = v14 == 0;
-              v35 = 2048;
+              *v39 = v12 == 0;
+              *&v39[4] = 1024;
+              *&v39[6] = v15 == 0;
+              v40 = 2048;
               versionCopy = version;
               _os_log_error_impl(&dword_0, p_super, OS_LOG_TYPE_ERROR, "Error parsing click playlist, unable to determine actuation id(%d) or default waveform not defined(%d) playlistVersion=%lu", buf, 0x18u);
             }
@@ -333,69 +336,69 @@ LABEL_10:
 
           else
           {
-            v18 = [[ActuationWaveform alloc] initWithDictionary:v14];
-            p_super = &v18->super;
-            if (v18)
+            v21 = [[ActuationWaveform alloc] initWithDictionary:v15];
+            p_super = &v21->super;
+            if (v21)
             {
-              [v26 setObject:v18 forKeyedSubscript:v11];
-              if (!v15)
+              [v31 setObject:v21 forKeyedSubscript:v12];
+              if (!v18)
               {
-                v15 = v14;
+                v18 = v15;
               }
 
-              v19 = [[ActuationWaveform alloc] initWithDictionary:v15];
-              if (v19)
+              v24 = [[ActuationWaveform alloc] initWithDictionary:v18];
+              if (v24)
               {
-                [v26 setObject:v19 forKeyedSubscript:v12];
+                [v31 setObject:v24 forKeyedSubscript:v13];
               }
 
               else
               {
-                v20 = MTLoggingPlugin();
-                if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+                v25 = MTLoggingPlugin(0, v23);
+                if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  *v34 = v12;
-                  _os_log_error_impl(&dword_0, v20, OS_LOG_TYPE_ERROR, "Error parsing click playlist, failed to create silent waveform for actuationID=%@", buf, 0xCu);
+                  *v39 = v13;
+                  _os_log_error_impl(&dword_0, v25, OS_LOG_TYPE_ERROR, "Error parsing click playlist, failed to create silent waveform for actuationID=%@", buf, 0xCu);
                 }
               }
             }
 
             else
             {
-              v19 = MTLoggingPlugin();
-              if (os_log_type_enabled(&v19->super, OS_LOG_TYPE_ERROR))
+              v24 = MTLoggingPlugin(0, v22);
+              if (os_log_type_enabled(&v24->super, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                *v34 = v11;
-                _os_log_error_impl(&dword_0, &v19->super, OS_LOG_TYPE_ERROR, "Error parsing click playlist, failed to create default waveform for actuationID=%@", buf, 0xCu);
+                *v39 = v12;
+                _os_log_error_impl(&dword_0, &v24->super, OS_LOG_TYPE_ERROR, "Error parsing click playlist, failed to create default waveform for actuationID=%@", buf, 0xCu);
               }
             }
           }
         }
 
-        v7 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v8 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
       }
 
-      while (v7);
+      while (v8);
     }
 
-    v21 = [v26 copy];
+    v26 = [v31 copy];
   }
 
   else
   {
-    v23 = MTLoggingPlugin();
-    obj = v23;
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v28 = MTLoggingPlugin(0, v7);
+    obj = v28;
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      [ActuationManager playlistFromV2OrV3Plist:revision forRevision:v23 withPlistVersion:?];
+      [ActuationManager playlistFromV2OrV3Plist:revision forRevision:v28 withPlistVersion:?];
     }
 
-    v21 = 0;
+    v26 = 0;
   }
 
-  return v21;
+  return v26;
 }
 
 + (id)plistV3FromPlaylist:(id)playlist

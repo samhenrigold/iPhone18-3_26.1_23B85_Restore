@@ -33,7 +33,7 @@
 
 - (HMFMutableNetService)initWithDomain:(id)domain type:(id)type name:(id)name port:(unint64_t)port
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   domainCopy = domain;
   typeCopy = type;
   nameCopy = name;
@@ -42,18 +42,18 @@
   {
     v26 = objc_autoreleasePoolPush();
     selfCopy3 = self;
-    v27 = HMFGetOSLogHandle();
-    if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v28 = HMFGetOSLogHandle(selfCopy3, v27);
+    if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_14;
     }
 
-    v28 = HMFGetLogIdentifier(selfCopy3);
+    v29 = HMFGetLogIdentifier(selfCopy3);
     *buf = 138543362;
-    v35 = v28;
-    v29 = "%{public}@Service domain is required";
+    v37 = v29;
+    v30 = "%{public}@Service domain is required";
 LABEL_13:
-    _os_log_impl(&dword_22ADEC000, v27, OS_LOG_TYPE_ERROR, v29, buf, 0xCu);
+    _os_log_impl(&dword_22ADEC000, v28, OS_LOG_TYPE_ERROR, v30, buf, 0xCu);
 
     goto LABEL_14;
   }
@@ -62,16 +62,16 @@ LABEL_13:
   {
     v26 = objc_autoreleasePoolPush();
     selfCopy3 = self;
-    v27 = HMFGetOSLogHandle();
-    if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v28 = HMFGetOSLogHandle(selfCopy3, v31);
+    if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_14;
     }
 
-    v28 = HMFGetLogIdentifier(selfCopy3);
+    v29 = HMFGetLogIdentifier(selfCopy3);
     *buf = 138543362;
-    v35 = v28;
-    v29 = "%{public}@Service type is required";
+    v37 = v29;
+    v30 = "%{public}@Service type is required";
     goto LABEL_13;
   }
 
@@ -79,13 +79,13 @@ LABEL_13:
   {
     v26 = objc_autoreleasePoolPush();
     selfCopy3 = self;
-    v27 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v28 = HMFGetOSLogHandle(selfCopy3, v32);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      v28 = HMFGetLogIdentifier(selfCopy3);
+      v29 = HMFGetLogIdentifier(selfCopy3);
       *buf = 138543362;
-      v35 = v28;
-      v29 = "%{public}@Service name is required";
+      v37 = v29;
+      v30 = "%{public}@Service name is required";
       goto LABEL_13;
     }
 
@@ -96,9 +96,9 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v32.receiver = self;
-  v32.super_class = HMFMutableNetService;
-  v14 = [(HMFNetService *)&v32 initWithNetService:0];
+  v34.receiver = self;
+  v34.super_class = HMFMutableNetService;
+  v14 = [(HMFNetService *)&v34 initWithNetService:0];
   if (v14)
   {
     v15 = [domainCopy copy];
@@ -115,8 +115,8 @@ LABEL_14:
 
     v14->super._port = port;
     v21 = +[HMFNetAddress localAddress];
-    v33 = v21;
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
+    v35 = v21;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
     addresses = v14->super._addresses;
     v14->super._addresses = v22;
   }
@@ -125,7 +125,6 @@ LABEL_14:
   v25 = selfCopy3;
 LABEL_15:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -174,25 +173,25 @@ LABEL_15:
 
 - (void)setTXTRecordValue:(id)value forKey:(id)key
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   keyCopy = key;
   selfCopy = self;
   v9 = keyCopy;
   v10 = MEMORY[0x277CBAB60];
-  v24 = v9;
+  v23 = v9;
   data = [MEMORY[0x277CBEA90] data];
-  v25[0] = data;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+  v24[0] = data;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
   v13 = [v10 dataFromTXTRecordDictionary:v12];
 
   v14 = 0;
   v15 = selfCopy;
   v16 = valueCopy;
   v17 = MEMORY[0x277CBAB60];
-  v24 = @"key";
-  v25[0] = v16;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+  v23 = @"key";
+  v24[0] = v16;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
   v19 = [v17 dataFromTXTRecordDictionary:v18];
 
   v20 = v14;
@@ -216,8 +215,6 @@ LABEL_15:
       __notifyUpdatedTXTRecord(v15, v22);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeTXTRecordValueForKey:(id)key
@@ -260,20 +257,18 @@ void __39__HMFMutableNetService_updateTXTRecord__block_invoke(uint64_t a1)
     {
       v7 = objc_autoreleasePoolPush();
       v8 = *(a1 + 32);
-      v9 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = HMFGetOSLogHandle(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v10 = HMFGetLogIdentifier(v8);
+        v11 = HMFGetLogIdentifier(v8);
         v12 = 138543362;
-        v13 = v10;
-        _os_log_impl(&dword_22ADEC000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to update TXT record", &v12, 0xCu);
+        v13 = v11;
+        _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to update TXT record", &v12, 0xCu);
       }
 
       objc_autoreleasePoolPop(v7);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)internal
@@ -311,113 +306,110 @@ void __39__HMFMutableNetService_updateTXTRecord__block_invoke(uint64_t a1)
 
 void __61__HMFMutableNetService_startPublishingWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) isPublishing])
   {
     v2 = objc_autoreleasePoolPush();
     v3 = *(a1 + 32);
-    v4 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = HMFGetOSLogHandle(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v5 = HMFGetLogIdentifier(v3);
-      v29 = 138543362;
-      v30 = v5;
-      _os_log_impl(&dword_22ADEC000, v4, OS_LOG_TYPE_INFO, "%{public}@The service is already publishing", &v29, 0xCu);
+      v6 = HMFGetLogIdentifier(v3);
+      v32 = 138543362;
+      v33 = v6;
+      _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_INFO, "%{public}@The service is already publishing", &v32, 0xCu);
     }
 
     objc_autoreleasePoolPop(v2);
-    v6 = *(a1 + 40);
-    if (v6)
+    v7 = *(a1 + 40);
+    if (v7)
     {
-      (*(v6 + 16))(v6, 0);
+      (*(v7 + 16))(v7, 0);
     }
 
-    goto LABEL_21;
+    return;
   }
 
   if ([*(a1 + 32) port])
   {
-    v7 = objc_alloc(MEMORY[0x277CBAB60]);
-    v8 = [*(a1 + 32) domain];
-    v9 = [*(a1 + 32) type];
-    v10 = [*(a1 + 32) name];
-    v11 = [v7 initWithDomain:v8 type:v9 name:v10 port:{objc_msgSend(*(a1 + 32), "port")}];
+    v8 = objc_alloc(MEMORY[0x277CBAB60]);
+    v9 = [*(a1 + 32) domain];
+    v10 = [*(a1 + 32) type];
+    v11 = [*(a1 + 32) name];
+    v12 = [v8 initWithDomain:v9 type:v10 name:v11 port:{objc_msgSend(*(a1 + 32), "port")}];
 
-    if (v11)
+    if (v12)
     {
-      [*(a1 + 32) setInternal:v11];
-      [v11 setDelegate:*(a1 + 32)];
-      v12 = MEMORY[0x277CBAB60];
-      v13 = [*(a1 + 32) TXTRecord];
-      v14 = [v12 dataFromTXTRecordDictionary:v13];
-      [v11 setTXTRecordData:v14];
+      [*(a1 + 32) setInternal:v12];
+      [v12 setDelegate:*(a1 + 32)];
+      v13 = MEMORY[0x277CBAB60];
+      v14 = [*(a1 + 32) TXTRecord];
+      v15 = [v13 dataFromTXTRecordDictionary:v14];
+      [v12 setTXTRecordData:v15];
 
-      v15 = objc_autoreleasePoolPush();
-      v16 = *(a1 + 32);
-      v17 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v16 = objc_autoreleasePoolPush();
+      v17 = *(a1 + 32);
+      v19 = HMFGetOSLogHandle(v17, v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
-        v18 = HMFGetLogIdentifier(v16);
-        v29 = 138543362;
-        v30 = v18;
-        _os_log_impl(&dword_22ADEC000, v17, OS_LOG_TYPE_INFO, "%{public}@Start publishing the net service", &v29, 0xCu);
+        v20 = HMFGetLogIdentifier(v17);
+        v32 = 138543362;
+        v33 = v20;
+        _os_log_impl(&dword_22ADEC000, v19, OS_LOG_TYPE_INFO, "%{public}@Start publishing the net service", &v32, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v15);
+      objc_autoreleasePoolPop(v16);
       [*(a1 + 32) setPublishing:1];
       [*(a1 + 32) setPublishBlock:*(a1 + 40)];
-      v19 = [*(a1 + 32) internal];
-      [v19 publishWithOptions:0];
+      v21 = [*(a1 + 32) internal];
+      [v21 publishWithOptions:0];
     }
 
     else
     {
-      v24 = objc_autoreleasePoolPush();
-      v25 = *(a1 + 32);
-      v26 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v27 = objc_autoreleasePoolPush();
+      v28 = *(a1 + 32);
+      v30 = HMFGetOSLogHandle(v28, v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        v27 = HMFGetLogIdentifier(v25);
-        v29 = 138543362;
-        v30 = v27;
-        _os_log_impl(&dword_22ADEC000, v26, OS_LOG_TYPE_ERROR, "%{public}@Failed to create internal net service", &v29, 0xCu);
+        v31 = HMFGetLogIdentifier(v28);
+        v32 = 138543362;
+        v33 = v31;
+        _os_log_impl(&dword_22ADEC000, v30, OS_LOG_TYPE_ERROR, "%{public}@Failed to create internal net service", &v32, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v24);
+      objc_autoreleasePoolPop(v27);
       if (!*(a1 + 40))
       {
         goto LABEL_20;
       }
 
-      v19 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:3 reason:@"Failed to create record."];
+      v21 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:3 reason:@"Failed to create record."];
       (*(*(a1 + 40) + 16))();
     }
 
 LABEL_20:
-    goto LABEL_21;
+    return;
   }
 
-  v20 = objc_autoreleasePoolPush();
-  v21 = *(a1 + 32);
-  v22 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v22 = objc_autoreleasePoolPush();
+  v23 = *(a1 + 32);
+  v25 = HMFGetOSLogHandle(v23, v24);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = HMFGetLogIdentifier(v21);
-    v29 = 138543362;
-    v30 = v23;
-    _os_log_impl(&dword_22ADEC000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot publish without a resolved port", &v29, 0xCu);
+    v26 = HMFGetLogIdentifier(v23);
+    v32 = 138543362;
+    v33 = v26;
+    _os_log_impl(&dword_22ADEC000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot publish without a resolved port", &v32, 0xCu);
   }
 
-  objc_autoreleasePoolPop(v20);
+  objc_autoreleasePoolPop(v22);
   if (*(a1 + 40))
   {
-    v11 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:3 reason:@"Cannot publish without a resolved port."];
+    v12 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:3 reason:@"Cannot publish without a resolved port."];
     (*(*(a1 + 40) + 16))();
     goto LABEL_20;
   }
-
-LABEL_21:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopPublishing
@@ -427,13 +419,13 @@ LABEL_21:
   {
     v3 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v5 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = HMFGetOSLogHandle(selfCopy, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v6 = HMFGetLogIdentifier(selfCopy);
+      v7 = HMFGetLogIdentifier(selfCopy);
       *buf = 138543362;
-      v11 = v6;
-      _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping the net service", buf, 0xCu);
+      v11 = v7;
+      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_INFO, "%{public}@Stopping the net service", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -446,8 +438,6 @@ LABEL_21:
     block[4] = selfCopy;
     dispatch_async(clientQueue, block);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __38__HMFMutableNetService_stopPublishing__block_invoke(uint64_t a1)
@@ -462,17 +452,16 @@ void __38__HMFMutableNetService_stopPublishing__block_invoke(uint64_t a1)
   publishCopy = publish;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v7 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = HMFGetOSLogHandle(selfCopy, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v8 = HMFGetLogIdentifier(selfCopy);
+    v9 = HMFGetLogIdentifier(selfCopy);
     v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Net service will publish", &v10, 0xCu);
+    v11 = v9;
+    _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Net service will publish", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)netServiceDidPublish:(id)publish
@@ -491,24 +480,22 @@ void __45__HMFMutableNetService_netServiceDidPublish___block_invoke(uint64_t a1)
   v10 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
-  v4 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = HMFGetOSLogHandle(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = HMFGetLogIdentifier(v3);
+    v6 = HMFGetLogIdentifier(v3);
     v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_22ADEC000, v4, OS_LOG_TYPE_INFO, "%{public}@Published", &v8, 0xCu);
+    v9 = v6;
+    _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_INFO, "%{public}@Published", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = [*(a1 + 32) publishBlock];
-  if (v6)
+  v7 = [*(a1 + 32) publishBlock];
+  if (v7)
   {
     [*(a1 + 32) setPublishBlock:0];
-    v6[2](v6, 0);
+    v7[2](v7, 0);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)netService:(id)service didNotPublish:(id)publish
@@ -530,44 +517,41 @@ void __49__HMFMutableNetService_netService_didNotPublish___block_invoke(uint64_t
   v21 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
-  v4 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = HMFGetOSLogHandle(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v5 = HMFGetLogIdentifier(v3);
+    v6 = HMFGetLogIdentifier(v3);
     v17 = 138543362;
-    v18 = v5;
-    _os_log_impl(&dword_22ADEC000, v4, OS_LOG_TYPE_INFO, "%{public}@Failed to publish", &v17, 0xCu);
+    v18 = v6;
+    _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_INFO, "%{public}@Failed to publish", &v17, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = objc_autoreleasePoolPush();
-  v7 = *(a1 + 32);
-  v8 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v7 = objc_autoreleasePoolPush();
+  v8 = *(a1 + 32);
+  v10 = HMFGetOSLogHandle(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v9 = HMFGetLogIdentifier(v7);
-    v10 = *(a1 + 40);
+    v11 = HMFGetLogIdentifier(v8);
+    v12 = *(a1 + 40);
     v17 = 138543618;
-    v18 = v9;
+    v18 = v11;
     v19 = 2112;
-    v20 = v10;
-    _os_log_impl(&dword_22ADEC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Failed to publish with error: %@", &v17, 0x16u);
+    v20 = v12;
+    _os_log_impl(&dword_22ADEC000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Failed to publish with error: %@", &v17, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v6);
-  v11 = [*(a1 + 32) publishBlock];
-  if (v11)
+  objc_autoreleasePoolPop(v7);
+  v13 = [*(a1 + 32) publishBlock];
+  if (v13)
   {
     [*(a1 + 32) setPublishBlock:0];
-    v12 = MEMORY[0x277CCA9B8];
-    v13 = *(a1 + 32);
-    v14 = [objc_opt_class() errorFromNetServiceErrorDict:*(a1 + 40)];
-    v15 = [v12 hmfErrorWithCode:11 reason:@"Failed to publish net service." suggestion:0 underlyingError:v14];
+    v14 = MEMORY[0x277CCA9B8];
+    v15 = [objc_opt_class() errorFromNetServiceErrorDict:*(a1 + 40)];
+    v16 = [v14 hmfErrorWithCode:11 reason:@"Failed to publish net service." suggestion:0 underlyingError:v15];
 
-    (v11)[2](v11, v15);
+    (v13)[2](v13, v16);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)netServiceDidStop:(id)stop
@@ -586,27 +570,25 @@ void __42__HMFMutableNetService_netServiceDidStop___block_invoke(uint64_t a1)
   v11 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
-  v4 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = HMFGetOSLogHandle(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v5 = HMFGetLogIdentifier(v3);
+    v6 = HMFGetLogIdentifier(v3);
     v9 = 138543362;
-    v10 = v5;
-    _os_log_impl(&dword_22ADEC000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Net service did stop", &v9, 0xCu);
+    v10 = v6;
+    _os_log_impl(&dword_22ADEC000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Net service did stop", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   [*(a1 + 32) setPublishing:0];
   [*(a1 + 32) setInternal:0];
-  v6 = [*(a1 + 32) publishBlock];
-  if (v6)
+  v7 = [*(a1 + 32) publishBlock];
+  if (v7)
   {
     [*(a1 + 32) setPublishBlock:0];
-    v7 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:12 reason:@"Net service stopped publishing."];
-    (v6)[2](v6, v7);
+    v8 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:12 reason:@"Net service stopped publishing."];
+    (v7)[2](v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -205,7 +205,7 @@ LABEL_15:
     webNodeHighlight = self->_webNodeHighlight;
     if (webNodeHighlight)
     {
-      [(WebNodeHighlight *)webNodeHighlight inspectorController];
+      objc_msgSend_inspectorController(webNodeHighlight);
       if (*&v8[0])
       {
         v9 = 0;
@@ -218,7 +218,7 @@ LABEL_15:
         v6 = self->_webNodeHighlight;
         if (v6)
         {
-          [(WebNodeHighlight *)v6 inspectorController];
+          objc_msgSend_inspectorController(v6);
         }
 
         WebCore::InspectorController::getHighlight();

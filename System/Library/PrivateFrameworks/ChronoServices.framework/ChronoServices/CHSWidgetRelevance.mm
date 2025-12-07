@@ -29,7 +29,6 @@
 
 - (LNRelevantContext)relevantContext
 {
-  attribute = self->_attribute;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {

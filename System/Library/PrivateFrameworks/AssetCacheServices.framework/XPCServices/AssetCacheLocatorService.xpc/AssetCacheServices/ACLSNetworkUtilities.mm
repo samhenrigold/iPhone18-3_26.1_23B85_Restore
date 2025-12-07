@@ -1,4 +1,5 @@
 @interface ACLSNetworkUtilities
++ (BOOL)areDigestedIdentifiers:(id)identifiers equalToCleartextIdentifiers:(id)cleartextIdentifiers tag:(unsigned int)tag;
 + (BOOL)hasUsefulUSBEthernetInterface;
 + (BOOL)isAutomaticConfigMethod4:(id)method4;
 + (BOOL)isDigestedIdentifier:(id)identifier equalToCleartextIdentifier:(id)cleartextIdentifier tag:(unsigned int)tag;
@@ -11,6 +12,7 @@
 + (id)allActiveNetworkInterfaces;
 + (id)createNetworkInterface:(__SCNetworkInterface *)interface service:(__SCNetworkService *)service configInfo:(id)info;
 + (id)digestIdentifier:(id)identifier tag:(unsigned int)tag;
++ (id)digestIdentifiers:(id)identifiers tag:(unsigned int)tag;
 + (id)netmask4ContainingStartAddress:(id)address endAddress:(id)endAddress;
 + (id)serviceIDFromKey:(id)key;
 + (id)stringFromInaddr4:(const in_addr *)inaddr4;
@@ -942,10 +944,10 @@ LABEL_6:
     sub_10001FB78(tag, v9);
   }
 
-  *v129 = xmmword_100026E10;
-  v130 = 7;
+  *v124 = xmmword_100026E10;
+  v125 = 7;
   size = 0;
-  if (sysctl(v129, 6u, 0, &size, 0, 0) || (v14 = malloc_type_malloc(size, 0xFD32828FuLL)) == 0)
+  if (sysctl(v124, 6u, 0, &size, 0, 0) || (v14 = malloc_type_malloc(size, 0xFD32828FuLL)) == 0)
   {
     v10 = 0;
     v11 = 0;
@@ -955,7 +957,7 @@ LABEL_6:
   }
 
   v15 = v14;
-  if (sysctl(v129, 6u, v14, &size, 0, 0) || size < 1)
+  if (sysctl(v124, 6u, v14, &size, 0, 0) || size < 1)
   {
     v10 = 0;
     v11 = 0;
@@ -969,12 +971,12 @@ LABEL_6:
   addressesCopy = addresses;
   identifiersCopy = identifiers;
   tagCopy = tag;
-  v102 = 0;
+  v97 = 0;
   v22 = 0;
-  v98 = 0;
+  v93 = 0;
   v23 = &v15[size];
-  v103 = 0;
-  v95 = v15;
+  v98 = 0;
+  v90 = v15;
   do
   {
     if (os_log_type_enabled(gLogHandle, OS_LOG_TYPE_DEBUG))
@@ -1029,7 +1031,7 @@ LABEL_43:
       memcpy(&buf[v28], v27, *v27);
       if (v28 == 32)
       {
-        v126[121] = BYTE1(buf[0]);
+        v121[121] = BYTE1(buf[0]);
       }
 
       if (os_log_type_enabled(gLogHandle, OS_LOG_TYPE_DEBUG))
@@ -1063,13 +1065,13 @@ LABEL_47:
     if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
     {
       v46 = currentQueueName();
-      *v108 = 67109635;
-      v109 = tagCopy;
-      v110 = 2080;
-      v111 = v46;
-      v112 = 2113;
-      *v113 = v24;
-      _os_log_debug_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEBUG, "#%08x [%s] makeLocalAddresses: %{private}@", v108, 0x1Cu);
+      *v103 = 67109635;
+      v104 = tagCopy;
+      v105 = 2080;
+      v106 = v46;
+      v107 = 2113;
+      *v108 = v24;
+      _os_log_debug_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEBUG, "#%08x [%s] makeLocalAddresses: %{private}@", v103, 0x1Cu);
     }
 
     v39 = __n_1;
@@ -1082,7 +1084,7 @@ LABEL_47:
           goto LABEL_98;
         }
 
-        if (vmaxv_u16(vmovn_s32(vtstq_s32(v128, v128))))
+        if (vmaxv_u16(vmovn_s32(vtstq_s32(v123, v123))))
         {
           goto LABEL_60;
         }
@@ -1097,31 +1099,31 @@ LABEL_47:
           goto LABEL_98;
         }
 
-        if (!v127)
+        if (!v122)
         {
           goto LABEL_61;
         }
 
 LABEL_60:
-        if (v126[120])
+        if (v121[120])
         {
           goto LABEL_98;
         }
 
 LABEL_61:
-        if (v103 >= v98)
+        if (v98 >= v93)
         {
-          v42 = 2 * v98;
-          if (!v98)
+          v42 = 2 * v93;
+          if (!v93)
           {
             v42 = 10;
           }
 
-          v98 = v42;
+          v93 = v42;
           v22 = malloc_type_realloc(v22, 272 * v42, 0x10000406C200A1FuLL);
         }
 
-        v43 = &v22[272 * v103];
+        v43 = &v22[272 * v98];
         *(v43 + 15) = 0u;
         *(v43 + 16) = 0u;
         *(v43 + 13) = 0u;
@@ -1147,20 +1149,20 @@ LABEL_61:
           v61 = currentQueueName();
           v62 = *v43;
           v63 = [selfCopy stringFromSockaddrStorage:v43 + 136];
-          *v108 = 67110147;
-          v109 = tagCopy;
-          v110 = 2080;
-          v111 = v61;
-          v112 = 2048;
-          *v113 = v103;
-          *&v113[8] = 1024;
-          *&v113[10] = v62;
-          v114 = 2113;
-          v115 = v63;
-          _os_log_debug_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEBUG, "#%08x [%s] makeLocalAddresses: defaultAddresses[%ld]: ifindex=%d gwaddr=%{private}@", v108, 0x2Cu);
+          *v103 = 67110147;
+          v104 = tagCopy;
+          v105 = 2080;
+          v106 = v61;
+          v107 = 2048;
+          *v108 = v98;
+          *&v108[8] = 1024;
+          *&v108[10] = v62;
+          v109 = 2113;
+          v110 = v63;
+          _os_log_debug_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEBUG, "#%08x [%s] makeLocalAddresses: defaultAddresses[%ld]: ifindex=%d gwaddr=%{private}@", v103, 0x2Cu);
         }
 
-        ++v103;
+        ++v98;
 
         v39 = __n_1;
       }
@@ -1181,17 +1183,17 @@ LABEL_61:
       goto LABEL_98;
     }
 
-    v45 = &v126[__n_5];
+    v45 = &v121[__n_5];
     if (!(*v45 | *(v45 + 2)))
     {
       goto LABEL_98;
     }
 
-    if (!(v102 & 1 | (__n_6 != 6)))
+    if (!(v97 & 1 | (__n_6 != 6)))
     {
       if (*v45 ^ 2 | *(v45 + 2))
       {
-        v102 = 0;
+        v97 = 0;
       }
 
       else
@@ -1200,18 +1202,18 @@ LABEL_61:
         if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
           v64 = currentQueueName();
-          *v108 = 67109378;
-          v109 = tagCopy;
-          v110 = 2080;
-          v111 = v64;
-          _os_log_error_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "#%08x [%s] makeLocalAddresses: denied access to MAC address", v108, 0x12u);
+          *v103 = 67109378;
+          v104 = tagCopy;
+          v105 = 2080;
+          v106 = v64;
+          _os_log_error_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "#%08x [%s] makeLocalAddresses: denied access to MAC address", v103, 0x12u);
         }
 
-        v102 = 1;
+        v97 = 1;
       }
     }
 
-    if (v103 < 1)
+    if (v98 < 1)
     {
       goto LABEL_98;
     }
@@ -1241,7 +1243,7 @@ LABEL_61:
       {
 LABEL_97:
         v48 += 272;
-        if (&v22[v48] >= &v22[272 * v103])
+        if (&v22[v48] >= &v22[272 * v98])
         {
           goto LABEL_98;
         }
@@ -1253,7 +1255,7 @@ LABEL_97:
     }
 
     v54 = &v22[v48];
-    v55 = &v126[__n_5];
+    v55 = &v121[__n_5];
     v56 = *v55;
     *(v54 + 134) = *(v55 + 2);
     *(v54 + 66) = v56;
@@ -1263,15 +1265,15 @@ LABEL_97:
     {
       v57 = currentQueueName();
       v58 = [selfCopy stringFromMacAddr:v54 + 264];
-      *v108 = 67109891;
-      v109 = tagCopy;
-      v110 = 2080;
-      v111 = v57;
-      v112 = 1024;
-      *v113 = -252645135 * (v48 >> 4);
-      *&v113[4] = 2113;
-      *&v113[6] = v58;
-      _os_log_debug_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "#%08x [%s] makeLocalAddresses: defaultAddresses[%d]: gwmac=%{private}@", v108, 0x22u);
+      *v103 = 67109891;
+      v104 = tagCopy;
+      v105 = 2080;
+      v106 = v57;
+      v107 = 1024;
+      *v108 = -252645135 * (v48 >> 4);
+      *&v108[4] = 2113;
+      *&v108[6] = v58;
+      _os_log_debug_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "#%08x [%s] makeLocalAddresses: defaultAddresses[%d]: gwmac=%{private}@", v103, 0x22u);
     }
 
 LABEL_57:
@@ -1281,85 +1283,82 @@ LABEL_98:
   }
 
   while (v15 < v23);
-  free(v95);
-  v100 = v22;
-  if (!v103)
+  free(v90);
+  v95 = v22;
+  if (!v98)
   {
     goto LABEL_166;
   }
 
-  v106 = 0;
-  if (getifaddrs(&v106))
+  v101 = 0;
+  if (getifaddrs(&v101))
   {
-    v106 = 0;
+    v101 = 0;
   }
 
   v65 = selfCopy;
   if (os_log_type_enabled(gLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v66 = v106;
-    if (v106)
+    v66 = v101;
+    if (v101)
     {
       v67 = 0uLL;
       do
       {
         if (v66->ifa_name && v66->ifa_addr)
         {
-          v120 = v67;
-          v121 = v67;
-          v118 = v67;
-          v119 = v67;
+          v115 = v67;
+          v116 = v67;
+          v113 = v67;
+          v114 = v67;
           *&buf[4] = v67;
-          v117 = v67;
+          v112 = v67;
           *buf = v67;
           *&buf[2] = v67;
-          sa_len = v66->ifa_addr->sa_len;
           __memcpy_chk();
           ifa_name = v66->ifa_name;
           ifa_flags = v66->ifa_flags;
-          v71 = [v65 stringFromSockaddrStorage:buf];
-          v72 = [NSMutableString stringWithFormat:@"ifa_name=%s, ifa_flags=%#x, ifa_addr=%@", ifa_name, ifa_flags, v71];
+          v70 = [v65 stringFromSockaddrStorage:buf];
+          v71 = [NSMutableString stringWithFormat:@"ifa_name=%s, ifa_flags=%#x, ifa_addr=%@", ifa_name, ifa_flags, v70];
 
           v65 = selfCopy;
           if (v66->ifa_netmask)
           {
-            v120 = 0u;
-            v121 = 0u;
-            v118 = 0u;
-            v119 = 0u;
-            v117 = 0u;
+            v115 = 0u;
+            v116 = 0u;
+            v113 = 0u;
+            v114 = 0u;
+            v112 = 0u;
             memset(buf, 0, sizeof(buf));
-            v73 = v66->ifa_netmask->sa_len;
             __memcpy_chk();
-            v74 = [selfCopy stringFromSockaddrStorage:buf];
-            [v72 appendFormat:@", ifa_netmask=%@", v74];
+            v72 = [selfCopy stringFromSockaddrStorage:buf];
+            [v71 appendFormat:@", ifa_netmask=%@", v72];
           }
 
           if (v66->ifa_dstaddr)
           {
-            v120 = 0u;
-            v121 = 0u;
-            v118 = 0u;
-            v119 = 0u;
-            v117 = 0u;
+            v115 = 0u;
+            v116 = 0u;
+            v113 = 0u;
+            v114 = 0u;
+            v112 = 0u;
             memset(buf, 0, sizeof(buf));
-            v75 = v66->ifa_dstaddr->sa_len;
             __memcpy_chk();
-            v76 = [selfCopy stringFromSockaddrStorage:buf];
-            [v72 appendFormat:@", ifa_dstaddr=%@", v76];
+            v73 = [selfCopy stringFromSockaddrStorage:buf];
+            [v71 appendFormat:@", ifa_dstaddr=%@", v73];
           }
 
-          v77 = gLogHandle;
-          if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
+          v74 = gLogHandle;
+          if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
           {
-            v78 = currentQueueName();
-            *v108 = 67109634;
-            v109 = tagCopy;
-            v110 = 2080;
-            v111 = v78;
-            v112 = 2112;
-            *v113 = v72;
-            _os_log_debug_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEBUG, "#%08x [%s] makeLocalAddresses: %@", v108, 0x1Cu);
+            v75 = currentQueueName();
+            *v103 = 67109634;
+            v104 = tagCopy;
+            v105 = 2080;
+            v106 = v75;
+            v107 = 2112;
+            *v108 = v71;
+            _os_log_debug_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEBUG, "#%08x [%s] makeLocalAddresses: %@", v103, 0x1Cu);
           }
 
           v67 = 0uLL;
@@ -1372,52 +1371,52 @@ LABEL_98:
     }
   }
 
-  v104 = &v100[272 * v103];
-  if (v103 < 1)
+  v99 = &v95[272 * v98];
+  if (v98 < 1)
   {
     goto LABEL_141;
   }
 
-  v79 = v100;
+  v76 = v95;
   while (2)
   {
-    if ((v79[270] & 2) == 0)
+    if ((v76[270] & 2) == 0)
     {
       goto LABEL_136;
     }
 
-    if (!if_indextoname(*v79, v108))
+    if (!if_indextoname(*v76, v103))
     {
       goto LABEL_135;
     }
 
-    v80 = v106;
-    if (!v106)
+    v77 = v101;
+    if (!v101)
     {
       goto LABEL_135;
     }
 
     while (2)
     {
-      v81 = v80->ifa_name;
-      if (!v81)
+      v78 = v77->ifa_name;
+      if (!v78)
       {
         goto LABEL_134;
       }
 
-      ifa_addr = v80->ifa_addr;
+      ifa_addr = v77->ifa_addr;
       if (!ifa_addr)
       {
         goto LABEL_134;
       }
 
-      if (strcmp(v81, v108))
+      if (strcmp(v78, v103))
       {
         goto LABEL_134;
       }
 
       sa_family = ifa_addr->sa_family;
-      if (sa_family != v79[137])
+      if (sa_family != v76[137])
       {
         goto LABEL_134;
       }
@@ -1428,7 +1427,6 @@ LABEL_98:
         {
           buf[0] = 0;
           buf[1] = 0;
-          v84 = ifa_addr->sa_len;
           __memcpy_chk();
           if ([selfCopy isUsefulSockaddr4:buf])
           {
@@ -1439,11 +1437,11 @@ LABEL_98:
         goto LABEL_134;
       }
 
-      if (ifa_addr->sa_len != 28 || (memset(buf, 0, 28), v85 = v80->ifa_addr->sa_len, __memcpy_chk(), ![selfCopy isUsefulSockaddr6:buf]))
+      if (ifa_addr->sa_len != 28 || (memset(buf, 0, 28), __memcpy_chk(), ![selfCopy isUsefulSockaddr6:buf]))
       {
 LABEL_134:
-        v80 = v80->ifa_next;
-        if (!v80)
+        v77 = v77->ifa_next;
+        if (!v77)
         {
           goto LABEL_135;
         }
@@ -1454,29 +1452,29 @@ LABEL_134:
       break;
     }
 
-    memcpy(v79 + 8, v80->ifa_addr, v80->ifa_addr->sa_len);
-    v79[270] |= 1u;
-    v86 = gLogHandle;
-    if (os_log_type_enabled(v86, OS_LOG_TYPE_DEBUG))
+    memcpy(v76 + 8, v77->ifa_addr, v77->ifa_addr->sa_len);
+    v76[270] |= 1u;
+    v81 = gLogHandle;
+    if (os_log_type_enabled(v81, OS_LOG_TYPE_DEBUG))
     {
-      v99 = currentQueueName();
-      v87 = [selfCopy stringFromSockaddrStorage:v79 + 8];
+      v94 = currentQueueName();
+      v82 = [selfCopy stringFromSockaddrStorage:v76 + 8];
       LODWORD(buf[0]) = 67109890;
       HIDWORD(buf[0]) = tagCopy;
       LOWORD(buf[1]) = 2080;
-      *(&buf[1] + 2) = v99;
+      *(&buf[1] + 2) = v94;
       WORD1(buf[2]) = 1024;
-      HIDWORD(buf[2]) = -252645135 * ((v79 - v100) >> 4);
+      HIDWORD(buf[2]) = -252645135 * ((v76 - v95) >> 4);
       LOWORD(buf[3]) = 2112;
-      *(&buf[3] + 2) = v87;
-      _os_log_debug_impl(&_mh_execute_header, v86, OS_LOG_TYPE_DEBUG, "#%08x [%s] makeLocalAddresses: defaultAddresses[%d]: ifaddr=%@", buf, 0x22u);
+      *(&buf[3] + 2) = v82;
+      _os_log_debug_impl(&_mh_execute_header, v81, OS_LOG_TYPE_DEBUG, "#%08x [%s] makeLocalAddresses: defaultAddresses[%d]: ifaddr=%@", buf, 0x22u);
     }
 
 LABEL_135:
     v65 = selfCopy;
 LABEL_136:
-    v79 += 272;
-    if (v79 < v104)
+    v76 += 272;
+    if (v76 < v99)
     {
       continue;
     }
@@ -1485,12 +1483,12 @@ LABEL_136:
   }
 
 LABEL_141:
-  if (v106)
+  if (v101)
   {
-    freeifaddrs(v106);
+    freeifaddrs(v101);
   }
 
-  if (v103 < 1)
+  if (v98 < 1)
   {
 LABEL_166:
     v13 = 0;
@@ -1507,44 +1505,44 @@ LABEL_166:
   v12 = 0;
   v11 = 0;
   v10 = 0;
-  v88 = v100 + 264;
+  v83 = v95 + 264;
   while (2)
   {
-    if (v88[6])
+    if (v83[6])
     {
-      v89 = *(v88 - 255);
-      if (v89 == 30)
+      v84 = *(v83 - 255);
+      if (v84 == 30)
       {
         if (!v11)
         {
-          v11 = [NSMutableArray arrayWithCapacity:v103];
+          v11 = [NSMutableArray arrayWithCapacity:v98];
         }
 
-        v90 = [v65 stringFromSockaddr6:v88 - 256];
-        v91 = v11;
+        v85 = [v65 stringFromSockaddr6:v83 - 256];
+        v86 = v11;
 LABEL_154:
-        [v91 addObject:v90];
+        [v86 addObject:v85];
       }
 
-      else if (v89 == 2)
+      else if (v84 == 2)
       {
         if (!v10)
         {
-          v10 = [NSMutableArray arrayWithCapacity:v103];
+          v10 = [NSMutableArray arrayWithCapacity:v98];
         }
 
-        v90 = [v65 stringFromSockaddr4:v88 - 256];
-        v91 = v10;
+        v85 = [v65 stringFromSockaddr4:v83 - 256];
+        v86 = v10;
         goto LABEL_154;
       }
     }
 
-    if ((v88[6] & 2) != 0)
+    if ((v83[6] & 2) != 0)
     {
-      v92 = [v65 stringFromMacAddr:v88];
+      v87 = [v65 stringFromMacAddr:v83];
       if (v12)
       {
-        if ([v13 containsObject:v92])
+        if ([v13 containsObject:v87])
         {
 LABEL_161:
 
@@ -1554,22 +1552,22 @@ LABEL_161:
 
       else
       {
-        v12 = [NSMutableArray arrayWithCapacity:v103];
-        v93 = [NSMutableSet setWithCapacity:v103];
+        v12 = [NSMutableArray arrayWithCapacity:v98];
+        v88 = [NSMutableSet setWithCapacity:v98];
 
-        v13 = v93;
+        v13 = v88;
         v65 = selfCopy;
       }
 
-      [v12 addObject:v92];
-      [v13 addObject:v92];
+      [v12 addObject:v87];
+      [v13 addObject:v87];
       goto LABEL_161;
     }
 
 LABEL_162:
-    v94 = v88 + 8;
-    v88 += 272;
-    if (v94 < v104)
+    v89 = v83 + 8;
+    v83 += 272;
+    if (v89 < v99)
     {
       continue;
     }
@@ -1595,8 +1593,8 @@ LABEL_162:
   }
 
 LABEL_167:
-  v16 = v100;
-  if (v100)
+  v16 = v95;
+  if (v95)
   {
 LABEL_8:
     free(v16);
@@ -1685,6 +1683,43 @@ LABEL_9:
   return v9;
 }
 
++ (id)digestIdentifiers:(id)identifiers tag:(unsigned int)tag
+{
+  v4 = *&tag;
+  identifiersCopy = identifiers;
+  v7 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [identifiersCopy count]);
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v8 = identifiersCopy;
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v16;
+    do
+    {
+      for (i = 0; i != v10; i = i + 1)
+      {
+        if (*v16 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        v13 = [self digestIdentifier:*(*(&v15 + 1) + 8 * i) tag:{v4, v15}];
+        [v7 addObject:v13];
+      }
+
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    }
+
+    while (v10);
+  }
+
+  return v7;
+}
+
 + (BOOL)isDigestedIdentifier:(id)identifier equalToCleartextIdentifier:(id)cleartextIdentifier tag:(unsigned int)tag
 {
   cleartextIdentifierCopy = cleartextIdentifier;
@@ -1732,6 +1767,71 @@ LABEL_9:
   }
 
   return v12;
+}
+
++ (BOOL)areDigestedIdentifiers:(id)identifiers equalToCleartextIdentifiers:(id)cleartextIdentifiers tag:(unsigned int)tag
+{
+  v5 = *&tag;
+  identifiersCopy = identifiers;
+  cleartextIdentifiersCopy = cleartextIdentifiers;
+  v10 = gLogHandle;
+  if (os_log_type_enabled(gLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    v18 = v10;
+    v19[0] = 67110147;
+    v19[1] = v5;
+    v20 = 2080;
+    v21 = currentQueueName();
+    v22 = 2112;
+    v23 = identifiersCopy;
+    v24 = 2048;
+    v25 = [cleartextIdentifiersCopy count];
+    v26 = 2113;
+    v27 = cleartextIdentifiersCopy;
+    _os_log_debug_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "#%08x [%s] areDigestedIdentifiers:%@ equalToCleartextIdentifiers:[%ld]%{private}@", v19, 0x30u);
+  }
+
+  v11 = [identifiersCopy count];
+  if (v11 == [cleartextIdentifiersCopy count])
+  {
+    if ([identifiersCopy count])
+    {
+      v12 = 0;
+      do
+      {
+        v13 = [identifiersCopy objectAtIndex:v12];
+        v14 = [cleartextIdentifiersCopy objectAtIndex:v12];
+        v15 = [self isDigestedIdentifier:v13 equalToCleartextIdentifier:v14 tag:v5];
+
+        if ((v15 & 1) == 0)
+        {
+          break;
+        }
+
+        ++v12;
+      }
+
+      while (v12 < [identifiersCopy count]);
+    }
+
+    else
+    {
+      v15 = 1;
+    }
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  v16 = gLogHandle;
+  if (os_log_type_enabled(gLogHandle, OS_LOG_TYPE_DEBUG))
+  {
+    sub_10001FC14(v16, v15, v5);
+  }
+
+  return v15;
 }
 
 @end

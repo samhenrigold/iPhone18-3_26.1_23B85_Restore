@@ -29,16 +29,16 @@
 
 void __51__CACAXNotificationObserver_initWithNotifications___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CE6BA0] systemWideElement];
   v3 = AXObserverCreate([v2 pid], _accessibilityNotificationCallback, (*(a1 + 32) + 8));
 
   if (v3)
   {
-    v4 = CACLogAccessibility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = CACLogAccessibility(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __51__CACAXNotificationObserver_initWithNotifications___block_invoke_cold_1(v3, v4);
+      __51__CACAXNotificationObserver_initWithNotifications___block_invoke_cold_1(v3, v5);
     }
   }
 
@@ -47,48 +47,48 @@ void __51__CACAXNotificationObserver_initWithNotifications___block_invoke(uint64
     RunLoopSource = AXObserverGetRunLoopSource(*(*(a1 + 32) + 8));
     if (RunLoopSource)
     {
-      v6 = RunLoopSource;
+      v7 = RunLoopSource;
       Current = CFRunLoopGetCurrent();
-      CFRunLoopAddSource(Current, v6, *MEMORY[0x277CBF058]);
+      CFRunLoopAddSource(Current, v7, *MEMORY[0x277CBF058]);
+      v22 = 0u;
+      v23 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v18 = 0u;
-      v19 = 0u;
-      v4 = *(a1 + 40);
-      v8 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
-      if (v8)
+      v5 = *(a1 + 40);
+      v9 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      if (v9)
       {
-        v9 = v8;
-        v10 = *v19;
+        v10 = v9;
+        v11 = *v21;
         while (2)
         {
-          for (i = 0; i != v9; ++i)
+          for (i = 0; i != v10; ++i)
           {
-            if (*v19 != v10)
+            if (*v21 != v11)
             {
-              objc_enumerationMutation(v4);
+              objc_enumerationMutation(v5);
             }
 
-            v12 = [*(*(&v18 + 1) + 8 * i) intValue];
-            v13 = *(*(a1 + 32) + 8);
-            v14 = [MEMORY[0x277CE6BA0] systemWideElement];
-            v15 = [v14 uiElement];
-            v16 = AXObserverAddNotification(v13, [v15 axElement], v12, *(a1 + 32));
+            v13 = [*(*(&v20 + 1) + 8 * i) intValue];
+            v14 = *(*(a1 + 32) + 8);
+            v15 = [MEMORY[0x277CE6BA0] systemWideElement];
+            v16 = [v15 uiElement];
+            v17 = AXObserverAddNotification(v14, [v16 axElement], v13, *(a1 + 32));
 
-            if (v16)
+            if (v17)
             {
-              v17 = CACLogAccessibility();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+              v19 = CACLogAccessibility(v18);
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
               {
-                __51__CACAXNotificationObserver_initWithNotifications___block_invoke_cold_2(v12, v16, v17);
+                __51__CACAXNotificationObserver_initWithNotifications___block_invoke_cold_2(v13, v17, v19);
               }
 
               goto LABEL_4;
             }
           }
 
-          v9 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
-          if (v9)
+          v10 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+          if (v10)
           {
             continue;
           }
@@ -100,10 +100,10 @@ void __51__CACAXNotificationObserver_initWithNotifications___block_invoke(uint64
 
     else
     {
-      v4 = CACLogAccessibility();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = CACLogAccessibility(0);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        __51__CACAXNotificationObserver_initWithNotifications___block_invoke_cold_3(v4);
+        __51__CACAXNotificationObserver_initWithNotifications___block_invoke_cold_3(v5);
       }
     }
   }

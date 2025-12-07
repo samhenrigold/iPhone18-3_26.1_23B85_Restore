@@ -1,5 +1,6 @@
 @interface IMDaemonChatFileTransferRequestHandler
 - (void)loadIsDownloadingPurgedAttachmentsForChatWithGUID:(id)d chatIdentifiers:(id)identifiers style:(unsigned __int8)style services:(id)services reply:(id)reply;
+- (void)loadIsDownloadingPurgedAttachmentsForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services chatID:(id)d queryID:(id)iD;
 @end
 
 @implementation IMDaemonChatFileTransferRequestHandler
@@ -59,6 +60,31 @@
   }
 
   (replyCopy)[2](replyCopy, v21);
+}
+
+- (void)loadIsDownloadingPurgedAttachmentsForIDs:(id)ds style:(unsigned __int8)style onServices:(id)services chatID:(id)d queryID:(id)iD
+{
+  styleCopy = style;
+  servicesCopy = services;
+  dCopy = d;
+  iDCopy = iD;
+  dsCopy = ds;
+  v16 = +[IMDClientRequestContext currentContext];
+  replyProxy = [v16 replyProxy];
+
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_100022494;
+  v22[3] = &unk_100081BB8;
+  v23 = replyProxy;
+  v24 = iDCopy;
+  v25 = dCopy;
+  v26 = servicesCopy;
+  v18 = servicesCopy;
+  v19 = dCopy;
+  v20 = iDCopy;
+  v21 = replyProxy;
+  [(IMDaemonChatFileTransferRequestHandler *)self loadIsDownloadingPurgedAttachmentsForChatWithGUID:v19 chatIdentifiers:dsCopy style:styleCopy services:v18 reply:v22];
 }
 
 @end

@@ -78,11 +78,11 @@
   return result;
 }
 
-void __94__TUIEmojiSearchResultsCollectionViewController_collectionView_layout_sizeForItemAtIndexPath___block_invoke()
+void __94__TUIEmojiSearchResultsCollectionViewController_collectionView_layout_sizeForItemAtIndexPath___block_invoke(uint64_t a1)
 {
-  v1 = [objc_opt_class() emojiTextAttributes];
-  [@"😀" sizeWithAttributes:v1];
-  collectionView_layout_sizeForItemAtIndexPath__emojiWidth = ceil(v0);
+  v2 = [objc_opt_class() emojiTextAttributes];
+  [@"😀" sizeWithAttributes:v2];
+  collectionView_layout_sizeForItemAtIndexPath__emojiWidth = ceil(v1);
 }
 
 - (void)_didRecognizeLongPressGesture:(id)gesture

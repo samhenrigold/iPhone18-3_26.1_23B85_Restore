@@ -260,29 +260,29 @@
 
 - (id)suggestionWithUUID:(id)d
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
     [(ATXSuggestionLayout *)self allSuggestionsInLayout];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
-    v5 = v17 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = v16 = 0u;
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         for (i = 0; i != v6; i = i + 1)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           uuid = [v9 uuid];
           v11 = [dCopy isEqual:uuid];
 
@@ -293,7 +293,7 @@
           }
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v6)
         {
           continue;
@@ -310,8 +310,6 @@ LABEL_12:
   {
     v6 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -631,350 +629,350 @@ LABEL_50:
 
 + (id)minSuggestionLayoutTypesForUILayoutType:(int64_t)type
 {
-  v43[7] = *MEMORY[0x1E69E9840];
+  v42[7] = *MEMORY[0x1E69E9840];
   switch(type)
   {
     case 0:
-      v42[0] = &unk_1F5A40FC0;
-      v42[1] = &unk_1F5A40FD8;
-      v43[0] = &unk_1F5A41068;
-      v43[1] = &unk_1F5A41080;
-      v42[2] = &unk_1F5A41020;
-      v42[3] = &unk_1F5A40FF0;
-      v43[2] = &unk_1F5A41080;
-      v43[3] = &unk_1F5A41080;
-      v42[4] = &unk_1F5A41008;
-      v42[5] = &unk_1F5A41038;
-      v43[4] = &unk_1F5A41080;
-      v43[5] = &unk_1F5A41080;
-      v42[6] = &unk_1F5A41050;
-      v43[6] = &unk_1F5A41080;
+      v41[0] = &unk_1F5A40FC0;
+      v41[1] = &unk_1F5A40FD8;
+      v42[0] = &unk_1F5A41068;
+      v42[1] = &unk_1F5A41080;
+      v41[2] = &unk_1F5A41020;
+      v41[3] = &unk_1F5A40FF0;
+      v42[2] = &unk_1F5A41080;
+      v42[3] = &unk_1F5A41080;
+      v41[4] = &unk_1F5A41008;
+      v41[5] = &unk_1F5A41038;
+      v42[4] = &unk_1F5A41080;
+      v42[5] = &unk_1F5A41080;
+      v41[6] = &unk_1F5A41050;
+      v42[6] = &unk_1F5A41080;
       v3 = MEMORY[0x1E695DF20];
-      v4 = v43;
-      v5 = v42;
+      v4 = v42;
+      v5 = v41;
       goto LABEL_20;
     case 1:
-      v40[0] = &unk_1F5A40FC0;
-      v40[1] = &unk_1F5A40FD8;
-      v41[0] = &unk_1F5A41098;
-      v41[1] = &unk_1F5A410B0;
-      v40[2] = &unk_1F5A41020;
-      v40[3] = &unk_1F5A40FF0;
-      v41[2] = &unk_1F5A41080;
-      v41[3] = &unk_1F5A41080;
-      v40[4] = &unk_1F5A41008;
-      v40[5] = &unk_1F5A41038;
-      v41[4] = &unk_1F5A41080;
-      v41[5] = &unk_1F5A41080;
-      v40[6] = &unk_1F5A41050;
-      v41[6] = &unk_1F5A41080;
+      v39[0] = &unk_1F5A40FC0;
+      v39[1] = &unk_1F5A40FD8;
+      v40[0] = &unk_1F5A41098;
+      v40[1] = &unk_1F5A410B0;
+      v39[2] = &unk_1F5A41020;
+      v39[3] = &unk_1F5A40FF0;
+      v40[2] = &unk_1F5A41080;
+      v40[3] = &unk_1F5A41080;
+      v39[4] = &unk_1F5A41008;
+      v39[5] = &unk_1F5A41038;
+      v40[4] = &unk_1F5A41080;
+      v40[5] = &unk_1F5A41080;
+      v39[6] = &unk_1F5A41050;
+      v40[6] = &unk_1F5A41080;
       v3 = MEMORY[0x1E695DF20];
-      v4 = v41;
-      v5 = v40;
+      v4 = v40;
+      v5 = v39;
       goto LABEL_20;
     case 2:
-      v38[0] = &unk_1F5A40FC0;
-      v38[1] = &unk_1F5A40FD8;
-      v39[0] = &unk_1F5A41098;
-      v39[1] = &unk_1F5A41080;
-      v38[2] = &unk_1F5A41020;
-      v38[3] = &unk_1F5A40FF0;
-      v39[2] = &unk_1F5A41080;
-      v39[3] = &unk_1F5A410C8;
-      v38[4] = &unk_1F5A41008;
-      v38[5] = &unk_1F5A41038;
-      v39[4] = &unk_1F5A41080;
-      v39[5] = &unk_1F5A41080;
-      v38[6] = &unk_1F5A41050;
-      v39[6] = &unk_1F5A41080;
+      v37[0] = &unk_1F5A40FC0;
+      v37[1] = &unk_1F5A40FD8;
+      v38[0] = &unk_1F5A41098;
+      v38[1] = &unk_1F5A41080;
+      v37[2] = &unk_1F5A41020;
+      v37[3] = &unk_1F5A40FF0;
+      v38[2] = &unk_1F5A41080;
+      v38[3] = &unk_1F5A410C8;
+      v37[4] = &unk_1F5A41008;
+      v37[5] = &unk_1F5A41038;
+      v38[4] = &unk_1F5A41080;
+      v38[5] = &unk_1F5A41080;
+      v37[6] = &unk_1F5A41050;
+      v38[6] = &unk_1F5A41080;
       v3 = MEMORY[0x1E695DF20];
-      v4 = v39;
-      v5 = v38;
+      v4 = v38;
+      v5 = v37;
       goto LABEL_20;
     case 3:
-      v36[0] = &unk_1F5A40FC0;
-      v36[1] = &unk_1F5A40FD8;
-      v37[0] = &unk_1F5A41080;
-      v37[1] = &unk_1F5A41080;
-      v36[2] = &unk_1F5A41020;
-      v36[3] = &unk_1F5A40FF0;
-      v37[2] = &unk_1F5A41080;
-      v37[3] = &unk_1F5A41080;
-      v36[4] = &unk_1F5A41008;
-      v36[5] = &unk_1F5A41038;
-      v37[4] = &unk_1F5A410C8;
-      v37[5] = &unk_1F5A41080;
-      v36[6] = &unk_1F5A41050;
-      v37[6] = &unk_1F5A41080;
+      v35[0] = &unk_1F5A40FC0;
+      v35[1] = &unk_1F5A40FD8;
+      v36[0] = &unk_1F5A41080;
+      v36[1] = &unk_1F5A41080;
+      v35[2] = &unk_1F5A41020;
+      v35[3] = &unk_1F5A40FF0;
+      v36[2] = &unk_1F5A41080;
+      v36[3] = &unk_1F5A41080;
+      v35[4] = &unk_1F5A41008;
+      v35[5] = &unk_1F5A41038;
+      v36[4] = &unk_1F5A410C8;
+      v36[5] = &unk_1F5A41080;
+      v35[6] = &unk_1F5A41050;
+      v36[6] = &unk_1F5A41080;
       v3 = MEMORY[0x1E695DF20];
-      v4 = v37;
-      v5 = v36;
+      v4 = v36;
+      v5 = v35;
       goto LABEL_20;
     case 4:
-      v34[0] = &unk_1F5A40FC0;
-      v34[1] = &unk_1F5A40FD8;
-      v35[0] = &unk_1F5A41080;
-      v35[1] = &unk_1F5A410B0;
-      v34[2] = &unk_1F5A41020;
-      v34[3] = &unk_1F5A40FF0;
-      v35[2] = &unk_1F5A41080;
-      v35[3] = &unk_1F5A41080;
-      v34[4] = &unk_1F5A41008;
-      v34[5] = &unk_1F5A41038;
-      v35[4] = &unk_1F5A41080;
-      v35[5] = &unk_1F5A41080;
-      v34[6] = &unk_1F5A41050;
-      v35[6] = &unk_1F5A41080;
+      v33[0] = &unk_1F5A40FC0;
+      v33[1] = &unk_1F5A40FD8;
+      v34[0] = &unk_1F5A41080;
+      v34[1] = &unk_1F5A410B0;
+      v33[2] = &unk_1F5A41020;
+      v33[3] = &unk_1F5A40FF0;
+      v34[2] = &unk_1F5A41080;
+      v34[3] = &unk_1F5A41080;
+      v33[4] = &unk_1F5A41008;
+      v33[5] = &unk_1F5A41038;
+      v34[4] = &unk_1F5A41080;
+      v34[5] = &unk_1F5A41080;
+      v33[6] = &unk_1F5A41050;
+      v34[6] = &unk_1F5A41080;
       v3 = MEMORY[0x1E695DF20];
-      v4 = v35;
-      v5 = v34;
+      v4 = v34;
+      v5 = v33;
       goto LABEL_20;
     case 5:
-      v32[0] = &unk_1F5A40FC0;
-      v32[1] = &unk_1F5A40FD8;
-      v33[0] = &unk_1F5A41080;
-      v33[1] = &unk_1F5A41080;
-      v32[2] = &unk_1F5A41020;
-      v32[3] = &unk_1F5A40FF0;
-      v33[2] = &unk_1F5A41080;
-      v33[3] = &unk_1F5A410C8;
-      v32[4] = &unk_1F5A41008;
-      v32[5] = &unk_1F5A41038;
-      v33[4] = &unk_1F5A41080;
-      v33[5] = &unk_1F5A41080;
-      v32[6] = &unk_1F5A41050;
-      v33[6] = &unk_1F5A41080;
+      v31[0] = &unk_1F5A40FC0;
+      v31[1] = &unk_1F5A40FD8;
+      v32[0] = &unk_1F5A41080;
+      v32[1] = &unk_1F5A41080;
+      v31[2] = &unk_1F5A41020;
+      v31[3] = &unk_1F5A40FF0;
+      v32[2] = &unk_1F5A41080;
+      v32[3] = &unk_1F5A410C8;
+      v31[4] = &unk_1F5A41008;
+      v31[5] = &unk_1F5A41038;
+      v32[4] = &unk_1F5A41080;
+      v32[5] = &unk_1F5A41080;
+      v31[6] = &unk_1F5A41050;
+      v32[6] = &unk_1F5A41080;
       v3 = MEMORY[0x1E695DF20];
-      v4 = v33;
-      v5 = v32;
+      v4 = v32;
+      v5 = v31;
       goto LABEL_20;
     case 6:
-      v30[0] = &unk_1F5A40FC0;
-      v30[1] = &unk_1F5A40FD8;
-      v31[0] = &unk_1F5A41080;
-      v31[1] = &unk_1F5A41080;
-      v30[2] = &unk_1F5A41020;
-      v30[3] = &unk_1F5A40FF0;
-      v31[2] = &unk_1F5A41080;
-      v31[3] = &unk_1F5A410B0;
-      v30[4] = &unk_1F5A41008;
-      v30[5] = &unk_1F5A41038;
-      v31[4] = &unk_1F5A41080;
-      v31[5] = &unk_1F5A41080;
-      v30[6] = &unk_1F5A41050;
-      v31[6] = &unk_1F5A41080;
+      v29[0] = &unk_1F5A40FC0;
+      v29[1] = &unk_1F5A40FD8;
+      v30[0] = &unk_1F5A41080;
+      v30[1] = &unk_1F5A41080;
+      v29[2] = &unk_1F5A41020;
+      v29[3] = &unk_1F5A40FF0;
+      v30[2] = &unk_1F5A41080;
+      v30[3] = &unk_1F5A410B0;
+      v29[4] = &unk_1F5A41008;
+      v29[5] = &unk_1F5A41038;
+      v30[4] = &unk_1F5A41080;
+      v30[5] = &unk_1F5A41080;
+      v29[6] = &unk_1F5A41050;
+      v30[6] = &unk_1F5A41080;
       v3 = MEMORY[0x1E695DF20];
-      v4 = v31;
-      v5 = v30;
+      v4 = v30;
+      v5 = v29;
       goto LABEL_20;
     case 7:
-      v28[0] = &unk_1F5A40FC0;
-      v28[1] = &unk_1F5A40FD8;
-      v29[0] = &unk_1F5A41080;
-      v29[1] = &unk_1F5A41098;
-      v28[2] = &unk_1F5A41020;
-      v28[3] = &unk_1F5A40FF0;
-      v29[2] = &unk_1F5A41080;
-      v29[3] = &unk_1F5A41080;
-      v28[4] = &unk_1F5A41008;
-      v28[5] = &unk_1F5A41038;
-      v29[4] = &unk_1F5A41080;
-      v29[5] = &unk_1F5A41080;
-      v28[6] = &unk_1F5A41050;
-      v29[6] = &unk_1F5A41080;
+      v27[0] = &unk_1F5A40FC0;
+      v27[1] = &unk_1F5A40FD8;
+      v28[0] = &unk_1F5A41080;
+      v28[1] = &unk_1F5A41098;
+      v27[2] = &unk_1F5A41020;
+      v27[3] = &unk_1F5A40FF0;
+      v28[2] = &unk_1F5A41080;
+      v28[3] = &unk_1F5A41080;
+      v27[4] = &unk_1F5A41008;
+      v27[5] = &unk_1F5A41038;
+      v28[4] = &unk_1F5A41080;
+      v28[5] = &unk_1F5A41080;
+      v27[6] = &unk_1F5A41050;
+      v28[6] = &unk_1F5A41080;
       v3 = MEMORY[0x1E695DF20];
-      v4 = v29;
-      v5 = v28;
+      v4 = v28;
+      v5 = v27;
       goto LABEL_20;
     case 8:
-      v26[0] = &unk_1F5A40FC0;
-      v26[1] = &unk_1F5A40FD8;
-      v27[0] = &unk_1F5A41080;
-      v27[1] = &unk_1F5A41080;
-      v26[2] = &unk_1F5A41020;
-      v26[3] = &unk_1F5A40FF0;
-      v27[2] = &unk_1F5A410C8;
-      v27[3] = &unk_1F5A41080;
-      v26[4] = &unk_1F5A41008;
-      v26[5] = &unk_1F5A41038;
-      v27[4] = &unk_1F5A41080;
-      v27[5] = &unk_1F5A41080;
-      v26[6] = &unk_1F5A41050;
-      v27[6] = &unk_1F5A41080;
+      v25[0] = &unk_1F5A40FC0;
+      v25[1] = &unk_1F5A40FD8;
+      v26[0] = &unk_1F5A41080;
+      v26[1] = &unk_1F5A41080;
+      v25[2] = &unk_1F5A41020;
+      v25[3] = &unk_1F5A40FF0;
+      v26[2] = &unk_1F5A410C8;
+      v26[3] = &unk_1F5A41080;
+      v25[4] = &unk_1F5A41008;
+      v25[5] = &unk_1F5A41038;
+      v26[4] = &unk_1F5A41080;
+      v26[5] = &unk_1F5A41080;
+      v25[6] = &unk_1F5A41050;
+      v26[6] = &unk_1F5A41080;
       v3 = MEMORY[0x1E695DF20];
-      v4 = v27;
-      v5 = v26;
+      v4 = v26;
+      v5 = v25;
       goto LABEL_20;
     case 9:
-      v24[0] = &unk_1F5A40FC0;
-      v24[1] = &unk_1F5A40FD8;
-      v25[0] = &unk_1F5A41080;
-      v25[1] = &unk_1F5A41080;
-      v24[2] = &unk_1F5A41020;
-      v24[3] = &unk_1F5A40FF0;
-      v25[2] = &unk_1F5A410B0;
-      v25[3] = &unk_1F5A41080;
-      v24[4] = &unk_1F5A41008;
-      v24[5] = &unk_1F5A41038;
-      v25[4] = &unk_1F5A41080;
-      v25[5] = &unk_1F5A41080;
-      v24[6] = &unk_1F5A41050;
-      v25[6] = &unk_1F5A41080;
+      v23[0] = &unk_1F5A40FC0;
+      v23[1] = &unk_1F5A40FD8;
+      v24[0] = &unk_1F5A41080;
+      v24[1] = &unk_1F5A41080;
+      v23[2] = &unk_1F5A41020;
+      v23[3] = &unk_1F5A40FF0;
+      v24[2] = &unk_1F5A410B0;
+      v24[3] = &unk_1F5A41080;
+      v23[4] = &unk_1F5A41008;
+      v23[5] = &unk_1F5A41038;
+      v24[4] = &unk_1F5A41080;
+      v24[5] = &unk_1F5A41080;
+      v23[6] = &unk_1F5A41050;
+      v24[6] = &unk_1F5A41080;
       v3 = MEMORY[0x1E695DF20];
-      v4 = v25;
-      v5 = v24;
+      v4 = v24;
+      v5 = v23;
       goto LABEL_20;
     case 10:
-      v22[0] = &unk_1F5A40FC0;
-      v22[1] = &unk_1F5A40FD8;
-      v23[0] = &unk_1F5A41080;
-      v23[1] = &unk_1F5A41080;
-      v22[2] = &unk_1F5A41020;
-      v22[3] = &unk_1F5A40FF0;
-      v23[2] = &unk_1F5A41080;
-      v23[3] = &unk_1F5A41080;
-      v22[4] = &unk_1F5A41008;
-      v22[5] = &unk_1F5A41038;
-      v23[4] = &unk_1F5A41080;
-      v23[5] = &unk_1F5A410C8;
-      v22[6] = &unk_1F5A41050;
-      v23[6] = &unk_1F5A41080;
+      v21[0] = &unk_1F5A40FC0;
+      v21[1] = &unk_1F5A40FD8;
+      v22[0] = &unk_1F5A41080;
+      v22[1] = &unk_1F5A41080;
+      v21[2] = &unk_1F5A41020;
+      v21[3] = &unk_1F5A40FF0;
+      v22[2] = &unk_1F5A41080;
+      v22[3] = &unk_1F5A41080;
+      v21[4] = &unk_1F5A41008;
+      v21[5] = &unk_1F5A41038;
+      v22[4] = &unk_1F5A41080;
+      v22[5] = &unk_1F5A410C8;
+      v21[6] = &unk_1F5A41050;
+      v22[6] = &unk_1F5A41080;
       v3 = MEMORY[0x1E695DF20];
-      v4 = v23;
-      v5 = v22;
+      v4 = v22;
+      v5 = v21;
       goto LABEL_20;
     case 11:
-      v20[0] = &unk_1F5A40FC0;
-      v20[1] = &unk_1F5A40FD8;
-      v21[0] = &unk_1F5A41080;
-      v21[1] = &unk_1F5A41080;
-      v20[2] = &unk_1F5A41020;
-      v20[3] = &unk_1F5A40FF0;
-      v21[2] = &unk_1F5A41098;
-      v21[3] = &unk_1F5A41080;
-      v20[4] = &unk_1F5A41008;
-      v20[5] = &unk_1F5A41038;
-      v21[4] = &unk_1F5A41080;
-      v21[5] = &unk_1F5A41080;
-      v20[6] = &unk_1F5A41050;
-      v21[6] = &unk_1F5A41080;
+      v19[0] = &unk_1F5A40FC0;
+      v19[1] = &unk_1F5A40FD8;
+      v20[0] = &unk_1F5A41080;
+      v20[1] = &unk_1F5A41080;
+      v19[2] = &unk_1F5A41020;
+      v19[3] = &unk_1F5A40FF0;
+      v20[2] = &unk_1F5A41098;
+      v20[3] = &unk_1F5A41080;
+      v19[4] = &unk_1F5A41008;
+      v19[5] = &unk_1F5A41038;
+      v20[4] = &unk_1F5A41080;
+      v20[5] = &unk_1F5A41080;
+      v19[6] = &unk_1F5A41050;
+      v20[6] = &unk_1F5A41080;
       v3 = MEMORY[0x1E695DF20];
-      v4 = v21;
-      v5 = v20;
+      v4 = v20;
+      v5 = v19;
       goto LABEL_20;
     case 12:
-      v16[0] = &unk_1F5A40FC0;
-      v16[1] = &unk_1F5A40FD8;
-      v17[0] = &unk_1F5A41080;
-      v17[1] = &unk_1F5A41080;
-      v16[2] = &unk_1F5A41020;
-      v16[3] = &unk_1F5A40FF0;
-      v17[2] = &unk_1F5A41080;
-      v17[3] = &unk_1F5A410C8;
-      v16[4] = &unk_1F5A41008;
-      v16[5] = &unk_1F5A41038;
-      v17[4] = &unk_1F5A41080;
-      v17[5] = &unk_1F5A41080;
-      v16[6] = &unk_1F5A41050;
-      v17[6] = &unk_1F5A41080;
+      v15[0] = &unk_1F5A40FC0;
+      v15[1] = &unk_1F5A40FD8;
+      v16[0] = &unk_1F5A41080;
+      v16[1] = &unk_1F5A41080;
+      v15[2] = &unk_1F5A41020;
+      v15[3] = &unk_1F5A40FF0;
+      v16[2] = &unk_1F5A41080;
+      v16[3] = &unk_1F5A410C8;
+      v15[4] = &unk_1F5A41008;
+      v15[5] = &unk_1F5A41038;
+      v16[4] = &unk_1F5A41080;
+      v16[5] = &unk_1F5A41080;
+      v15[6] = &unk_1F5A41050;
+      v16[6] = &unk_1F5A41080;
       v3 = MEMORY[0x1E695DF20];
-      v4 = v17;
-      v5 = v16;
+      v4 = v16;
+      v5 = v15;
       goto LABEL_20;
     case 13:
-      v14[0] = &unk_1F5A40FC0;
-      v14[1] = &unk_1F5A40FD8;
-      v15[0] = &unk_1F5A41080;
-      v15[1] = &unk_1F5A41080;
-      v14[2] = &unk_1F5A41020;
-      v14[3] = &unk_1F5A40FF0;
-      v15[2] = &unk_1F5A41080;
-      v15[3] = &unk_1F5A41080;
-      v14[4] = &unk_1F5A41008;
-      v14[5] = &unk_1F5A41038;
-      v15[4] = &unk_1F5A410C8;
-      v15[5] = &unk_1F5A41080;
-      v14[6] = &unk_1F5A41050;
-      v15[6] = &unk_1F5A41080;
+      v13[0] = &unk_1F5A40FC0;
+      v13[1] = &unk_1F5A40FD8;
+      v14[0] = &unk_1F5A41080;
+      v14[1] = &unk_1F5A41080;
+      v13[2] = &unk_1F5A41020;
+      v13[3] = &unk_1F5A40FF0;
+      v14[2] = &unk_1F5A41080;
+      v14[3] = &unk_1F5A41080;
+      v13[4] = &unk_1F5A41008;
+      v13[5] = &unk_1F5A41038;
+      v14[4] = &unk_1F5A410C8;
+      v14[5] = &unk_1F5A41080;
+      v13[6] = &unk_1F5A41050;
+      v14[6] = &unk_1F5A41080;
       v3 = MEMORY[0x1E695DF20];
-      v4 = v15;
-      v5 = v14;
+      v4 = v14;
+      v5 = v13;
       goto LABEL_20;
     case 14:
-      v12[0] = &unk_1F5A40FC0;
-      v12[1] = &unk_1F5A40FD8;
-      v13[0] = &unk_1F5A41080;
-      v13[1] = &unk_1F5A41080;
-      v12[2] = &unk_1F5A41020;
-      v12[3] = &unk_1F5A40FF0;
-      v13[2] = &unk_1F5A41080;
-      v13[3] = &unk_1F5A410C8;
-      v12[4] = &unk_1F5A41008;
-      v12[5] = &unk_1F5A41038;
-      v13[4] = &unk_1F5A410C8;
-      v13[5] = &unk_1F5A41080;
-      v12[6] = &unk_1F5A41050;
-      v13[6] = &unk_1F5A41080;
+      v11[0] = &unk_1F5A40FC0;
+      v11[1] = &unk_1F5A40FD8;
+      v12[0] = &unk_1F5A41080;
+      v12[1] = &unk_1F5A41080;
+      v11[2] = &unk_1F5A41020;
+      v11[3] = &unk_1F5A40FF0;
+      v12[2] = &unk_1F5A41080;
+      v12[3] = &unk_1F5A410C8;
+      v11[4] = &unk_1F5A41008;
+      v11[5] = &unk_1F5A41038;
+      v12[4] = &unk_1F5A410C8;
+      v12[5] = &unk_1F5A41080;
+      v11[6] = &unk_1F5A41050;
+      v12[6] = &unk_1F5A41080;
       v3 = MEMORY[0x1E695DF20];
-      v4 = v13;
-      v5 = v12;
+      v4 = v12;
+      v5 = v11;
       goto LABEL_20;
     case 15:
-      v18[0] = &unk_1F5A40FC0;
-      v18[1] = &unk_1F5A40FD8;
-      v19[0] = &unk_1F5A410C8;
-      v19[1] = &unk_1F5A41080;
-      v18[2] = &unk_1F5A41020;
-      v18[3] = &unk_1F5A40FF0;
-      v19[2] = &unk_1F5A41080;
-      v19[3] = &unk_1F5A41080;
-      v18[4] = &unk_1F5A41008;
-      v18[5] = &unk_1F5A41038;
-      v19[4] = &unk_1F5A41080;
-      v19[5] = &unk_1F5A41080;
-      v18[6] = &unk_1F5A41050;
-      v19[6] = &unk_1F5A41080;
+      v17[0] = &unk_1F5A40FC0;
+      v17[1] = &unk_1F5A40FD8;
+      v18[0] = &unk_1F5A410C8;
+      v18[1] = &unk_1F5A41080;
+      v17[2] = &unk_1F5A41020;
+      v17[3] = &unk_1F5A40FF0;
+      v18[2] = &unk_1F5A41080;
+      v18[3] = &unk_1F5A41080;
+      v17[4] = &unk_1F5A41008;
+      v17[5] = &unk_1F5A41038;
+      v18[4] = &unk_1F5A41080;
+      v18[5] = &unk_1F5A41080;
+      v17[6] = &unk_1F5A41050;
+      v18[6] = &unk_1F5A41080;
       v3 = MEMORY[0x1E695DF20];
-      v4 = v19;
-      v5 = v18;
+      v4 = v18;
+      v5 = v17;
       goto LABEL_20;
     case 16:
-      v10[0] = &unk_1F5A40FC0;
-      v10[1] = &unk_1F5A40FD8;
-      v11[0] = &unk_1F5A41080;
-      v11[1] = &unk_1F5A41080;
-      v10[2] = &unk_1F5A41020;
-      v10[3] = &unk_1F5A40FF0;
-      v11[2] = &unk_1F5A41080;
-      v11[3] = &unk_1F5A41080;
-      v10[4] = &unk_1F5A41008;
-      v10[5] = &unk_1F5A41038;
-      v11[4] = &unk_1F5A41080;
-      v11[5] = &unk_1F5A41080;
-      v10[6] = &unk_1F5A41050;
-      v11[6] = &unk_1F5A410C8;
+      v9[0] = &unk_1F5A40FC0;
+      v9[1] = &unk_1F5A40FD8;
+      v10[0] = &unk_1F5A41080;
+      v10[1] = &unk_1F5A41080;
+      v9[2] = &unk_1F5A41020;
+      v9[3] = &unk_1F5A40FF0;
+      v10[2] = &unk_1F5A41080;
+      v10[3] = &unk_1F5A41080;
+      v9[4] = &unk_1F5A41008;
+      v9[5] = &unk_1F5A41038;
+      v10[4] = &unk_1F5A41080;
+      v10[5] = &unk_1F5A41080;
+      v9[6] = &unk_1F5A41050;
+      v10[6] = &unk_1F5A410C8;
       v3 = MEMORY[0x1E695DF20];
-      v4 = v11;
-      v5 = v10;
+      v4 = v10;
+      v5 = v9;
       goto LABEL_20;
     case 17:
-      v8[0] = &unk_1F5A40FC0;
-      v8[1] = &unk_1F5A40FD8;
-      v9[0] = &unk_1F5A41080;
-      v9[1] = &unk_1F5A41080;
-      v8[2] = &unk_1F5A41020;
-      v8[3] = &unk_1F5A40FF0;
-      v9[2] = &unk_1F5A41080;
-      v9[3] = &unk_1F5A41080;
-      v8[4] = &unk_1F5A41008;
-      v8[5] = &unk_1F5A41038;
-      v9[4] = &unk_1F5A41080;
-      v9[5] = &unk_1F5A41080;
-      v8[6] = &unk_1F5A41050;
-      v9[6] = &unk_1F5A41080;
+      v7[0] = &unk_1F5A40FC0;
+      v7[1] = &unk_1F5A40FD8;
+      v8[0] = &unk_1F5A41080;
+      v8[1] = &unk_1F5A41080;
+      v7[2] = &unk_1F5A41020;
+      v7[3] = &unk_1F5A40FF0;
+      v8[2] = &unk_1F5A41080;
+      v8[3] = &unk_1F5A41080;
+      v7[4] = &unk_1F5A41008;
+      v7[5] = &unk_1F5A41038;
+      v8[4] = &unk_1F5A41080;
+      v8[5] = &unk_1F5A41080;
+      v7[6] = &unk_1F5A41050;
+      v8[6] = &unk_1F5A41080;
       v3 = MEMORY[0x1E695DF20];
-      v4 = v9;
-      v5 = v8;
+      v4 = v8;
+      v5 = v7;
 LABEL_20:
       self = [v3 dictionaryWithObjects:v4 forKeys:v5 count:7];
       break;
@@ -982,14 +980,12 @@ LABEL_20:
       break;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-
   return self;
 }
 
 + (id)maxSuggestionLayoutTypesForUILayoutType:(int64_t)type
 {
-  v23[5] = *MEMORY[0x1E69E9840];
+  v22[5] = *MEMORY[0x1E69E9840];
   if (type <= 12)
   {
     if (type)
@@ -998,21 +994,21 @@ LABEL_20:
       {
         if (type == 12)
         {
-          v16[0] = &unk_1F5A40FC0;
-          v16[1] = &unk_1F5A40FD8;
-          v17[0] = &unk_1F5A41110;
-          v17[1] = &unk_1F5A41080;
-          v16[2] = &unk_1F5A41020;
-          v16[3] = &unk_1F5A40FF0;
-          v17[2] = &unk_1F5A41080;
-          v17[3] = &unk_1F5A410B0;
-          v16[4] = &unk_1F5A41008;
-          v16[5] = &unk_1F5A41038;
-          v17[4] = &unk_1F5A41080;
-          v17[5] = &unk_1F5A41080;
+          v15[0] = &unk_1F5A40FC0;
+          v15[1] = &unk_1F5A40FD8;
+          v16[0] = &unk_1F5A41110;
+          v16[1] = &unk_1F5A41080;
+          v15[2] = &unk_1F5A41020;
+          v15[3] = &unk_1F5A40FF0;
+          v16[2] = &unk_1F5A41080;
+          v16[3] = &unk_1F5A410B0;
+          v15[4] = &unk_1F5A41008;
+          v15[5] = &unk_1F5A41038;
+          v16[4] = &unk_1F5A41080;
+          v16[5] = &unk_1F5A41080;
           v3 = MEMORY[0x1E695DF20];
-          v4 = v17;
-          v5 = v16;
+          v4 = v16;
+          v5 = v15;
 LABEL_15:
           v6 = 6;
           goto LABEL_19;
@@ -1023,36 +1019,36 @@ LABEL_13:
         goto LABEL_20;
       }
 
-      v22[0] = &unk_1F5A40FC0;
-      v22[1] = &unk_1F5A40FD8;
-      v23[0] = &unk_1F5A41080;
-      v23[1] = &unk_1F5A41080;
-      v22[2] = &unk_1F5A41020;
-      v22[3] = &unk_1F5A40FF0;
-      v23[2] = &unk_1F5A410E0;
-      v23[3] = &unk_1F5A41080;
-      v22[4] = &unk_1F5A41008;
-      v23[4] = &unk_1F5A41080;
+      v21[0] = &unk_1F5A40FC0;
+      v21[1] = &unk_1F5A40FD8;
+      v22[0] = &unk_1F5A41080;
+      v22[1] = &unk_1F5A41080;
+      v21[2] = &unk_1F5A41020;
+      v21[3] = &unk_1F5A40FF0;
+      v22[2] = &unk_1F5A410E0;
+      v22[3] = &unk_1F5A41080;
+      v21[4] = &unk_1F5A41008;
+      v22[4] = &unk_1F5A41080;
       v3 = MEMORY[0x1E695DF20];
-      v4 = v23;
-      v5 = v22;
+      v4 = v22;
+      v5 = v21;
     }
 
     else
     {
-      v20[0] = &unk_1F5A40FC0;
-      v20[1] = &unk_1F5A40FD8;
-      v21[0] = &unk_1F5A410F8;
-      v21[1] = &unk_1F5A41080;
-      v20[2] = &unk_1F5A41020;
-      v20[3] = &unk_1F5A40FF0;
-      v21[2] = &unk_1F5A41080;
-      v21[3] = &unk_1F5A41080;
-      v20[4] = &unk_1F5A41008;
-      v21[4] = &unk_1F5A41080;
+      v19[0] = &unk_1F5A40FC0;
+      v19[1] = &unk_1F5A40FD8;
+      v20[0] = &unk_1F5A410F8;
+      v20[1] = &unk_1F5A41080;
+      v19[2] = &unk_1F5A41020;
+      v19[3] = &unk_1F5A40FF0;
+      v20[2] = &unk_1F5A41080;
+      v20[3] = &unk_1F5A41080;
+      v19[4] = &unk_1F5A41008;
+      v20[4] = &unk_1F5A41080;
       v3 = MEMORY[0x1E695DF20];
-      v4 = v21;
-      v5 = v20;
+      v4 = v20;
+      v5 = v19;
     }
 
 LABEL_18:
@@ -1064,40 +1060,40 @@ LABEL_18:
   {
     if (type == 13)
     {
-      v14[0] = &unk_1F5A40FC0;
-      v14[1] = &unk_1F5A40FD8;
-      v15[0] = &unk_1F5A41110;
-      v15[1] = &unk_1F5A41080;
-      v14[2] = &unk_1F5A41020;
-      v14[3] = &unk_1F5A40FF0;
-      v15[2] = &unk_1F5A41080;
-      v15[3] = &unk_1F5A41080;
-      v14[4] = &unk_1F5A41008;
-      v14[5] = &unk_1F5A41038;
-      v15[4] = &unk_1F5A410C8;
-      v15[5] = &unk_1F5A41080;
+      v13[0] = &unk_1F5A40FC0;
+      v13[1] = &unk_1F5A40FD8;
+      v14[0] = &unk_1F5A41110;
+      v14[1] = &unk_1F5A41080;
+      v13[2] = &unk_1F5A41020;
+      v13[3] = &unk_1F5A40FF0;
+      v14[2] = &unk_1F5A41080;
+      v14[3] = &unk_1F5A41080;
+      v13[4] = &unk_1F5A41008;
+      v13[5] = &unk_1F5A41038;
+      v14[4] = &unk_1F5A410C8;
+      v14[5] = &unk_1F5A41080;
       v3 = MEMORY[0x1E695DF20];
-      v4 = v15;
-      v5 = v14;
+      v4 = v14;
+      v5 = v13;
     }
 
     else
     {
-      v12[0] = &unk_1F5A40FC0;
-      v12[1] = &unk_1F5A40FD8;
-      v13[0] = &unk_1F5A41110;
-      v13[1] = &unk_1F5A41080;
-      v12[2] = &unk_1F5A41020;
-      v12[3] = &unk_1F5A40FF0;
-      v13[2] = &unk_1F5A41080;
-      v13[3] = &unk_1F5A410B0;
-      v12[4] = &unk_1F5A41008;
-      v12[5] = &unk_1F5A41038;
-      v13[4] = &unk_1F5A410C8;
-      v13[5] = &unk_1F5A41080;
+      v11[0] = &unk_1F5A40FC0;
+      v11[1] = &unk_1F5A40FD8;
+      v12[0] = &unk_1F5A41110;
+      v12[1] = &unk_1F5A41080;
+      v11[2] = &unk_1F5A41020;
+      v11[3] = &unk_1F5A40FF0;
+      v12[2] = &unk_1F5A41080;
+      v12[3] = &unk_1F5A410B0;
+      v11[4] = &unk_1F5A41008;
+      v11[5] = &unk_1F5A41038;
+      v12[4] = &unk_1F5A410C8;
+      v12[5] = &unk_1F5A41080;
       v3 = MEMORY[0x1E695DF20];
-      v4 = v13;
-      v5 = v12;
+      v4 = v12;
+      v5 = v11;
     }
 
     goto LABEL_15;
@@ -1105,19 +1101,19 @@ LABEL_18:
 
   if (type == 15)
   {
-    v18[0] = &unk_1F5A40FC0;
-    v18[1] = &unk_1F5A40FD8;
-    v19[0] = &unk_1F5A410E0;
-    v19[1] = &unk_1F5A41080;
-    v18[2] = &unk_1F5A41020;
-    v18[3] = &unk_1F5A40FF0;
-    v19[2] = &unk_1F5A41080;
-    v19[3] = &unk_1F5A41080;
-    v18[4] = &unk_1F5A41008;
-    v19[4] = &unk_1F5A41080;
+    v17[0] = &unk_1F5A40FC0;
+    v17[1] = &unk_1F5A40FD8;
+    v18[0] = &unk_1F5A410E0;
+    v18[1] = &unk_1F5A41080;
+    v17[2] = &unk_1F5A41020;
+    v17[3] = &unk_1F5A40FF0;
+    v18[2] = &unk_1F5A41080;
+    v18[3] = &unk_1F5A41080;
+    v17[4] = &unk_1F5A41008;
+    v18[4] = &unk_1F5A41080;
     v3 = MEMORY[0x1E695DF20];
-    v4 = v19;
-    v5 = v18;
+    v4 = v18;
+    v5 = v17;
     goto LABEL_18;
   }
 
@@ -1126,28 +1122,27 @@ LABEL_18:
     goto LABEL_13;
   }
 
-  v10[0] = &unk_1F5A40FC0;
-  v10[1] = &unk_1F5A40FD8;
-  v11[0] = &unk_1F5A410F8;
-  v11[1] = &unk_1F5A410F8;
-  v10[2] = &unk_1F5A41020;
-  v10[3] = &unk_1F5A40FF0;
-  v11[2] = &unk_1F5A410F8;
-  v11[3] = &unk_1F5A410F8;
-  v10[4] = &unk_1F5A41008;
-  v10[5] = &unk_1F5A41038;
-  v11[4] = &unk_1F5A410F8;
-  v11[5] = &unk_1F5A410F8;
-  v10[6] = &unk_1F5A41050;
-  v11[6] = &unk_1F5A410F8;
+  v9[0] = &unk_1F5A40FC0;
+  v9[1] = &unk_1F5A40FD8;
+  v10[0] = &unk_1F5A410F8;
+  v10[1] = &unk_1F5A410F8;
+  v9[2] = &unk_1F5A41020;
+  v9[3] = &unk_1F5A40FF0;
+  v10[2] = &unk_1F5A410F8;
+  v10[3] = &unk_1F5A410F8;
+  v9[4] = &unk_1F5A41008;
+  v9[5] = &unk_1F5A41038;
+  v10[4] = &unk_1F5A410F8;
+  v10[5] = &unk_1F5A410F8;
+  v9[6] = &unk_1F5A41050;
+  v10[6] = &unk_1F5A410F8;
   v3 = MEMORY[0x1E695DF20];
-  v4 = v11;
-  v5 = v10;
+  v4 = v10;
+  v5 = v9;
   v6 = 7;
 LABEL_19:
   v7 = [v3 dictionaryWithObjects:v4 forKeys:v5 count:v6];
 LABEL_20:
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -1168,14 +1163,13 @@ LABEL_20:
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [ATXSuggestionLayout allocWithZone:zone];
-  uuidOfHighestConfidenceSuggestion = self->_uuidOfHighestConfidenceSuggestion;
-  LODWORD(v7) = *&self->_isValidForSuggestionsWidget;
-  return [ATXSuggestionLayout initWithLayoutType:v4 oneByOneSuggestions:"initWithLayoutType:oneByOneSuggestions:oneByTwoSuggestions:twoByTwoSuggestions:oneByFourSuggestions:twoByFourSuggestions:fourByFourSuggestions:fourByEightSuggestions:uuid:layoutScore:isValidForSuggestionsWidget:confidenceWarrantsSnappingOrNPlusOne:isNPlusOne:isLowConfidenceStackRotationForStaleStack:widgetUniqueId:uuidOfHighestConfidenceSuggestion:numWidgetsInStack:" oneByTwoSuggestions:self->_layoutType twoByTwoSuggestions:self->_oneByOneSuggestions oneByFourSuggestions:self->_oneByTwoSuggestions twoByFourSuggestions:self->_twoByTwoSuggestions fourByFourSuggestions:self->_oneByFourSuggestions fourByEightSuggestions:self->_twoByFourSuggestions uuid:self->_layoutScore layoutScore:self->_fourByFourSuggestions isValidForSuggestionsWidget:self->_fourByEightSuggestions confidenceWarrantsSnappingOrNPlusOne:self->_uuid isNPlusOne:v7 isLowConfidenceStackRotationForStaleStack:self->_widgetUniqueId widgetUniqueId:uuidOfHighestConfidenceSuggestion uuidOfHighestConfidenceSuggestion:self->_numWidgetsInStack numWidgetsInStack:?];
+  LODWORD(v6) = *&self->_isValidForSuggestionsWidget;
+  return [ATXSuggestionLayout initWithLayoutType:v4 oneByOneSuggestions:"initWithLayoutType:oneByOneSuggestions:oneByTwoSuggestions:twoByTwoSuggestions:oneByFourSuggestions:twoByFourSuggestions:fourByFourSuggestions:fourByEightSuggestions:uuid:layoutScore:isValidForSuggestionsWidget:confidenceWarrantsSnappingOrNPlusOne:isNPlusOne:isLowConfidenceStackRotationForStaleStack:widgetUniqueId:uuidOfHighestConfidenceSuggestion:numWidgetsInStack:" oneByTwoSuggestions:self->_layoutType twoByTwoSuggestions:self->_oneByOneSuggestions oneByFourSuggestions:self->_oneByTwoSuggestions twoByFourSuggestions:self->_twoByTwoSuggestions fourByFourSuggestions:self->_oneByFourSuggestions fourByEightSuggestions:self->_twoByFourSuggestions uuid:self->_layoutScore layoutScore:self->_fourByFourSuggestions isValidForSuggestionsWidget:self->_fourByEightSuggestions confidenceWarrantsSnappingOrNPlusOne:self->_uuid isNPlusOne:v6 isLowConfidenceStackRotationForStaleStack:self->_widgetUniqueId widgetUniqueId:self->_uuidOfHighestConfidenceSuggestion uuidOfHighestConfidenceSuggestion:self->_numWidgetsInStack numWidgetsInStack:?];
 }
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -1192,11 +1186,11 @@ LABEL_20:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v22 = *MEMORY[0x1E696A578];
-      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x1E696A578];
+      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -1207,13 +1201,12 @@ LABEL_20:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForNSInteger:(int64_t)integer key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -1230,11 +1223,11 @@ LABEL_7:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v22 = *MEMORY[0x1E696A578];
-      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x1E696A578];
+      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -1245,13 +1238,12 @@ LABEL_7:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BOOL)checkAndReportDecodingFailureIfNeededFordouble:(double)fordouble key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -1268,11 +1260,11 @@ LABEL_7:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v22 = *MEMORY[0x1E696A578];
-      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x1E696A578];
+      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -1283,13 +1275,12 @@ LABEL_7:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForBOOL:(BOOL)l key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -1306,11 +1297,11 @@ LABEL_7:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v22 = *MEMORY[0x1E696A578];
-      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x1E696A578];
+      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -1321,7 +1312,6 @@ LABEL_7:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -1366,70 +1356,71 @@ LABEL_7:
   if (!protoCopy)
   {
 LABEL_8:
-    v9 = 0;
+    v10 = 0;
     goto LABEL_11;
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v8 = __atxlog_handle_default();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      [(ATXLightweightClientModelCacheUpdate *)self initWithProto:v8];
+      [(ATXLightweightClientModelCacheUpdate *)self initWithProto:v9];
     }
 
     goto LABEL_8;
   }
 
-  v5 = protoCopy;
-  if ([(ATXPBSuggestionLayout *)v5 hasUuidOfHighestConfidenceSuggestion])
+  v6 = protoCopy;
+  if ([(ATXPBSuggestionLayout *)v6 hasUuidOfHighestConfidenceSuggestion])
   {
-    v6 = objc_alloc(MEMORY[0x1E696AFB0]);
-    uuidOfHighestConfidenceSuggestion = [(ATXPBSuggestionLayout *)v5 uuidOfHighestConfidenceSuggestion];
-    v37 = [v6 initWithUUIDString:uuidOfHighestConfidenceSuggestion];
+    v7 = objc_alloc(MEMORY[0x1E696AFB0]);
+    uuidOfHighestConfidenceSuggestion = [(ATXPBSuggestionLayout *)v6 uuidOfHighestConfidenceSuggestion];
+    v38 = [v7 initWithUUIDString:uuidOfHighestConfidenceSuggestion];
   }
 
   else
   {
-    v37 = 0;
+    v38 = 0;
   }
 
-  v31 = [(ATXSuggestionLayout *)self _layoutTypeFromProtoLayoutType:[(ATXPBSuggestionLayout *)v5 layoutType]];
-  oneByOneSuggestions = [(ATXPBSuggestionLayout *)v5 oneByOneSuggestions];
-  v36 = [ATXProactiveSuggestion suggestionsFromProtoSuggestions:oneByOneSuggestions];
-  oneByTwoSuggestions = [(ATXPBSuggestionLayout *)v5 oneByTwoSuggestions];
-  v29 = [ATXProactiveSuggestion suggestionsFromProtoSuggestions:oneByTwoSuggestions];
-  twoByTwoSuggestions = [(ATXPBSuggestionLayout *)v5 twoByTwoSuggestions];
-  v27 = [ATXProactiveSuggestion suggestionsFromProtoSuggestions:twoByTwoSuggestions];
-  oneByFourSuggestions = [(ATXPBSuggestionLayout *)v5 oneByFourSuggestions];
-  v26 = [ATXProactiveSuggestion suggestionsFromProtoSuggestions:oneByFourSuggestions];
-  twoByFourSuggestions = [(ATXPBSuggestionLayout *)v5 twoByFourSuggestions];
-  v24 = [ATXProactiveSuggestion suggestionsFromProtoSuggestions:twoByFourSuggestions];
-  fourByFourSuggestions = [(ATXPBSuggestionLayout *)v5 fourByFourSuggestions];
-  v22 = [ATXProactiveSuggestion suggestionsFromProtoSuggestions:fourByFourSuggestions];
-  fourByEightSuggestions = [(ATXPBSuggestionLayout *)v5 fourByEightSuggestions];
-  v21 = [ATXProactiveSuggestion suggestionsFromProtoSuggestions:fourByEightSuggestions];
-  v10 = objc_alloc(MEMORY[0x1E696AFB0]);
-  uuidString = [(ATXPBSuggestionLayout *)v5 uuidString];
-  v11 = [v10 initWithUUIDString:uuidString];
-  layoutScore = [(ATXPBSuggestionLayout *)v5 layoutScore];
-  isValidForSuggestionsWidget = [(ATXPBSuggestionLayout *)v5 isValidForSuggestionsWidget];
-  confidenceWarrantsSnappingOrNPlusOne = [(ATXPBSuggestionLayout *)v5 confidenceWarrantsSnappingOrNPlusOne];
-  isNPlusOne = [(ATXPBSuggestionLayout *)v5 isNPlusOne];
-  isLowConfidenceStackRotationForStaleStack = [(ATXPBSuggestionLayout *)v5 isLowConfidenceStackRotationForStaleStack];
-  widgetUniqueId = [(ATXPBSuggestionLayout *)v5 widgetUniqueId];
-  BYTE3(v20) = isLowConfidenceStackRotationForStaleStack;
-  BYTE2(v20) = isNPlusOne;
-  BYTE1(v20) = confidenceWarrantsSnappingOrNPlusOne;
-  LOBYTE(v20) = isValidForSuggestionsWidget;
-  v18 = [ATXSuggestionLayout initWithLayoutType:"initWithLayoutType:oneByOneSuggestions:oneByTwoSuggestions:twoByTwoSuggestions:oneByFourSuggestions:twoByFourSuggestions:fourByFourSuggestions:fourByEightSuggestions:uuid:layoutScore:isValidForSuggestionsWidget:confidenceWarrantsSnappingOrNPlusOne:isNPlusOne:isLowConfidenceStackRotationForStaleStack:widgetUniqueId:uuidOfHighestConfidenceSuggestion:numWidgetsInStack:" oneByOneSuggestions:v31 oneByTwoSuggestions:v36 twoByTwoSuggestions:v29 oneByFourSuggestions:v27 twoByFourSuggestions:v26 fourByFourSuggestions:v24 fourByEightSuggestions:layoutScore uuid:v22 layoutScore:v21 isValidForSuggestionsWidget:v11 confidenceWarrantsSnappingOrNPlusOne:v20 isNPlusOne:widgetUniqueId isLowConfidenceStackRotationForStaleStack:v37 widgetUniqueId:[(ATXPBSuggestionLayout *)v5 numWidgetsInStack] uuidOfHighestConfidenceSuggestion:? numWidgetsInStack:?];
+  v32 = [(ATXSuggestionLayout *)self _layoutTypeFromProtoLayoutType:[(ATXPBSuggestionLayout *)v6 layoutType]];
+  oneByOneSuggestions = [(ATXPBSuggestionLayout *)v6 oneByOneSuggestions];
+  v37 = [ATXProactiveSuggestion suggestionsFromProtoSuggestions:oneByOneSuggestions];
+  oneByTwoSuggestions = [(ATXPBSuggestionLayout *)v6 oneByTwoSuggestions];
+  v30 = [ATXProactiveSuggestion suggestionsFromProtoSuggestions:oneByTwoSuggestions];
+  twoByTwoSuggestions = [(ATXPBSuggestionLayout *)v6 twoByTwoSuggestions];
+  v28 = [ATXProactiveSuggestion suggestionsFromProtoSuggestions:twoByTwoSuggestions];
+  oneByFourSuggestions = [(ATXPBSuggestionLayout *)v6 oneByFourSuggestions];
+  v27 = [ATXProactiveSuggestion suggestionsFromProtoSuggestions:oneByFourSuggestions];
+  twoByFourSuggestions = [(ATXPBSuggestionLayout *)v6 twoByFourSuggestions];
+  v25 = [ATXProactiveSuggestion suggestionsFromProtoSuggestions:twoByFourSuggestions];
+  fourByFourSuggestions = [(ATXPBSuggestionLayout *)v6 fourByFourSuggestions];
+  v23 = [ATXProactiveSuggestion suggestionsFromProtoSuggestions:fourByFourSuggestions];
+  fourByEightSuggestions = [(ATXPBSuggestionLayout *)v6 fourByEightSuggestions];
+  v22 = [ATXProactiveSuggestion suggestionsFromProtoSuggestions:fourByEightSuggestions];
+  v11 = objc_alloc(MEMORY[0x1E696AFB0]);
+  uuidString = [(ATXPBSuggestionLayout *)v6 uuidString];
+  v12 = [v11 initWithUUIDString:uuidString];
+  layoutScore = [(ATXPBSuggestionLayout *)v6 layoutScore];
+  isValidForSuggestionsWidget = [(ATXPBSuggestionLayout *)v6 isValidForSuggestionsWidget];
+  confidenceWarrantsSnappingOrNPlusOne = [(ATXPBSuggestionLayout *)v6 confidenceWarrantsSnappingOrNPlusOne];
+  isNPlusOne = [(ATXPBSuggestionLayout *)v6 isNPlusOne];
+  isLowConfidenceStackRotationForStaleStack = [(ATXPBSuggestionLayout *)v6 isLowConfidenceStackRotationForStaleStack];
+  widgetUniqueId = [(ATXPBSuggestionLayout *)v6 widgetUniqueId];
+  BYTE3(v21) = isLowConfidenceStackRotationForStaleStack;
+  BYTE2(v21) = isNPlusOne;
+  BYTE1(v21) = confidenceWarrantsSnappingOrNPlusOne;
+  LOBYTE(v21) = isValidForSuggestionsWidget;
+  v19 = [ATXSuggestionLayout initWithLayoutType:"initWithLayoutType:oneByOneSuggestions:oneByTwoSuggestions:twoByTwoSuggestions:oneByFourSuggestions:twoByFourSuggestions:fourByFourSuggestions:fourByEightSuggestions:uuid:layoutScore:isValidForSuggestionsWidget:confidenceWarrantsSnappingOrNPlusOne:isNPlusOne:isLowConfidenceStackRotationForStaleStack:widgetUniqueId:uuidOfHighestConfidenceSuggestion:numWidgetsInStack:" oneByOneSuggestions:v32 oneByTwoSuggestions:v37 twoByTwoSuggestions:v30 oneByFourSuggestions:v28 twoByFourSuggestions:v27 fourByFourSuggestions:v25 fourByEightSuggestions:layoutScore uuid:v23 layoutScore:v22 isValidForSuggestionsWidget:v12 confidenceWarrantsSnappingOrNPlusOne:v21 isNPlusOne:widgetUniqueId isLowConfidenceStackRotationForStaleStack:v38 widgetUniqueId:[(ATXPBSuggestionLayout *)v6 numWidgetsInStack] uuidOfHighestConfidenceSuggestion:? numWidgetsInStack:?];
 
-  self = v18;
-  v9 = v18;
+  self = v19;
+  v10 = v19;
 LABEL_11:
 
-  return v9;
+  return v10;
 }
 
 - (int64_t)_layoutTypeFromProtoLayoutType:(int)type
@@ -1476,12 +1467,12 @@ LABEL_11:
 
 - (id)jsonRawData
 {
-  v29[17] = *MEMORY[0x1E69E9840];
+  v28[17] = *MEMORY[0x1E69E9840];
   v3 = [(ATXSuggestionLayout *)self suggestionWithUUID:self->_uuidOfHighestConfidenceSuggestion];
   uuid = self->_uuid;
   jsonRawData = @"nil";
-  v27 = uuid;
-  v28[0] = @"uuid";
+  v26 = uuid;
+  v27[0] = @"uuid";
   if (uuid)
   {
     uUIDString = [(NSUUID *)uuid UUIDString];
@@ -1492,12 +1483,12 @@ LABEL_11:
     uUIDString = @"nil";
   }
 
-  v23 = uUIDString;
-  v29[0] = uUIDString;
-  v28[1] = @"layoutType";
-  v26 = [objc_opt_class() stringFromUILayoutType:self->_layoutType];
-  v29[1] = v26;
-  v28[2] = @"layoutScore";
+  v22 = uUIDString;
+  v28[0] = uUIDString;
+  v27[1] = @"layoutType";
+  v25 = [objc_opt_class() stringFromUILayoutType:self->_layoutType];
+  v28[1] = v25;
+  v27[2] = @"layoutScore";
   v7 = [MEMORY[0x1E696AD98] numberWithDouble:self->_layoutScore];
   if (self->_isValidForSuggestionsWidget)
   {
@@ -1509,11 +1500,11 @@ LABEL_11:
     v8 = @"NO";
   }
 
-  v25 = v7;
-  v29[2] = v7;
-  v29[3] = v8;
-  v28[3] = @"isValidForSuggestionsWidget";
-  v28[4] = @"confidenceWarrantsSnappingOrNPlusOne";
+  v24 = v7;
+  v28[2] = v7;
+  v28[3] = v8;
+  v27[3] = @"isValidForSuggestionsWidget";
+  v27[4] = @"confidenceWarrantsSnappingOrNPlusOne";
   if (self->_confidenceWarrantsSnappingOrNPlusOne)
   {
     v9 = @"YES";
@@ -1534,10 +1525,10 @@ LABEL_11:
     v10 = @"NO";
   }
 
-  v29[4] = v9;
-  v29[5] = v10;
-  v28[5] = @"isNPlusOne";
-  v28[6] = @"isLowConfidenceStackRotationForStaleStack";
+  v28[4] = v9;
+  v28[5] = v10;
+  v27[5] = @"isNPlusOne";
+  v27[6] = @"isLowConfidenceStackRotationForStaleStack";
   if (self->_isLowConfidenceStackRotationForStaleStack)
   {
     v11 = @"YES";
@@ -1554,51 +1545,49 @@ LABEL_11:
     widgetUniqueId = @"nil";
   }
 
-  v29[6] = v11;
-  v29[7] = widgetUniqueId;
-  v28[7] = @"widgetUniqueId";
-  v28[8] = @"[1 x 1]";
-  v24 = [(ATXSuggestionLayout *)self arrayOfJSONFromSuggestionArray:self->_oneByOneSuggestions];
-  v29[8] = v24;
-  v28[9] = @"[1 x 2]";
+  v28[6] = v11;
+  v28[7] = widgetUniqueId;
+  v27[7] = @"widgetUniqueId";
+  v27[8] = @"[1 x 1]";
+  v23 = [(ATXSuggestionLayout *)self arrayOfJSONFromSuggestionArray:self->_oneByOneSuggestions];
+  v28[8] = v23;
+  v27[9] = @"[1 x 2]";
   v13 = [(ATXSuggestionLayout *)self arrayOfJSONFromSuggestionArray:self->_oneByTwoSuggestions];
-  v29[9] = v13;
-  v28[10] = @"[2 x 2]";
+  v28[9] = v13;
+  v27[10] = @"[2 x 2]";
   v14 = [(ATXSuggestionLayout *)self arrayOfJSONFromSuggestionArray:self->_twoByTwoSuggestions];
-  v29[10] = v14;
-  v28[11] = @"[1 x 4]";
+  v28[10] = v14;
+  v27[11] = @"[1 x 4]";
   v15 = [(ATXSuggestionLayout *)self arrayOfJSONFromSuggestionArray:self->_oneByFourSuggestions];
-  v29[11] = v15;
-  v28[12] = @"[2 x 4]";
+  v28[11] = v15;
+  v27[12] = @"[2 x 4]";
   v16 = [(ATXSuggestionLayout *)self arrayOfJSONFromSuggestionArray:self->_twoByFourSuggestions];
-  v29[12] = v16;
-  v28[13] = @"[4 x 4]";
+  v28[12] = v16;
+  v27[13] = @"[4 x 4]";
   v17 = [(ATXSuggestionLayout *)self arrayOfJSONFromSuggestionArray:self->_fourByFourSuggestions];
-  v29[13] = v17;
-  v28[14] = @"[4 x 8]";
+  v28[13] = v17;
+  v27[14] = @"[4 x 8]";
   v18 = [(ATXSuggestionLayout *)self arrayOfJSONFromSuggestionArray:self->_fourByEightSuggestions];
-  v29[14] = v18;
-  v28[15] = @"highestConfidenceSuggestion";
+  v28[14] = v18;
+  v27[15] = @"highestConfidenceSuggestion";
   if (v3)
   {
     jsonRawData = [v3 jsonRawData];
   }
 
-  v29[15] = jsonRawData;
-  v28[16] = @"numWidgetsInStack";
+  v28[15] = jsonRawData;
+  v27[16] = @"numWidgetsInStack";
   v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_numWidgetsInStack];
-  v29[16] = v19;
-  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:17];
+  v28[16] = v19;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:17];
 
   if (v3)
   {
   }
 
-  if (v27)
+  if (v26)
   {
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }

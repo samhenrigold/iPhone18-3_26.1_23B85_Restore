@@ -32,7 +32,7 @@
 
     if (handshakeCopy)
     {
-      [handshakeCopy operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(handshakeCopy);
     }
 
     else

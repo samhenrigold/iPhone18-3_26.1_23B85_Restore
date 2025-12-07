@@ -276,7 +276,7 @@
     dotView = v4->_dotView;
     v4->_dotView = v7;
 
-    v9 = +[UIColor blackColor];
+    v9 = objc_msgSend_blackColor(UIColor);
     cGColor = [v9 CGColor];
     layer = [(UIView *)v4->_dotView layer];
     [layer setShadowColor:cGColor];
@@ -740,7 +740,7 @@ LABEL_21:
 
 - ($2BD9DB369DDD0E9E489A8699A184AD3B)originShadow
 {
-  retstr->var0 = +[UIColor blackColor];
+  retstr->var0 = objc_msgSend_blackColor(UIColor, a3);
   visualStyle = [(_UITextSelectionLollipopView *)self visualStyle];
   [visualStyle shadowOpacity];
   retstr->var1 = v5;

@@ -21,22 +21,20 @@
 
 void __50__EKPersistentParticipant_defaultPropertiesToLoad__block_invoke()
 {
-  v6[7] = *MEMORY[0x1E69E9840];
+  v5[7] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6992B60];
-  v6[0] = *MEMORY[0x1E6992B50];
-  v6[1] = v0;
+  v5[0] = *MEMORY[0x1E6992B50];
+  v5[1] = v0;
   v1 = *MEMORY[0x1E6992B08];
-  v6[2] = *MEMORY[0x1E6992B70];
-  v6[3] = v1;
+  v5[2] = *MEMORY[0x1E6992B70];
+  v5[3] = v1;
   v2 = *MEMORY[0x1E6992B78];
-  v6[4] = *MEMORY[0x1E6992B58];
-  v6[5] = v2;
-  v6[6] = *MEMORY[0x1E6992B38];
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:7];
+  v5[4] = *MEMORY[0x1E6992B58];
+  v5[5] = v2;
+  v5[6] = *MEMORY[0x1E6992B38];
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:7];
   v4 = defaultPropertiesToLoad_defaultPropertiesToLoad_10;
   defaultPropertiesToLoad_defaultPropertiesToLoad_10 = v3;
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)url

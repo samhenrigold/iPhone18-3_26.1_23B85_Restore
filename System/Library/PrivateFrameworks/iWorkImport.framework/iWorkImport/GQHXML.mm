@@ -1,4 +1,5 @@
 @interface GQHXML
+- (BOOL)writeToOutputBundle:(id)bundle isThumbnail:(BOOL)thumbnail;
 - (GQHXML)initWithFilename:(__CFString *)filename documentSize:(CGSize *)size outputBundle:(id)bundle useExternalCss:(BOOL)css;
 - (__CFData)createProgressiveeCSSwithStyleTags:(unsigned __int8)tags;
 - (id)initEmptyWithFilename:(__CFString *)filename useExternalCss:(BOOL)css;
@@ -223,6 +224,73 @@
   CFRelease(v7);
 
   [(GQHXML *)self endElement];
+}
+
+- (BOOL)writeToOutputBundle:(id)bundle isThumbnail:(BOOL)thumbnail
+{
+  if (self->isProgressive)
+  {
+    v6 = [(GQHXMLOutput *)self->mOutput createProgressiveHtml:bundle];
+    v7 = 1;
+    v8 = [(GQHXML *)self createProgressiveeCSSwithStyleTags:1];
+    [bundle setDataForMainHtmlResource:v8];
+    [bundle setDataForMainHtmlResource:v6];
+    CFRelease(v6);
+    CFRelease(v8);
+    [bundle closeAttachment:self->mCssFilename];
+    return v7;
+  }
+
+  mCss = self->mCss;
+  if (mCss)
+  {
+    CFStringAppend(mCss, self->mLastCss);
+  }
+
+  if (!self->mUseExternalCss)
+  {
+    thumbnail = [(GQHXMLOutput *)self->mOutput createHtmlWithCss:self->mCss, thumbnail];
+    v7 = 0;
+    if (!thumbnail)
+    {
+      return v7;
+    }
+
+    goto LABEL_12;
+  }
+
+  v10 = self->mCss;
+  if (v10)
+  {
+    ExternalRepresentation = CFStringCreateExternalRepresentation(0, v10, 0x8000100u, 0x30u);
+    v7 = [bundle setData:ExternalRepresentation mimeType:@"text/css" forNamedResource:self->mCssFilename];
+    CFRelease(ExternalRepresentation);
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  thumbnail = [(GQHXMLOutput *)self->mOutput createHtml];
+  if (thumbnail)
+  {
+LABEL_12:
+    if (CFStringCompare(self->mFilename, @"index.html", 0))
+    {
+      v13 = [bundle setData:thumbnail mimeType:@"text/html" forNamedResource:self->mFilename];
+    }
+
+    else
+    {
+      v13 = [bundle setDataForMainHtmlResource:thumbnail];
+    }
+
+    v7 = v13;
+    CFRelease(thumbnail);
+  }
+
+  return v7;
 }
 
 - (__CFData)createProgressiveeCSSwithStyleTags:(unsigned __int8)tags

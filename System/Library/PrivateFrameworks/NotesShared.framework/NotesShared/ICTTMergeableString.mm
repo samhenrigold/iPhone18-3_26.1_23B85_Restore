@@ -301,7 +301,7 @@ LABEL_5:
 
 - (void)sortSplitNodes
 {
-  minIdPath(*self->_startNodes.__begin_, v3);
+  minIdPath(v3, *self->_startNodes.__begin_);
   v2 = v3[0];
 }
 
@@ -314,13 +314,14 @@ LABEL_5:
   while (v5 != v6)
   {
     v7 = *v5;
-    v8 = [(NSMutableAttributedString *)v3 length];
+    [(NSMutableAttributedString *)v3 length];
     if ((*(v7 + 44) & 1) == 0)
     {
       [(NSMutableAttributedString *)v3 ic_appendAttributedSubstring:self->_attributedString fromRange:*(v7 + 40), *(v7 + 16)];
     }
 
-    *(v7 + 40) = ICTTBoundedCheckedCastNSUIntegerToUInt32(v8);
+    ICTTBoundedCheckedCastNSUIntegerToUInt32();
+    *(v7 + 40) = v8;
     ++v5;
   }
 
@@ -533,7 +534,7 @@ void __31__ICTTMergeableString_coalesce__block_invoke(void *a1, uint64_t a2)
               }
 
               *(v7 + 16) += *(v9 + 16);
-              std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>((*(a1[6] + 8) + 48), &v47);
+              std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>((*(a1[6] + 8) + 48), &v47, &v47);
               goto LABEL_27;
             }
           }
@@ -626,8 +627,8 @@ LABEL_30:
         {
         }
 
-        std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>((*(a1[8] + 8) + 48), &v48);
-        std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>((*(a1[6] + 8) + 48), &v47);
+        std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>((*(a1[8] + 8) + 48), &v48, &v48);
+        std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>((*(a1[6] + 8) + 48), &v47, &v47);
         *(a1[5] + 112) = 1;
 
         v5 = 0x277CCA000;
@@ -758,7 +759,7 @@ LABEL_27:
 
 - (void)deleteCharactersInRange:(_NSRange)range
 {
-  v13 = *MEMORY[0x277D85DE8];
+  *&v13 = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     length = range.length;
@@ -790,62 +791,47 @@ LABEL_27:
 - (void)insertAttributedString:(id)string atIndex:(unint64_t)index
 {
   stringCopy = string;
-  if (![stringCopy length])
+  if ([stringCopy length])
   {
-    goto LABEL_16;
-  }
-
-  if (index)
-  {
-    if ([(ICTTMergeableString *)self length]== index)
+    if (index)
     {
-      orderedSubstrings = [(ICTTMergeableString *)self orderedSubstrings];
-      orderedSubstrings2 = [(ICTTMergeableString *)self orderedSubstrings];
-      v9 = *(*orderedSubstrings + orderedSubstrings2[1] - *orderedSubstrings2 - 16);
-      begin = self->_endNodes.__begin_;
-      goto LABEL_14;
-    }
-
-    v12 = ICTTBoundedCheckedCastNSUIntegerToUInt32(index);
-    for (i = 0; ; i += 8)
-    {
-      v9 = *(*[(ICTTMergeableString *)self orderedSubstrings]+ i);
-      if ((*(v9 + 44) & 1) == 0)
+      if ([(ICTTMergeableString *)self length]== index)
       {
-        v14 = *(v9 + 4);
-        v15 = v12 >= v14;
-        v16 = v12 - v14;
-        if (!v15)
-        {
-          v17 = [(ICTTMergeableString *)self splitTopoSubstring:v9 atIndex:v12];
-          [(ICTTMergeableString *)self invalidateCache];
-          goto LABEL_15;
-        }
+        [(ICTTMergeableString *)self orderedSubstrings];
+        [(ICTTMergeableString *)self orderedSubstrings];
+        goto LABEL_13;
+      }
 
-        v12 = v16;
-        if (!v16)
+      ICTTBoundedCheckedCastNSUIntegerToUInt32();
+      v8 = v7;
+      for (i = 0; ; i += 8)
+      {
+        v10 = *(*[(ICTTMergeableString *)self orderedSubstrings]+ i);
+        if ((*(v10 + 44) & 1) == 0)
         {
-          break;
+          v11 = *(v10 + 16);
+          v12 = v8 >= v11;
+          v13 = v8 - v11;
+          if (!v12)
+          {
+            [(ICTTMergeableString *)self splitTopoSubstring:v10 atIndex:v8];
+            [(ICTTMergeableString *)self invalidateCache];
+            goto LABEL_13;
+          }
+
+          v8 = v13;
+          if (!v13)
+          {
+            break;
+          }
         }
       }
     }
 
-    v11 = *[(ICTTMergeableString *)self orderedSubstrings]+ i;
+    [(ICTTMergeableString *)self orderedSubstrings];
+LABEL_13:
+    objc_msgSend_insertAttributedString_after_before_(self);
   }
-
-  else
-  {
-    v9 = *self->_startNodes.__begin_;
-    v11 = *[(ICTTMergeableString *)self orderedSubstrings];
-  }
-
-  begin = (v11 + 8);
-LABEL_14:
-  v17 = *begin;
-LABEL_15:
-  [(ICTTMergeableString *)self insertAttributedString:stringCopy after:v9 before:v17];
-
-LABEL_16:
 }
 
 - (id)selectionForCharacterRanges:(id)ranges
@@ -1219,7 +1205,7 @@ LABEL_50:
 
 - (void)updateTimestampsInRange:(_NSRange)range
 {
-  v18 = *MEMORY[0x277D85DE8];
+  *&v18 = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     length = range.length;
@@ -1434,7 +1420,7 @@ void __59__ICTTMergeableString_insertAttributedString_after_before___block_invok
   while (1)
   {
     v14 = *v11;
-    v20 = v14;
+    v24 = v14;
     if ((*(v14 + 44) & 1) == 0)
     {
       break;
@@ -1465,14 +1451,17 @@ LABEL_12:
 
   if (location > v12)
   {
-    v19 = [(ICTTMergeableString *)self splitTopoSubstring:v14 atIndex:ICTTBoundedCheckedCastNSUIntegerToUInt32(location - v12)];
-    v11 = std::vector<TopoSubstring *>::insert(v9, v11 + 8, &v19);
-    std::vector<TopoSubstring *>::push_back[abi:ne200100](substrings, &v19);
+    ICTTBoundedCheckedCastNSUIntegerToUInt32();
+    v23 = [(ICTTMergeableString *)self splitTopoSubstring:v14 atIndex:v16];
+    v11 = std::vector<TopoSubstring *>::insert(v9, v11 + 8, &v23);
+    std::vector<TopoSubstring *>::push_back[abi:ne200100](substrings, &v23);
     if (v13 < v15)
     {
-      v18 = [(ICTTMergeableString *)self splitTopoSubstring:v19 atIndex:ICTTBoundedCheckedCastNSUIntegerToUInt32(length)];
-      v16 = v11 + 8;
-      v17 = &v18;
+      v18 = v23;
+      ICTTBoundedCheckedCastNSUIntegerToUInt32();
+      v22 = [(ICTTMergeableString *)self splitTopoSubstring:v18 atIndex:v19];
+      v20 = v11 + 8;
+      v21 = &v22;
       goto LABEL_17;
     }
 
@@ -1481,16 +1470,17 @@ LABEL_12:
 
   if (v15 <= v13)
   {
-    std::vector<TopoSubstring *>::push_back[abi:ne200100](substrings, &v20);
+    std::vector<TopoSubstring *>::push_back[abi:ne200100](substrings, &v24);
     goto LABEL_6;
   }
 
-  v19 = [(ICTTMergeableString *)self splitTopoSubstring:v14 atIndex:ICTTBoundedCheckedCastNSUIntegerToUInt32(v13 - v12)];
-  std::vector<TopoSubstring *>::push_back[abi:ne200100](substrings, &v20);
-  v16 = v11 + 8;
-  v17 = &v19;
+  ICTTBoundedCheckedCastNSUIntegerToUInt32();
+  v23 = [(ICTTMergeableString *)self splitTopoSubstring:v14 atIndex:v17];
+  std::vector<TopoSubstring *>::push_back[abi:ne200100](substrings, &v24);
+  v20 = v11 + 8;
+  v21 = &v23;
 LABEL_17:
-  std::vector<TopoSubstring *>::insert(v9, v16, v17);
+  std::vector<TopoSubstring *>::insert(v9, v20, v21);
 }
 
 - (void)getSubstringBeforeTopoID:(TopoID)d
@@ -1740,7 +1730,8 @@ LABEL_36:
   v8 = *(substrings + 1);
   while (v7 != v8)
   {
-    std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(&v28, v7++);
+    std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(&v28, v7, v7);
+    ++v7;
   }
 
   orderedSubstrings = [(ICTTMergeableString *)self orderedSubstrings];
@@ -2501,17 +2492,18 @@ LABEL_32:
       v11 = *(v9 + 2) + *(v9 + 4) - 1;
       v24 = v10;
       v25 = v11;
-      std::__hash_table<TopoID,std::hash<TopoID>,std::equal_to<TopoID>,std::allocator<TopoID>>::__emplace_unique_key_args<TopoID,TopoID>(&v26, &v24);
+      std::__hash_table<TopoID,std::hash<TopoID>,std::equal_to<TopoID>,std::allocator<TopoID>>::__emplace_unique_key_args<TopoID,TopoID>(&v26, &v24, &v24);
 
       ++v7;
     }
 
     endNodes = [stringCopy endNodes];
     v13 = *endNodes;
-    v14 = endNodes[1];
+    v14 = *(endNodes + 8);
     while (v13 != v14)
     {
-      std::__hash_table<TopoID,std::hash<TopoID>,std::equal_to<TopoID>,std::allocator<TopoID>>::__emplace_unique_key_args<TopoID,TopoID const&>(&v26, *v13++);
+      std::__hash_table<TopoID,std::hash<TopoID>,std::equal_to<TopoID>,std::allocator<TopoID>>::__emplace_unique_key_args<TopoID,TopoID const&>(&v26, *v13, *v13);
+      ++v13;
     }
 
     orderedSubstrings = [(ICTTMergeableString *)self orderedSubstrings];
@@ -2977,7 +2969,7 @@ void __52__ICTTMergeableString_checkTimestampLogStyleErrors___block_invoke(uint6
       {
         v16 = *v14;
         v92 = v16;
-        std::__hash_table<std::__hash_value_type<TopoID,TopoSubstring *>,std::__unordered_map_hasher<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::hash<TopoID>,std::equal_to<TopoID>,true>,std::__unordered_map_equal<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::equal_to<TopoID>,std::hash<TopoID>,true>,std::allocator<std::__hash_value_type<TopoID,TopoSubstring *>>>::__emplace_unique_key_args<TopoID,std::piecewise_construct_t const&,std::tuple<TopoID const&>,std::tuple<>>(v108, v16)[4] = v16;
+        std::__hash_table<std::__hash_value_type<TopoID,TopoSubstring *>,std::__unordered_map_hasher<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::hash<TopoID>,std::equal_to<TopoID>,true>,std::__unordered_map_equal<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::equal_to<TopoID>,std::hash<TopoID>,true>,std::allocator<std::__hash_value_type<TopoID,TopoSubstring *>>>::__emplace_unique_key_args<TopoID,std::piecewise_construct_t const&,std::tuple<TopoID const&>,std::tuple<>>(v108, v16, &std::piecewise_construct, &v92)[4] = v16;
         if (isFragment)
         {
           startNodes = [stringCopy startNodes];
@@ -2989,11 +2981,11 @@ void __52__ICTTMergeableString_checkTimestampLogStyleErrors___block_invoke(uint6
             if ([**v18 isEqual:*v16])
             {
               v21 = *(v20 + 2);
-              v22 = v16[2];
-              if (v21 >= v22 && v21 < v16[4] + v22)
+              v22 = *(v16 + 2);
+              if (v21 >= v22 && v21 < *(v16 + 4) + v22)
               {
                 v92 = v20;
-                std::__hash_table<std::__hash_value_type<TopoID,TopoSubstring *>,std::__unordered_map_hasher<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::hash<TopoID>,std::equal_to<TopoID>,true>,std::__unordered_map_equal<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::equal_to<TopoID>,std::hash<TopoID>,true>,std::allocator<std::__hash_value_type<TopoID,TopoSubstring *>>>::__emplace_unique_key_args<TopoID,std::piecewise_construct_t const&,std::tuple<TopoID const&>,std::tuple<>>(v108, v20)[4] = v16;
+                std::__hash_table<std::__hash_value_type<TopoID,TopoSubstring *>,std::__unordered_map_hasher<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::hash<TopoID>,std::equal_to<TopoID>,true>,std::__unordered_map_equal<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::equal_to<TopoID>,std::hash<TopoID>,true>,std::allocator<std::__hash_value_type<TopoID,TopoSubstring *>>>::__emplace_unique_key_args<TopoID,std::piecewise_construct_t const&,std::tuple<TopoID const&>,std::tuple<>>(v108, v20, &std::piecewise_construct, &v92)[4] = v16;
               }
             }
 
@@ -3049,14 +3041,14 @@ LABEL_43:
           v92 = v32;
           v93 = v31;
           v110 = &v92;
-          std::__hash_table<std::__hash_value_type<TopoID,TopoSubstring *>,std::__unordered_map_hasher<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::hash<TopoID>,std::equal_to<TopoID>,true>,std::__unordered_map_equal<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::equal_to<TopoID>,std::hash<TopoID>,true>,std::allocator<std::__hash_value_type<TopoID,TopoSubstring *>>>::__emplace_unique_key_args<TopoID,std::piecewise_construct_t const&,std::tuple<TopoID&&>,std::tuple<>>(v108, &v92)[4] = v29;
+          std::__hash_table<std::__hash_value_type<TopoID,TopoSubstring *>,std::__unordered_map_hasher<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::hash<TopoID>,std::equal_to<TopoID>,true>,std::__unordered_map_equal<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::equal_to<TopoID>,std::hash<TopoID>,true>,std::allocator<std::__hash_value_type<TopoID,TopoSubstring *>>>::__emplace_unique_key_args<TopoID,std::piecewise_construct_t const&,std::tuple<TopoID&&>,std::tuple<>>(v108, &v92, &std::piecewise_construct, &v110)[4] = v29;
 
           if (std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::find<TopoSubstring *>(&v96, &v95))
           {
             v92 = &v95;
-            v33 = std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(&v96, &v95)[3];
+            v33 = std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(&v96, &v95, &std::piecewise_construct, &v92)[3];
             v92 = &v94;
-            std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(&v96, &v94)[3] = v33;
+            std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(&v96, &v94, &std::piecewise_construct, &v92)[3] = v33;
             std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__erase_unique<TopoSubstring *>(&v96, &v95);
           }
         }
@@ -3079,7 +3071,7 @@ LABEL_43:
           {
             v38 = [ICTTMergeableString splitTopoSubstring:"splitTopoSubstring:atIndex:" atIndex:?];
             v92 = v38;
-            std::__hash_table<std::__hash_value_type<TopoID,TopoSubstring *>,std::__unordered_map_hasher<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::hash<TopoID>,std::equal_to<TopoID>,true>,std::__unordered_map_equal<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::equal_to<TopoID>,std::hash<TopoID>,true>,std::allocator<std::__hash_value_type<TopoID,TopoSubstring *>>>::__emplace_unique_key_args<TopoID,std::piecewise_construct_t const&,std::tuple<TopoID const&>,std::tuple<>>(v108, v38)[4] = v38;
+            std::__hash_table<std::__hash_value_type<TopoID,TopoSubstring *>,std::__unordered_map_hasher<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::hash<TopoID>,std::equal_to<TopoID>,true>,std::__unordered_map_equal<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::equal_to<TopoID>,std::hash<TopoID>,true>,std::allocator<std::__hash_value_type<TopoID,TopoSubstring *>>>::__emplace_unique_key_args<TopoID,std::piecewise_construct_t const&,std::tuple<TopoID const&>,std::tuple<>>(v108, v38, &std::piecewise_construct, &v92)[4] = v38;
             v110 = v38;
           }
 
@@ -3105,7 +3097,7 @@ LABEL_38:
               v42 = v94[6];
               v41 = v94[7];
               v92 = &v94;
-              std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(&v96, &v94)[3] = (v41 - v42) >> 3;
+              std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(&v96, &v94, &std::piecewise_construct, &v92)[3] = (v41 - v42) >> 3;
             }
 
             v92 = v110;
@@ -3186,14 +3178,14 @@ LABEL_38:
           timestamp4 = *v46;
           v47 = std::__hash_table<TopoID,std::hash<TopoID>,std::equal_to<TopoID>,std::allocator<TopoID>>::find<TopoID>(v108, *v46)[4];
           v92 = v47;
-          v48 = *(v47 + 32);
+          v48 = *(v47 + 8);
           v49 = *(timestamp4 + 32);
           if (v48 < v49)
           {
             goto LABEL_50;
           }
 
-          if (v48 == v49 && [*(v47 + 24) TTCompare:*(timestamp4 + 24)] == -1)
+          if (v48 == v49 && [v47[3] TTCompare:*(timestamp4 + 24)] == -1)
           {
             break;
           }
@@ -3218,7 +3210,8 @@ LABEL_60:
               attributedString = self->_attributedString;
               if (*(v92 + 44))
               {
-                v52 = ICTTBoundedCheckedCastNSUIntegerToUInt32([(NSMutableAttributedString *)self->_attributedString length]);
+                [(NSMutableAttributedString *)self->_attributedString length];
+                ICTTBoundedCheckedCastNSUIntegerToUInt32();
                 *(v92 + 10) = v52;
                 v53 = self->_attributedString;
                 string = [stringCopy string];
@@ -3274,7 +3267,7 @@ LABEL_60:
           v50 = &v99;
         }
 
-        std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(v50, &v92);
+        std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(v50, &v92, &v92);
         goto LABEL_60;
       }
 
@@ -3578,8 +3571,12 @@ LABEL_18:
 
 uint64_t *__36__ICTTMergeableString_graphIsEqual___block_invoke(uint64_t a1, void *a2)
 {
-  std::__hash_table<std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>,std::__unordered_map_hasher<TopoID,std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>,std::hash<TopoID>,std::equal_to<TopoID>,true>,std::__unordered_map_equal<TopoID,std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>,std::equal_to<TopoID>,std::hash<TopoID>,true>,std::allocator<std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>>>::__emplace_unique_key_args<TopoID,std::piecewise_construct_t const&,std::tuple<TopoID const&>,std::tuple<>>((*(*(a1 + 32) + 8) + 48), a2)[4] = a2;
-  result = std::__hash_table<std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>,std::__unordered_map_hasher<TopoID,std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>,std::hash<TopoID>,std::equal_to<TopoID>,true>,std::__unordered_map_equal<TopoID,std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>,std::equal_to<TopoID>,std::hash<TopoID>,true>,std::allocator<std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>>>::__emplace_unique_key_args<TopoID,std::piecewise_construct_t const&,std::tuple<TopoID const&>,std::tuple<>>((*(*(a1 + 32) + 8) + 48), a2);
+  v4 = *(*(a1 + 32) + 8);
+  v7 = a2;
+  std::__hash_table<std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>,std::__unordered_map_hasher<TopoID,std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>,std::hash<TopoID>,std::equal_to<TopoID>,true>,std::__unordered_map_equal<TopoID,std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>,std::equal_to<TopoID>,std::hash<TopoID>,true>,std::allocator<std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>>>::__emplace_unique_key_args<TopoID,std::piecewise_construct_t const&,std::tuple<TopoID const&>,std::tuple<>>((v4 + 48), a2, &std::piecewise_construct, &v7)[4] = a2;
+  v5 = *(*(a1 + 32) + 8);
+  v7 = a2;
+  result = std::__hash_table<std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>,std::__unordered_map_hasher<TopoID,std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>,std::hash<TopoID>,std::equal_to<TopoID>,true>,std::__unordered_map_equal<TopoID,std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>,std::equal_to<TopoID>,std::hash<TopoID>,true>,std::allocator<std::__hash_value_type<TopoID,std::pair<TopoSubstring *,TopoSubstring *>>>>::__emplace_unique_key_args<TopoID,std::piecewise_construct_t const&,std::tuple<TopoID const&>,std::tuple<>>((v5 + 48), a2, &std::piecewise_construct, &v7);
   result[5] = 0;
   return result;
 }
@@ -3744,7 +3741,7 @@ LABEL_1:
   while (1)
   {
     self = selfCopy;
-    v13 = (a2 - selfCopy) >> 4;
+    v13 = a2 - selfCopy;
     if (v13 <= 2)
     {
       if (v13 < 2)
@@ -3756,7 +3753,7 @@ LABEL_1:
       {
         v58 = a2[-1].n128_u64[0];
         v57 = a2 - 1;
-        if (*selfCopy >= v58)
+        if (selfCopy->n128_u64[0] >= v58)
         {
           return result;
         }
@@ -3780,18 +3777,18 @@ LABEL_108:
 
     if (v13 == 4)
     {
-      v59 = (selfCopy + 16);
-      v63 = *(selfCopy + 16);
-      v64 = (selfCopy + 32);
-      v65 = *(selfCopy + 32);
-      if (*selfCopy >= v63)
+      v59 = selfCopy + 1;
+      v63 = selfCopy[1].n128_u64[0];
+      v64 = selfCopy + 2;
+      v65 = selfCopy[2].n128_u64[0];
+      if (selfCopy->n128_u64[0] >= v63)
       {
         if (v63 < v65)
         {
           result = *v59;
           *v59 = *v64;
           *v64 = result;
-          if (*selfCopy < *(selfCopy + 16))
+          if (selfCopy->n128_u64[0] < selfCopy[1].n128_u64[0])
           {
             v131 = *selfCopy;
             *selfCopy = *v59;
@@ -3815,7 +3812,7 @@ LABEL_108:
         *selfCopy = *v59;
         result = v133;
         *v59 = v133;
-        if (*(selfCopy + 16) < v65)
+        if (selfCopy[1].n128_u64[0] < v65)
         {
           result = *v59;
           *v59 = *v64;
@@ -3841,7 +3838,7 @@ LABEL_180:
       *v59 = *v64;
       *v64 = result;
 LABEL_184:
-      if (*selfCopy < *(selfCopy + 16))
+      if (selfCopy->n128_u64[0] < selfCopy[1].n128_u64[0])
       {
         v134 = *selfCopy;
         *selfCopy = *v59;
@@ -3855,14 +3852,14 @@ LABEL_184:
     if (v13 == 5)
     {
 
-      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,-[ICTTMergeableString deleteSubstrings:withCharacterRanges:]::$_1 &,_NSRange *,0>(selfCopy, (selfCopy + 16), (selfCopy + 32), (selfCopy + 48), a2[-1].n128_u64, result).n128_u64[0];
+      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,-[ICTTMergeableString deleteSubstrings:withCharacterRanges:]::$_1 &,_NSRange *,0>(selfCopy, selfCopy + 1, selfCopy[2].n128_u64, selfCopy[3].n128_u64, a2[-1].n128_u64, result).n128_u64[0];
       return result;
     }
 
 LABEL_9:
     if (v13 <= 23)
     {
-      v66 = (selfCopy + 16);
+      v66 = selfCopy + 1;
       v68 = selfCopy == a2 || v66 == a2;
       if (ranges)
       {
@@ -3873,10 +3870,10 @@ LABEL_9:
           do
           {
             v71 = v66;
-            v72 = v70[2];
-            if (*v70 < v72)
+            v72 = v70[1].n128_u64[0];
+            if (v70->n128_u64[0] < v72)
             {
-              v73 = v70[3];
+              v73 = v70[1].n128_u64[1];
               v74 = v69;
               while (1)
               {
@@ -3887,7 +3884,7 @@ LABEL_9:
                   break;
                 }
 
-                v75 = *(selfCopy + v74 - 16);
+                v75 = *(selfCopy[-1].n128_u64 + v74);
                 v74 -= 16;
                 if (v75 >= v72)
                 {
@@ -3898,8 +3895,8 @@ LABEL_9:
 
               v76 = selfCopy;
 LABEL_127:
-              *v76 = v72;
-              v76[1] = v73;
+              v76->n128_u64[0] = v72;
+              v76->n128_u64[1] = v73;
             }
 
             v66 = v71 + 1;
@@ -3956,19 +3953,19 @@ LABEL_127:
           if (v77 >= v78)
           {
             v80 = (2 * v78) | 1;
-            v81 = (selfCopy + 16 * v80);
-            v82 = *v81;
-            if (2 * v79 + 2 < v13 && v81[2] < v82)
+            v81 = &selfCopy[v80];
+            v82 = v81->n128_u64[0];
+            if (2 * v79 + 2 < v13 && v81[1].n128_u64[0] < v82)
             {
-              v82 = v81[2];
-              v81 += 2;
+              v82 = v81[1].n128_u64[0];
+              ++v81;
               v80 = 2 * v79 + 2;
             }
 
-            v83 = (selfCopy + 16 * v79);
+            v83 = &selfCopy[v79];
             v84 = *v83;
-            v85 = *v83;
-            if (*v83 >= v82)
+            v85 = v83->n128_u64[0];
+            if (v83->n128_u64[0] >= v82)
             {
               do
               {
@@ -3980,23 +3977,23 @@ LABEL_127:
                 }
 
                 v87 = (2 * v80) | 1;
-                v81 = (selfCopy + 16 * v87);
+                v81 = &selfCopy[v87];
                 v80 = 2 * v80 + 2;
-                v88 = *v81;
+                v88 = v81->n128_u64[0];
                 if (v80 >= v13)
                 {
                   v80 = v87;
                 }
 
-                else if (v81[2] >= v88)
+                else if (v81[1].n128_u64[0] >= v88)
                 {
                   v80 = v87;
                 }
 
                 else
                 {
-                  v88 = v81[2];
-                  v81 += 2;
+                  v88 = v81[1].n128_u64[0];
+                  ++v81;
                 }
 
                 v83 = v86;
@@ -4058,13 +4055,13 @@ LABEL_127:
             *v92 = *a2;
             result = v130;
             *a2 = v130;
-            v96 = (&v92[1] - selfCopy) >> 4;
+            v96 = (v92 - selfCopy + 16) >> 4;
             v97 = v96 < 2;
             v98 = v96 - 2;
             if (!v97)
             {
               v99 = v98 >> 1;
-              v100 = (selfCopy + 16 * v99);
+              v100 = &selfCopy[v99];
               v101 = v92->n128_u64[0];
               if (v92->n128_u64[0] < v100->n128_u64[0])
               {
@@ -4080,7 +4077,7 @@ LABEL_127:
                   }
 
                   v99 = (v99 - 1) >> 1;
-                  v100 = (selfCopy + 16 * v99);
+                  v100 = &selfCopy[v99];
                   v92 = v103;
                 }
 
@@ -4100,20 +4097,20 @@ LABEL_127:
       return result;
     }
 
-    v14 = (selfCopy + 16 * (v13 >> 1));
+    v14 = &selfCopy[v13 >> 1];
     v15 = v14;
     v16 = v9->n128_u64[0];
     if (v13 >= 0x81)
     {
       v17 = v14->n128_u64[0];
-      if (*selfCopy >= v14->n128_u64[0])
+      if (selfCopy->n128_u64[0] >= v14->n128_u64[0])
       {
         if (v17 < v16)
         {
           v111 = *v14;
           *v14 = *v9;
           *v9 = v111;
-          if (*selfCopy < v14->n128_u64[0])
+          if (selfCopy->n128_u64[0] < v14->n128_u64[0])
           {
             v112 = *selfCopy;
             *selfCopy = *v14;
@@ -4143,11 +4140,11 @@ LABEL_26:
         }
       }
 
-      v19 = (selfCopy + 16);
+      v19 = selfCopy + 1;
       v20 = v14 - 1;
       v21 = v14[-1].n128_u64[0];
       v22 = v10->n128_u64[0];
-      if (*(selfCopy + 16) >= v21)
+      if (selfCopy[1].n128_u64[0] >= v21)
       {
         if (v21 < v22)
         {
@@ -4185,12 +4182,12 @@ LABEL_38:
         }
       }
 
-      v26 = (selfCopy + 32);
+      v26 = selfCopy + 2;
       v29 = v14[1].n128_u64[0];
       v27 = v14 + 1;
       v28 = v29;
       v30 = v11->n128_u64[0];
-      if (*(selfCopy + 32) >= v29)
+      if (selfCopy[2].n128_u64[0] >= v29)
       {
         if (v28 < v30)
         {
@@ -4274,8 +4271,8 @@ LABEL_56:
       goto LABEL_58;
     }
 
-    v18 = *selfCopy;
-    if (v14->n128_u64[0] >= *selfCopy)
+    v18 = selfCopy->n128_u64[0];
+    if (v14->n128_u64[0] >= selfCopy->n128_u64[0])
     {
       if (v18 < v16)
       {
@@ -4283,7 +4280,7 @@ LABEL_56:
         *selfCopy = *v9;
         result = v113;
         *v9 = v113;
-        if (v14->n128_u64[0] < *selfCopy)
+        if (v14->n128_u64[0] < selfCopy->n128_u64[0])
         {
           v114 = *v14;
           *v14 = *selfCopy;
@@ -4309,7 +4306,7 @@ LABEL_35:
     *v14 = *selfCopy;
     result = v117;
     *selfCopy = v117;
-    if (*selfCopy < v9->n128_u64[0])
+    if (selfCopy->n128_u64[0] < v9->n128_u64[0])
     {
       v110 = *selfCopy;
       *selfCopy = *v9;
@@ -4318,22 +4315,21 @@ LABEL_35:
 
 LABEL_58:
     --substrings;
-    v36 = *selfCopy;
+    v36 = selfCopy->n128_u64[0];
     if (ranges)
     {
-      v37 = *(selfCopy + 8);
+      v37 = selfCopy->n128_u64[1];
 LABEL_61:
       v38 = 0;
       do
       {
-        v39 = *(selfCopy + v38 + 16);
-        v38 += 16;
+        v39 = selfCopy[++v38].n128_u64[0];
       }
 
       while (v36 < v39);
-      v40 = selfCopy + v38;
+      v40 = &selfCopy[v38];
       v41 = a2;
-      if (v38 == 16)
+      if (v38 == 1)
       {
         v41 = a2;
         do
@@ -4361,7 +4357,7 @@ LABEL_61:
         while (v36 >= v42);
       }
 
-      selfCopy += v38;
+      selfCopy = (selfCopy + v38 * 16);
       if (v40 < v41)
       {
         v44 = v41;
@@ -4373,8 +4369,8 @@ LABEL_61:
           *v44 = v126;
           do
           {
-            v45 = *(selfCopy + 16);
-            selfCopy += 16;
+            v45 = selfCopy[1].n128_u64[0];
+            ++selfCopy;
           }
 
           while (v36 < v45);
@@ -4390,24 +4386,24 @@ LABEL_61:
         while (selfCopy < v44);
       }
 
-      v47 = (selfCopy - 16);
-      if ((selfCopy - 16) != self)
+      v47 = selfCopy - 1;
+      if (&selfCopy[-1] != self)
       {
         result = *v47;
         *self = *v47;
       }
 
-      *(selfCopy - 16) = v36;
-      *(selfCopy - 8) = v37;
+      selfCopy[-1].n128_u64[0] = v36;
+      selfCopy[-1].n128_u64[1] = v37;
       if (v40 < v41)
       {
         goto LABEL_80;
       }
 
-      v48 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[ICTTMergeableString deleteSubstrings:withCharacterRanges:]::$_1 &,_NSRange *>(self, (selfCopy - 16), result);
+      v48 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[ICTTMergeableString deleteSubstrings:withCharacterRanges:]::$_1 &,_NSRange *>(self, selfCopy - 1, result);
       if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[ICTTMergeableString deleteSubstrings:withCharacterRanges:]::$_1 &,_NSRange *>(selfCopy, a2, v49))
       {
-        a2 = (selfCopy - 16);
+        a2 = selfCopy - 1;
         if (!v48)
         {
           goto LABEL_1;
@@ -4419,42 +4415,42 @@ LABEL_61:
       if (!v48)
       {
 LABEL_80:
-        std::__introsort<std::_ClassicAlgPolicy,[ICTTMergeableString deleteSubstrings:withCharacterRanges:]::$_1 &,_NSRange *,false>(self, selfCopy - 16, substrings, ranges & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,[ICTTMergeableString deleteSubstrings:withCharacterRanges:]::$_1 &,_NSRange *,false>(self, selfCopy - 1, substrings, ranges & 1, result);
         ranges = 0;
       }
     }
 
     else
     {
-      v37 = *(selfCopy + 8);
-      if (v36 < *(selfCopy - 16))
+      v37 = selfCopy->n128_u64[1];
+      if (v36 < selfCopy[-1].n128_u64[0])
       {
         goto LABEL_61;
       }
 
       if (v9->n128_u64[0] >= v36)
       {
-        v51 = selfCopy + 16;
+        n128_u64 = selfCopy[1].n128_u64;
         do
         {
-          selfCopy = v51;
-          if (v51 >= a2)
+          selfCopy = n128_u64;
+          if (n128_u64 >= a2)
           {
             break;
           }
 
-          v51 += 16;
+          n128_u64 += 16;
         }
 
-        while (*selfCopy >= v36);
+        while (selfCopy->n128_u64[0] >= v36);
       }
 
       else
       {
         do
         {
-          v50 = *(selfCopy + 16);
-          selfCopy += 16;
+          v50 = selfCopy[1].n128_u64[0];
+          ++selfCopy;
         }
 
         while (v50 >= v36);
@@ -4481,8 +4477,8 @@ LABEL_80:
         *v52 = v127;
         do
         {
-          v54 = *(selfCopy + 16);
-          selfCopy += 16;
+          v54 = selfCopy[1].n128_u64[0];
+          ++selfCopy;
         }
 
         while (v54 >= v36);
@@ -4495,25 +4491,25 @@ LABEL_80:
         while (v55 < v36);
       }
 
-      v56 = (selfCopy - 16);
-      if ((selfCopy - 16) != self)
+      v56 = selfCopy - 1;
+      if (&selfCopy[-1] != self)
       {
         result = *v56;
         *self = *v56;
       }
 
       ranges = 0;
-      *(selfCopy - 16) = v36;
-      *(selfCopy - 8) = v37;
+      selfCopy[-1].n128_u64[0] = v36;
+      selfCopy[-1].n128_u64[1] = v37;
     }
   }
 
-  v59 = (selfCopy + 16);
-  v60 = *(selfCopy + 16);
+  v59 = selfCopy + 1;
+  v60 = selfCopy[1].n128_u64[0];
   v62 = a2[-1].n128_u64[0];
   v57 = a2 - 1;
   v61 = v62;
-  if (*selfCopy >= v60)
+  if (selfCopy->n128_u64[0] >= v60)
   {
     if (v60 >= v61)
     {
@@ -4535,7 +4531,7 @@ LABEL_80:
   *selfCopy = *v59;
   result = v132;
   *v59 = v132;
-  if (*(selfCopy + 16) < v57->n128_u64[0])
+  if (selfCopy[1].n128_u64[0] < v57->n128_u64[0])
   {
     result = *v59;
     *v59 = *v57;
@@ -4552,7 +4548,8 @@ LABEL_80:
   dCopy = d;
   topotext::String::String(v15);
   bytes = [dataCopy bytes];
-  v11 = ICTTBoundedCheckedCastNSUIntegerToUInt32([dataCopy length]);
+  [dataCopy length];
+  ICTTBoundedCheckedCastNSUIntegerToUInt32();
   if (google::protobuf::MessageLite::ParseFromArray(v15, bytes, v11))
   {
     self = [(ICTTMergeableString *)self initWithArchive:v15 replicaID:dCopy orderedSubstrings:0 timestamp:0 fragment:fragmentCopy];
@@ -4775,8 +4772,8 @@ LABEL_40:
     do
     {
       v71 = *v11;
-      v74 = &v71;
-      *(std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned int>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned int>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(v72, &v71) + 6) = v13++;
+      v74[0] = &v71;
+      *(std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned int>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned int>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(v72, &v71, &std::piecewise_construct, v74) + 6) = v13++;
       ++v11;
     }
 
@@ -4822,7 +4819,7 @@ LABEL_40:
       {
         if (v22 == *(archive + 16))
         {
-          google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 48, v22 + 1);
+          google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 12, v22 + 1);
         }
 
         google::protobuf::internal::GenericTypeHandler<topotext::Substring>::New();
@@ -4937,12 +4934,12 @@ LABEL_33:
         v70 = *v48;
         if (!linkSet || std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::find<TopoSubstring *>(linkSet, &v70))
         {
-          v74 = &v70;
-          v50 = *(std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned int>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned int>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(v72, &v70) + 6);
+          v74[0] = &v70;
+          v50 = *(std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned int>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned int>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(v72, &v70, &std::piecewise_construct, v74) + 6);
           v51 = *(v25 + 72);
           if (v51 == *(v25 + 76))
           {
-            google::protobuf::RepeatedField<unsigned int>::Reserve(v25 + 64, v51 + 1);
+            google::protobuf::RepeatedField<unsigned int>::Reserve((v25 + 64), v51 + 1);
             v51 = *(v25 + 72);
           }
 
@@ -5005,15 +5002,17 @@ LABEL_33:
 
 - (id)serialize
 {
-  topotext::String::String(v7);
-  [(ICTTMergeableString *)self saveToArchive:v7];
-  v3 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:topotext::String::ByteSize(v7)];
-  mutableBytes = [v3 mutableBytes];
-  v5 = ICTTBoundedCheckedCastNSUIntegerToUInt32([v3 length]);
-  google::protobuf::MessageLite::SerializeToArray(v7, mutableBytes, v5);
-  topotext::String::~String(v7);
+  topotext::String::String(v9);
+  [(ICTTMergeableString *)self saveToArchive:v9];
+  v3 = objc_alloc(MEMORY[0x277CBEB28]);
+  v5 = [v3 initWithLength:{topotext::String::ByteSize(v9, v4)}];
+  mutableBytes = [v5 mutableBytes];
+  [v5 length];
+  ICTTBoundedCheckedCastNSUIntegerToUInt32();
+  google::protobuf::MessageLite::SerializeToArray(v9, mutableBytes, v7);
+  topotext::String::~String(v9);
 
-  return v3;
+  return v5;
 }
 
 - (id)i_saveDeltasSinceTimestamp:(id)timestamp toArchive:(void *)archive
@@ -5045,11 +5044,11 @@ LABEL_33:
     v14 = [timestampCopy clockForUUID:v11 atIndex:1];
     if (v10 + v12 >= v13 || *(v32 + 32) >= v14)
     {
-      std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(v33, &v32);
+      std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(v33, &v32, &v32);
       if (!std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::find<TopoSubstring *>(v35, &v32))
       {
         std::vector<TopoSubstring *>::push_back[abi:ne200100](&v37, &v32);
-        std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(v35, &v32);
+        std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(v35, &v32, &v32);
       }
 
       v23 = *(v32 + 48);
@@ -5060,7 +5059,7 @@ LABEL_33:
         if (!std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::find<TopoSubstring *>(v35, &v31))
         {
           std::vector<TopoSubstring *>::push_back[abi:ne200100](&v37, &v31);
-          std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(v35, &v31);
+          std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(v35, &v31, &v31);
         }
 
         ++v23;
@@ -5082,7 +5081,7 @@ LABEL_33:
         if ((v20 + v19 >= v21 || *(v17 + 8) >= v22) && !std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::find<TopoSubstring *>(v35, &v32))
         {
           std::vector<TopoSubstring *>::push_back[abi:ne200100](&v37, &v32);
-          std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(v35, &v32);
+          std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(v35, &v32, &v32);
         }
 
         ++v15;
@@ -5112,13 +5111,15 @@ LABEL_33:
   timestampCopy = timestamp;
   if (-[ICTTMergeableString hasLocalChanges](self, "hasLocalChanges") || (-[ICTTMergeableString timestamp](self, "timestamp"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 isEqual:timestampCopy], v5, (v6 & 1) == 0))
   {
-    topotext::String::String(v12);
-    [(ICTTMergeableString *)self saveDeltaSinceTimestamp:timestampCopy toArchive:v12];
-    v7 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:topotext::String::ByteSize(v12)];
+    topotext::String::String(v14);
+    [(ICTTMergeableString *)self saveDeltaSinceTimestamp:timestampCopy toArchive:v14];
+    v8 = objc_alloc(MEMORY[0x277CBEB28]);
+    v7 = [v8 initWithLength:{topotext::String::ByteSize(v14, v9)}];
     mutableBytes = [v7 mutableBytes];
-    v9 = ICTTBoundedCheckedCastNSUIntegerToUInt32([v7 length]);
-    google::protobuf::MessageLite::SerializeToArray(v12, mutableBytes, v9);
-    topotext::String::~String(v12);
+    [v7 length];
+    ICTTBoundedCheckedCastNSUIntegerToUInt32();
+    google::protobuf::MessageLite::SerializeToArray(v14, mutableBytes, v11);
+    topotext::String::~String(v14);
   }
 
   else
@@ -5126,9 +5127,9 @@ LABEL_33:
     v7 = 0;
   }
 
-  v10 = [v7 copy];
+  v12 = [v7 copy];
 
-  return v10;
+  return v12;
 }
 
 - (ICCRTTCompatibleDocument)document

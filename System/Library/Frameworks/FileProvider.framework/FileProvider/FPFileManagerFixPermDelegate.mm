@@ -113,77 +113,63 @@ LABEL_35:
 - (void)fileManager:shouldRemoveItemAtURL:.cold.1()
 {
   OUTLINED_FUNCTION_6_0();
-  v8 = *MEMORY[0x1E69E9840];
   v0 = __error();
   strerror(*v0);
-  v1 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
 }
 
 - (void)fileManager:shouldRemoveItemAtURL:.cold.2()
 {
   OUTLINED_FUNCTION_10_1();
-  v0 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_11_0(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_11_0(v0 v1)];
   OUTLINED_FUNCTION_16_0();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)fileManager:shouldRemoveItemAtURL:.cold.4()
 {
   OUTLINED_FUNCTION_10_1();
-  v0 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_11_0(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_11_0(v0 v1)];
   OUTLINED_FUNCTION_16_0();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)fileManager:shouldRemoveItemAtURL:.cold.5()
 {
   OUTLINED_FUNCTION_6_0();
-  v8 = *MEMORY[0x1E69E9840];
   v0 = __error();
   strerror(*v0);
-  v1 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
 }
 
 - (void)fileManager:shouldRemoveItemAtURL:.cold.6()
 {
   OUTLINED_FUNCTION_6_0();
-  v8 = *MEMORY[0x1E69E9840];
   v0 = __error();
   strerror(*v0);
-  v1 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
 }
 
 - (void)fileManager:shouldRemoveItemAtURL:.cold.7()
 {
   OUTLINED_FUNCTION_6_0();
-  v8 = *MEMORY[0x1E69E9840];
   v0 = __error();
   strerror(*v0);
-  v1 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
 }
 
 @end

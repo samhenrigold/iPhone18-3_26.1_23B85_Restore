@@ -45,7 +45,7 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       propertiesToUpdate = [v48 propertiesToUpdate];
-      v19 = [v12 count];
+      v19 = objc_msgSend_count(v12);
       predicate2 = [v48 predicate];
       *buf = 138412802;
       v53 = propertiesToUpdate;
@@ -61,7 +61,7 @@
     v23 = 0;
     do
     {
-      v24 = [v12 count];
+      v24 = objc_msgSend_count(v12);
       v25 = v23 >= v24;
       if (v23 >= v24)
       {
@@ -70,7 +70,7 @@
       }
 
       context = objc_autoreleasePoolPush();
-      if ([v12 count] + v21 < a4)
+      if (objc_msgSend_count(v12) + v21 < a4)
       {
         v26 = 1;
       }
@@ -125,9 +125,9 @@ LABEL_17:
     if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
     {
       propertiesToUpdate2 = [v48 propertiesToUpdate];
-      v39 = [v12 count];
+      v39 = objc_msgSend_count(v12);
       predicate3 = [v48 predicate];
-      v41 = [v12 count];
+      v41 = objc_msgSend_count(v12);
       *buf = 138413314;
       v53 = propertiesToUpdate2;
       v54 = 2048;
@@ -306,7 +306,7 @@ LABEL_21:
   v38 = 0;
   v11 = [self executeFetchRequest:v8 error:&v38];
   v12 = v38;
-  v13 = [v11 count];
+  v13 = objc_msgSend_count(v11);
   if (v12)
   {
     v14 = v12;

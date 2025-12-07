@@ -6,11 +6,11 @@
 
 - (FCPuzzleRank)initWithDictionary:(id)dictionary index:(int64_t)index
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v18.receiver = self;
-  v18.super_class = FCPuzzleRank;
-  v7 = [(FCPuzzleRank *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = FCPuzzleRank;
+  v7 = [(FCPuzzleRank *)&v17 init];
   if (v7)
   {
     v8 = FCAppConfigurationStringValue(dictionaryCopy, @"name", &stru_1F2DC7DC0);
@@ -39,15 +39,15 @@ LABEL_11:
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "name"];
+        v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "name"];
         *buf = 136315906;
-        v20 = "[FCPuzzleRank initWithDictionary:index:]";
-        v21 = 2080;
-        v22 = "FCPuzzleRank.m";
-        v23 = 1024;
-        v24 = 26;
-        v25 = 2114;
-        v26 = v16;
+        v19 = "[FCPuzzleRank initWithDictionary:index:]";
+        v20 = 2080;
+        v21 = "FCPuzzleRank.m";
+        v22 = 1024;
+        v23 = 26;
+        v24 = 2114;
+        v25 = v15;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
 
@@ -59,15 +59,15 @@ LABEL_11:
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "identifier"];
+      v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "identifier"];
       *buf = 136315906;
-      v20 = "[FCPuzzleRank initWithDictionary:index:]";
-      v21 = 2080;
-      v22 = "FCPuzzleRank.m";
-      v23 = 1024;
-      v24 = 27;
-      v25 = 2114;
-      v26 = v17;
+      v19 = "[FCPuzzleRank initWithDictionary:index:]";
+      v20 = 2080;
+      v21 = "FCPuzzleRank.m";
+      v22 = 1024;
+      v23 = 27;
+      v24 = 2114;
+      v25 = v16;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -79,7 +79,6 @@ LABEL_10:
 
 LABEL_12:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

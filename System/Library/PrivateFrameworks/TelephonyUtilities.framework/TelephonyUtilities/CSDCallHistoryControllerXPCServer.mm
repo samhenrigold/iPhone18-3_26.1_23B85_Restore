@@ -14,50 +14,51 @@
 - (CSDCallHistoryControllerXPCServer)initWithCallHistoryController:(id)controller
 {
   controllerCopy = controller;
-  v21.receiver = self;
-  v21.super_class = CSDCallHistoryControllerXPCServer;
-  v6 = [(CSDCallHistoryControllerXPCServer *)&v21 init];
+  v22.receiver = self;
+  v22.super_class = CSDCallHistoryControllerXPCServer;
+  v6 = [(CSDCallHistoryControllerXPCServer *)&v22 init];
+  v7 = v6;
   if (v6)
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Creating CSDCallHistoryControllerXPCServer", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Creating CSDCallHistoryControllerXPCServer", buf, 2u);
     }
 
-    v8 = dispatch_queue_create("com.apple.telephonyutilities.callservicesd.callhistorycontrollerxpcserver", 0);
-    queue = v6->_queue;
-    v6->_queue = v8;
+    v9 = dispatch_queue_create("com.apple.telephonyutilities.callservicesd.callhistorycontrollerxpcserver", 0);
+    queue = v7->_queue;
+    v7->_queue = v9;
 
-    objc_storeStrong(&v6->_callHistoryController, controller);
-    v10 = [[CSDClientManager alloc] initWithSerialQueue:v6->_queue];
-    clientManager = v6->_clientManager;
-    v6->_clientManager = v10;
+    objc_storeStrong(&v7->_callHistoryController, controller);
+    v11 = [[CSDClientManager alloc] initWithSerialQueue:v7->_queue];
+    clientManager = v7->_clientManager;
+    v7->_clientManager = v11;
 
-    v12 = v6->_queue;
+    v13 = v7->_queue;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10008480C;
     block[3] = &unk_100619D38;
-    v13 = v6;
-    v19 = v13;
-    dispatch_sync(v12, block);
-    queue = [(CSDCallHistoryControllerXPCServer *)v13 queue];
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_100084A9C;
-    v16[3] = &unk_100619D38;
-    v17 = v13;
-    dispatch_async(queue, v16);
+    v14 = v7;
+    v20 = v14;
+    dispatch_sync(v13, block);
+    queue = [(CSDCallHistoryControllerXPCServer *)v14 queue];
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_100084A9C;
+    v17[3] = &unk_100619D38;
+    v18 = v14;
+    dispatch_async(queue, v17);
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)dealloc
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -72,7 +73,7 @@
 
 - (void)invalidate
 {
-  v3 = sub_100004778();
+  v3 = sub_100004778(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -93,11 +94,11 @@
   queue = [(CSDCallHistoryControllerXPCServer *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v4 = sub_100004778();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100004778(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "NOTIFYING CLIENTS TO CONNECT", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "NOTIFYING CLIENTS TO CONNECT", v6, 2u);
   }
 
   notify_set_state(self->_clientsShouldConnectToken, 1uLL);

@@ -57,7 +57,7 @@
   {
   }
 
-  outlined destroy of StocksKitCurrencyCache.Provider?(v10, &_sypSgMd);
+  outlined destroy of StocksKitCurrencyCache.Provider?(v10, &_sypSgMd, &_sypSgMR);
 }
 
 - (void)didTapAddShapeListItemView:(id)view forEvent:(id)event
@@ -77,7 +77,7 @@
   }
 
   specialized static MarkupEditViewController.presentShapePicker(_:replacing:from:popoverDelegate:)(*(&self->super.super.super.isa + OBJC_IVAR____TtC8PaperKit24MarkupEditViewController_shapeButtonListViewController), self, v7, 0);
-  outlined destroy of StocksKitCurrencyCache.Provider?(v7, &_sypSgMd);
+  outlined destroy of StocksKitCurrencyCache.Provider?(v7, &_sypSgMd, &_sypSgMR);
 }
 
 - (void)didTapOpacityListItemView:(id)view forEvent:(id)event
@@ -99,7 +99,7 @@
 
   [(MarkupEditViewController *)self dismissViewControllerAnimated:1 completion:0, v7, v8];
 
-  outlined destroy of StocksKitCurrencyCache.Provider?(&v7, &_sypSgMd);
+  outlined destroy of StocksKitCurrencyCache.Provider?(&v7, &_sypSgMd, &_sypSgMR);
 }
 
 - (_TtC8PaperKit24MarkupEditViewController)initWithNibName:(id)name bundle:(id)bundle

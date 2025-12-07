@@ -14,10 +14,10 @@
 - (id)_bookmarksAndHistoryGroup:(uint64_t)group;
 - (id)_bookmarksAndHistoryGroupHeaderTitle;
 - (id)_filteredURLCompletions;
+- (id)_findOnPageGroup;
 - (id)_groupByAddingCompletions:(void *)completions toGroup:;
 - (id)_groupWithTitle:(void *)title identifier:(void *)identifier completions:;
 - (id)_parsecResultsGroupFromResults:(void *)results withIdentifier:;
-- (id)_pencilScribbleGroup;
 - (id)_quickWebsiteSearchGroup;
 - (id)_searchSuggestionsGroup;
 - (id)_suggestedSitesGroup;
@@ -32,8 +32,8 @@
 - (void)_buildListIfNeeded;
 - (void)_calculatePreviousSearchesWithSearchSuggestionsDictionary:(void *)dictionary filteredURLCompletions:;
 - (void)_calculationResultGroup;
-- (void)_findOnPageGroup;
 - (void)_mergeGroup:(void *)group toListing:;
+- (void)_pencilScribbleGroup;
 - (void)_switchToTabCompletionGroup;
 - (void)_updateIconsForResultsIfNeeded:(void *)needed;
 - (void)deleteTopHit:(id)hit atIndex:(unint64_t)index;
@@ -164,42 +164,43 @@
 
 - (void)setParsecTopHits:(id)hits
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   hitsCopy = hits;
   if ((WBSIsEqual() & 1) == 0)
   {
     p_parsecTopHits = &self->_parsecTopHits;
     hitsCopy2 = hits;
-    v24 = hitsCopy;
+    v26 = hitsCopy;
     selfCopy = self;
+    v30 = 0u;
+    v31 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v26 = 0u;
-    v27 = 0u;
     v6 = hitsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v26 objects:v34 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v28 objects:v36 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v27;
+      v9 = *v29;
       do
       {
         v10 = 0;
         do
         {
-          if (*v27 != v9)
+          if (*v29 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v26 + 1) + 8 * v10);
+          v11 = *(*(&v28 + 1) + 8 * v10);
           isSearchEvaluationLoggingEnabled = [MEMORY[0x277D49A08] isSearchEvaluationLoggingEnabled];
-          v13 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-          v14 = v13;
-          if (isSearchEvaluationLoggingEnabled)
+          v13 = isSearchEvaluationLoggingEnabled;
+          v15 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(isSearchEvaluationLoggingEnabled, v14);
+          v16 = v15;
+          if (v13)
           {
-            v15 = v13;
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+            v17 = v15;
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
             {
               originalURLString = [v11 originalURLString];
               safari_urlHashesOfComponents = [originalURLString safari_urlHashesOfComponents];
@@ -212,39 +213,39 @@
               {
                 [v11 completedQuery];
               }
-              v20 = ;
+              v22 = ;
               *buf = 138543618;
-              v31 = safari_urlHashesOfComponents;
-              v32 = 2112;
-              v33 = v20;
-              _os_log_debug_impl(&dword_215819000, v15, OS_LOG_TYPE_DEBUG, "Parsec TopHit <%{public}@> query:%@", buf, 0x16u);
+              v33 = safari_urlHashesOfComponents;
+              v34 = 2112;
+              v35 = v22;
+              _os_log_debug_impl(&dword_215819000, v17, OS_LOG_TYPE_DEBUG, "Parsec TopHit <%{public}@> query:%@", buf, 0x16u);
             }
           }
 
-          else if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+          else if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
-            v16 = v14;
+            v18 = v16;
             originalURLString2 = [v11 originalURLString];
             *buf = 138739971;
-            v31 = originalURLString2;
-            _os_log_impl(&dword_215819000, v16, OS_LOG_TYPE_INFO, "Parsec TopHit %{sensitive}@", buf, 0xCu);
+            v33 = originalURLString2;
+            _os_log_impl(&dword_215819000, v18, OS_LOG_TYPE_INFO, "Parsec TopHit %{sensitive}@", buf, 0xCu);
           }
 
           ++v10;
         }
 
         while (v8 != v10);
-        v21 = [v6 countByEnumeratingWithState:&v26 objects:v34 count:16];
-        v8 = v21;
+        v23 = [v6 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v8 = v23;
       }
 
-      while (v21);
+      while (v23);
     }
 
     objc_storeStrong(p_parsecTopHits, hitsCopy2);
     [(CompletionGroupListing *)selfCopy _updateIconsForResultsIfNeeded:v6];
     selfCopy->_needsRebuild = 1;
-    hitsCopy = v24;
+    hitsCopy = v26;
   }
 }
 
@@ -265,8 +266,7 @@
     v12 = [completions mutableCopy];
 
     [v12 removeObjectAtIndex:index];
-    [(NSArray *)v6 count];
-    v13 = [CompletionGroupListing _titleForTopHits:?];
+    v13 = [(CompletionGroupListing *)self _titleForTopHits:?];
     v14 = [(CompletionGroupListing *)self _groupWithTitle:v13 identifier:@"TopHit" completions:v12];
 
     [(NSArray *)v7 replaceObjectAtIndex:0 withObject:v14];
@@ -647,56 +647,56 @@ uint64_t __44__CompletionGroupListing__buildListIfNeeded__block_invoke(uint64_t 
 
 void __44__CompletionGroupListing__buildListIfNeeded__block_invoke_2(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D49A08] isSearchEvaluationLoggingEnabled])
   {
     v2 = [MEMORY[0x277CCAB68] string];
-    v24 = 0u;
-    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v15 = a1;
+    v28 = 0u;
+    v29 = 0u;
+    v17 = a1;
     obj = *(a1 + 32);
-    v18 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
-    if (v18)
+    v20 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+    if (v20)
     {
-      v17 = *v25;
+      v19 = *v27;
       do
       {
         v3 = 0;
         do
         {
-          if (*v25 != v17)
+          if (*v27 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = v3;
-          v4 = *(*(&v24 + 1) + 8 * v3);
+          v21 = v3;
+          v4 = *(*(&v26 + 1) + 8 * v3);
           v5 = [v4 title];
           [v2 appendFormat:@"%@: ", v5];
 
+          v24 = 0u;
+          v25 = 0u;
           v22 = 0u;
           v23 = 0u;
-          v20 = 0u;
-          v21 = 0u;
           v6 = [v4 completions];
-          v7 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
+          v7 = [v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
           if (v7)
           {
             v8 = v7;
-            v9 = *v21;
+            v9 = *v23;
             do
             {
               v10 = 0;
               do
               {
-                if (*v21 != v9)
+                if (*v23 != v9)
                 {
                   objc_enumerationMutation(v6);
                 }
 
-                v11 = *(*(&v20 + 1) + 8 * v10);
+                v11 = *(*(&v22 + 1) + 8 * v10);
                 v12 = objc_opt_class();
                 if (objc_opt_respondsToSelector())
                 {
@@ -713,27 +713,27 @@ void __44__CompletionGroupListing__buildListIfNeeded__block_invoke_2(uint64_t a1
               }
 
               while (v8 != v10);
-              v8 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
+              v8 = [v6 countByEnumeratingWithState:&v22 objects:v30 count:16];
             }
 
             while (v8);
           }
 
           [v2 appendString:@"\n"];
-          v3 = v19 + 1;
+          v3 = v21 + 1;
         }
 
-        while (v19 + 1 != v18);
-        v18 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+        while (v21 + 1 != v20);
+        v20 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
-      while (v18);
+      while (v20);
     }
 
-    v14 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v16 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      __44__CompletionGroupListing__buildListIfNeeded__block_invoke_2_cold_1(v15, v14, v2);
+      __44__CompletionGroupListing__buildListIfNeeded__block_invoke_2_cold_1(v17, v16, v2);
     }
   }
 }
@@ -1316,7 +1316,7 @@ LABEL_10:
   return selfCopy;
 }
 
-- (id)_pencilScribbleGroup
+- (void)_pencilScribbleGroup
 {
   selfCopy = self;
   if (self)
@@ -1417,7 +1417,7 @@ LABEL_10:
 
 - (uint64_t)_hasTopHitDuplicateInResults:(void *)results
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (results && ([results topHits], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "count"), v4, v5))
   {
@@ -1429,72 +1429,72 @@ LABEL_10:
 
     if (v9)
     {
-      v10 = MEMORY[0x277CCACE0];
+      v12 = MEMORY[0x277CCACE0];
       originalURLString2 = [firstObject originalURLString];
-      v12 = [v10 componentsWithString:originalURLString2];
-      host = [v12 host];
+      v14 = [v12 componentsWithString:originalURLString2];
+      host = [v14 host];
 
       if ([host length])
       {
+        v38 = 0u;
+        v39 = 0u;
         v36 = 0u;
         v37 = 0u;
-        v34 = 0u;
-        v35 = 0u;
-        v14 = v3;
-        v15 = [v14 countByEnumeratingWithState:&v34 objects:v39 count:16];
-        if (v15)
+        v16 = v3;
+        v17 = [v16 countByEnumeratingWithState:&v36 objects:v41 count:16];
+        if (v17)
         {
-          v16 = v15;
-          v17 = *v35;
-          v33 = v3;
+          v18 = v17;
+          v19 = *v37;
+          v35 = v3;
           while (2)
           {
-            for (i = 0; i != v16; ++i)
+            for (i = 0; i != v18; ++i)
             {
-              if (*v35 != v17)
+              if (*v37 != v19)
               {
-                objc_enumerationMutation(v14);
+                objc_enumerationMutation(v16);
               }
 
-              v19 = *(*(&v34 + 1) + 8 * i);
+              v21 = *(*(&v36 + 1) + 8 * i);
               userVisibleURLString = [firstObject userVisibleURLString];
-              userVisibleURLString2 = [v19 userVisibleURLString];
-              v22 = [userVisibleURLString isEqualToString:userVisibleURLString2];
+              userVisibleURLString2 = [v21 userVisibleURLString];
+              v24 = [userVisibleURLString isEqualToString:userVisibleURLString2];
 
-              if ((v22 & 1) == 0)
+              if ((v24 & 1) == 0)
               {
-                originalURLString3 = [v19 originalURLString];
-                v24 = [originalURLString3 rangeOfString:host];
+                originalURLString3 = [v21 originalURLString];
+                v26 = [originalURLString3 rangeOfString:host];
 
-                if (v24 == 0x7FFFFFFFFFFFFFFFLL)
+                if (v26 == 0x7FFFFFFFFFFFFFFFLL)
                 {
                   continue;
                 }
 
-                if (v24)
+                if (v26)
                 {
-                  v25 = MEMORY[0x277CCACE0];
-                  originalURLString4 = [v19 originalURLString];
-                  v27 = [v25 componentsWithString:originalURLString4];
-                  host2 = [v27 host];
-                  v29 = [host2 isEqualToString:host];
+                  v27 = MEMORY[0x277CCACE0];
+                  originalURLString4 = [v21 originalURLString];
+                  v29 = [v27 componentsWithString:originalURLString4];
+                  host2 = [v29 host];
+                  v31 = [host2 isEqualToString:host];
 
-                  if ((v29 & 1) == 0)
+                  if ((v31 & 1) == 0)
                   {
                     continue;
                   }
                 }
               }
 
-              v30 = 1;
-              v3 = v33;
+              v32 = 1;
+              v3 = v35;
               goto LABEL_24;
             }
 
-            v16 = [v14 countByEnumeratingWithState:&v34 objects:v39 count:16];
-            v30 = 0;
-            v3 = v33;
-            if (v16)
+            v18 = [v16 countByEnumeratingWithState:&v36 objects:v41 count:16];
+            v32 = 0;
+            v3 = v35;
+            if (v18)
             {
               continue;
             }
@@ -1505,7 +1505,7 @@ LABEL_10:
 
         else
         {
-          v30 = 0;
+          v32 = 0;
         }
 
 LABEL_24:
@@ -1513,29 +1513,29 @@ LABEL_24:
 
       else
       {
-        v30 = 0;
+        v32 = 0;
       }
     }
 
     else
     {
-      v31 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v33 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v10, v11);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_215819000, v31, OS_LOG_TYPE_ERROR, "Primary TopHit originalURLString is nil.", buf, 2u);
+        _os_log_error_impl(&dword_215819000, v33, OS_LOG_TYPE_ERROR, "Primary TopHit originalURLString is nil.", buf, 2u);
       }
 
-      v30 = 0;
+      v32 = 0;
     }
   }
 
   else
   {
-    v30 = 0;
+    v32 = 0;
   }
 
-  return v30;
+  return v32;
 }
 
 - (id)_parsecResultsGroupFromResults:(void *)results withIdentifier:
@@ -1571,7 +1571,7 @@ LABEL_24:
   return self;
 }
 
-- (void)_findOnPageGroup
+- (id)_findOnPageGroup
 {
   selfCopy = self;
   if (self)
@@ -1598,19 +1598,20 @@ LABEL_24:
 
 - (void)_buildListIfNeeded
 {
-  v108 = *MEMORY[0x277D85DE8];
+  v113 = *MEMORY[0x277D85DE8];
   if (self)
   {
     selfCopy = self;
     if ((!*(self + 16) || *(self + 8) == 1) && (*(self + 34) & 1) == 0)
     {
-      if ([MEMORY[0x277D49A08] isSearchEvaluationLoggingEnabled])
+      isSearchEvaluationLoggingEnabled = [MEMORY[0x277D49A08] isSearchEvaluationLoggingEnabled];
+      if (isSearchEvaluationLoggingEnabled)
       {
-        v2 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-        if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+        v4 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(isSearchEvaluationLoggingEnabled, v3);
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
         {
           LOWORD(buf) = 0;
-          _os_log_debug_impl(&dword_215819000, v2, OS_LOG_TYPE_DEBUG, "Rebuilding completion list.", &buf, 2u);
+          _os_log_debug_impl(&dword_215819000, v4, OS_LOG_TYPE_DEBUG, "Rebuilding completion list.", &buf, 2u);
         }
       }
 
@@ -1621,78 +1622,77 @@ LABEL_24:
       array = [MEMORY[0x277CBEB18] array];
       topHits = [selfCopy topHits];
       _topParsecResultGroup = [(CompletionGroupListing *)selfCopy _topParsecResultGroup];
-      v85 = _topParsecResultGroup;
+      v91 = _topParsecResultGroup;
       if ([MEMORY[0x277D49A08] isSearchEvaluationLoggingEnabled])
       {
         string = [MEMORY[0x277CCAB68] string];
         _topParsecResultGroup2 = [(CompletionGroupListing *)selfCopy _topParsecResultGroup];
         completions = [_topParsecResultGroup2 completions];
 
-        v17 = OUTLINED_FUNCTION_4_2(v9, v10, v11, v12, v13, v14, v15, v16, v76, v77, v79, array, topHits, selfCopy, _topParsecResultGroup, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, 0, 0, 0, 0, 0, 0, 0, 0, buf, *(&buf + 1), v106, v107);
-        if (v17)
+        v19 = OUTLINED_FUNCTION_4_2(v11, v12, v13, v14, v15, v16, v17, v18, v81, v83, v85, array, topHits, selfCopy, _topParsecResultGroup, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, 0, 0, 0, 0, 0, 0, 0, 0, buf, *(&buf + 1), v112);
+        if (v19)
         {
-          v18 = v17;
-          v19 = *v99;
+          v20 = v19;
+          v21 = *v105;
           do
           {
-            for (i = 0; i != v18; ++i)
+            for (i = 0; i != v20; ++i)
             {
-              if (*v99 != v19)
+              if (*v105 != v21)
               {
                 objc_enumerationMutation(completions);
               }
 
-              v21 = *(v98 + 8 * i);
-              uuidString = [v21 uuidString];
-              v23 = [v21 url];
-              absoluteString = [v23 absoluteString];
+              v23 = *(v104 + 8 * i);
+              uuidString = [v23 uuidString];
+              v25 = [v23 url];
+              absoluteString = [v25 absoluteString];
               safari_urlHashesOfComponents = [absoluteString safari_urlHashesOfComponents];
-              [string appendFormat:@" %@ <%@>, "];
+              [string appendFormat:@" %@ <%@>, ", uuidString, safari_urlHashesOfComponents];
             }
 
-            v18 = OUTLINED_FUNCTION_4_2(v25, v26, v27, v28, v29, v30, v31, v32, uuidString, safari_urlHashesOfComponents, v80, v81, v82, v83, v85, v86, v87, v88, v89, v90, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, buf, *(&buf + 1), v106, v107);
+            v20 = OUTLINED_FUNCTION_4_2(v28, v29, v30, v31, v32, v33, v34, v35, v82, v84, v86, v87, v88, v89, v91, v92, v93, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, buf, *(&buf + 1), v112);
           }
 
-          while (v18);
+          while (v20);
         }
 
-        v33 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+        v38 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v36, v37);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
         {
           LODWORD(buf) = 138543362;
           *(&buf + 4) = string;
-          _os_log_debug_impl(&dword_215819000, v33, OS_LOG_TYPE_DEBUG, "Pegasus' Results in top parsec result group: [%{public}@]", &buf, 0xCu);
+          _os_log_debug_impl(&dword_215819000, v38, OS_LOG_TYPE_DEBUG, "Pegasus' Results in top parsec result group: [%{public}@]", &buf, 0xCu);
         }
 
-        topHits = v82;
-        selfCopy = v83;
-        _topParsecResultGroup = v85;
-        array = v81;
+        topHits = v88;
+        selfCopy = v89;
+        _topParsecResultGroup = v91;
+        array = v87;
       }
 
       _switchToTabCompletionGroup = [(CompletionGroupListing *)selfCopy _switchToTabCompletionGroup];
       _suggestedSitesGroup = [(CompletionGroupListing *)selfCopy _suggestedSitesGroup];
       if ([topHits count])
       {
-        [topHits count];
-        v39 = [CompletionGroupListing _titleForTopHits:selfCopy];
-        v40 = OUTLINED_FUNCTION_1_7();
-        v43 = [(CompletionGroupListing *)v40 _groupWithTitle:v41 identifier:v42 completions:topHits];
+        v44 = -[CompletionGroupListing _titleForTopHits:](selfCopy, [topHits count]);
+        v45 = OUTLINED_FUNCTION_1_7();
+        v48 = [(CompletionGroupListing *)v45 _groupWithTitle:v46 identifier:v47 completions:topHits];
 
         if (_suggestedSitesGroup)
         {
           completions2 = [_suggestedSitesGroup completions];
-          v45 = OUTLINED_FUNCTION_1_7();
-          [(CompletionGroupListing *)v45 _groupByAddingCompletions:v46 toGroup:v43];
-          v47 = array;
-          v49 = v48 = topHits;
+          v50 = OUTLINED_FUNCTION_1_7();
+          [(CompletionGroupListing *)v50 _groupByAddingCompletions:v51 toGroup:v48];
+          v52 = array;
+          v54 = v53 = topHits;
 
-          v43 = v49;
-          topHits = v48;
-          array = v47;
+          v48 = v54;
+          topHits = v53;
+          array = v52;
         }
 
-        [(CompletionGroupListing *)selfCopy _mergeGroup:v43 toListing:array];
+        [(CompletionGroupListing *)selfCopy _mergeGroup:v48 toListing:array];
         *(selfCopy + 72) = [array count] - 1;
         [(CompletionGroupListing *)selfCopy _mergeGroup:_topParsecResultGroup toListing:array];
       }
@@ -1700,8 +1700,8 @@ LABEL_24:
       else
       {
         _pencilScribbleGroup = [(CompletionGroupListing *)selfCopy _pencilScribbleGroup];
-        v37 = OUTLINED_FUNCTION_1_7();
-        [(CompletionGroupListing *)v37 _mergeGroup:v38 toListing:array];
+        v42 = OUTLINED_FUNCTION_1_7();
+        [(CompletionGroupListing *)v42 _mergeGroup:v43 toListing:array];
 
         [(CompletionGroupListing *)selfCopy _mergeGroup:_topParsecResultGroup toListing:array];
         [(CompletionGroupListing *)selfCopy _mergeGroup:_suggestedSitesGroup toListing:array];
@@ -1716,25 +1716,25 @@ LABEL_24:
 
       else
       {
-        v51 = [*(selfCopy + 80) count];
-        *(selfCopy + 36) = v51 != 0;
-        if (!v51)
+        v56 = [*(selfCopy + 80) count];
+        *(selfCopy + 36) = v56 != 0;
+        if (!v56)
         {
           [(CompletionGroupListing *)selfCopy _mergeGroup:_switchToTabCompletionGroup toListing:array];
         }
       }
 
-      v84 = _switchToTabCompletionGroup;
+      v90 = _switchToTabCompletionGroup;
       _quickWebsiteSearchGroup = [(CompletionGroupListing *)selfCopy _quickWebsiteSearchGroup];
-      v53 = OUTLINED_FUNCTION_1_7();
-      [(CompletionGroupListing *)v53 _mergeGroup:v54 toListing:array];
+      v58 = OUTLINED_FUNCTION_1_7();
+      [(CompletionGroupListing *)v58 _mergeGroup:v59 toListing:array];
 
       _filteredURLCompletions = [(CompletionGroupListing *)selfCopy _filteredURLCompletions];
       if ([MEMORY[0x277D49A08] isLabelPreviousSearchesInCompletionListEnabled])
       {
-        v56 = array;
+        v61 = array;
         _maximumNumberOfSearchSuggestionsToShow = [(CompletionGroupListing *)selfCopy _maximumNumberOfSearchSuggestionsToShow];
-        v58 = topHits;
+        v63 = topHits;
         if (_maximumNumberOfSearchSuggestionsToShow >= [*(selfCopy + 136) count])
         {
           _maximumNumberOfSearchSuggestionsToShow2 = [*(selfCopy + 136) count];
@@ -1745,22 +1745,22 @@ LABEL_24:
           _maximumNumberOfSearchSuggestionsToShow2 = [(CompletionGroupListing *)selfCopy _maximumNumberOfSearchSuggestionsToShow];
         }
 
-        v60 = _maximumNumberOfSearchSuggestionsToShow2;
-        v61 = [*(selfCopy + 136) subarrayWithRange:{0, _maximumNumberOfSearchSuggestionsToShow2}];
-        v92 = MEMORY[0x277D85DD0];
-        v93 = 3221225472;
-        v94 = __44__CompletionGroupListing__buildListIfNeeded__block_invoke;
-        v95 = &unk_2781DBAE0;
-        v96 = selfCopy;
-        v62 = [v61 safari_partionedArrayUsingCondition:&v92];
+        v65 = _maximumNumberOfSearchSuggestionsToShow2;
+        v66 = [*(selfCopy + 136) subarrayWithRange:{0, _maximumNumberOfSearchSuggestionsToShow2}];
+        v98 = MEMORY[0x277D85DD0];
+        v99 = 3221225472;
+        v100 = __44__CompletionGroupListing__buildListIfNeeded__block_invoke;
+        v101 = &unk_2781DBAE0;
+        v102 = selfCopy;
+        v67 = [v66 safari_partionedArrayUsingCondition:&v98];
 
-        v63 = [*(selfCopy + 136) subarrayWithRange:{v60, objc_msgSend(*(selfCopy + 136), "count") - v60}];
-        v64 = [v62 arrayByAddingObjectsFromArray:v63];
-        v65 = *(selfCopy + 136);
-        *(selfCopy + 136) = v64;
+        v68 = [*(selfCopy + 136) subarrayWithRange:{v65, objc_msgSend(*(selfCopy + 136), "count") - v65}];
+        v69 = [v67 arrayByAddingObjectsFromArray:v68];
+        v70 = *(selfCopy + 136);
+        *(selfCopy + 136) = v69;
 
-        topHits = v58;
-        array = v56;
+        topHits = v63;
+        array = v61;
       }
 
       _searchSuggestionsGroup = [(CompletionGroupListing *)selfCopy _searchSuggestionsGroup];
@@ -1770,49 +1770,49 @@ LABEL_24:
         *(selfCopy + 144) = [array count] - 1;
       }
 
-      v67 = objc_alloc_init(MEMORY[0x277D49B60]);
-      v86 = MEMORY[0x277D85DD0];
-      v87 = 3221225472;
-      v88 = __44__CompletionGroupListing__buildListIfNeeded__block_invoke_2;
-      v89 = &unk_2781D4C88;
-      v68 = array;
-      v90 = v68;
-      v91 = selfCopy;
-      [v67 setHandler:&v86];
+      v72 = objc_alloc_init(MEMORY[0x277D49B60]);
+      v92 = MEMORY[0x277D85DD0];
+      v93 = 3221225472;
+      v94 = __44__CompletionGroupListing__buildListIfNeeded__block_invoke_2;
+      v95 = &unk_2781D4C88;
+      v73 = array;
+      v96 = v73;
+      v97 = selfCopy;
+      [v72 setHandler:&v92];
       if (*(selfCopy + 39) == 1 && *(selfCopy + 128) <= 1)
       {
-        v69 = [v68 copy];
-        v70 = *(selfCopy + 16);
-        *(selfCopy + 16) = v69;
+        v74 = [v73 copy];
+        v75 = *(selfCopy + 16);
+        *(selfCopy + 16) = v74;
       }
 
       else
       {
         _bottomParsecResultGroup = [(CompletionGroupListing *)selfCopy _bottomParsecResultGroup];
-        [v68 safari_addObjectUnlessNil:_bottomParsecResultGroup];
+        [v73 safari_addObjectUnlessNil:_bottomParsecResultGroup];
 
-        if (![v68 count])
+        if (![v73 count])
         {
           goto LABEL_41;
         }
 
-        v72 = [(CompletionGroupListing *)selfCopy _bookmarksAndHistoryGroup:_filteredURLCompletions];
-        v70 = v72;
+        v77 = [(CompletionGroupListing *)selfCopy _bookmarksAndHistoryGroup:_filteredURLCompletions];
+        v75 = v77;
         if (_searchSuggestionsGroup)
         {
-          if (v72)
+          if (v77)
           {
-            [v68 addObject:v72];
-            *(selfCopy + 168) = [v68 count] - 1;
+            [v73 addObject:v77];
+            *(selfCopy + 168) = [v73 count] - 1;
           }
         }
 
         _findOnPageGroup = [(CompletionGroupListing *)selfCopy _findOnPageGroup];
-        [v68 safari_addObjectUnlessNil:_findOnPageGroup];
+        [v73 safari_addObjectUnlessNil:_findOnPageGroup];
 
-        v74 = [v68 copy];
-        v75 = *(selfCopy + 16);
-        *(selfCopy + 16) = v74;
+        v79 = [v73 copy];
+        v80 = *(selfCopy + 16);
+        *(selfCopy + 16) = v79;
       }
 
 LABEL_41:

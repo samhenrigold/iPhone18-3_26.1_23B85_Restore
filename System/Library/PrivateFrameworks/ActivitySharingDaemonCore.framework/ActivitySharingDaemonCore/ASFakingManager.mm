@@ -99,7 +99,7 @@
 
 - (id)_fakeCompetitionWithStartDate:(id)date opponentScores:(id)scores scores:(id)a5
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v7 = MEMORY[0x277CE90D8];
   v8 = a5;
   scoresCopy = scores;
@@ -125,12 +125,11 @@
   v19 = _ActivitySharingDefaults();
   v20 = _LoadValueFromDefaultsWithFallback(v19, @"fakeCompetitionBadgeStyle", firstObject);
 
-  v24[0] = v20;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  v23[0] = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
   [v11 setPreferredVictoryBadgeStyles:v21];
 
   [v11 setMaximumNumberOfPointsPerDay:ASCompetitionMaximumPointsPerDayForNewCompetitions()];
-  v22 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -309,19 +308,19 @@ uint64_t __34__ASFakingManager_fakeAchievement__block_invoke(uint64_t a1, void *
 
 - (void)pushFakeActivityDataToAllFriendsWithCompletion:(id)completion
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   fakeSnapshot = [(ASFakingManager *)self fakeSnapshot];
-  v26[0] = fakeSnapshot;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+  v25[0] = fakeSnapshot;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
 
   fakeFriendAchievement = [(ASFakingManager *)self fakeFriendAchievement];
-  v25 = fakeFriendAchievement;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+  v24 = fakeFriendAchievement;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
 
   fakeWorkout = [(ASFakingManager *)self fakeWorkout];
-  v24 = fakeWorkout;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+  v23 = fakeWorkout;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
 
   v11 = [MEMORY[0x277CBEA60] arrayWithArray:v6];
   v12 = [v11 arrayByAddingObjectsFromArray:v8];
@@ -340,27 +339,24 @@ uint64_t __34__ASFakingManager_fakeAchievement__block_invoke(uint64_t a1, void *
   }
 
   cloudKitManager = [(ASFakingManager *)self cloudKitManager];
-  v18 = ASCloudKitGroupUserActionExplicit();
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __66__ASFakingManager_pushFakeActivityDataToAllFriendsWithCompletion___block_invoke;
-  v21[3] = &unk_278C4DB48;
-  v21[4] = self;
-  v22 = completionCopy;
+  v18 = ASCloudKitGroupUserActionExplicit(cloudKitManager);
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __66__ASFakingManager_pushFakeActivityDataToAllFriendsWithCompletion___block_invoke;
+  v20[3] = &unk_278C4DB48;
+  v20[4] = self;
+  v21 = completionCopy;
   v19 = completionCopy;
-  [cloudKitManager forceSaveRecordsIntoPrivateDatabaseIgnoringServerChanges:v15 recordIDsToDelete:0 priority:2 activity:0 group:v18 completion:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  [cloudKitManager forceSaveRecordsIntoPrivateDatabaseIgnoringServerChanges:v15 recordIDsToDelete:0 priority:2 activity:0 group:v18 completion:v20];
 }
 
 void __66__ASFakingManager_pushFakeActivityDataToAllFriendsWithCompletion___block_invoke(uint64_t a1, char a2, uint64_t a3)
 {
   if (a3 || (a2 & 1) == 0)
   {
-    v11 = *(a1 + 40);
-    v12 = *(*(a1 + 40) + 16);
+    v11 = *(*(a1 + 40) + 16);
 
-    v12();
+    v11();
   }
 
   else
@@ -369,8 +365,8 @@ void __66__ASFakingManager_pushFakeActivityDataToAllFriendsWithCompletion___bloc
     v4 = *MEMORY[0x277CE8FD8];
     if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "FakingManager saving competition scores", v13, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "FakingManager saving competition scores", v12, 2u);
     }
 
     v5 = [*(a1 + 32) competitionManager];
@@ -471,30 +467,30 @@ LABEL_8:
 
 - (id)_fakeCompetitionHistory
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = _ActivitySharingDefaults();
   v4 = [v3 integerForKey:@"fakeCompetitionMyWinCount"];
   v5 = [v3 integerForKey:@"fakeCompetitionOpponentWinCount"];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__12;
-  v22 = __Block_byref_object_dispose__12;
-  v23 = MEMORY[0x277CBEBF8];
-  v16[0] = 0;
-  v16[1] = v16;
-  v16[2] = 0x3032000000;
-  v16[3] = __Block_byref_object_copy__12;
-  v16[4] = __Block_byref_object_dispose__12;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__12;
+  v21 = __Block_byref_object_dispose__12;
+  v22 = MEMORY[0x277CBEBF8];
+  v15[0] = 0;
+  v15[1] = v15;
+  v15[2] = 0x3032000000;
+  v15[3] = __Block_byref_object_copy__12;
+  v15[4] = __Block_byref_object_dispose__12;
   distantPast = [MEMORY[0x277CBEAA8] distantPast];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __42__ASFakingManager__fakeCompetitionHistory__block_invoke;
-  v15[3] = &unk_278C4DB70;
-  v15[4] = self;
-  v15[5] = v16;
-  v15[6] = &v18;
-  v6 = MEMORY[0x23EF0EB00](v15);
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __42__ASFakingManager__fakeCompetitionHistory__block_invoke;
+  v14[3] = &unk_278C4DB70;
+  v14[4] = self;
+  v14[5] = v15;
+  v14[6] = &v17;
+  v6 = MEMORY[0x23EF0EB00](v14);
   v7 = [v3 BOOLForKey:@"fakeCompetitionOpponentWonPreviously"];
   v8 = v6[2];
   if (v7)
@@ -515,18 +511,16 @@ LABEL_8:
   v10 = *MEMORY[0x277CE8FE8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FE8], OS_LOG_TYPE_DEFAULT))
   {
-    v11 = v19[5];
+    v11 = v18[5];
     *buf = 138412290;
-    v25 = v11;
+    v24 = v11;
     _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, "Fake competitions=%@", buf, 0xCu);
   }
 
-  v12 = v19[5];
+  v12 = v18[5];
 
-  _Block_object_dispose(v16, 8);
-  _Block_object_dispose(&v18, 8);
-
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v15, 8);
+  _Block_object_dispose(&v17, 8);
 
   return v12;
 }

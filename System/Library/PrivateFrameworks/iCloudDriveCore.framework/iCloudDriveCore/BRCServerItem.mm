@@ -80,7 +80,6 @@ LABEL_6:
 
 - (id)parentLocalItemOnFS
 {
-  dbFacade = self->_dbFacade;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -89,9 +88,9 @@ LABEL_6:
 
   clientZone = self->_clientZone;
   parentID = [(BRCStatInfo *)self->_st parentID];
-  v6 = [(BRCClientZone *)clientZone itemByItemID:parentID dbFacade:self->_dbFacade];
+  v5 = [(BRCClientZone *)clientZone itemByItemID:parentID dbFacade:self->_dbFacade];
 
-  return v6;
+  return v5;
 }
 
 - (id)sideCarInfo
@@ -109,7 +108,7 @@ LABEL_6:
 
 - (id)predictedAppLibrary
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   clientZone = [(BRCServerItem *)self clientZone];
   v4 = [clientZone db];
   [v4 assertOnQueue];
@@ -124,9 +123,9 @@ LABEL_6:
     v9 = brc_default_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
-      v16 = v8;
-      _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] Couldn't figure out the expected app library; falling back to clouddocs%@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v8;
+      _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] Couldn't figure out the expected app library; falling back to clouddocs%@", &v14, 0xCu);
     }
 
     cloudDocsClientZone = [(BRCAccountSession *)self->_session cloudDocsClientZone];
@@ -135,8 +134,6 @@ LABEL_6:
   }
 
   v12 = [(BRCAccountSession *)self->_session appLibraryByRowID:dbRowID];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -586,32 +583,30 @@ LABEL_25:
     [BRCServerItem appLibraryForRootItem];
   }
 
-  p_itemID = &self->_itemID;
-  if (-[BRCItemID isNonDesktopRoot](self->_itemID, "isNonDesktopRoot") || [*p_itemID isDocumentsFolder])
+  if ([(BRCItemID *)self->_itemID isNonDesktopRoot]|| [(BRCItemID *)self->_itemID isDocumentsFolder])
   {
     session = self->_session;
     appLibraryRowID = [(BRCItemID *)self->_itemID appLibraryRowID];
-    v6 = [(BRCAccountSession *)session appLibraryByRowID:appLibraryRowID];
+    v5 = [(BRCAccountSession *)session appLibraryByRowID:appLibraryRowID];
   }
 
   else
   {
     appLibraryRowID = brc_bread_crumbs();
-    v7 = brc_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v6 = brc_default_log();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      [(BRCServerItem *)p_itemID appLibraryForRootItem];
+      [BRCServerItem appLibraryForRootItem];
     }
 
-    v6 = 0;
+    v5 = 0;
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)newLocalItemWithDBRowID:(unint64_t)d
 {
-  p_st = &self->_st;
   type = self->_st->super._type;
   if (type > 5)
   {
@@ -637,17 +632,17 @@ LABEL_25:
 
       if (type == 6)
       {
-        v7 = BRCFinderBookmarkItem;
+        v6 = BRCFinderBookmarkItem;
         goto LABEL_29;
       }
     }
 
 LABEL_22:
-    v11 = brc_bread_crumbs();
-    v12 = brc_default_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v10 = brc_bread_crumbs();
+    v11 = brc_default_log();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      [BRCServerItem newLocalItemWithDBRowID:?];
+      [BRCServerItem newLocalItemWithDBRowID:];
     }
 
     return 0;
@@ -657,7 +652,7 @@ LABEL_22:
   {
     if (type == 3)
     {
-      v7 = BRCAliasItem;
+      v6 = BRCAliasItem;
       goto LABEL_29;
     }
 
@@ -665,7 +660,7 @@ LABEL_22:
     {
       if (type == 5)
       {
-        v7 = BRCSymlinkItem;
+        v6 = BRCSymlinkItem;
         goto LABEL_29;
       }
 
@@ -673,11 +668,11 @@ LABEL_22:
     }
 
 LABEL_19:
-    v9 = brc_bread_crumbs();
-    v10 = brc_default_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v8 = brc_bread_crumbs();
+    v9 = brc_default_log();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      [BRCServerItem newLocalItemWithDBRowID:?];
+      [BRCServerItem newLocalItemWithDBRowID:];
     }
 
     goto LABEL_22;
@@ -686,7 +681,7 @@ LABEL_19:
   if (!self->_st->super._type)
   {
 LABEL_26:
-    v7 = BRCDirectoryItem;
+    v6 = BRCDirectoryItem;
     goto LABEL_29;
   }
 
@@ -695,11 +690,11 @@ LABEL_26:
     goto LABEL_19;
   }
 
-  v7 = BRCDocumentItem;
+  v6 = BRCDocumentItem;
 LABEL_29:
-  v14 = [v7 alloc];
+  v13 = [v6 alloc];
 
-  return [v14 _initWithServerItem:self dbRowID:d];
+  return [v13 _initWithServerItem:self dbRowID:d];
 }
 
 - (id)parentItemOnFS
@@ -752,7 +747,7 @@ LABEL_29:
 
 - (void)overrideCKInfoIfNecessaryForOutOfBandSyncOpWithLocalItem:(id)item
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   if (([itemCopy localDiffs] & 0x1000000000000000) != 0)
   {
@@ -761,18 +756,18 @@ LABEL_29:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       debugItemIDString = [(BRCItemID *)self->_itemID debugItemIDString];
-      v14 = [itemCopy st];
-      ckInfo = [v14 ckInfo];
+      v13 = [itemCopy st];
+      ckInfo = [v13 ckInfo];
       ckInfo2 = [(BRCStatInfo *)self->_st ckInfo];
-      v17 = 138413058;
-      v18 = debugItemIDString;
-      v19 = 2112;
-      v20 = ckInfo;
-      v21 = 2112;
-      v22 = ckInfo2;
-      v23 = 2112;
-      v24 = v5;
-      _os_log_debug_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ has an out of band sync ack -- using client truth ckinfo %@ rather than server info %@%@", &v17, 0x2Au);
+      v16 = 138413058;
+      v17 = debugItemIDString;
+      v18 = 2112;
+      v19 = ckInfo;
+      v20 = 2112;
+      v21 = ckInfo2;
+      v22 = 2112;
+      v23 = v5;
+      _os_log_debug_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] %@ has an out of band sync ack -- using client truth ckinfo %@ rather than server info %@%@", &v16, 0x2Au);
     }
 
     v7 = [itemCopy st];
@@ -787,76 +782,70 @@ LABEL_29:
       [(BRCVersion *)self->_latestVersion setCkInfo:ckInfo4];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)asSharedItem
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Called -asSharedItem on a private item%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Called -asSharedItem on a private item%@", &v2, 0xCu);
 }
 
 - (void)initFromPQLResultSet:serverZone:error:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: !_serverZone.isSharedZone || (_sharingOptions & BRCSharingItemHasCKShareMask) != 0 || _st.state == BRC_ITEM_STATE_TOMBSTONE%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: !_serverZone.isSharedZone || (_sharingOptions & BRCSharingItemHasCKShareMask) != 0 || _st.state == BRC_ITEM_STATE_TOMBSTONE%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)appLibraryForRootItem
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *self;
-  OUTLINED_FUNCTION_6_0();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)newLocalItemWithDBRowID:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(*a1 + 25);
-  OUTLINED_FUNCTION_3_3();
-  OUTLINED_FUNCTION_6_0();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)newLocalItemWithDBRowID:(uint64_t)a1 .cold.2(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(*a1 + 25);
-  OUTLINED_FUNCTION_3_3();
-  OUTLINED_FUNCTION_6_0();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)parentLocalItemOnFS
-{
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: [_dbFacade isKindOfClass:[BRCClientDatabaseFacade class]]%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: self.isFSRoot%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
+}
 
-  v8 = *MEMORY[0x277D85DE8];
+- (void)newLocalItemWithDBRowID:.cold.1()
+{
+  OUTLINED_FUNCTION_3_3();
+  OUTLINED_FUNCTION_6_0();
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+- (void)newLocalItemWithDBRowID:.cold.2()
+{
+  OUTLINED_FUNCTION_3_3();
+  OUTLINED_FUNCTION_6_0();
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+- (void)parentLocalItemOnFS
+{
+  brc_bread_crumbs();
+  objc_claimAutoreleasedReturnValue();
+  OUTLINED_FUNCTION_2();
+  v1 = brc_default_log();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
+  {
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: [_dbFacade isKindOfClass:[BRCClientDatabaseFacade class]]%@", v4, v5, v6, v7, v8, DWORD2(v8));
+  }
 }
 
 @end

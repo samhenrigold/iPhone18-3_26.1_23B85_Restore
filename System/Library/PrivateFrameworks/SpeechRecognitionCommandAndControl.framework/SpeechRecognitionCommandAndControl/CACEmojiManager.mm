@@ -573,7 +573,7 @@ void __63__CACEmojiManager_willInsertStringPotentiallyContainingEmojis___block_i
   return v6;
 }
 
-uint64_t __41__CACEmojiManager_countOfEmojisInString___block_invoke(uint64_t a1, uint64_t a2)
+void *__41__CACEmojiManager_countOfEmojisInString___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) isEmoji:a2];
   if (result)

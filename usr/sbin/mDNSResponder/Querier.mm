@@ -5,22 +5,22 @@
 
 void __Querier_GetDNSServiceManager_block_invoke(uint64_t a1, int a2)
 {
-  v4 = pthread_mutex_lock((mDNSStorage[0] + 616));
-  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime(v4, v5, v6, v7, v8, v9, v10, v11);
+  pthread_mutex_lock((mDNSStorage[0] + 616));
+  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime();
   switch(a2)
   {
     case 3:
-      v20 = *(a1 + 32);
+      v5 = *(a1 + 32);
       if (_mdns_dns_service_queue_s_once != -1)
       {
         dispatch_once(&_mdns_dns_service_queue_s_once, &__block_literal_global_249);
       }
 
       block = _NSConcreteStackBlock;
-      v22 = 0x40000000;
-      v23 = __mdns_dns_service_manager_apply_pending_updates_block_invoke;
-      v24 = &__block_descriptor_tmp_41;
-      v25 = v20;
+      v7 = 0x40000000;
+      v8 = __mdns_dns_service_manager_apply_pending_updates_block_invoke;
+      v9 = &__block_descriptor_tmp_41;
+      v10 = v5;
       dispatch_sync(_mdns_dns_service_queue_s_queue, &block);
       mDNS_Lock_(mDNSStorage, "Querier_GetDNSServiceManager_block_invoke", 188);
       Querier_ProcessDNSServiceChanges(0);
@@ -31,17 +31,17 @@ void __Querier_GetDNSServiceManager_block_invoke(uint64_t a1, int a2)
       os_release(*(a1 + 32));
       break;
     case 1:
-      v19 = *(a1 + 32);
+      v4 = *(a1 + 32);
       if (_mdns_dns_service_queue_s_once != -1)
       {
         dispatch_once(&_mdns_dns_service_queue_s_once, &__block_literal_global_249);
       }
 
       block = _NSConcreteStackBlock;
-      v22 = 0x40000000;
-      v23 = __mdns_dns_service_manager_invalidate_block_invoke;
-      v24 = &__block_descriptor_tmp_19_898;
-      v25 = v19;
+      v7 = 0x40000000;
+      v8 = __mdns_dns_service_manager_invalidate_block_invoke;
+      v9 = &__block_descriptor_tmp_19_898;
+      v10 = v4;
       dispatch_sync(_mdns_dns_service_queue_s_queue, &block);
       if (Querier_GetDNSServiceManager_sDNSServiceManager && Querier_GetDNSServiceManager_sDNSServiceManager == *(a1 + 32))
       {
@@ -52,7 +52,7 @@ void __Querier_GetDNSServiceManager_block_invoke(uint64_t a1, int a2)
       break;
   }
 
-  KQueueUnlock("DNS Service Manager event handler", v12, v13, v14, v15, v16, v17, v18);
+  KQueueUnlock("DNS Service Manager event handler");
 }
 
 uint64_t ___Querier_LogDNSServices_block_invoke(uint64_t a1, uint64_t a2)
@@ -138,44 +138,44 @@ void ___Querier_EnsureNEDNSProxyStateWatchHasStarted_block_invoke(id a1)
 void ___Querier_StartNEDNSProxyStateWatch_block_invoke(id a1, BOOL a2)
 {
   v2 = a2;
-  v3 = pthread_mutex_lock((mDNSStorage[0] + 616));
-  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime(v3, v4, v5, v6, v7, v8, v9, v10);
+  pthread_mutex_lock((mDNSStorage[0] + 616));
+  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime();
   if (((gNEDNSProxyIsRunning == 0) ^ v2))
   {
     goto LABEL_23;
   }
 
   gNEDNSProxyIsRunning = v2;
-  v18 = mDNSLogCategory_Default;
+  v3 = mDNSLogCategory_Default;
   if (mDNS_SensitiveLoggingEnableCount)
   {
-    v19 = mDNSLogCategory_Default == mDNSLogCategory_State;
+    v4 = mDNSLogCategory_Default == mDNSLogCategory_State;
   }
 
   else
   {
-    v19 = 1;
+    v4 = 1;
   }
 
-  if (v19)
+  if (v4)
   {
     if (!os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_12;
     }
 
-    v26 = 67109120;
-    v27 = v2;
+    v11 = 67109120;
+    v12 = v2;
     goto LABEL_11;
   }
 
-  v18 = mDNSLogCategory_Default_redacted;
+  v3 = mDNSLogCategory_Default_redacted;
   if (os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 67109120;
-    v27 = v2;
+    v11 = 67109120;
+    v12 = v2;
 LABEL_11:
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "NEDNSProxy state update -- running: %{mdns:yesno}d", &v26, 8u);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "NEDNSProxy state update -- running: %{mdns:yesno}d", &v11, 8u);
   }
 
 LABEL_12:
@@ -187,13 +187,13 @@ LABEL_12:
     {
       for (k = j[2]; k; k = *k)
       {
-        v24 = k[7];
-        if (v24)
+        v9 = k[7];
+        if (v9)
         {
-          v25 = *(v24 + 24);
-          if (v25)
+          v10 = *(v9 + 24);
+          if (v10)
           {
-            if (*(v25 + 281) == 1)
+            if (*(v10 + 281) == 1)
             {
               mDNS_PurgeCacheResourceRecord(mDNSStorage, k);
             }
@@ -205,7 +205,7 @@ LABEL_12:
 
   mDNS_Unlock_(mDNSStorage, "_Querier_StartNEDNSProxyStateWatch_block_invoke", 131);
 LABEL_23:
-  KQueueUnlock("NetworkExtension DNS proxy state update", v11, v12, v13, v14, v15, v16, v17);
+  KQueueUnlock("NetworkExtension DNS proxy state update");
 }
 
 BOOL __Querier_HandleUnicastQuestion_block_invoke(uint64_t a1, uint64_t a2)
@@ -241,24 +241,24 @@ BOOL ___Querier_PopMatchedOrphanedClient_block_invoke(void *a1, uint64_t a2)
 
 void __Querier_HandleUnicastQuestion_block_invoke_15(uint64_t a1)
 {
-  v2 = pthread_mutex_lock((mDNSStorage[0] + 616));
-  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime(v2, v3, v4, v5, v6, v7, v8, v9);
-  v10 = *(a1 + 32);
-  v11 = mDNSLogCategory_Default;
+  pthread_mutex_lock((mDNSStorage[0] + 616));
+  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime();
+  v2 = *(a1 + 32);
+  v3 = mDNSLogCategory_Default;
   if (mDNS_SensitiveLoggingEnableCount)
   {
-    v12 = mDNSLogCategory_Default == mDNSLogCategory_State;
+    v4 = mDNSLogCategory_Default == mDNSLogCategory_State;
   }
 
   else
   {
-    v12 = 1;
+    v4 = 1;
   }
 
-  v13 = v12;
-  if (*(v10 + 255) == 1)
+  v5 = v4;
+  if (*(v2 + 255) == 1)
   {
-    if (v13)
+    if (v5)
     {
       if (!os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT))
       {
@@ -268,24 +268,24 @@ void __Querier_HandleUnicastQuestion_block_invoke_15(uint64_t a1)
 
     else
     {
-      v11 = mDNSLogCategory_Default_redacted;
+      v3 = mDNSLogCategory_Default_redacted;
       if (!os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_19;
       }
     }
 
-    v14 = *(v10 + 232);
-    v61 = 67109379;
-    v62 = v14;
-    v63 = 2117;
-    v64 = v10;
-    v15 = "[Q%u] Handling concluded querier: %{sensitive}@";
+    v6 = *(v2 + 232);
+    v44 = 67109379;
+    v45 = v6;
+    v46 = 2117;
+    v47 = v2;
+    v7 = "[Q%u] Handling concluded querier: %{sensitive}@";
   }
 
   else
   {
-    if (v13)
+    if (v5)
     {
       if (!os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT))
       {
@@ -295,205 +295,199 @@ void __Querier_HandleUnicastQuestion_block_invoke_15(uint64_t a1)
 
     else
     {
-      v11 = mDNSLogCategory_Default_redacted;
+      v3 = mDNSLogCategory_Default_redacted;
       if (!os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_19;
       }
     }
 
-    v16 = *(v10 + 232);
-    v61 = 67109378;
-    v62 = v16;
-    v63 = 2112;
-    v64 = v10;
-    v15 = "[Q%u] Handling concluded querier: %@";
+    v8 = *(v2 + 232);
+    v44 = 67109378;
+    v45 = v8;
+    v46 = 2112;
+    v47 = v2;
+    v7 = "[Q%u] Handling concluded querier: %@";
   }
 
-  _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v15, &v61, 0x12u);
+  _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, v7, &v44, 0x12u);
 LABEL_19:
-  v17 = *(*(v10 + 32) + 276);
-  v18 = *(*(*(v10 + 72) + 16) + 144);
-  if (v18 >= 5)
+  v9 = *(*(v2 + 32) + 276);
+  v10 = *(*(*(v2 + 72) + 16) + 144);
+  if (v10 >= 5)
   {
-    v19 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v19 = 0x203010100uLL >> (8 * v18);
+    v11 = 0x203010100uLL >> (8 * v10);
   }
 
-  if (atomic_load((v10 + 208)))
+  if (atomic_load((v2 + 208)))
   {
-    if (*(*(v10 + 96) + 40) && v19 != 0)
+    if (*(*(v2 + 96) + 40) && v11 != 0)
     {
-      v22 = 3;
-      if (v19 == 1)
+      v14 = 3;
+      if (v11 == 1)
       {
-        v22 = 1;
+        v14 = 1;
       }
 
-      v23 = 2 * (v19 != 1);
-      if ((v17 & 8) != 0)
+      v15 = 2 * (v11 != 1);
+      if ((v9 & 8) != 0)
       {
-        v23 = v22;
+        v15 = v14;
       }
 
-      v24 = &s_dns_analytics + 104 * v23;
-      if (v24)
+      v16 = &s_dns_analytics + 104 * v15;
+      if (v16)
       {
-        *(v24 + 2) += *(*(v10 + 96) + 40);
+        *(v16 + 2) += *(*(v2 + 96) + 40);
       }
     }
   }
 
-  v25 = *(v10 + 248);
-  if (v25 != 1)
+  v17 = *(v2 + 248);
+  if (v17 != 1)
   {
-    v34 = *(v10 + 32);
-    goto LABEL_66;
+    v26 = *(v2 + 32);
+    goto LABEL_64;
   }
 
-  if ((*(v10 + 253) & 1) == 0)
+  if ((*(v2 + 253) & 1) == 0)
   {
-    v26 = *(v10 + 136);
-    if (v26)
+    v18 = *(v2 + 136);
+    if (v18)
     {
-      v27 = *(v26 + 40);
-      if (v27 && v19 != 0)
+      v19 = *(v18 + 40);
+      if (v19 && v11 != 0)
       {
-        v12 = v19 == 1;
-        v29 = v19 != 1;
-        v30 = 3;
-        if (v12)
+        v4 = v11 == 1;
+        v21 = v11 != 1;
+        v22 = 3;
+        if (v4)
         {
-          v30 = 1;
+          v22 = 1;
         }
 
-        v31 = 2 * v29;
-        if ((v17 & 8) != 0)
+        v23 = 2 * v21;
+        if ((v9 & 8) != 0)
         {
-          v32 = v30;
+          v24 = v22;
         }
 
         else
         {
-          v32 = v31;
+          v24 = v23;
         }
 
-        v33 = &s_dns_analytics + 104 * v32;
-        if (v33)
+        v25 = &s_dns_analytics + 104 * v24;
+        if (v25)
         {
-          *(v33 + 3) += v27;
+          *(v25 + 3) += v19;
         }
       }
     }
   }
 
-  v34 = *(v10 + 32);
-  if ((*(v34 + 276) & 1) == 0)
+  v26 = *(v2 + 32);
+  if ((*(v26 + 276) & 1) == 0)
   {
-    v35 = *(v10 + 136);
-    if (!v35)
+    v27 = *(v2 + 136);
+    if (v27)
     {
-      v37 = 0;
-LABEL_62:
-      __memcpy_chk();
-      if ((*(v34 + 276) & 0x2000) != 0)
+      v28 = *(v27 + 40);
+      v29 = v28;
+      if (v28 >= 0x22F9)
       {
-        v42 = *(v34 + 256);
-      }
+        v30 = mDNSLogCategory_Default;
+        if (!mDNS_SensitiveLoggingEnableCount || mDNSLogCategory_Default == mDNSLogCategory_State)
+        {
+          if (os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT))
+          {
+LABEL_58:
+            v31 = *(v2 + 232);
+            v44 = 67109632;
+            v45 = v31;
+            v46 = 2048;
+            v47 = v29;
+            v48 = 2048;
+            v29 = 8952;
+            v49 = 8952;
+            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "[Q%u] Large %lu-byte response will be truncated to fit mDNSCore's %lu-byte message buffer", &v44, 0x1Cu);
+            goto LABEL_60;
+          }
+        }
 
-      else
-      {
-        v42 = 0;
-      }
+        else
+        {
+          v30 = mDNSLogCategory_Default_redacted;
+          if (os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT))
+          {
+            goto LABEL_58;
+          }
+        }
 
-      mDNSCoreReceiveForQuerier(&unk_100172040 + v37, v10, v34, v42);
-      goto LABEL_66;
+        v29 = &loc_1000022F8;
+      }
     }
 
-    v36 = *(v35 + 40);
-    v37 = v36;
-    if (v36 >= 0x22F9)
+    else
     {
-      v38 = mDNSLogCategory_Default;
-      if (!mDNS_SensitiveLoggingEnableCount || mDNSLogCategory_Default == mDNSLogCategory_State)
-      {
-        if (os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT))
-        {
-LABEL_58:
-          v39 = *(v10 + 232);
-          v61 = 67109632;
-          v62 = v39;
-          v63 = 2048;
-          v64 = v37;
-          v65 = 2048;
-          v37 = 8952;
-          v66 = 8952;
-          _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "[Q%u] Large %lu-byte response will be truncated to fit mDNSCore's %lu-byte message buffer", &v61, 0x1Cu);
-          goto LABEL_60;
-        }
-      }
-
-      else
-      {
-        v38 = mDNSLogCategory_Default_redacted;
-        if (os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_58;
-        }
-      }
-
-      v37 = &loc_1000022F8;
+      v29 = 0;
     }
 
 LABEL_60:
-    v40 = *(v10 + 136);
-    if (v40)
+    __memcpy_chk();
+    if ((*(v26 + 276) & 0x2000) != 0)
     {
-      v41 = *(v40 + 32);
+      v32 = *(v26 + 256);
     }
 
-    goto LABEL_62;
+    else
+    {
+      v32 = 0;
+    }
+
+    mDNSCoreReceiveForQuerier(&unk_100172040 + v29, v2, v26, v32);
   }
 
-LABEL_66:
+LABEL_64:
   Mutable = _Querier_GetOrphanedQuerierSet_sOrphanedQuerierSet;
   if (_Querier_GetOrphanedQuerierSet_sOrphanedQuerierSet || (Mutable = CFSetCreateMutable(kCFAllocatorDefault, 0, &gMDNSObjectSetCallbacks), (_Querier_GetOrphanedQuerierSet_sOrphanedQuerierSet = Mutable) != 0))
   {
-    CFSetRemoveValue(Mutable, v10);
+    CFSetRemoveValue(Mutable, v2);
   }
 
-  LOBYTE(v61) = 0;
-  DNSQuestion = Querier_GetDNSQuestion(v10, &v61);
+  LOBYTE(v44) = 0;
+  DNSQuestion = Querier_GetDNSQuestion(v2, &v44);
   if (DNSQuestion)
   {
-    v52 = DNSQuestion;
-    if (*(*(*(v10 + 72) + 16) + 144))
+    v35 = DNSQuestion;
+    if (*(*(*(v2 + 72) + 16) + 144))
     {
-      v53 = atomic_load((v10 + 208));
-      *(DNSQuestion + 260) += v53;
+      v36 = atomic_load((v2 + 208));
+      *(DNSQuestion + 260) += v36;
     }
 
-    v55 = (DNSQuestion + 96);
-    v54 = *(DNSQuestion + 96);
-    if (v54)
+    v38 = (DNSQuestion + 96);
+    v37 = *(DNSQuestion + 96);
+    if (v37)
     {
-      os_release(v54);
-      *v55 = 0;
+      os_release(v37);
+      *v38 = 0;
     }
 
-    v56 = *(v52 + 649);
-    *(v52 + 649) = 0;
-    if (!(*(v52 + 354) | v61))
+    v39 = *(v35 + 649);
+    *(v35 + 649) = 0;
+    if (!(*(v35 + 354) | v44))
     {
-      if (v25 > 4)
+      if (v17 > 4)
       {
-        if (v25 == 6)
+        if (v17 == 6)
         {
-          if ((*(v34 + 276) & 0x800) == 0)
+          if ((*(v26 + 276) & 0x800) == 0)
           {
             DNSServiceManager = Querier_GetDNSServiceManager();
             if (DNSServiceManager)
@@ -503,119 +497,119 @@ LABEL_66:
           }
 
           mDNS_Lock_(mDNSStorage, "_Querier_HandleQuerierResponse", 1003);
-          mdns_client_replace((v52 + 96), v10);
+          mdns_client_replace((v35 + 96), v2);
           while (1)
           {
-            mDNS_StopQuery_internal(mDNSStorage, v52);
-            *(v52 + 650) = 1;
-            mDNS_StartQuery_internal(mDNSStorage, v52);
-            v59 = Querier_GetDNSQuestion(v10, &v61);
-            v52 = v59;
-            if (v59)
+            mDNS_StopQuery_internal(mDNSStorage, v35);
+            *(v35 + 650) = 1;
+            mDNS_StartQuery_internal(mDNSStorage, v35);
+            v42 = Querier_GetDNSQuestion(v2, &v44);
+            v35 = v42;
+            if (v42)
             {
-              if (v61)
+              if (v44)
               {
                 break;
               }
             }
 
-            if (!v59)
+            if (!v42)
             {
-              goto LABEL_94;
+              goto LABEL_92;
             }
           }
 
-          v60 = *(v59 + 96);
-          if (v60)
+          v43 = *(v42 + 96);
+          if (v43)
           {
-            os_release(v60);
-            *(v52 + 96) = 0;
+            os_release(v43);
+            *(v35 + 96) = 0;
           }
 
-LABEL_94:
-          v57 = 1024;
+LABEL_92:
+          v40 = 1024;
         }
 
         else
         {
-          if (v25 != 5)
+          if (v17 != 5)
           {
-            goto LABEL_96;
+            goto LABEL_94;
           }
 
           mDNS_Lock_(mDNSStorage, "_Querier_HandleQuerierResponse", 982);
-          *(v52 + 208) = dword_10016D258;
-          *(v52 + 212) = 5000;
-          SetNextQueryTime(mDNSStorage, v52);
-          v57 = 986;
+          *(v35 + 208) = dword_10016D258;
+          *(v35 + 212) = 5000;
+          SetNextQueryTime(mDNSStorage, v35);
+          v40 = 986;
         }
       }
 
       else
       {
-        if (v25 == 1)
+        if (v17 == 1)
         {
-          if (!v56)
+          if (!v39)
           {
-            goto LABEL_96;
+            goto LABEL_94;
           }
         }
 
-        else if (v25 != 2)
+        else if (v17 != 2)
         {
-          goto LABEL_96;
+          goto LABEL_94;
         }
 
         mDNS_Lock_(mDNSStorage, "_Querier_HandleQuerierResponse", 1035);
-        Querier_HandleUnicastQuestion(v52);
-        v57 = 1037;
+        Querier_HandleUnicastQuestion(v35);
+        v40 = 1037;
       }
 
-      mDNS_Unlock_(mDNSStorage, "_Querier_HandleQuerierResponse", v57);
+      mDNS_Unlock_(mDNSStorage, "_Querier_HandleQuerierResponse", v40);
     }
   }
 
-LABEL_96:
+LABEL_94:
   if (*(a1 + 42) == 1)
   {
     mDNSDisableSensitiveLoggingForQuestion(*(a1 + 40));
   }
 
-  KQueueUnlock("querier result handler", v45, v46, v47, v48, v49, v50, v51);
+  KQueueUnlock("querier result handler");
   os_release(*(a1 + 32));
 }
 
 void __Querier_HandleUnicastQuestion_block_invoke_2(uint64_t a1, int a2)
 {
-  v4 = pthread_mutex_lock((mDNSStorage[0] + 616));
-  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime(v4, v5, v6, v7, v8, v9, v10, v11);
+  pthread_mutex_lock((mDNSStorage[0] + 616));
+  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime();
   switch(a2)
   {
     case 1:
       CFSetRemoveValue(*(a1 + 40), *(a1 + 32));
       _Querier_HandleSubscriberInvalidation(*(a1 + 32));
-      v21 = mDNSLogCategory_Default;
+      v6 = mDNSLogCategory_Default;
       if (!mDNS_SensitiveLoggingEnableCount || mDNSLogCategory_Default == mDNSLogCategory_State)
       {
         if (os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_INFO))
         {
-          v23 = *(*(a1 + 32) + 128);
-          v25 = 134217984;
-          v26 = v23;
+          v8 = *(*(a1 + 32) + 128);
+          v10 = 134217984;
+          v11 = v8;
           goto LABEL_16;
         }
       }
 
       else
       {
-        v21 = mDNSLogCategory_Default_redacted;
+        v6 = mDNSLogCategory_Default_redacted;
         if (os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_INFO))
         {
-          v22 = *(*(a1 + 32) + 128);
-          v25 = 134217984;
-          v26 = v22;
+          v7 = *(*(a1 + 32) + 128);
+          v10 = 134217984;
+          v11 = v7;
 LABEL_16:
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "[Sub%llu] Subscriber has been invalidated", &v25, 0xCu);
+          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "[Sub%llu] Subscriber has been invalidated", &v10, 0xCu);
         }
       }
 
@@ -626,7 +620,7 @@ LABEL_16:
       {
         CFSetRemoveValue(*(a1 + 40), *(a1 + 32));
         mdns_client_invalidate(*(a1 + 32));
-        v19 = mDNSLogCategory_Default;
+        v4 = mDNSLogCategory_Default;
         if (!mDNS_SensitiveLoggingEnableCount || mDNSLogCategory_Default == mDNSLogCategory_State)
         {
           if (!os_log_type_enabled(mDNSLogCategory_Default, OS_LOG_TYPE_DEFAULT))
@@ -634,25 +628,25 @@ LABEL_16:
             break;
           }
 
-          v24 = *(*(a1 + 32) + 128);
-          v25 = 134217984;
-          v26 = v24;
+          v9 = *(*(a1 + 32) + 128);
+          v10 = 134217984;
+          v11 = v9;
         }
 
         else
         {
-          v19 = mDNSLogCategory_Default_redacted;
+          v4 = mDNSLogCategory_Default_redacted;
           if (!os_log_type_enabled(mDNSLogCategory_Default_redacted, OS_LOG_TYPE_DEFAULT))
           {
             break;
           }
 
-          v20 = *(*(a1 + 32) + 128);
-          v25 = 134217984;
-          v26 = v20;
+          v5 = *(*(a1 + 32) + 128);
+          v10 = 134217984;
+          v11 = v5;
         }
 
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "[Sub%llu] Orphaned subscriber removed due to timeout", &v25, 0xCu);
+        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[Sub%llu] Orphaned subscriber removed due to timeout", &v10, 0xCu);
       }
 
       break;
@@ -661,7 +655,7 @@ LABEL_16:
       break;
   }
 
-  KQueueUnlock("Subscriber event handler", v12, v13, v14, v15, v16, v17, v18);
+  KQueueUnlock("Subscriber event handler");
 }
 
 uint64_t ___Querier_ApplyUpdate_block_invoke(uint64_t *a1, _DWORD *a2)
@@ -913,13 +907,13 @@ LABEL_54:
 
 void __Querier_ProcessDNSServiceChangesAsync_block_invoke(uint64_t a1)
 {
-  v2 = pthread_mutex_lock((mDNSStorage + 616));
-  *(mDNSStorage + 680) = mDNSPlatformRawTime(v2, v3, v4, v5, v6, v7, v8, v9);
-  mDNS_Lock_(&mDNSStorage, "Querier_ProcessDNSServiceChangesAsync_block_invoke", 1475);
+  pthread_mutex_lock((mDNSStorage[0] + 616));
+  *(mDNSStorage[0] + 680) = mDNSPlatformRawTime();
+  mDNS_Lock_(mDNSStorage, "Querier_ProcessDNSServiceChangesAsync_block_invoke", 1475);
   Querier_ProcessDNSServiceChanges(*(a1 + 32));
-  mDNS_Unlock_(&mDNSStorage, "Querier_ProcessDNSServiceChangesAsync_block_invoke", 1477);
+  mDNS_Unlock_(mDNSStorage, "Querier_ProcessDNSServiceChangesAsync_block_invoke", 1477);
 
-  KQueueUnlock("Querier_ProcessDNSServiceChangesAsync", v10, v11, v12, v13, v14, v15, v16);
+  KQueueUnlock("Querier_ProcessDNSServiceChangesAsync");
 }
 
 @end

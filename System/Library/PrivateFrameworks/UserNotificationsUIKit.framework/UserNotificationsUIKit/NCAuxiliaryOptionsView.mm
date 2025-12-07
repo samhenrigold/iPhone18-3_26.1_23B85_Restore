@@ -726,7 +726,7 @@ LABEL_19:
 
 - (void)_layoutOptionsButtons
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if ([(NSArray *)self->_auxiliaryOptionButtons count])
   {
     [(NCAuxiliaryOptionsView *)self bounds];
@@ -739,7 +739,7 @@ LABEL_19:
     if (self->_optionsSummaryLabel)
     {
       [(NCAuxiliaryOptionsView *)self _optionsSummaryMeasuringFrameForBounds:v4, v6, v8, v10];
-      v13 = CGRectGetMaxY(v35) + 18.0;
+      v13 = CGRectGetMaxY(v37) + 18.0;
     }
 
     else
@@ -747,80 +747,80 @@ LABEL_19:
       v13 = 18.0;
     }
 
-    v30[0] = 0;
-    v30[1] = v30;
-    v30[2] = 0x4010000000;
-    v30[3] = &unk_21E979265;
-    v31 = 0u;
-    v32 = 0u;
-    v36.origin.x = v4;
-    v36.origin.y = v6;
-    v36.size.width = v8;
-    v36.size.height = v10;
-    MaxY = CGRectGetMaxY(v36);
-    *&v31 = 0x402C000000000000;
-    *(&v31 + 1) = v13;
-    *&v32 = v12;
-    *(&v32 + 1) = MaxY - v13 + -14.0;
-    v15 = _NCMainScreenScale();
+    v32[0] = 0;
+    v32[1] = v32;
+    v32[2] = 0x4010000000;
+    v32[3] = &unk_21E979265;
+    v33 = 0u;
+    v34 = 0u;
+    v38.origin.x = v4;
+    v38.origin.y = v6;
+    v38.size.width = v8;
+    v38.size.height = v10;
+    MaxY = CGRectGetMaxY(v38);
+    *&v33 = 0x402C000000000000;
+    *(&v33 + 1) = v13;
+    *&v34 = v12;
+    *(&v34 + 1) = MaxY - v13 + -14.0;
+    v17 = _NCMainScreenScale(v15, v16);
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __47__NCAuxiliaryOptionsView__layoutOptionsButtons__block_invoke;
     aBlock[3] = &unk_278370D48;
-    aBlock[4] = v30;
-    *&aBlock[5] = v15;
-    v16 = _Block_copy(aBlock);
+    aBlock[4] = v32;
+    *&aBlock[5] = v17;
+    v18 = _Block_copy(aBlock);
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
-    v18 = [mEMORY[0x277D75128] userInterfaceLayoutDirection] == 1;
+    v20 = [mEMORY[0x277D75128] userInterfaceLayoutDirection] == 1;
 
-    if (v18)
+    if (v20)
     {
-      v19 = [(NSArray *)self->_auxiliaryOptionButtons count];
-      if (v19 - 1 >= 0)
+      v21 = [(NSArray *)self->_auxiliaryOptionButtons count];
+      if (v21 - 1 >= 0)
       {
         do
         {
-          v20 = [(NSArray *)self->_auxiliaryOptionButtons objectAtIndex:--v19];
-          v16[2](v16, v20);
+          v22 = [(NSArray *)self->_auxiliaryOptionButtons objectAtIndex:--v21];
+          v18[2](v18, v22);
         }
 
-        while (v19 > 0);
+        while (v21 > 0);
       }
     }
 
     else
     {
+      v29 = 0u;
+      v30 = 0u;
       v27 = 0u;
       v28 = 0u;
-      v25 = 0u;
-      v26 = 0u;
-      v21 = self->_auxiliaryOptionButtons;
-      v22 = [(NSArray *)v21 countByEnumeratingWithState:&v25 objects:v33 count:16];
-      if (v22)
+      v23 = self->_auxiliaryOptionButtons;
+      v24 = [(NSArray *)v23 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      if (v24)
       {
-        v23 = *v26;
+        v25 = *v28;
         do
         {
-          v24 = 0;
+          v26 = 0;
           do
           {
-            if (*v26 != v23)
+            if (*v28 != v25)
             {
-              objc_enumerationMutation(v21);
+              objc_enumerationMutation(v23);
             }
 
-            v16[2](v16, *(*(&v25 + 1) + 8 * v24++));
+            v18[2](v18, *(*(&v27 + 1) + 8 * v26++));
           }
 
-          while (v22 != v24);
-          v22 = [(NSArray *)v21 countByEnumeratingWithState:&v25 objects:v33 count:16];
+          while (v24 != v26);
+          v24 = [(NSArray *)v23 countByEnumeratingWithState:&v27 objects:v35 count:16];
         }
 
-        while (v22);
+        while (v24);
       }
     }
 
-    _Block_object_dispose(v30, 8);
+    _Block_object_dispose(v32, 8);
   }
 }
 

@@ -31,116 +31,114 @@
 
 - (id)keys
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   path = self->_path;
-  v37 = *MEMORY[0x277CCA1B0];
-  v38[0] = *MEMORY[0x277CCA1B8];
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
-  v35 = 0;
-  [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:v5 error:&v35];
-  v6 = v35;
+  v38 = *MEMORY[0x277CCA1B0];
+  v39[0] = *MEMORY[0x277CCA1B8];
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+  v36 = 0;
+  [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:v5 error:&v36];
+  v6 = v36;
 
   if (v6)
   {
-    v7 = blt_general_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = blt_general_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [BLTObjectStore keys];
     }
 
-    v28 = 0;
+    v29 = 0;
   }
 
   else
   {
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-    v9 = self->_path;
-    v34 = 0;
-    v7 = [defaultManager2 contentsOfDirectoryAtPath:v9 error:&v34];
-    v6 = v34;
+    v10 = self->_path;
+    v35 = 0;
+    v8 = [defaultManager2 contentsOfDirectoryAtPath:v10 error:&v35];
+    v6 = v35;
 
     if (v6)
     {
-      obj = blt_general_log();
+      obj = blt_general_log(v11);
       if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
       {
         [BLTObjectStore keys];
       }
 
-      v28 = 0;
+      v29 = 0;
     }
 
     else
     {
-      v28 = [MEMORY[0x277CBEB58] setWithCapacity:{-[NSObject count](v7, "count")}];
-      v30 = 0u;
+      v29 = [MEMORY[0x277CBEB58] setWithCapacity:{-[NSObject count](v8, "count")}];
       v31 = 0u;
       v32 = 0u;
       v33 = 0u;
-      obj = v7;
-      v10 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
-      if (v10)
+      v34 = 0u;
+      obj = v8;
+      v12 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+      if (v12)
       {
-        v11 = v10;
-        v24 = v7;
-        v25 = 0;
-        v12 = *v31;
+        v13 = v12;
+        v25 = v8;
+        v26 = 0;
+        v14 = *v32;
         do
         {
-          v13 = 0;
-          v26 = v11;
+          v15 = 0;
+          v27 = v13;
           do
           {
-            if (*v31 != v12)
+            if (*v32 != v14)
             {
               objc_enumerationMutation(obj);
             }
 
-            v14 = *(*(&v30 + 1) + 8 * v13);
-            fromHex = [v14 fromHex];
+            v16 = *(*(&v31 + 1) + 8 * v15);
+            fromHex = [v16 fromHex];
             if (fromHex)
             {
-              [v28 addObject:fromHex];
+              [v29 addObject:fromHex];
             }
 
             else
             {
-              v16 = [v14 hex];
-              v17 = [(NSString *)self->_path stringByAppendingPathComponent:v14];
-              selfCopy = self;
+              v18 = [v16 hex];
               v19 = [(NSString *)self->_path stringByAppendingPathComponent:v16];
+              selfCopy = self;
+              v21 = [(NSString *)self->_path stringByAppendingPathComponent:v18];
               defaultManager3 = [MEMORY[0x277CCAA00] defaultManager];
-              v29 = 0;
-              [defaultManager3 moveItemAtPath:v17 toPath:v19 error:&v29];
-              v21 = v29;
+              v30 = 0;
+              [defaultManager3 moveItemAtPath:v19 toPath:v21 error:&v30];
+              v23 = v30;
 
-              if (!v21)
+              if (!v23)
               {
-                [v28 addObject:v14];
+                [v29 addObject:v16];
               }
 
               self = selfCopy;
-              v11 = v26;
+              v13 = v27;
             }
 
-            ++v13;
+            ++v15;
           }
 
-          while (v11 != v13);
-          v11 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+          while (v13 != v15);
+          v13 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
         }
 
-        while (v11);
-        v7 = v24;
-        v6 = v25;
+        while (v13);
+        v8 = v25;
+        v6 = v26;
       }
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v28;
+  return v29;
 }
 
 - (id)objectForKey:(id)key
@@ -155,31 +153,32 @@
     v15 = 0;
     v8 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v7 error:&v15];
     v9 = v15;
+    v10 = v9;
     if (v9)
     {
-      v10 = blt_general_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = blt_general_log(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138413058;
         selfCopy2 = self;
         v18 = 2112;
         v19 = keyCopy;
         v20 = 2112;
-        v21 = v9;
+        v21 = v10;
         v22 = 2112;
         v23 = v6;
-        _os_log_error_impl(&dword_241FB3000, v10, OS_LOG_TYPE_ERROR, "%@ objectForKey: %@ error: %@ unarchiving %@", buf, 0x2Au);
+        _os_log_error_impl(&dword_241FB3000, v11, OS_LOG_TYPE_ERROR, "%@ objectForKey: %@ error: %@ unarchiving %@", buf, 0x2Au);
       }
     }
 
-    v11 = [v8 decodeObjectOfClass:self->_elementClass forKey:*MEMORY[0x277CCA308]];
+    v12 = [v8 decodeObjectOfClass:self->_elementClass forKey:*MEMORY[0x277CCA308]];
     [v8 finishDecoding];
   }
 
   else
   {
-    v12 = blt_general_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = blt_general_log(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
       selfCopy2 = self;
@@ -187,15 +186,13 @@
       v19 = keyCopy;
       v20 = 2112;
       v21 = v6;
-      _os_log_error_impl(&dword_241FB3000, v12, OS_LOG_TYPE_ERROR, "%@ objectForKey: %@ not found at %@", buf, 0x20u);
+      _os_log_error_impl(&dword_241FB3000, v13, OS_LOG_TYPE_ERROR, "%@ objectForKey: %@ not found at %@", buf, 0x20u);
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v11;
+  return v12;
 }
 
 - (void)removeObjectForKey:(id)key
@@ -209,8 +206,8 @@
   [defaultManager removeItemAtPath:v6 error:&v11];
   v8 = v11;
 
-  v9 = blt_general_log();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = blt_general_log(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
     selfCopy = self;
@@ -220,79 +217,62 @@
     v17 = v6;
     v18 = 2112;
     v19 = v8;
-    _os_log_impl(&dword_241FB3000, v9, OS_LOG_TYPE_DEFAULT, "%@ removeObjectForKey: %@ path: %@ error: %@", buf, 0x2Au);
+    _os_log_impl(&dword_241FB3000, v10, OS_LOG_TYPE_DEFAULT, "%@ removeObjectForKey: %@ path: %@ error: %@", buf, 0x2Au);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)storeObject:(id)object withKey:(id)key
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   keyCopy = key;
   v8 = keyCopy;
   if (objectCopy)
   {
-    v26 = 0;
+    v27 = 0;
     v9 = [keyCopy hex];
     v10 = [(NSString *)self->_path stringByAppendingPathComponent:v9];
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v12 = [defaultManager fileExistsAtPath:self->_path isDirectory:&v26];
-    v13 = v26;
+    v12 = [defaultManager fileExistsAtPath:self->_path isDirectory:&v27];
+    v13 = v27;
 
-    if (v12 & v13)
+    if ((v12 & v13 & 1) != 0 || ([MEMORY[0x277CCAA00] defaultManager], v14 = objc_claimAutoreleasedReturnValue(), path = self->_path, v36 = *MEMORY[0x277CCA1B0], v37[0] = *MEMORY[0x277CCA1B8], objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v37, &v36, 1), v16 = objc_claimAutoreleasedReturnValue(), v26 = 0, objc_msgSend(v14, "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", path, 1, v16, &v26), v17 = v26, v16, v14, !v17))
     {
-      goto LABEL_6;
-    }
-
-    defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-    path = self->_path;
-    v35 = *MEMORY[0x277CCA1B0];
-    v36[0] = *MEMORY[0x277CCA1B8];
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
-    v25 = 0;
-    [defaultManager2 createDirectoryAtPath:path withIntermediateDirectories:1 attributes:v16 error:&v25];
-    v17 = v25;
-
-    if (!v17)
-    {
-LABEL_6:
-      v19 = [objc_alloc(MEMORY[0x277CCAAB0]) initRequiringSecureCoding:1];
-      v18 = v19;
-      if (v19)
+      v20 = [objc_alloc(MEMORY[0x277CCAAB0]) initRequiringSecureCoding:1];
+      v19 = v20;
+      if (v20)
       {
-        [v19 encodeObject:objectCopy forKey:*MEMORY[0x277CCA308]];
-        encodedData = [v18 encodedData];
-        v24 = 0;
-        [encodedData writeToFile:v10 options:268435457 error:&v24];
-        v17 = v24;
+        [v20 encodeObject:objectCopy forKey:*MEMORY[0x277CCA308]];
+        encodedData = [v19 encodedData];
+        v25 = 0;
+        [encodedData writeToFile:v10 options:268435457 error:&v25];
+        v17 = v25;
 
-        v21 = blt_general_log();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v23 = blt_general_log(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412802;
           selfCopy3 = self;
-          v29 = 2112;
-          v30 = v8;
-          v31 = 2112;
-          v32 = v10;
-          _os_log_impl(&dword_241FB3000, v21, OS_LOG_TYPE_DEFAULT, "%@ storeObject:withKey: wrote for: %@ path: %@", buf, 0x20u);
+          v30 = 2112;
+          v31 = v8;
+          v32 = 2112;
+          v33 = v10;
+          _os_log_impl(&dword_241FB3000, v23, OS_LOG_TYPE_DEFAULT, "%@ storeObject:withKey: wrote for: %@ path: %@", buf, 0x20u);
         }
       }
 
       else
       {
-        v22 = blt_general_log();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v24 = blt_general_log(0);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412802;
           selfCopy3 = self;
-          v29 = 2112;
-          v30 = v8;
-          v31 = 2112;
-          v32 = v10;
-          _os_log_error_impl(&dword_241FB3000, v22, OS_LOG_TYPE_ERROR, "%@ storeObject:withKey: failed to create archiver for: %@ path: %@", buf, 0x20u);
+          v30 = 2112;
+          v31 = v8;
+          v32 = 2112;
+          v33 = v10;
+          _os_log_error_impl(&dword_241FB3000, v24, OS_LOG_TYPE_ERROR, "%@ storeObject:withKey: failed to create archiver for: %@ path: %@", buf, 0x20u);
         }
 
         v17 = 0;
@@ -301,32 +281,30 @@ LABEL_6:
 
     else
     {
-      v18 = blt_general_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = blt_general_log(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         *buf = 138413058;
         selfCopy3 = self;
-        v29 = 2112;
-        v30 = v8;
-        v31 = 2112;
-        v32 = v10;
-        v33 = 2112;
-        v34 = v17;
-        _os_log_error_impl(&dword_241FB3000, v18, OS_LOG_TYPE_ERROR, "%@ storeObject:withKey: createDirectoryAtPath failed for: %@ at path: %@ error: %@", buf, 0x2Au);
+        v30 = 2112;
+        v31 = v8;
+        v32 = 2112;
+        v33 = v10;
+        v34 = 2112;
+        v35 = v17;
+        _os_log_error_impl(&dword_241FB3000, v19, OS_LOG_TYPE_ERROR, "%@ storeObject:withKey: createDirectoryAtPath failed for: %@ at path: %@ error: %@", buf, 0x2Au);
       }
     }
   }
 
   else
   {
-    v17 = blt_general_log();
+    v17 = blt_general_log(keyCopy);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [(BLTObjectStore *)self storeObject:v8 withKey:v17];
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setObject:(id)object forKeyedSubscript:(id)subscript
@@ -369,22 +347,20 @@ LABEL_6:
 
 - (void)keys
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_241FB3000, v0, OS_LOG_TYPE_ERROR, "%s error loading object store keys: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_241FB3000, v0, OS_LOG_TYPE_ERROR, "%s error loading object store keys: %@", v1, 0x16u);
 }
 
 - (void)storeObject:(os_log_t)log withKey:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_241FB3000, log, OS_LOG_TYPE_ERROR, "%@ storeObject:withKey: object nil for: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_241FB3000, log, OS_LOG_TYPE_ERROR, "%@ storeObject:withKey: object nil for: %@", &v3, 0x16u);
 }
 
 @end

@@ -18,7 +18,7 @@
 
 - (BOOL)conditionPasses:(id)passes registrationUser:(id)user
 {
-  v69[5] = *MEMORY[0x277D85DE8];
+  v68[5] = *MEMORY[0x277D85DE8];
   passesCopy = passes;
   userCopy = user;
   v7 = passesCopy;
@@ -53,9 +53,9 @@
         HMFGetLogIdentifier();
         v18 = v17 = v12;
         *buf = 138543618;
-        v59 = v18;
-        v60 = 2112;
-        v61 = uuid;
+        v58 = v18;
+        v59 = 2112;
+        v60 = uuid;
         _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Replacing HMPresenceEventUserTypeCurrentUser with HMPresenceEventUserTypeCustomUsers and userUUID: %@", buf, 0x16u);
 
         v12 = v17;
@@ -72,31 +72,31 @@
     v22 = presenceTypeForEventTypeAndGranularity();
     v23 = [MEMORY[0x277CD1D28] activationGranularityWithValue:granularityForEventType()];
     v24 = *MEMORY[0x277CD22F0];
-    v68[0] = *MEMORY[0x277CD22A0];
-    v68[1] = v24;
+    v67[0] = *MEMORY[0x277CD22A0];
+    v67[1] = v24;
     v25 = *MEMORY[0x277CD2308];
-    v69[0] = &unk_283E74FA8;
-    v69[1] = v25;
+    v68[0] = &unk_283E74FA8;
+    v68[1] = v25;
     v26 = *MEMORY[0x277CD24C8];
-    v69[2] = v22;
+    v68[2] = v22;
     v27 = *MEMORY[0x277CD24C0];
-    v68[2] = v26;
-    v68[3] = v27;
-    v55 = v23;
+    v67[2] = v26;
+    v67[3] = v27;
+    v54 = v23;
     number = [v23 number];
-    v69[3] = number;
-    v68[4] = *MEMORY[0x277CD24D0];
-    v56 = v12;
+    v68[3] = number;
+    v67[4] = *MEMORY[0x277CD24D0];
+    v55 = v12;
     allObjects = [v12 allObjects];
-    v69[4] = allObjects;
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:v68 count:5];
+    v68[4] = allObjects;
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:5];
 
     home = [(HMDPresenceNotificationConditionHandler *)self home];
-    v54 = v30;
+    v53 = v30;
     v32 = [HMDPresenceEventModel eventModelWithDictionary:v30 home:home eventTriggerUUID:0 message:0];
     v33 = [HMDPresenceEvent alloc];
     featuresDataSource = [(HMDPresenceNotificationConditionHandler *)self featuresDataSource];
-    v53 = v32;
+    v52 = v32;
     v35 = [(HMDPresenceEvent *)v33 initWithModel:v32 home:home featuresDataSource:featuresDataSource];
 
     presenceProvider = [(HMDPresenceNotificationConditionHandler *)self presenceProvider];
@@ -109,26 +109,26 @@
     if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v42 = v51 = v22;
+      v42 = v50 = v22;
       HMFBooleanToString();
-      v52 = v9;
+      v51 = v9;
       v44 = v43 = v7;
       *buf = 138544386;
-      v59 = v42;
-      v60 = 2112;
-      v61 = v44;
-      v62 = 2112;
-      v63 = v43;
-      v64 = 2112;
-      v65 = v35;
-      v66 = 2112;
-      v67 = v37;
+      v58 = v42;
+      v59 = 2112;
+      v60 = v44;
+      v61 = 2112;
+      v62 = v43;
+      v63 = 2112;
+      v64 = v35;
+      v65 = 2112;
+      v66 = v37;
       _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_INFO, "%{public}@Condition passes: %@ condition: %@ Presence Event: %@ Home Presence: %@", buf, 0x34u);
 
       v7 = v43;
-      v9 = v52;
+      v9 = v51;
 
-      v22 = v51;
+      v22 = v50;
     }
 
     objc_autoreleasePoolPop(v39);
@@ -143,9 +143,9 @@
     {
       v48 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v59 = v48;
-      v60 = 2112;
-      v61 = v7;
+      v58 = v48;
+      v59 = 2112;
+      v60 = v7;
       _os_log_impl(&dword_229538000, v47, OS_LOG_TYPE_ERROR, "%{public}@Attempting to evaluate a non-presence condition: %@", buf, 0x16u);
     }
 
@@ -153,7 +153,6 @@
     v38 = 0;
   }
 
-  v49 = *MEMORY[0x277D85DE8];
   return v38;
 }
 
@@ -228,10 +227,9 @@
 
 void __54__HMDPresenceNotificationConditionHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v6_260659;
-  logCategory__hmf_once_v6_260659 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v6_260659;
+  logCategory__hmf_once_v6_260659 = v0;
 }
 
 @end

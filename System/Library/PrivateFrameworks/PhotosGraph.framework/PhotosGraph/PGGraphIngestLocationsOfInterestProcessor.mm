@@ -15,7 +15,7 @@
 
 - (void)runWithGraphUpdate:(id)update progressBlock:(id)block
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = _Block_copy(block);
   v6 = 0.0;
   if (!v5 || (Current = CFAbsoluteTimeGetCurrent(), Current < 0.01))
@@ -58,9 +58,9 @@ LABEL_4:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      *v22 = "PGGraphIngestLocationsOfInterestProcessor";
-      *&v22[8] = 2048;
-      *&v22[10] = ((((v14 - v13) * v15.numer) / v15.denom) / 1000000.0);
+      *v21 = "PGGraphIngestLocationsOfInterestProcessor";
+      *&v21[8] = 2048;
+      *&v21[10] = ((((v14 - v13) * v15.numer) / v15.denom) / 1000000.0);
       _os_log_impl(&dword_22F0FC000, v17, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
     }
 
@@ -68,16 +68,16 @@ LABEL_4:
     {
       if (CFAbsoluteTimeGetCurrent() - v6 >= 0.01)
       {
-        v19 = 0;
-        v5[2](v5, &v19, 1.0);
-        if (numer_low | v19)
+        v18 = 0;
+        v5[2](v5, &v18, 1.0);
+        if (numer_low | v18)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v22 = 55;
-            *&v22[4] = 2080;
-            *&v22[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestLocationsOfInterestProcessor.m";
+            *v21 = 55;
+            *&v21[4] = 2080;
+            *&v21[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestLocationsOfInterestProcessor.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
         }
@@ -90,15 +90,13 @@ LABEL_4:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    *v22 = 48;
-    *&v22[4] = 2080;
-    *&v22[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestLocationsOfInterestProcessor.m";
+    *v21 = 48;
+    *&v21[4] = 2080;
+    *&v21[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Ingest/Ingest Processing/PGGraphIngestLocationsOfInterestProcessor.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
 LABEL_18:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldRunWithGraphUpdate:(id)update

@@ -64,20 +64,20 @@
 
 - (void)beginPresenting
 {
-  objc_initWeak(&location, self);
-  v3 = [DROnDemandFileProviderPresenter presentedItemOperationQueue]_0();
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = sub_10000AA3C;
-  v5[3] = &unk_100054DC8;
-  objc_copyWeak(&v6, &location);
-  v5[4] = self;
-  [v3 addOperationWithBlock:v5];
+  inited = objc_initWeak(&location, self);
+  v4 = [DROnDemandFileProviderPresenter presentedItemOperationQueue]_0(inited);
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_10000AA3C;
+  v7[3] = &unk_100054DC8;
+  objc_copyWeak(&v8, &location);
+  v7[4] = self;
+  [v4 addOperationWithBlock:v7];
 
-  v4 = [DROnDemandFileProviderPresenter presentedItemOperationQueue]_0();
-  [v4 waitUntilAllOperationsAreFinished];
+  v6 = [DROnDemandFileProviderPresenter presentedItemOperationQueue]_0(v5);
+  [v6 waitUntilAllOperationsAreFinished];
 
-  objc_destroyWeak(&v6);
+  objc_destroyWeak(&v8);
   objc_destroyWeak(&location);
 }
 
@@ -88,9 +88,9 @@
     sub_10002FC30();
   }
 
-  v1 = qword_1000634E0;
+  v2 = qword_1000634E0;
 
-  return v1;
+  return v2;
 }
 
 - (void)_operationQueue_invalidate
@@ -101,21 +101,20 @@
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       fileURL = self->_fileURL;
-      v9 = 138412290;
-      v10 = fileURL;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Invalidating file presenter at URL %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = fileURL;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Invalidating file presenter at URL %@", &v8, 0xCu);
     }
 
     self->_operationQueue_valid = 0;
     v5 = +[NSFileManager defaultManager];
     [v5 removeItemAtURL:self->_folderURL error:0];
 
-    sourceURLWrapper = self->_sourceURLWrapper;
-    if ((objc_opt_respondsToSelector() & 1) == 0 || ([(PBSecurityScopedURLWrapper *)self->_sourceURLWrapper fpItem], v7 = objc_claimAutoreleasedReturnValue(), v7, !v7))
+    if ((objc_opt_respondsToSelector() & 1) == 0 || ([(PBSecurityScopedURLWrapper *)self->_sourceURLWrapper fpItem], v6 = objc_claimAutoreleasedReturnValue(), v6, !v6))
     {
       if (self->_shouldEvictWhenDone)
       {
-        v8 = [(PBSecurityScopedURLWrapper *)self->_sourceURLWrapper url];
+        v7 = [(PBSecurityScopedURLWrapper *)self->_sourceURLWrapper url];
         FPEvictItem();
       }
     }
@@ -152,63 +151,62 @@
   {
     fileURL = self->_fileURL;
     *buf = 138412290;
-    v36 = fileURL;
+    v35 = fileURL;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Cloning file provider data to URL %@", buf, 0xCu);
   }
 
   v7 = self->_fileURL;
   v8 = self->_sourceURLWrapper;
   self->_operationQueue_hasObservedEvent = 1;
-  sourceURLWrapper = self->_sourceURLWrapper;
-  if ((objc_opt_respondsToSelector() & 1) != 0 && ([(PBSecurityScopedURLWrapper *)self->_sourceURLWrapper fpItem], v10 = objc_claimAutoreleasedReturnValue(), v10, v10))
+  if ((objc_opt_respondsToSelector() & 1) != 0 && ([(PBSecurityScopedURLWrapper *)self->_sourceURLWrapper fpItem], v9 = objc_claimAutoreleasedReturnValue(), v9, v9))
   {
-    v11 = DRLogTarget();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v10 = DRLogTarget();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v36 = v7;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Exporting file provider data to URL %@", buf, 0xCu);
+      v35 = v7;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Exporting file provider data to URL %@", buf, 0xCu);
     }
 
-    v12 = +[FPItemManager defaultManager];
+    v11 = +[FPItemManager defaultManager];
     fpItem = [(PBSecurityScopedURLWrapper *)self->_sourceURLWrapper fpItem];
-    v14 = self->_fileURL;
-    v30[0] = _NSConcreteStackBlock;
-    v30[1] = 3221225472;
-    v30[2] = sub_10000B204;
-    v30[3] = &unk_100054DF0;
+    v13 = self->_fileURL;
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_10000B204;
+    v29[3] = &unk_100054DF0;
     selfCopy = self;
-    v33 = readerCopy;
-    v31 = v7;
-    v15 = v7;
-    [v12 recursivelyExportItem:fpItem toURL:v14 completionHandler:v30];
+    v32 = readerCopy;
+    v30 = v7;
+    v14 = v7;
+    [v11 recursivelyExportItem:fpItem toURL:v13 completionHandler:v29];
 
-    v16 = v33;
+    v15 = v32;
   }
 
   else
   {
-    v16 = [[NSFileCoordinator alloc] initWithFilePresenter:0];
-    v17 = [(PBSecurityScopedURLWrapper *)self->_sourceURLWrapper url];
-    startAccessingSecurityScopedResource = [v17 startAccessingSecurityScopedResource];
+    v15 = [[NSFileCoordinator alloc] initWithFilePresenter:0];
+    v16 = [(PBSecurityScopedURLWrapper *)self->_sourceURLWrapper url];
+    startAccessingSecurityScopedResource = [v16 startAccessingSecurityScopedResource];
 
-    v19 = [(PBSecurityScopedURLWrapper *)self->_sourceURLWrapper url];
-    v20 = [NSFileAccessIntent readingIntentWithURL:v19 options:1];
+    v18 = [(PBSecurityScopedURLWrapper *)self->_sourceURLWrapper url];
+    v19 = [NSFileAccessIntent readingIntentWithURL:v18 options:1];
 
-    v34 = v20;
-    v21 = [NSArray arrayWithObjects:&v34 count:1];
-    v22 = [DROnDemandFileProviderPresenter presentedItemOperationQueue]_0();
-    v24[0] = _NSConcreteStackBlock;
-    v24[1] = 3221225472;
-    v24[2] = sub_10000B3B4;
-    v24[3] = &unk_100054E18;
-    v25 = v8;
-    v26 = v7;
+    v33 = v19;
+    v20 = [NSArray arrayWithObjects:&v33 count:1];
+    v21 = [DROnDemandFileProviderPresenter presentedItemOperationQueue]_0(v20);
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_10000B3B4;
+    v23[3] = &unk_100054E18;
+    v24 = v8;
+    v25 = v7;
     selfCopy2 = self;
-    v28 = readerCopy;
-    v29 = startAccessingSecurityScopedResource;
-    v23 = v7;
-    [v16 coordinateAccessWithIntents:v21 queue:v22 byAccessor:v24];
+    v27 = readerCopy;
+    v28 = startAccessingSecurityScopedResource;
+    v22 = v7;
+    [v15 coordinateAccessWithIntents:v20 queue:v21 byAccessor:v23];
   }
 }
 

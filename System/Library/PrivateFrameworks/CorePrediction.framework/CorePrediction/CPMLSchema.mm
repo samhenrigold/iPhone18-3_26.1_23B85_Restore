@@ -34,14 +34,14 @@
 
 - (CPMLSchema)initWithPlist:(id)plist
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   plistCopy = plist;
-  v83.receiver = self;
-  v83.super_class = CPMLSchema;
-  v5 = [(CPMLSchema *)&v83 init];
+  v82.receiver = self;
+  v82.super_class = CPMLSchema;
+  v5 = [(CPMLSchema *)&v82 init];
   if (v5)
   {
-    v65 = plistCopy;
+    v64 = plistCopy;
     v6 = [plistCopy objectForKey:@"schema"];
     schema = v5->schema;
     v5->schema = v6;
@@ -84,30 +84,30 @@
       v24 = 0;
       v25 = 0;
       v26 = 0;
-      v66 = v5;
+      v65 = v5;
       do
       {
-        v76 = v24;
+        v75 = v24;
         v27 = [(NSMutableArray *)v5->schema objectAtIndexedSubscript:v26];
         v28 = [v27 objectForKey:@"Header"];
         v29 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"CPMLcol%ld_", v26];
-        v75 = v28;
+        v74 = v28;
         v30 = [v28 stringByReplacingOccurrencesOfString:@" " withString:@"_"];
         v31 = [v30 stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
 
         v32 = objc_opt_new();
-        v74 = v29;
+        v73 = v29;
         [v32 appendString:v29];
-        v73 = v31;
+        v72 = v31;
         [v32 appendString:v31];
-        v72 = v32;
+        v71 = v32;
         [(NSMutableArray *)v5->attribute addObject:v32];
-        v71 = [v27 objectForKey:@"HeaderDef"];
+        v70 = [v27 objectForKey:@"HeaderDef"];
         [(NSMutableArray *)v5->schemaHDef addObject:?];
-        v78 = v27;
+        v77 = v27;
         v33 = [v27 objectForKey:@"reMapTable"];
         v34 = v5->nsRemapTable;
-        v70 = v33;
+        v69 = v33;
         if (v33)
         {
           [(NSMutableArray *)v34 addObject:v33];
@@ -119,10 +119,10 @@
           [(NSMutableArray *)v34 addObject:v35];
         }
 
-        v24 = v76;
+        v24 = v75;
         v36 = [v27 objectForKey:@"predictedValue"];
         v37 = v36;
-        if (!((v36 == 0) | v76 & 1))
+        if (!((v36 == 0) | v75 & 1))
         {
           if ([v36 BOOLValue])
           {
@@ -149,35 +149,35 @@
           [(NSMutableArray *)v39 addObject:null];
         }
 
-        v41 = [v78 objectForKey:@"categoricalData"];
-        v69 = v41;
+        v41 = [v77 objectForKey:@"categoricalData"];
+        v68 = v41;
         if (v41)
         {
           v42 = v41;
-          v77 = v24;
-          v67 = v26;
-          v68 = v25;
+          v76 = v24;
+          v66 = v26;
+          v67 = v25;
           v43 = objc_opt_new();
+          v78 = 0u;
           v79 = 0u;
           v80 = 0u;
           v81 = 0u;
-          v82 = 0u;
           v44 = v42;
-          v45 = [v44 countByEnumeratingWithState:&v79 objects:v84 count:16];
+          v45 = [v44 countByEnumeratingWithState:&v78 objects:v83 count:16];
           if (v45)
           {
             v46 = v45;
-            v47 = *v80;
+            v47 = *v79;
             do
             {
               for (i = 0; i != v46; ++i)
               {
-                if (*v80 != v47)
+                if (*v79 != v47)
                 {
                   objc_enumerationMutation(v44);
                 }
 
-                v49 = *(*(&v79 + 1) + 8 * i);
+                v49 = *(*(&v78 + 1) + 8 * i);
                 v50 = [v43 objectForKey:v49];
                 if (v50)
                 {
@@ -190,17 +190,17 @@
                 }
               }
 
-              v46 = [v44 countByEnumeratingWithState:&v79 objects:v84 count:16];
+              v46 = [v44 countByEnumeratingWithState:&v78 objects:v83 count:16];
             }
 
             while (v46);
           }
 
-          v5 = v66;
-          [(NSMutableArray *)v66->_categoricalDataList addObject:v44];
-          LODWORD(v25) = v68;
-          v26 = v67;
-          v24 = v77;
+          v5 = v65;
+          [(NSMutableArray *)v65->_categoricalDataList addObject:v44];
+          LODWORD(v25) = v67;
+          v26 = v66;
+          v24 = v76;
         }
 
         else
@@ -212,8 +212,8 @@
 
         v25 = (v25 + 1);
 
-        v52 = [v78 objectForKey:@"substituteValue"];
-        v53 = [v78 objectForKey:@"substitutionMatch"];
+        v52 = [v77 objectForKey:@"substituteValue"];
+        v53 = [v77 objectForKey:@"substitutionMatch"];
         if (!v52)
         {
           v52 = &stru_2859288F8;
@@ -268,10 +268,9 @@
     schemaHeader = v5->schemaHeader;
     v5->schemaHeader = v61;
 
-    plistCopy = v65;
+    plistCopy = v64;
   }
 
-  v63 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

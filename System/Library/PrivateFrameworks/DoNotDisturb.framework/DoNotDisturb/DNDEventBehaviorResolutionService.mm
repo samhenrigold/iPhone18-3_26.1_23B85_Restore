@@ -91,7 +91,7 @@ void __64__DNDEventBehaviorResolutionService_serviceForClientIdentifier___block_
 
 - (id)resolveBehaviorForEventDetails:(id)details error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   detailsCopy = details;
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -111,35 +111,35 @@ void __64__DNDEventBehaviorResolutionService_serviceForClientIdentifier___block_
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v29 = __Block_byref_object_copy__4;
-  v30 = __Block_byref_object_dispose__4;
-  v31 = 0;
-  v18 = 0;
-  v19[0] = &v18;
-  v19[1] = 0x3032000000;
-  v19[2] = __Block_byref_object_copy__4;
-  v19[3] = __Block_byref_object_dispose__4;
-  v20 = 0;
+  v28 = __Block_byref_object_copy__4;
+  v29 = __Block_byref_object_dispose__4;
+  v30 = 0;
+  v17 = 0;
+  v18[0] = &v17;
+  v18[1] = 0x3032000000;
+  v18[2] = __Block_byref_object_copy__4;
+  v18[3] = __Block_byref_object_dispose__4;
+  v19 = 0;
   v10 = +[DNDRemoteServiceConnection sharedInstance];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __74__DNDEventBehaviorResolutionService_resolveBehaviorForEventDetails_error___block_invoke;
-  v17[3] = &unk_27843A810;
-  v17[4] = buf;
-  v17[5] = &v18;
-  [v10 resolveBehaviorForEventDetails:detailsCopy requestDetails:v8 completionHandler:v17];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __74__DNDEventBehaviorResolutionService_resolveBehaviorForEventDetails_error___block_invoke;
+  v16[3] = &unk_27843A810;
+  v16[4] = buf;
+  v16[5] = &v17;
+  [v10 resolveBehaviorForEventDetails:detailsCopy requestDetails:v8 completionHandler:v16];
 
-  if (*(v19[0] + 40))
+  if (*(v18[0] + 40))
   {
     v11 = DNDLogBehaviorResolution;
     if (os_log_type_enabled(DNDLogBehaviorResolution, OS_LOG_TYPE_ERROR))
     {
-      [(DNDEventBehaviorResolutionService *)v8 resolveBehaviorForEventDetails:v19 error:v11];
+      [(DNDEventBehaviorResolutionService *)v8 resolveBehaviorForEventDetails:v18 error:v11];
     }
 
     if (error)
     {
-      *error = *(v19[0] + 40);
+      *error = *(v18[0] + 40);
     }
   }
 
@@ -147,21 +147,20 @@ void __64__DNDEventBehaviorResolutionService_serviceForClientIdentifier___block_
   if (os_log_type_enabled(DNDLogBehaviorResolution, OS_LOG_TYPE_DEFAULT))
   {
     v13 = *(*&buf[8] + 40);
-    *v22 = 138543874;
-    v23 = v8;
-    v24 = 2112;
-    v25 = detailsCopy;
-    v26 = 2112;
-    v27 = v13;
-    _os_log_impl(&dword_22002F000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Resolved event, details=%@ behavior=%@", v22, 0x20u);
+    *v21 = 138543874;
+    v22 = v8;
+    v23 = 2112;
+    v24 = detailsCopy;
+    v25 = 2112;
+    v26 = v13;
+    _os_log_impl(&dword_22002F000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Resolved event, details=%@ behavior=%@", v21, 0x20u);
   }
 
   os_activity_scope_leave(&state);
   v14 = *(*&buf[8] + 40);
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v17, 8);
 
   _Block_object_dispose(buf, 8);
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -182,14 +181,13 @@ void __74__DNDEventBehaviorResolutionService_resolveBehaviorForEventDetails_erro
 
 - (void)resolveBehaviorForEventDetails:(os_log_t)log error:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(*a2 + 40);
-  v5 = 138543618;
-  v6 = a1;
-  v7 = 2114;
-  v8 = v3;
-  _os_log_error_impl(&dword_22002F000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Error when resolving behavior, error='%{public}@'", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543618;
+  v5 = a1;
+  v6 = 2114;
+  v7 = v3;
+  _os_log_error_impl(&dword_22002F000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Error when resolving behavior, error='%{public}@'", &v4, 0x16u);
 }
 
 @end

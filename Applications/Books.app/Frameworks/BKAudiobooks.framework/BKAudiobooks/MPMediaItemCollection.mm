@@ -248,27 +248,27 @@ LABEL_11:
 - (id)bk_cloudItems
 {
   v3 = objc_opt_new();
-  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
   items = [(MPMediaItemCollection *)self items];
-  v5 = [items countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [items countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v17;
     v8 = MPMediaItemPropertyPurchaseHistoryID;
     do
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v16 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(items);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         v11 = [v10 valueForProperty:v8];
         if ([v10 mediaType] == &dword_4 && objc_msgSend(v11, "longLongValue"))
         {
@@ -276,24 +276,25 @@ LABEL_11:
         }
       }
 
-      v6 = [items countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [items countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
   }
 
-  if ([v3 count] >= 2)
+  v12 = [v3 count];
+  if (v12 >= 2)
   {
-    v12 = BKAudiobooksLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = BKAudiobooksLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_21920(v3, v12);
+      sub_21920(v3, v13);
     }
   }
 
-  v13 = [v3 copy];
+  v14 = [v3 copy];
 
-  return v13;
+  return v14;
 }
 
 - (id)bk_mostRecentListeningProgress

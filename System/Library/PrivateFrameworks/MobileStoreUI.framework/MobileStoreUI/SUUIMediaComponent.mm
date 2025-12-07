@@ -114,7 +114,7 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    if ([v18 isEqualToString:@"audio"])
+    if (objc_msgSend_isEqualToString_(v18))
     {
       v19 = 1;
 LABEL_17:
@@ -122,7 +122,7 @@ LABEL_17:
       goto LABEL_18;
     }
 
-    if ([v18 isEqualToString:@"video"])
+    if (objc_msgSend_isEqualToString_(v18))
     {
       v19 = 2;
       goto LABEL_17;
@@ -257,7 +257,7 @@ LABEL_33:
 - (id)valueForMetricsField:(id)field
 {
   fieldCopy = field;
-  if ([fieldCopy isEqualToString:*MEMORY[0x277D6A490]])
+  if (objc_msgSend_isEqualToString_(fieldCopy))
   {
     title = [MEMORY[0x277CCABB0] numberWithLongLong:self->_mediaIdentifier];
 LABEL_6:
@@ -265,7 +265,7 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  if (([fieldCopy isEqualToString:*MEMORY[0x277D6A4A0]] & 1) != 0 || objc_msgSend(fieldCopy, "isEqualToString:", *MEMORY[0x277D6A4A8]))
+  if ((objc_msgSend_isEqualToString_(fieldCopy) & 1) != 0 || objc_msgSend_isEqualToString_(fieldCopy))
   {
     title = [(SUUIMediaComponent *)self title];
     goto LABEL_6;

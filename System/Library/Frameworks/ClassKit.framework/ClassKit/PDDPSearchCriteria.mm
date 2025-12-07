@@ -1,8 +1,10 @@
 @interface PDDPSearchCriteria
 - (BOOL)isEqual:(id)equal;
+- (id)compareOptionsAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)searchOperatorAsString:(int)string;
 - (int)StringAsCompareOptions:(id)options;
 - (int)StringAsSearchOperator:(id)operator;
 - (int)compareOptions;
@@ -42,6 +44,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)searchOperatorAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1002058B0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsSearchOperator:(id)operator
@@ -106,6 +123,86 @@
   {
     return 0;
   }
+}
+
+- (id)compareOptionsAsString:(int)string
+{
+  if (string > 7)
+  {
+    if (string > 127)
+    {
+      if (string == 128)
+      {
+        v4 = @"SC_OPTIONS_DIACRITIC_INSENSITIVE";
+
+        return v4;
+      }
+
+      if (string == 256)
+      {
+        v4 = @"SC_OPTIONS_WIDTH_INSENSITIVE";
+
+        return v4;
+      }
+    }
+
+    else
+    {
+      if (string == 8)
+      {
+        v4 = @"SC_OPTIONS_ANCHORED";
+
+        return v4;
+      }
+
+      if (string == 64)
+      {
+        v4 = @"SC_OPTIONS_NUMERIC";
+
+        return v4;
+      }
+    }
+
+LABEL_36:
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+
+    return v4;
+  }
+
+  if (string > 1)
+  {
+    if (string == 2)
+    {
+      v4 = @"SC_OPTIONS_LITERAL";
+
+      return v4;
+    }
+
+    if (string == 4)
+    {
+      v4 = @"SC_OPTIONS_BACKWARDS";
+
+      return v4;
+    }
+
+    goto LABEL_36;
+  }
+
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"SC_OPTIONS_CASE_INSENSITIVE";
+
+      return v4;
+    }
+
+    goto LABEL_36;
+  }
+
+  v4 = @"SC_OPTIONS_NONE";
+
+  return v4;
 }
 
 - (int)StringAsCompareOptions:(id)options
@@ -284,31 +381,29 @@ LABEL_32:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_fieldName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    searchOperator = self->_searchOperator;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_value)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    compareOptions = self->_compareOptions;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 

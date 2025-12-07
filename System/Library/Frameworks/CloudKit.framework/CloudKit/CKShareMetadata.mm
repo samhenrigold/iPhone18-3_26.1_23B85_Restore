@@ -106,21 +106,21 @@
 
 - (NSString)baseToken
 {
-  v23[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   v3 = objc_msgSend_publicToken(self, a2, v2);
   v6 = v3;
   if (v3)
   {
     v7 = objc_msgSend_CKBase64URLSafeString(v3, v4, v5);
     v10 = objc_msgSend_length(v7, v8, v9);
-    v22[0] = 3;
-    v22[1] = HIBYTE(v10);
-    v22[2] = v10;
-    v12 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v11, v22, 3);
+    v21[0] = 3;
+    v21[1] = HIBYTE(v10);
+    v21[2] = v10;
+    v12 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v11, v21, 3);
     v15 = objc_msgSend_CKBase64URLSafeString(v12, v13, v14);
-    v23[0] = v15;
-    v23[1] = v7;
-    v17 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v16, v23, 2);
+    v22[0] = v15;
+    v22[1] = v7;
+    v17 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v16, v22, 2);
     v19 = objc_msgSend_componentsJoinedByString_(v17, v18, &stru_1EFA32970);
   }
 
@@ -128,8 +128,6 @@
   {
     v19 = 0;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -277,7 +275,7 @@ LABEL_28:
 
 - (void)CKAssignToContainerWithID:(id)d
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v7 = objc_msgSend_containerID(self, v5, v6);
 
@@ -302,13 +300,11 @@ LABEL_28:
     v22 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
     {
-      v24 = 138412290;
-      v25 = dCopy;
-      _os_log_error_impl(&dword_1883EA000, v22, OS_LOG_TYPE_ERROR, "No container identifier set on CKShareMetadata being assigned to %@", &v24, 0xCu);
+      v23 = 138412290;
+      v24 = dCopy;
+      _os_log_error_impl(&dword_1883EA000, v22, OS_LOG_TYPE_ERROR, "No container identifier set on CKShareMetadata being assigned to %@", &v23, 0xCu);
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (CKShareParticipantType)participantType
@@ -352,7 +348,7 @@ LABEL_28:
 
 - (void)fillAnonymousCKUserID:(id)d
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v7 = objc_msgSend_share(self, v5, v6);
   v10 = objc_msgSend_share(self, v8, v9);
@@ -377,41 +373,40 @@ LABEL_28:
   objc_msgSend_replaceRecordIDWith_(v37, v46, v45);
 
   v47 = objc_opt_new();
+  v60 = 0u;
   v61 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v64 = 0u;
   v50 = objc_msgSend_sharedItemHierarchyIDs(self, v48, v49, 0);
-  v52 = objc_msgSend_countByEnumeratingWithState_objects_count_(v50, v51, &v61, v65, 16);
+  v52 = objc_msgSend_countByEnumeratingWithState_objects_count_(v50, v51, &v60, v64, 16);
   if (v52)
   {
     v54 = v52;
-    v55 = *v62;
+    v55 = *v61;
     do
     {
       v56 = 0;
       do
       {
-        if (*v62 != v55)
+        if (*v61 != v55)
         {
           objc_enumerationMutation(v50);
         }
 
-        v57 = objc_msgSend_copyWithAnonymousCKUserID_(*(*(&v61 + 1) + 8 * v56), v53, dCopy);
+        v57 = objc_msgSend_copyWithAnonymousCKUserID_(*(*(&v60 + 1) + 8 * v56), v53, dCopy);
         objc_msgSend_addObject_(v47, v58, v57);
 
         ++v56;
       }
 
       while (v54 != v56);
-      v54 = objc_msgSend_countByEnumeratingWithState_objects_count_(v50, v53, &v61, v65, 16);
+      v54 = objc_msgSend_countByEnumeratingWithState_objects_count_(v50, v53, &v60, v64, 16);
     }
 
     while (v54);
   }
 
   objc_msgSend_setSharedItemHierarchyIDs_(self, v59, v47);
-  v60 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isCallingParticipantUsingOTL
@@ -616,11 +611,11 @@ LABEL_28:
 
 - (CKShareMetadata)initWithCoder:(id)coder
 {
-  v86[3] = *MEMORY[0x1E69E9840];
+  v85[3] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v85.receiver = self;
-  v85.super_class = CKShareMetadata;
-  v5 = [(CKShareMetadata *)&v85 init];
+  v84.receiver = self;
+  v84.super_class = CKShareMetadata;
+  v5 = [(CKShareMetadata *)&v84 init];
   if (v5)
   {
     context = objc_autoreleasePoolPush();
@@ -687,10 +682,10 @@ LABEL_28:
     v5->_privateToken = v56;
 
     v58 = MEMORY[0x1E695DFD8];
-    v86[0] = objc_opt_class();
-    v86[1] = objc_opt_class();
-    v86[2] = objc_opt_class();
-    v60 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v59, v86, 3);
+    v85[0] = objc_opt_class();
+    v85[1] = objc_opt_class();
+    v85[2] = objc_opt_class();
+    v60 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v59, v85, 3);
     v62 = objc_msgSend_setWithArray_(v58, v61, v60);
     v64 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v63, v62, @"OutOfNetworkMatches");
     outOfNetworkMatches = v5->_outOfNetworkMatches;
@@ -720,7 +715,6 @@ LABEL_28:
     objc_autoreleasePoolPop(context);
   }
 
-  v82 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -754,148 +748,24 @@ LABEL_28:
       v11 = objc_msgSend_containerID(v5, v9, v10);
       v12 = CKObjectsAreBothNilOrEqual(v8, v11);
 
-      if (!v12)
-      {
-        goto LABEL_21;
-      }
-
-      v15 = objc_msgSend_share(self, v13, v14);
-      v18 = objc_msgSend_share(v5, v16, v17);
-      v19 = CKObjectsAreBothNilOrEqual(v15, v18);
-
-      if (!v19)
-      {
-        goto LABEL_21;
-      }
-
-      v22 = objc_msgSend_rootRecord(self, v20, v21);
-      v25 = objc_msgSend_rootRecord(v5, v23, v24);
-      v26 = CKObjectsAreBothNilOrEqual(v22, v25);
-
-      if (!v26)
-      {
-        goto LABEL_21;
-      }
-
-      v29 = objc_msgSend_hierarchicalRootRecordID(self, v27, v28);
-      v32 = objc_msgSend_hierarchicalRootRecordID(v5, v30, v31);
-      v33 = CKObjectsAreBothNilOrEqual(v29, v32);
-
-      if (!v33)
-      {
-        goto LABEL_21;
-      }
-
-      v36 = objc_msgSend_rootRecordType(self, v34, v35);
-      v39 = objc_msgSend_rootRecordType(v5, v37, v38);
-      v40 = CKObjectsAreBothNilOrEqual(v36, v39);
-
-      if (!v40)
-      {
-        goto LABEL_21;
-      }
-
-      v43 = objc_msgSend_callingParticipant(self, v41, v42);
-      v46 = objc_msgSend_callingParticipant(v5, v44, v45);
-      v47 = CKObjectsAreBothNilOrEqual(v43, v46);
-
-      if (!v47)
-      {
-        goto LABEL_21;
-      }
-
-      v50 = objc_msgSend_participantRole(self, v48, v49);
-      if (v50 != objc_msgSend_participantRole(v5, v51, v52))
-      {
-        goto LABEL_21;
-      }
-
-      v55 = objc_msgSend_participantStatus(self, v53, v54);
-      if (v55 != objc_msgSend_participantStatus(v5, v56, v57))
-      {
-        goto LABEL_21;
-      }
-
-      v60 = objc_msgSend_participantPermission(self, v58, v59);
-      if (v60 != objc_msgSend_participantPermission(v5, v61, v62))
-      {
-        goto LABEL_21;
-      }
-
-      v65 = objc_msgSend_ownerIdentity(self, v63, v64);
-      v68 = objc_msgSend_ownerIdentity(v5, v66, v67);
-      v69 = CKObjectsAreBothNilOrEqual(v65, v68);
-
-      if (!v69)
-      {
-        goto LABEL_21;
-      }
-
-      v72 = objc_msgSend_protectedFullToken(self, v70, v71);
-      v75 = objc_msgSend_protectedFullToken(v5, v73, v74);
-      v76 = CKObjectsAreBothNilOrEqual(v72, v75);
-
-      if (!v76)
-      {
-        goto LABEL_21;
-      }
-
-      v79 = objc_msgSend_publicToken(self, v77, v78);
-      v82 = objc_msgSend_publicToken(v5, v80, v81);
-      v83 = CKObjectsAreBothNilOrEqual(v79, v82);
-
-      if (!v83)
-      {
-        goto LABEL_21;
-      }
-
-      v86 = objc_msgSend_privateToken(self, v84, v85);
-      v89 = objc_msgSend_privateToken(v5, v87, v88);
-      v90 = CKObjectsAreBothNilOrEqual(v86, v89);
-
-      if (!v90)
-      {
-        goto LABEL_21;
-      }
-
-      v93 = objc_msgSend_outOfNetworkMatches(self, v91, v92);
-      v96 = objc_msgSend_outOfNetworkMatches(v5, v94, v95);
-      v97 = CKObjectsAreBothNilOrEqual(v93, v96);
-
-      if (!v97)
-      {
-        goto LABEL_21;
-      }
-
-      v100 = objc_msgSend_encryptedData(self, v98, v99);
-      v103 = objc_msgSend_encryptedData(v5, v101, v102);
-      v104 = CKObjectsAreBothNilOrEqual(v100, v103);
-
-      if (!v104)
-      {
-        goto LABEL_21;
-      }
-
-      v107 = objc_msgSend_invitationToken(self, v105, v106);
-      v110 = objc_msgSend_invitationToken(v5, v108, v109);
-      v111 = CKObjectsAreBothNilOrEqual(v107, v110);
-
-      if (!v111)
-      {
-        goto LABEL_21;
-      }
-
-      v114 = objc_msgSend_selectedAccountID(self, v112, v113);
-      v117 = objc_msgSend_selectedAccountID(v5, v115, v116);
-      v118 = CKObjectsAreBothNilOrEqual(v114, v117);
-
-      if (!v118)
-      {
-        goto LABEL_21;
-      }
-
-      v121 = objc_msgSend_accessRequestsEnabled(self, v119, v120);
-      if (v121 == objc_msgSend_accessRequestsEnabled(v5, v122, v123))
+      if (v12
+        && (objc_msgSend_share(self, v13, v14), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend_share(v5, v16, v17), v18 = objc_claimAutoreleasedReturnValue(), v19 = CKObjectsAreBothNilOrEqual(v15, v18), v18, v15, v19)
+        && (objc_msgSend_rootRecord(self, v20, v21), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend_rootRecord(v5, v23, v24), v25 = objc_claimAutoreleasedReturnValue(), v26 = CKObjectsAreBothNilOrEqual(v22, v25), v25, v22, v26)
+        && (objc_msgSend_hierarchicalRootRecordID(self, v27, v28), v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend_hierarchicalRootRecordID(v5, v30, v31), v32 = objc_claimAutoreleasedReturnValue(), v33 = CKObjectsAreBothNilOrEqual(v29, v32), v32, v29, v33)
+        && (objc_msgSend_rootRecordType(self, v34, v35), v36 = objc_claimAutoreleasedReturnValue(), objc_msgSend_rootRecordType(v5, v37, v38), v39 = objc_claimAutoreleasedReturnValue(), v40 = CKObjectsAreBothNilOrEqual(v36, v39), v39, v36, v40)
+        && (objc_msgSend_callingParticipant(self, v41, v42), v43 = objc_claimAutoreleasedReturnValue(), objc_msgSend_callingParticipant(v5, v44, v45), v46 = objc_claimAutoreleasedReturnValue(), v47 = CKObjectsAreBothNilOrEqual(v43, v46), v46, v43, v47)
+        && (v50 = objc_msgSend_participantRole(self, v48, v49), v50 == objc_msgSend_participantRole(v5, v51, v52))
+        && (v55 = objc_msgSend_participantStatus(self, v53, v54), v55 == objc_msgSend_participantStatus(v5, v56, v57))
+        && (v60 = objc_msgSend_participantPermission(self, v58, v59), v60 == objc_msgSend_participantPermission(v5, v61, v62))
+        && (objc_msgSend_ownerIdentity(self, v63, v64), v65 = objc_claimAutoreleasedReturnValue(), objc_msgSend_ownerIdentity(v5, v66, v67), v68 = objc_claimAutoreleasedReturnValue(), v69 = CKObjectsAreBothNilOrEqual(v65, v68), v68, v65, v69)
+        && (objc_msgSend_protectedFullToken(self, v70, v71), v72 = objc_claimAutoreleasedReturnValue(), objc_msgSend_protectedFullToken(v5, v73, v74), v75 = objc_claimAutoreleasedReturnValue(), v76 = CKObjectsAreBothNilOrEqual(v72, v75), v75, v72, v76)
+        && (objc_msgSend_publicToken(self, v77, v78), v79 = objc_claimAutoreleasedReturnValue(), objc_msgSend_publicToken(v5, v80, v81), v82 = objc_claimAutoreleasedReturnValue(), v83 = CKObjectsAreBothNilOrEqual(v79, v82), v82, v79, v83)
+        && (objc_msgSend_privateToken(self, v84, v85), v86 = objc_claimAutoreleasedReturnValue(), objc_msgSend_privateToken(v5, v87, v88), v89 = objc_claimAutoreleasedReturnValue(), v90 = CKObjectsAreBothNilOrEqual(v86, v89), v89, v86, v90)
+        && (objc_msgSend_outOfNetworkMatches(self, v91, v92), v93 = objc_claimAutoreleasedReturnValue(), objc_msgSend_outOfNetworkMatches(v5, v94, v95), v96 = objc_claimAutoreleasedReturnValue(), v97 = CKObjectsAreBothNilOrEqual(v93, v96), v96, v93, v97)
+        && (objc_msgSend_encryptedData(self, v98, v99), v100 = objc_claimAutoreleasedReturnValue(), objc_msgSend_encryptedData(v5, v101, v102), v103 = objc_claimAutoreleasedReturnValue(), v104 = CKObjectsAreBothNilOrEqual(v100, v103), v103, v100, v104)
+        && (objc_msgSend_invitationToken(self, v105, v106), v107 = objc_claimAutoreleasedReturnValue(), objc_msgSend_invitationToken(v5, v108, v109), v110 = objc_claimAutoreleasedReturnValue(), v111 = CKObjectsAreBothNilOrEqual(v107, v110), v110, v107, v111)
+        && (objc_msgSend_selectedAccountID(self, v112, v113), v114 = objc_claimAutoreleasedReturnValue(), objc_msgSend_selectedAccountID(v5, v115, v116), v117 = objc_claimAutoreleasedReturnValue(), v118 = CKObjectsAreBothNilOrEqual(v114, v117), v117, v114, v118)
+        && (v121 = objc_msgSend_accessRequestsEnabled(self, v119, v120), v121 == objc_msgSend_accessRequestsEnabled(v5, v122, v123)))
       {
         v128 = objc_msgSend_requiredFeatures(self, v124, v125);
         v131 = objc_msgSend_requiredFeatures(v5, v129, v130);
@@ -904,7 +774,6 @@ LABEL_28:
 
       else
       {
-LABEL_21:
         v126 = 0;
       }
     }

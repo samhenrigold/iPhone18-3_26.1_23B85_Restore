@@ -1,6 +1,7 @@
 @interface PBUserAuthorizationLedger
 - (PBUserAuthorizationLedger)init;
 - (unint64_t)authorizationDecisionForAuditTokenInfo:(id)info timestamp:(unint64_t)timestamp;
+- (void)recordUserAuthorizationDecision:(BOOL)decision auditTokenInfo:(id)info;
 @end
 
 @implementation PBUserAuthorizationLedger
@@ -18,6 +19,21 @@
   }
 
   return v2;
+}
+
+- (void)recordUserAuthorizationDecision:(BOOL)decision auditTokenInfo:(id)info
+{
+  decisionCopy = decision;
+  infoCopy = info;
+  PBAssertIsOnCallbackQueue();
+  persistentIdentifier = [infoCopy persistentIdentifier];
+  if (persistentIdentifier || ([infoCopy bundleID], (persistentIdentifier = objc_claimAutoreleasedReturnValue()) != 0))
+  {
+    v7 = persistentIdentifier;
+    v8 = [[PBUserAuthorizationRecord alloc] initWithPasteAllowed:decisionCopy];
+    authorizationRecords = [(PBUserAuthorizationLedger *)self authorizationRecords];
+    [authorizationRecords setObject:v8 forKeyedSubscript:v7];
+  }
 }
 
 - (unint64_t)authorizationDecisionForAuditTokenInfo:(id)info timestamp:(unint64_t)timestamp

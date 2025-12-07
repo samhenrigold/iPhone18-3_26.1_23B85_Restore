@@ -44,9 +44,9 @@
 
 - ($32FA0F4B141605662A7EE1284C9FC7E2)sprites
 {
-  v4 = [(PXGSpriteDataStore *)self count]<< 32;
+  [(PXGSpriteDataStore *)self count];
 
-  return [(PXGSpriteDataStore *)self spritesInRange:v4];
+  return objc_msgSend_spritesInRange_(self);
 }
 
 - (NSString)diagnosticDescription
@@ -404,10 +404,10 @@ LABEL_14:
     [currentHandler handleFailureInMethod:a2 object:self file:@"PXGSpriteDataStore.m" lineNumber:181 description:{@"Invalid parameter not satisfying: %@", @"PXGSpriteIndexRangeMax(spriteIndexRange) <= fromSpriteDataStore.count"}];
   }
 
-  [(PXGSpriteDataStore *)self _mutableSpritesInRange:range];
+  objc_msgSend__mutableSpritesInRange_(self);
   if (storeCopy)
   {
-    [storeCopy _mutableSpritesInRange:range];
+    objc_msgSend__mutableSpritesInRange_(storeCopy);
   }
 
   memcpy(0, 0, 4 * v8);

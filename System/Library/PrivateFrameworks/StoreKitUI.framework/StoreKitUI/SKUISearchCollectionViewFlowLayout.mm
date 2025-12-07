@@ -141,7 +141,7 @@
   v13 = [objc_msgSend(objc_opt_class() "layoutAttributesClass")];
 
   [v13 setZIndex:1];
-  LODWORD(pathCopy) = [kindCopy isEqualToString:@"b"];
+  LODWORD(pathCopy) = objc_msgSend_isEqualToString_(kindCopy);
 
   if (pathCopy)
   {

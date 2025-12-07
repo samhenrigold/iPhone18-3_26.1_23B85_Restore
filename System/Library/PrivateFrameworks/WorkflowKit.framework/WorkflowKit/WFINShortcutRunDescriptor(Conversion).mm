@@ -27,21 +27,21 @@
 
 - (void)createWorkflowWithEnvironment:()Conversion database:completionHandler:
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v7 = a5;
   shortcut = [self shortcut];
   v9 = +[WFActionRegistry sharedRegistry];
-  v25 = 0;
-  v10 = [v9 createActionWithShortcut:shortcut error:&v25];
-  v11 = v25;
+  v24 = 0;
+  v10 = [v9 createActionWithShortcut:shortcut error:&v24];
+  v11 = v24;
 
   if (v10)
   {
     v12 = [WFWorkflow alloc];
     v13 = objc_opt_new();
-    v24 = 0;
-    v14 = [(WFWorkflow *)v12 initWithRecord:v13 reference:0 storageProvider:0 migrateIfNecessary:0 environment:a3 error:&v24];
-    v15 = v24;
+    v23 = 0;
+    v14 = [(WFWorkflow *)v12 initWithRecord:v13 reference:0 storageProvider:0 migrateIfNecessary:0 environment:a3 error:&v23];
+    v15 = v23;
 
     if (!v14)
     {
@@ -86,18 +86,16 @@ LABEL_12:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315650;
-    v27 = "[WFINShortcutRunDescriptor(Conversion) createWorkflowWithEnvironment:database:completionHandler:]";
-    v28 = 2112;
-    v29 = shortcut;
-    v30 = 2112;
-    v31 = v11;
+    v26 = "[WFINShortcutRunDescriptor(Conversion) createWorkflowWithEnvironment:database:completionHandler:]";
+    v27 = 2112;
+    v28 = shortcut;
+    v29 = 2112;
+    v30 = v11;
     _os_log_impl(&dword_1CA256000, v19, OS_LOG_TYPE_ERROR, "%s Unable to create action from INShortcut: %@, error: %@", buf, 0x20u);
   }
 
   v7[2](v7, 0, v11);
 LABEL_14:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 @end

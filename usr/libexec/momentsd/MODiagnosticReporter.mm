@@ -172,7 +172,7 @@ LABEL_15:
       v21 = _mo_log_facility_get_os_log(&MOLogFacilityDiagnosticReporter);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        [MODiagnosticReporter showUserNotificationWithTitle:buf message:? cancelButtonTitle:? acceptButtonTitle:? withAcceptanceBlock:?];
+        [MODiagnosticReporter showUserNotificationWithTitle:message:cancelButtonTitle:acceptButtonTitle:withAcceptanceBlock:];
       }
     }
 
@@ -483,13 +483,6 @@ void __71__MODiagnosticReporter_reportIncidentAfterUserConsent_subtype_context__
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)showUserNotificationWithTitle:(int *)a1 message:cancelButtonTitle:acceptButtonTitle:withAcceptanceBlock:.cold.3(int *a1)
-{
-  v6 = *a1;
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
 }
 
 - (void)reportIncident:subtype:context:.cold.3()

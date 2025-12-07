@@ -51,7 +51,7 @@
   v4 = [TSCEReferenceSetWrapper alloc];
   referenceSet = self->_referenceSet;
 
-  return objc_msgSend_initWithReferenceSet_(v4, v5, referenceSet, v6, v7);
+  return objc_msgSend_initWithReferenceSet_(v4, v5, referenceSet, v6);
 }
 
 - (void)insertRefs:(id)refs
@@ -60,8 +60,8 @@
   if (refsCopy)
   {
     referenceSet = self->_referenceSet;
-    v9 = objc_msgSend_referenceSet(refsCopy, v4, v5, v6, v7);
-    TSCEReferenceSet::insertRefs(referenceSet, v9);
+    v8 = objc_msgSend_referenceSet(refsCopy, v4, v5, v6);
+    TSCEReferenceSet::insertRefs(referenceSet, v8);
   }
 }
 

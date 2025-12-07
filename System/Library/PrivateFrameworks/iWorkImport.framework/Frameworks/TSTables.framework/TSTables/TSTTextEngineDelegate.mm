@@ -13,15 +13,15 @@
   top = padding.top;
   localeCopy = locale;
   sourceCopy = source;
-  v27.receiver = self;
-  v27.super_class = TSTTextEngineDelegate;
-  v18 = [(TSTTextEngineDelegate *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = TSTTextEngineDelegate;
+  v18 = [(TSTTextEngineDelegate *)&v26 init];
   if (v18)
   {
     v19 = objc_alloc(MEMORY[0x277D80EB0]);
-    v24 = objc_msgSend_initWithTopInset_leftInset_bottomInset_rightInset_(v19, v20, v21, v22, v23, top, left, bottom, right);
+    v23 = objc_msgSend_initWithTopInset_leftInset_bottomInset_rightInset_(v19, v20, v21, v22, top, left, bottom, right);
     mPadding = v18->mPadding;
-    v18->mPadding = v24;
+    v18->mPadding = v23;
 
     v18->mVerticalAlignment = alignment;
     v18->mMaxWidthForChildren = 1.79769313e308;

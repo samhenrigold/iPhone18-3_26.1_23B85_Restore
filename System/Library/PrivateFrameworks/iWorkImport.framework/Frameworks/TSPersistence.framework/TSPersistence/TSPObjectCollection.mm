@@ -9,27 +9,27 @@
 
 - (TSPObjectCollection)initWithContext:(id)context objects:(id)objects
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   contextCopy = context;
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   objectsCopy = objects;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(objectsCopy, v8, &v37, v41, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(objectsCopy, v8, &v36, v40, 16);
   if (v9)
   {
-    v10 = *v38;
+    v10 = *v37;
 LABEL_3:
     v11 = 0;
     while (1)
     {
-      if (*v38 != v10)
+      if (*v37 != v10)
       {
         objc_enumerationMutation(objectsCopy);
       }
 
-      v12 = *(*(&v37 + 1) + 8 * v11);
+      v12 = *(*(&v36 + 1) + 8 * v11);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -50,7 +50,7 @@ LABEL_3:
 
       if (v9 == ++v11)
       {
-        v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(objectsCopy, v17, &v37, v41, 16);
+        v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(objectsCopy, v17, &v36, v40, 16);
         if (v9)
         {
           goto LABEL_3;
@@ -73,9 +73,9 @@ LABEL_15:
 
 LABEL_10:
 
-  v36.receiver = self;
-  v36.super_class = TSPObjectCollection;
-  v20 = [(TSPObject *)&v36 initWithContext:contextCopy];
+  v35.receiver = self;
+  v35.super_class = TSPObjectCollection;
+  v20 = [(TSPObject *)&v35 initWithContext:contextCopy];
   if (v20)
   {
     v21 = objc_msgSend_copy(objectsCopy, v18, v19);
@@ -87,7 +87,6 @@ LABEL_10:
   selfCopy = self;
 LABEL_16:
 
-  v34 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -118,33 +117,33 @@ LABEL_16:
 
 - (id)tsp_publicLoggingDescription
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
-  v24.receiver = self;
-  v24.super_class = TSPObjectCollection;
-  tsp_publicLoggingDescription = [(TSPObject *)&v24 tsp_publicLoggingDescription];
+  v23.receiver = self;
+  v23.super_class = TSPObjectCollection;
+  tsp_publicLoggingDescription = [(TSPObject *)&v23 tsp_publicLoggingDescription];
   objc_msgSend_appendFormat_(v3, v5, @"[collection: %@, objects: [", tsp_publicLoggingDescription);
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v6 = self->_objects;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v20, v25, 16);
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v19, v24, 16);
   if (v10)
   {
-    v11 = *v21;
+    v11 = *v20;
     v12 = 1;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v6);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
+        v14 = *(*(&v19 + 1) + 8 * i);
         if ((v12 & 1) == 0)
         {
           objc_msgSend_appendString_(v3, v8, @", ");
@@ -156,7 +155,7 @@ LABEL_16:
         v12 = 0;
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v8, &v20, v25, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v8, &v19, v24, 16);
       v12 = 0;
     }
 
@@ -164,7 +163,6 @@ LABEL_16:
   }
 
   objc_msgSend_appendString_(v3, v17, @"]]");
-  v18 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

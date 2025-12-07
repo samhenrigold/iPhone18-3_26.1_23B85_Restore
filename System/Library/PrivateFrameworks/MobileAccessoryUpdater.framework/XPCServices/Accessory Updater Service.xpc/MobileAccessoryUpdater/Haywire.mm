@@ -1,4 +1,5 @@
 @interface Haywire
+- (BOOL)_findAsset:(BOOL)asset;
 - (BOOL)filterAsset:(id)asset osBuild:(id)build osVersion:(id)version;
 - (BOOL)findRemoteAsset;
 - (BOOL)hasNetworkAccess;
@@ -14,17 +15,31 @@
 - (void)bootstrapWithOptions:(id)options;
 - (void)cleanupAssets;
 - (void)dealloc;
+- (void)deviceError:(int)error;
 - (void)dfuDeviceConnected:(__AMDFUModeDevice *)connected;
 - (void)doBootstrapWithOptions:(id)options;
 - (void)downloadFirmwareWithOptions:(id)options;
 - (void)encodeWithCoder:(id)coder;
+- (void)findFirmwareWithOptions:(id)options remote:(BOOL)remote;
 - (void)finishWithOptions:(id)options;
 - (void)prepareFirmwareWithOptions:(id)options;
+- (void)queryComplete:(id)complete remote:(BOOL)remote error:(id)error completion:(id)completion;
 - (void)recoveryDeviceConnected:(__AMRecoveryModeDevice *)connected;
 - (void)runQuery:(BOOL)query completion:(id)completion;
+- (void)setAPFusingsWithChipID:(unsigned int)d boardID:(unsigned int)iD productionFused:(BOOL)fused;
 @end
 
 @implementation Haywire
+
+- (void)setAPFusingsWithChipID:(unsigned int)d boardID:(unsigned int)iD productionFused:(BOOL)fused
+{
+  v6 = *&iD;
+  v7 = *&d;
+  [(FudPluginDelegate *)self->_delegate log:7 format:@"%s", "[Haywire setAPFusingsWithChipID:boardID:productionFused:]"];
+  [(Haywire *)self setChipID:[NSString stringWithFormat:@"0x%04X", v7]];
+  [(Haywire *)self setBoardID:[NSString stringWithFormat:@"0x%02X", v6]];
+  self->_productionFused = fused;
+}
 
 - (BOOL)hasNetworkAccess
 {
@@ -93,6 +108,48 @@ LABEL_5:
   return v5;
 }
 
+- (BOOL)_findAsset:(BOOL)asset
+{
+  assetCopy = asset;
+  delegate = self->_delegate;
+  [+[NSDate date](NSDate timeIntervalSinceReferenceDate];
+  [(FudPluginDelegate *)delegate log:7 format:@"[%f] %s", v6, "[Haywire _findAsset:]"];
+  if ([(Haywire *)self firmwareAsset])
+  {
+    return 1;
+  }
+
+  v7 = dispatch_semaphore_create(0);
+  [(Haywire *)self setError:0];
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_1000018C8;
+  v17[3] = &unk_1000A9078;
+  v17[4] = self;
+  v17[5] = v7;
+  [(Haywire *)self runQuery:assetCopy completion:v17];
+  dispatch_semaphore_wait(v7, 0xFFFFFFFFFFFFFFFFLL);
+  dispatch_release(v7);
+  v8 = self->_delegate;
+  [+[NSDate date](NSDate timeIntervalSinceReferenceDate];
+  [(FudPluginDelegate *)v8 log:7 format:@"[%f] %s - Returning", v9, "[Haywire _findAsset:]"];
+  if ([(Haywire *)self firmwareAsset])
+  {
+    return 1;
+  }
+
+  [(Haywire *)self setError:sub_10000195C(4001, @"%s: failed to find %@ asset\n", v10, v11, v12, v13, v14, v15, "[Haywire _findAsset:]")];
+  if (self->_retryBootstrap)
+  {
+    return 0;
+  }
+
+  -[Haywire notifyUserWithMessage:title:](self, "notifyUserWithMessage:title:", [+[NSBundle mainBundle](NSBundle localizedStringForKey:"localizedStringForKey:value:table:" value:@"Downloading accessory firmware. Your accessory will not function until the download completes." table:&stru_1000ABB18, 0], [+[NSBundle mainBundle](NSBundle localizedStringForKey:"localizedStringForKey:value:table:" value:@"Accessory" table:&stru_1000ABB18, 0]);
+  result = 0;
+  self->_retryBootstrap = 1;
+  return result;
+}
+
 - (void)recoveryDeviceConnected:(__AMRecoveryModeDevice *)connected
 {
   [(FudPluginDelegate *)self->_delegate log:6 format:@"recovery mode device %p connected\n", connected];
@@ -148,6 +205,15 @@ LABEL_17:
   [(Haywire *)self setError:v43];
 }
 
+- (void)deviceError:(int)error
+{
+  v3 = *&error;
+  [(FudPluginDelegate *)self->_delegate log:3 format:@"error %d processing device\n", *&error];
+  v11 = sub_10000195C(v3, @"error %d processing device\n", v5, v6, v7, v8, v9, v10, v3);
+
+  [(Haywire *)self setError:v11];
+}
+
 - (NSString)bundlePath
 {
   if ([(Haywire *)self firmwareAsset])
@@ -158,7 +224,7 @@ LABEL_17:
 
   else
   {
-    AMRLog(3, @"FirmwareAsset is nil", v3, v4, v5, v6, v7, v8, v17);
+    AMRLog(3, @"FirmwareAsset is nil", v3, v4, v5, v6, v7, v8);
     return 0;
   }
 
@@ -309,6 +375,25 @@ LABEL_6:
   error = self->_error;
 
   [(FudPluginDelegate *)delegate didBootstrap:success info:v5 error:error];
+}
+
+- (void)findFirmwareWithOptions:(id)options remote:(BOOL)remote
+{
+  remoteCopy = remote;
+  delegate = self->_delegate;
+  v7 = "Local";
+  if (remote)
+  {
+    v7 = "Remote";
+  }
+
+  [(FudPluginDelegate *)delegate log:7 format:@"%s (%s)", "[Haywire findFirmwareWithOptions:remote:]", v7];
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_10000256C;
+  v8[3] = &unk_1000A90A0;
+  v8[4] = self;
+  [(Haywire *)self runQuery:remoteCopy completion:v8];
 }
 
 - (void)downloadFirmwareWithOptions:(id)options
@@ -477,28 +562,28 @@ LABEL_11:
   v9 = [[MAAssetQuery alloc] initWithType:@"com.apple.MobileAsset.MobileAccessoryUpdate.haywire"];
   if (!v9)
   {
-    v22 = @"Couldn't allocate MAAssetQuery";
+    v21 = @"Couldn't allocate MAAssetQuery";
 LABEL_17:
-    sub_100055488(completion, v22, v10, chipID, v12, v13, v14, v15);
+    sub_100055488(completion, v21, v10, chipID, v12, v13, v14, v15);
     return;
   }
 
   if (!variant)
   {
-    v22 = @"variant is nil";
+    v21 = @"variant is nil";
     goto LABEL_17;
   }
 
   chipID = self->_chipID;
   if (!chipID)
   {
-    v22 = @"_chipID is nil";
+    v21 = @"_chipID is nil";
     goto LABEL_17;
   }
 
   if (!self->_boardID)
   {
-    v22 = @"_boardID is nil";
+    v21 = @"_boardID is nil";
     goto LABEL_17;
   }
 
@@ -508,7 +593,6 @@ LABEL_17:
   [v16 addKeyValuePair:@"Variant" with:variant];
   [v16 addKeyValuePair:@"PackageVersion" with:@"1.0"];
   delegate = self->_delegate;
-  v18 = self->_chipID;
   boardID = self->_boardID;
   if (self->_productionFused)
   {
@@ -521,37 +605,37 @@ LABEL_17:
     [(FudPluginDelegate *)delegate log:5 format:@"%s - query for dev. variant = %@, _chipID = %@, _boardID = %@ ", "[Haywire runQuery:completion:]", variant, self->_chipID, boardID];
   }
 
-  v20 = v16;
+  v19 = v16;
   if (queryCopy)
   {
-    v21 = objc_alloc_init(MADownloadOptions);
-    [v21 setRequiresPowerPluggedIn:0];
-    [v21 setDiscretionary:0];
-    [v21 setAllowsCellularAccess:1];
-    [v21 setAllowsExpensiveAccess:1];
-    [v21 setTimeoutIntervalForResource:120];
-    v25[0] = _NSConcreteStackBlock;
-    v25[1] = 3221225472;
-    v25[2] = sub_100002FC8;
-    v25[3] = &unk_1000A90F0;
-    v25[4] = v16;
-    v25[5] = self;
-    v26 = queryCopy;
-    v25[6] = completion;
-    [MAAsset startCatalogDownload:@"com.apple.MobileAsset.MobileAccessoryUpdate.haywire" options:v21 completionWithError:v25];
+    v20 = objc_alloc_init(MADownloadOptions);
+    [v20 setRequiresPowerPluggedIn:0];
+    [v20 setDiscretionary:0];
+    [v20 setAllowsCellularAccess:1];
+    [v20 setAllowsExpensiveAccess:1];
+    [v20 setTimeoutIntervalForResource:120];
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_100002FC8;
+    v24[3] = &unk_1000A90F0;
+    v24[4] = v16;
+    v24[5] = self;
+    v25 = queryCopy;
+    v24[6] = completion;
+    [MAAsset startCatalogDownload:@"com.apple.MobileAsset.MobileAccessoryUpdate.haywire" options:v20 completionWithError:v24];
   }
 
   else
   {
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_1000030B0;
-    v23[3] = &unk_1000A90F0;
-    v23[4] = self;
-    v23[5] = v16;
-    v24 = 0;
-    v23[6] = completion;
-    [v16 queryMetaDataWithError:v23];
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_1000030B0;
+    v22[3] = &unk_1000A90F0;
+    v22[4] = self;
+    v22[5] = v16;
+    v23 = 0;
+    v22[6] = completion;
+    [v16 queryMetaDataWithError:v22];
   }
 }
 
@@ -718,6 +802,84 @@ LABEL_17:
   sub_1000034D8();
 
   [v46 setError:?];
+}
+
+- (void)queryComplete:(id)complete remote:(BOOL)remote error:(id)error completion:(id)completion
+{
+  if (!error)
+  {
+    if (complete)
+    {
+      delegate = self->_delegate;
+      v12 = "Local";
+      if (remote)
+      {
+        v12 = "Remote";
+      }
+
+      [(FudPluginDelegate *)delegate log:5 format:@"%s:(%s) - Query Results: %@", "[Haywire queryComplete:remote:error:completion:]", v12, complete];
+      [sub_1000034CC() setAssetResults:?];
+      if (![complete count])
+      {
+        goto LABEL_13;
+      }
+
+      v13 = [sub_1000034CC() filterFoundAssets:?];
+      if (!v13 || ![v13 count])
+      {
+        goto LABEL_13;
+      }
+
+      v14 = [sub_1000034CC() assetWithMaxVersion:? remote:?];
+      if (v14)
+      {
+        v15 = v14;
+        if ([v14 attributes])
+        {
+          if (remote || [v15 wasLocal])
+          {
+            [sub_1000034CC() setFirmwareAsset:?];
+          }
+
+LABEL_13:
+          error = 0;
+          goto LABEL_14;
+        }
+
+        v17 = @"No asset attributes";
+        v18 = 4002;
+LABEL_20:
+        error = sub_10000195C(v18, v17, complete, remote, error, completion, v6, v7, v19);
+        if (!completion)
+        {
+          return;
+        }
+
+        goto LABEL_15;
+      }
+
+      v17 = @"No asset found";
+    }
+
+    else
+    {
+      v17 = @"asset query results are nil";
+    }
+
+    v18 = 4001;
+    goto LABEL_20;
+  }
+
+LABEL_14:
+  if (!completion)
+  {
+    return;
+  }
+
+LABEL_15:
+  v16 = *(completion + 2);
+
+  v16(completion, error);
 }
 
 - (id)filterFoundAssets:(id)assets

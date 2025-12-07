@@ -169,12 +169,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v11 = toCopy;
+  v6 = toCopy;
   if ((has & 4) != 0)
   {
-    currentCompatibilityVersion = self->_currentCompatibilityVersion;
     PBDataWriterWriteInt64Field();
-    toCopy = v11;
+    toCopy = v6;
     has = self->_has;
     if ((has & 0x10) == 0)
     {
@@ -193,54 +192,50 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  minimumCompatibleVersion = self->_minimumCompatibleVersion;
   PBDataWriterWriteInt64Field();
-  toCopy = v11;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    creationDateTimeInterval = self->_creationDateTimeInterval;
     PBDataWriterWriteDoubleField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
 LABEL_5:
   if (self->_sendingDeviceInfo)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (*&self->_has)
   {
-    action = self->_action;
     PBDataWriterWriteInt64Field();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_clientIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_categoryIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 8) != 0)
   {
-    expirationDateTimeInterval = self->_expirationDateTimeInterval;
     PBDataWriterWriteDoubleField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_criteria)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v11;
+    toCopy = v6;
   }
 }
 
@@ -441,7 +436,7 @@ LABEL_5:
     if (![(NSString *)sendingDeviceInfo isEqual:?])
     {
 LABEL_36:
-      v12 = 0;
+      v11 = 0;
       goto LABEL_37;
     }
 
@@ -477,7 +472,6 @@ LABEL_36:
     }
   }
 
-  v10 = *(equalCopy + 80);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 80) & 8) == 0 || self->_expirationDateTimeInterval != *(equalCopy + 4))
@@ -494,17 +488,17 @@ LABEL_36:
   criteria = self->_criteria;
   if (criteria | *(equalCopy + 8))
   {
-    v12 = [(HDCodableNotificationInstructionCriteria *)criteria isEqual:?];
+    v11 = [(HDCodableNotificationInstructionCriteria *)criteria isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v11 = 1;
   }
 
 LABEL_37:
 
-  return v12;
+  return v11;
 }
 
 - (unint64_t)hash

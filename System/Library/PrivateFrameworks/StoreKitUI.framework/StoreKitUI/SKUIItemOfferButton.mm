@@ -249,7 +249,7 @@
   titleCopy = title;
   confirmationTitle = [(SKUIItemOfferButton *)self confirmationTitle];
   v6 = confirmationTitle;
-  if (confirmationTitle != titleCopy && ([confirmationTitle isEqualToString:titleCopy] & 1) == 0)
+  if (confirmationTitle != titleCopy && (objc_msgSend_isEqualToString_(confirmationTitle) & 1) == 0)
   {
     if (titleCopy)
     {
@@ -413,31 +413,31 @@
   }
 }
 
-uint64_t __48__SKUIItemOfferButton_setProgressType_animated___block_invoke(uint64_t result, int a2)
+id *__48__SKUIItemOfferButton_setProgressType_animated___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _reloadForCurrentState:0];
+    return [result[4] _reloadForCurrentState:0];
   }
 
   return result;
 }
 
-uint64_t __48__SKUIItemOfferButton_setProgressType_animated___block_invoke_2(uint64_t result, int a2)
+id *__48__SKUIItemOfferButton_setProgressType_animated___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _reloadForCurrentState:0];
+    return [result[4] _reloadForCurrentState:0];
   }
 
   return result;
 }
 
-uint64_t __48__SKUIItemOfferButton_setProgressType_animated___block_invoke_3(uint64_t result, int a2)
+id *__48__SKUIItemOfferButton_setProgressType_animated___block_invoke_3(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _reloadForCurrentState:0];
+    return [result[4] _reloadForCurrentState:0];
   }
 
   return result;
@@ -484,11 +484,11 @@ uint64_t __48__SKUIItemOfferButton_setProgressType_animated___block_invoke_3(uin
   }
 }
 
-uint64_t __55__SKUIItemOfferButton_setShowingConfirmation_animated___block_invoke(uint64_t result, int a2)
+id *__55__SKUIItemOfferButton_setShowingConfirmation_animated___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _reloadForCurrentState:0];
+    return [result[4] _reloadForCurrentState:0];
   }
 
   return result;
@@ -499,7 +499,7 @@ uint64_t __55__SKUIItemOfferButton_setShowingConfirmation_animated___block_invok
   titleCopy = title;
   title = [(SKUIItemOfferButton *)self title];
   v6 = title;
-  if (title != titleCopy && ([title isEqualToString:titleCopy] & 1) == 0)
+  if (title != titleCopy && (objc_msgSend_isEqualToString_(title) & 1) == 0)
   {
     if (titleCopy)
     {
@@ -587,87 +587,88 @@ uint64_t __55__SKUIItemOfferButton_setShowingConfirmation_animated___block_invok
 {
   colorCopy = color;
   tintColorCopy = tintColor;
+  v9 = tintColorCopy;
   if (!cloudImageWithTintColor_arrowTintColor__sCloudArrowImage)
   {
-    v8 = MEMORY[0x277D755B8];
-    v9 = SKUIBundle();
-    v10 = [v8 imageNamed:@"CloudloadButtonArrow" inBundle:v9];
-    v11 = cloudImageWithTintColor_arrowTintColor__sCloudArrowImage;
-    cloudImageWithTintColor_arrowTintColor__sCloudArrowImage = v10;
+    v10 = MEMORY[0x277D755B8];
+    v11 = SKUIBundle(tintColorCopy, v8);
+    v12 = [v10 imageNamed:@"CloudloadButtonArrow" inBundle:v11];
+    v13 = cloudImageWithTintColor_arrowTintColor__sCloudArrowImage;
+    cloudImageWithTintColor_arrowTintColor__sCloudArrowImage = v12;
   }
 
   if (!cloudImageWithTintColor_arrowTintColor__sCloudButtonImage)
   {
-    v12 = MEMORY[0x277D755B8];
-    v13 = SKUIBundle();
-    v14 = [v12 imageNamed:@"CloudloadButtonCloud" inBundle:v13];
-    v15 = cloudImageWithTintColor_arrowTintColor__sCloudButtonImage;
-    cloudImageWithTintColor_arrowTintColor__sCloudButtonImage = v14;
+    v14 = MEMORY[0x277D755B8];
+    v15 = SKUIBundle(tintColorCopy, v8);
+    v16 = [v14 imageNamed:@"CloudloadButtonCloud" inBundle:v15];
+    v17 = cloudImageWithTintColor_arrowTintColor__sCloudButtonImage;
+    cloudImageWithTintColor_arrowTintColor__sCloudButtonImage = v16;
   }
 
-  v16 = cloudImageWithTintColor_arrowTintColor__sTintedImage;
+  v18 = cloudImageWithTintColor_arrowTintColor__sTintedImage;
   if (cloudImageWithTintColor_arrowTintColor__sTintedImage)
   {
-    v17 = cloudImageWithTintColor_arrowTintColor__sLastArrowColor == tintColorCopy;
+    v19 = cloudImageWithTintColor_arrowTintColor__sLastArrowColor == v9;
   }
 
   else
   {
-    v17 = 0;
+    v19 = 0;
   }
 
-  if (v17 && cloudImageWithTintColor_arrowTintColor__sLastCloudColor == colorCopy)
+  if (v19 && cloudImageWithTintColor_arrowTintColor__sLastCloudColor == colorCopy)
   {
     goto LABEL_18;
   }
 
-  v19 = [cloudImageWithTintColor_arrowTintColor__sCloudArrowImage _flatImageWithColor:tintColorCopy];
-  v20 = [cloudImageWithTintColor_arrowTintColor__sCloudButtonImage _flatImageWithColor:colorCopy];
-  [v20 size];
-  v22 = v21;
-  [v19 size];
-  if (v22 < v23)
+  v21 = [cloudImageWithTintColor_arrowTintColor__sCloudArrowImage _flatImageWithColor:v9];
+  v22 = [cloudImageWithTintColor_arrowTintColor__sCloudButtonImage _flatImageWithColor:colorCopy];
+  [v22 size];
+  v24 = v23;
+  [v21 size];
+  if (v24 < v25)
   {
-    v22 = v23;
+    v24 = v25;
   }
 
-  [v20 size];
-  v25 = v24;
-  [v19 size];
-  if (v25 < v26)
+  [v22 size];
+  v27 = v26;
+  [v21 size];
+  if (v27 < v28)
   {
-    v25 = v26;
+    v27 = v28;
   }
 
-  [v19 scale];
-  v28 = v27;
-  v36.width = v22;
-  v36.height = v25;
-  UIGraphicsBeginImageContextWithOptions(v36, 0, v28);
+  [v21 scale];
+  v30 = v29;
+  v38.width = v24;
+  v38.height = v27;
+  UIGraphicsBeginImageContextWithOptions(v38, 0, v30);
   if (UIGraphicsGetCurrentContext())
   {
-    v29 = *MEMORY[0x277CBF348];
-    v30 = *(MEMORY[0x277CBF348] + 8);
-    [v20 drawAtPoint:{*MEMORY[0x277CBF348], v30}];
-    [v19 drawAtPoint:{v29, v30}];
-    v31 = UIGraphicsGetImageFromCurrentImageContext();
-    v32 = cloudImageWithTintColor_arrowTintColor__sTintedImage;
-    cloudImageWithTintColor_arrowTintColor__sTintedImage = v31;
+    v31 = *MEMORY[0x277CBF348];
+    v32 = *(MEMORY[0x277CBF348] + 8);
+    [v22 drawAtPoint:{*MEMORY[0x277CBF348], v32}];
+    [v21 drawAtPoint:{v31, v32}];
+    v33 = UIGraphicsGetImageFromCurrentImageContext();
+    v34 = cloudImageWithTintColor_arrowTintColor__sTintedImage;
+    cloudImageWithTintColor_arrowTintColor__sTintedImage = v33;
 
     UIGraphicsEndImageContext();
     objc_storeStrong(&cloudImageWithTintColor_arrowTintColor__sLastArrowColor, tintColor);
     objc_storeStrong(&cloudImageWithTintColor_arrowTintColor__sLastCloudColor, color);
 
-    v16 = cloudImageWithTintColor_arrowTintColor__sTintedImage;
+    v18 = cloudImageWithTintColor_arrowTintColor__sTintedImage;
 LABEL_18:
-    v33 = v16;
+    v35 = v18;
     goto LABEL_19;
   }
 
-  v33 = 0;
+  v35 = 0;
 LABEL_19:
 
-  return v33;
+  return v35;
 }
 
 + (id)cloudTintColorForBackgroundColor:(id)color
@@ -1429,41 +1430,41 @@ LABEL_16:
   }
 }
 
-uint64_t __47__SKUIItemOfferButton_cancelTrackingWithEvent___block_invoke(uint64_t result, int a2)
+id *__47__SKUIItemOfferButton_cancelTrackingWithEvent___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _reloadForCurrentState:0];
+    return [result[4] _reloadForCurrentState:0];
   }
 
   return result;
 }
 
-uint64_t __47__SKUIItemOfferButton_cancelTrackingWithEvent___block_invoke_2(uint64_t result, int a2)
+id *__47__SKUIItemOfferButton_cancelTrackingWithEvent___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _reloadForCurrentState:0];
+    return [result[4] _reloadForCurrentState:0];
   }
 
   return result;
 }
 
-uint64_t __47__SKUIItemOfferButton_cancelTrackingWithEvent___block_invoke_3(uint64_t result, int a2)
+id *__47__SKUIItemOfferButton_cancelTrackingWithEvent___block_invoke_3(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _reloadForCurrentState:0];
+    return [result[4] _reloadForCurrentState:0];
   }
 
   return result;
 }
 
-uint64_t __47__SKUIItemOfferButton_cancelTrackingWithEvent___block_invoke_4(uint64_t result, int a2)
+id *__47__SKUIItemOfferButton_cancelTrackingWithEvent___block_invoke_4(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _reloadForCurrentState:0];
+    return [result[4] _reloadForCurrentState:0];
   }
 
   return result;
@@ -1574,11 +1575,11 @@ uint64_t __47__SKUIItemOfferButton_cancelTrackingWithEvent___block_invoke_4(uint
   }
 }
 
-uint64_t __54__SKUIItemOfferButton_endTrackingWithTouch_withEvent___block_invoke(uint64_t result, int a2)
+id *__54__SKUIItemOfferButton_endTrackingWithTouch_withEvent___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _reloadForCurrentState:0];
+    return [result[4] _reloadForCurrentState:0];
   }
 
   return result;
@@ -2116,7 +2117,7 @@ LABEL_33:
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
     bundleIdentifier = [mainBundle bundleIdentifier];
 
-    v6 = [bundleIdentifier isEqualToString:@"com.apple.MobileSMS"] ^ 1;
+    v6 = objc_msgSend_isEqualToString_(bundleIdentifier) ^ 1;
   }
 
   return v6;
@@ -2159,11 +2160,11 @@ void __46__SKUIItemOfferButton__defaultTitleAttributes__block_invoke()
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen scale];
   v18 = v17;
-  v57.width = width;
-  v57.height = height;
-  UIGraphicsBeginImageContextWithOptions(v57, 0, v18);
+  v59.width = width;
+  v59.height = height;
+  UIGraphicsBeginImageContextWithOptions(v59, 0, v18);
 
-  [colorCopy set];
+  v19 = [colorCopy set];
   if (fillStyle)
   {
     if (!universalCopy)
@@ -2174,110 +2175,110 @@ void __46__SKUIItemOfferButton__defaultTitleAttributes__block_invoke()
     goto LABEL_3;
   }
 
-  v64.origin.x = 0.0;
-  v64.origin.y = 0.0;
-  v64.size.width = width;
-  v64.size.height = height;
-  v65 = CGRectInset(v64, 0.5, 0.5);
-  v48 = [MEMORY[0x277D75208] _bezierPathWithArcRoundedRect:v65.origin.x cornerRadius:{v65.origin.y, v65.size.width, v65.size.height, 3.0}];
-  [v48 setLineWidth:1.0];
-  [v48 stroke];
+  v66.origin.x = 0.0;
+  v66.origin.y = 0.0;
+  v66.size.width = width;
+  v66.size.height = height;
+  v67 = CGRectInset(v66, 0.5, 0.5);
+  v50 = [MEMORY[0x277D75208] _bezierPathWithArcRoundedRect:v67.origin.x cornerRadius:{v67.origin.y, v67.size.width, v67.size.height, 3.0}];
+  [v50 setLineWidth:1.0];
+  [v50 stroke];
 
   if (universalCopy)
   {
 LABEL_3:
-    v19 = MEMORY[0x277D755B8];
-    v20 = SKUIBundle();
-    v21 = [v19 imageNamed:@"BuyButtonUniversalIndicator" inBundle:v20];
+    v21 = MEMORY[0x277D755B8];
+    v22 = SKUIBundle(v19, v20);
+    v23 = [v21 imageNamed:@"BuyButtonUniversalIndicator" inBundle:v22];
 
-    [v21 size];
-    v23 = v22;
-    [v21 size];
+    [v23 size];
     v25 = v24;
-    v58.origin.x = 3.0;
-    v58.origin.y = 3.0;
-    v58.size.width = v23;
-    v58.size.height = v25;
-    UIRectFill(v58);
-    [v21 drawInRect:22 blendMode:3.0 alpha:{3.0, v23, v25, 1.0}];
+    [v23 size];
+    v27 = v26;
+    v60.origin.x = 3.0;
+    v60.origin.y = 3.0;
+    v60.size.width = v25;
+    v60.size.height = v27;
+    UIRectFill(v60);
+    [v23 drawInRect:22 blendMode:3.0 alpha:{3.0, v25, v27, 1.0}];
   }
 
 LABEL_4:
   mainScreen2 = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen2 scale];
-  v28 = v27;
+  v30 = v29;
 
   if (titleCopy)
   {
-    v29 = [titleCopy mutableCopy];
-    [v29 addAttribute:*MEMORY[0x277D740C0] value:colorCopy range:{0, objc_msgSend(v29, "length")}];
+    v31 = [titleCopy mutableCopy];
+    [v31 addAttribute:*MEMORY[0x277D740C0] value:colorCopy range:{0, objc_msgSend(v31, "length")}];
     if (style == 2)
     {
-      v30 = objc_alloc_init(MEMORY[0x277D74260]);
-      [v30 setCachesLayout:1];
-      [v30 setMaximumNumberOfLines:2];
-      [v30 setWrapsForTruncationMode:1];
-      [v30 setWantsBaselineOffset:1];
-      v31 = width + -14.0;
-      [v29 boundingRectWithSize:1 options:v30 context:{width + -14.0, height}];
-      v33 = v32;
+      v32 = objc_alloc_init(MEMORY[0x277D74260]);
+      [v32 setCachesLayout:1];
+      [v32 setMaximumNumberOfLines:2];
+      [v32 setWrapsForTruncationMode:1];
+      [v32 setWantsBaselineOffset:1];
+      v33 = width + -14.0;
+      [v31 boundingRectWithSize:1 options:v32 context:{width + -14.0, height}];
       v35 = v34;
       v37 = v36;
       v39 = v38;
-      v59.origin.x = 7.0;
-      v59.origin.y = 0.0;
-      v59.size.width = width + -14.0;
-      v59.size.height = height;
-      v54 = width;
-      MinY = CGRectGetMinY(v59);
-      v60.origin.x = 7.0;
-      v60.origin.y = 0.0;
-      v60.size.width = v31;
-      v60.size.height = height;
-      v55 = height;
-      v41 = CGRectGetHeight(v60);
-      v61.origin.x = v33;
-      v61.origin.y = v35;
-      v61.size.width = v37;
-      v61.size.height = v39;
-      v42 = round(MinY + (v41 - CGRectGetHeight(v61)) * 0.5);
-      v62.origin.x = v33;
-      v62.origin.y = v35;
-      v62.size.width = v37;
-      v62.size.height = v39;
+      v41 = v40;
+      v61.origin.x = 7.0;
+      v61.origin.y = 0.0;
+      v61.size.width = width + -14.0;
+      v61.size.height = height;
+      v56 = width;
+      MinY = CGRectGetMinY(v61);
+      v62.origin.x = 7.0;
+      v62.origin.y = 0.0;
+      v62.size.width = v33;
+      v62.size.height = height;
+      v57 = height;
       v43 = CGRectGetHeight(v62);
-      [v30 baselineOffset];
-      v45 = v44;
-      v63.origin.x = 7.0;
-      v63.origin.y = v42;
-      height = v55;
-      v63.size.width = v31;
-      v63.size.height = v43;
-      v46 = CGRectGetMinY(v63);
-      v47 = v43;
-      width = v54;
-      [v29 drawWithRect:1 options:v30 context:{7.0, round(v28 * (v45 + v46)) / v28 - v45, v31, v47}];
+      v63.origin.x = v35;
+      v63.origin.y = v37;
+      v63.size.width = v39;
+      v63.size.height = v41;
+      v44 = round(MinY + (v43 - CGRectGetHeight(v63)) * 0.5);
+      v64.origin.x = v35;
+      v64.origin.y = v37;
+      v64.size.width = v39;
+      v64.size.height = v41;
+      v45 = CGRectGetHeight(v64);
+      [v32 baselineOffset];
+      v47 = v46;
+      v65.origin.x = 7.0;
+      v65.origin.y = v44;
+      height = v57;
+      v65.size.width = v33;
+      v65.size.height = v45;
+      v48 = CGRectGetMinY(v65);
+      v49 = v45;
+      width = v56;
+      [v31 drawWithRect:1 options:v32 context:{7.0, round(v30 * (v47 + v48)) / v30 - v47, v33, v49}];
     }
 
     else
     {
-      [v29 size];
-      v50 = v28 * ((height - v49) * 0.5);
-      [v29 drawInRect:{0.0, roundf(v50) / v28, width, v49}];
+      [v31 size];
+      v52 = v30 * ((height - v51) * 0.5);
+      [v31 drawInRect:{0.0, roundf(v52) / v30, width, v51}];
     }
   }
 
   if (fillStyle == 1)
   {
-    v51 = [MEMORY[0x277D75208] _bezierPathWithArcRoundedRect:0.0 cornerRadius:{0.0, width, height, 3.0}];
-    [v51 setLineWidth:0.0];
-    [v51 fillWithBlendMode:25 alpha:1.0];
+    v53 = [MEMORY[0x277D75208] _bezierPathWithArcRoundedRect:0.0 cornerRadius:{0.0, width, height, 3.0}];
+    [v53 setLineWidth:0.0];
+    [v53 fillWithBlendMode:25 alpha:1.0];
   }
 
-  v52 = UIGraphicsGetImageFromCurrentImageContext();
+  v54 = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
 
-  return v52;
+  return v54;
 }
 
 + (CGSize)_titleSizeThatFitsForSize:(CGSize)size titleStyle:(int64_t)style mutableAttributedString:(id)string
@@ -2390,37 +2391,37 @@ LABEL_17:
 + (id)_universalPlusImageWithTintColor:(id)color
 {
   colorCopy = color;
-  v5 = colorCopy;
-  v6 = _universalPlusImageWithTintColor__sImage;
+  v6 = colorCopy;
+  v7 = _universalPlusImageWithTintColor__sImage;
   if (_universalPlusImageWithTintColor__sImage)
   {
-    v7 = _universalPlusImageWithTintColor__sLastTintColor == colorCopy;
+    v8 = _universalPlusImageWithTintColor__sLastTintColor == colorCopy;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  if (!v7)
+  if (!v8)
   {
-    v8 = MEMORY[0x277D755B8];
-    v9 = SKUIBundle();
-    v10 = [v8 imageNamed:@"BuyButtonUniversalIndicator" inBundle:v9];
-    v11 = _universalPlusImageWithTintColor__sImage;
-    _universalPlusImageWithTintColor__sImage = v10;
+    v9 = MEMORY[0x277D755B8];
+    v10 = SKUIBundle(colorCopy, v5);
+    v11 = [v9 imageNamed:@"BuyButtonUniversalIndicator" inBundle:v10];
+    v12 = _universalPlusImageWithTintColor__sImage;
+    _universalPlusImageWithTintColor__sImage = v11;
 
-    v12 = [_universalPlusImageWithTintColor__sImage _flatImageWithColor:v5];
-    v13 = _universalPlusImageWithTintColor__sImage;
-    _universalPlusImageWithTintColor__sImage = v12;
+    v13 = [_universalPlusImageWithTintColor__sImage _flatImageWithColor:v6];
+    v14 = _universalPlusImageWithTintColor__sImage;
+    _universalPlusImageWithTintColor__sImage = v13;
 
     objc_storeStrong(&_universalPlusImageWithTintColor__sLastTintColor, color);
-    v6 = _universalPlusImageWithTintColor__sImage;
+    v7 = _universalPlusImageWithTintColor__sImage;
   }
 
-  v14 = v6;
+  v15 = v7;
 
-  return v6;
+  return v7;
 }
 
 + (id)playTintColorForBackgroundColor:(id)color
@@ -2453,75 +2454,75 @@ LABEL_17:
 + (id)playImageWithTintColor:(id)color
 {
   colorCopy = color;
-  v5 = colorCopy;
-  v6 = playImageWithTintColor__sUniversalPlayImage;
+  v6 = colorCopy;
+  v7 = playImageWithTintColor__sUniversalPlayImage;
   if (playImageWithTintColor__sUniversalPlayImage)
   {
-    v7 = playImageWithTintColor__sLastPlayTintColor == colorCopy;
+    v8 = playImageWithTintColor__sLastPlayTintColor == colorCopy;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  if (!v7)
+  if (!v8)
   {
-    v8 = MEMORY[0x277D755B8];
-    v9 = SKUIBundle();
-    v10 = [v8 imageNamed:@"PlayProduct" inBundle:v9];
-    v11 = playImageWithTintColor__sUniversalPlayImage;
-    playImageWithTintColor__sUniversalPlayImage = v10;
+    v9 = MEMORY[0x277D755B8];
+    v10 = SKUIBundle(colorCopy, v5);
+    v11 = [v9 imageNamed:@"PlayProduct" inBundle:v10];
+    v12 = playImageWithTintColor__sUniversalPlayImage;
+    playImageWithTintColor__sUniversalPlayImage = v11;
 
-    v12 = [playImageWithTintColor__sUniversalPlayImage _flatImageWithColor:v5];
-    v13 = playImageWithTintColor__sUniversalPlayImage;
-    playImageWithTintColor__sUniversalPlayImage = v12;
+    v13 = [playImageWithTintColor__sUniversalPlayImage _flatImageWithColor:v6];
+    v14 = playImageWithTintColor__sUniversalPlayImage;
+    playImageWithTintColor__sUniversalPlayImage = v13;
 
     objc_storeStrong(&playImageWithTintColor__sLastPlayTintColor, color);
-    v6 = playImageWithTintColor__sUniversalPlayImage;
+    v7 = playImageWithTintColor__sUniversalPlayImage;
   }
 
-  v14 = v6;
+  v15 = v7;
 
-  return v6;
+  return v7;
 }
 
 + (id)playHighlightImageWithTintColor:(id)color
 {
   colorCopy = color;
-  v5 = colorCopy;
-  v6 = playHighlightImageWithTintColor__sUniversalPlayHighlightImage;
+  v6 = colorCopy;
+  v7 = playHighlightImageWithTintColor__sUniversalPlayHighlightImage;
   if (playHighlightImageWithTintColor__sUniversalPlayHighlightImage)
   {
-    v7 = playHighlightImageWithTintColor__sLastPlayHighlightTintColor == colorCopy;
+    v8 = playHighlightImageWithTintColor__sLastPlayHighlightTintColor == colorCopy;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  if (!v7)
+  if (!v8)
   {
-    v8 = MEMORY[0x277D755B8];
-    v9 = SKUIBundle();
-    v10 = [v8 imageNamed:@"PlayProduct" inBundle:v9];
-    v11 = playHighlightImageWithTintColor__sUniversalPlayHighlightImage;
-    playHighlightImageWithTintColor__sUniversalPlayHighlightImage = v10;
-
+    v9 = MEMORY[0x277D755B8];
+    v10 = SKUIBundle(colorCopy, v5);
+    v11 = [v9 imageNamed:@"PlayProduct" inBundle:v10];
     v12 = playHighlightImageWithTintColor__sUniversalPlayHighlightImage;
-    v13 = [v5 colorWithAlphaComponent:0.2];
-    v14 = [v12 _flatImageWithColor:v13];
-    v15 = playHighlightImageWithTintColor__sUniversalPlayHighlightImage;
-    playHighlightImageWithTintColor__sUniversalPlayHighlightImage = v14;
+    playHighlightImageWithTintColor__sUniversalPlayHighlightImage = v11;
+
+    v13 = playHighlightImageWithTintColor__sUniversalPlayHighlightImage;
+    v14 = [v6 colorWithAlphaComponent:0.2];
+    v15 = [v13 _flatImageWithColor:v14];
+    v16 = playHighlightImageWithTintColor__sUniversalPlayHighlightImage;
+    playHighlightImageWithTintColor__sUniversalPlayHighlightImage = v15;
 
     objc_storeStrong(&playHighlightImageWithTintColor__sLastPlayHighlightTintColor, color);
-    v6 = playHighlightImageWithTintColor__sUniversalPlayHighlightImage;
+    v7 = playHighlightImageWithTintColor__sUniversalPlayHighlightImage;
   }
 
-  v16 = v6;
+  v17 = v7;
 
-  return v6;
+  return v7;
 }
 
 + (id)_imageForProgressType:(int64_t)type
@@ -2554,7 +2555,7 @@ LABEL_17:
         v6 = @"DownloadProgressButtonPlay";
 LABEL_14:
         v7 = MEMORY[0x277D755B8];
-        v8 = SKUIBundle();
+        v8 = SKUIBundle(0, a2);
         v9 = [v7 imageNamed:v6 inBundle:v8];
         v10 = *v4;
         *v4 = v9;

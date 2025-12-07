@@ -67,6 +67,8 @@
 - (void)_setPendingInsert:(BOOL)insert;
 - (void)_setPendingUpdate:(BOOL)update;
 - (void)_setProperty:(id)property forKey:(id)key forRelation:(id)relation isUpdatedProperty:(BOOL)updatedProperty;
+- (void)_setProperty:(id)property forKey:(id)key isRelation:(BOOL)relation isUpdatedProperty:(BOOL)updatedProperty;
+- (void)_setProperty:(id)property forKey:(id)key isUpdatedProperty:(BOOL)updatedProperty;
 - (void)_takeValues:(id)values forKeys:(id)keys relatedObjectValues:(id)objectValues;
 - (void)_takeValues:(id)values relatedObjectValues:(id)objectValues;
 - (void)_takeValuesForDefaultPropertyKeys:(id)keys values:(id)values relatedObjectValues:(id)objectValues;
@@ -79,9 +81,11 @@
 - (void)loadPropertiesIfNeeded:(id)needed;
 - (void)primitiveAddRelatedObject:(id)object forKey:(id)key;
 - (void)primitiveRemoveRelatedObject:(id)object forKey:(id)key;
+- (void)primitiveSetBoolValue:(BOOL)value forKey:(id)key;
 - (void)primitiveSetDataValue:(id)value forKey:(id)key;
 - (void)primitiveSetDateValue:(id)value forKey:(id)key;
 - (void)primitiveSetDoubleValue:(double)value forKey:(id)key;
+- (void)primitiveSetIntValue:(int)value forKey:(id)key;
 - (void)primitiveSetNumberValue:(id)value forKey:(id)key;
 - (void)primitiveSetRelationValue:(id)value forKey:(id)key;
 - (void)primitiveSetSecurityScopedURLWrapperValue:(id)value forKey:(id)key;
@@ -153,17 +157,17 @@
 
 - (EKPersistentObject)init
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = EKPersistentObject;
-  v2 = [(EKPersistentObject *)&v7 init];
+  v8 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = EKPersistentObject;
+  v2 = [(EKPersistentObject *)&v6 init];
   if (v2)
   {
-    v8.__sig = 0;
-    *v8.__opaque = 0;
-    pthread_mutexattr_init(&v8);
-    pthread_mutexattr_settype(&v8, 2);
-    pthread_mutex_init(&v2->_lock, &v8);
+    v7.__sig = 0;
+    *v7.__opaque = 0;
+    pthread_mutexattr_init(&v7);
+    pthread_mutexattr_settype(&v7, 2);
+    pthread_mutex_init(&v2->_lock, &v7);
     v3 = [EKObjectID temporaryObjectIDWithEntityType:[(EKPersistentObject *)v2 entityType]];
     objectID = v2->_objectID;
     v2->_objectID = v3;
@@ -171,7 +175,6 @@
     v2->_databaseRestoreGeneration = -1;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -183,7 +186,7 @@
     loadedProperties = self->_loadedProperties;
     self->_loadedProperties = v4;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v4, loadedProperties);
   }
 }
 
@@ -492,32 +495,32 @@ void __35__EKPersistentObject_existsInStore__block_invoke(uint64_t a1, uint64_t 
 
 - (BOOL)refresh
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   pthread_mutex_lock(&self->_lock);
   _loadedPropertyKeys = [(EKPersistentObject *)self _loadedPropertyKeys];
   propertyKeyForUniqueIdentifier = [objc_opt_class() propertyKeyForUniqueIdentifier];
   v5 = [(NSMutableDictionary *)self->_loadedProperties objectForKeyedSubscript:propertyKeyForUniqueIdentifier];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = _loadedPropertyKeys;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
-        v12 = [(NSMutableDictionary *)self->_updatedProperties objectForKey:v11, v15];
+        v11 = *(*(&v14 + 1) + 8 * i);
+        v12 = [(NSMutableDictionary *)self->_updatedProperties objectForKey:v11, v14];
 
         if (!v12)
         {
@@ -525,7 +528,7 @@ void __35__EKPersistentObject_existsInStore__block_invoke(uint64_t a1, uint64_t 
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
@@ -538,7 +541,6 @@ void __35__EKPersistentObject_existsInStore__block_invoke(uint64_t a1, uint64_t 
 
   pthread_mutex_unlock(&self->_lock);
 
-  v13 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -564,7 +566,7 @@ void __35__EKPersistentObject_existsInStore__block_invoke(uint64_t a1, uint64_t 
 
 - (id)dirtyPropertiesAndValues
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   pthread_mutex_lock(&self->_lock);
   v3 = [(NSMutableDictionary *)self->_updatedProperties count];
   if (!v3)
@@ -573,26 +575,26 @@ void __35__EKPersistentObject_existsInStore__block_invoke(uint64_t a1, uint64_t 
   }
 
   v3 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:v3];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   allKeys = [(NSMutableDictionary *)self->_updatedProperties allKeys];
-  v5 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
+        v9 = *(*(&v20 + 1) + 8 * i);
         v10 = [(EKPersistentObject *)self _propertyForKey:v9];
         if (v10)
         {
@@ -625,7 +627,7 @@ LABEL_13:
 LABEL_14:
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v6);
@@ -654,8 +656,6 @@ LABEL_20:
   v18 = 0;
 LABEL_22:
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v18;
 }
 
@@ -673,18 +673,16 @@ LABEL_22:
 
 void __48__EKPersistentObject_propertiesToUnloadOnCommit__block_invoke()
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = *MEMORY[0x1E6992B20];
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
+  v2[1] = *MEMORY[0x1E69E9840];
+  v2[0] = *MEMORY[0x1E6992B20];
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:1];
   v1 = propertiesToUnloadOnCommit_propertiesToUnloadOnCommit_1;
   propertiesToUnloadOnCommit_propertiesToUnloadOnCommit_1 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didCommit
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   pthread_mutex_lock(&self->_lock);
   coCommitObjects = self->_coCommitObjects;
   self->_coCommitObjects = 0;
@@ -694,42 +692,40 @@ void __48__EKPersistentObject_propertiesToUnloadOnCommit__block_invoke()
   self->_updatedProperties = 0;
 
   pthread_mutex_unlock(&self->_lock);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   propertiesToUnloadOnCommit = [objc_opt_class() propertiesToUnloadOnCommit];
-  v6 = [propertiesToUnloadOnCommit countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [propertiesToUnloadOnCommit countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(propertiesToUnloadOnCommit);
         }
 
-        [(EKPersistentObject *)self unloadPropertyForKey:*(*(&v11 + 1) + 8 * v9++)];
+        [(EKPersistentObject *)self unloadPropertyForKey:*(*(&v10 + 1) + 8 * v9++)];
       }
 
       while (v7 != v9);
-      v7 = [propertiesToUnloadOnCommit countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [propertiesToUnloadOnCommit countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reset:(id)reset
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   resetCopy = reset;
   pthread_mutex_lock(&self->_lock);
   if ([resetCopy containsObject:self->_objectID])
@@ -779,38 +775,36 @@ void __48__EKPersistentObject_propertiesToUnloadOnCommit__block_invoke()
     WeakRetained = objc_loadWeakRetained(&self->_eventStore);
     pthread_mutex_unlock(&self->_lock);
     [WeakRetained _objectDidReset:self];
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v14 = v10;
-    v15 = [(NSHashTable *)v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v15 = [(NSHashTable *)v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v21;
+      v17 = *v20;
       do
       {
         v18 = 0;
         do
         {
-          if (*v21 != v17)
+          if (*v20 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          [*(*(&v20 + 1) + 8 * v18++) reset:{resetCopy, v20}];
+          [*(*(&v19 + 1) + 8 * v18++) reset:{resetCopy, v19}];
         }
 
         while (v16 != v18);
-        v16 = [(NSHashTable *)v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v16 = [(NSHashTable *)v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v16);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)rollback
@@ -997,7 +991,7 @@ void __48__EKPersistentObject_propertiesToUnloadOnCommit__block_invoke()
 
 - (id)loadedPropertyForKey:(id)key
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   pthread_mutex_lock(&self->_lock);
   [(EKPersistentObject *)self _loadDefaultPropertiesIfNeeded];
@@ -1006,12 +1000,12 @@ void __48__EKPersistentObject_propertiesToUnloadOnCommit__block_invoke()
   {
     _CADObjectID = [(EKPersistentObject *)self _CADObjectID];
     v7 = _CADObjectID;
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x3032000000;
-    v25 = __Block_byref_object_copy__16;
-    v26 = __Block_byref_object_dispose__16;
-    v27 = 0;
+    v21 = 0;
+    v22 = &v21;
+    v23 = 0x3032000000;
+    v24 = __Block_byref_object_copy__16;
+    v25 = __Block_byref_object_dispose__16;
+    v26 = 0;
     if (_CADObjectID)
     {
       if (([_CADObjectID isTemporary] & 1) == 0)
@@ -1025,27 +1019,27 @@ void __48__EKPersistentObject_propertiesToUnloadOnCommit__block_invoke()
           v11 = objc_loadWeakRetained(&self->_eventStore);
           connection = [v11 connection];
           cADOperationProxySync = [connection CADOperationProxySync];
-          v30[0] = keyCopy;
-          v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
-          v19[0] = MEMORY[0x1E69E9820];
-          v19[1] = 3221225472;
-          v19[2] = __43__EKPersistentObject_loadedPropertyForKey___block_invoke;
-          v19[3] = &unk_1E77FED28;
-          v20 = v7;
-          v21 = &v22;
-          [cADOperationProxySync CADObject:v20 getPropertiesWithNames:v14 reply:v19];
+          v29[0] = keyCopy;
+          v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
+          v18[0] = MEMORY[0x1E69E9820];
+          v18[1] = 3221225472;
+          v18[2] = __43__EKPersistentObject_loadedPropertyForKey___block_invoke;
+          v18[3] = &unk_1E77FED28;
+          v19 = v7;
+          v20 = &v21;
+          [cADOperationProxySync CADObject:v19 getPropertiesWithNames:v14 reply:v18];
 
           objc_autoreleasePoolPop(v10);
         }
       }
     }
 
-    if (v23[5])
+    if (v22[5])
     {
-      v29 = v23[5];
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
-      v28 = keyCopy;
-      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
+      v28 = v22[5];
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
+      v27 = keyCopy;
+      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
       [(EKPersistentObject *)self _takeValues:v15 forKeys:v16 relatedObjectValues:0];
 
       v5 = [(EKPersistentObject *)self _loadedPropertyForKey:keyCopy];
@@ -1056,12 +1050,10 @@ void __48__EKPersistentObject_propertiesToUnloadOnCommit__block_invoke()
       v5 = 0;
     }
 
-    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v21, 8);
   }
 
   pthread_mutex_unlock(&self->_lock);
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -1073,17 +1065,18 @@ uint64_t __43__EKPersistentObject_loadedPropertyForKey___block_invoke(uint64_t a
     v4 = *(a1 + 32);
     v9 = [MEMORY[0x1E696ABC0] errorWithCADResult:a2];
     NSLog(&cfstr_ErrorLoadingDe.isa, v4, v9);
+    v6 = v9;
   }
 
   else
   {
     v5 = [a3 firstObject];
-    v6 = *(*(a1 + 40) + 8);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
+    v7 = *(*(a1 + 40) + 8);
+    v6 = *(v7 + 40);
+    *(v7 + 40) = v5;
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v5, v6);
 }
 
 - (id)_loadedPropertyForKey:(id)key
@@ -1144,35 +1137,35 @@ uint64_t __43__EKPersistentObject_loadedPropertyForKey___block_invoke(uint64_t a
     updatedProperties = self->_updatedProperties;
     self->_updatedProperties = v4;
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v4, updatedProperties);
   }
 }
 
 - (id)updatedPropertiesWithOnlyPersistentObjects
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = self->_updatedProperties;
-  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
-        v10 = [(NSMutableDictionary *)self->_updatedProperties objectForKey:v9, v14];
+        v9 = *(*(&v13 + 1) + 8 * i);
+        v10 = [(NSMutableDictionary *)self->_updatedProperties objectForKey:v9, v13];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1187,15 +1180,41 @@ uint64_t __43__EKPersistentObject_loadedPropertyForKey___block_invoke(uint64_t a
         }
       }
 
-      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return dictionary;
+}
+
+- (void)_setProperty:(id)property forKey:(id)key isUpdatedProperty:(BOOL)updatedProperty
+{
+  updatedPropertyCopy = updatedProperty;
+  keyCopy = key;
+  propertyCopy = property;
+  v10 = [objc_opt_class() _relationForKey:keyCopy];
+  [(EKPersistentObject *)self _setProperty:propertyCopy forKey:keyCopy forRelation:v10 isUpdatedProperty:updatedPropertyCopy];
+}
+
+- (void)_setProperty:(id)property forKey:(id)key isRelation:(BOOL)relation isUpdatedProperty:(BOOL)updatedProperty
+{
+  updatedPropertyCopy = updatedProperty;
+  relationCopy = relation;
+  propertyCopy = property;
+  keyCopy = key;
+  if (relationCopy)
+  {
+    v11 = [objc_opt_class() _relationForKey:keyCopy];
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  [(EKPersistentObject *)self _setProperty:propertyCopy forKey:keyCopy forRelation:v11 isUpdatedProperty:updatedPropertyCopy];
 }
 
 - (void)_setProperty:(id)property forKey:(id)key forRelation:(id)relation isUpdatedProperty:(BOOL)updatedProperty
@@ -1283,7 +1302,7 @@ uint64_t __43__EKPersistentObject_loadedPropertyForKey___block_invoke(uint64_t a
 
 - (id)primitiveRelationValueForKey:(id)key
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   pthread_mutex_lock(&self->_lock);
   [(EKPersistentObject *)self _loadDefaultPropertiesIfNeeded];
@@ -1304,9 +1323,9 @@ uint64_t __43__EKPersistentObject_loadedPropertyForKey___block_invoke(uint64_t a
     {
       if ([v7 toMany])
       {
-        v34 = 0;
-        v9 = [(EKPersistentObject *)self _loadChildIdentifiersForKey:keyCopy values:&v34];
-        v10 = v34;
+        v33 = 0;
+        v9 = [(EKPersistentObject *)self _loadChildIdentifiersForKey:keyCopy values:&v33];
+        v10 = v33;
         v11 = v10;
         v5 = 0;
         if (v9)
@@ -1314,27 +1333,27 @@ uint64_t __43__EKPersistentObject_loadedPropertyForKey___block_invoke(uint64_t a
           if (v10)
           {
             v12 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(v10, "count")}];
+            v29 = 0u;
             v30 = 0u;
             v31 = 0u;
             v32 = 0u;
-            v33 = 0u;
-            v28 = v11;
+            v27 = v11;
             v13 = v11;
-            v14 = [v13 countByEnumeratingWithState:&v30 objects:v35 count:16];
+            v14 = [v13 countByEnumeratingWithState:&v29 objects:v34 count:16];
             if (v14)
             {
               v15 = v14;
-              v16 = *v31;
+              v16 = *v30;
               do
               {
                 for (i = 0; i != v15; ++i)
                 {
-                  if (*v31 != v16)
+                  if (*v30 != v16)
                   {
                     objc_enumerationMutation(v13);
                   }
 
-                  v18 = *(*(&v30 + 1) + 8 * i);
+                  v18 = *(*(&v29 + 1) + 8 * i);
                   eventStore = [(EKPersistentObject *)self eventStore];
                   v20 = [eventStore registerFetchedObjectWithID:v18];
 
@@ -1344,7 +1363,7 @@ uint64_t __43__EKPersistentObject_loadedPropertyForKey___block_invoke(uint64_t a
                   }
                 }
 
-                v15 = [v13 countByEnumeratingWithState:&v30 objects:v35 count:16];
+                v15 = [v13 countByEnumeratingWithState:&v29 objects:v34 count:16];
               }
 
               while (v15);
@@ -1353,7 +1372,7 @@ uint64_t __43__EKPersistentObject_loadedPropertyForKey___block_invoke(uint64_t a
             v5 = [MEMORY[0x1E695DFA8] setWithSet:v12];
             [(EKPersistentObject *)self _setProperty:v5 forKey:keyCopy isUpdatedProperty:0];
 
-            v11 = v28;
+            v11 = v27;
           }
 
           else
@@ -1366,9 +1385,9 @@ uint64_t __43__EKPersistentObject_loadedPropertyForKey___block_invoke(uint64_t a
 
       else
       {
-        v29 = 0;
-        v23 = [(EKPersistentObject *)self _loadRelationForKey:keyCopy value:&v29];
-        v24 = v29;
+        v28 = 0;
+        v23 = [(EKPersistentObject *)self _loadRelationForKey:keyCopy value:&v28];
+        v24 = v28;
         v11 = v24;
         v5 = 0;
         if (v23 && v24)
@@ -1393,14 +1412,12 @@ uint64_t __43__EKPersistentObject_loadedPropertyForKey___block_invoke(uint64_t a
 
   pthread_mutex_unlock(&self->_lock);
 
-  v26 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (void)_addObjectCore:(id)core toValues:(id)values relation:(id)relation
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   coreCopy = core;
   valuesCopy = values;
   relationCopy = relation;
@@ -1431,73 +1448,71 @@ LABEL_4:
 LABEL_6:
   [valuesCopy addObject:coreCopy];
   inversePropertyNames = [relationCopy inversePropertyNames];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v16 = [inversePropertyNames countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v16 = [inversePropertyNames countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v23;
+    v18 = *v22;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v23 != v18)
+        if (*v22 != v18)
         {
           objc_enumerationMutation(inversePropertyNames);
         }
 
-        v20 = *(*(&v22 + 1) + 8 * i);
+        v20 = *(*(&v21 + 1) + 8 * i);
         if ([relationCopy shouldSetInverseProperty:v20 onObject:coreCopy forObject:self])
         {
           [coreCopy _setProperty:self forKey:v20 isUpdatedProperty:1];
         }
       }
 
-      v17 = [inversePropertyNames countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v17 = [inversePropertyNames countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v17);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeObjectCore:(id)core fromValues:(id)values relation:(id)relation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   coreCopy = core;
   valuesCopy = values;
   relationCopy = relation;
   inversePropertyNames = [relationCopy inversePropertyNames];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v12 = [inversePropertyNames countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v12 = [inversePropertyNames countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v20;
+    v14 = *v19;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(inversePropertyNames);
         }
 
-        v16 = *(*(&v19 + 1) + 8 * i);
+        v16 = *(*(&v18 + 1) + 8 * i);
         if ([relationCopy shouldSetInverseProperty:v16 onObject:coreCopy forObject:self])
         {
           [coreCopy _setProperty:0 forKey:v16 isUpdatedProperty:1];
         }
       }
 
-      v13 = [inversePropertyNames countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v13 = [inversePropertyNames countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v13);
@@ -1516,8 +1531,6 @@ LABEL_6:
 
   WeakRetained = objc_loadWeakRetained(&self->_eventStore);
   [WeakRetained _deleteObject:coreCopy];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)primitiveAddRelatedObject:(id)object forKey:(id)key
@@ -1585,7 +1598,7 @@ LABEL_6:
 
 - (void)primitiveSetRelationValue:(id)value forKey:(id)key
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   keyCopy = key;
   pthread_mutex_lock(&self->_lock);
@@ -1611,28 +1624,28 @@ LABEL_6:
 
     v13 = [(EKPersistentObject *)self primitiveRelationValueForKey:keyCopy];
     v14 = valueCopy;
-    v59 = v13;
+    v58 = v13;
     if (!v13)
     {
-      v59 = [MEMORY[0x1E695DFA8] set];
+      v58 = [MEMORY[0x1E695DFA8] set];
     }
 
     v15 = keyCopy;
-    v60 = v14;
+    v59 = v14;
     if ([v14 count])
     {
       v16 = [v14 mutableCopy];
-      v17 = v59;
-      if ([v59 count])
+      v17 = v58;
+      if ([v58 count])
       {
-        [v16 minusSet:v59];
+        [v16 minusSet:v58];
       }
     }
 
     else
     {
       v16 = 0;
-      v17 = v59;
+      v17 = v58;
     }
 
     if ([v17 count])
@@ -1649,59 +1662,59 @@ LABEL_6:
       v31 = 0;
     }
 
-    v32 = [MEMORY[0x1E695DFA8] setWithSet:v59];
+    v32 = [MEMORY[0x1E695DFA8] setWithSet:v58];
+    v74 = 0u;
     v75 = 0u;
     v76 = 0u;
     v77 = 0u;
-    v78 = 0u;
     obj = v16;
-    v33 = [obj countByEnumeratingWithState:&v75 objects:v82 count:16];
+    v33 = [obj countByEnumeratingWithState:&v74 objects:v81 count:16];
     keyCopy = v15;
     if (v33)
     {
       v34 = v33;
-      v35 = *v76;
+      v35 = *v75;
       do
       {
         for (i = 0; i != v34; ++i)
         {
-          if (*v76 != v35)
+          if (*v75 != v35)
           {
             objc_enumerationMutation(obj);
           }
 
-          [(EKPersistentObject *)self _addObjectCore:*(*(&v75 + 1) + 8 * i) toValues:v32 relation:v9];
+          [(EKPersistentObject *)self _addObjectCore:*(*(&v74 + 1) + 8 * i) toValues:v32 relation:v9];
         }
 
-        v34 = [obj countByEnumeratingWithState:&v75 objects:v82 count:16];
+        v34 = [obj countByEnumeratingWithState:&v74 objects:v81 count:16];
       }
 
       while (v34);
     }
 
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
     v72 = 0u;
+    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
     v37 = v31;
-    v38 = [v37 countByEnumeratingWithState:&v71 objects:v81 count:16];
+    v38 = [v37 countByEnumeratingWithState:&v70 objects:v80 count:16];
     if (v38)
     {
       v39 = v38;
-      v40 = *v72;
+      v40 = *v71;
       do
       {
         for (j = 0; j != v39; ++j)
         {
-          if (*v72 != v40)
+          if (*v71 != v40)
           {
             objc_enumerationMutation(v37);
           }
 
-          [(EKPersistentObject *)self _removeObjectCore:*(*(&v71 + 1) + 8 * j) fromValues:v32 relation:v9];
+          [(EKPersistentObject *)self _removeObjectCore:*(*(&v70 + 1) + 8 * j) fromValues:v32 relation:v9];
         }
 
-        v39 = [v37 countByEnumeratingWithState:&v71 objects:v81 count:16];
+        v39 = [v37 countByEnumeratingWithState:&v70 objects:v80 count:16];
       }
 
       while (v39);
@@ -1722,36 +1735,36 @@ LABEL_6:
 
   v18 = valueCopy;
   v19 = [(EKPersistentObject *)self primitiveRelationValueForKey:keyCopy];
-  v59 = v18;
-  v60 = v19;
+  v58 = v18;
+  v59 = v19;
   if (v19 != v18)
   {
     v20 = v19;
     obj = [v9 inversePropertyNames];
-    v57 = keyCopy;
-    v58 = valueCopy;
+    v56 = keyCopy;
+    v57 = valueCopy;
     if (v20)
     {
-      v69 = 0u;
-      v70 = 0u;
-      v67 = 0u;
       v68 = 0u;
-      v21 = [obj countByEnumeratingWithState:&v67 objects:v80 count:16];
-      v22 = v60;
+      v69 = 0u;
+      v66 = 0u;
+      v67 = 0u;
+      v21 = [obj countByEnumeratingWithState:&v66 objects:v79 count:16];
+      v22 = v59;
       if (v21)
       {
         v23 = v21;
-        v24 = *v68;
+        v24 = *v67;
         do
         {
           for (k = 0; k != v23; ++k)
           {
-            if (*v68 != v24)
+            if (*v67 != v24)
             {
               objc_enumerationMutation(obj);
             }
 
-            v26 = *(*(&v67 + 1) + 8 * k);
+            v26 = *(*(&v66 + 1) + 8 * k);
             if ([v9 shouldSetInverseProperty:v26 onObject:v22 forObject:self])
             {
               v27 = [objc_opt_class() _relationForKey:v26];
@@ -1763,9 +1776,9 @@ LABEL_6:
                   v29 = [MEMORY[0x1E695DFA8] setWithSet:v28];
                   [v29 removeObject:self];
                   v30 = [MEMORY[0x1E695DFA8] setWithSet:v29];
-                  [v60 _setProperty:v30 forKey:v26 isUpdatedProperty:1];
+                  [v59 _setProperty:v30 forKey:v26 isUpdatedProperty:1];
 
-                  v22 = v60;
+                  v22 = v59;
                 }
               }
 
@@ -1776,66 +1789,66 @@ LABEL_6:
             }
           }
 
-          v23 = [obj countByEnumeratingWithState:&v67 objects:v80 count:16];
+          v23 = [obj countByEnumeratingWithState:&v66 objects:v79 count:16];
         }
 
         while (v23);
       }
 
-      keyCopy = v57;
-      valueCopy = v58;
+      keyCopy = v56;
+      valueCopy = v57;
       if ([v9 ownsRelatedObject])
       {
-        if ([v60 _isPendingInsert])
+        if ([v59 _isPendingInsert])
         {
-          [(EKPersistentObject *)self removeCoCommitObject:v60];
+          [(EKPersistentObject *)self removeCoCommitObject:v59];
         }
 
         else
         {
-          [(EKPersistentObject *)self addCoCommitObject:v60];
+          [(EKPersistentObject *)self addCoCommitObject:v59];
         }
 
         WeakRetained = objc_loadWeakRetained(&self->_eventStore);
-        [WeakRetained _deleteObject:v60];
+        [WeakRetained _deleteObject:v59];
       }
     }
 
-    if ([v9 ownsRelatedObject] && objc_msgSend(v59, "isNew") && (objc_msgSend(v59, "_isPendingInsert") & 1) == 0)
+    if ([v9 ownsRelatedObject] && objc_msgSend(v58, "isNew") && (objc_msgSend(v58, "_isPendingInsert") & 1) == 0)
     {
       v43 = objc_loadWeakRetained(&self->_eventStore);
-      [v43 _insertObject:v59];
+      [v43 _insertObject:v58];
     }
 
-    [(EKPersistentObject *)self _setProperty:v59 forKey:keyCopy isUpdatedProperty:1];
+    [(EKPersistentObject *)self _setProperty:v58 forKey:keyCopy isUpdatedProperty:1];
     if (!valueCopy)
     {
       goto LABEL_78;
     }
 
-    v65 = 0u;
-    v66 = 0u;
-    v63 = 0u;
     v64 = 0u;
+    v65 = 0u;
+    v62 = 0u;
+    v63 = 0u;
     v37 = obj;
-    v44 = [v37 countByEnumeratingWithState:&v63 objects:v79 count:16];
+    v44 = [v37 countByEnumeratingWithState:&v62 objects:v78 count:16];
     if (v44)
     {
       v45 = v44;
-      v46 = *v64;
+      v46 = *v63;
       v47 = 0x1E695D000uLL;
-      v48 = v59;
-      obja = *v64;
+      v48 = v58;
+      obja = *v63;
       do
       {
         for (m = 0; m != v45; ++m)
         {
-          if (*v64 != v46)
+          if (*v63 != v46)
           {
             objc_enumerationMutation(v37);
           }
 
-          v50 = *(*(&v63 + 1) + 8 * m);
+          v50 = *(*(&v62 + 1) + 8 * m);
           if ([v9 shouldSetInverseProperty:v50 onObject:v48 forObject:self])
           {
             v51 = [objc_opt_class() _relationForKey:v50];
@@ -1849,7 +1862,7 @@ LABEL_6:
                 [v54 addObject:self];
                 v55 = [*(v47 + 4008) setWithSet:v54];
 
-                v48 = v59;
+                v48 = v58;
               }
 
               else
@@ -1870,22 +1883,21 @@ LABEL_6:
           }
         }
 
-        v45 = [v37 countByEnumeratingWithState:&v63 objects:v79 count:16];
+        v45 = [v37 countByEnumeratingWithState:&v62 objects:v78 count:16];
       }
 
       while (v45);
     }
 
     obj = v37;
-    keyCopy = v57;
-    valueCopy = v58;
+    keyCopy = v56;
+    valueCopy = v57;
 LABEL_77:
 
 LABEL_78:
   }
 
   pthread_mutex_unlock(&self->_lock);
-  v56 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_primitiveValueForKey:(id)key loader:(id)loader
@@ -1987,14 +1999,15 @@ id __49__EKPersistentObject_primitiveNumberValueForKey___block_invoke(uint64_t a
   return v10;
 }
 
-void __49__EKPersistentObject_primitiveNumberValueForKey___block_invoke_2(uint64_t a1, int a2, void *a3)
+void __49__EKPersistentObject_primitiveNumberValueForKey___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __49__EKPersistentObject_primitiveNumberValueForKey___block_invoke_2_cold_1(a1);
+      __49__EKPersistentObject_primitiveNumberValueForKey___block_invoke_2_cold_1();
     }
   }
 
@@ -2022,6 +2035,17 @@ void __49__EKPersistentObject_primitiveNumberValueForKey___block_invoke_2(uint64
   return intValue;
 }
 
+- (void)primitiveSetIntValue:(int)value forKey:(id)key
+{
+  v4 = *&value;
+  keyCopy = key;
+  pthread_mutex_lock(&self->_lock);
+  v7 = [MEMORY[0x1E696AD98] numberWithInt:v4];
+  [(EKPersistentObject *)self _primitiveSetValue:v7 forKey:keyCopy];
+
+  pthread_mutex_unlock(&self->_lock);
+}
+
 - (double)primitiveDoubleValueForKey:(id)key
 {
   v3 = [(EKPersistentObject *)self primitiveNumberValueForKey:key];
@@ -2047,6 +2071,17 @@ void __49__EKPersistentObject_primitiveNumberValueForKey___block_invoke_2(uint64
   bOOLValue = [v3 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)primitiveSetBoolValue:(BOOL)value forKey:(id)key
+{
+  valueCopy = value;
+  keyCopy = key;
+  pthread_mutex_lock(&self->_lock);
+  v7 = [MEMORY[0x1E696AD98] numberWithBool:valueCopy];
+  [(EKPersistentObject *)self _primitiveSetValue:v7 forKey:keyCopy];
+
+  pthread_mutex_unlock(&self->_lock);
 }
 
 - (id)primitiveDateValueForKey:(id)key
@@ -2108,14 +2143,15 @@ id __47__EKPersistentObject_primitiveDateValueForKey___block_invoke(uint64_t a1,
   return v10;
 }
 
-void __47__EKPersistentObject_primitiveDateValueForKey___block_invoke_2(uint64_t a1, int a2, void *a3)
+void __47__EKPersistentObject_primitiveDateValueForKey___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __47__EKPersistentObject_primitiveDateValueForKey___block_invoke_2_cold_1(a1);
+      __47__EKPersistentObject_primitiveDateValueForKey___block_invoke_2_cold_1();
     }
   }
 
@@ -2175,14 +2211,15 @@ void __47__EKPersistentObject_primitiveDateValueForKey___block_invoke_2(uint64_t
   return v11;
 }
 
-void __45__EKPersistentObject__loadStringValueForKey___block_invoke(uint64_t a1, int a2, void *a3)
+void __45__EKPersistentObject__loadStringValueForKey___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __45__EKPersistentObject__loadStringValueForKey___block_invoke_cold_1(a1);
+      __45__EKPersistentObject__loadStringValueForKey___block_invoke_cold_1();
     }
   }
 
@@ -2280,14 +2317,15 @@ id __47__EKPersistentObject_primitiveDataValueForKey___block_invoke(uint64_t a1,
   return v10;
 }
 
-void __47__EKPersistentObject_primitiveDataValueForKey___block_invoke_2(uint64_t a1, int a2, void *a3)
+void __47__EKPersistentObject_primitiveDataValueForKey___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __47__EKPersistentObject_primitiveDataValueForKey___block_invoke_2_cold_1(a1);
+      __47__EKPersistentObject_primitiveDataValueForKey___block_invoke_2_cold_1();
     }
   }
 
@@ -2366,14 +2404,15 @@ id __67__EKPersistentObject_primitiveSecurityScopedURLWrapperValueForKey___block
   return v10;
 }
 
-void __67__EKPersistentObject_primitiveSecurityScopedURLWrapperValueForKey___block_invoke_2(uint64_t a1, int a2, void *a3)
+void __67__EKPersistentObject_primitiveSecurityScopedURLWrapperValueForKey___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __47__EKPersistentObject_primitiveDataValueForKey___block_invoke_2_cold_1(a1);
+      __47__EKPersistentObject_primitiveDataValueForKey___block_invoke_2_cold_1();
     }
   }
 
@@ -2473,14 +2512,15 @@ void __67__EKPersistentObject_primitiveSecurityScopedURLWrapperValueForKey___blo
   return v15;
 }
 
-void __48__EKPersistentObject__loadRelationForKey_value___block_invoke(uint64_t a1, int a2, void *a3)
+void __48__EKPersistentObject__loadRelationForKey_value___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   v6 = a3;
-  if (a2)
+  if (v4)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __48__EKPersistentObject__loadRelationForKey_value___block_invoke_cold_1(a1);
+      __48__EKPersistentObject__loadRelationForKey_value___block_invoke_cold_1();
     }
   }
 
@@ -2538,15 +2578,16 @@ void __48__EKPersistentObject__loadRelationForKey_value___block_invoke(uint64_t 
   return v13;
 }
 
-void __57__EKPersistentObject__loadChildIdentifiersForKey_values___block_invoke(uint64_t a1, int a2, void *a3)
+void __57__EKPersistentObject__loadChildIdentifiersForKey_values___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  if (a2)
+  if (v3)
   {
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __57__EKPersistentObject__loadChildIdentifiersForKey_values___block_invoke_cold_1(a1);
+      __57__EKPersistentObject__loadChildIdentifiersForKey_values___block_invoke_cold_1();
     }
   }
 
@@ -2557,35 +2598,35 @@ void __57__EKPersistentObject__loadChildIdentifiersForKey_values___block_invoke(
     v8 = *(v7 + 40);
     *(v7 + 40) = v6;
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v9 = v5;
-    v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v18;
+      v12 = *v17;
       do
       {
         v13 = 0;
         do
         {
-          if (*v18 != v12)
+          if (*v17 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
           v14 = *(*(*(a1 + 40) + 8) + 40);
-          v15 = [EKObjectID objectIDWithCADObjectID:*(*(&v17 + 1) + 8 * v13), v17];
+          v15 = [EKObjectID objectIDWithCADObjectID:*(*(&v16 + 1) + 8 * v13), v16];
           [v14 addObject:v15];
 
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v11);
@@ -2593,8 +2634,6 @@ void __57__EKPersistentObject__loadChildIdentifiersForKey_values___block_invoke(
 
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_takeDefaultValuesForObjects:(id)objects inEventStore:(id)store
@@ -2673,7 +2712,7 @@ void __64__EKPersistentObject__takeDefaultValuesForObjects_inEventStore___block_
 
 void __54__EKPersistentObject__takeValues_relatedObjectValues___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = 0x1E695D000uLL;
@@ -2683,100 +2722,99 @@ void __54__EKPersistentObject__takeValues_relatedObjectValues___block_invoke(uin
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v30 = 0;
+      v29 = 0;
       goto LABEL_37;
     }
 
     v10 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v6, "count")}];
+    v34 = 0u;
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
-    v39 = 0u;
     v8 = v6;
-    v12 = [v8 countByEnumeratingWithState:&v36 objects:v42 count:16];
+    v12 = [v8 countByEnumeratingWithState:&v34 objects:v40 count:16];
     if (!v12)
     {
       goto LABEL_35;
     }
 
     v13 = v12;
-    v33 = v5;
-    v34 = v10;
-    v32 = v6;
-    v14 = *v37;
+    v31 = v5;
+    v32 = v10;
+    v30 = v6;
+    v14 = *v35;
     v15 = &EKLogHandle;
-    v35 = *v37;
+    v33 = *v35;
 LABEL_11:
     v16 = 0;
     while (1)
     {
-      if (*v37 != v14)
+      if (*v35 != v14)
       {
         objc_enumerationMutation(v8);
       }
 
-      v17 = *(*(&v36 + 1) + 8 * v16);
-      v18 = *(v7 + 3872);
+      v17 = *(*(&v34 + 1) + 8 * v16);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         break;
       }
 
-      v19 = EKObjectIDFromDictionary();
-      if (!v19)
+      v18 = EKObjectIDFromDictionary(v17);
+      if (!v18)
       {
         goto LABEL_22;
       }
 
-      v20 = v15;
-      v21 = v7;
-      v22 = v8;
-      v23 = a1;
+      v19 = v15;
+      v20 = v7;
+      v21 = v8;
+      v22 = a1;
       WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 72));
-      v25 = [WeakRetained registerFetchedObjectWithID:v19];
+      v24 = [WeakRetained registerFetchedObjectWithID:v18];
 
-      if (!v25)
+      if (!v24)
       {
-        a1 = v23;
-        v8 = v22;
-        v7 = v21;
-        v15 = v20;
-        v14 = v35;
+        a1 = v22;
+        v8 = v21;
+        v7 = v20;
+        v15 = v19;
+        v14 = v33;
         goto LABEL_22;
       }
 
-      [v34 addObject:v25];
-      a1 = v23;
-      if (*(v23 + 40))
+      [v32 addObject:v24];
+      a1 = v22;
+      if (*(v22 + 40))
       {
-        v26 = CalGetValuesFromFetchedObjectDictionary();
-        v8 = v22;
-        if (v26)
+        v25 = CalGetValuesFromFetchedObjectDictionary();
+        v8 = v21;
+        if (v25)
         {
-          [*(a1 + 40) setObject:v26 forKeyedSubscript:v19];
+          [*(a1 + 40) setObject:v25 forKeyedSubscript:v18];
         }
       }
 
       else
       {
-        v8 = v22;
+        v8 = v21;
       }
 
-      v7 = v21;
-      v15 = v20;
-      v14 = v35;
+      v7 = v20;
+      v15 = v19;
+      v14 = v33;
 LABEL_25:
 
       if (v13 == ++v16)
       {
-        v28 = [v8 countByEnumeratingWithState:&v36 objects:v42 count:16];
-        v13 = v28;
-        if (!v28)
+        v27 = [v8 countByEnumeratingWithState:&v34 objects:v40 count:16];
+        v13 = v27;
+        if (!v27)
         {
-          v5 = v33;
-          v10 = v34;
-          v6 = v32;
+          v5 = v31;
+          v10 = v32;
+          v6 = v30;
           goto LABEL_35;
         }
 
@@ -2784,21 +2822,21 @@ LABEL_25:
       }
     }
 
-    v19 = 0;
+    v18 = 0;
 LABEL_22:
-    v27 = *v15;
+    v26 = *v15;
     if (os_log_type_enabled(*v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v41 = v33;
-      _os_log_error_impl(&dword_1A805E000, v27, OS_LOG_TYPE_ERROR, "Failed to take value for related object with key %@", buf, 0xCu);
+      v39 = v31;
+      _os_log_error_impl(&dword_1A805E000, v26, OS_LOG_TYPE_ERROR, "Failed to take value for related object with key %@", buf, 0xCu);
     }
 
-    v25 = 0;
+    v24 = 0;
     goto LABEL_25;
   }
 
-  v8 = EKObjectIDFromDictionary();
+  v8 = EKObjectIDFromDictionary(v6);
   if (v8 && (v9 = objc_loadWeakRetained((*(a1 + 32) + 72)), [v9 registerFetchedObjectWithID:v8], v10 = objc_claimAutoreleasedReturnValue(), v9, v10))
   {
     if (*(a1 + 40))
@@ -2813,10 +2851,10 @@ LABEL_22:
 
   else
   {
-    v29 = EKLogHandle;
+    v28 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      __54__EKPersistentObject__takeValues_relatedObjectValues___block_invoke_cold_1(v5, v29);
+      __54__EKPersistentObject__takeValues_relatedObjectValues___block_invoke_cold_1(v5, v28);
     }
 
     v10 = 0;
@@ -2824,15 +2862,13 @@ LABEL_22:
 
 LABEL_35:
 
-  v30 = 1;
+  v29 = 1;
   v6 = v10;
 LABEL_37:
   if (*(a1 + 48) != 1 || ([*(a1 + 32) isPropertyLoaded:v5] & 1) == 0)
   {
-    [*(a1 + 32) _setProperty:v6 forKey:v5 isRelation:v30 isUpdatedProperty:0];
+    [*(a1 + 32) _setProperty:v6 forKey:v5 isRelation:v29 isUpdatedProperty:0];
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)takeValuesForDefaultPropertyKeys:(id)keys values:(id)values
@@ -2861,7 +2897,7 @@ LABEL_37:
 
 - (void)_loadPropertiesIfNeeded:(id)needed
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   neededCopy = needed;
   if ([neededCopy count] && !-[EKPersistentObject isNew](self, "isNew"))
   {
@@ -2869,25 +2905,25 @@ LABEL_37:
     if ([(NSMutableDictionary *)self->_updatedProperties count]|| [(NSMutableDictionary *)self->_loadedProperties count])
     {
       v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v5, "count")}];
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
       v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
       v7 = v5;
-      v8 = [v7 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v33 objects:v37 count:16];
       if (v8)
       {
-        v9 = *v35;
+        v9 = *v34;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v35 != v9)
+            if (*v34 != v9)
             {
               objc_enumerationMutation(v7);
             }
 
-            v11 = *(*(&v34 + 1) + 8 * i);
+            v11 = *(*(&v33 + 1) + 8 * i);
             v12 = [(NSMutableDictionary *)self->_updatedProperties objectForKey:v11];
             if (v12)
             {
@@ -2905,7 +2941,7 @@ LABEL_37:
             }
           }
 
-          v8 = [v7 countByEnumeratingWithState:&v34 objects:v38 count:16];
+          v8 = [v7 countByEnumeratingWithState:&v33 objects:v37 count:16];
         }
 
         while (v8);
@@ -2919,12 +2955,12 @@ LABEL_37:
 
     if ([v6 count])
     {
-      v28 = 0;
-      v29 = &v28;
-      v30 = 0x3032000000;
-      v31 = __Block_byref_object_copy__16;
-      v32 = __Block_byref_object_dispose__16;
-      v33 = 0;
+      v27 = 0;
+      v28 = &v27;
+      v29 = 0x3032000000;
+      v30 = __Block_byref_object_copy__16;
+      v31 = __Block_byref_object_dispose__16;
+      v32 = 0;
       _CADObjectID = [(EKPersistentObject *)self _CADObjectID];
       v16 = _CADObjectID;
       if (_CADObjectID)
@@ -2940,30 +2976,28 @@ LABEL_37:
             v20 = objc_loadWeakRetained(&self->_eventStore);
             connection = [v20 connection];
             cADOperationProxySync = [connection CADOperationProxySync];
-            v25[0] = MEMORY[0x1E69E9820];
-            v25[1] = 3221225472;
-            v25[2] = __46__EKPersistentObject__loadPropertiesIfNeeded___block_invoke;
-            v25[3] = &unk_1E77FED28;
-            v26 = v16;
-            v27 = &v28;
-            [cADOperationProxySync CADObject:v26 getPropertiesWithNames:v6 reply:v25];
+            v24[0] = MEMORY[0x1E69E9820];
+            v24[1] = 3221225472;
+            v24[2] = __46__EKPersistentObject__loadPropertiesIfNeeded___block_invoke;
+            v24[3] = &unk_1E77FED28;
+            v25 = v16;
+            v26 = &v27;
+            [cADOperationProxySync CADObject:v25 getPropertiesWithNames:v6 reply:v24];
 
             objc_autoreleasePoolPop(v19);
           }
         }
       }
 
-      v23 = v29[5];
+      v23 = v28[5];
       if (v23)
       {
         [(EKPersistentObject *)self _takeValuesForDefaultPropertyKeys:v6 values:v23 relatedObjectValues:0];
       }
 
-      _Block_object_dispose(&v28, 8);
+      _Block_object_dispose(&v27, 8);
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __46__EKPersistentObject__loadPropertiesIfNeeded___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -2997,11 +3031,11 @@ void __46__EKPersistentObject__loadPropertiesIfNeeded___block_invoke(uint64_t a1
 
 + (id)allObjectsWithChangesRelatedToObjects:(id)objects
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
-  v22 = [MEMORY[0x1E695DFA8] set];
+  v21 = [MEMORY[0x1E695DFA8] set];
   v4 = [MEMORY[0x1E695DFA8] set];
-  v21 = objectsCopy;
+  v20 = objectsCopy;
   allObjects = [objectsCopy allObjects];
   v6 = [allObjects mutableCopy];
 
@@ -3010,9 +3044,9 @@ void __46__EKPersistentObject__loadPropertiesIfNeeded___block_invoke(uint64_t a1
   aBlock[2] = __60__EKPersistentObject_allObjectsWithChangesRelatedToObjects___block_invoke;
   aBlock[3] = &unk_1E77FEF28;
   v7 = v4;
-  v31 = v7;
+  v30 = v7;
   v8 = v6;
-  v32 = v8;
+  v31 = v8;
   v9 = _Block_copy(aBlock);
   while ([v8 count])
   {
@@ -3021,51 +3055,49 @@ void __46__EKPersistentObject__loadPropertiesIfNeeded___block_invoke(uint64_t a1
     [v7 addObject:lastObject];
     if (([lastObject isDirty] & 1) != 0 || (objc_msgSend(lastObject, "_isPendingInsert") & 1) != 0 || (objc_msgSend(lastObject, "_isPendingDelete") & 1) != 0 || objc_msgSend(lastObject, "_isPendingUpdate"))
     {
-      [v22 addObject:lastObject];
+      [v21 addObject:lastObject];
     }
 
     coCommitObjects = [lastObject coCommitObjects];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
-    v12 = [coCommitObjects countByEnumeratingWithState:&v26 objects:v33 count:16];
+    v12 = [coCommitObjects countByEnumeratingWithState:&v25 objects:v32 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v27;
+      v14 = *v26;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v27 != v14)
+          if (*v26 != v14)
           {
             objc_enumerationMutation(coCommitObjects);
           }
 
-          v9[2](v9, *(*(&v26 + 1) + 8 * i));
+          v9[2](v9, *(*(&v25 + 1) + 8 * i));
         }
 
-        v13 = [coCommitObjects countByEnumeratingWithState:&v26 objects:v33 count:16];
+        v13 = [coCommitObjects countByEnumeratingWithState:&v25 objects:v32 count:16];
       }
 
       while (v13);
     }
 
     relations = [objc_opt_class() relations];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __60__EKPersistentObject_allObjectsWithChangesRelatedToObjects___block_invoke_2;
-    v23[3] = &unk_1E77FEF50;
-    v24 = lastObject;
-    v25 = v9;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __60__EKPersistentObject_allObjectsWithChangesRelatedToObjects___block_invoke_2;
+    v22[3] = &unk_1E77FEF50;
+    v23 = lastObject;
+    v24 = v9;
     v17 = lastObject;
-    [relations enumerateKeysAndObjectsUsingBlock:v23];
+    [relations enumerateKeysAndObjectsUsingBlock:v22];
   }
 
-  v18 = [v22 copy];
-
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = [v21 copy];
 
   return v18;
 }
@@ -3081,7 +3113,7 @@ void __60__EKPersistentObject_allObjectsWithChangesRelatedToObjects___block_invo
 
 void __60__EKPersistentObject_allObjectsWithChangesRelatedToObjects___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   pthread_mutex_lock((*(a1 + 32) + 8));
@@ -3095,32 +3127,31 @@ void __60__EKPersistentObject_allObjectsWithChangesRelatedToObjects___block_invo
       if ([v6 toMany])
       {
         v8 = v7;
+        v13 = 0u;
+        v14 = 0u;
         v15 = 0u;
         v16 = 0u;
-        v17 = 0u;
-        v18 = 0u;
-        v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v16;
+          v11 = *v14;
           do
           {
             v12 = 0;
             do
             {
-              if (*v16 != v11)
+              if (*v14 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = *(*(&v15 + 1) + 8 * v12);
               (*(*(a1 + 40) + 16))();
               ++v12;
             }
 
             while (v10 != v12);
-            v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
           }
 
           while (v10);
@@ -3133,8 +3164,6 @@ void __60__EKPersistentObject_allObjectsWithChangesRelatedToObjects___block_invo
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)ownedObjects
@@ -3180,7 +3209,7 @@ void __34__EKPersistentObject_ownedObjects__block_invoke(uint64_t a1, void *a2)
 
 void __34__EKPersistentObject_ownedObjects__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([v6 ownsRelatedObject])
@@ -3196,32 +3225,31 @@ void __34__EKPersistentObject_ownedObjects__block_invoke_2(uint64_t a1, void *a2
         if ([v6 toMany])
         {
           v8 = v7;
+          v13 = 0u;
+          v14 = 0u;
           v15 = 0u;
           v16 = 0u;
-          v17 = 0u;
-          v18 = 0u;
-          v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+          v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
           if (v9)
           {
             v10 = v9;
-            v11 = *v16;
+            v11 = *v14;
             do
             {
               v12 = 0;
               do
               {
-                if (*v16 != v11)
+                if (*v14 != v11)
                 {
                   objc_enumerationMutation(v8);
                 }
 
-                v13 = *(*(&v15 + 1) + 8 * v12);
                 (*(*(a1 + 40) + 16))();
                 ++v12;
               }
 
               while (v10 != v12);
-              v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+              v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
             }
 
             while (v10);
@@ -3235,35 +3263,33 @@ void __34__EKPersistentObject_ownedObjects__block_invoke_2(uint64_t a1, void *a2
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dump
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD60] stringWithCapacity:0];
   [v3 appendString:@"{\n"];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   _loadedPropertyKeys = [(EKPersistentObject *)self _loadedPropertyKeys];
-  v5 = [_loadedPropertyKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [_loadedPropertyKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(_loadedPropertyKeys);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = [(EKPersistentObject *)self _propertyForKey:v9];
         v11 = [objc_opt_class() _relationForKey:v9];
         v12 = v11;
@@ -3278,7 +3304,7 @@ void __34__EKPersistentObject_ownedObjects__block_invoke_2(uint64_t a1, void *a2
         }
       }
 
-      v6 = [_loadedPropertyKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [_loadedPropertyKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
@@ -3286,8 +3312,6 @@ void __34__EKPersistentObject_ownedObjects__block_invoke_2(uint64_t a1, void *a2
 
   [v3 appendString:@"}"];
   v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ <%p> {loaded = %@ updated = %@}", objc_opt_class(), self, v3, self->_updatedProperties];;
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -3310,13 +3334,11 @@ void __34__EKPersistentObject_ownedObjects__block_invoke_2(uint64_t a1, void *a2
 
 + (void)alternateUniverseClass
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = NSStringFromClass(self);
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "+alternateUniverseClass called on a class that does not implement it (%{public}@)", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "+alternateUniverseClass called on a class that does not implement it (%{public}@)", &v4, 0xCu);
 }
 
 - (void)frozenObjectInStore:.cold.1()
@@ -3351,85 +3373,66 @@ void __34__EKPersistentObject_ownedObjects__block_invoke_2(uint64_t a1, void *a2
   [v0 handleFailureInMethod:? object:? file:? lineNumber:? description:?];
 }
 
-void __49__EKPersistentObject_primitiveNumberValueForKey___block_invoke_2_cold_1(uint64_t a1)
+void __49__EKPersistentObject_primitiveNumberValueForKey___block_invoke_2_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_3(a1);
-  v4 = v3;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  OUTLINED_FUNCTION_3_3();
+  v2 = v1;
+  v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_2_2(&dword_1A805E000, v6, v7, "Error loading number %@ from daemon: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_2(&dword_1A805E000, v4, v5, "Error loading number %@ from daemon: %@", v6, v7, v8, v9);
 }
 
-void __47__EKPersistentObject_primitiveDateValueForKey___block_invoke_2_cold_1(uint64_t a1)
+void __47__EKPersistentObject_primitiveDateValueForKey___block_invoke_2_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_3(a1);
-  v4 = v3;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  OUTLINED_FUNCTION_3_3();
+  v2 = v1;
+  v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_2_2(&dword_1A805E000, v6, v7, "Error loading date %@ from daemon: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_2(&dword_1A805E000, v4, v5, "Error loading date %@ from daemon: %@", v6, v7, v8, v9);
 }
 
-void __45__EKPersistentObject__loadStringValueForKey___block_invoke_cold_1(uint64_t a1)
+void __45__EKPersistentObject__loadStringValueForKey___block_invoke_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_3(a1);
-  v4 = v3;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  OUTLINED_FUNCTION_3_3();
+  v2 = v1;
+  v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_2_2(&dword_1A805E000, v6, v7, "Error loading string %@ from daemon: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_2(&dword_1A805E000, v4, v5, "Error loading string %@ from daemon: %@", v6, v7, v8, v9);
 }
 
-void __47__EKPersistentObject_primitiveDataValueForKey___block_invoke_2_cold_1(uint64_t a1)
+void __47__EKPersistentObject_primitiveDataValueForKey___block_invoke_2_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_3(a1);
-  v4 = v3;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  OUTLINED_FUNCTION_3_3();
+  v2 = v1;
+  v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_2_2(&dword_1A805E000, v6, v7, "Error loading data %@ from daemon: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_2(&dword_1A805E000, v4, v5, "Error loading data %@ from daemon: %@", v6, v7, v8, v9);
 }
 
-void __48__EKPersistentObject__loadRelationForKey_value___block_invoke_cold_1(uint64_t a1)
+void __48__EKPersistentObject__loadRelationForKey_value___block_invoke_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_3(a1);
-  v4 = v3;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  OUTLINED_FUNCTION_3_3();
+  v2 = v1;
+  v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_2_2(&dword_1A805E000, v6, v7, "Error loading to-one relation %@ from daemon: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_2(&dword_1A805E000, v4, v5, "Error loading to-one relation %@ from daemon: %@", v6, v7, v8, v9);
 }
 
-void __57__EKPersistentObject__loadChildIdentifiersForKey_values___block_invoke_cold_1(uint64_t a1)
+void __57__EKPersistentObject__loadChildIdentifiersForKey_values___block_invoke_cold_1()
 {
-  v2 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_3(a1);
-  v4 = v3;
-  v5 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
+  OUTLINED_FUNCTION_3_3();
+  v2 = v1;
+  v3 = [OUTLINED_FUNCTION_1_3() errorWithCADResult:?];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_2_2(&dword_1A805E000, v6, v7, "Error loading to-many relation %@ from daemon: %@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_2(&dword_1A805E000, v4, v5, "Error loading to-many relation %@ from daemon: %@", v6, v7, v8, v9);
 }
 
 void __54__EKPersistentObject__takeValues_relatedObjectValues___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Failed to take value for related object with key %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Failed to take value for related object with key %@", &v2, 0xCu);
 }
 
 @end

@@ -34,7 +34,7 @@
 - (void)insertText:(id)text
 {
   textCopy = text;
-  if (([textCopy isEqualToString:@"\t"] & 1) == 0 && (objc_msgSend(textCopy, "isEqualToString:", @"\n") & 1) == 0 && (objc_msgSend(textCopy, "isEqualToString:", @"\r") & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(textCopy) & 1) == 0 && (objc_msgSend_isEqualToString_(textCopy) & 1) == 0 && (objc_msgSend_isEqualToString_(textCopy) & 1) == 0)
   {
     typedText = self->_typedText;
     v5 = textCopy;

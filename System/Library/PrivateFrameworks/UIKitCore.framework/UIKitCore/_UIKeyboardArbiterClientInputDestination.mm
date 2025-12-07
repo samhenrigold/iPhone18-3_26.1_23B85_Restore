@@ -272,17 +272,17 @@
 {
   currentClientState = [(_UIKeyboardArbiterClient *)self currentClientState];
   sourceBundleIdentifier = [currentClientState sourceBundleIdentifier];
-  v4 = [sourceBundleIdentifier isEqualToString:@"com.apple.WritingToolsUIService"];
+  isEqualToString = objc_msgSend_isEqualToString_(sourceBundleIdentifier);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (BOOL)writingToolsAllowsSceneToRequestFocusOnPeekApplicationEvent
 {
   currentBundleIdentifier = [objc_opt_class() currentBundleIdentifier];
-  v3 = [currentBundleIdentifier isEqualToString:@"com.apple.WritingToolsUIService"];
+  isEqualToString = objc_msgSend_isEqualToString_(currentBundleIdentifier);
 
-  return v3 ^ 1;
+  return isEqualToString ^ 1;
 }
 
 - (void)willResume:(id)resume
@@ -1164,9 +1164,9 @@ LABEL_5:
     currentClientState = [(_UIKeyboardArbiterClient *)self currentClientState];
     sourceBundleIdentifier = [currentClientState sourceBundleIdentifier];
     v15 = +[_UIKeyboardArbiterClient mainBundleIdentifier];
-    v16 = [sourceBundleIdentifier isEqualToString:v15];
+    isEqualToString = objc_msgSend_isEqualToString_(sourceBundleIdentifier);
 
-    if (v16)
+    if (isEqualToString)
     {
       currentClientState2 = [(_UIKeyboardArbiterClient *)self currentClientState];
       [(_UIKeyboardArbiterClient *)self setBackupState:currentClientState2];
@@ -1738,7 +1738,7 @@ LABEL_6:
   keyboardSceneIdentifierEnteringForeground = self->_keyboardSceneIdentifierEnteringForeground;
   v8 = object;
   _sceneIdentifier = [object _sceneIdentifier];
-  LODWORD(keyboardSceneIdentifierEnteringForeground) = [(NSString *)keyboardSceneIdentifierEnteringForeground isEqualToString:_sceneIdentifier];
+  LODWORD(keyboardSceneIdentifierEnteringForeground) = objc_msgSend_isEqualToString_(keyboardSceneIdentifierEnteringForeground);
 
   if (keyboardSceneIdentifierEnteringForeground)
   {
@@ -1774,7 +1774,7 @@ LABEL_6:
   {
     keyboardSceneIdentifierEnteringForeground = self->_keyboardSceneIdentifierEnteringForeground;
     _sceneIdentifier = [scene _sceneIdentifier];
-    LOBYTE(keyboardSceneIdentifierEnteringForeground) = [(NSString *)keyboardSceneIdentifierEnteringForeground isEqualToString:_sceneIdentifier];
+    LOBYTE(keyboardSceneIdentifierEnteringForeground) = objc_msgSend_isEqualToString_(keyboardSceneIdentifierEnteringForeground);
 
     if ((keyboardSceneIdentifierEnteringForeground & 1) != 0 || ![scene activationState] || objc_msgSend(scene, "activationState") == 1 && (-[_UIKeyboardArbiterClient currentUIState](self, "currentUIState"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "keyboardOnScreen"), v7, v8) && ((objc_msgSend(scene, "_canDynamicallySpecifySupportedInterfaceOrientations") & 1) != 0 || (+[UIKeyboardSceneDelegate activeKeyboardSceneDelegate](UIKeyboardSceneDelegate, "activeKeyboardSceneDelegate"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "visualModeManager"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "windowingModeEnabled"), v11, v10, objc_msgSend(scene, "_coordinateSpace"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "bounds"), v15 = v14, v17 = v16, v13, objc_msgSend(scene, "screen"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "bounds"), v20 = v19, v22 = v21, v18, (v12 & 1) == 0) && v15 == v20 && v17 == v22))
     {
@@ -1883,7 +1883,7 @@ LABEL_6:
   v20 = *MEMORY[0x1E69E9840];
   appCopy = app;
   completionCopy = completion;
-  if (appCopy && ![(__CFString *)appCopy isEqualToString:&stru_1EFB14550])
+  if (appCopy && !objc_msgSend_isEqualToString_(appCopy))
   {
     focusedSceneIdentityStringOrIdentifier = 0;
   }
@@ -2115,7 +2115,7 @@ LABEL_40:
             v12 = [_UIRemoteKeyboards keyboardWindowSceneForScreen:screen create:0];
             session = [v6 session];
             role = [session role];
-            v15 = [role isEqualToString:@"UIWindowSceneSessionRoleExternalDisplayNonInteractive"];
+            isEqualToString = objc_msgSend_isEqualToString_(role);
 
             activationState = [v6 activationState];
             activationState2 = [v6 activationState];
@@ -2123,10 +2123,10 @@ LABEL_40:
             {
               if (activationState != 1 && activationState2 != 0)
               {
-                v15 = 1;
+                isEqualToString = 1;
               }
 
-              if (v15)
+              if (isEqualToString)
               {
                 goto LABEL_34;
               }
@@ -2521,11 +2521,11 @@ LABEL_19:
       currentInputMode2 = [v10 currentInputMode];
       identifier = [currentInputMode2 identifier];
       currentInputMode3 = [changeCopy currentInputMode];
-      v14 = [identifier isEqualToString:currentInputMode3];
+      isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
       if (([changeCopy tracking] & 1) == 0)
       {
-        if ((v14 & 1) == 0)
+        if ((isEqualToString & 1) == 0)
         {
           currentInputMode4 = [changeCopy currentInputMode];
           v16 = [UIKeyboardInputMode keyboardInputModeWithIdentifier:currentInputMode4];

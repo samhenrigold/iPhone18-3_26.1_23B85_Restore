@@ -76,7 +76,7 @@ void __66__PXStoryResourcesDataSourceManager_observable_didChange_context___bloc
   assetCollection = [recipe assetCollection];
   if (recipe)
   {
-    [recipe overallDurationInfo];
+    objc_msgSend_overallDurationInfo(recipe);
   }
 
   else
@@ -217,7 +217,7 @@ void __66__PXStoryResourcesDataSourceManager_observable_didChange_context___bloc
                 v22 = assetCollection2;
                 if (v6)
                 {
-                  [(PXStoryRecipe *)v6 overallDurationInfo];
+                  objc_msgSend_overallDurationInfo(v6);
                 }
 
                 else
@@ -229,7 +229,7 @@ void __66__PXStoryResourcesDataSourceManager_observable_didChange_context___bloc
 
                 if (v7)
                 {
-                  [(PXStoryRecipe *)v7 overallDurationInfo];
+                  objc_msgSend_overallDurationInfo(v7);
                   v23 = v30[0];
                 }
 

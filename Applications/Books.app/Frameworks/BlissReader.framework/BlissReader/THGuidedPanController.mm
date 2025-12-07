@@ -261,7 +261,7 @@ LABEL_13:
   [(THGuidedPanController *)self setTarget:v21];
   if (objc_opt_respondsToSelector())
   {
-    [v22 duration];
+    objc_msgSend_duration(v22);
     v24 = v23;
   }
 

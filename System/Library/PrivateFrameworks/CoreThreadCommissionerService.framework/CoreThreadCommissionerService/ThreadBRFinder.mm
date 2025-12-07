@@ -226,7 +226,7 @@ LABEL_16:
     p_super = v14;
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_1000496A8(&v70);
+      sub_1000496A8();
     }
 
     v64 = 0;
@@ -668,7 +668,7 @@ LABEL_26:
             v28 = sub_10001B194(1);
             if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
             {
-              sub_10004996C(p_networkNameToFind);
+              sub_10004996C();
             }
 
             goto LABEL_92;
@@ -714,12 +714,12 @@ LABEL_64:
 
                 v34 = v37;
                 v47 = v31;
-                if (([*p_borderAgentIdToFind isEqualToData:v37] & 1) == 0)
+                if (![(NSData *)*p_borderAgentIdToFind isEqualToData:v37])
                 {
                   v44 = sub_10001B194(1);
                   if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
                   {
-                    sub_100049CD0(p_borderAgentIdToFind);
+                    sub_100049CD0();
                   }
 
                   goto LABEL_93;
@@ -761,7 +761,7 @@ LABEL_77:
 
               else if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
               {
-                sub_100049E44(&v52);
+                sub_100049E44();
               }
 
               goto LABEL_22;
@@ -791,7 +791,7 @@ LABEL_77:
                 v33 = sub_10001B194(1);
                 if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
                 {
-                  sub_100049B5C(p_extendedPANIDToFind);
+                  sub_100049B5C();
                 }
 
 LABEL_88:
@@ -815,13 +815,13 @@ LABEL_92:
             v38 = sub_10001B194(1);
             if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
             {
-              sub_100049A64(&self->_extendedPANIDToFind);
+              sub_100049A64();
             }
           }
 
           else
           {
-            if (!*p_borderAgentIdToFind || ([*p_borderAgentIdToFind isEqualToData:v11] & 1) != 0)
+            if (!*p_borderAgentIdToFind || [(NSData *)*p_borderAgentIdToFind isEqualToData:v11])
             {
               v49 = v22;
               v51 = 0;
@@ -834,7 +834,7 @@ LABEL_92:
             v38 = sub_10001B194(1);
             if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
             {
-              sub_100049AE0(p_borderAgentIdToFind);
+              sub_100049AE0();
             }
           }
 

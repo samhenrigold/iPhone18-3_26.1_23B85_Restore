@@ -103,7 +103,7 @@
     v6 = v5;
     outputDevices = [routeCopy outputDevices];
     v8 = [MEMORY[0x1E69B09B8] symbolNameForOutputDevices:outputDevices];
-    v9 = MCLogCategoryDefault();
+    v9 = MCLogCategoryDefault(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v12 = 138543874;

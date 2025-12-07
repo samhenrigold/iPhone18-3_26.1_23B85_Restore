@@ -105,7 +105,7 @@
 
 - (void)startMotionDataListenerWithOptions:(id)options
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v5 = +[DSLogging sharedInstance];
   dsLogger = [v5 dsLogger];
@@ -121,9 +121,9 @@
   if (self->_discoveryClient)
   {
     v7 = MEMORY[0x277CCA9B8];
-    v29 = *MEMORY[0x277CCA450];
-    v30[0] = @"Listener Discovery companion link already exists";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+    v28 = *MEMORY[0x277CCA450];
+    v29[0] = @"Listener Discovery companion link already exists";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
     v9 = [v7 errorWithDomain:@"DSErrorDomain" code:7 userInfo:v8];
 
     [(DSListener *)self failedToStartListenerWithError:v9];
@@ -138,55 +138,53 @@
     [(RPCompanionLinkClient *)self->_discoveryClient setControlFlags:14];
     [(RPCompanionLinkClient *)self->_discoveryClient setDispatchQueue:self->_queue];
     objc_initWeak(&buf, self);
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __49__DSListener_startMotionDataListenerWithOptions___block_invoke;
-    v26[3] = &unk_278F858D8;
-    objc_copyWeak(&v27, &buf);
-    [(RPCompanionLinkClient *)self->_discoveryClient setInvalidationHandler:v26];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __49__DSListener_startMotionDataListenerWithOptions___block_invoke_61;
-    v24[3] = &unk_278F85900;
-    objc_copyWeak(&v25, &buf);
-    [(RPCompanionLinkClient *)self->_discoveryClient setDeviceFoundHandler:v24];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __49__DSListener_startMotionDataListenerWithOptions___block_invoke_2;
-    v22[3] = &unk_278F85900;
-    objc_copyWeak(&v23, &buf);
-    [(RPCompanionLinkClient *)self->_discoveryClient setDeviceLostHandler:v22];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __49__DSListener_startMotionDataListenerWithOptions___block_invoke;
+    v25[3] = &unk_278F858D8;
+    objc_copyWeak(&v26, &buf);
+    [(RPCompanionLinkClient *)self->_discoveryClient setInvalidationHandler:v25];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __49__DSListener_startMotionDataListenerWithOptions___block_invoke_61;
+    v23[3] = &unk_278F85900;
+    objc_copyWeak(&v24, &buf);
+    [(RPCompanionLinkClient *)self->_discoveryClient setDeviceFoundHandler:v23];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __49__DSListener_startMotionDataListenerWithOptions___block_invoke_2;
+    v21[3] = &unk_278F85900;
+    objc_copyWeak(&v22, &buf);
+    [(RPCompanionLinkClient *)self->_discoveryClient setDeviceLostHandler:v21];
     v12 = self->_discoveryClient;
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __49__DSListener_startMotionDataListenerWithOptions___block_invoke_3;
-    v20[3] = &unk_278F85928;
-    objc_copyWeak(&v21, &buf);
-    [(RPCompanionLinkClient *)v12 registerRequestID:@"com.apple.distributedsensing.heartbeatRequest" options:0 handler:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __49__DSListener_startMotionDataListenerWithOptions___block_invoke_3;
+    v19[3] = &unk_278F85928;
+    objc_copyWeak(&v20, &buf);
+    [(RPCompanionLinkClient *)v12 registerRequestID:@"com.apple.distributedsensing.heartbeatRequest" options:0 handler:v19];
     v13 = self->_discoveryClient;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __49__DSListener_startMotionDataListenerWithOptions___block_invoke_4;
-    v18[3] = &unk_278F85928;
-    objc_copyWeak(&v19, &buf);
-    [(RPCompanionLinkClient *)v13 registerRequestID:@"com.apple.distributedsensing.dataRequest" options:0 handler:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __49__DSListener_startMotionDataListenerWithOptions___block_invoke_4;
+    v17[3] = &unk_278F85928;
+    objc_copyWeak(&v18, &buf);
+    [(RPCompanionLinkClient *)v13 registerRequestID:@"com.apple.distributedsensing.dataRequest" options:0 handler:v17];
     v14 = self->_discoveryClient;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __49__DSListener_startMotionDataListenerWithOptions___block_invoke_5;
-    v16[3] = &unk_278F85BD8;
-    objc_copyWeak(&v17, &buf);
-    [(RPCompanionLinkClient *)v14 activateWithCompletion:v16];
-    objc_destroyWeak(&v17);
-    objc_destroyWeak(&v19);
-    objc_destroyWeak(&v21);
-    objc_destroyWeak(&v23);
-    objc_destroyWeak(&v25);
-    objc_destroyWeak(&v27);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __49__DSListener_startMotionDataListenerWithOptions___block_invoke_5;
+    v15[3] = &unk_278F85BD8;
+    objc_copyWeak(&v16, &buf);
+    [(RPCompanionLinkClient *)v14 activateWithCompletion:v15];
+    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(&buf);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __49__DSListener_startMotionDataListenerWithOptions___block_invoke(uint64_t a1)
@@ -345,7 +343,7 @@ uint64_t __36__DSListener_stopMotionDataListener__block_invoke(uint64_t a1)
 
 - (void)_rapportReceivedHeartbeatRequest:(id)request options:(id)options responseHandler:(id)handler
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   optionsCopy = options;
   v9 = +[DSLogging sharedInstance];
@@ -353,23 +351,22 @@ uint64_t __36__DSListener_stopMotionDataListener__block_invoke(uint64_t a1)
 
   if (os_log_type_enabled(dsLogger, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v26) = 0;
-    _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSListener] received heartbeat request\n", &v26, 2u);
+    LOWORD(v24) = 0;
+    _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSListener] received heartbeat request\n", &v24, 2u);
   }
 
-  v11 = *MEMORY[0x277D442D0];
   CFStringGetTypeID();
-  v12 = CFDictionaryGetTypedValue();
+  v11 = CFDictionaryGetTypedValue();
 
-  if (!v12)
+  if (!v11)
   {
-    v24 = +[DSLogging sharedInstance];
-    dsLogger2 = [v24 dsLogger];
+    v23 = +[DSLogging sharedInstance];
+    dsLogger2 = [v23 dsLogger];
 
     if (os_log_type_enabled(dsLogger2, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v26) = 0;
-      _os_log_impl(&dword_249027000, dsLogger2, OS_LOG_TYPE_DEFAULT, "[DSListener] No sender ID\n", &v26, 2u);
+      LOWORD(v24) = 0;
+      _os_log_impl(&dword_249027000, dsLogger2, OS_LOG_TYPE_DEFAULT, "[DSListener] No sender ID\n", &v24, 2u);
     }
 
     goto LABEL_18;
@@ -377,28 +374,28 @@ uint64_t __36__DSListener_stopMotionDataListener__block_invoke(uint64_t a1)
 
   if (self->_isStopCalled)
   {
-    v13 = +[DSLogging sharedInstance];
-    dsLogger3 = [v13 dsLogger];
+    v12 = +[DSLogging sharedInstance];
+    dsLogger3 = [v12 dsLogger];
 
     if (os_log_type_enabled(dsLogger3, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = 138412290;
-      v27 = v12;
-      _os_log_impl(&dword_249027000, dsLogger3, OS_LOG_TYPE_DEFAULT, "[DSListener] Rejecting heartbeat request from sender %@ while stop was pending\n", &v26, 0xCu);
+      v24 = 138412290;
+      v25 = v11;
+      _os_log_impl(&dword_249027000, dsLogger3, OS_LOG_TYPE_DEFAULT, "[DSListener] Rejecting heartbeat request from sender %@ while stop was pending\n", &v24, 0xCu);
     }
   }
 
   currentProvider = self->_currentProvider;
-  if (!currentProvider || (-[DSRapportDevice rpDevice](currentProvider, "rpDevice"), v16 = objc_claimAutoreleasedReturnValue(), [v16 identifier], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "isEqualToString:", v12), v17, v16, !v18))
+  if (!currentProvider || (-[DSRapportDevice rpDevice](currentProvider, "rpDevice"), v15 = objc_claimAutoreleasedReturnValue(), [v15 identifier], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "isEqualToString:", v11), v16, v15, !v17))
   {
-    v21 = +[DSLogging sharedInstance];
-    dsLogger4 = [v21 dsLogger];
+    v20 = +[DSLogging sharedInstance];
+    dsLogger4 = [v20 dsLogger];
 
     if (os_log_type_enabled(dsLogger4, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = 138412290;
-      v27 = v12;
-      _os_log_impl(&dword_249027000, dsLogger4, OS_LOG_TYPE_DEFAULT, "[DSListener] Rejecting heartbeat request from sender %@\n", &v26, 0xCu);
+      v24 = 138412290;
+      v25 = v11;
+      _os_log_impl(&dword_249027000, dsLogger4, OS_LOG_TYPE_DEFAULT, "[DSListener] Rejecting heartbeat request from sender %@\n", &v24, 0xCu);
     }
 
     dsLogger2 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DSErrorDomain" code:1 userInfo:0];
@@ -408,26 +405,24 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v19 = +[DSLogging sharedInstance];
-  dsLogger5 = [v19 dsLogger];
+  v18 = +[DSLogging sharedInstance];
+  dsLogger5 = [v18 dsLogger];
 
   if (os_log_type_enabled(dsLogger5, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 138412290;
-    v27 = v12;
-    _os_log_impl(&dword_249027000, dsLogger5, OS_LOG_TYPE_DEFAULT, "[DSListener] Heartbeat request received from provider %@\n", &v26, 0xCu);
+    v24 = 138412290;
+    v25 = v11;
+    _os_log_impl(&dword_249027000, dsLogger5, OS_LOG_TYPE_DEFAULT, "[DSListener] Heartbeat request received from provider %@\n", &v24, 0xCu);
   }
 
   ++self->_numHeartbeats;
   (*(handlerCopy + 2))(handlerCopy, 0, 0, 0);
 LABEL_19:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_rapportReceivedDataRequest:(id)request options:(id)options responseHandler:(id)handler
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   optionsCopy = options;
   handlerCopy = handler;
@@ -436,14 +431,13 @@ LABEL_19:
 
   if (os_log_type_enabled(dsLogger, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v28) = 0;
-    _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSListener] received data request\n", &v28, 2u);
+    LOWORD(v25) = 0;
+    _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSListener] received data request\n", &v25, 2u);
   }
 
-  v13 = *MEMORY[0x277D442D0];
   CFStringGetTypeID();
-  v14 = CFDictionaryGetTypedValue();
-  if ([v14 length])
+  v13 = CFDictionaryGetTypedValue();
+  if ([v13 length])
   {
     if (!requestCopy)
     {
@@ -453,68 +447,65 @@ LABEL_19:
 
   else
   {
-    v15 = *MEMORY[0x277D442C8];
     CFStringGetTypeID();
-    v16 = CFDictionaryGetTypedValue();
+    v14 = CFDictionaryGetTypedValue();
 
-    v14 = v16;
+    v13 = v14;
     if (!requestCopy)
     {
 LABEL_12:
-      v25 = +[DSLogging sharedInstance];
-      dsLogger2 = [v25 dsLogger];
+      v23 = +[DSLogging sharedInstance];
+      dsLogger2 = [v23 dsLogger];
 
       if (os_log_type_enabled(dsLogger2, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = 138412290;
-        v29 = v14;
-        _os_log_impl(&dword_249027000, dsLogger2, OS_LOG_TYPE_DEFAULT, "[DSListener] Rejecting data request from sender %@\n", &v28, 0xCu);
+        v25 = 138412290;
+        v26 = v13;
+        _os_log_impl(&dword_249027000, dsLogger2, OS_LOG_TYPE_DEFAULT, "[DSListener] Rejecting data request from sender %@\n", &v25, 0xCu);
       }
 
-      v24 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DSErrorDomain" code:1 userInfo:0];
-      v19 = v24;
+      v22 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DSErrorDomain" code:1 userInfo:0];
+      v17 = v22;
       goto LABEL_15;
     }
   }
 
-  v17 = [requestCopy objectForKeyedSubscript:@"payloadKey"];
+  v15 = [requestCopy objectForKeyedSubscript:@"payloadKey"];
 
-  if (!v17)
+  if (!v15)
   {
     goto LABEL_12;
   }
 
-  v18 = [(DSListener *)self _findProviderWithIdentifier:v14];
-  if (!v18)
+  v16 = [(DSListener *)self _findProviderWithIdentifier:v13];
+  if (!v16)
   {
     goto LABEL_12;
   }
 
-  v19 = v18;
-  v20 = +[DSLogging sharedInstance];
-  dsLogger3 = [v20 dsLogger];
+  v17 = v16;
+  v18 = +[DSLogging sharedInstance];
+  dsLogger3 = [v18 dsLogger];
 
   if (os_log_type_enabled(dsLogger3, OS_LOG_TYPE_DEFAULT))
   {
-    rpDevice = [v19 rpDevice];
-    v28 = 138412290;
-    v29 = rpDevice;
-    _os_log_impl(&dword_249027000, dsLogger3, OS_LOG_TYPE_DEFAULT, "[DSListener] Received data from provider %@\n", &v28, 0xCu);
+    rpDevice = [v17 rpDevice];
+    v25 = 138412290;
+    v26 = rpDevice;
+    _os_log_impl(&dword_249027000, dsLogger3, OS_LOG_TYPE_DEFAULT, "[DSListener] Received data from provider %@\n", &v25, 0xCu);
   }
 
-  v23 = [requestCopy objectForKeyedSubscript:@"payloadKey"];
-  [(DSListener *)self _receivedData:v23 fromProvider:v19];
+  v21 = [requestCopy objectForKeyedSubscript:@"payloadKey"];
+  [(DSListener *)self _receivedData:v21 fromProvider:v17];
 
-  v24 = 0;
+  v22 = 0;
 LABEL_15:
-  (*(handlerCopy + 2))(handlerCopy, 0, 0, v24);
-
-  v27 = *MEMORY[0x277D85DE8];
+  (*(handlerCopy + 2))(handlerCopy, 0, 0, v22);
 }
 
 - (void)_didFindDevice:(id)device
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   dispatch_assert_queue_V2(self->_queue);
   if (!self->_isStopCalled)
@@ -537,9 +528,9 @@ LABEL_15:
 
             if (os_log_type_enabled(dsLogger, OS_LOG_TYPE_DEFAULT))
             {
-              v32 = 138412290;
-              v33 = deviceCopy;
-              _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSListener] device %@ found\n", &v32, 0xCu);
+              v31 = 138412290;
+              v32 = deviceCopy;
+              _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSListener] device %@ found\n", &v31, 0xCu);
             }
 
             selfCopy = self;
@@ -555,9 +546,9 @@ LABEL_15:
 
               if (os_log_type_enabled(dsLogger2, OS_LOG_TYPE_DEFAULT))
               {
-                v32 = 138412290;
-                v33 = deviceCopy;
-                _os_log_impl(&dword_249027000, dsLogger2, OS_LOG_TYPE_DEFAULT, "[DSListener] Skipping provider %@, already being tracked\n", &v32, 0xCu);
+                v31 = 138412290;
+                v32 = deviceCopy;
+                _os_log_impl(&dword_249027000, dsLogger2, OS_LOG_TYPE_DEFAULT, "[DSListener] Skipping provider %@, already being tracked\n", &v31, 0xCu);
               }
 
               objc_sync_exit(selfCopy);
@@ -565,40 +556,40 @@ LABEL_15:
 
             else
             {
-              v26 = objc_alloc_init(MEMORY[0x277D44170]);
+              v25 = objc_alloc_init(MEMORY[0x277D44170]);
               idsDeviceIdentifier3 = [deviceCopy idsDeviceIdentifier];
-              [(DSListener *)v26 setIdentifier:idsDeviceIdentifier3];
+              [(DSListener *)v25 setIdentifier:idsDeviceIdentifier3];
 
-              v28 = [[DSProviderDevice alloc] initWithRapportDevice:v26 queue:self->_queue];
-              v29 = selfCopy->_providerDictionary;
-              identifier2 = [(DSListener *)v26 identifier];
-              [(NSMutableDictionary *)v29 setValue:v28 forKey:identifier2];
+              v27 = [[DSProviderDevice alloc] initWithRapportDevice:v25 queue:self->_queue];
+              v28 = selfCopy->_providerDictionary;
+              identifier2 = [(DSListener *)v25 identifier];
+              [(NSMutableDictionary *)v28 setValue:v27 forKey:identifier2];
 
               objc_sync_exit(selfCopy);
               if (!selfCopy->_currentProvider)
               {
-                [(DSListener *)selfCopy _updateCurrentProvider:v28];
+                [(DSListener *)selfCopy _updateCurrentProvider:v27];
               }
 
               activeProviders = [(DSListener *)selfCopy activeProviders];
               [(DSListener *)selfCopy updateProviders:activeProviders];
 
-              selfCopy = v26;
+              selfCopy = v25;
             }
 
             goto LABEL_20;
           }
 
-          v25 = +[DSLogging sharedInstance];
-          selfCopy = [v25 dsLogger];
+          v24 = +[DSLogging sharedInstance];
+          selfCopy = [v24 dsLogger];
 
           if (!os_log_type_enabled(&selfCopy->super, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_20;
           }
 
-          v32 = 138412290;
-          v33 = deviceCopy;
+          v31 = 138412290;
+          v32 = deviceCopy;
           v7 = "[DSListener] Skipping incompatible RPCompanionLinkDevice: %@\n";
 LABEL_18:
           p_super = &selfCopy->super;
@@ -620,8 +611,8 @@ LABEL_18:
       goto LABEL_20;
     }
 
-    v32 = 138412290;
-    v33 = deviceCopy;
+    v31 = 138412290;
+    v32 = deviceCopy;
     v7 = "[DSListener] device %@ missing details, skipping\n";
     goto LABEL_18;
   }
@@ -631,31 +622,29 @@ LABEL_18:
 
   if (os_log_type_enabled(&selfCopy->super, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v32) = 0;
+    LOWORD(v31) = 0;
     v7 = "[DSListener] Did find device, but stop was called, returning\n";
     p_super = &selfCopy->super;
     v9 = 2;
 LABEL_19:
-    _os_log_impl(&dword_249027000, p_super, OS_LOG_TYPE_DEFAULT, v7, &v32, v9);
+    _os_log_impl(&dword_249027000, p_super, OS_LOG_TYPE_DEFAULT, v7, &v31, v9);
   }
 
 LABEL_20:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didLoseDevice:(id)device
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   if (!self->_isStopCalled)
   {
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy_;
-    v30 = __Block_byref_object_dispose_;
-    v31 = 0;
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x3032000000;
+    v28 = __Block_byref_object_copy_;
+    v29 = __Block_byref_object_dispose_;
+    v30 = 0;
     selfCopy = self;
     objc_sync_enter(selfCopy);
     providerDictionary = selfCopy->_providerDictionary;
@@ -685,7 +674,7 @@ LABEL_20:
           {
             rpDevice3 = [(DSRapportDevice *)selfCopy->_currentProvider rpDevice];
             *buf = 138412290;
-            v33 = rpDevice3;
+            v32 = rpDevice3;
             _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSListener] Current provider lost %@\n", buf, 0xCu);
           }
 
@@ -699,17 +688,17 @@ LABEL_20:
           }
 
           v22 = selfCopy->_providerDictionary;
-          v25[0] = MEMORY[0x277D85DD0];
-          v25[1] = 3221225472;
-          v25[2] = __29__DSListener__didLoseDevice___block_invoke;
-          v25[3] = &unk_278F85C78;
-          v25[4] = &v26;
-          [(NSMutableDictionary *)v22 enumerateKeysAndObjectsUsingBlock:v25];
+          v24[0] = MEMORY[0x277D85DD0];
+          v24[1] = 3221225472;
+          v24[2] = __29__DSListener__didLoseDevice___block_invoke;
+          v24[3] = &unk_278F85C78;
+          v24[4] = &v25;
+          [(NSMutableDictionary *)v22 enumerateKeysAndObjectsUsingBlock:v24];
         }
 
         objc_sync_exit(selfCopy);
 
-        if (v27[5])
+        if (v26[5])
         {
           [(DSListener *)selfCopy _updateCurrentProvider:?];
         }
@@ -726,7 +715,7 @@ LABEL_20:
       if (os_log_type_enabled(dsLogger2, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v33 = deviceCopy;
+        v32 = deviceCopy;
         _os_log_impl(&dword_249027000, dsLogger2, OS_LOG_TYPE_DEFAULT, "[DSListener] device %@ lost but response was pending\n", buf, 0xCu);
       }
     }
@@ -734,10 +723,8 @@ LABEL_20:
     objc_sync_exit(selfCopy);
 LABEL_17:
 
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v25, 8);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_findProviderWithIdentifier:(id)identifier
@@ -784,7 +771,7 @@ void __42__DSListener__findProviderWithIdentifier___block_invoke(uint64_t a1, ui
 
 - (void)_updateCurrentProvider:(id)provider
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   v6 = +[DSLogging sharedInstance];
   dsLogger = [v6 dsLogger];
@@ -792,9 +779,9 @@ void __42__DSListener__findProviderWithIdentifier___block_invoke(uint64_t a1, ui
   if (os_log_type_enabled(dsLogger, OS_LOG_TYPE_DEFAULT))
   {
     rpDevice = [providerCopy rpDevice];
-    v16 = 138412290;
-    v17 = rpDevice;
-    _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSListener] Updating new provider %@\n", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = rpDevice;
+    _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSListener] Updating new provider %@\n", &v15, 0xCu);
   }
 
   v9 = +[DSLogging sharedInstance];
@@ -805,9 +792,9 @@ void __42__DSListener__findProviderWithIdentifier___block_invoke(uint64_t a1, ui
     if (os_log_type_enabled(dsLogger2, OS_LOG_TYPE_DEFAULT))
     {
       rpDevice2 = [providerCopy rpDevice];
-      v16 = 138412290;
-      v17 = rpDevice2;
-      _os_log_impl(&dword_249027000, dsLogger2, OS_LOG_TYPE_DEFAULT, "[DSListener] Current Provider = %@\n", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = rpDevice2;
+      _os_log_impl(&dword_249027000, dsLogger2, OS_LOG_TYPE_DEFAULT, "[DSListener] Current Provider = %@\n", &v15, 0xCu);
     }
 
     objc_storeStrong(&self->_currentProvider, provider);
@@ -817,9 +804,9 @@ void __42__DSListener__findProviderWithIdentifier___block_invoke(uint64_t a1, ui
     if (os_log_type_enabled(dsLogger3, OS_LOG_TYPE_DEFAULT))
     {
       rpDevice3 = [providerCopy rpDevice];
-      v16 = 138412290;
-      v17 = rpDevice3;
-      _os_log_impl(&dword_249027000, dsLogger3, OS_LOG_TYPE_DEFAULT, "[DSListener] Sending Subscription request to Provider = %@\n", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = rpDevice3;
+      _os_log_impl(&dword_249027000, dsLogger3, OS_LOG_TYPE_DEFAULT, "[DSListener] Sending Subscription request to Provider = %@\n", &v15, 0xCu);
     }
 
     [(DSListener *)self _subscribeToMotionData];
@@ -832,45 +819,43 @@ void __42__DSListener__findProviderWithIdentifier___block_invoke(uint64_t a1, ui
       [DSListener _updateCurrentProvider:dsLogger2];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_subscribeToMotionData
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   if (self->_currentProvider)
   {
-    v21[0] = @"1.0";
-    v20[0] = @"dsVersionKey";
-    v20[1] = @"dataSubTypeKey";
+    v20[0] = @"1.0";
+    v19[0] = @"dsVersionKey";
+    v19[1] = @"dataSubTypeKey";
     v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[DSClientMotionDataOptions dataSubType](self->_motionDataOptions, "dataSubType")}];
-    v21[1] = v3;
-    v20[2] = @"requestType";
-    v20[3] = @"subscriptionStart";
-    v21[2] = &unk_285C19BF8;
-    v21[3] = MEMORY[0x277CBEC38];
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
+    v20[1] = v3;
+    v19[2] = @"requestType";
+    v19[3] = @"subscriptionStart";
+    v20[2] = &unk_285C19BF8;
+    v20[3] = MEMORY[0x277CBEC38];
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:4];
 
     *buf = 0;
-    v15 = buf;
-    v16 = 0x3032000000;
-    v17 = __Block_byref_object_copy_;
-    v18 = __Block_byref_object_dispose_;
-    v19 = self->_currentProvider;
-    [*(v15 + 5) setIsResponsePending:1];
+    v14 = buf;
+    v15 = 0x3032000000;
+    v16 = __Block_byref_object_copy_;
+    v17 = __Block_byref_object_dispose_;
+    v18 = self->_currentProvider;
+    [*(v14 + 5) setIsResponsePending:1];
     selfCopy = self;
-    v6 = *(v15 + 5);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __36__DSListener__subscribeToMotionData__block_invoke;
-    v10[3] = &unk_278F85CC8;
-    v10[4] = selfCopy;
-    v13 = buf;
+    v6 = *(v14 + 5);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __36__DSListener__subscribeToMotionData__block_invoke;
+    v9[3] = &unk_278F85CC8;
+    v9[4] = selfCopy;
+    v12 = buf;
     dsLogger = v4;
-    v11 = dsLogger;
-    v12 = selfCopy;
-    [(DSListener *)selfCopy _sendRequestID:@"com.apple.distributedsensing.subscriptionRequest" request:dsLogger device:v6 options:0 responseHandler:v10];
+    v10 = dsLogger;
+    v11 = selfCopy;
+    [(DSListener *)selfCopy _sendRequestID:@"com.apple.distributedsensing.subscriptionRequest" request:dsLogger device:v6 options:0 responseHandler:v9];
 
     _Block_object_dispose(buf, 8);
   }
@@ -886,13 +871,11 @@ void __42__DSListener__findProviderWithIdentifier___block_invoke(uint64_t a1, ui
       _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSListener] Trying to subscribe while there's no active provider\n", buf, 2u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __36__DSListener__subscribeToMotionData__block_invoke(void *a1, void *a2, void *a3, void *a4)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -900,136 +883,133 @@ void __36__DSListener__subscribeToMotionData__block_invoke(void *a1, void *a2, v
   if (v10 && *(v10 + 24))
   {
     [*(*(a1[7] + 8) + 40) setIsResponsePending:0];
-    v11 = *MEMORY[0x277D44270];
     Int64Ranged = CFDictionaryGetInt64Ranged();
-    v13 = Int64Ranged;
-    v14 = a1[4];
-    if ((*(v14 + 42) & 1) == 0)
+    v12 = Int64Ranged;
+    v13 = a1[4];
+    if ((*(v13 + 42) & 1) == 0)
     {
-      *(v14 + 42) = 1;
+      *(v13 + 42) = 1;
       *(a1[4] + 56) = Int64Ranged;
     }
 
     if (v9)
     {
-      v15 = +[DSLogging sharedInstance];
-      v16 = [v15 dsLogger];
+      v14 = +[DSLogging sharedInstance];
+      v15 = [v14 dsLogger];
 
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = a1[5];
-        v18 = [*(a1[4] + 24) rpDevice];
-        v19 = v18;
-        if (v13 > 0xB)
+        v16 = a1[5];
+        v17 = [*(a1[4] + 24) rpDevice];
+        v18 = v17;
+        if (v12 > 0xB)
         {
-          v20 = "?";
+          v19 = "?";
         }
 
         else
         {
-          v20 = off_278F85D30[v13 & 0xF];
+          v19 = off_278F85D30[v12 & 0xF];
         }
 
-        v36 = 138412802;
+        v34 = 138412802;
+        v35 = v16;
+        v36 = 2112;
         v37 = v17;
-        v38 = 2112;
-        v39 = v18;
-        v40 = 2080;
-        v41 = v20;
-        _os_log_impl(&dword_249027000, v16, OS_LOG_TYPE_DEFAULT, "[DSListener] Send Subscription Start Request %@ to device %@ failed over data link: %s\n", &v36, 0x20u);
+        v38 = 2080;
+        v39 = v19;
+        _os_log_impl(&dword_249027000, v15, OS_LOG_TYPE_DEFAULT, "[DSListener] Send Subscription Start Request %@ to device %@ failed over data link: %s\n", &v34, 0x20u);
       }
 
-      v32 = a1[4];
-      v33 = [v32[3] rpDevice];
-      [v32 _didLoseDevice:v33];
+      v31 = a1[4];
+      v32 = [v31[3] rpDevice];
+      [v31 _didLoseDevice:v32];
 
-      v34 = a1[4];
-      if (*(v34 + 42) == 1)
+      v33 = a1[4];
+      if (*(v33 + 42) == 1)
       {
-        [*(v34 + 48) dsFirstListenerSessionSetUnsuccessful];
+        [*(v33 + 48) dsFirstListenerSessionSetUnsuccessful];
       }
     }
 
     else
     {
-      v21 = a1[4];
-      if ((*(v21 + 88) & 1) == 0)
+      v20 = a1[4];
+      if ((*(v20 + 88) & 1) == 0)
       {
-        [*(v21 + 48) dsProviderAvailable];
+        [*(v20 + 48) dsProviderAvailable];
       }
 
-      v22 = +[DSLogging sharedInstance];
-      v23 = [v22 dsLogger];
+      v21 = +[DSLogging sharedInstance];
+      v22 = [v21 dsLogger];
 
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = a1[5];
-        v25 = [*(*(a1[7] + 8) + 40) rpDevice];
-        v36 = 138412546;
+        v23 = a1[5];
+        v24 = [*(*(a1[7] + 8) + 40) rpDevice];
+        v34 = 138412546;
+        v35 = v23;
+        v36 = 2112;
         v37 = v24;
-        v38 = 2112;
-        v39 = v25;
-        _os_log_impl(&dword_249027000, v23, OS_LOG_TYPE_DEFAULT, "[DSListener] Sent Subscription Start Request %@ to device %@\n", &v36, 0x16u);
+        _os_log_impl(&dword_249027000, v22, OS_LOG_TYPE_DEFAULT, "[DSListener] Sent Subscription Start Request %@ to device %@\n", &v34, 0x16u);
       }
 
       *(a1[4] + 41) = 1;
       if (v7)
       {
-        v26 = [v7 objectForKeyedSubscript:@"payloadKey"];
+        v25 = [v7 objectForKeyedSubscript:@"payloadKey"];
 
-        if (v26)
+        if (v25)
         {
-          v27 = +[DSLogging sharedInstance];
-          v28 = [v27 dsLogger];
+          v26 = +[DSLogging sharedInstance];
+          v27 = [v26 dsLogger];
 
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
-            v29 = [*(*(a1[7] + 8) + 40) rpDevice];
-            v36 = 138412290;
-            v37 = v29;
-            _os_log_impl(&dword_249027000, v28, OS_LOG_TYPE_DEFAULT, "[DSListener] Received data with subscription response from provider %@\n", &v36, 0xCu);
+            v28 = [*(*(a1[7] + 8) + 40) rpDevice];
+            v34 = 138412290;
+            v35 = v28;
+            _os_log_impl(&dword_249027000, v27, OS_LOG_TYPE_DEFAULT, "[DSListener] Received data with subscription response from provider %@\n", &v34, 0xCu);
           }
 
-          v30 = a1[6];
-          v31 = [v7 objectForKeyedSubscript:@"payloadKey"];
-          [v30 _receivedData:v31 fromProvider:*(*(a1[7] + 8) + 40)];
+          v29 = a1[6];
+          v30 = [v7 objectForKeyedSubscript:@"payloadKey"];
+          [v29 _receivedData:v30 fromProvider:*(*(a1[7] + 8) + 40)];
         }
       }
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_unsubscribeToMotionData
 {
-  v18[4] = *MEMORY[0x277D85DE8];
+  v17[4] = *MEMORY[0x277D85DE8];
   if (self->_currentProvider)
   {
-    v18[0] = @"1.0";
-    v17[0] = @"dsVersionKey";
-    v17[1] = @"dataSubTypeKey";
+    v17[0] = @"1.0";
+    v16[0] = @"dsVersionKey";
+    v16[1] = @"dataSubTypeKey";
     v3 = MEMORY[0x277CCABB0];
     motionDataOptions = self->_motionDataOptions;
     selfCopy = self;
     v6 = [v3 numberWithUnsignedInt:{-[DSClientMotionDataOptions dataSubType](motionDataOptions, "dataSubType")}];
-    v18[1] = v6;
-    v18[2] = &unk_285C19BF8;
-    v17[2] = @"requestType";
-    v17[3] = @"subscriptionStart";
-    v18[3] = MEMORY[0x277CBEC28];
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
+    v17[1] = v6;
+    v17[2] = &unk_285C19BF8;
+    v16[2] = @"requestType";
+    v16[3] = @"subscriptionStart";
+    v17[3] = MEMORY[0x277CBEC28];
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
 
     [(DSProviderDevice *)self->_currentProvider setIsResponsePending:1];
     currentProvider = self->_currentProvider;
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __38__DSListener__unsubscribeToMotionData__block_invoke;
-    v14[3] = &unk_278F85CF0;
-    v14[4] = selfCopy;
-    v15 = v7;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __38__DSListener__unsubscribeToMotionData__block_invoke;
+    v13[3] = &unk_278F85CF0;
+    v13[4] = selfCopy;
+    v14 = v7;
     v9 = v7;
-    [(DSListener *)selfCopy _sendRequestID:@"com.apple.distributedsensing.subscriptionRequest" request:v9 device:currentProvider options:0 responseHandler:v14];
+    [(DSListener *)selfCopy _sendRequestID:@"com.apple.distributedsensing.subscriptionRequest" request:v9 device:currentProvider options:0 responseHandler:v13];
   }
 
   else
@@ -1046,82 +1026,76 @@ void __36__DSListener__subscribeToMotionData__block_invoke(void *a1, void *a2, v
 
     [(DSListener *)selfCopy2 _stopListener];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __38__DSListener__unsubscribeToMotionData__block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+void *__38__DSListener__unsubscribeToMotionData__block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  if (!*(result + 32))
+  v21 = *MEMORY[0x277D85DE8];
+  if (!result[4])
   {
-    goto LABEL_14;
+    return result;
   }
 
   v5 = result;
-  v6 = *MEMORY[0x277D44270];
   Int64Ranged = CFDictionaryGetInt64Ranged();
-  v8 = +[DSLogging sharedInstance];
-  v9 = [v8 dsLogger];
+  v7 = +[DSLogging sharedInstance];
+  v8 = [v7 dsLogger];
 
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (a4)
   {
-    if (v10)
+    if (v9)
     {
-      v11 = *(v5 + 40);
-      v12 = [*(*(v5 + 32) + 24) rpDevice];
-      v13 = v12;
+      v10 = v5[5];
+      v11 = [*(v5[4] + 24) rpDevice];
+      v12 = v11;
       if (Int64Ranged > 0xB)
       {
-        v14 = "?";
+        v13 = "?";
       }
 
       else
       {
-        v14 = off_278F85D30[Int64Ranged & 0xF];
+        v13 = off_278F85D30[Int64Ranged & 0xF];
       }
 
-      *v21 = 138412802;
-      *&v21[4] = v11;
-      *&v21[12] = 2112;
-      *&v21[14] = v12;
-      *&v21[22] = 2080;
-      v22 = v14;
-      v16 = "[DSListener] Send Subscription Stop Request %@ to device %@ failed over data link: %s\n";
-      v17 = v9;
-      v18 = 32;
+      *v19 = 138412802;
+      *&v19[4] = v10;
+      *&v19[12] = 2112;
+      *&v19[14] = v11;
+      *&v19[22] = 2080;
+      v20 = v13;
+      v15 = "[DSListener] Send Subscription Stop Request %@ to device %@ failed over data link: %s\n";
+      v16 = v8;
+      v17 = 32;
       goto LABEL_10;
     }
   }
 
-  else if (v10)
+  else if (v9)
   {
-    v15 = *(v5 + 40);
-    v13 = [*(*(v5 + 32) + 24) rpDevice];
-    *v21 = 138412546;
-    *&v21[4] = v15;
-    *&v21[12] = 2112;
-    *&v21[14] = v13;
-    v16 = "[DSListener] Sent Stop Subscription Request %@ to device %@\n";
-    v17 = v9;
-    v18 = 22;
+    v14 = v5[5];
+    v12 = [*(v5[4] + 24) rpDevice];
+    *v19 = 138412546;
+    *&v19[4] = v14;
+    *&v19[12] = 2112;
+    *&v19[14] = v12;
+    v15 = "[DSListener] Sent Stop Subscription Request %@ to device %@\n";
+    v16 = v8;
+    v17 = 22;
 LABEL_10:
-    _os_log_impl(&dword_249027000, v17, OS_LOG_TYPE_DEFAULT, v16, v21, v18);
+    _os_log_impl(&dword_249027000, v16, OS_LOG_TYPE_DEFAULT, v15, v19, v17);
   }
 
-  [*(*(v5 + 32) + 24) setIsResponsePending:0];
-  v19 = *(v5 + 32);
-  if ((*(v19 + 88) & 1) == 0)
+  [*(v5[4] + 24) setIsResponsePending:0];
+  v18 = v5[4];
+  if ((*(v18 + 88) & 1) == 0)
   {
-    [*(v19 + 48) dsProviderUnavailable];
-    v19 = *(v5 + 32);
+    [*(v18 + 48) dsProviderUnavailable];
+    v18 = v5[4];
   }
 
-  result = [v19 _stopListener];
-LABEL_14:
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return [v18 _stopListener];
 }
 
 - (void)_stopListener
@@ -1196,7 +1170,7 @@ LABEL_14:
 
 - (void)_startCASessionMetricCollection
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (self->_isTestMode)
   {
     v2 = +[DSLogging sharedInstance];
@@ -1246,27 +1220,27 @@ LABEL_7:
     }
 
     dsLogger = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     selfCopy = self;
     activeDevices = [(RPCompanionLinkClient *)self->_discoveryClient activeDevices];
-    v10 = [activeDevices countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v10 = [activeDevices countByEnumeratingWithState:&v24 objects:v29 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v26;
+      v12 = *v25;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v26 != v12)
+          if (*v25 != v12)
           {
             objc_enumerationMutation(activeDevices);
           }
 
-          v14 = *(*(&v25 + 1) + 8 * i);
+          v14 = *(*(&v24 + 1) + 8 * i);
           model = [v14 model];
           if (model)
           {
@@ -1288,7 +1262,7 @@ LABEL_7:
           }
         }
 
-        v11 = [activeDevices countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v11 = [activeDevices countByEnumeratingWithState:&v24 objects:v29 count:16];
       }
 
       while (v11);
@@ -1298,8 +1272,6 @@ LABEL_7:
   }
 
 LABEL_23:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopCASessionMetricCollection

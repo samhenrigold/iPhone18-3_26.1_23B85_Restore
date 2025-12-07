@@ -63,7 +63,7 @@
 
 - (PXPosterPreferences)px_preferences
 {
-  v2 = sub_1B3896938();
+  v2 = sub_1B3896938(self, a2);
 
   return v2;
 }

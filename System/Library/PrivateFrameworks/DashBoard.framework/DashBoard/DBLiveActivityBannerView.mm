@@ -45,12 +45,14 @@
 
 - (_TtC9DashBoard24DBLiveActivityBannerView)initWithIdentifier:(id)identifier minSize:(CGSize)size maxSize:(CGSize)maxSize
 {
-  v5 = sub_2483812C0();
-  MEMORY[0x28223BE20](v5);
-  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_24829D8AC(&qword_27EE91780);
+  height = maxSize.height;
+  width = maxSize.width;
+  v7 = sub_2483812C0();
+  MEMORY[0x28223BE20](v7);
+  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_24829D8AC(&qword_27EE91780, MEMORY[0x277CB92D8]);
   sub_2483813C0();
-  return sub_24829D4A8(v7);
+  return sub_24829D4A8(v9, width, height);
 }
 
 - (void)ensureContentWithCompletion:(id)completion
@@ -81,7 +83,7 @@
 
 + (BOOL)dataIsActivityDescriptor:(id)descriptor
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE936F0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE936F0, &unk_2483A1030);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v7);
@@ -91,7 +93,7 @@
   v12 = *(v11 + 56);
   v13 = 1;
   v12(v6, 1, 1, v10);
-  sub_24829D8AC(&unk_27EE916B0);
+  sub_24829D8AC(&unk_27EE916B0, MEMORY[0x277CB92F0]);
   descriptorCopy = descriptor;
   sub_248384610();
 
@@ -103,7 +105,7 @@
   }
 
   v12(v9, v13, 1, v10);
-  sub_24822D578(v9, &qword_27EE936F0);
+  sub_24822D578(v9, &qword_27EE936F0, &unk_2483A1030);
   return v15 != 1;
 }
 

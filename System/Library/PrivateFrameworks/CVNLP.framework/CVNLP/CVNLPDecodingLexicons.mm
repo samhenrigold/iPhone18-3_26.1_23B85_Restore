@@ -52,37 +52,37 @@
 
 - (void)enumerateLexiconsSortedByPriorityWithBlock:(id)block
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   blockCopy = block;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_sortedLexicons;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v14, v18, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v13, v17, 16);
   if (v7)
   {
-    v8 = *v15;
+    v8 = *v14;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v15 != v8)
+      if (*v14 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = *(*(&v14 + 1) + 8 * v9);
-      v13 = 0;
-      blockCopy[2](blockCopy, v10, &v13);
-      if (v13)
+      v10 = *(*(&v13 + 1) + 8 * v9);
+      v12 = 0;
+      blockCopy[2](blockCopy, v10, &v12);
+      if (v12)
       {
         break;
       }
 
       if (v7 == ++v9)
       {
-        v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v11, &v14, v18, 16);
+        v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v11, &v13, v17, 16);
         if (v7)
         {
           goto LABEL_3;
@@ -92,8 +92,6 @@ LABEL_3:
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)lexiconsForPriority:(unint64_t)priority

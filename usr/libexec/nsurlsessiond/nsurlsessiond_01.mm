@@ -1,33 +1,3 @@
-void sub_10007C73C(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = qword_1000EB210;
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-  {
-    v5 = [*(a1 + 32) descriptionForTaskWithIdentifier:*(a1 + 56)];
-    v6 = 138543362;
-    v7 = v5;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ failed to deliver resolved MediaSelection", &v6, 0xCu);
-  }
-
-  [*(*(a1 + 40) + 8) removeObject:*(a1 + 48)];
-}
-
-void sub_10007C84C(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = qword_1000EB210;
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-  {
-    v5 = [*(a1 + 32) descriptionForTaskWithIdentifier:*(a1 + 56)];
-    v6 = 138543362;
-    v7 = v5;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ failed to deliver downloaded HLS variants", &v6, 0xCu);
-  }
-
-  [*(*(a1 + 40) + 8) removeObject:*(a1 + 48)];
-}
-
 id sub_10007C95C(uint64_t a1)
 {
   result = [*(a1 + 32) hasBeenCalled];
@@ -145,7 +115,7 @@ void sub_10007CEA8(uint64_t a1, void *a2)
 void sub_10007FAF0(uint64_t a1)
 {
   v2 = [*(a1 + 32) _URLToUse];
-  v87 = [v2 scheme];
+  v86 = [v2 scheme];
 
   v3 = [*(a1 + 32) _URLToUse];
   v4 = [v3 host];
@@ -153,7 +123,7 @@ void sub_10007FAF0(uint64_t a1)
   v5 = [*(a1 + 32) _URLToUse];
   v6 = [v5 port];
 
-  v86 = v6;
+  v85 = v6;
   if (v6)
   {
     v7 = [v6 unsignedIntegerValue];
@@ -166,7 +136,7 @@ void sub_10007FAF0(uint64_t a1)
     v7 = sub_100080A28(v9);
   }
 
-  v10 = v87;
+  v10 = v86;
   if ([v10 caseInsensitiveCompare:@"http"])
   {
     v11 = [v10 caseInsensitiveCompare:@"https"];
@@ -187,36 +157,36 @@ void sub_10007FAF0(uint64_t a1)
   if (os_log_type_enabled(qword_1000EB210, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v106 = v4;
-    v107 = 1024;
-    LODWORD(v108) = v7;
+    v105 = v4;
+    v106 = 1024;
+    LODWORD(v107) = v7;
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Creating tcp_connection to host: %@, port: %d", buf, 0x12u);
   }
 
   v13 = v4;
-  if ([(__CFString *)v4 UTF8String]&& (v14 = *(*(a1 + 40) + 192), (v15 = tcp_connection_create()) != 0))
+  if ([(__CFString *)v4 UTF8String]&& (v14 = tcp_connection_create()) != 0)
   {
-    v16 = v15;
+    v15 = v14;
     tcp_connection_allow_client_socket_access();
-    v17 = [*(a1 + 32) _URLToUse];
-    v18 = [v17 absoluteString];
-    v19 = v18;
-    [v18 UTF8String];
+    v16 = [*(a1 + 32) _URLToUse];
+    v17 = [v16 absoluteString];
+    v18 = v17;
+    [v17 UTF8String];
     tcp_connection_set_url();
 
-    v20 = qword_1000EB210;
+    v19 = qword_1000EB210;
     if (os_log_type_enabled(qword_1000EB210, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v106 = v16;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Created tcp_connection: %@", buf, 0xCu);
+      v105 = v15;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Created tcp_connection: %@", buf, 0xCu);
     }
 
-    v104.receiver = *(a1 + 40);
-    v104.super_class = NDAVBackgroundSession;
-    v21 = objc_msgSendSuper2(&v104, "monitoredAppBundleID");
-    v22 = v21;
-    [v21 UTF8String];
+    v103.receiver = *(a1 + 40);
+    v103.super_class = NDAVBackgroundSession;
+    v20 = objc_msgSendSuper2(&v103, "monitoredAppBundleID");
+    v21 = v20;
+    [v20 UTF8String];
     tcp_connection_set_source_application_by_bundle();
 
     if (([*(*(a1 + 40) + 352) allowsCellularAccess] & 1) == 0)
@@ -230,113 +200,113 @@ void sub_10007FAF0(uint64_t a1)
     }
 
     [*(a1 + 48) startLoadingMetadata];
-    v99[0] = _NSConcreteStackBlock;
-    v99[1] = 3221225472;
-    v99[2] = sub_100080ADC;
-    v99[3] = &unk_1000D6498;
-    v23 = *(a1 + 32);
-    v24 = *(a1 + 40);
-    v100 = v23;
-    v101 = v24;
-    v25 = *(a1 + 56);
-    v26 = *(a1 + 64);
-    v102 = v25;
-    v103 = v26;
-    v83 = objc_retainBlock(v99);
-    v27 = *(a1 + 40);
-    [v27[44] timeoutIntervalForResource];
-    [v27 defaultWindowDurationForResourceTimeout:?];
-    v29 = v28;
-    +[NSDate timeIntervalSinceReferenceDate];
-    v31 = v30;
-    [*(a1 + 32) creationTime];
-    v33 = v32;
-    v84 = +[NSDate date];
-    v81 = [NSDate dateWithTimeIntervalSinceNow:v29 - (v31 - v33)];
-    v34 = getpid();
-    v82 = [NSString stringWithFormat:@"nsurl-AV-%d-%lld", v34, ++qword_1000EB218];
-    v35 = [_DASActivity activityWithName:"activityWithName:priority:duration:startingAfter:startingBefore:" priority:? duration:? startingAfter:? startingBefore:?];
-    [(__CFString *)v35 setHandlerQueue:*(*(a1 + 40) + 192)];
     v98[0] = _NSConcreteStackBlock;
     v98[1] = 3221225472;
-    v98[2] = sub_100080D00;
-    v98[3] = &unk_1000D64C0;
-    v36 = *(a1 + 64);
-    v98[4] = *(a1 + 40);
-    v98[5] = v36;
-    [(__CFString *)v35 setSuspendHandler:v98];
-    [(__CFString *)v35 setRequiresNetwork:1];
-    -[__CFString setRequiresPlugin:](v35, "setRequiresPlugin:", [*(*(a1 + 40) + 352) _requiresPowerPluggedIn]);
-    v37 = _DASActivityTransferSizeSmall;
-    v38 = *(*(a1 + 40) + 56);
-    v39 = [NSNumber numberWithUnsignedInteger:*(a1 + 64)];
-    v85 = [v38 objectForKeyedSubscript:v39];
+    v98[2] = sub_100080ADC;
+    v98[3] = &unk_1000D6498;
+    v22 = *(a1 + 32);
+    v23 = *(a1 + 40);
+    v99 = v22;
+    v100 = v23;
+    v24 = *(a1 + 56);
+    v25 = *(a1 + 64);
+    v101 = v24;
+    v102 = v25;
+    v82 = objc_retainBlock(v98);
+    v26 = *(a1 + 40);
+    [v26[44] timeoutIntervalForResource];
+    [v26 defaultWindowDurationForResourceTimeout:?];
+    v28 = v27;
+    +[NSDate timeIntervalSinceReferenceDate];
+    v30 = v29;
+    [*(a1 + 32) creationTime];
+    v32 = v31;
+    v83 = +[NSDate date];
+    v80 = [NSDate dateWithTimeIntervalSinceNow:v28 - (v30 - v32)];
+    v33 = getpid();
+    v81 = [NSString stringWithFormat:@"nsurl-AV-%d-%lld", v33, ++qword_1000EB218];
+    v34 = [_DASActivity activityWithName:"activityWithName:priority:duration:startingAfter:startingBefore:" priority:? duration:? startingAfter:? startingBefore:?];
+    [(__CFString *)v34 setHandlerQueue:*(*(a1 + 40) + 192)];
+    v97[0] = _NSConcreteStackBlock;
+    v97[1] = 3221225472;
+    v97[2] = sub_100080D00;
+    v97[3] = &unk_1000D64C0;
+    v35 = *(a1 + 64);
+    v97[4] = *(a1 + 40);
+    v97[5] = v35;
+    [(__CFString *)v34 setSuspendHandler:v97];
+    [(__CFString *)v34 setRequiresNetwork:1];
+    -[__CFString setRequiresPlugin:](v34, "setRequiresPlugin:", [*(*(a1 + 40) + 352) _requiresPowerPluggedIn]);
+    v36 = _DASActivityTransferSizeSmall;
+    v37 = *(*(a1 + 40) + 56);
+    v38 = [NSNumber numberWithUnsignedInteger:*(a1 + 64)];
+    v84 = [v37 objectForKeyedSubscript:v38];
 
-    v40 = [v85 _DuetActivityProperties];
-    LOBYTE(v39) = v40 == 0;
+    v39 = [v84 _DuetActivityProperties];
+    LOBYTE(v38) = v39 == 0;
 
-    if ((v39 & 1) == 0)
+    if ((v38 & 1) == 0)
     {
-      v41 = [v85 _DuetActivityProperties];
-      v42 = [v41 objectForKeyedSubscript:kConditionalConnectionRequirementDownloadBytes];
+      v40 = [v84 _DuetActivityProperties];
+      v41 = [v40 objectForKeyedSubscript:kConditionalConnectionRequirementDownloadBytes];
 
-      if (v42)
+      if (v41)
       {
-        v43 = [v42 unsignedLongLongValue];
-        if (v43 <= 0x40000000)
+        v42 = [v41 unsignedLongLongValue];
+        if (v42 <= 0x40000000)
         {
-          if (v43 <= 0x1F400000)
+          if (v42 <= 0x1F400000)
           {
-            if (v43 <= 0x6400000)
+            if (v42 <= 0x6400000)
             {
-              if (v43 <= 0xA00000)
+              if (v42 <= 0xA00000)
               {
-                v44 = &_DASActivityTransferSizeVerySmall;
-                if (v43 > 0x19000)
+                v43 = &_DASActivityTransferSizeVerySmall;
+                if (v42 > 0x19000)
                 {
-                  v44 = &_DASActivityTransferSizeSmall;
+                  v43 = &_DASActivityTransferSizeSmall;
                 }
               }
 
               else
               {
-                v44 = &_DASActivityTransferSizeModerate;
+                v43 = &_DASActivityTransferSizeModerate;
               }
             }
 
             else
             {
-              v44 = &_DASActivityTransferSizeLarge;
+              v43 = &_DASActivityTransferSizeLarge;
             }
           }
 
           else
           {
-            v44 = &_DASActivityTransferSizeVeryLarge;
+            v43 = &_DASActivityTransferSizeVeryLarge;
           }
         }
 
         else
         {
-          v44 = &_DASActivityTransferSizeGigantic;
+          v43 = &_DASActivityTransferSizeGigantic;
         }
 
-        v37 = *v44;
+        v36 = *v43;
       }
 
-      v53 = [v85 _DuetActivityProperties];
-      v54 = [v53 objectForKeyedSubscript:kConditionalConnectionRequirementDuetPreClearedMode];
+      v52 = [v84 _DuetActivityProperties];
+      v53 = [v52 objectForKeyedSubscript:kConditionalConnectionRequirementDuetPreClearedMode];
 
-      if (v54)
+      if (v53)
       {
-        -[__CFString setPreClearedMode:](v35, "setPreClearedMode:", [v54 intValue]);
+        -[__CFString setPreClearedMode:](v34, "setPreClearedMode:", [v53 intValue]);
       }
     }
 
-    [(__CFString *)v35 setDownloadSize:v37];
+    [(__CFString *)v34 setDownloadSize:v36];
     if (![*(*(a1 + 40) + 352) allowsCellularAccess] || (objc_msgSend(*(*(a1 + 40) + 352), "allowsExpensiveNetworkAccess") & 1) == 0)
     {
-      [(__CFString *)v35 setRequiresInexpensiveNetworking:1];
+      [(__CFString *)v34 setRequiresInexpensiveNetworking:1];
     }
 
     if ([*(a1 + 32) isDiscretionary])
@@ -345,150 +315,150 @@ void sub_10007FAF0(uint64_t a1)
       {
         if (*(*(a1 + 40) + 134))
         {
-          v55 = &_DASSchedulingPriorityMaintenance;
+          v54 = &_DASSchedulingPriorityMaintenance;
         }
 
         else
         {
-          v55 = &_DASSchedulingPriorityBackground;
+          v54 = &_DASSchedulingPriorityBackground;
         }
       }
 
       else
       {
-        v55 = &_DASSchedulingPriorityUserInitiatedOvercommit;
+        v54 = &_DASSchedulingPriorityUserInitiatedOvercommit;
       }
     }
 
     else
     {
-      v56 = [v84 dateByAddingTimeInterval:10.0];
-      [(__CFString *)v35 setStartBefore:v56];
+      v55 = [v83 dateByAddingTimeInterval:10.0];
+      [(__CFString *)v34 setStartBefore:v55];
 
-      v57 = [*(a1 + 40) adjustedTCPConnectionPriorityForTaskPriority:{objc_msgSend(*(a1 + 32), "basePriority")}];
-      v55 = &_DASSchedulingPriorityUserInitiated;
-      if (v57 < 250)
+      v56 = [*(a1 + 40) adjustedTCPConnectionPriorityForTaskPriority:{objc_msgSend(*(a1 + 32), "basePriority")}];
+      v54 = &_DASSchedulingPriorityUserInitiated;
+      if (v56 < 250)
       {
-        v55 = &_DASSchedulingPriorityUserInitiatedOvercommit;
+        v54 = &_DASSchedulingPriorityUserInitiatedOvercommit;
       }
     }
 
-    v58 = *v55;
+    v57 = *v54;
     if ([*(a1 + 32) isDiscretionary] && objc_msgSend(*(a1 + 32), "startedUserInitiated"))
     {
-      v59 = *(*(a1 + 40) + 32);
-      v60 = *(a1 + 40);
-      if (*(v60 + 138) == 1)
+      v58 = *(*(a1 + 40) + 32);
+      v59 = *(a1 + 40);
+      if (*(v59 + 138) == 1)
       {
-        v61 = *(v60 + 208);
-        if (v61)
+        v60 = *(v59 + 208);
+        if (v60)
         {
-          v62 = v61;
+          v61 = v60;
 
-          v59 = v62;
+          v58 = v61;
         }
       }
 
-      if ([v59 isInTransitionalDiscretionaryPeriod])
+      if ([v58 isInTransitionalDiscretionaryPeriod])
       {
-        v63 = qword_1000EB210;
-        if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+        v62 = qword_1000EB210;
+        if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
         {
-          v64 = [*(a1 + 32) _loggableDescription];
+          v63 = [*(a1 + 32) _loggableDescription];
           *buf = 138543618;
-          v106 = v64;
-          v107 = 2112;
-          v108 = v35;
-          _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "%{public}@ client is in transistional discretionary period - updating activity _DASActivity %@", buf, 0x16u);
+          v105 = v63;
+          v106 = 2112;
+          v107 = v34;
+          _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "%{public}@ client is in transistional discretionary period - updating activity _DASActivity %@", buf, 0x16u);
         }
 
-        [(__CFString *)v35 setDeferred:1];
+        [(__CFString *)v34 setDeferred:1];
       }
     }
 
-    [(__CFString *)v35 setSchedulingPriority:v58];
-    v97.receiver = *(a1 + 40);
-    v97.super_class = NDAVBackgroundSession;
-    v65 = objc_msgSendSuper2(&v97, "monitoredAppBundleID");
-    [(__CFString *)v35 setBundleId:v65];
+    [(__CFString *)v34 setSchedulingPriority:v57];
+    v96.receiver = *(a1 + 40);
+    v96.super_class = NDAVBackgroundSession;
+    v64 = objc_msgSendSuper2(&v96, "monitoredAppBundleID");
+    [(__CFString *)v34 setBundleId:v64];
 
-    v66 = tcp_connection_copy_endpoint();
-    v67 = [NWEndpoint endpointWithCEndpoint:v66];
-    v68 = tcp_connection_copy_parameters();
-    v69 = [NWParameters parametersWithCParameters:v68];
-    v70 = [NSDictionary dictionaryWithObjectsAndKeys:v67, kNWEndpointKey, v69, kNWParametersKey, 0];
-    [(__CFString *)v35 setUserInfo:v70];
+    v65 = tcp_connection_copy_endpoint();
+    v66 = [NWEndpoint endpointWithCEndpoint:v65];
+    v67 = tcp_connection_copy_parameters();
+    v68 = [NWParameters parametersWithCParameters:v67];
+    v69 = [NSDictionary dictionaryWithObjectsAndKeys:v66, kNWEndpointKey, v68, kNWParametersKey, 0];
+    [(__CFString *)v34 setUserInfo:v69];
 
-    [*(*(a1 + 40) + 336) setObject:v35 forKeyedSubscript:*(a1 + 56)];
-    v71 = qword_1000EB210;
-    if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+    [*(*(a1 + 40) + 336) setObject:v34 forKeyedSubscript:*(a1 + 56)];
+    v70 = qword_1000EB210;
+    if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
     {
-      v72 = [*(a1 + 32) _loggableDescription];
+      v71 = [*(a1 + 32) _loggableDescription];
       *buf = 138543618;
-      v106 = v72;
-      v107 = 2112;
-      v108 = v35;
-      _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEFAULT, "%{public}@ submitting _DASActivity %@", buf, 0x16u);
+      v105 = v71;
+      v106 = 2112;
+      v107 = v34;
+      _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEFAULT, "%{public}@ submitting _DASActivity %@", buf, 0x16u);
     }
 
-    v73 = +[_DASScheduler sharedScheduler];
-    [v73 submitActivity:v35 inGroupWithName:@"NSURLSessionBackgroundPoolName"];
+    v72 = +[_DASScheduler sharedScheduler];
+    [v72 submitActivity:v34 inGroupWithName:@"NSURLSessionBackgroundPoolName"];
 
     tcp_connection_set_indefinite();
-    v90 = _NSConcreteStackBlock;
-    v91 = 3221225472;
-    v92 = sub_100080D0C;
-    v93 = &unk_1000D64E8;
-    v74 = *(a1 + 32);
-    v75 = *(a1 + 40);
+    v89 = _NSConcreteStackBlock;
+    v90 = 3221225472;
+    v91 = sub_100080D0C;
+    v92 = &unk_1000D64E8;
+    v73 = *(a1 + 32);
+    v74 = *(a1 + 40);
+    v93 = v73;
     v94 = v74;
-    v95 = v75;
-    v96 = *(a1 + 64);
+    v95 = *(a1 + 64);
     tcp_connection_set_event_handler();
-    [*(*(a1 + 40) + 328) setObject:v16 forKeyedSubscript:*(a1 + 56)];
-    v88[0] = _NSConcreteStackBlock;
-    v88[1] = 3221225472;
-    v88[2] = sub_100080E14;
-    v88[3] = &unk_1000D6510;
-    v76 = v83;
-    v89 = v76;
-    [(__CFString *)v35 setStartHandler:v88];
-    v77 = [*(a1 + 40) clientBundleID];
-    v78 = [*(a1 + 40) identifier];
-    v79 = [*(a1 + 40) monitoredAppBundleID];
-    v80 = [*(a1 + 40) secondaryID];
-    sub_100002740(0, v77, v78, v79, v80, *(a1 + 32), 0, 0, 0, [*(a1 + 32) isDiscretionary], 0, 0, 0, 0);
+    [*(*(a1 + 40) + 328) setObject:v15 forKeyedSubscript:*(a1 + 56)];
+    v87[0] = _NSConcreteStackBlock;
+    v87[1] = 3221225472;
+    v87[2] = sub_100080E14;
+    v87[3] = &unk_1000D6510;
+    v75 = v82;
+    v88 = v75;
+    [(__CFString *)v34 setStartHandler:v87];
+    v76 = [*(a1 + 40) clientBundleID];
+    v77 = [*(a1 + 40) identifier];
+    v78 = [*(a1 + 40) monitoredAppBundleID];
+    v79 = [*(a1 + 40) secondaryID];
+    sub_100002740(0, v76, v77, v78, v79, *(a1 + 32), 0, 0, 0, [*(a1 + 32) isDiscretionary], 0, 0, 0, 0);
   }
 
   else
   {
-    v45 = qword_1000EB210;
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v44 = qword_1000EB210;
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
-      v49 = [*(a1 + 32) _loggableDescription];
-      v50 = *(a1 + 32);
-      v51 = *(*(a1 + 40) + 192);
-      v52 = [v50 _URLToUse];
+      v48 = [*(a1 + 32) _loggableDescription];
+      v49 = *(a1 + 32);
+      v50 = *(*(a1 + 40) + 192);
+      v51 = [v49 _URLToUse];
       *buf = 138544642;
-      v106 = v49;
-      v107 = 2112;
-      v108 = v4;
-      v109 = 1024;
-      v110 = v7;
-      v111 = 2112;
-      v112 = v51;
-      v113 = 2112;
-      v114 = v50;
-      v115 = 2112;
-      v116 = v52;
-      _os_log_error_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "%{public}@ tcp_connection_create() returned NULL (host %@, port %d, queue %@, taskInfo %@, URL %@)", buf, 0x3Au);
+      v105 = v48;
+      v106 = 2112;
+      v107 = v4;
+      v108 = 1024;
+      v109 = v7;
+      v110 = 2112;
+      v111 = v50;
+      v112 = 2112;
+      v113 = v49;
+      v114 = 2112;
+      v115 = v51;
+      _os_log_error_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "%{public}@ tcp_connection_create() returned NULL (host %@, port %d, queue %@, taskInfo %@, URL %@)", buf, 0x3Au);
     }
 
-    v46 = *(a1 + 40);
-    v47 = *(a1 + 64);
-    v48 = [NSURLError errorWithDomain:NSURLErrorDomain code:-1 userInfo:0];
-    [v46 taskWithIdentifier:v47 didCompleteWithError:v48];
-    v16 = v48;
+    v45 = *(a1 + 40);
+    v46 = *(a1 + 64);
+    v47 = [NSURLError errorWithDomain:NSURLErrorDomain code:-1 userInfo:0];
+    [v45 taskWithIdentifier:v46 didCompleteWithError:v47];
+    v15 = v47;
   }
 }
 
@@ -1089,7 +1059,7 @@ double sub_100088B68(double result)
   return result;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> sub_100088B8C(double a1)
+double sub_100088B8C(double a1)
 {
   dlopen("/AppleInternal/Library/Frameworks/TapToRadarKit.framework/TapToRadarKit", 0);
   atomic_store(1u, &unk_1000EB0E0);

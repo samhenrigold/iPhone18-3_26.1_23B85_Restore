@@ -131,7 +131,7 @@
       v18 = [MEMORY[0x277D10B20] negatedPredicate:v17];
       [typeCopy doubleValue];
       v20 = [v14 dateByAddingTimeInterval:-v19];
-      v21 = HDSampleEntityPredicateForEndDate(5);
+      v21 = HDSampleEntityPredicateForEndDate(5, v20);
 
       v22 = [MEMORY[0x277D10B70] compoundPredicateWithPredicate:v18 otherPredicate:v21];
       [v15 addObject:v22];
@@ -184,7 +184,7 @@ void __102__HDSampleSyncEntity__predicateForSampleAgeWithMaximumObjectAgeByType_
   v10 = v9;
 
   v11 = [v8 dateByAddingTimeInterval:-v10];
-  v12 = HDSampleEntityPredicateForEndDate(5);
+  v12 = HDSampleEntityPredicateForEndDate(5, v11);
 
   v13 = *(a1 + 40);
   v14 = [MEMORY[0x277D10B70] compoundPredicateWithPredicate:v15 otherPredicate:v12];

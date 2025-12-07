@@ -10,14 +10,14 @@
 
 - (HDAssociatableObjectReference)initWithUUID:(id)d objectClass:(Class)class
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v16.receiver = self;
-  v16.super_class = HDAssociatableObjectReference;
-  v7 = [(HDAssociatableObjectReference *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = HDAssociatableObjectReference;
+  v7 = [(HDAssociatableObjectReference *)&v15 init];
   if (v7)
   {
-    v8 = [dCopy copy];
+    v8 = objc_msgSend_copy(dCopy);
     UUID = v7->_UUID;
     v7->_UUID = v8;
 
@@ -29,16 +29,15 @@
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
       {
         objectClass = v7->_objectClass;
-        v14 = v10;
-        v15 = NSStringFromClass(objectClass);
+        v13 = v10;
+        v14 = NSStringFromClass(objectClass);
         *buf = 138543362;
-        v18 = v15;
-        _os_log_fault_impl(&dword_228986000, v14, OS_LOG_TYPE_FAULT, "Attempting to create associatable object for invalid class %{public}@", buf, 0xCu);
+        v17 = v14;
+        _os_log_fault_impl(&dword_228986000, v13, OS_LOG_TYPE_FAULT, "Attempting to create associatable object for invalid class %{public}@", buf, 0xCu);
       }
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

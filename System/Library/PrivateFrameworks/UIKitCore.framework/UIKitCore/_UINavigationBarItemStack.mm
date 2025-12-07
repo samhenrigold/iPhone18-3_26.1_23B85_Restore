@@ -391,7 +391,7 @@
       v7 = v6 - 1;
       if (v6 < 1)
       {
-        LOBYTE(v11) = 1;
+        LOBYTE(isEqual) = 1;
       }
 
       else
@@ -401,9 +401,9 @@
         {
           v9 = [(NSMutableArray *)self->_items objectAtIndexedSubscript:v8];
           v10 = [toCopy objectAtIndexedSubscript:v8];
-          v11 = [v9 isEqual:v10];
+          isEqual = objc_msgSend_isEqual_(v9);
 
-          if (v11)
+          if (isEqual)
           {
             v12 = v7 == v8;
           }
@@ -422,16 +422,16 @@
 
     else
     {
-      LOBYTE(v11) = 0;
+      LOBYTE(isEqual) = 0;
     }
   }
 
   else
   {
-    LOBYTE(v11) = v5 == 0;
+    LOBYTE(isEqual) = v5 == 0;
   }
 
-  return v11;
+  return isEqual;
 }
 
 - (void)iterateItems:(id)items

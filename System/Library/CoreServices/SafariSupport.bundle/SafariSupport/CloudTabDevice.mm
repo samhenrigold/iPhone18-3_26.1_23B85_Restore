@@ -1,5 +1,9 @@
 @interface CloudTabDevice
 + (id)_valueTransformerForDeviceName;
++ (id)cloudTabDeviceWithCKRecord:(id)record isManateeContainer:(BOOL)container;
++ (id)cloudTabDeviceWithDeviceUUIDString:(id)string deviceName:(id)name hasDuplicateName:(BOOL)duplicateName isEphemeralDevice:(BOOL)device lastModified:(id)modified encodedSystemFieldsData:(id)data cloudTabsRecordZoneID:(id)d isManateeContainer:(BOOL)self0;
++ (id)cloudTabDeviceWithDictionaryRepresentation:(id)representation deviceUUIDString:(id)string cloudTabsRecordZoneID:(id)d isManateeContainer:(BOOL)container;
++ (id)cloudTabDeviceWithParameters:(id)parameters encodedSystemFieldsData:(id)data cloudTabsRecordZoneID:(id)d isManateeContainer:(BOOL)container;
 - (BOOL)hasDuplicateName;
 - (BOOL)isEphemeralDevice;
 - (CKRecord)record;
@@ -16,6 +20,93 @@
 @end
 
 @implementation CloudTabDevice
+
++ (id)cloudTabDeviceWithDictionaryRepresentation:(id)representation deviceUUIDString:(id)string cloudTabsRecordZoneID:(id)d isManateeContainer:(BOOL)container
+{
+  containerCopy = container;
+  representationCopy = representation;
+  dCopy = d;
+  stringCopy = string;
+  v12 = [representationCopy safari_stringForKey:@"DeviceName"];
+  v13 = [representationCopy safari_stringForKey:@"DeviceTypeIdentifier"];
+  v14 = [representationCopy safari_dateForKey:@"LastModified"];
+  v15 = [representationCopy safari_BOOLForKey:@"HasDuplicateDeviceName"];
+  v16 = [representationCopy safari_BOOLForKey:@"IsEphemeralDevice"];
+  v17 = objc_alloc_init(CloudTabDeviceParameters);
+  [(CloudTabDeviceParameters *)v17 setDeviceName:v12];
+  [(CloudTabDeviceParameters *)v17 setDeviceUUIDString:stringCopy];
+
+  [(CloudTabDeviceParameters *)v17 setDeviceTypeIdentifier:v13];
+  [(CloudTabDeviceParameters *)v17 setEphemeralDevice:v16];
+  [(CloudTabDeviceParameters *)v17 setHasDuplicateName:v15];
+  [(CloudTabDeviceParameters *)v17 setLastModified:v14];
+  v18 = [[CloudTabDevice alloc] _initWithParameters:v17 encodedSystemFieldsData:0 cloudTabsRecordZoneID:dCopy isManateeContainer:containerCopy];
+  if (v18)
+  {
+    v19 = [representationCopy safari_arrayForKey:@"Tabs"];
+    if ([v19 count])
+    {
+      [v18 _setTabsFromWBSCloudTabDictionaryRepresentations:v19 cloudTabsRecordZoneID:dCopy];
+    }
+
+    v20 = v18;
+  }
+
+  return v18;
+}
+
++ (id)cloudTabDeviceWithCKRecord:(id)record isManateeContainer:(BOOL)container
+{
+  containerCopy = container;
+  recordCopy = record;
+  recordType = [recordCopy recordType];
+  v7 = [recordType isEqualToString:@"CloudTabDevice"];
+
+  if (v7)
+  {
+    v8 = [[CloudTabDevice alloc] _initWithCKRecord:recordCopy isManateeContainer:containerCopy];
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8;
+}
+
++ (id)cloudTabDeviceWithDeviceUUIDString:(id)string deviceName:(id)name hasDuplicateName:(BOOL)duplicateName isEphemeralDevice:(BOOL)device lastModified:(id)modified encodedSystemFieldsData:(id)data cloudTabsRecordZoneID:(id)d isManateeContainer:(BOOL)self0
+{
+  deviceCopy = device;
+  duplicateNameCopy = duplicateName;
+  dCopy = d;
+  dataCopy = data;
+  modifiedCopy = modified;
+  nameCopy = name;
+  stringCopy = string;
+  v22 = objc_alloc_init(CloudTabDeviceParameters);
+  [(CloudTabDeviceParameters *)v22 setDeviceName:nameCopy];
+
+  [(CloudTabDeviceParameters *)v22 setDeviceUUIDString:stringCopy];
+  [(CloudTabDeviceParameters *)v22 setEphemeralDevice:deviceCopy];
+  [(CloudTabDeviceParameters *)v22 setHasDuplicateName:duplicateNameCopy];
+  [(CloudTabDeviceParameters *)v22 setLastModified:modifiedCopy];
+
+  v23 = [self cloudTabDeviceWithParameters:v22 encodedSystemFieldsData:dataCopy cloudTabsRecordZoneID:dCopy isManateeContainer:container];
+
+  return v23;
+}
+
++ (id)cloudTabDeviceWithParameters:(id)parameters encodedSystemFieldsData:(id)data cloudTabsRecordZoneID:(id)d isManateeContainer:(BOOL)container
+{
+  containerCopy = container;
+  dCopy = d;
+  dataCopy = data;
+  parametersCopy = parameters;
+  v12 = [[CloudTabDevice alloc] _initWithParameters:parametersCopy encodedSystemFieldsData:dataCopy cloudTabsRecordZoneID:dCopy isManateeContainer:containerCopy];
+
+  return v12;
+}
 
 - (id)_initWithCKRecord:(id)record isManateeContainer:(BOOL)container
 {

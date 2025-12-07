@@ -13,6 +13,8 @@
 - (void)remote_saveSchedule:(id)schedule completion:(id)completion;
 - (void)remote_saveScheduleItems:(id)items completion:(id)completion;
 - (void)remote_setTimeZoneTipAsDismissedWithCompletion:(id)completion;
+- (void)remote_updateNotificationSent:(BOOL)sent scheduleItemIdentifier:(id)identifier completion:(id)completion;
+- (void)remote_updateSchedulesToLocalTimeZoneAndMaintainCalendarDatesAndTimes:(BOOL)times completion:(id)completion;
 - (void)scheduleManager:(id)manager didAddOrModifySchedules:(id)schedules;
 - (void)scheduleManager:(id)manager didPruneScheduleItems:(id)items;
 - (void)scheduleManagerDidRescheduleMedications:(id)medications;
@@ -33,6 +35,20 @@
 
   v12 = v13;
   completionCopy[2](completionCopy, v11, v12);
+}
+
+- (void)remote_updateSchedulesToLocalTimeZoneAndMaintainCalendarDatesAndTimes:(BOOL)times completion:(id)completion
+{
+  timesCopy = times;
+  completionCopy = completion;
+  profile = [(HDStandardTaskServer *)self profile];
+  healthMedicationsProfileExtension = [profile healthMedicationsProfileExtension];
+  medicationScheduleManager = [healthMedicationsProfileExtension medicationScheduleManager];
+
+  v12 = 0;
+  v10 = [medicationScheduleManager updateSchedulesToLocalTimeZoneAndMaintainCalendarDatesAndTimes:timesCopy error:&v12];
+  v11 = v12;
+  completionCopy[2](completionCopy, v10, v11);
 }
 
 - (void)remote_setTimeZoneTipAsDismissedWithCompletion:(id)completion
@@ -189,18 +205,18 @@
 
 - (void)scheduleManagerDidRescheduleMedications:(id)medications
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   shouldObserveChanges = self->_shouldObserveChanges;
   os_unfair_lock_unlock(&self->_lock);
   if (shouldObserveChanges)
   {
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __77__HDMedicationScheduleControlServer_scheduleManagerDidRescheduleMedications___block_invoke;
-    v10[3] = &unk_2796CD9C0;
-    v10[4] = self;
-    v5 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __77__HDMedicationScheduleControlServer_scheduleManagerDidRescheduleMedications___block_invoke;
+    v9[3] = &unk_2796CD9C0;
+    v9[4] = self;
+    v5 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v9];
     _HKInitializeLogging();
     v6 = HKLogMedication();
     v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
@@ -218,36 +234,34 @@
 
     [v5 client_notifyForDidRescheduleMedications];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __77__HDMedicationScheduleControlServer_scheduleManagerDidRescheduleMedications___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   _HKInitializeLogging();
-  v4 = HKLogMedication();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v3 = HKLogMedication();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __77__HDMedicationScheduleControlServer_scheduleManagerDidRescheduleMedications___block_invoke_cold_1(a1);
+    __77__HDMedicationScheduleControlServer_scheduleManagerDidRescheduleMedications___block_invoke_cold_1();
   }
 }
 
 - (void)scheduleManager:(id)manager didPruneScheduleItems:(id)items
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   os_unfair_lock_lock(&self->_lock);
   shouldObserveChanges = self->_shouldObserveChanges;
   os_unfair_lock_unlock(&self->_lock);
   if (shouldObserveChanges)
   {
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __75__HDMedicationScheduleControlServer_scheduleManager_didPruneScheduleItems___block_invoke;
-    v12[3] = &unk_2796CD9C0;
-    v12[4] = self;
-    v7 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __75__HDMedicationScheduleControlServer_scheduleManager_didPruneScheduleItems___block_invoke;
+    v11[3] = &unk_2796CD9C0;
+    v11[4] = self;
+    v7 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v11];
     _HKInitializeLogging();
     v8 = HKLogMedication();
     v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
@@ -265,36 +279,34 @@ void __77__HDMedicationScheduleControlServer_scheduleManagerDidRescheduleMedicat
 
     [v7 client_notifyForDidPruneSchduleItems:itemsCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HDMedicationScheduleControlServer_scheduleManager_didPruneScheduleItems___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   _HKInitializeLogging();
-  v4 = HKLogMedication();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v3 = HKLogMedication();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __75__HDMedicationScheduleControlServer_scheduleManager_didPruneScheduleItems___block_invoke_cold_1(a1);
+    __75__HDMedicationScheduleControlServer_scheduleManager_didPruneScheduleItems___block_invoke_cold_1();
   }
 }
 
 - (void)scheduleManager:(id)manager didAddOrModifySchedules:(id)schedules
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   schedulesCopy = schedules;
   os_unfair_lock_lock(&self->_lock);
   shouldObserveChanges = self->_shouldObserveChanges;
   os_unfair_lock_unlock(&self->_lock);
   if (shouldObserveChanges)
   {
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __77__HDMedicationScheduleControlServer_scheduleManager_didAddOrModifySchedules___block_invoke;
-    v13[3] = &unk_2796CD9C0;
-    v13[4] = self;
-    v7 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __77__HDMedicationScheduleControlServer_scheduleManager_didAddOrModifySchedules___block_invoke;
+    v12[3] = &unk_2796CD9C0;
+    v12[4] = self;
+    v7 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v12];
     _HKInitializeLogging();
     v8 = HKLogMedication();
     v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
@@ -307,26 +319,24 @@ void __75__HDMedicationScheduleControlServer_scheduleManager_didPruneScheduleIte
         v11 = [schedulesCopy count];
         *buf = 138543618;
         selfCopy = self;
-        v16 = 2048;
-        v17 = v11;
+        v15 = 2048;
+        v16 = v11;
         _os_log_impl(&dword_25181C000, v10, OS_LOG_TYPE_INFO, "%{public}@: Notify client for didAddOrModifySchedules %ld", buf, 0x16u);
       }
     }
 
     [v7 client_notifyForAddOrModifySchedules:schedulesCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __77__HDMedicationScheduleControlServer_scheduleManager_didAddOrModifySchedules___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   _HKInitializeLogging();
-  v4 = HKLogMedication();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v3 = HKLogMedication();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    __77__HDMedicationScheduleControlServer_scheduleManager_didAddOrModifySchedules___block_invoke_cold_1(a1);
+    __77__HDMedicationScheduleControlServer_scheduleManager_didAddOrModifySchedules___block_invoke_cold_1();
   }
 }
 
@@ -357,29 +367,29 @@ void __77__HDMedicationScheduleControlServer_scheduleManager_didAddOrModifySched
 
 uint64_t __73__HDMedicationScheduleControlServer_insertMedicationScheduleItems_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = *(a1 + 32);
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     while (2)
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [HDMedicationScheduleItemEntity insertMedicationScheduleItem:*(*(&v15 + 1) + 8 * v10) transaction:v5 error:a3, v15];
+        v11 = [HDMedicationScheduleItemEntity insertMedicationScheduleItem:*(*(&v14 + 1) + 8 * v10) transaction:v5 error:a3, v14];
 
         if (!v11)
         {
@@ -391,7 +401,7 @@ uint64_t __73__HDMedicationScheduleControlServer_insertMedicationScheduleItems_e
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v8)
       {
         continue;
@@ -404,8 +414,23 @@ uint64_t __73__HDMedicationScheduleControlServer_insertMedicationScheduleItems_e
   v12 = 1;
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
+}
+
+- (void)remote_updateNotificationSent:(BOOL)sent scheduleItemIdentifier:(id)identifier completion:(id)completion
+{
+  sentCopy = sent;
+  completionCopy = completion;
+  identifierCopy = identifier;
+  profile = [(HDStandardTaskServer *)self profile];
+  healthMedicationsProfileExtension = [profile healthMedicationsProfileExtension];
+  medicationScheduleManager = [healthMedicationsProfileExtension medicationScheduleManager];
+
+  v15 = 0;
+  v13 = [medicationScheduleManager updateNotificationSent:sentCopy scheduleItemIdentifier:identifierCopy error:&v15];
+
+  v14 = v15;
+  completionCopy[2](completionCopy, v13, v14);
 }
 
 - (void)remote_logUnloggedMedicationsWithScheduledItemIdentifier:(id)identifier status:(int64_t)status logDate:(id)date completion:(id)completion
@@ -422,33 +447,6 @@ LABEL_11:
 
   v17 = v18;
   completionCopy[2](completionCopy, v16, v17);
-}
-
-void __77__HDMedicationScheduleControlServer_scheduleManagerDidRescheduleMedications___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1(&dword_25181C000, v2, v3, "%{public}@: Unable to notify client for did reschedule medications: %{public}@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __75__HDMedicationScheduleControlServer_scheduleManager_didPruneScheduleItems___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1(&dword_25181C000, v2, v3, "%{public}@: Unable to notify client for didPruneScheduleItems: %{public}@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __77__HDMedicationScheduleControlServer_scheduleManager_didAddOrModifySchedules___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1(&dword_25181C000, v2, v3, "%{public}@: Unable to notify client for didAddOrModifySchedules: %{public}@");
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -33,7 +33,7 @@
   v5 = [(HMDRemoteEventRouterClientRetryIntervals *)&v9 init];
   if (v5)
   {
-    v6 = [intervalsCopy copy];
+    v6 = objc_msgSend_copy(intervalsCopy);
     intervals = v5->_intervals;
     v5->_intervals = v6;
   }

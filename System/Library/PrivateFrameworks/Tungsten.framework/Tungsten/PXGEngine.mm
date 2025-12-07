@@ -356,7 +356,7 @@ void __40__PXGEngine__propagateTextureConverters__block_invoke(uint64_t a1, void
   v92 = 0u;
   v89 = 0u;
   v90 = 0u;
-  [(PXGEngine *)self scrollState];
+  objc_msgSend_scrollState(self);
   kdebug_trace();
   Current = CFAbsoluteTimeGetCurrent();
   coalescingAXResponder = [(PXGEngine *)self coalescingAXResponder];
@@ -706,7 +706,7 @@ void __40__PXGEngine__propagateTextureConverters__block_invoke(uint64_t a1, void
   viewSizeDidChange = self->_viewSizeDidChange;
   isInitialLoad = self->_isInitialLoad;
   isVisible = [(PXGEngine *)self isVisible];
-  [(PXGEngine *)self scrollState];
+  objc_msgSend_scrollState(self);
   *&v42[21] = v28;
   *&v42[5] = *&v27[101];
   v26 = *v42;
@@ -783,7 +783,7 @@ void __36__PXGEngine__updateInteractionState__block_invoke(void *a1, void *a2)
   animationTargetSpriteDataStore = self->_animationTargetSpriteDataStore;
   animationLayout = self->_animationLayout;
   animationChangeDetails = self->_animationChangeDetails;
-  [(PXGEngine *)self interactionState];
+  objc_msgSend_interactionState(self);
   [(PXGTextureManager *)textureManager streamTexturesForSpritesInDataStore:animationTargetSpriteDataStore presentationDataStore:v9 changeDetails:animationChangeDetails layout:animationLayout interactionState:v16];
   stats = [(PXGEngine *)self stats];
   v13 = CFAbsoluteTimeGetCurrent() - Current;
@@ -970,7 +970,7 @@ void __36__PXGEngine__updateInteractionState__block_invoke(void *a1, void *a2)
   v60 = 0u;
   v59 = 0u;
   v58 = 0u;
-  [(PXGEngine *)self interactionState];
+  objc_msgSend_interactionState(self);
   textureManager = [(PXGEngine *)self textureManager];
   texturesByPresentationType = [textureManager texturesByPresentationType];
 
@@ -1097,7 +1097,7 @@ void __27__PXGEngine__performRender__block_invoke(uint64_t a1, void *a2)
   v7 = *(*(a1 + 32) + 96);
   if (v7)
   {
-    [v7 cameraConfiguration];
+    objc_msgSend_cameraConfiguration(v7);
   }
 
   else
@@ -2077,7 +2077,7 @@ LABEL_49:
 
     [(PXGEngine *)self _updateDisplayLink];
     self->_previousUpdateEntities = v18;
-    [(PXGEngine *)self interactionState];
+    objc_msgSend_interactionState(self);
     v31 = v53;
     *&self->_previousInteractionState.scrollRegime = *buf;
     *&self->_previousInteractionState.contentChangeTrend = v31;

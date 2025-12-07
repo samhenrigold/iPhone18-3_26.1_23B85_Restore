@@ -8,48 +8,48 @@
 
 - (PRQuickActionsEditingReticleView)init
 {
-  v36[4] = *MEMORY[0x1E69E9840];
-  v35.receiver = self;
-  v35.super_class = PRQuickActionsEditingReticleView;
-  v2 = [(PRQuickActionsEditingReticleView *)&v35 init];
+  v38[4] = *MEMORY[0x1E69E9840];
+  v37.receiver = self;
+  v37.super_class = PRQuickActionsEditingReticleView;
+  v2 = [(PRQuickActionsEditingReticleView *)&v37 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x1E698E818]);
     vibrancyView = v2->_vibrancyView;
     v2->_vibrancyView = v3;
 
-    [(BSUIVibrancyEffectView *)v2->_vibrancyView setUserInteractionEnabled:0];
-    [(BSUIVibrancyEffectView *)v2->_vibrancyView setBlurEnabled:PREditingSupportsLiveBlurs()];
+    v5 = [(BSUIVibrancyEffectView *)v2->_vibrancyView setUserInteractionEnabled:0];
+    [(BSUIVibrancyEffectView *)v2->_vibrancyView setBlurEnabled:PREditingSupportsLiveBlurs(v5, v6)];
     [(PRQuickActionsEditingReticleView *)v2 addSubview:v2->_vibrancyView];
-    v5 = objc_alloc_init(PREditingReticleView);
+    v7 = objc_alloc_init(PREditingReticleView);
     reticleView = v2->_reticleView;
-    v2->_reticleView = v5;
+    v2->_reticleView = v7;
 
     [(PREditingReticleView *)v2->_reticleView setAutoresizingMask:18];
     contentView = [(BSUIVibrancyEffectView *)v2->_vibrancyView contentView];
     [contentView addSubview:v2->_reticleView];
 
-    v8 = MEMORY[0x1E69DCAB8];
-    v9 = [MEMORY[0x1E69DCAD8] configurationWithScale:1];
-    v34 = [v8 systemImageNamed:@"plus" withConfiguration:v9];
+    v10 = MEMORY[0x1E69DCAB8];
+    v11 = [MEMORY[0x1E69DCAD8] configurationWithScale:1];
+    v36 = [v10 systemImageNamed:@"plus" withConfiguration:v11];
 
-    v10 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v34];
+    v12 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v36];
     plusImageView = v2->_plusImageView;
-    v2->_plusImageView = v10;
+    v2->_plusImageView = v12;
 
-    v12 = v2->_plusImageView;
-    v13 = MEMORY[0x1E69DC888];
+    v14 = v2->_plusImageView;
+    v15 = MEMORY[0x1E69DC888];
     standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
-    v15 = [standardUserDefaults objectForKey:@"PRReticleBorderColor"];
-    v16 = v15;
-    if (!v15)
+    v17 = [standardUserDefaults objectForKey:@"PRReticleBorderColor"];
+    v18 = v17;
+    if (!v17)
     {
-      v15 = &unk_1F1C6BE60;
+      v17 = &unk_1F1C6BE60;
     }
 
-    [v15 doubleValue];
-    v17 = [v13 colorWithWhite:? alpha:?];
-    [(UIImageView *)v12 setTintColor:v17];
+    [v17 doubleValue];
+    v19 = [v15 colorWithWhite:? alpha:?];
+    [(UIImageView *)v14 setTintColor:v19];
 
     [(UIImageView *)v2->_plusImageView setContentMode:1];
     [(UIImageView *)v2->_plusImageView setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -57,25 +57,25 @@
     [contentView2 addSubview:v2->_plusImageView];
 
     [(UIImageView *)v2->_plusImageView setHidden:1];
-    v29 = MEMORY[0x1E696ACD8];
+    v31 = MEMORY[0x1E696ACD8];
     heightAnchor = [(UIImageView *)v2->_plusImageView heightAnchor];
     heightAnchor2 = [(PRQuickActionsEditingReticleView *)v2 heightAnchor];
-    v31 = [heightAnchor constraintEqualToAnchor:heightAnchor2 multiplier:0.5];
-    v36[0] = v31;
+    v33 = [heightAnchor constraintEqualToAnchor:heightAnchor2 multiplier:0.5];
+    v38[0] = v33;
     widthAnchor = [(UIImageView *)v2->_plusImageView widthAnchor];
     widthAnchor2 = [(PRQuickActionsEditingReticleView *)v2 widthAnchor];
-    v19 = [widthAnchor constraintEqualToAnchor:widthAnchor2 multiplier:0.5];
-    v36[1] = v19;
+    v21 = [widthAnchor constraintEqualToAnchor:widthAnchor2 multiplier:0.5];
+    v38[1] = v21;
     centerYAnchor = [(UIImageView *)v2->_plusImageView centerYAnchor];
     centerYAnchor2 = [(PRQuickActionsEditingReticleView *)v2 centerYAnchor];
-    v22 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v36[2] = v22;
+    v24 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+    v38[2] = v24;
     centerXAnchor = [(UIImageView *)v2->_plusImageView centerXAnchor];
     centerXAnchor2 = [(PRQuickActionsEditingReticleView *)v2 centerXAnchor];
-    v25 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v36[3] = v25;
-    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:4];
-    [v29 activateConstraints:v26];
+    v27 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+    v38[3] = v27;
+    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:4];
+    [v31 activateConstraints:v28];
   }
 
   return v2;

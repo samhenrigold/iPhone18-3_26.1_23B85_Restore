@@ -144,23 +144,26 @@
 
   if (!self->_checkingAnswerStorage)
   {
-    self->_checkingAnswerStorage = -[THWReviewSummaryLayout storageWithStyle:string:](self, "storageWithStyle:string:", -[THWReviewSummaryLayoutDelegate reviewSummaryCheckingParagraphStyleWithIndent:](self->_delegate, "reviewSummaryCheckingParagraphStyleWithIndent:", 40.0), [THBundle() localizedStringForKey:@"Checking Answers…" value:&stru_471858 table:0]);
+    v3 = [(THWReviewSummaryLayoutDelegate *)self->_delegate reviewSummaryCheckingParagraphStyleWithIndent:40.0];
+    self->_checkingAnswerStorage = -[THWReviewSummaryLayout storageWithStyle:string:](self, "storageWithStyle:string:", v3, [THBundle(v3 v4)]);
   }
 
   reviewSummaryQuestionCount = [(THWReviewSummaryLayoutDelegate *)self->_delegate reviewSummaryQuestionCount];
   reviewSummaryCorrectCount = [(THWReviewSummaryLayoutDelegate *)self->_delegate reviewSummaryCorrectCount];
-  -[TSWPStorage replaceCharactersInRange:withString:undoTransaction:](self->_summaryStorage, "replaceCharactersInRange:withString:undoTransaction:", 0, -[TSWPStorage length](self->_summaryStorage, "length"), +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle() localizedStringForKey:@"%lu out of %lu Answers Correct" value:&stru_471858 table:0], reviewSummaryCorrectCount, reviewSummaryQuestionCount), 0);
+  -[TSWPStorage replaceCharactersInRange:withString:undoTransaction:](self->_summaryStorage, "replaceCharactersInRange:withString:undoTransaction:", 0, -[TSWPStorage length](self->_summaryStorage, "length"), +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle(reviewSummaryCorrectCount v7)], reviewSummaryCorrectCount, reviewSummaryQuestionCount), 0);
   if (reviewSummaryCorrectCount == reviewSummaryQuestionCount)
   {
-    v5 = @"Congratulations!\nYou’ve successfully completed this review.";
+    v8 = @"Congratulations!\nYou’ve successfully completed this review.";
   }
 
   else
   {
-    v5 = @"Go back to review incorrect answers and try again, or start over and clear all answers.";
+    v8 = @"Go back to review incorrect answers and try again, or start over and clear all answers.";
   }
 
-  -[TSWPStorage replaceCharactersInRange:withString:undoTransaction:](self->_instructionalStorage, "replaceCharactersInRange:withString:undoTransaction:", 0, -[TSWPStorage length](self->_instructionalStorage, "length"), [THBundle() localizedStringForKey:v5 value:&stru_471858 table:0], 0);
+  instructionalStorage = self->_instructionalStorage;
+  v10 = [(TSWPStorage *)instructionalStorage length];
+  -[TSWPStorage replaceCharactersInRange:withString:undoTransaction:](instructionalStorage, "replaceCharactersInRange:withString:undoTransaction:", 0, v10, [THBundle(v10 v11)], 0);
 
   [(THWReviewSummaryLayout *)self invalidateChildren];
 }

@@ -5,6 +5,7 @@
 + (id)_rangeViolationMin:(id)min max:(id)max value:(id)value;
 - (BOOL)isEqual:(id)equal;
 - (HKAudiogramSensitivityTest)initWithCoder:(id)coder;
+- (HKAudiogramSensitivityTest)initWithSensitivity:(id)sensitivity type:(int64_t)type masked:(BOOL)masked side:(int64_t)side clampingRange:(id)range error:(id *)error;
 - (HKQuantity)clampedSensitivity;
 - (id)_initWithSensitivity:(id)sensitivity type:(int64_t)type masked:(BOOL)masked side:(int64_t)side clampingRange:(id)range;
 - (id)description;
@@ -35,6 +36,24 @@
   }
 
   return v14;
+}
+
+- (HKAudiogramSensitivityTest)initWithSensitivity:(id)sensitivity type:(int64_t)type masked:(BOOL)masked side:(int64_t)side clampingRange:(id)range error:(id *)error
+{
+  maskedCopy = masked;
+  sensitivityCopy = sensitivity;
+  rangeCopy = range;
+  if ([HKAudiogramSensitivityTest validateUnitForSensitivity:sensitivityCopy]&& [HKAudiogramSensitivityTest validateSensitivity:sensitivityCopy error:error]&& [HKAudiogramSensitivityTest validateConductionType:type side:side error:error])
+  {
+    v16 = [[HKAudiogramSensitivityTest alloc] _initWithSensitivity:sensitivityCopy type:type masked:maskedCopy side:side clampingRange:rangeCopy];
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  return v16;
 }
 
 - (id)description
@@ -169,7 +188,7 @@ LABEL_11:
 
 + (id)_rangeViolationMin:(id)min max:(id)max value:(id)value
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E696AEC0];
   valueCopy = value;
   maxCopy = max;
@@ -193,12 +212,10 @@ LABEL_11:
   v24 = [v7 stringWithFormat:@"Value %lg %@ is outside the range %lg - %lg %@", v13, unitString, v18, v21, unitString2];
 
   v25 = MEMORY[0x1E696ABC0];
-  v30 = *MEMORY[0x1E696A578];
-  v31[0] = v24;
-  v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+  v29 = *MEMORY[0x1E696A578];
+  v30[0] = v24;
+  v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
   v27 = [v25 errorWithDomain:@"com.apple.healthkit" code:3 userInfo:v26];
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v27;
 }

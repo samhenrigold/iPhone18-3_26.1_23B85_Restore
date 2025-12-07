@@ -40,36 +40,36 @@
 
 - (IDSGroupSessionDataCryptor)initWithTopic:(id)topic keyManager:(id)manager
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   v7 = [(IDSGroupSessionDataCryptor *)self initWithTopic:topic];
   v8 = v7;
   if (v7)
   {
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = sub_195A1E3F0;
-    v23[3] = &unk_1E743EEC0;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = sub_195A1E3F0;
+    v22[3] = &unk_1E743EEC0;
     v9 = v7;
-    v24 = v9;
-    [managerCopy useCurrentEncryptionkeyWithHandler:v23];
+    v23 = v9;
+    [managerCopy useCurrentEncryptionkeyWithHandler:v22];
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     v11 = v9[7];
     v9[7] = dictionary;
 
-    v18 = MEMORY[0x1E69E9820];
-    v19 = 3221225472;
-    v20 = sub_195A1E494;
-    v21 = &unk_1E743EEC0;
+    v17 = MEMORY[0x1E69E9820];
+    v18 = 3221225472;
+    v19 = sub_195A1E494;
+    v20 = &unk_1E743EEC0;
     v12 = v9;
-    v22 = v12;
-    [managerCopy enumerateDecryptingKeysAndSaltsUsingBlock:&v18];
+    v21 = v12;
+    [managerCopy enumerateDecryptingKeysAndSaltsUsingBlock:&v17];
     groupSessionDataCryptor = [MEMORY[0x1E69A5270] GroupSessionDataCryptor];
     if (os_log_type_enabled(groupSessionDataCryptor, OS_LOG_TYPE_DEFAULT))
     {
       v14 = [v12 debugDescription];
       *buf = 138412290;
-      v26 = v14;
+      v25 = v14;
       _os_log_impl(&dword_1959FF000, groupSessionDataCryptor, OS_LOG_TYPE_DEFAULT, "Created IDSGroupSessionDataCryptor: %@", buf, 0xCu);
     }
 
@@ -80,39 +80,38 @@
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (void)dealloc
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   encryptingCryptor = self->_encryptingCryptor;
   if (encryptingCryptor)
   {
     CCCryptorRelease(encryptingCryptor);
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v4 = self->_decryptionCryptorsByKeyID;
-  v5 = [(NSMapTable *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSMapTable *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         v10 = [(NSMapTable *)self->_decryptionCryptorsByKeyID objectForKey:v9];
         value = 0xAAAAAAAAAAAAAAAALL;
         if (NSMapMember(self->_decryptionCryptorsByKeyID, v9, 0, &value) && value)
@@ -121,27 +120,25 @@
         }
       }
 
-      v6 = [(NSMapTable *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMapTable *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
-  v12.receiver = self;
-  v12.super_class = IDSGroupSessionDataCryptor;
-  [(IDSGroupSessionDataCryptor *)&v12 dealloc];
-  v11 = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = IDSGroupSessionDataCryptor;
+  [(IDSGroupSessionDataCryptor *)&v11 dealloc];
 }
 
 - (id)encryptData:(id)data sequenceNumber:(unint64_t)number error:(id *)error
 {
-  v84 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   os_unfair_lock_lock(&self->_lock);
   if ([dataCopy length] < 0xFFFFFFF1)
   {
-    p_encryptingCryptor = &self->_encryptingCryptor;
-    if (self->_encryptingCryptor || (v21 = CCCryptorCreateWithMode(0, 0xBu, 0, 0, 0, [(NSData *)self->_encryptingKey bytes], [(NSData *)self->_encryptingKey length], 0, 0, 0, 0, &self->_encryptingCryptor)) == 0)
+    if (self->_encryptingCryptor || (v19 = CCCryptorCreateWithMode(0, 0xBu, 0, 0, 0, [(NSData *)self->_encryptingKey bytes], [(NSData *)self->_encryptingKey length], 0, 0, 0, 0, &self->_encryptingCryptor)) == 0)
     {
       v11 = [MEMORY[0x1E695DF88] dataWithLength:{objc_msgSend(dataCopy, "length") + 29}];
       mutableBytes = [v11 mutableBytes];
@@ -151,174 +148,170 @@
         __assert_rtn("[IDSGroupSessionDataCryptor encryptData:sequenceNumber:error:]", "IDSGroupSessionDataCryptor.m", 197, "0 == SecRandomCopyBytes(kSecRandomDefault, IDSGROUPSESSIONCRYPTOR_NONCE_SIZE_NBYTES, nonceBytes)");
       }
 
-      v16 = *p_encryptingCryptor;
-      v17 = CCCryptorGCMSetIV();
-      if (v17)
+      v15 = CCCryptorGCMSetIV();
+      if (v15)
       {
         groupSessionDataCryptor = [MEMORY[0x1E69A5270] GroupSessionDataCryptor];
         if (os_log_type_enabled(groupSessionDataCryptor, OS_LOG_TYPE_DEFAULT))
         {
           topic = self->_topic;
-          v20 = v17;
+          v18 = v15;
           *buf = 138412546;
-          v81 = topic;
-          v82 = 2048;
-          v83 = v17;
+          v75 = topic;
+          v76 = 2048;
+          v77 = v15;
           _os_log_impl(&dword_1959FF000, groupSessionDataCryptor, OS_LOG_TYPE_DEFAULT, "encryptData: failed to set IV for topic %@ error %ld", buf, 0x16u);
         }
 
         else
         {
-          v20 = v17;
+          v18 = v15;
         }
 
-        v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Encryption failed - CommonCryptor failed to set IV for topic %@ error %ld", self->_topic, v20];
-        v31 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v74 = *MEMORY[0x1E696A578];
-        v75 = v30;
-        v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
-        *error = [v31 initWithDomain:@"com.apple.identityservices.error" code:2 userInfo:v32];
+        v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Encryption failed - CommonCryptor failed to set IV for topic %@ error %ld", self->_topic, v18];
+        v28 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v68 = *MEMORY[0x1E696A578];
+        v69 = v27;
+        v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
+        *error = [v28 initWithDomain:@"com.apple.identityservices.error" code:2 userInfo:v29];
       }
 
       else
       {
-        v72 = 0xAAAAAAAAAAAAAAAALL;
+        v66 = 0xAAAAAAAAAAAAAAAALL;
         numberCopy = -86;
-        LOBYTE(v72) = *mutableBytes;
-        BYTE1(v72) = HIBYTE(number);
-        BYTE2(v72) = BYTE6(number);
-        BYTE3(v72) = BYTE5(number);
-        BYTE4(v72) = BYTE4(number);
-        BYTE5(v72) = BYTE3(number);
-        BYTE6(v72) = BYTE2(number);
-        HIBYTE(v72) = BYTE1(number);
+        LOBYTE(v66) = *mutableBytes;
+        BYTE1(v66) = HIBYTE(number);
+        BYTE2(v66) = BYTE6(number);
+        BYTE3(v66) = BYTE5(number);
+        BYTE4(v66) = BYTE4(number);
+        BYTE5(v66) = BYTE3(number);
+        BYTE6(v66) = BYTE2(number);
+        HIBYTE(v66) = BYTE1(number);
         numberCopy = number;
-        v25 = *p_encryptingCryptor;
-        v26 = CCCryptorGCMAddAAD();
-        if (v26)
+        v23 = CCCryptorGCMAddAAD();
+        if (v23)
         {
           groupSessionDataCryptor2 = [MEMORY[0x1E69A5270] GroupSessionDataCryptor];
           if (os_log_type_enabled(groupSessionDataCryptor2, OS_LOG_TYPE_DEFAULT))
           {
-            v28 = self->_topic;
-            v29 = v26;
+            v25 = self->_topic;
+            v26 = v23;
             *buf = 138412546;
-            v81 = v28;
-            v82 = 2048;
-            v83 = v26;
+            v75 = v25;
+            v76 = 2048;
+            v77 = v23;
             _os_log_impl(&dword_1959FF000, groupSessionDataCryptor2, OS_LOG_TYPE_DEFAULT, "encryptData: failed to add AAD for topic %@ error %ld", buf, 0x16u);
           }
 
           else
           {
-            v29 = v26;
+            v26 = v23;
           }
 
-          v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Encryption failed - CommonCryptor failed to add AAD for topic %@ error %ld", self->_topic, v29];
-          v42 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v70 = *MEMORY[0x1E696A578];
-          v71 = v41;
-          v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
-          *error = [v42 initWithDomain:@"com.apple.identityservices.error" code:2 userInfo:v43];
+          v38 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Encryption failed - CommonCryptor failed to add AAD for topic %@ error %ld", self->_topic, v26];
+          v39 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v64 = *MEMORY[0x1E696A578];
+          v65 = v38;
+          v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+          *error = [v39 initWithDomain:@"com.apple.identityservices.error" code:2 userInfo:v40];
         }
 
         else
         {
-          v35 = *p_encryptingCryptor;
-          v36 = dataCopy;
-          v37 = MEMORY[0x19A8BA910](v35, [dataCopy bytes], objc_msgSend(dataCopy, "length"), mutableBytes + 13);
-          if (v37)
+          encryptingCryptor = self->_encryptingCryptor;
+          v33 = dataCopy;
+          v34 = MEMORY[0x19A8BA910](encryptingCryptor, [dataCopy bytes], objc_msgSend(dataCopy, "length"), mutableBytes + 13);
+          if (v34)
           {
             groupSessionDataCryptor3 = [MEMORY[0x1E69A5270] GroupSessionDataCryptor];
             if (os_log_type_enabled(groupSessionDataCryptor3, OS_LOG_TYPE_DEFAULT))
             {
-              v39 = self->_topic;
-              v40 = v37;
+              v36 = self->_topic;
+              v37 = v34;
               *buf = 138412546;
-              v81 = v39;
-              v82 = 2048;
-              v83 = v37;
+              v75 = v36;
+              v76 = 2048;
+              v77 = v34;
               _os_log_impl(&dword_1959FF000, groupSessionDataCryptor3, OS_LOG_TYPE_DEFAULT, "encryptData: failed to encrypt for topic %@ error %ld", buf, 0x16u);
             }
 
             else
             {
-              v40 = v37;
+              v37 = v34;
             }
 
-            v48 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Encryption failed - CommonCryptor failed to encrypt for topic %@ error %ld", self->_topic, v40];
-            v49 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v68 = *MEMORY[0x1E696A578];
-            v69 = v48;
-            v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
-            *error = [v49 initWithDomain:@"com.apple.identityservices.error" code:2 userInfo:v50];
+            v44 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Encryption failed - CommonCryptor failed to encrypt for topic %@ error %ld", self->_topic, v37];
+            v45 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v62 = *MEMORY[0x1E696A578];
+            v63 = v44;
+            v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+            *error = [v45 initWithDomain:@"com.apple.identityservices.error" code:2 userInfo:v46];
           }
 
           else
           {
             [dataCopy length];
-            v44 = *p_encryptingCryptor;
-            LODWORD(v45) = CCCryptorGCMFinalize();
-            if (v45)
+            LODWORD(v41) = CCCryptorGCMFinalize();
+            if (v41)
             {
               groupSessionDataCryptor4 = [MEMORY[0x1E69A5270] GroupSessionDataCryptor];
               if (os_log_type_enabled(groupSessionDataCryptor4, OS_LOG_TYPE_DEFAULT))
               {
-                v47 = self->_topic;
-                v45 = v45;
+                v43 = self->_topic;
+                v41 = v41;
                 *buf = 138412546;
-                v81 = v47;
-                v82 = 2048;
-                v83 = v45;
+                v75 = v43;
+                v76 = 2048;
+                v77 = v41;
                 _os_log_impl(&dword_1959FF000, groupSessionDataCryptor4, OS_LOG_TYPE_DEFAULT, "encryptData: failed to create auth tag for topic %@ error %ld", buf, 0x16u);
               }
 
               else
               {
-                v45 = v45;
+                v41 = v41;
               }
 
-              v55 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Encryption failed - CommonCryptor failed to create auth tag for topic %@ error %ld", self->_topic, v45];
-              v56 = objc_alloc(MEMORY[0x1E696ABC0]);
-              v66 = *MEMORY[0x1E696A578];
-              v67 = v55;
-              v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
-              *error = [v56 initWithDomain:@"com.apple.identityservices.error" code:2 userInfo:v57];
+              v50 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Encryption failed - CommonCryptor failed to create auth tag for topic %@ error %ld", self->_topic, v41];
+              v51 = objc_alloc(MEMORY[0x1E696ABC0]);
+              v60 = *MEMORY[0x1E696A578];
+              v61 = v50;
+              v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+              *error = [v51 initWithDomain:@"com.apple.identityservices.error" code:2 userInfo:v52];
             }
 
             else
             {
-              v51 = *p_encryptingCryptor;
-              LODWORD(v52) = CCCryptorGCMReset();
-              if (!v52)
+              LODWORD(v47) = CCCryptorGCMReset();
+              if (!v47)
               {
-                v58 = v11;
+                v53 = v11;
                 goto LABEL_39;
               }
 
               groupSessionDataCryptor5 = [MEMORY[0x1E69A5270] GroupSessionDataCryptor];
               if (os_log_type_enabled(groupSessionDataCryptor5, OS_LOG_TYPE_DEFAULT))
               {
-                v54 = self->_topic;
-                v52 = v52;
+                v49 = self->_topic;
+                v47 = v47;
                 *buf = 138412546;
-                v81 = v54;
-                v82 = 2048;
-                v83 = v52;
+                v75 = v49;
+                v76 = 2048;
+                v77 = v47;
                 _os_log_impl(&dword_1959FF000, groupSessionDataCryptor5, OS_LOG_TYPE_DEFAULT, "encryptData: failed to reset cryptor for topic %@ error %ld", buf, 0x16u);
               }
 
               else
               {
-                v52 = v52;
+                v47 = v47;
               }
 
-              v59 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Encryption failed - CommonCryptor failed to reset for topic %@ error %ld", self->_topic, v52];
-              v60 = objc_alloc(MEMORY[0x1E696ABC0]);
-              v64 = *MEMORY[0x1E696A578];
-              v65 = v59;
-              v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
-              *error = [v60 initWithDomain:@"com.apple.identityservices.error" code:2 userInfo:v61];
+              v54 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Encryption failed - CommonCryptor failed to reset for topic %@ error %ld", self->_topic, v47];
+              v55 = objc_alloc(MEMORY[0x1E696ABC0]);
+              v58 = *MEMORY[0x1E696A578];
+              v59 = v54;
+              v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+              *error = [v55 initWithDomain:@"com.apple.identityservices.error" code:2 userInfo:v56];
             }
           }
         }
@@ -330,26 +323,26 @@
       groupSessionDataCryptor6 = [MEMORY[0x1E69A5270] GroupSessionDataCryptor];
       if (os_log_type_enabled(groupSessionDataCryptor6, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = self->_topic;
-        v24 = v21;
+        v21 = self->_topic;
+        v22 = v19;
         *buf = 138412546;
-        v81 = v23;
-        v82 = 2048;
-        v83 = v21;
+        v75 = v21;
+        v76 = 2048;
+        v77 = v19;
         _os_log_impl(&dword_1959FF000, groupSessionDataCryptor6, OS_LOG_TYPE_DEFAULT, "encryptData: failed to create CommonCrypto cryptor for topic %@ error %ld", buf, 0x16u);
       }
 
       else
       {
-        v24 = v21;
+        v22 = v19;
       }
 
-      v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Encryption failed - failed to create CommonCrypto cryptor for topic %@ error %ld", self->_topic, v24];
-      v33 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v76 = *MEMORY[0x1E696A578];
-      v77 = v11;
-      v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
-      *error = [v33 initWithDomain:@"com.apple.identityservices.error" code:2 userInfo:v34];
+      v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Encryption failed - failed to create CommonCrypto cryptor for topic %@ error %ld", self->_topic, v22];
+      v30 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v70 = *MEMORY[0x1E696A578];
+      v71 = v11;
+      v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+      *error = [v30 initWithDomain:@"com.apple.identityservices.error" code:2 userInfo:v31];
     }
   }
 
@@ -360,27 +353,26 @@
     {
       v10 = self->_topic;
       *buf = 138412546;
-      v81 = v10;
-      v82 = 2048;
-      v83 = [dataCopy length];
+      v75 = v10;
+      v76 = 2048;
+      v77 = [dataCopy length];
       _os_log_impl(&dword_1959FF000, groupSessionDataCryptor7, OS_LOG_TYPE_DEFAULT, "encryptData: plaintext larger than GCM can support for topic %@ data.length %lu", buf, 0x16u);
     }
 
     v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Encryption failed - plaintext larger than GCM can support for topic %@ data.length %lu", self->_topic, objc_msgSend(dataCopy, "length")];
     v12 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v78 = *MEMORY[0x1E696A578];
-    v79 = v11;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
+    v72 = *MEMORY[0x1E696A578];
+    v73 = v11;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
     *error = [v12 initWithDomain:@"com.apple.identityservices.error" code:4 userInfo:v13];
   }
 
-  v58 = 0;
+  v53 = 0;
 LABEL_39:
 
   os_unfair_lock_unlock(&self->_lock);
-  v62 = *MEMORY[0x1E69E9840];
 
-  return v58;
+  return v53;
 }
 
 - (id)getEncryptionKeyID
@@ -394,7 +386,7 @@ LABEL_39:
 
 - (id)decryptData:(id)data keyID:(id)d sequenceNumber:(unint64_t)number error:(id *)error
 {
-  v105[1] = *MEMORY[0x1E69E9840];
+  v104[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   dCopy = d;
   os_unfair_lock_lock(&self->_lock);
@@ -417,17 +409,17 @@ LABEL_39:
         {
           topic = self->_topic;
           *buf = 138412546;
-          v97 = topic;
-          v98 = 2112;
+          v96 = topic;
+          v97 = 2112;
           numberCopy2 = dCopy;
           _os_log_impl(&dword_1959FF000, groupSessionDataCryptor, OS_LOG_TYPE_DEFAULT, "decryptData: unknown keyID for topic %@ keyID %@", buf, 0x16u);
         }
 
         dCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Decryption failed - unknown keyID %@", dCopy];
         v39 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v102 = *MEMORY[0x1E696A578];
-        v103 = dCopy;
-        v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v103 forKeys:&v102 count:1];
+        v101 = *MEMORY[0x1E696A578];
+        v102 = dCopy;
+        v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
         *error = [v39 initWithDomain:@"com.apple.identityservices.error" code:1 userInfo:v40];
 
         goto LABEL_29;
@@ -444,11 +436,11 @@ LABEL_39:
           v30 = self->_topic;
           v28 = v28;
           *buf = 138412802;
-          v97 = v30;
-          v98 = 2112;
+          v96 = v30;
+          v97 = 2112;
           numberCopy2 = dCopy;
-          v100 = 2048;
-          v101 = v28;
+          v99 = 2048;
+          v100 = v28;
           _os_log_impl(&dword_1959FF000, groupSessionDataCryptor2, OS_LOG_TYPE_DEFAULT, "decryptData: failed to create cryptor for topic %@ keyID %@ error %ld", buf, 0x20u);
         }
 
@@ -459,9 +451,9 @@ LABEL_39:
 
         v43 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Decryption failed - CommonCryptor fails to create cryptor for topic %@ keyID %@ error %ld", self->_topic, dCopy, v28];
         v44 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v94 = *MEMORY[0x1E696A578];
-        v95 = v43;
-        v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
+        v93 = *MEMORY[0x1E696A578];
+        v94 = v43;
+        v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
         *error = [v44 initWithDomain:@"com.apple.identityservices.error" code:2 userInfo:v45];
 
         goto LABEL_29;
@@ -478,16 +470,16 @@ LABEL_39:
       v22 = CCCryptorGCMSetIV();
       if (!v22)
       {
-        v88 = 0xAAAAAAAAAAAAAAAALL;
+        v87 = 0xAAAAAAAAAAAAAAAALL;
         numberCopy = -86;
-        LOBYTE(v88) = *bytes;
-        BYTE1(v88) = HIBYTE(number);
-        BYTE2(v88) = BYTE6(number);
-        BYTE3(v88) = BYTE5(number);
-        BYTE4(v88) = BYTE4(number);
-        BYTE5(v88) = BYTE3(number);
-        BYTE6(v88) = BYTE2(number);
-        HIBYTE(v88) = BYTE1(number);
+        LOBYTE(v87) = *bytes;
+        BYTE1(v87) = HIBYTE(number);
+        BYTE2(v87) = BYTE6(number);
+        BYTE3(v87) = BYTE5(number);
+        BYTE4(v87) = BYTE4(number);
+        BYTE5(v87) = BYTE3(number);
+        BYTE6(v87) = BYTE2(number);
+        HIBYTE(v87) = BYTE1(number);
         numberCopy = number;
         LODWORD(number) = CCCryptorGCMAddAAD();
         if (number)
@@ -498,8 +490,8 @@ LABEL_39:
             v42 = self->_topic;
             number = number;
             *buf = 138412546;
-            v97 = v42;
-            v98 = 2048;
+            v96 = v42;
+            v97 = 2048;
             numberCopy2 = number;
             _os_log_impl(&dword_1959FF000, groupSessionDataCryptor3, OS_LOG_TYPE_DEFAULT, "encryptData: failed to add AAD for topic %@ error %ld", buf, 0x16u);
           }
@@ -510,85 +502,85 @@ LABEL_39:
           }
 
           number = [MEMORY[0x1E696AEC0] stringWithFormat:@"Encryption failed - CommonCryptor failed to add AAD for topic %@ error %ld", self->_topic, number];
-          v58 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v86 = *MEMORY[0x1E696A578];
-          v87 = number;
-          v59 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
-          *error = [v58 initWithDomain:@"com.apple.identityservices.error" code:2 userInfo:v59];
+          v57 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v85 = *MEMORY[0x1E696A578];
+          v86 = number;
+          v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
+          *error = [v57 initWithDomain:@"com.apple.identityservices.error" code:2 userInfo:v58];
         }
 
         else
         {
-          v51 = [dataCopy length] - 29;
-          number = [MEMORY[0x1E695DF88] dataWithLength:v51];
-          v52 = cryptorRef;
-          v53 = number;
-          v54 = MEMORY[0x19A8BA900](v52, bytes + 13, v51, [number mutableBytes]);
-          if (v54)
+          v50 = [dataCopy length] - 29;
+          number = [MEMORY[0x1E695DF88] dataWithLength:v50];
+          v51 = cryptorRef;
+          v52 = number;
+          v53 = MEMORY[0x19A8BA900](v51, bytes + 13, v50, [number mutableBytes]);
+          if (v53)
           {
             groupSessionDataCryptor4 = [MEMORY[0x1E69A5270] GroupSessionDataCryptor];
             if (os_log_type_enabled(groupSessionDataCryptor4, OS_LOG_TYPE_DEFAULT))
             {
-              v56 = self->_topic;
-              v57 = v54;
+              v55 = self->_topic;
+              v56 = v53;
               *buf = 138412802;
-              v97 = v56;
-              v98 = 2112;
+              v96 = v55;
+              v97 = 2112;
               numberCopy2 = dCopy;
-              v100 = 2048;
-              v101 = v54;
+              v99 = 2048;
+              v100 = v53;
               _os_log_impl(&dword_1959FF000, groupSessionDataCryptor4, OS_LOG_TYPE_DEFAULT, "decryptData: failed to decrypt for topic %@ keyID %@ error %ld", buf, 0x20u);
             }
 
             else
             {
-              v57 = v54;
+              v56 = v53;
             }
 
-            v64 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Decryption failed - CommonCryptor failed to decrypt for topic %@ keyID %@ error %ld", self->_topic, dCopy, v57];
-            v65 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v84 = *MEMORY[0x1E696A578];
-            v85 = v64;
-            v66 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
-            *error = [v65 initWithDomain:@"com.apple.identityservices.error" code:2 userInfo:v66];
+            v63 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Decryption failed - CommonCryptor failed to decrypt for topic %@ keyID %@ error %ld", self->_topic, dCopy, v56];
+            v64 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v83 = *MEMORY[0x1E696A578];
+            v84 = v63;
+            v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+            *error = [v64 initWithDomain:@"com.apple.identityservices.error" code:2 userInfo:v65];
           }
 
           else
           {
-            v60 = CCCryptorGCMFinalize();
-            if (v60)
+            v59 = CCCryptorGCMFinalize();
+            if (v59)
             {
               groupSessionDataCryptor5 = [MEMORY[0x1E69A5270] GroupSessionDataCryptor];
               if (os_log_type_enabled(groupSessionDataCryptor5, OS_LOG_TYPE_DEFAULT))
               {
-                v62 = self->_topic;
-                v63 = v60;
+                v61 = self->_topic;
+                v62 = v59;
                 *buf = 138412802;
-                v97 = v62;
-                v98 = 2112;
+                v96 = v61;
+                v97 = 2112;
                 numberCopy2 = dCopy;
-                v100 = 2048;
-                v101 = v60;
+                v99 = 2048;
+                v100 = v59;
                 _os_log_impl(&dword_1959FF000, groupSessionDataCryptor5, OS_LOG_TYPE_DEFAULT, "decryptData: failed to verify auth tag for topic %@ keyID %@ error %ld", buf, 0x20u);
               }
 
               else
               {
-                v63 = v60;
+                v62 = v59;
               }
 
-              v71 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Decryption failed - failed to verify auth tag for topic %@ keyID %@ error %ld", self->_topic, dCopy, v63];
-              v72 = objc_alloc(MEMORY[0x1E696ABC0]);
-              v82 = *MEMORY[0x1E696A578];
-              v83 = v71;
-              v73 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
-              *error = [v72 initWithDomain:@"com.apple.identityservices.error" code:3 userInfo:v73];
+              v70 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Decryption failed - failed to verify auth tag for topic %@ keyID %@ error %ld", self->_topic, dCopy, v62];
+              v71 = objc_alloc(MEMORY[0x1E696ABC0]);
+              v81 = *MEMORY[0x1E696A578];
+              v82 = v70;
+              v72 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
+              *error = [v71 initWithDomain:@"com.apple.identityservices.error" code:3 userInfo:v72];
             }
 
             else
             {
-              v67 = CCCryptorGCMReset();
-              if (!v67)
+              v66 = CCCryptorGCMReset();
+              if (!v66)
               {
                 v17 = number;
 
@@ -598,28 +590,28 @@ LABEL_39:
               groupSessionDataCryptor6 = [MEMORY[0x1E69A5270] GroupSessionDataCryptor];
               if (os_log_type_enabled(groupSessionDataCryptor6, OS_LOG_TYPE_DEFAULT))
               {
-                v69 = self->_topic;
-                v70 = v67;
+                v68 = self->_topic;
+                v69 = v66;
                 *buf = 138412802;
-                v97 = v69;
-                v98 = 2112;
+                v96 = v68;
+                v97 = 2112;
                 numberCopy2 = dCopy;
-                v100 = 2048;
-                v101 = v67;
+                v99 = 2048;
+                v100 = v66;
                 _os_log_impl(&dword_1959FF000, groupSessionDataCryptor6, OS_LOG_TYPE_DEFAULT, "decryptData: failed to reset cryptor for topic %@ keyID %@ error %ld", buf, 0x20u);
               }
 
               else
               {
-                v70 = v67;
+                v69 = v66;
               }
 
-              v74 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Decryption failed - CommonCryptor failed to reset for topic %@ keyID %@ error %ld", self->_topic, dCopy, v70];
-              v75 = objc_alloc(MEMORY[0x1E696ABC0]);
-              v80 = *MEMORY[0x1E696A578];
-              v81 = v74;
-              v76 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
-              *error = [v75 initWithDomain:@"com.apple.identityservices.error" code:2 userInfo:v76];
+              v73 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Decryption failed - CommonCryptor failed to reset for topic %@ keyID %@ error %ld", self->_topic, dCopy, v69];
+              v74 = objc_alloc(MEMORY[0x1E696ABC0]);
+              v79 = *MEMORY[0x1E696A578];
+              v80 = v73;
+              v75 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
+              *error = [v74 initWithDomain:@"com.apple.identityservices.error" code:2 userInfo:v75];
             }
           }
         }
@@ -635,11 +627,11 @@ LABEL_39:
         v24 = self->_topic;
         v25 = v22;
         *buf = 138412802;
-        v97 = v24;
-        v98 = 2112;
+        v96 = v24;
+        v97 = 2112;
         numberCopy2 = dCopy;
-        v100 = 2048;
-        v101 = v22;
+        v99 = 2048;
+        v100 = v22;
         _os_log_impl(&dword_1959FF000, groupSessionDataCryptor7, OS_LOG_TYPE_DEFAULT, "decryptData: failed to set IV for topic %@ keyID %@ error %ld", buf, 0x20u);
       }
 
@@ -650,9 +642,9 @@ LABEL_39:
 
       v46 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Decryption failed - CommonCryptor fails to set IV for topic %@ keyID %@ error %ld", self->_topic, dCopy, v25];
       v47 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v90 = *MEMORY[0x1E696A578];
-      v91 = v46;
-      v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
+      v89 = *MEMORY[0x1E696A578];
+      v90 = v46;
+      v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v90 forKeys:&v89 count:1];
       *error = [v47 initWithDomain:@"com.apple.identityservices.error" code:2 userInfo:v48];
     }
 
@@ -663,19 +655,19 @@ LABEL_39:
       {
         v32 = self->_topic;
         *buf = 138412802;
-        v97 = v32;
-        v98 = 2112;
+        v96 = v32;
+        v97 = 2112;
         numberCopy2 = dCopy;
-        v100 = 1024;
-        LODWORD(v101) = v21;
+        v99 = 1024;
+        LODWORD(v100) = v21;
         _os_log_impl(&dword_1959FF000, groupSessionDataCryptor8, OS_LOG_TYPE_DEFAULT, "decryptData: unknown version for topic %@ keyID %@ version %u", buf, 0x1Cu);
       }
 
       v33 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Decryption failed - unknown version for topic %@ keyID %@ version %u", self->_topic, dCopy, v21];
       v34 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v92 = *MEMORY[0x1E696A578];
-      v93 = v33;
-      v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
+      v91 = *MEMORY[0x1E696A578];
+      v92 = v33;
+      v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v92 forKeys:&v91 count:1];
       *error = [v34 initWithDomain:@"com.apple.identityservices.error" code:6 userInfo:v35];
     }
 
@@ -691,24 +683,22 @@ LABEL_30:
   {
     v13 = self->_topic;
     *buf = 138412546;
-    v97 = v13;
-    v98 = 2048;
+    v96 = v13;
+    v97 = 2048;
     numberCopy2 = [dataCopy length];
     _os_log_impl(&dword_1959FF000, groupSessionDataCryptor9, OS_LOG_TYPE_DEFAULT, "decryptData: insufficient incoming data for topic %@ size %lu", buf, 0x16u);
   }
 
   dCopy2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Decryption failed - data has insufficient bytes to decrypt for topic %@ keyID %@", self->_topic, dCopy];
   v15 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v104 = *MEMORY[0x1E696A578];
-  v105[0] = dCopy2;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v105 forKeys:&v104 count:1];
+  v103 = *MEMORY[0x1E696A578];
+  v104[0] = dCopy2;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v104 forKeys:&v103 count:1];
   *error = [v15 initWithDomain:@"com.apple.identityservices.error" code:4 userInfo:v16];
 
   v17 = 0;
 LABEL_31:
   os_unfair_lock_unlock(&self->_lock);
-
-  v49 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -735,31 +725,31 @@ LABEL_31:
 
 - (BOOL)isEqualToCryptor:(id)cryptor
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   cryptorCopy = cryptor;
   if (-[NSUUID isEqual:](self->_encryptingKeyID, "isEqual:", cryptorCopy[3]) && -[NSData isEqual:](self->_encryptingKey, "isEqual:", cryptorCopy[4]) && -[NSData isEqual:](self->_encryptingKeySalt, "isEqual:", cryptorCopy[5]) && (v5 = -[NSMutableDictionary count](self->_decryptionKeysByKeyID, "count"), v5 == [cryptorCopy[7] count]))
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v6 = self->_decryptionKeysByKeyID;
-    v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v7 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v19;
+      v9 = *v18;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v19 != v9)
+          if (*v18 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v18 + 1) + 8 * i);
-          v12 = [(NSMutableDictionary *)self->_decryptionKeysByKeyID objectForKeyedSubscript:v11, v18];
+          v11 = *(*(&v17 + 1) + 8 * i);
+          v12 = [(NSMutableDictionary *)self->_decryptionKeysByKeyID objectForKeyedSubscript:v11, v17];
           v13 = [cryptorCopy[7] objectForKeyedSubscript:v11];
           v14 = [v12 isEqual:v13];
 
@@ -770,7 +760,7 @@ LABEL_31:
           }
         }
 
-        v8 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v8 = [(NSMutableDictionary *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v8)
         {
           continue;
@@ -789,7 +779,6 @@ LABEL_17:
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -807,36 +796,36 @@ LABEL_17:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   [coderCopy encodeObject:self->_topic forKey:@"topic"];
   [coderCopy encodeObject:self->_encryptingKeyID forKey:@"encryptingKeyID"];
   [coderCopy encodeObject:self->_encryptingKey forKey:@"encryptingKey"];
-  v18 = coderCopy;
+  v17 = coderCopy;
   [coderCopy encodeObject:self->_encryptingKeySalt forKey:@"encryptingKeySalt"];
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
   array3 = [MEMORY[0x1E695DF70] array];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v8 = self->_decryptionKeysByKeyID;
-  v9 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         v14 = [(NSMutableDictionary *)self->_decryptionKeysByKeyID objectForKeyedSubscript:v13];
         [array addObject:v13];
         first = [v14 first];
@@ -846,17 +835,15 @@ LABEL_17:
         [array3 addObject:second];
       }
 
-      v10 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [(NSMutableDictionary *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
   }
 
-  [v18 encodeObject:array forKey:@"decryptingKeyIDs"];
-  [v18 encodeObject:array2 forKey:@"decryptingKeys"];
-  [v18 encodeObject:array3 forKey:@"decryptingKeySalts"];
-
-  v17 = *MEMORY[0x1E69E9840];
+  [v17 encodeObject:array forKey:@"decryptingKeyIDs"];
+  [v17 encodeObject:array2 forKey:@"decryptingKeys"];
+  [v17 encodeObject:array3 forKey:@"decryptingKeySalts"];
 }
 
 - (IDSGroupSessionDataCryptor)initWithCoder:(id)coder

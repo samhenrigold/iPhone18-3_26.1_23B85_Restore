@@ -363,24 +363,24 @@ LABEL_9:
   if (resetCopy && [(TUIEmbeddedCollectionViewRenderModel *)self->_renderModel scrollAxis]== &dword_0 + 1)
   {
     v15 = -v14;
-    [(TUIFeedView *)self->_feedView contentOffset];
-    if (v16 != v15)
+    contentOffset = [(TUIFeedView *)self->_feedView contentOffset];
+    if (v17 != v15)
     {
-      v17 = TUIViewUpdateLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = TUIViewUpdateLog(contentOffset);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         feedControllerHost = [(TUIReusableBaseView *)self feedControllerHost];
         feedId = [feedControllerHost feedId];
         [(TUIFeedView *)self->_feedView contentOffset];
-        v26 = 134218754;
-        v27 = feedId;
-        v28 = 2112;
+        v27 = 134218754;
+        v28 = feedId;
+        v29 = 2112;
         selfCopy = self;
-        v30 = 2048;
-        v31 = v25;
-        v32 = 2048;
-        v33 = v15;
-        _os_log_error_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "[fid:%lu] %@: Manually fixing initial horizontal content offset: %lf -> %lf", &v26, 0x2Au);
+        v31 = 2048;
+        v32 = v26;
+        v33 = 2048;
+        v34 = v15;
+        _os_log_error_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "[fid:%lu] %@: Manually fixing initial horizontal content offset: %lf -> %lf", &v27, 0x2Au);
       }
 
       [(TUIFeedView *)self->_feedView contentOffset];
@@ -395,7 +395,7 @@ LABEL_9:
   {
     feedView = self->_feedView;
     [(TUIFeedView *)feedView contentOffset];
-    [anchorSet proposeAnchorOffsetWithScrollView:feedView velocity:CGPointZero.x target:{CGPointZero.y, v21, v22}];
+    [anchorSet proposeAnchorOffsetWithScrollView:feedView velocity:CGPointZero.x target:{CGPointZero.y, v22, v23}];
     [(TUIFeedView *)self->_feedView setContentOffset:?];
   }
 }
@@ -405,7 +405,7 @@ LABEL_9:
   updateCopy = update;
   completionCopy = completion;
   controllerCopy = controller;
-  v11 = TUIViewUpdateLog();
+  v11 = TUIViewUpdateLog(controllerCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     sub_19A0EC(self, updateCopy, v11);

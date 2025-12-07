@@ -4,6 +4,7 @@
 - (NSArray)persistentIDsForFilterSet;
 - (id)filterMessages:(id)messages unmatchedMessages:(id *)unmatchedMessages;
 - (id)transformAndFilterMessages:(id)messages;
+- (id)transformAndFilterMessages:(id)messages includeDeleted:(BOOL)deleted;
 - (id)transformMessages:(id)messages;
 - (id)transformMessages:(id)messages includeDeleted:(BOOL)deleted;
 - (void)addMessagesToFilterSet:(id)set;
@@ -147,41 +148,39 @@ void __52__EDMessageQueryEvaluator_persistentIDsForFilterSet__block_invoke_2(uin
 
 void __50__EDMessageQueryEvaluator_addMessagesToFilterSet___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = [*(*(&v10 + 1) + 8 * v7) persistedMessageID];
+        v8 = [*(*(&v9 + 1) + 8 * v7) persistedMessageID];
         [v3 addIndex:{objc_msgSend(v8, "databaseID")}];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeMessagesFromFilterSet:(id)set
@@ -203,41 +202,39 @@ void __50__EDMessageQueryEvaluator_addMessagesToFilterSet___block_invoke(uint64_
 
 void __55__EDMessageQueryEvaluator_removeMessagesFromFilterSet___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = [*(*(&v10 + 1) + 8 * v7) persistedMessageID];
+        v8 = [*(*(&v9 + 1) + 8 * v7) persistedMessageID];
         [v3 removeIndex:{objc_msgSend(v8, "databaseID")}];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)transformAndFilterMessages:(id)messages
@@ -245,6 +242,14 @@ void __55__EDMessageQueryEvaluator_removeMessagesFromFilterSet___block_invoke(ui
   v3 = [(EDMessageQueryEvaluator *)self transformAndFilterMessages:messages includeDeleted:0];
 
   return v3;
+}
+
+- (id)transformAndFilterMessages:(id)messages includeDeleted:(BOOL)deleted
+{
+  v5 = [(EDMessageQueryEvaluator *)self transformMessages:messages includeDeleted:deleted];
+  v6 = [(EDMessageQueryEvaluator *)self filterMessages:v5 unmatchedMessages:0];
+
+  return v6;
 }
 
 - (id)transformMessages:(id)messages
@@ -336,7 +341,7 @@ uint64_t __60__EDMessageQueryEvaluator_transformMessages_includeDeleted___block_
 
 - (id)filterMessages:(id)messages unmatchedMessages:(id *)unmatchedMessages
 {
-  v19[8] = *MEMORY[0x1E69E9840];
+  v18[8] = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   messageQuery = [(EDMessageQueryEvaluator *)self messageQuery];
   predicate = [messageQuery predicate];
@@ -346,12 +351,12 @@ uint64_t __60__EDMessageQueryEvaluator_transformMessages_includeDeleted___block_
 
   if (unmatchedMessages)
   {
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __60__EDMessageQueryEvaluator_filterMessages_unmatchedMessages___block_invoke;
-    v19[3] = &unk_1E8250858;
-    v19[4] = self;
-    v11 = [messagesCopy ef_partition:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __60__EDMessageQueryEvaluator_filterMessages_unmatchedMessages___block_invoke;
+    v18[3] = &unk_1E8250858;
+    v18[4] = self;
+    v11 = [messagesCopy ef_partition:v18];
     second = [v11 second];
     *unmatchedMessages = [second sortedArrayUsingDescriptors:sortDescriptors];
 
@@ -365,8 +370,6 @@ uint64_t __60__EDMessageQueryEvaluator_transformMessages_includeDeleted___block_
     v16 = [messagesCopy filteredArrayUsingPredicate:filterPredicate];
     v14 = [v16 sortedArrayUsingDescriptors:sortDescriptors];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

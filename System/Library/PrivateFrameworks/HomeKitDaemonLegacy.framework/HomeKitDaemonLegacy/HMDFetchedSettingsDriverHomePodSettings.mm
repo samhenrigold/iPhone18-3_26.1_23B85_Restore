@@ -42,23 +42,21 @@
 
 void __83__HMDFetchedSettingsDriverHomePodSettings_serviceDidInitializeForCurrentAccessory___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@homepod settings did initialize", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@homepod settings did initialize", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   v6 = [*(a1 + 32) delegate];
   [v6 driverDidReload:*(a1 + 32)];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didReconnect
@@ -74,23 +72,21 @@ void __83__HMDFetchedSettingsDriverHomePodSettings_serviceDidInitializeForCurren
 
 void __55__HMDFetchedSettingsDriverHomePodSettings_didReconnect__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@homepod settings did reconnect", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@homepod settings did reconnect", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   v6 = [*(a1 + 32) delegate];
   [v6 driverDidReload:*(a1 + 32)];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdateSetting:(id)setting forKeyPath:(id)path
@@ -112,7 +108,7 @@ void __55__HMDFetchedSettingsDriverHomePodSettings_didReconnect__block_invoke(ui
 
 void __71__HMDFetchedSettingsDriverHomePodSettings_didUpdateSetting_forKeyPath___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) delegate];
   v3 = [*(a1 + 40) isEqualToString:@"root.home.primaryUser"];
   v4 = *(a1 + 32);
@@ -128,11 +124,11 @@ void __71__HMDFetchedSettingsDriverHomePodSettings_didUpdateSetting_forKeyPath__
       v10 = HMFGetLogIdentifier();
       v11 = *(a1 + 40);
       *buf = 138543874;
-      v26 = v10;
-      v27 = 2114;
-      v28 = v11;
-      v29 = 2112;
-      v30 = v6;
+      v25 = v10;
+      v26 = 2114;
+      v27 = v11;
+      v28 = 2112;
+      v29 = v6;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Got primaryUserInfo update for keyPath: %{public}@, %@", buf, 0x20u);
     }
 
@@ -151,19 +147,19 @@ void __71__HMDFetchedSettingsDriverHomePodSettings_didUpdateSetting_forKeyPath__
       v15 = HMFGetLogIdentifier();
       v16 = *(a1 + 40);
       *buf = 138543874;
-      v26 = v15;
-      v27 = 2114;
-      v28 = v16;
-      v29 = 2112;
-      v30 = v6;
+      v25 = v15;
+      v26 = 2114;
+      v27 = v16;
+      v28 = 2112;
+      v29 = v6;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Got Setting Update for keyPath: %{public}@ setting: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v12);
     if (v6)
     {
-      v24 = v6;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+      v23 = v6;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
       [v2 driver:*(a1 + 32) didUpdateSettings:v17];
     }
 
@@ -177,9 +173,9 @@ void __71__HMDFetchedSettingsDriverHomePodSettings_didUpdateSetting_forKeyPath__
         v21 = HMFGetLogIdentifier();
         v22 = *(a1 + 48);
         *buf = 138543618;
-        v26 = v21;
-        v27 = 2112;
-        v28 = v22;
+        v25 = v21;
+        v26 = 2112;
+        v27 = v22;
         _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, "%{public}@Unable to transform %@ to immutable setting", buf, 0x16u);
       }
 
@@ -187,8 +183,6 @@ void __71__HMDFetchedSettingsDriverHomePodSettings_didUpdateSetting_forKeyPath__
       v6 = 0;
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_languageValueList
@@ -238,7 +232,7 @@ void __75__HMDFetchedSettingsDriverHomePodSettings_languageValueListWithCompleti
 
 - (void)_writeSetting:(id)setting keyPath:(id)path completion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   settingCopy = setting;
   pathCopy = path;
   completionCopy = completion;
@@ -252,33 +246,31 @@ void __75__HMDFetchedSettingsDriverHomePodSettings_languageValueListWithCompleti
   {
     v15 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v24 = v15;
-    v25 = 2114;
-    v26 = pathCopy;
-    v27 = 2112;
-    v28 = settingCopy;
+    v23 = v15;
+    v24 = 2114;
+    v25 = pathCopy;
+    v26 = 2112;
+    v27 = settingCopy;
     _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Updating %{public}@ to %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v12);
   service = [(HMDFetchedSettingsDriverHomePodSettings *)selfCopy service];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __76__HMDFetchedSettingsDriverHomePodSettings__writeSetting_keyPath_completion___block_invoke;
-  v20[3] = &unk_2797349D8;
-  v20[4] = selfCopy;
-  v21 = pathCopy;
-  v22 = completionCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __76__HMDFetchedSettingsDriverHomePodSettings__writeSetting_keyPath_completion___block_invoke;
+  v19[3] = &unk_2797349D8;
+  v19[4] = selfCopy;
+  v20 = pathCopy;
+  v21 = completionCopy;
   v17 = completionCopy;
   v18 = pathCopy;
-  [service updateSettingForKeyPath:v18 setting:settingCopy completionHandler:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [service updateSettingForKeyPath:v18 setting:settingCopy completionHandler:v19];
 }
 
 void __76__HMDFetchedSettingsDriverHomePodSettings__writeSetting_keyPath_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -288,24 +280,22 @@ void __76__HMDFetchedSettingsDriverHomePodSettings__writeSetting_keyPath_complet
   {
     v10 = HMFGetLogIdentifier();
     v11 = *(a1 + 40);
-    v13 = 138543874;
-    v14 = v10;
-    v15 = 2114;
-    v16 = v11;
-    v17 = 2112;
-    v18 = v6;
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Update %{public}@ completion error: %@", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v10;
+    v14 = 2114;
+    v15 = v11;
+    v16 = 2112;
+    v17 = v6;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Update %{public}@ completion error: %@", &v12, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
   (*(*(a1 + 48) + 16))();
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processReadResults:(id)results error:(id)error completion:(id)completion
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   errorCopy = error;
   completionCopy = completion;
@@ -316,42 +306,42 @@ void __76__HMDFetchedSettingsDriverHomePodSettings__writeSetting_keyPath_complet
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v44 = v13;
-    v45 = 2112;
-    v46 = resultsCopy;
-    v47 = 2112;
-    v48 = errorCopy;
+    v43 = v13;
+    v44 = 2112;
+    v45 = resultsCopy;
+    v46 = 2112;
+    v47 = errorCopy;
     _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Fetched settings: %@, error: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v10);
   array = [MEMORY[0x277CBEB18] array];
   v15 = errorCopy;
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v16 = resultsCopy;
-  v17 = [v16 countByEnumeratingWithState:&v38 objects:v42 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v37 objects:v41 count:16];
   v18 = v15;
   if (v17)
   {
     v19 = v17;
-    v20 = *v39;
+    v20 = *v38;
     v18 = v15;
-    v34 = array;
-    v35 = *v39;
-    v36 = v16;
+    v33 = array;
+    v34 = *v38;
+    v35 = v16;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v39 != v20)
+        if (*v38 != v20)
         {
           objc_enumerationMutation(v16);
         }
 
-        setting = [*(*(&v38 + 1) + 8 * i) setting];
+        setting = [*(*(&v37 + 1) + 8 * i) setting];
         if (setting)
         {
           v23 = [(HMDFetchedSettingsDriverHomePodSettings *)selfCopy _transformToImmutableSetting:setting];
@@ -362,7 +352,7 @@ void __76__HMDFetchedSettingsDriverHomePodSettings__writeSetting_keyPath_complet
 
           else
           {
-            v37 = v18;
+            v36 = v18;
             v24 = objc_autoreleasePoolPush();
             v25 = selfCopy;
             v26 = HMFGetOSLogHandle();
@@ -372,14 +362,14 @@ void __76__HMDFetchedSettingsDriverHomePodSettings__writeSetting_keyPath_complet
               v27 = selfCopy;
               v29 = v28 = v15;
               *buf = 138543618;
-              v44 = v29;
-              v45 = 2112;
-              v46 = setting;
+              v43 = v29;
+              v44 = 2112;
+              v45 = setting;
               _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@Returned value %@ not of expected type.", buf, 0x16u);
 
               v15 = v28;
               selfCopy = v27;
-              array = v34;
+              array = v33;
             }
 
             objc_autoreleasePoolPop(v24);
@@ -395,27 +385,25 @@ void __76__HMDFetchedSettingsDriverHomePodSettings__writeSetting_keyPath_complet
 
             v18 = v30;
 
-            v20 = v35;
-            v16 = v36;
+            v20 = v34;
+            v16 = v35;
           }
         }
       }
 
-      v19 = [v16 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v19 = [v16 countByEnumeratingWithState:&v37 objects:v41 count:16];
     }
 
     while (v19);
   }
 
-  v31 = [array copy];
+  v31 = objc_msgSend_copy(array);
   completionCopy[2](completionCopy, v31, v18);
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_readSettingsAtKeyPaths:(id)paths completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   completionCopy = completion;
   v8 = objc_autoreleasePoolPush();
@@ -426,26 +414,24 @@ void __76__HMDFetchedSettingsDriverHomePodSettings__writeSetting_keyPath_complet
     v11 = HMFGetLogIdentifier();
     service = [(HMDFetchedSettingsDriverHomePodSettings *)selfCopy service];
     *buf = 138543874;
-    v19 = v11;
-    v20 = 2114;
-    v21 = pathsCopy;
-    v22 = 2112;
-    v23 = service;
+    v18 = v11;
+    v19 = 2114;
+    v20 = pathsCopy;
+    v21 = 2112;
+    v22 = service;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Fetch setting keyPaths: %{public}@ on service: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
   service2 = [(HMDFetchedSettingsDriverHomePodSettings *)selfCopy service];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __78__HMDFetchedSettingsDriverHomePodSettings__readSettingsAtKeyPaths_completion___block_invoke;
-  v16[3] = &unk_279734A00;
-  v16[4] = selfCopy;
-  v17 = completionCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __78__HMDFetchedSettingsDriverHomePodSettings__readSettingsAtKeyPaths_completion___block_invoke;
+  v15[3] = &unk_279734A00;
+  v15[4] = selfCopy;
+  v16 = completionCopy;
   v14 = completionCopy;
-  [service2 settingsForKeyPaths:pathsCopy completionHandler:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [service2 settingsForKeyPaths:pathsCopy completionHandler:v15];
 }
 
 void __78__HMDFetchedSettingsDriverHomePodSettings__readSettingsAtKeyPaths_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -469,7 +455,7 @@ void __78__HMDFetchedSettingsDriverHomePodSettings__readSettingsAtKeyPaths_compl
 
 - (id)_transformPreferredMediaUserEvent:(id)event
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   stringValue = [eventCopy stringValue];
   v6 = [objc_alloc(MEMORY[0x277CD1708]) initWithUUIDString:stringValue selectionType:stringValue != 0];
@@ -479,22 +465,21 @@ void __78__HMDFetchedSettingsDriverHomePodSettings__readSettingsAtKeyPaths_compl
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v10;
-    v15 = 2112;
-    v16 = v6;
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Transform hpSetting to primaryUserInfo: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v10;
+    v14 = 2112;
+    v15 = v6;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Transform hpSetting to primaryUserInfo: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)_transformToImmutableSetting:(id)setting
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   settingCopy = setting;
   if ([HMDHPSAPIConformanceProviding objectRespondsToHPSBooleanSettingProtocolMethods:settingCopy])
   {
@@ -541,17 +526,17 @@ LABEL_9:
     if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       v29 = HMFGetLogIdentifier();
-      v48 = 138544386;
-      v49 = v29;
-      v50 = 2048;
-      v51 = integerValue;
-      v52 = 2048;
-      v53 = integerValue2;
-      v54 = 2048;
-      v55 = integerValue3;
-      v56 = 2048;
-      v57 = integerValue4;
-      _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@Transform constrained number setting (after scaling up) with value: %ld, max: %ld, min: %ld, step: %ld", &v48, 0x34u);
+      v47 = 138544386;
+      v48 = v29;
+      v49 = 2048;
+      v50 = integerValue;
+      v51 = 2048;
+      v52 = integerValue2;
+      v53 = 2048;
+      v54 = integerValue3;
+      v55 = 2048;
+      v56 = integerValue4;
+      _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@Transform constrained number setting (after scaling up) with value: %ld, max: %ld, min: %ld, step: %ld", &v47, 0x34u);
     }
 
     objc_autoreleasePoolPop(v26);
@@ -607,9 +592,9 @@ LABEL_9:
       if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         v45 = HMFGetLogIdentifier();
-        v48 = 138543362;
-        v49 = v45;
-        _os_log_impl(&dword_2531F8000, v44, OS_LOG_TYPE_ERROR, "%{public}@Nil Language Value", &v48, 0xCu);
+        v47 = 138543362;
+        v48 = v45;
+        _os_log_impl(&dword_2531F8000, v44, OS_LOG_TYPE_ERROR, "%{public}@Nil Language Value", &v47, 0xCu);
       }
 
       objc_autoreleasePoolPop(v42);
@@ -619,14 +604,12 @@ LABEL_9:
   v9 = 0;
 LABEL_23:
 
-  v46 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (void)updateSettingWithKeyPath:(id)path primaryUserInfo:(id)info completion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   infoCopy = info;
   completionCopy = completion;
@@ -639,13 +622,13 @@ LABEL_23:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v15 = HMFGetLogIdentifier();
-    v25 = 138543874;
-    v26 = v15;
-    v27 = 2114;
-    v28 = pathCopy;
-    v29 = 2112;
-    v30 = infoCopy;
-    _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Updating Primary User setting %{public}@ to %@", &v25, 0x20u);
+    v24 = 138543874;
+    v25 = v15;
+    v26 = 2114;
+    v27 = pathCopy;
+    v28 = 2112;
+    v29 = infoCopy;
+    _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Updating Primary User setting %{public}@ to %@", &v24, 0x20u);
   }
 
   objc_autoreleasePoolPop(v12);
@@ -666,24 +649,22 @@ LABEL_23:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       v22 = HMFGetLogIdentifier();
-      v25 = 138543618;
-      v26 = v22;
-      v27 = 2112;
-      v28 = infoCopy;
-      _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Could not create homepod Setting from setting value %@", &v25, 0x16u);
+      v24 = 138543618;
+      v25 = v22;
+      v26 = 2112;
+      v27 = infoCopy;
+      _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Could not create homepod Setting from setting value %@", &v24, 0x16u);
     }
 
     objc_autoreleasePoolPop(v19);
     v23 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     completionCopy[2](completionCopy, v23);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSettingWithKeyPath:(id)path integerSettingValue:(id)value completion:(id)completion
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   valueCopy = value;
   completionCopy = completion;
@@ -701,15 +682,15 @@ LABEL_23:
   {
     v18 = HMFGetLogIdentifier();
     v19 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(valueCopy, "integerValue")}];
-    v28 = 138544130;
-    v29 = v18;
-    v30 = 2114;
-    v31 = pathCopy;
-    v32 = 2112;
-    v33 = v14;
-    v34 = 2112;
-    v35 = v19;
-    _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Updating %{public}@ to %@ (integer value: %@)", &v28, 0x2Au);
+    v27 = 138544130;
+    v28 = v18;
+    v29 = 2114;
+    v30 = pathCopy;
+    v31 = 2112;
+    v32 = v14;
+    v33 = 2112;
+    v34 = v19;
+    _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Updating %{public}@ to %@ (integer value: %@)", &v27, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v15);
@@ -729,24 +710,22 @@ LABEL_23:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       v25 = HMFGetLogIdentifier();
-      v28 = 138543618;
-      v29 = v25;
-      v30 = 2112;
-      v31 = valueCopy;
-      _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Could not create homepod Setting from setting value %@", &v28, 0x16u);
+      v27 = 138543618;
+      v28 = v25;
+      v29 = 2112;
+      v30 = valueCopy;
+      _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Could not create homepod Setting from setting value %@", &v27, 0x16u);
     }
 
     objc_autoreleasePoolPop(v22);
     v26 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     completionCopy[2](completionCopy, v26);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSettingWithKeyPath:(id)path BOOLSettingValue:(id)value completion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   valueCopy = value;
   completionCopy = completion;
@@ -759,13 +738,13 @@ LABEL_23:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v15 = HMFGetLogIdentifier();
-    v24 = 138543874;
-    v25 = v15;
-    v26 = 2114;
-    v27 = pathCopy;
-    v28 = 2112;
-    v29 = valueCopy;
-    _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Updating %{public}@ to %@", &v24, 0x20u);
+    v23 = 138543874;
+    v24 = v15;
+    v25 = 2114;
+    v26 = pathCopy;
+    v27 = 2112;
+    v28 = valueCopy;
+    _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Updating %{public}@ to %@", &v23, 0x20u);
   }
 
   objc_autoreleasePoolPop(v12);
@@ -785,19 +764,17 @@ LABEL_23:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       v21 = HMFGetLogIdentifier();
-      v24 = 138543618;
-      v25 = v21;
-      v26 = 2112;
-      v27 = valueCopy;
-      _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, "%{public}@Could not create homepod Setting from setting value %@", &v24, 0x16u);
+      v23 = 138543618;
+      v24 = v21;
+      v25 = 2112;
+      v26 = valueCopy;
+      _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, "%{public}@Could not create homepod Setting from setting value %@", &v23, 0x16u);
     }
 
     objc_autoreleasePoolPop(v18);
     v22 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     completionCopy[2](completionCopy, v22);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_hpLanguageValueFromLanguageValue:(id)value
@@ -817,7 +794,7 @@ LABEL_23:
 
 - (void)updateSettingWithKeyPath:(id)path languageSettingValue:(id)value completion:(id)completion
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   valueCopy = value;
   completionCopy = completion;
@@ -831,11 +808,11 @@ LABEL_23:
   {
     v15 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v31 = v15;
-    v32 = 2114;
-    v33 = pathCopy;
-    v34 = 2112;
-    v35 = valueCopy;
+    v30 = v15;
+    v31 = 2114;
+    v32 = pathCopy;
+    v33 = 2112;
+    v34 = valueCopy;
     _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Updating %{public}@ to %@", buf, 0x20u);
   }
 
@@ -847,15 +824,15 @@ LABEL_23:
   if (v18)
   {
     queue2 = [(HMDFetchedSettingsDriverHomePodSettings *)selfCopy queue];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __100__HMDFetchedSettingsDriverHomePodSettings_updateSettingWithKeyPath_languageSettingValue_completion___block_invoke;
-    v26[3] = &unk_279734578;
-    v26[4] = selfCopy;
-    v27 = v18;
-    v28 = pathCopy;
-    v29 = completionCopy;
-    dispatch_async(queue2, v26);
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __100__HMDFetchedSettingsDriverHomePodSettings_updateSettingWithKeyPath_languageSettingValue_completion___block_invoke;
+    v25[3] = &unk_279734578;
+    v25[4] = selfCopy;
+    v26 = v18;
+    v27 = pathCopy;
+    v28 = completionCopy;
+    dispatch_async(queue2, v25);
   }
 
   else
@@ -867,9 +844,9 @@ LABEL_23:
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v31 = v23;
-      v32 = 2112;
-      v33 = valueCopy;
+      v30 = v23;
+      v31 = 2112;
+      v32 = valueCopy;
       _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Could not create homepod Setting from setting value %@", buf, 0x16u);
     }
 
@@ -877,30 +854,28 @@ LABEL_23:
     v24 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     (*(completionCopy + 2))(completionCopy, v24);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchSettingsForKeyPaths:(id)paths completion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   completionCopy = completion;
   queue = [(HMDFetchedSettingsDriverHomePodSettings *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v27[0] = 0;
-  v27[1] = v27;
-  v27[2] = 0x3032000000;
-  v27[3] = __Block_byref_object_copy__4666;
-  v27[4] = __Block_byref_object_dispose__4667;
-  v28 = MEMORY[0x277CBEBF8];
-  v25[0] = 0;
-  v25[1] = v25;
-  v25[2] = 0x3032000000;
-  v25[3] = __Block_byref_object_copy__4666;
-  v25[4] = __Block_byref_object_dispose__4667;
-  v26 = 0;
+  v26[0] = 0;
+  v26[1] = v26;
+  v26[2] = 0x3032000000;
+  v26[3] = __Block_byref_object_copy__4666;
+  v26[4] = __Block_byref_object_dispose__4667;
+  v27 = MEMORY[0x277CBEBF8];
+  v24[0] = 0;
+  v24[1] = v24;
+  v24[2] = 0x3032000000;
+  v24[3] = __Block_byref_object_copy__4666;
+  v24[4] = __Block_byref_object_dispose__4667;
+  v25 = 0;
   v9 = dispatch_group_create();
   if ([pathsCopy count])
   {
@@ -911,39 +886,37 @@ LABEL_23:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v30 = v13;
-      v31 = 2112;
-      v32 = pathsCopy;
+      v29 = v13;
+      v30 = 2112;
+      v31 = pathsCopy;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_DEBUG, "%{public}@Fetching settings using local api keyPaths: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
     dispatch_group_enter(v9);
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __79__HMDFetchedSettingsDriverHomePodSettings_fetchSettingsForKeyPaths_completion___block_invoke;
-    v21[3] = &unk_2797215E0;
-    v23 = v27;
-    v24 = v25;
-    v22 = v9;
-    [(HMDFetchedSettingsDriverHomePodSettings *)selfCopy _readSettingsAtKeyPaths:pathsCopy completion:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __79__HMDFetchedSettingsDriverHomePodSettings_fetchSettingsForKeyPaths_completion___block_invoke;
+    v20[3] = &unk_2797215E0;
+    v22 = v26;
+    v23 = v24;
+    v21 = v9;
+    [(HMDFetchedSettingsDriverHomePodSettings *)selfCopy _readSettingsAtKeyPaths:pathsCopy completion:v20];
   }
 
   queue2 = [(HMDFetchedSettingsDriverHomePodSettings *)self queue];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __79__HMDFetchedSettingsDriverHomePodSettings_fetchSettingsForKeyPaths_completion___block_invoke_2;
-  v17[3] = &unk_27972C358;
-  v18 = completionCopy;
-  v19 = v27;
-  v20 = v25;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __79__HMDFetchedSettingsDriverHomePodSettings_fetchSettingsForKeyPaths_completion___block_invoke_2;
+  v16[3] = &unk_27972C358;
+  v17 = completionCopy;
+  v18 = v26;
+  v19 = v24;
   v15 = completionCopy;
-  dispatch_group_notify(v9, queue2, v17);
+  dispatch_group_notify(v9, queue2, v16);
 
-  _Block_object_dispose(v25, 8);
-  _Block_object_dispose(v27, 8);
-
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v24, 8);
+  _Block_object_dispose(v26, 8);
 }
 
 void __79__HMDFetchedSettingsDriverHomePodSettings_fetchSettingsForKeyPaths_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -998,10 +971,11 @@ void __79__HMDFetchedSettingsDriverHomePodSettings_fetchSettingsForKeyPaths_comp
 
 uint64_t __54__HMDFetchedSettingsDriverHomePodSettings_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  logCategory__hmf_once_v1_4676 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_4676;
+  logCategory__hmf_once_v1_4676 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

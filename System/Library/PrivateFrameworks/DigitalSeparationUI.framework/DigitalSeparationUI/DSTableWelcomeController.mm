@@ -2,6 +2,8 @@
 - (BOOL)isFiltering;
 - (BOOL)isKeyboardActive;
 - (BOOL)isSearchBarEmpty;
+- (DSTableWelcomeController)initWithTitle:(id)title detailText:(id)text icon:(id)icon adoptTableViewScrollView:(BOOL)view shouldShowSearchBar:(BOOL)bar;
+- (DSTableWelcomeController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name adoptTableViewScrollView:(BOOL)view shouldShowSearchBar:(BOOL)bar;
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path;
 - (id)tableView:(id)view viewForHeaderInSection:(int64_t)section;
 - (void)addBorderedIcon:(id)icon;
@@ -25,6 +27,46 @@
 @end
 
 @implementation DSTableWelcomeController
+
+- (DSTableWelcomeController)initWithTitle:(id)title detailText:(id)text icon:(id)icon adoptTableViewScrollView:(BOOL)view shouldShowSearchBar:(BOOL)bar
+{
+  v13.receiver = self;
+  v13.super_class = DSTableWelcomeController;
+  v8 = [(OBTableWelcomeController *)&v13 initWithTitle:title detailText:text icon:icon adoptTableViewScrollView:view];
+  v9 = v8;
+  if (v8)
+  {
+    v8->_shouldShowSearchBar = bar;
+    [(DSTableWelcomeController *)v8 setShouldMoveHeaderViewTitleToNavigationTitleWhenScrolledOffScreen:0];
+  }
+
+  v10 = [objc_alloc(MEMORY[0x277D750E8]) initWithActivityIndicatorStyle:100];
+  spinner = v9->_spinner;
+  v9->_spinner = v10;
+
+  v9->_isSpinnerActive = 0;
+  return v9;
+}
+
+- (DSTableWelcomeController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name adoptTableViewScrollView:(BOOL)view shouldShowSearchBar:(BOOL)bar
+{
+  v13.receiver = self;
+  v13.super_class = DSTableWelcomeController;
+  v8 = [(OBTableWelcomeController *)&v13 initWithTitle:title detailText:text symbolName:name adoptTableViewScrollView:view];
+  v9 = v8;
+  if (v8)
+  {
+    v8->_shouldShowSearchBar = bar;
+    [(DSTableWelcomeController *)v8 setShouldMoveHeaderViewTitleToNavigationTitleWhenScrolledOffScreen:0];
+  }
+
+  v10 = [objc_alloc(MEMORY[0x277D750E8]) initWithActivityIndicatorStyle:100];
+  spinner = v9->_spinner;
+  v9->_spinner = v10;
+
+  v9->_isSpinnerActive = 0;
+  return v9;
+}
 
 - (void)viewDidLoad
 {

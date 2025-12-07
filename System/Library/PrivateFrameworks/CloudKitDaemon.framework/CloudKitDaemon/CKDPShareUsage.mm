@@ -281,42 +281,41 @@ LABEL_51:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    version = self->_version;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_time)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_deviceIdentifier)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_userIdentifier)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_shareIdentifier)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_participantHandle)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -410,7 +409,6 @@ LABEL_51:
     goto LABEL_17;
   }
 
-  v8 = *(equalCopy + 52);
   if (*&self->_has)
   {
     if ((*(equalCopy + 52) & 1) == 0 || self->_version != *(equalCopy + 12))
@@ -427,47 +425,47 @@ LABEL_17:
   }
 
   time = self->_time;
-  v10 = equalCopy[4];
-  if (time | v10 && !objc_msgSend_isEqual_(time, v7, v10))
+  v9 = equalCopy[4];
+  if (time | v9 && !objc_msgSend_isEqual_(time, v7, v9))
   {
     goto LABEL_17;
   }
 
   deviceIdentifier = self->_deviceIdentifier;
-  v12 = equalCopy[1];
-  if (deviceIdentifier | v12)
+  v11 = equalCopy[1];
+  if (deviceIdentifier | v11)
   {
-    if (!objc_msgSend_isEqual_(deviceIdentifier, v7, v12))
+    if (!objc_msgSend_isEqual_(deviceIdentifier, v7, v11))
     {
       goto LABEL_17;
     }
   }
 
   userIdentifier = self->_userIdentifier;
-  v14 = equalCopy[5];
-  if (userIdentifier | v14)
+  v13 = equalCopy[5];
+  if (userIdentifier | v13)
   {
-    if (!objc_msgSend_isEqual_(userIdentifier, v7, v14))
+    if (!objc_msgSend_isEqual_(userIdentifier, v7, v13))
     {
       goto LABEL_17;
     }
   }
 
   shareIdentifier = self->_shareIdentifier;
-  v16 = equalCopy[3];
-  if (shareIdentifier | v16)
+  v15 = equalCopy[3];
+  if (shareIdentifier | v15)
   {
-    if (!objc_msgSend_isEqual_(shareIdentifier, v7, v16))
+    if (!objc_msgSend_isEqual_(shareIdentifier, v7, v15))
     {
       goto LABEL_17;
     }
   }
 
   participantHandle = self->_participantHandle;
-  v18 = equalCopy[2];
-  if (participantHandle | v18)
+  v17 = equalCopy[2];
+  if (participantHandle | v17)
   {
-    isEqual = objc_msgSend_isEqual_(participantHandle, v7, v18);
+    isEqual = objc_msgSend_isEqual_(participantHandle, v7, v17);
   }
 
   else

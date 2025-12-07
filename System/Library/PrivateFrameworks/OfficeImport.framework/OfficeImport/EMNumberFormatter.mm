@@ -471,7 +471,7 @@ uint64_t __67__EMNumberFormatter__genericFormatterForNumberOfSignificantDigits__
       [v4 replaceOccurrencesOfString:@"h" withString:@"H" options:2 range:{0, objc_msgSend(v4, "length")}];
     }
 
-    [v4 replaceOccurrencesOfString:@"\\" withString:&stru_286EE1130 options:2 range:{0, objc_msgSend(v4, "length"")}];
+    [v4 replaceOccurrencesOfString:@"\ withString:&stru_286EE1130 options:2 range:{0, objc_msgSend(v4, "length"")}];
     v21 = MEMORY[0x277CCA968];
     if (qword_27FC69A00 != -1)
     {
@@ -490,9 +490,9 @@ uint64_t __67__EMNumberFormatter__genericFormatterForNumberOfSignificantDigits__
     [v4 replaceOccurrencesOfString:@"ggge" withString:@"Gy" options:2 range:{0, objc_msgSend(v4, "length")}];
     [v4 replaceOccurrencesOfString:@"gge" withString:@"Gy" options:2 range:{0, objc_msgSend(v4, "length")}];
     [v4 replaceOccurrencesOfString:@"ge" withString:@"Gy" options:2 range:{0, objc_msgSend(v4, "length")}];
-    [v4 replaceOccurrencesOfString:@"\\" withString:@"===////" options:2 range:{0, objc_msgSend(v4, "length"")}];
+    [v4 replaceOccurrencesOfString:@"\ withString:@"===////" options:2 range:{0, objc_msgSend(v4, "length"")}];
     [v4 replaceOccurrencesOfString:@" withString:&stru_286EE1130 options:2 range:{0, objc_msgSend(v4, "length"")}];
-    [v4 replaceOccurrencesOfString:@"===////" withString:@"\\" options:2 range:{0, objc_msgSend(v4, "length"")}];
+    [v4 replaceOccurrencesOfString:@"===////" withString:@"\ options:2 range:{0, objc_msgSend(v4, "length"")}];
     v29 = 0;
     v26 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"\\[\\$\\-.*\\]" options:1 error:&v29];
     v27 = v29;
@@ -697,7 +697,7 @@ void __50__EMNumberFormatter__icuFormatStringForDateFormat__block_invoke()
 
   [qword_27FC69A38 replaceMatchesInString:v7 options:0 range:0 withTemplate:{objc_msgSend(formatCopy, "length"), @" "}];
   [v7 replaceOccurrencesOfString:@"\\%" withString:@"'%'" options:2 range:{0, objc_msgSend(v7, "length")}];
-  [v7 replaceOccurrencesOfString:@"\\" withString:&stru_286EE1130 options:2 range:{0, objc_msgSend(v7, "length"")}];
+  [v7 replaceOccurrencesOfString:@"\ withString:&stru_286EE1130 options:2 range:{0, objc_msgSend(v7, "length"")}];
   [v7 replaceOccurrencesOfString:@" withString:&stru_286EE1130 options:2 range:{0, objc_msgSend(v7, "length"")}];
   [qword_27FC69A48 replaceMatchesInString:v7 options:0 range:0 withTemplate:{objc_msgSend(v7, "length"), @"$1 -"}];
   if (self->_hasLocales)

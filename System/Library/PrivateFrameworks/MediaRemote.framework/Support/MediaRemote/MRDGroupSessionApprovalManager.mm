@@ -312,39 +312,39 @@ LABEL_47:
   requestCopy = request;
   sessionCopy = session;
   completionCopy = completion;
-  if (sub_1001A0314() || (+[MRUserSettings currentSettings](MRUserSettings, "currentSettings"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v11 supportGroupSessionAutoApproval], v11, (v12 & 1) == 0))
+  if (sub_1001A0314(completionCopy, v11) || (+[MRUserSettings currentSettings](MRUserSettings, "currentSettings"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [v12 supportGroupSessionAutoApproval], v12, (v13 & 1) == 0))
   {
     completionCopy[2](completionCopy, 0, -1, 1);
   }
 
   else
   {
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_100064EEC;
-    v22[3] = &unk_1004B7DC0;
-    v13 = requestCopy;
-    v23 = v13;
-    v14 = completionCopy;
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_100064EEC;
+    v23[3] = &unk_1004B7DC0;
+    v14 = requestCopy;
     v24 = v14;
-    v15 = objc_retainBlock(v22);
-    identity = [v13 identity];
+    v15 = completionCopy;
+    v25 = v15;
+    v16 = objc_retainBlock(v23);
+    identity = [v14 identity];
     if ([identity type])
     {
-      oobKeys = [v13 oobKeys];
-      v18[0] = _NSConcreteStackBlock;
-      v18[1] = 3221225472;
-      v18[2] = sub_100065010;
-      v18[3] = &unk_1004B7E10;
-      v20 = v15;
+      oobKeys = [v14 oobKeys];
+      v19[0] = _NSConcreteStackBlock;
+      v19[1] = 3221225472;
+      v19[2] = sub_100065010;
+      v19[3] = &unk_1004B7E10;
+      v21 = v16;
       selfCopy = self;
-      v19 = identity;
-      [self shouldAutoApproveOOBKeys:oobKeys withSession:sessionCopy completion:v18];
+      v20 = identity;
+      [self shouldAutoApproveOOBKeys:oobKeys withSession:sessionCopy completion:v19];
     }
 
     else
     {
-      v14[2](v14, 0, 0, 1);
+      v15[2](v15, 0, 0, 1);
     }
   }
 }

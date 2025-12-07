@@ -57,18 +57,18 @@
   v5 = CGDataProviderCreateWithCFData(dataCopy);
   if (v5)
   {
-    v12 = v5;
-    v13 = CGImageCreate([(CGBitmapFormat *)self width], [(CGBitmapFormat *)self height], [(CGBitmapFormat *)self bitsPerComponent], [(CGBitmapFormat *)self bitsPerPixel], [(CGBitmapFormat *)self bytesPerRow], [(CGBitmapFormat *)self colorSpace], [(CGBitmapFormat *)self bitmapInfo], v5, 0, 1, kCGRenderingIntentPerceptual);
-    CFRelease(v12);
+    v6 = v5;
+    v7 = CGImageCreate([(CGBitmapFormat *)self width], [(CGBitmapFormat *)self height], [(CGBitmapFormat *)self bitsPerComponent], [(CGBitmapFormat *)self bitsPerPixel], [(CGBitmapFormat *)self bytesPerRow], [(CGBitmapFormat *)self colorSpace], [(CGBitmapFormat *)self bitmapInfo], v5, 0, 1, kCGRenderingIntentPerceptual);
+    CFRelease(v6);
   }
 
   else
   {
-    CGLog(2, "Failed to create data provoder with data: (%p)", v6, v7, v8, v9, v10, v11, dataCopy);
-    v13 = 0;
+    CGLog(2, "Failed to create data provoder with data: (%p)", dataCopy);
+    v7 = 0;
   }
 
-  return v13;
+  return v7;
 }
 
 - (CGBitmapFormat)initWithBitmapContext:(CGContext *)context

@@ -10,7 +10,7 @@
 
 - (NSPredicate)localFetchPredicate
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   localFetchPredicate = self->_localFetchPredicate;
   if (!localFetchPredicate)
   {
@@ -26,9 +26,9 @@
       v9 = MEMORY[0x277CCAC30];
       maxCacheAge2 = [(TBNetworkFetchRequestDescriptor *)self maxCacheAge];
       v11 = [v9 predicateWithFormat:@"created > %@", maxCacheAge2];
-      v17[0] = v11;
-      v17[1] = v6;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+      v16[0] = v11;
+      v16[1] = v6;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
       v13 = [v8 andPredicateWithSubpredicates:v12];
 
       v6 = v13;
@@ -39,8 +39,6 @@
 
     localFetchPredicate = self->_localFetchPredicate;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return localFetchPredicate;
 }
@@ -87,32 +85,32 @@
 
 - (GEOWiFiQualityNetworkSearch)remoteRequest
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   remoteRequest = self->_remoteRequest;
   if (!remoteRequest)
   {
     v4 = objc_alloc_init(MEMORY[0x277D0EE78]);
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     bssids = [(TBNetworkFetchRequestDescriptor *)self bssids];
-    v6 = [bssids countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v6 = [bssids countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v18;
+      v8 = *v17;
       do
       {
         v9 = 0;
         do
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(bssids);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * v9);
+          v10 = *(*(&v16 + 1) + 8 * v9);
           v11 = objc_alloc_init(MEMORY[0x277D0EE48]);
           reformatBSSID = [v10 reformatBSSID];
           [v11 setIdentifier:reformatBSSID];
@@ -125,7 +123,7 @@
         }
 
         while (v7 != v9);
-        v7 = [bssids countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [bssids countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v7);
@@ -136,8 +134,6 @@
 
     remoteRequest = self->_remoteRequest;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return remoteRequest;
 }

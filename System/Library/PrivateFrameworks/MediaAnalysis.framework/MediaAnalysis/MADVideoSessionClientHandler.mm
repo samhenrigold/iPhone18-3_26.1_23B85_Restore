@@ -70,7 +70,7 @@
     v25 = v7->_connection;
     if (v25)
     {
-      [(NSXPCConnection *)v25 auditToken];
+      objc_msgSend_auditToken(v25);
     }
 
     else

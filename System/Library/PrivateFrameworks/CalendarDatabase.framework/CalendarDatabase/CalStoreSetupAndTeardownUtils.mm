@@ -24,7 +24,7 @@
 
 + (void)_cleanKeepAwayFromServerCalsInStore:(void *)store
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = CDBLogHandle;
   if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_INFO))
   {
@@ -47,7 +47,7 @@
         if (CalCalendarIsSubscribed(ValueAtIndex) || CalCalendarIsInbox(ValueAtIndex) || CalCalendarIsNotificationsCollection(ValueAtIndex) || CalCalendarGetSharingStatus(ValueAtIndex) == 3 || v11 && (CFStringCompare(v11, @"caldav", 0) == kCFCompareEqualTo || CFStringCompare(v11, @"urlsubscribe", 0) == kCFCompareEqualTo) || CalCalendarGetSharingStatus(ValueAtIndex) == 2 || CalCalendarIsAlwaysReadOnly(ValueAtIndex))
         {
           v12 = CalCalendarCopyTitle(ValueAtIndex);
-          UID = CalCalendarGetUID();
+          UID = CalCalendarGetUID(ValueAtIndex);
           v14 = CDBLogHandle;
           if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_INFO))
           {
@@ -55,9 +55,9 @@
             v16 = v14;
             v17 = [v15 numberWithInt:UID];
             *buf = 138412546;
-            v20 = v12;
-            v21 = 2112;
-            v22 = v17;
+            v19 = v12;
+            v20 = 2112;
+            v21 = v17;
             _os_log_impl(&dword_1DEBB1000, v16, OS_LOG_TYPE_INFO, "Dropping calendar %@ (%@) from merge since we don't want it going up to the server", buf, 0x16u);
           }
 
@@ -73,20 +73,19 @@
 
     CFRelease(v6);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)_mergeEntityType:(int)type fromStore:(void *)store toStore:(void *)toStore inDatabase:(CalDatabase *)database
 {
   storeCopy = store;
-  v28[6] = *MEMORY[0x1E69E9840];
+  v9 = *&type;
+  v27[6] = *MEMORY[0x1E69E9840];
   if (store)
   {
     CountOfCalendarItemsInStore = CalDatabaseGetCountOfCalendarItemsInStore(database, type, store);
     if (toStore)
     {
-      v12 = CalDatabaseGetCountOfCalendarItemsInStore(database, type, toStore);
+      v12 = CalDatabaseGetCountOfCalendarItemsInStore(database, v9, toStore);
     }
 
     else
@@ -94,14 +93,14 @@
       v12 = 0;
     }
 
-    if (type == 2)
+    if (v9 == 2)
     {
       [self _cleanKeepAwayFromServerCalsInStore:storeCopy];
     }
 
-    v13 = CalDatabaseMigrateCalendarsWithEntityType(database, type, storeCopy, toStore);
+    v13 = CalDatabaseMigrateCalendarsWithEntityType(database, v9, storeCopy, toStore);
     v14 = !v13;
-    storeCopy = CalDatabaseGetCountOfCalendarItemsInStore(database, type, storeCopy);
+    storeCopy = CalDatabaseGetCountOfCalendarItemsInStore(database, v9, storeCopy);
     if (toStore)
     {
       goto LABEL_10;
@@ -122,28 +121,28 @@ LABEL_5:
   }
 
 LABEL_10:
-  v15 = CalDatabaseGetCountOfCalendarItemsInStore(database, type, toStore);
+  v15 = CalDatabaseGetCountOfCalendarItemsInStore(database, v9, toStore);
 LABEL_11:
   v16 = CountOfCalendarItemsInStore != v15 - v12;
-  v27[0] = @"PreMergeSourceCalendarItemCount";
+  v26[0] = @"PreMergeSourceCalendarItemCount";
   v17 = [MEMORY[0x1E696AD98] numberWithInt:CountOfCalendarItemsInStore];
-  v28[0] = v17;
-  v27[1] = @"PreMergeDestiniationCalendarItemCount";
+  v27[0] = v17;
+  v26[1] = @"PreMergeDestiniationCalendarItemCount";
   v18 = [MEMORY[0x1E696AD98] numberWithInt:v12];
-  v28[1] = v18;
-  v27[2] = @"PostMergeSourceCalendarItemCount";
+  v27[1] = v18;
+  v26[2] = @"PostMergeSourceCalendarItemCount";
   v19 = [MEMORY[0x1E696AD98] numberWithInt:storeCopy];
-  v28[2] = v19;
-  v27[3] = @"PostMergeDestinationCalendarItemCount";
+  v27[2] = v19;
+  v26[3] = @"PostMergeDestinationCalendarItemCount";
   v20 = [MEMORY[0x1E696AD98] numberWithInt:v15];
-  v28[3] = v20;
-  v27[4] = @"ErrorCount";
+  v27[3] = v20;
+  v26[4] = @"ErrorCount";
   v21 = [MEMORY[0x1E696AD98] numberWithInt:v14];
-  v28[4] = v21;
-  v27[5] = @"CountMismatch";
+  v27[4] = v21;
+  v26[5] = @"CountMismatch";
   v22 = [MEMORY[0x1E696AD98] numberWithBool:v16];
-  v28[5] = v22;
-  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:6];
+  v27[5] = v22;
+  v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:6];
 
   CalAnalyticsSendEvent();
   if (v13)
@@ -156,7 +155,6 @@ LABEL_11:
     v24 = 0;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
@@ -205,6 +203,7 @@ LABEL_11:
       if (v20)
       {
         v21 = v12;
+        v22 = 2;
         goto LABEL_18;
       }
 
@@ -218,9 +217,9 @@ LABEL_11:
       {
         accountType3 = [v10 accountType];
         identifier5 = [accountType3 identifier];
-        v27 = [identifier5 isEqualToString:*MEMORY[0x1E6959878]];
+        v28 = [identifier5 isEqualToString:*MEMORY[0x1E6959878]];
 
-        if (!v27)
+        if (!v28)
         {
           accountType4 = [v10 accountType];
           identifier6 = [accountType4 identifier];
@@ -242,27 +241,29 @@ LABEL_11:
           }
 
           v21 = v12;
+          v22 = 4;
 LABEL_18:
-          CalStoreSetType(v21);
+          CalStoreSetType(v21, v22);
 LABEL_19:
           identifier7 = [v10 identifier];
-          CalStoreSetExternalID(v12);
+          CalStoreSetExternalID(v12, identifier7);
 
           identifier8 = [v10 identifier];
           CalStoreSetUUID(v12, identifier8);
 
           CalStoreSetAllowsEvents(v12, 1);
           accountDescription = [accountCopy accountDescription];
-          CalStoreSetName(v12);
+          CalStoreSetName(v12, accountDescription);
 
 LABEL_20:
           CFRelease(v12);
-          v22 = CalDatabaseSave(database);
+          v23 = CalDatabaseSave(database);
           goto LABEL_21;
         }
       }
 
       v21 = v12;
+      v22 = 1;
       goto LABEL_18;
     }
 
@@ -273,17 +274,16 @@ LABEL_20:
     }
   }
 
-  v22 = 0;
+  v23 = 0;
 LABEL_21:
 
-  v31 = *MEMORY[0x1E69E9840];
-  return v22;
+  return v23;
 }
 
 + (BOOL)_clearAllEventsFromStore:(void *)store inDatabase:(CalDatabase *)database
 {
   v4 = 0;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (store && database)
   {
     v7 = CalStoreCopyCalendars(store);
@@ -304,7 +304,7 @@ LABEL_21:
           if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v19 = v13;
+            v18 = v13;
             _os_log_impl(&dword_1DEBB1000, v15, OS_LOG_TYPE_INFO, "Removing calendar with name: %@", buf, 0xCu);
           }
 
@@ -318,17 +318,16 @@ LABEL_21:
 
     else
     {
-      v4 = 0;
+      return 0;
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 + (BOOL)clearAllEventsFromStoreForParentAccount:(id)account withChildren:(id)children inDatabase:(CalDatabase *)database
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   v9 = [self copyStoreForAccount:accountCopy withChildren:children inDatabase:database];
   if (v9)
@@ -345,15 +344,14 @@ LABEL_21:
     {
       v13 = v12;
       identifier = [accountCopy identifier];
-      v17 = 138543362;
-      v18 = identifier;
-      _os_log_impl(&dword_1DEBB1000, v13, OS_LOG_TYPE_ERROR, "Could not clear events from store for account with identifier %{public}@ because no store was found.", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = identifier;
+      _os_log_impl(&dword_1DEBB1000, v13, OS_LOG_TYPE_ERROR, "Could not clear events from store for account with identifier %{public}@ because no store was found.", &v16, 0xCu);
     }
 
     v11 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -428,56 +426,52 @@ LABEL_21:
 
 + (BOOL)isLocalStoreEmptyInDatabase:(CalDatabase *)database
 {
-  v18 = *MEMORY[0x1E69E9840];
-  if (database)
+  v17 = *MEMORY[0x1E69E9840];
+  if (!database)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v4 = CalDatabaseCopyOfAllStores(database);
-    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v5)
+    return 1;
+  }
+
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v4 = CalDatabaseCopyOfAllStores(database);
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v13;
+    while (2)
     {
-      v6 = v5;
-      v7 = *v14;
-      while (2)
+      for (i = 0; i != v6; ++i)
       {
-        for (i = 0; i != v6; ++i)
+        if (*v13 != v7)
         {
-          if (*v14 != v7)
-          {
-            objc_enumerationMutation(v4);
-          }
-
-          v9 = *(*(&v13 + 1) + 8 * i);
-          if (!CalStoreGetType(v9) && CalStoreAllowsEvents(v9) && CalDatabaseGetCountOfEventsInStore(database, v9))
-          {
-            v10 = 0;
-            goto LABEL_15;
-          }
+          objc_enumerationMutation(v4);
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
-        if (v6)
+        v9 = *(*(&v12 + 1) + 8 * i);
+        if (!CalStoreGetType(v9) && CalStoreAllowsEvents(v9) && CalDatabaseGetCountOfEventsInStore(database, v9))
         {
-          continue;
+          v10 = 0;
+          goto LABEL_15;
         }
-
-        break;
       }
+
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      if (v6)
+      {
+        continue;
+      }
+
+      break;
     }
+  }
 
-    v10 = 1;
+  v10 = 1;
 LABEL_15:
-  }
 
-  else
-  {
-    v10 = 1;
-  }
-
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -507,10 +501,10 @@ LABEL_15:
 
 + (void)setLocalStoreEnabled:(BOOL)enabled inDatabase:(CalDatabase *)database
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (!database)
   {
-    goto LABEL_37;
+    return;
   }
 
   enabledCopy = enabled;
@@ -520,100 +514,53 @@ LABEL_15:
   }
 
   v8 = CalDatabaseCopyLocalStore(database);
-  if (!v8)
+  if (v8)
   {
-    if (enabledCopy)
+    v9 = v8;
+    v22 = CalStoreCopyCalendars(v8);
+    if (CalStoreAllowsEvents(v9) == enabledCopy)
     {
-LABEL_37:
-      v22 = *MEMORY[0x1E69E9840];
-      return;
-    }
-
-    v15 = 0;
-    goto LABEL_25;
-  }
-
-  v9 = v8;
-  v23 = CalStoreCopyCalendars(v8);
-  if (CalStoreAllowsEvents(v9) != enabledCopy)
-  {
-    goto LABEL_6;
-  }
-
-  if (!enabledCopy)
-  {
-    v15 = 0;
-LABEL_24:
-    CFRelease(v9);
-
-LABEL_25:
-    v24 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    v17 = CalDatabaseCopyOfAllStores(database);
-    v18 = [v17 countByEnumeratingWithState:&v24 objects:v32 count:16];
-    if (v18)
-    {
-      v19 = v18;
-      v20 = *v25;
-      do
+      if (!enabledCopy)
       {
-        for (i = 0; i != v19; ++i)
-        {
-          if (*v25 != v20)
-          {
-            objc_enumerationMutation(v17);
-          }
+        v15 = 0;
+LABEL_24:
+        CFRelease(v9);
 
-          if (!CalStoreGetType(*(*(&v24 + 1) + 8 * i)) && CalStoreGetUID() != 1)
-          {
-            CalRemoveStore();
-            v15 = 1;
-          }
-        }
-
-        v19 = [v17 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        goto LABEL_25;
       }
 
-      while (v19);
+      if ([(__CFArray *)v22 count])
+      {
+        CFRelease(v9);
+
+        return;
+      }
     }
 
-    if ((v15 & 1) == 0)
-    {
-      goto LABEL_37;
-    }
-
-    goto LABEL_36;
-  }
-
-  if (![(__CFArray *)v23 count])
-  {
-LABEL_6:
     CalStoreSetAllowsEvents(v9, enabledCopy);
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
-    v10 = v23;
-    v11 = [(__CFArray *)v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v10 = v22;
+    v11 = [(__CFArray *)v10 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v29;
+      v13 = *v28;
       do
       {
-        for (j = 0; j != v12; ++j)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v29 != v13)
+          if (*v28 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          CalStoreRemoveCalendar(v9, *(*(&v28 + 1) + 8 * j));
+          CalStoreRemoveCalendar(v9, *(*(&v27 + 1) + 8 * i));
         }
 
-        v12 = [(__CFArray *)v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v12 = [(__CFArray *)v10 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v12);
@@ -626,20 +573,62 @@ LABEL_6:
 
 LABEL_36:
       CalDatabaseSave(database);
-      goto LABEL_37;
+      return;
     }
 
     v15 = 1;
     goto LABEL_24;
   }
 
-  CFRelease(v9);
-  v16 = *MEMORY[0x1E69E9840];
+  if (enabledCopy)
+  {
+    return;
+  }
+
+  v15 = 0;
+LABEL_25:
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v16 = CalDatabaseCopyOfAllStores(database);
+  v17 = [v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  if (v17)
+  {
+    v18 = v17;
+    v19 = *v24;
+    do
+    {
+      for (j = 0; j != v18; ++j)
+      {
+        if (*v24 != v19)
+        {
+          objc_enumerationMutation(v16);
+        }
+
+        v21 = *(*(&v23 + 1) + 8 * j);
+        if (!CalStoreGetType(v21) && CalStoreGetUID(v21) != 1)
+        {
+          CalRemoveStore(v21);
+          v15 = 1;
+        }
+      }
+
+      v18 = [v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
+    }
+
+    while (v18);
+  }
+
+  if (v15)
+  {
+    goto LABEL_36;
+  }
 }
 
 + (void)_enableLocalStoreIfNecessaryIgnoringAccount:(id)account inDatabase:(CalDatabase *)database accountStore:(id)store
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   storeCopy = store;
   v9 = CDBLogHandle;
@@ -650,59 +639,59 @@ LABEL_36:
   }
 
   [storeCopy allAccountTypes];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
-  obj = v41 = 0u;
-  v30 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
-  if (!v30)
+  obj = v40 = 0u;
+  v29 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
+  if (!v29)
   {
     goto LABEL_34;
   }
 
   databaseCopy = database;
-  v28 = *v39;
-  v33 = *MEMORY[0x1E6959AE0];
-  v27 = 1;
+  v27 = *v38;
+  v32 = *MEMORY[0x1E6959AE0];
+  v26 = 1;
   do
   {
-    for (i = 0; i != v30; ++i)
+    for (i = 0; i != v29; ++i)
     {
-      if (*v39 != v28)
+      if (*v38 != v27)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = [storeCopy accountsWithAccountType:*(*(&v38 + 1) + 8 * i)];
+      v11 = [storeCopy accountsWithAccountType:*(*(&v37 + 1) + 8 * i)];
+      v33 = 0u;
       v34 = 0u;
       v35 = 0u;
       v36 = 0u;
-      v37 = 0u;
       v12 = v11;
-      v13 = [v12 countByEnumeratingWithState:&v34 objects:v44 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v33 objects:v43 count:16];
       if (v13)
       {
         v14 = v13;
-        v31 = i;
-        v15 = *v35;
+        v30 = i;
+        v15 = *v34;
         while (2)
         {
           for (j = 0; j != v14; ++j)
           {
-            if (*v35 != v15)
+            if (*v34 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v17 = *(*(&v34 + 1) + 8 * j);
-            if (accountCopy && ([*(*(&v34 + 1) + 8 * j) identifier], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(accountCopy, "identifier"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "isEqualToString:", v9)))
+            v17 = *(*(&v33 + 1) + 8 * j);
+            if (accountCopy && ([*(*(&v33 + 1) + 8 * j) identifier], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(accountCopy, "identifier"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "isEqualToString:", v9)))
             {
             }
 
             else
             {
               parentAccountIdentifier = [v17 parentAccountIdentifier];
-              if (parentAccountIdentifier || ![v17 isEnabledForDataclass:v33])
+              if (parentAccountIdentifier || ![v17 isEnabledForDataclass:v32])
               {
                 v19 = 0;
               }
@@ -730,17 +719,17 @@ LABEL_27:
                   v21 = v20;
                   identifier = [v17 identifier];
                   *buf = 138543362;
-                  v43 = identifier;
+                  v42 = identifier;
                   _os_log_impl(&dword_1DEBB1000, v21, OS_LOG_TYPE_INFO, "Account with identifier %{public}@ is syncing calendars. Will not enable local store!", buf, 0xCu);
                 }
 
-                v27 = 0;
+                v26 = 0;
                 goto LABEL_30;
               }
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v34 objects:v44 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v33 objects:v43 count:16];
           if (v14)
           {
             continue;
@@ -750,16 +739,16 @@ LABEL_27:
         }
 
 LABEL_30:
-        i = v31;
+        i = v30;
       }
     }
 
-    v30 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
+    v29 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
   }
 
-  while (v30);
+  while (v29);
   database = databaseCopy;
-  if (v27)
+  if (v26)
   {
 LABEL_34:
     v23 = CDBLogHandle;
@@ -771,13 +760,11 @@ LABEL_34:
 
     [self setLocalStoreEnabled:1 inDatabase:database];
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 + (void)cleanupAuxDatabaseIfNeededForAccountID:(id)d auxDatabase:(CalDatabase *)database mainDatabase:(CalDatabase *)mainDatabase
 {
-  v7 = CalDatabaseCopyAuxDatabaseAccountForAccountID(mainDatabase);
+  v7 = CalDatabaseCopyAuxDatabaseAccountForAccountID(mainDatabase, d);
   if (v7)
   {
     v8 = v7;
@@ -819,7 +806,7 @@ LABEL_34:
       _os_log_impl(&dword_1DEBB1000, v16, OS_LOG_TYPE_INFO, "Removing store because events were disabled or the account was deleted.", v18, 2u);
     }
 
-    CalRemoveStore();
+    CalRemoveStore(v15);
     CalDatabaseSave(database);
     identifier = [accountCopy identifier];
     [self cleanupAuxDatabaseIfNeededForAccountID:identifier auxDatabase:database mainDatabase:mainDatabase];
@@ -851,7 +838,7 @@ LABEL_7:
       _os_log_impl(&dword_1DEBB1000, v14, OS_LOG_TYPE_INFO, "Removing store because the account was deleted.", v15, 2u);
     }
 
-    CalRemoveStore();
+    CalRemoveStore(v13);
     CalDatabaseSave(database);
     [self cleanupAuxDatabaseIfNeededForAccountID:identifierCopy auxDatabase:database mainDatabase:mainDatabase];
     goto LABEL_7;
@@ -868,7 +855,7 @@ LABEL_7:
 
 + (BOOL)mergeEventsFromLocalStoreIntoStore:(void *)store inDatabase:(CalDatabase *)database
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v7 = CDBLogHandle;
   if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_INFO))
   {
@@ -879,35 +866,35 @@ LABEL_7:
   LOBYTE(v8) = 0;
   if (store && database)
   {
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v9 = CalDatabaseCopyOfAllStores(database);
-    v8 = [v9 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v8 = [v9 countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v8)
     {
       v10 = 0;
       v11 = 0;
-      v12 = *v18;
+      v12 = *v17;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v12)
+          if (*v17 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v17 + 1) + 8 * i);
+          v14 = *(*(&v16 + 1) + 8 * i);
           if (!CalStoreGetType(v14) && CalStoreAllowsEvents(v14))
           {
-            v10 |= [self _mergeEntityType:2 fromStore:v14 toStore:store inDatabase:{database, v17}] ^ 1;
+            v10 |= [self _mergeEntityType:2 fromStore:v14 toStore:store inDatabase:{database, v16}] ^ 1;
             v11 = 1;
           }
         }
 
-        v8 = [v9 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v8 = [v9 countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
       while (v8);
@@ -915,7 +902,6 @@ LABEL_7:
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v8 & 1;
 }
 

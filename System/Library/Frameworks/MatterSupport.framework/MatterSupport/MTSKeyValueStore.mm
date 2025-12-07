@@ -13,7 +13,7 @@
 
 - (BOOL)removeAllStoredValuesWithError:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -21,15 +21,15 @@
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v21 = v8;
+    v20 = v8;
     _os_log_impl(&dword_239824000, v7, OS_LOG_TYPE_INFO, "%{public}@Removing all values", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   keychainStore = [(MTSKeyValueStore *)selfCopy keychainStore];
-  v19 = 0;
-  v10 = [keychainStore removeAllDataWithError:&v19];
-  v11 = v19;
+  v18 = 0;
+  v10 = [keychainStore removeAllDataWithError:&v18];
+  v11 = v18;
 
   if ((v10 & 1) == 0)
   {
@@ -40,9 +40,9 @@
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v21 = v15;
-      v22 = 2112;
-      v23 = v11;
+      v20 = v15;
+      v21 = 2112;
+      v22 = v11;
       _os_log_impl(&dword_239824000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove all values: %@", buf, 0x16u);
     }
 
@@ -54,13 +54,12 @@
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (BOOL)removeStoredValueForKey:(id)key error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -69,17 +68,17 @@
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v23 = v10;
-    v24 = 2112;
-    v25 = keyCopy;
+    v22 = v10;
+    v23 = 2112;
+    v24 = keyCopy;
     _os_log_impl(&dword_239824000, v9, OS_LOG_TYPE_INFO, "%{public}@Removing value for key: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
   keychainStore = [(MTSKeyValueStore *)selfCopy keychainStore];
-  v21 = 0;
-  v12 = [keychainStore removeDataForKey:keyCopy error:&v21];
-  v13 = v21;
+  v20 = 0;
+  v12 = [keychainStore removeDataForKey:keyCopy error:&v20];
+  v13 = v20;
 
   if ((v12 & 1) == 0)
   {
@@ -90,11 +89,11 @@
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v23 = v17;
-      v24 = 2112;
-      v25 = keyCopy;
-      v26 = 2112;
-      v27 = v13;
+      v22 = v17;
+      v23 = 2112;
+      v24 = keyCopy;
+      v25 = 2112;
+      v26 = v13;
       _os_log_impl(&dword_239824000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to remove value for key %@: %@", buf, 0x20u);
     }
 
@@ -106,13 +105,12 @@
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (BOOL)setStoredValue:(id)value forKey:(id)key error:(id *)error
 {
-  v43[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   keyCopy = key;
   v10 = objc_autoreleasePoolPush();
@@ -122,23 +120,23 @@
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v37 = v13;
-    v38 = 2112;
-    v39 = keyCopy;
+    v36 = v13;
+    v37 = 2112;
+    v38 = keyCopy;
     _os_log_impl(&dword_239824000, v12, OS_LOG_TYPE_INFO, "%{public}@Setting value for key: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v10);
-  v35 = 0;
-  v14 = MEMORY[0x23EE79230](valueCopy, 8, &v35);
+  v34 = 0;
+  v14 = MEMORY[0x23EE79230](valueCopy, 8, &v34);
   if (!v14)
   {
-    if (v35)
+    if (v34)
     {
       v19 = objc_alloc(MEMORY[0x277CCA9B8]);
       v20 = *MEMORY[0x277CCA590];
-      v21 = v35;
-      v42 = *MEMORY[0x277CCA450];
+      v21 = v34;
+      v41 = *MEMORY[0x277CCA450];
       v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
       v23 = v22;
       v24 = @"?";
@@ -147,8 +145,8 @@
         v24 = v22;
       }
 
-      v43[0] = v24;
-      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:1];
+      v42[0] = v24;
+      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
       v17 = [v19 initWithDomain:v20 code:v21 userInfo:v25];
     }
 
@@ -167,19 +165,19 @@
 
     v29 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v37 = v29;
-    v38 = 2112;
-    v39 = valueCopy;
-    v40 = 2112;
-    v41 = v17;
+    v36 = v29;
+    v37 = 2112;
+    v38 = valueCopy;
+    v39 = 2112;
+    v40 = v17;
     v30 = "%{public}@Failed to encode value %@: %@";
     goto LABEL_15;
   }
 
   keychainStore = [(MTSKeyValueStore *)selfCopy keychainStore];
-  v34 = 0;
-  v16 = [keychainStore setData:v14 forKey:keyCopy error:&v34];
-  v17 = v34;
+  v33 = 0;
+  v16 = [keychainStore setData:v14 forKey:keyCopy error:&v33];
+  v17 = v33;
 
   if (v16)
   {
@@ -194,11 +192,11 @@
   {
     v29 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v37 = v29;
-    v38 = 2112;
-    v39 = keyCopy;
-    v40 = 2112;
-    v41 = v17;
+    v36 = v29;
+    v37 = 2112;
+    v38 = keyCopy;
+    v39 = 2112;
+    v40 = v17;
     v30 = "%{public}@Failed to set value for key %@: %@";
 LABEL_15:
     _os_log_impl(&dword_239824000, v28, OS_LOG_TYPE_ERROR, v30, buf, 0x20u);
@@ -221,13 +219,12 @@ LABEL_16:
 
 LABEL_19:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (id)storedValueForKey:(id)key
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   keychainStore = [(MTSKeyValueStore *)self keychainStore];
   v6 = [keychainStore dataForKey:keyCopy];
@@ -250,11 +247,11 @@ LABEL_19:
       {
         v13 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v17 = v13;
-        v18 = 2112;
-        v19 = v6;
-        v20 = 2112;
-        v21 = 0;
+        v16 = v13;
+        v17 = 2112;
+        v18 = v6;
+        v19 = 2112;
+        v20 = 0;
         _os_log_impl(&dword_239824000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode encoded value %@: %@", buf, 0x20u);
       }
 
@@ -266,8 +263,6 @@ LABEL_19:
   {
     v8 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -288,7 +283,7 @@ LABEL_19:
 
 id __37__MTSKeyValueStore_storedValuesByKey__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = OPACKDecodeData();
@@ -307,18 +302,16 @@ id __37__MTSKeyValueStore_storedValuesByKey__block_invoke(uint64_t a1, void *a2,
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v17 = v13;
-      v18 = 2112;
-      v19 = v6;
-      v20 = 2112;
-      v21 = 0;
+      v16 = v13;
+      v17 = 2112;
+      v18 = v6;
+      v19 = 2112;
+      v20 = 0;
       _os_log_impl(&dword_239824000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode encoded value %@: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -360,7 +353,6 @@ id __37__MTSKeyValueStore_storedValuesByKey__block_invoke(uint64_t a1, void *a2,
 
 uint64_t __31__MTSKeyValueStore_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
   logCategory__hmf_once_v14 = HMFCreateOSLogHandle();
 
   return MEMORY[0x2821F96F8]();

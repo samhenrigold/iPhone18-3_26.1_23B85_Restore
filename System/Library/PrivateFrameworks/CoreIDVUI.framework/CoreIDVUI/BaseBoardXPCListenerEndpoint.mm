@@ -20,7 +20,7 @@
   sub_2458D1778();
   swift_unknownObjectRetain();
   selfCopy = self;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE2B448);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE2B448, &unk_24591D2E0);
   sub_245910A74();
   v7 = sub_2459109C4();
 

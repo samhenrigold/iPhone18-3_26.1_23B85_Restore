@@ -185,15 +185,15 @@
 
 - (BOOL)closeWithError:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v5 = __CPLStorageOSLogDomain_21522();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v16 = 138412290;
+      v15 = 138412290;
       selfCopy3 = self;
-      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "Closing %@", &v16, 0xCu);
+      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "Closing %@", &v15, 0xCu);
     }
   }
 
@@ -208,14 +208,14 @@
       v8 = __CPLStorageOSLogDomain_21522();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        v16 = 138412290;
+        v15 = 138412290;
         selfCopy3 = self;
         v9 = "%@ closed";
         v10 = v8;
         v11 = OS_LOG_TYPE_DEBUG;
         v12 = 12;
 LABEL_12:
-        _os_log_impl(&dword_1DC05A000, v10, v11, v9, &v16, v12);
+        _os_log_impl(&dword_1DC05A000, v10, v11, v9, &v15, v12);
         goto LABEL_13;
       }
 
@@ -229,10 +229,10 @@ LABEL_12:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v13 = *error;
-      v16 = 138412546;
+      v15 = 138412546;
       selfCopy3 = self;
-      v18 = 2112;
-      v19 = v13;
+      v17 = 2112;
+      v18 = v13;
       v9 = "Closing %@ failed with error: %@";
       v10 = v8;
       v11 = OS_LOG_TYPE_ERROR;
@@ -243,21 +243,20 @@ LABEL_12:
 LABEL_13:
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (BOOL)openWithError:(id *)error
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v5 = __CPLStorageOSLogDomain_21522();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v16 = 138412290;
+      v15 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "Opening %@", &v16, 0xCu);
+      _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEBUG, "Opening %@", &v15, 0xCu);
     }
   }
 
@@ -272,13 +271,13 @@ LABEL_13:
       v8 = __CPLStorageOSLogDomain_21522();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v16) = 0;
+        LOWORD(v15) = 0;
         v9 = "Opened";
         v10 = v8;
         v11 = OS_LOG_TYPE_DEBUG;
         v12 = 2;
 LABEL_12:
-        _os_log_impl(&dword_1DC05A000, v10, v11, v9, &v16, v12);
+        _os_log_impl(&dword_1DC05A000, v10, v11, v9, &v15, v12);
         goto LABEL_13;
       }
 
@@ -292,7 +291,7 @@ LABEL_12:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v13 = *error;
-      v16 = 138412290;
+      v15 = 138412290;
       selfCopy = v13;
       v9 = "Opening failed with error: %@";
       v10 = v8;
@@ -304,7 +303,6 @@ LABEL_12:
 LABEL_13:
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -322,12 +320,12 @@ LABEL_13:
 
 - (CPLEngineStorage)initWithEngineStore:(id)store name:(id)name
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   storeCopy = store;
   nameCopy = name;
-  v24.receiver = self;
-  v24.super_class = CPLEngineStorage;
-  v10 = [(CPLEngineStorage *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = CPLEngineStorage;
+  v10 = [(CPLEngineStorage *)&v23 init];
   v11 = v10;
   if (v10)
   {
@@ -346,26 +344,25 @@ LABEL_13:
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v19 = __CPLStorageOSLogDomain_21522();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v18 = __CPLStorageOSLogDomain_21522();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v20 = objc_opt_class();
+          v19 = objc_opt_class();
           *buf = 138412290;
-          v26 = v20;
-          v21 = v20;
-          _os_log_impl(&dword_1DC05A000, v19, OS_LOG_TYPE_ERROR, "No platform object specified for %@", buf, 0xCu);
+          v25 = v19;
+          v20 = v19;
+          _os_log_impl(&dword_1DC05A000, v18, OS_LOG_TYPE_ERROR, "No platform object specified for %@", buf, 0xCu);
         }
       }
 
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStorage.m"];
-      [currentHandler handleFailureInMethod:a2 object:v11 file:v23 lineNumber:32 description:{@"No platform object specified for %@", objc_opt_class()}];
+      v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStorage.m"];
+      [currentHandler handleFailureInMethod:a2 object:v11 file:v22 lineNumber:32 description:{@"No platform object specified for %@", objc_opt_class()}];
 
       abort();
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

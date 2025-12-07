@@ -494,7 +494,6 @@ LABEL_18:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -514,7 +513,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  connectionAttemptCount = self->_connectionAttemptCount;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -529,7 +527,6 @@ LABEL_4:
   }
 
 LABEL_42:
-  connectionSuccessMptcpCount = self->_connectionSuccessMptcpCount;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -544,7 +541,6 @@ LABEL_5:
   }
 
 LABEL_43:
-  connectionSuccessTcpCount = self->_connectionSuccessTcpCount;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -559,12 +555,10 @@ LABEL_6:
   }
 
 LABEL_44:
-  connectionFailureCount = self->_connectionFailureCount;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_7:
-    connectionCellularFallbackCount = self->_connectionCellularFallbackCount;
     PBDataWriterWriteInt32Field();
   }
 
@@ -574,30 +568,28 @@ LABEL_8:
     PBDataWriterPlaceMark();
     if (self->_connectionReadyTimes.count)
     {
-      v6 = 0;
+      v5 = 0;
       do
       {
-        v7 = self->_connectionReadyTimes.list[v6];
         PBDataWriterWriteInt64Field();
-        ++v6;
+        ++v5;
       }
 
-      while (v6 < self->_connectionReadyTimes.count);
+      while (v5 < self->_connectionReadyTimes.count);
     }
 
     PBDataWriterRecallMark();
   }
 
-  v8 = self->_has;
-  if ((v8 & 0x1000) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x1000) != 0)
   {
-    suspensionCount = self->_suspensionCount;
     PBDataWriterWriteInt32Field();
-    v8 = self->_has;
-    if ((v8 & 0x800) == 0)
+    v6 = self->_has;
+    if ((v6 & 0x800) == 0)
     {
 LABEL_15:
-      if ((v8 & 0x400) == 0)
+      if ((v6 & 0x400) == 0)
       {
         goto LABEL_17;
       }
@@ -611,12 +603,10 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  resumptionSuccessCount = self->_resumptionSuccessCount;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x400) != 0)
   {
 LABEL_16:
-    resumptionFailureCount = self->_resumptionFailureCount;
     PBDataWriterWriteInt32Field();
   }
 
@@ -626,15 +616,14 @@ LABEL_17:
     PBDataWriterPlaceMark();
     if (self->_resumptionFailureErrors.count)
     {
-      v10 = 0;
+      v7 = 0;
       do
       {
-        v11 = self->_resumptionFailureErrors.list[v10];
         PBDataWriterWriteInt32Field();
-        ++v10;
+        ++v7;
       }
 
-      while (v10 < self->_resumptionFailureErrors.count);
+      while (v7 < self->_resumptionFailureErrors.count);
     }
 
     PBDataWriterRecallMark();
@@ -645,15 +634,14 @@ LABEL_17:
     PBDataWriterPlaceMark();
     if (self->_resumptionSuccessTimes.count)
     {
-      v12 = 0;
+      v8 = 0;
       do
       {
-        v13 = self->_resumptionSuccessTimes.list[v12];
         PBDataWriterWriteInt64Field();
-        ++v12;
+        ++v8;
       }
 
-      while (v12 < self->_resumptionSuccessTimes.count);
+      while (v8 < self->_resumptionSuccessTimes.count);
     }
 
     PBDataWriterRecallMark();
@@ -664,30 +652,28 @@ LABEL_17:
     PBDataWriterPlaceMark();
     if (self->_resumptionFailureTimes.count)
     {
-      v14 = 0;
+      v9 = 0;
       do
       {
-        v15 = self->_resumptionFailureTimes.list[v14];
         PBDataWriterWriteInt64Field();
-        ++v14;
+        ++v9;
       }
 
-      while (v14 < self->_resumptionFailureTimes.count);
+      while (v9 < self->_resumptionFailureTimes.count);
     }
 
     PBDataWriterRecallMark();
   }
 
-  v16 = self->_has;
-  if ((v16 & 0x4000) != 0)
+  v10 = self->_has;
+  if ((v10 & 0x4000) != 0)
   {
-    upgradeSuccessAndPrimaryCount = self->_upgradeSuccessAndPrimaryCount;
     PBDataWriterWriteInt32Field();
-    v16 = self->_has;
-    if ((v16 & 0x2000) == 0)
+    v10 = self->_has;
+    if ((v10 & 0x2000) == 0)
     {
 LABEL_34:
-      if ((v16 & 8) == 0)
+      if ((v10 & 8) == 0)
       {
         goto LABEL_35;
       }
@@ -701,13 +687,12 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  upgradeSuccessAndNotNeededCount = self->_upgradeSuccessAndNotNeededCount;
   PBDataWriterWriteInt32Field();
-  v16 = self->_has;
-  if ((v16 & 8) == 0)
+  v10 = self->_has;
+  if ((v10 & 8) == 0)
   {
 LABEL_35:
-    if ((v16 & 2) == 0)
+    if ((v10 & 2) == 0)
     {
       goto LABEL_36;
     }
@@ -716,13 +701,12 @@ LABEL_35:
   }
 
 LABEL_51:
-  connectionDuration = self->_connectionDuration;
   PBDataWriterWriteInt64Field();
-  v16 = self->_has;
-  if ((v16 & 2) == 0)
+  v10 = self->_has;
+  if ((v10 & 2) == 0)
   {
 LABEL_36:
-    if ((v16 & 1) == 0)
+    if ((v10 & 1) == 0)
     {
       goto LABEL_37;
     }
@@ -731,13 +715,12 @@ LABEL_36:
   }
 
 LABEL_52:
-  bytesSent = self->_bytesSent;
   PBDataWriterWriteInt64Field();
-  v16 = self->_has;
-  if ((v16 & 1) == 0)
+  v10 = self->_has;
+  if ((v10 & 1) == 0)
   {
 LABEL_37:
-    if ((v16 & 4) == 0)
+    if ((v10 & 4) == 0)
     {
       return;
     }
@@ -746,7 +729,6 @@ LABEL_37:
   }
 
 LABEL_53:
-  bytesReceived = self->_bytesReceived;
   PBDataWriterWriteInt64Field();
   if ((*&self->_has & 4) == 0)
   {
@@ -754,7 +736,6 @@ LABEL_53:
   }
 
 LABEL_38:
-  clientConnectionCount = self->_clientConnectionCount;
   PBDataWriterWriteInt64Field();
 }
 
@@ -1299,7 +1280,6 @@ LABEL_80:
     IsEqual = PBRepeatedInt64IsEqual();
     if (IsEqual)
     {
-      v8 = *(equal + 92);
       if ((*&self->_has & 0x1000) != 0)
       {
         if ((*(equal + 92) & 0x1000) == 0 || self->_suspensionCount != *(equal + 43))
@@ -1348,9 +1328,9 @@ LABEL_80:
           IsEqual = PBRepeatedInt64IsEqual();
           if (IsEqual)
           {
-            v9 = self->_has;
-            v10 = *(equal + 92);
-            if ((v9 & 0x4000) != 0)
+            v8 = self->_has;
+            v9 = *(equal + 92);
+            if ((v8 & 0x4000) != 0)
             {
               if ((*(equal + 92) & 0x4000) == 0 || self->_upgradeSuccessAndPrimaryCount != *(equal + 45))
               {
@@ -1376,49 +1356,49 @@ LABEL_80:
               goto LABEL_80;
             }
 
-            if ((v9 & 8) != 0)
+            if ((v8 & 8) != 0)
             {
-              if ((v10 & 8) == 0 || self->_connectionDuration != *(equal + 16))
+              if ((v9 & 8) == 0 || self->_connectionDuration != *(equal + 16))
               {
                 goto LABEL_80;
               }
             }
 
-            else if ((v10 & 8) != 0)
+            else if ((v9 & 8) != 0)
             {
               goto LABEL_80;
             }
 
-            if ((v9 & 2) != 0)
+            if ((v8 & 2) != 0)
             {
-              if ((v10 & 2) == 0 || self->_bytesSent != *(equal + 14))
+              if ((v9 & 2) == 0 || self->_bytesSent != *(equal + 14))
               {
                 goto LABEL_80;
               }
             }
 
-            else if ((v10 & 2) != 0)
+            else if ((v9 & 2) != 0)
             {
               goto LABEL_80;
             }
 
-            if (v9)
+            if (v8)
             {
-              if ((v10 & 1) == 0 || self->_bytesReceived != *(equal + 13))
+              if ((v9 & 1) == 0 || self->_bytesReceived != *(equal + 13))
               {
                 goto LABEL_80;
               }
             }
 
-            else if (v10)
+            else if (v9)
             {
               goto LABEL_80;
             }
 
-            LOBYTE(IsEqual) = (v10 & 4) == 0;
-            if ((v9 & 4) != 0)
+            LOBYTE(IsEqual) = (v9 & 4) == 0;
+            if ((v8 & 4) != 0)
             {
-              if ((v10 & 4) == 0 || self->_clientConnectionCount != *(equal + 15))
+              if ((v9 & 4) == 0 || self->_clientConnectionCount != *(equal + 15))
               {
                 goto LABEL_80;
               }

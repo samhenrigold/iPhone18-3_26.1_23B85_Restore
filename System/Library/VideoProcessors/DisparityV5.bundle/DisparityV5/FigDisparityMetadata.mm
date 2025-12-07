@@ -7,10 +7,6 @@
 - (__n128)setTeleIntrinsicMatrix:(__n128)matrix;
 - (__n128)setWideExtrinsicMatrix:(__n128)matrix;
 - (__n128)setWideIntrinsicMatrix:(__n128)matrix;
-- (__n128)teleExtrinsicMatrix;
-- (__n128)teleIntrinsicMatrix;
-- (__n128)wideExtrinsicMatrix;
-- (__n128)wideIntrinsicMatrix;
 - (id)description;
 @end
 
@@ -160,27 +156,11 @@
   return v222;
 }
 
-- (__n128)teleIntrinsicMatrix
-{
-  result = *(self + 128);
-  v2 = *(self + 144);
-  v3 = *(self + 160);
-  return result;
-}
-
 - (__n128)setTeleIntrinsicMatrix:(__n128)matrix
 {
   result[8] = a2;
   result[9] = matrix;
   result[10] = a4;
-  return result;
-}
-
-- (__n128)wideIntrinsicMatrix
-{
-  result = *(self + 176);
-  v2 = *(self + 192);
-  v3 = *(self + 208);
   return result;
 }
 
@@ -210,30 +190,12 @@
   return result;
 }
 
-- (__n128)teleExtrinsicMatrix
-{
-  result = *(self + 224);
-  v2 = *(self + 240);
-  v3 = *(self + 256);
-  v4 = *(self + 272);
-  return result;
-}
-
 - (__n128)setTeleExtrinsicMatrix:(__n128)matrix
 {
   result[14] = a2;
   result[15] = matrix;
   result[16] = a4;
   result[17] = a5;
-  return result;
-}
-
-- (__n128)wideExtrinsicMatrix
-{
-  result = *(self + 288);
-  v2 = *(self + 304);
-  v3 = *(self + 320);
-  v4 = *(self + 336);
   return result;
 }
 

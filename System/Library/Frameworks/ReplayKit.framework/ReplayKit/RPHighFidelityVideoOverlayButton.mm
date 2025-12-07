@@ -57,13 +57,12 @@
 {
   [(RPHighFidelityVideoOverlayButton *)self _playButtonDeactivate:tapped];
   WeakRetained = objc_loadWeakRetained(&self->_target);
-  action = self->_action;
-  v6 = objc_opt_respondsToSelector();
+  v5 = objc_opt_respondsToSelector();
 
-  if (v6)
+  if (v5)
   {
-    v7 = objc_loadWeakRetained(&self->_target);
-    [v7 performSelector:self->_action withObject:self];
+    v6 = objc_loadWeakRetained(&self->_target);
+    [v6 performSelector:self->_action withObject:self];
   }
 }
 

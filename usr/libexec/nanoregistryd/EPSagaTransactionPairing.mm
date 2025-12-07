@@ -101,28 +101,27 @@
   v15 = [routingSlipEntry2 objectForKeyedSubscript:@"iAmACompanionDevice"];
 
   self->_iAmACompanionDevice = [v15 BOOLValue];
-  [(EPSagaTransactionPairing *)self updateAdvertisingName];
-  v16 = sub_1000034AC();
+  v16 = sub_1000034AC([(EPSagaTransactionPairing *)self updateAdvertisingName]);
   v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
   if (v17)
   {
-    v18 = sub_1000034AC();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = sub_1000034AC(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v21 = 0x404E000000000000;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "EPSagaTransactionPairing: Setting transaction timeout of %1.0f seconds", buf, 0xCu);
+      v22 = 0x404E000000000000;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "EPSagaTransactionPairing: Setting transaction timeout of %1.0f seconds", buf, 0xCu);
     }
   }
 
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_1000E9A60;
-  v19[3] = &unk_1001761C0;
-  v19[4] = self;
-  v19[5] = 0x404E000000000000;
-  dispatch_sync(&_dispatch_main_q, v19);
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_1000E9A60;
+  v20[3] = &unk_1001761C0;
+  v20[4] = self;
+  v20[5] = 0x404E000000000000;
+  dispatch_sync(&_dispatch_main_q, v20);
   [(EPSagaTransactionPairing *)self setState:1];
 }
 
@@ -172,20 +171,20 @@
 {
   if (self->_state != state)
   {
-    v5 = sub_1000034AC();
+    v5 = sub_1000034AC(self);
     v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
     if (v6)
     {
-      v7 = sub_1000034AC();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = sub_1000034AC(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         state = self->_state;
         *buf = 67109376;
         stateCopy = state;
-        v21 = 1024;
+        v22 = 1024;
         stateCopy2 = state;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Changing EPSagaTransactionPairing state from %d -> %d", buf, 0xEu);
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Changing EPSagaTransactionPairing state from %d -> %d", buf, 0xEu);
       }
     }
 
@@ -390,18 +389,18 @@ LABEL_33:
       }
 
       pairers = [(EPSagaTransactionPairing *)self pairers];
-      v57 = [pairers count];
+      v60 = [pairers count];
 
-      if (!v57)
+      if (!v60)
       {
         routingSlipEntry4 = [(EPSagaTransactionPairing *)self routingSlipEntry];
-        v59 = [routingSlipEntry4 objectForKeyedSubscript:@"discoverableCoreBluetoothID"];
+        v62 = [routingSlipEntry4 objectForKeyedSubscript:@"discoverableCoreBluetoothID"];
 
-        v72 = v6;
-        if (v59)
+        v75 = v6;
+        if (v62)
         {
-          v85 = v59;
-          factory2 = [NSArray arrayWithObjects:&v85 count:1];
+          v88 = v62;
+          factory2 = [NSArray arrayWithObjects:&v88 count:1];
           factory = [(EPSagaTransactionPairing *)self factory];
           [factory setDiscovererDeviceUUIDs:factory2];
         }
@@ -416,47 +415,47 @@ LABEL_33:
         [factory3 setDiscovererShouldScanForProximity:0];
 
         factory4 = [(EPSagaTransactionPairing *)self factory];
-        v64 = [factory4 newDiscovererWithDelegate:self];
-        [(EPSagaTransactionPairing *)self setDiscoverer:v64];
+        v67 = [factory4 newDiscovererWithDelegate:self];
+        [(EPSagaTransactionPairing *)self setDiscoverer:v67];
 
-        v78 = 0u;
+        v81 = 0u;
+        v82 = 0u;
         v79 = 0u;
-        v76 = 0u;
-        v77 = 0u;
+        v80 = 0u;
         selfCopy = self;
         obj = [(EPDiscoverer *)self->_discoverer displayableDevices];
-        v66 = [obj countByEnumeratingWithState:&v76 objects:v84 count:16];
-        if (v66)
+        v69 = [obj countByEnumeratingWithState:&v79 objects:v87 count:16];
+        if (v69)
         {
-          v67 = v66;
-          v68 = *v77;
+          v70 = v69;
+          v71 = *v80;
           do
           {
-            for (i = 0; i != v67; i = i + 1)
+            for (i = 0; i != v70; i = i + 1)
             {
-              if (*v77 != v68)
+              if (*v80 != v71)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v70 = *(*(&v76 + 1) + 8 * i);
-              v71 = +[EPFactory queue];
-              v75[0] = _NSConcreteStackBlock;
-              v75[1] = 3221225472;
-              v75[2] = sub_1000EAD14;
-              v75[3] = &unk_100175598;
-              v75[4] = selfCopy;
-              v75[5] = v70;
-              dispatch_async(v71, v75);
+              v73 = *(*(&v79 + 1) + 8 * i);
+              v74 = +[EPFactory queue];
+              v78[0] = _NSConcreteStackBlock;
+              v78[1] = 3221225472;
+              v78[2] = sub_1000EAD14;
+              v78[3] = &unk_100175598;
+              v78[4] = selfCopy;
+              v78[5] = v73;
+              dispatch_async(v74, v78);
             }
 
-            v67 = [obj countByEnumeratingWithState:&v76 objects:v84 count:16];
+            v70 = [obj countByEnumeratingWithState:&v79 objects:v87 count:16];
           }
 
-          while (v67);
+          while (v70);
         }
 
-        v6 = v72;
+        v6 = v75;
       }
 
       goto LABEL_3;
@@ -486,18 +485,18 @@ LABEL_33:
   dispatch_sync(&_dispatch_main_q, block);
   if ([(EPResource *)self->_sharedKey availability]== 1)
   {
-    v16 = sub_1000A98C0();
+    v16 = sub_1000A98C0(1);
     v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
     if (v17)
     {
-      v18 = sub_1000A98C0();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v19 = sub_1000A98C0(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         startedPairing = [(EPSagaTransactionPairing *)self startedPairing];
         *buf = 67109120;
-        v83 = startedPairing;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "EPSagaTransactionPairing: Set not available to pair to %{BOOL}d", buf, 8u);
+        v86 = startedPairing;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "EPSagaTransactionPairing: Set not available to pair to %{BOOL}d", buf, 8u);
       }
     }
 
@@ -520,17 +519,17 @@ LABEL_33:
       [factory8 setAdvertisingRate:1];
 
       factory9 = [(EPSagaTransactionPairing *)self factory];
-      v28 = [factory9 newAdvertiserWithDelegate:self];
-      [(EPSagaTransactionPairing *)self setAdvertiser:v28];
+      v29 = [factory9 newAdvertiserWithDelegate:self];
+      [(EPSagaTransactionPairing *)self setAdvertiser:v29];
     }
 
     oobKeyGenerator = [(EPSagaTransactionPairing *)self oobKeyGenerator];
 
     if (!oobKeyGenerator)
     {
-      v30 = +[EPFactory sharedFactory];
-      v31 = [v30 newKeyGeneratorWithDelegate:self];
-      [(EPSagaTransactionPairing *)self setOobKeyGenerator:v31];
+      v31 = +[EPFactory sharedFactory];
+      v32 = [v31 newKeyGeneratorWithDelegate:self];
+      [(EPSagaTransactionPairing *)self setOobKeyGenerator:v32];
     }
 
     oobKeyGenerator2 = [(EPSagaTransactionPairing *)self oobKeyGenerator];
@@ -544,9 +543,9 @@ LABEL_33:
       if (!oobKey)
       {
         oobKeyGenerator3 = [(EPSagaTransactionPairing *)self oobKeyGenerator];
-        v37 = [oobKeyGenerator3 key];
+        v38 = [oobKeyGenerator3 key];
         oobKeyStash2 = [(EPSagaTransactionPairing *)self oobKeyStash];
-        [oobKeyStash2 setOobKey:v37];
+        [oobKeyStash2 setOobKey:v38];
       }
 
       oobKeyStash3 = [(EPSagaTransactionPairing *)self oobKeyStash];
@@ -557,18 +556,18 @@ LABEL_33:
         oobKeyStash4 = [(EPSagaTransactionPairing *)self oobKeyStash];
         oobKey3 = [oobKeyStash4 oobKey];
         oobKeyGenerator4 = [(EPSagaTransactionPairing *)self oobKeyGenerator];
-        v44 = [oobKeyGenerator4 key];
-        v45 = [oobKey3 isEqual:v44];
+        v45 = [oobKeyGenerator4 key];
+        v46 = [oobKey3 isEqual:v45];
 
-        if ((v45 & 1) == 0)
+        if ((v46 & 1) == 0)
         {
           routingSlipEntry5 = [(EPSagaTransactionPairing *)self routingSlipEntry];
           errors = [routingSlipEntry5 errors];
-          v80 = NSLocalizedDescriptionKey;
-          v81 = @"OOB key changed";
-          v48 = [NSDictionary dictionaryWithObjects:&v81 forKeys:&v80 count:1];
-          v49 = [NSError errorWithDomain:@"com.apple.nanoregistry.saga.EPSagaTransactionPairing" code:2 userInfo:v48];
-          [errors addObject:v49];
+          v83 = NSLocalizedDescriptionKey;
+          v84 = @"OOB key changed";
+          v49 = [NSDictionary dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+          v50 = [NSError errorWithDomain:@"com.apple.nanoregistry.saga.EPSagaTransactionPairing" code:2 userInfo:v49];
+          [errors addObject:v50];
 
           routingSlipEntry6 = [(EPSagaTransactionPairing *)self routingSlipEntry];
           [routingSlipEntry6 persist];
@@ -584,16 +583,16 @@ LABEL_33:
 
           if (readers)
           {
-            v53 = sub_1000034AC();
-            v54 = os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT);
+            v55 = sub_1000034AC(v54);
+            v56 = os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT);
 
-            if (v54)
+            if (v56)
             {
-              v55 = sub_1000034AC();
-              if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+              v58 = sub_1000034AC(v57);
+              if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 0;
-                _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "Ready to pair, calling service delegate", buf, 2u);
+                _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "Ready to pair, calling service delegate", buf, 2u);
               }
             }
 
@@ -1195,12 +1194,12 @@ LABEL_15:
     v9 = v8;
     if (!readCopy || !v8)
     {
-      v22 = sub_1000034AC();
-      v23 = os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
+      v23 = sub_1000034AC(v8);
+      v24 = os_log_type_enabled(v23, OS_LOG_TYPE_ERROR);
 
       if (readCopy)
       {
-        if (!v23)
+        if (!v24)
         {
           data = readCopy;
 LABEL_45:
@@ -1208,7 +1207,7 @@ LABEL_45:
           goto LABEL_46;
         }
 
-        v10 = sub_1000034AC();
+        v10 = sub_1000034AC(v25);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           sub_100105E70();
@@ -1219,19 +1218,19 @@ LABEL_45:
 
       else
       {
-        if (v23)
+        if (v24)
         {
-          v24 = sub_1000034AC();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          v26 = sub_1000034AC(v25);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             sub_100105E34();
           }
         }
 
-        v48 = NSLocalizedDescriptionKey;
-        v49 = @"Reader read no data";
-        v25 = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
-        v10 = [NSError errorWithDomain:@"com.apple.nanoregistry.saga.EPSagaTransactionPairing" code:10 userInfo:v25];
+        v53 = NSLocalizedDescriptionKey;
+        v54 = @"Reader read no data";
+        v27 = [NSDictionary dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+        v10 = [NSError errorWithDomain:@"com.apple.nanoregistry.saga.EPSagaTransactionPairing" code:10 userInfo:v27];
 
         [(EPSagaTransactionPairing *)self failWithError:v10];
         data = 0;
@@ -1245,24 +1244,24 @@ LABEL_44:
     v10 = [(EPKey *)self->_sharedKey decryptPayload:readCopy];
     if (!v10)
     {
-      v26 = sub_1000034AC();
-      v27 = os_log_type_enabled(v26, OS_LOG_TYPE_ERROR);
+      v28 = sub_1000034AC(0);
+      v29 = os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
 
-      if (v27)
+      if (v29)
       {
-        v28 = sub_1000034AC();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v31 = sub_1000034AC(v30);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           sub_100105EE8();
         }
       }
 
-      v50 = NSLocalizedDescriptionKey;
-      v51 = @"Could not decrypt payload";
-      v29 = [NSDictionary dictionaryWithObjects:&v51 forKeys:&v50 count:1];
-      v14 = [NSError errorWithDomain:@"com.apple.nanoregistry.saga.EPSagaTransactionPairing" code:6 userInfo:v29];
+      v55 = NSLocalizedDescriptionKey;
+      v56 = @"Could not decrypt payload";
+      v32 = [NSDictionary dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+      v15 = [NSError errorWithDomain:@"com.apple.nanoregistry.saga.EPSagaTransactionPairing" code:6 userInfo:v32];
 
-      [(EPSagaTransactionPairing *)self failWithError:v14];
+      [(EPSagaTransactionPairing *)self failWithError:v15];
       data = readCopy;
       goto LABEL_43;
     }
@@ -1272,18 +1271,17 @@ LABEL_44:
     if (!self->_watchReadFirstTime)
     {
       self->_watchReadFirstTime = 1;
-      [(EPSagaTransactionPairing *)self updateAdvertisingName];
-      v11 = sub_1000034AC();
+      v11 = sub_1000034AC([(EPSagaTransactionPairing *)self updateAdvertisingName]);
       v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
       if (v12)
       {
-        v13 = sub_1000034AC();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v14 = sub_1000034AC(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v55 = 0x4056C00000000000;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "EPSagaTransactionPairing: First read received from watch, resetting transaction timeout of %1.0f seconds", buf, 0xCu);
+          v60 = 0x4056C00000000000;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "EPSagaTransactionPairing: First read received from watch, resetting transaction timeout of %1.0f seconds", buf, 0xCu);
         }
       }
 
@@ -1295,97 +1293,97 @@ LABEL_44:
       dispatch_sync(&_dispatch_main_q, block);
     }
 
-    v14 = [[NRPBBTMigrationOOBRead alloc] initWithData:v10];
-    if (sub_100105980(v14))
+    v15 = [[NRPBBTMigrationOOBRead alloc] initWithData:v10];
+    if (sub_100105980(v15))
     {
-      if (sub_100105994(v14))
+      if (sub_100105994(v15))
       {
-        v15 = 8;
+        v16 = 8;
       }
 
       else
       {
-        v15 = 7;
+        v16 = 7;
       }
 
-      v52[0] = NSLocalizedDescriptionKey;
-      if (sub_100105994(v14))
+      v57[0] = NSLocalizedDescriptionKey;
+      if (sub_100105994(v15))
       {
-        v16 = @"Watch returned FATAL error code";
+        v17 = @"Watch returned FATAL error code";
       }
 
       else
       {
-        v16 = @"Watch returned error code";
+        v17 = @"Watch returned error code";
       }
 
-      v52[1] = @"watchErrorCode";
-      v53[0] = v16;
-      v17 = [NSNumber numberWithInt:sub_100105980(v14)];
-      v53[1] = v17;
-      v18 = [NSDictionary dictionaryWithObjects:v53 forKeys:v52 count:2];
-      v19 = [v18 mutableCopy];
+      v57[1] = @"watchErrorCode";
+      v58[0] = v17;
+      v18 = [NSNumber numberWithInt:sub_100105980(v15)];
+      v58[1] = v18;
+      v19 = [NSDictionary dictionaryWithObjects:v58 forKeys:v57 count:2];
+      v20 = [v19 mutableCopy];
 
-      v20 = [NSError errorWithDomain:@"com.apple.nanoregistry.saga.EPSagaTransactionPairing" code:v15 userInfo:v19];
-      [(EPSagaTransactionPairing *)self failWithError:v20];
+      v21 = [NSError errorWithDomain:@"com.apple.nanoregistry.saga.EPSagaTransactionPairing" code:v16 userInfo:v20];
+      [(EPSagaTransactionPairing *)self failWithError:v21];
       data = readCopy;
       goto LABEL_42;
     }
 
     device = [v9 device];
-    v19 = [device newObserverWithDelegate:0];
+    v20 = [device newObserverWithDelegate:0];
 
-    v31 = [EPCharacteristicWriter alloc];
-    v32 = [CBUUID UUIDWithString:@"9AA4730F-B25C-4CC3-B821-C931559FC196"];
-    v33 = [CBUUID UUIDWithString:@"35646DF5-E240-4355-8A8D-41271B5C4562"];
-    v20 = [(EPCharacteristicWriter *)v31 initWithPeripheral:v19 serviceUUID:v32 characteristicUUID:v33];
+    v34 = [EPCharacteristicWriter alloc];
+    v35 = [CBUUID UUIDWithString:@"9AA4730F-B25C-4CC3-B821-C931559FC196"];
+    v36 = [CBUUID UUIDWithString:@"35646DF5-E240-4355-8A8D-41271B5C4562"];
+    v21 = [(EPCharacteristicWriter *)v34 initWithPeripheral:v20 serviceUUID:v35 characteristicUUID:v36];
 
     [v9 setReader:0];
-    v42 = objc_opt_new();
-    v34 = sub_10010596C(v14);
-    sub_1001010A4(v42, v34);
+    v47 = objc_opt_new();
+    v37 = sub_10010596C(v15);
+    sub_1001010A4(v47, v37);
 
-    v41 = MGCopyAnswer();
-    if (v41)
+    v46 = MGCopyAnswer();
+    if (v46)
     {
       sharedKey = self->_sharedKey;
-      v36 = [v41 dataUsingEncoding:4];
-      v37 = [(EPKey *)sharedKey encryptPayload:v36];
-      sub_1001010B8(v42, v37);
+      v39 = [v46 dataUsingEncoding:4];
+      v40 = [(EPKey *)sharedKey encryptPayload:v39];
+      sub_1001010B8(v47, v40);
     }
 
-    data = [v42 data];
+    data = [v47 data];
 
     if (data)
     {
-      v38 = [(EPKey *)self->_sharedKey encryptPayload:data];
+      v42 = [(EPKey *)self->_sharedKey encryptPayload:data];
       objc_initWeak(buf, self);
-      v43[0] = _NSConcreteStackBlock;
-      v43[1] = 3221225472;
-      v43[2] = sub_1000ED02C;
-      v43[3] = &unk_100176018;
-      v43[4] = self;
-      objc_copyWeak(&v46, buf);
-      v44 = v9;
-      v45 = v14;
-      [(EPCharacteristicWriter *)v20 writeData:v38 timeout:&stru_100179CE0 begin:v43 completion:65.0];
+      v48[0] = _NSConcreteStackBlock;
+      v48[1] = 3221225472;
+      v48[2] = sub_1000ED02C;
+      v48[3] = &unk_100176018;
+      v48[4] = self;
+      objc_copyWeak(&v51, buf);
+      v49 = v9;
+      v50 = v15;
+      [(EPCharacteristicWriter *)v21 writeData:v42 timeout:&stru_100179CE0 begin:v48 completion:65.0];
 
-      objc_destroyWeak(&v46);
+      objc_destroyWeak(&v51);
       objc_destroyWeak(buf);
     }
 
     else
     {
-      v39 = sub_1000034AC();
-      v40 = os_log_type_enabled(v39, OS_LOG_TYPE_ERROR);
+      v43 = sub_1000034AC(v41);
+      v44 = os_log_type_enabled(v43, OS_LOG_TYPE_ERROR);
 
-      if (!v40)
+      if (!v44)
       {
         goto LABEL_41;
       }
 
-      v38 = sub_1000034AC();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      v42 = sub_1000034AC(v45);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
         sub_100105EAC();
       }
@@ -1551,45 +1549,45 @@ LABEL_15:
     v11 = [routingSlipEntry objectForKeyedSubscript:@"iAmACompanionDevice"];
 
     bOOLValue = [v11 BOOLValue];
-    v37 = 0;
-    v38 = &v37;
-    v39 = 0x2020000000;
-    v40 = 0;
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x2020000000;
+    v42 = 0;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000ED9F8;
     block[3] = &unk_1001758D0;
     block[4] = self;
-    block[5] = &v37;
+    block[5] = &v39;
     dispatch_sync(&_dispatch_main_q, block);
     if (type == 5)
     {
-      if (*(v38 + 24) != 1 || [(EPSagaTransactionPairing *)self alreadyPaired])
+      if (*(v40 + 24) != 1 || [(EPSagaTransactionPairing *)self alreadyPaired])
       {
         goto LABEL_18;
       }
 
       if (bOOLValue)
       {
+        v36 = 0u;
+        v37 = 0u;
         v34 = 0u;
         v35 = 0u;
-        v32 = 0u;
-        v33 = 0u;
         v13 = self->_readers;
-        v14 = [(NSMutableSet *)v13 countByEnumeratingWithState:&v32 objects:v47 count:16];
+        v14 = [(NSMutableSet *)v13 countByEnumeratingWithState:&v34 objects:v49 count:16];
         if (v14)
         {
-          v15 = *v33;
+          v15 = *v35;
 LABEL_8:
           v16 = 0;
           while (1)
           {
-            if (*v33 != v15)
+            if (*v35 != v15)
             {
               objc_enumerationMutation(v13);
             }
 
-            v17 = *(*(&v32 + 1) + 8 * v16);
+            v17 = *(*(&v34 + 1) + 8 * v16);
             pairer = [v17 pairer];
             v19 = pairer == pairerCopy;
 
@@ -1600,7 +1598,7 @@ LABEL_8:
 
             if (v14 == ++v16)
             {
-              v14 = [(NSMutableSet *)v13 countByEnumeratingWithState:&v32 objects:v47 count:16];
+              v14 = [(NSMutableSet *)v13 countByEnumeratingWithState:&v34 objects:v49 count:16];
               if (v14)
               {
                 goto LABEL_8;
@@ -1621,11 +1619,11 @@ LABEL_8:
           oobKeyStash = [(EPSagaTransactionPairing *)self oobKeyStash];
           [oobKeyStash setOobKey:oobKey];
 
-          v45 = CBPairingAgentPairingDataOOBTKKey;
+          v47 = CBPairingAgentPairingDataOOBTKKey;
           oobKey2 = [p_super oobKey];
-          v46 = oobKey2;
-          v29 = [NSDictionary dictionaryWithObjects:&v46 forKeys:&v45 count:1];
-          [pairerCopy respondWithType:5 accept:1 data:v29];
+          v48 = oobKey2;
+          v30 = [NSDictionary dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+          [pairerCopy respondWithType:5 accept:1 data:v30];
         }
 
         else
@@ -1642,25 +1640,25 @@ LABEL_14:
 
         if (oobKey3)
         {
-          v43 = CBPairingAgentPairingDataOOBTKKey;
+          v45 = CBPairingAgentPairingDataOOBTKKey;
           p_super = [(EPSagaTransactionPairing *)self oobKeyStash];
           oobKey4 = [p_super oobKey];
-          v44 = oobKey4;
-          v25 = [NSDictionary dictionaryWithObjects:&v44 forKeys:&v43 count:1];
-          [pairerCopy respondWithType:5 accept:1 data:v25];
+          v46 = oobKey4;
+          v26 = [NSDictionary dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+          [pairerCopy respondWithType:5 accept:1 data:v26];
         }
 
         else
         {
-          v30 = sub_1000034AC();
-          v31 = os_log_type_enabled(v30, OS_LOG_TYPE_ERROR);
+          v31 = sub_1000034AC(v24);
+          v32 = os_log_type_enabled(v31, OS_LOG_TYPE_ERROR);
 
-          if (!v31)
+          if (!v32)
           {
             goto LABEL_18;
           }
 
-          p_super = sub_1000034AC();
+          p_super = sub_1000034AC(v33);
           if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
           {
             sub_100105F98();
@@ -1674,14 +1672,14 @@ LABEL_14:
       if ((type - 1) > 1)
       {
 LABEL_18:
-        _Block_object_dispose(&v37, 8);
+        _Block_object_dispose(&v39, 8);
 
         goto LABEL_19;
       }
 
-      v41 = NSLocalizedDescriptionKey;
-      v42 = @"Wrong Bluetooth pairing type received";
-      p_super = [NSDictionary dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+      v43 = NSLocalizedDescriptionKey;
+      v44 = @"Wrong Bluetooth pairing type received";
+      p_super = [NSDictionary dictionaryWithObjects:&v44 forKeys:&v43 count:1];
       v21 = [NSError errorWithDomain:@"com.apple.nanoregistry.saga.EPSagaTransactionPairing" code:5 userInfo:p_super];
       [pairerCopy invalidateWithError:v21];
     }
@@ -1775,13 +1773,13 @@ LABEL_19:
 
 - (void)timedOut
 {
-  v3 = sub_1000034AC();
+  v3 = sub_1000034AC(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
 
   if (v4)
   {
-    v5 = sub_1000034AC();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_1000034AC(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_100105FD4();
     }
@@ -1789,38 +1787,38 @@ LABEL_19:
 
   if (self->_useNetworkRelayPairing)
   {
-    v6 = +[NetworkRelayAgent sharedInstance];
-    [v6 abortCurrentPairing];
-    v12 = NSLocalizedDescriptionKey;
-    v13 = @"Timeout NetworkRelay migration";
-    v7 = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
-    v8 = [NSError errorWithDomain:@"com.apple.nanoregistry.saga.EPSagaTransactionPairing" code:0 userInfo:v7];
+    v7 = +[NetworkRelayAgent sharedInstance];
+    [v7 abortCurrentPairing];
+    v13 = NSLocalizedDescriptionKey;
+    v14 = @"Timeout NetworkRelay migration";
+    v8 = [NSDictionary dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+    v9 = [NSError errorWithDomain:@"com.apple.nanoregistry.saga.EPSagaTransactionPairing" code:0 userInfo:v8];
 
-    [(EPSagaTransactionPairing *)self failWithError:v8];
+    [(EPSagaTransactionPairing *)self failWithError:v9];
   }
 
   else
   {
     if ([(EPSagaTransactionPairing *)self isReadingCharacteristic]&& [(EPSagaTransactionPairing *)self state]== 1)
     {
-      v16 = NSLocalizedDescriptionKey;
-      v17 = @"Timeout discovering characteristics";
-      v9 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-      v10 = 9;
+      v17 = NSLocalizedDescriptionKey;
+      v18 = @"Timeout discovering characteristics";
+      v10 = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+      v11 = 9;
     }
 
     else
     {
-      v11 = [(EPSagaTransactionPairing *)self state]!= 1;
-      v14 = NSLocalizedDescriptionKey;
-      v15 = @"Timeout";
-      v9 = [NSDictionary dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-      v10 = v11;
+      v12 = [(EPSagaTransactionPairing *)self state]!= 1;
+      v15 = NSLocalizedDescriptionKey;
+      v16 = @"Timeout";
+      v10 = [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+      v11 = v12;
     }
 
-    v6 = [NSError errorWithDomain:@"com.apple.nanoregistry.saga.EPSagaTransactionPairing" code:v10 userInfo:v9];
+    v7 = [NSError errorWithDomain:@"com.apple.nanoregistry.saga.EPSagaTransactionPairing" code:v11 userInfo:v10];
 
-    [(EPSagaTransactionPairing *)self failWithError:v6];
+    [(EPSagaTransactionPairing *)self failWithError:v7];
   }
 }
 
@@ -1878,13 +1876,13 @@ LABEL_12:
 - (void)failWithError:(id)error
 {
   errorCopy = error;
-  v5 = sub_1000034AC();
+  v5 = sub_1000034AC(errorCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
 
   if (v6)
   {
-    v7 = sub_1000034AC();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_1000034AC(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_100106010();
     }
@@ -1900,35 +1898,35 @@ LABEL_12:
   routingSlipEntry2 = [(EPSagaTransactionPairing *)self routingSlipEntry];
   [routingSlipEntry2 persist];
 
-  v23 = 0u;
   v24 = 0u;
-  v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
+  v23 = 0u;
   pairers = [(EPSagaTransactionPairing *)self pairers];
-  v13 = [pairers countByEnumeratingWithState:&v21 objects:v25 count:16];
-  if (v13)
+  v14 = [pairers countByEnumeratingWithState:&v22 objects:v26 count:16];
+  if (v14)
   {
-    v14 = v13;
-    v15 = *v22;
+    v15 = v14;
+    v16 = *v23;
     do
     {
-      v16 = 0;
+      v17 = 0;
       do
       {
-        if (*v22 != v15)
+        if (*v23 != v16)
         {
           objc_enumerationMutation(pairers);
         }
 
-        [*(*(&v21 + 1) + 8 * v16) invalidateWithError:errorCopy];
-        v16 = v16 + 1;
+        [*(*(&v22 + 1) + 8 * v17) invalidateWithError:errorCopy];
+        v17 = v17 + 1;
       }
 
-      while (v14 != v16);
-      v14 = [pairers countByEnumeratingWithState:&v21 objects:v25 count:16];
+      while (v15 != v17);
+      v15 = [pairers countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
-    while (v14);
+    while (v15);
   }
 
   pairers2 = [(EPSagaTransactionPairing *)self pairers];
@@ -1942,15 +1940,15 @@ LABEL_12:
 
   if ([(EPSagaTransactionPairing *)self state]== 1)
   {
-    v20 = 3;
+    v21 = 3;
 LABEL_16:
-    [(EPSagaTransactionPairing *)self setState:v20];
+    [(EPSagaTransactionPairing *)self setState:v21];
     goto LABEL_17;
   }
 
   if ([(EPSagaTransactionPairing *)self state]== 3)
   {
-    v20 = 0;
+    v21 = 0;
     goto LABEL_16;
   }
 

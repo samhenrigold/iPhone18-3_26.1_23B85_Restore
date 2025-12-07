@@ -17,25 +17,25 @@
 - (CUFileQuery)initWithDictionary:(id)dictionary error:(id *)error
 {
   dictionaryCopy = dictionary;
-  v12 = [(CUFileQuery *)self init];
-  if (v12)
+  v7 = [(CUFileQuery *)self init];
+  if (v7)
   {
     TypeID = CFStringGetTypeID();
-    v14 = CFDictionaryGetTypedValue(dictionaryCopy, @"path", TypeID, 0);
-    if (v14)
+    v9 = CFDictionaryGetTypedValue(dictionaryCopy, @"path", TypeID, 0);
+    if (v9)
     {
-      objc_storeStrong(&v12->_path, v14);
+      objc_storeStrong(&v7->_path, v9);
     }
 
-    v15 = v12;
+    v10 = v7;
   }
 
   else if (error)
   {
-    *error = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "Init failed", v7, v8, v9, v10, v11, v17);
+    *error = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960596, "Init failed");
   }
 
-  return v12;
+  return v7;
 }
 
 @end

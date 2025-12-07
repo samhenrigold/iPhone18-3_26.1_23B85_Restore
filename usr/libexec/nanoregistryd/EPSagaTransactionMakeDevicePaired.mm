@@ -1,5 +1,6 @@
 @interface EPSagaTransactionMakeDevicePaired
 - (EPTransactionDelegate)delegate;
+- (id)_makeIsPairedDeviceCollection:(id)collection diffWithPairingID:(id)d pair:(BOOL)pair;
 - (id)_makeIsSetupNoDeviceCollection:(id)collection diffWithPairingID:(id)d;
 - (id)registry;
 - (void)beginRollbackWithRoutingSlipEntry:(id)entry serviceRegistry:(id)registry;
@@ -14,6 +15,43 @@
   v3 = objc_opt_class();
 
   return [(EPServiceRegistry *)serviceRegistry serviceFromClass:v3];
+}
+
+- (id)_makeIsPairedDeviceCollection:(id)collection diffWithPairingID:(id)d pair:(BOOL)pair
+{
+  pairCopy = pair;
+  v6 = [NRDevicePropertyDiffType alloc];
+  v7 = [NRDevicePropertyDiff alloc];
+  v8 = [NSNumber numberWithBool:pairCopy];
+  v9 = [v7 initWithValue:v8];
+  v10 = [v6 initWithDiff:v9 andChangeType:1];
+
+  if (pairCopy)
+  {
+    v11 = +[NSDate date];
+    v12 = [NRDevicePropertyDiffType alloc];
+    v13 = [[NRDevicePropertyDiff alloc] initWithValue:v11];
+    v14 = [v12 initWithDiff:v13 andChangeType:1];
+
+    v15 = [NRDeviceDiff alloc];
+    v22[0] = NRDevicePropertyIsPaired;
+    v22[1] = NRDevicePropertyPairedDate;
+    v23[0] = v10;
+    v23[1] = v14;
+    v16 = [NSDictionary dictionaryWithObjects:v23 forKeys:v22 count:2];
+    v17 = [v15 initWithDiffPropertyDiffs:v16];
+  }
+
+  else
+  {
+    v18 = [NRDeviceDiff alloc];
+    v20 = NRDevicePropertyIsPaired;
+    v21 = v10;
+    v11 = [NSDictionary dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v17 = [v18 initWithDiffPropertyDiffs:v11];
+  }
+
+  return v17;
 }
 
 - (id)_makeIsSetupNoDeviceCollection:(id)collection diffWithPairingID:(id)d

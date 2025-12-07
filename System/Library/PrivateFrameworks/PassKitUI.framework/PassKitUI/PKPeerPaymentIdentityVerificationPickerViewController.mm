@@ -390,14 +390,15 @@ LABEL_9:
 LABEL_12:
 }
 
-void __90__PKPeerPaymentIdentityVerificationPickerViewController_explanationViewDidSelectContinue___block_invoke(uint64_t a1, int a2)
+void __90__PKPeerPaymentIdentityVerificationPickerViewController_explanationViewDidSelectContinue___block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v7 = *MEMORY[0x1E69E9840];
   v3 = PKLogFacilityTypeGetObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = @"NO";
-    if (a2)
+    if (v2)
     {
       v4 = @"YES";
     }

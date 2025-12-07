@@ -832,9 +832,9 @@ void __50___SFPageFormatMenuController__makeItemForAction___block_invoke_12(uint
   [a2 dismissViewControllerAnimated:1 completion:v3];
 }
 
-void __50___SFPageFormatMenuController__makeItemForAction___block_invoke_14(uint64_t a1)
+void __50___SFPageFormatMenuController__makeItemForAction___block_invoke_14(id *a1)
 {
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  WeakRetained = objc_loadWeakRetained(a1 + 5);
   if (WeakRetained)
   {
     v6 = WeakRetained;
@@ -842,10 +842,10 @@ void __50___SFPageFormatMenuController__makeItemForAction___block_invoke_14(uint
     v4 = [v3 currentPlaybackState];
 
     WeakRetained = v6;
-    if (*(a1 + 48) != v4)
+    if (a1[6] != v4)
     {
       [v6 reloadAlert];
-      v5 = [*(a1 + 32) activeDocument];
+      v5 = [a1[4] activeDocument];
       [v5 updateShowsSiriReaderPlayingIcon];
 
       WeakRetained = v6;
@@ -959,9 +959,9 @@ void __42___SFPageFormatMenuController__readerCard__block_invoke_4(uint64_t a1, 
   }
 }
 
-void __58___SFPageFormatMenuController__updateListenToPageIfNeeded__block_invoke(uint64_t a1)
+void __58___SFPageFormatMenuController__updateListenToPageIfNeeded__block_invoke(id *a1)
 {
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  WeakRetained = objc_loadWeakRetained(a1 + 5);
   if (WeakRetained)
   {
     v11 = WeakRetained;
@@ -982,7 +982,7 @@ void __58___SFPageFormatMenuController__updateListenToPageIfNeeded__block_invoke
       }
     }
 
-    if (*(a1 + 48) != [v11 _listenToPageActionStateForActiveTab])
+    if (a1[6] != [v11 _listenToPageActionStateForActiveTab])
     {
       v8 = v11[10];
       v11[10] = 0;
@@ -1001,7 +1001,7 @@ void __58___SFPageFormatMenuController__updateListenToPageIfNeeded__block_invoke
       }
 
       [v9 reloadBrowsingAssistantIfNeeded];
-      v10 = [*(a1 + 32) activeDocument];
+      v10 = [a1[4] activeDocument];
       [v10 updateShowsSiriReaderPlayingIcon];
     }
 

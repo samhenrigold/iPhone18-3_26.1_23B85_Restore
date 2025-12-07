@@ -417,7 +417,7 @@
     {
       self->_didSetupToolPicker = 1;
       window2 = [(AKToolbarView *)self window];
-      AKLog(@"Did successfully set up palette for window: %@");
+      AKLog();
 
       [(AKToolbarView *)self hideModernToolbarView];
       popoverPresentingController = [(AKToolbarView *)self popoverPresentingController];
@@ -1635,10 +1635,11 @@ LABEL_7:
 
 - (void)_cleanupAfterUndoAlert
 {
-  if (self->_undoAlertController)
+  undoAlertController = self->_undoAlertController;
+  if (undoAlertController)
   {
     self->_undoAlertController = 0;
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](self, undoAlertController);
   }
 }
 
@@ -2036,7 +2037,7 @@ LABEL_19:
 - (BOOL)presentationControllerShouldDismiss:(id)dismiss
 {
   dismissCopy = dismiss;
-  AKLog(@"%s %@");
+  AKLog();
   v5 = [(AKSignatureCreationViewController_iOS *)self->_signaturesCreationController popoverPresentationController:"[AKToolbarView presentationControllerShouldDismiss:]"];
 
   if (v5 == dismissCopy)
@@ -2054,7 +2055,7 @@ LABEL_19:
 
 - (void)signaturesViewControllerDidCancel:(id)cancel
 {
-  AKLog(@"%s %@");
+  AKLog();
   if (self->_signaturesSheetViewController)
   {
     v4 = [(AKToolbarView *)self annotationController:"[AKToolbarView signaturesViewControllerDidCancel:]"];
@@ -2098,7 +2099,7 @@ LABEL_19:
 - (void)signaturesViewControllerDidSelectSignature:(id)signature
 {
   signatureCopy = signature;
-  AKLog(@"%s %@");
+  AKLog();
   v5 = [(AKToolbarView *)self annotationController:"[AKToolbarView signaturesViewControllerDidSelectSignature:]"];
   v6 = v5;
   if (self->_signaturesSheetViewController)
@@ -2158,7 +2159,7 @@ LABEL_19:
   }
 
   v15 = signaturesCopy;
-  AKLog(@"%s %@");
+  AKLog();
   v8 = v16;
   if (!self->_signaturesSheetViewController)
   {
@@ -2190,7 +2191,7 @@ LABEL_19:
 
 - (void)signaturesViewControllerContinueToCreateSignature:(id)signature
 {
-  AKLog(@"%s %@");
+  AKLog();
   v8[0] = MEMORY[0x277D85DD0];
   v8[1] = 3221225472;
   v8[2] = sub_23F413C44;

@@ -27,7 +27,7 @@
   v23[2] = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E696AD98]) initWithUnsignedInteger:{-[CKMessageReplyCountChatItem replyCount](self, "replyCount")}];
   v4 = MEMORY[0x1E696AEC0];
-  v5 = CKFrameworkBundle();
+  v5 = CKFrameworkBundle(v3);
   v6 = [v5 localizedStringForKey:@"REPLY_COUNT" value:&stru_1F04268F8 table:@"ChatKit"];
   v7 = [v4 localizedStringWithFormat:v6, v3];
 

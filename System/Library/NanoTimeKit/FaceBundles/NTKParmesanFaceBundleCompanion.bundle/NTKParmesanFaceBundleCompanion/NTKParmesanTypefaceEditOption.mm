@@ -68,7 +68,7 @@
 
 + (id)_orderedValuesForDevice:(id)device
 {
-  v3 = sub_23BFC533C(self, a2, device);
+  v3 = sub_23BFC533C();
   sub_23BFEAE08(v3);
 
   v4 = sub_23BFFA450();

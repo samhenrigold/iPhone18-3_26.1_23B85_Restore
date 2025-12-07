@@ -206,7 +206,6 @@
 
   objc_storeStrong(&v41, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __76__SUUIBetaUpdatesOperation_checkForAvailableBetaPrograms_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -293,149 +292,143 @@ void __76__SUUIBetaUpdatesOperation_checkForAvailableBetaPrograms_completionHand
   objc_storeStrong(&v16, 0);
   objc_storeStrong(&v22, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __85__SUUIBetaUpdatesOperation_checkForAvailableBetaProgramsForDevice_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v40 = a3;
-  v39[1] = a1;
+  v39 = a3;
+  v38[1] = a1;
   if (a3)
   {
-    v20 = +[SUUILoggingContext betaUpdatesOperationLogger];
-    v39[0] = [v20 oslog];
-    MEMORY[0x277D82BD8](v20);
-    v38 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v39[0], OS_LOG_TYPE_DEFAULT))
+    v19 = +[SUUILoggingContext betaUpdatesOperationLogger];
+    v38[0] = [v19 oslog];
+    MEMORY[0x277D82BD8](v19);
+    v37 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v38[0], OS_LOG_TYPE_DEFAULT))
     {
-      log = v39[0];
-      type = v38;
-      v19 = [*(a1 + 32) identifier];
-      v37 = MEMORY[0x277D82BE0](v19);
-      __os_log_helper_16_2_3_8_32_8_66_8_0(v43, "[SUUIBetaUpdatesOperation checkForAvailableBetaProgramsForDevice:completionHandler:]_block_invoke", v37, v40);
-      _os_log_impl(&dword_26ADE5000, log, type, "%s [%{public}@]: Could not fetch new beta programs: %ld", v43, 0x20u);
-      MEMORY[0x277D82BD8](v19);
-      objc_storeStrong(&v37, 0);
+      log = v38[0];
+      type = v37;
+      v18 = [*(a1 + 32) identifier];
+      v36 = MEMORY[0x277D82BE0](v18);
+      __os_log_helper_16_2_3_8_32_8_66_8_0(v42, "[SUUIBetaUpdatesOperation checkForAvailableBetaProgramsForDevice:completionHandler:]_block_invoke", v36, v39);
+      _os_log_impl(&dword_26ADE5000, log, type, "%s [%{public}@]: Could not fetch new beta programs: %ld", v42, 0x20u);
+      MEMORY[0x277D82BD8](v18);
+      objc_storeStrong(&v36, 0);
     }
 
-    objc_storeStrong(v39, 0);
-    v14 = (*(a1 + 48) + 16);
-    v13 = [SUUIBetaUpdatesOperationScanResults alloc];
-    v16 = [*(a1 + 32) identifier];
-    v3 = *(a1 + 40);
-    v15 = [SUUIBetaUpdatesOperationScanResults initWithIdentifier:v13 currentSeedingDevice:"initWithIdentifier:currentSeedingDevice:betaPrograms:" betaPrograms:?];
-    (*v14)();
+    objc_storeStrong(v38, 0);
+    v13 = (*(a1 + 48) + 16);
+    v12 = [SUUIBetaUpdatesOperationScanResults alloc];
+    v15 = [*(a1 + 32) identifier];
+    v14 = [SUUIBetaUpdatesOperationScanResults initWithIdentifier:v12 currentSeedingDevice:"initWithIdentifier:currentSeedingDevice:betaPrograms:" betaPrograms:?];
+    (*v13)();
+    MEMORY[0x277D82BD8](v14);
     MEMORY[0x277D82BD8](v15);
-    MEMORY[0x277D82BD8](v16);
-    v36 = 1;
+    v35 = 1;
   }
 
   else
   {
-    v12 = +[SUUILoggingContext betaUpdatesOperationLogger];
-    v35 = [v12 oslog];
-    MEMORY[0x277D82BD8](v12);
-    v34 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v11 = +[SUUILoggingContext betaUpdatesOperationLogger];
+    v34 = [v11 oslog];
+    MEMORY[0x277D82BD8](v11);
+    v33 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = v35;
-      v9 = v34;
-      v11 = [*(a1 + 32) identifier];
-      v6 = MEMORY[0x277D82BE0](v11);
-      v33 = v6;
-      v7 = [location[0] count];
-      v10 = [location[0] valueForKey:@"programID"];
-      v32 = MEMORY[0x277D82BE0](v10);
-      __os_log_helper_16_2_4_8_32_8_66_8_0_8_64(v42, "[SUUIBetaUpdatesOperation checkForAvailableBetaProgramsForDevice:completionHandler:]_block_invoke", v6, v7, v32);
-      _os_log_impl(&dword_26ADE5000, v8, v9, "%s [%{public}@]: Got the device available Beta Programs (count: %ld): %@", v42, 0x2Au);
+      v7 = v34;
+      v8 = v33;
+      v10 = [*(a1 + 32) identifier];
+      v5 = MEMORY[0x277D82BE0](v10);
+      v32 = v5;
+      v6 = [location[0] count];
+      v9 = [location[0] valueForKey:@"programID"];
+      v31 = MEMORY[0x277D82BE0](v9);
+      __os_log_helper_16_2_4_8_32_8_66_8_0_8_64(v41, "[SUUIBetaUpdatesOperation checkForAvailableBetaProgramsForDevice:completionHandler:]_block_invoke", v5, v6, v31);
+      _os_log_impl(&dword_26ADE5000, v7, v8, "%s [%{public}@]: Got the device available Beta Programs (count: %ld): %@", v41, 0x2Au);
+      MEMORY[0x277D82BD8](v9);
       MEMORY[0x277D82BD8](v10);
-      MEMORY[0x277D82BD8](v11);
+      objc_storeStrong(&v31, 0);
       objc_storeStrong(&v32, 0);
-      objc_storeStrong(&v33, 0);
     }
 
-    objc_storeStrong(&v35, 0);
-    v5 = [*(a1 + 32) betaManager];
-    v4 = *(a1 + 40);
-    v23 = MEMORY[0x277D85DD0];
-    v24 = -1073741824;
-    v25 = 0;
-    v26 = __85__SUUIBetaUpdatesOperation_checkForAvailableBetaProgramsForDevice_completionHandler___block_invoke_11;
-    v27 = &unk_279CC6E68;
-    v28 = MEMORY[0x277D82BE0](*(a1 + 32));
-    v31 = MEMORY[0x277D82BE0](*(a1 + 48));
-    v29 = MEMORY[0x277D82BE0](*(a1 + 40));
-    v30 = MEMORY[0x277D82BE0](location[0]);
-    [v5 enrolledBetaProgramForDevice:v4 completion:&v23];
-    MEMORY[0x277D82BD8](v5);
-    objc_storeStrong(&v30, 0);
+    objc_storeStrong(&v34, 0);
+    v4 = [*(a1 + 32) betaManager];
+    v3 = *(a1 + 40);
+    v22 = MEMORY[0x277D85DD0];
+    v23 = -1073741824;
+    v24 = 0;
+    v25 = __85__SUUIBetaUpdatesOperation_checkForAvailableBetaProgramsForDevice_completionHandler___block_invoke_11;
+    v26 = &unk_279CC6E68;
+    v27 = MEMORY[0x277D82BE0](*(a1 + 32));
+    v30 = MEMORY[0x277D82BE0](*(a1 + 48));
+    v28 = MEMORY[0x277D82BE0](*(a1 + 40));
+    v29 = MEMORY[0x277D82BE0](location[0]);
+    [v4 enrolledBetaProgramForDevice:v3 completion:&v22];
+    MEMORY[0x277D82BD8](v4);
     objc_storeStrong(&v29, 0);
-    objc_storeStrong(&v31, 0);
     objc_storeStrong(&v28, 0);
-    v36 = 0;
+    objc_storeStrong(&v30, 0);
+    objc_storeStrong(&v27, 0);
+    v35 = 0;
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __85__SUUIBetaUpdatesOperation_checkForAvailableBetaProgramsForDevice_completionHandler___block_invoke_11(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v18[1] = a1;
-  v12 = +[SUUILoggingContext betaUpdatesOperationLogger];
-  v18[0] = [v12 oslog];
-  MEMORY[0x277D82BD8](v12);
-  v17 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v18[0], OS_LOG_TYPE_DEFAULT))
+  v16[1] = a1;
+  v10 = +[SUUILoggingContext betaUpdatesOperationLogger];
+  v16[0] = [v10 oslog];
+  MEMORY[0x277D82BD8](v10);
+  v15 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v16[0], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = [*(a1 + 32) identifier];
-    v10 = MEMORY[0x277D82BE0](v9);
-    v16 = v10;
-    v11 = location[0];
-    v14 = 0;
+    v7 = [*(a1 + 32) identifier];
+    v8 = MEMORY[0x277D82BE0](v7);
+    v14 = v8;
+    v9 = location[0];
+    v12 = 0;
     if (location[0])
     {
-      v15 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(location[0], "programID")}];
-      v14 = 1;
-      v8 = v15;
+      v13 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(location[0], "programID")}];
+      v12 = 1;
+      v6 = v13;
     }
 
     else
     {
-      v8 = @"(null)";
+      v6 = @"(null)";
     }
 
-    __os_log_helper_16_2_4_8_32_8_66_8_64_8_66(v20, "[SUUIBetaUpdatesOperation checkForAvailableBetaProgramsForDevice:completionHandler:]_block_invoke", v10, v11, v8);
-    _os_log_impl(&dword_26ADE5000, v18[0], v17, "%s [%{public}@]: Refreshed current beta program: %@ (program ID: %{public}@", v20, 0x2Au);
-    if (v14)
+    __os_log_helper_16_2_4_8_32_8_66_8_64_8_66(v18, "[SUUIBetaUpdatesOperation checkForAvailableBetaProgramsForDevice:completionHandler:]_block_invoke", v8, v9, v6);
+    _os_log_impl(&dword_26ADE5000, v16[0], v15, "%s [%{public}@]: Refreshed current beta program: %@ (program ID: %{public}@", v18, 0x2Au);
+    if (v12)
     {
-      MEMORY[0x277D82BD8](v15);
+      MEMORY[0x277D82BD8](v13);
     }
 
-    MEMORY[0x277D82BD8](v9);
-    objc_storeStrong(&v16, 0);
+    MEMORY[0x277D82BD8](v7);
+    objc_storeStrong(&v14, 0);
   }
 
-  objc_storeStrong(v18, 0);
-  v5 = (*(a1 + 56) + 16);
-  v4 = [SUUIBetaUpdatesOperationScanResults alloc];
-  v7 = [*(a1 + 32) identifier];
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 48);
-  v6 = [SUUIBetaUpdatesOperationScanResults initWithIdentifier:v4 currentSeedingDevice:"initWithIdentifier:currentSeedingDevice:betaPrograms:enrolledBetaProgram:" betaPrograms:? enrolledBetaProgram:?];
-  (*v5)();
-  MEMORY[0x277D82BD8](v6);
-  MEMORY[0x277D82BD8](v7);
+  objc_storeStrong(v16, 0);
+  v3 = (*(a1 + 56) + 16);
+  v2 = [SUUIBetaUpdatesOperationScanResults alloc];
+  v5 = [*(a1 + 32) identifier];
+  v4 = [SUUIBetaUpdatesOperationScanResults initWithIdentifier:v2 currentSeedingDevice:"initWithIdentifier:currentSeedingDevice:betaPrograms:enrolledBetaProgram:" betaPrograms:? enrolledBetaProgram:?];
+  (*v3)();
+  MEMORY[0x277D82BD8](v4);
+  MEMORY[0x277D82BD8](v5);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

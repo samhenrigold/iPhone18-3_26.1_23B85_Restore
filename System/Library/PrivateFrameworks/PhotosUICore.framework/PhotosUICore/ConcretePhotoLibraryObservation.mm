@@ -43,7 +43,7 @@
   v10[4] = v6;
   queueCopy = queue;
   selfCopy = self;
-  sub_1A3C67884(sub_1A3FDA0C8, v10);
+  sub_1A3C67884(sub_1A3FDA0C8, v10, "PhotosUICore/PHPhotoLibrary+PXExtensions.swift", 46, 2u, 82);
 }
 
 - (_TtC12PhotosUICoreP33_91D29F4F2DBCF944653069752757388131ConcretePhotoLibraryObservation)init

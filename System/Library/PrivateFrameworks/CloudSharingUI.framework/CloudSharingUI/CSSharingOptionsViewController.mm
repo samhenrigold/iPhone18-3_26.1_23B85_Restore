@@ -68,7 +68,7 @@
 
 - (void)_commonInitWithControllerAndUpdates:(void *)updates
 {
-  v34[4] = *MEMORY[0x277D85DE8];
+  v33[4] = *MEMORY[0x277D85DE8];
   if (updates)
   {
     v3 = a2;
@@ -90,39 +90,37 @@
     view4 = [viewController view];
     [view3 addSubview:view4];
 
-    v24 = MEMORY[0x277CCAAD0];
+    v23 = MEMORY[0x277CCAAD0];
     view5 = [updates view];
     widthAnchor = [view5 widthAnchor];
     view6 = [viewController view];
     widthAnchor2 = [view6 widthAnchor];
-    v29 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
-    v34[0] = v29;
+    v28 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
+    v33[0] = v28;
     view7 = [updates view];
     heightAnchor = [view7 heightAnchor];
     view8 = [viewController view];
     heightAnchor2 = [view8 heightAnchor];
-    v23 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
-    v34[1] = v23;
+    v22 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
+    v33[1] = v22;
     view9 = [updates view];
     leftAnchor = [view9 leftAnchor];
     view10 = [viewController view];
     leftAnchor2 = [view10 leftAnchor];
     v12 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-    v34[2] = v12;
+    v33[2] = v12;
     view11 = [updates view];
     topAnchor = [view11 topAnchor];
     view12 = [viewController view];
     topAnchor2 = [view12 topAnchor];
     v17 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v34[3] = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:4];
-    [v24 activateConstraints:v18];
+    v33[3] = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:4];
+    [v23 activateConstraints:v18];
 
     [viewController didMoveToParentViewController:updates];
     [viewController endAppearanceTransition];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithCollaborationSharingOptionsView:(void *)a3 userDidChangeOption:.cold.1(uint64_t a1, uint64_t a2, void *a3)

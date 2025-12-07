@@ -17,8 +17,8 @@
 - (BOOL)enableRealtimeRenderingModeWithIOUnit:(void *)unit isInput:(BOOL)input forceIOUnitReset:(BOOL)reset
 {
   resetCopy = reset;
-  v27 = *MEMORY[0x1E69E9840];
-  AVAudioNodeImplBase::GetAttachAndEngineLock(&v11, self->super._impl);
+  v26 = *MEMORY[0x1E69E9840];
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v10, self->super._impl);
   if (!unit)
   {
     if (AVAudioEngineLogCategory(void)::once != -1)
@@ -30,17 +30,17 @@
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v16 = "AVAEInternal.h";
-      v17 = 1024;
-      v18 = 71;
-      v19 = 2080;
-      v20 = "AVAudioIONode.mm";
-      v21 = 1024;
-      v22 = 110;
-      v23 = 2080;
-      v24 = "[AVAudioIONode enableRealtimeRenderingModeWithIOUnit:isInput:forceIOUnitReset:]";
-      v25 = 2080;
-      v26 = "ioUnit != nil";
+      v15 = "AVAEInternal.h";
+      v16 = 1024;
+      v17 = 71;
+      v18 = 2080;
+      v19 = "AVAudioIONode.mm";
+      v20 = 1024;
+      v21 = 110;
+      v22 = 2080;
+      v23 = "[AVAudioIONode enableRealtimeRenderingModeWithIOUnit:isInput:forceIOUnitReset:]";
+      v24 = 2080;
+      v25 = "ioUnit != nil";
       _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -49,10 +49,10 @@
 
   if ([(AVAudioIONode *)self isInManualRenderingMode]|| resetCopy)
   {
-    if (v12)
+    if (v11)
     {
-      std::recursive_mutex::unlock(v11);
-      v12 = 0;
+      std::recursive_mutex::unlock(v10);
+      v11 = 0;
       operator new();
     }
 
@@ -62,17 +62,16 @@
 
   else
   {
-    if (v14 == 1)
+    if (v13 == 1)
     {
-      std::recursive_mutex::unlock(v13);
+      std::recursive_mutex::unlock(v12);
     }
 
-    if (v12 == 1)
+    if (v11 == 1)
     {
-      std::recursive_mutex::unlock(v11);
+      std::recursive_mutex::unlock(v10);
     }
 
-    v9 = *MEMORY[0x1E69E9840];
     return 1;
   }
 
@@ -146,8 +145,8 @@ LABEL_10:
 - (BOOL)setVoiceProcessingEnabled:(BOOL)enabled error:(NSError *)outError
 {
   v5 = enabled;
-  v31 = *MEMORY[0x1E69E9840];
-  AVAudioNodeImplBase::GetAttachAndEngineLock(&v24, self->super._impl);
+  v30 = *MEMORY[0x1E69E9840];
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v23, self->super._impl);
   if ([(AVAudioIONode *)self isVoiceProcessingEnabled]== v5)
   {
     v10 = 1;
@@ -226,10 +225,10 @@ LABEL_10:
             v15 = *implementation;
             buf[0] = 136315650;
             *&buf[1] = "AVAudioEngine.mm";
-            v29 = 1024;
-            *v30 = 1602;
-            *&v30[4] = 2048;
-            *&v30[6] = v15;
+            v28 = 1024;
+            *v29 = 1602;
+            *&v29[4] = 2048;
+            *&v29[6] = v15;
             _os_log_impl(&dword_1BA5AC000, v14, OS_LOG_TYPE_ERROR, "%25s:%-5d Engine@%p: No input device available, cannot enable VoiceProcessing.", buf, 0x1Cu);
           }
 
@@ -256,17 +255,16 @@ LABEL_10:
     v10 = v9 == 0;
   }
 
-  if (v27 == 1)
+  if (v26 == 1)
   {
-    std::recursive_mutex::unlock(v26);
+    std::recursive_mutex::unlock(v25);
   }
 
-  if (v25 == 1)
+  if (v24 == 1)
   {
-    std::recursive_mutex::unlock(v24);
+    std::recursive_mutex::unlock(v23);
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

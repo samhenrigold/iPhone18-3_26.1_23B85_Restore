@@ -16,7 +16,7 @@
 
 - (void)removeResult:(id)result
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   if (resultCopy)
   {
@@ -24,30 +24,30 @@
     managedObjectContext = [(MADManagedPhotosAsset *)self managedObjectContext];
     [managedObjectContext deleteObject:resultCopy];
 
-    v7 = VCPSignPostPersistentLog();
-    v8 = VCPSignPostPersistentLog();
-    v9 = os_signpost_id_generate(v8);
+    v8 = VCPSignPostPersistentLog(v7);
+    v9 = VCPSignPostPersistentLog(v8);
+    v10 = os_signpost_id_generate(v9);
 
-    if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+    if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
     {
-      v10 = qos_class_self();
-      v11 = VCPMAQoSDescription(v10);
-      v12 = 134349826;
-      v13 = v5;
-      v14 = 2082;
-      v15 = "RemoveResult";
-      v16 = 2082;
-      uTF8String = [v11 UTF8String];
-      v18 = 2050;
-      v19 = 1;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v7, OS_SIGNPOST_EVENT, v9, "CoreDataPersistence", "%{public, signpost.description:begin_time}llu Type=%{public, signpost.telemetry:string1}s QoS=%{public, signpost.telemetry:string2}s Rows=%{public, signpost.telemetry:number1}lld  enableTelemetry=YES ", &v12, 0x2Au);
+      v11 = qos_class_self();
+      v12 = VCPMAQoSDescription(v11);
+      v13 = 134349826;
+      v14 = v5;
+      v15 = 2082;
+      v16 = "RemoveResult";
+      v17 = 2082;
+      uTF8String = [v12 UTF8String];
+      v19 = 2050;
+      v20 = 1;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v8, OS_SIGNPOST_EVENT, v10, "CoreDataPersistence", "%{public, signpost.description:begin_time}llu Type=%{public, signpost.telemetry:string1}s QoS=%{public, signpost.telemetry:string2}s Rows=%{public, signpost.telemetry:number1}lld  enableTelemetry=YES ", &v13, 0x2Au);
     }
   }
 
   else if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v12) = 0;
-    _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[MACD|Asset] Does not contain result", &v12, 2u);
+    LOWORD(v13) = 0;
+    _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[MACD|Asset] Does not contain result", &v13, 2u);
   }
 }
 

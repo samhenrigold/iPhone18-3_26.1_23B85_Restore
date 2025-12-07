@@ -48,7 +48,7 @@ void __53__WFContactRepresentedValueMigration_migrateWorkflow__block_invoke(uint
   v3 = [*(a1 + 32) actionIdentifierKey];
   v4 = [v11 objectForKey:v3];
 
-  if (([v4 isEqualToString:@"is.workflow.actions.phonenumber"] & 1) != 0 || objc_msgSend(v4, "isEqualToString:", @"is.workflow.actions.email"))
+  if ((objc_msgSend_isEqualToString_(v4) & 1) != 0 || objc_msgSend_isEqualToString_(v4))
   {
     v5 = [*(a1 + 32) actionParametersKey];
     v6 = [v11 objectForKey:v5];

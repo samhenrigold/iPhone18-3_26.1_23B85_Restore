@@ -833,7 +833,8 @@
     {
       LODWORD(v112[0]) = 1;
       *v103 = 0;
-      *(v112 + 4) = 0uLL;
+      *(v112 + 4) = 0;
+      *(&v112[1] + 4) = 0;
       v8 = 0;
       v111 = 0;
       v9 = 0;
@@ -1516,39 +1517,39 @@ LABEL_163:
 
 - (SWCollaborationMetadata)initWithCoder:(id)coder
 {
-  v61[2] = *MEMORY[0x1E69E9840];
+  v60[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v4 = objc_opt_class();
   v5 = NSStringFromSelector(sel_collaborationIdentifier);
-  v58 = [coderCopy decodeObjectOfClass:v4 forKey:v5];
+  v57 = [coderCopy decodeObjectOfClass:v4 forKey:v5];
 
   v6 = objc_opt_class();
   v7 = NSStringFromSelector(sel_localIdentifier);
-  v56 = [coderCopy decodeObjectOfClass:v6 forKey:v7];
+  v55 = [coderCopy decodeObjectOfClass:v6 forKey:v7];
 
   v8 = objc_opt_class();
   v9 = NSStringFromSelector(sel_title);
-  v54 = [coderCopy decodeObjectOfClass:v8 forKey:v9];
+  v53 = [coderCopy decodeObjectOfClass:v8 forKey:v9];
 
   v10 = MEMORY[0x1E695DFD8];
-  v61[0] = objc_opt_class();
-  v61[1] = objc_opt_class();
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:2];
-  v12 = [v10 setWithArray:v11];
-  v13 = NSStringFromSelector(sel_defaultShareOptions);
-  v57 = [coderCopy decodeObjectOfClasses:v12 forKey:v13];
-
-  v14 = MEMORY[0x1E695DFD8];
   v60[0] = objc_opt_class();
   v60[1] = objc_opt_class();
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:2];
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:2];
+  v12 = [v10 setWithArray:v11];
+  v13 = NSStringFromSelector(sel_defaultShareOptions);
+  v56 = [coderCopy decodeObjectOfClasses:v12 forKey:v13];
+
+  v14 = MEMORY[0x1E695DFD8];
+  v59[0] = objc_opt_class();
+  v59[1] = objc_opt_class();
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v59 count:2];
   v16 = [v14 setWithArray:v15];
   v17 = NSStringFromSelector(sel_userSelectedShareOptions);
-  v53 = [coderCopy decodeObjectOfClasses:v16 forKey:v17];
+  v52 = [coderCopy decodeObjectOfClasses:v16 forKey:v17];
 
   v18 = objc_opt_class();
   v19 = NSStringFromSelector(sel_creationDate);
-  v52 = [coderCopy decodeObjectOfClass:v18 forKey:v19];
+  v51 = [coderCopy decodeObjectOfClass:v18 forKey:v19];
 
   v20 = objc_opt_class();
   v21 = NSStringFromSelector(sel_contentType);
@@ -1566,21 +1567,21 @@ LABEL_163:
 
   v31 = objc_opt_class();
   v32 = NSStringFromSelector(sel_initiatorNameComponents);
-  v51 = [coderCopy decodeObjectOfClass:v31 forKey:v32];
+  v50 = [coderCopy decodeObjectOfClass:v31 forKey:v32];
 
   v33 = MEMORY[0x1E695DFA8];
-  v59[0] = objc_opt_class();
-  v59[1] = objc_opt_class();
-  v59[2] = objc_opt_class();
-  v59[3] = objc_opt_class();
-  v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:v59 count:4];
+  v58[0] = objc_opt_class();
+  v58[1] = objc_opt_class();
+  v58[2] = objc_opt_class();
+  v58[3] = objc_opt_class();
+  v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:4];
   v35 = [v33 setWithArray:v34];
   v36 = NSStringFromSelector(sel_handleToIdentityMap);
-  v50 = [coderCopy decodeObjectOfClasses:v35 forKey:v36];
+  v49 = [coderCopy decodeObjectOfClasses:v35 forKey:v36];
 
   v37 = objc_opt_class();
   v38 = NSStringFromSelector(sel_containerSetupInfo);
-  v49 = [coderCopy decodeObjectOfClass:v37 forKey:v38];
+  v48 = [coderCopy decodeObjectOfClass:v37 forKey:v38];
 
   v39 = objc_opt_class();
   v40 = NSStringFromSelector(sel_sourceProcessData);
@@ -1590,13 +1591,12 @@ LABEL_163:
   v43 = NSStringFromSelector(sel_type);
   v44 = [coderCopy decodeObjectOfClass:v42 forKey:v43];
 
-  optionsGroups = [v57 optionsGroups];
-  v46 = [(SWCollaborationMetadata *)self initWithLocalIdentifier:v56 collaborationIdentifier:v58 title:v54 defaultShareOptions:v57 defaultOptions:optionsGroups creationDate:v52 contentType:v22 initiatorHandle:v30 initiatorNameComponents:v51 ckAppBundleIDs:v27 handleToIdentityMap:v50 containerSetupInfo:v49 sourceProcessData:v41];
+  optionsGroups = [v56 optionsGroups];
+  v46 = [(SWCollaborationMetadata *)self initWithLocalIdentifier:v55 collaborationIdentifier:v57 title:v53 defaultShareOptions:v56 defaultOptions:optionsGroups creationDate:v51 contentType:v22 initiatorHandle:v30 initiatorNameComponents:v50 ckAppBundleIDs:v27 handleToIdentityMap:v49 containerSetupInfo:v48 sourceProcessData:v41];
 
-  [(SWCollaborationMetadata *)v46 setUserSelectedShareOptions:v53];
+  [(SWCollaborationMetadata *)v46 setUserSelectedShareOptions:v52];
   [(SWCollaborationMetadata *)v46 setType:v44];
 
-  v47 = *MEMORY[0x1E69E9840];
   return v46;
 }
 

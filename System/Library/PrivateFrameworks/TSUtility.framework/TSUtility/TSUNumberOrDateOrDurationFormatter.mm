@@ -68,9 +68,10 @@
         [value timeInterval];
         v13 = v12;
         v14 = TSUDurationFormatterDurationUnitsNecessaryToFullyDisplayDuration(2, 1, v12);
-        v15 = TSUDurationFormatterFormatFromDurationUnits(v14, 1, 0);
+        v15 = TSUDurationFormatterFormatFromDurationUnits(v14, 1u, 0);
+        v16.n128_f64[0] = v13;
 
-        return TSUDurationFormatterStringFromTimeIntervalWithFormat(v15, v13);
+        return TSUDurationFormatterStringFromTimeIntervalWithFormat(v15, v16);
       }
 
       else

@@ -112,7 +112,7 @@ LABEL_23:
 
 - (id)jsonDictionary
 {
-  v27[5] = *MEMORY[0x1E69E9840];
+  v26[5] = *MEMORY[0x1E69E9840];
   subject = [(BMTextUnderstandingPoem *)self subject];
   jsonDictionary = [subject jsonDictionary];
 
@@ -134,48 +134,48 @@ LABEL_23:
     v11 = [v10 numberWithDouble:?];
   }
 
-  v22 = @"subject";
+  v21 = @"subject";
   null = jsonDictionary;
   if (!jsonDictionary)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = null;
-  v27[0] = null;
-  v23 = @"predicate";
+  v19 = null;
+  v26[0] = null;
+  v22 = @"predicate";
   null2 = v5;
   if (!v5)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[1] = null2;
-  v24 = @"object";
+  v26[1] = null2;
+  v23 = @"object";
   null3 = jsonDictionary2;
   if (!jsonDictionary2)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[2] = null3;
-  v25 = @"conversationId";
+  v26[2] = null3;
+  v24 = @"conversationId";
   null4 = conversationId;
   if (!conversationId)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[3] = null4;
-  v26 = @"confidence";
+  v26[3] = null4;
+  v25 = @"confidence";
   null5 = v11;
   if (!v11)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[4] = null5;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v22 count:{5, v20}];
+  v26[4] = null5;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v21 count:{5, v19}];
   if (v11)
   {
     if (conversationId)
@@ -233,14 +233,13 @@ LABEL_19:
 LABEL_27:
 
 LABEL_20:
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
 
 - (BMTextUnderstandingPoem)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v59[1] = *MEMORY[0x1E69E9840];
+  v58[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"subject"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -253,9 +252,9 @@ LABEL_20:
   if (objc_opt_isKindOfClass())
   {
     v10 = v7;
-    v49 = 0;
-    v8 = [[BMTextUnderstandingPoemEntity alloc] initWithJSONDictionary:v10 error:&v49];
-    v11 = v49;
+    v48 = 0;
+    v8 = [[BMTextUnderstandingPoemEntity alloc] initWithJSONDictionary:v10 error:&v48];
+    v11 = v48;
     if (v11)
     {
       if (error)
@@ -294,14 +293,14 @@ LABEL_4:
           v34 = v8;
           v35 = objc_alloc(MEMORY[0x1E696ABC0]);
           v36 = *MEMORY[0x1E698F240];
-          v56 = *MEMORY[0x1E696A578];
+          v55 = *MEMORY[0x1E696A578];
           v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"predicate"];
-          v57 = v23;
-          v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+          v56 = v23;
+          v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
           v38 = v35;
           v8 = v34;
-          v45 = v37;
-          v46 = 0;
+          v44 = v37;
+          v45 = 0;
           v12 = 0;
           *error = [v38 initWithDomain:v36 code:2 userInfo:?];
           goto LABEL_52;
@@ -310,20 +309,20 @@ LABEL_4:
         v13 = [MEMORY[0x1E696AD98] numberWithInt:BMTextUnderstandingPoemPredicateTypeFromString(v9)];
       }
 
-      v46 = v13;
+      v45 = v13;
     }
 
     else
     {
-      v46 = 0;
+      v45 = 0;
     }
 
-    v44 = v9;
+    v43 = v9;
     v16 = [dictionaryCopy objectForKeyedSubscript:@"object"];
     errorCopy = error;
     if (!v16 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v45 = 0;
+      v44 = 0;
 LABEL_22:
       v18 = [dictionaryCopy objectForKeyedSubscript:@"conversationId"];
       v19 = v8;
@@ -336,17 +335,17 @@ LABEL_22:
           {
             v20 = 0;
             v12 = 0;
-            v9 = v44;
+            v9 = v43;
             goto LABEL_30;
           }
 
-          v42 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v41 = objc_alloc(MEMORY[0x1E696ABC0]);
           v30 = *MEMORY[0x1E698F240];
-          v52 = *MEMORY[0x1E696A578];
+          v51 = *MEMORY[0x1E696A578];
           v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"conversationId"];
-          v53 = v22;
-          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-          v31 = [v42 initWithDomain:v30 code:2 userInfo:v21];
+          v52 = v22;
+          v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+          v31 = [v41 initWithDomain:v30 code:2 userInfo:v21];
           v20 = 0;
           v12 = 0;
           *errorCopy = v31;
@@ -369,13 +368,13 @@ LABEL_22:
         {
           if (errorCopy)
           {
-            v43 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v41 = *MEMORY[0x1E698F240];
-            v50 = *MEMORY[0x1E696A578];
+            v42 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v40 = *MEMORY[0x1E698F240];
+            v49 = *MEMORY[0x1E696A578];
             v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"confidence"];
-            v51 = v32;
-            v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
-            *errorCopy = [v43 initWithDomain:v41 code:2 userInfo:v33];
+            v50 = v32;
+            v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+            *errorCopy = [v42 initWithDomain:v40 code:2 userInfo:v33];
           }
 
           v22 = 0;
@@ -391,10 +390,10 @@ LABEL_22:
         v22 = 0;
       }
 
-      v12 = -[BMTextUnderstandingPoem initWithSubject:predicate:object:conversationId:confidence:](selfCopy, "initWithSubject:predicate:object:conversationId:confidence:", v19, [v46 intValue], v45, v20, v22);
+      v12 = -[BMTextUnderstandingPoem initWithSubject:predicate:object:conversationId:confidence:](selfCopy, "initWithSubject:predicate:object:conversationId:confidence:", v19, [v45 intValue], v44, v20, v22);
       selfCopy = v12;
 LABEL_29:
-      v9 = v44;
+      v9 = v43;
 
 LABEL_30:
       v23 = v16;
@@ -405,7 +404,7 @@ LABEL_52:
       self = selfCopy;
 LABEL_53:
 
-      v10 = v46;
+      v10 = v45;
 LABEL_54:
 
       goto LABEL_55;
@@ -415,9 +414,9 @@ LABEL_54:
     if (objc_opt_isKindOfClass())
     {
       v23 = v16;
-      v48 = 0;
-      v45 = [[BMTextUnderstandingPoemEntity alloc] initWithJSONDictionary:v23 error:&v48];
-      v24 = v48;
+      v47 = 0;
+      v44 = [[BMTextUnderstandingPoemEntity alloc] initWithJSONDictionary:v23 error:&v47];
+      v24 = v47;
       if (!v24)
       {
 
@@ -438,17 +437,17 @@ LABEL_54:
       if (!error)
       {
         v12 = 0;
-        v9 = v44;
+        v9 = v43;
         goto LABEL_53;
       }
 
       v25 = objc_alloc(MEMORY[0x1E696ABC0]);
       v26 = v8;
       v27 = *MEMORY[0x1E698F240];
-      v54 = *MEMORY[0x1E696A578];
-      v45 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"object"];
-      v55 = v45;
-      v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+      v53 = *MEMORY[0x1E696A578];
+      v44 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"object"];
+      v54 = v44;
+      v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
       v29 = v27;
       v8 = v26;
       *error = [v25 initWithDomain:v29 code:2 userInfo:v28];
@@ -457,7 +456,7 @@ LABEL_54:
       v23 = v16;
     }
 
-    v9 = v44;
+    v9 = v43;
     goto LABEL_52;
   }
 
@@ -465,10 +464,10 @@ LABEL_54:
   {
     v14 = objc_alloc(MEMORY[0x1E696ABC0]);
     v15 = *MEMORY[0x1E698F240];
-    v58 = *MEMORY[0x1E696A578];
+    v57 = *MEMORY[0x1E696A578];
     v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"subject"];
-    v59[0] = v8;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:&v58 count:1];
+    v58[0] = v8;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:&v57 count:1];
     v12 = 0;
     *error = [v14 initWithDomain:v15 code:2 userInfo:v10];
 LABEL_55:
@@ -479,7 +478,6 @@ LABEL_55:
   v12 = 0;
 LABEL_56:
 
-  v39 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -502,7 +500,6 @@ LABEL_56:
     PBDataWriterRecallMark();
   }
 
-  predicate = self->_predicate;
   PBDataWriterWriteUint32Field();
   if (self->_object)
   {
@@ -518,7 +515,6 @@ LABEL_56:
 
   if (self->_hasConfidence)
   {
-    confidence = self->_confidence;
     PBDataWriterWriteDoubleField();
   }
 }
@@ -788,61 +784,57 @@ LABEL_55:
 
 + (id)protoFields
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"subject" number:1 type:14 subMessageClass:objc_opt_class()];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"predicate" number:2 type:4 subMessageClass:{0, v2}];
-  v10[1] = v3;
+  v9[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"object" number:3 type:14 subMessageClass:objc_opt_class()];
-  v10[2] = v4;
+  v9[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"conversationId" number:4 type:13 subMessageClass:0];
-  v10[3] = v5;
+  v9[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"confidence" number:5 type:0 subMessageClass:0];
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
 
 + (id)columns
 {
-  v10[5] = *MEMORY[0x1E69E9840];
+  v9[5] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"subject_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_233];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"predicate" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:4 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"object_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_235_23774];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"conversationId" dataType:2 requestOnly:0 fieldNumber:4 protoDataType:13 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"confidence" dataType:1 requestOnly:0 fieldNumber:5 protoDataType:0 convertedType:0];
-  v10[0] = v2;
-  v10[1] = v3;
-  v10[2] = v4;
-  v10[3] = v5;
-  v10[4] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = v2;
+  v9[1] = v3;
+  v9[2] = v4;
+  v9[3] = v5;
+  v9[4] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:5];
 
   return v7;
 }
 
-id __34__BMTextUnderstandingPoem_columns__block_invoke_2(uint64_t a1, void *a2)
+id __34__BMTextUnderstandingPoem_columns__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 object];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 object];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __34__BMTextUnderstandingPoem_columns__block_invoke(uint64_t a1, void *a2)
+id __34__BMTextUnderstandingPoem_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 subject];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 subject];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

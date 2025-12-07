@@ -23,7 +23,7 @@
 - (void)viewDidLoad
 {
   ObjectType = swift_getObjectType();
-  sub_10064AD94(&qword_1009908E8, v4, type metadata accessor for DynamicViewController);
+  sub_10064AD94(&qword_1009908E8, v4, type metadata accessor for DynamicViewController, &unk_1007DB7F0);
   selfCopy = self;
   DynamicViewControllerDisplaying.injectFieldsIntoMetricsOverlay()();
   v6.receiver = selfCopy;

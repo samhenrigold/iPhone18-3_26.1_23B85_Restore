@@ -36,7 +36,7 @@
       swift_once();
     }
 
-    sub_1D60336F0();
+    sub_1D60336F0(0, v8, v9, v10);
     sub_1D725D93C();
     swift_unknownObjectRelease();
   }

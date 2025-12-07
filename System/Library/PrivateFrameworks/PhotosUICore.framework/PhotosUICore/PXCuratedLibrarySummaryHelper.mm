@@ -163,19 +163,19 @@
   [(PXCuratedLibrarySummaryHelper *)self _performChanges:v12];
 }
 
-uint64_t __62__PXCuratedLibrarySummaryHelper_observable_didChange_context___block_invoke(uint64_t result)
+id *__62__PXCuratedLibrarySummaryHelper_observable_didChange_context___block_invoke(id *result)
 {
   v1 = result;
-  v2 = *(result + 40);
+  v2 = result[5];
   if (v2)
   {
-    result = [*(result + 32) _invalidatePrimaryTitleOutput];
-    v2 = *(v1 + 40);
+    result = [result[4] _invalidatePrimaryTitleOutput];
+    v2 = v1[5];
   }
 
   if ((v2 & 2) != 0)
   {
-    v3 = *(v1 + 32);
+    v3 = v1[4];
 
     return [v3 _invalidateSecondaryTitleOutput];
   }

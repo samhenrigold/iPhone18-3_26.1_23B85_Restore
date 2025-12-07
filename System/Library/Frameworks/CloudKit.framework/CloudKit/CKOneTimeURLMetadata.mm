@@ -182,7 +182,7 @@
 
 - (id)oneTimeFullToken
 {
-  v62[2] = *MEMORY[0x1E69E9840];
+  v61[2] = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_encryptedOneTimeFullToken(self, a2, v2);
   v7 = objc_msgSend_data(v4, v5, v6);
 
@@ -208,14 +208,14 @@
     self->_sharingKeySeed = v38;
 
 LABEL_3:
-    v61 = 0;
-    v60 = 32;
-    v41 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v40, &v60, 3);
+    v60 = 0;
+    v59 = 32;
+    v41 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v40, &v59, 3);
     v44 = objc_msgSend_CKBase64URLSafeString(v41, v42, v43);
 
-    v62[0] = v44;
-    v62[1] = v16;
-    v46 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v45, v62, 2);
+    v61[0] = v44;
+    v61[1] = v16;
+    v46 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v45, v61, 2);
     v48 = objc_msgSend_componentsJoinedByString_(v46, v47, &stru_1EFA32970);
 
     goto LABEL_8;
@@ -237,21 +237,20 @@ LABEL_3:
 
   v48 = 0;
 LABEL_8:
-  v58 = *MEMORY[0x1E69E9840];
 
   return v48;
 }
 
 - (id)oneTimeShortSharingTokenData
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_oneTimeFullToken(self, a2, v2);
   v6 = v4;
   if (v4)
   {
-    v16[0] = @"one-time-link-encryption-key";
-    v16[1] = v4;
-    v7 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v5, v16, 2);
+    v15[0] = @"one-time-link-encryption-key";
+    v15[1] = v4;
+    v7 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v5, v15, 2);
     v9 = objc_msgSend_componentsJoinedByString_(v7, v8, &stru_1EFA32970);
 
     v12 = objc_msgSend_sharingKeySeed(self, v10, v11);
@@ -262,8 +261,6 @@ LABEL_8:
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -278,7 +275,7 @@ LABEL_8:
 
 - (id)oneTimeShortTokenWithRoutingKey:(id)key
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v9 = objc_msgSend_oneTimeShortSharingToken(self, v5, v6);
   if (!v9)
@@ -303,9 +300,9 @@ LABEL_8:
 
   if (objc_msgSend_length(keyCopy, v7, v8) == 3)
   {
-    v21[0] = keyCopy;
-    v21[1] = v9;
-    v11 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v10, v21, 2);
+    v20[0] = keyCopy;
+    v20[1] = v9;
+    v11 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v10, v20, 2);
     v13 = objc_msgSend_componentsJoinedByString_(v11, v12, &stru_1EFA32970);
 
     goto LABEL_12;
@@ -320,7 +317,7 @@ LABEL_8:
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v23 = keyCopy;
+    v22 = keyCopy;
     v15 = "Routing key is invalid: %{public}@";
     v16 = v18;
     v17 = 12;
@@ -332,30 +329,26 @@ LABEL_11:
   v13 = 0;
 LABEL_12:
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (NSData)oneTimeShortSharingTokenHashData
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = objc_msgSend_oneTimeShortSharingToken(self, a2, v2);
   v6 = v3;
   if (v3)
   {
     v7 = objc_msgSend_UTF8String(v3, v4, v5, 0, 0, 0, 0);
     v9 = objc_msgSend_lengthOfBytesUsingEncoding_(v6, v8, 4);
-    CC_SHA256(v7, v9, &v14);
-    v11 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v10, &v14, 32);
+    CC_SHA256(v7, v9, &v13);
+    v11 = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v10, &v13, 32);
   }
 
   else
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

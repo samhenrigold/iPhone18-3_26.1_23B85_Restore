@@ -144,8 +144,8 @@
     [(CNStarkContactsListViewController *)self setView:contactListTableView3];
 
     dataSource = [(CNContactListViewController *)self dataSource];
-    contacts = [dataSource contacts];
-    v9 = [contacts count];
+    v8 = objc_msgSend_contacts(dataSource);
+    v9 = [v8 count];
 
     if (v9)
     {
@@ -193,8 +193,8 @@
   else
   {
     dataSource = [(CNContactListViewController *)self dataSource];
-    contacts = [dataSource contacts];
-    v11 = [contacts count] == 0;
+    v10 = objc_msgSend_contacts(dataSource);
+    v11 = [v10 count] == 0;
     listHeaderView = [(CNContactListViewController *)self listHeaderView];
     [listHeaderView setHidden:v11];
 
@@ -846,13 +846,13 @@ void __79__CNStarkContactsListViewController_sendSiriExperimentTriggerLoggingIfE
   return v4;
 }
 
-uint64_t __66__CNStarkContactsListViewController_initWithCollectionViewLayout___block_invoke()
+uint64_t __66__CNStarkContactsListViewController_initWithCollectionViewLayout___block_invoke(uint64_t a1)
 {
-  v0 = [objc_opt_class() makeContactsDisplayedProperties];
-  v1 = initWithCollectionViewLayout__cn_once_object_5;
-  initWithCollectionViewLayout__cn_once_object_5 = v0;
+  v1 = [objc_opt_class() makeContactsDisplayedProperties];
+  v2 = initWithCollectionViewLayout__cn_once_object_5;
+  initWithCollectionViewLayout__cn_once_object_5 = v1;
 
-  return MEMORY[0x1EEE66BB8](v0, v1);
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (CNStarkContactsListViewController)init
@@ -932,8 +932,8 @@ id __144__CNStarkContactsListViewController_collectionViewLayoutWithFloatingHead
 + (id)makeContactsDisplayedProperties
 {
   v13 = *MEMORY[0x1E69E9840];
-  sharedConfiguration = [(objc_class *)getGEOCountryConfigurationClass() sharedConfiguration];
-  currentCountrySupportsCarIntegration = [sharedConfiguration currentCountrySupportsCarIntegration];
+  v2 = [getGEOCountryConfigurationClass(self a2)];
+  currentCountrySupportsCarIntegration = [v2 currentCountrySupportsCarIntegration];
 
   if (currentCountrySupportsCarIntegration)
   {
@@ -953,7 +953,7 @@ id __144__CNStarkContactsListViewController_collectionViewLayoutWithFloatingHead
     v7 = 1;
   }
 
-  v8 = [v5 arrayWithObjects:v6 count:{v7, v10, v11, v12}];
+  v8 = [v5 arrayWithObjects:v6 count:{v7, v10, v11, v12, v13}];
 
   return v8;
 }

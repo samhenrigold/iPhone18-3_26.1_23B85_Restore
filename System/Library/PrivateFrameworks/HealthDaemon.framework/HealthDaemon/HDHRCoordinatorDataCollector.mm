@@ -17,11 +17,11 @@
 
 - (HDHRCoordinatorDataCollector)initWithProfile:(id)profile
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
-  v21.receiver = self;
-  v21.super_class = HDHRCoordinatorDataCollector;
-  v6 = [(HDHRCoordinatorDataCollector *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = HDHRCoordinatorDataCollector;
+  v6 = [(HDHRCoordinatorDataCollector *)&v20 init];
   if (v6)
   {
     if (!profileCopy)
@@ -38,7 +38,7 @@
       v9 = objc_opt_class();
       v10 = NSStringFromClass(v9);
       *buf = 138543362;
-      v23 = v10;
+      v22 = v10;
       _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Initializing", buf, 0xCu);
     }
 
@@ -60,7 +60,6 @@
     [workoutManager registerCurrentWorkoutObserver:v6];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -81,7 +80,7 @@
   }
 
   os_unfair_lock_lock(&self->_lock);
-  v3 = [(HKDataCollectorState *)self->_lock_collectorState copy];
+  v3 = objc_msgSend_copy(self->_lock_collectorState);
   os_unfair_lock_unlock(&self->_lock);
   queue = self->_queue;
   block[0] = MEMORY[0x277D85DD0];
@@ -107,10 +106,9 @@ uint64_t __55__HDHRCoordinatorDataCollector_registerWithAggregators__block_invok
   v7 = *(v6 + 32);
   *(v6 + 32) = v5;
 
-  v8 = *(a1 + 40);
-  v9 = *(*(a1 + 32) + 32);
+  v8 = *(*(a1 + 32) + 32);
 
-  return [v9 registerDataCollector:? state:?];
+  return [v8 registerDataCollector:? state:?];
 }
 
 - (void)unitTest_unregisterWithAggregators
@@ -138,7 +136,7 @@ void __66__HDHRCoordinatorDataCollector_unitTest_unregisterWithAggregators__bloc
 
 - (void)dataAggregator:(id)aggregator wantsCollectionWithConfiguration:(id)configuration
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   aggregatorCopy = aggregator;
   configurationCopy = configuration;
   _HKInitializeLogging();
@@ -147,13 +145,13 @@ void __66__HDHRCoordinatorDataCollector_unitTest_unregisterWithAggregators__bloc
   {
     *location = 138543618;
     *&location[4] = aggregatorCopy;
-    v16 = 2114;
-    v17 = configurationCopy;
+    v15 = 2114;
+    v16 = configurationCopy;
     _os_log_debug_impl(&dword_228986000, v8, OS_LOG_TYPE_DEBUG, "aggregator %{public}@ wants collection with configuration: %{public}@", location, 0x16u);
   }
 
   os_unfair_lock_lock(&self->_lock);
-  v9 = [configurationCopy copy];
+  v9 = objc_msgSend_copy(configurationCopy);
   lock_collectorConfiguration = self->_lock_collectorConfiguration;
   self->_lock_collectorConfiguration = v9;
 
@@ -164,12 +162,10 @@ void __66__HDHRCoordinatorDataCollector_unitTest_unregisterWithAggregators__bloc
   block[1] = 3221225472;
   block[2] = __80__HDHRCoordinatorDataCollector_dataAggregator_wantsCollectionWithConfiguration___block_invoke;
   block[3] = &unk_278616F38;
-  objc_copyWeak(&v14, location);
+  objc_copyWeak(&v13, location);
   dispatch_async(queue, block);
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(location);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __80__HDHRCoordinatorDataCollector_dataAggregator_wantsCollectionWithConfiguration___block_invoke(uint64_t a1)
@@ -180,7 +176,7 @@ void __80__HDHRCoordinatorDataCollector_dataAggregator_wantsCollectionWithConfig
 
 - (void)_queue_updateCollectionState
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   os_unfair_lock_lock(&self->_lock);
   lock_collectorConfiguration = self->_lock_collectorConfiguration;
@@ -201,12 +197,12 @@ void __80__HDHRCoordinatorDataCollector_dataAggregator_wantsCollectionWithConfig
       else if ([(HRCHeartRateRequestor *)self->_HRRequestor requestedStreamingMode])
       {
         _HKInitializeLogging();
-        v12 = *MEMORY[0x277CCC298];
+        v11 = *MEMORY[0x277CCC298];
         if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
         {
-          v14 = 138543362;
+          v12 = 138543362;
           selfCopy2 = self;
-          _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "%{public}@: Collection is passive, but heart rate is being streamed", &v14, 0xCu);
+          _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "%{public}@: Collection is passive, but heart rate is being streamed", &v12, 0xCu);
         }
 
         [(HDHRCoordinatorDataCollector *)self _queue_setStreamingMode:0];
@@ -216,19 +212,19 @@ void __80__HDHRCoordinatorDataCollector_dataAggregator_wantsCollectionWithConfig
     else
     {
       _HKInitializeLogging();
-      v8 = *MEMORY[0x277CCC298];
+      v7 = *MEMORY[0x277CCC298];
       if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_DEFAULT))
       {
-        v9 = v8;
+        v8 = v7;
+        v9 = HKDataCollectionTypeToString();
         v10 = HKDataCollectionTypeToString();
-        v11 = HKDataCollectionTypeToString();
-        v14 = 138543874;
+        v12 = 138543874;
         selfCopy2 = self;
+        v14 = 2114;
+        v15 = v9;
         v16 = 2114;
         v17 = v10;
-        v18 = 2114;
-        v19 = v11;
-        _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Heart rate collection transitioning from %{public}@ to %{public}@", &v14, 0x20u);
+        _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Heart rate collection transitioning from %{public}@ to %{public}@", &v12, 0x20u);
       }
 
       if (collectionType >= 2)
@@ -246,13 +242,10 @@ void __80__HDHRCoordinatorDataCollector_dataAggregator_wantsCollectionWithConfig
 
       [(HDDataAggregator *)self->_aggregator dataCollector:self didChangeState:v6];
     }
-
-    v13 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v7 = *MEMORY[0x277D85DE8];
 
     os_unfair_lock_unlock(&self->_lock);
   }
@@ -260,7 +253,7 @@ void __80__HDHRCoordinatorDataCollector_dataAggregator_wantsCollectionWithConfig
 
 - (void)_queue_setStreamingMode:(unint64_t)mode
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   if ([(HRCHeartRateRequestor *)self->_HRRequestor requestedStreamingMode]== mode)
   {
@@ -277,34 +270,32 @@ void __80__HDHRCoordinatorDataCollector_dataAggregator_wantsCollectionWithConfig
   else
   {
     HRRequestor = self->_HRRequestor;
-    v13 = 0;
-    v7 = [(HRCHeartRateRequestor *)HRRequestor requestStreamingMode:mode withError:&v13];
-    v8 = v13;
+    v12 = 0;
+    v7 = [(HRCHeartRateRequestor *)HRRequestor requestStreamingMode:mode withError:&v12];
+    v8 = v12;
     if ((v7 & 1) == 0)
     {
       _HKInitializeLogging();
       v9 = *MEMORY[0x277CCC298];
       if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_ERROR))
       {
-        v11 = v9;
-        v12 = _HRCStreamingModeToString(mode);
+        v10 = v9;
+        v11 = _HRCStreamingModeToString(mode);
         *buf = 138543874;
         selfCopy2 = self;
-        v16 = 2114;
-        v17 = v12;
-        v18 = 2114;
-        v19 = v8;
-        _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "%{public}@: Failed to set HR Streaming mode to %{public}@: %{public}@", buf, 0x20u);
+        v15 = 2114;
+        v16 = v11;
+        v17 = 2114;
+        v18 = v8;
+        _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "%{public}@: Failed to set HR Streaming mode to %{public}@: %{public}@", buf, 0x20u);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_setStreamingModeToActive
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   _queue_shouldStreamReducedRateHeartRateUpdates = [(HDHRCoordinatorDataCollector *)self _queue_shouldStreamReducedRateHeartRateUpdates];
   _HKInitializeLogging();
@@ -313,11 +304,11 @@ void __80__HDHRCoordinatorDataCollector_dataAggregator_wantsCollectionWithConfig
   {
     v5 = v4;
     v6 = HKStringFromBool();
-    v9 = 138543618;
+    v8 = 138543618;
     selfCopy = self;
-    v11 = 2114;
-    v12 = v6;
-    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_INFO, "%{public}@: Setting reduced heart rate updates: %{public}@", &v9, 0x16u);
+    v10 = 2114;
+    v11 = v6;
+    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_INFO, "%{public}@: Setting reduced heart rate updates: %{public}@", &v8, 0x16u);
   }
 
   if (_queue_shouldStreamReducedRateHeartRateUpdates)
@@ -331,7 +322,6 @@ void __80__HDHRCoordinatorDataCollector_dataAggregator_wantsCollectionWithConfig
   }
 
   [(HDHRCoordinatorDataCollector *)self _queue_setStreamingMode:v7];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_workoutManagerDidUpdateCurrentWorkout:(id)workout
@@ -375,25 +365,7 @@ void __71__HDHRCoordinatorDataCollector__workoutManagerDidUpdateCurrentWorkout__
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   isAppleWatch = [mEMORY[0x277CCDD30] isAppleWatch];
 
-  if (!isAppleWatch)
-  {
-    return 0;
-  }
-
-  WeakRetained = objc_loadWeakRetained(&self->_profile);
-  workoutManager = [WeakRetained workoutManager];
-  currentActivityRequiresExtendedMode = [workoutManager currentActivityRequiresExtendedMode];
-
-  if (!currentActivityRequiresExtendedMode)
-  {
-    return 0;
-  }
-
-  v8 = objc_loadWeakRetained(&self->_profile);
-  workoutManager2 = [v8 workoutManager];
-  isInHeartRateRecovery = [workoutManager2 isInHeartRateRecovery];
-
-  if ((isInHeartRateRecovery & 1) == 0)
+  if (isAppleWatch && (WeakRetained = objc_loadWeakRetained(&self->_profile), [WeakRetained workoutManager], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "currentActivityRequiresExtendedMode"), v6, WeakRetained, v7) && (v8 = objc_loadWeakRetained(&self->_profile), objc_msgSend(v8, "workoutManager"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "isInHeartRateRecovery"), v9, v8, (v10 & 1) == 0))
   {
     return ![(HDHRCoordinatorDataCollector *)self _queue_hasHeartRateClientsWithoutWorkouts];
   }
@@ -406,7 +378,7 @@ void __71__HDHRCoordinatorDataCollector__workoutManagerDidUpdateCurrentWorkout__
 
 - (BOOL)_queue_hasHeartRateClientsWithoutWorkouts
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   v3 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCCB90]];
   v4 = HDQueryServerSampleTypeObservationAssertionName(v3);
@@ -425,18 +397,17 @@ void __71__HDHRCoordinatorDataCollector__workoutManagerDidUpdateCurrentWorkout__
   v13 = *MEMORY[0x277CCC298];
   if (os_log_type_enabled(*MEMORY[0x277CCC298], OS_LOG_TYPE_DEBUG))
   {
-    v16 = v13;
-    v17 = HKStringFromBool();
-    v18 = 138543875;
-    v19 = v17;
-    v20 = 2113;
-    v21 = v7;
-    v22 = 2113;
-    v23 = v10;
-    _os_log_debug_impl(&dword_228986000, v16, OS_LOG_TYPE_DEBUG, "Workout power saving mode is active, full-fidelity streaming allowed: %{public}@, heart rate clients: %{private}@, workout clients: %{private}@", &v18, 0x20u);
+    v15 = v13;
+    v16 = HKStringFromBool();
+    v17 = 138543875;
+    v18 = v16;
+    v19 = 2113;
+    v20 = v7;
+    v21 = 2113;
+    v22 = v10;
+    _os_log_debug_impl(&dword_228986000, v15, OS_LOG_TYPE_DEBUG, "Workout power saving mode is active, full-fidelity streaming allowed: %{public}@, heart rate clients: %{private}@, workout clients: %{private}@", &v17, 0x20u);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12 != 0;
 }
 

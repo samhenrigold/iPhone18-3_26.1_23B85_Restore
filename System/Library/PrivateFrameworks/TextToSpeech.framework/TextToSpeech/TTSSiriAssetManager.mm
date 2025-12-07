@@ -1,9 +1,11 @@
 @interface TTSSiriAssetManager
++ (id)_assetFilterForLanguage:(id)language gender:(int64_t)gender footprint:(int64_t)footprint voiceName:(id)name voiceType:(int64_t)type locallyAvailable:(BOOL)available;
 + (id)_assetTechnologyForVoiceType:(int64_t)type;
 + (id)_assetTypesForVoiceType:(int64_t)type;
 + (id)_assetsForLanguage:(id)language voiceType:(int64_t)type installedOnly:(BOOL)only;
 + (id)_footprintForType:(int64_t)type;
 + (id)_siriAssetForLanguage:(id)language gender:(int64_t)gender footprint:(int64_t)footprint voiceName:(id)name voiceType:(int64_t)type;
++ (id)_siriAssetForLanguage:(id)language gender:(int64_t)gender footprint:(int64_t)footprint voiceName:(id)name voiceType:(int64_t)type locallyAvailable:(BOOL)available;
 + (id)assetForLanguage:(id)language gender:(int64_t)gender footprint:(int64_t)footprint voiceName:(id)name voiceType:(int64_t)type;
 + (id)convertTTSLanguageCodeToSiriLanguageCode:(id)code;
 + (id)deprecatedVoicesMap;
@@ -27,46 +29,45 @@
 + (id)convertTTSLanguageCodeToSiriLanguageCode:(id)code
 {
   codeCopy = code;
-  if (objc_msgSend_isEqualToString_(codeCopy, v4, @"ar-001", v5, v6))
+  if (([(__CFString *)codeCopy isEqualToString:@"ar-001"]& 1) != 0)
   {
-    v10 = @"ar-SA";
+    v4 = @"ar-SA";
   }
 
   else
   {
-    if (!objc_msgSend_isEqualToString_(codeCopy, v7, @"no-NO", v8, v9))
+    if (![(__CFString *)codeCopy isEqualToString:@"no-NO"])
     {
       goto LABEL_6;
     }
 
-    v10 = @"nb-NO";
+    v4 = @"nb-NO";
   }
 
-  codeCopy = v10;
+  codeCopy = v4;
 LABEL_6:
-  v13 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(codeCopy, v11, @"_", @"-", v12);
+  v5 = [(__CFString *)codeCopy stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
 
-  return v13;
+  return v5;
 }
 
 + (void)downloadVoiceResourceForLanguage:(id)language completion:(id)completion
 {
-  v39[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   languageCopy = language;
-  v7 = objc_opt_class();
-  v11 = objc_msgSend_convertTTSLanguageCodeToSiriLanguageCode_(v7, v8, languageCopy, v9, v10);
+  v7 = [objc_opt_class() convertTTSLanguageCodeToSiriLanguageCode:languageCopy];
 
-  v38 = &unk_1F1D0F798;
-  v39[0] = v11;
-  v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v12, v39, &v38, 1);
-  v14 = MEMORY[0x1E69D3328];
-  v19 = objc_msgSend_voiceResources(MEMORY[0x1E69D3348], v15, v16, v17, v18);
-  v37 = v19;
-  v22 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v20, &v37, 1, v21);
-  v25 = objc_msgSend_bestAssetOfTypes_matching_(v14, v23, v22, v13, v24);
+  v19 = &unk_1F1D0F798;
+  v20[0] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+  v9 = MEMORY[0x1E69D3328];
+  voiceResources = [MEMORY[0x1E69D3348] voiceResources];
+  v18 = voiceResources;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+  v12 = [v9 bestAssetOfTypes:v11 matching:v8];
 
-  if (objc_msgSend_locallyAvailable(v25, v26, v27, v28, v29))
+  if ([v12 locallyAvailable])
   {
     if (completionCopy)
     {
@@ -74,122 +75,112 @@ LABEL_6:
     }
   }
 
-  else if (v25)
+  else if (v12)
   {
-    v30 = AXTTSLogCommon();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+    v13 = AXTTSLogCommon();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v36 = v25;
-      _os_log_impl(&dword_1A9324000, v30, OS_LOG_TYPE_INFO, "Downloading voice resources asset %@", buf, 0xCu);
+      v17 = v12;
+      _os_log_impl(&dword_1A9324000, v13, OS_LOG_TYPE_INFO, "Downloading voice resources asset %@", buf, 0xCu);
     }
 
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = sub_1A9336678;
-    v33[3] = &unk_1E7880008;
-    v34 = completionCopy;
-    objc_msgSend_downloadWithReservation_useBattery_progress_then_(v25, v31, @"TextToSpeech.VoiceResources", 1, &unk_1F1CEDAC8, v33);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = sub_1A9336678;
+    v14[3] = &unk_1E7880008;
+    v15 = completionCopy;
+    [v12 downloadWithReservation:@"TextToSpeech.VoiceResources" useBattery:1 progress:&unk_1F1CEDAC8 then:v14];
   }
 
   else if (completionCopy)
   {
     completionCopy[2](completionCopy, 0);
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 + (id)installedVoiceResourceForLanguage:(id)language
 {
-  v27[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   languageCopy = language;
-  v4 = objc_opt_class();
-  v8 = objc_msgSend_convertTTSLanguageCodeToSiriLanguageCode_(v4, v5, languageCopy, v6, v7);
+  v4 = [objc_opt_class() convertTTSLanguageCodeToSiriLanguageCode:languageCopy];
 
-  v26[0] = &unk_1F1D0F7B0;
-  v26[1] = &unk_1F1D0F798;
-  v27[0] = MEMORY[0x1E695E118];
-  v27[1] = v8;
-  v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v9, v27, v26, 2);
-  v11 = MEMORY[0x1E69D3328];
-  v16 = objc_msgSend_voiceResources(MEMORY[0x1E69D3348], v12, v13, v14, v15);
-  v25 = v16;
-  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v17, &v25, 1, v18);
-  v22 = objc_msgSend_bestAssetOfTypes_matching_(v11, v20, v19, v10, v21);
+  v12[0] = &unk_1F1D0F7B0;
+  v12[1] = &unk_1F1D0F798;
+  v13[0] = MEMORY[0x1E695E118];
+  v13[1] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v6 = MEMORY[0x1E69D3328];
+  voiceResources = [MEMORY[0x1E69D3348] voiceResources];
+  v11 = voiceResources;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1];
+  v9 = [v6 bestAssetOfTypes:v8 matching:v5];
 
-  v23 = *MEMORY[0x1E69E9840];
-
-  return v22;
+  return v9;
 }
 
 + (id)voiceResourceForLanguage:(id)language voiceType:(int64_t)type
 {
-  v102[2] = *MEMORY[0x1E69E9840];
+  v26[2] = *MEMORY[0x1E69E9840];
   languageCopy = language;
-  v7 = objc_opt_class();
-  v11 = objc_msgSend_convertTTSLanguageCodeToSiriLanguageCode_(v7, v8, languageCopy, v9, v10);
+  v7 = [objc_opt_class() convertTTSLanguageCodeToSiriLanguageCode:languageCopy];
 
-  v101[0] = &unk_1F1D0F7B0;
-  v101[1] = &unk_1F1D0F798;
-  v102[0] = MEMORY[0x1E695E118];
-  v102[1] = v11;
-  v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v12, v102, v101, 2);
-  v14 = MEMORY[0x1E69D3328];
-  v19 = objc_msgSend_voiceResources(MEMORY[0x1E69D3348], v15, v16, v17, v18);
-  v100 = v19;
-  v22 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v20, &v100, 1, v21);
-  v25 = objc_msgSend_bestAssetOfTypes_matching_(v14, v23, v22, v13, v24);
+  v25[0] = &unk_1F1D0F7B0;
+  v25[1] = &unk_1F1D0F798;
+  v26[0] = MEMORY[0x1E695E118];
+  v26[1] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2];
+  v9 = MEMORY[0x1E69D3328];
+  voiceResources = [MEMORY[0x1E69D3348] voiceResources];
+  v24 = voiceResources;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
+  v12 = [v9 bestAssetOfTypes:v11 matching:v8];
 
-  v26 = AXTTSLogCommon();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+  v13 = AXTTSLogCommon();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     sub_1A9577C8C();
   }
 
-  if (v25)
+  if (v12)
   {
-    v31 = objc_msgSend_assetSource(v25, v27, v28, v29, v30);
-    v36 = objc_msgSend_mobileAsset(MEMORY[0x1E69D3338], v32, v33, v34, v35);
+    assetSource = [v12 assetSource];
+    mobileAsset = [MEMORY[0x1E69D3338] mobileAsset];
 
-    if (v31 == v36)
+    if (assetSource == mobileAsset)
     {
-      objc_msgSend_downloadVoiceResourceForLanguage_completion_(self, v37, v11, 0, v38);
+      [self downloadVoiceResourceForLanguage:v7 completion:0];
     }
 
-    v39 = objc_alloc_init(TTSVoiceResourceAsset);
-    objc_msgSend_setBundleIdentifier_(v39, v40, @"com.apple.MobileAsset.VoiceServices.VoiceResources", v41, v42);
-    v43 = MEMORY[0x1E696AD98];
-    v48 = objc_msgSend_versionNumber(v25, v44, v45, v46, v47);
-    v52 = objc_msgSend_numberWithInteger_(v43, v49, v48, v50, v51);
-    v57 = objc_msgSend_stringValue(v52, v53, v54, v55, v56);
-    objc_msgSend_setMasteredVersion_(v39, v58, v57, v59, v60);
+    v16 = objc_alloc_init(TTSVoiceResourceAsset);
+    [(TTSAssetBase *)v16 setBundleIdentifier:@"com.apple.MobileAsset.VoiceServices.VoiceResources"];
+    v17 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v12, "versionNumber")}];
+    stringValue = [v17 stringValue];
+    [(TTSAssetBase *)v16 setMasteredVersion:stringValue];
 
-    objc_msgSend_setCompatibilityVersion_(v39, v61, &unk_1F1D0F7C8, v62, v63);
-    objc_msgSend_setContentVersion_(v39, v64, &unk_1F1D0F7C8, v65, v66);
-    v71 = objc_msgSend_supportedLanguages(v25, v67, v68, v69, v70);
-    objc_msgSend_setLanguages_(v39, v72, v71, v73, v74);
+    [(TTSAssetBase *)v16 setCompatibilityVersion:&unk_1F1D0F7C8];
+    [(TTSAssetBase *)v16 setContentVersion:&unk_1F1D0F7C8];
+    supportedLanguages = [v12 supportedLanguages];
+    [(TTSVoiceResourceAsset *)v16 setLanguages:supportedLanguages];
 
-    if (objc_msgSend_locallyAvailable(v25, v75, v76, v77, v78))
+    if ([v12 locallyAvailable])
     {
-      v83 = objc_msgSend_bundle(v25, v79, v80, v81, v82);
-      v88 = objc_msgSend_bundleURL(v83, v84, v85, v86, v87);
+      bundle = [v12 bundle];
+      bundleURL = [bundle bundleURL];
 
-      objc_msgSend_setSearchPathURL_(v39, v89, v88, v90, v91);
-      v95 = objc_msgSend_URLByAppendingPathComponent_(v88, v92, @"voice_configs.plist", v93, v94);
-      objc_msgSend_syncWithConfigFile_voiceType_(v39, v96, v95, type, v97);
+      [(TTSVoiceResourceAsset *)v16 setSearchPathURL:bundleURL];
+      v22 = [bundleURL URLByAppendingPathComponent:@"voice_configs.plist"];
+      [(TTSVoiceResourceAsset *)v16 syncWithConfigFile:v22 voiceType:type];
     }
   }
 
   else
   {
-    objc_msgSend_downloadVoiceResourceForLanguage_completion_(self, v27, v11, 0, v30);
-    v39 = 0;
+    [self downloadVoiceResourceForLanguage:v7 completion:0];
+    v16 = 0;
   }
 
-  v98 = *MEMORY[0x1E69E9840];
-
-  return v39;
+  return v16;
 }
 
 + (id)_footprintForType:(int64_t)type
@@ -198,68 +189,73 @@ LABEL_6:
   {
     if (type == 4)
     {
-      v5 = objc_msgSend_premium(MEMORY[0x1E69D3330], a2, 4, v3, v4);
+      premium = [MEMORY[0x1E69D3330] premium];
     }
 
     else if (type == 5)
     {
-      v5 = objc_msgSend_premiumhigh(MEMORY[0x1E69D3330], a2, 5, v3, v4);
+      premium = [MEMORY[0x1E69D3330] premiumhigh];
     }
 
     else
     {
-      v5 = 0;
+      premium = 0;
     }
   }
 
   else
   {
-    v5 = objc_msgSend_compact(MEMORY[0x1E69D3330], a2, type, v3, v4);
+    premium = [MEMORY[0x1E69D3330] compact];
   }
 
-  return v5;
+  return premium;
 }
 
 + (id)_assetTypesForVoiceType:(int64_t)type
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (type <= 3)
   {
     if (type == 1)
     {
-      v6 = objc_msgSend_vocalizerVoice(MEMORY[0x1E69D3348], a2, 1, v3, v4);
-      objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v11, &v21, 1, v12, v19, v20, v6, v22);
+      vocalizerVoice = [MEMORY[0x1E69D3348] vocalizerVoice];
+      v11 = vocalizerVoice;
+      v5 = MEMORY[0x1E695DEC8];
+      v6 = &v11;
       goto LABEL_9;
     }
 
     if (type == 2)
     {
-      v6 = objc_msgSend_customVoice(MEMORY[0x1E69D3348], a2, 2, v3, v4);
-      objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v9, &v20, 1, v10, v19, v6, v21, v22);
+      vocalizerVoice = [MEMORY[0x1E69D3348] customVoice];
+      v10 = vocalizerVoice;
+      v5 = MEMORY[0x1E695DEC8];
+      v6 = &v10;
       goto LABEL_9;
     }
   }
 
   else if ((type - 4) < 2 || type == 7)
   {
-    v6 = objc_msgSend_gryphonVoice(MEMORY[0x1E69D3348], a2, type, v3, v4);
-    objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v7, &v19, 1, v8, v6, v20, v21, v22);
-    v13 = LABEL_9:;
+    vocalizerVoice = [MEMORY[0x1E69D3348] gryphonVoice];
+    v9 = vocalizerVoice;
+    v5 = MEMORY[0x1E695DEC8];
+    v6 = &v9;
+LABEL_9:
+    v7 = [v5 arrayWithObjects:v6 count:{1, v9, v10, v11, v12}];
     goto LABEL_10;
   }
 
-  v6 = AXTTSLogCommon();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  vocalizerVoice = AXTTSLogCommon();
+  if (os_log_type_enabled(vocalizerVoice, OS_LOG_TYPE_ERROR))
   {
-    sub_1A9577D10(type, v6, v16, v17, v18);
+    sub_1A9577D10(type);
   }
 
-  v13 = 0;
+  v7 = 0;
 LABEL_10:
 
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v7;
 }
 
 + (id)ttsAssetFromVoiceAsset:(id)asset
@@ -267,188 +263,187 @@ LABEL_10:
   if (asset)
   {
     assetCopy = asset;
-    v9 = objc_msgSend_languages(assetCopy, v5, v6, v7, v8);
-    v14 = objc_msgSend_firstObject(v9, v10, v11, v12, v13);
-    v19 = objc_msgSend_gender(assetCopy, v15, v16, v17, v18);
-    v24 = objc_msgSend_footprint(assetCopy, v20, v21, v22, v23);
-    v29 = objc_msgSend_name(assetCopy, v25, v26, v27, v28);
-    v34 = objc_msgSend_voiceType(assetCopy, v30, v31, v32, v33);
-    isInstalled = objc_msgSend_isInstalled(assetCopy, v35, v36, v37, v38);
+    languages = [assetCopy languages];
+    firstObject = [languages firstObject];
+    gender = [assetCopy gender];
+    footprint = [assetCopy footprint];
+    name = [assetCopy name];
+    voiceType = [assetCopy voiceType];
+    isInstalled = [assetCopy isInstalled];
 
-    v41 = objc_msgSend__siriAssetForLanguage_gender_footprint_voiceName_voiceType_locallyAvailable_(self, v40, v14, v19, v24, v29, v34, isInstalled);
+    v12 = [self _siriAssetForLanguage:firstObject gender:gender footprint:footprint voiceName:name voiceType:voiceType locallyAvailable:isInstalled];
   }
 
   else
   {
-    v41 = 0;
+    v12 = 0;
   }
 
-  return v41;
+  return v12;
 }
 
 + (int64_t)_footprintForQuality:(id)quality
 {
   v3 = MEMORY[0x1E69D3330];
   qualityCopy = quality;
-  v9 = objc_msgSend_compact(v3, v5, v6, v7, v8);
-  isEqual = objc_msgSend_isEqual_(qualityCopy, v10, v9, v11, v12);
+  compact = [v3 compact];
+  v6 = [qualityCopy isEqual:compact];
 
-  if (isEqual)
+  if (v6)
   {
-    v14 = 3;
+    v7 = 3;
   }
 
   else
   {
-    v14 = 4;
+    v7 = 4;
   }
 
-  return v14;
+  return v7;
 }
 
 + (id)voiceAssetFromTTSAsset:(id)asset
 {
   assetCopy = asset;
-  v9 = assetCopy;
+  v5 = assetCopy;
   if (!assetCopy)
   {
-    isBuiltIn_masteredVersion_compatibilityVersion_neural = 0;
+    v11 = 0;
     goto LABEL_19;
   }
 
-  v10 = objc_msgSend_name(assetCopy, v5, v6, v7, v8);
-  v15 = objc_msgSend_name(v9, v11, v12, v13, v14);
-  if (!objc_msgSend_length(v15, v16, v17, v18, v19))
+  name = [assetCopy name];
+  name2 = [v5 name];
+  if (![name2 length])
   {
 
     goto LABEL_8;
   }
 
-  v24 = objc_msgSend_supportedLanguages(v9, v20, v21, v22, v23);
-  v29 = objc_msgSend_count(v24, v25, v26, v27, v28);
+  supportedLanguages = [v5 supportedLanguages];
+  v9 = [supportedLanguages count];
 
-  if (!v29)
+  if (!v9)
   {
 LABEL_8:
-    v40 = AXTTSLogCommon();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
+    v12 = AXTTSLogCommon();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       sub_1A9577DA0();
     }
 
-    isBuiltIn_masteredVersion_compatibilityVersion_neural = 0;
+    v11 = 0;
     goto LABEL_18;
   }
 
-  if (objc_msgSend_purgeable(v9, v30, v31, v32, v33))
+  if ([v5 purgeable])
   {
-    v38 = 0;
+    locallyAvailable = 0;
   }
 
   else
   {
-    v38 = objc_msgSend_locallyAvailable(v9, v34, v35, v36, v37);
+    locallyAvailable = [v5 locallyAvailable];
   }
 
-  v41 = objc_msgSend_technology(v9, v34, v35, v36, v37);
-  v46 = objc_msgSend_custom(MEMORY[0x1E69D3340], v42, v43, v44, v45);
-  v163 = v10;
-  if (objc_msgSend_isEqual_(v41, v47, v46, v48, v49))
+  technology = [v5 technology];
+  custom = [MEMORY[0x1E69D3340] custom];
+  v39 = name;
+  if ([technology isEqual:custom])
   {
-    v54 = objc_msgSend_quality(v9, v50, v51, v52, v53);
-    v59 = objc_msgSend_compact(MEMORY[0x1E69D3330], v55, v56, v57, v58);
-    isEqual = objc_msgSend_isEqual_(v54, v60, v59, v61, v62);
+    quality = [v5 quality];
+    compact = [MEMORY[0x1E69D3330] compact];
+    v17 = [quality isEqual:compact];
 
-    v38 |= isEqual;
+    locallyAvailable |= v17;
   }
 
-  v162 = v38;
+  v38 = locallyAvailable;
 
-  v160 = [TTSVoiceAsset alloc];
-  v68 = objc_msgSend_supportedLanguages(v9, v64, v65, v66, v67);
-  v73 = objc_msgSend_gender(v9, v69, v70, v71, v72);
-  if (v73 == 2)
+  v36 = [TTSVoiceAsset alloc];
+  supportedLanguages2 = [v5 supportedLanguages];
+  gender = [v5 gender];
+  if (gender == 2)
   {
-    v78 = 2;
+    v20 = 2;
   }
 
   else
   {
-    v78 = v73 == 1;
+    v20 = gender == 1;
   }
 
-  v79 = objc_msgSend_quality(v9, v74, v75, v76, v77);
+  quality2 = [v5 quality];
   selfCopy = self;
-  v83 = objc_msgSend__footprintForQuality_(self, v80, v79, v81, v82);
-  v88 = objc_msgSend_locallyAvailable(v9, v84, v85, v86, v87);
-  v93 = objc_msgSend_technology(v9, v89, v90, v91, v92);
-  v98 = objc_msgSend_string(v93, v94, v95, v96, v97);
-  v103 = objc_msgSend_neural(MEMORY[0x1E69D3340], v99, v100, v101, v102);
-  v108 = objc_msgSend_string(v103, v104, v105, v106, v107);
-  isEqualToString = objc_msgSend_isEqualToString_(v98, v109, v108, v110, v111);
-  isBuiltIn_masteredVersion_compatibilityVersion_neural = objc_msgSend_initWithName_languages_gender_footprint_isInstalled_isBuiltIn_masteredVersion_compatibilityVersion_neural_(v160, v112, v163, v68, v78, v83, v88, v162 & 1, @"1", @"1", isEqualToString);
+  v22 = [self _footprintForQuality:quality2];
+  locallyAvailable2 = [v5 locallyAvailable];
+  technology2 = [v5 technology];
+  string = [technology2 string];
+  neural = [MEMORY[0x1E69D3340] neural];
+  string2 = [neural string];
+  LOBYTE(v35) = [string isEqualToString:string2];
+  v11 = [(TTSVoiceAsset *)v36 initWithName:v39 languages:supportedLanguages2 gender:v20 footprint:v22 isInstalled:locallyAvailable2 isBuiltIn:v38 & 1 masteredVersion:@"1" compatibilityVersion:@"1" neural:v35];
 
-  v117 = objc_msgSend_technology(v9, v113, v114, v115, v116);
-  v121 = objc_msgSend__voiceTypeForAssetTechnology_(selfCopy, v118, v117, v119, v120);
+  technology3 = [v5 technology];
+  v29 = [selfCopy _voiceTypeForAssetTechnology:technology3];
 
-  v126 = objc_msgSend_bundle(v9, v122, v123, v124, v125);
-  v131 = objc_msgSend_bundlePath(v126, v127, v128, v129, v130);
-  objc_msgSend_setVoicePath_(isBuiltIn_masteredVersion_compatibilityVersion_neural, v132, v131, v133, v134);
+  bundle = [v5 bundle];
+  bundlePath = [bundle bundlePath];
+  [(TTSVoiceAsset *)v11 setVoicePath:bundlePath];
 
-  objc_msgSend_setVoiceType_(isBuiltIn_masteredVersion_compatibilityVersion_neural, v135, v121, v136, v137);
-  v141 = objc_msgSend_voiceIdentifierForAsset_(selfCopy, v138, v9, v139, v140);
-  objc_msgSend_setIdentifier_(isBuiltIn_masteredVersion_compatibilityVersion_neural, v142, v141, v143, v144);
+  [(TTSVoiceAsset *)v11 setVoiceType:v29];
+  v32 = [selfCopy voiceIdentifierForAsset:v5];
+  [(TTSVoiceAsset *)v11 setIdentifier:v32];
 
-  v149 = objc_msgSend_diskSize(v9, v145, v146, v147, v148);
-  v154 = objc_msgSend_unsignedIntValue(v149, v150, v151, v152, v153);
-  objc_msgSend_setFileSize_(isBuiltIn_masteredVersion_compatibilityVersion_neural, v155, v154, v156, v157);
+  diskSize = [v5 diskSize];
+  -[TTSVoiceAsset setFileSize:](v11, "setFileSize:", [diskSize unsignedIntValue]);
 
-  v10 = v163;
+  name = v39;
 LABEL_18:
 
 LABEL_19:
 
-  return isBuiltIn_masteredVersion_compatibilityVersion_neural;
+  return v11;
 }
 
 + (id)voiceIdentifierForType:(int64_t)type footprint:(int64_t)footprint language:(id)language name:(id)name
 {
   languageCopy = language;
-  v14 = objc_msgSend_lowercaseString(name, v10, v11, v12, v13);
-  v17 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(v14, v15, @"-", &stru_1F1CFF8D8, v16);
+  lowercaseString = [name lowercaseString];
+  v11 = [lowercaseString stringByReplacingOccurrencesOfString:@"-" withString:&stru_1F1CFF8D8];
 
-  v21 = 0;
+  v12 = 0;
   if (type > 3)
   {
     switch(type)
     {
       case 4:
-        v22 = MEMORY[0x1E696AEC0];
-        v23 = kTTSGryphonVoiceIdentifierPrefix;
+        v13 = MEMORY[0x1E696AEC0];
+        v14 = kTTSGryphonVoiceIdentifierPrefix;
         break;
       case 5:
-        v22 = MEMORY[0x1E696AEC0];
-        v23 = kTTSNeuralVoiceIdentifierPrefix;
+        v13 = MEMORY[0x1E696AEC0];
+        v14 = kTTSNeuralVoiceIdentifierPrefix;
         break;
       case 7:
-        v22 = MEMORY[0x1E696AEC0];
+        v13 = MEMORY[0x1E696AEC0];
         if (footprint == 3)
         {
-          v21 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v18, @"%@.%@", v19, v20, @"com.apple.voice", v17);
+          v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", @"com.apple.voice", v11];
           goto LABEL_16;
         }
 
-        v23 = kTTSNeuralAXVoiceIdentifierPrefix;
+        v14 = kTTSNeuralAXVoiceIdentifierPrefix;
         break;
       default:
         goto LABEL_16;
     }
 
 LABEL_14:
-    v34 = *v23;
-    v25 = TTSStringForSpeechFootprint(footprint);
-    v30 = objc_msgSend_lowercaseString(v25, v35, v36, v37, v38);
-    objc_msgSend_stringWithFormat_(v22, v39, @"%@_%@_%@_%@", v40, v41, v34, v17, languageCopy, v30);
+    v18 = *v14;
+    v16 = TTSStringForSpeechFootprint(footprint);
+    lowercaseString2 = [v16 lowercaseString];
+    [v13 stringWithFormat:@"%@_%@_%@_%@", v18, v11, languageCopy, lowercaseString2];
     goto LABEL_15;
   }
 
@@ -459,53 +454,53 @@ LABEL_14:
       goto LABEL_16;
     }
 
-    v22 = MEMORY[0x1E696AEC0];
-    v23 = kTTSSiriVoiceIdentifierPrefix;
+    v13 = MEMORY[0x1E696AEC0];
+    v14 = kTTSSiriVoiceIdentifierPrefix;
     goto LABEL_14;
   }
 
-  v24 = MEMORY[0x1E696AEC0];
-  v25 = TTSStringForSpeechFootprint(footprint);
-  v30 = objc_msgSend_lowercaseString(v25, v26, v27, v28, v29);
-  objc_msgSend_stringWithFormat_(v24, v31, @"%@.%@-%@", v32, v33, @"com.apple.ttsbundle", v17, v30);
-  v21 = LABEL_15:;
+  v15 = MEMORY[0x1E696AEC0];
+  v16 = TTSStringForSpeechFootprint(footprint);
+  lowercaseString2 = [v16 lowercaseString];
+  [v15 stringWithFormat:@"%@.%@-%@", @"com.apple.ttsbundle", v11, lowercaseString2, v20];
+  v12 = LABEL_15:;
 
 LABEL_16:
 
-  return v21;
+  return v12;
 }
 
 + (id)voiceIdentifierForAsset:(id)asset
 {
   assetCopy = asset;
-  v9 = objc_msgSend_technology(assetCopy, v5, v6, v7, v8);
-  v13 = objc_msgSend__voiceTypeForAssetTechnology_(self, v10, v9, v11, v12);
+  technology = [assetCopy technology];
+  v6 = [self _voiceTypeForAssetTechnology:technology];
 
-  v18 = objc_msgSend_quality(assetCopy, v14, v15, v16, v17);
-  v22 = objc_msgSend__footprintForQuality_(self, v19, v18, v20, v21);
+  quality = [assetCopy quality];
+  v8 = [self _footprintForQuality:quality];
 
-  v31 = objc_msgSend_primaryLanguage(assetCopy, v23, v24, v25, v26);
-  if (v31)
+  primaryLanguage = [assetCopy primaryLanguage];
+  if (primaryLanguage)
   {
-    v32 = objc_msgSend_primaryLanguage(assetCopy, v27, v28, v29, v30);
+    primaryLanguage2 = [assetCopy primaryLanguage];
   }
 
   else
   {
-    v33 = objc_msgSend_supportedLanguages(assetCopy, v27, v28, v29, v30);
-    v32 = objc_msgSend_firstObject(v33, v34, v35, v36, v37);
+    supportedLanguages = [assetCopy supportedLanguages];
+    primaryLanguage2 = [supportedLanguages firstObject];
   }
 
-  v42 = objc_msgSend_name(assetCopy, v38, v39, v40, v41);
-  v44 = objc_msgSend_voiceIdentifierForType_footprint_language_name_(self, v43, v13, v22, v32, v42);
+  name = [assetCopy name];
+  v13 = [self voiceIdentifierForType:v6 footprint:v8 language:primaryLanguage2 name:name];
 
-  return v44;
+  return v13;
 }
 
 + (void)purgeAsset:(id)asset
 {
-  v8 = objc_msgSend_ttsAssetFromVoiceAsset_(self, a2, asset, v3, v4);
-  objc_msgSend_purgeImmediately_(v8, v5, 1, v6, v7);
+  v3 = [self ttsAssetFromVoiceAsset:asset];
+  [v3 purgeImmediately:1];
 }
 
 + (void)stopDownload:(id)download
@@ -514,13 +509,13 @@ LABEL_16:
   v5 = AXTTSLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    *v13 = 0;
-    _os_log_impl(&dword_1A9324000, v5, OS_LOG_TYPE_DEFAULT, "Reqeuesting cancel asset download", v13, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1A9324000, v5, OS_LOG_TYPE_DEFAULT, "Reqeuesting cancel asset download", v7, 2u);
   }
 
-  v9 = objc_msgSend_ttsAssetFromVoiceAsset_(self, v6, downloadCopy, v7, v8);
+  v6 = [self ttsAssetFromVoiceAsset:downloadCopy];
 
-  objc_msgSend_cancelDownloadingThen_(v9, v10, &unk_1F1CEF598, v11, v12);
+  [v6 cancelDownloadingThen:&unk_1F1CEF598];
 }
 
 + (id)deprecatedVoicesMap
@@ -538,82 +533,82 @@ LABEL_16:
 + (void)downloadAsset:(id)asset progressHandler:(id)handler
 {
   handlerCopy = handler;
-  v10 = objc_msgSend_ttsAssetFromVoiceAsset_(self, v7, asset, v8, v9);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = sub_1A9337748;
-  v15[3] = &unk_1E7880050;
-  v16 = handlerCopy;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = sub_1A933776C;
-  v13[3] = &unk_1E7880008;
-  v14 = v16;
-  v11 = v16;
-  objc_msgSend_downloadWithReservation_useBattery_progress_then_(v10, v12, @"Accessibility", 1, v15, v13);
+  v7 = [self ttsAssetFromVoiceAsset:asset];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = sub_1A9337748;
+  v11[3] = &unk_1E7880050;
+  v12 = handlerCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = sub_1A933776C;
+  v9[3] = &unk_1E7880008;
+  v10 = v12;
+  v8 = v12;
+  [v7 downloadWithReservation:@"Accessibility" useBattery:1 progress:v11 then:v9];
 }
 
 + (int64_t)_voiceTypeForAssetTechnology:(id)technology
 {
   technologyCopy = technology;
-  v8 = objc_msgSend_custom(MEMORY[0x1E69D3340], v4, v5, v6, v7);
-  isEqual = objc_msgSend_isEqual_(technologyCopy, v9, v8, v10, v11);
+  custom = [MEMORY[0x1E69D3340] custom];
+  v5 = [technologyCopy isEqual:custom];
 
-  if (isEqual)
+  if (v5)
   {
-    v17 = 2;
+    v6 = 2;
   }
 
   else
   {
-    v18 = objc_msgSend_vocalizer(MEMORY[0x1E69D3340], v13, v14, v15, v16);
-    v22 = objc_msgSend_isEqual_(technologyCopy, v19, v18, v20, v21);
+    vocalizer = [MEMORY[0x1E69D3340] vocalizer];
+    v8 = [technologyCopy isEqual:vocalizer];
 
-    if (v22)
+    if (v8)
     {
-      v17 = 1;
+      v6 = 1;
     }
 
     else
     {
-      v27 = objc_msgSend_neural(MEMORY[0x1E69D3340], v23, v24, v25, v26);
-      v31 = objc_msgSend_isEqual_(technologyCopy, v28, v27, v29, v30);
+      neural = [MEMORY[0x1E69D3340] neural];
+      v10 = [technologyCopy isEqual:neural];
 
-      if (v31)
+      if (v10)
       {
-        v17 = 5;
+        v6 = 5;
       }
 
       else
       {
-        v36 = objc_msgSend_neuralAX(MEMORY[0x1E69D3340], v32, v33, v34, v35);
-        v40 = objc_msgSend_isEqual_(technologyCopy, v37, v36, v38, v39);
+        neuralAX = [MEMORY[0x1E69D3340] neuralAX];
+        v12 = [technologyCopy isEqual:neuralAX];
 
-        if (v40)
+        if (v12)
         {
-          v17 = 7;
+          v6 = 7;
         }
 
         else
         {
-          v45 = objc_msgSend_gryphon(MEMORY[0x1E69D3340], v41, v42, v43, v44);
-          v49 = objc_msgSend_isEqual_(technologyCopy, v46, v45, v47, v48);
+          gryphon = [MEMORY[0x1E69D3340] gryphon];
+          v14 = [technologyCopy isEqual:gryphon];
 
-          if (v49)
+          if (v14)
           {
-            v17 = 4;
+            v6 = 4;
           }
 
           else
           {
-            v17 = 1;
+            v6 = 1;
           }
         }
       }
     }
   }
 
-  return v17;
+  return v6;
 }
 
 + (id)_assetTechnologyForVoiceType:(int64_t)type
@@ -622,13 +617,13 @@ LABEL_16:
   {
     if (type == 1)
     {
-      v6 = objc_msgSend_vocalizer(MEMORY[0x1E69D3340], a2, 1, v3, v4);
+      vocalizer = [MEMORY[0x1E69D3340] vocalizer];
       goto LABEL_15;
     }
 
     if (type == 2)
     {
-      v6 = objc_msgSend_custom(MEMORY[0x1E69D3340], a2, 2, v3, v4);
+      vocalizer = [MEMORY[0x1E69D3340] custom];
       goto LABEL_15;
     }
   }
@@ -638,150 +633,200 @@ LABEL_16:
     switch(type)
     {
       case 4:
-        v6 = objc_msgSend_gryphon(MEMORY[0x1E69D3340], a2, 4, v3, v4);
+        vocalizer = [MEMORY[0x1E69D3340] gryphon];
         goto LABEL_15;
       case 5:
-        v6 = objc_msgSend_neural(MEMORY[0x1E69D3340], a2, 5, v3, v4);
+        vocalizer = [MEMORY[0x1E69D3340] neural];
         goto LABEL_15;
       case 7:
-        v6 = objc_msgSend_neuralAX(MEMORY[0x1E69D3340], a2, 7, v3, v4);
+        vocalizer = [MEMORY[0x1E69D3340] neuralAX];
         goto LABEL_15;
     }
   }
 
-  v7 = AXTTSLogCommon();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v5 = AXTTSLogCommon();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    sub_1A9577D10(type, v7, v8, v9, v10);
+    sub_1A9577D10(type);
   }
 
-  v6 = 0;
+  vocalizer = 0;
 LABEL_15:
 
-  return v6;
+  return vocalizer;
 }
 
 + (id)_assetsForLanguage:(id)language voiceType:(int64_t)type installedOnly:(BOOL)only
 {
   onlyCopy = only;
-  v65[1] = *MEMORY[0x1E69E9840];
+  v37[1] = *MEMORY[0x1E69E9840];
   languageCopy = language;
-  v64 = &unk_1F1D0F7E0;
-  v12 = objc_msgSend__assetTechnologyForVoiceType_(self, v9, type, v10, v11);
-  v65[0] = v12;
-  v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v13, v65, &v64, 1);
-  v19 = objc_msgSend_mutableCopy(v14, v15, v16, v17, v18);
+  v36 = &unk_1F1D0F7E0;
+  v9 = [self _assetTechnologyForVoiceType:type];
+  v37[0] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+  v11 = [v10 mutableCopy];
 
   if (languageCopy)
   {
-    objc_msgSend_setObject_forKeyedSubscript_(v19, v20, languageCopy, &unk_1F1D0F798, v22);
+    [v11 setObject:languageCopy forKeyedSubscript:&unk_1F1D0F798];
   }
 
-  v23 = objc_msgSend__assetTypesForVoiceType_(self, v20, type, v21, v22);
-  if (v23)
+  v12 = [self _assetTypesForVoiceType:type];
+  if (v12)
   {
-    v26 = objc_opt_new();
+    v13 = objc_opt_new();
     if (onlyCopy)
     {
-      objc_msgSend_setObject_forKeyedSubscript_(v19, v24, MEMORY[0x1E695E118], &unk_1F1D0F7B0, v25);
+      [v11 setObject:MEMORY[0x1E695E118] forKeyedSubscript:&unk_1F1D0F7B0];
     }
 
-    v27 = objc_msgSend_listAssetsOfTypes_matching_(MEMORY[0x1E69D3328], v24, v23, v19, v25);
-    v28 = AXTTSLogResourceManager();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+    v14 = [MEMORY[0x1E69D3328] listAssetsOfTypes:v12 matching:v11];
+    v15 = AXTTSLogResourceManager();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v52 = objc_msgSend_numberWithLong_(MEMORY[0x1E696AD98], v29, type, v30, v31);
+      v24 = [MEMORY[0x1E696AD98] numberWithLong:type];
       *buf = 138412802;
-      v59 = v52;
-      v60 = 2112;
-      v61 = v19;
-      v62 = 2112;
-      v63 = v27;
-      _os_log_debug_impl(&dword_1A9324000, v28, OS_LOG_TYPE_DEBUG, "TTSAsset::listAssetsOfTypes (voiceTypes=%@ filter=%@): %@", buf, 0x20u);
+      v31 = v24;
+      v32 = 2112;
+      v33 = v11;
+      v34 = 2112;
+      v35 = v14;
+      _os_log_debug_impl(&dword_1A9324000, v15, OS_LOG_TYPE_DEBUG, "TTSAsset::listAssetsOfTypes (voiceTypes=%@ filter=%@): %@", buf, 0x20u);
     }
 
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
-    v54 = 0u;
-    v32 = v27;
-    v34 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v33, &v53, v57, 16);
-    if (v34)
+    v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v16 = v14;
+    v17 = [v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    if (v17)
     {
-      v38 = v34;
-      v39 = *v54;
+      v18 = v17;
+      v19 = *v26;
       do
       {
-        for (i = 0; i != v38; ++i)
+        for (i = 0; i != v18; ++i)
         {
-          if (*v54 != v39)
+          if (*v26 != v19)
           {
-            objc_enumerationMutation(v32);
+            objc_enumerationMutation(v16);
           }
 
-          v41 = objc_msgSend_voiceAssetFromTTSAsset_(self, v35, *(*(&v53 + 1) + 8 * i), v36, v37, v53);
-          objc_msgSend_addObject_(v26, v42, v41, v43, v44);
+          v21 = [self voiceAssetFromTTSAsset:{*(*(&v25 + 1) + 8 * i), v25}];
+          [v13 addObject:v21];
         }
 
-        v38 = objc_msgSend_countByEnumeratingWithState_objects_count_(v32, v35, &v53, v57, 16);
+        v18 = [v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
-      while (v38);
+      while (v18);
     }
 
-    v49 = objc_msgSend_allObjects(v26, v45, v46, v47, v48);
+    allObjects = [v13 allObjects];
   }
 
   else
   {
-    v49 = 0;
+    allObjects = 0;
   }
 
-  v50 = *MEMORY[0x1E69E9840];
-
-  return v49;
+  return allObjects;
 }
 
 + (id)installedAssetForLanguage:(id)language gender:(int64_t)gender footprint:(int64_t)footprint voiceName:(id)name voiceType:(int64_t)type
 {
-  v8 = objc_msgSend__siriAssetForLanguage_gender_footprint_voiceName_voiceType_locallyAvailable_(self, a2, language, gender, footprint, name, type, 1);
-  v12 = objc_msgSend_voiceAssetFromTTSAsset_(self, v9, v8, v10, v11);
+  v8 = [self _siriAssetForLanguage:language gender:gender footprint:footprint voiceName:name voiceType:type locallyAvailable:1];
+  v9 = [self voiceAssetFromTTSAsset:v8];
 
-  return v12;
+  return v9;
 }
 
 + (id)assetForLanguage:(id)language gender:(int64_t)gender footprint:(int64_t)footprint voiceName:(id)name voiceType:(int64_t)type
 {
-  v8 = objc_msgSend__siriAssetForLanguage_gender_footprint_voiceName_voiceType_(self, a2, language, gender, footprint, name, type);
-  v12 = objc_msgSend_voiceAssetFromTTSAsset_(self, v9, v8, v10, v11);
+  v8 = [self _siriAssetForLanguage:language gender:gender footprint:footprint voiceName:name voiceType:type];
+  v9 = [self voiceAssetFromTTSAsset:v8];
 
-  return v12;
+  return v9;
 }
 
 + (id)_siriAssetForLanguage:(id)language gender:(int64_t)gender footprint:(int64_t)footprint voiceName:(id)name voiceType:(int64_t)type
 {
   nameCopy = name;
-  v16 = objc_msgSend_convertTTSLanguageCodeToSiriLanguageCode_(self, v13, language, v14, v15);
-  v18 = objc_msgSend__assetFilterForLanguage_gender_footprint_voiceName_voiceType_locallyAvailable_(self, v17, v16, gender, footprint, nameCopy, type, 1);
+  v13 = [self convertTTSLanguageCodeToSiriLanguageCode:language];
+  v14 = [self _assetFilterForLanguage:v13 gender:gender footprint:footprint voiceName:nameCopy voiceType:type locallyAvailable:1];
 
-  v23 = objc_msgSend_mutableCopy(v18, v19, v20, v21, v22);
-  v29 = objc_msgSend__assetTypesForVoiceType_(self, v24, type, v25, v26);
-  if (v29)
+  v15 = [v14 mutableCopy];
+  v16 = [self _assetTypesForVoiceType:type];
+  if (v16)
   {
-    v33 = objc_msgSend_bestAssetOfTypes_matching_(MEMORY[0x1E69D3328], v27, v29, v23, v28);
-    if (!v33)
+    v17 = [MEMORY[0x1E69D3328] bestAssetOfTypes:v16 matching:v15];
+    if (!v17)
     {
-      objc_msgSend_removeObjectForKey_(v23, v30, &unk_1F1D0F7B0, v31, v32);
-      v33 = objc_msgSend_bestAssetOfTypes_matching_(MEMORY[0x1E69D3328], v34, v29, v23, v35);
+      [v15 removeObjectForKey:&unk_1F1D0F7B0];
+      v17 = [MEMORY[0x1E69D3328] bestAssetOfTypes:v16 matching:v15];
     }
   }
 
   else
   {
-    v33 = 0;
+    v17 = 0;
   }
 
-  return v33;
+  return v17;
+}
+
++ (id)_siriAssetForLanguage:(id)language gender:(int64_t)gender footprint:(int64_t)footprint voiceName:(id)name voiceType:(int64_t)type locallyAvailable:(BOOL)available
+{
+  availableCopy = available;
+  nameCopy = name;
+  v15 = [self convertTTSLanguageCodeToSiriLanguageCode:language];
+  v16 = [self _assetTypesForVoiceType:type];
+  if (v16)
+  {
+    v17 = MEMORY[0x1E69D3328];
+    v18 = [self _assetFilterForLanguage:v15 gender:gender footprint:footprint voiceName:nameCopy voiceType:type locallyAvailable:availableCopy];
+    v19 = [v17 bestAssetOfTypes:v16 matching:v18];
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  return v19;
+}
+
++ (id)_assetFilterForLanguage:(id)language gender:(int64_t)gender footprint:(int64_t)footprint voiceName:(id)name voiceType:(int64_t)type locallyAvailable:(BOOL)available
+{
+  availableCopy = available;
+  v22[3] = *MEMORY[0x1E69E9840];
+  languageCopy = language;
+  nameCopy = name;
+  v21[0] = &unk_1F1D0F7E0;
+  v15 = [self _assetTechnologyForVoiceType:type];
+  v22[0] = v15;
+  v21[1] = &unk_1F1D0F7F8;
+  v16 = [self _footprintForType:footprint];
+  v22[1] = v16;
+  v21[2] = &unk_1F1D0F7B0;
+  v17 = [MEMORY[0x1E696AD98] numberWithBool:availableCopy];
+  v22[2] = v17;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:3];
+  v19 = [v18 mutableCopy];
+
+  if (languageCopy)
+  {
+    [v19 setObject:languageCopy forKeyedSubscript:&unk_1F1D0F798];
+  }
+
+  if (nameCopy)
+  {
+    [v19 setObject:nameCopy forKeyedSubscript:&unk_1F1D0F810];
+  }
+
+  return v19;
 }
 
 @end

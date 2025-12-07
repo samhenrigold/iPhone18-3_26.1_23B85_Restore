@@ -85,7 +85,7 @@
 - (void)setVisualStyle:(id)style
 {
   styleCopy = style;
-  if (([styleCopy isEqual:self->_visualStyle] & 1) == 0)
+  if ((objc_msgSend_isEqual_(styleCopy) & 1) == 0)
   {
     visualStyleOverride = [(UIInterfaceActionVisualStyle *)self->_visualStyle visualStyleOverride];
     customSeparatorAttributes = [visualStyleOverride customSeparatorAttributes];
@@ -102,9 +102,9 @@
 
     else
     {
-      v10 = [customSeparatorAttributes isEqual:customSeparatorAttributes2];
+      isEqual = objc_msgSend_isEqual_(customSeparatorAttributes);
 
-      if ((v10 & 1) == 0)
+      if ((isEqual & 1) == 0)
       {
         [(_UIInterfaceActionSeparatableSequenceView *)self _reloadStackViewArrangement];
       }
@@ -155,7 +155,7 @@
 - (void)setArrangedContentViews:(id)views
 {
   viewsCopy = views;
-  if (([(NSArray *)self->_arrangedContentViews isEqual:?]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_arrangedContentViews) & 1) == 0)
   {
     objc_storeStrong(&self->_arrangedContentViews, views);
     [(_UIInterfaceActionSeparatableSequenceView *)self _updateActionRepresentationViewsCanRemoveContentFromHierarchyWhenNotVisibleSetting];

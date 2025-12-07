@@ -15,7 +15,6 @@
 - (void)_queue_finishBootingIfNecessaryAndTellObservers:(BOOL)observers
 {
   observersCopy = observers;
-  queue = self->_queue;
   BSDispatchQueueAssert();
   if ([(BKFirstBootDetector *)self isFirstBoot])
   {
@@ -24,15 +23,15 @@
     if (primarySystemShell)
     {
       bundleIdentifier = [primarySystemShell bundleIdentifier];
-      v9 = [bundleIdentifier isEqualToString:alternateSystemAppBundleIdentifier];
+      v8 = [bundleIdentifier isEqualToString:alternateSystemAppBundleIdentifier];
 
-      if ((v9 & 1) == 0)
+      if ((v8 & 1) == 0)
       {
-        v10 = sub_1000524BC();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v9 = sub_1000524BC();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "First boot is finished", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "First boot is finished", buf, 2u);
         }
 
         os_unfair_lock_lock(&self->_lock);
@@ -42,34 +41,34 @@
         if (observersCopy)
         {
           allObjects = [(NSHashTable *)self->_queue_observers allObjects];
+          v15 = 0u;
           v16 = 0u;
           v17 = 0u;
           v18 = 0u;
-          v19 = 0u;
-          v12 = [allObjects countByEnumeratingWithState:&v16 objects:v21 count:16];
-          if (v12)
+          v11 = [allObjects countByEnumeratingWithState:&v15 objects:v20 count:16];
+          if (v11)
           {
-            v13 = v12;
-            v14 = *v17;
+            v12 = v11;
+            v13 = *v16;
             do
             {
-              v15 = 0;
+              v14 = 0;
               do
               {
-                if (*v17 != v14)
+                if (*v16 != v13)
                 {
                   objc_enumerationMutation(allObjects);
                 }
 
-                [*(*(&v16 + 1) + 8 * v15) firstBootDetectorDidFinishFirstBoot:self];
-                v15 = v15 + 1;
+                [*(*(&v15 + 1) + 8 * v14) firstBootDetectorDidFinishFirstBoot:self];
+                v14 = v14 + 1;
               }
 
-              while (v13 != v15);
-              v13 = [allObjects countByEnumeratingWithState:&v16 objects:v21 count:16];
+              while (v12 != v14);
+              v12 = [allObjects countByEnumeratingWithState:&v15 objects:v20 count:16];
             }
 
-            while (v13);
+            while (v12);
           }
         }
       }

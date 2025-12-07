@@ -11,15 +11,15 @@
   if (identifier)
   {
     identifier = sub_21DBFA16C();
-    v6 = v5;
+    v7 = v6;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return sub_21D3149DC(style, identifier, v6);
+  return sub_21D3149DC(style, identifier, v7, v4);
 }
 
 - (_TtC15RemindersUICore29TTRISubtaskListAddSubtaskCell)initWithCoder:(id)coder
@@ -33,7 +33,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_21D314CCC();
+  sub_21D314CCC(v2);
 }
 
 @end

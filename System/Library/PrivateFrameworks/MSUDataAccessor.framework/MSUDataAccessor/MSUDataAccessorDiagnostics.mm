@@ -1,4 +1,5 @@
 @interface MSUDataAccessorDiagnostics
+- (id)copyPathForPersistentData:(int)data error:(id *)error;
 - (id)returnDirectoryIfExistsForPath:(id)path;
 @end
 
@@ -22,6 +23,19 @@
   }
 
   return v6;
+}
+
+- (id)copyPathForPersistentData:(int)data error:(id *)error
+{
+  v5 = *&data;
+  if (data != 100 || (result = [(MSUDataAccessorDiagnostics *)self specialCaseFDRPathForDiagnostics]) == 0)
+  {
+    v8.receiver = self;
+    v8.super_class = MSUDataAccessorDiagnostics;
+    return [(MSUDataAccessor *)&v8 copyPathForPersistentData:v5 error:error];
+  }
+
+  return result;
 }
 
 @end

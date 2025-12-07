@@ -1,4 +1,5 @@
 @interface TSPCryptoComponentWriteChannel
+- (BOOL)_finalizeBlockForClosing:(BOOL)closing;
 - (BOOL)_initializeBlock;
 - (BOOL)_resetBuffer;
 - (TSPCryptoComponentWriteChannel)init;
@@ -385,6 +386,190 @@ LABEL_17:
   }
 
   objc_sync_exit(obj);
+}
+
+- (BOOL)_finalizeBlockForClosing:(BOOL)closing
+{
+  if (!self->_writeChannel)
+  {
+    +[TSUAssertionHandler _atomicIncrementAssertCount];
+    if (TSUAssertCat_init_token != -1)
+    {
+      sub_1001520E8();
+    }
+
+    if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
+    {
+      sub_1001520FC();
+    }
+
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Tried to write data when already closed.", "[TSPCryptoComponentWriteChannel _finalizeBlockForClosing:]", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPCryptoComponentWriteChannel.mm", 265);
+    v28 = [NSString stringWithUTF8String:"[TSPCryptoComponentWriteChannel _finalizeBlockForClosing:]"];
+    v29 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPCryptoComponentWriteChannel.mm"];
+    [TSUAssertionHandler handleFailureInFunction:v28 file:v29 lineNumber:265 isFatal:1 description:"Tried to write data when already closed."];
+
+    TSUCrashBreakpoint();
+    abort();
+  }
+
+  dataOutMoved = 0;
+  if (CCCryptorFinal(self->_cryptor, &self->_buffer[self->_bufferPosition], self->_remainingBufferSize, &dataOutMoved) != -4301)
+  {
+    if (!dataOutMoved)
+    {
+      subrange = 0;
+      v18 = 1;
+      goto LABEL_25;
+    }
+
+    subrange = dispatch_data_create_subrange(self->_bufferDispatchData, self->_bufferPosition, dataOutMoved);
+    v13 = dataOutMoved;
+    v14 = self->_bufferPosition + dataOutMoved;
+    self->_bufferPosition = v14;
+    if (v14 > self->_bufferSize)
+    {
+      +[TSUAssertionHandler _atomicIncrementAssertCount];
+      if (TSUAssertCat_init_token != -1)
+      {
+        sub_100151EC0();
+      }
+
+      if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
+      {
+        sub_100151EE8();
+      }
+
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Buffer overflow", "[TSPCryptoComponentWriteChannel _finalizeBlockForClosing:]", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPCryptoComponentWriteChannel.mm", 296);
+      v30 = [NSString stringWithUTF8String:"[TSPCryptoComponentWriteChannel _finalizeBlockForClosing:]"];
+      v31 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPCryptoComponentWriteChannel.mm"];
+      [TSUAssertionHandler handleFailureInFunction:v30 file:v31 lineNumber:296 isFatal:1 description:"Buffer overflow"];
+
+      TSUCrashBreakpoint();
+    }
+
+    else
+    {
+      remainingBufferSize = self->_remainingBufferSize;
+      v16 = remainingBufferSize >= v13;
+      v17 = remainingBufferSize - v13;
+      if (v16)
+      {
+        self->_remainingBufferSize = v17;
+        goto LABEL_15;
+      }
+
+      +[TSUAssertionHandler _atomicIncrementAssertCount];
+      if (TSUAssertCat_init_token != -1)
+      {
+        sub_100151E10();
+      }
+
+      if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
+      {
+        sub_100151E38();
+      }
+
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Buffer overflow", "[TSPCryptoComponentWriteChannel _finalizeBlockForClosing:]", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPCryptoComponentWriteChannel.mm", 297);
+      v32 = [NSString stringWithUTF8String:"[TSPCryptoComponentWriteChannel _finalizeBlockForClosing:]"];
+      v33 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPCryptoComponentWriteChannel.mm"];
+      [TSUAssertionHandler handleFailureInFunction:v32 file:v33 lineNumber:297 isFatal:1 description:"Buffer overflow"];
+
+      TSUCrashBreakpoint();
+    }
+
+    abort();
+  }
+
+  OutputLength = CCCryptorGetOutputLength(self->_cryptor, 0, 1);
+  v6 = malloc_type_malloc(OutputLength, 0x100004077774924uLL);
+  v7 = v6;
+  if (!v6)
+  {
+    +[TSUAssertionHandler _atomicIncrementAssertCount];
+    if (TSUAssertCat_init_token != -1)
+    {
+      sub_100152038();
+    }
+
+    if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
+    {
+      sub_100152060();
+    }
+
+    v19 = [NSString stringWithUTF8String:"[TSPCryptoComponentWriteChannel _finalizeBlockForClosing:]"];
+    v20 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPCryptoComponentWriteChannel.mm"];
+    [TSUAssertionHandler handleFailureInFunction:v19 file:v20 lineNumber:280 isFatal:0 description:"Failed to allocate buffer for finalizing encryption"];
+
+    subrange = 0;
+    +[TSUAssertionHandler logBacktraceThrottled];
+    goto LABEL_22;
+  }
+
+  subrange = dispatch_data_create(v6, OutputLength, 0, _dispatch_data_destructor_free);
+  dataOutMoved = 0;
+  v9 = CCCryptorFinal(self->_cryptor, v7, OutputLength, &dataOutMoved);
+  if (!v9)
+  {
+LABEL_15:
+    v18 = 1;
+    goto LABEL_23;
+  }
+
+  v10 = +[TSUAssertionHandler _atomicIncrementAssertCount];
+  if (TSUAssertCat_init_token != -1)
+  {
+    sub_100151F70();
+  }
+
+  if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
+  {
+    sub_100151F98(v10);
+  }
+
+  v11 = [NSString stringWithUTF8String:"[TSPCryptoComponentWriteChannel _finalizeBlockForClosing:]"];
+  v12 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPCryptoComponentWriteChannel.mm"];
+  [TSUAssertionHandler handleFailureInFunction:v11 file:v12 lineNumber:290 isFatal:0 description:"Finalizing encryption failed: CCCryptorFinal status %i", v9];
+
+  +[TSUAssertionHandler logBacktraceThrottled];
+LABEL_22:
+  v18 = 0;
+LABEL_23:
+  if (dataOutMoved)
+  {
+    [(TSPComponentWriteChannel *)self->_writeChannel writeData:subrange];
+    self->_encodedBlockLength += dataOutMoved;
+  }
+
+LABEL_25:
+  v21 = malloc_type_calloc(0x14uLL, 1uLL, 0x100004077774924uLL);
+  CCHmacFinal(&self->_ccHmacContext, v21);
+  writeChannel = self->_writeChannel;
+  v23 = dispatch_data_create(v21, 0x14uLL, 0, _dispatch_data_destructor_free);
+  [(TSPComponentWriteChannel *)writeChannel writeData:v23];
+
+  self->_encodedBlockLength += 20;
+  if ([(TSPMutableCryptoInfo *)self->_encryptionInfo preferredBlockSize]!= -1)
+  {
+    [(TSPMutableCryptoInfo *)self->_encryptionInfo incrementDecodedLengthBy:self->_decryptedBlockLength];
+  }
+
+  if (!closing)
+  {
+    encryptionInfo = self->_encryptionInfo;
+    v25 = TSUEncodedBlockInfoCreate(self->_encodedBlockLength, self->_decryptedBlockLength);
+    [(TSPMutableCryptoInfo *)encryptionInfo addBlockInfo:v25];
+
+    self->_encodedBlockLength = 0;
+    self->_decryptedBlockLength = 0;
+    cryptor = self->_cryptor;
+    if (cryptor)
+    {
+      CCCryptorRelease(cryptor);
+      self->_cryptor = 0;
+    }
+  }
+
+  return v18;
 }
 
 @end

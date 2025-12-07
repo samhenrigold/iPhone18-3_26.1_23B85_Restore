@@ -30,8 +30,9 @@
 
 - (JavaUtilArrayDeque)initWithInt:(int)int
 {
-  JavaUtilAbstractCollection_init(self, a2);
-  sub_1002531D8(self, int);
+  v3 = *&int;
+  JavaUtilAbstractCollection_init();
+  sub_1002531D8(self, v3);
   return self;
 }
 
@@ -39,8 +40,8 @@
 {
   if (!id)
   {
-    v6 = new_JavaLangNullPointerException_init();
-    objc_exception_throw(v6);
+    v7 = new_JavaLangNullPointerException_init();
+    objc_exception_throw(v7);
   }
 
   elements = self->elements_;
@@ -55,7 +56,7 @@
   if (self->head_ == self->tail_)
   {
 
-    sub_1002532A0(self);
+    sub_1002532A0(self, v6);
   }
 }
 
@@ -63,8 +64,8 @@
 {
   if (!id)
   {
-    v6 = new_JavaLangNullPointerException_init();
-    objc_exception_throw(v6);
+    v7 = new_JavaLangNullPointerException_init();
+    objc_exception_throw(v7);
   }
 
   elements = self->elements_;
@@ -74,12 +75,12 @@
   }
 
   IOSObjectArray_Set(elements, self->tail_, id);
-  v5 = (self->elements_->super.size_ - 1) & (self->tail_ + 1);
-  self->tail_ = v5;
-  if (v5 == self->head_)
+  v6 = (self->elements_->super.size_ - 1) & (self->tail_ + 1);
+  self->tail_ = v6;
+  if (v6 == self->head_)
   {
 
-    sub_1002532A0(self);
+    sub_1002532A0(self, v5);
   }
 }
 
@@ -424,9 +425,10 @@
 
 - (id)toArray
 {
-  v3 = [IOSObjectArray arrayWithLength:[(JavaUtilArrayDeque *)self size] type:NSObject_class_()];
+  v3 = [(JavaUtilArrayDeque *)self size];
+  v5 = [IOSObjectArray arrayWithLength:v3 type:NSObject_class_(v3, v4)];
 
-  return sub_1002533D4(self, v3);
+  return sub_1002533D4(self, v5);
 }
 
 - (id)toArrayWithNSObjectArray:(id)array
@@ -529,13 +531,14 @@ LABEL_5:
 
   [stream defaultReadObject];
   readInt = [stream readInt];
+  v6 = readInt;
   sub_1002531D8(self, readInt);
   self->head_ = 0;
-  self->tail_ = readInt;
-  if (readInt >= 1)
+  self->tail_ = v6;
+  if (v6 >= 1)
   {
-    v6 = 0;
-    v7 = readInt;
+    v7 = 0;
+    v8 = v6;
     while (1)
     {
       elements = self->elements_;
@@ -544,8 +547,8 @@ LABEL_5:
         break;
       }
 
-      IOSObjectArray_Set(elements, v6++, [stream readObject]);
-      if (v7 == v6)
+      IOSObjectArray_Set(elements, v7++, [stream readObject]);
+      if (v8 == v7)
       {
         return;
       }

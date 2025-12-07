@@ -9,7 +9,7 @@
 {
   senderCopy = sender;
   selfCopy = self;
-  sub_24A60CC1C();
+  sub_24A60CC1C(senderCopy);
 }
 
 - (_TtC11FMFindingUI20FMFindingDebugSlider)initWithFrame:(CGRect)frame

@@ -1,4 +1,5 @@
 @interface FPCKTask
++ (id)buildPauseResult:(BOOL)result semaphore:(id)semaphore;
 + (id)sharedManager;
 + (id)xpcServiceConnection;
 + (id)xpcServiceProxyWithConnection:(id)connection;
@@ -74,16 +75,16 @@ void __25__FPCKTask_sharedManager__block_invoke()
 
 + (void)runFPCKForDomain:(id)domain domainUserInfo:(id)info domainRootURL:(id)l databaseBackupPath:(id)path urls:(id)urls volumeRole:(unsigned int)role options:(unint64_t)options reason:(unint64_t)self0 fpfs:(BOOL)self1 iCDPackageDetection:(BOOL)self2 shouldPause:(id)self3 sendDiagnostics:(id)self4 saveCheckpoint:(id)self5 reingestItems:(id)self6 isInvalidated:(id)self7 contentBarrier:(int64_t)self8 completionHandler:(id)self9
 {
-  v55[1] = *MEMORY[0x1E69E9840];
+  v54[1] = *MEMORY[0x1E69E9840];
   pauseCopy = pause;
-  v46 = pauseCopy != 0;
+  v45 = pauseCopy != 0;
   v24 = &__block_literal_global_12;
   if (pauseCopy)
   {
     v24 = pauseCopy;
   }
 
-  v50 = v24;
+  v49 = v24;
   handlerCopy = handler;
   invalidatedCopy = invalidated;
   itemsCopy = items;
@@ -97,26 +98,26 @@ void __25__FPCKTask_sharedManager__block_invoke()
   v33 = [_TtC18FileProviderDaemon4FPCK alloc];
   path = [lCopy path];
 
-  v54 = path;
+  v53 = path;
   path2 = [pathCopy path];
 
-  v55[0] = path2;
-  v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:&v54 count:1];
-  BYTE1(v44) = v46;
-  LOBYTE(v44) = detection;
-  v37 = [(FPCK *)v33 initWithDatabasesBackupsPaths:v36 volumeRole:role providerDomainID:domainCopy domainUserInfo:infoCopy reason:reason usingFPFS:fpfs iCDPackageDetection:v44 useShouldPause:v50 shouldPause:diagnosticsCopy sendDiagnostics:checkpointCopy saveCheckpoint:itemsCopy reingestItems:invalidatedCopy isInvalidated:?];
+  v54[0] = path2;
+  v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:&v53 count:1];
+  BYTE1(v43) = v45;
+  LOBYTE(v43) = detection;
+  v37 = [(FPCK *)v33 initWithDatabasesBackupsPaths:v36 volumeRole:role providerDomainID:domainCopy domainUserInfo:infoCopy reason:reason usingFPFS:fpfs iCDPackageDetection:v43 useShouldPause:v49 shouldPause:diagnosticsCopy sendDiagnostics:checkpointCopy saveCheckpoint:itemsCopy reingestItems:invalidatedCopy isInvalidated:?];
 
   string = [MEMORY[0x1E696AD60] string];
-  v53 = 0;
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = 3221225472;
-  v51[2] = __237__FPCKTask_runFPCKForDomain_domainUserInfo_domainRootURL_databaseBackupPath_urls_volumeRole_options_reason_fpfs_iCDPackageDetection_shouldPause_sendDiagnostics_saveCheckpoint_reingestItems_isInvalidated_contentBarrier_completionHandler___block_invoke_2;
-  v51[3] = &unk_1E83C1988;
-  v52 = string;
+  v52 = 0;
+  v50[0] = MEMORY[0x1E69E9820];
+  v50[1] = 3221225472;
+  v50[2] = __237__FPCKTask_runFPCKForDomain_domainUserInfo_domainRootURL_databaseBackupPath_urls_volumeRole_options_reason_fpfs_iCDPackageDetection_shouldPause_sendDiagnostics_saveCheckpoint_reingestItems_isInvalidated_contentBarrier_completionHandler___block_invoke_2;
+  v50[3] = &unk_1E83C1988;
+  v51 = string;
   v39 = string;
-  [(FPCK *)v37 launchFromURLs:urlsCopy options:options contentBarrier:barrier error:&v53 resultHandler:v51];
+  [(FPCK *)v37 launchFromURLs:urlsCopy options:options contentBarrier:barrier error:&v52 resultHandler:v50];
 
-  v40 = v53;
+  v40 = v52;
   v41 = objc_alloc_init(MEMORY[0x1E69672C8]);
   [v41 setNumberOfFilesChecked:{-[FPCK numberOfFilesChecked](v37, "numberOfFilesChecked")}];
   [v41 setNumberOfBrokenFilesInFSAndFSSnapshotCheck:{-[FPCK numberOfBrokenFilesInFSAndFSSnapshotCheck](v37, "numberOfBrokenFilesInFSAndFSSnapshotCheck")}];
@@ -125,8 +126,6 @@ void __25__FPCKTask_sharedManager__block_invoke()
   [v41 setNumberOfBrokenFilesInBackupManifestCheck:{-[FPCK numberOfBrokenFilesInBackupManifestCheck](v37, "numberOfBrokenFilesInBackupManifestCheck")}];
   telemetryReport = [(FPCK *)v37 telemetryReport];
   handlerCopy[2](handlerCopy, v39, v41, telemetryReport, v40);
-
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 _TtC18FileProviderDaemon19FPShouldPauseResult *__237__FPCKTask_runFPCKForDomain_domainUserInfo_domainRootURL_databaseBackupPath_urls_volumeRole_options_reason_fpfs_iCDPackageDetection_shouldPause_sendDiagnostics_saveCheckpoint_reingestItems_isInvalidated_contentBarrier_completionHandler___block_invoke()
@@ -138,7 +137,7 @@ _TtC18FileProviderDaemon19FPShouldPauseResult *__237__FPCKTask_runFPCKForDomain_
 
 - (void)_prepareXPCService:(id)service domainUserInfo:(id)info domainRootURL:(id)l databaseBackupPath:(id)path urls:(id)urls volumeRole:(unsigned int)role personaIdentifier:(id)identifier options:(unint64_t)self0 reason:(unint64_t)self1 fpfs:(BOOL)self2 iCDPackageDetection:(BOOL)self3 completionHandler:(id)self4
 {
-  v100 = *MEMORY[0x1E69E9840];
+  v99 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   infoCopy = info;
   lCopy = l;
@@ -146,35 +145,35 @@ _TtC18FileProviderDaemon19FPShouldPauseResult *__237__FPCKTask_runFPCKForDomain_
   urlsCopy = urls;
   identifierCopy = identifier;
   handlerCopy = handler;
-  v83 = +[FPCKTask xpcServiceConnection];
-  v82 = [FPCKTask xpcServiceProxyWithConnection:?];
+  v82 = +[FPCKTask xpcServiceConnection];
+  v81 = [FPCKTask xpcServiceProxyWithConnection:?];
   v19 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v93 = 0u;
   v94 = 0u;
   v95 = 0u;
   v96 = 0u;
-  v97 = 0u;
   v20 = urlsCopy;
-  v21 = [v20 countByEnumeratingWithState:&v94 objects:v99 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v93 objects:v98 count:16];
   if (v21)
   {
     v22 = v21;
     v23 = 0;
-    v24 = *v95;
+    v24 = *v94;
     while (2)
     {
       v25 = 0;
       v26 = v23;
       do
       {
-        if (*v95 != v24)
+        if (*v94 != v24)
         {
           objc_enumerationMutation(v20);
         }
 
-        v27 = *(*(&v94 + 1) + 8 * v25);
-        v93 = v26;
-        v28 = [MEMORY[0x1E6967408] wrapperWithURL:v27 readonly:0 error:&v93];
-        v23 = v93;
+        v27 = *(*(&v93 + 1) + 8 * v25);
+        v92 = v26;
+        v28 = [MEMORY[0x1E6967408] wrapperWithURL:v27 readonly:0 error:&v92];
+        v23 = v92;
 
         if (!v28)
         {
@@ -185,9 +184,9 @@ _TtC18FileProviderDaemon19FPShouldPauseResult *__237__FPCKTask_runFPCKForDomain_
           }
 
           v30 = handlerCopy;
-          v31 = v82;
-          v32 = v83;
-          (*(handlerCopy + 2))(handlerCopy, v82, v83, v23);
+          v31 = v81;
+          v32 = v82;
+          (*(handlerCopy + 2))(handlerCopy, v81, v82, v23);
           v33 = v20;
           v34 = serviceCopy;
           v35 = pathCopy;
@@ -203,7 +202,7 @@ _TtC18FileProviderDaemon19FPShouldPauseResult *__237__FPCKTask_runFPCKForDomain_
       }
 
       while (v22 != v25);
-      v22 = [v20 countByEnumeratingWithState:&v94 objects:v99 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v93 objects:v98 count:16];
       if (v22)
       {
         continue;
@@ -220,44 +219,44 @@ _TtC18FileProviderDaemon19FPShouldPauseResult *__237__FPCKTask_runFPCKForDomain_
 
   v38 = v23;
 
-  v92 = v23;
+  v91 = v23;
   v36 = lCopy;
-  v39 = [MEMORY[0x1E6967408] wrapperWithURL:lCopy readonly:0 error:&v92];
-  v23 = v92;
+  v39 = [MEMORY[0x1E6967408] wrapperWithURL:lCopy readonly:0 error:&v91];
+  v23 = v91;
 
-  v74 = v39;
+  v73 = v39;
   if (v39)
   {
-    v91 = v23;
+    v90 = v23;
     v35 = pathCopy;
-    v40 = [MEMORY[0x1E6967408] wrapperWithURL:pathCopy readonly:0 error:&v91];
-    v41 = v91;
+    v40 = [MEMORY[0x1E6967408] wrapperWithURL:pathCopy readonly:0 error:&v90];
+    v41 = v90;
 
     if (!v40)
     {
       v30 = handlerCopy;
-      (*(handlerCopy + 2))(handlerCopy, v82, v83, v41);
+      (*(handlerCopy + 2))(handlerCopy, v81, v82, v41);
       v34 = serviceCopy;
       v37 = identifierCopy;
 LABEL_32:
 
       v23 = v41;
-      v31 = v82;
-      v32 = v83;
+      v31 = v81;
+      v32 = v82;
       goto LABEL_33;
     }
 
     v42 = MEMORY[0x1E6967408];
     uRLByDeletingLastPathComponent = [pathCopy URLByDeletingLastPathComponent];
-    v90 = v41;
-    v44 = [v42 wrapperWithURL:uRLByDeletingLastPathComponent readonly:0 error:&v90];
-    v45 = v90;
+    v89 = v41;
+    v44 = [v42 wrapperWithURL:uRLByDeletingLastPathComponent readonly:0 error:&v89];
+    v45 = v89;
 
-    v73 = v44;
+    v72 = v44;
     if (!v44)
     {
       v30 = handlerCopy;
-      (*(handlerCopy + 2))(handlerCopy, v82, v83, v45);
+      (*(handlerCopy + 2))(handlerCopy, v81, v82, v45);
       v34 = serviceCopy;
       v37 = identifierCopy;
       v41 = v45;
@@ -266,16 +265,16 @@ LABEL_31:
       goto LABEL_32;
     }
 
-    v72 = v45;
+    v71 = v45;
     mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
     currentPersona = [mEMORY[0x1E69DF068] currentPersona];
 
     userPersonaUniqueString = [currentPersona userPersonaUniqueString];
     v37 = identifierCopy;
-    v70 = userPersonaUniqueString;
+    v69 = userPersonaUniqueString;
     if (!identifierCopy || userPersonaUniqueString && ([userPersonaUniqueString isEqualToString:identifierCopy] & 1) != 0)
     {
-      v69 = currentPersona;
+      v68 = currentPersona;
       v49 = [MEMORY[0x1E695DFF8] fp_supportDirectoryForVolume:lCopy];
       v50 = +[_TtC18FileProviderDaemon20InternalPathsManager purgatoryPrefix];
       v51 = [v49 URLByAppendingPathComponent:v50 isDirectory:1];
@@ -285,119 +284,117 @@ LABEL_31:
 
     else
     {
-      v89 = 0;
-      v55 = [currentPersona copyCurrentPersonaContextWithError:&v89];
-      v57 = v89;
+      v88 = 0;
+      v55 = [currentPersona copyCurrentPersonaContextWithError:&v88];
+      v57 = v88;
       if (v57)
       {
         v58 = v57;
-        (*(handlerCopy + 2))(handlerCopy, v82, v83, v57);
-        v71 = v58;
+        (*(handlerCopy + 2))(handlerCopy, v81, v82, v57);
+        v70 = v58;
         v30 = handlerCopy;
         v34 = serviceCopy;
 LABEL_30:
 
-        v41 = v72;
+        v41 = v71;
         goto LABEL_31;
       }
 
-      v71 = v55;
-      v60 = [currentPersona generateAndRestorePersonaContextWithIdentityString:identifierCopy];
-      if (v60)
+      v70 = v55;
+      v59 = [currentPersona generateAndRestorePersonaContextWithIdentityString:identifierCopy];
+      if (v59)
       {
-        v55 = v60;
-        v61 = fp_current_or_default_log();
+        v55 = v59;
+        v60 = fp_current_or_default_log();
         v34 = serviceCopy;
-        if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
         {
           [FPCKTask _prepareXPCService:v55 domainUserInfo:? domainRootURL:? databaseBackupPath:? urls:? volumeRole:? personaIdentifier:? options:? reason:? fpfs:? iCDPackageDetection:? completionHandler:?];
         }
 
         v30 = handlerCopy;
-        (*(handlerCopy + 2))(handlerCopy, v82, v83, v55);
+        (*(handlerCopy + 2))(handlerCopy, v81, v82, v55);
         goto LABEL_30;
       }
 
-      v62 = [MEMORY[0x1E695DFF8] fp_supportDirectoryForVolume:lCopy];
-      v63 = +[_TtC18FileProviderDaemon20InternalPathsManager purgatoryPrefix];
-      v68 = [v62 URLByAppendingPathComponent:v63 isDirectory:1];
+      v61 = [MEMORY[0x1E695DFF8] fp_supportDirectoryForVolume:lCopy];
+      v62 = +[_TtC18FileProviderDaemon20InternalPathsManager purgatoryPrefix];
+      v67 = [v61 URLByAppendingPathComponent:v62 isDirectory:1];
 
-      v64 = [currentPersona restorePersonaWithSavedPersonaContext:v55];
-      if (v64)
+      v63 = [currentPersona restorePersonaWithSavedPersonaContext:v55];
+      if (v63)
       {
-        v55 = v64;
-        v65 = fp_current_or_default_log();
-        if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+        v55 = v63;
+        v64 = fp_current_or_default_log();
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
         {
           [FPCKTask _prepareXPCService:v55 domainUserInfo:? domainRootURL:? databaseBackupPath:? urls:? volumeRole:? personaIdentifier:? options:? reason:? fpfs:? iCDPackageDetection:? completionHandler:?];
         }
 
-        (*(handlerCopy + 2))(handlerCopy, v82, v83, v55);
+        (*(handlerCopy + 2))(handlerCopy, v81, v82, v55);
         v30 = handlerCopy;
         v34 = serviceCopy;
         v37 = identifierCopy;
         goto LABEL_30;
       }
 
-      v69 = currentPersona;
+      v68 = currentPersona;
       v49 = v55;
-      v52 = v68;
+      v52 = v67;
       v37 = identifierCopy;
     }
 
-    v88 = v72;
-    v71 = v52;
-    v53 = [MEMORY[0x1E6967408] wrapperWithURL:v52 readonly:0 error:&v88];
-    v54 = v88;
+    v87 = v71;
+    v70 = v52;
+    v53 = [MEMORY[0x1E6967408] wrapperWithURL:v52 readonly:0 error:&v87];
+    v54 = v87;
 
     v55 = v53;
     if (v53)
     {
-      v72 = v54;
-      v98[0] = v73;
-      v98[1] = v53;
-      v56 = [MEMORY[0x1E695DEC8] arrayWithObjects:v98 count:2];
-      v84[0] = MEMORY[0x1E69E9820];
-      v84[1] = 3221225472;
-      v84[2] = __171__FPCKTask__prepareXPCService_domainUserInfo_domainRootURL_databaseBackupPath_urls_volumeRole_personaIdentifier_options_reason_fpfs_iCDPackageDetection_completionHandler___block_invoke;
-      v84[3] = &unk_1E83C19B0;
+      v71 = v54;
+      v97[0] = v72;
+      v97[1] = v53;
+      v56 = [MEMORY[0x1E695DEC8] arrayWithObjects:v97 count:2];
+      v83[0] = MEMORY[0x1E69E9820];
+      v83[1] = 3221225472;
+      v83[2] = __171__FPCKTask__prepareXPCService_domainUserInfo_domainRootURL_databaseBackupPath_urls_volumeRole_personaIdentifier_options_reason_fpfs_iCDPackageDetection_completionHandler___block_invoke;
+      v83[3] = &unk_1E83C19B0;
       v30 = handlerCopy;
-      v87 = handlerCopy;
+      v86 = handlerCopy;
+      v84 = v81;
       v85 = v82;
-      v86 = v83;
-      LOWORD(v67) = __PAIR16__(detection, fpfs);
+      LOWORD(v66) = __PAIR16__(detection, fpfs);
       v35 = pathCopy;
       v36 = lCopy;
-      LODWORD(v66) = role;
+      LODWORD(v65) = role;
       v37 = identifierCopy;
       v34 = serviceCopy;
-      [v85 prepareFPCKForDomain:serviceCopy domainUserInfo:infoCopy domainRootURL:v74 databaseBackupPath:v40 accessingPaths:v56 urls:v19 volumeRole:v66 options:options reason:reason fpfs:v67 iCDPackageDetection:v84 completionHandler:?];
+      [v84 prepareFPCKForDomain:serviceCopy domainUserInfo:infoCopy domainRootURL:v73 databaseBackupPath:v40 accessingPaths:v56 urls:v19 volumeRole:v65 options:options reason:reason fpfs:v66 iCDPackageDetection:v83 completionHandler:?];
     }
 
     else
     {
       v30 = handlerCopy;
-      (*(handlerCopy + 2))(handlerCopy, v82, v83, v54);
-      v72 = v54;
+      (*(handlerCopy + 2))(handlerCopy, v81, v82, v54);
+      v71 = v54;
       v34 = serviceCopy;
     }
 
-    currentPersona = v69;
+    currentPersona = v68;
     goto LABEL_30;
   }
 
   v30 = handlerCopy;
-  v31 = v82;
-  v32 = v83;
-  (*(handlerCopy + 2))(handlerCopy, v82, v83, v23);
+  v31 = v81;
+  v32 = v82;
+  (*(handlerCopy + 2))(handlerCopy, v81, v82, v23);
   v34 = serviceCopy;
   v35 = pathCopy;
   v37 = identifierCopy;
 LABEL_33:
-  v33 = v74;
+  v33 = v73;
 LABEL_34:
-
-  v59 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)_resolveLaunchType:(unint64_t)type
@@ -598,31 +595,37 @@ void __62__FPCKTask_dumpDatabaseAt_fullDump_writeTo_completionHandler___block_in
   (*(*(a1 + 48) + 16))();
 }
 
++ (id)buildPauseResult:(BOOL)result semaphore:(id)semaphore
+{
+  resultCopy = result;
+  semaphoreCopy = semaphore;
+  v6 = [[_TtC18FileProviderDaemon19FPShouldPauseResult alloc] initWithShouldPause:resultCopy semaphore:semaphoreCopy];
+
+  return v6;
+}
+
 - (void)_prepareXPCService:(void *)a1 domainUserInfo:domainRootURL:databaseBackupPath:urls:volumeRole:personaIdentifier:options:reason:fpfs:iCDPackageDetection:completionHandler:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_shortDescription];
-  OUTLINED_FUNCTION_4_5(&dword_1CEFC7000, v2, v3, "[ERROR] Unable to launch FPCK, unable to sandbox wrap URL: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_4_5(&dword_1CEFC7000, v2, v3, "[ERROR] Unable to launch FPCK, unable to sandbox wrap URL: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)_prepareXPCService:(void *)a1 domainUserInfo:domainRootURL:databaseBackupPath:urls:volumeRole:personaIdentifier:options:reason:fpfs:iCDPackageDetection:completionHandler:.cold.2(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
-  OUTLINED_FUNCTION_4_5(&dword_1CEFC7000, v2, v3, "[ERROR] 🧹 FPCK error adopting persona during XPC Service preparation %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_4_5(&dword_1CEFC7000, v2, v3, "[ERROR] 🧹 FPCK error adopting persona during XPC Service preparation %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)_prepareXPCService:(void *)a1 domainUserInfo:domainRootURL:databaseBackupPath:urls:volumeRole:personaIdentifier:options:reason:fpfs:iCDPackageDetection:completionHandler:.cold.3(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
-  OUTLINED_FUNCTION_4_5(&dword_1CEFC7000, v2, v3, "[ERROR] 🧹 FPCK error restoring persona during XPC Service preparation %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_4_5(&dword_1CEFC7000, v2, v3, "[ERROR] 🧹 FPCK error restoring persona during XPC Service preparation %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

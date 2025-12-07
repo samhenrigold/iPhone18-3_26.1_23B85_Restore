@@ -1,6 +1,6 @@
-void sub_2F98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2F98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -346,75 +346,76 @@ double sub_869C(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-void sub_86F4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_86F4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void sub_8710(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_8710(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 void sub_8740()
 {
   v1 = &v0[OBJC_IVAR___NTKExactitudesDialView_dialConfiguration];
   swift_beginAccess();
-  v2 = v1[1] + v1[1];
-  v3 = sub_CDD0();
-  v4 = *&v0[OBJC_IVAR___NTKExactitudesDialView_rootLayer];
-  [v4 setFrame:v3];
-  v5 = [v0 layer];
-  [v5 bounds];
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
-  v13 = v12;
+  v2 = sub_CDD0();
+  v3 = *&v0[OBJC_IVAR___NTKExactitudesDialView_rootLayer];
+  [v3 setFrame:v2];
+  v4 = [v0 layer];
+  [v4 bounds];
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
 
-  v32.origin.x = v7;
-  v32.origin.y = v9;
-  v32.size.width = v11;
-  v32.size.height = v13;
-  MidX = CGRectGetMidX(v32);
-  v15 = [v0 layer];
-  [v15 bounds];
-  v17 = v16;
-  v19 = v18;
-  v21 = v20;
-  v23 = v22;
+  v31.origin.x = v6;
+  v31.origin.y = v8;
+  v31.size.width = v10;
+  v31.size.height = v12;
+  MidX = CGRectGetMidX(v31);
+  v14 = [v0 layer];
+  [v14 bounds];
+  v16 = v15;
+  v18 = v17;
+  v20 = v19;
+  v22 = v21;
 
-  v33.origin.x = v17;
-  v33.origin.y = v19;
-  v33.size.width = v21;
-  v33.size.height = v23;
-  [v4 setPosition:{MidX, CGRectGetMidY(v33)}];
-  [v4 setContentsScale:v1[36]];
-  v24 = [v0 layer];
-  [v24 addSublayer:v4];
+  v32.origin.x = v16;
+  v32.origin.y = v18;
+  v32.size.width = v20;
+  v32.size.height = v22;
+  [v3 setPosition:{MidX, CGRectGetMidY(v32)}];
+  [v3 setContentsScale:v1[36]];
+  v23 = [v0 layer];
+  [v23 addSublayer:v3];
 
   sub_896C();
-  v25 = *&v0[OBJC_IVAR___NTKExactitudesDialView_ticksRootLayer];
-  [v4 bounds];
-  [v25 setFrame:?];
-  [v4 addSublayer:v25];
+  v24 = *&v0[OBJC_IVAR___NTKExactitudesDialView_ticksRootLayer];
+  [v3 bounds];
+  [v24 setFrame:?];
+  [v3 addSublayer:v24];
   sub_8C40();
   sub_8D68(0);
-  v26 = *(v1 + 16);
-  v30[6] = *(v1 + 15);
-  v30[7] = v26;
-  v31 = *(v1 + 34);
-  v27 = *(v1 + 12);
-  v30[2] = *(v1 + 11);
-  v30[3] = v27;
-  v28 = *(v1 + 14);
-  v30[4] = *(v1 + 13);
-  v30[5] = v28;
-  v29 = *(v1 + 10);
-  v30[0] = *(v1 + 9);
-  v30[1] = v29;
-  if (sub_CDE4(v30) != 1)
+  v25 = *(v1 + 16);
+  v29[6] = *(v1 + 15);
+  v29[7] = v25;
+  v30 = *(v1 + 34);
+  v26 = *(v1 + 12);
+  v29[2] = *(v1 + 11);
+  v29[3] = v26;
+  v27 = *(v1 + 14);
+  v29[4] = *(v1 + 13);
+  v29[5] = v27;
+  v28 = *(v1 + 10);
+  v29[0] = *(v1 + 9);
+  v29[1] = v28;
+  if (sub_CDE4(v29) != 1)
   {
     sub_928C();
   }
@@ -438,28 +439,24 @@ void sub_896C()
   [v1 setPath:v9];
   v10 = objc_opt_self();
   v11 = [v10 clearColor];
-  v12 = OBJC_IVAR___NTKExactitudesDialView_colors;
   swift_beginAccess();
-  v13 = *(v0 + v12);
-  v14 = OBJC_IVAR___NTKExactitudesDialView_backgroundStyleTransitionProgress;
   swift_beginAccess();
-  v15 = *(v0 + v14);
-  v16 = CLKUIInterpolateBetweenColors();
+  v12 = CLKUIInterpolateBetweenColors();
 
-  if (v16)
+  if (v12)
   {
+    v13 = [v12 CGColor];
+
+    [v1 setStrokeColor:v13];
+    [v1 setLineWidth:*(v3 + 280)];
+    v14 = [v10 clearColor];
+    v15 = [v14 CGColor];
+
+    [v1 setBackgroundColor:v15];
+    v16 = [v10 clearColor];
     v17 = [v16 CGColor];
 
-    [v1 setStrokeColor:v17];
-    [v1 setLineWidth:*(v3 + 280)];
-    v18 = [v10 clearColor];
-    v19 = [v18 CGColor];
-
-    [v1 setBackgroundColor:v19];
-    v20 = [v10 clearColor];
-    v21 = [v20 CGColor];
-
-    [v1 setFillColor:v21];
+    [v1 setFillColor:v17];
     [v2 addSublayer:v1];
   }
 
@@ -671,7 +668,7 @@ LABEL_25:
       v32 = *(v26 - 1);
       v33 = *v26;
 
-      v34 = sub_BAA4();
+      v34 = sub_BAA4(v32, v33);
 
       [v34 setPosition:{v24 * v31.__cosval, v24 * v31.__sinval}];
       v35 = 1.0;
@@ -716,24 +713,24 @@ LABEL_18:
   sub_CE80(v47);
 }
 
-void sub_928C()
+double sub_928C()
 {
   v1 = v0 + OBJC_IVAR___NTKExactitudesDialView_dialConfiguration;
   swift_beginAccess();
   v2 = *(v1 + 256);
-  v46[6] = *(v1 + 240);
-  v46[7] = v2;
-  v47 = *(v1 + 272);
+  v47[6] = *(v1 + 240);
+  v47[7] = v2;
+  v48 = *(v1 + 272);
   v3 = *(v1 + 192);
-  v46[2] = *(v1 + 176);
-  v46[3] = v3;
+  v47[2] = *(v1 + 176);
+  v47[3] = v3;
   v4 = *(v1 + 224);
-  v46[4] = *(v1 + 208);
-  v46[5] = v4;
+  v47[4] = *(v1 + 208);
+  v47[5] = v4;
   v5 = *(v1 + 160);
-  v46[0] = *(v1 + 144);
-  v46[1] = v5;
-  if (sub_CDE4(v46) == 1)
+  v47[0] = *(v1 + 144);
+  v47[1] = v5;
+  if (sub_CDE4(v47) == 1)
   {
     if (qword_37A20 == -1)
     {
@@ -746,7 +743,7 @@ LABEL_3:
       {
 LABEL_40:
 
-        return;
+        return result;
       }
 
       v9 = swift_slowAlloc();
@@ -825,7 +822,7 @@ LABEL_8:
 LABEL_9:
     v16 = 0;
     v17 = v14 & 0xC000000000000001;
-    v34 = v14 & 0xFFFFFFFFFFFFFF8;
+    v35 = v14 & 0xFFFFFFFFFFFFFF8;
     v18 = &OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_configuration;
     while (1)
     {
@@ -836,7 +833,7 @@ LABEL_9:
 
       else
       {
-        if (v16 >= *(v34 + 16))
+        if (v16 >= *(v35 + 16))
         {
           goto LABEL_45;
         }
@@ -859,7 +856,7 @@ LABEL_9:
         v24 = *v18;
         swift_beginAccess();
         memmove(__dst, (v23 + v24), 0x172uLL);
-        if (sub_CE08(__dst) == 1 || !v45)
+        if (sub_CE08(__dst) == 1 || !v46)
         {
           v26 = v14;
           v27 = v15;
@@ -881,20 +878,20 @@ LABEL_9:
           v25 = v20;
         }
 
-        memmove(v41, (v23 + v24), 0x172uLL);
-        if (sub_CE08(v41) == 1 || (v43 & 1) != 0 || !v42)
+        memmove(v42, (v23 + v24), 0x172uLL);
+        if (sub_CE08(v42) == 1 || (v44 & 1) != 0 || !v43)
         {
           [*(v23 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_secondaryTicksLayer) setHidden:1];
         }
 
-        memmove(v38, (v23 + v24), 0x172uLL);
-        if (sub_CE08(v38) == 1 || (v40 & 1) != 0 || !v39)
+        memmove(v39, (v23 + v24), 0x172uLL);
+        if (sub_CE08(v39) == 1 || (v41 & 1) != 0 || !v40)
         {
           [*(v23 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_tertiaryTicksLayer) setHidden:1];
         }
 
-        memmove(v35, (v23 + v24), 0x172uLL);
-        if (sub_CE08(v35) == 1 || (v37 & 1) != 0 || !v36)
+        memmove(v36, (v23 + v24), 0x172uLL);
+        if (sub_CE08(v36) == 1 || (v38 & 1) != 0 || !v37)
         {
           [*(v23 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_quaternaryTicksLayer) setHidden:1];
         }
@@ -914,50 +911,52 @@ LABEL_45:
   }
 
 LABEL_43:
+
+  return result;
 }
 
-id sub_9780()
+double sub_9780()
 {
-  result = [*(v0 + OBJC_IVAR___NTKExactitudesDialView_expandedNumeralsLayer) sublayers];
-  if (result)
+  v1 = [*(v0 + OBJC_IVAR___NTKExactitudesDialView_expandedNumeralsLayer) sublayers];
+  if (v1)
   {
-    v2 = result;
+    v3 = v1;
     sub_CED4(0, &qword_37AC8, CALayer_ptr);
-    v3 = sub_216BC();
+    v4 = sub_216BC();
 
-    if (v3 >> 62)
+    if (v4 >> 62)
     {
       goto LABEL_34;
     }
 
-    v4 = *(&dword_10 + (v3 & 0xFFFFFFFFFFFFFF8));
+    v5 = *(&dword_10 + (v4 & 0xFFFFFFFFFFFFFF8));
 LABEL_4:
-    v5 = v0 + OBJC_IVAR___NTKExactitudesDialView_dialConfiguration;
+    v6 = v0 + OBJC_IVAR___NTKExactitudesDialView_dialConfiguration;
     swift_beginAccess();
-    if (v4)
+    if (v5)
     {
-      v6 = 0;
-      v0 = v3 & 0xC000000000000001;
+      v7 = 0;
+      v0 = v4 & 0xC000000000000001;
       do
       {
         if (v0)
         {
-          v7 = sub_2177C();
+          v8 = sub_2177C();
         }
 
         else
         {
-          if (v6 >= *(&dword_10 + (v3 & 0xFFFFFFFFFFFFFF8)))
+          if (v7 >= *(&dword_10 + (v4 & 0xFFFFFFFFFFFFFF8)))
           {
             goto LABEL_31;
           }
 
-          v7 = *(v3 + 8 * v6 + 32);
+          v8 = *(v4 + 8 * v7 + 32);
         }
 
-        v8 = v7;
-        v9 = v6 + 1;
-        if (__OFADD__(v6, 1))
+        v9 = v8;
+        v10 = v7 + 1;
+        if (__OFADD__(v7, 1))
         {
           __break(1u);
 LABEL_31:
@@ -967,89 +966,89 @@ LABEL_32:
 LABEL_33:
           __break(1u);
 LABEL_34:
-          v4 = sub_217FC();
+          v5 = sub_217FC();
           goto LABEL_4;
         }
 
-        v10 = *(v5 + 256);
-        v29[6] = *(v5 + 240);
-        v29[7] = v10;
-        v30 = *(v5 + 272);
-        v11 = *(v5 + 192);
-        v29[2] = *(v5 + 176);
-        v29[3] = v11;
-        v12 = *(v5 + 224);
-        v29[4] = *(v5 + 208);
-        v29[5] = v12;
-        v13 = *(v5 + 160);
-        v29[0] = *(v5 + 144);
-        v29[1] = v13;
-        if (sub_CDE4(v29) != 1 && (v14 = *(v5 + 272)) != 0 && (v15 = *(v5 + 136)) != 0 && (v16 = *(v14 + 16), v17 = *(v15 + 16), v16 >= v17))
+        v11 = *(v6 + 256);
+        v30[6] = *(v6 + 240);
+        v30[7] = v11;
+        v31 = *(v6 + 272);
+        v12 = *(v6 + 192);
+        v30[2] = *(v6 + 176);
+        v30[3] = v12;
+        v13 = *(v6 + 224);
+        v30[4] = *(v6 + 208);
+        v30[5] = v13;
+        v14 = *(v6 + 160);
+        v30[0] = *(v6 + 144);
+        v30[1] = v14;
+        if (sub_CDE4(v30) != 1 && (v15 = *(v6 + 272)) != 0 && (v16 = *(v6 + 136)) != 0 && (v17 = *(v15 + 16), v18 = *(v16 + 16), v17 >= v18))
         {
-          if (!v17)
+          if (!v18)
           {
             goto LABEL_32;
           }
 
-          v18 = v16 / v17;
+          v19 = v17 / v18;
         }
 
         else
         {
-          v18 = 1;
+          v19 = 1;
         }
 
-        v19 = *(v5 + 256);
-        v27[6] = *(v5 + 240);
-        v27[7] = v19;
-        v28 = *(v5 + 272);
-        v20 = *(v5 + 192);
-        v27[2] = *(v5 + 176);
-        v27[3] = v20;
-        v21 = *(v5 + 224);
-        v27[4] = *(v5 + 208);
-        v27[5] = v21;
-        v22 = *(v5 + 160);
-        v27[0] = *(v5 + 144);
-        v27[1] = v22;
-        if (sub_CDE4(v27) == 1)
+        v20 = *(v6 + 256);
+        v28[6] = *(v6 + 240);
+        v28[7] = v20;
+        v29 = *(v6 + 272);
+        v21 = *(v6 + 192);
+        v28[2] = *(v6 + 176);
+        v28[3] = v21;
+        v22 = *(v6 + 224);
+        v28[4] = *(v6 + 208);
+        v28[5] = v22;
+        v23 = *(v6 + 160);
+        v28[0] = *(v6 + 144);
+        v28[1] = v23;
+        if (sub_CDE4(v28) == 1)
         {
           goto LABEL_17;
         }
 
-        v23 = *(v5 + 272);
-        if (!v23)
+        v24 = *(v6 + 272);
+        if (!v24)
         {
           goto LABEL_23;
         }
 
-        v24 = *(v5 + 136);
-        if (!v24 || (v25 = *(v23 + 16), v26 = *(v24 + 16), v25 < v26))
+        v25 = *(v6 + 136);
+        if (!v25 || (v26 = *(v24 + 16), v27 = *(v25 + 16), v26 < v27))
         {
 LABEL_17:
-          v23 = 0;
+          v24 = 0;
         }
 
         else
         {
-          if (!v26)
+          if (!v27)
           {
             goto LABEL_33;
           }
 
-          v23 = v25 / v26 - 1;
+          v24 = v26 / v27 - 1;
         }
 
 LABEL_23:
-        if (v6 % v18 == v23)
+        if (v7 % v19 == v24)
         {
-          [v8 setHidden:1];
+          [v9 setHidden:1];
         }
 
-        ++v6;
+        ++v7;
       }
 
-      while (v9 != v4);
+      while (v10 != v5);
     }
   }
 
@@ -1064,78 +1063,67 @@ id sub_99D8(char *a1, const void *a2, CGFloat a3)
   v7 = &a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_configuration];
   swift_beginAccess();
   memcpy(v7, __dst, 0x172uLL);
-  memcpy(v46, __dst, 0x172uLL);
-  if (sub_CE08(v46) == 1)
+  memcpy(v35, __dst, 0x172uLL);
+  if (sub_CE08(v35) == 1)
   {
 LABEL_4:
-    v10 = (v4 + OBJC_IVAR___NTKExactitudesDialView_colors);
     swift_beginAccess();
-    v11 = *v10;
-    v12 = v10[1];
-    v13 = OBJC_IVAR___NTKExactitudesDialView_backgroundStyleTransitionProgress;
     swift_beginAccess();
-    v14 = *(v4 + v13);
     result = CLKUIInterpolateBetweenColors();
     if (result)
     {
-      v15 = result;
-      v16 = sub_E86C();
-      v17 = *v10;
-      v18 = v10[1];
-      v19 = *(v4 + v13);
+      v10 = result;
+      v11 = sub_E86C();
       result = CLKUIInterpolateBetweenColors();
       if (result)
       {
-        v20 = result;
-        v21 = sub_11FD8(result);
+        v12 = result;
+        v13 = sub_11FD8(result);
 
-        v22 = *v10;
-        v23 = v10[1];
-        v24 = *(v4 + v13);
         result = CLKUIInterpolateBetweenColors();
         if (result)
         {
-          v25 = result;
-          v26 = sub_11FD8(result);
+          v14 = result;
+          v15 = sub_11FD8(result);
 
-          v27 = *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_primaryColor];
-          *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_primaryColor] = v15;
-          v28 = v15;
+          v16 = *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_primaryColor];
+          *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_primaryColor] = v10;
+          v17 = v10;
 
-          v29 = *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_secondaryColor];
-          *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_secondaryColor] = v16;
-          v30 = v16;
+          v18 = *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_secondaryColor];
+          *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_secondaryColor] = v11;
+          v19 = v11;
 
-          v31 = *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_tertiaryColor];
-          *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_tertiaryColor] = v21;
-          v32 = v21;
+          v20 = *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_tertiaryColor];
+          *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_tertiaryColor] = v13;
+          v21 = v13;
 
-          v33 = *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_quaternaryColor];
-          *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_quaternaryColor] = v26;
-          v34 = v26;
+          v22 = *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_quaternaryColor];
+          *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_quaternaryColor] = v15;
+          v23 = v15;
 
-          v35 = *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_primaryTickLayer];
-          v36 = [v28 CGColor];
-          [v35 setBackgroundColor:v36];
+          v24 = *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_primaryTickLayer];
+          v25 = [v17 CGColor];
+          [v24 setBackgroundColor:v25];
 
-          v37 = *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_secondaryTickLayer];
-          v38 = [v30 CGColor];
-          [v37 setBackgroundColor:v38];
+          v26 = *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_secondaryTickLayer];
+          v27 = [v19 CGColor];
+          [v26 setBackgroundColor:v27];
 
-          v39 = *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_tertiaryTickLayer];
-          v40 = [v32 CGColor];
-          [v39 setBackgroundColor:v40];
+          v28 = *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_tertiaryTickLayer];
+          v29 = [v21 CGColor];
+          [v28 setBackgroundColor:v29];
 
-          v41 = *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_quaternaryTickLayer];
-          v42 = [v34 CGColor];
-          [v41 setBackgroundColor:v42];
+          v30 = *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_quaternaryTickLayer];
+          v31 = [v23 CGColor];
+          [v30 setBackgroundColor:v31];
 
-          v43 = *(v4 + OBJC_IVAR___NTKExactitudesDialView_ticksRootLayer);
-          [v43 bounds];
+          v32 = *(v4 + OBJC_IVAR___NTKExactitudesDialView_ticksRootLayer);
+          [v32 bounds];
           [a1 setFrame:?];
-          CATransform3DMakeRotation(v44, a3, 0.0, 0.0, 1.0);
-          [a1 setTransform:v44];
-          return [v43 addSublayer:a1];
+          CATransform3DMakeRotation(v33, a3, 0.0, 0.0, 1.0);
+          [a1 setTransform:v33];
+          return [v32 addSublayer:a1];
         }
 
         goto LABEL_10;
@@ -1154,8 +1142,8 @@ LABEL_10:
   }
 
   v8 = *&a1[OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_rootLayer];
-  memcpy(v44, v7, sizeof(v44));
-  result = sub_CE08(v44);
+  memcpy(v33, v7, sizeof(v33));
+  result = sub_CE08(v33);
   if (result != 1)
   {
     [v8 setFrame:{0.0, 0.0, v7[4], v7[5]}];
@@ -1172,49 +1160,49 @@ LABEL_11:
   return result;
 }
 
-uint64_t sub_9DE8()
+void sub_9DE8()
 {
-  v1 = *(*(sub_CA10(&qword_37C80, &qword_251F0) - 8) + 64);
-  v2 = (__chkstk_darwin)();
-  v154 = &v151 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v1 = sub_CA10(&qword_37C80, &qword_251F0);
+  v2 = __chkstk_darwin(v1 - 8);
+  v153 = &v150 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v4 = __chkstk_darwin(v2);
-  v155 = &v151 - v5;
+  v154 = &v150 - v5;
   v6 = __chkstk_darwin(v4);
-  v153 = &v151 - v7;
+  v152 = &v150 - v7;
   v8 = __chkstk_darwin(v6);
-  v10 = &v151 - v9;
+  v10 = &v150 - v9;
   v11 = __chkstk_darwin(v8);
-  v156 = &v151 - v12;
+  v155 = &v150 - v12;
   v13 = __chkstk_darwin(v11);
-  v15 = &v151 - v14;
+  v15 = &v150 - v14;
   v16 = __chkstk_darwin(v13);
-  v160 = &v151 - v17;
+  v159 = &v150 - v17;
   v18 = __chkstk_darwin(v16);
-  v158 = &v151 - v19;
+  v157 = &v150 - v19;
   v20 = __chkstk_darwin(v18);
-  v162 = &v151 - v21;
+  v161 = &v150 - v21;
   v22 = __chkstk_darwin(v20);
-  v159 = &v151 - v23;
+  v158 = &v150 - v23;
   v24 = __chkstk_darwin(v22);
-  v163 = &v151 - v25;
+  v162 = &v150 - v25;
   v26 = __chkstk_darwin(v24);
-  v161 = &v151 - v27;
+  v160 = &v150 - v27;
   v28 = __chkstk_darwin(v26);
-  v167 = &v151 - v29;
+  v166 = &v150 - v29;
   v30 = __chkstk_darwin(v28);
-  v32 = &v151 - v31;
+  v32 = &v150 - v31;
   v33 = __chkstk_darwin(v30);
-  v35 = &v151 - v34;
+  v35 = &v150 - v34;
   __chkstk_darwin(v33);
-  v37 = &v151 - v36;
+  v37 = &v150 - v36;
   v38 = OBJC_IVAR___NTKExactitudesDialView_overrideDate;
   swift_beginAccess();
   sub_CA58(&v0[v38], v35);
   v39 = sub_215AC();
   v40 = *(v39 - 8);
-  v171 = *(v40 + 48);
-  v172 = v40 + 48;
-  if (v171(v35, 1, v39) == 1)
+  v170 = *(v40 + 48);
+  v171 = v40 + 48;
+  if (v170(v35, 1, v39) == 1)
   {
     v41 = [objc_opt_self() faceDate];
     if (!v41)
@@ -1225,7 +1213,7 @@ uint64_t sub_9DE8()
     v43 = v41;
     sub_2159C();
 
-    if (v171(v35, 1, v39) != 1)
+    if (v170(v35, 1, v39) != 1)
     {
       sub_CF1C(v35, &qword_37C80, &qword_251F0);
     }
@@ -1236,14 +1224,14 @@ uint64_t sub_9DE8()
     (*(v40 + 32))(v37, v35, v39);
   }
 
-  v157 = v15;
-  v152 = v10;
-  v168 = v40;
-  v169 = v39;
+  v156 = v15;
+  v151 = v10;
+  v167 = v40;
+  v168 = v39;
   v44 = *(v40 + 56);
-  v165 = v40 + 56;
-  v166 = v38;
-  v164 = v44;
+  v164 = v40 + 56;
+  v165 = v38;
+  v163 = v44;
   v44(v37, 0, 1, v39);
   sub_10120(v37);
   v46 = v45;
@@ -1251,7 +1239,7 @@ uint64_t sub_9DE8()
   v47 = sub_CD1C(v46);
   v48 = OBJC_IVAR___NTKExactitudesDialView_dialConfiguration;
   swift_beginAccess();
-  v170 = v48;
+  v169 = v48;
   v42 = *&v0[v48];
   if (v42 >= 3)
   {
@@ -1259,9 +1247,9 @@ uint64_t sub_9DE8()
   }
 
   v49 = qword_253D0[v42];
-  v173 = &_swiftEmptyArrayStorage;
+  v172 = _swiftEmptyArrayStorage;
   sub_CADC(0, v49, 0);
-  v50 = v173;
+  v50 = v172;
   v51 = sub_216EC();
   do
   {
@@ -1272,13 +1260,13 @@ uint64_t sub_9DE8()
       swift_task_reportUnexpectedExecutor();
     }
 
-    v173 = v50;
+    v172 = v50;
     v53 = *(v50 + 2);
     v52 = *(v50 + 3);
     if (v53 >= v52 >> 1)
     {
       sub_CADC((v52 > 1), v53 + 1, 1);
-      v50 = v173;
+      v50 = v172;
     }
 
     *(v50 + 2) = v53 + 1;
@@ -1292,7 +1280,7 @@ uint64_t sub_9DE8()
     v54 = v0;
     if (v47 >= 1.57079633 && v47 < 2.61799388)
     {
-      v57 = v168;
+      v57 = v167;
       if (qword_37A28 != -1)
       {
         goto LABEL_127;
@@ -1311,7 +1299,7 @@ uint64_t sub_9DE8()
       goto LABEL_32;
     }
 
-    v51 = v168;
+    v51 = v167;
     if (v47 >= 3.66519143 && v47 < 4.71238898)
     {
       if (qword_37A28 != -1)
@@ -1350,31 +1338,31 @@ LABEL_139:
       {
         v127 = swift_slowAlloc();
         *v127 = 134217984;
-        v128 = v154;
-        sub_CA58(&v54[v166], v154);
-        v129 = v169;
-        if (v171(v128, 1, v169) == 1)
+        v128 = v153;
+        sub_CA58(&v54[v165], v153);
+        v129 = v168;
+        if (v170(v128, 1, v168) == 1)
         {
           v130 = [objc_opt_self() faceDate];
-          v42 = &v174;
-          v131 = v155;
+          v42 = &v173;
+          v131 = v154;
           if (!v130)
           {
 LABEL_148:
             __break(1u);
 LABEL_149:
-            v173 = v42;
+            v172 = v42;
 LABEL_151:
-            result = sub_2186C();
+            sub_2186C();
             __break(1u);
-            return result;
+            return;
           }
 
           v132 = v130;
           sub_2159C();
 
-          v129 = v169;
-          if (v171(v128, 1, v169) != 1)
+          v129 = v168;
+          if (v170(v128, 1, v168) != 1)
           {
             sub_CF1C(v128, &qword_37C80, &qword_251F0);
           }
@@ -1382,11 +1370,11 @@ LABEL_151:
 
         else
         {
-          v131 = v155;
-          (*(v51 + 4))(v155, v128, v129);
+          v131 = v154;
+          (*(v51 + 4))(v154, v128, v129);
         }
 
-        v164(v131, 0, 1, v129);
+        v163(v131, 0, 1, v129);
         sub_10120(v131);
         v140 = v139;
         sub_CF1C(v131, &qword_37C80, &qword_251F0);
@@ -1395,6 +1383,7 @@ LABEL_151:
       }
 
       sub_B43C();
+      goto LABEL_105;
     }
 
     if (qword_37A28 != -1)
@@ -1412,10 +1401,10 @@ LABEL_151:
     {
       v115 = swift_slowAlloc();
       *v115 = 134217984;
-      v116 = v153;
-      sub_CA58(&v54[v166], v153);
-      v117 = v169;
-      if (v171(v116, 1, v169) == 1)
+      v116 = v152;
+      sub_CA58(&v54[v165], v152);
+      v117 = v168;
+      if (v170(v116, 1, v168) == 1)
       {
         v118 = [objc_opt_self() faceDate];
         if (!v118)
@@ -1426,11 +1415,11 @@ LABEL_147:
         }
 
         v119 = v118;
-        v120 = v152;
+        v120 = v151;
         sub_2159C();
 
-        v117 = v169;
-        if (v171(v116, 1, v169) != 1)
+        v117 = v168;
+        if (v170(v116, 1, v168) != 1)
         {
           sub_CF1C(v116, &qword_37C80, &qword_251F0);
         }
@@ -1438,17 +1427,17 @@ LABEL_147:
 
       else
       {
-        v142 = v116;
-        v143 = v152;
-        (*(v51 + 4))(v152, v142, v117);
-        v120 = v143;
+        v141 = v116;
+        v142 = v151;
+        (*(v51 + 4))(v151, v141, v117);
+        v120 = v142;
       }
 
-      v164(v120, 0, 1, v117);
+      v163(v120, 0, 1, v117);
       sub_10120(v120);
-      v145 = v144;
+      v144 = v143;
       sub_CF1C(v120, &qword_37C80, &qword_251F0);
-      *(v115 + 4) = v145;
+      *(v115 + 4) = v144;
       _os_log_impl(&dword_0, v113, v114, "Slices 6 & 1 shown %f", v115, 0xCu);
     }
 
@@ -1496,14 +1485,14 @@ LABEL_146:
     v57 = sub_2173C();
 
     v58 = os_log_type_enabled(v56, v57);
-    v59 = v169;
-    v60 = v167;
+    v59 = v168;
+    v60 = v166;
     if (v58)
     {
       v61 = swift_slowAlloc();
       *v61 = 134217984;
-      sub_CA58(&v54[v166], v60);
-      if (v171(v60, 1, v59) == 1)
+      sub_CA58(&v54[v165], v60);
+      if (v170(v60, 1, v59) == 1)
       {
         v62 = [objc_opt_self() faceDate];
         if (!v62)
@@ -1514,7 +1503,7 @@ LABEL_146:
         v63 = v62;
         sub_2159C();
 
-        if (v171(v60, 1, v59) != 1)
+        if (v170(v60, 1, v59) != 1)
         {
           sub_CF1C(v60, &qword_37C80, &qword_251F0);
         }
@@ -1522,10 +1511,10 @@ LABEL_146:
 
       else
       {
-        (*(v168 + 32))(v32, v60, v59);
+        (*(v167 + 32))(v32, v60, v59);
       }
 
-      v164(v32, 0, 1, v59);
+      v163(v32, 0, 1, v59);
       sub_10120(v32);
       v97 = v96;
       sub_CF1C(v32, &qword_37C80, &qword_251F0);
@@ -1555,7 +1544,7 @@ LABEL_125:
     }
 
     v50[32] = 1;
-    if (v42 != (&dword_0 + 1))
+    if (v42 != 1)
     {
       v50[33] = 1;
       goto LABEL_112;
@@ -1573,17 +1562,17 @@ LABEL_24:
     v67 = sub_2173C();
 
     v68 = os_log_type_enabled(v66, v67);
-    v69 = v163;
+    v69 = v162;
     if (v68)
     {
       v51 = swift_slowAlloc();
       *v51 = 134217984;
-      sub_CA58(&v54[v166], v69);
-      v70 = v169;
-      if (v171(v69, 1, v169) == 1)
+      sub_CA58(&v54[v165], v69);
+      v70 = v168;
+      if (v170(v69, 1, v168) == 1)
       {
         v71 = [objc_opt_self() faceDate];
-        v72 = v161;
+        v72 = v160;
         if (!v71)
         {
           goto LABEL_143;
@@ -1592,8 +1581,8 @@ LABEL_24:
         v73 = v71;
         sub_2159C();
 
-        v70 = v169;
-        if (v171(v69, 1, v169) != 1)
+        v70 = v168;
+        if (v170(v69, 1, v168) != 1)
         {
           sub_CF1C(v69, &qword_37C80, &qword_251F0);
         }
@@ -1601,11 +1590,11 @@ LABEL_24:
 
       else
       {
-        v72 = v161;
-        (*(v57 + 32))(v161, v69, v70);
+        v72 = v160;
+        (*(v57 + 32))(v160, v69, v70);
       }
 
-      v164(v72, 0, 1, v70);
+      v163(v72, 0, 1, v70);
       sub_10120(v72);
       v110 = v109;
       sub_CF1C(v72, &qword_37C80, &qword_251F0);
@@ -1627,7 +1616,7 @@ LABEL_24:
     else
     {
       v50[33] = 1;
-      if (v42 != (&dword_0 + 2))
+      if (v42 != 2)
       {
         v50[34] = 1;
         goto LABEL_112;
@@ -1645,18 +1634,18 @@ LABEL_32:
     v77 = sub_2173C();
 
     v78 = os_log_type_enabled(v76, v77);
-    v79 = v162;
+    v79 = v161;
     if (v78)
     {
       v80 = swift_slowAlloc();
       *v80 = 134217984;
-      sub_CA58(&v54[v166], v79);
-      v81 = v169;
-      if (v171(v79, 1, v169) == 1)
+      sub_CA58(&v54[v165], v79);
+      v81 = v168;
+      if (v170(v79, 1, v168) == 1)
       {
         v82 = [objc_opt_self() faceDate];
-        v42 = &v176;
-        v83 = v159;
+        v42 = &v175;
+        v83 = v158;
         if (!v82)
         {
           goto LABEL_144;
@@ -1665,8 +1654,8 @@ LABEL_32:
         v84 = v82;
         sub_2159C();
 
-        v81 = v169;
-        if (v171(v79, 1, v169) != 1)
+        v81 = v168;
+        if (v170(v79, 1, v168) != 1)
         {
           sub_CF1C(v79, &qword_37C80, &qword_251F0);
         }
@@ -1674,11 +1663,11 @@ LABEL_32:
 
       else
       {
-        v83 = v159;
-        (*(v168 + 32))(v159, v79, v81);
+        v83 = v158;
+        (*(v167 + 32))(v158, v79, v81);
       }
 
-      v164(v83, 0, 1, v81);
+      v163(v83, 0, 1, v81);
       sub_10120(v83);
       v122 = v121;
       sub_CF1C(v83, &qword_37C80, &qword_251F0);
@@ -1700,7 +1689,7 @@ LABEL_32:
     else
     {
       v50[34] = 1;
-      if (v42 != (&dword_0 + 3))
+      if (v42 != 3)
       {
         v50[35] = 1;
         goto LABEL_112;
@@ -1718,18 +1707,18 @@ LABEL_40:
     v88 = sub_2173C();
 
     v89 = os_log_type_enabled(v87, v88);
-    v90 = v160;
+    v90 = v159;
     if (v89)
     {
       v91 = swift_slowAlloc();
       *v91 = 134217984;
-      sub_CA58(&v54[v166], v90);
-      v92 = v169;
-      if (v171(v90, 1, v169) == 1)
+      sub_CA58(&v54[v165], v90);
+      v92 = v168;
+      if (v170(v90, 1, v168) == 1)
       {
         v93 = [objc_opt_self() faceDate];
-        v42 = &v175;
-        v94 = v158;
+        v42 = &v174;
+        v94 = v157;
         if (!v93)
         {
           goto LABEL_145;
@@ -1738,8 +1727,8 @@ LABEL_40:
         v95 = v93;
         sub_2159C();
 
-        v92 = v169;
-        if (v171(v90, 1, v169) != 1)
+        v92 = v168;
+        if (v170(v90, 1, v168) != 1)
         {
           sub_CF1C(v90, &qword_37C80, &qword_251F0);
         }
@@ -1749,11 +1738,11 @@ LABEL_40:
       {
         v133 = *(v51 + 4);
         v51 += 32;
-        v94 = v158;
-        v133(v158, v90, v92);
+        v94 = v157;
+        v133(v157, v90, v92);
       }
 
-      v164(v94, 0, 1, v92);
+      v163(v94, 0, 1, v92);
       sub_10120(v94);
       v135 = v134;
       sub_CF1C(v94, &qword_37C80, &qword_251F0);
@@ -1775,7 +1764,7 @@ LABEL_40:
     else
     {
       v50[35] = 1;
-      if (v42 != &dword_4)
+      if (v42 != 4)
       {
         v50[36] = 1;
         goto LABEL_112;
@@ -1793,15 +1782,15 @@ LABEL_54:
     v101 = sub_2173C();
 
     v102 = os_log_type_enabled(v100, v101);
-    v103 = v157;
+    v103 = v156;
     if (v102)
     {
       v104 = swift_slowAlloc();
       *v104 = 134217984;
-      v105 = v156;
-      sub_CA58(&v54[v166], v156);
-      v106 = v169;
-      if (v171(v105, 1, v169) == 1)
+      v105 = v155;
+      sub_CA58(&v54[v165], v155);
+      v106 = v168;
+      if (v170(v105, 1, v168) == 1)
       {
         v107 = [objc_opt_self() faceDate];
         if (!v107)
@@ -1812,8 +1801,8 @@ LABEL_54:
         v108 = v107;
         sub_2159C();
 
-        v106 = v169;
-        if (v171(v105, 1, v169) != 1)
+        v106 = v168;
+        if (v170(v105, 1, v168) != 1)
         {
           sub_CF1C(v105, &qword_37C80, &qword_251F0);
         }
@@ -1826,7 +1815,7 @@ LABEL_54:
         v136(v103, v105, v106);
       }
 
-      v164(v103, 0, 1, v106);
+      v163(v103, 0, 1, v106);
       sub_10120(v103);
       v138 = v137;
       sub_CF1C(v103, &qword_37C80, &qword_251F0);
@@ -1849,23 +1838,23 @@ LABEL_138:
     }
 
     v50[36] = 1;
-    if (v42 == (&dword_4 + 1))
+    if (v42 == 5)
     {
       goto LABEL_138;
     }
 
     v50[37] = 1;
 LABEL_112:
-    v146 = *&v54[v170];
-    if (v146 >= 3)
+    v145 = *&v54[v169];
+    if (v145 >= 3)
     {
-      v173 = *&v54[v170];
+      v172 = *&v54[v169];
       goto LABEL_151;
     }
 
-    v32 = qword_253D0[v146];
-    v147 = *&v54[OBJC_IVAR___NTKExactitudesDialView_ticksSliceLayers];
-    if ((v147 & 0xC000000000000001) != 0 || v32 <= *(&dword_10 + (v147 & 0xFFFFFFFFFFFFFF8)))
+    v32 = qword_253D0[v145];
+    v146 = *&v54[OBJC_IVAR___NTKExactitudesDialView_ticksSliceLayers];
+    if ((v146 & 0xC000000000000001) != 0 || v32 <= *(&dword_10 + (v146 & 0xFFFFFFFFFFFFFF8)))
     {
       break;
     }
@@ -1882,26 +1871,27 @@ LABEL_123:
     goto LABEL_122;
   }
 
-  v148 = 0;
+  v147 = 0;
   do
   {
-    if ((v147 & 0xC000000000000001) != 0)
+    if ((v146 & 0xC000000000000001) != 0)
     {
-      v149 = sub_2177C();
+      v148 = sub_2177C();
     }
 
     else
     {
-      v149 = *(v147 + 8 * v148 + 32);
+      v148 = *(v146 + 8 * v147 + 32);
     }
 
-    v150 = v149;
-    [v149 setHidden:(v148[v50 + 32] & 1) == 0];
+    v149 = v148;
+    [v148 setHidden:(v147[v50 + 32] & 1) == 0];
 
-    ++v148;
+    ++v147;
   }
 
-  while (v32 != v148);
+  while (v32 != v147);
+LABEL_105:
 }
 
 void sub_B43C()
@@ -1921,8 +1911,8 @@ void sub_B43C()
 
   else
   {
-    v3 = &_swiftEmptyArrayStorage;
-    if (!(&_swiftEmptyArrayStorage >> 62))
+    v3 = _swiftEmptyArrayStorage;
+    if (!(_swiftEmptyArrayStorage >> 62))
     {
 LABEL_3:
       v4 = *(&dword_10 + (v3 & 0xFFFFFFFFFFFFFF8));
@@ -2080,7 +2070,7 @@ LABEL_13:
     v18 = *(v14 - 1);
     v19 = *v14;
 
-    v20 = sub_BAA4();
+    v20 = sub_BAA4(v18, v19);
 
     [v20 setPosition:{v12 * v17.__cosval, v13 * v17.__sinval}];
     [v8 addSublayer:v20];
@@ -2102,100 +2092,94 @@ LABEL_13:
   sub_CE80(v26);
 }
 
-id sub_BAA4()
+id sub_BAA4(uint64_t a1, uint64_t a2)
 {
-  v1 = v0;
-  v2 = v0 + OBJC_IVAR___NTKExactitudesDialView_dialConfiguration;
+  v3 = v2 + OBJC_IVAR___NTKExactitudesDialView_dialConfiguration;
   swift_beginAccess();
-  v3 = v0 + OBJC_IVAR___NTKExactitudesDialView_metrics;
-  v4 = 48;
-  if (*v2 == 2)
+  v4 = v2 + OBJC_IVAR___NTKExactitudesDialView_metrics;
+  v5 = 48;
+  if (*v3 == 2)
   {
-    v4 = 40;
+    v5 = 40;
   }
 
-  v5 = 32;
-  if (*v2 == 2)
+  v6 = 32;
+  if (*v3 == 2)
   {
-    v5 = 24;
+    v6 = 24;
   }
 
-  v6 = *(v3 + v5);
-  v7 = *(v3 + v4);
-  v8 = *(v3 + 56);
-  v9 = *(v3 + 64);
+  v7 = *(v4 + v6);
+  v8 = *(v4 + v5);
+  v9 = *(v4 + 56);
+  v10 = *(v4 + 64);
   type metadata accessor for ExactitudesFontAttributes();
   inited = swift_initStackObject();
-  *(inited + 16) = v7;
-  *(inited + 24) = v7 * 0.9;
-  *(inited + 32) = v8;
+  *(inited + 16) = v8;
+  *(inited + 24) = v8 * 0.9;
+  *(inited + 32) = v9;
   *(inited + 40) = 0;
-  *(inited + 48) = v9;
+  *(inited + 48) = v10;
   *(inited + 56) = 0;
-  v11 = objc_opt_self();
-  sub_1EB88();
+  v12 = objc_opt_self();
+  sub_1EB88(v12, 0.0);
   sub_CED4(0, &qword_37AD0, NSNumber_ptr);
   isa = sub_2162C().super.isa;
 
-  v13 = [v11 fontWithAttributes:isa size:v6];
+  v14 = [v12 fontWithAttributes:isa size:v7];
 
   sub_CA10(&qword_37AD8, &qword_25208);
-  v14 = swift_initStackObject();
-  *(v14 + 16) = xmmword_25170;
-  *(v14 + 32) = NSFontAttributeName;
-  *(v14 + 64) = sub_CED4(0, &qword_37AE0, CLKFont_ptr);
-  *(v14 + 40) = v13;
-  v15 = NSFontAttributeName;
-  v16 = v13;
-  sub_1EFE0(v14);
+  v15 = swift_initStackObject();
+  *(v15 + 16) = xmmword_25170;
+  *(v15 + 32) = NSFontAttributeName;
+  *(v15 + 64) = sub_CED4(0, &qword_37AE0, CLKFont_ptr);
+  *(v15 + 40) = v14;
+  v16 = NSFontAttributeName;
+  v17 = v14;
+  sub_1EFE0(v15);
   swift_setDeallocating();
-  sub_CF1C(v14 + 32, &qword_37AE8, &qword_25210);
-  v17 = objc_allocWithZone(NSAttributedString);
-  v18 = sub_2163C();
+  sub_CF1C(v15 + 32, &qword_37AE8, &qword_25210);
+  v18 = objc_allocWithZone(NSAttributedString);
+  v19 = sub_2163C();
   type metadata accessor for Key(0);
-  sub_D02C(&qword_37AF0);
-  v19 = sub_2162C().super.isa;
+  sub_D02C(&qword_37AF0, &unk_25388);
+  v20 = sub_2162C().super.isa;
 
-  v20 = [v17 initWithString:v18 attributes:v19];
+  v21 = [v18 initWithString:v19 attributes:v20];
 
-  [v20 boundingRectWithSize:0 options:0 context:{0.0, 0.0}];
-  v21 = v16;
-  [v21 capHeight];
-  v22 = [objc_allocWithZone(CATextLayer) init];
-  v23 = [v20 string];
-  if (!v23)
+  [v21 boundingRectWithSize:0 options:0 context:{0.0, 0.0}];
+  v22 = v17;
+  [v22 capHeight];
+  v23 = [objc_allocWithZone(CATextLayer) init];
+  v24 = [v21 string];
+  if (!v24)
   {
     sub_2167C();
-    v23 = sub_2163C();
+    v24 = sub_2163C();
   }
 
-  [v22 setString:v23];
+  [v23 setString:v24];
 
-  v24 = v22;
-  [v21 ascender];
-  [v21 capHeight];
-  [v24 setBounds:sub_CDD0()];
-  [v24 setFont:v21];
-  [v21 pointSize];
-  v26 = v25;
+  v25 = v23;
+  [v22 ascender];
+  [v22 capHeight];
+  [v25 setBounds:sub_CDD0()];
+  [v25 setFont:v22];
+  [v22 pointSize];
+  v27 = v26;
 
-  [v24 setFontSize:v26];
-  [v24 setContentsScale:*(v2 + 288)];
-  v27 = (v1 + OBJC_IVAR___NTKExactitudesDialView_colors);
+  [v25 setFontSize:v27];
+  [v25 setContentsScale:*(v3 + 288)];
   swift_beginAccess();
-  v29 = *v27;
-  v28 = v27[1];
-  v30 = OBJC_IVAR___NTKExactitudesDialView_backgroundStyleTransitionProgress;
   swift_beginAccess();
-  v31 = *(v1 + v30);
   result = CLKUIInterpolateBetweenColors();
   if (result)
   {
-    v33 = result;
-    v34 = [result CGColor];
+    v29 = result;
+    v30 = [result CGColor];
 
-    [v24 setForegroundColor:v34];
-    return v24;
+    [v25 setForegroundColor:v30];
+    return v25;
   }
 
   else
@@ -2234,37 +2218,31 @@ void *variable initialization expression of ExactitudesDialView.ticksSliceLayers
   v0 = type metadata accessor for ExactitudesDialSlice();
   [objc_allocWithZone(v0) init];
   sub_2179C();
-  v1 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
   [objc_allocWithZone(v0) init];
   sub_2179C();
-  v2 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
   [objc_allocWithZone(v0) init];
   sub_2179C();
-  v3 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
   [objc_allocWithZone(v0) init];
   sub_2179C();
-  v4 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
   [objc_allocWithZone(v0) init];
   sub_2179C();
-  v5 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
   [objc_allocWithZone(v0) init];
   sub_2179C();
-  v6 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
@@ -2457,13 +2435,6 @@ uint64_t sub_C504(uint64_t result, int a2, int a3)
   return result;
 }
 
-uint64_t sub_C548(uint64_t a1, id *a2)
-{
-  result = sub_2165C();
-  *a2 = 0;
-  return result;
-}
-
 uint64_t sub_C5C0(uint64_t a1, id *a2)
 {
   v3 = sub_2166C();
@@ -2471,84 +2442,76 @@ uint64_t sub_C5C0(uint64_t a1, id *a2)
   return v3 & 1;
 }
 
-uint64_t sub_C640@<X0>(void *a1@<X8>)
+void sub_C640(uint64_t *a1@<X8>)
 {
   sub_2167C();
   v2 = sub_2163C();
 
   *a1 = v2;
-  return result;
 }
 
 uint64_t sub_C684()
 {
-  v1 = *v0;
   sub_2167C();
-  v2 = sub_216AC();
+  v0 = sub_216AC();
 
-  return v2;
+  return v0;
 }
 
-uint64_t sub_C6C0()
+double sub_C6C0(uint64_t a1)
 {
-  v1 = *v0;
   sub_2167C();
   sub_2168C();
+
+  return result;
 }
 
-Swift::Int sub_C714()
+Swift::Int sub_C714(uint64_t a1)
 {
-  v1 = *v0;
   sub_2167C();
   sub_2188C();
   sub_2168C();
-  v2 = sub_218AC();
+  v1 = sub_218AC();
 
-  return v2;
+  return v1;
 }
 
-uint64_t sub_C788(uint64_t *a1, uint64_t *a2)
+uint64_t sub_C788(void *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  v4 = sub_2167C();
-  v6 = v5;
-  if (v4 == sub_2167C() && v6 == v7)
+  v2 = sub_2167C();
+  v4 = v3;
+  if (v2 == sub_2167C() && v4 == v5)
   {
-    v9 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = sub_2185C();
+    v7 = sub_2185C();
   }
 
-  return v9 & 1;
+  return v7 & 1;
 }
 
-uint64_t sub_C810@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+void sub_C810(uint64_t *a2@<X8>)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = sub_2163C();
+  v3 = sub_2163C();
 
-  *a2 = v5;
-  return result;
+  *a2 = v3;
 }
 
 uint64_t sub_C858@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *v1;
   result = sub_2167C();
   *a1 = result;
-  a1[1] = v5;
+  a1[1] = v3;
   return result;
 }
 
 uint64_t sub_C884(uint64_t a1)
 {
-  v2 = sub_D02C(&qword_37AF0);
-  v3 = sub_D02C(&qword_37B20);
+  v2 = sub_D02C(&qword_37AF0, &unk_25388);
+  v3 = sub_D02C(&qword_37B20, &unk_252DC);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()(a1, v2, v3, &protocol witness table for String);
 }
@@ -2603,7 +2566,7 @@ char *sub_C91C(char *result, int64_t a2, char a3, char *a4)
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   v12 = v10 + 32;
@@ -2631,7 +2594,6 @@ uint64_t sub_CA10(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -2646,14 +2608,14 @@ uint64_t sub_CA58(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-char *sub_CADC(char *a1, int64_t a2, char a3)
+char *sub_CADC(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_CB1C(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-char *sub_CAFC(char *a1, int64_t a2, char a3)
+char *sub_CAFC(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_CC10(a1, a2, a3, *v3);
   *v3 = result;
@@ -2710,7 +2672,7 @@ char *sub_CB1C(char *result, int64_t a2, char a3, char *a4)
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   v12 = v10 + 32;
@@ -2878,12 +2840,11 @@ uint64_t sub_CE08(uint64_t a1)
   }
 }
 
-uint64_t sub_CED4(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_CED4(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -2899,19 +2860,19 @@ uint64_t sub_CF1C(uint64_t a1, uint64_t *a2, uint64_t *a3)
   return a1;
 }
 
-void sub_CFAC(uint64_t a1, unint64_t *a2)
+void sub_CFAC(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
   }
 }
 
-uint64_t sub_D02C(unint64_t *a1)
+uint64_t sub_D02C(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -3099,29 +3060,27 @@ void sub_DB54(double a1)
     v5 = swift_dynamicCastClass();
     if (v5 && (v6 = v5, (v7 = [v1 minuteHandView]) != 0))
     {
-      v14 = v7;
+      v12 = v7;
       v8 = swift_dynamicCastClass();
       if (v8)
       {
         v9 = v8;
-        v10 = *(v6 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle22NTKExactitudesHandView_inlayAlpha);
         *(v6 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle22NTKExactitudesHandView_inlayAlpha) = a1;
-        v11 = OBJC_IVAR____TtC24NTKExactitudesFaceBundle22NTKExactitudesHandView_inlayAlpha;
-        v12 = *(v8 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle22NTKExactitudesHandView_inlayAlpha);
+        v10 = OBJC_IVAR____TtC24NTKExactitudesFaceBundle22NTKExactitudesHandView_inlayAlpha;
 
-        *(v9 + v11) = a1;
+        *(v9 + v10) = a1;
       }
 
       else
       {
       }
 
-      v13 = v14;
+      v11 = v12;
     }
 
     else
     {
-      v13 = v4;
+      v11 = v4;
     }
   }
 }
@@ -3132,7 +3091,7 @@ void sub_DDD0(uint64_t a1, uint64_t a2, void *a3, SEL *a4, double a5, double a6)
   v13 = [v7 *a4];
   if (v13)
   {
-    v20 = v13;
+    v18 = v13;
     type metadata accessor for NTKExactitudesHandView();
     v14 = swift_dynamicCastClass();
     if (v14)
@@ -3140,14 +3099,12 @@ void sub_DDD0(uint64_t a1, uint64_t a2, void *a3, SEL *a4, double a5, double a6)
       v15 = v14;
       [v14 setColor:a1];
       [v15 setInlayColor:a2];
-      v16 = *&v15[OBJC_IVAR____TtC24NTKExactitudesFaceBundle22NTKExactitudesHandView_inlayAlpha];
       *&v15[OBJC_IVAR____TtC24NTKExactitudesFaceBundle22NTKExactitudesHandView_inlayAlpha] = a5;
-      v17 = *&v15[OBJC_IVAR____TtC24NTKExactitudesFaceBundle22NTKExactitudesHandView_backdropInlayColor];
+      v16 = *&v15[OBJC_IVAR____TtC24NTKExactitudesFaceBundle22NTKExactitudesHandView_backdropInlayColor];
       *&v15[OBJC_IVAR____TtC24NTKExactitudesFaceBundle22NTKExactitudesHandView_backdropInlayColor] = a3;
-      v18 = a3;
+      v17 = a3;
 
       [v15 _layoutInlayLayer];
-      v19 = *&v15[OBJC_IVAR____TtC24NTKExactitudesFaceBundle22NTKExactitudesHandView_backdropInlayAlpha];
       *&v15[OBJC_IVAR____TtC24NTKExactitudesFaceBundle22NTKExactitudesHandView_backdropInlayAlpha] = a6;
     }
   }
@@ -3170,11 +3127,11 @@ void sub_DF84(void *a1, double a2, double a3, uint64_t a4, void *a5, void *a6, v
   a9(v16, v17, v18, a2, a3);
 }
 
-id sub_E0B8()
+id sub_E0B8(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for NTKExactitudesHandsView();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for NTKExactitudesHandsView();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 void sub_E120(uint64_t a1)
@@ -3183,95 +3140,90 @@ void sub_E120(uint64_t a1)
   swift_beginAccess();
   v4 = *(v3 + 280);
   v5 = *(v3 + 256);
-  v31[6] = *(v3 + 240);
-  v31[7] = v5;
-  v32 = *(v3 + 272);
+  v27[6] = *(v3 + 240);
+  v27[7] = v5;
+  v28 = *(v3 + 272);
   v6 = *(v3 + 192);
-  v31[2] = *(v3 + 176);
-  v31[3] = v6;
+  v27[2] = *(v3 + 176);
+  v27[3] = v6;
   v7 = *(v3 + 224);
-  v31[4] = *(v3 + 208);
-  v31[5] = v7;
+  v27[4] = *(v3 + 208);
+  v27[5] = v7;
   v8 = *(v3 + 160);
-  v31[0] = *(v3 + 144);
-  v31[1] = v8;
-  if (sub_CDE4(v31) == 1)
+  v27[0] = *(v3 + 144);
+  v27[1] = v8;
+  if (sub_CDE4(v27) == 1)
   {
     v9 = *(v3 + 296);
     if (a1 != 1)
     {
       if (!a1)
       {
-        v20 = *(v3 + 8);
-        goto LABEL_10;
+LABEL_9:
+        v29.origin.x = sub_119C0();
+        CGRectInset(v29, v4 * 0.5 - v9, v4 * 0.5 - v9);
+        return;
       }
 
-      goto LABEL_16;
+      goto LABEL_14;
     }
 
     v10 = *(v3 + 256);
-    v28 = *(v3 + 240);
-    v29 = v10;
-    v30 = *(v3 + 272);
+    v24 = *(v3 + 240);
+    v25 = v10;
+    v26 = *(v3 + 272);
     v11 = *(v3 + 192);
-    v24 = *(v3 + 176);
-    v25 = v11;
+    v20 = *(v3 + 176);
+    v21 = v11;
     v12 = *(v3 + 224);
-    v26 = *(v3 + 208);
-    v27 = v12;
+    v22 = *(v3 + 208);
+    v23 = v12;
     v13 = *(v3 + 160);
-    v22 = *(v3 + 144);
-    v23 = v13;
-    if (sub_CDE4(&v22) != 1)
+    v18 = *(v3 + 144);
+    v19 = v13;
+    if (sub_CDE4(&v18) != 1)
     {
-      v14 = *(v3 + 144);
-LABEL_10:
-      v33.origin.x = sub_119C0();
-      CGRectInset(v33, v4 * 0.5 - v9, v4 * 0.5 - v9);
-      return;
+      goto LABEL_9;
     }
 
     __break(1u);
-    goto LABEL_15;
+    goto LABEL_13;
   }
 
   if (a1 == 1)
   {
-    v15 = *(v3 + 256);
-    v28 = *(v3 + 240);
-    v29 = v15;
-    v30 = *(v3 + 272);
-    v16 = *(v3 + 192);
-    v24 = *(v3 + 176);
-    v25 = v16;
-    v17 = *(v3 + 224);
-    v26 = *(v3 + 208);
-    v27 = v17;
-    v18 = *(v3 + 160);
-    v22 = *(v3 + 144);
-    v23 = v18;
-    if (sub_CDE4(&v22) == 1)
+    v14 = *(v3 + 256);
+    v24 = *(v3 + 240);
+    v25 = v14;
+    v26 = *(v3 + 272);
+    v15 = *(v3 + 192);
+    v20 = *(v3 + 176);
+    v21 = v15;
+    v16 = *(v3 + 224);
+    v22 = *(v3 + 208);
+    v23 = v16;
+    v17 = *(v3 + 160);
+    v18 = *(v3 + 144);
+    v19 = v17;
+    if (sub_CDE4(&v18) == 1)
     {
-LABEL_15:
+LABEL_13:
       __break(1u);
-      goto LABEL_16;
+      goto LABEL_14;
     }
 
-    v19 = *(v3 + 144);
-LABEL_13:
-    v21 = v19 + *(v3 + 296) + v19 + *(v3 + 296) - v4;
+LABEL_11:
     sub_119C0();
     return;
   }
 
   if (!a1)
   {
-    v19 = *(v3 + 8);
-    goto LABEL_13;
+    goto LABEL_11;
   }
 
-LABEL_16:
-  *&v22 = a1;
+LABEL_14:
+  *&v18 = a1;
   sub_2186C();
   __break(1u);
 }
@@ -3282,309 +3234,307 @@ uint64_t sub_E2C4@<X0>(uint64_t a1@<X8>)
   swift_beginAccess();
   if (*v3 >= 3uLL)
   {
-    *&v109[0] = *v3;
     result = sub_2186C();
     __break(1u);
   }
 
   else
   {
-    v4 = dbl_25548[*v3];
-    v91 = v4;
-    v92 = *(v3 + 288);
+    v90 = dbl_25548[*v3];
+    v91 = *(v3 + 288);
     [*(v1 + OBJC_IVAR___NTKExactitudesDialView_rootLayer) bounds];
-    v6 = v5;
-    v8 = v7;
-    v10 = v9;
-    v12 = v11;
-    v90 = *(v3 + 8);
-    v13 = *(v3 + 256);
-    v109[6] = *(v3 + 240);
-    v109[7] = v13;
-    v110 = *(v3 + 272);
-    v14 = *(v3 + 192);
-    v109[2] = *(v3 + 176);
-    v109[3] = v14;
-    v15 = *(v3 + 208);
-    v109[5] = *(v3 + 224);
-    v109[4] = v15;
-    v16 = *(v3 + 144);
-    v109[1] = *(v3 + 160);
-    v109[0] = v16;
-    v17 = 0;
-    if (sub_CDE4(v109) != 1)
+    v5 = v4;
+    v7 = v6;
+    v9 = v8;
+    v11 = v10;
+    v89 = *(v3 + 8);
+    v12 = *(v3 + 256);
+    v108[6] = *(v3 + 240);
+    v108[7] = v12;
+    v109 = *(v3 + 272);
+    v13 = *(v3 + 192);
+    v108[2] = *(v3 + 176);
+    v108[3] = v13;
+    v14 = *(v3 + 208);
+    v108[5] = *(v3 + 224);
+    v108[4] = v14;
+    v15 = *(v3 + 144);
+    v108[1] = *(v3 + 160);
+    v108[0] = v15;
+    v16 = 0;
+    if (sub_CDE4(v108) != 1)
     {
-      v17 = *(v3 + 144);
+      v16 = *(v3 + 144);
     }
 
-    v18 = *(v3 + 296);
-    v19 = *(v3 + 48);
-    v20 = *(v3 + 56);
-    v82 = *(v3 + 24);
-    v83 = *(v3 + 72);
-    v87 = *(v3 + 88);
-    v86 = *(v3 + 96);
-    v76 = *(v3 + 80);
-    v77 = *(v3 + 104);
-    v80 = *(v3 + 16);
-    v81 = *(v3 + 32);
-    v84 = *(v3 + 64);
-    v85 = *(v3 + 40);
-    v88 = *(v3 + 120);
-    v89 = *(v3 + 112);
-    v78 = *(v3 + 128);
-    v21 = *(v3 + 144);
-    v22 = *(v3 + 160);
-    v23 = *(v3 + 176);
-    v107[3] = *(v3 + 192);
-    v107[2] = v23;
-    v107[0] = v21;
-    v107[1] = v22;
-    v24 = *(v3 + 208);
-    v25 = *(v3 + 224);
-    v26 = *(v3 + 240);
+    v17 = *(v3 + 296);
+    v18 = *(v3 + 48);
+    v19 = *(v3 + 56);
+    v81 = *(v3 + 24);
+    v82 = *(v3 + 72);
+    v86 = *(v3 + 88);
+    v85 = *(v3 + 96);
+    v75 = *(v3 + 80);
+    v76 = *(v3 + 104);
+    v79 = *(v3 + 16);
+    v80 = *(v3 + 32);
+    v83 = *(v3 + 64);
+    v84 = *(v3 + 40);
+    v87 = *(v3 + 120);
+    v88 = *(v3 + 112);
+    v77 = *(v3 + 128);
+    v20 = *(v3 + 144);
+    v21 = *(v3 + 160);
+    v22 = *(v3 + 176);
+    v106[3] = *(v3 + 192);
+    v106[2] = v22;
+    v106[0] = v20;
+    v106[1] = v21;
+    v23 = *(v3 + 208);
+    v24 = *(v3 + 224);
+    v25 = *(v3 + 240);
+    v26 = *(v3 + 256);
+    v107 = *(v3 + 272);
+    v106[7] = v26;
+    v106[6] = v25;
+    v106[4] = v23;
+    v106[5] = v24;
+    v74 = sub_CDE4(v106);
+    if (v74 == 1)
+    {
+      v78 = 0;
+    }
+
+    else
+    {
+      v78 = *(v3 + 152);
+    }
+
     v27 = *(v3 + 256);
-    v108 = *(v3 + 272);
-    v107[7] = v27;
-    v107[6] = v26;
-    v107[4] = v24;
-    v107[5] = v25;
-    v75 = sub_CDE4(v107);
-    if (v75 == 1)
-    {
-      v79 = 0;
-    }
-
-    else
-    {
-      v79 = *(v3 + 152);
-    }
-
-    v28 = *(v3 + 256);
-    v105[6] = *(v3 + 240);
-    v105[7] = v28;
-    v106 = *(v3 + 272);
-    v29 = *(v3 + 192);
-    v105[2] = *(v3 + 176);
-    v105[3] = v29;
-    v30 = *(v3 + 208);
-    v105[5] = *(v3 + 224);
-    v105[4] = v30;
-    v31 = *(v3 + 144);
-    v105[1] = *(v3 + 160);
-    v105[0] = v31;
-    v32 = sub_CDE4(v105);
-    if (v32 == 1)
-    {
-      v73 = 0;
-      v74 = 0;
-    }
-
-    else
-    {
-      v73 = *(v3 + 192);
-      v74 = *(v3 + 184);
-    }
-
-    v33 = *(v3 + 256);
-    v103[6] = *(v3 + 240);
-    v103[7] = v33;
-    v104 = *(v3 + 272);
-    v34 = *(v3 + 192);
-    v103[2] = *(v3 + 176);
-    v103[3] = v34;
-    v35 = *(v3 + 208);
-    v103[5] = *(v3 + 224);
-    v103[4] = v35;
-    v36 = *(v3 + 144);
-    v103[1] = *(v3 + 160);
-    v103[0] = v36;
-    v37 = sub_CDE4(v103);
-    if (v37 == 1)
+    v104[6] = *(v3 + 240);
+    v104[7] = v27;
+    v105 = *(v3 + 272);
+    v28 = *(v3 + 192);
+    v104[2] = *(v3 + 176);
+    v104[3] = v28;
+    v29 = *(v3 + 208);
+    v104[5] = *(v3 + 224);
+    v104[4] = v29;
+    v30 = *(v3 + 144);
+    v104[1] = *(v3 + 160);
+    v104[0] = v30;
+    v31 = sub_CDE4(v104);
+    if (v31 == 1)
     {
       v72 = 0;
+      v73 = 0;
     }
 
     else
     {
-      v72 = *(v3 + 160);
+      v72 = *(v3 + 192);
+      v73 = *(v3 + 184);
     }
 
-    v38 = *(v3 + 256);
-    v101[6] = *(v3 + 240);
-    v101[7] = v38;
-    v102 = *(v3 + 272);
-    v39 = *(v3 + 192);
-    v101[2] = *(v3 + 176);
-    v101[3] = v39;
-    v40 = *(v3 + 224);
-    v101[4] = *(v3 + 208);
-    v101[5] = v40;
-    v41 = *(v3 + 160);
-    v101[0] = *(v3 + 144);
-    v101[1] = v41;
-    if (sub_CDE4(v101) == 1)
+    v32 = *(v3 + 256);
+    v102[6] = *(v3 + 240);
+    v102[7] = v32;
+    v103 = *(v3 + 272);
+    v33 = *(v3 + 192);
+    v102[2] = *(v3 + 176);
+    v102[3] = v33;
+    v34 = *(v3 + 208);
+    v102[5] = *(v3 + 224);
+    v102[4] = v34;
+    v35 = *(v3 + 144);
+    v102[1] = *(v3 + 160);
+    v102[0] = v35;
+    v36 = sub_CDE4(v102);
+    if (v36 == 1)
     {
-      v70 = 0;
       v71 = 0;
-      v42 = 1;
     }
 
     else
     {
-      v70 = *(v3 + 208);
-      v71 = *(v3 + 200);
-      v42 = *(v3 + 216);
+      v71 = *(v3 + 160);
     }
 
-    v69 = v42;
-    v43 = *(v3 + 256);
-    v99[6] = *(v3 + 240);
-    v99[7] = v43;
-    v100 = *(v3 + 272);
-    v44 = *(v3 + 192);
-    v99[2] = *(v3 + 176);
-    v99[3] = v44;
-    v45 = *(v3 + 224);
-    v99[4] = *(v3 + 208);
-    v99[5] = v45;
-    v46 = *(v3 + 160);
-    v99[0] = *(v3 + 144);
-    v99[1] = v46;
-    v47 = sub_CDE4(v99);
-    if (v47 == 1)
+    v37 = *(v3 + 256);
+    v100[6] = *(v3 + 240);
+    v100[7] = v37;
+    v101 = *(v3 + 272);
+    v38 = *(v3 + 192);
+    v100[2] = *(v3 + 176);
+    v100[3] = v38;
+    v39 = *(v3 + 224);
+    v100[4] = *(v3 + 208);
+    v100[5] = v39;
+    v40 = *(v3 + 160);
+    v100[0] = *(v3 + 144);
+    v100[1] = v40;
+    if (sub_CDE4(v100) == 1)
     {
-      v68 = 0;
+      v69 = 0;
+      v70 = 0;
+      v41 = 1;
     }
 
     else
     {
-      v68 = *(v3 + 168);
+      v69 = *(v3 + 208);
+      v70 = *(v3 + 200);
+      v41 = *(v3 + 216);
     }
 
-    v48 = *(v3 + 256);
-    v97[6] = *(v3 + 240);
-    v97[7] = v48;
-    v98 = *(v3 + 272);
-    v49 = *(v3 + 192);
-    v97[2] = *(v3 + 176);
-    v97[3] = v49;
-    v50 = *(v3 + 224);
-    v97[4] = *(v3 + 208);
-    v97[5] = v50;
-    v51 = *(v3 + 160);
-    v97[0] = *(v3 + 144);
-    v97[1] = v51;
-    if (sub_CDE4(v97) == 1)
+    v68 = v41;
+    v42 = *(v3 + 256);
+    v98[6] = *(v3 + 240);
+    v98[7] = v42;
+    v99 = *(v3 + 272);
+    v43 = *(v3 + 192);
+    v98[2] = *(v3 + 176);
+    v98[3] = v43;
+    v44 = *(v3 + 224);
+    v98[4] = *(v3 + 208);
+    v98[5] = v44;
+    v45 = *(v3 + 160);
+    v98[0] = *(v3 + 144);
+    v98[1] = v45;
+    v46 = sub_CDE4(v98);
+    if (v46 == 1)
     {
+      v67 = 0;
+    }
+
+    else
+    {
+      v67 = *(v3 + 168);
+    }
+
+    v47 = *(v3 + 256);
+    v96[6] = *(v3 + 240);
+    v96[7] = v47;
+    v97 = *(v3 + 272);
+    v48 = *(v3 + 192);
+    v96[2] = *(v3 + 176);
+    v96[3] = v48;
+    v49 = *(v3 + 224);
+    v96[4] = *(v3 + 208);
+    v96[5] = v49;
+    v50 = *(v3 + 160);
+    v96[0] = *(v3 + 144);
+    v96[1] = v50;
+    if (sub_CDE4(v96) == 1)
+    {
+      v51 = 0;
       v52 = 0;
-      v53 = 0;
-      v54 = 1;
+      v53 = 1;
     }
 
     else
     {
-      v52 = *(v3 + 224);
-      v53 = *(v3 + 232);
-      v54 = *(v3 + 240);
+      v51 = *(v3 + 224);
+      v52 = *(v3 + 232);
+      v53 = *(v3 + 240);
     }
 
-    v55 = *(v3 + 256);
-    v95[6] = *(v3 + 240);
-    v95[7] = v55;
-    v96 = *(v3 + 272);
-    v56 = *(v3 + 192);
-    v95[2] = *(v3 + 176);
-    v95[3] = v56;
-    v57 = *(v3 + 224);
-    v95[4] = *(v3 + 208);
-    v95[5] = v57;
-    v58 = *(v3 + 160);
-    v95[0] = *(v3 + 144);
-    v95[1] = v58;
-    v59 = sub_CDE4(v95);
-    if (v59 == 1)
+    v54 = *(v3 + 256);
+    v94[6] = *(v3 + 240);
+    v94[7] = v54;
+    v95 = *(v3 + 272);
+    v55 = *(v3 + 192);
+    v94[2] = *(v3 + 176);
+    v94[3] = v55;
+    v56 = *(v3 + 224);
+    v94[4] = *(v3 + 208);
+    v94[5] = v56;
+    v57 = *(v3 + 160);
+    v94[0] = *(v3 + 144);
+    v94[1] = v57;
+    v58 = sub_CDE4(v94);
+    if (v58 == 1)
     {
-      v60 = 0;
+      v59 = 0;
     }
 
     else
     {
-      v60 = *(v3 + 176);
+      v59 = *(v3 + 176);
     }
 
-    v61 = *(v3 + 256);
-    v93[6] = *(v3 + 240);
-    v93[7] = v61;
-    v94 = *(v3 + 272);
-    v62 = *(v3 + 192);
-    v93[2] = *(v3 + 176);
-    v93[3] = v62;
-    v63 = *(v3 + 224);
-    v93[4] = *(v3 + 208);
-    v93[5] = v63;
-    v64 = *(v3 + 160);
-    v93[0] = *(v3 + 144);
-    v93[1] = v64;
-    result = sub_CDE4(v93);
+    v60 = *(v3 + 256);
+    v92[6] = *(v3 + 240);
+    v92[7] = v60;
+    v93 = *(v3 + 272);
+    v61 = *(v3 + 192);
+    v92[2] = *(v3 + 176);
+    v92[3] = v61;
+    v62 = *(v3 + 224);
+    v92[4] = *(v3 + 208);
+    v92[5] = v62;
+    v63 = *(v3 + 160);
+    v92[0] = *(v3 + 144);
+    v92[1] = v63;
+    result = sub_CDE4(v92);
     if (result == 1)
     {
-      v66 = 0uLL;
-      v67 = 1;
+      v65 = 0uLL;
+      v66 = 1;
     }
 
     else
     {
-      v66 = *(v3 + 248);
-      v67 = *(v3 + 264);
+      v65 = *(v3 + 248);
+      v66 = *(v3 + 264);
     }
 
-    *a1 = 1.0 / v91;
-    *(a1 + 8) = v92;
-    *(a1 + 16) = v6;
-    *(a1 + 24) = v8;
-    *(a1 + 32) = v10;
-    *(a1 + 40) = v12;
-    *(a1 + 48) = v90;
-    *(a1 + 56) = v17;
-    *(a1 + 64) = v18;
-    *(a1 + 72) = v80;
-    *(a1 + 80) = v19;
-    *(a1 + 88) = v20;
-    *(a1 + 96) = v82;
+    *a1 = 1.0 / v90;
+    *(a1 + 8) = v91;
+    *(a1 + 16) = v5;
+    *(a1 + 24) = v7;
+    *(a1 + 32) = v9;
+    *(a1 + 40) = v11;
+    *(a1 + 48) = v89;
+    *(a1 + 56) = v16;
+    *(a1 + 64) = v17;
+    *(a1 + 72) = v79;
+    *(a1 + 80) = v18;
+    *(a1 + 88) = v19;
+    *(a1 + 96) = v81;
     *(a1 + 104) = 0;
-    *(a1 + 112) = v84;
-    *(a1 + 120) = v83;
-    *(a1 + 128) = v76;
-    *(a1 + 136) = v81;
+    *(a1 + 112) = v83;
+    *(a1 + 120) = v82;
+    *(a1 + 128) = v75;
+    *(a1 + 136) = v80;
     *(a1 + 144) = 0;
-    *(a1 + 152) = v87;
-    *(a1 + 160) = v86;
-    *(a1 + 168) = v77;
-    *(a1 + 176) = v85;
+    *(a1 + 152) = v86;
+    *(a1 + 160) = v85;
+    *(a1 + 168) = v76;
+    *(a1 + 176) = v84;
     *(a1 + 184) = 0;
-    *(a1 + 192) = v89;
-    *(a1 + 200) = v88;
-    *(a1 + 208) = v78;
-    *(a1 + 216) = v79;
-    *(a1 + 224) = v75 == 1;
-    *(a1 + 232) = v74;
-    *(a1 + 240) = v73;
-    *(a1 + 248) = v32 == 1;
-    *(a1 + 256) = v72;
-    *(a1 + 264) = v37 == 1;
-    *(a1 + 272) = v71;
-    *(a1 + 280) = v70;
-    *(a1 + 288) = v69;
-    *(a1 + 296) = v68;
-    *(a1 + 304) = v47 == 1;
-    *(a1 + 312) = v52;
-    *(a1 + 320) = v53;
-    *(a1 + 328) = v54;
-    *(a1 + 336) = v60;
-    *(a1 + 344) = v59 == 1;
-    *(a1 + 352) = v66;
-    *(a1 + 368) = v67;
+    *(a1 + 192) = v88;
+    *(a1 + 200) = v87;
+    *(a1 + 208) = v77;
+    *(a1 + 216) = v78;
+    *(a1 + 224) = v74 == 1;
+    *(a1 + 232) = v73;
+    *(a1 + 240) = v72;
+    *(a1 + 248) = v31 == 1;
+    *(a1 + 256) = v71;
+    *(a1 + 264) = v36 == 1;
+    *(a1 + 272) = v70;
+    *(a1 + 280) = v69;
+    *(a1 + 288) = v68;
+    *(a1 + 296) = v67;
+    *(a1 + 304) = v46 == 1;
+    *(a1 + 312) = v51;
+    *(a1 + 320) = v52;
+    *(a1 + 328) = v53;
+    *(a1 + 336) = v59;
+    *(a1 + 344) = v58 == 1;
+    *(a1 + 352) = v65;
+    *(a1 + 368) = v66;
   }
 
   return result;
@@ -3594,23 +3544,17 @@ id sub_E86C()
 {
   v1 = OBJC_IVAR___NTKExactitudesDialView_dialConfiguration;
   swift_beginAccess();
-  v2 = *(v0 + v1);
-  v3 = (v0 + OBJC_IVAR___NTKExactitudesDialView_colors);
-  if (v2 == 2)
+  if (*(v0 + v1) == 2)
   {
     swift_beginAccess();
-    v5 = *v3;
-    v4 = v3[1];
-    v6 = OBJC_IVAR___NTKExactitudesDialView_backgroundStyleTransitionProgress;
     swift_beginAccess();
-    v7 = *(v0 + v6);
     result = CLKUIInterpolateBetweenColors();
     if (result)
     {
-      v9 = result;
-      v10 = sub_11FD8(result);
+      v3 = result;
+      v4 = sub_11FD8(result);
 
-      return v10;
+      return v4;
     }
 
     __break(1u);
@@ -3618,11 +3562,7 @@ id sub_E86C()
   }
 
   swift_beginAccess();
-  v12 = *v3;
-  v11 = v3[1];
-  v13 = OBJC_IVAR___NTKExactitudesDialView_backgroundStyleTransitionProgress;
   swift_beginAccess();
-  v14 = *(v0 + v13);
   result = CLKUIInterpolateBetweenColors();
   if (!result)
   {
@@ -3676,7 +3616,7 @@ void ExactitudesDialView.colors.setter(void *a1, void *a2)
   sub_12410();
 }
 
-uint64_t (*ExactitudesDialView.colors.modify(uint64_t a1))(uint64_t a1, char a2)
+uint64_t (*ExactitudesDialView.colors.modify(uint64_t a1))(uint64_t a1, uint64_t a2)
 {
   *(a1 + 24) = v1;
   swift_beginAccess();
@@ -3717,7 +3657,7 @@ void ExactitudesDialView.backgroundStyleTransitionProgress.setter(double a1)
   }
 }
 
-void sub_EE98()
+void sub_EE98(__n128 a1)
 {
   sub_12410();
   if (qword_37A20 != -1)
@@ -3725,20 +3665,20 @@ void sub_EE98()
     swift_once();
   }
 
-  v1 = sub_2161C();
-  sub_CD94(v1, qword_38CE8);
-  v2 = v0;
+  v2 = sub_2161C();
+  sub_CD94(v2, qword_38CE8);
+  v3 = v1;
   oslog = sub_215FC();
-  v3 = sub_2173C();
+  v4 = sub_2173C();
 
-  if (os_log_type_enabled(oslog, v3))
+  if (os_log_type_enabled(oslog, v4))
   {
-    v4 = OBJC_IVAR___NTKExactitudesDialView_backgroundStyleTransitionProgress;
-    v5 = swift_slowAlloc();
-    *v5 = 134217984;
+    v5 = OBJC_IVAR___NTKExactitudesDialView_backgroundStyleTransitionProgress;
+    v6 = swift_slowAlloc();
+    *v6 = 134217984;
     swift_beginAccess();
-    *(v5 + 4) = *&v2[v4];
-    _os_log_impl(&dword_0, oslog, v3, "backgroundStyleTransitionProgress: %f", v5, 0xCu);
+    *(v6 + 4) = *&v3[v5];
+    _os_log_impl(&dword_0, oslog, v4, "backgroundStyleTransitionProgress: %f", v6, 0xCu);
   }
 
   else
@@ -3746,7 +3686,7 @@ void sub_EE98()
   }
 }
 
-void (*ExactitudesDialView.backgroundStyleTransitionProgress.modify(uint64_t *a1))(void **a1, char a2)
+uint64_t (*ExactitudesDialView.backgroundStyleTransitionProgress.modify(uint64_t *a1))()
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -3766,43 +3706,42 @@ void (*ExactitudesDialView.backgroundStyleTransitionProgress.modify(uint64_t *a1
   return sub_F06C;
 }
 
-void sub_F06C(void **a1, char a2)
+void sub_F06C(void *a1, char a2)
 {
   v3 = *a1;
   swift_endAccess();
   if ((a2 & 1) == 0)
   {
-    v4 = v3[3];
     sub_12410();
     if (qword_37A20 != -1)
     {
       swift_once();
     }
 
-    v5 = v3[3];
-    v6 = sub_2161C();
-    sub_CD94(v6, qword_38CE8);
-    v7 = v5;
-    v8 = sub_215FC();
-    v9 = sub_2173C();
+    v4 = v3[3];
+    v5 = sub_2161C();
+    sub_CD94(v5, qword_38CE8);
+    v6 = v4;
+    v7 = sub_215FC();
+    v8 = sub_2173C();
 
-    if (os_log_type_enabled(v8, v9))
+    if (os_log_type_enabled(v7, v8))
     {
-      v11 = v3[3];
-      v10 = v3[4];
-      v12 = swift_slowAlloc();
-      *v12 = 134217984;
-      *(v12 + 4) = *(v11 + v10);
-      _os_log_impl(&dword_0, v8, v9, "backgroundStyleTransitionProgress: %f", v12, 0xCu);
+      v10 = v3[3];
+      v9 = v3[4];
+      v11 = swift_slowAlloc();
+      *v11 = 134217984;
+      *(v11 + 4) = *(v10 + v9);
+      _os_log_impl(&dword_0, v7, v8, "backgroundStyleTransitionProgress: %f", v11, 0xCu);
     }
   }
 
   free(v3);
 }
 
-void sub_F1A0(uint64_t a1)
+void sub_F1A0(uint64_t result)
 {
-  if (*(v1 + OBJC_IVAR___NTKExactitudesDialView__state) != a1)
+  if (*(v1 + OBJC_IVAR___NTKExactitudesDialView__state) != result)
   {
     if (qword_37A20 != -1)
     {
@@ -3820,7 +3759,7 @@ void sub_F1A0(uint64_t a1)
       _os_log_impl(&dword_0, v3, v4, "Dial state changed", v5, 2u);
     }
 
-    sub_12764();
+    sub_12764(v6);
   }
 }
 
@@ -3891,15 +3830,15 @@ void sub_F5F0(char *a1, double a2, uint64_t a3, uint64_t a4, uint64_t *a5, void 
   a6();
 }
 
-id ExactitudesDialView.expansionTransitionProgress.setter(double a1)
+void ExactitudesDialView.expansionTransitionProgress.setter(double a1)
 {
   v3 = OBJC_IVAR___NTKExactitudesDialView_expansionTransitionProgress;
   swift_beginAccess();
   *(v1 + v3) = a1;
-  return sub_F730();
+  sub_F730();
 }
 
-id sub_F730()
+void sub_F730()
 {
   v1 = OBJC_IVAR___NTKExactitudesDialView_expansionTransitionProgress;
   swift_beginAccess();
@@ -3912,25 +3851,25 @@ id sub_F730()
     {
       v4 = v3;
       sub_119D4();
-      v41 = sub_216BC();
+      v40 = sub_216BC();
     }
 
     else
     {
-      v41 = _swiftEmptyArrayStorage;
+      v40 = _swiftEmptyArrayStorage;
     }
 
-    if (v41 >> 62)
+    if (v40 >> 62)
     {
       goto LABEL_74;
     }
 
-    for (i = *(&dword_10 + (v41 & 0xFFFFFFFFFFFFFF8)); i; i = sub_217FC())
+    for (i = *(&dword_10 + (v40 & 0xFFFFFFFFFFFFFF8)); i; i = sub_217FC())
     {
-      v39 = v1;
-      v40 = v0;
+      v38 = v1;
+      v39 = v0;
       v1 = 0;
-      v8 = v41 & 0xC000000000000001;
+      v8 = v40 & 0xC000000000000001;
       v9 = &OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_configuration;
       while (1)
       {
@@ -3941,12 +3880,12 @@ id sub_F730()
 
         else
         {
-          if (v1 >= *(&dword_10 + (v41 & 0xFFFFFFFFFFFFFF8)))
+          if (v1 >= *(&dword_10 + (v40 & 0xFFFFFFFFFFFFFF8)))
           {
             goto LABEL_72;
           }
 
-          v10 = *(v41 + 8 * v1 + 32);
+          v10 = *(v40 + 8 * v1 + 32);
         }
 
         v11 = v10;
@@ -3964,7 +3903,7 @@ id sub_F730()
           v14 = *v9;
           swift_beginAccess();
           memmove(__dst, (v13 + v14), 0x172uLL);
-          if (sub_CE08(__dst) == 1 || !v52)
+          if (sub_CE08(__dst) == 1 || !v51)
           {
             v16 = v8;
             v17 = v9;
@@ -3981,20 +3920,20 @@ id sub_F730()
             v15 = v11;
           }
 
-          memmove(v48, (v13 + v14), 0x172uLL);
-          if (sub_CE08(v48) == 1 || (v50 & 1) != 0 || !v49)
+          memmove(v47, (v13 + v14), 0x172uLL);
+          if (sub_CE08(v47) == 1 || (v49 & 1) != 0 || !v48)
           {
             [*(v13 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_secondaryTicksLayer) setHidden:1];
           }
 
-          memmove(v45, (v13 + v14), 0x172uLL);
-          if (sub_CE08(v45) == 1 || (v47 & 1) != 0 || !v46)
+          memmove(v44, (v13 + v14), 0x172uLL);
+          if (sub_CE08(v44) == 1 || (v46 & 1) != 0 || !v45)
           {
             [*(v13 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_tertiaryTicksLayer) setHidden:1];
           }
 
-          memmove(v42, (v13 + v14), 0x172uLL);
-          if (sub_CE08(v42) == 1 || (v44 & 1) != 0 || !v43)
+          memmove(v41, (v13 + v14), 0x172uLL);
+          if (sub_CE08(v41) == 1 || (v43 & 1) != 0 || !v42)
           {
             [*(v13 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_quaternaryTicksLayer) setHidden:1];
           }
@@ -4027,15 +3966,15 @@ LABEL_74:
     {
       v6 = v5;
       sub_119D4();
-      v41 = sub_216BC();
+      v40 = sub_216BC();
     }
 
     else
     {
-      v41 = _swiftEmptyArrayStorage;
+      v40 = _swiftEmptyArrayStorage;
     }
 
-    if (v41 >> 62)
+    if (v40 >> 62)
     {
       v21 = sub_217FC();
       if (!v21)
@@ -4046,17 +3985,17 @@ LABEL_74:
 
     else
     {
-      v21 = *(&dword_10 + (v41 & 0xFFFFFFFFFFFFFF8));
+      v21 = *(&dword_10 + (v40 & 0xFFFFFFFFFFFFFF8));
       if (!v21)
       {
         goto LABEL_65;
       }
     }
 
-    v39 = v1;
-    v40 = v0;
+    v38 = v1;
+    v39 = v0;
     v1 = 0;
-    v22 = v41 & 0xC000000000000001;
+    v22 = v40 & 0xC000000000000001;
     v23 = &OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_configuration;
     do
     {
@@ -4067,12 +4006,12 @@ LABEL_74:
 
       else
       {
-        if (v1 >= *(&dword_10 + (v41 & 0xFFFFFFFFFFFFFF8)))
+        if (v1 >= *(&dword_10 + (v40 & 0xFFFFFFFFFFFFFF8)))
         {
           goto LABEL_73;
         }
 
-        v24 = *(v41 + 8 * v1 + 32);
+        v24 = *(v40 + 8 * v1 + 32);
       }
 
       v25 = v24;
@@ -4090,7 +4029,7 @@ LABEL_74:
         v28 = *v23;
         swift_beginAccess();
         memmove(__dst, (v27 + v28), 0x172uLL);
-        if (sub_CE08(__dst) == 1 || !v52)
+        if (sub_CE08(__dst) == 1 || !v51)
         {
           v30 = v21;
           v31 = v22;
@@ -4109,20 +4048,20 @@ LABEL_74:
           v29 = v25;
         }
 
-        memmove(v48, (v27 + v28), 0x172uLL);
-        if (sub_CE08(v48) == 1 || (v50 & 1) != 0 || !v49)
+        memmove(v47, (v27 + v28), 0x172uLL);
+        if (sub_CE08(v47) == 1 || (v49 & 1) != 0 || !v48)
         {
           [*(v27 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_secondaryTicksLayer) setHidden:0];
         }
 
-        memmove(v45, (v27 + v28), 0x172uLL);
-        if (sub_CE08(v45) == 1 || (v47 & 1) != 0 || !v46)
+        memmove(v44, (v27 + v28), 0x172uLL);
+        if (sub_CE08(v44) == 1 || (v46 & 1) != 0 || !v45)
         {
           [*(v27 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_tertiaryTicksLayer) setHidden:0];
         }
 
-        memmove(v42, (v27 + v28), 0x172uLL);
-        if (sub_CE08(v42) == 1 || (v44 & 1) != 0 || !v43)
+        memmove(v41, (v27 + v28), 0x172uLL);
+        if (sub_CE08(v41) == 1 || (v43 & 1) != 0 || !v42)
         {
           [*(v27 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_quaternaryTicksLayer) setHidden:0];
         }
@@ -4133,8 +4072,8 @@ LABEL_74:
 
     while (v0 != v21);
 LABEL_64:
-    v1 = v39;
-    v0 = v40;
+    v1 = v38;
+    v0 = v39;
   }
 
 LABEL_65:
@@ -4153,10 +4092,10 @@ LABEL_65:
     v36 = *(v0 + v1);
   }
 
-  return ExactitudesDialView.updateDial(for:)(v36);
+  ExactitudesDialView.updateDial(for:)(v36);
 }
 
-uint64_t (*ExactitudesDialView.expansionTransitionProgress.modify(uint64_t a1))(uint64_t a1, char a2)
+uint64_t (*ExactitudesDialView.expansionTransitionProgress.modify(uint64_t a1))(uint64_t a1, uint64_t a2)
 {
   *(a1 + 24) = v1;
   swift_beginAccess();
@@ -4168,7 +4107,6 @@ uint64_t sub_FDB4(uint64_t a1, char a2, uint64_t (*a3)(uint64_t))
   result = swift_endAccess();
   if ((a2 & 1) == 0)
   {
-    v7 = *(a1 + 24);
     return a3(result);
   }
 
@@ -4178,21 +4116,19 @@ uint64_t sub_FDB4(uint64_t a1, char a2, uint64_t (*a3)(uint64_t))
 id sub_FDF8()
 {
   v1 = sub_CA10(&qword_37C80, &qword_251F0);
-  v2 = *(*(v1 - 8) + 64);
-  v3 = __chkstk_darwin(v1 - 8);
-  v5 = v26 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
-  __chkstk_darwin(v3);
-  v7 = v26 - v6 + 16;
-  v8 = sub_215AC();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v8);
-  v12 = v26 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
-  v13 = OBJC_IVAR___NTKExactitudesDialView_overrideDate;
+  v2 = __chkstk_darwin(v1 - 8);
+  v4 = v23 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
+  __chkstk_darwin(v2);
+  v6 = v23 - v5 + 16;
+  v7 = sub_215AC();
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7);
+  v10 = v23 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0) + 16;
+  v11 = OBJC_IVAR___NTKExactitudesDialView_overrideDate;
   swift_beginAccess();
-  sub_CA58(&v0[v13], v7);
-  v14 = *(v9 + 48);
-  if (v14(v7, 1, v8) == 1)
+  sub_CA58(&v0[v11], v6);
+  v12 = *(v8 + 48);
+  if (v12(v6, 1, v7) == 1)
   {
     result = [objc_opt_self() faceDate];
     if (!result)
@@ -4200,47 +4136,46 @@ id sub_FDF8()
       goto LABEL_9;
     }
 
-    v16 = result;
+    v14 = result;
     sub_2159C();
 
-    if (v14(v7, 1, v8) != 1)
+    if (v12(v6, 1, v7) != 1)
     {
-      sub_11958(v7);
+      sub_11958(v6);
     }
   }
 
   else
   {
-    (*(v9 + 32))(v12, v7, v8);
+    (*(v8 + 32))(v10, v6, v7);
   }
 
   [v0 center];
-  (*(v9 + 16))(v5, v12, v8);
-  (*(v9 + 56))(v5, 0, 1, v8);
-  sub_10120(v5);
-  v18 = v17;
-  sub_11958(v5);
-  v19 = &v0[OBJC_IVAR___NTKExactitudesDialView_dialConfiguration];
+  (*(v8 + 16))(v4, v10, v7);
+  (*(v8 + 56))(v4, 0, 1, v7);
+  sub_10120(v4);
+  v16 = v15;
+  sub_11958(v4);
+  v17 = &v0[OBJC_IVAR___NTKExactitudesDialView_dialConfiguration];
   swift_beginAccess();
-  v20 = *(v19 + 16);
-  v26[6] = *(v19 + 15);
-  v26[7] = v20;
-  v27 = *(v19 + 34);
-  v21 = *(v19 + 12);
-  v26[2] = *(v19 + 11);
-  v26[3] = v21;
-  v22 = *(v19 + 14);
-  v26[4] = *(v19 + 13);
-  v26[5] = v22;
-  v23 = *(v19 + 9);
-  v26[1] = *(v19 + 10);
-  v26[0] = v23;
-  result = sub_CDE4(v26);
+  v18 = *(v17 + 16);
+  v23[6] = *(v17 + 15);
+  v23[7] = v18;
+  v24 = *(v17 + 34);
+  v19 = *(v17 + 12);
+  v23[2] = *(v17 + 11);
+  v23[3] = v19;
+  v20 = *(v17 + 14);
+  v23[4] = *(v17 + 13);
+  v23[5] = v20;
+  v21 = *(v17 + 9);
+  v23[1] = *(v17 + 10);
+  v23[0] = v21;
+  result = sub_CDE4(v23);
   if (result != 1)
   {
-    v24 = *(v19 + 18) - *(v19 + 1);
-    __sincos_stret(v18);
-    return (*(v9 + 8))(v12, v8);
+    __sincos_stret(v16);
+    return (*(v8 + 8))(v10, v7);
   }
 
   __break(1u);
@@ -4254,47 +4189,45 @@ uint64_t sub_10120(uint64_t a1)
   v2 = v1;
   v4 = sub_215DC();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin();
-  v8 = &v23 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = (*(*(sub_CA10(&qword_37C80, &qword_251F0) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
-  v11 = &v23 - v10;
-  v12 = sub_215AC();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  __chkstk_darwin();
-  v16 = &v23 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_CA58(a1, v11);
-  if ((*(v13 + 48))(v11, 1, v12) == 1)
+  __chkstk_darwin(v4);
+  v7 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_CA10(&qword_37C80, &qword_251F0);
+  __chkstk_darwin(v8 - 8);
+  v10 = &v21 - v9;
+  v11 = sub_215AC();
+  v12 = *(v11 - 8);
+  __chkstk_darwin(v11);
+  v14 = &v21 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_CA58(a1, v10);
+  if ((*(v12 + 48))(v10, 1, v11) == 1)
   {
-    return sub_11958(v11);
+    return sub_11958(v10);
   }
 
-  (*(v13 + 32))(v16, v11, v12);
-  v25 = 0.0;
-  v26 = 0.0;
+  (*(v12 + 32))(v14, v10, v11);
+  v23 = 0.0;
   v24 = 0.0;
+  v22 = 0.0;
   isa = sub_2158C().super.isa;
-  v19 = [objc_opt_self() autoupdatingCurrentCalendar];
+  v17 = [objc_opt_self() autoupdatingCurrentCalendar];
   sub_215CC();
 
-  v20 = sub_215BC().super.isa;
-  (*(v5 + 8))(v8, v4);
+  v18 = sub_215BC().super.isa;
+  (*(v5 + 8))(v7, v4);
   NTKHourMinuteSecondAnglesForTime();
 
-  v25 = v25 + -1.57079633;
-  v26 = v26 + -1.57079633;
+  v23 = v23 + -1.57079633;
   v24 = v24 + -1.57079633;
-  v21 = OBJC_IVAR___NTKExactitudesDialView_dialConfiguration;
+  v22 = v22 + -1.57079633;
+  v19 = OBJC_IVAR___NTKExactitudesDialView_dialConfiguration;
   swift_beginAccess();
-  v22 = *(v2 + v21);
-  if (v22 == 2 || v22 == 1 || !v22)
+  v20 = *(v2 + v19);
+  if (v20 == 2 || v20 == 1 || !v20)
   {
-    return (*(v13 + 8))(v16, v12);
+    return (*(v12 + 8))(v14, v11);
   }
 
-  v23 = *(v2 + v21);
+  v21 = *(v2 + v19);
   result = sub_2186C();
   __break(1u);
   return result;
@@ -4321,73 +4254,67 @@ id ExactitudesDialView.init(frame:dialConfiguration:colors:device:)(const void *
   v21 = OBJC_IVAR___NTKExactitudesDialView_ticksRootLayer;
   *&v9[v21] = [objc_allocWithZone(CALayer) init];
   v22 = OBJC_IVAR___NTKExactitudesDialView_ticksSliceLayers;
-  *&v45[0] = _swiftEmptyArrayStorage;
+  *&v39[0] = _swiftEmptyArrayStorage;
   sub_217BC();
   v23 = type metadata accessor for ExactitudesDialSlice();
   [objc_allocWithZone(v23) init];
   sub_2179C();
-  v24 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
   [objc_allocWithZone(v23) init];
   sub_2179C();
-  v25 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
   [objc_allocWithZone(v23) init];
   sub_2179C();
-  v26 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
   [objc_allocWithZone(v23) init];
   sub_2179C();
-  v27 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
   [objc_allocWithZone(v23) init];
   sub_2179C();
-  v28 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
   [objc_allocWithZone(v23) init];
   sub_2179C();
-  v29 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
   *&v9[v22] = _swiftEmptyArrayStorage;
-  v30 = OBJC_IVAR___NTKExactitudesDialView_numeralsLayer;
-  *&v9[v30] = [objc_allocWithZone(CALayer) init];
-  v31 = OBJC_IVAR___NTKExactitudesDialView_expandedNumeralsLayer;
-  *&v9[v31] = [objc_allocWithZone(CALayer) init];
-  v32 = a4;
-  sub_11240(v32, v45);
+  v24 = OBJC_IVAR___NTKExactitudesDialView_numeralsLayer;
+  *&v9[v24] = [objc_allocWithZone(CALayer) init];
+  v25 = OBJC_IVAR___NTKExactitudesDialView_expandedNumeralsLayer;
+  *&v9[v25] = [objc_allocWithZone(CALayer) init];
+  v26 = a4;
+  sub_11240(v26, v39);
 
-  v33 = &v9[OBJC_IVAR___NTKExactitudesDialView_metrics];
-  v34 = v45[3];
-  *(v33 + 2) = v45[2];
-  *(v33 + 3) = v34;
-  *(v33 + 8) = v46;
-  v35 = v45[1];
-  *v33 = v45[0];
-  *(v33 + 1) = v35;
+  v27 = &v9[OBJC_IVAR___NTKExactitudesDialView_metrics];
+  v28 = v39[3];
+  *(v27 + 2) = v39[2];
+  *(v27 + 3) = v28;
+  *(v27 + 8) = v40;
+  v29 = v39[1];
+  *v27 = v39[0];
+  *(v27 + 1) = v29;
   memcpy(&v9[OBJC_IVAR___NTKExactitudesDialView_dialConfiguration], a1, 0x130uLL);
-  v36 = &v9[OBJC_IVAR___NTKExactitudesDialView_colors];
-  *v36 = a2;
-  *(v36 + 1) = a3;
-  v44.receiver = v9;
-  v44.super_class = ObjectType;
-  v37 = a2;
-  v38 = a3;
-  v39 = objc_msgSendSuper2(&v44, "initWithFrame:", a5, a6, a7, a8);
+  v30 = &v9[OBJC_IVAR___NTKExactitudesDialView_colors];
+  *v30 = a2;
+  *(v30 + 1) = a3;
+  v38.receiver = v9;
+  v38.super_class = ObjectType;
+  v31 = a2;
+  v32 = a3;
+  v33 = objc_msgSendSuper2(&v38, "initWithFrame:", a5, a6, a7, a8);
   sub_8740();
 
-  return v39;
+  return v33;
 }
 
 id ExactitudesDialView.init(frame:dialConfiguration:colors:)(const void *a1, void *a2, void *a3, double a4, double a5, double a6, double a7)
@@ -4411,68 +4338,62 @@ id ExactitudesDialView.init(frame:dialConfiguration:colors:)(const void *a1, voi
   v20 = OBJC_IVAR___NTKExactitudesDialView_ticksRootLayer;
   *&v8[v20] = [objc_allocWithZone(CALayer) init];
   v21 = OBJC_IVAR___NTKExactitudesDialView_ticksSliceLayers;
-  v40 = _swiftEmptyArrayStorage;
+  v34 = _swiftEmptyArrayStorage;
   sub_217BC();
   v22 = type metadata accessor for ExactitudesDialSlice();
   [objc_allocWithZone(v22) init];
   sub_2179C();
-  v23 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
   [objc_allocWithZone(v22) init];
   sub_2179C();
-  v24 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
   [objc_allocWithZone(v22) init];
   sub_2179C();
-  v25 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
   [objc_allocWithZone(v22) init];
   sub_2179C();
-  v26 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
   [objc_allocWithZone(v22) init];
   sub_2179C();
-  v27 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
   [objc_allocWithZone(v22) init];
   sub_2179C();
-  v28 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
   *&v8[v21] = _swiftEmptyArrayStorage;
-  v29 = OBJC_IVAR___NTKExactitudesDialView_numeralsLayer;
-  *&v8[v29] = [objc_allocWithZone(CALayer) init];
-  v30 = OBJC_IVAR___NTKExactitudesDialView_expandedNumeralsLayer;
-  *&v8[v30] = [objc_allocWithZone(CALayer) init];
-  v31 = &v8[OBJC_IVAR___NTKExactitudesDialView_metrics];
-  *v31 = xmmword_25450;
-  *(v31 + 1) = xmmword_25460;
-  *(v31 + 2) = xmmword_25470;
-  *(v31 + 3) = xmmword_25480;
-  *(v31 + 8) = 0x4033000000000000;
+  v23 = OBJC_IVAR___NTKExactitudesDialView_numeralsLayer;
+  *&v8[v23] = [objc_allocWithZone(CALayer) init];
+  v24 = OBJC_IVAR___NTKExactitudesDialView_expandedNumeralsLayer;
+  *&v8[v24] = [objc_allocWithZone(CALayer) init];
+  v25 = &v8[OBJC_IVAR___NTKExactitudesDialView_metrics];
+  *v25 = xmmword_25450;
+  *(v25 + 1) = xmmword_25460;
+  *(v25 + 2) = xmmword_25470;
+  *(v25 + 3) = xmmword_25480;
+  *(v25 + 8) = 0x4033000000000000;
   memcpy(&v8[OBJC_IVAR___NTKExactitudesDialView_dialConfiguration], a1, 0x130uLL);
-  v32 = &v8[OBJC_IVAR___NTKExactitudesDialView_colors];
-  *v32 = a2;
-  *(v32 + 1) = a3;
-  v39.receiver = v8;
-  v39.super_class = ObjectType;
-  v33 = a2;
-  v34 = a3;
-  v35 = objc_msgSendSuper2(&v39, "initWithFrame:", a4, a5, a6, a7);
+  v26 = &v8[OBJC_IVAR___NTKExactitudesDialView_colors];
+  *v26 = a2;
+  *(v26 + 1) = a3;
+  v33.receiver = v8;
+  v33.super_class = ObjectType;
+  v27 = a2;
+  v28 = a3;
+  v29 = objc_msgSendSuper2(&v33, "initWithFrame:", a4, a5, a6, a7);
   sub_8740();
 
-  return v35;
+  return v29;
 }
 
 id ExactitudesDialView.__allocating_init(frame:)(double a1, double a2, double a3, double a4)
@@ -4524,7 +4445,7 @@ double sub_11240@<D0>(uint64_t a1@<X0>, double *a2@<X8>)
   return result;
 }
 
-uint64_t type metadata accessor for ExactitudesDialView()
+uint64_t type metadata accessor for ExactitudesDialView(uint64_t a1)
 {
   result = qword_37BB8;
   if (!qword_37BB8)
@@ -4535,25 +4456,24 @@ uint64_t type metadata accessor for ExactitudesDialView()
   return result;
 }
 
-void sub_113F8()
+void sub_113F8(uint64_t a1)
 {
-  sub_114E8();
+  sub_114E8(319);
   if (v1 <= 0x3F)
   {
-    v2 = *(v0 - 8) + 64;
     swift_updateClassMetadata2();
   }
 }
 
-void sub_114E8()
+void sub_114E8(uint64_t a1)
 {
   if (!qword_37BC8)
   {
     sub_215AC();
-    v0 = sub_2174C();
-    if (!v1)
+    v1 = sub_2174C();
+    if (!v2)
     {
-      atomic_store(v0, &qword_37BC8);
+      atomic_store(v1, &qword_37BC8);
     }
   }
 }
@@ -4639,45 +4559,39 @@ void sub_115D0()
   v9 = type metadata accessor for ExactitudesDialSlice();
   [objc_allocWithZone(v9) init];
   sub_2179C();
-  v10 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
   [objc_allocWithZone(v9) init];
   sub_2179C();
-  v11 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
   [objc_allocWithZone(v9) init];
   sub_2179C();
-  v12 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
   [objc_allocWithZone(v9) init];
   sub_2179C();
-  v13 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
   [objc_allocWithZone(v9) init];
   sub_2179C();
-  v14 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
   [objc_allocWithZone(v9) init];
   sub_2179C();
-  v15 = _swiftEmptyArrayStorage[2];
   sub_217CC();
   sub_217DC();
   sub_217AC();
   *(v1 + v8) = _swiftEmptyArrayStorage;
-  v16 = OBJC_IVAR___NTKExactitudesDialView_numeralsLayer;
-  *(v1 + v16) = [objc_allocWithZone(CALayer) init];
-  v17 = OBJC_IVAR___NTKExactitudesDialView_expandedNumeralsLayer;
-  *(v1 + v17) = [objc_allocWithZone(CALayer) init];
+  v10 = OBJC_IVAR___NTKExactitudesDialView_numeralsLayer;
+  *(v1 + v10) = [objc_allocWithZone(CALayer) init];
+  v11 = OBJC_IVAR___NTKExactitudesDialView_expandedNumeralsLayer;
+  *(v1 + v11) = [objc_allocWithZone(CALayer) init];
   sub_217EC();
   __break(1u);
 }
@@ -4759,7 +4673,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t sub_11AB4(void *a1, void *a2, void *a3, void *a4)
+void sub_11AB4(void *a1, void *a2, void *a3, void *a4)
 {
   v5 = [*(v4 + OBJC_IVAR___NTKExactitudesDialView_ticksRootLayer) sublayers];
   if (v5)
@@ -4780,8 +4694,8 @@ uint64_t sub_11AB4(void *a1, void *a2, void *a3, void *a4)
     if (!(_swiftEmptyArrayStorage >> 62))
     {
 LABEL_3:
-      result = *(&dword_10 + (v7 & 0xFFFFFFFFFFFFFF8));
-      if (!result)
+      v8 = *(&dword_10 + (v7 & 0xFFFFFFFFFFFFFF8));
+      if (!v8)
       {
         goto LABEL_16;
       }
@@ -4790,18 +4704,18 @@ LABEL_3:
     }
   }
 
-  result = sub_217FC();
-  if (!result)
+  v8 = sub_217FC();
+  if (!v8)
   {
     goto LABEL_16;
   }
 
 LABEL_4:
-  v38 = result - 1;
-  if (result < 1)
+  v38 = v8 - 1;
+  if (v8 < 1)
   {
     __break(1u);
-    return result;
+    return;
   }
 
   v9 = 0;
@@ -4963,10 +4877,6 @@ LABEL_23:
     return;
   }
 
-  v16 = *(v3 + 32);
-  *&v16 = *(v3 + 40);
-  v17 = *(v3 + 48);
-
   CLKUIConvertRGBtoLAB();
 }
 
@@ -4991,7 +4901,7 @@ id sub_11FD8(void *a1)
   return [v16 initWithRed:v9 green:v11 blue:v13 alpha:v15];
 }
 
-void sub_120C8(void *a1, id a2)
+double sub_120C8(void *a1, id a2)
 {
   v3 = [a2 sublayers];
   if (v3)
@@ -5100,6 +5010,8 @@ LABEL_27:
       _os_log_impl(&dword_0, osloga, v20, "No numerals sublayers", v21, 2u);
     }
   }
+
+  return result;
 }
 
 void sub_12410()
@@ -5129,76 +5041,60 @@ void sub_12410()
   [v7 begin];
   [v7 setDisableActions:1];
   v8 = [objc_opt_self() clearColor];
-  v9 = &v2[OBJC_IVAR___NTKExactitudesDialView_colors];
   swift_beginAccess();
-  v10 = *v9;
-  v11 = OBJC_IVAR___NTKExactitudesDialView_backgroundStyleTransitionProgress;
   swift_beginAccess();
-  v12 = *&v2[v11];
-  v13 = CLKUIInterpolateBetweenColors();
+  v9 = CLKUIInterpolateBetweenColors();
 
-  if (!v13)
+  if (!v9)
   {
     __break(1u);
     goto LABEL_12;
   }
 
-  v14 = *&v2[OBJC_IVAR___NTKExactitudesDialView_ringLayer];
-  v15 = [v13 CGColor];
-  [v14 setStrokeColor:v15];
+  v10 = *&v2[OBJC_IVAR___NTKExactitudesDialView_ringLayer];
+  v11 = [v9 CGColor];
+  [v10 setStrokeColor:v11];
 
-  v16 = *v9;
-  v17 = *(v9 + 1);
-  v18 = *&v2[v11];
-  v19 = CLKUIInterpolateBetweenColors();
-  if (!v19)
+  v12 = CLKUIInterpolateBetweenColors();
+  if (!v12)
   {
 LABEL_12:
     __break(1u);
     goto LABEL_13;
   }
 
-  v20 = v19;
-  sub_120C8(v19, *&v2[OBJC_IVAR___NTKExactitudesDialView_numeralsLayer]);
-  sub_120C8(v20, *&v2[OBJC_IVAR___NTKExactitudesDialView_expandedNumeralsLayer]);
+  v13 = v12;
+  sub_120C8(v12, *&v2[OBJC_IVAR___NTKExactitudesDialView_numeralsLayer]);
+  sub_120C8(v13, *&v2[OBJC_IVAR___NTKExactitudesDialView_expandedNumeralsLayer]);
 
-  v21 = *v9;
-  v22 = *(v9 + 1);
-  v23 = *&v2[v11];
-  v24 = CLKUIInterpolateBetweenColors();
-  if (!v24)
+  v14 = CLKUIInterpolateBetweenColors();
+  if (!v14)
   {
 LABEL_13:
     __break(1u);
     goto LABEL_14;
   }
 
-  v25 = v24;
-  v26 = sub_E86C();
-  v27 = *v9;
-  v28 = *(v9 + 1);
-  v29 = *&v2[v11];
-  v30 = CLKUIInterpolateBetweenColors();
-  if (!v30)
+  v15 = v14;
+  v16 = sub_E86C();
+  v17 = CLKUIInterpolateBetweenColors();
+  if (!v17)
   {
 LABEL_14:
     __break(1u);
     goto LABEL_15;
   }
 
-  v31 = v30;
-  v32 = sub_11FD8(v30);
+  v18 = v17;
+  v19 = sub_11FD8(v17);
 
-  v33 = *v9;
-  v34 = *(v9 + 1);
-  v35 = *&v2[v11];
-  v36 = CLKUIInterpolateBetweenColors();
-  if (v36)
+  v20 = CLKUIInterpolateBetweenColors();
+  if (v20)
   {
-    v37 = v36;
-    v38 = sub_11FD8(v36);
+    v21 = v20;
+    v22 = sub_11FD8(v20);
 
-    sub_11AB4(v25, v26, v32, v38);
+    sub_11AB4(v15, v16, v19, v22);
     [v7 commit];
     return;
   }
@@ -5207,12 +5103,12 @@ LABEL_15:
   __break(1u);
 }
 
-void sub_12764()
+void sub_12764(__n128 a1)
 {
-  v1 = *&v0[OBJC_IVAR___NTKExactitudesDialView__state];
-  if (v1)
+  v2 = *&v1[OBJC_IVAR___NTKExactitudesDialView__state];
+  if (v2)
   {
-    if (v1 == 1)
+    if (v2 == 1)
     {
 
       ExactitudesDialView.startExpandedDialMovementAnimation()();
@@ -5220,7 +5116,6 @@ void sub_12764()
 
     else
     {
-      v7 = *&v0[OBJC_IVAR___NTKExactitudesDialView__state];
       sub_2186C();
       __break(1u);
     }
@@ -5228,24 +5123,24 @@ void sub_12764()
 
   else
   {
-    v2 = OBJC_IVAR___NTKExactitudesDialView_expandedDialMovementAnimation;
-    if (*&v0[OBJC_IVAR___NTKExactitudesDialView_expandedDialMovementAnimation])
+    v3 = OBJC_IVAR___NTKExactitudesDialView_expandedDialMovementAnimation;
+    if (*&v1[OBJC_IVAR___NTKExactitudesDialView_expandedDialMovementAnimation])
     {
-      v3 = *&v0[OBJC_IVAR___NTKExactitudesDialView_hideSliceLayersTimer];
-      if (v3)
+      v4 = *&v1[OBJC_IVAR___NTKExactitudesDialView_hideSliceLayersTimer];
+      if (v4)
       {
-        [v3 invalidate];
+        [v4 invalidate];
       }
 
       sub_B43C();
-      v4 = *&v0[OBJC_IVAR___NTKExactitudesDialView_rootLayer];
-      v5 = sub_2163C();
-      [v4 removeAnimationForKey:v5];
+      v5 = *&v1[OBJC_IVAR___NTKExactitudesDialView_rootLayer];
+      v6 = sub_2163C();
+      [v5 removeAnimationForKey:v6];
 
-      v6 = *&v0[v2];
-      *&v0[v2] = 0;
+      v7 = *&v1[v3];
+      *&v1[v3] = 0;
 
-      [v0 setNeedsLayout];
+      [v1 setNeedsLayout];
     }
   }
 }
@@ -5295,95 +5190,94 @@ Swift::Void __swiftcall ExactitudesDialView.startExpandedDialMovementAnimation()
   sub_B640();
 }
 
-uint64_t sub_12A50()
+id sub_12A50()
 {
   v1 = sub_CA10(&qword_37C80, &qword_251F0);
-  v2 = *(*(v1 - 8) + 64);
-  v3 = __chkstk_darwin(v1 - 8);
-  v5 = v46 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v3);
-  v7 = v46 - v6;
-  v8 = [v0 layer];
-  [v8 bounds];
-  v10 = v9;
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
+  v2 = __chkstk_darwin(v1 - 8);
+  v4 = v45 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v2);
+  v6 = v45 - v5;
+  v7 = [v0 layer];
+  [v7 bounds];
+  v9 = v8;
+  v11 = v10;
+  v13 = v12;
+  v15 = v14;
 
-  v47.origin.x = v10;
-  v47.origin.y = v12;
-  v47.size.width = v14;
-  v47.size.height = v16;
-  MidX = CGRectGetMidX(v47);
-  v18 = [v0 layer];
-  [v18 bounds];
-  v20 = v19;
-  v22 = v21;
-  v24 = v23;
-  v26 = v25;
+  v46.origin.x = v9;
+  v46.origin.y = v11;
+  v46.size.width = v13;
+  v46.size.height = v15;
+  MidX = CGRectGetMidX(v46);
+  v17 = [v0 layer];
+  [v17 bounds];
+  v19 = v18;
+  v21 = v20;
+  v23 = v22;
+  v25 = v24;
 
-  v48.origin.x = v20;
-  v48.origin.y = v22;
-  v48.size.width = v24;
-  v48.size.height = v26;
-  MidY = CGRectGetMidY(v48);
-  v28 = sub_12E78();
-  v29 = OBJC_IVAR___NTKExactitudesDialView_overrideDate;
+  v47.origin.x = v19;
+  v47.origin.y = v21;
+  v47.size.width = v23;
+  v47.size.height = v25;
+  MidY = CGRectGetMidY(v47);
+  v27 = sub_12E78();
+  v28 = OBJC_IVAR___NTKExactitudesDialView_overrideDate;
   swift_beginAccess();
-  sub_CA58(&v0[v29], v5);
-  v30 = sub_215AC();
-  v31 = *(v30 - 8);
-  v32 = *(v31 + 48);
-  if (v32(v5, 1, v30) == 1)
+  sub_CA58(&v0[v28], v4);
+  v29 = sub_215AC();
+  v30 = *(v29 - 8);
+  v31 = *(v30 + 48);
+  if (v31(v4, 1, v29) == 1)
   {
-    v33 = [objc_opt_self() faceDate];
-    if (!v33)
+    v32 = [objc_opt_self() faceDate];
+    if (!v32)
     {
       __break(1u);
       goto LABEL_9;
     }
 
-    v35 = v33;
+    v34 = v32;
     sub_2159C();
 
-    if (v32(v5, 1, v30) != 1)
+    if (v31(v4, 1, v29) != 1)
     {
-      sub_11958(v5);
+      sub_11958(v4);
     }
   }
 
   else
   {
-    (*(v31 + 32))(v7, v5, v30);
+    (*(v30 + 32))(v6, v4, v29);
   }
 
-  (*(v31 + 56))(v7, 0, 1, v30);
-  sub_10120(v7);
-  v37 = v36;
-  sub_11958(v7);
-  v38 = [objc_opt_self() bezierPathWithArcCenter:1 radius:MidX startAngle:MidY endAngle:v28 clockwise:{v37 + 3.14159265, v37 + 3.14159265 + 6.28318531}];
-  v39 = sub_2163C();
-  v40 = [objc_opt_self() animationWithKeyPath:v39];
+  (*(v30 + 56))(v6, 0, 1, v29);
+  sub_10120(v6);
+  v36 = v35;
+  sub_11958(v6);
+  v37 = [objc_opt_self() bezierPathWithArcCenter:1 radius:MidX startAngle:MidY endAngle:v27 clockwise:{v36 + 3.14159265, v36 + 3.14159265 + 6.28318531}];
+  v38 = sub_2163C();
+  v39 = [objc_opt_self() animationWithKeyPath:v38];
 
-  v41 = [v38 CGPath];
-  [v40 setPath:v41];
+  v40 = [v37 CGPath];
+  [v39 setPath:v40];
 
-  v42 = v40;
-  [v42 setBeginTime:CACurrentMediaTime()];
-  LODWORD(v43) = 2139095040;
-  [v42 setRepeatCount:v43];
-  v44 = OBJC_IVAR___NTKExactitudesDialView_dialConfiguration;
+  v41 = v39;
+  [v41 setBeginTime:CACurrentMediaTime()];
+  LODWORD(v42) = 2139095040;
+  [v41 setRepeatCount:v42];
+  v43 = OBJC_IVAR___NTKExactitudesDialView_dialConfiguration;
   swift_beginAccess();
-  v34 = *&v0[v44];
-  if (v34 < 3)
+  v33 = *&v0[v43];
+  if (v33 < 3)
   {
-    [v42 setDuration:dbl_25590[v34]];
+    [v41 setDuration:dbl_25590[v33]];
 
-    return v42;
+    return v41;
   }
 
 LABEL_9:
-  v46[1] = v34;
+  v45[1] = v33;
   result = sub_2186C();
   __break(1u);
   return result;
@@ -5441,15 +5335,15 @@ Swift::Int sub_12FD0()
   return sub_218AC();
 }
 
-Swift::Int sub_13044()
+Swift::Int sub_13044(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_2188C();
-  sub_2189C(v1);
+  sub_2189C(v2);
   return sub_218AC();
 }
 
-uint64_t *sub_13088@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+unint64_t *sub_13088@<X0>(unint64_t *result@<X0>, uint64_t a2@<X8>)
 {
   v2 = *result;
   v3 = *result > 2;
@@ -5499,16 +5393,16 @@ Swift::Void __swiftcall ExactitudesFaceDialsView.setDialsToCurrentStyleNoAnimati
 
   v6 = OBJC_IVAR___NTKExactitudesFaceDialsView_style;
   swift_beginAccess();
-  v7 = *(v1 + v6);
-  if (v7 <= 2)
+  v8 = *(v1 + v6);
+  if (v8 <= 2)
   {
-    v8 = qword_257B8[v7];
-    sub_1562C(qword_257A0[v7]);
-    sub_15884(v8);
+    v9 = qword_257B8[v8];
+    sub_1562C(qword_257A0[v8], v7);
+    sub_15884(v9);
   }
 }
 
-void (*ExactitudesFaceDialsView.style.modify(uint64_t *a1))(uint64_t a1)
+void (*ExactitudesFaceDialsView.style.modify(uint64_t *a1))(uint64_t a1, __n128 a2)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -5530,13 +5424,13 @@ void (*ExactitudesFaceDialsView.style.modify(uint64_t *a1))(uint64_t a1)
   return sub_13494;
 }
 
-void sub_13494(uint64_t a1)
+void sub_13494(uint64_t a1, __n128 a2)
 {
-  v1 = *a1;
+  v2 = *a1;
   *(*(*a1 + 32) + *(*a1 + 40)) = *(*a1 + 24);
   sub_1865C();
 
-  free(v1);
+  free(v2);
 }
 
 uint64_t ExactitudesFaceDialsView.secondsDialExpanded.getter()
@@ -5546,12 +5440,11 @@ uint64_t ExactitudesFaceDialsView.secondsDialExpanded.getter()
   return *(v0 + v1);
 }
 
-uint64_t ExactitudesFaceDialsView.secondsDialExpanded.setter(char a1)
+void ExactitudesFaceDialsView.secondsDialExpanded.setter(char a1)
 {
   v3 = OBJC_IVAR___NTKExactitudesFaceDialsView_secondsDialExpanded;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v1 + v3) = a1;
-  return result;
 }
 
 uint64_t ExactitudesFaceDialsView.minutesDialExpanded.getter()
@@ -5561,12 +5454,11 @@ uint64_t ExactitudesFaceDialsView.minutesDialExpanded.getter()
   return *(v0 + v1);
 }
 
-uint64_t ExactitudesFaceDialsView.minutesDialExpanded.setter(char a1)
+void ExactitudesFaceDialsView.minutesDialExpanded.setter(char a1)
 {
   v3 = OBJC_IVAR___NTKExactitudesFaceDialsView_minutesDialExpanded;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v1 + v3) = a1;
-  return result;
 }
 
 id ExactitudesFaceDialsView.__allocating_init(frame:device:colorsWrapper:style:)(void *a1, char *a2, uint64_t a3, double a4, double a5, double a6, double a7)
@@ -5741,7 +5633,7 @@ void sub_13D54()
     v19 = v14;
     v20 = *&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_colors + 24];
     v21 = *&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_device];
-    v22 = objc_allocWithZone(type metadata accessor for ExactitudesDialView());
+    v22 = objc_allocWithZone(type metadata accessor for ExactitudesDialView(0));
     v23 = v15;
     v24 = v20;
     v25 = v21;
@@ -5787,9 +5679,203 @@ void sub_13FD0()
   v7 = *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_metrics + 104];
   v9 = sub_148E8(1681010725, 0xE400000000000000, &off_30F20);
   v10 = v2[2];
-  v77 = 0;
+  v75 = 0;
   v11 = 1;
-  v76 = 1;
+  v74 = 1;
+  v73 = 1;
+  sub_CA10(&qword_37D48, &qword_25788);
+  v12 = swift_allocObject();
+  v13 = j__malloc_size(v12);
+  v14 = v13 - 32;
+  if (v13 < 32)
+  {
+    v14 = v13 - 25;
+  }
+
+  v12[2] = 60;
+  v12[3] = 2 * (v14 >> 3);
+  v15 = 4;
+  do
+  {
+    if (v11 == 60)
+    {
+      v16 = 0;
+    }
+
+    else
+    {
+      v16 = v11 + 1;
+      if (__OFADD__(v11, 1))
+      {
+        __break(1u);
+LABEL_17:
+        __break(1u);
+        goto LABEL_18;
+      }
+    }
+
+    v12[v15] = v11;
+    if (v15 == 63)
+    {
+      goto LABEL_11;
+    }
+
+    ++v15;
+    v17 = v11 == 60;
+    v11 = v16;
+  }
+
+  while (!v17);
+  __break(1u);
+LABEL_11:
+  v63[320] = 0;
+  v63[312] = 0;
+  v63[304] = 0;
+  *&v64[24] = xmmword_255E0;
+  *&v64[8] = xmmword_255D0;
+  *v64 = v10 * 5.0;
+  *&v64[40] = v3;
+  *&v65 = v4;
+  *(&v65 + 1) = v3;
+  *&v66 = v6;
+  BYTE8(v66) = 0;
+  *&v67 = v3;
+  *(&v67 + 1) = v8;
+  LOBYTE(v68) = 0;
+  *(&v68 + 1) = v3;
+  *&v69 = v7;
+  BYTE8(v69) = 0;
+  v70 = sub_148E8(1681010725, 0xE400000000000000, v12);
+  ExactitudesTickLayer.cornerRadius.setter();
+  v18 = *(v2 + 4);
+  v19 = *v2;
+  v20 = *(v2 + 31);
+  *&__src[0] = 1;
+  *(__src + 1) = v10;
+  __src[1] = xmmword_255D0;
+  __src[2] = 0uLL;
+  *&__src[3] = v3;
+  *(&__src[3] + 1) = v4;
+  *&__src[4] = v3;
+  *(&__src[4] + 1) = v5;
+  LOBYTE(__src[5]) = v75;
+  *&__src[6] = 0;
+  *(&__src[5] + 1) = 0;
+  BYTE8(__src[6]) = v74;
+  __src[7] = 0uLL;
+  LOBYTE(__src[8]) = v73;
+  *(&__src[8] + 1) = v9;
+  __src[15] = v68;
+  __src[16] = v69;
+  *&__src[17] = v70;
+  __src[11] = *&v64[32];
+  __src[12] = v65;
+  __src[13] = v66;
+  __src[14] = v67;
+  __src[9] = *v64;
+  __src[10] = *&v64[16];
+  *(&__src[17] + 1) = v18;
+  *&__src[18] = v19;
+  *(&__src[18] + 1) = v20;
+  memcpy(__dst, __src, sizeof(__dst));
+  [v1 bounds];
+  v25 = &v1[OBJC_IVAR___NTKExactitudesFaceDialsView_colors];
+  if (!*&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_colors])
+  {
+    goto LABEL_17;
+  }
+
+  v26 = v21;
+  v27 = v22;
+  v28 = v23;
+  v29 = v24;
+  v30 = *(v25 + 3);
+  v31 = *(v25 + 1);
+  v32 = *&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_device];
+  v33 = type metadata accessor for ExactitudesDialView(0);
+  v34 = objc_allocWithZone(v33);
+  v35 = v32;
+  v36 = v31;
+  v37 = v30;
+  sub_EA04(__src, v63);
+  v38 = ExactitudesDialView.init(frame:dialConfiguration:colors:device:)(__dst, v36, v37, v35, v26, v27, v28, v29);
+  v39 = OBJC_IVAR___NTKExactitudesFaceDialsView_minutesDial;
+  v40 = *&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_minutesDial];
+  *&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_minutesDial] = v38;
+  v41 = v38;
+
+  [v1 addSubview:v41];
+  v42 = *&v1[v39];
+  if (!v42)
+  {
+LABEL_18:
+    __break(1u);
+    goto LABEL_19;
+  }
+
+  v43 = v42;
+  [v1 bounds];
+  MidX = CGRectGetMidX(v76);
+  [v1 bounds];
+  [v43 setPosition:{MidX, CGRectGetMidY(v77)}];
+
+  [v1 bounds];
+  if (!*v25)
+  {
+LABEL_19:
+    __break(1u);
+    goto LABEL_20;
+  }
+
+  v49 = v45;
+  v50 = v46;
+  v51 = v47;
+  v52 = v48;
+  v53 = *(v25 + 3);
+  v54 = *(v25 + 1);
+  v55 = objc_allocWithZone(v33);
+  sub_EA04(__src, v63);
+  v56 = ExactitudesDialView.init(frame:dialConfiguration:colors:device:)(__dst, v54, v53, v35, v49, v50, v51, v52);
+  v57 = OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveMinutesDial;
+  v58 = *&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveMinutesDial];
+  *&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveMinutesDial] = v56;
+  v59 = v56;
+
+  [v1 addSubview:v59];
+  v60 = *&v1[v57];
+  if (v60)
+  {
+    v61 = v60;
+    sub_EAD4(__src);
+
+    [v1 bounds];
+    v62 = CGRectGetMidX(v78);
+    [v1 bounds];
+    [v61 setPosition:{v62, CGRectGetMidY(v79)}];
+
+    return;
+  }
+
+LABEL_20:
+  __break(1u);
+}
+
+void sub_1445C()
+{
+  v1 = v0;
+  v2 = &v0[OBJC_IVAR___NTKExactitudesFaceDialsView_metrics];
+  v3 = *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_metrics + 160];
+  v4 = *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_metrics + 112];
+  v5 = *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_metrics + 120];
+  v64 = *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_metrics + 128];
+  v7 = *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_metrics + 136];
+  v6 = *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_metrics + 144];
+  v8 = *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_metrics + 152];
+  v9 = sub_148E8(1681010725, 0xE400000000000000, &off_30FA0);
+  v10 = v2[3];
+  v77 = 0;
+  v76 = 0;
+  v11 = 1;
   v75 = 1;
   sub_CA10(&qword_37D48, &qword_25788);
   v12 = swift_allocObject();
@@ -5836,9 +5922,7 @@ LABEL_17:
   while (!v17);
   __break(1u);
 LABEL_11:
-  v18 = sub_148E8(1681010725, 0xE400000000000000, v12);
   v65[320] = 0;
-  v19.n128_f64[0] = v10 * 5.0;
   v65[312] = 0;
   v65[304] = 0;
   *&v66[24] = xmmword_255E0;
@@ -5847,30 +5931,30 @@ LABEL_11:
   *&v66[40] = v3;
   *&v67 = v4;
   *(&v67 + 1) = v3;
-  *&v68 = v6;
+  *&v68 = v7;
   BYTE8(v68) = 0;
   *&v69 = v3;
-  *(&v69 + 1) = v8;
+  *(&v69 + 1) = v6;
   LOBYTE(v70) = 0;
   *(&v70 + 1) = v3;
-  *&v71 = v7;
+  *&v71 = v8;
   BYTE8(v71) = 0;
-  v72 = v18;
-  ExactitudesTickLayer.cornerRadius.setter(v19, COERCE_DOUBLE(12));
-  v20 = *(v2 + 4);
-  v21 = *v2;
-  v22 = *(v2 + 31);
-  *&__src[0] = 1;
+  v72 = sub_148E8(1681010725, 0xE400000000000000, v12);
+  ExactitudesTickLayer.cornerRadius.setter();
+  v18 = *(v2 + 5);
+  v19 = *v2;
+  v20 = *(v2 + 31);
+  *&__src[0] = 0;
   *(__src + 1) = v10;
   __src[1] = xmmword_255D0;
-  __src[2] = 0uLL;
+  __src[2] = xmmword_255F0;
   *&__src[3] = v3;
   *(&__src[3] + 1) = v4;
   *&__src[4] = v3;
   *(&__src[4] + 1) = v5;
   LOBYTE(__src[5]) = v77;
-  *&__src[6] = 0;
-  *(&__src[5] + 1) = 0;
+  *(&__src[5] + 1) = v3;
+  *&__src[6] = v64;
   BYTE8(__src[6]) = v76;
   __src[7] = 0uLL;
   LOBYTE(__src[8]) = v75;
@@ -5884,281 +5968,85 @@ LABEL_11:
   __src[14] = v69;
   __src[9] = *v66;
   __src[10] = *&v66[16];
-  *(&__src[17] + 1) = v20;
-  *&__src[18] = v21;
-  *(&__src[18] + 1) = v22;
+  *(&__src[17] + 1) = v18;
+  *&__src[18] = v19;
+  *(&__src[18] + 1) = v20;
   memcpy(__dst, __src, sizeof(__dst));
   [v1 bounds];
-  v27 = &v1[OBJC_IVAR___NTKExactitudesFaceDialsView_colors];
+  v25 = &v1[OBJC_IVAR___NTKExactitudesFaceDialsView_colors];
   if (!*&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_colors])
   {
     goto LABEL_17;
   }
 
+  v26 = v21;
+  v27 = v22;
   v28 = v23;
   v29 = v24;
-  v30 = v25;
-  v31 = v26;
-  v32 = *(v27 + 3);
-  v33 = *(v27 + 1);
-  v34 = *&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_device];
-  v35 = type metadata accessor for ExactitudesDialView();
-  v36 = objc_allocWithZone(v35);
-  v37 = v34;
-  v38 = v33;
-  v39 = v32;
+  v30 = *(v25 + 2);
+  v31 = *(v25 + 3);
+  v32 = *&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_device];
+  v33 = type metadata accessor for ExactitudesDialView(0);
+  v34 = objc_allocWithZone(v33);
+  v35 = v32;
+  v36 = v30;
+  v37 = v31;
   sub_EA04(__src, v65);
-  v40 = ExactitudesDialView.init(frame:dialConfiguration:colors:device:)(__dst, v38, v39, v37, v28, v29, v30, v31);
-  v41 = OBJC_IVAR___NTKExactitudesFaceDialsView_minutesDial;
-  v42 = *&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_minutesDial];
-  *&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_minutesDial] = v40;
-  v43 = v40;
+  v38 = ExactitudesDialView.init(frame:dialConfiguration:colors:device:)(__dst, v36, v37, v35, v26, v27, v28, v29);
+  v39 = OBJC_IVAR___NTKExactitudesFaceDialsView_secondsDial;
+  v40 = *&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_secondsDial];
+  *&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_secondsDial] = v38;
+  v41 = v38;
 
-  [v1 addSubview:v43];
-  v44 = *&v1[v41];
-  if (!v44)
+  [v1 addSubview:v41];
+  v42 = *&v1[v39];
+  if (!v42)
   {
 LABEL_18:
     __break(1u);
     goto LABEL_19;
   }
 
-  v45 = v44;
+  v43 = v42;
   [v1 bounds];
   MidX = CGRectGetMidX(v78);
   [v1 bounds];
-  [v45 setPosition:{MidX, CGRectGetMidY(v79)}];
+  [v43 setPosition:{MidX, CGRectGetMidY(v79)}];
 
   [v1 bounds];
-  if (!*v27)
+  if (!*v25)
   {
 LABEL_19:
     __break(1u);
     goto LABEL_20;
   }
 
+  v49 = v45;
+  v50 = v46;
   v51 = v47;
   v52 = v48;
-  v53 = v49;
-  v54 = v50;
-  v55 = *(v27 + 3);
-  v56 = *(v27 + 1);
-  v57 = objc_allocWithZone(v35);
+  v55 = v25 + 16;
+  v53 = *(v25 + 2);
+  v54 = v55[1];
+  v56 = objc_allocWithZone(v33);
   sub_EA04(__src, v65);
-  v58 = ExactitudesDialView.init(frame:dialConfiguration:colors:device:)(__dst, v56, v55, v37, v51, v52, v53, v54);
-  v59 = OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveMinutesDial;
-  v60 = *&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveMinutesDial];
-  *&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveMinutesDial] = v58;
-  v61 = v58;
+  v57 = ExactitudesDialView.init(frame:dialConfiguration:colors:device:)(__dst, v53, v54, v35, v49, v50, v51, v52);
+  v58 = OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveSecondsDial;
+  v59 = *&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveSecondsDial];
+  *&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveSecondsDial] = v57;
+  v60 = v57;
 
-  [v1 addSubview:v61];
-  v62 = *&v1[v59];
-  if (v62)
+  [v1 addSubview:v60];
+  v61 = *&v1[v58];
+  if (v61)
   {
-    v63 = v62;
+    v62 = v61;
     sub_EAD4(__src);
 
     [v1 bounds];
-    v64 = CGRectGetMidX(v80);
+    v63 = CGRectGetMidX(v80);
     [v1 bounds];
-    [v63 setPosition:{v64, CGRectGetMidY(v81)}];
-
-    return;
-  }
-
-LABEL_20:
-  __break(1u);
-}
-
-void sub_1445C()
-{
-  v1 = v0;
-  v2 = &v0[OBJC_IVAR___NTKExactitudesFaceDialsView_metrics];
-  v3 = *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_metrics + 160];
-  v4 = *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_metrics + 112];
-  v5 = *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_metrics + 120];
-  v66 = *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_metrics + 128];
-  v7 = *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_metrics + 136];
-  v6 = *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_metrics + 144];
-  v8 = *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_metrics + 152];
-  v9 = sub_148E8(1681010725, 0xE400000000000000, &off_30FA0);
-  v10 = v2[3];
-  v79 = 0;
-  v78 = 0;
-  v11 = 1;
-  v77 = 1;
-  sub_CA10(&qword_37D48, &qword_25788);
-  v12 = swift_allocObject();
-  v13 = j__malloc_size(v12);
-  v14 = v13 - 32;
-  if (v13 < 32)
-  {
-    v14 = v13 - 25;
-  }
-
-  v12[2] = 60;
-  v12[3] = 2 * (v14 >> 3);
-  v15 = 4;
-  do
-  {
-    if (v11 == 60)
-    {
-      v16 = 0;
-    }
-
-    else
-    {
-      v16 = v11 + 1;
-      if (__OFADD__(v11, 1))
-      {
-        __break(1u);
-LABEL_17:
-        __break(1u);
-        goto LABEL_18;
-      }
-    }
-
-    v12[v15] = v11;
-    if (v15 == 63)
-    {
-      goto LABEL_11;
-    }
-
-    ++v15;
-    v17 = v11 == 60;
-    v11 = v16;
-  }
-
-  while (!v17);
-  __break(1u);
-LABEL_11:
-  v18 = sub_148E8(1681010725, 0xE400000000000000, v12);
-  v67[320] = 0;
-  v19.n128_f64[0] = v10 * 5.0;
-  v67[312] = 0;
-  v67[304] = 0;
-  *&v68[24] = xmmword_255E0;
-  *&v68[8] = xmmword_255D0;
-  *v68 = v10 * 5.0;
-  *&v68[40] = v3;
-  *&v69 = v4;
-  *(&v69 + 1) = v3;
-  *&v70 = v7;
-  BYTE8(v70) = 0;
-  *&v71 = v3;
-  *(&v71 + 1) = v6;
-  LOBYTE(v72) = 0;
-  *(&v72 + 1) = v3;
-  *&v73 = v8;
-  BYTE8(v73) = 0;
-  v74 = v18;
-  ExactitudesTickLayer.cornerRadius.setter(v19, COERCE_DOUBLE(12));
-  v20 = *(v2 + 5);
-  v21 = *v2;
-  v22 = *(v2 + 31);
-  *&__src[0] = 0;
-  *(__src + 1) = v10;
-  __src[1] = xmmword_255D0;
-  __src[2] = xmmword_255F0;
-  *&__src[3] = v3;
-  *(&__src[3] + 1) = v4;
-  *&__src[4] = v3;
-  *(&__src[4] + 1) = v5;
-  LOBYTE(__src[5]) = v79;
-  *(&__src[5] + 1) = v3;
-  *&__src[6] = v66;
-  BYTE8(__src[6]) = v78;
-  __src[7] = 0uLL;
-  LOBYTE(__src[8]) = v77;
-  *(&__src[8] + 1) = v9;
-  __src[15] = v72;
-  __src[16] = v73;
-  *&__src[17] = v74;
-  __src[11] = *&v68[32];
-  __src[12] = v69;
-  __src[13] = v70;
-  __src[14] = v71;
-  __src[9] = *v68;
-  __src[10] = *&v68[16];
-  *(&__src[17] + 1) = v20;
-  *&__src[18] = v21;
-  *(&__src[18] + 1) = v22;
-  memcpy(__dst, __src, sizeof(__dst));
-  [v1 bounds];
-  v27 = &v1[OBJC_IVAR___NTKExactitudesFaceDialsView_colors];
-  if (!*&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_colors])
-  {
-    goto LABEL_17;
-  }
-
-  v28 = v23;
-  v29 = v24;
-  v30 = v25;
-  v31 = v26;
-  v32 = *(v27 + 2);
-  v33 = *(v27 + 3);
-  v34 = *&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_device];
-  v35 = type metadata accessor for ExactitudesDialView();
-  v36 = objc_allocWithZone(v35);
-  v37 = v34;
-  v38 = v32;
-  v39 = v33;
-  sub_EA04(__src, v67);
-  v40 = ExactitudesDialView.init(frame:dialConfiguration:colors:device:)(__dst, v38, v39, v37, v28, v29, v30, v31);
-  v41 = OBJC_IVAR___NTKExactitudesFaceDialsView_secondsDial;
-  v42 = *&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_secondsDial];
-  *&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_secondsDial] = v40;
-  v43 = v40;
-
-  [v1 addSubview:v43];
-  v44 = *&v1[v41];
-  if (!v44)
-  {
-LABEL_18:
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  v45 = v44;
-  [v1 bounds];
-  MidX = CGRectGetMidX(v80);
-  [v1 bounds];
-  [v45 setPosition:{MidX, CGRectGetMidY(v81)}];
-
-  [v1 bounds];
-  if (!*v27)
-  {
-LABEL_19:
-    __break(1u);
-    goto LABEL_20;
-  }
-
-  v51 = v47;
-  v52 = v48;
-  v53 = v49;
-  v54 = v50;
-  v57 = v27 + 16;
-  v55 = *(v27 + 2);
-  v56 = v57[1];
-  v58 = objc_allocWithZone(v35);
-  sub_EA04(__src, v67);
-  v59 = ExactitudesDialView.init(frame:dialConfiguration:colors:device:)(__dst, v55, v56, v37, v51, v52, v53, v54);
-  v60 = OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveSecondsDial;
-  v61 = *&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveSecondsDial];
-  *&v1[OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveSecondsDial] = v59;
-  v62 = v59;
-
-  [v1 addSubview:v62];
-  v63 = *&v1[v60];
-  if (v63)
-  {
-    v64 = v63;
-    sub_EAD4(__src);
-
-    [v1 bounds];
-    v65 = CGRectGetMidX(v82);
-    [v1 bounds];
-    [v64 setPosition:{v65, CGRectGetMidY(v83)}];
+    [v62 setPosition:{v63, CGRectGetMidY(v81)}];
 
     return;
   }
@@ -6522,7 +6410,7 @@ void sub_15384(void *a1, double a2, uint64_t a3, uint64_t a4, void (*a5)(double)
   a5(a2);
 }
 
-void sub_15484(void *a1, void *a2, void *a3, const char *a4, double a5)
+void sub_15484(void *a1, void *a2, void *a3, const char *a4, double a5, ...)
 {
   v6 = v5;
   *(v5 + *a1) = a5;
@@ -6569,53 +6457,53 @@ void sub_15484(void *a1, void *a2, void *a3, const char *a4, double a5)
   }
 }
 
-void sub_1562C(uint64_t a1)
+void sub_1562C(uint64_t a1, __n128 a2)
 {
-  v2 = v1;
+  v3 = v2;
   if (a1 == 1)
   {
-    v4 = OBJC_IVAR___NTKExactitudesFaceDialsView_minutesDialExpanded;
+    v5 = OBJC_IVAR___NTKExactitudesFaceDialsView_minutesDialExpanded;
     swift_beginAccess();
-    if ((*(v1 + v4) & 1) == 0)
+    if ((*(v2 + v5) & 1) == 0)
     {
-      *(v1 + v4) = 1;
-      *(v1 + OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveMinutesDialExpanded) = 1;
-      v5 = OBJC_IVAR___NTKExactitudesFaceDialsView__minutesDialExpansionTransitionProgress;
-      *(v1 + OBJC_IVAR___NTKExactitudesFaceDialsView__minutesDialExpansionTransitionProgress) = 0x3FF0000000000000;
-      v6 = *(v1 + OBJC_IVAR___NTKExactitudesFaceDialsView_minutesDial);
-      if (!v6)
+      *(v2 + v5) = 1;
+      *(v2 + OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveMinutesDialExpanded) = 1;
+      v6 = OBJC_IVAR___NTKExactitudesFaceDialsView__minutesDialExpansionTransitionProgress;
+      *(v2 + OBJC_IVAR___NTKExactitudesFaceDialsView__minutesDialExpansionTransitionProgress) = 0x3FF0000000000000;
+      v7 = *(v2 + OBJC_IVAR___NTKExactitudesFaceDialsView_minutesDial);
+      if (!v7)
       {
 LABEL_16:
         __break(1u);
         goto LABEL_17;
       }
 
-      v7 = OBJC_IVAR___NTKExactitudesDialView_expansionTransitionProgress;
+      v8 = OBJC_IVAR___NTKExactitudesDialView_expansionTransitionProgress;
       swift_beginAccess();
-      *&v6[v7] = 0x3FF0000000000000;
-      v8 = v6;
+      *&v7[v8] = 0x3FF0000000000000;
+      v9 = v7;
       sub_F730();
 
-      v9 = *(v2 + OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveMinutesDial);
-      if (v9)
+      v10 = *(v3 + OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveMinutesDial);
+      if (v10)
       {
-        v10 = *(v2 + v5);
-        v11 = OBJC_IVAR___NTKExactitudesDialView_expansionTransitionProgress;
+        v11 = *(v3 + v6);
+        v12 = OBJC_IVAR___NTKExactitudesDialView_expansionTransitionProgress;
         swift_beginAccess();
-        *&v9[v11] = v10;
-        v12 = v9;
+        *&v10[v12] = v11;
+        v13 = v10;
         sub_F730();
       }
     }
 
-    v13 = *(v2 + OBJC_IVAR___NTKExactitudesFaceDialsView_minutesDial);
-    if (v13)
+    v14 = *(v3 + OBJC_IVAR___NTKExactitudesFaceDialsView_minutesDial);
+    if (v14)
     {
 LABEL_13:
-      v24 = *&v13[OBJC_IVAR___NTKExactitudesDialView__state];
-      *&v13[OBJC_IVAR___NTKExactitudesDialView__state] = a1;
-      v25 = v13;
-      sub_F1A0(v24);
+      v25 = *&v14[OBJC_IVAR___NTKExactitudesDialView__state];
+      *&v14[OBJC_IVAR___NTKExactitudesDialView__state] = a1;
+      v26 = v14;
+      sub_F1A0(v25);
 
       return;
     }
@@ -6625,35 +6513,35 @@ LABEL_13:
 
   if (!a1)
   {
-    v14 = OBJC_IVAR___NTKExactitudesFaceDialsView_minutesDialExpanded;
+    v15 = OBJC_IVAR___NTKExactitudesFaceDialsView_minutesDialExpanded;
     swift_beginAccess();
-    *(v2 + v14) = 0;
-    *(v2 + OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveMinutesDialExpanded) = 0;
-    v15 = OBJC_IVAR___NTKExactitudesFaceDialsView__minutesDialExpansionTransitionProgress;
-    *(v2 + OBJC_IVAR___NTKExactitudesFaceDialsView__minutesDialExpansionTransitionProgress) = 0;
-    v16 = OBJC_IVAR___NTKExactitudesFaceDialsView_minutesDial;
-    v17 = *(v2 + OBJC_IVAR___NTKExactitudesFaceDialsView_minutesDial);
-    if (v17)
+    *(v3 + v15) = 0;
+    *(v3 + OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveMinutesDialExpanded) = 0;
+    v16 = OBJC_IVAR___NTKExactitudesFaceDialsView__minutesDialExpansionTransitionProgress;
+    *(v3 + OBJC_IVAR___NTKExactitudesFaceDialsView__minutesDialExpansionTransitionProgress) = 0;
+    v17 = OBJC_IVAR___NTKExactitudesFaceDialsView_minutesDial;
+    v18 = *(v3 + OBJC_IVAR___NTKExactitudesFaceDialsView_minutesDial);
+    if (v18)
     {
-      v18 = OBJC_IVAR___NTKExactitudesDialView_expansionTransitionProgress;
+      v19 = OBJC_IVAR___NTKExactitudesDialView_expansionTransitionProgress;
       swift_beginAccess();
-      *&v17[v18] = 0;
-      v19 = v17;
+      *&v18[v19] = 0;
+      v20 = v18;
       sub_F730();
 
-      v20 = *(v2 + OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveMinutesDial);
-      if (v20)
+      v21 = *(v3 + OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveMinutesDial);
+      if (v21)
       {
-        v21 = *(v2 + v15);
-        v22 = OBJC_IVAR___NTKExactitudesDialView_expansionTransitionProgress;
+        v22 = *(v3 + v16);
+        v23 = OBJC_IVAR___NTKExactitudesDialView_expansionTransitionProgress;
         swift_beginAccess();
-        *&v20[v22] = v21;
-        v23 = v20;
+        *&v21[v23] = v22;
+        v24 = v21;
         sub_F730();
       }
 
-      v13 = *(v2 + v16);
-      if (v13)
+      v14 = *(v3 + v17);
+      if (v14)
       {
         goto LABEL_13;
       }
@@ -6827,70 +6715,69 @@ void ExactitudesFaceDialsView.setOverrideDate(_:duration:)(uint64_t a1, double a
 {
   v3 = v2;
   v6 = sub_CA10(&qword_37C80, &qword_251F0);
-  v7 = *(*(v6 - 8) + 64);
   __chkstk_darwin(v6 - 8);
-  v9 = &v24[-v8];
-  v10 = sub_215AC();
-  v11 = (*(*(v10 - 8) + 48))(a1, 1, v10);
-  v12 = OBJC_IVAR___NTKExactitudesFaceDialsView__isShowOverride;
-  if ((v11 != 1) != *(v2 + OBJC_IVAR___NTKExactitudesFaceDialsView__isShowOverride))
+  v8 = &v23[-v7];
+  v9 = sub_215AC();
+  v10 = (*(*(v9 - 8) + 48))(a1, 1, v9);
+  v11 = OBJC_IVAR___NTKExactitudesFaceDialsView__isShowOverride;
+  if ((v10 != 1) != *(v2 + OBJC_IVAR___NTKExactitudesFaceDialsView__isShowOverride))
   {
-    v13 = v11;
-    if (v11 == 1)
+    v12 = v10;
+    if (v10 == 1)
     {
-      v23 = OBJC_IVAR___NTKExactitudesFaceDialsView__inactiveDialsVisible;
+      v22 = OBJC_IVAR___NTKExactitudesFaceDialsView__inactiveDialsVisible;
       if (*(v2 + OBJC_IVAR___NTKExactitudesFaceDialsView__inactiveDialsVisible) == 1)
       {
         sub_16730(0, 1, a2);
         sub_16730(0, 2, a2);
-        *(v2 + v23) = 0;
+        *(v2 + v22) = 0;
       }
     }
 
     else
     {
-      v14 = *(v2 + OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveMinutesDial);
-      if (v14)
+      v13 = *(v2 + OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveMinutesDial);
+      if (v13)
       {
-        sub_CA58(a1, v9);
-        v15 = OBJC_IVAR___NTKExactitudesDialView_overrideDate;
+        sub_CA58(a1, v8);
+        v14 = OBJC_IVAR___NTKExactitudesDialView_overrideDate;
         swift_beginAccess();
-        v16 = v14;
-        sub_187A0(v9, v14 + v15);
+        v15 = v13;
+        sub_187A0(v8, v13 + v14);
         swift_endAccess();
-        v17 = OBJC_IVAR___NTKExactitudesDialView_expansionTransitionProgress;
+        v16 = OBJC_IVAR___NTKExactitudesDialView_expansionTransitionProgress;
         swift_beginAccess();
-        ExactitudesDialView.updateDial(for:)(*&v16[v17]);
+        ExactitudesDialView.updateDial(for:)(*&v15[v16]);
 
-        sub_11958(v9);
+        sub_11958(v8);
       }
 
-      v18 = *(v3 + OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveSecondsDial);
-      if (v18)
+      v17 = *(v3 + OBJC_IVAR___NTKExactitudesFaceDialsView_inactiveSecondsDial);
+      if (v17)
       {
-        sub_CA58(a1, v9);
-        v19 = OBJC_IVAR___NTKExactitudesDialView_overrideDate;
+        sub_CA58(a1, v8);
+        v18 = OBJC_IVAR___NTKExactitudesDialView_overrideDate;
         swift_beginAccess();
-        v20 = v18;
-        sub_187A0(v9, v18 + v19);
+        v19 = v17;
+        sub_187A0(v8, v17 + v18);
         swift_endAccess();
-        v21 = OBJC_IVAR___NTKExactitudesDialView_expansionTransitionProgress;
+        v20 = OBJC_IVAR___NTKExactitudesDialView_expansionTransitionProgress;
         swift_beginAccess();
-        ExactitudesDialView.updateDial(for:)(*&v20[v21]);
+        ExactitudesDialView.updateDial(for:)(*&v19[v20]);
 
-        sub_11958(v9);
+        sub_11958(v8);
       }
 
-      v22 = OBJC_IVAR___NTKExactitudesFaceDialsView__inactiveDialsVisible;
+      v21 = OBJC_IVAR___NTKExactitudesFaceDialsView__inactiveDialsVisible;
       if ((*(v3 + OBJC_IVAR___NTKExactitudesFaceDialsView__inactiveDialsVisible) & 1) == 0)
       {
         sub_16730(1, 1, a2);
         sub_16730(1, 2, a2);
-        *(v3 + v22) = 1;
+        *(v3 + v21) = 1;
       }
     }
 
-    *(v3 + v12) = v13 != 1;
+    *(v3 + v11) = v12 != 1;
   }
 }
 
@@ -6933,12 +6820,11 @@ uint64_t sub_162C0(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t *a5)
   *(a1 + v8) = a3;
 }
 
-uint64_t ExactitudesFaceDialsView.isFrozen.setter(char a1)
+void ExactitudesFaceDialsView.isFrozen.setter(char a1)
 {
   v3 = OBJC_IVAR___NTKExactitudesFaceDialsView_isFrozen;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v1 + v3) = a1;
-  return result;
 }
 
 Swift::Void __swiftcall ExactitudesFaceDialsView.showInactiveDials()()
@@ -7258,7 +7144,7 @@ void sub_171DC()
     v18 = *(v13 + 2);
     v19 = *(v13 + 3);
     v20 = *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_device];
-    v21 = objc_allocWithZone(type metadata accessor for ExactitudesDialView());
+    v21 = objc_allocWithZone(type metadata accessor for ExactitudesDialView(0));
     v22 = ExactitudesDialView.init(frame:dialConfiguration:colors:device:)(&v25, v18, v19, v20, v14, v15, v16, v17);
     v23 = *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_secondsDial];
     *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_secondsDial] = v22;
@@ -7301,7 +7187,7 @@ void sub_173AC()
     v18 = *(v13 + 3);
     v19 = *(v13 + 1);
     v20 = *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_device];
-    v21 = objc_allocWithZone(type metadata accessor for ExactitudesDialView());
+    v21 = objc_allocWithZone(type metadata accessor for ExactitudesDialView(0));
     v22 = ExactitudesDialView.init(frame:dialConfiguration:colors:device:)(&v25, v19, v18, v20, v14, v15, v16, v17);
     v23 = *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_minutesDial];
     *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_minutesDial] = v22;
@@ -7343,7 +7229,7 @@ void sub_17580()
     v17 = v12;
     v18 = *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_colors + 24];
     v19 = *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_device];
-    v20 = objc_allocWithZone(type metadata accessor for ExactitudesDialView());
+    v20 = objc_allocWithZone(type metadata accessor for ExactitudesDialView(0));
     v21 = ExactitudesDialView.init(frame:dialConfiguration:colors:device:)(&v24, v13, v18, v19, v14, v15, v16, v17);
     v22 = *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_hoursDial];
     *&v0[OBJC_IVAR___NTKExactitudesFaceDialsView_hoursDial] = v21;
@@ -7404,7 +7290,7 @@ id FaceDialColorsWrapper.__deallocating_deinit()
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t sub_17BE4(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_17BE4(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_17CB0(v11, 0, 0, 1, a1, a2);
@@ -7504,11 +7390,9 @@ LABEL_8:
 
 void *sub_17DBC(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_17E08(a1, a2);
+  v3 = sub_17E08(a1, a2);
   sub_17F38(&off_31020);
-  result = v4;
-  v3 = v4[2] - 1;
-  return result;
+  return v3;
 }
 
 void *sub_17E08(uint64_t a1, unint64_t a2)
@@ -7593,11 +7477,11 @@ LABEL_20:
   return result;
 }
 
-uint64_t sub_17F38(uint64_t result)
+void sub_17F38(uint64_t a1)
 {
-  v2 = *(result + 16);
+  v2 = *(a1 + 16);
   v3 = *v1;
-  v4 = *(*v1 + 16);
+  v4 = *(*v1 + 2);
   v5 = v4 + v2;
   if (__OFADD__(v4, v2))
   {
@@ -7607,12 +7491,10 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v6 = result;
-  v7 = *v1;
-  result = swift_isUniquelyReferenced_nonNull_native();
-  if (result && v5 <= *(v3 + 24) >> 1)
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  if (isUniquelyReferenced_nonNull_native && v5 <= *(v3 + 3) >> 1)
   {
-    if (*(v6 + 16))
+    if (*(a1 + 16))
     {
       goto LABEL_5;
     }
@@ -7630,9 +7512,8 @@ LABEL_16:
     v12 = v4;
   }
 
-  result = sub_18098(result, v12, 1, v3);
-  v3 = result;
-  if (!*(v6 + 16))
+  v3 = sub_18098(isUniquelyReferenced_nonNull_native, v12, 1, v3);
+  if (!*(a1 + 16))
   {
 LABEL_13:
 
@@ -7645,35 +7526,34 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v8 = *(v3 + 2);
+  if ((*(v3 + 3) >> 1) - v8 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy(&v3[v8 + 32], (a1 + 32), v2);
 
   if (!v2)
   {
 LABEL_14:
     *v1 = v3;
-    return result;
+    return;
   }
 
-  v9 = *(v3 + 16);
+  v9 = *(v3 + 2);
   v10 = __OFADD__(v9, v2);
   v11 = v9 + v2;
   if (!v10)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 2) = v11;
     goto LABEL_14;
   }
 
 LABEL_18:
   __break(1u);
-  return result;
 }
 
 void *sub_18024(uint64_t a1, uint64_t a2)
@@ -8152,15 +8032,17 @@ id sub_18CD4(double a1)
   return v4;
 }
 
-uint64_t sub_18E28(uint64_t *a1)
+uint64_t sub_18E28(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_18E74(uint64_t a1, uint64_t a2)
@@ -8240,7 +8122,7 @@ void *ExactitudesDialSlice.configuration.getter@<X0>(void *a1@<X8>)
   return memcpy(a1, (v1 + v3), 0x172uLL);
 }
 
-void (*ExactitudesDialSlice.configuration.modify(uint64_t *a1))(void **a1, char a2)
+uint64_t (*ExactitudesDialSlice.configuration.modify(uint64_t *a1))()
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -8328,11 +8210,11 @@ Swift::Int sub_193A0()
   return sub_218AC();
 }
 
-Swift::Int sub_19414()
+Swift::Int sub_19414(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_2188C();
-  sub_2189C(v1);
+  sub_2189C(v2);
   return sub_218AC();
 }
 
@@ -8419,10 +8301,11 @@ char *ExactitudesDialSlice.init()()
   return v26;
 }
 
-void sub_197E4(signed __int8 a1)
+void sub_197E4(uint64_t a1)
 {
+  v2 = a1;
   v3 = sub_1A2B4(a1);
-  v4 = sub_1A424(a1, v3).n128_f64[0];
+  v4 = sub_1A424(v2, v3).n128_f64[0];
   if (v4 == 0.0 && v5 == 0.0)
   {
     if (qword_37A20 != -1)
@@ -8446,316 +8329,356 @@ void sub_197E4(signed __int8 a1)
 
   v9 = v5;
   v10 = v4;
-  v11 = *(v1 + *off_316D8[a1]);
-  v12 = *(v1 + *off_316B8[a1]);
-  v13 = *(v1 + *off_31698[a1]);
-  v14 = *(v1 + *off_31678[a1]);
-  v76 = v11;
-  v77 = *(v1 + *off_316F8[a1]);
+  v11 = *(v1 + *off_316B8[v2]);
+  v12 = *(v1 + *off_31698[v2]);
+  v13 = *(v1 + *off_31678[v2]);
+  v71 = *(v1 + *off_316D8[v2]);
+  v72 = *(v1 + *off_316F8[v2]);
   if (v3)
   {
-    v15 = sub_201F0(a1);
-    v16 = OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_configuration;
+    v14 = sub_201F0(v2);
+    v15 = OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_configuration;
     swift_beginAccess();
-    memcpy(__dst, (v1 + v16), 0x172uLL);
-    v17 = sub_CE08(__dst) == 1;
-    if ((v17 | LOBYTE(__dst[28])))
+    memcpy(__dst, (v1 + v15), 0x172uLL);
+    v16 = sub_CE08(__dst) == 1;
+    if ((v16 | LOBYTE(__dst[28])))
     {
-      v18 = 0;
+      v17 = 0;
     }
 
     else
     {
-      v18 = __dst[27];
+      v17 = __dst[27];
     }
 
-    osloga = v18;
-    memcpy(v84, (v1 + v16), 0x172uLL);
-    v19 = sub_CE08(v84) == 1;
-    if ((v19 | LOBYTE(v84[33])))
+    osloga = v17;
+    memcpy(v79, (v1 + v15), 0x172uLL);
+    v18 = sub_CE08(v79) == 1;
+    if ((v18 | LOBYTE(v79[33])))
     {
-      v20 = 0;
+      v19 = 0;
     }
 
     else
     {
-      v20 = v84[32];
+      v19 = v79[32];
     }
 
-    memcpy(v83, (v1 + v16), sizeof(v83));
-    v21 = sub_CE08(v83) == 1;
-    if ((v21 | v83[304]))
+    memcpy(v78, (v1 + v15), sizeof(v78));
+    v20 = sub_CE08(v78) == 1;
+    if ((v20 | v78[304]))
     {
-      v22 = 0;
+      v21 = 0;
     }
 
     else
     {
-      v22 = *&v83[296];
+      v21 = *&v78[296];
     }
 
-    memcpy(v82, (v1 + v16), 0x172uLL);
-    v23 = sub_CE08(v82) == 1;
-    v24 = v82[42];
-    v25 = v82[43];
+    memcpy(v77, (v1 + v15), 0x172uLL);
+    v22 = sub_CE08(v77) == 1;
+    v23 = v77[42];
+    v24 = v77[43];
   }
 
   else
   {
-    v15 = sub_20078(a1);
-    v26 = OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_configuration;
+    v14 = sub_20078(v2);
+    v25 = OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_configuration;
     swift_beginAccess();
-    memcpy(__dst, (v1 + v26), 0x172uLL);
-    v27 = sub_CE08(__dst);
-    v28 = __dst[9];
-    if (v27 == 1)
+    memcpy(__dst, (v1 + v25), 0x172uLL);
+    v26 = sub_CE08(__dst);
+    v27 = __dst[9];
+    if (v26 == 1)
     {
-      v28 = 0;
+      v27 = 0;
     }
 
-    osloga = v28;
-    memcpy(v84, (v1 + v26), 0x172uLL);
-    v29 = sub_CE08(v84) == 1;
-    if ((v29 | LOBYTE(v84[13])))
+    osloga = v27;
+    memcpy(v79, (v1 + v25), 0x172uLL);
+    v28 = sub_CE08(v79) == 1;
+    if ((v28 | LOBYTE(v79[13])))
     {
-      v20 = 0;
-    }
-
-    else
-    {
-      v20 = v84[12];
-    }
-
-    memcpy(v83, (v1 + v26), sizeof(v83));
-    v30 = sub_CE08(v83) == 1;
-    if ((v30 | v83[144]))
-    {
-      v22 = 0;
+      v19 = 0;
     }
 
     else
     {
-      v22 = *&v83[136];
+      v19 = v79[12];
     }
 
-    memcpy(v82, (v1 + v26), 0x172uLL);
-    v23 = sub_CE08(v82) == 1;
-    v24 = v82[22];
-    v25 = v82[23];
+    memcpy(v78, (v1 + v25), sizeof(v78));
+    v29 = sub_CE08(v78) == 1;
+    if ((v29 | v78[144]))
+    {
+      v21 = 0;
+    }
+
+    else
+    {
+      v21 = *&v78[136];
+    }
+
+    memcpy(v77, (v1 + v25), 0x172uLL);
+    v22 = sub_CE08(v77) == 1;
+    v23 = v77[22];
+    v24 = v77[23];
   }
 
-  if ((v23 | v25))
+  if ((v22 | v24))
   {
-    v31 = 0;
+    v30 = 0;
   }
 
   else
   {
-    v31 = v24;
+    v30 = v23;
   }
 
-  if (v15 >= 1)
+  if (v14 >= 1)
   {
-    if (a1 > 1u)
+    if (v2 > 1u)
     {
-      if (a1 != 2)
+      if (v2 != 2)
       {
         goto LABEL_65;
       }
 
-      if (!v20 || !v22)
+      if (!v19 || !v21)
       {
         return;
       }
 
-      v36 = v13;
-      v13 = v12;
-      if (v22 == 0x8000000000000000 && v20 == -1)
+      v35 = v12;
+      v12 = v11;
+      if (v21 == 0x8000000000000000 && v19 == -1)
       {
-        goto LABEL_112;
-      }
-
-      v12 = v22 / v20 - 1;
-      if (__OFSUB__(v22 / v20, 1))
-      {
-        goto LABEL_103;
-      }
-
-      v38 = OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_configuration;
-      swift_beginAccess();
-      memcpy(__dst, (v1 + v38), 0x172uLL);
-      v39 = sub_CE08(__dst);
-      v40 = *__dst;
-      if (v39 == 1)
-      {
-        v40 = 0.0;
-      }
-
-      v35 = v40 * v20;
-      if ((*&v35 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
-      {
-        goto LABEL_105;
-      }
-
-      if (v35 <= -9.22337204e18)
-      {
-LABEL_107:
-        __break(1u);
         goto LABEL_108;
       }
 
-      v75 = v15;
-      if (v35 >= 9.22337204e18)
+      v11 = v21 / v19 - 1;
+      if (__OFSUB__(v21 / v19, 1))
       {
-LABEL_109:
-        __break(1u);
-        goto LABEL_110;
+        goto LABEL_99;
       }
 
-      osloga = v20;
+      v37 = OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_configuration;
+      swift_beginAccess();
+      memcpy(__dst, (v1 + v37), 0x172uLL);
+      v38 = sub_CE08(__dst);
+      v39 = *__dst;
+      if (v38 == 1)
+      {
+        v39 = 0.0;
+      }
+
+      v34 = v39 * v19;
+      if ((*&v34 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+      {
+        goto LABEL_101;
+      }
+
+      if (v34 <= -9.22337204e18)
+      {
+LABEL_103:
+        __break(1u);
+        goto LABEL_104;
+      }
+
+      v70 = v14;
+      if (v34 >= 9.22337204e18)
+      {
+LABEL_105:
+        __break(1u);
+        goto LABEL_106;
+      }
+
+      osloga = v19;
     }
 
     else
     {
-      if (!a1)
+      if (!v2)
       {
-        v32 = OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_configuration;
+        v31 = OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_configuration;
         swift_beginAccess();
-        memcpy(__dst, (v1 + v32), 0x172uLL);
-        v33 = sub_CE08(__dst);
-        v34 = *__dst;
-        if (v33 == 1)
+        memcpy(__dst, (v1 + v31), 0x172uLL);
+        v32 = sub_CE08(__dst);
+        v33 = *__dst;
+        if (v32 == 1)
         {
-          v34 = 0.0;
+          v33 = 0.0;
         }
 
-        v35 = v34 * osloga;
-        if ((*&v35 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+        v34 = v33 * osloga;
+        if ((*&v34 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
         {
           __break(1u);
         }
 
-        else if (v35 > -9.22337204e18)
+        else if (v34 > -9.22337204e18)
         {
-          v75 = v15;
-          if (v35 < 9.22337204e18)
+          v70 = v14;
+          if (v34 < 9.22337204e18)
           {
-            v36 = v13;
-            v13 = v12;
-            v37 = 1;
+            v35 = v12;
+            v12 = v11;
+            v36 = 1;
 LABEL_77:
+            v47 = v34;
+            v69 = v13;
             v48 = v35;
-            v74 = v14;
-            v49 = v36;
-            v50 = v13;
-            v51 = v76;
-            v78 = v77;
-            [v50 setFillMode:kCAFillModeBoth];
-            v52 = OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_configuration;
+            v49 = v12;
+            v50 = v71;
+            v73 = v72;
+            [v49 setFillMode:kCAFillModeBoth];
+            v51 = OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_configuration;
             swift_beginAccess();
-            memcpy(__dst, (v1 + v52), 0x172uLL);
-            v53 = sub_CE08(__dst);
-            v54.n128_f64[0] = *&__dst[6] + *&__dst[6];
-            if (v53 == 1)
+            memcpy(__dst, (v1 + v51), 0x172uLL);
+            sub_CE08(__dst);
+            ExactitudesTickLayer.cornerRadius.setter();
+            [v49 setPosition:{v52 * 0.5, v53 * 0.5}];
+            v54 = *(v1 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_rootLayer);
+            [v54 bounds];
+            [v49 setFrame:?];
+            memcpy(v79, (v1 + v51), 0x172uLL);
+            v55 = sub_CE08(v79);
+            v56 = *&v79[1];
+            if (v55 == 1)
             {
-              v54.n128_f64[0] = 0.0;
+              v56 = 0.0;
             }
 
-            v55 = ExactitudesTickLayer.cornerRadius.setter(v54, v54.n128_f64[0]);
-            [v50 setPosition:{v55 * 0.5, v56 * 0.5}];
-            v57 = *(v1 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_rootLayer);
-            [v57 bounds];
-            [v50 setFrame:?];
-            memcpy(v84, (v1 + v52), 0x172uLL);
-            v58 = sub_CE08(v84);
-            v59 = *&v84[1];
-            if (v58 == 1)
-            {
-              v59 = 0.0;
-            }
-
-            [v50 setContentsScale:v59];
-            [v50 setInstanceCount:v37];
-            v60 = 6.28318531 / v75;
-            CATransform3DMakeRotation(v83, v60, 0.0, 0.0, 1.0);
-            [v50 setInstanceTransform:v83];
-            if (v48 == 1)
+            [v49 setContentsScale:v56];
+            [v49 setInstanceCount:v36];
+            v57 = 6.28318531 / v70;
+            CATransform3DMakeRotation(v78, v57, 0.0, 0.0, 1.0);
+            [v49 setInstanceTransform:v78];
+            if (v47 == 1)
             {
               p_type = (&stru_34FF0 + 16);
-              if (a1)
+              if (v2)
               {
-                CATransform3DMakeRotation(v83, v60, 0.0, 0.0, 1.0);
-                [v50 setTransform:v83];
+                CATransform3DMakeRotation(v78, v57, 0.0, 0.0, 1.0);
+                [v49 setTransform:v78];
               }
 
-              [v57 addSublayer:v50];
-              v62 = v49;
-              v63 = v78;
-              v64 = v74;
+              [v54 addSublayer:v49];
+              v59 = v48;
+              v60 = v73;
+              v61 = v69;
             }
 
             else
             {
-              v65 = v49;
-              [v65 addSublayer:v50];
-              [v65 setFillMode:kCAFillModeBoth];
-              memcpy(v83, (v1 + v52), sizeof(v83));
-              v66 = sub_CE08(v83);
-              v67.n128_f64[0] = *&v83[48] + *&v83[48];
-              if (v66 == 1)
+              v62 = v48;
+              [v62 addSublayer:v49];
+              [v62 setFillMode:kCAFillModeBoth];
+              memcpy(v78, (v1 + v51), sizeof(v78));
+              sub_CE08(v78);
+              ExactitudesTickLayer.cornerRadius.setter();
+              [v62 setPosition:{v63 * 0.5, v64 * 0.5}];
+              [v54 bounds];
+              [v62 setFrame:?];
+              memcpy(v77, (v1 + v51), 0x172uLL);
+              v65 = sub_CE08(v77);
+              v66 = *&v77[1];
+              if (v65 == 1)
               {
-                v67.n128_f64[0] = 0.0;
-              }
-
-              v68 = ExactitudesTickLayer.cornerRadius.setter(v67, v67.n128_f64[0]);
-              [v65 setPosition:{v68 * 0.5, v69 * 0.5}];
-              [v57 bounds];
-              [v65 setFrame:?];
-              memcpy(v82, (v1 + v52), 0x172uLL);
-              v70 = sub_CE08(v82);
-              v71 = *&v82[1];
-              if (v70 == 1)
-              {
-                v71 = 0.0;
+                v66 = 0.0;
               }
 
               p_type = &stru_34FF0.type;
-              [v65 setContentsScale:v71];
-              [v65 setInstanceCount:v48];
-              CATransform3DMakeRotation(&v81, 6.28318531 / osloga, 0.0, 0.0, 1.0);
-              [v65 setInstanceTransform:&v81];
-              if (a1)
+              [v62 setContentsScale:v66];
+              [v62 setInstanceCount:v47];
+              CATransform3DMakeRotation(&v76, 6.28318531 / osloga, 0.0, 0.0, 1.0);
+              [v62 setInstanceTransform:&v76];
+              if (v2)
               {
-                CATransform3DMakeRotation(&v81, v60, 0.0, 0.0, 1.0);
-                [v65 setTransform:&v81];
+                CATransform3DMakeRotation(&v76, v57, 0.0, 0.0, 1.0);
+                [v62 setTransform:&v76];
               }
 
-              [v57 addSublayer:v65];
-              v62 = v49;
-              v63 = v78;
-              v64 = v74;
+              [v54 addSublayer:v62];
+              v59 = v48;
+              v60 = v73;
+              v61 = v69;
             }
 
-            sub_1A6E4(v64, v63, v10, v9);
-            [v51 addSublayer:v64];
-            memcpy(v83, (v1 + v52), sizeof(v83));
-            v72 = sub_CE08(v83);
-            v73 = *&v83[8];
-            if (v72 == 1)
+            sub_1A6E4(v61, v60, v10, v9);
+            [v50 addSublayer:v61];
+            memcpy(v78, (v1 + v51), sizeof(v78));
+            v67 = sub_CE08(v78);
+            v68 = *&v78[8];
+            if (v67 == 1)
             {
-              v73 = 0.0;
+              v68 = 0.0;
             }
 
-            [v51 p_type[468]];
-            [v50 addSublayer:v51];
+            [v50 p_type[468]];
+            [v49 addSublayer:v50];
 
             return;
           }
 
-          goto LABEL_98;
+          goto LABEL_94;
         }
 
         __break(1u);
+LABEL_94:
+        __break(1u);
+LABEL_95:
+        __break(1u);
+LABEL_96:
+        __break(1u);
+LABEL_97:
+        __break(1u);
+        goto LABEL_98;
+      }
+
+      if (!v19)
+      {
+        return;
+      }
+
+      v21 = osloga;
+      if (!osloga)
+      {
+        goto LABEL_95;
+      }
+
+      v35 = v12;
+      v12 = v11;
+      if (v19 == 0x8000000000000000 && osloga == -1)
+      {
+        goto LABEL_107;
+      }
+
+      v11 = v19 / osloga - 1;
+      if (__OFSUB__(v19 / osloga, 1))
+      {
+        goto LABEL_96;
+      }
+
+      v40 = OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_configuration;
+      swift_beginAccess();
+      memcpy(__dst, (v1 + v40), 0x172uLL);
+      v41 = sub_CE08(__dst);
+      v42 = *__dst;
+      if (v41 == 1)
+      {
+        v42 = 0.0;
+      }
+
+      v34 = v42 * osloga;
+      if ((*&v34 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+      {
+        goto LABEL_97;
+      }
+
+      if (v34 <= -9.22337204e18)
+      {
 LABEL_98:
         __break(1u);
 LABEL_99:
@@ -8764,131 +8687,78 @@ LABEL_100:
         __break(1u);
 LABEL_101:
         __break(1u);
-        goto LABEL_102;
-      }
-
-      if (!v20)
-      {
-        return;
-      }
-
-      v22 = osloga;
-      if (!osloga)
-      {
-        goto LABEL_99;
-      }
-
-      v36 = v13;
-      v13 = v12;
-      if (v20 == 0x8000000000000000 && osloga == -1)
-      {
-        goto LABEL_111;
-      }
-
-      v12 = v20 / osloga - 1;
-      if (__OFSUB__(v20 / osloga, 1))
-      {
-        goto LABEL_100;
-      }
-
-      v41 = OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_configuration;
-      swift_beginAccess();
-      memcpy(__dst, (v1 + v41), 0x172uLL);
-      v42 = sub_CE08(__dst);
-      v43 = *__dst;
-      if (v42 == 1)
-      {
-        v43 = 0.0;
-      }
-
-      v35 = v43 * osloga;
-      if ((*&v35 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
-      {
-        goto LABEL_101;
-      }
-
-      if (v35 <= -9.22337204e18)
-      {
 LABEL_102:
         __break(1u);
-LABEL_103:
-        __break(1u);
-LABEL_104:
-        __break(1u);
-LABEL_105:
-        __break(1u);
-LABEL_106:
-        __break(1u);
-        goto LABEL_107;
+        goto LABEL_103;
       }
 
-      v75 = v15;
-      v31 = 0x43E0000000000000;
-      if (v35 >= 9.22337204e18)
+      v70 = v14;
+      v30 = 0x43E0000000000000;
+      if (v34 >= 9.22337204e18)
       {
         __break(1u);
 LABEL_65:
-        if (!v22 || !v31)
+        if (!v21 || !v30)
         {
           return;
         }
 
-        v36 = v13;
-        v13 = v12;
-        if (v31 == 0x8000000000000000 && v22 == -1)
+        v35 = v12;
+        v12 = v11;
+        if (v30 == 0x8000000000000000 && v21 == -1)
         {
-LABEL_113:
+LABEL_109:
           __break(1u);
           return;
         }
 
-        v44 = v31 / v22;
-        v12 = v44 - 1;
-        if (__OFSUB__(v44, 1))
+        v43 = v30 / v21;
+        v11 = v43 - 1;
+        if (__OFSUB__(v43, 1))
         {
-          goto LABEL_104;
+          goto LABEL_100;
         }
 
-        v45 = OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_configuration;
+        v44 = OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_configuration;
         swift_beginAccess();
-        memcpy(__dst, (v1 + v45), 0x172uLL);
-        v46 = sub_CE08(__dst);
-        v47 = *__dst;
-        if (v46 == 1)
+        memcpy(__dst, (v1 + v44), 0x172uLL);
+        v45 = sub_CE08(__dst);
+        v46 = *__dst;
+        if (v45 == 1)
         {
-          v47 = 0.0;
+          v46 = 0.0;
         }
 
-        v35 = v47 * v22;
-        if ((*&v35 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+        v34 = v46 * v21;
+        if ((*&v34 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
         {
-          goto LABEL_106;
+          goto LABEL_102;
         }
 
-        if (v35 <= -9.22337204e18)
+        if (v34 <= -9.22337204e18)
         {
+LABEL_104:
+          __break(1u);
+          goto LABEL_105;
+        }
+
+        v70 = v14;
+        if (v34 >= 9.22337204e18)
+        {
+LABEL_106:
+          __break(1u);
+LABEL_107:
+          __break(1u);
 LABEL_108:
           __break(1u);
           goto LABEL_109;
         }
 
-        v75 = v15;
-        if (v35 >= 9.22337204e18)
-        {
-LABEL_110:
-          __break(1u);
-LABEL_111:
-          __break(1u);
-LABEL_112:
-          __break(1u);
-          goto LABEL_113;
-        }
-
-        osloga = v22;
+        osloga = v21;
       }
     }
 
-    v37 = v12;
+    v36 = v11;
     goto LABEL_77;
   }
 }
@@ -9098,330 +8968,318 @@ id sub_1A6E4(void *a1, void *a2, double a3, double a4)
   return result;
 }
 
-void ExactitudesDialSlice.updateTicks(for:)()
+void ExactitudesDialSlice.updateTicks(for:)(double a1)
 {
-  v1 = OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_configuration;
+  v2 = OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_configuration;
   swift_beginAccess();
-  memcpy(__dst, (v0 + v1), 0x172uLL);
-  v2 = sub_CE08(__dst);
-  v3.n128_f64[0] = __dst[6] + __dst[6];
-  if (v2 == 1)
-  {
-    v3.n128_f64[0] = 0.0;
-  }
-
-  ExactitudesTickLayer.cornerRadius.setter(v3, v3.n128_f64[0]);
-  memcpy(v31, (v0 + v1), 0x172uLL);
-  v4 = sub_CE08(v31);
-  v5.n128_f64[0] = v31[7] + v31[7];
-  if (v4 == 1)
-  {
-    v5.n128_f64[0] = 0.0;
-  }
-
-  ExactitudesTickLayer.cornerRadius.setter(v5, v5.n128_f64[0]);
+  memcpy(__dst, (v1 + v2), 0x172uLL);
+  sub_CE08(__dst);
+  ExactitudesTickLayer.cornerRadius.setter();
+  memcpy(v28, (v1 + v2), 0x172uLL);
+  sub_CE08(v28);
+  ExactitudesTickLayer.cornerRadius.setter();
   CLKInterpolateBetweenFloatsClipped();
-  v6 = *(v0 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_primaryTickTransformLayer);
+  v3 = *(v1 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_primaryTickTransformLayer);
+  [v3 position];
+  [v3 setPosition:?];
+  v4 = *(v1 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_secondaryTickTransformLayer);
+  [v4 position];
+  [v4 setPosition:?];
+  v5 = *(v1 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_tertiaryTickTransformLayer);
+  [v5 position];
+  [v5 setPosition:?];
+  v6 = *(v1 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_quaternaryTickTransformLayer);
   [v6 position];
   [v6 setPosition:?];
-  v7 = *(v0 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_secondaryTickTransformLayer);
-  [v7 position];
-  [v7 setPosition:?];
-  v8 = *(v0 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_tertiaryTickTransformLayer);
-  [v8 position];
-  [v8 setPosition:?];
-  v9 = *(v0 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_quaternaryTickTransformLayer);
-  [v9 position];
-  [v9 setPosition:?];
-  v10 = 0;
-  v11 = (v0 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_quaternaryTickLayer);
-  v12 = (v0 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_tertiaryTickLayer);
-  v13 = (v0 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_secondaryTickLayer);
-  v28 = (v0 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_primaryTickLayer);
+  v7 = 0;
+  v8 = (v1 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_quaternaryTickLayer);
+  v9 = (v1 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_tertiaryTickLayer);
+  v10 = (v1 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_secondaryTickLayer);
+  v25 = (v1 + OBJC_IVAR____TtC24NTKExactitudesFaceBundle20ExactitudesDialSlice_primaryTickLayer);
   do
   {
-    v18 = *(&off_30EB8 + v10 + 32);
-    v19 = (v0 + v1);
-    if (v18 > 1)
+    v15 = *(&off_30EB8 + v7 + 32);
+    v16 = (v1 + v2);
+    if (v15 > 1)
     {
-      if (v18 == 2)
+      if (v15 == 2)
       {
-        memcpy(v30, v19, 0x172uLL);
-        if (sub_CE08(v30) == 1 || (LOBYTE(v30[1].m13) & 1) != 0)
+        memcpy(v27, v16, 0x172uLL);
+        if (sub_CE08(v27) == 1 || (LOBYTE(v27[1].m13) & 1) != 0)
         {
-          v14 = v12;
-          goto LABEL_7;
+          v11 = v9;
+          goto LABEL_3;
         }
 
-        if (!*&v30[1].m12)
+        if (!*&v27[1].m12)
         {
-LABEL_25:
-          if (v18 > 1)
+LABEL_21:
+          if (v15 > 1)
           {
-            v14 = v12;
-            if (v18 != 2)
+            v11 = v9;
+            if (v15 != 2)
             {
-LABEL_6:
-              v14 = v11;
+LABEL_2:
+              v11 = v8;
             }
           }
 
           else
           {
-            v14 = v28;
-            if (v18)
+            v11 = v25;
+            if (v15)
             {
-LABEL_27:
-              v14 = v13;
+LABEL_23:
+              v11 = v10;
             }
           }
 
-LABEL_7:
-          v15 = *v14;
+LABEL_3:
+          v12 = *v11;
           CLKInterpolateBetweenFloatsClipped();
-          [v15 setAlpha:?];
+          [v12 setAlpha:?];
           CLKInterpolateBetweenFloatsClipped();
-          v17 = v16;
-LABEL_8:
-          CGAffineTransformMakeScale(v30, v16, v17);
-          *&m[0].a = *&v30[0].m11;
-          *&m[0].c = *&v30[0].m13;
-          *&m[0].tx = *&v30[0].m21;
-          CATransform3DMakeAffineTransform(v30, m);
-          m[1] = *&v30[0].m23;
-          *&m[2].a = *&v30[0].m41;
-          *&m[2].c = *&v30[0].m43;
-          *&m[0].a = *&v30[0].m11;
-          *&m[0].c = *&v30[0].m13;
-          *&m[0].tx = *&v30[0].m21;
-          [v15 setTransform:m];
+          v14 = v13;
+LABEL_4:
+          CGAffineTransformMakeScale(v27, v13, v14);
+          *&m[0].a = *&v27[0].m11;
+          *&m[0].c = *&v27[0].m13;
+          *&m[0].tx = *&v27[0].m21;
+          CATransform3DMakeAffineTransform(v27, m);
+          m[1] = *&v27[0].m23;
+          *&m[2].a = *&v27[0].m41;
+          *&m[2].c = *&v27[0].m43;
+          *&m[0].a = *&v27[0].m11;
+          *&m[0].c = *&v27[0].m13;
+          *&m[0].tx = *&v27[0].m21;
+          [v12 setTransform:m];
 
-          goto LABEL_9;
+          goto LABEL_5;
         }
       }
 
       else
       {
-        memcpy(v30, v19, 0x172uLL);
-        if (sub_CE08(v30) == 1 || (LOBYTE(v30[1].m24) & 1) != 0)
+        memcpy(v27, v16, 0x172uLL);
+        if (sub_CE08(v27) == 1 || (LOBYTE(v27[1].m24) & 1) != 0)
         {
-          goto LABEL_6;
+          goto LABEL_2;
         }
 
-        if (!*&v30[1].m23)
+        if (!*&v27[1].m23)
         {
-          goto LABEL_25;
+          goto LABEL_21;
         }
       }
     }
 
-    else if (*(&off_30EB8 + v10 + 32))
+    else if (*(&off_30EB8 + v7 + 32))
     {
-      memcpy(v30, v19, 0x172uLL);
-      if (sub_CE08(v30) == 1 || (LOBYTE(v30[0].m42) & 1) != 0)
+      memcpy(v27, v16, 0x172uLL);
+      if (sub_CE08(v27) == 1 || (LOBYTE(v27[0].m42) & 1) != 0)
       {
-        goto LABEL_27;
+        goto LABEL_23;
       }
 
-      if (!*&v30[0].m41)
+      if (!*&v27[0].m41)
       {
-        goto LABEL_25;
+        goto LABEL_21;
       }
     }
 
     else
     {
-      memcpy(v30, v19, 0x172uLL);
-      if (sub_CE08(v30) == 1)
+      memcpy(v27, v16, 0x172uLL);
+      if (sub_CE08(v27) == 1)
       {
-        v14 = v28;
-        goto LABEL_7;
+        v11 = v25;
+        goto LABEL_3;
       }
 
-      if (!*&v30[0].m32)
+      if (!*&v27[0].m32)
       {
-        goto LABEL_25;
+        goto LABEL_21;
       }
     }
 
-    v20 = (v0 + v1);
-    if (v18 > 1)
+    v17 = (v1 + v2);
+    if (v15 > 1)
     {
-      if (v18 == 2)
+      if (v15 == 2)
       {
-        memcpy(v30, v20, 0x172uLL);
-        v23 = sub_CE08(v30) == 1;
-        if ((v23 | LOBYTE(v30[1].m22)))
+        memcpy(v27, v17, 0x172uLL);
+        v20 = sub_CE08(v27) == 1;
+        if ((v20 | LOBYTE(v27[1].m22)))
         {
           m21 = 0.0;
         }
 
         else
         {
-          m21 = v30[1].m21;
+          m21 = v27[1].m21;
         }
 
-        memcpy(m, (v0 + v1), 0x172uLL);
+        memcpy(m, (v1 + v2), 0x172uLL);
         if (sub_CE08(m) == 1 || (LOBYTE(m[6].ty) & 1) != 0)
         {
           if (m21 != 0.0)
           {
-            goto LABEL_76;
+            goto LABEL_72;
           }
 
-          goto LABEL_9;
+          goto LABEL_5;
         }
 
         tx = m[6].tx;
         if (m21 == 0.0)
         {
-          goto LABEL_9;
+          goto LABEL_5;
         }
       }
 
       else
       {
-        memcpy(v30, v20, 0x172uLL);
-        v25 = sub_CE08(v30) == 1;
-        if ((v25 | LOBYTE(v30[1].m33)))
+        memcpy(v27, v17, 0x172uLL);
+        v22 = sub_CE08(v27) == 1;
+        if ((v22 | LOBYTE(v27[1].m33)))
         {
           m21 = 0.0;
         }
 
         else
         {
-          m21 = v30[1].m32;
+          m21 = v27[1].m32;
         }
 
-        memcpy(m, (v0 + v1), 0x172uLL);
+        memcpy(m, (v1 + v2), 0x172uLL);
         if (sub_CE08(m) == 1 || (LOBYTE(m[7].tx) & 1) != 0)
         {
           if (m21 != 0.0)
           {
-            goto LABEL_77;
+            goto LABEL_73;
           }
 
-          goto LABEL_9;
+          goto LABEL_5;
         }
 
         tx = m[7].d;
         if (m21 == 0.0)
         {
-          goto LABEL_9;
+          goto LABEL_5;
         }
       }
 
-      goto LABEL_71;
+      goto LABEL_67;
     }
 
-    if (v18)
+    if (v15)
     {
-      memcpy(v30, v20, 0x172uLL);
-      v24 = sub_CE08(v30) == 1;
-      if ((v24 | LOBYTE(v30[1].m11)))
+      memcpy(v27, v17, 0x172uLL);
+      v21 = sub_CE08(v27) == 1;
+      if ((v21 | LOBYTE(v27[1].m11)))
       {
         m21 = 0.0;
       }
 
       else
       {
-        m21 = v30[0].m44;
+        m21 = v27[0].m44;
       }
 
-      memcpy(m, (v0 + v1), 0x172uLL);
+      memcpy(m, (v1 + v2), 0x172uLL);
       if (sub_CE08(m) != 1 && (LOBYTE(m[6].a) & 1) == 0)
       {
         tx = m[5].ty;
         if (m21 == 0.0)
         {
-          goto LABEL_9;
+          goto LABEL_5;
         }
 
-        goto LABEL_71;
+        goto LABEL_67;
       }
 
       if (m21 != 0.0)
       {
-        v22 = v13;
-        goto LABEL_78;
+        v19 = v10;
+        goto LABEL_74;
       }
     }
 
     else
     {
-      memcpy(v30, v20, 0x172uLL);
-      if (sub_CE08(v30) == 1)
+      memcpy(v27, v17, 0x172uLL);
+      if (sub_CE08(v27) == 1)
       {
         m21 = 0.0;
       }
 
       else
       {
-        m21 = v30[0].m34;
+        m21 = v27[0].m34;
       }
 
-      memcpy(m, (v0 + v1), 0x172uLL);
+      memcpy(m, (v1 + v2), 0x172uLL);
       if (sub_CE08(m) != 1 && (LOBYTE(m[5].b) & 1) == 0)
       {
         tx = m[5].a;
         if (m21 == 0.0)
         {
-          goto LABEL_9;
+          goto LABEL_5;
         }
 
-LABEL_71:
+LABEL_67:
         if (m21 != tx)
         {
-          if (v18 > 1)
+          if (v15 > 1)
           {
-            if (v18 == 2)
+            if (v15 == 2)
             {
-LABEL_76:
-              v22 = v12;
+LABEL_72:
+              v19 = v9;
             }
 
             else
             {
-LABEL_77:
-              v22 = v11;
+LABEL_73:
+              v19 = v8;
             }
           }
 
           else
           {
-            v22 = v28;
-            if (v18)
+            v19 = v25;
+            if (v15)
             {
-              v22 = v13;
+              v19 = v10;
             }
           }
 
-          goto LABEL_78;
+          goto LABEL_74;
         }
 
-        goto LABEL_9;
+        goto LABEL_5;
       }
 
       if (m21 != 0.0)
       {
-        v22 = v28;
-LABEL_78:
-        v15 = *v22;
+        v19 = v25;
+LABEL_74:
+        v12 = *v19;
         CLKInterpolateBetweenFloatsClipped();
-        v17 = v27;
-        v16 = 1.0;
-        goto LABEL_8;
+        v14 = v24;
+        v13 = 1.0;
+        goto LABEL_4;
       }
     }
 
-LABEL_9:
-    ++v10;
+LABEL_5:
+    ++v7;
   }
 
-  while (v10 != 4);
+  while (v7 != 4);
 }
 
-id ExactitudesTickLayer.__allocating_init(layer:)(uint64_t *a1)
+id ExactitudesTickLayer.__allocating_init(layer:)(void *a1)
 {
   v3 = objc_allocWithZone(v1);
   sub_1AE9C(a1, a1[3]);
@@ -9727,18 +9585,18 @@ Swift::Void __swiftcall CALayer.disableLayerActions()()
   v1 = &unk_30D50;
   do
   {
-    v6 = *(v1 - 1);
-    v5 = *v1;
-    v7 = objc_allocWithZone(NSNull);
+    v4 = *(v1 - 1);
+    v3 = *v1;
+    v5 = objc_allocWithZone(NSNull);
 
-    v8 = [v7 init];
+    v6 = [v5 init];
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v10 = sub_1B910(v6, v5);
-    v12 = _swiftEmptyDictionarySingleton[2];
-    v13 = (v11 & 1) == 0;
-    v14 = __OFADD__(v12, v13);
-    v15 = v12 + v13;
-    if (v14)
+    v8 = sub_1B910(v4, v3);
+    v10 = _swiftEmptyDictionarySingleton[2];
+    v11 = (v9 & 1) == 0;
+    v12 = __OFADD__(v10, v11);
+    v13 = v10 + v11;
+    if (v12)
     {
       __break(1u);
 LABEL_18:
@@ -9749,18 +9607,18 @@ LABEL_19:
       return;
     }
 
-    v16 = v11;
-    if (_swiftEmptyDictionarySingleton[3] < v15)
+    v14 = v9;
+    if (_swiftEmptyDictionarySingleton[3] < v13)
     {
-      sub_1BBD8(v15, isUniquelyReferenced_nonNull_native);
-      v10 = sub_1B910(v6, v5);
-      if ((v16 & 1) != (v17 & 1))
+      sub_1BBD8(v13, isUniquelyReferenced_nonNull_native);
+      v8 = sub_1B910(v4, v3);
+      if ((v14 & 1) != (v15 & 1))
       {
         goto LABEL_19;
       }
 
 LABEL_9:
-      if (v16)
+      if (v14)
       {
         goto LABEL_2;
       }
@@ -9773,36 +9631,34 @@ LABEL_9:
       goto LABEL_9;
     }
 
-    v21 = v10;
+    v19 = v8;
     sub_1C124();
-    v10 = v21;
-    if (v16)
+    v8 = v19;
+    if (v14)
     {
 LABEL_2:
-      v2 = v10;
+      v2 = v8;
 
-      v3 = _swiftEmptyDictionarySingleton[7];
-      v4 = *(v3 + 8 * v2);
-      *(v3 + 8 * v2) = v8;
+      *(_swiftEmptyDictionarySingleton[7] + 8 * v2) = v6;
       swift_unknownObjectRelease();
       goto LABEL_3;
     }
 
 LABEL_10:
-    _swiftEmptyDictionarySingleton[(v10 >> 6) + 8] |= 1 << v10;
-    v18 = (_swiftEmptyDictionarySingleton[6] + 16 * v10);
-    *v18 = v6;
-    v18[1] = v5;
-    *(_swiftEmptyDictionarySingleton[7] + 8 * v10) = v8;
-    v19 = _swiftEmptyDictionarySingleton[2];
-    v14 = __OFADD__(v19, 1);
-    v20 = v19 + 1;
-    if (v14)
+    _swiftEmptyDictionarySingleton[(v8 >> 6) + 8] |= 1 << v8;
+    v16 = (_swiftEmptyDictionarySingleton[6] + 16 * v8);
+    *v16 = v4;
+    v16[1] = v3;
+    *(_swiftEmptyDictionarySingleton[7] + 8 * v8) = v6;
+    v17 = _swiftEmptyDictionarySingleton[2];
+    v12 = __OFADD__(v17, 1);
+    v18 = v17 + 1;
+    if (v12)
     {
       goto LABEL_18;
     }
 
-    _swiftEmptyDictionarySingleton[2] = v20;
+    _swiftEmptyDictionarySingleton[2] = v18;
 LABEL_3:
     v1 += 2;
     --v0;
@@ -9813,5 +9669,87 @@ LABEL_3:
   sub_CA10(&qword_37EA0, &qword_258A8);
   isa = sub_2162C().super.isa;
 
-  [v22 setActions:isa];
+  [v20 setActions:isa];
+}
+
+unint64_t sub_1B910(uint64_t a1, uint64_t a2)
+{
+  sub_2188C();
+  sub_2168C();
+  v4 = sub_218AC();
+
+  return sub_1BA1C(a1, a2, v4);
+}
+
+unint64_t sub_1B988(uint64_t a1)
+{
+  sub_2167C();
+  sub_2188C();
+  sub_2168C();
+  v2 = sub_218AC();
+
+  return sub_1BAD4(a1, v2);
+}
+
+unint64_t sub_1BA1C(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = -1 << *(v3 + 32);
+  v5 = a3 & ~v4;
+  if ((*(v3 + 64 + ((v5 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v5))
+  {
+    v8 = ~v4;
+    do
+    {
+      v9 = (*(v3 + 48) + 16 * v5);
+      if (*v9 == a1 && v9[1] == a2)
+      {
+        break;
+      }
+
+      if (sub_2185C())
+      {
+        break;
+      }
+
+      v5 = (v5 + 1) & v8;
+    }
+
+    while (((*(v3 + 64 + ((v5 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v5) & 1) != 0);
+  }
+
+  return v5;
+}
+
+unint64_t sub_1BAD4(uint64_t a1, uint64_t a2)
+{
+  v3 = -1 << *(v2 + 32);
+  v4 = a2 & ~v3;
+  if ((*(v2 + 64 + ((v4 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v4))
+  {
+    v5 = ~v3;
+    while (1)
+    {
+      v6 = sub_2167C();
+      v8 = v7;
+      if (v6 == sub_2167C() && v8 == v9)
+      {
+        break;
+      }
+
+      v11 = sub_2185C();
+
+      if ((v11 & 1) == 0)
+      {
+        v4 = (v4 + 1) & v5;
+        if ((*(v2 + 64 + ((v4 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v4))
+        {
+          continue;
+        }
+      }
+
+      return v4;
+    }
+  }
+
+  return v4;
 }

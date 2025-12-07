@@ -6,9 +6,9 @@
 
 - (void)saveToInferenceDESWithSignals:(id)signals
 {
-  sub_2315860D4();
+  v4 = sub_2315860D4();
   selfCopy = self;
-  sub_231570590();
+  sub_231570590(v4);
 }
 
 @end

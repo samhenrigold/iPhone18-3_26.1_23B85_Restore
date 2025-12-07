@@ -124,7 +124,7 @@ uint64_t __40__AXMVisionEngineCache_debugDescription__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __33__AXMVisionEngineCache_cacheSize__block_invoke(uint64_t a1)
+void *__33__AXMVisionEngineCache_cacheSize__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _cacheQueue_cacheSize];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -285,21 +285,21 @@ void __34__AXMVisionEngineCache_purgeCache__block_invoke(uint64_t a1)
 {
   [*a2 count];
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_1(&dword_1AE37B000, v2, v3, "set new result. adding key: %p. %ld items remain", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_1(&dword_1AE37B000, v2, v3, "set new result. adding key: %p. %ld items remain", v4, v5, v6, v7);
 }
 
 - (void)_cacheQueue_setResult:(uint64_t)a1 forKey:(id *)a2 .cold.2(uint64_t a1, id *a2)
 {
   [*a2 count];
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_1(&dword_1AE37B000, v2, v3, "cache size too big. evicted key: %p. %ld items remain", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_1(&dword_1AE37B000, v2, v3, "cache size too big. evicted key: %p. %ld items remain", v4, v5, v6, v7);
 }
 
 - (void)_cacheQueue_setResult:(uint64_t)a1 forKey:(uint64_t)a2 .cold.3(uint64_t a1, uint64_t a2)
 {
   [*(a2 + 24) count];
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_1_1(&dword_1AE37B000, v2, v3, "set nil result. removing key: %p. %ld items remain", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_1(&dword_1AE37B000, v2, v3, "set nil result. removing key: %p. %ld items remain", v4, v5, v6, v7);
 }
 
 @end

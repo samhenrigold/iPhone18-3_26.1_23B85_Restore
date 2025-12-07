@@ -27,7 +27,7 @@
     v7->_durationObserver = v11;
 
     [(SVVideoDurationObserver *)v7->_durationObserver onChange:v10];
-    [(SVVideoDurationObserver *)v7->_durationObserver duration];
+    objc_msgSend_duration(v7->_durationObserver);
     if (v13 > 0.0)
     {
       (v10)[2](v10, v7->_durationObserver);
@@ -44,7 +44,7 @@ void __27__SVLooper_initWithPlayer___block_invoke(uint64_t a1)
   v4 = v3;
   if (v3)
   {
-    [v3 duration];
+    objc_msgSend_duration(v3);
   }
 
   else

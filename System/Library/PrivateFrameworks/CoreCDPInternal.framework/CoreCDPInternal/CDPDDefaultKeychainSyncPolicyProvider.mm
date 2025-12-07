@@ -3,6 +3,7 @@
 - (BOOL)keychainSyncAllowedByServer;
 - (BOOL)userHasExplicitlyDisabledSync;
 - (CDPDDefaultKeychainSyncPolicyProvider)initWithContext:(id)context;
+- (void)setUserHasExplicitlyDisabledSync:(BOOL)sync;
 @end
 
 @implementation CDPDDefaultKeychainSyncPolicyProvider
@@ -48,6 +49,13 @@
   hasDisabledKeychainExplicitly = [account hasDisabledKeychainExplicitly];
 
   return hasDisabledKeychainExplicitly;
+}
+
+- (void)setUserHasExplicitlyDisabledSync:(BOOL)sync
+{
+  syncCopy = sync;
+  account = [(CDPDDefaultKeychainSyncPolicyProvider *)self account];
+  [account setHasDisabledKeychainExplicitly:syncCopy];
 }
 
 @end

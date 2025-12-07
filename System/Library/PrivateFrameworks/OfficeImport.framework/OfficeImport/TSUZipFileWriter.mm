@@ -419,16 +419,17 @@ void __80__TSUZipFileWriter_copyRemainingEntries_fromArchive_progress_completion
 uint64_t __61__TSUZipFileWriter_zipDirectoryAtURL_toURL_queue_completion___block_invoke(uint64_t a1, int a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v7 = a5;
+  v8 = v7;
   if (a2)
   {
-    v8 = *(a1 + 32);
-    if (v8)
+    v7 = *(a1 + 32);
+    if (v7)
     {
-      (*(v8 + 16))(v8, v7 == 0);
+      v7 = v7[2](v7, v8 == 0);
     }
   }
 
-  return MEMORY[0x2821F9730]();
+  return MEMORY[0x2821F9730](v7);
 }
 
 + (void)zipDirectoryAtURL:(id)l customDirectoryFilename:(id)filename toURL:(id)rL queue:(id)queue progressHandler:(id)handler

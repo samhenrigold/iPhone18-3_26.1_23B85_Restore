@@ -95,15 +95,15 @@
   {
     region = [equalCopy region];
     region2 = [(_UIPointerContentEffect *)self region];
-    v7 = [region isEqual:region2];
+    isEqual = objc_msgSend_isEqual_(region);
   }
 
   else
   {
-    v7 = 0;
+    isEqual = 0;
   }
 
-  return v7;
+  return isEqual;
 }
 
 - (unint64_t)hash
@@ -130,7 +130,7 @@
 - (void)setStyle:(id)style
 {
   styleCopy = style;
-  if (([styleCopy isEqual:self->_style] & 1) == 0)
+  if ((objc_msgSend_isEqual_(styleCopy) & 1) == 0)
   {
     objc_storeStrong(&self->_style, style);
     platterView = [(_UIPointerContentEffect *)self platterView];

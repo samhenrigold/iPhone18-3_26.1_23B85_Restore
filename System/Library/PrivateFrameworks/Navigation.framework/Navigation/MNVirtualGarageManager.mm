@@ -17,7 +17,7 @@
 
 - (void)virtualGarageProvider:(id)provider didUpdateSelectedVehicle:(id)vehicle
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   vehicleCopy = vehicle;
   v6 = MNGetMNVirtualGarageManagerLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
@@ -26,14 +26,14 @@
     currentVehicleState = [vehicleCopy currentVehicleState];
     currentEVRange = [currentVehicleState currentEVRange];
     meters = [MEMORY[0x1E696B058] meters];
-    v23 = [currentEVRange measurementByConvertingToUnit:meters];
-    [v23 doubleValue];
+    v22 = [currentEVRange measurementByConvertingToUnit:meters];
+    [v22 doubleValue];
     v8 = v7;
     currentVehicleState2 = [vehicleCopy currentVehicleState];
     currentBatteryCapacity = [currentVehicleState2 currentBatteryCapacity];
     kilowattHours = [MEMORY[0x1E696B030] kilowattHours];
     [currentBatteryCapacity measurementByConvertingToUnit:kilowattHours];
-    v11 = v27 = self;
+    v11 = v26 = self;
     [v11 doubleValue];
     v13 = v12;
     currentVehicleState3 = [vehicleCopy currentVehicleState];
@@ -42,20 +42,20 @@
     currentVehicleState4 = [vehicleCopy currentVehicleState];
     identifier2 = [currentVehicleState4 identifier];
     *buf = 134219266;
-    v31 = displayedBatteryPercentage;
-    v32 = 2048;
-    v33 = v8;
-    v34 = 2048;
-    v35 = v13;
-    v36 = 1024;
-    v37 = isCharging;
-    v38 = 2112;
-    v39 = identifier;
-    v40 = 2112;
-    v41 = identifier2;
+    v30 = displayedBatteryPercentage;
+    v31 = 2048;
+    v32 = v8;
+    v33 = 2048;
+    v34 = v13;
+    v35 = 1024;
+    v36 = isCharging;
+    v37 = 2112;
+    v38 = identifier;
+    v39 = 2112;
+    v40 = identifier2;
     _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_DEBUG, "Vehicle update | Battery: %lu%%, Range: %0.0f m, Charge: %0.0f kWH, isCharging: %d | %@ %@", buf, 0x3Au);
 
-    self = v27;
+    self = v26;
   }
 
   block[0] = MEMORY[0x1E69E9820];
@@ -63,11 +63,9 @@
   block[2] = __73__MNVirtualGarageManager_virtualGarageProvider_didUpdateSelectedVehicle___block_invoke;
   block[3] = &unk_1E8430D50;
   block[4] = self;
-  v29 = vehicleCopy;
+  v28 = vehicleCopy;
   v19 = vehicleCopy;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __73__MNVirtualGarageManager_virtualGarageProvider_didUpdateSelectedVehicle___block_invoke(uint64_t a1)
@@ -105,10 +103,9 @@ uint64_t __73__MNVirtualGarageManager_virtualGarageProvider_didUpdateSelectedVeh
   v14 = *(v13 + 48);
   *(v13 + 48) = v12;
 
-  v15 = *(a1 + 40);
-  v16 = *(*(a1 + 32) + 24);
+  v15 = *(*(a1 + 32) + 24);
 
-  return [v16 virtualGarageManager:? didUpdateSelectedVehicle:?];
+  return [v15 virtualGarageManager:? didUpdateSelectedVehicle:?];
 }
 
 - (BOOL)_isStandardProvider:(id)provider

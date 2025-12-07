@@ -132,65 +132,65 @@ LABEL_20:
 
 - (id)jsonDictionary
 {
-  v23[6] = *MEMORY[0x1E69E9840];
+  v22[6] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriTaskAggregationDimensions productArea](self, "productArea")}];
   siriInputLocale = [(BMSiriTaskAggregationDimensions *)self siriInputLocale];
   systemLocale = [(BMSiriTaskAggregationDimensions *)self systemLocale];
   countryCode = [(BMSiriTaskAggregationDimensions *)self countryCode];
   deviceType = [(BMSiriTaskAggregationDimensions *)self deviceType];
   systemBuild = [(BMSiriTaskAggregationDimensions *)self systemBuild];
-  v22[0] = @"productArea";
+  v21[0] = @"productArea";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = null;
-  v23[0] = null;
-  v22[1] = @"siriInputLocale";
+  v19 = null;
+  v22[0] = null;
+  v21[1] = @"siriInputLocale";
   null2 = siriInputLocale;
   if (!siriInputLocale)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18 = null2;
-  v23[1] = null2;
-  v22[2] = @"systemLocale";
+  v17 = null2;
+  v22[1] = null2;
+  v21[2] = @"systemLocale";
   null3 = systemLocale;
   if (!systemLocale)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = v3;
-  v23[2] = null3;
-  v22[3] = @"countryCode";
+  v20 = v3;
+  v22[2] = null3;
+  v21[3] = @"countryCode";
   null4 = countryCode;
   if (!countryCode)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[3] = null4;
-  v22[4] = @"deviceType";
+  v22[3] = null4;
+  v21[4] = @"deviceType";
   null5 = deviceType;
   if (!deviceType)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[4] = null5;
-  v22[5] = @"systemBuild";
+  v22[4] = null5;
+  v21[5] = @"systemBuild";
   null6 = systemBuild;
   if (!systemBuild)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[5] = null6;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:{6, v18}];
+  v22[5] = null6;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:{6, v17}];
   if (systemBuild)
   {
     if (deviceType)
@@ -231,7 +231,7 @@ LABEL_16:
 
 LABEL_26:
 
-    if (v21)
+    if (v20)
     {
       goto LABEL_19;
     }
@@ -245,7 +245,7 @@ LABEL_26:
   }
 
 LABEL_18:
-  if (v21)
+  if (v20)
   {
     goto LABEL_19;
   }
@@ -253,14 +253,13 @@ LABEL_18:
 LABEL_27:
 
 LABEL_19:
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 - (BMSiriTaskAggregationDimensions)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v67[1] = *MEMORY[0x1E69E9840];
+  v66[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"productArea"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -268,7 +267,7 @@ LABEL_19:
     v8 = 0;
 LABEL_9:
     v10 = [dictionaryCopy objectForKeyedSubscript:@"siriInputLocale"];
-    v54 = v10;
+    v53 = v10;
     if (v10 && (v11 = v10, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -285,10 +284,10 @@ LABEL_9:
         v24 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy = error;
         v26 = *MEMORY[0x1E698F240];
-        v64 = *MEMORY[0x1E696A578];
+        v63 = *MEMORY[0x1E696A578];
         v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"siriInputLocale"];
-        v65 = v14;
-        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+        v64 = v14;
+        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
         v27 = v24;
         v8 = v23;
         v22 = 0;
@@ -306,8 +305,8 @@ LABEL_9:
     }
 
     v13 = [dictionaryCopy objectForKeyedSubscript:@"systemLocale"];
-    v51 = v7;
-    v52 = v12;
+    v50 = v7;
+    v51 = v12;
     if (v13 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -324,10 +323,10 @@ LABEL_9:
         v29 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy2 = error;
         v31 = *MEMORY[0x1E698F240];
-        v62 = *MEMORY[0x1E696A578];
-        v55 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"systemLocale"];
-        v63 = v55;
-        v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+        v61 = *MEMORY[0x1E696A578];
+        v54 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"systemLocale"];
+        v62 = v54;
+        v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
         v32 = v29;
         v8 = v28;
         v14 = 0;
@@ -345,21 +344,21 @@ LABEL_9:
     }
 
     v15 = [dictionaryCopy objectForKeyedSubscript:@"countryCode"];
-    v53 = v8;
+    v52 = v8;
     errorCopy3 = error;
     if (!v15 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v55 = 0;
+      v54 = 0;
       goto LABEL_18;
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v55 = v15;
+      v54 = v15;
 LABEL_18:
       v17 = [dictionaryCopy objectForKeyedSubscript:@"deviceType"];
-      v50 = v14;
+      v49 = v14;
       if (!v17 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
         selfCopy3 = self;
@@ -378,22 +377,22 @@ LABEL_21:
         {
           v21 = 0;
 LABEL_24:
-          v12 = v52;
-          v22 = -[BMSiriTaskAggregationDimensions initWithProductArea:siriInputLocale:systemLocale:countryCode:deviceType:systemBuild:](selfCopy3, "initWithProductArea:siriInputLocale:systemLocale:countryCode:deviceType:systemBuild:", [v53 intValue], v52, v50, v55, v19, v21);
+          v12 = v51;
+          v22 = -[BMSiriTaskAggregationDimensions initWithProductArea:siriInputLocale:systemLocale:countryCode:deviceType:systemBuild:](selfCopy3, "initWithProductArea:siriInputLocale:systemLocale:countryCode:deviceType:systemBuild:", [v52 intValue], v51, v49, v54, v19, v21);
           selfCopy3 = v22;
 LABEL_49:
 
           self = selfCopy3;
-          v14 = v50;
+          v14 = v49;
 LABEL_50:
 
-          v8 = v53;
+          v8 = v52;
 LABEL_51:
 
-          v7 = v51;
+          v7 = v50;
 LABEL_52:
 
-          v11 = v54;
+          v11 = v53;
           goto LABEL_53;
         }
 
@@ -406,32 +405,32 @@ LABEL_52:
 
         if (errorCopy3)
         {
-          v49 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v47 = *MEMORY[0x1E698F240];
-          v56 = *MEMORY[0x1E696A578];
+          v48 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v46 = *MEMORY[0x1E698F240];
+          v55 = *MEMORY[0x1E696A578];
           v43 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"systemBuild"];
-          v57 = v43;
-          v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
-          *errorCopy3 = [v49 initWithDomain:v47 code:2 userInfo:v44];
+          v56 = v43;
+          v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+          *errorCopy3 = [v48 initWithDomain:v46 code:2 userInfo:v44];
         }
 
         v21 = 0;
         v22 = 0;
 LABEL_48:
-        v12 = v52;
+        v12 = v51;
         goto LABEL_49;
       }
 
       if (errorCopy3)
       {
         selfCopy3 = self;
-        v48 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v47 = objc_alloc(MEMORY[0x1E696ABC0]);
         v37 = *MEMORY[0x1E698F240];
-        v58 = *MEMORY[0x1E696A578];
+        v57 = *MEMORY[0x1E696A578];
         v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"deviceType"];
-        v59 = v21;
-        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
-        v38 = [v48 initWithDomain:v37 code:2 userInfo:v20];
+        v58 = v21;
+        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+        v38 = [v47 initWithDomain:v37 code:2 userInfo:v20];
         v19 = 0;
         v22 = 0;
         *errorCopy3 = v38;
@@ -441,7 +440,7 @@ LABEL_48:
       v19 = 0;
       v22 = 0;
 LABEL_60:
-      v12 = v52;
+      v12 = v51;
       goto LABEL_50;
     }
 
@@ -450,22 +449,22 @@ LABEL_60:
       v33 = objc_alloc(MEMORY[0x1E696ABC0]);
       v34 = v14;
       v35 = *MEMORY[0x1E698F240];
-      v60 = *MEMORY[0x1E696A578];
+      v59 = *MEMORY[0x1E696A578];
       v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"countryCode"];
-      v61 = v19;
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+      v60 = v19;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
       v36 = v35;
       v14 = v34;
-      v55 = 0;
+      v54 = 0;
       v22 = 0;
       *errorCopy3 = [v33 initWithDomain:v36 code:2 userInfo:v17];
       goto LABEL_60;
     }
 
-    v55 = 0;
+    v54 = 0;
     v22 = 0;
 LABEL_58:
-    v12 = v52;
+    v12 = v51;
     goto LABEL_51;
   }
 
@@ -495,10 +494,10 @@ LABEL_8:
   v39 = objc_alloc(MEMORY[0x1E696ABC0]);
   errorCopy4 = error;
   v41 = *MEMORY[0x1E698F240];
-  v66 = *MEMORY[0x1E696A578];
+  v65 = *MEMORY[0x1E696A578];
   v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"productArea"];
-  v67[0] = v12;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v67 forKeys:&v66 count:1];
+  v66[0] = v12;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v66 forKeys:&v65 count:1];
   v42 = [v39 initWithDomain:v41 code:2 userInfo:v11];
   v8 = 0;
   v22 = 0;
@@ -506,7 +505,6 @@ LABEL_8:
 LABEL_53:
 
 LABEL_54:
-  v45 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
@@ -522,8 +520,6 @@ LABEL_54:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  productArea = self->_productArea;
-  v7 = toCopy;
   PBDataWriterWriteUint32Field();
   if (self->_siriInputLocale)
   {
@@ -535,23 +531,23 @@ LABEL_54:
     PBDataWriterWriteStringField();
   }
 
-  v6 = v7;
+  v4 = toCopy;
   if (self->_countryCode)
   {
     PBDataWriterWriteStringField();
-    v6 = v7;
+    v4 = toCopy;
   }
 
   if (self->_deviceType)
   {
     PBDataWriterWriteStringField();
-    v6 = v7;
+    v4 = toCopy;
   }
 
   if (self->_systemBuild)
   {
     PBDataWriterWriteStringField();
-    v6 = v7;
+    v4 = toCopy;
   }
 }
 
@@ -769,44 +765,40 @@ LABEL_50:
 
 + (id)protoFields
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"productArea" number:1 type:4 subMessageClass:0];
-  v11[0] = v2;
+  v10[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"siriInputLocale" number:2 type:13 subMessageClass:0];
-  v11[1] = v3;
+  v10[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"systemLocale" number:3 type:13 subMessageClass:0];
-  v11[2] = v4;
+  v10[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"countryCode" number:4 type:13 subMessageClass:0];
-  v11[3] = v5;
+  v10[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"deviceType" number:5 type:13 subMessageClass:0];
-  v11[4] = v6;
+  v10[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"systemBuild" number:6 type:13 subMessageClass:0];
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }
 
 + (id)columns
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"productArea" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:4 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"siriInputLocale" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"systemLocale" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"countryCode" dataType:2 requestOnly:0 fieldNumber:4 protoDataType:13 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"deviceType" dataType:2 requestOnly:0 fieldNumber:5 protoDataType:13 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"systemBuild" dataType:2 requestOnly:0 fieldNumber:6 protoDataType:13 convertedType:0];
-  v11[0] = v2;
-  v11[1] = v3;
-  v11[2] = v4;
-  v11[3] = v5;
-  v11[4] = v6;
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[0] = v2;
+  v10[1] = v3;
+  v10[2] = v4;
+  v10[3] = v5;
+  v10[4] = v6;
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }

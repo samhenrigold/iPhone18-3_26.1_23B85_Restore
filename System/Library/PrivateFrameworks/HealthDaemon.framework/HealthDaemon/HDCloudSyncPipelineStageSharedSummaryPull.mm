@@ -39,7 +39,7 @@
 
 uint64_t __49__HDCloudSyncPipelineStageSharedSummaryPull_main__block_invoke_2(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (v1)
   {
@@ -64,13 +64,13 @@ uint64_t __49__HDCloudSyncPipelineStageSharedSummaryPull_main__block_invoke_2(ui
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v26 = v1;
+      v25 = v1;
       _os_log_impl(&dword_228986000, v16, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Recording successful shared summary pull", buf, 0xCu);
     }
 
-    v24 = 0;
-    v17 = [v9 setDate:v4 forKey:v14 error:&v24];
-    v18 = v24;
+    v23 = 0;
+    v17 = [v9 setDate:v4 forKey:v14 error:&v23];
+    v18 = v23;
     if (v17)
     {
       v19 = [v8 cloudSyncManager];
@@ -84,9 +84,9 @@ uint64_t __49__HDCloudSyncPipelineStageSharedSummaryPull_main__block_invoke_2(ui
       if (os_log_type_enabled(*v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v26 = v1;
-        v27 = 2114;
-        v28 = v18;
+        v25 = v1;
+        v26 = 2114;
+        v27 = v18;
         _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@: Failed to record successful pull: %{public}@.", buf, 0x16u);
       }
     }
@@ -98,8 +98,6 @@ uint64_t __49__HDCloudSyncPipelineStageSharedSummaryPull_main__block_invoke_2(ui
   {
     v21 = 0;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return [v21 finishWithSuccess:1 error:0];
 }

@@ -81,7 +81,7 @@
         off_1ED4400A0 = dlsym(qword_1ED440080, "DDResultGetRangeForURLification");
         off_1ED4400A8 = dlsym(qword_1ED440080, "DDResultGetSubResults");
         off_1ED4400B0 = dlsym(qword_1ED440080, "DDResultGetValue");
-        *&xmmword_1ED4400B8 = dlsym(qword_1ED440080, "DDResultCopyExtractedURL");
+        xmmword_1ED4400B8 = dlsym(qword_1ED440080, "DDResultCopyExtractedURL");
         *(&xmmword_1ED4400B8 + 1) = dlsym(qword_1ED440080, "DDResultCopyExtractedURLWithOptions");
         off_1ED4400C8 = dlsym(qword_1ED440080, "DDResultCopyExtractedDateFromReferenceDate");
         off_1ED4400D0 = dlsym(qword_1ED440080, "DDResultCopyExtractedStartDateEndDate");
@@ -112,7 +112,7 @@
                         if (off_1ED4400B0)
                         {
                           v10 = 0;
-                          if (xmmword_1ED4400B8 != 0)
+                          if (*&xmmword_1ED4400B8 != 0)
                           {
                             if (off_1ED4400C8)
                             {
@@ -388,7 +388,7 @@ LABEL_107:
       v30 = off_1ED440098(ValueAtIndex);
       if ((checkingTypes & 0x20) != 0 && (!*(&xmmword_1ED4400B8 + 1) ? (cf = xmmword_1ED4400B8(ValueAtIndex)) : (cf = (*(&xmmword_1ED4400B8 + 1))(ValueAtIndex, 0)), cf))
       {
-        if (([@"PhoneNumber" isEqualToString:v30] & 1) == 0 && (objc_msgSend(@"QuotedShortPhoneNumber", "isEqualToString:", v30) & 1) == 0 && (objc_msgSend(@"UnquotedShortPhoneNumber", "isEqualToString:", v30) & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(@"PhoneNumber") & 1) == 0 && (objc_msgSend_isEqualToString_(@"QuotedShortPhoneNumber") & 1) == 0 && (objc_msgSend_isEqualToString_(@"UnquotedShortPhoneNumber") & 1) == 0)
         {
           valueAtIndex = [MEMORY[0x1E695DFF8] URLWithString:cf];
           if (valueAtIndex || (valueAtIndex = [MEMORY[0x1E695DFF8] URLWithString:{CFURLCreateStringByAddingPercentEscapes(0, objc_msgSend(cf, "stringByReplacingPercentEscapesUsingEncoding:", 4), @"#", 0, 0x8000100u)}]) != 0)
@@ -436,7 +436,7 @@ LABEL_99:
         v54 = 1;
       }
 
-      if ((checkingTypes & 0x10) != 0 && (([@"FullAddress" isEqualToString:v30] & 1) != 0 || objc_msgSend(@"SignatureBlock", "isEqualToString:", v30)))
+      if ((checkingTypes & 0x10) != 0 && ((objc_msgSend_isEqualToString_(@"FullAddress") & 1) != 0 || objc_msgSend_isEqualToString_(@"SignatureBlock")))
       {
         dictionary = [MEMORY[0x1E695DF90] dictionary];
         addAddressResultsToComponents(ValueAtIndex, dictionary);
@@ -449,7 +449,7 @@ LABEL_99:
         goto LABEL_65;
       }
 
-      if ((checkingTypes & 0x1000) != 0 && [@"FlightInformation" isEqualToString:v30])
+      if ((checkingTypes & 0x1000) != 0 && objc_msgSend_isEqualToString_(@"FlightInformation"))
       {
         dictionary = [MEMORY[0x1E695DF90] dictionary];
         addAddressResultsToComponents(ValueAtIndex, dictionary);
@@ -464,7 +464,7 @@ LABEL_54:
         goto LABEL_65;
       }
 
-      if ((checkingTypes & 0x800) != 0 && [@"PhoneNumber" isEqualToString:v30])
+      if ((checkingTypes & 0x800) != 0 && objc_msgSend_isEqualToString_(@"PhoneNumber"))
       {
         v81[0] = 0;
         if (off_1ED4400D8 && off_1ED4400D8(ValueAtIndex, v81, 0) && v81[0] || (v34 = off_1ED4400B0(ValueAtIndex), (v81[0] = v34) != 0) && (CFRetain(v34), v81[0]))
@@ -498,7 +498,7 @@ LABEL_97:
         }
       }
 
-      else if ((checkingTypes & 8) != 0 && (([@"Date" isEqualToString:v30] & 1) != 0 || (objc_msgSend(@"Time", "isEqualToString:", v30) & 1) != 0 || (objc_msgSend(@"DateTime", "isEqualToString:", v30) & 1) != 0 || (objc_msgSend(@"DateDuration", "isEqualToString:", v30) & 1) != 0 || (objc_msgSend(@"TimeDuration", "isEqualToString:", v30) & 1) != 0 || objc_msgSend(@"Timestamp", "isEqualToString:", v30)))
+      else if ((checkingTypes & 8) != 0 && ((objc_msgSend_isEqualToString_(@"Date") & 1) != 0 || (objc_msgSend_isEqualToString_(@"Time") & 1) != 0 || (objc_msgSend_isEqualToString_(@"DateTime") & 1) != 0 || (objc_msgSend_isEqualToString_(@"DateDuration") & 1) != 0 || (objc_msgSend_isEqualToString_(@"TimeDuration") & 1) != 0 || objc_msgSend_isEqualToString_(@"Timestamp")))
       {
         v80 = 0;
         v81[0] = 0;

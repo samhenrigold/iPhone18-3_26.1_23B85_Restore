@@ -6,11 +6,9 @@
 
 - (id)description
 {
-  v3 = [NSString alloc];
-  interfaceName = self->_interfaceName;
-  v5 = [v3 initWithFormat:@"%@/%@/%@", self->_localEndpoint, interfaceName, self->_link];
+  v2 = [[NSString alloc] initWithFormat:@"%@/%@/%@", self->_localEndpoint, self->_interfaceName, self->_link];
 
-  return v5;
+  return v2;
 }
 
 @end

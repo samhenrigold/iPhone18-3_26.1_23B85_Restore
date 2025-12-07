@@ -1,6 +1,6 @@
 @interface IILanguageDetection
-+ (id)_dominantLanguageTagFromTextWithMaxLength:(void *)length maxLength:(uint64_t)maxLength minimumProbability:;
-+ (id)_dominantLanguageTagFromTextWithMaxLength:(void *)length maxLength:(uint64_t)maxLength minimumProbability:hints:hintsCount:;
++ (id)_dominantLanguageTagFromTextWithMaxLength:(uint64_t)length maxLength:(double)maxLength minimumProbability:;
++ (id)_dominantLanguageTagFromTextWithMaxLength:(uint64_t)length maxLength:(double)maxLength minimumProbability:hints:hintsCount:;
 + (id)_userLanguagesWithKeyboardDefaults:(uint64_t)defaults;
 + (id)defaultLanguage;
 + (id)detectLanguageFromLanguageTags:(id)tags;
@@ -20,7 +20,7 @@
 
 + (id)dominantLanguageTagFromLanguageTags:(id)tags
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   tagsCopy = tags;
   objc_opt_self();
   [tagsCopy count];
@@ -41,29 +41,29 @@
 
       else if ([v5 count] <= 2)
       {
-        v22 = 0u;
-        v23 = 0u;
-        v20 = 0u;
         v21 = 0u;
+        v22 = 0u;
+        v19 = 0u;
+        v20 = 0u;
         v6 = v5;
-        v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v7)
         {
           v8 = v7;
           v9 = 0;
           v10 = 0;
-          v11 = *v21;
+          v11 = *v20;
           do
           {
             for (i = 0; i != v8; ++i)
             {
-              if (*v21 != v11)
+              if (*v20 != v11)
               {
                 objc_enumerationMutation(v6);
               }
 
-              v13 = *(*(&v20 + 1) + 8 * i);
-              v14 = [v6 countForObject:{v13, v20}];
+              v13 = *(*(&v19 + 1) + 8 * i);
+              v14 = [v6 countForObject:{v13, v19}];
               if (v14 >= v10)
               {
                 v15 = v14;
@@ -74,7 +74,7 @@
               }
             }
 
-            v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+            v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
           }
 
           while (v8);
@@ -110,25 +110,23 @@
     firstObject = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return firstObject;
 }
 
-+ (id)_dominantLanguageTagFromTextWithMaxLength:(void *)length maxLength:(uint64_t)maxLength minimumProbability:
++ (id)_dominantLanguageTagFromTextWithMaxLength:(uint64_t)length maxLength:(double)maxLength minimumProbability:
 {
-  lengthCopy = length;
+  v6 = a2;
   objc_opt_self();
-  v7 = [IILanguageDetection _dominantLanguageTagFromTextWithMaxLength:self maxLength:IILanguageDetection minimumProbability:lengthCopy hints:maxLength hintsCount:?];
+  v7 = [IILanguageDetection _dominantLanguageTagFromTextWithMaxLength:v6 maxLength:length minimumProbability:maxLength hints:? hintsCount:?];
 
   return v7;
 }
 
-+ (id)_dominantLanguageTagFromTextWithMaxLength:(void *)length maxLength:(uint64_t)maxLength minimumProbability:hints:hintsCount:
++ (id)_dominantLanguageTagFromTextWithMaxLength:(uint64_t)length maxLength:(double)maxLength minimumProbability:hints:hintsCount:
 {
-  lengthCopy = length;
+  v6 = a2;
   objc_opt_self();
-  if ([lengthCopy length])
+  if ([v6 length])
   {
     if (_dominantLanguageTagFromTextWithMaxLength_maxLength_minimumProbability_hints_hintsCount___pasOnceToken3 != -1)
     {
@@ -147,9 +145,9 @@
     v10[2] = __111__IILanguageDetection__dominantLanguageTagFromTextWithMaxLength_maxLength_minimumProbability_hints_hintsCount___block_invoke_449;
     v10[3] = &unk_2789458F8;
     v12 = &v15;
+    lengthCopy = length;
+    v11 = v6;
     maxLengthCopy = maxLength;
-    v11 = lengthCopy;
-    selfCopy = self;
     [result runWithLockAcquired:v10];
     v8 = v16[5];
 
@@ -166,18 +164,12 @@
 
 void __111__IILanguageDetection__dominantLanguageTagFromTextWithMaxLength_maxLength_minimumProbability_hints_hintsCount___block_invoke_449(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
-  v5 = v3[1];
-  if (CFStringGetLength(*(a1 + 32)) >= *(a1 + 48))
-  {
-    v6 = *(a1 + 48);
-  }
-
-  v7 = [MEMORY[0x277CBEAF8] currentLocale];
-  v8 = [v7 regionCode];
-  if (([v8 isEqualToString:@"IN"] & 1) == 0 && (objc_msgSend(v8, "isEqualToString:", @"PK") & 1) == 0 && !objc_msgSend(v8, "isEqualToString:", @"BD"))
+  CFStringGetLength(*(a1 + 32));
+  v5 = [MEMORY[0x277CBEAF8] currentLocale];
+  v6 = [v5 regionCode];
+  if (([v6 isEqualToString:@"IN"] & 1) == 0 && (objc_msgSend(v6, "isEqualToString:", @"PK") & 1) == 0 && !objc_msgSend(v6, "isEqualToString:", @"BD"))
   {
     NLLanguageIdentifierConsumeString();
     NLLanguageIdentifierGetTopHypotheses();
@@ -190,14 +182,14 @@ void __111__IILanguageDetection__dominantLanguageTagFromTextWithMaxLength_maxLen
       NLLanguageIdentifierReset();
       if (0.0 < 0.8)
       {
-        goto LABEL_14;
+        goto LABEL_12;
       }
     }
 
-LABEL_15:
+LABEL_13:
     objc_opt_self();
-    v9 = 0;
-    goto LABEL_16;
+    v7 = 0;
+    goto LABEL_14;
   }
 
   NLLanguageIdentifierSetModelID();
@@ -206,7 +198,7 @@ LABEL_15:
   NLLanguageIdentifierReset();
   if (0.0 >= 0.8)
   {
-    goto LABEL_15;
+    goto LABEL_13;
   }
 
   NLLanguageIdentifierConsumeString();
@@ -214,18 +206,17 @@ LABEL_15:
   NLLanguageIdentifierReset();
   if (*(a1 + 56) <= 0.0 && 0.0 + 0.1 < 0.0)
   {
-    goto LABEL_15;
+    goto LABEL_13;
   }
 
+LABEL_12:
+  v7 = 0;
 LABEL_14:
-  v9 = 0;
-LABEL_16:
-  v10 = *(*(a1 + 40) + 8);
-  v11 = *(v10 + 40);
-  *(v10 + 40) = v9;
+  v8 = *(*(a1 + 40) + 8);
+  v9 = *(v8 + 40);
+  *(v8 + 40) = v7;
 
   objc_autoreleasePoolPop(v4);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __111__IILanguageDetection__dominantLanguageTagFromTextWithMaxLength_maxLength_minimumProbability_hints_hintsCount___block_invoke()
@@ -289,7 +280,7 @@ id __111__IILanguageDetection__dominantLanguageTagFromTextWithMaxLength_maxLengt
 
 + (id)detectLanguageFromTextWithMaxLength:(id)length maxLength:(unint64_t)maxLength minimumProbability:(double)probability
 {
-  v5 = [(IILanguageDetection *)probability _dominantLanguageTagFromTextWithMaxLength:length maxLength:maxLength minimumProbability:?];
+  v5 = [IILanguageDetection _dominantLanguageTagFromTextWithMaxLength:length maxLength:maxLength minimumProbability:probability];
   v6 = v5;
   if (v5)
   {
@@ -336,7 +327,7 @@ id __111__IILanguageDetection__dominantLanguageTagFromTextWithMaxLength_maxLengt
   }
 
   [v11 count];
-  v18 = [IILanguageDetection _dominantLanguageTagFromTextWithMaxLength:IILanguageDetection maxLength:languagesCopy minimumProbability:30 hints:? hintsCount:?];
+  v18 = [IILanguageDetection _dominantLanguageTagFromTextWithMaxLength:languagesCopy maxLength:30 minimumProbability:0.6 hints:? hintsCount:?];
   v19 = v18;
   if (v18)
   {
@@ -353,7 +344,7 @@ id __111__IILanguageDetection__dominantLanguageTagFromTextWithMaxLength_maxLengt
   if (![v21 length])
   {
     [v11 count];
-    v22 = [IILanguageDetection _dominantLanguageTagFromTextWithMaxLength:IILanguageDetection maxLength:languagesCopy minimumProbability:500 hints:? hintsCount:?];
+    v22 = [IILanguageDetection _dominantLanguageTagFromTextWithMaxLength:languagesCopy maxLength:500 minimumProbability:0.75 hints:? hintsCount:?];
     v23 = v22;
     if (v22)
     {
@@ -413,76 +404,74 @@ uint64_t __98__IILanguageDetection_detectLanguageFromTextHeuristicallyWithLangua
 
 + (id)userLanguagesWithoutCanonicalSuffixes
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v4 = [standardUserDefaults stringArrayForKey:@"AppleKeyboards"];
   v5 = [IILanguageDetection _userLanguagesWithKeyboardDefaults:v4];
 
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [IILanguageDetection languageForLocaleIdentifier:*(*(&v13 + 1) + 8 * i)];
+        v10 = [IILanguageDetection languageForLocaleIdentifier:*(*(&v12 + 1) + 8 * i)];
         if (v10)
         {
           [v2 addObject:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 + (id)_userLanguagesWithKeyboardDefaults:(uint64_t)defaults
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = a2;
   objc_opt_self();
   v3 = objc_opt_new();
   if (v2 && [v2 count])
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v4 = v2;
-    v5 = [v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v24;
+      v7 = *v23;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v24 != v7)
+          if (*v23 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v23 + 1) + 8 * i);
+          v9 = *(*(&v22 + 1) + 8 * i);
           if (([v9 containsString:@"Emoji"] & 1) == 0 && (objc_msgSend(v9, "containsString:", @"emoji") & 1) == 0)
           {
             v10 = [MEMORY[0x277CBEAF8] canonicalLanguageIdentifierFromString:v9];
@@ -490,7 +479,7 @@ uint64_t __98__IILanguageDetection_detectLanguageFromTextHeuristicallyWithLangua
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v6);
@@ -499,37 +488,35 @@ uint64_t __98__IILanguageDetection_detectLanguageFromTextHeuristicallyWithLangua
 
   if (![v3 count])
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     preferredLanguages = [MEMORY[0x277CBEAF8] preferredLanguages];
-    v12 = [preferredLanguages countByEnumeratingWithState:&v19 objects:v27 count:16];
+    v12 = [preferredLanguages countByEnumeratingWithState:&v18 objects:v26 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v20;
+      v14 = *v19;
       do
       {
         for (j = 0; j != v13; ++j)
         {
-          if (*v20 != v14)
+          if (*v19 != v14)
           {
             objc_enumerationMutation(preferredLanguages);
           }
 
-          v16 = [MEMORY[0x277CBEAF8] canonicalLanguageIdentifierFromString:*(*(&v19 + 1) + 8 * j)];
+          v16 = [MEMORY[0x277CBEAF8] canonicalLanguageIdentifierFromString:*(*(&v18 + 1) + 8 * j)];
           [v3 addObject:v16];
         }
 
-        v13 = [preferredLanguages countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v13 = [preferredLanguages countByEnumeratingWithState:&v18 objects:v26 count:16];
       }
 
       while (v13);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -589,7 +576,7 @@ LABEL_8:
 
 + (id)languageForLocaleIdentifier:(id)identifier
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v6 = objc_autoreleasePoolPush();
   if (!identifierCopy)
@@ -718,15 +705,13 @@ LABEL_19:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
     *buf = 138412290;
-    v33 = identifierCopy;
+    v32 = identifierCopy;
     _os_log_fault_impl(&dword_231C94000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Provided locale identifier (%@) is not a valid identifier", buf, 0xCu);
   }
 
   v7 = identifierCopy;
 LABEL_37:
   objc_autoreleasePoolPop(v6);
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

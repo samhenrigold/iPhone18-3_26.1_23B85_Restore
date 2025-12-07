@@ -171,7 +171,6 @@ LABEL_8:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -191,7 +190,6 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  errorCode = self->_errorCode;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -203,7 +201,6 @@ LABEL_6:
     }
 
 LABEL_12:
-    isVideo = self->_isVideo;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 8) == 0)
     {
@@ -214,7 +211,6 @@ LABEL_12:
   }
 
 LABEL_11:
-  sendDuration = self->_sendDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) != 0)
@@ -229,7 +225,6 @@ LABEL_7:
   }
 
 LABEL_13:
-  onLockScreen = self->_onLockScreen;
 
   PBDataWriterWriteUint32Field();
 }

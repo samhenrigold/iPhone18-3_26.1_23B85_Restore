@@ -12,7 +12,7 @@
 
 - (SIPeopleSegmentationAlgorithm)initWithInputResolution:(CGSize)resolution
 {
-  v3 = [(SIPeopleSegmentationAlgorithm *)self initWithComputeEngine:SISupportANE() andNetworkConfiguration:0];
+  v3 = [(SIPeopleSegmentationAlgorithm *)self initWithComputeEngine:SISupportANE(self andNetworkConfiguration:a2), 0];
 
   return v3;
 }
@@ -93,71 +93,65 @@
   v24 = *MEMORY[0x277D85DE8];
   networkConfiguration = [(SIAlgorithm *)self networkConfiguration];
   networkModeEnum = [networkConfiguration networkModeEnum];
-  if ([(SIPeopleSegmentation *)self->_model switchNetworkConfiguration:configuration])
+  v7 = [(SIPeopleSegmentation *)self->_model switchNetworkConfiguration:configuration];
+  if (v7)
   {
-    v7 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __SceneIntelligenceLogSharedInstance(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v20 = 136380931;
       v21 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/PeopleSegmentation/SIPeopleSegmentationAlgorithm.m";
       v22 = 1025;
       v23 = 136;
-      _os_log_impl(&dword_21DE0D000, v7, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** fail to switch the configuration! The output is not updated ***", &v20, 0x12u);
+      _os_log_impl(&dword_21DE0D000, v8, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** fail to switch the configuration! The output is not updated ***", &v20, 0x12u);
     }
 
-    v8 = 5;
+    v9 = 5;
   }
 
   else
   {
     if (networkModeEnum != configuration)
     {
-      v9 = [SIVideoToolboxScaler alloc];
+      v10 = [SIVideoToolboxScaler alloc];
       [(SIPeopleSegmentation *)self->_model getInputResolution];
-      v11 = v10;
-      v13 = v12;
+      v12 = v11;
+      v14 = v13;
       inputImageFormat = [networkConfiguration inputImageFormat];
       imageScalerIdentifier = [networkConfiguration imageScalerIdentifier];
-      v16 = [(SIBaseScaler *)v9 initForOutputResolution:inputImageFormat outputPixelFormat:0 mode:imageScalerIdentifier algorithmKey:v11, v13];
+      v17 = [(SIBaseScaler *)v10 initForOutputResolution:inputImageFormat outputPixelFormat:0 mode:imageScalerIdentifier algorithmKey:v12, v14];
       scaler = self->_scaler;
-      self->_scaler = v16;
+      self->_scaler = v17;
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v9;
 }
 
 - (int64_t)_preprocessingInputData:(id)data
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = -[SIVideoToolboxScaler createScaledImage:](self->_scaler, "createScaledImage:", [data inputImageBuffer]);
   [(SIImageInputData *)self->_inputData setInputImageBuffer:v4];
   CVPixelBufferRelease(v4);
   if ([(SIImageInputData *)self->_inputData inputImageBuffer])
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  v6 = __SceneIntelligenceLogSharedInstance(0);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v6 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      v8 = 136380931;
-      v9 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/PeopleSegmentation/SIPeopleSegmentationAlgorithm.m";
-      v10 = 1025;
-      v11 = 155;
-      _os_log_impl(&dword_21DE0D000, v6, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to scale the input image or input depth ***", &v8, 0x12u);
-    }
-
-    result = 1;
+    v7 = 136380931;
+    v8 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/PeopleSegmentation/SIPeopleSegmentationAlgorithm.m";
+    v9 = 1025;
+    v10 = 155;
+    _os_log_impl(&dword_21DE0D000, v6, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to scale the input image or input depth ***", &v7, 0x12u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 @end

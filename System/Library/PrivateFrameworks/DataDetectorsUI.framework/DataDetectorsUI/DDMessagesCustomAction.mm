@@ -14,7 +14,6 @@
     v5 = +[DDDetectionController messagesActionHandler];
     if (v5)
     {
-      v6 = *MEMORY[0x277D04140];
       HasType = DDResultHasType();
     }
 
@@ -29,33 +28,27 @@
 
 - (id)localizedName
 {
-  v3 = MEMORY[0x277CCACA8];
-  v4 = DDLocalizedString(@"Send %@");
-  v5 = self->super._result;
-  v6 = [v3 stringWithFormat:v4, DDResultGetMatchedString()];
+  v2 = MEMORY[0x277CCACA8];
+  v3 = DDLocalizedString(@"Send %@");
+  v4 = [v2 stringWithFormat:v3, DDResultGetMatchedString()];
 
-  return v6;
+  return v4;
 }
 
 - (void)performFromView:(id)view
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   if (self->super._result)
   {
-    v4 = +[DDDetectionController messagesActionHandler];
-    if (v4)
+    v3 = +[DDDetectionController messagesActionHandler];
+    if (v3)
     {
-      result = self->super._result;
-      v6 = *MEMORY[0x277D04140];
       if (DDResultHasType())
       {
-        v7 = self->super._result;
         DDResultCurrencyExtraction();
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

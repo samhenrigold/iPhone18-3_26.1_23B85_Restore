@@ -1,6 +1,7 @@
 @interface NENetworkAgent
 + (id)agentFromData:(id)data;
 - (BOOL)matchesFileHandle:(id)handle;
+- (BOOL)reportError:(int)error withOptions:(id)options;
 - (BOOL)startAgentWithOptions:(id)options;
 - (NENetworkAgent)initWithConfigUUID:(id)d sessionType:(int)type name:(id)name;
 - (NENetworkAgent)initWithDelegate:(id)delegate configUUID:(id)d sessionType:(int)type name:(id)name;
@@ -15,7 +16,7 @@
 
 - (BOOL)startAgentWithOptions:(id)options
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   if (self && objc_getProperty(self, v4, 56, 1))
   {
@@ -99,9 +100,9 @@ LABEL_20:
       if (os_log_type_enabled(endpoint2, OS_LOG_TYPE_ERROR))
       {
         uUIDString = [v9 UUIDString];
-        v34 = 138412290;
-        v35 = uUIDString;
-        _os_log_error_impl(&dword_1BA83C000, endpoint2, OS_LOG_TYPE_ERROR, "Could not fetch path for unassert message (client %@)", &v34, 0xCu);
+        v33 = 138412290;
+        v34 = uUIDString;
+        _os_log_error_impl(&dword_1BA83C000, endpoint2, OS_LOG_TYPE_ERROR, "Could not fetch path for unassert message (client %@)", &v33, 0xCu);
       }
 
       hostname = 0;
@@ -115,7 +116,6 @@ LABEL_19:
   v19 = 0;
 LABEL_22:
 
-  v31 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -150,14 +150,14 @@ LABEL_22:
 
 - (id)copyAgentData
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = 0;
+  v10 = *MEMORY[0x1E69E9840];
+  v9 = 0;
+  v7 = 0u;
   v8 = 0u;
-  v9 = 0u;
   if (self)
   {
     [objc_getProperty(self a2];
-    LODWORD(v9) = self->_internalSessionType;
+    LODWORD(v8) = self->_internalSessionType;
     if (objc_getProperty(self, v3, 48, 1))
     {
       v5 = objc_getProperty(self, v4, 48, 1);
@@ -168,13 +168,12 @@ LABEL_22:
 
   else
   {
-    [0 getUUIDBytes:&v8];
-    LODWORD(v9) = 0;
+    [0 getUUIDBytes:&v7];
+    LODWORD(v8) = 0;
   }
 
-  result = [MEMORY[0x1E695DEF0] dataWithBytes:&v8 length:40];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  [MEMORY[0x1E695DEF0] dataWithBytes:&v7 length:40];
+  return objc_claimAutoreleasedReturnValue();
 }
 
 - (NSString)agentDescription
@@ -234,7 +233,7 @@ LABEL_22:
   intValue = [sessionType intValue];
   if (intValue != [(NENetworkAgent *)self sessionType])
   {
-    v15 = 0;
+    isEqualToString = 0;
     goto LABEL_21;
   }
 
@@ -266,12 +265,12 @@ LABEL_22:
 
       if (name)
       {
-        v15 = 0;
+        isEqualToString = 0;
       }
 
       else
       {
-        v15 = -1;
+        isEqualToString = -1;
       }
 
       if (!name || !self)
@@ -286,7 +285,7 @@ LABEL_22:
     v17 = objc_getProperty(self, v13, 48, 1);
     if (!v17)
     {
-      v15 = 0;
+      isEqualToString = 0;
       if (!v14)
       {
         goto LABEL_21;
@@ -300,7 +299,7 @@ LABEL_22:
     if (!name2)
     {
 
-      v15 = 0;
+      isEqualToString = 0;
       if ((v14 & 1) == 0)
       {
         goto LABEL_21;
@@ -312,7 +311,7 @@ LABEL_22:
     v21 = name2;
     v22 = objc_getProperty(self, v20, 48, 1);
     name3 = [handleCopy name];
-    v15 = [v22 isEqualToString:name3];
+    isEqualToString = objc_msgSend_isEqualToString_(v22);
 
     if (v14)
     {
@@ -324,10 +323,23 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v15 = 0;
+  isEqualToString = 0;
 LABEL_22:
 
-  return v15 & 1;
+  return isEqualToString & 1;
+}
+
+- (BOOL)reportError:(int)error withOptions:(id)options
+{
+  v4 = *&error;
+  optionsCopy = options;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  if (objc_opt_respondsToSelector())
+  {
+    [WeakRetained reportError:v4 withOptions:optionsCopy];
+  }
+
+  return 1;
 }
 
 - (NENetworkAgent)initWithDelegate:(id)delegate configUUID:(id)d sessionType:(int)type name:(id)name

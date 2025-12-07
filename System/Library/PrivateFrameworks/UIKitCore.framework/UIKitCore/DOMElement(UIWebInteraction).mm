@@ -47,7 +47,7 @@
 
   if (getStringValue)
   {
-    v6 = [getStringValue isEqualToString:@"none"] ^ 1;
+    v6 = objc_msgSend_isEqualToString_(getStringValue) ^ 1;
   }
 
   else

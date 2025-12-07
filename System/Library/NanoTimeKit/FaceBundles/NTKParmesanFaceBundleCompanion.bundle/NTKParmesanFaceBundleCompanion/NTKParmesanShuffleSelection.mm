@@ -99,7 +99,7 @@
 
 - (NTKParmesanShuffleSelection)initWithShuffleTypesAsNSNumbers:(id)numbers personIdentifiers:(id)identifiers
 {
-  sub_23BF4BDF0(0, &qword_27E1E0C68);
+  sub_23BF4BDF0(0, &qword_27E1E0C68, 0x277CCABB0);
   v5 = sub_23BFFA460();
   if (identifiers)
   {
@@ -121,7 +121,7 @@
   selfCopy = self;
   sub_23BFB8EF0();
 
-  sub_23BF4BDF0(0, &qword_27E1E0C68);
+  sub_23BF4BDF0(0, &qword_27E1E0C68, 0x277CCABB0);
   v3 = sub_23BFFA450();
 
   return v3;

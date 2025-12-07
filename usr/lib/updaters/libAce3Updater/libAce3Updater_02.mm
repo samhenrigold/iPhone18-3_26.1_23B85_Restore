@@ -1,23 +1,3 @@
-uint64_t FWImageCreate(void *a1)
-{
-  if (!a1)
-  {
-    return 30;
-  }
-
-  v2 = uarpZalloc(0x48uLL);
-  *a1 = v2;
-  if (v2)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return 11;
-  }
-}
-
 uint64_t FWImageDestroy(void **a1)
 {
   if (!a1)
@@ -277,7 +257,7 @@ uint64_t set_nvram_variable(const char *a1, const UInt8 *a2, CFIndex a3)
 
         else
         {
-          uarpLogError(3u, "Failed to set nvram variable %s: 0x%x\n", a1, v14);
+          uarpLogError(3, "Failed to set nvram variable %s: 0x%x\n", a1, v14);
         }
 
         v6 = 3758097129;
@@ -300,12 +280,12 @@ uint64_t set_nvram_variable(const char *a1, const UInt8 *a2, CFIndex a3)
 
 uint64_t get_number_of_uart_hpms(int a1, _BYTE *a2, int a3, _BYTE *a4)
 {
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   *buffer = 0;
-  v24 = 0;
+  v23 = 0;
   v8 = 3758097136;
-  v26 = 0;
   v25 = 0;
+  v24 = 0;
   *a4 = 0;
   edt_matching_dict = get_edt_matching_dict();
   *bytes = a1;
@@ -325,21 +305,20 @@ uint64_t get_number_of_uart_hpms(int a1, _BYTE *a2, int a3, _BYTE *a4)
         v16 = Length;
         if (Length > 0x1C)
         {
-          v8 = 3758096385;
-          goto LABEL_19;
+          return 3758096385;
         }
 
         if ((Length & 3) == 0)
         {
-          v28.length = CFDataGetLength(v14);
-          v28.location = 0;
-          CFDataGetBytes(v14, v28, buffer);
+          v27.length = CFDataGetLength(v14);
+          v27.location = 0;
+          CFDataGetBytes(v14, v27, buffer);
           if (!a3)
           {
             v8 = 0;
 LABEL_18:
             CFRelease(v14);
-            goto LABEL_19;
+            return v8;
           }
 
           v17 = (v16 >> 2) - 1;
@@ -362,7 +341,7 @@ LABEL_18:
 
               else
               {
-                uarpLogError(3u, "Invalid UART RID 0x%x for SPI RID 0x%x\n", *v18, a1);
+                uarpLogError(3, "Invalid UART RID 0x%x for SPI RID 0x%x\n", *v18, a1);
               }
 
               v19 = *v18;
@@ -388,37 +367,35 @@ LABEL_18:
     }
   }
 
-LABEL_19:
-  v20 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
-uint64_t USBCUpdateSendManifestRequest(uint64_t a1, uint64_t a2)
+uint64_t USBCUpdateSendManifestRequest(uint64_t a1, uint64_t *a2)
 {
-  v88 = *MEMORY[0x29EDCA608];
-  v76 = 0;
-  result = DynamicAssetCreate(&v76);
+  v84 = *MEMORY[0x29EDCA608];
+  v72 = 0;
+  result = DynamicAssetCreate(&v72);
   if (!result)
   {
-    bzero(v70, 0xE0uLL);
-    uarpZero(v70, 0xE0uLL);
-    v71 = DynamicAssetUARPGetBytes;
-    v72 = DynamicAssetUARPSetBytes;
-    v73 = DynamicAssetUARPReleased;
-    v74 = fAssetProcessingNotification2_2;
-    v75 = fAssetProcessingNotificationAck_1;
+    bzero(v66, 0xE0uLL);
+    uarpZero(v66, 0xE0uLL);
+    v67 = DynamicAssetUARPGetBytes;
+    v68 = DynamicAssetUARPSetBytes;
+    v69 = DynamicAssetUARPReleased;
+    v70 = fAssetProcessingNotification2_2;
+    v71 = fAssetProcessingNotificationAck_1;
     v5 = uarpAssetTagStructPersonalization();
-    uarpPlatformEndpointPrepareDynamicAsset(a1, a1 + 1248, v76, v5, v70);
-    v6 = v76;
-    v85 = 0;
-    result = uarpPersonalizationRequestAssetInitialize(a1, v76, 1);
+    uarpPlatformEndpointPrepareDynamicAsset(a1, a1 + 1248, v72, v5, v66);
+    v6 = v72;
+    v81 = 0;
+    result = uarpPersonalizationRequestAssetInitialize(a1, v72, 1);
     if (!result)
     {
-      v84 = 0;
-      result = uarpPlatformAssetQueryAssetID(*a2, &v84);
+      v80 = 0;
+      result = uarpPlatformAssetQueryAssetID(*a2, &v80);
       if (!result)
       {
-        result = uarpPersonalizationRequestAddRemoteAssetID(a1, v6, v84);
+        result = uarpPersonalizationRequestAddRemoteAssetID(a1, v6, v80);
         if (!result)
         {
           v7 = OUTLINED_FUNCTION_0_0();
@@ -430,93 +407,90 @@ uint64_t USBCUpdateSendManifestRequest(uint64_t a1, uint64_t a2)
             result = uarpPersonalizationRequestAddPayloadTag(v10, v11, v12, v13);
             if (!result)
             {
-              v14 = *(a2 + 16);
-              v15 = OUTLINED_FUNCTION_0_0();
-              result = uarpPersonalizationRequestAddRemoteAssetPayloadIndex(v15, v16, v17, v18);
+              v14 = OUTLINED_FUNCTION_0_0();
+              result = uarpPersonalizationRequestAddRemoteAssetPayloadIndex(v14, v15, v16, v17);
               if (!result)
               {
-                v19 = OUTLINED_FUNCTION_0_0();
-                result = uarpPersonalizationRequestAddManifestPrefix(v19, v20, v21, v22, 0x11u);
+                v18 = OUTLINED_FUNCTION_0_0();
+                result = uarpPersonalizationRequestAddManifestPrefix(v18, v19, v20, v21, 17);
                 if (!result)
                 {
-                  v23 = OUTLINED_FUNCTION_0_0();
-                  result = uarpPersonalizationRequestAddPrefixNeedsLUN(v23, v24, v25, 1);
+                  v22 = OUTLINED_FUNCTION_0_0();
+                  result = uarpPersonalizationRequestAddPrefixNeedsLUN(v22, v23, v24, 1);
                   if (!result)
                   {
-                    v83 = 0;
+                    v79 = 0;
                     BackendGetPersParam(*(a1 + 1536));
-                    if (v83)
+                    if (v79)
                     {
-                      v26 = OUTLINED_FUNCTION_0_0();
-                      result = uarpPersonalizationRequestAddLogicalUnitNumber(v26, v27, v28, v29);
+                      v25 = OUTLINED_FUNCTION_0_0();
+                      result = uarpPersonalizationRequestAddLogicalUnitNumber(v25, v26, v27, v28);
                       if (!result)
                       {
-                        v82 = 0;
+                        v78 = 0;
                         result = BackendGetPersParam(*(a1 + 1536));
                         if (!result)
                         {
-                          v30 = OUTLINED_FUNCTION_0_0();
-                          result = uarpPersonalizationRequestAddChipID(v30, v31, v32, v33);
+                          v29 = OUTLINED_FUNCTION_0_0();
+                          result = uarpPersonalizationRequestAddChipID(v29, v30, v31, v32);
                           if (!result)
                           {
-                            v81 = 0;
+                            v77 = 0;
                             result = BackendGetPersParam(*(a1 + 1536));
                             if (!result)
                             {
-                              v34 = OUTLINED_FUNCTION_0_0();
-                              result = uarpPersonalizationRequestAddBoardID64(v34, v35, v36, v37);
+                              v33 = OUTLINED_FUNCTION_0_0();
+                              result = uarpPersonalizationRequestAddBoardID64(v33, v34, v35, v36);
                               if (!result)
                               {
-                                v80 = 0;
+                                v76 = 0;
                                 result = BackendGetPersParam(*(a1 + 1536));
                                 if (!result)
                                 {
-                                  v38 = OUTLINED_FUNCTION_0_0();
-                                  result = uarpPersonalizationRequestAddECID(v38, v39, v40, v41);
+                                  v37 = OUTLINED_FUNCTION_0_0();
+                                  result = uarpPersonalizationRequestAddECID(v37, v38, v39, v40);
                                   if (!result)
                                   {
-                                    v79 = 0;
+                                    v75 = 0;
                                     result = BackendGetPersParam(*(a1 + 1536));
                                     if (!result)
                                     {
-                                      v42 = OUTLINED_FUNCTION_0_0();
-                                      result = uarpPersonalizationRequestAddSecurityDomain(v42, v43, v44, v45);
+                                      v41 = OUTLINED_FUNCTION_0_0();
+                                      result = uarpPersonalizationRequestAddSecurityDomain(v41, v42, v43, v44);
                                       if (!result)
                                       {
-                                        v78 = 0;
+                                        v74 = 0;
                                         result = BackendGetPersParam(*(a1 + 1536));
                                         if (!result)
                                         {
-                                          v46 = OUTLINED_FUNCTION_0_0();
-                                          result = uarpPersonalizationRequestAddProductionMode(v46, v47, v48, v49);
+                                          v45 = OUTLINED_FUNCTION_0_0();
+                                          result = uarpPersonalizationRequestAddProductionMode(v45, v46, v47, v48);
                                           if (!result)
                                           {
-                                            v77 = 0;
+                                            v73 = 0;
                                             result = BackendGetPersParam(*(a1 + 1536));
                                             if (!result)
                                             {
-                                              v50 = OUTLINED_FUNCTION_0_0();
-                                              result = uarpPersonalizationRequestAddSecurityMode(v50, v51, v52, v53);
+                                              v49 = OUTLINED_FUNCTION_0_0();
+                                              result = uarpPersonalizationRequestAddSecurityMode(v49, v50, v51, v52);
                                               if (!result)
                                               {
-                                                v86 = 0;
-                                                v87 = 0;
+                                                v82 = 0;
+                                                v83 = 0;
                                                 result = BackendGetPersParam(*(a1 + 1536));
                                                 if (!result)
                                                 {
-                                                  v54 = OUTLINED_FUNCTION_0_0();
-                                                  result = uarpPersonalizationRequestAddNonceHash(v54, v55, v56, v57, 0x10u);
+                                                  v53 = OUTLINED_FUNCTION_0_0();
+                                                  result = uarpPersonalizationRequestAddNonceHash(v53, v54, v55, v56, 16);
                                                   if (!result)
                                                   {
                                                     BackendGetFlags(*(a1 + 1536));
-                                                    v58 = OUTLINED_FUNCTION_0_0();
-                                                    result = uarpPersonalizationRequestMoreRequestsToFollow(v58, v59, v60, v61);
+                                                    v57 = OUTLINED_FUNCTION_0_0();
+                                                    result = uarpPersonalizationRequestMoreRequestsToFollow(v57, v58, v59, v60);
                                                     if (!result)
                                                     {
-                                                      v62 = *(a2 + 40);
-                                                      v63 = *(a2 + 48);
-                                                      v64 = OUTLINED_FUNCTION_0_0();
-                                                      result = uarpPersonalizationRequestAddMeasurement(v64, v65, v66, v67, v68);
+                                                      v61 = OUTLINED_FUNCTION_0_0();
+                                                      result = uarpPersonalizationRequestAddMeasurement(v61, v62, v63, v64, v65);
                                                       if (!result)
                                                       {
                                                         result = uarpPersonalizationRequestAssetFinalize(a1, v6);
@@ -532,7 +506,7 @@ uint64_t USBCUpdateSendManifestRequest(uint64_t a1, uint64_t a2)
                                                             uarpLogInfo(3u, "Offering IM4M to controller\n");
                                                           }
 
-                                                          result = uarpPlatformEndpointOfferAsset(a1, a1 + 1248, v76);
+                                                          return uarpPlatformEndpointOfferAsset(a1, a1 + 1248, v72);
                                                         }
                                                       }
                                                     }
@@ -555,7 +529,7 @@ uint64_t USBCUpdateSendManifestRequest(uint64_t a1, uint64_t a2)
 
                     else
                     {
-                      result = 54;
+                      return 54;
                     }
                   }
                 }
@@ -567,7 +541,6 @@ uint64_t USBCUpdateSendManifestRequest(uint64_t a1, uint64_t a2)
     }
   }
 
-  v69 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -687,10 +660,10 @@ uint64_t DynamicAssetUARPSetBytes(uint64_t a1, uint64_t a2, unsigned int *a3, co
   }
 }
 
-uint64_t internalBackendCreate(uint64_t **a1, int a2, int a3, int a4, uint64_t a5, int a6, char a7, int a8)
+uint64_t internalBackendCreate(uint64_t **a1, int a2, uint64_t a3, int a4, uint64_t a5, int a6, char a7, int a8)
 {
   v13 = a2;
-  v31 = a2;
+  v25 = a2;
   if (os_parse_boot_arg_string())
   {
     inRestore = 1;
@@ -708,7 +681,7 @@ uint64_t internalBackendCreate(uint64_t **a1, int a2, int a3, int a4, uint64_t a
 
   else
   {
-    uarpLogError(3u, "-restore is %u\n", 0);
+    uarpLogError(3, "-restore is %u\n", 0);
   }
 
   if (!a1)
@@ -723,7 +696,6 @@ uint64_t internalBackendCreate(uint64_t **a1, int a2, int a3, int a4, uint64_t a
     return 11;
   }
 
-  v30 = 0;
   readBootArg();
   v16 = *a1;
   if (a6)
@@ -732,28 +704,25 @@ uint64_t internalBackendCreate(uint64_t **a1, int a2, int a3, int a4, uint64_t a
   }
 
   *(v16 + 83) = a4;
-  v29 = 0;
   if (a4)
   {
     readBootArg();
   }
 
-  v28 = 0;
   readBootArg();
   v17 = *a1;
   *(v17 + 85) = a7;
   *(v17 + 27) = a8;
-  v27 = 0;
   readBootArg();
   if (a3 >= 1)
   {
-    rid_for_lun = get_rid_for_lun(a3, &v31);
+    rid_for_lun = get_rid_for_lun(a3, &v25);
     if (rid_for_lun)
     {
       return rid_for_lun;
     }
 
-    v13 = v31;
+    v13 = v25;
   }
 
   v19 = *a1;
@@ -764,7 +733,7 @@ uint64_t internalBackendCreate(uint64_t **a1, int a2, int a3, int a4, uint64_t a
     return rid_for_lun;
   }
 
-  AHPMLibInterfaceForRID = getAHPMLibInterfaceForRID(v31, *a1);
+  AHPMLibInterfaceForRID = getAHPMLibInterfaceForRID(v25, *a1);
   if (AHPMLibInterfaceForRID)
   {
     v23 = AHPMLibInterfaceForRID;
@@ -772,9 +741,7 @@ uint64_t internalBackendCreate(uint64_t **a1, int a2, int a3, int a4, uint64_t a
 
   else
   {
-    v26 = 0;
-    v25 = 0;
-    OUTLINED_FUNCTION_3(**a1);
+    OUTLINED_FUNCTION_3();
     OUTLINED_FUNCTION_9();
     v22 = v21();
     if (v22)
@@ -791,7 +758,7 @@ uint64_t internalBackendCreate(uint64_t **a1, int a2, int a3, int a4, uint64_t a
 
       else
       {
-        uarpLogError(3u, "Error: Got unexpected VID 0x%x\n");
+        uarpLogError(3, "Error: Got unexpected VID 0x%x\n");
       }
 
       v23 = 30;
@@ -874,56 +841,56 @@ uint64_t internalBackendGetPersParam(uint64_t a1, unsigned int a2, void *__dst, 
 
 uint64_t internalBackendFlash(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int *a4)
 {
-  v60 = *MEMORY[0x29EDCA608];
+  v54 = *MEMORY[0x29EDCA608];
   v4 = 30;
   if (a1 && a2)
   {
     if (*(a1 + 81))
     {
-      v4 = 26;
+      return 26;
     }
 
     else
     {
-      mode = get_mode(*a1);
+      mode = get_mode();
       if (mode)
       {
-        goto LABEL_82;
+        return mode;
       }
 
       if (a4)
       {
-        v56 = 0;
-        v54 = 0;
-        v55 = 0;
-        v53 = 0;
+        v50 = 0;
+        v48 = 0;
+        v49 = 0;
+        v47 = 0;
         OUTLINED_FUNCTION_1();
         OUTLINED_FUNCTION_9();
         if (v8())
         {
           OUTLINED_FUNCTION_2();
-          if (v33)
+          if (v30)
           {
             printf("Bad return value from boot flags register read: 0x%x\n");
           }
 
           else
           {
-            uarpLogError(3u, "Bad return value from boot flags register read: 0x%x\n");
+            uarpLogError(3, "Bad return value from boot flags register read: 0x%x\n");
           }
         }
 
         else
         {
           OUTLINED_FUNCTION_13();
-          if (v33)
+          if (v30)
           {
             printf("Unexpected boot flags register length %llu\n");
           }
 
           else
           {
-            uarpLogError(3u, "Unexpected boot flags register length %llu\n");
+            uarpLogError(3, "Unexpected boot flags register length %llu\n");
           }
         }
       }
@@ -935,20 +902,19 @@ uint64_t internalBackendFlash(uint64_t a1, uint64_t a2, uint64_t a3, unsigned in
 
       else
       {
-        uarpLogError(3u, "Ace in mode 0x%08x, performing SFW flash\n", 0);
+        uarpLogError(3, "Ace in mode 0x%08x, performing SFW flash\n", 0);
       }
 
       mode = flash();
       if (mode)
       {
-LABEL_82:
-        v4 = mode;
+        return mode;
       }
 
       else
       {
         OUTLINED_FUNCTION_2();
-        if (v33 && (logLevel & 2) != 0)
+        if (v30 && (logLevel & 2) != 0)
         {
           puts("Persistent flash successful");
         }
@@ -963,52 +929,46 @@ LABEL_82:
         {
           *(a1 + 86) = *a4;
           v9 = *(a1 + 102);
-          v54 = 0;
-          LOWORD(v56) = 0;
-          uarpVersionToAceVersion(a4, &v54, &v56);
-          v10 = v54;
-          LODWORD(v53) = v54;
-          v11 = v56;
-          WORD2(v53) = v56;
+          v48 = 0;
+          LOWORD(v50) = 0;
+          uarpVersionToAceVersion(a4, &v48, &v50);
+          v10 = v48;
+          LODWORD(v47) = v48;
+          v11 = v50;
+          WORD2(v47) = v50;
           *__str = 0u;
-          v59 = 0u;
+          v53 = 0u;
           snprintf(__str, 0x20uLL, "usbc,version,rid%d", v9);
-          if (inRestore != 1)
-          {
-            goto LABEL_20;
-          }
-
-          if ((logLevel & 2) != 0)
+          if (inRestore == 1 && (logLevel & 2) != 0)
           {
             printf("Writing NVRAM variable %s to {0x%02x,0x%02x,0x%02x,0x%02x,0x%02x,0x%02x}\n", __str, v10, BYTE1(v10), BYTE2(v10), HIBYTE(v10), v11, v11 >> 8);
           }
 
           else
           {
-LABEL_20:
             uarpLogInfo(3u, "Writing NVRAM variable %s to {0x%02x,0x%02x,0x%02x,0x%02x,0x%02x,0x%02x}\n", __str, v10, BYTE1(v10), BYTE2(v10), HIBYTE(v10), v11, v11 >> 8);
           }
 
-          if (set_nvram_variable(__str, &v53, 6))
+          if (set_nvram_variable(__str, &v47, 6))
           {
             OUTLINED_FUNCTION_2();
-            if (v33)
+            if (v30)
             {
               printf("Failed to persist FW version: 0x%x, treating as non-fatal\n", v12);
             }
 
             else
             {
-              uarpLogError(3u, "Failed to persist FW version: 0x%x, treating as non-fatal\n");
+              uarpLogError(3, "Failed to persist FW version: 0x%x, treating as non-fatal\n");
             }
           }
         }
 
-        *(&v53 + 3) = 0;
-        LODWORD(v53) = 0;
-        v57 = 0;
+        *(&v47 + 3) = 0;
+        LODWORD(v47) = 0;
+        v51 = 0;
         *__str = 0;
-        number_of_uart_hpms = get_number_of_uart_hpms(*(a1 + 102), &v53, 7, &v57);
+        number_of_uart_hpms = get_number_of_uart_hpms(*(a1 + 102), &v47, 7, &v51);
         if (number_of_uart_hpms)
         {
           v4 = number_of_uart_hpms;
@@ -1016,21 +976,19 @@ LABEL_20:
 
         else
         {
-          if (!v57)
+          if (!v51)
           {
-LABEL_93:
-            v4 = 0;
-            goto LABEL_94;
+            return 0;
           }
 
-          for (i = 0; i < v57; ++i)
+          for (i = 0; i < v51; ++i)
           {
-            AHPMLibInterfaceForRID = getAHPMLibInterfaceForRID(*(&v53 + i), __str);
+            AHPMLibInterfaceForRID = getAHPMLibInterfaceForRID(*(&v47 + i), __str);
             if (AHPMLibInterfaceForRID)
             {
               v16 = AHPMLibInterfaceForRID;
               OUTLINED_FUNCTION_8();
-              if (v33)
+              if (v30)
               {
                 printf("Failed to get AHPMLibInterface for RID %d: 0x%x\n", v17, v16);
               }
@@ -1038,51 +996,48 @@ LABEL_93:
               else
               {
                 v19 = OUTLINED_FUNCTION_10();
-                uarpLogError(v19, "Failed to get AHPMLibInterface for RID %d: 0x%x\n", v49, v52);
+                uarpLogError(v19, "Failed to get AHPMLibInterface for RID %d: 0x%x\n", v45, v46);
               }
             }
 
             else if (*__str)
             {
-              v56 = 0;
-              v16 = get_mode(*__str);
+              v50 = 0;
+              v16 = get_mode();
               if (v16)
               {
                 OUTLINED_FUNCTION_8();
-                if (v33)
+                if (v30)
                 {
-                  v52 = v16;
+                  v46 = v16;
                   printf("Failed to get mode for RID %d: 0x%x\n");
                 }
 
                 else
                 {
-                  v35 = OUTLINED_FUNCTION_10();
-                  uarpLogError(v35, "Failed to get mode for RID %d: 0x%x\n", v49, v52);
+                  v32 = OUTLINED_FUNCTION_10();
+                  uarpLogError(v32, "Failed to get mode for RID %d: 0x%x\n", v45, v46);
                 }
               }
 
               else
               {
                 OUTLINED_FUNCTION_7();
-                if (v33)
+                if (v30)
                 {
-                  v54 = 1195460932;
-                  v20 = *(**__str + 104);
+                  v48 = 1195460932;
                   OUTLINED_FUNCTION_6();
-                  v29(v21, v22, v23, v24, v25, v26, v27, v28);
+                  v28(v20, v21, v22, v23, v24, v25, v26, v27);
                   OUTLINED_FUNCTION_2();
-                  if (v33 && (logLevel & 2) != 0)
+                  if (v30 && (logLevel & 2) != 0)
                   {
-                    v32 = *(&v53 + i);
-                    v52 = v30;
+                    v46 = v29;
                     printf("Return value from GAID on RID %d: 0x%x\n");
                   }
 
                   else
                   {
-                    v31 = *(&v53 + i);
-                    v52 = v30;
+                    v46 = v29;
                     uarpLogInfo(3u, "Return value from GAID on RID %d: 0x%x\n");
                   }
                 }
@@ -1090,17 +1045,15 @@ LABEL_93:
                 else
                 {
                   OUTLINED_FUNCTION_13();
-                  if (v33 && (logLevel & 2) != 0)
+                  if (v30 && (logLevel & 2) != 0)
                   {
-                    v51 = *(&v53 + i);
-                    v52 = v34;
+                    v46 = v31;
                     printf("Not resetting RID %d in mode 0x%x\n");
                   }
 
                   else
                   {
-                    v50 = *(&v53 + i);
-                    v52 = v34;
+                    v46 = v31;
                     uarpLogInfo(3u, "Not resetting RID %d in mode 0x%x\n");
                   }
                 }
@@ -1112,14 +1065,14 @@ LABEL_93:
             else
             {
               OUTLINED_FUNCTION_8();
-              if (v33)
+              if (v30)
               {
                 printf("UART HPM interface is NULL for RID %d\n", v18);
               }
 
               else
               {
-                uarpLogError(3u, "UART HPM interface is NULL for RID %d\n", v18);
+                uarpLogError(3, "UART HPM interface is NULL for RID %d\n", v18);
               }
 
               v16 = 0;
@@ -1127,58 +1080,58 @@ LABEL_93:
           }
 
           v4 = v16;
-          if (v57)
+          if (v51)
           {
-            for (j = 0; j < v57; ++j)
+            for (j = 0; j < v51; ++j)
             {
-              v37 = getAHPMLibInterfaceForRID(*(&v53 + j), __str);
-              if (v37)
+              v34 = getAHPMLibInterfaceForRID(*(&v47 + j), __str);
+              if (v34)
               {
-                v4 = v37;
+                v4 = v34;
                 OUTLINED_FUNCTION_4();
-                if (v33)
+                if (v30)
                 {
-                  printf("Failed to get AHPMLibInterface for RID %d: 0x%x\n", v38, v4);
+                  printf("Failed to get AHPMLibInterface for RID %d: 0x%x\n", v35, v4);
                 }
 
                 else
                 {
-                  v40 = OUTLINED_FUNCTION_10();
-                  uarpLogError(v40, "Failed to get AHPMLibInterface for RID %d: 0x%x\n", v49, v52);
+                  v37 = OUTLINED_FUNCTION_10();
+                  uarpLogError(v37, "Failed to get AHPMLibInterface for RID %d: 0x%x\n", v45, v46);
                 }
               }
 
               else if (*__str)
               {
-                v54 = 0;
-                v41 = get_mode(*__str);
-                if (v41)
+                v48 = 0;
+                v38 = get_mode();
+                if (v38)
                 {
-                  v4 = v41;
+                  v4 = v38;
                   OUTLINED_FUNCTION_4();
-                  if (v33)
+                  if (v30)
                   {
-                    printf("Failed to get mode for RID %d: 0x%x\n", v45, v4);
+                    printf("Failed to get mode for RID %d: 0x%x\n", v42, v4);
                   }
 
                   else
                   {
-                    v46 = OUTLINED_FUNCTION_10();
-                    uarpLogError(v46, "Failed to get mode for RID %d: 0x%x\n", v49, v52);
+                    v43 = OUTLINED_FUNCTION_10();
+                    uarpLogError(v43, "Failed to get mode for RID %d: 0x%x\n", v45, v46);
                   }
                 }
 
-                else if (v54 == 1448039764)
+                else if (v48 == 1448039764)
                 {
                   OUTLINED_FUNCTION_4();
-                  if (v33)
+                  if (v30)
                   {
-                    printf("UART HPM RID%d in VOUT, GAID skipped and APP mode check will be skipped\n", v42);
+                    printf("UART HPM RID%d in VOUT, GAID skipped and APP mode check will be skipped\n", v39);
                   }
 
                   else
                   {
-                    uarpLogError(3u, "UART HPM RID%d in VOUT, GAID skipped and APP mode check will be skipped\n", v42);
+                    uarpLogError(3, "UART HPM RID%d in VOUT, GAID skipped and APP mode check will be skipped\n", v39);
                   }
 
                   v4 = 0;
@@ -1186,13 +1139,13 @@ LABEL_93:
 
                 else
                 {
-                  v43 = OUTLINED_FUNCTION_14(*__str);
+                  v40 = OUTLINED_FUNCTION_14(*__str);
                   v4 = 0;
-                  if (v43)
+                  if (v40)
                   {
-                    v44 = v43;
+                    v41 = v40;
                     print_fw_update_regs(*__str);
-                    v4 = v44;
+                    v4 = v41;
                   }
                 }
 
@@ -1202,14 +1155,14 @@ LABEL_93:
               else
               {
                 OUTLINED_FUNCTION_4();
-                if (v33)
+                if (v30)
                 {
-                  printf("UART HPM interface is NULL for RID %d\n", v39);
+                  printf("UART HPM interface is NULL for RID %d\n", v36);
                 }
 
                 else
                 {
-                  uarpLogError(3u, "UART HPM interface is NULL for RID %d\n", v39);
+                  uarpLogError(3, "UART HPM interface is NULL for RID %d\n", v36);
                 }
 
                 v4 = 0;
@@ -1223,45 +1176,43 @@ LABEL_93:
           if (v4 == -536870160)
           {
             OUTLINED_FUNCTION_2();
-            if (v33)
+            if (v30)
             {
               puts("UART HPMs not found, treating as non-fatal");
             }
 
             else
             {
-              uarpLogError(3u, "UART HPMs not found, treating as non-fatal\n");
+              uarpLogError(3, "UART HPMs not found, treating as non-fatal\n");
             }
           }
 
           else
           {
             OUTLINED_FUNCTION_2();
-            if (v33)
+            if (v30)
             {
               printf("UART HPMs reset failed, status=0x%X, treating as non-fatal\n", v4);
             }
 
             else
             {
-              uarpLogError(3u, "UART HPMs reset failed, status=0x%X, treating as non-fatal\n");
+              uarpLogError(3, "UART HPMs reset failed, status=0x%X, treating as non-fatal\n");
             }
           }
 
-          goto LABEL_93;
+          return 0;
         }
       }
     }
   }
 
-LABEL_94:
-  v47 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
-uint64_t internalBackendGetFlags(uint64_t a1)
+uint64_t internalBackendGetFlags(_BYTE *a1)
 {
-  if (*(a1 + 80))
+  if (a1[80])
   {
     v2 = 2;
   }
@@ -1271,23 +1222,23 @@ uint64_t internalBackendGetFlags(uint64_t a1)
     v2 = 0;
   }
 
-  v3 = v2 | *(a1 + 81);
-  if ((*(a1 + 16) & 1) == 0)
+  v3 = v2 | a1[81];
+  if ((a1[16] & 1) == 0)
   {
     if (get_pers_params(a1))
     {
       return v3;
     }
 
-    *(a1 + 16) = 1;
+    a1[16] = 1;
   }
 
-  if ((*(a1 + 85) & 1) == 0 && ((*(a1 + 49) & 1) != 0 || *(a1 + 82) == 1))
+  if ((a1[85] & 1) == 0 && ((a1[49] & 1) != 0 || a1[82] == 1))
   {
     LODWORD(v3) = v3 | 4;
   }
 
-  get_mode(*a1);
+  get_mode();
   OUTLINED_FUNCTION_7();
   v5 = v5 && v4 == 0;
   if (v5)
@@ -1301,23 +1252,23 @@ uint64_t internalBackendGetFlags(uint64_t a1)
   }
 }
 
-uint64_t internalBackendGetActiveVersion(uint64_t *a1, _DWORD *a2, _WORD *a3)
+uint64_t internalBackendGetActiveVersion(uint64_t a1, _DWORD *a2, _WORD *a3)
 {
-  v11[1] = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   result = 30;
   if (a1 && a2 && a3)
   {
-    v10 = 0;
-    v11[0] = 0;
-    v7 = OUTLINED_FUNCTION_3(*a1);
-    result = v8(v7, 0, 15, v11, 8, 0, &v10);
-    if (v10 == 8)
+    v8 = 0;
+    v9 = 0;
+    OUTLINED_FUNCTION_3();
+    result = v7();
+    if (v8 == 8)
     {
-      *a2 = v11[0];
-      *a3 = WORD2(v11[0]);
+      *a2 = v9;
+      *a3 = WORD2(v9);
     }
 
-    else if (v10 == 4)
+    else if (v8 == 4)
     {
       *a2 = 0;
       *a3 = 0;
@@ -1325,11 +1276,10 @@ uint64_t internalBackendGetActiveVersion(uint64_t *a1, _DWORD *a2, _WORD *a3)
 
     else
     {
-      result = 54;
+      return 54;
     }
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -1347,12 +1297,12 @@ __n128 internalBackendGetStagedVersion(uint64_t a1, __n128 *a2)
   return result;
 }
 
-uint64_t internalBackendApply(uint64_t *a1, _WORD *a2)
+uint64_t internalBackendApply(uint64_t a1, _WORD *a2)
 {
   result = 30;
   if (a1 && a2)
   {
-    OUTLINED_FUNCTION_0_1(*a1);
+    OUTLINED_FUNCTION_0_1();
     OUTLINED_FUNCTION_6();
     v7 = v6(v5);
     if (v7)
@@ -1364,7 +1314,7 @@ uint64_t internalBackendApply(uint64_t *a1, _WORD *a2)
 
       else
       {
-        uarpLogError(3u, "Received error 0x%x from GAID, silencing\n", v7);
+        uarpLogError(3, "Received error 0x%x from GAID, silencing\n", v7);
       }
     }
 
@@ -1415,8 +1365,8 @@ uint64_t externalBackendCreate(void *a1, char *a2, uint64_t a3, char a4)
     return 11;
   }
 
-  v14 = v8;
-  result = OUTLINED_FUNCTION_3_0(v8, "SDOM", v9, v10, v11, v12, v13);
+  v15 = v8;
+  result = OUTLINED_FUNCTION_3_0(v8, "SDOM", v9, v10, v11, v12, v13, v14, v65, v80, v88, v96);
   if (result)
   {
     return result;
@@ -1425,164 +1375,164 @@ uint64_t externalBackendCreate(void *a1, char *a2, uint64_t a3, char a4)
   if (inRestore == 1 && (logLevel & 2) != 0)
   {
     OUTLINED_FUNCTION_0_2();
-    v16 = printf("SDOM=0x%llX [8b]\n", v58);
+    v17 = printf("SDOM=0x%llX [8b]\n", v66);
   }
 
   else
   {
     OUTLINED_FUNCTION_0_2();
-    uarpLogInfo(3u, "SDOM=0x%llX [8b]\n", v58);
+    uarpLogInfo(3u, "SDOM=0x%llX [8b]\n", v66);
   }
 
-  *(v14 + 42) = 0;
-  result = OUTLINED_FUNCTION_3_0(v16, "CPID", v17, v18, v19, v20, v21);
+  *(v15 + 42) = 0;
+  result = OUTLINED_FUNCTION_3_0(v17, "CPID", v18, v19, v20, v21, v22, v23, v67, v81, v89, v97);
   if (result)
   {
     return result;
   }
 
   OUTLINED_FUNCTION_2();
-  if (v22 && (logLevel & 2) != 0)
+  if (v24 && (logLevel & 2) != 0)
   {
     OUTLINED_FUNCTION_0_2();
-    v23 = printf("CPID=0x%llX [16b]\n", v59);
+    v25 = printf("CPID=0x%llX [16b]\n", v68);
   }
 
   else
   {
     OUTLINED_FUNCTION_0_2();
-    uarpLogInfo(3u, "CPID=0x%llX [16b]\n", v59);
+    uarpLogInfo(3u, "CPID=0x%llX [16b]\n", v68);
   }
 
-  *(v14 + 4) = 0;
-  result = OUTLINED_FUNCTION_3_0(v23, "BDID", v24, v25, v26, v27, v28);
+  *(v15 + 4) = 0;
+  result = OUTLINED_FUNCTION_3_0(v25, "BDID", v26, v27, v28, v29, v30, v31, v69, v82, v90, v98);
   if (result)
   {
     return result;
   }
 
   OUTLINED_FUNCTION_2();
-  if (v22 && (logLevel & 2) != 0)
+  if (v24 && (logLevel & 2) != 0)
   {
     OUTLINED_FUNCTION_0_2();
-    v29 = printf("BDID=0x%llX\n", v60);
+    v32 = printf("BDID=0x%llX\n", v70);
   }
 
   else
   {
     OUTLINED_FUNCTION_0_2();
-    uarpLogInfo(3u, "BDID=0x%llX\n", v60);
+    uarpLogInfo(3u, "BDID=0x%llX\n", v70);
   }
 
-  *v14 = 0;
-  result = OUTLINED_FUNCTION_3_0(v29, "ECID", v30, v31, v32, v33, v34);
+  *v15 = 0;
+  result = OUTLINED_FUNCTION_3_0(v32, "ECID", v33, v34, v35, v36, v37, v38, v71, v83, v91, v99);
   if (result)
   {
     return result;
   }
 
   OUTLINED_FUNCTION_2();
-  if (v22 && (logLevel & 2) != 0)
+  if (v24 && (logLevel & 2) != 0)
   {
     OUTLINED_FUNCTION_0_2();
-    v35 = printf("ECID=0x%llX\n", v61);
+    v39 = printf("ECID=0x%llX\n", v72);
   }
 
   else
   {
     OUTLINED_FUNCTION_0_2();
-    uarpLogInfo(3u, "ECID=0x%llX\n", v61);
+    uarpLogInfo(3u, "ECID=0x%llX\n", v72);
   }
 
-  v14[2] = 0;
-  result = OUTLINED_FUNCTION_3_0(v35, "CPFM", v36, v37, v38, v39, v40);
+  v15[2] = 0;
+  result = OUTLINED_FUNCTION_3_0(v39, "CPFM", v40, v41, v42, v43, v44, v45, v73, v84, v92, v100);
   if (result)
   {
     return result;
   }
 
   OUTLINED_FUNCTION_2();
-  if (v22 && (logLevel & 2) != 0)
+  if (v24 && (logLevel & 2) != 0)
   {
     OUTLINED_FUNCTION_0_2();
-    v41 = printf("CPFM=0x%llX [8b]\n", v62);
+    v46 = printf("CPFM=0x%llX [8b]\n", v74);
   }
 
   else
   {
     OUTLINED_FUNCTION_0_2();
-    uarpLogInfo(3u, "CPFM=0x%llX [8b]\n", v62);
+    uarpLogInfo(3u, "CPFM=0x%llX [8b]\n", v74);
   }
 
-  *(v14 + 41) = 0;
-  *(v14 + 40) = 0;
-  result = OUTLINED_FUNCTION_3_0(v41, "PREV", v42, v43, v44, v45, v46);
+  *(v15 + 41) = 0;
+  *(v15 + 40) = 0;
+  result = OUTLINED_FUNCTION_3_0(v46, "PREV", v47, v48, v49, v50, v51, v52, v75, v85, v93, v101);
   if (result)
   {
     return result;
   }
 
   OUTLINED_FUNCTION_2();
-  if (v22 && (logLevel & 2) != 0)
+  if (v24 && (logLevel & 2) != 0)
   {
     OUTLINED_FUNCTION_0_2();
-    printf("PREV=0x%llX [8b]\n", v63);
+    printf("PREV=0x%llX [8b]\n", v76);
   }
 
   else
   {
     OUTLINED_FUNCTION_0_2();
-    uarpLogInfo(3u, "PREV=0x%llX [8b]\n", v63);
+    uarpLogInfo(3u, "PREV=0x%llX [8b]\n", v76);
   }
 
-  *(v14 + 43) = 0;
-  v47 = uarpZalloc(0x10uLL);
-  v14[3] = v47;
-  if (!v47)
+  *(v15 + 43) = 0;
+  v53 = uarpZalloc(0x10uLL);
+  v15[3] = v53;
+  if (!v53)
   {
     return 11;
   }
 
-  v14[4] = 16;
-  result = parse_serial_string_buffer(a2, "NONC", v47, 16);
+  v15[4] = 16;
+  result = parse_serial_string_buffer(a2, "NONC", v53, 16);
   if (!result)
   {
-    result = OUTLINED_FUNCTION_3_0(result, "CPRV", v48, v49, v50, v51, v52);
+    result = OUTLINED_FUNCTION_3_0(result, "CPRV", v54, v55, v56, v57, v58, v59, v77, v86, v94, v102);
     if (!result)
     {
       OUTLINED_FUNCTION_2();
-      if (v22 && (logLevel & 2) != 0)
+      if (v24 && (logLevel & 2) != 0)
       {
         OUTLINED_FUNCTION_0_2();
-        printf("CRPV=0x%llX [16b]\n", v64);
+        printf("CRPV=0x%llX [16b]\n", v78);
       }
 
       else
       {
         OUTLINED_FUNCTION_0_2();
-        uarpLogInfo(3u, "CRPV=0x%llX [16b]\n", v64);
+        uarpLogInfo(3u, "CRPV=0x%llX [16b]\n", v78);
       }
 
-      v53 = v14[3];
-      v54 = (v53 + v14[4] - 1);
-      if (v53 < v54)
+      v60 = v15[3];
+      v61 = (v60 + v15[4] - 1);
+      if (v60 < v61)
       {
-        v55 = v53 + 1;
+        v62 = v60 + 1;
         do
         {
-          v56 = *(v55 - 1);
-          *(v55 - 1) = *v54;
-          *v54-- = v56;
+          v63 = *(v62 - 1);
+          *(v62 - 1) = *v61;
+          *v61-- = v63;
         }
 
-        while (v55++ < v54);
+        while (v62++ < v61);
       }
 
-      *(v14 + 60) = (*(v14 + 41) | a4) & 1;
-      *(v14 + 13) = apBoardForAceBoard(*v14);
-      *(v14 + 14) = apChipForAceBoard(*v14);
+      *(v15 + 60) = (*(v15 + 41) | a4) & 1;
+      *(v15 + 13) = apBoardForAceBoard(*v15);
+      *(v15 + 14) = apChipForAceBoard(*v15);
       OUTLINED_FUNCTION_2();
-      if (v22 && (logLevel & 2) != 0)
+      if (v24 && (logLevel & 2) != 0)
       {
         puts("Final params, after accounting for any endianness quirks:");
       }
@@ -1593,66 +1543,66 @@ uint64_t externalBackendCreate(void *a1, char *a2, uint64_t a3, char a4)
       }
 
       OUTLINED_FUNCTION_2();
-      if (v22 && (logLevel & 2) != 0)
+      if (v24 && (logLevel & 2) != 0)
       {
-        printf("boardID=0x%llX\n", *v14);
+        printf("boardID=0x%llX\n", *v15);
       }
 
       else
       {
-        uarpLogInfo(3u, "boardID=0x%llX\n", *v14);
+        uarpLogInfo(3u, "boardID=0x%llX\n", *v15);
       }
 
       OUTLINED_FUNCTION_2();
-      if (v22 && (logLevel & 2) != 0)
+      if (v24 && (logLevel & 2) != 0)
       {
-        printf("ECID=0x%llX\n", v14[2]);
+        printf("ECID=0x%llX\n", v15[2]);
       }
 
       else
       {
-        uarpLogInfo(3u, "ECID=0x%llX\n", v14[2]);
+        uarpLogInfo(3u, "ECID=0x%llX\n", v15[2]);
       }
 
       OUTLINED_FUNCTION_2();
-      if (v22 && (logLevel & 2) != 0)
+      if (v24 && (logLevel & 2) != 0)
       {
-        printf("chipID=0x%X\n", *(v14 + 4));
+        printf("chipID=0x%X\n", *(v15 + 4));
       }
 
       else
       {
-        uarpLogInfo(3u, "chipID=0x%X\n", *(v14 + 4));
+        uarpLogInfo(3u, "chipID=0x%X\n", *(v15 + 4));
       }
 
       OUTLINED_FUNCTION_2();
-      if (v22 && (logLevel & 2) != 0)
+      if (v24 && (logLevel & 2) != 0)
       {
         OUTLINED_FUNCTION_2_0();
-        printf("pStatus=%d, secMode=%d, SDOM=0x%X, PREV=0x%X\n", v65, v66, v67, v68);
+        printf("pStatus=%d, secMode=%d, SDOM=0x%X, PREV=0x%X\n", v79, v87, v95, v103);
       }
 
       else
       {
         OUTLINED_FUNCTION_2_0();
-        uarpLogInfo(3u, "pStatus=%d, secMode=%d, SDOM=0x%X, PREV=0x%X\n", v65, v66, v67, v68);
+        uarpLogInfo(3u, "pStatus=%d, secMode=%d, SDOM=0x%X, PREV=0x%X\n", v79, v87, v95, v103);
       }
 
       OUTLINED_FUNCTION_2();
-      if (v22 && (logLevel & 2) != 0)
+      if (v24 && (logLevel & 2) != 0)
       {
-        printf("apBORD=0x%X, apChip=0x%X\n", *(v14 + 13), *(v14 + 14));
+        printf("apBORD=0x%X, apChip=0x%X\n", *(v15 + 13), *(v15 + 14));
       }
 
       else
       {
-        uarpLogInfo(3u, "apBORD=0x%X, apChip=0x%X\n", *(v14 + 13), *(v14 + 14));
+        uarpLogInfo(3u, "apBORD=0x%X, apChip=0x%X\n", *(v15 + 13), *(v15 + 14));
       }
 
       result = 0;
-      *(v14 + 12) = 1;
-      v14[8] = a3;
-      *a1 = v14;
+      *(v15 + 12) = 1;
+      v15[8] = a3;
+      *a1 = v15;
     }
   }
 
@@ -1959,7 +1909,7 @@ LABEL_11:
 
               else
               {
-                uarpLogError(3u, "Unexpected length of field %s in USB string: 0x%lx bytes\n", a2, v9);
+                uarpLogError(3, "Unexpected length of field %s in USB string: 0x%lx bytes\n", a2, v9);
               }
 
               result = 39;

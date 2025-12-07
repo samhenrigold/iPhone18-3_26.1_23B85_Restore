@@ -34,7 +34,7 @@
     v5->_groupIdentifier = v9;
 
     v11 = [dictionaryCopy PKStringForKey:@"source"];
-    if (v11 == @"applePayTrust" || (v12 = v11) != 0 && (v13 = [(__CFString *)v11 isEqualToString:@"applePayTrust"], v12, v12, v13))
+    if (v11 == @"applePayTrust" || (v12 = v11) != 0 && (isEqualToString = objc_msgSend_isEqualToString_(v11), v12, v12, isEqualToString))
     {
       v5->_type = 4;
     }

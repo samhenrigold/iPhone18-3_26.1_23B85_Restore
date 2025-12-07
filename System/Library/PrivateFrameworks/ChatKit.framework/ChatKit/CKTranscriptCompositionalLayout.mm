@@ -69,7 +69,7 @@
 
 uint64_t __63__CKTranscriptCompositionalLayout__configureUpdateSequenceItem__block_invoke(uint64_t a1, double a2)
 {
-  OUTLINED_FUNCTION_2_1();
+  OUTLINED_FUNCTION_2_1(733872368, 0);
   v4 = *(a1 + 32);
   if (v4 && (*(v4 + 528) = 1, (v5 = *(a1 + 32)) != 0) && (*(v5 + 624) = a2, (v6 = *(a1 + 32)) != 0))
   {
@@ -92,12 +92,12 @@ uint64_t __63__CKTranscriptCompositionalLayout__configureUpdateSequenceItem__blo
 
 - (void)prepareLayout
 {
-  v135 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_1();
+  v137 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2_1(733872360, 0);
   selfCopy = self;
-  v130.receiver = self;
-  v130.super_class = CKTranscriptCompositionalLayout;
-  [(CKTranscriptCompositionalLayout *)&v130 prepareLayout];
+  v132.receiver = self;
+  v132.super_class = CKTranscriptCompositionalLayout;
+  [(CKTranscriptCompositionalLayout *)&v132 prepareLayout];
   isInBackground = [(CKTranscriptCompositionalLayout *)self isInBackground];
   collectionView = [(CKTranscriptCompositionalLayout *)self collectionView];
   layoutAttributes = [(CKTranscriptCompositionalLayout *)self layoutAttributes];
@@ -117,20 +117,20 @@ uint64_t __63__CKTranscriptCompositionalLayout__configureUpdateSequenceItem__blo
     x = 0.0;
   }
 
-  v136 = **&MEMORY[0x1E695F058];
+  v138 = **&MEMORY[0x1E695F058];
   v7 = y;
-  v102 = width;
-  if (CGRectEqualToRect(v136, *&x))
+  v104 = width;
+  if (CGRectEqualToRect(v138, *&x))
   {
     [collectionView bounds];
-    v102 = v8;
+    v104 = v8;
     y = v9;
   }
 
   [collectionView bounds];
-  v99 = v10;
-  v100 = v11;
-  v101 = v12;
+  v101 = v10;
+  v102 = v11;
+  v103 = v12;
   v14 = v13;
   if (isInBackground)
   {
@@ -154,17 +154,18 @@ uint64_t __63__CKTranscriptCompositionalLayout__configureUpdateSequenceItem__blo
     if (IMOSLoggingEnabled())
     {
       v17 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
+      if (v18)
       {
-        v18 = CKIsRunningInMessagesNotificationExtension();
-        v19 = @"YES";
-        if (!v18)
+        v19 = CKIsRunningInMessagesNotificationExtension(v18);
+        v20 = @"YES";
+        if (!v19)
         {
-          v19 = @"NO";
+          v20 = @"NO";
         }
 
         *buf = 138412290;
-        v134 = v19;
+        v136 = v20;
         _os_log_impl(&dword_19020E000, v17, OS_LOG_TYPE_INFO, "prepareLayout called. Is using notification extension? {%@}", buf, 0xCu);
       }
     }
@@ -178,41 +179,41 @@ uint64_t __63__CKTranscriptCompositionalLayout__configureUpdateSequenceItem__blo
     unanimatedLayoutPassShouldSnapToTargetFrames = [collectionView unanimatedLayoutPassShouldSnapToTargetFrames];
     if (!_dynamicsAreEnabled && !_dynamicsAreRequiredForInlineReplyAnimation && ((unanimatedLayoutPassShouldSnapToTargetFrames ^ 1) & 1) == 0)
     {
+      v130 = 0u;
+      v131 = 0u;
       v128 = 0u;
       v129 = 0u;
-      v126 = 0u;
-      v127 = 0u;
-      v23 = layoutAttributes;
-      v24 = [v23 countByEnumeratingWithState:&v126 objects:v132 count:16];
-      if (v24)
+      v24 = layoutAttributes;
+      v25 = [v24 countByEnumeratingWithState:&v128 objects:v134 count:16];
+      if (v25)
       {
-        v25 = *v127;
+        v26 = *v129;
         do
         {
-          for (i = 0; i != v24; ++i)
+          for (i = 0; i != v25; ++i)
           {
-            if (*v127 != v25)
+            if (*v129 != v26)
             {
-              objc_enumerationMutation(v23);
+              objc_enumerationMutation(v24);
             }
 
-            v27 = *(*(&v126 + 1) + 8 * i);
-            v28 = (v27 + 352);
-            v29 = *(v27 + 376);
-            *(v27 + 368) = v14;
-            v27 += 384;
-            *v27 = *v28;
-            *(v27 + 16) = v14;
-            *(v27 + 24) = v29;
+            v28 = *(*(&v128 + 1) + 8 * i);
+            v29 = (v28 + 352);
+            v30 = *(v28 + 376);
+            *(v28 + 368) = v14;
+            v28 += 384;
+            *v28 = *v29;
+            *(v28 + 16) = v14;
+            *(v28 + 24) = v30;
           }
 
-          v24 = [v23 countByEnumeratingWithState:&v126 objects:v132 count:16];
+          v25 = [v24 countByEnumeratingWithState:&v128 objects:v134 count:16];
         }
 
-        while (v24);
+        while (v25);
       }
 
-      if (v14 != v102)
+      if (v14 != v104)
       {
         [(CKTranscriptCompositionalLayout *)selfCopy updateContentSize];
       }
@@ -222,12 +223,12 @@ uint64_t __63__CKTranscriptCompositionalLayout__configureUpdateSequenceItem__blo
         OUTLINED_FUNCTION_5_0(&selfCopy->_visibleBounds);
       }
 
-LABEL_121:
+LABEL_122:
 
-      goto LABEL_122;
+      goto LABEL_123;
     }
 
-    v30 = 0.0;
+    v31 = 0.0;
     if (selfCopy && selfCopy->_isDisplayDrivenLayoutInvalidation)
     {
       previousFrameTimestamp = selfCopy->_previousFrameTimestamp;
@@ -236,372 +237,375 @@ LABEL_121:
         requestedFrameRate = selfCopy->_requestedFrameRate;
         if (requestedFrameRate <= 0.0)
         {
-          v30 = 0.0;
+          v31 = 0.0;
         }
 
         else
         {
-          v30 = 1.0 / requestedFrameRate;
+          v31 = 1.0 / requestedFrameRate;
         }
+
+        v34 = *&selfCopy->_requestedFrameRate;
       }
 
       else
       {
-        v30 = currentFrameTimestamp - previousFrameTimestamp;
+        v34 = 0;
+        v31 = currentFrameTimestamp - previousFrameTimestamp;
       }
 
-      [(CKTranscriptCompositionalLayout *)selfCopy updateDynamicsWatchdogForRenderedFrameWithDuration:v30];
-      OUTLINED_FUNCTION_2_1();
-      v110 = 1;
+      [(CKTranscriptCompositionalLayout *)selfCopy updateDynamicsWatchdogForRenderedFrameWithDuration:v31];
+      OUTLINED_FUNCTION_2_1(733872356, v34);
+      v112 = 1;
     }
 
     else
     {
-      v110 = 0;
+      v112 = 0;
     }
 
-    v34 = v101 - y;
-    if (v101 - y != 0.0)
+    v36 = v103 - y;
+    if (v103 - y != 0.0)
     {
       [(CKTranscriptCompositionalLayout *)selfCopy _kickDynamicsIfNeeded];
     }
 
     mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
     [mainScreen scale];
-    v109 = v36;
+    v111 = v38;
 
-    if (v34 == 0.0)
+    if (v36 == 0.0)
     {
-      v37 = selfCopy;
+      v39 = selfCopy;
       easingUp = selfCopy->_easingUp;
     }
 
     else
     {
-      easingUp = v34 > 0.0;
-      v37 = selfCopy;
+      easingUp = v36 > 0.0;
+      v39 = selfCopy;
       if (!selfCopy)
       {
-        v112 = v34 > 0.0;
-LABEL_49:
-        v111 = [layoutAttributes count];
-        if (v111)
+        v114 = v36 > 0.0;
+LABEL_50:
+        v113 = [layoutAttributes count];
+        if (v113)
         {
-          v39 = +[CKUIBehavior sharedBehaviors];
-          [v39 balloonBalloonTranscriptSpace:1];
-          v103 = v40;
+          v41 = +[CKUIBehavior sharedBehaviors];
+          [v41 balloonBalloonTranscriptSpace:1];
+          v105 = v42;
 
-          v96[1] = v96;
-          v41 = v111;
-          MEMORY[0x1EEE9AC00](v42);
-          v44 = v96 - ((v43 + 15) & 0xFFFFFFFFFFFFFFF0);
-          bzero(v44, v43);
-          v108 = v44;
-          [layoutAttributes getObjects:v44 range:{0, v41}];
-          v119 = 0;
-          v45 = 0;
-          v117 = vabdd_f64(v101, y);
-          v107 = 523;
-          v113 = 1;
-          v98 = v30 / 0.0166666675;
-          v46 = v111;
+          v98[1] = v98;
+          v43 = v113;
+          MEMORY[0x1EEE9AC00](v44);
+          v46 = v98 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0);
+          bzero(v46, v45);
+          v110 = v46;
+          [layoutAttributes getObjects:v46 range:{0, v43}];
+          v121 = 0;
+          v47 = 0;
+          v119 = vabdd_f64(v103, y);
+          v109 = 523;
+          v115 = 1;
+          v100 = v31 / 0.0166666675;
+          v48 = v113;
           do
           {
-            v47 = v46 + ~v45;
-            v114 = v45;
-            if (!v112)
+            v49 = v48 + ~v47;
+            v116 = v47;
+            if (!v114)
             {
-              v47 = v45;
+              v49 = v47;
             }
 
-            v48 = *&v108[8 * v47];
-            v50 = *(v48 + 384);
-            v49 = *(v48 + 392);
-            v118 = *(v48 + 408);
-            v51 = *(v48 + 360);
-            v52 = *(v48 + 416);
-            v53 = *(v48 + 424);
-            v115 = v52;
-            v116 = v53;
-            if (v110)
+            v50 = *&v110[8 * v49];
+            v52 = *(v50 + 384);
+            v51 = *(v50 + 392);
+            v120 = *(v50 + 408);
+            v53 = *(v50 + 360);
+            v54 = *(v50 + 416);
+            v55 = *(v50 + 424);
+            v117 = v54;
+            v118 = v55;
+            if (v112)
             {
-              v54 = 1.0;
-              v55 = 1.0 - v52;
-              v56 = selfCopy;
-              if (1.0 - v52 < 1.0)
+              v56 = 1.0;
+              v57 = 1.0 - v54;
+              v58 = selfCopy;
+              if (1.0 - v54 < 1.0)
               {
-                v54 = (1.0 - pow(1.0 - v52, v98)) / (1.0 - v55);
+                v56 = (1.0 - pow(1.0 - v54, v100)) / (1.0 - v57);
               }
 
-              v57 = v55 * v54;
-              if (v57 > 1.0)
+              v59 = v57 * v56;
+              if (v59 > 1.0)
               {
-                v57 = 1.0;
+                v59 = 1.0;
               }
 
-              v49 = v49 + (v51 - v49) * v57;
+              v51 = v51 + (v53 - v51) * v59;
             }
 
             else
             {
-              v56 = selfCopy;
+              v58 = selfCopy;
             }
 
-            v58 = 2.0;
-            if (!*(&v56->super.super.super.isa + v107))
+            v60 = 2.0;
+            if (!*(&v58->super.super.super.isa + v109))
             {
-              v58 = 0.25;
+              v60 = 0.25;
             }
 
-            v59 = vabdd_f64(v49, v51);
-            v60 = v58 / v109;
-            if (v59 >= v60)
+            v61 = vabdd_f64(v51, v53);
+            v62 = v60 / v111;
+            if (v61 >= v62)
             {
-              v61 = v49;
-            }
-
-            else
-            {
-              v61 = v51;
-            }
-
-            if (*(v48 + 448) >= v60)
-            {
-              v113 = 0;
+              v63 = v51;
             }
 
             else
             {
-              v62 = v59 < v60;
-              *(v48 + 448) = 0;
-              [(CKTranscriptCompositionalLayout *)v56 _resetHorizontalBalloonOffsetsForLayoutAttributes:v48 includeAssociatedAttributes:1];
-              v113 &= v62;
-              v56 = selfCopy;
+              v63 = v53;
             }
 
-            if (v119)
+            if (*(v50 + 448) >= v62)
             {
-              if (![(CKTranscriptCompositionalLayout *)v56 isInlineAnimatingOut])
+              v115 = 0;
+            }
+
+            else
+            {
+              v64 = v61 < v62;
+              *(v50 + 448) = 0;
+              [(CKTranscriptCompositionalLayout *)v58 _resetHorizontalBalloonOffsetsForLayoutAttributes:v50 includeAssociatedAttributes:1];
+              v115 &= v64;
+              v58 = selfCopy;
+            }
+
+            if (v121)
+            {
+              if (![(CKTranscriptCompositionalLayout *)v58 isInlineAnimatingOut])
               {
-                v63 = v119[49];
-                v64 = v119[45];
-                if (v112)
+                v65 = v121[49];
+                v66 = v121[45];
+                if (v114)
                 {
-                  v65 = v63 - v103 - v118;
-                  if (v65 >= v61)
+                  v67 = v65 - v105 - v120;
+                  if (v67 >= v63)
                   {
-                    v65 = v61;
+                    v67 = v63;
                   }
 
-                  if (v63 >= v61)
+                  if (v65 >= v63)
                   {
-                    v66 = v61;
-                  }
-
-                  else
-                  {
-                    v66 = v119[49];
-                  }
-
-                  if (v51 - (v64 - v103 - v118) > 0.00000011920929)
-                  {
-                    v61 = v66;
+                    v68 = v63;
                   }
 
                   else
                   {
-                    v61 = v65;
+                    v68 = v121[49];
+                  }
+
+                  if (v53 - (v66 - v105 - v120) > 0.00000011920929)
+                  {
+                    v63 = v68;
+                  }
+
+                  else
+                  {
+                    v63 = v67;
                   }
                 }
 
                 else
                 {
-                  v67 = v119[48];
-                  v69 = v119[50];
-                  v68 = v119[51];
-                  v70 = *(v119 + 46);
-                  v71 = *(v119 + 47);
-                  v72 = *(v119 + 44);
-                  if (v103 + CGRectGetMaxY(*(&v64 - 1)) - v51 <= 0.00000011920929)
+                  v69 = v121[48];
+                  v71 = v121[50];
+                  v70 = v121[51];
+                  v72 = *(v121 + 46);
+                  v73 = *(v121 + 47);
+                  v74 = *(v121 + 44);
+                  if (v105 + CGRectGetMaxY(*(&v66 - 1)) - v53 <= 0.00000011920929)
                   {
-                    v137.origin.x = v67;
-                    v137.origin.y = v63;
-                    v137.size.width = v69;
-                    v137.size.height = v68;
-                    v73 = v103 + CGRectGetMaxY(v137);
-                    if (v73 >= v61)
+                    v139.origin.x = v69;
+                    v139.origin.y = v65;
+                    v139.size.width = v71;
+                    v139.size.height = v70;
+                    v75 = v105 + CGRectGetMaxY(v139);
+                    if (v75 >= v63)
                     {
-                      v61 = v73;
+                      v63 = v75;
                     }
                   }
 
-                  else if (v63 >= v61)
+                  else if (v65 >= v63)
                   {
-                    v61 = v63;
+                    v63 = v65;
                   }
                 }
               }
 
-              v56 = selfCopy;
+              v58 = selfCopy;
             }
 
-            if (v117 > 2.5)
+            if (v119 > 2.5)
             {
               if (qword_1EAD65C88 != -1)
               {
                 dispatch_once(&qword_1EAD65C88, &__block_literal_global_507_1);
               }
 
-              v74 = *&_MergedGlobals;
+              v76 = *&_MergedGlobals;
               if (*&_MergedGlobals == 0.0)
               {
-                v74 = 1.0;
+                v76 = 1.0;
               }
 
-              v61 = round(v61 * v74) / v74;
+              v63 = round(v63 * v76) / v76;
             }
 
-            *(v48 + 384) = v50;
-            *(v48 + 392) = v61;
-            v75 = v118;
-            *(v48 + 400) = v14;
-            *(v48 + 408) = v75;
-            [(CKTranscriptCompositionalLayout *)v56 _updateCurrentBalloonOffsetForLayoutAttributes:v48];
+            *(v50 + 384) = v52;
+            *(v50 + 392) = v63;
+            v77 = v120;
+            *(v50 + 400) = v14;
+            *(v50 + 408) = v77;
+            [(CKTranscriptCompositionalLayout *)v58 _updateCurrentBalloonOffsetForLayoutAttributes:v50];
+            v126 = 0u;
+            v127 = 0u;
             v124 = 0u;
             v125 = 0u;
-            v122 = 0u;
-            v123 = 0u;
-            v76 = *(v48 + 632);
-            v77 = [v76 countByEnumeratingWithState:&v122 objects:v131 count:16];
-            if (v77)
+            v78 = *(v50 + 632);
+            v79 = [v78 countByEnumeratingWithState:&v124 objects:v133 count:16];
+            if (v79)
             {
-              v78 = *v123;
+              v80 = *v125;
               do
               {
-                for (j = 0; j != v77; ++j)
+                for (j = 0; j != v79; ++j)
                 {
-                  if (*v123 != v78)
+                  if (*v125 != v80)
                   {
-                    objc_enumerationMutation(v76);
+                    objc_enumerationMutation(v78);
                   }
 
-                  v80 = *(*(&v122 + 1) + 8 * j);
-                  *(v80 + 392) = *(v48 + 392) + *(v80 + 360) - *(v48 + 360);
-                  [v80 setFrame:{*(v80 + 384), *(v80 + 392), *(v80 + 400), *(v80 + 408)}];
-                  *(v80 + 448) = *(v48 + 448);
+                  v82 = *(*(&v124 + 1) + 8 * j);
+                  *(v82 + 392) = *(v50 + 392) + *(v82 + 360) - *(v50 + 360);
+                  [v82 setFrame:{*(v82 + 384), *(v82 + 392), *(v82 + 400), *(v82 + 408)}];
+                  *(v82 + 448) = *(v50 + 448);
                 }
 
-                v77 = [v76 countByEnumeratingWithState:&v122 objects:v131 count:16];
+                v79 = [v78 countByEnumeratingWithState:&v124 objects:v133 count:16];
               }
 
-              while (v77);
+              while (v79);
             }
 
-            v81 = v117 > 2.0;
+            v83 = v119 > 2.0;
 
-            if (v115 != v116 && v81)
+            if (v117 != v118 && v83)
             {
-              *(v48 + 416) = v116;
+              *(v50 + 416) = v118;
             }
 
-            v83 = v48;
+            v85 = v50;
 
-            v45 = v114 + 1;
-            v119 = v83;
-            v46 = v111;
+            v47 = v116 + 1;
+            v121 = v85;
+            v48 = v113;
           }
 
-          while (v114 + 1 != v111);
+          while (v116 + 1 != v113);
           [collectionView bounds];
-          v85 = v84;
           v87 = v86;
           v89 = v88;
           v91 = v90;
-          v121 = 0;
-          [(CKTranscriptCompositionalLayout *)selfCopy _configureThreadGroupsForAttributes:layoutAttributes outMaxYAnchorAttribute:&v121 forVisibleBounds:?];
-          v92 = v121;
-          [(CKTranscriptCompositionalLayout *)selfCopy _visibleRectInsectsForMaxYAnchorLayoutAttribute:v92 forVisibleBounds:v85, v87, v89, v91];
+          v93 = v92;
+          v123 = 0;
+          [(CKTranscriptCompositionalLayout *)selfCopy _configureThreadGroupsForAttributes:layoutAttributes outMaxYAnchorAttribute:&v123 forVisibleBounds:?];
+          v94 = v123;
+          [(CKTranscriptCompositionalLayout *)selfCopy _visibleRectInsectsForMaxYAnchorLayoutAttribute:v94 forVisibleBounds:v87, v89, v91, v93];
           [collectionView _setVisibleRectEdgeInsets:?];
 
-          if (((v113 | isInBackground) & 1) == 0)
+          if (((v115 | isInBackground) & 1) == 0)
           {
-            v93 = selfCopy;
-            if (v110)
+            v95 = selfCopy;
+            if (v112)
             {
               if (selfCopy)
               {
                 selfCopy->_previousFrameTimestamp = selfCopy->_currentFrameTimestamp;
               }
 
-              [(CKTranscriptCompositionalLayout *)v93 checkDynamicsWatchdog];
-              v94 = 0;
-              v93 = selfCopy;
+              [(CKTranscriptCompositionalLayout *)v95 checkDynamicsWatchdog];
+              v96 = 0;
+              v95 = selfCopy;
               if (!selfCopy)
               {
-                goto LABEL_114;
+                goto LABEL_115;
               }
             }
 
             else
             {
-              v94 = 0;
+              v96 = 0;
               if (!selfCopy)
               {
-                goto LABEL_114;
+                goto LABEL_115;
               }
             }
 
-            goto LABEL_113;
+            goto LABEL_114;
           }
         }
 
         else
         {
-          v83 = 0;
-          v113 = 1;
+          v85 = 0;
+          v115 = 1;
         }
 
         [(CKTranscriptCompositionalLayout *)selfCopy invalidateDisplayLink];
-        v93 = selfCopy;
-        v94 = v113;
+        v95 = selfCopy;
+        v96 = v115;
         if (!selfCopy)
         {
-LABEL_114:
-          if (v14 != v102)
+LABEL_115:
+          if (v14 != v104)
           {
-            v95 = v94;
-            [(CKTranscriptCompositionalLayout *)v93 updateContentSize];
-            v93 = selfCopy;
-            v94 = v95;
+            v97 = v96;
+            [(CKTranscriptCompositionalLayout *)v95 updateContentSize];
+            v95 = selfCopy;
+            v96 = v97;
           }
 
-          if (v93)
+          if (v95)
           {
-            OUTLINED_FUNCTION_5_0(&v93->_visibleBounds);
+            OUTLINED_FUNCTION_5_0(&v95->_visibleBounds);
           }
 
-          if (v93->_isResting != v94)
+          if (v95->_isResting != v96)
           {
-            v93->_isResting = v94;
+            v95->_isResting = v96;
             [delegate collectionViewLayoutRestingDidChange:?];
           }
 
-          goto LABEL_121;
+          goto LABEL_122;
         }
 
-LABEL_113:
-        v93->_isDisplayDrivenLayoutInvalidation = 0;
-        goto LABEL_114;
+LABEL_114:
+        v95->_isDisplayDrivenLayoutInvalidation = 0;
+        goto LABEL_115;
       }
     }
 
-    v112 = easingUp;
-    v37->_easingUp = easingUp;
-    goto LABEL_49;
+    v114 = easingUp;
+    v39->_easingUp = easingUp;
+    goto LABEL_50;
   }
 
   [(CKTranscriptCompositionalLayout *)selfCopy prepareLayoutForRotisserieScrolling];
-LABEL_122:
+LABEL_123:
 }
 
 - (NSArray)layoutAttributes
@@ -2860,8 +2864,8 @@ LABEL_8:
     collectionView = [(CKTranscriptCompositionalLayout *)self collectionView];
     delegate = [collectionView delegate];
 
-    indexPath = [indexCopy indexPath];
-    v17 = [delegate collectionViewLayout:self hasPlayingOrPausedTextEffectForChatItem:chatItem indexPath:indexPath];
+    v16 = objc_msgSend_indexPath(indexCopy);
+    v17 = [delegate collectionViewLayout:self hasPlayingOrPausedTextEffectForChatItem:chatItem indexPath:v16];
 
     if (v17)
     {
@@ -2938,7 +2942,7 @@ LABEL_8:
           goto LABEL_18;
         }
 
-        [chatItem geometryDescriptor];
+        objc_msgSend_geometryDescriptor(chatItem);
         if (*&v115.a == 11)
         {
           v124.origin.x = v102;
@@ -3563,7 +3567,7 @@ LABEL_27:
 
 - (void)updateContentSize
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   lastObject = [(NSArray *)self->_layoutAttributes lastObject];
   v4 = *MEMORY[0x1E695F060];
   v5 = *(MEMORY[0x1E695F060] + 8);
@@ -3571,19 +3575,19 @@ LABEL_27:
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy__46;
-    v30 = __Block_byref_object_dispose__46;
+    v29 = 0x3032000000;
+    v30 = __Block_byref_object_copy__46;
+    v31 = __Block_byref_object_dispose__46;
     associatedLayoutAttributes = [(CKTranscriptCompositionalLayout *)self associatedLayoutAttributes];
     firstObject = [associatedLayoutAttributes firstObject];
 
     associatedLayoutAttributes2 = [(CKTranscriptCompositionalLayout *)self associatedLayoutAttributes];
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __52__CKTranscriptCompositionalLayout_updateContentSize__block_invoke;
-    v26[3] = &unk_1E72F4CF8;
-    v26[4] = &buf;
-    [associatedLayoutAttributes2 enumerateObjectsUsingBlock:v26];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __52__CKTranscriptCompositionalLayout_updateContentSize__block_invoke;
+    v27[3] = &unk_1E72F4CF8;
+    v27[4] = &buf;
+    [associatedLayoutAttributes2 enumerateObjectsUsingBlock:v27];
 
     MaxY = CGRectGetMaxY(lastObject[11]);
     v9 = *(*(&buf + 1) + 40);
@@ -3644,19 +3648,19 @@ LABEL_27:
 
   if (IMOSLoggingEnabled())
   {
-    v24 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    v25 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
-      v33.width = v4;
-      v33.height = v5;
-      v25 = NSStringFromCGSize(v33);
+      v34.width = v4;
+      v34.height = v5;
+      v26 = NSStringFromCGSize(v34);
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v25;
-      _os_log_impl(&dword_19020E000, v24, OS_LOG_TYPE_INFO, "Updating content size to: %@", &buf, 0xCu);
+      *(&buf + 4) = v26;
+      _os_log_impl(&dword_19020E000, v25, OS_LOG_TYPE_INFO, "Updating content size to: %@", &buf, 0xCu);
     }
   }
 
-  [(CKTranscriptCompositionalLayout *)self setContentSize:v4, v5];
+  [(CKTranscriptCompositionalLayout *)self setContentSize:v24, v4, v5];
 }
 
 void __52__CKTranscriptCompositionalLayout_updateContentSize__block_invoke(uint64_t a1, void *a2)
@@ -3671,34 +3675,34 @@ void __52__CKTranscriptCompositionalLayout_updateContentSize__block_invoke(uint6
 
 - (void)setContentSize:(CGFloat)size
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (self)
   {
     if (IMOSLoggingEnabled())
     {
-      v6 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      v7 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v15.width = a2;
-        v15.height = size;
-        v7 = NSStringFromCGSize(v15);
-        v10 = 136315394;
-        v11 = "[CKTranscriptCompositionalLayout setContentSize:]";
-        v12 = 2112;
-        v13 = v7;
-        _os_log_impl(&dword_19020E000, v6, OS_LOG_TYPE_INFO, "Calling %s with size: %@", &v10, 0x16u);
+        v16.width = size;
+        v16.height = a4;
+        v8 = NSStringFromCGSize(v16);
+        v11 = 136315394;
+        v12 = "[CKTranscriptCompositionalLayout setContentSize:]";
+        v13 = 2112;
+        v14 = v8;
+        _os_log_impl(&dword_19020E000, v7, OS_LOG_TYPE_INFO, "Calling %s with size: %@", &v11, 0x16u);
       }
     }
 
-    if (self[90] != a2 || self[91] != size)
+    if (self[90] != size || self[91] != a4)
     {
       if (IMOSLoggingEnabled())
       {
-        v9 = OSLogHandleForIMFoundationCategory();
-        [CKTranscriptCompositionalLayout setContentSize:v9];
+        v10 = OSLogHandleForIMFoundationCategory();
+        [CKTranscriptCompositionalLayout setContentSize:v10];
       }
 
-      [(CKTranscriptCompositionalLayout *)self setContentSize:a2, size];
+      [(CKTranscriptCompositionalLayout *)self setContentSize:size, a4];
     }
   }
 }

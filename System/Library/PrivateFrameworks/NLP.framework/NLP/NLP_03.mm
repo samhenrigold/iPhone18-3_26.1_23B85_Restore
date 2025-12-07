@@ -1,13 +1,3 @@
-void sub_22CD4D7C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12)
-{
-  if (a12)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
 void **std::vector<std::shared_ptr<NL::ParseAttribute>>::push_back[abi:ne200100](void **result, __int128 *a2)
 {
   v3 = result;
@@ -54,7 +44,7 @@ void **std::vector<std::shared_ptr<NL::ParseAttribute>>::push_back[abi:ne200100]
 
     v7 = (v12 + 16);
     v14 = result[1] - *result;
-    v15 = v12 - v14;
+    v15 = (v12 - v14);
     memcpy((v12 - v14), *result, v14);
     v16 = *v3;
     *v3 = v15;
@@ -96,8 +86,8 @@ void NL::ParseBuilder::merge(uint64_t a1, uint64_t a2)
 
   if (v3 == v2)
   {
-    v101 = 0;
     v102 = 0;
+    v103 = 0;
     v4 = 0;
     v82 = 0;
     v5 = 0;
@@ -108,32 +98,32 @@ void NL::ParseBuilder::merge(uint64_t a1, uint64_t a2)
     v8 = 0;
     v79 = 0;
     v9 = 0;
-    v110 = 0;
+    v111 = 0;
     v78 = 0;
-    v122 = 0;
-    v119 = 0;
+    v123 = 0;
+    v120 = 0;
     goto LABEL_167;
   }
 
-  v101 = 0;
   v102 = 0;
+  v103 = 0;
   v4 = 0;
-  v106 = 0;
   v107 = 0;
-  v5 = 0;
   v108 = 0;
+  v5 = 0;
   v109 = 0;
+  v110 = 0;
   v6 = 0;
   v7 = 0;
   v8 = 0;
   v9 = 0;
-  v110 = 0;
-  v112 = 0;
+  v111 = 0;
   v113 = 0;
+  v114 = 0;
   v10 = 0;
-  v118 = 0;
+  v119 = 0;
   v11 = 0;
-  v121 = *(a2 + 8);
+  v122 = *(a2 + 8);
   do
   {
     v12 = v10;
@@ -146,8 +136,8 @@ void NL::ParseBuilder::merge(uint64_t a1, uint64_t a2)
       goto LABEL_121;
     }
 
-    v123 = v8;
-    v120 = v13;
+    v124 = v8;
+    v121 = v13;
     v17 = *(v15 + 48);
     v16 = *(v15 + 56);
     if (v16)
@@ -159,8 +149,8 @@ void NL::ParseBuilder::merge(uint64_t a1, uint64_t a2)
         goto LABEL_48;
       }
 
-      v114 = v6;
-      v116 = v7;
+      v115 = v6;
+      v117 = v7;
       v17 = *(*v3 + 48);
       v18 = *(*v3 + 56);
       if (v18)
@@ -178,8 +168,8 @@ void NL::ParseBuilder::merge(uint64_t a1, uint64_t a2)
         goto LABEL_48;
       }
 
-      v114 = v6;
-      v116 = v7;
+      v115 = v6;
+      v117 = v7;
       v18 = 0;
     }
 
@@ -193,7 +183,7 @@ LABEL_13:
       std::__shared_weak_count::__release_shared[abi:ne200100](v20);
     }
 
-    v8 = v123;
+    v8 = v124;
     if ((v19 & 1) == 0)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v18);
@@ -201,8 +191,8 @@ LABEL_13:
 
     if (!v21)
     {
-      v6 = v114;
-      v7 = v116;
+      v6 = v115;
+      v7 = v117;
       goto LABEL_50;
     }
 
@@ -215,7 +205,7 @@ LABEL_13:
 
     std::string::basic_string[abi:ne200100]<0>(&__p, "CalendarTime");
     v24 = endswith(v23, &__p);
-    if ((SHIBYTE(v135) & 0x80000000) == 0)
+    if ((SHIBYTE(v137) & 0x80000000) == 0)
     {
       if (!v22)
       {
@@ -236,27 +226,27 @@ LABEL_22:
 LABEL_23:
     if (!v24)
     {
-      v7 = v116;
-      if (!v118)
+      v7 = v117;
+      if (!v119)
       {
-        v43 = v114;
-        v44 = v113;
+        v43 = v115;
+        v44 = v114;
         goto LABEL_83;
       }
 
       v36 = *v3;
       if (*(*v3 + 40) > 2u)
       {
-        v43 = v114;
+        v43 = v115;
         if (v11)
         {
           atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v38 = v113;
+        v38 = v114;
         v44 = v11;
-        v110 = v118;
-        if (!v113)
+        v111 = v119;
+        if (!v114)
         {
           goto LABEL_81;
         }
@@ -271,40 +261,40 @@ LABEL_23:
           atomic_fetch_add_explicit(&v38->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v39 = *(v118 + 48);
-        v40 = *(v118 + 56);
+        v39 = *(v119 + 48);
+        v40 = *(v119 + 56);
         if (v40)
         {
           atomic_fetch_add_explicit(&v40->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
         v41 = *(*v3 + 40);
-        v42 = *(v118 + 40);
-        v148 = MEMORY[0x277D85DD0];
-        v149 = 1174405120;
-        v150 = ___ZN2NL12ParseBuilder5mergeERNSt3__16vectorINS1_10shared_ptrINS_14ParseAttributeEEENS1_9allocatorIS5_EEEE_block_invoke_61;
-        v151 = &__block_descriptor_tmp_62;
-        v152 = v3;
-        v153 = v118;
-        v154 = v11;
+        v42 = *(v119 + 40);
+        v146[0] = MEMORY[0x277D85DD0];
+        v146[1] = 1174405120;
+        v146[2] = ___ZN2NL12ParseBuilder5mergeERNSt3__16vectorINS1_10shared_ptrINS_14ParseAttributeEEENS1_9allocatorIS5_EEEE_block_invoke_61;
+        v146[3] = &__block_descriptor_tmp_62;
+        v146[4] = v3;
+        v146[5] = v119;
+        v147 = v11;
         if (v11)
         {
           atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        NL::EntityConverter::merge(a1 + 64, v37, v41, v39);
-        if (v154)
+        NL::EntityConverter::merge(a1 + 64, v37, v41, v39, v42, v146);
+        if (v147)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v154);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v147);
         }
 
-        v43 = v114;
+        v43 = v115;
         if (v40)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v40);
         }
 
-        v44 = v113;
+        v44 = v114;
         if (!v38)
         {
           goto LABEL_81;
@@ -313,7 +303,7 @@ LABEL_23:
 
       std::__shared_weak_count::__release_shared[abi:ne200100](v38);
 LABEL_81:
-      v7 = v116;
+      v7 = v117;
       if (v11)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v11);
@@ -322,7 +312,7 @@ LABEL_81:
 
 LABEL_83:
       v10 = v3[1];
-      v112 = *v3;
+      v113 = *v3;
       if (v10)
       {
         atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -333,7 +323,7 @@ LABEL_83:
         std::__shared_weak_count::__release_shared[abi:ne200100](v12);
       }
 
-      v118 = 0;
+      v119 = 0;
       v47 = *v3;
       v48 = *(*v3 + 40);
       v33 = v44;
@@ -351,10 +341,10 @@ LABEL_83:
           }
 
           v35 = 0;
-          v118 = 0;
+          v119 = 0;
           v34 = v49;
-          v8 = v123;
-          v101 = v47;
+          v8 = v124;
+          v102 = v47;
           goto LABEL_119;
         }
 
@@ -362,12 +352,12 @@ LABEL_83:
         {
           if (v48 != 7)
           {
-            v113 = v44;
+            v114 = v44;
 LABEL_48:
-            v8 = v123;
+            v8 = v124;
 LABEL_50:
             v4 = v14;
-            v5 = v120;
+            v5 = v121;
             goto LABEL_121;
           }
 
@@ -380,20 +370,20 @@ LABEL_50:
           }
 
           v35 = 0;
-          v118 = 0;
+          v119 = 0;
           v34 = v49;
-          v109 = v47;
-          v8 = v123;
+          v110 = v47;
+          v8 = v124;
 LABEL_119:
-          v5 = v120;
-          v113 = v33;
+          v5 = v121;
+          v114 = v33;
           if (!v49)
           {
             goto LABEL_121;
           }
 
 LABEL_120:
-          v124 = v4;
+          v125 = v4;
           v57 = v35;
           v58 = v5;
           v59 = v6;
@@ -404,8 +394,8 @@ LABEL_120:
           v64 = v11;
           v65 = v33;
           std::__shared_weak_count::__release_shared[abi:ne200100](v34);
-          v118 = v57;
-          v113 = v65;
+          v119 = v57;
+          v114 = v65;
           v11 = v64;
           v10 = v63;
           v9 = v62;
@@ -413,7 +403,7 @@ LABEL_120:
           v7 = v60;
           v6 = v59;
           v5 = v58;
-          v4 = v124;
+          v4 = v125;
           goto LABEL_121;
         }
 
@@ -425,11 +415,11 @@ LABEL_120:
         }
 
         v35 = 0;
-        v118 = 0;
-        v56 = v123;
-        v34 = v123;
-        v107 = v47;
-        v5 = v120;
+        v119 = 0;
+        v56 = v124;
+        v34 = v124;
+        v108 = v47;
+        v5 = v121;
       }
 
       else
@@ -446,12 +436,12 @@ LABEL_120:
             }
 
             v35 = 0;
-            v118 = 0;
+            v119 = 0;
             v34 = v14;
-            v8 = v123;
+            v8 = v124;
             v56 = v14;
-            v5 = v120;
-            v102 = v47;
+            v5 = v121;
+            v103 = v47;
             break;
           case 2:
             v6 = v43;
@@ -463,11 +453,11 @@ LABEL_120:
             }
 
             v35 = 0;
-            v118 = 0;
-            v56 = v120;
-            v34 = v120;
-            v8 = v123;
-            v106 = v47;
+            v119 = 0;
+            v56 = v121;
+            v34 = v121;
+            v8 = v124;
+            v107 = v47;
             break;
           case 4:
             v4 = v14;
@@ -478,20 +468,20 @@ LABEL_120:
             }
 
             v35 = 0;
-            v118 = 0;
+            v119 = 0;
             v34 = v43;
-            v8 = v123;
-            v108 = v47;
+            v8 = v124;
+            v109 = v47;
             goto LABEL_119;
           default:
-            v113 = v44;
-            v8 = v123;
+            v114 = v44;
+            v8 = v124;
             v6 = v49;
             goto LABEL_50;
         }
       }
 
-      v113 = v33;
+      v114 = v33;
       if (v56)
       {
         goto LABEL_120;
@@ -500,47 +490,47 @@ LABEL_120:
       goto LABEL_121;
     }
 
-    v7 = v116;
-    if (v112)
+    v7 = v117;
+    if (v113)
     {
-      if (v118)
+      if (v119)
       {
-        v25 = *(v112 + 48);
-        v26 = *(v112 + 56);
+        v25 = *(v113 + 48);
+        v26 = *(v113 + 56);
         if (v26)
         {
           atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v104 = v26;
-        v27 = *(v118 + 48);
-        v28 = *(v118 + 56);
+        v105 = v26;
+        v27 = *(v119 + 48);
+        v28 = *(v119 + 56);
         if (v28)
         {
           atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v29 = *(v112 + 40);
-        v30 = *(v118 + 40);
-        v162 = MEMORY[0x277D85DD0];
-        v163 = 1174405120;
-        v164 = ___ZN2NL12ParseBuilder5mergeERNSt3__16vectorINS1_10shared_ptrINS_14ParseAttributeEEENS1_9allocatorIS5_EEEE_block_invoke;
-        v165 = &__block_descriptor_tmp_56;
-        v166 = v112;
-        v167 = v10;
+        v29 = *(v113 + 40);
+        v30 = *(v119 + 40);
+        v151[0] = MEMORY[0x277D85DD0];
+        v151[1] = 1174405120;
+        v151[2] = ___ZN2NL12ParseBuilder5mergeERNSt3__16vectorINS1_10shared_ptrINS_14ParseAttributeEEENS1_9allocatorIS5_EEEE_block_invoke;
+        v151[3] = &__block_descriptor_tmp_56;
+        v151[4] = v113;
+        v152 = v10;
         if (v10)
         {
           atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v168 = v118;
-        v169 = v11;
+        v153 = v119;
+        v154 = v11;
         if (v11)
         {
           atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        NL::EntityConverter::merge(a1 + 64, v25, v29, v27);
+        NL::EntityConverter::merge(a1 + 64, v25, v29, v27, v30, v151);
         v31 = v11;
         if (v12)
         {
@@ -548,7 +538,7 @@ LABEL_120:
         }
 
         v11 = v3[1];
-        v103 = *v3;
+        v104 = *v3;
         if (v11)
         {
           atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -559,14 +549,14 @@ LABEL_120:
           std::__shared_weak_count::__release_shared[abi:ne200100](v31);
         }
 
-        if (v169)
+        if (v154)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v169);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v154);
         }
 
-        if (v167)
+        if (v152)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v167);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v152);
         }
 
         v32 = v14;
@@ -576,16 +566,16 @@ LABEL_120:
         }
 
         v10 = 0;
-        v112 = 0;
-        v8 = v123;
-        v6 = v114;
-        v5 = v120;
+        v113 = 0;
+        v8 = v124;
+        v6 = v115;
+        v5 = v121;
         v4 = v32;
-        v33 = v113;
-        v35 = v103;
-        v34 = v104;
-        v118 = v103;
-        if (v104)
+        v33 = v114;
+        v35 = v104;
+        v34 = v105;
+        v119 = v104;
+        if (v105)
         {
           goto LABEL_120;
         }
@@ -594,7 +584,7 @@ LABEL_120:
       }
 
       v35 = *v3;
-      v100 = v14;
+      v101 = v14;
       if (*(*v3 + 40) > 2u)
       {
         v68 = v3[1];
@@ -611,29 +601,29 @@ LABEL_120:
         }
 
         v70 = v3[1];
-        v110 = *v3;
+        v111 = *v3;
         if (v70)
         {
           atomic_fetch_add_explicit(&v70->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v105 = v70;
-        v51 = v113;
+        v106 = v70;
+        v51 = v114;
         v11 = v68;
-        v5 = v120;
-        if (!v113)
+        v5 = v121;
+        if (!v114)
         {
 LABEL_143:
           v10 = 0;
           v34 = v12;
-          v8 = v123;
-          v7 = v116;
-          v6 = v114;
-          v4 = v100;
-          v118 = v35;
-          v33 = v105;
-          v112 = 0;
-          v113 = v105;
+          v8 = v124;
+          v7 = v117;
+          v6 = v115;
+          v4 = v101;
+          v119 = v35;
+          v33 = v106;
+          v113 = 0;
+          v114 = v106;
           if (v12)
           {
             goto LABEL_120;
@@ -645,8 +635,8 @@ LABEL_143:
 
       else
       {
-        v50 = *(v112 + 48);
-        v51 = *(v112 + 56);
+        v50 = *(v113 + 48);
+        v51 = *(v113 + 56);
         if (v51)
         {
           atomic_fetch_add_explicit(&v51->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -661,24 +651,24 @@ LABEL_143:
           v35 = *v3;
         }
 
-        v54 = *(v112 + 40);
+        v54 = *(v113 + 40);
         v55 = *(v35 + 40);
-        v155 = MEMORY[0x277D85DD0];
-        v156 = 1174405120;
-        v157 = ___ZN2NL12ParseBuilder5mergeERNSt3__16vectorINS1_10shared_ptrINS_14ParseAttributeEEENS1_9allocatorIS5_EEEE_block_invoke_57;
-        v158 = &__block_descriptor_tmp_60_0;
-        v159 = v112;
-        v160 = v10;
+        v148[0] = MEMORY[0x277D85DD0];
+        v148[1] = 1174405120;
+        v148[2] = ___ZN2NL12ParseBuilder5mergeERNSt3__16vectorINS1_10shared_ptrINS_14ParseAttributeEEENS1_9allocatorIS5_EEEE_block_invoke_57;
+        v148[3] = &__block_descriptor_tmp_60_0;
+        v148[4] = v113;
+        v149 = v10;
         if (v10)
         {
           atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v161 = v3;
-        NL::EntityConverter::merge(a1 + 64, v50, v54, v52);
-        if (v160)
+        v150 = v3;
+        NL::EntityConverter::merge(a1 + 64, v50, v54, v52, v55, v148);
+        if (v149)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v160);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v149);
         }
 
         if (v53)
@@ -687,8 +677,8 @@ LABEL_143:
         }
 
         v35 = 0;
-        v105 = v113;
-        v5 = v120;
+        v106 = v114;
+        v5 = v121;
         if (!v51)
         {
           goto LABEL_143;
@@ -701,8 +691,8 @@ LABEL_143:
       goto LABEL_143;
     }
 
-    v8 = v123;
-    if (v118)
+    v8 = v124;
+    if (v119)
     {
       if (v11)
       {
@@ -710,9 +700,9 @@ LABEL_143:
       }
 
       v45 = v11;
-      if (v113)
+      if (v114)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v113);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v114);
       }
 
       v4 = v14;
@@ -723,16 +713,16 @@ LABEL_143:
         atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v112 = 0;
       v113 = 0;
+      v114 = 0;
       v46 = v45;
       v34 = v45;
       v10 = v12;
       v33 = v46;
-      v5 = v120;
-      v110 = v118;
-      v6 = v114;
-      v118 = v35;
+      v5 = v121;
+      v111 = v119;
+      v6 = v115;
+      v119 = v35;
       if (v46)
       {
         goto LABEL_120;
@@ -750,13 +740,13 @@ LABEL_143:
         atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v112 = 0;
+      v113 = 0;
       v34 = v66;
-      v33 = v113;
-      v6 = v114;
-      v5 = v120;
+      v33 = v114;
+      v6 = v115;
+      v5 = v121;
       v4 = v67;
-      v118 = v35;
+      v119 = v35;
       if (v66)
       {
         goto LABEL_120;
@@ -767,52 +757,52 @@ LABEL_121:
     v3 += 2;
   }
 
-  while (v3 != v121);
-  if (v112 && v118)
+  while (v3 != v122);
+  if (v113 && v119)
   {
-    v72 = *(v112 + 48);
-    v73 = *(v112 + 56);
+    v72 = *(v113 + 48);
+    v73 = *(v113 + 56);
     if (v73)
     {
       atomic_fetch_add_explicit(&v73->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v74 = *(v118 + 48);
-    v75 = *(v118 + 56);
+    v74 = *(v119 + 48);
+    v75 = *(v119 + 56);
     if (v75)
     {
       atomic_fetch_add_explicit(&v75->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v76 = *(v112 + 40);
-    v77 = *(v118 + 40);
-    v140 = MEMORY[0x277D85DD0];
-    v141 = 1174405120;
-    v142 = ___ZN2NL12ParseBuilder5mergeERNSt3__16vectorINS1_10shared_ptrINS_14ParseAttributeEEENS1_9allocatorIS5_EEEE_block_invoke_63;
-    v143 = &__block_descriptor_tmp_66;
-    v144 = v112;
-    v145 = v10;
+    v76 = *(v113 + 40);
+    v77 = *(v119 + 40);
+    v142[0] = MEMORY[0x277D85DD0];
+    v142[1] = 1174405120;
+    v142[2] = ___ZN2NL12ParseBuilder5mergeERNSt3__16vectorINS1_10shared_ptrINS_14ParseAttributeEEENS1_9allocatorIS5_EEEE_block_invoke_63;
+    v142[3] = &__block_descriptor_tmp_66;
+    v142[4] = v113;
+    v143 = v10;
     if (v10)
     {
       atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v146 = v118;
-    v147 = v11;
+    v144 = v119;
+    v145 = v11;
     if (v11)
     {
       atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    NL::EntityConverter::merge(a1 + 64, v72, v76, v74);
-    if (v147)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v147);
-    }
-
+    NL::EntityConverter::merge(a1 + 64, v72, v76, v74, v77, v142);
     if (v145)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v145);
+    }
+
+    if (v143)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v143);
     }
 
     if (v75)
@@ -826,46 +816,46 @@ LABEL_121:
     }
   }
 
-  v122 = v10;
-  v119 = v11;
-  v78 = v113;
-  v80 = v108;
-  v79 = v109;
-  v82 = v106;
-  v81 = v107;
+  v123 = v10;
+  v120 = v11;
+  v78 = v114;
+  v80 = v109;
+  v79 = v110;
+  v82 = v107;
+  v81 = v108;
 LABEL_167:
-  v115 = v6;
+  v116 = v6;
   __p = 0;
   p_p = &__p;
-  v135 = 0x3802000000;
-  v136 = __Block_byref_object_copy__42;
-  v138 = 0;
-  v139 = 0;
-  v137 = __Block_byref_object_dispose__43;
-  v126 = 0;
-  v127 = &v126;
-  v128 = 0x3802000000;
-  v129 = __Block_byref_object_copy__42;
-  v131 = 0;
-  v132 = 0;
-  v130 = __Block_byref_object_dispose__43;
+  v137 = 0x3802000000;
+  v138 = __Block_byref_object_copy__42;
+  v140 = 0;
+  v141 = 0;
+  v139 = __Block_byref_object_dispose__43;
+  v128 = 0;
+  v129 = &v128;
+  v130 = 0x3802000000;
+  v131 = __Block_byref_object_copy__42;
+  v133 = 0;
+  v134 = 0;
+  v132 = __Block_byref_object_dispose__43;
   if (v82)
   {
     v83 = v4;
     if (v79)
     {
-      v84 = v119;
+      v84 = v120;
       if (!v5)
       {
-        v138 = v82;
-        v139 = 0;
+        v140 = v82;
+        v141 = 0;
         goto LABEL_219;
       }
 
       atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-      v85 = v139;
-      v138 = v82;
-      v139 = v5;
+      v85 = v141;
+      v140 = v82;
+      v141 = v5;
       if (!v85)
       {
         goto LABEL_219;
@@ -880,15 +870,15 @@ LABEL_190:
     {
       if (!v5)
       {
-        v138 = v82;
-        v139 = 0;
+        v140 = v82;
+        v141 = 0;
         goto LABEL_266;
       }
 
       atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-      v87 = v139;
-      v138 = v82;
-      v139 = v5;
+      v87 = v141;
+      v140 = v82;
+      v141 = v5;
       if (!v87)
       {
         goto LABEL_266;
@@ -899,21 +889,21 @@ LABEL_199:
       goto LABEL_266;
     }
 
-    v86 = v110;
-    if (v110)
+    v86 = v111;
+    if (v111)
     {
-      v84 = v119;
+      v84 = v120;
       if (!v5)
       {
-        v138 = v82;
-        v139 = 0;
+        v140 = v82;
+        v141 = 0;
         goto LABEL_261;
       }
 
       atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-      v88 = v139;
-      v138 = v82;
-      v139 = v5;
+      v88 = v141;
+      v140 = v82;
+      v141 = v5;
       if (!v88)
       {
         goto LABEL_261;
@@ -925,9 +915,9 @@ LABEL_260:
     }
 
 LABEL_206:
-    v84 = v119;
+    v84 = v120;
 LABEL_207:
-    if (!v102)
+    if (!v103)
     {
       goto LABEL_223;
     }
@@ -936,22 +926,22 @@ LABEL_207:
     {
       if (!v83)
       {
-        v138 = v102;
-        v139 = 0;
+        v140 = v103;
+        v141 = 0;
         goto LABEL_219;
       }
 
       atomic_fetch_add_explicit(&v83->__shared_owners_, 1uLL, memory_order_relaxed);
-      v85 = v139;
-      v138 = v102;
-      v139 = v83;
+      v85 = v141;
+      v140 = v103;
+      v141 = v83;
       if (v85)
       {
         goto LABEL_190;
       }
 
 LABEL_219:
-      v89 = v127;
+      v89 = v129;
       if (v9)
       {
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -968,37 +958,37 @@ LABEL_219:
       goto LABEL_223;
     }
 
-    if (!v110)
+    if (!v111)
     {
       goto LABEL_223;
     }
 
     if (!v83)
     {
-      v138 = v102;
-      v139 = 0;
+      v140 = v103;
+      v141 = 0;
       goto LABEL_261;
     }
 
     atomic_fetch_add_explicit(&v83->__shared_owners_, 1uLL, memory_order_relaxed);
-    v88 = v139;
-    v138 = v102;
-    v139 = v83;
+    v88 = v141;
+    v140 = v103;
+    v141 = v83;
     if (v88)
     {
       goto LABEL_260;
     }
 
 LABEL_261:
-    v98 = v127;
+    v99 = v129;
     if (v78)
     {
       atomic_fetch_add_explicit(&v78->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v90 = v98[6];
-    v98[5] = v110;
-    v98[6] = v78;
+    v90 = v99[6];
+    v99[5] = v111;
+    v99[6] = v78;
     if (v90)
     {
       goto LABEL_222;
@@ -1011,19 +1001,19 @@ LABEL_261:
   v83 = v4;
   if (v79)
   {
-    if (v110)
+    if (v111)
     {
       if (v78)
       {
         atomic_fetch_add_explicit(&v78->__shared_owners_, 1uLL, memory_order_relaxed);
-        v85 = v139;
-        v138 = v110;
-        v139 = v78;
+        v85 = v141;
+        v140 = v111;
+        v141 = v78;
         goto LABEL_189;
       }
 
-      v138 = v110;
-      v139 = 0;
+      v140 = v111;
+      v141 = 0;
       goto LABEL_218;
     }
 
@@ -1032,11 +1022,11 @@ LABEL_261:
       if (v8)
       {
         atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-        v85 = v139;
-        v138 = v81;
-        v139 = v8;
+        v85 = v141;
+        v140 = v81;
+        v141 = v8;
 LABEL_189:
-        v84 = v119;
+        v84 = v120;
         if (!v85)
         {
           goto LABEL_219;
@@ -1045,10 +1035,10 @@ LABEL_189:
         goto LABEL_190;
       }
 
-      v138 = v81;
-      v139 = 0;
+      v140 = v81;
+      v141 = 0;
 LABEL_218:
-      v84 = v119;
+      v84 = v120;
       goto LABEL_219;
     }
 
@@ -1058,19 +1048,19 @@ LABEL_195:
       goto LABEL_206;
     }
 
-    if (v101)
+    if (v102)
     {
       if (!v7)
       {
-        v138 = v101;
-        v139 = 0;
+        v140 = v102;
+        v141 = 0;
         goto LABEL_266;
       }
 
       atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-      v87 = v139;
-      v138 = v101;
-      v139 = v7;
+      v87 = v141;
+      v140 = v102;
+      v141 = v7;
       if (!v87)
       {
         goto LABEL_266;
@@ -1079,20 +1069,20 @@ LABEL_195:
       goto LABEL_199;
     }
 
-    v84 = v119;
-    if (v110)
+    v84 = v120;
+    if (v111)
     {
       if (!v7)
       {
-        v138 = 0;
-        v139 = 0;
+        v140 = 0;
+        v141 = 0;
         goto LABEL_261;
       }
 
       atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-      v88 = v139;
-      v138 = 0;
-      v139 = v7;
+      v88 = v141;
+      v140 = 0;
+      v141 = v7;
       if (!v88)
       {
         goto LABEL_261;
@@ -1111,24 +1101,24 @@ LABEL_195:
 
   if (!v80)
   {
-    v86 = v110;
-    if (!v110)
+    v86 = v111;
+    if (!v111)
     {
       goto LABEL_206;
     }
 
-    v84 = v119;
+    v84 = v120;
     if (!v8)
     {
-      v138 = v81;
-      v139 = 0;
+      v140 = v81;
+      v141 = 0;
       goto LABEL_261;
     }
 
     atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-    v88 = v139;
-    v138 = v81;
-    v139 = v8;
+    v88 = v141;
+    v140 = v81;
+    v141 = v8;
     if (v88)
     {
       goto LABEL_260;
@@ -1139,31 +1129,31 @@ LABEL_195:
 
   if (!v8)
   {
-    v138 = v81;
-    v139 = 0;
+    v140 = v81;
+    v141 = 0;
     goto LABEL_266;
   }
 
   atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-  v87 = v139;
-  v138 = v81;
-  v139 = v8;
+  v87 = v141;
+  v140 = v81;
+  v141 = v8;
   if (v87)
   {
     goto LABEL_199;
   }
 
 LABEL_266:
-  v99 = v127;
-  if (v115)
+  v100 = v129;
+  if (v116)
   {
-    atomic_fetch_add_explicit(&v115->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v116->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v90 = v99[6];
-  v99[5] = v80;
-  v99[6] = v115;
-  v84 = v119;
+  v90 = v100[6];
+  v100[5] = v80;
+  v100[6] = v116;
+  v84 = v120;
   if (v90)
   {
 LABEL_222:
@@ -1171,20 +1161,20 @@ LABEL_222:
   }
 
 LABEL_223:
-  v117 = v7;
+  v118 = v7;
   v91 = p_p[5];
   if (v91)
   {
-    v92 = v127[5];
+    v92 = v129[5];
     if (v92)
     {
       v93 = *(v91 + 6);
       v94 = *(v91 + 7);
-      v125 = v8;
+      v126 = v8;
       if (v94)
       {
         atomic_fetch_add_explicit(&v94->__shared_owners_, 1uLL, memory_order_relaxed);
-        v92 = v127[5];
+        v92 = v129[5];
       }
 
       v95 = *(v92 + 48);
@@ -1192,17 +1182,24 @@ LABEL_223:
       if (v96)
       {
         atomic_fetch_add_explicit(&v96->__shared_owners_, 1uLL, memory_order_relaxed);
-        v92 = v127[5];
+        v92 = v129[5];
       }
 
-      v97 = *(v92 + 40);
-      NL::EntityConverter::merge(a1 + 64, v93, *(p_p[5] + 10), v95);
+      v97 = *(p_p[5] + 10);
+      v98 = *(v92 + 40);
+      v127[0] = MEMORY[0x277D85DD0];
+      v127[1] = 0x40000000;
+      v127[2] = ___ZN2NL12ParseBuilder5mergeERNSt3__16vectorINS1_10shared_ptrINS_14ParseAttributeEEENS1_9allocatorIS5_EEEE_block_invoke_67;
+      v127[3] = &unk_27873FD60;
+      v127[4] = &__p;
+      v127[5] = &v128;
+      NL::EntityConverter::merge(a1 + 64, v93, v97, v95, v98, v127);
       if (v96)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v96);
       }
 
-      v8 = v125;
+      v8 = v126;
       if (v94)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v94);
@@ -1210,16 +1207,16 @@ LABEL_223:
     }
   }
 
-  _Block_object_dispose(&v126, 8);
-  if (v132)
+  _Block_object_dispose(&v128, 8);
+  if (v134)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v132);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v134);
   }
 
   _Block_object_dispose(&__p, 8);
-  if (v139)
+  if (v141)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v139);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v141);
   }
 
   if (v84)
@@ -1227,9 +1224,9 @@ LABEL_223:
     std::__shared_weak_count::__release_shared[abi:ne200100](v84);
   }
 
-  if (v122)
+  if (v123)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v122);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v123);
   }
 
   if (v78)
@@ -1247,14 +1244,14 @@ LABEL_223:
     std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
 
-  if (v117)
+  if (v118)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v117);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v118);
   }
 
-  if (v115)
+  if (v116)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v115);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v116);
   }
 
   if (v5)
@@ -1334,9 +1331,9 @@ void sub_22CD4E810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t ___ZN2NL12ParseBuilder28updateIntentsForParseAtIndexEP8_NLParsell_block_invoke_2(uint64_t result, uint64_t *a2, uint64_t a3)
+void ___ZN2NL12ParseBuilder28updateIntentsForParseAtIndexEP8_NLParsell_block_invoke_2(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v3 = *(*(result + 32) + 8);
+  v3 = *(a1[4] + 8);
   v4 = *(v3 + 40);
   v5 = *(v3 + 48);
   if (v4 != v5)
@@ -1363,8 +1360,6 @@ LABEL_6:
 
     NL::ParseBuilder::getQuoteAttributeForEntity(&v9);
   }
-
-  return result;
 }
 
 void sub_22CD4EB0C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -1591,17 +1586,17 @@ void NL::ParseBuilder::parse(NL::ParseBuilder *this)
       if (*(this + 6))
       {
         v3 = *(this + 7);
-        v18 = *(this + 6);
-        v19 = v3;
+        v17 = *(this + 6);
+        v18 = v3;
         if (v3)
         {
           atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        NLGraphStructureSetGrammar(v2, &v18);
-        if (v19)
+        NLGraphStructureSetGrammar(v2, &v17);
+        if (v18)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v18);
         }
 
         v4 = *(*(this + 4) + 192) - *(*(this + 4) + 184);
@@ -1609,7 +1604,7 @@ void NL::ParseBuilder::parse(NL::ParseBuilder *this)
         {
           v5 = 0;
           v6 = 0xAAAAAAAAAAAAAAABLL * (v4 >> 3);
-          v12 = MEMORY[0x277D85DD0];
+          v11 = MEMORY[0x277D85DD0];
           if (v6 <= 1)
           {
             v7 = 1;
@@ -1622,28 +1617,26 @@ void NL::ParseBuilder::parse(NL::ParseBuilder *this)
 
           do
           {
-            v14 = 0;
-            v15 = &v14;
-            v16 = 0x2000000000;
-            v17 = 0;
+            v13 = 0;
+            v14 = &v13;
+            v15 = 0x2000000000;
+            v16 = 0;
             v8 = *(this + 4);
-            v13[0] = v12;
-            v13[1] = 0x40000000;
-            v13[2] = ___ZN2NL12ParseBuilder5parseEv_block_invoke;
-            v13[3] = &unk_27873FD88;
-            v13[4] = &v14;
-            v13[5] = this;
-            NL::QueryTokenizer::enumerateEntitiesAtTokenizationIndex(v8, v5, v13);
+            v12[0] = v11;
+            v12[1] = 0x40000000;
+            v12[2] = ___ZN2NL12ParseBuilder5parseEv_block_invoke;
+            v12[3] = &unk_27873FD88;
+            v12[4] = &v13;
+            v12[5] = this;
+            NL::QueryTokenizer::enumerateEntitiesAtTokenizationIndex(v8, v5, v12);
             v9 = NLGraphStructureStackCopyParsesWithCallback(*(this + 13), *(this + 6), parseIdentifier);
             if (v9)
             {
               NL::ParserContext::close(*(this + 2));
               if (CFArrayGetCount(v9) >= 1)
               {
-                CFArrayGetValueAtIndex(v9, 0);
-                v10 = *(*(this + 2) + 40);
-                v11 = v15[3];
-                NL::ParseBuilder::updateIntentsForParseAtIndex();
+                ValueAtIndex = CFArrayGetValueAtIndex(v9, 0);
+                NL::ParseBuilder::updateIntentsForParseAtIndex(this, ValueAtIndex, v14[3], v5);
               }
 
               CFRelease(v9);
@@ -1651,7 +1644,7 @@ void NL::ParseBuilder::parse(NL::ParseBuilder *this)
 
             NLGraphStructureStackReset(*(this + 13));
             NL::ParserContext::reset(*(this + 2));
-            _Block_object_dispose(&v14, 8);
+            _Block_object_dispose(&v13, 8);
             ++v5;
           }
 
@@ -1844,7 +1837,7 @@ uint64_t **std::__tree<std::string>::__assign_multi<std::__tree_const_iterator<s
 
   if (a2 != a3)
   {
-    std::__tree<std::string>::__emplace_multi<std::string const&>();
+    std::__tree<std::string>::__emplace_multi<std::string const&>(v5, (a2 + 4));
   }
 
   return result;
@@ -2082,18 +2075,18 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<long>>(uint64_t a1, u
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t *std::shared_ptr<NL::Entity>::shared_ptr[abi:ne200100]<NL::Entity,std::default_delete<NL::Entity>,0>(uint64_t *result, uint64_t *a2)
+uint64_t *std::shared_ptr<NL::Entity>::shared_ptr[abi:ne200100]<NL::Entity,std::default_delete<NL::Entity>,0>(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
-  *result = *a2;
+  *a1 = *a2;
   if (v2)
   {
     operator new();
   }
 
-  result[1] = 0;
+  a1[1] = 0;
   *a2 = 0;
-  return result;
+  return a1;
 }
 
 void std::__shared_ptr_pointer<NL::Entity  *>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
@@ -2205,11 +2198,11 @@ void NLHindiCanonicalizedMappings::NLHindiCanonicalizedMappings(NLHindiCanonical
 
 void NLHindiCanonicalizedMappings::loadDictMap(NLHindiCanonicalizedMappings *this)
 {
-  getPathForResource(@"roman-canonical.dat", &v4);
+  getPathForResource(&v4, @"roman-canonical.dat");
   v2 = std::string::compare(&v4, "");
   if (v2)
   {
-    NL::StringMap::createWithFile();
+    NL::StringMap::createWithFile(&v4);
   }
 
   v3 = NL::CFLogger::sharedInstance(v2);
@@ -2231,20 +2224,20 @@ void sub_22CD4FDF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t NLHindiCanonicalizedMappings::getWord@<X0>(uint64_t a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
+uint64_t **NLHindiCanonicalizedMappings::getWord@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>, const void **a3@<X1>)
 {
   result = *(a1 + 8);
   if (result)
   {
-    NL::StringMap::get(result, a2, a3);
+    NL::StringMap::get(result, a3, a2);
 
-    return std::string::compare(a3, "");
+    return std::string::compare(a2, "");
   }
 
   else
   {
-    *(a3 + 23) = 0;
-    *a3 = 0;
+    *(a2 + 23) = 0;
+    *a2 = 0;
   }
 
   return result;
@@ -2324,8 +2317,8 @@ BOOL compare_entities(const void **a1, uint64_t *a2)
     return 0;
   }
 
-  v7 = *(v2 + 16);
-  v8 = *(v2 + 17);
+  v7 = v2[16];
+  v8 = v2[17];
   if (v8)
   {
     atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -2410,18 +2403,17 @@ LABEL_17:
       v21 = *v12;
     }
 
-    v22 = *v16;
     if (v20 >= 0)
     {
-      v23 = *a2;
+      v22 = *a2;
     }
 
     else
     {
-      v23 = *v16;
+      v22 = *v16;
     }
 
-    return memcmp(v21, v23, v18) == 0;
+    return memcmp(v21, v22, v18) == 0;
   }
 }
 
@@ -2439,7 +2431,7 @@ uint64_t *enumerateIndexesOfRange(uint64_t *result, uint64_t a2, uint64_t a3, ui
       do
       {
         v11 = v10 >> 1;
-        v12 = &v8[2 * (v10 >> 1)];
+        v12 = (v8 + 16 * (v10 >> 1));
         v14 = *v12;
         v13 = v12 + 2;
         v10 += ~(v10 >> 1);
@@ -2477,8 +2469,8 @@ uint64_t *enumerateIndexesOfRange(uint64_t *result, uint64_t a2, uint64_t a3, ui
             return result;
           }
 
-          v8 += 2;
-          v15 += 2;
+          v8 += 16;
+          v15 += 16;
         }
 
         while (v8 != v7);
@@ -2583,11 +2575,11 @@ uint64_t containsRange(const __CFString *a1, CFIndex a2, CFIndex a3, uint64_t *a
   return v11 & 1;
 }
 
-void sub_22CD50364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_22CD50364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
-  *(v13 - 56) = v12;
-  std::vector<std::shared_ptr<NL::ParseAttribute>>::__destroy_vector::operator()[abi:ne200100]((v13 - 56));
+  va_start(va, a19);
+  *(v20 - 56) = v19;
+  std::vector<std::shared_ptr<NL::ParseAttribute>>::__destroy_vector::operator()[abi:ne200100]((v20 - 56));
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2599,7 +2591,7 @@ uint64_t ___Z13containsRangePK10__CFString7CFRangeNSt3__16vectorINS3_10shared_pt
   return result;
 }
 
-void subtokenize(const __CFString *a1, CFIndex a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t *a6)
+void subtokenize(const __CFString *a1, CFIndex a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
 {
   v6 = a3 - 1;
   if (a3 < 1)
@@ -2634,7 +2626,7 @@ LABEL_9:
     __p = 0;
     v16 = 0;
     v17 = 0;
-    std::vector<CFRange>::__init_with_size[abi:ne200100]<CFRange*,CFRange*>(&__p, *a4, a4[1], (a4[1] - *a4) >> 4);
+    std::vector<CFRange>::__init_with_size[abi:ne200100]<CFRange*,CFRange*>(&__p, *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 4);
     if ((v19 & 1) == 0)
     {
       std::vector<CFRange>::push_back[abi:ne200100](&__p, &v20);
@@ -2642,7 +2634,7 @@ LABEL_9:
 
     memset(v14, 0, sizeof(v14));
     std::vector<std::shared_ptr<NL::Entity>>::__init_with_size[abi:ne200100]<std::shared_ptr<NL::Entity>*,std::shared_ptr<NL::Entity>*>(v14, *a6, a6[1], (a6[1] - *a6) >> 4);
-    subtokenize(a1, a2 + i, v6, &__p, a5, v14);
+    subtokenize(a1, a2 + i, v6, &__p, a5);
     v21 = v14;
     std::vector<std::shared_ptr<NL::ParseAttribute>>::__destroy_vector::operator()[abi:ne200100](&v21);
     if (__p)
@@ -2734,7 +2726,7 @@ void std::vector<CFRange>::push_back[abi:ne200100](uint64_t a1, _OWORD *a2)
   *(a1 + 8) = v6;
 }
 
-uint64_t std::vector<std::vector<CFRange>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<CFRange>>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -2745,7 +2737,7 @@ uint64_t std::vector<std::vector<CFRange>>::push_back[abi:ne200100](uint64_t a1,
   else
   {
     std::vector<std::vector<CFRange>>::__construct_one_at_end[abi:ne200100]<std::vector<CFRange> const&>(a1, a2);
-    result = v3 + 24;
+    result = (v3 + 24);
   }
 
   *(a1 + 8) = result;
@@ -3076,7 +3068,7 @@ void NL::QueryTokenizer::tokenize(NL::QueryTokenizer *this)
       {
         v60.length = CFStringGetLength(*(this + 13));
         v60.location = 0;
-        NL::EntityConverter::entityWithString(*(this + 6), *(this + 13), v60, &v51);
+        NL::EntityConverter::entityWithString(&v51, *(this + 6), *(this + 13), v60);
         v54 = v51;
         if (v51)
         {
@@ -3141,11 +3133,11 @@ void NL::QueryTokenizer::tokenize(NL::QueryTokenizer *this)
                 v44 = 0;
                 v45 = 0;
                 v46 = 0;
-                std::vector<CFRange>::__init_with_size[abi:ne200100]<CFRange*,CFRange*>(&v44, v8->n128_u64[0], v8->n128_i64[1], (v8->n128_u64[1] - v8->n128_u64[0]) >> 4);
+                std::vector<CFRange>::__init_with_size[abi:ne200100]<CFRange*,CFRange*>(&v44, *v8, *(v8 + 1), (*(v8 + 1) - *v8) >> 4);
                 __p = 0;
                 v42 = 0;
                 v43 = 0;
-                std::vector<std::vector<CFRange>>::push_back[abi:ne200100](this + 184, &__p);
+                std::vector<std::vector<CFRange>>::push_back[abi:ne200100](this + 23, &__p);
                 if (__p)
                 {
                   v42 = __p;
@@ -3200,7 +3192,7 @@ void NL::QueryTokenizer::tokenize(NL::QueryTokenizer *this)
                 }
 
                 ++v9;
-                v8 = (v8 + 24);
+                v8 += 24;
               }
 
               while (v8 != v33);
@@ -3322,18 +3314,18 @@ void sub_22CD51388(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t NL::QueryTokenizer::getEntityAtLocation@<X0>(uint64_t this@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
+uint64_t *NL::QueryTokenizer::getEntityAtLocation@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>, unint64_t a3@<X1>)
 {
-  if ((a2 & 0x8000000000000000) != 0 || (v3 = *(this + 160), a2 >= (*(this + 168) - v3) >> 4))
+  if ((a3 & 0x8000000000000000) != 0 || (v3 = this[20], a3 >= (this[21] - v3) >> 4))
   {
-    *a3 = 0;
-    a3[1] = 0;
+    *a1 = 0;
+    a1[1] = 0;
   }
 
   else
   {
-    v4 = *(v3 + 16 * a2);
-    *a3 = v4;
+    v4 = *(v3 + 16 * a3);
+    *a1 = v4;
     if (*(&v4 + 1))
     {
       atomic_fetch_add_explicit((*(&v4 + 1) + 8), 1uLL, memory_order_relaxed);
@@ -3364,16 +3356,9 @@ uint64_t NL::QueryTokenizer::tokenRangeAtTokenizationIndexForSpan(NL::QueryToken
         v3 = -1;
         do
         {
-          v8 = v6[1];
-          if (v8 == a3.location)
+          if (v6[1] == a3.location)
           {
             v3 = *(*(*(this + 20) + 16 * *v6) + 96);
-          }
-
-          if (v8 >= a3.location && v8 < a3.location + a3.length)
-          {
-            v10 = *(*(this + 20) + 16 * *v6);
-            v11 = *(v10 + 96) - v3 + *(v10 + 104);
           }
 
           v6 += 2;
@@ -3602,9 +3587,9 @@ LABEL_14:
   return v6 & 1;
 }
 
-void sub_22CD51958(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22CD51958(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -3615,35 +3600,45 @@ void NL::QueryTokenizer::updateEntitiesWithQuotedTextValues(uint64_t a1, uint64_
   {
     v3 = a2;
     result = xmmword_22CDDE2F0;
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x4002000000;
-    v15 = __Block_byref_object_copy__2;
-    v16 = __Block_byref_object_dispose__2;
-    memset(v17, 0, sizeof(v17));
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x4002000000;
+    v26 = __Block_byref_object_copy__2;
+    v27 = __Block_byref_object_dispose__2;
+    memset(v28, 0, sizeof(v28));
     v4 = *(a1 + 112);
     v5 = *(a1 + 120);
     if (v4 != v5)
     {
-      location = -1;
+      v6 = -1;
       v7 = -1;
       do
       {
         if ((*(v4 + 17) & 4) != 0 && CFStringFindCharacterFromSet(*(a1 + 104), *(a1 + 56), *v4, 0, &result))
         {
-          if (location == -1)
+          location = result.location;
+          length = result.length;
+          if (v6 == -1)
           {
             v7 = result.length + result.location;
-            location = result.location;
+            v6 = result.location;
           }
 
           else
           {
-            v20.length = result.location - v7;
-            v20.location = v7;
-            v7 = NL::QueryTokenizer::contentRangeFromRange(a1, v20);
-            NL::EntityConverter::enumerateEntitiesWithString(*(a1 + 48), *(a1 + 104), @"QuotedText", v7, v8);
-            location = -1;
+            v31.length = result.location - v7;
+            v31.location = v7;
+            v7 = NL::QueryTokenizer::contentRangeFromRange(a1, v31);
+            v11 = v10;
+            v12 = *(a1 + 48);
+            v13 = *(a1 + 104);
+            v22[0] = MEMORY[0x277D85DD0];
+            v22[1] = 0x40000000;
+            v22[2] = ___ZN2NL14QueryTokenizer34updateEntitiesWithQuotedTextValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke;
+            v22[3] = &unk_27873FDB0;
+            v22[4] = &v23;
+            NL::EntityConverter::enumerateEntitiesWithString(v12, v13, @"QuotedText", v7, v11, v6, location - v6 + length, v22);
+            v6 = -1;
           }
         }
 
@@ -3652,29 +3647,37 @@ void NL::QueryTokenizer::updateEntitiesWithQuotedTextValues(uint64_t a1, uint64_
 
       while (v4 != v5);
       v3 = a2;
-      if (location != -1)
+      if (v6 != -1)
       {
-        CFStringGetLength(*(a1 + 104));
-        v21.length = CFStringGetLength(*(a1 + 104)) - v7;
-        v21.location = v7;
-        v9 = NL::QueryTokenizer::contentRangeFromRange(a1, v21);
-        NL::EntityConverter::enumerateEntitiesWithString(*(a1 + 48), *(a1 + 104), @"QuotedText", v9, v10);
+        v14 = CFStringGetLength(*(a1 + 104));
+        v32.length = CFStringGetLength(*(a1 + 104)) - v7;
+        v32.location = v7;
+        v15 = NL::QueryTokenizer::contentRangeFromRange(a1, v32);
+        v17 = v16;
+        v18 = *(a1 + 48);
+        v19 = *(a1 + 104);
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 0x40000000;
+        v21[2] = ___ZN2NL14QueryTokenizer34updateEntitiesWithQuotedTextValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke_2;
+        v21[3] = &unk_27873FDD8;
+        v21[4] = &v23;
+        NL::EntityConverter::enumerateEntitiesWithString(v18, v19, @"QuotedText", v15, v17, v6, v14 - v6, v21);
       }
     }
 
-    std::vector<std::shared_ptr<NL::Entity>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<NL::Entity>*>,std::__wrap_iter<std::shared_ptr<NL::Entity>*>>(v3, *(v3 + 8), v13[5], v13[6], (v13[6] - v13[5]) >> 4);
-    _Block_object_dispose(&v12, 8);
-    v19 = v17;
-    std::vector<std::shared_ptr<NL::ParseAttribute>>::__destroy_vector::operator()[abi:ne200100](&v19);
+    std::vector<std::shared_ptr<NL::Entity>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<NL::Entity>*>,std::__wrap_iter<std::shared_ptr<NL::Entity>*>>(v3, *(v3 + 8), v24[5], v24[6], (v24[6] - v24[5]) >> 4);
+    _Block_object_dispose(&v23, 8);
+    v30 = v28;
+    std::vector<std::shared_ptr<NL::ParseAttribute>>::__destroy_vector::operator()[abi:ne200100](&v30);
   }
 }
 
-void sub_22CD51BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22CD51BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  *(v13 - 112) = a3;
-  std::vector<std::shared_ptr<NL::ParseAttribute>>::__destroy_vector::operator()[abi:ne200100]((v13 - 112));
+  *(v20 - 112) = a10;
+  std::vector<std::shared_ptr<NL::ParseAttribute>>::__destroy_vector::operator()[abi:ne200100]((v20 - 112));
   _Unwind_Resume(a1);
 }
 
@@ -3840,11 +3843,11 @@ LABEL_6:
   return v8;
 }
 
-uint64_t ___ZN2NL14QueryTokenizer34updateEntitiesWithQuotedTextValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke(uint64_t result, uint64_t *a2)
+uint64_t *___ZN2NL14QueryTokenizer34updateEntitiesWithQuotedTextValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke(uint64_t *result, uint64_t *a2)
 {
   if (*a2)
   {
-    v2 = *(*(result + 32) + 8);
+    v2 = *(result[4] + 8);
     v3 = *(v2 + 48);
     if (v3 >= *(v2 + 56))
     {
@@ -3854,7 +3857,7 @@ uint64_t ___ZN2NL14QueryTokenizer34updateEntitiesWithQuotedTextValuesERNSt3__16v
     else
     {
       std::shared_ptr<NL::Entity>::shared_ptr[abi:ne200100]<NL::Entity,std::default_delete<NL::Entity>,0>(*(v2 + 48), a2);
-      result = v3 + 16;
+      result = (v3 + 16);
       *(v2 + 48) = v3 + 16;
     }
 
@@ -3864,11 +3867,11 @@ uint64_t ___ZN2NL14QueryTokenizer34updateEntitiesWithQuotedTextValuesERNSt3__16v
   return result;
 }
 
-uint64_t ___ZN2NL14QueryTokenizer34updateEntitiesWithQuotedTextValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke_2(uint64_t result, uint64_t *a2)
+uint64_t *___ZN2NL14QueryTokenizer34updateEntitiesWithQuotedTextValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke_2(uint64_t *result, uint64_t *a2)
 {
   if (*a2)
   {
-    v2 = *(*(result + 32) + 8);
+    v2 = *(result[4] + 8);
     v3 = *(v2 + 48);
     if (v3 >= *(v2 + 56))
     {
@@ -3878,7 +3881,7 @@ uint64_t ___ZN2NL14QueryTokenizer34updateEntitiesWithQuotedTextValuesERNSt3__16v
     else
     {
       std::shared_ptr<NL::Entity>::shared_ptr[abi:ne200100]<NL::Entity,std::default_delete<NL::Entity>,0>(*(v2 + 48), a2);
-      result = v3 + 16;
+      result = (v3 + 16);
       *(v2 + 48) = v3 + 16;
     }
 
@@ -3965,8 +3968,9 @@ void NL::QueryTokenizer::updateEntitiesWithKnownValues(void *a1, uint64_t a2, ui
   }
 }
 
-void sub_22CD5219C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void **a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, std::__shared_weak_count *a25, void **a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_22CD5219C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void **a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, std::__shared_weak_count *a25, void **a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
+  va_start(va, a33);
   _Block_object_dispose(&a19, 8);
   if (a25)
   {
@@ -3975,11 +3979,11 @@ void sub_22CD5219C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   _Block_object_dispose(&a26, 8);
   std::vector<std::shared_ptr<NL::ParseAttribute>>::__destroy_vector::operator()[abi:ne200100](&a19);
-  _Block_object_dispose(&a34, 8);
+  _Block_object_dispose(va, 8);
   std::vector<std::shared_ptr<NL::ParseAttribute>>::__destroy_vector::operator()[abi:ne200100](&a26);
-  _Block_object_dispose((v35 - 168), 8);
-  _Block_object_dispose((v35 - 112), 8);
-  std::__tree<std::string>::destroy(v34 + 40, *(v35 - 64));
+  _Block_object_dispose((v34 - 168), 8);
+  _Block_object_dispose((v34 - 112), 8);
+  std::__tree<std::string>::destroy(v33 + 40, *(v34 - 64));
   _Unwind_Resume(a1);
 }
 
@@ -4046,7 +4050,7 @@ void ___ZN2NL14QueryTokenizer29updateEntitiesWithKnownValuesEPK10__CFStringRNSt3
 {
   v10 = a1[4].i64[1];
   v11 = v10[2];
-  getUTF8StringFromCFString(a2, &__p);
+  getUTF8StringFromCFString(&__p, a2);
   NL::SearchGrammar::getValidTypeName(v11, &__p, &v59);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -4198,7 +4202,7 @@ LABEL_38:
           *(v52 + 48) = a4;
         }
 
-        std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(*(a1[2].i64[1] + 8) + 40, &v59.__r_.__value_.__l.__data_);
+        std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>((*(a1[2].i64[1] + 8) + 40), &v59.__r_.__value_.__l.__data_, &v59);
       }
     }
   }
@@ -4280,8 +4284,7 @@ uint64_t NL::QueryTokenizer::tokenRangeForSearchPiece(NL::QueryTokenizer *this, 
             break;
           }
 
-          v23 = (v2 + 24 * v17);
-          v22 = *v23;
+          v22 = *(v2 + 24 * v17);
           if (result == -1)
           {
             result = v22;
@@ -4306,8 +4309,8 @@ uint64_t NL::QueryTokenizer::tokenRangeForSearchPiece(NL::QueryTokenizer *this, 
     return -1;
   }
 
-  v24 = *(this + 18);
-  if (v6 == v24)
+  v23 = *(this + 18);
+  if (v6 == v23)
   {
     return -1;
   }
@@ -4315,38 +4318,36 @@ uint64_t NL::QueryTokenizer::tokenRangeForSearchPiece(NL::QueryTokenizer *this, 
   result = -1;
   if (v3 != v2 && *(v6 + 1) + *v6 <= a2.length)
   {
-    v25 = v6 + 16;
-    v26 = (v2 + 8);
-    v27 = 1;
+    v24 = v6 + 16;
+    v25 = v2 + 8;
+    v26 = 1;
     do
     {
-      v28 = v26;
-      v29 = *(v26 - 1);
+      v27 = v25;
       if (result == -1)
       {
-        result = *(v26 - 1);
+        result = *(v25 - 8);
       }
 
-      if (v25 == v24)
+      if (v24 == v23)
       {
         break;
       }
 
-      if (v27 >= v5)
+      if (v26 >= v5)
       {
         break;
       }
 
-      v30 = *v25;
-      v31 = *(v25 + 1);
-      v25 += 16;
-      v32 = v31 + v30;
-      v26 = v28 + 3;
-      ++v27;
+      v28 = *v24;
+      v29 = *(v24 + 1);
+      v24 += 16;
+      v30 = v29 + v28;
+      v25 = v27 + 24;
+      ++v26;
     }
 
-    while (v32 <= a2.length);
-    v33 = *v28 + v29 - result;
+    while (v30 <= a2.length);
   }
 
   return result;
@@ -4604,7 +4605,7 @@ void **NL::Entity::addVariant(void **result, __int128 *a2)
   v5 = result[22];
   if (v4 >= v5)
   {
-    v8 = (result + 20);
+    v8 = result + 20;
     v9 = v3[20];
     v10 = (v4 - v9) >> 4;
     v11 = v10 + 1;
@@ -4646,7 +4647,7 @@ void **NL::Entity::addVariant(void **result, __int128 *a2)
     v7 = (v14 + 16);
     v16 = v3[20];
     v17 = v3[21] - v16;
-    v18 = v14 - v17;
+    v18 = (v14 - v17);
     memcpy((v14 - v17), v16, v17);
     v19 = v3[20];
     v3[20] = v18;
@@ -4682,7 +4683,7 @@ void NL::QueryTokenizer::updateEntitiesWithUnknownValues(const __CFString **a1, 
   v3 = a1[13];
   if (v3 && a2[1] != *a2)
   {
-    v110 = a1;
+    v126 = a1;
     Length = CFStringGetLength(v3);
     v5 = a2[1];
     v6 = 126 - 2 * __clz((v5 - *a2) >> 4);
@@ -4696,21 +4697,21 @@ void NL::QueryTokenizer::updateEntitiesWithUnknownValues(const __CFString **a1, 
       v7 = v6;
     }
 
-    std::__introsort<std::_ClassicAlgPolicy,entity_less_than_range &,std::shared_ptr<NL::Entity> *,false>(*a2, v5, &v125, v7, 1);
-    v125 = 0;
-    v126 = &v125;
-    v127 = 0x4002000000;
-    v128 = __Block_byref_object_copy__2;
-    v129 = __Block_byref_object_dispose__2;
-    memset(v130, 0, sizeof(v130));
-    v117 = 0;
-    v118 = &v117;
-    v119 = 0x4002000000;
-    v120 = __Block_byref_object_copy__26;
-    v121 = __Block_byref_object_dispose__27;
-    v122 = 0;
-    v123 = 0;
-    v124 = 0;
+    std::__introsort<std::_ClassicAlgPolicy,entity_less_than_range &,std::shared_ptr<NL::Entity> *,false>(*a2, v5, &v147, v7, 1);
+    v147 = 0;
+    v148 = &v147;
+    v149 = 0x4002000000;
+    v150 = __Block_byref_object_copy__2;
+    v151 = __Block_byref_object_dispose__2;
+    memset(v152, 0, sizeof(v152));
+    v139 = 0;
+    v140 = &v139;
+    v141 = 0x4002000000;
+    v142 = __Block_byref_object_copy__26;
+    v143 = __Block_byref_object_dispose__27;
+    v144 = 0;
+    v145 = 0;
+    v146 = 0;
     v8 = *a2;
     v9 = a2[1];
     if (*a2 == v9)
@@ -4725,117 +4726,118 @@ void NL::QueryTokenizer::updateEntitiesWithUnknownValues(const __CFString **a1, 
       v12 = -1;
       do
       {
-        v107 = *v8;
+        v123 = *v8;
         v13 = v8[1];
         if (v13)
         {
-          atomic_fetch_add_explicit(((*(v8 + 1) >> 64) + 8), 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit((v8[1] + 8), 1uLL, memory_order_relaxed);
         }
 
-        v14 = *(v107 + 96);
-        if (v12 == -1 || ((v15 = *(v107 + 104) + v14, v16 = v12 + v11, v14 >= v12) ? (v17 = v15 < v16) : (v17 = 0), !v17 && (v14 > v12 ? (v18 = v15 <= v16) : (v18 = 0), !v18)))
+        v14 = *(v123 + 96);
+        if (v12 == -1 || ((v15 = *(v123 + 104) + v14, v16 = v12 + v11, v14 >= v12) ? (v17 = v15 < v16) : (v17 = 0), !v17 && (v14 > v12 ? (v18 = v15 <= v16) : (v18 = 0), !v18)))
         {
+          v19 = v14 - v10;
           if (v14 > v10)
           {
-            v132.location = v10;
-            v132.length = v14 - v10;
-            v20 = NL::QueryTokenizer::contentRangeFromRange(v110, v132);
-            if (v20 != -1)
+            v154.location = v10;
+            v154.length = v14 - v10;
+            v21 = NL::QueryTokenizer::contentRangeFromRange(v126, v154);
+            if (v21 != -1)
             {
-              v21 = v19;
-              v22 = *(v110 + 6);
-              v23 = *(v110 + 13);
-              v116[9] = MEMORY[0x277D85DD0];
-              v116[10] = 0x40000000;
-              v116[11] = ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke;
-              v116[12] = &unk_27873FE50;
-              v116[13] = &v117;
-              v116[14] = &v125;
-              NL::EntityConverter::enumerateEntitiesWithString(v22, v23, 0, v20, v21);
+              v22 = v20;
+              v23 = *(v126 + 6);
+              v24 = *(v126 + 13);
+              v138[0] = MEMORY[0x277D85DD0];
+              v138[1] = 0x40000000;
+              v138[2] = ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke;
+              v138[3] = &unk_27873FE50;
+              v138[4] = &v139;
+              v138[5] = &v147;
+              NL::EntityConverter::enumerateEntitiesWithString(v23, v24, 0, v21, v22, v10, v19, v138);
             }
           }
 
-          v24 = v126;
-          if (*(v107 + 112) == 7)
+          v25 = v148;
+          if (*(v123 + 112) == 7)
           {
-            v111 = (v126[6] - v126[5]) >> 4;
-            std::vector<long>::push_back[abi:ne200100](v118 + 5, &v111);
-            v24 = v126;
+            v131 = (v148[6] - v148[5]) >> 4;
+            std::vector<long>::push_back[abi:ne200100](v140 + 5, &v131);
+            v25 = v148;
           }
 
-          v25 = v24[6];
-          v26 = v24[7];
-          if (v25 >= v26)
+          v26 = v25[6];
+          v27 = v25[7];
+          if (v26 >= v27)
           {
-            v28 = v24[5];
-            v29 = (v25 - v28) >> 4;
-            v30 = v29 + 1;
-            if ((v29 + 1) >> 60)
+            v29 = v25[5];
+            v30 = (v26 - v29) >> 4;
+            v31 = v30 + 1;
+            if ((v30 + 1) >> 60)
             {
               std::vector<NLExtendedString>::__throw_length_error[abi:ne200100]();
             }
 
-            v31 = v26 - v28;
-            if (v31 >> 3 > v30)
+            v32 = v27 - v29;
+            if (v32 >> 3 > v31)
             {
-              v30 = v31 >> 3;
+              v31 = v32 >> 3;
             }
 
-            if (v31 >= 0x7FFFFFFFFFFFFFF0)
+            if (v32 >= 0x7FFFFFFFFFFFFFF0)
             {
-              v32 = 0xFFFFFFFFFFFFFFFLL;
+              v33 = 0xFFFFFFFFFFFFFFFLL;
             }
 
             else
             {
-              v32 = v30;
+              v33 = v31;
             }
 
-            v115 = (v24 + 5);
-            if (v32)
+            v135 = (v25 + 5);
+            if (v33)
             {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<NL::ParseIntent>>>((v24 + 5), v32);
+              std::__allocate_at_least[abi:ne200100]<std::allocator<std::shared_ptr<NL::ParseIntent>>>((v25 + 5), v33);
             }
 
-            v33 = 16 * v29;
-            *(16 * v29) = v107;
+            v34 = 16 * v30;
+            *(16 * v30) = v123;
             if (v13)
             {
               atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
-            v27 = (v33 + 16);
-            v34 = v24[5];
-            v35 = v24[6] - v34;
-            v36 = v33 - v35;
-            memcpy((v33 - v35), v34, v35);
-            v37 = v24[5];
-            v24[5] = v36;
-            v24[6] = v27;
-            v38 = v24[7];
-            v24[7] = 0;
-            v113 = v37;
-            v114 = v38;
-            v111 = v37;
-            v112 = v37;
-            std::__split_buffer<std::shared_ptr<NL::ParseIntent>>::~__split_buffer(&v111);
+            v28 = (v34 + 16);
+            v35 = v25[5];
+            v36 = v25[6] - v35;
+            v37 = v34 - v36;
+            memcpy((v34 - v36), v35, v36);
+            v38 = v25[5];
+            v25[5] = v37;
+            v25[6] = v28;
+            v39 = v25[7];
+            v25[7] = 0;
+            v133 = v38;
+            v134 = v39;
+            v131 = v38;
+            v132 = v38;
+            std::__split_buffer<std::shared_ptr<NL::ParseIntent>>::~__split_buffer(&v131);
           }
 
           else
           {
-            *v25 = v107;
-            v25[1] = v13;
+            *v26 = v123;
+            v26[1] = v13;
             if (v13)
             {
               atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
-            v27 = v25 + 2;
+            v28 = v26 + 2;
           }
 
-          v24[6] = v27;
-          v12 = *(v107 + 96);
-          v11 = *(v107 + 104);
+          v25[6] = v28;
+          v12 = *(v123 + 96);
+          v11 = *(v123 + 104);
           v10 = v11 + v12;
         }
 
@@ -4852,71 +4854,71 @@ void NL::QueryTokenizer::updateEntitiesWithUnknownValues(const __CFString **a1, 
 
     if (Length > v10)
     {
-      v133.location = v10;
-      v133.length = Length - v10;
-      v40 = NL::QueryTokenizer::contentRangeFromRange(v110, v133);
-      if (v40 != -1)
+      v155.location = v10;
+      v155.length = Length - v10;
+      v41 = NL::QueryTokenizer::contentRangeFromRange(v126, v155);
+      if (v41 != -1)
       {
-        v41 = v39;
-        v42 = *(v110 + 6);
-        v43 = *(v110 + 13);
-        v116[3] = MEMORY[0x277D85DD0];
-        v116[4] = 0x40000000;
-        v116[5] = ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke_2;
-        v116[6] = &unk_27873FE78;
-        v116[7] = &v117;
-        v116[8] = &v125;
-        NL::EntityConverter::enumerateEntitiesWithString(v42, v43, 0, v40, v41);
+        v42 = v40;
+        v43 = *(v126 + 6);
+        v44 = *(v126 + 13);
+        v137[0] = MEMORY[0x277D85DD0];
+        v137[1] = 0x40000000;
+        v137[2] = ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke_2;
+        v137[3] = &unk_27873FE78;
+        v137[4] = &v139;
+        v137[5] = &v147;
+        NL::EntityConverter::enumerateEntitiesWithString(v43, v44, 0, v41, v42, v10, Length - v10, v137);
       }
     }
 
-    v111 = 0;
-    v112 = &v111;
-    v113 = 0x4002000000;
-    v114 = __Block_byref_object_copy__2;
-    v115 = __Block_byref_object_dispose__2;
-    memset(v116, 0, 24);
-    IsCJ = NL::ParserContext::languageIsCJ(*v110);
-    v46 = v118[5];
-    v45 = v118[6];
-    v104 = v45;
+    v131 = 0;
+    v132 = &v131;
+    v133 = 0x4002000000;
+    v134 = __Block_byref_object_copy__2;
+    v135 = __Block_byref_object_dispose__2;
+    memset(v136, 0, sizeof(v136));
+    IsCJ = NL::ParserContext::languageIsCJ(*v126);
+    v47 = v140[5];
+    v46 = v140[6];
+    v120 = v46;
     if (IsCJ)
     {
-      if (v46 != v45)
+      if (v47 != v46)
       {
         while (1)
         {
-          v47 = *v46;
-          v48 = (v126[5] + 16 * *v46);
-          v50 = *v48;
-          v49 = v48[1];
-          if (v49)
+          v48 = *v47;
+          v49 = (v148[5] + 16 * *v47);
+          v51 = *v49;
+          v50 = v49[1];
+          if (v50)
           {
-            atomic_fetch_add_explicit(&v49->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v50->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          CFStringFromString = createCFStringFromString(v50);
-          v52 = CFStringFromString;
+          CFStringFromString = createCFStringFromString(v51);
+          v53 = CFStringFromString;
           p_isa = &CFStringFromString->isa;
-          if (v47)
+          if (v48)
           {
             break;
           }
 
 LABEL_84:
-          if (v52)
+          if (v53)
           {
-            CFRelease(v52);
+            CFRelease(v53);
           }
 
-          if (v49)
+          if (v50)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v49);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v50);
           }
 
-          if (v47)
+          if (v48)
           {
-            if (++v46 != v45)
+            if (++v47 != v46)
             {
               continue;
             }
@@ -4925,95 +4927,113 @@ LABEL_84:
           goto LABEL_131;
         }
 
-        v105 = CFStringFromString;
-        v100 = v47;
-        v102 = v49;
-        v108 = v46;
-        v54 = *(v50 + 96);
-        v53 = *(v50 + 104);
-        v55 = v54 + v53;
-        v56 = v47 + 1;
-        v57 = 16 * v47;
+        v121 = CFStringFromString;
+        v116 = v48;
+        v118 = v50;
+        v124 = v47;
+        v55 = *(v51 + 96);
+        v54 = *(v51 + 104);
+        v56 = v55 + v54;
+        v57 = v48 + 1;
+        v58 = 16 * v48;
         while (1)
         {
-          if (--v56 < 1)
+          if (--v57 < 1)
           {
 LABEL_80:
-            v46 = v108;
-            v49 = v102;
-            v45 = v104;
-            v47 = v100;
-            v52 = v105;
-            if (v55)
+            v47 = v124;
+            v50 = v118;
+            v46 = v120;
+            v48 = v116;
+            v53 = v121;
+            if (v56)
             {
-              v135.location = 0;
-              v135.length = v55;
-              v69 = NL::QueryTokenizer::contentRangeFromRange(v110, v135);
-              if (v69 || v68 != Length)
+              v157.location = 0;
+              v157.length = v56;
+              v75 = NL::QueryTokenizer::contentRangeFromRange(v126, v157);
+              v76 = v74;
+              if (v75 || v74 != Length)
               {
-                NL::EntityConverter::enumerateEntitiesWithString(*(v110 + 6), *(v110 + 13), v105, v69, v68);
+                v77 = *(v126 + 6);
+                v78 = *(v126 + 13);
+                v127[0] = MEMORY[0x277D85DD0];
+                v127[1] = 0x40000000;
+                v127[2] = ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke_6;
+                v127[3] = &unk_27873FF18;
+                v127[4] = &v131;
+                NL::EntityConverter::enumerateEntitiesWithString(v77, v78, v121, v75, v76, 0, v56, v127);
               }
             }
 
             goto LABEL_84;
           }
 
-          v58 = v126[5] + v57;
-          v60 = *(v58 - 16);
-          v59 = *(v58 - 8);
-          if (v59)
+          v59 = v148[5] + v58;
+          v61 = *(v59 - 16);
+          v60 = *(v59 - 8);
+          if (v60)
           {
-            atomic_fetch_add_explicit(&v59->__shared_owners_, 1uLL, memory_order_relaxed);
+            atomic_fetch_add_explicit(&v60->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v62 = *(v60 + 96);
-          v61 = *(v60 + 104);
-          if (v62 == -1 || v61 + v62 > *(v50 + 96))
+          v63 = *(v61 + 96);
+          v62 = *(v61 + 104);
+          if (v63 == -1 || v62 + v63 > *(v51 + 96))
           {
             goto LABEL_64;
           }
 
-          if (NL::SearchGrammar::isTypeValidForTopic(*(v110 + 2), v60))
+          if (NL::SearchGrammar::isTypeValidForTopic(*(v126 + 2), v61))
           {
             break;
           }
 
-          v134.location = v54;
-          v134.length = v55 - v54;
-          v66 = NL::QueryTokenizer::contentRangeFromRange(v110, v134);
-          if ((v66 != *(v50 + 96) || v67 != *(v50 + 104)) && (v66 || v67 != Length))
+          v67 = v56 - v55;
+          v156.location = v55;
+          v156.length = v67;
+          v68 = NL::QueryTokenizer::contentRangeFromRange(v126, v156);
+          v70 = v68;
+          v71 = v69;
+          if ((v68 != *(v51 + 96) || v69 != *(v51 + 104)) && (v68 || v69 != Length))
           {
-            NL::EntityConverter::enumerateEntitiesWithString(*(v110 + 6), *(v110 + 13), v105, v66, v67);
+            v72 = *(v126 + 6);
+            v73 = *(v126 + 13);
+            v128[0] = MEMORY[0x277D85DD0];
+            v128[1] = 0x40000000;
+            v128[2] = ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke_5;
+            v128[3] = &unk_27873FEF0;
+            v128[4] = &v131;
+            NL::EntityConverter::enumerateEntitiesWithString(v72, v73, v121, v70, v71, v55, v67, v128);
           }
 
-          v55 = 0;
-          v65 = 0;
-          if (!v59)
+          v56 = 0;
+          v66 = 0;
+          if (!v60)
           {
             goto LABEL_71;
           }
 
 LABEL_70:
-          std::__shared_weak_count::__release_shared[abi:ne200100](v59);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v60);
 LABEL_71:
-          v57 -= 16;
-          if ((v65 & 1) == 0)
+          v58 -= 16;
+          if ((v66 & 1) == 0)
           {
             goto LABEL_80;
           }
         }
 
-        v62 = *(v60 + 96);
-        v61 = *(v60 + 104);
+        v63 = *(v61 + 96);
+        v62 = *(v61 + 104);
 LABEL_64:
-        if (v61 != v53 || v62 != v54)
+        if (v62 != v54 || v63 != v55)
         {
-          v54 = v62;
+          v55 = v63;
         }
 
-        v65 = 1;
-        v53 = v61;
-        if (!v59)
+        v66 = 1;
+        v54 = v62;
+        if (!v60)
         {
           goto LABEL_71;
         }
@@ -5022,132 +5042,149 @@ LABEL_64:
       }
     }
 
-    else if (v46 != v45)
+    else if (v47 != v46)
     {
       do
       {
-        v70 = *v46;
-        v71 = (v126[5] + 16 * *v46);
-        v73 = *v71;
-        v72 = v71[1];
-        if (v72)
+        v79 = *v47;
+        v80 = (v148[5] + 16 * *v47);
+        v82 = *v80;
+        v81 = v80[1];
+        if (v81)
         {
-          atomic_fetch_add_explicit(&v72->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v81->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        v74 = createCFStringFromString(v73);
-        p_isa = &v74->isa;
-        v75 = v70 + 1;
-        v76 = v126[5];
-        v77 = v126[6] - v76;
-        if (v70 + 1 < (v77 >> 4))
+        v83 = createCFStringFromString(v82);
+        p_isa = &v83->isa;
+        v84 = v79 + 1;
+        v85 = v148[5];
+        v86 = v148[6] - v85;
+        if (v79 + 1 < (v86 >> 4))
         {
-          v99 = v126[6] - v76;
-          v101 = v70 + 1;
-          v103 = v72;
-          v109 = v46;
-          v79 = *(v73 + 96);
-          v78 = *(v73 + 104);
-          v80 = 16 * v70;
-          v81 = v79;
-          v82 = v70 + 1;
+          v115 = v148[6] - v85;
+          v117 = v79 + 1;
+          v119 = v81;
+          v125 = v47;
+          v88 = *(v82 + 96);
+          v87 = *(v82 + 104);
+          v89 = 16 * v79;
+          v90 = v88;
+          v91 = v79 + 1;
           do
           {
-            v83 = v76 + v80;
-            v85 = *(v83 + 16);
-            v84 = *(v83 + 24);
-            if (v84)
+            v92 = v85 + v89;
+            v94 = *(v92 + 16);
+            v93 = *(v92 + 24);
+            if (v93)
             {
-              atomic_fetch_add_explicit(&v84->__shared_owners_, 1uLL, memory_order_relaxed);
+              atomic_fetch_add_explicit(&v93->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
-            v86 = *(v73 + 96);
-            v87 = v86 != -1 && *(v73 + 104) + v86 <= *(v85 + 96);
-            if (v87 && !NL::SearchGrammar::isTypeValidForTopic(*(v110 + 2), v85))
+            v95 = *(v82 + 96);
+            v96 = v95 != -1 && *(v82 + 104) + v95 <= *(v94 + 96);
+            if (v96 && !NL::SearchGrammar::isTypeValidForTopic(*(v126 + 2), v94))
             {
-              v136.location = v79;
-              v136.length = v81 + v78 - v79;
-              v88 = NL::QueryTokenizer::contentRangeFromRange(v110, v136);
-              if ((v88 != *(v73 + 96) || v89 != *(v73 + 104)) && (v88 || v89 != Length))
+              v158.location = v88;
+              v158.length = v90 + v87 - v88;
+              v97 = NL::QueryTokenizer::contentRangeFromRange(v126, v158);
+              v99 = v97;
+              v100 = v98;
+              if ((v97 != *(v82 + 96) || v98 != *(v82 + 104)) && (v97 || v98 != Length))
               {
-                NL::EntityConverter::enumerateEntitiesWithString(*(v110 + 6), *(v110 + 13), v74, v88, v89);
+                v101 = *(v126 + 6);
+                v102 = *(v126 + 13);
+                v130[0] = MEMORY[0x277D85DD0];
+                v130[1] = 0x40000000;
+                v130[2] = ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke_3;
+                v130[3] = &unk_27873FEA0;
+                v130[4] = &v131;
+                NL::EntityConverter::enumerateEntitiesWithString(v101, v102, v83, v99, v100, v88, v90 + v87 - v88, v130);
               }
 
-              v79 = -1;
+              v88 = -1;
             }
 
-            v90 = *(v85 + 96);
-            v91 = *(v85 + 104);
-            if (v91 != v78 || v90 != v81)
+            v103 = *(v94 + 96);
+            v104 = *(v94 + 104);
+            if (v104 != v87 || v103 != v90)
             {
-              v81 = v90;
+              v90 = v103;
             }
 
-            if (v84)
+            if (v93)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v84);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v93);
             }
 
-            ++v82;
-            v76 = v126[5];
-            v80 += 16;
-            v78 = v91;
+            ++v91;
+            v85 = v148[5];
+            v89 += 16;
+            v87 = v104;
           }
 
-          while (v82 < (v126[6] - v76) >> 4);
-          v46 = v109;
-          v72 = v103;
-          v45 = v104;
-          v77 = v99;
-          v75 = v101;
-          if (v79 != -1)
+          while (v91 < (v148[6] - v85) >> 4);
+          v47 = v125;
+          v81 = v119;
+          v46 = v120;
+          v86 = v115;
+          v84 = v117;
+          if (v88 != -1)
           {
-            v93 = CFStringGetLength(*(v110 + 13));
-            v137.location = v79;
-            v137.length = v93 - v79;
-            v45 = v104;
-            v95 = NL::QueryTokenizer::contentRangeFromRange(v110, v137);
-            if (v95 || v94 != Length)
+            v106 = CFStringGetLength(*(v126 + 13)) - v88;
+            v159.location = v88;
+            v159.length = v106;
+            v46 = v120;
+            v108 = NL::QueryTokenizer::contentRangeFromRange(v126, v159);
+            v109 = v107;
+            if (v108 || v107 != Length)
             {
-              NL::EntityConverter::enumerateEntitiesWithString(*(v110 + 6), *(v110 + 13), v74, v95, v94);
+              v110 = *(v126 + 6);
+              v111 = *(v126 + 13);
+              v129[0] = MEMORY[0x277D85DD0];
+              v129[1] = 0x40000000;
+              v129[2] = ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke_4;
+              v129[3] = &unk_27873FEC8;
+              v129[4] = &v131;
+              NL::EntityConverter::enumerateEntitiesWithString(v110, v111, v83, v108, v109, v88, v106, v129);
             }
           }
         }
 
-        if (v74)
+        if (v83)
         {
-          CFRelease(v74);
+          CFRelease(v83);
         }
 
-        if (v72)
+        if (v81)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v72);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v81);
         }
 
-        ++v46;
+        ++v47;
       }
 
-      while (v75 < v77 >> 4 && v46 != v45);
+      while (v84 < v86 >> 4 && v47 != v46);
     }
 
 LABEL_131:
-    v97 = a2;
+    v113 = a2;
     std::vector<std::shared_ptr<NL::ParseAttributes>>::clear[abi:ne200100](a2);
-    std::vector<std::shared_ptr<NL::Entity>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<NL::Entity>*>,std::__wrap_iter<std::shared_ptr<NL::Entity>*>>(v97, v97[1], v126[5], v126[6], (v126[6] - v126[5]) >> 4);
-    std::vector<std::shared_ptr<NL::Entity>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<NL::Entity>*>,std::__wrap_iter<std::shared_ptr<NL::Entity>*>>(v97, v97[1], v112[5], v112[6], (v112[6] - v112[5]) >> 4);
-    _Block_object_dispose(&v111, 8);
-    p_isa = v116;
+    std::vector<std::shared_ptr<NL::Entity>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<NL::Entity>*>,std::__wrap_iter<std::shared_ptr<NL::Entity>*>>(v113, v113[1], v148[5], v148[6], (v148[6] - v148[5]) >> 4);
+    std::vector<std::shared_ptr<NL::Entity>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<NL::Entity>*>,std::__wrap_iter<std::shared_ptr<NL::Entity>*>>(v113, v113[1], v132[5], v132[6], (v132[6] - v132[5]) >> 4);
+    _Block_object_dispose(&v131, 8);
+    p_isa = v136;
     std::vector<std::shared_ptr<NL::ParseAttribute>>::__destroy_vector::operator()[abi:ne200100](&p_isa);
-    _Block_object_dispose(&v117, 8);
-    if (v122)
+    _Block_object_dispose(&v139, 8);
+    if (v144)
     {
-      v123 = v122;
-      operator delete(v122);
+      v145 = v144;
+      operator delete(v144);
     }
 
-    _Block_object_dispose(&v125, 8);
-    v117 = v130;
-    std::vector<std::shared_ptr<NL::ParseAttribute>>::__destroy_vector::operator()[abi:ne200100](&v117);
+    _Block_object_dispose(&v147, 8);
+    v139 = v152;
+    std::vector<std::shared_ptr<NL::ParseAttribute>>::__destroy_vector::operator()[abi:ne200100](&v139);
   }
 }
 
@@ -5191,7 +5228,7 @@ void __Block_byref_object_dispose__27(uint64_t a1)
   }
 }
 
-uint64_t ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke(uint64_t a1, uint64_t *a2)
+uint64_t *___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke(uint64_t a1, uint64_t *a2)
 {
   if (*(*a2 + 112) == 7)
   {
@@ -5210,7 +5247,7 @@ uint64_t ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vect
   else
   {
     std::shared_ptr<NL::Entity>::shared_ptr[abi:ne200100]<NL::Entity,std::default_delete<NL::Entity>,0>(*(v5 + 48), a2);
-    result = v6 + 16;
+    result = (v6 + 16);
     *(v5 + 48) = v6 + 16;
   }
 
@@ -5218,7 +5255,7 @@ uint64_t ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vect
   return result;
 }
 
-void std::vector<long>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<long>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -5267,13 +5304,13 @@ void std::vector<long>::push_back[abi:ne200100](const void **a1, void *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
 }
 
-uint64_t ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke_2(uint64_t a1, uint64_t *a2)
+uint64_t *___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke_2(uint64_t a1, uint64_t *a2)
 {
   if (*(*a2 + 112) == 7)
   {
@@ -5292,7 +5329,7 @@ uint64_t ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vect
   else
   {
     std::shared_ptr<NL::Entity>::shared_ptr[abi:ne200100]<NL::Entity,std::default_delete<NL::Entity>,0>(*(v5 + 48), a2);
-    result = v6 + 16;
+    result = (v6 + 16);
     *(v5 + 48) = v6 + 16;
   }
 
@@ -5300,7 +5337,7 @@ uint64_t ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vect
   return result;
 }
 
-uint64_t ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke_3(uint64_t a1, uint64_t *a2)
+uint64_t *___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke_3(uint64_t a1, uint64_t *a2)
 {
   v2 = *(*(a1 + 32) + 8);
   v3 = *(v2 + 48);
@@ -5312,7 +5349,7 @@ uint64_t ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vect
   else
   {
     std::shared_ptr<NL::Entity>::shared_ptr[abi:ne200100]<NL::Entity,std::default_delete<NL::Entity>,0>(*(v2 + 48), a2);
-    result = v3 + 16;
+    result = (v3 + 16);
     *(v2 + 48) = v3 + 16;
   }
 
@@ -5320,7 +5357,7 @@ uint64_t ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vect
   return result;
 }
 
-uint64_t ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke_4(uint64_t a1, uint64_t *a2)
+uint64_t *___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke_4(uint64_t a1, uint64_t *a2)
 {
   v2 = *(*(a1 + 32) + 8);
   v3 = *(v2 + 48);
@@ -5332,7 +5369,7 @@ uint64_t ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vect
   else
   {
     std::shared_ptr<NL::Entity>::shared_ptr[abi:ne200100]<NL::Entity,std::default_delete<NL::Entity>,0>(*(v2 + 48), a2);
-    result = v3 + 16;
+    result = (v3 + 16);
     *(v2 + 48) = v3 + 16;
   }
 
@@ -5340,7 +5377,7 @@ uint64_t ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vect
   return result;
 }
 
-uint64_t ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke_5(uint64_t a1, uint64_t *a2)
+uint64_t *___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke_5(uint64_t a1, uint64_t *a2)
 {
   v2 = *(*(a1 + 32) + 8);
   v3 = *(v2 + 48);
@@ -5352,7 +5389,7 @@ uint64_t ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vect
   else
   {
     std::shared_ptr<NL::Entity>::shared_ptr[abi:ne200100]<NL::Entity,std::default_delete<NL::Entity>,0>(*(v2 + 48), a2);
-    result = v3 + 16;
+    result = (v3 + 16);
     *(v2 + 48) = v3 + 16;
   }
 
@@ -5360,7 +5397,7 @@ uint64_t ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vect
   return result;
 }
 
-uint64_t ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke_6(uint64_t a1, uint64_t *a2)
+uint64_t *___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vectorINS1_10shared_ptrINS_6EntityEEENS1_9allocatorIS5_EEEE_block_invoke_6(uint64_t a1, uint64_t *a2)
 {
   v2 = *(*(a1 + 32) + 8);
   v3 = *(v2 + 48);
@@ -5372,7 +5409,7 @@ uint64_t ___ZN2NL14QueryTokenizer31updateEntitiesWithUnknownValuesERNSt3__16vect
   else
   {
     std::shared_ptr<NL::Entity>::shared_ptr[abi:ne200100]<NL::Entity,std::default_delete<NL::Entity>,0>(*(v2 + 48), a2);
-    result = v3 + 16;
+    result = (v3 + 16);
     *(v2 + 48) = v3 + 16;
   }
 
@@ -5393,35 +5430,31 @@ uint64_t NL::QueryTokenizer::copySearchStringAndTokenize(CFStringRef *this)
     return 0;
   }
 
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2000000000;
+  v5 = 0;
+  v6 = &v5;
+  v7 = 0x2000000000;
   Mutable = CFStringCreateMutable(*MEMORY[0x277CBECE8], 0);
-  if (v10[3])
+  if (v6[3])
   {
     CFStringGetLength(this[13]);
-    v3 = this[4];
-    v4 = this[13];
     NLTaggerSetString();
-    v5 = this[4];
     NLTaggerSetLocaleForRange();
-    v6 = this[4];
     NLTaggerEnumerateTokens();
-    v7 = v10[3];
+    v3 = v6[3];
   }
 
   else
   {
-    v7 = 0;
+    v3 = 0;
   }
 
-  _Block_object_dispose(&v9, 8);
-  return v7;
+  _Block_object_dispose(&v5, 8);
+  return v3;
 }
 
-void sub_22CD53CB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22CD53CB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5581,14 +5614,14 @@ void ___ZN2NL14QueryTokenizer27copySearchStringAndTokenizeEv_block_invoke(uint64
       v25 = *a2;
       *(v24 + 16) = a2[1].location;
       *v24 = v25;
-      v18 = 24 * v20 + 24;
+      p_length = 24 * v20 + 24;
       v26 = *(v4 + 112);
       v27 = *(v4 + 120) - v26;
       v28 = 24 * v20 - v27;
       memcpy((v24 - v27), v26, v27);
       v29 = *(v4 + 112);
       *(v4 + 112) = v28;
-      *(v4 + 120) = v18;
+      *(v4 + 120) = p_length;
       *(v4 + 128) = 0;
       if (v29)
       {
@@ -5599,12 +5632,12 @@ void ___ZN2NL14QueryTokenizer27copySearchStringAndTokenizeEv_block_invoke(uint64
     else
     {
       v17 = *a2;
-      *(v16 + 16) = a2[1].location;
+      v16[1].location = a2[1].location;
       *v16 = v17;
-      v18 = v16 + 24;
+      p_length = &v16[1].length;
     }
 
-    *(v4 + 120) = v18;
+    *(v4 + 120) = p_length;
     if ((a2[1].location & 0x800) == 0)
     {
       ++*(v4 + 256);
@@ -5623,15 +5656,16 @@ void ___ZN2NL14QueryTokenizer27copySearchStringAndTokenizeEv_block_invoke(uint64
   }
 }
 
-void sub_22CD54170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, const void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_22CD54170(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, const void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
+  va_start(va, a38);
   nlp::CFScopedPtr<__CFString const*>::reset(&a13, 0);
   _Block_object_dispose(&a28, 8);
   _Block_object_dispose(&a32, 8);
-  _Block_object_dispose(&a39, 8);
-  _Block_object_dispose((v39 - 184), 8);
-  _Block_object_dispose((v39 - 128), 8);
-  _Block_object_dispose((v39 - 96), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v38 - 184), 8);
+  _Block_object_dispose((v38 - 128), 8);
+  _Block_object_dispose((v38 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5715,9 +5749,9 @@ LABEL_12:
   ++*(*(a1[10] + 8) + 24);
 }
 
-void sub_22CD54488(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22CD54488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -5798,11 +5832,11 @@ NL::Entity **std::unique_ptr<NL::Entity>::~unique_ptr[abi:ne200100](NL::Entity *
   return a1;
 }
 
-uint64_t std::vector<std::vector<CFRange>>::push_back[abi:ne200100](uint64_t result, uint64_t a2)
+const void **std::vector<std::vector<CFRange>>::push_back[abi:ne200100](const void **result, uint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (v4 >= v5)
   {
     v7 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *result) >> 3);
@@ -5844,8 +5878,8 @@ uint64_t std::vector<std::vector<CFRange>>::push_back[abi:ne200100](uint64_t res
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
     v6 = 24 * v7 + 24;
-    v12 = *(result + 8) - *result;
-    v13 = v11 - v12;
+    v12 = result[1] - *result;
+    v13 = (v11 - v12);
     memcpy((v11 - v12), *result, v12);
     v14 = *v3;
     *v3 = v13;
@@ -5862,14 +5896,14 @@ uint64_t std::vector<std::vector<CFRange>>::push_back[abi:ne200100](uint64_t res
   else
   {
     *v4 = 0;
-    v4[1] = 0;
-    v4[2] = 0;
+    *(v4 + 1) = 0;
+    *(v4 + 2) = 0;
     *v4 = *a2;
-    v4[2] = *(a2 + 16);
+    *(v4 + 2) = *(a2 + 16);
     *a2 = 0;
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
-    v6 = (v4 + 3);
+    v6 = (v4 + 24);
   }
 
   v3[1] = v6;
@@ -5919,12 +5953,12 @@ void sub_22CD5481C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t __copy_helper_block_e8_48c48_ZTSNSt3__16vectorI7CFRangeNS_9allocatorIS1_EEEE(uint64_t a1, uint64_t a2)
+uint64_t *__copy_helper_block_e8_48c48_ZTSNSt3__16vectorI7CFRangeNS_9allocatorIS1_EEEE(uint64_t a1, uint64_t a2)
 {
   *(a1 + 48) = 0;
   *(a1 + 56) = 0;
-  v2 = a1 + 48;
-  *(v2 + 16) = 0;
+  v2 = (a1 + 48);
+  v2[2] = 0;
   return std::vector<CFRange>::__init_with_size[abi:ne200100]<CFRange*,CFRange*>(v2, *(a2 + 48), *(a2 + 56), (*(a2 + 56) - *(a2 + 48)) >> 4);
 }
 
@@ -5968,16 +6002,15 @@ void std::vector<std::vector<CFRange>>::clear[abi:ne200100](uint64_t *a1)
 void NL::QueryTokenizer::description(NL::QueryTokenizer *this@<X0>, std::string *a2@<X8>)
 {
   v2 = a2;
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   v3 = *(this + 23);
-  for (i = *(this + 24); v3 != i; v3 += 3)
+  for (i = *(this + 24); v3 != i; v3 += 24)
   {
     v31 = 0;
     v32 = 0;
     v33 = 0;
-    std::vector<CFRange>::__init_with_size[abi:ne200100]<CFRange*,CFRange*>(&v31, *v3, v3[1], (v3[1] - *v3) >> 4);
+    std::vector<CFRange>::__init_with_size[abi:ne200100]<CFRange*,CFRange*>(&v31, *v3, *(v3 + 8), (*(v3 + 8) - *v3) >> 4);
     memset(&v30, 0, sizeof(v30));
     v5 = v31;
     v6 = v32;
@@ -6147,7 +6180,7 @@ void sub_22CD54B10(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::shared_ptr<NL::Entity>>::emplace_back<std::shared_ptr<NL::Entity> const&>(uint64_t a1, uint64_t a2)
+_OWORD *std::vector<std::shared_ptr<NL::Entity>>::emplace_back<std::shared_ptr<NL::Entity> const&>(uint64_t a1, __int128 *a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -6157,7 +6190,7 @@ uint64_t std::vector<std::shared_ptr<NL::Entity>>::emplace_back<std::shared_ptr<
 
   else
   {
-    v4 = *(a2 + 8);
+    v4 = *(a2 + 1);
     *v3 = *a2;
     v3[1] = v4;
     if (v4)
@@ -6165,14 +6198,14 @@ uint64_t std::vector<std::shared_ptr<NL::Entity>>::emplace_back<std::shared_ptr<
       atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v5 = (v3 + 2);
+    v5 = v3 + 2;
   }
 
   *(a1 + 8) = v5;
-  return v5 - 16;
+  return v5 - 1;
 }
 
-uint64_t std::vector<std::shared_ptr<NL::Entity>>::__emplace_back_slow_path<std::shared_ptr<NL::Entity> const&>(const void **a1, __int128 *a2)
+_OWORD *std::vector<std::shared_ptr<NL::Entity>>::__emplace_back_slow_path<std::shared_ptr<NL::Entity> const&>(const void **a1, __int128 *a2)
 {
   v2 = (a1[1] - *a1) >> 4;
   v3 = v2 + 1;
@@ -6211,9 +6244,9 @@ uint64_t std::vector<std::shared_ptr<NL::Entity>>::__emplace_back_slow_path<std:
     atomic_fetch_add_explicit((*(&v9 + 1) + 8), 1uLL, memory_order_relaxed);
   }
 
-  v10 = v8 + 16;
+  v10 = (v8 + 16);
   v11 = a1[1] - *a1;
-  v12 = v8 - v11;
+  v12 = (v8 - v11);
   memcpy((v8 - v11), *a1, v11);
   v13 = *a1;
   *a1 = v12;
@@ -6228,7 +6261,7 @@ uint64_t std::vector<std::shared_ptr<NL::Entity>>::__emplace_back_slow_path<std:
   return v10;
 }
 
-uint64_t std::vector<std::shared_ptr<NL::Entity>>::__init_with_size[abi:ne200100]<std::shared_ptr<NL::Entity>*,std::shared_ptr<NL::Entity>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::shared_ptr<NL::Entity>>::__init_with_size[abi:ne200100]<std::shared_ptr<NL::Entity>*,std::shared_ptr<NL::Entity>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6245,7 +6278,7 @@ void sub_22CD54D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::shared_ptr<NL::Entity>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::shared_ptr<NL::Entity>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -6324,32 +6357,32 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<CFRange>>(uint64_t a1
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<std::vector<CFRange>>::__construct_one_at_end[abi:ne200100]<std::vector<CFRange> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<CFRange>>::__construct_one_at_end[abi:ne200100]<std::vector<CFRange> const&>(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
   v3[1] = 0;
   v3[2] = 0;
-  result = std::vector<CFRange>::__init_with_size[abi:ne200100]<CFRange*,CFRange*>(v3, *a2, a2[1], (a2[1] - *a2) >> 4);
+  result = std::vector<CFRange>::__init_with_size[abi:ne200100]<CFRange*,CFRange*>(v3, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 4);
   *(a1 + 8) = v3 + 3;
   return result;
 }
 
-uint64_t std::vector<std::vector<CFRange>>::__emplace_back_slow_path<std::vector<CFRange> const&>(uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<CFRange>>::__emplace_back_slow_path<std::vector<CFRange> const&>(char **a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<NLExtendedString>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -6373,16 +6406,16 @@ uint64_t std::vector<std::vector<CFRange>>::__emplace_back_slow_path<std::vector
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<CFRange>::__init_with_size[abi:ne200100]<CFRange*,CFRange*>(24 * v2, *a2, a2[1], (a2[1] - *a2) >> 4);
+  std::vector<CFRange>::__init_with_size[abi:ne200100]<CFRange*,CFRange*>((24 * v2), *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 4);
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -6391,9 +6424,9 @@ uint64_t std::vector<std::vector<CFRange>>::__emplace_back_slow_path<std::vector
   return v8;
 }
 
-void sub_22CD55050(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22CD55050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<CFRange>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6440,7 +6473,7 @@ void std::__split_buffer<std::vector<CFRange>>::__destruct_at_end[abi:ne200100](
   }
 }
 
-uint64_t std::vector<CFRange>::__init_with_size[abi:ne200100]<CFRange*,CFRange*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CFRange>::__init_with_size[abi:ne200100]<CFRange*,CFRange*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6462,7 +6495,7 @@ void sub_22CD551B4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<CFRange>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<CFRange>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -6484,7 +6517,7 @@ void std::vector<std::vector<CFRange>>::__destroy_vector::operator()[abi:ne20010
   }
 }
 
-uint64_t std::vector<std::shared_ptr<NL::Entity>>::__emplace_back_slow_path<std::unique_ptr<NL::Entity>>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::shared_ptr<NL::Entity>>::__emplace_back_slow_path<std::unique_ptr<NL::Entity>>(uint64_t a1, uint64_t *a2)
 {
   v2 = (*(a1 + 8) - *a1) >> 4;
   v3 = v2 + 1;
@@ -6537,14 +6570,14 @@ uint64_t std::vector<std::shared_ptr<NL::Entity>>::__emplace_back_slow_path<std:
   return v8;
 }
 
-void sub_22CD5534C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22CD5534C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::shared_ptr<NL::ParseIntent>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<std::shared_ptr<NL::Entity>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<NL::Entity>*>,std::__wrap_iter<std::shared_ptr<NL::Entity>*>>(void *a1, void *a2, uint64_t *a3, void *a4, uint64_t a5)
+char *std::vector<std::shared_ptr<NL::Entity>>::__insert_with_size[abi:ne200100]<std::__wrap_iter<std::shared_ptr<NL::Entity>*>,std::__wrap_iter<std::shared_ptr<NL::Entity>*>>(void *a1, char *a2, uint64_t *a3, void *a4, uint64_t a5)
 {
   v5 = a2;
   if (a5 >= 1)
@@ -6558,7 +6591,7 @@ void *std::vector<std::shared_ptr<NL::Entity>>::__insert_with_size[abi:ne200100]
       v17 = (v10 - a2) >> 4;
       if (v17 >= a5)
       {
-        std::vector<std::shared_ptr<NL::Entity>>::__move_range(a1, a2, a1[1], &a2[2 * a5]);
+        std::vector<std::shared_ptr<NL::Entity>>::__move_range(a1, a2, a1[1], &a2[16 * a5]);
         v18 = &v7[2 * a5];
       }
 
@@ -6570,7 +6603,7 @@ void *std::vector<std::shared_ptr<NL::Entity>>::__insert_with_size[abi:ne200100]
           return v5;
         }
 
-        std::vector<std::shared_ptr<NL::Entity>>::__move_range(a1, v5, v10, &v5[2 * a5]);
+        std::vector<std::shared_ptr<NL::Entity>>::__move_range(a1, v5, v10, &v5[16 * a5]);
         v18 = (v7 + v16);
       }
 
@@ -6585,7 +6618,7 @@ void *std::vector<std::shared_ptr<NL::Entity>>::__insert_with_size[abi:ne200100]
       std::vector<NLExtendedString>::__throw_length_error[abi:ne200100]();
     }
 
-    v13 = a2 - v11;
+    v13 = &a2[-v11];
     v14 = v9 - v11;
     if (v14 >> 3 > v12)
     {
@@ -6663,8 +6696,8 @@ void *std::vector<std::shared_ptr<NL::Entity>>::__move_range(uint64_t a1, void *
     {
       *v8++ = *v9;
       *v9 = 0;
-      v9[1] = 0;
-      v9 += 2;
+      *(v9 + 8) = 0;
+      v9 += 16;
     }
 
     while (v9 < a3);
@@ -6700,7 +6733,7 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
   return a3;
 }
 
-uint64_t *std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<NL::Entity> *,std::shared_ptr<NL::Entity> *,std::shared_ptr<NL::Entity> *>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<NL::Entity> *,std::shared_ptr<NL::Entity> *,std::shared_ptr<NL::Entity> *>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -6733,9 +6766,9 @@ uint64_t *std::__copy_impl::operator()[abi:ne200100]<std::shared_ptr<NL::Entity>
   return v5;
 }
 
-uint64_t std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(uint64_t a1, const void **a2)
+void *std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string const&>(uint64_t **a1, const void **a2, uint64_t a3)
 {
-  result = *std::__tree<std::string>::__find_equal<std::string>(a1, &v3, a2);
+  result = *std::__tree<std::string>::__find_equal<std::string>(a1, &v4, a2);
   if (!result)
   {
     std::__tree<std::string>::__construct_node<std::string const&>();
@@ -6744,15 +6777,15 @@ uint64_t std::__tree<std::string>::__emplace_unique_key_args<std::string,std::st
   return result;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,entity_less_than_range &,std::shared_ptr<NL::Entity> *,false>(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,entity_less_than_range &,std::shared_ptr<NL::Entity> *,false>(uint64_t *result, uint64_t *a2, uint64_t a3, uint64_t a4, char a5)
 {
 LABEL_1:
-  v9 = a1;
+  v9 = result;
 LABEL_2:
   v10 = 1 - a4;
   while (1)
   {
-    a1 = v9;
+    result = v9;
     v11 = v10;
     v12 = (a2 - v9) >> 4;
     if (v12 <= 2)
@@ -6889,7 +6922,7 @@ LABEL_25:
     if (!v24)
     {
 LABEL_28:
-      std::__introsort<std::_ClassicAlgPolicy,entity_less_than_range &,std::shared_ptr<NL::Entity> *,false>(a1, v22, a3, -v11, a5 & 1);
+      std::__introsort<std::_ClassicAlgPolicy,entity_less_than_range &,std::shared_ptr<NL::Entity> *,false>(result, v22, a3, -v11, a5 & 1);
       v9 = v22 + 2;
 LABEL_30:
       a5 = 0;
@@ -7565,7 +7598,7 @@ void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,entity
     v4 = a1 + 2;
     if (a1 + 2 != a2)
     {
-      v5 = (a1 + 1);
+      v5 = a1 + 1;
       do
       {
         v6 = v3;
@@ -7670,11 +7703,10 @@ LABEL_13:
   }
 }
 
-uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::shared_ptr<NL::Entity> *,entity_less_than_range &>(__int128 *a1, uint64_t *a2)
+__int128 *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::shared_ptr<NL::Entity> *,entity_less_than_range &>(__int128 *a1, uint64_t *a2)
 {
   v2 = *a1;
-  *a1 = 0;
-  *(a1 + 1) = 0;
+  *a1 = 0uLL;
   if (v2)
   {
     v3 = *(a2 - 2);
@@ -7705,7 +7737,7 @@ uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
         goto LABEL_19;
       }
 
-      for (i = (a1 + 1); ; i += 2)
+      for (i = a1 + 1; ; ++i)
       {
         v9 = *i;
         if (*i)
@@ -7738,7 +7770,7 @@ uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   }
 
 LABEL_19:
-  for (i = (a1 + 1); i < a2; i += 2)
+  for (i = a1 + 1; i < a2; ++i)
   {
     if (v2)
     {
@@ -7827,10 +7859,10 @@ LABEL_31:
     {
       *i = v24;
       *a2 = v23;
-      v25 = i[1];
-      i[1] = a2[1];
+      v25 = *(i + 1);
+      *(i + 1) = a2[1];
       a2[1] = v25;
-      i += 2;
+      ++i;
       v26 = *(v2 + 96);
       v27 = *(v2 + 104);
       if (!v2)
@@ -7869,7 +7901,7 @@ LABEL_31:
         do
         {
 LABEL_54:
-          i += 2;
+          ++i;
         }
 
         while (!v2);
@@ -7919,8 +7951,8 @@ LABEL_59:
     while (i < a2);
   }
 
-  v33 = (i - 2);
-  if (i - 2 != a1)
+  v33 = i - 1;
+  if (i - 1 != a1)
   {
     v34 = *v33;
     *v33 = 0;
@@ -7945,13 +7977,12 @@ LABEL_59:
   return i;
 }
 
-uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::shared_ptr<NL::Entity> *,entity_less_than_range &>(__int128 *a1, uint64_t *a2)
+__int128 *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::shared_ptr<NL::Entity> *,entity_less_than_range &>(__int128 *a1, uint64_t *a2)
 {
   v2 = a2;
   v3 = *a1;
-  *a1 = 0;
-  *(a1 + 1) = 0;
-  v5 = (a1 + 1);
+  *a1 = 0uLL;
+  v5 = a1 + 1;
   v4 = *(a1 + 2);
   if (v4)
   {
@@ -8001,8 +8032,7 @@ uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
     }
 
 LABEL_72:
-    v43 = v5[2];
-    v5 += 2;
+    v43 = *(v5++ + 2);
     v4 = v43;
     v38 -= 16;
     if (!v43)
@@ -8101,11 +8131,10 @@ LABEL_30:
     {
       *v17 = v18;
       *v19 = v4;
-      v20 = v17[1];
-      v17[1] = v19[1];
+      v20 = *(v17 + 1);
+      *(v17 + 1) = v19[1];
       v19[1] = v20;
-      v21 = v17[2];
-      v17 += 2;
+      v21 = *(v17++ + 2);
       v4 = v21;
       if (v21)
       {
@@ -8146,8 +8175,7 @@ LABEL_30:
             break;
           }
 
-          v27 = v17[2];
-          v17 += 2;
+          v27 = *(v17++ + 2);
           v4 = v27;
         }
 
@@ -8217,8 +8245,8 @@ LABEL_58:
   }
 
 LABEL_59:
-  v33 = (v17 - 2);
-  if (v17 - 2 != a1)
+  v33 = v17 - 1;
+  if (v17 - 1 != a1)
   {
     v34 = *v33;
     *v33 = 0;
@@ -8240,7 +8268,7 @@ LABEL_59:
     std::__shared_weak_count::__release_shared[abi:ne200100](v36);
   }
 
-  return v17 - 2;
+  return v17 - 1;
 }
 
 BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,entity_less_than_range &,std::shared_ptr<NL::Entity> *>(uint64_t *a1, uint64_t *a2)
@@ -8455,7 +8483,7 @@ LABEL_40:
   return v12 + 2 == a2;
 }
 
-uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,entity_less_than_range &,std::shared_ptr<NL::Entity> *,std::shared_ptr<NL::Entity> *>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,entity_less_than_range &,std::shared_ptr<NL::Entity> *,std::shared_ptr<NL::Entity> *>(char *a1, char *a2, char *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -8465,7 +8493,7 @@ uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,entity_l
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = &a1[2 * v9];
+      v11 = &a1[16 * v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,entity_less_than_range &,std::shared_ptr<NL::Entity> *>(a1, a4, v8, v11);
@@ -8507,7 +8535,7 @@ uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,entity_l
         }
 
 LABEL_15:
-        v12 += 2;
+        v12 += 16;
         if (v12 == a3)
         {
           goto LABEL_19;
@@ -8532,9 +8560,9 @@ LABEL_15:
 LABEL_14:
       *v12 = v14;
       *a1 = v13;
-      v19 = v12[1];
-      v12[1] = a1[1];
-      a1[1] = v19;
+      v19 = *(v12 + 1);
+      *(v12 + 1) = *(a1 + 1);
+      *(a1 + 1) = v19;
       std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,entity_less_than_range &,std::shared_ptr<NL::Entity> *>(a1, a4, v8, a1);
       goto LABEL_15;
     }
@@ -8808,14 +8836,14 @@ LABEL_37:
   }
 }
 
-void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,entity_less_than_range,std::shared_ptr<NL::Entity> *>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,entity_less_than_range,std::shared_ptr<NL::Entity> *>(char *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4 >= 2)
   {
     v8 = *a1;
-    v7 = a1[1];
+    v7 = *(a1 + 1);
     *a1 = 0;
-    a1[1] = 0;
+    *(a1 + 1) = 0;
     v9 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,entity_less_than_range &,std::shared_ptr<NL::Entity> *>(a1, a3, a4);
     v10 = v9;
     if (v9 == (a2 - 16))
@@ -9084,15 +9112,15 @@ void std::__sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<std:
   std::__introsort<std::_ClassicAlgPolicy,entity_greater_than_range &,std::shared_ptr<NL::Entity> *,false>(a1, a2, a3, v4, 1);
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,entity_greater_than_range &,std::shared_ptr<NL::Entity> *,false>(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,entity_greater_than_range &,std::shared_ptr<NL::Entity> *,false>(uint64_t *result, uint64_t *a2, uint64_t a3, uint64_t a4, char a5)
 {
 LABEL_1:
-  v9 = a1;
+  v9 = result;
 LABEL_2:
   v10 = 1 - a4;
   while (1)
   {
-    a1 = v9;
+    result = v9;
     v11 = v10;
     v12 = (a2 - v9) >> 4;
     if (v12 <= 2)
@@ -9220,7 +9248,7 @@ LABEL_24:
     if (!v25)
     {
 LABEL_27:
-      std::__introsort<std::_ClassicAlgPolicy,entity_greater_than_range &,std::shared_ptr<NL::Entity> *,false>(a1, v23, a3, -v11, a5 & 1);
+      std::__introsort<std::_ClassicAlgPolicy,entity_greater_than_range &,std::shared_ptr<NL::Entity> *,false>(result, v23, a3, -v11, a5 & 1);
       v9 = v23 + 2;
 LABEL_29:
       a5 = 0;
@@ -9676,108 +9704,4 @@ LABEL_33:
   }
 
   return result;
-}
-
-void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,entity_greater_than_range &,std::shared_ptr<NL::Entity> *>(uint64_t *a1, uint64_t *a2)
-{
-  if (a1 != a2)
-  {
-    v4 = a1 + 2;
-    if (a1 + 2 != a2)
-    {
-      v5 = 0;
-      v6 = a1;
-      do
-      {
-        v7 = v6;
-        v6 = v4;
-        v8 = v7[2];
-        if (v8)
-        {
-          v9 = *v7;
-          if (*v7)
-          {
-            v10 = *(v8 + 96);
-            v11 = *(v9 + 96);
-            v12 = v10 < v11;
-            if (v10 == v11 && (v13 = *(v8 + 104), v14 = *(v9 + 104), v12 = v13 < v14, v13 == v14))
-            {
-              if (*(v8 + 112) < *(v9 + 112))
-              {
-                goto LABEL_12;
-              }
-            }
-
-            else if (v12)
-            {
-LABEL_12:
-              v15 = v7[3];
-              v16 = v5;
-              *v6 = 0;
-              v6[1] = 0;
-              while (1)
-              {
-                v17 = (a1 + v16);
-                v18 = *(a1 + v16 + 8);
-                *v17 = 0;
-                v17[1] = 0;
-                v19 = *(a1 + v16 + 24);
-                v17[2] = v9;
-                v17[3] = v18;
-                if (v19)
-                {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v19);
-                }
-
-                if (!v16)
-                {
-                  break;
-                }
-
-                v20 = (a1 + v16);
-                v9 = *(a1 + v16 - 16);
-                if (!v9)
-                {
-                  goto LABEL_25;
-                }
-
-                v21 = *(v8 + 96);
-                v22 = *(v9 + 96);
-                v23 = v21 < v22;
-                if (v21 == v22 && (v24 = *(v8 + 104), v25 = *(v9 + 104), v23 = v24 < v25, v24 == v25))
-                {
-                  if (*(v8 + 112) >= *(v9 + 112))
-                  {
-                    goto LABEL_25;
-                  }
-                }
-
-                else if (!v23)
-                {
-                  goto LABEL_25;
-                }
-
-                v16 -= 16;
-              }
-
-              v20 = a1;
-LABEL_25:
-              v26 = v20[1];
-              *v20 = v8;
-              v20[1] = v15;
-              if (v26)
-              {
-                std::__shared_weak_count::__release_shared[abi:ne200100](v26);
-              }
-            }
-          }
-        }
-
-        v4 = v6 + 2;
-        v5 += 16;
-      }
-
-      while (v6 + 2 != a2);
-    }
-  }
 }

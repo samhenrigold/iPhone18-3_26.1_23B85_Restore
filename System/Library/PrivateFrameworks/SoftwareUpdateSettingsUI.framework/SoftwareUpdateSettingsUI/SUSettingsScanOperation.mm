@@ -251,7 +251,6 @@
   v35 = MEMORY[0x277D82BE0](v36);
   objc_storeStrong(&v36, 0);
   objc_storeStrong(v37, 0);
-  *MEMORY[0x277D85DE8];
 
   return v35;
 }
@@ -511,7 +510,6 @@
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
   return v45;
 }
 
@@ -661,7 +659,6 @@ LABEL_26:
 
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)action_QueryCurrentDownload:(id)download error:(id *)error
@@ -751,7 +748,6 @@ LABEL_26:
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
   return v38;
 }
 
@@ -964,7 +960,6 @@ void __61__SUSettingsScanOperation_action_QueryCurrentDownload_error___block_inv
 
   objc_storeStrong(&v58, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __61__SUSettingsScanOperation_action_QueryCurrentDownload_error___block_invoke_321(uint64_t a1, char a2, id obj)
@@ -1065,7 +1060,6 @@ void __61__SUSettingsScanOperation_action_QueryCurrentDownload_error___block_inv
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)action_QueryUpdatesInfo:(id)info error:(id *)error
@@ -1345,7 +1339,6 @@ void __57__SUSettingsScanOperation_action_QueryUpdatesInfo_error___block_invoke(
 
   objc_storeStrong(&v46, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __57__SUSettingsScanOperation_action_QueryUpdatesInfo_error___block_invoke_331(uint64_t a1, char a2, id obj)
@@ -1436,7 +1429,6 @@ void __57__SUSettingsScanOperation_action_QueryUpdatesInfo_error___block_invoke_
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)action_ObserveConcurrentQueries:(id)queries error:(id *)error
@@ -1577,7 +1569,6 @@ void __65__SUSettingsScanOperation_action_ObserveConcurrentQueries_error___block
   }
 
   objc_storeStrong(v21, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)action_ReportScanOutcome:(id)outcome error:(id *)error
@@ -1687,7 +1678,6 @@ void __65__SUSettingsScanOperation_action_ObserveConcurrentQueries_error___block
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
   return v44;
 }
 
@@ -1771,7 +1761,6 @@ void __58__SUSettingsScanOperation_action_ReportScanOutcome_error___block_invoke
   }
 
   objc_storeStrong(v24, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __58__SUSettingsScanOperation_action_ReportScanOutcome_error___block_invoke_340(uint64_t a1)
@@ -1854,7 +1843,6 @@ void __58__SUSettingsScanOperation_action_ReportScanOutcome_error___block_invoke
   }
 
   objc_storeStrong(v24, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)action_ReportScanCanceled:(id)canceled error:(id *)error
@@ -1925,7 +1913,6 @@ void __58__SUSettingsScanOperation_action_ReportScanOutcome_error___block_invoke
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
   return v28;
 }
 
@@ -1967,7 +1954,6 @@ void __59__SUSettingsScanOperation_action_ReportScanCanceled_error___block_invok
   }
 
   objc_storeStrong(v11, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)actionUnknownAction:(id)action error:(id *)error
@@ -2118,7 +2104,6 @@ LABEL_13:
   objc_storeStrong(&v41, 0);
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return v44;
 }
 
@@ -2464,53 +2449,50 @@ void __76__SUSettingsScanOperation_refreshBetaProgramsWithOptions_completionHand
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __76__SUSettingsScanOperation_refreshBetaProgramsWithOptions_completionHandler___block_invoke_373(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v16[2] = a1;
-  v16[1] = a1;
-  v16[0] = objc_loadWeakRetained((a1 + 56));
-  v11 = 0;
-  if (!v16[0])
+  v17 = *MEMORY[0x277D85DE8];
+  v15[2] = a1;
+  v15[1] = a1;
+  v15[0] = objc_loadWeakRetained((a1 + 56));
+  v10 = 0;
+  if (!v15[0])
   {
-    v10 = SUSettingsSharedLogger();
-    v15 = [v10 oslog];
-    MEMORY[0x277D82BD8](v10);
-    v14 = 16;
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v9 = SUSettingsSharedLogger();
+    v14 = [v9 oslog];
+    MEMORY[0x277D82BD8](v9);
+    v13 = 16;
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      log = v15;
-      type = v14;
-      v9 = NSStringFromSelector(*(a1 + 64));
-      v13 = MEMORY[0x277D82BE0](v9);
-      __os_log_helper_16_2_2_8_32_8_66(v17, "[SUSettingsScanOperation refreshBetaProgramsWithOptions:completionHandler:]_block_invoke", v13);
-      _os_log_error_impl(&dword_26AC94000, log, type, "%s: Self is nil in %{public}@. Stopping.", v17, 0x16u);
-      MEMORY[0x277D82BD8](v9);
-      objc_storeStrong(&v13, 0);
+      log = v14;
+      type = v13;
+      v8 = NSStringFromSelector(*(a1 + 64));
+      v12 = MEMORY[0x277D82BE0](v8);
+      __os_log_helper_16_2_2_8_32_8_66(v16, "[SUSettingsScanOperation refreshBetaProgramsWithOptions:completionHandler:]_block_invoke", v12);
+      _os_log_error_impl(&dword_26AC94000, log, type, "%s: Self is nil in %{public}@. Stopping.", v16, 0x16u);
+      MEMORY[0x277D82BD8](v8);
+      objc_storeStrong(&v12, 0);
     }
 
-    objc_storeStrong(&v15, 0);
-    v11 = 1;
+    objc_storeStrong(&v14, 0);
+    v10 = 1;
   }
 
-  if ((v11 & 1) == 0)
+  if ((v10 & 1) == 0)
   {
-    v4 = (*(a1 + 48) + 16);
-    v3 = [SUSettingsBetaUpdatesScanResults alloc];
-    v2 = *(a1 + 32);
-    v6 = [v16[0] scanUUID];
-    v5 = [(SUSettingsBetaUpdatesScanResults *)v3 initFromScanParam:v2 withUUID:?];
-    v1 = *(a1 + 40);
-    (*v4)();
+    v3 = (*(a1 + 48) + 16);
+    v2 = [SUSettingsBetaUpdatesScanResults alloc];
+    v1 = *(a1 + 32);
+    v5 = [v15[0] scanUUID];
+    v4 = [(SUSettingsBetaUpdatesScanResults *)v2 initFromScanParam:v1 withUUID:?];
+    (*v3)();
+    MEMORY[0x277D82BD8](v4);
     MEMORY[0x277D82BD8](v5);
-    MEMORY[0x277D82BD8](v6);
   }
 
-  objc_storeStrong(v16, 0);
-  *MEMORY[0x277D85DE8];
+  objc_storeStrong(v15, 0);
 }
 
 - (void)cancel:(id)cancel
@@ -2668,7 +2650,6 @@ void __74__SUSettingsScanOperation_scheduleConcurrentActionWithSelector_eventInf
   }
 
   objc_storeStrong(v30, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __74__SUSettingsScanOperation_scheduleConcurrentActionWithSelector_eventInfo___block_invoke_379(uint64_t a1, char a2, id obj)
@@ -2808,7 +2789,6 @@ void __74__SUSettingsScanOperation_scheduleConcurrentActionWithSelector_eventInf
   }
 
   objc_storeStrong(v28, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)checkForMDMRestrictions:(id)restrictions withReplyHandler:(id)handler
@@ -2931,7 +2911,6 @@ void __68__SUSettingsScanOperation_checkForMDMRestrictions_withReplyHandler___bl
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __68__SUSettingsScanOperation_checkForMDMRestrictions_withReplyHandler___block_invoke_381(uint64_t a1, char a2, id obj)
@@ -3008,7 +2987,6 @@ void __68__SUSettingsScanOperation_checkForMDMRestrictions_withReplyHandler___bl
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)queryDDMDeclaration:(id)declaration withReplyHandler:(id)handler
@@ -3105,7 +3083,6 @@ void __64__SUSettingsScanOperation_queryDDMDeclaration_withReplyHandler___block_
   objc_storeStrong(v17, 0);
   objc_storeStrong(&v18, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)checkForBetaPrograms:(id)programs withReplyHandler:(id)handler
@@ -3217,7 +3194,6 @@ void __64__SUSettingsScanOperation_queryDDMDeclaration_withReplyHandler___block_
 
   objc_storeStrong(&v31, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __65__SUSettingsScanOperation_checkForBetaPrograms_withReplyHandler___block_invoke(uint64_t a1, void *a2)
@@ -3259,7 +3235,6 @@ void __65__SUSettingsScanOperation_checkForBetaPrograms_withReplyHandler___block
 
   objc_storeStrong(v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)scanForDeviceEligibleBetaPrograms:(id)programs withReplyHandler:(id)handler
@@ -3320,7 +3295,6 @@ void __65__SUSettingsScanOperation_checkForBetaPrograms_withReplyHandler___block
 
   objc_storeStrong(&v24, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __78__SUSettingsScanOperation_scanForDeviceEligibleBetaPrograms_withReplyHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -3427,7 +3401,6 @@ void __78__SUSettingsScanOperation_scanForDeviceEligibleBetaPrograms_withReplyHa
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __78__SUSettingsScanOperation_scanForDeviceEligibleBetaPrograms_withReplyHandler___block_invoke_391(uint64_t a1, void *a2)
@@ -3512,7 +3485,6 @@ void __78__SUSettingsScanOperation_scanForDeviceEligibleBetaPrograms_withReplyHa
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)queryRollbackStatus:(id)status withReplyHandler:(id)handler
@@ -3637,7 +3609,6 @@ void __64__SUSettingsScanOperation_queryRollbackStatus_withReplyHandler___block_
 
   objc_storeStrong(&v31, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __64__SUSettingsScanOperation_queryRollbackStatus_withReplyHandler___block_invoke_398(uint64_t a1)
@@ -3702,7 +3673,6 @@ void __64__SUSettingsScanOperation_queryRollbackStatus_withReplyHandler___block_
   }
 
   objc_storeStrong(v17, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)checkIsEligibleForRollback:(id)rollback withReplyHandler:(id)handler
@@ -3825,7 +3795,6 @@ void __71__SUSettingsScanOperation_checkIsEligibleForRollback_withReplyHandler__
 
   objc_storeStrong(&v30, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __71__SUSettingsScanOperation_checkIsEligibleForRollback_withReplyHandler___block_invoke_400(uint64_t a1)
@@ -3890,7 +3859,6 @@ void __71__SUSettingsScanOperation_checkIsEligibleForRollback_withReplyHandler__
   }
 
   objc_storeStrong(v17, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)checkIfAutoUpdateScheduled:(id)scheduled withReplyHandler:(id)handler
@@ -4008,7 +3976,6 @@ void __71__SUSettingsScanOperation_checkIfAutoUpdateScheduled_withReplyHandler__
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __71__SUSettingsScanOperation_checkIfAutoUpdateScheduled_withReplyHandler___block_invoke_402(uint64_t a1, void *a2, void *a3)
@@ -4086,7 +4053,6 @@ void __71__SUSettingsScanOperation_checkIfAutoUpdateScheduled_withReplyHandler__
 
   objc_storeStrong(&v19, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)startRefreshOperation:(id)operation withEventInfo:(id)info completionHandler:(id)handler

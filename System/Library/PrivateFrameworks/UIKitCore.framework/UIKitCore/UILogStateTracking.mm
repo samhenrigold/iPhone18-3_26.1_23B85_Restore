@@ -11,7 +11,7 @@ void ___UILogStateTracking_block_invoke(uint64_t a1, uint64_t a2)
   v6 = 0u;
   v7 = 0u;
   v5 = 0u;
-  _UIGetTraitMetadata(v4, 0, &v5);
+  _UIGetTraitMetadata(0, v4, &v5);
   v3 = v6;
   [v2 addObject:v3];
 }

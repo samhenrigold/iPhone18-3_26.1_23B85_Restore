@@ -1060,7 +1060,7 @@ LABEL_27:
   return v13;
 }
 
-void __115__AMSFinancePaymentSheetResponse__salableInfoDictionaryForValues_styles_account_shouldUppercaseText_designVersion___block_invoke(uint64_t a1, void *a2)
+void __115__AMSFinancePaymentSheetResponse__salableInfoDictionaryForValues_styles_account_shouldUppercaseText_designVersion___block_invoke(void *a1, void *a2)
 {
   v36[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -1091,7 +1091,7 @@ LABEL_12:
     v10 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:v4];
     [v7 setObject:v10 forKey:@"value"];
 
-    v11 = *(a1 + 32);
+    v11 = a1[4];
     v8 = [v7 copy];
     [v11 addObject:v8];
     goto LABEL_13;
@@ -1140,7 +1140,7 @@ LABEL_14:
       v19 = 0;
     }
 
-    v20 = [objc_opt_class() _styleDictionaryWithName:v19 styles:*(a1 + 40)];
+    v20 = [objc_opt_class() _styleDictionaryWithName:v19 styles:a1[5]];
     if (v20)
     {
       v21 = [objc_opt_class() attributedStringWithString:v26 styles:v20];
@@ -1165,7 +1165,7 @@ LABEL_14:
       v22 = v28;
     }
 
-    v24 = *(a1 + 32);
+    v24 = a1[4];
     v25 = [v8 copy];
     [v24 addObject:v25];
 
@@ -1646,7 +1646,7 @@ void __112__AMSFinancePaymentSheetResponse__flexListDictionaryForValues_styles_a
   }
 }
 
-uint64_t __112__AMSFinancePaymentSheetResponse__flexListDictionaryForValues_styles_account_shouldUppercaseText_designVersion___block_invoke_309(uint64_t a1, void *a2, unint64_t a3)
+uint64_t __112__AMSFinancePaymentSheetResponse__flexListDictionaryForValues_styles_account_shouldUppercaseText_designVersion___block_invoke_309(uint64_t a1, void *a2, char *a3)
 {
   v19 = a2;
   objc_opt_class();
@@ -2483,7 +2483,7 @@ void __85__AMSFinancePaymentSheetResponse__performPaymentSheetWithTaskInfo_compl
   return v14;
 }
 
-void __78__AMSFinancePaymentSheetResponse__attributedStringForAttributedArray_account___block_invoke(uint64_t a1, void *a2, unint64_t a3)
+void __78__AMSFinancePaymentSheetResponse__attributedStringForAttributedArray_account___block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v10 = a2;
   objc_opt_class();
@@ -2611,7 +2611,7 @@ LABEL_11:
   return v17;
 }
 
-void __101__AMSFinancePaymentSheetResponse__attributedStringForSalableInfoStringArray_account_shouldUppercase___block_invoke(uint64_t a1, void *a2, unint64_t a3)
+void __101__AMSFinancePaymentSheetResponse__attributedStringForSalableInfoStringArray_account_shouldUppercase___block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v5 = [a2 ams_replacingMarkupUsingAccount:*(a1 + 32) shouldUppercase:*(a1 + 72)];
   v6 = v5;
@@ -2658,7 +2658,7 @@ void __101__AMSFinancePaymentSheetResponse__attributedStringForSalableInfoString
   return v17;
 }
 
-void __107__AMSFinancePaymentSheetResponse__attributedStringForSalableInfoStyledStringArray_account_shouldUppercase___block_invoke(uint64_t a1, void *a2, unint64_t a3)
+void __107__AMSFinancePaymentSheetResponse__attributedStringForSalableInfoStyledStringArray_account_shouldUppercase___block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v5 = a2;
   objc_opt_class();
@@ -2746,7 +2746,7 @@ LABEL_11:
   return v19;
 }
 
-void __98__AMSFinancePaymentSheetResponse__attributedStringForStringArray_useGrey_account_shouldUppercase___block_invoke(uint64_t a1, void *a2, unint64_t a3)
+void __98__AMSFinancePaymentSheetResponse__attributedStringForStringArray_useGrey_account_shouldUppercase___block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v5 = [a2 ams_replacingMarkupUsingAccount:*(a1 + 32) shouldUppercase:*(a1 + 72)];
   v6 = v5;

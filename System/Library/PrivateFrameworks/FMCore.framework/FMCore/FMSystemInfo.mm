@@ -72,7 +72,7 @@ uint64_t __32__FMSystemInfo_ios_btMacAddress__block_invoke(uint64_t a1)
   return MEMORY[0x2821F96F8]();
 }
 
-uint64_t __26__FMSystemInfo_ios_hasSEP__block_invoke(uint64_t a1)
+void *__26__FMSystemInfo_ios_hasSEP__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _BOOLDeviceInfoForKey:@"HasSEP"];
   hasSEP__value = result;

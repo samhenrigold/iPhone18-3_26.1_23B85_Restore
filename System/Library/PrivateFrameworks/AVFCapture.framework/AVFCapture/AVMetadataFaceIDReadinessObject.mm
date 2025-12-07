@@ -43,7 +43,7 @@
   userEngagementStatus = [object userEngagementStatus];
   if (object)
   {
-    [object time];
+    objc_msgSend_time(object);
   }
 
   else

@@ -112,44 +112,44 @@
 
 + (id)workoutRecoveryDateIntervalForWorkout:(id)workout overlappingWorkouts:(id)workouts
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   workoutCopy = workout;
   workoutsCopy = workouts;
   endDate = [workoutCopy endDate];
   v9 = [self _recoveryEndDateWithStartDate:endDate];
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __94___HKHeartRateRecoveryQueryUtility_workoutRecoveryDateIntervalForWorkout_overlappingWorkouts___block_invoke;
-  v38[3] = &unk_1E737DDF8;
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = __94___HKHeartRateRecoveryQueryUtility_workoutRecoveryDateIntervalForWorkout_overlappingWorkouts___block_invoke;
+  v37[3] = &unk_1E737DDF8;
   v10 = workoutCopy;
-  v39 = v10;
+  v38 = v10;
   v11 = v9;
-  v40 = v11;
-  v32 = endDate;
-  v33 = workoutsCopy;
-  v41 = v32;
-  v12 = [workoutsCopy hk_filter:v38];
+  v39 = v11;
+  v31 = endDate;
+  v32 = workoutsCopy;
+  v40 = v31;
+  v12 = [workoutsCopy hk_filter:v37];
   distantFuture = [MEMORY[0x1E695DF00] distantFuture];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v14 = v12;
-  v15 = [v14 countByEnumeratingWithState:&v34 objects:v42 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v35;
+    v17 = *v34;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v35 != v17)
+        if (*v34 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v34 + 1) + 8 * i);
+        v19 = *(*(&v33 + 1) + 8 * i);
         startDate = [v19 startDate];
         v21 = [startDate hk_isBeforeOrEqualToDate:distantFuture];
 
@@ -161,7 +161,7 @@
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v33 objects:v41 count:16];
     }
 
     while (v16);
@@ -193,8 +193,6 @@
     v27 = [v28 initWithStartDate:endDate3 endDate:v24];
   }
 
-  v30 = *MEMORY[0x1E69E9840];
-
   return v27;
 }
 
@@ -214,38 +212,38 @@
 
 + (id)perMinuteWorkoutRecoveryHeartRateFromReadings:(id)readings workoutEndDate:(id)date
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   readingsCopy = readings;
   dateCopy = date;
-  v30 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v32 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v29 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v31 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v8 = objc_alloc(MEMORY[0x1E696AB80]);
   v9 = [self _recoveryEndDateWithStartDate:dateCopy];
-  v27 = [v8 initWithStartDate:dateCopy endDate:v9];
+  v26 = [v8 initWithStartDate:dateCopy endDate:v9];
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obj = readingsCopy;
-  v28 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
-  if (v28)
+  v27 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+  if (v27)
   {
-    v26 = *v34;
+    v25 = *v33;
     do
     {
       v10 = 0;
       do
       {
-        if (*v34 != v26)
+        if (*v33 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = v10;
-        v31 = *(*(&v33 + 1) + 8 * v10);
-        date = [v31 date];
-        if ([v27 containsDate:date])
+        v28 = v10;
+        v30 = *(*(&v32 + 1) + 8 * v10);
+        date = [v30 date];
+        if ([v26 containsDate:date])
         {
           v12 = 0;
           for (i = 0; i != 3; ++i)
@@ -254,7 +252,7 @@
             [date timeIntervalSinceDate:v14];
             v16 = fabs(v15);
             v17 = [MEMORY[0x1E696AD98] numberWithInt:i];
-            v18 = [v32 objectForKeyedSubscript:v17];
+            v18 = [v31 objectForKeyedSubscript:v17];
 
             if (v16 < 20.0)
             {
@@ -262,10 +260,10 @@
               {
                 v20 = [MEMORY[0x1E696AD98] numberWithDouble:v16];
                 v21 = [MEMORY[0x1E696AD98] numberWithInt:i];
-                [v32 setObject:v20 forKeyedSubscript:v21];
+                [v31 setObject:v20 forKeyedSubscript:v21];
 
                 v22 = [MEMORY[0x1E696AD98] numberWithInt:i];
-                [v30 setObject:v31 forKeyedSubscript:v22];
+                [v29 setObject:v30 forKeyedSubscript:v22];
               }
             }
 
@@ -273,19 +271,17 @@
           }
         }
 
-        v10 = v29 + 1;
+        v10 = v28 + 1;
       }
 
-      while (v29 + 1 != v28);
-      v28 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+      while (v28 + 1 != v27);
+      v27 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
-    while (v28);
+    while (v27);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
-
-  return v30;
+  return v29;
 }
 
 + (id)predicateForWorkoutRecoveryTimeWithWorkout:(id)workout

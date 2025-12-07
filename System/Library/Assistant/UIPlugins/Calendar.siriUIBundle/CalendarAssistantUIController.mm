@@ -343,20 +343,10 @@ LABEL_5:
 
   calendarId = [eventCopy calendarId];
 
-  if (!calendarId)
+  if (!calendarId || (-[CalendarAssistantUIController eventStore](self, "eventStore"), v11 = objc_claimAutoreleasedReturnValue(), [eventCopy calendarId], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "calendarWithExternalURI:", v12), defaultCalendarForNewEvents = objc_claimAutoreleasedReturnValue(), v12, v11, !defaultCalendarForNewEvents))
   {
-    goto LABEL_5;
-  }
-
-  eventStore2 = [(CalendarAssistantUIController *)self eventStore];
-  calendarId2 = [eventCopy calendarId];
-  defaultCalendarForNewEvents = [eventStore2 calendarWithExternalURI:calendarId2];
-
-  if (!defaultCalendarForNewEvents)
-  {
-LABEL_5:
-    eventStore3 = [(CalendarAssistantUIController *)self eventStore];
-    defaultCalendarForNewEvents = [eventStore3 defaultCalendarForNewEvents];
+    eventStore2 = [(CalendarAssistantUIController *)self eventStore];
+    defaultCalendarForNewEvents = [eventStore2 defaultCalendarForNewEvents];
   }
 
   v97 = defaultCalendarForNewEvents;

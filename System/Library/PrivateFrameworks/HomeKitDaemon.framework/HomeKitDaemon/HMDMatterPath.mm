@@ -246,52 +246,7 @@ LABEL_8:
 
     v6 = v5;
     v7 = v6;
-    if (!v6)
-    {
-      goto LABEL_12;
-    }
-
-    endpointID = [(HMDMatterPath *)v6 endpointID];
-    endpointID2 = [(HMDMatterPath *)self endpointID];
-    v10 = HMFEqualObjects();
-
-    if (!v10)
-    {
-      goto LABEL_12;
-    }
-
-    clusterID = [(HMDMatterPath *)v7 clusterID];
-    clusterID2 = [(HMDMatterPath *)self clusterID];
-    v13 = HMFEqualObjects();
-
-    if (!v13)
-    {
-      goto LABEL_12;
-    }
-
-    attributeID = [(HMDMatterPath *)v7 attributeID];
-    attributeID2 = [(HMDMatterPath *)self attributeID];
-    v16 = HMFEqualObjects();
-
-    if (!v16)
-    {
-      goto LABEL_12;
-    }
-
-    commandID = [(HMDMatterPath *)v7 commandID];
-    commandID2 = [(HMDMatterPath *)self commandID];
-    v19 = HMFEqualObjects();
-
-    if (!v19)
-    {
-      goto LABEL_12;
-    }
-
-    eventID = [(HMDMatterPath *)v7 eventID];
-    eventID2 = [(HMDMatterPath *)self eventID];
-    v22 = HMFEqualObjects();
-
-    if (v22)
+    if (v6 && ([(HMDMatterPath *)v6 endpointID], v8 = objc_claimAutoreleasedReturnValue(), [(HMDMatterPath *)self endpointID], v9 = objc_claimAutoreleasedReturnValue(), v10 = HMFEqualObjects(), v9, v8, v10) && ([(HMDMatterPath *)v7 clusterID], v11 = objc_claimAutoreleasedReturnValue(), [(HMDMatterPath *)self clusterID], v12 = objc_claimAutoreleasedReturnValue(), v13 = HMFEqualObjects(), v12, v11, v13) && ([(HMDMatterPath *)v7 attributeID], v14 = objc_claimAutoreleasedReturnValue(), [(HMDMatterPath *)self attributeID], v15 = objc_claimAutoreleasedReturnValue(), v16 = HMFEqualObjects(), v15, v14, v16) && ([(HMDMatterPath *)v7 commandID], v17 = objc_claimAutoreleasedReturnValue(), [(HMDMatterPath *)self commandID], v18 = objc_claimAutoreleasedReturnValue(), v19 = HMFEqualObjects(), v18, v17, v19) && ([(HMDMatterPath *)v7 eventID], v20 = objc_claimAutoreleasedReturnValue(), [(HMDMatterPath *)self eventID], v21 = objc_claimAutoreleasedReturnValue(), v22 = HMFEqualObjects(), v21, v20, v22))
     {
       accessory = [(HMDMatterPath *)v7 accessory];
       accessory2 = [(HMDMatterPath *)self accessory];
@@ -300,7 +255,6 @@ LABEL_8:
 
     else
     {
-LABEL_12:
       v25 = 0;
     }
   }
@@ -508,7 +462,7 @@ LABEL_16:
 
 - (HMDMatterPath)initWithMTRPath:(id)path accessory:(id)accessory
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   accessoryCopy = accessory;
   if (accessoryCopy)
@@ -525,7 +479,7 @@ LABEL_16:
     }
 
     v9 = v8;
-    v34 = v9;
+    v33 = v9;
     v10 = pathCopy;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -539,7 +493,7 @@ LABEL_16:
     }
 
     v12 = v11;
-    v33 = v12;
+    v32 = v12;
 
     v13 = v10;
     objc_opt_class();
@@ -560,16 +514,16 @@ LABEL_16:
     cluster = [v13 cluster];
     attribute = [v9 attribute];
     [v12 command];
-    v20 = v32 = self;
+    v20 = v31 = self;
     event = [v15 event];
     v22 = [v16 stringWithFormat:@"endpointID=%@ clusterID=%@ attributeID=%@ commandID=%@ eventID=%@", endpoint, cluster, attribute, v20, event];
 
     v23 = MEMORY[0x277CCAD78];
     uuid = [accessoryCopy uuid];
-    v35[0] = v22;
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
+    v34[0] = v22;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
     v26 = [v23 hm_deriveUUIDFromBaseUUID:uuid withSalts:v25];
-    v27 = [(HMDMatterPath *)v32 initWithUUID:v26 mtrPath:v13 accessory:accessoryCopy];
+    v27 = [(HMDMatterPath *)v31 initWithUUID:v26 mtrPath:v13 accessory:accessoryCopy];
 
     v28 = v27;
   }
@@ -580,7 +534,6 @@ LABEL_16:
     v28 = [(HMDMatterPath *)self initWithUUID:uUID mtrPath:pathCopy accessory:0];
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
@@ -691,10 +644,9 @@ LABEL_18:
 
 void __28__HMDMatterPath_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v10_160426;
-  logCategory__hmf_once_v10_160426 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v10_160426;
+  logCategory__hmf_once_v10_160426 = v0;
 }
 
 + (HMDMatterPath)PathWithEventID:(id)d endpointID:(id)iD clusterID:(id)clusterID accessory:(id)accessory

@@ -139,19 +139,18 @@ LABEL_8:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_bulletin)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    shouldPlayLightsAndSirens = self->_shouldPlayLightsAndSirens;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -170,9 +169,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  date = self->_date;
   PBDataWriterWriteDoubleField();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -186,15 +184,13 @@ LABEL_6:
   }
 
 LABEL_13:
-  updateType = self->_updateType;
   PBDataWriterWriteUint32Field();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_7:
-    trafficRestricted = self->_trafficRestricted;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_8:
@@ -341,7 +337,6 @@ LABEL_5:
       goto LABEL_24;
     }
 
-    v6 = *(equalCopy + 28);
     if (self->_shouldPlayLightsAndSirens)
     {
       if ((*(equalCopy + 28) & 1) == 0)
@@ -387,7 +382,7 @@ LABEL_5:
     goto LABEL_24;
   }
 
-  v7 = (*(equalCopy + 32) & 8) == 0;
+  v6 = (*(equalCopy + 32) & 8) == 0;
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 32) & 8) != 0)
@@ -405,17 +400,17 @@ LABEL_5:
         goto LABEL_24;
       }
 
-      v7 = 1;
+      v6 = 1;
       goto LABEL_25;
     }
 
 LABEL_24:
-    v7 = 0;
+    v6 = 0;
   }
 
 LABEL_25:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash
@@ -504,7 +499,7 @@ LABEL_11:
     }
 
     v8 = fromCopy;
-    [(BLTPBBulletin *)bulletin mergeFrom:?];
+    bulletin = [(BLTPBBulletin *)bulletin mergeFrom:?];
   }
 
   else
@@ -515,7 +510,7 @@ LABEL_11:
     }
 
     v8 = fromCopy;
-    [(BLTPBAddBulletinRequest *)self setBulletin:?];
+    bulletin = [(BLTPBAddBulletinRequest *)self setBulletin:?];
   }
 
   fromCopy = v8;
@@ -569,7 +564,7 @@ LABEL_11:
 
 LABEL_12:
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](bulletin, fromCopy);
 }
 
 @end

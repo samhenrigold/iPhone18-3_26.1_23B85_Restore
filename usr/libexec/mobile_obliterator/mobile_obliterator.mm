@@ -170,7 +170,7 @@ void sub_1000016C0(id a1)
   if (Mutable)
   {
     v2 = Mutable;
-    sub_100005B48(Mutable, &v4);
+    sub_100005B48(Mutable, &v4, byte_10002C600);
     CFRelease(v2);
   }
 
@@ -206,7 +206,7 @@ void sub_1000016C0(id a1)
   sub_100005DFC(&byte_10002E600, "xarts");
 }
 
-void sub_1000018A4(int a1, char *__format, ...)
+void sub_1000018A4(uint64_t a1, char *__format, ...)
 {
   va_start(va, __format);
   if (!__format)
@@ -214,6 +214,7 @@ void sub_1000018A4(int a1, char *__format, ...)
     return;
   }
 
+  v2 = a1;
   if (word_10002EC6B != 1)
   {
     v6 = CFStringCreateWithCString(kCFAllocatorDefault, __format, 0x8000100u);
@@ -231,7 +232,7 @@ void sub_1000018A4(int a1, char *__format, ...)
     }
 
 LABEL_10:
-    sub_100004234(v5, 1u, a1);
+    sub_100004234(v5, 1, v2);
     CFRelease(v5);
     return;
   }
@@ -308,131 +309,133 @@ uint64_t start(int a1, uint64_t a2)
 {
   byte_10002C409 = sub_10000FB64();
   v4 = sub_10000FA50();
-  dword_10002C2D8 = open("/dev/console", 9);
-  if (sub_10000E6A8())
+  v5 = open("/dev/console", 9);
+  dword_10002C2D8 = v5;
+  v7 = sub_10000E6A8(v5, v6);
+  if (v7)
   {
-    sub_10000E824();
+    sub_10000E824(v7);
   }
 
-  byte_10002EC69 = sub_10000E60C();
+  byte_10002EC69 = sub_10000E60C(v7, v8);
   if (a1 == 2 && !strcmp(*(a2 + 8), "--init"))
   {
     fwrite("Obliterator: In INIT check\n", 0x1BuLL, 1uLL, __stderrp);
-    v8 = sub_100001F74(0, 0);
-    if (v8)
+    v12 = sub_100001F74(0, 0);
+    if (v12)
     {
       if (!v4)
       {
         fwrite("Obliterator: Obliteration terminated improperly, continuing obliteration...\n", 0x4CuLL, 1uLL, __stderrp);
-        v8 = 0;
+        v12 = 0;
 LABEL_18:
         close(0);
         if (open("/dev/null", 2) == -1)
         {
-          v9 = "failed to open stdin devnull\n";
-          v10 = 29;
+          v13 = "failed to open stdin devnull\n";
+          v14 = 29;
         }
 
         else
         {
-          v9 = "*** STDIN set with devnull ***\n";
-          v10 = 31;
+          v13 = "*** STDIN set with devnull ***\n";
+          v14 = 31;
         }
 
-        fwrite(v9, v10, 1uLL, __stderrp);
+        fwrite(v13, v14, 1uLL, __stderrp);
         sub_100001370(0, 1);
-        v11 = sub_1000022A8();
-        v12 = v11;
-        if (v11 != 89 && v11)
+        v15 = sub_1000022A8();
+        v16 = v15;
+        if (v15 != 89 && v15)
         {
           if (byte_10002EC6A)
           {
-            v23 = "RRTS";
+            v29 = "RRTS";
           }
 
           else
           {
-            v23 = "Oblit";
+            v29 = "Oblit";
           }
 
-          v24 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Safe%s failed with [gF: 0x%016llX] Attempt: %ld", v23, qword_10002C410, qword_10002EC80 + 1);
-          if (v24)
+          v30 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Safe%s failed with [gF: 0x%016llX] Attempt: %ld", v29, qword_10002C410, qword_10002EC80 + 1);
+          if (v30)
           {
-            v25 = v24;
-            sub_10000F4A0("oblit-failure", v24);
-            CFRelease(v25);
+            v31 = v30;
+            sub_10000F4A0("oblit-failure", v30);
+            CFRelease(v31);
           }
 
           if (byte_10002EC6A)
           {
-            v26 = "RRTS";
+            v32 = "RRTS";
           }
 
           else
           {
-            v26 = "Obliteration";
+            v32 = "Obliteration";
           }
 
-          sub_1000018A4(0, "%s: Safe %s failed, returning %d", "main", v26, v12);
+          sub_1000018A4(0, "%s: Safe %s failed, returning %d", "main", v32, v16);
 LABEL_51:
-          if (sub_10000E6A8())
+          if (sub_10000E6A8(v27, v28))
           {
             sub_1000019EC(0, 0, "/log/obliteration.log");
             sub_10000EAD4(byte_10002C500, sub_10000E708);
-            sub_10000E8D0();
+            sub_10000E8D0(v33, v34);
           }
 
-          exit(v12);
+          exit(v16);
         }
 
-        v13 = sub_100004138("oblit-begins", __big, 0x100u);
-        if (v13)
+        v17 = sub_100004138("oblit-begins", __big, 0x100u);
+        if (v17)
         {
-          v15 = v13;
-          v16 = strnstr(__big, "Caller: ", v13);
-          v17 = v15 - 8;
-          if (!v16)
+          v19 = v17;
+          v20 = strnstr(__big, "Caller: ", v17);
+          v21 = v19 - 8;
+          if (!v20)
           {
-            v17 = v15;
+            v21 = v19;
           }
 
-          v14 = &__big[8 * (v16 != 0)];
-          if (v17 >= 0xC1)
+          v18 = &__big[8 * (v20 != 0)];
+          if (v21 >= 0xC1)
           {
-            v18 = 199;
-            if (!v16)
+            v22 = 199;
+            if (!v20)
             {
-              v18 = 191;
+              v22 = 191;
             }
 
-            __big[v18] = 0;
+            __big[v22] = 0;
           }
         }
 
         else
         {
-          v14 = 0;
+          v18 = 0;
         }
 
         if (byte_10002EC6A)
         {
-          v19 = "RRTS";
+          v23 = "RRTS";
         }
 
         else
         {
-          v19 = "Oblit";
+          v23 = "Oblit";
         }
 
-        v20 = time(0);
-        v21 = "<unknown>";
-        if (v14)
+        v24 = time(0);
+        v25 = "<unknown>";
+        if (v18)
         {
-          v21 = v14;
+          v25 = v18;
         }
 
-        v22 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Safe%s done @%ld, Err:%d, By:%s", v19, v20, v12, v21);
-        sub_100004234(v22, 0, 1);
+        v26 = CFStringCreateWithFormat(kCFAllocatorDefault, 0, @"Safe%s done @%ld, Err:%d, By:%s", v23, v24, v16, v25);
+        sub_100004234(v26, 0, 1);
         sub_10000F94C(@"oblit-begins");
         sub_10000F94C(@"oblit-failure");
         if (byte_10002EC6A == 1)
@@ -441,7 +444,7 @@ LABEL_51:
           sub_10000F94C(@"oblit-rrts-snapshot");
         }
 
-        if ((v8 | v4 ^ 1))
+        if ((v12 | v4 ^ 1))
         {
           goto LABEL_51;
         }
@@ -467,14 +470,14 @@ LABEL_41:
   }
 
   sub_1000018A4(1, "%s: mobile_obliterator - XPC version started", "main");
-  v5 = dispatch_queue_create("com.apple.mobile.obliterator", 0);
-  if (v5)
+  v9 = dispatch_queue_create("com.apple.mobile.obliterator", 0);
+  if (v9)
   {
-    v6 = v5;
+    v10 = v9;
     if (qword_10002EA00 || (qword_10002EA00 = MOXPCTransportOpen()) != 0)
     {
       MOXPCTransportSetMessageHandler();
-      dispatch_release(v6);
+      dispatch_release(v10);
       MOXPCTransportResume();
       dispatch_main();
     }
@@ -496,7 +499,7 @@ uint64_t sub_100001F74(int a1, uint64_t *a2)
   v4 = IORegistryEntryFromPath(kIOMainPortDefault, "IODeviceTree:/options");
   if (!v4)
   {
-    sub_1000018A4(0, "%s: IORegistryEntryFromPath failed");
+    sub_1000018A4(v4, "%s: IORegistryEntryFromPath failed");
     return 0;
   }
 
@@ -596,16 +599,16 @@ LABEL_17:
 
 uint64_t sub_1000022A8()
 {
-  memset(v119, 0, 64);
-  v118 = 0u;
-  v117 = 0u;
-  v116 = 0u;
+  memset(v114, 0, 64);
+  v113 = 0u;
+  v112 = 0u;
+  v111 = 0u;
   *__s = 0u;
-  memset(v114, 0, sizeof(v114));
-  v110 = 0;
-  v109 = 0;
+  memset(v109, 0, sizeof(v109));
+  v105 = 0;
+  v104 = 0;
   v0 = sub_10000FA50();
-  v108 = 0;
+  v103 = 0;
   sub_1000018A4(1, "%s: safeObliterate: Starting", "safeObliterate");
   if (v0)
   {
@@ -816,34 +819,32 @@ LABEL_32:
     v25 = byte_10002C600;
   }
 
-  v26 = getfsfile(v25);
-  if (v26 && (v27 = v26, (sub_100001504(17, "safeObliterate") & 1) == 0))
+  if (getfsfile(v25) && (sub_100001504(17, "safeObliterate") & 1) == 0)
   {
-    fs_spec = v27->fs_spec;
     __strlcpy_chk();
   }
 
   else
   {
     sub_1000018A4(1, "%s: safeObliterate: Failed getfsfile, manually creating data volume device", "safeObliterate");
-    memset(&v112, 0, 512);
+    memset(&v107, 0, 512);
     *__error() = 0;
-    if (statfs("/", &v112) || sub_100001504(17, "safeObliterate"))
+    if (statfs("/", &v107) || sub_100001504(17, "safeObliterate"))
     {
-      v28 = *__error();
+      __error();
       sub_1000018A4(1, "%s: safeObliterate: Failed statfs of /, error: %d");
     }
 
     else
     {
-      f_mntfromname = v112.f_mntfromname;
+      f_mntfromname = v107.f_mntfromname;
       do
       {
-        v47 = strchr(f_mntfromname, 64);
-        f_mntfromname = v47 + 1;
+        v43 = strchr(f_mntfromname, 64);
+        f_mntfromname = v43 + 1;
       }
 
-      while (v47);
+      while (v43);
       __strlcpy_chk();
       __s[strlen(__s) - 1] = 50;
       sub_1000018A4(1, "%s: safeObliterate: Using data volume device: %s");
@@ -852,40 +853,40 @@ LABEL_32:
 
   sub_1000018A4(1, "%s: safeObliterate(): XXXXXXXXXXXXX SKIPPING RAMROD SETUP XXXXXXXXXXXXX ", "safeObliterate");
   sub_1000018A4(1, "%s: safeObliterate: Checking if Data volume exists", "safeObliterate");
-  v30 = sub_10000C7E0();
-  if (v30)
+  v26 = sub_10000C7E0();
+  if (v26)
   {
-    v31 = v30;
-    Count = CFArrayGetCount(v30);
+    v27 = v26;
+    Count = CFArrayGetCount(v26);
     if (Count)
     {
       sub_1000018A4(1, "%s: Obtained List of APFS volumes", "data_volume_exists");
-      v33 = CFStringCreateWithCString(kCFAllocatorDefault, __s, 0x8000100u);
-      if (v33)
+      v29 = CFStringCreateWithCString(kCFAllocatorDefault, __s, 0x8000100u);
+      if (v29)
       {
         if (Count > 0)
         {
-          v34 = v33;
-          ValueAtIndex = CFArrayGetValueAtIndex(v31, 0);
-          if (CFStringFind(v34, ValueAtIndex, 0x40uLL).location != -1)
+          v30 = v29;
+          ValueAtIndex = CFArrayGetValueAtIndex(v27, 0);
+          if (CFStringFind(v30, ValueAtIndex, 0x40uLL).location != -1)
           {
-            v36 = 1;
+            v32 = 1;
             sub_1000018A4(1, "%s: Found existing Data volume", "data_volume_exists");
-            CFRelease(v31);
+            CFRelease(v27);
             goto LABEL_73;
           }
 
-          v48 = Count & 0x7FFFFFFF;
-          v49 = 1;
-          while (v48 != v49)
+          v44 = Count & 0x7FFFFFFF;
+          v45 = 1;
+          while (v44 != v45)
           {
-            v50 = CFArrayGetValueAtIndex(v31, v49++);
-            if (CFStringFind(v34, v50, 0x40uLL).location != -1)
+            v46 = CFArrayGetValueAtIndex(v27, v45++);
+            if (CFStringFind(v30, v46, 0x40uLL).location != -1)
             {
-              v36 = 1;
+              v32 = 1;
               sub_1000018A4(1, "%s: Found existing Data volume", "data_volume_exists");
-              CFRelease(v31);
-              if (v49 - 1 >= v48)
+              CFRelease(v27);
+              if (v45 - 1 >= v44)
               {
                 goto LABEL_72;
               }
@@ -907,7 +908,7 @@ LABEL_32:
       sub_1000018A4(1, "%s: APFS Volume list is empty, bailing");
     }
 
-    CFRelease(v31);
+    CFRelease(v27);
   }
 
   else
@@ -918,7 +919,7 @@ LABEL_32:
 LABEL_72:
   qword_10002C410 |= 0x10000uLL;
   sub_1000018A4(1, "%s: safeObliterate: Could not find Data volume, will skip deletion but drop keys before creating new volume", "safeObliterate");
-  v36 = 0;
+  v32 = 0;
 LABEL_73:
   if ((v0 & 1) == 0)
   {
@@ -934,24 +935,24 @@ LABEL_73:
     }
   }
 
-  sub_100008C0C(__s, v119);
-  sub_1000018A4(1, "%s: safeObliterate: Using container device name: %s", "safeObliterate", v119);
+  sub_100008C0C(__s, v114);
+  sub_1000018A4(1, "%s: safeObliterate: Using container device name: %s", "safeObliterate", v114);
   if (byte_10002EC6A != 1)
   {
     sub_1000018A4(1, "%s: safeObliterate: Obliterating the Data volume", "safeObliterate");
-    if (sub_1000091FC(v119, __s, v36, v16, &v109))
+    if (sub_1000091FC(v114, __s, v32, v16, &v104))
     {
       qword_10002C410 |= 0x20000uLL;
       sub_1000018A4(1, "%s: safeObliterate: Could not obliterate the Data volume", "safeObliterate");
-      if ((v109 & 1) == 0)
+      if ((v104 & 1) == 0)
       {
         sub_1000018A4(1, "%s: safeObliterate: failed to wipe volume keys, failing safe obliteration", "safeObliterate");
         goto LABEL_278;
       }
     }
 
-    sub_1000018A4(1, "%s: safeObliterate: Reformatting the Data volume in container %s", "safeObliterate", v119);
-    if (sub_1000095FC(v119, 1, __s, "safeObliterate"))
+    sub_1000018A4(1, "%s: safeObliterate: Reformatting the Data volume in container %s", "safeObliterate", v114);
+    if (sub_1000095FC(v114, 1, __s, "safeObliterate"))
     {
       sub_1000018A4(0, "%s: safeObliterate: Could not reformat the Data volume", "safeObliterate");
     }
@@ -959,8 +960,8 @@ LABEL_73:
 LABEL_119:
     if (v16)
     {
-      sub_1000018A4(1, "%s: safeObliterate: Reformatting the User volume in container %s", "safeObliterate", v119);
-      if (sub_1000095FC(v119, 0, v114, "safeObliterate"))
+      sub_1000018A4(1, "%s: safeObliterate: Reformatting the User volume in container %s", "safeObliterate", v114);
+      if (sub_1000095FC(v114, 0, v109, "safeObliterate"))
       {
         sub_1000018A4(0, "%s: safeObliterate: Could not reformat the User volume", "safeObliterate");
       }
@@ -968,10 +969,8 @@ LABEL_119:
 
     if (!__s[0])
     {
-      v51 = getfsfile(v25);
-      if (v51)
+      if (getfsfile(v25))
       {
-        v52 = v51->fs_spec;
         __strlcpy_chk();
         sub_1000018A4(1, "%s: safeObliterate: Using data volume device: %s");
       }
@@ -984,11 +983,11 @@ LABEL_119:
     }
 
     sub_1000018A4(1, "%s: safeObliterate: Setting up Data volume content", "safeObliterate");
-    v53 = sub_100009834(0, 0);
-    v107 = v53;
-    if (v53)
+    v47 = sub_100009834(0, 0);
+    v102 = v47;
+    if (v47)
     {
-      sub_10000DBE8(v53);
+      sub_10000DBE8(v47);
     }
 
     else
@@ -1011,27 +1010,27 @@ LABEL_119:
 
     if (byte_10002EC68)
     {
-      v54 = &byte_10002C600[&loc_100001800];
+      v48 = &byte_10002C600[&loc_100001800];
     }
 
     else
     {
-      v54 = byte_10002C600;
+      v48 = byte_10002C600;
     }
 
-    v55 = mkpath_np(v54, 0x1EDu);
-    if (v55)
+    v49 = mkpath_np(v48, 0x1EDu);
+    if (v49)
     {
-      v56 = v55;
-      if (v55 != 17)
+      v50 = v49;
+      if (v49 != 17)
       {
-        v57 = strerror(v55);
-        sub_1000018A4(1, "%s: safeObliterate: Could not create the Data volume path %s, error %d (%s)", "safeObliterate", v54, v56, v57);
+        v51 = strerror(v49);
+        sub_1000018A4(1, "%s: safeObliterate: Could not create the Data volume path %s, error %d (%s)", "safeObliterate", v48, v50, v51);
       }
     }
 
-    sub_1000018A4(1, "%s: safeObliterate: Remounting the Data volume %s at %s", "safeObliterate", __s, v54);
-    if (sub_100009AC0(__s, v54, 0))
+    sub_1000018A4(1, "%s: safeObliterate: Remounting the Data volume %s at %s", "safeObliterate", __s, v48);
+    if (sub_100009AC0(__s, v48, 0))
     {
       qword_10002C410 |= 0x100000uLL;
       sub_1000018A4(1, "%s: safeObliterate: Could not remount the Data volume", "safeObliterate");
@@ -1042,7 +1041,7 @@ LABEL_119:
       if (byte_10002EC6A == 1)
       {
         sub_1000018A4(1, "%s: safeRRTS: Re-setting UM/AKS of the new User volume", "safeObliterate");
-        if (sub_100009BB0(v54, v114))
+        if (sub_100009BB0(v48, v109))
         {
           qword_10002C410 |= 0x100000000000000uLL;
           sub_1000018A4(0, "%s: Failed to re-set the user volume in RRTS mode");
@@ -1054,15 +1053,15 @@ LABEL_119:
         sub_1000018A4(1, "%s: safeObliterate: Setting up UM/AKS for the new Data volume", "safeObliterate");
         if (v0)
         {
-          v58 = &v110;
+          v52 = &v105;
         }
 
         else
         {
-          v58 = 0;
+          v52 = 0;
         }
 
-        if (sub_10000A1BC(__s, v54, v114, v58, 0))
+        if (sub_10000A1BC(__s, v48, v109, v52, 0))
         {
           qword_10002C410 |= 0x100000000000000uLL;
           sub_1000018A4(1, "%s: safeObliterate: Failed to set up the data and user volumes in multiuser mode");
@@ -1078,7 +1077,7 @@ LABEL_119:
     else
     {
       sub_1000018A4(1, "%s: safeObliterate: Re-creating overprovisioning file", "safeObliterate");
-      if (sub_10000AA58())
+      if (sub_10000AA58(v53))
       {
         qword_10002C410 |= 0x200000uLL;
         sub_1000018A4(1, "%s: safeObliterate: Could not re-create overprovisioning file", "safeObliterate");
@@ -1093,17 +1092,17 @@ LABEL_119:
       sub_1000189F8();
     }
 
-    v59 = 1024;
+    v54 = 1024;
     if (byte_10002EC68)
     {
-      v59 = 7168;
+      v54 = 7168;
     }
 
-    v60 = &byte_10002C600[v59];
+    v55 = &byte_10002C600[v54];
     if (v16)
     {
-      sub_1000018A4(1, "%s: safeObliterate: Remounting the User volume %s at %s", "safeObliterate", v114, v60);
-      if (sub_100009AC0(v114, v60, 0))
+      sub_1000018A4(1, "%s: safeObliterate: Remounting the User volume %s at %s", "safeObliterate", v109, v55);
+      if (sub_100009AC0(v109, v55, 0))
       {
         qword_10002C410 |= 0x400000000000000uLL;
         sub_1000018A4(1, "%s: safeObliterate: Could not remount the User volume", "safeObliterate");
@@ -1113,20 +1112,20 @@ LABEL_119:
     if (byte_10002EC6A == 1)
     {
       sub_1000018A4(1, "%s: safeRRTS: Restoring Data volume content", "safeObliterate");
-      v61 = umask(0);
-      sub_1000018A4(1, "%s: safeRRTS: Old mask has value %o; New mask has value %o.", "safeObliterate", v61, 0);
-      v62 = geteuid();
-      v63 = getuid();
-      v64 = getpid();
-      v65 = getppid();
-      sub_1000018A4(1, "%s: safeRRTS: EUID = %d; UID = %d; PID = %d; PPID = %d.", "safeObliterate", v62, v63, v64, v65);
+      v56 = umask(0);
+      sub_1000018A4(1, "%s: safeRRTS: Old mask has value %o; New mask has value %o.", "safeObliterate", v56, 0);
+      v57 = geteuid();
+      v58 = getuid();
+      v59 = getpid();
+      v60 = getppid();
+      sub_1000018A4(1, "%s: safeRRTS: EUID = %d; UID = %d; PID = %d; PPID = %d.", "safeObliterate", v57, v58, v59, v60);
       if (qword_10002EC78 != -1)
       {
         sub_1000189F8();
       }
 
-      v66 = &unk_10002E000;
-      if (sub_100019300(v107))
+      v61 = &unk_10002E000;
+      if (sub_100019300(v102))
       {
         sub_1000018A4(1, "%s: safeRRTS: Unable to restore filesystem stuff.", "safeObliterate");
       }
@@ -1135,11 +1134,11 @@ LABEL_119:
     else
     {
       sub_1000018A4(1, "%s: safeObliterate: Rebuilding the Data volume", "safeObliterate");
-      *&v112.f_bsize = 0;
-      if (sub_100001F74(1, &v112))
+      *&v107.f_bsize = 0;
+      if (sub_100001F74(1, &v107))
       {
-        sub_1000018A4(1, "%s: Obtained the NVRAM Key Value and it is %ld", "safe_setup_volume", *&v112.f_bsize);
-        if (*&v112.f_bsize)
+        sub_1000018A4(1, "%s: Obtained the NVRAM Key Value and it is %ld", "safe_setup_volume", *&v107.f_bsize);
+        if (*&v107.f_bsize)
         {
           HIBYTE(word_10002EC6B) = 1;
           sub_1000018A4(1, "%s: This is a ManagedDevice Wipe");
@@ -1157,10 +1156,10 @@ LABEL_119:
         sub_1000189F8();
       }
 
-      v67 = aks_bootstrap_fs();
-      if (v67)
+      v62 = aks_bootstrap_fs();
+      if (v62)
       {
-        sub_1000018A4(1, "%s: aksutils_bootstrap_fs failed: %d", "safe_setup_volume", v67);
+        sub_1000018A4(1, "%s: aksutils_bootstrap_fs failed: %d", "safe_setup_volume", v62);
       }
 
       sub_1000018A4(1, "%s: Restoring Data volume content", "safe_setup_volume");
@@ -1169,7 +1168,7 @@ LABEL_119:
         sub_1000189F8();
       }
 
-      if (sub_100019300(v107))
+      if (sub_100019300(v102))
       {
         sub_1000018A4(1, "%s: Unable to restore filesystem stuff.");
       }
@@ -1207,41 +1206,41 @@ LABEL_119:
 
         else
         {
-          v70 = __error();
-          strerror(*v70);
+          v65 = __error();
+          strerror(*v65);
           sub_1000018A4(1, "%s: Could not symlink the timezone file '%s': %s");
         }
       }
 
       else if (lchmod(byte_10002C500, 0x1EDu) == -1)
       {
-        v69 = __error();
-        strerror(*v69);
+        v64 = __error();
+        strerror(*v64);
         sub_1000018A4(1, "%s: Could not set 0755 permission on symlink: %s");
       }
 
       sub_1000018A4(1, "%s: done symlink of TZDIR", "safe_setup_volume");
       sub_1000019EC(0, "/root", "/.obliterated");
-      v71 = open(byte_10002C500, 513, 420);
-      if (v71 == -1)
+      v66 = open(byte_10002C500, 513, 420);
+      if (v66 == -1)
       {
-        v72 = __error();
-        v73 = strerror(*v72);
-        sub_1000018A4(1, "%s: Could not create the '.obliterated' marker file: %s", "safe_setup_volume", v73);
+        v67 = __error();
+        v68 = strerror(*v67);
+        sub_1000018A4(1, "%s: Could not create the '.obliterated' marker file: %s", "safe_setup_volume", v68);
       }
 
       else
       {
-        close(v71);
+        close(v66);
       }
 
-      v66 = &unk_10002E000;
+      v61 = &unk_10002E000;
     }
 
     if (v16)
     {
       sub_1000018A4(1, "%s: safeObliterate: Populating USER volume with mastered content", "safeObliterate");
-      if (sub_10000B31C(v60))
+      if (sub_10000B31C(v55))
       {
         qword_10002C410 |= 0x800000000000000uLL;
         sub_1000018A4(0, "%s: safeObliterate: Failed to create and set up a user volume for multiuser mode", "safeObliterate");
@@ -1258,64 +1257,64 @@ LABEL_119:
       else
       {
         sub_1000018A4(1, "%s: safeObliterate: Cleaning Preboot volume in EpDM", "safeObliterate");
-        v75 = sub_10000FBD4();
-        v76 = objc_alloc_init(NSMutableDictionary);
-        if (v76)
+        v70 = sub_10000FBD4();
+        v71 = objc_alloc_init(NSMutableDictionary);
+        if (v71)
         {
-          v77 = v76;
+          v72 = v71;
           sub_10000CFA4();
-          v78 = open("/private/preboot/active", 0);
-          if (v78 == -1)
+          v73 = open("/private/preboot/active", 0);
+          if (v73 == -1)
           {
-            v85 = __error();
-            v86 = strerror(*v85);
-            sub_1000018A4(1, "%s: Failed to open /private/preboot/active: %s", "epdm_fixup_preboot", v86);
+            v80 = __error();
+            v81 = strerror(*v80);
+            sub_1000018A4(1, "%s: Failed to open /private/preboot/active: %s", "epdm_fixup_preboot", v81);
             __error();
           }
 
           else
           {
-            v79 = v78;
-            v80 = lseek(v78, 0, 2);
-            if (v80 != -1 && (v81 = v80, (v82 = malloc_type_malloc(v80 + 1, 0x3BBBD3F2uLL)) != 0) && (v83 = v82, v81 == pread(v79, v82, v81, 0)))
+            v74 = v73;
+            v75 = lseek(v73, 0, 2);
+            if (v75 != -1 && (v76 = v75, (v77 = malloc_type_malloc(v75 + 1, 0x3BBBD3F2uLL)) != 0) && (v78 = v77, v76 == pread(v74, v77, v76, 0)))
             {
-              v83[v81] = 0;
-              sub_1000018A4(1, "%s: Found '/private/preboot/active' to point to '%s'", "epdm_fixup_preboot", v83);
-              [v77 setObject:@"remove" forKey:off_10002C2E0];
-              [v77 setObject:@"keep" forKey:@"DarwinInitCache"];
-              [v77 setObject:@"keep" forKey:@"active"];
+              v78[v76] = 0;
+              sub_1000018A4(1, "%s: Found '/private/preboot/active' to point to '%s'", "epdm_fixup_preboot", v78);
+              [v72 setObject:@"remove" forKey:off_10002C2E0];
+              [v72 setObject:@"keep" forKey:@"DarwinInitCache"];
+              [v72 setObject:@"keep" forKey:@"active"];
               if (byte_10002EC69 == 1)
               {
-                [v77 setObject:@"keep" forKey:@"kernelcore"];
+                [v72 setObject:@"keep" forKey:@"kernelcore"];
               }
 
-              if (v75)
+              if (v70)
               {
                 sub_1000018A4(1, "%s: Exclaves are enabled, preserve exclave assets", "epdm_fixup_preboot");
-                [v77 setObject:@"removeExcept /ExclaveOS/" forKey:@"Cryptexes"];
-                v84 = @"removeExcept /(ANE|GFX|AVE|PMP|SIO|StaticTrustCache|iBootData|Ap,(ANE1|RestoreTMU|SecurePageTableMonitor|TrustedExecutionMonitor|ApplePMCFirmware|GFX1Firmware|ExclaveOSVolume|ExclaveOSIntegrityCatalog|ExclaveOSTrustCache|cL4))\\.img4/ /Ap,ExclaveOS.dmg/";
+                [v72 setObject:@"removeExcept /ExclaveOS/" forKey:@"Cryptexes"];
+                v79 = @"removeExcept /(ANE|GFX|AVE|PMP|SIO|StaticTrustCache|iBootData|Ap,(ANE1|RestoreTMU|SecurePageTableMonitor|TrustedExecutionMonitor|ApplePMCFirmware|GFX1Firmware|ExclaveOSVolume|ExclaveOSIntegrityCatalog|ExclaveOSTrustCache|cL4))\\.img4/ /Ap,ExclaveOS.dmg/";
               }
 
               else
               {
-                v84 = @"removeExcept /(ANE|GFX|AVE|PMP|SIO|StaticTrustCache|iBootData|Ap,(ANE1|RestoreTMU|SecurePageTableMonitor|TrustedExecutionMonitor|ApplePMCFirmware|GFX1Firmware))\\.img4/";
+                v79 = @"removeExcept /(ANE|GFX|AVE|PMP|SIO|StaticTrustCache|iBootData|Ap,(ANE1|RestoreTMU|SecurePageTableMonitor|TrustedExecutionMonitor|ApplePMCFirmware|GFX1Firmware))\\.img4/";
               }
 
-              v106 = v84;
-              v66 = &unk_10002E000;
-              [v77 setObject:@"removeExcept /apticket.der/ /com.apple.factorydata/" forKey:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s/System/Library/Caches", v83)}];
-              [v77 setObject:@"removeExcept /kernelcache/" forKey:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s/System/Library/Caches/com.apple.kernelcaches", v83)}];
-              [v77 setObject:@"removeExcept /devicetree.img4/ /root_hash.img4/ /sep-firmware.img4/ /sep-patches.img4/" forKey:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s/usr/standalone/firmware", v83)}];
-              [v77 setObject:v106 forKey:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s/usr/standalone/firmware/FUD", v83)}];
-              [+[DiskSupport sharedInstance](DiskSupport traverseFolderAndRemoveItems:"traverseFolderAndRemoveItems:exceptions:" exceptions:@"/private/preboot", v77];
+              v101 = v79;
+              v61 = &unk_10002E000;
+              [v72 setObject:@"removeExcept /apticket.der/ /com.apple.factorydata/" forKey:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s/System/Library/Caches", v78)}];
+              [v72 setObject:@"removeExcept /kernelcache/" forKey:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s/System/Library/Caches/com.apple.kernelcaches", v78)}];
+              [v72 setObject:@"removeExcept /devicetree.img4/ /root_hash.img4/ /sep-firmware.img4/ /sep-patches.img4/" forKey:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s/usr/standalone/firmware", v78)}];
+              [v72 setObject:v101 forKey:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s/usr/standalone/firmware/FUD", v78)}];
+              [+[DiskSupport sharedInstance](DiskSupport traverseFolderAndRemoveItems:"traverseFolderAndRemoveItems:exceptions:" exceptions:@"/private/preboot", v72];
 
-              free(v83);
+              free(v78);
             }
 
             else
             {
               sub_1000018A4(1, "%s: Failed to read /private/preboot/active", "epdm_fixup_preboot");
-              v66 = &unk_10002E000;
+              v61 = &unk_10002E000;
             }
           }
         }
@@ -1329,46 +1328,46 @@ LABEL_119:
       if (byte_10002EC69 != 1 || (sub_10000D524("epdm_skip_xart_cleanup=1") & 1) == 0)
       {
         sub_1000018A4(1, "%s: safeObliterate: Cleaning Xart volume", "safeObliterate");
-        v111 = 0;
-        v87 = objc_alloc_init(NSMutableDictionary);
-        if (v87)
+        v106 = 0;
+        v82 = objc_alloc_init(NSMutableDictionary);
+        if (v82)
         {
-          v88 = v87;
-          memset(&v112, 0, 37);
-          [v87 setObject:@"remove" forKey:off_10002C2E0];
-          v89 = IOServiceMatching("IOPlatformExpertDevice");
-          MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v89);
+          v83 = v82;
+          memset(&v107, 0, 37);
+          [v82 setObject:@"remove" forKey:off_10002C2E0];
+          v84 = IOServiceMatching("IOPlatformExpertDevice");
+          MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v84);
           if (MatchingService)
           {
-            v91 = MatchingService;
+            v86 = MatchingService;
             CFProperty = IORegistryEntryCreateCFProperty(MatchingService, @"IOPlatformUUID", kCFAllocatorDefault, 0);
-            IOObjectRelease(v91);
+            IOObjectRelease(v86);
             if (CFProperty)
             {
-              CString = CFStringGetCString(CFProperty, &v112, 37, 0x8000100u);
+              CString = CFStringGetCString(CFProperty, &v107, 37, 0x8000100u);
               CFRelease(CFProperty);
               if (CString)
               {
                 memset(uu, 0, sizeof(uu));
-                if (uuid_parse(&v112, uu))
+                if (uuid_parse(&v107, uu))
                 {
                   sub_1000018A4(1, "%s: Invalid platform UUID %s");
                 }
 
                 else
                 {
-                  sub_1000018A4(1, "%s: Platform UUID is %s", "get_platform_uuid", &v112);
-                  [v88 setObject:@"keep" forKey:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s.gl", &v112)}];
-                  if (sub_10000B558(256, &v111))
+                  sub_1000018A4(1, "%s: Platform UUID is %s", "get_platform_uuid", &v107);
+                  [v83 setObject:@"keep" forKey:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%s.gl", &v107)}];
+                  if (sub_10000B558(256, &v106))
                   {
-                    v105 = +[DiskSupport sharedInstance];
+                    v100 = +[DiskSupport sharedInstance];
                     if (qword_10002EC78 != -1)
                     {
                       sub_1000189F8();
                     }
 
-                    [(DiskSupport *)v105 traverseFolderAndRemoveItems:[NSString exceptions:"stringWithUTF8String:" stringWithUTF8String:?], v88];
-                    if (v111 == 1)
+                    [(DiskSupport *)v100 traverseFolderAndRemoveItems:[NSString exceptions:"stringWithUTF8String:" stringWithUTF8String:?], v83];
+                    if (v106 == 1)
                     {
                       sub_10000C2E4(256);
                     }
@@ -1408,10 +1407,10 @@ LABEL_119:
       }
     }
 
-    else if ((v66[3178] & 1) == 0)
+    else if ((v61[3178] & 1) == 0)
     {
-      v74 = word_10002EC71 ? "[Skip] " : "";
-      sub_1000018A4(1, "%s: %sCleaning supplemental folder from preboot", "safeObliterate", v74);
+      v69 = word_10002EC71 ? "[Skip] " : "";
+      sub_1000018A4(1, "%s: %sCleaning supplemental folder from preboot", "safeObliterate", v69);
       if ((word_10002EC71 & 1) == 0)
       {
         sub_10000B8C8();
@@ -1419,14 +1418,14 @@ LABEL_119:
     }
 
 LABEL_225:
-    if (!sub_10000B558(320, &v108))
+    if (!sub_10000B558(320, &v103))
     {
       goto LABEL_253;
     }
 
     if (v0)
     {
-      if ((v66[3178] & 1) == 0)
+      if ((v61[3178] & 1) == 0)
       {
         if (byte_10002EC69 != 1 || (sub_10000D524("epdm_skip_hwvolume_cleanup=1") & 1) == 0)
         {
@@ -1441,10 +1440,10 @@ LABEL_225:
 
     else
     {
-      memset(&v112, 0, 144);
+      memset(&v107, 0, 144);
       sub_1000019EC(2, "/.obliteration_preserved", "/");
       sub_1000018A4(1, "%s: Examining '%s' for files to recover", "copy_preserved_files_from_storage", byte_10002C500);
-      if (stat(byte_10002C500, &v112) || (v112.f_iosize & 0xF000) != 0x4000)
+      if (stat(byte_10002C500, &v107) || (v107.f_iosize & 0xF000) != 0x4000)
       {
         sub_1000018A4(1, "%s: No files to recover");
       }
@@ -1458,18 +1457,18 @@ LABEL_225:
 
         if (byte_10002EC68)
         {
-          v94 = &byte_10002C600[&loc_100001800];
+          v89 = &byte_10002C600[&loc_100001800];
         }
 
         else
         {
-          v94 = byte_10002C600;
+          v89 = byte_10002C600;
         }
 
-        if (copyfile(byte_10002C500, v94, 0, 0x800Fu))
+        if (copyfile(byte_10002C500, v89, 0, 0x800Fu))
         {
-          v95 = __error();
-          strerror(*v95);
+          v90 = __error();
+          strerror(*v90);
           sub_1000018A4(1, "%s: Could not copy files from temporary location '%s', error: %s");
         }
 
@@ -1480,13 +1479,13 @@ LABEL_225:
       }
 
       sub_10000B7BC();
-      if (v66[3178] != 1)
+      if (v61[3178] != 1)
       {
 LABEL_250:
         sub_1000018A4(1, "%s: safeObliterate: Cleaning Hardware volume", "safeObliterate");
         sub_10000B9E4();
 LABEL_251:
-        if (v108 == 1)
+        if (v103 == 1)
         {
           sub_10000C2E4(320);
         }
@@ -1495,8 +1494,8 @@ LABEL_253:
         if (v0 && (byte_10002EC69 != 1 || (sub_10000D524("epdm_skip_update_cleanup=1") & 1) == 0))
         {
           sub_1000018A4(1, "%s: safeObliterate: Cleaning Update volume", "safeObliterate");
-          v96 = objc_alloc_init(NSMutableDictionary);
-          if (!v96)
+          v91 = objc_alloc_init(NSMutableDictionary);
+          if (!v91)
           {
             sub_1000018A4(1, "%s: Could not create exceptions dictionary", "epdm_fixup_update_volume");
             if (!v16)
@@ -1512,40 +1511,40 @@ LABEL_264:
               sub_1000018A4(1, "%s: safeObliterate: Failed to unmount the User volume post obliteration", "safeObliterate");
             }
 
-            if (v110)
+            if (v105)
             {
-              v99 = v0;
+              v94 = v0;
             }
 
             else
             {
-              v99 = 0;
+              v94 = 0;
             }
 
-            if (v99 == 1)
+            if (v94 == 1)
             {
-              *&v112.f_bsize = 0;
-              [v110 uid];
+              *&v107.f_bsize = 0;
+              [v105 uid];
               if (!AKSIdentityUnload())
               {
-                v100 = [NSString stringWithFormat:@"AKSIdentityUnload failed with error: %@", *&v112.f_bsize];
-                v101 = CFStringCreateWithFormat(0, 0, @"%@", v100);
-                if (v101)
+                v95 = [NSString stringWithFormat:@"AKSIdentityUnload failed with error: %@", *&v107.f_bsize];
+                v96 = CFStringCreateWithFormat(0, 0, @"%@", v95);
+                if (v96)
                 {
-                  v102 = v101;
-                  v103 = CFStringGetCStringPtr(v101, 0x8000100u);
-                  if (v103)
+                  v97 = v96;
+                  v98 = CFStringGetCStringPtr(v96, 0x8000100u);
+                  if (v98)
                   {
-                    v104 = v103;
+                    v99 = v98;
                   }
 
                   else
                   {
-                    v104 = "<error getting string>";
+                    v99 = "<error getting string>";
                   }
 
-                  sub_1000018A4(1, "%s: %s", "safeObliterate", v104);
-                  CFRelease(v102);
+                  sub_1000018A4(1, "%s: %s", "safeObliterate", v99);
+                  CFRelease(v97);
                 }
 
                 else
@@ -1553,12 +1552,12 @@ LABEL_264:
                   sub_1000018A4(1, "%s: %s", "safeObliterate", "<error getting string>");
                 }
 
-                free(v100);
-                v109 = 0;
+                free(v95);
+                v104 = 0;
 LABEL_276:
-                if (v107)
+                if (v102)
                 {
-                  sub_10000DD2C(v107);
+                  sub_10000DD2C(v102);
                 }
 
                 goto LABEL_278;
@@ -1566,7 +1565,7 @@ LABEL_276:
 
               sub_1000018A4(1, "%s: AKSIdentityUnload() succeeded", "safeObliterate");
 
-              v110 = 0;
+              v105 = 0;
             }
 
 LABEL_273:
@@ -1585,22 +1584,22 @@ LABEL_273:
             goto LABEL_276;
           }
 
-          v97 = v96;
-          [v96 setObject:@"remove" forKey:off_10002C2E0];
-          [v97 setObject:@"keep" forKey:@"last_update_result.plist"];
-          [v97 setObject:@"removeExcept /ota_tolerated_failures.plist/" forKey:@"lastOTA"];
-          LOBYTE(v112.f_bsize) = 0;
-          if (sub_10000B558(192, &v112))
+          v92 = v91;
+          [v91 setObject:@"remove" forKey:off_10002C2E0];
+          [v92 setObject:@"keep" forKey:@"last_update_result.plist"];
+          [v92 setObject:@"removeExcept /ota_tolerated_failures.plist/" forKey:@"lastOTA"];
+          LOBYTE(v107.f_bsize) = 0;
+          if (sub_10000B558(192, &v107))
           {
             sub_1000018A4(1, "%s: Cleaning up the Update volume", "epdm_fixup_update_volume");
-            v98 = +[DiskSupport sharedInstance];
+            v93 = +[DiskSupport sharedInstance];
             if (qword_10002EC78 != -1)
             {
               sub_1000189F8();
             }
 
-            [(DiskSupport *)v98 traverseFolderAndRemoveItems:[NSString exceptions:"stringWithUTF8String:" stringWithUTF8String:?], v97];
-            if (LOBYTE(v112.f_bsize) == 1)
+            [(DiskSupport *)v93 traverseFolderAndRemoveItems:[NSString exceptions:"stringWithUTF8String:" stringWithUTF8String:?], v92];
+            if (LOBYTE(v107.f_bsize) == 1)
             {
               sub_10000C2E4(192);
             }
@@ -1627,65 +1626,65 @@ LABEL_273:
 
   if (byte_10002EC68)
   {
-    v37 = &byte_10002C600[&loc_100001800];
+    v33 = &byte_10002C600[&loc_100001800];
   }
 
   else
   {
-    v37 = byte_10002C600;
+    v33 = byte_10002C600;
   }
 
-  v38 = sub_100009AC0(__s, v37, 1);
-  if (v38)
+  v34 = sub_100009AC0(__s, v33, 1);
+  if (v34)
   {
-    v39 = "failed";
+    v35 = "failed";
   }
 
   else
   {
-    v39 = "succeeded";
+    v35 = "succeeded";
   }
 
-  sub_1000018A4(1, "%s: safeObliterate: mount Data volume %s", "safeObliterate", v39);
-  if (!v38)
+  sub_1000018A4(1, "%s: safeObliterate: mount Data volume %s", "safeObliterate", v35);
+  if (!v34)
   {
     sub_100005F54(1);
     if (sub_100008B58(0, 1))
     {
-      v40 = "failed";
+      v36 = "failed";
     }
 
     else
     {
-      v40 = "succeeded";
+      v36 = "succeeded";
     }
 
-    sub_1000018A4(1, "%s: safeObliterate: unmount Data volume %s", "safeObliterate", v40);
-    if (!sub_100008D24(v119, 2, v114, "RRTS"))
+    sub_1000018A4(1, "%s: safeObliterate: unmount Data volume %s", "safeObliterate", v36);
+    if (!sub_100008D24(v114, 2, v109, "RRTS"))
     {
-      *&v112.f_bsize = 0;
-      sub_1000018A4(1, "%s: safeRRTS: Calling AKSVolumeUnmap() with disk:%s of the User", "safeObliterate", v114);
-      CFStringCreateWithCString(kCFAllocatorDefault, v114, 0x8000100u);
+      *&v107.f_bsize = 0;
+      sub_1000018A4(1, "%s: safeRRTS: Calling AKSVolumeUnmap() with disk:%s of the User", "safeObliterate", v109);
+      CFStringCreateWithCString(kCFAllocatorDefault, v109, 0x8000100u);
       if ((AKSVolumeUnmap() & 1) == 0)
       {
-        v41 = [NSString stringWithFormat:@"AKSVolumeUnmap returned %@", *&v112.f_bsize];
-        v42 = CFStringCreateWithFormat(0, 0, @"%@", v41);
-        if (v42)
+        v37 = [NSString stringWithFormat:@"AKSVolumeUnmap returned %@", *&v107.f_bsize];
+        v38 = CFStringCreateWithFormat(0, 0, @"%@", v37);
+        if (v38)
         {
-          v43 = v42;
-          v44 = CFStringGetCStringPtr(v42, 0x8000100u);
-          if (v44)
+          v39 = v38;
+          v40 = CFStringGetCStringPtr(v38, 0x8000100u);
+          if (v40)
           {
-            v45 = v44;
+            v41 = v40;
           }
 
           else
           {
-            v45 = "<error getting string>";
+            v41 = "<error getting string>";
           }
 
-          sub_1000018A4(1, "%s: %s", "safeObliterate", v45);
-          CFRelease(v43);
+          sub_1000018A4(1, "%s: %s", "safeObliterate", v41);
+          CFRelease(v39);
         }
 
         else
@@ -1693,16 +1692,16 @@ LABEL_273:
           sub_1000018A4(1, "%s: %s", "safeObliterate", "<error getting string>");
         }
 
-        free(v41);
+        free(v37);
       }
 
-      if (*&v112.f_bsize)
+      if (*&v107.f_bsize)
       {
-        CFRelease(*&v112.f_bsize);
+        CFRelease(*&v107.f_bsize);
       }
     }
 
-    LOBYTE(v114[0]) = 0;
+    LOBYTE(v109[0]) = 0;
     sub_1000018A4(1, "%s: safeRRTS: skip obliterating the Data volume, deleting non-fstab volumes", "safeObliterate");
     if (sub_100008EB8())
     {
@@ -1714,12 +1713,12 @@ LABEL_273:
       sub_1000018A4(1, "%s: safeRRTS: Could not delete existing non fstab APFS volumes");
     }
 
-    v109 = 1;
+    v104 = 1;
     goto LABEL_119;
   }
 
 LABEL_278:
-  if (v109 != 1)
+  if (v104 != 1)
   {
     return 13;
   }
@@ -1782,8 +1781,9 @@ size_t sub_100004138(char *a1, char *a2, unsigned int a3)
   return v3;
 }
 
-void sub_100004234(const __CFString *a1, unsigned __int8 a2, int a3)
+void sub_100004234(const __CFString *a1, uint64_t a2, int a3)
 {
+  v4 = a2;
   if (CFStringGetCString(a1, buffer, 1024, 0x8000100u) == 1)
   {
     v6 = strlen(buffer);
@@ -1794,7 +1794,7 @@ void sub_100004234(const __CFString *a1, unsigned __int8 a2, int a3)
 
     for (i = v6; i; --i)
     {
-      v8 = v23[i + 15];
+      v8 = *(&v23[7] + i + 1);
       if (v8 != 13 && v8 != 10)
       {
         break;
@@ -1817,7 +1817,7 @@ void sub_100004234(const __CFString *a1, unsigned __int8 a2, int a3)
         v14 = 0;
       }
 
-      sub_100005F30(v12, v14, a2);
+      sub_100005F30(v12, v14, v4);
       CFRelease(v13);
     }
 
@@ -1834,14 +1834,15 @@ LABEL_22:
         v16 = 0;
       }
 
-      sub_100005F30(a1, v16, a2);
+      sub_100005F30(a1, v16, v4);
     }
 
     if ((dword_10002EC6D & 0x1000000) != 0)
     {
       *__str = 0;
       v22 = 0;
-      memset(v23, 0, 11);
+      *(&v23[3] + 1) = 0;
+      *v23 = 0;
       Current = CFAbsoluteTimeGetCurrent();
       snprintf(__str, 0x1BuLL, "%fs ", Current - *&qword_10002EC88);
     }
@@ -1850,7 +1851,7 @@ LABEL_22:
     {
       v20 = time(0);
       ctime_r(&v20, __str);
-      strcpy(&v23[8], ": ");
+      strcpy(&v23[4], ": ");
     }
 
     if (dword_10002C2D8 != -1)
@@ -1875,7 +1876,7 @@ LABEL_22:
       v15 = 0;
     }
 
-    sub_100005F30(a1, v15, a2);
+    sub_100005F30(a1, v15, v4);
   }
 }
 
@@ -1925,31 +1926,30 @@ uint64_t sub_1000044F8(const char *a1)
 
 uint64_t sub_1000045F8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   objc_opt_class();
   result = objc_opt_new();
   qword_10002EA08 = result;
   return result;
 }
 
-void sub_100005B48(__CFArray *a1, _DWORD *a2)
+void sub_100005B48(__CFArray *a1, _DWORD *a2, uint64_t a3)
 {
   if (setfsent())
   {
-    v4 = getfsent();
-    if (v4)
+    v5 = getfsent();
+    if (v5)
     {
-      v5 = v4;
+      v6 = v5;
       do
       {
-        v6 = CFStringCreateWithCString(kCFAllocatorDefault, v5->fs_spec, 0x8000100u);
-        fs_spec = v5->fs_spec;
-        if (v6)
+        v7 = CFStringCreateWithCString(kCFAllocatorDefault, v6->fs_spec, 0x8000100u);
+        fs_spec = v6->fs_spec;
+        if (v7)
         {
-          v8 = v6;
+          v9 = v7;
           sub_1000018A4(1, "%s: Adding fspec to the spec node array:%s", "create_fsspec_nodes_list", fs_spec);
-          CFArrayAppendValue(a1, v8);
-          CFRelease(v8);
+          CFArrayAppendValue(a1, v9);
+          CFRelease(v9);
         }
 
         else
@@ -1957,17 +1957,15 @@ void sub_100005B48(__CFArray *a1, _DWORD *a2)
           sub_1000018A4(1, "%s: Failed to create CFStr for spec file:%s", "create_fsspec_nodes_list", fs_spec);
         }
 
-        v9 = v5->fs_spec;
         if (APFSVolumeRole())
         {
-          v10 = v5->fs_spec;
           sub_1000018A4(1, "%s: APFSVolumeRole for %s failed with %d");
         }
 
-        v5 = getfsent();
+        v6 = getfsent();
       }
 
-      while (v5);
+      while (v6);
     }
 
     endfsent();
@@ -2012,11 +2010,11 @@ void sub_100005EA0(uint64_t a1, const void *a2)
   CFRelease(v3);
 }
 
-void sub_100005F30(const __CFString *a1, const __CFString *a2, unsigned __int8 a3)
+void sub_100005F30(uint64_t result, const __CFString *a2, unsigned __int8 a3)
 {
-  if (a1)
+  if (result)
   {
-    sub_100018A20(a1, a2, a3);
+    sub_100018A20(result, a2, a3);
   }
 }
 
@@ -2144,16 +2142,17 @@ LABEL_19:
   return v7;
 }
 
-uint64_t sub_100006270(uint64_t a1, int a2, int a3, int a4)
+uint64_t sub_100006270(uint64_t a1, uint64_t a2, int a3, int a4)
 {
+  v6 = a2;
   AssertionID = 0;
-  v78 = 0;
+  v79 = 0;
+  memset(v90, 0, sizeof(v90));
   memset(v89, 0, sizeof(v89));
-  memset(v88, 0, sizeof(v88));
-  v86 = 0u;
   v87 = 0u;
+  v88 = 0u;
   *cStr = 0u;
-  v85 = 0u;
+  v86 = 0u;
   sub_1000020A0();
   sub_100008428();
   if (byte_10002EC6A == 1)
@@ -2247,7 +2246,7 @@ LABEL_21:
           }
         }
 
-        v76 = a4;
+        v77 = a4;
         sub_1000018A4(1, "%s: Grabbing framebuffer", "obliterate");
         v17 = MGCopyAnswer();
         if (!v17)
@@ -2263,9 +2262,10 @@ LABEL_21:
         sub_1000018A4(1, "%s: Unloading backbaordd", "grab_framebuffer");
         sub_10000C418(@"com.apple.backboardd");
         sub_1000018A4(1, "%s: Unloaded backboardd", "grab_framebuffer");
-        if (CFEqual(v18, @"RealityDevice") == 1)
+        v19 = CFEqual(v18, @"RealityDevice");
+        if (v19 == 1)
         {
-          sub_1000018A4(1, "%s: Unloading wakeboardd", "grab_framebuffer");
+          sub_1000018A4(v19, "%s: Unloading wakeboardd", "grab_framebuffer");
           sub_10000C418(@"com.apple.wakeboardd");
           sub_1000018A4(1, "%s: Unloaded wakeboardd", "grab_framebuffer");
         }
@@ -2292,49 +2292,49 @@ LABEL_21:
         }
 
         keys = @"IOPropertyMatch";
-        v19 = CFDictionaryCreate(kCFAllocatorDefault, &keys, values, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-        if (!v19)
+        v20 = CFDictionaryCreate(kCFAllocatorDefault, &keys, values, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+        if (!v20)
         {
           goto LABEL_104;
         }
 
-        MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v19);
+        MatchingService = IOServiceGetMatchingService(kIOMainPortDefault, v20);
         if (!MatchingService)
         {
           goto LABEL_104;
         }
 
-        v21 = MatchingService;
+        v22 = MatchingService;
         valuePtr = 0x8000;
         cf = CFNumberCreate(kCFAllocatorDefault, kCFNumberSInt32Type, &valuePtr);
         if (!cf)
         {
-          v24 = -1;
+          v25 = -1;
           goto LABEL_107;
         }
 
-        v80 = @"brightness";
-        v22 = CFDictionaryCreate(kCFAllocatorDefault, &v80, &cf, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-        if (v22)
+        v81 = @"brightness";
+        v23 = CFDictionaryCreate(kCFAllocatorDefault, &v81, &cf, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+        if (v23)
         {
-          v23 = v22;
-          if (IORegistryEntrySetCFProperties(v21, v22))
+          v24 = v23;
+          if (IORegistryEntrySetCFProperties(v22, v23))
           {
-            v24 = -1;
+            v25 = -1;
           }
 
           else
           {
-            v24 = 0;
+            v25 = 0;
           }
 
-          CFRelease(v23);
+          CFRelease(v24);
         }
 
         else
         {
 LABEL_104:
-          v24 = -1;
+          v25 = -1;
         }
 
         if (cf)
@@ -2348,7 +2348,7 @@ LABEL_107:
           CFRelease(values[0]);
         }
 
-        if (v24)
+        if (v25)
         {
           v46 = "%s: Could not turn on backlight.";
 LABEL_112:
@@ -2365,18 +2365,18 @@ LABEL_242:
 
 LABEL_48:
           sub_1000018A4(1, "%s: Begin background progress bar UI thread", "obliterate");
-          v25 = malloc_type_malloc(0xCuLL, 0x10000403E1C8BA9uLL);
+          v26 = malloc_type_malloc(0xCuLL, 0x10000403E1C8BA9uLL);
           sub_1000018A4(1, "%s: Faking from %3f to %3f expecting %d sec", "begin_fakery", 0.0, 1.0, 15);
-          if (v25)
+          if (v26)
           {
-            *v25 = 0x3F80000000000000;
-            v25[2] = 15;
+            *v26 = 0x3F80000000000000;
+            v26[2] = 15;
             byte_10002EAD8 = 0;
-            if (pthread_create(&qword_10002EAE0, 0, sub_10000C6A0, v25))
+            if (pthread_create(&qword_10002EAE0, 0, sub_10000C6A0, v26))
             {
-              v26 = __error();
-              v27 = strerror(*v26);
-              sub_1000018A4(1, "%s: could not spwawn thread: %s", "begin_fakery", v27);
+              v27 = __error();
+              v28 = strerror(*v27);
+              sub_1000018A4(1, "%s: could not spwawn thread: %s", "begin_fakery", v28);
             }
           }
 
@@ -2402,15 +2402,15 @@ LABEL_48:
             }
           }
 
-          if (a2)
+          if (v6)
           {
             sub_1000018A4(1, "%s: Capturing the Data volume state", "obliterate");
-            v28 = sub_100018C84();
-            if (!v28)
+            v29 = sub_100018C84();
+            if (!v29)
             {
               sub_1000018A4(1, "%s: Could not create FS scraper.", "capture_data_volume");
 LABEL_116:
-              v35 = &unk_10002E000;
+              v36 = &unk_10002E000;
               qword_10002C410 |= 0x40uLL;
               sub_1000018A4(0, "%s: Could not capture the Data volume state", "obliterate");
               if (!a3)
@@ -2418,14 +2418,14 @@ LABEL_116:
                 goto LABEL_241;
               }
 
-              v33 = 0;
+              v34 = 0;
 LABEL_73:
               sub_1000018A4(1, "%s: Warming Launchd pages", "obliterate");
-              v77 = 0;
-              if (sysctlbyname("kern.memorystatus_do_fastwake_warmup_all", 0, 0, &v77, 4uLL))
+              v78 = 0;
+              if (sysctlbyname("kern.memorystatus_do_fastwake_warmup_all", 0, 0, &v78, 4uLL))
               {
                 qword_10002C410 |= 0x80uLL;
-                v36 = *__error();
+                __error();
                 sub_1000018A4(1, "%s: memorystatus_do_fastwake_warmup_all failed with error: %d");
               }
 
@@ -2448,7 +2448,7 @@ LABEL_73:
                 }
               }
 
-              if (v35[3178] == 1 && sub_100005F54(1) && !a3)
+              if (v36[3178] == 1 && sub_100005F54(1) && !a3)
               {
                 goto LABEL_239;
               }
@@ -2464,11 +2464,11 @@ LABEL_73:
                 }
               }
 
-              sub_100008C0C((a1 + 1112), v89);
-              sub_1000018A4(1, "%s: Using container device name: %s", "obliterate", v89);
-              if (v35[3178] == 1)
+              sub_100008C0C((a1 + 1112), v90);
+              sub_1000018A4(1, "%s: Using container device name: %s", "obliterate", v90);
+              if (v36[3178] == 1)
               {
-                v37 = sub_100008D24(v89, 2, cStr, "RRTS");
+                v37 = sub_100008D24(v90, 2, cStr, "RRTS");
                 v38 = word_10002EC71;
                 if (!v37)
                 {
@@ -2489,7 +2489,7 @@ LABEL_73:
                     CFStringCreateWithCString(kCFAllocatorDefault, cStr, 0x8000100u);
                     if ((AKSVolumeUnmap() & 1) == 0)
                     {
-                      v74 = v33;
+                      v75 = v34;
                       v40 = [NSString stringWithFormat:@"AKSVolumeUnmap returned %@", values[0]];
                       v41 = CFStringCreateWithFormat(0, 0, @"%@", v40);
                       if (v41)
@@ -2512,7 +2512,7 @@ LABEL_73:
                       }
 
                       free(v40);
-                      v33 = v74;
+                      v34 = v75;
                       if (values[0])
                       {
                         CFRelease(values[0]);
@@ -2562,7 +2562,7 @@ LABEL_73:
                 }
 
                 sub_1000018A4(1, "%s: %sObliterating the Data volume", "obliterate", v45);
-                if ((word_10002EC71 & 1) == 0 && sub_1000091FC(v89, (a1 + 1112), a2, v13, &v78 + 1))
+                if ((word_10002EC71 & 1) == 0 && sub_1000091FC(v90, (a1 + 1112), v6, v13, &v79 + 1))
                 {
                   qword_10002C410 |= 0x200uLL;
                   sub_1000018A4(0, "%s: Could not obliterate the Data volume", "obliterate");
@@ -2585,34 +2585,34 @@ LABEL_132:
                   sub_1000018A4(1, "%s: %sBricking", "obliterate", v48);
                   if ((word_10002EC71 & 1) == 0)
                   {
-                    sub_100007A20(v76);
+                    sub_100007A20(v77);
                   }
 
 LABEL_137:
-                  if (!a2)
+                  if (!v6)
                   {
 LABEL_220:
-                    if (sub_10000B558(320, &v78))
+                    if (sub_10000B558(320, &v79))
                     {
                       sub_1000019EC(2, "/.obliteration_preserved", 0);
-                      v66 = "[Skip] ";
+                      v67 = "[Skip] ";
                       if (word_10002EC71)
                       {
-                        v67 = "[Skip] ";
+                        v68 = "[Skip] ";
                       }
 
                       else
                       {
-                        v67 = "";
+                        v68 = "";
                       }
 
-                      sub_1000018A4(1, "%s: %sRemoving preserved files from storage", "obliterate", v67);
+                      sub_1000018A4(1, "%s: %sRemoving preserved files from storage", "obliterate", v68);
                       if ((word_10002EC71 & 1) == 0)
                       {
                         sub_10000B7BC();
                       }
 
-                      if (v35[3178] == 1)
+                      if (v36[3178] == 1)
                       {
                         sub_1000018A4(1, "%s: RRTS: skip cleaning up the hardware volume", "obliterate");
                       }
@@ -2621,32 +2621,32 @@ LABEL_220:
                       {
                         if (word_10002EC71)
                         {
-                          v68 = "[Skip] ";
+                          v69 = "[Skip] ";
                         }
 
                         else
                         {
-                          v68 = "";
+                          v69 = "";
                         }
 
-                        sub_1000018A4(1, "%s: %sCleaning supplemental folder from preboot", "obliterate", v68);
+                        sub_1000018A4(1, "%s: %sCleaning supplemental folder from preboot", "obliterate", v69);
                         if ((word_10002EC71 & 1) == 0)
                         {
                           sub_10000B8C8();
                           if ((word_10002EC71 & 1) == 0)
                           {
-                            v66 = "";
+                            v67 = "";
                           }
                         }
 
-                        sub_1000018A4(1, "%s: %sCleaning Hardware volume", "obliterate", v66);
+                        sub_1000018A4(1, "%s: %sCleaning Hardware volume", "obliterate", v67);
                         if ((word_10002EC71 & 1) == 0)
                         {
                           sub_10000B9E4();
                         }
                       }
 
-                      if (v78 == 1)
+                      if (v79 == 1)
                       {
                         sub_10000C2E4(320);
                       }
@@ -2658,15 +2658,15 @@ LABEL_220:
                     goto LABEL_239;
                   }
 
-                  if (v35[3178] == 1)
+                  if (v36[3178] == 1)
                   {
                     sub_1000018A4(1, "%s: RRTS: skip reformatting the Data volume", "obliterate");
                   }
 
                   else
                   {
-                    sub_1000018A4(1, "%s: Reformatting the Data volume in container %s", "obliterate", v89);
-                    if (sub_1000095FC(v89, 1, v88, 0))
+                    sub_1000018A4(1, "%s: Reformatting the Data volume in container %s", "obliterate", v90);
+                    if (sub_1000095FC(v90, 1, v89, 0))
                     {
                       sub_1000018A4(0, "%s: Could not reformat the Data volume", "obliterate");
                       if (!a3)
@@ -2678,7 +2678,7 @@ LABEL_220:
 
                   if (v13)
                   {
-                    if (sub_1000095FC(v89, 0, cStr, 0))
+                    if (sub_1000095FC(v90, 0, cStr, 0))
                     {
                       sub_1000018A4(0, "%s: Could not reformat the User volume", "obliterate");
                       if (!a3)
@@ -2688,8 +2688,8 @@ LABEL_220:
                     }
                   }
 
-                  v33 = sub_100009834(v33, 1);
-                  if (!v33)
+                  v34 = sub_100009834(v34, 1);
+                  if (!v34)
                   {
                     qword_10002C410 |= 0x800uLL;
                     sub_1000018A4(0, "%s: Could not setup the content for Data volume", "obliterate");
@@ -2732,13 +2732,13 @@ LABEL_220:
                     }
                   }
 
-                  if (!LOBYTE(v88[0]) && sub_100008D24(v89, 64, v88, "RRTS: rebuild") && !a3)
+                  if (!LOBYTE(v89[0]) && sub_100008D24(v90, 64, v89, "RRTS: rebuild") && !a3)
                   {
                     goto LABEL_239;
                   }
 
-                  sub_1000018A4(1, "%s: Remounting the Data volume %s at %s", "obliterate", v88, v49);
-                  if (sub_100009AC0(v88, v49, 0))
+                  sub_1000018A4(1, "%s: Remounting the Data volume %s at %s", "obliterate", v89, v49);
+                  if (sub_100009AC0(v89, v49, 0))
                   {
                     qword_10002C410 |= 0x1000uLL;
                     sub_1000018A4(0, "%s: Could not remount the Data volume", "obliterate");
@@ -2748,7 +2748,7 @@ LABEL_220:
                     }
                   }
 
-                  v75 = v33;
+                  v76 = v34;
                   if (!v13)
                   {
                     goto LABEL_181;
@@ -2782,7 +2782,7 @@ LABEL_177:
                     }
 
 LABEL_181:
-                    v35 = &unk_10002E000;
+                    v36 = &unk_10002E000;
                     if (byte_10002EC6A == 1)
                     {
                       sub_1000018A4(1, "%s: RRTS: skip creating overprovisioning file and mobile path", "obliterate");
@@ -2791,7 +2791,7 @@ LABEL_181:
                     else
                     {
                       sub_1000018A4(1, "%s: Re-creating overprovisioning file", "obliterate");
-                      if (sub_10000AA58())
+                      if (sub_10000AA58(v56))
                       {
                         qword_10002C410 |= 0x2000uLL;
                         sub_1000018A4(0, "%s: Could not re-create overprovisioning file", "obliterate");
@@ -2806,38 +2806,38 @@ LABEL_181:
                       sub_1000189F8();
                     }
 
-                    v56 = 1024;
+                    v57 = 1024;
                     if (byte_10002EC68)
                     {
-                      v56 = 7168;
+                      v57 = 7168;
                     }
 
-                    v57 = &byte_10002C600[v56];
-                    if (!v13 || (sub_1000018A4(1, "%s: Remounting the User volume %s at %s", "obliterate", cStr, v57), !sub_100009AC0(cStr, v57, 0)) || (qword_10002C410 |= 0x10000000000000uLL, sub_1000018A4(0, "%s: Could not remount the User volume", "obliterate"), a3))
+                    v58 = &byte_10002C600[v57];
+                    if (!v13 || (sub_1000018A4(1, "%s: Remounting the User volume %s at %s", "obliterate", cStr, v58), !sub_100009AC0(cStr, v58, 0)) || (qword_10002C410 |= 0x10000000000000uLL, sub_1000018A4(0, "%s: Could not remount the User volume", "obliterate"), a3))
                     {
                       if (word_10002EC71)
                       {
-                        v58 = "[Skip] ";
+                        v59 = "[Skip] ";
                       }
 
                       else
                       {
-                        v58 = "";
+                        v59 = "";
                       }
 
                       if (byte_10002EC6A == 1)
                       {
-                        sub_1000018A4(1, "%s: RRTS: %sRestoring Data volume content", "obliterate", v58);
-                        v59 = umask(0);
-                        sub_1000018A4(1, "%s: RRTS: Old mask has value %o; New mask has value %o.", "obliterate", v59, 0);
-                        v60 = geteuid();
-                        v61 = getuid();
-                        v62 = getpid();
-                        v63 = getppid();
-                        v73 = v60;
-                        v35 = &unk_10002E000;
-                        sub_1000018A4(1, "%s: ERRTS: UID = %d; UID = %d; PID = %d; PPID = %d.", "obliterate", v73, v61, v62, v63);
-                        v33 = v75;
+                        sub_1000018A4(1, "%s: RRTS: %sRestoring Data volume content", "obliterate", v59);
+                        v60 = umask(0);
+                        sub_1000018A4(1, "%s: RRTS: Old mask has value %o; New mask has value %o.", "obliterate", v60, 0);
+                        v61 = geteuid();
+                        v62 = getuid();
+                        v63 = getpid();
+                        v64 = getppid();
+                        v74 = v61;
+                        v36 = &unk_10002E000;
+                        sub_1000018A4(1, "%s: ERRTS: UID = %d; UID = %d; PID = %d; PPID = %d.", "obliterate", v74, v62, v63, v64);
+                        v34 = v76;
                         if ((word_10002EC71 & 1) == 0)
                         {
                           if (qword_10002EC78 != -1)
@@ -2845,7 +2845,7 @@ LABEL_181:
                             sub_1000189F8();
                           }
 
-                          if (sub_100019300(v75))
+                          if (sub_100019300(v76))
                           {
                             qword_10002C410 |= 0x800000000000uLL;
                             sub_1000018A4(1, "%s: RRTS: Unable to restore filesystem stuff.", "obliterate");
@@ -2859,32 +2859,32 @@ LABEL_181:
                         goto LABEL_208;
                       }
 
-                      v64 = "Shared ";
+                      v65 = "Shared ";
                       if (!v13)
                       {
-                        v64 = "";
+                        v65 = "";
                       }
 
-                      sub_1000018A4(1, "%s: %sRebuilding the %sData volume", "obliterate", v58, v64);
-                      if ((word_10002EC71 & 1) != 0 || !sub_10000AFB0(v33) || (qword_10002C410 |= 0x4000uLL, sub_1000018A4(0, "%s: Could not rebuild the Data volume", "obliterate"), a3))
+                      sub_1000018A4(1, "%s: %sRebuilding the %sData volume", "obliterate", v59, v65);
+                      if ((word_10002EC71 & 1) != 0 || !sub_10000AFB0(v34) || (qword_10002C410 |= 0x4000uLL, sub_1000018A4(0, "%s: Could not rebuild the Data volume", "obliterate"), a3))
                       {
 LABEL_208:
                         if (v13)
                         {
                           if (word_10002EC71)
                           {
-                            v65 = "[Skip] ";
+                            v66 = "[Skip] ";
                           }
 
                           else
                           {
-                            v65 = "";
+                            v66 = "";
                           }
 
-                          sub_1000018A4(1, "%s: %sPopulating USER volume with mastered content", "obliterate", v65);
+                          sub_1000018A4(1, "%s: %sPopulating USER volume with mastered content", "obliterate", v66);
                           if ((word_10002EC71 & 1) == 0)
                           {
-                            if (sub_10000B31C(v57))
+                            if (sub_10000B31C(v58))
                             {
                               qword_10002C410 |= 0x80000000000000uLL;
                               sub_1000018A4(0, "%s: Failed to create and set up a user volume for multiuser mode", "obliterate");
@@ -2916,30 +2916,30 @@ LABEL_208:
                       }
 
 LABEL_239:
-                      if (!v33)
+                      if (!v34)
                       {
 LABEL_241:
-                        v69 = dispatch_semaphore_create(0);
-                        v70 = dispatch_queue_create("com.apple.obliterator.threadJoin", 0);
+                        v70 = dispatch_semaphore_create(0);
+                        v71 = dispatch_queue_create("com.apple.obliterator.threadJoin", 0);
                         values[0] = _NSConcreteStackBlock;
                         values[1] = 3221225472;
                         values[2] = sub_10000D028;
                         values[3] = &unk_100028C38;
-                        values[4] = v69;
-                        dispatch_async(v70, values);
-                        v71 = dispatch_time(0, 5000000000);
-                        dispatch_semaphore_wait(v69, v71);
+                        values[4] = v70;
+                        dispatch_async(v71, values);
+                        v72 = dispatch_time(0, 5000000000);
+                        dispatch_semaphore_wait(v70, v72);
                         usleep(0x3D090u);
                         goto LABEL_242;
                       }
 
 LABEL_240:
-                      sub_10000DD2C(v33);
+                      sub_10000DD2C(v34);
                       goto LABEL_241;
                     }
 
 LABEL_244:
-                    if (!v33)
+                    if (!v34)
                     {
                       goto LABEL_241;
                     }
@@ -2960,7 +2960,7 @@ LABEL_244:
 
                   else
                   {
-                    if (!sub_10000A1BC(v88, v49, cStr, 0, 1))
+                    if (!sub_10000A1BC(v89, v49, cStr, 0, 1))
                     {
                       goto LABEL_181;
                     }
@@ -2987,43 +2987,43 @@ LABEL_244:
               goto LABEL_132;
             }
 
-            v29 = v28;
+            v30 = v29;
             if ((byte_10002EC6A & 1) == 0)
             {
-              if (sub_100018E2C(v28, "/private/var/mobile/Library/Preferences/.GlobalPreferences.plist"))
+              if (sub_100018E2C(v29, "/private/var/mobile/Library/Preferences/.GlobalPreferences.plist"))
               {
                 qword_10002C410 |= 0x1000000uLL;
                 sub_1000018A4(1, "%s: Could not add user preferences file.", "capture_data_volume");
               }
 
-              sub_1000194A4(v29);
+              sub_1000194A4(v30);
             }
 
-            v30 = qword_10002EC90;
+            v31 = qword_10002EC90;
             if (qword_10002EC90)
             {
-              v31 = 0;
+              v32 = 0;
               while (1)
               {
-                if (v31 >= CFArrayGetCount(v30))
+                if (v32 >= CFArrayGetCount(v31))
                 {
                   goto LABEL_68;
                 }
 
-                ValueAtIndex = CFArrayGetValueAtIndex(qword_10002EC90, v31);
+                ValueAtIndex = CFArrayGetValueAtIndex(qword_10002EC90, v32);
                 if (!CFStringGetCString(ValueAtIndex, values, 1025, 0x8000100u))
                 {
                   break;
                 }
 
-                if (sub_100018E2C(v29, values))
+                if (sub_100018E2C(v30, values))
                 {
                   sub_1000018A4(1, "%s: Could not add item '%s' to scrapper");
                   goto LABEL_115;
                 }
 
-                ++v31;
-                v30 = qword_10002EC90;
+                ++v32;
+                v31 = qword_10002EC90;
                 if (!qword_10002EC90)
                 {
                   goto LABEL_68;
@@ -3032,22 +3032,22 @@ LABEL_244:
 
               sub_1000018A4(1, "%s: Could not extract C-string for path.");
 LABEL_115:
-              free(v29);
+              free(v30);
               goto LABEL_116;
             }
 
 LABEL_68:
             sub_1000018A4(1, "%s: Successfully captured Data volume info", "capture_data_volume");
-            v33 = v29;
-            sub_10000DBE8(v29);
+            v34 = v30;
+            sub_10000DBE8(v30);
           }
 
           else
           {
-            v33 = 0;
+            v34 = 0;
           }
 
-          v35 = &unk_10002E000;
+          v36 = &unk_10002E000;
           goto LABEL_73;
         }
 
@@ -3077,8 +3077,8 @@ LABEL_45:
   sub_1000018A4(1, "%s: Shared Mode device, reverting to Safeboot wipe.", "obliterate");
   *__error() = 0;
   reboot(0);
-  v34 = __error();
-  sub_1000018A4(1, "%s: Ooops... shouldn't be here - reboot() must have failed - errno %d!", "obliterate", *v34);
+  v35 = __error();
+  sub_1000018A4(1, "%s: Ooops... shouldn't be here - reboot() must have failed - errno %d!", "obliterate", *v35);
   LOBYTE(dword_10002EC6D) = 1;
   if (*__error())
   {
@@ -3126,7 +3126,7 @@ void sub_100007948(const __CFString *a1, const __CFString *a2, const __CFString 
   }
 }
 
-uint64_t sub_100007A20(int a1)
+const char **sub_100007A20(int a1)
 {
   sub_1000018A4(1, "%s: Deleting kernelcaches", "brick");
   sub_10000CFA4();

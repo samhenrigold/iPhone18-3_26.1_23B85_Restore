@@ -1,4 +1,4 @@
-__n128 Syn_filt_235(const float *a1, unint64_t a2, unint64_t a3, float *__A, int a5)
+__n128 Syn_filt_235(float *a1, unint64_t a2, unint64_t a3, float *__A, int a5)
 {
   v45[1] = *MEMORY[0x1E69E9840];
   *&v8 = -1;
@@ -201,7 +201,7 @@ LABEL_26:
   return result;
 }
 
-float *ol_ltp(unsigned int a1, uint64_t a2, uint64_t a3, int *a4, float **a5, int *a6, __int16 *a7, float *a8, uint64_t a9, int a10, __int16 a11)
+float *ol_ltp(unsigned int a1, uint64_t a2, uint64_t a3, int *a4, float **a5, int *a6, __int16 *a7, float *a8, uint64_t a9, unsigned int a10, __int16 a11)
 {
   v11 = a4;
   v114 = *MEMORY[0x1E69E9840];
@@ -229,8 +229,8 @@ float *ol_ltp(unsigned int a1, uint64_t a2, uint64_t a3, int *a4, float **a5, in
     vDSP_conv(v21 - 143, 1, v21, 1, __b, 1, 0x7CuLL, 0x50uLL);
     v24 = *a6;
     v25 = a7;
-    v26 = (v14 + 2);
-    v27 = &v14[a11];
+    v26 = v14 + 8;
+    v27 = (v14 + 4 * a11);
     if (v27)
     {
       if (v27 < v14 || (v27 + 1) > v26 || v27 > v27 + 1)
@@ -486,7 +486,7 @@ LABEL_148:
   {
     v38 = *a5;
     v39 = a5[2];
-    v40 = (*a5 + 1);
+    v40 = *a5 + 1;
     if (v40 > a5[1] || v38 > v40 || v38 < v39)
     {
       goto LABEL_148;
@@ -494,14 +494,14 @@ LABEL_148:
 
     *v38 = 0.0;
     v43 = *a5 + 1;
-    v44 = (*a5 + 2);
+    v44 = *a5 + 2;
     v45 = v44 > a5[1] || v43 > v44;
     if (v45 || v43 < v39)
     {
       goto LABEL_148;
     }
 
-    *v43 = 0;
+    *v43 = 0.0;
     if (a1 > 1)
     {
       __b[0] = *a3;
@@ -639,8 +639,9 @@ LABEL_52:
   return result;
 }
 
-float *searchFrac(int *a1, int *a2, int a3, uint64_t a4, int a5)
+float *searchFrac(int *a1, int *a2, signed int a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a5;
   v19 = (*a4 + 4 * *a1);
   v20 = *(a4 + 8);
   result = Interpol_3or6(&v19, *a2, a5);
@@ -654,7 +655,7 @@ float *searchFrac(int *a1, int *a2, int a3, uint64_t a4, int a5)
     {
       v19 = (*a4 + 4 * *a1);
       v20 = *(a4 + 8);
-      result = Interpol_3or6(&v19, v15, a5);
+      result = Interpol_3or6(&v19, v15, v5);
       if (v16 > v14)
       {
         *a2 = v15;
@@ -669,7 +670,7 @@ float *searchFrac(int *a1, int *a2, int a3, uint64_t a4, int a5)
     v12 = *a2;
   }
 
-  if (!a5)
+  if (!v5)
   {
     if (v12 != -3)
     {
@@ -706,7 +707,7 @@ unint64_t q_gain_pitch(unint64_t result, float *a2, void *a3, void *a4, float a5
   v6 = fabsf(*a2);
   for (i = 1; i != 16; ++i)
   {
-    v8 = *(&qua_gain_pitch_246 + i);
+    v8 = *&qua_gain_pitch_246[4 * i];
     v22 = v8 > a5;
     v9 = vabds_f32(*a2, v8);
     if (!v22 && v9 < v6)
@@ -732,9 +733,9 @@ LABEL_16:
       goto LABEL_21;
     }
 
-    v12 = &qua_gain_pitch_246 + 4 * v5;
+    v12 = &qua_gain_pitch_246[4 * v5];
     v13 = (v12 + 4);
-    if (v12 + 4 >= &qua_gain_pitch_246)
+    if (v12 + 4 >= qua_gain_pitch_246)
     {
       v14 = v12 + 8;
       if (v14 <= qua_gain_pitch_MR122 && v13 <= v14)
@@ -748,7 +749,7 @@ LABEL_16:
 LABEL_21:
         v18 = 0;
         v19 = a4[2];
-        v20 = &qua_gain_pitch_246 + 4 * v15;
+        v20 = &qua_gain_pitch_246[4 * v15];
         while (1)
         {
           v21 = (*a4 + v18);
@@ -760,7 +761,7 @@ LABEL_21:
 
           *v21 = v15;
           v24 = &v20[v18];
-          if (&v20[v18] < &qua_gain_pitch_246)
+          if (&v20[v18] < qua_gain_pitch_246)
           {
             break;
           }
@@ -787,8 +788,8 @@ LABEL_21:
           ++v15;
           if (v18 == 12)
           {
-            v16 = &qua_gain_pitch_246 + 4 * v5;
-            if (v16 < &qua_gain_pitch_246)
+            v16 = &qua_gain_pitch_246[4 * v5];
+            if (v16 < qua_gain_pitch_246)
             {
               break;
             }
@@ -807,7 +808,7 @@ LABEL_21:
     if (v16 >= qua_gain_pitch_MR122)
     {
       v17 = v16 + 4;
-      v11 = &startPos_244;
+      v11 = startPos_244;
 LABEL_39:
       if (v17 <= v11 && v16 <= v17)
       {
@@ -846,7 +847,7 @@ LABEL_1411:
           goto LABEL_2658;
         }
 
-        if (v822 - v823 < 19 || a9[2] > v823)
+        if ((v822 - v823) < 19 || a9[2] > v823)
         {
           goto LABEL_2658;
         }
@@ -5472,7 +5473,7 @@ LABEL_2414:
         goto LABEL_2658;
       }
 
-      if (v702 - v703 < 3 || a9[2] > v703)
+      if ((v702 - v703) < 3 || a9[2] > v703)
       {
         goto LABEL_2658;
       }
@@ -5860,8 +5861,8 @@ LABEL_2414:
       }
 
       while (v796 != 40);
-      v1523->i16[0] = v766;
-      v1523->i16[1] = v767;
+      *v1523 = v766;
+      v1523[1] = v767;
       if (v1517)
       {
         v810 = v1448 - 40;
@@ -5896,7 +5897,7 @@ LABEL_2414:
         goto LABEL_2658;
       }
 
-      if (v415 - v416 < 3 || a9[2] > v416)
+      if ((v415 - v416) < 3 || a9[2] > v416)
       {
         goto LABEL_2658;
       }
@@ -6242,8 +6243,8 @@ LABEL_2414:
       }
 
       while (v514 != 40);
-      v1521->i16[0] = v491;
-      v1521->i16[1] = v492;
+      *v1521 = v491;
+      v1521[1] = v492;
       if (v1515)
       {
         v528 = v1448 - 40;
@@ -6280,7 +6281,7 @@ LABEL_1410:
       goto LABEL_2658;
     }
 
-    if (v532 - v533 < 3 || a9[2] > v533)
+    if ((v532 - v533) < 3 || a9[2] > v533)
     {
       goto LABEL_2658;
     }
@@ -6850,8 +6851,8 @@ LABEL_1410:
     }
 
     while (v666 != 40);
-    v1453->i16[0] = v642;
-    v1453->i16[1] = v643;
+    *v1453 = v642;
+    v1453[1] = v643;
     if (v1450)
     {
       v690 = v1448 - 40;
@@ -6888,7 +6889,7 @@ LABEL_1410:
       goto LABEL_2658;
     }
 
-    if (v1311 - v1312 < 3 || a9[2] > v1312)
+    if ((v1311 - v1312) < 3 || a9[2] > v1312)
     {
       goto LABEL_2658;
     }
@@ -7364,8 +7365,8 @@ LABEL_1410:
     }
 
     while (v1407 != 40);
-    v1491->i16[0] = v1384;
-    v1491->i16[1] = v1385;
+    *v1491 = v1384;
+    v1491[1] = v1385;
     if (v1488)
     {
       v1425 = v1448 - 40;
@@ -7405,7 +7406,7 @@ LABEL_1410:
     goto LABEL_2658;
   }
 
-  v25 = v23 - v24 < 15 || a9[2] > v24;
+  v25 = (v23 - v24) < 15 || a9[2] > v24;
   if (v25)
   {
     goto LABEL_2658;

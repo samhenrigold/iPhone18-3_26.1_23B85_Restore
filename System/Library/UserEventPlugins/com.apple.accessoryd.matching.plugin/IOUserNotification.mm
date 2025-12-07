@@ -6,6 +6,7 @@
 - (BOOL)_addButton:(id)button;
 - (BOOL)_addOption:(id)option;
 - (BOOL)addButtonWithTitle:(id)title;
+- (BOOL)addOptionWithTitle:(id)title selected:(BOOL)selected;
 - (IOUserNotification)initWithHeader:(id)header andMessage:(id)message;
 - (NSArray)buttons;
 - (NSArray)options;
@@ -247,6 +248,14 @@ void __33__IOUserNotification__addOption___block_invoke(uint64_t a1)
 
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
+}
+
+- (BOOL)addOptionWithTitle:(id)title selected:(BOOL)selected
+{
+  v5 = [IOUserNotificationOption optionWithTitle:title selected:selected];
+  LOBYTE(self) = [(IOUserNotification *)self _addOption:v5];
+
+  return self;
 }
 
 - (void)presentNotificationWithResponseHandler:(id)handler

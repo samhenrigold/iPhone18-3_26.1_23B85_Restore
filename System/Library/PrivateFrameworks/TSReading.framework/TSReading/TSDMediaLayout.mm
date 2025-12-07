@@ -118,7 +118,7 @@
     {
       if (geometry)
       {
-        [geometry transform];
+        objc_msgSend_transform(geometry);
         v8 = v16.f64[1];
         v7 = v16.f64[0];
         v10 = v17.f64[1];
@@ -137,7 +137,7 @@
         v7 = 0.0;
       }
 
-      [(TSDLayoutGeometry *)v6 transform];
+      objc_msgSend_transform(v6);
       if ((*&self->mMediaInvalidFlags & 1) == 0)
       {
         v13 = TSDSubtractPoints(v12 + *(MEMORY[0x277CBF348] + 8) * v9 + v7 * *MEMORY[0x277CBF348], v11 + *(MEMORY[0x277CBF348] + 8) * v10 + v8 * *MEMORY[0x277CBF348], vaddq_f64(v18, vmlaq_n_f64(vmulq_n_f64(v17, *(MEMORY[0x277CBF348] + 8)), v16, *MEMORY[0x277CBF348])).f64[0]);

@@ -1,40 +1,85 @@
 @interface APOdmlAnalyticsModelTraining
 + (id)_versionAndIdentifiersFromRecordInfo:(id)info isCounterfactual:(BOOL)counterfactual;
++ (void)sendEvent:(id)event additionalDetails:(id)details info:(id)info isCounterfactual:(BOOL)counterfactual numOfRows:(unint64_t)rows normDelta:(double)delta;
 @end
 
 @implementation APOdmlAnalyticsModelTraining
+
++ (void)sendEvent:(id)event additionalDetails:(id)details info:(id)info isCounterfactual:(BOOL)counterfactual numOfRows:(unint64_t)rows normDelta:(double)delta
+{
+  counterfactualCopy = counterfactual;
+  eventCopy = event;
+  detailsCopy = details;
+  v15 = MEMORY[0x277CCACA8];
+  infoCopy = info;
+  v17 = [v15 stringWithFormat:@"%@.%@", @"com.apple.ap.SearchAdsODML", @"ModelTraining"];
+  v18 = [self _versionAndIdentifiersFromRecordInfo:infoCopy isCounterfactual:counterfactualCopy];
+
+  if (eventCopy)
+  {
+    [v18 setValue:@"2" forKey:@"statusCode"];
+    v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%ld", objc_msgSend(eventCopy, "code")];
+    [v18 setValue:v19 forKey:@"statusDetails"];
+
+    userInfo = [eventCopy userInfo];
+    v21 = [userInfo objectForKeyedSubscript:@"errorSource"];
+    [v18 setValue:v21 forKey:@"errorSource"];
+  }
+
+  else
+  {
+    [v18 setValue:@"1" forKey:@"statusCode"];
+  }
+
+  if (delta != 9.22337204e18)
+  {
+    v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%f", *&delta];
+    [v18 setValue:v22 forKey:@"normDelta"];
+  }
+
+  if (rows != 0x7FFFFFFFFFFFFFFFLL)
+  {
+    rows = [MEMORY[0x277CCACA8] stringWithFormat:@"%lu", rows];
+    [v18 setValue:rows forKey:@"numTrainingRows"];
+  }
+
+  if (detailsCopy)
+  {
+    [v18 addEntriesFromDictionary:detailsCopy];
+  }
+
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v18];
+  [self _analyticsSendEvent:v17 eventPayload:v24];
+}
 
 + (id)_versionAndIdentifiersFromRecordInfo:(id)info isCounterfactual:(BOOL)counterfactual
 {
   counterfactualCopy = counterfactual;
   infoCopy = info;
-  v8 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v6, v7);
-  v10 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v9, @"%d", 4);
-  objc_msgSend_setValue_forKey_(v8, v11, v10, @"ODMLVersion");
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", 4];
+  [dictionary setValue:v7 forKey:@"ODMLVersion"];
 
   if (infoCopy)
   {
-    v13 = objc_msgSend_objectForKey_(infoCopy, v12, @"PlacementType");
-    v14 = counterfactualCopy;
-    v17 = objc_msgSend_unsignedIntegerValue(v13, v15, v16);
-    v19 = objc_msgSend_keyForTypes_placementType_assetManagerType_(APOdmlPFLUtilities, v18, @"TuriTrialTreatmentID", v17, counterfactualCopy);
-    v21 = objc_msgSend_objectForKey_(infoCopy, v20, v19);
+    v8 = [infoCopy objectForKey:@"PlacementType"];
+    v9 = counterfactualCopy;
+    v10 = +[APOdmlPFLUtilities keyForTypes:placementType:assetManagerType:](APOdmlPFLUtilities, "keyForTypes:placementType:assetManagerType:", @"TuriTrialTreatmentID", [v8 unsignedIntegerValue], counterfactualCopy);
+    v11 = [infoCopy objectForKey:v10];
 
-    objc_msgSend_setValue_forKey_(v8, v22, v21, @"trialTreatmentID");
-    v25 = objc_msgSend_unsignedIntegerValue(v13, v23, v24);
-    v27 = objc_msgSend_keyForTypes_placementType_assetManagerType_(APOdmlPFLUtilities, v26, @"TuriTrialExperimentID", v25, v14);
-    v29 = objc_msgSend_objectForKey_(infoCopy, v28, v27);
+    [dictionary setValue:v11 forKey:@"trialTreatmentID"];
+    v12 = +[APOdmlPFLUtilities keyForTypes:placementType:assetManagerType:](APOdmlPFLUtilities, "keyForTypes:placementType:assetManagerType:", @"TuriTrialExperimentID", [v8 unsignedIntegerValue], v9);
+    v13 = [infoCopy objectForKey:v12];
 
-    objc_msgSend_setValue_forKey_(v8, v30, v29, @"trialExperimentID");
-    v33 = objc_msgSend_unsignedIntegerValue(v13, v31, v32);
-    v35 = objc_msgSend_keyForTypes_placementType_assetManagerType_(APOdmlPFLUtilities, v34, @"TuriTrialDeploymentID", v33, v14);
-    v37 = objc_msgSend_objectForKey_(infoCopy, v36, v35);
+    [dictionary setValue:v13 forKey:@"trialExperimentID"];
+    v14 = +[APOdmlPFLUtilities keyForTypes:placementType:assetManagerType:](APOdmlPFLUtilities, "keyForTypes:placementType:assetManagerType:", @"TuriTrialDeploymentID", [v8 unsignedIntegerValue], v9);
+    v15 = [infoCopy objectForKey:v14];
 
-    v40 = objc_msgSend_stringValue(v37, v38, v39);
-    objc_msgSend_setValue_forKey_(v8, v41, v40, @"trialDeploymentID");
+    stringValue = [v15 stringValue];
+    [dictionary setValue:stringValue forKey:@"trialDeploymentID"];
   }
 
-  return v8;
+  return dictionary;
 }
 
 @end

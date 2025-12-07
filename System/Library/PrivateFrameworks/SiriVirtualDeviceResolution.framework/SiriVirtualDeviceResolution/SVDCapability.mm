@@ -15,32 +15,32 @@
 
 - (BOOL)matchesCapabilityDescriptions:(id)descriptions
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   descriptionsCopy = descriptions;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = descriptionsCopy;
-  v5 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v5 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v32;
+    v7 = *v31;
     p_cache = SVDCapability.cache;
     do
     {
       v9 = 0;
-      v29 = v6;
+      v28 = v6;
       do
       {
-        if (*v32 != v7)
+        if (*v31 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v31 + 1) + 8 * v9);
+        v10 = *(*(&v30 + 1) + 8 * v9);
         v11 = [v10 key];
         valueSet = [v10 valueSet];
         v13 = objc_alloc((p_cache + 56));
@@ -65,7 +65,7 @@
           p_cache = v18;
           v4 = v17;
           v7 = v16;
-          v6 = v29;
+          v6 = v28;
         }
 
         [v4 addObject:v15];
@@ -74,7 +74,7 @@
       }
 
       while (v6 != v9);
-      v6 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v6 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v6);
@@ -91,7 +91,6 @@
     v25 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v25;
 }
 

@@ -14,58 +14,58 @@
 {
   eventCopy = event;
   wristState = [eventCopy wristState];
-  v6 = wristState;
+  v7 = wristState;
   if (*(&self->super._state + 14) != wristState)
   {
     *(&self->super._state + 14) = wristState;
-    v7 = MTLoggingPlugin();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = MTLoggingPlugin(wristState, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = "Unknown";
-      if (v6 == 1)
+      v9 = "Unknown";
+      if (v7 == 1)
       {
-        v8 = "Off";
+        v9 = "Off";
       }
 
-      if (v6 == 2)
+      if (v7 == 2)
       {
-        v8 = "On";
+        v9 = "On";
       }
 
       *buf = 136446210;
-      v15 = v8;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Setting wrist state: %{public}s", buf, 0xCu);
+      v16 = v9;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Setting wrist state: %{public}s", buf, 0xCu);
     }
 
     deviceObj = self->super._deviceObj;
-    v10 = *(&self->super._state + 14);
-    if (v10 == 1)
+    v11 = *(&self->super._state + 14);
+    if (v11 == 1)
     {
-      v11 = 11;
+      v12 = 11;
     }
 
     else
     {
-      v11 = 10;
+      v12 = 10;
     }
 
-    if (v10 == 2)
+    if (v11 == 2)
     {
-      v12 = 12;
+      v13 = 12;
     }
 
     else
     {
-      v12 = v11;
+      v13 = v12;
     }
 
-    *buf = (v12 << 8) | 0x70;
-    setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(deviceObj);
+    *buf = (v13 << 8) | 0x70;
+    setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(deviceObj, buf);
   }
 
-  v13.receiver = self;
-  v13.super_class = HSTWatchFirmwareManager;
-  [(HSTFirmwareManager *)&v13 handleConsume:eventCopy];
+  v14.receiver = self;
+  v14.super_class = HSTWatchFirmwareManager;
+  [(HSTFirmwareManager *)&v14 handleConsume:eventCopy];
 }
 
 - (void)_handleGetWaterStateEvent:(id)event
@@ -73,35 +73,59 @@
   eventCopy = event;
   if (!self->super._deviceObj)
   {
-    v7 = +[NSAssertionHandler currentHandler];
-    v8 = [NSString stringWithUTF8String:"IOReturn getReport(MTDeviceRef, T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::WaterState]"];
-    [v7 handleFailureInFunction:v8 file:@"HSTFirmwareManager.mm" lineNumber:212 description:{@"Invalid parameter not satisfying: %@", @"device"}];
-
     v9 = +[NSAssertionHandler currentHandler];
-    v10 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::GetReport(MTDeviceRef _Nonnull, T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::WaterState]"];
-    [v9 handleFailureInFunction:v10 file:@"FirmwareUtil.h" lineNumber:17 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+    v10 = [NSString stringWithUTF8String:"IOReturn getReport(MTDeviceRef, T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::WaterState]"];
+    [v9 handleFailureInFunction:v10 file:@"HSTFirmwareManager.mm" lineNumber:212 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+
+    v11 = +[NSAssertionHandler currentHandler];
+    v12 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::GetReport(MTDeviceRef _Nonnull, T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::WaterState]"];
+    [v11 handleFailureInFunction:v12 file:@"FirmwareUtil.h" lineNumber:17 description:{@"Invalid parameter not satisfying: %@", @"device"}];
   }
 
   Report = MTDeviceGetReport();
+  v7 = Report;
   if (!Report)
   {
-    Report = -536870169;
+    v7 = -536870169;
   }
 
-  v6 = MTLoggingPlugin();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v8 = MTLoggingPlugin(Report, v6);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    mach_error_string(Report);
+    mach_error_string(v7);
     [HSTFirmwareManager _handleGetDebugEvent:];
   }
 }
 
 - (void)_restoreFirmwareState
 {
-  v3.receiver = self;
-  v3.super_class = HSTWatchFirmwareManager;
-  [(HSTFirmwareManager *)&v3 _restoreFirmwareState];
-  setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(self->super._deviceObj);
+  v8.receiver = self;
+  v8.super_class = HSTWatchFirmwareManager;
+  [(HSTFirmwareManager *)&v8 _restoreFirmwareState];
+  deviceObj = self->super._deviceObj;
+  v4 = *(&self->super._state + 14);
+  if (v4 == 1)
+  {
+    v5 = 11;
+  }
+
+  else
+  {
+    v5 = 10;
+  }
+
+  if (v4 == 2)
+  {
+    v6 = 12;
+  }
+
+  else
+  {
+    v6 = v5;
+  }
+
+  v7 = (v6 << 8) | 0x70;
+  setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostEvent>(deviceObj, &v7);
 }
 
 - (void)_handleSetPropertyEvent:(id)event
@@ -136,25 +160,26 @@
           v17 = 0x100170001025362;
         }
 
-        v25 = v17;
+        v27 = v17;
         if (!deviceObj)
         {
-          v20 = +[NSAssertionHandler currentHandler];
-          v21 = [NSString stringWithUTF8String:"void setReport(MTDeviceRef, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::ContinuousRecordingEnableWatch]"];
-          [v20 handleFailureInFunction:v21 file:@"HSTFirmwareManager.mm" lineNumber:200 description:{@"Invalid parameter not satisfying: %@", @"device"}];
-
           v22 = +[NSAssertionHandler currentHandler];
-          v23 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::ContinuousRecordingEnableWatch]"];
-          [v22 handleFailureInFunction:v23 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+          v23 = [NSString stringWithUTF8String:"void setReport(MTDeviceRef, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::ContinuousRecordingEnableWatch]"];
+          [v22 handleFailureInFunction:v23 file:@"HSTFirmwareManager.mm" lineNumber:200 description:{@"Invalid parameter not satisfying: %@", @"device"}];
+
+          v24 = +[NSAssertionHandler currentHandler];
+          v25 = [NSString stringWithUTF8String:"IOReturn HSTPipeline::FirmwareUtil::SetReport(MTDeviceRef _Nonnull, const T &) [T = HSTPipeline::FirmwareInterface::FeatureReport::ContinuousRecordingEnableWatch]"];
+          [v24 handleFailureInFunction:v25 file:@"FirmwareUtil.h" lineNumber:9 description:{@"Invalid parameter not satisfying: %@", @"device"}];
         }
 
         v18 = MTDeviceSetReport();
+        v20 = v18;
         if (v18)
         {
-          v19 = MTLoggingPlugin();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+          v21 = MTLoggingPlugin(v18, v19);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            mach_error_string(v18);
+            mach_error_string(v20);
             setReport<HSTPipeline::FirmwareInterface::FeatureReport::HostNotificationControl>();
           }
         }
@@ -164,9 +189,9 @@
     }
   }
 
-  v24.receiver = self;
-  v24.super_class = HSTWatchFirmwareManager;
-  [(HSTFirmwareManager *)&v24 _handleSetPropertyEvent:eventCopy];
+  v26.receiver = self;
+  v26.super_class = HSTWatchFirmwareManager;
+  [(HSTFirmwareManager *)&v26 _handleSetPropertyEvent:eventCopy];
 LABEL_14:
 }
 
@@ -279,16 +304,18 @@ LABEL_14:
 
 - (void)decodeFromMap:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)decodeFromMap:.cold.2()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 @end

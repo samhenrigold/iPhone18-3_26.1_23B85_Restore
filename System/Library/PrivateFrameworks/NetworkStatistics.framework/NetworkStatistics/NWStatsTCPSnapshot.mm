@@ -4,6 +4,7 @@
 - (BOOL)interfaceCellularViaIndependentFallback;
 - (NSString)TCPState;
 - (NSString)congestionAlgorithm;
+- (NWStatsTCPSnapshot)initWithDetails:(const nstat_msg_src_details_convenient *)details startTime:(double)time flowFlags:(unsigned int)flags previously:(details_subset_for_deltas *)previously peerEgressCellularCounts:(const nstat_interface_counts *)counts;
 - (double)flowSnapshotTimeIntervalSinceReferenceDate;
 - (double)flowStartTimeIntervalSinceReferenceDate;
 - (double)rttAverage;
@@ -74,14 +75,14 @@
 
 - (NSString)TCPState
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   state = self->_descriptor->state;
-  v7[2] = xmmword_27996E2B0;
-  v7[3] = *&off_27996E2C0;
-  v7[4] = xmmword_27996E2D0;
-  v8 = @"TimeWait";
-  v7[0] = xmmword_27996E290;
-  v7[1] = *&off_27996E2A0;
+  v6[2] = xmmword_27996E2B0;
+  v6[3] = *&off_27996E2C0;
+  v6[4] = xmmword_27996E2D0;
+  v7 = @"TimeWait";
+  v6[0] = xmmword_27996E290;
+  v6[1] = *&off_27996E2A0;
   if (state > 0xA)
   {
     v3 = 0;
@@ -89,14 +90,12 @@
 
   else
   {
-    v3 = *(v7 + state);
+    v3 = *(v6 + state);
   }
 
   for (i = 80; i != -8; i -= 8)
   {
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -422,6 +421,21 @@
   }
 
   return congestionAlgorithm;
+}
+
+- (NWStatsTCPSnapshot)initWithDetails:(const nstat_msg_src_details_convenient *)details startTime:(double)time flowFlags:(unsigned int)flags previously:(details_subset_for_deltas *)previously peerEgressCellularCounts:(const nstat_interface_counts *)counts
+{
+  v11.receiver = self;
+  v11.super_class = NWStatsTCPSnapshot;
+  v8 = [(NWStatsProtocolSnapshot *)&v11 initWithDetails:details startTime:*&flags flowFlags:previously previously:counts peerEgressCellularCounts:?];
+  v9 = v8;
+  if (v8)
+  {
+    v8->_descriptor = ([(NWStatsProtocolSnapshot *)v8 _details_ptr]+ 488);
+    v9->_startTimeInterval = time;
+  }
+
+  return v9;
 }
 
 @end

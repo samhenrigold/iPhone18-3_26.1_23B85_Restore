@@ -110,42 +110,42 @@ void __68__AAAccountManager__beginObservingAccountStoreDidChangeNotification__bl
 
 - (void)reloadAccounts
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   _accountStore = [(AAAccountManager *)selfCopy _accountStore];
   aa_appleAccounts = [_accountStore aa_appleAccounts];
 
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = aa_appleAccounts;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       v9 = 0;
       do
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * v9);
+        v10 = *(*(&v15 + 1) + 8 * v9);
         v11 = [AAAccount alloc];
-        v12 = [(AAAccount *)v11 initWithAccount:v10, v16];
+        v12 = [(AAAccount *)v11 initWithAccount:v10, v15];
         [v5 addObject:v12];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
@@ -157,34 +157,33 @@ void __68__AAAccountManager__beginObservingAccountStoreDidChangeNotification__bl
   selfCopy->_originalAccounts = v13;
 
   objc_sync_exit(selfCopy);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)primaryAccount
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v3 = selfCopy->_accounts;
   v4 = 0;
-  v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if ([v8 primaryAccount])
         {
           v9 = v8;
@@ -193,88 +192,86 @@ void __68__AAAccountManager__beginObservingAccountStoreDidChangeNotification__bl
         }
       }
 
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
 
   objc_sync_exit(selfCopy);
-  v10 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (id)accountsEnabledForDataclass:(id)dataclass
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dataclassCopy = dataclass;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   array = [MEMORY[0x1E695DF70] array];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v7 = selfCopy->_accounts;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
-        if ([v11 isEnabledForDataclass:{dataclassCopy, v14}])
+        v11 = *(*(&v13 + 1) + 8 * i);
+        if ([v11 isEnabledForDataclass:{dataclassCopy, v13}])
         {
           [array addObject:v11];
         }
       }
 
-      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
   objc_sync_exit(selfCopy);
-  v12 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (id)accountWithUsername:(id)username
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   usernameCopy = username;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   obj = selfCopy;
   v6 = selfCopy->_accounts;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v7)
   {
-    v8 = *v26;
+    v8 = *v25;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v26 != v8)
+      if (*v25 != v8)
       {
         objc_enumerationMutation(v6);
       }
 
-      v10 = *(*(&v25 + 1) + 8 * v9);
+      v10 = *(*(&v24 + 1) + 8 * v9);
       username = [v10 username];
       v12 = [username isEqualToString:usernameCopy];
 
@@ -285,32 +282,32 @@ LABEL_3:
 
       else
       {
-        v23 = 0u;
-        v24 = 0u;
-        v21 = 0u;
         v22 = 0u;
+        v23 = 0u;
+        v20 = 0u;
+        v21 = 0u;
         appleIDAliases = [v10 appleIDAliases];
-        v15 = [appleIDAliases countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v15 = [appleIDAliases countByEnumeratingWithState:&v20 objects:v28 count:16];
         if (v15)
         {
-          v16 = *v22;
+          v16 = *v21;
           while (2)
           {
             for (i = 0; i != v15; ++i)
             {
-              if (*v22 != v16)
+              if (*v21 != v16)
               {
                 objc_enumerationMutation(appleIDAliases);
               }
 
-              if ([*(*(&v21 + 1) + 8 * i) isEqualToString:usernameCopy])
+              if ([*(*(&v20 + 1) + 8 * i) isEqualToString:usernameCopy])
               {
                 v13 = v10;
                 goto LABEL_18;
               }
             }
 
-            v15 = [appleIDAliases countByEnumeratingWithState:&v21 objects:v29 count:16];
+            v15 = [appleIDAliases countByEnumeratingWithState:&v20 objects:v28 count:16];
             if (v15)
             {
               continue;
@@ -331,7 +328,7 @@ LABEL_18:
 
       if (++v9 == v7)
       {
-        v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -349,36 +346,35 @@ LABEL_22:
   }
 
   objc_sync_exit(obj);
-  v18 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 - (id)accountWithPersonID:(id)d
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dCopy = d;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = selfCopy->_accounts;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         personID = [v10 personID];
         v12 = [personID isEqualToString:dCopy];
 
@@ -389,7 +385,7 @@ LABEL_22:
         }
       }
 
-      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -402,36 +398,35 @@ LABEL_22:
 LABEL_11:
 
   objc_sync_exit(selfCopy);
-  v13 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (id)accountWithIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = selfCopy->_accounts;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         identifier = [v10 identifier];
         v12 = [identifier isEqualToString:identifierCopy];
 
@@ -442,7 +437,7 @@ LABEL_11:
         }
       }
 
-      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -455,7 +450,6 @@ LABEL_11:
 LABEL_11:
 
   objc_sync_exit(selfCopy);
-  v13 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -465,9 +459,9 @@ LABEL_11:
   v15 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v6 = _AALogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v6 = objc_sync_enter(selfCopy);
+  v7 = _AALogSystem(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     username = [accountCopy username];
     identifier = [accountCopy identifier];
@@ -475,7 +469,7 @@ LABEL_11:
     v12 = username;
     v13 = 2112;
     v14 = identifier;
-    _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "Adding account: %@:%@", &v11, 0x16u);
+    _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "Adding account: %@:%@", &v11, 0x16u);
   }
 
   accounts = selfCopy->_accounts;
@@ -485,55 +479,52 @@ LABEL_11:
   }
 
   objc_sync_exit(selfCopy);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateAccount:(id)account
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v6 = [(NSMutableArray *)selfCopy->_accounts copy];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v8)
   {
     v10 = 0;
-    v11 = *v22;
+    v11 = *v21;
     *&v9 = 138412546;
-    v20 = v9;
+    v19 = v9;
     do
     {
       v12 = 0;
       do
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        identifier = [*(*(&v21 + 1) + 8 * v12) identifier];
+        identifier = [*(*(&v20 + 1) + 8 * v12) identifier];
         identifier2 = [accountCopy identifier];
         v15 = [identifier isEqualToString:identifier2];
 
         if (v15)
         {
-          [(NSMutableArray *)selfCopy->_accounts replaceObjectAtIndex:v10 withObject:accountCopy];
-          v16 = _AALogSystem();
+          v16 = _AALogSystem([(NSMutableArray *)selfCopy->_accounts replaceObjectAtIndex:v10 withObject:accountCopy]);
           if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             username = [accountCopy username];
             identifier3 = [accountCopy identifier];
-            *buf = v20;
-            v26 = username;
-            v27 = 2112;
-            v28 = identifier3;
+            *buf = v19;
+            v25 = username;
+            v26 = 2112;
+            v27 = identifier3;
             _os_log_impl(&dword_1B6F6A000, v16, OS_LOG_TYPE_DEFAULT, "Updating account: %@:%@", buf, 0x16u);
           }
         }
@@ -543,65 +534,63 @@ LABEL_11:
       }
 
       while (v8 != v12);
-      v8 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v8);
   }
 
   objc_sync_exit(selfCopy);
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAccount:(id)account
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   selfCopy = self;
   objc_sync_enter(selfCopy);
   username = [accountCopy username];
-  v7 = _AALogSystem();
+  v7 = _AALogSystem(username);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [(NSMutableArray *)selfCopy->_accounts count];
     *buf = 138412546;
-    v18 = username;
-    v19 = 2048;
-    v20 = v8;
+    v17 = username;
+    v18 = 2048;
+    v19 = v8;
     _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "Removing account %@. Count: %lu", buf, 0x16u);
   }
 
   _accountStore = [(AAAccountManager *)selfCopy _accountStore];
   account = [accountCopy account];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __34__AAAccountManager_removeAccount___block_invoke;
-  v14[3] = &unk_1E7C9C8D8;
-  v14[4] = selfCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __34__AAAccountManager_removeAccount___block_invoke;
+  v13[3] = &unk_1E7C9C8D8;
+  v13[4] = selfCopy;
   v11 = accountCopy;
-  v15 = v11;
+  v14 = v11;
   v12 = username;
-  v16 = v12;
-  [_accountStore removeAccount:account withCompletionHandler:v14];
+  v15 = v12;
+  [_accountStore removeAccount:account withCompletionHandler:v13];
 
   objc_sync_exit(selfCopy);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __34__AAAccountManager_removeAccount___block_invoke(void *a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _AALogSystem();
+  v6 = _AALogSystem(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
     if (v7)
     {
       v8 = [*(a1[4] + 16) count];
-      v11 = 134217984;
-      v12 = v8;
-      _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "Removed account. Count: %lu", &v11, 0xCu);
+      v10 = 134217984;
+      v11 = v8;
+      _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "Removed account. Count: %lu", &v10, 0xCu);
     }
 
     [*(a1[4] + 16) removeObject:a1[5]];
@@ -612,30 +601,28 @@ void __34__AAAccountManager_removeAccount___block_invoke(void *a1, int a2, void 
     if (v7)
     {
       v9 = a1[6];
-      v11 = 138412546;
-      v12 = v9;
-      v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "Failed to remove account %@. Error: %@", &v11, 0x16u);
+      v10 = 138412546;
+      v11 = v9;
+      v12 = 2112;
+      v13 = v5;
+      _os_log_impl(&dword_1B6F6A000, v6, OS_LOG_TYPE_DEFAULT, "Failed to remove account %@. Error: %@", &v10, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveAllAccounts
 {
   v26 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v3 = selfCopy;
-  v4 = _AALogSystem();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v3 = objc_sync_enter(selfCopy);
+  v4 = selfCopy;
+  v5 = _AALogSystem(v3);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = [(NSMutableArray *)selfCopy->_accounts count];
+    v6 = [(NSMutableArray *)selfCopy->_accounts count];
     *buf = 134217984;
-    v25 = v5;
-    _os_log_impl(&dword_1B6F6A000, v4, OS_LOG_TYPE_DEFAULT, "Saving Accounts. Count: %lu", buf, 0xCu);
+    v25 = v6;
+    _os_log_impl(&dword_1B6F6A000, v5, OS_LOG_TYPE_DEFAULT, "Saving Accounts. Count: %lu", buf, 0xCu);
   }
 
   v21 = 0u;
@@ -643,70 +630,66 @@ void __34__AAAccountManager_removeAccount___block_invoke(void *a1, int a2, void 
   v19 = 0u;
   v20 = 0u;
   obj = selfCopy->_accounts;
-  v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v6)
+  v7 = [(NSMutableArray *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v7)
   {
-    v7 = *v20;
+    v8 = *v20;
     do
     {
-      v8 = 0;
+      v9 = 0;
       do
       {
-        if (*v20 != v7)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * v8);
-        _accountStore = [(AAAccountManager *)v3 _accountStore];
-        account = [v9 account];
+        v10 = *(*(&v19 + 1) + 8 * v9);
+        _accountStore = [(AAAccountManager *)v4 _accountStore];
+        account = [v10 account];
         v18[0] = MEMORY[0x1E69E9820];
         v18[1] = 3221225472;
         v18[2] = __35__AAAccountManager_saveAllAccounts__block_invoke;
         v18[3] = &unk_1E7C9C900;
-        v18[4] = v9;
+        v18[4] = v10;
         [_accountStore saveAccount:account withCompletionHandler:v18];
 
-        selfCopy = v3;
-        ++v8;
+        selfCopy = v4;
+        ++v9;
       }
 
-      while (v6 != v8);
-      v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
-    while (v6);
+    while (v7);
   }
 
-  v12 = [(NSMutableArray *)selfCopy->_accounts copy];
+  v13 = [(NSMutableArray *)selfCopy->_accounts copy];
   originalAccounts = selfCopy->_originalAccounts;
-  selfCopy->_originalAccounts = v12;
+  selfCopy->_originalAccounts = v13;
 
   objc_sync_exit(selfCopy);
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterPostNotificationWithOptions(DarwinNotifyCenter, @"AAAccountConfigChangedNotification", selfCopy, 0, 1uLL);
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter postNotificationName:@"AAAccountConfigChangedNotification" object:0];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __35__AAAccountManager_saveAllAccounts__block_invoke(uint64_t a1, char a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if ((a2 & 1) == 0)
   {
-    v3 = _AALogSystem();
+    v3 = _AALogSystem(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = [*(a1 + 32) username];
-      v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&dword_1B6F6A000, v3, OS_LOG_TYPE_DEFAULT, "Failed to save account %@.", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_impl(&dword_1B6F6A000, v3, OS_LOG_TYPE_DEFAULT, "Failed to save account %@.", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

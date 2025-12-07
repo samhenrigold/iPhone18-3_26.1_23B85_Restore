@@ -30,7 +30,7 @@
   forCopy = for;
   controllerCopy = controller;
   v11 = _s6HomeUI22AccessoryDetailsRouterC11detailsView3for20navigationController7dismissSo33HUDetailsPresentationDelegateHost_So06UIViewJ0CXcSgSo6HFItemC_So012UINavigationJ0CSgyycSgtFZ_0(forCopy, controller, v7, v8);
-  sub_20CEC8164(v7);
+  sub_20CEC8164(v7, v8);
 
   return v11;
 }

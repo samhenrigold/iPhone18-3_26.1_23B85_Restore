@@ -80,9 +80,9 @@ id LALogForCategory(uint64_t a1)
   return v11;
 }
 
-void sub_1DF4057CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1DF4057CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -130,15 +130,16 @@ void __LALogForCategory_block_invoke_2(uint64_t a1)
   [v1 setObject:v2 forKey:v3];
 }
 
-id LALogForPolicy(uint64_t a1, void *a2, int a3)
+id LALogForPolicy(uint64_t a1, void *a2, uint64_t a3)
 {
   v3 = LALogCategoryForPolicy(a1, a2, a3);
 
   return LALogForCategory(v3);
 }
 
-uint64_t LALogCategoryForPolicy(uint64_t a1, void *a2, int a3)
+uint64_t LALogCategoryForPolicy(uint64_t a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   v5 = MEMORY[0x1E69AD2A8];
   v6 = a2;
   v7 = [v5 isApplePayPolicy:a1];
@@ -163,7 +164,7 @@ uint64_t LALogCategoryForPolicy(uint64_t a1, void *a2, int a3)
   }
 
   v12 = v8 | v9;
-  v13 = LALogCategoryForOptions(v6, a3);
+  v13 = LALogCategoryForOptions(v6, v3);
 
   return v12 | v13;
 }
@@ -227,16 +228,16 @@ __CFString *NSStringFromLAPasscodeType(unint64_t a1)
   return v2;
 }
 
-id LA_LOG()
+id LA_LOG(uint64_t a1)
 {
   if (LA_LOG_once != -1)
   {
     LA_LOG_cold_1();
   }
 
-  v1 = LA_LOG_log;
+  v2 = LA_LOG_log;
 
-  return v1;
+  return v2;
 }
 
 void sub_1DF406FC4(_Unwind_Exception *a1)
@@ -261,34 +262,35 @@ LASerialSchedulerInternal *LASerialScheduler(void *a1)
   return v2;
 }
 
-id LA_LOG_0()
+id LA_LOG_0(uint64_t a1)
 {
   if (LA_LOG_once_0 != -1)
   {
     LA_LOG_cold_1_0();
   }
 
-  v1 = LA_LOG_log_0;
+  v2 = LA_LOG_log_0;
 
-  return v1;
+  return v2;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-id LA_LOG_LAErrorHelper()
+id LA_LOG_LAErrorHelper(uint64_t a1)
 {
   if (LA_LOG_LAErrorHelper_once != -1)
   {
     LA_LOG_LAErrorHelper_cold_1();
   }
 
-  v1 = LA_LOG_LAErrorHelper_log;
+  v2 = LA_LOG_LAErrorHelper_log;
 
-  return v1;
+  return v2;
 }
 
 void sub_1DF4098FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location)
@@ -298,18 +300,20 @@ void sub_1DF4098FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1DF40A3D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_1DF40A3D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
-  objc_destroyWeak((v17 + 40));
+  va_start(va, location);
+  objc_destroyWeak((v16 + 40));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -319,28 +323,28 @@ void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-id LA_LOG_INTERACTIVE()
+id LA_LOG_INTERACTIVE(uint64_t a1)
 {
   if (LA_LOG_INTERACTIVE_once != -1)
   {
     LA_LOG_INTERACTIVE_cold_1();
   }
 
-  v1 = LA_LOG_INTERACTIVE_log;
+  v2 = LA_LOG_INTERACTIVE_log;
 
-  return v1;
+  return v2;
 }
 
-id LA_LOG_LADFR()
+id LA_LOG_LADFR(uint64_t a1)
 {
   if (LA_LOG_LADFR_once != -1)
   {
     LA_LOG_LADFR_cold_1();
   }
 
-  v1 = LA_LOG_LADFR_log;
+  v2 = LA_LOG_LADFR_log;
 
-  return v1;
+  return v2;
 }
 
 void sub_1DF40B9AC(_Unwind_Exception *a1)
@@ -352,7 +356,6 @@ void sub_1DF40B9AC(_Unwind_Exception *a1)
 
 uint64_t LALogTypeForInternalError()
 {
-  v0 = *MEMORY[0x1E69AD150];
   if (os_variant_allows_internal_security_policies())
   {
     return 16;

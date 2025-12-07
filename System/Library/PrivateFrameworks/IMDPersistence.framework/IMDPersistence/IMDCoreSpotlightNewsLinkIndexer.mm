@@ -8,15 +8,15 @@
 {
   attributesCopy = attributes;
   metadataCopy = metadata;
-  v10 = objc_msgSend_title(metadataCopy, v8, v9);
-  objc_msgSend__insertLinkName_toAttributes_(self, v11, v10, attributesCopy);
+  v11 = objc_msgSend_title(metadataCopy, v8, v9, v10);
+  objc_msgSend__insertLinkName_toAttributes_(self, v12, v11, attributesCopy);
 
-  v14 = objc_msgSend_summary(metadataCopy, v12, v13);
-  objc_msgSend_setContentDescription_(attributesCopy, v15, v14);
+  v16 = objc_msgSend_summary(metadataCopy, v13, v14, v15);
+  objc_msgSend_setContentDescription_(attributesCopy, v17, v16, v18);
 
-  v19 = objc_msgSend_title(metadataCopy, v16, v17);
+  v24 = objc_msgSend_title(metadataCopy, v19, v20, v21);
 
-  objc_msgSend_setUrlDescription_(attributesCopy, v18, v19);
+  objc_msgSend_setUrlDescription_(attributesCopy, v22, v24, v23);
 }
 
 @end

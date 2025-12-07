@@ -18,7 +18,7 @@
 
 - (id)specifiers
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (!self->_disabledLockScreenBundles)
   {
     mEMORY[0x277CEF608] = [MEMORY[0x277CEF608] sharedInstance];
@@ -27,23 +27,23 @@
     self->_disabledLockScreenBundles = disabledLockScreenBundles;
   }
 
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
   v6 = getSBSCopyDisplayIdentifiersSymbolLoc_ptr;
-  v26 = getSBSCopyDisplayIdentifiersSymbolLoc_ptr;
+  v25 = getSBSCopyDisplayIdentifiersSymbolLoc_ptr;
   if (!getSBSCopyDisplayIdentifiersSymbolLoc_ptr)
   {
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __getSBSCopyDisplayIdentifiersSymbolLoc_block_invoke;
-    v22[3] = &unk_278CD1658;
-    v22[4] = &v23;
-    __getSBSCopyDisplayIdentifiersSymbolLoc_block_invoke(v22);
-    v6 = v24[3];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __getSBSCopyDisplayIdentifiersSymbolLoc_block_invoke;
+    v21[3] = &unk_278CD1658;
+    v21[4] = &v22;
+    __getSBSCopyDisplayIdentifiersSymbolLoc_block_invoke(v21);
+    v6 = v23[3];
   }
 
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v22, 8);
   if (!v6)
   {
     [ASTLockScreenSuggestionSpecifier specifiers];
@@ -52,40 +52,38 @@
   v7 = v6();
   v8 = [v7 count];
   v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v8];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v10 = v7;
-  v11 = [v10 countByEnumeratingWithState:&v18 objects:v27 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v17 objects:v26 count:16];
   if (v11)
   {
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = [(ASTLockScreenSuggestionSpecifier *)self specifierForBundleID:*(*(&v18 + 1) + 8 * i), v18];
+        v14 = [(ASTLockScreenSuggestionSpecifier *)self specifierForBundleID:*(*(&v17 + 1) + 8 * i), v17];
         if (v14)
         {
           [v9 addObject:v14];
         }
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v18 objects:v27 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v17 objects:v26 count:16];
     }
 
     while (v11);
   }
 
   v15 = [v9 sortedArrayUsingComparator:&__block_literal_global_3];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

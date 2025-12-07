@@ -102,7 +102,7 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  if (!MapsSuggestionsEntriesAreBothOfType(18, entryCopy, v7))
+  if (!MapsSuggestionsEntriesAreBothOfType(0x12, entryCopy, v7))
   {
     goto LABEL_18;
   }

@@ -1,32 +1,14 @@
 @interface MCMXPCMessageRepairUserData
 - (MCMXPCMessageRepairUserData)initWithXPCObject:(id)object context:(id)context error:(unint64_t *)error;
-- (NSURL)url;
-- (char)sandboxToken;
 - (unsigned)disposition;
 - (void)dealloc;
 @end
 
 @implementation MCMXPCMessageRepairUserData
 
-- (char)sandboxToken
-{
-  result = self->_sandboxToken;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSURL)url
-{
-  result = self->_url;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (void)dealloc
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   sandboxToken = self->_sandboxToken;
   if (sandboxToken)
   {
@@ -34,35 +16,33 @@
     memset_s(&self->_sandboxToken, 8uLL, 0, 8uLL);
   }
 
-  v5.receiver = self;
-  v5.super_class = MCMXPCMessageRepairUserData;
-  [(MCMXPCMessageBase *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = MCMXPCMessageRepairUserData;
+  [(MCMXPCMessageBase *)&v4 dealloc];
 }
 
 - (unsigned)disposition
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v6.receiver = self;
-  v6.super_class = MCMXPCMessageRepairUserData;
-  disposition = [(MCMXPCMessageBase *)&v6 disposition];
+  v6 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = MCMXPCMessageRepairUserData;
+  disposition = [(MCMXPCMessageBase *)&v5 disposition];
   if (disposition == 1)
   {
     v3 = containermanager_copy_global_configuration();
     disposition = [v3 runmode] == 0;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return disposition;
 }
 
 - (MCMXPCMessageRepairUserData)initWithXPCObject:(id)object context:(id)context error:(unint64_t *)error
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   objectCopy = object;
-  v17.receiver = self;
-  v17.super_class = MCMXPCMessageRepairUserData;
-  v9 = [(MCMXPCMessageBase *)&v17 initWithXPCObject:objectCopy context:context error:error];
+  v16.receiver = self;
+  v16.super_class = MCMXPCMessageRepairUserData;
+  v9 = [(MCMXPCMessageBase *)&v16 initWithXPCObject:objectCopy context:context error:error];
   if (v9)
   {
     string = xpc_dictionary_get_string(objectCopy, "SandboxToken");
@@ -84,7 +64,6 @@
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

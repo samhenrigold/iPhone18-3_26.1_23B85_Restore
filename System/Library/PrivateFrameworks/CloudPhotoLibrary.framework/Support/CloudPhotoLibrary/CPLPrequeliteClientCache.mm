@@ -235,7 +235,7 @@ LABEL_24:
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        sub_1001C2600();
+        sub_1001C2600(recordCopy);
       }
 
       if (error)
@@ -310,7 +310,7 @@ LABEL_24:
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        sub_1001C2600();
+        sub_1001C2600(recordCopy);
       }
 
       if (error)

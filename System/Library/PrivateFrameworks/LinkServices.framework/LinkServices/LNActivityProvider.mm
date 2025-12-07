@@ -32,12 +32,12 @@ LABEL_6:
 
 - (BOOL)queryAppIntentActivityForBundleIdentifier:(id)identifier sinceSeconds:(double)seconds
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v7 = [MEMORY[0x1E69C7610] predicateMatchingBundleIdentifier:identifierCopy];
-  v25 = 0;
-  v8 = [MEMORY[0x1E69C75D0] handleForPredicate:v7 error:&v25];
-  v9 = v25;
+  v24 = 0;
+  v8 = [MEMORY[0x1E69C75D0] handleForPredicate:v7 error:&v24];
+  v9 = v24;
   if (v9)
   {
     if (![(LNActivityProvider *)self shouldLogRBSError:v9])
@@ -49,9 +49,9 @@ LABEL_6:
     if (os_log_type_enabled(assertions, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v27 = identifierCopy;
-      v28 = 2112;
-      v29 = v9;
+      v26 = identifierCopy;
+      v27 = 2112;
+      v28 = v9;
       _os_log_impl(&dword_19763D000, assertions, OS_LOG_TYPE_ERROR, "Failed to obtain process handle for %@: %@", buf, 0x16u);
     }
   }
@@ -100,7 +100,7 @@ LABEL_10:
         {
           error2 = [v12 error];
           *buf = 138412290;
-          v27 = error2;
+          v26 = error2;
           _os_log_impl(&dword_19763D000, error, OS_LOG_TYPE_ERROR, "Failed to query Biome transcript: %@", buf, 0xCu);
         }
 
@@ -120,7 +120,6 @@ LABEL_18:
   LOBYTE(error) = 0;
 LABEL_19:
 
-  v23 = *MEMORY[0x1E69E9840];
   return error;
 }
 

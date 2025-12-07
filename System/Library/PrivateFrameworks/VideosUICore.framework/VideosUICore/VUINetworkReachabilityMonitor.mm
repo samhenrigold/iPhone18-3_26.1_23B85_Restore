@@ -67,12 +67,12 @@ uint64_t __47__VUINetworkReachabilityMonitor_sharedInstance__block_invoke()
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __59__VUINetworkReachabilityMonitor__updateNetworkReachability__block_invoke(uint64_t a1)
+uint64_t __59__VUINetworkReachabilityMonitor__updateNetworkReachability__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = [objc_opt_class() _isNetworkReachable];
-  v3 = *(a1 + 32);
+  v3 = [objc_opt_class() _isNetworkReachable];
+  v4 = *(a1 + 32);
 
-  return [v3 setNetworkReachable:v2];
+  return [v4 setNetworkReachable:v3];
 }
 
 - (VUINetworkReachabilityMonitor)init
@@ -88,15 +88,15 @@ uint64_t __59__VUINetworkReachabilityMonitor__updateNetworkReachability__block_i
 - (void)setNetworkReachable:(BOOL)reachable
 {
   reachableCopy = reachable;
-  v17 = *MEMORY[0x277D85DE8];
-  v5 = VUICDefaultLogObject();
+  v18 = *MEMORY[0x277D85DE8];
+  v5 = VUICDefaultLogObject(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     networkReachable = self->_networkReachable;
     *buf = 67109376;
-    v14 = networkReachable;
-    v15 = 1024;
-    v16 = reachableCopy;
+    v15 = networkReachable;
+    v16 = 1024;
+    v17 = reachableCopy;
     _os_log_impl(&dword_270E6E000, v5, OS_LOG_TYPE_DEFAULT, "VUINetworkReachabilityMonitor -- set network reachable -- before %d -- after %d", buf, 0xEu);
   }
 
@@ -104,14 +104,14 @@ uint64_t __59__VUINetworkReachabilityMonitor__updateNetworkReachability__block_i
   {
     self->_networkReachable = reachableCopy;
     v7 = [MEMORY[0x277CCABB0] numberWithBool:{reachableCopy, @"VUINetworkReachabilityMonitorNetworkReachabilityDidChangeUserInfoKeyNetworkReachable"}];
-    v12 = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+    v13 = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
 
-    v9 = VUICDefaultLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = VUICDefaultLogObject(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_270E6E000, v9, OS_LOG_TYPE_DEFAULT, "VUINetworkReachabilityMonitor -- Posting NetworkReachabilityDidChangeNotification", buf, 2u);
+      _os_log_impl(&dword_270E6E000, v10, OS_LOG_TYPE_DEFAULT, "VUINetworkReachabilityMonitor -- Posting NetworkReachabilityDidChangeNotification", buf, 2u);
     }
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -121,7 +121,7 @@ uint64_t __59__VUINetworkReachabilityMonitor__updateNetworkReachability__block_i
 
 - (void)environmentMonitorDidChangeNetworkType:(id)type
 {
-  v4 = VUICDefaultLogObject();
+  v4 = VUICDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -133,7 +133,7 @@ uint64_t __59__VUINetworkReachabilityMonitor__updateNetworkReachability__block_i
 
 - (void)environmentMonitorDidChangeNetworkReachability:(id)reachability
 {
-  v4 = VUICDefaultLogObject();
+  v4 = VUICDefaultLogObject(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

@@ -25,27 +25,27 @@
 - (optional<ULBLEMeasurementDO>)convertToDO
 {
   v3 = v1;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [(ULBLEMeasurementMO *)self timestamp];
-  v13 = v4;
+  v12 = v4;
   sourceIdsUUID = [(ULBLEMeasurementMO *)self sourceIdsUUID];
   v6 = sourceIdsUUID;
   if (sourceIdsUUID)
   {
-    [sourceIdsUUID boostUUID];
+    objc_msgSend_boostUUID(sourceIdsUUID);
   }
 
   else
   {
-    v15 = 0uLL;
-    v16 = 0;
+    v14 = 0uLL;
+    v15 = 0;
   }
 
-  if (v16)
+  if (v15)
   {
     rssi = [(ULBLEMeasurementMO *)self rssi];
     deviceModel = [(ULBLEMeasurementMO *)self deviceModel];
-    ULBLEMeasurementDO::ULBLEMeasurementDO(buf, &v13, rssi, &v15, &deviceModel);
+    ULBLEMeasurementDO::ULBLEMeasurementDO(buf, &v12, rssi, &v14, &deviceModel);
     ULBLEMeasurementDO::ULBLEMeasurementDO(v3, buf);
     v3[32] = 1;
   }
@@ -69,7 +69,6 @@
     v3[32] = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   *(&result.var0.var4 + 1) = v9;
   *&result.var0.var0 = v8;
   return result;

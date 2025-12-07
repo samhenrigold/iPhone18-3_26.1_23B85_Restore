@@ -26,7 +26,7 @@
 
   if (v3)
   {
-    sub_1000CE6B8(&unk_10190B260);
+    sub_1000CE6B8(&unk_10190B260, &unk_1011EB2D0);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -125,10 +125,10 @@
 - (_TtC4Maps23TransitSchedulesContext)initWithDepartureSequence:(id)sequence timeZone:(id)zone scheduleWindowStartDate:(id)date includeAllDirections:(BOOL)directions
 {
   directionsCopy = directions;
-  v9 = sub_1000CE6B8(&qword_10190EBD0);
+  v9 = sub_1000CE6B8(&qword_10190EBD0, &unk_1011F0880);
   __chkstk_darwin(v9 - 8);
   v11 = &v22 - v10;
-  v12 = sub_1000CE6B8(&unk_10190A800);
+  v12 = sub_1000CE6B8(&unk_10190A800, &unk_1011EFB40);
   __chkstk_darwin(v12 - 8);
   v14 = &v22 - v13;
   if (zone)
@@ -221,7 +221,7 @@
 
 - (void)transitSchedulesViewController:(id)controller wantsToDisplayIncidents:(id)incidents fromView:(id)view
 {
-  sub_1000CE6B8(&unk_10190A7F0);
+  sub_1000CE6B8(&unk_10190A7F0, &unk_1011E9F00);
   static Array._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   viewCopy = view;

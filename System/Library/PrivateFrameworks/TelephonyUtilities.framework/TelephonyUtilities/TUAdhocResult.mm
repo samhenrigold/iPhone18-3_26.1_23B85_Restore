@@ -53,15 +53,15 @@
 
 - (NSArray)handles
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   value = [(TUAdhocResult *)self value];
   v4 = [value length];
 
   if (v4)
   {
     value2 = [(TUAdhocResult *)self value];
-    v9[0] = value2;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+    v8[0] = value2;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   }
 
   else
@@ -69,14 +69,12 @@
     v6 = MEMORY[0x1E695E0F0];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (NSArray)idsCanonicalDestinations
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   value = [(TUAdhocResult *)self value];
   v4 = [value length];
 
@@ -87,8 +85,8 @@
 
     if (iDSFormattedDestinationID)
     {
-      v10[0] = iDSFormattedDestinationID;
-      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+      v9[0] = iDSFormattedDestinationID;
+      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
     }
 
     else
@@ -101,8 +99,6 @@
   {
     v7 = MEMORY[0x1E695E0F0];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

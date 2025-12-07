@@ -185,8 +185,8 @@
 
 - (NSString)description
 {
-  v32[7] = *MEMORY[0x1E69E9840];
-  v31[0] = @"allowsCameraToggle";
+  v31[7] = *MEMORY[0x1E69E9840];
+  v30[0] = @"allowsCameraToggle";
   if ([(AMSUIWebCameraReaderPageModel *)self allowsCameraToggle])
   {
     v3 = @"true";
@@ -197,8 +197,8 @@
     v3 = @"false";
   }
 
-  v32[0] = v3;
-  v31[1] = @"allowsTextEntry";
+  v31[0] = v3;
+  v30[1] = @"allowsTextEntry";
   if ([(AMSUIWebCameraReaderPageModel *)self allowsTextEntry])
   {
     v4 = @"true";
@@ -209,8 +209,8 @@
     v4 = @"false";
   }
 
-  v32[1] = v4;
-  v31[2] = @"disableReappearPlaceholder";
+  v31[1] = v4;
+  v30[2] = @"disableReappearPlaceholder";
   if ([(AMSUIWebCameraReaderPageModel *)self disableReappearPlaceholder])
   {
     v5 = @"true";
@@ -221,8 +221,8 @@
     v5 = @"false";
   }
 
-  v32[2] = v5;
-  v31[3] = @"fullScreen";
+  v31[2] = v5;
+  v30[3] = @"fullScreen";
   if ([(AMSUIWebCameraReaderPageModel *)self isFullScreen])
   {
     v6 = @"true";
@@ -233,8 +233,8 @@
     v6 = @"false";
   }
 
-  v32[3] = v6;
-  v31[4] = @"prefersSessionTeardown";
+  v31[3] = v6;
+  v30[4] = @"prefersSessionTeardown";
   if ([(AMSUIWebCameraReaderPageModel *)self prefersSessionTeardown])
   {
     v7 = @"true";
@@ -245,15 +245,15 @@
     v7 = @"false";
   }
 
-  v32[4] = v7;
-  v31[5] = @"pageType";
+  v31[4] = v7;
+  v30[5] = @"pageType";
   v8 = [MEMORY[0x1E696AD98] numberWithInteger:{-[AMSUIWebCameraReaderPageModel pageType](self, "pageType")}];
-  v32[5] = v8;
-  v31[6] = @"windowSize";
+  v31[5] = v8;
+  v30[6] = @"windowSize";
   [(AMSUIWebCameraReaderPageModel *)self windowSize];
-  v9 = NSStringFromCGSize(v34);
-  v32[6] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:7];
+  v9 = NSStringFromCGSize(v33);
+  v31[6] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:7];
   v11 = [v10 mutableCopy];
 
   bottomLinkLabel = [(AMSUIWebCameraReaderPageModel *)self bottomLinkLabel];
@@ -321,8 +321,6 @@
   }
 
   v28 = [v11 description];
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v28;
 }

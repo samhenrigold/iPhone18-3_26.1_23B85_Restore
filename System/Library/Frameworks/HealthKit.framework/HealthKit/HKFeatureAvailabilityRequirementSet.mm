@@ -6,11 +6,11 @@
 - (id)allRequirementIdentifiers;
 - (id)evaluationByContextWithDataSource:(void *)source overrides:(void *)overrides error:;
 - (id)evaluationForContext:(void *)context dataSource:(void *)source overrides:(uint64_t)overrides error:;
-- (uint64_t)copyApplyingContextConstraint:(uint64_t)constraint;
 - (void)_initWithRequirementsByContext:(void *)context;
 - (void)allHealthDataRequirements;
 - (void)allObservableRequirements;
 - (void)allRequirements;
+- (void)copyApplyingContextConstraint:(void *)constraint;
 @end
 
 @implementation HKFeatureAvailabilityRequirementSet
@@ -127,49 +127,47 @@ void __89__HKFeatureAvailabilityRequirementSet_evaluationByContextWithDataSource
   return v3;
 }
 
-uint64_t __64__HKFeatureAvailabilityRequirementSet_allRequirementIdentifiers__block_invoke()
+uint64_t __64__HKFeatureAvailabilityRequirementSet_allRequirementIdentifiers__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return [v0 requirementIdentifier];
+  return [v2 requirementIdentifier];
 }
 
 void __64__HKFeatureAvailabilityRequirementSet_allObservableRequirements__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * i);
+        v9 = *(*(&v10 + 1) + 8 * i);
         if ([v9 conformsToProtocol:&unk_1F068E6E0])
         {
           [*(a1 + 32) addObject:v9];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -272,38 +270,38 @@ void __64__HKFeatureAvailabilityRequirementSet_allObservableRequirements__block_
 - (void)allHealthDataRequirements
 {
   selfCopy = self;
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v10 = 0u;
     v11 = 0u;
     v12 = 0u;
     v13 = 0u;
-    v14 = 0u;
     allRequirements = [(HKFeatureAvailabilityRequirementSet *)selfCopy allRequirements];
-    v4 = [allRequirements countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v4 = [allRequirements countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v12;
+      v6 = *v11;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v12 != v6)
+          if (*v11 != v6)
           {
             objc_enumerationMutation(allRequirements);
           }
 
-          v8 = *(*(&v11 + 1) + 8 * i);
+          v8 = *(*(&v10 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [v2 addObject:{v8, v11}];
+            [v2 addObject:{v8, v10}];
           }
         }
 
-        v5 = [allRequirements countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v5 = [allRequirements countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v5);
@@ -312,18 +310,16 @@ void __64__HKFeatureAvailabilityRequirementSet_allObservableRequirements__block_
     selfCopy = [v2 copy];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return selfCopy;
 }
 
-- (uint64_t)copyApplyingContextConstraint:(uint64_t)constraint
+- (void)copyApplyingContextConstraint:(void *)constraint
 {
   v3 = a2;
   if (constraint)
   {
     v4 = objc_alloc(objc_opt_class());
-    v5 = *(constraint + 8);
+    v5 = constraint[1];
     OUTLINED_FUNCTION_0_16();
     v9 = 3221225472;
     v10 = __69__HKFeatureAvailabilityRequirementSet_copyApplyingContextConstraint___block_invoke;
@@ -338,20 +334,19 @@ void __64__HKFeatureAvailabilityRequirementSet_allObservableRequirements__block_
 
 - (HKFeatureAvailabilityRequirementSet)initWithCoder:(id)coder
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
+  v12 = objc_opt_class();
   v13 = objc_opt_class();
   v14 = objc_opt_class();
-  v15 = objc_opt_class();
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
   v6 = HKAllFeatureAvailabilityRequirementTypes();
-  v7 = [v5 arrayByAddingObjectsFromArray:{v6, v13, v14}];
+  v7 = [v5 arrayByAddingObjectsFromArray:{v6, v12, v13}];
 
   v8 = [MEMORY[0x1E695DFD8] setWithArray:v7];
   v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"requirementsByContext"];
 
   v10 = [(HKFeatureAvailabilityRequirementSet *)self _initWithRequirementsByContext:v9];
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

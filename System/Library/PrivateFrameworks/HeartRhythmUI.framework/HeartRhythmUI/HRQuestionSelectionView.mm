@@ -197,7 +197,7 @@
   pathCopy = path;
   v7 = [view dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:pathCopy];
   v8 = [pathCopy row];
-  v9 = HRHeartRhythmUIFrameworkBundle();
+  v9 = HRHeartRhythmUIFrameworkBundle(v8);
   v10 = v9;
   if (v8)
   {

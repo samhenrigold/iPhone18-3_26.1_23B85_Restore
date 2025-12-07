@@ -38,139 +38,137 @@
 
 - (BOOL)createSessionWithConnection:(id)connection
 {
-  v42 = *MEMORY[0x29EDCA608];
+  v47 = *MEMORY[0x29EDCA608];
   connectionCopy = connection;
-  if (connectionCopy && ([(ICSessionManager *)self sessionWithConnection:connectionCopy], v5 = objc_claimAutoreleasedReturnValue(), v5, !v5))
+  v6 = connectionCopy;
+  if (connectionCopy && ([(ICSessionManager *)self sessionWithConnection:connectionCopy], v7 = objc_claimAutoreleasedReturnValue(), v7, !v7))
   {
-    v6 = [[ICSession alloc] initWithConnection:connectionCopy];
-    objc_initWeak(&location, connectionCopy);
-    v31 = MEMORY[0x29EDCA5F8];
-    v32 = 3221225472;
-    v33 = __48__ICSessionManager_createSessionWithConnection___block_invoke;
-    v34 = &unk_29F380B50;
-    objc_copyWeak(&v36, &location);
+    v8 = [[ICSession alloc] initWithConnection:v6];
+    objc_initWeak(&location, v6);
+    v36 = MEMORY[0x29EDCA5F8];
+    v37 = 3221225472;
+    v38 = __48__ICSessionManager_createSessionWithConnection___block_invoke;
+    v39 = &unk_29F380B50;
+    objc_copyWeak(&v41, &location);
     selfCopy = self;
-    v13 = MEMORY[0x29EDA9880](&v31);
-    [connectionCopy setInterruptionHandler:v13];
-    [connectionCopy setInvalidationHandler:v13];
+    v15 = MEMORY[0x29EDA9880](&v36);
+    [v6 setInterruptionHandler:v15];
+    [v6 setInvalidationHandler:v15];
     os_unfair_lock_lock(&self->_sessionsLock);
-    [(NSMutableArray *)self->_sessions addObject:v6];
+    [(NSMutableArray *)self->_sessions addObject:v8];
     os_unfair_lock_unlock(&self->_sessionsLock);
-    __ICOSLogCreate();
+    __ICOSLogCreate(v16, v17);
     if ([@"CM" length] < 0x15)
     {
-      v15 = @"CM";
+      v19 = @"CM";
     }
 
     else
     {
-      v14 = [@"CM" substringWithRange:{0, 18}];
-      v15 = [v14 stringByAppendingString:@".."];
+      v18 = [@"CM" substringWithRange:{0, 18}];
+      v19 = [v18 stringByAppendingString:@".."];
     }
 
-    v16 = MEMORY[0x29EDBA0F8];
-    v17 = [(ICSession *)v6 pid];
-    v18 = [v16 stringWithFormat:@"add: [%05d]", v17, v31, v32, v33, v34];
-    v19 = _gICOSLog;
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = MEMORY[0x29EDBA0F8];
+    v21 = [(ICSession *)v8 pid];
+    v22 = [v20 stringWithFormat:@"add: [%05d]", v21, v36, v37, v38, v39];
+    v23 = _gICOSLog;
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = v15;
-      uTF8String = [(__CFString *)v15 UTF8String];
+      v24 = v19;
+      uTF8String = [(__CFString *)v19 UTF8String];
       *buf = 136446466;
       uTF8String2 = uTF8String;
-      v40 = 2114;
-      v41 = v18;
-      _os_log_impl(&dword_29EB58000, v19, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      v45 = 2114;
+      v46 = v22;
+      _os_log_impl(&dword_29EB58000, v23, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
-    objc_destroyWeak(&v36);
+    objc_destroyWeak(&v41);
     objc_destroyWeak(&location);
-    v12 = 1;
+    v14 = 1;
   }
 
   else
   {
-    __ICOSLogCreate();
-    v6 = @"CM";
+    __ICOSLogCreate(connectionCopy, v5);
+    v8 = @"CM";
     if ([@"CM" length] >= 0x15)
     {
-      v7 = [@"CM" substringWithRange:{0, 18}];
-      v6 = [v7 stringByAppendingString:@".."];
+      v9 = [@"CM" substringWithRange:{0, 18}];
+      v8 = [v9 stringByAppendingString:@".."];
     }
 
-    v8 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"exists: [%05d]", objc_msgSend(connectionCopy, "processIdentifier")];
-    v9 = _gICOSLog;
+    v10 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"exists: [%05d]", objc_msgSend(v6, "processIdentifier")];
+    v11 = _gICOSLog;
     if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = v6;
-      v11 = v9;
+      v12 = v8;
+      v13 = v11;
       *buf = 136446466;
-      uTF8String2 = [(ICSession *)v6 UTF8String];
-      v40 = 2114;
-      v41 = v8;
-      _os_log_impl(&dword_29EB58000, v11, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      uTF8String2 = [(ICSession *)v8 UTF8String];
+      v45 = 2114;
+      v46 = v10;
+      _os_log_impl(&dword_29EB58000, v13, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
-    v12 = 0;
+    v14 = 0;
   }
 
-  __ICOSLogCreate();
+  __ICOSLogCreate(v26, v27);
   if ([@"CM" length] < 0x15)
   {
-    v23 = @"CM";
+    v29 = @"CM";
   }
 
   else
   {
-    v22 = [@"CM" substringWithRange:{0, 18}];
-    v23 = [v22 stringByAppendingString:@".."];
+    v28 = [@"CM" substringWithRange:{0, 18}];
+    v29 = [v28 stringByAppendingString:@".."];
   }
 
-  v24 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"count: [%05lu]", -[ICSessionManager currentSessionCount](self, "currentSessionCount")];
-  v25 = _gICOSLog;
+  v30 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"count: [%05lu]", -[ICSessionManager currentSessionCount](self, "currentSessionCount")];
+  v31 = _gICOSLog;
   if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = v23;
-    v27 = v25;
-    uTF8String3 = [(__CFString *)v23 UTF8String];
+    v32 = v29;
+    v33 = v31;
+    uTF8String3 = [(__CFString *)v29 UTF8String];
     *buf = 136446466;
     uTF8String2 = uTF8String3;
-    v40 = 2114;
-    v41 = v24;
-    _os_log_impl(&dword_29EB58000, v27, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    v45 = 2114;
+    v46 = v30;
+    _os_log_impl(&dword_29EB58000, v33, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
-  v29 = *MEMORY[0x29EDCA608];
-  return v12;
+  return v14;
 }
 
 void __48__ICSessionManager_createSessionWithConnection___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  [*(a1 + 32) removeSessionWithConnection:WeakRetained];
-  __ICOSLogCreate();
-  v3 = @"CM";
+  v3 = [*(a1 + 32) removeSessionWithConnection:WeakRetained];
+  __ICOSLogCreate(v3, v4);
+  v5 = @"CM";
   if ([@"CM" length] >= 0x15)
   {
-    v4 = [@"CM" substringWithRange:{0, 18}];
-    v3 = [v4 stringByAppendingString:@".."];
+    v6 = [@"CM" substringWithRange:{0, 18}];
+    v5 = [v6 stringByAppendingString:@".."];
   }
 
-  v5 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"xpc-term: [%05d]", objc_msgSend(WeakRetained, "processIdentifier")];
-  v6 = _gICOSLog;
+  v7 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"xpc-term: [%05d]", objc_msgSend(WeakRetained, "processIdentifier")];
+  v8 = _gICOSLog;
   if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = v3;
-    v8 = v6;
+    v9 = v5;
+    v10 = v8;
     *buf = 136446466;
-    v11 = [(__CFString *)v3 UTF8String];
-    v12 = 2114;
-    v13 = v5;
-    _os_log_impl(&dword_29EB58000, v8, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    v12 = [(__CFString *)v5 UTF8String];
+    v13 = 2114;
+    v14 = v7;
+    _os_log_impl(&dword_29EB58000, v10, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 - (NSArray)sessions
@@ -192,27 +190,27 @@ void __48__ICSessionManager_createSessionWithConnection___block_invoke(uint64_t 
 
 - (id)sessionWithConnection:(id)connection
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   connectionCopy = connection;
   [(ICSessionManager *)self sessions];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = v17 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = v16 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         connection = [v9 connection];
         v11 = [connection isEqual:connectionCopy];
 
@@ -223,7 +221,7 @@ void __48__ICSessionManager_createSessionWithConnection___block_invoke(uint64_t 
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -235,80 +233,74 @@ void __48__ICSessionManager_createSessionWithConnection___block_invoke(uint64_t 
 
 LABEL_11:
 
-  v12 = *MEMORY[0x29EDCA608];
-
   return v6;
 }
 
 - (void)addNotifications:(id)notifications toSessionWithConnection:(id)connection
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   notificationsCopy = notifications;
   v7 = [(ICSessionManager *)self sessionWithConnection:connection];
   os_unfair_lock_lock(&self->_sessionsLock);
-  __ICOSLogCreate();
-  v8 = @"CM";
+  __ICOSLogCreate(v8, v9);
+  v10 = @"CM";
   if ([@"CM" length] >= 0x15)
   {
-    v9 = [@"CM" substringWithRange:{0, 18}];
-    v8 = [v9 stringByAppendingString:@".."];
+    v11 = [@"CM" substringWithRange:{0, 18}];
+    v10 = [v11 stringByAppendingString:@".."];
   }
 
   notificationsCopy = [MEMORY[0x29EDBA0F8] stringWithFormat:@"+ note: [%05d] - %@", objc_msgSend(v7, "pid"), notificationsCopy];
-  v11 = _gICOSLog;
+  v13 = _gICOSLog;
   if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = v8;
-    v13 = v11;
+    v14 = v10;
+    v15 = v13;
     *buf = 136446466;
-    uTF8String = [(__CFString *)v8 UTF8String];
-    v17 = 2114;
-    v18 = notificationsCopy;
-    _os_log_impl(&dword_29EB58000, v13, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    uTF8String = [(__CFString *)v10 UTF8String];
+    v18 = 2114;
+    v19 = notificationsCopy;
+    _os_log_impl(&dword_29EB58000, v15, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
   [v7 addNotifications:notificationsCopy];
   os_unfair_lock_unlock(&self->_sessionsLock);
-
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 - (void)remNotifications:(id)notifications fromSessionWithConnection:(id)connection
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   notificationsCopy = notifications;
   v7 = [(ICSessionManager *)self sessionWithConnection:connection];
   os_unfair_lock_lock(&self->_sessionsLock);
-  __ICOSLogCreate();
-  v8 = @"CM";
+  __ICOSLogCreate(v8, v9);
+  v10 = @"CM";
   if ([@"CM" length] >= 0x15)
   {
-    v9 = [@"CM" substringWithRange:{0, 18}];
-    v8 = [v9 stringByAppendingString:@".."];
+    v11 = [@"CM" substringWithRange:{0, 18}];
+    v10 = [v11 stringByAppendingString:@".."];
   }
 
   notificationsCopy = [MEMORY[0x29EDBA0F8] stringWithFormat:@"- note: [%05d] - %@", objc_msgSend(v7, "pid"), notificationsCopy];
-  v11 = _gICOSLog;
+  v13 = _gICOSLog;
   if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = v8;
-    v13 = v11;
+    v14 = v10;
+    v15 = v13;
     *buf = 136446466;
-    uTF8String = [(__CFString *)v8 UTF8String];
-    v17 = 2114;
-    v18 = notificationsCopy;
-    _os_log_impl(&dword_29EB58000, v13, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+    uTF8String = [(__CFString *)v10 UTF8String];
+    v18 = 2114;
+    v19 = notificationsCopy;
+    _os_log_impl(&dword_29EB58000, v15, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
   }
 
   [v7 remNotifications:notificationsCopy];
   os_unfair_lock_unlock(&self->_sessionsLock);
-
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 - (unint64_t)removeSessionWithConnection:(id)connection
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v22 = *MEMORY[0x29EDCA608];
   v4 = [(ICSessionManager *)self sessionWithConnection:connection];
   v5 = v4;
   if (v4)
@@ -316,25 +308,25 @@ LABEL_11:
     connection = [v4 connection];
     [connection invalidate];
 
-    __ICOSLogCreate();
-    v7 = @"CM";
+    __ICOSLogCreate(v7, v8);
+    v9 = @"CM";
     if ([@"CM" length] >= 0x15)
     {
-      v8 = [@"CM" substringWithRange:{0, 18}];
-      v7 = [v8 stringByAppendingString:@".."];
+      v10 = [@"CM" substringWithRange:{0, 18}];
+      v9 = [v10 stringByAppendingString:@".."];
     }
 
-    v9 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"remove: [%05lu]", objc_msgSend(v5, "pid")];
-    v10 = _gICOSLog;
+    v11 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"remove: [%05lu]", objc_msgSend(v5, "pid")];
+    v12 = _gICOSLog;
     if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = v7;
-      v12 = v10;
+      v13 = v9;
+      v14 = v12;
       *buf = 136446466;
-      uTF8String = [(__CFString *)v7 UTF8String];
-      v19 = 2114;
-      v20 = v9;
-      _os_log_impl(&dword_29EB58000, v12, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      uTF8String = [(__CFString *)v9 UTF8String];
+      v20 = 2114;
+      v21 = v11;
+      _os_log_impl(&dword_29EB58000, v14, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
 
     os_unfair_lock_lock(&self->_sessionsLock);
@@ -350,34 +342,33 @@ LABEL_11:
 
   currentSessionCount = [(ICSessionManager *)self currentSessionCount];
 
-  v15 = *MEMORY[0x29EDCA608];
   return currentSessionCount;
 }
 
 - (unint64_t)removeSessionsWithProcessIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   identifierCopy = identifier;
   sessions = [(ICSessionManager *)self sessions];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v6 = [sessions countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [sessions countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(sessions);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = [v10 pid];
         if (v11 == [identifierCopy intValue])
         {
@@ -386,7 +377,7 @@ LABEL_11:
         }
       }
 
-      v7 = [sessions countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [sessions countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
@@ -394,47 +385,44 @@ LABEL_11:
 
   currentSessionCount = [(ICSessionManager *)self currentSessionCount];
 
-  v14 = *MEMORY[0x29EDCA608];
   return currentSessionCount;
 }
 
 - (void)removeAllSessions
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   sessions = [(ICSessionManager *)self sessions];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v4 = [sessions countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [sessions countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(sessions);
         }
 
-        connection = [*(*(&v10 + 1) + 8 * v7) connection];
+        connection = [*(*(&v9 + 1) + 8 * v7) connection];
         [(ICSessionManager *)self removeSessionWithConnection:connection];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [sessions countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [sessions countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 - (id)connectionsMonitoringNotification:(id)notification
@@ -443,27 +431,27 @@ LABEL_11:
   notificationCopy = notification;
   array = [MEMORY[0x29EDB8DE8] array];
   sessions = [(ICSessionManager *)self sessions];
-  __ICOSLogCreate();
+  __ICOSLogCreate(sessions, v7);
   if (__ICLogTypeEnabled(4))
   {
-    v7 = @"noteInterest";
+    v8 = @"noteInterest";
     if ([@"noteInterest" length] >= 0x15)
     {
-      v8 = [@"noteInterest" substringWithRange:{0, 18}];
-      v7 = [v8 stringByAppendingString:@".."];
+      v9 = [@"noteInterest" substringWithRange:{0, 18}];
+      v8 = [v9 stringByAppendingString:@".."];
     }
 
     notificationCopy = [MEMORY[0x29EDBA0F8] stringWithFormat:@"[%05d] - %@", objc_msgSend(sessions, "count"), notificationCopy];
-    v10 = _gICOSLog;
+    v11 = _gICOSLog;
     if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = v7;
-      v12 = v10;
+      v12 = v8;
+      v13 = v11;
       *buf = 136446466;
-      uTF8String = [(__CFString *)v7 UTF8String];
+      uTF8String = [(__CFString *)v8 UTF8String];
       v29 = 2114;
       v30 = notificationCopy;
-      _os_log_impl(&dword_29EB58000, v12, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      _os_log_impl(&dword_29EB58000, v13, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
   }
 
@@ -471,36 +459,34 @@ LABEL_11:
   v25 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v13 = sessions;
-  v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
-  if (v14)
+  v14 = sessions;
+  v15 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  if (v15)
   {
-    v15 = v14;
-    v16 = *v23;
+    v16 = v15;
+    v17 = *v23;
     do
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v16; ++i)
       {
-        if (*v23 != v16)
+        if (*v23 != v17)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v14);
         }
 
-        v18 = *(*(&v22 + 1) + 8 * i);
-        if ([v18 interestedInNotification:notificationCopy])
+        v19 = *(*(&v22 + 1) + 8 * i);
+        if ([v19 interestedInNotification:notificationCopy])
         {
-          connection = [v18 connection];
+          connection = [v19 connection];
           [array addObject:connection];
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
-    while (v15);
+    while (v16);
   }
-
-  v20 = *MEMORY[0x29EDCA608];
 
   return array;
 }
@@ -512,27 +498,27 @@ LABEL_11:
   array = [MEMORY[0x29EDB8DE8] array];
   sessions = [(ICSessionManager *)self sessions];
   v7 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"0x%08lX", objc_msgSend(dCopy, "longValue")];
-  __ICOSLogCreate();
+  __ICOSLogCreate(v7, v8);
   if (__ICLogTypeEnabled(4))
   {
-    v8 = @"noteInterest";
+    v9 = @"noteInterest";
     if ([@"noteInterest" length] >= 0x15)
     {
-      v9 = [@"noteInterest" substringWithRange:{0, 18}];
-      v8 = [v9 stringByAppendingString:@".."];
+      v10 = [@"noteInterest" substringWithRange:{0, 18}];
+      v9 = [v10 stringByAppendingString:@".."];
     }
 
-    v10 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"[%05d] - %@", objc_msgSend(sessions, "count"), v7];
-    v11 = _gICOSLog;
+    v11 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"[%05d] - %@", objc_msgSend(sessions, "count"), v7];
+    v12 = _gICOSLog;
     if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = v8;
-      v13 = v11;
+      v13 = v9;
+      v14 = v12;
       *buf = 136446466;
-      uTF8String = [(__CFString *)v8 UTF8String];
+      uTF8String = [(__CFString *)v9 UTF8String];
       v31 = 2114;
-      v32 = v10;
-      _os_log_impl(&dword_29EB58000, v13, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+      v32 = v11;
+      _os_log_impl(&dword_29EB58000, v14, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
     }
   }
 
@@ -540,75 +526,71 @@ LABEL_11:
   v27 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v14 = sessions;
-  v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
-  if (v15)
+  v15 = sessions;
+  v16 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  if (v16)
   {
-    v16 = v15;
-    v17 = *v25;
+    v17 = v16;
+    v18 = *v25;
     do
     {
-      for (i = 0; i != v16; ++i)
+      for (i = 0; i != v17; ++i)
       {
-        if (*v25 != v17)
+        if (*v25 != v18)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v15);
         }
 
-        v19 = *(*(&v24 + 1) + 8 * i);
-        objectHandle = [v19 objectHandle];
+        v20 = *(*(&v24 + 1) + 8 * i);
+        objectHandle = [v20 objectHandle];
         if (objectHandle == [dCopy intValue])
         {
-          connection = [v19 connection];
+          connection = [v20 connection];
           [array addObject:connection];
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
-    while (v16);
+    while (v17);
   }
-
-  v22 = *MEMORY[0x29EDCA608];
 
   return array;
 }
 
 - (NSArray)connections
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   array = [MEMORY[0x29EDB8DE8] array];
   sessions = [(ICSessionManager *)self sessions];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [sessions countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [sessions countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(sessions);
         }
 
-        connection = [*(*(&v12 + 1) + 8 * i) connection];
+        connection = [*(*(&v11 + 1) + 8 * i) connection];
         [array addObject:connection];
       }
 
-      v6 = [sessions countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [sessions countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x29EDCA608];
 
   return array;
 }

@@ -9,10 +9,11 @@
 {
   length = range.length;
   location = range.location;
-  sub_2741C7E7C();
+  v9 = sub_2741C7E7C();
+  v11 = v10;
   fieldCopy = field;
   selfCopy = self;
-  LOBYTE(length) = sub_2740DDB50(fieldCopy, location, length);
+  LOBYTE(length) = sub_2740DDB50(fieldCopy, location, length, v9, v11);
 
   return length & 1;
 }

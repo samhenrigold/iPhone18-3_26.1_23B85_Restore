@@ -23,12 +23,12 @@
 
 - (CMTime)decodeCMTimeForKey:()AVTimeCoding
 {
-  v6 = MEMORY[0x1E695DFD8];
-  v7 = objc_opt_class();
+  v7 = MEMORY[0x1E695DFD8];
   v8 = objc_opt_class();
-  v9 = [self decodeObjectOfClasses:objc_msgSend(v6 forKey:{"setWithObjects:", v7, v8, objc_opt_class(), 0), a2}];
+  v9 = objc_opt_class();
+  v10 = [self decodeObjectOfClasses:objc_msgSend(v7 forKey:{"setWithObjects:", v8, v9, objc_opt_class(), 0), a3}];
 
-  return CMTimeMakeFromDictionary(a3, v9);
+  return CMTimeMakeFromDictionary(a4, v10);
 }
 
 - (void)encodeCMTimeRange:()AVTimeCoding forKey:
@@ -48,12 +48,12 @@
 
 - (CMTimeRange)decodeCMTimeRangeForKey:()AVTimeCoding
 {
-  v6 = MEMORY[0x1E695DFD8];
-  v7 = objc_opt_class();
+  v7 = MEMORY[0x1E695DFD8];
   v8 = objc_opt_class();
-  v9 = [self decodeObjectOfClasses:objc_msgSend(v6 forKey:{"setWithObjects:", v7, v8, objc_opt_class(), 0), a2}];
+  v9 = objc_opt_class();
+  v10 = [self decodeObjectOfClasses:objc_msgSend(v7 forKey:{"setWithObjects:", v8, v9, objc_opt_class(), 0), a3}];
 
-  return CMTimeRangeMakeFromDictionary(a3, v9);
+  return CMTimeRangeMakeFromDictionary(a4, v10);
 }
 
 - (void)encodeCMTimeMapping:()AVTimeCoding forKey:
@@ -85,30 +85,30 @@
 
 - (double)decodeCMTimeMappingForKey:()AVTimeCoding
 {
-  v6 = MEMORY[0x1E6960C98];
-  v7 = *MEMORY[0x1E6960C98];
-  v8 = *(MEMORY[0x1E6960C98] + 16);
-  *a3 = *MEMORY[0x1E6960C98];
-  *(a3 + 16) = v8;
-  v9 = *(v6 + 32);
-  *(a3 + 32) = v9;
-  *(a3 + 48) = v7;
-  *(a3 + 64) = v8;
-  *(a3 + 80) = v9;
-  v10 = MEMORY[0x1E695DFD8];
-  v11 = objc_opt_class();
+  v7 = MEMORY[0x1E6960C98];
+  v8 = *MEMORY[0x1E6960C98];
+  v9 = *(MEMORY[0x1E6960C98] + 16);
+  *a4 = *MEMORY[0x1E6960C98];
+  *(a4 + 16) = v9;
+  v10 = *(v7 + 32);
+  *(a4 + 32) = v10;
+  *(a4 + 48) = v8;
+  *(a4 + 64) = v9;
+  *(a4 + 80) = v10;
+  v11 = MEMORY[0x1E695DFD8];
   v12 = objc_opt_class();
   v13 = objc_opt_class();
-  v14 = [self decodeObjectOfClasses:objc_msgSend(v10 forKey:{"setWithObjects:", v11, v12, v13, objc_opt_class(), 0), a2}];
-  if ([v14 count] == 2)
+  v14 = objc_opt_class();
+  v15 = [self decodeObjectOfClasses:objc_msgSend(v11 forKey:{"setWithObjects:", v12, v13, v14, objc_opt_class(), 0), a3}];
+  if ([v15 count] == 2)
   {
-    CMTimeRangeMakeFromDictionary(a3, [v14 objectAtIndex:0]);
-    CMTimeRangeMakeFromDictionary(&v17, [v14 objectAtIndex:1]);
-    v16 = *&v17.start.epoch;
-    *(a3 + 48) = *&v17.start.value;
-    *(a3 + 64) = v16;
-    result = *&v17.duration.timescale;
-    *(a3 + 80) = *&v17.duration.timescale;
+    CMTimeRangeMakeFromDictionary(a4, [v15 objectAtIndex:0]);
+    CMTimeRangeMakeFromDictionary(&v18, [v15 objectAtIndex:1]);
+    v17 = *&v18.start.epoch;
+    *(a4 + 48) = *&v18.start.value;
+    *(a4 + 64) = v17;
+    result = *&v18.duration.timescale;
+    *(a4 + 80) = *&v18.duration.timescale;
   }
 
   return result;

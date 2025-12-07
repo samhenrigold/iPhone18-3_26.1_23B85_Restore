@@ -14,16 +14,15 @@
   userInfo = [content userInfo];
 
   v8 = [userInfo objectForKeyedSubscript:@"CKBBContextKeyBalloonBundleID"];
-  v9 = *MEMORY[0x277D196E0];
-  v10 = IMBalloonExtensionIDWithSuffix();
-  LOBYTE(content) = [v8 isEqualToString:v10];
+  v9 = IMBalloonExtensionIDWithSuffix();
+  LOBYTE(content) = [v8 isEqualToString:v9];
 
   return content;
 }
 
 - (void)handleNotificationResponse:(id)response userNotificationCenter:(id)center completionHandler:(id)handler
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   notification = [response notification];
   request = [notification request];
@@ -45,32 +44,32 @@
   }
 
   selfCopy = self;
-  v57 = v12;
-  v58 = userInfo;
+  v56 = v12;
+  v57 = userInfo;
   [MEMORY[0x277CCACE0] componentsWithURL:v13 resolvingAgainstBaseURL:1];
+  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v61 = 0u;
-  v56 = v62 = 0u;
-  queryItems = [v56 queryItems];
-  v15 = [queryItems countByEnumeratingWithState:&v59 objects:v63 count:16];
+  v55 = v61 = 0u;
+  queryItems = [v55 queryItems];
+  v15 = [queryItems countByEnumeratingWithState:&v58 objects:v62 count:16];
   if (!v15)
   {
     goto LABEL_10;
   }
 
   v16 = v15;
-  v17 = *v60;
+  v17 = *v59;
   while (2)
   {
     for (i = 0; i != v16; ++i)
     {
-      if (*v60 != v17)
+      if (*v59 != v17)
       {
         objc_enumerationMutation(queryItems);
       }
 
-      v19 = *(*(&v59 + 1) + 8 * i);
+      v19 = *(*(&v58 + 1) + 8 * i);
       name = [v19 name];
       v21 = [name isEqualToString:@"inviteUrl"];
 
@@ -95,9 +94,9 @@
 
           if (!v28)
           {
-            v12 = v57;
-            userInfo = v58;
-            v38 = v56;
+            v12 = v56;
+            userInfo = v57;
+            v38 = v55;
             goto LABEL_26;
           }
 
@@ -116,9 +115,9 @@
           v28 = 0;
         }
 
-        v12 = v57;
-        userInfo = v58;
-        v38 = v56;
+        v12 = v56;
+        userInfo = v57;
+        v38 = v55;
 
 LABEL_26:
         handlerCopy[2](handlerCopy, v28);
@@ -127,7 +126,7 @@ LABEL_26:
       }
     }
 
-    v16 = [queryItems countByEnumeratingWithState:&v59 objects:v63 count:16];
+    v16 = [queryItems countByEnumeratingWithState:&v58 objects:v62 count:16];
     if (v16)
     {
       continue;
@@ -146,13 +145,12 @@ LABEL_15:
   }
 
   handlerCopy[2](handlerCopy, 0);
-  v12 = v57;
-  userInfo = v58;
-  v38 = v56;
+  v12 = v56;
+  userInfo = v57;
+  v38 = v55;
 LABEL_27:
 
 LABEL_28:
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isValidInviteURL:(id)l

@@ -20,39 +20,39 @@
 
 - (TSTCellRangeControlSpec)initWithInteractionType:(unsigned int)type minimum:(double)minimum maximum:(double)maximum increment:(double)increment
 {
-  v42.receiver = self;
-  v42.super_class = TSTCellRangeControlSpec;
-  v14 = [(TSTCellSpec *)&v42 init];
-  if (v14)
+  v36.receiver = self;
+  v36.super_class = TSTCellRangeControlSpec;
+  v13 = [(TSTCellSpec *)&v36 init];
+  if (v13)
   {
     if (type - 4 >= 3)
     {
-      v15 = MEMORY[0x277D81150];
-      v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSTCellRangeControlSpec initWithInteractionType:minimum:maximum:increment:]", v12, v13);
-      v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellRangeControlSpec.mm", v18, v19);
-      v21 = sub_22139EA64(type);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v22, v16, v20, 60, 0, "Illegal interaction type:%@", v21);
+      v14 = MEMORY[0x277D81150];
+      v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSTCellRangeControlSpec initWithInteractionType:minimum:maximum:increment:]", v12);
+      v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellRangeControlSpec.mm", v17);
+      v19 = sub_22139EA64(type);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v20, v15, v18, 60, 0, "Illegal interaction type:%@", v19);
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24, v25, v26);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22, v23);
     }
 
-    if ((objc_msgSend_legalRangeControlMinimum_maximum_increment_(TSTCellRangeControlSpec, v10, v11, v12, v13, minimum, maximum, increment) & 1) == 0)
+    if ((objc_msgSend_legalRangeControlMinimum_maximum_increment_(TSTCellRangeControlSpec, v10, v11, v12, minimum, maximum, increment) & 1) == 0)
     {
-      v30 = MEMORY[0x277D81150];
-      v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "[TSTCellRangeControlSpec initWithInteractionType:minimum:maximum:increment:]", v28, v29);
-      v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellRangeControlSpec.mm", v33, v34);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v30, v36, v31, v35, 61, 0, "Illegal parameters: %f, %f, %f", *&minimum, *&maximum, *&increment);
+      v26 = MEMORY[0x277D81150];
+      v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "[TSTCellRangeControlSpec initWithInteractionType:minimum:maximum:increment:]", v25);
+      v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellRangeControlSpec.mm", v29);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v31, v27, v30, 61, 0, "Illegal parameters: %f, %f, %f", *&minimum, *&maximum, *&increment);
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v37, v38, v39, v40);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v32, v33, v34);
     }
 
-    v14->_interactionType = type;
-    v14->_minimum = minimum;
-    v14->_maximum = maximum;
-    v14->_increment = increment;
+    v13->_interactionType = type;
+    v13->_minimum = minimum;
+    v13->_maximum = maximum;
+    v13->_increment = increment;
   }
 
-  return v14;
+  return v13;
 }
 
 + (BOOL)legalRangeControlMinimum:(double)minimum maximum:(double)maximum increment:(double)increment
@@ -105,31 +105,31 @@
   v4 = [TSTCellRangeControlSpec alloc];
   if (v3 == 6)
   {
-    v8 = objc_msgSend_initWithInteractionType_minimum_maximum_increment_(v4, v5, 6, v6, v7, 0.0, 5.0, 1.0);
+    v7 = objc_msgSend_initWithInteractionType_minimum_maximum_increment_(v4, v5, 6, v6, 0.0, 5.0, 1.0);
   }
 
   else
   {
-    v8 = objc_msgSend_initWithInteractionType_minimum_maximum_increment_(v4, v5, v3, v6, v7, 1.0, 100.0, 1.0);
+    v7 = objc_msgSend_initWithInteractionType_minimum_maximum_increment_(v4, v5, v3, v6, 1.0, 100.0, 1.0);
   }
 
-  return v8;
+  return v7;
 }
 
 + (id)stepperSpecWithMinimum:(double)minimum maximum:(double)maximum increment:(double)increment
 {
   v8 = [TSTCellRangeControlSpec alloc];
-  v12 = objc_msgSend_initWithInteractionType_minimum_maximum_increment_(v8, v9, 4, v10, v11, minimum, maximum, increment);
+  v11 = objc_msgSend_initWithInteractionType_minimum_maximum_increment_(v8, v9, 4, v10, minimum, maximum, increment);
 
-  return v12;
+  return v11;
 }
 
 + (id)sliderSpecWithMinimum:(double)minimum maximum:(double)maximum increment:(double)increment
 {
   v8 = [TSTCellRangeControlSpec alloc];
-  v12 = objc_msgSend_initWithInteractionType_minimum_maximum_increment_(v8, v9, 5, v10, v11, minimum, maximum, increment);
+  v11 = objc_msgSend_initWithInteractionType_minimum_maximum_increment_(v8, v9, 5, v10, minimum, maximum, increment);
 
-  return v12;
+  return v11;
 }
 
 - (unint64_t)hash
@@ -144,20 +144,20 @@
   equalCopy = equal;
   objc_opt_class();
   v5 = TSUDynamicCast();
-  v10 = v5;
-  if (v5 && (interactionType = self->_interactionType, interactionType == objc_msgSend_interactionType(v5, v6, v7, v8, v9)) && (minimum = self->_minimum, objc_msgSend_minimum(v10, v12, v13, v14, v15), minimum == v21) && (maximum = self->_maximum, objc_msgSend_maximum(v10, v17, v18, v19, v20), maximum == v27))
+  v9 = v5;
+  if (v5 && (interactionType = self->_interactionType, interactionType == objc_msgSend_interactionType(v5, v6, v7, v8)) && (minimum = self->_minimum, objc_msgSend_minimum(v9, v11, v12, v13), minimum == v18) && (maximum = self->_maximum, objc_msgSend_maximum(v9, v15, v16, v17), maximum == v23))
   {
     increment = self->_increment;
-    objc_msgSend_increment(v10, v23, v24, v25, v26);
-    v28 = increment == v31;
+    objc_msgSend_increment(v9, v20, v21, v22);
+    v24 = increment == v27;
   }
 
   else
   {
-    v28 = 0;
+    v24 = 0;
   }
 
-  return v28;
+  return v24;
 }
 
 - (double)recomputedValueFromValue:(double)value changed:(BOOL *)changed
@@ -181,47 +181,47 @@
 {
   stringCopy = string;
   localeCopy = locale;
-  v24 = 0.0;
-  v12 = objc_msgSend_whitespaceAndNewlineCharacterSet(MEMORY[0x277CCA900], v8, v9, v10, v11);
-  v16 = objc_msgSend_stringByTrimmingCharactersInSet_(stringCopy, v13, v12, v14, v15);
+  v21 = 0.0;
+  v11 = objc_msgSend_whitespaceAndNewlineCharacterSet(MEMORY[0x277CCA900], v8, v9, v10);
+  v14 = objc_msgSend_stringByTrimmingCharactersInSet_(stringCopy, v12, v11, v13);
 
-  if (objc_msgSend_numberValueFromString_locale_outDoubleValue_(MEMORY[0x277D81290], v17, v16, localeCopy, &v24))
+  if (objc_msgSend_numberValueFromString_locale_outDoubleValue_(MEMORY[0x277D81290], v15, v14, localeCopy, &v21))
   {
-    objc_msgSend_recomputedValueFromValue_changed_(self, v18, 0, v19, v20, v24);
-    v22 = v21;
+    objc_msgSend_recomputedValueFromValue_changed_(self, v16, 0, v17, v21);
+    v19 = v18;
   }
 
   else
   {
-    v22 = 1.79769313e308;
+    v19 = 1.79769313e308;
   }
 
-  return v22;
+  return v19;
 }
 
 - (BOOL)validateFormatAndValue:(id)value
 {
   valueCopy = value;
-  v9 = objc_msgSend_getCurrentFormat(valueCopy, v5, v6, v7, v8);
-  v14 = objc_msgSend_formatType(v9, v10, v11, v12, v13);
+  v8 = objc_msgSend_getCurrentFormat(valueCopy, v5, v6, v7);
+  v12 = objc_msgSend_formatType(v8, v9, v10, v11);
 
-  if (objc_msgSend_interactionType(self, v15, v16, v17, v18) == 6 && v14 != 267)
+  if (objc_msgSend_interactionType(self, v13, v14, v15) == 6 && v12 != 267)
   {
 LABEL_3:
-    v23 = 0;
+    v19 = 0;
     goto LABEL_11;
   }
 
-  if (objc_msgSend_interactionType(self, v19, v20, v21, v22) != 5 && objc_msgSend_interactionType(self, v24, v25, v26, v27) != 4 || (v23 = 0, (v14 - 256) <= 0xD) && ((1 << v14) & 0x204F) != 0)
+  if (objc_msgSend_interactionType(self, v16, v17, v18) != 5 && objc_msgSend_interactionType(self, v20, v21, v22) != 4 || (v19 = 0, (v12 - 256) <= 0xD) && ((1 << v12) & 0x204F) != 0)
   {
-    if (objc_msgSend_valueType(valueCopy, v24, v25, v26, v27) == 2 || objc_msgSend_valueType(valueCopy, v28, v29, v30, v31) == 10)
+    if (objc_msgSend_valueType(valueCopy, v20, v21, v22) == 2 || objc_msgSend_valueType(valueCopy, v23, v24, v25) == 10)
     {
-      v38 = 0;
-      v37._decimal.w[0] = objc_msgSend_numberOrCurrencyDecimalValue(valueCopy, v28, v29, v30, v31);
-      v37._decimal.w[1] = v32;
-      TSUDecimal::doubleValue(&v37);
-      objc_msgSend_recomputedValueFromValue_changed_(self, v33, &v38, v34, v35);
-      v23 = v38 ^ 1;
+      v31 = 0;
+      v30._decimal.w[0] = objc_msgSend_numberOrCurrencyDecimalValue(valueCopy, v23, v24, v25);
+      v30._decimal.w[1] = v26;
+      TSUDecimal::doubleValue(&v30);
+      objc_msgSend_recomputedValueFromValue_changed_(self, v27, &v31, v28);
+      v19 = v31 ^ 1;
       goto LABEL_11;
     }
 
@@ -230,99 +230,99 @@ LABEL_3:
 
 LABEL_11:
 
-  return v23 & 1;
+  return v19 & 1;
 }
 
 + (id)cellSpecFromTSKFormat:(id)format
 {
   formatCopy = format;
-  v12 = objc_msgSend_asStepperSliderFormat(formatCopy, v4, v5, v6, v7);
-  if (v12)
+  v10 = objc_msgSend_asStepperSliderFormat(formatCopy, v4, v5, v6);
+  if (v10)
   {
-    v13 = [TSTCellRangeControlSpec alloc];
-    if (objc_msgSend_formatType(v12, v14, v15, v16, v17) == 264)
+    v11 = [TSTCellRangeControlSpec alloc];
+    if (objc_msgSend_formatType(v10, v12, v13, v14) == 264)
     {
-      v22 = 4;
+      v18 = 4;
     }
 
     else
     {
-      v22 = 5;
+      v18 = 5;
     }
 
-    objc_msgSend_minimum(v12, v18, v19, v20, v21);
-    v24 = v23;
-    objc_msgSend_maximum(v12, v25, v26, v27, v28);
-    v30 = v29;
-    objc_msgSend_increment(v12, v31, v32, v33, v34);
-    v43 = objc_msgSend_initWithInteractionType_minimum_maximum_increment_(v13, v35, v22, v36, v37, v24, v30, v38);
-    if (v43)
+    objc_msgSend_minimum(v10, v15, v16, v17);
+    v20 = v19;
+    objc_msgSend_maximum(v10, v21, v22, v23);
+    v25 = v24;
+    objc_msgSend_increment(v10, v26, v27, v28);
+    v35 = objc_msgSend_initWithInteractionType_minimum_maximum_increment_(v11, v29, v18, v30, v20, v25, v31);
+    if (v35)
     {
-      v43[5] = objc_msgSend_displayFormatType(v12, v39, v40, v41, v42);
+      v35[5] = objc_msgSend_displayFormatType(v10, v32, v33, v34);
     }
   }
 
-  else if (objc_msgSend_formatType(formatCopy, v8, v9, v10, v11) == 267)
+  else if (objc_msgSend_formatType(formatCopy, v7, v8, v9) == 267)
   {
-    v43 = objc_msgSend_defaultRangeControlSpecOfType_(TSTCellRangeControlSpec, v44, 6, v45, v46);
+    v35 = objc_msgSend_defaultRangeControlSpecOfType_(TSTCellRangeControlSpec, v36, 6, v37);
   }
 
   else
   {
-    v47 = MEMORY[0x277D81150];
-    v48 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v44, "+[TSTCellRangeControlSpec cellSpecFromTSKFormat:]", v45, v46);
-    v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v49, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellRangeControlSpec.mm", v50, v51);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v47, v53, v48, v52, 241, 0, "TSTCellRangeControlSpec can only be created from TSKFormats for Stepper, Slider, and Rating.");
+    v38 = MEMORY[0x277D81150];
+    v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v36, "+[TSTCellRangeControlSpec cellSpecFromTSKFormat:]", v37);
+    v42 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v40, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellRangeControlSpec.mm", v41);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v38, v43, v39, v42, 241, 0, "TSTCellRangeControlSpec can only be created from TSKFormats for Stepper, Slider, and Rating.");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v54, v55, v56, v57);
-    v43 = 0;
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v44, v45, v46);
+    v35 = 0;
   }
 
-  return v43;
+  return v35;
 }
 
 - (id)tskStepperSliderFormatWithDisplayFormatType:(unsigned int)type
 {
   v3 = *&type;
   v5 = objc_alloc(MEMORY[0x277D806D8]);
-  if (objc_msgSend_interactionType(self, v6, v7, v8, v9) == 4)
+  if (objc_msgSend_interactionType(self, v6, v7, v8) == 4)
   {
-    v14 = 264;
+    v12 = 264;
   }
 
   else
   {
-    v14 = 265;
+    v12 = 265;
   }
 
-  objc_msgSend_minimum(self, v10, v11, v12, v13);
-  v16 = v15;
-  objc_msgSend_maximum(self, v17, v18, v19, v20);
-  v22 = v21;
-  objc_msgSend_increment(self, v23, v24, v25, v26);
-  v30 = objc_msgSend_initWithFormatType_minimum_maximum_increment_displayFormatType_(v5, v27, v14, v3, v28, v16, v22, v29);
+  objc_msgSend_minimum(self, v9, v10, v11);
+  v14 = v13;
+  objc_msgSend_maximum(self, v15, v16, v17);
+  v19 = v18;
+  objc_msgSend_increment(self, v20, v21, v22);
+  v25 = objc_msgSend_initWithFormatType_minimum_maximum_increment_displayFormatType_(v5, v23, v12, v3, v14, v19, v24);
 
-  return v30;
+  return v25;
 }
 
 + (id)instanceWithArchive:(const void *)archive unarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
   v6 = [TSTCellRangeControlSpec alloc];
-  v9 = objc_msgSend_initWithArchive_unarchiver_(v6, v7, archive, unarchiverCopy, v8);
+  v8 = objc_msgSend_initWithArchive_unarchiver_(v6, v7, archive, unarchiverCopy);
 
-  return v9;
+  return v8;
 }
 
 - (void)saveToArchive:(void *)archive archiver:(id)archiver
 {
-  v7 = objc_msgSend_interactionType(self, a2, archive, archiver, v4);
-  v8 = *(archive + 4);
-  *(archive + 16) = v7;
+  v6 = objc_msgSend_interactionType(self, a2, archive, archiver);
+  v7 = *(archive + 4);
+  *(archive + 16) = v6;
   *(archive + 5) = *&self->_minimum;
   *(archive + 6) = *&self->_maximum;
   increment = self->_increment;
-  *(archive + 4) = v8 | 0x3C;
+  *(archive + 4) = v7 | 0x3C;
   *(archive + 7) = increment;
 }
 

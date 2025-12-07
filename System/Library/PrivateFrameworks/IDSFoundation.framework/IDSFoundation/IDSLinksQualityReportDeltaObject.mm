@@ -38,7 +38,7 @@
   v5 = sub_1A7E21A10();
   v7 = v6;
 
-  v8 = sub_1A7CD41DC();
+  v8 = sub_1A7CD41DC(v5, v7);
   sub_1A7CC7E50(v5, v7);
 
   return v8;
@@ -56,13 +56,14 @@
   v5 = (selfCopy + OBJC_IVAR___IDSLinksQualityReportDeltaObject_delta);
   swift_beginAccess();
   v11 = *v5;
-  sub_1A7CD3B24(*v5);
-  sub_1A7CC7FFC(&qword_1EB2B4D98);
+  v12 = v5[1];
+  sub_1A7CD3B24(*v5, v12);
+  sub_1A7CC7FFC(&qword_1EB2B4D98, &qword_1A7E42068);
   sub_1A7CD42F8();
   v6 = sub_1A7E215E0();
   v8 = v7;
 
-  sub_1A7CD3BC0(v11);
+  sub_1A7CD3BC0(v11, v12);
   v9 = sub_1A7E219F0();
   sub_1A7CC7E50(v6, v8);
 

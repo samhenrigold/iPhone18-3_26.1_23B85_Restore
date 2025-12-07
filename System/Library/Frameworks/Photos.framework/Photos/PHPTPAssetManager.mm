@@ -984,7 +984,7 @@ void __80__PHPTPAssetManager__ptpThumbnailForOriginalVideoAsset_size_compression
   _Block_object_dispose(v10, 8);
 }
 
-uint64_t __56__PHPTPAssetManager__registerForFirstUnlockNotification__block_invoke(uint64_t a1)
+void *__56__PHPTPAssetManager__registerForFirstUnlockNotification__block_invoke(uint64_t a1)
 {
   result = MKBDeviceUnlockedSinceBoot();
   if (result == 1)
@@ -2971,16 +2971,22 @@ LABEL_95:
 
 uint64_t __43__PHPTPAssetManager_photoLibraryDidChange___block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [MEMORY[0x1E695DFD8] setWithArray:*(*(a1 + 32) + 88)];
+  v2 = [MEMORY[0x1E695DFD8] setWithArray:*(*(a1 + 32) + 88)];
+  v3 = *(*(a1 + 40) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 uint64_t __43__PHPTPAssetManager_photoLibraryDidChange___block_invoke_130(uint64_t a1)
 {
-  *(*(a1 + 32) + 64) = [*(a1 + 40) fetchResultAfterChanges];
+  v2 = [*(a1 + 40) fetchResultAfterChanges];
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 64);
+  *(v3 + 64) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (int64_t)cplStorageState

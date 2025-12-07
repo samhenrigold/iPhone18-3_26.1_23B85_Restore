@@ -21,35 +21,35 @@ void __120___PSFTZKWSuggestionsTransformerFactory_formatWithSuggestion_bundleIds
 
 id __77___PSFTZKWSuggestionsTransformerFactory_formatWithBundleIdsForGroupMatching___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 count])
   {
     v4 = objc_opt_new();
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [*(a1 + 32) formatWithSuggestion:*(*(&v13 + 1) + 8 * i) bundleIdsForGroupMatching:*(a1 + 40) checkForMessagesGroupIdentifier:{1, v13}];
+          v10 = [*(a1 + 32) formatWithSuggestion:*(*(&v12 + 1) + 8 * i) bundleIdsForGroupMatching:*(a1 + 40) checkForMessagesGroupIdentifier:{1, v12}];
           [v4 addObjectsFromArray:v10];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -61,14 +61,12 @@ id __77___PSFTZKWSuggestionsTransformerFactory_formatWithBundleIdsForGroupMatchi
     v4 = MEMORY[0x1E695E0F0];
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 id __60___PSFTZKWSuggestionsTransformerFactory_filterIDSReachable___block_invoke(uint64_t a1, void *a2)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 count])
   {
@@ -81,56 +79,56 @@ id __60___PSFTZKWSuggestionsTransformerFactory_filterIDSReachable___block_invoke
         _os_log_impl(&dword_1B5ED1000, v4, OS_LOG_TYPE_DEFAULT, "Bypassing the IDS reachability filter", buf, 2u);
       }
 
-      v28 = v3;
+      v27 = v3;
     }
 
     else
     {
-      v28 = objc_opt_new();
+      v27 = objc_opt_new();
+      v36 = 0u;
       v37 = 0u;
       v38 = 0u;
       v39 = 0u;
-      v40 = 0u;
-      v26 = v3;
+      v25 = v3;
       obj = v3;
-      v30 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
-      if (v30)
+      v29 = [obj countByEnumeratingWithState:&v36 objects:v43 count:16];
+      if (v29)
       {
-        v29 = *v38;
+        v28 = *v37;
         do
         {
           v5 = 0;
           do
           {
-            if (*v38 != v29)
+            if (*v37 != v28)
             {
               objc_enumerationMutation(obj);
             }
 
-            v32 = v5;
-            v6 = *(*(&v37 + 1) + 8 * v5);
+            v31 = v5;
+            v6 = *(*(&v36 + 1) + 8 * v5);
             v7 = objc_opt_new();
+            v32 = 0u;
             v33 = 0u;
             v34 = 0u;
             v35 = 0u;
-            v36 = 0u;
-            v31 = v6;
+            v30 = v6;
             v8 = [v6 recipients];
-            v9 = [v8 countByEnumeratingWithState:&v33 objects:v43 count:16];
+            v9 = [v8 countByEnumeratingWithState:&v32 objects:v42 count:16];
             if (v9)
             {
               v10 = v9;
-              v11 = *v34;
+              v11 = *v33;
               do
               {
                 for (i = 0; i != v10; ++i)
                 {
-                  if (*v34 != v11)
+                  if (*v33 != v11)
                   {
                     objc_enumerationMutation(v8);
                   }
 
-                  v13 = *(*(&v33 + 1) + 8 * i);
+                  v13 = *(*(&v32 + 1) + 8 * i);
                   if ([*(a1 + 32) isEligibleRecipient:v13])
                   {
                     [v7 addObject:v13];
@@ -143,13 +141,13 @@ id __60___PSFTZKWSuggestionsTransformerFactory_filterIDSReachable___block_invoke
                     {
                       v15 = [v13 handle];
                       *buf = 138412290;
-                      v42 = v15;
+                      v41 = v15;
                       _os_log_impl(&dword_1B5ED1000, v14, OS_LOG_TYPE_DEFAULT, "Filtering recipient %@ since not IDS eligible", buf, 0xCu);
                     }
                   }
                 }
 
-                v10 = [v8 countByEnumeratingWithState:&v33 objects:v43 count:16];
+                v10 = [v8 countByEnumeratingWithState:&v32 objects:v42 count:16];
               }
 
               while (v10);
@@ -158,47 +156,45 @@ id __60___PSFTZKWSuggestionsTransformerFactory_filterIDSReachable___block_invoke
             if ([v7 count])
             {
               v16 = [v7 count];
-              v17 = [v31 recipients];
+              v17 = [v30 recipients];
               v18 = [v17 count];
 
               if (v16 == v18)
               {
-                [v28 addObject:v31];
+                [v27 addObject:v30];
               }
 
               else
               {
                 v19 = [_PSSuggestion alloc];
-                v20 = [v31 bundleID];
-                v21 = [v31 reason];
-                v22 = [v31 reasonType];
+                v20 = [v30 bundleID];
+                v21 = [v30 reason];
+                v22 = [v30 reasonType];
                 v23 = [(_PSSuggestion *)v19 initWithBundleID:v20 conversationIdentifier:0 groupName:0 recipients:v7 reason:v21 reasonType:v22];
-                [v28 addObject:v23];
+                [v27 addObject:v23];
               }
             }
 
-            v5 = v32 + 1;
+            v5 = v31 + 1;
           }
 
-          while (v32 + 1 != v30);
-          v30 = [obj countByEnumeratingWithState:&v37 objects:v44 count:16];
+          while (v31 + 1 != v29);
+          v29 = [obj countByEnumeratingWithState:&v36 objects:v43 count:16];
         }
 
-        while (v30);
+        while (v29);
       }
 
-      v3 = v26;
+      v3 = v25;
     }
   }
 
   else
   {
-    v28 = MEMORY[0x1E695E0F0];
+    v27 = MEMORY[0x1E695E0F0];
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
-  return v28;
+  return v27;
 }
 
 id __74___PSFTZKWSuggestionsTransformerFactory_getCraftedIdentfierForSuggestion___block_invoke(uint64_t a1, void *a2)
@@ -224,35 +220,35 @@ id __74___PSFTZKWSuggestionsTransformerFactory_getCraftedIdentfierForSuggestion_
 
 id __71___PSFTZKWSuggestionsTransformerFactory_deduplicateWithSeedRecipients___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 count] && objc_msgSend(*(a1 + 32), "count"))
   {
-    v21 = objc_opt_new();
+    v20 = objc_opt_new();
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v20 = v3;
+    v19 = v3;
     v4 = v3;
-    v5 = [v4 countByEnumeratingWithState:&v22 objects:v28 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v21 objects:v27 count:16];
     if (!v5)
     {
       goto LABEL_17;
     }
 
     v6 = v5;
-    v7 = *v23;
+    v7 = *v22;
     while (1)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v22 + 1) + 8 * i);
+        v9 = *(*(&v21 + 1) + 8 * i);
         v10 = [v9 recipients];
         v11 = [v10 count];
 
@@ -275,7 +271,7 @@ id __71___PSFTZKWSuggestionsTransformerFactory_deduplicateWithSeedRecipients___b
 
           if ((v16 & 1) == 0)
           {
-            [v21 addObject:v9];
+            [v20 addObject:v9];
           }
         }
 
@@ -285,76 +281,74 @@ id __71___PSFTZKWSuggestionsTransformerFactory_deduplicateWithSeedRecipients___b
           if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412290;
-            v27 = v9;
+            v26 = v9;
             _os_log_fault_impl(&dword_1B5ED1000, v15, OS_LOG_TYPE_FAULT, "Empty recipients list in suggestion: %@", buf, 0xCu);
           }
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v21 objects:v27 count:16];
       if (!v6)
       {
 LABEL_17:
 
-        v3 = v20;
+        v3 = v19;
         goto LABEL_19;
       }
     }
   }
 
-  v21 = v3;
+  v20 = v3;
 LABEL_19:
 
-  v18 = *MEMORY[0x1E69E9840];
-
-  return v21;
+  return v20;
 }
 
 id __71___PSFTZKWSuggestionsTransformerFactory_deduplicateWithMaxSuggestions___block_invoke(uint64_t a1, void *a2)
 {
-  v113 = *MEMORY[0x1E69E9840];
+  v112 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 count])
   {
     v4 = objc_opt_new();
     v5 = objc_opt_new();
     v6 = objc_opt_new();
+    v101 = 0u;
     v102 = 0u;
     v103 = 0u;
     v104 = 0u;
-    v105 = 0u;
-    v71 = v3;
+    v70 = v3;
     obj = v3;
-    v7 = [obj countByEnumeratingWithState:&v102 objects:v112 count:16];
+    v7 = [obj countByEnumeratingWithState:&v101 objects:v111 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v103;
-      v73 = a1;
-      v74 = v4;
-      v72 = v5;
-      v75 = *v103;
+      v9 = *v102;
+      v72 = a1;
+      v73 = v4;
+      v71 = v5;
+      v74 = *v102;
 LABEL_4:
       v10 = 0;
-      v76 = v8;
+      v75 = v8;
       while (1)
       {
-        if (*v103 != v9)
+        if (*v102 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v102 + 1) + 8 * v10);
+        v11 = *(*(&v101 + 1) + 8 * v10);
         if ([v4 count] == *(a1 + 32))
         {
           goto LABEL_83;
         }
 
-        v85 = v11;
+        v84 = v11;
         v12 = [v11 recipients];
         v13 = [v12 count];
 
-        v84 = v10;
+        v83 = v10;
         if (v13 == 1)
         {
           break;
@@ -362,26 +356,26 @@ LABEL_4:
 
         if (v13)
         {
-          v63 = [v85 conversationIdentifier];
+          v63 = [v84 conversationIdentifier];
           if (!v63)
           {
             goto LABEL_81;
           }
 
           v64 = v63;
-          v65 = [v85 conversationIdentifier];
+          v65 = [v84 conversationIdentifier];
           v66 = [v5 containsObject:v65];
 
-          v15 = v85;
+          v15 = v84;
           if (v66)
           {
             goto LABEL_81;
           }
 
-          v67 = [v85 conversationIdentifier];
+          v67 = [v84 conversationIdentifier];
           [v5 addObject:v67];
 
-          v14 = [_PSFTZKWSuggestionsTransformerFactory getCraftedIdentfierForSuggestion:v85];
+          v14 = [_PSFTZKWSuggestionsTransformerFactory getCraftedIdentfierForSuggestion:v84];
           if (([v5 containsObject:v14] & 1) == 0)
           {
             [v5 addObject:v14];
@@ -398,16 +392,16 @@ LABEL_80:
           if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v111 = v85;
+            v110 = v84;
             _os_log_error_impl(&dword_1B5ED1000, v14, OS_LOG_TYPE_ERROR, "No recipient filled in suggestion %@", buf, 0xCu);
           }
         }
 
 LABEL_81:
-        v10 = v84 + 1;
-        if (v84 + 1 == v8)
+        v10 = v83 + 1;
+        if (v83 + 1 == v8)
         {
-          v8 = [obj countByEnumeratingWithState:&v102 objects:v112 count:16];
+          v8 = [obj countByEnumeratingWithState:&v101 objects:v111 count:16];
           if (v8)
           {
             goto LABEL_4;
@@ -417,8 +411,8 @@ LABEL_81:
         }
       }
 
-      v15 = v85;
-      v16 = [v85 recipients];
+      v15 = v84;
+      v16 = [v84 recipients];
       v17 = [v16 firstObject];
 
       v18 = objc_opt_new();
@@ -430,7 +424,7 @@ LABEL_81:
         [v18 addObject:v21];
       }
 
-      v78 = v21;
+      v77 = v21;
       v22 = [v19 handle];
       if (v22)
       {
@@ -438,32 +432,32 @@ LABEL_81:
       }
 
       [v19 contact];
-      v81 = v79 = v19;
-      if (v81)
+      v80 = v78 = v19;
+      if (v80)
       {
-        v23 = [v81 identifier];
+        v23 = [v80 identifier];
         [v18 addObject:v23];
 
-        v100 = 0u;
-        v101 = 0u;
-        v98 = 0u;
         v99 = 0u;
-        v24 = [v81 emailAddresses];
-        v25 = [v24 countByEnumeratingWithState:&v98 objects:v109 count:16];
+        v100 = 0u;
+        v97 = 0u;
+        v98 = 0u;
+        v24 = [v80 emailAddresses];
+        v25 = [v24 countByEnumeratingWithState:&v97 objects:v108 count:16];
         if (v25)
         {
           v26 = v25;
-          v27 = *v99;
+          v27 = *v98;
           do
           {
             for (i = 0; i != v26; ++i)
             {
-              if (*v99 != v27)
+              if (*v98 != v27)
               {
                 objc_enumerationMutation(v24);
               }
 
-              v29 = *(*(&v98 + 1) + 8 * i);
+              v29 = *(*(&v97 + 1) + 8 * i);
               v30 = [v29 identifier];
               [v18 addObject:v30];
 
@@ -471,32 +465,32 @@ LABEL_81:
               [v18 addObject:v31];
             }
 
-            v26 = [v24 countByEnumeratingWithState:&v98 objects:v109 count:16];
+            v26 = [v24 countByEnumeratingWithState:&v97 objects:v108 count:16];
           }
 
           while (v26);
         }
 
-        v96 = 0u;
-        v97 = 0u;
-        v94 = 0u;
         v95 = 0u;
-        v32 = [v81 phoneNumbers];
-        v33 = [v32 countByEnumeratingWithState:&v94 objects:v108 count:16];
+        v96 = 0u;
+        v93 = 0u;
+        v94 = 0u;
+        v32 = [v80 phoneNumbers];
+        v33 = [v32 countByEnumeratingWithState:&v93 objects:v107 count:16];
         if (v33)
         {
           v34 = v33;
-          v35 = *v95;
+          v35 = *v94;
           do
           {
             for (j = 0; j != v34; ++j)
             {
-              if (*v95 != v35)
+              if (*v94 != v35)
               {
                 objc_enumerationMutation(v32);
               }
 
-              v37 = *(*(&v94 + 1) + 8 * j);
+              v37 = *(*(&v93 + 1) + 8 * j);
               v38 = [v37 identifier];
               [v18 addObject:v38];
 
@@ -551,16 +545,16 @@ LABEL_81:
               }
             }
 
-            v34 = [v32 countByEnumeratingWithState:&v94 objects:v108 count:16];
+            v34 = [v32 countByEnumeratingWithState:&v93 objects:v107 count:16];
           }
 
           while (v34);
         }
 
-        a1 = v73;
-        v4 = v74;
-        v5 = v72;
-        v15 = v85;
+        a1 = v72;
+        v4 = v73;
+        v5 = v71;
+        v15 = v84;
       }
 
       if ([v5 intersectsSet:v18] & 1) != 0 || (objc_msgSend(v6, "intersectsSet:", v20))
@@ -573,74 +567,74 @@ LABEL_75:
         if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v111 = v79;
+          v110 = v78;
           _os_log_impl(&dword_1B5ED1000, v68, OS_LOG_TYPE_DEFAULT, "Recipient already added %@", buf, 0xCu);
         }
 
-        v9 = v75;
-        v8 = v76;
+        v9 = v74;
+        v8 = v75;
         goto LABEL_81;
       }
 
-      v92 = 0u;
-      v93 = 0u;
-      v90 = 0u;
       v91 = 0u;
+      v92 = 0u;
+      v89 = 0u;
+      v90 = 0u;
       v52 = v20;
-      v83 = [v52 countByEnumeratingWithState:&v90 objects:v107 count:16];
-      if (v83)
+      v82 = [v52 countByEnumeratingWithState:&v89 objects:v106 count:16];
+      if (v82)
       {
-        v80 = v52;
+        v79 = v52;
         v53 = 0;
-        v82 = *v91;
+        v81 = *v90;
         while (2)
         {
-          for (k = 0; k != v83; ++k)
+          for (k = 0; k != v82; ++k)
           {
-            if (*v91 != v82)
+            if (*v90 != v81)
             {
-              objc_enumerationMutation(v80);
+              objc_enumerationMutation(v79);
             }
 
             if (v53)
             {
 
-              a1 = v73;
-              v4 = v74;
-              v5 = v72;
+              a1 = v72;
+              v4 = v73;
+              v5 = v71;
               goto LABEL_74;
             }
 
-            v55 = *(*(&v90 + 1) + 8 * k);
-            v88 = 0u;
-            v89 = 0u;
-            v86 = 0u;
+            v55 = *(*(&v89 + 1) + 8 * k);
             v87 = 0u;
+            v88 = 0u;
+            v85 = 0u;
+            v86 = 0u;
             v56 = v6;
-            v57 = [v56 countByEnumeratingWithState:&v86 objects:v106 count:16];
+            v57 = [v56 countByEnumeratingWithState:&v85 objects:v105 count:16];
             if (v57)
             {
               v58 = v57;
               v59 = v22;
               v60 = v6;
-              v61 = *v87;
+              v61 = *v86;
               while (2)
               {
                 for (m = 0; m != v58; ++m)
                 {
-                  if (*v87 != v61)
+                  if (*v86 != v61)
                   {
                     objc_enumerationMutation(v56);
                   }
 
-                  if ([v55 isLikePhoneNumber:*(*(&v86 + 1) + 8 * m)])
+                  if ([v55 isLikePhoneNumber:*(*(&v85 + 1) + 8 * m)])
                   {
                     v53 = 1;
                     goto LABEL_63;
                   }
                 }
 
-                v58 = [v56 countByEnumeratingWithState:&v86 objects:v106 count:16];
+                v58 = [v56 countByEnumeratingWithState:&v85 objects:v105 count:16];
                 if (v58)
                 {
                   continue;
@@ -661,8 +655,8 @@ LABEL_63:
             }
           }
 
-          v83 = [v80 countByEnumeratingWithState:&v90 objects:v107 count:16];
-          if (v83)
+          v82 = [v79 countByEnumeratingWithState:&v89 objects:v106 count:16];
+          if (v82)
           {
             continue;
           }
@@ -670,14 +664,14 @@ LABEL_63:
           break;
         }
 
-        v52 = v80;
+        v52 = v79;
 
-        v5 = v72;
-        [v72 unionSet:v18];
-        [v56 unionSet:v80];
-        a1 = v73;
-        v4 = v74;
-        v15 = v85;
+        v5 = v71;
+        [v71 unionSet:v18];
+        [v56 unionSet:v79];
+        a1 = v72;
+        v4 = v73;
+        v15 = v84;
         if (v53)
         {
           goto LABEL_75;
@@ -691,23 +685,21 @@ LABEL_63:
         [v6 unionSet:v52];
       }
 
-      v9 = v75;
-      v8 = v76;
-      v14 = v79;
+      v9 = v74;
+      v8 = v75;
+      v14 = v78;
       goto LABEL_80;
     }
 
 LABEL_83:
 
-    v3 = v71;
+    v3 = v70;
   }
 
   else
   {
     v4 = MEMORY[0x1E695E0F0];
   }
-
-  v69 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -855,7 +847,7 @@ _PSSuggestion *__77___PSFTZKWSuggestionsTransformerFactory_mapRecipientsToContac
 
 _PSRecipient *__77___PSFTZKWSuggestionsTransformerFactory_mapRecipientsToContactsWithUnmapped___block_invoke_42(uint64_t a1, void *a2)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 contact];
   if (v4)
@@ -896,11 +888,11 @@ LABEL_8:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       v24 = [v3 handle];
-      v40 = 138412546;
-      v41 = v24;
-      v42 = 2112;
-      v43 = v16;
-      _os_log_impl(&dword_1B5ED1000, v23, OS_LOG_TYPE_DEFAULT, "Mapped handle %@ to handle %@ and to contact", &v40, 0x16u);
+      v39 = 138412546;
+      v40 = v24;
+      v41 = 2112;
+      v42 = v16;
+      _os_log_impl(&dword_1B5ED1000, v23, OS_LOG_TYPE_DEFAULT, "Mapped handle %@ to handle %@ and to contact", &v39, 0x16u);
     }
 
     v25 = [_PSRecipient alloc];
@@ -926,37 +918,35 @@ LABEL_8:
     v5 = +[_PSLogging generalChannel];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v39 = [v3 handle];
-      v40 = 138412290;
-      v41 = v39;
-      _os_log_impl(&dword_1B5ED1000, v5, OS_LOG_TYPE_DEFAULT, "Filtering %@ since no mapped contact found and unmapped suggestions are not allowed", &v40, 0xCu);
+      v38 = [v3 handle];
+      v39 = 138412290;
+      v40 = v38;
+      _os_log_impl(&dword_1B5ED1000, v5, OS_LOG_TYPE_DEFAULT, "Filtering %@ since no mapped contact found and unmapped suggestions are not allowed", &v39, 0xCu);
     }
 
     goto LABEL_8;
   }
 
-  v31 = [v3 displayName];
-  v32 = [v31 length];
+  v30 = [v3 displayName];
+  v31 = [v30 length];
 
-  if (v32)
+  if (v31)
   {
     v15 = v3;
   }
 
   else
   {
-    v33 = [_PSRecipient alloc];
-    v34 = [v3 handle];
-    v35 = [v3 senderHandle];
+    v32 = [_PSRecipient alloc];
+    v33 = [v3 handle];
+    v34 = [v3 senderHandle];
+    v35 = [v3 handle];
     v36 = [v3 handle];
-    v37 = [v3 handle];
-    v38 = [v3 contact];
-    v15 = [(_PSRecipient *)v33 initWithIdentifier:v34 senderHandle:v35 handle:v36 displayName:v37 contact:v38];
+    v37 = [v3 contact];
+    v15 = [(_PSRecipient *)v32 initWithIdentifier:v33 senderHandle:v34 handle:v35 displayName:v36 contact:v37];
   }
 
 LABEL_15:
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -1021,74 +1011,60 @@ id __99___PSFTZKWSuggestionsTransformerFactory_annotateWithTrialExperimentIdenti
 
 id __63___PSFTZKWSuggestionsTransformerFactory_boostPriorityContacts___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) _pas_mappedArrayWithTransform:&__block_literal_global_57];
   if ([v3 count] && objc_msgSend(v4, "count"))
   {
-    v22 = v4;
-    v21 = objc_opt_new();
+    v21 = v4;
+    v20 = objc_opt_new();
     v5 = objc_opt_new();
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v20 = v3;
+    v19 = v3;
     obj = v3;
-    v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v25;
+      v8 = *v24;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v25 != v8)
+          if (*v24 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v24 + 1) + 8 * i);
+          v10 = *(*(&v23 + 1) + 8 * i);
           v11 = [v10 recipients];
-          if ([v11 count] != 1)
+          if ([v11 count] != 1 || (objc_msgSend(v10, "recipients"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "firstObject"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "identifier"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v21, "containsObject:", v14), v14, v13, v12, v16 = v20, (v15 & 1) == 0))
           {
-            goto LABEL_10;
-          }
-
-          v12 = [v10 recipients];
-          v13 = [v12 firstObject];
-          v14 = [v13 identifier];
-          v15 = [v22 containsObject:v14];
-
-          v16 = v21;
-          if ((v15 & 1) == 0)
-          {
-LABEL_10:
             v16 = v5;
           }
 
           [v16 addObject:v10];
         }
 
-        v7 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v7 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v7);
     }
 
-    v17 = [v21 arrayByAddingObjectsFromArray:v5];
+    v17 = [v20 arrayByAddingObjectsFromArray:v5];
 
-    v3 = v20;
-    v4 = v22;
+    v3 = v19;
+    v4 = v21;
   }
 
   else
   {
     v17 = v3;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -1111,28 +1087,28 @@ id __62___PSFTZKWSuggestionsTransformerFactory_filterBlockedContacts__block_invo
 
 uint64_t __62___PSFTZKWSuggestionsTransformerFactory_filterBlockedContacts__block_invoke_2(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = [a2 recipients];
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     while (2)
     {
       v6 = 0;
       do
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(*(&v15 + 1) + 8 * v6) handle];
+        v7 = [*(*(&v14 + 1) + 8 * v6) handle];
         v8 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@" ()-"];
         v9 = [v7 componentsSeparatedByCharactersInSet:v8];
         v10 = [v9 componentsJoinedByString:&stru_1F2D6CE98];
@@ -1150,7 +1126,7 @@ uint64_t __62___PSFTZKWSuggestionsTransformerFactory_filterBlockedContacts__bloc
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v4)
       {
         continue;
@@ -1163,7 +1139,6 @@ uint64_t __62___PSFTZKWSuggestionsTransformerFactory_filterBlockedContacts__bloc
   v12 = 1;
 LABEL_11:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -1181,27 +1156,27 @@ void __80___PSFTZKWSuggestionsTransformerFactory_getResultsFromTransformers_sugg
 
 void __80___PSFTZKWSuggestionsTransformerFactory_getResultsFromTransformers_suggestions___block_invoke_71(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
 LABEL_3:
     v6 = 0;
     while (1)
     {
-      if (*v13 != v5)
+      if (*v12 != v5)
       {
         objc_enumerationMutation(v2);
       }
 
-      v7 = *(*(&v12 + 1) + 8 * v6);
+      v7 = *(*(&v11 + 1) + 8 * v6);
       if (![*(*(*(a1 + 40) + 8) + 40) count])
       {
         break;
@@ -1214,7 +1189,7 @@ LABEL_3:
 
       if (v4 == ++v6)
       {
-        v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -1224,30 +1199,27 @@ LABEL_3:
       }
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __77___PSFTZKWSuggestionsTransformerFactory_mapRecipientsToContactsWithUnmapped___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6(&dword_1B5ED1000, a2, a3, "Filtering %@ since no recipients in suggestion after contact mapping", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_6(&dword_1B5ED1000, a2, a3, "Filtering %@ since no recipients in suggestion after contact mapping", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __77___PSFTZKWSuggestionsTransformerFactory_mapRecipientsToContactsWithUnmapped___block_invoke_2_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6(&dword_1B5ED1000, a2, a3, "Filtering %@ since no recipients provided in suggestion", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_6(&dword_1B5ED1000, a2, a3, "Filtering %@ since no recipients provided in suggestion", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __77___PSFTZKWSuggestionsTransformerFactory_mapRecipientsToContactsWithUnmapped___block_invoke_42_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(a1 + 40));
-  OUTLINED_FUNCTION_6(&dword_1B5ED1000, a2, a3, "Skipping suggestion %@ since mapped contact is an organization", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 40);
+  OUTLINED_FUNCTION_6(&dword_1B5ED1000, a2, a3, "Skipping suggestion %@ since mapped contact is an organization", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

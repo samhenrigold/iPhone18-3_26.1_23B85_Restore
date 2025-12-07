@@ -172,7 +172,6 @@
 
 - (void)incrementCountWithEntry:(uint64_t)entry
 {
-  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (entry)
   {
@@ -193,7 +192,7 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       OUTLINED_FUNCTION_0_11();
-      OUTLINED_FUNCTION_3_5(&dword_21FD11000, v13, v14, "%p handler:%{public}@ increment count:%u->%u with entry:%{public}@ -> countingTarget:%{public}@", v15, v16, v17, v18, v19);
+      OUTLINED_FUNCTION_3_5(&dword_21FD11000, v12, v13, "%p handler:%{public}@ increment count:%u->%u with entry:%{public}@ -> countingTarget:%{public}@", v14, v15, v16, v17);
     }
 
     v10 = OUTLINED_FUNCTION_1_9();
@@ -213,13 +212,10 @@
       [OUTLINED_FUNCTION_2_7() activateWithFirstEntry:?];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)decrementCountWithEntry:(uint64_t)entry
 {
-  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (entry)
   {
@@ -234,7 +230,7 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       OUTLINED_FUNCTION_0_11();
-      OUTLINED_FUNCTION_3_5(&dword_21FD11000, v13, v14, "%p handler:%{public}@ decrement count:%u->%u for %p with entry:%{public}@", v15, v16, v17, v18, v19);
+      OUTLINED_FUNCTION_3_5(&dword_21FD11000, v12, v13, "%p handler:%{public}@ decrement count:%u->%u for %p with entry:%{public}@", v14, v15, v16, v17);
     }
 
     v10 = OUTLINED_FUNCTION_1_9();
@@ -244,8 +240,6 @@
       [OUTLINED_FUNCTION_2_7() deactivateWithFinalEntry:?];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

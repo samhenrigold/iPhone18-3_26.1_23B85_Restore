@@ -82,7 +82,7 @@
 
 - (void)cancelAllPausedDownloads
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   activeDownloads = [(BLDownloadQueueServerProgressObserver *)self activeDownloads];
   v4 = [activeDownloads count];
 
@@ -97,93 +97,93 @@
 
     os_unfair_lock_lock(&self->_observersLock);
     observers = [(BLDownloadQueueServerProgressObserver *)self observers];
-    v26 = [observers copy];
+    v25 = [observers copy];
 
     activeDownloads2 = [(BLDownloadQueueServerProgressObserver *)self activeDownloads];
     allValues = [activeDownloads2 allValues];
     v9 = [allValues copy];
 
     os_unfair_lock_unlock(&self->_observersLock);
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     obj = v9;
-    v10 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+    v10 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v35;
-      v25 = *v35;
+      v12 = *v34;
+      v24 = *v34;
       do
       {
         v13 = 0;
-        v27 = v11;
+        v26 = v11;
         do
         {
-          if (*v35 != v12)
+          if (*v34 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v34 + 1) + 8 * v13);
+          v14 = *(*(&v33 + 1) + 8 * v13);
           if ([v14 downloadPhase] == 3)
           {
-            v29 = v13;
+            v28 = v13;
             [v14 setDownloadPhase:4];
-            v32 = 0u;
-            v33 = 0u;
-            v30 = 0u;
             v31 = 0u;
-            v15 = v26;
-            v16 = [v15 countByEnumeratingWithState:&v30 objects:v41 count:16];
+            v32 = 0u;
+            v29 = 0u;
+            v30 = 0u;
+            v15 = v25;
+            v16 = [v15 countByEnumeratingWithState:&v29 objects:v40 count:16];
             if (v16)
             {
               v17 = v16;
-              v18 = *v31;
+              v18 = *v30;
               do
               {
                 for (i = 0; i != v17; ++i)
                 {
-                  if (*v31 != v18)
+                  if (*v30 != v18)
                   {
                     objc_enumerationMutation(v15);
                   }
 
-                  v20 = *(*(&v30 + 1) + 8 * i);
+                  v20 = *(*(&v29 + 1) + 8 * i);
                   if (objc_opt_respondsToSelector())
                   {
                     v21 = BLDownloadQueueServiceProgressMonitorLog();
                     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 138412290;
-                      v40 = v20;
+                      v39 = v20;
                       _os_log_impl(&dword_241D1F000, v21, OS_LOG_TYPE_DEFAULT, "[DownloadQueue]: notifyComplete: for observer %@", buf, 0xCu);
                     }
 
                     downloadQueue = [(BLDownloadQueueServerProgressObserver *)self downloadQueue];
-                    v38 = v14;
-                    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+                    v37 = v14;
+                    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
                     [v20 downloadQueue:downloadQueue downloadStates:v23 didCompleteWithError:0];
                   }
                 }
 
-                v17 = [v15 countByEnumeratingWithState:&v30 objects:v41 count:16];
+                v17 = [v15 countByEnumeratingWithState:&v29 objects:v40 count:16];
               }
 
               while (v17);
             }
 
-            v12 = v25;
-            v11 = v27;
-            v13 = v29;
+            v12 = v24;
+            v11 = v26;
+            v13 = v28;
           }
 
           ++v13;
         }
 
         while (v13 != v11);
-        v11 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+        v11 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
       }
 
       while (v11);
@@ -193,19 +193,17 @@
     [(BLDownloadQueueServerProgressObserver *)self setActiveDownloads:0];
     os_unfair_lock_unlock(&self->_activeDownloadsLock);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyPurchaseAttemptForRequest:(id)request
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = BLDefaultLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v35 = requestCopy;
+    v34 = requestCopy;
     _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_DEFAULT, "[DownloadQueue]: NotifyPurchaseAttemptForRequest: %@", buf, 0xCu);
   }
 
@@ -215,33 +213,33 @@
 
   os_unfair_lock_unlock(&self->_observersLock);
   downloadQueue = [(BLDownloadQueueServerProgressObserver *)self downloadQueue];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = v7;
-  v8 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v8 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v30;
+    v10 = *v29;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v30 != v10)
+        if (*v29 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v29 + 1) + 8 * i);
+        v12 = *(*(&v28 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           v13 = BLDefaultLog();
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v35 = v12;
+            v34 = v12;
             _os_log_impl(&dword_241D1F000, v13, OS_LOG_TYPE_DEFAULT, "[DownloadQueue]: notifying observer %@ of purchaseAttemptForRequest:", buf, 0xCu);
           }
 
@@ -256,7 +254,7 @@
           if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v35 = v12;
+            v34 = v12;
             _os_log_impl(&dword_241D1F000, v16, OS_LOG_TYPE_DEFAULT, "[DownloadQueue]: notifying observer %@ of downloadQueuePurchaseAttemptForIDWithUserInfo", buf, 0xCu);
           }
 
@@ -277,7 +275,7 @@
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v35 = v12;
+            v34 = v12;
             _os_log_impl(&dword_241D1F000, v22, OS_LOG_TYPE_DEFAULT, "[DownloadQueue]: notifying observer %@ of downloadQueuePurchaseAttemptForID", buf, 0xCu);
           }
 
@@ -288,18 +286,16 @@
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v9 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v9);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerObserver:(id)observer
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   if (observerCopy)
   {
@@ -311,20 +307,18 @@
     v6 = BLDefaultLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = observerCopy;
-      _os_log_impl(&dword_241D1F000, v6, OS_LOG_TYPE_DEFAULT, "[DownloadQueue]: Added observer: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = observerCopy;
+      _os_log_impl(&dword_241D1F000, v6, OS_LOG_TYPE_DEFAULT, "[DownloadQueue]: Added observer: %@", &v7, 0xCu);
     }
 
     [(BLDownloadQueueServerProgressObserver *)self _postUpdatesForCurrentlyPausedDownloadsForObserver:observerCopy];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterObserver:(id)observer
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   if (observerCopy)
   {
@@ -342,24 +336,22 @@
     v8 = BLDefaultLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = observerCopy;
-      _os_log_impl(&dword_241D1F000, v8, OS_LOG_TYPE_DEFAULT, "[DownloadQueue]: Removed observer: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = observerCopy;
+      _os_log_impl(&dword_241D1F000, v8, OS_LOG_TYPE_DEFAULT, "[DownloadQueue]: Removed observer: %@", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyDidCompleteForDownloadID:(id)d
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = BLDefaultLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v31 = dCopy;
+    v30 = dCopy;
     _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_DEFAULT, "(dID=%{public}@) [DownloadQueue]: notifyDidCompleteForDownloadID", buf, 0xCu);
   }
 
@@ -373,56 +365,56 @@
   os_unfair_lock_unlock(&self->_observersLock);
   if ([v9 downloadPhase] == 3 || objc_msgSend(v9, "downloadPhase") == 1)
   {
-    v23 = dCopy;
+    v22 = dCopy;
     [v9 setDownloadPhase:4];
     selfCopy = self;
     downloadQueue = [(BLDownloadQueueServerProgressObserver *)self downloadQueue];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v21 = v7;
+    v20 = v7;
     v11 = v7;
-    v12 = [v11 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v25;
+      v14 = *v24;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v25 != v14)
+          if (*v24 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v24 + 1) + 8 * i);
+          v16 = *(*(&v23 + 1) + 8 * i);
           if (objc_opt_respondsToSelector())
           {
             v17 = BLDefaultLog();
             if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v31 = v16;
+              v30 = v16;
               _os_log_impl(&dword_241D1F000, v17, OS_LOG_TYPE_DEFAULT, "[DownloadQueue]: notifyComplete: for observer %@", buf, 0xCu);
             }
 
-            v28 = v9;
-            v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+            v27 = v9;
+            v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
             [v16 downloadQueue:downloadQueue downloadStates:v18 didCompleteWithError:0];
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v13);
     }
 
     self = selfCopy;
-    dCopy = v23;
-    v7 = v21;
+    dCopy = v22;
+    v7 = v20;
   }
 
   os_unfair_lock_lock(&self->_activeDownloadsLock);
@@ -430,12 +422,11 @@
   [activeDownloads2 setObject:0 forKeyedSubscript:dCopy];
 
   os_unfair_lock_unlock(&self->_activeDownloadsLock);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendInitialProgressNotificationForDownloadWithStoreID:(id)d storePlaylistID:(id)iD orPermlink:(id)permlink downloadID:(id)downloadID title:(id)title collectionTitle:(id)collectionTitle assetKind:(id)kind isPaused:(BOOL)self0 targetObserver:(id)self1
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   permlinkCopy = permlink;
@@ -448,19 +439,19 @@
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v55 = downloadIDCopy;
+    v54 = downloadIDCopy;
     _os_log_impl(&dword_241D1F000, v24, OS_LOG_TYPE_DEFAULT, "(dID=%{public}@) [DownloadQueue]: sendInitialProgressNotificationForDownloadWithStoreID...", buf, 0xCu);
   }
 
-  v44 = collectionTitleCopy;
+  v43 = collectionTitleCopy;
   if (downloadIDCopy)
   {
-    LOBYTE(v40) = paused;
+    LOBYTE(v39) = paused;
     v25 = kindCopy;
-    v26 = [(BLDownloadQueueServerProgressObserver *)self _downloadStatusStoreID:dCopy storePlaylistID:iDCopy orPermLink:permlinkCopy downloadID:downloadIDCopy title:titleCopy collectionTitle:collectionTitleCopy assetKind:kindCopy isPaused:v40];
+    v26 = [(BLDownloadQueueServerProgressObserver *)self _downloadStatusStoreID:dCopy storePlaylistID:iDCopy orPermLink:permlinkCopy downloadID:downloadIDCopy title:titleCopy collectionTitle:collectionTitleCopy assetKind:kindCopy isPaused:v39];
     if (v26)
     {
-      v43 = dCopy;
+      v42 = dCopy;
       downloadQueue = [(BLDownloadQueueServerProgressObserver *)self downloadQueue];
       if (observerCopy && (objc_opt_respondsToSelector() & 1) != 0)
       {
@@ -468,82 +459,82 @@
         if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543874;
-          v55 = downloadIDCopy;
-          v56 = 2112;
-          v57 = observerCopy;
-          v58 = 2112;
-          v59 = v26;
+          v54 = downloadIDCopy;
+          v55 = 2112;
+          v56 = observerCopy;
+          v57 = 2112;
+          v58 = v26;
           _os_log_impl(&dword_241D1F000, v28, OS_LOG_TYPE_DEFAULT, "(dID=%{public}@) [DownloadQueue]: notifying target observer: %@ of downloadStatesDidChange: %@", buf, 0x20u);
         }
 
-        v53 = v26;
-        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
+        v52 = v26;
+        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
         [observerCopy downloadQueue:downloadQueue downloadStatesDidChange:v29];
       }
 
       else
       {
-        v41 = observerCopy;
-        v42 = titleCopy;
-        v46 = downloadIDCopy;
+        v40 = observerCopy;
+        v41 = titleCopy;
+        v45 = downloadIDCopy;
         os_unfair_lock_lock(&self->_observersLock);
         observers = [(BLDownloadQueueServerProgressObserver *)self observers];
         v31 = [observers copy];
 
         os_unfair_lock_unlock(&self->_observersLock);
-        v49 = 0u;
-        v50 = 0u;
-        v47 = 0u;
         v48 = 0u;
+        v49 = 0u;
+        v46 = 0u;
+        v47 = 0u;
         v29 = v31;
-        v32 = [v29 countByEnumeratingWithState:&v47 objects:v52 count:16];
+        v32 = [v29 countByEnumeratingWithState:&v46 objects:v51 count:16];
         if (v32)
         {
           v33 = v32;
-          v34 = *v48;
+          v34 = *v47;
           do
           {
             for (i = 0; i != v33; ++i)
             {
-              if (*v48 != v34)
+              if (*v47 != v34)
               {
                 objc_enumerationMutation(v29);
               }
 
-              v36 = *(*(&v47 + 1) + 8 * i);
+              v36 = *(*(&v46 + 1) + 8 * i);
               if (![v26 isAudiobook]|| (sub_241D3AD60(v36) & 1) == 0) && (objc_opt_respondsToSelector())
               {
                 v37 = BLDefaultLog();
                 if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543874;
-                  v55 = v46;
-                  v56 = 2112;
-                  v57 = v36;
-                  v58 = 2112;
-                  v59 = v26;
+                  v54 = v45;
+                  v55 = 2112;
+                  v56 = v36;
+                  v57 = 2112;
+                  v58 = v26;
                   _os_log_impl(&dword_241D1F000, v37, OS_LOG_TYPE_DEFAULT, "(dID=%{public}@) [DownloadQueue]: notifying observer: %@ of downloadStatesDidChange: %@", buf, 0x20u);
                 }
 
-                v51 = v26;
-                v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
+                v50 = v26;
+                v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
                 [v36 downloadQueue:downloadQueue downloadStatesDidChange:v38];
               }
             }
 
-            v33 = [v29 countByEnumeratingWithState:&v47 objects:v52 count:16];
+            v33 = [v29 countByEnumeratingWithState:&v46 objects:v51 count:16];
           }
 
           while (v33);
         }
 
-        downloadIDCopy = v46;
-        observerCopy = v41;
-        titleCopy = v42;
+        downloadIDCopy = v45;
+        observerCopy = v40;
+        titleCopy = v41;
         v25 = kindCopy;
       }
 
-      dCopy = v43;
+      dCopy = v42;
     }
   }
 
@@ -557,19 +548,17 @@
       _os_log_impl(&dword_241D1F000, v26, OS_LOG_TYPE_ERROR, "[DownloadQueue]: nil passed for downloadID to _sendInitialProgressNotificationFor...", buf, 2u);
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendCancelCompletionNotificationForDownloadWithDownloadID:(id)d
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = BLDefaultLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v30 = dCopy;
+    v29 = dCopy;
     _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_DEFAULT, "(dID=%{public}@) [DownloadQueue]: sendCancelCompletionNotificationForDownloadWithDownloadID", buf, 0xCu);
   }
 
@@ -585,7 +574,7 @@
     os_unfair_lock_unlock(&self->_activeDownloadsLock);
     if (v7)
     {
-      v23 = dCopy;
+      v22 = dCopy;
       [v7 setDownloadPhase:4];
       os_unfair_lock_lock(&self->_observersLock);
       observers = [(BLDownloadQueueServerProgressObserver *)self observers];
@@ -593,43 +582,43 @@
 
       os_unfair_lock_unlock(&self->_observersLock);
       downloadQueue = [(BLDownloadQueueServerProgressObserver *)self downloadQueue];
+      v23 = 0u;
       v24 = 0u;
       v25 = 0u;
       v26 = 0u;
-      v27 = 0u;
       v12 = v10;
-      v13 = [v12 countByEnumeratingWithState:&v24 objects:v33 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v23 objects:v32 count:16];
       if (v13)
       {
         v15 = v13;
-        v16 = *v25;
+        v16 = *v24;
         *&v14 = 138543618;
-        v22 = v14;
+        v21 = v14;
         do
         {
           v17 = 0;
           do
           {
-            if (*v25 != v16)
+            if (*v24 != v16)
             {
               objc_enumerationMutation(v12);
             }
 
-            v18 = *(*(&v24 + 1) + 8 * v17);
+            v18 = *(*(&v23 + 1) + 8 * v17);
             if (![v7 isAudiobook]|| (sub_241D3AD60(v18) & 1) == 0) && (objc_opt_respondsToSelector())
             {
               v19 = BLDefaultLog();
               if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
               {
-                *buf = v22;
-                v30 = v23;
-                v31 = 2112;
-                v32 = v18;
+                *buf = v21;
+                v29 = v22;
+                v30 = 2112;
+                v31 = v18;
                 _os_log_impl(&dword_241D1F000, v19, OS_LOG_TYPE_DEFAULT, "(dID=%{public}@) [DownloadQueue]: sendingCancelComplete for observer %@", buf, 0x16u);
               }
 
-              v28 = v7;
-              v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+              v27 = v7;
+              v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
               [v18 downloadQueue:downloadQueue downloadStates:v20 didCompleteWithError:0];
             }
 
@@ -637,13 +626,13 @@
           }
 
           while (v15 != v17);
-          v15 = [v12 countByEnumeratingWithState:&v24 objects:v33 count:16];
+          v15 = [v12 countByEnumeratingWithState:&v23 objects:v32 count:16];
         }
 
         while (v15);
       }
 
-      dCopy = v23;
+      dCopy = v22;
     }
   }
 
@@ -656,13 +645,11 @@
       _os_log_impl(&dword_241D1F000, v7, OS_LOG_TYPE_ERROR, "[DownloadQueue]: _sendCancelCompleteNotification: nil passed for downloadID", buf, 2u);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_downloadStatusFromDictionary:(id)dictionary outParamNewlyTrackedDownload:(BOOL *)download
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"downloadIdentifier"];
   v8 = [(BLDownloadQueueServerProgressObserver *)self _stringFromObject:v7];
@@ -715,19 +702,19 @@
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       [dictionaryCopy objectForKeyedSubscript:@"percentComplete"];
-      v66 = v13;
+      v65 = v13;
       v19 = v17;
       v21 = v20 = v15;
       v22 = [(BLDownloadQueueServerProgressObserver *)self _numberFromObject:v21];
       *buf = 138543618;
-      v68 = v8;
-      v69 = 2112;
-      v70 = v22;
+      v67 = v8;
+      v68 = 2112;
+      v69 = v22;
       _os_log_impl(&dword_241D1F000, v18, OS_LOG_TYPE_DEBUG, "(dID=%{public}@) [DownloadQueue]: notifying percentComplete:[%@]", buf, 0x16u);
 
       v15 = v20;
       v17 = v19;
-      v13 = v66;
+      v13 = v65;
     }
 
     v23 = [dictionaryCopy objectForKeyedSubscript:@"percentComplete"];
@@ -823,14 +810,12 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v68 = dictionaryCopy;
+      v67 = dictionaryCopy;
       _os_log_impl(&dword_241D1F000, v13, OS_LOG_TYPE_ERROR, "[DownloadQueue]: _downloadStatusFromDictionary: failed to retrieve downloadID from dictionary %@", buf, 0xCu);
     }
 
     v10 = 0;
   }
-
-  v64 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -855,68 +840,68 @@
 
 - (void)_postDownloadProgressNotificationWithDictionary:(id)dictionary
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v39 = 0;
-  v5 = [(BLDownloadQueueServerProgressObserver *)self _downloadStatusFromDictionary:dictionaryCopy outParamNewlyTrackedDownload:&v39];
+  v38 = 0;
+  v5 = [(BLDownloadQueueServerProgressObserver *)self _downloadStatusFromDictionary:dictionaryCopy outParamNewlyTrackedDownload:&v38];
   v6 = [v5 copy];
   downloadID = [v6 downloadID];
   v8 = BLDefaultLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138544130;
-    v44 = downloadID;
-    v45 = 2048;
-    v46 = v5;
-    v47 = 2048;
-    v48 = v6;
-    v49 = 2112;
-    v50 = dictionaryCopy;
+    v43 = downloadID;
+    v44 = 2048;
+    v45 = v5;
+    v46 = 2048;
+    v47 = v6;
+    v48 = 2112;
+    v49 = dictionaryCopy;
     _os_log_impl(&dword_241D1F000, v8, OS_LOG_TYPE_DEFAULT, "(dID=%{public}@) [DownloadQueue] Copied download status %p to download status %p for dictionary %@", buf, 0x2Au);
   }
 
   if (downloadID)
   {
-    v30 = downloadID;
-    v28 = v5;
-    v29 = dictionaryCopy;
+    v29 = downloadID;
+    v27 = v5;
+    v28 = dictionaryCopy;
     os_unfair_lock_lock(&self->_observersLock);
     observers = [(BLDownloadQueueServerProgressObserver *)self observers];
     v10 = [observers copy];
 
     os_unfair_lock_unlock(&self->_observersLock);
-    if (v39 == 1)
+    if (v38 == 1)
     {
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
       v36 = 0u;
-      v27 = v10;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
+      v26 = v10;
       v11 = v10;
-      v12 = [v11 countByEnumeratingWithState:&v35 objects:v42 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v34 objects:v41 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v36;
+        v14 = *v35;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v36 != v14)
+            if (*v35 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v35 + 1) + 8 * i);
+            v16 = *(*(&v34 + 1) + 8 * i);
             if (objc_opt_respondsToSelector())
             {
               v17 = BLDefaultLog();
               if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543618;
-                v44 = v30;
-                v45 = 2112;
-                v46 = v16;
+                v43 = v29;
+                v44 = 2112;
+                v45 = v16;
                 _os_log_impl(&dword_241D1F000, v17, OS_LOG_TYPE_DEFAULT, "(dID=%{public}@) [DownloadQueue]: notifying observer %@ of downloadManagerDownloadsDidChange", buf, 0x16u);
               }
 
@@ -924,64 +909,64 @@
             }
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v35 objects:v42 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v34 objects:v41 count:16];
         }
 
         while (v13);
       }
 
-      v10 = v27;
+      v10 = v26;
     }
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v18 = v10;
-    v19 = [v18 countByEnumeratingWithState:&v31 objects:v41 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v30 objects:v40 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v32;
+      v21 = *v31;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v32 != v21)
+          if (*v31 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v31 + 1) + 8 * j);
+          v23 = *(*(&v30 + 1) + 8 * j);
           if (![v6 isAudiobook] || (sub_241D3AD60(v23) & 1) == 0) && (objc_opt_respondsToSelector())
           {
             v24 = BLDefaultLog();
             if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543874;
-              v44 = v30;
-              v45 = 2112;
-              v46 = v23;
-              v47 = 2112;
-              v48 = v6;
+              v43 = v29;
+              v44 = 2112;
+              v45 = v23;
+              v46 = 2112;
+              v47 = v6;
               _os_log_impl(&dword_241D1F000, v24, OS_LOG_TYPE_DEFAULT, "(dID=%{public}@) [DownloadQueue]: notifying observer: %@ of downloadStatesDidChange: %@", buf, 0x20u);
             }
 
-            v40 = v6;
-            v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
+            v39 = v6;
+            v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
             [v23 downloadQueue:0 downloadStatesDidChange:v25];
           }
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v31 objects:v41 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v30 objects:v40 count:16];
       }
 
       while (v20);
     }
 
-    v5 = v28;
-    dictionaryCopy = v29;
-    downloadID = v30;
+    v5 = v27;
+    dictionaryCopy = v28;
+    downloadID = v29;
   }
 
   else
@@ -993,32 +978,30 @@
       _os_log_impl(&dword_241D1F000, v18, OS_LOG_TYPE_ERROR, "[DownloadQueue]: _notifyProgress: nil passed for downloadID", buf, 2u);
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postDownloadCompleteNotificationWithDictionary:(id)dictionary failed:(BOOL)failed
 {
   failedCopy = failed;
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v64 = 0;
+  v63 = 0;
   selfCopy = self;
-  v7 = [(BLDownloadQueueServerProgressObserver *)self _downloadStatusFromDictionary:dictionaryCopy outParamNewlyTrackedDownload:&v64];
+  v7 = [(BLDownloadQueueServerProgressObserver *)self _downloadStatusFromDictionary:dictionaryCopy outParamNewlyTrackedDownload:&v63];
   downloadID = [v7 downloadID];
   v9 = BLDefaultLog();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
-    v70 = downloadID;
-    v71 = 2048;
-    v72 = v7;
-    v73 = 2112;
-    v74 = dictionaryCopy;
+    v69 = downloadID;
+    v70 = 2048;
+    v71 = v7;
+    v72 = 2112;
+    v73 = dictionaryCopy;
     _os_log_impl(&dword_241D1F000, v9, OS_LOG_TYPE_DEFAULT, "(dID=%{public}@) [DownloadQueue] Obtained download status %p for dictionary %@", buf, 0x20u);
   }
 
-  v50 = v7;
+  v49 = v7;
   if (downloadID)
   {
     os_unfair_lock_lock(&selfCopy->_observersLock);
@@ -1031,48 +1014,48 @@
     {
       v13 = [v11 count];
       *buf = 138543618;
-      v70 = downloadID;
-      v71 = 2048;
-      v72 = v13;
+      v69 = downloadID;
+      v70 = 2048;
+      v71 = v13;
       _os_log_impl(&dword_241D1F000, v12, OS_LOG_TYPE_DEFAULT, "(dID=%{public}@) [DownloadQueue]: _postDownloadCompleteNotification: About to notify %lu observers", buf, 0x16u);
     }
 
-    v51 = downloadID;
-    v47 = dictionaryCopy;
+    v50 = downloadID;
+    v46 = dictionaryCopy;
 
-    if (v64 == 1)
+    if (v63 == 1)
     {
-      v48 = failedCopy;
-      v62 = 0u;
-      v63 = 0u;
-      v60 = 0u;
+      v47 = failedCopy;
       v61 = 0u;
-      v46 = v11;
+      v62 = 0u;
+      v59 = 0u;
+      v60 = 0u;
+      v45 = v11;
       v14 = v11;
-      v15 = [v14 countByEnumeratingWithState:&v60 objects:v68 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v59 objects:v67 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v61;
+        v17 = *v60;
         do
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v61 != v17)
+            if (*v60 != v17)
             {
               objc_enumerationMutation(v14);
             }
 
-            v19 = *(*(&v60 + 1) + 8 * i);
+            v19 = *(*(&v59 + 1) + 8 * i);
             if (objc_opt_respondsToSelector())
             {
               v20 = BLDefaultLog();
               if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543618;
-                v70 = v51;
-                v71 = 2112;
-                v72 = v19;
+                v69 = v50;
+                v70 = 2112;
+                v71 = v19;
                 _os_log_impl(&dword_241D1F000, v20, OS_LOG_TYPE_DEFAULT, "(dID=%{public}@) [DownloadQueue]: download added, notifying observer %@ of downloadQueueDownloadsDidChange", buf, 0x16u);
               }
 
@@ -1081,15 +1064,15 @@
             }
           }
 
-          v16 = [v14 countByEnumeratingWithState:&v60 objects:v68 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v59 objects:v67 count:16];
         }
 
         while (v16);
       }
 
-      v7 = v50;
-      failedCopy = v48;
-      v11 = v46;
+      v7 = v49;
+      failedCopy = v47;
+      v11 = v45;
     }
 
     if (failedCopy)
@@ -1103,26 +1086,26 @@
     }
 
     downloadQueue2 = [(BLDownloadQueueServerProgressObserver *)selfCopy downloadQueue];
+    v55 = 0u;
     v56 = 0u;
     v57 = 0u;
     v58 = 0u;
-    v59 = 0u;
     v25 = v11;
-    v26 = [v25 countByEnumeratingWithState:&v56 objects:v67 count:16];
+    v26 = [v25 countByEnumeratingWithState:&v55 objects:v66 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v57;
+      v28 = *v56;
       do
       {
         for (j = 0; j != v27; ++j)
         {
-          if (*v57 != v28)
+          if (*v56 != v28)
           {
             objc_enumerationMutation(v25);
           }
 
-          v30 = *(*(&v56 + 1) + 8 * j);
+          v30 = *(*(&v55 + 1) + 8 * j);
           if (![v7 isAudiobook] || (sub_241D3AD60(v30) & 1) == 0) && (objc_opt_respondsToSelector())
           {
             v31 = BLDefaultLog();
@@ -1132,11 +1115,11 @@
               if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543874;
-                v70 = v51;
-                v71 = 2112;
-                v72 = v30;
-                v73 = 2112;
-                v74 = v22;
+                v69 = v50;
+                v70 = 2112;
+                v71 = v30;
+                v72 = 2112;
+                v73 = v22;
                 v33 = v32;
                 v34 = OS_LOG_TYPE_ERROR;
                 v35 = "(dID=%{public}@) [DownloadQueue]: notifying observer %@ download completed with error:  %@";
@@ -1148,9 +1131,9 @@
             else if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543618;
-              v70 = v51;
-              v71 = 2112;
-              v72 = v30;
+              v69 = v50;
+              v70 = 2112;
+              v71 = v30;
               v33 = v32;
               v34 = OS_LOG_TYPE_DEFAULT;
               v35 = "(dID=%{public}@) [DownloadQueue]: notifying observer %@ download completed";
@@ -1159,16 +1142,16 @@ LABEL_37:
               _os_log_impl(&dword_241D1F000, v33, v34, v35, buf, v36);
             }
 
-            v7 = v50;
-            v66 = v50;
-            v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
+            v7 = v49;
+            v65 = v49;
+            v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v65 count:1];
             [v30 downloadQueue:downloadQueue2 downloadStates:v37 didCompleteWithError:v22];
 
             continue;
           }
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v56 objects:v67 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v55 objects:v66 count:16];
       }
 
       while (v27);
@@ -1176,38 +1159,38 @@ LABEL_37:
 
     os_unfair_lock_lock(&selfCopy->_activeDownloadsLock);
     activeDownloads = [(BLDownloadQueueServerProgressObserver *)selfCopy activeDownloads];
-    [activeDownloads setObject:0 forKeyedSubscript:v51];
+    [activeDownloads setObject:0 forKeyedSubscript:v50];
 
     os_unfair_lock_unlock(&selfCopy->_activeDownloadsLock);
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     v23 = v25;
-    v39 = [v23 countByEnumeratingWithState:&v52 objects:v65 count:16];
+    v39 = [v23 countByEnumeratingWithState:&v51 objects:v64 count:16];
     if (v39)
     {
       v40 = v39;
-      v41 = *v53;
+      v41 = *v52;
       do
       {
         for (k = 0; k != v40; ++k)
         {
-          if (*v53 != v41)
+          if (*v52 != v41)
           {
             objc_enumerationMutation(v23);
           }
 
-          v43 = *(*(&v52 + 1) + 8 * k);
+          v43 = *(*(&v51 + 1) + 8 * k);
           if (objc_opt_respondsToSelector())
           {
             v44 = BLDefaultLog();
             if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543618;
-              v70 = v51;
-              v71 = 2112;
-              v72 = v43;
+              v69 = v50;
+              v70 = 2112;
+              v71 = v43;
               _os_log_impl(&dword_241D1F000, v44, OS_LOG_TYPE_DEFAULT, "(dID=%{public}@) [DownloadQueue]: notifying observer %@ of downloadQueueDownloadsDidChange", buf, 0x16u);
             }
 
@@ -1215,14 +1198,14 @@ LABEL_37:
           }
         }
 
-        v40 = [v23 countByEnumeratingWithState:&v52 objects:v65 count:16];
+        v40 = [v23 countByEnumeratingWithState:&v51 objects:v64 count:16];
       }
 
       while (v40);
     }
 
-    dictionaryCopy = v47;
-    downloadID = v51;
+    dictionaryCopy = v46;
+    downloadID = v50;
   }
 
   else
@@ -1231,24 +1214,22 @@ LABEL_37:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v70 = dictionaryCopy;
+      v69 = dictionaryCopy;
       _os_log_impl(&dword_241D1F000, v23, OS_LOG_TYPE_ERROR, "[DownloadQueue]: _postDownloadCompleteNotificationWithDictionary: failed to retrieve downloadID from downloadStatus %@", buf, 0xCu);
     }
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (void)purchaseDidCompleteWithResponse:(id)response
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   v5 = BLDefaultLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     downloadID = [responseCopy downloadID];
     *buf = 138543362;
-    v24 = downloadID;
+    v23 = downloadID;
     _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_DEFAULT, "(dID=%{public}@) [DownloadQueue]: purchaseDidCompleteWithResponse", buf, 0xCu);
   }
 
@@ -1258,26 +1239,26 @@ LABEL_37:
 
   os_unfair_lock_unlock(&self->_observersLock);
   downloadQueue = [(BLDownloadQueueServerProgressObserver *)self downloadQueue];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v20;
+    v13 = *v19;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v19 + 1) + 8 * i);
+        v15 = *(*(&v18 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           v16 = BLDefaultLog();
@@ -1285,9 +1266,9 @@ LABEL_37:
           {
             downloadID2 = [responseCopy downloadID];
             *buf = 138543618;
-            v24 = downloadID2;
-            v25 = 2112;
-            v26 = v15;
+            v23 = downloadID2;
+            v24 = 2112;
+            v25 = v15;
             _os_log_impl(&dword_241D1F000, v16, OS_LOG_TYPE_DEFAULT, "(dID=%{public}@) [DownloadQueue]: notifying observer %@ of purchaseDidComplete", buf, 0x16u);
           }
 
@@ -1295,25 +1276,23 @@ LABEL_37:
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v12);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)purchaseDidFailedWithResponse:(id)response
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   v5 = BLDefaultLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     downloadID = [responseCopy downloadID];
     *buf = 138543362;
-    v24 = downloadID;
+    v23 = downloadID;
     _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_DEFAULT, "(dID=%{public}@) [DownloadQueue]: purchaseDidFailedWithResponse", buf, 0xCu);
   }
 
@@ -1323,26 +1302,26 @@ LABEL_37:
 
   os_unfair_lock_unlock(&self->_observersLock);
   downloadQueue = [(BLDownloadQueueServerProgressObserver *)self downloadQueue];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v20;
+    v13 = *v19;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v19 + 1) + 8 * i);
+        v15 = *(*(&v18 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           v16 = BLDefaultLog();
@@ -1350,9 +1329,9 @@ LABEL_37:
           {
             downloadID2 = [responseCopy downloadID];
             *buf = 138543618;
-            v24 = downloadID2;
-            v25 = 2112;
-            v26 = v15;
+            v23 = downloadID2;
+            v24 = 2112;
+            v25 = v15;
             _os_log_impl(&dword_241D1F000, v16, OS_LOG_TYPE_DEFAULT, "(dID=%{public}@) [DownloadQueue]: notifying observer %@ of purchaseDidFail", buf, 0x16u);
           }
 
@@ -1360,18 +1339,16 @@ LABEL_37:
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v12);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_stringFromObject:(id)object
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   if (objectCopy)
   {
@@ -1396,26 +1373,24 @@ LABEL_37:
     v6 = BLDefaultLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412546;
-      v11 = objectCopy;
-      v12 = 2112;
-      v13 = objc_opt_class();
-      v7 = v13;
-      _os_log_impl(&dword_241D1F000, v6, OS_LOG_TYPE_ERROR, "The object [%@] of class: [%@] could not be converted to neither an NSString nor an NSNumber", &v10, 0x16u);
+      v9 = 138412546;
+      v10 = objectCopy;
+      v11 = 2112;
+      v12 = objc_opt_class();
+      v7 = v12;
+      _os_log_impl(&dword_241D1F000, v6, OS_LOG_TYPE_ERROR, "The object [%@] of class: [%@] could not be converted to neither an NSString nor an NSNumber", &v9, 0x16u);
     }
   }
 
   stringValue = 0;
 LABEL_10:
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return stringValue;
 }
 
 - (id)_numberFromObject:(id)object
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   if (objectCopy)
   {
@@ -1430,26 +1405,24 @@ LABEL_10:
     v5 = BLDefaultLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412546;
-      v10 = objectCopy;
-      v11 = 2112;
-      v12 = objc_opt_class();
-      v6 = v12;
-      _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_ERROR, "The object [%@] of class: [%@] could not be converted to an NSNumber", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = objectCopy;
+      v10 = 2112;
+      v11 = objc_opt_class();
+      v6 = v11;
+      _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_ERROR, "The object [%@] of class: [%@] could not be converted to an NSNumber", &v8, 0x16u);
     }
   }
 
   v4 = 0;
 LABEL_8:
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)_dateFromObject:(id)object
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   if (objectCopy)
   {
@@ -1464,26 +1437,24 @@ LABEL_8:
     v5 = BLDefaultLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412546;
-      v10 = objectCopy;
-      v11 = 2112;
-      v12 = objc_opt_class();
-      v6 = v12;
-      _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_ERROR, "The object [%@] of class: [%@] could not be converted to an NSDate", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = objectCopy;
+      v10 = 2112;
+      v11 = objc_opt_class();
+      v6 = v11;
+      _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_ERROR, "The object [%@] of class: [%@] could not be converted to an NSDate", &v8, 0x16u);
     }
   }
 
   v4 = 0;
 LABEL_8:
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (id)_downloadStatusStoreID:(id)d storePlaylistID:(id)iD orPermLink:(id)link downloadID:(id)downloadID title:(id)title collectionTitle:(id)collectionTitle assetKind:(id)kind isPaused:(BOOL)self0
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   linkCopy = link;
@@ -1557,7 +1528,7 @@ LABEL_18:
             if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v36 = downloadIDCopy;
+              v35 = downloadIDCopy;
               _os_log_impl(&dword_241D1F000, v31, OS_LOG_TYPE_DEFAULT, "(dID=%{public}@) [DownloadQueue]: setting percentComplete 5 percent", buf, 0xCu);
             }
 
@@ -1609,8 +1580,6 @@ LABEL_18:
 
   v24 = 0;
 LABEL_34:
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v24;
 }

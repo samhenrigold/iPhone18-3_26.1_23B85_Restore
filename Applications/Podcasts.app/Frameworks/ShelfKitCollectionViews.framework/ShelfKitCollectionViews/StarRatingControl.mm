@@ -61,7 +61,7 @@
   y = rect.origin.y;
   x = rect.origin.x;
   selfCopy = self;
-  sub_2D4540(x, y, width, height);
+  sub_2D4540(selfCopy, x, y, width, height);
 }
 
 - (void)endTrackingWithTouch:(id)touch withEvent:(id)event
@@ -98,7 +98,7 @@
   v3.super.isa = mainBundle;
   v10._countAndFlagsBits = 0;
   v10._object = 0xE000000000000000;
-  sub_301AB8(v8, v9, v3, v10, v6);
+  sub_301AB8(v8, v9, v3, v10, 0, v6);
 
   v4 = sub_30C098();
 
@@ -116,7 +116,7 @@
   v3.super.isa = mainBundle;
   v10._countAndFlagsBits = 0;
   v10._object = 0xE000000000000000;
-  sub_301AB8(v8, v9, v3, v10, v6);
+  sub_301AB8(v8, v9, v3, v10, 0, v6);
 
   v4 = sub_30C098();
 
@@ -146,7 +146,7 @@
 
   if (v3)
   {
-    sub_124C4(0, &qword_3FEA78);
+    sub_124C4(0, &qword_3FEA78, UIAccessibilityCustomAction_ptr);
     v4.super.isa = sub_30C358().super.isa;
   }
 
@@ -163,7 +163,7 @@
   isa = actions;
   if (actions)
   {
-    sub_124C4(0, &qword_3FEA78);
+    sub_124C4(0, &qword_3FEA78, UIAccessibilityCustomAction_ptr);
     sub_30C368();
     selfCopy = self;
     isa = sub_30C358().super.isa;

@@ -34,7 +34,7 @@
 
   else
   {
-    v4 = CXDefaultLog();
+    v4 = CXDefaultLog(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [(BSProcessHandle(CallKit) *)self cx_applicationRecord];
@@ -63,11 +63,10 @@
 
 - (void)cx_applicationRecord
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Could not obtain bundle identifier from process handle %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "Could not obtain bundle identifier from process handle %@", &v2, 0xCu);
 }
 
 @end

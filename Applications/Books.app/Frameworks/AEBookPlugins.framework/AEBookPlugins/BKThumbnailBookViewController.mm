@@ -923,25 +923,25 @@
   location = [visibleCopy location];
   v6 = [(BKThumbnailBookViewController *)self isLocationOnCurrentPage:location];
 
-  v7 = _AEAnnotationLocationLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = _AEAnnotationLocationLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     if (v6)
     {
-      v8 = @"Visible";
+      v9 = @"Visible";
     }
 
     else
     {
-      v8 = @"Not Visible";
+      v9 = @"Not Visible";
     }
 
     annotationUuid = [visibleCopy annotationUuid];
-    v11 = 138412546;
-    v12 = v8;
-    v13 = 2112;
-    v14 = annotationUuid;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "isAnnotationVisible: Annotation is %@ for: %@", &v11, 0x16u);
+    v12 = 138412546;
+    v13 = v9;
+    v14 = 2112;
+    v15 = annotationUuid;
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "isAnnotationVisible: Annotation is %@ for: %@", &v12, 0x16u);
   }
 
   return v6;
@@ -1543,20 +1543,20 @@ LABEL_77:
     self->_fontBarButtonItem = v4;
 
     [(UIButton *)self->_bookmarkButton frame];
-    [(UIBarButtonItem *)self->_fontBarButtonItem setWidth:fmax(CGRectGetWidth(v18), 32.0)];
-    objc_initWeak(&location, self);
-    v6 = AEBundle();
-    v7 = [v6 localizedStringForKey:@"Appearance" value:&stru_1E7188 table:0];
+    [(UIBarButtonItem *)self->_fontBarButtonItem setWidth:fmax(CGRectGetWidth(v19), 32.0)];
+    inited = objc_initWeak(&location, self);
+    v7 = AEBundle(inited);
+    v8 = [v7 localizedStringForKey:@"Appearance" value:&stru_1E7188 table:0];
     image = [(UIBarButtonItem *)self->_fontBarButtonItem image];
-    v11 = _NSConcreteStackBlock;
-    v12 = 3221225472;
-    v13 = sub_1016E4;
-    v14 = &unk_1E5FA0;
-    objc_copyWeak(&v15, &location);
-    v9 = [UIAction actionWithTitle:v7 image:image identifier:0 handler:&v11];
-    [(UIBarButtonItem *)self->_fontBarButtonItem setMenuRepresentation:v9, v11, v12, v13, v14];
+    v12 = _NSConcreteStackBlock;
+    v13 = 3221225472;
+    v14 = sub_1016E4;
+    v15 = &unk_1E5FA0;
+    objc_copyWeak(&v16, &location);
+    v10 = [UIAction actionWithTitle:v8 image:image identifier:0 handler:&v12];
+    [(UIBarButtonItem *)self->_fontBarButtonItem setMenuRepresentation:v10, v12, v13, v14, v15];
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
     fontBarButtonItem = self->_fontBarButtonItem;
   }
@@ -1573,19 +1573,19 @@ LABEL_77:
     v5 = self->_searchBarButtonItem;
     self->_searchBarButtonItem = v4;
 
-    objc_initWeak(&location, self);
-    v6 = AEBundle();
-    v7 = [v6 localizedStringForKey:@"Search" value:&stru_1E7188 table:0];
+    inited = objc_initWeak(&location, self);
+    v7 = AEBundle(inited);
+    v8 = [v7 localizedStringForKey:@"Search" value:&stru_1E7188 table:0];
     image = [(UIBarButtonItem *)self->_searchBarButtonItem image];
-    v11 = _NSConcreteStackBlock;
-    v12 = 3221225472;
-    v13 = sub_1018FC;
-    v14 = &unk_1E5FA0;
-    objc_copyWeak(&v15, &location);
-    v9 = [UIAction actionWithTitle:v7 image:image identifier:0 handler:&v11];
-    [(UIBarButtonItem *)self->_searchBarButtonItem setMenuRepresentation:v9, v11, v12, v13, v14];
+    v12 = _NSConcreteStackBlock;
+    v13 = 3221225472;
+    v14 = sub_1018FC;
+    v15 = &unk_1E5FA0;
+    objc_copyWeak(&v16, &location);
+    v10 = [UIAction actionWithTitle:v8 image:image identifier:0 handler:&v12];
+    [(UIBarButtonItem *)self->_searchBarButtonItem setMenuRepresentation:v10, v12, v13, v14, v15];
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
     searchBarButtonItem = self->_searchBarButtonItem;
   }
@@ -1673,7 +1673,7 @@ LABEL_77:
   editToolboxBarButtonItem = self->_editToolboxBarButtonItem;
   if (!editToolboxBarButtonItem)
   {
-    v4 = AEBundle();
+    v4 = AEBundle(0);
     v5 = [v4 localizedStringForKey:@"Markup" value:&stru_1E7188 table:0];
     v6 = [UIBarButtonItem bc_readingExperienceBarItem:@"pencil.tip.crop.circle" target:self action:"toggleEditAssetMode:" menuRepresentationTitle:v5];
     v7 = self->_editToolboxBarButtonItem;
@@ -1742,26 +1742,26 @@ LABEL_77:
 
     [v6 setCursorInsets:{2.0, -8.0, 2.0, -8.0}];
     [(UIButton *)self->_bookmarkButton frame];
-    [v6 setSpecifiedWidth:{fmax(CGRectGetWidth(v21), 32.0)}];
+    [v6 setSpecifiedWidth:{fmax(CGRectGetWidth(v22), 32.0)}];
     v7 = [[UIBarButtonItem alloc] initWithCustomView:v6];
     v8 = self->_bookmarkBarButtonItem;
     self->_bookmarkBarButtonItem = v7;
 
     [v6 specifiedWidth];
     [(UIBarButtonItem *)self->_bookmarkBarButtonItem setWidth:?];
-    objc_initWeak(&location, self);
-    v9 = AEBundle();
-    v10 = [v9 localizedStringForKey:@"Bookmark" value:&stru_1E7188 table:0];
-    v11 = [UIImage systemImageNamed:@"bookmark"];
-    v14 = _NSConcreteStackBlock;
-    v15 = 3221225472;
-    v16 = sub_102000;
-    v17 = &unk_1E5FA0;
-    objc_copyWeak(&v18, &location);
-    v12 = [UIAction actionWithTitle:v10 image:v11 identifier:0 handler:&v14];
-    [(UIBarButtonItem *)self->_bookmarkBarButtonItem setMenuRepresentation:v12, v14, v15, v16, v17];
+    inited = objc_initWeak(&location, self);
+    v10 = AEBundle(inited);
+    v11 = [v10 localizedStringForKey:@"Bookmark" value:&stru_1E7188 table:0];
+    v12 = [UIImage systemImageNamed:@"bookmark"];
+    v15 = _NSConcreteStackBlock;
+    v16 = 3221225472;
+    v17 = sub_102000;
+    v18 = &unk_1E5FA0;
+    objc_copyWeak(&v19, &location);
+    v13 = [UIAction actionWithTitle:v11 image:v12 identifier:0 handler:&v15];
+    [(UIBarButtonItem *)self->_bookmarkBarButtonItem setMenuRepresentation:v13, v15, v16, v17, v18];
 
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(&location);
 
     bookmarkBarButtonItem = self->_bookmarkBarButtonItem;
@@ -2370,7 +2370,7 @@ LABEL_77:
 
 - (id)bookmarkToolTip
 {
-  v2 = AEBundle();
+  v2 = AEBundle(self);
   v3 = [v2 localizedStringForKey:@"Show bookmarked pages" value:&stru_1E7188 table:0];
 
   return v3;
@@ -2378,7 +2378,7 @@ LABEL_77:
 
 - (id)tocToolTip
 {
-  v2 = AEBundle();
+  v2 = AEBundle(self);
   v3 = [v2 localizedStringForKey:@"Show contents in list view" value:&stru_1E7188 table:0];
 
   return v3;
@@ -2387,9 +2387,9 @@ LABEL_77:
 - (void)validateCommand:(id)command
 {
   commandCopy = command;
-  v20.receiver = self;
-  v20.super_class = BKThumbnailBookViewController;
-  [(BKBookViewController *)&v20 validateCommand:commandCopy];
+  v21.receiver = self;
+  v21.super_class = BKThumbnailBookViewController;
+  [(BKBookViewController *)&v21 validateCommand:commandCopy];
   action = [commandCopy action];
   if (!sel_isEqual(action, "books_toggleContinuousScroll:"))
   {
@@ -2401,8 +2401,7 @@ LABEL_77:
 
     if (sel_isEqual(action, "books_enableContinuousScroll:"))
     {
-      [commandCopy setState:self->super._layout == 2];
-      v8 = AEBundle();
+      v8 = AEBundle([commandCopy setState:self->super._layout == 2]);
       v9 = v8;
       v10 = @"Vertical Scrolling";
 LABEL_18:
@@ -2416,7 +2415,7 @@ LABEL_19:
     if (sel_isEqual(action, "books_chapterRight:"))
     {
       layoutDirection = [(BKViewController *)self layoutDirection];
-      v9 = AEBundle();
+      v9 = AEBundle(layoutDirection);
       if (layoutDirection == 1)
       {
 LABEL_13:
@@ -2437,31 +2436,32 @@ LABEL_17:
         }
 
         isReading = [(BKBookViewController *)self isReading];
-        v15 = AEBundle();
-        v16 = v15;
-        if (isReading)
+        v15 = isReading;
+        v16 = AEBundle(isReading);
+        v17 = v16;
+        if (v15)
         {
-          v17 = [v15 localizedStringForKey:@"Pause" value:&stru_1E7188 table:0];
-          [commandCopy setTitle:v17];
+          v18 = [v16 localizedStringForKey:@"Pause" value:&stru_1E7188 table:0];
+          [commandCopy setTitle:v18];
 
-          v18 = @"pause";
+          v19 = @"pause";
         }
 
         else
         {
-          v19 = [v15 localizedStringForKey:@"Play" value:&stru_1E7188 table:0];
-          [commandCopy setTitle:v19];
+          v20 = [v16 localizedStringForKey:@"Play" value:&stru_1E7188 table:0];
+          [commandCopy setTitle:v20];
 
-          v18 = @"play";
+          v19 = @"play";
         }
 
-        v9 = [UIImage systemImageNamed:v18];
+        v9 = [UIImage systemImageNamed:v19];
         [commandCopy setImage:v9];
         goto LABEL_19;
       }
 
       layoutDirection2 = [(BKViewController *)self layoutDirection];
-      v9 = AEBundle();
+      v9 = AEBundle(layoutDirection2);
       if (layoutDirection2 != 1)
       {
         goto LABEL_13;
@@ -3630,13 +3630,13 @@ LABEL_19:
 - (void)setPageNumberHudTextLabelForValidatedPageNumber:(int64_t)number visiblePageCount:(unint64_t)count validatedPageCount:(unint64_t)pageCount
 {
   v9 = [(BKBookViewController *)self pageTitleForPageNumber:?];
-  v22 = v9;
+  v23 = v9;
   if (v9)
   {
     if (count == 2)
     {
       v17 = [(BKBookViewController *)self pageTitleForPageNumber:number + 1];
-      v9 = v22;
+      v9 = v23;
     }
 
     else
@@ -3644,21 +3644,25 @@ LABEL_19:
       v17 = 0;
     }
 
-    if ([v9 length] && objc_msgSend(v17, "length"))
+    if ([v9 length])
     {
-      pageNumberHUD = self->_pageNumberHUD;
-      v19 = AEBundle();
-      v20 = [v19 localizedStringForKey:@"%@-%@" value:&stru_1E7188 table:0];
-      v21 = [NSString stringWithFormat:v20, v22, v17];
-      [(BKInfoHUD *)pageNumberHUD setInfoText:v21];
+      v18 = [v17 length];
+      if (v18)
+      {
+        pageNumberHUD = self->_pageNumberHUD;
+        v20 = AEBundle(v18);
+        v21 = [v20 localizedStringForKey:@"%@-%@" value:&stru_1E7188 table:0];
+        v22 = [NSString stringWithFormat:v21, v23, v17];
+        [(BKInfoHUD *)pageNumberHUD setInfoText:v22];
 
-      goto LABEL_16;
+        goto LABEL_16;
+      }
     }
 
-    if ([v22 length] || !objc_msgSend(v17, "length"))
+    if ([v23 length] || !objc_msgSend(v17, "length"))
     {
       v15 = self->_pageNumberHUD;
-      v16 = v22;
+      v16 = v23;
       goto LABEL_15;
     }
   }
@@ -3675,7 +3679,7 @@ LABEL_19:
       numberCopy = number;
     }
 
-    v11 = AEBundle();
+    v11 = AEBundle(0);
     v12 = [v11 localizedStringForKey:@"%@ of %@" value:&stru_1E7188 table:0];
     v13 = [NSNumberFormatter imaxLocalizedUnsignedInteger:numberCopy usesGroupingSeparator:0];
     v14 = [NSNumberFormatter imaxLocalizedUnsignedInteger:pageCount usesGroupingSeparator:0];
@@ -4251,7 +4255,7 @@ LABEL_15:
   v13 = v12;
   if ((v12 - 1) >= 0x7FFFFFFFFFFFFFFELL)
   {
-    v14 = _AEBookPluginsPageTurnLog();
+    v14 = _AEBookPluginsPageTurnLog(v12);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;

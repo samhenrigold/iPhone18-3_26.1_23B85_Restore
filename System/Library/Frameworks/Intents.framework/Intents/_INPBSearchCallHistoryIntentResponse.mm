@@ -17,35 +17,35 @@
 
 - (id)dictionaryRepresentation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_callRecords count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v5 = self->_callRecords;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v20;
+      v8 = *v19;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v8)
+          if (*v19 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v19 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v18 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v7);
@@ -74,8 +74,6 @@
     v16 = [targetContact copy];
     [dictionary setObject:v16 forKeyedSubscript:@"targetContact"];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -251,35 +249,34 @@ LABEL_23:
 
 - (void)writeTo:(id)to
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   toCopy = to;
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v5 = self->_callRecords;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v19 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -289,7 +286,6 @@ LABEL_23:
 
   if (dateCreated)
   {
-    dateCreated = self->_dateCreated;
     PBDataWriterWriteStringField();
   }
 
@@ -297,7 +293,6 @@ LABEL_23:
 
   if (status)
   {
-    status = self->_status;
     PBDataWriterWriteStringField();
   }
 
@@ -305,11 +300,8 @@ LABEL_23:
 
   if (targetContact)
   {
-    targetContact = self->_targetContact;
     PBDataWriterWriteStringField();
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setTargetContact:(id)contact

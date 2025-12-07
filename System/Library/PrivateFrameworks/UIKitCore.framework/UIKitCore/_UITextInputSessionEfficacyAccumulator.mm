@@ -129,9 +129,9 @@
 
   v10 = [arrayCopy objectAtIndexedSubscript:key];
   null = [MEMORY[0x1E695DFB0] null];
-  v12 = [v10 isEqual:null];
+  isEqual = objc_msgSend_isEqual_(v10);
 
-  if (v12)
+  if (isEqual)
   {
     v13 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:capacity];
     if (capacity)
@@ -174,9 +174,9 @@
   fromCopy = from;
   v8 = [fromCopy objectAtIndexedSubscript:key];
   null = [MEMORY[0x1E695DFB0] null];
-  v10 = [v8 isEqual:null];
+  isEqual = objc_msgSend_isEqual_(v8);
 
-  if (v10)
+  if (isEqual)
   {
     v11 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:capacity];
 
@@ -499,7 +499,7 @@ LABEL_8:
   [v10 enumerateObjectsUsingBlock:v16];
   v12 = v18[5];
   v13 = _UITextInputActionsSessionActionsStringFromEnumValue(2);
-  LODWORD(v12) = [v12 isEqualToString:v13];
+  LODWORD(v12) = objc_msgSend_isEqualToString_(v12);
 
   if (v12)
   {

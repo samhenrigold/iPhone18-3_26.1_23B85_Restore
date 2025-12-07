@@ -10,7 +10,7 @@
   bundleIdentifier = objc_getAssociatedObject(self, sel_co_ClientBundleIdentifier);
   if (!bundleIdentifier)
   {
-    [self auditToken];
+    objc_msgSend_auditToken(self);
     CPCopyBundleIdentifierAndTeamFromAuditToken();
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
     bundleIdentifier = [mainBundle bundleIdentifier];
@@ -23,16 +23,16 @@
 
 - (id)co_PeerInstance
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   v2 = objc_getAssociatedObject(self, sel_co_PeerInstance);
   if (!v2)
   {
-    v6[0] = 0;
-    v6[1] = 0;
+    v5[0] = 0;
+    v5[1] = 0;
     _xpcConnection = [self _xpcConnection];
     if (_xpcConnection && xpc_connection_get_peer_instance())
     {
-      v2 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v6];
+      v2 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v5];
     }
 
     else
@@ -40,8 +40,6 @@
       v2 = 0;
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

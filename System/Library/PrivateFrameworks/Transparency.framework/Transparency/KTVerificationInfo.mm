@@ -186,7 +186,7 @@ LABEL_25:
 
 - (id)description
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD60] stringWithFormat:@"KTVerificationInfo: "];
   accountKey = [(KTVerificationInfo *)self accountKey];
 
@@ -212,30 +212,30 @@ LABEL_25:
   if (serverLoggableDatas)
   {
     [v3 appendFormat:@"[\n"];
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     serverLoggableDatas2 = [(KTVerificationInfo *)self serverLoggableDatas];
-    v13 = [serverLoggableDatas2 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v13 = [serverLoggableDatas2 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v23;
+      v15 = *v22;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v23 != v15)
+          if (*v22 != v15)
           {
             objc_enumerationMutation(serverLoggableDatas2);
           }
 
-          shortDescription = [*(*(&v22 + 1) + 8 * i) shortDescription];
+          shortDescription = [*(*(&v21 + 1) + 8 * i) shortDescription];
           [v3 appendFormat:@"%@, \n", shortDescription];
         }
 
-        v14 = [serverLoggableDatas2 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v14 = [serverLoggableDatas2 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v14);
@@ -253,14 +253,13 @@ LABEL_25:
   }
 
   [v3 appendFormat:@"opted in=%lu\n", -[KTVerificationInfo optedIn](self, "optedIn")];
-  v20 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (NSDictionary)diagnosticsJsonDictionary
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   accountKey = [(KTVerificationInfo *)self accountKey];
   kt_hexString = [accountKey kt_hexString];
@@ -275,30 +274,30 @@ LABEL_25:
     serverLoggableDatas2 = [(KTVerificationInfo *)self serverLoggableDatas];
     v10 = [v8 arrayWithCapacity:{objc_msgSend(serverLoggableDatas2, "count")}];
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     serverLoggableDatas3 = [(KTVerificationInfo *)self serverLoggableDatas];
-    v12 = [serverLoggableDatas3 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v12 = [serverLoggableDatas3 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v28;
+      v14 = *v27;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v28 != v14)
+          if (*v27 != v14)
           {
             objc_enumerationMutation(serverLoggableDatas3);
           }
 
-          diagnosticsJsonDictionary = [*(*(&v27 + 1) + 8 * i) diagnosticsJsonDictionary];
+          diagnosticsJsonDictionary = [*(*(&v26 + 1) + 8 * i) diagnosticsJsonDictionary];
           [v10 addObject:diagnosticsJsonDictionary];
         }
 
-        v13 = [serverLoggableDatas3 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v13 = [serverLoggableDatas3 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v13);
@@ -326,8 +325,6 @@ LABEL_25:
 
   v24 = KTOptInGetString([(KTVerificationInfo *)self optedIn]);
   [dictionary setObject:v24 forKeyedSubscript:@"optedIn"];
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

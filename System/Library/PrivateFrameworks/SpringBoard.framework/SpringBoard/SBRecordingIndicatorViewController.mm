@@ -2,47 +2,47 @@
 - (BOOL)_needsBacklightBehaviorChanges;
 - (BOOL)_secureRenderingSupported;
 - (BOOL)_shouldForceViewToShowForCurrentBacklightLuminance;
+- (CGFloat)_sizeForStateIdleOn;
+- (SBFluidSwitcherViewController)_screenTypeForcesFastFadeAnimations;
+- (SBFluidSwitcherViewController)_updateIndicatorVisibilityWithFastFadeAnimation:(SBFluidSwitcherViewController *)result;
+- (SBFluidSwitcherViewController)_usesSpringAnimationsWithContainerView;
 - (SBRecordingIndicatorViewControllerDelegate)delegate;
 - (SBWindowScene)windowScene;
 - (double)_alphaForStateIdleOn;
 - (double)_centerForOrientation:(uint64_t)orientation;
-- (double)_sizeForStateIdleOn;
 - (id)_hasMedinaPadBehaviors;
+- (id)_ignoresActiveInterfaceOrientation;
+- (id)_isSuppressingFlipbookRendering;
 - (id)_requiresSecondIndicatorView;
 - (id)_screen;
 - (id)_setUpContext;
 - (id)_springAnimationForKeyPath:(void *)path fromValue:(void *)value toValue:(double)toValue duration:;
+- (id)_stopAllAnimations;
 - (id)initForLocation:(unint64_t)location windowScene:(id)scene minimumOnTimeCoordinator:(id)coordinator;
-- (uint64_t)_configureRootLayer;
 - (uint64_t)_hasProminentIdleState;
-- (uint64_t)_ignoresActiveInterfaceOrientation;
 - (uint64_t)_interchangesViewAndLayer;
 - (uint64_t)_isInMinimumOnTime;
 - (uint64_t)_isOnExtendedDesktop;
-- (uint64_t)_isSuppressingFlipbookRendering;
 - (uint64_t)_requiresLayerUpdateForBacklightTransition;
-- (uint64_t)_screenTypeForcesFastFadeAnimations;
 - (uint64_t)_shouldReverseScaleWhenDisplayZoomedInLocation:(uint64_t)location;
-- (uint64_t)_stopAllAnimations;
-- (uint64_t)_updateCenterWithoutAnimationForOrientation:(uint64_t)result;
-- (uint64_t)_updateIndicatorLayerSize:(double)size opacity:;
-- (uint64_t)_updateIndicatorLayerWithSize:(double)size andCenter:(double)center;
-- (uint64_t)_updateIndicatorVisibilityWithFastFadeAnimation:(uint64_t)result;
 - (uint64_t)_usesSpringAnimations;
-- (uint64_t)_usesSpringAnimationsWithContainerView;
 - (unint64_t)_isIndicatorOnOrAnimatingToOn;
 - (void)_addBlurFilterToLayer:(double)layer withBlurRadius:;
 - (void)_animateLayer:(void *)layer forKeyPath:(void *)path fromValue:(void *)value toValue:(int)toValue persistingToValue:(double)persistingToValue duration:;
-- (void)_animateWithOverlappingFadeFromOrientation:(uint64_t)orientation toOrientation:duration:;
-- (void)_animateWithTwoPartFadeToOrientation:(void *)orientation duration:;
+- (void)_animateWithOverlappingFadeFromOrientation:(uint64_t)orientation toOrientation:(double)toOrientation duration:;
+- (void)_animateWithTwoPartFadeToOrientation:(void *)orientation duration:(double)duration;
 - (void)_areAnimationsHandledBySystemApertureElement;
 - (void)_calculateInitialIndicatorPositionAndSize;
+- (void)_configureRootLayer;
 - (void)_requiresIndicatorPortalViews;
 - (void)_setUpIndicatorViews;
 - (void)_updateBacklightCoordinatorAssertionForIndicatorVisible:(uint64_t)visible;
+- (void)_updateCenterWithoutAnimationForOrientation:(void *)result;
 - (void)_updateIndicatorForBacklightLuminance:(uint64_t)luminance previousBacklightLuminance:;
+- (void)_updateIndicatorLayerSize:(double)size opacity:;
+- (void)_updateIndicatorLayerWithSize:(double)size andCenter:(double)center;
 - (void)_updateIndicatorViewSize:(double)size alpha:;
-- (void)_updateIndicatorVisibilityWithNoAnimation:(double *)animation;
+- (void)_updateIndicatorVisibilityWithNoAnimation:(__n128)animation;
 - (void)_updateIndicatorVisibilityWithNormalAnimation:(uint64_t)animation;
 - (void)_updateIndicatorVisibilityWithSpringAnimation:(uint64_t)animation;
 - (void)_updateIndicatorVisualRepresentationsWithBlock:(uint64_t)block;
@@ -127,15 +127,15 @@
 {
   if (result)
   {
-    v1 = result;
-    if ((SBSIsSystemApertureAvailable() & 1) != 0 || ([(SBRecordingIndicatorViewController *)v1 _hasMedinaPadBehaviors]& 1) != 0)
+    v2 = result;
+    if ((SBSIsSystemApertureAvailable() & 1) != 0 || ([(SBRecordingIndicatorViewController *)&v2->super.super.super.isa _hasMedinaPadBehaviors]& 1) != 0)
     {
       return 1;
     }
 
     else
     {
-      WeakRetained = objc_loadWeakRetained(v1 + 150);
+      WeakRetained = objc_loadWeakRetained(&v2->_dismissTapGestureRecognizer);
       isExternalDisplayWindowScene = [WeakRetained isExternalDisplayWindowScene];
 
       return isExternalDisplayWindowScene;
@@ -332,7 +332,7 @@
 
 - (void)_updateIndicatorVisibilityWithNormalAnimation:(uint64_t)animation
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   if (animation)
   {
     v4 = SBLogStatusBarish();
@@ -360,9 +360,9 @@
       }
 
       *buf = 138543618;
-      v42 = v5;
-      v43 = 2114;
-      v44 = v7;
+      v44 = v5;
+      v45 = 2114;
+      v46 = v7;
       _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "[Recording Indicator] Turning %{public}@ at %{public}@ location (normal animation)", buf, 0x16u);
     }
 
@@ -371,61 +371,61 @@
     {
       objc_initWeak(buf, animation);
       v8 = objc_alloc(MEMORY[0x277D75D40]);
-      v40[0] = MEMORY[0x277D85DD0];
-      v40[1] = 3221225472;
-      v40[2] = __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNormalAnimation___block_invoke;
-      v40[3] = &unk_2783A8C18;
-      v40[4] = animation;
-      v9 = [v8 initWithDuration:0 curve:v40 animations:0.7];
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNormalAnimation___block_invoke;
+      v42[3] = &unk_2783A8C18;
+      v42[4] = animation;
+      v9 = [v8 initWithDuration:0 curve:v42 animations:0.7];
       v10 = *(animation + 992);
       *(animation + 992) = v9;
 
       v11 = objc_alloc(MEMORY[0x277D75D40]);
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNormalAnimation___block_invoke_2;
-      v39[3] = &unk_2783A8C18;
-      v39[4] = animation;
-      v12 = [v11 initWithDuration:0 curve:v39 animations:0.7];
+      v41[0] = MEMORY[0x277D85DD0];
+      v41[1] = 3221225472;
+      v41[2] = __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNormalAnimation___block_invoke_2;
+      v41[3] = &unk_2783A8C18;
+      v41[4] = animation;
+      v12 = [v11 initWithDuration:0 curve:v41 animations:0.7];
       v13 = *(animation + 1000);
       *(animation + 1000) = v12;
 
       v14 = objc_alloc(MEMORY[0x277D75D40]);
-      v38[0] = MEMORY[0x277D85DD0];
-      v38[1] = 3221225472;
-      v38[2] = __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNormalAnimation___block_invoke_3;
-      v38[3] = &unk_2783A8C18;
-      v38[4] = animation;
-      v15 = [v14 initWithDuration:0 curve:v38 animations:2.0];
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNormalAnimation___block_invoke_3;
+      v40[3] = &unk_2783A8C18;
+      v40[4] = animation;
+      v15 = [v14 initWithDuration:0 curve:v40 animations:2.0];
       v16 = *(animation + 1008);
       *(animation + 1008) = v15;
 
       v17 = *(animation + 992);
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNormalAnimation___block_invoke_4;
+      v38[3] = &unk_2783BCC50;
+      objc_copyWeak(&v39, buf);
+      [v17 addCompletion:v38];
+      v18 = *(animation + 1000);
       v36[0] = MEMORY[0x277D85DD0];
       v36[1] = 3221225472;
-      v36[2] = __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNormalAnimation___block_invoke_4;
+      v36[2] = __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNormalAnimation___block_invoke_5;
       v36[3] = &unk_2783BCC50;
       objc_copyWeak(&v37, buf);
-      [v17 addCompletion:v36];
-      v18 = *(animation + 1000);
+      [v18 addCompletion:v36];
+      v19 = *(animation + 1008);
       v34[0] = MEMORY[0x277D85DD0];
       v34[1] = 3221225472;
-      v34[2] = __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNormalAnimation___block_invoke_5;
+      v34[2] = __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNormalAnimation___block_invoke_6;
       v34[3] = &unk_2783BCC50;
       objc_copyWeak(&v35, buf);
-      [v18 addCompletion:v34];
-      v19 = *(animation + 1008);
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNormalAnimation___block_invoke_6;
-      v32[3] = &unk_2783BCC50;
-      objc_copyWeak(&v33, buf);
-      [v19 addCompletion:v32];
+      [v19 addCompletion:v34];
       [SBRecordingIndicatorViewController setIndicatorState:animation];
       [*(animation + 992) startAnimation];
-      objc_destroyWeak(&v33);
       objc_destroyWeak(&v35);
       objc_destroyWeak(&v37);
+      objc_destroyWeak(&v39);
       objc_destroyWeak(buf);
     }
 
@@ -437,48 +437,48 @@
         [(SBRecordingIndicatorViewController *)animation _updateIndicatorLayerSize:0.0 opacity:?];
         if ([(SBRecordingIndicatorViewController *)animation _hasProminentIdleState])
         {
-          v20 = *(animation + 1048);
+          v22 = *(animation + 1048);
         }
 
         else
         {
-          v20 = *(animation + 1048) * 0.8;
+          v22 = *(animation + 1048) * 0.8;
         }
 
         if ([(SBRecordingIndicatorViewController *)animation _hasProminentIdleState])
         {
-          v21 = 1.0;
+          v23 = 1.0;
         }
 
         else
         {
-          v21 = 0.8;
+          v23 = 0.8;
         }
 
-        [(SBRecordingIndicatorViewController *)animation _updateIndicatorViewSize:v20 alpha:v21];
+        [(SBRecordingIndicatorViewController *)animation _updateIndicatorViewSize:v22 alpha:v23];
       }
 
-      v22 = objc_alloc(MEMORY[0x277D75D40]);
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNormalAnimation___block_invoke_7;
-      v31[3] = &unk_2783A8C18;
-      v31[4] = animation;
-      v23 = [v22 initWithDuration:0 curve:v31 animations:1.0];
-      v24 = *(animation + 1016);
-      *(animation + 1016) = v23;
+      v24 = objc_alloc(MEMORY[0x277D75D40]);
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNormalAnimation___block_invoke_7;
+      v33[3] = &unk_2783A8C18;
+      v33[4] = animation;
+      v25 = [v24 initWithDuration:0 curve:v33 animations:1.0];
+      v26 = *(animation + 1016);
+      *(animation + 1016) = v25;
 
       objc_initWeak(buf, animation);
-      v25 = *(animation + 1016);
-      v26 = MEMORY[0x277D85DD0];
-      v27 = 3221225472;
-      v28 = __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNormalAnimation___block_invoke_8;
-      v29 = &unk_2783BCC50;
-      objc_copyWeak(&v30, buf);
-      [v25 addCompletion:&v26];
+      v27 = *(animation + 1016);
+      v28 = MEMORY[0x277D85DD0];
+      v29 = 3221225472;
+      v30 = __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNormalAnimation___block_invoke_8;
+      v31 = &unk_2783BCC50;
+      objc_copyWeak(&v32, buf);
+      [v27 addCompletion:&v28];
       [SBRecordingIndicatorViewController setIndicatorState:animation];
       [*(animation + 1016) startAnimation];
-      objc_destroyWeak(&v30);
+      objc_destroyWeak(&v32);
       objc_destroyWeak(buf);
     }
   }
@@ -492,9 +492,9 @@
   }
 }
 
-- (uint64_t)_updateIndicatorVisibilityWithFastFadeAnimation:(uint64_t)result
+- (SBFluidSwitcherViewController)_updateIndicatorVisibilityWithFastFadeAnimation:(SBFluidSwitcherViewController *)result
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v3 = result;
@@ -511,7 +511,7 @@
         v5 = @"off";
       }
 
-      location = [v3 location];
+      location = [(SBFluidSwitcherViewController *)v3 location];
       if ((location - 1) > 3)
       {
         v7 = @"Standalone";
@@ -523,36 +523,36 @@
       }
 
       *buf = 138543618;
-      v25 = v5;
-      v26 = 2114;
-      v27 = v7;
+      v27 = v5;
+      v28 = 2114;
+      v29 = v7;
       _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "[Recording Indicator] Turning %{public}@ at %{public}@ location (fast fade animation)", buf, 0x16u);
     }
 
-    [(SBRecordingIndicatorViewController *)v3 _stopAllAnimations];
+    [(SBRecordingIndicatorViewController *)&v3->super.super.super.isa _stopAllAnimations];
     if (a2)
     {
       v8 = objc_alloc(MEMORY[0x277D75D40]);
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __86__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithFastFadeAnimation___block_invoke;
-      v23[3] = &unk_2783A8C18;
-      v23[4] = v3;
-      v9 = [v8 initWithDuration:0 curve:v23 animations:0.2];
-      v10 = *(v3 + 1024);
-      *(v3 + 1024) = v9;
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __86__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithFastFadeAnimation___block_invoke;
+      v25[3] = &unk_2783A8C18;
+      v25[4] = v3;
+      v9 = [v8 initWithDuration:0 curve:v25 animations:0.2];
+      liveContentOverlayCoordinator = v3->_liveContentOverlayCoordinator;
+      v3->_liveContentOverlayCoordinator = v9;
 
       objc_initWeak(buf, v3);
-      v11 = *(v3 + 1024);
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __86__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithFastFadeAnimation___block_invoke_2;
-      v21[3] = &unk_2783BCC78;
-      objc_copyWeak(&v22, buf);
-      v21[4] = v3;
-      [v11 addCompletion:v21];
+      v11 = v3->_liveContentOverlayCoordinator;
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __86__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithFastFadeAnimation___block_invoke_2;
+      v23[3] = &unk_2783BCC78;
+      objc_copyWeak(&v24, buf);
+      v23[4] = v3;
+      [(SBSwitcherLiveContentOverlayCoordinating *)v11 addCompletion:v23];
       [SBRecordingIndicatorViewController setIndicatorState:v3];
-      objc_destroyWeak(&v22);
+      objc_destroyWeak(&v24);
       objc_destroyWeak(buf);
     }
 
@@ -563,51 +563,51 @@
         [(SBRecordingIndicatorViewController *)v3 _updateIndicatorLayerSize:0.0 opacity:?];
         if ([(SBRecordingIndicatorViewController *)v3 _hasProminentIdleState])
         {
-          v12 = *(v3 + 1048);
+          y = v3->_scrollViewLastContentOffset.y;
         }
 
         else
         {
-          v12 = *(v3 + 1048) * 0.8;
+          y = v3->_scrollViewLastContentOffset.y * 0.8;
         }
 
         if ([(SBRecordingIndicatorViewController *)v3 _hasProminentIdleState])
         {
-          v13 = 1.0;
+          v15 = 1.0;
         }
 
         else
         {
-          v13 = 0.8;
+          v15 = 0.8;
         }
 
-        [(SBRecordingIndicatorViewController *)v3 _updateIndicatorViewSize:v12 alpha:v13];
+        [(SBRecordingIndicatorViewController *)v3 _updateIndicatorViewSize:v15 alpha:?];
       }
 
-      v14 = objc_alloc(MEMORY[0x277D75D40]);
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __86__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithFastFadeAnimation___block_invoke_3;
-      v20[3] = &unk_2783A8C18;
-      v20[4] = v3;
-      v15 = [v14 initWithDuration:0 curve:v20 animations:0.2];
-      v16 = *(v3 + 1024);
-      *(v3 + 1024) = v15;
+      v16 = objc_alloc(MEMORY[0x277D75D40]);
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __86__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithFastFadeAnimation___block_invoke_3;
+      v22[3] = &unk_2783A8C18;
+      v22[4] = v3;
+      v17 = [v16 initWithDuration:0 curve:v22 animations:0.2];
+      v18 = v3->_liveContentOverlayCoordinator;
+      v3->_liveContentOverlayCoordinator = v17;
 
       objc_initWeak(buf, v3);
-      v17 = *(v3 + 1024);
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __86__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithFastFadeAnimation___block_invoke_4;
-      v18[3] = &unk_2783BCC50;
-      objc_copyWeak(&v19, buf);
-      [v17 addCompletion:v18];
+      v19 = v3->_liveContentOverlayCoordinator;
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __86__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithFastFadeAnimation___block_invoke_4;
+      v20[3] = &unk_2783BCC50;
+      objc_copyWeak(&v21, buf);
+      [(SBSwitcherLiveContentOverlayCoordinating *)v19 addCompletion:v20];
       [SBRecordingIndicatorViewController setIndicatorState:v3];
-      objc_destroyWeak(&v19);
+      objc_destroyWeak(&v21);
       objc_destroyWeak(buf);
     }
 
-    return [*(v3 + 1024) startAnimation];
+    return [(SBSwitcherLiveContentOverlayCoordinating *)v3->_liveContentOverlayCoordinator startAnimation];
   }
 
   return result;
@@ -709,64 +709,64 @@ void __79__SBRecordingIndicatorViewController__calculateInitialIndicatorPosition
   [v4 setFrame:{a1[4], a1[5], a1[6], a1[7]}];
 }
 
-- (void)_animateWithTwoPartFadeToOrientation:(void *)orientation duration:
+- (void)_animateWithTwoPartFadeToOrientation:(void *)orientation duration:(double)duration
 {
   if (orientation)
   {
-    v2 = +[SBRecordingIndicatorDomain rootSettings];
+    v3 = +[SBRecordingIndicatorDomain rootSettings];
     if (BSFloatGreaterThanOrEqualToFloat())
     {
-      [v2 delayBeforeFadeOut180];
-      v4 = v3;
-      [v2 fadeOutDuration180];
-      v6 = v5;
-      [v2 delayBeforeFadeIn180];
-      v8 = v7;
-      [v2 fadeInDuration180];
+      [v3 delayBeforeFadeOut180];
+      v5 = v4;
+      [v3 fadeOutDuration180];
+      v7 = v6;
+      [v3 delayBeforeFadeIn180];
+      v9 = v8;
+      [v3 fadeInDuration180];
     }
 
     else
     {
-      [v2 delayBeforeFadeOut90];
-      v4 = v10;
-      [v2 fadeOutDuration90];
-      v6 = v11;
-      [v2 delayBeforeFadeIn90];
-      v8 = v12;
-      [v2 fadeInDuration90];
+      [v3 delayBeforeFadeOut90];
+      v5 = v11;
+      [v3 fadeOutDuration90];
+      v7 = v12;
+      [v3 delayBeforeFadeIn90];
+      v9 = v13;
+      [v3 fadeInDuration90];
     }
 
-    v13 = v9;
+    v14 = v10;
     objc_initWeak(&location, orientation);
-    v14 = objc_alloc(MEMORY[0x277D75D40]);
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __84__SBRecordingIndicatorViewController__animateWithTwoPartFadeToOrientation_duration___block_invoke;
-    v27[3] = &unk_2783A8C68;
-    objc_copyWeak(&v28, &location);
-    v15 = [v14 initWithDuration:0 curve:v27 animations:v6];
-    v16 = objc_alloc(MEMORY[0x277D75D40]);
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __84__SBRecordingIndicatorViewController__animateWithTwoPartFadeToOrientation_duration___block_invoke_2;
-    v25[3] = &unk_2783A8C68;
-    objc_copyWeak(&v26, &location);
-    v17 = [v16 initWithDuration:0 curve:v25 animations:v13];
-    v19 = MEMORY[0x277D85DD0];
-    v20 = 3221225472;
-    v21 = __84__SBRecordingIndicatorViewController__animateWithTwoPartFadeToOrientation_duration___block_invoke_3;
-    v22 = &unk_2783BCB60;
-    objc_copyWeak(v24, &location);
-    v18 = v17;
-    v23 = v18;
-    v24[1] = v8;
-    [v15 addCompletion:&v19];
-    [v15 startAnimationAfterDelay:{v4, v19, v20, v21, v22}];
+    v15 = objc_alloc(MEMORY[0x277D75D40]);
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __84__SBRecordingIndicatorViewController__animateWithTwoPartFadeToOrientation_duration___block_invoke;
+    v28[3] = &unk_2783A8C68;
+    objc_copyWeak(&v29, &location);
+    v16 = [v15 initWithDuration:0 curve:v28 animations:v7];
+    v17 = objc_alloc(MEMORY[0x277D75D40]);
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __84__SBRecordingIndicatorViewController__animateWithTwoPartFadeToOrientation_duration___block_invoke_2;
+    v26[3] = &unk_2783A8C68;
+    objc_copyWeak(&v27, &location);
+    v18 = [v17 initWithDuration:0 curve:v26 animations:v14];
+    v20 = MEMORY[0x277D85DD0];
+    v21 = 3221225472;
+    v22 = __84__SBRecordingIndicatorViewController__animateWithTwoPartFadeToOrientation_duration___block_invoke_3;
+    v23 = &unk_2783BCB60;
+    objc_copyWeak(v25, &location);
+    v19 = v18;
+    v24 = v19;
+    v25[1] = v9;
+    [v16 addCompletion:&v20];
+    [v16 startAnimationAfterDelay:{v5, v20, v21, v22, v23}];
 
-    objc_destroyWeak(v24);
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(v25);
+    objc_destroyWeak(&v27);
 
-    objc_destroyWeak(&v28);
+    objc_destroyWeak(&v29);
     objc_destroyWeak(&location);
   }
 }
@@ -1023,7 +1023,7 @@ void __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithSpri
 
 - (void)backlightController:(id)controller didTransitionToBacklightState:(int64_t)state source:(int64_t)source
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   IsActive = SBBacklightStateIsActive(state);
   _requiresLayerUpdateForBacklightTransition = 0;
   if (self && IsActive)
@@ -1045,9 +1045,9 @@ void __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithSpri
     v8 = SBLogStatusBarish();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9[0] = 67109120;
-      v9[1] = _requiresLayerUpdateForBacklightTransition;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "[Recording Indicator] Should force high level layer off... forceOff: %{BOOL}u", v9, 8u);
+      v10[0] = 67109120;
+      v10[1] = _requiresLayerUpdateForBacklightTransition;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "[Recording Indicator] Should force high level layer off... forceOff: %{BOOL}u", v10, 8u);
     }
   }
 
@@ -1293,28 +1293,28 @@ void __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithSpri
 
 - (void)_updateToOrientation:(double)orientation withDuration:
 {
-  if (self && *(self + 1176) != a2)
+  if (self && (v5 = *(self + 1176), v5 != a2))
   {
     *(self + 1176) = a2;
     _hasMedinaPadBehaviors = [(SBRecordingIndicatorViewController *)self _hasMedinaPadBehaviors];
-    if (![*(self + 1112) shouldAllowRotationUnderRateLimits] || (v6 = -[SBRecordingIndicatorViewController _isInMinimumOnTime](self), orientation <= 0.0) || ((_hasMedinaPadBehaviors ^ 1) & 1) != 0 || (v6 & 1) != 0)
+    if (![*(self + 1112) shouldAllowRotationUnderRateLimits] || (v8 = -[SBRecordingIndicatorViewController _isInMinimumOnTime](self), orientation <= 0.0) || ((_hasMedinaPadBehaviors ^ 1) & 1) != 0 || (v8 & 1) != 0)
     {
       OUTLINED_FUNCTION_18_1();
 
-      [SBRecordingIndicatorViewController _updateCenterWithoutAnimationForOrientation:v10];
+      [SBRecordingIndicatorViewController _updateCenterWithoutAnimationForOrientation:v12];
     }
 
     else
     {
-      v7 = +[SBRecordingIndicatorDomain rootSettings];
-      if (*(self + 1160) && [v7 useOverlappingCrossfade])
+      v9 = +[SBRecordingIndicatorDomain rootSettings];
+      if (*(self + 1160) && [v9 useOverlappingCrossfade])
       {
-        [SBRecordingIndicatorViewController _animateWithOverlappingFadeFromOrientation:self toOrientation:? duration:?];
+        [(SBRecordingIndicatorViewController *)self _animateWithOverlappingFadeFromOrientation:v5 toOrientation:a2 duration:orientation];
       }
 
       else
       {
-        [SBRecordingIndicatorViewController _animateWithTwoPartFadeToOrientation:self duration:?];
+        [SBRecordingIndicatorViewController _animateWithTwoPartFadeToOrientation:self duration:orientation];
       }
 
       OUTLINED_FUNCTION_18_1();
@@ -1352,7 +1352,7 @@ void __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithSpri
     if ([(SBRecordingIndicatorViewController *)self location]== 4)
     {
 
-      [SBRecordingIndicatorViewController _updateIndicatorVisibilityWithNoAnimation:?];
+      [(SBRecordingIndicatorViewController *)self _updateIndicatorVisibilityWithNoAnimation:v5, v6];
       return;
     }
 
@@ -1390,13 +1390,13 @@ LABEL_7:
   return result;
 }
 
-- (void)_updateIndicatorVisibilityWithNoAnimation:(double *)animation
+- (void)_updateIndicatorVisibilityWithNoAnimation:(__n128)animation
 {
-  if (animation)
+  if (self)
   {
-    [(SBRecordingIndicatorViewController *)animation _updateIndicatorViewSize:1.0 alpha:?];
+    [(SBRecordingIndicatorViewController *)self _updateIndicatorViewSize:1.0 alpha:?];
 
-    [SBRecordingIndicatorViewController setIndicatorState:animation];
+    [SBRecordingIndicatorViewController setIndicatorState:self];
   }
 }
 
@@ -1423,7 +1423,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)_screenTypeForcesFastFadeAnimations
+- (SBFluidSwitcherViewController)_screenTypeForcesFastFadeAnimations
 {
   if (result)
   {
@@ -1435,19 +1435,19 @@ LABEL_7:
 
 - (void)_updateIndicatorForBacklightLuminance:(uint64_t)luminance previousBacklightLuminance:
 {
-  if (self && ((OUTLINED_FUNCTION_19(), !-[SBRecordingIndicatorViewController _hasProminentIdleState](v6)) ? (v7 = 0.8) : (v7 = 1.0), ([v3[140] isSuppressingFlipbookRendering] & 1) == 0 && objc_msgSend(v3, "indicatorState") == 2 && -[SBRecordingIndicatorViewController _interchangesViewAndLayer](v3) && objc_msgSend(v3, "location") != 4 && (v4 != 1 ? (v8 = luminance == 1) : (v8 = 1), v8)))
+  if (self && ((OUTLINED_FUNCTION_19(), !-[SBRecordingIndicatorViewController _hasProminentIdleState](v6, v7)) ? (v8 = 0.8) : (v8 = 1.0), ([v3[140] isSuppressingFlipbookRendering] & 1) == 0 && objc_msgSend(v3, "indicatorState") == 2 && -[SBRecordingIndicatorViewController _interchangesViewAndLayer](v3) && objc_msgSend(v3, "location") != 4 && (v4 != 1 ? (v9 = luminance == 1) : (v9 = 1), v9)))
   {
     contentView = [v3[144] contentView];
-    v10 = contentView;
+    v11 = contentView;
     if (v4 != 1)
     {
-      v7 = 0.0;
+      v8 = 0.0;
     }
 
-    [contentView setAlpha:v7];
+    [contentView setAlpha:v8];
 
     [v3[145] contentView];
-    [objc_claimAutoreleasedReturnValue() setAlpha:v7];
+    [objc_claimAutoreleasedReturnValue() setAlpha:v8];
     OUTLINED_FUNCTION_18_1();
   }
 
@@ -1487,45 +1487,45 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)_configureRootLayer
+- (void)_configureRootLayer
 {
-  v39[4] = *MEMORY[0x277D85DE8];
+  v41[4] = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
     [MEMORY[0x277CD9FF0] begin];
     [MEMORY[0x277CD9FF0] setDisableActions:1];
-    WeakRetained = objc_loadWeakRetained((v1 + 1200));
+    WeakRetained = objc_loadWeakRetained(v1 + 150);
     screen = [WeakRetained screen];
     _display = [screen _display];
     [screen scale];
     v6 = v5;
-    memset(&v37, 0, sizeof(v37));
-    CGAffineTransformMakeScale(&v37, v5, v5);
-    v7 = *(v1 + 1192);
+    memset(&v39, 0, sizeof(v39));
+    CGAffineTransformMakeScale(&v39, v5, v5);
+    v7 = *(v1 + 149);
     if (v7 > 3 || v7 == 1)
     {
-      memset(&v36, 0, sizeof(v36));
-      SBReverseScaleTransformForScreen(screen, &v36);
-      t1 = v37;
-      t2 = v36;
-      CGAffineTransformConcat(&v35, &t1, &t2);
-      v37 = v35;
+      memset(&v38, 0, sizeof(v38));
+      SBReverseScaleTransformForScreen(screen, &v38);
+      t1 = v39;
+      t2 = v38;
+      CGAffineTransformConcat(&v37, &t1, &t2);
+      v39 = v37;
     }
 
     isExternalDisplayWindowScene = [WeakRetained isExternalDisplayWindowScene];
     v10 = *MEMORY[0x277CBED28];
     v11 = *MEMORY[0x277CDA120];
-    v38[0] = *MEMORY[0x277CDA100];
-    v38[1] = v11;
-    v39[0] = v10;
-    v39[1] = v10;
-    v38[2] = *MEMORY[0x277CDA0F0];
+    v40[0] = *MEMORY[0x277CDA100];
+    v40[1] = v11;
+    v41[0] = v10;
+    v41[1] = v10;
+    v40[2] = *MEMORY[0x277CDA0F0];
     v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(_display, "displayId")}];
-    v38[3] = @"canRenderAboveBlankingContext";
-    v39[2] = v12;
-    v39[3] = MEMORY[0x277CBEC38];
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:4];
+    v40[3] = @"canRenderAboveBlankingContext";
+    v41[2] = v12;
+    v41[3] = MEMORY[0x277CBEC38];
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:4];
 
     LODWORD(v12) = +[SBRecordingIndicatorManager _supportsSecureIndicator];
     v14 = [MEMORY[0x277CD9E38] remoteContextWithOptions:v13];
@@ -1536,13 +1536,13 @@ LABEL_7:
       *&v15 = INFINITY;
     }
 
-    [*(v1 + 1088) setLevel:v15];
+    [*(v1 + 136) setLevel:v15];
     [OUTLINED_FUNCTION_6_8(1088) setSecure:?];
     layer = [MEMORY[0x277CD9ED0] layer];
     OUTLINED_FUNCTION_24(layer, 1096);
     v17 = OUTLINED_FUNCTION_9_4();
-    v36 = v37;
-    [v17 setAffineTransform:&v36];
+    v38 = v39;
+    [v17 setAffineTransform:&v38];
     if (isExternalDisplayWindowScene)
     {
       [screen nativeBounds];
@@ -1567,24 +1567,24 @@ LABEL_7:
     if (!((v20 == 0.0) | isExternalDisplayWindowScene & 1))
     {
       v21 = v20;
-      v22 = *(v1 + 1096);
-      v40.origin.x = OUTLINED_FUNCTION_13();
-      MidY = CGRectGetMidY(v40);
-      v41.origin.x = OUTLINED_FUNCTION_13();
-      [v22 setPosition:{MidY, CGRectGetMidX(v41)}];
-      v24 = *(v1 + 1096);
+      v22 = *(v1 + 137);
+      v42.origin.x = OUTLINED_FUNCTION_13();
+      MidY = CGRectGetMidY(v42);
+      v43.origin.x = OUTLINED_FUNCTION_13();
+      [v22 setPosition:{MidY, CGRectGetMidX(v43)}];
+      v24 = *(v1 + 137);
       if (v24)
       {
-        [v24 affineTransform];
+        objc_msgSend_affineTransform(v24);
       }
 
       else
       {
-        memset(&v35, 0, sizeof(v35));
+        memset(&v37, 0, sizeof(v37));
       }
 
-      CGAffineTransformRotate(&v36, &v35, -v21);
-      [v24 setAffineTransform:&v36];
+      CGAffineTransformRotate(&v38, &v37, -v21);
+      [v24 setAffineTransform:&v38];
     }
 
     if (location == 4)
@@ -1595,9 +1595,9 @@ LABEL_7:
       [mEMORY[0x277D67E28] minimumScreenEdgeInsets];
       [OUTLINED_FUNCTION_9_4() bounds];
       UIRectCenteredXInRectScale();
-      v26 = OUTLINED_FUNCTION_17_1(v42);
-      v43.origin.x = OUTLINED_FUNCTION_3_23();
-      Height = CGRectGetHeight(v43);
+      v26 = OUTLINED_FUNCTION_17_1(v44);
+      v45.origin.x = OUTLINED_FUNCTION_3_23();
+      Height = CGRectGetHeight(v45);
       if (v26 < Height)
       {
         Height = v26;
@@ -1607,16 +1607,16 @@ LABEL_7:
       OUTLINED_FUNCTION_24(objc_alloc_init(MEMORY[0x277CD9EA8]), 1104);
       v29 = OUTLINED_FUNCTION_3_23();
       [v30 setFrame:{v29, *&v6}];
-      [*(v1 + 1104) setRenderMode:*MEMORY[0x277CDA688]];
-      [*(v1 + 1104) setCornerRadius:v28];
-      v31 = *(v1 + 1104);
-      v32 = SBCALayerCornerCurveForRadius(v28);
-      [v31 setCornerCurve:v32];
+      [*(v1 + 138) setRenderMode:*MEMORY[0x277CDA688]];
+      v31 = [*(v1 + 138) setCornerRadius:v28];
+      v32 = *(v1 + 138);
+      v34 = SBCALayerCornerCurveForRadius(v31, v33, v28);
+      [v32 setCornerCurve:v34];
 
-      [OUTLINED_FUNCTION_9_4() addSublayer:*(v1 + 1104)];
+      [OUTLINED_FUNCTION_9_4() addSublayer:*(v1 + 138)];
     }
 
-    [*(v1 + 1088) setLayer:*(v1 + 1096)];
+    [*(v1 + 136) setLayer:*(v1 + 137)];
 
     return [MEMORY[0x277CD9FF0] commit];
   }
@@ -1634,15 +1634,15 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)_usesSpringAnimationsWithContainerView
+- (SBFluidSwitcherViewController)_usesSpringAnimationsWithContainerView
 {
   if (result)
   {
-    v1 = result;
+    v2 = result;
     result = SBSIsSystemApertureAvailable();
     if (result)
     {
-      return [v1 location] == 3;
+      return ([(SBFluidSwitcherViewController *)v2 location]== 3);
     }
   }
 
@@ -1721,7 +1721,7 @@ LABEL_7:
   return selfCopy;
 }
 
-- (uint64_t)_updateIndicatorLayerWithSize:(double)size andCenter:(double)center
+- (void)_updateIndicatorLayerWithSize:(double)size andCenter:(double)center
 {
   if (result)
   {
@@ -1743,7 +1743,7 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)_updateIndicatorLayerSize:(double)size opacity:
+- (void)_updateIndicatorLayerSize:(double)size opacity:
 {
   if (result)
   {
@@ -1799,36 +1799,36 @@ LABEL_7:
   return v2;
 }
 
-- (void)_animateWithOverlappingFadeFromOrientation:(uint64_t)orientation toOrientation:duration:
+- (void)_animateWithOverlappingFadeFromOrientation:(uint64_t)orientation toOrientation:(double)toOrientation duration:
 {
-  if (orientation)
+  if (self)
   {
-    v2 = +[SBRecordingIndicatorDomain rootSettings];
+    v5 = +[SBRecordingIndicatorDomain rootSettings];
     if (BSFloatGreaterThanOrEqualToFloat())
     {
-      [v2 delayBeforeFadeOut180WhenOverlapping];
-      v35 = v3;
-      [v2 fadeOutDuration180WhenOverlapping];
-      v5 = v4;
-      [v2 delayBeforeFadeIn180WhenOverlapping];
-      v7 = v6;
-      [v2 fadeInDuration180WhenOverlapping];
+      [v5 delayBeforeFadeOut180WhenOverlapping];
+      v38 = v6;
+      [v5 fadeOutDuration180WhenOverlapping];
+      v8 = v7;
+      [v5 delayBeforeFadeIn180WhenOverlapping];
+      v10 = v9;
+      [v5 fadeInDuration180WhenOverlapping];
     }
 
     else
     {
-      [v2 delayBeforeFadeOut90WhenOverlapping];
-      v35 = v9;
-      [v2 fadeOutDuration90WhenOverlapping];
-      v5 = v10;
-      [v2 delayBeforeFadeIn90WhenOverlapping];
-      v7 = v11;
-      [v2 fadeInDuration90WhenOverlapping];
+      [v5 delayBeforeFadeOut90WhenOverlapping];
+      v38 = v12;
+      [v5 fadeOutDuration90WhenOverlapping];
+      v8 = v13;
+      [v5 delayBeforeFadeIn90WhenOverlapping];
+      v10 = v14;
+      [v5 fadeInDuration90WhenOverlapping];
     }
 
-    v12 = v8;
-    containerView = [*(orientation + 1160) containerView];
-    v14 = containerView;
+    v15 = v11;
+    containerView = [*(self + 1160) containerView];
+    v17 = containerView;
     if (containerView)
     {
       view = containerView;
@@ -1836,13 +1836,13 @@ LABEL_7:
 
     else
     {
-      view = [orientation view];
+      view = [self view];
     }
 
-    v16 = view;
+    v19 = view;
 
-    containerView2 = [*(orientation + 1152) containerView];
-    v18 = containerView2;
+    containerView2 = [*(self + 1152) containerView];
+    v21 = containerView2;
     if (containerView2)
     {
       view2 = containerView2;
@@ -1850,61 +1850,61 @@ LABEL_7:
 
     else
     {
-      view2 = [orientation view];
+      view2 = [self view];
     }
 
-    v20 = view2;
+    v23 = view2;
 
-    v21 = *(orientation + 1096);
-    v22 = [SBRecordingIndicatorViewController _centerForOrientation:orientation];
-    v24 = v23;
-    v25 = [SBRecordingIndicatorViewController _centerForOrientation:orientation];
+    v24 = *(self + 1096);
+    v25 = [SBRecordingIndicatorViewController _centerForOrientation:self];
     v27 = v26;
-    *(orientation + 1072) = v25;
-    *(orientation + 1080) = v26;
+    v28 = [SBRecordingIndicatorViewController _centerForOrientation:self];
+    v30 = v29;
+    *(self + 1072) = v28;
+    *(self + 1080) = v29;
     [MEMORY[0x277CD9FF0] begin];
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __104__SBRecordingIndicatorViewController__animateWithOverlappingFadeFromOrientation_toOrientation_duration___block_invoke;
+    v48[3] = &unk_2783BCB88;
+    v48[4] = self;
+    *&v48[5] = v28;
+    v48[6] = v30;
+    *&v48[7] = v25;
+    v48[8] = v27;
+    [(SBRecordingIndicatorViewController *)self _updateIndicatorVisualRepresentationsWithBlock:v48];
+    [v23 alpha];
+    [v19 setAlpha:?];
+    [v24 opacity];
+    [0 setOpacity:?];
+    [v23 setAlpha:0.0];
+    [v24 setOpacity:0.0];
+    [MEMORY[0x277CD9FF0] commit];
+    v31 = objc_alloc(MEMORY[0x277D75D40]);
     v45[0] = MEMORY[0x277D85DD0];
     v45[1] = 3221225472;
-    v45[2] = __104__SBRecordingIndicatorViewController__animateWithOverlappingFadeFromOrientation_toOrientation_duration___block_invoke;
-    v45[3] = &unk_2783BCB88;
-    v45[4] = orientation;
-    *&v45[5] = v25;
-    v45[6] = v27;
-    *&v45[7] = v22;
-    v45[8] = v24;
-    [(SBRecordingIndicatorViewController *)orientation _updateIndicatorVisualRepresentationsWithBlock:v45];
-    [v20 alpha];
-    [v16 setAlpha:?];
-    [v21 opacity];
-    [0 setOpacity:?];
-    [v20 setAlpha:0.0];
-    [v21 setOpacity:0.0];
-    [MEMORY[0x277CD9FF0] commit];
-    v28 = objc_alloc(MEMORY[0x277D75D40]);
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __104__SBRecordingIndicatorViewController__animateWithOverlappingFadeFromOrientation_toOrientation_duration___block_invoke_2;
-    v42[3] = &unk_2783A92D8;
-    v43 = v16;
-    v44 = 0;
-    v29 = v16;
-    v30 = [v28 initWithDuration:0 curve:v42 animations:v5];
-    v31 = objc_alloc(MEMORY[0x277D75D40]);
+    v45[2] = __104__SBRecordingIndicatorViewController__animateWithOverlappingFadeFromOrientation_toOrientation_duration___block_invoke_2;
+    v45[3] = &unk_2783A92D8;
+    v46 = v19;
+    v47 = 0;
+    v32 = v19;
+    v33 = [v31 initWithDuration:0 curve:v45 animations:v8];
+    v34 = objc_alloc(MEMORY[0x277D75D40]);
     OUTLINED_FUNCTION_1_4();
-    v37 = 3221225472;
-    v38 = __104__SBRecordingIndicatorViewController__animateWithOverlappingFadeFromOrientation_toOrientation_duration___block_invoke_3;
-    v39 = &unk_2783A92D8;
-    v40 = v20;
-    v41 = v21;
-    v32 = v21;
-    v33 = v20;
-    v34 = [v31 initWithDuration:0 curve:v36 animations:v12];
-    [v30 startAnimationAfterDelay:v35];
-    [v34 startAnimationAfterDelay:v7];
+    v40 = 3221225472;
+    v41 = __104__SBRecordingIndicatorViewController__animateWithOverlappingFadeFromOrientation_toOrientation_duration___block_invoke_3;
+    v42 = &unk_2783A92D8;
+    v43 = v23;
+    v44 = v24;
+    v35 = v24;
+    v36 = v23;
+    v37 = [v34 initWithDuration:0 curve:v39 animations:v15];
+    [v33 startAnimationAfterDelay:v38];
+    [v37 startAnimationAfterDelay:v10];
   }
 }
 
-- (uint64_t)_updateCenterWithoutAnimationForOrientation:(uint64_t)result
+- (void)_updateCenterWithoutAnimationForOrientation:(void *)result
 {
   if (result)
   {
@@ -1990,11 +1990,11 @@ LABEL_17:
   return 0.0;
 }
 
-- (uint64_t)_ignoresActiveInterfaceOrientation
+- (id)_ignoresActiveInterfaceOrientation
 {
   if (result)
   {
-    WeakRetained = objc_loadWeakRetained((result + 1200));
+    WeakRetained = objc_loadWeakRetained(result + 150);
     isExternalDisplayWindowScene = [WeakRetained isExternalDisplayWindowScene];
 
     return isExternalDisplayWindowScene;
@@ -2003,11 +2003,11 @@ LABEL_17:
   return result;
 }
 
-- (uint64_t)_stopAllAnimations
+- (id)_stopAllAnimations
 {
   if (result)
   {
-    [*(result + 992) stopAnimation:1];
+    [result[124] stopAnimation:1];
     [OUTLINED_FUNCTION_6_8(1000) stopAnimation:?];
     [OUTLINED_FUNCTION_6_8(1008) stopAnimation:?];
     [OUTLINED_FUNCTION_6_8(1016) stopAnimation:?];
@@ -2021,6 +2021,22 @@ LABEL_17:
   return result;
 }
 
+double __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNormalAnimation___block_invoke(uint64_t a1, __n128 a2, __n128 a3)
+{
+  v3 = *(a1 + 32);
+  a3.n128_u64[0] = 0x3FF3333333333333;
+  a2.n128_f64[0] = v3[131] * 1.2;
+  OUTLINED_FUNCTION_5_9(v3, a2, a3);
+  return result;
+}
+
+void __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNormalAnimation___block_invoke_2(uint64_t a1, __n128 a2, __n128 a3)
+{
+  v3 = *(a1 + 32);
+  a2.n128_u64[0] = v3[131];
+  OUTLINED_FUNCTION_5_9(v3, a2, a3);
+}
+
 void __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNormalAnimation___block_invoke_3(uint64_t a1)
 {
   v2 = *(a1 + 32);
@@ -2029,10 +2045,10 @@ void __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNorm
   {
     v4 = OUTLINED_FUNCTION_5_6();
     [(SBRecordingIndicatorViewController *)v4 _hasProminentIdleState];
-    v5 = OUTLINED_FUNCTION_11_3();
-    if (v5)
+    v6 = OUTLINED_FUNCTION_11_3();
+    if (v6)
     {
-      if ([(SBRecordingIndicatorViewController *)v5 _hasProminentIdleState])
+      if ([(SBRecordingIndicatorViewController *)v6 _hasProminentIdleState])
       {
         v3 = 1.0;
       }
@@ -2052,7 +2068,7 @@ void __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNorm
   [(SBRecordingIndicatorViewController *)v2 _updateIndicatorViewSize:v1 alpha:v3];
 }
 
-- (double)_sizeForStateIdleOn
+- (CGFloat)_sizeForStateIdleOn
 {
   if (!self)
   {
@@ -2060,7 +2076,7 @@ void __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNorm
   }
 
   hasProminentIdle = [(SBRecordingIndicatorViewController *)self _hasProminentIdleState];
-  result = *(self + 1048);
+  result = self->_scrollViewLastContentOffset.y;
   if (!hasProminentIdle)
   {
     return result * 0.8;
@@ -2113,10 +2129,10 @@ void __86__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithFast
   {
     v4 = OUTLINED_FUNCTION_5_6();
     [(SBRecordingIndicatorViewController *)v4 _hasProminentIdleState];
-    v5 = OUTLINED_FUNCTION_11_3();
-    if (v5)
+    v6 = OUTLINED_FUNCTION_11_3();
+    if (v6)
     {
-      if ([(SBRecordingIndicatorViewController *)v5 _hasProminentIdleState])
+      if ([(SBRecordingIndicatorViewController *)v6 _hasProminentIdleState])
       {
         v3 = 1.0;
       }
@@ -2179,6 +2195,22 @@ void __86__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithFast
   }
 }
 
+void __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithSpringAnimation___block_invoke(uint64_t a1, __n128 a2, __n128 a3)
+{
+  v3 = *(a1 + 32);
+  a2.n128_u64[0] = v3[131];
+  OUTLINED_FUNCTION_5_9(v3, a2, a3);
+}
+
+double __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithSpringAnimation___block_invoke_45(uint64_t a1, __n128 a2, __n128 a3)
+{
+  v3 = *(a1 + 32);
+  a3.n128_u64[0] = 0.5;
+  a2.n128_f64[0] = v3[131] * 0.5;
+  OUTLINED_FUNCTION_4_11(v3, a2, a3);
+  return result;
+}
+
 - (id)_springAnimationForKeyPath:(void *)path fromValue:(void *)value toValue:(double)toValue duration:
 {
   if (self)
@@ -2206,11 +2238,11 @@ void __86__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithFast
   return v11;
 }
 
-- (uint64_t)_isSuppressingFlipbookRendering
+- (id)_isSuppressingFlipbookRendering
 {
   if (result)
   {
-    return [*(result + 1120) isSuppressingFlipbookRendering];
+    return [result[140] isSuppressingFlipbookRendering];
   }
 
   return result;
@@ -2268,7 +2300,7 @@ void __86__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithFast
   }
 }
 
-uint64_t __84__SBRecordingIndicatorViewController__animateWithTwoPartFadeToOrientation_duration___block_invoke_3_cold_1(uint64_t a1, uint64_t a2)
+uint64_t __84__SBRecordingIndicatorViewController__animateWithTwoPartFadeToOrientation_duration___block_invoke_3_cold_1(void *a1, uint64_t a2)
 {
   [SBRecordingIndicatorViewController _updateCenterWithoutAnimationForOrientation:a1];
   v3 = *(a2 + 32);
@@ -2314,32 +2346,32 @@ uint64_t __72__SBRecordingIndicatorViewController__updateIndicatorLayerSize_opac
   return [v11 setPosition:{v12, v13}];
 }
 
-void __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNormalAnimation___block_invoke_6_cold_1(void *a1)
+void __84__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithNormalAnimation___block_invoke_6_cold_1(SBFluidSwitcherViewController *a1)
 {
   if ([(SBRecordingIndicatorViewController *)a1 _interchangesViewAndLayer])
   {
-    [(SBRecordingIndicatorViewController *)a1 _hasProminentIdleState];
-    if (OUTLINED_FUNCTION_16_1())
+    hasProminentIdle = [(SBRecordingIndicatorViewController *)a1 _hasProminentIdleState];
+    if (OUTLINED_FUNCTION_16_1(hasProminentIdle, v5))
     {
-      v3 = 1.0;
+      v6 = 1.0;
     }
 
     else
     {
-      v3 = 0.8;
+      v6 = 0.8;
     }
 
-    [(SBRecordingIndicatorViewController *)a1 _updateIndicatorLayerSize:v1 opacity:v3];
-    v4 = [a1 traitCollection];
-    v5 = [v4 _backlightLuminance];
+    [(SBRecordingIndicatorViewController *)a1 _updateIndicatorLayerSize:v1 opacity:v6];
+    v7 = [(SBFluidSwitcherViewController *)a1 traitCollection];
+    v8 = [v7 _backlightLuminance];
 
-    if (v5 == 1)
+    if (v8 == 1)
     {
       [(SBRecordingIndicatorViewController *)a1 _hasProminentIdleState];
     }
 
-    hasProminentIdle = [(SBRecordingIndicatorViewController *)a1 _hasProminentIdleState];
-    OUTLINED_FUNCTION_7_3(hasProminentIdle, 1048);
+    v10 = [(SBRecordingIndicatorViewController *)a1 _hasProminentIdleState];
+    OUTLINED_FUNCTION_7_3(v10, 1048);
   }
 
   [SBRecordingIndicatorViewController setIndicatorState:a1];
@@ -2350,49 +2382,49 @@ void __86__SBRecordingIndicatorViewController__updateIndicatorVisibilityWithFast
   OUTLINED_FUNCTION_19();
   if ([(SBRecordingIndicatorViewController *)v3 _interchangesViewAndLayer])
   {
-    [(SBRecordingIndicatorViewController *)v0 _hasProminentIdleState];
-    if (OUTLINED_FUNCTION_16_1())
+    hasProminentIdle = [(SBRecordingIndicatorViewController *)v0 _hasProminentIdleState];
+    if (OUTLINED_FUNCTION_16_1(hasProminentIdle, v6))
     {
-      v4 = 1.0;
+      v7 = 1.0;
     }
 
     else
     {
-      v4 = 0.8;
+      v7 = 0.8;
     }
 
-    [(SBRecordingIndicatorViewController *)v0 _updateIndicatorLayerSize:v2 opacity:v4];
-    v5 = [v0 traitCollection];
-    v6 = [v5 _backlightLuminance];
+    [(SBRecordingIndicatorViewController *)v0 _updateIndicatorLayerSize:v2 opacity:v7];
+    v8 = [v0 traitCollection];
+    v9 = [v8 _backlightLuminance];
 
-    if (v6 == 1)
+    if (v9 == 1)
     {
-      v7 = *(v1 + 32);
-      if (v7)
+      v11 = *(v1 + 32);
+      if (v11)
       {
-        [(SBRecordingIndicatorViewController *)v7 _hasProminentIdleState];
+        [(SBRecordingIndicatorViewController *)v11 _hasProminentIdleState];
       }
     }
 
-    hasProminentIdle = [(SBRecordingIndicatorViewController *)v0 _hasProminentIdleState];
-    OUTLINED_FUNCTION_7_3(hasProminentIdle, 1048);
+    v12 = [(SBRecordingIndicatorViewController *)v0 _hasProminentIdleState];
+    OUTLINED_FUNCTION_7_3(v12, 1048);
   }
 
   [SBRecordingIndicatorViewController setIndicatorState:v0];
 }
 
-- (uint64_t)backlightController:(uint64_t)a1 didTransitionToBacklightState:(id *)a2 source:.cold.1(uint64_t a1, id *a2)
+- (uint64_t)backlightController:(SBFluidSwitcherViewController *)a1 didTransitionToBacklightState:(const char *)a2 source:.cold.1(SBFluidSwitcherViewController *a1, const char *a2)
 {
   hasProminentIdle = [(SBRecordingIndicatorViewController *)a1 _hasProminentIdleState];
-  v5 = *(a1 + 1048);
+  y = a1->_scrollViewLastContentOffset.y;
   if (!hasProminentIdle)
   {
-    v5 = v5 * 0.8;
+    y = y * 0.8;
   }
 
-  [(SBRecordingIndicatorViewController *)a1 _updateIndicatorLayerSize:v5 opacity:0.0];
+  [(SBRecordingIndicatorViewController *)a1 _updateIndicatorLayerSize:0.0 opacity:?];
   [*a2 setOpacity:0.0];
-  return [*(a1 + 1104) setRenderMode:*MEMORY[0x277CDA688]];
+  return [(SBFluidSwitcherSheetMetricsCache *)a1->_sheetMetricsCache setRenderMode:*MEMORY[0x277CDA688]];
 }
 
 @end

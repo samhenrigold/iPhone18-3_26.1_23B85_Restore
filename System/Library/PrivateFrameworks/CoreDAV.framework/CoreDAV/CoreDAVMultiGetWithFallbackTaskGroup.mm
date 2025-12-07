@@ -93,7 +93,7 @@
 
 void __53__CoreDAVMultiGetWithFallbackTaskGroup__fetchOneItem__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
@@ -128,11 +128,11 @@ void __53__CoreDAVMultiGetWithFallbackTaskGroup__fetchOneItem__block_invoke(uint
         {
           v13 = *(a1 + 40);
           v14 = [WeakRetained error];
-          v17 = 138412546;
-          v18 = v13;
-          v19 = 2112;
-          v20 = v14;
-          _os_log_impl(&dword_2452FB000, v12, OS_LOG_TYPE_DEFAULT, "CoreDAVMultiGetWithFallbackTaskGroup: encountered error in single-item fetch at %@, error: %@", &v17, 0x16u);
+          v16 = 138412546;
+          v17 = v13;
+          v18 = 2112;
+          v19 = v14;
+          _os_log_impl(&dword_2452FB000, v12, OS_LOG_TYPE_DEFAULT, "CoreDAVMultiGetWithFallbackTaskGroup: encountered error in single-item fetch at %@, error: %@", &v16, 0x16u);
         }
       }
 
@@ -160,8 +160,6 @@ void __53__CoreDAVMultiGetWithFallbackTaskGroup__fetchOneItem__block_invoke(uint
     [v8 _fetchOneItem];
 LABEL_17:
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startTaskGroup

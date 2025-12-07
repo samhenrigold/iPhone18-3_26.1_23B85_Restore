@@ -79,22 +79,18 @@
 
 - (void)startMonitoring
 {
-  v6 = *MEMORY[0x1E69E9840];
   [MEMORY[0x1E696AF00] isMainThread];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_5();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopMonitoring
 {
-  v6 = *MEMORY[0x1E69E9840];
   [MEMORY[0x1E696AF00] isMainThread];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_5();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateMonitoring
@@ -385,12 +381,9 @@ uint64_t __86__AXSSMotionTrackingInputManager__compatibleCameraInputMatchingCapt
 
 - (void)_inputUpdated
 {
-  v8 = *MEMORY[0x1E69E9840];
   _compatibleInputs = [self _compatibleInputs];
   OUTLINED_FUNCTION_0_5();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __47__AXSSMotionTrackingInputManager__inputUpdated__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
@@ -438,11 +431,10 @@ void __47__AXSSMotionTrackingInputManager__inputUpdated__block_invoke_3(uint64_t
 
 - (void)setConfiguration:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_DEBUG, "AXSSMotionTrackingInputManager: setConfinguration %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_DEBUG, "AXSSMotionTrackingInputManager: setConfinguration %@", &v2, 0xCu);
 }
 
 @end

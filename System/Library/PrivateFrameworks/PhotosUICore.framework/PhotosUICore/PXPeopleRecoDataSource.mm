@@ -157,7 +157,7 @@ LABEL_12:
   }
 }
 
-uint64_t __39__PXPeopleRecoDataSource_commitChanges__block_invoke(id *a1)
+void *__39__PXPeopleRecoDataSource_commitChanges__block_invoke(id *a1)
 {
   v20 = *MEMORY[0x1E69E9840];
   v2 = [a1[4] verifiedType];

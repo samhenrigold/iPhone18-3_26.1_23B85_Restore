@@ -9,6 +9,7 @@
 - (void)_updateSubtitle;
 - (void)textFieldDidChange:(id)change;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HSPCPINCodeTextFieldViewController
@@ -103,6 +104,33 @@
   textField8 = [(HSPCTextFieldViewController *)self textField];
   layer = [textField8 layer];
   [layer setDisableUpdateMask:16];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v13.receiver = self;
+  v13.super_class = HSPCPINCodeTextFieldViewController;
+  [(HSPCTextFieldViewController *)&v13 viewWillAppear:appear];
+  objc_initWeak(&location, self);
+  pinCodeManager = [(HSPCPINCodeTextFieldViewController *)self pinCodeManager];
+  fetchFromAccessoryCache = [pinCodeManager fetchFromAccessoryCache];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_1000073E4;
+  v10[3] = &unk_1000C5830;
+  objc_copyWeak(&v11, &location);
+  v6 = [fetchFromAccessoryCache flatMap:v10];
+
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_100007448;
+  v8[3] = &unk_1000C5858;
+  objc_copyWeak(&v9, &location);
+  v7 = [v6 addCompletionBlock:v8];
+  objc_destroyWeak(&v9);
+
+  objc_destroyWeak(&v11);
+  objc_destroyWeak(&location);
 }
 
 - (id)commitConfiguration

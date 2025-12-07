@@ -28,34 +28,33 @@
 
 - (MAAutoAssetSetInfoControl)initWithCoder:(id)coder
 {
-  v20[2] = *MEMORY[0x1E69E9840];
+  v19[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v18.receiver = self;
-  v18.super_class = MAAutoAssetSetInfoControl;
-  v5 = [(MAAutoAssetSetInfoControl *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = MAAutoAssetSetInfoControl;
+  v5 = [(MAAutoAssetSetInfoControl *)&v17 init];
   if (v5)
   {
     v5->_clearingAfter = [coderCopy decodeBoolForKey:@"clearingAfter"];
     v6 = objc_alloc(MEMORY[0x1E695DFD8]);
-    v20[0] = objc_opt_class();
-    v20[1] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+    v19[0] = objc_opt_class();
+    v19[1] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
     v8 = [v6 initWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"limitedToClientDomains"];
     limitedToClientDomains = v5->_limitedToClientDomains;
     v5->_limitedToClientDomains = v9;
 
     v11 = objc_alloc(MEMORY[0x1E695DFD8]);
-    v19[0] = objc_opt_class();
-    v19[1] = objc_opt_class();
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+    v18[0] = objc_opt_class();
+    v18[1] = objc_opt_class();
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
     v13 = [v11 initWithArray:v12];
     v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"limitedToSetIdentifiers"];
     limitedToSetIdentifiers = v5->_limitedToSetIdentifiers;
     v5->_limitedToSetIdentifiers = v14;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -117,38 +116,38 @@
 
 - (id)_arrayStringsToString:(id)string
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v4 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
   v5 = v4;
   if (stringCopy)
   {
     [v4 appendString:@"["];
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v6 = stringCopy;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       v10 = &stru_1F0C1B388;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [v5 appendFormat:@"%@%@", v10, *(*(&v14 + 1) + 8 * i), v14];
+          [v5 appendFormat:@"%@%@", v10, *(*(&v13 + 1) + 8 * i), v13];
           v10 = @",";
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
         v10 = @",";
       }
 
@@ -157,8 +156,6 @@
 
     [v5 appendString:@"]"];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

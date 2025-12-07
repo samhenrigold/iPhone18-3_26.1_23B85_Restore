@@ -4,8 +4,10 @@
 - (double)minimizedDockHeight;
 - (id)imageViewForSticker:(id)sticker;
 - (void)cleanupRunningApps;
+- (void)setAlwaysPresentAppsExpanded:(BOOL)expanded;
 - (void)setDelegate:(id)delegate;
 - (void)setShowIconBorders:(BOOL)borders;
+- (void)switcherView:(id)view didMagnify:(BOOL)magnify;
 - (void)switcherView:(id)view didSelectPluginAtIndex:(id)index;
 - (void)updateAppStripFrame;
 - (void)viewDidLayoutSubviews;
@@ -88,6 +90,17 @@
   {
     objc_storeWeak(&self->_delegate, obj);
     [(IMAAppPresenter *)self->_appPresenter setDelegate:obj];
+  }
+}
+
+- (void)setAlwaysPresentAppsExpanded:(BOOL)expanded
+{
+  expandedCopy = expanded;
+  if ([(IMAAppPresenter *)self->_appPresenter alwaysPresentAppsExpanded]!= expanded)
+  {
+    [(IMAAppPresenter *)self->_appPresenter setAlwaysPresentAppsExpanded:expandedCopy];
+    view = [(IMADockViewController *)self view];
+    [view setClipsToBounds:expandedCopy];
   }
 }
 
@@ -207,6 +220,17 @@
   v13[3] = &unk_27A66DEF8;
   v13[4] = self;
   [(IMAAppPresenter *)appPresenter presentAppWithBundleIdentifier:identifier completion:v13];
+}
+
+- (void)switcherView:(id)view didMagnify:(BOOL)magnify
+{
+  magnifyCopy = magnify;
+  [(IMADockViewController *)self updateAppStripFrame];
+  delegate = [(IMADockViewController *)self delegate];
+  if (objc_opt_respondsToSelector())
+  {
+    [delegate dockDidMagnify:magnifyCopy];
+  }
 }
 
 - (IMADockViewControllerDelegate)delegate

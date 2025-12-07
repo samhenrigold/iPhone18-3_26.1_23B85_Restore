@@ -33,42 +33,44 @@
     v22 = lowRange + julianDayOfWindowStart3;
   }
 
-  v24 = HKMCPredictionPrimarySourceFromHAMenstrualAlgorithmsPredictionPrimarySource([self predictionPrimarySource]);
+  predictionPrimarySource = [self predictionPrimarySource];
+  v26 = HKMCPredictionPrimarySourceFromHAMenstrualAlgorithmsPredictionPrimarySource(predictionPrimarySource, v25);
   if (v8)
   {
-    v25 = HKMCPredictionPrimarySourceFromHAMenstrualAlgorithmsPredictionPrimarySource([v8 integerValue]);
-    v26 = v22 + v23 + 2;
+    integerValue = [v8 integerValue];
+    v29 = HKMCPredictionPrimarySourceFromHAMenstrualAlgorithmsPredictionPrimarySource(integerValue, v28);
+    v30 = v22 + v23 + 2;
     if (v23 <= 0)
     {
-      v26 = 0x8000000000000002;
+      v30 = 0x8000000000000002;
     }
 
-    v27 = v26 <= a5;
-    v28 = 3;
-    if (!v27)
+    v31 = v30 <= a5;
+    v32 = 3;
+    if (!v31)
     {
-      v28 = 1;
+      v32 = 1;
     }
 
-    if (v25 == 3)
+    if (v29 == 3)
     {
-      v29 = v28;
+      v33 = v32;
     }
 
     else
     {
-      v29 = v25;
+      v33 = v29;
     }
   }
 
   else
   {
-    v29 = v24;
+    v33 = v26;
   }
 
-  v30 = -[HKMCProjection initWithStartMean:startStandardDeviation:endMean:endStandardDeviation:allDays:partiallyLogged:daysOffsetFromCalendarMethod:predictionPrimarySource:]([HKMCProjection alloc], "initWithStartMean:startStandardDeviation:endMean:endStandardDeviation:allDays:partiallyLogged:daysOffsetFromCalendarMethod:predictionPrimarySource:", v22, v23, [self isOngoingMenstruation], objc_msgSend(self, "daysOffsetFromCalendarMethod"), v29, v11, v13, v16, v18);
+  v34 = -[HKMCProjection initWithStartMean:startStandardDeviation:endMean:endStandardDeviation:allDays:partiallyLogged:daysOffsetFromCalendarMethod:predictionPrimarySource:]([HKMCProjection alloc], "initWithStartMean:startStandardDeviation:endMean:endStandardDeviation:allDays:partiallyLogged:daysOffsetFromCalendarMethod:predictionPrimarySource:", v22, v23, [self isOngoingMenstruation], objc_msgSend(self, "daysOffsetFromCalendarMethod"), v33, v11, v13, v16, v18);
 
-  return v30;
+  return v34;
 }
 
 - (id)hkmc_description

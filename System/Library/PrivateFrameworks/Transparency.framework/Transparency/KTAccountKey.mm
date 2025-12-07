@@ -13,15 +13,15 @@
 
 - (KTAccountKey)initWithApplication:(id)application
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   applicationCopy = application;
   v6 = [TransparencyApplication applicationValueForIdentifier:applicationCopy];
 
   if (v6)
   {
-    v15.receiver = self;
-    v15.super_class = KTAccountKey;
-    v7 = [(KTAccountKey *)&v15 init];
+    v14.receiver = self;
+    v14.super_class = KTAccountKey;
+    v7 = [(KTAccountKey *)&v14 init];
     v8 = v7;
     if (v7)
     {
@@ -46,14 +46,13 @@
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v17 = applicationCopy;
+      v16 = applicationCopy;
       _os_log_impl(&dword_1E10DB000, v12, OS_LOG_TYPE_ERROR, "Unknown application identifier: %@", buf, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -101,7 +100,7 @@ uint64_t __33__KTAccountKey_accountPublicKey___block_invoke(uint64_t a1, void *a
 
 void __33__KTAccountKey_accountPublicKey___block_invoke_3(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_1 != -1)
   {
@@ -111,12 +110,10 @@ void __33__KTAccountKey_accountPublicKey___block_invoke_3(uint64_t a1, void *a2)
   v3 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_1;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1E10DB000, v3, OS_LOG_TYPE_ERROR, "Failed to get account public key: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1E10DB000, v3, OS_LOG_TYPE_ERROR, "Failed to get account public key: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __33__KTAccountKey_accountPublicKey___block_invoke_4()
@@ -180,7 +177,7 @@ uint64_t __33__KTAccountKey_accountPublicKey___block_invoke_4()
 
 void __36__KTAccountKey_accountPublicKeyInfo__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -195,7 +192,7 @@ void __36__KTAccountKey_accountPublicKeyInfo__block_invoke(uint64_t a1, void *a2
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v15 = v7;
+      v14 = v7;
       _os_log_impl(&dword_1E10DB000, v10, OS_LOG_TYPE_ERROR, "Unknown invokeXPCSynchronousCallWithBlock error: %@", buf, 0xCu);
     }
   }
@@ -215,15 +212,13 @@ void __36__KTAccountKey_accountPublicKeyInfo__block_invoke(uint64_t a1, void *a2
     }
 
     v9 = [*(a1 + 32) applicationIdentifier];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __36__KTAccountKey_accountPublicKeyInfo__block_invoke_17;
-    v12[3] = &unk_1E8701468;
-    v13 = *(a1 + 32);
-    [v5 signData:0 application:v9 completionBlock:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __36__KTAccountKey_accountPublicKeyInfo__block_invoke_17;
+    v11[3] = &unk_1E8701468;
+    v12 = *(a1 + 32);
+    [v5 signData:0 application:v9 completionBlock:v11];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __36__KTAccountKey_accountPublicKeyInfo__block_invoke_2()
@@ -242,7 +237,7 @@ uint64_t __36__KTAccountKey_accountPublicKeyInfo__block_invoke_14()
 
 void __36__KTAccountKey_accountPublicKeyInfo__block_invoke_17(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v10 = a2;
   v11 = a3;
   v12 = a4;
@@ -266,13 +261,11 @@ void __36__KTAccountKey_accountPublicKeyInfo__block_invoke_17(uint64_t a1, void 
     v15 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_1;
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138412290;
-      v18 = v13;
-      _os_log_impl(&dword_1E10DB000, v15, OS_LOG_TYPE_ERROR, "Failed to get account public key: %@", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v13;
+      _os_log_impl(&dword_1E10DB000, v15, OS_LOG_TYPE_ERROR, "Failed to get account public key: %@", &v16, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __36__KTAccountKey_accountPublicKeyInfo__block_invoke_2_18()
@@ -284,7 +277,7 @@ uint64_t __36__KTAccountKey_accountPublicKeyInfo__block_invoke_2_18()
 
 void __36__KTAccountKey_accountPublicKeyInfo__block_invoke_22(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_1 != -1)
   {
@@ -294,12 +287,10 @@ void __36__KTAccountKey_accountPublicKeyInfo__block_invoke_22(uint64_t a1, void 
   v3 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_1;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1E10DB000, v3, OS_LOG_TYPE_ERROR, "Failed to get account public key: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1E10DB000, v3, OS_LOG_TYPE_ERROR, "Failed to get account public key: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __36__KTAccountKey_accountPublicKeyInfo__block_invoke_2_25()
@@ -360,7 +351,7 @@ uint64_t __36__KTAccountKey_accountPublicKeyInfo__block_invoke_2_25()
 
 void __44__KTAccountKey_signDataCIP_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -375,7 +366,7 @@ void __44__KTAccountKey_signDataCIP_completionBlock___block_invoke(uint64_t a1, 
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v17 = v7;
+      v16 = v7;
       _os_log_impl(&dword_1E10DB000, v12, OS_LOG_TYPE_ERROR, "Unknown invokeXPCSynchronousCallWithBlock error: %@", buf, 0xCu);
     }
 
@@ -398,17 +389,15 @@ void __44__KTAccountKey_signDataCIP_completionBlock___block_invoke(uint64_t a1, 
 
     v9 = *(a1 + 32);
     v10 = [*(a1 + 40) applicationIdentifier];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __44__KTAccountKey_signDataCIP_completionBlock___block_invoke_33;
-    v14[3] = &unk_1E87014B8;
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __44__KTAccountKey_signDataCIP_completionBlock___block_invoke_33;
+    v13[3] = &unk_1E87014B8;
     v11 = *(a1 + 48);
-    v14[4] = *(a1 + 40);
-    v15 = v11;
-    [v5 signData:v9 application:v10 completionBlock:v14];
+    v13[4] = *(a1 + 40);
+    v14 = v11;
+    [v5 signData:v9 application:v10 completionBlock:v13];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __44__KTAccountKey_signDataCIP_completionBlock___block_invoke_2()
@@ -441,7 +430,7 @@ void __44__KTAccountKey_signDataCIP_completionBlock___block_invoke_33(uint64_t a
 
 void __44__KTAccountKey_signDataCIP_completionBlock___block_invoke_2_34(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_1 != -1)
   {
@@ -451,14 +440,12 @@ void __44__KTAccountKey_signDataCIP_completionBlock___block_invoke_2_34(uint64_t
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_1;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown invokeXPCSynchronousCallWithBlock error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown invokeXPCSynchronousCallWithBlock error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __44__KTAccountKey_signDataCIP_completionBlock___block_invoke_3()
@@ -488,7 +475,7 @@ uint64_t __44__KTAccountKey_signDataCIP_completionBlock___block_invoke_3()
 
 void __24__KTAccountKey_rollKey___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -503,7 +490,7 @@ void __24__KTAccountKey_rollKey___block_invoke(uint64_t a1, void *a2, void *a3)
     if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = v7;
+      v15 = v7;
       _os_log_impl(&dword_1E10DB000, v11, OS_LOG_TYPE_ERROR, "Unknown invokeXPCSynchronousCallWithBlock error: %@", buf, 0xCu);
     }
 
@@ -525,17 +512,15 @@ void __24__KTAccountKey_rollKey___block_invoke(uint64_t a1, void *a2, void *a3)
     }
 
     v9 = [*(a1 + 32) applicationIdentifier];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __24__KTAccountKey_rollKey___block_invoke_42;
-    v13[3] = &unk_1E8701508;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __24__KTAccountKey_rollKey___block_invoke_42;
+    v12[3] = &unk_1E8701508;
     v10 = *(a1 + 40);
-    v13[4] = *(a1 + 32);
-    v14 = v10;
-    [v5 rollKeyForApplication:v9 completionBlock:v13];
+    v12[4] = *(a1 + 32);
+    v13 = v10;
+    [v5 rollKeyForApplication:v9 completionBlock:v12];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __24__KTAccountKey_rollKey___block_invoke_2()
@@ -554,7 +539,7 @@ uint64_t __24__KTAccountKey_rollKey___block_invoke_39()
 
 void __24__KTAccountKey_rollKey___block_invoke_42(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -575,9 +560,9 @@ void __24__KTAccountKey_rollKey___block_invoke_42(uint64_t a1, void *a2, void *a
       v9 = *(a1 + 32);
       v10 = v8;
       v11 = [v9 applicationIdentifier];
-      v17 = 138543362;
-      v18 = v11;
-      _os_log_impl(&dword_1E10DB000, v10, OS_LOG_TYPE_DEFAULT, "Successfully rolled account key for %{public}@", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v11;
+      _os_log_impl(&dword_1E10DB000, v10, OS_LOG_TYPE_DEFAULT, "Successfully rolled account key for %{public}@", &v16, 0xCu);
     }
   }
 
@@ -594,17 +579,15 @@ void __24__KTAccountKey_rollKey___block_invoke_42(uint64_t a1, void *a2, void *a
       v13 = *(a1 + 32);
       v14 = v12;
       v15 = [v13 applicationIdentifier];
-      v17 = 138543618;
-      v18 = v15;
-      v19 = 2112;
-      v20 = v6;
-      _os_log_impl(&dword_1E10DB000, v14, OS_LOG_TYPE_ERROR, "Failed to roll account key for %{public}@: %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v15;
+      v18 = 2112;
+      v19 = v6;
+      _os_log_impl(&dword_1E10DB000, v14, OS_LOG_TYPE_ERROR, "Failed to roll account key for %{public}@: %@", &v16, 0x16u);
     }
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __24__KTAccountKey_rollKey___block_invoke_2_43()
@@ -623,7 +606,7 @@ uint64_t __24__KTAccountKey_rollKey___block_invoke_46()
 
 void __24__KTAccountKey_rollKey___block_invoke_49(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (TRANSPARENCY_DEFAULT_LOG_BLOCK_1 != -1)
   {
@@ -633,14 +616,12 @@ void __24__KTAccountKey_rollKey___block_invoke_49(uint64_t a1, void *a2)
   v4 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_1;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_1, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown rollKeyForApplication error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1E10DB000, v4, OS_LOG_TYPE_ERROR, "Unknown rollKeyForApplication error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __24__KTAccountKey_rollKey___block_invoke_2_50()

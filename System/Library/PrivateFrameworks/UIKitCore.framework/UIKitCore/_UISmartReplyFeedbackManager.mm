@@ -38,10 +38,10 @@
 {
   v3 = _UIMainBundleIdentifier();
   v4 = 0.75;
-  if (([v3 isEqualToString:@"com.apple.MobileSMS"] & 1) == 0 && (objc_msgSend(v3, "isEqualToString:", @"com.apple.MobileSMS.MessagesNotificationExtension") & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(v3) & 1) == 0 && (objc_msgSend_isEqualToString_(v3) & 1) == 0)
   {
     v4 = 1.0;
-    if (([v3 isEqualToString:@"com.apple.mobilemail"] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(v3) & 1) == 0)
     {
       if (!+[UIKeyboard isKeyboardProcess])
       {
@@ -1027,7 +1027,7 @@ LABEL_11:
     v16[2] = __getIASignalAnalyticsClass_block_invoke_0;
     v16[3] = &unk_1E70F2F20;
     v17 = &v18;
-    InputAnalyticsLibraryCore_1();
+    InputAnalyticsLibraryCore_1(0);
     v19[3] = objc_getClass("IASignalAnalytics");
     getIASignalAnalyticsClass_softClass_0 = *(v17[1] + 24);
     v13 = v19[3];

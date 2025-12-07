@@ -12,7 +12,6 @@
 - (id)availableVariableNamesAtIndex:(int64_t)index;
 - (id)inheritedInputVariableForAction:(id)action workflowInputTypes:(id)types ignoreInputTypes:(BOOL)inputTypes;
 - (id)outputActionWithID:(id)d;
-- (id)outputsForAction:(id)action inScopeOfAction:(id)ofAction;
 - (id)possibleContentClassesForVariableNamed:(id)named atIndex:(int64_t)index;
 - (int64_t)indentationLevelOfActionAtIndex:(int64_t)index;
 - (int64_t)indexOfAction:(id)action;
@@ -104,19 +103,6 @@
   v2 = WFWorkflowActionTree.shortcutInputActionOutput.getter();
 
   return v2;
-}
-
-- (id)outputsForAction:(id)action inScopeOfAction:(id)ofAction
-{
-  actionCopy = action;
-  ofActionCopy = ofAction;
-  selfCopy = self;
-  WFWorkflowActionTree.outputs(for:inScopeOf:)();
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC444800, &qword_1CA984018);
-  v9 = sub_1CA94C648();
-
-  return v9;
 }
 
 - (id)inheritedInputVariableForAction:(id)action workflowInputTypes:(id)types ignoreInputTypes:(BOOL)inputTypes

@@ -46,8 +46,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v18[5] = *MEMORY[0x1E69E9840];
-  v17[0] = @"radioType";
+  v17[5] = *MEMORY[0x1E69E9840];
+  v16[0] = @"radioType";
   radioType = [(INSetRadioStationIntent *)self radioType];
   if ((radioType - 1) > 4)
   {
@@ -60,8 +60,8 @@
   }
 
   v5 = v4;
-  v18[0] = v5;
-  v17[1] = @"frequency";
+  v17[0] = v5;
+  v16[1] = @"frequency";
   frequency = [(INSetRadioStationIntent *)self frequency];
   null = frequency;
   if (!frequency)
@@ -69,8 +69,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[1] = null;
-  v17[2] = @"stationName";
+  v17[1] = null;
+  v16[2] = @"stationName";
   stationName = [(INSetRadioStationIntent *)self stationName];
   null2 = stationName;
   if (!stationName)
@@ -78,8 +78,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[2] = null2;
-  v17[3] = @"channel";
+  v17[2] = null2;
+  v16[3] = @"channel";
   channel = [(INSetRadioStationIntent *)self channel];
   null3 = channel;
   if (!channel)
@@ -87,8 +87,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[3] = null3;
-  v17[4] = @"presetNumber";
+  v17[3] = null3;
+  v16[4] = @"presetNumber";
   presetNumber = [(INSetRadioStationIntent *)self presetNumber];
   null4 = presetNumber;
   if (!presetNumber)
@@ -96,8 +96,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[4] = null4;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:5];
+  v17[4] = null4;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:5];
   if (!presetNumber)
   {
   }
@@ -113,8 +113,6 @@
   if (!frequency)
   {
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

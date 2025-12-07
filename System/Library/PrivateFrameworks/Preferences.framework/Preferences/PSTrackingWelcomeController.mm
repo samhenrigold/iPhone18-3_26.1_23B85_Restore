@@ -58,47 +58,48 @@
 
 - (id)aboutText
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v10 = 0;
-  v2 = [MEMORY[0x1E695A878] shouldEnforceTrackingWithReasonCode:&v10];
-  v3 = _PSLoggingFacility();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v18 = *MEMORY[0x1E69E9840];
+  v11 = 0;
+  v2 = [MEMORY[0x1E695A878] shouldEnforceTrackingWithReasonCode:&v11];
+  v3 = v2;
+  v4 = _PSLoggingFacility(v2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v12 = "[PSTrackingWelcomeController aboutText]";
-    v13 = 1024;
-    v14 = v2;
-    v15 = 2048;
-    v16 = v10;
-    _os_log_impl(&dword_18B008000, v3, OS_LOG_TYPE_DEFAULT, "%s: Showing tracking about text. shouldEnforce: %d, reason: %ld", buf, 0x1Cu);
+    v13 = "[PSTrackingWelcomeController aboutText]";
+    v14 = 1024;
+    v15 = v3;
+    v16 = 2048;
+    v17 = v11;
+    _os_log_impl(&dword_18B008000, v4, OS_LOG_TYPE_DEFAULT, "%s: Showing tracking about text. shouldEnforce: %d, reason: %ld", buf, 0x1Cu);
   }
 
-  if (v2)
+  if (v3)
   {
-    v4 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v5 = v4;
-    v6 = @"TRACKING_ABOUT_TEXT_NO_ENFORCEMENT";
+    v5 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v6 = v5;
+    v7 = @"TRACKING_ABOUT_TEXT_NO_ENFORCEMENT";
   }
 
   else
   {
-    v7 = v10;
-    v4 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v5 = v4;
-    if (v7)
+    v8 = v11;
+    v5 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v6 = v5;
+    if (v8)
     {
-      v6 = @"TRACKING_ABOUT_TEXT_REASON_UNENFORCED";
+      v7 = @"TRACKING_ABOUT_TEXT_REASON_UNENFORCED";
     }
 
     else
     {
-      v6 = @"TRACKING_ABOUT_TEXT_REASON_NONE";
+      v7 = @"TRACKING_ABOUT_TEXT_REASON_NONE";
     }
   }
 
-  v8 = [v4 localizedStringForKey:v6 value:&stru_1EFE45030 table:@"PSSystemPolicy"];
+  v9 = [v5 localizedStringForKey:v7 value:&stru_1EFE45030 table:@"PSSystemPolicy"];
 
-  return v8;
+  return v9;
 }
 
 - (void)donePressed

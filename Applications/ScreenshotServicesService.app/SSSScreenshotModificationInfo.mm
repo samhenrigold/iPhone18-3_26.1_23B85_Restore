@@ -64,7 +64,7 @@
   {
     v5 = equalCopy;
     v6 = v5;
-    if (v5[12] == self->_paperKitChangeCounter && [v5[1] isEqual:self->_environmentDescription] && (objc_msgSend(v6, "cropInfo"), -[SSSScreenshotModificationInfo cropInfo](self, "cropInfo"), sub_10005387C(v20, &v19)) && (objc_msgSend(v6, "annotationNSDatas"), v7 = objc_claimAutoreleasedReturnValue(), -[SSSScreenshotModificationInfo annotationNSDatas](self, "annotationNSDatas"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "isEqual:", v8), v8, v7, v9) && (objc_msgSend(v6, "vellumOpacity"), v11 = v10, -[SSSScreenshotModificationInfo vellumOpacity](self, "vellumOpacity"), v11 == v12))
+    if (v5[12] == self->_paperKitChangeCounter && [v5[1] isEqual:self->_environmentDescription] && (objc_msgSend_cropInfo(v6), objc_msgSend_cropInfo(self), sub_10005387C(v20, &v19)) && (objc_msgSend(v6, "annotationNSDatas"), v7 = objc_claimAutoreleasedReturnValue(), -[SSSScreenshotModificationInfo annotationNSDatas](self, "annotationNSDatas"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "isEqual:", v8), v8, v7, v9) && (objc_msgSend(v6, "vellumOpacity"), v11 = v10, -[SSSScreenshotModificationInfo vellumOpacity](self, "vellumOpacity"), v11 == v12))
     {
       imageDescription = [v6 imageDescription];
       imageDescription2 = [(SSSScreenshotModificationInfo *)self imageDescription];
@@ -99,7 +99,7 @@
 {
   v4 = objc_alloc_init(objc_opt_class());
   objc_storeStrong(v4 + 1, self->_environmentDescription);
-  [(SSSScreenshotModificationInfo *)self cropInfo];
+  objc_msgSend_cropInfo(self);
   v6 = v19;
   v5 = v20;
   *(v4 + 1) = v18;
@@ -129,7 +129,7 @@
 - (id)mutableCopyWithZone:(_NSZone *)zone
 {
   v4 = [(SSSScreenshotModificationInfo *)[SSSScreenshotMutableModificationInfo alloc] initForScreenshotWithEnvironmentDescription:self->_environmentDescription];
-  [(SSSScreenshotModificationInfo *)self cropInfo];
+  objc_msgSend_cropInfo(self);
   [v4 setCropInfo:&v11];
   annotationNSDatas = [(SSSScreenshotModificationInfo *)self annotationNSDatas];
   [v4 setAnnotationNSDatas:annotationNSDatas];

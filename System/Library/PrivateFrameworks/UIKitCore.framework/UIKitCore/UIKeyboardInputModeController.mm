@@ -265,9 +265,9 @@ void __58__UIKeyboardInputModeController_sharedInputModeController__block_invoke
     [defaultCenter addObserver:v2 selector:sel_didEnterBackground_ name:*MEMORY[0x1E69ADD68] object:0];
     [defaultCenter addObserver:v2 selector:sel_keyboardsPreferencesChanged_ name:@"AppleKeyboardsPreferencesChangedNotification" object:0];
     v4 = _UIMainBundleIdentifier();
-    v5 = [v4 isEqualToString:@"com.apple.springboard"];
+    isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-    if (v5)
+    if (isEqualToString)
     {
       v13[0] = 0;
       v13[1] = v13;
@@ -1048,10 +1048,10 @@ LABEL_11:
   v29 = v13;
   v14 = [(UIKeyboardInputModeController *)self _systemInputModePassingTest:v28];
   primaryLanguage2 = [v14 primaryLanguage];
-  v16 = [v13 isEqualToString:primaryLanguage2];
+  isEqualToString = objc_msgSend_isEqualToString_(v13);
 
   v17 = off_1E70EA000;
-  if (v16)
+  if (isEqualToString)
   {
     v18 = v14;
     goto LABEL_10;
@@ -1069,7 +1069,7 @@ LABEL_11:
   {
 
 LABEL_10:
-    if (!v12[2](v12, v18) || ([v18 primaryLanguage], v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v13, "isEqualToString:", v24), v24, (v25 & 1) == 0))
+    if (!v12[2](v12, v18) || ([v18 primaryLanguage], v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend_isEqualToString_(v13), v24, (v25 & 1) == 0))
     {
       intlInputMode = [(__objc2_class *)v17[12] intlInputMode];
 
@@ -1095,15 +1095,15 @@ uint64_t __69__UIKeyboardInputModeController__systemInputModePassingLanguageTest
   {
     v4 = *(a1 + 32);
     v5 = [v3 primaryLanguage];
-    v6 = [v4 isEqualToString:v5];
+    isEqualToString = objc_msgSend_isEqualToString_(v4);
   }
 
   else
   {
-    v6 = 0;
+    isEqualToString = 0;
   }
 
-  return v6;
+  return isEqualToString;
 }
 
 - (UIKeyboardInputMode)hardwareInputMode
@@ -1118,9 +1118,9 @@ uint64_t __69__UIKeyboardInputModeController__systemInputModePassingLanguageTest
     currentInputMode2 = [(UIKeyboardInputModeController *)self currentInputMode];
     identifier = [currentInputMode2 identifier];
     v6 = TIInputModeGetVariant();
-    v7 = [v6 isEqualToString:@"HWR"];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (v7)
+    if (isEqualToString)
     {
       v8 = +[UIKeyboardInputMode intlInputMode];
 LABEL_7:
@@ -1225,7 +1225,7 @@ LABEL_9:
       v13 = [*(a1 + 32) keyboardInputModes];
       v14 = [v13 containsObject:v3];
 
-      if (v14 & 1) != 0 || ([v3 identifier], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "isEqualToString:", *MEMORY[0x1E69D97E8]), v15, (v16))
+      if (v14 & 1) != 0 || ([v3 identifier], v15 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v15), v15, (isEqualToString))
       {
         v4 = 1;
         goto LABEL_6;
@@ -1246,7 +1246,7 @@ LABEL_9:
       }
 
       v19 = [v3 identifier];
-      v20 = [v19 isEqualToString:@"intl"];
+      v20 = objc_msgSend_isEqualToString_(v19);
 
       if (v20)
       {
@@ -1257,7 +1257,7 @@ LABEL_9:
       {
         v21 = [objc_opt_class() ASCIICapableInputModeIdentifierForPreferredLanguages];
         v22 = [v3 identifier];
-        v4 = [v21 isEqualToString:v22];
+        v4 = objc_msgSend_isEqualToString_(v21);
       }
     }
 
@@ -1287,12 +1287,12 @@ LABEL_6:
 
     identifier = [fromCopy identifier];
     identifier2 = [firstObject identifier];
-    v8 = [identifier isEqualToString:identifier2];
+    isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
     v9 = fromCopy;
-    if ((v8 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
-      if (![fromCopy isMultiscript] || (objc_msgSend(fromCopy, "identifier"), v10 = objc_claimAutoreleasedReturnValue(), v11 = UIKeyboardShowsTransliterationCandidatesForInputMode(), v10, v9 = fromCopy, (v11 & 1) == 0))
+      if (![fromCopy isMultiscript] || (objc_msgSend(fromCopy, "identifier"), v10 = objc_claimAutoreleasedReturnValue(), v11 = UIKeyboardShowsTransliterationCandidatesForInputMode(v10), v10, v9 = fromCopy, (v11 & 1) == 0))
       {
         v9 = firstObject;
       }
@@ -1371,9 +1371,9 @@ LABEL_6:
 
                 v22 = *(*(&v63 + 1) + 8 * i);
                 v23 = TIInputModeGetBaseLanguage();
-                v24 = [v16 isEqualToString:v23];
+                isEqualToString = objc_msgSend_isEqualToString_(v16);
 
-                if (v24)
+                if (isEqualToString)
                 {
                   v26 = v22;
 
@@ -1447,7 +1447,7 @@ LABEL_30:
       v36 = *(*(&v59 + 1) + 8 * v35);
       identifier = [v36 identifier];
       identifier2 = [v8 identifier];
-      v39 = [identifier isEqualToString:identifier2];
+      v39 = objc_msgSend_isEqualToString_(identifier);
 
       if (v39)
       {
@@ -1489,7 +1489,7 @@ LABEL_38:
       v36 = *(*(&v55 + 1) + 8 * v43);
       normalizedIdentifier = [v36 normalizedIdentifier];
       normalizedIdentifier2 = [v8 normalizedIdentifier];
-      v46 = [normalizedIdentifier isEqualToString:normalizedIdentifier2];
+      v46 = objc_msgSend_isEqualToString_(normalizedIdentifier);
 
       if (v46)
       {
@@ -1596,9 +1596,9 @@ LABEL_47:
               }
 
               currentInputMode = [(UIKeyboardInputModeController *)self currentInputMode];
-              v25 = [currentInputMode isEqual:v23];
+              isEqual = objc_msgSend_isEqual_(currentInputMode);
 
-              if (v25)
+              if (isEqual)
               {
                 goto LABEL_24;
               }
@@ -1754,10 +1754,10 @@ LABEL_15:
           goto LABEL_15;
         }
 
-        v28 = [v29 isEqualToString:v15];
+        isEqualToString = objc_msgSend_isEqualToString_(v29);
 
         v19 = 0;
-        if ((v28 & 1) == 0)
+        if ((isEqualToString & 1) == 0)
         {
           goto LABEL_16;
         }
@@ -1905,10 +1905,10 @@ LABEL_9:
             v17 = +[UIDictationConnectionPreferences sharedInstance];
             languageCode = [v17 languageCode];
 
-            if (([languageCode isEqualToString:@"yue-CN"] & 1) != 0 || objc_msgSend(languageCode, "isEqualToString:", @"zh-HK"))
+            if ((objc_msgSend_isEqualToString_(languageCode) & 1) != 0 || objc_msgSend_isEqualToString_(languageCode))
             {
               v19 = @"yue_CN";
-              if (([(__CFString *)v16 isEqualToString:@"zh_CN"]& 1) != 0 || (v19 = @"zh_HK", [(__CFString *)v16 isEqualToString:@"zh_TW"]))
+              if ((objc_msgSend_isEqualToString_(v16) & 1) != 0 || (v19 = @"zh_HK", objc_msgSend_isEqualToString_(v16)))
               {
 
                 v16 = v19;
@@ -2849,7 +2849,7 @@ LABEL_8:
         v14 = [suggestedInputModesForSiriLanguage containsObject:normalizedIdentifier];
 
         v15 = array;
-        if ((v14 & 1) != 0 || ([v11 primaryLanguage], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "isEqualToString:", @"mul"), v16, v15 = array2, v17))
+        if ((v14 & 1) != 0 || ([v11 primaryLanguage], v16 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v16), v16, v15 = array2, isEqualToString))
         {
           [v15 addObject:v10];
         }
@@ -2975,9 +2975,9 @@ LABEL_26:
 
 LABEL_32:
     normalizedIdentifier2 = [v5 normalizedIdentifier];
-    v25 = [normalizedIdentifier2 isEqualToString:@"ja_JP-Kana"];
+    isEqualToString = objc_msgSend_isEqualToString_(normalizedIdentifier2);
 
-    if (v25)
+    if (isEqualToString)
     {
       v26 = UIKeyboardInputModeGetIdentifierWithKeyboardLayouts(@"ja_JP-Romaji@hw=Automatic");
       v27 = [UIKeyboardInputMode keyboardInputModeWithIdentifier:v26];
@@ -2990,7 +2990,7 @@ LABEL_32:
     v30 = TIInputModeGetBaseLanguage();
     v31 = TIInputModeGetRegion();
     v32 = TIInputModeGetVariant();
-    if ((([v30 isEqualToString:@"zh"] & 1) != 0 || objc_msgSend(v30, "isEqualToString:", @"en")) && objc_msgSend(v31, "isEqualToString:", @"HK"))
+    if (((objc_msgSend_isEqualToString_(v30) & 1) != 0 || objc_msgSend_isEqualToString_(v30)) && objc_msgSend_isEqualToString_(v31))
     {
       [v4 removeAllObjects];
       v33 = UIKeyboardInputModeGetIdentifierWithKeyboardLayouts(@"zh_Hant-Wubihua@hw=Automatic");
@@ -3002,7 +3002,7 @@ LABEL_32:
 
     else
     {
-      if (![v30 isEqualToString:@"es"] || !objc_msgSend(v32, "isEqualToString:", @"419"))
+      if (!objc_msgSend_isEqualToString_(v30) || !objc_msgSend_isEqualToString_(v32))
       {
         goto LABEL_42;
       }
@@ -3212,12 +3212,12 @@ void __68__UIKeyboardInputModeController_filteredTVInputModesFromInputModes___bl
                   {
                     normalizedIdentifier = [v11 normalizedIdentifier];
                     normalizedIdentifier2 = [v20 normalizedIdentifier];
-                    if ([normalizedIdentifier isEqualToString:normalizedIdentifier2])
+                    if (objc_msgSend_isEqualToString_(normalizedIdentifier))
                     {
                       softwareLayout3 = [v20 softwareLayout];
-                      v24 = [softwareLayout3 isEqualToString:v14];
+                      isEqualToString = objc_msgSend_isEqualToString_(softwareLayout3);
 
-                      if (v24)
+                      if (isEqualToString)
                       {
 
                         v9 = v31;
@@ -3300,9 +3300,9 @@ LABEL_23:
 
         v15 = *(*(&v19 + 1) + 8 * i);
         identifier2 = [v15 identifier];
-        v17 = [identifier2 isEqualToString:v10];
+        isEqualToString = objc_msgSend_isEqualToString_(identifier2);
 
-        if (v17)
+        if (isEqualToString)
         {
           v12 = v15;
           goto LABEL_11;
@@ -3431,7 +3431,7 @@ void __75__UIKeyboardInputModeController_updateDefaultInputModesIfNecessaryForId
   v27 = *MEMORY[0x1E69E9840];
   modesCopy = modes;
   v5 = +[UIKeyboard keyboardBundleIdentifier];
-  if ([v5 isEqualToString:@"com.apple.springboard"])
+  if (objc_msgSend_isEqualToString_(v5))
   {
     v6 = +[UIKeyboardImpl activeInstance];
     textInputTraits = [v6 textInputTraits];
@@ -3503,13 +3503,13 @@ void __75__UIKeyboardInputModeController_updateDefaultInputModesIfNecessaryForId
   return v20;
 }
 
-uint64_t __58__UIKeyboardInputModeController_appendPasscodeInputModes___block_invoke()
+uint64_t __58__UIKeyboardInputModeController_appendPasscodeInputModes___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = TIInputModeGetNormalizedIdentifier();
-  v1 = TIInputModeGetNormalizedIdentifier();
-  v2 = [v0 isEqualToString:v1];
+  v2 = TIInputModeGetNormalizedIdentifier();
+  v3 = TIInputModeGetNormalizedIdentifier();
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v2;
+  return isEqualToString;
 }
 
 - (id)defaultEnabledInputModesForCurrentLocale:(BOOL)locale
@@ -3824,9 +3824,9 @@ uint64_t __58__UIKeyboardInputModeController_appendPasscodeInputModes___block_in
                 }
 
                 normalizedIdentifier = [*(*(&v37 + 1) + 8 * i) normalizedIdentifier];
-                v22 = [normalizedIdentifier isEqualToString:v15];
+                isEqualToString = objc_msgSend_isEqualToString_(normalizedIdentifier);
 
-                if (v22)
+                if (isEqualToString)
                 {
                   v16 = 1;
                   goto LABEL_21;
@@ -4008,9 +4008,9 @@ LABEL_29:
                 }
 
                 normalizedIdentifier = [*(*(&v53 + 1) + 8 * m) normalizedIdentifier];
-                v32 = [normalizedIdentifier isEqualToString:v26];
+                isEqualToString = objc_msgSend_isEqualToString_(normalizedIdentifier);
 
-                if (v32)
+                if (isEqualToString)
                 {
                   v27 = 1;
                   goto LABEL_32;
@@ -4035,7 +4035,7 @@ LABEL_32:
         primaryLanguage = [(UIKeyboardInputMode *)v33 primaryLanguage];
         v36 = [v34 localeWithLocaleIdentifier:primaryLanguage];
         languageCode3 = [v36 languageCode];
-        v38 = [languageCode3 isEqualToString:@"en"];
+        v38 = objc_msgSend_isEqualToString_(languageCode3);
 
         if ((v27 & v38 & v24) == 1)
         {
@@ -4168,13 +4168,13 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  if ([languageCode isEqualToString:@"zh-HK"])
+  if (objc_msgSend_isEqualToString_(languageCode))
   {
     v5 = @"yue-Hant";
     goto LABEL_4;
   }
 
-  if ([languageCode isEqualToString:@"zh-TW"])
+  if (objc_msgSend_isEqualToString_(languageCode))
   {
     v5 = @"zh-Hant";
     goto LABEL_4;
@@ -4212,10 +4212,10 @@ LABEL_5:
           if (v15)
           {
             primaryLanguage2 = [selfCopy primaryLanguage];
-            v17 = [primaryLanguage2 isEqualToString:languageCode];
+            isEqualToString = objc_msgSend_isEqualToString_(primaryLanguage2);
 
             normalizedIdentifier = [selfCopy normalizedIdentifier];
-            if (v17)
+            if (isEqualToString)
             {
               [array insertObject:normalizedIdentifier atIndex:0];
             }
@@ -4326,7 +4326,7 @@ void __52__UIKeyboardInputModeController__clearAllExtensions__block_invoke(uint6
   }
 }
 
-uint64_t __60__UIKeyboardInputModeController__clearAllExtensionsIfNeeded__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__60__UIKeyboardInputModeController__clearAllExtensionsIfNeeded__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isStalledExtensionInputMode];
   if (result)
@@ -4512,9 +4512,9 @@ uint64_t __66__UIKeyboardInputModeController__beginContinuousDiscoveryIfNeeded__
 {
   v2 = *(a1 + 32);
   v3 = [a2 identifier];
-  v4 = [v2 isEqualToString:v3];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (BOOL)_mayContainExtensionInputModes
@@ -4783,7 +4783,7 @@ LABEL_17:
   {
     v15 = [listCopy objectAtIndex:0];
     v16 = v15;
-    if ((v10 & 1) == 0 && ((v37)(v15, traitsCopy) & 1) == 0)
+    if ((v10 & 1) == 0 && (v37(v15, traitsCopy) & 1) == 0)
     {
 
 LABEL_47:
@@ -4857,7 +4857,7 @@ LABEL_35:
       if (!v13)
       {
 LABEL_43:
-        if ((v10 & 1) != 0 || ([(UIKeyboardInputModeController *)self currentInputMode], v33 = objc_claimAutoreleasedReturnValue(), v34 = (v37)(v33, traitsCopy), v33, v34))
+        if ((v10 & 1) != 0 || ([(UIKeyboardInputModeController *)self currentInputMode], v33 = objc_claimAutoreleasedReturnValue(), v34 = v37(v33, traitsCopy), v33, v34))
         {
           currentInputMode3 = [(UIKeyboardInputModeController *)self currentInputMode];
           goto LABEL_46;
@@ -4872,9 +4872,9 @@ LABEL_43:
     {
       v16 = [listCopy objectAtIndex:(v28 % v13)];
       currentInputMode4 = [(UIKeyboardInputModeController *)self currentInputMode];
-      v32 = [v16 isEqual:currentInputMode4];
+      isEqual = objc_msgSend_isEqual_(v16);
 
-      if (v32 & 1) == 0 && ((v10 & 1) != 0 || ((v37)(v16, traitsCopy)))
+      if (isEqual & 1) == 0 && ((v10 & 1) != 0 || (v37(v16, traitsCopy)))
       {
         break;
       }
@@ -4936,7 +4936,7 @@ LABEL_48:
   {
     nextInputModeToUse2 = [(UIKeyboardInputModeController *)self nextInputModeToUse];
     currentInputMode = [(UIKeyboardInputModeController *)self currentInputMode];
-    if (![nextInputModeToUse2 isEqual:currentInputMode])
+    if (!objc_msgSend_isEqual_(nextInputModeToUse2))
     {
       activeInputModes = [(UIKeyboardInputModeController *)self activeInputModes];
       nextInputModeToUse3 = [(UIKeyboardInputModeController *)self nextInputModeToUse];
@@ -4959,9 +4959,9 @@ LABEL_48:
 
             if ([v20 length] && objc_msgSend(v23, "length"))
             {
-              v19 = [v20 isEqualToString:v23];
+              isEqualToString = objc_msgSend_isEqualToString_(v20);
 
-              if (v19)
+              if (isEqualToString)
               {
                 goto LABEL_11;
               }
@@ -5144,9 +5144,9 @@ LABEL_18:
       {
         v18 = primaryLanguage;
         primaryLanguage2 = [modesCopy primaryLanguage];
-        v20 = [v16 isEqualToString:primaryLanguage2];
+        isEqualToString = objc_msgSend_isEqualToString_(v16);
 
-        if ((v20 & 1) == 0)
+        if ((isEqualToString & 1) == 0)
         {
           v31 = v14;
           v32 = v13;
@@ -5172,7 +5172,7 @@ LABEL_18:
 
                 v26 = *(*(&v34 + 1) + 8 * i);
                 primaryLanguage3 = [v26 primaryLanguage];
-                v28 = [primaryLanguage3 isEqualToString:v16];
+                v28 = objc_msgSend_isEqualToString_(primaryLanguage3);
 
                 if (v28)
                 {
@@ -5332,7 +5332,7 @@ LABEL_21:
 {
   v78 = *MEMORY[0x1E69E9840];
   languageCopy = language;
-  if ([languageCopy isEqualToString:@"ASCIICapable"])
+  if (objc_msgSend_isEqualToString_(languageCopy))
   {
     v6 = UIKeyboardGetCurrentInputMode();
     v7 = UIKeyboardLayoutSupportsASCIIToggleKey(v6);
@@ -5361,7 +5361,7 @@ LABEL_21:
   }
 
   languageCopy = v8;
-  if ([v8 isEqualToString:@"NonASCII"] && !UIKeyboardLayoutSupportsASCIIToggleKey(aSCIICapableInputModeIdentifierForPreferredLanguages) || aSCIICapableInputModeIdentifierForPreferredLanguages && !extensions && (+[UIKeyboardInputMode keyboardInputModeWithIdentifier:](UIKeyboardInputMode, "keyboardInputModeWithIdentifier:", aSCIICapableInputModeIdentifierForPreferredLanguages), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isExtensionInputMode"), v13, languageCopy = v8, v14))
+  if (objc_msgSend_isEqualToString_(v8) && !UIKeyboardLayoutSupportsASCIIToggleKey(aSCIICapableInputModeIdentifierForPreferredLanguages) || aSCIICapableInputModeIdentifierForPreferredLanguages && !extensions && (+[UIKeyboardInputMode keyboardInputModeWithIdentifier:](UIKeyboardInputMode, "keyboardInputModeWithIdentifier:", aSCIICapableInputModeIdentifierForPreferredLanguages), v13 = objc_claimAutoreleasedReturnValue(), v14 = [v13 isExtensionInputMode], v13, languageCopy = v8, v14))
   {
 
     aSCIICapableInputModeIdentifierForPreferredLanguages = 0;
@@ -5376,7 +5376,7 @@ LABEL_21:
 
   if ([v15 count] == 1)
   {
-    if ([languageCopy isEqualToString:@"ASCIICapable"])
+    if (objc_msgSend_isEqualToString_(languageCopy))
     {
       v16 = UIKeyboardGetCurrentInputMode();
       v17 = TIInputModeGetNormalizedIdentifier();
@@ -5385,7 +5385,7 @@ LABEL_21:
 
     else
     {
-      if (![languageCopy isEqualToString:@"NonASCII"])
+      if (!objc_msgSend_isEqualToString_(languageCopy))
       {
         goto LABEL_21;
       }
@@ -5403,7 +5403,7 @@ LABEL_21:
 LABEL_21:
   if (![aSCIICapableInputModeIdentifierForPreferredLanguages length])
   {
-    if ([languageCopy isEqualToString:@"ASCIICapable"])
+    if (objc_msgSend_isEqualToString_(languageCopy))
     {
       v72 = 0u;
       v73 = 0u;
@@ -5475,7 +5475,7 @@ LABEL_48:
       aSCIICapableInputModeIdentifierForPreferredLanguages = [objc_opt_class() ASCIICapableInputModeIdentifierForPreferredLanguages];
     }
 
-    else if ([languageCopy isEqualToString:@"NonASCII"])
+    else if (objc_msgSend_isEqualToString_(languageCopy))
     {
       v68 = 0uLL;
       v69 = 0uLL;
@@ -5558,7 +5558,7 @@ LABEL_75:
 
             v42 = *(*(&v62 + 1) + 8 * k);
             v43 = TIInputModeGetLanguageWithRegion();
-            if ([v43 isEqualToString:languageCopy])
+            if (objc_msgSend_isEqualToString_(v43))
             {
               v44 = v42;
 
@@ -5662,11 +5662,11 @@ LABEL_80:
   v9 = +[UIKeyboardInputModeController sharedInputModeController];
   v10 = [v9 inputModeLastUsedForLanguage:v8 includingExtensions:0];
 
-  if (([v10 isEqual:currentInputMode] & 1) == 0)
+  if ((objc_msgSend_isEqual_(v10) & 1) == 0)
   {
     primaryLanguage = [v10 primaryLanguage];
     primaryLanguage2 = [currentInputMode primaryLanguage];
-    if ([primaryLanguage isEqual:primaryLanguage2] && (objc_msgSend(v10, "isExtensionInputMode") & 1) == 0)
+    if (objc_msgSend_isEqual_(primaryLanguage) && ([v10 isExtensionInputMode] & 1) == 0)
     {
     }
 
@@ -5704,9 +5704,9 @@ LABEL_10:
     }
 
     currentUsedInputMode = [(UIKeyboardInputModeController *)self currentUsedInputMode];
-    v8 = [currentUsedInputMode isEqual:modeCopy];
+    isEqual = objc_msgSend_isEqual_(currentUsedInputMode);
 
-    if ((v8 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       currentUsedInputMode2 = [(UIKeyboardInputModeController *)self currentUsedInputMode];
       if (currentUsedInputMode2)
@@ -5846,14 +5846,14 @@ LABEL_10:
     }
 
     v18 = +[UIKeyboard keyboardBundleIdentifier];
-    v19 = [v18 isEqualToString:@"com.apple.mobilenotes"];
+    isEqualToString = objc_msgSend_isEqualToString_(v18);
 
     if ([responderCopy isEditable])
     {
       goto LABEL_14;
     }
 
-    if (v19 && (objc_opt_respondsToSelector() & 1) != 0)
+    if (isEqualToString && (objc_opt_respondsToSelector() & 1) != 0)
     {
       [responderCopy setEditable:1];
 LABEL_14:
@@ -6104,7 +6104,7 @@ LABEL_6:
 
       else
       {
-        if ([inputModeCopy isEqualToString:qword_1ED498710])
+        if (objc_msgSend_isEqualToString_(inputModeCopy))
         {
           goto LABEL_13;
         }
@@ -6119,7 +6119,7 @@ LABEL_6:
 
     else
     {
-      if ([qword_1ED498708 isEqualToString:qword_1ED498710])
+      if (objc_msgSend_isEqualToString_(qword_1ED498708))
       {
         goto LABEL_13;
       }
@@ -6172,7 +6172,7 @@ LABEL_13:
     v16 = TIInputModeGetComponentsFromIdentifier();
     v17 = [v16 objectForKey:@"hw"];
     v18 = v17;
-    if (v17 && ([v17 isEqualToString:@"Automatic"] & 1) == 0)
+    if (v17 && (objc_msgSend_isEqualToString_(v17) & 1) == 0)
     {
       v19 = v18;
 
@@ -6201,9 +6201,9 @@ LABEL_13:
   }
 
   v25 = +[UIKeyboardInputMode intlInputMode];
-  v26 = [modeCopy isEqual:v25];
+  isEqual = objc_msgSend_isEqual_(modeCopy);
 
-  if (v26)
+  if (isEqual)
   {
     v22 = UIKeyboardGetDefaultHardwareKeyboardLayoutForInputMode(@"en_US");
 LABEL_12:
@@ -6506,7 +6506,7 @@ LABEL_9:
     v10 = 1;
   }
 
-  if (!v10 && ([v9 isEqualToString:v16] & 1) == 0)
+  if (!v10 && (objc_msgSend_isEqualToString_(v9) & 1) == 0)
   {
     [(UIKeyboardInputModeController *)self handleLastUsedInputMode:v9 withNewInputMode:v16];
   }
@@ -6793,7 +6793,7 @@ LABEL_14:
   UIKeyboardSetActiveInputModes(v14);
 
   currentInputMode = [(UIKeyboardInputModeController *)self currentInputMode];
-  LOBYTE(v14) = [currentInputMode isEqual:currentInputModeInPreference];
+  LOBYTE(v14) = objc_msgSend_isEqual_(currentInputMode);
 
   if ((v14 & 1) == 0)
   {
@@ -6903,9 +6903,9 @@ LABEL_7:
 
             v26 = *(*(&v48 + 1) + 8 * i);
             v27 = TIInputModeGetNormalizedIdentifier();
-            v28 = [v27 isEqualToString:v20];
+            isEqualToString = objc_msgSend_isEqualToString_(v27);
 
-            if (v28)
+            if (isEqualToString)
             {
               v29 = v18;
             }
@@ -7026,7 +7026,7 @@ LABEL_30:
         v17 = *(*(&v51 + 1) + 8 * i);
         v18 = TIInputModeGetNormalizedIdentifier();
         [v11 addObject:v18];
-        if (([v18 isEqualToString:v17] & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(v18) & 1) == 0)
         {
           [v45 setObject:v17 forKey:v18];
         }
@@ -7545,7 +7545,7 @@ LABEL_46:
   while (v54);
 LABEL_51:
 
-  if (![array3 count] || objc_msgSend(array3, "count") == 1 && (objc_msgSend(array3, "firstObject"), v55 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v55, "primaryLanguage"), v56 = objc_claimAutoreleasedReturnValue(), v57 = objc_msgSend(v56, "isEqualToString:", @"emoji"), v56, v55, v57))
+  if (![array3 count] || objc_msgSend(array3, "count") == 1 && (objc_msgSend(array3, "firstObject"), v55 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v55, "primaryLanguage"), v56 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v56), v56, v55, isEqualToString))
   {
     v58 = [(UIKeyboardInputModeController *)self defaultEnabledInputModesForCurrentLocale:1];
     defaultInputModes3 = [(UIKeyboardInputModeController *)self defaultInputModes];
@@ -7590,19 +7590,19 @@ LABEL_57:
 uint64_t __76__UIKeyboardInputModeController_Compatibility__enabledInputModeIdentifiers___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if ([v3 isEqualToString:*(a1 + 32)])
+  if (objc_msgSend_isEqualToString_(v3))
   {
-    v4 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
     v5 = *(a1 + 40);
     v6 = TIInputModeGetNormalizedIdentifier();
-    v4 = [v5 isEqualToString:v6];
+    isEqualToString = objc_msgSend_isEqualToString_(v5);
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 - (id)userSelectableInputModesFromInputModes:(id)modes
@@ -7650,7 +7650,7 @@ uint64_t __76__UIKeyboardInputModeController_Compatibility__enabledInputModeIden
           }
 
           v15 = [v14 objectAtIndexedSubscript:0];
-          if ([v15 isEqualToString:identifier])
+          if (objc_msgSend_isEqualToString_(v15))
           {
 
             goto LABEL_12;
@@ -7660,7 +7660,7 @@ uint64_t __76__UIKeyboardInputModeController_Compatibility__enabledInputModeIden
           UIKeyboardInputModeGetIdentifierWithKeyboardLayouts(v16);
           v17 = v9;
           v19 = v18 = array;
-          v50 = [v19 isEqualToString:identifier] | v45;
+          v50 = objc_msgSend_isEqualToString_(v19) | v45;
 
           array = v18;
           v9 = v17;
@@ -7863,7 +7863,7 @@ LABEL_47:
         }
 
         primaryLanguage = [*(*(&v11 + 1) + 8 * i) primaryLanguage];
-        if (([array containsObject:primaryLanguage] & 1) == 0 && (objc_msgSend(primaryLanguage, "isEqualToString:", @"emoji") & 1) == 0)
+        if (([array containsObject:primaryLanguage] & 1) == 0 && (objc_msgSend_isEqualToString_(primaryLanguage) & 1) == 0)
         {
           [array addObject:primaryLanguage];
         }

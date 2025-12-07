@@ -9,9 +9,9 @@
 {
   queueCopy = queue;
   blockCopy = block;
-  v24.receiver = self;
-  v24.super_class = PTGlobalStateChangeMonitor;
-  v9 = [(PTGlobalStateChangeMonitor *)&v24 init];
+  v25.receiver = self;
+  v25.super_class = PTGlobalStateChangeMonitor;
+  v9 = [(PTGlobalStateChangeMonitor *)&v25 init];
   v10 = v9;
   if (!v9)
   {
@@ -30,34 +30,34 @@
   handler[1] = 3221225472;
   handler[2] = __61__PTGlobalStateChangeMonitor_initWithQueue_stateChangeBlock___block_invoke;
   handler[3] = &unk_279A18CF8;
-  objc_copyWeak(&v21, &location);
+  objc_copyWeak(&v22, &location);
   v14 = notify_register_dispatch("com.apple.performancetrace.global_state_did_change", &out_token, targetQueue, handler);
 
   if (!v14)
   {
-    v17 = [MEMORY[0x277CCABB0] numberWithInt:out_token];
+    v18 = [MEMORY[0x277CCABB0] numberWithInt:out_token];
     notify_token = v10->_notify_token;
-    v10->_notify_token = v17;
+    v10->_notify_token = v18;
 
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v22);
     objc_destroyWeak(&location);
 LABEL_7:
-    v16 = v10;
+    v17 = v10;
     goto LABEL_8;
   }
 
-  v15 = _stateChangeMonitorHandle();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v16 = _stateChangeMonitorHandle(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     [PTGlobalStateChangeMonitor initWithQueue:stateChangeBlock:];
   }
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(&location);
-  v16 = 0;
+  v17 = 0;
 LABEL_8:
 
-  return v16;
+  return v17;
 }
 
 void __61__PTGlobalStateChangeMonitor_initWithQueue_stateChangeBlock___block_invoke(uint64_t a1)
@@ -66,28 +66,36 @@ void __61__PTGlobalStateChangeMonitor_initWithQueue_stateChangeBlock___block_inv
   v2 = [WeakRetained stateChangeBlock];
   v2[2]();
 
-  v3 = _stateChangeMonitorHandle();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = _stateChangeMonitorHandle(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_25E3D3000, v3, OS_LOG_TYPE_DEFAULT, "Fired notification handler block", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_25E3D3000, v4, OS_LOG_TYPE_DEFAULT, "Fired notification handler block", v5, 2u);
   }
 }
 
 - (void)dealloc
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
+  notify_token = [(PTGlobalStateChangeMonitor *)self notify_token];
 
-- (void)initWithQueue:stateChangeBlock:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
+  if (notify_token)
+  {
+    notify_token2 = [(PTGlobalStateChangeMonitor *)self notify_token];
+    v5 = notify_cancel([notify_token2 intValue]);
+
+    if (v5)
+    {
+      v7 = _stateChangeMonitorHandle(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        [PTGlobalStateChangeMonitor dealloc];
+      }
+    }
+  }
+
+  v8.receiver = self;
+  v8.super_class = PTGlobalStateChangeMonitor;
+  [(PTGlobalStateChangeMonitor *)&v8 dealloc];
 }
 
 @end

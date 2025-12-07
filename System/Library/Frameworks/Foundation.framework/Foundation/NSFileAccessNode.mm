@@ -124,7 +124,7 @@
     {
       self->_isFilePackage = 0;
       parent = self->_parent;
-      if (!parent || ![(NSString *)parent->_normalizedName isEqualToString:@"volumes"]|| (v5 = self->_parent->_parent) == 0 || ![(NSString *)v5->_normalizedName isEqualToString:@"/"])
+      if (!parent || !objc_msgSend_isEqualToString_(parent->_normalizedName) || (v5 = self->_parent->_parent) == 0 || (objc_msgSend_isEqualToString_(v5->_normalizedName) & 1) == 0)
       {
         if ([(NSString *)pathExtension length])
         {
@@ -232,7 +232,7 @@
 - (id)pathToDescendantForFileURL:(id)l componentRange:(_NSRange *)range
 {
   v16 = *MEMORY[0x1E69E9840];
-  if (![(NSString *)self->_normalizedName isEqualToString:@"/"])
+  if ((objc_msgSend_isEqualToString_(self->_normalizedName, a2, @"/") & 1) == 0)
   {
     v10 = _NSFCLog();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
@@ -276,7 +276,7 @@ LABEL_15:
 
   v7 = v6;
   v8 = [v6 count];
-  if (!v8 || (v9 = v8, ![objc_msgSend(v7 objectAtIndex:{0), "isEqualToString:", @"/"}]))
+  if (!v8 || (v9 = v8, !objc_msgSend_isEqualToString_([v7 objectAtIndex:0])))
   {
     v11 = _NSFCLog();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
@@ -441,7 +441,7 @@ LABEL_13:
 {
   selfCopy = self;
   v21 = *MEMORY[0x1E69E9840];
-  if (![(NSString *)self->_normalizedName isEqualToString:@"/"])
+  if ((objc_msgSend_isEqualToString_(self->_normalizedName, a2, @"/") & 1) == 0)
   {
     NSLog(@"[NSFileAccessNode pathToDescendantForFileURL:componentRange:] was invoked in a surprising way.");
     return 0;
@@ -478,8 +478,8 @@ LABEL_27:
   }
 
   v6 = v5;
-  v7 = [v5 length];
-  if (!v7 || (v8 = v7, [v6 characterAtIndex:0] != 47))
+  v7 = [(NSString *)v5 length];
+  if (!v7 || (v8 = v7, [(NSString *)v6 characterAtIndex:0]!= 47))
   {
     v16 = _NSFCLog();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
@@ -504,7 +504,7 @@ LABEL_27:
         selfCopy = selfCopy->_symbolicLinkDestination;
       }
 
-      v11 = [v6 rangeOfString:@"/" options:0 range:{v10, v9}];
+      v11 = [(NSString *)v6 rangeOfString:@"/" options:0 range:v10, v9];
       if (v11 == 0x7FFFFFFFFFFFFFFFLL)
       {
         break;
@@ -1094,7 +1094,7 @@ LABEL_5:
   {
     secureID = [(NSFileProviderProxy *)provider secureID];
     secureID2 = [providerCopy secureID];
-    if (([secureID2 isEqualToString:secureID] & 1) == 0 && (!secureID2 || secureID) && _NSFCIP != 1)
+    if ((objc_msgSend_isEqualToString_(secureID2) & 1) == 0 && (!secureID2 || secureID) && _NSFCIP != 1)
     {
       v8 = _NSFCProviderLog();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -1183,9 +1183,18 @@ LABEL_5:
 {
   if (self->_parent)
   {
-    v3 = [(NSString *)self->_name isEqualToString:@"private"];
+    isEqualToString = objc_msgSend_isEqualToString_(self->_name, a2, @"private");
     parent = self->_parent;
-    v5 = !v3 || parent == 0;
+    if (isEqualToString)
+    {
+      v5 = parent == 0;
+    }
+
+    else
+    {
+      v5 = 1;
+    }
+
     if (v5 || parent->_parent)
     {
       pathExceptPrivate = [(NSFileAccessNode *)parent pathExceptPrivate];
@@ -1543,7 +1552,7 @@ uint64_t __78__NSFileAccessNode_forEachProgressThingOfItemOrContainedItemPerform
     v3 = 0;
     do
     {
-      v3 |= [(NSString *)selfCopy->_normalizedName isEqualToString:@"/"];
+      v3 |= objc_msgSend_isEqualToString_(selfCopy->_normalizedName, a2, @"/");
       selfCopy = selfCopy->_parent;
     }
 
@@ -1572,7 +1581,7 @@ uint64_t __78__NSFileAccessNode_forEachProgressThingOfItemOrContainedItemPerform
   v3 = 0;
   do
   {
-    v3 |= [(NSString *)selfCopy->_normalizedName isEqualToString:@"/"];
+    v3 |= objc_msgSend_isEqualToString_(selfCopy->_normalizedName, a2, @"/");
     selfCopy = selfCopy->_parent;
   }
 

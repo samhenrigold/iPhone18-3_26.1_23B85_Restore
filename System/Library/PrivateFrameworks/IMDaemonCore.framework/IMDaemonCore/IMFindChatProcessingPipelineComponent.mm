@@ -58,7 +58,7 @@
 
 - (BOOL)shouldDropDueToGroupSize:(id)size
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   sizeCopy = size;
   v4 = [MEMORY[0x277D18A10] sharedInstanceForBagType:1];
   v5 = [v4 objectForKey:@"md-max-chat-participants-incoming"];
@@ -93,43 +93,42 @@ LABEL_11:
     v10 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v14 = 134218240;
-      v15 = v9;
-      v16 = 2048;
-      v17 = v7;
-      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Incoming Group message has too many participants (%lu, max = %lu), should drop message", &v14, 0x16u);
+      v13 = 134218240;
+      v14 = v9;
+      v15 = 2048;
+      v16 = v7;
+      _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Incoming Group message has too many participants (%lu, max = %lu), should drop message", &v13, 0x16u);
     }
   }
 
   v11 = 1;
 LABEL_12:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (BOOL)_participantsContainBizID:(id)d
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   dCopy = d;
-  v4 = [dCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [dCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(dCopy);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
+        v7 = *(*(&v9 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 && (MEMORY[0x231897A20](v7))
         {
@@ -138,7 +137,7 @@ LABEL_12:
         }
       }
 
-      v4 = [dCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [dCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -150,13 +149,12 @@ LABEL_12:
 
 LABEL_12:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (BOOL)_shouldDropMessageGroupID:(id)d participants:(id)participants fromIdentifier:(id)identifier toIdentifier:(id)toIdentifier
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   participantsCopy = participants;
   identifierCopy = identifier;
@@ -183,9 +181,9 @@ LABEL_10:
       v17 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
-        v20 = 138412290;
-        v21 = dCopy;
-        _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "GroupID %@ was found in blocklist, dropping message", &v20, 0xCu);
+        v19 = 138412290;
+        v20 = dCopy;
+        _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "GroupID %@ was found in blocklist, dropping message", &v19, 0xCu);
       }
 
 LABEL_8:
@@ -209,9 +207,9 @@ LABEL_8:
     v17 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v20 = 138412290;
-      v21 = participantsCopy;
-      _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Dropping message because participant list contains biz id. participants: %@", &v20, 0xCu);
+      v19 = 138412290;
+      v20 = participantsCopy;
+      _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Dropping message because participant list contains biz id. participants: %@", &v19, 0xCu);
     }
 
     goto LABEL_8;
@@ -221,13 +219,12 @@ LABEL_2:
   v14 = 0;
 LABEL_11:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (id)runIndividuallyWithInput:(id)input
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   if (IMOSLoggingEnabled())
   {
@@ -264,9 +261,9 @@ LABEL_11:
             groupID2 = [inputCopy groupID];
             participantIdentifiers3 = [inputCopy participantIdentifiers];
             *buf = 138412546;
-            v39 = groupID2;
-            v40 = 2112;
-            v41 = participantIdentifiers3;
+            v38 = groupID2;
+            v39 = 2112;
+            v40 = participantIdentifiers3;
             _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Dropping message from MessageGroupController. groupID: %@ participants: %@", buf, 0x16u);
           }
         }
@@ -308,7 +305,7 @@ LABEL_11:
         if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v39 = v21;
+          v38 = v21;
           _os_log_impl(&dword_22B4CC000, v35, OS_LOG_TYPE_INFO, "<IMFindChatProcessingPipelineComponent> Found chat: %@", buf, 0xCu);
         }
 
@@ -343,15 +340,13 @@ LABEL_30:
     {
       chat2 = [inputCopy chat];
       *buf = 138412290;
-      v39 = chat2;
+      v38 = chat2;
       _os_log_impl(&dword_22B4CC000, v7, OS_LOG_TYPE_INFO, "<IMFindChatProcessingPipelineComponent> Found pre-supplied chat: %@", buf, 0xCu);
     }
   }
 
   v9 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
 LABEL_31:
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

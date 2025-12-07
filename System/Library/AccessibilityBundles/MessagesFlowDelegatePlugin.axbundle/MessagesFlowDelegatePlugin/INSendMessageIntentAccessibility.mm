@@ -7,58 +7,58 @@
 
 - (void)setRecipients:(id)recipients
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   recipientsCopy = recipients;
-  v20 = [recipientsCopy mutableCopy];
+  v19 = [recipientsCopy mutableCopy];
   v5 = objc_opt_new();
   isClarityBoardEnabled = [v5 isClarityBoardEnabled];
 
   if (isClarityBoardEnabled)
   {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
-    v19 = recipientsCopy;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v18 = recipientsCopy;
     obj = recipientsCopy;
-    v7 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v7 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v7)
     {
       v8 = v7;
-      v22 = *v29;
+      v21 = *v28;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v29 != v22)
+          if (*v28 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v28 + 1) + 8 * i);
+          v10 = *(*(&v27 + 1) + 8 * i);
           siriMatches = [v10 siriMatches];
           if ([siriMatches count])
           {
-            v26 = 0u;
-            v27 = 0u;
-            v24 = 0u;
             v25 = 0u;
+            v26 = 0u;
+            v23 = 0u;
+            v24 = 0u;
             v12 = siriMatches;
-            v13 = [v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
+            v13 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
             if (v13)
             {
               v14 = v13;
-              v15 = *v25;
+              v15 = *v24;
               while (2)
               {
                 for (j = 0; j != v14; ++j)
                 {
-                  if (*v25 != v15)
+                  if (*v24 != v15)
                   {
                     objc_enumerationMutation(v12);
                   }
 
-                  contactIdentifier = [*(*(&v24 + 1) + 8 * j) contactIdentifier];
+                  contactIdentifier = [*(*(&v23 + 1) + 8 * j) contactIdentifier];
                   if ([contactIdentifier length] && -[INSendMessageIntentAccessibility _axIsRecipientSelectedInClarity:](self, "_axIsRecipientSelectedInClarity:", contactIdentifier))
                   {
 
@@ -66,7 +66,7 @@
                   }
                 }
 
-                v14 = [v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
+                v14 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
                 if (v14)
                 {
                   continue;
@@ -76,54 +76,52 @@
               }
             }
 
-            [v20 removeObject:v10];
+            [v19 removeObject:v10];
           }
 
 LABEL_19:
         }
 
-        v8 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v8 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v8);
     }
 
-    recipientsCopy = v19;
+    recipientsCopy = v18;
   }
 
-  v23.receiver = self;
-  v23.super_class = INSendMessageIntentAccessibility;
-  [(INSendMessageIntentAccessibility *)&v23 setRecipients:v20, v19];
-
-  v18 = *MEMORY[0x29EDCA608];
+  v22.receiver = self;
+  v22.super_class = INSendMessageIntentAccessibility;
+  [(INSendMessageIntentAccessibility *)&v22 setRecipients:v19, v18];
 }
 
 - (BOOL)_axIsRecipientSelectedInClarity:(id)clarity
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   clarityCopy = clarity;
   mEMORY[0x29EDB8BB8] = [MEMORY[0x29EDB8BB8] sharedInstance];
   entries = [mEMORY[0x29EDB8BB8] entries];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = entries;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        contactProperty = [*(*(&v15 + 1) + 8 * i) contactProperty];
+        contactProperty = [*(*(&v14 + 1) + 8 * i) contactProperty];
         contact = [contactProperty contact];
         identifier = [contact identifier];
 
@@ -135,7 +133,7 @@ LABEL_19:
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -147,7 +145,6 @@ LABEL_19:
 
 LABEL_11:
 
-  v13 = *MEMORY[0x29EDCA608];
   return v7;
 }
 

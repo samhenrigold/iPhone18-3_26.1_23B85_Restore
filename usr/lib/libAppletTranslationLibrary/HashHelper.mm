@@ -17,9 +17,9 @@
 + (HashHelper)hashHelper
 {
   objc_opt_self();
-  v0 = objc_alloc_init(HashHelper);
+  v2 = objc_alloc_init(HashHelper);
 
-  return v0;
+  return v2;
 }
 
 - (HashHelper)init
@@ -143,61 +143,61 @@ void __28__HashHelper_addDictionary___block_invoke(uint64_t a1, void *a2)
   v3 = a2;
   if (object)
   {
-    objc_opt_class();
-    if (OUTLINED_FUNCTION_4_0())
+    v4 = objc_opt_class();
+    if (OUTLINED_FUNCTION_4_0(v4))
     {
-      v5 = OUTLINED_FUNCTION_3_0();
-      [(HashHelper *)v5 addData:v6];
+      v11 = OUTLINED_FUNCTION_3_0();
+      [(HashHelper *)v11 addData:v12];
       objc_claimAutoreleasedReturnValue();
     }
 
     else
     {
-      objc_opt_class();
-      if (OUTLINED_FUNCTION_4_0())
+      v5 = objc_opt_class();
+      if (OUTLINED_FUNCTION_4_0(v5))
       {
-        v7 = OUTLINED_FUNCTION_3_0();
-        [(HashHelper *)v7 addString:v8];
+        v13 = OUTLINED_FUNCTION_3_0();
+        [(HashHelper *)v13 addString:v14];
         objc_claimAutoreleasedReturnValue();
       }
 
       else
       {
-        objc_opt_class();
-        if (OUTLINED_FUNCTION_4_0())
+        v6 = objc_opt_class();
+        if (OUTLINED_FUNCTION_4_0(v6))
         {
-          v9 = OUTLINED_FUNCTION_3_0();
-          [(HashHelper *)v9 addNumber:v10];
+          v15 = OUTLINED_FUNCTION_3_0();
+          [(HashHelper *)v15 addNumber:v16];
           objc_claimAutoreleasedReturnValue();
         }
 
         else
         {
-          objc_opt_class();
-          if (OUTLINED_FUNCTION_4_0())
+          v7 = objc_opt_class();
+          if (OUTLINED_FUNCTION_4_0(v7))
           {
-            v11 = OUTLINED_FUNCTION_3_0();
-            [HashHelper addDictionary:v11];
+            v17 = OUTLINED_FUNCTION_3_0();
+            [(HashHelper *)v17 addDictionary:v18];
             objc_claimAutoreleasedReturnValue();
           }
 
           else
           {
-            objc_opt_class();
-            if (OUTLINED_FUNCTION_4_0())
+            v8 = objc_opt_class();
+            if (OUTLINED_FUNCTION_4_0(v8))
             {
-              v12 = OUTLINED_FUNCTION_3_0();
-              [(HashHelper *)v12 addArray:v13];
+              v19 = OUTLINED_FUNCTION_3_0();
+              [(HashHelper *)v19 addArray:v20];
               objc_claimAutoreleasedReturnValue();
             }
 
             else
             {
-              objc_opt_class();
-              if (OUTLINED_FUNCTION_4_0())
+              v9 = objc_opt_class();
+              if (OUTLINED_FUNCTION_4_0(v9))
               {
-                v14 = OUTLINED_FUNCTION_3_0();
-                [(HashHelper *)v14 addDateComponents:v15];
+                v21 = OUTLINED_FUNCTION_3_0();
+                [(HashHelper *)v21 addDateComponents:v22];
                 objc_claimAutoreleasedReturnValue();
               }
 
@@ -217,21 +217,20 @@ void __28__HashHelper_addDictionary___block_invoke(uint64_t a1, void *a2)
 
 - (id)addArray:(void *)array
 {
-  v39 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v11 = v3;
   if (array)
   {
-    v12 = OUTLINED_FUNCTION_5_0(v3, v4, v5, v6, v7, v8, v9, v10, 0, 0, 0, 0, 0, 0, 0, 0, v35, v37);
+    v12 = OUTLINED_FUNCTION_5_0(v3, v4, v5, v6, v7, v8, v9, v10, 0, 0, 0, 0, 0, 0, 0, 0, v34);
     if (v12)
     {
       v13 = v12;
-      v14 = *v29;
+      v14 = *v28;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v29 != v14)
+          if (*v28 != v14)
           {
             objc_enumerationMutation(v11);
           }
@@ -239,7 +238,7 @@ void __28__HashHelper_addDictionary___block_invoke(uint64_t a1, void *a2)
           v16 = [(HashHelper *)array addObject:?];
         }
 
-        v13 = OUTLINED_FUNCTION_5_0(v16, v17, v18, v19, v20, v21, v22, v23, v27, v28, v29, v30, v31, v32, v33, v34, v36, v38);
+        v13 = OUTLINED_FUNCTION_5_0(v16, v17, v18, v19, v20, v21, v22, v23, v26, v27, v28, v29, v30, v31, v32, v33, v35);
       }
 
       while (v13);
@@ -247,8 +246,6 @@ void __28__HashHelper_addDictionary___block_invoke(uint64_t a1, void *a2)
 
     arrayCopy = array;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return array;
 }

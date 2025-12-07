@@ -56,15 +56,14 @@
     self->_syncTimeouts = 0;
   }
 
-  port = self->_port;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v11 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementFilterResetDroppedLimitCounter"];
-    if (v11)
+    v10 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementFilterResetDroppedLimitCounter"];
+    if (v10)
     {
-      v12 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementFilterResetDroppedLimitCounter"];
-      self->_filterResetsDroppedLimit = [v12 unsignedIntValue];
+      v11 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementFilterResetDroppedLimitCounter"];
+      self->_filterResetsDroppedLimit = [v11 unsignedIntValue];
     }
 
     else
@@ -72,11 +71,11 @@
       self->_filterResetsDroppedLimit = 0;
     }
 
-    v13 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementFilterResetOutOfBoundsCounter"];
-    if (v13)
+    v12 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementFilterResetOutOfBoundsCounter"];
+    if (v12)
     {
-      v14 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementFilterResetOutOfBoundsCounter"];
-      self->_filterResetsOutOfBounds = [v14 unsignedIntValue];
+      v13 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementFilterResetOutOfBoundsCounter"];
+      self->_filterResetsOutOfBounds = [v13 unsignedIntValue];
     }
 
     else
@@ -84,11 +83,11 @@
       self->_filterResetsOutOfBounds = 0;
     }
 
-    v15 = [iodProperties objectForKeyedSubscript:@"LinkPropagationMeanDelay"];
-    if (v15)
+    v14 = [iodProperties objectForKeyedSubscript:@"LinkPropagationMeanDelay"];
+    if (v14)
     {
-      v16 = [iodProperties objectForKeyedSubscript:@"LinkPropagationMeanDelay"];
-      self->_meanDelayTime = [v16 unsignedIntValue];
+      v15 = [iodProperties objectForKeyedSubscript:@"LinkPropagationMeanDelay"];
+      self->_meanDelayTime = [v15 unsignedIntValue];
     }
 
     else
@@ -96,11 +95,11 @@
       self->_meanDelayTime = 0;
     }
 
-    v17 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementDroppedCounter"];
-    if (v17)
+    v16 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementDroppedCounter"];
+    if (v16)
     {
-      v18 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementDroppedCounter"];
-      self->_droppedMeasurements = [v18 unsignedIntValue];
+      v17 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementDroppedCounter"];
+      self->_droppedMeasurements = [v17 unsignedIntValue];
     }
 
     else
@@ -108,11 +107,11 @@
       self->_droppedMeasurements = 0;
     }
 
-    v19 = [iodProperties objectForKeyedSubscript:@"RawDelayMeasurementCounter"];
-    if (v19)
+    v18 = [iodProperties objectForKeyedSubscript:@"RawDelayMeasurementCounter"];
+    if (v18)
     {
-      v20 = [iodProperties objectForKeyedSubscript:@"RawDelayMeasurementCounter"];
-      unsignedIntValue = [v20 unsignedIntValue];
+      v19 = [iodProperties objectForKeyedSubscript:@"RawDelayMeasurementCounter"];
+      unsignedIntValue = [v19 unsignedIntValue];
     }
 
     else
@@ -121,11 +120,11 @@
     }
 
     self->_totalMeasurements = self->_droppedMeasurements + unsignedIntValue;
-    v22 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementDiscardPPMLimitCounter"];
-    if (v22)
+    v21 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementDiscardPPMLimitCounter"];
+    if (v21)
     {
-      v23 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementDiscardPPMLimitCounter"];
-      self->_discardedPpmLimitMeasurements = [v23 unsignedIntValue];
+      v22 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementDiscardPPMLimitCounter"];
+      self->_discardedPpmLimitMeasurements = [v22 unsignedIntValue];
     }
 
     else
@@ -133,11 +132,11 @@
       self->_discardedPpmLimitMeasurements = 0;
     }
 
-    v24 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementDiscardDelayLimitExceededCounter"];
-    if (v24)
+    v23 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementDiscardDelayLimitExceededCounter"];
+    if (v23)
     {
-      v25 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementDiscardDelayLimitExceededCounter"];
-      self->_discardedDelayLimitExceededMeasurements = [v25 unsignedIntValue];
+      v24 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementDiscardDelayLimitExceededCounter"];
+      self->_discardedDelayLimitExceededMeasurements = [v24 unsignedIntValue];
     }
 
     else
@@ -145,11 +144,11 @@
       self->_discardedDelayLimitExceededMeasurements = 0;
     }
 
-    v26 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementDiscardOutOfBoundsCounter"];
-    if (v26)
+    v25 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementDiscardOutOfBoundsCounter"];
+    if (v25)
     {
-      v27 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementDiscardOutOfBoundsCounter"];
-      self->_discardedOutOfBoundsMeasurements = [v27 unsignedIntValue];
+      v26 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementDiscardOutOfBoundsCounter"];
+      self->_discardedOutOfBoundsMeasurements = [v26 unsignedIntValue];
     }
 
     else
@@ -157,11 +156,11 @@
       self->_discardedOutOfBoundsMeasurements = 0;
     }
 
-    v28 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementDiscardTimestampsOutOfOrderCounter"];
-    if (v28)
+    v27 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementDiscardTimestampsOutOfOrderCounter"];
+    if (v27)
     {
-      v29 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementDiscardTimestampsOutOfOrderCounter"];
-      self->_discardedTimestampsOutOfOrderMeasurements = [v29 unsignedIntValue];
+      v28 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementDiscardTimestampsOutOfOrderCounter"];
+      self->_discardedTimestampsOutOfOrderMeasurements = [v28 unsignedIntValue];
     }
 
     else
@@ -169,11 +168,11 @@
       self->_discardedTimestampsOutOfOrderMeasurements = 0;
     }
 
-    v30 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementSuccessCounter"];
-    if (v30)
+    v29 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementSuccessCounter"];
+    if (v29)
     {
-      v31 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementSuccessCounter"];
-      self->_successfulMeasurements = [v31 unsignedIntValue];
+      v30 = [iodProperties objectForKeyedSubscript:@"SyncMeasurementSuccessCounter"];
+      self->_successfulMeasurements = [v30 unsignedIntValue];
     }
 
     else
@@ -193,7 +192,6 @@
   v5 = objc_alloc_init(TSDPortMetrics);
   [(TSDPortMetrics *)v5 setPortNumber:self->_portNumber];
   -[TSDPortMetrics setSyncTimeouts:](v5, "setSyncTimeouts:", self->_syncTimeouts - [deltaCopy syncTimeouts]);
-  port = self->_port;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {

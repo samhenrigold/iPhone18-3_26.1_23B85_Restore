@@ -25,7 +25,7 @@
 
   v6 = SharePlayTogetherSession.isEqual(_:)(v8);
 
-  sub_12E1C(v8, &qword_E11F60);
+  sub_12E1C(v8, &qword_E11F60, &unk_B1BC70);
   return v6 & 1;
 }
 
@@ -38,44 +38,44 @@
 
 - (void)groupSessionDidConnect:(id)connect
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_E0E340);
-  __chkstk_darwin(v5 - 8);
-  v7 = &v12 - v6;
-  v8 = sub_AB9990();
-  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_E0E340, &qword_B18550);
+  __chkstk_darwin();
+  v6 = &v11 - v5;
+  v7 = sub_AB9990();
+  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
   sub_AB9940();
   swift_unknownObjectRetain_n();
   selfCopy = self;
-  v10 = sub_AB9930();
-  v11 = swift_allocObject();
-  v11[2] = v10;
-  v11[3] = &protocol witness table for MainActor;
-  v11[4] = connect;
-  v11[5] = selfCopy;
-  sub_5E89D8(0, 0, v7, &unk_B25838, v11);
+  v9 = sub_AB9930();
+  v10 = swift_allocObject();
+  v10[2] = v9;
+  v10[3] = &protocol witness table for MainActor;
+  v10[4] = connect;
+  v10[5] = selfCopy;
+  sub_5E89D8(0, 0, v6, &unk_B25838, v10);
 
   swift_unknownObjectRelease();
 }
 
 - (void)groupSession:(id)session didInvalidateWithError:(id)error
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_E0E340);
-  __chkstk_darwin(v6 - 8);
-  v8 = &v16 - v7;
-  v9 = sub_AB9990();
-  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_E0E340, &qword_B18550);
+  __chkstk_darwin();
+  v7 = &v15 - v6;
+  v8 = sub_AB9990();
+  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
   sub_AB9940();
   errorCopy = error;
   selfCopy = self;
-  v12 = errorCopy;
-  v13 = selfCopy;
-  v14 = sub_AB9930();
-  v15 = swift_allocObject();
-  v15[2] = v14;
-  v15[3] = &protocol witness table for MainActor;
-  v15[4] = v12;
-  v15[5] = v13;
-  sub_5E89D8(0, 0, v8, &unk_B25830, v15);
+  v11 = errorCopy;
+  v12 = selfCopy;
+  v13 = sub_AB9930();
+  v14 = swift_allocObject();
+  v14[2] = v13;
+  v14[3] = &protocol witness table for MainActor;
+  v14[4] = v11;
+  v14[5] = v12;
+  sub_5E89D8(0, 0, v7, &unk_B25830, v14);
 }
 
 @end

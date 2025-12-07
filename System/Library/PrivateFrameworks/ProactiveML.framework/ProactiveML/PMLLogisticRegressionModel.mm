@@ -1,4 +1,7 @@
 @interface PMLLogisticRegressionModel
++ (id)solverWithWeights:(id)weights andIntercept:(BOOL)intercept;
++ (id)solverWithWeights:(id)weights andIntercept:(BOOL)intercept learningRate:(float)rate minIterations:(unint64_t)iterations stoppingThreshold:(float)threshold regularizationStrategy:(unint64_t)strategy regularizationRate:(float)regularizationRate l1Ratio:(float)self0;
++ (id)withWeights:(id)weights andIntercept:(BOOL)intercept;
 - (PMLLogisticRegressionModel)initWithPlist:(id)plist chunks:(id)chunks context:(id)context;
 - (PMLLogisticRegressionModel)initWithSolver:(id)solver;
 - (id)predict:(id)predict;
@@ -37,36 +40,32 @@
 
 - (id)toPlistWithChunks:(id)chunks
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12[0] = @"WEIGHTS";
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11[0] = @"WEIGHTS";
   solver = self->_solver;
   chunksCopy = chunks;
   weights = [(PMLGradientSolver *)solver weights];
   v7 = [weights toPlistWithChunks:chunksCopy];
 
-  v12[1] = @"INTERCEPT";
-  v13[0] = v7;
+  v11[1] = @"INTERCEPT";
+  v12[0] = v7;
   v8 = [MEMORY[0x277CCABB0] numberWithBool:{-[PMLGradientSolver intercept](self->_solver, "intercept")}];
-  v13[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v9;
 }
 
 - (id)predict:(id)predict
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   [(PMLGradientSolver *)self->_solver predict:predict];
   v4 = v3;
   v5 = [MEMORY[0x277CCABB0] numberWithFloat:?];
-  v10[0] = v5;
+  v9[0] = v5;
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:1.0 - v4];
-  v10[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
 
   return v7;
 }
@@ -84,6 +83,37 @@
   }
 
   return v7;
+}
+
++ (id)withWeights:(id)weights andIntercept:(BOOL)intercept
+{
+  interceptCopy = intercept;
+  weightsCopy = weights;
+  v7 = [self alloc];
+  v8 = [self solverWithWeights:weightsCopy andIntercept:interceptCopy];
+
+  v9 = [v7 initWithSolver:v8];
+
+  return v9;
+}
+
++ (id)solverWithWeights:(id)weights andIntercept:(BOOL)intercept learningRate:(float)rate minIterations:(unint64_t)iterations stoppingThreshold:(float)threshold regularizationStrategy:(unint64_t)strategy regularizationRate:(float)regularizationRate l1Ratio:(float)self0
+{
+  interceptCopy = intercept;
+  v21 = MEMORY[0x277D85DD0];
+  v22 = 3221225472;
+  v23 = __156__PMLLogisticRegressionModel_solverWithWeights_andIntercept_learningRate_minIterations_stoppingThreshold_regularizationStrategy_regularizationRate_l1Ratio___block_invoke;
+  v24 = &__block_descriptor_48_e71_d40__0__PMLModelWeights_8__PMLSparseMatrix_16__PMLModelRegressor_24_f32l;
+  strategyCopy = strategy;
+  v26 = __PAIR64__(LODWORD(ratio), LODWORD(regularizationRate));
+  weightsCopy = weights;
+  v15 = MEMORY[0x2666EE8E0](&v21);
+  v16 = [PMLGradientSolver alloc];
+  *&v17 = rate;
+  *&v18 = threshold;
+  v19 = [(PMLGradientSolver *)v16 initWithLearningRate:iterations minIterations:weightsCopy stoppingThreshold:interceptCopy weights:v15 intercept:&__block_literal_global_3502 gradientCalculator:&__block_literal_global_4 predictionCalculator:v17 batchPredictionCalculator:v18, v21, v22, v23, v24, strategyCopy, v26];
+
+  return v19;
 }
 
 double __156__PMLLogisticRegressionModel_solverWithWeights_andIntercept_learningRate_minIterations_stoppingThreshold_regularizationStrategy_regularizationRate_l1Ratio___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -453,6 +483,13 @@ float __156__PMLLogisticRegressionModel_solverWithWeights_andIntercept_learningR
 
   v10 = sparse_inner_product_dense_float(v6, v8, v7, v9, 1);
   return 1.0 / (expf(-v10) + 1.0);
+}
+
++ (id)solverWithWeights:(id)weights andIntercept:(BOOL)intercept
+{
+  LODWORD(v4) = 1017370378;
+  LODWORD(v5) = 953267991;
+  return [self solverWithWeights:weights andIntercept:intercept learningRate:100 minIterations:v4 stoppingThreshold:v5];
 }
 
 @end

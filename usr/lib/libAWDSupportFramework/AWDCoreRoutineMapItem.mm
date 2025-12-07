@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)mapItemSourcesAsString:(int)string;
 - (int)StringAsMapItemSources:(id)sources;
 - (int)mapItemSourcesAtIndex:(unint64_t)index;
 - (unint64_t)hash;
@@ -32,6 +33,19 @@
   }
 
   return p_mapItemSources->list[index];
+}
+
+- (id)mapItemSourcesAsString:(int)string
+{
+  if (string >= 0x12)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32570[string];
+  }
 }
 
 - (int)StringAsMapItemSources:(id)sources
@@ -185,7 +199,6 @@
     v5 = 0;
     do
     {
-      v6 = p_mapItemSources->list[v5];
       PBDataWriterWriteInt32Field();
       ++v5;
     }
@@ -195,7 +208,6 @@
 
   if (*&self->_has)
   {
-    hasMuid = self->_hasMuid;
 
     PBDataWriterWriteBOOLField();
   }

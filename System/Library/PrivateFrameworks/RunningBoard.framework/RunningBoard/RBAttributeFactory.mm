@@ -274,9 +274,9 @@ LABEL_57:
     +[RBAttributeFactory _attributeClassesByName];
   }
 
-  v0 = _attributeClassesByName_availableClasses;
+  v1 = _attributeClassesByName_availableClasses;
 
-  return v0;
+  return v1;
 }
 
 + (id)_acquisitionCompletionAttributeWithProperties:(void *)properties errors:
@@ -366,37 +366,37 @@ LABEL_10:
 {
   propertiesCopy = properties;
   v5 = a2;
-  objc_opt_self();
-  v6 = +[RBAttributeFactory _legalPropertyNamesAndValuesByClassName];
-  v7 = objc_opt_class();
-  v8 = NSStringFromClass(v7);
-  v9 = [v6 objectForKeyedSubscript:v8];
+  v6 = objc_opt_self();
+  v7 = +[(RBAttributeFactory *)v6];
+  v8 = objc_opt_class();
+  v9 = NSStringFromClass(v8);
+  v10 = [v7 objectForKeyedSubscript:v9];
 
-  v10 = objc_opt_class();
-  v11 = safeGetProperty(v5, @"Role", v10, propertiesCopy);
+  v11 = objc_opt_class();
+  v12 = safeGetProperty(v5, @"Role", v11, propertiesCopy);
 
-  if (v11)
+  if (v12)
   {
-    v12 = [v9 objectForKeyedSubscript:v11];
-    v13 = v12;
-    if (v12)
+    v13 = [v10 objectForKeyedSubscript:v12];
+    v14 = v13;
+    if (v13)
     {
-      unsignedIntegerValue = [v12 unsignedIntegerValue];
-      v15 = [MEMORY[0x277D46FF0] grantWithRole:unsignedIntegerValue];
+      unsignedIntegerValue = [v13 unsignedIntegerValue];
+      v16 = [MEMORY[0x277D46FF0] grantWithRole:unsignedIntegerValue];
     }
 
     else
     {
-      v15 = 0;
+      v16 = 0;
     }
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  return v15;
+  return v16;
 }
 
 + (id)_cpuMaximumUsageLimitationWithProperties:(void *)properties errors:
@@ -679,7 +679,7 @@ LABEL_26:
 
 + (id)_durationAttributeWithProperties:(void *)properties errors:
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   v5 = a2;
   objc_opt_self();
@@ -751,21 +751,19 @@ LABEL_19:
   v18 = rbs_assertion_log();
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
-    v31 = 138544130;
-    v32 = v11;
-    v33 = 2114;
-    v34 = v13;
-    v35 = 2114;
-    v36 = v15;
-    v37 = 2114;
-    v38 = v17;
-    _os_log_error_impl(&dword_262485000, v18, OS_LOG_TYPE_ERROR, "Detected misconfigured duration attribute: invalidationDuration %{public}@; warningDuration %{public}@; startPolicy %{public}@; endPolicy %{public}@", &v31, 0x2Au);
+    v30 = 138544130;
+    v31 = v11;
+    v32 = 2114;
+    v33 = v13;
+    v34 = 2114;
+    v35 = v15;
+    v36 = 2114;
+    v37 = v17;
+    _os_log_error_impl(&dword_262485000, v18, OS_LOG_TYPE_ERROR, "Detected misconfigured duration attribute: invalidationDuration %{public}@; warningDuration %{public}@; startPolicy %{public}@; endPolicy %{public}@", &v30, 0x2Au);
   }
 
   v26 = 0;
 LABEL_21:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -1132,37 +1130,37 @@ LABEL_9:
   {
     v6 = objc_opt_class();
     v7 = safeGetProperty(v4, @"Condition", v6, propertiesCopy);
-    if (currentDeviceClass() != 2 && v7 && ([v7 isEqualToString:@"therm"] & 1) != 0)
+    if (currentDeviceClass(v7, v8) != 2 && v7 && ([v7 isEqualToString:@"therm"] & 1) != 0)
     {
-      v8 = 0;
+      v9 = 0;
     }
 
     else
     {
-      v9 = objc_opt_class();
-      v10 = safeGetProperty(v4, @"MinValue", v9, propertiesCopy);
-      v11 = v10;
-      if (!v7 || !v10 || ([MEMORY[0x277D46EA0] attributeWithCondition:v7 minValue:{objc_msgSend(v10, "integerValue")}], (v12 = objc_claimAutoreleasedReturnValue()) == 0))
+      v10 = objc_opt_class();
+      v11 = safeGetProperty(v4, @"MinValue", v10, propertiesCopy);
+      v12 = v11;
+      if (!v7 || !v11 || ([MEMORY[0x277D46EA0] attributeWithCondition:v7 minValue:{objc_msgSend(v11, "integerValue")}], (v13 = objc_claimAutoreleasedReturnValue()) == 0))
       {
-        v13 = rbs_assertion_log();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v14 = rbs_assertion_log();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           +[RBAttributeFactory _invalidateUnderConditionAttributeWithProperties:errors:];
         }
 
-        v12 = 0;
+        v13 = 0;
       }
 
-      v8 = v12;
+      v9 = v13;
     }
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 + (id)_legalPropertyNamesAndValuesByClassName
@@ -1173,49 +1171,47 @@ LABEL_9:
     +[RBAttributeFactory _legalPropertyNamesAndValuesByClassName];
   }
 
-  v0 = _legalPropertyNamesAndValuesByClassName_legalValues;
+  v1 = _legalPropertyNamesAndValuesByClassName_legalValues;
 
-  return v0;
+  return v1;
 }
 
 void __61__RBAttributeFactory__legalPropertyNamesAndValuesByClassName__block_invoke()
 {
-  v8[12] = *MEMORY[0x277D85DE8];
-  v7[0] = @"RBSAcquisitionCompletionAttribute";
-  v7[1] = @"RBSCPUAccessGrant";
-  v8[0] = &unk_28751B0E0;
-  v8[1] = &unk_28751B108;
-  v7[2] = @"RBSSuspendableCPUGrant";
-  v7[3] = @"RBSCoalitionLevelGrant";
-  v8[2] = &unk_28751B130;
-  v8[3] = &unk_28751B158;
-  v7[4] = @"RBSCPUMaximumUsageLimitation";
-  v7[5] = @"RBSBaseMemoryGrant";
-  v8[4] = &unk_28751B180;
-  v8[5] = &unk_28751B1A8;
-  v7[6] = @"RBSCPUMinimumUsageGrant";
-  v7[7] = @"RBSResistTerminationGrant";
-  v8[6] = &unk_28751B1D0;
-  v8[7] = &unk_28751B1F8;
-  v7[8] = @"RBSDurationAttribute";
-  v7[9] = @"RBSAppNapPreventTimerThrottleGrant";
-  v8[8] = &unk_28751B220;
-  v8[9] = &unk_28751B248;
-  v7[10] = @"RBSEndowmentGrant";
-  v5[0] = @"RBSVisibilityNamespace";
-  v5[1] = @"RBSUserfacingNamespace";
+  v7[12] = *MEMORY[0x277D85DE8];
+  v6[0] = @"RBSAcquisitionCompletionAttribute";
+  v6[1] = @"RBSCPUAccessGrant";
+  v7[0] = &unk_28751B0E0;
+  v7[1] = &unk_28751B108;
+  v6[2] = @"RBSSuspendableCPUGrant";
+  v6[3] = @"RBSCoalitionLevelGrant";
+  v7[2] = &unk_28751B130;
+  v7[3] = &unk_28751B158;
+  v6[4] = @"RBSCPUMaximumUsageLimitation";
+  v6[5] = @"RBSBaseMemoryGrant";
+  v7[4] = &unk_28751B180;
+  v7[5] = &unk_28751B1A8;
+  v6[6] = @"RBSCPUMinimumUsageGrant";
+  v6[7] = @"RBSResistTerminationGrant";
+  v7[6] = &unk_28751B1D0;
+  v7[7] = &unk_28751B1F8;
+  v6[8] = @"RBSDurationAttribute";
+  v6[9] = @"RBSAppNapPreventTimerThrottleGrant";
+  v7[8] = &unk_28751B220;
+  v7[9] = &unk_28751B248;
+  v6[10] = @"RBSEndowmentGrant";
+  v4[0] = @"RBSVisibilityNamespace";
+  v4[1] = @"RBSUserfacingNamespace";
   v0 = *MEMORY[0x277D470C8];
-  v6[0] = *MEMORY[0x277D470D0];
-  v6[1] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v7[11] = @"RBSGPUAccessGrant";
-  v8[10] = v1;
-  v8[11] = &unk_28751B270;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:12];
+  v5[0] = *MEMORY[0x277D470D0];
+  v5[1] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
+  v6[11] = @"RBSGPUAccessGrant";
+  v7[10] = v1;
+  v7[11] = &unk_28751B270;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:12];
   v3 = _legalPropertyNamesAndValuesByClassName_legalValues;
   _legalPropertyNamesAndValuesByClassName_legalValues = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __45__RBAttributeFactory__attributeClassesByName__block_invoke()
@@ -1437,20 +1433,16 @@ void __45__RBAttributeFactory__attributeClassesByName__block_invoke()
 
 + (void)attributeForClass:andProperties:errors:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_acquisitionCompletionAttributeWithProperties:errors:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_acquisitionCompletionAttributeWithProperties:errors:.cold.2()
@@ -1462,11 +1454,9 @@ void __45__RBAttributeFactory__attributeClassesByName__block_invoke()
 
 + (void)_cpuMaximumUsageLimitationWithProperties:errors:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_cpuMaximumUsageLimitationWithProperties:errors:.cold.2()
@@ -1492,11 +1482,9 @@ void __45__RBAttributeFactory__attributeClassesByName__block_invoke()
 
 + (void)_cpuMaximumUsageLimitationWithProperties:errors:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_cpuMaximumUsageLimitationWithProperties:errors:.cold.6()
@@ -1508,11 +1496,9 @@ void __45__RBAttributeFactory__attributeClassesByName__block_invoke()
 
 + (void)_cpuMaximumUsageLimitationWithProperties:errors:.cold.7()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_cpuMaximumUsageLimitationWithProperties:errors:.cold.8()
@@ -1524,11 +1510,9 @@ void __45__RBAttributeFactory__attributeClassesByName__block_invoke()
 
 + (void)_cpuMinimumUsageGrantWithProperties:errors:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_cpuMinimumUsageGrantWithProperties:errors:.cold.2()
@@ -1554,11 +1538,9 @@ void __45__RBAttributeFactory__attributeClassesByName__block_invoke()
 
 + (void)_cpuMinimumUsageGrantWithProperties:errors:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_cpuMinimumUsageGrantWithProperties:errors:.cold.6()
@@ -1568,39 +1550,25 @@ void __45__RBAttributeFactory__attributeClassesByName__block_invoke()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-+ (void)_domainAttributeWithProperties:errors:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_4(&dword_262485000, v0, v1, "Detected misconfigured domain attribute: domain %{public}@; name %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 + (void)_durationAttributeWithProperties:errors:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_durationAttributeWithProperties:errors:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_GPUAccessGrantWithProperties:errors:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_jetsamPriorityGrantWithProperties:errors:.cold.1()
@@ -1612,11 +1580,9 @@ void __45__RBAttributeFactory__attributeClassesByName__block_invoke()
 
 + (void)_RBSBaseMemoryGrant:errors:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_RBSBaseMemoryGrant:errors:.cold.2()
@@ -1666,30 +1632,6 @@ void __45__RBAttributeFactory__attributeClassesByName__block_invoke()
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-+ (void)_savedEndowmentGrantWithProperties:errors:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_4(&dword_262485000, v0, v1, "Detected misconfigured RBSSavedEndowmentGrant attribute with namespace %{public}@ and key %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_conditionAttributeWithProperties:errors:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_4(&dword_262485000, v0, v1, "Detected misconfigured RBSConditionAttribute attribute with condition %{public}@ and value %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_invalidateUnderConditionAttributeWithProperties:errors:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_4(&dword_262485000, v0, v1, "Detected misconfigured RBSConditionAttribute attribute with condition %{public}@ and minVal %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -78,10 +78,20 @@
 - (void)layoutSubviews
 {
   [(PKMultiSelectIndicatorView *)self bounds];
+  v4 = v3;
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
   [(PKMultiSelectIndicatorView *)self _shouldReverseLayoutDirection];
-  PKContentAlignmentMake();
+  v11 = PKContentAlignmentMake();
   imageView = self->_imageView;
-  PKSizeAlignedInRect();
+  v13.n128_u64[0] = 22.0;
+  v14.n128_u64[0] = 22.0;
+  v15.n128_u64[0] = v4;
+  v16.n128_u64[0] = v6;
+  v17.n128_u64[0] = v8;
+  v18.n128_u64[0] = v10;
+  PKSizeAlignedInRect(v11, v13, v14, v15, v16, v17, v18, v19);
 
   [(UIImageView *)imageView setFrame:?];
 }

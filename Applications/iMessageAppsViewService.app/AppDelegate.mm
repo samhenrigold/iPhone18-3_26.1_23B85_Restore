@@ -9,9 +9,9 @@
 
 - (AppDelegate)init
 {
-  v15.receiver = self;
-  v15.super_class = AppDelegate;
-  v2 = [(AppDelegate *)&v15 init];
+  v16.receiver = self;
+  v16.super_class = AppDelegate;
+  v2 = [(AppDelegate *)&v16 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INTERACTIVE, 0);
@@ -25,22 +25,22 @@
 
     [(NSXPCListener *)v2->_sourceListener _setQueue:v2->_xpcQueue];
     [(NSXPCListener *)v2->_sourceListener setDelegate:v2];
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_1000054AC;
-    v13[3] = &unk_100010750;
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_1000054AC;
+    v14[3] = &unk_100010750;
     v8 = v2;
-    v14 = v8;
-    v9 = objc_retainBlock(v13);
+    v15 = v8;
+    v9 = objc_retainBlock(v14);
     v8->_lockToken = -1;
     v8 = (v8 + 24);
     notify_register_dispatch(kSBSLockStateNotifyKey, v8, &_dispatch_main_q, v9);
-    (v9[2])(v9, LODWORD(v8->super.isa));
-    v10 = sub_100007044();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v10 = (v9[2])(v9, LODWORD(v8->super.isa));
+    v11 = sub_100007044(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v12 = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Running but not yet listening", &v12, 2u);
+      v13 = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Running but not yet listening", &v13, 2u);
     }
   }
 
@@ -49,7 +49,7 @@
 
 - (BOOL)application:(id)application didFinishLaunchingWithOptions:(id)options
 {
-  v5 = sub_100007044();
+  v5 = sub_100007044(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -69,7 +69,7 @@
 {
   listenerCopy = listener;
   connectionCopy = connection;
-  v8 = sub_100007044();
+  v8 = sub_100007044(connectionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf) = 67109120;
@@ -105,7 +105,7 @@
 
 - (void)warmUp
 {
-  v2 = sub_100007044();
+  v2 = sub_100007044(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = +[NSXPCConnection currentConnection];

@@ -1,6 +1,7 @@
 @interface MDMCloudConfiguration
 + (BOOL)isProvisionallyEnrolledWithCloudConfig:(id)config;
 + (id)_provisionalEnrollmentExpirationDateFromCloudConfig:(id)config;
++ (id)canonicalConfigurationWithSupervision:(BOOL)supervision;
 + (id)sharedConfiguration;
 - (BOOL)alreadySignedIntoFaceTime;
 - (BOOL)hasMAIDCredential;
@@ -537,6 +538,26 @@ void __40__MDMCloudConfiguration_setAsideDetails__block_invoke(uint64_t a1)
   bOOLValue = [v3 BOOLValue];
 
   return bOOLValue;
+}
+
++ (id)canonicalConfigurationWithSupervision:(BOOL)supervision
+{
+  v10[4] = *MEMORY[0x277D85DE8];
+  v9[0] = *MEMORY[0x277D03090];
+  v3 = [MEMORY[0x277CCABB0] numberWithBool:supervision];
+  v4 = *MEMORY[0x277D03008];
+  v10[0] = v3;
+  v10[1] = MEMORY[0x277CBEC38];
+  v5 = *MEMORY[0x277D03108];
+  v9[1] = v4;
+  v9[2] = v5;
+  v9[3] = *MEMORY[0x277D03038];
+  v10[2] = MEMORY[0x277CBEC28];
+  v10[3] = &unk_2843514B0;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
+  v7 = [v6 mutableCopy];
+
+  return v7;
 }
 
 @end

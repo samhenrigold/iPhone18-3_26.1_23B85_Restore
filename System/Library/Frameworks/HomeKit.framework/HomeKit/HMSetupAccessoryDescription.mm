@@ -377,214 +377,32 @@
     }
 
     v6 = v5;
-    if (!v6)
-    {
-      goto LABEL_32;
-    }
-
-    accessoryUUID = [(HMSetupAccessoryDescription *)self accessoryUUID];
-    accessoryUUID2 = [(HMSetupAccessoryDescription *)v6 accessoryUUID];
-    v9 = HMFEqualObjects();
-
-    if (!v9)
-    {
-      goto LABEL_32;
-    }
-
-    accessoryName = [(HMSetupAccessoryDescription *)self accessoryName];
-    accessoryName2 = [(HMSetupAccessoryDescription *)v6 accessoryName];
-    v12 = HMFEqualObjects();
-
-    if (!v12)
-    {
-      goto LABEL_32;
-    }
-
-    manufacturerName = [(HMSetupAccessoryDescription *)self manufacturerName];
-    manufacturerName2 = [(HMSetupAccessoryDescription *)v6 manufacturerName];
-    v15 = HMFEqualObjects();
-
-    if (!v15)
-    {
-      goto LABEL_32;
-    }
-
-    marketingName = [(HMSetupAccessoryDescription *)self marketingName];
-    marketingName2 = [(HMSetupAccessoryDescription *)v6 marketingName];
-    v18 = HMFEqualObjects();
-
-    if (!v18)
-    {
-      goto LABEL_32;
-    }
-
-    installationGuideURL = [(HMSetupAccessoryDescription *)self installationGuideURL];
-    installationGuideURL2 = [(HMSetupAccessoryDescription *)v6 installationGuideURL];
-    v21 = HMFEqualObjects();
-
-    if (!v21)
-    {
-      goto LABEL_32;
-    }
-
-    category = [(HMSetupAccessoryDescription *)self category];
-    category2 = [(HMSetupAccessoryDescription *)v6 category];
-    v24 = HMFEqualObjects();
-
-    if (!v24)
-    {
-      goto LABEL_32;
-    }
-
-    appIdentifier = [(HMSetupAccessoryDescription *)self appIdentifier];
-    appIdentifier2 = [(HMSetupAccessoryDescription *)v6 appIdentifier];
-    v27 = HMFEqualObjects();
-
-    if (!v27)
-    {
-      goto LABEL_32;
-    }
-
-    appBundleURL = [(HMSetupAccessoryDescription *)self appBundleURL];
-    appBundleURL2 = [(HMSetupAccessoryDescription *)v6 appBundleURL];
-    v30 = HMFEqualObjects();
-
-    if (!v30)
-    {
-      goto LABEL_32;
-    }
-
-    addAndSetupAccessories = [(HMSetupAccessoryDescription *)self addAndSetupAccessories];
-    if (addAndSetupAccessories != [(HMSetupAccessoryDescription *)v6 addAndSetupAccessories])
-    {
-      goto LABEL_32;
-    }
-
-    homeUUID = [(HMSetupAccessoryDescription *)self homeUUID];
-    homeUUID2 = [(HMSetupAccessoryDescription *)v6 homeUUID];
-    v34 = HMFEqualObjects();
-
-    if (!v34)
-    {
-      goto LABEL_32;
-    }
-
-    storeID = [(HMSetupAccessoryDescription *)self storeID];
-    storeID2 = [(HMSetupAccessoryDescription *)v6 storeID];
-    v37 = HMFEqualObjects();
-
-    if (!v37)
-    {
-      goto LABEL_32;
-    }
-
-    bundleID = [(HMSetupAccessoryDescription *)self bundleID];
-    bundleID2 = [(HMSetupAccessoryDescription *)v6 bundleID];
-    v40 = HMFEqualObjects();
-
-    if (!v40)
-    {
-      goto LABEL_32;
-    }
-
-    suggestedRoomUUID = [(HMSetupAccessoryDescription *)self suggestedRoomUUID];
-    suggestedRoomUUID2 = [(HMSetupAccessoryDescription *)v6 suggestedRoomUUID];
-    v43 = HMFEqualObjects();
-
-    if (!v43)
-    {
-      goto LABEL_32;
-    }
-
-    suggestedAccessoryName = [(HMSetupAccessoryDescription *)self suggestedAccessoryName];
-    suggestedAccessoryName2 = [(HMSetupAccessoryDescription *)v6 suggestedAccessoryName];
-    v46 = HMFEqualObjects();
-
-    if (!v46)
-    {
-      goto LABEL_32;
-    }
-
-    isEntitledForHomeKitSPI = [(HMSetupAccessoryDescription *)self isEntitledForHomeKitSPI];
-    if (isEntitledForHomeKitSPI != [(HMSetupAccessoryDescription *)v6 isEntitledForHomeKitSPI])
-    {
-      goto LABEL_32;
-    }
-
-    isEntitledForThirdPartySetupAccessoryPayload = [(HMSetupAccessoryDescription *)self isEntitledForThirdPartySetupAccessoryPayload];
-    if (isEntitledForThirdPartySetupAccessoryPayload != [(HMSetupAccessoryDescription *)v6 isEntitledForThirdPartySetupAccessoryPayload])
-    {
-      goto LABEL_32;
-    }
-
-    setupAccessoryPayload = [(HMSetupAccessoryDescription *)self setupAccessoryPayload];
-    setupAccessoryPayload2 = [(HMSetupAccessoryDescription *)v6 setupAccessoryPayload];
-    v51 = HMFEqualObjects();
-
-    if (!v51)
-    {
-      goto LABEL_32;
-    }
-
-    isEntitledForThirdPartyMatterSetupPayload = [(HMSetupAccessoryDescription *)self isEntitledForThirdPartyMatterSetupPayload];
-    if (isEntitledForThirdPartyMatterSetupPayload != [(HMSetupAccessoryDescription *)v6 isEntitledForThirdPartyMatterSetupPayload])
-    {
-      goto LABEL_32;
-    }
-
-    isSetupInitiatedByOtherMatterEcosystem = [(HMSetupAccessoryDescription *)self isSetupInitiatedByOtherMatterEcosystem];
-    if (isSetupInitiatedByOtherMatterEcosystem != [(HMSetupAccessoryDescription *)v6 isSetupInitiatedByOtherMatterEcosystem])
-    {
-      goto LABEL_32;
-    }
-
-    certificationStatus = [(HMSetupAccessoryDescription *)self certificationStatus];
-    if (certificationStatus != [(HMSetupAccessoryDescription *)v6 certificationStatus])
-    {
-      goto LABEL_32;
-    }
-
-    accessoryBeingReplaced = [(HMSetupAccessoryDescription *)self accessoryBeingReplaced];
-    accessoryBeingReplaced2 = [(HMSetupAccessoryDescription *)v6 accessoryBeingReplaced];
-    v57 = HMFEqualObjects();
-
-    if (!v57)
-    {
-      goto LABEL_32;
-    }
-
-    cancellationReason = [(HMSetupAccessoryDescription *)self cancellationReason];
-    cancellationReason2 = [(HMSetupAccessoryDescription *)v6 cancellationReason];
-    v60 = HMFEqualObjects();
-
-    if (!v60)
-    {
-      goto LABEL_32;
-    }
-
-    addRequestIdentifier = [(HMSetupAccessoryDescription *)self addRequestIdentifier];
-    addRequestIdentifier2 = [(HMSetupAccessoryDescription *)v6 addRequestIdentifier];
-    v63 = HMFEqualObjects();
-
-    if (!v63)
-    {
-      goto LABEL_32;
-    }
-
-    setupCode = [(HMSetupAccessoryDescription *)self setupCode];
-    setupCode2 = [(HMSetupAccessoryDescription *)v6 setupCode];
-    v66 = HMFEqualObjects();
-
-    if (!v66)
-    {
-      goto LABEL_32;
-    }
-
-    accessoryServerIdentifier = [(HMSetupAccessoryDescription *)self accessoryServerIdentifier];
-    accessoryServerIdentifier2 = [(HMSetupAccessoryDescription *)v6 accessoryServerIdentifier];
-    v69 = HMFEqualObjects();
-
-    if (v69)
+    if (v6
+      && ([(HMSetupAccessoryDescription *)self accessoryUUID], v7 = objc_claimAutoreleasedReturnValue(), [(HMSetupAccessoryDescription *)v6 accessoryUUID], v8 = objc_claimAutoreleasedReturnValue(), v9 = HMFEqualObjects(), v8, v7, v9)
+      && ([(HMSetupAccessoryDescription *)self accessoryName], v10 = objc_claimAutoreleasedReturnValue(), [(HMSetupAccessoryDescription *)v6 accessoryName], v11 = objc_claimAutoreleasedReturnValue(), v12 = HMFEqualObjects(), v11, v10, v12)
+      && ([(HMSetupAccessoryDescription *)self manufacturerName], v13 = objc_claimAutoreleasedReturnValue(), [(HMSetupAccessoryDescription *)v6 manufacturerName], v14 = objc_claimAutoreleasedReturnValue(), v15 = HMFEqualObjects(), v14, v13, v15)
+      && ([(HMSetupAccessoryDescription *)self marketingName], v16 = objc_claimAutoreleasedReturnValue(), [(HMSetupAccessoryDescription *)v6 marketingName], v17 = objc_claimAutoreleasedReturnValue(), v18 = HMFEqualObjects(), v17, v16, v18)
+      && ([(HMSetupAccessoryDescription *)self installationGuideURL], v19 = objc_claimAutoreleasedReturnValue(), [(HMSetupAccessoryDescription *)v6 installationGuideURL], v20 = objc_claimAutoreleasedReturnValue(), v21 = HMFEqualObjects(), v20, v19, v21)
+      && ([(HMSetupAccessoryDescription *)self category], v22 = objc_claimAutoreleasedReturnValue(), [(HMSetupAccessoryDescription *)v6 category], v23 = objc_claimAutoreleasedReturnValue(), v24 = HMFEqualObjects(), v23, v22, v24)
+      && ([(HMSetupAccessoryDescription *)self appIdentifier], v25 = objc_claimAutoreleasedReturnValue(), [(HMSetupAccessoryDescription *)v6 appIdentifier], v26 = objc_claimAutoreleasedReturnValue(), v27 = HMFEqualObjects(), v26, v25, v27)
+      && ([(HMSetupAccessoryDescription *)self appBundleURL], v28 = objc_claimAutoreleasedReturnValue(), [(HMSetupAccessoryDescription *)v6 appBundleURL], v29 = objc_claimAutoreleasedReturnValue(), v30 = HMFEqualObjects(), v29, v28, v30)
+      && (v31 = [(HMSetupAccessoryDescription *)self addAndSetupAccessories], v31 == [(HMSetupAccessoryDescription *)v6 addAndSetupAccessories])
+      && ([(HMSetupAccessoryDescription *)self homeUUID], v32 = objc_claimAutoreleasedReturnValue(), [(HMSetupAccessoryDescription *)v6 homeUUID], v33 = objc_claimAutoreleasedReturnValue(), v34 = HMFEqualObjects(), v33, v32, v34)
+      && ([(HMSetupAccessoryDescription *)self storeID], v35 = objc_claimAutoreleasedReturnValue(), [(HMSetupAccessoryDescription *)v6 storeID], v36 = objc_claimAutoreleasedReturnValue(), v37 = HMFEqualObjects(), v36, v35, v37)
+      && ([(HMSetupAccessoryDescription *)self bundleID], v38 = objc_claimAutoreleasedReturnValue(), [(HMSetupAccessoryDescription *)v6 bundleID], v39 = objc_claimAutoreleasedReturnValue(), v40 = HMFEqualObjects(), v39, v38, v40)
+      && ([(HMSetupAccessoryDescription *)self suggestedRoomUUID], v41 = objc_claimAutoreleasedReturnValue(), [(HMSetupAccessoryDescription *)v6 suggestedRoomUUID], v42 = objc_claimAutoreleasedReturnValue(), v43 = HMFEqualObjects(), v42, v41, v43)
+      && ([(HMSetupAccessoryDescription *)self suggestedAccessoryName], v44 = objc_claimAutoreleasedReturnValue(), [(HMSetupAccessoryDescription *)v6 suggestedAccessoryName], v45 = objc_claimAutoreleasedReturnValue(), v46 = HMFEqualObjects(), v45, v44, v46)
+      && (v47 = [(HMSetupAccessoryDescription *)self isEntitledForHomeKitSPI], v47 == [(HMSetupAccessoryDescription *)v6 isEntitledForHomeKitSPI])
+      && (v48 = [(HMSetupAccessoryDescription *)self isEntitledForThirdPartySetupAccessoryPayload], v48 == [(HMSetupAccessoryDescription *)v6 isEntitledForThirdPartySetupAccessoryPayload])
+      && ([(HMSetupAccessoryDescription *)self setupAccessoryPayload], v49 = objc_claimAutoreleasedReturnValue(), [(HMSetupAccessoryDescription *)v6 setupAccessoryPayload], v50 = objc_claimAutoreleasedReturnValue(), v51 = HMFEqualObjects(), v50, v49, v51)
+      && (v52 = [(HMSetupAccessoryDescription *)self isEntitledForThirdPartyMatterSetupPayload], v52 == [(HMSetupAccessoryDescription *)v6 isEntitledForThirdPartyMatterSetupPayload])
+      && (v53 = [(HMSetupAccessoryDescription *)self isSetupInitiatedByOtherMatterEcosystem], v53 == [(HMSetupAccessoryDescription *)v6 isSetupInitiatedByOtherMatterEcosystem])
+      && (v54 = [(HMSetupAccessoryDescription *)self certificationStatus], v54 == [(HMSetupAccessoryDescription *)v6 certificationStatus])
+      && ([(HMSetupAccessoryDescription *)self accessoryBeingReplaced], v55 = objc_claimAutoreleasedReturnValue(), [(HMSetupAccessoryDescription *)v6 accessoryBeingReplaced], v56 = objc_claimAutoreleasedReturnValue(), v57 = HMFEqualObjects(), v56, v55, v57)
+      && ([(HMSetupAccessoryDescription *)self cancellationReason], v58 = objc_claimAutoreleasedReturnValue(), [(HMSetupAccessoryDescription *)v6 cancellationReason], v59 = objc_claimAutoreleasedReturnValue(), v60 = HMFEqualObjects(), v59, v58, v60)
+      && ([(HMSetupAccessoryDescription *)self addRequestIdentifier], v61 = objc_claimAutoreleasedReturnValue(), [(HMSetupAccessoryDescription *)v6 addRequestIdentifier], v62 = objc_claimAutoreleasedReturnValue(), v63 = HMFEqualObjects(), v62, v61, v63)
+      && ([(HMSetupAccessoryDescription *)self setupCode], v64 = objc_claimAutoreleasedReturnValue(), [(HMSetupAccessoryDescription *)v6 setupCode], v65 = objc_claimAutoreleasedReturnValue(), v66 = HMFEqualObjects(), v65, v64, v66)
+      && ([(HMSetupAccessoryDescription *)self accessoryServerIdentifier], v67 = objc_claimAutoreleasedReturnValue(), [(HMSetupAccessoryDescription *)v6 accessoryServerIdentifier], v68 = objc_claimAutoreleasedReturnValue(), v69 = HMFEqualObjects(), v68, v67, v69))
     {
       doNetworkScan = [(HMSetupAccessoryDescription *)self doNetworkScan];
       v71 = doNetworkScan ^ [(HMSetupAccessoryDescription *)v6 doNetworkScan]^ 1;
@@ -592,7 +410,6 @@
 
     else
     {
-LABEL_32:
       LOBYTE(v71) = 0;
     }
   }
@@ -968,15 +785,15 @@ LABEL_6:
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v12 = 0;
-  v3 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v12];
-  v4 = v12;
+  v20 = *MEMORY[0x1E69E9840];
+  v11 = 0;
+  v3 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:&v11];
+  v4 = v11;
   if (v3)
   {
-    v13 = @"HMSADDRK.data";
-    v14 = v3;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+    v12 = @"HMSADDRK.data";
+    v13 = v3;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
   }
 
   else
@@ -988,19 +805,17 @@ LABEL_6:
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v16 = v9;
-      v17 = 2112;
-      v18 = selfCopy;
-      v19 = 2112;
-      v20 = v4;
+      v15 = v9;
+      v16 = 2112;
+      v17 = selfCopy;
+      v18 = 2112;
+      v19 = v4;
       _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to serialize device setup request %@: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v6);
     v5 = MEMORY[0x1E695E0F8];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -1118,15 +933,15 @@ LABEL_6:
 
 - (HMSetupAccessoryDescription)initWithDictionaryRepresentation:(id)representation
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = [(HMSetupAccessoryDescription *)self init];
   v6 = [representationCopy hmf_dataForKey:@"HMSADDRK.data"];
   if (v6)
   {
-    v19 = 0;
-    v7 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v6 error:&v19];
-    v8 = v19;
+    v18 = 0;
+    v7 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v6 error:&v18];
+    v8 = v18;
 
     if (v7)
     {
@@ -1141,11 +956,11 @@ LABEL_6:
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v21 = v16;
-        v22 = 2112;
-        v23 = v6;
-        v24 = 2112;
-        v25 = representationCopy;
+        v20 = v16;
+        v21 = 2112;
+        v22 = v6;
+        v23 = 2112;
+        v24 = representationCopy;
         _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to create setup accessory description from dictionary representation; failed to deserialize data %@: %@", buf, 0x20u);
       }
 
@@ -1164,11 +979,11 @@ LABEL_6:
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v21 = v12;
-      v22 = 2112;
-      v23 = @"HMSADDRK.data";
-      v24 = 2112;
-      v25 = representationCopy;
+      v20 = v12;
+      v21 = 2112;
+      v22 = @"HMSADDRK.data";
+      v23 = 2112;
+      v24 = representationCopy;
       _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to create setup accessory description from dictionary representation: missing %@ key in dictionary: %@", buf, 0x20u);
     }
 
@@ -1176,7 +991,6 @@ LABEL_6:
     v13 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

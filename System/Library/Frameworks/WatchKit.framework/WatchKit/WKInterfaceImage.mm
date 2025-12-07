@@ -28,19 +28,17 @@
 - (void)startAnimatingWithImagesInRange:(_NSRange)range duration:(double)duration repeatCount:(int64_t)count
 {
   length = range.length;
-  v15[4] = *MEMORY[0x277D85DE8];
+  v14[4] = *MEMORY[0x277D85DE8];
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:range.location];
-  v15[0] = v9;
+  v14[0] = v9;
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:length];
-  v15[1] = v10;
+  v14[1] = v10;
   v11 = [MEMORY[0x277CCABB0] numberWithDouble:duration];
-  v15[2] = v11;
+  v14[2] = v11;
   v12 = [MEMORY[0x277CCABB0] numberWithInteger:count];
-  v15[3] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:4];
+  v14[3] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:4];
   [(WKInterfaceObject *)self _sendValueChanged:v13 forProperty:@".start"];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

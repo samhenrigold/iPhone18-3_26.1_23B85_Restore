@@ -36,23 +36,21 @@
 
 void __105__HDDatabaseValidationTaskServer_remote_validateDatabase_clientCompletionHandler_errorHandlerIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = v4;
-    v8 = HKSensitiveLogItem();
-    v9 = 138543618;
-    v10 = v6;
-    v11 = 2114;
-    v12 = v8;
-    _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "%{public}@: Failed to call HKDatabaseValidationClient clientRemote_processIntegrityErrorString, with error: %{public}@", &v9, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = v4;
+    v7 = HKSensitiveLogItem();
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v7;
+    _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Failed to call HKDatabaseValidationClient clientRemote_processIntegrityErrorString, with error: %{public}@", &v8, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __105__HDDatabaseValidationTaskServer_remote_validateDatabase_clientCompletionHandler_errorHandlerIdentifier___block_invoke_293(uint64_t a1, void *a2, uint64_t a3)
@@ -86,38 +84,34 @@ uint64_t __105__HDDatabaseValidationTaskServer_remote_validateDatabase_clientCom
 
 void __105__HDDatabaseValidationTaskServer_remote_validateDatabase_clientCompletionHandler_errorHandlerIdentifier___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "Integrity issues in unprotected database: %{public}@.", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "Integrity issues in unprotected database: %{public}@.", &v5, 0xCu);
   }
 
   [*(a1 + 32) clientRemote_processIntegrityErrorString:v3 errorHandlerIdentifier:*(a1 + 40)];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __105__HDDatabaseValidationTaskServer_remote_validateDatabase_clientCompletionHandler_errorHandlerIdentifier___block_invoke_295(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "Integrity issues in protected database: %{public}@.", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "Integrity issues in protected database: %{public}@.", &v5, 0xCu);
   }
 
   [*(a1 + 32) clientRemote_processIntegrityErrorString:v3 errorHandlerIdentifier:*(a1 + 40)];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_validateEntitiesWithClientCompletionHandler:(id)handler errorHandlerIdentifier:(id)identifier
@@ -151,66 +145,63 @@ void __105__HDDatabaseValidationTaskServer_remote_validateDatabase_clientComplet
 
 void __108__HDDatabaseValidationTaskServer_remote_validateEntitiesWithClientCompletionHandler_errorHandlerIdentifier___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = v4;
-    v8 = HKSensitiveLogItem();
-    v9 = 138543618;
-    v10 = v6;
-    v11 = 2114;
-    v12 = v8;
-    _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "%{public}@: Failed to call HKDatabaseValidationClient clientRemote_processValidationError, with error: %{public}@", &v9, 0x16u);
+    v5 = *(a1 + 32);
+    v6 = v4;
+    v7 = HKSensitiveLogItem();
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v7;
+    _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Failed to call HKDatabaseValidationClient clientRemote_processValidationError, with error: %{public}@", &v8, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __108__HDDatabaseValidationTaskServer_remote_validateEntitiesWithClientCompletionHandler_errorHandlerIdentifier___block_invoke_297(id *a1, uint64_t a2, uint64_t *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   +[HDDatabase allCurrentAndFutureEntityClasses];
+  v19 = 0u;
+  v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v5 = v24 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v5 = v22 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v20;
     while (2)
     {
       v9 = 0;
       do
       {
-        if (*v22 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * v9);
-        v11 = objc_opt_class();
-        if ([v11 isSubclassOfClass:objc_opt_class()])
+        v10 = objc_opt_class();
+        if ([v10 isSubclassOfClass:objc_opt_class()])
         {
-          v12 = objc_opt_class();
-          v13 = [a1[4] profile];
-          v18[0] = MEMORY[0x277D85DD0];
-          v18[1] = 3221225472;
-          v18[2] = __108__HDDatabaseValidationTaskServer_remote_validateEntitiesWithClientCompletionHandler_errorHandlerIdentifier___block_invoke_2;
-          v18[3] = &unk_278619460;
-          v19 = a1[5];
-          v20 = a1[6];
-          [v12 validateEntityWithProfile:v13 error:a3 validationErrorHandler:v18];
+          v11 = objc_opt_class();
+          v12 = [a1[4] profile];
+          v16[0] = MEMORY[0x277D85DD0];
+          v16[1] = 3221225472;
+          v16[2] = __108__HDDatabaseValidationTaskServer_remote_validateEntitiesWithClientCompletionHandler_errorHandlerIdentifier___block_invoke_2;
+          v16[3] = &unk_278619460;
+          v17 = a1[5];
+          v18 = a1[6];
+          [v11 validateEntityWithProfile:v12 error:a3 validationErrorHandler:v16];
 
-          v14 = *a3;
-          if (v14)
+          v13 = *a3;
+          if (v13)
           {
-            v15 = 0;
+            v14 = 0;
             goto LABEL_12;
           }
         }
@@ -219,7 +210,7 @@ uint64_t __108__HDDatabaseValidationTaskServer_remote_validateEntitiesWithClient
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v7)
       {
         continue;
@@ -229,16 +220,15 @@ uint64_t __108__HDDatabaseValidationTaskServer_remote_validateEntitiesWithClient
     }
   }
 
-  v15 = 1;
+  v14 = 1;
 LABEL_12:
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v14;
 }
 
 void __108__HDDatabaseValidationTaskServer_remote_validateEntitiesWithClientCompletionHandler_errorHandlerIdentifier___block_invoke_2(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 userInfo];
   v5 = [v4 objectForKey:*MEMORY[0x277CCA7E8]];
@@ -255,13 +245,11 @@ void __108__HDDatabaseValidationTaskServer_remote_validateEntitiesWithClientComp
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v16 = v12;
+    v15 = v12;
     _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "%{public}@.", buf, 0xCu);
   }
 
   [*(a1 + 32) clientRemote_processValidationError:v3 errorHandlerIdentifier:*(a1 + 40)];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -13,12 +13,12 @@
 {
   if (objc_opt_class() == self && HFPreferencesInternalDebuggingEnabled())
   {
-    v1 = objc_opt_class();
+    v2 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __44__HMSymptomsHandler_HFAdditions__initialize__block_invoke;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v1;
+    block[4] = v2;
     if (initialize_onceToken != -1)
     {
       dispatch_once(&initialize_onceToken, block);
@@ -45,11 +45,11 @@
   aBlock[1] = 3221225472;
   aBlock[2] = __63__HMSymptomsHandler_HFAdditions__hf_symptomArraySortComparator__block_invoke;
   aBlock[3] = &unk_277DF7538;
-  v5 = hf_symptomTypesSortedByPriority;
-  v1 = hf_symptomTypesSortedByPriority;
-  v2 = _Block_copy(aBlock);
+  v7 = hf_symptomTypesSortedByPriority;
+  v3 = hf_symptomTypesSortedByPriority;
+  v4 = _Block_copy(aBlock);
 
-  return v2;
+  return v4;
 }
 
 + (id)hf_nextSymptomAfterInternetOutageInSortedList:()HFAdditions
@@ -90,8 +90,8 @@
   v3 = [hf_fakeSymptomsImplementationUsedForDebuggingPleaseDontTouchThisItIsFragileSwizzlingIsBadMKay mutableCopy];
 
   v4 = +[HFHomeKitDispatcher sharedDispatcher];
-  home = [v4 home];
-  v6 = [home hf_mediaProfileContainerForSymptomsHandler:self];
+  v5 = objc_msgSend_home(v4);
+  v6 = [v5 hf_mediaProfileContainerForSymptomsHandler:self];
 
   hf_fakeDebugSymptoms = [v6 hf_fakeDebugSymptoms];
   [v3 unionSet:hf_fakeDebugSymptoms];

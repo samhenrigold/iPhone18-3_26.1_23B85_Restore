@@ -270,7 +270,7 @@ uint64_t __76__PKInAppPaymentService_presentInAppPaymentInterfaceWithContext_com
     v22 = 1;
   }
 
-  if ([lowercaseString isEqualToString:@"null"] & 1) != 0 || (objc_msgSend(lowercaseString, "isEqualToString:", @"undefined") & 1) != 0 || (objc_msgSend(lowercaseString, "isEqualToString:", @"example.com.store"))
+  if (objc_msgSend_isEqualToString_(lowercaseString) & 1) != 0 || (objc_msgSend_isEqualToString_(lowercaseString) & 1) != 0 || (objc_msgSend_isEqualToString_(lowercaseString))
   {
     v23 = 1;
   }

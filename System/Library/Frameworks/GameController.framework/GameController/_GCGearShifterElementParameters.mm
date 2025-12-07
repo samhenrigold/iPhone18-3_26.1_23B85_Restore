@@ -2,7 +2,6 @@
 - (BOOL)isEqual:(id)equal;
 - (_GCGearShifterElementParameters)init;
 - (id)copyWithZone:(_NSZone *)zone;
-- (id)sources;
 - (uint64_t)eventShifterValueField;
 - (uint64_t)isPatternShifter;
 - (uint64_t)positionRange;
@@ -10,6 +9,7 @@
 - (uint64_t)setPatternShifter:(uint64_t)result;
 - (uint64_t)setPositionRange:(uint64_t)range;
 - (void)setSources:(void *)sources;
+- (void)sources;
 @end
 
 @implementation _GCGearShifterElementParameters
@@ -63,7 +63,7 @@
   return v1 & 1;
 }
 
-- (id)sources
+- (void)sources
 {
   selfCopy = self;
   if (self)
@@ -93,9 +93,7 @@
 {
   if (result)
   {
-    v1 = result + 64;
-    result = *(result + 64);
-    v2 = *(v1 + 8);
+    return *(result + 64);
   }
 
   return result;

@@ -234,7 +234,7 @@ LABEL_38:
   }
 }
 
-uint64_t __56__SBAppSwitcherReusableSnapshotView__updateTranslucency__block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__56__SBAppSwitcherReusableSnapshotView__updateTranslucency__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 contentMode];
   *(*(*(a1 + 32) + 8) + 24) |= result == 1;
@@ -701,7 +701,7 @@ void __51__SBAppSwitcherReusableSnapshotView_layoutSubviews__block_invoke(uint64
   [MEMORY[0x277D75D18] performWithoutAnimation:v6];
 }
 
-uint64_t __52__SBAppSwitcherReusableSnapshotView_setOrientation___block_invoke(uint64_t a1)
+void *__52__SBAppSwitcherReusableSnapshotView_setOrientation___block_invoke(uint64_t a1)
 {
   v2 = *(*(a1 + 32) + 472);
   v7[0] = MEMORY[0x277D85DD0];
@@ -1504,70 +1504,75 @@ LABEL_26:
   [mainScreen _referenceBounds];
   v8 = v7;
   v10 = v9;
-  v70 = v12;
-  v71 = v11;
+  v75 = v12;
+  v76 = v11;
 
   snapshot = [entryCopy snapshot];
   [snapshot contentFrame];
-  v15 = v14;
+  v73 = v15;
+  v74 = v14;
   v17 = v16;
+  v19 = v18;
   orientation = [(SBSwitcherWallpaperPageContentView *)self orientation];
   interfaceOrientation = [snapshot interfaceOrientation];
-  v20 = -[SBAppSwitcherReusableSnapshotView _applicationForRole:](self, "_applicationForRole:", [entryCopy role]);
-  v21 = [(SBAppSwitcherReusableSnapshotView *)self _isSnapshotSuspendSnapshot:snapshot];
-  classicAppPhoneAppRunningOnPad = [v20 classicAppPhoneAppRunningOnPad];
+  v22 = -[SBAppSwitcherReusableSnapshotView _applicationForRole:](self, "_applicationForRole:", [entryCopy role]);
+  v23 = [(SBAppSwitcherReusableSnapshotView *)self _isSnapshotSuspendSnapshot:snapshot];
+  classicAppPhoneAppRunningOnPad = [v22 classicAppPhoneAppRunningOnPad];
   appLayout = [entryCopy appLayout];
   displayItem = [entryCopy displayItem];
 
   -[SBAppSwitcherReusableSnapshotView _frameInLayoutSpaceForRole:inAppLayout:inOrientation:](self, "_frameInLayoutSpaceForRole:inAppLayout:inOrientation:", [appLayout layoutRoleForItem:displayItem], appLayout, -[SBSwitcherWallpaperPageContentView orientation](self, "orientation"));
-  v26 = v25;
   v28 = v27;
   v30 = v29;
   v32 = v31;
+  v34 = v33;
   isChamoisOrFlexibleWindowing = [(SBSwitcherWindowManagementContext *)self->_windowManagementContext isChamoisOrFlexibleWindowing];
-  v34 = [(SBAppSwitcherReusableSnapshotView *)self _doNonUniformScalingForApplication:v20];
-  if (v21 || isChamoisOrFlexibleWindowing || v34 || ![v20 isClassic])
+  v36 = [(SBAppSwitcherReusableSnapshotView *)self _doNonUniformScalingForApplication:v22];
+  if (v23 || isChamoisOrFlexibleWindowing || v36 || ![v22 isClassic])
   {
     goto LABEL_23;
   }
 
-  v66 = v26;
-  v67 = v28;
-  v68 = v30;
-  v69 = v32;
-  v72 = SBUICUnitScaleFactor;
-  [v20 snapshotFrameForClassicInsideBounds:orientation forOrientation:&v72 scaleFactor:1 inReferenceSpace:{v8, v10, v71, v70}];
-  v36 = v35;
-  v38 = v37;
-  v40 = v39;
-  v42 = v41;
-  if (classicAppPhoneAppRunningOnPad && [v20 classicAppZoomedInOrRequiresHiDPI])
+  v69 = v28;
+  v70 = v30;
+  v71 = v32;
+  v72 = v34;
+  v77 = SBUICUnitScaleFactor;
+  classicAppZoomedInOrRequiresHiDPI = [v22 snapshotFrameForClassicInsideBounds:orientation forOrientation:&v77 scaleFactor:1 inReferenceSpace:{v8, v10, v76, v75}];
+  v39 = v38;
+  v41 = v40;
+  v43 = v42;
+  v45 = v44;
+  if (classicAppPhoneAppRunningOnPad)
   {
-    *&v72 = SBClassicUtilitiesScaleFactorForPhoneAppZoomedIn(interfaceOrientation, v15, v17);
-    *(&v72 + 1) = v72;
+    classicAppZoomedInOrRequiresHiDPI = [v22 classicAppZoomedInOrRequiresHiDPI];
+    if (classicAppZoomedInOrRequiresHiDPI)
+    {
+      *&v77 = SBClassicUtilitiesScaleFactorForPhoneAppZoomedIn(interfaceOrientation, v46, v17, v19);
+      *(&v77 + 1) = v77;
+    }
   }
 
-  SBUICScaledRectWithOffset();
-  v44 = v43;
-  v46 = v45;
-  v48 = v47;
-  v50 = v49;
-  v73.origin.x = v36;
-  v73.origin.y = v38;
-  v73.size.width = v40;
-  v73.size.height = v42;
-  v51 = CGRectGetMinX(v73) + v44;
-  v74.origin.x = v36;
-  v74.origin.y = v38;
-  v74.size.width = v40;
-  v74.size.height = v42;
-  v52 = v46 + CGRectGetMinY(v74);
+  v47 = SBUICScaledRectWithOffset(classicAppZoomedInOrRequiresHiDPI, v74, v73, v17, v19, *&v77, *(&v77 + 1), *MEMORY[0x277D76DA8], *(MEMORY[0x277D76DA8] + 8));
+  v49 = v48;
+  v51 = v50;
+  v53 = v52;
+  v78.origin.x = v39;
+  v78.origin.y = v41;
+  v78.size.width = v43;
+  v78.size.height = v45;
+  v54 = CGRectGetMinX(v78) + v47;
+  v79.origin.x = v39;
+  v79.origin.y = v41;
+  v79.size.width = v43;
+  v79.size.height = v45;
+  v55 = v49 + CGRectGetMinY(v79);
   if (orientation != 1)
   {
-    v55 = v68;
-    v54 = v69;
-    v57 = v66;
-    v56 = v67;
+    v58 = v71;
+    v57 = v72;
+    v60 = v69;
+    v59 = v70;
     if (classicAppPhoneAppRunningOnPad && (interfaceOrientation - 3) > 1)
     {
       goto LABEL_17;
@@ -1578,51 +1583,51 @@ LABEL_26:
 
   if ((interfaceOrientation - 3) < 2)
   {
-    v53 = classicAppPhoneAppRunningOnPad;
+    v56 = classicAppPhoneAppRunningOnPad;
   }
 
   else
   {
-    v53 = 0;
+    v56 = 0;
   }
 
-  v55 = v68;
-  v54 = v69;
-  v57 = v66;
-  v56 = v67;
-  if (v53)
+  v58 = v71;
+  v57 = v72;
+  v60 = v69;
+  v59 = v70;
+  if (v56)
   {
 LABEL_16:
     _UIWindowConvertRectFromOrientationToOrientation();
-    v51 = v58;
-    v52 = v59;
-    v48 = v60;
-    v50 = v61;
+    v54 = v61;
+    v55 = v62;
+    v51 = v63;
+    v53 = v64;
   }
 
 LABEL_17:
   if (!CGFloatIsValid() || !CGFloatIsValid() || !CGFloatIsValid() || (CGFloatIsValid() & 1) == 0)
   {
-    v50 = v54;
-    v48 = v55;
-    v52 = v56;
-    v51 = v57;
+    v53 = v57;
+    v51 = v58;
+    v55 = v59;
+    v54 = v60;
   }
 
-  v32 = v50;
-  v30 = v48;
-  v28 = v52;
-  v26 = v51;
+  v34 = v53;
+  v32 = v51;
+  v30 = v55;
+  v28 = v54;
 LABEL_23:
 
-  v62 = v26;
-  v63 = v28;
-  v64 = v30;
-  v65 = v32;
-  result.size.height = v65;
-  result.size.width = v64;
-  result.origin.y = v63;
-  result.origin.x = v62;
+  v65 = v28;
+  v66 = v30;
+  v67 = v32;
+  v68 = v34;
+  result.size.height = v68;
+  result.size.width = v67;
+  result.origin.y = v66;
+  result.origin.x = v65;
   return result;
 }
 
@@ -1923,10 +1928,10 @@ void __78__SBAppSwitcherReusableSnapshotView__updateToNewSnapshotImageUsingCache
   [*(*(*(a1 + 88) + 8) + 40) setUsesNonuniformScaling:{objc_msgSend(*(a1 + 72), "usesNonuniformScaling")}];
   [*(*(*(a1 + 88) + 8) + 40) setStretchToFillBounds:{objc_msgSend(*(a1 + 72), "stretchToFillBounds")}];
   v8 = *(*(*(a1 + 80) + 8) + 40);
-  [*(a1 + 72) frame];
+  objc_msgSend_frame(*(a1 + 72));
   [v8 setFrame:?];
   v9 = *(*(*(a1 + 88) + 8) + 40);
-  [*(a1 + 72) frame];
+  objc_msgSend_frame(*(a1 + 72));
   [v9 setFrame:?];
   v10 = [*(a1 + 32) _sceneHandleForRole:*(a1 + 104)];
   v11 = [v10 isTranslucent];
@@ -2574,7 +2579,7 @@ void __65__SBAppSwitcherReusableSnapshotView__handleInstalledAppsChanged___block
 
   v12 = [*(*(a1 + 32) + 512) objectForKeyedSubscript:v5];
 
-  if ([*(a1 + 40) containsObject:v9])
+  if (objc_msgSend_containsObject_(*(a1 + 40)))
   {
     if (((v12 == 0) & v11) == 1)
     {

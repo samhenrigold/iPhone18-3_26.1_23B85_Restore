@@ -19,7 +19,7 @@ uint64_t __94___UIHomeAffordanceSceneNotifier__viewServiceWindow_didAssociateWit
     if (WeakRetained != *(a1 + 32))
     {
 LABEL_3:
-      v5 = 0;
+      isEqual = 0;
       goto LABEL_11;
     }
 
@@ -44,20 +44,20 @@ LABEL_3:
   v11 = v10;
   if (v9 == v10)
   {
-    v5 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v5 = 0;
+    isEqual = 0;
     if (v9 && v10)
     {
-      v5 = [v9 isEqual:v10];
+      isEqual = objc_msgSend_isEqual_(v9);
     }
   }
 
 LABEL_11:
-  return v5;
+  return isEqual;
 }
 
 uint64_t __97___UIHomeAffordanceSceneNotifier__viewServiceWindow_didDisassociateFromLegacyViewServiceSession___block_invoke(uint64_t a1, uint64_t a2)
@@ -68,7 +68,7 @@ uint64_t __97___UIHomeAffordanceSceneNotifier__viewServiceWindow_didDisassociate
     if (WeakRetained != *(a1 + 32))
     {
 LABEL_3:
-      v5 = 0;
+      isEqual = 0;
       goto LABEL_11;
     }
 
@@ -93,20 +93,20 @@ LABEL_3:
   v11 = v10;
   if (v9 == v10)
   {
-    v5 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v5 = 0;
+    isEqual = 0;
     if (v9 && v10)
     {
-      v5 = [v9 isEqual:v10];
+      isEqual = objc_msgSend_isEqual_(v9);
     }
   }
 
 LABEL_11:
-  return v5;
+  return isEqual;
 }
 
 uint64_t __94___UIHomeAffordanceSceneNotifier__homeAffordanceLegacyViewServiceUpdateSource_frameDidChange___block_invoke(uint64_t a1, uint64_t a2)
@@ -128,19 +128,19 @@ uint64_t __94___UIHomeAffordanceSceneNotifier__homeAffordanceLegacyViewServiceUp
   v8 = v7;
   if (v6 == v7)
   {
-    v9 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v9 = 0;
+    isEqual = 0;
     if (v6 && v7)
     {
-      v9 = [v6 isEqual:v7];
+      isEqual = objc_msgSend_isEqual_(v6);
     }
   }
 
-  return v9;
+  return isEqual;
 }
 
 uint64_t __106___UIHomeAffordanceSceneNotifier__homeAffordanceLegacyViewServiceUpdateSource_doubleTapGestureDidSucceed___block_invoke(uint64_t a1, uint64_t a2)
@@ -162,22 +162,22 @@ uint64_t __106___UIHomeAffordanceSceneNotifier__homeAffordanceLegacyViewServiceU
   v8 = v7;
   if (v6 == v7)
   {
-    v9 = 1;
+    isEqual = 1;
   }
 
   else
   {
-    v9 = 0;
+    isEqual = 0;
     if (v6 && v7)
     {
-      v9 = [v6 isEqual:v7];
+      isEqual = objc_msgSend_isEqual_(v6);
     }
   }
 
-  return v9;
+  return isEqual;
 }
 
-uint64_t __60___UIHomeAffordanceSceneNotifier_appendDescriptionToStream___block_invoke(uint64_t a1)
+id __60___UIHomeAffordanceSceneNotifier_appendDescriptionToStream___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) hasSuccinctStyle];
   v3 = *(a1 + 32);

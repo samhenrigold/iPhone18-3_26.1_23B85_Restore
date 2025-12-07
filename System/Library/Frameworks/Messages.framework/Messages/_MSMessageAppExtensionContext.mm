@@ -88,87 +88,81 @@
 - (_MSMessageAppExtensionContext)initWithInputItems:(id)items listenerEndpoint:(id)endpoint contextUUID:(id)d
 {
   itemsCopy = items;
-  v45.receiver = self;
-  v45.super_class = _MSMessageAppExtensionContext;
-  v9 = [(_MSMessageAppExtensionContext *)&v45 initWithInputItems:itemsCopy listenerEndpoint:endpoint contextUUID:d];
+  v46.receiver = self;
+  v46.super_class = _MSMessageAppExtensionContext;
+  v9 = [(_MSMessageAppExtensionContext *)&v46 initWithInputItems:itemsCopy listenerEndpoint:endpoint contextUUID:d];
+  v10 = v9;
   if (v9)
   {
-    v10 = ms_traceLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = ms_traceLog(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      [(_MSMessageAppExtensionContext *)v10 initWithInputItems:v11 listenerEndpoint:v12 contextUUID:v13, v14, v15, v16, v17];
+      [(_MSMessageAppExtensionContext *)v11 initWithInputItems:v12 listenerEndpoint:v13 contextUUID:v14, v15, v16, v17, v18];
     }
 
     firstObject = [itemsCopy firstObject];
     userInfo = [firstObject userInfo];
 
-    v20 = [userInfo objectForKeyedSubscript:@"wants-live-view"];
-    bOOLValue = [v20 BOOLValue];
+    v21 = [userInfo objectForKeyedSubscript:@"wants-live-view"];
+    bOOLValue = [v21 BOOLValue];
 
     if (bOOLValue)
     {
-      [(_MSMessageAppExtensionContext *)v9 setPresentationStyle:2];
-      [(_MSMessageAppExtensionContext *)v9 _installPrincipalObjectObserver];
+      [(_MSMessageAppExtensionContext *)v10 setPresentationStyle:2];
+      [(_MSMessageAppExtensionContext *)v10 _installPrincipalObjectObserver];
     }
 
     else
     {
-      v22 = [userInfo objectForKeyedSubscript:@"context-is-primary"];
-      bOOLValue2 = [v22 BOOLValue];
+      v23 = [userInfo objectForKeyedSubscript:@"context-is-primary"];
+      bOOLValue2 = [v23 BOOLValue];
 
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __81___MSMessageAppExtensionContext_initWithInputItems_listenerEndpoint_contextUUID___block_invoke;
       block[3] = &unk_1E83A2E00;
-      v44 = bOOLValue2;
-      v24 = v9;
-      v43 = v24;
+      v45 = bOOLValue2;
+      v25 = v10;
+      v44 = v25;
       dispatch_async(MEMORY[0x1E69E96A0], block);
-      v36 = MEMORY[0x1E69E9820];
-      v37 = 3221225472;
-      v38 = __81___MSMessageAppExtensionContext_initWithInputItems_listenerEndpoint_contextUUID___block_invoke_2;
-      v39 = &unk_1E83A2E00;
-      v41 = bOOLValue2;
-      v25 = v24;
-      v40 = v25;
-      [(_MSMessageAppExtensionContext *)v25 _setRequestCleanUpBlock:&v36];
-      v26 = *(MEMORY[0x1E695F058] + 16);
-      v25->_initialFrameOfHostView.origin = *MEMORY[0x1E695F058];
-      v25->_initialFrameOfHostView.size = v26;
-      v27 = [userInfo objectForKeyedSubscript:{@"host-view-bounds", v36, v37, v38, v39}];
-      v28 = v27;
-      if (v27)
+      v37 = MEMORY[0x1E69E9820];
+      v38 = 3221225472;
+      v39 = __81___MSMessageAppExtensionContext_initWithInputItems_listenerEndpoint_contextUUID___block_invoke_2;
+      v40 = &unk_1E83A2E00;
+      v42 = bOOLValue2;
+      v26 = v25;
+      v41 = v26;
+      [(_MSMessageAppExtensionContext *)v26 _setRequestCleanUpBlock:&v37];
+      v27 = *(MEMORY[0x1E695F058] + 16);
+      v26->_initialFrameOfHostView.origin = *MEMORY[0x1E695F058];
+      v26->_initialFrameOfHostView.size = v27;
+      v28 = [userInfo objectForKeyedSubscript:{@"host-view-bounds", v37, v38, v39, v40}];
+      v29 = v28;
+      if (v28)
       {
-        [v27 CGRectValue];
-        v25->_initialFrameOfHostView.origin.x = v29;
-        v25->_initialFrameOfHostView.origin.y = v30;
-        v25->_initialFrameOfHostView.size.width = v31;
-        v25->_initialFrameOfHostView.size.height = v32;
+        [v28 CGRectValue];
+        v26->_initialFrameOfHostView.origin.x = v30;
+        v26->_initialFrameOfHostView.origin.y = v31;
+        v26->_initialFrameOfHostView.size.width = v32;
+        v26->_initialFrameOfHostView.size.height = v33;
       }
 
-      [(_MSMessageAppExtensionContext *)v25 _installPrincipalObjectObserver];
+      [(_MSMessageAppExtensionContext *)v26 _installPrincipalObjectObserver];
     }
 
-    v33 = [[_MSMessageAppContext alloc] initWithAppContext:v9];
-    containingContext = v9->_containingContext;
-    v9->_containingContext = v33;
+    v34 = [[_MSMessageAppContext alloc] initWithAppContext:v10];
+    containingContext = v10->_containingContext;
+    v10->_containingContext = v34;
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)dealloc
 {
-  [(_MSMessageAppExtensionContext *)self _uninstallPrincipalObjectObserverIfNeeded];
-  v3 = ms_traceLog();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
-  {
-    [(_MSMessageAppExtensionContext *)v3 dealloc:v4];
-  }
-
-  v11.receiver = self;
-  v11.super_class = _MSMessageAppExtensionContext;
-  [(_MSMessageAppExtensionContext *)&v11 dealloc];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_MSMessageAppExtensionContext dealloc]";
+  OUTLINED_FUNCTION_0_1(&dword_1CADE6000, self, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_installPrincipalObjectObserver
@@ -648,6 +642,13 @@ LABEL_6:
   result.origin.y = y;
   result.origin.x = x;
   return result;
+}
+
+- (void)initWithInputItems:(uint64_t)a3 listenerEndpoint:(uint64_t)a4 contextUUID:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[_MSMessageAppExtensionContext initWithInputItems:listenerEndpoint:contextUUID:]";
+  OUTLINED_FUNCTION_0_1(&dword_1CADE6000, a1, a3, "%s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

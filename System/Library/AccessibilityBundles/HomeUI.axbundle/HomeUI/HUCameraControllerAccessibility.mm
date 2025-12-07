@@ -30,29 +30,29 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v31 = *MEMORY[0x29EDCA608];
-  v29.receiver = self;
-  v29.super_class = HUCameraControllerAccessibility;
-  [(HUCameraControllerAccessibility *)&v29 _accessibilityLoadAccessibilityInformation];
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
+  v30 = *MEMORY[0x29EDCA608];
+  v28.receiver = self;
+  v28.super_class = HUCameraControllerAccessibility;
+  [(HUCameraControllerAccessibility *)&v28 _accessibilityLoadAccessibilityInformation];
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v2 = [(HUCameraControllerAccessibility *)self safeArrayForKey:@"customControlItems"];
-  v3 = [v2 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v3)
   {
-    v4 = *v26;
+    v4 = *v25;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v26 != v4)
+        if (*v25 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v25 + 1) + 8 * i);
+        v6 = *(*(&v24 + 1) + 8 * i);
         v7 = [v6 safeStringForKey:@"title"];
         v8 = [v7 isEqualToString:@"Settings"];
 
@@ -63,7 +63,7 @@
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v3);
@@ -75,38 +75,37 @@
   v11 = objc_loadWeakRetained(&location);
   v12 = [v11 _accessibilityFindSubviewDescendant:&__block_literal_global_2];
 
-  v22[0] = MEMORY[0x29EDCA5F8];
-  v22[1] = 3221225472;
-  v22[2] = __77__HUCameraControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_2;
-  v22[3] = &unk_29F2C6B48;
-  objc_copyWeak(&v23, &location);
-  [v12 _setAccessibilityLabelBlock:v22];
+  v21[0] = MEMORY[0x29EDCA5F8];
+  v21[1] = 3221225472;
+  v21[2] = __77__HUCameraControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_2;
+  v21[3] = &unk_29F2C6B48;
+  objc_copyWeak(&v22, &location);
+  [v12 _setAccessibilityLabelBlock:v21];
   objc_initWeak(&from, self);
-  v19[0] = MEMORY[0x29EDCA5F8];
-  v19[1] = 3221225472;
-  v19[2] = __77__HUCameraControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_3;
-  v19[3] = &unk_29F2C6BB8;
-  objc_copyWeak(&v20, &from);
-  [v12 _setAccessibilityTraitsBlock:v19];
-  v17[0] = MEMORY[0x29EDCA5F8];
-  v17[1] = 3221225472;
-  v17[2] = __77__HUCameraControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_4;
-  v17[3] = &unk_29F2C6B48;
-  objc_copyWeak(&v18, &from);
-  [v12 _setAccessibilityHintBlock:v17];
+  v18[0] = MEMORY[0x29EDCA5F8];
+  v18[1] = 3221225472;
+  v18[2] = __77__HUCameraControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_3;
+  v18[3] = &unk_29F2C6BB8;
+  objc_copyWeak(&v19, &from);
+  [v12 _setAccessibilityTraitsBlock:v18];
+  v16[0] = MEMORY[0x29EDCA5F8];
+  v16[1] = 3221225472;
+  v16[2] = __77__HUCameraControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_4;
+  v16[3] = &unk_29F2C6B48;
+  objc_copyWeak(&v17, &from);
+  [v12 _setAccessibilityHintBlock:v16];
   v13 = [(HUCameraControllerAccessibility *)self safeValueForKey:@"_dayLabel"];
   [(HUCameraControllerAccessibility *)self _axLoadAccessibilityInformationForDayOrTimeLabel:v13];
 
   v14 = [(HUCameraControllerAccessibility *)self safeValueForKey:@"_timeLabel"];
   [(HUCameraControllerAccessibility *)self _axLoadAccessibilityInformationForDayOrTimeLabel:v14];
 
-  objc_destroyWeak(&v18);
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(&from);
-  objc_destroyWeak(&v23);
+  objc_destroyWeak(&v22);
 
   objc_destroyWeak(&location);
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t __77__HUCameraControllerAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1, void *a2)
@@ -185,12 +184,11 @@ id __77__HUCameraControllerAccessibility__accessibilityLoadAccessibilityInformat
 
 id __84__HUCameraControllerAccessibility__axLoadAccessibilityInformationForDayOrTimeLabel___block_invoke(uint64_t a1)
 {
-  v1 = *MEMORY[0x29EDC7378];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = [WeakRetained accessibilityLabel];
-  v4 = AXAttributedStringForBetterPronuciation();
+  v2 = [WeakRetained accessibilityLabel];
+  v3 = AXAttributedStringForBetterPronuciation();
 
-  return v4;
+  return v3;
 }
 
 double __84__HUCameraControllerAccessibility__axLoadAccessibilityInformationForDayOrTimeLabel___block_invoke_2(uint64_t a1)

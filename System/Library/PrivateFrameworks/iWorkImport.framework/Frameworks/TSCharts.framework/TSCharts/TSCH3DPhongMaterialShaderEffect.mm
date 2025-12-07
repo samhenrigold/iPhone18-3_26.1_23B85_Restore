@@ -22,17 +22,17 @@
     v42 = objc_msgSend_texcoords(self->super._variables, v38, v39, v40, v41);
     objc_msgSend_addDeclaration_statement_(intoCopy, v43, v44, v45, v46, v27, v32, v37, v42);
 
-    v51 = objc_msgSend_color(self->super._variables, v47, v48, v49, v50);
-    v56 = objc_msgSend_textureColor(self->super._variables, v52, v53, v54, v55);
-    v61 = objc_msgSend_factor(self->super._variables, v57, v58, v59, v60);
-    objc_msgSend_addStatement_statement_(intoCopy, v62, v63, v64, v65, v51, @"@@ * @@", v56, v61);
+    v50 = objc_msgSend_color(self->super._variables, v47, v48, v49);
+    v55 = objc_msgSend_textureColor(self->super._variables, v51, v52, v53, v54);
+    v60 = objc_msgSend_factor(self->super._variables, v56, v57, v58, v59);
+    objc_msgSend_addStatement_statement_(intoCopy, v61, v62, v63, v64, v50, @"@@ * @@", v55, v60);
   }
 
   else
   {
-    v22 = objc_msgSend_color(variables, v12, v13, v14, v15);
-    v51 = objc_msgSend_factor(self->super._variables, v66, v67, v68, v69);
-    objc_msgSend_addVertexStatement_statement_(intoCopy, v70, v71, v72, v73, v22, @"@@", v51);
+    v22 = objc_msgSend_color(variables, v13, v14, v15);
+    v50 = objc_msgSend_factor(self->super._variables, v65, v66, v67, v68);
+    objc_msgSend_addVertexStatement_statement_(intoCopy, v69, v70, v71, v72, v22, @"@@", v50);
   }
 }
 

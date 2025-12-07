@@ -19,7 +19,7 @@
 - (void)viewDidLoad
 {
   ObjectType = swift_getObjectType();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809B9490);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_2809B9490, &qword_27526E730);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v13 - v5;
   v13.receiver = self;

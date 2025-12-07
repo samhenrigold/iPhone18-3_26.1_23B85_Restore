@@ -312,7 +312,7 @@ void __65__MLITDBGeniusDatabase__getInt64ValueInTable_column_where_limit___block
   [v3 enumerateRowsWithBlock:v4];
 }
 
-uint64_t __65__MLITDBGeniusDatabase__getInt64ValueInTable_column_where_limit___block_invoke_2(uint64_t a1, void *a2)
+void *__65__MLITDBGeniusDatabase__getInt64ValueInTable_column_where_limit___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 int64ForColumnIndex:0];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -353,7 +353,7 @@ void __53__MLITDBGeniusDatabase__getInt32ValueInTable_column___block_invoke(uint
   [v3 enumerateRowsWithBlock:v4];
 }
 
-uint64_t __53__MLITDBGeniusDatabase__getInt32ValueInTable_column___block_invoke_2(uint64_t a1, void *a2)
+void *__53__MLITDBGeniusDatabase__getInt32ValueInTable_column___block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 intForColumnIndex:0];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -393,13 +393,13 @@ void __40__MLITDBGeniusDatabase__hasRowsInTable___block_invoke(uint64_t a1, void
   [v3 enumerateRowsWithBlock:v4];
 }
 
-uint64_t __40__MLITDBGeniusDatabase__hasRowsInTable___block_invoke_2(uint64_t result, void *a2, uint64_t a3)
+void *__40__MLITDBGeniusDatabase__hasRowsInTable___block_invoke_2(void *result, void *a2, uint64_t a3)
 {
   if (!a3)
   {
     v3 = result;
     result = [a2 intForColumnIndex:?];
-    *(*(*(v3 + 32) + 8) + 24) = result > 0;
+    *(*(v3[4] + 8) + 24) = result > 0;
   }
 
   return result;

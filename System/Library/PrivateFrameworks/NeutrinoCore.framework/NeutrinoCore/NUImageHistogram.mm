@@ -22,9 +22,9 @@
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   binCount = [(NUImageHistogram *)self binCount];
-  [(NUImageHistogram *)self range];
+  objc_msgSend_range(self);
   v7 = v6;
-  [(NUImageHistogram *)self range];
+  objc_msgSend_range(self);
   v9 = v8;
   v10 = [(NUImageHistogram *)self red];
   green = [(NUImageHistogram *)self green];

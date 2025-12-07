@@ -20,53 +20,46 @@
 
 - (void)dealloc
 {
-  blockSerializationLock = self->_blockSerializationLock;
   FigSimpleMutexDestroy();
-  ivarAccessLock = self->_ivarAccessLock;
   FigSimpleMutexDestroy();
-  v5.receiver = self;
-  v5.super_class = AVRoutingSerializedMostlySynchronousReentrantBlockScheduler;
-  [(AVRoutingSerializedMostlySynchronousReentrantBlockScheduler *)&v5 dealloc];
+  v3.receiver = self;
+  v3.super_class = AVRoutingSerializedMostlySynchronousReentrantBlockScheduler;
+  [(AVRoutingSerializedMostlySynchronousReentrantBlockScheduler *)&v3 dealloc];
 }
 
 - (void)scheduleBlock:(id)block
 {
-  v22 = *MEMORY[0x1E69E9840];
-  ivarAccessLock = self->_ivarAccessLock;
+  v13 = *MEMORY[0x1E69E9840];
   FigSimpleMutexLock();
-  v6 = [block copy];
-  v7 = [(NSArray *)self->_blocks arrayByAddingObject:v6];
+  v5 = [block copy];
+  v6 = [(NSArray *)self->_blocks arrayByAddingObject:v5];
 
-  self->_blocks = [(NSArray *)v7 copy];
-  LODWORD(v7) = MEMORY[0x1AC59F790](self->_blockSerializationLock);
+  self->_blocks = [(NSArray *)v6 copy];
+  LODWORD(v6) = MEMORY[0x1AC59F790](self->_blockSerializationLock);
 
-  v8 = self->_ivarAccessLock;
   FigSimpleMutexUnlock();
-  if (v7)
+  if (v6)
   {
-    v9 = self->_ivarAccessLock;
     FigSimpleMutexLock();
     if ([(NSArray *)self->_blocks count])
     {
       while (1)
       {
-        v10 = objc_alloc(MEMORY[0x1E696ADD8]);
+        v7 = objc_alloc(MEMORY[0x1E696ADD8]);
         indexSet = [MEMORY[0x1E696AC90] indexSet];
-        v12 = [v10 initWithInsertIndexes:indexSet insertedObjects:0 removeIndexes:objc_msgSend(MEMORY[0x1E696AC90] removedObjects:{"indexSetWithIndex:", 0), 0}];
-        v13 = [-[NSArray firstObject](self->_blocks "firstObject")];
-        v14 = [(NSArray *)self->_blocks arrayByApplyingDifference:v12];
+        v9 = [v7 initWithInsertIndexes:indexSet insertedObjects:0 removeIndexes:objc_msgSend(MEMORY[0x1E696AC90] removedObjects:{"indexSetWithIndex:", 0), 0}];
+        v10 = [-[NSArray firstObject](self->_blocks "firstObject")];
+        v11 = [(NSArray *)self->_blocks arrayByApplyingDifference:v9];
 
-        self->_blocks = [(NSArray *)v14 copy];
-        v15 = self->_ivarAccessLock;
+        self->_blocks = [(NSArray *)v11 copy];
         FigSimpleMutexUnlock();
-        if (!v13)
+        if (!v10)
         {
           break;
         }
 
-        v13[2](v13);
+        v10[2](v10);
 
-        v16 = self->_ivarAccessLock;
         FigSimpleMutexLock();
         if (![(NSArray *)self->_blocks count])
         {
@@ -78,25 +71,16 @@
     else
     {
 LABEL_5:
-      blockSerializationLock = self->_blockSerializationLock;
       FigSimpleMutexUnlock();
-      v18 = self->_ivarAccessLock;
       FigSimpleMutexUnlock();
     }
-
-    v19 = *MEMORY[0x1E69E9840];
   }
 
-  else
+  else if (dword_1EB46D5E8)
   {
-    if (dword_1EB46D5E8)
-    {
-      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-      fig_log_call_emit_and_clean_up_after_send_and_compose();
-    }
-
-    v21 = *MEMORY[0x1E69E9840];
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 }
 

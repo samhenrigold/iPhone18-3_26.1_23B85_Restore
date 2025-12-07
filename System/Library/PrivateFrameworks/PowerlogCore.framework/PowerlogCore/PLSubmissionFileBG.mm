@@ -28,7 +28,7 @@
 
 - (BOOL)copyAndPrepareLog
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   filePath = [(PLSubmissionFile *)self filePath];
   v4 = [filePath stringByReplacingOccurrencesOfString:@".bg.anon" withString:&stru_1F539D228];
 
@@ -37,80 +37,81 @@
 
   if (v6)
   {
-    v7 = PLLogSubmission();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = PLLogSubmission(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [PLSubmissionFileBG copyAndPrepareLog];
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
     defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-    v61 = 0;
-    v10 = [defaultManager2 createDirectoryAtPath:v4 withIntermediateDirectories:1 attributes:0 error:&v61];
-    v7 = v61;
+    v71 = 0;
+    v11 = [defaultManager2 createDirectoryAtPath:v4 withIntermediateDirectories:1 attributes:0 error:&v71];
+    v8 = v71;
 
-    if (v10)
+    if (v11)
     {
-      v11 = +[PowerlogCore sharedCore];
-      storage = [v11 storage];
+      v13 = +[PowerlogCore sharedCore];
+      storage = [v13 storage];
       [storage blockingFlushCachesWithReason:@"BackgroundProcessing"];
 
       getBGSQLFile = [(PLSubmissionFileBG *)self getBGSQLFile];
-      v14 = [v4 stringByAppendingPathComponent:getBGSQLFile];
+      v16 = [v4 stringByAppendingPathComponent:getBGSQLFile];
 
-      v15 = [v14 stringByAppendingFormat:@".gz"];
-      v16 = +[PPSCoreStorage sharedSQLStorage];
-      bGSQLConnection = [v16 BGSQLConnection];
-      v18 = [bGSQLConnection copyDatabaseToPath:v14 fromDate:0 toDate:0 withTableFilters:0 vacuumDB:0];
+      v17 = [v16 stringByAppendingFormat:@".gz"];
+      v18 = +[PPSCoreStorage sharedSQLStorage];
+      bGSQLConnection = [v18 BGSQLConnection];
+      v20 = [bGSQLConnection copyDatabaseToPath:v16 fromDate:0 toDate:0 withTableFilters:0 vacuumDB:0];
 
-      if (v18)
+      if (v20)
       {
         date = [MEMORY[0x1E695DF00] date];
         [date timeIntervalSince1970];
-        v21 = v20;
+        v24 = v23;
 
-        v22 = PLLogSubmission();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+        v26 = PLLogSubmission(v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
           *buf = 134217984;
-          *&buf[4] = v21;
-          _os_log_impl(&dword_1D8611000, v22, OS_LOG_TYPE_INFO, "The epoch time for BGSQL copy log is %f", buf, 0xCu);
+          *&buf[4] = v24;
+          _os_log_impl(&dword_1D8611000, v26, OS_LOG_TYPE_INFO, "The epoch time for BGSQL copy log is %f", buf, 0xCu);
         }
 
-        v58 = v15;
+        v68 = v17;
 
-        v64[0] = @"TaskEndTime";
-        v23 = [MEMORY[0x1E696AD98] numberWithDouble:v21];
-        v64[1] = @"Reason";
-        v65[0] = v23;
-        v65[1] = &unk_1F5405B80;
-        v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v65 forKeys:v64 count:2];
+        v74[0] = @"TaskEndTime";
+        v27 = [MEMORY[0x1E696AD98] numberWithDouble:v24];
+        v74[1] = @"Reason";
+        v75[0] = v27;
+        v75[1] = &unk_1F5405B80;
+        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v75 forKeys:v74 count:2];
 
-        v25 = PLLogSubmission();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+        v30 = PLLogSubmission(v29);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          *&buf[4] = v24;
-          _os_log_impl(&dword_1D8611000, v25, OS_LOG_TYPE_INFO, "The payload for BGSQL Tasking log is %@", buf, 0xCu);
+          *&buf[4] = v28;
+          _os_log_impl(&dword_1D8611000, v30, OS_LOG_TYPE_INFO, "The payload for BGSQL Tasking log is %@", buf, 0xCu);
         }
 
         *buf = 0;
         errmsg = 0;
-        v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_%@_%@_%@", @"BackgroundProcessing", @"TimeOfCaptureEvent", @"1", @"5"];
-        v27 = PLLogSubmission();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+        v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_%@_%@_%@", @"BackgroundProcessing", @"TimeOfCaptureEvent", @"1", @"5"];
+        v32 = PLLogSubmission(v31);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
         {
           [PLSubmissionFileBG copyAndPrepareLog];
         }
 
-        if (sqlite3_open_v2([v14 UTF8String], buf, 2, 0))
+        v33 = sqlite3_open_v2([v16 UTF8String], buf, 2, 0);
+        if (v33)
         {
-          v28 = PLLogSubmission();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          v34 = PLLogSubmission(v33);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
             [PLSubmissionFileBG copyAndPrepareLog];
           }
@@ -118,14 +119,15 @@
 
         else
         {
-          v29 = MEMORY[0x1E696AEC0];
-          v30 = [MEMORY[0x1E696AD98] numberWithDouble:v21];
-          v28 = [v29 stringWithFormat:@"INSERT INTO %@ (TaskEndTime, Reason) VALUES ('%@', '%@')", v26, v30, &unk_1F5405B80];
+          v35 = MEMORY[0x1E696AEC0];
+          v36 = [MEMORY[0x1E696AD98] numberWithDouble:v24];
+          v34 = [v35 stringWithFormat:@"INSERT INTO %@ (TaskEndTime, Reason) VALUES ('%@', '%@')", v31, v36, &unk_1F5405B80];
 
-          if (sqlite3_exec(*buf, [v28 UTF8String], 0, 0, &errmsg))
+          v37 = sqlite3_exec(*buf, [v34 UTF8String], 0, 0, &errmsg);
+          if (v37)
           {
-            v31 = PLLogSubmission();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+            v38 = PLLogSubmission(v37);
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
             {
               [PLSubmissionFileBG copyAndPrepareLog];
             }
@@ -142,140 +144,140 @@
           sqlite3_close(*buf);
         }
 
-        if ([PLUtilities compressWithSource:v14 withDestination:v58 withLevel:4])
+        v39 = [PLUtilities compressWithSource:v16 withDestination:v68 withLevel:4];
+        if (v39)
         {
           defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
-          [defaultManager3 removeItemAtPath:v14 error:0];
+          [defaultManager3 removeItemAtPath:v16 error:0];
 
           defaultManager4 = [MEMORY[0x1E696AC08] defaultManager];
-          v34 = [v14 stringByAppendingString:@"-wal"];
-          [defaultManager4 removeItemAtPath:v34 error:0];
+          v42 = [v16 stringByAppendingString:@"-wal"];
+          [defaultManager4 removeItemAtPath:v42 error:0];
 
           defaultManager5 = [MEMORY[0x1E696AC08] defaultManager];
-          v36 = [v14 stringByAppendingString:@"-shm"];
-          [defaultManager5 removeItemAtPath:v36 error:0];
+          v44 = [v16 stringByAppendingString:@"-shm"];
+          [defaultManager5 removeItemAtPath:v44 error:0];
 
-          v24 = [v4 stringByAppendingPathComponent:@"tag.json"];
+          v28 = [v4 stringByAppendingPathComponent:@"tag.json"];
           array = [MEMORY[0x1E695DF70] array];
-          lastPathComponent = [v58 lastPathComponent];
+          lastPathComponent = [v68 lastPathComponent];
           [array addObject:lastPathComponent];
 
-          v62 = @"LogFiles";
-          v63 = array;
-          v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
-          v15 = v58;
-          if (![(PLSubmissionFile *)self createTagFileWithPath:v24 withInfo:?])
+          v72 = @"LogFiles";
+          v73 = array;
+          v67 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+          v47 = [(PLSubmissionFile *)self createTagFileWithPath:v28 withInfo:?];
+          v17 = v68;
+          if ((v47 & 1) == 0)
           {
-            v39 = PLLogSubmission();
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+            v48 = PLLogSubmission(v47);
+            if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
             {
               [PLSubmissionFileBG copyAndPrepareLog];
             }
           }
 
-          v40 = MEMORY[0x1E6999F68];
-          v41 = [MEMORY[0x1E695DFF8] fileURLWithPath:v4];
-          v42 = [v40 archiveDirectoryAt:v41 deleteOriginal:1];
+          v49 = MEMORY[0x1E6999F68];
+          v50 = [MEMORY[0x1E695DFF8] fileURLWithPath:v4];
+          v51 = [v49 archiveDirectoryAt:v50 deleteOriginal:1];
 
-          v43 = v42;
-          if (v42)
+          v53 = v51;
+          if (v51)
           {
-            v55 = array;
+            v65 = array;
             defaultManager6 = [MEMORY[0x1E696AC08] defaultManager];
-            v54 = v43;
-            path = [v43 path];
+            v64 = v53;
+            path = [v53 path];
             filePath2 = [(PLSubmissionFile *)self filePath];
-            v59 = v7;
-            v47 = [defaultManager6 moveItemAtPath:path toPath:filePath2 error:&v59];
-            v56 = v59;
+            v69 = v8;
+            v57 = [defaultManager6 moveItemAtPath:path toPath:filePath2 error:&v69];
+            v66 = v69;
 
-            if (v47)
+            if (v57)
             {
-              [(PLSubmissionFile *)self decorateFile];
-              v48 = PLLogSubmission();
-              v43 = v54;
-              array = v55;
-              if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+              v59 = PLLogSubmission([(PLSubmissionFile *)self decorateFile]);
+              v53 = v64;
+              array = v65;
+              if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
               {
                 [PLSubmissionFileBG copyAndPrepareLog];
               }
 
               defaultManager7 = [MEMORY[0x1E696AC08] defaultManager];
-              path2 = [v54 path];
+              path2 = [v64 path];
               [defaultManager7 removeItemAtPath:path2 error:0];
 
-              v8 = 1;
-              v15 = v58;
+              v9 = 1;
+              v17 = v68;
             }
 
             else
             {
-              defaultManager7 = PLLogSubmission();
-              array = v55;
+              defaultManager7 = PLLogSubmission(v58);
+              array = v65;
               if (os_log_type_enabled(defaultManager7, OS_LOG_TYPE_ERROR))
               {
                 [PLSubmissionFileBG copyAndPrepareLog];
               }
 
-              v8 = 0;
-              v15 = v58;
-              v43 = v54;
+              v9 = 0;
+              v17 = v68;
+              v53 = v64;
             }
 
-            v7 = v56;
+            v8 = v66;
           }
 
           else
           {
-            defaultManager7 = PLLogSubmission();
+            defaultManager7 = PLLogSubmission(v52);
             if (os_log_type_enabled(defaultManager7, OS_LOG_TYPE_ERROR))
             {
               [PLSubmissionFileBG copyAndPrepareLog];
             }
 
-            v8 = 0;
+            v9 = 0;
           }
         }
 
         else
         {
-          v51 = PLLogSubmission();
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+          v62 = PLLogSubmission(v39);
+          if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
           {
             [PLSubmissionFileBG copyAndPrepareLog];
           }
 
-          v8 = 0;
-          v15 = v58;
+          v9 = 0;
+          v17 = v68;
         }
       }
 
       else
       {
-        v24 = PLLogSubmission();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v28 = PLLogSubmission(v21);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           [PLSubmissionFileBG copyAndPrepareLog];
         }
 
-        v8 = 0;
+        v9 = 0;
       }
     }
 
     else
     {
-      v14 = PLLogSubmission();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = PLLogSubmission(v12);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [PLSubmissionFileBG copyAndPrepareLog];
       }
 
-      v8 = 0;
+      v9 = 0;
     }
   }
 
-  v52 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v9;
 }
 
 - (id)getBGSQLFile
@@ -298,7 +300,7 @@
   }
 
   v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"bgprocessing_%@.BGSQL", v9];
-  v13 = PLLogSubmission();
+  v13 = PLLogSubmission(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [PLSubmissionFileBG getBGSQLFile];
@@ -318,19 +320,16 @@
 
 - (void)copyAndPrepareLog
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getBGSQLFile
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_1D8611000, v0, OS_LOG_TYPE_DEBUG, "Requested BackgroundProcessing DB file: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1D8611000, v0, OS_LOG_TYPE_DEBUG, "Requested BackgroundProcessing DB file: %@", v1, 0xCu);
 }
 
 @end

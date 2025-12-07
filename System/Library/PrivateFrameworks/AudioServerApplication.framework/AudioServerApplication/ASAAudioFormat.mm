@@ -85,7 +85,7 @@
 
 - (AudioStreamRangedDescription)audioStreamRangedDescription
 {
-  [(ASAAudioFormat *)self audioStreamBasicDescription];
+  objc_msgSend_audioStreamBasicDescription(self, a3);
   retstr->mSampleRateRange.mMinimum = 0.0;
   retstr->mSampleRateRange.mMaximum = 0.0;
   [(ASAAudioFormat *)self minimumSampleRate];

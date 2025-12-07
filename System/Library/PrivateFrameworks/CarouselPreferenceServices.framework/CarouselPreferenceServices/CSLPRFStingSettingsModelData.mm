@@ -102,191 +102,190 @@
 
 - (unint64_t)hash
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   builder = [MEMORY[0x277CF0C40] builder];
   v4 = [builder appendString:self->_version];
+  v63 = 0u;
   v64 = 0u;
   v65 = 0u;
   v66 = 0u;
-  v67 = 0u;
   v5 = self->_actionsDictionary;
-  v6 = [(NSDictionary *)v5 countByEnumeratingWithState:&v64 objects:v73 count:16];
+  v6 = [(NSDictionary *)v5 countByEnumeratingWithState:&v63 objects:v72 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v65;
+    v8 = *v64;
     do
     {
       v9 = 0;
       do
       {
-        if (*v65 != v8)
+        if (*v64 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [builder appendObject:*(*(&v64 + 1) + 8 * v9++)];
+        v10 = [builder appendObject:*(*(&v63 + 1) + 8 * v9++)];
       }
 
       while (v7 != v9);
-      v7 = [(NSDictionary *)v5 countByEnumeratingWithState:&v64 objects:v73 count:16];
+      v7 = [(NSDictionary *)v5 countByEnumeratingWithState:&v63 objects:v72 count:16];
     }
 
     while (v7);
   }
 
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
   v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   v11 = self->_secondaryActionsDictionary;
-  v12 = [(NSDictionary *)v11 countByEnumeratingWithState:&v60 objects:v72 count:16];
+  v12 = [(NSDictionary *)v11 countByEnumeratingWithState:&v59 objects:v71 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v61;
+    v14 = *v60;
     do
     {
       v15 = 0;
       do
       {
-        if (*v61 != v14)
+        if (*v60 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [builder appendObject:*(*(&v60 + 1) + 8 * v15++)];
+        v16 = [builder appendObject:*(*(&v59 + 1) + 8 * v15++)];
       }
 
       while (v13 != v15);
-      v13 = [(NSDictionary *)v11 countByEnumeratingWithState:&v60 objects:v72 count:16];
+      v13 = [(NSDictionary *)v11 countByEnumeratingWithState:&v59 objects:v71 count:16];
     }
 
     while (v13);
   }
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   v17 = self->_shortcutsDictionary;
-  v18 = [(NSDictionary *)v17 countByEnumeratingWithState:&v56 objects:v71 count:16];
+  v18 = [(NSDictionary *)v17 countByEnumeratingWithState:&v55 objects:v70 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v57;
+    v20 = *v56;
     do
     {
       v21 = 0;
       do
       {
-        if (*v57 != v20)
+        if (*v56 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = [builder appendObject:*(*(&v56 + 1) + 8 * v21++)];
+        v22 = [builder appendObject:*(*(&v55 + 1) + 8 * v21++)];
       }
 
       while (v19 != v21);
-      v19 = [(NSDictionary *)v17 countByEnumeratingWithState:&v56 objects:v71 count:16];
+      v19 = [(NSDictionary *)v17 countByEnumeratingWithState:&v55 objects:v70 count:16];
     }
 
     while (v19);
   }
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   v23 = self->_controlsDictionary;
-  v24 = [(NSDictionary *)v23 countByEnumeratingWithState:&v52 objects:v70 count:16];
+  v24 = [(NSDictionary *)v23 countByEnumeratingWithState:&v51 objects:v69 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v53;
+    v26 = *v52;
     do
     {
       v27 = 0;
       do
       {
-        if (*v53 != v26)
+        if (*v52 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = [builder appendObject:*(*(&v52 + 1) + 8 * v27++)];
+        v28 = [builder appendObject:*(*(&v51 + 1) + 8 * v27++)];
       }
 
       while (v25 != v27);
-      v25 = [(NSDictionary *)v23 countByEnumeratingWithState:&v52 objects:v70 count:16];
+      v25 = [(NSDictionary *)v23 countByEnumeratingWithState:&v51 objects:v69 count:16];
     }
 
     while (v25);
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   v29 = self->_accessibilityShortcutsArray;
-  v30 = [(NSArray *)v29 countByEnumeratingWithState:&v48 objects:v69 count:16];
+  v30 = [(NSArray *)v29 countByEnumeratingWithState:&v47 objects:v68 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v49;
+    v32 = *v48;
     do
     {
       v33 = 0;
       do
       {
-        if (*v49 != v32)
+        if (*v48 != v32)
         {
           objc_enumerationMutation(v29);
         }
 
-        v34 = [builder appendObject:*(*(&v48 + 1) + 8 * v33++)];
+        v34 = [builder appendObject:*(*(&v47 + 1) + 8 * v33++)];
       }
 
       while (v31 != v33);
-      v31 = [(NSArray *)v29 countByEnumeratingWithState:&v48 objects:v69 count:16];
+      v31 = [(NSArray *)v29 countByEnumeratingWithState:&v47 objects:v68 count:16];
     }
 
     while (v31);
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v35 = self->_startWorkoutsDictionary;
-  v36 = [(NSDictionary *)v35 countByEnumeratingWithState:&v44 objects:v68 count:16];
+  v36 = [(NSDictionary *)v35 countByEnumeratingWithState:&v43 objects:v67 count:16];
   if (v36)
   {
     v37 = v36;
-    v38 = *v45;
+    v38 = *v44;
     do
     {
       v39 = 0;
       do
       {
-        if (*v45 != v38)
+        if (*v44 != v38)
         {
           objc_enumerationMutation(v35);
         }
 
-        v40 = [builder appendObject:{*(*(&v44 + 1) + 8 * v39++), v44}];
+        v40 = [builder appendObject:{*(*(&v43 + 1) + 8 * v39++), v43}];
       }
 
       while (v37 != v39);
-      v37 = [(NSDictionary *)v35 countByEnumeratingWithState:&v44 objects:v68 count:16];
+      v37 = [(NSDictionary *)v35 countByEnumeratingWithState:&v43 objects:v67 count:16];
     }
 
     while (v37);
   }
 
   v41 = [builder hash];
-  v42 = *MEMORY[0x277D85DE8];
   return v41;
 }
 
@@ -386,14 +385,14 @@
 
 + (id)fromExportData:(id)data
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     selfCopy = self;
-    v26 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:dataCopy error:0];
-    v27 = MEMORY[0x277CBEB98];
+    v25 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:dataCopy error:0];
+    v26 = MEMORY[0x277CBEB98];
     v5 = objc_opt_class();
     v6 = objc_opt_class();
     v7 = objc_opt_class();
@@ -403,10 +402,10 @@
     v11 = objc_opt_class();
     v12 = objc_opt_class();
     v13 = objc_opt_class();
-    v24 = v8;
-    v14 = v26;
-    v15 = [v27 setWithObjects:{v5, v6, v7, v24, v9, v10, v11, v12, v13, objc_opt_class(), 0}];
-    v16 = [v26 decodeObjectOfClasses:v15 forKey:*MEMORY[0x277CCA308]];
+    v23 = v8;
+    v14 = v25;
+    v15 = [v26 setWithObjects:{v5, v6, v7, v23, v9, v10, v11, v12, v13, objc_opt_class(), 0}];
+    v16 = [v25 decodeObjectOfClasses:v15 forKey:*MEMORY[0x277CCA308]];
     version = [v16 version];
     LOBYTE(v11) = [version isEqualToString:@"0.4"];
 
@@ -418,10 +417,10 @@
         version2 = [v16 version];
         *buf = 138412802;
         selfCopy2 = selfCopy;
-        v30 = 2112;
-        v31 = version2;
-        v32 = 2112;
-        v33 = @"0.4";
+        v29 = 2112;
+        v30 = version2;
+        v31 = 2112;
+        v32 = @"0.4";
         _os_log_impl(&dword_22CE92000, v18, OS_LOG_TYPE_DEFAULT, "%@ unexpected model data version %@, expected %@", buf, 0x20u);
       }
     }
@@ -431,7 +430,7 @@
       v20 = cslprf_sting_settings_log();
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        error = [v26 error];
+        error = [v25 error];
         *buf = 138412290;
         selfCopy2 = error;
         _os_log_error_impl(&dword_22CE92000, v20, OS_LOG_TYPE_ERROR, "Error decoding model data: %@", buf, 0xCu);
@@ -446,15 +445,13 @@
     {
       *buf = 138412546;
       selfCopy2 = self;
-      v30 = 2112;
-      v31 = dataCopy;
+      v29 = 2112;
+      v30 = dataCopy;
       _os_log_error_impl(&dword_22CE92000, v14, OS_LOG_TYPE_ERROR, "%@ incorrect data %@", buf, 0x16u);
     }
 
     v16 = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

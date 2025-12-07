@@ -250,7 +250,7 @@ void __66__BLTBulletinDistributorSubscriber_pingWithRecordID_forSectionID___bloc
 {
   dCopy = d;
   completionCopy = completion;
-  v8 = BLTWorkQueue();
+  v8 = BLTWorkQueue(completionCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __90__BLTBulletinDistributorSubscriber_getWillNanoPresentNotificationForSectionID_completion___block_invoke;
@@ -274,7 +274,7 @@ void __90__BLTBulletinDistributorSubscriber_getWillNanoPresentNotificationForSec
   dCopy = d;
   dsCopy = ds;
   completionCopy = completion;
-  v11 = BLTWorkQueue();
+  v11 = BLTWorkQueue(completionCopy);
   v15[0] = MEMORY[0x277D85DD0];
   v15[1] = 3221225472;
   v15[2] = __104__BLTBulletinDistributorSubscriber_getWillNanoPresentNotificationForSectionID_subsectionIDs_completion___block_invoke;
@@ -298,7 +298,7 @@ void __104__BLTBulletinDistributorSubscriber_getWillNanoPresentNotificationForSe
 - (void)sendBulletinSummary:(id)summary
 {
   summaryCopy = summary;
-  v5 = BLTWorkQueue();
+  v5 = BLTWorkQueue(summaryCopy);
   v7[0] = MEMORY[0x277D85DD0];
   v7[1] = 3221225472;
   v7[2] = __56__BLTBulletinDistributorSubscriber_sendBulletinSummary___block_invoke;
@@ -331,14 +331,14 @@ void __56__BLTBulletinDistributorSubscriber_sendBulletinSummary___block_invoke(u
 
 void __65__BLTBulletinDistributorSubscriber_subscribeWithMachServiceName___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = blt_general_log();
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = blt_general_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_241FB3000, v2, OS_LOG_TYPE_INFO, "Subscriber updating machServiceName to %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_241FB3000, v2, OS_LOG_TYPE_INFO, "Subscriber updating machServiceName to %@", &v7, 0xCu);
   }
 
   [*(*(a1 + 40) + 56) invalidate];
@@ -350,8 +350,6 @@ void __65__BLTBulletinDistributorSubscriber_subscribeWithMachServiceName___block
   [*(a1 + 40) _connectIfNecessary];
   v6 = [*(a1 + 40) delegate];
   [v6 subscriber:*(a1 + 40) subscribedWithMachServiceName:*(a1 + 32)];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_connectIfNecessary

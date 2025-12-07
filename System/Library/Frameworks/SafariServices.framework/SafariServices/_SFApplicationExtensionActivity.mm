@@ -8,44 +8,44 @@
 - (void)activityDidFinish:(BOOL)finish items:(id)items error:(id)error
 {
   finishCopy = finish;
-  v25 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   errorCopy = error;
-  v20.receiver = self;
-  v20.super_class = _SFApplicationExtensionActivity;
-  [(UIActivity *)&v20 activityDidFinish:finishCopy items:itemsCopy error:errorCopy];
-  v10 = WBS_LOG_CHANNEL_PREFIXExtensions();
-  v11 = v10;
+  v22.receiver = self;
+  v22.super_class = _SFApplicationExtensionActivity;
+  v10 = [(UIActivity *)&v22 activityDidFinish:finishCopy items:itemsCopy error:errorCopy];
+  v12 = WBS_LOG_CHANNEL_PREFIXExtensions(v10, v11);
+  v13 = v12;
   if (errorCopy)
   {
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [_SFApplicationExtensionActivity activityDidFinish:v11 items:errorCopy error:?];
+      [_SFApplicationExtensionActivity activityDidFinish:v13 items:errorCopy error:?];
     }
   }
 
-  else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = v11;
-    v13 = [itemsCopy count];
+    v14 = v13;
+    v15 = [itemsCopy count];
     *buf = 67109376;
-    v22 = finishCopy;
-    v23 = 2048;
-    v24 = v13;
-    _os_log_impl(&dword_1D4644000, v12, OS_LOG_TYPE_DEFAULT, "Toolbar button extension finished with status: %i; number of items returned: %lu", buf, 0x12u);
+    v24 = finishCopy;
+    v25 = 2048;
+    v26 = v15;
+    _os_log_impl(&dword_1D4644000, v14, OS_LOG_TYPE_DEFAULT, "Toolbar button extension finished with status: %i; number of items returned: %lu", buf, 0x12u);
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __65___SFApplicationExtensionActivity_activityDidFinish_items_error___block_invoke;
-  v16[3] = &unk_1E8492B90;
-  v19 = finishCopy;
-  v16[4] = self;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __65___SFApplicationExtensionActivity_activityDidFinish_items_error___block_invoke;
+  v18[3] = &unk_1E8492B90;
+  v21 = finishCopy;
+  v18[4] = self;
+  v19 = itemsCopy;
+  v20 = errorCopy;
+  v16 = errorCopy;
   v17 = itemsCopy;
-  v18 = errorCopy;
-  v14 = errorCopy;
-  v15 = itemsCopy;
-  [(UIApplicationExtensionActivity *)self _dismissActivityFromViewController:0 animated:1 completion:v16];
+  [(UIApplicationExtensionActivity *)self _dismissActivityFromViewController:0 animated:1 completion:v18];
 }
 
 - (BOOL)validateExtensionHasSameContainerAsHostApp:(id)app

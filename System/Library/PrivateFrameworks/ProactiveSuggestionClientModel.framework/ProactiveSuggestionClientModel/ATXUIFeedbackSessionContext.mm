@@ -39,21 +39,22 @@
   identifierCopy = identifier;
   sessions = self->_sessions;
   dateCopy = date;
-  if ([(NSMutableDictionary *)sessions count]>= 0xA)
+  v9 = [(NSMutableDictionary *)sessions count];
+  if (v9 >= 0xA)
   {
-    v9 = __atxlog_handle_blending_ecosystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = __atxlog_handle_blending_ecosystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(ATXUIFeedbackSessionContext *)self trackNewUIFeedbackSessionWithSessionIdentifier:identifierCopy startDate:v9];
+      [(ATXUIFeedbackSessionContext *)self trackNewUIFeedbackSessionWithSessionIdentifier:identifierCopy startDate:v10];
     }
 
     [(NSMutableDictionary *)self->_sessions removeAllObjects];
   }
 
-  v10 = [[ATXProactiveSuggestionUIFeedbackSession alloc] initWithSessionIdentifier:identifierCopy];
-  [(ATXProactiveSuggestionUIFeedbackSession *)v10 updateSessionStartDateIfUnset:dateCopy];
+  v11 = [[ATXProactiveSuggestionUIFeedbackSession alloc] initWithSessionIdentifier:identifierCopy];
+  [(ATXProactiveSuggestionUIFeedbackSession *)v11 updateSessionStartDateIfUnset:dateCopy];
 
-  [(NSMutableDictionary *)self->_sessions setValue:v10 forKey:identifierCopy];
+  [(NSMutableDictionary *)self->_sessions setValue:v11 forKey:identifierCopy];
 }
 
 - (id)returnAndRemoveUIFeedbackSessionWithSessionIdentifier:(id)identifier endDate:(id)date
@@ -85,12 +86,12 @@
   v9 = [v6 initWithObjects:{v7, v8, objc_opt_class(), 0}];
   objc_autoreleasePoolPop(v5);
   v10 = MEMORY[0x1E69C5D78];
-  v11 = __atxlog_handle_blending_ecosystem();
-  v12 = [v10 robustDecodeObjectOfClasses:v9 forKey:@"sessions" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackSession" errorCode:-1 logHandle:v11];
+  v12 = __atxlog_handle_blending_ecosystem(v11);
+  v13 = [v10 robustDecodeObjectOfClasses:v9 forKey:@"sessions" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXProactiveSuggestionUIFeedbackSession" errorCode:-1 logHandle:v12];
 
-  if (v12 && ([coderCopy error], v13 = objc_claimAutoreleasedReturnValue(), v13, !v13))
+  if (v13 && ([coderCopy error], v14 = objc_claimAutoreleasedReturnValue(), v14, !v14))
   {
-    self = [(ATXUIFeedbackSessionContext *)self initWithSessions:v12];
+    self = [(ATXUIFeedbackSessionContext *)self initWithSessions:v13];
     selfCopy = self;
   }
 
@@ -138,18 +139,16 @@
 
 - (void)trackNewUIFeedbackSessionWithSessionIdentifier:(NSObject *)a3 startDate:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v8 = 138412802;
-  v9 = v6;
-  v10 = 2048;
-  v11 = 10;
-  v12 = 2112;
-  v13 = a2;
-  _os_log_error_impl(&dword_1DEFC4000, a3, OS_LOG_TYPE_ERROR, "%@ - reached max count of %lu tracked sessions, pruning all before starting new session with identifier: %@", &v8, 0x20u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412802;
+  v8 = v6;
+  v9 = 2048;
+  v10 = 10;
+  v11 = 2112;
+  v12 = a2;
+  _os_log_error_impl(&dword_1DEFC4000, a3, OS_LOG_TYPE_ERROR, "%@ - reached max count of %lu tracked sessions, pruning all before starting new session with identifier: %@", &v7, 0x20u);
 }
 
 @end

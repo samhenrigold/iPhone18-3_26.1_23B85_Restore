@@ -144,14 +144,13 @@
 - (UIViewController)featuresHostingViewController
 {
   v2 = type metadata accessor for UIHostingControllerSizingOptions();
-  v3 = *(*(v2 - 8) + 64);
   __chkstk_darwin(v2 - 8);
-  v4 = objc_allocWithZone(sub_1000694A0(&qword_1000E6648, &qword_100093278));
-  v5 = UIHostingController.init(rootView:)();
+  v3 = objc_allocWithZone(sub_1000694A0(&qword_1000E6648, &qword_100093278));
+  v4 = UIHostingController.init(rootView:)();
   static UIHostingControllerSizingOptions.intrinsicContentSize.getter();
   dispatch thunk of UIHostingController.sizingOptions.setter();
 
-  return v5;
+  return v4;
 }
 
 @end

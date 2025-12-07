@@ -50,26 +50,27 @@
 
 - (BOOL)processTransaction:(id)transaction error:(id *)error
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v28 = 0;
+  v32 = *MEMORY[0x1E69E9840];
+  v27 = 0;
   v8 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(transaction, "transactionNumber")}];
   if ([(NSMutableSet *)self->_processedTransactionIDs containsObject:v8])
   {
-    v21 = MEMORY[0x1E695DF30];
-    v22 = *MEMORY[0x1E695D930];
-    v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid attempt to process transaction '%@' twice.", v8, v26];
+    v20 = MEMORY[0x1E695DF30];
+    v21 = *MEMORY[0x1E695D930];
+    v22 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v8);
     goto LABEL_24;
   }
 
   if (self->_isFinished)
   {
-    v21 = MEMORY[0x1E695DF30];
-    v22 = *MEMORY[0x1E695D930];
-    v24 = MEMORY[0x1E696AEC0];
-    v25 = NSStringFromSelector(a2);
-    v23 = [v24 stringWithFormat:@"Invalid invocation of '%@', cannot be called after '%@'", v25, NSStringFromSelector(sel_finishProcessing_)];
+    v20 = MEMORY[0x1E695DF30];
+    v21 = *MEMORY[0x1E695D930];
+    v23 = MEMORY[0x1E696AEC0];
+    v24 = NSStringFromSelector(a2);
+    v25 = NSStringFromSelector(sel_finishProcessing_);
+    v22 = objc_msgSend_stringWithFormat_(v23, v24, v25);
 LABEL_24:
-    objc_exception_throw([v21 exceptionWithName:v22 reason:v23 userInfo:0]);
+    objc_exception_throw([v20 exceptionWithName:v21 reason:v22 userInfo:0]);
   }
 
   [(NSMutableSet *)self->_processedTransactionIDs addObject:v8];
@@ -81,7 +82,7 @@ LABEL_24:
     errorCopy = error;
     v12 = 0;
     v13 = 0;
-    while (-[PFHistoryAnalyzerContext processChange:error:](self, "processChange:error:", [changes objectAtIndexedSubscript:v13], &v28))
+    while (-[PFHistoryAnalyzerContext processChange:error:](self, "processChange:error:", [changes objectAtIndexedSubscript:v13], &v27))
     {
       if (!(v12 + 1000 * (v13 / 0x3E8)))
       {
@@ -98,7 +99,7 @@ LABEL_24:
       }
     }
 
-    v15 = v28;
+    v15 = v27;
     v14 = 0;
 LABEL_12:
     error = errorCopy;
@@ -112,7 +113,7 @@ LABEL_12:
   self->_finalHistoryToken = [transaction token];
   if (!v14)
   {
-    v16 = v28;
+    v16 = v27;
     if (v16)
     {
       if (error)
@@ -127,9 +128,9 @@ LABEL_12:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v30 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFHistoryAnalyzerContext.m";
-        v31 = 1024;
-        v32 = 99;
+        v29 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFHistoryAnalyzerContext.m";
+        v30 = 1024;
+        v31 = 99;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
@@ -137,48 +138,47 @@ LABEL_12:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v30 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFHistoryAnalyzerContext.m";
-        v31 = 1024;
-        v32 = 99;
+        v29 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFHistoryAnalyzerContext.m";
+        v30 = 1024;
+        v31 = 99;
         _os_log_fault_impl(&dword_18565F000, v18, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BOOL)processChange:(id)change error:(id *)error
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v18 = 0;
-  v7 = -[PFHistoryAnalyzerContext analyzerStateForChangedObjectID:error:](self, "analyzerStateForChangedObjectID:error:", [change changedObjectID], &v18);
+  v22 = *MEMORY[0x1E69E9840];
+  v17 = 0;
+  v7 = -[PFHistoryAnalyzerContext analyzerStateForChangedObjectID:error:](self, "analyzerStateForChangedObjectID:error:", [change changedObjectID], &v17);
   if (!v7)
   {
-    v14 = v18;
-    if (v18)
+    v13 = v17;
+    if (v17)
     {
       goto LABEL_6;
     }
 
-    v15 = [(PFHistoryAnalyzerContext *)self newAnalyzerStateForChange:change error:&v18];
-    if (v15)
+    v14 = [(PFHistoryAnalyzerContext *)self newAnalyzerStateForChange:change error:&v17];
+    if (v14)
     {
-      v8 = v15;
-      v10 = [v15 estimatedSizeInBytes] + self->_accumulatedChangeBytes + 50;
+      v8 = v14;
+      v10 = [v14 estimatedSizeInBytes] + self->_accumulatedChangeBytes + 50;
       goto LABEL_3;
     }
 
-    v14 = v18;
-    if (v18)
+    v13 = v17;
+    if (v17)
     {
 LABEL_6:
       if (error)
       {
         v11 = 0;
         v8 = 0;
-        *error = v14;
+        *error = v13;
         goto LABEL_4;
       }
     }
@@ -189,20 +189,20 @@ LABEL_6:
       if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v20 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFHistoryAnalyzerContext.m";
-        v21 = 1024;
-        v22 = 136;
+        v19 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFHistoryAnalyzerContext.m";
+        v20 = 1024;
+        v21 = 136;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
-      v17 = _PFLogGetLogStream(17);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+      v16 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v20 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFHistoryAnalyzerContext.m";
-        v21 = 1024;
-        v22 = 136;
-        _os_log_fault_impl(&dword_18565F000, v17, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+        v19 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFHistoryAnalyzerContext.m";
+        v20 = 1024;
+        v21 = 136;
+        _os_log_fault_impl(&dword_18565F000, v16, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
 
@@ -221,7 +221,6 @@ LABEL_3:
   v11 = 1;
 LABEL_4:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

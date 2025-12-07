@@ -64,7 +64,7 @@ uint64_t __68__AVTCoreDataPersistentStoreConfiguration_currentManagedObjectModel
 
 + (id)modelV1
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBE450]);
   v3 = objc_alloc_init(MEMORY[0x277CBE408]);
   [v3 setName:@"Avatar"];
@@ -83,18 +83,16 @@ uint64_t __68__AVTCoreDataPersistentStoreConfiguration_currentManagedObjectModel
   [v8 setAttributeType:1000];
   [v8 setName:@"avatarData"];
   v9 = +[AVTCoreDataCloudKitMirroringConfiguration managedModelAttributesRequiredForMirroring];
-  v16[0] = v6;
-  v16[1] = v7;
-  v16[2] = v8;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
+  v15[0] = v6;
+  v15[1] = v7;
+  v15[2] = v8;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
   v11 = [v10 arrayByAddingObjectsFromArray:v9];
   [v3 setProperties:v11];
 
-  v15 = v3;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+  v14 = v3;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
   [v2 setEntities:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

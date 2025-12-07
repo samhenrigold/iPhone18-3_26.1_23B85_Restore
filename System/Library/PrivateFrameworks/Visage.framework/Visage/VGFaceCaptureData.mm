@@ -1,10 +1,7 @@
 @interface VGFaceCaptureData
-- (__n128)chromaticAdaptationMatrix;
-- (__n128)depthIntrinsics;
 - (__n128)setChromaticAdaptationMatrix:(__n128)matrix;
 - (__n128)setDepthIntrinsics:(__n128)intrinsics;
 - (__n128)setVideoIntrinsics:(__n128)intrinsics;
-- (__n128)videoIntrinsics;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)dealloc;
 - (void)saveAtPath:(id)path;
@@ -61,7 +58,7 @@
   v15 = 0;
   [v8 writePNGRepresentationOfImage:v6 toURL:v5 format:v10 colorSpace:colorSpace options:MEMORY[0x277CBEC10] error:&v15];
   v11 = v15;
-  v12 = __VGLogSharedInstance();
+  v12 = __VGLogSharedInstance(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
@@ -71,16 +68,14 @@
 
   if (v11)
   {
-    v13 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __VGLogSharedInstance(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
       v17 = v11;
-      _os_log_impl(&dword_270F06000, v13, OS_LOG_TYPE_ERROR, " write error %@ ", buf, 0xCu);
+      _os_log_impl(&dword_270F06000, v14, OS_LOG_TYPE_ERROR, " write error %@ ", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setYuvRectified:(__CVBuffer *)rectified
@@ -108,14 +103,6 @@
   [(VGFaceCaptureData *)&v3 dealloc];
 }
 
-- (__n128)videoIntrinsics
-{
-  result = *(self + 64);
-  v2 = *(self + 80);
-  v3 = *(self + 96);
-  return result;
-}
-
 - (__n128)setVideoIntrinsics:(__n128)intrinsics
 {
   result[4] = a2;
@@ -124,27 +111,11 @@
   return result;
 }
 
-- (__n128)depthIntrinsics
-{
-  result = *(self + 112);
-  v2 = *(self + 128);
-  v3 = *(self + 144);
-  return result;
-}
-
 - (__n128)setDepthIntrinsics:(__n128)intrinsics
 {
   result[7] = a2;
   result[8] = intrinsics;
   result[9] = a4;
-  return result;
-}
-
-- (__n128)chromaticAdaptationMatrix
-{
-  result = *(self + 160);
-  v2 = *(self + 176);
-  v3 = *(self + 192);
   return result;
 }
 

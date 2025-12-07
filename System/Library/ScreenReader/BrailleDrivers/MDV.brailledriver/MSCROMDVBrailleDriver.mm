@@ -55,7 +55,7 @@
       if (os_log_type_enabled(v8, v9))
       {
         *buf = 138543362;
-        v191 = v11;
+        v190 = v11;
         _os_log_impl(&dword_0, v8, v9, "%{public}@", buf, 0xCu);
       }
     }
@@ -75,31 +75,31 @@
 
       selfCopy = self;
       infoDictionary = [v12 infoDictionary];
-      v173 = [infoDictionary objectForKey:kSCROBrailleDriverModels];
-      v175 = elementCopy;
+      v172 = [infoDictionary objectForKey:kSCROBrailleDriverModels];
+      v174 = elementCopy;
       bluetoothAddress = [elementCopy bluetoothAddress];
+      v182 = 0u;
       v183 = 0u;
       v184 = 0u;
       v185 = 0u;
-      v186 = 0u;
       v15 = +[BluetoothManager sharedInstance];
       pairedDevices = [v15 pairedDevices];
 
-      v17 = [pairedDevices countByEnumeratingWithState:&v183 objects:v192 count:16];
+      v17 = [pairedDevices countByEnumeratingWithState:&v182 objects:v191 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v184;
+        v19 = *v183;
 LABEL_14:
         v20 = 0;
         while (1)
         {
-          if (*v184 != v19)
+          if (*v183 != v19)
           {
             objc_enumerationMutation(pairedDevices);
           }
 
-          v21 = *(*(&v183 + 1) + 8 * v20);
+          v21 = *(*(&v182 + 1) + 8 * v20);
           address = [v21 address];
           v23 = [address isEqualToString:bluetoothAddress];
 
@@ -110,7 +110,7 @@ LABEL_14:
 
           if (v18 == ++v20)
           {
-            v18 = [pairedDevices countByEnumeratingWithState:&v183 objects:v192 count:16];
+            v18 = [pairedDevices countByEnumeratingWithState:&v182 objects:v191 count:16];
             if (!v18)
             {
               goto LABEL_20;
@@ -130,7 +130,7 @@ LABEL_14:
           [v32 addObserver:selfCopy selector:"removeDeviceNotification:" name:BluetoothDeviceDisconnectFailedNotification object:0];
           if (([v31 connected]& 1) != 0)
           {
-            v171 = v31;
+            v170 = v31;
             [v31 device];
             ComPortForServiceWithSandboxExtension = BTDeviceGetComPortForServiceWithSandboxExtension();
             if (ComPortForServiceWithSandboxExtension)
@@ -142,7 +142,7 @@ LABEL_14:
               v29 = infoDictionary;
               if ((ignoreLogging2 & 1) == 0)
               {
-                v166 = v32;
+                v165 = v32;
                 v38 = +[AXSubsystemBrailleHardware identifier];
                 v39 = AXLoggerForFacility();
 
@@ -154,21 +154,21 @@ LABEL_14:
                   v42 = _AXStringForArgs();
                   if (os_log_type_enabled(v39, v40))
                   {
-                    *v188 = 138543362;
-                    v189 = v42;
-                    _os_log_impl(&dword_0, v39, v40, "%{public}@", v188, 0xCu);
+                    *v187 = 138543362;
+                    v188 = v42;
+                    _os_log_impl(&dword_0, v39, v40, "%{public}@", v187, 0xCu);
                   }
                 }
 
-                v32 = v166;
+                v32 = v165;
               }
 
               [v32 removeObserver:{selfCopy, bluetoothChannelIsLost}];
               v26 = 1;
-              elementCopy = v175;
-              v30 = v173;
+              elementCopy = v174;
+              v30 = v172;
 LABEL_116:
-              v31 = v171;
+              v31 = v170;
               goto LABEL_117;
             }
 
@@ -186,25 +186,25 @@ LABEL_116:
                 v65 = AXOSLogLevelFromAXLogLevel();
                 if (os_log_type_enabled(v64, v65))
                 {
-                  v168 = v32;
+                  v167 = v32;
                   v66 = AXColorizeFormatLog();
                   bluetoothChannelIsLost = *__error();
                   v67 = _AXStringForArgs();
                   if (os_log_type_enabled(v64, v65))
                   {
-                    *v188 = 138543362;
-                    v189 = v67;
-                    _os_log_impl(&dword_0, v64, v65, "%{public}@", v188, 0xCu);
+                    *v187 = 138543362;
+                    v188 = v67;
+                    _os_log_impl(&dword_0, v64, v65, "%{public}@", v187, 0xCu);
                   }
 
-                  v32 = v168;
+                  v32 = v167;
                 }
               }
             }
 
             v68 = open(buf, 131074, bluetoothChannelIsLost);
             selfCopy->_comPort = v68;
-            elementCopy = v175;
+            elementCopy = v174;
             if ((v68 & 0x80000000) == 0)
             {
               objc_storeStrong(&selfCopy->_device, v21);
@@ -233,80 +233,80 @@ LABEL_116:
                     {
                       [(SCRDFileReader *)selfCopy->_readerThread start];
                       __nbyte = 0;
-                      v181 = 0;
+                      v180 = 0;
                       Request = SCRDMDVSerialCreateRequest();
                       if (!Request)
                       {
-                        v119 = v69;
-                        v120 = +[AXSubsystemBrailleHardware sharedInstance];
-                        ignoreLogging4 = [v120 ignoreLogging];
+                        v118 = v69;
+                        v119 = +[AXSubsystemBrailleHardware sharedInstance];
+                        ignoreLogging4 = [v119 ignoreLogging];
 
                         if ((ignoreLogging4 & 1) == 0)
                         {
-                          v169 = v32;
-                          v124 = +[AXSubsystemBrailleHardware identifier];
-                          v125 = AXLoggerForFacility();
+                          v168 = v32;
+                          v123 = +[AXSubsystemBrailleHardware identifier];
+                          v124 = AXLoggerForFacility();
 
-                          v126 = AXOSLogLevelFromAXLogLevel();
-                          if (os_log_type_enabled(v125, v126))
+                          v125 = AXOSLogLevelFromAXLogLevel();
+                          if (os_log_type_enabled(v124, v125))
                           {
-                            v164 = AXColorizeFormatLog();
+                            v163 = AXColorizeFormatLog();
                             mode = _AXStringForArgs();
-                            if (os_log_type_enabled(v125, v126))
+                            if (os_log_type_enabled(v124, v125))
                             {
-                              *v188 = 138543362;
-                              v189 = mode;
-                              _os_log_impl(&dword_0, v125, v126, "%{public}@", v188, 0xCu);
-                              v127 = mode;
+                              *v187 = 138543362;
+                              v188 = mode;
+                              _os_log_impl(&dword_0, v124, v125, "%{public}@", v187, 0xCu);
+                              v126 = mode;
                               __buf = 0;
-                              elementCopy = v175;
-                              v30 = v173;
-                              v69 = v119;
+                              elementCopy = v174;
+                              v30 = v172;
+                              v69 = v118;
                               v78 = 0;
                             }
 
                             else
                             {
                               __buf = 0;
-                              elementCopy = v175;
-                              v30 = v173;
-                              v69 = v119;
+                              elementCopy = v174;
+                              v30 = v172;
+                              v69 = v118;
                               v78 = 0;
-                              v127 = mode;
+                              v126 = mode;
                             }
 
                             goto LABEL_175;
                           }
 
                           __buf = 0;
-                          elementCopy = v175;
-                          v30 = v173;
-                          v32 = v169;
-                          v69 = v119;
+                          elementCopy = v174;
+                          v30 = v172;
+                          v32 = v168;
+                          v69 = v118;
                           v78 = 0;
                           goto LABEL_176;
                         }
 
                         __buf = 0;
-                        elementCopy = v175;
-                        v30 = v173;
-                        v69 = v119;
+                        elementCopy = v174;
+                        v30 = v172;
+                        v69 = v118;
                         v78 = 0;
                         goto LABEL_104;
                       }
 
                       v78 = Request;
-                      v158 = v69;
-                      v180 = 0;
+                      v157 = v69;
+                      v179 = 0;
                       v79 = SCRDMDVSerialCreateRequest();
                       if (v79)
                       {
                         __buf = v79;
-                        v169 = v32;
+                        v168 = v32;
                         v80 = 0;
                         v81 = 0;
                         v82 = 0;
-                        v162 = v78;
+                        v161 = v78;
                         while (1)
                         {
                           v83 = write(v33->_comPort, v78, __nbyte);
@@ -315,37 +315,37 @@ LABEL_116:
                             break;
                           }
 
-                          v84 = write(v33->_comPort, __buf, v180);
-                          if (v84 < v180)
+                          v84 = write(v33->_comPort, __buf, v179);
+                          if (v84 < v179)
                           {
-                            v138 = +[AXSubsystemBrailleHardware sharedInstance];
-                            ignoreLogging5 = [v138 ignoreLogging];
+                            v137 = +[AXSubsystemBrailleHardware sharedInstance];
+                            ignoreLogging5 = [v137 ignoreLogging];
 
                             if (ignoreLogging5)
                             {
                               goto LABEL_142;
                             }
 
-                            v145 = +[AXSubsystemBrailleHardware identifier];
-                            v146 = AXLoggerForFacility();
+                            v144 = +[AXSubsystemBrailleHardware identifier];
+                            v145 = AXLoggerForFacility();
 
-                            v136 = AXOSLogLevelFromAXLogLevel();
-                            v125 = v146;
-                            if (!os_log_type_enabled(v146, v136))
+                            v135 = AXOSLogLevelFromAXLogLevel();
+                            v124 = v145;
+                            if (!os_log_type_enabled(v145, v135))
                             {
                               goto LABEL_170;
                             }
 
-                            v164 = AXColorizeFormatLog();
+                            v163 = AXColorizeFormatLog();
                             modea = _AXStringForArgs();
-                            if (!os_log_type_enabled(v146, v136))
+                            if (!os_log_type_enabled(v145, v135))
                             {
                               goto LABEL_173;
                             }
 
-                            *v188 = 138543362;
-                            v137 = modea;
-                            v189 = modea;
+                            *v187 = 138543362;
+                            v136 = modea;
+                            v188 = modea;
                             goto LABEL_153;
                           }
 
@@ -354,72 +354,72 @@ LABEL_116:
                           v86 = v85;
                           if (v33->_bluetoothChannelIsLost || v33->_hasBeenUnloaded || v85 == kCFRunLoopRunStopped)
                           {
-                            v128 = +[AXSubsystemBrailleHardware sharedInstance];
-                            ignoreLogging6 = [v128 ignoreLogging];
+                            v127 = +[AXSubsystemBrailleHardware sharedInstance];
+                            ignoreLogging6 = [v127 ignoreLogging];
 
                             if (ignoreLogging6)
                             {
-                              elementCopy = v175;
-                              v30 = v173;
-                              v32 = v169;
-                              v69 = v158;
-                              v78 = v162;
+                              elementCopy = v174;
+                              v30 = v172;
+                              v32 = v168;
+                              v69 = v157;
+                              v78 = v161;
                               goto LABEL_104;
                             }
 
-                            v140 = +[AXSubsystemBrailleHardware identifier];
-                            v141 = AXLoggerForFacility();
+                            v139 = +[AXSubsystemBrailleHardware identifier];
+                            v140 = AXLoggerForFacility();
 
-                            v142 = AXOSLogLevelFromAXLogLevel();
-                            modeb = v141;
-                            if (os_log_type_enabled(v141, v142))
+                            v141 = AXOSLogLevelFromAXLogLevel();
+                            modeb = v140;
+                            if (os_log_type_enabled(v140, v141))
                             {
-                              v143 = AXColorizeFormatLog();
+                              v142 = AXColorizeFormatLog();
                               hasBeenUnloaded = v33->_hasBeenUnloaded;
-                              v157 = v86;
+                              v156 = v86;
                               bluetoothChannelIsLost = v33->_bluetoothChannelIsLost;
-                              v164 = v143;
-                              v127 = _AXStringForArgs();
-                              if (os_log_type_enabled(v141, v142))
+                              v163 = v142;
+                              v126 = _AXStringForArgs();
+                              if (os_log_type_enabled(v140, v141))
                               {
-                                *v188 = 138543362;
-                                v189 = v127;
-                                v144 = v142;
-                                v125 = v141;
-                                _os_log_impl(&dword_0, v141, v144, "%{public}@", v188, 0xCu);
+                                *v187 = 138543362;
+                                v188 = v126;
+                                v143 = v141;
+                                v124 = v140;
+                                _os_log_impl(&dword_0, v140, v143, "%{public}@", v187, 0xCu);
                                 v29 = infoDictionary;
-                                elementCopy = v175;
+                                elementCopy = v174;
                                 v33 = selfCopy;
-                                v30 = v173;
-                                v69 = v158;
+                                v30 = v172;
+                                v69 = v157;
                               }
 
                               else
                               {
                                 v29 = infoDictionary;
-                                elementCopy = v175;
+                                elementCopy = v174;
                                 v33 = selfCopy;
-                                v30 = v173;
-                                v69 = v158;
-                                v125 = modeb;
+                                v30 = v172;
+                                v69 = v157;
+                                v124 = modeb;
                               }
 
-                              v78 = v162;
+                              v78 = v161;
                               goto LABEL_175;
                             }
 
-                            elementCopy = v175;
-                            v30 = v173;
-                            v32 = v169;
-                            v69 = v158;
-                            v125 = modeb;
-                            v78 = v162;
+                            elementCopy = v174;
+                            v30 = v172;
+                            v32 = v168;
+                            v69 = v157;
+                            v124 = modeb;
+                            v78 = v161;
 LABEL_176:
 
                             goto LABEL_104;
                           }
 
-                          v163 = v82;
+                          v162 = v82;
                           [(NSLock *)v33->_readBufferLock lock];
                           Length = CFDataGetLength(v33->_readBuffer);
                           if (Length >= 1)
@@ -428,154 +428,153 @@ LABEL_176:
                             safeReadBuffer = v33->_safeReadBuffer;
                             BytePtr = CFDataGetBytePtr(v33->_readBuffer);
                             CFDataAppendBytes(safeReadBuffer, BytePtr, v88);
-                            v193.location = 0;
-                            v193.length = v88;
-                            CFDataDeleteBytes(v33->_readBuffer, v193);
+                            v192.location = 0;
+                            v192.length = v88;
+                            CFDataDeleteBytes(v33->_readBuffer, v192);
                           }
 
                           [(NSLock *)v33->_readBufferLock unlock];
-                          v91 = v33->_safeReadBuffer;
-                          v92 = SCRDMDVSerialCreatePacketsFromBuffer();
+                          v91 = SCRDMDVSerialCreatePacketsFromBuffer();
+                          v175 = 0u;
                           v176 = 0u;
                           v177 = 0u;
                           v178 = 0u;
-                          v179 = 0u;
-                          v93 = [v92 countByEnumeratingWithState:&v176 objects:v187 count:16];
-                          if (v93)
+                          v92 = [v91 countByEnumeratingWithState:&v175 objects:v186 count:16];
+                          if (v92)
                           {
-                            v94 = v93;
-                            v95 = 0;
-                            v96 = *v177;
+                            v93 = v92;
+                            v94 = 0;
+                            v95 = *v176;
                             do
                             {
-                              for (i = 0; i != v94; i = i + 1)
+                              for (i = 0; i != v93; i = i + 1)
                               {
-                                if (*v177 != v96)
+                                if (*v176 != v95)
                                 {
-                                  objc_enumerationMutation(v92);
+                                  objc_enumerationMutation(v91);
                                 }
 
-                                v98 = CFDataGetBytePtr(*(*(&v176 + 1) + 8 * i));
-                                if (v98[2] == 37 && v98[3] == 6)
+                                v97 = CFDataGetBytePtr(*(*(&v175 + 1) + 8 * i));
+                                if (v97[2] == 37 && v97[3] == 6)
                                 {
-                                  v81 = v98[5];
-                                  v80 = v98[9];
-                                  v95 = 1;
+                                  v81 = v97[5];
+                                  v80 = v97[9];
+                                  v94 = 1;
                                 }
                               }
 
-                              v94 = [v92 countByEnumeratingWithState:&v176 objects:v187 count:16];
+                              v93 = [v91 countByEnumeratingWithState:&v175 objects:v186 count:16];
                             }
 
-                            while (v94);
+                            while (v93);
                           }
 
                           else
                           {
-                            v95 = 0;
+                            v94 = 0;
                           }
 
                           v29 = infoDictionary;
                           v33 = selfCopy;
-                          v78 = v162;
-                          if ((v95 & 1) == 0)
+                          v78 = v161;
+                          if ((v94 & 1) == 0)
                           {
-                            v82 = v163 + 1;
-                            if (v163 < 6)
+                            v82 = v162 + 1;
+                            if (v162 < 6)
                             {
                               continue;
                             }
                           }
 
-                          free(v162);
+                          free(v161);
                           free(__buf);
                           selfCopy->_mainSize = v81;
                           if (v81 == 24)
                           {
-                            v100 = 0;
-                            v101 = xmmword_3A70;
-                            v99 = @"com.apple.scrod.braille.driver.mdv.mb248.24";
-                            v102 = 2;
+                            v99 = 0;
+                            v100 = xmmword_3A70;
+                            v98 = @"com.apple.scrod.braille.driver.mdv.mb248.24";
+                            v101 = 2;
 LABEL_159:
                             v33 = selfCopy;
-                            selfCopy->_statusSize = v100;
-                            selfCopy->_deviceID = v102;
-                            *&selfCopy->_writeBufferSize = v101;
+                            selfCopy->_statusSize = v99;
+                            selfCopy->_deviceID = v101;
+                            *&selfCopy->_writeBufferSize = v100;
                           }
 
                           else
                           {
-                            v99 = 0;
+                            v98 = 0;
                             if (v81 == 40)
                             {
-                              v100 = 2 * (v80 < 7);
-                              v101 = xmmword_3A80;
-                              v99 = @"com.apple.scrod.braille.driver.mdv.mb408l.40";
-                              v102 = 1;
+                              v99 = 2 * (v80 < 7);
+                              v100 = xmmword_3A80;
+                              v98 = @"com.apple.scrod.braille.driver.mdv.mb408l.40";
+                              v101 = 1;
                               goto LABEL_159;
                             }
                           }
 
                           modelIdentifier = v33->_modelIdentifier;
-                          v33->_modelIdentifier = &v99->isa;
+                          v33->_modelIdentifier = &v98->isa;
 
-                          v148 = [v173 objectForKey:v33->_modelIdentifier];
-                          if (v148)
+                          v147 = [v172 objectForKey:v33->_modelIdentifier];
+                          if (v147)
                           {
-                            v113 = v148;
+                            v112 = v147;
                             v26 = 0;
                             v33->_isDriverLoaded = 1;
                             v29 = infoDictionary;
-                            elementCopy = v175;
-                            v30 = v173;
-                            v32 = v169;
-                            v69 = v158;
+                            elementCopy = v174;
+                            v30 = v172;
+                            v32 = v168;
+                            v69 = v157;
                             goto LABEL_115;
                           }
 
-                          v149 = +[AXSubsystemBrailleHardware sharedInstance];
-                          ignoreLogging7 = [v149 ignoreLogging];
+                          v148 = +[AXSubsystemBrailleHardware sharedInstance];
+                          ignoreLogging7 = [v148 ignoreLogging];
 
                           if (ignoreLogging7)
                           {
                             v78 = 0;
                             __buf = 0;
                             v29 = infoDictionary;
-                            elementCopy = v175;
+                            elementCopy = v174;
                             v33 = selfCopy;
-                            v30 = v173;
+                            v30 = v172;
                             goto LABEL_143;
                           }
 
-                          v151 = +[AXSubsystemBrailleHardware identifier];
-                          v152 = AXLoggerForFacility();
+                          v150 = +[AXSubsystemBrailleHardware identifier];
+                          v151 = AXLoggerForFacility();
 
-                          v153 = AXOSLogLevelFromAXLogLevel();
-                          v125 = v152;
-                          if (os_log_type_enabled(v152, v153))
+                          v152 = AXOSLogLevelFromAXLogLevel();
+                          v124 = v151;
+                          if (os_log_type_enabled(v151, v152))
                           {
-                            v154 = AXColorizeFormatLog();
+                            v153 = AXColorizeFormatLog();
                             bluetoothChannelIsLost = selfCopy->_modelIdentifier;
-                            v164 = v154;
+                            v163 = v153;
                             modea = _AXStringForArgs();
-                            if (os_log_type_enabled(v152, v153))
+                            if (os_log_type_enabled(v151, v152))
                             {
-                              *v188 = 138543362;
-                              v189 = modea;
-                              _os_log_impl(&dword_0, v152, v153, "%{public}@", v188, 0xCu);
-                              v127 = modea;
+                              *v187 = 138543362;
+                              v188 = modea;
+                              _os_log_impl(&dword_0, v151, v152, "%{public}@", v187, 0xCu);
+                              v126 = modea;
                               v78 = 0;
                               __buf = 0;
 LABEL_154:
                               v29 = infoDictionary;
-                              elementCopy = v175;
+                              elementCopy = v174;
                               v33 = selfCopy;
-                              v30 = v173;
+                              v30 = v172;
 LABEL_155:
-                              v69 = v158;
+                              v69 = v157;
 LABEL_175:
 
-                              v32 = v169;
+                              v32 = v168;
                               goto LABEL_176;
                             }
 
@@ -583,12 +582,12 @@ LABEL_175:
                             __buf = 0;
 LABEL_173:
                             v29 = infoDictionary;
-                            elementCopy = v175;
+                            elementCopy = v174;
                             v33 = selfCopy;
-                            v30 = v173;
+                            v30 = v172;
 LABEL_174:
-                            v69 = v158;
-                            v127 = modea;
+                            v69 = v157;
+                            v126 = modea;
                             goto LABEL_175;
                           }
 
@@ -596,106 +595,106 @@ LABEL_174:
                           __buf = 0;
 LABEL_170:
                           v29 = infoDictionary;
-                          elementCopy = v175;
+                          elementCopy = v174;
                           v33 = selfCopy;
-                          v30 = v173;
+                          v30 = v172;
 LABEL_171:
-                          v32 = v169;
-                          v69 = v158;
+                          v32 = v168;
+                          v69 = v157;
                           goto LABEL_176;
                         }
 
-                        v132 = +[AXSubsystemBrailleHardware sharedInstance];
-                        ignoreLogging8 = [v132 ignoreLogging];
+                        v131 = +[AXSubsystemBrailleHardware sharedInstance];
+                        ignoreLogging8 = [v131 ignoreLogging];
 
                         if (ignoreLogging8)
                         {
 LABEL_142:
-                          elementCopy = v175;
-                          v30 = v173;
+                          elementCopy = v174;
+                          v30 = v172;
 LABEL_143:
-                          v32 = v169;
+                          v32 = v168;
                           goto LABEL_144;
                         }
 
-                        v134 = +[AXSubsystemBrailleHardware identifier];
-                        v135 = AXLoggerForFacility();
+                        v133 = +[AXSubsystemBrailleHardware identifier];
+                        v134 = AXLoggerForFacility();
 
-                        v136 = AXOSLogLevelFromAXLogLevel();
-                        v125 = v135;
-                        if (!os_log_type_enabled(v135, v136))
+                        v135 = AXOSLogLevelFromAXLogLevel();
+                        v124 = v134;
+                        if (!os_log_type_enabled(v134, v135))
                         {
                           goto LABEL_170;
                         }
 
-                        v164 = AXColorizeFormatLog();
+                        v163 = AXColorizeFormatLog();
                         modea = _AXStringForArgs();
-                        if (!os_log_type_enabled(v135, v136))
+                        if (!os_log_type_enabled(v134, v135))
                         {
                           goto LABEL_173;
                         }
 
-                        *v188 = 138543362;
-                        v137 = modea;
-                        v189 = modea;
+                        *v187 = 138543362;
+                        v136 = modea;
+                        v188 = modea;
 LABEL_153:
-                        _os_log_impl(&dword_0, v125, v136, "%{public}@", v188, 0xCu);
-                        v127 = v137;
+                        _os_log_impl(&dword_0, v124, v135, "%{public}@", v187, 0xCu);
+                        v126 = v136;
                         goto LABEL_154;
                       }
 
-                      v122 = +[AXSubsystemBrailleHardware sharedInstance];
-                      ignoreLogging9 = [v122 ignoreLogging];
+                      v121 = +[AXSubsystemBrailleHardware sharedInstance];
+                      ignoreLogging9 = [v121 ignoreLogging];
 
                       if ((ignoreLogging9 & 1) == 0)
                       {
-                        v169 = v32;
-                        v130 = +[AXSubsystemBrailleHardware identifier];
-                        v125 = AXLoggerForFacility();
+                        v168 = v32;
+                        v129 = +[AXSubsystemBrailleHardware identifier];
+                        v124 = AXLoggerForFacility();
 
-                        v131 = AXOSLogLevelFromAXLogLevel();
-                        if (os_log_type_enabled(v125, v131))
+                        v130 = AXOSLogLevelFromAXLogLevel();
+                        if (os_log_type_enabled(v124, v130))
                         {
-                          v164 = AXColorizeFormatLog();
+                          v163 = AXColorizeFormatLog();
                           modea = _AXStringForArgs();
-                          if (os_log_type_enabled(v125, v131))
+                          if (os_log_type_enabled(v124, v130))
                           {
-                            *v188 = 138543362;
-                            v189 = modea;
-                            _os_log_impl(&dword_0, v125, v131, "%{public}@", v188, 0xCu);
-                            v127 = modea;
+                            *v187 = 138543362;
+                            v188 = modea;
+                            _os_log_impl(&dword_0, v124, v130, "%{public}@", v187, 0xCu);
+                            v126 = modea;
                             __buf = 0;
-                            elementCopy = v175;
-                            v30 = v173;
+                            elementCopy = v174;
+                            v30 = v172;
                             goto LABEL_155;
                           }
 
                           __buf = 0;
-                          elementCopy = v175;
-                          v30 = v173;
+                          elementCopy = v174;
+                          v30 = v172;
                           goto LABEL_174;
                         }
 
                         __buf = 0;
-                        elementCopy = v175;
-                        v30 = v173;
+                        elementCopy = v174;
+                        v30 = v172;
                         goto LABEL_171;
                       }
 
                       __buf = 0;
-                      elementCopy = v175;
-                      v30 = v173;
+                      elementCopy = v174;
+                      v30 = v172;
 LABEL_144:
-                      v69 = v158;
+                      v69 = v157;
 LABEL_104:
                       [(SCRDFileReader *)v33->_readerThread invalidate:bluetoothChannelIsLost];
-                      v110 = v33->_readerThread;
+                      v109 = v33->_readerThread;
                       v33->_readerThread = 0;
 
-                      v111 = v33->_safeReadBuffer;
-                      if (v111)
+                      v110 = v33->_safeReadBuffer;
+                      if (v110)
                       {
-                        CFRelease(v111);
+                        CFRelease(v110);
                         v33->_safeReadBuffer = 0;
                       }
 
@@ -708,11 +707,11 @@ LABEL_104:
                         v33->_readBuffer = 0;
                       }
 
+                      v112 = v33->_readBufferLock;
                       v113 = v33->_readBufferLock;
-                      v114 = v33->_readBufferLock;
                       v33->_readBufferLock = 0;
 
-                      [(NSLock *)v113 unlock];
+                      [(NSLock *)v112 unlock];
                       device = v33->_device;
                       v33->_device = 0;
 
@@ -734,7 +733,7 @@ LABEL_104:
                         v33->_writeBuffer = 0;
                       }
 
-                      v117 = v33->_modelIdentifier;
+                      v116 = v33->_modelIdentifier;
                       v33->_modelIdentifier = 0;
 
                       v26 = 2;
@@ -747,7 +746,7 @@ LABEL_115:
 
                 v78 = 0;
                 __buf = 0;
-                elementCopy = v175;
+                elementCopy = v174;
               }
 
               else
@@ -756,37 +755,37 @@ LABEL_115:
                 __buf = 0;
               }
 
-              v30 = v173;
+              v30 = v172;
               goto LABEL_104;
             }
 
-            v103 = +[AXSubsystemBrailleHardware sharedInstance];
-            ignoreLogging10 = [v103 ignoreLogging];
+            v102 = +[AXSubsystemBrailleHardware sharedInstance];
+            ignoreLogging10 = [v102 ignoreLogging];
 
-            v31 = v171;
+            v31 = v170;
             if ((ignoreLogging10 & 1) == 0)
             {
-              v170 = v32;
-              v105 = +[AXSubsystemBrailleHardware identifier];
-              v106 = AXLoggerForFacility();
+              v169 = v32;
+              v104 = +[AXSubsystemBrailleHardware identifier];
+              v105 = AXLoggerForFacility();
 
-              v107 = AXOSLogLevelFromAXLogLevel();
-              if (os_log_type_enabled(v106, v107))
+              v106 = AXOSLogLevelFromAXLogLevel();
+              if (os_log_type_enabled(v105, v106))
               {
-                v108 = AXColorizeFormatLog();
+                v107 = AXColorizeFormatLog();
                 bluetoothChannelIsLost = selfCopy->_comPort;
-                v109 = _AXStringForArgs();
-                if (os_log_type_enabled(v106, v107))
+                v108 = _AXStringForArgs();
+                if (os_log_type_enabled(v105, v106))
                 {
-                  *v188 = 138543362;
-                  v189 = v109;
-                  _os_log_impl(&dword_0, v106, v107, "%{public}@", v188, 0xCu);
+                  *v187 = 138543362;
+                  v188 = v108;
+                  _os_log_impl(&dword_0, v105, v106, "%{public}@", v187, 0xCu);
                 }
 
-                v31 = v171;
+                v31 = v170;
               }
 
-              v32 = v170;
+              v32 = v169;
             }
 
             selfCopy->_comPort = -1;
@@ -800,7 +799,7 @@ LABEL_115:
             v29 = infoDictionary;
             if ((ignoreLogging11 & 1) == 0)
             {
-              v167 = v32;
+              v166 = v32;
               v55 = +[AXSubsystemBrailleHardware identifier];
               v56 = AXLoggerForFacility();
 
@@ -813,21 +812,21 @@ LABEL_115:
                 if (os_log_type_enabled(v56, v57))
                 {
                   *buf = 138543362;
-                  v191 = v60;
+                  v190 = v60;
                   _os_log_impl(&dword_0, v56, v57, "%{public}@", buf, 0xCu);
                 }
 
                 v31 = v58;
               }
 
-              v32 = v167;
+              v32 = v166;
             }
           }
 
           [v32 removeObserver:{selfCopy, bluetoothChannelIsLost}];
           v26 = 1;
-          elementCopy = v175;
-          v30 = v173;
+          elementCopy = v174;
+          v30 = v172;
 LABEL_117:
 
           goto LABEL_118;
@@ -842,11 +841,11 @@ LABEL_20:
       v43 = +[AXSubsystemBrailleHardware sharedInstance];
       ignoreLogging12 = [v43 ignoreLogging];
 
-      elementCopy = v175;
+      elementCopy = v174;
       if (ignoreLogging12)
       {
         v26 = 1;
-        v30 = v173;
+        v30 = v172;
         v29 = infoDictionary;
 LABEL_119:
 
@@ -862,7 +861,7 @@ LABEL_120:
       v29 = infoDictionary;
       if (!os_log_type_enabled(v31, v48))
       {
-        v30 = v173;
+        v30 = v172;
 LABEL_118:
 
         goto LABEL_119;
@@ -873,11 +872,11 @@ LABEL_118:
       if (os_log_type_enabled(v31, v48))
       {
         *buf = 138543362;
-        v191 = v50;
+        v190 = v50;
         _os_log_impl(&dword_0, v31, v48, "%{public}@", buf, 0xCu);
       }
 
-      v30 = v173;
+      v30 = v172;
       v32 = v49;
       goto LABEL_117;
     }
@@ -904,7 +903,7 @@ LABEL_121:
       if (os_log_type_enabled(v29, v52))
       {
         *buf = 138543362;
-        v191 = bluetoothAddress;
+        v190 = bluetoothAddress;
         _os_log_impl(&dword_0, v29, v52, "%{public}@", buf, 0xCu);
       }
 
@@ -936,7 +935,7 @@ LABEL_122:
       if (os_log_type_enabled(v12, v28))
       {
         *buf = 138543362;
-        v191 = v30;
+        v190 = v30;
         _os_log_impl(&dword_0, v12, v28, "%{public}@", buf, 0xCu);
       }
 
@@ -1075,7 +1074,7 @@ LABEL_123:
     lengthCopy = length;
     do
     {
-      v9 = *cells++;
+      ++cells;
       *v7++ = SCRDMDVConvertStandardCellToMDVCell();
       --lengthCopy;
     }
@@ -1100,7 +1099,6 @@ LABEL_123:
   {
     for (i = 0; i != length; ++i)
     {
-      v8 = cells[i];
       self->_writeBuffer[i] = SCRDMDVConvertStandardCellToMDVCell();
     }
   }
@@ -1123,20 +1121,18 @@ LABEL_123:
     nextWriteTime = self->_nextWriteTime;
     if (nextWriteTime < CFAbsoluteTimeGetCurrent())
     {
-      writeBuffer = self->_writeBuffer;
-      writeBufferSize_low = LOBYTE(self->_writeBufferSize);
       Request = SCRDMDVSerialCreateRequest();
       if (Request)
       {
-        v7 = Request;
+        v5 = Request;
         comPort = self->_comPort;
-        if (comPort != -1 && !write(comPort, v7, 0))
+        if (comPort != -1 && !write(comPort, v5, 0))
         {
           self->_writeBufferNeedsFlush = 0;
         }
 
         self->_nextWriteTime = CFAbsoluteTimeGetCurrent() + 0.005;
-        free(v7);
+        free(v5);
       }
     }
   }

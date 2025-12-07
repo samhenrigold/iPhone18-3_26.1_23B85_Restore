@@ -298,7 +298,7 @@ void __56__BRCPipelineStageHandlerBase_InternalPipeline__addJob___block_invoke(u
   v3 = brc_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __56__BRCPipelineStageHandlerBase_InternalPipeline__addJob___block_invoke_cold_1(a1);
+    __56__BRCPipelineStageHandlerBase_InternalPipeline__addJob___block_invoke_cold_1();
   }
 
   v4 = [*(a1 + 32) activeStageID];
@@ -332,24 +332,24 @@ void __56__BRCPipelineStageHandlerBase_InternalPipeline__addJob___block_invoke(u
 
 void __59__BRCPipelineStageHandlerBase_InternalPipeline__cancelJob___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = a1 + 32;
   v3 = [*(a1 + 32) activeStageID];
   if (v3 != [*(v2 + 8) stageID])
   {
-    v6 = brc_bread_crumbs();
-    v7 = brc_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v5 = brc_bread_crumbs();
+    v6 = brc_default_log();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = *(a1 + 40);
-      v18 = 138412802;
+      v7 = *(a1 + 32);
+      v8 = *(a1 + 40);
+      v16 = 138412802;
+      v17 = v7;
+      v18 = 2112;
       v19 = v8;
       v20 = 2112;
-      v21 = v9;
-      v22 = 2112;
-      v23 = v6;
-      _os_log_fault_impl(&dword_223E7A000, v7, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Can't cancel job %@ which isn't a part of the current stage %@%@", &v18, 0x20u);
+      v21 = v5;
+      _os_log_fault_impl(&dword_223E7A000, v6, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Can't cancel job %@ which isn't a part of the current stage %@%@", &v16, 0x20u);
     }
 
     goto LABEL_11;
@@ -357,32 +357,30 @@ void __59__BRCPipelineStageHandlerBase_InternalPipeline__cancelJob___block_invok
 
   if (![*(*(a1 + 40) + 16) containsObject:*(a1 + 32)])
   {
-    v10 = brc_bread_crumbs();
-    v11 = brc_default_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v9 = brc_bread_crumbs();
+    v10 = brc_default_log();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      __59__BRCPipelineStageHandlerBase_InternalPipeline__cancelJob___block_invoke_cold_1(v2);
+      __59__BRCPipelineStageHandlerBase_InternalPipeline__cancelJob___block_invoke_cold_1();
     }
 
-    v13 = *(a1 + 32);
-    v12 = *(a1 + 40);
-    v14 = v12[1];
-    v15 = [v12 _groupIdentifierForJob:v13];
-    [v14 removeJob:v13 withGroupIdentifier:v15];
+    v12 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    v13 = v11[1];
+    v14 = [v11 _groupIdentifierForJob:v12];
+    [v13 removeJob:v12 withGroupIdentifier:v14];
 
-    v6 = [*(a1 + 40) perJobCompletionHandler];
-    v16 = *(a1 + 32);
-    v7 = [MEMORY[0x277CCA9B8] brc_errorOperationCancelled];
-    (v6)[2](v6, v16, 0x7FFFFFFFFFFFFFFFLL, v7);
+    v5 = [*(a1 + 40) perJobCompletionHandler];
+    v15 = *(a1 + 32);
+    v6 = [MEMORY[0x277CCA9B8] brc_errorOperationCancelled];
+    (v5)[2](v5, v15, 0x7FFFFFFFFFFFFFFFLL, v6);
 LABEL_11:
 
-    v17 = *MEMORY[0x277D85DE8];
     return;
   }
 
   [*(*(a1 + 40) + 24) addObject:*(a1 + 32)];
   v4 = *(a1 + 40);
-  v5 = *MEMORY[0x277D85DE8];
 
   [v4 _cancelActiveBatchIfNecessary];
 }
@@ -409,7 +407,7 @@ LABEL_11:
   dispatch_sync(schedulingQueue, block);
 }
 
-uint64_t __65__BRCPipelineStageHandlerBase_InternalPipeline__enableScheduling__block_invoke(uint64_t a1)
+void *__65__BRCPipelineStageHandlerBase_InternalPipeline__enableScheduling__block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 65) = 1;
   result = [*(*(a1 + 32) + 16) count];
@@ -456,38 +454,38 @@ uint64_t __65__BRCPipelineStageHandlerBase_InternalPipeline__enableScheduling__b
 
 uint64_t __63__BRCPipelineStageHandlerBase_InternalPipeline__dumpToContext___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) description];
   [v2 writeLineWithFormat:@"%@", v3];
 
   [*(a1 + 32) writeLineWithFormat:@"active:"];
   [*(a1 + 32) pushIndentation];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v4 = *(*(a1 + 40) + 16);
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v11 + 1) + 8 * v8++) dumpToContext:*(a1 + 32)];
+        [*(*(&v10 + 1) + 8 * v8++) dumpToContext:*(a1 + 32)];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
@@ -497,9 +495,7 @@ uint64_t __63__BRCPipelineStageHandlerBase_InternalPipeline__dumpToContext___blo
   [*(a1 + 32) writeLineWithFormat:@"scheduled:"];
   [*(a1 + 32) pushIndentation];
   [*(*(a1 + 40) + 8) dumpToContext:*(a1 + 32)];
-  result = [*(a1 + 32) popIndentation];
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) popIndentation];
 }
 
 - (void)_initializeSourceAndQueues
@@ -603,12 +599,9 @@ void __95__BRCPipelineStageHandlerBase_InternalPipeline__setupWithInternalPipeli
 uint64_t __95__BRCPipelineStageHandlerBase_InternalPipeline__setupWithInternalPipelineJobCompletionHandler___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) _completedJob:*(a1 + 40) withRecoveryStage:*(a1 + 64) error:*(a1 + 48)];
-  v2 = *(a1 + 64);
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
-  v5 = *(*(a1 + 56) + 16);
+  v2 = *(*(a1 + 56) + 16);
 
-  return v5();
+  return v2();
 }
 
 @end

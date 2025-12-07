@@ -100,7 +100,7 @@
   [tappedCopy locationInView:listContainerView];
   v7 = v6;
   v9 = v8;
-  [listContainerView bounds];
+  objc_msgSend_bounds(listContainerView);
   v24.x = v7;
   v24.y = v9;
   v10 = CGRectContainsPoint(v25, v24);
@@ -270,7 +270,7 @@ LABEL_20:
 - (UIView)snapshotView
 {
   delegate = [(SBHPageManagementCellViewController *)self delegate];
-  [(SBHPageManagementCellViewController *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self);
   v5 = v4;
   pageManagementCellView = [(SBHPageManagementCellViewController *)self pageManagementCellView];
   listContainerView = [pageManagementCellView listContainerView];
@@ -280,7 +280,7 @@ LABEL_20:
   v9 = [v8 initWithFrame:{0.0, 0.0}];
   [v9 _setContinuousCornerRadius:v5];
   v10 = [delegate backgroundViewForSnapshotForPageManagementCellViewController:self];
-  [v9 bounds];
+  objc_msgSend_bounds(v9);
   [v10 setFrame:?];
   [v10 _setContinuousCornerRadius:v5];
   [v9 addSubview:v10];
@@ -288,7 +288,7 @@ LABEL_20:
   listView = self->_listView;
   if (listView)
   {
-    [(SBIconListView *)listView transform];
+    objc_msgSend_transform(listView);
   }
 
   else
@@ -325,7 +325,7 @@ LABEL_20:
   pageManagementCellView = [(SBHPageManagementCellViewController *)self pageManagementCellView];
   listContainerView = [pageManagementCellView listContainerView];
 
-  [(SBHPageManagementCellViewController *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self);
   [listContainerView frame];
   v5 = [MEMORY[0x1E69DC728] bezierPathWithRoundedRect:? cornerRadius:?];
 

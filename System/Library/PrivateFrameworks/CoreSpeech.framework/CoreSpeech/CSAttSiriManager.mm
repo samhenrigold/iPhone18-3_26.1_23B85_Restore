@@ -89,7 +89,6 @@
   else
   {
     v17 = self->_connectionManager;
-    v18 = self->_attSiriController;
 
     [(CSAttSiriConnectionManager *)v17 setupAttSiriServiceListenerWithAttSiriController:?];
   }

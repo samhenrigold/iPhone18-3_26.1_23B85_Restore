@@ -206,7 +206,7 @@ LABEL_43:
 
 - (id)formattedAddressString
 {
-  v3 = SUUIContactsFramework();
+  v3 = SUUIContactsFramework(self, a2);
   v4 = objc_alloc_init(SUUIWeakLinkedClassForString(&cfstr_Cnmutableposta.isa, v3));
   v5 = v4;
   if (self->_administrativeArea)
@@ -235,15 +235,16 @@ LABEL_43:
   }
 
   v6 = [(NSArray *)self->_addressLines componentsJoinedByString:@"\n"];
-  if ([v6 length])
+  v7 = [v6 length];
+  if (v7)
   {
-    [v5 setStreet:v6];
+    v7 = [v5 setStreet:v6];
   }
 
-  v7 = SUUIContactsFramework();
-  v8 = [SUUIWeakLinkedClassForString(&cfstr_Cnpostaladdres.isa v7)];
+  v9 = SUUIContactsFramework(v7, v8);
+  v10 = [SUUIWeakLinkedClassForString(&cfstr_Cnpostaladdres.isa v9)];
 
-  return v8;
+  return v10;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

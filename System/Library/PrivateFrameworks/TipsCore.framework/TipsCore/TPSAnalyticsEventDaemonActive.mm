@@ -1,4 +1,5 @@
 @interface TPSAnalyticsEventDaemonActive
++ (id)eventWithReason:(id)reason alreadyRunning:(BOOL)running;
 - (TPSAnalyticsEventDaemonActive)initWithCoder:(id)coder;
 - (id)_initWithReason:(id)reason alreadyRunning:(BOOL)running;
 - (id)mutableAnalyticsEventRepresentation;
@@ -39,6 +40,15 @@
   }
 
   return v9;
+}
+
++ (id)eventWithReason:(id)reason alreadyRunning:(BOOL)running
+{
+  runningCopy = running;
+  reasonCopy = reason;
+  v7 = [[self alloc] _initWithReason:reasonCopy alreadyRunning:runningCopy];
+
+  return v7;
 }
 
 - (void)encodeWithCoder:(id)coder

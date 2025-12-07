@@ -21,6 +21,7 @@
 - (void)setGravity:(GCAcceleration)gravity;
 - (void)setMotionEventSource:(id)source;
 - (void)setRotationRate:(GCRotationRate)rotationRate;
+- (void)setSensorsActive:(BOOL)sensorsActive;
 - (void)setStateFromMotion:(GCMotion *)motion;
 - (void)setUserAcceleration:(GCAcceleration)userAcceleration;
 - (void)setValueChangedHandler:(GCMotionValueChangedHandler)valueChangedHandler;
@@ -96,6 +97,20 @@
   v4 = components != 0;
 
   return v4;
+}
+
+- (void)setSensorsActive:(BOOL)sensorsActive
+{
+  v3 = sensorsActive;
+  WeakRetained = objc_loadWeakRetained(&self->_controller);
+  components = [WeakRetained components];
+
+  if (components)
+  {
+    v8 = objc_loadWeakRetained(&self->_controller);
+    motionConfigurableSensors = [v8 motionConfigurableSensors];
+    [motionConfigurableSensors setSensorsActive:v3];
+  }
 }
 
 - (BOOL)sensorsActive
@@ -389,9 +404,9 @@ void __35__GCMotion_setValueChangedHandler___block_invoke_2(uint64_t a1)
 {
   v4 = motion;
   controller = [(GCMotion *)self controller];
-  if (!controller || (v6 = controller, -[GCMotion controller](self, "controller"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 isSnapshot], v7, v6, v8))
+  if (!controller || (v7 = controller, -[GCMotion controller](self, "controller"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v8 isSnapshot], v8, v7, v9))
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(controller, v6))
     {
       [(GCMotion *)self setStateFromMotion:v4];
     }
@@ -469,7 +484,7 @@ uint64_t __41__GCMotion_PubSub__setMotionEventSource___block_invoke_2(uint64_t a
 - (GCMotion)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = GCIPCObjectIdentifier_Classes();
+  v5 = GCIPCObjectIdentifier_Classes(coderCopy);
   v6 = [coderCopy decodeObjectOfClasses:v5 forKey:@"identifier"];
 
   v7 = [(GCMotion *)self initWithIdentifier:v6];
@@ -545,22 +560,20 @@ void __41__GCMotion_PubSub__setMotionEventSource___block_invoke(uint64_t a1, voi
 
 - (void)setStateFromMotion:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v4 = getGCLogger();
+  v13 = *MEMORY[0x1E69E9840];
+  v4 = getGCLogger(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 256));
     v6 = [WeakRetained debugName];
     v7 = [a2 controller];
     v8 = [v7 debugName];
-    v10 = 138412546;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_1D2CD5000, v4, OS_LOG_TYPE_DEFAULT, "set %@ StateFromMotion %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_1D2CD5000, v4, OS_LOG_TYPE_DEFAULT, "set %@ StateFromMotion %@", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -280,7 +280,7 @@ uint64_t __57__PXFeedView__handleChangeToModifySelectionWithUserInfo___block_inv
 
   if (v7)
   {
-    [v7 dataSourceIndexPath];
+    objc_msgSend_dataSourceIndexPath(v7);
     v10 = [dataSource objectIDAtIndexPath:&v15];
   }
 

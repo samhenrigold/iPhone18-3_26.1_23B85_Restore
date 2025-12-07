@@ -1,4 +1,5 @@
 @interface HIDRMUIUserAuthorizationRequest
++ (id)requestWithDeviceName:(id)name requiresPairing:(BOOL)pairing;
 - (BOOL)isEqual:(id)equal;
 - (HIDRMUIUserAuthorizationRequest)initWithCoder:(id)coder;
 - (HIDRMUIUserAuthorizationRequest)initWithDeviceName:(id)name requiresPairing:(BOOL)pairing;
@@ -10,6 +11,15 @@
 @end
 
 @implementation HIDRMUIUserAuthorizationRequest
+
++ (id)requestWithDeviceName:(id)name requiresPairing:(BOOL)pairing
+{
+  pairingCopy = pairing;
+  nameCopy = name;
+  v6 = [[HIDRMUIUserAuthorizationRequest alloc] initWithDeviceName:nameCopy requiresPairing:pairingCopy];
+
+  return v6;
+}
 
 - (HIDRMUIUserAuthorizationRequest)initWithDeviceName:(id)name requiresPairing:(BOOL)pairing
 {
@@ -135,16 +145,14 @@
 
 void __38__HIDRMUIUserAuthorizationRequest_log__block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v3 = [v10 bundleIdentifier];
-  v4 = [v3 UTF8String];
-  v5 = *(a1 + 32);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = os_log_create(v4, [v7 UTF8String]);
-  v9 = log_s_log;
-  log_s_log = v8;
+  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v1 = [v7 bundleIdentifier];
+  v2 = [v1 UTF8String];
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = os_log_create(v2, [v4 UTF8String]);
+  v6 = log_s_log;
+  log_s_log = v5;
 }
 
 @end

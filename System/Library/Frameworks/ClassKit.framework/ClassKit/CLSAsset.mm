@@ -564,7 +564,7 @@ LABEL_49:
 {
   databaseCopy = database;
   objectID = [(CLSAsset *)self objectID];
-  v6 = [databaseCopy select:objc_opt_class() identity:objectID];
+  v6 = [(NSArray *)databaseCopy select:objc_opt_class() identity:objectID];
   v7 = objc_opt_new();
   if (v6)
   {
@@ -588,7 +588,7 @@ LABEL_49:
   allObjects = [v7 allObjects];
   sub_10008121C(v6, allObjects);
 
-  [databaseCopy insertOrUpdateObject:v6];
+  [(NSArray *)databaseCopy insertOrUpdateObject:v6];
   if ([(CLSAsset *)self type]== 3)
   {
     objectID2 = [(CLSAsset *)self objectID];
@@ -989,11 +989,11 @@ LABEL_43:
     asset = [(PDDPPayload *)v10 asset];
     [asset setObjectId:entityIdentity];
 
-    v16 = [databaseCopy select:objc_opt_class() identity:entityIdentity];
+    p_isa = [(NSArray *)databaseCopy select:objc_opt_class() identity:entityIdentity];
 
-    if (v16)
+    if (p_isa)
     {
-      v17 = v16[2];
+      v17 = p_isa[2];
     }
 
     else
@@ -1011,7 +1011,7 @@ LABEL_43:
 
     entityIdentity = [v12 objectID];
     v18 = sub_10015CD74(databaseCopy, entityIdentity);
-    v16 = databaseCopy;
+    p_isa = &databaseCopy->super.isa;
   }
 
   v20 = [v18 mutableCopy];

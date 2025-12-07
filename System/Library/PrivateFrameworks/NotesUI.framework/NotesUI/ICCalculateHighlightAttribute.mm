@@ -221,7 +221,7 @@ void *__44__ICCalculateHighlightAttribute_suggestions__block_invoke(uint64_t a1,
   objc_opt_class();
   v3 = [v2 userInfo];
 
-  v4 = [v3 objectForKeyedSubscript:*MEMORY[0x1E6992208]];
+  v4 = objc_msgSend_objectForKeyedSubscript_(v3);
   v5 = ICDynamicCast();
   v6 = v5;
   if (v5)

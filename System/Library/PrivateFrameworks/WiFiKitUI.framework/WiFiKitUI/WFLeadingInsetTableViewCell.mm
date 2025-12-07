@@ -2,6 +2,7 @@
 - (double)_airportSettingsCellConnectionStateExtraLeadingInset;
 - (void)awakeFromNib;
 - (void)layoutSubviews;
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 @end
 
 @implementation WFLeadingInsetTableViewCell
@@ -11,6 +12,13 @@
   v2.receiver = self;
   v2.super_class = WFLeadingInsetTableViewCell;
   [(WFLeadingInsetTableViewCell *)&v2 awakeFromNib];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = WFLeadingInsetTableViewCell;
+  [(WFLeadingInsetTableViewCell *)&v4 setSelected:selected animated:animated];
 }
 
 - (void)layoutSubviews

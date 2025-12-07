@@ -28,7 +28,7 @@
 
 - (void)_initializeAllowAndDenylists
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   v3 = VGAllowlistPayload();
   v4 = v3;
   if (v3)
@@ -41,28 +41,28 @@
     if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
       selfCopy = self;
-      v62 = v4;
+      v57 = v4;
       v9 = objc_opt_new();
-      v71 = 0u;
-      v72 = 0u;
-      v73 = 0u;
-      v74 = 0u;
+      v66 = 0u;
+      v67 = 0u;
+      v68 = 0u;
+      v69 = 0u;
       v10 = v7;
-      v11 = [v10 countByEnumeratingWithState:&v71 objects:&v81 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v66 objects:&v76 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v72;
+        v13 = *v67;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v72 != v13)
+            if (*v67 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v71 + 1) + 8 * i);
+            v15 = *(*(&v66 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -81,7 +81,7 @@
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v71 objects:&v81 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v66 objects:&v76 count:16];
         }
 
         while (v12);
@@ -89,7 +89,7 @@
 
       v17 = [v9 copy];
       self = selfCopy;
-      v4 = v62;
+      v4 = v57;
       v8 = 0x277CBE000;
     }
 
@@ -98,9 +98,9 @@
       v9 = VGGetExternalAccessoryModelFilterLog();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
       {
-        v81 = 138412290;
-        v82 = v7;
-        _os_log_impl(&dword_270EC1000, v9, OS_LOG_TYPE_FAULT, "Parsing of allowlist failed. allowlistedModelIds were in an unexpected format: %@", &v81, 0xCu);
+        v76 = 138412290;
+        v77 = v7;
+        _os_log_impl(&dword_270EC1000, v9, OS_LOG_TYPE_FAULT, "Parsing of allowlist failed. allowlistedModelIds were in an unexpected format: %@", &v76, 0xCu);
       }
 
       v17 = 0;
@@ -111,260 +111,253 @@
 
     v19 = v5;
     v20 = GEOConfigGetString();
-    v68 = v19;
+    v63 = v19;
     v21 = [(VGDenylistEntry *)v19 objectForKeyedSubscript:v20];
 
     if (v21)
     {
-      v22 = *(v8 + 2656);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
         selfCopy2 = self;
-        v63 = v4;
-        v64 = objc_opt_new();
-        v71 = 0u;
-        v72 = 0u;
-        v73 = 0u;
-        v74 = 0u;
-        v59 = v21;
+        v58 = v4;
+        v59 = objc_opt_new();
+        v66 = 0u;
+        v67 = 0u;
+        v68 = 0u;
+        v69 = 0u;
+        v54 = v21;
         obj = v21;
-        v23 = [obj countByEnumeratingWithState:&v71 objects:&v81 count:16];
-        if (!v23)
+        v22 = [obj countByEnumeratingWithState:&v66 objects:&v76 count:16];
+        if (!v22)
         {
           goto LABEL_54;
         }
 
-        v24 = v23;
-        v25 = *v72;
-        v65 = *v72;
+        v23 = v22;
+        v24 = *v67;
+        v60 = *v67;
         while (1)
         {
-          v26 = 0;
-          v66 = v24;
+          v25 = 0;
+          v61 = v23;
           do
           {
-            if (*v72 != v25)
+            if (*v67 != v24)
             {
               objc_enumerationMutation(obj);
             }
 
-            v27 = *(*(&v71 + 1) + 8 * v26);
+            v26 = *(*(&v66 + 1) + 8 * v25);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
               *&buf = MEMORY[0x277D85DD0];
               *(&buf + 1) = 3221225472;
-              v76 = __62__VGExternalAccessoryModelFilter__initializeAllowAndDenylists__block_invoke_34;
-              v77 = &unk_279E26998;
-              v78 = v68;
-              v28 = MEMORY[0x2743B8310](&buf);
-              v29 = 1;
-              v70 = 1;
-              v30 = GEOConfigGetString();
-              v31 = objc_opt_class();
-              v69 = (v28)[2](v28, v30, v31, v27, &v70);
+              v71 = __62__VGExternalAccessoryModelFilter__initializeAllowAndDenylists__block_invoke_34;
+              v72 = &unk_279E26998;
+              v73 = v63;
+              v27 = MEMORY[0x2743B8310](&buf);
+              v28 = 1;
+              v65 = 1;
+              v29 = GEOConfigGetString();
+              v30 = objc_opt_class();
+              v64 = (v27)[2](v27, v29, v30, v26, &v65);
 
-              v32 = GEOConfigGetString();
-              v33 = *(v8 + 2656);
-              v34 = objc_opt_class();
-              v35 = (v28)[2](v28, v32, v34, v27, &v70);
+              v31 = GEOConfigGetString();
+              v32 = objc_opt_class();
+              v33 = (v27)[2](v27, v31, v32, v26, &v65);
 
-              if (v35)
+              if (v33)
               {
-                v29 = __62__VGExternalAccessoryModelFilter__initializeAllowAndDenylists__block_invoke_36(v35);
+                v28 = __62__VGExternalAccessoryModelFilter__initializeAllowAndDenylists__block_invoke_36(v33);
               }
 
-              v70 &= v29;
-              v36 = GEOConfigGetString();
-              v37 = v8;
-              v38 = *(v8 + 2656);
-              v39 = objc_opt_class();
-              v40 = (v28)[2](v28, v36, v39, v27, &v70);
+              v65 &= v28;
+              v34 = GEOConfigGetString();
+              v35 = v8;
+              v36 = objc_opt_class();
+              v37 = (v27)[2](v27, v34, v36, v26, &v65);
 
-              if (v40)
+              if (v37)
               {
-                v41 = __62__VGExternalAccessoryModelFilter__initializeAllowAndDenylists__block_invoke_36(v40);
-              }
-
-              else
-              {
-                v41 = 1;
-              }
-
-              v70 &= v41;
-              v43 = GEOConfigGetString();
-              v44 = *(v37 + 2656);
-              v45 = objc_opt_class();
-              v46 = (v28)[2](v28, v43, v45, v27, &v70);
-
-              if (v46)
-              {
-                v47 = __62__VGExternalAccessoryModelFilter__initializeAllowAndDenylists__block_invoke_36(v46);
+                v38 = __62__VGExternalAccessoryModelFilter__initializeAllowAndDenylists__block_invoke_36(v37);
               }
 
               else
               {
-                v47 = 1;
+                v38 = 1;
               }
 
-              v48 = (v47 & v70) == 0;
-              v70 &= v47;
-              v25 = v65;
-              if (v48)
+              v65 &= v38;
+              v40 = GEOConfigGetString();
+              v41 = objc_opt_class();
+              v42 = (v27)[2](v27, v40, v41, v26, &v65);
+
+              if (v42)
               {
-                v49 = VGGetExternalAccessoryModelFilterLog();
-                if (os_log_type_enabled(&v49->super, OS_LOG_TYPE_ERROR))
+                v43 = __62__VGExternalAccessoryModelFilter__initializeAllowAndDenylists__block_invoke_36(v42);
+              }
+
+              else
+              {
+                v43 = 1;
+              }
+
+              v44 = (v43 & v65) == 0;
+              v65 &= v43;
+              v24 = v60;
+              if (v44)
+              {
+                v45 = VGGetExternalAccessoryModelFilterLog();
+                if (os_log_type_enabled(&v45->super, OS_LOG_TYPE_ERROR))
                 {
-                  *v79 = 138412290;
-                  v80 = v27;
-                  p_super = &v49->super;
-                  v51 = OS_LOG_TYPE_ERROR;
-                  v52 = "Encountered malformed configuration: %@. Will skip it.";
+                  *v74 = 138412290;
+                  v75 = v26;
+                  p_super = &v45->super;
+                  v47 = OS_LOG_TYPE_ERROR;
+                  v48 = "Encountered malformed configuration: %@. Will skip it.";
 LABEL_47:
-                  _os_log_impl(&dword_270EC1000, p_super, v51, v52, v79, 0xCu);
+                  _os_log_impl(&dword_270EC1000, p_super, v47, v48, v74, 0xCu);
                 }
               }
 
-              else if (v69 || v35 || v40 || v46)
+              else if (v64 || v33 || v37 || v42)
               {
-                v49 = [[VGDenylistEntry alloc] initWithModelId:v69 firmwareIds:v35 years:v40 models:v46];
-                v53 = VGGetExternalAccessoryModelFilterLog();
-                if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
+                v45 = [[VGDenylistEntry alloc] initWithModelId:v64 firmwareIds:v33 years:v37 models:v42];
+                v49 = VGGetExternalAccessoryModelFilterLog();
+                if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
                 {
-                  *v79 = 138412290;
-                  v80 = v49;
-                  _os_log_impl(&dword_270EC1000, v53, OS_LOG_TYPE_INFO, "Adding new entry to iAP2 denylist: %@", v79, 0xCu);
+                  *v74 = 138412290;
+                  v75 = v45;
+                  _os_log_impl(&dword_270EC1000, v49, OS_LOG_TYPE_INFO, "Adding new entry to iAP2 denylist: %@", v74, 0xCu);
                 }
 
-                [v64 addObject:v49];
+                [v59 addObject:v45];
               }
 
               else
               {
-                v49 = VGGetExternalAccessoryModelFilterLog();
-                if (os_log_type_enabled(&v49->super, OS_LOG_TYPE_FAULT))
+                v45 = VGGetExternalAccessoryModelFilterLog();
+                if (os_log_type_enabled(&v45->super, OS_LOG_TYPE_FAULT))
                 {
-                  *v79 = 138412290;
-                  v80 = v27;
-                  p_super = &v49->super;
-                  v51 = OS_LOG_TYPE_FAULT;
-                  v52 = "Encountered a configuration without any parameters: %@. Will skip it.";
+                  *v74 = 138412290;
+                  v75 = v26;
+                  p_super = &v45->super;
+                  v47 = OS_LOG_TYPE_FAULT;
+                  v48 = "Encountered a configuration without any parameters: %@. Will skip it.";
                   goto LABEL_47;
                 }
               }
 
-              v42 = v78;
-              v8 = v37;
-              v24 = v66;
+              v39 = v73;
+              v8 = v35;
+              v23 = v61;
               goto LABEL_52;
             }
 
-            v42 = VGGetExternalAccessoryModelFilterLog();
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
+            v39 = VGGetExternalAccessoryModelFilterLog();
+            if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
             {
-              *v79 = 138412290;
-              v80 = v68;
-              _os_log_impl(&dword_270EC1000, v42, OS_LOG_TYPE_FAULT, "Encountered a non-dictionary in payload: %@", v79, 0xCu);
+              *v74 = 138412290;
+              v75 = v63;
+              _os_log_impl(&dword_270EC1000, v39, OS_LOG_TYPE_FAULT, "Encountered a non-dictionary in payload: %@", v74, 0xCu);
             }
 
 LABEL_52:
 
-            ++v26;
+            ++v25;
           }
 
-          while (v24 != v26);
-          v24 = [obj countByEnumeratingWithState:&v71 objects:&v81 count:16];
-          if (!v24)
+          while (v23 != v25);
+          v23 = [obj countByEnumeratingWithState:&v66 objects:&v76 count:16];
+          if (!v23)
           {
 LABEL_54:
 
-            v54 = v64;
-            v55 = [v64 copy];
+            v50 = v59;
+            v51 = [v59 copy];
             self = selfCopy2;
-            v4 = v63;
-            v21 = v59;
+            v4 = v58;
+            v21 = v54;
             goto LABEL_58;
           }
         }
       }
     }
 
-    v54 = VGGetExternalAccessoryModelFilterLog();
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_FAULT))
+    v50 = VGGetExternalAccessoryModelFilterLog();
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
     {
-      v81 = 138412290;
-      v82 = v21;
-      _os_log_impl(&dword_270EC1000, v54, OS_LOG_TYPE_FAULT, "Parsing of denylist failed. denylistedConfigurations were in an unexpected format: %@", &v81, 0xCu);
+      v76 = 138412290;
+      v77 = v21;
+      _os_log_impl(&dword_270EC1000, v50, OS_LOG_TYPE_FAULT, "Parsing of denylist failed. denylistedConfigurations were in an unexpected format: %@", &v76, 0xCu);
     }
 
-    v55 = 0;
+    v51 = 0;
 LABEL_58:
 
     denylist = self->_denylist;
-    self->_denylist = v55;
+    self->_denylist = v51;
   }
 
   else
   {
-    v57 = VGGetExternalAccessoryModelFilterLog();
-    if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+    v53 = VGGetExternalAccessoryModelFilterLog();
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v81) = 0;
-      _os_log_impl(&dword_270EC1000, v57, OS_LOG_TYPE_ERROR, "Parsing of allowlist failed. Payload was nil.", &v81, 2u);
+      LOWORD(v76) = 0;
+      _os_log_impl(&dword_270EC1000, v53, OS_LOG_TYPE_ERROR, "Parsing of allowlist failed. Payload was nil.", &v76, 2u);
     }
   }
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resourceManifestManager:(id)manager didChangeActiveTileGroup:(id)group fromOldTileGroup:(id)tileGroup
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   tileGroupCopy = tileGroup;
   v9 = VGGetExternalAccessoryModelFilterLog();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v11 = 138412546;
-    v12 = tileGroupCopy;
-    v13 = 2112;
-    v14 = groupCopy;
-    _os_log_impl(&dword_270EC1000, v9, OS_LOG_TYPE_INFO, "Geo active tile group changed from %@ to %@; rebuilding allow and deny lists", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = tileGroupCopy;
+    v12 = 2112;
+    v13 = groupCopy;
+    _os_log_impl(&dword_270EC1000, v9, OS_LOG_TYPE_INFO, "Geo active tile group changed from %@ to %@; rebuilding allow and deny lists", &v10, 0x16u);
   }
 
   [(VGExternalAccessoryModelFilter *)self _initializeAllowAndDenylists];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)allowsVehicleWithModelId:(id)id firmwareId:(id)firmwareId year:(id)year model:(id)model
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   idCopy = id;
   firmwareIdCopy = firmwareId;
   yearCopy = year;
   modelCopy = model;
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2020000000;
-  v52 = 0;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x2020000000;
+  v51 = 0;
   modelIdAllowlist = [(VGExternalAccessoryModelFilter *)self modelIdAllowlist];
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __81__VGExternalAccessoryModelFilter_allowsVehicleWithModelId_firmwareId_year_model___block_invoke;
-  v46[3] = &unk_279E269C0;
-  v39 = idCopy;
-  v47 = v39;
-  v48 = &v49;
-  [modelIdAllowlist enumerateObjectsUsingBlock:v46];
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __81__VGExternalAccessoryModelFilter_allowsVehicleWithModelId_firmwareId_year_model___block_invoke;
+  v45[3] = &unk_279E269C0;
+  v38 = idCopy;
+  v46 = v38;
+  v47 = &v48;
+  [modelIdAllowlist enumerateObjectsUsingBlock:v45];
 
-  if (v50[3])
+  if (v49[3])
   {
     v12 = [VGDenylistEntry alloc];
     if (firmwareIdCopy)
     {
-      v59 = firmwareIdCopy;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
+      v58 = firmwareIdCopy;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
     }
 
     else
@@ -374,8 +367,8 @@ LABEL_58:
 
     if (yearCopy)
     {
-      v58 = yearCopy;
-      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
+      v57 = yearCopy;
+      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
     }
 
     else
@@ -385,8 +378,8 @@ LABEL_58:
 
     if (modelCopy)
     {
-      v57 = modelCopy;
-      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
+      v56 = modelCopy;
+      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
     }
 
     else
@@ -394,7 +387,7 @@ LABEL_58:
       v28 = MEMORY[0x277CBEBF8];
     }
 
-    v29 = [(VGDenylistEntry *)v12 initWithModelId:v39 firmwareIds:v13 years:v27 models:v28];
+    v29 = [(VGDenylistEntry *)v12 initWithModelId:v38 firmwareIds:v13 years:v27 models:v28];
     if (modelCopy)
     {
     }
@@ -407,56 +400,56 @@ LABEL_58:
     {
     }
 
-    v64 = 0;
-    v65 = &v64;
-    v66 = 0x2020000000;
-    v67 = 0;
+    v63 = 0;
+    v64 = &v63;
+    v65 = 0x2020000000;
+    v66 = 0;
     denylist = [(VGExternalAccessoryModelFilter *)self denylist];
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __81__VGExternalAccessoryModelFilter_allowsVehicleWithModelId_firmwareId_year_model___block_invoke_41;
-    v43[3] = &unk_279E269E8;
-    v38 = v29;
-    v44 = v38;
-    v45 = &v64;
-    [denylist enumerateObjectsUsingBlock:v43];
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __81__VGExternalAccessoryModelFilter_allowsVehicleWithModelId_firmwareId_year_model___block_invoke_41;
+    v42[3] = &unk_279E269E8;
+    v37 = v29;
+    v43 = v37;
+    v44 = &v63;
+    [denylist enumerateObjectsUsingBlock:v42];
 
-    v31 = *(v65 + 24);
+    v31 = *(v64 + 24);
     v32 = v31 ^ 1;
-    _Block_object_dispose(&v64, 8);
+    _Block_object_dispose(&v63, 8);
   }
 
   else
   {
-    v38 = VGGetExternalAccessoryModelFilterLog();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v37 = VGGetExternalAccessoryModelFilterLog();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       v14 = self->_modelIdAllowlist;
-      v37 = v14;
+      v36 = v14;
       if (v14)
       {
         if ([(NSArray *)v14 count])
         {
-          v15 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](v37, "count")}];
-          v55 = 0u;
-          v56 = 0u;
-          v53 = 0u;
+          v15 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](v36, "count")}];
           v54 = 0u;
-          v16 = v37;
-          v17 = [(NSArray *)v16 countByEnumeratingWithState:&v53 objects:&v64 count:16];
+          v55 = 0u;
+          v52 = 0u;
+          v53 = 0u;
+          v16 = v36;
+          v17 = [(NSArray *)v16 countByEnumeratingWithState:&v52 objects:&v63 count:16];
           if (v17)
           {
-            v18 = *v54;
+            v18 = *v53;
             do
             {
               for (i = 0; i != v17; ++i)
               {
-                if (*v54 != v18)
+                if (*v53 != v18)
                 {
                   objc_enumerationMutation(v16);
                 }
 
-                v20 = *(*(&v53 + 1) + 8 * i);
+                v20 = *(*(&v52 + 1) + 8 * i);
                 if (v20)
                 {
                   v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@<%p>", objc_opt_class(), v20];
@@ -470,7 +463,7 @@ LABEL_58:
                 [v15 addObject:v21];
               }
 
-              v17 = [(NSArray *)v16 countByEnumeratingWithState:&v53 objects:&v64 count:16];
+              v17 = [(NSArray *)v16 countByEnumeratingWithState:&v52 objects:&v63 count:16];
             }
 
             while (v17);
@@ -487,7 +480,7 @@ LABEL_58:
         else
         {
           v33 = MEMORY[0x277CCACA8];
-          v34 = v37;
+          v34 = v36;
           v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@<%p>", objc_opt_class(), v34];
 
           v26 = [v33 stringWithFormat:@"%@ (empty)", v15];
@@ -500,21 +493,20 @@ LABEL_58:
       }
 
       *buf = 138412546;
-      v61 = v39;
-      v62 = 2112;
-      v63 = v26;
-      _os_log_impl(&dword_270EC1000, v38, OS_LOG_TYPE_ERROR, "allowsVehicleWithModelId: denied modelId: %@ as it is not in the allowlist: %@", buf, 0x16u);
+      v60 = v38;
+      v61 = 2112;
+      v62 = v26;
+      _os_log_impl(&dword_270EC1000, v37, OS_LOG_TYPE_ERROR, "allowsVehicleWithModelId: denied modelId: %@ as it is not in the allowlist: %@", buf, 0x16u);
     }
 
     v32 = 0;
   }
 
-  _Block_object_dispose(&v49, 8);
-  v35 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v48, 8);
   return v32 & 1;
 }
 
-uint64_t __81__VGExternalAccessoryModelFilter_allowsVehicleWithModelId_firmwareId_year_model___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__81__VGExternalAccessoryModelFilter_allowsVehicleWithModelId_firmwareId_year_model___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isEqual:*(a1 + 32)];
   if (result)
@@ -528,7 +520,7 @@ uint64_t __81__VGExternalAccessoryModelFilter_allowsVehicleWithModelId_firmwareI
 
 void __81__VGExternalAccessoryModelFilter_allowsVehicleWithModelId_firmwareId_year_model___block_invoke_41(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v6 = a2;
   if ([v6 isSupersetOfEntry:*(a1 + 32)])
   {
@@ -536,23 +528,21 @@ void __81__VGExternalAccessoryModelFilter_allowsVehicleWithModelId_firmwareId_ye
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = *(a1 + 32);
-      v10 = 138412546;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v6;
-      _os_log_impl(&dword_270EC1000, v7, OS_LOG_TYPE_ERROR, "allowsVehicleWithModelId: denied entry: %@ as it matches entry from denylist: %@", &v10, 0x16u);
+      v9 = 138412546;
+      v10 = v8;
+      v11 = 2112;
+      v12 = v6;
+      _os_log_impl(&dword_270EC1000, v7, OS_LOG_TYPE_ERROR, "allowsVehicleWithModelId: denied entry: %@ as it matches entry from denylist: %@", &v9, 0x16u);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 1;
     *a4 = 1;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 id __62__VGExternalAccessoryModelFilter__initializeAllowAndDenylists__block_invoke_34(uint64_t a1, void *a2, uint64_t a3, void *a4, _BYTE *a5)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v8 = a2;
   v9 = a4;
   v10 = [v9 objectForKeyedSubscript:v8];
@@ -562,11 +552,11 @@ id __62__VGExternalAccessoryModelFilter__initializeAllowAndDenylists__block_invo
     if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
       v16 = *(a1 + 32);
-      v19 = 138412546;
-      v20 = v8;
-      v21 = 2112;
-      v22 = v16;
-      _os_log_impl(&dword_270EC1000, v15, OS_LOG_TYPE_FAULT, "Encountered an invalid value under key: %@ in payload: %@", &v19, 0x16u);
+      v18 = 138412546;
+      v19 = v8;
+      v20 = 2112;
+      v21 = v16;
+      _os_log_impl(&dword_270EC1000, v15, OS_LOG_TYPE_FAULT, "Encountered an invalid value under key: %@ in payload: %@", &v18, 0x16u);
     }
 
     v14 = 0;
@@ -578,43 +568,40 @@ id __62__VGExternalAccessoryModelFilter__initializeAllowAndDenylists__block_invo
     v14 = [v9 objectForKeyedSubscript:v8];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 uint64_t __62__VGExternalAccessoryModelFilter__initializeAllowAndDenylists__block_invoke_36(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v1 = a1;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v13 = 0u;
-    v14 = 0u;
     v11 = 0u;
     v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v2 = v1;
-    v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v12;
+      v5 = *v10;
       while (2)
       {
         v6 = 0;
         do
         {
-          if (*v12 != v5)
+          if (*v10 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v11 + 1) + 8 * v6);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v8 = 0;
+            v7 = 0;
             goto LABEL_13;
           }
 
@@ -622,7 +609,7 @@ uint64_t __62__VGExternalAccessoryModelFilter__initializeAllowAndDenylists__bloc
         }
 
         while (v4 != v6);
-        v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v4)
         {
           continue;
@@ -632,17 +619,16 @@ uint64_t __62__VGExternalAccessoryModelFilter__initializeAllowAndDenylists__bloc
       }
     }
 
-    v8 = 1;
+    v7 = 1;
 LABEL_13:
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v7;
 }
 
 - (NSArray)denylist

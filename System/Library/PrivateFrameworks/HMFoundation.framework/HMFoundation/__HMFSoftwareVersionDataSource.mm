@@ -44,7 +44,7 @@
   v10 = processInfo;
   if (processInfo)
   {
-    [processInfo operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(processInfo);
   }
 
   v11 = [[HMFSoftwareVersion alloc] initWithMajorVersion:0 minorVersion:0 updateVersion:0 buildVersion:v8];

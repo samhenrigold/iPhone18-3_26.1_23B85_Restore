@@ -47,12 +47,12 @@
   preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
 
   v4 = 15.0;
-  if (([preferredContentSizeCategory isEqualToString:@"UICTContentSizeCategoryXS"] & 1) == 0 && (objc_msgSend(preferredContentSizeCategory, "isEqualToString:", @"UICTContentSizeCategoryS") & 1) == 0 && (objc_msgSend(preferredContentSizeCategory, "isEqualToString:", @"UICTContentSizeCategoryM") & 1) == 0 && (objc_msgSend(preferredContentSizeCategory, "isEqualToString:", @"UICTContentSizeCategoryL") & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(preferredContentSizeCategory) & 1) == 0 && (objc_msgSend_isEqualToString_(preferredContentSizeCategory) & 1) == 0 && (objc_msgSend_isEqualToString_(preferredContentSizeCategory) & 1) == 0 && (objc_msgSend_isEqualToString_(preferredContentSizeCategory) & 1) == 0)
   {
     v4 = 16.0;
-    if (([preferredContentSizeCategory isEqualToString:@"UICTContentSizeCategoryXL"] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(preferredContentSizeCategory) & 1) == 0)
     {
-      if ([preferredContentSizeCategory isEqualToString:@"UICTContentSizeCategoryXXL"])
+      if (objc_msgSend_isEqualToString_(preferredContentSizeCategory))
       {
         v4 = 17.0;
       }
@@ -467,7 +467,7 @@ uint64_t __177__UIAlertControllerVisualStyleActionSheetInline_animateAlertContro
   return [v1 setTransform:v4];
 }
 
-uint64_t __177__UIAlertControllerVisualStyleActionSheetInline_animateAlertControllerView_ofAlertController_forPresentation_inContainerView_descendantOfContainerView_duration_completionBlock___block_invoke_2(uint64_t a1)
+void *__177__UIAlertControllerVisualStyleActionSheetInline_animateAlertControllerView_ofAlertController_forPresentation_inContainerView_descendantOfContainerView_duration_completionBlock___block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 64);
   v4[0] = *(a1 + 48);

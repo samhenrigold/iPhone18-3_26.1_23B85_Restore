@@ -74,7 +74,6 @@
 
 - (id)_derivedKeyFromKey:(id)key
 {
-  v8 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF88];
   keyCopy = key;
   v5 = [v3 dataWithLength:64];
@@ -89,8 +88,6 @@
 
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -109,13 +106,11 @@
 
 void __45__FCCKAESSIVRecordNameCipher__encryptionSalt__block_invoke()
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3 = xmmword_1B681A720;
-  v0 = [MEMORY[0x1E695DEF0] dataWithBytes:&v3 length:16];
+  v3 = *MEMORY[0x1E69E9840];
+  v2 = xmmword_1B681A720;
+  v0 = [MEMORY[0x1E695DEF0] dataWithBytes:&v2 length:16];
   v1 = _MergedGlobals_145;
   _MergedGlobals_145 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

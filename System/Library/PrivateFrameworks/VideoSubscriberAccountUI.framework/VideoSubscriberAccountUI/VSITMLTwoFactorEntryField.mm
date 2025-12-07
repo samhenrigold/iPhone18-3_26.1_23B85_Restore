@@ -19,9 +19,11 @@
     keyboard2 = [(IKTextFieldElement *)v9 keyboard];
     [keyboard2 setDelegate:self];
     [(VSITMLTwoFactorEntryField *)self textDidChangeForKeyboard:keyboard2];
+
+    elementCopy = v9;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](associatedTextFieldElement, elementCopy);
 }
 
 - (void)textDidChangeForKeyboard:(id)keyboard

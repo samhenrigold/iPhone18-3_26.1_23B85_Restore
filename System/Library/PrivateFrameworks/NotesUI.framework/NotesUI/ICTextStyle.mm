@@ -31,7 +31,7 @@
   v4 = [attributes mutableCopy];
 
   v5 = *MEMORY[0x1E69DB688];
-  v6 = [v4 objectForKeyedSubscript:*MEMORY[0x1E69DB688]];
+  v6 = objc_msgSend_objectForKeyedSubscript_(v4);
   v7 = [v6 mutableCopy];
 
   [v7 setFirstLineHeadIndent:0.0];

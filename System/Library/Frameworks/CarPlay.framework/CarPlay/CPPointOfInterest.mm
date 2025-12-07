@@ -207,12 +207,11 @@
 
 id __33__CPPointOfInterest_setPinImage___block_invoke(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
+  v2 = a2;
   [objc_opt_class() pinImageSize];
-  v6 = CPImageByScalingImageToSize(v3, v4, v5);
+  v5 = CPImageByScalingImageToSize(v2, v3, v4);
 
-  return v6;
+  return v5;
 }
 
 - (UIImage)pinImage
@@ -248,12 +247,11 @@ id __33__CPPointOfInterest_setPinImage___block_invoke(uint64_t a1, void *a2)
 
 id __41__CPPointOfInterest_setSelectedPinImage___block_invoke(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
+  v2 = a2;
   [objc_opt_class() selectedPinImageSize];
-  v6 = CPImageByScalingImageToSize(v3, v4, v5);
+  v5 = CPImageByScalingImageToSize(v2, v3, v4);
 
-  return v6;
+  return v5;
 }
 
 - (UIImage)selectedPinImage
@@ -280,70 +278,7 @@ id __41__CPPointOfInterest_setSelectedPinImage___block_invoke(uint64_t a1, void 
   identifier2 = [interestCopy identifier];
   v7 = [identifier isEqual:identifier2];
 
-  if (!v7)
-  {
-    goto LABEL_10;
-  }
-
-  title = [(CPPointOfInterest *)self title];
-  title2 = [interestCopy title];
-  v10 = [title isEqual:title2];
-
-  if (!v10)
-  {
-    goto LABEL_10;
-  }
-
-  subtitle = [(CPPointOfInterest *)self subtitle];
-  subtitle2 = [interestCopy subtitle];
-  v13 = [subtitle isEqual:subtitle2];
-
-  if (!v13)
-  {
-    goto LABEL_10;
-  }
-
-  summary = [(CPPointOfInterest *)self summary];
-  summary2 = [interestCopy summary];
-  v16 = [summary isEqual:summary2];
-
-  if (!v16)
-  {
-    goto LABEL_10;
-  }
-
-  detailTitle = [(CPPointOfInterest *)self detailTitle];
-  detailTitle2 = [interestCopy detailTitle];
-  v19 = [detailTitle isEqual:detailTitle2];
-
-  if (!v19)
-  {
-    goto LABEL_10;
-  }
-
-  detailSubtitle = [(CPPointOfInterest *)self detailSubtitle];
-  detailSubtitle2 = [interestCopy detailSubtitle];
-  v22 = [detailSubtitle isEqual:detailSubtitle2];
-
-  if (!v22)
-  {
-    goto LABEL_10;
-  }
-
-  detailSummary = [(CPPointOfInterest *)self detailSummary];
-  detailSummary2 = [interestCopy detailSummary];
-  v25 = [detailSummary isEqual:detailSummary2];
-
-  if (!v25)
-  {
-    goto LABEL_10;
-  }
-
-  pinImageSet = [(CPPointOfInterest *)self pinImageSet];
-  pinImageSet2 = [interestCopy pinImageSet];
-  v28 = [pinImageSet isEqual:pinImageSet2];
-
-  if (v28)
+  if (v7 && (-[CPPointOfInterest title](self, "title"), v8 = objc_claimAutoreleasedReturnValue(), [interestCopy title], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "isEqual:", v9), v9, v8, v10) && (-[CPPointOfInterest subtitle](self, "subtitle"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(interestCopy, "subtitle"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v11, "isEqual:", v12), v12, v11, v13) && (-[CPPointOfInterest summary](self, "summary"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(interestCopy, "summary"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v14, "isEqual:", v15), v15, v14, v16) && (-[CPPointOfInterest detailTitle](self, "detailTitle"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(interestCopy, "detailTitle"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v17, "isEqual:", v18), v18, v17, v19) && (-[CPPointOfInterest detailSubtitle](self, "detailSubtitle"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(interestCopy, "detailSubtitle"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v20, "isEqual:", v21), v21, v20, v22) && (-[CPPointOfInterest detailSummary](self, "detailSummary"), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(interestCopy, "detailSummary"), v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v23, "isEqual:", v24), v24, v23, v25) && (-[CPPointOfInterest pinImageSet](self, "pinImageSet"), v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(interestCopy, "pinImageSet"), v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v26, "isEqual:", v27), v27, v26, v28))
   {
     location = [(CPPointOfInterest *)self location];
     location2 = [interestCopy location];
@@ -352,7 +287,6 @@ id __41__CPPointOfInterest_setSelectedPinImage___block_invoke(uint64_t a1, void 
 
   else
   {
-LABEL_10:
     v31 = 0;
   }
 

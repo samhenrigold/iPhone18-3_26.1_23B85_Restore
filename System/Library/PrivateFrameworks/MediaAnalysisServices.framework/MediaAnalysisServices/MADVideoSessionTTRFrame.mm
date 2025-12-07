@@ -84,7 +84,7 @@ LABEL_8:
 
     if (coderCopy)
     {
-      [coderCopy decodeCMTimeForKey:@"Timestamp"];
+      objc_msgSend_decodeCMTimeForKey_(coderCopy);
     }
 
     else

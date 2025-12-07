@@ -10,11 +10,11 @@
 
 - (_BlastDoorLPFileMetadata)initWithCoder:(id)coder
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v20.receiver = self;
-  v20.super_class = _BlastDoorLPFileMetadata;
-  v5 = [(_BlastDoorLPFileMetadata *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = _BlastDoorLPFileMetadata;
+  v5 = [(_BlastDoorLPFileMetadata *)&v19 init];
   if (v5)
   {
     v6 = decodeStringForKey(coderCopy, @"name");
@@ -43,7 +43,6 @@
     v17 = v5;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -92,11 +91,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v14.receiver = self;
-  v14.super_class = _BlastDoorLPFileMetadata;
-  if ([(_BlastDoorLPFileMetadata *)&v14 isEqual:equalCopy])
+  v13.receiver = self;
+  v13.super_class = _BlastDoorLPFileMetadata;
+  if ([(_BlastDoorLPFileMetadata *)&v13 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -134,7 +133,6 @@
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

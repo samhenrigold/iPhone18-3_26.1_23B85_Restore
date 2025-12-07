@@ -79,7 +79,7 @@ void __59__SSVSubscriptionEntitlementsCoordinator_sharedCoordinator__block_invok
 
 void __100__SSVSubscriptionEntitlementsCoordinator_getSubscriptionEntitlementsIgnoreCaches_entitlementsBlock___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if ((*(a1 + 48) & 1) == 0)
   {
     v2 = [*(a1 + 32) _cachedSubscriptionEntitlements];
@@ -87,7 +87,7 @@ void __100__SSVSubscriptionEntitlementsCoordinator_getSubscriptionEntitlementsIg
     {
       v3 = v2;
       v4 = 0;
-      goto LABEL_17;
+      goto LABEL_18;
     }
   }
 
@@ -100,50 +100,54 @@ void __100__SSVSubscriptionEntitlementsCoordinator_getSubscriptionEntitlementsIg
   v6 = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = v6 | 2;
+    LODWORD(v7) = v6 | 2;
   }
 
   else
   {
-    v7 = v6;
+    LODWORD(v7) = v6;
   }
 
   v8 = [v5 OSLogObject];
-  if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (v7)
   {
-    v27 = 138412290;
-    v28 = objc_opt_class();
-    v9 = v28;
-    LODWORD(v21) = 12;
-    v10 = _os_log_send_and_compose_impl();
+    v26 = 138412290;
+    v27 = objc_opt_class();
+    v9 = v27;
+    v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &dword_1D48BA000, v8, 0, "%@: Asking daemon for subscription entitlements.", &v26, 12);
 
     if (!v10)
     {
-      goto LABEL_15;
+      goto LABEL_16;
     }
 
-    v8 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v27, v21}];
+    v8 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
     free(v10);
     SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, v8);
   }
 
-LABEL_15:
+LABEL_16:
   v17 = *(a1 + 32);
   v18 = *(a1 + 48);
-  v26 = 0;
-  v3 = [v17 _loadSubscriptionEntitlementsIgnoreCaches:v18 error:&v26];
-  v4 = v26;
+  v25 = 0;
+  v3 = [v17 _loadSubscriptionEntitlementsIgnoreCaches:v18 error:&v25];
+  v4 = v25;
   if (!v4)
   {
     [*(a1 + 32) _setCachedSubscriptionEntitlements:v3];
   }
 
-LABEL_17:
+LABEL_18:
   v19 = *(a1 + 40);
   if (v19)
   {
@@ -152,9 +156,9 @@ LABEL_17:
     block[1] = 3221225472;
     block[2] = __100__SSVSubscriptionEntitlementsCoordinator_getSubscriptionEntitlementsIgnoreCaches_entitlementsBlock___block_invoke_6;
     block[3] = &unk_1E84ABEC8;
-    v25 = v19;
-    v23 = v3;
-    v24 = v4;
+    v24 = v19;
+    v22 = v3;
+    v23 = v4;
     dispatch_async(v20, block);
   }
 }
@@ -186,8 +190,8 @@ LABEL_17:
 
 - (id)_loadSubscriptionEntitlementsIgnoreCaches:(BOOL)caches error:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  v36 = *MEMORY[0x1E69E9840];
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v7 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v7)
@@ -219,14 +223,12 @@ LABEL_17:
 
     if (v11)
     {
-      LODWORD(v32) = 136446210;
-      *(&v32 + 4) = "[SSVSubscriptionEntitlementsCoordinator _loadSubscriptionEntitlementsIgnoreCaches:error:]";
-      LODWORD(v24) = 12;
-      v12 = _os_log_send_and_compose_impl();
+      LODWORD(v31) = 136446210;
+      *(&v31 + 4) = "[SSVSubscriptionEntitlementsCoordinator _loadSubscriptionEntitlementsIgnoreCaches:error:]";
 
       if (v12)
       {
-        v13 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v32, v24}];
+        v13 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
         free(v12);
         SSFileLog(v7, @"%@", v14, v15, v16, v17, v18, v19, v13);
       }
@@ -240,36 +242,36 @@ LABEL_17:
   v20 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_int64(v20, "0", 150);
   xpc_dictionary_set_BOOL(v20, "1", caches);
-  *&v32 = 0;
-  *(&v32 + 1) = &v32;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__84;
-  v35 = __Block_byref_object_dispose__84;
-  v36 = 0;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__84;
-  v30 = __Block_byref_object_dispose__84;
-  v31 = 0;
+  *&v31 = 0;
+  *(&v31 + 1) = &v31;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__84;
+  v34 = __Block_byref_object_dispose__84;
+  v35 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__84;
+  v29 = __Block_byref_object_dispose__84;
+  v30 = 0;
   _connection = [(SSVSubscriptionEntitlementsCoordinator *)self _connection];
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __90__SSVSubscriptionEntitlementsCoordinator__loadSubscriptionEntitlementsIgnoreCaches_error___block_invoke;
-  v25[3] = &unk_1E84B3A88;
-  v25[4] = &v32;
-  v25[5] = &v26;
-  [_connection sendSynchronousMessage:v20 withReply:v25];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __90__SSVSubscriptionEntitlementsCoordinator__loadSubscriptionEntitlementsIgnoreCaches_error___block_invoke;
+  v24[3] = &unk_1E84B3A88;
+  v24[4] = &v31;
+  v24[5] = &v25;
+  [_connection sendSynchronousMessage:v20 withReply:v24];
 
   if (error)
   {
-    *error = *(*(&v32 + 1) + 40);
+    *error = *(*(&v31 + 1) + 40);
   }
 
-  v22 = v27[5];
-  _Block_object_dispose(&v26, 8);
+  v22 = v26[5];
+  _Block_object_dispose(&v25, 8);
 
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v31, 8);
 
   return v22;
 }

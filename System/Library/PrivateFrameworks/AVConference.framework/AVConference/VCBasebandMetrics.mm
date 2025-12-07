@@ -290,7 +290,7 @@
 {
   if (self->_averageBitrate)
   {
-    v10 = &self->_lastBasebandNotification.notes.codecRateChange + 1016;
+    v4 = &self->_lastBasebandNotification.notes.codecRateChange + 1016;
     if (self->_isTargetBitrateStabilized)
     {
       [(VCBasebandMetrics *)self addBDCDListWithNotificationArrivalTime:self->_lastBasebandNotification.arrivalTime bdcd:d queuingDelay:self->_expectedQueuingDelay];
@@ -303,82 +303,82 @@
           logBasebandDump = self->_logBasebandDump;
           if (logBasebandDump)
           {
-            VRLogfilePrint(logBasebandDump, "New bitrate stabilized for baseband, collected %d BDCD samples and start normalizing BDCD.\n", v11, v12, v13, v14, v15, v16, 4);
+            VRLogfilePrint(logBasebandDump, "New bitrate stabilized for baseband, collected %d BDCD samples and start normalizing BDCD.\n", 4);
           }
         }
 
         rearIndex = self->_bdcdList.rearIndex;
-        v21 = (rearIndex + 12) % 15;
+        v9 = (rearIndex + 12) % 15;
         frontIndex = self->_bdcdList.frontIndex;
-        if (v21 != frontIndex)
+        if (v9 != frontIndex)
         {
-          while (p_bdcdList->time[rearIndex] - p_bdcdList->time[v21] <= 0.5)
+          while (p_bdcdList->time[rearIndex] - p_bdcdList->time[v9] <= 0.5)
           {
-            v21 = (v21 + 14) % 0xFu;
-            if (v21 == frontIndex)
+            v9 = (v9 + 14) % 0xFu;
+            if (v9 == frontIndex)
             {
-              v21 = self->_bdcdList.frontIndex;
+              v9 = self->_bdcdList.frontIndex;
               break;
             }
           }
         }
 
-        if (rearIndex <= v21)
+        if (rearIndex <= v9)
         {
           LODWORD(rearIndex) = rearIndex + 15;
         }
 
-        v23 = rearIndex - v21;
-        if (v23 < 0)
+        v11 = rearIndex - v9;
+        if (v11 < 0)
         {
-          v34 = 0uLL;
-          v33 = 0.0;
+          v22 = 0uLL;
+          v21 = 0.0;
         }
 
         else
         {
-          v24 = (v21 + (v23 + 1) / 2) % 15;
-          v25 = (v23 + 2) >> 1;
+          v12 = (v9 + (v11 + 1) / 2) % 15;
+          v13 = (v11 + 2) >> 1;
           bdcd = self->_bdcdList.bdcd;
           delay = self->_bdcdList.delay;
-          v28 = 0uLL;
-          v29 = 0.0;
-          v30 = 0.0;
-          v31 = 0uLL;
+          v16 = 0uLL;
+          v17 = 0.0;
+          v18 = 0.0;
+          v19 = 0uLL;
           do
           {
-            v32.f64[0] = bdcd[v21 % 15];
-            v32.f64[1] = delay[v21 % 15];
-            v31 = vaddq_f64(v31, v32);
-            v32.f64[0] = bdcd[v24 % 15];
-            v32.f64[1] = delay[v24 % 15];
-            v28 = vaddq_f64(v28, v32);
-            v30 = v30 + p_bdcdList->time[v21 % 15];
-            v29 = v29 + p_bdcdList->time[v24 % 15];
-            ++v24;
-            ++v21;
-            --v25;
+            v20.f64[0] = bdcd[v9 % 15];
+            v20.f64[1] = delay[v9 % 15];
+            v19 = vaddq_f64(v19, v20);
+            v20.f64[0] = bdcd[v12 % 15];
+            v20.f64[1] = delay[v12 % 15];
+            v16 = vaddq_f64(v16, v20);
+            v18 = v18 + p_bdcdList->time[v9 % 15];
+            v17 = v17 + p_bdcdList->time[v12 % 15];
+            ++v12;
+            ++v9;
+            --v13;
           }
 
-          while (v25);
-          v33 = v29 - v30;
-          v34 = vsubq_f64(v28, v31);
+          while (v13);
+          v21 = v17 - v18;
+          v22 = vsubq_f64(v16, v19);
         }
 
-        v36 = vdivq_f64(v34, vdupq_lane_s64(*&v33, 0));
+        v24 = vdivq_f64(v22, vdupq_lane_s64(*&v21, 0));
         __asm { FMOV            V1.2D, #0.5 }
 
-        *&v10[494].currentBitrate = vdivq_f64(vmulq_f64(v36, _Q1), vdupq_n_s64(0x408F400000000000uLL));
+        *&v4[494].currentBitrate = vdivq_f64(vmulq_f64(v24, _Q1), vdupq_n_s64(0x408F400000000000uLL));
       }
     }
 
     else
     {
-      v35 = self->_logBasebandDump;
-      if (v35)
+      v23 = self->_logBasebandDump;
+      if (v23)
       {
 
-        VRLogfilePrint(v35, "Baseband target bitrate changed and not stable.\n", v3, v4, v5, v6, v7, v8, v43);
+        VRLogfilePrint(v23, "Baseband target bitrate changed and not stable.\n", d);
       }
     }
   }
@@ -425,7 +425,7 @@
     logBasebandDump = self->_logBasebandDump;
     if (logBasebandDump)
     {
-      VRLogfilePrint(logBasebandDump, "Unstable bitrate for baseband, start re-collecting BDCD list...\n", v7, v8, v9, v10, v11, v12, v14);
+      VRLogfilePrint(logBasebandDump, "Unstable bitrate for baseband, start re-collecting BDCD list...\n");
     }
   }
 

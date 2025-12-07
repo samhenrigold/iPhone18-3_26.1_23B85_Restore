@@ -181,7 +181,7 @@
   if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v36 = "[ADtvOSAssistantProperties _getODDUserPersonalizationArrayWithCompletion:]";
+    v35 = "[ADtvOSAssistantProperties _getODDUserPersonalizationArrayWithCompletion:]";
     _os_log_debug_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
   }
 
@@ -193,55 +193,54 @@
   v9 = &qword_1003F0000;
   if (v8)
   {
-    v22 = completionCopy;
+    v21 = completionCopy;
     v10 = [[NSMutableArray alloc] initWithCapacity:1];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     sharedUsersBySharedUserID2 = [v6 sharedUsersBySharedUserID];
-    v12 = [sharedUsersBySharedUserID2 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v12 = [sharedUsersBySharedUserID2 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v31;
+      v14 = *v30;
       do
       {
         v15 = 0;
         do
         {
-          if (*v31 != v14)
+          if (*v30 != v14)
           {
             objc_enumerationMutation(sharedUsersBySharedUserID2);
           }
 
-          v16 = *(*(&v30 + 1) + 8 * v15);
           sharedUsersBySharedUserID3 = [v6 sharedUsersBySharedUserID];
-          v18 = [sharedUsersBySharedUserID3 objectForKey:v16];
+          v17 = objc_msgSend_objectForKey_(sharedUsersBySharedUserID3);
 
-          if (v18)
+          if (v17)
           {
             dispatch_group_enter(v5);
-            v27[0] = _NSConcreteStackBlock;
-            v27[1] = 3221225472;
-            v27[2] = sub_10013710C;
-            v27[3] = &unk_100512A88;
-            v28 = v10;
-            v29 = v5;
-            [(ADtvOSAssistantProperties *)self _getODDUserPersonalizationForSharedUser:v18 withCompletion:v27];
+            v26[0] = _NSConcreteStackBlock;
+            v26[1] = 3221225472;
+            v26[2] = sub_10013710C;
+            v26[3] = &unk_100512A88;
+            v27 = v10;
+            v28 = v5;
+            [(ADtvOSAssistantProperties *)self _getODDUserPersonalizationForSharedUser:v17 withCompletion:v26];
           }
 
-          v15 = v15 + 1;
+          ++v15;
         }
 
         while (v13 != v15);
-        v13 = [sharedUsersBySharedUserID2 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v13 = [sharedUsersBySharedUserID2 countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v13);
     }
 
-    completionCopy = v22;
+    completionCopy = v21;
     v9 = &qword_1003F0000;
   }
 
@@ -255,10 +254,10 @@
   block[1] = v9[1];
   block[2] = sub_10013714C;
   block[3] = &unk_10051E038;
-  v25 = v10;
-  v26 = completionCopy;
-  v20 = v10;
-  v21 = completionCopy;
+  v24 = v10;
+  v25 = completionCopy;
+  v19 = v10;
+  v20 = completionCopy;
   dispatch_group_notify(v5, queue, block);
 }
 

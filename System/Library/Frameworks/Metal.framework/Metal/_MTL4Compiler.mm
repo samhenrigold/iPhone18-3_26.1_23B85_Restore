@@ -109,36 +109,36 @@
 
 - (id)newMachineLearningPipelineStateWithDescriptor:(id)descriptor error:(id *)error
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   context = objc_autoreleasePoolPush();
   machineLearningFunctionDescriptor = [descriptor machineLearningFunctionDescriptor];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   library = [machineLearningFunctionDescriptor library];
   functionNames = [library functionNames];
-  v7 = [functionNames countByEnumeratingWithState:&v37 objects:v43 count:16];
+  v7 = [functionNames countByEnumeratingWithState:&v36 objects:v42 count:16];
   if (v7)
   {
-    v8 = *v38;
+    v8 = *v37;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v38 != v8)
+      if (*v37 != v8)
       {
         objc_enumerationMutation(functionNames);
       }
 
-      if ([*(*(&v37 + 1) + 8 * v9) isEqual:{objc_msgSend(machineLearningFunctionDescriptor, "name")}])
+      if ([*(*(&v36 + 1) + 8 * v9) isEqual:{objc_msgSend(machineLearningFunctionDescriptor, "name")}])
       {
         break;
       }
 
       if (v7 == ++v9)
       {
-        v7 = [functionNames countByEnumeratingWithState:&v37 objects:v43 count:16];
+        v7 = [functionNames countByEnumeratingWithState:&v36 objects:v42 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -164,14 +164,14 @@ LABEL_29:
         *error = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"MTLLibraryErrorDomain" code:3 userInfo:v26];
       }
 
-      goto LABEL_32;
+      return v11;
     }
   }
 
   MPSGraphClassByName = getMPSGraphClassByName("MPSGraphDevice");
   device = [library device];
-  v29 = [(objc_class *)MPSGraphClassByName deviceWithMTLDevice:device];
-  v33 = _MTLNewMPSGraphCompilationDescriptor([descriptor deviceSelection]);
+  v28 = [(objc_class *)MPSGraphClassByName deviceWithMTLDevice:device];
+  v32 = _MTLNewMPSGraphCompilationDescriptor([descriptor deviceSelection]);
   v13 = [library executableWithDeviceSelection:{objc_msgSend(descriptor, "deviceSelection")}];
   v14 = [v13 getInputShapesForFunction:{objc_msgSend(machineLearningFunctionDescriptor, "name")}];
   v15 = [v14 count];
@@ -201,12 +201,12 @@ LABEL_29:
   v22 = [objc_alloc(getMPSGraphClassByName("MPSGraphExecutableEntryPoint")) initWithEntryFunctionName:objc_msgSend(machineLearningFunctionDescriptor inputTypes:{"name"), v21}];
   if (objc_opt_respondsToSelector())
   {
-    v35 = 0;
-    v42 = v22;
-    [v13 specializeWithDevice:v29 entryPoints:objc_msgSend(MEMORY[0x1E695DEC8] compilationDescriptor:"arrayWithObjects:count:" error:{&v42, 1), v33, &v35}];
-    if (v35)
+    v34 = 0;
+    v41 = v22;
+    [v13 specializeWithDevice:v28 entryPoints:objc_msgSend(MEMORY[0x1E695DEC8] compilationDescriptor:"arrayWithObjects:count:" error:{&v41, 1), v32, &v34}];
+    if (v34)
     {
-      localizedDescription = [v35 localizedDescription];
+      localizedDescription = [v34 localizedDescription];
       if (localizedDescription)
       {
         v11 = 0;
@@ -217,8 +217,8 @@ LABEL_29:
 
   else
   {
-    v41 = v22;
-    [v13 specializeWithDevice:v29 entryPoints:objc_msgSend(MEMORY[0x1E695DEC8] compilationDescriptor:{"arrayWithObjects:count:", &v41, 1), v33}];
+    v40 = v22;
+    [v13 specializeWithDevice:v28 entryPoints:objc_msgSend(MEMORY[0x1E695DEC8] compilationDescriptor:{"arrayWithObjects:count:", &v40, 1), v32}];
   }
 
   v23 = -[_MTL4MachineLearningPipelineState initWithDevice:descriptor:executable:functionName:deviceSelection:]([_MTL4MachineLearningPipelineState alloc], "initWithDevice:descriptor:executable:functionName:deviceSelection:", device, descriptor, v13, [machineLearningFunctionDescriptor name], objc_msgSend(descriptor, "deviceSelection"));
@@ -227,7 +227,7 @@ LABEL_29:
   {
     [(_MTL4MachineLearningPipelineState *)v23 setInputShapes:v21];
     -[_MTL4MachineLearningPipelineState setAllocatedSize:](v11, "setAllocatedSize:", [library executableSize]);
-    v24 = [v13 getOutputTypesWithDevice:v29 entryPoint:v22 compilationDescriptor:v33];
+    v24 = [v13 getOutputTypesWithDevice:v28 entryPoint:v22 compilationDescriptor:v32];
     [(_MTL4MachineLearningPipelineState *)v11 setOutputShapes:v24];
     if ([objc_msgSend(descriptor "options")])
     {
@@ -251,8 +251,6 @@ LABEL_26:
     goto LABEL_29;
   }
 
-LABEL_32:
-  v27 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

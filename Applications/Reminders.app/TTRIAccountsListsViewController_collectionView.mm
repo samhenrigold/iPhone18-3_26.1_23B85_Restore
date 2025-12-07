@@ -81,7 +81,7 @@
 
   v8 = sub_100558AE0(action, v10);
 
-  sub_1000079B4(v10, &qword_10076AE40);
+  sub_1000079B4(v10, &qword_10076AE40, &qword_10062EE50);
   return v8 & 1;
 }
 
@@ -148,7 +148,7 @@
 
   sub_100560EF0();
 
-  sub_1000079B4(v6, &qword_10076AE40);
+  sub_1000079B4(v6, &qword_10076AE40, &qword_10062EE50);
 }
 
 - (void)beginSearchAction:(id)action
@@ -173,7 +173,7 @@
     searchBar = [v6 searchBar];
     [searchBar becomeFirstResponder];
 
-    sub_1000079B4(v8, &qword_10076AE40);
+    sub_1000079B4(v8, &qword_10076AE40, &qword_10062EE50);
   }
 
   else
@@ -205,7 +205,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_100562418(viewCopy);
+  sub_100562418(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 }
@@ -219,7 +219,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_100567F10();
+  sub_100567F10(v9);
   LOBYTE(self) = v12;
 
   (*(v7 + 8))(v9, v6);
@@ -268,7 +268,7 @@
 {
   controllerCopy = controller;
   selfCopy = self;
-  sub_100565EDC();
+  sub_100565EDC(controllerCopy);
 }
 
 - (void)didDismissSearchController:(id)controller

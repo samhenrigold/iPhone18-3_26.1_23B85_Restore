@@ -209,9 +209,9 @@ uint64_t __40__PKFaceIDBannerViewController_loadView__block_invoke(uint64_t a1)
 
 - (void)viewWillLayoutSubviews
 {
-  v47.receiver = self;
-  v47.super_class = PKFaceIDBannerViewController;
-  [(PKFaceIDBannerViewController *)&v47 viewWillLayoutSubviews];
+  v52.receiver = self;
+  v52.super_class = PKFaceIDBannerViewController;
+  [(PKFaceIDBannerViewController *)&v52 viewWillLayoutSubviews];
   if ((self->_activeLayoutMode + 1) >= 2)
   {
     view = [(PKFaceIDBannerViewController *)self view];
@@ -227,13 +227,15 @@ uint64_t __40__PKFaceIDBannerViewController_loadView__block_invoke(uint64_t a1)
     v18 = v17;
     v20 = v19;
 
-    PKFloatRoundToPixel();
-    [(UIView *)self->_containerView setFrame:v14 + v21, v16 + v20, *MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8)];
+    v21.n128_f64[0] = v18 * 0.5;
+    PKFloatRoundToPixel(v21, v22);
+    [(UIView *)self->_containerView setFrame:v14 + v23, v16 + v20, *MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8)];
     [(UIView *)self->_containerView convertRect:view fromView:v5, v7, v9, v11];
     [(UIView *)self->_containerView convertRect:view fromView:v14, v16, v18, v20];
-    v23 = v22;
     v25 = v24;
     v27 = v26;
+    v29 = v28;
+    v31 = v30;
 
     if (self->_activeLayoutMode == 1)
     {
@@ -250,44 +252,47 @@ uint64_t __40__PKFaceIDBannerViewController_loadView__block_invoke(uint64_t a1)
     if (((1 << state) & 0x47) != 0)
     {
 LABEL_5:
-      PKSizeRoundToPixel();
-      v30 = v29;
-      v32 = v31;
-      CATransform3DMakeScale(&v46, 0.131579, 0.131579, 1.0);
-      v33 = 0.0;
-      v34 = 66.6666667;
+      PKSizeRoundToPixel(9.078951, 9.078951);
+      v34 = v33;
+      v36 = v35;
+      CATransform3DMakeScale(&v51, 0.131579, 0.131579, 1.0);
+      v39 = 0.0;
+      v40 = 66.6666667;
     }
 
     else
     {
-      v35 = *(MEMORY[0x1E69792E8] + 80);
-      *&v46.m31 = *(MEMORY[0x1E69792E8] + 64);
-      *&v46.m33 = v35;
-      v36 = *(MEMORY[0x1E69792E8] + 112);
-      *&v46.m41 = *(MEMORY[0x1E69792E8] + 96);
-      *&v46.m43 = v36;
-      v37 = *(MEMORY[0x1E69792E8] + 16);
-      *&v46.m11 = *MEMORY[0x1E69792E8];
-      *&v46.m13 = v37;
+      v41 = *(MEMORY[0x1E69792E8] + 80);
+      *&v51.m31 = *(MEMORY[0x1E69792E8] + 64);
+      *&v51.m33 = v41;
+      v42 = *(MEMORY[0x1E69792E8] + 112);
+      *&v51.m41 = *(MEMORY[0x1E69792E8] + 96);
+      *&v51.m43 = v42;
+      v43 = *(MEMORY[0x1E69792E8] + 16);
+      *&v51.m11 = *MEMORY[0x1E69792E8];
+      *&v51.m13 = v43;
+      v37 = *(MEMORY[0x1E69792E8] + 32);
       v38 = *(MEMORY[0x1E69792E8] + 48);
-      *&v46.m21 = *(MEMORY[0x1E69792E8] + 32);
-      *&v46.m23 = v38;
-      v33 = 1.0;
-      v34 = 0.0;
-      v32 = 69.0;
-      v30 = 69.0;
+      *&v51.m21 = v37;
+      *&v51.m23 = v38;
+      v39 = 1.0;
+      v40 = 0.0;
+      v36 = 69.0;
+      v34 = 69.0;
     }
 
-    PKFloatRoundToPixel();
-    v40 = v23 + v39;
-    [(PKBlurView *)self->_glyphContainerView setAlpha:v33];
+    v38.n128_u64[0] = 0.5;
+    v37.n128_f64[0] = (v29 - v34) * 0.5;
+    PKFloatRoundToPixel(v37, v38);
+    v45 = v25 + v44;
+    [(PKBlurView *)self->_glyphContainerView setAlpha:v39];
     glyphContainerView = self->_glyphContainerView;
-    v45 = v46;
-    [(PKBlurView *)glyphContainerView setTransform3D:&v45];
-    [(PKBlurView *)self->_glyphContainerView setBlurRadius:v34];
-    v42 = self->_glyphContainerView;
-    [(PKBlurView *)v42 anchorPoint];
-    [(PKBlurView *)v42 setCenter:v40 + v43 * v30, v25 + v27 + v44 * v32];
+    v50 = v51;
+    [(PKBlurView *)glyphContainerView setTransform3D:&v50];
+    [(PKBlurView *)self->_glyphContainerView setBlurRadius:v40];
+    v47 = self->_glyphContainerView;
+    [(PKBlurView *)v47 anchorPoint];
+    [(PKBlurView *)v47 setCenter:v45 + v48 * v34, v27 + v31 + v49 * v36];
   }
 }
 
@@ -1473,18 +1478,16 @@ void __47__PKFaceIDBannerViewController__pushGlyphState__block_invoke_3(uint64_t
   return result;
 }
 
-uint64_t __56__PKFaceIDBannerViewController__updateServerBannerState__block_invoke(uint64_t a1)
+void __56__PKFaceIDBannerViewController__updateServerBannerState__block_invoke(uint64_t a1)
 {
   --*(*(a1 + 32) + 1060);
   [(PKFaceIDBannerViewController *)*(a1 + 32) _updateGlyphState];
-  result = *(a1 + 32);
-  if (!*(result + 1060))
+  v2 = *(a1 + 32);
+  if (!*(v2 + 1060))
   {
 
-    return [(PKFaceIDBannerViewController *)result _updateState];
+    [(PKFaceIDBannerViewController *)v2 _updateState];
   }
-
-  return result;
 }
 
 - (void)revoked
@@ -2201,18 +2204,21 @@ LABEL_19:
   v5 = v4;
   v7 = v6;
   v9 = v8;
+  v11 = v10;
 
-  PKFloatRoundToPixel();
-  v11 = v5 + v10;
+  v12.n128_u64[0] = 0.5;
+  v13.n128_f64[0] = (v9 + -69.0) * 0.5;
+  PKFloatRoundToPixel(v13, v12);
+  v15 = v5 + v14;
 
-  v12 = 69.0;
-  v13 = v11;
-  v14 = v7 + v9;
-  v15 = 69.0;
-  result.size.height = v15;
-  result.size.width = v12;
-  result.origin.y = v14;
-  result.origin.x = v13;
+  v16 = 69.0;
+  v17 = v15;
+  v18 = v7 + v11;
+  v19 = 69.0;
+  result.size.height = v19;
+  result.size.width = v16;
+  result.origin.y = v18;
+  result.origin.x = v17;
   return result;
 }
 

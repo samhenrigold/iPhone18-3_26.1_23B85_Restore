@@ -16,7 +16,7 @@
   v4 = [(CalAttachmentFileCleanupContext *)&v9 init];
   if (v4)
   {
-    v5 = CalCopyDatabaseForRecord();
+    v5 = CalCopyDatabaseForRecord(store);
     v6 = _CalAttachmentFileCopyAttachmentContainerForStore(store, v5);
     storeAttachmentContainer = v4->_storeAttachmentContainer;
     v4->_storeAttachmentContainer = v6;
@@ -76,51 +76,51 @@
   self->_deleteEntireContainer = 1;
   attachmentUUIDsToDelete = self->_attachmentUUIDsToDelete;
   self->_attachmentUUIDsToDelete = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, attachmentUUIDsToDelete);
 }
 
 - (void)cleanup
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v4 = defaultManager;
   if (!self->_deleteEntireContainer)
   {
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     obj = self->_attachmentUUIDsToDelete;
-    v13 = [(NSMutableArray *)obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v13 = [(NSMutableArray *)obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (!v13)
     {
       goto LABEL_22;
     }
 
     v15 = v13;
-    v16 = *v32;
+    v16 = *v31;
     *&v14 = 138412546;
-    v28 = v14;
+    v27 = v14;
 LABEL_7:
     v17 = 0;
     while (1)
     {
-      if (*v32 != v16)
+      if (*v31 != v16)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = [(NSURL *)self->_storeAttachmentContainer URLByAppendingPathComponent:*(*(&v31 + 1) + 8 * v17), v28];
-      v30 = 0;
-      v19 = [v4 removeItemAtURL:v18 error:&v30];
-      v20 = v30;
+      v18 = [(NSURL *)self->_storeAttachmentContainer URLByAppendingPathComponent:*(*(&v30 + 1) + 8 * v17), v27];
+      v29 = 0;
+      v19 = [v4 removeItemAtURL:v18 error:&v29];
+      v20 = v29;
       v21 = CDBLogHandle;
       if (v19)
       {
         if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v38 = v18;
+          v37 = v18;
           v22 = v21;
           v23 = OS_LOG_TYPE_DEFAULT;
           v24 = "Deleted attachment at path %@";
@@ -132,10 +132,10 @@ LABEL_15:
 
       else if (os_log_type_enabled(CDBLogHandle, OS_LOG_TYPE_ERROR))
       {
-        *buf = v28;
-        v38 = v18;
-        v39 = 2112;
-        v40 = v20;
+        *buf = v27;
+        v37 = v18;
+        v38 = 2112;
+        v39 = v20;
         v22 = v21;
         v23 = OS_LOG_TYPE_ERROR;
         v24 = "Failed to delete attachment at path %@: %@";
@@ -145,7 +145,7 @@ LABEL_15:
 
       if (v15 == ++v17)
       {
-        v15 = [(NSMutableArray *)obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v15 = [(NSMutableArray *)obj countByEnumeratingWithState:&v30 objects:v35 count:16];
         if (!v15)
         {
           goto LABEL_22;
@@ -157,9 +157,9 @@ LABEL_15:
   }
 
   storeAttachmentContainer = self->_storeAttachmentContainer;
-  v35 = 0;
-  v6 = [defaultManager removeItemAtURL:storeAttachmentContainer error:&v35];
-  obj = v35;
+  v34 = 0;
+  v6 = [defaultManager removeItemAtURL:storeAttachmentContainer error:&v34];
+  obj = v34;
   v7 = CDBLogHandle;
   if (v6)
   {
@@ -167,7 +167,7 @@ LABEL_15:
     {
       v8 = self->_storeAttachmentContainer;
       *buf = 138412290;
-      v38 = v8;
+      v37 = v8;
       v9 = "Deleted attachments for deleted store at path %@";
       v10 = v7;
       v11 = OS_LOG_TYPE_DEFAULT;
@@ -181,9 +181,9 @@ LABEL_21:
   {
     v26 = self->_storeAttachmentContainer;
     *buf = 138412546;
-    v38 = v26;
-    v39 = 2112;
-    v40 = obj;
+    v37 = v26;
+    v38 = 2112;
+    v39 = obj;
     v9 = "Failed to delete attachments for deleted store at path %@: %@";
     v10 = v7;
     v11 = OS_LOG_TYPE_ERROR;
@@ -192,8 +192,6 @@ LABEL_21:
   }
 
 LABEL_22:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description

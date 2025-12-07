@@ -70,7 +70,7 @@ void __63__CalDAVGetDelegatesBaseTaskGroup__mappingsForPrincipalDetails__block_i
 
 - (void)_processDetailsFromMultiStatus:(id)status allowWrite:(BOOL)write
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   if (write)
   {
@@ -82,29 +82,29 @@ void __63__CalDAVGetDelegatesBaseTaskGroup__mappingsForPrincipalDetails__block_i
     [(CalDAVGetDelegatesBaseTaskGroup *)self readDetails];
   }
   v7 = ;
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   responses = [statusCopy responses];
-  v9 = [responses countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [responses countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       v13 = 0;
       v14 = v11;
       do
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(responses);
         }
 
-        v11 = [CalDAVPrincipalEmailDetailsResult resultFromResponseItem:*(*(&v18 + 1) + 8 * v13)];
+        v11 = [CalDAVPrincipalEmailDetailsResult resultFromResponseItem:*(*(&v17 + 1) + 8 * v13)];
 
         addresses = [v11 addresses];
         v16 = [addresses count];
@@ -119,13 +119,11 @@ void __63__CalDAVGetDelegatesBaseTaskGroup__mappingsForPrincipalDetails__block_i
       }
 
       while (v10 != v13);
-      v10 = [responses countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [responses countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getPrincipalDetailsForURL:(id)l

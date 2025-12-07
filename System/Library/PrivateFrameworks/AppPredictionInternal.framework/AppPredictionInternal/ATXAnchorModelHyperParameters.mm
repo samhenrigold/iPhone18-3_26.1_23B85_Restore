@@ -252,16 +252,17 @@ uint64_t __47__ATXAnchorModelHyperParameters_enabledAnchors__block_invoke(uint64
 {
   v3 = a2;
   v4 = [*(a1 + 32) containsObject:v3];
+  v5 = v4;
   if ((v4 & 1) == 0)
   {
-    v5 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = __atxlog_handle_anchor(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      __47__ATXAnchorModelHyperParameters_enabledAnchors__block_invoke_cold_1(v3, v5);
+      __47__ATXAnchorModelHyperParameters_enabledAnchors__block_invoke_cold_1(v3, v6);
     }
   }
 
-  return v4;
+  return v5;
 }
 
 - (id)anchorsDisabledForHomescreen
@@ -285,16 +286,17 @@ uint64_t __61__ATXAnchorModelHyperParameters_anchorsDisabledForHomescreen__block
 {
   v3 = a2;
   v4 = [*(a1 + 32) containsObject:v3];
+  v5 = v4;
   if ((v4 & 1) == 0)
   {
-    v5 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = __atxlog_handle_anchor(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      __61__ATXAnchorModelHyperParameters_anchorsDisabledForHomescreen__block_invoke_cold_1(v3, v5);
+      __61__ATXAnchorModelHyperParameters_anchorsDisabledForHomescreen__block_invoke_cold_1(v3, v6);
     }
   }
 
-  return v4;
+  return v5;
 }
 
 - (int64_t)minNumUniqueAnchorOccurrencesWithUniqueCandidateOccurrencesForHighConfidencePredictionForAnchor:(id)anchor
@@ -507,20 +509,18 @@ uint64_t __61__ATXAnchorModelHyperParameters_anchorsDisabledForHomescreen__block
 
 void __47__ATXAnchorModelHyperParameters_enabledAnchors__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "EnabledAnchors in AnchorModelHyperParameters contained an unknown anchor: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "EnabledAnchors in AnchorModelHyperParameters contained an unknown anchor: %@", &v2, 0xCu);
 }
 
 void __61__ATXAnchorModelHyperParameters_anchorsDisabledForHomescreen__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "AnchorsDisabledForHomescreen in AnchorModelHyperParameters contained an unknown anchor: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "AnchorsDisabledForHomescreen in AnchorModelHyperParameters contained an unknown anchor: %@", &v2, 0xCu);
 }
 
 @end

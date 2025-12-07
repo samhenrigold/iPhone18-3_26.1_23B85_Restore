@@ -12,7 +12,7 @@
   selfCopy = self;
   [v2 stop];
   v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for FigCameraBackedDeviceSensorObserver();
+  v4.super_class = type metadata accessor for FigCameraBackedDeviceSensorObserver(0);
   [(FigCameraBackedDeviceSensorObserver *)&v4 dealloc];
 }
 

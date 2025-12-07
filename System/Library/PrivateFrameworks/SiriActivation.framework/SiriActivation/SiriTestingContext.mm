@@ -29,41 +29,39 @@
 
 - (SiriTestingContext)initWithRecognitionStrings:(id)strings siriContextOverride:(id)override
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   stringsCopy = strings;
-  v12.receiver = self;
-  v12.super_class = SiriTestingContext;
-  v7 = [(SiriContext *)&v12 initWithContextOverride:override];
+  v11.receiver = self;
+  v11.super_class = SiriTestingContext;
+  v7 = [(SiriContext *)&v11 initWithContextOverride:override];
   if (v7)
   {
-    v13 = @"SiriTestingContextRecognitionStringKey";
-    v14[0] = stringsCopy;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = @"SiriTestingContextRecognitionStringKey";
+    v13[0] = stringsCopy;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     testingContext = v7->_testingContext;
     v7->_testingContext = v8;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (SiriTestingContext)initWithAudioInput:(id)input siriContextOverride:(id)override
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   inputCopy = input;
-  v12.receiver = self;
-  v12.super_class = SiriTestingContext;
-  v7 = [(SiriContext *)&v12 initWithContextOverride:override];
+  v11.receiver = self;
+  v11.super_class = SiriTestingContext;
+  v7 = [(SiriContext *)&v11 initWithContextOverride:override];
   if (v7)
   {
-    v13 = @"SiriTestingContextAudioInputKey";
-    v14[0] = inputCopy;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = @"SiriTestingContextAudioInputKey";
+    v13[0] = inputCopy;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     testingContext = v7->_testingContext;
     v7->_testingContext = v8;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

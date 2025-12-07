@@ -32,7 +32,6 @@
   v7 = [selfCopy saveRecordsToCoreData:location[0] inTable:v12 error:errorCopy];
   objc_storeStrong(&v12, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -127,77 +126,76 @@
   objc_storeStrong(&v31, 0);
   objc_storeStrong(&v33, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v35;
 }
 
 void __50__AMDStorage_saveRecordsToCoreData_inTable_error___block_invoke(void *a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v26 = a1;
+  v28 = *MEMORY[0x277D85DE8];
   v25 = a1;
-  v24 = 0;
+  v24 = a1;
+  v23 = 0;
   memset(__b, 0, sizeof(__b));
   obj = MEMORY[0x277D82BE0](a1[4]);
-  v14 = [obj countByEnumeratingWithState:__b objects:v28 count:16];
-  if (v14)
+  v13 = [obj countByEnumeratingWithState:__b objects:v27 count:16];
+  if (v13)
   {
-    v9 = *__b[2];
-    v10 = 0;
-    v11 = v14;
+    v8 = *__b[2];
+    v9 = 0;
+    v10 = v13;
     while (1)
     {
-      v8 = v10;
-      if (*__b[2] != v9)
+      v7 = v9;
+      if (*__b[2] != v8)
       {
         objc_enumerationMutation(obj);
       }
 
-      v23 = *(__b[1] + 8 * v10);
-      v21 = [MEMORY[0x277CBE408] insertNewObjectForEntityForName:a1[5] inManagedObjectContext:a1[6]];
-      if (v24 & 1) != 0 || (v1 = a1[9], (objc_opt_respondsToSelector()))
+      v22 = *(__b[1] + 8 * v9);
+      v20 = [MEMORY[0x277CBE408] insertNewObjectForEntityForName:a1[5] inManagedObjectContext:a1[6]];
+      if (v23 & 1) != 0 || (objc_opt_respondsToSelector())
       {
-        v24 = 1;
-        v16 = [v21 methodForSelector:a1[9]];
-        v15[1] = v16;
-        (v16)(v21, a1[9], v23);
-        v17 = 0;
+        v23 = 1;
+        v15 = [v20 methodForSelector:a1[9]];
+        v14[1] = v15;
+        (v15)(v20, a1[9], v22);
+        v16 = 0;
       }
 
       else
       {
-        v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"MO for table '%@' missing selector 'populateRecord'", a1[5]];
+        v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"MO for table '%@' missing selector 'populateRecord'", a1[5]];
         oslog = MEMORY[0x277D82BE0](MEMORY[0x277D86220]);
         type = OS_LOG_TYPE_ERROR;
         if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
         {
           log = oslog;
-          __os_log_helper_16_2_1_8_64(v27, v20);
-          _os_log_error_impl(&dword_240CB9000, log, type, "%@", v27, 0xCu);
+          __os_log_helper_16_2_1_8_64(v26, v19);
+          _os_log_error_impl(&dword_240CB9000, log, type, "%@", v26, 0xCu);
         }
 
         objc_storeStrong(&oslog, 0);
-        v2 = [AMDError allocError:15 withMessage:v20];
-        v3 = *(a1[8] + 8);
-        v4 = *(v3 + 40);
-        *(v3 + 40) = v2;
-        MEMORY[0x277D82BD8](v4);
-        v17 = 2;
-        objc_storeStrong(&v20, 0);
+        v1 = [AMDError allocError:15 withMessage:v19];
+        v2 = *(a1[8] + 8);
+        v3 = *(v2 + 40);
+        *(v2 + 40) = v1;
+        MEMORY[0x277D82BD8](v3);
+        v16 = 2;
+        objc_storeStrong(&v19, 0);
       }
 
-      objc_storeStrong(&v21, 0);
-      if (v17)
+      objc_storeStrong(&v20, 0);
+      if (v16)
       {
         break;
       }
 
-      ++v10;
-      if (v8 + 1 >= v11)
+      ++v9;
+      if (v7 + 1 >= v10)
       {
-        v10 = 0;
-        v11 = [obj countByEnumeratingWithState:__b objects:v28 count:16];
-        if (!v11)
+        v9 = 0;
+        v10 = [obj countByEnumeratingWithState:__b objects:v27 count:16];
+        if (!v10)
         {
           goto LABEL_14;
         }
@@ -208,20 +206,18 @@ void __50__AMDStorage_saveRecordsToCoreData_inTable_error___block_invoke(void *a
   else
   {
 LABEL_14:
-    v17 = 0;
+    v16 = 0;
   }
 
   MEMORY[0x277D82BD8](obj);
   if (!*(*(a1[8] + 8) + 40))
   {
-    v5 = a1[7];
-    v6 = (*(a1[8] + 8) + 40);
-    v15[0] = *v6;
-    [v5 save:v15];
-    objc_storeStrong(v6, v15[0]);
+    v4 = a1[7];
+    v5 = (*(a1[8] + 8) + 40);
+    v14[0] = *v5;
+    [v4 save:v14];
+    objc_storeStrong(v5, v14[0]);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 + (id)fetchCoreDataRecordsFrom:(id)from error:(id *)error
@@ -457,7 +453,6 @@ void __62__AMDStorage_deleteCoreDataRecordsFrom_usingPredicates_error___block_in
   objc_storeStrong(&v23, 0);
   objc_storeStrong(&v26, 0);
   objc_storeStrong(v27, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (id)persistFitnessData:(id)data
@@ -533,7 +528,6 @@ void __62__AMDStorage_deleteCoreDataRecordsFrom_usingPredicates_error___block_in
   v5 = MEMORY[0x277D82BE0](v23);
   objc_storeStrong(&v23, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v5;
 }

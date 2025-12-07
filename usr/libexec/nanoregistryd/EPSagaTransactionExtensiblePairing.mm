@@ -5,6 +5,7 @@
 - (NRPairingReport)pairingReport;
 - (NSUUID)pairingID;
 - (id)_diffsForSettingDeviceIsActive:(BOOL)active withPairingID:(id)d collection:(id)collection;
+- (id)_getSetIsActiveDiffWithIsActive:(BOOL)active withPairingID:(id)d collection:(id)collection;
 - (id)getLocalPairingStorePairingID:(id)d;
 - (id)makeLocalPairingStorePairingID:(id)d;
 - (id)registry;
@@ -136,50 +137,49 @@
   advertisedName = self->_advertisedName;
   self->_advertisedName = v12;
 
-  v14 = self->_advertisedName;
-  v15 = NRAdvertisingInfoFromPayload();
-  v16 = [v15 objectForKeyedSubscript:NRBridgeAdvertisingVersionKey];
-  integerValue = [v16 integerValue];
+  v14 = NRAdvertisingInfoFromPayload();
+  v15 = [v14 objectForKeyedSubscript:NRBridgeAdvertisingVersionKey];
+  integerValue = [v15 integerValue];
 
-  v18 = sub_100052C60(integerValue);
-  v19 = nr_daemon_log();
-  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+  v17 = sub_100052C60(integerValue);
+  v18 = nr_daemon_log();
+  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
 
-  if (v20)
+  if (v19)
   {
-    v21 = nr_daemon_log();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v20 = nr_daemon_log();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
-      v24 = self->_advertisedName;
-      v25 = sub_100052C70(v18);
-      v33 = 138543874;
-      v34 = v23;
-      v35 = 2114;
-      v36 = v24;
-      v37 = 2114;
-      v38 = v25;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%{public}@, advertised name: %{public}@, strategy: %{public}@", &v33, 0x20u);
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
+      v23 = self->_advertisedName;
+      v24 = sub_100052C70(v17);
+      v32 = 138543874;
+      v33 = v22;
+      v34 = 2114;
+      v35 = v23;
+      v36 = 2114;
+      v37 = v24;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%{public}@, advertised name: %{public}@, strategy: %{public}@", &v32, 0x20u);
     }
   }
 
-  if (v18 == 4)
+  if (v17 == 4)
   {
     if ([(NRFeatureFlags *)self->_nrFeatureFlags networkRelayPairing])
     {
       self->_useNetworkRelayBluetoothPairing = 1;
 LABEL_15:
-      v30 = nr_daemon_log();
-      v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
+      v29 = nr_daemon_log();
+      v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
 
-      if (v31)
+      if (v30)
       {
-        v32 = nr_daemon_log();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        v31 = nr_daemon_log();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v33) = 0;
-          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Using NetworkRelay for pairing Bluetooth (advertising/discoverying/pairing)", &v33, 2u);
+          LOWORD(v32) = 0;
+          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Using NetworkRelay for pairing Bluetooth (advertising/discoverying/pairing)", &v32, 2u);
         }
       }
 
@@ -187,8 +187,8 @@ LABEL_15:
       goto LABEL_20;
     }
 
-    v29 = +[NRSystemProperties sharedInstance];
-    self->_useNetworkRelayBluetoothPairing = [v29 isVirtualDevice];
+    v28 = +[NRSystemProperties sharedInstance];
+    self->_useNetworkRelayBluetoothPairing = [v28 isVirtualDevice];
 
     if (self->_useNetworkRelayBluetoothPairing)
     {
@@ -201,16 +201,16 @@ LABEL_15:
     self->_useNetworkRelayBluetoothPairing = 0;
   }
 
-  v26 = nr_daemon_log();
-  v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
+  v25 = nr_daemon_log();
+  v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
 
-  if (v27)
+  if (v26)
   {
-    v28 = nr_daemon_log();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v27 = nr_daemon_log();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v33) = 0;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Using NanoRegistry for pairing Bluetooth (advertising/discoverying/pairing)", &v33, 2u);
+      LOWORD(v32) = 0;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Using NanoRegistry for pairing Bluetooth (advertising/discoverying/pairing)", &v32, 2u);
     }
   }
 
@@ -298,6 +298,22 @@ LABEL_20:
   }
 
   [(EPSagaTransactionExtensiblePairing *)self transactionDidComplete];
+}
+
+- (id)_getSetIsActiveDiffWithIsActive:(BOOL)active withPairingID:(id)d collection:(id)collection
+{
+  v5 = [(EPSagaTransactionExtensiblePairing *)self _diffsForSettingDeviceIsActive:active withPairingID:d collection:collection];
+  if (v5)
+  {
+    v6 = [[NRDeviceCollectionDiff alloc] initWithDeviceCollectionDiffDeviceDiffs:v5];
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  return v6;
 }
 
 - (id)_diffsForSettingDeviceIsActive:(BOOL)active withPairingID:(id)d collection:(id)collection

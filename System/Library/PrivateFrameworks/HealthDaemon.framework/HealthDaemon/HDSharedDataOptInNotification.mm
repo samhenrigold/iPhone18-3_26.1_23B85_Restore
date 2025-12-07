@@ -14,7 +14,7 @@
   v7 = [(HDNanoHealthNotification *)&v11 initWithNotificationManager:manager];
   if (v7)
   {
-    v8 = [nameCopy copy];
+    v8 = objc_msgSend_copy(nameCopy);
     guardianDisplayName = v7->_guardianDisplayName;
     v7->_guardianDisplayName = v8;
   }

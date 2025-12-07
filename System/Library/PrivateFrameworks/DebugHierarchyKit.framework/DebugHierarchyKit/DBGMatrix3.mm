@@ -51,31 +51,31 @@
 
 - (id)objectValue
 {
-  [(DBGMatrix3 *)self matrix3];
+  objc_msgSend_matrix3(self, a2);
   v3 = [NSNumber numberWithDouble:v22];
   v23[0] = v3;
-  [(DBGMatrix3 *)self matrix3];
+  objc_msgSend_matrix3(self);
   v4 = [NSNumber numberWithDouble:v21];
   v23[1] = v4;
-  [(DBGMatrix3 *)self matrix3];
+  objc_msgSend_matrix3(self);
   v5 = [NSNumber numberWithDouble:v20];
   v23[2] = v5;
-  [(DBGMatrix3 *)self matrix3];
+  objc_msgSend_matrix3(self);
   v6 = [NSNumber numberWithDouble:v19];
   v23[3] = v6;
-  [(DBGMatrix3 *)self matrix3];
+  objc_msgSend_matrix3(self);
   v7 = [NSNumber numberWithDouble:v18];
   v23[4] = v7;
-  [(DBGMatrix3 *)self matrix3];
+  objc_msgSend_matrix3(self);
   v8 = [NSNumber numberWithDouble:v17];
   v23[5] = v8;
-  [(DBGMatrix3 *)self matrix3];
+  objc_msgSend_matrix3(self);
   v9 = [NSNumber numberWithDouble:v16];
   v23[6] = v9;
-  [(DBGMatrix3 *)self matrix3];
+  objc_msgSend_matrix3(self);
   v10 = [NSNumber numberWithDouble:v15];
   v23[7] = v10;
-  [(DBGMatrix3 *)self matrix3];
+  objc_msgSend_matrix3(self);
   v11 = [NSNumber numberWithDouble:v14];
   v23[8] = v11;
   v12 = [NSArray arrayWithObjects:v23 count:9];
@@ -213,31 +213,31 @@
 
 - (id)JSONCompatibleRepresentation
 {
-  [(DBGMatrix3 *)self matrix3];
+  objc_msgSend_matrix3(self, a2);
   v3 = [NSNumber numberWithDouble:v22];
   v23[0] = v3;
-  [(DBGMatrix3 *)self matrix3];
+  objc_msgSend_matrix3(self);
   v4 = [NSNumber numberWithDouble:v21];
   v23[1] = v4;
-  [(DBGMatrix3 *)self matrix3];
+  objc_msgSend_matrix3(self);
   v5 = [NSNumber numberWithDouble:v20];
   v23[2] = v5;
-  [(DBGMatrix3 *)self matrix3];
+  objc_msgSend_matrix3(self);
   v6 = [NSNumber numberWithDouble:v19];
   v23[3] = v6;
-  [(DBGMatrix3 *)self matrix3];
+  objc_msgSend_matrix3(self);
   v7 = [NSNumber numberWithDouble:v18];
   v23[4] = v7;
-  [(DBGMatrix3 *)self matrix3];
+  objc_msgSend_matrix3(self);
   v8 = [NSNumber numberWithDouble:v17];
   v23[5] = v8;
-  [(DBGMatrix3 *)self matrix3];
+  objc_msgSend_matrix3(self);
   v9 = [NSNumber numberWithDouble:v16];
   v23[6] = v9;
-  [(DBGMatrix3 *)self matrix3];
+  objc_msgSend_matrix3(self);
   v10 = [NSNumber numberWithDouble:v15];
   v23[7] = v10;
-  [(DBGMatrix3 *)self matrix3];
+  objc_msgSend_matrix3(self);
   v11 = [NSNumber numberWithDouble:v14];
   v23[8] = v11;
   v12 = [NSArray arrayWithObjects:v23 count:9];

@@ -17,14 +17,12 @@
 
 - (_TtC50com_apple_SpeechRecognitionCore_speechrecognitiond15ServiceDelegate)init
 {
-  v3 = sub_10005F190();
-  v4 = *v3;
-  v5 = v3[1];
+  sub_10005F190();
 
   sub_1000C96B4();
-  v7.receiver = self;
-  v7.super_class = type metadata accessor for ServiceDelegate(0);
-  return [(ServiceDelegate *)&v7 init];
+  v4.receiver = self;
+  v4.super_class = type metadata accessor for ServiceDelegate(0);
+  return [(ServiceDelegate *)&v4 init];
 }
 
 @end

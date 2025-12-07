@@ -9,11 +9,11 @@
 
 - (STStatusDomainDataChangeLog)initWithRecordKeys:(id)keys
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
-  v24.receiver = self;
-  v24.super_class = STStatusDomainDataChangeLog;
-  v5 = [(STStatusDomainDataChangeLog *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = STStatusDomainDataChangeLog;
+  v5 = [(STStatusDomainDataChangeLog *)&v23 init];
   if (v5)
   {
     v6 = [keysCopy copy];
@@ -21,35 +21,35 @@
     v5->_sortedRecordKeys = v6;
 
     v8 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(keysCopy, "count")}];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v9 = keysCopy;
-    v10 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v21;
+      v12 = *v20;
       do
       {
         v13 = 0;
         do
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * v13);
+          v14 = *(*(&v19 + 1) + 8 * v13);
           v15 = objc_alloc_init(STStatusDomainDataChangeRecord);
-          [v8 setObject:v15 forKey:{v14, v20}];
+          [v8 setObject:v15 forKey:{v14, v19}];
 
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v11);
@@ -60,7 +60,6 @@
     v5->_recordsByKey = v16;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

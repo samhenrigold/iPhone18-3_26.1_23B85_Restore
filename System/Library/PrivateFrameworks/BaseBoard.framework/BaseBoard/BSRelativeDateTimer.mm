@@ -202,7 +202,7 @@
   }
 }
 
-uint64_t __45__BSRelativeDateTimer_addTimerToMainRunLoop___block_invoke()
+void *__45__BSRelativeDateTimer_addTimerToMainRunLoop___block_invoke()
 {
   v13 = *MEMORY[0x1E69E9840];
   v8 = 0u;

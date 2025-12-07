@@ -81,12 +81,12 @@
 
 - (BRCSyncOperationThrottleParams)initWithParams:(id)params defaults:(id)defaults
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   defaultsCopy = defaults;
-  v16.receiver = self;
-  v16.super_class = BRCSyncOperationThrottleParams;
-  v8 = [(BRCSyncOperationThrottleParams *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = BRCSyncOperationThrottleParams;
+  v8 = [(BRCSyncOperationThrottleParams *)&v15 init];
   if (!v8)
   {
     goto LABEL_15;
@@ -130,11 +130,11 @@ LABEL_15:
     }
 
     *buf = 138412802;
-    v18 = paramsCopy;
-    v19 = 2112;
-    v20 = defaultsCopy;
-    v21 = 2112;
-    v22 = v10;
+    v17 = paramsCopy;
+    v18 = 2112;
+    v19 = defaultsCopy;
+    v20 = 2112;
+    v21 = v10;
     v12 = "[ERROR] Invalid user defaults: %@, using %@%@";
     goto LABEL_18;
   }
@@ -146,11 +146,11 @@ LABEL_15:
     if (os_log_type_enabled(v11, 0x90u))
     {
       *buf = 138412802;
-      v18 = paramsCopy;
-      v19 = 2112;
-      v20 = defaultsCopy;
-      v21 = 2112;
-      v22 = v10;
+      v17 = paramsCopy;
+      v18 = 2112;
+      v19 = defaultsCopy;
+      v20 = 2112;
+      v21 = v10;
       v12 = "[ERROR] Default value %@ is malformed, using %@%@";
 LABEL_18:
       _os_log_error_impl(&dword_223E7A000, v11, 0x90u, v12, buf, 0x20u);
@@ -169,37 +169,34 @@ LABEL_14:
 LABEL_16:
   v13 = v9;
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (id)paramsToDictionary
 {
-  v14[7] = *MEMORY[0x277D85DE8];
-  v13[0] = @"wait-at-least";
+  v13[7] = *MEMORY[0x277D85DE8];
+  v12[0] = @"wait-at-least";
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:self->minWait];
-  v14[0] = v3;
-  v13[1] = @"wait-at-most";
+  v13[0] = v3;
+  v12[1] = @"wait-at-most";
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:self->maxWait];
-  v14[1] = v4;
-  v13[2] = @"success-ratio";
+  v13[1] = v4;
+  v12[2] = @"success-ratio";
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:self->ratioOnSuccess];
-  v14[2] = v5;
-  v13[3] = @"quota-clear-ratio";
+  v13[2] = v5;
+  v12[3] = @"quota-clear-ratio";
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:self->ratioOnQuotaErrorClear];
-  v14[3] = v6;
-  v13[4] = @"error-ratio";
+  v13[3] = v6;
+  v12[4] = @"error-ratio";
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:self->ratioOnFailure];
-  v14[4] = v7;
-  v13[5] = @"kickback-delay";
+  v13[4] = v7;
+  v12[5] = @"kickback-delay";
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:self->inactivityKickbackDelay];
-  v14[5] = v8;
-  v13[6] = @"kickback-ratio";
+  v13[5] = v8;
+  v12[6] = @"kickback-ratio";
   v9 = [MEMORY[0x277CCABB0] numberWithDouble:self->inactivityKickbackRatio];
-  v14[6] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:7];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[6] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:7];
 
   return v10;
 }

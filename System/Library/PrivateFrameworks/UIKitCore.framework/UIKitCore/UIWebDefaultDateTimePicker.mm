@@ -75,7 +75,7 @@
   type = [(DOMHTMLInputElement *)v7->_inputElement type];
   *&v7->_shouldRemoveTimeZoneInformation = 0;
   v7->_formatString = 0;
-  if ([(NSString *)type isEqualToString:@"date"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     v9 = @"yyyy-MM-dd";
 LABEL_6:
@@ -83,13 +83,13 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  if ([(NSString *)type isEqualToString:@"month"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     v9 = @"yyyy-MM";
     goto LABEL_6;
   }
 
-  if ([(NSString *)type isEqualToString:@"time"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     v7->_formatString = @"HH:mm";
     v7->_isTimeInput = 1;
@@ -97,7 +97,7 @@ LABEL_6:
 
   else
   {
-    v7->_shouldRemoveTimeZoneInformation = [(NSString *)type isEqualToString:@"datetime-local"];
+    v7->_shouldRemoveTimeZoneInformation = objc_msgSend_isEqualToString_(type);
   }
 
 LABEL_7:

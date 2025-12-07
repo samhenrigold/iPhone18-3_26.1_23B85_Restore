@@ -12,26 +12,25 @@
 
 - (id)attributeDescriptions
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v16.receiver = self;
-  v16.super_class = HMDUserActivityType6Report;
-  attributeDescriptions = [(HMDUserActivityReport *)&v16 attributeDescriptions];
+  v16[2] = *MEMORY[0x277D85DE8];
+  v15.receiver = self;
+  v15.super_class = HMDUserActivityType6Report;
+  attributeDescriptions = [(HMDUserActivityReport *)&v15 attributeDescriptions];
   v4 = [attributeDescriptions mutableCopy];
 
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   v6 = HMDUserComingHomeStateAsString([(HMDUserActivityType6Report *)self state]);
   v7 = [v5 initWithName:@"State" value:v6];
-  v17[0] = v7;
+  v16[0] = v7;
   v8 = objc_alloc(MEMORY[0x277D0F778]);
   stateEnd = [(HMDUserActivityType6Report *)self stateEnd];
   hmf_localTimeDescription = [stateEnd hmf_localTimeDescription];
   v11 = [v8 initWithName:@"State End" value:hmf_localTimeDescription];
-  v17[1] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v16[1] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
   [v4 addObjectsFromArray:v12];
 
-  v13 = [v4 copy];
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = objc_msgSend_copy(v4);
 
   return v13;
 }
@@ -106,23 +105,23 @@
   stateEnd = [(HMDUserActivityType6Report *)self stateEnd];
   [v4 setObject:stateEnd forKeyedSubscript:@"HAS.T6.SE"];
 
-  v7 = [v4 copy];
+  v7 = objc_msgSend_copy(v4);
 
   return v7;
 }
 
 - (id)initFromMessagePayload:(id)payload withUser:(id)user
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   userCopy = user;
   v8 = [payloadCopy hmf_numberForKey:@"HAS.T6.S"];
   if (v8)
   {
     v9 = [payloadCopy hmf_dateForKey:@"HAS.T6.SE"];
-    v18.receiver = self;
-    v18.super_class = HMDUserActivityType6Report;
-    v10 = [(HMDUserActivityReport *)&v18 initFromMessagePayload:payloadCopy withUser:userCopy];
+    v17.receiver = self;
+    v17.super_class = HMDUserActivityType6Report;
+    v10 = [(HMDUserActivityReport *)&v17 initFromMessagePayload:payloadCopy withUser:userCopy];
     if (v10)
     {
       *(v10 + 5) = [v8 unsignedIntValue];
@@ -143,7 +142,7 @@
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v20 = v15;
+      v19 = v15;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@State not found. could not initialize the metadata from message payload.", buf, 0xCu);
     }
 
@@ -151,7 +150,6 @@
     v12 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

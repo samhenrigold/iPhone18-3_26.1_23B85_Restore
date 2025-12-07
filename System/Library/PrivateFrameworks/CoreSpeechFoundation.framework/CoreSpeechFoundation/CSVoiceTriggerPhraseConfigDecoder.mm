@@ -123,36 +123,36 @@
 
 + (id)decodeConfigV2:(id)v2 category:(id)category
 {
-  v99 = *MEMORY[0x1E69E9840];
+  v98 = *MEMORY[0x1E69E9840];
   v2Copy = v2;
   categoryCopy = category;
   v8 = [v2Copy getValueForKey:@"phrase" category:categoryCopy];
   if (v8)
   {
-    v68 = categoryCopy;
-    v69 = v2Copy;
+    v67 = categoryCopy;
+    v68 = v2Copy;
     array = [MEMORY[0x1E695DF70] array];
+    v93 = 0u;
     v94 = 0u;
     v95 = 0u;
     v96 = 0u;
-    v97 = 0u;
-    v67 = v8;
+    v66 = v8;
     obj = v8;
-    v74 = [obj countByEnumeratingWithState:&v94 objects:v98 count:16];
-    if (v74)
+    v73 = [obj countByEnumeratingWithState:&v93 objects:v97 count:16];
+    if (v73)
     {
-      v71 = *v95;
+      v70 = *v94;
       selfCopy = self;
       do
       {
-        for (i = 0; i != v74; ++i)
+        for (i = 0; i != v73; ++i)
         {
-          if (*v95 != v71)
+          if (*v94 != v70)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v94 + 1) + 8 * i);
+          v10 = *(*(&v93 + 1) + 8 * i);
           v11 = [v10 objectForKeyedSubscript:@"threshold"];
           if (v11)
           {
@@ -175,34 +175,34 @@
             v16 = v18;
           }
 
-          v89 = [CSVoiceTriggerPhraseConfig alloc];
+          v88 = [CSVoiceTriggerPhraseConfig alloc];
           v19 = [v10 objectForKeyedSubscript:@"name"];
           v20 = @"Hey Siri";
-          v92 = v19;
+          v91 = v19;
           if (v19)
           {
             v20 = v19;
           }
 
-          v88 = v20;
-          v91 = [v10 objectForKeyedSubscript:@"loggingThreshold"];
-          if (v91)
+          v87 = v20;
+          v90 = [v10 objectForKeyedSubscript:@"loggingThreshold"];
+          if (v90)
           {
-            v83 = [v10 objectForKeyedSubscript:@"loggingThreshold"];
-            [v83 floatValue];
-            v87 = v21;
+            v82 = [v10 objectForKeyedSubscript:@"loggingThreshold"];
+            [v82 floatValue];
+            v86 = v21;
           }
 
           else
           {
-            v87 = 2139095040;
+            v86 = 2139095040;
           }
 
-          v93 = [v10 objectForKeyedSubscript:@"ndapiScaleFactor"];
-          if (v93)
+          v92 = [v10 objectForKeyedSubscript:@"ndapiScaleFactor"];
+          if (v92)
           {
-            v82 = [v10 objectForKeyedSubscript:@"ndapiScaleFactor"];
-            [v82 floatValue];
+            v81 = [v10 objectForKeyedSubscript:@"ndapiScaleFactor"];
+            [v81 floatValue];
           }
 
           else
@@ -210,12 +210,12 @@
             v22 = 1.0;
           }
 
-          v85 = v22;
-          v90 = [v10 objectForKeyedSubscript:@"recognizerThresholdOffset"];
-          if (v90)
+          v84 = v22;
+          v89 = [v10 objectForKeyedSubscript:@"recognizerThresholdOffset"];
+          if (v89)
           {
-            v81 = [v10 objectForKeyedSubscript:@"recognizerThresholdOffset"];
-            [v81 floatValue];
+            v80 = [v10 objectForKeyedSubscript:@"recognizerThresholdOffset"];
+            [v80 floatValue];
             v24 = v23;
           }
 
@@ -227,8 +227,8 @@
           v25 = [v10 objectForKeyedSubscript:@"recognizerScoreScaleFactor"];
           if (v25)
           {
-            v80 = [v10 objectForKeyedSubscript:@"recognizerScoreScaleFactor"];
-            [v80 floatValue];
+            v79 = [v10 objectForKeyedSubscript:@"recognizerScoreScaleFactor"];
+            [v79 floatValue];
             v27 = v26;
           }
 
@@ -245,14 +245,14 @@
             v30 = v28;
           }
 
-          v84 = v30;
+          v83 = v30;
           twoShotDelayConfigKey = [self twoShotDelayConfigKey];
           v31 = [v10 objectForKeyedSubscript:?];
           if (v31)
           {
             twoShotDelayConfigKey2 = [self twoShotDelayConfigKey];
-            v75 = [v10 objectForKeyedSubscript:?];
-            [v75 floatValue];
+            v74 = [v10 objectForKeyedSubscript:?];
+            [v74 floatValue];
           }
 
           else
@@ -265,8 +265,8 @@
           v34 = [v10 objectForKeyedSubscript:@"twoShotFeedbackDelayPhaticRemora"];
           if (v34)
           {
-            v78 = [v10 objectForKeyedSubscript:@"twoShotFeedbackDelayPhaticRemora"];
-            [v78 floatValue];
+            v77 = [v10 objectForKeyedSubscript:@"twoShotFeedbackDelayPhaticRemora"];
+            [v77 floatValue];
           }
 
           else
@@ -279,8 +279,8 @@
           v38 = [v10 objectForKeyedSubscript:@"rejectLoggingThreshold"];
           if (v38)
           {
-            v77 = [v10 objectForKeyedSubscript:@"rejectLoggingThreshold"];
-            [v77 floatValue];
+            v76 = [v10 objectForKeyedSubscript:@"rejectLoggingThreshold"];
+            [v76 floatValue];
             v40 = v39;
           }
 
@@ -292,8 +292,8 @@
           v41 = [v10 objectForKeyedSubscript:@"phsRejectLoggingThreshold"];
           if (v41)
           {
-            v76 = [v10 objectForKeyedSubscript:@"phsRejectLoggingThreshold"];
-            [v76 floatValue];
+            v75 = [v10 objectForKeyedSubscript:@"phsRejectLoggingThreshold"];
+            [v75 floatValue];
             v43 = v42;
           }
 
@@ -307,30 +307,30 @@
           {
             v53 = [v10 objectForKeyedSubscript:@"preTriggerSilenceOffset"];
             [v53 floatValue];
-            LODWORD(v66) = v54;
+            LODWORD(v65) = v54;
             LODWORD(v55) = v14;
             LODWORD(v56) = v16;
-            LODWORD(v57) = v87;
-            *&v58 = v85;
+            LODWORD(v57) = v86;
+            *&v58 = v84;
             *&v59 = v24;
             *&v60 = v27;
             LODWORD(v61) = v33;
             LODWORD(v62) = v37;
-            v63 = [(CSVoiceTriggerPhraseConfig *)v89 initWithName:v88 threshold:v84 secondChanceThreshold:v55 loggingThreshold:v56 ndapiScaleFactor:v57 recognizerScoreOffset:v58 recognizerScoreScaleFactor:v59 recognizerToken:v60 twoShotFeedbackDelay:v61 remoraTwoShotFeedbackDelay:v62 keywordRejectLoggingThreshold:__PAIR64__(v43 speakerRejectLoggingThreshold:v40) preTriggerSilenceOffset:v66];
+            v63 = [(CSVoiceTriggerPhraseConfig *)v88 initWithName:v87 threshold:v83 secondChanceThreshold:v55 loggingThreshold:v56 ndapiScaleFactor:v57 recognizerScoreOffset:v58 recognizerScoreScaleFactor:v59 recognizerToken:v60 twoShotFeedbackDelay:v61 remoraTwoShotFeedbackDelay:v62 keywordRejectLoggingThreshold:__PAIR64__(v43 speakerRejectLoggingThreshold:v40) preTriggerSilenceOffset:v65];
           }
 
           else
           {
-            LODWORD(v66) = 0;
+            LODWORD(v65) = 0;
             LODWORD(v45) = v14;
             LODWORD(v46) = v16;
-            LODWORD(v47) = v87;
-            *&v48 = v85;
+            LODWORD(v47) = v86;
+            *&v48 = v84;
             *&v49 = v24;
             *&v50 = v27;
             LODWORD(v51) = v33;
             LODWORD(v52) = v37;
-            v63 = [(CSVoiceTriggerPhraseConfig *)v89 initWithName:v88 threshold:v84 secondChanceThreshold:v45 loggingThreshold:v46 ndapiScaleFactor:v47 recognizerScoreOffset:v48 recognizerScoreScaleFactor:v49 recognizerToken:v50 twoShotFeedbackDelay:v51 remoraTwoShotFeedbackDelay:v52 keywordRejectLoggingThreshold:__PAIR64__(v43 speakerRejectLoggingThreshold:v40) preTriggerSilenceOffset:v66];
+            v63 = [(CSVoiceTriggerPhraseConfig *)v88 initWithName:v87 threshold:v83 secondChanceThreshold:v45 loggingThreshold:v46 ndapiScaleFactor:v47 recognizerScoreOffset:v48 recognizerScoreScaleFactor:v49 recognizerToken:v50 twoShotFeedbackDelay:v51 remoraTwoShotFeedbackDelay:v52 keywordRejectLoggingThreshold:__PAIR64__(v43 speakerRejectLoggingThreshold:v40) preTriggerSilenceOffset:v65];
           }
 
           if (v41)
@@ -354,30 +354,30 @@
           {
           }
 
+          if (v89)
+          {
+          }
+
+          if (v92)
+          {
+          }
+
           if (v90)
-          {
-          }
-
-          if (v93)
-          {
-          }
-
-          if (v91)
           {
           }
 
           [array addObject:v63];
         }
 
-        v74 = [obj countByEnumeratingWithState:&v94 objects:v98 count:16];
+        v73 = [obj countByEnumeratingWithState:&v93 objects:v97 count:16];
       }
 
-      while (v74);
+      while (v73);
     }
 
-    categoryCopy = v68;
-    v2Copy = v69;
-    v8 = v67;
+    categoryCopy = v67;
+    v2Copy = v68;
+    v8 = v66;
   }
 
   else
@@ -385,14 +385,12 @@
     array = 0;
   }
 
-  v64 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 + (id)decodeConfigFrom:(id)from category:(id)category
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   categoryCopy = category;
   fromCopy = from;
   if ([fromCopy containsKey:@"phrase" category:categoryCopy])
@@ -404,11 +402,9 @@
   {
     v9 = [self decodeConfigV1:fromCopy category:categoryCopy];
 
-    v12[0] = v9;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+    v11[0] = v9;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

@@ -106,33 +106,33 @@
 
 - (id)wd_commaSeparatedData
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CCAB68]);
   v3 = objc_alloc_init(MEMORY[0x277CCABB8]);
   [v3 setNumberStyle:1];
-  v25 = v3;
+  v24 = v3;
   [v3 setUsesGroupingSeparator:0];
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   selfCopy = self;
   obj = [self leadNames];
-  v4 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v4 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v4)
   {
     v5 = v4;
-    v23 = *v30;
+    v22 = *v29;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v30 != v23)
+        if (*v29 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v29 + 1) + 8 * i);
+        v7 = *(*(&v28 + 1) + 8 * i);
         [v2 appendString:@"\n"];
         integerValue = [v7 integerValue];
         v9 = WDBundle();
@@ -164,22 +164,20 @@
 
         [v2 appendString:@"\n"];
         [v2 appendString:@"\n"];
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __58__HKElectrocardiogram_WDExtensions__wd_commaSeparatedData__block_invoke;
-        v26[3] = &unk_2796E6B40;
-        v27 = v2;
-        v28 = v25;
-        [selfCopy _enumerateDataForLead:integerValue block:v26];
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __58__HKElectrocardiogram_WDExtensions__wd_commaSeparatedData__block_invoke;
+        v25[3] = &unk_2796E6B40;
+        v26 = v2;
+        v27 = v24;
+        [selfCopy _enumerateDataForLead:integerValue block:v25];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v5 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v5);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

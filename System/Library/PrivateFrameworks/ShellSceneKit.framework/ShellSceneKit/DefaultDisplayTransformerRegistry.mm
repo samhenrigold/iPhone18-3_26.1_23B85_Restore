@@ -8,13 +8,14 @@
 
 - (id)addTransformer:(id)transformer withIdentifier:(id)identifier
 {
-  sub_265FEC0E0();
+  v6 = sub_265FEC0E0();
+  v8 = v7;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = sub_265FD7834(transformer);
+  v10 = sub_265FD7834(transformer, v6, v8);
   swift_unknownObjectRelease();
 
-  return v7;
+  return v10;
 }
 
 - (id)transformDisplayConfiguration:(id)configuration

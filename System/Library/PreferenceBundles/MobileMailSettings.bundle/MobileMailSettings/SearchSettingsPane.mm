@@ -5,7 +5,10 @@
 - (id)specifiers;
 - (void)setEnableSearchInJunk:(id)junk withSpecifier:(id)specifier;
 - (void)setEnableSearchInTrash:(id)trash withSpecifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation SearchSettingsPane
@@ -18,6 +21,32 @@
   v3 = [NSBundle bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"SEARCH_PREFERENCE" value:&stru_3D2B0 table:@"Preferences"];
   [(SearchSettingsPane *)self setTitle:v4];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = SearchSettingsPane;
+  [(SearchSettingsPane *)&v5 viewDidAppear:appear];
+  parentController = [(SearchSettingsPane *)self parentController];
+  [(SearchSettingsPane *)self setParentListController:parentController];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = SearchSettingsPane;
+  [(SearchSettingsPane *)&v5 viewWillDisappear:disappear];
+  parentListController = [(SearchSettingsPane *)self parentListController];
+  [parentListController reloadSpecifier:*&self->PSListController_opaque[OBJC_IVAR___PSViewController__specifier]];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = SearchSettingsPane;
+  [(SearchSettingsPane *)&v4 viewDidDisappear:disappear];
+  [(SearchSettingsPane *)self setParentListController:0];
 }
 
 - (void)setEnableSearchInJunk:(id)junk withSpecifier:(id)specifier

@@ -130,7 +130,7 @@
     v7 = _EXDefaultLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      [_EXHostViewControllerConfiguration initWithExtension:];
+      [_EXHostViewControllerConfiguration initWithExtension:extensionCopy];
     }
 
     __break(1u);
@@ -161,7 +161,7 @@
     v11 = _EXDefaultLog();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      [_EXHostViewControllerConfiguration initWithExtension:role:];
+      [_EXHostViewControllerConfiguration initWithExtension:extensionCopy role:?];
     }
 
     __break(1u);
@@ -184,7 +184,7 @@
     v4 = _EXDefaultLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      [_EXHostViewControllerConfiguration setExtension:];
+      [_EXHostViewControllerConfiguration setExtension:extensionCopy];
     }
 
     __break(1u);
@@ -193,59 +193,54 @@
 
 - (void)initWithExtensionIdentity:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v3 = "extensionIdentity.presentsUserInterface";
-  v4 = 2080;
-  v2 = 136315650;
+  v5 = *MEMORY[0x1E69E9840];
+  v2 = "extensionIdentity.presentsUserInterface";
+  v3 = 2080;
+  v1 = 136315650;
   OUTLINED_FUNCTION_0();
-  v5 = 34;
-  _os_log_fault_impl(&dword_1D29CC000, v0, OS_LOG_TYPE_FAULT, "%s - %s:%d: Extension point does not support user interface", &v2, 0x1Cu);
-  v1 = *MEMORY[0x1E69E9840];
+  v4 = 34;
+  _os_log_fault_impl(&dword_1D29CC000, v0, OS_LOG_TYPE_FAULT, "%s - %s:%d: Extension point does not support user interface", &v1, 0x1Cu);
 }
 
 - (void)setExtensionIdentity:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v3 = "extensionIdentity.presentsUserInterface";
-  v4 = 2080;
-  v2 = 136315650;
+  v5 = *MEMORY[0x1E69E9840];
+  v2 = "extensionIdentity.presentsUserInterface";
+  v3 = 2080;
+  v1 = 136315650;
   OUTLINED_FUNCTION_0();
-  v5 = 62;
-  _os_log_fault_impl(&dword_1D29CC000, v0, OS_LOG_TYPE_FAULT, "%s - %s:%d: Extension point does not support user interface", &v2, 0x1Cu);
-  v1 = *MEMORY[0x1E69E9840];
+  v4 = 62;
+  _os_log_fault_impl(&dword_1D29CC000, v0, OS_LOG_TYPE_FAULT, "%s - %s:%d: Extension point does not support user interface", &v1, 0x1Cu);
 }
 
-- (void)initWithExtension:.cold.1()
+- (void)initWithExtension:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   objc_opt_class();
+  v7 = 136315906;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_1D29CC000, v0, v1, "%s - %s:%d: Invalid extension class %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1D29CC000, v1, v2, "%s - %s:%d: Invalid extension class %@", v3, v4, v5, v6, v7);
 }
 
-- (void)initWithExtension:role:.cold.1()
+- (void)initWithExtension:(uint64_t)a1 role:.cold.1(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   objc_opt_class();
+  v7 = 136315906;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_1D29CC000, v0, v1, "%s - %s:%d: Invalid extension class %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1D29CC000, v1, v2, "%s - %s:%d: Invalid extension class %@", v3, v4, v5, v6, v7);
 }
 
-- (void)setExtension:.cold.1()
+- (void)setExtension:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   objc_opt_class();
+  v7 = 136315906;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2(&dword_1D29CC000, v0, v1, "%s - %s:%d: Invalid extension class %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_2(&dword_1D29CC000, v1, v2, "%s - %s:%d: Invalid extension class %@", v3, v4, v5, v6, v7);
 }
 
 @end

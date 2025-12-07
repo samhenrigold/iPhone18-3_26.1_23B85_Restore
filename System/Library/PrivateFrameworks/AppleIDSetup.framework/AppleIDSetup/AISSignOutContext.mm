@@ -14,13 +14,12 @@
 
 - (NSDictionary)accountAltDSIDsByService
 {
-  v2 = *(self + OBJC_IVAR___AISSignOutContext_accountAltDSIDsByService);
   type metadata accessor for AIDAServiceType(0);
   sub_240665FC0();
 
-  v3 = sub_240759F54();
+  v2 = sub_240759F54();
 
-  return v3;
+  return v2;
 }
 
 - (NSString)altDSID
@@ -46,18 +45,16 @@
 {
   if (*(self + OBJC_IVAR___AISSignOutContext_machineIdToSignOut + 8))
   {
-    v2 = *(self + OBJC_IVAR___AISSignOutContext_machineIdToSignOut);
-    v3 = *(self + OBJC_IVAR___AISSignOutContext_machineIdToSignOut + 8);
 
-    v4 = sub_24075A084();
+    v2 = sub_24075A084();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)encodeWithCoder:(id)coder

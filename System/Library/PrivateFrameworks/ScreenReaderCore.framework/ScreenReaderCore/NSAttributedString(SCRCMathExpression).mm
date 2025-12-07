@@ -11,7 +11,7 @@
 - (uint64_t)_scrcHasPauseCommaAtIndex:()SCRCMathExpression;
 - (uint64_t)_scrcRangeOfFormatSpecifierWithIndex:()SCRCMathExpression;
 - (uint64_t)_scrcRangeOfVanillaFormatSpecifier;
-- (uint64_t)scrcContainsPause;
+- (unint64_t)scrcContainsPause;
 @end
 
 @implementation NSAttributedString(SCRCMathExpression)
@@ -92,7 +92,7 @@
 
 + (id)scrcStringWithFormat:()SCRCMathExpression
 {
-  v9 = [self _scrcStringWithFormat:a3 args:&a9];
+  v9 = [self _scrcStringWithFormat:a3 args:&a9, a5, a6, a7, a8];
 
   return v9;
 }
@@ -237,7 +237,7 @@
   return v8;
 }
 
-- (uint64_t)scrcContainsPause
+- (unint64_t)scrcContainsPause
 {
   result = [self length];
   if (result)

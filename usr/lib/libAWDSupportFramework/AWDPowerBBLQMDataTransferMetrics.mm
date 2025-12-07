@@ -56,7 +56,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   if (*&self->_has)
   {
@@ -66,29 +66,29 @@
   if ([(NSMutableArray *)self->_lQMBytes count])
   {
     v4 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_lQMBytes, "count")}];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     lQMBytes = self->_lQMBytes;
-    v6 = [(NSMutableArray *)lQMBytes countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v6 = [(NSMutableArray *)lQMBytes countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v13;
+      v8 = *v12;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v13 != v8)
+          if (*v12 != v8)
           {
             objc_enumerationMutation(lQMBytes);
           }
 
-          [v4 addObject:{objc_msgSend(*(*(&v12 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v4 addObject:{objc_msgSend(*(*(&v11 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v7 = [(NSMutableArray *)lQMBytes countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [(NSMutableArray *)lQMBytes countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v7);
@@ -98,63 +98,57 @@
   }
 
   [dictionary setObject:PBRepeatedUInt32NSArray() forKey:@"LQMTransitionCntBuckets"];
-  v10 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   lQMBytes = self->_lQMBytes;
-  v6 = [(NSMutableArray *)lQMBytes countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v6)
+  v5 = [(NSMutableArray *)lQMBytes countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v5)
   {
-    v7 = v6;
-    v8 = *v16;
+    v6 = v5;
+    v7 = *v12;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v8)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(lQMBytes);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v7 = [(NSMutableArray *)lQMBytes countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [(NSMutableArray *)lQMBytes countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v7);
+    while (v6);
   }
 
   p_lQMTransitionCntBuckets = &self->_lQMTransitionCntBuckets;
   if (p_lQMTransitionCntBuckets->count)
   {
-    v12 = 0;
+    v10 = 0;
     do
     {
-      v13 = p_lQMTransitionCntBuckets->list[v12];
       PBDataWriterWriteUint32Field();
-      ++v12;
+      ++v10;
     }
 
-    while (v12 < p_lQMTransitionCntBuckets->count);
+    while (v10 < p_lQMTransitionCntBuckets->count);
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -196,7 +190,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (*&self->_has)
@@ -205,37 +199,36 @@
     *(v5 + 48) |= 1u;
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   lQMBytes = self->_lQMBytes;
-  v8 = [(NSMutableArray *)lQMBytes countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [(NSMutableArray *)lQMBytes countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(lQMBytes);
         }
 
-        v12 = [*(*(&v15 + 1) + 8 * i) copyWithZone:zone];
+        v12 = [*(*(&v14 + 1) + 8 * i) copyWithZone:zone];
         [v6 addLQMBytes:v12];
       }
 
-      v9 = [(NSMutableArray *)lQMBytes countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [(NSMutableArray *)lQMBytes countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
 
   PBRepeatedUInt32Copy();
-  v13 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -246,7 +239,6 @@
     return 0;
   }
 
-  v5 = *(equal + 48);
   if (*&self->_has)
   {
     if ((*(equal + 48) & 1) == 0 || self->_timestamp != *(equal + 4))
@@ -287,36 +279,36 @@
 
 - (void)mergeFrom:(id)from
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   if (*(from + 48))
   {
     self->_timestamp = *(from + 4);
     *&self->_has |= 1u;
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = *(from + 5);
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(AWDPowerBBLQMDataTransferMetrics *)self addLQMBytes:*(*(&v14 + 1) + 8 * i)];
+        [(AWDPowerBBLQMDataTransferMetrics *)self addLQMBytes:*(*(&v13 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -331,8 +323,6 @@
       -[AWDPowerBBLQMDataTransferMetrics addLQMTransitionCntBuckets:](self, "addLQMTransitionCntBuckets:", [from lQMTransitionCntBucketsAtIndex:j]);
     }
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 @end

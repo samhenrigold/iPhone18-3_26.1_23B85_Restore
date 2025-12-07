@@ -1,112 +1,13 @@
-void sub_1E4D77AC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, std::__shared_weak_count *a25)
+void SipClientTransaction::handleResponse(uint64_t a1, SipResponse **a2)
 {
-  if (v28)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v28);
-  }
-
-  if (a25)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a25);
-  }
-
-  if (v27)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v27);
-  }
-
-  std::__shared_weak_count::__release_shared[abi:ne200100](v26);
-  std::__shared_weak_count::__release_shared[abi:ne200100](v25);
-  _Unwind_Resume(a1);
-}
-
-void *SipMessage::header<SipRetryAfterHeader>(uint64_t a1)
-{
-  v1 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>>>::find<std::string>((a1 + 72), "Retry-After");
-  if (!v1)
-  {
-    return 0;
-  }
-
-  v2 = v1[5];
-  if (!v2)
-  {
-    return 0;
-  }
-
-  v3 = **v2;
-}
-
-void *SipMessage::header<SipPAssertedIdentityHeader>(uint64_t a1)
-{
-  v1 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MessageSession>>>>::find<std::string>((a1 + 72), "P-Asserted-Identity");
-  if (!v1)
-  {
-    return 0;
-  }
-
-  v2 = v1[5];
-  if (!v2)
-  {
-    return 0;
-  }
-
-  v3 = **v2;
-}
-
-char **SipMessage::body<Sip3gppImsInfoBody>(uint64_t a1)
-{
-  result = SipMessage::bodyWithContentType(a1, &Sip3gppImsInfoBody::kContentType);
-  if (result)
-  {
-    v2 = **result;
-  }
-
-  return result;
-}
-
-void SipClientTransaction::handleConnectionError(SipClientTransaction *this)
-{
-  if (!*(this + 7))
-  {
-    return;
-  }
-
-  v2 = *(this + 14);
-  if (!v2)
-  {
-    v4 = 0;
-    goto LABEL_8;
-  }
-
-  v3 = *(this + 13);
-  atomic_fetch_add_explicit(&v2->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  v4 = std::__shared_weak_count::lock(v2);
-  std::__shared_weak_count::__release_weak(v2);
-  if (!v4 || !v3 || (*(*v3 + 48))(v3))
-  {
-LABEL_8:
-    (*(**(this + 7) + 80))(*(this + 7));
-    if (!v4)
-    {
-      return;
-    }
-  }
-
-  std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-}
-
-void SipClientTransaction::handleResponse(uint64_t a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v3 = a1 + 128;
-  v4 = (*(*(a1 + 128) + 64))(a1 + 128);
-  (*(*v3 + 16))(v3, v4);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v4 + 8), "SipClientTransaction::handleResponse", 36);
-  *(v4 + 17) = 0;
-  (*(*v4 + 64))(v4, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v4 + 17) = 0;
-  v5 = *a2;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = a1 + 128;
+  v3 = (*(*(a1 + 128) + 64))(a1 + 128);
+  (*(*v2 + 16))(v2, v3);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v3 + 8), "SipClientTransaction::handleResponse", 36);
+  *(v3 + 17) = 0;
+  (*(*v3 + 64))(v3, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v3 + 17) = 0;
   std::allocate_shared[abi:ne200100]<SipResponse,std::allocator<SipResponse>,SipResponse::EnforcePrivateConstructor,SipResponse const&,0>();
 }
 
@@ -203,10 +104,10 @@ void sub_1E4D79834(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SipClientInviteTransaction::create(void *a1@<X8>)
+void SipClientInviteTransaction::create(void *a5@<X8>)
 {
-  *a1 = 0;
-  a1[1] = 0;
+  *a5 = 0;
+  a5[1] = 0;
   std::allocate_shared[abi:ne200100]<SipClientInviteTransaction,std::allocator<SipClientInviteTransaction>,std::shared_ptr<SipTransactionLayer> &,std::shared_ptr<SipRequest> &,std::shared_ptr<IpAddress> const&,std::string const&,0>();
 }
 
@@ -461,10 +362,10 @@ void sub_1E4D7A22C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SipClientNonInviteTransaction::create(void *a1@<X8>)
+void SipClientNonInviteTransaction::create(void *a5@<X8>)
 {
-  *a1 = 0;
-  a1[1] = 0;
+  *a5 = 0;
+  a5[1] = 0;
   std::allocate_shared[abi:ne200100]<SipClientNonInviteTransaction,std::allocator<SipClientNonInviteTransaction>,std::shared_ptr<SipTransactionLayer> &,std::shared_ptr<SipRequest> &,std::shared_ptr<IpAddress> const&,std::string const&,0>();
 }
 
@@ -947,32 +848,31 @@ uint64_t std::__function::__func<SipClientNonInviteTransaction::initialize(void)
   }
 }
 
-void ims::rtp::createMediaSessionStateMachine(uint64_t *a1)
+void ims::rtp::createMediaSessionStateMachine(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  v10 = 11;
-  strcpy(v9, "rtp.session");
-  v5[0] = 0;
-  v8 = 0;
-  v2 = ims::debug(v9, v5);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v2 + 8), "createMediaSessionStateMachine", 30);
-  *(v2 + 17) = 0;
-  (*(*v2 + 64))(v2, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v2 + 17) = 0;
-  if (v8 == 1 && v7 < 0)
+  v11 = 11;
+  strcpy(v10, "rtp.session");
+  v6[0] = 0;
+  v9 = 0;
+  v4 = ims::debug(v10, v6);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v4 + 8), "createMediaSessionStateMachine", 30);
+  *(v4 + 17) = 0;
+  (*(*v4 + 64))(v4, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v4 + 17) = 0;
+  if (v9 == 1 && v8 < 0)
   {
     operator delete(__p);
   }
 
-  if (v10 < 0)
+  if (v11 < 0)
   {
-    operator delete(v9[0]);
+    operator delete(v10[0]);
   }
 
-  v3 = a1[1];
-  v4 = *a1;
-  if (v3)
+  v5 = a1[1];
+  if (v5)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
   }
 
   MediaSessionStateMachine::create();
@@ -1317,7 +1217,7 @@ void std::__function::__func<anonymous namespace::ChatImpl::init(xpc::dict)::$_0
       }
 
       memset(&v50[1], 0, sizeof(std::string));
-      v14 = (a1 + 7);
+      v14 = a1 + 7;
       v35[0].__r_.__value_.__r.__words[0] = v14;
       v35[0].__r_.__value_.__l.__size_ = "kResourceXml";
       xpc::dict::object_proxy::operator xpc::object(v35, v50);
@@ -1489,7 +1389,7 @@ LABEL_52:
 
       v43 = 0uLL;
       *(&v42 + 1) = 0;
-      std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v42 + 8, v46, v47, v47 - v46);
+      std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v42 + 1, v46, v47, v47 - v46);
       v44 = 0uLL;
       v45 = 0;
       v19 = *(v3 + 216);
@@ -1719,18 +1619,18 @@ void ___ZZN12_GLOBAL__N_18ChatImpl4initEN3xpc4dictEENK3__0clEv_block_invoke(void
 
   std::string::basic_string[abi:ne200100]<0>(&__p, v5);
   (*(*v4 + 32))(v4, &__p);
-  v6 = (*(*v4 + 64))(v4, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  (*(*v4 + 64))(v4, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v4 + 17) = 0;
-  if (v9 < 0)
+  if (v8 < 0)
   {
     operator delete(__p);
   }
 
-  IPTelephonyManager::getCallManager(v6, &__p);
+  IPTelephonyManager::getCallManager(&__p);
   IMSCallManager::initializeMOLazuliSession(__p, (a1 + 17), 0, 0);
-  if (v8)
+  if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 }
 
@@ -1785,7 +1685,7 @@ void __copy_helper_block_e8_40c67_ZTSKNSt3__112basic_stringIcNS_11char_traitsIcE
   *(a1 + 112) = 0;
   *(a1 + 120) = 0;
   *(a1 + 128) = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1 + 112, *(a2 + 112), *(a2 + 120), *(a2 + 120) - *(a2 + 112));
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>((a1 + 112), *(a2 + 112), *(a2 + 120), *(a2 + 120) - *(a2 + 112));
   LazuliSendParams::LazuliSendParams((a1 + 136), (a2 + 136));
 }
 
@@ -1905,7 +1805,7 @@ void anonymous namespace::ChatImpl::~ChatImpl(_anonymous_namespace_::ChatImpl *t
   }
 
   *&v7.__r_.__value_.__l.__data_ = 0uLL;
-  IMSClientManager::lazuliDelegateForStack(&v15.__r_.__value_.__l.__data_, &v7);
+  IMSClientManager::lazuliDelegateForStack(&v15, &v7);
   v6 = v7.__r_.__value_.__r.__words[0];
   if (v7.__r_.__value_.__r.__words[0])
   {
@@ -1919,7 +1819,7 @@ void anonymous namespace::ChatImpl::~ChatImpl(_anonymous_namespace_::ChatImpl *t
       v9 = v14;
     }
 
-    LazuliDelegate::trackPendingBye(v6, &v9.__r_.__value_.__l.__data_);
+    LazuliDelegate::trackPendingBye(v6, &v9);
     if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(v9.__r_.__value_.__l.__data_);
@@ -1974,7 +1874,7 @@ void sub_1E4D7E400(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void anonymous namespace::ChatImpl::changeGroupChatInfo(uint64_t a1, xpc_object_t *a2)
+void anonymous namespace::ChatImpl::changeGroupChatInfo(void *a1, xpc_object_t *a2)
 {
   if (*a2)
   {
@@ -1986,10 +1886,9 @@ void anonymous namespace::ChatImpl::changeGroupChatInfo(uint64_t a1, xpc_object_
     xpc_null_create();
   }
 
-  v3 = *(a1 + 16);
+  v3 = a1[2];
   if (v3)
   {
-    v4 = *(a1 + 8);
     if (std::__shared_weak_count::lock(v3))
     {
       operator new();
@@ -1999,7 +1898,7 @@ void anonymous namespace::ChatImpl::changeGroupChatInfo(uint64_t a1, xpc_object_
   std::__throw_bad_weak_ptr[abi:ne200100]();
 }
 
-void anonymous namespace::ChatImpl::sendMessage(uint64_t a1, xpc_object_t *a2)
+void anonymous namespace::ChatImpl::sendMessage(void *a1, xpc_object_t *a2)
 {
   if (*a2)
   {
@@ -2011,10 +1910,9 @@ void anonymous namespace::ChatImpl::sendMessage(uint64_t a1, xpc_object_t *a2)
     xpc_null_create();
   }
 
-  v3 = *(a1 + 16);
+  v3 = a1[2];
   if (v3)
   {
-    v4 = *(a1 + 8);
     if (std::__shared_weak_count::lock(v3))
     {
       operator new();
@@ -2060,7 +1958,7 @@ void anonymous namespace::ChatImpl::removeParticipant(uint64_t a1, void **a2)
   xpc_release(object);
 }
 
-void anonymous namespace::ChatImpl::addParticipants(uint64_t a1, xpc_object_t *a2)
+void anonymous namespace::ChatImpl::addParticipants(void *a1, xpc_object_t *a2)
 {
   if (*a2)
   {
@@ -2072,10 +1970,9 @@ void anonymous namespace::ChatImpl::addParticipants(uint64_t a1, xpc_object_t *a
     xpc_null_create();
   }
 
-  v3 = *(a1 + 16);
+  v3 = a1[2];
   if (v3)
   {
-    v4 = *(a1 + 8);
     if (std::__shared_weak_count::lock(v3))
     {
       operator new();
@@ -2085,7 +1982,7 @@ void anonymous namespace::ChatImpl::addParticipants(uint64_t a1, xpc_object_t *a
   std::__throw_bad_weak_ptr[abi:ne200100]();
 }
 
-void anonymous namespace::ChatImpl::removeParticipants(uint64_t a1, xpc_object_t *a2)
+void anonymous namespace::ChatImpl::removeParticipants(void *a1, xpc_object_t *a2)
 {
   if (*a2)
   {
@@ -2097,10 +1994,9 @@ void anonymous namespace::ChatImpl::removeParticipants(uint64_t a1, xpc_object_t
     xpc_null_create();
   }
 
-  v3 = *(a1 + 16);
+  v3 = a1[2];
   if (v3)
   {
-    v4 = *(a1 + 8);
     if (std::__shared_weak_count::lock(v3))
     {
       operator new();
@@ -2110,7 +2006,7 @@ void anonymous namespace::ChatImpl::removeParticipants(uint64_t a1, xpc_object_t
   std::__throw_bad_weak_ptr[abi:ne200100]();
 }
 
-void anonymous namespace::ChatImpl::requestMlsGroupInfo(uint64_t a1, xpc_object_t *a2)
+void anonymous namespace::ChatImpl::requestMlsGroupInfo(void *a1, xpc_object_t *a2)
 {
   if (*a2)
   {
@@ -2122,10 +2018,9 @@ void anonymous namespace::ChatImpl::requestMlsGroupInfo(uint64_t a1, xpc_object_
     xpc_null_create();
   }
 
-  v3 = *(a1 + 16);
+  v3 = a1[2];
   if (v3)
   {
-    v4 = *(a1 + 8);
     if (std::__shared_weak_count::lock(v3))
     {
       operator new();
@@ -2151,8 +2046,7 @@ void anonymous namespace::ChatImpl::conversationId(_anonymous_namespace_::ChatIm
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 16);
-    a2->__r_.__value_.__r.__words[2] = *(this + 34);
+    *a2 = *(this + 256);
   }
 }
 
@@ -2209,7 +2103,7 @@ void anonymous namespace::ChatImpl::stackId(_anonymous_namespace_::ChatImpl *thi
   }
 }
 
-void anonymous namespace::ChatImpl::leaveGroupChat(uint64_t a1, xpc_object_t *a2)
+void anonymous namespace::ChatImpl::leaveGroupChat(void *a1, xpc_object_t *a2)
 {
   if (*a2)
   {
@@ -2221,10 +2115,9 @@ void anonymous namespace::ChatImpl::leaveGroupChat(uint64_t a1, xpc_object_t *a2
     xpc_null_create();
   }
 
-  v3 = *(a1 + 16);
+  v3 = a1[2];
   if (v3)
   {
-    v4 = *(a1 + 8);
     if (std::__shared_weak_count::lock(v3))
     {
       operator new();
@@ -2236,10 +2129,10 @@ void anonymous namespace::ChatImpl::leaveGroupChat(uint64_t a1, xpc_object_t *a2
 
 std::string *anonymous namespace::ChatImpl::newRemoteUriAvailable(uint64_t a1, const std::string *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  ims::getStaticLoggerFor("laz.cht", &v10);
-  v4 = *&v11[4];
-  ctu::OsLogContext::~OsLogContext(&v10);
+  v13 = *MEMORY[0x1E69E9840];
+  ims::getStaticLoggerFor(&v9, "laz.cht");
+  v4 = *&v10[4];
+  ctu::OsLogContext::~OsLogContext(&v9);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = (a1 + 256);
@@ -2260,18 +2153,16 @@ std::string *anonymous namespace::ChatImpl::newRemoteUriAvailable(uint64_t a1, c
       v7 = a2->__r_.__value_.__r.__words[0];
     }
 
-    v10 = 136315651;
-    *v11 = v5;
-    *&v11[8] = 2085;
-    *&v11[10] = v6;
-    v12 = 2085;
-    v13 = v7;
-    _os_log_impl(&dword_1E4C3F000, v4, OS_LOG_TYPE_DEFAULT, "Updating URI of conversation %s from %{sensitive}s to %{sensitive}s", &v10, 0x20u);
+    v9 = 136315651;
+    *v10 = v5;
+    *&v10[8] = 2085;
+    *&v10[10] = v6;
+    v11 = 2085;
+    v12 = v7;
+    _os_log_impl(&dword_1E4C3F000, v4, OS_LOG_TYPE_DEFAULT, "Updating URI of conversation %s from %{sensitive}s to %{sensitive}s", &v9, 0x20u);
   }
 
-  result = std::string::operator=((a1 + 232), a2);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return std::string::operator=((a1 + 232), a2);
 }
 
 std::string *anonymous namespace::ChatImpl::newMlsOpaqueTokenAvailable(uint64_t a1, const std::string *a2)
@@ -2297,8 +2188,7 @@ void anonymous namespace::ChatImpl::remoteUri(_anonymous_namespace_::ChatImpl *t
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 232);
-    a2->__r_.__value_.__r.__words[2] = *(this + 31);
+    *a2 = *(this + 232);
   }
 }
 
@@ -2311,8 +2201,7 @@ void non-virtual thunk toanonymous namespace::ChatImpl::remoteUri(_anonymous_nam
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 12);
-    a2->__r_.__value_.__r.__words[2] = *(this + 26);
+    *a2 = *(this + 8);
   }
 }
 
@@ -2427,55 +2316,55 @@ void std::__function::__func<anonymous namespace::ChatImpl::~ChatImpl()::$_0,std
 
 void std::__function::__func<anonymous namespace::ChatImpl::~ChatImpl()::$_0,std::allocator<anonymous namespace::ChatImpl::~ChatImpl()::$_0>,void ()(void)>::operator()(uint64_t a1)
 {
+  v17 = 0;
   v18 = 0;
-  v19 = 0;
-  IMSClientManager::lazuliDelegateForStack((a1 + 8), &v18);
-  v2 = v18;
-  if (!v18)
+  IMSClientManager::lazuliDelegateForStack((a1 + 8), &v17);
+  v2 = v17;
+  if (!v17)
   {
 LABEL_25:
-    if (v19)
+    if (v18)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v18);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v18, "laz.cht");
+    std::string::basic_string[abi:ne200100]<0>(&v17, "laz.cht");
     LOBYTE(__p[0]) = 0;
-    v17 = 0;
-    v8 = ims::debug(&v18, __p);
+    v16 = 0;
+    v8 = ims::debug(&v17, __p);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), "terminate ", 10);
     *(v8 + 17) = 0;
     (*(*v8 + 32))(v8, a1 + 32);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), " on ", 4);
     *(v8 + 17) = 0;
     (*(*v8 + 32))(v8, a1 + 8);
-    v9 = (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v8 + 17) = 0;
-    if (v17 == 1 && v16 < 0)
+    if (v16 == 1 && v15 < 0)
     {
-      operator delete(v15);
+      operator delete(v14);
     }
 
-    if (v20 < 0)
+    if (v19 < 0)
     {
-      operator delete(v18);
+      operator delete(v17);
     }
 
-    IPTelephonyManager::getCallManager(v9, &v12);
-    v10 = v12;
-    std::string::basic_string[abi:ne200100]<0>(&v18, "TerminateChat");
+    IPTelephonyManager::getCallManager(&v11);
+    v9 = v11;
+    std::string::basic_string[abi:ne200100]<0>(&v17, "TerminateChat");
     object = xpc_null_create();
-    IMSCallManager::terminateLazuli(v10, a1 + 32, &v18, &object, 0);
+    IMSCallManager::terminateLazuli(v9, (a1 + 32), &v17, &object, 0);
     xpc_release(object);
     object = 0;
-    if (v20 < 0)
+    if (v19 < 0)
     {
-      operator delete(v18);
+      operator delete(v17);
     }
 
-    if (v13)
+    if (v12)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v12);
     }
 
     return;
@@ -2483,56 +2372,56 @@ LABEL_25:
 
   if (*(a1 + 55) < 0)
   {
-    std::string::__init_copy_ctor_external(&v26, *(a1 + 32), *(a1 + 40));
+    std::string::__init_copy_ctor_external(&v25, *(a1 + 32), *(a1 + 40));
   }
 
   else
   {
-    v26 = *(a1 + 32);
+    v25 = *(a1 + 32);
   }
 
-  hasPendingBye = LazuliDelegate::hasPendingBye(v2, &v26.__r_.__value_.__l.__data_);
+  hasPendingBye = LazuliDelegate::hasPendingBye(v2, &v25);
   v4 = hasPendingBye;
-  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v26.__r_.__value_.__l.__data_);
+    operator delete(v25.__r_.__value_.__l.__data_);
     if (v4)
     {
 LABEL_7:
       std::string::basic_string[abi:ne200100]<0>(__p, "laz.cht");
-      v22[0] = 0;
-      v25 = 0;
-      v5 = ims::debug(__p, v22);
+      v21[0] = 0;
+      v24 = 0;
+      v5 = ims::debug(__p, v21);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v5 + 8), "Removing Chat ", 14);
       *(v5 + 17) = 0;
       (*(*v5 + 32))(v5, a1 + 32);
       (*(*v5 + 64))(v5, std::endl[abi:ne200100]<char,std::char_traits<char>>);
       *(v5 + 17) = 0;
-      if (v25 == 1 && v24 < 0)
+      if (v24 == 1 && v23 < 0)
       {
-        operator delete(v23);
+        operator delete(v22);
       }
 
-      if (SHIBYTE(v15) < 0)
+      if (SHIBYTE(v14) < 0)
       {
         operator delete(__p[0]);
       }
 
-      v6 = v18;
+      v6 = v17;
       if (*(a1 + 55) < 0)
       {
-        std::string::__init_copy_ctor_external(&v21, *(a1 + 32), *(a1 + 40));
+        std::string::__init_copy_ctor_external(&v20, *(a1 + 32), *(a1 + 40));
       }
 
       else
       {
-        v21 = *(a1 + 32);
+        v20 = *(a1 + 32);
       }
 
-      LazuliDelegate::removeChat(v6, &v21.__r_.__value_.__l.__data_);
-      if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+      LazuliDelegate::removeChat(v6, &v20);
+      if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v21.__r_.__value_.__l.__data_);
+        operator delete(v20.__r_.__value_.__l.__data_);
       }
 
       goto LABEL_25;
@@ -2544,25 +2433,25 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  if (v19)
+  if (v18)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "laz.cht");
-  v22[0] = 0;
-  v25 = 0;
-  v7 = ims::debug(__p, v22);
+  v21[0] = 0;
+  v24 = 0;
+  v7 = ims::debug(__p, v21);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), "Pending BYE has been reset by new chat with same conversationID. Not terminating session.", 89);
   *(v7 + 17) = 0;
   (*(*v7 + 64))(v7, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v7 + 17) = 0;
-  if (v25 == 1 && v24 < 0)
+  if (v24 == 1 && v23 < 0)
   {
-    operator delete(v23);
+    operator delete(v22);
   }
 
-  if (SHIBYTE(v15) < 0)
+  if (SHIBYTE(v14) < 0)
   {
     operator delete(__p[0]);
   }
@@ -2868,25 +2757,25 @@ void sub_1E4D80290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   if (SLOBYTE(STACK[0x207]) < 0)
   {
-    operator delete(a71);
+    operator delete(a65);
   }
 
-  std::__shared_weak_count::__release_weak(v71);
-  if (*(v72 - 121) < 0)
+  std::__shared_weak_count::__release_weak(v65);
+  if (*(v66 - 121) < 0)
   {
-    operator delete(*(v72 - 144));
+    operator delete(*(v66 - 144));
   }
 
-  if (*(v72 - 89) < 0)
+  if (*(v66 - 89) < 0)
   {
-    operator delete(*(v72 - 112));
+    operator delete(*(v66 - 112));
   }
 
-  v74 = *(v72 - 88);
-  if (v74)
+  v68 = *(v66 - 88);
+  if (v68)
   {
-    *(v72 - 80) = v74;
-    operator delete(v74);
+    *(v66 - 80) = v68;
+    operator delete(v68);
   }
 
   std::unique_ptr<void ctu::SharedSynchronizable<SipLazuliManager>::execute_wrapped<SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0>(SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0 &&)::{lambda(void)#1},std::default_delete<SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0 &&>>::~unique_ptr[abi:ne200100](&a9);
@@ -2909,23 +2798,23 @@ uint64_t *std::unique_ptr<anonymous namespace::ChatImpl::changeGroupChatInfo(xpc
 
 void ___ZZN12_GLOBAL__N_18ChatImpl19changeGroupChatInfoEN3xpc4dictEENK3__0clEv_block_invoke(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = a1[5];
-  v2 = a1[4];
   if (v1)
   {
     atomic_fetch_add_explicit((v1 + 16), 1uLL, memory_order_relaxed);
   }
 
-  LazuliSendParams::LazuliSendParams(v3, (a1 + 6));
-  v4 = 0;
+  LazuliSendParams::LazuliSendParams(v2, (a1 + 6));
+  v3 = 0;
   operator new();
 }
 
-void sub_1E4D80690(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, char a11)
+void sub_1E4D80690(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, ...)
 {
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v11 - 72);
-  _ZZZZN12_GLOBAL__N_18ChatImpl19changeGroupChatInfoEN3xpc4dictEENK3__0clEvEUb_ENUlvE_D1Ev(&a11);
+  va_start(va, __p);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v10 - 72);
+  _ZZZZN12_GLOBAL__N_18ChatImpl19changeGroupChatInfoEN3xpc4dictEENK3__0clEvEUb_ENUlvE_D1Ev(va);
   _Unwind_Resume(a1);
 }
 
@@ -3050,9 +2939,9 @@ void sub_1E4D80990(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void _ZNSt3__110__function6__funcIZZZN12_GLOBAL__N_18ChatImpl19changeGroupChatInfoEN3xpc4dictEENK3__0clEvEUb_EUlvE_NS_9allocatorIS7_EEFvvEE18destroy_deallocateEv(void *a1)
+void _ZNSt3__110__function6__funcIZZZN12_GLOBAL__N_18ChatImpl19changeGroupChatInfoEN3xpc4dictEENK3__0clEvEUb_EUlvE_NS_9allocatorIS7_EEFvvEE18destroy_deallocateEv(char *a1)
 {
-  _ZNSt3__110__function12__alloc_funcIZZZN12_GLOBAL__N_18ChatImpl19changeGroupChatInfoEN3xpc4dictEENK3__0clEvEUb_EUlvE_NS_9allocatorIS7_EEFvvEE7destroyB8ne200100Ev(a1 + 8);
+  _ZNSt3__110__function12__alloc_funcIZZZN12_GLOBAL__N_18ChatImpl19changeGroupChatInfoEN3xpc4dictEENK3__0clEvEUb_EUlvE_NS_9allocatorIS7_EEFvvEE7destroyB8ne200100Ev((a1 + 8));
 
   operator delete(a1);
 }
@@ -3293,19 +3182,19 @@ void _ZNSt3__110__function12__alloc_funcIZZZN12_GLOBAL__N_18ChatImpl19changeGrou
 
 uint64_t *dispatch::async<void ctu::SharedSynchronizable<ims::lazuli::Chat>::execute_wrapped<anonymous namespace::ChatImpl::sendMessage(xpc::dict)::$_0>(anonymous namespace::ChatImpl::sendMessage(xpc::dict)::$_0 &&)::{lambda(void)#1}>(dispatch_queue_s *,std::unique_ptr<anonymous namespace::ChatImpl::sendMessage(xpc::dict)::$_0,dispatch_queue_s *::default_delete<anonymous namespace::ChatImpl::sendMessage(xpc::dict)::$_0>>)::{lambda(void *)#1}::__invoke(void **a1)
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   v1 = *a1;
-  v51 = a1;
-  v52 = v1;
+  v50 = a1;
+  v51 = v1;
   v4 = *v1;
   v3 = v1 + 1;
   v2 = v4;
-  v73 = 0;
   v72 = 0;
-  v74 = 0;
-  v55[0] = v3;
-  v55[1] = "kBody";
-  xpc::dict::object_proxy::operator xpc::object(v55, &object);
+  v71 = 0;
+  v73 = 0;
+  v54[0] = v3;
+  v54[1] = "kBody";
+  xpc::dict::object_proxy::operator xpc::object(v54, &object);
   memset(&__p, 0, sizeof(__p));
   xpc::dyn_cast_or_default();
   if (__p.__r_.__value_.__r.__words[0])
@@ -3316,9 +3205,9 @@ uint64_t *dispatch::async<void ctu::SharedSynchronizable<ims::lazuli::Chat>::exe
 
   xpc_release(object.__r_.__value_.__l.__data_);
   memset(&object, 0, sizeof(object));
-  v55[0] = v3;
-  v55[1] = "kContentType";
-  xpc::dict::object_proxy::operator xpc::object(v55, &v69);
+  v54[0] = v3;
+  v54[1] = "kContentType";
+  xpc::dict::object_proxy::operator xpc::object(v54, &v68);
   memset(&__p, 0, sizeof(__p));
   xpc::dyn_cast_or_default();
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -3326,24 +3215,12 @@ uint64_t *dispatch::async<void ctu::SharedSynchronizable<ims::lazuli::Chat>::exe
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  xpc_release(v69);
-  v69 = 0uLL;
-  v70 = 0;
-  v55[0] = v3;
-  v55[1] = "kTransactionId";
-  xpc::dict::object_proxy::operator xpc::object(v55, &v68);
-  memset(&__p, 0, sizeof(__p));
-  xpc::dyn_cast_or_default();
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  xpc_release(v68.__r_.__value_.__l.__data_);
-  memset(&v68, 0, sizeof(v68));
-  v55[0] = v3;
-  v55[1] = "kContributionId";
-  xpc::dict::object_proxy::operator xpc::object(v55, &v67);
+  xpc_release(v68);
+  v68 = 0uLL;
+  v69 = 0;
+  v54[0] = v3;
+  v54[1] = "kTransactionId";
+  xpc::dict::object_proxy::operator xpc::object(v54, &v67);
   memset(&__p, 0, sizeof(__p));
   xpc::dyn_cast_or_default();
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -3353,9 +3230,9 @@ uint64_t *dispatch::async<void ctu::SharedSynchronizable<ims::lazuli::Chat>::exe
 
   xpc_release(v67.__r_.__value_.__l.__data_);
   memset(&v67, 0, sizeof(v67));
-  v55[0] = v3;
-  v55[1] = "kInReplyToContributionId";
-  xpc::dict::object_proxy::operator xpc::object(v55, &v66);
+  v54[0] = v3;
+  v54[1] = "kContributionId";
+  xpc::dict::object_proxy::operator xpc::object(v54, &v66);
   memset(&__p, 0, sizeof(__p));
   xpc::dyn_cast_or_default();
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -3365,9 +3242,9 @@ uint64_t *dispatch::async<void ctu::SharedSynchronizable<ims::lazuli::Chat>::exe
 
   xpc_release(v66.__r_.__value_.__l.__data_);
   memset(&v66, 0, sizeof(v66));
-  v55[0] = v3;
-  v55[1] = "kMessageType";
-  xpc::dict::object_proxy::operator xpc::object(v55, &v65);
+  v54[0] = v3;
+  v54[1] = "kInReplyToContributionId";
+  xpc::dict::object_proxy::operator xpc::object(v54, &v65);
   memset(&__p, 0, sizeof(__p));
   xpc::dyn_cast_or_default();
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -3376,21 +3253,33 @@ uint64_t *dispatch::async<void ctu::SharedSynchronizable<ims::lazuli::Chat>::exe
   }
 
   xpc_release(v65.__r_.__value_.__l.__data_);
+  memset(&v65, 0, sizeof(v65));
+  v54[0] = v3;
+  v54[1] = "kMessageType";
+  xpc::dict::object_proxy::operator xpc::object(v54, &v64);
+  memset(&__p, 0, sizeof(__p));
+  xpc::dyn_cast_or_default();
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  xpc_release(v64.__r_.__value_.__l.__data_);
   __p.__r_.__value_.__r.__words[0] = v3;
   __p.__r_.__value_.__l.__size_ = "kOriginalMessageSize";
-  xpc::dict::object_proxy::operator xpc::object(&__p, v55);
-  v5 = xpc::dyn_cast_or_default(v55, 0);
-  xpc_release(v55[0]);
-  memset(&v65, 0, sizeof(v65));
-  v6 = &v65;
-  std::string::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(&v65, v72, v73, v73 - v72);
-  size = HIBYTE(v65.__r_.__value_.__r.__words[2]);
-  v8 = SHIBYTE(v65.__r_.__value_.__r.__words[2]);
-  v9 = v65.__r_.__value_.__r.__words[0];
-  if ((v65.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  xpc::dict::object_proxy::operator xpc::object(&__p, v54);
+  v5 = xpc::dyn_cast_or_default(v54, 0);
+  xpc_release(v54[0]);
+  memset(&v64, 0, sizeof(v64));
+  v6 = &v64;
+  std::string::__init_with_size[abi:ne200100]<std::__wrap_iter<unsigned char const*>,std::__wrap_iter<unsigned char const*>>(&v64, v71, v72, v72 - v71);
+  size = HIBYTE(v64.__r_.__value_.__r.__words[2]);
+  v8 = SHIBYTE(v64.__r_.__value_.__r.__words[2]);
+  v9 = v64.__r_.__value_.__r.__words[0];
+  if ((v64.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    size = v65.__r_.__value_.__l.__size_;
-    v6 = v65.__r_.__value_.__r.__words[0];
+    size = v64.__r_.__value_.__l.__size_;
+    v6 = v64.__r_.__value_.__r.__words[0];
   }
 
   if (size >= 12)
@@ -3412,13 +3301,13 @@ uint64_t *dispatch::async<void ctu::SharedSynchronizable<ims::lazuli::Chat>::exe
           break;
         }
 
-        std::string::basic_string(&__p, &v65, 0, v12 - v6, v55);
-        if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+        std::string::basic_string(&__p, &v64, 0, v12 - v6, v54);
+        if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v65.__r_.__value_.__l.__data_);
+          operator delete(v64.__r_.__value_.__l.__data_);
         }
 
-        v65 = __p;
+        v64 = __p;
         goto LABEL_33;
       }
 
@@ -3431,48 +3320,48 @@ uint64_t *dispatch::async<void ctu::SharedSynchronizable<ims::lazuli::Chat>::exe
 
   if (v8 < 0)
   {
-    v65.__r_.__value_.__l.__size_ = 0;
+    v64.__r_.__value_.__l.__size_ = 0;
   }
 
   else
   {
-    *(&v65.__r_.__value_.__s + 23) = 0;
-    v9 = &v65;
+    *(&v64.__r_.__value_.__s + 23) = 0;
+    v9 = &v64;
   }
 
   v9->__r_.__value_.__s.__data_[0] = 0;
 LABEL_33:
-  v14 = HIBYTE(v70);
-  if (v70 < 0)
+  v14 = HIBYTE(v69);
+  if (v69 < 0)
   {
-    v14 = *(&v69 + 1);
+    v14 = *(&v68 + 1);
   }
 
   if (!v14)
   {
     ImsUuid::generate(&__p);
-    if (SHIBYTE(v76) < 0)
+    if (SHIBYTE(v75) < 0)
     {
-      std::string::__init_copy_ctor_external(v55, __p.__r_.__value_.__l.__size_, __p.__r_.__value_.__r.__words[2]);
+      std::string::__init_copy_ctor_external(v54, __p.__r_.__value_.__l.__size_, __p.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      *v55 = *&__p.__r_.__value_.__r.__words[1];
-      *&v56[0] = v76;
+      *v54 = *&__p.__r_.__value_.__r.__words[1];
+      *&v55[0] = v75;
     }
 
-    if (SHIBYTE(v70) < 0)
+    if (SHIBYTE(v69) < 0)
     {
-      operator delete(v69);
+      operator delete(v68);
     }
 
-    v69 = *v55;
-    v70 = *&v56[0];
-    BYTE7(v56[0]) = 0;
-    LOBYTE(v55[0]) = 0;
+    v68 = *v54;
+    v69 = *&v55[0];
+    BYTE7(v55[0]) = 0;
+    LOBYTE(v54[0]) = 0;
     __p.__r_.__value_.__r.__words[0] = &unk_1F5EBEE78;
-    if (SHIBYTE(v76) < 0)
+    if (SHIBYTE(v75) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__size_);
     }
@@ -3481,42 +3370,42 @@ LABEL_33:
     (*(*(v2 + 48) + 16))(v2 + 48, v15);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v15 + 8), "transaction not provided, using uuid ", 37);
     *(v15 + 17) = 0;
-    (*(*v15 + 32))(v15, &v69);
+    (*(*v15 + 32))(v15, &v68);
     (*(*v15 + 64))(v15, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v15 + 17) = 0;
   }
 
-  v16 = HIBYTE(v68.__r_.__value_.__r.__words[2]);
-  if ((v68.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  v16 = HIBYTE(v67.__r_.__value_.__r.__words[2]);
+  if ((v67.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v16 = v68.__r_.__value_.__l.__size_;
+    v16 = v67.__r_.__value_.__l.__size_;
   }
 
   if (!v16)
   {
     ImsUuid::generate(&__p);
-    if (SHIBYTE(v76) < 0)
+    if (SHIBYTE(v75) < 0)
     {
-      std::string::__init_copy_ctor_external(v55, __p.__r_.__value_.__l.__size_, __p.__r_.__value_.__r.__words[2]);
+      std::string::__init_copy_ctor_external(v54, __p.__r_.__value_.__l.__size_, __p.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      *v55 = *&__p.__r_.__value_.__r.__words[1];
-      *&v56[0] = v76;
+      *v54 = *&__p.__r_.__value_.__r.__words[1];
+      *&v55[0] = v75;
     }
 
-    if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v67.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v68.__r_.__value_.__l.__data_);
+      operator delete(v67.__r_.__value_.__l.__data_);
     }
 
-    *&v68.__r_.__value_.__l.__data_ = *v55;
-    v68.__r_.__value_.__r.__words[2] = *&v56[0];
-    BYTE7(v56[0]) = 0;
-    LOBYTE(v55[0]) = 0;
+    *&v67.__r_.__value_.__l.__data_ = *v54;
+    v67.__r_.__value_.__r.__words[2] = *&v55[0];
+    BYTE7(v55[0]) = 0;
+    LOBYTE(v54[0]) = 0;
     __p.__r_.__value_.__r.__words[0] = &unk_1F5EBEE78;
-    if (SHIBYTE(v76) < 0)
+    if (SHIBYTE(v75) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__size_);
     }
@@ -3525,41 +3414,41 @@ LABEL_33:
     (*(*(v2 + 48) + 16))(v2 + 48, v17);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v17 + 8), "contributionId not provided, using uuid ", 40);
     *(v17 + 17) = 0;
-    (*(*v17 + 32))(v17, &v68);
+    (*(*v17 + 32))(v17, &v67);
     (*(*v17 + 64))(v17, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v17 + 17) = 0;
   }
 
-  memset(&v64, 0, sizeof(v64));
+  memset(&v63, 0, sizeof(v63));
   if (v5)
   {
     v18 = v5;
     goto LABEL_57;
   }
 
-  v18 = v73 - v72;
-  if ((SHIBYTE(v66.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  v18 = v72 - v71;
+  if ((SHIBYTE(v65.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
-    if (HIBYTE(v66.__r_.__value_.__r.__words[2]) != 5)
+    if (HIBYTE(v65.__r_.__value_.__r.__words[2]) != 5)
     {
-      if (HIBYTE(v66.__r_.__value_.__r.__words[2]) == 10)
+      if (HIBYTE(v65.__r_.__value_.__r.__words[2]) == 10)
       {
-        v31 = v66.__r_.__value_.__r.__words[0];
+        v31 = v65.__r_.__value_.__r.__words[0];
         v32 = *"kComposing";
-        v33 = LOWORD(v66.__r_.__value_.__r.__words[1]);
+        v33 = LOWORD(v65.__r_.__value_.__r.__words[1]);
         v34 = *"ng";
       }
 
       else
       {
-        if (HIBYTE(v66.__r_.__value_.__r.__words[2]) != 12)
+        if (HIBYTE(v65.__r_.__value_.__r.__words[2]) != 12)
         {
           goto LABEL_57;
         }
 
-        v31 = v66.__r_.__value_.__r.__words[0];
+        v31 = v65.__r_.__value_.__r.__words[0];
         v32 = *"kMessageText";
-        v33 = LODWORD(v66.__r_.__value_.__r.__words[1]);
+        v33 = LODWORD(v65.__r_.__value_.__r.__words[1]);
         v34 = *"Text";
       }
 
@@ -3571,57 +3460,57 @@ LABEL_33:
       goto LABEL_155;
     }
 
-    v44 = &v66;
+    v43 = &v65;
 LABEL_157:
-    data = v44->__r_.__value_.__l.__data_;
-    v49 = v44->__r_.__value_.__s.__data_[4];
-    if (data != *"kImdn" || v49 != str_37_5[4])
+    data = v43->__r_.__value_.__l.__data_;
+    v48 = v43->__r_.__value_.__s.__data_[4];
+    if (data != *"kImdn" || v48 != str_37_5[4])
     {
       goto LABEL_57;
     }
 
-    v47 = "MOImdn";
+    v46 = "MOImdn";
 LABEL_163:
-    std::string::operator=(&v64, v47);
+    std::string::operator=(&v63, v46);
     goto LABEL_57;
   }
 
-  switch(v66.__r_.__value_.__l.__size_)
+  switch(v65.__r_.__value_.__l.__size_)
   {
     case 5uLL:
-      v44 = v66.__r_.__value_.__r.__words[0];
+      v43 = v65.__r_.__value_.__r.__words[0];
       goto LABEL_157;
     case 0xAuLL:
-      v39 = *v66.__r_.__value_.__l.__data_;
-      v40 = *"kComposing";
-      v41 = *(v66.__r_.__value_.__r.__words[0] + 8);
-      v42 = *"ng";
+      v38 = *v65.__r_.__value_.__l.__data_;
+      v39 = *"kComposing";
+      v40 = *(v65.__r_.__value_.__r.__words[0] + 8);
+      v41 = *"ng";
       break;
     case 0xCuLL:
-      v39 = *v66.__r_.__value_.__l.__data_;
-      v40 = *"kMessageText";
-      v41 = *(v66.__r_.__value_.__r.__words[0] + 8);
-      v42 = *"Text";
+      v38 = *v65.__r_.__value_.__l.__data_;
+      v39 = *"kMessageText";
+      v40 = *(v65.__r_.__value_.__r.__words[0] + 8);
+      v41 = *"Text";
       break;
     default:
       goto LABEL_57;
   }
 
-  if (v39 == v40 && v41 == v42)
+  if (v38 == v39 && v40 == v41)
   {
 LABEL_155:
-    v46 = (*(*(v2 + 48) + 56))(v2 + 48);
-    (*(*(v2 + 48) + 16))(v2 + 48, v46);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v46 + 8), "original content size not provided for encoded user text, using encoded size", 76);
-    *(v46 + 17) = 0;
-    (*(*v46 + 64))(v46, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v46 + 17) = 0;
-    v47 = "MOMessage";
+    v45 = (*(*(v2 + 48) + 56))(v2 + 48);
+    (*(*(v2 + 48) + 16))(v2 + 48, v45);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v45 + 8), "original content size not provided for encoded user text, using encoded size", 76);
+    *(v45 + 17) = 0;
+    (*(*v45 + 64))(v45, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v45 + 17) = 0;
+    v46 = "MOMessage";
     goto LABEL_163;
   }
 
 LABEL_57:
-  ims::getStaticLoggerFor("laz.cht", &__p);
+  ims::getStaticLoggerFor(&__p, "laz.cht");
   v19 = __p.__r_.__value_.__l.__size_;
   ctu::OsLogContext::~OsLogContext(&__p);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
@@ -3632,14 +3521,14 @@ LABEL_57:
       v20 = *v20;
     }
 
-    if (v70 >= 0)
+    if (v69 >= 0)
     {
-      v21 = &v69;
+      v21 = &v68;
     }
 
     else
     {
-      v21 = v69;
+      v21 = v68;
     }
 
     v22 = (v2 + 256);
@@ -3648,15 +3537,15 @@ LABEL_57:
       v22 = *v22;
     }
 
-    (*(*v2 + 120))(v55, v2);
-    if ((SBYTE7(v56[0]) & 0x80u) == 0)
+    (*(*v2 + 120))(v54, v2);
+    if ((SBYTE7(v55[0]) & 0x80u) == 0)
     {
-      v23 = v55;
+      v23 = v54;
     }
 
     else
     {
-      v23 = v55[0];
+      v23 = v54[0];
     }
 
     p_object = &object;
@@ -3665,10 +3554,10 @@ LABEL_57:
       p_object = object.__r_.__value_.__r.__words[0];
     }
 
-    v25 = HIBYTE(v65.__r_.__value_.__r.__words[2]);
-    if ((v65.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v25 = HIBYTE(v64.__r_.__value_.__r.__words[2]);
+    if ((v64.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v25 = v65.__r_.__value_.__l.__size_;
+      v25 = v64.__r_.__value_.__l.__size_;
     }
 
     LODWORD(__p.__r_.__value_.__l.__data_) = 136316674;
@@ -3676,19 +3565,19 @@ LABEL_57:
     WORD2(__p.__r_.__value_.__r.__words[1]) = 2080;
     *(&__p.__r_.__value_.__r.__words[1] + 6) = v21;
     HIWORD(__p.__r_.__value_.__r.__words[2]) = 2080;
-    v76 = v22;
-    *v77 = 2080;
-    *&v77[2] = v23;
-    *&v77[10] = 2080;
-    *&v77[12] = p_object;
-    v78 = 2048;
-    v79 = v73 - v72;
-    v80 = 2048;
-    v81 = v25;
+    v75 = v22;
+    *v76 = 2080;
+    *&v76[2] = v23;
+    *&v76[10] = 2080;
+    *&v76[12] = p_object;
+    v77 = 2048;
+    v78 = v72 - v71;
+    v79 = 2048;
+    v80 = v25;
     _os_log_impl(&dword_1E4C3F000, v19, OS_LOG_TYPE_DEFAULT, "sending to %s trx %s conversation %s on %s type %s length %zu cpimHeaderLength %zu", &__p, 0x48u);
-    if (SBYTE7(v56[0]) < 0)
+    if (SBYTE7(v55[0]) < 0)
     {
-      operator delete(v55[0]);
+      operator delete(v54[0]);
     }
   }
 
@@ -3701,166 +3590,171 @@ LABEL_57:
   v29 = v28;
   atomic_fetch_add_explicit(&v28->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   std::__shared_weak_count::__release_shared[abi:ne200100](v28);
-  memset(v63, 0, sizeof(v63));
   memset(v62, 0, sizeof(v62));
+  memset(v61, 0, sizeof(v61));
+  v59 = 0u;
   v60 = 0u;
-  v61 = 0u;
-  memset(v59, 0, sizeof(v59));
   memset(v58, 0, sizeof(v58));
   memset(v57, 0, sizeof(v57));
   memset(v56, 0, sizeof(v56));
-  *v55 = 0u;
+  memset(v55, 0, sizeof(v55));
+  *v54 = 0u;
   v30 = *(v2 + 200);
   if (*(v30 + 47) < 0)
   {
-    std::string::__init_copy_ctor_external(v55, *(v30 + 24), *(v30 + 32));
+    std::string::__init_copy_ctor_external(v54, *(v30 + 24), *(v30 + 32));
   }
 
   else
   {
-    *v55 = *(v30 + 24);
-    *&v56[0] = *(v30 + 40);
+    *v54 = *(v30 + 24);
+    *&v55[0] = *(v30 + 40);
   }
 
-  if (SHIBYTE(v70) < 0)
+  if (SHIBYTE(v69) < 0)
   {
-    std::string::__init_copy_ctor_external((v56 + 8), v69, *(&v69 + 1));
+    std::string::__init_copy_ctor_external((v55 + 8), v68, *(&v68 + 1));
   }
 
   else
   {
-    *(v56 + 8) = v69;
-    *(&v56[1] + 1) = v70;
+    *(v55 + 8) = v68;
+    *(&v55[1] + 1) = v69;
   }
 
   if (*(v2 + 255) < 0)
   {
-    std::string::__init_copy_ctor_external(v57, *(v2 + 232), *(v2 + 240));
+    std::string::__init_copy_ctor_external(v56, *(v2 + 232), *(v2 + 240));
   }
 
   else
   {
-    v57[0] = *(v2 + 232);
+    v56[0] = *(v2 + 232);
   }
 
   if (*(v2 + 279) < 0)
   {
-    std::string::__init_copy_ctor_external(&v57[1], *(v2 + 256), *(v2 + 264));
+    std::string::__init_copy_ctor_external(&v56[1], *(v2 + 256), *(v2 + 264));
   }
 
   else
   {
-    v57[1] = *(v2 + 256);
-  }
-
-  if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(v58, v68.__r_.__value_.__l.__data_, v68.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v58[0] = v68;
+    v56[1] = *(v2 + 256);
   }
 
   if (SHIBYTE(v67.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v58[1], v67.__r_.__value_.__l.__data_, v67.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(v57, v67.__r_.__value_.__l.__data_, v67.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v58[1] = v67;
+    v57[0] = v67;
   }
 
-  memset(v59, 0, 24);
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v59, v72, v73, v73 - v72);
-  if (SHIBYTE(object.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v59[1], object.__r_.__value_.__l.__data_, object.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v59[1] = object;
-  }
-
-  v60 = 0uLL;
-  *&v61 = 0;
-  *(&v61 + 1) = v18;
   if (SHIBYTE(v66.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(v62, v66.__r_.__value_.__l.__data_, v66.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v57[1], v66.__r_.__value_.__l.__data_, v66.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v62[0] = v66;
+    v57[1] = v66;
   }
 
-  memset(&v62[1], 0, 48);
+  memset(v58, 0, 24);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v58, v71, v72, v72 - v71);
+  if (SHIBYTE(object.__r_.__value_.__r.__words[2]) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v58[1], object.__r_.__value_.__l.__data_, object.__r_.__value_.__l.__size_);
+  }
+
+  else
+  {
+    v58[1] = object;
+  }
+
+  v59 = 0uLL;
+  *&v60 = 0;
+  *(&v60 + 1) = v18;
   if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v62[3], v65.__r_.__value_.__l.__data_, v65.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(v61, v65.__r_.__value_.__l.__data_, v65.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v62[3] = v65;
+    v61[0] = v65;
+  }
+
+  memset(&v61[1], 0, 48);
+  if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v61[3], v64.__r_.__value_.__l.__data_, v64.__r_.__value_.__l.__size_);
+  }
+
+  else
+  {
+    v61[3] = v64;
   }
 
   if (*(v2 + 303) < 0)
   {
-    std::string::__init_copy_ctor_external(v63, *(v2 + 280), *(v2 + 288));
+    std::string::__init_copy_ctor_external(v62, *(v2 + 280), *(v2 + 288));
   }
 
   else
   {
     v35 = *(v2 + 280);
-    v63[0].__r_.__value_.__r.__words[2] = *(v2 + 296);
-    *&v63[0].__r_.__value_.__l.__data_ = v35;
+    v62[0].__r_.__value_.__r.__words[2] = *(v2 + 296);
+    *&v62[0].__r_.__value_.__l.__data_ = v35;
   }
 
-  memset(&v63[1], 0, 48);
+  memset(&v62[1], 0, 48);
   v36 = *(v2 + 216);
-  if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v54, v64.__r_.__value_.__l.__data_, v64.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v53, v63.__r_.__value_.__l.__data_, v63.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v54 = v64;
+    v53 = v63;
   }
 
   __p.__r_.__value_.__r.__words[0] = MEMORY[0x1E69E9820];
   __p.__r_.__value_.__l.__size_ = 1174405120;
   __p.__r_.__value_.__r.__words[2] = ___ZZN12_GLOBAL__N_18ChatImpl11sendMessageEN3xpc4dictEENK3__0clEv_block_invoke;
-  v76 = &__block_descriptor_tmp_68_1;
-  *v77 = v27;
-  *&v77[8] = v29;
+  v75 = &__block_descriptor_tmp_68_1;
+  *v76 = v27;
+  *&v76[8] = v29;
   atomic_fetch_add_explicit(&v29->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  LazuliSendParams::LazuliSendParams(&v77[16], v55);
+  LazuliSendParams::LazuliSendParams(&v76[16], v54);
   aBlock = _Block_copy(&__p);
-  RegistrationAwareQueue::addBlock(v36, &v54, &aBlock);
+  RegistrationAwareQueue::addBlock(v36, &v53, &aBlock);
   if (aBlock)
   {
     _Block_release(aBlock);
   }
 
-  if (SHIBYTE(v54.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v53.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v54.__r_.__value_.__l.__data_);
+    operator delete(v53.__r_.__value_.__l.__data_);
   }
 
-  LazuliSendParams::~LazuliSendParams(&v77[16]);
-  if (*&v77[8])
+  LazuliSendParams::~LazuliSendParams(&v76[16]);
+  if (*&v76[8])
   {
-    std::__shared_weak_count::__release_weak(*&v77[8]);
+    std::__shared_weak_count::__release_weak(*&v76[8]);
   }
 
-  LazuliSendParams::~LazuliSendParams(v55);
+  LazuliSendParams::~LazuliSendParams(v54);
   std::__shared_weak_count::__release_weak(v29);
+  if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v63.__r_.__value_.__l.__data_);
+  }
+
   if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v64.__r_.__value_.__l.__data_);
@@ -3881,14 +3775,9 @@ LABEL_57:
     operator delete(v67.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v69) < 0)
   {
-    operator delete(v68.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v70) < 0)
-  {
-    operator delete(v69);
+    operator delete(v68);
   }
 
   if (SHIBYTE(object.__r_.__value_.__r.__words[2]) < 0)
@@ -3896,20 +3785,18 @@ LABEL_57:
     operator delete(object.__r_.__value_.__l.__data_);
   }
 
-  if (v72)
+  if (v71)
   {
-    v73 = v72;
-    operator delete(v72);
+    v72 = v71;
+    operator delete(v71);
   }
 
-  result = std::unique_ptr<void ctu::SharedSynchronizable<SipLazuliManager>::execute_wrapped<SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0>(SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0 &&)::{lambda(void)#1},std::default_delete<SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0 &&>>::~unique_ptr[abi:ne200100](&v51);
-  v38 = *MEMORY[0x1E69E9840];
-  return result;
+  return std::unique_ptr<void ctu::SharedSynchronizable<SipLazuliManager>::execute_wrapped<SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0>(SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0 &&)::{lambda(void)#1},std::default_delete<SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0 &&>>::~unique_ptr[abi:ne200100](&v50);
 }
 
 void sub_1E4D81DD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *aBlock, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, xpc_object_t object, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, void *a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, void *a48, uint64_t a49, uint64_t a50, void *a51, uint64_t a52, uint64_t a53, void *a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  if (a72 < 0)
+  if (a66 < 0)
   {
     operator delete(__p);
   }
@@ -3939,11 +3826,11 @@ void sub_1E4D81DD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(STACK[0x270]);
   }
 
-  v73 = STACK[0x288];
+  v67 = STACK[0x288];
   if (STACK[0x288])
   {
-    STACK[0x290] = v73;
-    operator delete(v73);
+    STACK[0x290] = v67;
+    operator delete(v67);
   }
 
   std::unique_ptr<void ctu::SharedSynchronizable<SipLazuliManager>::execute_wrapped<SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0>(SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0 &&)::{lambda(void)#1},std::default_delete<SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0 &&>>::~unique_ptr[abi:ne200100](&a10);
@@ -3966,23 +3853,23 @@ uint64_t *std::unique_ptr<anonymous namespace::ChatImpl::sendMessage(xpc::dict):
 
 void ___ZZN12_GLOBAL__N_18ChatImpl11sendMessageEN3xpc4dictEENK3__0clEv_block_invoke(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = a1[5];
-  v2 = a1[4];
   if (v1)
   {
     atomic_fetch_add_explicit((v1 + 16), 1uLL, memory_order_relaxed);
   }
 
-  LazuliSendParams::LazuliSendParams(v3, (a1 + 6));
-  v4 = 0;
+  LazuliSendParams::LazuliSendParams(v2, (a1 + 6));
+  v3 = 0;
   operator new();
 }
 
-void sub_1E4D82304(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, char a11)
+void sub_1E4D82304(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, ...)
 {
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v11 - 72);
-  _ZZZZN12_GLOBAL__N_18ChatImpl19changeGroupChatInfoEN3xpc4dictEENK3__0clEvEUb_ENUlvE_D1Ev(&a11);
+  va_start(va, __p);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v10 - 72);
+  _ZZZZN12_GLOBAL__N_18ChatImpl19changeGroupChatInfoEN3xpc4dictEENK3__0clEvEUb_ENUlvE_D1Ev(va);
   _Unwind_Resume(a1);
 }
 
@@ -4661,7 +4548,7 @@ LABEL_74:
 
   v41 = 0uLL;
   *(&v40 + 1) = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v40 + 8, v44, v45, v45 - v44);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v40 + 1, v44, v45, v45 - v44);
   v42 = 0uLL;
   v43 = 0;
   v24 = *(v3 + 216);
@@ -4731,23 +4618,23 @@ void sub_1E4D835DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   if (SLOBYTE(STACK[0x207]) < 0)
   {
-    operator delete(a71);
+    operator delete(a65);
   }
 
-  std::__shared_weak_count::__release_weak(v72);
-  v75 = *(v73 - 168);
-  if (v75)
+  std::__shared_weak_count::__release_weak(v66);
+  v69 = *(v67 - 168);
+  if (v69)
   {
-    *(v73 - 160) = v75;
-    operator delete(v75);
+    *(v67 - 160) = v69;
+    operator delete(v69);
   }
 
-  a71 = (v73 - 136);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a71);
-  xpc_release(v71);
-  if (*(v73 - 89) < 0)
+  a65 = (v67 - 136);
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a65);
+  xpc_release(v65);
+  if (*(v67 - 89) < 0)
   {
-    operator delete(*(v73 - 112));
+    operator delete(*(v67 - 112));
   }
 
   std::unique_ptr<void ctu::SharedSynchronizable<SipLazuliManager>::execute_wrapped<SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0>(SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0 &&)::{lambda(void)#1},std::default_delete<SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0 &&>>::~unique_ptr[abi:ne200100](&a9);
@@ -4770,23 +4657,23 @@ uint64_t *std::unique_ptr<anonymous namespace::ChatImpl::addParticipants(xpc::di
 
 void ___ZZN12_GLOBAL__N_18ChatImpl15addParticipantsEN3xpc4dictEENK3__0clEv_block_invoke(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = a1[5];
-  v2 = a1[4];
   if (v1)
   {
     atomic_fetch_add_explicit((v1 + 16), 1uLL, memory_order_relaxed);
   }
 
-  LazuliSendParams::LazuliSendParams(v3, (a1 + 6));
-  v4 = 0;
+  LazuliSendParams::LazuliSendParams(v2, (a1 + 6));
+  v3 = 0;
   operator new();
 }
 
-void sub_1E4D83B00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, char a11)
+void sub_1E4D83B00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, ...)
 {
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v11 - 72);
-  _ZZZZN12_GLOBAL__N_18ChatImpl19changeGroupChatInfoEN3xpc4dictEENK3__0clEvEUb_ENUlvE_D1Ev(&a11);
+  va_start(va, __p);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v10 - 72);
+  _ZZZZN12_GLOBAL__N_18ChatImpl19changeGroupChatInfoEN3xpc4dictEENK3__0clEvEUb_ENUlvE_D1Ev(va);
   _Unwind_Resume(a1);
 }
 
@@ -5442,7 +5329,7 @@ LABEL_74:
 
   v41 = 0uLL;
   *(&v40 + 1) = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v40 + 8, v44, v45, v45 - v44);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v40 + 1, v44, v45, v45 - v44);
   v42 = 0uLL;
   v43 = 0;
   v24 = *(v3 + 216);
@@ -5512,23 +5399,23 @@ void sub_1E4D84D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   if (SLOBYTE(STACK[0x207]) < 0)
   {
-    operator delete(a71);
+    operator delete(a65);
   }
 
-  std::__shared_weak_count::__release_weak(v72);
-  v75 = *(v73 - 168);
-  if (v75)
+  std::__shared_weak_count::__release_weak(v66);
+  v69 = *(v67 - 168);
+  if (v69)
   {
-    *(v73 - 160) = v75;
-    operator delete(v75);
+    *(v67 - 160) = v69;
+    operator delete(v69);
   }
 
-  a71 = (v73 - 136);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a71);
-  xpc_release(v71);
-  if (*(v73 - 89) < 0)
+  a65 = (v67 - 136);
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a65);
+  xpc_release(v65);
+  if (*(v67 - 89) < 0)
   {
-    operator delete(*(v73 - 112));
+    operator delete(*(v67 - 112));
   }
 
   std::unique_ptr<void ctu::SharedSynchronizable<SipLazuliManager>::execute_wrapped<SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0>(SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0 &&)::{lambda(void)#1},std::default_delete<SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0 &&>>::~unique_ptr[abi:ne200100](&a9);
@@ -5551,23 +5438,23 @@ uint64_t *std::unique_ptr<anonymous namespace::ChatImpl::removeParticipants(xpc:
 
 void ___ZZN12_GLOBAL__N_18ChatImpl18removeParticipantsEN3xpc4dictEENK3__0clEv_block_invoke(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = a1[5];
-  v2 = a1[4];
   if (v1)
   {
     atomic_fetch_add_explicit((v1 + 16), 1uLL, memory_order_relaxed);
   }
 
-  LazuliSendParams::LazuliSendParams(v3, (a1 + 6));
-  v4 = 0;
+  LazuliSendParams::LazuliSendParams(v2, (a1 + 6));
+  v3 = 0;
   operator new();
 }
 
-void sub_1E4D852B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, char a11)
+void sub_1E4D852B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, ...)
 {
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v11 - 72);
-  _ZZZZN12_GLOBAL__N_18ChatImpl19changeGroupChatInfoEN3xpc4dictEENK3__0clEvEUb_ENUlvE_D1Ev(&a11);
+  va_start(va, __p);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v10 - 72);
+  _ZZZZN12_GLOBAL__N_18ChatImpl19changeGroupChatInfoEN3xpc4dictEENK3__0clEvEUb_ENUlvE_D1Ev(va);
   _Unwind_Resume(a1);
 }
 
@@ -6038,7 +5925,7 @@ void sub_1E4D85F50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   xpc_release(object);
   if (SLOBYTE(STACK[0x207]) < 0)
   {
-    operator delete(a73);
+    operator delete(a66);
   }
 
   std::unique_ptr<void ctu::SharedSynchronizable<SipLazuliManager>::execute_wrapped<SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0>(SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0 &&)::{lambda(void)#1},std::default_delete<SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0 &&>>::~unique_ptr[abi:ne200100](&a10);
@@ -6061,23 +5948,23 @@ uint64_t *std::unique_ptr<anonymous namespace::ChatImpl::requestMlsGroupInfo(xpc
 
 void ___ZZN12_GLOBAL__N_18ChatImpl19requestMlsGroupInfoEN3xpc4dictEENK3__0clEv_block_invoke(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v1 = a1[5];
-  v2 = a1[4];
   if (v1)
   {
     atomic_fetch_add_explicit((v1 + 16), 1uLL, memory_order_relaxed);
   }
 
-  LazuliSendParams::LazuliSendParams(v3, (a1 + 6));
-  v4 = 0;
+  LazuliSendParams::LazuliSendParams(v2, (a1 + 6));
+  v3 = 0;
   operator new();
 }
 
-void sub_1E4D86280(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, char a11)
+void sub_1E4D86280(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, ...)
 {
-  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v11 - 72);
-  _ZZZZN12_GLOBAL__N_18ChatImpl19changeGroupChatInfoEN3xpc4dictEENK3__0clEvEUb_ENUlvE_D1Ev(&a11);
+  va_start(va, __p);
+  std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v10 - 72);
+  _ZZZZN12_GLOBAL__N_18ChatImpl19changeGroupChatInfoEN3xpc4dictEENK3__0clEvEUb_ENUlvE_D1Ev(va);
   _Unwind_Resume(a1);
 }
 
@@ -6634,24 +6521,24 @@ uint64_t *dispatch::async<void ctu::SharedSynchronizable<ims::lazuli::Chat>::exe
   return std::unique_ptr<void ctu::SharedSynchronizable<SipLazuliManager>::execute_wrapped<SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0>(SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0 &&)::{lambda(void)#1},std::default_delete<SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0 &&>>::~unique_ptr[abi:ne200100](&v11);
 }
 
-void sub_1E4D87080(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, std::__shared_weak_count *a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *__p, uint64_t a29, int a30, __int16 a31, char a32, char a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, void *a40, uint64_t a41, uint64_t a42, xpc_object_t object, uint64_t a44, int a45, __int16 a46, char a47, char a48)
+void sub_1E4D87080(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *__p, uint64_t a31, int a32, __int16 a33, char a34, char a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, void *a42, uint64_t a43, uint64_t a44, xpc_object_t object, uint64_t a46, int a47, __int16 a48, char a49, char a50)
 {
-  if (a33 < 0)
+  if (a35 < 0)
   {
     operator delete(__p);
   }
 
-  if (a27 < 0)
+  if (a29 < 0)
   {
-    operator delete(a22);
+    operator delete(a24);
   }
 
-  if (a21)
+  if (a23)
   {
-    std::__shared_weak_count::__release_weak(a21);
+    std::__shared_weak_count::__release_weak(a23);
   }
 
-  if (a48 < 0)
+  if (a50 < 0)
   {
     operator delete(object);
   }
@@ -6700,7 +6587,6 @@ uint64_t *std::unique_ptr<anonymous namespace::ChatImpl::leaveGroupChat(xpc::dic
 void ___ZZN12_GLOBAL__N_18ChatImpl14leaveGroupChatEN3xpc4dictEENK3__0clEv_block_invoke(uint64_t a1)
 {
   __p[7] = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
   v2 = *(a1 + 48);
   if (v2)
   {
@@ -6709,32 +6595,32 @@ void ___ZZN12_GLOBAL__N_18ChatImpl14leaveGroupChatEN3xpc4dictEENK3__0clEv_block_
 
   if (*(a1 + 79) < 0)
   {
-    std::string::__init_copy_ctor_external(&v4, *(a1 + 56), *(a1 + 64));
+    std::string::__init_copy_ctor_external(&v3, *(a1 + 56), *(a1 + 64));
   }
 
   else
   {
-    v4 = *(a1 + 56);
+    v3 = *(a1 + 56);
   }
 
   if (*(a1 + 103) < 0)
   {
-    std::string::__init_copy_ctor_external(&v5, *(a1 + 80), *(a1 + 88));
+    std::string::__init_copy_ctor_external(&v4, *(a1 + 80), *(a1 + 88));
   }
 
   else
   {
-    v5 = *(a1 + 80);
+    v4 = *(a1 + 80);
   }
 
   if (*(a1 + 127) < 0)
   {
-    std::string::__init_copy_ctor_external(&v6, *(a1 + 104), *(a1 + 112));
+    std::string::__init_copy_ctor_external(&v5, *(a1 + 104), *(a1 + 112));
   }
 
   else
   {
-    v6 = *(a1 + 104);
+    v5 = *(a1 + 104);
   }
 
   memset(__p, 0, 24);
@@ -6799,7 +6685,7 @@ uint64_t _ZZZZN12_GLOBAL__N_18ChatImpl14leaveGroupChatEN3xpc4dictEENK3__0clEvEUb
   return a1;
 }
 
-uint64_t __copy_helper_block_e8_40c41_ZTSNSt3__18weak_ptrIN3ims6lazuli4ChatEEE56c67_ZTSKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE80c67_ZTSKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE104c67_ZTSKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE128c40_ZTSKNSt3__16vectorIhNS_9allocatorIhEEEE(uint64_t a1, uint64_t a2)
+uint64_t *__copy_helper_block_e8_40c41_ZTSNSt3__18weak_ptrIN3ims6lazuli4ChatEEE56c67_ZTSKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE80c67_ZTSKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE104c67_ZTSKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE128c40_ZTSKNSt3__16vectorIhNS_9allocatorIhEEEE(uint64_t a1, uint64_t a2)
 {
   v4 = *(a2 + 48);
   *(a1 + 40) = *(a2 + 40);
@@ -6848,7 +6734,7 @@ uint64_t __copy_helper_block_e8_40c41_ZTSNSt3__18weak_ptrIN3ims6lazuli4ChatEEE56
   *(a1 + 128) = 0;
   *(a1 + 136) = 0;
   *(a1 + 144) = 0;
-  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1 + 128, *(a2 + 128), *(a2 + 136), *(a2 + 136) - *(a2 + 128));
+  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>((a1 + 128), *(a2 + 128), *(a2 + 136), *(a2 + 136) - *(a2 + 128));
 }
 
 void sub_1E4D876E8(_Unwind_Exception *exception_object)
@@ -7046,89 +6932,89 @@ void _ZNSt3__110__function6__funcIZZZN12_GLOBAL__N_18ChatImpl14leaveGroupChatEN3
     v4 = std::__shared_weak_count::lock(v2);
     if (v4 && *(a1 + 16))
     {
-      v26 = 0;
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
+      v25 = 0;
       v23 = 0u;
-      memset(v21, 0, sizeof(v21));
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
       memset(v20, 0, sizeof(v20));
       memset(v19, 0, sizeof(v19));
+      memset(v18, 0, sizeof(v18));
       v5 = *(v3 + 200);
       if (*(v5 + 47) < 0)
       {
-        std::string::__init_copy_ctor_external(v19, *(v5 + 24), *(v5 + 32));
+        std::string::__init_copy_ctor_external(v18, *(v5 + 24), *(v5 + 32));
       }
 
       else
       {
-        v19[0] = *(v5 + 24);
+        v18[0] = *(v5 + 24);
       }
 
       if (*(a1 + 79) < 0)
       {
-        std::string::__init_copy_ctor_external(&v19[1], *(a1 + 56), *(a1 + 64));
+        std::string::__init_copy_ctor_external(&v18[1], *(a1 + 56), *(a1 + 64));
       }
 
       else
       {
-        v19[1] = *(a1 + 56);
+        v18[1] = *(a1 + 56);
       }
 
       if (*(v3 + 255) < 0)
       {
-        std::string::__init_copy_ctor_external(v20, *(v3 + 232), *(v3 + 240));
+        std::string::__init_copy_ctor_external(v19, *(v3 + 232), *(v3 + 240));
       }
 
       else
       {
-        v20[0] = *(v3 + 232);
+        v19[0] = *(v3 + 232);
       }
 
       if (*(v3 + 279) < 0)
       {
-        std::string::__init_copy_ctor_external(&v20[1], *(v3 + 256), *(v3 + 264));
+        std::string::__init_copy_ctor_external(&v19[1], *(v3 + 256), *(v3 + 264));
         if (*(v3 + 279) < 0)
         {
-          std::string::__init_copy_ctor_external(v21, *(v3 + 256), *(v3 + 264));
+          std::string::__init_copy_ctor_external(v20, *(v3 + 256), *(v3 + 264));
           goto LABEL_30;
         }
       }
 
       else
       {
-        v20[1] = *(v3 + 256);
+        v19[1] = *(v3 + 256);
       }
 
-      *v21 = *(v3 + 256);
-      *&v21[16] = *(v3 + 272);
+      *v20 = *(v3 + 256);
+      *&v20[16] = *(v3 + 272);
 LABEL_30:
-      memset(&v21[24], 0, 200);
+      memset(&v20[24], 0, 200);
       if (*(v3 + 303) < 0)
       {
-        std::string::__init_copy_ctor_external(&v22, *(v3 + 280), *(v3 + 288));
+        std::string::__init_copy_ctor_external(&v21, *(v3 + 280), *(v3 + 288));
       }
 
       else
       {
         v11 = *(v3 + 280);
-        *&v23 = *(v3 + 296);
-        v22 = v11;
+        *&v22 = *(v3 + 296);
+        v21 = v11;
       }
 
-      *(&v23 + 1) = 0;
+      *(&v22 + 1) = 0;
+      v23 = 0uLL;
+      std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v22 + 1, *(a1 + 104), *(a1 + 112), *(a1 + 112) - *(a1 + 104));
       v24 = 0uLL;
-      v12 = std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v23 + 8, *(a1 + 104), *(a1 + 112), *(a1 + 112) - *(a1 + 104));
-      v25 = 0uLL;
-      v26 = 0;
-      IPTelephonyManager::getCallManager(v12, &v36);
-      IMSCallManager::leaveGroupChat(v36, v19);
-      if (v37)
+      v25 = 0;
+      IPTelephonyManager::getCallManager(&v35);
+      IMSCallManager::leaveGroupChat(v35, v18);
+      if (v36)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v37);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v36);
       }
 
-      LazuliSendParams::~LazuliSendParams(&v19[0].__r_.__value_.__l.__data_);
+      LazuliSendParams::~LazuliSendParams(&v18[0].__r_.__value_.__l.__data_);
 LABEL_57:
       std::__shared_weak_count::__release_shared[abi:ne200100](v4);
       return;
@@ -7140,42 +7026,42 @@ LABEL_57:
     v4 = 0;
   }
 
-  v6 = std::string::basic_string[abi:ne200100]<0>(&v36, "laz.cht");
+  v6 = std::string::basic_string[abi:ne200100]<0>(&v35, "laz.cht");
+  v18[0].__r_.__value_.__s.__data_[0] = 0;
   v19[0].__r_.__value_.__s.__data_[0] = 0;
-  v20[0].__r_.__value_.__s.__data_[0] = 0;
-  v7 = ims::error(v6, v19);
+  v7 = ims::error(v6, v18);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), "Chat instance gone for ", 23);
   *(v7 + 17) = 0;
   (*(*v7 + 32))(v7, a1 + 32);
   (*(*v7 + 64))(v7, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v7 + 17) = 0;
-  if (v20[0].__r_.__value_.__s.__data_[0] == 1 && v19[1].__r_.__value_.__s.__data_[15] < 0)
+  if (v19[0].__r_.__value_.__s.__data_[0] == 1 && v18[1].__r_.__value_.__s.__data_[15] < 0)
   {
-    operator delete(v19[0].__r_.__value_.__r.__words[2]);
+    operator delete(v18[0].__r_.__value_.__r.__words[2]);
   }
 
-  if (v38 < 0)
+  if (v37 < 0)
   {
-    operator delete(v36);
+    operator delete(v35);
   }
 
+  v35 = 0;
   v36 = 0;
-  v37 = 0;
-  IMSClientManager::lazuliDelegateForStack((a1 + 80), &v36);
-  if (v36)
+  IMSClientManager::lazuliDelegateForStack((a1 + 80), &v35);
+  if (v35)
   {
-    v35 = 0;
+    v34 = 0;
     v8 = xpc_dictionary_create(0, 0, 0);
     v9 = v8;
     if (v8)
     {
-      v35 = v8;
+      v34 = v8;
     }
 
     else
     {
       v9 = xpc_null_create();
-      v35 = v9;
+      v34 = v9;
       if (!v9)
       {
         v10 = xpc_null_create();
@@ -7189,97 +7075,97 @@ LABEL_57:
       xpc_retain(v9);
 LABEL_38:
       xpc_release(v9);
-      v33 = xpc_BOOL_create(0);
-      if (!v33)
+      v32 = xpc_BOOL_create(0);
+      if (!v32)
       {
-        v33 = xpc_null_create();
+        v32 = xpc_null_create();
       }
 
-      v31 = &v35;
-      v32 = "kIsSuccess";
-      xpc::dict::object_proxy::operator=(&v31, &v33, &v34);
-      xpc_release(v34);
-      v34 = 0;
+      v30 = &v34;
+      v31 = "kIsSuccess";
+      xpc::dict::object_proxy::operator=(&v30, &v32, &v33);
       xpc_release(v33);
       v33 = 0;
+      xpc_release(v32);
+      v32 = 0;
       if (*(a1 + 55) >= 0)
       {
-        v13 = (a1 + 32);
+        v12 = (a1 + 32);
       }
 
       else
       {
-        v13 = *(a1 + 32);
+        v12 = *(a1 + 32);
       }
 
-      v29 = xpc_string_create(v13);
-      if (!v29)
+      v28 = xpc_string_create(v12);
+      if (!v28)
       {
-        v29 = xpc_null_create();
+        v28 = xpc_null_create();
       }
 
-      v31 = &v35;
-      v32 = "kConversationId";
-      xpc::dict::object_proxy::operator=(&v31, &v29, &v30);
-      xpc_release(v30);
-      v30 = 0;
+      v30 = &v34;
+      v31 = "kConversationId";
+      xpc::dict::object_proxy::operator=(&v30, &v28, &v29);
       xpc_release(v29);
       v29 = 0;
-      v16 = *(a1 + 56);
-      v15 = a1 + 56;
-      v14 = v16;
-      if (*(v15 + 23) >= 0)
-      {
-        v17 = v15;
-      }
-
-      else
-      {
-        v17 = v14;
-      }
-
-      v27 = xpc_string_create(v17);
-      if (!v27)
-      {
-        v27 = xpc_null_create();
-      }
-
-      v31 = &v35;
-      v32 = "kTransactionId";
-      xpc::dict::object_proxy::operator=(&v31, &v27, &v28);
       xpc_release(v28);
       v28 = 0;
-      xpc_release(v27);
-      v27 = 0;
-      v18 = v36;
-      v31 = v35;
-      if (v35)
+      v15 = *(a1 + 56);
+      v14 = a1 + 56;
+      v13 = v15;
+      if (*(v14 + 23) >= 0)
       {
-        xpc_retain(v35);
+        v16 = v14;
       }
 
       else
       {
-        v31 = xpc_null_create();
+        v16 = v13;
       }
 
-      LazuliDelegate::handleLeaveGroupChat(v18, &v31);
-      xpc_release(v31);
-      v31 = 0;
-      xpc_release(v35);
+      v26 = xpc_string_create(v16);
+      if (!v26)
+      {
+        v26 = xpc_null_create();
+      }
+
+      v30 = &v34;
+      v31 = "kTransactionId";
+      xpc::dict::object_proxy::operator=(&v30, &v26, &v27);
+      xpc_release(v27);
+      v27 = 0;
+      xpc_release(v26);
+      v26 = 0;
+      v17 = v35;
+      v30 = v34;
+      if (v34)
+      {
+        xpc_retain(v34);
+      }
+
+      else
+      {
+        v30 = xpc_null_create();
+      }
+
+      LazuliDelegate::handleLeaveGroupChat(v17, &v30);
+      xpc_release(v30);
+      v30 = 0;
+      xpc_release(v34);
       goto LABEL_54;
     }
 
     v10 = xpc_null_create();
 LABEL_37:
-    v35 = v10;
+    v34 = v10;
     goto LABEL_38;
   }
 
 LABEL_54:
-  if (v37)
+  if (v36)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v37);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v36);
   }
 
   if (v4)
@@ -7376,7 +7262,7 @@ uint64_t _ZZZZN12_GLOBAL__N_18ChatImpl14leaveGroupChatEN3xpc4dictEENK3__0clEvEUb
   *(a1 + 96) = 0;
   *(a1 + 104) = 0;
   *(a1 + 112) = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1 + 96, *(a2 + 96), *(a2 + 104), *(a2 + 104) - *(a2 + 96));
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>((a1 + 96), *(a2 + 96), *(a2 + 104), *(a2 + 104) - *(a2 + 96));
   return a1;
 }
 
@@ -7474,7 +7360,7 @@ void anonymous namespace::ChatServicesImpl::~ChatServicesImpl(_anonymous_namespa
   JUMPOUT(0x1E69235B0);
 }
 
-void anonymous namespace::ChatServicesImpl::sendSpamReport(uint64_t a1, xpc_object_t *a2)
+void anonymous namespace::ChatServicesImpl::sendSpamReport(void *a1, xpc_object_t *a2)
 {
   if (*a2)
   {
@@ -7486,10 +7372,9 @@ void anonymous namespace::ChatServicesImpl::sendSpamReport(uint64_t a1, xpc_obje
     xpc_null_create();
   }
 
-  v3 = *(a1 + 16);
+  v3 = a1[2];
   if (v3)
   {
-    v4 = *(a1 + 8);
     if (std::__shared_weak_count::lock(v3))
     {
       operator new();
@@ -7499,7 +7384,7 @@ void anonymous namespace::ChatServicesImpl::sendSpamReport(uint64_t a1, xpc_obje
   std::__throw_bad_weak_ptr[abi:ne200100]();
 }
 
-void anonymous namespace::ChatServicesImpl::getCapabilities(uint64_t a1, uint64_t a2)
+void anonymous namespace::ChatServicesImpl::getCapabilities(void *a1, uint64_t a2)
 {
   if (*(a2 + 23) < 0)
   {
@@ -7511,10 +7396,9 @@ void anonymous namespace::ChatServicesImpl::getCapabilities(uint64_t a1, uint64_
     __p = *a2;
   }
 
-  v3 = *(a1 + 16);
+  v3 = a1[2];
   if (v3)
   {
-    v4 = *(a1 + 8);
     if (std::__shared_weak_count::lock(v3))
     {
       operator new();
@@ -8075,7 +7959,7 @@ LABEL_60:
   (*(*v22 + 64))(v22, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(v22 + 17) = 0;
   *__p = 0uLL;
-  IMSClientManager::lazuliDelegateForStack(&v68.__r_.__value_.__l.__data_, __p);
+  IMSClientManager::lazuliDelegateForStack(&v68, __p);
   if (*__p)
   {
     v23 = (*(*v20 + 56))(v20);
@@ -8286,49 +8170,49 @@ void sub_1E4D89C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a58);
   }
 
-  if (a70 < 0)
+  if (a66 < 0)
   {
     operator delete(a65);
   }
 
-  v73 = *(v71 - 248);
-  if (v73)
+  v69 = *(v67 - 248);
+  if (v69)
   {
-    *(v71 - 240) = v73;
-    operator delete(v73);
+    *(v67 - 240) = v69;
+    operator delete(v69);
   }
 
-  if (*(v71 - 201) < 0)
+  if (*(v67 - 201) < 0)
   {
-    operator delete(*(v71 - 224));
+    operator delete(*(v67 - 224));
   }
 
-  v74 = *(v71 - 200);
-  if (v74)
+  v70 = *(v67 - 200);
+  if (v70)
   {
-    *(v71 - 192) = v74;
-    operator delete(v74);
+    *(v67 - 192) = v70;
+    operator delete(v70);
   }
 
-  xpc_release(v70);
-  if (*(v71 - 153) < 0)
+  xpc_release(v66);
+  if (*(v67 - 153) < 0)
   {
-    operator delete(*(v71 - 176));
+    operator delete(*(v67 - 176));
   }
 
-  if (*(v71 - 129) < 0)
+  if (*(v67 - 129) < 0)
   {
-    operator delete(*(v71 - 152));
+    operator delete(*(v67 - 152));
   }
 
-  if (*(v71 - 105) < 0)
+  if (*(v67 - 105) < 0)
   {
-    operator delete(*(v71 - 128));
+    operator delete(*(v67 - 128));
   }
 
-  if (*(v71 - 81) < 0)
+  if (*(v67 - 81) < 0)
   {
-    operator delete(*(v71 - 104));
+    operator delete(*(v67 - 104));
   }
 
   std::unique_ptr<void ctu::SharedSynchronizable<SipLazuliManager>::execute_wrapped<SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0>(SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0 &&)::{lambda(void)#1},std::default_delete<SipLazuliManager::handleIncomingMessage(LazuliReceiveParams const&)::$_0 &&>>::~unique_ptr[abi:ne200100](&a9);
@@ -8441,7 +8325,7 @@ void ___ZZN12_GLOBAL__N_116ChatServicesImpl14sendSpamReportEN3xpc4dictEENK3__0cl
   operator new();
 }
 
-void sub_1E4D8A4EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, std::__shared_weak_count *a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, xpc_object_t object, void *__p, uint64_t a45, uint64_t a46, void *a47, uint64_t a48, int a49, __int16 a50, char a51, char a52)
+void sub_1E4D8A4EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, xpc_object_t object, void *__p, uint64_t a45, uint64_t a46, void *a47, uint64_t a48, int a49, __int16 a50, char a51, char a52)
 {
   v56 = *v54;
   if (*v54)
@@ -8544,7 +8428,7 @@ uint64_t _ZZZZN12_GLOBAL__N_116ChatServicesImpl14sendSpamReportEN3xpc4dictEENK3_
   return a1;
 }
 
-uint64_t __copy_helper_block_e8_32c50_ZTSNSt3__18weak_ptrIN3ims6lazuli12ChatServicesEEE48c66_ZTSNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE72c67_ZTSKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE96c66_ZTSNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE120c67_ZTSKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE144c67_ZTSKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE168c17_ZTSKN3xpc5arrayE176c40_ZTSKNSt3__16vectorIhNS_9allocatorIhEEEE200c66_ZTSNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE224c40_ZTSKNSt3__16vectorIhNS_9allocatorIhEEEE(uint64_t a1, uint64_t a2)
+uint64_t *__copy_helper_block_e8_32c50_ZTSNSt3__18weak_ptrIN3ims6lazuli12ChatServicesEEE48c66_ZTSNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE72c67_ZTSKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE96c66_ZTSNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE120c67_ZTSKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE144c67_ZTSKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE168c17_ZTSKN3xpc5arrayE176c40_ZTSKNSt3__16vectorIhNS_9allocatorIhEEEE200c66_ZTSNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE224c40_ZTSKNSt3__16vectorIhNS_9allocatorIhEEEE(uint64_t a1, uint64_t a2)
 {
   v4 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
@@ -8629,7 +8513,7 @@ uint64_t __copy_helper_block_e8_32c50_ZTSNSt3__18weak_ptrIN3ims6lazuli12ChatServ
   *(a1 + 176) = 0;
   *(a1 + 184) = 0;
   *(a1 + 192) = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1 + 176, *(a2 + 176), *(a2 + 184), *(a2 + 184) - *(a2 + 176));
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>((a1 + 176), *(a2 + 176), *(a2 + 184), *(a2 + 184) - *(a2 + 176));
   if (*(a2 + 223) < 0)
   {
     std::string::__init_copy_ctor_external((a1 + 200), *(a2 + 200), *(a2 + 208));
@@ -8645,7 +8529,7 @@ uint64_t __copy_helper_block_e8_32c50_ZTSNSt3__18weak_ptrIN3ims6lazuli12ChatServ
   *(a1 + 224) = 0;
   *(a1 + 232) = 0;
   *(a1 + 240) = 0;
-  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1 + 224, *(a2 + 224), *(a2 + 232), *(a2 + 232) - *(a2 + 224));
+  return std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>((a1 + 224), *(a2 + 224), *(a2 + 232), *(a2 + 232) - *(a2 + 224));
 }
 
 void sub_1E4D8A908(_Unwind_Exception *a1)
@@ -9125,7 +9009,7 @@ uint64_t _ZZZZN12_GLOBAL__N_116ChatServicesImpl14sendSpamReportEN3xpc4dictEENK3_
   *(a1 + 152) = 0;
   *(a1 + 160) = 0;
   *(a1 + 168) = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1 + 152, *(a2 + 152), *(a2 + 160), *(a2 + 160) - *(a2 + 152));
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>((a1 + 152), *(a2 + 152), *(a2 + 160), *(a2 + 160) - *(a2 + 152));
   if (*(a2 + 199) < 0)
   {
     std::string::__init_copy_ctor_external((a1 + 176), *(a2 + 176), *(a2 + 184));
@@ -9141,7 +9025,7 @@ uint64_t _ZZZZN12_GLOBAL__N_116ChatServicesImpl14sendSpamReportEN3xpc4dictEENK3_
   *(a1 + 200) = 0;
   *(a1 + 208) = 0;
   *(a1 + 216) = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1 + 200, *(a2 + 200), *(a2 + 208), *(a2 + 208) - *(a2 + 200));
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>((a1 + 200), *(a2 + 200), *(a2 + 208), *(a2 + 208) - *(a2 + 200));
   return a1;
 }
 
@@ -9447,9 +9331,8 @@ uint64_t *std::unique_ptr<anonymous namespace::ChatServicesImpl::getCapabilities
 
 void ___ZZN12_GLOBAL__N_116ChatServicesImpl15getCapabilitiesERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEENK3__0clEv_block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
-  v3 = *(a1 + 32);
   if (v2)
   {
     atomic_fetch_add_explicit((v2 + 16), 1uLL, memory_order_relaxed);
@@ -9457,37 +9340,37 @@ void ___ZZN12_GLOBAL__N_116ChatServicesImpl15getCapabilitiesERKNSt3__112basic_st
 
   if (*(a1 + 71) < 0)
   {
-    std::string::__init_copy_ctor_external(&v4, *(a1 + 48), *(a1 + 56));
+    std::string::__init_copy_ctor_external(&v3, *(a1 + 48), *(a1 + 56));
   }
 
   else
   {
-    v4 = *(a1 + 48);
+    v3 = *(a1 + 48);
   }
 
   if (*(a1 + 95) < 0)
   {
-    std::string::__init_copy_ctor_external(&v5, *(a1 + 72), *(a1 + 80));
+    std::string::__init_copy_ctor_external(&v4, *(a1 + 72), *(a1 + 80));
   }
 
   else
   {
-    v5 = *(a1 + 72);
+    v4 = *(a1 + 72);
   }
 
-  v6 = *(a1 + 96);
-  v7 = *(a1 + 104);
+  v5 = *(a1 + 96);
+  v6 = *(a1 + 104);
   if (*(a1 + 135) < 0)
   {
-    std::string::__init_copy_ctor_external(&v8, *(a1 + 112), *(a1 + 120));
+    std::string::__init_copy_ctor_external(&v7, *(a1 + 112), *(a1 + 120));
   }
 
   else
   {
-    v8 = *(a1 + 112);
+    v7 = *(a1 + 112);
   }
 
-  v9 = *(a1 + 136);
+  v8 = *(a1 + 136);
   if (*(a1 + 167) < 0)
   {
     std::string::__init_copy_ctor_external(&__p, *(a1 + 144), *(a1 + 152));
@@ -9498,7 +9381,7 @@ void ___ZZN12_GLOBAL__N_116ChatServicesImpl15getCapabilitiesERKNSt3__112basic_st
     __p = *(a1 + 144);
   }
 
-  v11 = 0;
+  v10 = 0;
   operator new();
 }
 
@@ -9945,4 +9828,93 @@ LABEL_32:
   {
     goto LABEL_35;
   }
+}
+
+void sub_1E4D8C6B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, xpc_object_t object, uint64_t a13, uint64_t a14, uint64_t a15, xpc_object_t a16, uint64_t a17, std::__shared_weak_count *a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, char a26)
+{
+  if (a18)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a18);
+  }
+
+  std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+  _Unwind_Resume(a1);
+}
+
+uint64_t _ZNKSt3__110__function6__funcIZZZN12_GLOBAL__N_116ChatServicesImpl15getCapabilitiesERKNS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEEENK3__0clEvEUb_EUlvE_NS7_ISD_EEFvvEE6targetERKSt9type_info(uint64_t a1, uint64_t a2)
+{
+  if (std::type_info::operator==[abi:ne200100](a2, &_ZTIZZZN12_GLOBAL__N_116ChatServicesImpl15getCapabilitiesERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEENK3__0clEvEUb_EUlvE_))
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t _ZZZZN12_GLOBAL__N_116ChatServicesImpl15getCapabilitiesERKNSt3__112basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEENK3__0clEvEUb_ENUlvE_C1ERKSB_(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a2 + 8);
+  *a1 = *a2;
+  *(a1 + 8) = v4;
+  if (v4)
+  {
+    atomic_fetch_add_explicit((v4 + 16), 1uLL, memory_order_relaxed);
+  }
+
+  if (*(a2 + 39) < 0)
+  {
+    std::string::__init_copy_ctor_external((a1 + 16), *(a2 + 16), *(a2 + 24));
+  }
+
+  else
+  {
+    v5 = *(a2 + 16);
+    *(a1 + 32) = *(a2 + 32);
+    *(a1 + 16) = v5;
+  }
+
+  if (*(a2 + 63) < 0)
+  {
+    std::string::__init_copy_ctor_external((a1 + 40), *(a2 + 40), *(a2 + 48));
+  }
+
+  else
+  {
+    v6 = *(a2 + 40);
+    *(a1 + 56) = *(a2 + 56);
+    *(a1 + 40) = v6;
+  }
+
+  v7 = *(a2 + 64);
+  *(a1 + 72) = *(a2 + 72);
+  *(a1 + 64) = v7;
+  if (*(a2 + 103) < 0)
+  {
+    std::string::__init_copy_ctor_external((a1 + 80), *(a2 + 80), *(a2 + 88));
+  }
+
+  else
+  {
+    v8 = *(a2 + 80);
+    *(a1 + 96) = *(a2 + 96);
+    *(a1 + 80) = v8;
+  }
+
+  *(a1 + 104) = *(a2 + 104);
+  if (*(a2 + 135) < 0)
+  {
+    std::string::__init_copy_ctor_external((a1 + 112), *(a2 + 112), *(a2 + 120));
+  }
+
+  else
+  {
+    v9 = *(a2 + 112);
+    *(a1 + 128) = *(a2 + 128);
+    *(a1 + 112) = v9;
+  }
+
+  return a1;
 }

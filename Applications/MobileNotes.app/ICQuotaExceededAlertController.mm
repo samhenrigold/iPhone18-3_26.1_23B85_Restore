@@ -53,7 +53,7 @@
 
 - (NSDate)lastShowDate
 {
-  v3 = sub_10015DA04(&unk_1006C1710);
+  v3 = sub_10015DA04(&unk_1006C1710, &qword_10053BA80);
   __chkstk_darwin(v3 - 8);
   v5 = &v13 - v4;
   v6 = OBJC_IVAR___ICQuotaExceededAlertController_lastShowDate;
@@ -75,7 +75,7 @@
 
 - (void)setLastShowDate:(id)date
 {
-  v5 = sub_10015DA04(&unk_1006C1710);
+  v5 = sub_10015DA04(&unk_1006C1710, &qword_10053BA80);
   __chkstk_darwin(v5 - 8);
   v7 = &v11 - v6;
   if (date)

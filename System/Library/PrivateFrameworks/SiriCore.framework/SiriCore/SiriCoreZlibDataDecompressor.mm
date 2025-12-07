@@ -8,7 +8,7 @@
 
 - (id)decompressedDataForData:(id)data error:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v7 = dataCopy;
   if (!dataCopy || !dispatch_data_get_size(dataCopy))
@@ -18,27 +18,27 @@
     goto LABEL_12;
   }
 
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__2930;
-  v27 = __Block_byref_object_dispose__2931;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__2930;
+  v26 = __Block_byref_object_dispose__2931;
   v8 = MEMORY[0x277D85CC8];
   v9 = MEMORY[0x277D85CC8];
-  v28 = v8;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
-  v22 = 0;
+  v27 = v8;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
   applier[0] = MEMORY[0x277D85DD0];
   applier[1] = 3221225472;
   applier[2] = __62__SiriCoreZlibDataDecompressor_decompressedDataForData_error___block_invoke;
   applier[3] = &unk_279BD63A8;
   applier[4] = self;
-  applier[5] = &v19;
-  applier[6] = &v23;
+  applier[5] = &v18;
+  applier[6] = &v22;
   dispatch_data_apply(v7, applier);
-  v10 = *(v20 + 6);
+  v10 = *(v19 + 6);
   if (v10 < 2)
   {
     if (v10 == 1)
@@ -47,7 +47,7 @@
       if (os_log_type_enabled(*MEMORY[0x277CEF0A8], OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v30 = "[SiriCoreZlibDataDecompressor decompressedDataForData:error:]";
+        v29 = "[SiriCoreZlibDataDecompressor decompressedDataForData:error:]";
         _os_log_impl(&dword_2669D1000, v11, OS_LOG_TYPE_INFO, "%s Z_STREAM_END", buf, 0xCu);
       }
     }
@@ -60,11 +60,11 @@
   {
     msg = self->_inflateStream.msg;
     *buf = 136315650;
-    v30 = "[SiriCoreZlibDataDecompressor decompressedDataForData:error:]";
-    v31 = 1026;
-    v32 = v10;
-    v33 = 2080;
-    v34 = msg;
+    v29 = "[SiriCoreZlibDataDecompressor decompressedDataForData:error:]";
+    v30 = 1026;
+    v31 = v10;
+    v32 = 2080;
+    v33 = msg;
     _os_log_error_impl(&dword_2669D1000, v14, OS_LOG_TYPE_ERROR, "%s Inflate finished with unexpected status %{public}d %s", buf, 0x1Cu);
     if (!error)
     {
@@ -77,16 +77,15 @@
   if (error)
   {
 LABEL_10:
-    *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"SiriCoreDataCompressorErrorDomain" code:*(v20 + 6) userInfo:0];
+    *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"SiriCoreDataCompressorErrorDomain" code:*(v19 + 6) userInfo:0];
   }
 
 LABEL_11:
-  v12 = v24[5];
-  _Block_object_dispose(&v19, 8);
-  _Block_object_dispose(&v23, 8);
+  v12 = v23[5];
+  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v22, 8);
 
 LABEL_12:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -137,10 +136,10 @@ uint64_t __62__SiriCoreZlibDataDecompressor_decompressedDataForData_error___bloc
 
 - (SiriCoreZlibDataDecompressor)init
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v10.receiver = self;
-  v10.super_class = SiriCoreZlibDataDecompressor;
-  v2 = [(SiriCoreZlibDataDecompressor *)&v10 init];
+  v14 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = SiriCoreZlibDataDecompressor;
+  v2 = [(SiriCoreZlibDataDecompressor *)&v9 init];
   v3 = v2;
   if (v2 && (v2->_inflateStream.zfree = 0, v2->_inflateStream.opaque = 0, v2->_inflateStream.zalloc = 0, (v4 = inflateInit_(&v2->_inflateStream, "1.2.12", 112)) != 0))
   {
@@ -149,9 +148,9 @@ uint64_t __62__SiriCoreZlibDataDecompressor_decompressedDataForData_error___bloc
     if (os_log_type_enabled(*MEMORY[0x277CEF0A8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v12 = "[SiriCoreZlibDataDecompressor init]";
-      v13 = 1026;
-      v14 = v5;
+      v11 = "[SiriCoreZlibDataDecompressor init]";
+      v12 = 1026;
+      v13 = v5;
       _os_log_error_impl(&dword_2669D1000, v6, OS_LOG_TYPE_ERROR, "%s inflateInit failed with status %{public}d", buf, 0x12u);
     }
 
@@ -163,7 +162,6 @@ uint64_t __62__SiriCoreZlibDataDecompressor_decompressedDataForData_error___bloc
     v7 = v3;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

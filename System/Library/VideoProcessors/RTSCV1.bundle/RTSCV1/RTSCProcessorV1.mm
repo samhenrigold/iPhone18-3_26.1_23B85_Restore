@@ -5,9 +5,6 @@
 - (CGRect)outputROI;
 - (CGRect)warpCGRect:(CGRect)rect;
 - (RTSCProcessorV1)init;
-- (__n128)cameraExtrinsicMatrix;
-- (__n128)outputCameraIntrinsic;
-- (__n128)renderingHomography;
 - (__n128)setCameraExtrinsicMatrix:(__n128)matrix;
 - (__n128)setRenderingHomography:(__n128)homography;
 - (id)_bindCVPixleBuffer:(__CVBuffer *)buffer usage:(unint64_t)usage;
@@ -25,21 +22,16 @@
 - (int)_render;
 - (int)_updateCandidateFramingCropRects;
 - (int)_updateInputCameraCalibration;
+- (int)_updateOutputFOV;
 - (int)_updateOutputFOVRect;
 - (int)_updateStabilization;
+- (int)_updateTransformAndMetadataForPreview;
 - (int)prepareToProcess:(unsigned int)process;
 - (int)prewarm;
 - (int)process;
 - (int)purgeResources;
 - (int)setup;
-- (uint64_t)_loadTuningParameters;
 - (uint64_t)_processPreview;
-- (uint64_t)_processStill;
-- (uint64_t)_processVideo;
-- (uint64_t)_updateOutputFOVRect;
-- (uint64_t)prewarm;
-- (uint64_t)process;
-- (uint64_t)setup;
 - (void)_updateOutputIntrinsicForCropRect:(CGRect)rect;
 - (void)dealloc;
 - (void)setInputPTS:(id *)s;
@@ -94,9 +86,10 @@
       self->_metalCommandQueue = commandQueue;
 
       _loadTuningParameters = [(RTSCProcessorV1 *)self _loadTuningParameters];
+      v16 = _loadTuningParameters;
       if (_loadTuningParameters)
       {
-        [RTSCProcessorV1 setup];
+        [(RTSCProcessorV1 *)_loadTuningParameters setup];
       }
 
       else
@@ -105,15 +98,15 @@
         __asm { FMOV            V0.2D, #1.0 }
 
         self->_outputROI.size = _Q0;
-        v21 = matrix_identity_float3x3.columns[1];
+        v22 = matrix_identity_float3x3.columns[1];
         *self->_anon_b0 = matrix_identity_float3x3.columns[0];
-        *&self->_anon_b0[16] = v21;
-        v22 = matrix_identity_float3x3.columns[2];
+        *&self->_anon_b0[16] = v22;
+        v23 = matrix_identity_float3x3.columns[2];
         self->_outputROI.origin.x = 0.0;
         self->_outputROI.origin.y = 0.0;
         self->_maxOutputFOV = 0.0;
         *&self->_rollingShutterCompensationEnabled = 0;
-        *&self->_anon_b0[32] = v22;
+        *&self->_anon_b0[32] = v23;
       }
     }
 
@@ -129,7 +122,7 @@
     return 0;
   }
 
-  return _loadTuningParameters;
+  return v16;
 }
 
 - (int)prewarm
@@ -240,31 +233,33 @@
 
 - (int)_loadTuningParameters
 {
-  if (self->_tuningParameters)
+  if (!self->_tuningParameters)
   {
-    v3 = [[RTSCTuningParametersV1 alloc] initWithDictionary:self->_tuningParameters];
+    v6 = objc_alloc_init(RTSCTuningParametersV1);
     tuning = self->_tuning;
-    self->_tuning = v3;
+    self->_tuning = v6;
 
     if (!self->_tuning)
     {
-      goto LABEL_6;
+      v5 = 466;
+      goto LABEL_7;
     }
 
     return 0;
   }
 
-  v5 = objc_alloc_init(RTSCTuningParametersV1);
-  v6 = self->_tuning;
-  self->_tuning = v5;
+  v3 = [[RTSCTuningParametersV1 alloc] initWithDictionary:self->_tuningParameters];
+  v4 = self->_tuning;
+  self->_tuning = v3;
 
   if (self->_tuning)
   {
     return 0;
   }
 
-LABEL_6:
-  [RTSCProcessorV1 _loadTuningParameters];
+  v5 = 460;
+LABEL_7:
+  [(RTSCProcessorV1 *)v5 _loadTuningParameters];
   return -16680;
 }
 
@@ -291,7 +286,7 @@ LABEL_6:
     _updateInputCameraCalibration = [(RTSCProcessorV1 *)self _updateInputCameraCalibration];
     if (_updateInputCameraCalibration)
     {
-      _render = _updateInputCameraCalibration;
+      v8 = _updateInputCameraCalibration;
       [RTSCProcessorV1 _processVideo];
     }
 
@@ -300,7 +295,7 @@ LABEL_6:
       _updateOutputFOVRect = [(RTSCProcessorV1 *)self _updateOutputFOVRect];
       if (_updateOutputFOVRect)
       {
-        _render = _updateOutputFOVRect;
+        v8 = _updateOutputFOVRect;
         [RTSCProcessorV1 _processVideo];
       }
 
@@ -309,7 +304,7 @@ LABEL_6:
         _updateStabilization = [(RTSCProcessorV1 *)self _updateStabilization];
         if (_updateStabilization)
         {
-          _render = _updateStabilization;
+          v8 = _updateStabilization;
           [RTSCProcessorV1 _processVideo];
         }
 
@@ -318,16 +313,17 @@ LABEL_6:
           _updateCandidateFramingCropRects = [(RTSCProcessorV1 *)self _updateCandidateFramingCropRects];
           if (_updateCandidateFramingCropRects)
           {
-            _render = _updateCandidateFramingCropRects;
+            v8 = _updateCandidateFramingCropRects;
             [RTSCProcessorV1 _processVideo];
           }
 
           else
           {
             _render = [(RTSCProcessorV1 *)self _render];
+            v8 = _render;
             if (_render)
             {
-              [RTSCProcessorV1 _processVideo];
+              [(RTSCProcessorV1 *)_render _processVideo];
             }
 
             else
@@ -346,18 +342,19 @@ LABEL_6:
     return -1;
   }
 
-  return _render;
+  return v8;
 }
 
 - (int)_processStill
 {
   _render = [(RTSCProcessorV1 *)self _render];
+  v3 = _render;
   if (_render)
   {
-    [RTSCProcessorV1 _processStill];
+    [(RTSCProcessorV1 *)_render _processStill];
   }
 
-  return _render;
+  return v3;
 }
 
 - (int)_processPreview
@@ -370,7 +367,7 @@ LABEL_6:
       _updateInputCameraCalibration = [(RTSCProcessorV1 *)self _updateInputCameraCalibration];
       if (_updateInputCameraCalibration)
       {
-        _render = _updateInputCameraCalibration;
+        v10 = _updateInputCameraCalibration;
         [RTSCProcessorV1 _processPreview];
       }
 
@@ -379,7 +376,7 @@ LABEL_6:
         _updateOutputFOVRect = [(RTSCProcessorV1 *)self _updateOutputFOVRect];
         if (_updateOutputFOVRect)
         {
-          _render = _updateOutputFOVRect;
+          v10 = _updateOutputFOVRect;
           [RTSCProcessorV1 _processPreview];
         }
 
@@ -388,7 +385,7 @@ LABEL_6:
           _updateStabilization = [(RTSCProcessorV1 *)self _updateStabilization];
           if (_updateStabilization)
           {
-            _render = _updateStabilization;
+            v10 = _updateStabilization;
             [RTSCProcessorV1 _processPreview];
           }
 
@@ -397,16 +394,17 @@ LABEL_6:
             _updateTransformAndMetadataForPreview = [(RTSCProcessorV1 *)self _updateTransformAndMetadataForPreview];
             if (_updateTransformAndMetadataForPreview)
             {
-              _render = _updateTransformAndMetadataForPreview;
+              v10 = _updateTransformAndMetadataForPreview;
               [RTSCProcessorV1 _processPreview];
             }
 
             else
             {
               _render = [(RTSCProcessorV1 *)self _render];
+              v10 = _render;
               if (_render)
               {
-                [RTSCProcessorV1 _processPreview];
+                [(RTSCProcessorV1 *)_render _processPreview];
               }
 
               else
@@ -421,8 +419,8 @@ LABEL_6:
 
     else
     {
-      [(RTSCProcessorV1 *)&v11 _processPreview];
-      return v11;
+      [(RTSCProcessorV1 *)&v12 _processPreview];
+      return v12;
     }
   }
 
@@ -432,7 +430,7 @@ LABEL_6:
     return -1;
   }
 
-  return _render;
+  return v10;
 }
 
 - (id)_cachedTextureFromPixelBuffer:(__CVBuffer *)buffer usage:(unint64_t)usage
@@ -523,32 +521,32 @@ LABEL_10:
   renderCopy = render;
   texCopy = tex;
   outputTexCopy = outputTex;
-  memset(v17, 0, 48);
-  v11 = [(RTSCProcessorV1 *)self _fillRenderParams:v17];
-  if (v11)
+  memset(v20, 0, 48);
+  v12 = [(RTSCProcessorV1 *)self _fillRenderParams:v20];
+  if (v12)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v12, v5, v15.i64[0], v15.i64[1], v16, width, height, v19);
   }
 
   else
   {
-    v12 = [(RTSCShadersV1 *)self->_shaders objectAtIndexedSubscript:0];
-    [renderCopy setComputePipelineState:v12];
+    v13 = [(RTSCShadersV1 *)self->_shaders objectAtIndexedSubscript:0];
+    [renderCopy setComputePipelineState:v13];
 
     [renderCopy setTexture:texCopy atIndex:0];
     [renderCopy setTexture:outputTexCopy atIndex:1];
-    [renderCopy setBytes:v17 length:64 atIndex:0];
+    [renderCopy setBytes:v20 length:64 atIndex:0];
     [renderCopy setImageblockWidth:32 height:32];
-    v16[0] = [outputTexCopy width];
-    v16[1] = [outputTexCopy height];
-    v16[2] = 1;
-    v14 = vdupq_n_s64(0x20uLL);
-    v15 = 1;
-    [renderCopy dispatchThreads:v16 threadsPerThreadgroup:&v14];
+    width = [outputTexCopy width];
+    height = [outputTexCopy height];
+    v19 = 1;
+    v15 = vdupq_n_s64(0x20uLL);
+    v16 = 1;
+    [renderCopy dispatchThreads:&width threadsPerThreadgroup:&v15];
   }
 
-  return v11;
+  return v12;
 }
 
 - (int)_encodeDownsample:(id)downsample inputTex:(id)tex outputTex:(id)outputTex
@@ -580,51 +578,51 @@ LABEL_10:
   inputPixelBuffer = self->_inputPixelBuffer;
   if (Width >= Height)
   {
-    v10 = CVPixelBufferGetHeight(inputPixelBuffer);
+    v11 = CVPixelBufferGetHeight(inputPixelBuffer);
   }
 
   else
   {
-    v10 = CVPixelBufferGetWidth(inputPixelBuffer);
+    v11 = CVPixelBufferGetWidth(inputPixelBuffer);
   }
 
-  v11 = v10;
-  v12 = CVPixelBufferGetWidth(self->_outputPixelBuffer);
-  v13 = CVPixelBufferGetHeight(self->_outputPixelBuffer);
+  v12 = v11;
+  v13 = CVPixelBufferGetWidth(self->_outputPixelBuffer);
+  v14 = CVPixelBufferGetHeight(self->_outputPixelBuffer);
   outputPixelBuffer = self->_outputPixelBuffer;
-  if (v12 >= v13)
+  if (v13 >= v14)
   {
-    v15 = CVPixelBufferGetHeight(outputPixelBuffer);
+    v16 = CVPixelBufferGetHeight(outputPixelBuffer);
   }
 
   else
   {
-    v15 = CVPixelBufferGetWidth(outputPixelBuffer);
+    v16 = CVPixelBufferGetWidth(outputPixelBuffer);
   }
 
-  v16 = llroundf(log2f(v11 / v15));
-  if (v16 <= 1)
+  v17 = llroundf(log2f(v12 / v16));
+  if (v17 <= 1)
   {
-    v17 = 1;
+    v18 = 1;
   }
 
   else
   {
-    v17 = v16;
+    v18 = v17;
   }
 
-  v18 = v17 - 1;
-  if (v16 <= 5)
+  v19 = v18 - 1;
+  if (v17 <= 5)
   {
-    v19 = v18;
+    v20 = v19;
   }
 
   else
   {
-    v19 = 4;
+    v20 = 4;
   }
 
-  if (v19)
+  if (v20)
   {
     allocator = [(FigMetalContext *)self->_context allocator];
     newTextureDescriptor = [allocator newTextureDescriptor];
@@ -635,11 +633,11 @@ LABEL_10:
 
     width = [texCopy width];
     desc2 = [newTextureDescriptor desc];
-    [desc2 setWidth:width << v19];
+    [desc2 setWidth:width << v20];
 
     height = [texCopy height];
     desc3 = [newTextureDescriptor desc];
-    [desc3 setHeight:height << v19];
+    [desc3 setHeight:height << v20];
 
     desc4 = [newTextureDescriptor desc];
     [desc4 setUsage:65543];
@@ -649,26 +647,26 @@ LABEL_10:
 
     if (*targetTex)
     {
-      v29 = 0;
+      v30 = 0;
     }
 
     else
     {
       fig_log_get_emitter();
-      FigDebugAssert3();
-      v29 = -1;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v4, v33, v34, v35, v36, v37, v38);
+      v30 = -1;
     }
   }
 
   else
   {
     FigMetalIncRef();
-    v30 = texCopy;
-    v29 = 0;
+    v31 = texCopy;
+    v30 = 0;
     *targetTex = texCopy;
   }
 
-  return v29;
+  return v30;
 }
 
 - (int)_encodeRenderTargetResolve:(id)resolve renderTargetTex:(id)tex outputTex:(id)outputTex
@@ -681,14 +679,14 @@ LABEL_10:
   {
     FigMetalIncRef();
     objc_storeStrong(&location, tex);
-    v11 = 0;
+    v12 = 0;
     for (i = texCopy; ; i = location)
     {
       width = [i width];
       if ([outputTexCopy width] >= width >> 1)
       {
-        newTextureDescriptor = v11;
-        v11 = outputTexCopy;
+        newTextureDescriptor = v12;
+        v12 = outputTexCopy;
       }
 
       else
@@ -713,114 +711,113 @@ LABEL_10:
         [desc4 setUsage:65543];
 
         allocator2 = [(FigMetalContext *)self->_context allocator];
-        v24 = [allocator2 newTextureWithDescriptor:newTextureDescriptor];
+        v25 = [allocator2 newTextureWithDescriptor:newTextureDescriptor];
 
-        if (!v24)
+        if (!v25)
         {
           fig_log_get_emitter();
-          FigDebugAssert3();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v5, v28, location, v30, v31, v32, v33);
 
-          v11 = 0;
-          v25 = -1;
+          v12 = 0;
+          v26 = -1;
           goto LABEL_12;
         }
 
-        v11 = v24;
+        v12 = v25;
       }
 
-      v25 = [(RTSCProcessorV1 *)self _encodeDownsample:resolveCopy inputTex:location outputTex:v11];
-      if (v25)
+      v26 = [(RTSCProcessorV1 *)self _encodeDownsample:resolveCopy inputTex:location outputTex:v12];
+      if (v26)
       {
         fig_log_get_emitter();
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v26, v5, v28, location, v30, v31, v32, v33);
         goto LABEL_12;
       }
 
       FigMetalDecRef();
-      if (v11 == outputTexCopy)
+      if (v12 == outputTexCopy)
       {
         goto LABEL_11;
       }
 
-      objc_storeStrong(&location, v11);
+      objc_storeStrong(&location, v12);
     }
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_11:
-  v25 = 0;
+  v26 = 0;
 LABEL_12:
 
-  return v25;
+  return v26;
 }
 
 - (int)_render
 {
-  v13 = 0;
-  v3 = [(RTSCProcessorV1 *)self _bindCVPixleBuffer:self->_inputPixelBuffer usage:1];
-  if (v3 && ([(RTSCProcessorV1 *)self _bindCVPixleBuffer:self->_outputPixelBuffer usage:65543], (v4 = objc_claimAutoreleasedReturnValue()) != 0))
+  v4 = [(RTSCProcessorV1 *)self _bindCVPixleBuffer:self->_inputPixelBuffer usage:1];
+  if (v4 && ([(RTSCProcessorV1 *)self _bindCVPixleBuffer:self->_outputPixelBuffer usage:65543], (v5 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v5 = v4;
-    v13 = v5;
+    v6 = v5;
+    v18 = v6;
     commandBuffer = [(FigMetalContext *)self->_context commandBuffer];
-    v7 = commandBuffer;
+    v8 = commandBuffer;
     if (commandBuffer)
     {
       computeCommandEncoder = [commandBuffer computeCommandEncoder];
       if (computeCommandEncoder)
       {
-        v9 = [(RTSCProcessorV1 *)self _encodeRender:computeCommandEncoder inputTex:v3 outputTex:v5];
-        if (v9)
+        v10 = [(RTSCProcessorV1 *)self _encodeRender:computeCommandEncoder inputTex:v4 outputTex:v6];
+        if (v10)
         {
           fig_log_get_emitter();
-          FigDebugAssert3();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v10, v2, v16, v6, v19, v20, v21, v22);
         }
 
         else
         {
           [computeCommandEncoder endEncoding];
           [(FigMetalContext *)self->_context commit];
-          v9 = 0;
+          v10 = 0;
         }
 
-        v10 = v7;
-        v11 = computeCommandEncoder;
+        v11 = v8;
+        v12 = computeCommandEncoder;
       }
 
       else
       {
         fig_log_get_emitter();
-        v11 = 0;
-        FigDebugAssert3();
-        v9 = -1;
-        v10 = v7;
+        v12 = 0;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v2, v16, v6, v19, v20, v21, v22);
+        v10 = -1;
+        v11 = v8;
       }
     }
 
     else
     {
       fig_log_get_emitter();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v2, v16, v6, v19, v20, v21, v22);
       fig_log_get_emitter();
-      v10 = 0;
-      v9 = FigSignalErrorAtGM();
       v11 = 0;
+      v10 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v14, v15, v17);
+      v12 = 0;
     }
   }
 
   else
   {
     fig_log_get_emitter();
-    v10 = 0;
-    FigDebugAssert3();
-    v9 = -1;
     v11 = 0;
-    v5 = 0;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v2, v16, 0, v19, v20, v21, v22);
+    v10 = -1;
+    v12 = 0;
+    v6 = 0;
   }
 
   FigMetalDecRef();
 
-  return v9;
+  return v10;
 }
 
 - (CGPoint)warpCGPoint:(CGPoint)point
@@ -963,45 +960,203 @@ LABEL_12:
   if (self->_outputFOVPreset == 4)
   {
     _extractFinalCropRect = [(RTSCProcessorV1 *)self _extractFinalCropRect];
+    v3 = _extractFinalCropRect;
     if (_extractFinalCropRect)
     {
-      [RTSCProcessorV1 _updateOutputFOVRect];
+      [(RTSCProcessorV1 *)_extractFinalCropRect _updateOutputFOVRect];
     }
   }
 
   else
   {
-    _extractFinalCropRect = [(RTSCProcessorV1 *)self _updateOutputFOV];
-    if (_extractFinalCropRect)
+    _updateOutputFOV = [(RTSCProcessorV1 *)self _updateOutputFOV];
+    v3 = _updateOutputFOV;
+    if (_updateOutputFOV)
     {
-      [RTSCProcessorV1 _updateOutputFOVRect];
+      [(RTSCProcessorV1 *)_updateOutputFOV _updateOutputFOVRect];
     }
   }
 
-  return _extractFinalCropRect;
+  return v3;
+}
+
+- (int)_updateOutputFOV
+{
+  v3 = (self->_outputROI.size.width * CVPixelBufferGetWidth(self->_outputPixelBuffer));
+  v4 = (self->_outputROI.size.height * CVPixelBufferGetHeight(self->_outputPixelBuffer));
+  v5 = *self->_anon_60;
+  v5.i32[1] = *&self->_anon_60[20];
+  *v6.f32 = vmul_f32(*self->_inputCameraIntrinsicRefSize, 0x3F0000003F000000);
+  x = v5;
+  v7 = _simd_atan2_f4(v6, v5).u64[0];
+  v8 = vadd_f32(v7, v7);
+  if (v3 <= v4)
+  {
+    v8.f32[0] = v8.f32[1];
+  }
+
+  v9 = v8.f32[0] / 3.14159265 * 180.0;
+  self->_maxOutputFOV = v9;
+  [(RTSCTuningParametersV1 *)self->_tuning stabilizationReservedFOV];
+  maxOutputFOV = self->_maxOutputFOV + (v10 * -2.0);
+  self->_maxOutputFOV = maxOutputFOV;
+  self->_configuredOutputFOV = 0.0;
+  outputFOVPreset = self->_outputFOVPreset;
+  outputFOV = 0.0;
+  if (outputFOVPreset > 1)
+  {
+    if (outputFOVPreset == 2)
+    {
+      [(RTSCTuningParametersV1 *)self->_tuning naturalOutputFOV];
+    }
+
+    else
+    {
+      if (outputFOVPreset != 3)
+      {
+        goto LABEL_19;
+      }
+
+      [(RTSCTuningParametersV1 *)self->_tuning faceReframingOutputFOV];
+    }
+
+    self->_configuredOutputFOV = outputFOV;
+    maxOutputFOV = self->_maxOutputFOV;
+LABEL_17:
+    if (outputFOV <= maxOutputFOV)
+    {
+      goto LABEL_19;
+    }
+
+    goto LABEL_18;
+  }
+
+  if (!outputFOVPreset)
+  {
+    outputFOV = self->_outputFOV;
+    if (outputFOV < 0.0)
+    {
+      outputFOV = 0.0;
+    }
+
+    if (outputFOV <= 0.0)
+    {
+      outputFOV = maxOutputFOV;
+    }
+
+    self->_configuredOutputFOV = outputFOV;
+    goto LABEL_17;
+  }
+
+  if (outputFOVPreset == 1)
+  {
+LABEL_18:
+    self->_configuredOutputFOV = maxOutputFOV;
+    outputFOV = maxOutputFOV;
+  }
+
+LABEL_19:
+  if (self->_zoomOutForMultiSubjects)
+  {
+    [(NSMutableDictionary *)self->_inputMetadata cmi_cgRectForKey:@"SmartFramingSuggestedFieldOfViewRectForSmartCrop" defaultValue:0 found:CGRectNull.origin.x, CGRectNull.origin.y, CGRectNull.size.width, CGRectNull.size.height];
+    v35 = v15;
+    v36 = v14;
+    if (CGRectIsNull(*(&v15 - 24)))
+    {
+      maxOutputFOV = self->_maxOutputFOV;
+      outputFOV = (maxOutputFOV + self->_configuredOutputFOV) * 0.5;
+    }
+
+    else
+    {
+      v16.f64[0] = v36;
+      *&v16.f64[1] = v35;
+      *&v16.f64[0] = vmul_f32(vmul_f32(*self->_inputCameraIntrinsicRefSize, vcvt_f32_f64(v16)), 0x3F0000003F000000);
+      v17 = _simd_atan2_f4(v16, x).u64[0];
+      v18 = vadd_f32(v17, v17);
+      if (v3 <= v4)
+      {
+        v18.f32[0] = v18.f32[1];
+      }
+
+      v19 = v18.f32[0] / 3.14159265 * 180.0;
+      maxOutputFOV = self->_maxOutputFOV;
+      outputFOV = fminf(fmaxf(v19, 0.0), maxOutputFOV);
+    }
+  }
+
+  if (outputFOV == 0.0)
+  {
+    v20 = maxOutputFOV;
+  }
+
+  else
+  {
+    v20 = outputFOV;
+  }
+
+  v21 = 1.0 / tan((v20 * 0.5) * 3.14159265 / 180.0);
+  outputFocalLengthAnimation = self->_outputFocalLengthAnimation;
+  if (outputFocalLengthAnimation && (objc_msgSend_currentTime(outputFocalLengthAnimation), (BYTE12(v38) & 1) != 0))
+  {
+    [(RTSCSpringAnimation *)self->_outputFocalLengthAnimation setTargetValue:v21];
+    v24 = self->_outputFocalLengthAnimation;
+    v38 = *&self->_inputPTS.value;
+    epoch = self->_inputPTS.epoch;
+    [(RTSCSpringAnimation *)v24 updateToTime:&v38];
+  }
+
+  else
+  {
+    v23 = self->_outputFocalLengthAnimation;
+    v38 = *&self->_inputPTS.value;
+    epoch = self->_inputPTS.epoch;
+    [(RTSCSpringAnimation *)v23 startAtTime:&v38 withValue:v21, v35];
+  }
+
+  [(RTSCSpringAnimation *)self->_outputFocalLengthAnimation currentValue];
+  v26 = v25;
+  v27 = atan2f(1.0, v26);
+  v28 = v27 / 3.14159265 * 180.0 + v27 / 3.14159265 * 180.0;
+  if (self->_outputFOVPreset)
+  {
+    v29 = v28;
+  }
+
+  else
+  {
+    v29 = v20;
+  }
+
+  self->_outputFOV = v29;
+  [(RTSCProcessorV1 *)self _calculateCropRectForOutputFOV:?];
+  self->_outputFOVRect.origin.x = v30;
+  self->_outputFOVRect.origin.y = v31;
+  self->_outputFOVRect.size.width = v32;
+  self->_outputFOVRect.size.height = v33;
+  return 0;
 }
 
 - (int)_extractFinalCropRect
 {
-  inputMetadata = self->_inputMetadata;
   if (FigCFDictionaryGetCGRectIfPresent())
   {
     return 0;
   }
 
-  v5 = self->_outputROI.size.width * CVPixelBufferGetWidth(self->_outputPixelBuffer);
-  v6 = self->_outputROI.size.height * CVPixelBufferGetHeight(self->_outputPixelBuffer);
+  v4 = self->_outputROI.size.width * CVPixelBufferGetWidth(self->_outputPixelBuffer);
+  v5 = self->_outputROI.size.height * CVPixelBufferGetHeight(self->_outputPixelBuffer);
   Width = CVPixelBufferGetWidth(self->_inputPixelBuffer);
   Height = CVPixelBufferGetHeight(self->_inputPixelBuffer);
-  v9 = fmin(v5 / Width, 1.0);
-  v10 = fmin(v6 / Height, 1.0);
-  self->_outputFOVRect.origin.x = (1.0 - v9) * 0.5;
-  self->_outputFOVRect.origin.y = (1.0 - v10) * 0.5;
-  self->_outputFOVRect.size.width = v9;
-  self->_outputFOVRect.size.height = v10;
-  fig_log_get_emitter();
+  v8 = fmin(v4 / Width, 1.0);
+  v9 = fmin(v5 / Height, 1.0);
+  self->_outputFOVRect.origin.x = (1.0 - v8) * 0.5;
+  self->_outputFOVRect.origin.y = (1.0 - v9) * 0.5;
+  self->_outputFOVRect.size.width = v8;
+  self->_outputFOVRect.size.height = v9;
+  emitter = fig_log_get_emitter();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954513, "<<<< RTSCProcessorV1 >>>>", 1289);
 }
 
 - (int)_updateStabilization
@@ -1025,6 +1180,120 @@ LABEL_12:
   *&self->_anon_b0[40] = v12;
   *&self->_anon_b0[32] = v13;
   return v7;
+}
+
+- (int)_updateTransformAndMetadataForPreview
+{
+  Width = CVPixelBufferGetWidth(self->_inputPixelBuffer);
+  Height = CVPixelBufferGetHeight(self->_inputPixelBuffer);
+  v5 = 0;
+  __asm { FMOV            V1.2D, #1.0 }
+
+  v11 = vcvt_f32_f64(vdivq_f64(_Q1, self->_outputFOVRect.size));
+  *v12.i8 = vcvt_f32_f64(vmulq_f64(vnegq_f64(self->_outputFOVRect.origin), vcvtq_f64_f32(v11)));
+  LODWORD(v13) = 0;
+  HIDWORD(v13) = v11.i32[1];
+  v14 = v11.i32[0];
+  v12.i64[1] = 1065353216;
+  v15 = *self->_anon_b0;
+  v16 = *&self->_anon_b0[16];
+  v17 = *&self->_anon_b0[32];
+  v55 = v14;
+  v56 = v13;
+  v57 = v12;
+  do
+  {
+    v18 = *(&v55 + v5);
+    v19 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v15, v18.f32[0]), v16, *v18.f32, 1), v17, v18, 2);
+    *(&v58 + v5) = v19;
+    v5 += 16;
+  }
+
+  while (v5 != 48);
+  v18.f32[0] = Width;
+  v19.f32[0] = Height;
+  v51 = *v19.f32;
+  v52 = *v18.f32;
+  v20 = v58.i64[0];
+  v21 = v59;
+  v22 = v60;
+  *&self->_anon_b0[8] = v58.i32[2];
+  *self->_anon_b0 = v20;
+  *&self->_anon_b0[24] = v21.i32[2];
+  *&self->_anon_b0[40] = v22.i32[2];
+  *&self->_anon_b0[16] = v21.i64[0];
+  *&self->_anon_b0[32] = v22.i64[0];
+  v23 = Width;
+  v24 = Height;
+  v53 = v23;
+  v54 = v24;
+  v25 = kFigCaptureStreamMetadata_ValidBufferRect;
+  FigCFDictionaryGetCGRectIfPresent();
+  v26.i32[1] = HIDWORD(v54);
+  v27 = v23;
+  v50 = vmlaq_n_f32(vdupq_lane_s32(COERCE_UNSIGNED_INT(0.0), 0), xmmword_11AE0, v27);
+  v28 = v24;
+  *v26.i32 = 0.0;
+  v49 = vmlaq_n_f32(vdupq_lane_s32(v26, 0), xmmword_11AF0, v28);
+  v61 = __invert_f3(*self->_anon_b0);
+  v29 = 0;
+  v30 = vdivq_f32(v50, vdupq_lane_s32(v52, 0));
+  v31 = vdivq_f32(v49, vdupq_lane_s32(v51, 0));
+  v32 = vzip1q_s32(v61.columns[0], v61.columns[2]);
+  v55 = vzip1q_s32(v32, v61.columns[1]);
+  v56 = vzip2q_s32(v32, vdupq_lane_s32(*v61.columns[1].f32, 1));
+  v57 = vzip1q_s32(vzip2q_s32(v61.columns[0], v61.columns[2]), vdupq_laneq_s32(v61.columns[1], 2));
+  do
+  {
+    *(&v58 + v29) = vaddq_f32(vdupq_laneq_s32(*(&v55 + v29), 2), vmlaq_lane_f32(vmulq_n_f32(v30, COERCE_FLOAT(*(&v55 + v29))), v31, *&v55.i8[v29], 1));
+    v29 += 16;
+  }
+
+  while (v29 != 48);
+  v33.i64[0] = 0x3400000034000000;
+  v33.i64[1] = 0x3400000034000000;
+  v34 = vmaxnmq_f32(v60, v33);
+  v35 = vrecpeq_f32(v34);
+  v36 = vmulq_f32(v35, vrecpsq_f32(v34, v35));
+  v37 = vmulq_f32(v36, vrecpsq_f32(v34, v36));
+  v38 = vmulq_n_f32(vmulq_f32(v58, v37), *v52.i32);
+  v39 = vmulq_n_f32(vmulq_f32(v59, v37), *v51.i32);
+  v37.f32[0] = roundf(fmaxf(v38.f32[0], v38.f32[3]));
+  v36.f32[0] = roundf(fminf(v38.f32[1], v38.f32[2]));
+  v40 = roundf(fmaxf(v39.f32[0], v39.f32[1]));
+  *v38.i64 = v37.f32[0];
+  *v39.i64 = v40;
+  *v37.i64 = (v36.f32[0] - v37.f32[0]);
+  *v36.i64 = (roundf(fminf(v39.f32[2], v39.f32[3])) - v40);
+  v65.origin.x = self->_outputFOVRect.origin.x * v23;
+  v65.size.width = self->_outputFOVRect.size.width * v23;
+  v65.origin.y = self->_outputFOVRect.origin.y * v24;
+  v65.size.height = self->_outputFOVRect.size.height * v24;
+  v62 = CGRectUnion(*(&v36 - 24), v65);
+  v66.origin.x = 0.0;
+  v66.origin.y = 0.0;
+  v66.size.width = v23;
+  v66.size.height = v24;
+  v63 = CGRectIntersection(v62, v66);
+  x = v63.origin.x;
+  y = v63.origin.y;
+  v43 = v63.size.width;
+  v44 = v63.size.height;
+  DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v63);
+  [(NSMutableDictionary *)self->_inputMetadata setObject:DictionaryRepresentation forKeyedSubscript:v25];
+
+  v46 = kFigCaptureStreamMetadata_SensorRawValidBufferRect;
+  if (FigCFDictionaryGetCGRectIfPresent() || FigCFDictionaryGetCGRectIfPresent())
+  {
+    v64.origin.x = *v58.i64 - 0.0 * (*v59.i64 / v53) + x * (*v59.i64 / v53);
+    v64.origin.y = *&v58.i64[1] - 0.0 * (*&v59.i64[1] / v54) + y * (*&v59.i64[1] / v54);
+    v64.size.width = v43 * (*v59.i64 / v53);
+    v64.size.height = v44 * (*&v59.i64[1] / v54);
+    v47 = CGRectCreateDictionaryRepresentation(v64);
+    [(NSMutableDictionary *)self->_inputMetadata setObject:v47 forKeyedSubscript:v46];
+  }
+
+  return 0;
 }
 
 - (int)_updateCandidateFramingCropRects
@@ -1199,27 +1468,11 @@ LABEL_12:
   *&self[1]._processingType = v11;
 }
 
-- (__n128)renderingHomography
-{
-  result = *(self + 176);
-  v2 = *(self + 192);
-  v3 = *(self + 208);
-  return result;
-}
-
 - (__n128)setRenderingHomography:(__n128)homography
 {
   result[11] = a2;
   result[12] = homography;
   result[13] = a4;
-  return result;
-}
-
-- (__n128)cameraExtrinsicMatrix
-{
-  result = *(self + 368);
-  v2 = *(self + 384);
-  v3 = *(self + 400);
   return result;
 }
 
@@ -1236,14 +1489,6 @@ LABEL_12:
   v3 = *&s->var0;
   self->_inputPTS.epoch = s->var3;
   *&self->_inputPTS.value = v3;
-}
-
-- (__n128)outputCameraIntrinsic
-{
-  result = *(self + 416);
-  v2 = *(self + 432);
-  v3 = *(self + 448);
-  return result;
 }
 
 - (CGRect)outputROI
@@ -1326,60 +1571,15 @@ LABEL_12:
   return result;
 }
 
-- (uint64_t)setup
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)prewarm
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)process
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_loadTuningParameters
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_processVideo
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_processStill
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
-}
-
 - (uint64_t)_processPreview
 {
   fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_updateOutputFOVRect
-{
+  v4 = 0;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v1, v7, v9, v10, v11, vars0, vars8);
   fig_log_get_emitter();
-  OUTLINED_FUNCTION_0();
-  return FigDebugAssert3();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, v6, v8);
+  *self = result;
+  return result;
 }
 
 @end

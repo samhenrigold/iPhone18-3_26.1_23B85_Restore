@@ -3,11 +3,11 @@
 
 @implementation ReevaluateCurrentRoute
 
-void __airplayRoute_ReevaluateCurrentRoute_block_invoke(uint64_t a1)
+void __airplayRoute_ReevaluateCurrentRoute_block_invoke(uint64_t result)
 {
-  if (!**(a1 + 32))
+  if (!**(result + 32))
   {
-    airplayRoute_pickableRoutesChangedGuts(*(a1 + 40));
+    airplayRoute_pickableRoutesChangedGuts(*(result + 40));
   }
 }
 

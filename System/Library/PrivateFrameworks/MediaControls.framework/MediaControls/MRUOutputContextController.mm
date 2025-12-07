@@ -324,7 +324,7 @@ uint64_t __57__MRUOutputContextController_setOutputDevice_completion___block_inv
 
 - (void)_setOutputDevice:(id)device context:(id)context completion:(id)completion
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   contextCopy = context;
   completionCopy = completion;
@@ -338,29 +338,29 @@ uint64_t __57__MRUOutputContextController_setOutputDevice_completion___block_inv
 
   else
   {
-    v13 = _MPAVLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = _MPAVLog(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;
       selfCopy = self;
-      v20 = 2114;
-      v21 = deviceCopy;
-      v22 = 2114;
-      v23 = contextCopy;
-      _os_log_impl(&dword_1A20FC000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ setting output device: %{public}@ for context: %{public}@", buf, 0x20u);
+      v21 = 2114;
+      v22 = deviceCopy;
+      v23 = 2114;
+      v24 = contextCopy;
+      _os_log_impl(&dword_1A20FC000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ setting output device: %{public}@ for context: %{public}@", buf, 0x20u);
     }
 
     objc_initWeak(buf, self);
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __66__MRUOutputContextController__setOutputDevice_context_completion___block_invoke;
-    v14[3] = &unk_1E76659A0;
-    objc_copyWeak(&v17, buf);
-    v15 = deviceCopy;
-    v16 = completionCopy;
-    [contextCopy setOutputDevice:v15 options:0 completionHandler:v14];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __66__MRUOutputContextController__setOutputDevice_context_completion___block_invoke;
+    v15[3] = &unk_1E76659A0;
+    objc_copyWeak(&v18, buf);
+    v16 = deviceCopy;
+    v17 = completionCopy;
+    [contextCopy setOutputDevice:v16 options:0 completionHandler:v15];
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(buf);
   }
 }
@@ -371,7 +371,7 @@ void __66__MRUOutputContextController__setOutputDevice_context_completion___bloc
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = [v3 status];
-  v6 = _MPAVLog();
+  v6 = _MPAVLog(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (v5 == 3)
   {
@@ -431,7 +431,7 @@ void __66__MRUOutputContextController__setOutputDevice_context_completion___bloc
 {
   v14 = *MEMORY[0x1E69E9840];
   outputDevice = [(MRUOutputContextController *)self outputDevice];
-  v5 = _MPAVLog();
+  v5 = _MPAVLog(outputDevice);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     outputContext = [(MRUOutputContextController *)self outputContext];
@@ -495,7 +495,7 @@ void __62__MRUOutputContextController_outputDeviceChangedNotification___block_in
 
 - (void)initializeOutputContextWithCompletion:(id)completion
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   outputContext = [(MRUOutputContextController *)self outputContext];
   if (outputContext)
@@ -525,7 +525,7 @@ void __62__MRUOutputContextController_outputDeviceChangedNotification___block_in
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v39 = v12;
+      v40 = v12;
       _os_log_impl(&dword_1A20FC000, v13, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
     }
 
@@ -533,63 +533,64 @@ void __62__MRUOutputContextController_outputDeviceChangedNotification___block_in
     aBlock[1] = 3221225472;
     aBlock[2] = __68__MRUOutputContextController_initializeOutputContextWithCompletion___block_invoke;
     aBlock[3] = &unk_1E76659C8;
-    v37 = outputContextType;
-    v22 = v7;
-    v33 = v22;
+    v38 = outputContextType;
+    v23 = v7;
+    v34 = v23;
     v14 = uUIDString;
-    v34 = v14;
-    v23 = date;
-    v35 = v23;
-    v36 = completionCopy;
+    v35 = v14;
+    v24 = date;
+    v36 = v24;
+    v37 = completionCopy;
     v15 = _Block_copy(aBlock);
     objc_initWeak(&location, self);
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __68__MRUOutputContextController_initializeOutputContextWithCompletion___block_invoke_44;
-    v28[3] = &unk_1E76659F0;
-    objc_copyWeak(&v30, &location);
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __68__MRUOutputContextController_initializeOutputContextWithCompletion___block_invoke_44;
+    v29[3] = &unk_1E76659F0;
+    objc_copyWeak(&v31, &location);
     v16 = v15;
-    v29 = v16;
-    v17 = _Block_copy(v28);
+    v30 = v16;
+    v17 = _Block_copy(v29);
     if (initializeOutputContextWithCompletion__onceToken != -1)
     {
       [MRUOutputContextController initializeOutputContextWithCompletion:];
     }
 
-    if ((v17[2](v17) & 1) == 0)
+    v18 = v17[2](v17);
+    if ((v18 & 1) == 0)
     {
-      v18 = _MPAVLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v19 = _MPAVLog(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = @"SharedSystemAudio";
+        v20 = @"SharedSystemAudio";
         if (outputContextType == 2)
         {
-          v19 = @"SharedAudioPresentation";
+          v20 = @"SharedAudioPresentation";
         }
 
         if (outputContextType == 1)
         {
-          v19 = @"SharedSystemScreen";
+          v20 = @"SharedSystemScreen";
         }
 
         *buf = 138543362;
-        v39 = v19;
-        _os_log_impl(&dword_1A20FC000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ unavailable. Retrying", buf, 0xCu);
+        v40 = v20;
+        _os_log_impl(&dword_1A20FC000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ unavailable. Retrying", buf, 0xCu);
       }
 
-      v20 = dispatch_time(0, 1000000000);
-      v21 = initializeOutputContextWithCompletion__workerQueue;
+      v21 = dispatch_time(0, 1000000000);
+      v22 = initializeOutputContextWithCompletion__workerQueue;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __68__MRUOutputContextController_initializeOutputContextWithCompletion___block_invoke_47;
       block[3] = &unk_1E7665A18;
-      v25 = v17;
-      v27 = outputContextType;
-      v26 = v16;
-      dispatch_after(v20, v21, block);
+      v26 = v17;
+      v28 = outputContextType;
+      v27 = v16;
+      dispatch_after(v21, v22, block);
     }
 
-    objc_destroyWeak(&v30);
+    objc_destroyWeak(&v31);
     objc_destroyWeak(&location);
   }
 }
@@ -833,27 +834,28 @@ void __68__MRUOutputContextController_initializeOutputContextWithCompletion___bl
 
 void __68__MRUOutputContextController_initializeOutputContextWithCompletion___block_invoke_47(uint64_t a1)
 {
-  if (((*(*(a1 + 32) + 16))() & 1) == 0)
+  v2 = (*(*(a1 + 32) + 16))();
+  if ((v2 & 1) == 0)
   {
-    v2 = _MPAVLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = _MPAVLog(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __68__MRUOutputContextController_initializeOutputContextWithCompletion___block_invoke_47_cold_1(a1, v2);
+      __68__MRUOutputContextController_initializeOutputContextWithCompletion___block_invoke_47_cold_1(a1, v3);
     }
 
-    v3 = dispatch_time(0, 5000000000);
-    v4 = initializeOutputContextWithCompletion__workerQueue;
+    v4 = dispatch_time(0, 5000000000);
+    v5 = initializeOutputContextWithCompletion__workerQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __68__MRUOutputContextController_initializeOutputContextWithCompletion___block_invoke_48;
     block[3] = &unk_1E7665A18;
-    v5 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v6 = *(a1 + 48);
-    v9 = v5;
-    v11 = v6;
-    v10 = v7;
-    dispatch_after(v3, v4, block);
+    v6 = *(a1 + 32);
+    v8 = *(a1 + 40);
+    v7 = *(a1 + 48);
+    v10 = v6;
+    v12 = v7;
+    v11 = v8;
+    dispatch_after(v4, v5, block);
   }
 }
 
@@ -863,7 +865,7 @@ void __68__MRUOutputContextController_initializeOutputContextWithCompletion___bl
   {
     v2 = objc_alloc(MEMORY[0x1E696ABC0]);
     v3 = [v2 initWithDomain:*MEMORY[0x1E69B0DC0] code:32 userInfo:0];
-    v4 = _MPAVLog();
+    v4 = _MPAVLog(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __68__MRUOutputContextController_initializeOutputContextWithCompletion___block_invoke_48_cold_1(a1, v4);
@@ -875,7 +877,7 @@ void __68__MRUOutputContextController_initializeOutputContextWithCompletion___bl
 
 - (void)mediaServicesWereLostNotification:(id)notification
 {
-  v4 = _MPAVLog();
+  v4 = _MPAVLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -887,7 +889,7 @@ void __68__MRUOutputContextController_initializeOutputContextWithCompletion___bl
 
 - (void)mediaServicesWereResetNotification:(id)notification
 {
-  v4 = _MPAVLog();
+  v4 = _MPAVLog(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

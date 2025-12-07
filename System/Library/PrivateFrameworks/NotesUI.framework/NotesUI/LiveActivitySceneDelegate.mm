@@ -28,7 +28,7 @@
   *(&self->super.super.isa + OBJC_IVAR____TtC7NotesUI25LiveActivitySceneDelegate_systemApertureElementProvider) = 0;
   sub_1D4418134();
   v4.receiver = self;
-  v4.super_class = type metadata accessor for LiveActivitySceneDelegate();
+  v4.super_class = type metadata accessor for LiveActivitySceneDelegate(0);
   return [(LiveActivitySceneDelegate *)&v4 init];
 }
 

@@ -70,25 +70,26 @@ void __54__XBApplicationController__updateStatusBarOrientation__block_invoke(uin
 
 - (void)deleteAllSnapshotsIfScreenSizeChanged
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v4 = [standardUserDefaults stringForKey:@"XBRecentScreenSize"];
   [(FBSDisplayConfiguration *)self->_mainDisplayConfiguration bounds];
-  v14.width = v5;
-  v14.height = v6;
-  v7 = NSStringFromCGSize(v14);
-  if (([v4 isEqualToString:v7] & 1) == 0)
+  v15.width = v5;
+  v15.height = v6;
+  v7 = NSStringFromCGSize(v15);
+  v8 = [v4 isEqualToString:v7];
+  if ((v8 & 1) == 0)
   {
     if (v4)
     {
-      v8 = XBLogFileManifest();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = XBLogFileManifest(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 138543618;
-        v10 = v4;
-        v11 = 2114;
-        v12 = v7;
-        _os_log_impl(&dword_26B5EF000, v8, OS_LOG_TYPE_DEFAULT, "Screen size changed from %{public}@ to %{public}@, purging all generated launch image and snapshots.", &v9, 0x16u);
+        v10 = 138543618;
+        v11 = v4;
+        v12 = 2114;
+        v13 = v7;
+        _os_log_impl(&dword_26B5EF000, v9, OS_LOG_TYPE_DEFAULT, "Screen size changed from %{public}@ to %{public}@, purging all generated launch image and snapshots.", &v10, 0x16u);
       }
 
       [(XBApplicationController *)self _removeAllGeneratedLaunchImagesAndSnapshots];
@@ -104,8 +105,7 @@ void __54__XBApplicationController__updateStatusBarOrientation__block_invoke(uin
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   if ([standardUserDefaults BOOLForKey:@"XBCaptureLaunchImagesPostMigration"])
   {
-    [standardUserDefaults setObject:MEMORY[0x277CBEC28] forKey:@"XBCaptureLaunchImagesPostMigration"];
-    v4 = XBLogFileManifest();
+    v4 = XBLogFileManifest([standardUserDefaults setObject:MEMORY[0x277CBEC28] forKey:@"XBCaptureLaunchImagesPostMigration"]);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -188,7 +188,7 @@ void __68__XBApplicationController_performPostMigrationLaunchImageGeneration__bl
 void __68__XBApplicationController_performPostMigrationLaunchImageGeneration__block_invoke_2(uint64_t a1)
 {
   v11 = *MEMORY[0x277D85DE8];
-  v2 = XBLogFileManifest();
+  v2 = XBLogFileManifest(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) bundleIdentifier];
@@ -210,103 +210,106 @@ void __68__XBApplicationController_performPostMigrationLaunchImageGeneration__bl
 
 - (void)_deleteLegacyCachesSnapshotPathsIfNeeded
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = XBLegacyCachesSnapshotPathForNonSandboxedSystemApplicationsExists();
-  allInstalledApplications = XBLogFileManifest();
-  v5 = os_log_type_enabled(allInstalledApplications, OS_LOG_TYPE_DEFAULT);
-  if (v3)
+  v4 = v3;
+  allInstalledApplications = XBLogFileManifest(v3);
+  v6 = os_log_type_enabled(allInstalledApplications, OS_LOG_TYPE_DEFAULT);
+  if (v4)
   {
-    if (v5)
+    if (v6)
     {
       *buf = 0;
       _os_log_impl(&dword_26B5EF000, allInstalledApplications, OS_LOG_TYPE_DEFAULT, "Start purging legacy snapshots caches...", buf, 2u);
     }
 
     allInstalledApplications = [(XBApplicationProviding *)self->_applicationProvider allInstalledApplications];
-    v20 = 0u;
-    v21 = 0u;
-    v22 = 0u;
-    v23 = 0u;
-    v6 = [allInstalledApplications countByEnumeratingWithState:&v20 objects:v26 count:16];
-    if (v6)
+    v24 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v7 = [allInstalledApplications countByEnumeratingWithState:&v24 objects:v30 count:16];
+    if (v7)
     {
-      v8 = v6;
-      v9 = *v21;
-      *&v7 = 138543362;
-      v19 = v7;
+      v9 = v7;
+      v10 = *v25;
+      *&v8 = 138543362;
+      v23 = v8;
       do
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v21 != v9)
+          if (*v25 != v10)
           {
             objc_enumerationMutation(allInstalledApplications);
           }
 
-          v11 = *(*(&v20 + 1) + 8 * i);
-          dataContainerURL = [v11 dataContainerURL];
+          v12 = *(*(&v24 + 1) + 8 * i);
+          dataContainerURL = [v12 dataContainerURL];
           if (dataContainerURL)
           {
-            if (!XBDeleteLegacyCachesSnapshotPathForSandboxedApplicationIfNeeded(v11))
+            v14 = XBDeleteLegacyCachesSnapshotPathForSandboxedApplicationIfNeeded(v12);
+            if (!v14)
             {
               goto LABEL_18;
             }
 
-            v13 = XBLogFileManifest();
-            if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+            v15 = XBLogFileManifest(v14);
+            if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_17;
             }
 
-            bundleIdentifier = [v11 bundleIdentifier];
-            *buf = v19;
-            v25 = bundleIdentifier;
-            v15 = v13;
-            v16 = "Purging legacy caches of sandboxed app snapshots for: %{public}@";
+            bundleIdentifier = [v12 bundleIdentifier];
+            *buf = v23;
+            v29 = bundleIdentifier;
+            v17 = v15;
+            v18 = "Purging legacy caches of sandboxed app snapshots for: %{public}@";
             goto LABEL_16;
           }
 
-          if (!XBDeleteLegacyCachesSnapshotPathForNonSandboxedApplicationIfNeeded(v11))
+          v19 = XBDeleteLegacyCachesSnapshotPathForNonSandboxedApplicationIfNeeded(v12);
+          if (!v19)
           {
             goto LABEL_18;
           }
 
-          v13 = XBLogFileManifest();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v15 = XBLogFileManifest(v19);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
-            bundleIdentifier = [v11 bundleIdentifier];
-            *buf = v19;
-            v25 = bundleIdentifier;
-            v15 = v13;
-            v16 = "Purging legacy caches of snapshots for non-sandboxed system app: %{public}@";
+            bundleIdentifier = [v12 bundleIdentifier];
+            *buf = v23;
+            v29 = bundleIdentifier;
+            v17 = v15;
+            v18 = "Purging legacy caches of snapshots for non-sandboxed system app: %{public}@";
 LABEL_16:
-            _os_log_impl(&dword_26B5EF000, v15, OS_LOG_TYPE_DEFAULT, v16, buf, 0xCu);
+            _os_log_impl(&dword_26B5EF000, v17, OS_LOG_TYPE_DEFAULT, v18, buf, 0xCu);
           }
 
 LABEL_17:
 
-          v17 = [[XBApplicationSnapshotManifest alloc] initWithApplicationInfo:v11];
-          [(XBApplicationSnapshotManifest *)v17 deleteAllSnapshots];
+          v20 = [[XBApplicationSnapshotManifest alloc] initWithApplicationInfo:v12];
+          [(XBApplicationSnapshotManifest *)v20 deleteAllSnapshots];
 
 LABEL_18:
         }
 
-        v8 = [allInstalledApplications countByEnumeratingWithState:&v20 objects:v26 count:16];
+        v9 = [allInstalledApplications countByEnumeratingWithState:&v24 objects:v30 count:16];
       }
 
-      while (v8);
+      while (v9);
     }
 
     XBDeleteLegacyCachesSnapshotPathForNonSandboxedApplicationsIfNeeded();
-    v18 = XBLogFileManifest();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v22 = XBLogFileManifest(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_26B5EF000, v18, OS_LOG_TYPE_DEFAULT, "Finished purging", buf, 2u);
+      _os_log_impl(&dword_26B5EF000, v22, OS_LOG_TYPE_DEFAULT, "Finished purging", buf, 2u);
     }
   }
 
-  else if (v5)
+  else if (v6)
   {
     *buf = 0;
     _os_log_impl(&dword_26B5EF000, allInstalledApplications, OS_LOG_TYPE_DEFAULT, "No legacy snapshots caches to purge", buf, 2u);
@@ -408,18 +411,18 @@ uint64_t __99__XBApplicationController_captureOrUpdateLaunchImagesForApplication
 
 void __133__XBApplicationController__captureOrUpdateLaunchImagesForApplications_firstImageIsReady_createCaptureInfo_completionWithCaptureInfo___block_invoke(uint64_t a1)
 {
-  v64 = *MEMORY[0x277D85DE8];
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x3032000000;
-  v56 = __Block_byref_object_copy_;
-  v57 = __Block_byref_object_dispose_;
-  v58 = 0;
+  v67 = *MEMORY[0x277D85DE8];
+  v56 = 0;
+  v57 = &v56;
+  v58 = 0x3032000000;
+  v59 = __Block_byref_object_copy_;
+  v60 = __Block_byref_object_dispose_;
+  v61 = 0;
   if (*(a1 + 64) == 1)
   {
     v2 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
-    v3 = v54[5];
-    v54[5] = v2;
+    v3 = v57[5];
+    v57[5] = v2;
   }
 
   if (*(a1 + 48))
@@ -434,117 +437,118 @@ void __133__XBApplicationController__captureOrUpdateLaunchImagesForApplications_
 
   v5 = MEMORY[0x277CF0BA0];
   v6 = [*(a1 + 32) count];
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __133__XBApplicationController__captureOrUpdateLaunchImagesForApplications_firstImageIsReady_createCaptureInfo_completionWithCaptureInfo___block_invoke_88;
-  v49[3] = &unk_279CF9318;
-  v32 = v4;
-  v50 = v32;
-  v51 = *(a1 + 56);
-  v52 = &v53;
-  v7 = [v5 sentinelWithQueue:0 signalCount:v6 + 1 completion:v49];
-  v47 = 0u;
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __133__XBApplicationController__captureOrUpdateLaunchImagesForApplications_firstImageIsReady_createCaptureInfo_completionWithCaptureInfo___block_invoke_88;
+  v52[3] = &unk_279CF9318;
+  v35 = v4;
+  v53 = v35;
+  v54 = *(a1 + 56);
+  v55 = &v56;
+  v7 = [v5 sentinelWithQueue:0 signalCount:v6 + 1 completion:v52];
+  v50 = 0u;
+  v51 = 0u;
   v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v34 = a1;
+  v49 = 0u;
+  v37 = a1;
   obj = *(a1 + 32);
-  v8 = [obj countByEnumeratingWithState:&v45 objects:v63 count:16];
-  v37 = v7;
+  v8 = [obj countByEnumeratingWithState:&v48 objects:v66 count:16];
+  v40 = v7;
   if (v8)
   {
-    v36 = *v46;
+    v39 = *v49;
     *&v9 = 138543362;
-    v31 = v9;
+    v34 = v9;
     do
     {
       v10 = 0;
       do
       {
-        if (*v46 != v36)
+        if (*v49 != v39)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v45 + 1) + 8 * v10);
+        v11 = *(*(&v48 + 1) + 8 * v10);
         v12 = [v11 bundleIdentifier];
         v13 = [v11 bundleURL];
         v14 = [v13 path];
 
-        v44 = 0;
+        v47 = 0;
         if (v14)
         {
-          v15 = [MEMORY[0x277CCAA00] defaultManager];
-          if ([v15 fileExistsAtPath:v14 isDirectory:&v44])
+          v16 = [MEMORY[0x277CCAA00] defaultManager];
+          if ([v16 fileExistsAtPath:v14 isDirectory:&v47])
           {
-            v16 = v44;
+            v17 = v47;
 
-            if (v16)
+            if (v17)
             {
-              v17 = +[XBApplicationDataStore sharedInstance];
-              [v17 beginAccessBlockForBundleIdentifier:v12];
-              [v17 _clearCompatibilityInfoForBundleIdentifier:v12];
-              v18 = [XBApplicationLaunchCompatibilityInfo compatibilityInfoForAppInfo:v11];
-              if ([v18 allowsSavingLaunchImages])
+              v18 = +[XBApplicationDataStore sharedInstance];
+              [v18 beginAccessBlockForBundleIdentifier:v12];
+              [v18 _clearCompatibilityInfoForBundleIdentifier:v12];
+              v19 = [XBApplicationLaunchCompatibilityInfo compatibilityInfoForAppInfo:v11];
+              v20 = [v19 allowsSavingLaunchImages];
+              if (v20)
               {
-                v19 = [[XBApplicationSnapshotManifest alloc] initWithApplicationInfo:v11];
-                v20 = [(XBApplicationSnapshotManifest *)v19 defaultGroupIdentifier];
-                [v18 setDefaultGroupIdentifier:v20];
+                v21 = [[XBApplicationSnapshotManifest alloc] initWithApplicationInfo:v11];
+                v22 = [(XBApplicationSnapshotManifest *)v21 defaultGroupIdentifier];
+                [v19 setDefaultGroupIdentifier:v22];
 
-                v21 = *(v34 + 40);
-                v22 = v21[3];
-                v23 = [v21 _launchRequestsForApplication:v11 withCompatibilityInfo:v18];
-                v24 = [v22 launchRequestsForApplication:v11 withCompatibilityInfo:v18 defaultLaunchRequests:v23];
+                v23 = *(v37 + 40);
+                v24 = v23[3];
+                v25 = [v23 _launchRequestsForApplication:v11 withCompatibilityInfo:v19];
+                v26 = [v24 launchRequestsForApplication:v11 withCompatibilityInfo:v19 defaultLaunchRequests:v25];
 
-                if (v19 && [v24 count])
+                if (v21 && (v27 = [v26 count]) != 0)
                 {
-                  v25 = +[XBLaunchImageProvider sharedInstance];
-                  v33 = *(v34 + 64);
-                  v42[0] = MEMORY[0x277D85DD0];
-                  v42[1] = 3221225472;
-                  v42[2] = __133__XBApplicationController__captureOrUpdateLaunchImagesForApplications_firstImageIsReady_createCaptureInfo_completionWithCaptureInfo___block_invoke_2;
-                  v42[3] = &unk_279CF9280;
-                  v43 = v32;
-                  v38[0] = MEMORY[0x277D85DD0];
-                  v38[1] = 3221225472;
-                  v38[2] = __133__XBApplicationController__captureOrUpdateLaunchImagesForApplications_firstImageIsReady_createCaptureInfo_completionWithCaptureInfo___block_invoke_3;
-                  v38[3] = &unk_279CF9340;
-                  v41 = &v53;
-                  v38[4] = v11;
-                  v26 = v19;
-                  v39 = v26;
-                  v40 = v37;
-                  [v25 captureLaunchImageForManifest:v26 withCompatibilityInfo:v18 launchRequests:v24 createCaptureInfo:v33 firstImageIsReady:v42 withCompletionHandler:v38];
+                  v28 = +[XBLaunchImageProvider sharedInstance];
+                  v36 = *(v37 + 64);
+                  v45[0] = MEMORY[0x277D85DD0];
+                  v45[1] = 3221225472;
+                  v45[2] = __133__XBApplicationController__captureOrUpdateLaunchImagesForApplications_firstImageIsReady_createCaptureInfo_completionWithCaptureInfo___block_invoke_2;
+                  v45[3] = &unk_279CF9280;
+                  v46 = v35;
+                  v41[0] = MEMORY[0x277D85DD0];
+                  v41[1] = 3221225472;
+                  v41[2] = __133__XBApplicationController__captureOrUpdateLaunchImagesForApplications_firstImageIsReady_createCaptureInfo_completionWithCaptureInfo___block_invoke_3;
+                  v41[3] = &unk_279CF9340;
+                  v44 = &v56;
+                  v41[4] = v11;
+                  v29 = v21;
+                  v42 = v29;
+                  v43 = v40;
+                  [v28 captureLaunchImageForManifest:v29 withCompatibilityInfo:v19 launchRequests:v26 createCaptureInfo:v36 firstImageIsReady:v45 withCompletionHandler:v41];
                 }
 
                 else
                 {
-                  v29 = XBLogCapture();
-                  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+                  v32 = XBLogCapture(v27);
+                  if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
                   {
-                    *buf = v31;
-                    v60 = v12;
-                    _os_log_error_impl(&dword_26B5EF000, v29, OS_LOG_TYPE_ERROR, "Failed to capture launch image snapshot due to missing manifest or launchRequests for %{public}@", buf, 0xCu);
+                    *buf = v34;
+                    v63 = v12;
+                    _os_log_error_impl(&dword_26B5EF000, v32, OS_LOG_TYPE_ERROR, "Failed to capture launch image snapshot due to missing manifest or launchRequests for %{public}@", buf, 0xCu);
                   }
 
-                  [v37 signal];
+                  [v40 signal];
                 }
               }
 
               else
               {
-                v28 = XBLogCapture();
-                if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+                v31 = XBLogCapture(v20);
+                if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
                 {
-                  *buf = v31;
-                  v60 = v12;
-                  _os_log_error_impl(&dword_26B5EF000, v28, OS_LOG_TYPE_ERROR, "Unable to generate launch image for %{public}@ because the app has no valid launch interfaces.", buf, 0xCu);
+                  *buf = v34;
+                  v63 = v12;
+                  _os_log_error_impl(&dword_26B5EF000, v31, OS_LOG_TYPE_ERROR, "Unable to generate launch image for %{public}@ because the app has no valid launch interfaces.", buf, 0xCu);
                 }
 
-                [v37 signal];
+                [v40 signal];
               }
 
-              [v17 endAccessBlockForBundleIdentifier:v12];
+              [v18 endAccessBlockForBundleIdentifier:v12];
 
               goto LABEL_22;
             }
@@ -555,32 +559,32 @@ void __133__XBApplicationController__captureOrUpdateLaunchImagesForApplications_
           }
         }
 
-        v27 = XBLogCapture();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v30 = XBLogCapture(v15);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v60 = v12;
-          v61 = 2114;
-          v62 = v14;
-          _os_log_error_impl(&dword_26B5EF000, v27, OS_LOG_TYPE_ERROR, "Unable to generate launch image for %{public}@ because the provided bundle path does not exist: %{public}@", buf, 0x16u);
+          v63 = v12;
+          v64 = 2114;
+          v65 = v14;
+          _os_log_error_impl(&dword_26B5EF000, v30, OS_LOG_TYPE_ERROR, "Unable to generate launch image for %{public}@ because the provided bundle path does not exist: %{public}@", buf, 0x16u);
         }
 
-        [v37 signal];
+        [v40 signal];
 LABEL_22:
 
         ++v10;
       }
 
       while (v8 != v10);
-      v30 = [obj countByEnumeratingWithState:&v45 objects:v63 count:16];
-      v8 = v30;
+      v33 = [obj countByEnumeratingWithState:&v48 objects:v66 count:16];
+      v8 = v33;
     }
 
-    while (v30);
+    while (v33);
   }
 
-  [v37 signal];
-  _Block_object_dispose(&v53, 8);
+  [v40 signal];
+  _Block_object_dispose(&v56, 8);
 }
 
 uint64_t __133__XBApplicationController__captureOrUpdateLaunchImagesForApplications_firstImageIsReady_createCaptureInfo_completionWithCaptureInfo___block_invoke_88(uint64_t a1)
@@ -709,7 +713,7 @@ void __133__XBApplicationController__captureOrUpdateLaunchImagesForApplications_
   while (v18 != 4);
   if (![array count])
   {
-    v31 = XBLogCapture();
+    v31 = XBLogCapture(0);
     if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       [XBApplicationController _launchRequestsForApplication:v33 withCompatibilityInfo:v31];
@@ -733,7 +737,7 @@ void __133__XBApplicationController__captureOrUpdateLaunchImagesForApplications_
   v18 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   applicationsCopy = applications;
-  v9 = XBLogFileManifest();
+  v9 = XBLogFileManifest(applicationsCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = [predicateCopy descriptionWithMultilinePrefix:@"\t"];

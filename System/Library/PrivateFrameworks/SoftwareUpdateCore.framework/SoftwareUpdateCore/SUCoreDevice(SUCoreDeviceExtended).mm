@@ -109,13 +109,11 @@ LABEL_17:
 
 - (void)rootVolumeSealValid
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_23193C000, v2, v3, "[SUCoreDevice] RootVolumeSealValid: Root hash evaluation failed (%d: %s)", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_23193C000, v1, v2, "[SUCoreDevice] RootVolumeSealValid: Root hash evaluation failed (%d: %s)", v3, v4, v5, v6);
 }
 
 @end

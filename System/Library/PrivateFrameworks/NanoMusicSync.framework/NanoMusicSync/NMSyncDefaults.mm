@@ -42,6 +42,7 @@
 - (void)_removeObjectForKey:(id)key;
 - (void)_removeOldMusicRecommendationsInfoIfPossible;
 - (void)_resetDomainAccessor;
+- (void)_setBool:(BOOL)bool forKey:(id)key;
 - (void)_setLastSyncInfoRequestDate:(id)date prefix:(id)prefix forBundleIdentifier:(id)identifier;
 - (void)_setLegacyObject:(id)object forKey:(id)key ifRemoteDeviceMissingCapability:(id)capability;
 - (void)_setNeedsSynchronize;
@@ -93,9 +94,11 @@
 
 uint64_t __32__NMSyncDefaults_sharedDefaults__block_invoke()
 {
-  sharedDefaults___sharedDefaults = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedDefaults___sharedDefaults;
+  sharedDefaults___sharedDefaults = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (NMSyncDefaults)init
@@ -118,7 +121,7 @@ uint64_t __32__NMSyncDefaults_sharedDefaults__block_invoke()
 
 - (void)_reloadPropertiesFromDefaults
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   [(NMSyncDefaults *)self _migrateDataIfNecessary];
   _companionSidePerDeviceDefaults = [(NMSyncDefaults *)self _companionSidePerDeviceDefaults];
   synchronize = [_companionSidePerDeviceDefaults synchronize];
@@ -168,24 +171,22 @@ uint64_t __32__NMSyncDefaults_sharedDefaults__block_invoke()
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       v25 = self->_pairingID;
-      v27 = 138412546;
-      v28 = v25;
-      v29 = 2112;
-      v30 = uUIDString;
-      _os_log_impl(&dword_25B27B000, v24, OS_LOG_TYPE_DEFAULT, "[NMSyncDefaults] The pairing ID changed from %@ to %@; clearing pairing-specific defaults!", &v27, 0x16u);
+      v26 = 138412546;
+      v27 = v25;
+      v28 = 2112;
+      v29 = uUIDString;
+      _os_log_impl(&dword_25B27B000, v24, OS_LOG_TYPE_DEFAULT, "[NMSyncDefaults] The pairing ID changed from %@ to %@; clearing pairing-specific defaults!", &v26, 0x16u);
     }
 
     objc_storeStrong(&self->_pairingID, uUIDString);
     [(NMSyncDefaults *)self _clearAssetSyncPlaylistDependentDefaults];
     [(NMSyncDefaults *)self _writePropertiesToDefaults];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_migrateDataIfNecessary
 {
-  v122[1] = *MEMORY[0x277D85DE8];
+  v121[1] = *MEMORY[0x277D85DE8];
   [(NMSyncDefaults *)self beginBatchUpdates];
   _companionSidePerDeviceDefaults = [(NMSyncDefaults *)self _companionSidePerDeviceDefaults];
   v4 = [_companionSidePerDeviceDefaults objectForKey:@"SyncDataMigrationRevision"];
@@ -300,8 +301,8 @@ uint64_t __32__NMSyncDefaults_sharedDefaults__block_invoke()
       v35 = [_companionSidePerDeviceDefaults objectForKey:@"SyncPlaylistID"];
       if (v35 && (v36 = v35, [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v35, "longLongValue")}], v37 = objc_claimAutoreleasedReturnValue(), v36, v37))
       {
-        v122[0] = v37;
-        array = [MEMORY[0x277CBEA60] arrayWithObjects:v122 count:1];
+        v121[0] = v37;
+        array = [MEMORY[0x277CBEA60] arrayWithObjects:v121 count:1];
       }
 
       else
@@ -321,9 +322,9 @@ uint64_t __32__NMSyncDefaults_sharedDefaults__block_invoke()
 
     if (assetSyncLimitType == 1)
     {
-      v118 = 0;
-      v40 = [_companionSidePerDeviceDefaults integerForKey:@"SyncAmount" keyExistsAndHasValidFormat:&v118];
-      if (v118)
+      v117 = 0;
+      v40 = [_companionSidePerDeviceDefaults integerForKey:@"SyncAmount" keyExistsAndHasValidFormat:&v117];
+      if (v117)
       {
         unsignedIntegerValue = v40;
       }
@@ -351,7 +352,7 @@ uint64_t __32__NMSyncDefaults_sharedDefaults__block_invoke()
     v8 = 1;
   }
 
-  v109 = v6;
+  v108 = v6;
   if ([v4 unsignedIntegerValue] <= 3)
   {
     [_companionSidePerDeviceDefaults setObject:&unk_286C8D598 forKey:@"SyncDataMigrationRevision"];
@@ -367,15 +368,15 @@ uint64_t __32__NMSyncDefaults_sharedDefaults__block_invoke()
     {
       v51 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v49, "count")}];
       v52 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v50, "count")}];
-      v115[0] = MEMORY[0x277D85DD0];
-      v115[1] = 3221225472;
-      v115[2] = __41__NMSyncDefaults__migrateDataIfNecessary__block_invoke;
-      v115[3] = &unk_27993E810;
-      v116 = v51;
-      v117 = v52;
+      v114[0] = MEMORY[0x277D85DD0];
+      v114[1] = 3221225472;
+      v114[2] = __41__NMSyncDefaults__migrateDataIfNecessary__block_invoke;
+      v114[3] = &unk_27993E810;
+      v115 = v51;
+      v116 = v52;
       v53 = v52;
       v54 = v51;
-      [v50 enumerateKeysAndObjectsUsingBlock:v115];
+      [v50 enumerateKeysAndObjectsUsingBlock:v114];
       [_companionSidePerDeviceDefaults setObject:v54 forKey:@"StoreMusicRecommendations"];
       [_companionSidePerDeviceDefaults setObject:v53 forKey:@"StoreMusicRecommendationsToExclude"];
     }
@@ -390,8 +391,8 @@ uint64_t __32__NMSyncDefaults_sharedDefaults__block_invoke()
 
       else
       {
-        v121 = @"UsesSplitMusicRecommendations";
-        [MEMORY[0x277CBEA60] arrayWithObjects:&v121 count:1];
+        v120 = @"UsesSplitMusicRecommendations";
+        [MEMORY[0x277CBEA60] arrayWithObjects:&v120 count:1];
       }
       v56 = ;
       [_companionSidePerDeviceDefaults setObject:v56 forKey:@"PhoneDefaultsCapabilities"];
@@ -421,32 +422,32 @@ uint64_t __32__NMSyncDefaults_sharedDefaults__block_invoke()
   [_companionSidePerDeviceDefaults setObject:v63 forKey:@"ModDate"];
 
   [_companionSidePerDeviceDefaults objectForKey:@"StoreMusicRecommendations"];
+  v110 = 0u;
   v111 = 0u;
   v112 = 0u;
-  v113 = 0u;
-  v64 = v114 = 0u;
-  v65 = [v64 countByEnumeratingWithState:&v111 objects:v120 count:16];
+  v64 = v113 = 0u;
+  v65 = [v64 countByEnumeratingWithState:&v110 objects:v119 count:16];
   if (v65)
   {
     v66 = v65;
-    v67 = *v112;
+    v67 = *v111;
     while (2)
     {
       for (i = 0; i != v66; ++i)
       {
-        if (*v112 != v67)
+        if (*v111 != v67)
         {
           objc_enumerationMutation(v64);
         }
 
-        if ([*(*(&v111 + 1) + 8 * i) isEqualToString:@"HeavyRotation"])
+        if ([*(*(&v110 + 1) + 8 * i) isEqualToString:@"HeavyRotation"])
         {
           array2 = v64;
           goto LABEL_65;
         }
       }
 
-      v66 = [v64 countByEnumeratingWithState:&v111 objects:v120 count:16];
+      v66 = [v64 countByEnumeratingWithState:&v110 objects:v119 count:16];
       if (v66)
       {
         continue;
@@ -520,14 +521,14 @@ LABEL_66:
       v87 = [v85 numberWithDouble:?];
       [_companionSidePerDeviceDefaults setObject:v87 forKey:@"ModDate"];
 
-      v107 = [(NMSyncDefaults *)self _objectForKey:@"WorkoutPlaylist"];
-      v106 = [(NMSyncDefaults *)self _objectForKey:@"PinnedPlaylists"];
+      v106 = [(NMSyncDefaults *)self _objectForKey:@"WorkoutPlaylist"];
+      v105 = [(NMSyncDefaults *)self _objectForKey:@"PinnedPlaylists"];
       v88 = [(NMSyncDefaults *)self _objectForKey:@"PinnedAlbums"];
       v89 = [(NMSyncDefaults *)self _objectForKey:@"LibraryRecommendationPlaylists"];
       v90 = [(NMSyncDefaults *)self _objectForKey:@"LibraryRecommendationAlbums"];
-      [MEMORY[0x277D2B598] midDataFromPlaylistPID:v107];
-      v91 = v108 = v4;
-      v92 = [MEMORY[0x277D2B598] midDataArrayFromPlaylistPIDs:v106];
+      [MEMORY[0x277D2B598] midDataFromPlaylistPID:v106];
+      v91 = v107 = v4;
+      v92 = [MEMORY[0x277D2B598] midDataArrayFromPlaylistPIDs:v105];
       v93 = [MEMORY[0x277D2B598] midDataArrayFromAlbumPIDs:v88];
       v94 = [MEMORY[0x277D2B598] midDataArrayFromPlaylistPIDs:v89];
       v95 = [MEMORY[0x277D2B598] midDataArrayFromAlbumPIDs:v90];
@@ -538,7 +539,7 @@ LABEL_66:
       [(NMSyncDefaults *)self _setObject:v95 forKey:@"LibraryRecommendationAlbumMIDs"];
       [(NMSyncDefaults *)self _addPhoneCapability:@"UsesMultiverseIdentifiers"];
 
-      v4 = v108;
+      v4 = v107;
       v8 = 1;
     }
 
@@ -574,7 +575,7 @@ LABEL_66:
       v8 = 1;
     }
 
-    v6 = v109;
+    v6 = v108;
   }
 
   else
@@ -607,8 +608,6 @@ LABEL_81:
 
 LABEL_82:
   [(NMSyncDefaults *)self endBatchUpdates];
-
-  v105 = *MEMORY[0x277D85DE8];
 }
 
 void __41__NMSyncDefaults__migrateDataIfNecessary__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -641,71 +640,71 @@ void __41__NMSyncDefaults__migrateDataIfNecessary__block_invoke(uint64_t a1, voi
 
 - (NSDictionary)musicRecommendationDict
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = [(NMSyncDefaults *)self _objectForKey:@"StoreMusicRecommendations"];
   v4 = [(NMSyncDefaults *)self _objectForKey:@"StoreMusicRecommendationsToExclude"];
   v5 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v3, "count")}];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v6 = v3;
-  v7 = [v6 countByEnumeratingWithState:&v29 objects:v36 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v28 objects:v35 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v30;
+    v9 = *v29;
     v10 = MEMORY[0x277CBEC38];
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [v5 setObject:v10 forKeyedSubscript:*(*(&v29 + 1) + 8 * i)];
+        [v5 setObject:v10 forKeyedSubscript:*(*(&v28 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v29 objects:v36 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v28 objects:v35 count:16];
     }
 
     while (v8);
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v12 = v4;
-  v13 = [v12 countByEnumeratingWithState:&v25 objects:v35 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v24 objects:v34 count:16];
   if (v13)
   {
     v15 = v13;
-    v16 = *v26;
+    v16 = *v25;
     *&v14 = 138412290;
-    v24 = v14;
+    v23 = v14;
     v17 = MEMORY[0x277CBEC28];
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v26 != v16)
+        if (*v25 != v16)
         {
           objc_enumerationMutation(v12);
         }
 
-        v19 = *(*(&v25 + 1) + 8 * j);
-        v20 = [v5 objectForKeyedSubscript:{v19, v24, v25}];
+        v19 = *(*(&v24 + 1) + 8 * j);
+        v20 = [v5 objectForKeyedSubscript:{v19, v23, v24}];
 
         if (!v20)
         {
           v21 = NMLogForCategory(5);
           if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v24;
-            v34 = v19;
+            *buf = v23;
+            v33 = v19;
             _os_log_impl(&dword_25B27B000, v21, OS_LOG_TYPE_DEFAULT, "[NMSyncDefaults] StoreMusicRecommendations does NOT contain excluded recommendation: %@!", buf, 0xCu);
           }
         }
@@ -713,13 +712,11 @@ void __41__NMSyncDefaults__migrateDataIfNecessary__block_invoke(uint64_t a1, voi
         [v5 setObject:v17 forKeyedSubscript:v19];
       }
 
-      v15 = [v12 countByEnumeratingWithState:&v25 objects:v35 count:16];
+      v15 = [v12 countByEnumeratingWithState:&v24 objects:v34 count:16];
     }
 
     while (v15);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -920,7 +917,7 @@ void __29__NMSyncDefaults_description__block_invoke_2(uint64_t a1, void *a2, voi
 
 - (void)_setupNotifiers
 {
-  v101[33] = *MEMORY[0x277D85DE8];
+  v100[33] = *MEMORY[0x277D85DE8];
   v3 = [[NMSNotificationDispatcher alloc] initWithNotificationName:@"com.apple.nanomusicsync.settings"];
   settingsNotifier = self->_settingsNotifier;
   self->_settingsNotifier = v3;
@@ -967,149 +964,147 @@ void __29__NMSyncDefaults_description__block_invoke_2(uint64_t a1, void *a2, voi
   self->_syncInfoRequestDateNotifier = v23;
 
   [(NMSNotificationDispatcher *)self->_syncInfoRequestDateNotifier setDelegate:self];
-  v99 = self->_musicPinningSelectionsNotifier;
-  v100[0] = @"PinnedPlaylistMIDs";
-  v66 = [MEMORY[0x277CBEA60] arrayWithObjects:&v99 count:1];
-  v101[0] = v66;
-  v100[1] = @"WorkoutPlaylistMID";
   v98 = self->_musicPinningSelectionsNotifier;
+  v99[0] = @"PinnedPlaylistMIDs";
   v65 = [MEMORY[0x277CBEA60] arrayWithObjects:&v98 count:1];
-  v101[1] = v65;
-  v100[2] = @"PinnedAlbumMIDs";
+  v100[0] = v65;
+  v99[1] = @"WorkoutPlaylistMID";
   v97 = self->_musicPinningSelectionsNotifier;
   v64 = [MEMORY[0x277CBEA60] arrayWithObjects:&v97 count:1];
-  v101[2] = v64;
-  v100[3] = @"LibraryRecommendationPlaylistMIDs";
-  v96 = self->_libraryRecoNotifier;
+  v100[1] = v64;
+  v99[2] = @"PinnedAlbumMIDs";
+  v96 = self->_musicPinningSelectionsNotifier;
   v63 = [MEMORY[0x277CBEA60] arrayWithObjects:&v96 count:1];
-  v101[3] = v63;
-  v100[4] = @"LibraryRecommendationAlbumMIDs";
+  v100[2] = v63;
+  v99[3] = @"LibraryRecommendationPlaylistMIDs";
   v95 = self->_libraryRecoNotifier;
   v62 = [MEMORY[0x277CBEA60] arrayWithObjects:&v95 count:1];
-  v101[4] = v62;
-  v100[5] = @"StoreMusicRecommendations";
-  v94 = self->_recoSelectionsNotifier;
+  v100[3] = v62;
+  v99[4] = @"LibraryRecommendationAlbumMIDs";
+  v94 = self->_libraryRecoNotifier;
   v61 = [MEMORY[0x277CBEA60] arrayWithObjects:&v94 count:1];
-  v101[5] = v61;
-  v100[6] = @"StoreMusicRecommendationsToExclude";
+  v100[4] = v61;
+  v99[5] = @"StoreMusicRecommendations";
   v93 = self->_recoSelectionsNotifier;
   v60 = [MEMORY[0x277CBEA60] arrayWithObjects:&v93 count:1];
-  v101[6] = v60;
-  v100[7] = @"CachedRecommendationsData";
-  v92 = self->_storeRecoNotifier;
+  v100[5] = v60;
+  v99[6] = @"StoreMusicRecommendationsToExclude";
+  v92 = self->_recoSelectionsNotifier;
   v59 = [MEMORY[0x277CBEA60] arrayWithObjects:&v92 count:1];
-  v101[7] = v59;
-  v100[8] = @"PodcastsUpNextDownloadSettings";
-  v91 = self->_podcastsPinningSelectionsNotifier;
+  v100[6] = v59;
+  v99[7] = @"CachedRecommendationsData";
+  v91 = self->_storeRecoNotifier;
   v58 = [MEMORY[0x277CBEA60] arrayWithObjects:&v91 count:1];
-  v101[8] = v58;
-  v100[9] = @"PodcastsSavedEpisodesDownloadSettings";
+  v100[7] = v58;
+  v99[8] = @"PodcastsUpNextDownloadSettings";
   v90 = self->_podcastsPinningSelectionsNotifier;
   v57 = [MEMORY[0x277CBEA60] arrayWithObjects:&v90 count:1];
-  v101[9] = v57;
-  v100[10] = @"PodcastsStationDownloadSettings";
+  v100[8] = v57;
+  v99[9] = @"PodcastsSavedEpisodesDownloadSettings";
   v89 = self->_podcastsPinningSelectionsNotifier;
   v56 = [MEMORY[0x277CBEA60] arrayWithObjects:&v89 count:1];
-  v101[10] = v56;
-  v100[11] = @"PodcastsShowDownloadSettings";
+  v100[9] = v56;
+  v99[10] = @"PodcastsStationDownloadSettings";
   v88 = self->_podcastsPinningSelectionsNotifier;
   v55 = [MEMORY[0x277CBEA60] arrayWithObjects:&v88 count:1];
-  v101[11] = v55;
-  v100[12] = @"PinnedAudiobooks";
-  v87 = self->_audiobooksPinningSelectionsNotifier;
+  v100[10] = v55;
+  v99[11] = @"PodcastsShowDownloadSettings";
+  v87 = self->_podcastsPinningSelectionsNotifier;
   v54 = [MEMORY[0x277CBEA60] arrayWithObjects:&v87 count:1];
-  v101[12] = v54;
-  v100[13] = @"WantToReadEnabled";
+  v100[11] = v54;
+  v99[12] = @"PinnedAudiobooks";
   v86 = self->_audiobooksPinningSelectionsNotifier;
   v53 = [MEMORY[0x277CBEA60] arrayWithObjects:&v86 count:1];
-  v101[13] = v53;
-  v100[14] = @"WantToReadAudiobooks";
-  v85 = self->_audiobooksRecommendationsNotifier;
+  v100[12] = v53;
+  v99[13] = @"WantToReadEnabled";
+  v85 = self->_audiobooksPinningSelectionsNotifier;
   v52 = [MEMORY[0x277CBEA60] arrayWithObjects:&v85 count:1];
-  v101[14] = v52;
-  v100[15] = @"ReadingNowEnabled";
-  v84 = self->_audiobooksPinningSelectionsNotifier;
+  v100[13] = v52;
+  v99[14] = @"WantToReadAudiobooks";
+  v84 = self->_audiobooksRecommendationsNotifier;
   v51 = [MEMORY[0x277CBEA60] arrayWithObjects:&v84 count:1];
-  v101[15] = v51;
-  v100[16] = @"ReadingNowAudiobooks";
-  v83 = self->_audiobooksRecommendationsNotifier;
+  v100[14] = v51;
+  v99[15] = @"ReadingNowEnabled";
+  v83 = self->_audiobooksPinningSelectionsNotifier;
   v50 = [MEMORY[0x277CBEA60] arrayWithObjects:&v83 count:1];
-  v101[16] = v50;
-  v100[17] = @"AudiobookDownloadLimit";
-  v82 = self->_audiobooksPinningSelectionsNotifier;
+  v100[15] = v50;
+  v99[16] = @"ReadingNowAudiobooks";
+  v82 = self->_audiobooksRecommendationsNotifier;
   v49 = [MEMORY[0x277CBEA60] arrayWithObjects:&v82 count:1];
-  v101[17] = v49;
-  v100[18] = @"ClientPinningSettingsToken";
-  v81 = self->_syncStateNotifier;
+  v100[16] = v49;
+  v99[17] = @"AudiobookDownloadLimit";
+  v81 = self->_audiobooksPinningSelectionsNotifier;
   v48 = [MEMORY[0x277CBEA60] arrayWithObjects:&v81 count:1];
-  v101[18] = v48;
-  v100[19] = @"SyncStateDict";
+  v100[17] = v48;
+  v99[18] = @"ClientPinningSettingsToken";
   v80 = self->_syncStateNotifier;
   v47 = [MEMORY[0x277CBEA60] arrayWithObjects:&v80 count:1];
-  v101[19] = v47;
-  v100[20] = @"MusicSyncInfo";
-  v79 = self->_syncInfoNotifier;
+  v100[18] = v47;
+  v99[19] = @"SyncStateDict";
+  v79 = self->_syncStateNotifier;
   v46 = [MEMORY[0x277CBEA60] arrayWithObjects:&v79 count:1];
-  v101[20] = v46;
-  v100[21] = @"PodcastsSyncInfo";
+  v100[19] = v46;
+  v99[20] = @"MusicSyncInfo";
   v78 = self->_syncInfoNotifier;
   v45 = [MEMORY[0x277CBEA60] arrayWithObjects:&v78 count:1];
-  v101[21] = v45;
-  v100[22] = @"AudiobooksSyncInfo";
+  v100[20] = v45;
+  v99[21] = @"PodcastsSyncInfo";
   v77 = self->_syncInfoNotifier;
   v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v77 count:1];
-  v101[22] = v44;
-  v100[23] = @"DebugSyncInfoEnabled";
+  v100[21] = v44;
+  v99[22] = @"AudiobooksSyncInfo";
   v76 = self->_syncInfoNotifier;
   v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v76 count:1];
-  v101[23] = v43;
-  v42 = [(NMSyncDefaults *)self _defaultWithPrefix:@"LastSyncInfoRequestDate" forBundleIdentifier:@"com.apple.NanoMusic"];
-  v100[24] = v42;
-  v75 = self->_syncInfoRequestDateNotifier;
-  v41 = [MEMORY[0x277CBEA60] arrayWithObjects:&v75 count:1];
-  v101[24] = v41;
-  v40 = [(NMSyncDefaults *)self _defaultWithPrefix:@"LastSyncInfoRequestDate" forBundleIdentifier:@"com.apple.podcasts"];
-  v100[25] = v40;
+  v100[22] = v43;
+  v99[23] = @"DebugSyncInfoEnabled";
+  v75 = self->_syncInfoNotifier;
+  v42 = [MEMORY[0x277CBEA60] arrayWithObjects:&v75 count:1];
+  v100[23] = v42;
+  v41 = [(NMSyncDefaults *)self _defaultWithPrefix:@"LastSyncInfoRequestDate" forBundleIdentifier:@"com.apple.NanoMusic"];
+  v99[24] = v41;
   v74 = self->_syncInfoRequestDateNotifier;
-  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v74 count:1];
-  v101[25] = v39;
-  v38 = [(NMSyncDefaults *)self _defaultWithPrefix:@"LastSyncInfoRequestDate" forBundleIdentifier:@"com.apple.NanoBooks"];
-  v100[26] = v38;
+  v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v74 count:1];
+  v100[24] = v40;
+  v39 = [(NMSyncDefaults *)self _defaultWithPrefix:@"LastSyncInfoRequestDate" forBundleIdentifier:@"com.apple.podcasts"];
+  v99[25] = v39;
   v73 = self->_syncInfoRequestDateNotifier;
-  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v73 count:1];
-  v101[26] = v37;
-  v25 = [(NMSyncDefaults *)self _defaultWithPrefix:@"LastLocalSyncInfoRequestDate" forBundleIdentifier:@"com.apple.NanoMusic"];
-  v100[27] = v25;
+  v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v73 count:1];
+  v100[25] = v38;
+  v37 = [(NMSyncDefaults *)self _defaultWithPrefix:@"LastSyncInfoRequestDate" forBundleIdentifier:@"com.apple.NanoBooks"];
+  v99[26] = v37;
   v72 = self->_syncInfoRequestDateNotifier;
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v72 count:1];
-  v101[27] = v26;
-  v27 = [(NMSyncDefaults *)self _defaultWithPrefix:@"LastLocalSyncInfoRequestDate" forBundleIdentifier:@"com.apple.podcasts"];
-  v100[28] = v27;
+  v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v72 count:1];
+  v100[26] = v36;
+  v25 = [(NMSyncDefaults *)self _defaultWithPrefix:@"LastLocalSyncInfoRequestDate" forBundleIdentifier:@"com.apple.NanoMusic"];
+  v99[27] = v25;
   v71 = self->_syncInfoRequestDateNotifier;
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v71 count:1];
-  v101[28] = v28;
-  v29 = [(NMSyncDefaults *)self _defaultWithPrefix:@"LastLocalSyncInfoRequestDate" forBundleIdentifier:@"com.apple.NanoBooks"];
-  v100[29] = v29;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v71 count:1];
+  v100[27] = v26;
+  v27 = [(NMSyncDefaults *)self _defaultWithPrefix:@"LastLocalSyncInfoRequestDate" forBundleIdentifier:@"com.apple.podcasts"];
+  v99[28] = v27;
   v70 = self->_syncInfoRequestDateNotifier;
-  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v70 count:1];
-  v101[29] = v30;
-  v100[30] = @"WatchDefaultsCapabilities";
-  v69 = self->_settingsNotifier;
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v69 count:1];
-  v101[30] = v31;
-  v100[31] = @"PhoneDefaultsCapabilities";
+  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v70 count:1];
+  v100[28] = v28;
+  v29 = [(NMSyncDefaults *)self _defaultWithPrefix:@"LastLocalSyncInfoRequestDate" forBundleIdentifier:@"com.apple.NanoBooks"];
+  v99[29] = v29;
+  v69 = self->_syncInfoRequestDateNotifier;
+  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v69 count:1];
+  v100[29] = v30;
+  v99[30] = @"WatchDefaultsCapabilities";
   v68 = self->_settingsNotifier;
-  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v68 count:1];
-  v101[31] = v32;
-  v100[32] = @"UsesSplitMusicRecommendations";
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v68 count:1];
+  v100[30] = v31;
+  v99[31] = @"PhoneDefaultsCapabilities";
   v67 = self->_settingsNotifier;
-  v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&v67 count:1];
-  v101[32] = v33;
-  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v101 forKeys:v100 count:33];
+  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v67 count:1];
+  v100[31] = v32;
+  v99[32] = @"UsesSplitMusicRecommendations";
+  v66 = self->_settingsNotifier;
+  v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
+  v100[32] = v33;
+  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v100 forKeys:v99 count:33];
   notifiersDict = self->_notifiersDict;
   self->_notifiersDict = v34;
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_deviceHasCapability:(id)capability forCapabilitiesKey:(id)key
@@ -1123,7 +1118,7 @@ void __29__NMSyncDefaults_description__block_invoke_2(uint64_t a1, void *a2, voi
 
 - (void)_addCapability:(id)capability forCapabilitiesKey:(id)key
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   capabilityCopy = capability;
   keyCopy = key;
   v8 = [(NMSyncDefaults *)self _objectForKey:keyCopy];
@@ -1136,15 +1131,13 @@ void __29__NMSyncDefaults_description__block_invoke_2(uint64_t a1, void *a2, voi
 
     else
     {
-      v12[0] = capabilityCopy;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+      v11[0] = capabilityCopy;
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
     }
 
     v10 = v9;
     [(NMSyncDefaults *)self _setObject:v9 forKey:keyCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reloadPropertiesFromDefaultsOnMainThread
@@ -1282,7 +1275,7 @@ void __49__NMSyncDefaults__companionSidePerDeviceDefaults__block_invoke_239(uint
 
 - (void)_writePropertiesToDefaults
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   _companionSidePerDeviceDefaults = [(NMSyncDefaults *)self _companionSidePerDeviceDefaults];
   v4 = _companionSidePerDeviceDefaults;
   if (_companionSidePerDeviceDefaults)
@@ -1308,15 +1301,13 @@ void __49__NMSyncDefaults__companionSidePerDeviceDefaults__block_invoke_239(uint
     v11 = NMLogForCategory(5);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
+      v12 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_25B27B000, v11, OS_LOG_TYPE_DEFAULT, "[NMSyncDefaults] Non-NPS managed properties were updated: %@", &v13, 0xCu);
+      _os_log_impl(&dword_25B27B000, v11, OS_LOG_TYPE_DEFAULT, "[NMSyncDefaults] Non-NPS managed properties were updated: %@", &v12, 0xCu);
     }
 
     [(NMSNotificationDispatcher *)self->_settingsNotifier scheduleLocalDarwinNotification];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __41__NMSyncDefaults__migrateDataIfNecessary__block_invoke_338(uint64_t a1)
@@ -1541,7 +1532,7 @@ void __41__NMSyncDefaults__migrateDataIfNecessary__block_invoke_338(uint64_t a1)
 
 - (void)setAssetSyncPlaylistPersistentID:(id)d
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (![(NSNumber *)self->_assetSyncPlaylistPersistentID isEqualToNumber:dCopy])
   {
@@ -1563,8 +1554,8 @@ void __41__NMSyncDefaults__migrateDataIfNecessary__block_invoke_338(uint64_t a1)
 
     else
     {
-      v11[0] = v6;
-      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+      v10[0] = v6;
+      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     }
 
     v8 = [v6 copy];
@@ -1575,8 +1566,6 @@ void __41__NMSyncDefaults__migrateDataIfNecessary__block_invoke_338(uint64_t a1)
     [(NMSyncDefaults *)self _clearAssetSyncPlaylistDependentDefaults];
     [(NMSyncDefaults *)self _setNeedsSynchronize];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLastFullySentAssetSyncPlaylistPersistentID:(id)d
@@ -2098,22 +2087,20 @@ void __45__NMSyncDefaults_setMusicRecommendationDict___block_invoke(uint64_t a1,
 
 - (void)clearAppActivityStatusDefaultsForBundleID:(id)d
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = NMLogForCategory(5);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = dCopy;
-    _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_DEFAULT, "[NMSyncDefaults] Clearing app activity status defaults for %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = dCopy;
+    _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_DEFAULT, "[NMSyncDefaults] Clearing app activity status defaults for %@", &v8, 0xCu);
   }
 
   v6 = [(NMSyncDefaults *)self _objectForKey:@"AppActivityStatus"];
   v7 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:v6];
   [v7 removeObjectForKey:dCopy];
   [(NMSyncDefaults *)self _setObject:v7 forKey:@"AppActivityStatus"];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLastUserLaunchDateForBundleID:(id)d
@@ -2126,7 +2113,7 @@ void __45__NMSyncDefaults_setMusicRecommendationDict___block_invoke(uint64_t a1,
 
 - (void)setLastUserPinningChangeDateForBundleID:(id)d
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dCopy = d;
   date = [MEMORY[0x277CBEAA8] date];
   [(NMSyncDefaults *)self _writeDate:date forKey:@"LastUserPinningChangeDate" bundleID:dCopy];
@@ -2134,17 +2121,15 @@ void __45__NMSyncDefaults_setMusicRecommendationDict___block_invoke(uint64_t a1,
   v6 = NMLogForCategory(12);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = dCopy;
-    _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "Set last user pinning change date for bundle %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = dCopy;
+    _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "Set last user pinning change date for bundle %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLastLocalPlaybackDateForBundleID:(id)d
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dCopy = d;
   date = [MEMORY[0x277CBEAA8] date];
   [(NMSyncDefaults *)self _writeDate:date forKey:@"LastLocalPlaybackDate" bundleID:dCopy];
@@ -2152,17 +2137,15 @@ void __45__NMSyncDefaults_setMusicRecommendationDict___block_invoke(uint64_t a1,
   v6 = NMLogForCategory(12);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = dCopy;
-    _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "Set last local playback date for bundle %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = dCopy;
+    _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "Set last local playback date for bundle %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setInstallDateForBundleID:(id)d
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dCopy = d;
   date = [MEMORY[0x277CBEAA8] date];
   [(NMSyncDefaults *)self _writeDate:date forKey:@"InstallDate" bundleID:dCopy];
@@ -2170,17 +2153,15 @@ void __45__NMSyncDefaults_setMusicRecommendationDict___block_invoke(uint64_t a1,
   v6 = NMLogForCategory(12);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = dCopy;
-    _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "Set install date for bundle %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = dCopy;
+    _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "Set install date for bundle %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLastContentUsedDateForBundleID:(id)d
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dCopy = d;
   date = [MEMORY[0x277CBEAA8] date];
   [(NMSyncDefaults *)self _writeDate:date forKey:@"LastContentUsedDate" bundleID:dCopy];
@@ -2188,12 +2169,10 @@ void __45__NMSyncDefaults_setMusicRecommendationDict___block_invoke(uint64_t a1,
   v6 = NMLogForCategory(12);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = dCopy;
-    _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "Set last content used date for bundle %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = dCopy;
+    _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "Set last content used date for bundle %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)dormancyIntervalInHoursForBundleID:(id)d
@@ -2257,7 +2236,7 @@ void __45__NMSyncDefaults_setMusicRecommendationDict___block_invoke(uint64_t a1,
 - (void)_setObject:(id)object forKey:(id)key shouldSynchronizeToPairedDevice:(BOOL)device
 {
   deviceCopy = device;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   keyCopy = key;
   if (objectCopy)
@@ -2282,13 +2261,13 @@ void __45__NMSyncDefaults_setMusicRecommendationDict___block_invoke(uint64_t a1,
         v17 = NMLogForCategory(5);
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = 138412802;
-          v20 = keyCopy;
-          v21 = 2112;
-          v22 = v13;
-          v23 = 2112;
-          v24 = objectCopy;
-          _os_log_impl(&dword_25B27B000, v17, OS_LOG_TYPE_DEFAULT, "[NMSyncDefaults] updated value for key: %@ from old value: %@ to new value: %@", &v19, 0x20u);
+          v18 = 138412802;
+          v19 = keyCopy;
+          v20 = 2112;
+          v21 = v13;
+          v22 = 2112;
+          v23 = objectCopy;
+          _os_log_impl(&dword_25B27B000, v17, OS_LOG_TYPE_DEFAULT, "[NMSyncDefaults] updated value for key: %@ from old value: %@ to new value: %@", &v18, 0x20u);
         }
 
         [(NMSyncDefaults *)self _notifyChangesForKey:keyCopy];
@@ -2305,13 +2284,11 @@ void __45__NMSyncDefaults_setMusicRecommendationDict___block_invoke(uint64_t a1,
   {
     [(NMSyncDefaults *)self _removeObjectForKey:keyCopy];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeObjectForKey:(id)key
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v5 = [objc_alloc(MEMORY[0x277D2BA58]) initWithDomain:@"com.apple.NanoMusicSync"];
   synchronize = [v5 synchronize];
@@ -2330,16 +2307,14 @@ void __45__NMSyncDefaults_setMusicRecommendationDict___block_invoke(uint64_t a1,
       v11 = NMLogForCategory(5);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 138412290;
-        v14 = keyCopy;
-        _os_log_impl(&dword_25B27B000, v11, OS_LOG_TYPE_DEFAULT, "[NMSyncDefaults] Removing value for key: %@", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = keyCopy;
+        _os_log_impl(&dword_25B27B000, v11, OS_LOG_TYPE_DEFAULT, "[NMSyncDefaults] Removing value for key: %@", &v12, 0xCu);
       }
 
       [(NMSyncDefaults *)self _notifyChangesForKey:keyCopy];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_BOOLForKey:(id)key defaultValue:(BOOL)value
@@ -2359,40 +2334,78 @@ void __45__NMSyncDefaults_setMusicRecommendationDict___block_invoke(uint64_t a1,
   return value;
 }
 
+- (void)_setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  v23 = *MEMORY[0x277D85DE8];
+  keyCopy = key;
+  v7 = [objc_alloc(MEMORY[0x277D2BA58]) initWithDomain:@"com.apple.NanoMusicSync"];
+  v8 = v7;
+  if (v7)
+  {
+    synchronize = [v7 synchronize];
+    LOBYTE(v17) = 0;
+    v10 = [v8 BOOLForKey:keyCopy keyExistsAndHasValidFormat:&v17];
+    v11 = v10;
+    if (!v17 || v10 != boolCopy)
+    {
+      v12 = [MEMORY[0x277CCABB0] numberWithBool:boolCopy];
+      [v8 setObject:v12 forKey:keyCopy];
+
+      synchronize2 = [v8 synchronize];
+      v14 = objc_alloc_init(MEMORY[0x277D2BA60]);
+      v15 = [MEMORY[0x277CBEB98] setWithObject:keyCopy];
+      [v14 synchronizeNanoDomain:@"com.apple.NanoMusicSync" keys:v15];
+
+      v16 = NMLogForCategory(5);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      {
+        v17 = 138412802;
+        v18 = keyCopy;
+        v19 = 1024;
+        v20 = v11;
+        v21 = 1024;
+        v22 = boolCopy;
+        _os_log_impl(&dword_25B27B000, v16, OS_LOG_TYPE_DEFAULT, "[NMSyncDefaults] Updated value for key: %@ from old value: %d to new value: %d", &v17, 0x18u);
+      }
+
+      [(NMSyncDefaults *)self _notifyChangesForKey:keyCopy];
+    }
+  }
+}
+
 - (void)_notifyChangesForKey:(id)key
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = [(NSDictionary *)self->_notifiersDict objectForKeyedSubscript:key];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) scheduleLocalDarwinNotification];
+        [*(*(&v8 + 1) + 8 * v7++) scheduleLocalDarwinNotification];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (MPMediaPlaylist)assetSyncPlaylist

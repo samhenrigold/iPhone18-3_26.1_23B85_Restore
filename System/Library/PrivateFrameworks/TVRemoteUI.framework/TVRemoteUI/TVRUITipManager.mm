@@ -75,7 +75,7 @@
 
   selfCopy = self;
   specialized TVRUITipManager.invalidate(_:didPerformAction:completion:)(action, v7, v8);
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v7);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v7, v8);
 }
 
 - (void)dealloc

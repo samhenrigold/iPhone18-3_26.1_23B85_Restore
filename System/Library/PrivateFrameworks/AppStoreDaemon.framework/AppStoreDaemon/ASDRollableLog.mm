@@ -222,12 +222,12 @@ LABEL_8:
   return v14;
 }
 
-uint64_t __30__ASDRollableLog__openLogFile__block_invoke(uint64_t a1)
+void __30__ASDRollableLog__openLogFile__block_invoke(uint64_t a1)
 {
   [(ASDRollableLog *)*(a1 + 32) _closeLogFile];
   v2 = *(a1 + 32);
 
-  return [(ASDRollableLog *)v2 _openLogFile];
+  [(ASDRollableLog *)v2 _openLogFile];
 }
 
 @end

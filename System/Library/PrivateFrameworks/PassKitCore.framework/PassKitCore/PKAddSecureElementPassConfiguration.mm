@@ -93,16 +93,16 @@ LABEL_6:
     v5->_localizedDescription = v8;
 
     v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"allowManagedAppleID"];
-    if ([v10 isEqualToString:@"true"])
+    if (objc_msgSend_isEqualToString_(v10))
     {
       v11 = 1;
     }
 
     else
     {
-      v12 = [v10 isEqualToString:@"false"];
+      isEqualToString = objc_msgSend_isEqualToString_(v10);
       v11 = 2;
-      if (!v12)
+      if (!isEqualToString)
       {
         v11 = 0;
       }

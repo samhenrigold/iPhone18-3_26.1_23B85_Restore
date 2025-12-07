@@ -1,12 +1,18 @@
 @interface ACCCommunicationsServer
 + (id)sharedServer;
 - (ACCCommunicationsServer)initWithXPCServiceName:(id)name andFeatureNotification:(const char *)notification;
+- (BOOL)acceptCallWithAction:(int)action callUUID:(id)d;
 - (BOOL)endAllCalls;
+- (BOOL)endCallWithAction:(int)action callUUID:(id)d;
+- (BOOL)initiateCallToDestination:(id)destination withService:(int)service addressBookID:(id)d;
 - (BOOL)initiateCallToVoicemail;
 - (BOOL)initiateRedial;
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (BOOL)mergeCalls;
+- (BOOL)sendDTMF:(int)f forCallWithUUID:(id)d;
 - (BOOL)swapCalls;
+- (BOOL)updateHoldStatus:(BOOL)status forCallWithUUID:(id)d;
+- (BOOL)updateMuteStatus:(BOOL)status;
 - (NSXPCConnection)activeConnection;
 - (unint64_t)invokeBlockOnClients:(id)clients synchronous:(BOOL)synchronous;
 - (void)refreshClientData;
@@ -885,6 +891,22 @@ unint64_t __61__ACCCommunicationsServer_triggerUpdateForListType_coalesce___bloc
   return platform_communications_listUpdate(*(a1 + 32), 0, *(a1 + 36));
 }
 
+- (BOOL)initiateCallToDestination:(id)destination withService:(int)service addressBookID:(id)d
+{
+  v6 = *&service;
+  destinationCopy = destination;
+  dCopy = d;
+  remoteObject = [(ACCCommunicationsServer *)self remoteObject];
+
+  if (remoteObject)
+  {
+    remoteObject2 = [(ACCCommunicationsServer *)self remoteObject];
+    [remoteObject2 initiateCallToDestination:destinationCopy withService:v6 addressBookID:dCopy];
+  }
+
+  return 1;
+}
+
 - (BOOL)initiateCallToVoicemail
 {
   remoteObject = [(ACCCommunicationsServer *)self remoteObject];
@@ -906,6 +928,36 @@ unint64_t __61__ACCCommunicationsServer_triggerUpdateForListType_coalesce___bloc
   {
     remoteObject2 = [(ACCCommunicationsServer *)self remoteObject];
     [remoteObject2 initiateRedial];
+  }
+
+  return 1;
+}
+
+- (BOOL)acceptCallWithAction:(int)action callUUID:(id)d
+{
+  v4 = *&action;
+  dCopy = d;
+  remoteObject = [(ACCCommunicationsServer *)self remoteObject];
+
+  if (remoteObject)
+  {
+    remoteObject2 = [(ACCCommunicationsServer *)self remoteObject];
+    [remoteObject2 acceptCallWithAction:v4 callUUID:dCopy];
+  }
+
+  return 1;
+}
+
+- (BOOL)endCallWithAction:(int)action callUUID:(id)d
+{
+  v4 = *&action;
+  dCopy = d;
+  remoteObject = [(ACCCommunicationsServer *)self remoteObject];
+
+  if (remoteObject)
+  {
+    remoteObject2 = [(ACCCommunicationsServer *)self remoteObject];
+    [remoteObject2 endCallWithAction:v4 callUUID:dCopy];
   }
 
   return 1;
@@ -945,6 +997,50 @@ unint64_t __61__ACCCommunicationsServer_triggerUpdateForListType_coalesce___bloc
   {
     remoteObject2 = [(ACCCommunicationsServer *)self remoteObject];
     [remoteObject2 mergeCalls];
+  }
+
+  return 1;
+}
+
+- (BOOL)updateHoldStatus:(BOOL)status forCallWithUUID:(id)d
+{
+  statusCopy = status;
+  dCopy = d;
+  remoteObject = [(ACCCommunicationsServer *)self remoteObject];
+
+  if (remoteObject)
+  {
+    remoteObject2 = [(ACCCommunicationsServer *)self remoteObject];
+    [remoteObject2 updateHoldStatus:statusCopy forCallWithUUID:dCopy];
+  }
+
+  return 1;
+}
+
+- (BOOL)updateMuteStatus:(BOOL)status
+{
+  statusCopy = status;
+  remoteObject = [(ACCCommunicationsServer *)self remoteObject];
+
+  if (remoteObject)
+  {
+    remoteObject2 = [(ACCCommunicationsServer *)self remoteObject];
+    [remoteObject2 updateMuteStatus:statusCopy];
+  }
+
+  return 1;
+}
+
+- (BOOL)sendDTMF:(int)f forCallWithUUID:(id)d
+{
+  v4 = *&f;
+  dCopy = d;
+  remoteObject = [(ACCCommunicationsServer *)self remoteObject];
+
+  if (remoteObject)
+  {
+    remoteObject2 = [(ACCCommunicationsServer *)self remoteObject];
+    [remoteObject2 sendDTMF:v4 forCallWithUUID:dCopy];
   }
 
   return 1;

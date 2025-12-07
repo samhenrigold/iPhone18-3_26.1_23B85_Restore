@@ -20,12 +20,12 @@
 
 - (TAFilterLeavingLOISettings)initWithThresholdOfSignificantDuration:(double)duration thresholdOfSignificantDistance:(double)distance filterVisitsSettings:(id)settings enabledLoiTypes:(id)types leavingHomeImmediacyType:(unint64_t)type leavingWorkImmediacyType:(unint64_t)immediacyType
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   typesCopy = types;
-  v27.receiver = self;
-  v27.super_class = TAFilterLeavingLOISettings;
-  v17 = [(TAFilterLeavingLOISettings *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = TAFilterLeavingLOISettings;
+  v17 = [(TAFilterLeavingLOISettings *)&v26 init];
   v18 = v17;
   if (v17)
   {
@@ -50,7 +50,7 @@
       v22 = v21;
       enabledLoiTypesToString = [(TAFilterLeavingLOISettings *)v18 enabledLoiTypesToString];
       *buf = 138477827;
-      v29 = enabledLoiTypesToString;
+      v28 = enabledLoiTypesToString;
       _os_log_impl(&dword_26F2E2000, v22, OS_LOG_TYPE_DEFAULT, "#TAFilterLeavingLOI enabled LOI types: %{private}@", buf, 0xCu);
     }
   }
@@ -58,7 +58,6 @@
   v24 = v18;
 LABEL_7:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v24;
 }
 

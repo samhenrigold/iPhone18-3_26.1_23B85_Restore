@@ -159,22 +159,23 @@ void __54__DMTSharingDiscoveryPrimitives_addDependencyHandlers__block_invoke_2(u
   v2 = WeakRetained;
   if (WeakRetained)
   {
-    if ([WeakRetained isInvalidated])
+    v3 = [WeakRetained isInvalidated];
+    if (v3)
     {
-      v3 = _DMTLogGeneral_0();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+      v4 = _DMTLogGeneral_0(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        *v5 = 0;
-        _os_log_impl(&dword_24891B000, v3, OS_LOG_TYPE_INFO, "Interrupted after invalidation, no-op", v5, 2u);
+        *v6 = 0;
+        _os_log_impl(&dword_24891B000, v4, OS_LOG_TYPE_INFO, "Interrupted after invalidation, no-op", v6, 2u);
       }
     }
 
     else
     {
       [v2 setInvalidated:1];
-      v3 = [v2 invalidationHandler];
-      v4 = DMTErrorWithCodeAndUserInfo(11, 0);
-      (*(v3 + 16))(v3, v4);
+      v4 = [v2 invalidationHandler];
+      v5 = DMTErrorWithCodeAndUserInfo(11, 0);
+      (*(v4 + 16))(v4, v5);
     }
   }
 }
@@ -191,19 +192,19 @@ void __54__DMTSharingDiscoveryPrimitives_addDependencyHandlers__block_invoke_10(
 
     if (!v7)
     {
-      v8 = _DMTLogGeneral_0();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = _DMTLogGeneral_0(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        __54__DMTSharingDiscoveryPrimitives_addDependencyHandlers__block_invoke_10_cold_1(v8);
+        __54__DMTSharingDiscoveryPrimitives_addDependencyHandlers__block_invoke_10_cold_1(v9);
       }
     }
 
-    v9 = [WeakRetained foundDevicesByIdentifier];
-    v10 = [v3 identifier];
-    [v9 setObject:0 forKeyedSubscript:v10];
+    v10 = [WeakRetained foundDevicesByIdentifier];
+    v11 = [v3 identifier];
+    [v10 setObject:0 forKeyedSubscript:v11];
 
-    v11 = [WeakRetained deviceLostHandler];
-    (v11)[2](v11, v7);
+    v12 = [WeakRetained deviceLostHandler];
+    (v12)[2](v12, v7);
   }
 }
 
@@ -211,56 +212,56 @@ void __54__DMTSharingDiscoveryPrimitives_addDependencyHandlers__block_invoke_12(
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = _DMTLogGeneral_0();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = _DMTLogGeneral_0(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      __54__DMTSharingDiscoveryPrimitives_addDependencyHandlers__block_invoke_12_cold_1(v3, v5);
+      __54__DMTSharingDiscoveryPrimitives_addDependencyHandlers__block_invoke_12_cold_1(v3, v6);
     }
 
-    [WeakRetained handleDevice:v3];
+    [v5 handleDevice:v3];
   }
 }
 
 void __54__DMTSharingDiscoveryPrimitives_addDependencyHandlers__block_invoke_13(uint64_t a1, void *a2, int a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v7 = WeakRetained;
   if (WeakRetained)
   {
-    v7 = _DMTLogGeneral_0();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = _DMTLogGeneral_0(WeakRetained);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      __54__DMTSharingDiscoveryPrimitives_addDependencyHandlers__block_invoke_13_cold_1(v5, a3, v7);
+      __54__DMTSharingDiscoveryPrimitives_addDependencyHandlers__block_invoke_13_cold_1(v5, a3, v8);
     }
 
     if (a3)
     {
-      v8 = _DMTLogGeneral_0();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v10 = _DMTLogGeneral_0(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v10 = 138412546;
-        v11 = v5;
-        v12 = 1024;
-        v13 = [v5 deviceActionType];
-        _os_log_impl(&dword_24891B000, v8, OS_LOG_TYPE_INFO, "Advertisement data changed for device: %@ with action type: %d", &v10, 0x12u);
+        v11 = 138412546;
+        v12 = v5;
+        v13 = 1024;
+        v14 = [v5 deviceActionType];
+        _os_log_impl(&dword_24891B000, v10, OS_LOG_TYPE_INFO, "Advertisement data changed for device: %@ with action type: %d", &v11, 0x12u);
       }
 
-      [WeakRetained handleDevice:v5];
+      [v7 handleDevice:v5];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-void __54__DMTSharingDiscoveryPrimitives_addDependencyHandlers__block_invoke_15()
+void __54__DMTSharingDiscoveryPrimitives_addDependencyHandlers__block_invoke_15(uint64_t a1)
 {
-  v0 = _DMTLogGeneral_0();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = _DMTLogGeneral_0(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    __54__DMTSharingDiscoveryPrimitives_addDependencyHandlers__block_invoke_15_cold_1(v0);
+    __54__DMTSharingDiscoveryPrimitives_addDependencyHandlers__block_invoke_15_cold_1(v1);
   }
 }
 
@@ -275,7 +276,7 @@ void __54__DMTSharingDiscoveryPrimitives_addDependencyHandlers__block_invoke_15(
 
     if (v7)
     {
-      deviceFoundHandler = _DMTLogGeneral_0();
+      deviceFoundHandler = _DMTLogGeneral_0(v8);
       if (os_log_type_enabled(deviceFoundHandler, OS_LOG_TYPE_ERROR))
       {
         [(DMTSharingDiscoveryPrimitives *)v7 handleDevice:deviceFoundHandler];
@@ -297,42 +298,38 @@ void __54__DMTSharingDiscoveryPrimitives_addDependencyHandlers__block_invoke_15(
 
 void __54__DMTSharingDiscoveryPrimitives_addDependencyHandlers__block_invoke_10_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138543362;
-  v3 = 0;
-  _os_log_error_impl(&dword_24891B000, log, OS_LOG_TYPE_ERROR, "Primitives reported a device lost that we've never seen (%{public}@).  This is a known Sharing behavior. Falling through anyways.", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138543362;
+  v2 = 0;
+  _os_log_error_impl(&dword_24891B000, log, OS_LOG_TYPE_ERROR, "Primitives reported a device lost that we've never seen (%{public}@).  This is a known Sharing behavior. Falling through anyways.", &v1, 0xCu);
 }
 
 void __54__DMTSharingDiscoveryPrimitives_addDependencyHandlers__block_invoke_12_cold_1(void *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 1024;
-  v7 = [a1 deviceActionType];
-  _os_log_debug_impl(&dword_24891B000, a2, OS_LOG_TYPE_DEBUG, "deviceFoundHandler was called for device: %@ with action type: %d", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 1024;
+  v6 = [a1 deviceActionType];
+  _os_log_debug_impl(&dword_24891B000, a2, OS_LOG_TYPE_DEBUG, "deviceFoundHandler was called for device: %@ with action type: %d", &v3, 0x12u);
 }
 
 void __54__DMTSharingDiscoveryPrimitives_addDependencyHandlers__block_invoke_13_cold_1(uint64_t a1, int a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 1024;
-  v7 = a2;
-  _os_log_debug_impl(&dword_24891B000, log, OS_LOG_TYPE_DEBUG, "deviceChangedHandler was called for device: %@ with change flags: %d", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 1024;
+  v6 = a2;
+  _os_log_debug_impl(&dword_24891B000, log, OS_LOG_TYPE_DEBUG, "deviceChangedHandler was called for device: %@ with change flags: %d", &v3, 0x12u);
 }
 
 - (void)handleDevice:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_24891B000, a2, OS_LOG_TYPE_ERROR, "Primitives reported a device found that we've already seen (%{public}@). This is a known Sharing behavior.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_24891B000, a2, OS_LOG_TYPE_ERROR, "Primitives reported a device found that we've already seen (%{public}@). This is a known Sharing behavior.", &v2, 0xCu);
 }
 
 @end

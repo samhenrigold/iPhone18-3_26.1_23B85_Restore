@@ -108,10 +108,11 @@
     {
       if (d)
       {
-        *d = [LACError errorWithCode:-1000 debugDescription:@"Could not obtain signingID from audit token"];
+        v6 = [LACError errorWithCode:-1000 debugDescription:@"Could not obtain signingID from audit token"];
+        *d = v6;
       }
 
-      v10 = LACLogDefault();
+      v10 = LACLogDefault(v6);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [LACAuditToken signingID:v10];
@@ -146,10 +147,11 @@
     {
       if (binary)
       {
-        *binary = [LACError errorWithCode:-1000 debugDescription:@"Could not determine if audit token belongs to platform binary"];
+        v6 = [LACError errorWithCode:-1000 debugDescription:@"Could not determine if audit token belongs to platform binary"];
+        *binary = v6;
       }
 
-      p_super = LACLogDefault();
+      p_super = LACLogDefault(v6);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
         [LACAuditToken belongsToPlatformBinary:?];
@@ -164,9 +166,9 @@
 
 - (unint64_t)hash
 {
-  [(LACAuditToken *)self rawValue];
+  objc_msgSend_rawValue(self, a2);
   v3 = 31 * audit_token_to_pid(&v5);
-  [(LACAuditToken *)self rawValue];
+  objc_msgSend_rawValue(self);
   return v3 + audit_token_to_pidversion(&v5) + 961;
 }
 
@@ -183,7 +185,7 @@
     v7 = audit_token_to_pid(&v12);
     if (v5)
     {
-      [v5 rawValue];
+      objc_msgSend_rawValue(v5);
     }
 
     else
@@ -199,7 +201,7 @@
       v10 = audit_token_to_pidversion(&v12);
       if (v5)
       {
-        [v5 rawValue];
+        objc_msgSend_rawValue(v5);
       }
 
       else
@@ -226,7 +228,7 @@
 
 - (id)description
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = MEMORY[0x1E696AEC0];
@@ -235,19 +237,17 @@
   *&atoken.val[4] = v6;
   v7 = [MEMORY[0x1E696AD98] numberWithInt:audit_token_to_pid(&atoken)];
   v8 = [v5 stringWithFormat:@"pid: %@", v7];
-  v19[0] = v8;
+  v18[0] = v8;
   v9 = MEMORY[0x1E696AEC0];
   v10 = *&self->_rawValue.val[4];
   *atoken.val = *self->_rawValue.val;
   *&atoken.val[4] = v10;
   v11 = [MEMORY[0x1E696AD98] numberWithInt:audit_token_to_pidversion(&atoken)];
   v12 = [v9 stringWithFormat:@"pidVersion: %@", v11];
-  v19[1] = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+  v18[1] = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
   v14 = [v13 componentsJoinedByString:@" "];;
   v15 = [v3 stringWithFormat:@"<%@ %p %@>", v4, self, v14];;
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -262,20 +262,18 @@
 
 - (void)signingID:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138543362;
-  v3 = @"Could not obtain signingID from audit token";
-  _os_log_error_impl(&dword_1B0233000, log, OS_LOG_TYPE_ERROR, "%{public}@", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138543362;
+  v2 = @"Could not obtain signingID from audit token";
+  _os_log_error_impl(&dword_1B0233000, log, OS_LOG_TYPE_ERROR, "%{public}@", &v1, 0xCu);
 }
 
 - (void)belongsToPlatformBinary:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138543362;
-  v3 = @"Could not determine if audit token belongs to platform binary";
-  _os_log_error_impl(&dword_1B0233000, log, OS_LOG_TYPE_ERROR, "%{public}@", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138543362;
+  v2 = @"Could not determine if audit token belongs to platform binary";
+  _os_log_error_impl(&dword_1B0233000, log, OS_LOG_TYPE_ERROR, "%{public}@", &v1, 0xCu);
 }
 
 @end

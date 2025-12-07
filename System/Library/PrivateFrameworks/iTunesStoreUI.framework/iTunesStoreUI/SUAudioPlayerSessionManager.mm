@@ -48,7 +48,7 @@
   return sessionManager_sManager;
 }
 
-id __45__SUAudioPlayerSessionManager_sessionManager__block_invoke()
+id __45__SUAudioPlayerSessionManager_sessionManager__block_invoke(uint64_t a1)
 {
   result = objc_alloc_init(objc_opt_class());
   sessionManager_sManager = result;

@@ -5,9 +5,10 @@
 
 uint64_t __48__UIViewController_IC__ic_viewControllerManager__block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) viewIfLoaded];
+  v2 = [*(a1 + 32) viewIfLoaded];
+  *(*(*(a1 + 40) + 8) + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2);
 }
 
 @end

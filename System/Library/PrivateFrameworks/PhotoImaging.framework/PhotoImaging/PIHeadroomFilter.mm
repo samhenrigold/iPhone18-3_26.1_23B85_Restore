@@ -47,14 +47,14 @@
   [v3 topGradientBottomLocation];
   v20 = v19;
   useSoftLightBlendingModeForTopGradient = [v3 useSoftLightBlendingModeForTopGradient];
-  [(CIImage *)self->_inputImage extent];
+  objc_msgSend_extent(self->_inputImage);
   v23 = v22;
   v24 = self->_extendedRect.size.height - v22;
-  [(CIImage *)self->_inputImage extent];
+  objc_msgSend_extent(self->_inputImage);
   v26 = v25;
   v28 = [(CIImage *)self->_inputImage imageByCroppingToRect:0.0, v27 - v24];
   v29 = [v28 imageByApplyingOrientation:4];
-  [v29 extent];
+  objc_msgSend_extent(v29);
   CGAffineTransformMakeTranslation(&v113, 0.0, v23 - v30);
   v31 = [v29 imageByApplyingTransform:&v113];
 
@@ -104,7 +104,7 @@
     v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v119 forKeys:v118 count:2];
     v53 = [imageByClampingToExtent imageByApplyingFilter:@"CIMaskedVariableBlur" withInputParameters:v52];
     v91 = v46;
-    [v46 extent];
+    objc_msgSend_extent(v46);
     v54 = [v53 imageByCroppingToRect:?];
 
     v90 = v54;

@@ -1,11 +1,11 @@
 @interface NSSubqueryExpression(_NSCoreDataSQLPredicateCategories)
 - (id)_keypathsForDerivedPropertyValidation:()_NSCoreDataSQLPredicateCategories;
-- (uint64_t)minimalFormInContext:()_NSCoreDataSQLPredicateCategories;
+- (id)minimalFormInContext:()_NSCoreDataSQLPredicateCategories;
 @end
 
 @implementation NSSubqueryExpression(_NSCoreDataSQLPredicateCategories)
 
-- (uint64_t)minimalFormInContext:()_NSCoreDataSQLPredicateCategories
+- (id)minimalFormInContext:()_NSCoreDataSQLPredicateCategories
 {
   predicate = [self predicate];
   collection = [self collection];
@@ -50,10 +50,10 @@
 
 - (id)_keypathsForDerivedPropertyValidation:()_NSCoreDataSQLPredicateCategories
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v4 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v32 = 0;
-  v26 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  v31 = 0;
+  v25 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   v5 = [objc_msgSend(self "collection")];
   v6 = v5;
   if (v5)
@@ -61,7 +61,7 @@
     if ([v5 count] != 1)
     {
       v19 = 0;
-      v32 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134097 userInfo:&unk_1EF434A68];
+      v31 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:134097 userInfo:&unk_1EF434A68];
       goto LABEL_24;
     }
 
@@ -72,28 +72,28 @@
     v10 = v9;
     if (v9)
     {
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
       v29 = 0u;
-      v11 = [v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
+      v11 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
       if (!v11)
       {
         v19 = 1;
         goto LABEL_24;
       }
 
-      v12 = *v29;
+      v12 = *v28;
 LABEL_6:
       v13 = 0;
       while (1)
       {
-        if (*v29 != v12)
+        if (*v28 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * v13);
+        v14 = *(*(&v27 + 1) + 8 * v13);
         v15 = [v14 localizedStandardRangeOfString:v8];
         v16 = v15;
         if (v15 && v15 != 0x7FFFFFFFFFFFFFFFLL)
@@ -109,7 +109,7 @@ LABEL_6:
 
         if (v11 == ++v13)
         {
-          v11 = [v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v27 objects:v32 count:16];
           v19 = 1;
           if (v11)
           {
@@ -124,28 +124,25 @@ LABEL_6:
 
   v19 = 0;
 LABEL_24:
-  v20 = v32;
-  if (a3 && v32)
+  v20 = v31;
+  if (a3 && v31)
   {
-    *a3 = v32;
+    *a3 = v31;
   }
 
-  [v26 drain];
+  [v25 drain];
   v21 = 0;
-  v22 = v32;
+  v22 = v31;
   v23 = v4;
   if (v19)
   {
-    result = v4;
+    return v4;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v25 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 @end

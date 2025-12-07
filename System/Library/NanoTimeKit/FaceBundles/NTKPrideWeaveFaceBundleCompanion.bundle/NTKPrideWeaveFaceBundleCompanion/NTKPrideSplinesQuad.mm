@@ -2,10 +2,12 @@
 - ($8EF4127CF77ECA3DDB612FCF233DC3A8)noiseConfiguration;
 - (BOOL)forceRender;
 - (BOOL)postSemaphoreComputeForTime:(double)time;
+- (BOOL)preSemaphoreComputeForTime:(double)time;
 - (BOOL)shouldForceRender;
 - (NTKPrideSplinesQuad)initWithDevice:(id)device touchCrownHandler:(id)handler;
-- (double)noiseSamplePositionForControlPoint:inSpline:;
+- (double)noiseSamplePositionForControlPoint:(uint64_t)point inSpline:;
 - (float)ampltiudeForControlPoint:(int)point ofSpline:(int)spline;
+- (float)combinedAmplitudeForControlPointAtPosition:(float)position currentTime:(float)time waveSpeed:;
 - (float)computeAmplitudeForControlPoint:(int)point inSpline:(int)spline atTime:(double)time;
 - (float)globalAmplitudeForTime:(double)time;
 - (float)interpolationStepSizeForSpline:(int)spline;
@@ -244,6 +246,27 @@
   }
 }
 
+- (float)combinedAmplitudeForControlPointAtPosition:(float)position currentTime:(float)time waveSpeed:
+{
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
+  v5 = *(&self->super._timeScale + 1);
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_2D40;
+  v8[3] = &unk_24658;
+  v8[5] = *&position;
+  timeCopy = time;
+  v10 = v4;
+  v8[4] = &v11;
+  [v5 iterateTouchesWithBlock:v8];
+  v6 = v12[6];
+  _Block_object_dispose(&v11, 8);
+  return v6;
+}
+
 - (BOOL)postSemaphoreComputeForTime:(double)time
 {
   WORD2(self->_mtlSplinesBuffers[2]) = WORD2(self->_mtlSplinesBuffers[2]) + 1 - 3 * ((1431655766 * (WORD2(self->_mtlSplinesBuffers[2]) + 1)) >> 32);
@@ -350,6 +373,72 @@
   return isSnapshotting;
 }
 
+- (BOOL)preSemaphoreComputeForTime:(double)time
+{
+  v12 = *&time;
+  if (*&self->_enableRecording != 0.0 || (BYTE6(self->_touchCrownHandler) & 1) != 0 || BYTE5(self->_touchCrownHandler) == 1)
+  {
+    if (HIBYTE(self->_touchCrownHandler) == 1)
+    {
+      HIBYTE(self->_touchCrownHandler) = 0;
+      [(NTKPrideSplinesQuad *)self startWavesAtTime:time];
+    }
+
+    paused = self->_paused;
+    self->_paused = 0;
+    [(NTKPrideSplinesQuad *)self globalAmplitudeForTime:*&v12, v12];
+    [(NTKPrideSplinesQuad *)self numSplines];
+    NTKHighPriorityApply();
+    touchCrownHandler = [(NTKPrideSplinesQuad *)self touchCrownHandler];
+    LODWORD(v6) = 1064682127;
+    [touchCrownHandler fadeStrumByAmount:v6];
+
+    if ([(NTKPrideSplinesQuad *)self shouldForceRender]|| (BYTE6(self->_touchCrownHandler) & 1) != 0 || paused)
+    {
+      BYTE6(self->_touchCrownHandler) = 0;
+LABEL_8:
+      [(NTKPrideSplinesQuad *)self noiseConfiguration];
+      [(NTKPrideSplinesQuad *)self numSplines];
+      NTKHighPriorityApply();
+      return 1;
+    }
+
+    if ([(NTKPrideSplinesQuad *)self numSplines]>= 1)
+    {
+      v8 = 0;
+      while ([(NTKPrideSplinesQuad *)self numControlPointsPerSpline]< 1)
+      {
+LABEL_17:
+        v8 = (v8 + 1);
+        numSplines = [(NTKPrideSplinesQuad *)self numSplines];
+        result = 0;
+        if (v8 >= numSplines)
+        {
+          return result;
+        }
+      }
+
+      v9 = 0;
+      while (1)
+      {
+        [(NTKPrideSplinesQuad *)self ampltiudeForControlPoint:v9 ofSpline:v8];
+        if (v10 > 0.0)
+        {
+          goto LABEL_8;
+        }
+
+        v9 = (v9 + 1);
+        if (v9 >= [(NTKPrideSplinesQuad *)self numControlPointsPerSpline])
+        {
+          goto LABEL_17;
+        }
+      }
+    }
+  }
+
+  return 0;
+}
+
 - (void)strumToOffset:(double)offset withVelocity:(double)velocity
 {
   if ((BYTE4(self->_touchCrownHandler) & 1) == 0)
@@ -388,7 +477,7 @@
 
 - (int)numSplines
 {
-  sub_39C0();
+  sub_39C0(self);
   sub_39B0();
   NSRequestConcreteImplementation();
   return -1;
@@ -396,7 +485,7 @@
 
 - (int)numControlPointsPerSpline
 {
-  sub_39C0();
+  sub_39C0(self);
   sub_39B0();
   NSRequestConcreteImplementation();
   return -1;
@@ -404,7 +493,7 @@
 
 - (int)numVertsForSpline:(int)spline
 {
-  sub_39C0();
+  sub_39C0(self);
   sub_39B0();
   NSRequestConcreteImplementation();
   return -1;
@@ -412,7 +501,7 @@
 
 - (float)interpolationStepSizeForSpline:(int)spline
 {
-  sub_39C0();
+  sub_39C0(self);
   sub_39B0();
   NSRequestConcreteImplementation();
   return 0.0;
@@ -420,7 +509,7 @@
 
 - (float)computeAmplitudeForControlPoint:(int)point inSpline:(int)spline atTime:(double)time
 {
-  sub_39C0();
+  sub_39C0(self);
   sub_39B0();
   NSRequestConcreteImplementation();
   return 0.0;
@@ -428,7 +517,7 @@
 
 - (float)globalAmplitudeForTime:(double)time
 {
-  sub_39C0();
+  sub_39C0(self);
   sub_39B0();
   NSRequestConcreteImplementation();
   return 0.0;
@@ -436,7 +525,7 @@
 
 - (void)startWavesAtTime:(double)time
 {
-  sub_39C0();
+  sub_39C0(self);
   sub_39B0();
 
   NSRequestConcreteImplementation();
@@ -444,7 +533,7 @@
 
 - (void)generateControlPointsForSpline:(int)spline
 {
-  sub_39C0();
+  sub_39C0(self);
   sub_39B0();
 
   NSRequestConcreteImplementation();
@@ -452,7 +541,7 @@
 
 - (void)setAmplitude:(float)amplitude forControlPoint:(int)point ofSpline:(int)spline
 {
-  sub_39C0();
+  sub_39C0(self);
   sub_39B0();
 
   NSRequestConcreteImplementation();
@@ -460,15 +549,15 @@
 
 - (float)ampltiudeForControlPoint:(int)point ofSpline:(int)spline
 {
-  sub_39C0();
+  sub_39C0(self);
   sub_39B0();
   NSRequestConcreteImplementation();
   return 0.0;
 }
 
-- (double)noiseSamplePositionForControlPoint:inSpline:
+- (double)noiseSamplePositionForControlPoint:(uint64_t)point inSpline:
 {
-  sub_39C0();
+  sub_39C0(point);
   sub_39B0();
   NSRequestConcreteImplementation();
   return 0.0;
@@ -476,7 +565,7 @@
 
 - (void)setNoise:(int)noise forControlPoint:(int)point inSpline:
 {
-  sub_39C0();
+  sub_39C0(self);
   sub_39B0();
 
   NSRequestConcreteImplementation();
@@ -484,7 +573,7 @@
 
 - ($8EF4127CF77ECA3DDB612FCF233DC3A8)noiseConfiguration
 {
-  sub_39C0();
+  sub_39C0(self);
   sub_39B0();
   NSRequestConcreteImplementation();
   return 0;
@@ -492,7 +581,7 @@
 
 - (id)getNTKPrideSplineDefinitionFiller
 {
-  sub_39C0();
+  sub_39C0(self);
   sub_39B0();
   NSRequestConcreteImplementation();
   return 0;

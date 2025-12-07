@@ -30,9 +30,11 @@
 
 uint64_t __41__DOCUserInterfaceStateStore_sharedStore__block_invoke()
 {
-  sharedStore_sharedManager = objc_alloc_init(DOCUserInterfaceStateStore);
+  v0 = objc_alloc_init(DOCUserInterfaceStateStore);
+  v1 = sharedStore_sharedManager;
+  sharedStore_sharedManager = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (DOCUserInterfaceStateStore)init
@@ -742,6 +744,22 @@ uint64_t __55__DOCUserInterfaceStateStore__sortedInterfaceStateKeys__block_invok
   _os_log_error_impl(&dword_1E57D8000, v1, OS_LOG_TYPE_ERROR, "%s: unarchived most recent interface state with last updated date of: %@ ", v4, 0x16u);
 }
 
+- (void)_mostRecentInterfaceStateForConfiguration:.cold.2()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0(&dword_1E57D8000, v0, v1, "%s: Unable to unarchive most recent interface state. Error: %@", v2, v3, v4, v5, v6);
+}
+
+- (void)_mostRecentInterfaceStateForConfiguration:(uint64_t)a3 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  *v8 = 136315394;
+  *&v8[4] = "[DOCUserInterfaceStateStore _mostRecentInterfaceStateForConfiguration:]";
+  *&v8[12] = 2112;
+  *&v8[14] = 0;
+  OUTLINED_FUNCTION_6_1(&dword_1E57D8000, a1, a3, "%s: User defaults contained no state data: %@", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16], *MEMORY[0x1E69E9840]);
+}
+
 - (void)updateInterfaceState:(void *)a1 forConfiguration:(void *)a2 .cold.1(void *a1, void *a2)
 {
   v3 = a1;
@@ -749,6 +767,41 @@ uint64_t __55__DOCUserInterfaceStateStore__sortedInterfaceStateKeys__block_invok
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_5_1();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x20u);
+}
+
+- (void)purgeStateForConfiguration:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_6_1(&dword_1E57D8000, v0, v1, "%s: Removing saved state for identifier: %@", v2, v3, v4, v5, v6);
+}
+
+- (void)purgeApplicationStateForIdentifiers:configuration:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_6_1(&dword_1E57D8000, v0, v1, "%s: Removing saved state for identifiers: %@", v2, v3, v4, v5, v6);
+}
+
+- (void)purgeApplicationStateExcludingIdentifiers:configuration:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0(&dword_1E57D8000, v0, v1, "%s: Removing saved state for all identifiers excluding: %@", v2, v3, v4, v5, v6);
+}
+
+- (void)purgeApplicationStateExcludingIdentifiers:configuration:.cold.2()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0(&dword_1E57D8000, v0, v1, "%s: Removing saved state for identifiers: %@", v2, v3, v4, v5, v6);
+}
+
+- (void)_loadUserInterfaceStateFromDefaultsForConfiguration:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0(&dword_1E57D8000, v0, v1, "%s: Unable to unarchive all stored state. Error: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)_loadUserInterfaceStateFromDefaultsForConfiguration:(void *)a1 .cold.2(void *a1, void *a2)
@@ -761,6 +814,13 @@ uint64_t __55__DOCUserInterfaceStateStore__sortedInterfaceStateKeys__block_invok
   OUTLINED_FUNCTION_7_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v7, v8, v9, v10, v11, 0x20u);
+}
+
+- (void)_writeUserInterfaceStateToDefaultsForConfiguration:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_0();
+  OUTLINED_FUNCTION_4_0(&dword_1E57D8000, v0, v1, "%s: Unable to archive all state. Error: %@", v2, v3, v4, v5, v6);
 }
 
 - (void)_writeUserInterfaceStateToDefaultsForConfiguration:(void *)a1 .cold.2(void *a1, void *a2)

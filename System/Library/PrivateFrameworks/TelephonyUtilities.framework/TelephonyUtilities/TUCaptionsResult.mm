@@ -14,11 +14,11 @@
 
 - (TUCaptionsResult)initWithAVCCaptionsResult:(id)result
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   resultCopy = result;
-  v38.receiver = self;
-  v38.super_class = TUCaptionsResult;
-  v5 = [(TUCaptionsResult *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = TUCaptionsResult;
+  v5 = [(TUCaptionsResult *)&v37 init];
   if (v5)
   {
     v5->_utteranceComplete = [resultCopy utteranceComplete];
@@ -48,28 +48,28 @@
       v15 = 0;
     }
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
-    v33 = resultCopy;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v32 = resultCopy;
     tokens3 = [resultCopy tokens];
-    v17 = [tokens3 countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v17 = [tokens3 countByEnumeratingWithState:&v33 objects:v38 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v35;
+      v19 = *v34;
       do
       {
         v20 = 0;
         do
         {
-          if (*v35 != v19)
+          if (*v34 != v19)
           {
             objc_enumerationMutation(tokens3);
           }
 
-          v21 = *(*(&v34 + 1) + 8 * v20);
+          v21 = *(*(&v33 + 1) + 8 * v20);
           v22 = [TUCaption alloc];
           text2 = [v21 text];
           [v21 confidence];
@@ -82,7 +82,7 @@
         }
 
         while (v18 != v20);
-        v18 = [tokens3 countByEnumeratingWithState:&v34 objects:v39 count:16];
+        v18 = [tokens3 countByEnumeratingWithState:&v33 objects:v38 count:16];
       }
 
       while (v18);
@@ -92,21 +92,20 @@
     tokens = v5->_tokens;
     v5->_tokens = v29;
 
-    resultCopy = v33;
+    resultCopy = v32;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (TUCaptionsResult)initWithText:(id)text utteranceComplete:(BOOL)complete tokens:(id)tokens utteranceNumber:(unsigned int)number updateNumber:(unsigned int)updateNumber utteranceStartTimestamp:(double)timestamp utteranceDuration:(double)duration
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   textCopy = text;
   tokensCopy = tokens;
-  v45.receiver = self;
-  v45.super_class = TUCaptionsResult;
-  v18 = [(TUCaptionsResult *)&v45 init];
+  v44.receiver = self;
+  v44.super_class = TUCaptionsResult;
+  v18 = [(TUCaptionsResult *)&v44 init];
   v19 = v18;
   if (v18)
   {
@@ -129,27 +128,27 @@
       v22 = 0;
     }
 
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
-    v40 = tokensCopy;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v39 = tokensCopy;
     v23 = tokensCopy;
-    v24 = [v23 countByEnumeratingWithState:&v41 objects:v46 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v40 objects:v45 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v42;
+      v26 = *v41;
       do
       {
         for (i = 0; i != v25; ++i)
         {
-          if (*v42 != v26)
+          if (*v41 != v26)
           {
             objc_enumerationMutation(v23);
           }
 
-          v28 = *(*(&v41 + 1) + 8 * i);
+          v28 = *(*(&v40 + 1) + 8 * i);
           v29 = [TUCaption alloc];
           text = [v28 text];
           [v28 confidence];
@@ -160,7 +159,7 @@
           [v22 addObject:v35];
         }
 
-        v25 = [v23 countByEnumeratingWithState:&v41 objects:v46 count:16];
+        v25 = [v23 countByEnumeratingWithState:&v40 objects:v45 count:16];
       }
 
       while (v25);
@@ -170,10 +169,9 @@
     tokens = v19->_tokens;
     v19->_tokens = v36;
 
-    tokensCopy = v40;
+    tokensCopy = v39;
   }
 
-  v38 = *MEMORY[0x1E69E9840];
   return v19;
 }
 

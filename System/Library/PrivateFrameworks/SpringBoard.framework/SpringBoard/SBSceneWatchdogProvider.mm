@@ -150,7 +150,7 @@ void __56__SBSceneWatchdogProvider_disabledSceneWatchdogProvider__block_invoke()
           v18 = 0;
           if (v11)
           {
-            [v11 allowance];
+            objc_msgSend_allowance(v11);
           }
 
           else

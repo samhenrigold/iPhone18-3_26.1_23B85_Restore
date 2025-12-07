@@ -7,10 +7,10 @@
 
 - (HFDemoModeFaceRecognitionDataSource)init
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v25.receiver = self;
-  v25.super_class = HFDemoModeFaceRecognitionDataSource;
-  v2 = [(HFDemoModeFaceRecognitionDataSource *)&v25 init];
+  v27 = *MEMORY[0x277D85DE8];
+  v24.receiver = self;
+  v24.super_class = HFDemoModeFaceRecognitionDataSource;
+  v2 = [(HFDemoModeFaceRecognitionDataSource *)&v24 init];
   v3 = v2;
   if (v2)
   {
@@ -52,7 +52,7 @@
       {
         v18 = [(NSArray *)v3->_recentsEntries count];
         *buf = 134217984;
-        v27 = v18;
+        v26 = v18;
         _os_log_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_DEFAULT, "Found %lu recents entries", buf, 0xCu);
       }
     }
@@ -63,7 +63,7 @@
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v27 = v8;
+        v26 = v8;
         _os_log_error_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_ERROR, "No recents items found in plist at location %@", buf, 0xCu);
       }
     }
@@ -79,7 +79,7 @@
       {
         v22 = [(NSArray *)v3->_knownToHouseholdEntries count];
         *buf = 134217984;
-        v27 = v22;
+        v26 = v22;
         _os_log_impl(&dword_20D9BF000, v21, OS_LOG_TYPE_DEFAULT, "Found %lu known to household entries", buf, 0xCu);
       }
     }
@@ -90,45 +90,44 @@
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v27 = v8;
+        v26 = v8;
         _os_log_error_impl(&dword_20D9BF000, v21, OS_LOG_TYPE_ERROR, "No persons found in plist at location %@", buf, 0xCu);
       }
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (id)arrayFromPlistArray:(id)array
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
-  v31 = +[HFUtilities demoModeDirectoryURL];
-  v32 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(arrayCopy, "count")}];
+  v30 = +[HFUtilities demoModeDirectoryURL];
+  v31 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(arrayCopy, "count")}];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = arrayCopy;
-  v4 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v4 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (v4)
   {
     v6 = v4;
-    v33 = *v35;
+    v32 = *v34;
     *&v5 = 138412290;
-    v29 = v5;
+    v28 = v5;
     do
     {
       v7 = 0;
       do
       {
-        if (*v35 != v33)
+        if (*v34 != v32)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v34 + 1) + 8 * v7);
+        v8 = *(*(&v33 + 1) + 8 * v7);
         objc_opt_class();
         v9 = v8;
         if (objc_opt_isKindOfClass())
@@ -151,7 +150,7 @@
           if ([v13 length])
           {
             v15 = MEMORY[0x277CBEA90];
-            v16 = [MEMORY[0x277CBEBC0] URLWithString:v13 relativeToURL:v31];
+            v16 = [MEMORY[0x277CBEBC0] URLWithString:v13 relativeToURL:v30];
             v17 = [v15 dataWithContentsOfURL:v16];
 
             v18 = MEMORY[0x277CBEAA8];
@@ -178,8 +177,8 @@
               uUID = HFLogForCategory(0x21uLL);
               if (os_log_type_enabled(uUID, OS_LOG_TYPE_ERROR))
               {
-                *buf = v29;
-                v39 = v13;
+                *buf = v28;
+                v38 = v13;
                 _os_log_error_impl(&dword_20D9BF000, uUID, OS_LOG_TYPE_ERROR, "Filename %@ specified but no data was found for image", buf, 0xCu);
               }
 
@@ -198,22 +197,20 @@
 
           [v25 setName:v12];
           v26 = [[HFDemoModeFaceRecognitionRecentsData alloc] initWithPerson:v25 faceCrop:v19];
-          [v32 addObject:v26];
+          [v31 addObject:v26];
         }
 
         ++v7;
       }
 
       while (v6 != v7);
-      v6 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v6 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
     }
 
     while (v6);
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
-  return v32;
+  return v31;
 }
 
 @end

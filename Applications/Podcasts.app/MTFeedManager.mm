@@ -27,87 +27,87 @@
   initiatedCopy = initiated;
   idCopy = id;
   selfCopy = self;
-  v15 = sub_100168088(&unk_10057D668);
-  __chkstk_darwin(v15 - 8);
-  v17 = &v39 - v16;
-  v18 = sub_100168088(&qword_100574040);
-  __chkstk_darwin(v18 - 8);
-  v20 = &v39 - v19;
-  v45 = type metadata accessor for URL();
-  v21 = *(v45 - 8);
-  __chkstk_darwin(v45);
-  v23 = &v39 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v24 = _Block_copy(completion);
+  sub_100168088(&unk_10057D668, &qword_10040AE68);
+  __chkstk_darwin();
+  v16 = &v37 - v15;
+  sub_100168088(&qword_100574040, &unk_100400AD0);
+  __chkstk_darwin();
+  v18 = &v37 - v17;
+  v43 = type metadata accessor for URL();
+  v19 = *(v43 - 8);
+  __chkstk_darwin();
+  v21 = &v37 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = _Block_copy(completion);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   if (feedUrl)
   {
     static URL._unconditionallyBridgeFromObjectiveC(_:)();
-    v25 = 0;
+    v23 = 0;
   }
 
   else
   {
-    v25 = 1;
+    v23 = 1;
   }
 
-  (*(v21 + 56))(v20, v25, 1, v45);
+  (*(v19 + 56))(v18, v23, 1, v43);
   if (by)
   {
-    v26 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v28 = v27;
+    v24 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v26 = v25;
   }
 
   else
   {
+    v24 = 0;
     v26 = 0;
-    v28 = 0;
   }
 
   fetchCopy = fetch;
-  v42 = v17;
+  v40 = v16;
   if (!identifier)
   {
-    v34 = type metadata accessor for UUID();
-    (*(*(v34 - 8) + 56))(v17, 1, 1, v34);
-    v35 = selfCopy;
+    v32 = type metadata accessor for UUID();
+    (*(*(v32 - 8) + 56))(v16, 1, 1, v32);
+    v33 = selfCopy;
     sourceCopy2 = source;
-    if (v24)
+    if (v22)
     {
       goto LABEL_9;
     }
 
 LABEL_11:
-    v33 = 0;
+    v31 = 0;
     goto LABEL_12;
   }
 
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v29 = type metadata accessor for UUID();
-  v30 = *(*(v29 - 8) + 56);
-  v40 = v23;
-  v31 = selfCopy;
-  v30(v17, 0, 1, v29);
-  v23 = v40;
+  v27 = type metadata accessor for UUID();
+  v28 = *(*(v27 - 8) + 56);
+  v38 = v21;
+  v29 = selfCopy;
+  v28(v16, 0, 1, v27);
+  v21 = v38;
   sourceCopy2 = source;
-  if (!v24)
+  if (!v22)
   {
     goto LABEL_11;
   }
 
 LABEL_9:
-  v33 = swift_allocObject();
-  *(v33 + 16) = v24;
-  v24 = sub_1002D6FF4;
+  v31 = swift_allocObject();
+  *(v31 + 16) = v22;
+  v22 = sub_1002D6FF4;
 LABEL_12:
-  v36 = v42;
-  v37 = bootstrapCopy;
-  v38 = selfCopy;
-  FeedManager.updateFeed(forFeedUrl:cloudSyncFeedUrl:podcastStoreId:triggerBy:userInitiated:forceBootstrap:useBackgroundFetch:source:telemetryIdentifier:completion:)(v23, v20, idCopy, v26, v28, initiatedCopy, v37, fetchCopy, sourceCopy2, v42, v24, v33);
-  sub_1000112B4(v24);
+  v34 = v40;
+  v35 = bootstrapCopy;
+  v36 = selfCopy;
+  FeedManager.updateFeed(forFeedUrl:cloudSyncFeedUrl:podcastStoreId:triggerBy:userInitiated:forceBootstrap:useBackgroundFetch:source:telemetryIdentifier:completion:)(v21, v18, idCopy, v24, v26, initiatedCopy, v35, fetchCopy, sourceCopy2, v40, v22, v31);
+  sub_1000112B4(v22, v31);
 
-  sub_100009104(v36, &unk_10057D668);
-  sub_100009104(v20, &qword_100574040);
-  (*(v21 + 8))(v23, v45);
+  sub_100009104(v34, &unk_10057D668, &qword_10040AE68);
+  sub_100009104(v18, &qword_100574040, &unk_100400AD0);
+  (*(v19 + 8))(v21, v43);
 }
 
 - (void)updateFeedForFeedUrl:(id)url cloudSyncFeedUrl:(id)feedUrl podcastStoreId:(int64_t)id triggerBy:(id)by userInitiated:(BOOL)initiated forceBootstrap:(BOOL)bootstrap useBackgroundFetch:(BOOL)fetch source:(int64_t)self0 isSubscribing:(BOOL)self1 telemetryIdentifier:(id)self2 feedDownloadedHook:(id)self3 preProcessFeedHook:(id)self4 postProcessFeedHook:(id)self5 completion:(id)self6
@@ -116,145 +116,145 @@ LABEL_12:
   bootstrapCopy = bootstrap;
   idCopy = id;
   selfCopy = self;
-  v18 = sub_100168088(&unk_10057D668);
-  __chkstk_darwin(v18 - 8);
-  v20 = v51 - v19;
-  v21 = sub_100168088(&qword_100574040);
-  __chkstk_darwin(v21 - 8);
-  v23 = v51 - v22;
-  v24 = type metadata accessor for URL();
-  v62 = *(v24 - 8);
-  v63 = v24;
-  __chkstk_darwin(v24);
-  v26 = v51 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v27 = _Block_copy(hook);
-  v53 = _Block_copy(feedHook);
-  v28 = _Block_copy(processFeedHook);
-  v29 = _Block_copy(completion);
-  v61 = v26;
+  sub_100168088(&unk_10057D668, &qword_10040AE68);
+  __chkstk_darwin();
+  v19 = &v49 - v18;
+  sub_100168088(&qword_100574040, &unk_100400AD0);
+  __chkstk_darwin();
+  v21 = &v49 - v20;
+  v22 = type metadata accessor for URL();
+  v61 = *(v22 - 8);
+  v62 = v22;
+  __chkstk_darwin();
+  v24 = &v49 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = _Block_copy(hook);
+  v52 = _Block_copy(feedHook);
+  v26 = _Block_copy(processFeedHook);
+  v27 = _Block_copy(completion);
+  v60 = v24;
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   if (feedUrl)
   {
     static URL._unconditionallyBridgeFromObjectiveC(_:)();
-    v30 = 0;
+    v28 = 0;
   }
 
   else
   {
-    v30 = 1;
+    v28 = 1;
   }
 
-  (*(v62 + 56))(v23, v30, 1, v63);
-  v31 = selfCopy;
+  (*(v61 + 56))(v21, v28, 1, v62);
+  v29 = selfCopy;
   if (by)
   {
-    v54 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v55 = v32;
-    v57 = v23;
+    v53 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v54 = v30;
+    v56 = v21;
     if (identifier)
     {
 LABEL_6:
       static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-      v33 = type metadata accessor for UUID();
-      v34 = *(*(v33 - 8) + 56);
-      v35 = v31;
-      v34(v20, 0, 1, v33);
+      v31 = type metadata accessor for UUID();
+      v32 = *(*(v31 - 8) + 56);
+      v33 = v29;
+      v32(v19, 0, 1, v31);
       goto LABEL_9;
     }
   }
 
   else
   {
+    v53 = 0;
     v54 = 0;
-    v55 = 0;
-    v57 = v23;
+    v56 = v21;
     if (identifier)
     {
       goto LABEL_6;
     }
   }
 
-  v36 = type metadata accessor for UUID();
-  (*(*(v36 - 8) + 56))(v20, 1, 1, v36);
-  v37 = v31;
+  v34 = type metadata accessor for UUID();
+  (*(*(v34 - 8) + 56))(v19, 1, 1, v34);
+  v35 = v29;
 LABEL_9:
-  v38 = v29;
-  v39 = v53;
-  if (v27)
+  v36 = v27;
+  v37 = v52;
+  if (v25)
   {
-    v40 = swift_allocObject();
-    *(v40 + 16) = v27;
-    v53 = sub_1002D6F7C;
-    if (v39)
+    v38 = swift_allocObject();
+    *(v38 + 16) = v25;
+    v52 = sub_1002D6F7C;
+    if (v37)
     {
 LABEL_11:
-      v41 = swift_allocObject();
-      *(v41 + 16) = v39;
-      v39 = sub_1002D6F34;
+      v39 = swift_allocObject();
+      *(v39 + 16) = v37;
+      v37 = sub_1002D6F34;
       goto LABEL_14;
     }
   }
 
   else
   {
-    v53 = 0;
-    v40 = 0;
-    if (v39)
+    v52 = 0;
+    v38 = 0;
+    if (v37)
     {
       goto LABEL_11;
     }
   }
 
-  v41 = 0;
+  v39 = 0;
 LABEL_14:
   fetchCopy = fetch;
-  if (v28)
+  if (v26)
   {
-    v42 = swift_allocObject();
-    *(v42 + 16) = v28;
-    v43 = sub_1002D6ED4;
+    v40 = swift_allocObject();
+    *(v40 + 16) = v26;
+    v41 = sub_1002D6ED4;
+  }
+
+  else
+  {
+    v41 = 0;
+    v40 = 0;
+  }
+
+  v42 = v19;
+  if (v36)
+  {
+    v43 = swift_allocObject();
+    *(v43 + 16) = v36;
+    v36 = sub_1002D6ECC;
   }
 
   else
   {
     v43 = 0;
-    v42 = 0;
   }
 
-  v44 = v20;
-  if (v38)
-  {
-    v45 = swift_allocObject();
-    *(v45 + 16) = v38;
-    v38 = sub_1002D6ECC;
-  }
+  v47 = v37;
+  v48 = v39;
+  v49 = v37;
+  v50 = v39;
+  v44 = v52;
+  v45 = selfCopy;
+  v46 = v56;
+  FeedManager.updateFeed(forFeedUrl:cloudSyncFeedUrl:podcastStoreId:triggerBy:userInitiated:forceBootstrap:useBackgroundFetch:source:isSubscribing:telemetryIdentifier:feedDownloadedHook:preProcessFeedHook:postProcessFeedHook:completion:)(v60, v56, idCopy, v53, v54, initiatedCopy, bootstrapCopy, fetchCopy, source, subscribing, v42, v52, v38, v47, v48, v41, v40, v36, v43);
+  sub_1000112B4(v36, v43);
+  sub_1000112B4(v41, v40);
+  sub_1000112B4(v49, v50);
+  sub_1000112B4(v44, v38);
 
-  else
-  {
-    v45 = 0;
-  }
-
-  v49 = v39;
-  v50 = v41;
-  v51[0] = v39;
-  v51[1] = v41;
-  v46 = v53;
-  v47 = selfCopy;
-  v48 = v57;
-  FeedManager.updateFeed(forFeedUrl:cloudSyncFeedUrl:podcastStoreId:triggerBy:userInitiated:forceBootstrap:useBackgroundFetch:source:isSubscribing:telemetryIdentifier:feedDownloadedHook:preProcessFeedHook:postProcessFeedHook:completion:)(v61, v57, idCopy, v54, v55, initiatedCopy, bootstrapCopy, fetchCopy, source, subscribing, v44, v53, v40, v49, v50, v43, v42, v38, v45);
-  sub_1000112B4(v38);
-  sub_1000112B4(v43);
-  sub_1000112B4(v51[0]);
-  sub_1000112B4(v46);
-
-  sub_100009104(v44, &unk_10057D668);
-  sub_100009104(v48, &qword_100574040);
-  (*(v62 + 8))(v61, v63);
+  sub_100009104(v42, &unk_10057D668, &qword_10040AE68);
+  sub_100009104(v46, &qword_100574040, &unk_100400AD0);
+  (*(v61 + 8))(v60, v62);
 }
 
 - (BOOL)isUpdatingShowWithUrl:(id)url storeID:(int64_t)d
 {
-  sub_100168088(&qword_100574040);
+  sub_100168088(&qword_100574040, &unk_100400AD0);
   __chkstk_darwin();
   v8 = &v14 - v7;
   if (url)
@@ -273,7 +273,7 @@ LABEL_14:
   selfCopy = self;
   v12 = FeedManager.isUpdatingShow(url:storeID:)(v8, d);
 
-  sub_100009104(v8, &qword_100574040);
+  sub_100009104(v8, &qword_100574040, &unk_100400AD0);
   return v12 & 1;
 }
 

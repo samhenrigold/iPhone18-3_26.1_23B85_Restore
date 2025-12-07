@@ -52,25 +52,7 @@
     v12 = objc_msgSend_recordID(v6, v10, v11);
     isEqual = objc_msgSend_isEqual_(v9, v13, v12);
 
-    if (!isEqual)
-    {
-      goto LABEL_10;
-    }
-
-    v17 = objc_msgSend_fileSignature(self, v15, v16);
-    v20 = objc_msgSend_fileSignature(v6, v18, v19);
-    v22 = objc_msgSend_isEqual_(v17, v21, v20);
-
-    if (!v22)
-    {
-      goto LABEL_10;
-    }
-
-    v25 = objc_msgSend_referenceSignature(self, v23, v24);
-    v28 = objc_msgSend_referenceSignature(v6, v26, v27);
-    v29 = CKObjectsAreBothNilOrEqual();
-
-    if (v29)
+    if (isEqual && (objc_msgSend_fileSignature(self, v15, v16), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend_fileSignature(v6, v18, v19), v20 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend_isEqual_(v17, v21, v20), v20, v17, v22) && (objc_msgSend_referenceSignature(self, v23, v24), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend_referenceSignature(v6, v26, v27), v28 = objc_claimAutoreleasedReturnValue(), v29 = CKObjectsAreBothNilOrEqual(), v28, v25, v29))
     {
       v32 = objc_msgSend_size(self, v30, v31);
       v35 = objc_msgSend_size(v6, v33, v34);
@@ -79,7 +61,6 @@
 
     else
     {
-LABEL_10:
       isEqualToNumber = 0;
     }
   }

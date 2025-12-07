@@ -126,7 +126,7 @@ LABEL_7:
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   v8 = [connectionCopy valueForEntitlement:*MEMORY[0x277D37B08]];
@@ -183,35 +183,34 @@ LABEL_8:
   v13 = [[PDSXPCClient alloc] initWithConnection:connectionCopy interfaceVendor:self->_interfaceVendor daemonListenerVendor:self->_daemonListenerVendor queue:v9];
   [(NSMutableArray *)self->_XPCClients addObject:v13];
   objc_initWeak(&location, self);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __51__PDSXPCServer_listener_shouldAcceptNewConnection___block_invoke;
-  v19[3] = &unk_2799F82C8;
-  objc_copyWeak(&v21, &location);
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __51__PDSXPCServer_listener_shouldAcceptNewConnection___block_invoke;
+  v18[3] = &unk_2799F82C8;
+  objc_copyWeak(&v20, &location);
   v14 = v13;
-  v20 = v14;
-  [connectionCopy setInvalidationHandler:v19];
+  v19 = v14;
+  [connectionCopy setInvalidationHandler:v18];
   v15 = pds_defaultLog();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v24 = connectionCopy;
+    v23 = connectionCopy;
     _os_log_impl(&dword_25DED8000, v15, OS_LOG_TYPE_DEFAULT, "Allowing PDS Client connection {newConnection: %@}", buf, 0xCu);
   }
 
   [v14 resume];
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&location);
   v16 = 1;
 LABEL_18:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 void __51__PDSXPCServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained && *(a1 + 32))
   {
@@ -219,16 +218,14 @@ void __51__PDSXPCServer_listener_shouldAcceptNewConnection___block_invoke(uint64
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(a1 + 32);
-      v7 = 138412290;
-      v8 = v4;
-      _os_log_impl(&dword_25DED8000, v3, OS_LOG_TYPE_DEFAULT, "PDS Client went invalid {client: %@}", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_25DED8000, v3, OS_LOG_TYPE_DEFAULT, "PDS Client went invalid {client: %@}", &v6, 0xCu);
     }
 
     v5 = [WeakRetained XPCClients];
     [v5 removeObject:*(a1 + 32)];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithServiceName:listenerVendor:interfaceVendor:daemonListenerVendor:queue:workloop:.cold.1()
@@ -281,22 +278,20 @@ void __51__PDSXPCServer_listener_shouldAcceptNewConnection___block_invoke(uint64
 
 - (void)listener:(os_log_t)log shouldAcceptNewConnection:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_25DED8000, log, OS_LOG_TYPE_ERROR, "PDS Client connection has invalid entitlement type -- rejecting {clientIDEntitlement: %@, newConnection: %@}", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_25DED8000, log, OS_LOG_TYPE_ERROR, "PDS Client connection has invalid entitlement type -- rejecting {clientIDEntitlement: %@, newConnection: %@}", &v3, 0x16u);
 }
 
 - (void)listener:(uint64_t)a1 shouldAcceptNewConnection:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25DED8000, a2, OS_LOG_TYPE_ERROR, "PDS Client connection missing entitlement -- rejecting {newConnection: %@}", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25DED8000, a2, OS_LOG_TYPE_ERROR, "PDS Client connection missing entitlement -- rejecting {newConnection: %@}", &v2, 0xCu);
 }
 
 @end

@@ -1,5 +1,6 @@
 @interface WRM_LocationControllerIOS
 - (WRM_LocationControllerIOS)initWithDesiredAccuracy:(double)accuracy distanceFilter:(double)filter;
+- (void)locationManager:(id)manager didChangeAuthorizationStatus:(int)status;
 - (void)locationManager:(id)manager didFailWithError:(id)error;
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations;
 - (void)startMonitoring;
@@ -130,6 +131,15 @@
   {
     [WCM_Logging logLevel:22 message:@"LocationController: didFailWithError, %@", error];
   }
+}
+
+- (void)locationManager:(id)manager didChangeAuthorizationStatus:(int)status
+{
+  [WCM_Logging logLevel:22 message:@"LocationController: didChangeAuthorizationStatus, %d", *&status];
+  v7 = status == 3 || status == 0;
+  self->_isLocationAuthorized = v7;
+
+  [(WRM_LocationControllerIOS *)self updateLocationAuthorized_sync];
 }
 
 @end

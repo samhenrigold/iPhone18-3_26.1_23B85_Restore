@@ -50,27 +50,28 @@
 
 - (EKEventEditViewControllerDefaultImpl)initWithNibName:(id)name bundle:(id)bundle
 {
-  v9.receiver = self;
-  v9.super_class = EKEventEditViewControllerDefaultImpl;
-  v4 = [(EKEventEditViewControllerDefaultImpl *)&v9 initWithNibName:name bundle:bundle];
+  v11.receiver = self;
+  v11.super_class = EKEventEditViewControllerDefaultImpl;
+  v4 = [(EKEventEditViewControllerDefaultImpl *)&v11 initWithNibName:name bundle:bundle];
+  v6 = v4;
   if (v4)
   {
-    EKUILogInitIfNeeded();
-    v5 = objc_alloc_init(EKEventEditor);
-    editor = v4->_editor;
-    v4->_editor = v5;
+    EKUILogInitIfNeeded(v4, v5);
+    v7 = objc_alloc_init(EKEventEditor);
+    editor = v6->_editor;
+    v6->_editor = v7;
 
-    [(EKCalendarItemEditor *)v4->_editor setEditorDelegate:v4];
-    [(EKEventEditViewControllerDefaultImpl *)v4 addChildViewController:v4->_editor];
-    [(EKEventEditor *)v4->_editor didMoveToParentViewController:v4];
+    [(EKCalendarItemEditor *)v6->_editor setEditorDelegate:v6];
+    [(EKEventEditViewControllerDefaultImpl *)v6 addChildViewController:v6->_editor];
+    [(EKEventEditor *)v6->_editor didMoveToParentViewController:v6];
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-    [defaultCenter addObserver:v4 selector:sel__storeChanged_ name:*MEMORY[0x1E6966928] object:v4->_store];
-    [defaultCenter addObserver:v4 selector:sel_keyboardWillShow_ name:*MEMORY[0x1E69DE080] object:0];
-    [defaultCenter addObserver:v4 selector:sel_keyboardWillHide_ name:*MEMORY[0x1E69DE078] object:0];
-    [defaultCenter addObserver:v4 selector:sel_keyboardWillChangeFrame_ name:*MEMORY[0x1E69DE068] object:0];
+    [defaultCenter addObserver:v6 selector:sel__storeChanged_ name:*MEMORY[0x1E6966928] object:v6->_store];
+    [defaultCenter addObserver:v6 selector:sel_keyboardWillShow_ name:*MEMORY[0x1E69DE080] object:0];
+    [defaultCenter addObserver:v6 selector:sel_keyboardWillHide_ name:*MEMORY[0x1E69DE078] object:0];
+    [defaultCenter addObserver:v6 selector:sel_keyboardWillChangeFrame_ name:*MEMORY[0x1E69DE068] object:0];
   }
 
-  return v4;
+  return v6;
 }
 
 - (void)loadView

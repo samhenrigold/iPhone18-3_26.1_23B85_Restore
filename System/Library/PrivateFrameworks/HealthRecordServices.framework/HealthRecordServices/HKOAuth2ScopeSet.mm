@@ -58,39 +58,39 @@
 
 + (id)scopeSetWithScopes:(id)scopes
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   scopesCopy = scopes;
-  v31 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v28 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v30 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v27 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v4 = scopesCopy;
-  v5 = [v4 countByEnumeratingWithState:&v34 objects:v42 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (!v5)
   {
-    v33 = 0;
-    v29 = 0;
+    v32 = 0;
+    v28 = 0;
     goto LABEL_43;
   }
 
   v6 = v5;
-  v33 = 0;
-  v29 = 0;
-  v7 = *v35;
-  v32 = v4;
+  v32 = 0;
+  v28 = 0;
+  v7 = *v34;
+  v31 = v4;
   do
   {
     for (i = 0; i != v6; ++i)
     {
-      if (*v35 != v7)
+      if (*v34 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      v9 = *(*(&v34 + 1) + 8 * i);
-      v10 = [v9 componentsSeparatedByString:{@"/", v28}];
+      v9 = *(*(&v33 + 1) + 8 * i);
+      v10 = [v9 componentsSeparatedByString:{@"/", v27}];
       if ([v10 count] >= 2)
       {
         v11 = [v10 objectAtIndexedSubscript:0];
@@ -110,8 +110,8 @@
           {
             *buf = 138543618;
             selfCopy = self;
-            v40 = 2114;
-            v41 = v9;
+            v39 = 2114;
+            v40 = v9;
             _os_log_impl(&dword_2519FE000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ invalid scope detected: %{public}@", buf, 0x16u);
           }
 
@@ -133,32 +133,32 @@ LABEL_38:
             goto LABEL_18;
           }
 
-          [v31 addObject:v15];
+          [v30 addObject:v15];
 LABEL_34:
-          v20 = v28;
+          v20 = v27;
 LABEL_35:
           [v20 addObject:v15];
           v18 = 1;
-          v19 = HIDWORD(v33);
+          v19 = HIDWORD(v32);
           goto LABEL_36;
         }
 
         if ([v16 isEqualToString:@"read"])
         {
-          v20 = v31;
+          v20 = v30;
           if ((v17 & 1) == 0)
           {
             goto LABEL_35;
           }
 
           v18 = 1;
-          v19 = HIDWORD(v33);
+          v19 = HIDWORD(v32);
 LABEL_18:
-          v29 = 1;
+          v28 = 1;
 LABEL_36:
-          v33 = __PAIR64__(v19, v18);
+          v32 = __PAIR64__(v19, v18);
 
-          v4 = v32;
+          v4 = v31;
           goto LABEL_37;
         }
 
@@ -169,8 +169,8 @@ LABEL_36:
             if (v17)
             {
               v21 = [v16 containsString:@"c"];
-              v29 = 1;
-              LODWORD(v33) = 1;
+              v28 = 1;
+              LODWORD(v32) = 1;
               v18 = 1;
               v19 = 1;
               if (v21)
@@ -182,7 +182,7 @@ LABEL_36:
             }
 
 LABEL_27:
-            [v31 addObject:v15];
+            [v30 addObject:v15];
             v23 = 1;
           }
 
@@ -194,13 +194,13 @@ LABEL_27:
               goto LABEL_27;
             }
 
-            v23 = v22 | v33;
-            v29 |= v22;
+            v23 = v22 | v32;
+            v28 |= v22;
           }
 
           if (([v16 containsString:@"c"] & 1) == 0)
           {
-            LODWORD(v33) = v23;
+            LODWORD(v32) = v23;
 LABEL_32:
             v24 = [v16 containsString:@"w"];
             if (!(v17 & 1 | ((v24 & 1) == 0)))
@@ -208,8 +208,8 @@ LABEL_32:
               goto LABEL_34;
             }
 
-            v18 = v24 | v33;
-            v19 = v24 | HIDWORD(v33);
+            v18 = v24 | v32;
+            v19 = v24 | HIDWORD(v32);
             goto LABEL_36;
           }
         }
@@ -227,14 +227,13 @@ LABEL_32:
 LABEL_39:
     }
 
-    v6 = [v4 countByEnumeratingWithState:&v34 objects:v42 count:16];
+    v6 = [v4 countByEnumeratingWithState:&v33 objects:v41 count:16];
   }
 
   while (v6);
 LABEL_43:
 
-  v25 = [[self alloc] initWithOriginalScopes:v4 readableResourceTypes:v31 writableResourceTypes:v28 canReadAllResourceTypes:v29 & 1 canWriteAllResourceTypes:BYTE4(v33) & 1 hasAtLeastOneResourceTypeScope:v33 & 1];
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = [[self alloc] initWithOriginalScopes:v4 readableResourceTypes:v30 writableResourceTypes:v27 canReadAllResourceTypes:v28 & 1 canWriteAllResourceTypes:BYTE4(v32) & 1 hasAtLeastOneResourceTypeScope:v32 & 1];
 
   return v25;
 }

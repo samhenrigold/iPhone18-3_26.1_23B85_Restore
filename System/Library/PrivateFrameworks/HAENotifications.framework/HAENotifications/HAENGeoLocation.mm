@@ -54,15 +54,15 @@
 
 - (void)fetchGeoLocation
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (self->source == 2)
   {
-    v3 = HAENotificationsLog();
+    v3 = HAENotificationsLog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = [(HAENGeoLocation *)self description];
       *buf = 138412290;
-      v16 = v4;
+      v15 = v4;
       _os_log_impl(&dword_25081E000, v3, OS_LOG_TYPE_DEFAULT, "Geo Location Country Code is overriden %@", buf, 0xCu);
     }
   }
@@ -71,9 +71,9 @@
   {
     *buf = 1;
     mEMORY[0x277D0EB00] = [MEMORY[0x277D0EB00] sharedConfiguration];
-    v14 = 0;
-    v6 = [mEMORY[0x277D0EB00] countryCodeWithSource:buf updatedAtTime:&v14];
-    v7 = v14;
+    v13 = 0;
+    v6 = [mEMORY[0x277D0EB00] countryCodeWithSource:buf updatedAtTime:&v13];
+    v7 = v13;
 
     countryCode = self->countryCode;
     self->countryCode = v6;
@@ -86,8 +86,6 @@
     v12 = vld1_dup_f32(buf);
     *&self->source = vand_s8(v12, 0xFF00000000FFLL);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

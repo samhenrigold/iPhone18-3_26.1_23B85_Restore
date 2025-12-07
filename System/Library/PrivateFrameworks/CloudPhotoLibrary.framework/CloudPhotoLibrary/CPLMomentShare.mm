@@ -59,17 +59,15 @@
   return v8;
 }
 
-void __69__CPLMomentShare_CPLNSCoding__cplAdditionalSecureClassesForProperty___block_invoke()
+void __69__CPLMomentShare_CPLNSCoding__cplAdditionalSecureClassesForProperty___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v4 = @"participants";
-  v0 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
-  v5[0] = v0;
-  v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-  v2 = cplAdditionalSecureClassesForProperty__additionalClasses_123;
-  cplAdditionalSecureClassesForProperty__additionalClasses_123 = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
+  v5 = @"participants";
+  v2 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
+  v6[0] = v2;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  v4 = cplAdditionalSecureClassesForProperty__additionalClasses_123;
+  cplAdditionalSecureClassesForProperty__additionalClasses_123 = v3;
 }
 
 - (id)description
@@ -109,7 +107,7 @@ void __69__CPLMomentShare_CPLNSCoding__cplAdditionalSecureClassesForProperty___b
 
 - (void)updateScopeChange:(id)change
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   share = [changeCopy share];
   if (!share)
@@ -123,7 +121,7 @@ void __69__CPLMomentShare_CPLNSCoding__cplAdditionalSecureClassesForProperty___b
       [(CPLShare *)share setParticipants:v7];
     }
 
-    v17 = participants;
+    v16 = participants;
     if (self->_mode >= 4u)
     {
       mode = 2;
@@ -135,26 +133,26 @@ void __69__CPLMomentShare_CPLNSCoding__cplAdditionalSecureClassesForProperty___b
     }
 
     [(CPLShare *)share setPublicPermission:mode];
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     participants2 = [(CPLShare *)share participants];
-    v10 = [participants2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [participants2 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(participants2);
           }
 
-          v14 = *(*(&v18 + 1) + 8 * i);
+          v14 = *(*(&v17 + 1) + 8 * i);
           if ([v14 role] == 1)
           {
             v15 = 3;
@@ -168,7 +166,7 @@ void __69__CPLMomentShare_CPLNSCoding__cplAdditionalSecureClassesForProperty___b
           [v14 setPermission:v15];
         }
 
-        v11 = [participants2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [participants2 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v11);
@@ -223,8 +221,6 @@ void __69__CPLMomentShare_CPLNSCoding__cplAdditionalSecureClassesForProperty___b
   {
     [changeCopy setOriginatingScopeIdentifier:?];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (CPLMomentShare)initWithScopeChange:(id)change

@@ -8,9 +8,8 @@
 + (id)makeViewController
 {
   v2 = type metadata accessor for BankConnectReconfirmationView(0);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = (&v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v4 = (&v8 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
   sub_23875ED50();
   sub_23875ED40();
   sub_23875ECE0();
@@ -19,11 +18,11 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  BankConnectReconfirmationView.init(showDeniedAccounts:)(0, v5);
-  v6 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DF0C318, &qword_23876A258));
-  v7 = sub_23875D080();
+  BankConnectReconfirmationView.init(showDeniedAccounts:)(0, v4);
+  v5 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DF0C318, &qword_23876A258));
+  v6 = sub_23875D080();
 
-  return v7;
+  return v6;
 }
 
 - (FKBankConnectBackgroundRefreshConfirmationViewControllerProvider)init

@@ -68,7 +68,7 @@
   if (v8)
   {
     v8->mSnapEnabled = 1;
-    [(CRLResizeKnobTracker *)v8 p_repTransformInRootForTransforming];
+    objc_msgSend_p_repTransformInRootForTransforming(v8);
     *&v9->mOriginalTransformInRoot.c = v30;
     *&v9->mOriginalTransformInRoot.tx = v31;
     *&v9->mOriginalTransformInRoot.a = v29;
@@ -332,7 +332,7 @@
   v25 = originalPureGeometry;
   if (originalPureGeometry)
   {
-    [originalPureGeometry fullTransform];
+    objc_msgSend_fullTransform(originalPureGeometry);
   }
 
   else
@@ -368,7 +368,7 @@
 
     if (v11)
     {
-      [(CRLResizeKnobTracker *)self p_transformForLayout:v11 flippedIfNecessary:v5];
+      objc_msgSend_p_transformForLayout_flippedIfNecessary_(self);
 
       goto LABEL_28;
     }
@@ -403,12 +403,12 @@
   memset(&v32, 0, sizeof(v32));
   if (v5)
   {
-    [(CRLResizeKnobTracker *)self resizeTransformWithoutUnflipping];
+    objc_msgSend_resizeTransformWithoutUnflipping(self);
   }
 
   else
   {
-    [(CRLResizeKnobTracker *)self resizeTransform];
+    objc_msgSend_resizeTransform(self);
   }
 
   v15 = [(CRLCanvasKnobTracker *)self rep];
@@ -445,7 +445,7 @@
         v22 = originalPureGeometry;
         if (originalPureGeometry)
         {
-          [originalPureGeometry transform];
+          objc_msgSend_transform(originalPureGeometry);
         }
 
         else
@@ -496,21 +496,21 @@ LABEL_28:
   if (computeInfoGeometryDuringResize)
   {
     v7 = computeInfoGeometryDuringResize;
-    goto LABEL_23;
+    goto LABEL_24;
   }
 
-  memset(&v35, 0, sizeof(v35));
+  memset(&v34, 0, sizeof(v34));
   v8 = [(CRLCanvasKnobTracker *)self rep];
   layout = [v8 layout];
-  [(CRLResizeKnobTracker *)self resizeTransform];
+  objc_msgSend_resizeTransform(self);
   if (layout)
   {
-    [layout layoutTransformInInfoSpace:v34];
+    objc_msgSend_layoutTransformInInfoSpace_(layout);
   }
 
   else
   {
-    memset(&v35, 0, sizeof(v35));
+    memset(&v34, 0, sizeof(v34));
   }
 
   v10 = [(CRLCanvasKnobTracker *)self rep];
@@ -519,11 +519,11 @@ LABEL_28:
   if (layout2 == layoutCopy)
   {
     v15 = [(CRLCanvasKnobTracker *)self rep];
-    v33 = v35;
+    v33 = v34;
     v26 = [v15 resizedGeometryForTransform:&v33];
-LABEL_21:
+LABEL_22:
     v7 = v26;
-    goto LABEL_22;
+    goto LABEL_23;
   }
 
   v12 = *&CGAffineTransformIdentity.c;
@@ -547,7 +547,7 @@ LABEL_21:
       v17 = originalPureGeometry;
       if (originalPureGeometry)
       {
-        [originalPureGeometry transform];
+        objc_msgSend_transform(originalPureGeometry);
       }
 
       else
@@ -566,7 +566,7 @@ LABEL_21:
     }
 
     while (v20);
-    t1 = v35;
+    t1 = v34;
     memset(&t2, 0, sizeof(t2));
     v30 = v33;
     sub_100139E2C(&t1, &v30, &t2);
@@ -576,6 +576,7 @@ LABEL_21:
     if (infoGeometryBeforeDynamicOperation)
     {
       geometry = infoGeometryBeforeDynamicOperation;
+      objc_msgSend_fullTransform(infoGeometryBeforeDynamicOperation);
     }
 
     else
@@ -586,29 +587,29 @@ LABEL_21:
       if (!geometry)
       {
         memset(&v30, 0, sizeof(v30));
-        goto LABEL_20;
+        goto LABEL_21;
       }
+
+      objc_msgSend_fullTransform(geometry);
     }
 
-    [geometry fullTransform];
-
-LABEL_20:
+LABEL_21:
     v29 = t2;
     CGAffineTransformConcat(&t1, &v30, &v29);
     v26 = [CRLCanvasInfoGeometry geometryFromFullTransform:&t1];
-    goto LABEL_21;
+    goto LABEL_22;
   }
 
   v23 = [(CRLCanvasKnobTracker *)self rep];
   interactiveCanvasController = [v23 interactiveCanvasController];
   v25 = [interactiveCanvasController repForLayout:layoutCopy];
 
-  [(CRLResizeKnobTracker *)self transformForLayout:layoutCopy];
-  v35 = t2;
+  objc_msgSend_transformForLayout_(self);
+  v34 = t2;
   v7 = [v25 resizedGeometryForTransform:&t2];
 
-LABEL_22:
 LABEL_23:
+LABEL_24:
 
   return v7;
 }
@@ -1078,7 +1079,7 @@ LABEL_8:
             v33 = connectedTo2;
             if (connectedTo2)
             {
-              [connectedTo2 transformInRoot];
+              objc_msgSend_transformInRoot(connectedTo2);
             }
 
             else
@@ -1112,7 +1113,7 @@ LABEL_8:
             v43 = connectedFrom2;
             if (connectedFrom2)
             {
-              [connectedFrom2 transformInRoot];
+              objc_msgSend_transformInRoot(connectedFrom2);
             }
 
             else
@@ -1158,7 +1159,7 @@ LABEL_8:
 {
   y = canvas.y;
   x = canvas.x;
-  [(CRLResizeKnobTracker *)self transformInRootForStandardKnobs];
+  objc_msgSend_transformInRootForStandardKnobs(self, a2);
   v3 = vaddq_f64(v9, vmlaq_n_f64(vmulq_n_f64(v8, y), v7, x));
   v4 = v3.f64[1];
   result.x = v3.f64[0];
@@ -1170,7 +1171,7 @@ LABEL_8:
 {
   y = canvas.y;
   x = canvas.x;
-  [(CRLResizeKnobTracker *)self transformInRootForStandardKnobs];
+  objc_msgSend_transformInRootForStandardKnobs(self, a2);
   CGAffineTransformInvert(&v8, &v7);
   v3 = vaddq_f64(*&v8.tx, vmlaq_n_f64(vmulq_n_f64(*&v8.c, y), *&v8.a, x));
   v4 = v3.f64[1];
@@ -1571,7 +1572,7 @@ LABEL_34:
   v8 = geometryForTransforming;
   if (geometryForTransforming)
   {
-    [geometryForTransforming transform];
+    objc_msgSend_transform(geometryForTransforming);
   }
 
   else
@@ -1593,24 +1594,19 @@ LABEL_34:
       v14 = geometry;
       if (geometry)
       {
-        v15 = *&retstr->c;
-        v18[0] = *&retstr->a;
-        v18[1] = v15;
-        v18[2] = *&retstr->tx;
-        [geometry transformByConcatenatingTransformTo:v18];
+        objc_msgSend_transformByConcatenatingTransformTo_(geometry, *&retstr->a, *&retstr->b, *&retstr->c, *&retstr->d, *&retstr->tx, *&retstr->ty);
       }
 
       else
       {
-        v20 = 0u;
-        v21 = 0u;
-        v19 = 0u;
+        v17 = 0u;
+        v18 = 0u;
+        v16 = 0u;
       }
 
-      v16 = v20;
-      *&retstr->a = v19;
-      *&retstr->c = v16;
-      *&retstr->tx = v21;
+      *&retstr->a = v16;
+      *&retstr->c = v17;
+      *&retstr->tx = v18;
 
       v11Parent = [parent parent];
 
@@ -1748,7 +1744,7 @@ LABEL_24:
       v66 = parent;
       if (parent)
       {
-        [parent transformInRoot];
+        objc_msgSend_transformInRoot(parent);
       }
 
       else
@@ -1770,7 +1766,7 @@ LABEL_24:
       mResizingLayout = self->mResizingLayout;
       if (mResizingLayout)
       {
-        [(CRLCanvasLayout *)mResizingLayout originalTransformForProvidingGuides];
+        objc_msgSend_originalTransformForProvidingGuides(mResizingLayout);
       }
 
       v172 = *p_mLastNewBounds;
@@ -1786,7 +1782,7 @@ LABEL_24:
       v78 = self->mResizingLayout;
       if (v78)
       {
-        [(CRLCanvasAbstractLayout *)v78 transform];
+        objc_msgSend_transform(v78);
       }
 
       else
@@ -1797,21 +1793,21 @@ LABEL_24:
       v79 = sub_100139980(&v158);
       sub_1001208E0(v79);
       v145 = v19;
-      if (v80 == 90.0 || fabs(v80 + -90.0) < 0.00999999978)
+      if (v80.n128_f64[0] == 90.0 || fabs(v80.n128_f64[0] + -90.0) < 0.00999999978)
       {
         v81 = guideController;
         v82 = sub_100345B30(v77);
       }
 
-      else if (v80 == 180.0 || fabs(v80 + -180.0) < 0.00999999978)
+      else if (v80.n128_f64[0] == 180.0 || fabs(v80.n128_f64[0] + -180.0) < 0.00999999978)
       {
         v81 = guideController;
-        v82 = sub_100345B08(v77);
+        v82 = sub_100345B08(v80, v77);
       }
 
       else
       {
-        if (v80 != 270.0 && fabs(v80 + -270.0) >= 0.00999999978)
+        if (v80.n128_f64[0] != 270.0 && fabs(v80.n128_f64[0] + -270.0) >= 0.00999999978)
         {
           v148 = v77;
           v81 = guideController;
@@ -1882,7 +1878,7 @@ LABEL_47:
       v104 = self->mResizingLayout;
       if (v104)
       {
-        [(CRLCanvasLayout *)v104 originalTransformForProvidingGuides];
+        objc_msgSend_originalTransformForProvidingGuides(v104);
       }
 
       else
@@ -2313,166 +2309,166 @@ LABEL_23:
           v21 = sub_10050DF80(3, v13, v18);
           *&components.a = xmmword_1014668C0;
           components.c = 0.125490196;
-          v22 = sub_1000CCC44();
-          CGContextSetFillColorSpace(v21, v22);
-          v23 = 0.0;
-          v24 = 20;
+          v23 = sub_1000CCC44(v21, v22);
+          CGContextSetFillColorSpace(v21, v23);
+          v24 = 0.0;
+          v25 = 20;
           do
           {
-            components.d = v23 / -20.0 + 1.0;
+            components.d = v24 / -20.0 + 1.0;
             CGContextSetFillColor(v21, &components.a);
-            v117.origin.x = 0.0;
-            v117.origin.y = 0.0;
-            v117.size.width = v9 * 3.0;
-            v117.size.height = v9 * 3.0;
-            CGContextAddEllipseInRect(v21, v117);
+            v119.origin.x = 0.0;
+            v119.origin.y = 0.0;
+            v119.size.width = v9 * 3.0;
+            v119.size.height = v9 * 3.0;
+            CGContextAddEllipseInRect(v21, v119);
             CGContextFillPath(v21);
             CGContextTranslateCTM(v21, 0.0, v9 * 10.0);
-            v23 = v23 + 1.0;
-            --v24;
+            v24 = v24 + 1.0;
+            --v25;
           }
 
-          while (v24);
-          v25 = sub_10050DF80(3, v13, 2560.0);
+          while (v25);
+          v26 = sub_10050DF80(3, v13, 2560.0);
           components.d = 1.0;
-          v26 = sub_1000CCC44();
-          CGContextSetFillColorSpace(v25, v26);
-          CGContextSetFillColor(v25, &components.a);
-          v27 = 2560.0 / v12 + 2560.0 / v12;
-          if (v27 > 0.0)
+          v28 = sub_1000CCC44(v26, v27);
+          CGContextSetFillColorSpace(v26, v28);
+          CGContextSetFillColor(v26, &components.a);
+          v29 = 2560.0 / v12 + 2560.0 / v12;
+          if (v29 > 0.0)
           {
-            v28 = 1;
+            v30 = 1;
             do
             {
-              v118.origin.x = 0.0;
-              v118.origin.y = 0.0;
-              v118.size.width = v9 * 3.0;
-              v118.size.height = v9 * 3.0;
-              CGContextAddEllipseInRect(v25, v118);
-              CGContextFillPath(v25);
-              CGContextTranslateCTM(v25, 0.0, v9 * 10.0);
-              v29 = v28++;
+              v120.origin.x = 0.0;
+              v120.origin.y = 0.0;
+              v120.size.width = v9 * 3.0;
+              v120.size.height = v9 * 3.0;
+              CGContextAddEllipseInRect(v26, v120);
+              CGContextFillPath(v26);
+              CGContextTranslateCTM(v26, 0.0, v9 * 10.0);
+              v31 = v30++;
             }
 
-            while (v27 > v29);
+            while (v29 > v31);
           }
 
           Image = CGBitmapContextCreateImage(v21);
           if (v9 == 1.0)
           {
-            v31 = &qword_101AD5D08;
+            v33 = &qword_101AD5D08;
           }
 
           else
           {
-            v31 = &qword_101AD5D18;
+            v33 = &qword_101AD5D18;
           }
 
           if (v9 == 1.0)
           {
-            v32 = &unk_101AD5D10;
+            v34 = &unk_101AD5D10;
           }
 
           else
           {
-            v32 = &unk_101AD5D20;
+            v34 = &unk_101AD5D20;
           }
 
-          *v31 = Image;
-          *v32 = CGBitmapContextCreateImage(v25);
+          *v33 = Image;
+          *v34 = CGBitmapContextCreateImage(v26);
           v19 = &qword_101AD5D08;
           CGContextRelease(v21);
           v20 = &unk_101AD5D10;
-          CGContextRelease(v25);
+          CGContextRelease(v26);
         }
 
-        v33 = +[CRLCanvasRenderable renderable];
-        v34 = v33;
+        v35 = +[CRLCanvasRenderable renderable];
+        v36 = v35;
         if (v9 != 1.0)
         {
           v19 = &qword_101AD5D18;
           v20 = &unk_101AD5D20;
         }
 
-        [v33 setContents:*v19];
-        v35 = v13 / v9;
-        v36 = v18 / v9;
-        [v34 setBounds:{0.0, 0.0, v35, v18 / v9}];
-        v37 = v13 * -0.5 / v18 + 1.0;
-        [v34 setAnchorPoint:{0.5, v37}];
-        v38 = +[CRLCanvasRenderable renderable];
-        [v38 setContents:*v20];
-        [v38 setAnchorPoint:{0.5, 0.0}];
-        [v38 setBounds:{0.0, v13 * -0.5 / 2560.0, v35, 2560.0 / v9}];
-        v39 = +[CRLCanvasScrollRenderable renderable];
-        [v39 setAnchorPoint:{0.5, 0.0}];
-        [v39 addSubrenderable:v38];
+        [v35 setContents:*v19];
+        v37 = v13 / v9;
+        v38 = v18 / v9;
+        [v36 setBounds:{0.0, 0.0, v37, v18 / v9}];
+        v39 = v13 * -0.5 / v18 + 1.0;
+        [v36 setAnchorPoint:{0.5, v39}];
         v40 = +[CRLCanvasRenderable renderable];
-        [v40 setContents:*v19];
-        [v40 setBounds:{0.0, 0.0, v35, v36}];
-        CGAffineTransformMakeRotation(&v115, 3.14159265);
-        components = v115;
-        [v40 setAffineTransform:&components];
-        [v40 setAnchorPoint:{0.5, v37}];
-        [v34 setContentsScale:v9];
-        [v39 setContentsScale:v9];
-        [v40 setContentsScale:v9];
-        [(CRLCanvasRenderable *)self->mGuideRenderable addSubrenderable:v34];
-        [(CRLCanvasRenderable *)self->mGuideRenderable addSubrenderable:v39];
-        [(CRLCanvasRenderable *)self->mGuideRenderable addSubrenderable:v40];
+        [v40 setContents:*v20];
+        [v40 setAnchorPoint:{0.5, 0.0}];
+        [v40 setBounds:{0.0, v13 * -0.5 / 2560.0, v37, 2560.0 / v9}];
+        v41 = +[CRLCanvasScrollRenderable renderable];
+        [v41 setAnchorPoint:{0.5, 0.0}];
+        [v41 addSubrenderable:v40];
+        v42 = +[CRLCanvasRenderable renderable];
+        [v42 setContents:*v19];
+        [v42 setBounds:{0.0, 0.0, v37, v38}];
+        CGAffineTransformMakeRotation(&v117, 3.14159265);
+        components = v117;
+        [v42 setAffineTransform:&components];
+        [v42 setAnchorPoint:{0.5, v39}];
+        [v36 setContentsScale:v9];
+        [v41 setContentsScale:v9];
+        [v42 setContentsScale:v9];
+        [(CRLCanvasRenderable *)self->mGuideRenderable addSubrenderable:v36];
+        [(CRLCanvasRenderable *)self->mGuideRenderable addSubrenderable:v41];
+        [(CRLCanvasRenderable *)self->mGuideRenderable addSubrenderable:v42];
 
         mGuideRenderable = self->mGuideRenderable;
       }
 
-      v111 = v9 * 10.0;
+      v113 = v9 * 10.0;
       [(CRLCanvasRenderable *)mGuideRenderable setHidden:0, v9 * 3.0];
       knob2 = [(CRLCanvasKnobTracker *)self knob];
-      v42 = sub_100345F44([knob2 tag], self->mLastNewBounds.origin.x, self->mLastNewBounds.origin.y, self->mLastNewBounds.size.width, self->mLastNewBounds.size.height);
-      v44 = v43;
+      v44 = sub_100345F44([knob2 tag], self->mLastNewBounds.origin.x, self->mLastNewBounds.origin.y, self->mLastNewBounds.size.width, self->mLastNewBounds.size.height);
+      v46 = v45;
 
       knob3 = [(CRLCanvasKnobTracker *)self knob];
-      v46 = sub_100345B0C([knob3 tag]);
-      v47 = sub_100345F44(v46, self->mLastNewBounds.origin.x, self->mLastNewBounds.origin.y, self->mLastNewBounds.size.width, self->mLastNewBounds.size.height);
-      v49 = v48;
+      v48 = sub_100345B0C([knob3 tag]);
+      v49 = sub_100345F44(v48, self->mLastNewBounds.origin.x, self->mLastNewBounds.origin.y, self->mLastNewBounds.size.width, self->mLastNewBounds.size.height);
+      v51 = v50;
 
-      v50 = [(CRLCanvasKnobTracker *)self rep];
-      [v50 boundsForResizeGuideUI];
-      v52 = v51;
+      v52 = [(CRLCanvasKnobTracker *)self rep];
+      [v52 boundsForResizeGuideUI];
+      v54 = v53;
 
       x = self->mLastNewBounds.origin.x;
-      v54 = sub_10011F31C(v42, v44, x);
-      v56 = v55;
-      v57 = sub_10011F31C(v47, v49, x);
-      v59 = v58;
-      v60 = sub_10011F334(v54, v56, v52);
-      v62 = v61;
-      v63 = sub_10011F334(v57, v59, v52);
-      v65 = v64;
+      v56 = sub_10011F31C(v44, v46, x);
+      v58 = v57;
+      v59 = sub_10011F31C(v49, v51, x);
+      v61 = v60;
+      v62 = sub_10011F334(v56, v58, v54);
+      v64 = v63;
+      v65 = sub_10011F334(v59, v61, v54);
+      v67 = v66;
       if ([(CRLResizeKnobTracker *)self hasHorizontalFlip])
       {
         width = self->mLastNewBounds.size.width;
-        v60 = sub_10011F31C(v60, v62, width);
-        v62 = v67;
-        v63 = sub_10011F31C(v63, v65, width);
-        v65 = v68;
+        v62 = sub_10011F31C(v62, v64, width);
+        v64 = v69;
+        v65 = sub_10011F31C(v65, v67, width);
+        v67 = v70;
       }
 
       if ([(CRLResizeKnobTracker *)self hasVerticalFlip])
       {
-        v60 = sub_10011F31C(v60, v62, 0.0);
-        v62 = v69;
-        v63 = sub_10011F31C(v63, v65, 0.0);
-        v65 = v70;
+        v62 = sub_10011F31C(v62, v64, 0.0);
+        v64 = v71;
+        v65 = sub_10011F31C(v65, v67, 0.0);
+        v67 = v72;
       }
 
-      v71 = [(CRLCanvasKnobTracker *)self rep];
-      layout = [v71 layout];
+      v73 = [(CRLCanvasKnobTracker *)self rep];
+      layout = [v73 layout];
       geometryForTransforming = [layout geometryForTransforming];
 
       memset(&components, 0, sizeof(components));
       if (geometryForTransforming)
       {
-        [geometryForTransforming transform];
+        objc_msgSend_transform(geometryForTransforming);
       }
 
       else
@@ -2480,83 +2476,83 @@ LABEL_23:
         memset(&t1, 0, sizeof(t1));
       }
 
-      v74 = [(CRLCanvasKnobTracker *)self rep];
-      layout2 = [v74 layout];
+      v76 = [(CRLCanvasKnobTracker *)self rep];
+      layout2 = [v76 layout];
       geometry = [layout2 geometry];
-      v77 = geometry;
+      v79 = geometry;
       if (geometry)
       {
-        [geometry transform];
+        objc_msgSend_transform(geometry);
       }
 
       else
       {
-        memset(&v112, 0, sizeof(v112));
+        memset(&v114, 0, sizeof(v114));
       }
 
-      CGAffineTransformInvert(&t2, &v112);
+      CGAffineTransformInvert(&t2, &v114);
       CGAffineTransformConcat(&components, &t1, &t2);
 
-      v78 = components.tx + v62 * components.c + components.a * v60;
-      v79 = components.ty + v62 * components.d + components.b * v60;
-      v80 = components.tx + v65 * components.c + components.a * v63;
-      v81 = components.ty + v65 * components.d + components.b * v63;
-      v82 = [(CRLCanvasKnobTracker *)self rep];
-      [v82 convertNaturalPointToUnscaledCanvas:{v78, v79}];
+      v80 = components.tx + v64 * components.c + components.a * v62;
+      v81 = components.ty + v64 * components.d + components.b * v62;
+      v82 = components.tx + v67 * components.c + components.a * v65;
+      v83 = components.ty + v67 * components.d + components.b * v65;
+      v84 = [(CRLCanvasKnobTracker *)self rep];
+      [v84 convertNaturalPointToUnscaledCanvas:{v80, v81}];
       [interactiveCanvasController convertUnscaledToBoundsPoint:?];
-      v84 = v83;
       v86 = v85;
+      v88 = v87;
 
-      v87 = [(CRLCanvasKnobTracker *)self rep];
-      [v87 convertNaturalPointToUnscaledCanvas:{v80, v81}];
+      v89 = [(CRLCanvasKnobTracker *)self rep];
+      [v89 convertNaturalPointToUnscaledCanvas:{v82, v83}];
       [interactiveCanvasController convertUnscaledToBoundsPoint:?];
-      v89 = v88;
       v91 = v90;
+      v93 = v92;
 
-      v92 = sub_100120090(v89, v91, v84, v86);
-      v93 = v92 / v111;
-      v94 = vcvtps_u32_f32(v93);
+      v94 = sub_100120090(v91, v93, v86, v88);
+      v95 = v94 / v113;
+      v96 = vcvtps_u32_f32(v95);
       subrenderables = [(CRLCanvasRenderable *)self->mGuideRenderable subrenderables];
-      v96 = [subrenderables objectAtIndexedSubscript:0];
+      v98 = [subrenderables objectAtIndexedSubscript:0];
 
       subrenderables2 = [(CRLCanvasRenderable *)self->mGuideRenderable subrenderables];
-      v98 = [subrenderables2 objectAtIndexedSubscript:1];
+      v100 = [subrenderables2 objectAtIndexedSubscript:1];
 
       subrenderables3 = [(CRLCanvasRenderable *)self->mGuideRenderable subrenderables];
       lastObject = [subrenderables3 lastObject];
 
-      v101 = v111 * v94;
-      [v98 setBounds:{v110 * -0.5, 0.0, v110, v101}];
+      v103 = v113 * v96;
+      [v100 setBounds:{v112 * -0.5, 0.0, v112, v103}];
       if ([(CRLResizeKnobTracker *)self p_isResizingWidthFromCenter]&& [(CRLResizeKnobTracker *)self p_isResizingHeightFromCenter])
       {
-        v102 = v92 * 0.5;
-        v103 = (v94 >> 1);
-        [v96 setPosition:{0.0, v102 - v103 * v111}];
-        [v98 setPosition:{0.0, v102 - v103 * v111}];
-        v101 = v102 + v103 * v111;
+        v104 = v94 * 0.5;
+        v105 = (v96 >> 1);
+        [v98 setPosition:{0.0, v104 - v105 * v113}];
+        [v100 setPosition:{0.0, v104 - v105 * v113}];
+        v103 = v104 + v105 * v113;
       }
 
       else
       {
-        [v96 setPosition:{0.0, 0.0}];
         [v98 setPosition:{0.0, 0.0}];
+        [v100 setPosition:{0.0, 0.0}];
       }
 
-      [lastObject setPosition:{0.0, v101}];
+      [lastObject setPosition:{0.0, v103}];
       [(CRLCanvasRenderable *)self->mGuideRenderable position];
-      if (v105 != v89 || v104 != v91)
+      if (v107 != v91 || v106 != v93)
       {
-        [(CRLCanvasRenderable *)self->mGuideRenderable setPosition:v89, v91];
+        [(CRLCanvasRenderable *)self->mGuideRenderable setPosition:v91, v93];
       }
 
-      v106 = sub_10011F31C(v84, v86, v89);
-      v108 = sub_1001208D0(v106, v107);
+      v108 = sub_10011F31C(v86, v88, v91);
+      v110 = sub_1001208D0(v108, v109);
       memset(&t1, 0, sizeof(t1));
-      CGAffineTransformMakeRotation(&t1, v108 + -1.57079633);
-      v109 = self->mGuideRenderable;
-      if (v109)
+      CGAffineTransformMakeRotation(&t1, v110 + -1.57079633);
+      v111 = self->mGuideRenderable;
+      if (v111)
       {
-        [(CRLCanvasRenderable *)v109 affineTransform];
+        objc_msgSend_affineTransform(v111);
       }
 
       else
@@ -2564,8 +2560,8 @@ LABEL_23:
         memset(&t2, 0, sizeof(t2));
       }
 
-      v112 = t1;
-      if (!CGAffineTransformEqualToTransform(&v112, &t2))
+      v114 = t1;
+      if (!CGAffineTransformEqualToTransform(&v114, &t2))
       {
         t2 = t1;
         [(CRLCanvasRenderable *)self->mGuideRenderable setAffineTransform:&t2];
@@ -2617,9 +2613,9 @@ LABEL_23:
   v3 = objc_opt_class();
   v4 = +[NSUserDefaults standardUserDefaults];
   v5 = [v4 objectForKey:@"CRLShowSizeAndPositionWhileMovingUserDefault"];
-  v37 = sub_100014370(v3, v5);
+  v38 = sub_100014370(v3, v5);
 
-  if (!v37 || (v6 = [v37 BOOLValue], v7 = v37, v6))
+  if (!v38 || (v6 = [v38 BOOLValue], v7 = v38, v6))
   {
     v8 = [(CRLCanvasKnobTracker *)self rep];
     interactiveCanvasController = [v8 interactiveCanvasController];
@@ -2656,16 +2652,16 @@ LABEL_9:
         v27 = (v26 + v26) / 5.0;
 
         v28 = self->mSecondHUDController;
-        [(CRLResizeKnobTracker *)self secondaryHUDPoint];
-        v31 = sub_100122154(v29, v30);
-        v33 = v32;
-        v34 = [(CRLCanvasKnobTracker *)self icc];
-        layerHost2 = [v34 layerHost];
+        secondaryHUDPoint = [(CRLResizeKnobTracker *)self secondaryHUDPoint];
+        v32 = sub_100122154(secondaryHUDPoint, v30, v31);
+        v34 = v33;
+        v35 = [(CRLCanvasKnobTracker *)self icc];
+        layerHost2 = [v35 layerHost];
         canvasView2 = [layerHost2 canvasView];
-        [(CRLCanvasHUDController *)v28 showHUDForKey:self forTouchPoint:canvasView2 inCanvasView:0 withNudge:v31 size:v33, v27, -75.0];
+        [(CRLCanvasHUDController *)v28 showHUDForKey:self forTouchPoint:canvasView2 inCanvasView:0 withNudge:v32 size:v34, v27, -75.0];
 
 LABEL_11:
-        v7 = v37;
+        v7 = v38;
         goto LABEL_12;
       }
 
@@ -2870,7 +2866,7 @@ LABEL_12:
   v52 = valueCopy;
   if (inspectorsCopy)
   {
-    [inspectorsCopy knobPositionTransformForInspectorResize];
+    objc_msgSend_knobPositionTransformForInspectorResize(inspectorsCopy);
     v30 = v55;
     v31 = v57;
     v32 = v59;
@@ -3121,7 +3117,7 @@ LABEL_27:
   v11 = pureGeometry;
   if (pureGeometry)
   {
-    [pureGeometry fullTransform];
+    objc_msgSend_fullTransform(pureGeometry);
   }
 
   else
@@ -3137,7 +3133,7 @@ LABEL_27:
     v15 = geometryInRoot;
     if (geometryInRoot)
     {
-      [geometryInRoot transform];
+      objc_msgSend_transform(geometryInRoot);
     }
 
     else

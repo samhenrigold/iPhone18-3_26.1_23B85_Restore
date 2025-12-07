@@ -65,7 +65,6 @@
   MEMORY[0x277D82BD8](clientInfo);
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)harvestDataFromCompanionResponse:(id)response
@@ -204,7 +203,6 @@
   objc_storeStrong(&v31, 0);
   objc_storeStrong(&v34, 0);
   objc_storeStrong(v13, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)harvestDataFromServerHTTPResponse:(id)response
@@ -315,7 +313,6 @@
   objc_storeStrong(&v21, 0);
   objc_storeStrong(&v25, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_harvestIDMSRecoveryHeadersInfo:(id)info
@@ -401,7 +398,6 @@
   objc_storeStrong(&v16, 0);
   objc_storeStrong(&v17, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)harvestIDMSRecoveryInfoFromHeaders:(id)headers
@@ -531,7 +527,6 @@
 
   objc_storeStrong(&v27, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearPendingDOBFromPrimaryAppleAccount
@@ -602,7 +597,6 @@
   }
 
   objc_storeStrong(v22, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

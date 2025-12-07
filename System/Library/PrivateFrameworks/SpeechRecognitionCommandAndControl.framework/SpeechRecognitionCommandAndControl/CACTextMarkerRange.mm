@@ -94,21 +94,22 @@ LABEL_5:
 - (_NSRange)nsRange
 {
   index = [(CACTextMarker *)self->_startMarker index];
-  v4 = [(CACTextMarker *)self->_endMarker index]- index;
-  if (v4 < 0)
+  index2 = [(CACTextMarker *)self->_endMarker index];
+  v5 = index2 - index;
+  if ((index2 - index) < 0)
   {
-    v5 = CACLogGeneral();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = CACLogGeneral(index2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(CACTextMarkerRange *)v5 nsRange];
+      [(CACTextMarkerRange *)v6 nsRange];
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  v6 = index;
-  result.length = v4;
-  result.location = v6;
+  v7 = index;
+  result.length = v5;
+  result.location = v7;
   return result;
 }
 

@@ -75,8 +75,8 @@ void __74__SpatialAudioProfileClient_fetchSpatialAudioProfileRecordWithCompletio
 
 uint64_t __74__SpatialAudioProfileClient_fetchSpatialAudioProfileRecordWithCompletion___block_invoke_1(uint64_t result)
 {
-  v1 = *(result + 40);
-  if (!*(*(v1 + 8) + 40))
+  v1 = *(*(*(result + 40) + 8) + 40);
+  if (!v1)
   {
     return result;
   }
@@ -86,67 +86,66 @@ uint64_t __74__SpatialAudioProfileClient_fetchSpatialAudioProfileRecordWithCompl
   {
     if (gLogCategory_SpatialAudioProfileClient == -1)
     {
-      v3 = _LogCategory_Initialize();
-      v1 = *(v2 + 40);
-      if (!v3)
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_7;
       }
 
-      v6 = *(*(v1 + 8) + 40);
+      v1 = *(*(*(v2 + 40) + 8) + 40);
     }
 
-    LogPrintF();
-    v1 = *(v2 + 40);
+    LogPrintF(&gLogCategory_SpatialAudioProfileClient, "[SpatialAudioProfileClient fetchSpatialAudioProfileRecordWithCompletion:]_block_invoke", 90, "### Failed to fetch sound profile, %{error}", v1);
   }
 
 LABEL_7:
-  v4 = *(*(v1 + 8) + 40);
-  v5 = *(*(v2 + 32) + 16);
+  v3 = *(*(v2 + 32) + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)_fetchSpatialAudioProfileRecordWithCompletion:(id)completion
 {
   completionCopy = completion;
+  v7 = completionCopy;
   if (self->_invalidateCalled)
   {
-    v5 = *MEMORY[0x277CCA590];
     _ensureXPCStarted = NSErrorF();
     if (gLogCategory_SpatialAudioProfileClient <= 90 && (gLogCategory_SpatialAudioProfileClient != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_SpatialAudioProfileClient, "[SpatialAudioProfileClient _fetchSpatialAudioProfileRecordWithCompletion:]", 90, "### Fetch Sound Profile failed: %@, %@", self, _ensureXPCStarted);
     }
   }
 
   else
   {
-    if (gLogCategory_SpatialAudioProfileClient <= 30 && (gLogCategory_SpatialAudioProfileClient != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SpatialAudioProfileClient <= 30)
     {
-      [SpatialAudioProfileClient _fetchSpatialAudioProfileRecordWithCompletion:];
+      if (gLogCategory_SpatialAudioProfileClient != -1 || (completionCopy = _LogCategory_Initialize(), completionCopy))
+      {
+        [(SpatialAudioProfileClient *)completionCopy _fetchSpatialAudioProfileRecordWithCompletion:v5, v6];
+      }
     }
 
     _ensureXPCStarted = [(SpatialAudioProfileClient *)self _ensureXPCStarted];
     if (!_ensureXPCStarted)
     {
       xpcCnx = self->_xpcCnx;
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __75__SpatialAudioProfileClient__fetchSpatialAudioProfileRecordWithCompletion___block_invoke;
-      v10[3] = &unk_279CD8068;
-      v8 = completionCopy;
-      v11 = v8;
-      v9 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v10];
-      [v9 fetchSpatialAudioProfileRecordForClient:self WithCompletion:v8];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __75__SpatialAudioProfileClient__fetchSpatialAudioProfileRecordWithCompletion___block_invoke;
+      v12[3] = &unk_279CD8068;
+      v10 = v7;
+      v13 = v10;
+      v11 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v12];
+      [v11 fetchSpatialAudioProfileRecordForClient:self WithCompletion:v10];
 
       goto LABEL_13;
     }
   }
 
-  if (completionCopy)
+  if (v7)
   {
-    (*(completionCopy + 2))(completionCopy, 0, _ensureXPCStarted);
+    (v7)[2](v7, 0, _ensureXPCStarted);
   }
 
 LABEL_13:
@@ -154,16 +153,20 @@ LABEL_13:
 
 uint64_t __75__SpatialAudioProfileClient__fetchSpatialAudioProfileRecordWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v5 = a2;
-  if (gLogCategory_SpatialAudioProfileClient <= 90 && (gLogCategory_SpatialAudioProfileClient != -1 || _LogCategory_Initialize()))
+  v3 = a2;
+  v7 = v3;
+  if (gLogCategory_SpatialAudioProfileClient <= 90)
   {
-    __75__SpatialAudioProfileClient__fetchSpatialAudioProfileRecordWithCompletion___block_invoke_cold_1();
+    if (gLogCategory_SpatialAudioProfileClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
+    {
+      __75__SpatialAudioProfileClient__fetchSpatialAudioProfileRecordWithCompletion___block_invoke_cold_1(v3);
+    }
   }
 
-  v3 = *(a1 + 32);
-  if (v3)
+  v5 = *(a1 + 32);
+  if (v5)
   {
-    (*(v3 + 16))(v3, 0, v5);
+    (*(v5 + 16))(v5, 0, v7);
   }
 
   return MEMORY[0x2821F96F8]();
@@ -217,17 +220,20 @@ uint64_t __46__SpatialAudioProfileClient__ensureXPCStarted__block_invoke_2(uint6
 - (void)_interrupted
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (gLogCategory_SpatialAudioProfileClient <= 50 && (gLogCategory_SpatialAudioProfileClient != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SpatialAudioProfileClient <= 50)
   {
-    [SpatialAudioProfileClient _interrupted];
+    if (gLogCategory_SpatialAudioProfileClient != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      [(SpatialAudioProfileClient *)v3 _interrupted];
+    }
   }
 
   interruptionHandler = self->_interruptionHandler;
   if (interruptionHandler)
   {
-    v4 = *(interruptionHandler + 2);
+    v7 = *(interruptionHandler + 2);
 
-    v4();
+    v7();
   }
 }
 
@@ -242,26 +248,29 @@ uint64_t __46__SpatialAudioProfileClient__ensureXPCStarted__block_invoke_2(uint6
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __39__SpatialAudioProfileClient_invalidate__block_invoke(uint64_t result)
+void *__39__SpatialAudioProfileClient_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
-  v2 = *(result + 32);
-  if ((*(v2 + 8) & 1) == 0)
+  v4 = result[4];
+  if ((*(v4 + 8) & 1) == 0)
   {
-    v3 = result;
-    *(v2 + 8) = 1;
-    if ((*(*(result + 32) + 9) & 1) == 0 && gLogCategory_SpatialAudioProfileClient <= 30 && (gLogCategory_SpatialAudioProfileClient != -1 || _LogCategory_Initialize()))
+    v5 = result;
+    *(v4 + 8) = 1;
+    if ((*(result[4] + 9) & 1) == 0 && gLogCategory_SpatialAudioProfileClient <= 30)
     {
-      __39__SpatialAudioProfileClient_invalidate__block_invoke_cold_1();
+      if (gLogCategory_SpatialAudioProfileClient != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        __39__SpatialAudioProfileClient_invalidate__block_invoke_cold_1(result, a2, a3);
+      }
     }
 
-    v4 = *(v3 + 32);
-    if (v4[2])
+    v6 = v5[4];
+    if (v6[2])
     {
-      [v4[2] invalidate];
-      v4 = *(v3 + 32);
+      [v6[2] invalidate];
+      v6 = v5[4];
     }
 
-    return [v4 _invalidated];
+    return [v6 _invalidated];
   }
 
   return result;
@@ -271,29 +280,33 @@ uint64_t __39__SpatialAudioProfileClient_invalidate__block_invoke(uint64_t resul
 {
   if (!self->_invalidateDone)
   {
-    if (!self->_invalidateCalled && gLogCategory_SpatialAudioProfileClient <= 50 && (gLogCategory_SpatialAudioProfileClient != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (!self->_invalidateCalled && gLogCategory_SpatialAudioProfileClient <= 50)
     {
-      [SpatialAudioProfileClient _invalidated];
+      if (gLogCategory_SpatialAudioProfileClient != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(SpatialAudioProfileClient *)self _invalidated];
+      }
     }
 
-    if (!self->_xpcCnx)
+    if (!selfCopy->_xpcCnx)
     {
-      v6 = MEMORY[0x26D6736A0](self->_invalidationHandler, a2);
-      invalidationHandler = self->_invalidationHandler;
-      self->_invalidationHandler = 0;
+      v7 = MEMORY[0x26D6736A0](selfCopy->_invalidationHandler, a2);
+      invalidationHandler = selfCopy->_invalidationHandler;
+      selfCopy->_invalidationHandler = 0;
 
-      if (v6)
+      if (v7)
       {
-        v6[2](v6);
+        v7[2](v7);
       }
 
-      interruptionHandler = self->_interruptionHandler;
-      self->_interruptionHandler = 0;
+      interruptionHandler = selfCopy->_interruptionHandler;
+      selfCopy->_interruptionHandler = 0;
 
-      xpcCnx = self->_xpcCnx;
-      self->_xpcCnx = 0;
+      xpcCnx = selfCopy->_xpcCnx;
+      selfCopy->_xpcCnx = 0;
 
-      self->_invalidateDone = 1;
+      selfCopy->_invalidateDone = 1;
       if (gLogCategory_SpatialAudioProfileClient <= 10 && (gLogCategory_SpatialAudioProfileClient != -1 || _LogCategory_Initialize()))
       {
         [SpatialAudioProfileClient _invalidated];

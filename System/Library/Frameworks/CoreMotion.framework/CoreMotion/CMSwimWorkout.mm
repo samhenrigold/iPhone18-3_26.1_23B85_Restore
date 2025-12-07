@@ -60,29 +60,29 @@
 
       v23 = 134217984;
       lengthCopy2 = length;
-      v11 = _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2980, 17, "Workout, pool length %f for workout is too small and may lead to undefined behavior.", COERCE_DOUBLE(&v23));
+      v12 = v11;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSwimWorkout initWithSessionId:location:poolLength:]", "CoreLocation: %s\n", v11);
-      if (v11 != buf)
+      if (v12 != buf)
       {
-        free(v11);
+        free(v12);
       }
     }
   }
 
   v22.receiver = self;
   v22.super_class = CMSwimWorkout;
-  v12 = [(CMWorkout *)&v22 initWithSessionId:id type:19];
-  v14 = v12;
-  if (v12)
+  v13 = [(CMWorkout *)&v22 initWithSessionId:id type:19];
+  v15 = v13;
+  if (v13)
   {
-    v12->fLocation = location;
-    v12->fPoolLength = length;
-    v15 = objc_msgSend_CMWorkoutLocationTypeFromCMSwimWorkoutLocation_(CMWorkout, v13, location);
-    objc_msgSend_setLocationType_(v14, v16, v15);
+    v13->fLocation = location;
+    v13->fPoolLength = length;
+    v16 = objc_msgSend_CMWorkoutLocationTypeFromCMSwimWorkoutLocation_(CMWorkout, v14, location);
+    objc_msgSend_setLocationType_(v15, v17, v16);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-  return v14;
+  return v15;
 }
 
 - (CMSwimWorkout)initWithSessionId:(id)id locationType:(int64_t)type poolLength:(double)length
@@ -114,11 +114,12 @@
 
       v15 = 134217984;
       lengthCopy2 = length;
-      v11 = _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2980, 17, "Workout, pool length %f for workout is too small and may lead to undefined behavior.", COERCE_DOUBLE(&v15));
+      v12 = v11;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSwimWorkout initWithSessionId:locationType:poolLength:]", "CoreLocation: %s\n", v11);
-      if (v11 != buf)
+      if (v12 != buf)
       {
-        free(v11);
+        free(v12);
       }
     }
   }
@@ -131,7 +132,6 @@
     result->fPoolLength = length;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -191,28 +191,28 @@ LABEL_3:
 
       v23 = 134217984;
       lengthCopy2 = length;
-      v15 = _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2980, 17, "Workout, pool length %f for workout is too small and may lead to undefined behavior.", COERCE_DOUBLE(&v23));
+      v16 = v15;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSwimWorkout _initWithSessionId:locationType:poolLength:startDate:endDate:]", "CoreLocation: %s\n", v15);
-      if (v15 != buf)
+      if (v16 != buf)
       {
-        free(v15);
+        free(v16);
       }
     }
   }
 
   v22.receiver = self;
   v22.super_class = CMSwimWorkout;
-  v16 = [(CMWorkout *)&v22 _initWithSessionId:id type:19 locationType:type mode:0 startDate:date endDate:endDate];
-  v18 = v16;
-  if (v16)
+  v17 = [(CMWorkout *)&v22 _initWithSessionId:id type:19 locationType:type mode:0 startDate:date endDate:endDate];
+  v19 = v17;
+  if (v17)
   {
-    *(v16 + 11) = length;
-    *(v16 + 10) = objc_msgSend_CMSwimWorkoutLocationFromCMWorkoutLocationType_(CMWorkout, v17, type);
-    objc_msgSend_setIsUserInitiated_(v18, v19, 0);
+    *(v17 + 11) = length;
+    *(v17 + 10) = objc_msgSend_CMSwimWorkoutLocationFromCMWorkoutLocationType_(CMWorkout, v18, type);
+    objc_msgSend_setIsUserInitiated_(v19, v20, 0);
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-  return v18;
+  return v19;
 }
 
 - (void)dealloc

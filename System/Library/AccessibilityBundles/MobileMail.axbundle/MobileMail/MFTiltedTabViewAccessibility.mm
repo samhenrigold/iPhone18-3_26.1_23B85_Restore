@@ -3,6 +3,7 @@
 - (CGRect)accessibilityFrame;
 - (id)accessibilityElements;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)setPresented:(BOOL)presented animated:(BOOL)animated;
 @end
 
 @implementation MFTiltedTabViewAccessibility
@@ -34,26 +35,26 @@
 
 void __74__MFTiltedTabViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = *(a1 + 32);
-  v1 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v1 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v1)
   {
-    v13 = *v20;
+    v12 = *v19;
     do
     {
       for (i = 0; i != v1; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v3 = *(*(&v19 + 1) + 8 * i);
+        v3 = *(*(&v18 + 1) + 8 * i);
         v4 = [v3 safeValueForKey:@"borrowedContentView"];
         v5 = MEMORY[0x29EDBA0F8];
         v6 = accessibilityLocalizedString(@"close.draft.format");
@@ -64,25 +65,23 @@ void __74__MFTiltedTabViewAccessibility__accessibilityLoadAccessibilityInformati
         [v9 setAccessibilityLabel:v8];
         objc_initWeak(&location, v9);
         v10 = [v3 safeValueForKey:@"closeButton"];
-        v15[0] = MEMORY[0x29EDCA5F8];
-        v15[1] = 3221225472;
-        v15[2] = __74__MFTiltedTabViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_2;
-        v15[3] = &unk_29F2D41C0;
-        objc_copyWeak(&v17, &location);
-        v16 = *(a1 + 32);
-        [v10 setAccessibilityActivateBlock:v15];
+        v14[0] = MEMORY[0x29EDCA5F8];
+        v14[1] = 3221225472;
+        v14[2] = __74__MFTiltedTabViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_2;
+        v14[3] = &unk_29F2D41C0;
+        objc_copyWeak(&v16, &location);
+        v15 = *(a1 + 32);
+        [v10 setAccessibilityActivateBlock:v14];
 
-        objc_destroyWeak(&v17);
+        objc_destroyWeak(&v16);
         objc_destroyWeak(&location);
       }
 
-      v1 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v1 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v1);
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t __74__MFTiltedTabViewAccessibility__accessibilityLoadAccessibilityInformation__block_invoke_2(uint64_t a1)
@@ -107,6 +106,14 @@ void __74__MFTiltedTabViewAccessibility__accessibilityLoadAccessibilityInformati
     v3 = [v4 safeValueForKey:@"borrowedContentView"];
     UIAccessibilityPostNotification(v2, v3);
   }
+}
+
+- (void)setPresented:(BOOL)presented animated:(BOOL)animated
+{
+  v5.receiver = self;
+  v5.super_class = MFTiltedTabViewAccessibility;
+  [(MFTiltedTabViewAccessibility *)&v5 setPresented:presented animated:animated];
+  [(MFTiltedTabViewAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 - (id)accessibilityElements

@@ -38,8 +38,8 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFRoomItemProvider *)self home];
-  v6 = [v4 initWithHome:home];
+  v5 = objc_msgSend_home(self);
+  v6 = [v4 initWithHome:v5];
 
   return v6;
 }
@@ -53,8 +53,8 @@
   aBlock[3] = &unk_277DF5228;
   objc_copyWeak(&v13, &location);
   v3 = _Block_copy(aBlock);
-  home = [(HFRoomItemProvider *)self home];
-  hf_activeRooms = [home hf_activeRooms];
+  v4 = objc_msgSend_home(self);
+  hf_activeRooms = [v4 hf_activeRooms];
 
   filter = [(HFRoomItemProvider *)self filter];
   v7 = [(HFItemProvider *)self reloadItemsWithHomeKitObjects:hf_activeRooms filter:filter itemMap:v3];
@@ -77,7 +77,7 @@ HFRoomItem *__33__HFRoomItemProvider_reloadItems__block_invoke(uint64_t a1, void
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = [HFRoomItem alloc];
-  v6 = [WeakRetained home];
+  v6 = objc_msgSend_home(WeakRetained);
   v7 = [(HFRoomItem *)v5 initWithHome:v6 room:v3];
 
   return v7;
@@ -102,16 +102,14 @@ id __33__HFRoomItemProvider_reloadItems__block_invoke_2(uint64_t a1, void *a2)
 
 - (id)invalidationReasons
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = HFRoomItemProvider;
-  invalidationReasons = [(HFItemProvider *)&v7 invalidationReasons];
-  v8[0] = @"room";
-  v8[1] = @"user";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = HFRoomItemProvider;
+  invalidationReasons = [(HFItemProvider *)&v6 invalidationReasons];
+  v7[0] = @"room";
+  v7[1] = @"user";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
   v4 = [invalidationReasons setByAddingObjectsFromArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

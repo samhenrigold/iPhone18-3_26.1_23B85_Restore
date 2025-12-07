@@ -14,6 +14,10 @@
 - (void)reset;
 - (void)setEnabledLevel:(int64_t)level;
 - (void)setPersistedLevel:(int64_t)level;
+- (void)setSignpostAllowStreaming:(BOOL)streaming;
+- (void)setSignpostBacktracesEnabled:(BOOL)enabled;
+- (void)setSignpostEnabled:(BOOL)enabled;
+- (void)setSignpostPersisted:(BOOL)persisted;
 @end
 
 @implementation OSLogPreferencesCategory
@@ -25,6 +29,50 @@
     subsystem = [(OSLogPreferencesCategory *)self subsystem];
     name = [(OSLogPreferencesCategory *)self name];
     [subsystem _resetCategory:name];
+  }
+}
+
+- (void)setSignpostAllowStreaming:(BOOL)streaming
+{
+  streamingCopy = streaming;
+  if (![(OSLogPreferencesCategory *)self isLocked])
+  {
+    subsystem = [(OSLogPreferencesCategory *)self subsystem];
+    name = [(OSLogPreferencesCategory *)self name];
+    [subsystem _setSignpostAllowStreaming:streamingCopy forCategory:name];
+  }
+}
+
+- (void)setSignpostBacktracesEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if (![(OSLogPreferencesCategory *)self isLocked])
+  {
+    subsystem = [(OSLogPreferencesCategory *)self subsystem];
+    name = [(OSLogPreferencesCategory *)self name];
+    [subsystem _setSignpostBacktracesEnabled:enabledCopy forCategory:name];
+  }
+}
+
+- (void)setSignpostPersisted:(BOOL)persisted
+{
+  persistedCopy = persisted;
+  if (![(OSLogPreferencesCategory *)self isLocked])
+  {
+    subsystem = [(OSLogPreferencesCategory *)self subsystem];
+    name = [(OSLogPreferencesCategory *)self name];
+    [subsystem _setSignpostPersisted:persistedCopy forCategory:name];
+  }
+}
+
+- (void)setSignpostEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if (![(OSLogPreferencesCategory *)self isLocked])
+  {
+    subsystem = [(OSLogPreferencesCategory *)self subsystem];
+    name = [(OSLogPreferencesCategory *)self name];
+    [subsystem _setSignpostEnabled:enabledCopy forCategory:name];
   }
 }
 

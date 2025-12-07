@@ -52,73 +52,74 @@
 {
   v27 = *MEMORY[0x1E69E9840];
   suggesterCopy = suggester;
+  v5 = suggesterCopy;
   if (suggesterCopy)
   {
-    v5 = _FALogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _FALogSystem(suggesterCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v26 = suggesterCopy;
-      _os_log_impl(&dword_1B70B0000, v5, OS_LOG_TYPE_DEFAULT, "Attempting to use recommended suggester: %@", buf, 0xCu);
+      v26 = v5;
+      _os_log_impl(&dword_1B70B0000, v6, OS_LOG_TYPE_DEFAULT, "Attempting to use recommended suggester: %@", buf, 0xCu);
     }
 
     whitespaceAndNewlineCharacterSet = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
-    v7 = [suggesterCopy stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
-    lowercaseString = [v7 lowercaseString];
+    v8 = [v5 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
+    lowercaseString = [v8 lowercaseString];
 
     v22 = 0u;
     v23 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v9 = self->_suggesters;
-    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
-    if (v10)
+    v10 = self->_suggesters;
+    v11 = [(NSArray *)v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v21;
+      v12 = v11;
+      v13 = *v21;
       while (2)
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v21 != v12)
+          if (*v21 != v13)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * i);
-          if ([lowercaseString isEqual:{@"megadome", v20}] && objc_msgSend(v14, "proactiveModel") == 3)
+          v15 = *(*(&v20 + 1) + 8 * i);
+          if ([lowercaseString isEqual:{@"megadome", v20}] && objc_msgSend(v15, "proactiveModel") == 3)
           {
-            v16 = _FALogSystem();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+            v17 = _FALogSystem(3);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              v17 = "Recommended suggester matches megadome";
+              v18 = "Recommended suggester matches megadome";
               goto LABEL_21;
             }
 
 LABEL_22:
 
-            v15 = v14;
+            v16 = v15;
             goto LABEL_23;
           }
 
-          if ([lowercaseString isEqual:@"proactive"] && objc_msgSend(v14, "proactiveModel") == 2)
+          if ([lowercaseString isEqual:@"proactive"] && objc_msgSend(v15, "proactiveModel") == 2)
           {
-            v16 = _FALogSystem();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+            v17 = _FALogSystem(2);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              v17 = "Recommended suggester matches proactive";
+              v18 = "Recommended suggester matches proactive";
 LABEL_21:
-              _os_log_impl(&dword_1B70B0000, v16, OS_LOG_TYPE_DEFAULT, v17, buf, 2u);
+              _os_log_impl(&dword_1B70B0000, v17, OS_LOG_TYPE_DEFAULT, v18, buf, 2u);
             }
 
             goto LABEL_22;
           }
         }
 
-        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
-        if (v11)
+        v12 = [(NSArray *)v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        if (v12)
         {
           continue;
         }
@@ -127,25 +128,23 @@ LABEL_21:
       }
     }
 
-    v15 = 0;
+    v16 = 0;
 LABEL_23:
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
-  return v15;
+  return v16;
 }
 
 - (id)fetchFamilyMemberSuggestions:(int64_t *)suggestions useSuggester:(id)suggester
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   suggesterCopy = suggester;
-  v7 = _FALogSystem();
+  v7 = _FALogSystem(suggesterCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -164,95 +163,94 @@ LABEL_23:
     v11 = [v12 copy];
   }
 
-  v46 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
+  v46 = 0u;
   v13 = v11;
-  v14 = [v13 countByEnumeratingWithState:&v44 objects:v54 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v45 objects:v55 count:16];
   if (v14)
   {
     v15 = v14;
     selfCopy = self;
-    v38 = v9;
-    v39 = v8;
+    v39 = v9;
+    v40 = v8;
     suggestionsCopy = suggestions;
-    v41 = suggesterCopy;
-    v16 = *v45;
+    v42 = suggesterCopy;
+    v16 = *v46;
     while (2)
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v45 != v16)
+        if (*v46 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v44 + 1) + 8 * i);
+        v18 = *(*(&v45 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
 LABEL_21:
-          v24 = objc_opt_class();
-          v25 = NSStringFromClass(v24);
-          v26 = _FALogSystem();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          v25 = objc_opt_class();
+          v26 = NSStringFromClass(v25);
+          v27 = _FALogSystem(v26);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v49 = v25;
-            _os_log_impl(&dword_1B70B0000, v26, OS_LOG_TYPE_DEFAULT, "Attempting to get Family suggestions from suggester %@", buf, 0xCu);
+            v50 = v26;
+            _os_log_impl(&dword_1B70B0000, v27, OS_LOG_TYPE_DEFAULT, "Attempting to get Family suggestions from suggester %@", buf, 0xCu);
           }
 
-          v42 = 0;
           v43 = 0;
-          v27 = [v18 getFamilyRecommendationsWithContext:&v43 error:&v42];
-          v28 = v43;
-          v29 = v42;
-          v30 = _FALogSystem();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+          v44 = 0;
+          v28 = [v18 getFamilyRecommendationsWithContext:&v44 error:&v43];
+          v29 = v44;
+          v30 = v43;
+          v31 = _FALogSystem(v30);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412802;
-            v49 = v25;
-            v50 = 2112;
-            v51 = v29;
-            v52 = 2112;
-            v53 = v27;
-            _os_log_impl(&dword_1B70B0000, v30, OS_LOG_TYPE_DEFAULT, "Finished getting family suggestions for suggester class %@. error: %@, recommendations: %@", buf, 0x20u);
+            v50 = v26;
+            v51 = 2112;
+            v52 = v30;
+            v53 = 2112;
+            v54 = v28;
+            _os_log_impl(&dword_1B70B0000, v31, OS_LOG_TYPE_DEFAULT, "Finished getting family suggestions for suggester class %@. error: %@, recommendations: %@", buf, 0x20u);
           }
 
-          if (v29)
+          if (v30)
           {
-            v31 = _FALogSystem();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+            v33 = _FALogSystem(v32);
+            if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
             {
-              v32 = [v27 count];
+              v34 = [v28 count];
               *buf = 138412802;
-              v49 = v25;
-              v50 = 2048;
-              v51 = v32;
-              v52 = 2112;
-              v53 = v29;
-              _os_log_impl(&dword_1B70B0000, v31, OS_LOG_TYPE_DEFAULT, "Suggester class %@ returned %lu suggestions and encountered an error: %@", buf, 0x20u);
+              v50 = v26;
+              v51 = 2048;
+              v52 = v34;
+              v53 = 2112;
+              v54 = v30;
+              _os_log_impl(&dword_1B70B0000, v33, OS_LOG_TYPE_DEFAULT, "Suggester class %@ returned %lu suggestions and encountered an error: %@", buf, 0x20u);
             }
           }
 
-          [(FAInviteSuggestions *)selfCopy setFeedbackContext:v28];
+          [(FAInviteSuggestions *)selfCopy setFeedbackContext:v29];
           proactiveModel = [v18 proactiveModel];
-          v8 = v39;
-          [v39 addObjectsFromArray:v27];
-          v33 = _FALogSystem();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+          v8 = v40;
+          v35 = _FALogSystem([v40 addObjectsFromArray:v28]);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v49 = v25;
-            v50 = 2112;
-            v51 = v27;
-            _os_log_impl(&dword_1B70B0000, v33, OS_LOG_TYPE_DEFAULT, "Using family suggestions for suggester class %@: recommendations: %@", buf, 0x16u);
+            v50 = v26;
+            v51 = 2112;
+            v52 = v28;
+            _os_log_impl(&dword_1B70B0000, v35, OS_LOG_TYPE_DEFAULT, "Using family suggestions for suggester class %@: recommendations: %@", buf, 0x16u);
           }
 
           suggestions = suggestionsCopy;
-          suggesterCopy = v41;
-          v9 = v38;
+          suggesterCopy = v42;
+          v9 = v39;
           goto LABEL_32;
         }
 
@@ -272,15 +270,15 @@ LABEL_21:
         {
         }
 
-        v22 = _FALogSystem();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v23 = _FALogSystem(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_1B70B0000, v22, OS_LOG_TYPE_DEFAULT, "Megadome is not enabled. Falling back to the next priorty suggestions model.", buf, 2u);
+          _os_log_impl(&dword_1B70B0000, v23, OS_LOG_TYPE_DEFAULT, "Megadome is not enabled. Falling back to the next priorty suggestions model.", buf, 2u);
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v44 objects:v54 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v45 objects:v55 count:16];
       if (v15)
       {
         continue;
@@ -290,9 +288,9 @@ LABEL_21:
     }
 
     suggestions = suggestionsCopy;
-    suggesterCopy = v41;
-    v9 = v38;
-    v8 = v39;
+    suggesterCopy = v42;
+    v9 = v39;
+    v8 = v40;
   }
 
   proactiveModel = 1;
@@ -303,16 +301,14 @@ LABEL_32:
     *suggestions = proactiveModel;
   }
 
-  v34 = [v8 copy];
+  v36 = [v8 copy];
 
-  v35 = *MEMORY[0x1E69E9840];
-
-  return v34;
+  return v36;
 }
 
 - (int64_t)fetchSuggestedInviteTransportForContactId:(id)id contactHandles:(id)handles
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E69978D8];
   handlesCopy = handles;
   idCopy = id;
@@ -331,11 +327,11 @@ LABEL_32:
   v13 = [interactionAdvisor adviseInteractionsUsingSettings:interactionAdvisorSettingsDefault];
   firstObject = [v13 firstObject];
   bundleId = [firstObject bundleId];
-  v16 = _FALogSystem();
+  v16 = _FALogSystem(bundleId);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = bundleId;
+    v20 = bundleId;
     _os_log_impl(&dword_1B70B0000, v16, OS_LOG_TYPE_DEFAULT, "Suggested transport type for contact is %@", buf, 0xCu);
   }
 
@@ -354,7 +350,6 @@ LABEL_32:
     v17 = 3;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 

@@ -1,13 +1,13 @@
-id TTRBundleGet()
+id TTRBundleGet(uint64_t a1)
 {
   if (qword_8550 != -1)
   {
     sub_2248();
   }
 
-  v1 = qword_8548;
+  v2 = qword_8548;
 
-  return v1;
+  return v2;
 }
 
 void sub_1A74(id a1)
@@ -17,16 +17,16 @@ void sub_1A74(id a1)
   _objc_release_x1();
 }
 
-id REReminderBundle()
+id REReminderBundle(uint64_t a1)
 {
   if (qword_8560 != -1)
   {
     sub_225C();
   }
 
-  v1 = qword_8558;
+  v2 = qword_8558;
 
-  return v1;
+  return v2;
 }
 
 void sub_1B14(id a1)
@@ -140,7 +140,7 @@ id REReminderContent(void *a1, void *a2, void *a3, uint64_t a4)
 
     v12 = objc_alloc_init(REContent);
     v13 = [NSString stringWithFormat:@"%@%@", v11, v7];
-    v14 = REReminderBundle();
+    v14 = REReminderBundle(v13);
     v15 = [v14 localizedStringForKey:@"UP_NEXT_REMINDERS_TITLE" value:&stru_4358 table:@"ReminderDataSource"];
     v16 = [CLKSimpleTextProvider textProviderWithText:v15];
     [v12 setHeaderTextProvider:v16];

@@ -171,17 +171,17 @@
 {
   if ([(THPageNumberView *)self mode]== 1)
   {
-    if ([(THPageNumberView *)self pageNumber]== 0x7FFFFFFFFFFFFFFFLL || [(THPageNumberView *)self pageCount]== 0x7FFFFFFFFFFFFFFFLL)
+    if ([(THPageNumberView *)self pageNumber]== 0x7FFFFFFFFFFFFFFFLL || (v3 = [(THPageNumberView *)self pageCount], v3 == 0x7FFFFFFFFFFFFFFFLL))
     {
-      v3 = @"...";
+      v5 = @"...";
     }
 
     else
     {
-      v3 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle() localizedStringForKey:@"%@ of %@" value:&stru_471858 table:0], +[NSNumberFormatter imaxLocalizedUnsignedInteger:usesGroupingSeparator:](NSNumberFormatter, "imaxLocalizedUnsignedInteger:usesGroupingSeparator:", -[THPageNumberView pageNumber](self, "pageNumber"), 0), +[NSNumberFormatter imaxLocalizedUnsignedInteger:usesGroupingSeparator:](NSNumberFormatter, "imaxLocalizedUnsignedInteger:usesGroupingSeparator:", -[THPageNumberView pageCount](self, "pageCount"), 0));
+      v5 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle(v3 v4)], +[NSNumberFormatter imaxLocalizedUnsignedInteger:usesGroupingSeparator:](NSNumberFormatter, "imaxLocalizedUnsignedInteger:usesGroupingSeparator:", -[THPageNumberView pageNumber](self, "pageNumber"), 0), +[NSNumberFormatter imaxLocalizedUnsignedInteger:usesGroupingSeparator:](NSNumberFormatter, "imaxLocalizedUnsignedInteger:usesGroupingSeparator:", -[THPageNumberView pageCount](self, "pageCount"), 0));
     }
 
-    [(UILabel *)[(THPageNumberView *)self label] setText:v3];
+    [(UILabel *)[(THPageNumberView *)self label] setText:v5];
   }
 
   [(UILabel *)[(THPageNumberView *)self label] sizeToFit];

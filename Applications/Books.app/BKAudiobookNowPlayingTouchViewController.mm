@@ -65,7 +65,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  AudiobookNowPlayingTouchViewController.assetViewControllerDelegate.setter();
+  AudiobookNowPlayingTouchViewController.assetViewControllerDelegate.setter(delegate);
 }
 
 - (BKAudiobookNowPlayingTouchViewControllerDelegate)delegate
@@ -80,7 +80,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_10026E114();
+  sub_10026E114(delegate);
 }
 
 - (BOOL)isPlaying
@@ -88,7 +88,7 @@
   swift_getKeyPath();
   swift_getKeyPath();
   selfCopy = self;
-  sub_10079B9A4();
+  sub_10079B9A4(&v5);
 
   return v5;
 }
@@ -125,7 +125,7 @@
   [(BKAudiobookNowPlayingTouchViewController *)&v4 viewDidLoad];
   defaultCenter = [objc_opt_self() defaultCenter];
   [defaultCenter addObserver:v2 selector:"onAppWillEnterForeground:" name:UIApplicationWillEnterForegroundNotification object:0];
-  sub_10026E9A4();
+  sub_10026E9A4(*&v2[OBJC_IVAR___BKAudiobookNowPlayingTouchViewController_viewModel]);
 }
 
 - (void)viewDidLayoutSubviews

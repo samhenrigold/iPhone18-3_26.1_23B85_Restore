@@ -9,34 +9,34 @@
 
 - (STFamily)initWithFamilyCircle:(id)circle
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   circleCopy = circle;
-  v33.receiver = self;
-  v33.super_class = STFamily;
-  v23 = [(STFamily *)&v33 init];
-  if (v23)
+  v32.receiver = self;
+  v32.super_class = STFamily;
+  v22 = [(STFamily *)&v32 init];
+  if (v22)
   {
-    v26 = objc_opt_new();
+    v25 = objc_opt_new();
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
-    v22 = circleCopy;
+    v21 = circleCopy;
     obj = [circleCopy members];
-    v27 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
-    if (v27)
+    v26 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+    if (v26)
     {
-      v25 = *v30;
+      v24 = *v29;
       do
       {
-        for (i = 0; i != v27; ++i)
+        for (i = 0; i != v26; ++i)
         {
-          if (*v30 != v25)
+          if (*v29 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          v6 = *(*(&v29 + 1) + 8 * i);
+          v6 = *(*(&v28 + 1) + 8 * i);
           v7 = @"Child";
           if ([v6 memberType] != 2)
           {
@@ -55,7 +55,7 @@
             }
           }
 
-          v28 = [STFamilyMember alloc];
+          v27 = [STFamilyMember alloc];
           dsid = [v6 dsid];
           altDSID = [v6 altDSID];
           appleID = [v6 appleID];
@@ -63,37 +63,36 @@
           lastName = [v6 lastName];
           isMe = [v6 isMe];
           isParent = [v6 isParent];
-          BYTE2(v21) = [v6 isOrganizer];
-          BYTE1(v21) = isParent;
-          LOBYTE(v21) = isMe;
-          v15 = [STFamilyMember initWithDSID:v28 altDSID:"initWithDSID:altDSID:appleID:memberType:firstName:lastName:isMe:isParent:isOrganizer:" appleID:dsid memberType:altDSID firstName:appleID lastName:v7 isMe:firstName isParent:lastName isOrganizer:v21];
+          BYTE2(v20) = [v6 isOrganizer];
+          BYTE1(v20) = isParent;
+          LOBYTE(v20) = isMe;
+          v15 = [STFamilyMember initWithDSID:v27 altDSID:"initWithDSID:altDSID:appleID:memberType:firstName:lastName:isMe:isParent:isOrganizer:" appleID:dsid memberType:altDSID firstName:appleID lastName:v7 isMe:firstName isParent:lastName isOrganizer:v20];
 
           if ([v6 isMe])
           {
-            objc_storeStrong(&v23->_me, v15);
+            objc_storeStrong(&v22->_me, v15);
           }
 
-          [v26 addObject:v15];
+          [v25 addObject:v15];
         }
 
-        v27 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v26 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
-      while (v27);
+      while (v26);
     }
 
-    dataSource = v23->_dataSource;
-    v23->_dataSource = @"familyCircle";
+    dataSource = v22->_dataSource;
+    v22->_dataSource = @"familyCircle";
 
-    v17 = [v26 copy];
-    members = v23->_members;
-    v23->_members = v17;
+    v17 = [v25 copy];
+    members = v22->_members;
+    v22->_members = v17;
 
-    circleCopy = v22;
+    circleCopy = v21;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-  return v23;
+  return v22;
 }
 
 - (STFamily)initWithMembers:(id)members
@@ -118,28 +117,28 @@
 
 - (id)dictionaryRepresentation
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = [(STFamily *)self members];
-  v4 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
+  v4 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v26;
+    v6 = *v25;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v26 != v6)
+        if (*v25 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v25 + 1) + 8 * i);
+        v8 = *(*(&v24 + 1) + 8 * i);
         v9 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:8];
         dSID = [v8 DSID];
         [v9 setObject:dSID forKeyedSubscript:@"dsid"];
@@ -169,21 +168,19 @@
         [v3 addObject:v18];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v5 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
     }
 
     while (v5);
   }
 
-  v29[0] = @"dataSource";
+  v28[0] = @"dataSource";
   dataSource = [(STFamily *)self dataSource];
-  v29[1] = @"members";
-  v30[0] = dataSource;
+  v28[1] = @"members";
+  v29[0] = dataSource;
   v20 = [v3 copy];
-  v30[1] = v20;
-  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:2];
-
-  v22 = *MEMORY[0x1E69E9840];
+  v29[1] = v20;
+  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:2];
 
   return v21;
 }

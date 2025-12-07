@@ -7,12 +7,12 @@
 
 - (BOOL)validate:(id)validate error:(id *)error
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   validateCopy = validate;
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   if (self)
   {
     validators = self->_validators;
@@ -24,7 +24,7 @@
   }
 
   v8 = validators;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v37, v41, 16);
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v36, v40, 16);
   if (!v10)
   {
     v13 = 0;
@@ -33,22 +33,22 @@
 
   v12 = v10;
   v13 = 0;
-  v14 = *v38;
+  v14 = *v37;
   while (2)
   {
     for (i = 0; i != v12; ++i)
     {
-      if (*v38 != v14)
+      if (*v37 != v14)
       {
         objc_enumerationMutation(v8);
       }
 
-      v16 = *(*(&v37 + 1) + 8 * i);
+      v16 = *(*(&v36 + 1) + 8 * i);
       if (error)
       {
-        v36 = 0;
-        v17 = objc_msgSend_validate_error_(v16, v11, validateCopy, &v36);
-        v18 = v36;
+        v35 = 0;
+        v17 = objc_msgSend_validate_error_(v16, v11, validateCopy, &v35);
+        v18 = v35;
         v21 = v18;
         if (v17)
         {
@@ -95,7 +95,7 @@ LABEL_30:
       }
     }
 
-    v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v37, v41, 16);
+    v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v36, v40, 16);
     if (v12)
     {
       continue;
@@ -127,7 +127,6 @@ LABEL_31:
     v33 = 0;
   }
 
-  v34 = *MEMORY[0x1E69E9840];
   return v33;
 }
 

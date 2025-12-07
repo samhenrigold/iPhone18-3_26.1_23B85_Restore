@@ -262,8 +262,7 @@ uint64_t closure #1 in closure #1 in OS_dispatch_queue._syncHelper<A>(fn:execute
 {
   v8 = type metadata accessor for Optional();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x1EEE9AC00](v8);
+  v11 = MEMORY[0x1EEE9AC00](v8, v10);
   v13 = &v15 - v12;
   a2(v11);
   (*(*(a5 - 8) + 56))(v13, 0, 1, a5);
@@ -272,30 +271,29 @@ uint64_t closure #1 in closure #1 in OS_dispatch_queue._syncHelper<A>(fn:execute
 
 uint64_t OS_dispatch_queue._syncHelper<A>(fn:execute:rescue:)@<X0>(void (*a1)(uint64_t (*)(), char *)@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, void (*a4)(id)@<X4>, uint64_t a5@<X5>, uint64_t a6@<X6>, uint64_t a7@<X8>)
 {
-  v26 = a7;
-  v24 = a5;
-  v25 = a4;
-  v28 = a1;
-  v27 = type metadata accessor for Optional();
-  v10 = *(v27 - 8);
-  v11 = *(v10 + 64);
-  v12 = MEMORY[0x1EEE9AC00](v27);
-  v14 = &v24 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v16 = &v24 - v15;
-  v17 = *(a6 - 8);
-  (*(v17 + 56))(&v24 - v15, 1, 1, a6);
-  v35 = 0;
-  v18 = swift_allocObject();
-  v18[2] = a6;
-  v18[3] = a2;
-  v18[4] = a3;
-  v30 = a6;
-  v31 = v16;
-  v32 = thunk for @callee_guaranteed () -> (@out A, @error @owned Error)partial apply;
-  v33 = v18;
-  v34 = &v35;
-  v28(partial apply for closure #1 in closure #1 in OS_dispatch_queue._syncHelper<A>(fn:execute:rescue:), v29);
+  v27 = a7;
+  v25 = a5;
+  v26 = a4;
+  v29 = a1;
+  v28 = type metadata accessor for Optional();
+  v10 = *(v28 - 8);
+  v12 = MEMORY[0x1EEE9AC00](v28, v11);
+  v14 = &v25 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12, v15);
+  v17 = &v25 - v16;
+  v18 = *(a6 - 8);
+  (*(v18 + 56))(&v25 - v16, 1, 1, a6);
+  v36 = 0;
+  v19 = swift_allocObject();
+  v19[2] = a6;
+  v19[3] = a2;
+  v19[4] = a3;
+  v31 = a6;
+  v32 = v17;
+  v33 = thunk for @callee_guaranteed () -> (@out A, @error @owned Error)partial apply;
+  v34 = v19;
+  v35 = &v36;
+  v29(partial apply for closure #1 in closure #1 in OS_dispatch_queue._syncHelper<A>(fn:execute:rescue:), v30);
   isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
 
   if (isEscapingClosureAtFileLocation)
@@ -306,47 +304,33 @@ LABEL_8:
     return result;
   }
 
-  v21 = v35;
-  if (v35)
+  v22 = v36;
+  if (v36)
   {
-    v22 = v35;
-    v25(v21);
+    v23 = v36;
+    v26(v22);
 
-    return (*(v10 + 8))(v16, v27);
+    return (*(v10 + 8))(v17, v28);
   }
 
-  v23 = v27;
-  (*(v10 + 16))(v14, v16, v27);
-  result = (*(v17 + 48))(v14, 1, a6);
+  v24 = v28;
+  (*(v10 + 16))(v14, v17, v28);
+  result = (*(v18 + 48))(v14, 1, a6);
   if (result == 1)
   {
     goto LABEL_8;
   }
 
-  (*(v10 + 8))(v16, v23);
-  return (*(v17 + 32))(v26, v14, a6);
+  (*(v10 + 8))(v17, v24);
+  return (*(v18 + 32))(v27, v14, a6);
 }
 
-uint64_t partial apply for thunk for @callee_guaranteed () -> (@out A, @error @owned Error)()
+uint64_t OS_dispatch_queue.asyncAndWait<A>(execute:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void (*a5)(uint64_t (*)(), char *)@<X4>, void (*a6)(id)@<X5>, uint64_t a7@<X8>)
 {
-  v1 = *(v0 + 24);
-  v2 = *(v0 + 32);
-  return v1();
-}
-
-uint64_t partial apply for thunk for @callee_guaranteed () -> ()()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1();
-}
-
-uint64_t OS_dispatch_queue.asyncAndWait<A>(execute:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void (*a4)(uint64_t (*)(), char *)@<X4>, void (*a5)(id)@<X5>, uint64_t a6@<X8>)
-{
-  *(swift_allocObject() + 16) = v6;
-  v15[2] = a3;
-  v13 = v6;
-  OS_dispatch_queue._syncHelper<A>(fn:execute:rescue:)(a4, a1, a2, a5, v15, a3, a6);
+  *(swift_allocObject() + 16) = v7;
+  v16[2] = a3;
+  v14 = v7;
+  OS_dispatch_queue._syncHelper<A>(fn:execute:rescue:)(a5, a1, a2, a6, v16, a3, a7);
 }
 
 uint64_t implicit closure #2 in implicit closure #1 in OS_dispatch_queue.asyncAndWait<A>(execute:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void (*a7)(uint64_t, void *))
@@ -404,15 +388,13 @@ uint64_t block_copy_helper_2(uint64_t a1, uint64_t a2)
 
 uint64_t thunk for @escaping @callee_guaranteed () -> ()(uint64_t a1)
 {
-  v1 = *(a1 + 40);
   return (*(a1 + 32))();
 }
 
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v1(v3);
+  v1(v2);
 }
 
 uint64_t static OS_dispatch_queue.concurrentPerform(iterations:execute:)(size_t a1, uint64_t a2, uint64_t a3)
@@ -460,34 +442,34 @@ uint64_t OS_dispatch_queue.sync<A>(flags:execute:)@<X0>(uint64_t *a1@<X0>, uint6
   {
     if (v10 != 1)
     {
-      v16 = swift_allocObject();
-      *(v16 + 16) = v5;
-      v21 = v10;
-      MEMORY[0x1EEE9AC00](v16);
-      v20 = a4;
-      v17 = v5;
-      OS_dispatch_queue._syncHelper<A>(fn:flags:execute:rescue:)(partial apply for implicit closure #4 in implicit closure #3 in OS_dispatch_queue.sync<A>(flags:execute:), v16, &v21, a2, a3, partial apply for closure #1 in OS_dispatch_queue.asyncAndWait<A>(execute:), v19, a4, a5);
+      v18 = swift_allocObject();
+      *(v18 + 16) = v5;
+      v24 = v10;
+      MEMORY[0x1EEE9AC00](v18, v19);
+      v23 = a4;
+      v20 = v5;
+      OS_dispatch_queue._syncHelper<A>(fn:flags:execute:rescue:)(partial apply for implicit closure #4 in implicit closure #3 in OS_dispatch_queue.sync<A>(flags:execute:), v18, &v24, a2, a3, partial apply for closure #1 in OS_dispatch_queue.asyncAndWait<A>(execute:), v22, a4, a5);
     }
 
     v11 = swift_allocObject();
     *(v11 + 16) = v5;
-    MEMORY[0x1EEE9AC00](v11);
-    v20 = a4;
-    v12 = v5;
-    v13 = partial apply for implicit closure #2 in implicit closure #1 in OS_dispatch_queue.sync<A>(flags:execute:);
+    MEMORY[0x1EEE9AC00](v11, v12);
+    v23 = a4;
+    v13 = v5;
+    v14 = partial apply for implicit closure #2 in implicit closure #1 in OS_dispatch_queue.sync<A>(flags:execute:);
   }
 
   else
   {
-    v14 = swift_allocObject();
-    *(v14 + 16) = v5;
-    MEMORY[0x1EEE9AC00](v14);
-    v20 = a4;
-    v15 = v5;
-    v13 = partial apply for implicit closure #6 in implicit closure #5 in OS_dispatch_queue.sync<A>(flags:execute:);
+    v15 = swift_allocObject();
+    *(v15 + 16) = v5;
+    MEMORY[0x1EEE9AC00](v15, v16);
+    v23 = a4;
+    v17 = v5;
+    v14 = partial apply for implicit closure #6 in implicit closure #5 in OS_dispatch_queue.sync<A>(flags:execute:);
   }
 
-  OS_dispatch_queue._syncHelper<A>(fn:execute:rescue:)(v13, a2, a3, partial apply for closure #1 in OS_dispatch_queue.asyncAndWait<A>(execute:), v19, a4, a5);
+  OS_dispatch_queue._syncHelper<A>(fn:execute:rescue:)(v14, a2, a3, partial apply for closure #1 in OS_dispatch_queue.asyncAndWait<A>(execute:), v22, a4, a5);
 }
 
 uint64_t implicit closure #2 in implicit closure #1 in OS_dispatch_queue.sync<A>(flags:execute:)(uint64_t a1, uint64_t a2, NSObject *a3)
@@ -781,75 +763,69 @@ uint64_t OS_dispatch_queue.getSpecific<A>(key:)@<X0>(uint64_t *key@<X0>, uint64_
 
 uint64_t OS_dispatch_queue.setSpecific<A>(key:value:)(const void *a1)
 {
-  v11 = *(*a1 + 80);
-  v3 = v11;
+  v13 = *(*a1 + 80);
+  v3 = v13;
   type metadata accessor for Optional();
-  v4 = type metadata accessor for _DispatchSpecificValue();
-  v5 = MEMORY[0x1E69E73E0];
-  _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(partial apply for closure #1 in OS_dispatch_queue.setSpecific<A>(key:value:), v10, MEMORY[0x1E69E73E0], v4, v6, &context);
-  v12 = context;
-  v9[2] = v3;
+  v6 = type metadata accessor for _DispatchSpecificValue(0, v13, v4, v5);
+  v7 = MEMORY[0x1E69E73E0];
+  _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(partial apply for closure #1 in OS_dispatch_queue.setSpecific<A>(key:value:), v12, MEMORY[0x1E69E73E0], v6, v8, &context);
+  v14 = context;
+  v11[2] = v3;
   type metadata accessor for Optional();
-  _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(partial apply for closure #2 in OS_dispatch_queue.setSpecific<A>(key:value:), v9, v5, MEMORY[0x1E69E6878], v7, &context);
+  _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(partial apply for closure #2 in OS_dispatch_queue.setSpecific<A>(key:value:), v11, v7, MEMORY[0x1E69E6878], v9, &context);
   dispatch_queue_set_specific(v1, a1, context, @objc _destructDispatchSpecificValue(ptr:));
 }
 
 uint64_t _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF@<X0>(void (*a1)(char *, char *)@<X0>, uint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X6>, uint64_t a6@<X8>)
 {
-  v29 = a5;
-  v30 = a2;
-  v32 = a4;
-  v31 = a1;
-  v28 = *(a3 - 8);
-  v10 = *(v28 + 64);
-  v11 = (MEMORY[0x1EEE9AC00])();
-  v13 = &v28 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = *(v14 + 16);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v11);
-  v20 = &v28 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = *(*(v21 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v18);
-  v24 = &v28 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v25 + 16))(v24, v6);
-  v26 = 1;
-  if ((*(v16 + 48))(v24, 1, v15) != 1)
+  v27 = a5;
+  v28 = a2;
+  v30 = a4;
+  v29 = a1;
+  v26 = *(a3 - 8);
+  v10 = MEMORY[0x1EEE9AC00](a1, a2);
+  v12 = &v26 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = *(v13 + 16);
+  v15 = *(v14 - 8);
+  v17 = MEMORY[0x1EEE9AC00](v10, v16);
+  v19 = &v26 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17, v20);
+  v22 = &v26 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v23 + 16))(v22, v6);
+  v24 = 1;
+  if ((*(v15 + 48))(v22, 1, v14) != 1)
   {
-    (*(v16 + 32))(v20, v24, v15);
-    v31(v20, v13);
-    (*(v16 + 8))(v20, v15);
+    (*(v15 + 32))(v19, v22, v14);
+    v29(v19, v12);
+    (*(v15 + 8))(v19, v14);
     if (v7)
     {
-      return (*(v28 + 32))(v29, v13, a3);
+      return (*(v26 + 32))(v27, v12, a3);
     }
 
-    v26 = 0;
+    v24 = 0;
   }
 
-  return (*(*(v32 - 8) + 56))(a6, v26, 1);
+  return (*(*(v30 - 8) + 56))(a6, v24, 1);
 }
 
 uint64_t closure #1 in OS_dispatch_queue.setSpecific<A>(key:value:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   v6 = *(a2 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for _DispatchSpecificValue();
-  (*(v6 + 16))(v9, a1, a2);
-  result = _DispatchSpecificValue.__allocating_init(value:)(v9);
+  MEMORY[0x1EEE9AC00](a1, a2);
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for _DispatchSpecificValue(0, v9, v10, v11);
+  (*(v6 + 16))(v8, a1, a2);
+  result = _DispatchSpecificValue.__allocating_init(value:)(v8);
   *a3 = result;
   return result;
 }
 
 uint64_t _DispatchSpecificValue.__allocating_init(value:)(uint64_t a1)
 {
-  v3 = *(v1 + 48);
-  v4 = *(v1 + 52);
-  v5 = swift_allocObject();
-  (*(*(*(*v5 + 80) - 8) + 32))(v5 + *(*v5 + 88), a1);
-  return v5;
+  v2 = swift_allocObject();
+  (*(*(*(*v2 + 80) - 8) + 32))(v2 + *(*v2 + 88), a1);
+  return v2;
 }
 
 unint64_t lazy protocol witness table accessor for type OS_dispatch_queue_serial.Attributes and conformance OS_dispatch_queue_serial.Attributes()
@@ -1368,7 +1344,7 @@ unint64_t lazy protocol witness table accessor for type DispatchTime and conform
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type OS_dispatch_queue_serial_executor and conformance OS_dispatch_queue_serial_executor(unint64_t *a1, unint64_t *a2, uint64_t *a3)
+uint64_t lazy protocol witness table accessor for type OS_dispatch_queue_serial_executor and conformance OS_dispatch_queue_serial_executor(unint64_t *a1, unint64_t *a2, void *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -1381,12 +1357,11 @@ uint64_t lazy protocol witness table accessor for type OS_dispatch_queue_serial_
   return result;
 }
 
-uint64_t type metadata accessor for OS_dispatch_queue_serial_executor(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t type metadata accessor for OS_dispatch_queue_serial_executor(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -1792,13 +1767,6 @@ void _swift_dispatch_apply_current(size_t a1, void *a2)
   v4 = v6;
 }
 
-uint64_t partial apply for thunk for @callee_guaranteed (@unowned Int) -> ()()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1();
-}
-
 unint64_t lazy protocol witness table accessor for type OS_dispatch_queue.SchedulerTimeType and conformance OS_dispatch_queue.SchedulerTimeType()
 {
   result = lazy protocol witness table cache variable for type OS_dispatch_queue.SchedulerTimeType and conformance OS_dispatch_queue.SchedulerTimeType;
@@ -2058,13 +2026,13 @@ void OS_dispatch_queue.schedule(after:interval:tolerance:options:_:)(dispatch_ti
 
   v6 = v13;
   dispatch_source_set_timer(v13, v10, v11, v12);
-  v21[4] = a4;
-  v21[5] = a5;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 1107296256;
-  v21[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
-  v21[3] = &block_descriptor_9;
-  a4 = _Block_copy(v21);
+  v19[4] = a4;
+  v19[5] = a5;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 1107296256;
+  v19[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
+  v19[3] = &block_descriptor_9;
+  a4 = _Block_copy(v19);
   v14 = one-time initialization token for unspecified;
 
   if (v14 != -1)
@@ -2079,27 +2047,24 @@ LABEL_5:
   dispatch_resume(v6);
   *(swift_allocObject() + 16) = v6;
   v15 = type metadata accessor for AnyCancellable();
-  v16 = *(v15 + 48);
-  v17 = *(v15 + 52);
   swift_allocObject();
-  v18 = v6;
-  v19 = AnyCancellable.init(_:)();
-  v20 = MEMORY[0x1E695BF00];
+  v16 = v6;
+  v17 = AnyCancellable.init(_:)();
+  v18 = MEMORY[0x1E695BF00];
   a6[3] = v15;
-  a6[4] = v20;
+  a6[4] = v18;
 
-  *a6 = v19;
+  *a6 = v17;
 }
 
 uint64_t sub_19341FEA0()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
 
   return MEMORY[0x1EEE6BDD0](v0, 24, 7);
 }
 
-void specialized OS_dispatch_source.setEventHandler(qos:flags:handler:)(unsigned __int8 a1, uint64_t a2, uint64_t a3, void *aBlock)
+void specialized OS_dispatch_source.setEventHandler(qos:flags:handler:)(char a1, uint64_t a2, uint64_t a3, void *aBlock)
 {
   v5 = v4;
   v9 = _Block_copy(aBlock);
@@ -2145,12 +2110,11 @@ LABEL_12:
 
 double one-time initialization function for timebaseInfo()
 {
-  v2[1] = *MEMORY[0x1E69E9840];
-  v2[0] = 0x100000001;
-  mach_timebase_info(v2);
-  result = *v2;
-  static DispatchTime.timebaseInfo = v2[0];
-  v1 = *MEMORY[0x1E69E9840];
+  v1[1] = *MEMORY[0x1E69E9840];
+  v1[0] = 0x100000001;
+  mach_timebase_info(v1);
+  result = *v1;
+  static DispatchTime.timebaseInfo = v1[0];
   return result;
 }
 
@@ -2302,18 +2266,20 @@ LABEL_18:
   dispatch_source_set_timer(v7, v4, v8, v9);
 }
 
+Dispatch::DispatchQoS __swiftcall DispatchQoS.init(qosClass:relativePriority:)(Dispatch::DispatchQoS::QoSClass qosClass, Swift::Int relativePriority)
+{
+  *v2 = *qosClass;
+  *(v2 + 8) = relativePriority;
+  result.relativePriority = relativePriority;
+  result.qosClass = qosClass;
+  return result;
+}
+
 void _swift_dispatch_barrier_async(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
   dispatch_barrier_async(v3, v4);
-}
-
-void partial apply for implicit closure #2 in implicit closure #1 in OS_dispatch_queue.schedule(after:interval:tolerance:options:_:)()
-{
-  v1 = *(v0 + 16);
-  swift_getObjectType();
-  OS_dispatch_source.cancel()();
 }
 
 uint64_t OS_dispatch_source.setEventHandler(handler:)(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t, uint64_t))
@@ -2622,7 +2588,7 @@ uint64_t OS_dispatch_queue.schedule(after:tolerance:options:_:)(dispatch_time_t 
   else
   {
     v7 = *(a3 + 2);
-    v8 = (a3 + 8);
+    v8 = a3 + 8;
     v9 = *a3;
   }
 
@@ -2682,12 +2648,11 @@ uint64_t OS_dispatch_queue.schedule(after:tolerance:options:_:)(dispatch_time_t 
 
 dispatch_time_t DispatchWallTime.init(timespec:)@<X0>(__darwin_time_t a1@<X0>, uint64_t a2@<X1>, dispatch_time_t *a3@<X8>)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   when.tv_sec = a1;
   when.tv_nsec = a2;
   result = dispatch_walltime(&when, 0);
   *a3 = result;
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2744,13 +2709,13 @@ uint64_t _sSo17OS_dispatch_queueCSch8DispatchSch7enqueueyys11ExecutorJobVnFTW(ui
   return MEMORY[0x1EEE6D880](a1, a2, WitnessTable);
 }
 
-uint64_t protocol witness for Executor.enqueue(_:) in conformance OS_dispatch_queue()
+uint64_t protocol witness for Executor.enqueue(_:) in conformance OS_dispatch_queue(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  return MEMORY[0x1EEE6D888]();
+  return MEMORY[0x1EEE6D888](a1, a2, a3);
 }
 
 {
-  return MEMORY[0x1EEE6D880]();
+  return MEMORY[0x1EEE6D880](a1, a2, a3);
 }
 
 uint64_t _sSo17OS_dispatch_queueCSch8DispatchSch7enqueueyyScJFTWTm(uint64_t a1)
@@ -3152,10 +3117,10 @@ LABEL_37:
   return result;
 }
 
-uint64_t sub_19342157C@<X0>(uint64_t *a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X8>)
+uint64_t sub_19342157C@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>, unint64_t a3@<X1>)
 {
-  result = specialized BidirectionalCollection.index(_:offsetBy:)(*a1, a2);
-  *a3 = result;
+  result = specialized BidirectionalCollection.index(_:offsetBy:)(*a1, a3);
+  *a2 = result;
   return result;
 }
 
@@ -3203,14 +3168,13 @@ uint64_t DispatchData.enumerateBytes(_:)(uint64_t a1, uint64_t a2)
 
 uint64_t thunk for @escaping @callee_guaranteed (@in_guaranteed Any, @unowned Int, @unowned UnsafeRawPointer, @unowned Int) -> (@unowned UInt32)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v10 = *(a1 + 32);
-  v9 = *(a1 + 40);
-  v13[3] = swift_getObjectType();
-  v13[0] = a2;
+  v9 = *(a1 + 32);
+  v12[3] = swift_getObjectType();
+  v12[0] = a2;
   swift_unknownObjectRetain();
-  v11 = v10(v13, a3, a4, a5);
-  __swift_destroy_boxed_opaque_existential_0(v13);
-  return v11;
+  v10 = v9(v12, a3, a4, a5);
+  __swift_destroy_boxed_opaque_existential_0(v12);
+  return v10;
 }
 
 BOOL ___swift_dispatch_data_apply_block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -3223,31 +3187,25 @@ BOOL ___swift_dispatch_data_apply_block_invoke(uint64_t a1, void *a2, uint64_t a
   return a5 != 0;
 }
 
-uint64_t partial apply for thunk for @callee_guaranteed (@in_guaranteed Any, @unowned Int, @unowned UnsafeRawPointer, @unowned Int) -> (@unowned UInt32)()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1();
-}
-
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 BOOL partial apply for closure #1 in DispatchData.enumerateBytesCommon(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = *(v4 + 16);
-  v6 = *(v4 + 24);
-  v8 = 0;
-  v5(a3, a4, a2, &v8);
-  return (v8 & 1) == 0;
+  v7 = 0;
+  v5(a3, a4, a2, &v7);
+  return (v7 & 1) == 0;
 }
 
 uint64_t specialized BidirectionalCollection.index(_:offsetBy:)(uint64_t result, unint64_t a2)
@@ -3339,7 +3297,7 @@ id protocol witness for Collection.subscript.getter in conformance DispatchData@
   return v3;
 }
 
-uint64_t _s8Dispatch0A4DataVSkAASk5index_8offsetBy07limitedE05IndexQzSgAH_SiAHtFTW_0@<X0>(uint64_t *a1@<X0>, int64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
+uint64_t _s8Dispatch0A4DataVSkAASk5index_8offsetBy07limitedE05IndexQzSgAH_SiAHtFTW_0@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
 {
   result = specialized RandomAccessCollection.index(_:offsetBy:limitedBy:)(*a1, a2, *a3);
   *a4 = result;
@@ -3433,18 +3391,12 @@ uint64_t sub_193421D08()
 
 uint64_t sub_193421D40()
 {
-  v1 = v0[3];
-
-  v2 = v0[5];
-
-  v3 = v0[6];
 
   return MEMORY[0x1EEE6BDD0](v0, 56, 7);
 }
 
 uint64_t sub_193421E04()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x1EEE6BDD0](v0, 32, 7);
 }
@@ -3647,8 +3599,6 @@ LABEL_9:
   }
 
   a1();
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t DispatchData.enumerateBytes(block:)(uint64_t a1, uint64_t a2)
@@ -3810,12 +3760,11 @@ LABEL_20:
 
 uint64_t thunk for @escaping @callee_guaranteed (@guaranteed OS_dispatch_data, @unowned Int, @unowned UnsafeRawPointer, @unowned Int) -> (@unowned Bool)(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v4 = a2;
-  v5 = v3();
+  v2 = *(a1 + 32);
+  v3 = a2;
+  v4 = v2();
 
-  return v5 & 1;
+  return v4 & 1;
 }
 
 uint64_t DispatchData.copyBytes(to:count:)(uint64_t result, uint64_t a2)
@@ -3861,13 +3810,6 @@ LABEL_6:
   }
 
   return result;
-}
-
-uint64_t partial apply for thunk for @callee_guaranteed (@guaranteed OS_dispatch_data, @unowned Int, @unowned UnsafeRawPointer, @unowned Int) -> (@unowned Bool)()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1() & 1;
 }
 
 uint64_t DispatchData.copyBytes(to:count:)(uint64_t result, uint64_t a2, uint64_t a3)
@@ -4021,7 +3963,7 @@ uint64_t DispatchData.copyBytes(to:from:)(uint64_t result, uint64_t a2, uint64_t
   return result;
 }
 
-unint64_t DispatchData.copyBytes<A>(to:from:)(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, char a5, uint64_t a6)
+size_t DispatchData.copyBytes<A>(to:from:)(uint64_t a1, uint64_t a2, int64_t a3, size_t a4, char a5, uint64_t a6)
 {
   v12 = *v6;
   result = dispatch_data_get_size(*v6);
@@ -4158,8 +4100,8 @@ uint64_t DispatchData.subscript.getter(size_t location)
   offset_ptr = 0;
   v4 = dispatch_data_copy_region(v3, location, &offset_ptr);
   buffer_ptr[0] = 0;
-  v9 = 0;
-  v5 = dispatch_data_create_map(v4, buffer_ptr, &v9);
+  v8 = 0;
+  v5 = dispatch_data_create_map(v4, buffer_ptr, &v8);
   if (!buffer_ptr[0])
   {
 LABEL_5:
@@ -4174,7 +4116,6 @@ LABEL_5:
 
   v6 = *(buffer_ptr[0] + location - offset_ptr);
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -4205,13 +4146,11 @@ dispatch_data_t DispatchData.subdata(in:)@<X0>(dispatch_data_t offset@<X0>, uint
 
 size_t DispatchData.region(location:)(dispatch_data_t *a1, size_t a2)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v4 = *v2;
-  v7[0] = 0;
-  *a1 = dispatch_data_copy_region(v4, a2, v7);
-  result = v7[0];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  v6[0] = 0;
+  *a1 = dispatch_data_copy_region(v4, a2, v6);
+  return v6[0];
 }
 
 Swift::Int __swiftcall DispatchData.index(before:)(Swift::Int before)
@@ -4240,32 +4179,30 @@ Swift::Int __swiftcall DispatchData.index(after:)(Swift::Int after)
 
 dispatch_data_t DispatchData.makeIterator()@<X0>(dispatch_data_t *a1@<X8>)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v3 = *v1;
-  v7[0] = 0;
+  v6[0] = 0;
   a1[2] = 0;
-  result = dispatch_data_create_map(v3, v7, a1 + 2);
-  v5 = v7[0];
+  result = dispatch_data_create_map(v3, v6, a1 + 2);
+  v5 = v6[0];
   *a1 = result;
   a1[1] = v5;
   a1[3] = 0;
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void DispatchDataIterator.init(_data:)(NSObject **a1@<X0>, dispatch_data_t *a2@<X8>)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v3 = *a1;
-  v7[0] = 0;
+  v6[0] = 0;
   a2[2] = 0;
-  map = dispatch_data_create_map(v3, v7, a2 + 2);
+  map = dispatch_data_create_map(v3, v6, a2 + 2);
 
-  v5 = v7[0];
+  v5 = v6[0];
   *a2 = map;
   a2[1] = v5;
   a2[3] = 0;
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 id protocol witness for static _ObjectiveCBridgeable._forceBridgeFromObjectiveC(_:result:) in conformance DispatchData(void *a1, id *a2)
@@ -4443,17 +4380,15 @@ void *protocol witness for Collection.formIndex(after:) in conformance DispatchD
 
 void protocol witness for Sequence.makeIterator() in conformance DispatchData(dispatch_data_t *a1@<X8>)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v3 = *v1;
-  v7[0] = 0;
+  v6[0] = 0;
   a1[2] = 0;
-  map = dispatch_data_create_map(v3, v7, a1 + 2);
-  v5 = v7[0];
+  map = dispatch_data_create_map(v3, v6, a1 + 2);
+  v5 = v6[0];
   *a1 = map;
   a1[1] = v5;
   a1[3] = 0;
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void protocol witness for Sequence._copyToContiguousArray() in conformance DispatchData()
@@ -4624,7 +4559,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -4632,7 +4566,7 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<DispatchData> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void))
+uint64_t lazy protocol witness table accessor for type Slice<DispatchData> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -4646,7 +4580,7 @@ uint64_t lazy protocol witness table accessor for type Slice<DispatchData> and c
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type DefaultIndices<DispatchData> and conformance <> DefaultIndices<A>(unint64_t *a1, void (*a2)(void))
+uint64_t lazy protocol witness table accessor for type DefaultIndices<DispatchData> and conformance <> DefaultIndices<A>(unint64_t *a1, void (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -4660,7 +4594,7 @@ uint64_t lazy protocol witness table accessor for type DefaultIndices<DispatchDa
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type DefaultIndices<DispatchData> and conformance DefaultIndices<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t lazy protocol witness table accessor for type DefaultIndices<DispatchData> and conformance DefaultIndices<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -4972,15 +4906,15 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
 
 size_t specialized Sequence._copySequenceContents(initializing:)(dispatch_data_t *a1, uint64_t a2, size_t a3, dispatch_data_t data)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v19 = 0;
-  v8 = dispatch_data_create_map(data, &v16, &v19);
+  v20 = *MEMORY[0x1E69E9840];
+  v15 = 0;
+  v18 = 0;
+  map = dispatch_data_create_map(data, &v15, &v18);
 
-  v9 = v16;
-  v17 = v8;
-  v18 = v16;
-  v20 = 0;
+  v9 = v15;
+  v16 = map;
+  v17 = v15;
+  v19 = 0;
   if (a2)
   {
     if (a3)
@@ -4995,12 +4929,12 @@ LABEL_18:
       v10 = 0;
       while (1)
       {
-        if (v10 == v19)
+        if (v10 == v18)
         {
-          v8 = v17;
-          v9 = v18;
+          map = v16;
+          v9 = v17;
           a3 = v10;
-          v13 = v20;
+          v13 = v19;
           goto LABEL_16;
         }
 
@@ -5009,16 +4943,16 @@ LABEL_18:
           goto LABEL_18;
         }
 
-        v11 = *(&v9->isa + v10);
-        v12 = v10 + 1;
-        v20 = v10 + 1;
-        *(a2 + v10) = v11;
-        if (a3 - 1 == v10)
+        v11 = *(&v10->isa + v9);
+        v12 = &v10->isa + 1;
+        v19 = (&v10->isa + 1);
+        *(&v10->isa + a2) = v11;
+        if ((a3 - 1) == v10)
         {
           break;
         }
 
-        ++v10;
+        v10 = (v10 + 1);
         if (__OFADD__(v12, 1))
         {
           __break(1u);
@@ -5026,9 +4960,9 @@ LABEL_18:
         }
       }
 
-      v8 = v17;
-      v9 = v18;
-      v13 = v20;
+      map = v16;
+      v9 = v17;
+      v13 = v19;
     }
 
     else
@@ -5044,13 +4978,12 @@ LABEL_11:
     a3 = 0;
   }
 
-  v10 = v19;
+  v10 = v18;
 LABEL_16:
-  *a1 = v8;
+  *a1 = map;
   a1[1] = v9;
   a1[2] = v10;
   a1[3] = v13;
-  v14 = *MEMORY[0x1E69E9840];
   return a3;
 }
 
@@ -5173,7 +5106,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -5288,11 +5220,11 @@ Swift::Int OS_dispatch_queue.GlobalQueuePriority.hashValue.getter()
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance OS_dispatch_queue.GlobalQueuePriority()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance OS_dispatch_queue.GlobalQueuePriority(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x193B16960](v1);
+  MEMORY[0x193B16960](v2);
   return Hasher._finalize()();
 }
 
@@ -5314,8 +5246,7 @@ uint64_t OS_dispatch_queue._syncHelper<A>(fn:flags:execute:rescue:)@<X0>(void (*
   v33 = a9;
   v11 = type metadata accessor for Optional();
   v29 = *(v11 - 8);
-  v12 = *(v29 + 64);
-  MEMORY[0x1EEE9AC00](v11);
+  MEMORY[0x1EEE9AC00](v11, v12);
   v30 = &v28 - v13;
   v14 = *a3;
   v15 = swift_allocBox();
@@ -5397,8 +5328,7 @@ uint64_t closure #1 in closure #1 in OS_dispatch_queue._syncHelper<A>(fn:flags:e
 {
   v7 = type metadata accessor for Optional();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x1EEE9AC00](v7);
+  MEMORY[0x1EEE9AC00](v7, v9);
   v11 = &v14[-v10];
   v12 = swift_projectBox();
   a2();
@@ -5414,21 +5344,21 @@ uint64_t OS_dispatch_queue.asyncAndWait<A>(flags:execute:)@<X0>(uint64_t *a1@<X0
   {
     v11 = swift_allocObject();
     *(v11 + 16) = v5;
-    v18 = v10;
-    MEMORY[0x1EEE9AC00](v11);
-    v17 = a4;
-    v12 = v5;
-    OS_dispatch_queue._syncHelper<A>(fn:flags:execute:rescue:)(partial apply for implicit closure #2 in implicit closure #1 in OS_dispatch_queue.asyncAndWait<A>(flags:execute:), v11, &v18, a2, a3, partial apply for closure #1 in OS_dispatch_queue.asyncAndWait<A>(execute:), v16, a4, a5);
+    v20 = v10;
+    MEMORY[0x1EEE9AC00](v11, v12);
+    v19 = a4;
+    v13 = v5;
+    OS_dispatch_queue._syncHelper<A>(fn:flags:execute:rescue:)(partial apply for implicit closure #2 in implicit closure #1 in OS_dispatch_queue.asyncAndWait<A>(flags:execute:), v11, &v20, a2, a3, partial apply for closure #1 in OS_dispatch_queue.asyncAndWait<A>(execute:), v18, a4, a5);
   }
 
   else
   {
-    v13 = swift_allocObject();
-    *(v13 + 16) = v5;
-    MEMORY[0x1EEE9AC00](v13);
-    v17 = a4;
-    v14 = v5;
-    OS_dispatch_queue._syncHelper<A>(fn:execute:rescue:)(partial apply for implicit closure #4 in implicit closure #3 in OS_dispatch_queue.asyncAndWait<A>(flags:execute:), a2, a3, partial apply for closure #2 in OS_dispatch_queue.asyncAndWait<A>(flags:execute:), v16, a4, a5);
+    v14 = swift_allocObject();
+    *(v14 + 16) = v5;
+    MEMORY[0x1EEE9AC00](v14, v15);
+    v19 = a4;
+    v16 = v5;
+    OS_dispatch_queue._syncHelper<A>(fn:execute:rescue:)(partial apply for implicit closure #4 in implicit closure #3 in OS_dispatch_queue.asyncAndWait<A>(flags:execute:), a2, a3, partial apply for closure #2 in OS_dispatch_queue.asyncAndWait<A>(flags:execute:), v18, a4, a5);
   }
 }
 
@@ -5459,19 +5389,18 @@ uint64_t implicit closure #6 in implicit closure #5 in OS_dispatch_queue.sync<A>
 
 Dispatch::DispatchQoS::QoSClass_optional OS_dispatch_queue.qos.getter@<W0>(uint64_t a1@<X8>)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v7 = 0;
-  qos_class = dispatch_queue_get_qos_class(v1, &v7);
+  v8 = *MEMORY[0x1E69E9840];
+  v6 = 0;
+  qos_class = dispatch_queue_get_qos_class(v1, &v6);
   result.value = DispatchQoS.QoSClass.init(rawValue:)(qos_class).value;
-  if (v8 == 6)
+  if (v7 == 6)
   {
     __break(1u);
   }
 
-  v5 = v7;
-  *a1 = v8;
+  v5 = v6;
+  *a1 = v7;
   *(a1 + 8) = v5;
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5743,11 +5672,9 @@ unint64_t lazy protocol witness table accessor for type OS_dispatch_workloop.Att
 
 uint64_t type metadata completion function for _DispatchSpecificValue(uint64_t a1)
 {
-  v1 = *(a1 + 80);
   result = swift_checkMetadataState();
-  if (v3 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v4 = *(result - 8) + 64;
     result = swift_initClassMetadata2();
     if (!result)
     {
@@ -6125,7 +6052,7 @@ uint64_t OS_dispatch_source.MemoryPressureEvent.description.getter()
         return 0xD000000000000014;
       }
 
-      goto LABEL_12;
+      return dispatch thunk of CustomStringConvertible.description.getter();
     }
 
     return 0xD000000000000016;
@@ -6145,8 +6072,6 @@ uint64_t OS_dispatch_source.MemoryPressureEvent.description.getter()
         return 0x6C61636974697263;
       }
 
-LABEL_12:
-      v3 = *v0;
       return dispatch thunk of CustomStringConvertible.description.getter();
     }
 
@@ -6462,7 +6387,7 @@ uint64_t *static DispatchWallTime.< infix(_:_:)(uint64_t *result, uint64_t *a2)
   return result;
 }
 
-uint64_t protocol witness for static Comparable.<= infix(_:_:) in conformance DispatchWallTime(uint64_t result, uint64_t *a2)
+BOOL protocol witness for static Comparable.<= infix(_:_:) in conformance DispatchWallTime(_BOOL8 result, uint64_t *a2)
 {
   v2 = *result;
   v3 = *a2;
@@ -6497,7 +6422,7 @@ uint64_t protocol witness for static Comparable.<= infix(_:_:) in conformance Di
   return result;
 }
 
-uint64_t protocol witness for static Comparable.>= infix(_:_:) in conformance DispatchWallTime(uint64_t result, uint64_t *a2)
+BOOL protocol witness for static Comparable.>= infix(_:_:) in conformance DispatchWallTime(_BOOL8 result, uint64_t *a2)
 {
   v2 = *result;
   v3 = *a2;
@@ -6685,9 +6610,8 @@ unint64_t lazy protocol witness table accessor for type DispatchWallTime and con
   return result;
 }
 
-uint64_t OS_dispatch_queue.SchedulerTimeType.init(from:)@<X0>(uint64_t *a1@<X0>, unint64_t *a2@<X8>)
+unint64_t OS_dispatch_queue.SchedulerTimeType.init(from:)@<X0>(void *a1@<X0>, unint64_t *a2@<X8>)
 {
-  v5 = a1[4];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   dispatch thunk of Decoder.singleValueContainer()();
   if (v2)
@@ -6695,9 +6619,9 @@ uint64_t OS_dispatch_queue.SchedulerTimeType.init(from:)@<X0>(uint64_t *a1@<X0>,
     return __swift_destroy_boxed_opaque_existential_0(a1);
   }
 
-  __swift_project_boxed_opaque_existential_1(v12, v12[3]);
+  __swift_project_boxed_opaque_existential_1(v11, v11[3]);
   result = dispatch thunk of SingleValueDecodingContainer.decode(_:)();
-  v7 = result;
+  v6 = result;
   if (result == -1)
   {
     goto LABEL_11;
@@ -6711,27 +6635,27 @@ uint64_t OS_dispatch_queue.SchedulerTimeType.init(from:)@<X0>(uint64_t *a1@<X0>,
   if (static DispatchTime.timebaseInfo == HIDWORD(static DispatchTime.timebaseInfo))
   {
 LABEL_11:
-    __swift_destroy_boxed_opaque_existential_0(v12);
-    *a2 = v7;
+    __swift_destroy_boxed_opaque_existential_0(v11);
+    *a2 = v6;
     return __swift_destroy_boxed_opaque_existential_0(a1);
   }
 
-  if (!is_mul_ok(v7, HIDWORD(static DispatchTime.timebaseInfo)))
+  if (!is_mul_ok(v6, HIDWORD(static DispatchTime.timebaseInfo)))
   {
 LABEL_10:
-    v7 = -1;
+    v6 = -1;
     goto LABEL_11;
   }
 
-  v8 = static DispatchTime.timebaseInfo - 1;
+  v7 = static DispatchTime.timebaseInfo - 1;
   if (static DispatchTime.timebaseInfo)
   {
-    v9 = v7 * HIDWORD(static DispatchTime.timebaseInfo);
-    v10 = __CFADD__(v9, v8);
-    v11 = v9 + v8;
-    if (!v10)
+    v8 = v6 * HIDWORD(static DispatchTime.timebaseInfo);
+    v9 = __CFADD__(v8, v7);
+    v10 = v8 + v7;
+    if (!v9)
     {
-      v7 = v11 / static DispatchTime.timebaseInfo;
+      v6 = v10 / static DispatchTime.timebaseInfo;
       goto LABEL_11;
     }
 
@@ -6752,10 +6676,9 @@ void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t OS_dispatch_queue.SchedulerTimeType.encode(to:)(void *a1)
+void *OS_dispatch_queue.SchedulerTimeType.encode(to:)(void *a1)
 {
   v2 = *v1;
-  v3 = a1[4];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   result = dispatch thunk of Encoder.singleValueContainer()();
   if (v2 == -1)
@@ -6771,9 +6694,9 @@ uint64_t OS_dispatch_queue.SchedulerTimeType.encode(to:)(void *a1)
   if (static DispatchTime.timebaseInfo == HIDWORD(static DispatchTime.timebaseInfo) || !is_mul_ok(v2, static DispatchTime.timebaseInfo) || HIDWORD(static DispatchTime.timebaseInfo))
   {
 LABEL_7:
-    __swift_mutable_project_boxed_opaque_existential_1(v5, v5[3]);
+    __swift_mutable_project_boxed_opaque_existential_1(v4, v4[3]);
     dispatch thunk of SingleValueEncodingContainer.encode(_:)();
-    return __swift_destroy_boxed_opaque_existential_0(v5);
+    return __swift_destroy_boxed_opaque_existential_0(v4);
   }
 
   else
@@ -6784,7 +6707,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_t a2)
+uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t result, uint64_t a2)
 {
   if ((*(*(a2 - 8) + 80) & 0x20000) != 0)
   {
@@ -6792,7 +6715,7 @@ uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_
     return v2;
   }
 
-  return result;
+  return v3;
 }
 
 unint64_t *OS_dispatch_queue.SchedulerTimeType.distance(to:)@<X0>(unint64_t *a1@<X0>, uint64_t *a2@<X8>)
@@ -6981,25 +6904,22 @@ uint64_t (*OS_dispatch_queue.SchedulerTimeType.Stride.magnitude.modify(void *a1)
   return OS_dispatch_queue.SchedulerTimeType.Stride.magnitude.modify;
 }
 
-uint64_t OS_dispatch_queue.SchedulerTimeType.Stride.init<A>(exactly:)@<X0>(char *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
+uint64_t OS_dispatch_queue.SchedulerTimeType.Stride.init<A>(exactly:)@<X0>(char *a1@<X0>, uint64_t a2@<X1>, uint64_t *a4@<X8>)
 {
-  v40 = a4;
-  v7 = *(*(a3 + 24) + 16);
+  v36 = a4;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v9 = *(*(AssociatedTypeWitness - 8) + 64);
-  v10 = MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v11 = *(a2 - 8);
-  v12 = v11[8];
-  v13 = MEMORY[0x1EEE9AC00](v10);
-  v15 = &v38 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v17 = &v38 - v16;
-  v18 = v11[2];
-  v39 = a1;
-  v18(&v38 - v16, a1, a2);
+  v8 = MEMORY[0x1EEE9AC00](AssociatedTypeWitness, v7);
+  v9 = *(a2 - 8);
+  v11 = MEMORY[0x1EEE9AC00](v8, v10);
+  v13 = &v34 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11, v14);
+  v16 = &v34 - v15;
+  v17 = *(v9 + 16);
+  v35 = a1;
+  v17(&v34 - v15, a1, a2);
   if ((dispatch thunk of static BinaryInteger.isSigned.getter() & 1) != 0 && dispatch thunk of BinaryInteger.bitWidth.getter() >= 65)
   {
-    v41 = 0x8000000000000000;
+    v37 = 0x8000000000000000;
     if (dispatch thunk of static BinaryInteger.isSigned.getter())
     {
       if (dispatch thunk of BinaryInteger.bitWidth.getter() < 64)
@@ -7012,11 +6932,11 @@ LABEL_13:
 
     else
     {
-      v19 = dispatch thunk of static BinaryInteger.isSigned.getter();
-      v20 = dispatch thunk of BinaryInteger.bitWidth.getter();
-      if ((v19 & 1) == 0)
+      v18 = dispatch thunk of static BinaryInteger.isSigned.getter();
+      v19 = dispatch thunk of BinaryInteger.bitWidth.getter();
+      if ((v18 & 1) == 0)
       {
-        if (v20 >= 64)
+        if (v19 >= 64)
         {
           goto LABEL_14;
         }
@@ -7024,16 +6944,15 @@ LABEL_13:
         goto LABEL_13;
       }
 
-      if (v20 <= 64)
+      if (v19 <= 64)
       {
         swift_getAssociatedConformanceWitness();
         dispatch thunk of _ExpressibleByBuiltinIntegerLiteral.init(_builtinIntegerLiteral:)();
         dispatch thunk of ExpressibleByIntegerLiteral.init(integerLiteral:)();
-        v24 = *(*(a3 + 32) + 8);
-        v25 = dispatch thunk of static Comparable.< infix(_:_:)();
-        v23 = v11[1];
-        v23(v15, a2);
-        if (v25)
+        v22 = dispatch thunk of static Comparable.< infix(_:_:)();
+        v21 = *(v9 + 8);
+        v21(v13, a2);
+        if (v22)
         {
           goto LABEL_18;
         }
@@ -7044,11 +6963,10 @@ LABEL_13:
 
     lazy protocol witness table accessor for type Int64 and conformance Int64();
     dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-    v21 = *(*(a3 + 32) + 8);
-    v22 = dispatch thunk of static Comparable.< infix(_:_:)();
-    v23 = v11[1];
-    v23(v15, a2);
-    if (v22)
+    v20 = dispatch thunk of static Comparable.< infix(_:_:)();
+    v21 = *(v9 + 8);
+    v21(v13, a2);
+    if (v20)
     {
       goto LABEL_18;
     }
@@ -7057,36 +6975,35 @@ LABEL_13:
 LABEL_14:
   if (dispatch thunk of BinaryInteger.bitWidth.getter() > 64 || dispatch thunk of BinaryInteger.bitWidth.getter() == 64 && (dispatch thunk of static BinaryInteger.isSigned.getter() & 1) == 0)
   {
-    v41 = 0x7FFFFFFFFFFFFFFFLL;
-    v26 = dispatch thunk of static BinaryInteger.isSigned.getter();
-    v27 = dispatch thunk of BinaryInteger.bitWidth.getter();
-    if (v26)
+    v37 = 0x7FFFFFFFFFFFFFFFLL;
+    v23 = dispatch thunk of static BinaryInteger.isSigned.getter();
+    v24 = dispatch thunk of BinaryInteger.bitWidth.getter();
+    if (v23)
     {
-      if (v27 > 64)
+      if (v24 > 64)
       {
         goto LABEL_17;
       }
     }
 
-    else if (v27 > 63)
+    else if (v24 > 63)
     {
 LABEL_17:
       lazy protocol witness table accessor for type Int64 and conformance Int64();
       dispatch thunk of BinaryInteger.init<A>(truncatingIfNeeded:)();
-      v28 = *(*(a3 + 32) + 8);
-      v29 = dispatch thunk of static Comparable.< infix(_:_:)();
-      v23 = v11[1];
-      v23(v15, a2);
-      if ((v29 & 1) == 0)
+      v25 = dispatch thunk of static Comparable.< infix(_:_:)();
+      v21 = *(v9 + 8);
+      v21(v13, a2);
+      if ((v25 & 1) == 0)
       {
         goto LABEL_24;
       }
 
 LABEL_18:
-      v23(v39, a2);
-      result = (v23)(v17, a2);
-      v31 = 0;
-      v32 = 1;
+      v21(v35, a2);
+      result = (v21)(v16, a2);
+      v27 = 0;
+      v28 = 1;
       goto LABEL_26;
     }
 
@@ -7094,23 +7011,23 @@ LABEL_18:
   }
 
 LABEL_24:
-  v33 = dispatch thunk of BinaryInteger._lowWord.getter();
-  v34 = v11[1];
-  v34(v39, a2);
-  result = (v34)(v17, a2);
-  v31 = 1000000000 * v33;
-  v35 = (v33 * 1000000000) >> 64;
-  v36 = v35 == (1000000000 * v33) >> 63;
-  v32 = v35 != (1000000000 * v33) >> 63;
-  if (!v36)
+  v29 = dispatch thunk of BinaryInteger._lowWord.getter();
+  v30 = *(v9 + 8);
+  v30(v35, a2);
+  result = (v30)(v16, a2);
+  v27 = 1000000000 * v29;
+  v31 = (v29 * 1000000000) >> 64;
+  v32 = v31 == (1000000000 * v29) >> 63;
+  v28 = v31 != (1000000000 * v29) >> 63;
+  if (!v32)
   {
-    v31 = 0;
+    v27 = 0;
   }
 
 LABEL_26:
-  v37 = v40;
-  *v40 = v31;
-  *(v37 + 8) = v32;
+  v33 = v36;
+  *v36 = v27;
+  *(v33 + 8) = v28;
   return result;
 }
 
@@ -7253,7 +7170,7 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance OS_disp
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance OS_dispatch_queue.SchedulerTimeType.Stride.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance OS_dispatch_queue.SchedulerTimeType.Stride.CodingKeys(uint64_t a1)
 {
   Hasher.init(_seed:)();
   MEMORY[0x193B16960](0);
@@ -7295,18 +7212,15 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t OS_dispatch_queue.SchedulerTimeType.Stride.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVySo17OS_dispatch_queueC8DispatchE17SchedulerTimeTypeV6StrideV10CodingKeys33_317C13D309C0E15AD490BAEED7188218LLOGMd, &_ss22KeyedEncodingContainerVySo17OS_dispatch_queueC8DispatchE17SchedulerTimeTypeV6StrideV10CodingKeys33_317C13D309C0E15AD490BAEED7188218LLOGMR);
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v3);
-  v7 = &v11 - v6;
-  v8 = *v1;
-  v9 = a1[4];
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVySo17OS_dispatch_queueC8DispatchE17SchedulerTimeTypeV6StrideV10CodingKeys33_317C13D309C0E15AD490BAEED7188218LLOGMd, &_ss22KeyedEncodingContainerVySo17OS_dispatch_queueC8DispatchE17SchedulerTimeTypeV6StrideV10CodingKeys33_317C13D309C0E15AD490BAEED7188218LLOGMR);
+  v3 = *(v2 - 8);
+  MEMORY[0x1EEE9AC00](v2, v4);
+  v6 = &v8 - v5;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type OS_dispatch_queue.SchedulerTimeType.Stride.CodingKeys and conformance OS_dispatch_queue.SchedulerTimeType.Stride.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   KeyedEncodingContainer.encode(_:forKey:)();
-  return (*(v4 + 8))(v7, v3);
+  return (*(v3 + 8))(v6, v2);
 }
 
 unint64_t lazy protocol witness table accessor for type OS_dispatch_queue.SchedulerTimeType.Stride.CodingKeys and conformance OS_dispatch_queue.SchedulerTimeType.Stride.CodingKeys()
@@ -7354,22 +7268,20 @@ unint64_t lazy protocol witness table accessor for type OS_dispatch_queue.Schedu
   return result;
 }
 
-uint64_t OS_dispatch_queue.SchedulerTimeType.Stride.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t OS_dispatch_queue.SchedulerTimeType.Stride.init(from:)@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVySo17OS_dispatch_queueC8DispatchE17SchedulerTimeTypeV6StrideV10CodingKeys33_317C13D309C0E15AD490BAEED7188218LLOGMd, &_ss22KeyedDecodingContainerVySo17OS_dispatch_queueC8DispatchE17SchedulerTimeTypeV6StrideV10CodingKeys33_317C13D309C0E15AD490BAEED7188218LLOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](v5);
-  v9 = &v13 - v8;
-  v10 = a1[4];
+  MEMORY[0x1EEE9AC00](v5, v7);
+  v9 = &v12 - v8;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type OS_dispatch_queue.SchedulerTimeType.Stride.CodingKeys and conformance OS_dispatch_queue.SchedulerTimeType.Stride.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (!v2)
   {
-    v11 = KeyedDecodingContainer.decode(_:forKey:)();
+    v10 = KeyedDecodingContainer.decode(_:forKey:)();
     (*(v6 + 8))(v9, v5);
-    *a2 = v11;
+    *a2 = v10;
   }
 
   return __swift_destroy_boxed_opaque_existential_0(a1);
@@ -7507,18 +7419,15 @@ double *protocol witness for ExpressibleByFloatLiteral.init(floatLiteral:) in co
 
 uint64_t protocol witness for Encodable.encode(to:) in conformance OS_dispatch_queue.SchedulerTimeType.Stride(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVySo17OS_dispatch_queueC8DispatchE17SchedulerTimeTypeV6StrideV10CodingKeys33_317C13D309C0E15AD490BAEED7188218LLOGMd, &_ss22KeyedEncodingContainerVySo17OS_dispatch_queueC8DispatchE17SchedulerTimeTypeV6StrideV10CodingKeys33_317C13D309C0E15AD490BAEED7188218LLOGMR);
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v3);
-  v7 = &v11 - v6;
-  v8 = *v1;
-  v9 = a1[4];
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVySo17OS_dispatch_queueC8DispatchE17SchedulerTimeTypeV6StrideV10CodingKeys33_317C13D309C0E15AD490BAEED7188218LLOGMd, &_ss22KeyedEncodingContainerVySo17OS_dispatch_queueC8DispatchE17SchedulerTimeTypeV6StrideV10CodingKeys33_317C13D309C0E15AD490BAEED7188218LLOGMR);
+  v3 = *(v2 - 8);
+  MEMORY[0x1EEE9AC00](v2, v4);
+  v6 = &v8 - v5;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type OS_dispatch_queue.SchedulerTimeType.Stride.CodingKeys and conformance OS_dispatch_queue.SchedulerTimeType.Stride.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   KeyedEncodingContainer.encode(_:forKey:)();
-  return (*(v4 + 8))(v7, v3);
+  return (*(v3 + 8))(v6, v2);
 }
 
 uint64_t *protocol witness for static Numeric.* infix(_:_:) in conformance OS_dispatch_queue.SchedulerTimeType.Stride@<X0>(uint64_t *result@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
@@ -7644,11 +7553,11 @@ Swift::Int OS_dispatch_queue.SchedulerTimeType.Stride.hashValue.getter()
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance OS_dispatch_queue.SchedulerTimeType.Stride()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance OS_dispatch_queue.SchedulerTimeType.Stride(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x193B16970](v1);
+  MEMORY[0x193B16970](v2);
   return Hasher._finalize()();
 }
 
@@ -7715,10 +7624,10 @@ uint64_t outlined consume of OS_dispatch_queue.SchedulerOptions?(uint64_t a1, ui
 {
   if (a4 != 1)
   {
-    return MEMORY[0x1EEE66C30]();
+    return MEMORY[0x1EEE66C30](a1, a2, a3);
   }
 
-  return result;
+  return a1;
 }
 
 unint64_t lazy protocol witness table accessor for type OS_dispatch_queue.SchedulerTimeType.Stride and conformance OS_dispatch_queue.SchedulerTimeType.Stride()
@@ -8075,21 +7984,19 @@ void static OS_dispatch_io.read(fromFileDescriptor:maxLength:runningHandlerOn:ha
 
 void partial apply for closure #1 in static OS_dispatch_io.read(fromFileDescriptor:maxLength:runningHandlerOn:handler:)(void *a1, uint64_t a2)
 {
-  v5 = *(v2 + 16);
-  v4 = *(v2 + 24);
-  v8 = a1;
-  v6 = a1;
-  v5(&v8, a2);
-  v7 = v8;
+  v4 = *(v2 + 16);
+  v7 = a1;
+  v5 = a1;
+  v4(&v7, a2);
+  v6 = v7;
 }
 
 void thunk for @escaping @callee_guaranteed (@guaranteed OS_dispatch_data, @unowned Int32) -> ()(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4();
+  v4 = a2;
+  v3();
 }
 
 void static OS_dispatch_io.write(toFileDescriptor:data:runningHandlerOn:handler:)(dispatch_fd_t a1, void **a2, NSObject *a3, uint64_t a4, uint64_t a5)
@@ -8113,11 +8020,10 @@ void static OS_dispatch_io.write(toFileDescriptor:data:runningHandlerOn:handler:
 
 void thunk for @escaping @callee_guaranteed (@guaranteed OS_dispatch_data?, @unowned Int32) -> ()(uint64_t a1, void *a2, uint64_t a3)
 {
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
+  v5 = *(a1 + 32);
 
-  v7 = a2;
-  v6(a2, a3);
+  v6 = a2;
+  v5(a2, a3);
 }
 
 dispatch_io_t OS_dispatch_io.init(type:fileDescriptor:queue:cleanupHandler:)(unsigned __int8 *a1, dispatch_fd_t a2, NSObject *a3, uint64_t a4, uint64_t a5)
@@ -8139,10 +8045,9 @@ dispatch_io_t OS_dispatch_io.init(type:fileDescriptor:queue:cleanupHandler:)(uns
 
 uint64_t thunk for @escaping @callee_guaranteed (@unowned Int32) -> ()(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v4(a2);
+  v3(a2);
 }
 
 dispatch_io_t OS_dispatch_io.init(type:path:oflag:mode:queue:cleanupHandler:)(unsigned __int8 *a1, const char *a2, int a3, mode_t a4, NSObject *a5, uint64_t a6, uint64_t a7)
@@ -8214,11 +8119,10 @@ void OS_dispatch_io.read(offset:length:queue:ioHandler:)(off_t a1, size_t a2, NS
 
 void thunk for @escaping @callee_guaranteed (@unowned Bool, @guaranteed OS_dispatch_data?, @unowned Int32) -> ()(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v8 = *(a1 + 32);
-  v7 = *(a1 + 40);
+  v7 = *(a1 + 32);
 
-  v9 = a3;
-  v8(a2, a3, a4);
+  v8 = a3;
+  v7(a2, a3, a4);
 }
 
 void OS_dispatch_io.write(offset:data:queue:ioHandler:)(off_t a1, void **a2, NSObject *a3, uint64_t a4, uint64_t a5)
@@ -8242,12 +8146,11 @@ void OS_dispatch_io.write(offset:data:queue:ioHandler:)(off_t a1, void **a2, NSO
 
 void partial apply for closure #1 in OS_dispatch_io.read(offset:length:queue:ioHandler:)(uint64_t a1, void *a2, uint64_t a3)
 {
-  v7 = *(v3 + 16);
-  v6 = *(v3 + 24);
-  v10 = a2;
-  v8 = a2;
-  v7(a1, &v10, a3);
-  v9 = v10;
+  v6 = *(v3 + 16);
+  v9 = a2;
+  v7 = a2;
+  v6(a1, &v9, a3);
+  v8 = v9;
 }
 
 void OS_dispatch_io.setInterval(interval:flags:)(uint64_t a1, dispatch_io_interval_flags_t *a2)

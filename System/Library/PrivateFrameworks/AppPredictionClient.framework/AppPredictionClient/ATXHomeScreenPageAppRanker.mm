@@ -106,7 +106,7 @@ void __68__ATXHomeScreenPageAppRanker_appsInAscendingOrderOfHistoricalUsage___bl
 {
   v4 = [a2 eventBody];
   v3 = [v4 bundleID];
-  if ([v4 starting] && objc_msgSend(*(a1 + 32), "containsObject:", v3))
+  if ([v4 starting] && objc_msgSend_containsObject_(*(a1 + 32)))
   {
     [*(a1 + 40) addObject:v3];
   }

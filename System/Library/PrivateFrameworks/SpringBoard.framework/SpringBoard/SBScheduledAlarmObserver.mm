@@ -61,25 +61,25 @@ void __42__SBScheduledAlarmObserver_sharedInstance__block_invoke()
 
 - (void)_nextAlarmChanged:(id)changed
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   v5 = objc_opt_class();
   userInfo = [changedCopy userInfo];
   v7 = [userInfo objectForKey:*MEMORY[0x277D295D0]];
   v8 = SBSafeCast(v5, v7);
 
-  v9 = SBLogAlarm();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = SBLogAlarm(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     name = [changedCopy name];
     alarmID = [v8 alarmID];
-    v12 = 138543874;
+    v13 = 138543874;
     selfCopy = self;
-    v14 = 2114;
-    v15 = name;
-    v16 = 2114;
-    v17 = alarmID;
-    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ recieved %{public}@ notification contains alarmID: %{public}@", &v12, 0x20u);
+    v15 = 2114;
+    v16 = name;
+    v17 = 2114;
+    v18 = alarmID;
+    _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ recieved %{public}@ notification contains alarmID: %{public}@", &v13, 0x20u);
   }
 
   [(SBScheduledAlarmObserver *)self _updateAlarmStatusBarItem];
@@ -87,41 +87,42 @@ void __42__SBScheduledAlarmObserver_sharedInstance__block_invoke()
 
 - (void)_alarmFiringChanged:(id)changed
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   v5 = objc_opt_class();
   userInfo = [changedCopy userInfo];
   v7 = [userInfo objectForKey:*MEMORY[0x277D295A0]];
   v8 = SBSafeCast(v5, v7);
 
-  if ([v8 count] >= 2)
+  v9 = [v8 count];
+  if (v9 >= 2)
   {
-    v9 = SBLogAlarm();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = SBLogAlarm(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       name = [changedCopy name];
-      v14 = 138543874;
+      v15 = 138543874;
       selfCopy = self;
-      v16 = 2114;
-      v17 = name;
-      v18 = 2048;
-      v19 = [v8 count];
-      _os_log_error_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_ERROR, "%{public}@ recieved %{public}@ notification with %lu alarms in payload, expect one alarm only.", &v14, 0x20u);
+      v17 = 2114;
+      v18 = name;
+      v19 = 2048;
+      v20 = [v8 count];
+      _os_log_error_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_ERROR, "%{public}@ recieved %{public}@ notification with %lu alarms in payload, expect one alarm only.", &v15, 0x20u);
     }
   }
 
-  v10 = objc_opt_class();
+  v11 = objc_opt_class();
   firstObject = [v8 firstObject];
-  v12 = SBSafeCast(v10, firstObject);
+  v13 = SBSafeCast(v11, firstObject);
 
-  [(SBScheduledAlarmObserver *)self _updateAlarmFiringChangedWithAlarm:v12];
+  [(SBScheduledAlarmObserver *)self _updateAlarmFiringChangedWithAlarm:v13];
 }
 
 - (void)_updateAlarmStatusBarItem
 {
   v14 = *MEMORY[0x277D85DE8];
   nextAlarm = [(MTAlarmManager *)self->_alarmManager nextAlarm];
-  v4 = SBLogAlarm();
+  v4 = SBLogAlarm(nextAlarm);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     alarmManager = self->_alarmManager;
@@ -161,7 +162,7 @@ void __53__SBScheduledAlarmObserver__updateAlarmStatusBarItem__block_invoke_2(ui
   v14 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_class();
   v3 = SBSafeCast(v2, *(a1 + 32));
-  v4 = SBLogAlarm();
+  v4 = SBLogAlarm(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 40);
@@ -183,7 +184,7 @@ void __53__SBScheduledAlarmObserver__updateAlarmStatusBarItem__block_invoke_2(ui
 {
   v15 = *MEMORY[0x277D85DE8];
   alarmCopy = alarm;
-  v5 = SBLogAlarm();
+  v5 = SBLogAlarm(alarmCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     alarmID = [alarmCopy alarmID];

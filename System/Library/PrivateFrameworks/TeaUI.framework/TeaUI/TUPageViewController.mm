@@ -1576,7 +1576,7 @@ LABEL_5:
   [coordinatorCopy animateAlongsideTransition:v21 completion:0];
 }
 
-uint64_t __75__TUPageViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke(uint64_t a1)
+void *__75__TUPageViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) transitionToSize:{*(a1 + 40), *(a1 + 48)}];
   *(*(a1 + 32) + 993) = 0;

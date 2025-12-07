@@ -59,7 +59,7 @@
 
 - (BOOL)_holdReceivedAgent:(id)agent ticket:(id)ticket
 {
-  v182 = *MEMORY[0x277D85DE8];
+  v181 = *MEMORY[0x277D85DE8];
   agentCopy = agent;
   v7 = agentCopy;
   if (self->_ownerID != agentCopy)
@@ -91,29 +91,29 @@
             objc_msgSend_minusSet_(teamMembersWaiting, v80, v79, v81, v82);
 
             objc_msgSend_setGreetingTeam_(self->_visitingOwner, v83, v17, v84, v85);
-            v169 = 0u;
-            v170 = 0u;
-            v167 = 0u;
             v168 = 0u;
+            v169 = 0u;
+            v166 = 0u;
+            v167 = 0u;
             v90 = objc_msgSend_members(v17, v86, v87, v88, v89);
-            v92 = objc_msgSend_countByEnumeratingWithState_objects_count_(v90, v91, &v167, v179, 16);
+            v92 = objc_msgSend_countByEnumeratingWithState_objects_count_(v90, v91, &v166, v178, 16);
             if (v92)
             {
               v96 = v92;
-              v97 = *v168;
+              v97 = *v167;
               do
               {
                 for (i = 0; i != v96; ++i)
                 {
-                  if (*v168 != v97)
+                  if (*v167 != v97)
                   {
                     objc_enumerationMutation(v90);
                   }
 
-                  objc_msgSend_setRoomOwner_(*(*(&v167 + 1) + 8 * i), v93, self->_visitingOwner, v94, v95);
+                  objc_msgSend_setRoomOwner_(*(*(&v166 + 1) + 8 * i), v93, self->_visitingOwner, v94, v95);
                 }
 
-                v96 = objc_msgSend_countByEnumeratingWithState_objects_count_(v90, v93, &v167, v179, 16);
+                v96 = objc_msgSend_countByEnumeratingWithState_objects_count_(v90, v93, &v166, v178, 16);
               }
 
               while (v96);
@@ -180,27 +180,27 @@
     {
       if (objc_msgSend_count(self->_teamMembersWaiting, v23, v24, v25, v26))
       {
-        v166 = v7;
-        v177 = 0u;
-        v178 = 0u;
-        v175 = 0u;
+        v165 = v7;
         v176 = 0u;
+        v177 = 0u;
+        v174 = 0u;
+        v175 = 0u;
         v45 = self->_activeTeams;
-        v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v46, &v175, v181, 16);
+        v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v46, &v174, v180, 16);
         if (v47)
         {
           v52 = v47;
-          v53 = *v176;
+          v53 = *v175;
 LABEL_13:
           v54 = 0;
           while (1)
           {
-            if (*v176 != v53)
+            if (*v175 != v53)
             {
               objc_enumerationMutation(v45);
             }
 
-            v55 = *(*(&v175 + 1) + 8 * v54);
+            v55 = *(*(&v174 + 1) + 8 * v54);
             v56 = objc_msgSend_members(v55, v48, v49, v50, v51);
             v60 = objc_msgSend_isSubsetOfSet_(v56, v57, self->_teamMembersWaiting, v58, v59);
 
@@ -211,7 +211,7 @@ LABEL_13:
 
             if (v52 == ++v54)
             {
-              v52 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v48, &v175, v181, 16);
+              v52 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v48, &v174, v180, 16);
               if (v52)
               {
                 goto LABEL_13;
@@ -226,29 +226,29 @@ LABEL_13:
           objc_msgSend_minusSet_(v121, v123, v122, v124, v125);
 
           objc_msgSend_setGreetingTeam_(self->_visitingOwner, v126, v55, v127, v128);
-          v173 = 0u;
-          v174 = 0u;
-          v171 = 0u;
           v172 = 0u;
+          v173 = 0u;
+          v170 = 0u;
+          v171 = 0u;
           v133 = objc_msgSend_members(v55, v129, v130, v131, v132);
-          v135 = objc_msgSend_countByEnumeratingWithState_objects_count_(v133, v134, &v171, v180, 16);
+          v135 = objc_msgSend_countByEnumeratingWithState_objects_count_(v133, v134, &v170, v179, 16);
           if (v135)
           {
             v139 = v135;
-            v140 = *v172;
+            v140 = *v171;
             do
             {
               for (j = 0; j != v139; ++j)
               {
-                if (*v172 != v140)
+                if (*v171 != v140)
                 {
                   objc_enumerationMutation(v133);
                 }
 
-                objc_msgSend_setRoomOwner_(*(*(&v171 + 1) + 8 * j), v136, self->_visitingOwner, v137, v138);
+                objc_msgSend_setRoomOwner_(*(*(&v170 + 1) + 8 * j), v136, self->_visitingOwner, v137, v138);
               }
 
-              v139 = objc_msgSend_countByEnumeratingWithState_objects_count_(v133, v136, &v171, v180, 16);
+              v139 = objc_msgSend_countByEnumeratingWithState_objects_count_(v133, v136, &v170, v179, 16);
             }
 
             while (v139);
@@ -262,7 +262,7 @@ LABEL_13:
           self->_visitingOwner = 0;
 
           v151 = v55;
-          v7 = v166;
+          v7 = v165;
           if (v151)
           {
             objc_msgSend_removeObject_(self->_activeTeams, v41, v151, v43, v44);
@@ -275,7 +275,7 @@ LABEL_13:
         {
 LABEL_43:
 
-          v7 = v166;
+          v7 = v165;
         }
       }
 
@@ -298,7 +298,6 @@ LABEL_49:
     }
   }
 
-  v164 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

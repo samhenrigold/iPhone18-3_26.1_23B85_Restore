@@ -152,23 +152,21 @@ LABEL_7:
 
 - (id)accessibilityCustomActions
 {
-  v9[1] = *MEMORY[0x29EDCA608];
+  v8[1] = *MEMORY[0x29EDCA608];
   if ([(PUScrubberViewAccessibility *)self _axIsVideoPlayerActivated])
   {
     v3 = objc_alloc(MEMORY[0x29EDC78E0]);
     v4 = accessibilityPULocalizedString(@"video.playbackcontrol.closeAction.name");
     v5 = [v3 initWithName:v4 target:self selector:sel__axCloseVideoPlaybackAction];
 
-    v9[0] = v5;
-    v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:1];
+    v8[0] = v5;
+    v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:v8 count:1];
   }
 
   else
   {
     v6 = 0;
   }
-
-  v7 = *MEMORY[0x29EDCA608];
 
   return v6;
 }
@@ -250,7 +248,6 @@ void __58__PUScrubberViewAccessibility__axCloseVideoPlaybackAction__block_invoke
 {
   v3 = a2;
   v5 = *(a1 + 32);
-  v6 = *(a1 + 40);
   v4 = v3;
   AXPerformSafeBlock();
 }
@@ -331,86 +328,82 @@ void __90__PUScrubberViewAccessibility__axScrollToAssetReference_inViewModel_for
 - (id)_axVideoPlaybackValue
 {
   [(PUScrubberViewAccessibility *)self _axVideoSession];
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3810000000;
+  v24 = &unk_29C15DAFD;
   v25 = 0;
-  v26 = &v25;
-  v27 = 0x3810000000;
-  v28 = &unk_29C15DAFD;
-  v29 = 0;
-  v30 = 0;
-  v24 = v31 = 0;
+  v26 = 0;
+  v20 = v27 = 0;
   AXPerformSafeBlock();
-  v2 = v26[4];
-  v3 = *(v26 + 10);
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v21, 8);
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3810000000;
+  v24 = &unk_29C15DAFD;
   v25 = 0;
-  v26 = &v25;
-  v27 = 0x3810000000;
-  v28 = &unk_29C15DAFD;
-  v29 = 0;
-  v30 = 0;
-  v31 = 0;
-  v23 = MEMORY[0x29EDCA5F8];
-  v4 = v24;
+  v26 = 0;
+  v27 = 0;
+  v19 = MEMORY[0x29EDCA5F8];
+  v2 = v20;
   AXPerformSafeBlock();
-  v5 = v26[4];
-  v6 = *(v26 + 10);
 
-  _Block_object_dispose(&v25, 8);
-  v7 = UIAXTimeStringForDuration();
-  v8 = UIAXTimeStringForDuration();
-  v9 = MEMORY[0x29EDBA0F8];
-  v10 = accessibilityPULocalizedString(@"video.playbackcontrol.value.format");
-  v11 = [v9 stringWithFormat:v10, v7, v8, v23, 3221225472, __52__PUScrubberViewAccessibility__axVideoPlaybackValue__block_invoke_2, &unk_29F2E80F0];
+  _Block_object_dispose(&v21, 8);
+  v3 = UIAXTimeStringForDuration();
+  v4 = UIAXTimeStringForDuration();
+  v5 = MEMORY[0x29EDBA0F8];
+  v6 = accessibilityPULocalizedString(@"video.playbackcontrol.value.format");
+  v7 = [v5 stringWithFormat:v6, v3, v4, v19, 3221225472, __52__PUScrubberViewAccessibility__axVideoPlaybackValue__block_invoke_2, &unk_29F2E80F0];
 
-  v12 = [v11 rangeOfString:v7];
-  v14 = v13;
-  v15 = [v11 rangeOfString:v8 options:4];
-  if (v14)
+  v8 = [v7 rangeOfString:v3];
+  v10 = v9;
+  v11 = [v7 rangeOfString:v4 options:4];
+  if (v10)
   {
-    v17 = v16 == 0;
+    v13 = v12 == 0;
   }
 
   else
   {
-    v17 = 1;
+    v13 = 1;
   }
 
-  if (v17)
+  if (v13)
   {
-    v20 = 0;
+    v16 = 0;
   }
 
   else
   {
-    v18 = v15;
-    v19 = v16;
-    v20 = [MEMORY[0x29EDBD7E8] axAttributedStringWithString:v11];
-    v21 = MEMORY[0x29EDB8EB0];
-    [v20 setAttribute:MEMORY[0x29EDB8EB0] forKey:*MEMORY[0x29EDBD8C0] withRange:{v12, v14}];
-    [v20 setAttribute:v21 forKey:*MEMORY[0x29EDBD8C0] withRange:{v18, v19}];
+    v14 = v11;
+    v15 = v12;
+    v16 = [MEMORY[0x29EDBD7E8] axAttributedStringWithString:v7];
+    v17 = MEMORY[0x29EDB8EB0];
+    [v16 setAttribute:MEMORY[0x29EDB8EB0] forKey:*MEMORY[0x29EDBD8C0] withRange:{v8, v10}];
+    [v16 setAttribute:v17 forKey:*MEMORY[0x29EDBD8C0] withRange:{v14, v15}];
   }
 
-  return v20;
+  return v16;
 }
 
-double __52__PUScrubberViewAccessibility__axVideoPlaybackValue__block_invoke(uint64_t a1)
+double __52__PUScrubberViewAccessibility__axVideoPlaybackValue__block_invoke(uint64_t a1, const char *a2)
 {
-  [*(a1 + 32) currentTime];
-  v2 = *(*(a1 + 40) + 8);
-  result = *&v4;
-  *(v2 + 32) = v4;
-  *(v2 + 48) = v5;
+  objc_msgSend_currentTime(*(a1 + 32), a2);
+  v3 = *(*(a1 + 40) + 8);
+  result = *&v5;
+  *(v3 + 32) = v5;
+  *(v3 + 48) = v6;
   return result;
 }
 
-double __52__PUScrubberViewAccessibility__axVideoPlaybackValue__block_invoke_2(uint64_t a1)
+double __52__PUScrubberViewAccessibility__axVideoPlaybackValue__block_invoke_2(uint64_t a1, const char *a2)
 {
-  [*(a1 + 32) videoDuration];
-  v2 = *(*(a1 + 40) + 8);
-  result = *&v4;
-  *(v2 + 32) = v4;
-  *(v2 + 48) = v5;
+  objc_msgSend_videoDuration(*(a1 + 32), a2);
+  v3 = *(*(a1 + 40) + 8);
+  result = *&v5;
+  *(v3 + 32) = v5;
+  *(v3 + 48) = v6;
   return result;
 }
 

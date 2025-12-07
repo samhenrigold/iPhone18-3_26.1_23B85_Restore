@@ -386,8 +386,8 @@ uint64_t __69__CKMediaObjectDeleteAssetActionPerformer_performUserInteractionTas
     {
       v7 = PXLocalizationKeyForMediaType();
       v8 = MEMORY[0x1E696AEC0];
-      v9 = CKFrameworkBundle();
-      v31 = v7;
+      v9 = CKFrameworkBundle(v7);
+      v33 = v7;
       v10 = [v9 localizedStringForKey:v7 value:&stru_1F04268F8 table:@"ChatKit"];
       var0 = [v8 localizedStringWithFormat:v10, var0];
 
@@ -406,62 +406,62 @@ uint64_t __69__CKMediaObjectDeleteAssetActionPerformer_performUserInteractionTas
 
       v15 = [(__CFString *)v14 stringByAppendingString:var0];
 
-      v16 = CKFrameworkBundle();
-      v17 = [v16 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
+      v17 = CKFrameworkBundle(v16);
+      v18 = [v17 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
 
       if (CKIsRunningInMacCatalyst())
       {
-        v20 = PXLocalizationKeyForMediaType();
-        v21 = CKFrameworkBundle();
-        v22 = [v21 localizedStringForKey:v20 value:&stru_1F04268F8 table:@"ChatKit"];
+        v21 = PXLocalizationKeyForMediaType();
+        v22 = CKFrameworkBundle(v21);
+        v23 = [v22 localizedStringForKey:v21 value:&stru_1F04268F8 table:@"ChatKit"];
 
-        v23 = CKFrameworkBundle();
-        v24 = [v23 localizedStringForKey:@"DELETE_WARNING" value:&stru_1F04268F8 table:@"ChatKit"];
+        v25 = CKFrameworkBundle(v24);
+        v26 = [v25 localizedStringForKey:@"DELETE_WARNING" value:&stru_1F04268F8 table:@"ChatKit"];
 
-        v25 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v22 message:v24 preferredStyle:1];
+        v27 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v23 message:v26 preferredStyle:1];
       }
 
       else
       {
-        v25 = [MEMORY[0x1E69DC650] alertControllerWithTitle:0 message:0 preferredStyle:0];
+        v27 = [MEMORY[0x1E69DC650] alertControllerWithTitle:0 message:0 preferredStyle:0];
       }
+
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __107__CKMediaObjectDeleteAssetActionPerformer__presentDeleteConfirmationDialogForTypedCount_completionHandler___block_invoke;
+      v36[3] = &unk_1E72EC218;
+      v28 = handlerCopy;
+      v37 = v28;
+      v29 = [CKAlertAction actionWithTitle:v15 style:2 handler:v36];
+      [v27 addAction:v29];
 
       v34[0] = MEMORY[0x1E69E9820];
       v34[1] = 3221225472;
-      v34[2] = __107__CKMediaObjectDeleteAssetActionPerformer__presentDeleteConfirmationDialogForTypedCount_completionHandler___block_invoke;
+      v34[2] = __107__CKMediaObjectDeleteAssetActionPerformer__presentDeleteConfirmationDialogForTypedCount_completionHandler___block_invoke_290;
       v34[3] = &unk_1E72EC218;
-      v26 = handlerCopy;
-      v35 = v26;
-      v27 = [CKAlertAction actionWithTitle:v15 style:2 handler:v34];
-      [v25 addAction:v27];
+      v30 = v28;
+      v35 = v30;
+      v31 = [CKAlertAction actionWithTitle:v18 style:1 handler:v34];
+      [v27 addAction:v31];
 
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __107__CKMediaObjectDeleteAssetActionPerformer__presentDeleteConfirmationDialogForTypedCount_completionHandler___block_invoke_290;
-      v32[3] = &unk_1E72EC218;
-      v28 = v26;
-      v33 = v28;
-      v29 = [CKAlertAction actionWithTitle:v17 style:1 handler:v32];
-      [v25 addAction:v29];
-
-      if (![(PXActionPerformer *)self presentViewController:v25])
+      if (![(PXActionPerformer *)self presentViewController:v27])
       {
-        v30 = IMLogHandleForCategory();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+        v32 = IMLogHandleForCategory();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
-          [CKMediaObjectDeleteAssetActionPerformer _presentDeleteConfirmationDialogForTypedCount:v25 completionHandler:v30];
+          [CKMediaObjectDeleteAssetActionPerformer _presentDeleteConfirmationDialogForTypedCount:v27 completionHandler:v32];
         }
 
-        (*(v28 + 2))(v28, 0);
+        (*(v30 + 2))(v30, 0);
       }
     }
 
     else
     {
-      v19 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        [CKMediaObjectDeleteAssetActionPerformer _presentDeleteConfirmationDialogForTypedCount:v19 completionHandler:?];
+        [CKMediaObjectDeleteAssetActionPerformer _presentDeleteConfirmationDialogForTypedCount:v20 completionHandler:?];
       }
 
       (*(handlerCopy + 2))(handlerCopy, 0);
@@ -470,10 +470,10 @@ uint64_t __69__CKMediaObjectDeleteAssetActionPerformer_performUserInteractionTas
 
   else
   {
-    v18 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [CKMediaObjectDeleteAssetActionPerformer _presentDeleteConfirmationDialogForTypedCount:v18 completionHandler:?];
+      [CKMediaObjectDeleteAssetActionPerformer _presentDeleteConfirmationDialogForTypedCount:v19 completionHandler:?];
     }
   }
 }
@@ -528,21 +528,21 @@ uint64_t __107__CKMediaObjectDeleteAssetActionPerformer__presentDeleteConfirmati
   chatItem = [manager chatItem];
   CanBeCancelled = _ChatItemCanBeCancelled(chatItem);
 
-  v6 = CKFrameworkBundle();
-  v7 = v6;
+  v7 = CKFrameworkBundle(v6);
+  v8 = v7;
   if (CanBeCancelled)
   {
-    v8 = @"CANCEL";
+    v9 = @"CANCEL";
   }
 
   else
   {
-    v8 = @"DELETE";
+    v9 = @"DELETE";
   }
 
-  v9 = [v6 localizedStringForKey:v8 value:&stru_1F04268F8 table:@"ChatKit"];
+  v10 = [v7 localizedStringForKey:v9 value:&stru_1F04268F8 table:@"ChatKit"];
 
-  return v9;
+  return v10;
 }
 
 + (id)createPreviewActionWithActionManager:(id)manager handler:(id)handler

@@ -30,7 +30,7 @@
 
 - (void)handleNewData:(void *)data from:(id)from
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (((*(*data + 64))(data, a2) & 1) == 0)
   {
     v8 = _aciLogGeneral();
@@ -39,7 +39,7 @@
       goto LABEL_17;
     }
 
-    LOWORD(v23.value) = 0;
+    LOWORD(v22.value) = 0;
     v15 = "[ACIVERIFY]DataGeneric expected!";
     goto LABEL_22;
   }
@@ -53,7 +53,7 @@
       goto LABEL_17;
     }
 
-    LOWORD(v23.value) = 0;
+    LOWORD(v22.value) = 0;
     v15 = "[ACIVERIFY]Generic payload is empty!";
 LABEL_22:
     p_super = &v8->super.super;
@@ -70,46 +70,46 @@ LABEL_22:
       goto LABEL_17;
     }
 
-    LODWORD(v23.value) = 138412290;
-    *(&v23.value + 4) = CFCopyTypeIDDescription(v7);
+    LODWORD(v22.value) = 138412290;
+    *(&v22.value + 4) = CFCopyTypeIDDescription(v7);
     v15 = "The data type %@ not supported";
     p_super = &v8->super.super;
     v17 = 12;
 LABEL_16:
-    _os_log_impl(&dword_23C3F5000, p_super, OS_LOG_TYPE_ERROR, v15, &v23, v17);
+    _os_log_impl(&dword_23C3F5000, p_super, OS_LOG_TYPE_ERROR, v15, &v22, v17);
     goto LABEL_17;
   }
 
   v8 = self->_listeners;
   objc_sync_enter(v8);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v9 = self->_listeners;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v10)
   {
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           v14 = mach_continuous_time();
-          CMClockMakeHostTimeFromSystemUnits(&v23, v14);
-          [v13 pixelbufferCallback:self buffer:v6 time:&v23 metadata:{0, v19}];
+          CMClockMakeHostTimeFromSystemUnits(&v22, v14);
+          [v13 pixelbufferCallback:self buffer:v6 time:&v22 metadata:{0, v18}];
         }
       }
 
-      v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v10);
@@ -117,8 +117,6 @@ LABEL_16:
 
   objc_sync_exit(v8);
 LABEL_17:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)propertyForKey:(id)key
@@ -155,7 +153,7 @@ LABEL_17:
 
 - (int)registerListener:(id)listener
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   v5 = self->_listeners;
   objc_sync_enter(v5);
@@ -164,9 +162,9 @@ LABEL_17:
     v6 = _aciLogGeneral();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = listenerCopy;
-      _os_log_impl(&dword_23C3F5000, v6, OS_LOG_TYPE_DEFAULT, "%@ listener already registered!", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = listenerCopy;
+      _os_log_impl(&dword_23C3F5000, v6, OS_LOG_TYPE_DEFAULT, "%@ listener already registered!", &v8, 0xCu);
     }
   }
 
@@ -177,13 +175,12 @@ LABEL_17:
 
   objc_sync_exit(v5);
 
-  v7 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (int)unregisterListener:(id)listener
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   v5 = self->_listeners;
   objc_sync_enter(v5);
@@ -197,28 +194,27 @@ LABEL_17:
     v6 = _aciLogGeneral();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = listenerCopy;
-      _os_log_impl(&dword_23C3F5000, v6, OS_LOG_TYPE_DEFAULT, "%@ listener not registered!", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = listenerCopy;
+      _os_log_impl(&dword_23C3F5000, v6, OS_LOG_TYPE_DEFAULT, "%@ listener not registered!", &v8, 0xCu);
     }
   }
 
   objc_sync_exit(v5);
 
-  v7 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (int)start
 {
-  *&v12[5] = *MEMORY[0x277D85DE8];
+  *&v11[5] = *MEMORY[0x277D85DE8];
   v3 = _aciLogGeneral();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     CString = aci::String::getCString(*(self->_stream._ptr + 15));
-    v11 = 136315138;
-    *v12 = CString;
-    _os_log_impl(&dword_23C3F5000, v3, OS_LOG_TYPE_DEFAULT, "ACICameraProvider::start key: %s", &v11, 0xCu);
+    v10 = 136315138;
+    *v11 = CString;
+    _os_log_impl(&dword_23C3F5000, v3, OS_LOG_TYPE_DEFAULT, "ACICameraProvider::start key: %s", &v10, 0xCu);
   }
 
   selfCopy = self;
@@ -244,27 +240,26 @@ LABEL_17:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = aci::String::getCString(*(selfCopy->_stream._ptr + 15));
-    v11 = 67109378;
-    v12[0] = v6;
-    LOWORD(v12[1]) = 2080;
-    *(&v12[1] + 2) = v8;
-    _os_log_impl(&dword_23C3F5000, v7, OS_LOG_TYPE_DEFAULT, "ACICameraProvider::start ret(%d) key: %s", &v11, 0x12u);
+    v10 = 67109378;
+    v11[0] = v6;
+    LOWORD(v11[1]) = 2080;
+    *(&v11[1] + 2) = v8;
+    _os_log_impl(&dword_23C3F5000, v7, OS_LOG_TYPE_DEFAULT, "ACICameraProvider::start ret(%d) key: %s", &v10, 0x12u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (int)stop
 {
-  *&v12[5] = *MEMORY[0x277D85DE8];
+  *&v11[5] = *MEMORY[0x277D85DE8];
   v3 = _aciLogGeneral();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     CString = aci::String::getCString(*(self->_stream._ptr + 15));
-    v11 = 136315138;
-    *v12 = CString;
-    _os_log_impl(&dword_23C3F5000, v3, OS_LOG_TYPE_DEFAULT, "ACICameraProvider::stop key: %s", &v11, 0xCu);
+    v10 = 136315138;
+    *v11 = CString;
+    _os_log_impl(&dword_23C3F5000, v3, OS_LOG_TYPE_DEFAULT, "ACICameraProvider::stop key: %s", &v10, 0xCu);
   }
 
   selfCopy = self;
@@ -290,14 +285,13 @@ LABEL_17:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = aci::String::getCString(*(selfCopy->_stream._ptr + 15));
-    v11 = 67109378;
-    v12[0] = v6;
-    LOWORD(v12[1]) = 2080;
-    *(&v12[1] + 2) = v8;
-    _os_log_impl(&dword_23C3F5000, v7, OS_LOG_TYPE_DEFAULT, "ACICameraProvider::stop ret(%d) key: %s", &v11, 0x12u);
+    v10 = 67109378;
+    v11[0] = v6;
+    LOWORD(v11[1]) = 2080;
+    *(&v11[1] + 2) = v8;
+    _os_log_impl(&dword_23C3F5000, v7, OS_LOG_TYPE_DEFAULT, "ACICameraProvider::stop ret(%d) key: %s", &v10, 0x12u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

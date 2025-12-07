@@ -167,7 +167,7 @@ LABEL_17:
   return (v5 + 1);
 }
 
-uint64_t OUTLINED_FUNCTION_0_3()
+uint64_t OUTLINED_FUNCTION_0_3(uint64_t a1)
 {
 
   return swift_once();
@@ -183,13 +183,13 @@ void OUTLINED_FUNCTION_0_4(uint64_t a1, uint64_t a2)
 uint64_t OUTLINED_FUNCTION_0_5(unint64_t *a1)
 {
 
-  return lazy protocol witness table accessor for type CurrentRequest and conformance CurrentRequest(a1);
+  return lazy protocol witness table accessor for type CurrentRequest and conformance CurrentRequest(a1, &protocol conformance descriptor for CurrentRequest);
 }
 
 uint64_t OUTLINED_FUNCTION_0_6(unint64_t *a1)
 {
 
-  return lazy protocol witness table accessor for type HomeKitProvider and conformance HomeKitProvider(a1);
+  return lazy protocol witness table accessor for type HomeKitProvider and conformance HomeKitProvider(a1, &protocol conformance descriptor for HomeKitProvider);
 }
 
 uint64_t outlined init with copy of SharedContextService?(uint64_t a1, uint64_t a2)
@@ -217,340 +217,331 @@ uint64_t static SharedContext.internalSharedContext.getter()
 {
   if (one-time initialization token for internalSharedContext != -1)
   {
-    OUTLINED_FUNCTION_0_3();
+    OUTLINED_FUNCTION_0_3(&one-time initialization token for internalSharedContext);
   }
 }
 
 uint64_t InteractionTypeHelper.mapInteractionType(inputOrigin:isEyesFree:isDeviceInStarkMode:isDeviceInCarDND:audioSource:audioDestination:previousInteractionType:)@<X0>(uint64_t a1@<X0>, int a2@<W1>, int a3@<W2>, int a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
 {
-  v131 = a7;
-  v128 = a6;
-  v138 = a5;
-  v139 = a1;
-  v142 = a4;
-  v143 = a3;
-  v145 = a2;
-  v147 = a8;
-  v134 = type metadata accessor for InputOrigin();
-  v9 = OUTLINED_FUNCTION_0(v134);
-  v132 = v10;
-  v12 = *(v11 + 64);
-  MEMORY[0x1EEE9AC00](v9);
+  v110 = a7;
+  v107 = a6;
+  v117 = a5;
+  v118 = a1;
+  v121 = a4;
+  v122 = a3;
+  v124 = a2;
+  v126 = a8;
+  v113 = type metadata accessor for InputOrigin();
+  OUTLINED_FUNCTION_0();
+  v111 = v9;
+  MEMORY[0x1EEE9AC00](v10);
   OUTLINED_FUNCTION_7_0();
-  v133 = v14 - v13;
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities11AudioSourceVSgMd, &_s13SiriUtilities11AudioSourceVSgMR);
-  v16 = OUTLINED_FUNCTION_10(v15);
-  v18 = *(v17 + 64);
-  MEMORY[0x1EEE9AC00](v16);
-  v137 = &v128 - v19;
-  v140 = type metadata accessor for AudioSource();
-  v20 = OUTLINED_FUNCTION_0(v140);
-  v135 = v21;
-  v23 = *(v22 + 64);
+  v112 = v12 - v11;
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities11AudioSourceVSgMd, &_s13SiriUtilities11AudioSourceVSgMR);
+  v14 = OUTLINED_FUNCTION_10(v13);
+  MEMORY[0x1EEE9AC00](v14);
+  v116 = &v107 - v15;
+  v119 = type metadata accessor for AudioSource();
+  OUTLINED_FUNCTION_0();
+  v114 = v16;
+  MEMORY[0x1EEE9AC00](v17);
+  OUTLINED_FUNCTION_9_0();
+  v125 = v18;
+  v20 = MEMORY[0x1EEE9AC00](v19);
+  v108 = &v107 - v21;
   MEMORY[0x1EEE9AC00](v20);
-  OUTLINED_FUNCTION_9_0();
-  v146 = v24;
-  v26 = MEMORY[0x1EEE9AC00](v25);
-  v129 = &v128 - v27;
-  MEMORY[0x1EEE9AC00](v26);
-  v136 = &v128 - v28;
-  v144 = type metadata accessor for Logger();
-  v29 = OUTLINED_FUNCTION_0(v144);
-  v31 = v30;
-  v33 = *(v32 + 64);
-  MEMORY[0x1EEE9AC00](v29);
+  v115 = &v107 - v22;
+  v123 = type metadata accessor for Logger();
+  OUTLINED_FUNCTION_0();
+  v24 = v23;
+  MEMORY[0x1EEE9AC00](v25);
   OUTLINED_FUNCTION_7_0();
-  v36 = v35 - v34;
-  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities15InteractionTypeOSgMd, &_s13SiriUtilities15InteractionTypeOSgMR);
-  v38 = OUTLINED_FUNCTION_10(v37);
-  v40 = *(v39 + 64);
-  MEMORY[0x1EEE9AC00](v38);
+  v28 = v27 - v26;
+  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities15InteractionTypeOSgMd, &_s13SiriUtilities15InteractionTypeOSgMR);
+  v30 = OUTLINED_FUNCTION_10(v29);
+  MEMORY[0x1EEE9AC00](v30);
   OUTLINED_FUNCTION_9_0();
-  v130 = v41;
+  v109 = v31;
+  MEMORY[0x1EEE9AC00](v32);
+  v34 = &v107 - v33;
+  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities11DeviceClassOSgMd, &_s13SiriUtilities11DeviceClassOSgMR);
+  v36 = OUTLINED_FUNCTION_10(v35);
+  MEMORY[0x1EEE9AC00](v36);
+  v38 = &v107 - v37;
+  v39 = type metadata accessor for DeviceClass();
+  OUTLINED_FUNCTION_0();
+  v41 = v40;
   MEMORY[0x1EEE9AC00](v42);
-  v44 = &v128 - v43;
-  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities11DeviceClassOSgMd, &_s13SiriUtilities11DeviceClassOSgMR);
-  v46 = OUTLINED_FUNCTION_10(v45);
-  v48 = *(v47 + 64);
-  MEMORY[0x1EEE9AC00](v46);
-  v50 = &v128 - v49;
-  v51 = type metadata accessor for DeviceClass();
-  v52 = OUTLINED_FUNCTION_0(v51);
-  v54 = v53;
-  v56 = *(v55 + 64);
-  MEMORY[0x1EEE9AC00](v52);
   OUTLINED_FUNCTION_7_0();
-  v59 = v58 - v57;
-  v61 = v8[8];
-  v60 = v8[9];
-  v141 = v8;
-  __swift_project_boxed_opaque_existential_1(v8 + 5, v61);
+  v45 = v44 - v43;
+  v46 = v8[8];
+  v120 = v8;
+  __swift_project_boxed_opaque_existential_1(v8 + 5, v46);
   dispatch thunk of DeviceClassProvider.currentDeviceClass.getter();
-  if (__swift_getEnumTagSinglePayload(v50, 1, v51) == 1)
+  if (__swift_getEnumTagSinglePayload(v38, 1, v39) == 1)
   {
-    outlined destroy of AudioDestination?(v50, &_s13SiriUtilities11DeviceClassOSgMd, &_s13SiriUtilities11DeviceClassOSgMR);
+    outlined destroy of AudioDestination?(v38, &_s13SiriUtilities11DeviceClassOSgMd, &_s13SiriUtilities11DeviceClassOSgMR);
     static Logger.logger.getter();
-    v62 = Logger.logObject.getter();
-    v63 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v62, v63))
+    v47 = Logger.logObject.getter();
+    v48 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v47, v48))
     {
-      v64 = swift_slowAlloc();
-      *v64 = 0;
-      _os_log_impl(&dword_1DD354000, v62, v63, "Unknown device type returned by MobileGestalt. Interaction type may not be accurate.", v64, 2u);
-      MEMORY[0x1E12AE9C0](v64, -1, -1);
+      v49 = swift_slowAlloc();
+      *v49 = 0;
+      _os_log_impl(&dword_1DD354000, v47, v48, "Unknown device type returned by MobileGestalt. Interaction type may not be accurate.", v49, 2u);
+      MEMORY[0x1E12AE9C0](v49, -1, -1);
     }
 
-    (*(v31 + 8))(v36, v144);
+    (*(v24 + 8))(v28, v123);
   }
 
   else
   {
-    (*(v54 + 32))(v59, v50, v51);
+    (*(v41 + 32))(v45, v38, v39);
     if (one-time initialization token for interactionForIdiom != -1)
     {
       swift_once();
     }
 
-    specialized Dictionary.subscript.getter(v59, static InteractionTypeHelper.interactionForIdiom, v44);
-    (*(v54 + 8))(v59, v51);
-    v65 = type metadata accessor for InteractionType();
-    OUTLINED_FUNCTION_11(v44);
-    if (!v66)
+    specialized Dictionary.subscript.getter(v45, static InteractionTypeHelper.interactionForIdiom, v34);
+    (*(v41 + 8))(v45, v39);
+    v50 = type metadata accessor for InteractionType();
+    OUTLINED_FUNCTION_11(v34);
+    if (!v51)
     {
-      OUTLINED_FUNCTION_5_0(v65);
-      return (*(v77 + 32))(v147, v44, v65);
+      OUTLINED_FUNCTION_5_0();
+      return (*(v61 + 32))(v126, v34, v50);
     }
 
-    outlined destroy of AudioDestination?(v44, &_s13SiriUtilities15InteractionTypeOSgMd, &_s13SiriUtilities15InteractionTypeOSgMR);
+    outlined destroy of AudioDestination?(v34, &_s13SiriUtilities15InteractionTypeOSgMd, &_s13SiriUtilities15InteractionTypeOSgMR);
   }
 
-  v67 = v146;
-  if (v145)
+  v52 = v125;
+  if (v124)
   {
     goto LABEL_25;
   }
 
-  if (v143)
+  if (v122)
   {
     goto LABEL_25;
   }
 
-  if (v142)
+  if (v121)
   {
     goto LABEL_25;
   }
 
-  v68 = v141[3];
-  v69 = v141[4];
-  __swift_project_boxed_opaque_existential_1(v141, v68);
-  if ((*(v69 + 8))(v68, v69))
+  v53 = v120[3];
+  v54 = v120[4];
+  __swift_project_boxed_opaque_existential_1(v120, v53);
+  if ((*(v54 + 8))(v53, v54))
   {
     goto LABEL_25;
   }
 
-  v70 = v137;
-  outlined init with copy of AudioDestination?(v138, v137, &_s13SiriUtilities11AudioSourceVSgMd, &_s13SiriUtilities11AudioSourceVSgMR);
-  v71 = v140;
-  if (__swift_getEnumTagSinglePayload(v70, 1, v140) == 1)
+  v55 = v116;
+  outlined init with copy of AudioDestination?(v117, v116, &_s13SiriUtilities11AudioSourceVSgMd, &_s13SiriUtilities11AudioSourceVSgMR);
+  v56 = v119;
+  if (__swift_getEnumTagSinglePayload(v55, 1, v119) == 1)
   {
-    outlined destroy of AudioDestination?(v70, &_s13SiriUtilities11AudioSourceVSgMd, &_s13SiriUtilities11AudioSourceVSgMR);
+    outlined destroy of AudioDestination?(v55, &_s13SiriUtilities11AudioSourceVSgMd, &_s13SiriUtilities11AudioSourceVSgMR);
     if (one-time initialization token for dialogDrivenInputOrigins != -1)
     {
-      OUTLINED_FUNCTION_1_0();
+      OUTLINED_FUNCTION_1_0(&one-time initialization token for dialogDrivenInputOrigins);
     }
 
-    v72 = specialized Set.contains(_:)(v139, static InteractionTypeHelper.dialogDrivenInputOrigins);
-    v73 = type metadata accessor for InteractionType();
-    OUTLINED_FUNCTION_0_0(v73);
-    v75 = *(v74 + 104);
-    if (v72)
+    v57 = specialized Set.contains(_:)(v118, static InteractionTypeHelper.dialogDrivenInputOrigins);
+    type metadata accessor for InteractionType();
+    OUTLINED_FUNCTION_0_0();
+    v59 = *(v58 + 104);
+    if (v57)
     {
-      v76 = MEMORY[0x1E69D35A8];
+      v60 = MEMORY[0x1E69D35A8];
     }
 
     else
     {
-      v76 = MEMORY[0x1E69D35B0];
+      v60 = MEMORY[0x1E69D35B0];
     }
 
-    v85 = *v76;
-    v86 = v147;
-    return v75(v86, v85);
+    v69 = *v60;
+    v70 = v126;
+    return v59(v70, v69);
   }
 
-  v79 = v135;
-  v80 = v136;
-  (*(v135 + 32))(v136, v70, v71);
-  v82 = v132;
-  v81 = v133;
-  v83 = v134;
-  (*(v132 + 16))(v133, v139, v134);
-  v84 = (*(v82 + 88))(v81, v83);
-  if (v84 == *MEMORY[0x1E69D34F8])
+  v63 = v114;
+  v64 = v115;
+  (*(v114 + 32))(v115, v55, v56);
+  v66 = v111;
+  v65 = v112;
+  v67 = v113;
+  (*(v111 + 16))(v112, v118, v113);
+  v68 = (*(v66 + 88))(v65, v67);
+  if (v68 == *MEMORY[0x1E69D34F8])
   {
-    (*(v79 + 8))(v80, v71);
+    (*(v63 + 8))(v64, v56);
 LABEL_25:
-    v87 = *MEMORY[0x1E69D35A8];
-    v88 = type metadata accessor for InteractionType();
-    OUTLINED_FUNCTION_0_0(v88);
-    v75 = *(v89 + 104);
-    v86 = v147;
-    v85 = v87;
-    return v75(v86, v85);
+    v71 = *MEMORY[0x1E69D35A8];
+    type metadata accessor for InteractionType();
+    OUTLINED_FUNCTION_0_0();
+    v59 = *(v72 + 104);
+    v70 = v126;
+    v69 = v71;
+    return v59(v70, v69);
   }
 
-  if (v84 == *MEMORY[0x1E69D34F0])
+  if (v68 == *MEMORY[0x1E69D34F0])
   {
 LABEL_24:
-    (*(v135 + 8))(v136, v140);
+    (*(v114 + 8))(v115, v119);
     goto LABEL_25;
   }
 
-  v90 = v135;
-  v91 = v140;
-  if (v84 != *MEMORY[0x1E69D3508])
+  v73 = v114;
+  v74 = v119;
+  if (v68 != *MEMORY[0x1E69D3508])
   {
-    if (v84 == *MEMORY[0x1E69D34E0])
+    if (v68 == *MEMORY[0x1E69D34E0])
     {
       goto LABEL_24;
     }
 
-    v97 = v129;
-    (*(v135 + 16))(v129, v136, v140);
+    v79 = v108;
+    (*(v114 + 16))(v108, v115, v119);
     static AudioSource.lineIn.getter();
-    lazy protocol witness table accessor for type AudioSource and conformance AudioSource(&lazy protocol witness table cache variable for type AudioSource and conformance AudioSource, MEMORY[0x1E69D3410]);
-    v98 = OUTLINED_FUNCTION_3_0();
-    v101 = *(v90 + 8);
-    v100 = v90 + 8;
-    v99 = v101;
-    v101(v67, v91);
-    if (v98)
+    lazy protocol witness table accessor for type AudioSource and conformance AudioSource(&lazy protocol witness table cache variable for type AudioSource and conformance AudioSource, MEMORY[0x1E69D3410], MEMORY[0x1E69D3418]);
+    v80 = OUTLINED_FUNCTION_3_0();
+    v83 = *(v73 + 8);
+    v82 = v73 + 8;
+    v81 = v83;
+    v83(v52, v74);
+    if (v80)
     {
-      v99(v97, v91);
+      v81(v79, v74);
       if (one-time initialization token for dialogDrivenInputOrigins != -1)
       {
-        OUTLINED_FUNCTION_1_0();
+        OUTLINED_FUNCTION_1_0(&one-time initialization token for dialogDrivenInputOrigins);
       }
 
-      v103 = specialized Set.contains(_:)(v139, static InteractionTypeHelper.dialogDrivenInputOrigins);
-      v99(v136, v91);
-      v104 = type metadata accessor for InteractionType();
-      OUTLINED_FUNCTION_0_0(v104);
-      v106 = MEMORY[0x1E69D35A8];
-      if (!v103)
+      v85 = specialized Set.contains(_:)(v118, static InteractionTypeHelper.dialogDrivenInputOrigins);
+      v81(v115, v74);
+      type metadata accessor for InteractionType();
+      OUTLINED_FUNCTION_0_0();
+      v87 = MEMORY[0x1E69D35A8];
+      if (!v85)
       {
-        v106 = MEMORY[0x1E69D35B0];
+        v87 = MEMORY[0x1E69D35B0];
       }
 
-      (*(v105 + 104))(v147, *v106);
-      return (*(v132 + 8))(v133, v134);
+      (*(v86 + 104))(v126, *v87);
+      return (*(v111 + 8))(v112, v113);
     }
 
     static AudioSource.wiredHeadsetMic.getter();
     OUTLINED_FUNCTION_3_0();
-    v102 = OUTLINED_FUNCTION_4_0();
-    (v99)(v102);
+    v84 = OUTLINED_FUNCTION_4_0();
+    (v81)(v84);
     static AudioSource.bluetoothHandsFreeDevice.getter();
     OUTLINED_FUNCTION_3_0();
-    v107 = OUTLINED_FUNCTION_4_0();
-    (v99)(v107);
-    if (v98)
+    v88 = OUTLINED_FUNCTION_4_0();
+    (v81)(v88);
+    if (v80)
     {
-      v99(v97, v91);
-      v99(v136, v91);
+      v81(v79, v74);
+      v81(v115, v74);
     }
 
     else
     {
       static AudioSource.usbAudio.getter();
       OUTLINED_FUNCTION_3_0();
-      v111 = OUTLINED_FUNCTION_4_0();
-      (v99)(v111);
+      v91 = OUTLINED_FUNCTION_4_0();
+      (v81)(v91);
       static AudioSource.unknown.getter();
       OUTLINED_FUNCTION_3_0();
-      v112 = OUTLINED_FUNCTION_4_0();
-      (v99)(v112);
+      v92 = OUTLINED_FUNCTION_4_0();
+      (v81)(v92);
       static AudioSource.carAudio.getter();
       OUTLINED_FUNCTION_3_0();
-      v113 = OUTLINED_FUNCTION_4_0();
-      (v99)(v113);
-      v115 = v146;
+      v93 = OUTLINED_FUNCTION_4_0();
+      (v81)(v93);
+      v95 = v125;
       static AudioSource.builtInMic.getter();
-      v116 = OUTLINED_FUNCTION_8_0();
-      v99(v115, v100);
-      if (v116)
+      v96 = OUTLINED_FUNCTION_8_0();
+      v81(v95, v82);
+      if (v96)
       {
-        v117 = v140;
-        v99(v129, v140);
-        static InteractionTypeHelper.interactionType(audioDestination:)(v128, v147);
-        v99(v136, v117);
-        return (*(v132 + 8))(v133, v134);
+        v97 = v119;
+        v81(v108, v119);
+        static InteractionTypeHelper.interactionType(audioDestination:)(v107, v126);
+        v81(v115, v97);
+        return (*(v111 + 8))(v112, v113);
       }
 
-      v118 = v146;
+      v98 = v125;
       static AudioSource.bluetoothDoAPDevice.getter();
-      v119 = OUTLINED_FUNCTION_8_0();
-      v99(v118, v100);
-      if ((v119 & 1) == 0)
+      v99 = OUTLINED_FUNCTION_8_0();
+      v81(v98, v82);
+      if ((v99 & 1) == 0)
       {
-        v120 = v146;
+        v100 = v125;
         static AudioSource.carJarvisDevice.getter();
-        v121 = v129;
-        v122 = v140;
-        v123 = dispatch thunk of static Equatable.== infix(_:_:)();
-        v99(v120, v122);
-        v99(v121, v122);
-        v99(v136, v122);
-        v124 = type metadata accessor for InteractionType();
-        OUTLINED_FUNCTION_0_0(v124);
-        v126 = (v132 + 8);
-        if (v123)
+        v101 = v108;
+        v102 = v119;
+        v103 = dispatch thunk of static Equatable.== infix(_:_:)();
+        v81(v100, v102);
+        v81(v101, v102);
+        v81(v115, v102);
+        type metadata accessor for InteractionType();
+        OUTLINED_FUNCTION_0_0();
+        v105 = (v111 + 8);
+        if (v103)
         {
-          v127 = MEMORY[0x1E69D35A8];
+          v106 = MEMORY[0x1E69D35A8];
         }
 
         else
         {
-          v127 = MEMORY[0x1E69D35B0];
+          v106 = MEMORY[0x1E69D35B0];
         }
 
-        (*(v125 + 104))(v147, *v127);
-        return (*v126)(v133, v134);
+        (*(v104 + 104))(v126, *v106);
+        return (*v105)(v112, v113);
       }
 
-      v114 = v140;
-      v99(v129, v140);
-      v99(v136, v114);
+      v94 = v119;
+      v81(v108, v119);
+      v81(v115, v94);
     }
 
-    v108 = *MEMORY[0x1E69D35A8];
-    v109 = type metadata accessor for InteractionType();
-    OUTLINED_FUNCTION_0_0(v109);
-    (*(v110 + 104))(v147, v108);
-    return (*(v132 + 8))(v133, v134);
+    v89 = *MEMORY[0x1E69D35A8];
+    type metadata accessor for InteractionType();
+    OUTLINED_FUNCTION_0_0();
+    (*(v90 + 104))(v126, v89);
+    return (*(v111 + 8))(v112, v113);
   }
 
-  (*(v135 + 8))(v136, v140);
-  v92 = v130;
-  outlined init with copy of AudioDestination?(v131, v130, &_s13SiriUtilities15InteractionTypeOSgMd, &_s13SiriUtilities15InteractionTypeOSgMR);
-  v93 = type metadata accessor for InteractionType();
-  OUTLINED_FUNCTION_11(v92);
-  if (v66)
+  (*(v114 + 8))(v115, v119);
+  v75 = v109;
+  outlined init with copy of AudioDestination?(v110, v109, &_s13SiriUtilities15InteractionTypeOSgMd, &_s13SiriUtilities15InteractionTypeOSgMR);
+  v76 = type metadata accessor for InteractionType();
+  OUTLINED_FUNCTION_11(v75);
+  if (v51)
   {
-    v94 = *MEMORY[0x1E69D35B0];
-    OUTLINED_FUNCTION_5_0(v93);
-    (*(v95 + 104))(v147);
-    result = OUTLINED_FUNCTION_11(v92);
-    if (!v66)
+    OUTLINED_FUNCTION_5_0();
+    (*(v77 + 104))(v126);
+    result = OUTLINED_FUNCTION_11(v75);
+    if (!v51)
     {
-      return outlined destroy of AudioDestination?(v92, &_s13SiriUtilities15InteractionTypeOSgMd, &_s13SiriUtilities15InteractionTypeOSgMR);
+      return outlined destroy of AudioDestination?(v75, &_s13SiriUtilities15InteractionTypeOSgMd, &_s13SiriUtilities15InteractionTypeOSgMR);
     }
   }
 
   else
   {
-    OUTLINED_FUNCTION_5_0(v93);
-    return (*(v96 + 32))(v147, v92, v93);
+    OUTLINED_FUNCTION_5_0();
+    return (*(v78 + 32))(v126, v75, v76);
   }
 
   return result;
@@ -558,24 +549,15 @@ LABEL_24:
 
 uint64_t OUTLINED_FUNCTION_4(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v3 - 176);
 
   return MEMORY[0x1EEE6AC30](a1, a2, v2, a1);
-}
-
-uint64_t OUTLINED_FUNCTION_4_1@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(a2 - 256) = result;
-  v2 = *(result - 8);
-  return result;
 }
 
 void OUTLINED_FUNCTION_10_0(uint64_t a1@<X8>)
 {
   *(v1 - 256) = a1;
-  *(v2 - 37) = v2[5];
-  *(v2 - 36) = v2[4];
-  v3 = v2[2];
+  *(v2 - 296) = *(v2 + 40);
+  *(v2 - 288) = *(v2 + 32);
 }
 
 id OUTLINED_FUNCTION_10_1()
@@ -592,13 +574,6 @@ uint64_t OUTLINED_FUNCTION_10_2@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uin
   a6[3] = a4;
   a6[4] = a5;
   return result;
-}
-
-uint64_t OUTLINED_FUNCTION_9_1(uint64_t a1)
-{
-  *(v1 + 8) = a1;
-  v3 = *(a1 - 8);
-  return a1 - 8;
 }
 
 void OUTLINED_FUNCTION_9_2()
@@ -622,7 +597,6 @@ __n128 OUTLINED_FUNCTION_2_3()
   result = *(v0 - 144);
   *(v0 - 128) = *(v0 - 160);
   *(v0 - 112) = result;
-  v2 = *(v0 - 104);
   return result;
 }
 
@@ -638,16 +612,14 @@ void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
 
 unint64_t specialized __RawDictionaryStorage.find<A>(_:)(uint64_t a1)
 {
-  v2 = v1;
-  v4 = *(v2 + 40);
   type metadata accessor for DeviceClass();
-  lazy protocol witness table accessor for type DeviceClass and conformance DeviceClass(&lazy protocol witness table cache variable for type DeviceClass and conformance DeviceClass);
-  v5 = dispatch thunk of Hashable._rawHashValue(seed:)();
+  lazy protocol witness table accessor for type DeviceClass and conformance DeviceClass(&lazy protocol witness table cache variable for type DeviceClass and conformance DeviceClass, MEMORY[0x1E69D3468]);
+  v2 = dispatch thunk of Hashable._rawHashValue(seed:)();
 
-  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, v5);
+  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, v2);
 }
 
-uint64_t lazy protocol witness table accessor for type DeviceClass and conformance DeviceClass(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type DeviceClass and conformance DeviceClass(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -685,21 +657,20 @@ uint64_t specialized Dictionary.subscript.getter@<X0>(uint64_t a1@<X0>, uint64_t
 
 unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(uint64_t a1, uint64_t a2)
 {
-  v14 = a1;
+  v13 = a1;
   v4 = type metadata accessor for DeviceClass();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00]();
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = v2 + 64;
-  v13 = ~(-1 << *(v2 + 32));
-  for (i = a2 & v13; ((1 << i) & *(v15 + ((i >> 3) & 0x1FFFFFFFFFFFFFF8))) != 0; i = (i + 1) & v13)
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = v2 + 64;
+  v12 = ~(-1 << *(v2 + 32));
+  for (i = a2 & v12; ((1 << i) & *(v14 + ((i >> 3) & 0x1FFFFFFFFFFFFFF8))) != 0; i = (i + 1) & v12)
   {
-    (*(v5 + 16))(v8, *(v2 + 48) + *(v5 + 72) * i, v4);
-    lazy protocol witness table accessor for type DeviceClass and conformance DeviceClass(&lazy protocol witness table cache variable for type DeviceClass and conformance DeviceClass);
-    v10 = dispatch thunk of static Equatable.== infix(_:_:)();
-    (*(v5 + 8))(v8, v4);
-    if (v10)
+    (*(v5 + 16))(v7, *(v2 + 48) + *(v5 + 72) * i, v4);
+    lazy protocol witness table accessor for type DeviceClass and conformance DeviceClass(&lazy protocol witness table cache variable for type DeviceClass and conformance DeviceClass, MEMORY[0x1E69D3470]);
+    v9 = dispatch thunk of static Equatable.== infix(_:_:)();
+    (*(v5 + 8))(v7, v4);
+    if (v9)
     {
       break;
     }
@@ -708,7 +679,7 @@ unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(uint64_t a1, 
   return i;
 }
 
-uint64_t OUTLINED_FUNCTION_11_0()
+uint64_t OUTLINED_FUNCTION_11_0(uint64_t a1)
 {
 
   return static MockablePublished.subscript.modify();
@@ -716,17 +687,15 @@ uint64_t OUTLINED_FUNCTION_11_0()
 
 void OUTLINED_FUNCTION_11_2()
 {
-  v2 = *(v0 - 112);
-  v3 = *(v0 - 104);
 
   JUMPOUT(0x1E12ADF70);
 }
 
 uint64_t outlined destroy of AudioDestination?(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
-  OUTLINED_FUNCTION_5_0(v4);
-  (*(v5 + 8))(a1);
+  __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  OUTLINED_FUNCTION_5_0();
+  (*(v4 + 8))(a1);
   return a1;
 }
 
@@ -757,92 +726,8 @@ uint64_t CurrentRequest.__deallocating_deinit()
 
 void *CurrentRequest.deinit()
 {
-  v1 = v0[2];
-
-  v2 = v0[3];
-
-  v3 = v0[4];
-
-  v4 = v0[5];
-
-  v5 = v0[6];
-
-  v6 = v0[7];
-
-  v7 = v0[8];
-
-  v8 = v0[9];
-
-  v9 = v0[10];
-
-  v10 = v0[11];
-
-  v11 = v0[12];
-
-  v12 = v0[13];
-
-  v13 = v0[14];
-
-  v14 = v0[15];
-
-  v15 = v0[16];
-
-  v16 = v0[17];
-
-  v17 = v0[18];
-
-  v18 = v0[19];
-
-  v19 = v0[20];
-
-  v20 = v0[21];
-
-  v21 = v0[22];
-
-  v22 = v0[23];
-
-  v23 = v0[24];
-
-  v24 = v0[25];
-
-  v25 = v0[26];
-
-  v26 = v0[27];
-
-  v27 = v0[28];
-
-  v28 = v0[29];
-
-  v29 = v0[30];
-
-  v30 = v0[31];
-
-  v31 = v0[32];
-
-  v32 = v0[33];
-
-  v33 = v0[34];
-
-  v34 = v0[35];
-
-  v35 = v0[36];
-
-  v36 = v0[37];
-
-  v37 = v0[38];
-
-  v38 = v0[39];
-
-  v39 = v0[40];
 
   return v0;
-}
-
-uint64_t OUTLINED_FUNCTION_46@<X0>(uint64_t a1@<X8>)
-{
-  result = *(a1 - 256);
-  v3 = *(v1 - 320);
-  return result;
 }
 
 uint64_t sub_1DD3573E4(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -876,7 +761,7 @@ uint64_t sub_1DD3573E4(uint64_t a1, uint64_t a2, uint64_t a3)
 uint64_t OUTLINED_FUNCTION_29(unint64_t *a1)
 {
 
-  return lazy protocol witness table accessor for type CurrentRequest and conformance CurrentRequest(a1);
+  return lazy protocol witness table accessor for type CurrentRequest and conformance CurrentRequest(a1, &protocol conformance descriptor for CurrentRequest);
 }
 
 uint64_t SiriEnvironment.currentRequest.getter()
@@ -887,7 +772,7 @@ uint64_t SiriEnvironment.currentRequest.getter()
   return dispatch thunk of SiriEnvironment.subscript.getter();
 }
 
-uint64_t lazy protocol witness table accessor for type CurrentRequest and conformance CurrentRequest(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type CurrentRequest and conformance CurrentRequest(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -933,7 +818,7 @@ uint64_t getEnumTagSinglePayload for MultiUserContext(uint64_t a1, unsigned int 
   return (v2 + 1);
 }
 
-uint64_t OUTLINED_FUNCTION_6_0()
+uint64_t OUTLINED_FUNCTION_6_0(uint64_t a1)
 {
 
   return swift_once();
@@ -945,7 +830,7 @@ void OUTLINED_FUNCTION_6_3()
   JUMPOUT(0x1E12AE9C0);
 }
 
-uint64_t OUTLINED_FUNCTION_6_5()
+uint64_t OUTLINED_FUNCTION_6_5(uint64_t a1)
 {
 
   return swift_once();
@@ -983,7 +868,7 @@ uint64_t storeEnumTagSinglePayload for MultiUserContext(uint64_t result, unsigne
   return result;
 }
 
-uint64_t CurrentRequest.speechPackage.getter(uint64_t *a1, uint64_t *a2)
+uint64_t CurrentRequest.speechPackage.getter(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
   OUTLINED_FUNCTION_309();
@@ -992,7 +877,7 @@ uint64_t CurrentRequest.speechPackage.getter(uint64_t *a1, uint64_t *a2)
   OUTLINED_FUNCTION_147();
   static MockablePublished.subscript.getter();
 
-  return v3;
+  return v4;
 }
 
 uint64_t OUTLINED_FUNCTION_251(uint64_t a1)
@@ -1000,19 +885,6 @@ uint64_t OUTLINED_FUNCTION_251(uint64_t a1)
   *(v1 + 296) = a1;
 
   return swift_endAccess();
-}
-
-uint64_t OUTLINED_FUNCTION_129()
-{
-  result = *(v0 - 320);
-  v2 = *(v0 - 360);
-  return result;
-}
-
-uint64_t CurrentRequest.mock.getter()
-{
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 16);
 }
 
 uint64_t outlined init with take of SharedContextService(__int128 *a1, uint64_t a2)
@@ -1025,21 +897,20 @@ uint64_t outlined init with take of SharedContextService(__int128 *a1, uint64_t 
   return a2;
 }
 
-uint64_t sub_1DD357840(uint64_t *a1)
+uint64_t sub_1DD357840()
 {
-  OUTLINED_FUNCTION_127(a1);
+  OUTLINED_FUNCTION_127();
   result = CurrentRequest.executionRequestId.getter();
-  *v1 = result;
-  v1[1] = v3;
+  *v0 = result;
+  v0[1] = v2;
   return result;
 }
 
-uint64_t key path getter for CurrentRequest.executionRequestId : CurrentRequest@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t key path getter for CurrentRequest.executionRequestId : CurrentRequest@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *a1;
   result = CurrentRequest.executionRequestId.getter();
-  *a2 = result;
-  a2[1] = v5;
+  *a1 = result;
+  a1[1] = v3;
   return result;
 }
 
@@ -1067,21 +938,21 @@ uint64_t OUTLINED_FUNCTION_248()
   return swift_endAccess();
 }
 
-uint64_t sub_1DD357948(uint64_t *a1)
+uint64_t sub_1DD357948()
 {
-  OUTLINED_FUNCTION_127(a1);
+  OUTLINED_FUNCTION_127();
   result = CurrentRequest.resultCandidateId.getter();
-  *v1 = result;
-  v1[1] = v3;
+  *v0 = result;
+  v0[1] = v2;
   return result;
 }
 
-uint64_t sub_1DD357988(uint64_t *a1)
+uint64_t sub_1DD357988()
 {
-  OUTLINED_FUNCTION_127(a1);
+  OUTLINED_FUNCTION_127();
   result = CurrentRequest.rootRequestId.getter();
-  *v1 = result;
-  v1[1] = v3;
+  *v0 = result;
+  v0[1] = v2;
   return result;
 }
 
@@ -1095,12 +966,12 @@ uint64_t CurrentRequest.inputOrigin.getter(uint64_t *a1, uint64_t *a2)
   static MockablePublished.subscript.getter();
 }
 
-uint64_t sub_1DD357A98(uint64_t *a1)
+uint64_t sub_1DD357A98()
 {
-  OUTLINED_FUNCTION_127(a1);
+  OUTLINED_FUNCTION_127();
   result = CurrentRequest.interactionId.getter();
-  *v1 = result;
-  v1[1] = v3;
+  *v0 = result;
+  v0[1] = v2;
   return result;
 }
 
@@ -1144,21 +1015,21 @@ uint64_t MultiUserState.requiresUserGrounding.getter()
   return v1;
 }
 
-uint64_t sub_1DD357CD4(uint64_t *a1)
+uint64_t sub_1DD357CD4()
 {
-  OUTLINED_FUNCTION_127(a1);
+  OUTLINED_FUNCTION_127();
   result = CurrentRequest.companionName.getter();
-  *v1 = result;
-  v1[1] = v3;
+  *v0 = result;
+  v0[1] = v2;
   return result;
 }
 
-uint64_t sub_1DD357D14(uint64_t *a1)
+uint64_t sub_1DD357D14()
 {
-  OUTLINED_FUNCTION_127(a1);
+  OUTLINED_FUNCTION_127();
   result = CurrentRequest.responseLanguageVariant.getter();
-  *v1 = result;
-  v1[1] = v3;
+  *v0 = result;
+  v0[1] = v2;
   return result;
 }
 
@@ -1213,9 +1084,9 @@ uint64_t sub_1DD357DC8(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t protocol witness for Buildable.init(_:) in conformance CurrentRequest@<X0>(uint64_t *a1@<X8>)
+uint64_t protocol witness for Buildable.init(_:) in conformance CurrentRequest@<X0>(uint64_t *a1@<X8>, uint64_t a2@<X0>)
 {
-  result = CurrentRequest.__allocating_init(_:)();
+  result = CurrentRequest.__allocating_init(_:)(a2);
   *a1 = result;
   return result;
 }
@@ -1226,119 +1097,106 @@ void CurrentRequest.init(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
   a19 = v23;
   a20 = v24;
   v25 = v20;
-  v363 = v26;
+  v297 = v26;
   v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17ExecutionLocationVSgMd, &_s13SiriUtilities17ExecutionLocationVSgMR);
   v28 = OUTLINED_FUNCTION_10(v27);
-  v30 = *(v29 + 64);
   MEMORY[0x1EEE9AC00](v28);
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_13();
-  MEMORY[0x1EEE9AC00](v31);
+  MEMORY[0x1EEE9AC00](v29);
   OUTLINED_FUNCTION_94();
-  OUTLINED_FUNCTION_21(v32);
-  v33 = type metadata accessor for ExecutionLocation();
-  v34 = OUTLINED_FUNCTION_4_1(v33, &a17);
-  v354 = v35;
-  v37 = *(v36 + 64);
-  MEMORY[0x1EEE9AC00](v34);
+  OUTLINED_FUNCTION_21(v30);
+  v31 = type metadata accessor for ExecutionLocation();
+  v32 = OUTLINED_FUNCTION_4_1(v31, &a17);
+  v287 = v33;
+  MEMORY[0x1EEE9AC00](v32);
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_13();
-  MEMORY[0x1EEE9AC00](v38);
+  MEMORY[0x1EEE9AC00](v34);
   OUTLINED_FUNCTION_13();
-  MEMORY[0x1EEE9AC00](v39);
+  MEMORY[0x1EEE9AC00](v35);
   OUTLINED_FUNCTION_94();
-  OUTLINED_FUNCTION_91(v40);
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
-  OUTLINED_FUNCTION_10(v41);
-  v43 = *(v42 + 64);
+  OUTLINED_FUNCTION_91(v36);
+  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
+  OUTLINED_FUNCTION_10(v37);
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v44);
-  OUTLINED_FUNCTION_21(v327 - v45);
-  v46 = type metadata accessor for ResponseMode();
-  v47 = OUTLINED_FUNCTION_4_1(v46, &v376);
-  v351 = v48;
-  v50 = *(v49 + 64);
-  MEMORY[0x1EEE9AC00](v47);
-  OUTLINED_FUNCTION_6_2(v51, v327[0]);
-  v53 = MEMORY[0x1EEE9AC00](v52);
-  OUTLINED_FUNCTION_37(v53, v54, v55, v56, v57, v58, v59, v60, v327[0]);
-  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities15InteractionTypeOSgMd, &_s13SiriUtilities15InteractionTypeOSgMR);
+  MEMORY[0x1EEE9AC00](v38);
+  OUTLINED_FUNCTION_21(&v259 - v39);
+  v40 = type metadata accessor for ResponseMode();
+  v41 = OUTLINED_FUNCTION_4_1(v40, &v305);
+  v283 = v42;
+  MEMORY[0x1EEE9AC00](v41);
+  OUTLINED_FUNCTION_6_2(v43, v259);
+  v45 = MEMORY[0x1EEE9AC00](v44);
+  OUTLINED_FUNCTION_37(v45, v46, v47, v48, v49, v50, v51, v52, v259);
+  v53 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities15InteractionTypeOSgMd, &_s13SiriUtilities15InteractionTypeOSgMR);
+  OUTLINED_FUNCTION_10(v53);
+  OUTLINED_FUNCTION_2();
+  MEMORY[0x1EEE9AC00](v54);
+  OUTLINED_FUNCTION_21(&v259 - v55);
+  v56 = type metadata accessor for InteractionType();
+  v57 = OUTLINED_FUNCTION_4_1(v56, &v296);
+  v275 = v58;
+  MEMORY[0x1EEE9AC00](v57);
+  OUTLINED_FUNCTION_9_0();
+  OUTLINED_FUNCTION_13();
+  MEMORY[0x1EEE9AC00](v59);
+  OUTLINED_FUNCTION_94();
+  OUTLINED_FUNCTION_91(v60);
+  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities11InputOriginOSgMd, &_s13SiriUtilities11InputOriginOSgMR);
   OUTLINED_FUNCTION_10(v61);
-  v63 = *(v62 + 64);
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v64);
-  OUTLINED_FUNCTION_21(v327 - v65);
-  v66 = type metadata accessor for InteractionType();
-  v67 = OUTLINED_FUNCTION_4_1(v66, &v362);
-  v334 = v68;
-  v70 = *(v69 + 64);
+  MEMORY[0x1EEE9AC00](v62);
+  OUTLINED_FUNCTION_21(&v259 - v63);
+  v64 = type metadata accessor for InputOrigin();
+  v65 = OUTLINED_FUNCTION_4_1(v64, v282);
+  v271 = v66;
+  MEMORY[0x1EEE9AC00](v65);
+  OUTLINED_FUNCTION_9_0();
+  OUTLINED_FUNCTION_13();
   MEMORY[0x1EEE9AC00](v67);
+  OUTLINED_FUNCTION_94();
+  OUTLINED_FUNCTION_91(v68);
+  v69 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriFlowEnvironment0B12TaskMetadataVSgMd, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMR);
+  v70 = OUTLINED_FUNCTION_10(v69);
+  MEMORY[0x1EEE9AC00](v70);
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_13();
   MEMORY[0x1EEE9AC00](v71);
   OUTLINED_FUNCTION_94();
   OUTLINED_FUNCTION_91(v72);
-  v73 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities11InputOriginOSgMd, &_s13SiriUtilities11InputOriginOSgMR);
-  OUTLINED_FUNCTION_10(v73);
-  v75 = *(v74 + 64);
-  OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v76);
-  OUTLINED_FUNCTION_21(v327 - v77);
-  v78 = type metadata accessor for InputOrigin();
-  v79 = OUTLINED_FUNCTION_4_1(v78, &v341);
-  v330 = v80;
-  v82 = *(v81 + 64);
+  v73 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities8HomeInfoVSgMd, &_s13SiriUtilities8HomeInfoVSgMR);
+  v74 = OUTLINED_FUNCTION_10(v73);
+  MEMORY[0x1EEE9AC00](v74);
+  OUTLINED_FUNCTION_9_0();
+  OUTLINED_FUNCTION_13();
+  MEMORY[0x1EEE9AC00](v75);
+  OUTLINED_FUNCTION_94();
+  OUTLINED_FUNCTION_91(v76);
+  v77 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities14BargeInContextVSgMd, &_s13SiriUtilities14BargeInContextVSgMR);
+  v78 = OUTLINED_FUNCTION_10(v77);
+  MEMORY[0x1EEE9AC00](v78);
+  OUTLINED_FUNCTION_9_0();
+  OUTLINED_FUNCTION_13();
   MEMORY[0x1EEE9AC00](v79);
-  OUTLINED_FUNCTION_9_0();
-  OUTLINED_FUNCTION_13();
+  v81 = &v259 - v80;
+  v82 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities16AudioDestinationVSgMd, &_s13SiriUtilities16AudioDestinationVSgMR);
+  v83 = OUTLINED_FUNCTION_10(v82);
   MEMORY[0x1EEE9AC00](v83);
-  OUTLINED_FUNCTION_94();
-  OUTLINED_FUNCTION_91(v84);
-  v85 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriFlowEnvironment0B12TaskMetadataVSgMd, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMR);
-  v86 = OUTLINED_FUNCTION_10(v85);
-  v88 = *(v87 + 64);
-  MEMORY[0x1EEE9AC00](v86);
-  OUTLINED_FUNCTION_9_0();
-  OUTLINED_FUNCTION_13();
-  MEMORY[0x1EEE9AC00](v89);
-  OUTLINED_FUNCTION_94();
-  OUTLINED_FUNCTION_91(v90);
-  v91 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities8HomeInfoVSgMd, &_s13SiriUtilities8HomeInfoVSgMR);
-  v92 = OUTLINED_FUNCTION_10(v91);
-  v94 = *(v93 + 64);
-  MEMORY[0x1EEE9AC00](v92);
-  OUTLINED_FUNCTION_9_0();
-  OUTLINED_FUNCTION_13();
-  MEMORY[0x1EEE9AC00](v95);
-  OUTLINED_FUNCTION_94();
-  OUTLINED_FUNCTION_91(v96);
-  v97 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities14BargeInContextVSgMd, &_s13SiriUtilities14BargeInContextVSgMR);
-  v98 = OUTLINED_FUNCTION_10(v97);
-  v100 = *(v99 + 64);
-  MEMORY[0x1EEE9AC00](v98);
-  OUTLINED_FUNCTION_9_0();
-  OUTLINED_FUNCTION_13();
-  MEMORY[0x1EEE9AC00](v101);
-  v103 = v327 - v102;
-  v104 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities16AudioDestinationVSgMd, &_s13SiriUtilities16AudioDestinationVSgMR);
-  v105 = OUTLINED_FUNCTION_10(v104);
-  v107 = *(v106 + 64);
-  MEMORY[0x1EEE9AC00](v105);
   OUTLINED_FUNCTION_12();
-  v110 = v108 - v109;
-  MEMORY[0x1EEE9AC00](v111);
+  v86 = v84 - v85;
+  MEMORY[0x1EEE9AC00](v87);
   OUTLINED_FUNCTION_121();
-  v112 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities11AudioSourceVSgMd, &_s13SiriUtilities11AudioSourceVSgMR);
-  v113 = OUTLINED_FUNCTION_10(v112);
-  v115 = *(v114 + 64);
-  MEMORY[0x1EEE9AC00](v113);
+  v88 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities11AudioSourceVSgMd, &_s13SiriUtilities11AudioSourceVSgMR);
+  v89 = OUTLINED_FUNCTION_10(v88);
+  MEMORY[0x1EEE9AC00](v89);
   OUTLINED_FUNCTION_12();
-  v118 = v116 - v117;
-  MEMORY[0x1EEE9AC00](v119);
+  v92 = v90 - v91;
+  MEMORY[0x1EEE9AC00](v93);
   OUTLINED_FUNCTION_235();
   OUTLINED_FUNCTION_191();
-  v120 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySSSgGMd, &_s13SiriUtilities17MockablePublishedCySSSgGMR);
-  OUTLINED_FUNCTION_70(v120);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySSSgGMd, &_s13SiriUtilities17MockablePublishedCySSSgGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_73();
   v20[3] = MockablePublished.init(wrappedValue:)();
@@ -1360,73 +1218,79 @@ void CurrentRequest.init(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
   OUTLINED_FUNCTION_98((v20 + 10));
   type metadata accessor for AudioSource();
   OUTLINED_FUNCTION_5_1();
-  __swift_storeEnumTagSinglePayload(v121, v122, v123, v124);
+  __swift_storeEnumTagSinglePayload(v94, v95, v96, v97);
   OUTLINED_FUNCTION_292();
-  outlined init with copy of AudioSource?(v125, v126, v127, &_s13SiriUtilities11AudioSourceVSgMR);
-  v128 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA11AudioSourceVSgGMd, &_s13SiriUtilities17MockablePublishedCyAA11AudioSourceVSgGMR);
-  v328 = OUTLINED_FUNCTION_70(v128);
+  outlined init with copy of AudioSource?(v98, v99, v100, &_s13SiriUtilities11AudioSourceVSgMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA11AudioSourceVSgGMd, &_s13SiriUtilities17MockablePublishedCyAA11AudioSourceVSgGMR);
+  OUTLINED_FUNCTION_70();
+  v269 = v101;
   swift_allocObject();
-  v332 = v118;
-  v129 = MockablePublished.init(wrappedValue:)();
-  v331 = v21;
+  v273 = v92;
+  v102 = MockablePublished.init(wrappedValue:)();
+  v272 = v21;
   outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v21, &_s13SiriUtilities11AudioSourceVSgMd, &_s13SiriUtilities11AudioSourceVSgMR);
-  v25[11] = v129;
+  v25[11] = v102;
   OUTLINED_FUNCTION_98((v25 + 11));
-  v130 = type metadata accessor for AudioDestination();
-  v133 = OUTLINED_FUNCTION_20(v130, v131, v132, v130);
-  outlined init with copy of AudioSource?(v133, v110, &_s13SiriUtilities16AudioDestinationVSgMd, &_s13SiriUtilities16AudioDestinationVSgMR);
-  v134 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA16AudioDestinationVSgGMd, &_s13SiriUtilities17MockablePublishedCyAA16AudioDestinationVSgGMR);
-  v329 = OUTLINED_FUNCTION_70(v134);
+  v103 = type metadata accessor for AudioDestination();
+  v106 = OUTLINED_FUNCTION_20(v103, v104, v105, v103);
+  outlined init with copy of AudioSource?(v106, v86, &_s13SiriUtilities16AudioDestinationVSgMd, &_s13SiriUtilities16AudioDestinationVSgMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA16AudioDestinationVSgGMd, &_s13SiriUtilities17MockablePublishedCyAA16AudioDestinationVSgGMR);
+  OUTLINED_FUNCTION_70();
+  v270 = v107;
   swift_allocObject();
-  v337 = v110;
-  v135 = MockablePublished.init(wrappedValue:)();
-  v336 = v22;
+  v278 = v86;
+  v108 = MockablePublished.init(wrappedValue:)();
+  v277 = v22;
   OUTLINED_FUNCTION_160();
-  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v136, v137, v138);
-  v25[12] = v135;
+  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v109, v110, v111);
+  v25[12] = v108;
   OUTLINED_FUNCTION_98((v25 + 12));
   type metadata accessor for BargeInContext();
   OUTLINED_FUNCTION_5_1();
-  __swift_storeEnumTagSinglePayload(v139, v140, v141, v142);
-  OUTLINED_FUNCTION_131(&a9);
-  outlined init with copy of AudioSource?(v143, v144, &_s13SiriUtilities14BargeInContextVSgMd, &_s13SiriUtilities14BargeInContextVSgMR);
-  v145 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA14BargeInContextVSgGMd, &_s13SiriUtilities17MockablePublishedCyAA14BargeInContextVSgGMR);
-  v335 = OUTLINED_FUNCTION_70(v145);
+  __swift_storeEnumTagSinglePayload(v112, v113, v114, v115);
+  OUTLINED_FUNCTION_131();
+  outlined init with copy of AudioSource?(v116, v117, &_s13SiriUtilities14BargeInContextVSgMd, &_s13SiriUtilities14BargeInContextVSgMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA14BargeInContextVSgGMd, &_s13SiriUtilities17MockablePublishedCyAA14BargeInContextVSgGMR);
+  OUTLINED_FUNCTION_70();
+  v276 = v118;
   swift_allocObject();
   OUTLINED_FUNCTION_99();
-  v146 = MockablePublished.init(wrappedValue:)();
-  v350[0] = v103;
-  v147 = v327[1];
+  v119 = MockablePublished.init(wrappedValue:)();
+  v282[9] = v81;
+  v120 = v260;
   OUTLINED_FUNCTION_128();
-  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v148, v149, v150);
-  v25[15] = v146;
+  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v121, v122, v123);
+  v25[15] = v119;
   OUTLINED_FUNCTION_24((v25 + 15));
-  v151 = OUTLINED_FUNCTION_264();
-  outlined init with copy of AudioSource?(v151, v152, &_s19SiriFlowEnvironment20SharedContextService_pSgMd, &_s19SiriFlowEnvironment20SharedContextService_pSgMR);
-  v153 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment20SharedContextService_pSgGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment20SharedContextService_pSgGMR);
-  v339 = OUTLINED_FUNCTION_70(v153);
+  v124 = OUTLINED_FUNCTION_264();
+  outlined init with copy of AudioSource?(v124, v125, &_s19SiriFlowEnvironment20SharedContextService_pSgMd, &_s19SiriFlowEnvironment20SharedContextService_pSgMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment20SharedContextService_pSgGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment20SharedContextService_pSgGMR);
+  OUTLINED_FUNCTION_70();
+  v280 = v126;
   swift_allocObject();
   OUTLINED_FUNCTION_231();
   OUTLINED_FUNCTION_73();
   OUTLINED_FUNCTION_183();
-  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v154, v155, v156);
-  v25[16] = v146;
+  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v127, v128, v129);
+  v25[16] = v119;
   OUTLINED_FUNCTION_98((v25 + 16));
-  v157 = type metadata accessor for HomeInfo();
-  OUTLINED_FUNCTION_44(v157, v158, v159, v157);
-  OUTLINED_FUNCTION_131(&a11);
-  outlined init with copy of AudioSource?(v160, v161, &_s13SiriUtilities8HomeInfoVSgMd, &_s13SiriUtilities8HomeInfoVSgMR);
-  v162 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA8HomeInfoVSgGMd, &_s13SiriUtilities17MockablePublishedCyAA8HomeInfoVSgGMR);
-  v340 = OUTLINED_FUNCTION_70(v162);
+  v130 = type metadata accessor for HomeInfo();
+  OUTLINED_FUNCTION_44(v130, v131, v132, v130);
+  OUTLINED_FUNCTION_131();
+  outlined init with copy of AudioSource?(v133, v134, &_s13SiriUtilities8HomeInfoVSgMd, &_s13SiriUtilities8HomeInfoVSgMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA8HomeInfoVSgGMd, &_s13SiriUtilities17MockablePublishedCyAA8HomeInfoVSgGMR);
+  OUTLINED_FUNCTION_70();
+  v281 = v135;
   swift_allocObject();
   OUTLINED_FUNCTION_99();
   MockablePublished.init(wrappedValue:)();
-  v163 = OUTLINED_FUNCTION_124();
-  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v163, v164, &_s13SiriUtilities8HomeInfoVSgMR);
-  v25[17] = v146;
+  v136 = OUTLINED_FUNCTION_124();
+  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v136, v137, &_s13SiriUtilities8HomeInfoVSgMR);
+  v25[17] = v119;
   OUTLINED_FUNCTION_141((v25 + 17));
-  v165 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySo15AFSpeechPackageCSgGMd, &_s13SiriUtilities17MockablePublishedCySo15AFSpeechPackageCSgGMR);
-  v341 = OUTLINED_FUNCTION_70(v165);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySo15AFSpeechPackageCSgGMd, &_s13SiriUtilities17MockablePublishedCySo15AFSpeechPackageCSgGMR);
+  OUTLINED_FUNCTION_70();
+  v282[0] = v138;
   swift_allocObject();
   OUTLINED_FUNCTION_73();
   v25[18] = MockablePublished.init(wrappedValue:)();
@@ -1434,15 +1298,16 @@ void CurrentRequest.init(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
   OUTLINED_FUNCTION_73();
   v25[19] = MockablePublished.init(wrappedValue:)();
   OUTLINED_FUNCTION_190((v25 + 19));
-  LOBYTE(v373) = 2;
-  v166 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySbSgGMd, &_s13SiriUtilities17MockablePublishedCySbSgGMR);
-  OUTLINED_FUNCTION_70(v166);
+  LOBYTE(v302) = 2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySbSgGMd, &_s13SiriUtilities17MockablePublishedCySbSgGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_73();
   v25[20] = MockablePublished.init(wrappedValue:)();
   OUTLINED_FUNCTION_141((v25 + 20));
-  v167 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySDyS2SGSgGMd, &_s13SiriUtilities17MockablePublishedCySDyS2SGSgGMR);
-  v345 = OUTLINED_FUNCTION_70(v167);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySDyS2SGSgGMd, &_s13SiriUtilities17MockablePublishedCySDyS2SGSgGMR);
+  OUTLINED_FUNCTION_70();
+  v282[4] = v139;
   swift_allocObject();
   OUTLINED_FUNCTION_73();
   v25[22] = MockablePublished.init(wrappedValue:)();
@@ -1450,29 +1315,30 @@ void CurrentRequest.init(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
   OUTLINED_FUNCTION_73();
   v25[25] = MockablePublished.init(wrappedValue:)();
   OUTLINED_FUNCTION_200((v25 + 25));
-  LOBYTE(v373) = 2;
+  LOBYTE(v302) = 2;
   OUTLINED_FUNCTION_165();
   OUTLINED_FUNCTION_73();
   v25[26] = MockablePublished.init(wrappedValue:)();
-  OUTLINED_FUNCTION_98((v25 + 26));
-  v168 = type metadata accessor for FlowTaskMetadata();
-  v169 = v359[0];
-  OUTLINED_FUNCTION_44(v168, v170, v171, v168);
-  OUTLINED_FUNCTION_137(&a13);
-  outlined init with copy of AudioSource?(v172, v173, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMd, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMR);
-  v174 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0E12TaskMetadataVSgGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0E12TaskMetadataVSgGMR);
-  v348 = OUTLINED_FUNCTION_70(v174);
+  v140 = OUTLINED_FUNCTION_98((v25 + 26));
+  v141 = type metadata accessor for FlowTaskMetadata(v140);
+  v142 = v291;
+  OUTLINED_FUNCTION_44(v141, v143, v144, v141);
+  OUTLINED_FUNCTION_137();
+  outlined init with copy of AudioSource?(v145, v146, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMd, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0E12TaskMetadataVSgGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0E12TaskMetadataVSgGMR);
+  OUTLINED_FUNCTION_70();
+  v282[7] = v147;
   swift_allocObject();
   OUTLINED_FUNCTION_111();
   MockablePublished.init(wrappedValue:)();
-  v175 = OUTLINED_FUNCTION_124();
-  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v175, v176, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMR);
-  v25[27] = v146;
+  v148 = OUTLINED_FUNCTION_124();
+  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v148, v149, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMR);
+  v25[27] = v119;
   OUTLINED_FUNCTION_14((v25 + 27));
   OUTLINED_FUNCTION_73();
-  v177 = MockablePublished.init(wrappedValue:)();
-  v360 = v25;
-  v25[29] = v177;
+  v150 = MockablePublished.init(wrappedValue:)();
+  v294 = v25;
+  v25[29] = v150;
   v25 += 29;
   OUTLINED_FUNCTION_28();
   OUTLINED_FUNCTION_73();
@@ -1486,83 +1352,76 @@ void CurrentRequest.init(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
   OUTLINED_FUNCTION_28();
   OUTLINED_FUNCTION_73();
   v25[9] = MockablePublished.init(wrappedValue:)();
-  v373 = 0;
-  v178 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySDy0A15FlowEnvironment23CurrentRequestOverridesO5FieldOypGSgGMd, &_s13SiriUtilities17MockablePublishedCySDy0A15FlowEnvironment23CurrentRequestOverridesO5FieldOypGSgGMR);
-  OUTLINED_FUNCTION_70(v178);
+  v302 = 0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySDy0A15FlowEnvironment23CurrentRequestOverridesO5FieldOypGSgGMd, &_s13SiriUtilities17MockablePublishedCySDy0A15FlowEnvironment23CurrentRequestOverridesO5FieldOypGSgGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_73();
-  v179 = MockablePublished.init(wrappedValue:)();
-  v359[2] = v25;
-  v25[11] = v179;
-  KeyPath = swift_getKeyPath();
-  v181 = v363;
+  v151 = MockablePublished.init(wrappedValue:)();
+  v293 = v25;
+  v25[11] = v151;
+  swift_getKeyPath();
+  v152 = v297;
   Builder.subscript.getter();
 
   OUTLINED_FUNCTION_184();
-  OUTLINED_FUNCTION_35(&v342);
-  v182 = *KeyPath;
+  OUTLINED_FUNCTION_35();
 
   OUTLINED_FUNCTION_52();
-  v183 = OUTLINED_FUNCTION_186();
-  OUTLINED_FUNCTION_203(v183);
+  v153 = OUTLINED_FUNCTION_186();
+  OUTLINED_FUNCTION_203(v153);
   swift_getKeyPath();
   OUTLINED_FUNCTION_32();
   Builder.subscript.getter();
 
   OUTLINED_FUNCTION_184();
-  OUTLINED_FUNCTION_35(&v343);
-  v184 = *KeyPath;
+  OUTLINED_FUNCTION_35();
 
   OUTLINED_FUNCTION_52();
-  v185 = OUTLINED_FUNCTION_186();
-  OUTLINED_FUNCTION_203(v185);
+  v154 = OUTLINED_FUNCTION_186();
+  OUTLINED_FUNCTION_203(v154);
   swift_getKeyPath();
   OUTLINED_FUNCTION_32();
   Builder.subscript.getter();
 
   OUTLINED_FUNCTION_184();
-  OUTLINED_FUNCTION_35(&v344);
-  v186 = *KeyPath;
+  OUTLINED_FUNCTION_35();
 
   OUTLINED_FUNCTION_52();
-  v187 = OUTLINED_FUNCTION_186();
-  OUTLINED_FUNCTION_203(v187);
+  v155 = OUTLINED_FUNCTION_186();
+  OUTLINED_FUNCTION_203(v155);
   swift_getKeyPath();
   OUTLINED_FUNCTION_32();
   Builder.subscript.getter();
 
   OUTLINED_FUNCTION_184();
-  OUTLINED_FUNCTION_35(&v345);
-  v188 = *KeyPath;
+  OUTLINED_FUNCTION_35();
 
   OUTLINED_FUNCTION_52();
-  v189 = OUTLINED_FUNCTION_186();
-  OUTLINED_FUNCTION_203(v189);
+  v156 = OUTLINED_FUNCTION_186();
+  OUTLINED_FUNCTION_203(v156);
   swift_getKeyPath();
   OUTLINED_FUNCTION_32();
   Builder.subscript.getter();
 
   OUTLINED_FUNCTION_184();
-  OUTLINED_FUNCTION_35(&v346);
-  v190 = *KeyPath;
+  OUTLINED_FUNCTION_35();
 
   OUTLINED_FUNCTION_52();
-  v191 = OUTLINED_FUNCTION_186();
-  OUTLINED_FUNCTION_203(v191);
+  v157 = OUTLINED_FUNCTION_186();
+  OUTLINED_FUNCTION_203(v157);
   swift_getKeyPath();
-  OUTLINED_FUNCTION_175(v350);
+  OUTLINED_FUNCTION_175();
   Builder.subscript.getter();
 
-  OUTLINED_FUNCTION_270(&_s19SiriFlowEnvironment0B12TaskMetadataVSgMd, 1, v147);
-  if (v192)
+  OUTLINED_FUNCTION_270(&_s19SiriFlowEnvironment0B12TaskMetadataVSgMd, 1, v120);
+  if (v158)
   {
-    v193 = *MEMORY[0x1E69D3518];
-    OUTLINED_FUNCTION_175(v352);
-    v195 = *(v194 + 104);
-    v196 = OUTLINED_FUNCTION_302();
-    v197(v196);
-    OUTLINED_FUNCTION_270(&_s19SiriFlowEnvironment0B12TaskMetadataVSgMd, 1, v147);
-    if (!v192)
+    OUTLINED_FUNCTION_175();
+    v159 = OUTLINED_FUNCTION_302();
+    v160(v159);
+    OUTLINED_FUNCTION_270(&_s19SiriFlowEnvironment0B12TaskMetadataVSgMd, 1, v120);
+    if (!v158)
     {
       outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(&_s19SiriFlowEnvironment0B12TaskMetadataVSgMd, &_s13SiriUtilities11InputOriginOSgMd, &_s13SiriUtilities11InputOriginOSgMR);
     }
@@ -1570,731 +1429,683 @@ void CurrentRequest.init(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   else
   {
-    OUTLINED_FUNCTION_175(v352);
-    v199 = *(v198 + 32);
-    v200 = OUTLINED_FUNCTION_302();
-    v201(v200, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMd, v147);
+    OUTLINED_FUNCTION_175();
+    v161 = OUTLINED_FUNCTION_302();
+    v162(v161, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMd, v120);
   }
 
-  v202 = v360;
-  OUTLINED_FUNCTION_71();
-  v203 = OUTLINED_FUNCTION_284();
-  v204(v203, v169, v147);
-  v205 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA11InputOriginOGMd, &_s13SiriUtilities17MockablePublishedCyAA11InputOriginOGMR);
-  OUTLINED_FUNCTION_70(v205);
+  v163 = v294;
+  OUTLINED_FUNCTION_71((v294 + 8));
+  v164 = OUTLINED_FUNCTION_284();
+  v165(v164, v142, v120);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA11InputOriginOGMd, &_s13SiriUtilities17MockablePublishedCyAA11InputOriginOGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_99();
-  v206 = MockablePublished.init(wrappedValue:)();
-  _s13SiriUtilities17MockablePublishedC9PublisherVy0A15FlowEnvironment0F12TaskMetadataVSg_GMd(v169, v147);
-  v202[8] = v206;
+  v166 = MockablePublished.init(wrappedValue:)();
+  _s13SiriUtilities17MockablePublishedC9PublisherVy0A15FlowEnvironment0F12TaskMetadataVSg_GMd(v142, v120);
+  v163[8] = v166;
   swift_endAccess();
-  v207 = swift_getKeyPath();
-  v208 = v333;
+  KeyPath = swift_getKeyPath();
+  v168 = v274;
   Builder.subscript.getter();
 
-  v209 = v338;
-  OUTLINED_FUNCTION_270(v208, 1, v338);
-  v210 = v334;
-  if (v192)
+  v169 = v279;
+  OUTLINED_FUNCTION_270(v168, 1, v279);
+  v170 = v275;
+  if (v158)
   {
-    v211 = *MEMORY[0x1E69D35B0];
-    v212 = *(v334 + 104);
-    v213 = OUTLINED_FUNCTION_284();
-    v214(v213);
-    OUTLINED_FUNCTION_270(v208, 1, v209);
-    if (!v192)
+    v171 = OUTLINED_FUNCTION_284();
+    v172(v171);
+    OUTLINED_FUNCTION_270(v168, 1, v169);
+    if (!v158)
     {
-      outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v208, &_s13SiriUtilities15InteractionTypeOSgMd, &_s13SiriUtilities15InteractionTypeOSgMR);
+      outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v168, &_s13SiriUtilities15InteractionTypeOSgMd, &_s13SiriUtilities15InteractionTypeOSgMR);
     }
   }
 
   else
   {
-    v215 = *(v334 + 32);
     OUTLINED_FUNCTION_284();
     OUTLINED_FUNCTION_290();
-    v216();
+    v173();
   }
 
-  OUTLINED_FUNCTION_71();
-  v217 = *(v210 + 16);
+  OUTLINED_FUNCTION_71((v163 + 9));
   OUTLINED_FUNCTION_302();
   OUTLINED_FUNCTION_167();
-  v218();
-  v219 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA15InteractionTypeOGMd, &_s13SiriUtilities17MockablePublishedCyAA15InteractionTypeOGMR);
-  OUTLINED_FUNCTION_70(v219);
+  v174();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA15InteractionTypeOGMd, &_s13SiriUtilities17MockablePublishedCyAA15InteractionTypeOGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_135();
-  v220 = MockablePublished.init(wrappedValue:)();
-  (*(v210 + 8))(v207, v209);
-  v202[9] = v220;
+  v175 = MockablePublished.init(wrappedValue:)();
+  (*(v170 + 8))(KeyPath, v169);
+  v163[9] = v175;
   swift_endAccess();
   swift_getKeyPath();
   OUTLINED_FUNCTION_32();
   Builder.subscript.getter();
 
   OUTLINED_FUNCTION_184();
-  OUTLINED_FUNCTION_136(&v347);
-  v221 = v202[10];
+  OUTLINED_FUNCTION_136();
 
   OUTLINED_FUNCTION_52();
-  v202[10] = OUTLINED_FUNCTION_186();
+  v163[10] = OUTLINED_FUNCTION_186();
   swift_endAccess();
   swift_getKeyPath();
-  OUTLINED_FUNCTION_175(&v353);
+  OUTLINED_FUNCTION_175();
   Builder.subscript.getter();
 
-  OUTLINED_FUNCTION_136(&v348);
-  v222 = v202[11];
+  OUTLINED_FUNCTION_136();
 
   OUTLINED_FUNCTION_102();
-  outlined init with copy of AudioSource?(v223, v224, v225, v226);
-  OUTLINED_FUNCTION_70(v328);
+  outlined init with copy of AudioSource?(v176, v177, v178, v179);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_268();
   MockablePublished.init(wrappedValue:)();
-  v227 = OUTLINED_FUNCTION_118();
-  OUTLINED_FUNCTION_254(v227);
-  v202[11] = v181;
+  v180 = OUTLINED_FUNCTION_118();
+  OUTLINED_FUNCTION_254(v180);
+  v163[11] = v152;
   swift_endAccess();
   swift_getKeyPath();
   Builder.subscript.getter();
 
-  OUTLINED_FUNCTION_136(&v349);
-  v228 = v202[12];
+  OUTLINED_FUNCTION_136();
 
-  v229 = &_s13SiriUtilities16AudioDestinationVSgMR;
-  OUTLINED_FUNCTION_159(&v361);
+  v181 = &_s13SiriUtilities16AudioDestinationVSgMR;
+  OUTLINED_FUNCTION_159();
   OUTLINED_FUNCTION_102();
-  outlined init with copy of AudioSource?(v230, v231, v232, v233);
-  OUTLINED_FUNCTION_70(v329);
+  outlined init with copy of AudioSource?(v182, v183, v184, v185);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_118();
   MockablePublished.init(wrappedValue:)();
-  v234 = OUTLINED_FUNCTION_268();
-  OUTLINED_FUNCTION_254(v234);
-  v202[12] = v181;
+  v186 = OUTLINED_FUNCTION_268();
+  OUTLINED_FUNCTION_254(v186);
+  v163[12] = v152;
   swift_endAccess();
   swift_getKeyPath();
-  OUTLINED_FUNCTION_175(&v372);
+  OUTLINED_FUNCTION_175();
   Builder.subscript.getter();
-  v235 = v209;
+  v187 = v169;
 
-  v236 = v209;
-  v237 = v352[0];
-  OUTLINED_FUNCTION_270(v236, 1, v352[0]);
-  if (v192)
+  v188 = v169;
+  v189 = v284;
+  OUTLINED_FUNCTION_270(v188, 1, v284);
+  if (v158)
   {
-    v229 = v350[2];
+    v181 = v282[11];
     static ResponseMode.displayForward.getter();
-    OUTLINED_FUNCTION_270(v235, 1, v237);
-    v238 = v351;
-    if (!v192)
+    OUTLINED_FUNCTION_270(v187, 1, v189);
+    v190 = v283;
+    if (!v158)
     {
-      outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v235, &_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
+      outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v187, &_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
     }
   }
 
   else
   {
-    v238 = v351;
-    v239 = *(v351 + 32);
-    v240 = OUTLINED_FUNCTION_302();
-    v241(v240, v235, v237);
+    v190 = v283;
+    v191 = OUTLINED_FUNCTION_302();
+    v192(v191, v187, v189);
   }
 
-  OUTLINED_FUNCTION_71();
-  v242 = *(v238 + 16);
-  v243 = v350[1];
+  OUTLINED_FUNCTION_71((v163 + 13));
+  v193 = v282[10];
   OUTLINED_FUNCTION_290();
-  v244();
-  v245 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA12ResponseModeVGMd, &_s13SiriUtilities17MockablePublishedCyAA12ResponseModeVGMR);
-  OUTLINED_FUNCTION_70(v245);
+  v194();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA12ResponseModeVGMd, &_s13SiriUtilities17MockablePublishedCyAA12ResponseModeVGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_132();
-  v246 = MockablePublished.init(wrappedValue:)();
-  (*(v238 + 8))(v229, v237);
-  v202[13] = v246;
+  v195 = MockablePublished.init(wrappedValue:)();
+  (*(v190 + 8))(v181, v189);
+  v163[13] = v195;
   swift_endAccess();
   swift_getKeyPath();
   OUTLINED_FUNCTION_32();
   Builder.subscript.getter();
 
-  v247 = v352[1];
-  if (v369[1] == 2)
+  v196 = v285;
+  if (v301 == 2)
   {
     OUTLINED_FUNCTION_225();
   }
 
   else
   {
-    v248 = OUTLINED_FUNCTION_264();
-    memcpy(v248, v249, 0x42uLL);
+    v197 = OUTLINED_FUNCTION_264();
+    memcpy(v197, v198, 0x42uLL);
   }
 
-  OUTLINED_FUNCTION_185();
-  v250 = OUTLINED_FUNCTION_264();
-  outlined init with copy of MultiUserState(v250, v251);
-  v252 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment14MultiUserStateOGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment14MultiUserStateOGMR);
-  OUTLINED_FUNCTION_70(v252);
+  OUTLINED_FUNCTION_185((v163 + 14), v298);
+  v199 = OUTLINED_FUNCTION_264();
+  outlined init with copy of MultiUserState(v199, v200);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment14MultiUserStateOGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment14MultiUserStateOGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_231();
-  v253 = OUTLINED_FUNCTION_73();
-  outlined destroy of MultiUserState(v253);
-  v202[14] = v246;
+  v201 = OUTLINED_FUNCTION_73();
+  outlined destroy of MultiUserState(v201);
+  v163[14] = v195;
   swift_endAccess();
   swift_getKeyPath();
-  OUTLINED_FUNCTION_188(&v373);
+  OUTLINED_FUNCTION_188();
   Builder.subscript.getter();
 
   OUTLINED_FUNCTION_222();
-  OUTLINED_FUNCTION_136(v254);
-  v255 = v202[15];
+  OUTLINED_FUNCTION_136();
 
-  OUTLINED_FUNCTION_159(&a9);
+  OUTLINED_FUNCTION_159();
   OUTLINED_FUNCTION_102();
-  outlined init with copy of AudioSource?(v256, v257, v258, v259);
-  OUTLINED_FUNCTION_70(v335);
+  outlined init with copy of AudioSource?(v202, v203, v204, v205);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_118();
   MockablePublished.init(wrappedValue:)();
-  v260 = OUTLINED_FUNCTION_132();
-  OUTLINED_FUNCTION_254(v260);
-  v202[15] = v181;
+  v206 = OUTLINED_FUNCTION_132();
+  OUTLINED_FUNCTION_254(v206);
+  v163[15] = v152;
   swift_endAccess();
   swift_getKeyPath();
   OUTLINED_FUNCTION_148();
   Builder.subscript.getter();
 
-  OUTLINED_FUNCTION_136(&v357);
-  v261 = v202[16];
+  OUTLINED_FUNCTION_136();
 
   OUTLINED_FUNCTION_264();
   OUTLINED_FUNCTION_102();
-  outlined init with copy of AudioSource?(v262, v263, v264, v265);
-  OUTLINED_FUNCTION_70(v339);
+  outlined init with copy of AudioSource?(v207, v208, v209, v210);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_231();
-  v266 = OUTLINED_FUNCTION_73();
-  OUTLINED_FUNCTION_254(v266);
-  v202[16] = v181;
+  v211 = OUTLINED_FUNCTION_73();
+  OUTLINED_FUNCTION_254(v211);
+  v163[16] = v152;
   swift_endAccess();
   swift_getKeyPath();
-  OUTLINED_FUNCTION_188(&a10);
+  OUTLINED_FUNCTION_188();
   Builder.subscript.getter();
 
-  OUTLINED_FUNCTION_136(v359);
-  v267 = v202[17];
+  OUTLINED_FUNCTION_136();
 
-  OUTLINED_FUNCTION_159(&a11);
+  OUTLINED_FUNCTION_159();
   OUTLINED_FUNCTION_102();
-  outlined init with copy of AudioSource?(v268, v269, v270, v271);
-  OUTLINED_FUNCTION_70(v340);
+  outlined init with copy of AudioSource?(v212, v213, v214, v215);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_118();
   MockablePublished.init(wrappedValue:)();
-  v272 = OUTLINED_FUNCTION_132();
-  OUTLINED_FUNCTION_254(v272);
-  v202[17] = v181;
+  v216 = OUTLINED_FUNCTION_132();
+  OUTLINED_FUNCTION_254(v216);
+  v163[17] = v152;
   swift_endAccess();
   swift_getKeyPath();
   OUTLINED_FUNCTION_32();
   Builder.subscript.getter();
 
-  v273 = v366;
-  OUTLINED_FUNCTION_136(&v364);
-  v274 = v202[18];
+  v217 = v299;
+  OUTLINED_FUNCTION_136();
 
-  v364 = v273;
-  OUTLINED_FUNCTION_70(v341);
+  v298[0] = v217;
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
-  v202[18] = OUTLINED_FUNCTION_186();
+  v163[18] = OUTLINED_FUNCTION_186();
   swift_endAccess();
   swift_getKeyPath();
   OUTLINED_FUNCTION_32();
   Builder.subscript.getter();
 
   OUTLINED_FUNCTION_184();
-  OUTLINED_FUNCTION_136(&v365);
-  v275 = v202[19];
+  OUTLINED_FUNCTION_136();
 
   OUTLINED_FUNCTION_52();
-  v202[19] = OUTLINED_FUNCTION_186();
+  v163[19] = OUTLINED_FUNCTION_186();
   swift_endAccess();
   swift_getKeyPath();
   OUTLINED_FUNCTION_32();
   Builder.subscript.getter();
 
-  LOBYTE(v273) = v366;
-  OUTLINED_FUNCTION_136(&v367);
-  v276 = v202[20];
+  LOBYTE(v217) = v299;
+  OUTLINED_FUNCTION_136();
 
-  LOBYTE(v364) = v273;
+  LOBYTE(v298[0]) = v217;
   OUTLINED_FUNCTION_165();
-  v202[20] = OUTLINED_FUNCTION_186();
+  v163[20] = OUTLINED_FUNCTION_186();
   swift_endAccess();
   swift_getKeyPath();
   OUTLINED_FUNCTION_148();
   Builder.subscript.getter();
 
-  if (v374)
+  if (v303)
   {
-    v277 = v373;
+    v218 = v302;
   }
 
   else
   {
-    v277 = 0;
+    v218 = 0;
   }
 
-  if (v374)
+  if (v303)
   {
-    v278 = v374;
+    v219 = v303;
   }
 
   else
   {
-    v278 = 0xE000000000000000;
+    v219 = 0xE000000000000000;
   }
 
-  OUTLINED_FUNCTION_71();
-  v366 = v277;
-  v367 = v278;
-  v279 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySSGMd, &_s13SiriUtilities17MockablePublishedCySSGMR);
-  OUTLINED_FUNCTION_70(v279);
+  OUTLINED_FUNCTION_71((v163 + 21));
+  v299 = v218;
+  v300 = v219;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySSGMd, &_s13SiriUtilities17MockablePublishedCySSGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
-  v202[21] = OUTLINED_FUNCTION_231();
+  v163[21] = OUTLINED_FUNCTION_231();
   swift_endAccess();
   swift_getKeyPath();
   OUTLINED_FUNCTION_32();
   Builder.subscript.getter();
 
-  v280 = v366;
-  OUTLINED_FUNCTION_136(&v368);
-  v281 = v202[22];
+  v220 = v299;
+  OUTLINED_FUNCTION_136();
 
-  v364 = v280;
-  OUTLINED_FUNCTION_70(v345);
+  v298[0] = v220;
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
-  v202[22] = OUTLINED_FUNCTION_186();
+  v163[22] = OUTLINED_FUNCTION_186();
   swift_endAccess();
   swift_getKeyPath();
   OUTLINED_FUNCTION_32();
   Builder.subscript.getter();
 
   OUTLINED_FUNCTION_184();
-  OUTLINED_FUNCTION_136(v369);
-  v282 = v202[25];
+  OUTLINED_FUNCTION_136();
 
   OUTLINED_FUNCTION_52();
-  v202[25] = OUTLINED_FUNCTION_186();
+  v163[25] = OUTLINED_FUNCTION_186();
   swift_endAccess();
   swift_getKeyPath();
   OUTLINED_FUNCTION_32();
   Builder.subscript.getter();
 
-  LOBYTE(v280) = v366;
-  OUTLINED_FUNCTION_136(&v370);
-  v283 = v202[26];
+  LOBYTE(v220) = v299;
+  OUTLINED_FUNCTION_136();
 
-  LOBYTE(v364) = v280;
+  LOBYTE(v298[0]) = v220;
   OUTLINED_FUNCTION_165();
-  v202[26] = OUTLINED_FUNCTION_186();
+  v163[26] = OUTLINED_FUNCTION_186();
   swift_endAccess();
   swift_getKeyPath();
-  v284 = v359[0];
+  v221 = v291;
   Builder.subscript.getter();
 
-  OUTLINED_FUNCTION_136(&v371);
-  v285 = v202[27];
+  OUTLINED_FUNCTION_136();
 
   OUTLINED_FUNCTION_128();
-  outlined init with copy of AudioSource?(v286, v287, v288, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMR);
-  OUTLINED_FUNCTION_70(v348);
+  outlined init with copy of AudioSource?(v222, v223, v224, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_118();
   MockablePublished.init(wrappedValue:)();
   OUTLINED_FUNCTION_135();
   OUTLINED_FUNCTION_183();
-  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v289, v290, v291);
-  v202[27] = v181;
+  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v225, v226, v227);
+  v163[27] = v152;
   swift_endAccess();
   swift_getKeyPath();
   Builder.subscript.getter();
 
-  if (BYTE4(v373))
+  if (BYTE4(v302))
   {
-    v292 = 0;
+    v228 = 0;
   }
 
   else
   {
-    v292 = v373;
+    v228 = v302;
   }
 
-  OUTLINED_FUNCTION_71();
-  LODWORD(v366) = v292;
-  v293 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCys6UInt32VGMd, &_s13SiriUtilities17MockablePublishedCys6UInt32VGMR);
-  OUTLINED_FUNCTION_70(v293);
+  OUTLINED_FUNCTION_71((v163 + 28));
+  LODWORD(v299) = v228;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCys6UInt32VGMd, &_s13SiriUtilities17MockablePublishedCys6UInt32VGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
-  v202[28] = OUTLINED_FUNCTION_231();
+  v163[28] = OUTLINED_FUNCTION_231();
   swift_endAccess();
   swift_getKeyPath();
   Builder.subscript.getter();
 
   OUTLINED_FUNCTION_184();
-  OUTLINED_FUNCTION_112(&a14);
-  v294 = v202[29];
+  OUTLINED_FUNCTION_112();
 
   OUTLINED_FUNCTION_52();
-  v202[29] = OUTLINED_FUNCTION_186();
+  v163[29] = OUTLINED_FUNCTION_186();
   swift_endAccess();
   swift_getKeyPath();
   Builder.subscript.getter();
 
-  OUTLINED_FUNCTION_71();
+  OUTLINED_FUNCTION_71((v163 + 30));
   OUTLINED_FUNCTION_297();
-  v295 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySbGMd, &_s13SiriUtilities17MockablePublishedCySbGMR);
-  OUTLINED_FUNCTION_70(v295);
+  v229 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySbGMd, &_s13SiriUtilities17MockablePublishedCySbGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
-  v202[30] = OUTLINED_FUNCTION_231();
+  v163[30] = OUTLINED_FUNCTION_231();
   swift_endAccess();
   swift_getKeyPath();
   OUTLINED_FUNCTION_148();
   Builder.subscript.getter();
 
-  OUTLINED_FUNCTION_71();
+  OUTLINED_FUNCTION_71((v163 + 31));
   OUTLINED_FUNCTION_297();
   OUTLINED_FUNCTION_76();
-  v202[31] = OUTLINED_FUNCTION_231();
+  v163[31] = OUTLINED_FUNCTION_231();
   swift_endAccess();
   swift_getKeyPath();
   OUTLINED_FUNCTION_148();
   Builder.subscript.getter();
 
-  OUTLINED_FUNCTION_71();
+  OUTLINED_FUNCTION_71((v163 + 32));
   OUTLINED_FUNCTION_297();
-  v296 = *(v295 + 48);
-  v297 = *(v295 + 52);
-  v359[1] = v295;
+  v292 = v229;
   swift_allocObject();
-  v202[32] = OUTLINED_FUNCTION_231();
+  v163[32] = OUTLINED_FUNCTION_231();
   swift_endAccess();
   swift_getKeyPath();
   OUTLINED_FUNCTION_148();
   Builder.subscript.getter();
 
-  if (v373 == 3)
+  if (v302 == 3)
   {
-    v298 = 0;
+    v230 = 0;
   }
 
   else
   {
-    v298 = v373;
+    v230 = v302;
   }
 
-  OUTLINED_FUNCTION_71();
-  LOBYTE(v366) = v298;
-  v299 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment24RequestPositionInSessionOGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment24RequestPositionInSessionOGMR);
-  OUTLINED_FUNCTION_70(v299);
+  OUTLINED_FUNCTION_71((v163 + 33));
+  LOBYTE(v299) = v230;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment24RequestPositionInSessionOGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment24RequestPositionInSessionOGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
-  v202[33] = OUTLINED_FUNCTION_231();
+  v163[33] = OUTLINED_FUNCTION_231();
   swift_endAccess();
   swift_getKeyPath();
   OUTLINED_FUNCTION_32();
   Builder.subscript.getter();
 
-  v300 = v366;
-  OUTLINED_FUNCTION_71();
-  v301 = v202[34];
+  v231 = v299;
+  OUTLINED_FUNCTION_71(v221 + 40);
 
   OUTLINED_FUNCTION_52();
-  v202[34] = OUTLINED_FUNCTION_186();
+  v163[34] = OUTLINED_FUNCTION_186();
   swift_endAccess();
-  OUTLINED_FUNCTION_185();
-  v375 = &type metadata for DummyLocationProvider;
-  v376 = &protocol witness table for DummyLocationProvider;
-  v302 = OUTLINED_FUNCTION_264();
-  outlined init with copy of SiriLocationProvider(v302, v303);
-  v304 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0A16LocationProvider_pGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0A16LocationProvider_pGMR);
-  OUTLINED_FUNCTION_70(v304);
+  OUTLINED_FUNCTION_185((v163 + 35), v298);
+  v304 = &type metadata for DummyLocationProvider;
+  v305 = &protocol witness table for DummyLocationProvider;
+  v232 = OUTLINED_FUNCTION_264();
+  outlined init with copy of SiriLocationProvider(v232, v233);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0A16LocationProvider_pGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0A16LocationProvider_pGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_231();
-  v305 = OUTLINED_FUNCTION_73();
-  __swift_destroy_boxed_opaque_existential_1(v305);
-  v202[35] = v300;
+  v234 = OUTLINED_FUNCTION_73();
+  __swift_destroy_boxed_opaque_existential_1(v234);
+  v163[35] = v231;
   swift_endAccess();
   swift_getKeyPath();
   OUTLINED_FUNCTION_32();
   Builder.subscript.getter();
 
-  OUTLINED_FUNCTION_71();
-  v306 = v202[36];
+  OUTLINED_FUNCTION_71(v221 + 56);
 
   OUTLINED_FUNCTION_52();
-  v202[36] = OUTLINED_FUNCTION_186();
+  v163[36] = OUTLINED_FUNCTION_186();
   swift_endAccess();
   swift_getKeyPath();
   Builder.subscript.getter();
 
-  OUTLINED_FUNCTION_181(&a17);
-  OUTLINED_FUNCTION_270(v307, v308, v309);
-  if (v192)
+  OUTLINED_FUNCTION_181();
+  OUTLINED_FUNCTION_270(v235, v236, v237);
+  if (v158)
   {
-    v311 = v353;
+    v239 = v286;
     static ExecutionLocation.unknown.getter();
-    OUTLINED_FUNCTION_270(v247, 1, v284);
-    v312 = v355;
-    v243 = v354;
-    if (!v192)
+    OUTLINED_FUNCTION_270(v196, 1, v221);
+    v240 = v288;
+    v193 = v287;
+    if (!v158)
     {
-      outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v247, &_s13SiriUtilities17ExecutionLocationVSgMd, &_s13SiriUtilities17ExecutionLocationVSgMR);
+      outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v196, &_s13SiriUtilities17ExecutionLocationVSgMd, &_s13SiriUtilities17ExecutionLocationVSgMR);
     }
   }
 
   else
   {
-    OUTLINED_FUNCTION_188(&v377);
-    v311 = v353;
-    (*(v310 + 32))(v353, v247, v284);
-    v312 = v355;
+    OUTLINED_FUNCTION_188();
+    v239 = v286;
+    (*(v238 + 32))(v286, v196, v221);
+    v240 = v288;
   }
 
-  OUTLINED_FUNCTION_71();
-  v359[0] = *(v243 + 16);
-  (v359[0])(v361, v311, v284);
-  v313 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA17ExecutionLocationVGMd, &_s13SiriUtilities17MockablePublishedCyAA17ExecutionLocationVGMR);
-  OUTLINED_FUNCTION_70(v313);
+  OUTLINED_FUNCTION_71((v163 + 23));
+  v291 = *(v193 + 16);
+  v291(v295, v239, v221);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA17ExecutionLocationVGMd, &_s13SiriUtilities17MockablePublishedCyAA17ExecutionLocationVGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
-  v314 = v311;
+  v241 = v239;
   OUTLINED_FUNCTION_118();
-  v315 = MockablePublished.init(wrappedValue:)();
-  v358 = *(v243 + 8);
-  v358(v314, v284);
-  v202[23] = v315;
+  v242 = MockablePublished.init(wrappedValue:)();
+  v290 = *(v193 + 8);
+  v290(v241, v221);
+  v163[23] = v242;
   swift_endAccess();
   swift_getKeyPath();
   Builder.subscript.getter();
-  v316 = v362;
+  v243 = v296;
 
-  OUTLINED_FUNCTION_270(v312, 1, v316);
-  if (v192)
+  OUTLINED_FUNCTION_270(v240, 1, v243);
+  if (v158)
   {
-    v317 = v356;
+    v244 = v289;
     static ExecutionLocation.unknown.getter();
-    OUTLINED_FUNCTION_270(v312, 1, v316);
-    if (!v192)
+    OUTLINED_FUNCTION_270(v240, 1, v243);
+    if (!v158)
     {
-      outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v312, &_s13SiriUtilities17ExecutionLocationVSgMd, &_s13SiriUtilities17ExecutionLocationVSgMR);
+      outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v240, &_s13SiriUtilities17ExecutionLocationVSgMd, &_s13SiriUtilities17ExecutionLocationVSgMR);
     }
   }
 
   else
   {
-    v317 = v356;
-    (*(v243 + 32))(v356, v312, v316);
+    v244 = v289;
+    (*(v193 + 32))(v289, v240, v243);
   }
 
-  v318 = v360;
-  OUTLINED_FUNCTION_71();
-  v319 = OUTLINED_FUNCTION_86(&a16);
-  (v359[0])(v319, v317, v316);
+  v245 = v294;
+  OUTLINED_FUNCTION_71((v294 + 24));
+  v246 = OUTLINED_FUNCTION_86(&a16);
+  v291(v246, v244, v243);
   OUTLINED_FUNCTION_179();
   OUTLINED_FUNCTION_119();
   MockablePublished.init(wrappedValue:)();
-  v320 = OUTLINED_FUNCTION_99();
-  v358(v320, v316);
+  v247 = OUTLINED_FUNCTION_99();
+  v290(v247, v243);
   OUTLINED_FUNCTION_256();
   swift_getKeyPath();
   Builder.subscript.getter();
 
-  OUTLINED_FUNCTION_71();
-  v321 = v318[37];
+  v248 = v293;
+  OUTLINED_FUNCTION_71((v293 + 8));
 
   OUTLINED_FUNCTION_52();
-  v322 = OUTLINED_FUNCTION_186();
-  OUTLINED_FUNCTION_251(v322);
+  v249 = OUTLINED_FUNCTION_186();
+  OUTLINED_FUNCTION_251(v249);
   swift_getKeyPath();
   Builder.subscript.getter();
 
-  OUTLINED_FUNCTION_71();
-  v323 = v318[38];
+  OUTLINED_FUNCTION_71((v248 + 9));
 
   OUTLINED_FUNCTION_52();
-  v324 = OUTLINED_FUNCTION_186();
-  OUTLINED_FUNCTION_250(v324);
+  v250 = OUTLINED_FUNCTION_186();
+  OUTLINED_FUNCTION_250(v250);
   swift_getKeyPath();
   Builder.subscript.getter();
 
-  OUTLINED_FUNCTION_71();
+  OUTLINED_FUNCTION_71((v245 + 39));
   OUTLINED_FUNCTION_297();
-  v325 = OUTLINED_FUNCTION_142();
-  OUTLINED_FUNCTION_70(v325);
+  OUTLINED_FUNCTION_142();
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
-  v326 = OUTLINED_FUNCTION_231();
-  OUTLINED_FUNCTION_255(v326);
-  CurrentRequest.overrideProperties.setter();
+  v251 = OUTLINED_FUNCTION_231();
+  OUTLINED_FUNCTION_255(v251);
+  CurrentRequest.overrideProperties.setter(0, v252, v253, v254, v255, v256, v257, v258, v259, v260, v261, v262, v263, v264, v265, v266, v267, v268);
 
   OUTLINED_FUNCTION_201();
   OUTLINED_FUNCTION_170();
 }
 
-uint64_t sub_1DD359AF0(uint64_t *a1)
+uint64_t sub_1DD359AF0()
 {
-  OUTLINED_FUNCTION_127(a1);
+  OUTLINED_FUNCTION_127();
   result = CurrentRequest.refId.getter();
-  *v1 = result;
-  v1[1] = v3;
+  *v0 = result;
+  v0[1] = v2;
   return result;
 }
 
-uint64_t sub_1DD359B1C(uint64_t *a1)
+uint64_t sub_1DD359B1C()
 {
-  OUTLINED_FUNCTION_127(a1);
+  OUTLINED_FUNCTION_127();
   result = CurrentRequest.aceId.getter();
-  *v1 = result;
-  v1[1] = v3;
+  *v0 = result;
+  v0[1] = v2;
   return result;
 }
 
-uint64_t sub_1DD359B48(uint64_t *a1)
+uint64_t sub_1DD359B48()
 {
-  OUTLINED_FUNCTION_127(a1);
+  OUTLINED_FUNCTION_127();
   result = CurrentRequest.sessionHandoffContinuityID.getter();
-  *v1 = result;
-  v1[1] = v3;
+  *v0 = result;
+  v0[1] = v2;
   return result;
 }
 
-uint64_t sub_1DD359B74(uint64_t *a1)
+uint64_t sub_1DD359B74()
 {
-  OUTLINED_FUNCTION_127(a1);
+  OUTLINED_FUNCTION_127();
   result = CurrentRequest.peerName.getter();
-  *v1 = result;
-  v1[1] = v3;
+  *v0 = result;
+  v0[1] = v2;
   return result;
 }
 
-uint64_t sub_1DD359CB8(uint64_t *a1)
+uint64_t sub_1DD359CB8()
 {
-  OUTLINED_FUNCTION_127(a1);
+  OUTLINED_FUNCTION_127();
   result = CurrentRequest.speechPackage.getter();
-  *v1 = result;
+  *v0 = result;
   return result;
 }
 
-uint64_t sub_1DD359CE4(uint64_t *a1)
+uint64_t sub_1DD359CE4()
 {
-  OUTLINED_FUNCTION_127(a1);
+  OUTLINED_FUNCTION_127();
   result = CurrentRequest.asrOnDevice.getter();
-  *v1 = result;
+  *v0 = result;
   return result;
 }
 
-void sub_1DD359D0C(unsigned __int8 *a1, uint64_t *a2)
+uint64_t sub_1DD359D34()
 {
-  v2 = *a2;
-  v3 = *a1;
-  CurrentRequest.asrOnDevice.setter();
-}
-
-uint64_t sub_1DD359D34(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_127(a1);
+  OUTLINED_FUNCTION_127();
   result = CurrentRequest.currentDeviceAssistantId.getter();
-  *v1 = result;
-  v1[1] = v3;
+  *v0 = result;
+  v0[1] = v2;
   return result;
 }
 
-uint64_t sub_1DD359D60(uint64_t *a1)
+uint64_t sub_1DD359D60()
 {
-  OUTLINED_FUNCTION_127(a1);
+  OUTLINED_FUNCTION_127();
   result = CurrentRequest.voiceTriggerEventInfo.getter();
-  *v1 = result;
+  *v0 = result;
   return result;
 }
 
-uint64_t sub_1DD359DDC(uint64_t *a1)
+uint64_t sub_1DD359DDC()
 {
-  OUTLINED_FUNCTION_127(a1);
+  OUTLINED_FUNCTION_127();
   result = CurrentRequest.isRecognizeMyVoiceEnabled.getter();
-  *v1 = result;
+  *v0 = result;
   return result;
 }
 
-void sub_1DD359E04(unsigned __int8 *a1, uint64_t *a2)
+uint64_t sub_1DD359E2C()
 {
-  v2 = *a2;
-  v3 = *a1;
-  CurrentRequest.isRecognizeMyVoiceEnabled.setter();
-}
-
-uint64_t sub_1DD359E2C(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_127(a1);
+  OUTLINED_FUNCTION_127();
   result = CurrentRequest.voiceAudioSessionId.getter();
-  *v1 = result;
+  *v0 = result;
   return result;
 }
 
-void sub_1DD359E54(unsigned int *a1, uint64_t *a2)
+uint64_t sub_1DD359E7C()
 {
-  v2 = *a1;
-  v3 = *a2;
-  CurrentRequest.voiceAudioSessionId.setter();
-}
-
-uint64_t sub_1DD359E7C(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_127(a1);
+  OUTLINED_FUNCTION_127();
   result = CurrentRequest.utterance.getter();
-  *v1 = result;
-  v1[1] = v3;
+  *v0 = result;
+  v0[1] = v2;
   return result;
 }
 
-uint64_t sub_1DD359EA8(uint64_t *a1)
+uint64_t sub_1DD359EA8()
 {
-  OUTLINED_FUNCTION_127(a1);
-  v1 = CurrentRequest.isSystemApertureEnabled.getter();
-  return OUTLINED_FUNCTION_296(v1);
+  OUTLINED_FUNCTION_127();
+  v0 = CurrentRequest.isSystemApertureEnabled.getter();
+  return OUTLINED_FUNCTION_296(v0);
 }
 
-uint64_t sub_1DD359EF4(uint64_t *a1)
+uint64_t sub_1DD359EF4()
 {
-  OUTLINED_FUNCTION_127(a1);
-  v1 = CurrentRequest.isLiveActivitiesSupported.getter();
-  return OUTLINED_FUNCTION_296(v1);
+  OUTLINED_FUNCTION_127();
+  v0 = CurrentRequest.isLiveActivitiesSupported.getter();
+  return OUTLINED_FUNCTION_296(v0);
 }
 
-uint64_t sub_1DD359F40(uint64_t *a1)
+uint64_t sub_1DD359F40()
 {
-  OUTLINED_FUNCTION_127(a1);
-  v1 = CurrentRequest.isInAmbient.getter();
-  return OUTLINED_FUNCTION_296(v1);
+  OUTLINED_FUNCTION_127();
+  v0 = CurrentRequest.isInAmbient.getter();
+  return OUTLINED_FUNCTION_296(v0);
 }
 
-uint64_t sub_1DD359F94(uint64_t *a1)
+uint64_t sub_1DD359F94()
 {
-  OUTLINED_FUNCTION_127(a1);
+  OUTLINED_FUNCTION_127();
   result = CurrentRequest.requestLanguageVariant.getter();
-  *v1 = result;
-  v1[1] = v3;
+  *v0 = result;
+  v0[1] = v2;
   return result;
 }
 
-uint64_t sub_1DD359FC0(uint64_t *a1)
+uint64_t sub_1DD359FC0()
 {
-  OUTLINED_FUNCTION_127(a1);
-  v1 = CurrentRequest.remoteRequestWasMadeInSession.getter();
-  return OUTLINED_FUNCTION_296(v1);
+  OUTLINED_FUNCTION_127();
+  v0 = CurrentRequest.remoteRequestWasMadeInSession.getter();
+  return OUTLINED_FUNCTION_296(v0);
 }
 
-uint64_t OUTLINED_FUNCTION_31@<X0>(uint64_t a1@<X8>)
+uint64_t OUTLINED_FUNCTION_31()
 {
-  v2 = *(a1 - 256);
 
   return swift_beginAccess();
 }
@@ -2366,15 +2177,7 @@ __n128 OUTLINED_FUNCTION_150(__n128 a1, __n128 a2)
   v4 = *(v2 + 80);
   *(v2 - 224) = *(v2 + 96);
   *(v2 - 208) = v4;
-  v12 = *(v2 + 112);
-  v6 = *(v2 + 128);
-  v5 = *(v2 + 136);
-  v7 = *(v2 + 144);
-  v11 = *(v2 + 152);
-  result = *(v2 + 168);
-  v9 = *(v2 + 184);
-  v10 = *(v2 + 192);
-  return result;
+  return *(v2 + 168);
 }
 
 uint64_t OUTLINED_FUNCTION_60()
@@ -2389,92 +2192,83 @@ void CurrentRequest.init(storage:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64
   a19 = v22;
   a20 = v23;
   v24 = v20;
-  v266 = v25;
+  v224 = v25;
   v26 = type metadata accessor for ExecutionLocation();
   v27 = OUTLINED_FUNCTION_4_1(v26, &a12);
-  v264 = v28;
-  v30 = *(v29 + 64);
+  v222 = v28;
   MEMORY[0x1EEE9AC00](v27);
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_13();
-  MEMORY[0x1EEE9AC00](v31);
+  MEMORY[0x1EEE9AC00](v29);
   OUTLINED_FUNCTION_94();
-  OUTLINED_FUNCTION_21(v32);
-  v33 = type metadata accessor for ResponseMode();
-  v34 = OUTLINED_FUNCTION_4_1(v33, &v284);
-  v261 = v35;
-  v37 = *(v36 + 64);
+  OUTLINED_FUNCTION_21(v30);
+  v31 = type metadata accessor for ResponseMode();
+  v32 = OUTLINED_FUNCTION_4_1(v31, &v234);
+  v219 = v33;
+  MEMORY[0x1EEE9AC00](v32);
+  OUTLINED_FUNCTION_9_0();
+  OUTLINED_FUNCTION_13();
   MEMORY[0x1EEE9AC00](v34);
+  OUTLINED_FUNCTION_94();
+  OUTLINED_FUNCTION_21(v35);
+  v36 = type metadata accessor for InteractionType();
+  v37 = OUTLINED_FUNCTION_4_1(v36, &v233);
+  v216 = v38;
+  MEMORY[0x1EEE9AC00](v37);
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_13();
-  MEMORY[0x1EEE9AC00](v38);
+  MEMORY[0x1EEE9AC00](v39);
   OUTLINED_FUNCTION_94();
-  OUTLINED_FUNCTION_21(v39);
-  v40 = type metadata accessor for InteractionType();
-  v41 = OUTLINED_FUNCTION_4_1(v40, &v283);
-  v258 = v42;
-  v44 = *(v43 + 64);
-  MEMORY[0x1EEE9AC00](v41);
+  OUTLINED_FUNCTION_21(v40);
+  v41 = type metadata accessor for InputOrigin();
+  v42 = OUTLINED_FUNCTION_4_1(v41, v232);
+  v212 = v43;
+  MEMORY[0x1EEE9AC00](v42);
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_13();
-  MEMORY[0x1EEE9AC00](v45);
+  MEMORY[0x1EEE9AC00](v44);
   OUTLINED_FUNCTION_94();
-  OUTLINED_FUNCTION_21(v46);
-  v47 = type metadata accessor for InputOrigin();
-  v48 = OUTLINED_FUNCTION_4_1(v47, &v281);
-  v254 = v49;
-  v51 = *(v50 + 64);
+  OUTLINED_FUNCTION_91(v45);
+  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriFlowEnvironment0B12TaskMetadataVSgMd, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMR);
+  v47 = OUTLINED_FUNCTION_10(v46);
+  MEMORY[0x1EEE9AC00](v47);
+  OUTLINED_FUNCTION_9_0();
+  OUTLINED_FUNCTION_13();
   MEMORY[0x1EEE9AC00](v48);
+  OUTLINED_FUNCTION_94();
+  OUTLINED_FUNCTION_91(v49);
+  v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities8HomeInfoVSgMd, &_s13SiriUtilities8HomeInfoVSgMR);
+  v51 = OUTLINED_FUNCTION_10(v50);
+  MEMORY[0x1EEE9AC00](v51);
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_13();
   MEMORY[0x1EEE9AC00](v52);
-  OUTLINED_FUNCTION_94();
-  OUTLINED_FUNCTION_91(v53);
-  v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriFlowEnvironment0B12TaskMetadataVSgMd, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMR);
-  v55 = OUTLINED_FUNCTION_10(v54);
-  v57 = *(v56 + 64);
-  MEMORY[0x1EEE9AC00](v55);
-  OUTLINED_FUNCTION_9_0();
-  OUTLINED_FUNCTION_13();
-  MEMORY[0x1EEE9AC00](v58);
-  OUTLINED_FUNCTION_94();
-  OUTLINED_FUNCTION_91(v59);
-  v60 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities8HomeInfoVSgMd, &_s13SiriUtilities8HomeInfoVSgMR);
-  v61 = OUTLINED_FUNCTION_10(v60);
-  v63 = *(v62 + 64);
-  MEMORY[0x1EEE9AC00](v61);
-  OUTLINED_FUNCTION_9_0();
-  OUTLINED_FUNCTION_13();
-  MEMORY[0x1EEE9AC00](v64);
   OUTLINED_FUNCTION_121();
-  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities14BargeInContextVSgMd, &_s13SiriUtilities14BargeInContextVSgMR);
-  v66 = OUTLINED_FUNCTION_10(v65);
-  v68 = *(v67 + 64);
-  MEMORY[0x1EEE9AC00](v66);
+  v53 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities14BargeInContextVSgMd, &_s13SiriUtilities14BargeInContextVSgMR);
+  v54 = OUTLINED_FUNCTION_10(v53);
+  MEMORY[0x1EEE9AC00](v54);
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_13();
-  MEMORY[0x1EEE9AC00](v69);
+  MEMORY[0x1EEE9AC00](v55);
   OUTLINED_FUNCTION_94();
-  OUTLINED_FUNCTION_91(v70);
-  v71 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities16AudioDestinationVSgMd, &_s13SiriUtilities16AudioDestinationVSgMR);
-  v72 = OUTLINED_FUNCTION_10(v71);
-  v74 = *(v73 + 64);
-  MEMORY[0x1EEE9AC00](v72);
+  OUTLINED_FUNCTION_91(v56);
+  v57 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities16AudioDestinationVSgMd, &_s13SiriUtilities16AudioDestinationVSgMR);
+  v58 = OUTLINED_FUNCTION_10(v57);
+  MEMORY[0x1EEE9AC00](v58);
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_13();
-  MEMORY[0x1EEE9AC00](v75);
-  v77 = &v239 - v76;
-  v78 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities11AudioSourceVSgMd, &_s13SiriUtilities11AudioSourceVSgMR);
-  v79 = OUTLINED_FUNCTION_10(v78);
-  v81 = *(v80 + 64);
-  MEMORY[0x1EEE9AC00](v79);
+  MEMORY[0x1EEE9AC00](v59);
+  v61 = &v197 - v60;
+  v62 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities11AudioSourceVSgMd, &_s13SiriUtilities11AudioSourceVSgMR);
+  v63 = OUTLINED_FUNCTION_10(v62);
+  MEMORY[0x1EEE9AC00](v63);
   OUTLINED_FUNCTION_9_0();
-  v83 = v82;
-  MEMORY[0x1EEE9AC00](v84);
+  v65 = v64;
+  MEMORY[0x1EEE9AC00](v66);
   OUTLINED_FUNCTION_235();
   OUTLINED_FUNCTION_191();
-  v85 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySSSgGMd, &_s13SiriUtilities17MockablePublishedCySSSgGMR);
-  OUTLINED_FUNCTION_70(v85);
+  v67 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySSSgGMd, &_s13SiriUtilities17MockablePublishedCySSSgGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_73();
   v20[3] = MockablePublished.init(wrappedValue:)();
@@ -2493,126 +2287,126 @@ void CurrentRequest.init(storage:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64
   OUTLINED_FUNCTION_58();
   OUTLINED_FUNCTION_73();
   v20[10] = MockablePublished.init(wrappedValue:)();
-  v243 = type metadata accessor for AudioSource();
+  v201 = type metadata accessor for AudioSource();
   OUTLINED_FUNCTION_5_1();
-  __swift_storeEnumTagSinglePayload(v86, v87, v88, v89);
-  v240 = v21;
-  v242 = v83;
-  outlined init with copy of AudioSource?(v21, v83, &_s13SiriUtilities11AudioSourceVSgMd, &_s13SiriUtilities11AudioSourceVSgMR);
-  v90 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA11AudioSourceVSgGMd, &_s13SiriUtilities17MockablePublishedCyAA11AudioSourceVSgGMR);
-  OUTLINED_FUNCTION_70(v90);
+  __swift_storeEnumTagSinglePayload(v68, v69, v70, v71);
+  v198 = v21;
+  v200 = v65;
+  outlined init with copy of AudioSource?(v21, v65, &_s13SiriUtilities11AudioSourceVSgMd, &_s13SiriUtilities11AudioSourceVSgMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA11AudioSourceVSgGMd, &_s13SiriUtilities17MockablePublishedCyAA11AudioSourceVSgGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_111();
   MockablePublished.init(wrappedValue:)();
-  v91 = OUTLINED_FUNCTION_118();
-  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v91, &_s13SiriUtilities11AudioSourceVSgMd, &_s13SiriUtilities11AudioSourceVSgMR);
+  v72 = OUTLINED_FUNCTION_118();
+  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v72, &_s13SiriUtilities11AudioSourceVSgMd, &_s13SiriUtilities11AudioSourceVSgMR);
   OUTLINED_FUNCTION_195();
-  OUTLINED_FUNCTION_98(v92);
-  v244 = type metadata accessor for AudioDestination();
+  OUTLINED_FUNCTION_98(v73);
+  v202 = type metadata accessor for AudioDestination();
   OUTLINED_FUNCTION_5_1();
-  __swift_storeEnumTagSinglePayload(v93, v94, v95, v96);
-  v241 = v77;
-  OUTLINED_FUNCTION_131(&a14);
-  outlined init with copy of AudioSource?(v97, v98, &_s13SiriUtilities16AudioDestinationVSgMd, &_s13SiriUtilities16AudioDestinationVSgMR);
-  v245 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA16AudioDestinationVSgGMd, &_s13SiriUtilities17MockablePublishedCyAA16AudioDestinationVSgGMR);
-  OUTLINED_FUNCTION_70(v245);
+  __swift_storeEnumTagSinglePayload(v74, v75, v76, v77);
+  v199 = v61;
+  OUTLINED_FUNCTION_131();
+  outlined init with copy of AudioSource?(v78, v79, &_s13SiriUtilities16AudioDestinationVSgMd, &_s13SiriUtilities16AudioDestinationVSgMR);
+  v203 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA16AudioDestinationVSgGMd, &_s13SiriUtilities17MockablePublishedCyAA16AudioDestinationVSgGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_99();
   MockablePublished.init(wrappedValue:)();
-  v99 = OUTLINED_FUNCTION_104();
-  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v99, &_s13SiriUtilities16AudioDestinationVSgMd, &_s13SiriUtilities16AudioDestinationVSgMR);
+  v80 = OUTLINED_FUNCTION_104();
+  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v80, &_s13SiriUtilities16AudioDestinationVSgMd, &_s13SiriUtilities16AudioDestinationVSgMR);
   OUTLINED_FUNCTION_214();
-  OUTLINED_FUNCTION_98(v100);
-  v250 = type metadata accessor for BargeInContext();
-  OUTLINED_FUNCTION_64(v250, v101, v102, v250);
-  OUTLINED_FUNCTION_131(&a18);
-  outlined init with copy of AudioSource?(v103, v104, &_s13SiriUtilities14BargeInContextVSgMd, &_s13SiriUtilities14BargeInContextVSgMR);
-  v251 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA14BargeInContextVSgGMd, &_s13SiriUtilities17MockablePublishedCyAA14BargeInContextVSgGMR);
-  OUTLINED_FUNCTION_70(v251);
+  OUTLINED_FUNCTION_98(v81);
+  v208 = type metadata accessor for BargeInContext();
+  OUTLINED_FUNCTION_64(v208, v82, v83, v208);
+  OUTLINED_FUNCTION_131();
+  outlined init with copy of AudioSource?(v84, v85, &_s13SiriUtilities14BargeInContextVSgMd, &_s13SiriUtilities14BargeInContextVSgMR);
+  v209 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA14BargeInContextVSgGMd, &_s13SiriUtilities17MockablePublishedCyAA14BargeInContextVSgGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_99();
   MockablePublished.init(wrappedValue:)();
-  v105 = OUTLINED_FUNCTION_111();
-  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v105, &_s13SiriUtilities14BargeInContextVSgMd, &_s13SiriUtilities14BargeInContextVSgMR);
+  v86 = OUTLINED_FUNCTION_111();
+  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v86, &_s13SiriUtilities14BargeInContextVSgMd, &_s13SiriUtilities14BargeInContextVSgMR);
   OUTLINED_FUNCTION_196();
-  OUTLINED_FUNCTION_24(v106);
-  v107 = OUTLINED_FUNCTION_116();
-  outlined init with copy of AudioSource?(v107, v108, &_s19SiriFlowEnvironment20SharedContextService_pSgMd, &_s19SiriFlowEnvironment20SharedContextService_pSgMR);
-  v109 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment20SharedContextService_pSgGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment20SharedContextService_pSgGMR);
-  OUTLINED_FUNCTION_70(v109);
+  OUTLINED_FUNCTION_24(v87);
+  v88 = OUTLINED_FUNCTION_116();
+  outlined init with copy of AudioSource?(v88, v89, &_s19SiriFlowEnvironment20SharedContextService_pSgMd, &_s19SiriFlowEnvironment20SharedContextService_pSgMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment20SharedContextService_pSgGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment20SharedContextService_pSgGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_186();
-  v110 = OUTLINED_FUNCTION_73();
-  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v110, &_s19SiriFlowEnvironment20SharedContextService_pSgMd, &_s19SiriFlowEnvironment20SharedContextService_pSgMR);
+  v90 = OUTLINED_FUNCTION_73();
+  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v90, &_s19SiriFlowEnvironment20SharedContextService_pSgMd, &_s19SiriFlowEnvironment20SharedContextService_pSgMR);
   v20[16] = v20;
-  v111 = type metadata accessor for HomeInfo();
-  OUTLINED_FUNCTION_20(v111, v112, v113, v111);
-  OUTLINED_FUNCTION_137(v278);
-  outlined init with copy of AudioSource?(v114, v115, &_s13SiriUtilities8HomeInfoVSgMd, &_s13SiriUtilities8HomeInfoVSgMR);
-  v116 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA8HomeInfoVSgGMd, &_s13SiriUtilities17MockablePublishedCyAA8HomeInfoVSgGMR);
-  OUTLINED_FUNCTION_70(v116);
+  v91 = type metadata accessor for HomeInfo();
+  OUTLINED_FUNCTION_20(v91, v92, v93, v91);
+  OUTLINED_FUNCTION_137();
+  outlined init with copy of AudioSource?(v94, v95, &_s13SiriUtilities8HomeInfoVSgMd, &_s13SiriUtilities8HomeInfoVSgMR);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA8HomeInfoVSgGMd, &_s13SiriUtilities17MockablePublishedCyAA8HomeInfoVSgGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_111();
   MockablePublished.init(wrappedValue:)();
   OUTLINED_FUNCTION_119();
   OUTLINED_FUNCTION_160();
-  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v117, v118, v119);
+  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v96, v97, v98);
   v20[17] = v20;
-  v280 = 0;
-  v247 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySo15AFSpeechPackageCSgGMd, &_s13SiriUtilities17MockablePublishedCySo15AFSpeechPackageCSgGMR);
-  OUTLINED_FUNCTION_70(v247);
+  v231 = 0;
+  v205 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySo15AFSpeechPackageCSgGMd, &_s13SiriUtilities17MockablePublishedCySo15AFSpeechPackageCSgGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_73();
-  v120 = MockablePublished.init(wrappedValue:)();
-  OUTLINED_FUNCTION_199(v120);
-  v246 = v121;
+  v99 = MockablePublished.init(wrappedValue:)();
+  OUTLINED_FUNCTION_199(v99);
+  v204 = v100;
   OUTLINED_FUNCTION_58();
   OUTLINED_FUNCTION_73();
-  v122 = MockablePublished.init(wrappedValue:)();
-  OUTLINED_FUNCTION_197(v122);
-  OUTLINED_FUNCTION_144(v123);
-  v124 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySbSgGMd, &_s13SiriUtilities17MockablePublishedCySbSgGMR);
-  OUTLINED_FUNCTION_70(v124);
+  v101 = MockablePublished.init(wrappedValue:)();
+  OUTLINED_FUNCTION_197(v101);
+  OUTLINED_FUNCTION_144(v102);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySbSgGMd, &_s13SiriUtilities17MockablePublishedCySbSgGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_73();
-  v125 = MockablePublished.init(wrappedValue:)();
-  OUTLINED_FUNCTION_198(v125);
-  OUTLINED_FUNCTION_141(v126);
-  v127 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySDyS2SGSgGMd, &_s13SiriUtilities17MockablePublishedCySDyS2SGSgGMR);
-  OUTLINED_FUNCTION_70(v127);
+  v103 = MockablePublished.init(wrappedValue:)();
+  OUTLINED_FUNCTION_198(v103);
+  OUTLINED_FUNCTION_141(v104);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySDyS2SGSgGMd, &_s13SiriUtilities17MockablePublishedCySDyS2SGSgGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_73();
   v20[22] = MockablePublished.init(wrappedValue:)();
   OUTLINED_FUNCTION_58();
   OUTLINED_FUNCTION_73();
-  v128 = MockablePublished.init(wrappedValue:)();
-  OUTLINED_FUNCTION_192(v128);
-  OUTLINED_FUNCTION_205(v129);
-  LOBYTE(v280) = 2;
+  v105 = MockablePublished.init(wrappedValue:)();
+  OUTLINED_FUNCTION_192(v105);
+  OUTLINED_FUNCTION_205(v106);
+  LOBYTE(v231) = 2;
   OUTLINED_FUNCTION_165();
   OUTLINED_FUNCTION_73();
-  v130 = MockablePublished.init(wrappedValue:)();
-  OUTLINED_FUNCTION_193(v130);
-  OUTLINED_FUNCTION_98(v131);
-  v248 = type metadata accessor for FlowTaskMetadata();
-  v132 = OUTLINED_FUNCTION_27(&a15);
-  __swift_storeEnumTagSinglePayload(v132, v133, v134, v135);
-  OUTLINED_FUNCTION_159(&a17);
-  outlined init with copy of AudioSource?(v136, v137, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMd, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMR);
-  v249 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0E12TaskMetadataVSgGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0E12TaskMetadataVSgGMR);
-  OUTLINED_FUNCTION_70(v249);
+  v107 = MockablePublished.init(wrappedValue:)();
+  OUTLINED_FUNCTION_193(v107);
+  v109 = OUTLINED_FUNCTION_98(v108);
+  v206 = type metadata accessor for FlowTaskMetadata(v109);
+  v110 = OUTLINED_FUNCTION_27(&a15);
+  __swift_storeEnumTagSinglePayload(v110, v111, v112, v113);
+  OUTLINED_FUNCTION_159();
+  outlined init with copy of AudioSource?(v114, v115, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMd, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMR);
+  v207 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0E12TaskMetadataVSgGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0E12TaskMetadataVSgGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_118();
   MockablePublished.init(wrappedValue:)();
-  v138 = OUTLINED_FUNCTION_99();
-  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v138, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMd, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMR);
+  v116 = OUTLINED_FUNCTION_99();
+  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v116, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMd, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMR);
   OUTLINED_FUNCTION_267();
-  OUTLINED_FUNCTION_190(v139);
+  OUTLINED_FUNCTION_190(v117);
   OUTLINED_FUNCTION_58();
   OUTLINED_FUNCTION_73();
-  v140 = MockablePublished.init(wrappedValue:)();
-  OUTLINED_FUNCTION_194(v140);
-  v252 = v141;
+  v118 = MockablePublished.init(wrappedValue:)();
+  OUTLINED_FUNCTION_194(v118);
+  v210 = v119;
   OUTLINED_FUNCTION_58();
   OUTLINED_FUNCTION_73();
   v20[34] = MockablePublished.init(wrappedValue:)();
@@ -2624,285 +2418,275 @@ void CurrentRequest.init(storage:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64
   v20[37] = MockablePublished.init(wrappedValue:)();
   OUTLINED_FUNCTION_58();
   OUTLINED_FUNCTION_73();
-  v142 = MockablePublished.init(wrappedValue:)();
-  OUTLINED_FUNCTION_189(v142);
-  v143 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySDy0A15FlowEnvironment23CurrentRequestOverridesO5FieldOypGSgGMd, &_s13SiriUtilities17MockablePublishedCySDy0A15FlowEnvironment23CurrentRequestOverridesO5FieldOypGSgGMR);
-  OUTLINED_FUNCTION_70(v143);
+  v120 = MockablePublished.init(wrappedValue:)();
+  OUTLINED_FUNCTION_189(v120);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySDy0A15FlowEnvironment23CurrentRequestOverridesO5FieldOypGSgGMd, &_s13SiriUtilities17MockablePublishedCySDy0A15FlowEnvironment23CurrentRequestOverridesO5FieldOypGSgGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_73();
   v20[40] = MockablePublished.init(wrappedValue:)();
-  v144 = *MEMORY[0x1E69D3518];
-  OUTLINED_FUNCTION_175(&v279);
-  v146 = v253;
-  v147 = v256;
-  (*(v145 + 104))(v253);
-  OUTLINED_FUNCTION_71();
-  v148 = v147;
-  MEMORY[0x12](v255, v146, v147);
-  v149 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA11InputOriginOGMd, &_s13SiriUtilities17MockablePublishedCyAA11InputOriginOGMR);
-  OUTLINED_FUNCTION_70(v149);
+  OUTLINED_FUNCTION_175();
+  v122 = v211;
+  v123 = v214;
+  (*(v121 + 104))(v211);
+  OUTLINED_FUNCTION_71((v24 + 8));
+  v124 = v123;
+  MEMORY[0x12](v213, v122, v123);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA11InputOriginOGMd, &_s13SiriUtilities17MockablePublishedCyAA11InputOriginOGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   MockablePublished.init(wrappedValue:)();
   OUTLINED_FUNCTION_42();
-  v150(v146, v147);
+  v125(v122, v123);
   OUTLINED_FUNCTION_249();
-  v151 = *MEMORY[0x1E69D35B0];
-  OUTLINED_FUNCTION_175(v282);
-  v153 = v257;
-  v154 = v259;
-  (*(v152 + 104))(v257);
-  OUTLINED_FUNCTION_71();
-  v155 = v148;
-  v156 = *(v148 + 16);
-  v157 = OUTLINED_FUNCTION_284();
-  v158 = v154;
-  v159(v157, v153, v154);
-  v160 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA15InteractionTypeOGMd, &_s13SiriUtilities17MockablePublishedCyAA15InteractionTypeOGMR);
-  OUTLINED_FUNCTION_70(v160);
+  OUTLINED_FUNCTION_175();
+  v127 = v215;
+  v128 = v217;
+  (*(v126 + 104))(v215);
+  OUTLINED_FUNCTION_71((v24 + 9));
+  v129 = v124;
+  v130 = OUTLINED_FUNCTION_284();
+  v131 = v128;
+  v132(v130, v127, v128);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA15InteractionTypeOGMd, &_s13SiriUtilities17MockablePublishedCyAA15InteractionTypeOGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_99();
-  v161 = MockablePublished.init(wrappedValue:)();
-  (*(v155 + 8))(v153, v158);
+  v133 = MockablePublished.init(wrappedValue:)();
+  (*(v129 + 8))(v127, v131);
   OUTLINED_FUNCTION_248();
   OUTLINED_FUNCTION_5_1();
-  OUTLINED_FUNCTION_158(v162, v163, v164, &v266);
-  OUTLINED_FUNCTION_33(&v263);
-  v165 = *v158;
+  OUTLINED_FUNCTION_158(v134, v135, v136, &v224);
+  OUTLINED_FUNCTION_33();
 
-  OUTLINED_FUNCTION_173(&v265);
-  outlined init with copy of AudioSource?(v166, v167, &_s13SiriUtilities11AudioSourceVSgMd, &_s13SiriUtilities11AudioSourceVSgMR);
+  OUTLINED_FUNCTION_173();
+  outlined init with copy of AudioSource?(v137, v138, &_s13SiriUtilities11AudioSourceVSgMd, &_s13SiriUtilities11AudioSourceVSgMR);
   OUTLINED_FUNCTION_164();
   OUTLINED_FUNCTION_104();
   MockablePublished.init(wrappedValue:)();
   OUTLINED_FUNCTION_111();
   OUTLINED_FUNCTION_160();
-  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v168, v169, v170);
-  *v158 = v161;
+  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v139, v140, v141);
+  *v131 = v133;
   swift_endAccess();
   OUTLINED_FUNCTION_5_1();
-  OUTLINED_FUNCTION_158(v171, v172, v173, &v267);
-  OUTLINED_FUNCTION_33(&v264);
+  OUTLINED_FUNCTION_158(v142, v143, v144, &v225);
+  OUTLINED_FUNCTION_33();
 
-  OUTLINED_FUNCTION_137(&a14);
-  outlined init with copy of AudioSource?(v174, v175, &_s13SiriUtilities16AudioDestinationVSgMd, &_s13SiriUtilities16AudioDestinationVSgMR);
-  OUTLINED_FUNCTION_70(v245);
+  OUTLINED_FUNCTION_137();
+  outlined init with copy of AudioSource?(v145, v146, &_s13SiriUtilities16AudioDestinationVSgMd, &_s13SiriUtilities16AudioDestinationVSgMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_111();
   MockablePublished.init(wrappedValue:)();
   OUTLINED_FUNCTION_132();
   OUTLINED_FUNCTION_160();
-  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v176, v177, v178);
-  _s13SiriUtilities11AudioSourceVSgMd = v161;
+  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v147, v148, v149);
+  _s13SiriUtilities11AudioSourceVSgMd = v133;
   swift_endAccess();
-  v179 = v260;
+  v150 = v218;
   static ResponseMode.displayForward.getter();
-  OUTLINED_FUNCTION_71();
-  v180 = v261;
-  v181 = *(v261 + 16);
-  v182 = OUTLINED_FUNCTION_162();
-  v183 = v262;
-  v184(v182);
-  v185 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA12ResponseModeVGMd, &_s13SiriUtilities17MockablePublishedCyAA12ResponseModeVGMR);
-  OUTLINED_FUNCTION_70(v185);
+  OUTLINED_FUNCTION_71((v24 + 13));
+  v151 = v219;
+  v152 = OUTLINED_FUNCTION_162();
+  v153 = v220;
+  v154(v152);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA12ResponseModeVGMd, &_s13SiriUtilities17MockablePublishedCyAA12ResponseModeVGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_132();
-  v186 = MockablePublished.init(wrappedValue:)();
-  (*(v180 + 8))(v179, v183);
+  v155 = MockablePublished.init(wrappedValue:)();
+  (*(v151 + 8))(v150, v153);
   OUTLINED_FUNCTION_247();
   OUTLINED_FUNCTION_225();
   OUTLINED_FUNCTION_88();
-  v187 = OUTLINED_FUNCTION_116();
-  outlined init with copy of MultiUserState(v187, v188);
-  v189 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment14MultiUserStateOGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment14MultiUserStateOGMR);
-  OUTLINED_FUNCTION_70(v189);
+  v156 = OUTLINED_FUNCTION_116();
+  outlined init with copy of MultiUserState(v156, v157);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment14MultiUserStateOGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment14MultiUserStateOGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_186();
-  v190 = OUTLINED_FUNCTION_73();
-  outlined destroy of MultiUserState(v190);
+  v158 = OUTLINED_FUNCTION_73();
+  outlined destroy of MultiUserState(v158);
   OUTLINED_FUNCTION_246();
-  v191 = OUTLINED_FUNCTION_27(&a16);
-  OUTLINED_FUNCTION_158(v191, v192, v193, &v277);
-  OUTLINED_FUNCTION_33(&v275);
-  v194 = *v183;
+  v159 = OUTLINED_FUNCTION_27(&a16);
+  OUTLINED_FUNCTION_158(v159, v160, v161, &v230);
+  OUTLINED_FUNCTION_33();
 
-  outlined init with copy of AudioSource?(&_s13SiriUtilities16AudioDestinationVSgMR, v270, &_s13SiriUtilities14BargeInContextVSgMd, &_s13SiriUtilities14BargeInContextVSgMR);
-  OUTLINED_FUNCTION_70(v251);
+  outlined init with copy of AudioSource?(&_s13SiriUtilities16AudioDestinationVSgMR, v226, &_s13SiriUtilities14BargeInContextVSgMd, &_s13SiriUtilities14BargeInContextVSgMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_132();
   MockablePublished.init(wrappedValue:)();
-  v195 = OUTLINED_FUNCTION_84();
-  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v195, v196, &_s13SiriUtilities14BargeInContextVSgMR);
-  *v183 = v186;
+  v162 = OUTLINED_FUNCTION_84();
+  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v162, v163, &_s13SiriUtilities14BargeInContextVSgMR);
+  *v153 = v155;
   swift_endAccess();
-  OUTLINED_FUNCTION_31(&v268);
+  OUTLINED_FUNCTION_31();
   OUTLINED_FUNCTION_218();
-  v271 = 0;
-  OUTLINED_FUNCTION_70(v247);
+  v227 = 0;
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
-  v197 = OUTLINED_FUNCTION_186();
-  OUTLINED_FUNCTION_217(v197);
-  OUTLINED_FUNCTION_31(&v269);
+  v164 = OUTLINED_FUNCTION_186();
+  OUTLINED_FUNCTION_217(v164);
+  OUTLINED_FUNCTION_31();
   OUTLINED_FUNCTION_218();
-  v271 = 0;
-  v272 = 0;
+  v227 = 0;
+  v228 = 0;
   OUTLINED_FUNCTION_114();
-  v198 = OUTLINED_FUNCTION_186();
-  OUTLINED_FUNCTION_217(v198);
-  OUTLINED_FUNCTION_31(&v270);
+  v165 = OUTLINED_FUNCTION_186();
+  OUTLINED_FUNCTION_217(v165);
+  OUTLINED_FUNCTION_31();
   OUTLINED_FUNCTION_218();
-  LOBYTE(v271) = 2;
+  LOBYTE(v227) = 2;
   OUTLINED_FUNCTION_165();
-  v199 = OUTLINED_FUNCTION_186();
-  OUTLINED_FUNCTION_217(v199);
-  OUTLINED_FUNCTION_71();
-  v271 = 0;
-  v272 = 0xE000000000000000;
-  v200 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySSGMd, &_s13SiriUtilities17MockablePublishedCySSGMR);
-  OUTLINED_FUNCTION_70(v200);
+  v166 = OUTLINED_FUNCTION_186();
+  OUTLINED_FUNCTION_217(v166);
+  OUTLINED_FUNCTION_71((v24 + 21));
+  v227 = 0;
+  v228 = 0xE000000000000000;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySSGMd, &_s13SiriUtilities17MockablePublishedCySSGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
-  v201 = OUTLINED_FUNCTION_186();
-  OUTLINED_FUNCTION_245(v201);
-  OUTLINED_FUNCTION_31(&v272);
+  v167 = OUTLINED_FUNCTION_186();
+  OUTLINED_FUNCTION_245(v167);
+  OUTLINED_FUNCTION_31();
   OUTLINED_FUNCTION_218();
-  v271 = 0;
-  v272 = 0;
+  v227 = 0;
+  v228 = 0;
   OUTLINED_FUNCTION_114();
-  v202 = OUTLINED_FUNCTION_186();
-  OUTLINED_FUNCTION_217(v202);
-  OUTLINED_FUNCTION_31(&v274);
+  v168 = OUTLINED_FUNCTION_186();
+  OUTLINED_FUNCTION_217(v168);
+  OUTLINED_FUNCTION_31();
   OUTLINED_FUNCTION_218();
-  LOBYTE(v271) = 2;
+  LOBYTE(v227) = 2;
   OUTLINED_FUNCTION_165();
-  v203 = OUTLINED_FUNCTION_186();
-  OUTLINED_FUNCTION_217(v203);
-  v204 = OUTLINED_FUNCTION_27(&a15);
-  OUTLINED_FUNCTION_158(v204, v205, v206, &v276);
-  OUTLINED_FUNCTION_33(&v273);
+  v169 = OUTLINED_FUNCTION_186();
+  OUTLINED_FUNCTION_217(v169);
+  v170 = OUTLINED_FUNCTION_27(&a15);
+  OUTLINED_FUNCTION_158(v170, v171, v172, &v229);
+  OUTLINED_FUNCTION_33();
   OUTLINED_FUNCTION_305();
-  OUTLINED_FUNCTION_117(&a17);
-  outlined init with copy of AudioSource?(v207, v208, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMd, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMR);
-  OUTLINED_FUNCTION_70(v249);
+  OUTLINED_FUNCTION_117();
+  outlined init with copy of AudioSource?(v173, v174, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMd, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_119();
   MockablePublished.init(wrappedValue:)();
-  v209 = OUTLINED_FUNCTION_99();
-  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v209, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMd, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMR);
+  v175 = OUTLINED_FUNCTION_99();
+  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v175, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMd, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMR);
   OUTLINED_FUNCTION_244();
-  OUTLINED_FUNCTION_71();
-  LODWORD(v271) = 0;
-  v210 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCys6UInt32VGMd, &_s13SiriUtilities17MockablePublishedCys6UInt32VGMR);
-  OUTLINED_FUNCTION_70(v210);
+  OUTLINED_FUNCTION_71((v24 + 28));
+  LODWORD(v227) = 0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCys6UInt32VGMd, &_s13SiriUtilities17MockablePublishedCys6UInt32VGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
-  v211 = OUTLINED_FUNCTION_186();
-  OUTLINED_FUNCTION_243(v211);
-  OUTLINED_FUNCTION_31(v278);
+  v176 = OUTLINED_FUNCTION_186();
+  OUTLINED_FUNCTION_243(v176);
+  OUTLINED_FUNCTION_31();
   OUTLINED_FUNCTION_218();
-  v271 = 0;
-  v272 = 0;
+  v227 = 0;
+  v228 = 0;
   OUTLINED_FUNCTION_114();
-  v212 = OUTLINED_FUNCTION_186();
-  OUTLINED_FUNCTION_217(v212);
-  OUTLINED_FUNCTION_71();
-  LOBYTE(v271) = 0;
-  v213 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySbGMd, &_s13SiriUtilities17MockablePublishedCySbGMR);
-  OUTLINED_FUNCTION_70(v213);
+  v177 = OUTLINED_FUNCTION_186();
+  OUTLINED_FUNCTION_217(v177);
+  OUTLINED_FUNCTION_71((v24 + 30));
+  LOBYTE(v227) = 0;
+  v178 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySbGMd, &_s13SiriUtilities17MockablePublishedCySbGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
-  v214 = OUTLINED_FUNCTION_186();
-  OUTLINED_FUNCTION_242(v214);
-  OUTLINED_FUNCTION_71();
-  LOBYTE(v271) = 0;
+  v179 = OUTLINED_FUNCTION_186();
+  OUTLINED_FUNCTION_242(v179);
+  OUTLINED_FUNCTION_71((v24 + 31));
+  LOBYTE(v227) = 0;
   OUTLINED_FUNCTION_76();
-  v215 = OUTLINED_FUNCTION_186();
-  OUTLINED_FUNCTION_241(v215);
-  OUTLINED_FUNCTION_71();
-  LOBYTE(v271) = 0;
-  v270 = v213;
+  v180 = OUTLINED_FUNCTION_186();
+  OUTLINED_FUNCTION_241(v180);
+  OUTLINED_FUNCTION_71((v24 + 32));
+  LOBYTE(v227) = 0;
+  v226 = v178;
   OUTLINED_FUNCTION_76();
-  v216 = OUTLINED_FUNCTION_186();
-  OUTLINED_FUNCTION_240(v216);
-  OUTLINED_FUNCTION_71();
-  LOBYTE(v271) = 0;
-  v217 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment24RequestPositionInSessionOGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment24RequestPositionInSessionOGMR);
-  OUTLINED_FUNCTION_70(v217);
+  v181 = OUTLINED_FUNCTION_186();
+  OUTLINED_FUNCTION_240(v181);
+  OUTLINED_FUNCTION_71((v24 + 33));
+  LOBYTE(v227) = 0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment24RequestPositionInSessionOGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment24RequestPositionInSessionOGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
-  v218 = OUTLINED_FUNCTION_186();
-  v219 = v24;
-  OUTLINED_FUNCTION_239(v218);
-  OUTLINED_FUNCTION_71();
-  v220 = v24[34];
+  v182 = OUTLINED_FUNCTION_186();
+  v183 = v24;
+  OUTLINED_FUNCTION_239(v182);
+  OUTLINED_FUNCTION_71((v24 + 34));
 
-  v271 = 0;
-  v272 = 0;
+  v227 = 0;
+  v228 = 0;
   OUTLINED_FUNCTION_114();
-  v221 = OUTLINED_FUNCTION_186();
-  OUTLINED_FUNCTION_253(v221);
+  v184 = OUTLINED_FUNCTION_186();
+  OUTLINED_FUNCTION_253(v184);
   OUTLINED_FUNCTION_87();
-  v282[0] = &type metadata for DummyLocationProvider;
-  v282[1] = &protocol witness table for DummyLocationProvider;
-  v222 = OUTLINED_FUNCTION_116();
-  outlined init with copy of SiriLocationProvider(v222, v223);
-  v224 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0A16LocationProvider_pGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0A16LocationProvider_pGMR);
-  OUTLINED_FUNCTION_70(v224);
+  v232[2] = &type metadata for DummyLocationProvider;
+  v232[3] = &protocol witness table for DummyLocationProvider;
+  v185 = OUTLINED_FUNCTION_116();
+  outlined init with copy of SiriLocationProvider(v185, v186);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0A16LocationProvider_pGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0A16LocationProvider_pGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
-  v225 = OUTLINED_FUNCTION_186();
-  OUTLINED_FUNCTION_67(v225);
-  OUTLINED_FUNCTION_71();
-  v226 = v24[36];
+  v187 = OUTLINED_FUNCTION_186();
+  OUTLINED_FUNCTION_67(v187);
+  OUTLINED_FUNCTION_71((v24 + 36));
 
-  v271 = 0;
-  v272 = 0;
-  v239 = v85;
+  v227 = 0;
+  v228 = 0;
+  v197 = v67;
   OUTLINED_FUNCTION_114();
-  v227 = OUTLINED_FUNCTION_186();
-  OUTLINED_FUNCTION_252(v227);
-  v228 = v263;
+  v188 = OUTLINED_FUNCTION_186();
+  OUTLINED_FUNCTION_252(v188);
+  v189 = v221;
   static ExecutionLocation.unknown.getter();
-  OUTLINED_FUNCTION_71();
-  v229 = v264;
-  v230 = *(v264 + 16);
-  v231 = OUTLINED_FUNCTION_125(&a10);
-  v232 = v265;
-  v230(v231, v228, v265);
-  v233 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA17ExecutionLocationVGMd, &_s13SiriUtilities17MockablePublishedCyAA17ExecutionLocationVGMR);
-  OUTLINED_FUNCTION_70(v233);
+  OUTLINED_FUNCTION_71((v183 + 23));
+  v190 = v222;
+  v191 = *(v222 + 16);
+  v192 = OUTLINED_FUNCTION_125(&a10);
+  v193 = v223;
+  v191(v192, v189, v223);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA17ExecutionLocationVGMd, &_s13SiriUtilities17MockablePublishedCyAA17ExecutionLocationVGMR);
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
   OUTLINED_FUNCTION_104();
-  v234 = MockablePublished.init(wrappedValue:)();
-  v235 = *(v229 + 8);
-  v235(v228, v232);
-  v219[23] = v234;
+  v194 = MockablePublished.init(wrappedValue:)();
+  v195 = *(v190 + 8);
+  v195(v189, v193);
+  v183[23] = v194;
   swift_endAccess();
   static ExecutionLocation.unknown.getter();
-  OUTLINED_FUNCTION_71();
-  v230(&_s19SiriFlowEnvironment0B12TaskMetadataVSgMd, v228, v232);
+  OUTLINED_FUNCTION_71((v183 + 24));
+  v191(&_s19SiriFlowEnvironment0B12TaskMetadataVSgMd, v189, v193);
   OUTLINED_FUNCTION_165();
   OUTLINED_FUNCTION_104();
   MockablePublished.init(wrappedValue:)();
-  v236 = OUTLINED_FUNCTION_268();
-  v235(v236, v232);
-  v219[24] = v234;
+  v196 = OUTLINED_FUNCTION_268();
+  v195(v196, v193);
+  v183[24] = v194;
   swift_endAccess();
-  OUTLINED_FUNCTION_71();
-  v237 = v219[37];
+  OUTLINED_FUNCTION_71((v183 + 37));
 
-  v271 = 0;
-  v272 = 0;
+  v227 = 0;
+  v228 = 0;
   OUTLINED_FUNCTION_76();
-  v219[37] = OUTLINED_FUNCTION_186();
+  v183[37] = OUTLINED_FUNCTION_186();
   swift_endAccess();
-  OUTLINED_FUNCTION_71();
-  v238 = v219[38];
+  OUTLINED_FUNCTION_71((v183 + 38));
 
-  v271 = 0;
-  v272 = 0;
+  v227 = 0;
+  v228 = 0;
   OUTLINED_FUNCTION_76();
-  v219[38] = OUTLINED_FUNCTION_186();
+  v183[38] = OUTLINED_FUNCTION_186();
   swift_endAccess();
-  OUTLINED_FUNCTION_71();
-  LOBYTE(v271) = 0;
-  OUTLINED_FUNCTION_70(v270);
+  OUTLINED_FUNCTION_71((v183 + 39));
+  LOBYTE(v227) = 0;
+  OUTLINED_FUNCTION_70();
   swift_allocObject();
-  v219[39] = OUTLINED_FUNCTION_186();
+  v183[39] = OUTLINED_FUNCTION_186();
   swift_endAccess();
   OUTLINED_FUNCTION_142();
 
@@ -2930,17 +2714,14 @@ uint64_t outlined init with copy of AudioSource?(uint64_t a1, uint64_t a2, uint6
   return a2;
 }
 
-uint64_t OUTLINED_FUNCTION_112@<X0>(uint64_t a1@<X8>)
+uint64_t OUTLINED_FUNCTION_112()
 {
-  v2 = *(a1 - 256);
 
   return swift_beginAccess();
 }
 
 uint64_t OUTLINED_FUNCTION_115()
 {
-  v2 = *(v0 + 48);
-  v3 = *(v0 + 52);
 
   return swift_allocObject();
 }
@@ -2953,8 +2734,6 @@ uint64_t OUTLINED_FUNCTION_87()
 
 uint64_t OUTLINED_FUNCTION_114()
 {
-  v2 = *(v0 + 48);
-  v3 = *(v0 + 52);
 
   return swift_allocObject();
 }
@@ -2978,9 +2757,8 @@ uint64_t OUTLINED_FUNCTION_20_0(void *a1)
   v6 = a1[20];
   v7 = a1[21];
   v8 = a1[22];
-  v9 = a1[23];
 
-  return outlined consume of Policy?(v3);
+  return outlined consume of Policy?(v3, v4, v5, v6, v7, v8);
 }
 
 uint64_t OUTLINED_FUNCTION_249()
@@ -2990,7 +2768,7 @@ uint64_t OUTLINED_FUNCTION_249()
   return swift_endAccess();
 }
 
-uint64_t type metadata accessor for FlowTaskMetadata()
+uint64_t type metadata accessor for FlowTaskMetadata(uint64_t a1)
 {
   result = type metadata singleton initialization cache for FlowTaskMetadata;
   if (!type metadata singleton initialization cache for FlowTaskMetadata)
@@ -3001,22 +2779,7 @@ uint64_t type metadata accessor for FlowTaskMetadata()
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_61()
-{
-  result = *(v0 - 352);
-  v2 = *(v0 - 416);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_43()
-{
-  v1 = *(*(v0 - 440) + 16);
-  result = *(v0 - 448);
-  v3 = *(v0 - 432);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_143()
+uint64_t OUTLINED_FUNCTION_143(uint64_t a1, uint64_t a2)
 {
 
   return swift_beginAccess();
@@ -3025,10 +2788,8 @@ uint64_t OUTLINED_FUNCTION_143()
 uint64_t OUTLINED_FUNCTION_50@<X0>(uint64_t a1@<X8>)
 {
   *(v1 - 256) = a1;
-  *(v3 - 160) = 0;
-  *(v3 - 152) = 0;
-  v5 = *(v2 + 48);
-  v6 = *(v2 + 52);
+  *(v2 - 160) = 0;
+  *(v2 - 152) = 0;
 
   return swift_allocObject();
 }
@@ -3043,13 +2804,6 @@ uint64_t OUTLINED_FUNCTION_67(uint64_t a1)
   *(v1 + 280) = a1;
 
   return swift_endAccess();
-}
-
-uint64_t OUTLINED_FUNCTION_47@<X0>(uint64_t a1@<X8>)
-{
-  result = *(a1 - 256);
-  v3 = *(v1 - 296);
-  return result;
 }
 
 uint64_t OUTLINED_FUNCTION_202(uint64_t a1)
@@ -3085,9 +2839,8 @@ uint64_t OUTLINED_FUNCTION_189(uint64_t result)
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_33@<X0>(uint64_t a1@<X8>)
+uint64_t OUTLINED_FUNCTION_33()
 {
-  v2 = *(a1 - 256);
 
   return swift_beginAccess();
 }
@@ -3108,12 +2861,10 @@ uint64_t OUTLINED_FUNCTION_253(uint64_t a1)
 
 uint64_t OUTLINED_FUNCTION_219()
 {
-  v2 = *v0;
 }
 
 uint64_t OUTLINED_FUNCTION_218()
 {
-  v2 = *v0;
 }
 
 uint64_t OUTLINED_FUNCTION_217(uint64_t a1)
@@ -3166,29 +2917,22 @@ double OUTLINED_FUNCTION_225()
 
 uint64_t OUTLINED_FUNCTION_140@<X0>(uint64_t a1@<X8>)
 {
-  *(v2 - 256) = *(a1 - 256);
-  v4 = *(v1 + 48);
-  v5 = *(v1 + 52);
+  *(v1 - 256) = *(a1 - 256);
 
   return swift_allocObject();
 }
 
-uint64_t OUTLINED_FUNCTION_45()
-{
-  result = *(v0 - 288);
-  v2 = *(v0 - 368);
-  return result;
-}
-
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t OUTLINED_FUNCTION_274()
@@ -3200,13 +2944,11 @@ uint64_t OUTLINED_FUNCTION_274()
 
 uint64_t OUTLINED_FUNCTION_76()
 {
-  v2 = *(v0 + 48);
-  v3 = *(v0 + 52);
 
   return swift_allocObject();
 }
 
-uint64_t OUTLINED_FUNCTION_185()
+uint64_t OUTLINED_FUNCTION_185(uint64_t a1, uint64_t a2)
 {
 
   return swift_beginAccess();
@@ -3232,24 +2974,16 @@ uint64_t OUTLINED_FUNCTION_239(uint64_t a1)
   return swift_endAccess();
 }
 
-void OUTLINED_FUNCTION_237()
-{
-  v1 = *(v0 - 120);
-  v2 = *(v0 - 112);
-  v3 = *(v0 - 104);
-  v4 = *(v0 - 96);
-}
-
 uint64_t OUTLINED_FUNCTION_238()
 {
 
   return swift_getKeyPath();
 }
 
-void CurrentRequest.overrideProperties.setter()
+void CurrentRequest.overrideProperties.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
   OUTLINED_FUNCTION_315();
-  __swift_instantiateConcreteTypeFromMangledNameV2(v0, v1);
+  __swift_instantiateConcreteTypeFromMangledNameV2(v18, v19);
   OUTLINED_FUNCTION_313();
   OUTLINED_FUNCTION_238();
   OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
@@ -3260,29 +2994,28 @@ void CurrentRequest.overrideProperties.setter()
 }
 
 {
-  CurrentRequest.overrideProperties.setter();
+  CurrentRequest.overrideProperties.setter(a1, &_s13SiriUtilities17MockablePublishedCySDy0A15FlowEnvironment23CurrentRequestOverridesO5FieldOypGSgGMd, &_s13SiriUtilities17MockablePublishedCySDy0A15FlowEnvironment23CurrentRequestOverridesO5FieldOypGSgGMR, &unk_1DD385DA8, &unk_1DD385DD0, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18);
 }
 
-uint64_t sub_1DD35BE98(uint64_t *a1)
+uint64_t sub_1DD35BE98()
 {
-  OUTLINED_FUNCTION_127(a1);
+  OUTLINED_FUNCTION_127();
   result = CurrentRequest.overrideProperties.getter();
-  *v1 = result;
+  *v0 = result;
   return result;
 }
 
-uint64_t sub_1DD35BF18(uint64_t *a1)
+uint64_t sub_1DD35BF18()
 {
-  OUTLINED_FUNCTION_127(a1);
+  OUTLINED_FUNCTION_127();
   result = CurrentRequest.sessionId.getter();
-  *v1 = result;
-  v1[1] = v3;
+  *v0 = result;
+  v0[1] = v2;
   return result;
 }
 
 uint64_t protocol witness for ObservableObject.objectWillChange.getter in conformance CurrentRequest@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *v1;
   result = ObservableObject<>.objectWillChange.getter();
   *a1 = result;
   return result;
@@ -3299,7 +3032,7 @@ uint64_t SiriEnvironment.currentRequest.setter()
 
 uint64_t FlowTaskMetadata.init(id:isClientInitiated:creationTime:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v10 = *(type metadata accessor for FlowTaskMetadata() + 24);
+  v10 = *(type metadata accessor for FlowTaskMetadata(0) + 24);
   v11 = type metadata accessor for Date();
   __swift_storeEnumTagSinglePayload(a5 + v10, 1, 1, v11);
   *a5 = a1;
@@ -3324,9 +3057,8 @@ void CurrentRequest.flowTaskMetadata.setter()
   v0 = OUTLINED_FUNCTION_169();
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(v0, v1);
   OUTLINED_FUNCTION_10(v2);
-  v4 = *(v3 + 64);
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v5);
+  MEMORY[0x1EEE9AC00](v3);
   OUTLINED_FUNCTION_149();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0E12TaskMetadataVSgGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0E12TaskMetadataVSgGMR);
   swift_getKeyPath();
@@ -3335,8 +3067,8 @@ void CurrentRequest.flowTaskMetadata.setter()
   OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
   OUTLINED_FUNCTION_281();
   OUTLINED_FUNCTION_59();
-  v6 = OUTLINED_FUNCTION_97();
-  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v6, v7, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMR);
+  v4 = OUTLINED_FUNCTION_97();
+  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v4, v5, &_s19SiriFlowEnvironment0B12TaskMetadataVSgMR);
   OUTLINED_FUNCTION_170();
 }
 
@@ -3344,7 +3076,7 @@ uint64_t static SharedContext.current.getter@<X0>(uint64_t *a1@<X8>)
 {
   if (one-time initialization token for internalSharedContext != -1)
   {
-    OUTLINED_FUNCTION_0_3();
+    OUTLINED_FUNCTION_0_3(&one-time initialization token for internalSharedContext);
   }
 
   v2 = static SharedContext.internalSharedContext;
@@ -3353,63 +3085,41 @@ uint64_t static SharedContext.current.getter@<X0>(uint64_t *a1@<X8>)
   *a1 = v2;
 }
 
-uint64_t _s19SiriFlowEnvironment15UserSessionTypeO17AmbientCodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOs0H3KeyAAsAGP11stringValuexSgSS_tcfCTW_0@<X0>(_BYTE *a1@<X8>)
+uint64_t _s19SiriFlowEnvironment15UserSessionTypeO17AmbientCodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOs0H3KeyAAsAGP11stringValuexSgSS_tcfCTW_0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
 {
-  result = _s19SiriFlowEnvironment15UserSessionTypeO17AmbientCodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLO11stringValueAFSgSS_tcfC_0();
-  *a1 = result & 1;
+  result = _s19SiriFlowEnvironment15UserSessionTypeO17AmbientCodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLO11stringValueAFSgSS_tcfC_0(a1, a2);
+  *a3 = result & 1;
   return result;
 }
 
-uint64_t sub_1DD35C508(uint64_t *a1)
+uint64_t sub_1DD35C508()
 {
-  OUTLINED_FUNCTION_127(a1);
+  OUTLINED_FUNCTION_127();
   result = SiriEnvironment.currentRequest.getter();
-  *v1 = result;
+  *v0 = result;
   return result;
 }
 
-uint64_t sub_1DD35D4AC@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t sub_1DD35D4AC@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *a1;
   result = SiriEnvironment.homeKitProvider.getter();
-  *a2 = result;
+  *a1 = result;
   return result;
 }
 
-uint64_t sub_1DD35D4DC@<X0>(uint64_t **a1@<X0>, uint64_t *a2@<X8>)
+uint64_t sub_1DD35D4DC@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = OUTLINED_FUNCTION_4_3(a1);
-  result = (*(v4 + 120))(v3);
-  *a2 = result;
+  OUTLINED_FUNCTION_4_3();
+  result = (*(v2 + 120))();
+  *a1 = result;
   return result;
 }
 
 uint64_t sub_1DD35D564()
 {
-  v1 = v0[2];
 
-  v2 = v0[4];
-
-  v3 = v0[6];
-
-  v4 = v0[8];
-
-  v5 = v0[10];
-
-  v6 = v0[12];
-
-  v7 = v0[14];
-
-  v8 = v0[17];
-
-  if (v0[18] != 1)
+  if (*(v0 + 144) != 1)
   {
-
-    v9 = v0[19];
-
-    v10 = v0[20];
-
-    v11 = v0[22];
   }
 
   return MEMORY[0x1EEE6BDD0](v0, 192, 7);
@@ -3417,84 +3127,55 @@ uint64_t sub_1DD35D564()
 
 uint64_t sub_1DD35D600()
 {
-  v1 = v0[3];
 
-  v2 = v0[5];
-
-  v3 = v0[8];
-
-  v4 = v0[10];
-
-  if (v0[11] != 1)
+  if (*(v0 + 88) != 1)
   {
-
-    v5 = v0[12];
-
-    v6 = v0[13];
-
-    v7 = v0[15];
   }
-
-  v8 = v0[17];
 
   return MEMORY[0x1EEE6BDD0](v0, 152, 7);
 }
 
-uint64_t sub_1DD35D680(uint64_t **a1)
+uint64_t sub_1DD35D680()
 {
-  v2 = OUTLINED_FUNCTION_7_2(a1);
-  result = (*(v3 + 152))(v2);
-  *v1 = result;
-  v1[1] = v5;
+  OUTLINED_FUNCTION_7_2();
+  result = (*(v1 + 152))();
+  *v0 = result;
+  v0[1] = v3;
   return result;
 }
 
-uint64_t sub_1DD35D6C4(uint64_t **a1)
+uint64_t sub_1DD35D6C4()
 {
-  v2 = OUTLINED_FUNCTION_7_2(a1);
-  result = (*(v3 + 176))(v2);
-  *v1 = result;
+  OUTLINED_FUNCTION_7_2();
+  result = (*(v1 + 176))();
+  *v0 = result;
   return result;
 }
 
-uint64_t sub_1DD35D708(uint64_t **a1)
+uint64_t sub_1DD35D708()
 {
-  v2 = OUTLINED_FUNCTION_7_2(a1);
-  result = (*(v3 + 200))(v2);
-  *v1 = result;
-  v1[1] = v5;
+  OUTLINED_FUNCTION_7_2();
+  result = (*(v1 + 200))();
+  *v0 = result;
+  v0[1] = v3;
   return result;
 }
 
 uint64_t sub_1DD35D74C()
 {
-  v1 = v0[2];
-
-  v2 = v0[4];
-
-  v3 = v0[6];
-
-  v4 = v0[8];
 
   return MEMORY[0x1EEE6BDD0](v0, 80, 7);
 }
 
 uint64_t sub_1DD35D79C()
 {
-  v1 = v0[3];
-
-  v2 = v0[5];
-
-  v3 = v0[7];
-
-  v4 = v0[9];
 
   return MEMORY[0x1EEE6BDD0](v0, 80, 7);
 }
 
-void sub_1DD35DB0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1DD35DB0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3755,11 +3436,11 @@ uint64_t UserSessionType.CodingKeys.stringValue.getter(char a1)
   return 0xD000000000000013;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance UserSessionType.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance UserSessionType.CodingKeys(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x1E12AE320](v1);
+  MEMORY[0x1E12AE320](v2);
   return Hasher._finalize()();
 }
 
@@ -3816,7 +3497,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x1EEE6BB78](a1, v2);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance UserSessionType.EnrolledUserSessionCodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance UserSessionType.EnrolledUserSessionCodingKeys(uint64_t a1)
 {
   Hasher.init(_seed:)();
   MEMORY[0x1E12AE320](0);
@@ -3858,85 +3539,77 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x1EEE6BB78](a1, v2);
 }
 
-void UserSessionType.encode(to:)()
+void UserSessionType.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, char a11, char a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   OUTLINED_FUNCTION_9();
-  v53 = v1;
-  v3 = v2;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriFlowEnvironment15UserSessionTypeO08EnrolledgH10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMd, &_ss22KeyedEncodingContainerVy19SiriFlowEnvironment15UserSessionTypeO08EnrolledgH10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMR);
-  v5 = OUTLINED_FUNCTION_0(v4);
-  v51 = v6;
-  v52 = v5;
-  v8 = *(v7 + 64);
+  v60 = v25;
+  v27 = v26;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriFlowEnvironment15UserSessionTypeO08EnrolledgH10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMd, &_ss22KeyedEncodingContainerVy19SiriFlowEnvironment15UserSessionTypeO08EnrolledgH10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMR);
+  OUTLINED_FUNCTION_0();
+  v58 = v29;
+  v59 = v28;
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v9);
-  v50 = &v44 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriFlowEnvironment15UserSessionTypeO15GuestCodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMd, &_ss22KeyedEncodingContainerVy19SiriFlowEnvironment15UserSessionTypeO15GuestCodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMR);
-  v12 = OUTLINED_FUNCTION_0(v11);
-  v48 = v13;
-  v49 = v12;
-  v15 = *(v14 + 64);
+  MEMORY[0x1EEE9AC00](v30);
+  v57 = &v51 - v31;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriFlowEnvironment15UserSessionTypeO15GuestCodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMd, &_ss22KeyedEncodingContainerVy19SiriFlowEnvironment15UserSessionTypeO15GuestCodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMR);
+  OUTLINED_FUNCTION_0();
+  v55 = v33;
+  v56 = v32;
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v16);
-  v47 = &v44 - v17;
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriFlowEnvironment15UserSessionTypeO17AmbientCodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMd, &_ss22KeyedEncodingContainerVy19SiriFlowEnvironment15UserSessionTypeO17AmbientCodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMR);
-  v19 = OUTLINED_FUNCTION_0(v18);
-  v45 = v20;
-  v46 = v19;
-  v22 = *(v21 + 64);
+  MEMORY[0x1EEE9AC00](v34);
+  v54 = &v51 - v35;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriFlowEnvironment15UserSessionTypeO17AmbientCodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMd, &_ss22KeyedEncodingContainerVy19SiriFlowEnvironment15UserSessionTypeO17AmbientCodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMR);
+  OUTLINED_FUNCTION_0();
+  v52 = v37;
+  v53 = v36;
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v23);
-  v25 = &v44 - v24;
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriFlowEnvironment15UserSessionTypeO10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMd, &_ss22KeyedEncodingContainerVy19SiriFlowEnvironment15UserSessionTypeO10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMR);
-  OUTLINED_FUNCTION_0(v26);
-  v28 = v27;
-  v30 = *(v29 + 64);
+  MEMORY[0x1EEE9AC00](v38);
+  v40 = &v51 - v39;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriFlowEnvironment15UserSessionTypeO10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMd, &_ss22KeyedEncodingContainerVy19SiriFlowEnvironment15UserSessionTypeO10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMR);
+  OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v31);
+  MEMORY[0x1EEE9AC00](v41);
   OUTLINED_FUNCTION_5();
-  v32 = *v0;
-  v33 = v3[4];
-  __swift_project_boxed_opaque_existential_1(v3, v3[3]);
+  v42 = *v24;
+  __swift_project_boxed_opaque_existential_1(v27, v27[3]);
   lazy protocol witness table accessor for type UserSessionType.CodingKeys and conformance UserSessionType.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  if (v32 == 2)
+  if (v42 == 2)
   {
     lazy protocol witness table accessor for type UserSessionType.AmbientCodingKeys and conformance UserSessionType.AmbientCodingKeys();
     OUTLINED_FUNCTION_3();
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    v35 = v45;
-    v34 = v46;
+    v44 = v52;
+    v43 = v53;
   }
 
   else
   {
-    if (v32 != 3)
+    if (v42 != 3)
     {
       lazy protocol witness table accessor for type UserSessionType.EnrolledUserSessionCodingKeys and conformance UserSessionType.EnrolledUserSessionCodingKeys();
-      v39 = v50;
+      v47 = v57;
       OUTLINED_FUNCTION_3();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      v40 = v52;
+      v48 = v59;
       KeyedEncodingContainer.encode(_:forKey:)();
-      (*(v51 + 8))(v39, v40);
-      v41 = *(v28 + 8);
-      v42 = OUTLINED_FUNCTION_7();
-      v43(v42);
+      (*(v58 + 8))(v47, v48);
+      v49 = OUTLINED_FUNCTION_7();
+      v50(v49);
       goto LABEL_7;
     }
 
     lazy protocol witness table accessor for type UserSessionType.GuestCodingKeys and conformance UserSessionType.GuestCodingKeys();
-    v25 = v47;
+    v40 = v54;
     OUTLINED_FUNCTION_3();
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    v35 = v48;
-    v34 = v49;
+    v44 = v55;
+    v43 = v56;
   }
 
-  (*(v35 + 8))(v25, v34);
-  v36 = *(v28 + 8);
-  v37 = OUTLINED_FUNCTION_7();
-  v38(v37);
+  (*(v44 + 8))(v40, v43);
+  v45 = OUTLINED_FUNCTION_7();
+  v46(v45);
 LABEL_7:
   OUTLINED_FUNCTION_8();
 }
@@ -3946,7 +3619,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -4117,101 +3789,96 @@ void UserSessionType.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
   OUTLINED_FUNCTION_9();
   a23 = v26;
   a24 = v27;
-  v99 = v24;
+  v88 = v24;
   v29 = v28;
-  v96 = v30;
-  v92 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriFlowEnvironment15UserSessionTypeO08EnrolledgH10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMd, &_ss22KeyedDecodingContainerVy19SiriFlowEnvironment15UserSessionTypeO08EnrolledgH10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMR);
-  OUTLINED_FUNCTION_0(v92);
-  v95 = v31;
-  v33 = *(v32 + 64);
+  v85 = v30;
+  v81 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriFlowEnvironment15UserSessionTypeO08EnrolledgH10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMd, &_ss22KeyedDecodingContainerVy19SiriFlowEnvironment15UserSessionTypeO08EnrolledgH10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMR);
+  OUTLINED_FUNCTION_0();
+  v84 = v31;
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v34);
-  v98 = &v88 - v35;
-  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriFlowEnvironment15UserSessionTypeO15GuestCodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMd, &_ss22KeyedDecodingContainerVy19SiriFlowEnvironment15UserSessionTypeO15GuestCodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMR);
-  v37 = OUTLINED_FUNCTION_0(v36);
-  v93 = v38;
-  v94 = v37;
-  v40 = *(v39 + 64);
+  MEMORY[0x1EEE9AC00](v32);
+  v87 = &v77 - v33;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriFlowEnvironment15UserSessionTypeO15GuestCodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMd, &_ss22KeyedDecodingContainerVy19SiriFlowEnvironment15UserSessionTypeO15GuestCodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMR);
+  OUTLINED_FUNCTION_0();
+  v82 = v35;
+  v83 = v34;
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v41);
+  MEMORY[0x1EEE9AC00](v36);
   OUTLINED_FUNCTION_5();
-  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriFlowEnvironment15UserSessionTypeO17AmbientCodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMd, &_ss22KeyedDecodingContainerVy19SiriFlowEnvironment15UserSessionTypeO17AmbientCodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMR);
-  OUTLINED_FUNCTION_0(v42);
-  v91 = v43;
-  v45 = *(v44 + 64);
+  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriFlowEnvironment15UserSessionTypeO17AmbientCodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMd, &_ss22KeyedDecodingContainerVy19SiriFlowEnvironment15UserSessionTypeO17AmbientCodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMR);
+  OUTLINED_FUNCTION_0();
+  v80 = v38;
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v46);
-  v48 = &v88 - v47;
-  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriFlowEnvironment15UserSessionTypeO10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMd, &_ss22KeyedDecodingContainerVy19SiriFlowEnvironment15UserSessionTypeO10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMR);
-  OUTLINED_FUNCTION_0(v49);
-  v97 = v50;
-  v52 = *(v51 + 64);
+  MEMORY[0x1EEE9AC00](v39);
+  v41 = &v77 - v40;
+  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriFlowEnvironment15UserSessionTypeO10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMd, &_ss22KeyedDecodingContainerVy19SiriFlowEnvironment15UserSessionTypeO10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMR);
+  OUTLINED_FUNCTION_0();
+  v86 = v43;
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v53);
-  v55 = &v88 - v54;
-  v56 = v29[4];
+  MEMORY[0x1EEE9AC00](v44);
+  v46 = &v77 - v45;
   __swift_project_boxed_opaque_existential_1(v29, v29[3]);
   lazy protocol witness table accessor for type UserSessionType.CodingKeys and conformance UserSessionType.CodingKeys();
-  v57 = v99;
+  v47 = v88;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v57)
+  if (v47)
   {
     goto LABEL_10;
   }
 
-  v89 = v42;
-  v90 = v48;
-  v99 = v29;
-  v58 = v55;
-  v59 = KeyedDecodingContainer.allKeys.getter();
-  started = _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC19SiriFlowEnvironment15UserSessionTypeO10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLO_Tt1g5(v59, 0);
-  if (v61 == v62 >> 1)
+  v78 = v37;
+  v79 = v41;
+  v88 = v29;
+  v48 = v46;
+  v49 = KeyedDecodingContainer.allKeys.getter();
+  started = _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC19SiriFlowEnvironment15UserSessionTypeO10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLO_Tt1g5(v49, 0);
+  if (v51 == v52 >> 1)
   {
 LABEL_9:
-    v74 = type metadata accessor for DecodingError();
+    v64 = type metadata accessor for DecodingError();
     swift_allocError();
-    v76 = v75;
-    v77 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR) + 48);
-    *v76 = &type metadata for UserSessionType;
+    v66 = v65;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
+    *v66 = &type metadata for UserSessionType;
     KeyedDecodingContainer.codingPath.getter();
     DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
-    (*(*(v74 - 8) + 104))(v76, *MEMORY[0x1E69E6AF8], v74);
+    (*(*(v64 - 8) + 104))(v66, *MEMORY[0x1E69E6AF8], v64);
     swift_willThrow();
     swift_unknownObjectRelease();
-    (*(v97 + 8))(v58, v49);
-    v29 = v99;
+    (*(v86 + 8))(v48, v42);
+    v29 = v88;
 LABEL_10:
-    v78 = v29;
+    v67 = v29;
 LABEL_11:
-    __swift_destroy_boxed_opaque_existential_1(v78);
+    __swift_destroy_boxed_opaque_existential_1(v67);
     OUTLINED_FUNCTION_8();
     return;
   }
 
-  v88 = 0;
-  if (v61 < (v62 >> 1))
+  v77 = 0;
+  if (v51 < (v52 >> 1))
   {
-    v64 = v55;
-    v65 = *(v60 + v61);
-    specialized ArraySlice.subscript.getter(v61 + 1, v62 >> 1, started, v60, v61, v62);
-    v67 = v66;
-    v69 = v68;
+    v54 = v46;
+    v55 = *(v50 + v51);
+    specialized ArraySlice.subscript.getter(v51 + 1, v52 >> 1, started, v50, v51, v52);
+    v57 = v56;
+    v59 = v58;
     swift_unknownObjectRelease();
-    if (v67 == v69 >> 1)
+    if (v57 == v59 >> 1)
     {
-      if (v65)
+      if (v55)
       {
-        if (v65 == 1)
+        if (v55 == 1)
         {
           a13 = 1;
           lazy protocol witness table accessor for type UserSessionType.GuestCodingKeys and conformance UserSessionType.GuestCodingKeys();
           OUTLINED_FUNCTION_4(&unk_1F58A2B20, &a13);
-          v70 = v96;
+          v60 = v85;
           swift_unknownObjectRelease();
-          (*(v93 + 8))(v25, v94);
-          v71 = OUTLINED_FUNCTION_1();
-          v72(v71);
-          v73 = 3;
+          (*(v82 + 8))(v25, v83);
+          v61 = OUTLINED_FUNCTION_1();
+          v62(v61);
+          v63 = 3;
         }
 
         else
@@ -4219,16 +3886,16 @@ LABEL_11:
           a14 = 2;
           lazy protocol witness table accessor for type UserSessionType.EnrolledUserSessionCodingKeys and conformance UserSessionType.EnrolledUserSessionCodingKeys();
           OUTLINED_FUNCTION_4(&unk_1F58A2BB0, &a14);
-          v82 = v49;
-          v83 = KeyedDecodingContainer.decode(_:forKey:)();
-          v84 = v97;
-          v85 = v83;
+          v71 = v42;
+          v72 = KeyedDecodingContainer.decode(_:forKey:)();
+          v73 = v86;
+          v74 = v72;
           swift_unknownObjectRelease();
-          v86 = OUTLINED_FUNCTION_6();
-          v87(v86);
-          (*(v84 + 8))(v64, v82);
-          v73 = v85 & 1;
-          v70 = v96;
+          v75 = OUTLINED_FUNCTION_6();
+          v76(v75);
+          (*(v73 + 8))(v54, v71);
+          v63 = v74 & 1;
+          v60 = v85;
         }
       }
 
@@ -4236,22 +3903,22 @@ LABEL_11:
       {
         a12 = 0;
         lazy protocol witness table accessor for type UserSessionType.AmbientCodingKeys and conformance UserSessionType.AmbientCodingKeys();
-        v79 = v90;
+        v68 = v79;
         OUTLINED_FUNCTION_4(&unk_1F58A2B00, &a12);
         swift_unknownObjectRelease();
-        (*(v91 + 8))(v79, v89);
-        v80 = OUTLINED_FUNCTION_1();
-        v81(v80);
-        v73 = 2;
-        v70 = v96;
+        (*(v80 + 8))(v68, v78);
+        v69 = OUTLINED_FUNCTION_1();
+        v70(v69);
+        v63 = 2;
+        v60 = v85;
       }
 
-      *v70 = v73;
-      v78 = v99;
+      *v60 = v63;
+      v67 = v88;
       goto LABEL_11;
     }
 
-    v58 = v64;
+    v48 = v54;
     goto LABEL_9;
   }
 
@@ -4295,45 +3962,44 @@ uint64_t UserSessionState.description.getter()
 uint64_t UserSessionState.init(userSessionType:isSessionActiveForRecognizedUser:)@<X0>(unsigned __int8 *a1@<X0>, char a2@<W1>, __int16 *a3@<X8>)
 {
   v6 = type metadata accessor for Logger();
-  v7 = OUTLINED_FUNCTION_0(v6);
-  v9 = v8;
-  v11 = *(v10 + 64);
-  result = MEMORY[0x1EEE9AC00](v7);
-  v14 = &v21 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = *a1;
-  if (v15 == 2 && (a2 & 1) != 0)
+  OUTLINED_FUNCTION_0();
+  v8 = v7;
+  result = MEMORY[0x1EEE9AC00](v9);
+  v12 = &v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = *a1;
+  if (v13 == 2 && (a2 & 1) != 0)
   {
     static Logger.environment.getter();
-    v16 = Logger.logObject.getter();
-    v17 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v16, v17))
+    v14 = Logger.logObject.getter();
+    v15 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v14, v15))
     {
-      v18 = swift_slowAlloc();
-      *v18 = 0;
-      _os_log_impl(&dword_1DD354000, v16, v17, "#user-session: invalid state for ambient mode. isSessionActiveForRecognizedUser should be false", v18, 2u);
-      MEMORY[0x1E12AE9C0](v18, -1, -1);
+      v16 = swift_slowAlloc();
+      *v16 = 0;
+      _os_log_impl(&dword_1DD354000, v14, v15, "#user-session: invalid state for ambient mode. isSessionActiveForRecognizedUser should be false", v16, 2u);
+      MEMORY[0x1E12AE9C0](v16, -1, -1);
     }
 
-    result = (*(v9 + 8))(v14, v6);
-    v19 = 512;
+    result = (*(v8 + 8))(v12, v6);
+    v17 = 512;
   }
 
   else
   {
     if (a2)
     {
-      v20 = 256;
+      v18 = 256;
     }
 
     else
     {
-      v20 = 0;
+      v18 = 0;
     }
 
-    v19 = v20 | v15;
+    v17 = v18 | v13;
   }
 
-  *a3 = v19;
+  *a3 = v17;
   return result;
 }
 
@@ -4448,26 +4114,24 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x1EEE6BB78](a1, v2);
 }
 
-void UserSessionState.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, char a11, char a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
+void UserSessionState.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, unsigned int a10, char a11, char a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   OUTLINED_FUNCTION_9();
   a23 = v26;
   a24 = v27;
   v29 = v28;
   v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriFlowEnvironment16UserSessionStateV10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMd, &_ss22KeyedEncodingContainerVy19SiriFlowEnvironment16UserSessionStateV10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMR);
-  OUTLINED_FUNCTION_0(v30);
+  OUTLINED_FUNCTION_0();
   v32 = v31;
-  v34 = *(v33 + 64);
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v35);
-  v37 = &a9 - v36;
-  v38 = *v24;
+  MEMORY[0x1EEE9AC00](v33);
+  v35 = &a9 - v34;
+  v36 = *v24;
   a10 = v24[1];
-  v39 = v29[4];
   __swift_project_boxed_opaque_existential_1(v29, v29[3]);
   lazy protocol witness table accessor for type UserSessionState.CodingKeys and conformance UserSessionState.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  a14 = v38;
+  a14 = v36;
   a13 = 0;
   lazy protocol witness table accessor for type UserSessionType and conformance UserSessionType();
   KeyedEncodingContainer.encode<A>(_:forKey:)();
@@ -4477,40 +4141,36 @@ void UserSessionState.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
     KeyedEncodingContainer.encode(_:forKey:)();
   }
 
-  (*(v32 + 8))(v37, v30);
+  (*(v32 + 8))(v35, v30);
   OUTLINED_FUNCTION_8();
 }
 
-void UserSessionState.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13)
+void UserSessionState.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, char a11, char a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   OUTLINED_FUNCTION_9();
-  v15 = v14;
-  v17 = v16;
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriFlowEnvironment16UserSessionStateV10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMd, &_ss22KeyedDecodingContainerVy19SiriFlowEnvironment16UserSessionStateV10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMR);
-  OUTLINED_FUNCTION_0(v18);
-  v20 = v19;
-  v22 = *(v21 + 64);
+  v26 = v25;
+  v28 = v27;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy19SiriFlowEnvironment16UserSessionStateV10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMd, &_ss22KeyedDecodingContainerVy19SiriFlowEnvironment16UserSessionStateV10CodingKeys33_49A8E3186BDBBC2BEC4FA2E42DB801C5LLOGMR);
+  OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v23);
+  MEMORY[0x1EEE9AC00](v29);
   OUTLINED_FUNCTION_5();
-  v24 = v15[4];
-  __swift_project_boxed_opaque_existential_1(v15, v15[3]);
+  __swift_project_boxed_opaque_existential_1(v26, v26[3]);
   lazy protocol witness table accessor for type UserSessionState.CodingKeys and conformance UserSessionState.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (!v13)
+  if (!v24)
   {
     lazy protocol witness table accessor for type UserSessionType and conformance UserSessionType();
     OUTLINED_FUNCTION_3();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v25 = KeyedDecodingContainer.decode(_:forKey:)();
-    v26 = *(v20 + 8);
-    v27 = OUTLINED_FUNCTION_7();
-    v28(v27);
-    *v17 = a13;
-    v17[1] = v25 & 1;
+    v30 = KeyedDecodingContainer.decode(_:forKey:)();
+    v31 = OUTLINED_FUNCTION_7();
+    v32(v31);
+    *v28 = a14;
+    v28[1] = v30 & 1;
   }
 
-  __swift_destroy_boxed_opaque_existential_1(v15);
+  __swift_destroy_boxed_opaque_existential_1(v26);
   OUTLINED_FUNCTION_8();
 }
 
@@ -5454,14 +5114,12 @@ LABEL_19:
 uint64_t FlowTaskMetadata.id.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
 
 uint64_t FlowTaskMetadata.id.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = v2[1];
 
   *v2 = a1;
   v2[1] = a2;
@@ -5470,7 +5128,7 @@ uint64_t FlowTaskMetadata.id.setter(uint64_t a1, uint64_t a2)
 
 uint64_t FlowTaskMetadata.creationTime.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = v1 + *(type metadata accessor for FlowTaskMetadata() + 24);
+  v3 = v1 + *(type metadata accessor for FlowTaskMetadata(0) + 24);
 
   return outlined init with copy of Date?(v3, a1);
 }
@@ -5484,7 +5142,7 @@ uint64_t outlined init with copy of Date?(uint64_t a1, uint64_t a2)
 
 uint64_t FlowTaskMetadata.creationTime.setter(uint64_t a1)
 {
-  v3 = v1 + *(type metadata accessor for FlowTaskMetadata() + 24);
+  v3 = v1 + *(type metadata accessor for FlowTaskMetadata(0) + 24);
 
   return outlined assign with take of Date?(a1, v3);
 }
@@ -5496,16 +5154,16 @@ uint64_t outlined assign with take of Date?(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-void type metadata completion function for FlowTaskMetadata()
+void type metadata completion function for FlowTaskMetadata(uint64_t a1)
 {
-  type metadata accessor for String?(319, &lazy cache variable for type metadata for String?);
-  if (v0 <= 0x3F)
+  type metadata accessor for String?(319, &lazy cache variable for type metadata for String?, MEMORY[0x1E69E6158]);
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for String?(319, &lazy cache variable for type metadata for Bool?);
-    if (v1 <= 0x3F)
+    type metadata accessor for String?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x1E69E6370]);
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for Date?();
-      if (v2 <= 0x3F)
+      type metadata accessor for Date?(319);
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -5513,27 +5171,27 @@ void type metadata completion function for FlowTaskMetadata()
   }
 }
 
-void type metadata accessor for String?(uint64_t a1, unint64_t *a2)
+void type metadata accessor for String?(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
-    v3 = type metadata accessor for Optional();
-    if (!v4)
+    v4 = type metadata accessor for Optional();
+    if (!v5)
     {
-      atomic_store(v3, a2);
+      atomic_store(v4, a2);
     }
   }
 }
 
-void type metadata accessor for Date?()
+void type metadata accessor for Date?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for Date?)
   {
     type metadata accessor for Date();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for Date?);
+      atomic_store(v1, &lazy cache variable for type metadata for Date?);
     }
   }
 }
@@ -5584,7 +5242,7 @@ uint64_t one-time initialization function for interactionForIdiom()
   v13 = v0[14];
   v7(v12, *MEMORY[0x1E69D3430], v6);
   v10(v12 + v13, v16, v9);
-  lazy protocol witness table accessor for type AudioSource and conformance AudioSource(&lazy protocol witness table cache variable for type DeviceClass and conformance DeviceClass, MEMORY[0x1E69D3460]);
+  lazy protocol witness table accessor for type AudioSource and conformance AudioSource(&lazy protocol witness table cache variable for type DeviceClass and conformance DeviceClass, MEMORY[0x1E69D3460], MEMORY[0x1E69D3468]);
   result = Dictionary.init(dictionaryLiteral:)();
   static InteractionTypeHelper.interactionForIdiom = result;
   return result;
@@ -5614,7 +5272,7 @@ uint64_t *InteractionTypeHelper.dialogDrivenInputOrigins.unsafeMutableAddressor(
 {
   if (one-time initialization token for dialogDrivenInputOrigins != -1)
   {
-    OUTLINED_FUNCTION_1_0();
+    OUTLINED_FUNCTION_1_0(&one-time initialization token for dialogDrivenInputOrigins);
   }
 
   return &static InteractionTypeHelper.dialogDrivenInputOrigins;
@@ -5624,115 +5282,109 @@ uint64_t static InteractionTypeHelper.interactionType(inputOrigin:)@<X0>(uint64_
 {
   if (one-time initialization token for dialogDrivenInputOrigins != -1)
   {
-    OUTLINED_FUNCTION_1_0();
+    OUTLINED_FUNCTION_1_0(&one-time initialization token for dialogDrivenInputOrigins);
   }
 
   v4 = specialized Set.contains(_:)(a1, static InteractionTypeHelper.dialogDrivenInputOrigins);
-  v5 = type metadata accessor for InteractionType();
-  OUTLINED_FUNCTION_5_0(v5);
-  v8 = *(v7 + 104);
-  v9 = MEMORY[0x1E69D35A8];
+  type metadata accessor for InteractionType();
+  OUTLINED_FUNCTION_5_0();
+  v7 = *(v6 + 104);
+  v8 = MEMORY[0x1E69D35A8];
   if (!v4)
   {
-    v9 = MEMORY[0x1E69D35B0];
+    v8 = MEMORY[0x1E69D35B0];
   }
 
-  v10 = *v9;
+  v9 = *v8;
 
-  return v8(a2, v10, v6);
+  return v7(a2, v9, v5);
 }
 
 BOOL specialized Set.contains(_:)(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for InputOrigin();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00]();
-  v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (!*(a2 + 16))
   {
     return 0;
   }
 
-  v9 = *(a2 + 40);
-  lazy protocol witness table accessor for type AudioSource and conformance AudioSource(&lazy protocol witness table cache variable for type InputOrigin and conformance InputOrigin, MEMORY[0x1E69D3520]);
-  v18 = a1;
-  v10 = dispatch thunk of Hashable._rawHashValue(seed:)();
-  v11 = a2 + 56;
-  v19 = a2;
-  v12 = ~(-1 << *(a2 + 32));
+  lazy protocol witness table accessor for type AudioSource and conformance AudioSource(&lazy protocol witness table cache variable for type InputOrigin and conformance InputOrigin, MEMORY[0x1E69D3520], MEMORY[0x1E69D3528]);
+  v16 = a1;
+  v8 = dispatch thunk of Hashable._rawHashValue(seed:)();
+  v9 = a2 + 56;
+  v17 = a2;
+  v10 = ~(-1 << *(a2 + 32));
   do
   {
-    v13 = v10 & v12;
-    v14 = (1 << (v10 & v12)) & *(v11 + (((v10 & v12) >> 3) & 0xFFFFFFFFFFFFFF8));
-    v15 = v14 != 0;
-    if (!v14)
+    v11 = v8 & v10;
+    v12 = (1 << (v8 & v10)) & *(v9 + (((v8 & v10) >> 3) & 0xFFFFFFFFFFFFFF8));
+    v13 = v12 != 0;
+    if (!v12)
     {
       break;
     }
 
-    (*(v5 + 16))(v8, *(v19 + 48) + *(v5 + 72) * v13, v4);
-    lazy protocol witness table accessor for type AudioSource and conformance AudioSource(&lazy protocol witness table cache variable for type InputOrigin and conformance InputOrigin, MEMORY[0x1E69D3520]);
-    v16 = dispatch thunk of static Equatable.== infix(_:_:)();
-    (*(v5 + 8))(v8, v4);
-    v10 = v13 + 1;
+    (*(v5 + 16))(v7, *(v17 + 48) + *(v5 + 72) * v11, v4);
+    lazy protocol witness table accessor for type AudioSource and conformance AudioSource(&lazy protocol witness table cache variable for type InputOrigin and conformance InputOrigin, MEMORY[0x1E69D3520], MEMORY[0x1E69D3530]);
+    v14 = dispatch thunk of static Equatable.== infix(_:_:)();
+    (*(v5 + 8))(v7, v4);
+    v8 = v11 + 1;
   }
 
-  while ((v16 & 1) == 0);
-  return v15;
+  while ((v14 & 1) == 0);
+  return v13;
 }
 
 {
   v4 = type metadata accessor for AudioDestination();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (!*(a2 + 16))
   {
     return 0;
   }
 
-  v9 = *(a2 + 40);
-  lazy protocol witness table accessor for type AudioSource and conformance AudioSource(&lazy protocol witness table cache variable for type AudioDestination and conformance AudioDestination, MEMORY[0x1E69D35C0]);
-  v18 = a1;
-  v10 = dispatch thunk of Hashable._rawHashValue(seed:)();
-  v11 = a2 + 56;
-  v19 = a2;
-  v12 = ~(-1 << *(a2 + 32));
+  lazy protocol witness table accessor for type AudioSource and conformance AudioSource(&lazy protocol witness table cache variable for type AudioDestination and conformance AudioDestination, MEMORY[0x1E69D35C0], MEMORY[0x1E69D35C8]);
+  v16 = a1;
+  v8 = dispatch thunk of Hashable._rawHashValue(seed:)();
+  v9 = a2 + 56;
+  v17 = a2;
+  v10 = ~(-1 << *(a2 + 32));
   do
   {
-    v13 = v10 & v12;
-    v14 = (1 << (v10 & v12)) & *(v11 + (((v10 & v12) >> 3) & 0xFFFFFFFFFFFFFF8));
-    v15 = v14 != 0;
-    if (!v14)
+    v11 = v8 & v10;
+    v12 = (1 << (v8 & v10)) & *(v9 + (((v8 & v10) >> 3) & 0xFFFFFFFFFFFFFF8));
+    v13 = v12 != 0;
+    if (!v12)
     {
       break;
     }
 
-    (*(v5 + 16))(v8, *(v19 + 48) + *(v5 + 72) * v13, v4);
-    lazy protocol witness table accessor for type AudioSource and conformance AudioSource(&lazy protocol witness table cache variable for type AudioDestination and conformance AudioDestination, MEMORY[0x1E69D35C0]);
-    v16 = dispatch thunk of static Equatable.== infix(_:_:)();
-    (*(v5 + 8))(v8, v4);
-    v10 = v13 + 1;
+    (*(v5 + 16))(v7, *(v17 + 48) + *(v5 + 72) * v11, v4);
+    lazy protocol witness table accessor for type AudioSource and conformance AudioSource(&lazy protocol witness table cache variable for type AudioDestination and conformance AudioDestination, MEMORY[0x1E69D35C0], MEMORY[0x1E69D35D0]);
+    v14 = dispatch thunk of static Equatable.== infix(_:_:)();
+    (*(v5 + 8))(v7, v4);
+    v8 = v11 + 1;
   }
 
-  while ((v16 & 1) == 0);
-  return v15;
+  while ((v14 & 1) == 0);
+  return v13;
 }
 
 uint64_t one-time initialization function for dialogDrivenAudioDestinations()
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy13SiriUtilities16AudioDestinationVGMd, &_ss23_ContiguousArrayStorageCy13SiriUtilities16AudioDestinationVGMR);
-  v0 = *(type metadata accessor for AudioDestination() - 8);
-  v1 = *(v0 + 72);
-  v2 = (*(v0 + 80) + 32) & ~*(v0 + 80);
-  v3 = swift_allocObject();
-  *(v3 + 16) = xmmword_1DD3855D0;
+  type metadata accessor for AudioDestination();
+  v0 = swift_allocObject();
+  *(v0 + 16) = xmmword_1DD3855D0;
   static AudioDestination.bluetoothHandsFreeDevice.getter();
   static AudioDestination.bluetoothA2DPDevice.getter();
   static AudioDestination.carAudio.getter();
-  result = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC13SiriUtilities16AudioDestinationV_Tt0g5(v3);
+  result = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC13SiriUtilities16AudioDestinationV_Tt0g5(v0);
   static InteractionTypeHelper.dialogDrivenAudioDestinations = result;
   return result;
 }
@@ -5741,77 +5393,73 @@ uint64_t *InteractionTypeHelper.dialogDrivenAudioDestinations.unsafeMutableAddre
 {
   if (one-time initialization token for dialogDrivenAudioDestinations != -1)
   {
-    OUTLINED_FUNCTION_6_0();
+    OUTLINED_FUNCTION_6_0(&one-time initialization token for dialogDrivenAudioDestinations);
   }
 
   return &static InteractionTypeHelper.dialogDrivenAudioDestinations;
 }
 
-uint64_t static InteractionTypeHelper.dialogDrivenInputOrigins.getter(void *a1, uint64_t *a2)
+uint64_t static InteractionTypeHelper.dialogDrivenInputOrigins.getter(void *a1, uint64_t *a2, uint64_t a3)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
-
-  v3 = *a2;
 }
 
 uint64_t static InteractionTypeHelper.interactionType(audioDestination:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities16AudioDestinationVSgMd, &_s13SiriUtilities16AudioDestinationVSgMR);
   v5 = OUTLINED_FUNCTION_10(v4);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v27 - v8;
-  v10 = type metadata accessor for AudioDestination();
-  v11 = OUTLINED_FUNCTION_0(v10);
-  v13 = v12;
-  v15 = *(v14 + 64);
+  v7 = &v21 - v6;
+  v8 = type metadata accessor for AudioDestination();
+  OUTLINED_FUNCTION_0();
+  v10 = v9;
   MEMORY[0x1EEE9AC00](v11);
   OUTLINED_FUNCTION_7_0();
-  v18 = v17 - v16;
-  outlined init with copy of AudioDestination?(a1, v9, &_s13SiriUtilities16AudioDestinationVSgMd, &_s13SiriUtilities16AudioDestinationVSgMR);
-  if (__swift_getEnumTagSinglePayload(v9, 1, v10) == 1)
+  v14 = v13 - v12;
+  outlined init with copy of AudioDestination?(a1, v7, &_s13SiriUtilities16AudioDestinationVSgMd, &_s13SiriUtilities16AudioDestinationVSgMR);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
   {
-    outlined destroy of AudioDestination?(v9, &_s13SiriUtilities16AudioDestinationVSgMd, &_s13SiriUtilities16AudioDestinationVSgMR);
-    v19 = *MEMORY[0x1E69D35B0];
-    v20 = type metadata accessor for InteractionType();
-    OUTLINED_FUNCTION_0_0(v20);
-    return (*(v21 + 104))(a2, v19);
+    outlined destroy of AudioDestination?(v7, &_s13SiriUtilities16AudioDestinationVSgMd, &_s13SiriUtilities16AudioDestinationVSgMR);
+    v15 = *MEMORY[0x1E69D35B0];
+    type metadata accessor for InteractionType();
+    OUTLINED_FUNCTION_0_0();
+    return (*(v16 + 104))(a2, v15);
   }
 
   else
   {
-    (*(v13 + 32))(v18, v9, v10);
+    (*(v10 + 32))(v14, v7, v8);
     if (one-time initialization token for dialogDrivenAudioDestinations != -1)
     {
-      OUTLINED_FUNCTION_6_0();
+      OUTLINED_FUNCTION_6_0(&one-time initialization token for dialogDrivenAudioDestinations);
     }
 
-    v23 = specialized Set.contains(_:)(v18, static InteractionTypeHelper.dialogDrivenAudioDestinations);
-    (*(v13 + 8))(v18, v10);
-    v24 = type metadata accessor for InteractionType();
-    OUTLINED_FUNCTION_0_0(v24);
-    if (v23)
+    v18 = specialized Set.contains(_:)(v14, static InteractionTypeHelper.dialogDrivenAudioDestinations);
+    (*(v10 + 8))(v14, v8);
+    type metadata accessor for InteractionType();
+    OUTLINED_FUNCTION_0_0();
+    if (v18)
     {
-      v26 = MEMORY[0x1E69D35A8];
+      v20 = MEMORY[0x1E69D35A8];
     }
 
     else
     {
-      v26 = MEMORY[0x1E69D35B0];
+      v20 = MEMORY[0x1E69D35B0];
     }
 
-    return (*(v25 + 104))(a2, *v26);
+    return (*(v19 + 104))(a2, *v20);
   }
 }
 
 uint64_t outlined init with copy of AudioDestination?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
-  OUTLINED_FUNCTION_0_0(v6);
-  (*(v7 + 16))(a2, a1);
+  __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  OUTLINED_FUNCTION_0_0();
+  (*(v6 + 16))(a2, a1);
   return a2;
 }
 
@@ -5822,14 +5470,16 @@ uint64_t specialized Dictionary.subscript.getter(uint64_t a1, uint64_t a2, uint6
     return 0;
   }
 
-  v4 = specialized __RawDictionaryStorage.find<A>(_:)(a1, a2);
-  if ((v5 & 1) == 0)
+  specialized __RawDictionaryStorage.find<A>(_:)(a1, a2);
+  if (v3)
+  {
+    return swift_unknownObjectRetain();
+  }
+
+  else
   {
     return 0;
   }
-
-  v6 = *(*(a3 + 56) + 8 * v4);
-  return swift_unknownObjectRetain();
 }
 
 {
@@ -5838,13 +5488,15 @@ uint64_t specialized Dictionary.subscript.getter(uint64_t a1, uint64_t a2, uint6
     return 0;
   }
 
-  v4 = specialized __RawDictionaryStorage.find<A>(_:)(a1, a2);
-  if ((v5 & 1) == 0)
+  specialized __RawDictionaryStorage.find<A>(_:)(a1, a2);
+  if (v3)
+  {
+  }
+
+  else
   {
     return 0;
   }
-
-  v6 = *(*(a3 + 56) + 8 * v4);
 }
 
 {
@@ -5935,91 +5587,89 @@ LABEL_8:
 uint64_t _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC13SiriUtilities11InputOriginO_Tt0g5(uint64_t a1)
 {
   v2 = type metadata accessor for InputOrigin();
-  v34 = *(v2 - 8);
-  v3 = *(v34 + 64);
-  v4 = MEMORY[0x1EEE9AC00](v2);
-  v6 = &v29 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v4);
-  v38 = &v29 - v7;
+  v32 = *(v2 - 8);
+  v3 = MEMORY[0x1EEE9AC00](v2);
+  v5 = &v27 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v3);
+  v36 = &v27 - v6;
   if (!*(a1 + 16))
   {
-    v9 = MEMORY[0x1E69E7CD0];
+    v8 = MEMORY[0x1E69E7CD0];
     goto LABEL_15;
   }
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy13SiriUtilities11InputOriginOGMd, &_ss11_SetStorageCy13SiriUtilities11InputOriginOGMR);
   result = static _SetStorage.allocate(capacity:)();
-  v9 = result;
-  v33 = *(a1 + 16);
-  if (!v33)
+  v8 = result;
+  v31 = *(a1 + 16);
+  if (!v31)
   {
 LABEL_15:
 
-    return v9;
+    return v8;
   }
 
-  v10 = 0;
-  v37 = result + 56;
-  v11 = *(v34 + 80);
-  v31 = a1;
-  v32 = a1 + ((v11 + 32) & ~v11);
-  v36 = v34 + 16;
-  v12 = (v34 + 8);
-  v30 = (v34 + 32);
-  while (v10 < *(a1 + 16))
+  v9 = 0;
+  v35 = result + 56;
+  v10 = *(v32 + 80);
+  v29 = a1;
+  v30 = a1 + ((v10 + 32) & ~v10);
+  v34 = v32 + 16;
+  v11 = (v32 + 8);
+  v28 = (v32 + 32);
+  while (v9 < *(a1 + 16))
   {
-    v13 = *(v34 + 72);
-    v35 = v10 + 1;
-    v14 = *(v34 + 16);
-    v14(v38, v32 + v13 * v10, v2);
-    v15 = *(v9 + 40);
-    lazy protocol witness table accessor for type AudioSource and conformance AudioSource(&lazy protocol witness table cache variable for type InputOrigin and conformance InputOrigin, MEMORY[0x1E69D3520]);
-    v16 = dispatch thunk of Hashable._rawHashValue(seed:)();
-    v17 = ~(-1 << *(v9 + 32));
+    v12 = *(v32 + 72);
+    v33 = v9 + 1;
+    v13 = *(v32 + 16);
+    v13(v36, v30 + v12 * v9, v2);
+    lazy protocol witness table accessor for type AudioSource and conformance AudioSource(&lazy protocol witness table cache variable for type InputOrigin and conformance InputOrigin, MEMORY[0x1E69D3520], MEMORY[0x1E69D3528]);
+    v14 = dispatch thunk of Hashable._rawHashValue(seed:)();
+    v15 = ~(-1 << *(v8 + 32));
     while (1)
     {
-      v18 = v16 & v17;
-      v19 = (v16 & v17) >> 6;
-      v20 = *(v37 + 8 * v19);
-      v21 = 1 << (v16 & v17);
-      if ((v21 & v20) == 0)
+      v16 = v14 & v15;
+      v17 = (v14 & v15) >> 6;
+      v18 = *(v35 + 8 * v17);
+      v19 = 1 << (v14 & v15);
+      if ((v19 & v18) == 0)
       {
         break;
       }
 
-      v22 = v9;
-      v14(v6, *(v9 + 48) + v18 * v13, v2);
-      lazy protocol witness table accessor for type AudioSource and conformance AudioSource(&lazy protocol witness table cache variable for type InputOrigin and conformance InputOrigin, MEMORY[0x1E69D3520]);
-      v23 = dispatch thunk of static Equatable.== infix(_:_:)();
-      v24 = *v12;
-      (*v12)(v6, v2);
-      if (v23)
+      v20 = v8;
+      v13(v5, *(v8 + 48) + v16 * v12, v2);
+      lazy protocol witness table accessor for type AudioSource and conformance AudioSource(&lazy protocol witness table cache variable for type InputOrigin and conformance InputOrigin, MEMORY[0x1E69D3520], MEMORY[0x1E69D3530]);
+      v21 = dispatch thunk of static Equatable.== infix(_:_:)();
+      v22 = *v11;
+      (*v11)(v5, v2);
+      if (v21)
       {
-        result = (v24)(v38, v2);
-        v9 = v22;
+        result = (v22)(v36, v2);
+        v8 = v20;
         goto LABEL_12;
       }
 
-      v16 = v18 + 1;
-      v9 = v22;
+      v14 = v16 + 1;
+      v8 = v20;
     }
 
-    v25 = v38;
-    *(v37 + 8 * v19) = v21 | v20;
-    result = (*v30)(*(v9 + 48) + v18 * v13, v25, v2);
-    v26 = *(v9 + 16);
-    v27 = __OFADD__(v26, 1);
-    v28 = v26 + 1;
-    if (v27)
+    v23 = v36;
+    *(v35 + 8 * v17) = v19 | v18;
+    result = (*v28)(*(v8 + 48) + v16 * v12, v23, v2);
+    v24 = *(v8 + 16);
+    v25 = __OFADD__(v24, 1);
+    v26 = v24 + 1;
+    if (v25)
     {
       goto LABEL_17;
     }
 
-    *(v9 + 16) = v28;
+    *(v8 + 16) = v26;
 LABEL_12:
-    v10 = v35;
-    a1 = v31;
-    if (v35 == v33)
+    v9 = v33;
+    a1 = v29;
+    if (v33 == v31)
     {
       goto LABEL_15;
     }
@@ -6034,91 +5684,89 @@ LABEL_17:
 uint64_t _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC13SiriUtilities16AudioDestinationV_Tt0g5(uint64_t a1)
 {
   v2 = type metadata accessor for AudioDestination();
-  v34 = *(v2 - 8);
-  v3 = *(v34 + 64);
-  v4 = (MEMORY[0x1EEE9AC00])();
-  v6 = &v29 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v4);
-  v38 = &v29 - v7;
+  v32 = *(v2 - 8);
+  v3 = MEMORY[0x1EEE9AC00](v2);
+  v5 = &v27 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v3);
+  v36 = &v27 - v6;
   if (!*(a1 + 16))
   {
-    v9 = MEMORY[0x1E69E7CD0];
+    v8 = MEMORY[0x1E69E7CD0];
     goto LABEL_15;
   }
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy13SiriUtilities16AudioDestinationVGMd, &_ss11_SetStorageCy13SiriUtilities16AudioDestinationVGMR);
   result = static _SetStorage.allocate(capacity:)();
-  v9 = result;
-  v33 = *(a1 + 16);
-  if (!v33)
+  v8 = result;
+  v31 = *(a1 + 16);
+  if (!v31)
   {
 LABEL_15:
 
-    return v9;
+    return v8;
   }
 
-  v10 = 0;
-  v37 = result + 56;
-  v11 = *(v34 + 80);
-  v31 = a1;
-  v32 = a1 + ((v11 + 32) & ~v11);
-  v36 = v34 + 16;
-  v12 = (v34 + 8);
-  v30 = (v34 + 32);
-  while (v10 < *(a1 + 16))
+  v9 = 0;
+  v35 = result + 56;
+  v10 = *(v32 + 80);
+  v29 = a1;
+  v30 = a1 + ((v10 + 32) & ~v10);
+  v34 = v32 + 16;
+  v11 = (v32 + 8);
+  v28 = (v32 + 32);
+  while (v9 < *(a1 + 16))
   {
-    v13 = *(v34 + 72);
-    v35 = v10 + 1;
-    v14 = *(v34 + 16);
-    v14(v38, v32 + v13 * v10, v2);
-    v15 = *(v9 + 40);
-    lazy protocol witness table accessor for type AudioSource and conformance AudioSource(&lazy protocol witness table cache variable for type AudioDestination and conformance AudioDestination, MEMORY[0x1E69D35C0]);
-    v16 = dispatch thunk of Hashable._rawHashValue(seed:)();
-    v17 = ~(-1 << *(v9 + 32));
+    v12 = *(v32 + 72);
+    v33 = v9 + 1;
+    v13 = *(v32 + 16);
+    v13(v36, v30 + v12 * v9, v2);
+    lazy protocol witness table accessor for type AudioSource and conformance AudioSource(&lazy protocol witness table cache variable for type AudioDestination and conformance AudioDestination, MEMORY[0x1E69D35C0], MEMORY[0x1E69D35C8]);
+    v14 = dispatch thunk of Hashable._rawHashValue(seed:)();
+    v15 = ~(-1 << *(v8 + 32));
     while (1)
     {
-      v18 = v16 & v17;
-      v19 = (v16 & v17) >> 6;
-      v20 = *(v37 + 8 * v19);
-      v21 = 1 << (v16 & v17);
-      if ((v21 & v20) == 0)
+      v16 = v14 & v15;
+      v17 = (v14 & v15) >> 6;
+      v18 = *(v35 + 8 * v17);
+      v19 = 1 << (v14 & v15);
+      if ((v19 & v18) == 0)
       {
         break;
       }
 
-      v22 = v9;
-      v14(v6, *(v9 + 48) + v18 * v13, v2);
-      lazy protocol witness table accessor for type AudioSource and conformance AudioSource(&lazy protocol witness table cache variable for type AudioDestination and conformance AudioDestination, MEMORY[0x1E69D35C0]);
-      v23 = dispatch thunk of static Equatable.== infix(_:_:)();
-      v24 = *v12;
-      (*v12)(v6, v2);
-      if (v23)
+      v20 = v8;
+      v13(v5, *(v8 + 48) + v16 * v12, v2);
+      lazy protocol witness table accessor for type AudioSource and conformance AudioSource(&lazy protocol witness table cache variable for type AudioDestination and conformance AudioDestination, MEMORY[0x1E69D35C0], MEMORY[0x1E69D35D0]);
+      v21 = dispatch thunk of static Equatable.== infix(_:_:)();
+      v22 = *v11;
+      (*v11)(v5, v2);
+      if (v21)
       {
-        result = (v24)(v38, v2);
-        v9 = v22;
+        result = (v22)(v36, v2);
+        v8 = v20;
         goto LABEL_12;
       }
 
-      v16 = v18 + 1;
-      v9 = v22;
+      v14 = v16 + 1;
+      v8 = v20;
     }
 
-    v25 = v38;
-    *(v37 + 8 * v19) = v21 | v20;
-    result = (*v30)(*(v9 + 48) + v18 * v13, v25, v2);
-    v26 = *(v9 + 16);
-    v27 = __OFADD__(v26, 1);
-    v28 = v26 + 1;
-    if (v27)
+    v23 = v36;
+    *(v35 + 8 * v17) = v19 | v18;
+    result = (*v28)(*(v8 + 48) + v16 * v12, v23, v2);
+    v24 = *(v8 + 16);
+    v25 = __OFADD__(v24, 1);
+    v26 = v24 + 1;
+    if (v25)
     {
       goto LABEL_17;
     }
 
-    *(v9 + 16) = v28;
+    *(v8 + 16) = v26;
 LABEL_12:
-    v10 = v35;
-    a1 = v31;
-    if (v35 == v33)
+    v9 = v33;
+    a1 = v29;
+    if (v33 == v31)
     {
       goto LABEL_15;
     }
@@ -6130,7 +5778,7 @@ LABEL_17:
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type AudioSource and conformance AudioSource(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type AudioSource and conformance AudioSource(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6143,7 +5791,7 @@ uint64_t lazy protocol witness table accessor for type AudioSource and conforman
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_1_0()
+uint64_t OUTLINED_FUNCTION_1_0(uint64_t a1)
 {
 
   return swift_once();
@@ -6157,8 +5805,6 @@ uint64_t OUTLINED_FUNCTION_3_0()
 
 uint64_t OUTLINED_FUNCTION_8_0()
 {
-  v2 = *(v0 - 232);
-  v3 = *(v0 - 144);
 
   return dispatch thunk of static Equatable.== infix(_:_:)();
 }
@@ -6169,7 +5815,7 @@ uint64_t SiriLocationProvider.requestOrigin()()
   v1[3] = v2;
   v1[4] = v0;
   v1[2] = v3;
-  v4 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s8Dispatch0A12TimeIntervalOSgMd, &_s8Dispatch0A12TimeIntervalOSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8Dispatch0A12TimeIntervalOSgMd, &_s8Dispatch0A12TimeIntervalOSgMR);
   v1[5] = swift_task_alloc();
 
   return MEMORY[0x1EEE6DFA0](SiriLocationProvider.requestOrigin(), 0, 0);
@@ -6177,38 +5823,34 @@ uint64_t SiriLocationProvider.requestOrigin()()
 
 {
   v1 = v0[5];
-  v12 = v0[3];
+  v9 = v0[3];
   v2 = type metadata accessor for DispatchTimeInterval();
   __swift_storeEnumTagSinglePayload(v1, 1, 1, v2);
-  v3 = *(v12 + 8);
-  v11 = (v3 + *v3);
-  v4 = v3[1];
-  v5 = swift_task_alloc();
-  v0[6] = v5;
-  *v5 = v0;
-  v5[1] = SiriLocationProvider.requestOrigin();
-  v7 = v0[4];
-  v6 = v0[5];
-  v8 = v0[2];
-  v9 = v0[3];
+  v8 = (*(v9 + 8) + **(v9 + 8));
+  v3 = swift_task_alloc();
+  v0[6] = v3;
+  *v3 = v0;
+  v3[1] = SiriLocationProvider.requestOrigin();
+  v4 = v0[5];
+  v5 = v0[2];
+  v6 = v0[3];
 
-  return v11(v6, v8, v9);
+  return v8(v4, v5, v6);
 }
 
 {
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_0_1();
-  v2 = *(v1 + 48);
-  v3 = *(v1 + 40);
-  v4 = *v0;
+  v2 = *(v1 + 40);
+  v3 = *v0;
   OUTLINED_FUNCTION_2_0();
-  *v5 = v4;
+  *v4 = v3;
 
-  outlined destroy of DispatchTimeInterval?(v3);
+  outlined destroy of DispatchTimeInterval?(v2);
 
-  v6 = OUTLINED_FUNCTION_1_1();
+  v5 = OUTLINED_FUNCTION_1_1();
 
-  return v7(v6);
+  return v6(v5);
 }
 
 uint64_t outlined destroy of DispatchTimeInterval?(uint64_t a1)
@@ -6223,16 +5865,14 @@ uint64_t DummyLocationProvider.requestOrigin(searchTimeout:)()
   OUTLINED_FUNCTION_3_1();
   v1 = type metadata accessor for Logger();
   v0[2] = v1;
-  v2 = *(v1 - 8);
-  v0[3] = v2;
-  v3 = *(v2 + 64) + 15;
+  v0[3] = *(v1 - 8);
   v0[4] = swift_task_alloc();
 
   return MEMORY[0x1EEE6DFA0](DummyLocationProvider.requestOrigin(searchTimeout:), 0, 0);
 }
 
+uint64_t DummyLocationProvider.requestOrigin(searchTimeout:)(uint64_t a1)
 {
-  v1 = v0[4];
   static Logger.logger.getter();
   v2 = Logger.logObject.getter();
   v3 = static os_log_type_t.error.getter();
@@ -6244,13 +5884,13 @@ uint64_t DummyLocationProvider.requestOrigin(searchTimeout:)()
     MEMORY[0x1E12AE9C0](v4, -1, -1);
   }
 
-  v6 = v0[3];
-  v5 = v0[4];
-  v7 = v0[2];
+  v6 = v1[3];
+  v5 = v1[4];
+  v7 = v1[2];
 
   (*(v6 + 8))(v5, v7);
 
-  v8 = v0[1];
+  v8 = v1[1];
 
   return v8(0);
 }
@@ -6268,27 +5908,24 @@ uint64_t protocol witness for SiriLocationProvider.requestOrigin(searchTimeout:)
 {
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_0_1();
-  v2 = *(v1 + 16);
-  v3 = *v0;
+  v1 = *v0;
   OUTLINED_FUNCTION_2_0();
-  *v4 = v3;
+  *v2 = v1;
 
-  v5 = OUTLINED_FUNCTION_1_1();
+  v3 = OUTLINED_FUNCTION_1_1();
 
-  return v6(v5);
+  return v4(v3);
 }
 
 uint64_t dispatch thunk of SiriLocationProvider.requestOrigin(searchTimeout:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(a3 + 8);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = protocol witness for SiriLocationProvider.requestOrigin(searchTimeout:) in conformance DummyLocationProvider;
+  v9 = (*(a3 + 8) + **(a3 + 8));
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = protocol witness for SiriLocationProvider.requestOrigin(searchTimeout:) in conformance DummyLocationProvider;
 
-  return v11(a1, a2, a3);
+  return v9(a1, a2, a3);
 }
 
 CNContact_optional __swiftcall MeCardProxy.fetchMeCard()()
@@ -6484,7 +6121,6 @@ uint64_t outlined assign with take of MeCardProxy?(uint64_t a1, uint64_t a2)
 uint64_t MultiUserContext.handoffTargetDeviceID.getter()
 {
   v1 = *(v0 + 48);
-  v2 = *(v0 + 56);
 
   return v1;
 }
@@ -6580,41 +6216,40 @@ uint64_t RefreshableSharedContext.stateOrBail()@<X0>(uint64_t a1@<X8>)
 {
   v3 = type metadata accessor for Logger();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = MEMORY[0x1EEE9AC00](v3);
-  v8 = &v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(*v1 + 88))(&v18, v6);
-  if (v19)
+  v5 = MEMORY[0x1EEE9AC00](v3);
+  v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(*v1 + 88))(&v17, v5);
+  if (v18)
   {
-    return outlined init with take of SharedContextService(&v18, a1);
+    return outlined init with take of SharedContextService(&v17, a1);
   }
 
-  v17 = v4;
-  outlined destroy of SharedContextService?(&v18);
+  v16 = v4;
+  outlined destroy of SharedContextService?(&v17);
   static Logger.logger.getter();
-  v10 = Logger.logObject.getter();
-  v11 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v10, v11))
+  v9 = Logger.logObject.getter();
+  v10 = static os_log_type_t.error.getter();
+  if (os_log_type_enabled(v9, v10))
   {
+    v11 = swift_slowAlloc();
     v12 = swift_slowAlloc();
-    v13 = swift_slowAlloc();
-    *&v18 = v13;
-    *v12 = 136315650;
-    v14 = StaticString.description.getter();
-    v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v15, &v18);
+    *&v17 = v12;
+    *v11 = 136315650;
+    v13 = StaticString.description.getter();
+    v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v14, &v17);
 
-    *(v12 + 4) = v16;
-    *(v12 + 12) = 2048;
-    *(v12 + 14) = 51;
-    *(v12 + 22) = 2080;
-    *(v12 + 24) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000028, 0x80000001DD3876D0, &v18);
-    _os_log_impl(&dword_1DD354000, v10, v11, "FatalError at %s:%lu - %s", v12, 0x20u);
+    *(v11 + 4) = v15;
+    *(v11 + 12) = 2048;
+    *(v11 + 14) = 51;
+    *(v11 + 22) = 2080;
+    *(v11 + 24) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000028, 0x80000001DD3876D0, &v17);
+    _os_log_impl(&dword_1DD354000, v9, v10, "FatalError at %s:%lu - %s", v11, 0x20u);
     swift_arrayDestroy();
-    MEMORY[0x1E12AE9C0](v13, -1, -1);
     MEMORY[0x1E12AE9C0](v12, -1, -1);
+    MEMORY[0x1E12AE9C0](v11, -1, -1);
   }
 
-  (*(v17 + 8))(v8, v3);
+  (*(v16 + 8))(v7, v3);
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
   return result;
@@ -6761,34 +6396,32 @@ void protocol witness for RawRepresentable.rawValue.getter in conformance Curren
 uint64_t static CurrentRequestOverrides.OverrideError.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = MEMORY[0x1EEE9AC00](v4 - 8);
-  v8 = &v47 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v6);
-  v10 = &v47 - v9;
-  v11 = type metadata accessor for ResponseMode();
-  v12 = OUTLINED_FUNCTION_0(v11);
-  v14 = v13;
-  v16 = *(v15 + 64);
-  v17 = MEMORY[0x1EEE9AC00](v12);
-  v19 = &v47 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v17);
-  v21 = &v47 - v20;
-  outlined init with copy of CurrentRequestOverrides.OverrideError(a1, v55);
-  outlined init with copy of CurrentRequestOverrides.OverrideError(a2, &v57);
-  if (!v56)
+  v5 = MEMORY[0x1EEE9AC00](v4 - 8);
+  v7 = &v44 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v9 = &v44 - v8;
+  v10 = type metadata accessor for ResponseMode();
+  OUTLINED_FUNCTION_0();
+  v12 = v11;
+  v14 = MEMORY[0x1EEE9AC00](v13);
+  v16 = &v44 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v18 = &v44 - v17;
+  outlined init with copy of CurrentRequestOverrides.OverrideError(a1, v52);
+  outlined init with copy of CurrentRequestOverrides.OverrideError(a2, &v54);
+  if (!v53)
   {
-    outlined init with copy of CurrentRequestOverrides.OverrideError(v55, &v52);
-    if (!v60)
+    outlined init with copy of CurrentRequestOverrides.OverrideError(v52, &v49);
+    if (!v57)
     {
-      if (v52 == v57 && v53 == v58)
+      if (v49 == v54 && v50 == v55)
       {
-        v29 = 1;
+        v26 = 1;
       }
 
       else
       {
-        v29 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v26 = _stringCompareWithSmolCheck(_:_:expecting:)();
       }
 
       goto LABEL_29;
@@ -6797,88 +6430,88 @@ uint64_t static CurrentRequestOverrides.OverrideError.== infix(_:_:)(uint64_t a1
     goto LABEL_13;
   }
 
-  if (v56 == 1)
+  if (v53 == 1)
   {
-    outlined init with copy of CurrentRequestOverrides.OverrideError(v55, &v52);
-    v22 = v53;
-    if (v60 == 1)
+    outlined init with copy of CurrentRequestOverrides.OverrideError(v52, &v49);
+    v19 = v50;
+    if (v57 == 1)
     {
-      v48 = v14;
-      v23 = v52;
-      v25 = v57;
-      v24 = v58;
-      outlined init with take of Any(v54, v51);
-      outlined init with take of Any(&v59, v50);
-      if (v23 == v25 && v22 == v24)
+      v45 = v12;
+      v20 = v49;
+      v22 = v54;
+      v21 = v55;
+      outlined init with take of Any(v51, v48);
+      outlined init with take of Any(&v56, v47);
+      if (v20 == v22 && v19 == v21)
       {
 
-        v28 = v48;
+        v25 = v45;
       }
 
       else
       {
-        v27 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v24 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-        v28 = v48;
-        if ((v27 & 1) == 0)
+        v25 = v45;
+        if ((v24 & 1) == 0)
         {
           OUTLINED_FUNCTION_3_2();
 LABEL_32:
-          outlined destroy of CurrentRequestOverrides.OverrideError(v55);
+          outlined destroy of CurrentRequestOverrides.OverrideError(v52);
           goto LABEL_15;
         }
       }
 
-      outlined init with copy of Any(v51, v49);
+      outlined init with copy of Any(v48, v46);
       if (swift_dynamicCast())
       {
         OUTLINED_FUNCTION_2_1();
-        __swift_storeEnumTagSinglePayload(v32, v33, v34, v11);
-        v35 = *(v28 + 32);
-        v35(v21, v10, v11);
-        outlined init with copy of Any(v50, v49);
+        __swift_storeEnumTagSinglePayload(v29, v30, v31, v10);
+        v32 = *(v25 + 32);
+        v32(v18, v9, v10);
+        outlined init with copy of Any(v47, v46);
         if (swift_dynamicCast())
         {
           OUTLINED_FUNCTION_2_1();
-          __swift_storeEnumTagSinglePayload(v36, v37, v38, v11);
-          v35(v19, v8, v11);
-          v29 = static ResponseMode.== infix(_:_:)();
-          v39 = *(v28 + 8);
-          v39(v19, v11);
-          v39(v21, v11);
+          __swift_storeEnumTagSinglePayload(v33, v34, v35, v10);
+          v32(v16, v7, v10);
+          v26 = static ResponseMode.== infix(_:_:)();
+          v36 = *(v25 + 8);
+          v36(v16, v10);
+          v36(v18, v10);
           OUTLINED_FUNCTION_3_2();
 LABEL_29:
-          outlined destroy of CurrentRequestOverrides.OverrideError(v55);
-          return v29 & 1;
+          outlined destroy of CurrentRequestOverrides.OverrideError(v52);
+          return v26 & 1;
         }
 
         OUTLINED_FUNCTION_5_1();
-        __swift_storeEnumTagSinglePayload(v44, v45, v46, v11);
-        (*(v28 + 8))(v21, v11);
+        __swift_storeEnumTagSinglePayload(v41, v42, v43, v10);
+        (*(v25 + 8))(v18, v10);
         OUTLINED_FUNCTION_3_2();
-        v43 = v8;
+        v40 = v7;
       }
 
       else
       {
         OUTLINED_FUNCTION_5_1();
-        __swift_storeEnumTagSinglePayload(v40, v41, v42, v11);
+        __swift_storeEnumTagSinglePayload(v37, v38, v39, v10);
         OUTLINED_FUNCTION_3_2();
-        v43 = v10;
+        v40 = v9;
       }
 
-      outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v43, &_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
+      outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v40, &_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
       goto LABEL_32;
     }
 
-    __swift_destroy_boxed_opaque_existential_1(v54);
+    __swift_destroy_boxed_opaque_existential_1(v51);
 LABEL_13:
   }
 
-  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v55, &_s19SiriFlowEnvironment23CurrentRequestOverridesO13OverrideErrorO_AEtMd, &_s19SiriFlowEnvironment23CurrentRequestOverridesO13OverrideErrorO_AEtMR);
+  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v52, &_s19SiriFlowEnvironment23CurrentRequestOverridesO13OverrideErrorO_AEtMd, &_s19SiriFlowEnvironment23CurrentRequestOverridesO13OverrideErrorO_AEtMR);
 LABEL_15:
-  v29 = 0;
-  return v29 & 1;
+  v26 = 0;
+  return v26 & 1;
 }
 
 _OWORD *outlined init with take of Any(_OWORD *a1, _OWORD *a2)
@@ -6899,151 +6532,149 @@ uint64_t outlined init with copy of Any(uint64_t a1, uint64_t a2)
 
 void static CurrentRequestOverrides.setOverrides(on:overrides:)(uint64_t a1, uint64_t a2)
 {
-  v60 = a1;
+  v65 = a1;
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = v53 - v5;
-  v7 = type metadata accessor for ResponseMode();
-  v8 = OUTLINED_FUNCTION_0(v7);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v56 = v53 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v15 = v53 - v14;
-  v16 = a2 + 64;
-  v17 = 1 << *(a2 + 32);
-  v18 = -1;
-  if (v17 < 64)
+  v5 = v57 - v4;
+  v6 = type metadata accessor for ResponseMode();
+  OUTLINED_FUNCTION_0();
+  v8 = MEMORY[0x1EEE9AC00](v7);
+  v61 = (v57 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v8);
+  v12 = v57 - v11;
+  v13 = a2 + 64;
+  v14 = 1 << *(a2 + 32);
+  v15 = -1;
+  if (v14 < 64)
   {
-    v18 = ~(-1 << v17);
+    v15 = ~(-1 << v14);
   }
 
-  v19 = v18 & *(a2 + 64);
-  v20 = (v17 + 63) >> 6;
-  v59 = (v13 + 32);
-  v62 = (v13 + 16);
-  v54 = (v13 + 8);
-  v53[2] = a2;
+  v16 = v15 & *(a2 + 64);
+  v17 = (v14 + 63) >> 6;
+  v64 = (v10 + 32);
+  v67 = (v10 + 16);
+  v59 = (v10 + 8);
+  v58 = a2;
 
-  v21 = 0;
-  v22 = MEMORY[0x1E69E7CC8];
-  v57 = v6;
-  v55 = a2 + 64;
-  v58 = v20;
-  if (v19)
+  v18 = 0;
+  v19 = MEMORY[0x1E69E7CC8];
+  v62 = v5;
+  v60 = a2 + 64;
+  v63 = v17;
+  if (v16)
   {
     while (1)
     {
-      v23 = v21;
+      v20 = v18;
 LABEL_9:
-      v19 &= v19 - 1;
-      v24 = OUTLINED_FUNCTION_6_1(v23);
-      outlined init with copy of Any(v24, &v64);
-      outlined init with take of Any(&v64, &v66);
+      v16 &= v16 - 1;
+      v21 = OUTLINED_FUNCTION_6_1(v20);
+      outlined init with copy of Any(v21, &v69);
+      outlined init with take of Any(&v69, &v71);
 LABEL_10:
-      v68[0] = v66;
-      v68[1] = v67;
-      if (!*(&v67 + 1))
+      v73[0] = v71;
+      v73[1] = v72;
+      if (!*(&v72 + 1))
       {
 
-        CurrentRequest.overrideProperties.setter();
+        CurrentRequest.overrideProperties.setter(v19, v43, v44, v45, v46, v47, v48, v49, v57[0], v57[1], v58, v59, v60, v61, v62, v63, v64, v65);
         return;
       }
 
-      outlined init with take of Any(v68, &v66);
-      outlined init with copy of Any(&v66, &v64);
+      outlined init with take of Any(v73, &v71);
+      outlined init with copy of Any(&v71, &v69);
       if ((swift_dynamicCast() & 1) == 0)
       {
         break;
       }
 
       OUTLINED_FUNCTION_2_1();
-      __swift_storeEnumTagSinglePayload(v25, v26, v27, v7);
-      (*v59)(v15, v6, v7);
-      v65 = v7;
-      boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v64);
-      v29 = v15;
-      v30 = v15;
-      v31 = v7;
-      v61 = *v62;
-      v61(boxed_opaque_existential_1, v30, v7);
-      outlined init with take of Any(&v64, v63);
+      __swift_storeEnumTagSinglePayload(v22, v23, v24, v6);
+      (*v64)(v12, v5, v6);
+      v70 = v6;
+      boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v69);
+      v26 = v12;
+      v27 = v12;
+      v28 = v6;
+      v66 = *v67;
+      v66(boxed_opaque_existential_1, v27, v6);
+      outlined init with take of Any(&v69, v68);
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      v69 = v22;
-      v33 = specialized __RawDictionaryStorage.find<A>(_:)();
-      v35 = *(v22 + 16);
-      v36 = (v34 & 1) == 0;
-      v37 = v35 + v36;
-      if (__OFADD__(v35, v36))
+      v74 = v19;
+      v30 = specialized __RawDictionaryStorage.find<A>(_:)();
+      v32 = *(v19 + 16);
+      v33 = (v31 & 1) == 0;
+      v34 = v32 + v33;
+      if (__OFADD__(v32, v33))
       {
         goto LABEL_26;
       }
 
-      v38 = v33;
-      v39 = v34;
+      v35 = v30;
+      v36 = v31;
       __swift_instantiateConcreteTypeFromMangledNameV2(&_ss17_NativeDictionaryVy19SiriFlowEnvironment23CurrentRequestOverridesO5FieldOypGMd, &_ss17_NativeDictionaryVy19SiriFlowEnvironment23CurrentRequestOverridesO5FieldOypGMR);
-      if (_NativeDictionary.ensureUnique(isUnique:capacity:)(isUniquelyReferenced_nonNull_native, v37))
+      if (_NativeDictionary.ensureUnique(isUnique:capacity:)(isUniquelyReferenced_nonNull_native, v34))
       {
-        v40 = specialized __RawDictionaryStorage.find<A>(_:)();
-        if ((v39 & 1) != (v41 & 1))
+        v37 = specialized __RawDictionaryStorage.find<A>(_:)();
+        if ((v36 & 1) != (v38 & 1))
         {
           goto LABEL_28;
         }
 
-        v38 = v40;
+        v35 = v37;
       }
 
-      v7 = v31;
-      v15 = v29;
-      v22 = v69;
-      v20 = v58;
-      if (v39)
+      v6 = v28;
+      v12 = v26;
+      v19 = v74;
+      v17 = v63;
+      if (v36)
       {
-        v42 = (*(v69 + 56) + 32 * v38);
-        __swift_destroy_boxed_opaque_existential_1(v42);
-        outlined init with take of Any(v63, v42);
+        v39 = (*(v74 + 56) + 32 * v35);
+        __swift_destroy_boxed_opaque_existential_1(v39);
+        outlined init with take of Any(v68, v39);
       }
 
       else
       {
-        *(v69 + 8 * (v38 >> 6) + 64) |= 1 << v38;
-        outlined init with take of Any(v63, (*(v22 + 56) + 32 * v38));
-        v43 = *(v22 + 16);
-        v44 = __OFADD__(v43, 1);
-        v45 = v43 + 1;
-        if (v44)
+        *(v74 + 8 * (v35 >> 6) + 64) |= 1 << v35;
+        outlined init with take of Any(v68, (*(v19 + 56) + 32 * v35));
+        v40 = *(v19 + 16);
+        v41 = __OFADD__(v40, 1);
+        v42 = v40 + 1;
+        if (v41)
         {
           goto LABEL_27;
         }
 
-        *(v22 + 16) = v45;
+        *(v19 + 16) = v42;
       }
 
-      v61(v56, v15, v7);
+      v66(v61, v12, v6);
       CurrentRequest.responseMode.setter();
-      (*v54)(v15, v7);
-      __swift_destroy_boxed_opaque_existential_1(&v66);
-      v6 = v57;
-      v16 = v55;
-      if (!v19)
+      (*v59)(v12, v6);
+      __swift_destroy_boxed_opaque_existential_1(&v71);
+      v5 = v62;
+      v13 = v60;
+      if (!v16)
       {
         goto LABEL_5;
       }
     }
 
     OUTLINED_FUNCTION_5_1();
-    __swift_storeEnumTagSinglePayload(v46, v47, v48, v7);
-    outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v6, &_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
+    __swift_storeEnumTagSinglePayload(v50, v51, v52, v6);
+    outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v5, &_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
     lazy protocol witness table accessor for type CurrentRequestOverrides.OverrideError and conformance CurrentRequestOverrides.OverrideError();
-    v49 = swift_allocError();
-    v51 = v50;
-    OUTLINED_FUNCTION_0_4(v49, v50);
-    outlined init with copy of Any(&v66, v52);
-    *(v51 + 48) = 1;
+    v53 = swift_allocError();
+    v55 = v54;
+    OUTLINED_FUNCTION_0_4(v53, v54);
+    outlined init with copy of Any(&v71, v56);
+    *(v55 + 48) = 1;
     swift_willThrow();
 
-    __swift_destroy_boxed_opaque_existential_1(&v66);
+    __swift_destroy_boxed_opaque_existential_1(&v71);
   }
 
   else
@@ -7051,25 +6682,25 @@ LABEL_10:
 LABEL_5:
     while (1)
     {
-      v23 = v21 + 1;
-      if (__OFADD__(v21, 1))
+      v20 = v18 + 1;
+      if (__OFADD__(v18, 1))
       {
         break;
       }
 
-      if (v23 >= v20)
+      if (v20 >= v17)
       {
-        v19 = 0;
-        v66 = 0u;
-        v67 = 0u;
+        v16 = 0;
+        v71 = 0u;
+        v72 = 0u;
         goto LABEL_10;
       }
 
-      v19 = *(v16 + 8 * v23);
-      ++v21;
-      if (v19)
+      v16 = *(v13 + 8 * v20);
+      ++v18;
+      if (v16)
       {
-        v21 = v23;
+        v18 = v20;
         goto LABEL_9;
       }
     }
@@ -7100,86 +6731,84 @@ unint64_t lazy protocol witness table accessor for type CurrentRequestOverrides.
 void static CurrentRequestOverrides.applyOverrides(on:overrides:)(uint64_t a1, uint64_t a2)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = v34 - v6;
-  v8 = type metadata accessor for ResponseMode();
-  v9 = *(*(v8 - 8) + 64);
-  v10 = MEMORY[0x1EEE9AC00](v8);
-  v42 = v34 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10);
-  v14 = v34 - v13;
+  v6 = &v40 - v5;
+  v7 = type metadata accessor for ResponseMode();
+  v8 = MEMORY[0x1EEE9AC00](v7);
+  v52 = &v40 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8);
+  v12 = &v40 - v11;
   if (*(a2 + 16))
   {
-    v34[1] = v2;
-    v34[2] = a2;
-    v15 = a2 + 64;
-    v16 = 1 << *(a2 + 32);
-    v17 = -1;
-    if (v16 < 64)
+    v41 = v2;
+    v42 = a2;
+    v13 = a2 + 64;
+    v14 = 1 << *(a2 + 32);
+    v15 = -1;
+    if (v14 < 64)
     {
-      v17 = ~(-1 << v16);
+      v15 = ~(-1 << v14);
     }
 
-    v18 = v17 & *(a2 + 64);
-    v19 = (v16 + 63) >> 6;
-    v36 = (v12 + 16);
-    v37 = (v12 + 32);
-    v35 = (v12 + 8);
+    v16 = v15 & *(a2 + 64);
+    v17 = (v14 + 63) >> 6;
+    v44 = (v10 + 16);
+    v45 = (v10 + 32);
+    v43 = (v10 + 8);
 
-    v20 = 0;
-    if (v18)
+    v18 = 0;
+    if (v16)
     {
       while (1)
       {
-        v21 = v20;
+        v19 = v18;
 LABEL_10:
-        v18 &= v18 - 1;
-        v22 = OUTLINED_FUNCTION_6_1(v21);
-        outlined init with copy of Any(v22, v38);
-        outlined init with take of Any(v38, &v39);
+        v16 &= v16 - 1;
+        v20 = OUTLINED_FUNCTION_6_1(v19);
+        outlined init with copy of Any(v20, &v46);
+        outlined init with take of Any(&v46, &v49);
 LABEL_11:
-        v41[0] = v39;
-        v41[1] = v40;
-        if (!*(&v40 + 1))
+        v51[0] = v49;
+        v51[1] = v50;
+        if (!*(&v50 + 1))
         {
 
-          CurrentRequest.overrideProperties.setter();
+          CurrentRequest.overrideProperties.setter(v25, v26, v27, v28, v29, v30, v31, v32, v40, v41, v42, v43, v44, v45, v46, *(&v46 + 1), v47, v48);
           return;
         }
 
-        outlined init with take of Any(v41, &v39);
-        outlined init with copy of Any(&v39, v38);
+        outlined init with take of Any(v51, &v49);
+        outlined init with copy of Any(&v49, &v46);
         if ((swift_dynamicCast() & 1) == 0)
         {
           break;
         }
 
         OUTLINED_FUNCTION_2_1();
-        __swift_storeEnumTagSinglePayload(v23, v24, v25, v8);
-        (*v37)(v14, v7, v8);
-        (*v36)(v42, v14, v8);
+        __swift_storeEnumTagSinglePayload(v21, v22, v23, v7);
+        (*v45)(v12, v6, v7);
+        (*v44)(v52, v12, v7);
         CurrentRequest.responseMode.setter();
-        (*v35)(v14, v8);
-        __swift_destroy_boxed_opaque_existential_1(&v39);
-        if (!v18)
+        (*v43)(v12, v7);
+        __swift_destroy_boxed_opaque_existential_1(&v49);
+        if (!v16)
         {
           goto LABEL_6;
         }
       }
 
       OUTLINED_FUNCTION_5_1();
-      __swift_storeEnumTagSinglePayload(v27, v28, v29, v8);
-      outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v7, &_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
+      __swift_storeEnumTagSinglePayload(v33, v34, v35, v7);
+      outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v6, &_s13SiriUtilities12ResponseModeVSgMd, &_s13SiriUtilities12ResponseModeVSgMR);
       lazy protocol witness table accessor for type CurrentRequestOverrides.OverrideError and conformance CurrentRequestOverrides.OverrideError();
-      v30 = swift_allocError();
-      v32 = v31;
-      OUTLINED_FUNCTION_0_4(v30, v31);
-      outlined init with copy of Any(&v39, v33);
-      *(v32 + 48) = 1;
+      v36 = swift_allocError();
+      v38 = v37;
+      OUTLINED_FUNCTION_0_4(v36, v37);
+      outlined init with copy of Any(&v49, v39);
+      *(v38 + 48) = 1;
       swift_willThrow();
 
-      __swift_destroy_boxed_opaque_existential_1(&v39);
+      __swift_destroy_boxed_opaque_existential_1(&v49);
     }
 
     else
@@ -7187,25 +6816,25 @@ LABEL_11:
 LABEL_6:
       while (1)
       {
-        v21 = v20 + 1;
-        if (__OFADD__(v20, 1))
+        v19 = v18 + 1;
+        if (__OFADD__(v18, 1))
         {
           break;
         }
 
-        if (v21 >= v19)
+        if (v19 >= v17)
         {
-          v18 = 0;
-          v39 = 0u;
-          v40 = 0u;
+          v16 = 0;
+          v49 = 0u;
+          v50 = 0u;
           goto LABEL_11;
         }
 
-        v18 = *(v15 + 8 * v21);
-        ++v20;
-        if (v18)
+        v16 = *(v13 + 8 * v19);
+        ++v18;
+        if (v16)
         {
-          v20 = v21;
+          v18 = v19;
           goto LABEL_10;
         }
       }
@@ -7218,39 +6847,30 @@ LABEL_6:
   {
     lazy protocol witness table accessor for type CurrentRequestOverrides.OverrideError and conformance CurrentRequestOverrides.OverrideError();
     swift_allocError();
-    *v26 = 0u;
-    *(v26 + 16) = 0u;
-    *(v26 + 32) = 0u;
-    *(v26 + 48) = 2;
+    *v24 = 0u;
+    *(v24 + 16) = 0u;
+    *(v24 + 32) = 0u;
+    *(v24 + 48) = 2;
     swift_willThrow();
   }
 }
 
-unint64_t specialized __RawDictionaryStorage.find<A>(_:)()
+uint64_t specialized __RawDictionaryStorage.find<A>(_:)()
 {
-  v1 = *(v0 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v2 = Hasher._finalize()();
+  v0 = Hasher._finalize()();
 
-  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(v2);
+  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(v0);
 }
 
 unint64_t specialized __RawDictionaryStorage.find<A>(_:)(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v6 = Hasher._finalize()();
+  v4 = Hasher._finalize()();
 
-  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, a2, v6);
-}
-
-unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(uint64_t a1)
-{
-  result = a1 & ~(-1 << *(v1 + 32));
-  v3 = *(v1 + ((result >> 3) & 0xFFFFFFFFFFFFFF8) + 64) >> result;
-  return result;
+  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, a2, v4);
 }
 
 unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -7464,35 +7084,24 @@ void CurrentRequest.responseMode.setter()
 {
   OUTLINED_FUNCTION_171();
   OUTLINED_FUNCTION_272();
-  v0 = type metadata accessor for ResponseMode();
-  v1 = OUTLINED_FUNCTION_2_2(v0);
-  v3 = v2;
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v1);
+  type metadata accessor for ResponseMode();
+  OUTLINED_FUNCTION_2_2();
+  MEMORY[0x1EEE9AC00](v0);
   OUTLINED_FUNCTION_40();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA12ResponseModeVGMd, &_s13SiriUtilities17MockablePublishedCyAA12ResponseModeVGMR);
   swift_getKeyPath();
   swift_getKeyPath();
-  v6 = OUTLINED_FUNCTION_8_1(v3);
-  v7(v6);
+  v1 = OUTLINED_FUNCTION_8_1();
+  v2(v1);
   OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
   OUTLINED_FUNCTION_279();
   OUTLINED_FUNCTION_60();
-  v8 = *(v3 + 8);
-  v9 = OUTLINED_FUNCTION_97();
-  v10(v9);
+  v3 = OUTLINED_FUNCTION_97();
+  v4(v3);
   OUTLINED_FUNCTION_170();
 }
 
-uint64_t key path setter for SiriEnvironment.currentRequest : SiriEnvironment(uint64_t *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-
-  return SiriEnvironment.currentRequest.setter();
-}
-
-uint64_t (*SiriEnvironment.currentRequest.modify(uint64_t *a1))(uint64_t *a1, char a2)
+uint64_t (*SiriEnvironment.currentRequest.modify(uint64_t *a1))()
 {
   a1[1] = v1;
   a1[2] = type metadata accessor for CurrentRequest();
@@ -7501,15 +7110,10 @@ uint64_t (*SiriEnvironment.currentRequest.modify(uint64_t *a1))(uint64_t *a1, ch
   return SiriEnvironment.currentRequest.modify;
 }
 
-uint64_t SiriEnvironment.currentRequest.modify(uint64_t *a1, char a2)
+uint64_t SiriEnvironment.currentRequest.modify(void *a1, char a2)
 {
-  v3 = a1[2];
-  v2 = a1[3];
-  v5 = *a1;
-  v4 = a1[1];
   if (a2)
   {
-    v6 = *a1;
 
     dispatch thunk of SiriEnvironment.subscript.setter();
   }
@@ -7543,22 +7147,20 @@ uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance Re
 uint64_t CurrentRequest.mock.setter(uint64_t a1)
 {
   swift_beginAccess();
-  v3 = *(v1 + 16);
   *(v1 + 16) = a1;
 }
 
-uint64_t key path getter for CurrentRequest.refId : CurrentRequest@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t key path getter for CurrentRequest.refId : CurrentRequest@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *a1;
   result = CurrentRequest.refId.getter();
-  *a2 = result;
-  a2[1] = v5;
+  *a1 = result;
+  a1[1] = v3;
   return result;
 }
 
-void CurrentRequest.refId.setter()
+void CurrentRequest.refId.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
 {
-  CurrentRequest.refId.setter();
+  CurrentRequest.refId.setter(a1, a2, &unk_1DD385DF8, &unk_1DD385E20, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18);
 }
 
 {
@@ -7583,36 +7185,33 @@ uint64_t (*CurrentRequest.refId.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$refId.getter()
+uint64_t CurrentRequest.$refId.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 24);
+  OUTLINED_FUNCTION_89(v2 + 24, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$refId.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 24);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 24);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$refId.modify()
@@ -7626,17 +7225,16 @@ uint64_t CurrentRequest.$refId.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$refId.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$refId.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
-uint64_t key path getter for CurrentRequest.aceId : CurrentRequest@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t key path getter for CurrentRequest.aceId : CurrentRequest@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *a1;
   result = CurrentRequest.aceId.getter();
-  *a2 = result;
-  a2[1] = v5;
+  *a1 = result;
+  a1[1] = v3;
   return result;
 }
 
@@ -7650,36 +7248,33 @@ uint64_t (*CurrentRequest.aceId.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$aceId.getter()
+uint64_t CurrentRequest.$aceId.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 32);
+  OUTLINED_FUNCTION_89(v2 + 32, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$aceId.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 32);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 32);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$aceId.modify()
@@ -7693,8 +7288,8 @@ uint64_t CurrentRequest.$aceId.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$aceId.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$aceId.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
@@ -7708,36 +7303,33 @@ uint64_t (*CurrentRequest.executionRequestId.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$executionRequestId.getter()
+uint64_t CurrentRequest.$executionRequestId.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 40);
+  OUTLINED_FUNCTION_89(v2 + 40, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$executionRequestId.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 40);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 40);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$executionRequestId.modify()
@@ -7751,17 +7343,16 @@ uint64_t CurrentRequest.$executionRequestId.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$executionRequestId.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$executionRequestId.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
-uint64_t key path getter for CurrentRequest.sessionHandoffContinuityID : CurrentRequest@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t key path getter for CurrentRequest.sessionHandoffContinuityID : CurrentRequest@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *a1;
   result = CurrentRequest.sessionHandoffContinuityID.getter();
-  *a2 = result;
-  a2[1] = v5;
+  *a1 = result;
+  a1[1] = v3;
   return result;
 }
 
@@ -7775,36 +7366,33 @@ uint64_t (*CurrentRequest.sessionHandoffContinuityID.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$sessionHandoffContinuityID.getter()
+uint64_t CurrentRequest.$sessionHandoffContinuityID.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 48);
+  OUTLINED_FUNCTION_89(v2 + 48, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$sessionHandoffContinuityID.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 48);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 48);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$sessionHandoffContinuityID.modify()
@@ -7818,17 +7406,16 @@ uint64_t CurrentRequest.$sessionHandoffContinuityID.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$sessionHandoffContinuityID.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$sessionHandoffContinuityID.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
-uint64_t key path getter for CurrentRequest.peerName : CurrentRequest@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t key path getter for CurrentRequest.peerName : CurrentRequest@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *a1;
   result = CurrentRequest.peerName.getter();
-  *a2 = result;
-  a2[1] = v5;
+  *a1 = result;
+  a1[1] = v3;
   return result;
 }
 
@@ -7842,36 +7429,33 @@ uint64_t (*CurrentRequest.peerName.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$peerName.getter()
+uint64_t CurrentRequest.$peerName.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 56);
+  OUTLINED_FUNCTION_89(v2 + 56, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$peerName.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 56);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 56);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$peerName.modify()
@@ -7885,8 +7469,8 @@ uint64_t CurrentRequest.$peerName.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$peerName.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$peerName.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
@@ -7894,23 +7478,20 @@ void CurrentRequest.inputOrigin.setter()
 {
   OUTLINED_FUNCTION_171();
   OUTLINED_FUNCTION_272();
-  v0 = type metadata accessor for InputOrigin();
-  v1 = OUTLINED_FUNCTION_2_2(v0);
-  v3 = v2;
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v1);
+  type metadata accessor for InputOrigin();
+  OUTLINED_FUNCTION_2_2();
+  MEMORY[0x1EEE9AC00](v0);
   OUTLINED_FUNCTION_40();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA11InputOriginOGMd, &_s13SiriUtilities17MockablePublishedCyAA11InputOriginOGMR);
   swift_getKeyPath();
   swift_getKeyPath();
-  v6 = OUTLINED_FUNCTION_8_1(v3);
-  v7(v6);
+  v1 = OUTLINED_FUNCTION_8_1();
+  v2(v1);
   OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
   OUTLINED_FUNCTION_279();
   OUTLINED_FUNCTION_60();
-  v8 = *(v3 + 8);
-  v9 = OUTLINED_FUNCTION_97();
-  v10(v9);
+  v3 = OUTLINED_FUNCTION_97();
+  v4(v3);
   OUTLINED_FUNCTION_170();
 }
 
@@ -7924,36 +7505,33 @@ uint64_t (*CurrentRequest.inputOrigin.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$inputOrigin.getter()
+uint64_t CurrentRequest.$inputOrigin.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 64);
+  OUTLINED_FUNCTION_89(v2 + 64, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$inputOrigin.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVyAA11InputOriginO_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVyAA11InputOriginO_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVyAA11InputOriginO_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVyAA11InputOriginO_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 64);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 64);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$inputOrigin.modify()
@@ -7967,21 +7545,19 @@ uint64_t CurrentRequest.$inputOrigin.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$inputOrigin.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$inputOrigin.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
-uint64_t key path setter for CurrentRequest.inputOrigin : CurrentRequest(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t (*a6)(uint64_t))
+uint64_t key path setter for CurrentRequest.inputOrigin : CurrentRequest(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void), uint64_t (*a6)(uint64_t))
 {
-  v10 = a5(0);
-  OUTLINED_FUNCTION_0(v10);
-  v12 = *(v11 + 64);
+  (a5)(0, a2, a3, a4);
+  OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v13);
+  MEMORY[0x1EEE9AC00](v9);
   OUTLINED_FUNCTION_15();
-  (*(v14 + 16))(v6, a1);
-  v15 = *a2;
+  (*(v10 + 16))(v6, a1);
   return a6(v6);
 }
 
@@ -7989,23 +7565,20 @@ void CurrentRequest.interactionType.setter()
 {
   OUTLINED_FUNCTION_171();
   OUTLINED_FUNCTION_272();
-  v0 = type metadata accessor for InteractionType();
-  v1 = OUTLINED_FUNCTION_2_2(v0);
-  v3 = v2;
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v1);
+  type metadata accessor for InteractionType();
+  OUTLINED_FUNCTION_2_2();
+  MEMORY[0x1EEE9AC00](v0);
   OUTLINED_FUNCTION_40();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA15InteractionTypeOGMd, &_s13SiriUtilities17MockablePublishedCyAA15InteractionTypeOGMR);
   swift_getKeyPath();
   swift_getKeyPath();
-  v6 = OUTLINED_FUNCTION_8_1(v3);
-  v7(v6);
+  v1 = OUTLINED_FUNCTION_8_1();
+  v2(v1);
   OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
   OUTLINED_FUNCTION_279();
   OUTLINED_FUNCTION_60();
-  v8 = *(v3 + 8);
-  v9 = OUTLINED_FUNCTION_97();
-  v10(v9);
+  v3 = OUTLINED_FUNCTION_97();
+  v4(v3);
   OUTLINED_FUNCTION_170();
 }
 
@@ -8019,36 +7592,33 @@ uint64_t (*CurrentRequest.interactionType.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$interactionType.getter()
+uint64_t CurrentRequest.$interactionType.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 72);
+  OUTLINED_FUNCTION_89(v2 + 72, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$interactionType.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVyAA15InteractionTypeO_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVyAA15InteractionTypeO_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVyAA15InteractionTypeO_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVyAA15InteractionTypeO_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 72);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 72);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$interactionType.modify()
@@ -8062,17 +7632,16 @@ uint64_t CurrentRequest.$interactionType.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$interactionType.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$interactionType.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
-uint64_t key path getter for CurrentRequest.interactionId : CurrentRequest@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t key path getter for CurrentRequest.interactionId : CurrentRequest@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *a1;
   result = CurrentRequest.interactionId.getter();
-  *a2 = result;
-  a2[1] = v5;
+  *a1 = result;
+  a1[1] = v3;
   return result;
 }
 
@@ -8086,36 +7655,33 @@ uint64_t (*CurrentRequest.interactionId.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$interactionId.getter()
+uint64_t CurrentRequest.$interactionId.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 80);
+  OUTLINED_FUNCTION_89(v2 + 80, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$interactionId.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 80);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 80);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$interactionId.modify()
@@ -8129,8 +7695,8 @@ uint64_t CurrentRequest.$interactionId.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$interactionId.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$interactionId.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
@@ -8140,9 +7706,8 @@ void CurrentRequest.audioSource.setter()
   v0 = OUTLINED_FUNCTION_169();
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(v0, v1);
   OUTLINED_FUNCTION_10(v2);
-  v4 = *(v3 + 64);
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v5);
+  MEMORY[0x1EEE9AC00](v3);
   OUTLINED_FUNCTION_149();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA11AudioSourceVSgGMd, &_s13SiriUtilities17MockablePublishedCyAA11AudioSourceVSgGMR);
   swift_getKeyPath();
@@ -8151,8 +7716,8 @@ void CurrentRequest.audioSource.setter()
   OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
   OUTLINED_FUNCTION_281();
   OUTLINED_FUNCTION_59();
-  v6 = OUTLINED_FUNCTION_97();
-  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v6, v7, &_s13SiriUtilities11AudioSourceVSgMR);
+  v4 = OUTLINED_FUNCTION_97();
+  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v4, v5, &_s13SiriUtilities11AudioSourceVSgMR);
   OUTLINED_FUNCTION_170();
 }
 
@@ -8166,36 +7731,33 @@ uint64_t (*CurrentRequest.audioSource.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$audioSource.getter()
+uint64_t CurrentRequest.$audioSource.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 88);
+  OUTLINED_FUNCTION_89(v2 + 88, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$audioSource.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVyAA11AudioSourceVSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVyAA11AudioSourceVSg_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVyAA11AudioSourceVSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVyAA11AudioSourceVSg_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 88);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 88);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$audioSource.modify()
@@ -8209,23 +7771,21 @@ uint64_t CurrentRequest.$audioSource.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$audioSource.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$audioSource.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
-uint64_t key path setter for CurrentRequest.audioSource : CurrentRequest(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(char *))
+uint64_t key path setter for CurrentRequest.audioSource : CurrentRequest(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(char *))
 {
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
-  OUTLINED_FUNCTION_10(v10);
-  v12 = *(v11 + 64);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+  OUTLINED_FUNCTION_10(v9);
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v13);
-  v15 = &v21 - v14;
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v17 - v11;
   OUTLINED_FUNCTION_290();
-  outlined init with copy of AudioSource?(v16, v17, v18, a6);
-  v19 = *a2;
-  return a7(v15);
+  outlined init with copy of AudioSource?(v13, v14, v15, a6);
+  return a7(v12);
 }
 
 void CurrentRequest.audioDestination.setter()
@@ -8234,9 +7794,8 @@ void CurrentRequest.audioDestination.setter()
   v0 = OUTLINED_FUNCTION_169();
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(v0, v1);
   OUTLINED_FUNCTION_10(v2);
-  v4 = *(v3 + 64);
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v5);
+  MEMORY[0x1EEE9AC00](v3);
   OUTLINED_FUNCTION_149();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA16AudioDestinationVSgGMd, &_s13SiriUtilities17MockablePublishedCyAA16AudioDestinationVSgGMR);
   swift_getKeyPath();
@@ -8245,8 +7804,8 @@ void CurrentRequest.audioDestination.setter()
   OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
   OUTLINED_FUNCTION_281();
   OUTLINED_FUNCTION_59();
-  v6 = OUTLINED_FUNCTION_97();
-  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v6, v7, &_s13SiriUtilities16AudioDestinationVSgMR);
+  v4 = OUTLINED_FUNCTION_97();
+  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v4, v5, &_s13SiriUtilities16AudioDestinationVSgMR);
   OUTLINED_FUNCTION_170();
 }
 
@@ -8260,36 +7819,33 @@ uint64_t (*CurrentRequest.audioDestination.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$audioDestination.getter()
+uint64_t CurrentRequest.$audioDestination.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 96);
+  OUTLINED_FUNCTION_89(v2 + 96, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$audioDestination.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVyAA16AudioDestinationVSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVyAA16AudioDestinationVSg_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVyAA16AudioDestinationVSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVyAA16AudioDestinationVSg_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 96);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 96);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$audioDestination.modify()
@@ -8303,8 +7859,8 @@ uint64_t CurrentRequest.$audioDestination.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$audioDestination.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$audioDestination.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
@@ -8318,36 +7874,33 @@ uint64_t (*CurrentRequest.responseMode.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$responseMode.getter()
+uint64_t CurrentRequest.$responseMode.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 104);
+  OUTLINED_FUNCTION_89(v2 + 104, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$responseMode.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVyAA12ResponseModeV_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVyAA12ResponseModeV_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVyAA12ResponseModeV_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVyAA12ResponseModeV_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 104);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 104);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$responseMode.modify()
@@ -8361,16 +7914,9 @@ uint64_t CurrentRequest.$responseMode.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$responseMode.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$responseMode.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
-}
-
-uint64_t key path setter for CurrentRequest.multiUserState : CurrentRequest(uint64_t a1, uint64_t *a2)
-{
-  outlined init with copy of MultiUserState(a1, v5);
-  v3 = *a2;
-  return CurrentRequest.multiUserState.setter(v5);
 }
 
 uint64_t CurrentRequest.multiUserState.setter(uint64_t a1)
@@ -8396,36 +7942,33 @@ uint64_t (*CurrentRequest.multiUserState.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$multiUserState.getter()
+uint64_t CurrentRequest.$multiUserState.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 112);
+  OUTLINED_FUNCTION_89(v2 + 112, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$multiUserState.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVy0A15FlowEnvironment14MultiUserStateO_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVy0A15FlowEnvironment14MultiUserStateO_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVy0A15FlowEnvironment14MultiUserStateO_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVy0A15FlowEnvironment14MultiUserStateO_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 112);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 112);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$multiUserState.modify()
@@ -8439,8 +7982,8 @@ uint64_t CurrentRequest.$multiUserState.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$multiUserState.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$multiUserState.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
@@ -8450,9 +7993,8 @@ void CurrentRequest.bargeInContext.setter()
   v0 = OUTLINED_FUNCTION_169();
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(v0, v1);
   OUTLINED_FUNCTION_10(v2);
-  v4 = *(v3 + 64);
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v5);
+  MEMORY[0x1EEE9AC00](v3);
   OUTLINED_FUNCTION_149();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA14BargeInContextVSgGMd, &_s13SiriUtilities17MockablePublishedCyAA14BargeInContextVSgGMR);
   swift_getKeyPath();
@@ -8461,8 +8003,8 @@ void CurrentRequest.bargeInContext.setter()
   OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
   OUTLINED_FUNCTION_281();
   OUTLINED_FUNCTION_59();
-  v6 = OUTLINED_FUNCTION_97();
-  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v6, v7, &_s13SiriUtilities14BargeInContextVSgMR);
+  v4 = OUTLINED_FUNCTION_97();
+  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v4, v5, &_s13SiriUtilities14BargeInContextVSgMR);
   OUTLINED_FUNCTION_170();
 }
 
@@ -8476,36 +8018,33 @@ uint64_t (*CurrentRequest.bargeInContext.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$bargeInContext.getter()
+uint64_t CurrentRequest.$bargeInContext.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 120);
+  OUTLINED_FUNCTION_89(v2 + 120, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$bargeInContext.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVyAA14BargeInContextVSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVyAA14BargeInContextVSg_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVyAA14BargeInContextVSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVyAA14BargeInContextVSg_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 120);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 120);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$bargeInContext.modify()
@@ -8519,8 +8058,8 @@ uint64_t CurrentRequest.$bargeInContext.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$bargeInContext.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$bargeInContext.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
@@ -8531,13 +8070,6 @@ uint64_t CurrentRequest.sharedContextService.getter()
   swift_getKeyPath();
   OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
   OUTLINED_FUNCTION_103();
-}
-
-uint64_t key path setter for CurrentRequest.sharedContextService : CurrentRequest(uint64_t a1, uint64_t *a2)
-{
-  outlined init with copy of AudioSource?(a1, v5, &_s19SiriFlowEnvironment20SharedContextService_pSgMd, &_s19SiriFlowEnvironment20SharedContextService_pSgMR);
-  v3 = *a2;
-  return CurrentRequest.sharedContextService.setter(v5);
 }
 
 uint64_t CurrentRequest.sharedContextService.setter(uint64_t a1)
@@ -8563,36 +8095,33 @@ uint64_t (*CurrentRequest.sharedContextService.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$sharedContextService.getter()
+uint64_t CurrentRequest.$sharedContextService.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 128);
+  OUTLINED_FUNCTION_89(v2 + 128, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$sharedContextService.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVy0A15FlowEnvironment20SharedContextService_pSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVy0A15FlowEnvironment20SharedContextService_pSg_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVy0A15FlowEnvironment20SharedContextService_pSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVy0A15FlowEnvironment20SharedContextService_pSg_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 128);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 128);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$sharedContextService.modify()
@@ -8606,8 +8135,8 @@ uint64_t CurrentRequest.$sharedContextService.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$sharedContextService.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$sharedContextService.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
@@ -8617,9 +8146,8 @@ void CurrentRequest.originatingHome.setter()
   v0 = OUTLINED_FUNCTION_169();
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(v0, v1);
   OUTLINED_FUNCTION_10(v2);
-  v4 = *(v3 + 64);
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v5);
+  MEMORY[0x1EEE9AC00](v3);
   OUTLINED_FUNCTION_149();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA8HomeInfoVSgGMd, &_s13SiriUtilities17MockablePublishedCyAA8HomeInfoVSgGMR);
   swift_getKeyPath();
@@ -8628,8 +8156,8 @@ void CurrentRequest.originatingHome.setter()
   OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
   OUTLINED_FUNCTION_281();
   OUTLINED_FUNCTION_59();
-  v6 = OUTLINED_FUNCTION_97();
-  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v6, v7, &_s13SiriUtilities8HomeInfoVSgMR);
+  v4 = OUTLINED_FUNCTION_97();
+  outlined destroy of (CurrentRequestOverrides.OverrideError, CurrentRequestOverrides.OverrideError)(v4, v5, &_s13SiriUtilities8HomeInfoVSgMR);
   OUTLINED_FUNCTION_170();
 }
 
@@ -8643,36 +8171,33 @@ uint64_t (*CurrentRequest.originatingHome.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$originatingHome.getter()
+uint64_t CurrentRequest.$originatingHome.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 136);
+  OUTLINED_FUNCTION_89(v2 + 136, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$originatingHome.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVyAA8HomeInfoVSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVyAA8HomeInfoVSg_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVyAA8HomeInfoVSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVyAA8HomeInfoVSg_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 136);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 136);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$originatingHome.modify()
@@ -8686,24 +8211,16 @@ uint64_t CurrentRequest.$originatingHome.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$originatingHome.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$originatingHome.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
-uint64_t key path getter for CurrentRequest.speechPackage : CurrentRequest@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t key path getter for CurrentRequest.speechPackage : CurrentRequest@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *a1;
   result = CurrentRequest.speechPackage.getter();
-  *a2 = result;
+  *a1 = result;
   return result;
-}
-
-void key path setter for CurrentRequest.speechPackage : CurrentRequest(id *a1, uint64_t *a2)
-{
-  v2 = *a2;
-  v3 = *a1;
-  CurrentRequest.speechPackage.setter();
 }
 
 uint64_t (*CurrentRequest.speechPackage.modify())()
@@ -8716,36 +8233,33 @@ uint64_t (*CurrentRequest.speechPackage.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$speechPackage.getter()
+uint64_t CurrentRequest.$speechPackage.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 144);
+  OUTLINED_FUNCTION_89(v2 + 144, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$speechPackage.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySo15AFSpeechPackageCSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySo15AFSpeechPackageCSg_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySo15AFSpeechPackageCSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySo15AFSpeechPackageCSg_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 144);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 144);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$speechPackage.modify()
@@ -8759,17 +8273,16 @@ uint64_t CurrentRequest.$speechPackage.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$speechPackage.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$speechPackage.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
-uint64_t key path getter for CurrentRequest.resultCandidateId : CurrentRequest@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t key path getter for CurrentRequest.resultCandidateId : CurrentRequest@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *a1;
   result = CurrentRequest.resultCandidateId.getter();
-  *a2 = result;
-  a2[1] = v5;
+  *a1 = result;
+  a1[1] = v3;
   return result;
 }
 
@@ -8783,36 +8296,33 @@ uint64_t (*CurrentRequest.resultCandidateId.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$resultCandidateId.getter()
+uint64_t CurrentRequest.$resultCandidateId.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 152);
+  OUTLINED_FUNCTION_89(v2 + 152, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$resultCandidateId.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 152);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 152);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$resultCandidateId.modify()
@@ -8826,46 +8336,21 @@ uint64_t CurrentRequest.$resultCandidateId.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$resultCandidateId.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$resultCandidateId.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
-uint64_t CurrentRequest.asrOnDevice.getter()
+uint64_t key path getter for CurrentRequest.asrOnDevice : CurrentRequest@<X0>(_BYTE *a1@<X8>)
 {
-  return CurrentRequest.asrOnDevice.getter();
-}
-
-{
-  OUTLINED_FUNCTION_295();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySbSgGMd, &_s13SiriUtilities17MockablePublishedCySbSgGMR);
-  OUTLINED_FUNCTION_309();
-  OUTLINED_FUNCTION_238();
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  OUTLINED_FUNCTION_147();
-  static MockablePublished.subscript.getter();
-
-  return v1;
-}
-
-uint64_t key path getter for CurrentRequest.asrOnDevice : CurrentRequest@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
-{
-  v3 = *a1;
   result = CurrentRequest.asrOnDevice.getter();
-  *a2 = result;
+  *a1 = result;
   return result;
 }
 
-void key path setter for CurrentRequest.asrOnDevice : CurrentRequest(unsigned __int8 *a1, uint64_t *a2)
+void CurrentRequest.asrOnDevice.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21)
 {
-  v2 = *a2;
-  v3 = *a1;
-  CurrentRequest.asrOnDevice.setter();
-}
-
-void CurrentRequest.asrOnDevice.setter()
-{
-  CurrentRequest.asrOnDevice.setter();
+  CurrentRequest.asrOnDevice.setter(a1, &unk_1DD386348, &unk_1DD386370, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21);
 }
 
 {
@@ -8890,36 +8375,33 @@ uint64_t (*CurrentRequest.asrOnDevice.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$asrOnDevice.getter()
+uint64_t CurrentRequest.$asrOnDevice.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 160);
+  OUTLINED_FUNCTION_89(v2 + 160, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$asrOnDevice.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySbSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySbSg_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySbSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySbSg_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 160);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 160);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$asrOnDevice.modify()
@@ -8933,8 +8415,8 @@ uint64_t CurrentRequest.$asrOnDevice.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$asrOnDevice.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$asrOnDevice.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
@@ -8950,25 +8432,23 @@ uint64_t CurrentRequest.currentDeviceAssistantId.getter()
   return v1;
 }
 
-uint64_t key path getter for CurrentRequest.currentDeviceAssistantId : CurrentRequest@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t key path getter for CurrentRequest.currentDeviceAssistantId : CurrentRequest@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *a1;
   result = CurrentRequest.currentDeviceAssistantId.getter();
-  *a2 = result;
-  a2[1] = v5;
+  *a1 = result;
+  a1[1] = v3;
   return result;
 }
 
-void key path setter for CurrentRequest.currentDeviceAssistantId : CurrentRequest(uint64_t *a1, uint64_t *a2)
+void key path setter for CurrentRequest.currentDeviceAssistantId : CurrentRequest(uint64_t *a1)
 {
-  v2 = *a1;
-  v3 = a1[1];
-  v4 = *a2;
+  v1 = *a1;
+  v2 = a1[1];
 
-  CurrentRequest.currentDeviceAssistantId.setter();
+  CurrentRequest.currentDeviceAssistantId.setter(v1, v2, v3, v4, v5, v6);
 }
 
-void CurrentRequest.currentDeviceAssistantId.setter()
+void CurrentRequest.currentDeviceAssistantId.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   OUTLINED_FUNCTION_315();
   OUTLINED_FUNCTION_295();
@@ -8992,36 +8472,33 @@ uint64_t (*CurrentRequest.currentDeviceAssistantId.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$currentDeviceAssistantId.getter()
+uint64_t CurrentRequest.$currentDeviceAssistantId.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 168);
+  OUTLINED_FUNCTION_89(v2 + 168, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$currentDeviceAssistantId.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySS_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySS_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySS_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySS_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 168);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 168);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$currentDeviceAssistantId.modify()
@@ -9035,25 +8512,16 @@ uint64_t CurrentRequest.$currentDeviceAssistantId.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$currentDeviceAssistantId.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$currentDeviceAssistantId.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
-uint64_t key path getter for CurrentRequest.voiceTriggerEventInfo : CurrentRequest@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t key path getter for CurrentRequest.voiceTriggerEventInfo : CurrentRequest@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *a1;
   result = CurrentRequest.voiceTriggerEventInfo.getter();
-  *a2 = result;
+  *a1 = result;
   return result;
-}
-
-void key path setter for CurrentRequest.voiceTriggerEventInfo : CurrentRequest(uint64_t *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-
-  CurrentRequest.voiceTriggerEventInfo.setter();
 }
 
 uint64_t (*CurrentRequest.voiceTriggerEventInfo.modify())()
@@ -9066,36 +8534,33 @@ uint64_t (*CurrentRequest.voiceTriggerEventInfo.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$voiceTriggerEventInfo.getter()
+uint64_t CurrentRequest.$voiceTriggerEventInfo.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 176);
+  OUTLINED_FUNCTION_89(v2 + 176, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$voiceTriggerEventInfo.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySDyS2SGSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySDyS2SGSg_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySDyS2SGSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySDyS2SGSg_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 176);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 176);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$voiceTriggerEventInfo.modify()
@@ -9109,8 +8574,8 @@ uint64_t CurrentRequest.$voiceTriggerEventInfo.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$voiceTriggerEventInfo.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$voiceTriggerEventInfo.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
@@ -9118,23 +8583,20 @@ void CurrentRequest.asrExecutionLocation.setter()
 {
   OUTLINED_FUNCTION_171();
   OUTLINED_FUNCTION_272();
-  v0 = type metadata accessor for ExecutionLocation();
-  v1 = OUTLINED_FUNCTION_2_2(v0);
-  v3 = v2;
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v1);
+  type metadata accessor for ExecutionLocation();
+  OUTLINED_FUNCTION_2_2();
+  MEMORY[0x1EEE9AC00](v0);
   OUTLINED_FUNCTION_40();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA17ExecutionLocationVGMd, &_s13SiriUtilities17MockablePublishedCyAA17ExecutionLocationVGMR);
   swift_getKeyPath();
   swift_getKeyPath();
-  v6 = OUTLINED_FUNCTION_8_1(v3);
-  v7(v6);
+  v1 = OUTLINED_FUNCTION_8_1();
+  v2(v1);
   OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
   OUTLINED_FUNCTION_279();
   OUTLINED_FUNCTION_60();
-  v8 = *(v3 + 8);
-  v9 = OUTLINED_FUNCTION_97();
-  v10(v9);
+  v3 = OUTLINED_FUNCTION_97();
+  v4(v3);
   OUTLINED_FUNCTION_170();
 }
 
@@ -9148,36 +8610,33 @@ uint64_t (*CurrentRequest.asrExecutionLocation.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$asrExecutionLocation.getter()
+uint64_t CurrentRequest.$asrExecutionLocation.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 184);
+  OUTLINED_FUNCTION_89(v2 + 184, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$asrExecutionLocation.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVyAA17ExecutionLocationV_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVyAA17ExecutionLocationV_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVyAA17ExecutionLocationV_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVyAA17ExecutionLocationV_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 184);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 184);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$asrExecutionLocation.modify()
@@ -9191,8 +8650,8 @@ uint64_t CurrentRequest.$asrExecutionLocation.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$asrExecutionLocation.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$asrExecutionLocation.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
@@ -9200,23 +8659,20 @@ void CurrentRequest.nlExecutionLocation.setter()
 {
   OUTLINED_FUNCTION_171();
   OUTLINED_FUNCTION_272();
-  v0 = type metadata accessor for ExecutionLocation();
-  v1 = OUTLINED_FUNCTION_2_2(v0);
-  v3 = v2;
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v1);
+  type metadata accessor for ExecutionLocation();
+  OUTLINED_FUNCTION_2_2();
+  MEMORY[0x1EEE9AC00](v0);
   OUTLINED_FUNCTION_40();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCyAA17ExecutionLocationVGMd, &_s13SiriUtilities17MockablePublishedCyAA17ExecutionLocationVGMR);
   swift_getKeyPath();
   swift_getKeyPath();
-  v6 = OUTLINED_FUNCTION_8_1(v3);
-  v7(v6);
+  v1 = OUTLINED_FUNCTION_8_1();
+  v2(v1);
   OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
   OUTLINED_FUNCTION_279();
   OUTLINED_FUNCTION_60();
-  v8 = *(v3 + 8);
-  v9 = OUTLINED_FUNCTION_97();
-  v10(v9);
+  v3 = OUTLINED_FUNCTION_97();
+  v4(v3);
   OUTLINED_FUNCTION_170();
 }
 
@@ -9230,36 +8686,33 @@ uint64_t (*CurrentRequest.nlExecutionLocation.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$nlExecutionLocation.getter()
+uint64_t CurrentRequest.$nlExecutionLocation.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 192);
+  OUTLINED_FUNCTION_89(v2 + 192, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$nlExecutionLocation.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVyAA17ExecutionLocationV_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVyAA17ExecutionLocationV_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVyAA17ExecutionLocationV_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVyAA17ExecutionLocationV_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 192);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 192);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$nlExecutionLocation.modify()
@@ -9273,17 +8726,16 @@ uint64_t CurrentRequest.$nlExecutionLocation.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$nlExecutionLocation.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$nlExecutionLocation.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
-uint64_t key path getter for CurrentRequest.companionName : CurrentRequest@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t key path getter for CurrentRequest.companionName : CurrentRequest@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *a1;
   result = CurrentRequest.companionName.getter();
-  *a2 = result;
-  a2[1] = v5;
+  *a1 = result;
+  a1[1] = v3;
   return result;
 }
 
@@ -9297,36 +8749,33 @@ uint64_t (*CurrentRequest.companionName.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$companionName.getter()
+uint64_t CurrentRequest.$companionName.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 200);
+  OUTLINED_FUNCTION_89(v2 + 200, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$companionName.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 200);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 200);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$companionName.modify()
@@ -9340,24 +8789,29 @@ uint64_t CurrentRequest.$companionName.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$companionName.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$companionName.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
-uint64_t key path getter for CurrentRequest.isRecognizeMyVoiceEnabled : CurrentRequest@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t CurrentRequest.asrOnDevice.getter(uint64_t a1)
 {
-  v3 = *a1;
-  result = CurrentRequest.isRecognizeMyVoiceEnabled.getter();
-  *a2 = result;
-  return result;
+  OUTLINED_FUNCTION_295();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySbSgGMd, &_s13SiriUtilities17MockablePublishedCySbSgGMR);
+  OUTLINED_FUNCTION_309();
+  OUTLINED_FUNCTION_238();
+  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  OUTLINED_FUNCTION_147();
+  static MockablePublished.subscript.getter();
+
+  return v2;
 }
 
-void key path setter for CurrentRequest.isRecognizeMyVoiceEnabled : CurrentRequest(unsigned __int8 *a1, uint64_t *a2)
+uint64_t key path getter for CurrentRequest.isRecognizeMyVoiceEnabled : CurrentRequest@<X0>(_BYTE *a1@<X8>)
 {
-  v2 = *a2;
-  v3 = *a1;
-  CurrentRequest.isRecognizeMyVoiceEnabled.setter();
+  result = CurrentRequest.isRecognizeMyVoiceEnabled.getter();
+  *a1 = result;
+  return result;
 }
 
 uint64_t (*CurrentRequest.isRecognizeMyVoiceEnabled.modify())()
@@ -9370,36 +8824,33 @@ uint64_t (*CurrentRequest.isRecognizeMyVoiceEnabled.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$isRecognizeMyVoiceEnabled.getter()
+uint64_t CurrentRequest.$isRecognizeMyVoiceEnabled.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 208);
+  OUTLINED_FUNCTION_89(v2 + 208, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$isRecognizeMyVoiceEnabled.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySbSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySbSg_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySbSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySbSg_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 208);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 208);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$isRecognizeMyVoiceEnabled.modify()
@@ -9413,8 +8864,8 @@ uint64_t CurrentRequest.$isRecognizeMyVoiceEnabled.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$isRecognizeMyVoiceEnabled.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$isRecognizeMyVoiceEnabled.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
@@ -9428,36 +8879,33 @@ uint64_t (*CurrentRequest.flowTaskMetadata.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$flowTaskMetadata.getter()
+uint64_t CurrentRequest.$flowTaskMetadata.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 216);
+  OUTLINED_FUNCTION_89(v2 + 216, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$flowTaskMetadata.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVy0A15FlowEnvironment0F12TaskMetadataVSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVy0A15FlowEnvironment0F12TaskMetadataVSg_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVy0A15FlowEnvironment0F12TaskMetadataVSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVy0A15FlowEnvironment0F12TaskMetadataVSg_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 216);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 216);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$flowTaskMetadata.modify()
@@ -9471,8 +8919,8 @@ uint64_t CurrentRequest.$flowTaskMetadata.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$flowTaskMetadata.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$flowTaskMetadata.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
@@ -9488,22 +8936,14 @@ uint64_t CurrentRequest.voiceAudioSessionId.getter()
   return v1;
 }
 
-uint64_t key path getter for CurrentRequest.voiceAudioSessionId : CurrentRequest@<X0>(uint64_t *a1@<X0>, _DWORD *a2@<X8>)
+uint64_t key path getter for CurrentRequest.voiceAudioSessionId : CurrentRequest@<X0>(_DWORD *a1@<X8>)
 {
-  v3 = *a1;
   result = CurrentRequest.voiceAudioSessionId.getter();
-  *a2 = result;
+  *a1 = result;
   return result;
 }
 
-void key path setter for CurrentRequest.voiceAudioSessionId : CurrentRequest(unsigned int *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  CurrentRequest.voiceAudioSessionId.setter();
-}
-
-void CurrentRequest.voiceAudioSessionId.setter()
+void CurrentRequest.voiceAudioSessionId.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, int a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
 {
   OUTLINED_FUNCTION_315();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCys6UInt32VGMd, &_s13SiriUtilities17MockablePublishedCys6UInt32VGMR);
@@ -9525,36 +8965,33 @@ uint64_t (*CurrentRequest.voiceAudioSessionId.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$voiceAudioSessionId.getter()
+uint64_t CurrentRequest.$voiceAudioSessionId.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 224);
+  OUTLINED_FUNCTION_89(v2 + 224, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$voiceAudioSessionId.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVys6UInt32V_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVys6UInt32V_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVys6UInt32V_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVys6UInt32V_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 224);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 224);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$voiceAudioSessionId.modify()
@@ -9568,17 +9005,16 @@ uint64_t CurrentRequest.$voiceAudioSessionId.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$voiceAudioSessionId.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$voiceAudioSessionId.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
-uint64_t key path getter for CurrentRequest.utterance : CurrentRequest@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t key path getter for CurrentRequest.utterance : CurrentRequest@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *a1;
   result = CurrentRequest.utterance.getter();
-  *a2 = result;
-  a2[1] = v5;
+  *a1 = result;
+  a1[1] = v3;
   return result;
 }
 
@@ -9592,36 +9028,33 @@ uint64_t (*CurrentRequest.utterance.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$utterance.getter()
+uint64_t CurrentRequest.$utterance.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 232);
+  OUTLINED_FUNCTION_89(v2 + 232, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$utterance.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 232);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 232);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$utterance.modify()
@@ -9635,46 +9068,21 @@ uint64_t CurrentRequest.$utterance.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$utterance.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$utterance.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
-uint64_t CurrentRequest.isSystemApertureEnabled.getter()
+uint64_t key path getter for CurrentRequest.isSystemApertureEnabled : CurrentRequest@<X0>(_BYTE *a1@<X8>)
 {
-  return CurrentRequest.isSystemApertureEnabled.getter();
-}
-
-{
-  OUTLINED_FUNCTION_295();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySbGMd, &_s13SiriUtilities17MockablePublishedCySbGMR);
-  OUTLINED_FUNCTION_309();
-  OUTLINED_FUNCTION_238();
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  OUTLINED_FUNCTION_147();
-  static MockablePublished.subscript.getter();
-
-  return v1;
-}
-
-uint64_t key path getter for CurrentRequest.isSystemApertureEnabled : CurrentRequest@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
-{
-  v3 = *a1;
   result = CurrentRequest.isSystemApertureEnabled.getter();
-  *a2 = result & 1;
+  *a1 = result & 1;
   return result;
 }
 
-void key path setter for CurrentRequest.isSystemApertureEnabled : CurrentRequest(unsigned __int8 *a1, uint64_t *a2)
+void CurrentRequest.isSystemApertureEnabled.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21)
 {
-  v2 = *a1;
-  v3 = *a2;
-  CurrentRequest.isSystemApertureEnabled.setter();
-}
-
-void CurrentRequest.isSystemApertureEnabled.setter()
-{
-  CurrentRequest.isSystemApertureEnabled.setter();
+  CurrentRequest.isSystemApertureEnabled.setter(a1, &unk_1DD386680, &unk_1DD3866A8, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21);
 }
 
 {
@@ -9699,36 +9107,33 @@ uint64_t (*CurrentRequest.isSystemApertureEnabled.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$isSystemApertureEnabled.getter()
+uint64_t CurrentRequest.$isSystemApertureEnabled.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 240);
+  OUTLINED_FUNCTION_89(v2 + 240, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$isSystemApertureEnabled.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySb_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySb_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySb_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySb_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 240);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 240);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$isSystemApertureEnabled.modify()
@@ -9742,24 +9147,29 @@ uint64_t CurrentRequest.$isSystemApertureEnabled.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$isSystemApertureEnabled.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$isSystemApertureEnabled.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
-uint64_t key path getter for CurrentRequest.isLiveActivitiesSupported : CurrentRequest@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t CurrentRequest.isSystemApertureEnabled.getter(uint64_t a1)
 {
-  v3 = *a1;
-  result = CurrentRequest.isLiveActivitiesSupported.getter();
-  *a2 = result & 1;
-  return result;
+  OUTLINED_FUNCTION_295();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySbGMd, &_s13SiriUtilities17MockablePublishedCySbGMR);
+  OUTLINED_FUNCTION_309();
+  OUTLINED_FUNCTION_238();
+  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  OUTLINED_FUNCTION_147();
+  static MockablePublished.subscript.getter();
+
+  return v2;
 }
 
-void key path setter for CurrentRequest.isLiveActivitiesSupported : CurrentRequest(unsigned __int8 *a1, uint64_t *a2)
+uint64_t key path getter for CurrentRequest.isLiveActivitiesSupported : CurrentRequest@<X0>(_BYTE *a1@<X8>)
 {
-  v2 = *a1;
-  v3 = *a2;
-  CurrentRequest.isLiveActivitiesSupported.setter();
+  result = CurrentRequest.isLiveActivitiesSupported.getter();
+  *a1 = result & 1;
+  return result;
 }
 
 uint64_t (*CurrentRequest.isLiveActivitiesSupported.modify())()
@@ -9772,36 +9182,33 @@ uint64_t (*CurrentRequest.isLiveActivitiesSupported.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$isLiveActivitiesSupported.getter()
+uint64_t CurrentRequest.$isLiveActivitiesSupported.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 248);
+  OUTLINED_FUNCTION_89(v2 + 248, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$isLiveActivitiesSupported.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySb_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySb_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySb_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySb_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 248);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 248);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
 }
 
 uint64_t CurrentRequest.$isLiveActivitiesSupported.modify()
@@ -9815,24 +9222,16 @@ uint64_t CurrentRequest.$isLiveActivitiesSupported.modify()
   v6 = __swift_coroFrameAllocStub(*(v5 + 64));
   v7 = OUTLINED_FUNCTION_105(v6);
   v8 = __swift_coroFrameAllocStub(v7);
-  OUTLINED_FUNCTION_17(v8);
-  CurrentRequest.$isLiveActivitiesSupported.getter();
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$isLiveActivitiesSupported.getter(v9, v10);
   return OUTLINED_FUNCTION_106();
 }
 
-uint64_t key path getter for CurrentRequest.isInAmbient : CurrentRequest@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t key path getter for CurrentRequest.isInAmbient : CurrentRequest@<X0>(_BYTE *a1@<X8>)
 {
-  v3 = *a1;
   result = CurrentRequest.isInAmbient.getter();
-  *a2 = result & 1;
+  *a1 = result & 1;
   return result;
-}
-
-void key path setter for CurrentRequest.isInAmbient : CurrentRequest(unsigned __int8 *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  CurrentRequest.isInAmbient.setter();
 }
 
 uint64_t (*CurrentRequest.isInAmbient.modify())()
@@ -9845,34 +9244,620 @@ uint64_t (*CurrentRequest.isInAmbient.modify())()
   OUTLINED_FUNCTION_108(KeyPath);
   v4 = swift_getKeyPath();
   OUTLINED_FUNCTION_107(v4);
-  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
-  *(v0 + 48) = OUTLINED_FUNCTION_11_0();
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
   return CurrentRequest.refId.modify;
 }
 
-uint64_t CurrentRequest.$isInAmbient.getter()
+uint64_t CurrentRequest.$isInAmbient.getter(uint64_t a1, uint64_t a2)
 {
-  OUTLINED_FUNCTION_89();
-  v1 = *(v0 + 256);
+  OUTLINED_FUNCTION_89(v2 + 256, a2);
 
   dispatch thunk of MockablePublished.projectedValue.getter();
 }
 
 uint64_t CurrentRequest.$isInAmbient.setter()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySb_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySb_GMR);
-  OUTLINED_FUNCTION_2_2(v1);
-  v3 = *(v2 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySb_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySb_GMR);
+  OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_2();
-  MEMORY[0x1EEE9AC00](v4);
+  MEMORY[0x1EEE9AC00](v1);
   OUTLINED_FUNCTION_15();
-  OUTLINED_FUNCTION_92();
-  v5 = *(v0 + 256);
-  v6 = OUTLINED_FUNCTION_3_3();
-  v7(v6);
+  OUTLINED_FUNCTION_92(v0 + 256);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
 
   dispatch thunk of MockablePublished.projectedValue.setter();
 
-  v8 = OUTLINED_FUNCTION_16();
-  return v9(v8);
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
+}
+
+uint64_t CurrentRequest.$isInAmbient.modify()
+{
+  v1 = OUTLINED_FUNCTION_109();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_18(v2);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySb_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySb_GMR);
+  OUTLINED_FUNCTION_9_1(v3);
+  *(v0 + 16) = v4;
+  v6 = __swift_coroFrameAllocStub(*(v5 + 64));
+  v7 = OUTLINED_FUNCTION_105(v6);
+  v8 = __swift_coroFrameAllocStub(v7);
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$isInAmbient.getter(v9, v10);
+  return OUTLINED_FUNCTION_106();
+}
+
+uint64_t CurrentRequest.positionInSession.getter()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment24RequestPositionInSessionOGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment24RequestPositionInSessionOGMR);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  OUTLINED_FUNCTION_103();
+}
+
+uint64_t key path getter for CurrentRequest.positionInSession : CurrentRequest@<X0>(_BYTE *a1@<X8>)
+{
+  result = CurrentRequest.positionInSession.getter();
+  *a1 = v3;
+  return result;
+}
+
+void CurrentRequest.positionInSession.setter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21)
+{
+  OUTLINED_FUNCTION_315();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment24RequestPositionInSessionOGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment24RequestPositionInSessionOGMR);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+
+  static MockablePublished.subscript.setter();
+  OUTLINED_FUNCTION_314();
+}
+
+uint64_t (*CurrentRequest.positionInSession.modify())()
+{
+  v1 = OUTLINED_FUNCTION_110();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_75(v2);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment24RequestPositionInSessionOGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment24RequestPositionInSessionOGMR);
+  KeyPath = swift_getKeyPath();
+  OUTLINED_FUNCTION_108(KeyPath);
+  v4 = swift_getKeyPath();
+  OUTLINED_FUNCTION_107(v4);
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
+  return CurrentRequest.refId.modify;
+}
+
+uint64_t CurrentRequest.$positionInSession.getter(uint64_t a1, uint64_t a2)
+{
+  OUTLINED_FUNCTION_89(v2 + 264, a2);
+
+  dispatch thunk of MockablePublished.projectedValue.getter();
+}
+
+uint64_t CurrentRequest.$positionInSession.setter()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVy0A15FlowEnvironment24RequestPositionInSessionO_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVy0A15FlowEnvironment24RequestPositionInSessionO_GMR);
+  OUTLINED_FUNCTION_2_2();
+  OUTLINED_FUNCTION_2();
+  MEMORY[0x1EEE9AC00](v1);
+  OUTLINED_FUNCTION_15();
+  OUTLINED_FUNCTION_92(v0 + 264);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
+
+  dispatch thunk of MockablePublished.projectedValue.setter();
+
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
+}
+
+uint64_t CurrentRequest.$positionInSession.modify()
+{
+  v1 = OUTLINED_FUNCTION_109();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_18(v2);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVy0A15FlowEnvironment24RequestPositionInSessionO_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVy0A15FlowEnvironment24RequestPositionInSessionO_GMR);
+  OUTLINED_FUNCTION_9_1(v3);
+  *(v0 + 16) = v4;
+  v6 = __swift_coroFrameAllocStub(*(v5 + 64));
+  v7 = OUTLINED_FUNCTION_105(v6);
+  v8 = __swift_coroFrameAllocStub(v7);
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$positionInSession.getter(v9, v10);
+  return OUTLINED_FUNCTION_106();
+}
+
+uint64_t key path getter for CurrentRequest.responseLanguageVariant : CurrentRequest@<X0>(uint64_t *a1@<X8>)
+{
+  result = CurrentRequest.responseLanguageVariant.getter();
+  *a1 = result;
+  a1[1] = v3;
+  return result;
+}
+
+uint64_t (*CurrentRequest.responseLanguageVariant.modify())()
+{
+  v1 = OUTLINED_FUNCTION_110();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_75(v2);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySSSgGMd, &_s13SiriUtilities17MockablePublishedCySSSgGMR);
+  KeyPath = swift_getKeyPath();
+  OUTLINED_FUNCTION_108(KeyPath);
+  v4 = swift_getKeyPath();
+  OUTLINED_FUNCTION_107(v4);
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
+  return CurrentRequest.refId.modify;
+}
+
+uint64_t CurrentRequest.$responseLanguageVariant.getter(uint64_t a1, uint64_t a2)
+{
+  OUTLINED_FUNCTION_89(v2 + 272, a2);
+
+  dispatch thunk of MockablePublished.projectedValue.getter();
+}
+
+uint64_t CurrentRequest.$responseLanguageVariant.setter()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
+  OUTLINED_FUNCTION_2_2();
+  OUTLINED_FUNCTION_2();
+  MEMORY[0x1EEE9AC00](v1);
+  OUTLINED_FUNCTION_15();
+  OUTLINED_FUNCTION_92(v0 + 272);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
+
+  dispatch thunk of MockablePublished.projectedValue.setter();
+
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
+}
+
+uint64_t CurrentRequest.$responseLanguageVariant.modify()
+{
+  v1 = OUTLINED_FUNCTION_109();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_18(v2);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
+  OUTLINED_FUNCTION_9_1(v3);
+  *(v0 + 16) = v4;
+  v6 = __swift_coroFrameAllocStub(*(v5 + 64));
+  v7 = OUTLINED_FUNCTION_105(v6);
+  v8 = __swift_coroFrameAllocStub(v7);
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$responseLanguageVariant.getter(v9, v10);
+  return OUTLINED_FUNCTION_106();
+}
+
+uint64_t CurrentRequest.locationProvider.getter()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0A16LocationProvider_pGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0A16LocationProvider_pGMR);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  OUTLINED_FUNCTION_103();
+}
+
+uint64_t CurrentRequest.locationProvider.setter(void *a1)
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0A16LocationProvider_pGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0A16LocationProvider_pGMR);
+  swift_getKeyPath();
+  swift_getKeyPath();
+  outlined init with copy of SiriLocationProvider(a1, v12);
+  OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+
+  OUTLINED_FUNCTION_176(v2, v3, v4, v5, v6, v7, v8, v9, v11, v12[0]);
+  static MockablePublished.subscript.setter();
+  return __swift_destroy_boxed_opaque_existential_1(a1);
+}
+
+uint64_t (*CurrentRequest.locationProvider.modify())()
+{
+  v1 = OUTLINED_FUNCTION_110();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_75(v2);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0A16LocationProvider_pGMd, &_s13SiriUtilities17MockablePublishedCy0A15FlowEnvironment0A16LocationProvider_pGMR);
+  KeyPath = swift_getKeyPath();
+  OUTLINED_FUNCTION_108(KeyPath);
+  v4 = swift_getKeyPath();
+  OUTLINED_FUNCTION_107(v4);
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
+  return CurrentRequest.refId.modify;
+}
+
+uint64_t CurrentRequest.$locationProvider.getter(uint64_t a1, uint64_t a2)
+{
+  OUTLINED_FUNCTION_89(v2 + 280, a2);
+
+  dispatch thunk of MockablePublished.projectedValue.getter();
+}
+
+uint64_t CurrentRequest.$locationProvider.setter()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVy0A15FlowEnvironment0A16LocationProvider_p_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVy0A15FlowEnvironment0A16LocationProvider_p_GMR);
+  OUTLINED_FUNCTION_2_2();
+  OUTLINED_FUNCTION_2();
+  MEMORY[0x1EEE9AC00](v1);
+  OUTLINED_FUNCTION_15();
+  OUTLINED_FUNCTION_92(v0 + 280);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
+
+  dispatch thunk of MockablePublished.projectedValue.setter();
+
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
+}
+
+uint64_t CurrentRequest.$locationProvider.modify()
+{
+  v1 = OUTLINED_FUNCTION_109();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_18(v2);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVy0A15FlowEnvironment0A16LocationProvider_p_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVy0A15FlowEnvironment0A16LocationProvider_p_GMR);
+  OUTLINED_FUNCTION_9_1(v3);
+  *(v0 + 16) = v4;
+  v6 = __swift_coroFrameAllocStub(*(v5 + 64));
+  v7 = OUTLINED_FUNCTION_105(v6);
+  v8 = __swift_coroFrameAllocStub(v7);
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$locationProvider.getter(v9, v10);
+  return OUTLINED_FUNCTION_106();
+}
+
+uint64_t key path getter for CurrentRequest.requestLanguageVariant : CurrentRequest@<X0>(uint64_t *a1@<X8>)
+{
+  result = CurrentRequest.requestLanguageVariant.getter();
+  *a1 = result;
+  a1[1] = v3;
+  return result;
+}
+
+uint64_t (*CurrentRequest.requestLanguageVariant.modify())()
+{
+  v1 = OUTLINED_FUNCTION_110();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_75(v2);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySSSgGMd, &_s13SiriUtilities17MockablePublishedCySSSgGMR);
+  KeyPath = swift_getKeyPath();
+  OUTLINED_FUNCTION_108(KeyPath);
+  v4 = swift_getKeyPath();
+  OUTLINED_FUNCTION_107(v4);
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
+  return CurrentRequest.refId.modify;
+}
+
+uint64_t CurrentRequest.$requestLanguageVariant.getter(uint64_t a1, uint64_t a2)
+{
+  OUTLINED_FUNCTION_89(v2 + 288, a2);
+
+  dispatch thunk of MockablePublished.projectedValue.getter();
+}
+
+uint64_t CurrentRequest.$requestLanguageVariant.setter()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
+  OUTLINED_FUNCTION_2_2();
+  OUTLINED_FUNCTION_2();
+  MEMORY[0x1EEE9AC00](v1);
+  OUTLINED_FUNCTION_15();
+  OUTLINED_FUNCTION_92(v0 + 288);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
+
+  dispatch thunk of MockablePublished.projectedValue.setter();
+
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
+}
+
+uint64_t CurrentRequest.$requestLanguageVariant.modify()
+{
+  v1 = OUTLINED_FUNCTION_109();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_18(v2);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
+  OUTLINED_FUNCTION_9_1(v3);
+  *(v0 + 16) = v4;
+  v6 = __swift_coroFrameAllocStub(*(v5 + 64));
+  v7 = OUTLINED_FUNCTION_105(v6);
+  v8 = __swift_coroFrameAllocStub(v7);
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$requestLanguageVariant.getter(v9, v10);
+  return OUTLINED_FUNCTION_106();
+}
+
+uint64_t key path getter for CurrentRequest.rootRequestId : CurrentRequest@<X0>(uint64_t *a1@<X8>)
+{
+  result = CurrentRequest.rootRequestId.getter();
+  *a1 = result;
+  a1[1] = v3;
+  return result;
+}
+
+uint64_t (*CurrentRequest.rootRequestId.modify())()
+{
+  v1 = OUTLINED_FUNCTION_110();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_75(v2);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySSSgGMd, &_s13SiriUtilities17MockablePublishedCySSSgGMR);
+  KeyPath = swift_getKeyPath();
+  OUTLINED_FUNCTION_108(KeyPath);
+  v4 = swift_getKeyPath();
+  OUTLINED_FUNCTION_107(v4);
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
+  return CurrentRequest.rootRequestId.modify;
+}
+
+uint64_t CurrentRequest.$rootRequestId.getter(uint64_t a1, uint64_t a2)
+{
+  OUTLINED_FUNCTION_89(v2 + 296, a2);
+
+  dispatch thunk of MockablePublished.projectedValue.getter();
+}
+
+uint64_t CurrentRequest.$rootRequestId.setter()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
+  OUTLINED_FUNCTION_2_2();
+  OUTLINED_FUNCTION_2();
+  MEMORY[0x1EEE9AC00](v1);
+  OUTLINED_FUNCTION_15();
+  OUTLINED_FUNCTION_92(v0 + 296);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
+
+  dispatch thunk of MockablePublished.projectedValue.setter();
+
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
+}
+
+uint64_t CurrentRequest.$rootRequestId.modify()
+{
+  v1 = OUTLINED_FUNCTION_109();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_18(v2);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
+  OUTLINED_FUNCTION_9_1(v3);
+  *(v0 + 16) = v4;
+  v6 = __swift_coroFrameAllocStub(*(v5 + 64));
+  v7 = OUTLINED_FUNCTION_105(v6);
+  v8 = __swift_coroFrameAllocStub(v7);
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$rootRequestId.getter(v9, v10);
+  return OUTLINED_FUNCTION_106();
+}
+
+uint64_t key path getter for CurrentRequest.sessionId : CurrentRequest@<X0>(uint64_t *a1@<X8>)
+{
+  result = CurrentRequest.sessionId.getter();
+  *a1 = result;
+  a1[1] = v3;
+  return result;
+}
+
+uint64_t key path setter for CurrentRequest.refId : CurrentRequest(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t))
+{
+  v7 = *a1;
+  v6 = a1[1];
+
+  return a5(v7, v6);
+}
+
+uint64_t (*CurrentRequest.sessionId.modify())()
+{
+  v1 = OUTLINED_FUNCTION_110();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_75(v2);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySSSgGMd, &_s13SiriUtilities17MockablePublishedCySSSgGMR);
+  KeyPath = swift_getKeyPath();
+  OUTLINED_FUNCTION_108(KeyPath);
+  v4 = swift_getKeyPath();
+  OUTLINED_FUNCTION_107(v4);
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
+  return CurrentRequest.refId.modify;
+}
+
+uint64_t CurrentRequest.$sessionId.getter(uint64_t a1, uint64_t a2)
+{
+  OUTLINED_FUNCTION_89(v2 + 304, a2);
+
+  dispatch thunk of MockablePublished.projectedValue.getter();
+}
+
+uint64_t CurrentRequest.$sessionId.setter()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
+  OUTLINED_FUNCTION_2_2();
+  OUTLINED_FUNCTION_2();
+  MEMORY[0x1EEE9AC00](v1);
+  OUTLINED_FUNCTION_15();
+  OUTLINED_FUNCTION_92(v0 + 304);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
+
+  dispatch thunk of MockablePublished.projectedValue.setter();
+
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
+}
+
+uint64_t CurrentRequest.$sessionId.modify()
+{
+  v1 = OUTLINED_FUNCTION_109();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_18(v2);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySSSg_GMR);
+  OUTLINED_FUNCTION_9_1(v3);
+  *(v0 + 16) = v4;
+  v6 = __swift_coroFrameAllocStub(*(v5 + 64));
+  v7 = OUTLINED_FUNCTION_105(v6);
+  v8 = __swift_coroFrameAllocStub(v7);
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$sessionId.getter(v9, v10);
+  return OUTLINED_FUNCTION_106();
+}
+
+uint64_t key path getter for CurrentRequest.remoteRequestWasMadeInSession : CurrentRequest@<X0>(_BYTE *a1@<X8>)
+{
+  result = CurrentRequest.remoteRequestWasMadeInSession.getter();
+  *a1 = result & 1;
+  return result;
+}
+
+uint64_t (*CurrentRequest.remoteRequestWasMadeInSession.modify())()
+{
+  v1 = OUTLINED_FUNCTION_110();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_75(v2);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySbGMd, &_s13SiriUtilities17MockablePublishedCySbGMR);
+  KeyPath = swift_getKeyPath();
+  OUTLINED_FUNCTION_108(KeyPath);
+  v4 = swift_getKeyPath();
+  OUTLINED_FUNCTION_107(v4);
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
+  return CurrentRequest.refId.modify;
+}
+
+uint64_t CurrentRequest.$remoteRequestWasMadeInSession.getter(uint64_t a1, uint64_t a2)
+{
+  OUTLINED_FUNCTION_89(v2 + 312, a2);
+
+  dispatch thunk of MockablePublished.projectedValue.getter();
+}
+
+uint64_t CurrentRequest.$remoteRequestWasMadeInSession.setter()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySb_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySb_GMR);
+  OUTLINED_FUNCTION_2_2();
+  OUTLINED_FUNCTION_2();
+  MEMORY[0x1EEE9AC00](v1);
+  OUTLINED_FUNCTION_15();
+  OUTLINED_FUNCTION_92(v0 + 312);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
+
+  dispatch thunk of MockablePublished.projectedValue.setter();
+
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
+}
+
+uint64_t CurrentRequest.$remoteRequestWasMadeInSession.modify()
+{
+  v1 = OUTLINED_FUNCTION_109();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_18(v2);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySb_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySb_GMR);
+  OUTLINED_FUNCTION_9_1(v3);
+  *(v0 + 16) = v4;
+  v6 = __swift_coroFrameAllocStub(*(v5 + 64));
+  v7 = OUTLINED_FUNCTION_105(v6);
+  v8 = __swift_coroFrameAllocStub(v7);
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$remoteRequestWasMadeInSession.getter(v9, v10);
+  return OUTLINED_FUNCTION_106();
+}
+
+uint64_t key path getter for CurrentRequest.overrideProperties : CurrentRequest@<X0>(uint64_t *a1@<X8>)
+{
+  result = CurrentRequest.overrideProperties.getter();
+  *a1 = result;
+  return result;
+}
+
+void *__swift_coroFrameAllocStub(size_t a1)
+{
+  if (MEMORY[0x1E69E7D08])
+  {
+    return swift_coroFrameAlloc();
+  }
+
+  return malloc(a1);
+}
+
+uint64_t (*CurrentRequest.overrideProperties.modify())()
+{
+  v1 = OUTLINED_FUNCTION_110();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_75(v2);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedCySDy0A15FlowEnvironment23CurrentRequestOverridesO5FieldOypGSgGMd, &_s13SiriUtilities17MockablePublishedCySDy0A15FlowEnvironment23CurrentRequestOverridesO5FieldOypGSgGMR);
+  KeyPath = swift_getKeyPath();
+  OUTLINED_FUNCTION_108(KeyPath);
+  v4 = swift_getKeyPath();
+  OUTLINED_FUNCTION_107(v4);
+  v5 = OUTLINED_FUNCTION_0_5(&lazy protocol witness table cache variable for type CurrentRequest and conformance CurrentRequest);
+  *(v0 + 48) = OUTLINED_FUNCTION_11_0(v5);
+  return CurrentRequest.refId.modify;
+}
+
+void CurrentRequest.refId.modify(void *a1)
+{
+  v1 = *a1;
+  (*(*a1 + 48))(*a1, 0);
+
+  free(v1);
+}
+
+uint64_t CurrentRequest.$overrideProperties.getter(uint64_t a1, uint64_t a2)
+{
+  OUTLINED_FUNCTION_89(v2 + 320, a2);
+
+  dispatch thunk of MockablePublished.projectedValue.getter();
+}
+
+uint64_t key path setter for CurrentRequest.$refId : CurrentRequest(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t *a6, uint64_t (*a7)(uint64_t))
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_2();
+  MEMORY[0x1EEE9AC00](v10);
+  OUTLINED_FUNCTION_15();
+  (*(v11 + 16))(v7, a1);
+  return a7(v7);
+}
+
+uint64_t CurrentRequest.$overrideProperties.setter()
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySDy0A15FlowEnvironment23CurrentRequestOverridesO5FieldOypGSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySDy0A15FlowEnvironment23CurrentRequestOverridesO5FieldOypGSg_GMR);
+  OUTLINED_FUNCTION_2_2();
+  OUTLINED_FUNCTION_2();
+  MEMORY[0x1EEE9AC00](v1);
+  OUTLINED_FUNCTION_15();
+  OUTLINED_FUNCTION_92(v0 + 320);
+  v2 = OUTLINED_FUNCTION_3_3();
+  v3(v2);
+
+  dispatch thunk of MockablePublished.projectedValue.setter();
+
+  v4 = OUTLINED_FUNCTION_16();
+  return v5(v4);
+}
+
+uint64_t CurrentRequest.$overrideProperties.modify()
+{
+  v1 = OUTLINED_FUNCTION_109();
+  v2 = __swift_coroFrameAllocStub(v1);
+  OUTLINED_FUNCTION_18(v2);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriUtilities17MockablePublishedC9PublisherVySDy0A15FlowEnvironment23CurrentRequestOverridesO5FieldOypGSg_GMd, &_s13SiriUtilities17MockablePublishedC9PublisherVySDy0A15FlowEnvironment23CurrentRequestOverridesO5FieldOypGSg_GMR);
+  OUTLINED_FUNCTION_9_1(v3);
+  *(v0 + 16) = v4;
+  v6 = __swift_coroFrameAllocStub(*(v5 + 64));
+  v7 = OUTLINED_FUNCTION_105(v6);
+  v8 = __swift_coroFrameAllocStub(v7);
+  v9 = OUTLINED_FUNCTION_17(v8);
+  CurrentRequest.$overrideProperties.getter(v9, v10);
+  return OUTLINED_FUNCTION_106();
 }

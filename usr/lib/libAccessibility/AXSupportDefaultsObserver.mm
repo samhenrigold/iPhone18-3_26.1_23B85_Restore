@@ -2,6 +2,7 @@
 - (AXSupportDefaultsObserver)init;
 - (void)dealloc;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
+- (void)startObservingPreference:(__CFString *)preference andBroadcastDarwinNotification:(__CFString *)notification postGlobally:(BOOL)globally;
 - (void)startObservingPreference:(__CFString *)preference andPerformBlock:(id)block;
 @end
 
@@ -41,41 +42,68 @@
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = self->_observedPrefs;
-  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [(NSUserDefaults *)self->_axDomain removeObserver:self forKeyPath:*(*(&v10 + 1) + 8 * v7++)];
+        [(NSUserDefaults *)self->_axDomain removeObserver:self forKeyPath:*(*(&v9 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
-  v9.receiver = self;
-  v9.super_class = AXSupportDefaultsObserver;
-  [(AXSupportDefaultsObserver *)&v9 dealloc];
-  v8 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = AXSupportDefaultsObserver;
+  [(AXSupportDefaultsObserver *)&v8 dealloc];
+}
+
+- (void)startObservingPreference:(__CFString *)preference andBroadcastDarwinNotification:(__CFString *)notification postGlobally:(BOOL)globally
+{
+  globallyCopy = globally;
+  v9 = objc_autoreleasePoolPush();
+  currentThread = [MEMORY[0x1E696AF00] currentThread];
+  isMainThread = [currentThread isMainThread];
+
+  if ((isMainThread & 1) == 0)
+  {
+    v13 = AXSupportLogCommon(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    {
+      [AXSupportDefaultsObserver startObservingPreference:andBroadcastDarwinNotification:postGlobally:];
+    }
+  }
+
+  observedPrefs = self->_observedPrefs;
+  notificationCopy = notification;
+  preferenceCopy = preference;
+  [(NSMutableSet *)observedPrefs addObject:preferenceCopy];
+  v17 = [[AXDefaultsObserverPostDarwinNotificationAction alloc] initWithDarwinNotification:notificationCopy postGlobally:globallyCopy];
+
+  [(NSMutableArray *)self->_actions addObject:v17];
+  [(NSUserDefaults *)self->_axDomain addObserver:self forKeyPath:preferenceCopy options:3 context:v17];
+
+  objc_autoreleasePoolPop(v9);
 }
 
 - (void)startObservingPreference:(__CFString *)preference andPerformBlock:(id)block
@@ -87,8 +115,8 @@
 
   if ((isMainThread & 1) == 0)
   {
-    v10 = AXSupportLogCommon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = AXSupportLogCommon(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       [AXSupportDefaultsObserver startObservingPreference:andBroadcastDarwinNotification:postGlobally:];
     }
@@ -97,9 +125,9 @@
   observedPrefs = self->_observedPrefs;
   preferenceCopy = preference;
   [(NSMutableSet *)observedPrefs addObject:preferenceCopy];
-  v13 = [[AXDefaultsObserverExecuteBlockNotificationAction alloc] initWithBlock:blockCopy];
-  [(NSMutableArray *)self->_actions addObject:v13];
-  [(NSUserDefaults *)self->_axDomain addObserver:self forKeyPath:preferenceCopy options:3 context:v13];
+  v14 = [[AXDefaultsObserverExecuteBlockNotificationAction alloc] initWithBlock:blockCopy];
+  [(NSMutableArray *)self->_actions addObject:v14];
+  [(NSUserDefaults *)self->_axDomain addObserver:self forKeyPath:preferenceCopy options:3 context:v14];
 
   objc_autoreleasePoolPop(v7);
 }

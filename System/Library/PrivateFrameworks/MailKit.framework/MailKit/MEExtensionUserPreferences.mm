@@ -8,6 +8,7 @@
 - (id)_serializedData;
 - (void)_savePreferences;
 - (void)_serializedData;
+- (void)setExtensionEnabled:(BOOL)enabled forExtensionID:(id)d;
 @end
 
 @implementation MEExtensionUserPreferences
@@ -129,6 +130,28 @@ void __39__MEExtensionUserPreferences__plistURL__block_invoke()
   return self;
 }
 
+- (void)setExtensionEnabled:(BOOL)enabled forExtensionID:(id)d
+{
+  enabledCopy = enabled;
+  dCopy = d;
+  os_unfair_lock_lock(&self->_lock);
+  _loadUserPreferences = [(MEExtensionUserPreferences *)self _loadUserPreferences];
+  v7 = [_loadUserPreferences objectForKeyedSubscript:dCopy];
+
+  if (!v7)
+  {
+    v7 = objc_opt_new();
+  }
+
+  v8 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+  [v7 setObject:v8 forKeyedSubscript:@"MEExtensionUserEnabled"];
+
+  [(NSMutableDictionary *)self->_extensionIDToUserEnabledMap setObject:v7 forKeyedSubscript:dCopy];
+  [(MEExtensionUserPreferences *)self _savePreferences];
+
+  os_unfair_lock_unlock(&self->_lock);
+}
+
 - (void)_savePreferences
 {
   *buf = 138543362;
@@ -138,12 +161,12 @@ void __39__MEExtensionUserPreferences__plistURL__block_invoke()
 
 - (id)_serializedData
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAC58];
   v4 = [(NSMutableDictionary *)self->_extensionIDToUserEnabledMap copy];
-  v12 = 0;
-  v5 = [v3 dataWithPropertyList:v4 format:200 options:0 error:&v12];
-  v6 = v12;
+  v11 = 0;
+  v5 = [v3 dataWithPropertyList:v4 format:200 options:0 error:&v11];
+  v6 = v11;
 
   if (!v5)
   {
@@ -155,8 +178,6 @@ void __39__MEExtensionUserPreferences__plistURL__block_invoke()
       [(MEExtensionUserPreferences *)ef_publicDescription _serializedData:buf];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

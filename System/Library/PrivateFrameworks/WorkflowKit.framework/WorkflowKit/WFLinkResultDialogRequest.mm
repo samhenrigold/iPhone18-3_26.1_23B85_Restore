@@ -88,7 +88,7 @@
 
 void __63__WFLinkResultDialogRequest_getCATResultWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -96,11 +96,11 @@ void __63__WFLinkResultDialogRequest_getCATResultWithCompletionHandler___block_i
     v7 = getWFWorkflowExecutionLogObject();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315394;
-      v11 = "[WFLinkResultDialogRequest getCATResultWithCompletionHandler:]_block_invoke";
-      v12 = 2112;
-      v13 = v6;
-      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_ERROR, "%s Could not get CATResult, error: %@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[WFLinkResultDialogRequest getCATResultWithCompletionHandler:]_block_invoke";
+      v11 = 2112;
+      v12 = v6;
+      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_ERROR, "%s Could not get CATResult, error: %@", &v9, 0x16u);
     }
 
     v8 = *(*(a1 + 40) + 16);
@@ -113,8 +113,6 @@ void __63__WFLinkResultDialogRequest_getCATResultWithCompletionHandler___block_i
   }
 
   v8();
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (WFLinkResultDialogRequest)initWithSuccessResult:(id)result attribution:(id)attribution encodedSnippetActionToolInvocation:(id)invocation

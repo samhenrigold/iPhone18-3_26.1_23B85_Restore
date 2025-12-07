@@ -16,11 +16,10 @@
   [v3 appendFormat:@"Power Source Type: %@\n", W5DescriptionForPowerSourceType(self->_powerSourceType)];
   [v3 appendFormat:@"Internal Battery Level: %.0f\n", *&self->_internalBatteryLevel];
   [v3 appendFormat:@"Battery Warning Level: %@\n", W5DescriptionForBatteryWarningLevel(self->_batteryWarningLevel)];
-  powerStateCaps = self->_powerStateCaps;
-  [v3 appendFormat:@"Power State: %@\n", W5DescriptionForPowerStateCaps()];
-  v5 = [v3 copy];
+  [v3 appendFormat:@"Power State: %@\n", W5DescriptionForPowerStateCaps(self->_powerStateCaps)];
+  v4 = [v3 copy];
 
-  return v5;
+  return v4;
 }
 
 - (BOOL)conformsToProtocol:(id)protocol

@@ -98,7 +98,7 @@
 
 - (unsigned)splitLine:(CGRect)line lineSegmentRects:(CGRect)rects[128] wrappableAttachments:(id)attachments ignoreFloatingGraphics:(BOOL)graphics floatingCausedWrap:(BOOL *)wrap skipHint:(double *)hint userInfo:(id)info
 {
-  v9 = __chkstk_darwin(self, a2, rects, attachments, graphics, wrap, hint, info, line.origin, *&line.origin.y, line.size, *&line.size.height);
+  v9 = __chkstk_darwin(self, a2, rects);
   v11 = v10;
   v13 = v12;
   v135 = v9;

@@ -30,7 +30,7 @@
   itemCopy = item;
   errorCopy = error;
   selfCopy = self;
-  sub_3D310();
+  sub_3D310(errorCopy);
 }
 
 - (void)engine:(id)engine didUpdatePlaybackPositionWithEvent:(id)event

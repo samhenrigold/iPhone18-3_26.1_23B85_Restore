@@ -25,7 +25,7 @@
 - (void)didTap
 {
   selfCopy = self;
-  sub_24E014B2C();
+  sub_24E014B2C(selfCopy);
 }
 
 - (UIVisualEffectView)accessibilityProfileEditButtonBackground

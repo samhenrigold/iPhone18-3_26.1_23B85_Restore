@@ -8,7 +8,7 @@
 
 + (id)serializedRepresentationFromValue:(id)value
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -30,23 +30,21 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v14 = "+[WFSystemShortcutPickerParameterState serializedRepresentationFromValue:]";
-      v15 = 2112;
-      v16 = valueCopy;
+      v13 = "+[WFSystemShortcutPickerParameterState serializedRepresentationFromValue:]";
+      v14 = 2112;
+      v15 = valueCopy;
       _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_ERROR, "%s Could not get value from system action: %@", buf, 0x16u);
     }
 
     wfSerializedRepresentation = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return wfSerializedRepresentation;
 }
 
 + (id)valueFromSerializedRepresentation:(id)representation variableProvider:(id)provider parameter:(id)parameter
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   providerCopy = provider;
   parameterCopy = parameter;
@@ -122,15 +120,13 @@
     v21 = getWFAppIntentsLogObject();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v24 = 136315138;
-      v25 = "+[WFSystemShortcutPickerParameterState valueFromSerializedRepresentation:variableProvider:parameter:]";
-      _os_log_impl(&dword_1CA256000, v21, OS_LOG_TYPE_ERROR, "%s Failed to system shortcut value", &v24, 0xCu);
+      v23 = 136315138;
+      v24 = "+[WFSystemShortcutPickerParameterState valueFromSerializedRepresentation:variableProvider:parameter:]";
+      _os_log_impl(&dword_1CA256000, v21, OS_LOG_TYPE_ERROR, "%s Failed to system shortcut value", &v23, 0xCu);
     }
 
     v20 = 0;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v20;
 }

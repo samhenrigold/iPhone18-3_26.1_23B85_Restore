@@ -125,9 +125,9 @@ uint64_t __29__MTMetrics_logAlarmUpdated___block_invoke(uint64_t a1)
   [(NAScheduler *)serializer performBlock:v4];
 }
 
-uint64_t __34__MTMetrics_logAlarmSnoozeAction___block_invoke(uint64_t result)
+void *__34__MTMetrics_logAlarmSnoozeAction___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (v1 <= 2)
   {
     return [MTAnalytics incrementEventCount:*off_1E7B0E710[v1]];
@@ -147,9 +147,9 @@ uint64_t __34__MTMetrics_logAlarmSnoozeAction___block_invoke(uint64_t result)
   [(NAScheduler *)serializer performBlock:v4];
 }
 
-uint64_t __35__MTMetrics_logAlarmDismissAction___block_invoke(uint64_t result)
+void *__35__MTMetrics_logAlarmDismissAction___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (v1 <= 0xB && ((0xDE7u >> v1) & 1) != 0)
   {
     return [MTAnalytics incrementEventCount:*off_1E7B0E728[v1]];
@@ -173,14 +173,12 @@ uint64_t __35__MTMetrics_logAlarmDismissAction___block_invoke(uint64_t result)
 
 void __36__MTMetrics_logMultipleTimersAdded___block_invoke(uint64_t a1)
 {
-  v5[1] = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  v4 = @"multipleTimersCount";
-  v5[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+  v3 = @"multipleTimersCount";
+  v4[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:&v3 count:1];
   [MTAnalytics submitEvent:@"com.apple.MobileTimer.MultipleTimers.running" eventParameters:v2];
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logSyncFailedWithError:(id)error

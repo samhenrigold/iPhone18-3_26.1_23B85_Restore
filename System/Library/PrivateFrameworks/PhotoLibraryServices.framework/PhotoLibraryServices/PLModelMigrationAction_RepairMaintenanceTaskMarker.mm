@@ -6,7 +6,7 @@
 
 - (int64_t)performActionWithManagedObjectContext:(id)context error:(id *)error
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E69BF188];
   v6 = [(PLModelMigrationActionCore *)self pathManager:context];
   libraryURL = [v6 libraryURL];
@@ -18,9 +18,9 @@
 
   if ((libraryURL & 1) == 0)
   {
-    v39 = 0;
-    v10 = [v8 setValue:0 forKey:@"PLDeferredMaintenanceTask" error:&v39];
-    v11 = v39;
+    v40 = 0;
+    v10 = [v8 setValue:0 forKey:@"PLDeferredMaintenanceTask" error:&v40];
+    v11 = v40;
     v12 = PLMigrationGetLog();
     v13 = v12;
     if (v10)
@@ -33,174 +33,190 @@
 
         if (logger)
         {
-          v75 = 0u;
           v76 = 0u;
-          v73 = 0u;
+          v77 = 0u;
           v74 = 0u;
-          v71 = 0u;
+          v75 = 0u;
           v72 = 0u;
-          v69 = 0u;
+          v73 = 0u;
           v70 = 0u;
-          v67 = 0u;
+          v71 = 0u;
           v68 = 0u;
-          v65 = 0u;
+          v69 = 0u;
           v66 = 0u;
-          v63 = 0u;
+          v67 = 0u;
           v64 = 0u;
-          v61 = 0u;
+          v65 = 0u;
           v62 = 0u;
-          v59 = 0u;
+          v63 = 0u;
           v60 = 0u;
-          v57 = 0u;
+          v61 = 0u;
           v58 = 0u;
-          v55 = 0u;
+          v59 = 0u;
           v56 = 0u;
-          v53 = 0u;
+          v57 = 0u;
           v54 = 0u;
-          v51 = 0u;
+          v55 = 0u;
           v52 = 0u;
-          v49 = 0u;
+          v53 = 0u;
           v50 = 0u;
-          v47 = 0u;
+          v51 = 0u;
           v48 = 0u;
+          v49 = 0u;
           memset(buf, 0, sizeof(buf));
           v16 = PLMigrationGetLog();
-          os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
-          v17 = objc_opt_class();
-          v18 = NSStringFromClass(v17);
-          v40 = 138543874;
-          v41 = @"PLDeferredMaintenanceTask";
-          v42 = 2114;
-          v43 = v18;
-          v44 = 2112;
-          v45 = v11;
-          LODWORD(v38) = 32;
-          v19 = _os_log_send_and_compose_impl();
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          {
+            v17 = 3;
+          }
 
-          v20 = [(PLModelMigrationActionCore *)self logger:&v40];
-          v21 = v20;
-          v22 = v19;
-          v23 = 266;
-          v24 = 0;
-          goto LABEL_9;
+          else
+          {
+            v17 = 2;
+          }
+
+          v18 = objc_opt_class();
+          v19 = NSStringFromClass(v18);
+          v41 = 138543874;
+          v42 = @"PLDeferredMaintenanceTask";
+          v43 = 2114;
+          v44 = v19;
+          v45 = 2112;
+          v46 = v11;
+          v20 = _os_log_send_and_compose_impl(v17, 0, buf, 512, &dword_19BF1F000, v16, 0, "Repaired the %{public}@ marker for %{public}@. Error: %@", &v41, 32);
+
+          logger2 = [(PLModelMigrationActionCore *)self logger];
+          v22 = logger2;
+          v23 = v20;
+          v24 = 266;
+          v25 = 0;
+LABEL_15:
+          [logger2 logWithMessage:v23 fromCodeLocation:"PLModelMigrationActions_16000.m" type:{v24, v25}];
+
+          if (v20 != buf)
+          {
+            free(v20);
+          }
+
+          goto LABEL_23;
         }
 
-        v30 = PLMigrationGetLog();
-        if (!os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        v32 = PLMigrationGetLog();
+        if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_16;
+          goto LABEL_22;
         }
 
-        v31 = objc_opt_class();
-        v32 = NSStringFromClass(v31);
+        v33 = objc_opt_class();
+        v34 = NSStringFromClass(v33);
         *buf = 138543874;
         *&buf[4] = @"PLDeferredMaintenanceTask";
         *&buf[12] = 2114;
-        *&buf[14] = v32;
+        *&buf[14] = v34;
         *&buf[22] = 2112;
         *&buf[24] = v11;
-        v33 = "Repaired the %{public}@ marker for %{public}@. Error: %@";
-        v34 = v30;
-        v35 = OS_LOG_TYPE_DEFAULT;
-LABEL_15:
-        _os_log_impl(&dword_19BF1F000, v34, v35, v33, buf, 0x20u);
+        v35 = "Repaired the %{public}@ marker for %{public}@. Error: %@";
+        v36 = v32;
+        v37 = OS_LOG_TYPE_DEFAULT;
+LABEL_21:
+        _os_log_impl(&dword_19BF1F000, v36, v37, v35, buf, 0x20u);
 
-LABEL_16:
+LABEL_22:
       }
     }
 
     else
     {
-      v25 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+      v26 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
 
-      if (v25)
+      if (v26)
       {
-        logger2 = [(PLModelMigrationActionCore *)self logger];
+        logger3 = [(PLModelMigrationActionCore *)self logger];
 
-        if (logger2)
+        if (logger3)
         {
-          v75 = 0u;
           v76 = 0u;
-          v73 = 0u;
+          v77 = 0u;
           v74 = 0u;
-          v71 = 0u;
+          v75 = 0u;
           v72 = 0u;
-          v69 = 0u;
+          v73 = 0u;
           v70 = 0u;
-          v67 = 0u;
+          v71 = 0u;
           v68 = 0u;
-          v65 = 0u;
+          v69 = 0u;
           v66 = 0u;
-          v63 = 0u;
+          v67 = 0u;
           v64 = 0u;
-          v61 = 0u;
+          v65 = 0u;
           v62 = 0u;
-          v59 = 0u;
+          v63 = 0u;
           v60 = 0u;
-          v57 = 0u;
+          v61 = 0u;
           v58 = 0u;
-          v55 = 0u;
+          v59 = 0u;
           v56 = 0u;
-          v53 = 0u;
+          v57 = 0u;
           v54 = 0u;
-          v51 = 0u;
+          v55 = 0u;
           v52 = 0u;
-          v49 = 0u;
+          v53 = 0u;
           v50 = 0u;
-          v47 = 0u;
+          v51 = 0u;
           v48 = 0u;
+          v49 = 0u;
           memset(buf, 0, sizeof(buf));
-          v27 = PLMigrationGetLog();
-          os_log_type_enabled(v27, OS_LOG_TYPE_ERROR);
-          v28 = objc_opt_class();
-          v29 = NSStringFromClass(v28);
-          v40 = 138543874;
-          v41 = @"PLDeferredMaintenanceTask";
-          v42 = 2114;
-          v43 = v29;
-          v44 = 2112;
-          v45 = v11;
-          LODWORD(v38) = 32;
-          v19 = _os_log_send_and_compose_impl();
-
-          v20 = [(PLModelMigrationActionCore *)self logger:&v40];
-          v21 = v20;
-          v22 = v19;
-          v23 = 268;
-          v24 = 16;
-LABEL_9:
-          [v20 logWithMessage:v22 fromCodeLocation:"PLModelMigrationActions_16000.m" type:{v23, v24}];
-
-          if (v19 != buf)
+          v28 = PLMigrationGetLog();
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
           {
-            free(v19);
+            v29 = 3;
           }
 
-          goto LABEL_17;
+          else
+          {
+            v29 = 2;
+          }
+
+          v30 = objc_opt_class();
+          v31 = NSStringFromClass(v30);
+          v41 = 138543874;
+          v42 = @"PLDeferredMaintenanceTask";
+          v43 = 2114;
+          v44 = v31;
+          v45 = 2112;
+          v46 = v11;
+          v20 = _os_log_send_and_compose_impl(v29, 0, buf, 512, &dword_19BF1F000, v28, 16, "Failed to remove the %{public}@ marker for %{public}@. Error: %@", &v41, 32);
+
+          logger2 = [(PLModelMigrationActionCore *)self logger];
+          v22 = logger2;
+          v23 = v20;
+          v24 = 268;
+          v25 = 16;
+          goto LABEL_15;
         }
 
-        v30 = PLMigrationGetLog();
-        if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+        v32 = PLMigrationGetLog();
+        if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_16;
+          goto LABEL_22;
         }
 
-        v36 = objc_opt_class();
-        v32 = NSStringFromClass(v36);
+        v38 = objc_opt_class();
+        v34 = NSStringFromClass(v38);
         *buf = 138543874;
         *&buf[4] = @"PLDeferredMaintenanceTask";
         *&buf[12] = 2114;
-        *&buf[14] = v32;
+        *&buf[14] = v34;
         *&buf[22] = 2112;
         *&buf[24] = v11;
-        v33 = "Failed to remove the %{public}@ marker for %{public}@. Error: %@";
-        v34 = v30;
-        v35 = OS_LOG_TYPE_ERROR;
-        goto LABEL_15;
+        v35 = "Failed to remove the %{public}@ marker for %{public}@. Error: %@";
+        v36 = v32;
+        v37 = OS_LOG_TYPE_ERROR;
+        goto LABEL_21;
       }
     }
 
-LABEL_17:
+LABEL_23:
   }
 
   [(PLModelMigrationActionCore *)self finalizeProgress];

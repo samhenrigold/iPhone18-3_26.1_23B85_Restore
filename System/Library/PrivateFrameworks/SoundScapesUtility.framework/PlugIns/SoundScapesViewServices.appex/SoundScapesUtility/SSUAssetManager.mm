@@ -57,8 +57,7 @@
   objc_initWeak(&location, self);
   v5 = objc_alloc_init(MADownloadOptions);
   [v5 setTimeoutIntervalForResource:5];
-  [v5 setDiscretionary:0];
-  v6 = sub_100001CE8();
+  v6 = sub_100001CE8([v5 setDiscretionary:0]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_10002944C();
@@ -80,17 +79,17 @@
 - (void)_fetchAssetCatalog:(id)catalog
 {
   catalogCopy = catalog;
-  v5 = sub_100001CE8();
+  v5 = sub_100001CE8(catalogCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_100029564();
   }
 
-  objc_initWeak(&location, self);
+  inited = objc_initWeak(&location, self);
   if (self->_isCatalogDownloaded)
   {
-    v6 = sub_100001CE8();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = sub_100001CE8(inited);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       sub_1000295DC();
     }
@@ -100,21 +99,21 @@
 
   else
   {
-    v7 = sub_100001CE8();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = sub_100001CE8(inited);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       sub_1000295A0();
     }
 
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_100002484;
-    v8[3] = &unk_1000353B0;
-    objc_copyWeak(&v10, &location);
-    v9 = catalogCopy;
-    [(SSUAssetManager *)self downloadCatalogWithCompleteHandler:v8];
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_100002484;
+    v9[3] = &unk_1000353B0;
+    objc_copyWeak(&v11, &location);
+    v10 = catalogCopy;
+    [(SSUAssetManager *)self downloadCatalogWithCompleteHandler:v9];
 
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v11);
   }
 
   objc_destroyWeak(&location);
@@ -123,7 +122,7 @@
 - (void)_getSystemVersionsMappingWithCompleteHandler:(id)handler
 {
   handlerCopy = handler;
-  v5 = sub_100001CE8();
+  v5 = sub_100001CE8(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_100029700();
@@ -144,7 +143,7 @@
 - (void)getSystemVersionsMappingWithCompleteHandler:(id)handler
 {
   handlerCopy = handler;
-  v5 = sub_100001CE8();
+  v5 = sub_100001CE8(handlerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_1000298B4();
@@ -177,7 +176,7 @@
 {
   versionsCopy = versions;
   handlerCopy = handler;
-  v8 = sub_100001CE8();
+  v8 = sub_100001CE8(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_100029AA8();
@@ -199,7 +198,7 @@
 {
   versionsCopy = versions;
   handlerCopy = handler;
-  v8 = sub_100001CE8();
+  v8 = sub_100001CE8(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     sub_100029BB4();
@@ -304,14 +303,14 @@
     if (v8)
     {
       attributes2 = [versionCopy attributes];
-      v10 = [attributes2 objectForKey:keyCopy];
-      integerValue = [v10 integerValue];
+      v11 = [attributes2 objectForKey:keyCopy];
+      integerValue = [v11 integerValue];
     }
 
     else
     {
-      v12 = sub_100001CE8();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = sub_100001CE8(v9);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         sub_100029D28();
       }

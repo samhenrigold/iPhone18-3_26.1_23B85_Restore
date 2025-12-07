@@ -12,6 +12,7 @@
 - (void)onQueue_notifyObserversWithClusterStatus:(unint64_t)status;
 - (void)onQueue_notifyObserversWithClusterType:(unsigned int)type;
 - (void)onQueue_setClusterStatus:(unint64_t)status;
+- (void)onQueue_setClusterType:(unsigned int)type;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 - (void)updateClusterInformation;
@@ -94,16 +95,15 @@ void __41__MRAVClusterController_sharedController__block_invoke(uint64_t a1)
 {
   if (+[MRAVClusterController canBeClusterMember])
   {
-    v3 = +[MROrigin localOrigin];
-    v4 = [MRDeviceInfoRequest cachedDeviceInfoForOrigin:v3];
+    v2 = +[MROrigin localOrigin];
+    v3 = [MRDeviceInfoRequest cachedDeviceInfoForOrigin:v2];
 
-    clusterID = [v4 clusterID];
-    preferredClusterLeaderID = [v4 preferredClusterLeaderID];
-    [v4 clusterType];
-    serialQueue = self->_serialQueue;
-    v10 = clusterID;
-    v8 = preferredClusterLeaderID;
-    v9 = clusterID;
+    clusterID = [v3 clusterID];
+    preferredClusterLeaderID = [v3 preferredClusterLeaderID];
+    [v3 clusterType];
+    v8 = clusterID;
+    v6 = preferredClusterLeaderID;
+    v7 = clusterID;
     msv_dispatch_sync_on_queue();
   }
 }
@@ -115,15 +115,14 @@ void __41__MRAVClusterController_sharedController__block_invoke(uint64_t a1)
     return 0;
   }
 
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
-  v9 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v4 = *(v7 + 6);
-  _Block_object_dispose(&v6, 8);
-  return v4;
+  v2 = *(v5 + 6);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (unint64_t)clusterStatus
@@ -133,15 +132,14 @@ void __41__MRAVClusterController_sharedController__block_invoke(uint64_t a1)
     return 0;
   }
 
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
-  v9 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v4 = v7[3];
-  _Block_object_dispose(&v6, 8);
-  return v4;
+  v2 = v5[3];
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (void)registerObserver:(id)observer
@@ -240,30 +238,30 @@ void __35__MRAVClusterController_clusterUID__block_invoke(uint64_t a1)
 
 - (void)getClusterLeaderEndpoint:(id)endpoint
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   if (+[MRAVClusterController canBeClusterMember]&& [(MRAVClusterController *)self clusterStatus]== 2)
   {
     date = [MEMORY[0x1E695DF00] date];
     v6 = dispatch_get_global_queue(0, 0);
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x3032000000;
-    v31 = __Block_byref_object_copy__22;
-    v32 = __Block_byref_object_dispose__22;
-    v33 = 0;
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x3032000000;
+    v30 = __Block_byref_object_copy__22;
+    v31 = __Block_byref_object_dispose__22;
+    v32 = 0;
     serialQueue = self->_serialQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __50__MRAVClusterController_getClusterLeaderEndpoint___block_invoke;
     block[3] = &unk_1E769A2A0;
     block[4] = self;
-    block[5] = &v28;
+    block[5] = &v27;
     dispatch_sync(serialQueue, block);
     uUID = [MEMORY[0x1E696AFB0] UUID];
     uUIDString = [uUID UUIDString];
 
-    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Discovering cluster leader with UID: %@", v29[5]];
+    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Discovering cluster leader with UID: %@", v28[5]];
     v11 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%@<%@>", @"getClusterLeaderEndpoint", uUIDString];
     v12 = v11;
     if (v10)
@@ -275,36 +273,34 @@ void __35__MRAVClusterController_clusterUID__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v35 = v12;
+      v34 = v12;
       _os_log_impl(&dword_1A2860000, v13, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
     }
 
     v14 = objc_alloc_init(MRAVLightweightReconnaissanceSession);
-    v15 = v29[5];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __50__MRAVClusterController_getClusterLeaderEndpoint___block_invoke_32;
-    v20[3] = &unk_1E769F448;
-    v21 = @"getClusterLeaderEndpoint";
+    v15 = v28[5];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __50__MRAVClusterController_getClusterLeaderEndpoint___block_invoke_32;
+    v19[3] = &unk_1E769F448;
+    v20 = @"getClusterLeaderEndpoint";
     v16 = uUIDString;
-    v22 = v16;
+    v21 = v16;
     v17 = date;
-    v23 = v17;
-    v25 = endpointCopy;
-    v26 = &v28;
+    v22 = v17;
+    v24 = endpointCopy;
+    v25 = &v27;
     v18 = v10;
-    v24 = v18;
-    [(MRAVLightweightReconnaissanceSession *)v14 searchEndpointsForOutputDeviceUID:v15 timeout:@"Discover cluster leader endpoint" reason:v6 queue:v20 completion:5.0];
+    v23 = v18;
+    [(MRAVLightweightReconnaissanceSession *)v14 searchEndpointsForOutputDeviceUID:v15 timeout:@"Discover cluster leader endpoint" reason:v6 queue:v19 completion:5.0];
 
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v27, 8);
   }
 
   else
   {
     (*(endpointCopy + 2))(endpointCopy, 0);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __50__MRAVClusterController_getClusterLeaderEndpoint___block_invoke(uint64_t a1)
@@ -317,7 +313,7 @@ void __50__MRAVClusterController_getClusterLeaderEndpoint___block_invoke(uint64_
 
 void __50__MRAVClusterController_getClusterLeaderEndpoint___block_invoke_32(void *a1, void *a2, void *a3)
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (!v5)
@@ -354,15 +350,15 @@ LABEL_34:
         v21 = [MEMORY[0x1E695DF00] date];
         [v21 timeIntervalSinceDate:a1[6]];
         *buf = 138544386;
-        v54 = v34;
-        v55 = 2114;
-        v56 = v35;
-        v57 = 2114;
-        v58 = v6;
-        v59 = 2114;
-        v60 = v36;
-        v61 = 2048;
-        v62 = v37;
+        v53 = v34;
+        v54 = 2114;
+        v55 = v35;
+        v56 = 2114;
+        v57 = v6;
+        v58 = 2114;
+        v59 = v36;
+        v60 = 2048;
+        v61 = v37;
         _os_log_error_impl(&dword_1A2860000, v9, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_32:
 
@@ -382,11 +378,11 @@ LABEL_32:
         v21 = [MEMORY[0x1E695DF00] date];
         [v21 timeIntervalSinceDate:a1[6]];
         *buf = 138543874;
-        v54 = v49;
-        v55 = 2114;
-        v56 = v50;
-        v57 = 2048;
-        v58 = v51;
+        v53 = v49;
+        v54 = 2114;
+        v55 = v50;
+        v56 = 2048;
+        v57 = v51;
         v23 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
         v24 = v9;
         v25 = 32;
@@ -404,13 +400,13 @@ LABEL_32:
       v21 = [MEMORY[0x1E695DF00] date];
       [v21 timeIntervalSinceDate:a1[6]];
       *buf = 138544130;
-      v54 = v42;
-      v55 = 2114;
-      v56 = v43;
-      v57 = 2114;
-      v58 = v44;
-      v59 = 2048;
-      v60 = v45;
+      v53 = v42;
+      v54 = 2114;
+      v55 = v43;
+      v56 = 2114;
+      v57 = v44;
+      v58 = 2048;
+      v59 = v45;
       v23 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
     }
 
@@ -430,15 +426,15 @@ LABEL_32:
         v21 = [MEMORY[0x1E695DF00] date];
         [v21 timeIntervalSinceDate:a1[6]];
         *buf = 138544386;
-        v54 = v18;
-        v55 = 2114;
-        v56 = v19;
-        v57 = 2112;
-        v58 = v7;
-        v59 = 2114;
-        v60 = v20;
-        v61 = 2048;
-        v62 = v22;
+        v53 = v18;
+        v54 = 2114;
+        v55 = v19;
+        v56 = 2112;
+        v57 = v7;
+        v58 = 2114;
+        v59 = v20;
+        v60 = 2048;
+        v61 = v22;
         v23 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
         v24 = v9;
         v25 = 52;
@@ -455,13 +451,13 @@ LABEL_32:
       v21 = [MEMORY[0x1E695DF00] date];
       [v21 timeIntervalSinceDate:a1[6]];
       *buf = 138544130;
-      v54 = v46;
-      v55 = 2114;
-      v56 = v47;
-      v57 = 2112;
-      v58 = v7;
-      v59 = 2048;
-      v60 = v48;
+      v53 = v46;
+      v54 = 2114;
+      v55 = v47;
+      v56 = 2112;
+      v57 = v7;
+      v58 = 2048;
+      v59 = v48;
       v23 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
     }
 
@@ -490,13 +486,13 @@ LABEL_31:
       v13 = [MEMORY[0x1E695DF00] date];
       [v13 timeIntervalSinceDate:a1[6]];
       *buf = 138544130;
-      v54 = v27;
-      v55 = 2114;
-      v56 = v28;
-      v57 = 2114;
-      v58 = v7;
-      v59 = 2048;
-      v60 = v29;
+      v53 = v27;
+      v54 = 2114;
+      v55 = v28;
+      v56 = 2114;
+      v57 = v7;
+      v58 = 2048;
+      v59 = v29;
       v30 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
       v31 = v9;
       v32 = 42;
@@ -514,11 +510,11 @@ LABEL_31:
       v13 = [MEMORY[0x1E695DF00] date];
       [v13 timeIntervalSinceDate:a1[6]];
       *buf = 138543874;
-      v54 = v38;
-      v55 = 2114;
-      v56 = v39;
-      v57 = 2048;
-      v58 = v40;
+      v53 = v38;
+      v54 = 2114;
+      v55 = v39;
+      v56 = 2048;
+      v57 = v40;
       v30 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
       v31 = v9;
       v32 = 32;
@@ -546,15 +542,15 @@ LABEL_31:
     v13 = [MEMORY[0x1E695DF00] date];
     [v13 timeIntervalSinceDate:a1[6]];
     *buf = 138544386;
-    v54 = v11;
-    v55 = 2114;
-    v56 = v12;
-    v57 = 2114;
-    v58 = v6;
-    v59 = 2114;
-    v60 = v7;
-    v61 = 2048;
-    v62 = v14;
+    v53 = v11;
+    v54 = 2114;
+    v55 = v12;
+    v56 = 2114;
+    v57 = v6;
+    v58 = 2114;
+    v59 = v7;
+    v60 = 2048;
+    v61 = v14;
     _os_log_error_impl(&dword_1A2860000, v9, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_23:
   }
@@ -562,7 +558,6 @@ LABEL_23:
 LABEL_37:
 
   (*(a1[8] + 16))();
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deviceInfoDidChangeNotification:(id)notification
@@ -577,7 +572,7 @@ LABEL_37:
 
 void __49__MRAVClusterController_updateClusterInformation__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) isEqual:*(*(a1 + 40) + 40)];
   v3 = *(a1 + 40);
   v5 = !v2 || (v4 = [*(a1 + 48) isEqual:*(v3 + 48)], v3 = *(a1 + 40), !v4) || *(a1 + 56) != *(v3 + 64);
@@ -604,17 +599,15 @@ void __49__MRAVClusterController_updateClusterInformation__block_invoke(uint64_t
       v9 = *(a1 + 40);
       v11 = *(v9 + 40);
       v10 = *(v9 + 48);
-      v13 = 138412802;
-      v14 = v8;
-      v15 = 2114;
-      v16 = v11;
-      v17 = 2114;
-      v18 = v10;
-      _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "Cluster information updated: type=%@ | clusterUID=%{public}@ | leaderUID=%{public}@", &v13, 0x20u);
+      v12 = 138412802;
+      v13 = v8;
+      v14 = 2114;
+      v15 = v11;
+      v16 = 2114;
+      v17 = v10;
+      _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "Cluster information updated: type=%@ | clusterUID=%{public}@ | leaderUID=%{public}@", &v12, 0x20u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)onQueue_computeClusterStatus
@@ -625,12 +618,24 @@ void __49__MRAVClusterController_updateClusterInformation__block_invoke(uint64_t
     return 0;
   }
 
-  if ([(NSString *)self->_clusterLeaderUID isEqualToString:self->_localPairingIdentity])
+  if (objc_msgSend_isEqualToString_(self->_clusterLeaderUID))
   {
     return 1;
   }
 
   return 2;
+}
+
+- (void)onQueue_setClusterType:(unsigned int)type
+{
+  v3 = *&type;
+  dispatch_assert_queue_V2(self->_serialQueue);
+  if (self->_clusterType != v3)
+  {
+    self->_clusterType = v3;
+
+    [(MRAVClusterController *)self onQueue_notifyObserversWithClusterType:v3];
+  }
 }
 
 - (void)onQueue_setClusterStatus:(unint64_t)status
@@ -662,44 +667,42 @@ void __49__MRAVClusterController_updateClusterInformation__block_invoke(uint64_t
 
 void __66__MRAVClusterController_onQueue_notifyObserversWithClusterStatus___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
-          [v7 clusterController:*(a1 + 40) clusterStatusDidChange:{*(a1 + 48), v9}];
+          [v7 clusterController:*(a1 + 40) clusterStatusDidChange:{*(a1 + 48), v8}];
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)onQueue_notifyObserversWithClusterType:(unsigned int)type
@@ -720,44 +723,42 @@ void __66__MRAVClusterController_onQueue_notifyObserversWithClusterStatus___bloc
 
 void __64__MRAVClusterController_onQueue_notifyObserversWithClusterType___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
-          [v7 clusterController:*(a1 + 40) clusterTypeDidChange:{*(a1 + 48), v9}];
+          [v7 clusterController:*(a1 + 40) clusterTypeDidChange:{*(a1 + 48), v8}];
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

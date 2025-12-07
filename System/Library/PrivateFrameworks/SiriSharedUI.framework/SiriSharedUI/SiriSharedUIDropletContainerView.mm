@@ -50,7 +50,7 @@
 - (double)alpha
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for SiriSharedUIDropletContainerView();
+  v3.super_class = type metadata accessor for SiriSharedUIDropletContainerView(0);
   [(SiriSharedUIDropletContainerView *)&v3 alpha];
   return result;
 }
@@ -78,7 +78,7 @@
   y = frame.origin.y;
   x = frame.origin.x;
   v12.receiver = self;
-  v12.super_class = type metadata accessor for SiriSharedUIDropletContainerView();
+  v12.super_class = type metadata accessor for SiriSharedUIDropletContainerView(0);
   v7 = v12.receiver;
   [(SiriSharedUIDropletContainerView *)&v12 setFrame:x, y, width, height];
   [v7 frame];
@@ -102,7 +102,7 @@
   y = bounds.origin.y;
   x = bounds.origin.x;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for SiriSharedUIDropletContainerView();
+  v8.super_class = type metadata accessor for SiriSharedUIDropletContainerView(0);
   v7 = v8.receiver;
   [(SiriSharedUIDropletContainerView *)&v8 setBounds:x, y, width, height];
   sub_21E4D7130();
@@ -111,7 +111,7 @@
 - (CGPoint)center
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for SiriSharedUIDropletContainerView();
+  v4.super_class = type metadata accessor for SiriSharedUIDropletContainerView(0);
   [(SiriSharedUIDropletContainerView *)&v4 center];
   result.y = v3;
   result.x = v2;
@@ -129,7 +129,7 @@
 - (CGAffineTransform)transform
 {
   v10.receiver = self;
-  v10.super_class = type metadata accessor for SiriSharedUIDropletContainerView();
+  v10.super_class = type metadata accessor for SiriSharedUIDropletContainerView(0);
   result = [(CGAffineTransform *)&v10 transform];
   v5 = v8;
   v6 = v9;

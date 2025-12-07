@@ -32,7 +32,7 @@
 
 - (id)localDeviceIDAndReturnError:(id *)error
 {
-  LocalDeviceID = type metadata accessor for MigrationXPCServerResponse.GetLocalDeviceID();
+  LocalDeviceID = type metadata accessor for MigrationXPCServerResponse.GetLocalDeviceID(0);
   MEMORY[0x1EEE9AC00](LocalDeviceID);
   v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
@@ -41,7 +41,7 @@
   sub_1BABE6AAC();
   swift_allocObject();
   sub_1BABE6A9C();
-  sub_1BAB9C248(&unk_1EBC13D80, type metadata accessor for MigrationXPCServerResponse.GetLocalDeviceID);
+  sub_1BAB9C248(&unk_1EBC13D80, type metadata accessor for MigrationXPCServerResponse.GetLocalDeviceID, &protocol conformance descriptor for MigrationXPCServerResponse.GetLocalDeviceID);
   v8 = sub_1BABE6A8C();
   v10 = v9;
   v11 = sub_1BABE6BDC();
@@ -63,7 +63,7 @@
 - (id)devicesAndReturnError:(id *)error
 {
   selfCopy = self;
-  sub_1BAB9BA30(&OBJC_IVAR____TtC18ReplicatorServices15MigrationServer_deviceProvider, "Returning %{public}ld devices for migration", sub_1BAB9C610, &v9);
+  sub_1BAB9BA30(&v10, "Returning %{public}ld devices for migration", &OBJC_IVAR____TtC18ReplicatorServices15MigrationServer_deviceProvider, sub_1BAB9C610, v9);
 
   sub_1BABE6AAC();
   swift_allocObject();
@@ -81,7 +81,7 @@
 - (id)clientDescriptorsAndReturnError:(id *)error
 {
   selfCopy = self;
-  sub_1BAB9BA30(&OBJC_IVAR____TtC18ReplicatorServices15MigrationServer_clientDescriptorProvider, "Returning %{public}ld client descriptors for migration", sub_1BAB9C610, &v9);
+  sub_1BAB9BA30(&v10, "Returning %{public}ld client descriptors for migration", &OBJC_IVAR____TtC18ReplicatorServices15MigrationServer_clientDescriptorProvider, sub_1BAB9C610, v9);
 
   sub_1BABE6AAC();
   swift_allocObject();

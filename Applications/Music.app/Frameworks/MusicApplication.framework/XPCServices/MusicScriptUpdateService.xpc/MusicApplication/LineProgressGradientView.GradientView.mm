@@ -8,7 +8,7 @@
 
 + (Class)layerClass
 {
-  sub_1004B6318();
+  sub_1004B6318(0, a2);
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
 
   return [ObjCClassFromMetadata classForCoder];
@@ -21,14 +21,14 @@
   y = frame.origin.y;
   x = frame.origin.x;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for LineProgressGradientView.GradientView();
+  v8.super_class = type metadata accessor for LineProgressGradientView.GradientView(0, a2);
   return [(LineProgressGradientView.GradientView *)&v8 initWithFrame:x, y, width, height];
 }
 
 - (_TtCC7LyricsX24LineProgressGradientViewP33_9D7C40643C469448EA951CEB9521562F12GradientView)initWithCoder:(id)coder
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for LineProgressGradientView.GradientView();
+  v7.super_class = type metadata accessor for LineProgressGradientView.GradientView(0, a2);
   coderCopy = coder;
   v5 = [(LineProgressGradientView.GradientView *)&v7 initWithCoder:coderCopy];
 

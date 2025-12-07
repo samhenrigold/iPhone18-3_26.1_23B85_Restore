@@ -3,6 +3,7 @@
 - (NSArray)specificity;
 - (NSString)text;
 - (RWIProtocolCSSSelector)initWithText:(id)text;
+- (void)setDynamic:(BOOL)dynamic;
 - (void)setSpecificity:(id)specificity;
 - (void)setText:(id)text;
 @end
@@ -75,6 +76,13 @@
   v2 = Inspector::toObjCIntegerArray(&v5);
   [(RWIProtocolCSSPseudoIdMatches *)v2 matches];
   return v2;
+}
+
+- (void)setDynamic:(BOOL)dynamic
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolCSSSelector;
+  [(RWIProtocolJSONObject *)&v3 setBool:dynamic forKey:@"dynamic"];
 }
 
 - (BOOL)dynamic

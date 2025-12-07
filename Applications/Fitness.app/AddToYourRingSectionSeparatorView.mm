@@ -12,7 +12,7 @@
   y = frame.origin.y;
   x = frame.origin.x;
   v8 = OBJC_IVAR____TtC10FitnessApp33AddToYourRingSectionSeparatorView_div;
-  sub_1000059F8(0, &qword_1008E7580);
+  sub_1000059F8(0, &qword_1008E7580, UIView_ptr);
   *(&self->super.super.super.super.isa + v8) = sub_10065AEC8();
   v13.receiver = self;
   v13.super_class = type metadata accessor for AddToYourRingSectionSeparatorView();
@@ -28,7 +28,7 @@
 - (_TtC10FitnessApp33AddToYourRingSectionSeparatorView)initWithCoder:(id)coder
 {
   v5 = OBJC_IVAR____TtC10FitnessApp33AddToYourRingSectionSeparatorView_div;
-  sub_1000059F8(0, &qword_1008E7580);
+  sub_1000059F8(0, &qword_1008E7580, UIView_ptr);
   coderCopy = coder;
   *(&self->super.super.super.super.isa + v5) = sub_10065AEC8();
   v9.receiver = self;

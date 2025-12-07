@@ -12,6 +12,7 @@
 - (void)handleSecuritySessionInfoRequest:(id)request;
 - (void)handleSleepTime:(double)time;
 - (void)handleStartMessage:(id)message;
+- (void)handleStopMessageWithReason:(int)reason;
 - (void)handleUserLogout;
 - (void)handleUserSwitch;
 - (void)handleWakeup;
@@ -28,7 +29,7 @@
   configuration = [(NESMSession *)selfCopy configuration];
   identifier = [configuration identifier];
   uUIDString = [identifier UUIDString];
-  v6 = [NSString stringWithFormat:@"%@:%d", uUIDString, [(NESMLegacySession *)selfCopy type]];
+  v6 = [NSString stringWithFormat:@"%@:%d", uUIDString, objc_msgSend_type(selfCopy)];
   [(NESMSession *)selfCopy setAuxiliaryDataKey:v6];
 
   [(NESMSession *)selfCopy setupFromAuxiliaryData];
@@ -270,6 +271,19 @@ LABEL_12:
   return 1;
 }
 
+- (void)handleStopMessageWithReason:(int)reason
+{
+  v5.receiver = self;
+  v5.super_class = NESMLegacySession;
+  [(NESMSession *)&v5 handleStopMessageWithReason:*&reason];
+  v4[0] = _NSConcreteStackBlock;
+  v4[1] = 3221225472;
+  v4[2] = sub_100074488;
+  v4[3] = &unk_1000EB1C0;
+  v4[4] = self;
+  sub_10006EF70(self, v4);
+}
+
 - (void)handleStartMessage:(id)message
 {
   messageCopy = message;
@@ -279,9 +293,9 @@ LABEL_12:
     dispatch_once(&qword_1000FD550, &stru_1000EA5C8);
   }
 
-  v65.receiver = self;
-  v65.super_class = NESMLegacySession;
-  [(NESMSession *)&v65 handleStartMessage:messageCopy, qword_1000FD548];
+  v67.receiver = self;
+  v67.super_class = NESMLegacySession;
+  [(NESMSession *)&v67 handleStartMessage:messageCopy, qword_1000FD548];
   v6 = CTBundle_ptr;
   if (v5 && xpc_get_type(v5) == &_xpc_type_dictionary)
   {
@@ -309,7 +323,7 @@ LABEL_12:
 
   v8 = objc_alloc_init(NSMutableDictionary);
 LABEL_12:
-  v58 = v5;
+  v60 = v5;
   server2 = [v8 objectForKeyedSubscript:@"OutgoingInterface"];
   if ((isa_nsstring() & 1) == 0)
   {
@@ -330,36 +344,25 @@ LABEL_12:
 LABEL_16:
   v15 = v8;
   v17 = v15;
-  v59 = messageCopy;
+  v61 = messageCopy;
   if (!self)
   {
 
-    v51 = 0;
-    Property = 0;
+    v52 = 0;
+    v55 = objc_msgSend_type(0);
     goto LABEL_73;
   }
 
-  v18 = [objc_getProperty(self v16];
-  v20 = [objc_getProperty(self v19];
-  v61 = [objc_getProperty(self v21];
+  Property = objc_getProperty(self, v16, 360, 1);
+  v19 = objc_msgSend_type(Property);
+  v21 = [objc_getProperty(self v20];
+  v63 = [objc_getProperty(self v22];
   if (v17)
   {
-    v22 = [v17 objectForKeyedSubscript:kSCEntNetIPSec];
+    v23 = [v17 objectForKeyedSubscript:kSCEntNetIPSec];
     if (isa_nsdictionary())
     {
-      v23 = [v22 mutableCopy];
-    }
-
-    else
-    {
-      v23 = 0;
-    }
-
-    v25 = [v17 objectForKeyedSubscript:kSCEntNetPPP];
-
-    if (isa_nsdictionary())
-    {
-      v24 = [v25 mutableCopy];
+      v24 = [v23 mutableCopy];
     }
 
     else
@@ -367,17 +370,29 @@ LABEL_16:
       v24 = 0;
     }
 
-    v6 = CTBundle_ptr;
-    if (v23)
+    v26 = [v17 objectForKeyedSubscript:kSCEntNetPPP];
+
+    if (isa_nsdictionary())
     {
-      if (v24)
+      v25 = [v26 mutableCopy];
+    }
+
+    else
+    {
+      v25 = 0;
+    }
+
+    v6 = CTBundle_ptr;
+    if (v24)
+    {
+      if (v25)
       {
         goto LABEL_27;
       }
 
 LABEL_30:
-      v24 = objc_alloc_init(v6[181]);
-      if (v20)
+      v25 = objc_alloc_init(v6[181]);
+      if (v21)
       {
         goto LABEL_28;
       }
@@ -388,36 +403,36 @@ LABEL_30:
 
   else
   {
-    v24 = 0;
+    v25 = 0;
   }
 
-  v23 = objc_alloc_init(v6[181]);
-  if (!v24)
+  v24 = objc_alloc_init(v6[181]);
+  if (!v25)
   {
     goto LABEL_30;
   }
 
 LABEL_27:
-  if (v20)
+  if (v21)
   {
 LABEL_28:
-    copyPassword = [v20 copyPassword];
+    copyPassword = [v21 copyPassword];
     goto LABEL_32;
   }
 
 LABEL_31:
   copyPassword = 0;
 LABEL_32:
-  if ((v18 - 1) <= 1)
+  if ((v19 - 1) <= 1)
   {
-    v27 = [objc_getProperty(self v26];
+    v28 = [objc_getProperty(self v27];
 
-    v20 = v27;
+    v21 = v28;
   }
 
-  if (v20)
+  if (v21)
   {
-    copyPassword2 = [v20 copyPassword];
+    copyPassword2 = [v21 copyPassword];
   }
 
   else
@@ -425,34 +440,34 @@ LABEL_32:
     copyPassword2 = 0;
   }
 
-  if (v61)
+  if (v63)
   {
-    if (v18 == 1)
+    if (v19 == 1)
     {
-      v29 = kSCPropNetIPSecXAuthName;
-      v30 = [v23 objectForKeyedSubscript:kSCPropNetIPSecXAuthName];
-      v31 = isa_nsstring();
+      v30 = kSCPropNetIPSecXAuthName;
+      v31 = [v24 objectForKeyedSubscript:kSCPropNetIPSecXAuthName];
+      v32 = isa_nsstring();
 
-      if (v31)
+      if (v32)
       {
         goto LABEL_45;
       }
 
-      v32 = v23;
+      v33 = v24;
       goto LABEL_44;
     }
 
-    if (v18 == 2)
+    if (v19 == 2)
     {
-      v29 = kSCPropNetPPPAuthName;
-      v33 = [v24 objectForKeyedSubscript:kSCPropNetPPPAuthName];
-      v34 = isa_nsstring();
+      v30 = kSCPropNetPPPAuthName;
+      v34 = [v25 objectForKeyedSubscript:kSCPropNetPPPAuthName];
+      v35 = isa_nsstring();
 
-      if ((v34 & 1) == 0)
+      if ((v35 & 1) == 0)
       {
-        v32 = v24;
+        v33 = v25;
 LABEL_44:
-        [v32 setObject:v61 forKeyedSubscript:v29];
+        [v33 setObject:v63 forKeyedSubscript:v30];
       }
     }
   }
@@ -460,29 +475,29 @@ LABEL_44:
 LABEL_45:
   if (copyPassword)
   {
-    if (v18 == 1)
+    if (v19 == 1)
     {
-      v35 = kSCPropNetIPSecXAuthPassword;
-      v36 = [v23 objectForKeyedSubscript:kSCPropNetIPSecXAuthPassword];
-      v37 = isa_nsstring();
+      v36 = kSCPropNetIPSecXAuthPassword;
+      v37 = [v24 objectForKeyedSubscript:kSCPropNetIPSecXAuthPassword];
+      v38 = isa_nsstring();
 
-      if ((v37 & 1) == 0)
+      if ((v38 & 1) == 0)
       {
-        v38 = v23;
+        v39 = v24;
 LABEL_52:
-        [v38 setObject:copyPassword forKeyedSubscript:v35];
+        [v39 setObject:copyPassword forKeyedSubscript:v36];
       }
     }
 
-    else if (v18 == 2)
+    else if (v19 == 2)
     {
-      v35 = kSCPropNetPPPAuthPassword;
-      v39 = [v24 objectForKeyedSubscript:kSCPropNetPPPAuthPassword];
-      v40 = isa_nsstring();
+      v36 = kSCPropNetPPPAuthPassword;
+      v40 = [v25 objectForKeyedSubscript:kSCPropNetPPPAuthPassword];
+      v41 = isa_nsstring();
 
-      if ((v40 & 1) == 0)
+      if ((v41 & 1) == 0)
       {
-        v38 = v24;
+        v39 = v25;
         goto LABEL_52;
       }
     }
@@ -490,103 +505,104 @@ LABEL_52:
 
   if (copyPassword2)
   {
-    v41 = [v23 objectForKeyedSubscript:kSCPropNetIPSecSharedSecret];
-    v42 = isa_nsstring();
+    v42 = [v24 objectForKeyedSubscript:kSCPropNetIPSecSharedSecret];
+    v43 = isa_nsstring();
 
-    if ((v42 & 1) == 0)
+    if ((v43 & 1) == 0)
     {
-      [v23 setObject:copyPassword2 forKeyedSubscript:kSCPropNetIPSecSharedSecret];
+      [v24 setObject:copyPassword2 forKeyedSubscript:kSCPropNetIPSecSharedSecret];
     }
   }
 
-  if (v17 && v18 == 1)
+  if (v17 && v19 == 1)
   {
-    if (!v23)
+    if (!v24)
     {
-      v23 = objc_alloc_init(NSMutableDictionary);
+      v24 = objc_alloc_init(NSMutableDictionary);
     }
 
-    v43 = [v17 objectForKeyedSubscript:NEVPNConnectionStartOptionUsername];
-    v44 = isa_nsstring();
+    v44 = [v17 objectForKeyedSubscript:NEVPNConnectionStartOptionUsername];
+    v45 = isa_nsstring();
 
-    if (v44)
+    if (v45)
     {
-      v45 = [v17 objectForKeyedSubscript:NEVPNConnectionStartOptionUsername];
-      [v23 setObject:v45 forKeyedSubscript:kSCPropNetIPSecXAuthName];
+      v46 = [v17 objectForKeyedSubscript:NEVPNConnectionStartOptionUsername];
+      [v24 setObject:v46 forKeyedSubscript:kSCPropNetIPSecXAuthName];
     }
 
-    v46 = [v17 objectForKeyedSubscript:NEVPNConnectionStartOptionPassword];
-    v47 = isa_nsstring();
+    v47 = [v17 objectForKeyedSubscript:NEVPNConnectionStartOptionPassword];
+    v48 = isa_nsstring();
 
-    if (v47)
+    if (v48)
     {
-      v48 = [v17 objectForKeyedSubscript:NEVPNConnectionStartOptionPassword];
-      [v23 setObject:v48 forKeyedSubscript:kSCPropNetIPSecXAuthName];
+      v49 = [v17 objectForKeyedSubscript:NEVPNConnectionStartOptionPassword];
+      [v24 setObject:v49 forKeyedSubscript:kSCPropNetIPSecXAuthName];
     }
 
     *buf = NEVPNConnectionStartOptionPassword;
-    v67 = NEVPNConnectionStartOptionUsername;
-    v49 = [NSArray arrayWithObjects:buf count:2];
-    [v17 removeObjectsForKeys:v49];
+    v69 = NEVPNConnectionStartOptionUsername;
+    v50 = [NSArray arrayWithObjects:buf count:2];
+    [v17 removeObjectsForKeys:v50];
   }
 
   else if (!v17)
   {
-    if ([v23 count] || objc_msgSend(v24, "count"))
+    if ([v24 count] || objc_msgSend(v25, "count"))
     {
-      v50 = objc_alloc_init(NSMutableDictionary);
+      v51 = objc_alloc_init(NSMutableDictionary);
     }
 
     else
     {
-      v50 = 0;
+      v51 = 0;
     }
 
     goto LABEL_67;
   }
 
-  v50 = v17;
+  v51 = v17;
 LABEL_67:
-  if ([v24 count])
+  if ([v25 count])
   {
-    [v50 setObject:v24 forKeyedSubscript:kSCEntNetPPP];
+    [v51 setObject:v25 forKeyedSubscript:kSCEntNetPPP];
   }
 
-  if (v23 && [v23 count])
+  if (v24 && [v24 count])
   {
-    [v50 setObject:v23 forKeyedSubscript:kSCEntNetIPSec];
+    [v51 setObject:v24 forKeyedSubscript:kSCEntNetIPSec];
   }
 
-  v51 = v50;
+  v52 = v51;
 
-  Property = objc_getProperty(self, v52, 360, 1);
+  v54 = objc_getProperty(self, v53, 360, 1);
+  v55 = objc_msgSend_type(v54);
 LABEL_73:
-  if ([Property type] == 2)
+  if (v55 == 2)
   {
-    v55 = xpc_dictionary_copy_mach_send();
-    v56 = xpc_dictionary_copy_mach_send();
+    v57 = xpc_dictionary_copy_mach_send();
+    v58 = xpc_dictionary_copy_mach_send();
   }
 
   else
   {
-    v55 = 0;
-    v56 = 0;
+    v57 = 0;
+    v58 = 0;
   }
 
   if (self)
   {
-    objc_setProperty_atomic(self, v54, v51, 384);
+    objc_setProperty_atomic(self, v56, v52, 384);
   }
 
-  v62[0] = _NSConcreteStackBlock;
-  v62[1] = 3221225472;
-  v62[2] = sub_100074CE4;
-  v62[3] = &unk_1000EA5A8;
-  v62[4] = self;
-  v62[5] = v57;
-  v63 = v55;
-  v64 = v56;
-  sub_10006EF70(self, v62);
+  v64[0] = _NSConcreteStackBlock;
+  v64[1] = 3221225472;
+  v64[2] = sub_100074CE4;
+  v64[3] = &unk_1000EA5A8;
+  v64[4] = self;
+  v64[5] = v59;
+  v65 = v57;
+  v66 = v58;
+  sub_10006EF70(self, v64);
 }
 
 - (void)dealloc

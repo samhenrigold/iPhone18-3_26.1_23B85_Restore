@@ -46,7 +46,7 @@
 - (void)_resolve:(BOOL)_resolve
 {
   _resolveCopy = _resolve;
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if ([(HMDHomeInvitation *)self isPending])
   {
     if (_resolveCopy)
@@ -70,12 +70,12 @@
       block[1] = 3221225472;
       block[2] = __30__HMDHomeInvitation__resolve___block_invoke;
       block[3] = &unk_27972F5B0;
-      objc_copyWeak(&v14, location);
-      v15 = _resolveCopy;
+      objc_copyWeak(&v13, location);
+      v14 = _resolveCopy;
       block[4] = self;
       dispatch_async(clientQueue2, block);
 
-      objc_destroyWeak(&v14);
+      objc_destroyWeak(&v13);
       objc_destroyWeak(location);
     }
 
@@ -89,8 +89,8 @@
         identifier = [(HMDHomeInvitation *)self identifier];
         *location = 138543618;
         *&location[4] = v10;
-        v17 = 2112;
-        v18 = identifier;
+        v16 = 2112;
+        v17 = identifier;
         _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Not calling invitation (%@) resolution handler, no client queue set", location, 0x16u);
       }
 
@@ -98,8 +98,6 @@
       [(HMDHomeInvitation *)self _clearTimer];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __30__HMDHomeInvitation__resolve___block_invoke(uint64_t a1)
@@ -162,7 +160,7 @@ void __30__HMDHomeInvitation__resolve___block_invoke(uint64_t a1)
 
 - (void)expire
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([(HMDHomeInvitation *)self isPending])
   {
     [(HMDHomeInvitation *)self updateInvitationState:6];
@@ -172,15 +170,15 @@ void __30__HMDHomeInvitation__resolve___block_invoke(uint64_t a1)
     {
       objc_initWeak(location, self);
       clientQueue2 = [(HMDHomeInvitation *)self clientQueue];
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __27__HMDHomeInvitation_expire__block_invoke;
-      v10[3] = &unk_279732E78;
-      objc_copyWeak(&v11, location);
-      v10[4] = self;
-      dispatch_async(clientQueue2, v10);
+      v9[0] = MEMORY[0x277D85DD0];
+      v9[1] = 3221225472;
+      v9[2] = __27__HMDHomeInvitation_expire__block_invoke;
+      v9[3] = &unk_279732E78;
+      objc_copyWeak(&v10, location);
+      v9[4] = self;
+      dispatch_async(clientQueue2, v9);
 
-      objc_destroyWeak(&v11);
+      objc_destroyWeak(&v10);
       objc_destroyWeak(location);
     }
 
@@ -194,8 +192,8 @@ void __30__HMDHomeInvitation__resolve___block_invoke(uint64_t a1)
         identifier = [(HMDHomeInvitation *)self identifier];
         *location = 138543618;
         *&location[4] = v7;
-        v13 = 2112;
-        v14 = identifier;
+        v12 = 2112;
+        v13 = identifier;
         _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Not calling invitation (%@) expiration handler, no client queue set", location, 0x16u);
       }
 
@@ -203,13 +201,11 @@ void __30__HMDHomeInvitation__resolve___block_invoke(uint64_t a1)
       [(HMDHomeInvitation *)self _clearTimer];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __27__HMDHomeInvitation_expire__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained && ([WeakRetained expirationHandler], v4 = objc_claimAutoreleasedReturnValue(), v4, v4))
@@ -220,11 +216,11 @@ void __27__HMDHomeInvitation_expire__block_invoke(uint64_t a1)
     {
       v7 = HMFGetLogIdentifier();
       v8 = [*(a1 + 32) identifier];
-      v15 = 138543618;
-      v16 = v7;
-      v17 = 2112;
-      v18 = v8;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Calling invitation (%@) expiration handler", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v7;
+      v16 = 2112;
+      v17 = v8;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Calling invitation (%@) expiration handler", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -240,19 +236,17 @@ void __27__HMDHomeInvitation_expire__block_invoke(uint64_t a1)
     {
       v12 = HMFGetLogIdentifier();
       v13 = [*(a1 + 32) identifier];
-      v15 = 138543618;
-      v16 = v12;
-      v17 = 2112;
-      v18 = v13;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Not calling invitation (%@) expiration handler, not set", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v12;
+      v16 = 2112;
+      v17 = v13;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Not calling invitation (%@) expiration handler, not set", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
   }
 
   [*(a1 + 32) _clearTimer];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateTimer:(unint64_t)timer clientQueue:(id)queue

@@ -34,7 +34,7 @@
 
 - (void)resumeConnection
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   if ([(CATIDSServiceConnection *)self->mConnection isClosed])
@@ -66,7 +66,7 @@
 
 - (void)suspendConnection
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   self->mIsActive = 0;
@@ -110,15 +110,15 @@
 
 - (void)connection:(id)connection receivedData:(id)data
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v6 = CATGetCatalystQueue();
+  v6 = CATGetCatalystQueue(dataCopy);
   CATAssertIsQueue(v6);
 
-  v13 = 0;
-  v7 = [MEMORY[0x277CCAAC8] cat_unarchiveObjectOfClass:objc_opt_class() withData:dataCopy error:&v13];
+  v12 = 0;
+  v7 = [MEMORY[0x277CCAAC8] cat_unarchiveObjectOfClass:objc_opt_class() withData:dataCopy error:&v12];
 
-  v8 = v13;
+  v8 = v12;
   v9 = v8;
   if (v7)
   {
@@ -128,20 +128,18 @@
 
   else
   {
-    v14 = *MEMORY[0x277CCA7E8];
-    v15[0] = v8;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x277CCA7E8];
+    v14[0] = v8;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v11 = CATErrorWithCodeAndUserInfo(301, v10);
     [(CATTransport *)self didInterruptWithError:v11];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectionClosed:(id)closed
 {
   closedCopy = closed;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(closedCopy);
   CATAssertIsQueue(v4);
 
   closedError = [closedCopy closedError];
@@ -172,7 +170,7 @@
 
 - (void)serviceReceiveQueue
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   if (self->mIsActive && [(NSMutableArray *)self->mReceiveQueue count])

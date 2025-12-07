@@ -7,7 +7,6 @@
 
 + (id)createNSErrorWithStatus:(int64_t)status andMessage:(id)message
 {
-  v18[2] = *MEMORY[0x277D85DE8];
   if (status == 128)
   {
     v4 = 0;
@@ -17,22 +16,21 @@
   {
     v6 = MEMORY[0x277CCACA8];
     messageCopy = message;
-    v8 = [v6 stringWithUTF8String:CVML_getModuleDescription(status)];
-    v9 = [v6 stringWithFormat:@"com.apple.cvml.%@", v8];
+    CVML_getModuleDescription(status);
+    v8 = [v6 stringWithUTF8String:?];
+    v9 = [v6 stringWithFormat:v8];
 
-    v17[0] = *MEMORY[0x277CCA450];
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
-    v11 = [mainBundle localizedStringForKey:messageCopy value:&stru_284057FB8 table:0];
+    v11 = [mainBundle localizedStringForKey:? value:? table:?];
 
-    v18[0] = v11;
-    v17[1] = *MEMORY[0x277CCA470];
     mainBundle2 = [MEMORY[0x277CCA8D8] mainBundle];
-    v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:CVML_getStatusDescription(status)];
-    v14 = [mainBundle2 localizedStringForKey:v13 value:&stru_284057FB8 table:0];
-    v18[1] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v13 = MEMORY[0x277CCACA8];
+    CVML_getStatusDescription(status);
+    v14 = [v13 stringWithUTF8String:?];
+    v17 = [mainBundle2 localizedStringForKey:? value:? table:?];
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
 
-    v4 = [MEMORY[0x277CCA9B8] errorWithDomain:v9 code:status userInfo:v15];
+    v4 = [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
   }
 
   return v4;
@@ -40,7 +38,6 @@
 
 + (id)createNSExceptionWithStatus:(int64_t)status andMessage:(id)message
 {
-  v19[1] = *MEMORY[0x277D85DE8];
   if (status == 128)
   {
     v4 = 0;
@@ -50,20 +47,21 @@
   {
     v6 = MEMORY[0x277CCACA8];
     messageCopy = message;
-    v8 = [v6 stringWithUTF8String:CVML_getModuleDescription(status)];
-    v9 = [v6 stringWithFormat:@"CVML module = %@", v8];
+    CVML_getModuleDescription(status);
+    v8 = [v6 stringWithUTF8String:?];
+    v9 = [v6 stringWithFormat:v8];
 
-    v18 = *MEMORY[0x277CCA450];
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
-    v11 = [mainBundle localizedStringForKey:v9 value:&stru_284057FB8 table:0];
-    v19[0] = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v18 = [mainBundle localizedStringForKey:? value:? table:?];
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
 
-    v13 = MEMORY[0x277CBEAD8];
+    v12 = MEMORY[0x277CBEAD8];
     mainBundle2 = [MEMORY[0x277CCA8D8] mainBundle];
-    v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:CVML_getStatusDescription(status)];
-    v16 = [mainBundle2 localizedStringForKey:v15 value:&stru_284057FB8 table:0];
-    v4 = [v13 exceptionWithName:v16 reason:messageCopy userInfo:v12];
+    v14 = MEMORY[0x277CCACA8];
+    CVML_getStatusDescription(status);
+    v15 = [v14 stringWithUTF8String:?];
+    v16 = [mainBundle2 localizedStringForKey:? value:? table:?];
+    v4 = [v12 exceptionWithName:? reason:? userInfo:?];
   }
 
   return v4;

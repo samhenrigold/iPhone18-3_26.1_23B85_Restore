@@ -1211,7 +1211,7 @@ LABEL_32:
   v5 = responseCopy;
   if (responseCopy)
   {
-    [responseCopy duration];
+    objc_msgSend_duration(responseCopy);
   }
 
   else

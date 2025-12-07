@@ -24,7 +24,8 @@
 
 - (double)viewWidthForSizing
 {
-  v3 = AnchoredValueCurrentWindowWidth(self);
+  AnchoredValueCurrentWindowWidth(self);
+  v4 = v3;
   window = [(LargeYearMonthView *)self window];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -33,10 +34,10 @@
   {
     window2 = [(LargeYearMonthView *)self window];
     [window2 mainContentSize];
-    v3 = v7;
+    v4 = v8;
   }
 
-  return v3;
+  return v4;
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
@@ -112,9 +113,9 @@ LABEL_7:
     }
 
     v4 = qword_100251F10;
-    v5 = AnchoredValueCurrentWindowWidth(self);
+    AnchoredValueCurrentWindowWidth(self);
 
-    [v4 valueForSize:v5];
+    [v4 valueForSize:?];
   }
 
   return result;

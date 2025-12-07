@@ -26,13 +26,13 @@ uint64_t sub_221E50CF4(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
   return a2;
 }
 
-uint64_t sub_221E50DD0()
+uint64_t sub_221E50DD0(uint64_t a1)
 {
   result = sub_221E56EA0();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = sub_221E511E8(319, qword_280FAFD20, 0x277CCD7E8);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -42,20 +42,20 @@ uint64_t sub_221E50DD0()
   return result;
 }
 
-void sub_221E50E8C()
+void sub_221E50E8C(uint64_t a1)
 {
   sub_221E50F50(319, &unk_280FAFE40, &qword_280FAFD18, 0x277CCAE20);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_221E50F50(319, &qword_280FAFE38, &qword_280FAFD10, 0x277CCADD0);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void sub_221E50F50(uint64_t a1, unint64_t *a2, unint64_t *a3, uint64_t *a4)
+void sub_221E50F50(uint64_t a1, unint64_t *a2, unint64_t *a3, void *a4)
 {
   if (!*a2)
   {
@@ -86,7 +86,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -94,7 +93,7 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   return result;
 }
 
-uint64_t sub_221E51070(uint64_t a1, uint64_t *a2)
+uint64_t sub_221E51070(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -112,11 +111,9 @@ uint64_t sub_221E510A8@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
   v6 = objc_opt_self();
   v7 = [v6 meters];
   v8 = type metadata accessor for DistanceAccumulator(0);
-  v9 = v8[9];
   sub_221E511E8(0, &qword_280FAFD18, 0x277CCAE20);
   sub_221E56E00();
-  v10 = [v6 meters];
-  v11 = a2 + v8[10];
+  v9 = [v6 meters];
   sub_221E56E00();
   *a2 = v5;
   *(a2 + 8) = 0;
@@ -127,12 +124,11 @@ uint64_t sub_221E510A8@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_221E511E8(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_221E511E8(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -165,29 +161,26 @@ uint64_t sub_221E512EC(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
 }
 
-void sub_221E51404()
+void sub_221E51404(uint64_t a1)
 {
   type metadata accessor for DistanceSample(319);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_221E50F50(319, &unk_280FAFE40, &qword_280FAFD18, 0x277CCAE20);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      sub_221E514D8();
-      if (v2 <= 0x3F)
+      sub_221E514D8(319);
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -195,20 +188,20 @@ void sub_221E51404()
   }
 }
 
-void sub_221E514D8()
+void sub_221E514D8(uint64_t a1)
 {
   if (!qword_27CFEA928)
   {
     type metadata accessor for DistanceSampleIntervalRecord(255);
-    v0 = sub_221E56FB0();
-    if (!v1)
+    v1 = sub_221E56FB0();
+    if (!v2)
     {
-      atomic_store(v0, &qword_27CFEA928);
+      atomic_store(v1, &qword_27CFEA928);
     }
   }
 }
 
-uint64_t sub_221E51574(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t sub_221E51574(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -255,15 +248,17 @@ unint64_t sub_221E51688()
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0Tm(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0Tm(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 unint64_t sub_221E51728()
@@ -610,16 +605,14 @@ unint64_t sub_221E51D94()
 
 void ACHEarnedInstanceSyncIdentityFromEarnedInstance_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_221DDC000, v0, OS_LOG_TYPE_FAULT, "ACHEarnedInstanceEntity ConcreteSyncIdentity is nil %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_221DDC000, v0, OS_LOG_TYPE_FAULT, "ACHEarnedInstanceEntity ConcreteSyncIdentity is nil %{public}@", v1, 0xCu);
 }
 
 void ACHTemplateSyncIdentityFromTemplate_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_fault_impl(&dword_221DDC000, v0, OS_LOG_TYPE_FAULT, "ACHTemplateEntity ConcreteSyncIdentity is nil %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_221DDC000, v0, OS_LOG_TYPE_FAULT, "ACHTemplateEntity ConcreteSyncIdentity is nil %{public}@", v1, 0xCu);
 }

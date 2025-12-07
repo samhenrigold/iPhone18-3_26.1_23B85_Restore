@@ -13,6 +13,7 @@
 - (void)setClassPrototype:(id)prototype;
 - (void)setObjectId:(id)id;
 - (void)setPreview:(id)preview;
+- (void)setSize:(int)size;
 - (void)setStringRepresentation:(id)representation;
 - (void)setSubtype:(int64_t)subtype;
 - (void)setType:(int64_t)type;
@@ -206,7 +207,7 @@ LABEL_8:
     v11.receiver = self;
     v11.super_class = RWIProtocolRuntimeRemoteObject;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"value"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -282,6 +283,13 @@ LABEL_8:
   return v2;
 }
 
+- (void)setSize:(int)size
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolRuntimeRemoteObject;
+  [(RWIProtocolJSONObject *)&v3 setInteger:*&size forKey:@"size"];
+}
+
 - (int)size
 {
   v3.receiver = self;
@@ -307,7 +315,7 @@ LABEL_8:
     v11.receiver = self;
     v11.super_class = RWIProtocolRuntimeRemoteObject;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"classPrototype"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -369,7 +377,7 @@ LABEL_8:
     v11.receiver = self;
     v11.super_class = RWIProtocolRuntimeRemoteObject;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"preview"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;

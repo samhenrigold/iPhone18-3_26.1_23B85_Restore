@@ -51,7 +51,7 @@
 
 + (id)as_colorForParticipant:()ActivitySharing competition:
 {
-  if ([a4 isParticipantWinning:?])
+  if ([a4 isParticipantWinning:a3])
   {
     [MEMORY[0x277D75348] as_lightCompetitionGold];
   }

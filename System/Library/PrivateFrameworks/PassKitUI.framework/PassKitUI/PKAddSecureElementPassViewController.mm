@@ -283,8 +283,9 @@ LABEL_12:
   [(PKAddSecureElementPassViewController *)self didFinishWithPasses:0 error:v9];
 }
 
-uint64_t __64__PKAddSecureElementPassViewController_loadRemoteViewController__block_invoke(uint64_t a1, int a2)
+uint64_t __64__PKAddSecureElementPassViewController_loadRemoteViewController__block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = PKLogFacilityTypeGetObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -293,7 +294,7 @@ uint64_t __64__PKAddSecureElementPassViewController_loadRemoteViewController__bl
   }
 
   v5 = [*(*(a1 + 32) + 1016) invoke];
-  return a2 ^ 1u;
+  return v2 ^ 1u;
 }
 
 void __64__PKAddSecureElementPassViewController_loadRemoteViewController__block_invoke_100(uint64_t a1, void *a2, void *a3)

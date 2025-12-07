@@ -27,14 +27,18 @@
   y = frame.origin.y;
   x = frame.origin.x;
   ObjectType = swift_getObjectType();
-  v11.receiver = self;
-  v11.super_class = ObjectType;
+  v19.receiver = self;
+  v19.super_class = ObjectType;
   selfCopy = self;
-  [(AppPromotionMediaContainerView *)&v11 frame];
-  v10.receiver = selfCopy;
-  v10.super_class = ObjectType;
-  [(AppPromotionMediaContainerView *)&v10 setFrame:x, y, width, height];
-  sub_1000EE300();
+  [(AppPromotionMediaContainerView *)&v19 frame];
+  v11 = v10;
+  v13 = v12;
+  v15 = v14;
+  v17 = v16;
+  v18.receiver = selfCopy;
+  v18.super_class = ObjectType;
+  [(AppPromotionMediaContainerView *)&v18 setFrame:x, y, width, height];
+  sub_1000EE300(v11, v13, v15, v17);
 }
 
 - (void)layoutSubviews

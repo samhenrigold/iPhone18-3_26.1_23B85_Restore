@@ -264,7 +264,7 @@ void __103__PLBackgroundJobPersonSyncWorker__resumeResetSyncPersonsFromSystemLib
   }
 
   v10 = [v5 result];
-  if (![v10 count])
+  if (!objc_msgSend_count(v10))
   {
     [*(a1 + 32) _setCompletedResetSyncFromLibrary:*(a1 + 48)];
     goto LABEL_22;
@@ -274,7 +274,7 @@ void __103__PLBackgroundJobPersonSyncWorker__resumeResetSyncPersonsFromSystemLib
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v35 = [v10 count];
+    v35 = objc_msgSend_count(v10);
     _os_log_impl(&dword_19BF1F000, v11, OS_LOG_TYPE_DEFAULT, "PersonSync: Syncing %tu persons to syndication library as part of reset sync", buf, 0xCu);
   }
 
@@ -403,7 +403,7 @@ LABEL_22:
   [v13 performBlockAndWait:v40];
   if (v60[3])
   {
-    if (![v54[5] count])
+    if (!objc_msgSend_count(v54[5]))
     {
       [(PLBackgroundJobPersonSyncWorker *)self _setCompletedResetSyncFromLibrary:v13];
       v27 = 1;
@@ -426,7 +426,7 @@ LABEL_22:
     v18 = PLSyndicationGetLog();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = [v17 count];
+      v19 = objc_msgSend_count(v17);
       *v64 = 134217984;
       v65 = v19;
       _os_log_impl(&dword_19BF1F000, v18, OS_LOG_TYPE_DEFAULT, "PersonSync: Deleting %tu persons from syndication library as part of reset sync", v64, 0xCu);
@@ -1008,7 +1008,7 @@ LABEL_24:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 134218242;
-        v29 = [v11 count];
+        v29 = objc_msgSend_count(v11);
         v30 = 2114;
         v31 = v11;
         _os_log_impl(&dword_19BF1F000, v14, OS_LOG_TYPE_INFO, "PersonSync: %tu face crops to copy to SPL: %{public}@", buf, 0x16u);
@@ -1117,8 +1117,8 @@ LABEL_16:
   [v14 performBlockAndWait:v27];
   if (v39[5])
   {
-    v16 = [listCopy count];
-    if (v16 == [v39[5] count])
+    v16 = objc_msgSend_count(listCopy);
+    if (v16 == objc_msgSend_count(v39[5]))
     {
       v17 = PLSyndicationGetLog();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
@@ -1567,8 +1567,8 @@ LABEL_44:
     v27 = PLSyndicationGetLog();
     if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
     {
-      v28 = [v25 count];
-      v29 = [*(*&buf[8] + 40) count];
+      v28 = objc_msgSend_count(v25);
+      v29 = objc_msgSend_count(*(*&buf[8] + 40));
       *v55 = 134218240;
       v56 = v28;
       v57 = 2048;
@@ -1587,7 +1587,7 @@ LABEL_44:
         v39 = PLSyndicationGetLog();
         if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
         {
-          v40 = [v25 count];
+          v40 = objc_msgSend_count(v25);
           *v55 = 134217984;
           v56 = v40;
           _os_log_impl(&dword_19BF1F000, v39, OS_LOG_TYPE_INFO, "PersonSync: Deleting %tu work items", v55, 0xCu);
@@ -1736,7 +1736,7 @@ LABEL_13:
   v13 = v10;
   v27 = v13;
   [v13 performBlockAndWait:v26];
-  if ([*(v30 + 5) count])
+  if (objc_msgSend_count(*(v30 + 5)))
   {
     v14 = [PLBackgroundJobWorkerPendingWorkItems alloc];
     v36 = *(v30 + 5);
@@ -1749,7 +1749,7 @@ LABEL_13:
   {
     v15 = [(PLBackgroundJobPersonSyncWorker *)self _faceCropUuidsFromLibrary:v11 error:0];
     v25 = [(PLBackgroundJobPersonSyncWorker *)self _faceCropUuidsMissingFromList:v15 inLibrary:v13 error:0];
-    v22 = [v25 count];
+    v22 = objc_msgSend_count(v25);
     v16 = v22 == 0;
     if (v22)
     {

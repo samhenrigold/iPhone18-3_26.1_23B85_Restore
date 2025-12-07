@@ -311,7 +311,7 @@ uint64_t __39__LibraryCollectionViewCell__imageView__block_invoke(uint64_t a1, v
   v3[3] = &unk_2781D51B8;
   v3[4] = self;
   buttonCopy = button;
-  [(UIView *)0.2 safari_animate:MEMORY[0x277D75D18] withDuration:!button delay:6 options:v3 animations:0 completion:?];
+  [(UIView *)MEMORY[0x277D75D18] safari_animate:6 withDuration:v3 delay:0 options:0.2 animations:0.0 completion:?];
 }
 
 uint64_t __50__LibraryCollectionViewCell__setShowsCloseButton___block_invoke(uint64_t a1)

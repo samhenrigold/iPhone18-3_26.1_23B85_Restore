@@ -10,9 +10,9 @@
   listenerCopy = listener;
   connectionCopy = connection;
   selfCopy = self;
-  v9 = sub_100001A04(connectionCopy);
+  v11 = sub_100001A04(connectionCopy, v9, v10);
 
-  return v9 & 1;
+  return v11 & 1;
 }
 
 - (_TtC24MIBULoopbackServerHelper15ServiceDelegate)init

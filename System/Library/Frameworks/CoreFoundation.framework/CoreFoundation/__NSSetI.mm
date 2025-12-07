@@ -14,14 +14,14 @@
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (__NSSet0__ == self)
   {
     __break(1u);
   }
 
   v3 = self->_used[7];
-  v4 = *(&__NSSetSizes + ((2 * v3) & 0x1F8));
+  v4 = *(__NSSetSizes + ((2 * v3) & 0x1F8));
   self->_used[7] = v3 & 3;
   *self->_used &= 0xFC00000000000000;
   if (v3 >= 4)
@@ -50,27 +50,26 @@
     while (v6);
   }
 
-  v8.receiver = self;
-  v8.super_class = __NSSetI;
-  [(__NSSetI *)&v8 dealloc];
-  v7 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = __NSSetI;
+  [(__NSSetI *)&v7 dealloc];
 }
 
 - (id)member:(id)member
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3052000000;
-  v23 = __Block_byref_object_copy_;
-  v24 = __Block_byref_object_dispose_;
-  v25 = 0;
+  v25 = *MEMORY[0x1E69E9840];
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3052000000;
+  v22 = __Block_byref_object_copy_;
+  v23 = __Block_byref_object_dispose_;
+  v24 = 0;
   v3 = self->_used[7];
-  v15 = MEMORY[0x1E69E9820];
-  v16 = 3221225472;
-  v17 = __19____NSSetI_member___block_invoke;
-  v18 = &unk_1E6D823E0;
-  v19 = &v20;
+  v14 = MEMORY[0x1E69E9820];
+  v15 = 3221225472;
+  v16 = __19____NSSetI_member___block_invoke;
+  v17 = &unk_1E6D823E0;
+  v18 = &v19;
   if (v3 >= 4)
   {
     v5 = *(__NSSetSizes + ((2 * v3) & 0x1F8));
@@ -114,14 +113,13 @@
 
     if (v7 < v5)
     {
-      v17(&v15, *&v6[8 * v7]);
+      v16(&v14, *&v6[8 * v7]);
     }
   }
 
 LABEL_17:
-  v12 = v21[5];
-  _Block_object_dispose(&v20, 8);
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = v20[5];
+  _Block_object_dispose(&v19, 8);
   return v12;
 }
 
@@ -134,7 +132,7 @@ LABEL_17:
 
 - (double)clumpingFactor
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = *self->_used;
   if ((v3 & 0x3FFFFFFFFFFFFFELL) != 0)
   {
@@ -146,12 +144,12 @@ LABEL_17:
     v4 = 1;
   }
 
-  v5 = MEMORY[0x1EEE9AC00](v4, a2);
-  v8 = &v23 - v7;
-  v23 = 0;
+  v5 = (MEMORY[0x1EEE9AC00])(v4, a2);
+  v8 = &v22 - v7;
+  v22 = 0;
   if (v6 >= 0x101)
   {
-    v8 = _CFCreateArrayStorage(v5, 0, &v23);
+    v8 = _CFCreateArrayStorage(v5, 0, &v22);
     v6 = *self->_used & 0x3FFFFFFFFFFFFFFLL;
     v9 = v8;
   }
@@ -161,7 +159,7 @@ LABEL_17:
     v9 = 0;
   }
 
-  [(__NSSetI *)self getObjects:v8 count:v6, v23, v24];
+  [(__NSSetI *)self getObjects:v8 count:v6, v22, v23];
   v10 = *self->_used & 0x3FFFFFFFFFFFFFFLL;
   v11 = 0.0;
   if (v10 >= 2)
@@ -203,39 +201,38 @@ LABEL_17:
   }
 
   free(v9);
-  v21 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (unint64_t)countByEnumeratingWithState:(id *)state objects:(id *)objects count:(unint64_t)count
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (!objects && count)
   {
-    v13 = _os_log_pack_size();
-    v14 = v20 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v15 = _os_log_pack_fill();
-    *v15 = 136315394;
-    *(v15 + 4) = "[__NSSetI countByEnumeratingWithState:objects:count:]";
-    *(v15 + 12) = 2048;
-    *(v15 + 14) = count;
-    v16 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: pointer to objects array is NULL but length is %lu", "[__NSSetI countByEnumeratingWithState:objects:count:]", count);
+    v12 = _os_log_pack_size();
+    v13 = &v19 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v14 = _os_log_pack_fill(v13, v12, 0, &dword_1830E6000, "*** %s: pointer to objects array is NULL but length is %lu", v19, v20);
+    *v14 = 136315394;
+    *(v14 + 4) = "[__NSSetI countByEnumeratingWithState:objects:count:]";
+    *(v14 + 12) = 2048;
+    *(v14 + 14) = count;
+    v15 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: pointer to objects array is NULL but length is %lu", "[__NSSetI countByEnumeratingWithState:objects:count:]", count);
     goto LABEL_18;
   }
 
   if (count >> 61)
   {
-    v13 = _os_log_pack_size();
-    v14 = v20 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v18 = _os_log_pack_fill();
-    *v18 = 136315394;
-    *(v18 + 4) = "[__NSSetI countByEnumeratingWithState:objects:count:]";
-    *(v18 + 12) = 2048;
-    *(v18 + 14) = count;
-    v16 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: count (%lu) of objects array is ridiculous", "[__NSSetI countByEnumeratingWithState:objects:count:]", count);
+    v12 = _os_log_pack_size();
+    v13 = &v19 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v17 = _os_log_pack_fill(v13, v12, 0, &dword_1830E6000, "*** %s: count (%lu) of objects array is ridiculous", v19, v20);
+    *v17 = 136315394;
+    *(v17 + 4) = "[__NSSetI countByEnumeratingWithState:objects:count:]";
+    *(v17 + 12) = 2048;
+    *(v17 + 14) = count;
+    v15 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: count (%lu) of objects array is ridiculous", "[__NSSetI countByEnumeratingWithState:objects:count:]", count);
 LABEL_18:
-    v19 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v16) osLogPack:0 size:v14, v13];
-    objc_exception_throw(v19);
+    v18 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v15) osLogPack:0 size:v13, v12];
+    objc_exception_throw(v18);
   }
 
   v6 = *(__NSSetSizes + ((2 * self->_used[7]) & 0x1F8));
@@ -245,46 +242,47 @@ LABEL_18:
     state->var2 = &countByEnumeratingWithState_objects_count__const_mu_3;
   }
 
-  if (v6 > var0 && (state->var1 = objects, count))
+  if (v6 <= var0)
   {
-    result = 0;
-    v9 = self + 16;
-    do
+    return 0;
+  }
+
+  state->var1 = objects;
+  if (!count)
+  {
+    return 0;
+  }
+
+  result = 0;
+  v9 = self + 16;
+  do
+  {
+    v10 = *&v9[8 * var0++];
+    state->var0 = var0;
+    if (v10)
     {
-      v10 = *&v9[8 * var0++];
-      state->var0 = var0;
-      if (v10)
-      {
-        objects[result++] = v10;
-        var0 = state->var0;
-      }
+      objects[result++] = v10;
+      var0 = state->var0;
     }
-
-    while (var0 < v6 && result < count);
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v11 = *MEMORY[0x1E69E9840];
+  while (var0 < v6 && result < count);
   return result;
 }
 
 - (BOOL)containsObject:(id)object
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
+  v23 = *MEMORY[0x1E69E9840];
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
   v3 = self->_used[7];
-  v15 = MEMORY[0x1E69E9820];
-  v16 = 3221225472;
-  v17 = __27____NSSetI_containsObject___block_invoke;
-  v18 = &unk_1E6D823E0;
-  v19 = &v20;
+  v14 = MEMORY[0x1E69E9820];
+  v15 = 3221225472;
+  v16 = __27____NSSetI_containsObject___block_invoke;
+  v17 = &unk_1E6D823E0;
+  v18 = &v19;
   if (v3 >= 4)
   {
     v5 = *(__NSSetSizes + ((2 * v3) & 0x1F8));
@@ -328,30 +326,29 @@ LABEL_18:
 
     if (v7 < v5)
     {
-      v17(&v15, *&v6[8 * v7]);
+      v16(&v14, *&v6[8 * v7]);
     }
   }
 
 LABEL_17:
-  v12 = *(v21 + 24);
-  _Block_object_dispose(&v20, 8);
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *(v20 + 24);
+  _Block_object_dispose(&v19, 8);
   return v12;
 }
 
 - (unint64_t)countForObject:(id)object
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
+  v23 = *MEMORY[0x1E69E9840];
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
   v3 = self->_used[7];
-  v15 = MEMORY[0x1E69E9820];
-  v16 = 3221225472;
-  v17 = __27____NSSetI_countForObject___block_invoke;
-  v18 = &unk_1E6D823E0;
-  v19 = &v20;
+  v14 = MEMORY[0x1E69E9820];
+  v15 = 3221225472;
+  v16 = __27____NSSetI_countForObject___block_invoke;
+  v17 = &unk_1E6D823E0;
+  v18 = &v19;
   if (v3 >= 4)
   {
     v5 = *(__NSSetSizes + ((2 * v3) & 0x1F8));
@@ -395,46 +392,45 @@ LABEL_17:
 
     if (v7 < v5)
     {
-      v17(&v15, *&v6[8 * v7]);
+      v16(&v14, *&v6[8 * v7]);
     }
   }
 
 LABEL_17:
-  v12 = v21[3];
-  _Block_object_dispose(&v20, 8);
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = v20[3];
+  _Block_object_dispose(&v19, 8);
   return v12;
 }
 
 - (void)getObjects:(id *)objects count:(unint64_t)count
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (!objects && count)
   {
-    v11 = _os_log_pack_size();
-    v12 = v18 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v13 = _os_log_pack_fill();
-    *v13 = 136315394;
-    *(v13 + 4) = "[__NSSetI getObjects:count:]";
-    *(v13 + 12) = 2048;
-    *(v13 + 14) = count;
-    v14 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: pointer to objects array is NULL but length is %lu", "[__NSSetI getObjects:count:]", count);
+    v10 = _os_log_pack_size();
+    v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v12 = _os_log_pack_fill(v11, v10, 0, &dword_1830E6000, "*** %s: pointer to objects array is NULL but length is %lu", v17, v18);
+    *v12 = 136315394;
+    *(v12 + 4) = "[__NSSetI getObjects:count:]";
+    *(v12 + 12) = 2048;
+    *(v12 + 14) = count;
+    v13 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: pointer to objects array is NULL but length is %lu", "[__NSSetI getObjects:count:]", count);
     goto LABEL_18;
   }
 
   if (count >> 61)
   {
-    v11 = _os_log_pack_size();
-    v12 = v18 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v16 = _os_log_pack_fill();
-    *v16 = 136315394;
-    *(v16 + 4) = "[__NSSetI getObjects:count:]";
-    *(v16 + 12) = 2048;
-    *(v16 + 14) = count;
-    v14 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: count (%lu) of objects array is ridiculous", "[__NSSetI getObjects:count:]", count);
+    v10 = _os_log_pack_size();
+    v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v15 = _os_log_pack_fill(v11, v10, 0, &dword_1830E6000, "*** %s: count (%lu) of objects array is ridiculous", v17, v18);
+    *v15 = 136315394;
+    *(v15 + 4) = "[__NSSetI getObjects:count:]";
+    *(v15 + 12) = 2048;
+    *(v15 + 14) = count;
+    v13 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: count (%lu) of objects array is ridiculous", "[__NSSetI getObjects:count:]", count);
 LABEL_18:
-    v17 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v14) osLogPack:0 size:v12, v11];
-    objc_exception_throw(v17);
+    v16 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v13) osLogPack:0 size:v11, v10];
+    objc_exception_throw(v16);
   }
 
   countCopy = *self->_used & 0x3FFFFFFFFFFFFFFLL;
@@ -467,22 +463,20 @@ LABEL_18:
 
     while (countCopy);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumerateObjectsWithOptions:(unint64_t)options usingBlock:(id)block
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (!block)
   {
-    v12 = _os_log_pack_size();
-    v13 = _os_log_pack_fill();
-    *v13 = 136315138;
-    *(v13 + 4) = "[__NSSetI enumerateObjectsWithOptions:usingBlock:]";
-    v14 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: block cannot be nil", "[__NSSetI enumerateObjectsWithOptions:usingBlock:]");
-    v15 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v14) osLogPack:0 size:block - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0), v12];
-    objc_exception_throw(v15);
+    v11 = _os_log_pack_size();
+    v12 = _os_log_pack_fill(block - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v11, 0, &dword_1830E6000, "*** %s: block cannot be nil", block[0]);
+    *v12 = 136315138;
+    *(v12 + 4) = "[__NSSetI enumerateObjectsWithOptions:usingBlock:]";
+    v13 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: block cannot be nil", "[__NSSetI enumerateObjectsWithOptions:usingBlock:]");
+    v14 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v13) osLogPack:0 size:block - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v11];
+    objc_exception_throw(v14);
   }
 
   optionsCopy = options;
@@ -495,24 +489,24 @@ LABEL_18:
 
   if (optionsCopy)
   {
-    v17[0] = 0;
-    v17[1] = v17;
-    v17[2] = 0x2020000000;
-    v18 = 0;
+    v16[0] = 0;
+    v16[1] = v16;
+    v16[2] = 0x2020000000;
+    v17 = 0;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __51____NSSetI_enumerateObjectsWithOptions_usingBlock___block_invoke;
     block[3] = &unk_1E6D82408;
     block[5] = block;
-    block[6] = v17;
+    block[6] = v16;
     block[4] = self;
     dispatch_apply(v8, 0, block);
-    _Block_object_dispose(v17, 8);
+    _Block_object_dispose(v16, 8);
   }
 
   else
   {
-    LOBYTE(v17[0]) = 0;
+    LOBYTE(v16[0]) = 0;
     if (v7 >= 4u)
     {
       v9 = 0;
@@ -531,8 +525,6 @@ LABEL_18:
       while (v9 < v8);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

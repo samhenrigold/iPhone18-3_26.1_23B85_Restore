@@ -7,30 +7,30 @@
 
 - (void)main
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (self && (v3 = self->super._transport) != 0)
   {
-    v13 = v3;
+    v11 = v3;
     selfCopy = self;
-    operationQueue = [(HAP2AccessoryServerTransportBase *)v13 operationQueue];
+    operationQueue = [(HAP2AccessoryServerTransportBase *)v11 operationQueue];
     [operationQueue assertCurrentQueue];
 
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2020000000;
-    v25 = 0;
-    propertyLock = [(HAP2AccessoryServerTransportBase *)v13 propertyLock];
-    v15 = MEMORY[0x277D85DD0];
-    v16 = 3221225472;
-    v17 = __56__HAP2AccessoryServerTransportBase__closeWithOperation___block_invoke;
-    v18 = &unk_2786D4F60;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x2020000000;
+    v23 = 0;
+    propertyLock = [(HAP2AccessoryServerTransportBase *)v11 propertyLock];
+    v13 = MEMORY[0x277D85DD0];
+    v14 = 3221225472;
+    v15 = __56__HAP2AccessoryServerTransportBase__closeWithOperation___block_invoke;
+    v16 = &unk_2786D4F60;
     v7 = selfCopy;
-    v19 = v7;
-    v20 = v13;
-    v21 = &v22;
-    [propertyLock performWritingBlock:&v15];
+    v17 = v7;
+    v18 = v11;
+    v19 = &v20;
+    [propertyLock performWritingBlock:&v13];
 
-    if (v23[3])
+    if (v21[3])
     {
       if (hap2LogInitialize_onceToken != -1)
       {
@@ -41,19 +41,19 @@
       if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(buf) = 138412290;
-        *(&buf + 4) = v13;
+        *(&buf + 4) = v11;
         _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_DEFAULT, "%@ (Base) Closing", &buf, 0xCu);
       }
 
-      [(HAP2AccessoryServerTransportBase *)v13 didChangeStateWithError:0, v13, v15, v16, v17, v18];
+      [(HAP2AccessoryServerTransportBase *)v11 didChangeStateWithError:0, v11, v13, v14, v15, v16];
       v9 = v7[36];
       *&buf = MEMORY[0x277D85DD0];
       *(&buf + 1) = 3221225472;
-      v27 = __56__HAP2AccessoryServerTransportBase__closeWithOperation___block_invoke_35;
-      v28 = &unk_2786D3DC8;
-      v29 = v14;
-      v30 = v7;
-      [v14 doCloseWithError:v9 completion:&buf];
+      v25 = __56__HAP2AccessoryServerTransportBase__closeWithOperation___block_invoke_35;
+      v26 = &unk_2786D3DC8;
+      v27 = v12;
+      v28 = v7;
+      [v12 doCloseWithError:v9 completion:&buf];
     }
 
     else
@@ -63,24 +63,22 @@
         dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
       }
 
-      v11 = hap2Log_accessory;
+      v10 = hap2Log_accessory;
       if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEBUG))
       {
         LODWORD(buf) = 138412290;
-        *(&buf + 4) = v13;
-        _os_log_debug_impl(&dword_22AADC000, v11, OS_LOG_TYPE_DEBUG, "%@ (Base) Already closed", &buf, 0xCu);
+        *(&buf + 4) = v11;
+        _os_log_debug_impl(&dword_22AADC000, v10, OS_LOG_TYPE_DEBUG, "%@ (Base) Already closed", &buf, 0xCu);
       }
 
       [v7 finish];
     }
 
-    _Block_object_dispose(&v22, 8);
-    v12 = *MEMORY[0x277D85DE8];
+    _Block_object_dispose(&v20, 8);
   }
 
   else
   {
-    v10 = *MEMORY[0x277D85DE8];
 
     [(HAP2AsynchronousOperation *)self cancel];
   }

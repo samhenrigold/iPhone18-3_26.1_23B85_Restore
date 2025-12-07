@@ -75,9 +75,9 @@
 {
   delegateCopy = delegate;
   queueCopy = queue;
-  v20.receiver = self;
-  v20.super_class = _GEOCountryConfigurationRemoteProxy;
-  v8 = [(_GEOCountryConfigurationRemoteProxy *)&v20 init];
+  v18.receiver = self;
+  v18.super_class = _GEOCountryConfigurationRemoteProxy;
+  v8 = [(_GEOCountryConfigurationRemoteProxy *)&v18 init];
   if (v8)
   {
     v9 = geo_dispatch_queue_create();
@@ -86,20 +86,18 @@
 
     objc_storeWeak(&v8->_delegate, delegateCopy);
     objc_storeStrong(&v8->_delegateQueue, queue);
-    v11 = v8->_queue;
-    v12 = GeoServicesConfig_DeviceCountryCodeSourced[1];
     _GEOConfigAddDelegateListenerForKey();
     objc_initWeak(&location, v8);
-    v13 = kCountryProvidersChangedDarwinNotification;
-    v14 = v8->_queue;
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_100003124;
-    v17[3] = &unk_100082928;
-    objc_copyWeak(&v18, &location);
-    notify_register_dispatch(v13, &v8->_providersChangedToken, v14, v17);
-    v15 = v8;
-    objc_destroyWeak(&v18);
+    v11 = kCountryProvidersChangedDarwinNotification;
+    v12 = v8->_queue;
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100003124;
+    v15[3] = &unk_100082928;
+    objc_copyWeak(&v16, &location);
+    notify_register_dispatch(v11, &v8->_providersChangedToken, v12, v15);
+    v13 = v8;
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
   }
 

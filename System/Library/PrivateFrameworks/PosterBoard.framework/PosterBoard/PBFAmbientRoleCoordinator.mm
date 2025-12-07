@@ -76,7 +76,7 @@
       }
 
       v17 = selectedPoster;
-      v20 = PBFLogRoleCoordinator();
+      v20 = PBFLogRoleCoordinator(selectedPoster);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
@@ -116,58 +116,58 @@ uint64_t __82__PBFAmbientRoleCoordinator_determineActivePosterConfigurationForSt
 
 - (BOOL)synchronizeFileSystemAttributesForStorage:(id)storage error:(id *)error
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   storageCopy = storage;
-  v57.receiver = self;
-  v57.super_class = PBFAmbientRoleCoordinator;
-  if ([(PBFPosterRoleCoordinator *)&v57 synchronizeFileSystemAttributesForStorage:storageCopy error:error])
+  v59.receiver = self;
+  v59.super_class = PBFAmbientRoleCoordinator;
+  if ([(PBFPosterRoleCoordinator *)&v59 synchronizeFileSystemAttributesForStorage:storageCopy error:error])
   {
     role = [(PBFPosterRoleCoordinator *)self role];
-    v7 = PBFLogRoleCoordinator();
+    v7 = PBFLogRoleCoordinator(role);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v59 = role;
+      v61 = role;
       _os_log_impl(&dword_21B526000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] synchronizeFileSystemAttributesForStorage", buf, 0xCu);
     }
 
     modelCoordinatorProvider = [(PBFPosterRoleCoordinator *)self modelCoordinatorProvider];
     v8 = [(PBFPosterRoleCoordinator *)self buildNewPosterCollectionFromStorage:storageCopy];
-    v53 = 0u;
-    v54 = 0u;
     v55 = 0u;
     v56 = 0u;
+    v57 = 0u;
+    v58 = 0u;
     obj = [v8 orderedPosters];
-    v50 = [obj countByEnumeratingWithState:&v53 objects:v62 count:16];
-    if (v50)
+    v52 = [obj countByEnumeratingWithState:&v55 objects:v64 count:16];
+    if (v52)
     {
-      v49 = *v54;
-      v51 = *MEMORY[0x277D3EEA0];
-      v52 = *MEMORY[0x277D3EEA8];
+      v51 = *v56;
+      v53 = *MEMORY[0x277D3EEA0];
+      v54 = *MEMORY[0x277D3EEA8];
       errorCopy = error;
-      v40 = storageCopy;
+      v42 = storageCopy;
       selfCopy = self;
-      v48 = v8;
+      v50 = v8;
       while (2)
       {
-        for (i = 0; i != v50; ++i)
+        for (i = 0; i != v52; ++i)
         {
-          if (*v54 != v49)
+          if (*v56 != v51)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v53 + 1) + 8 * i);
+          v10 = *(*(&v55 + 1) + 8 * i);
           pbf_posterProvider = [v10 pbf_posterProvider];
           supportedAttributes = [objc_opt_class() supportedAttributes];
           v13 = [v8 attributesForPoster:v10 ofTypes:supportedAttributes];
 
-          v14 = [v13 objectForKeyedSubscript:v51];
+          v14 = [v13 objectForKeyedSubscript:v53];
 
           if (!v14)
           {
-            v15 = [(PBFAmbientRoleCoordinator *)self defaultAttribute:v51 forNewPosterFromProvider:pbf_posterProvider];
-            v16 = _PBFPosterRoleCoordinatorSynchronizeAttribute(v10, v51, 0, 0, v15, 0, storageCopy, error);
+            v15 = [(PBFAmbientRoleCoordinator *)self defaultAttribute:v53 forNewPosterFromProvider:pbf_posterProvider];
+            v16 = _PBFPosterRoleCoordinatorSynchronizeAttribute(v10, v53, 0, 0, v15, 0, storageCopy, error);
 
             if (!v16)
             {
@@ -178,24 +178,25 @@ uint64_t __82__PBFAmbientRoleCoordinator_determineActivePosterConfigurationForSt
           v17 = [v8 configuredPropertiesForPoster:v10];
           ambientConfiguration = [v17 ambientConfiguration];
 
-          v19 = [v13 objectForKey:v52];
-          if (![pbf_posterProvider isEqual:@"com.apple.ambient.AmbientUI.InfographPoster"] || objc_msgSend(ambientConfiguration, "supportedDataLayout") == 2 && objc_msgSend(v19, "supportedDataLayout") == 2)
+          v19 = [v13 objectForKey:v54];
+          v20 = [pbf_posterProvider isEqual:@"com.apple.ambient.AmbientUI.InfographPoster"];
+          if (!v20 || [ambientConfiguration supportedDataLayout] == 2 && (v20 = objc_msgSend(v19, "supportedDataLayout"), v20 == 2))
           {
-            v20 = PBFLogRoleCoordinator();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+            v21 = PBFLogRoleCoordinator(v20);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543618;
-              v59 = role;
-              v60 = 2114;
-              v61 = v10;
-              _os_log_impl(&dword_21B526000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Synchronizing Ambient configuration for poster %{public}@", buf, 0x16u);
+              v61 = role;
+              v62 = 2114;
+              v63 = v10;
+              _os_log_impl(&dword_21B526000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] Synchronizing Ambient configuration for poster %{public}@", buf, 0x16u);
             }
 
-            v21 = _PBFPosterRoleCoordinatorSynchronizeAttribute(v10, v52, ambientConfiguration, v19, 0, 0, storageCopy, error);
-            v22 = 0;
-            v23 = v19;
-            v24 = 0;
-            if (!v21)
+            v22 = _PBFPosterRoleCoordinatorSynchronizeAttribute(v10, v54, ambientConfiguration, v19, 0, 0, storageCopy, error);
+            v23 = 0;
+            v24 = v19;
+            v25 = 0;
+            if (!v22)
             {
               goto LABEL_28;
             }
@@ -203,66 +204,66 @@ uint64_t __82__PBFAmbientRoleCoordinator_determineActivePosterConfigurationForSt
 
           else
           {
-            v46 = v19;
-            v22 = [(PBFAmbientRoleCoordinator *)self defaultAttribute:v52 forNewPosterFromProvider:pbf_posterProvider];
+            v48 = v19;
+            v23 = [(PBFAmbientRoleCoordinator *)self defaultAttribute:v54 forNewPosterFromProvider:pbf_posterProvider];
             _path = [v10 _path];
             serverIdentity = [_path serverIdentity];
             descriptorIdentifier = [serverIdentity descriptorIdentifier];
 
-            v28 = [modelCoordinatorProvider pbf_posterExtensionStoreCoordinatorForProviderIdentifier:pbf_posterProvider error:0];
-            v29 = [v28 dynamicDescriptorStoreCoordinatorForIdentifier:descriptorIdentifier];
-            v30 = v29;
-            v44 = v28;
-            v45 = descriptorIdentifier;
-            if (v29)
+            v29 = [modelCoordinatorProvider pbf_posterExtensionStoreCoordinatorForProviderIdentifier:pbf_posterProvider error:0];
+            v30 = [v29 dynamicDescriptorStoreCoordinatorForIdentifier:descriptorIdentifier];
+            v31 = v30;
+            v46 = v29;
+            v47 = descriptorIdentifier;
+            if (v30)
             {
-              v31 = v29;
+              v32 = v30;
             }
 
             else
             {
-              v31 = [v28 staticDescriptorStoreCoordinatorForIdentifier:descriptorIdentifier];
+              v32 = [v29 staticDescriptorStoreCoordinatorForIdentifier:descriptorIdentifier];
             }
 
-            v32 = v31;
+            v33 = v32;
 
-            v33 = MEMORY[0x277D3EDE8];
-            pathOfLatestVersion = [v32 pathOfLatestVersion];
-            v24 = [v33 loadAmbientConfigurationForPath:pathOfLatestVersion error:0];
+            v34 = MEMORY[0x277D3EDE8];
+            pathOfLatestVersion = [v33 pathOfLatestVersion];
+            v25 = [v34 loadAmbientConfigurationForPath:pathOfLatestVersion error:0];
 
-            v35 = PBFLogRoleCoordinator();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+            v37 = PBFLogRoleCoordinator(v36);
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543618;
-              v59 = role;
-              v60 = 2114;
-              v61 = v10;
-              _os_log_impl(&dword_21B526000, v35, OS_LOG_TYPE_DEFAULT, "[%{public}@] Attempting to fix Ambient configuration for poster %{public}@", buf, 0x16u);
+              v61 = role;
+              v62 = 2114;
+              v63 = v10;
+              _os_log_impl(&dword_21B526000, v37, OS_LOG_TYPE_DEFAULT, "[%{public}@] Attempting to fix Ambient configuration for poster %{public}@", buf, 0x16u);
             }
 
-            storageCopy = v40;
-            v36 = _PBFPosterRoleCoordinatorSynchronizeAttribute(v10, v52, 0, 0, v22, v24, v40, errorCopy);
+            storageCopy = v42;
+            v38 = _PBFPosterRoleCoordinatorSynchronizeAttribute(v10, v54, 0, 0, v23, v25, v42, errorCopy);
 
             error = errorCopy;
-            v23 = v46;
-            if ((v36 & 1) == 0)
+            v24 = v48;
+            if ((v38 & 1) == 0)
             {
 LABEL_28:
 
-              v8 = v48;
+              v8 = v50;
 LABEL_29:
 
-              v37 = 0;
+              v39 = 0;
               goto LABEL_30;
             }
           }
 
           self = selfCopy;
-          v8 = v48;
+          v8 = v50;
         }
 
-        v50 = [obj countByEnumeratingWithState:&v53 objects:v62 count:16];
-        if (v50)
+        v52 = [obj countByEnumeratingWithState:&v55 objects:v64 count:16];
+        if (v52)
         {
           continue;
         }
@@ -271,16 +272,16 @@ LABEL_29:
       }
     }
 
-    v37 = 1;
+    v39 = 1;
 LABEL_30:
   }
 
   else
   {
-    v37 = 0;
+    v39 = 0;
   }
 
-  return v37;
+  return v39;
 }
 
 - (id)defaultAttributesForNewPosterFromProvider:(id)provider
@@ -553,7 +554,7 @@ LABEL_26:
 
 - (BOOL)notifyEventWasReceived:(id)received changes:(id *)changes storage:(id)storage
 {
-  v239 = *MEMORY[0x277D85DE8];
+  v240 = *MEMORY[0x277D85DE8];
   receivedCopy = received;
   storageCopy = storage;
   if (![(PBFAmbientRoleCoordinator *)self validateEventIsRelevant:receivedCopy])
@@ -576,8 +577,8 @@ LABEL_26:
     storage = [(PBFPosterRoleCoordinator *)self storage];
   }
 
-  v156 = storage;
-  v155 = receivedCopy;
+  v157 = storage;
+  v156 = receivedCopy;
   if ([eventType isEqual:{@"PBFPosterDataStoreEventTypeDescriptorsUpdated", storageCopy}])
   {
     if (![eventType isEqual:@"PBFPosterDataStoreEventTypeActiveChargerIdentifierUpdated"])
@@ -610,20 +611,20 @@ LABEL_12:
 LABEL_91:
     v15 = 0;
 LABEL_92:
-    v185.receiver = selfCopy;
-    v185.super_class = PBFAmbientRoleCoordinator;
-    v186 = 0;
-    v12 = [(PBFPosterRoleCoordinator *)&v185 notifyEventWasReceived:v155 changes:&v186 storage:v156];
+    v186.receiver = selfCopy;
+    v186.super_class = PBFAmbientRoleCoordinator;
+    v187 = 0;
+    v12 = [(PBFPosterRoleCoordinator *)&v186 notifyEventWasReceived:v156 changes:&v187 storage:v157];
     changesCopy2 = changes;
     if (v12)
     {
-      [v10 addObjectsFromArray:v186];
+      [v10 addObjectsFromArray:v187];
     }
 
     goto LABEL_138;
   }
 
-  v16 = [(PBFPosterRoleCoordinator *)self buildNewPosterCollectionFromStorage:v156];
+  v16 = [(PBFPosterRoleCoordinator *)self buildNewPosterCollectionFromStorage:v157];
   if ([eventType isEqual:@"PBFPosterDataStoreEventTypeDescriptorsUpdated"])
   {
     v17 = 1;
@@ -634,10 +635,10 @@ LABEL_92:
     v17 = 2;
   }
 
-  relatedProviders = [v155 relatedProviders];
+  relatedProviders = [v156 relatedProviders];
   anyObject = [relatedProviders anyObject];
 
-  relatedProviders2 = [v155 relatedProviders];
+  relatedProviders2 = [v156 relatedProviders];
   v21 = [relatedProviders2 count];
 
   if (v21 != 1)
@@ -645,9 +646,9 @@ LABEL_92:
     [PBFAmbientRoleCoordinator notifyEventWasReceived:a2 changes:self storage:?];
   }
 
-  v159 = [(PBFAmbientRoleCoordinator *)self defaultAttributesForNewPosterFromProvider:anyObject];
-  toValue = [v155 toValue];
-  v170 = anyObject;
+  v160 = [(PBFAmbientRoleCoordinator *)self defaultAttributesForNewPosterFromProvider:anyObject];
+  toValue = [v156 toValue];
+  v171 = anyObject;
   if ([anyObject isEqual:@"com.apple.PosterTester.SamplePoster"])
   {
     modelCoordinatorProvider = [(PBFPosterRoleCoordinator *)self modelCoordinatorProvider];
@@ -670,30 +671,30 @@ LABEL_92:
     }
   }
 
-  v162 = v10;
-  v167 = objc_opt_new();
-  v169 = objc_opt_new();
-  v171 = objc_opt_new();
-  v222 = 0u;
+  v163 = v10;
+  v168 = objc_opt_new();
+  v170 = objc_opt_new();
+  v172 = objc_opt_new();
   v223 = 0u;
   v224 = 0u;
   v225 = 0u;
+  v226 = 0u;
   v30 = toValue;
-  v31 = [v30 countByEnumeratingWithState:&v222 objects:v238 count:16];
+  v31 = [v30 countByEnumeratingWithState:&v223 objects:v239 count:16];
   if (v31)
   {
     v32 = v31;
-    v33 = *v223;
+    v33 = *v224;
     do
     {
       for (i = 0; i != v32; ++i)
       {
-        if (*v223 != v33)
+        if (*v224 != v33)
         {
           objc_enumerationMutation(v30);
         }
 
-        v35 = *(*(&v222 + 1) + 8 * i);
+        v35 = *(*(&v223 + 1) + 8 * i);
         _path = [v35 _path];
         serverIdentity = [_path serverIdentity];
         type = [serverIdentity type];
@@ -705,40 +706,40 @@ LABEL_92:
 
           if (descriptorIdentifier)
           {
-            [v169 setObject:v35 forKeyedSubscript:descriptorIdentifier];
+            [v170 setObject:v35 forKeyedSubscript:descriptorIdentifier];
           }
         }
       }
 
-      v32 = [v30 countByEnumeratingWithState:&v222 objects:v238 count:16];
+      v32 = [v30 countByEnumeratingWithState:&v223 objects:v239 count:16];
     }
 
     while (v32);
   }
 
-  v220 = 0u;
   v221 = 0u;
-  v218 = 0u;
+  v222 = 0u;
   v219 = 0u;
-  v178 = v16;
+  v220 = 0u;
+  v179 = v16;
   orderedPosters = [v16 orderedPosters];
-  v42 = [orderedPosters countByEnumeratingWithState:&v218 objects:v237 count:16];
+  v42 = [orderedPosters countByEnumeratingWithState:&v219 objects:v238 count:16];
   if (v42)
   {
     v43 = v42;
-    v44 = *v219;
+    v44 = *v220;
     do
     {
       for (j = 0; j != v43; ++j)
       {
-        if (*v219 != v44)
+        if (*v220 != v44)
         {
           objc_enumerationMutation(orderedPosters);
         }
 
-        v46 = *(*(&v218 + 1) + 8 * j);
+        v46 = *(*(&v219 + 1) + 8 * j);
         pbf_posterProvider = [v46 pbf_posterProvider];
-        v48 = [pbf_posterProvider isEqual:v170];
+        v48 = [pbf_posterProvider isEqual:v171];
 
         if (v48)
         {
@@ -747,15 +748,15 @@ LABEL_92:
 
           if (descriptorIdentifier2 || ([v46 pbf_posterProvider], v51 = objc_claimAutoreleasedReturnValue(), v52 = objc_msgSend(v51, "isEqualToString:", @"com.apple.ambient.AmbientUI.InfographPoster"), v51, descriptorIdentifier2 = @"InfographPoster", v52))
           {
-            v53 = [v169 objectForKeyedSubscript:descriptorIdentifier2];
+            v53 = [v170 objectForKeyedSubscript:descriptorIdentifier2];
 
             if (v53)
             {
-              v54 = [v171 objectForKey:descriptorIdentifier2];
+              v54 = [v172 objectForKey:descriptorIdentifier2];
               if (!v54)
               {
                 v54 = objc_opt_new();
-                [v171 setObject:v54 forKeyedSubscript:descriptorIdentifier2];
+                [v172 setObject:v54 forKeyedSubscript:descriptorIdentifier2];
               }
 
               [v54 addObject:v46];
@@ -763,27 +764,27 @@ LABEL_92:
 
             else
             {
-              [v167 addObject:v46];
+              [v168 addObject:v46];
             }
           }
         }
       }
 
-      v43 = [orderedPosters countByEnumeratingWithState:&v218 objects:v237 count:16];
+      v43 = [orderedPosters countByEnumeratingWithState:&v219 objects:v238 count:16];
     }
 
     while (v43);
   }
 
-  v168 = objc_opt_new();
-  v173 = objc_opt_new();
-  v214 = 0u;
+  v169 = objc_opt_new();
+  v174 = objc_opt_new();
   v215 = 0u;
   v216 = 0u;
   v217 = 0u;
+  v218 = 0u;
   v55 = v30;
-  v56 = [v55 countByEnumeratingWithState:&v214 objects:v236 count:16];
-  v10 = v162;
+  v56 = [v55 countByEnumeratingWithState:&v215 objects:v237 count:16];
+  v10 = v163;
   if (!v56)
   {
 LABEL_90:
@@ -792,56 +793,56 @@ LABEL_90:
   }
 
   v57 = v56;
-  v58 = *v215;
-  v172 = *MEMORY[0x277D3EEA8];
-  v160 = *v215;
-  v161 = v55;
+  v58 = *v216;
+  v173 = *MEMORY[0x277D3EEA8];
+  v161 = *v216;
+  v162 = v55;
 LABEL_51:
   v59 = 0;
-  v163 = v57;
+  v164 = v57;
   while (1)
   {
-    if (*v215 != v58)
+    if (*v216 != v58)
     {
       objc_enumerationMutation(v55);
     }
 
-    v60 = *(*(&v214 + 1) + 8 * v59);
+    v60 = *(*(&v215 + 1) + 8 * v59);
     _path4 = [v60 _path];
     descriptorIdentifier3 = [_path4 descriptorIdentifier];
 
-    v63 = [v171 objectForKeyedSubscript:descriptorIdentifier3];
-    v176 = v60;
+    v63 = [v172 objectForKeyedSubscript:descriptorIdentifier3];
+    v177 = v60;
     if ([v63 count])
     {
-      v212 = 0u;
       v213 = 0u;
-      v210 = 0u;
+      v214 = 0u;
       v211 = 0u;
-      v177 = v63;
-      v64 = [v177 countByEnumeratingWithState:&v210 objects:v235 count:16];
+      v212 = 0u;
+      v178 = v63;
+      v64 = [v178 countByEnumeratingWithState:&v211 objects:v236 count:16];
       if (v64)
       {
         v65 = v64;
-        v164 = v59;
-        v165 = v63;
-        v166 = descriptorIdentifier3;
-        v66 = *v211;
+        v165 = v59;
+        v166 = v63;
+        v167 = descriptorIdentifier3;
+        v66 = *v212;
         v68 = v60;
-        v67 = v177;
-        v175 = *v211;
+        v67 = v178;
+        v176 = *v212;
         do
         {
           v69 = 0;
-          v180 = v65;
+          v181 = v65;
           do
           {
-            if (*v211 != v66)
+            if (*v212 != v66)
             {
               objc_enumerationMutation(v67);
             }
 
-            v70 = *(*(&v210 + 1) + 8 * v69);
+            v70 = *(*(&v211 + 1) + 8 * v69);
             v71 = [v70 loadAmbientConfigurationWithError:0];
             if (![v71 creationBehavior])
             {
@@ -855,10 +856,10 @@ LABEL_51:
               if (!v75 || (v76 & 1) == 0)
               {
                 v78 = [v70 loadConfiguredPropertiesWithError:0];
-                v183 = [v78 mutableCopy];
+                v184 = [v78 mutableCopy];
 
                 supportedAttributes = [objc_opt_class() supportedAttributes];
-                v80 = [v178 attributesForPoster:v70 ofTypes:supportedAttributes];
+                v80 = [v179 attributesForPoster:v70 ofTypes:supportedAttributes];
                 v81 = [v80 mutableCopy];
                 v82 = v81;
                 if (v81)
@@ -876,13 +877,13 @@ LABEL_51:
                 if ((v75 & 1) == 0)
                 {
                   v84 = [objc_alloc(MEMORY[0x277D3EDD0]) initWithDisplayNameLocalizationKey:displayNameLocalizationKey];
-                  [v183 setOtherMetadata:v84];
+                  [v184 setOtherMetadata:v84];
                 }
 
                 if ((v77 & 1) == 0)
                 {
-                  [v183 setAmbientConfiguration:ambientConfiguration];
-                  [obj setObject:ambientConfiguration forKeyedSubscript:v172];
+                  [v184 setAmbientConfiguration:ambientConfiguration];
+                  [obj setObject:ambientConfiguration forKeyedSubscript:v173];
                 }
 
                 v85 = [MEMORY[0x277D3EB88] temporaryPathForRole:role];
@@ -893,34 +894,34 @@ LABEL_51:
                 pbf_posterUUID = [v70 pbf_posterUUID];
                 _path6 = [v70 _path];
                 serverIdentity2 = [_path6 serverIdentity];
-                v91 = [v87 initWithUpdatedPath:v85 updatedPosterUUID:pbf_posterUUID sourceIdentity:serverIdentity2 configuredProperties:v183 attributes:obj];
+                v91 = [v87 initWithUpdatedPath:v85 updatedPosterUUID:pbf_posterUUID sourceIdentity:serverIdentity2 configuredProperties:v184 attributes:obj];
 
                 [v91 trackTemporaryState:v85];
-                [v173 addObject:v91];
+                [v174 addObject:v91];
 
-                v68 = v176;
-                v67 = v177;
-                v66 = v175;
+                v68 = v177;
+                v67 = v178;
+                v66 = v176;
               }
 
-              v65 = v180;
+              v65 = v181;
             }
 
             ++v69;
           }
 
           while (v65 != v69);
-          v65 = [v67 countByEnumeratingWithState:&v210 objects:v235 count:16];
+          v65 = [v67 countByEnumeratingWithState:&v211 objects:v236 count:16];
         }
 
         while (v65);
-        v55 = v161;
-        v10 = v162;
-        v58 = v160;
-        v57 = v163;
-        v59 = v164;
-        v63 = v165;
-        descriptorIdentifier3 = v166;
+        v55 = v162;
+        v10 = v163;
+        v58 = v161;
+        v57 = v164;
+        v59 = v165;
+        v63 = v166;
+        descriptorIdentifier3 = v167;
       }
 
       goto LABEL_88;
@@ -935,7 +936,7 @@ LABEL_51:
 
     else
     {
-      v95 = [v159 objectForKeyedSubscript:v172];
+      v95 = [v160 objectForKeyedSubscript:v173];
       v96 = v95;
       if (v95)
       {
@@ -950,36 +951,37 @@ LABEL_51:
       v94 = v97;
     }
 
-    v177 = v94;
-    if ([v94 creationBehavior])
+    v178 = v94;
+    creationBehavior = [v94 creationBehavior];
+    if (creationBehavior)
     {
-      v98 = PBFLogRoleCoordinator();
-      if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
+      v99 = PBFLogRoleCoordinator(creationBehavior);
+      if (os_log_type_enabled(v99, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v232 = v176;
-        _os_log_impl(&dword_21B526000, v98, OS_LOG_TYPE_DEFAULT, "Skipping descriptor '%{public}@'; creation behavior is to not auto-create", buf, 0xCu);
+        v233 = v177;
+        _os_log_impl(&dword_21B526000, v99, OS_LOG_TYPE_DEFAULT, "Skipping descriptor '%{public}@'; creation behavior is to not auto-create", buf, 0xCu);
       }
 
       goto LABEL_87;
     }
 
-    v209 = 0;
-    v98 = [(PBFAmbientRoleCoordinator *)selfCopy _ambientIncomingPosterConfigurationForDescriptor:v176 referenceIncomingPosterConfiguration:0 error:&v209];
-    v99 = v209;
-    v100 = v99;
-    if (v99 || !v98)
+    v210 = 0;
+    v99 = [(PBFAmbientRoleCoordinator *)selfCopy _ambientIncomingPosterConfigurationForDescriptor:v177 referenceIncomingPosterConfiguration:0 error:&v210];
+    v100 = v210;
+    v101 = v100;
+    if (v100 || !v99)
     {
       break;
     }
 
-    [v168 setObject:v98 forKeyedSubscript:descriptorIdentifier3];
+    [v169 setObject:v99 forKeyedSubscript:descriptorIdentifier3];
 LABEL_87:
 
 LABEL_88:
     if (++v59 == v57)
     {
-      v57 = [v55 countByEnumeratingWithState:&v214 objects:v236 count:16];
+      v57 = [v55 countByEnumeratingWithState:&v215 objects:v237 count:16];
       if (v57)
       {
         goto LABEL_51;
@@ -989,234 +991,234 @@ LABEL_88:
     }
   }
 
-  if (v99)
+  if (v100)
   {
-    v102 = v99;
+    v103 = v100;
   }
 
   else
   {
-    v103 = MEMORY[0x277CCA9B8];
-    v233 = *MEMORY[0x277CCA470];
-    v234 = @"notifyEventWasReceived; Unable to copy descriptor into new configuration; bailing descriptor update.";
-    v104 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v234 forKeys:&v233 count:1];
-    v102 = [v103 pbf_generalErrorWithCode:0 userInfo:v104];
+    v104 = MEMORY[0x277CCA9B8];
+    v234 = *MEMORY[0x277CCA470];
+    v235 = @"notifyEventWasReceived; Unable to copy descriptor into new configuration; bailing descriptor update.";
+    v105 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v235 forKeys:&v234 count:1];
+    v103 = [v104 pbf_generalErrorWithCode:0 userInfo:v105];
   }
 
-  if (v102)
+  if (v103)
   {
 
-    v15 = v178;
+    v15 = v179;
     goto LABEL_92;
   }
 
 LABEL_99:
-  v105 = objc_opt_new();
-  v106 = [v55 sortedArrayUsingComparator:&__block_literal_global_35];
+  v106 = objc_opt_new();
+  v107 = [v55 sortedArrayUsingComparator:&__block_literal_global_35];
 
-  v207 = 0u;
   v208 = 0u;
-  v205 = 0u;
+  v209 = 0u;
   v206 = 0u;
-  obja = v106;
-  v107 = [obja countByEnumeratingWithState:&v205 objects:v230 count:16];
-  if (v107)
+  v207 = 0u;
+  obja = v107;
+  v108 = [obja countByEnumeratingWithState:&v206 objects:v231 count:16];
+  if (v108)
   {
-    v108 = v107;
-    v184 = *v206;
+    v109 = v108;
+    v185 = *v207;
     do
     {
-      for (k = 0; k != v108; ++k)
+      for (k = 0; k != v109; ++k)
       {
-        if (*v206 != v184)
+        if (*v207 != v185)
         {
           objc_enumerationMutation(obja);
         }
 
-        _path7 = [*(*(&v205 + 1) + 8 * k) _path];
+        _path7 = [*(*(&v206 + 1) + 8 * k) _path];
         descriptorIdentifier4 = [_path7 descriptorIdentifier];
 
-        v112 = [v171 objectForKey:descriptorIdentifier4];
-        v203[0] = MEMORY[0x277D85DD0];
-        v203[1] = 3221225472;
-        v203[2] = __68__PBFAmbientRoleCoordinator_notifyEventWasReceived_changes_storage___block_invoke_2;
-        v203[3] = &unk_2782C6498;
-        v204 = v178;
-        [v112 sortUsingComparator:v203];
-        v201 = 0u;
+        v113 = [v172 objectForKey:descriptorIdentifier4];
+        v204[0] = MEMORY[0x277D85DD0];
+        v204[1] = 3221225472;
+        v204[2] = __68__PBFAmbientRoleCoordinator_notifyEventWasReceived_changes_storage___block_invoke_2;
+        v204[3] = &unk_2782C6498;
+        v205 = v179;
+        [v113 sortUsingComparator:v204];
         v202 = 0u;
-        v199 = 0u;
+        v203 = 0u;
         v200 = 0u;
-        v113 = v112;
-        v114 = [v113 countByEnumeratingWithState:&v199 objects:v229 count:16];
-        if (v114)
+        v201 = 0u;
+        v114 = v113;
+        v115 = [v114 countByEnumeratingWithState:&v200 objects:v230 count:16];
+        if (v115)
         {
-          v115 = v114;
-          v116 = *v200;
+          v116 = v115;
+          v117 = *v201;
           do
           {
-            for (m = 0; m != v115; ++m)
+            for (m = 0; m != v116; ++m)
             {
-              if (*v200 != v116)
+              if (*v201 != v117)
               {
-                objc_enumerationMutation(v113);
+                objc_enumerationMutation(v114);
               }
 
-              pbf_posterUUID2 = [*(*(&v199 + 1) + 8 * m) pbf_posterUUID];
-              [v105 addObject:pbf_posterUUID2];
+              pbf_posterUUID2 = [*(*(&v200 + 1) + 8 * m) pbf_posterUUID];
+              [v106 addObject:pbf_posterUUID2];
             }
 
-            v115 = [v113 countByEnumeratingWithState:&v199 objects:v229 count:16];
+            v116 = [v114 countByEnumeratingWithState:&v200 objects:v230 count:16];
           }
 
-          while (v115);
+          while (v116);
         }
 
-        v119 = [v168 objectForKey:descriptorIdentifier4];
-        v120 = v119;
-        if (v119)
+        v120 = [v169 objectForKey:descriptorIdentifier4];
+        v121 = v120;
+        if (v120)
         {
-          destinationUUID = [v119 destinationUUID];
-          [v105 addObject:destinationUUID];
+          destinationUUID = [v120 destinationUUID];
+          [v106 addObject:destinationUUID];
         }
       }
 
-      v108 = [obja countByEnumeratingWithState:&v205 objects:v230 count:16];
+      v109 = [obja countByEnumeratingWithState:&v206 objects:v231 count:16];
     }
 
-    while (v108);
+    while (v109);
   }
 
-  v197 = 0u;
   v198 = 0u;
-  v195 = 0u;
+  v199 = 0u;
   v196 = 0u;
-  v122 = v167;
-  v123 = [v122 countByEnumeratingWithState:&v195 objects:v228 count:16];
-  v10 = v162;
-  if (v123)
+  v197 = 0u;
+  v123 = v168;
+  v124 = [v123 countByEnumeratingWithState:&v196 objects:v229 count:16];
+  v10 = v163;
+  if (v124)
   {
-    v124 = v123;
-    v125 = *v196;
+    v125 = v124;
+    v126 = *v197;
     do
     {
-      for (n = 0; n != v124; ++n)
+      for (n = 0; n != v125; ++n)
       {
-        if (*v196 != v125)
+        if (*v197 != v126)
         {
-          objc_enumerationMutation(v122);
+          objc_enumerationMutation(v123);
         }
 
-        pbf_posterUUID3 = [*(*(&v195 + 1) + 8 * n) pbf_posterUUID];
-        v128 = [PBFPosterRoleCoordinatorChange removePosterFromRole:role matchingUUID:pbf_posterUUID3];
-        [v162 addObject:v128];
+        pbf_posterUUID3 = [*(*(&v196 + 1) + 8 * n) pbf_posterUUID];
+        v129 = [PBFPosterRoleCoordinatorChange removePosterFromRole:role matchingUUID:pbf_posterUUID3];
+        [v163 addObject:v129];
       }
 
-      v124 = [v122 countByEnumeratingWithState:&v195 objects:v228 count:16];
+      v125 = [v123 countByEnumeratingWithState:&v196 objects:v229 count:16];
     }
 
-    while (v124);
+    while (v125);
   }
 
+  v195 = 0u;
+  v193 = 0u;
   v194 = 0u;
   v192 = 0u;
-  v193 = 0u;
-  v191 = 0u;
-  objectEnumerator = [v168 objectEnumerator];
-  v130 = [objectEnumerator countByEnumeratingWithState:&v191 objects:v227 count:16];
-  v15 = v178;
-  if (v130)
+  objectEnumerator = [v169 objectEnumerator];
+  v131 = [objectEnumerator countByEnumeratingWithState:&v192 objects:v228 count:16];
+  v15 = v179;
+  if (v131)
   {
-    v131 = v130;
-    v132 = *v192;
+    v132 = v131;
+    v133 = *v193;
     do
     {
-      for (ii = 0; ii != v131; ++ii)
+      for (ii = 0; ii != v132; ++ii)
       {
-        if (*v192 != v132)
+        if (*v193 != v133)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v134 = [PBFPosterRoleCoordinatorChange addPosterToRole:role incomingPoster:*(*(&v191 + 1) + 8 * ii)];
-        [v162 addObject:v134];
+        v135 = [PBFPosterRoleCoordinatorChange addPosterToRole:role incomingPoster:*(*(&v192 + 1) + 8 * ii)];
+        [v163 addObject:v135];
       }
 
-      v131 = [objectEnumerator countByEnumeratingWithState:&v191 objects:v227 count:16];
+      v132 = [objectEnumerator countByEnumeratingWithState:&v192 objects:v228 count:16];
     }
 
-    while (v131);
+    while (v132);
   }
 
-  v189 = 0u;
   v190 = 0u;
-  v187 = 0u;
+  v191 = 0u;
   v188 = 0u;
-  v135 = v173;
-  v136 = [v135 countByEnumeratingWithState:&v187 objects:v226 count:16];
-  if (v136)
+  v189 = 0u;
+  v136 = v174;
+  v137 = [v136 countByEnumeratingWithState:&v188 objects:v227 count:16];
+  if (v137)
   {
-    v137 = v136;
-    v138 = *v188;
+    v138 = v137;
+    v139 = *v189;
     do
     {
-      for (jj = 0; jj != v137; ++jj)
+      for (jj = 0; jj != v138; ++jj)
       {
-        if (*v188 != v138)
+        if (*v189 != v139)
         {
-          objc_enumerationMutation(v135);
+          objc_enumerationMutation(v136);
         }
 
-        v140 = [PBFPosterRoleCoordinatorChange updatePosterWithinRole:role incomingPoster:*(*(&v187 + 1) + 8 * jj)];
-        [v162 addObject:v140];
+        v141 = [PBFPosterRoleCoordinatorChange updatePosterWithinRole:role incomingPoster:*(*(&v188 + 1) + 8 * jj)];
+        [v163 addObject:v141];
       }
 
-      v137 = [v135 countByEnumeratingWithState:&v187 objects:v226 count:16];
+      v138 = [v136 countByEnumeratingWithState:&v188 objects:v227 count:16];
     }
 
-    while (v137);
+    while (v138);
   }
 
-  v141 = [(PBFAmbientRoleCoordinator *)selfCopy _sortedPosterUUIDsByExtensionIdentifierFromStorage:v156];
-  v142 = [v141 mutableCopy];
+  v142 = [(PBFAmbientRoleCoordinator *)selfCopy _sortedPosterUUIDsByExtensionIdentifierFromStorage:v157];
+  v143 = [v142 mutableCopy];
 
-  v143 = [v105 copy];
-  [v142 setObject:v143 forKeyedSubscript:v170];
+  v144 = [v106 copy];
+  [v143 setObject:v144 forKeyedSubscript:v171];
 
-  v144 = [(PBFAmbientRoleCoordinator *)selfCopy sortedPosterUUIDsUsingSortedPosterUUIDsByExtensionIdentifier:v142];
-  v145 = [PBFPosterRoleCoordinatorChange reorderPostersForRole:role sortedPosterUUIDs:v144];
-  [v162 addObject:v145];
+  v145 = [(PBFAmbientRoleCoordinator *)selfCopy sortedPosterUUIDsUsingSortedPosterUUIDsByExtensionIdentifier:v143];
+  v146 = [PBFPosterRoleCoordinatorChange reorderPostersForRole:role sortedPosterUUIDs:v145];
+  [v163 addObject:v146];
 
 LABEL_137:
   v12 = 1;
   changesCopy2 = changes;
 LABEL_138:
-  v146 = [v10 count];
-  if (changesCopy2 && v146)
+  v147 = [v10 count];
+  if (changesCopy2 && v147)
   {
     *changesCopy2 = [v10 copy];
   }
 
-  v147 = objc_opt_class();
+  v148 = objc_opt_class();
   role2 = [(PBFPosterRoleCoordinator *)selfCopy role];
   if (v15)
   {
-    v149 = v147;
-    receivedCopy = v155;
-    [v149 dumpResultsForEvent:v155 role:role2 posterCollection:v15 changes:v10 eventWasHandled:v12];
-    v150 = v156;
+    v150 = v148;
+    receivedCopy = v156;
+    [v150 dumpResultsForEvent:v156 role:role2 posterCollection:v15 changes:v10 eventWasHandled:v12];
+    v151 = v157;
   }
 
   else
   {
-    v150 = v156;
-    v151 = [(PBFPosterRoleCoordinator *)selfCopy buildNewPosterCollectionFromStorage:v156];
-    v152 = v147;
-    receivedCopy = v155;
-    [v152 dumpResultsForEvent:v155 role:role2 posterCollection:v151 changes:v10 eventWasHandled:v12];
+    v151 = v157;
+    v152 = [(PBFPosterRoleCoordinator *)selfCopy buildNewPosterCollectionFromStorage:v157];
+    v153 = v148;
+    receivedCopy = v156;
+    [v153 dumpResultsForEvent:v156 role:role2 posterCollection:v152 changes:v10 eventWasHandled:v12];
   }
 
-  storageCopy = v154;
+  storageCopy = v155;
 LABEL_145:
 
   return v12;
@@ -1311,47 +1313,47 @@ uint64_t __68__PBFAmbientRoleCoordinator_notifyEventWasReceived_changes_storage_
 
 - (BOOL)finalizeChangesWithChangeHandler:(id)handler outEvents:(id *)events error:(id *)error
 {
-  v147 = *MEMORY[0x277D85DE8];
-  v132.receiver = self;
-  v132.super_class = PBFAmbientRoleCoordinator;
+  v153 = *MEMORY[0x277D85DE8];
+  v138.receiver = self;
+  v138.super_class = PBFAmbientRoleCoordinator;
   handlerCopy = handler;
   errorCopy = error;
   if (![PBFPosterRoleCoordinator finalizeChangesWithChangeHandler:sel_finalizeChangesWithChangeHandler_outEvents_error_ outEvents:? error:?])
   {
-    v33 = 0;
+    v36 = 0;
     goto LABEL_109;
   }
 
-  v128 = 0;
-  v129 = &v128;
-  v130 = 0x2020000000;
-  v131 = 0;
+  v134 = 0;
+  v135 = &v134;
+  v136 = 0x2020000000;
+  v137 = 0;
   role = [(PBFPosterRoleCoordinator *)self role];
   role2 = [(PBFPosterRoleCoordinator *)self role];
   v8 = [handlerCopy sortedPosterUUIDsForRole:role2 error:0];
 
   v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v106 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v105 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v126 = 0u;
-  v127 = 0u;
-  v124 = 0u;
-  v125 = 0u;
+  v112 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v111 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v132 = 0u;
+  v133 = 0u;
+  v130 = 0u;
+  v131 = 0u;
   obj = v8;
-  v10 = [obj countByEnumeratingWithState:&v124 objects:v146 count:16];
+  v10 = [obj countByEnumeratingWithState:&v130 objects:v152 count:16];
   if (v10)
   {
-    v11 = *v125;
+    v11 = *v131;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v125 != v11)
+        if (*v131 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v124 + 1) + 8 * i);
+        v13 = *(*(&v130 + 1) + 8 * i);
         v14 = [(PBFPosterRoleCoordinator *)self posterWithUUID:v13 extensionIdentifier:@"com.apple.PhotosUIPrivate.PhotosAmbientPosterProvider"];
         if (v14)
         {
@@ -1363,7 +1365,7 @@ uint64_t __68__PBFAmbientRoleCoordinator_notifyEventWasReceived_changes_storage_
           v14 = [(PBFPosterRoleCoordinator *)self posterWithUUID:v13 extensionIdentifier:@"com.apple.ambient.AmbientUI.InfographPoster"];
           if (v14)
           {
-            [v106 setObject:v14 forKey:v13];
+            [v112 setObject:v14 forKey:v13];
           }
 
           else
@@ -1371,232 +1373,236 @@ uint64_t __68__PBFAmbientRoleCoordinator_notifyEventWasReceived_changes_storage_
             v14 = [(PBFPosterRoleCoordinator *)self posterWithUUID:v13 extensionIdentifier:@"com.apple.ClockPoster.ClockPosterExtension"];
             if (v14)
             {
-              [v105 setObject:v14 forKey:v13];
+              [v111 setObject:v14 forKey:v13];
             }
           }
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v124 objects:v146 count:16];
+      v10 = [obj countByEnumeratingWithState:&v130 objects:v152 count:16];
     }
 
     while (v10);
   }
 
-  v123[0] = MEMORY[0x277D85DD0];
-  v123[1] = 3221225472;
-  v123[2] = __78__PBFAmbientRoleCoordinator_finalizeChangesWithChangeHandler_outEvents_error___block_invoke;
-  v123[3] = &unk_2782C9518;
-  v123[4] = &v128;
-  [v9 enumerateKeysAndObjectsUsingBlock:v123];
-  if ((v129[3] & 1) == 0 && [v9 count])
+  v129[0] = MEMORY[0x277D85DD0];
+  v129[1] = 3221225472;
+  v129[2] = __78__PBFAmbientRoleCoordinator_finalizeChangesWithChangeHandler_outEvents_error___block_invoke;
+  v129[3] = &unk_2782C9518;
+  v129[4] = &v134;
+  [v9 enumerateKeysAndObjectsUsingBlock:v129];
+  if ((v135[3] & 1) == 0)
   {
-    v15 = PBFLogRoleCoordinator();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v15 = [v9 count];
+    if (v15)
     {
-      *buf = 0;
-      _os_log_impl(&dword_21B526000, v15, OS_LOG_TYPE_DEFAULT, "All photo posters are hidden!", buf, 2u);
-    }
-
-    v121 = 0u;
-    v122 = 0u;
-    v119 = 0u;
-    v120 = 0u;
-    v16 = obj;
-    v17 = [v16 countByEnumeratingWithState:&v119 objects:v145 count:16];
-    if (!v17)
-    {
-      goto LABEL_31;
-    }
-
-    v102 = *v120;
-    v99 = v16;
-LABEL_21:
-    v18 = 0;
-    while (1)
-    {
-      if (*v120 != v102)
+      v16 = PBFLogRoleCoordinator(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        objc_enumerationMutation(v99);
+        *buf = 0;
+        _os_log_impl(&dword_21B526000, v16, OS_LOG_TYPE_DEFAULT, "All photo posters are hidden!", buf, 2u);
       }
 
-      v19 = *(*(&v119 + 1) + 8 * v18);
-      v20 = [v9 objectForKey:v19];
-      v21 = v20;
-      if (v20)
+      v127 = 0u;
+      v128 = 0u;
+      v125 = 0u;
+      v126 = 0u;
+      v17 = obj;
+      v18 = [v17 countByEnumeratingWithState:&v125 objects:v151 count:16];
+      if (!v18)
       {
-        v22 = [v20 loadConfiguredPropertiesWithError:0];
-        v23 = [v22 mutableCopy];
+        goto LABEL_31;
+      }
 
-        ambientConfiguration = [v23 ambientConfiguration];
-        v25 = [ambientConfiguration mutableCopy];
-
-        [v25 setHidden:0];
-        [v23 setAmbientConfiguration:v25];
-        v26 = [PBFPosterRoleCoordinatorChange updateConfiguredProperties:v23 forPosterWithinRole:role matchingUUID:v19];
-        v118 = 0;
-        v27 = [(PBFAmbientRoleCoordinator *)self _executeChange:v26 storage:handlerCopy outEvents:events error:&v118];
-        v28 = v118;
-
-        if (v27)
+      v108 = *v126;
+      v105 = v17;
+LABEL_21:
+      v19 = 0;
+      while (1)
+      {
+        if (*v126 != v108)
         {
-          v35 = PBFLogRoleCoordinator();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+          objc_enumerationMutation(v105);
+        }
+
+        v20 = *(*(&v125 + 1) + 8 * v19);
+        v21 = [v9 objectForKey:v20];
+        v22 = v21;
+        if (v21)
+        {
+          v23 = [v21 loadConfiguredPropertiesWithError:0];
+          v24 = [v23 mutableCopy];
+
+          ambientConfiguration = [v24 ambientConfiguration];
+          v26 = [ambientConfiguration mutableCopy];
+
+          [v26 setHidden:0];
+          [v24 setAmbientConfiguration:v26];
+          v27 = [PBFPosterRoleCoordinatorChange updateConfiguredProperties:v24 forPosterWithinRole:role matchingUUID:v20];
+          v124 = 0;
+          v28 = [(PBFAmbientRoleCoordinator *)self _executeChange:v27 storage:handlerCopy outEvents:events error:&v124];
+          v29 = v124;
+
+          if (v28)
           {
-            *buf = 138412290;
-            v142 = v21;
-            _os_log_impl(&dword_21B526000, v35, OS_LOG_TYPE_DEFAULT, "All photo posters are hidden so choosing to unhide poster: %@{public}", buf, 0xCu);
+            v38 = PBFLogRoleCoordinator(v30);
+            if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 138412290;
+              v148 = v22;
+              _os_log_impl(&dword_21B526000, v38, OS_LOG_TYPE_DEFAULT, "All photo posters are hidden so choosing to unhide poster: %@{public}", buf, 0xCu);
+            }
+
+            v37 = v105;
+            goto LABEL_42;
           }
 
-          v34 = v99;
-          goto LABEL_42;
+          v31 = PBFLogRoleCoordinator(v30);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138543618;
+            v148 = v22;
+            v149 = 2114;
+            v150 = v29;
+            _os_log_error_impl(&dword_21B526000, v31, OS_LOG_TYPE_ERROR, "failed to unhide poster %{public}@: %{public}@", buf, 0x16u);
+          }
         }
 
-        v29 = PBFLogRoleCoordinator();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        if (v18 == ++v19)
         {
-          *buf = 138543618;
-          v142 = v21;
-          v143 = 2114;
-          v144 = v28;
-          _os_log_error_impl(&dword_21B526000, v29, OS_LOG_TYPE_ERROR, "failed to unhide poster %{public}@: %{public}@", buf, 0x16u);
-        }
-      }
-
-      if (v17 == ++v18)
-      {
-        v16 = v99;
-        v17 = [v99 countByEnumeratingWithState:&v119 objects:v145 count:16];
-        if (!v17)
-        {
+          v17 = v105;
+          v18 = [v105 countByEnumeratingWithState:&v125 objects:v151 count:16];
+          if (!v18)
+          {
 LABEL_31:
 
-          v30 = PBFLogRoleCoordinator();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
-          {
-            [PBFAmbientRoleCoordinator finalizeChangesWithChangeHandler:v30 outEvents:? error:?];
+            v33 = PBFLogRoleCoordinator(v32);
+            if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+            {
+              [PBFAmbientRoleCoordinator finalizeChangesWithChangeHandler:v33 outEvents:? error:?];
+            }
+
+            if (errorCopy)
+            {
+              v34 = MEMORY[0x277CCA9B8];
+              v145 = *MEMORY[0x277CCA470];
+              v146 = @"Photos posters are all hidden and no poster could be found to un-hide";
+              v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v146 forKeys:&v145 count:1];
+              [v34 errorWithDomain:@"com.apple.PosterBoard.roleCoordinator.errorDomain" code:-3341 userInfo:v35];
+              *errorCopy = v36 = 0;
+              goto LABEL_107;
+            }
+
+            v36 = 0;
+            goto LABEL_108;
           }
 
-          if (errorCopy)
-          {
-            v31 = MEMORY[0x277CCA9B8];
-            v139 = *MEMORY[0x277CCA470];
-            v140 = @"Photos posters are all hidden and no poster could be found to un-hide";
-            v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v140 forKeys:&v139 count:1];
-            [v31 errorWithDomain:@"com.apple.PosterBoard.roleCoordinator.errorDomain" code:-3341 userInfo:v32];
-            *errorCopy = v33 = 0;
-            goto LABEL_107;
-          }
-
-          v33 = 0;
-          goto LABEL_108;
+          goto LABEL_21;
         }
-
-        goto LABEL_21;
       }
     }
   }
 
   if (![v9 count])
   {
-    v34 = PBFLogRoleCoordinator();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v37 = PBFLogRoleCoordinator(0);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21B526000, v34, OS_LOG_TYPE_DEFAULT, "No photo posters found; not checking for hidden", buf, 2u);
+      _os_log_impl(&dword_21B526000, v37, OS_LOG_TYPE_DEFAULT, "No photo posters found; not checking for hidden", buf, 2u);
     }
 
 LABEL_42:
   }
 
-  if (![v106 count])
+  if (![v112 count])
   {
-    v37 = PBFLogRoleCoordinator();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    v40 = PBFLogRoleCoordinator(0);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21B526000, v37, OS_LOG_TYPE_DEFAULT, "No Infograph posters found; skipping bad ambient configuration state check", buf, 2u);
+      _os_log_impl(&dword_21B526000, v40, OS_LOG_TYPE_DEFAULT, "No Infograph posters found; skipping bad ambient configuration state check", buf, 2u);
     }
 
 LABEL_66:
 
-    if ([v105 count])
+    if ([v111 count])
     {
-      v111 = 0u;
-      v112 = 0u;
-      v109 = 0u;
-      v110 = 0u;
-      allValues = [v105 allValues];
-      v56 = [allValues countByEnumeratingWithState:&v109 objects:v135 count:16];
-      v32 = allValues;
-      if (v56)
+      v117 = 0u;
+      v118 = 0u;
+      v115 = 0u;
+      v116 = 0u;
+      allValues = [v111 allValues];
+      v61 = [allValues countByEnumeratingWithState:&v115 objects:v141 count:16];
+      v35 = allValues;
+      if (v61)
       {
-        v92 = *v110;
+        v98 = *v116;
 LABEL_69:
-        v94 = v56;
-        v57 = 0;
+        v100 = v61;
+        v62 = 0;
         while (1)
         {
-          if (*v110 != v92)
+          if (*v116 != v98)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v58 = *(*(&v109 + 1) + 8 * v57);
-          v59 = PBFLogRoleCoordinator();
-          if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+          v63 = *(*(&v115 + 1) + 8 * v62);
+          v64 = PBFLogRoleCoordinator(v61);
+          if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v142 = v58;
-            _os_log_impl(&dword_21B526000, v59, OS_LOG_TYPE_DEFAULT, "Checking %{public}@ for bad ambient configuration.. ", buf, 0xCu);
+            v148 = v63;
+            _os_log_impl(&dword_21B526000, v64, OS_LOG_TYPE_DEFAULT, "Checking %{public}@ for bad ambient configuration.. ", buf, 0xCu);
           }
 
-          v60 = objc_alloc(MEMORY[0x277D3ED80]);
-          _path = [v58 _path];
-          v62 = [v60 _initWithPath:_path];
+          v65 = objc_alloc(MEMORY[0x277D3ED80]);
+          _path = [v63 _path];
+          v67 = [v65 _initWithPath:_path];
 
-          if (!v62)
+          if (!v67)
           {
             goto LABEL_89;
           }
 
-          v63 = [v58 loadConfiguredPropertiesWithError:0];
-          v64 = [v63 mutableCopy];
-          v65 = v64;
-          if (v64)
+          v68 = [v63 loadConfiguredPropertiesWithError:0];
+          v69 = [v68 mutableCopy];
+          v70 = v69;
+          if (v69)
           {
-            v104 = v64;
+            v110 = v69;
           }
 
           else
           {
-            v66 = MEMORY[0x277D3EDD8];
+            v71 = MEMORY[0x277D3EDD8];
             role3 = [(PBFPosterRoleCoordinator *)self role];
-            v104 = [v66 defaultConfiguredPropertiesForRole:role3];
+            v110 = [v71 defaultConfiguredPropertiesForRole:role3];
           }
 
-          displayNameLocalizationKey = [v62 displayNameLocalizationKey];
-          otherMetadata = [v104 otherMetadata];
+          displayNameLocalizationKey = [v67 displayNameLocalizationKey];
+          otherMetadata = [v110 otherMetadata];
           displayNameLocalizationKey2 = [otherMetadata displayNameLocalizationKey];
-          v71 = [displayNameLocalizationKey isEqual:displayNameLocalizationKey2];
+          v76 = [displayNameLocalizationKey isEqual:displayNameLocalizationKey2];
 
-          if ((v71 & 1) == 0)
+          if ((v76 & 1) == 0)
           {
-            v72 = objc_alloc(MEMORY[0x277D3EDD0]);
-            displayNameLocalizationKey3 = [v62 displayNameLocalizationKey];
-            v74 = [v72 initWithDisplayNameLocalizationKey:displayNameLocalizationKey3];
-            [v104 setOtherMetadata:v74];
+            v77 = objc_alloc(MEMORY[0x277D3EDD0]);
+            displayNameLocalizationKey3 = [v67 displayNameLocalizationKey];
+            v79 = [v77 initWithDisplayNameLocalizationKey:displayNameLocalizationKey3];
+            [v110 setOtherMetadata:v79];
           }
 
-          ambientConfiguration2 = [v62 ambientConfiguration];
-          v75 = [v58 loadAmbientConfigurationWithError:0];
+          ambientConfiguration2 = [v67 ambientConfiguration];
+          v80 = [v63 loadAmbientConfigurationWithError:0];
           editingBehavior = [ambientConfiguration2 editingBehavior];
-          if (editingBehavior != [v75 editingBehavior])
+          if (editingBehavior != [v80 editingBehavior])
           {
             break;
           }
 
-          if ((v71 & 1) == 0)
+          if ((v76 & 1) == 0)
           {
             goto LABEL_84;
           }
@@ -1604,11 +1610,11 @@ LABEL_69:
 LABEL_88:
 
 LABEL_89:
-          if (v94 == ++v57)
+          if (v100 == ++v62)
           {
-            v56 = [allValues countByEnumeratingWithState:&v109 objects:v135 count:16];
-            v33 = 1;
-            if (v56)
+            v61 = [allValues countByEnumeratingWithState:&v115 objects:v141 count:16];
+            v36 = 1;
+            if (v61)
             {
               goto LABEL_69;
             }
@@ -1617,44 +1623,44 @@ LABEL_89:
           }
         }
 
-        v77 = [v75 mutableCopy];
-        [v77 setEditingBehavior:{objc_msgSend(ambientConfiguration2, "editingBehavior")}];
-        v78 = [v77 copy];
-        [v104 setAmbientConfiguration:v78];
+        v82 = [v80 mutableCopy];
+        [v82 setEditingBehavior:{objc_msgSend(ambientConfiguration2, "editingBehavior")}];
+        v83 = [v82 copy];
+        [v110 setAmbientConfiguration:v83];
 
 LABEL_84:
-        pbf_posterUUID = [v58 pbf_posterUUID];
-        v80 = [PBFPosterRoleCoordinatorChange updateConfiguredProperties:v104 forPosterWithinRole:role matchingUUID:pbf_posterUUID];
-        v108 = 0;
-        v81 = [(PBFAmbientRoleCoordinator *)self _executeChange:v80 storage:handlerCopy outEvents:events error:&v108];
-        v82 = v108;
+        pbf_posterUUID = [v63 pbf_posterUUID];
+        v85 = [PBFPosterRoleCoordinatorChange updateConfiguredProperties:v110 forPosterWithinRole:role matchingUUID:pbf_posterUUID];
+        v114 = 0;
+        v86 = [(PBFAmbientRoleCoordinator *)self _executeChange:v85 storage:handlerCopy outEvents:events error:&v114];
+        v87 = v114;
 
-        if (!v81)
+        if (!v86)
         {
-          v87 = PBFLogRoleCoordinator();
-          if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
+          v93 = PBFLogRoleCoordinator(v88);
+          if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
           {
             [PBFAmbientRoleCoordinator finalizeChangesWithChangeHandler:outEvents:error:];
           }
 
           if (errorCopy)
           {
-            v88 = MEMORY[0x277CCA9B8];
-            v133 = *MEMORY[0x277CCA470];
-            v134 = @"Unable to correct editing behavior for clock poster";
-            v89 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v134 forKeys:&v133 count:1];
-            *errorCopy = [v88 errorWithDomain:@"com.apple.PosterBoard.roleCoordinator.errorDomain" code:-3341 userInfo:v89];
+            v94 = MEMORY[0x277CCA9B8];
+            v139 = *MEMORY[0x277CCA470];
+            v140 = @"Unable to correct editing behavior for clock poster";
+            v95 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v140 forKeys:&v139 count:1];
+            *errorCopy = [v94 errorWithDomain:@"com.apple.PosterBoard.roleCoordinator.errorDomain" code:-3341 userInfo:v95];
           }
 
           goto LABEL_105;
         }
 
-        v83 = PBFLogRoleCoordinator();
-        if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
+        v89 = PBFLogRoleCoordinator(v88);
+        if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v142 = v58;
-          _os_log_impl(&dword_21B526000, v83, OS_LOG_TYPE_DEFAULT, "Correcting editing behavior for poster %{public}@", buf, 0xCu);
+          v148 = v63;
+          _os_log_impl(&dword_21B526000, v89, OS_LOG_TYPE_DEFAULT, "Correcting editing behavior for poster %{public}@", buf, 0xCu);
         }
 
         goto LABEL_88;
@@ -1663,113 +1669,114 @@ LABEL_84:
 
     else
     {
-      v32 = PBFLogRoleCoordinator();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      v35 = PBFLogRoleCoordinator(0);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21B526000, v32, OS_LOG_TYPE_DEFAULT, "No Clock posters found; skipping bad ambient configuration state check", buf, 2u);
+        _os_log_impl(&dword_21B526000, v35, OS_LOG_TYPE_DEFAULT, "No Clock posters found; skipping bad ambient configuration state check", buf, 2u);
       }
     }
 
-    v33 = 1;
+    v36 = 1;
     goto LABEL_107;
   }
 
-  v117 = 0u;
-  v115 = 0u;
-  v116 = 0u;
-  v114 = 0u;
-  allValues = [v106 allValues];
-  v36 = [allValues countByEnumeratingWithState:&v114 objects:v138 count:16];
-  v37 = allValues;
-  if (!v36)
+  v123 = 0u;
+  v121 = 0u;
+  v122 = 0u;
+  v120 = 0u;
+  allValues = [v112 allValues];
+  v39 = [allValues countByEnumeratingWithState:&v120 objects:v144 count:16];
+  v40 = allValues;
+  if (!v39)
   {
     goto LABEL_66;
   }
 
-  v93 = *v115;
+  v99 = *v121;
 LABEL_46:
-  v100 = v36;
-  v38 = 0;
+  v106 = v39;
+  v41 = 0;
   while (1)
   {
-    if (*v115 != v93)
+    if (*v121 != v99)
     {
       objc_enumerationMutation(allValues);
     }
 
-    v39 = *(*(&v114 + 1) + 8 * v38);
-    v40 = PBFLogRoleCoordinator();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+    v42 = *(*(&v120 + 1) + 8 * v41);
+    v43 = PBFLogRoleCoordinator(v39);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v142 = v39;
-      _os_log_impl(&dword_21B526000, v40, OS_LOG_TYPE_DEFAULT, "Checking %{public}@ for bad ambient configuration supported data layout state", buf, 0xCu);
+      v148 = v42;
+      _os_log_impl(&dword_21B526000, v43, OS_LOG_TYPE_DEFAULT, "Checking %{public}@ for bad ambient configuration supported data layout state", buf, 0xCu);
     }
 
-    v41 = [v39 loadAmbientConfigurationWithError:0];
-    if ([v41 supportedDataLayout] == 2)
+    v44 = [v42 loadAmbientConfigurationWithError:0];
+    supportedDataLayout = [v44 supportedDataLayout];
+    if (supportedDataLayout == 2)
     {
       goto LABEL_61;
     }
 
-    v42 = PBFLogRoleCoordinator();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    v46 = PBFLogRoleCoordinator(supportedDataLayout);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
-      supportedDataLayout = [v41 supportedDataLayout];
+      supportedDataLayout2 = [v44 supportedDataLayout];
       *buf = 138543618;
-      v142 = v39;
-      v143 = 2048;
-      v144 = supportedDataLayout;
-      _os_log_impl(&dword_21B526000, v42, OS_LOG_TYPE_DEFAULT, "%{public}@ has bad supported data layout state: %lu", buf, 0x16u);
+      v148 = v42;
+      v149 = 2048;
+      v150 = supportedDataLayout2;
+      _os_log_impl(&dword_21B526000, v46, OS_LOG_TYPE_DEFAULT, "%{public}@ has bad supported data layout state: %lu", buf, 0x16u);
     }
 
-    v44 = [v41 mutableCopy];
-    [v44 setSupportedDataLayout:2];
-    v45 = [v39 loadConfiguredPropertiesWithError:0];
-    v46 = [v45 mutableCopy];
-    v47 = v46;
-    if (v46)
+    v48 = [v44 mutableCopy];
+    [v48 setSupportedDataLayout:2];
+    v49 = [v42 loadConfiguredPropertiesWithError:0];
+    v50 = [v49 mutableCopy];
+    v51 = v50;
+    if (v50)
     {
-      v103 = v46;
+      v109 = v50;
     }
 
     else
     {
-      v48 = MEMORY[0x277D3EDD8];
+      v52 = MEMORY[0x277D3EDD8];
       role4 = [(PBFPosterRoleCoordinator *)self role];
-      v103 = [v48 defaultConfiguredPropertiesForRole:role4];
+      v109 = [v52 defaultConfiguredPropertiesForRole:role4];
     }
 
-    v50 = [v44 copy];
-    [v103 setAmbientConfiguration:v50];
+    v54 = [v48 copy];
+    [v109 setAmbientConfiguration:v54];
 
-    pbf_posterUUID2 = [v39 pbf_posterUUID];
-    v52 = [PBFPosterRoleCoordinatorChange updateConfiguredProperties:v103 forPosterWithinRole:role matchingUUID:pbf_posterUUID2];
-    v113 = 0;
-    v53 = [(PBFAmbientRoleCoordinator *)self _executeChange:v52 storage:handlerCopy outEvents:events error:&v113];
-    v54 = v113;
+    pbf_posterUUID2 = [v42 pbf_posterUUID];
+    v56 = [PBFPosterRoleCoordinatorChange updateConfiguredProperties:v109 forPosterWithinRole:role matchingUUID:pbf_posterUUID2];
+    v119 = 0;
+    v57 = [(PBFAmbientRoleCoordinator *)self _executeChange:v56 storage:handlerCopy outEvents:events error:&v119];
+    v58 = v119;
 
-    if (!v53)
+    if (!v57)
     {
       break;
     }
 
-    v55 = PBFLogRoleCoordinator();
-    if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+    v60 = PBFLogRoleCoordinator(v59);
+    if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v142 = v39;
-      _os_log_impl(&dword_21B526000, v55, OS_LOG_TYPE_DEFAULT, "correcting ambient widget configuration for poster %{public}@", buf, 0xCu);
+      v148 = v42;
+      _os_log_impl(&dword_21B526000, v60, OS_LOG_TYPE_DEFAULT, "correcting ambient widget configuration for poster %{public}@", buf, 0xCu);
     }
 
 LABEL_61:
-    if (v100 == ++v38)
+    if (v106 == ++v41)
     {
-      v36 = [allValues countByEnumeratingWithState:&v114 objects:v138 count:16];
-      if (!v36)
+      v39 = [allValues countByEnumeratingWithState:&v120 objects:v144 count:16];
+      if (!v39)
       {
-        v37 = allValues;
+        v40 = allValues;
         goto LABEL_66;
       }
 
@@ -1777,32 +1784,32 @@ LABEL_61:
     }
   }
 
-  v84 = PBFLogRoleCoordinator();
-  if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
+  v90 = PBFLogRoleCoordinator(v59);
+  if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
   {
     [PBFAmbientRoleCoordinator finalizeChangesWithChangeHandler:outEvents:error:];
   }
 
   if (errorCopy)
   {
-    v85 = MEMORY[0x277CCA9B8];
-    v136 = *MEMORY[0x277CCA470];
-    v137 = @"Unable to correct invalid supported data layout type for infograph";
-    v86 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v137 forKeys:&v136 count:1];
-    *errorCopy = [v85 errorWithDomain:@"com.apple.PosterBoard.roleCoordinator.errorDomain" code:-3341 userInfo:v86];
+    v91 = MEMORY[0x277CCA9B8];
+    v142 = *MEMORY[0x277CCA470];
+    v143 = @"Unable to correct invalid supported data layout type for infograph";
+    v92 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v143 forKeys:&v142 count:1];
+    *errorCopy = [v91 errorWithDomain:@"com.apple.PosterBoard.roleCoordinator.errorDomain" code:-3341 userInfo:v92];
   }
 
 LABEL_105:
-  v33 = 0;
+  v36 = 0;
 LABEL_106:
-  v32 = allValues;
+  v35 = allValues;
 LABEL_107:
 
 LABEL_108:
-  _Block_object_dispose(&v128, 8);
+  _Block_object_dispose(&v134, 8);
 LABEL_109:
 
-  return v33;
+  return v36;
 }
 
 void __78__PBFAmbientRoleCoordinator_finalizeChangesWithChangeHandler_outEvents_error___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -2647,7 +2654,7 @@ LABEL_14:
 - (void)noteDidResetRoleCoordinator:(id)coordinator
 {
   v8 = *MEMORY[0x277D85DE8];
-  v4 = PBFLogRoleCoordinator();
+  v4 = PBFLogRoleCoordinator(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     role = [(PBFPosterRoleCoordinator *)self role];

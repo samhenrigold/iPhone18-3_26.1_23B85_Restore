@@ -1,31 +1,31 @@
 @interface _UIImageContentRenditionCacheKey
-+ (_UIImageContentRenditionCacheKey)keyWithSize:(uint64_t)size unresolvedTintColor:(void *)color traitCollection:(void *)collection bold:(char)bold drawMode:(unsigned int)mode;
++ (_UIImageContentRenditionCacheKey)keyWithSize:(void *)size unresolvedTintColor:(char)color traitCollection:(unsigned int)collection bold:(CGFloat)bold drawMode:(CGFloat)mode;
 - (BOOL)isEqual:(id)equal;
 - (unint64_t)hash;
 @end
 
 @implementation _UIImageContentRenditionCacheKey
 
-+ (_UIImageContentRenditionCacheKey)keyWithSize:(uint64_t)size unresolvedTintColor:(void *)color traitCollection:(void *)collection bold:(char)bold drawMode:(unsigned int)mode
++ (_UIImageContentRenditionCacheKey)keyWithSize:(void *)size unresolvedTintColor:(char)color traitCollection:(unsigned int)collection bold:(CGFloat)bold drawMode:(CGFloat)mode
 {
-  collectionCopy = collection;
-  colorCopy = color;
+  sizeCopy = size;
+  v13 = a2;
   objc_opt_self();
   v14 = objc_alloc_init(_UIImageContentRenditionCacheKey);
-  v15 = [colorCopy resolvedColorWithTraitCollection:collectionCopy];
+  v15 = [v13 resolvedColorWithTraitCollection:sizeCopy];
 
   resolvedTintColor = v14->resolvedTintColor;
   v14->resolvedTintColor = v15;
 
-  _styleEffectAppearanceName = [(UITraitCollection *)collectionCopy _styleEffectAppearanceName];
+  _styleEffectAppearanceName = [(UITraitCollection *)sizeCopy _styleEffectAppearanceName];
 
   appearanceName = v14->appearanceName;
   v14->appearanceName = _styleEffectAppearanceName;
 
-  v14->_size.width = self;
-  v14->_size.height = a2;
-  v14->_drawMode = mode;
-  *&v14->_flags = *&v14->_flags & 0xFE | bold;
+  v14->_size.width = bold;
+  v14->_size.height = mode;
+  v14->_drawMode = collection;
+  *&v14->_flags = *&v14->_flags & 0xFE | color;
 
   return v14;
 }
@@ -71,9 +71,9 @@
       goto LABEL_15;
     }
 
-    v10 = [(UIColor *)v6 isEqual:v7];
+    isEqual = objc_msgSend_isEqual_(v6);
 
-    if (!v10)
+    if (!isEqual)
     {
       goto LABEL_16;
     }
@@ -87,7 +87,7 @@
   {
     if (v6 && v12)
     {
-      v13 = [(UIColor *)v6 isEqual:v12];
+      v13 = objc_msgSend_isEqual_(v6);
 
       if (v13)
       {

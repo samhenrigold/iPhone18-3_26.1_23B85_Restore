@@ -6,7 +6,7 @@
 
 - (void)timersUpdated:(id)updated
 {
-  v4 = sub_21A176C98(&qword_27CCFEB08);
+  v4 = sub_21A176C98(&qword_27CCFEB08, &qword_21A2FC200);
   MEMORY[0x28223BE20](v4 - 8, v5);
   v7 = &v15 - v6;
   v8 = sub_21A2F4544();

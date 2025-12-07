@@ -13,28 +13,27 @@
 {
   v4 = sub_1000AB6EC();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4, v7);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1000AB6AC();
   selfCopy = self;
-  sub_1000AB67C(v11);
-  v13 = v12;
-  v14 = type metadata accessor for IMBWebViewController();
-  v15.receiver = selfCopy;
-  v15.super_class = v14;
-  [(IMBWebViewController *)&v15 loadURL:v13];
+  sub_1000AB67C(v9);
+  v11 = v10;
+  v12 = type metadata accessor for IMBWebViewController();
+  v13.receiver = selfCopy;
+  v13.super_class = v12;
+  [(IMBWebViewController *)&v13 loadURL:v11];
 
   sub_100072924();
   [(IMBWebViewController *)selfCopy updateNavigationBar];
 
-  (*(v5 + 8))(v9, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)setupSubviews
 {
   selfCopy = self;
-  sub_100072BC4();
+  sub_100072BC4(selfCopy);
 }
 
 - (void)setupConstraints

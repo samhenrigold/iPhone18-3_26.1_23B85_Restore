@@ -2307,7 +2307,7 @@ LABEL_8:
   v6 = self->_textureCache;
   if (v6)
   {
-    [(SKTextureCache *)v6 backingTexture];
+    objc_msgSend_backingTexture(v6);
     if (v25)
     {
       v8 = v26;
@@ -2334,7 +2334,7 @@ LABEL_8:
     goto LABEL_32;
   }
 
-  [(SKTextureCache *)v13 backingTexture];
+  objc_msgSend_backingTexture(v13);
   if (v24)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v24);
@@ -2362,7 +2362,7 @@ LABEL_32:
       originalTexture = self->_originalTexture;
       if (originalTexture && self->_filter)
       {
-        [(SKTexture *)originalTexture _backingTexture];
+        objc_msgSend__backingTexture(originalTexture);
         v18[0] = MEMORY[0x277D85DD0];
         v18[1] = 3321888768;
         v18[2] = __38__SKTexture_Internal___backingTexture__block_invoke_2;
@@ -2395,7 +2395,7 @@ LABEL_32:
   v14 = self->_textureCache;
   if (v14)
   {
-    [(SKTextureCache *)v14 backingTexture];
+    objc_msgSend_backingTexture(v14);
     goto LABEL_17;
   }
 
@@ -2414,13 +2414,13 @@ LABEL_17:
   return result;
 }
 
-void __38__SKTexture_Internal___backingTexture__block_invoke(uint64_t a1)
+void __38__SKTexture_Internal___backingTexture__block_invoke(uint64_t a1, void *a2)
 {
   kdebug_trace();
   [*(*(a1 + 32) + 184) textureFormat];
   [*(*(a1 + 32) + 184) pixelData];
   texture_2d = jet_context::create_texture_2d();
-  std::shared_ptr<jet_texture>::shared_ptr[abi:ne200100]<jet_texture,0>(&v3, texture_2d);
+  std::shared_ptr<jet_texture>::shared_ptr[abi:ne200100]<jet_texture,0>(&v4, texture_2d);
 }
 
 void __38__SKTexture_Internal___backingTexture__block_invoke_2(uint64_t a1, void *a2)
@@ -2575,35 +2575,34 @@ void __38__SKTexture_Internal___backingTexture__block_invoke_2(uint64_t a1, void
     Width = CGImageGetWidth(_createCGImage);
     Height = CGImageGetHeight(v10);
     v13 = Height;
-    v14 = Height;
-    v15 = malloc_type_malloc((4 * Width * Height), 0x100004077774924uLL);
+    v14 = malloc_type_malloc((4 * Width * Height), 0x100004077774924uLL);
     DeviceRGB = CGColorSpaceCreateDeviceRGB();
-    v17 = CGBitmapContextCreate(v15, Width, v13, 8uLL, (4 * Width), DeviceRGB, 0x4001u);
+    v16 = CGBitmapContextCreate(v14, Width, Height, 8uLL, (4 * Width), DeviceRGB, 0x4001u);
     CGColorSpaceRelease(DeviceRGB);
+    v20.origin.x = 0.0;
+    v20.origin.y = 0.0;
+    v20.size.width = Width;
+    v20.size.height = Height;
+    CGContextClearRect(v16, v20);
+    CGContextTranslateCTM(v16, 0.0, Height);
+    CGContextScaleCTM(v16, 1.0, -1.0);
     v21.origin.x = 0.0;
     v21.origin.y = 0.0;
     v21.size.width = Width;
-    v21.size.height = v14;
-    CGContextClearRect(v17, v21);
-    CGContextTranslateCTM(v17, 0.0, v14);
-    CGContextScaleCTM(v17, 1.0, -1.0);
-    v22.origin.x = 0.0;
-    v22.origin.y = 0.0;
-    v22.size.width = Width;
-    v22.size.height = v14;
-    CGContextDrawImage(v17, v22, v10);
-    CGContextRelease(v17);
+    v21.size.height = Height;
+    CGContextDrawImage(v16, v21, v10);
+    CGContextRelease(v16);
     CGImageRelease(v10);
-    if (SKGenerateNormalMapWithMultiSampling(Width, v13, v15, pass, map, contrast))
+    if (SKGenerateNormalMapWithMultiSampling(Width, Height, v14, pass, map, contrast))
     {
-      v18 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v15 length:4 * Width * v14];
-      v10 = [SKTexture textureWithData:v18 size:Width, v14];
+      v17 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v14 length:4 * Width * v13];
+      v10 = [SKTexture textureWithData:v17 size:Width, v13];
       *(v10 + 97) = self->_isRotated;
     }
 
     else
     {
-      free(v15);
+      free(v14);
       v10 = 0;
     }
   }
@@ -2756,7 +2755,7 @@ void __38__SKTexture_Internal___backingTexture__block_invoke_2(uint64_t a1, void
   v9 = &v8;
   v10 = 0x2020000000;
   v11 = 0;
-  [(SKTexture *)self _backingTexture];
+  objc_msgSend__backingTexture(self, a2);
   if (v6)
   {
     v4[0] = MEMORY[0x277D85DD0];
@@ -2919,30 +2918,27 @@ void __33__SKTexture_Private__glTextureId__block_invoke(uint64_t a1, void *a2)
   return v7;
 }
 
-uint64_t __46__SKTexture_Private__textureWithMetalTexture___block_invoke(uint64_t a1, void *a2)
+void __46__SKTexture_Private__textureWithMetalTexture___block_invoke(uint64_t a1, void *a2)
 {
-  result = (*(**a2 + 136))();
-  if (result == 1)
+  if ((*(**a2 + 136))() == 1)
   {
-    v5 = *a2;
+    v4 = *a2;
     if (*a2)
     {
-      v5 = __dynamic_cast(v5, MEMORY[0x277D218E8], MEMORY[0x277D218F0], 0);
-      if (v5)
+      v4 = __dynamic_cast(v4, MEMORY[0x277D218E8], MEMORY[0x277D218F0], 0);
+      if (v4)
       {
-        v6 = a2[1];
-        if (v6)
+        v5 = a2[1];
+        if (v5)
         {
-          atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
         }
       }
     }
 
-    v7 = (*(*v5 + 408))(v5, *(a1 + 32));
-    std::shared_ptr<jet_texture>::shared_ptr[abi:ne200100]<jet_texture,0>(&v8, v7);
+    v6 = (*(*v4 + 408))(v4, *(a1 + 32));
+    std::shared_ptr<jet_texture>::shared_ptr[abi:ne200100]<jet_texture,0>(&v7, v6);
   }
-
-  return result;
 }
 
 - (id)metalTexture
@@ -2953,7 +2949,7 @@ uint64_t __46__SKTexture_Private__textureWithMetalTexture___block_invoke(uint64_
   v11 = __Block_byref_object_copy__374;
   v12 = __Block_byref_object_dispose__375;
   v13 = 0;
-  [(SKTexture *)self _backingTexture];
+  objc_msgSend__backingTexture(self, a2);
   if (v6)
   {
     v4[0] = MEMORY[0x277D85DD0];
@@ -3036,7 +3032,7 @@ void __34__SKTexture_Private__metalTexture__block_invoke(uint64_t a1, void *a2)
 - (CGImage)_newTextureFromGLCache
 {
   [(SKTexture *)self _ensureImageData];
-  [(SKTexture *)self _backingTexture];
+  objc_msgSend__backingTexture(self);
   v3 = (**v90)();
   v4 = (*(*v90 + 8))(v90);
   if (v4 * v3)

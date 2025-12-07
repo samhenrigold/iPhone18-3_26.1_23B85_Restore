@@ -31,12 +31,11 @@
 
 - (void)didTapCancel
 {
-  v3 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC28HealthExposureNotificationUI36OnboardingLegalConsentViewController_flow);
-  v4 = *(&self->super.super.super.super._responderFlags + OBJC_IVAR____TtC28HealthExposureNotificationUI36OnboardingLegalConsentViewController_flow);
+  v3 = *(&self->super.super.super.super._responderFlags + OBJC_IVAR____TtC28HealthExposureNotificationUI36OnboardingLegalConsentViewController_flow);
   swift_getObjectType();
-  v5 = *(v4 + 128);
+  v4 = *(v3 + 128);
   selfCopy = self;
-  v5();
+  v4();
 }
 
 - (void)didConfirmAgree

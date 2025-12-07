@@ -51,7 +51,7 @@
 
   else
   {
-    v14 = __atxlog_handle_home_screen();
+    v14 = __atxlog_handle_home_screen(v10);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [ATXDefaultHomeScreenItemManagerTransfer fetchImportedWidgetSmartStackWithRequest:v14 completionHandler:?];
@@ -94,19 +94,20 @@
   pathCopy = path;
   stacksCopy = stacks;
   v8 = [v5 alloc];
-  v9 = __atxlog_handle_home_screen();
+  v9 = __atxlog_handle_home_screen(v8);
   v10 = [v8 initWithCacheFilePath:pathCopy loggingHandle:v9 debugName:@"ATXDefaultHomeScreenItemManagerTransfer"];
 
-  v15 = 0;
-  v11 = [v10 storeSecureCodedObject:stacksCopy error:&v15];
+  v16 = 0;
+  v11 = [v10 storeSecureCodedObject:stacksCopy error:&v16];
 
-  v12 = v15;
+  v12 = v16;
+  v13 = v12;
   if (v12)
   {
-    v13 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_home_screen(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [ATXDefaultHomeScreenItemManagerTransfer _writeSmartStacks:v12 toPath:v13];
+      [ATXDefaultHomeScreenItemManagerTransfer _writeSmartStacks:v13 toPath:v14];
     }
   }
 
@@ -117,7 +118,7 @@
 {
   pathCopy = path;
   v6 = objc_alloc(MEMORY[0x1E698AFF0]);
-  v7 = __atxlog_handle_home_screen();
+  v7 = __atxlog_handle_home_screen(v6);
   v8 = [v6 initWithCacheFilePath:pathCopy loggingHandle:v7 debugName:@"ATXDefaultHomeScreenItemManagerTransfer"];
 
   v9 = objc_autoreleasePoolPush();

@@ -127,37 +127,24 @@
 
 - (id)postBody
 {
-  v17[0] = @"player-group-id";
   playerGroupID = [(GKMultiplayerGroupRequest *)self playerGroupID];
-  v18[0] = playerGroupID;
-  v17[1] = @"participants";
   participants = [(GKMultiplayerGroupRequest *)self participants];
   allObjects = [participants allObjects];
-  v18[1] = allObjects;
-  v17[2] = @"game";
-  bundleID = self->bundleID;
-  v15 = @"bundle-id";
-  v16 = bundleID;
-  v7 = [NSDictionary dictionaryWithObjects:&v16 forKeys:&v15 count:1];
-  v18[2] = v7;
-  v17[3] = @"played-at";
-  v8 = [NSNumber numberWithInteger:[(GKMultiplayerGroupRequest *)self playedAt]];
-  v18[3] = v8;
-  v17[4] = @"properties";
+  v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
+  v12 = [NSNumber numberWithInteger:[(GKMultiplayerGroupRequest *)self playedAt]];
   requestData = [(GKMultiplayerGroupRequest *)self requestData];
-  v18[4] = requestData;
-  v10 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:5];
-  v11 = [v10 mutableCopy];
+  v4 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
+  v5 = [v4 mutableCopy];
 
   groupRelationshipType = [(GKMultiplayerGroupRequest *)self groupRelationshipType];
 
   if (groupRelationshipType)
   {
     groupRelationshipType2 = [(GKMultiplayerGroupRequest *)self groupRelationshipType];
-    [v11 setObject:groupRelationshipType2 forKeyedSubscript:@"group-relation-type"];
+    [v5 setObject:groupRelationshipType2 forKeyedSubscript:@"group-relation-type"];
   }
 
-  return v11;
+  return v5;
 }
 
 - (id)requestIdentifier

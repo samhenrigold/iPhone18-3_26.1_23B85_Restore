@@ -35,54 +35,50 @@
 
 - (BOOL)insertDataObjects:(const void *)objects atLoiUUID:(const uuid *)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   if (*objects == *(objects + 1))
   {
-    inserted = 1;
+    return 1;
   }
 
-  else
+  dbStore = [(ULStore *)self dbStore];
+  v8 = (*(dbStore->var0 + 8))(dbStore);
+  managedObjectContext = [(ULStore *)self managedObjectContext];
+  v14 = [v8 fetchLoiManagedObjectWithUUID:d withManagedObjectContext:managedObjectContext];
+
+  if (!v14)
   {
-    dbStore = [(ULStore *)self dbStore];
-    v8 = (*(dbStore->var0 + 8))(dbStore);
-    managedObjectContext = [(ULStore *)self managedObjectContext];
-    v15 = [v8 fetchLoiManagedObjectWithUUID:d withManagedObjectContext:managedObjectContext];
-
-    if (!v15)
+    if (onceToken_MicroLocation_Default != -1)
     {
-      if (onceToken_MicroLocation_Default != -1)
-      {
-        [ULAssociatedStateStore insertDataObjects:atLoiUUID:];
-      }
-
-      v10 = logObject_MicroLocation_Default;
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        operator new();
-      }
-
-      if (onceToken_MicroLocation_Default != -1)
-      {
-        [ULAssociatedStateStore insertDataObjects:atLoiUUID:];
-      }
-
-      v11 = logObject_MicroLocation_Default;
-      if (os_signpost_enabled(v11))
-      {
-        operator new();
-      }
+      [ULAssociatedStateStore insertDataObjects:atLoiUUID:];
     }
 
-    v17[0] = &unk_286A55F18;
-    v17[1] = &v15;
-    v17[2] = &selfCopy;
-    v17[3] = v17;
-    inserted = ULDBUtils::insertDataObjects<ULAssociatedStateDO,ULAssociatedStateMO>(self, objects, v17);
-    std::__function::__value_func<ULAssociatedStateMO * ()(ULAssociatedStateDO const&)>::~__value_func[abi:ne200100](v17);
+    v10 = logObject_MicroLocation_Default;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      operator new();
+    }
+
+    if (onceToken_MicroLocation_Default != -1)
+    {
+      [ULAssociatedStateStore insertDataObjects:atLoiUUID:];
+    }
+
+    v11 = logObject_MicroLocation_Default;
+    if (os_signpost_enabled(v11))
+    {
+      operator new();
+    }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
+  v16[0] = &unk_286A55F18;
+  v16[1] = &v14;
+  v16[2] = &selfCopy;
+  v16[3] = v16;
+  inserted = ULDBUtils::insertDataObjects<ULAssociatedStateDO,ULAssociatedStateMO>(self, objects, v16);
+  std::__function::__value_func<ULAssociatedStateMO * ()(ULAssociatedStateDO const&)>::~__value_func[abi:ne200100](v16);
+
   return inserted;
 }
 
@@ -101,7 +97,7 @@
 
 - (vector<ULAssociatedStateDO,)fetchAllAssociatedStateBetweenTimes:(ULAssociatedStateStore *)self toTime:(SEL)time atLoiGroupId:(double)id
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v10 = ULSettings::get<ULSettings::DatabaseSelectionLimit>();
   v11 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:a6];
   uUIDString = [v11 UUIDString];
@@ -117,11 +113,10 @@
   [array addObject:v18];
 
   v19 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:0];
-  v23[0] = v19;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+  v22[0] = v19;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
   [(ULAssociatedStateStore *)self _fetchAssociatedStatesByAndPredicates:array sortDescriptors:v20 andLimit:v10];
 
-  v22 = *MEMORY[0x277D85DE8];
   return result;
 }
 

@@ -7,18 +7,18 @@
 
 - (NLConstrainedDataProvider)initWithDataProvider:(id)provider parameters:(_NLConstraintParameters *)parameters modelTrainer:(id)trainer
 {
-  v118[1] = *MEMORY[0x1E69E9840];
+  v117[1] = *MEMORY[0x1E69E9840];
   providerCopy = provider;
   trainerCopy = trainer;
-  v112.receiver = self;
-  v112.super_class = NLConstrainedDataProvider;
-  v11 = [(NLConstrainedDataProvider *)&v112 init];
+  v111.receiver = self;
+  v111.super_class = NLConstrainedDataProvider;
+  v11 = [(NLConstrainedDataProvider *)&v111 init];
   v12 = v11;
   if (v11)
   {
     providerCopy2 = provider;
-    v86 = v11;
-    v95 = trainerCopy;
+    v85 = v11;
+    v94 = trainerCopy;
     array = [MEMORY[0x1E695DF70] array];
     labelMap = [providerCopy labelMap];
     vocabularyMap = [providerCopy vocabularyMap];
@@ -29,9 +29,9 @@
     dictionary4 = [MEMORY[0x1E695DF90] dictionary];
     numberOfInstances = [providerCopy numberOfInstances];
     v13 = [NLTagger alloc];
-    v118[0] = @"TokenType";
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v118 count:1];
-    v87 = [(NLTagger *)v13 initWithTagSchemes:v14];
+    v117[0] = @"TokenType";
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v117 count:1];
+    v86 = [(NLTagger *)v13 initWithTagSchemes:v14];
 
     v15 = objc_autoreleasePoolPush();
     v16 = NLGetLogCategory(0);
@@ -103,8 +103,8 @@
         v32 = *&parameters->maxSplitTokens;
         *buf = *&parameters->splitSentences;
         *&buf[16] = v32;
-        v117 = *&parameters->maxLabels;
-        v33 = [v30 locatorsWithIndex:v28 parameters:buf tagger:v87 tokenizer:tokenizer];
+        v116 = *&parameters->maxLabels;
+        v33 = [v30 locatorsWithIndex:v28 parameters:buf tagger:v86 tokenizer:tokenizer];
         [(NSArray *)v24 addObjectsFromArray:v33];
         if (!((v25 + v29) % v27))
         {
@@ -144,7 +144,7 @@
           v24 = array;
         }
 
-        reportInstanceCompletionToTrainer(v95, v28, v25, 1);
+        reportInstanceCompletionToTrainer(v94, v28, v25, 1);
 
         ++v28;
         --v29;
@@ -167,28 +167,28 @@
     contextb = providerCopy;
 
     objc_autoreleasePoolPop(v38);
-    v110 = 0u;
-    v111 = 0u;
-    v108 = 0u;
     v109 = 0u;
+    v110 = 0u;
+    v107 = 0u;
+    v108 = 0u;
     v41 = labelMap;
-    v42 = [v41 countByEnumeratingWithState:&v108 objects:v115 count:16];
-    trainerCopy = v95;
+    v42 = [v41 countByEnumeratingWithState:&v107 objects:v114 count:16];
+    trainerCopy = v94;
     if (v42)
     {
       v43 = v42;
       v44 = 0;
-      v45 = *v109;
+      v45 = *v108;
       do
       {
         for (i = 0; i != v43; ++i)
         {
-          if (*v109 != v45)
+          if (*v108 != v45)
           {
             objc_enumerationMutation(v41);
           }
 
-          v47 = *(*(&v108 + 1) + 8 * i);
+          v47 = *(*(&v107 + 1) + 8 * i);
           v48 = [v41 objectForKey:v47];
           unsignedIntegerValue = [v48 unsignedIntegerValue];
           if (parameters->maxLabels - 1 >= unsignedIntegerValue)
@@ -203,7 +203,7 @@
           }
         }
 
-        v43 = [v41 countByEnumeratingWithState:&v108 objects:v115 count:16];
+        v43 = [v41 countByEnumeratingWithState:&v107 objects:v114 count:16];
       }
 
       while (v43);
@@ -215,29 +215,29 @@
       v51 = 1;
     }
 
-    v90 = v51;
+    v89 = v51;
 
-    v106 = 0u;
-    v107 = 0u;
-    v104 = 0u;
     v105 = 0u;
+    v106 = 0u;
+    v103 = 0u;
+    v104 = 0u;
     v52 = vocabularyMap;
-    v53 = [v52 countByEnumeratingWithState:&v104 objects:v114 count:16];
+    v53 = [v52 countByEnumeratingWithState:&v103 objects:v113 count:16];
     if (v53)
     {
       v54 = v53;
       v55 = 0;
-      v56 = *v105;
+      v56 = *v104;
       do
       {
         for (j = 0; j != v54; ++j)
         {
-          if (*v105 != v56)
+          if (*v104 != v56)
           {
             objc_enumerationMutation(v52);
           }
 
-          v58 = *(*(&v104 + 1) + 8 * j);
+          v58 = *(*(&v103 + 1) + 8 * j);
           v59 = tokenIDFromTokenAndVocabularyMap(v58, v52);
           if (v59 >= 0x10)
           {
@@ -255,39 +255,39 @@
           }
         }
 
-        v54 = [v52 countByEnumeratingWithState:&v104 objects:v114 count:16];
+        v54 = [v52 countByEnumeratingWithState:&v103 objects:v113 count:16];
       }
 
       while (v54);
-      v88 = v55 + 1;
-      trainerCopy = v95;
+      v87 = v55 + 1;
+      trainerCopy = v94;
     }
 
     else
     {
-      v88 = 1;
+      v87 = 1;
     }
 
-    v102 = 0u;
-    v103 = 0u;
-    v100 = 0u;
     v101 = 0u;
+    v102 = 0u;
+    v99 = 0u;
+    v100 = 0u;
     v62 = documentFrequencyMap;
-    v63 = [v62 countByEnumeratingWithState:&v100 objects:v113 count:16];
+    v63 = [v62 countByEnumeratingWithState:&v99 objects:v112 count:16];
     if (v63)
     {
       v64 = v63;
-      v65 = *v101;
+      v65 = *v100;
       do
       {
         for (k = 0; k != v64; ++k)
         {
-          if (*v101 != v65)
+          if (*v100 != v65)
           {
             objc_enumerationMutation(v62);
           }
 
-          v67 = *(*(&v100 + 1) + 8 * k);
+          v67 = *(*(&v99 + 1) + 8 * k);
           v68 = [v62 objectForKey:v67];
           if (parameters->maxVocabularySize - 1 >= [v67 unsignedIntegerValue])
           {
@@ -295,45 +295,44 @@
           }
         }
 
-        v64 = [v62 countByEnumeratingWithState:&v100 objects:v113 count:16];
+        v64 = [v62 countByEnumeratingWithState:&v99 objects:v112 count:16];
       }
 
       while (v64);
     }
 
-    objc_storeStrong(&v86->_dataProvider, providerCopy2);
+    objc_storeStrong(&v85->_dataProvider, providerCopy2);
     v70 = *&parameters->maxSplitTokens;
     v69 = *&parameters->maxLabels;
-    *&v86->_parameters.splitSentences = *&parameters->splitSentences;
-    *&v86->_parameters.maxSplitTokens = v70;
-    *&v86->_parameters.maxLabels = v69;
-    locators = v86->_locators;
-    v86->_locators = array;
+    *&v85->_parameters.splitSentences = *&parameters->splitSentences;
+    *&v85->_parameters.maxSplitTokens = v70;
+    *&v85->_parameters.maxLabels = v69;
+    locators = v85->_locators;
+    v85->_locators = array;
     v72 = array;
 
-    labelMap = v86->_labelMap;
-    v86->_labelMap = dictionary;
+    labelMap = v85->_labelMap;
+    v85->_labelMap = dictionary;
     v74 = dictionary;
 
-    inverseLabelMap = v86->_inverseLabelMap;
-    v86->_inverseLabelMap = dictionary2;
+    inverseLabelMap = v85->_inverseLabelMap;
+    v85->_inverseLabelMap = dictionary2;
     v76 = dictionary2;
 
-    vocabularyMap = v86->_vocabularyMap;
-    v86->_vocabularyMap = dictionary3;
+    vocabularyMap = v85->_vocabularyMap;
+    v85->_vocabularyMap = dictionary3;
     v78 = dictionary3;
 
-    documentFrequencyMap = v86->_documentFrequencyMap;
-    v86->_documentFrequencyMap = dictionary4;
+    documentFrequencyMap = v85->_documentFrequencyMap;
+    v85->_documentFrequencyMap = dictionary4;
 
-    v12 = v86;
-    v86->_numberOfLabels = v90;
-    v86->_numberOfVocabularyEntries = v88;
+    v12 = v85;
+    v85->_numberOfLabels = v89;
+    v85->_numberOfVocabularyEntries = v87;
 
     providerCopy = contextb;
   }
 
-  v80 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

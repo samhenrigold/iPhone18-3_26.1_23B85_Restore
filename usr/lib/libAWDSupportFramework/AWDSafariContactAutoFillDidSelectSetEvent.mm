@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)selectedSetAsString:(int)string;
 - (int)StringAsSelectedSet:(id)set;
 - (int)selectedSet;
 - (unint64_t)hash;
@@ -41,6 +42,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)selectedSetAsString:(int)string
+{
+  if (string >= 6)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32CC8[string];
+  }
 }
 
 - (int)StringAsSelectedSet:(id)set
@@ -160,7 +174,6 @@ LABEL_4:
     }
 
 LABEL_6:
-    selectedSet = self->_selectedSet;
     PBDataWriterWriteInt32Field();
     if ((*&self->_has & 4) == 0)
     {
@@ -170,7 +183,6 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  timestamp = self->_timestamp;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -185,7 +197,6 @@ LABEL_3:
   }
 
 LABEL_7:
-  hadPreviouslyCustomizedSet = self->_hadPreviouslyCustomizedSet;
 
   PBDataWriterWriteBOOLField();
 }

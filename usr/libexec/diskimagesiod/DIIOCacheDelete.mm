@@ -74,70 +74,70 @@
 
 - (unint64_t)eraseOldCacheFiles
 {
-  if (confstr(65538, v85, 0x400uLL))
+  if (confstr(65538, v105, 0x400uLL))
   {
-    v2 = [NSURL fileURLWithFileSystemRepresentation:v85 isDirectory:1 relativeToURL:0];
+    v2 = [NSURL fileURLWithFileSystemRepresentation:v105 isDirectory:1 relativeToURL:0];
     v3 = [NSString stringWithFormat:@"^%@.*\\.%@$", @"diskimage_", @"cache"];
-    v62 = [NSRegularExpression regularExpressionWithPattern:v3 options:0 error:0];
+    v82 = [NSRegularExpression regularExpressionWithPattern:v3 options:0 error:0];
     v4 = +[NSFileManager defaultManager];
-    v84[0] = NSURLContentAccessDateKey;
-    v84[1] = NSURLFileSizeKey;
+    v104[0] = NSURLContentAccessDateKey;
+    v104[1] = NSURLFileSizeKey;
     v5 = NSURLNameKey;
-    v84[2] = NSURLNameKey;
-    v6 = [NSArray arrayWithObjects:v84 count:3];
+    v104[2] = NSURLNameKey;
+    v6 = [NSArray arrayWithObjects:v104 count:3];
     v7 = [v4 enumeratorAtURL:v2 includingPropertiesForKeys:v6 options:5 errorHandler:&stru_1001F5710];
 
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
-    v72 = 0u;
+    v93 = 0u;
+    v94 = 0u;
+    v91 = 0u;
+    v92 = 0u;
     obj = v7;
-    v8 = [obj countByEnumeratingWithState:&v71 objects:v83 count:16];
+    v8 = [obj countByEnumeratingWithState:&v91 objects:v103 count:16];
     if (v8)
     {
       v9 = v8;
-      v56 = v3;
-      v57 = v2;
-      v60 = 0;
-      v59 = 0;
-      v58 = 0;
-      v61 = 0;
-      v10 = *v72;
+      v76 = v3;
+      v77 = v2;
+      v80 = 0;
+      v79 = 0;
+      HIDWORD(v78) = 0;
+      v81 = 0;
+      v10 = *v92;
       while (1)
       {
         v11 = 0;
         do
         {
-          if (*v72 != v10)
+          if (*v92 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v71 + 1) + 8 * v11);
-          v70 = 0;
-          v13 = [v12 getResourceValue:&v70 forKey:v5 error:{0, v54, v55}];
-          v14 = v70;
+          v12 = *(*(&v91 + 1) + 8 * v11);
+          v90 = 0;
+          v13 = [v12 getResourceValue:&v90 forKey:v5 error:0];
+          v14 = v90;
           v15 = v14;
-          if (v13 && [v62 numberOfMatchesInString:v14 options:0 range:{0, objc_msgSend(v14, "length")}])
+          if (v13 && [v82 numberOfMatchesInString:v14 options:0 range:{0, objc_msgSend(v14, "length")}])
           {
-            v68 = 0;
-            v69 = 0;
-            v16 = [v12 getResourceValue:&v69 forKey:NSURLContentAccessDateKey error:&v68];
-            v17 = v69;
-            v18 = v68;
-            v64 = v17;
+            v88 = 0;
+            v89 = 0;
+            v16 = [v12 getResourceValue:&v89 forKey:NSURLContentAccessDateKey error:&v88];
+            v17 = v89;
+            v18 = v88;
+            v84 = v17;
             if (v16)
             {
-              v66 = 0;
-              v67 = 0;
-              v19 = [v12 getResourceValue:&v67 forKey:NSURLFileSizeKey error:&v66];
-              v20 = v67;
-              v21 = v66;
+              v86 = 0;
+              v87 = 0;
+              v19 = [v12 getResourceValue:&v87 forKey:NSURLFileSizeKey error:&v86];
+              v20 = v87;
+              v21 = v86;
 
               if (v19)
               {
-                ++v61;
-                v60 += [v20 unsignedLongLongValue];
+                ++v81;
+                v80 += [v20 unsignedLongLongValue];
                 [v17 timeIntervalSinceNow];
                 v23 = v22;
                 v24 = *__error();
@@ -146,25 +146,33 @@
                 {
                   if (v25)
                   {
-                    v75 = 0;
-                    v34 = sub_1000E957C();
-                    os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT);
+                    v95 = 0;
+                    v41 = sub_1000E957C(v25, v26);
+                    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+                    {
+                      v42 = 3;
+                    }
+
+                    else
+                    {
+                      v42 = 2;
+                    }
+
                     *buf = 68158466;
                     *&buf[4] = 37;
-                    v77 = 2080;
-                    v78 = "[DIIOCacheDelete eraseOldCacheFiles]";
-                    v79 = 2114;
-                    *v80 = v12;
-                    *&v80[8] = 2048;
-                    *&v80[10] = v23 / -86400.0;
-                    LODWORD(v55) = 38;
-                    v54 = buf;
-                    v35 = _os_log_send_and_compose_impl();
+                    v97 = 2080;
+                    v98 = "[DIIOCacheDelete eraseOldCacheFiles]";
+                    v99 = 2114;
+                    *v100 = v12;
+                    *&v100[8] = 2048;
+                    *&v100[10] = v23 / -86400.0;
+                    LODWORD(v74) = 38;
+                    v43 = _os_log_send_and_compose_impl(v42, &v95, 0, 0, &_mh_execute_header, v41, 0, "%.*s: Skipping %{public}@ (last access time was %.2f days ago)", buf, v74);
 
-                    if (v35)
+                    if (v43)
                     {
-                      fprintf(__stderrp, "%s\n", v35);
-                      free(v35);
+                      fprintf(__stderrp, "%s\n", v43);
+                      free(v43);
                     }
 
                     v5 = NSURLNameKey;
@@ -172,130 +180,139 @@
 
                   else
                   {
-                    v39 = sub_1000E957C();
+                    v47 = sub_1000E957C(v25, v26);
                     v5 = NSURLNameKey;
-                    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+                    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 68158466;
                       *&buf[4] = 37;
-                      v77 = 2080;
-                      v78 = "[DIIOCacheDelete eraseOldCacheFiles]";
-                      v79 = 2114;
-                      *v80 = v12;
-                      *&v80[8] = 2048;
-                      *&v80[10] = v23 / -86400.0;
-                      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "%.*s: Skipping %{public}@ (last access time was %.2f days ago)", buf, 0x26u);
+                      v97 = 2080;
+                      v98 = "[DIIOCacheDelete eraseOldCacheFiles]";
+                      v99 = 2114;
+                      *v100 = v12;
+                      *&v100[8] = 2048;
+                      *&v100[10] = v23 / -86400.0;
+                      _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "%.*s: Skipping %{public}@ (last access time was %.2f days ago)", buf, 0x26u);
                     }
                   }
 
                   *__error() = v24;
                   v18 = v21;
-                  goto LABEL_26;
+                  goto LABEL_33;
                 }
 
                 if (v25)
                 {
-                  v75 = 0;
-                  v26 = sub_1000E957C();
-                  os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
+                  v95 = 0;
+                  v27 = sub_1000E957C(v25, v26);
+                  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+                  {
+                    v28 = 3;
+                  }
+
+                  else
+                  {
+                    v28 = 2;
+                  }
+
                   *buf = 68158466;
                   *&buf[4] = 37;
-                  v77 = 2080;
-                  v78 = "[DIIOCacheDelete eraseOldCacheFiles]";
-                  v79 = 2114;
-                  *v80 = v12;
-                  *&v80[8] = 2048;
-                  *&v80[10] = v23 / -86400.0;
-                  LODWORD(v55) = 38;
-                  v54 = buf;
-                  v27 = _os_log_send_and_compose_impl();
+                  v97 = 2080;
+                  v98 = "[DIIOCacheDelete eraseOldCacheFiles]";
+                  v99 = 2114;
+                  *v100 = v12;
+                  *&v100[8] = 2048;
+                  *&v100[10] = v23 / -86400.0;
+                  LODWORD(v74) = 38;
+                  v29 = _os_log_send_and_compose_impl(v28, &v95, 0, 0, &_mh_execute_header, v27, 0, "%.*s: Last access time expired for %{public}@ (%.2f days), removing", buf, v74);
 
-                  if (v27)
+                  if (v29)
                   {
-                    fprintf(__stderrp, "%s\n", v27);
-                    free(v27);
+                    fprintf(__stderrp, "%s\n", v29);
+                    free(v29);
                   }
                 }
 
                 else
                 {
-                  v36 = sub_1000E957C();
-                  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+                  v44 = sub_1000E957C(v25, v26);
+                  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 68158466;
                     *&buf[4] = 37;
-                    v77 = 2080;
-                    v78 = "[DIIOCacheDelete eraseOldCacheFiles]";
-                    v79 = 2114;
-                    *v80 = v12;
-                    *&v80[8] = 2048;
-                    *&v80[10] = v23 / -86400.0;
-                    _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "%.*s: Last access time expired for %{public}@ (%.2f days), removing", buf, 0x26u);
+                    v97 = 2080;
+                    v98 = "[DIIOCacheDelete eraseOldCacheFiles]";
+                    v99 = 2114;
+                    *v100 = v12;
+                    *&v100[8] = 2048;
+                    *&v100[10] = v23 / -86400.0;
+                    _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "%.*s: Last access time expired for %{public}@ (%.2f days), removing", buf, 0x26u);
                   }
                 }
 
                 *__error() = v24;
-                v37 = +[NSFileManager defaultManager];
-                v65 = v21;
-                v38 = [v37 removeItemAtURL:v12 error:&v65];
-                v18 = v65;
+                v45 = +[NSFileManager defaultManager];
+                v85 = v21;
+                v46 = [v45 removeItemAtURL:v12 error:&v85];
+                v18 = v85;
 
-                if (v38)
+                if (v46)
                 {
-                  ++v58;
-                  v59 += [v20 unsignedLongLongValue];
+                  ++HIDWORD(v78);
+                  v79 += [v20 unsignedLongLongValue];
                   v5 = NSURLNameKey;
-                  goto LABEL_26;
+                  goto LABEL_33;
                 }
 
-                v28 = *__error();
-                if (!sub_1000E95F0())
+                v30 = *__error();
+                v48 = sub_1000E95F0();
+                if (v48)
                 {
-                  v31 = sub_1000E957C();
-                  v5 = NSURLNameKey;
-                  if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+                  v95 = 0;
+                  v33 = sub_1000E957C(v48, v49);
+                  v50 = os_log_type_enabled(v33, OS_LOG_TYPE_ERROR);
+                  *buf = 68158466;
+                  if (v50)
                   {
-                    *buf = 68158466;
-                    *&buf[4] = 37;
-                    v77 = 2080;
-                    v78 = "[DIIOCacheDelete eraseOldCacheFiles]";
-                    v79 = 2114;
-                    *v80 = v12;
-                    *&v80[8] = 2114;
-                    *&v80[10] = v18;
-                    v32 = v31;
-                    v33 = "%.*s: Failed to remove %{public}@: %{public}@";
-LABEL_23:
-                    _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, v33, buf, 0x26u);
+                    v51 = 3;
                   }
 
-                  goto LABEL_24;
+                  else
+                  {
+                    v51 = 2;
+                  }
+
+                  *&buf[4] = 37;
+                  v97 = 2080;
+                  v98 = "[DIIOCacheDelete eraseOldCacheFiles]";
+                  v99 = 2114;
+                  *v100 = v12;
+                  *&v100[8] = 2114;
+                  *&v100[10] = v18;
+                  LODWORD(v74) = 38;
+                  v36 = _os_log_send_and_compose_impl(v51, &v95, 0, 0, &_mh_execute_header, v33, 16, "%.*s: Failed to remove %{public}@: %{public}@", buf, v74);
+                  goto LABEL_25;
                 }
 
-LABEL_18:
-                v75 = 0;
-                v29 = sub_1000E957C();
-                os_log_type_enabled(v29, OS_LOG_TYPE_ERROR);
-                *buf = 68158466;
-                *&buf[4] = 37;
-                v77 = 2080;
-                v78 = "[DIIOCacheDelete eraseOldCacheFiles]";
-                v79 = 2114;
-                *v80 = v12;
-                *&v80[8] = 2114;
-                *&v80[10] = v18;
-                LODWORD(v55) = 38;
-                v54 = buf;
-                v30 = _os_log_send_and_compose_impl();
-
-                if (v30)
-                {
-                  fprintf(__stderrp, "%s\n", v30);
-                  free(v30);
-                }
-
+                v38 = sub_1000E957C(v48, v49);
                 v5 = NSURLNameKey;
-                goto LABEL_25;
+                if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+                {
+                  *buf = 68158466;
+                  *&buf[4] = 37;
+                  v97 = 2080;
+                  v98 = "[DIIOCacheDelete eraseOldCacheFiles]";
+                  v99 = 2114;
+                  *v100 = v12;
+                  *&v100[8] = 2114;
+                  *&v100[10] = v18;
+                  v39 = v38;
+                  v40 = "%.*s: Failed to remove %{public}@: %{public}@";
+LABEL_30:
+                  _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, v40, buf, 0x26u);
+                }
+
+                goto LABEL_31;
               }
 
               v18 = v21;
@@ -307,322 +324,424 @@ LABEL_18:
               v20 = 0;
             }
 
-            v28 = *__error();
-            if (sub_1000E95F0())
+            v30 = *__error();
+            v31 = sub_1000E95F0();
+            if (v31)
             {
-              goto LABEL_18;
-            }
-
-            v31 = sub_1000E957C();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
-            {
+              v95 = 0;
+              v33 = sub_1000E957C(v31, v32);
+              v34 = os_log_type_enabled(v33, OS_LOG_TYPE_ERROR);
               *buf = 68158466;
+              if (v34)
+              {
+                v35 = 3;
+              }
+
+              else
+              {
+                v35 = 2;
+              }
+
               *&buf[4] = 37;
-              v77 = 2080;
-              v78 = "[DIIOCacheDelete eraseOldCacheFiles]";
-              v79 = 2114;
-              *v80 = v12;
-              *&v80[8] = 2114;
-              *&v80[10] = v18;
-              v32 = v31;
-              v33 = "%.*s: Failed retrieving property for %{public}@: %{public}@";
-              goto LABEL_23;
+              v97 = 2080;
+              v98 = "[DIIOCacheDelete eraseOldCacheFiles]";
+              v99 = 2114;
+              *v100 = v12;
+              *&v100[8] = 2114;
+              *&v100[10] = v18;
+              LODWORD(v74) = 38;
+              v36 = _os_log_send_and_compose_impl(v35, &v95, 0, 0, &_mh_execute_header, v33, 16, "%.*s: Failed retrieving property for %{public}@: %{public}@", buf, v74);
+LABEL_25:
+              v37 = v36;
+
+              if (v37)
+              {
+                fprintf(__stderrp, "%s\n", v37);
+                free(v37);
+              }
+
+              v5 = NSURLNameKey;
             }
 
-LABEL_24:
+            else
+            {
+              v38 = sub_1000E957C(v31, v32);
+              if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+              {
+                *buf = 68158466;
+                *&buf[4] = 37;
+                v97 = 2080;
+                v98 = "[DIIOCacheDelete eraseOldCacheFiles]";
+                v99 = 2114;
+                *v100 = v12;
+                *&v100[8] = 2114;
+                *&v100[10] = v18;
+                v39 = v38;
+                v40 = "%.*s: Failed retrieving property for %{public}@: %{public}@";
+                goto LABEL_30;
+              }
 
-LABEL_25:
-            *__error() = v28;
-LABEL_26:
+LABEL_31:
+            }
+
+            *__error() = v30;
+LABEL_33:
           }
 
           v11 = v11 + 1;
         }
 
         while (v9 != v11);
-        v40 = [obj countByEnumeratingWithState:&v71 objects:v83 count:16];
-        v9 = v40;
-        if (!v40)
+        v52 = [obj countByEnumeratingWithState:&v91 objects:v103 count:16];
+        v9 = v52;
+        if (!v52)
         {
-          v41 = v60 >> 20;
-          v3 = v56;
-          v2 = v57;
-          v42 = v59;
-          v43 = v61;
-          v44 = v58;
-          goto LABEL_51;
+          v53 = v80 >> 20;
+          v3 = v76;
+          v2 = v77;
+          v54 = v79;
+          v55 = v81;
+          v56 = HIDWORD(v78);
+          goto LABEL_68;
         }
       }
     }
 
-    v41 = 0;
-    v42 = 0;
-    v44 = 0;
-    v43 = 0;
-LABEL_51:
+    v53 = 0;
+    v54 = 0;
+    v56 = 0;
+    v55 = 0;
+LABEL_68:
 
-    v48 = *__error();
-    if (sub_1000E95F0())
+    v63 = *__error();
+    v64 = sub_1000E95F0();
+    if (v64)
     {
-      v75 = 0;
-      v49 = sub_1000E957C();
-      os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT);
+      v95 = 0;
+      v66 = sub_1000E957C(v64, v65);
+      v67 = os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT);
       *buf = 0x2504100602;
-      v77 = 2080;
-      v78 = "[DIIOCacheDelete eraseOldCacheFiles]";
-      v79 = 1024;
-      *v80 = v44;
-      *&v80[4] = 2048;
-      *&v80[6] = v42 >> 20;
-      *&v80[14] = 1024;
-      *&v80[16] = v43;
-      v81 = 2048;
-      v82 = v41;
-      v50 = _os_log_send_and_compose_impl();
-
-      if (v50)
+      v97 = 2080;
+      v98 = "[DIIOCacheDelete eraseOldCacheFiles]";
+      if (v67)
       {
-        fprintf(__stderrp, "%s\n", v50);
-        free(v50);
+        v68 = 3;
+      }
+
+      else
+      {
+        v68 = 2;
+      }
+
+      v99 = 1024;
+      *v100 = v56;
+      *&v100[4] = 2048;
+      *&v100[6] = v54 >> 20;
+      *&v100[14] = 1024;
+      *&v100[16] = v55;
+      v101 = 2048;
+      v102 = v53;
+      LODWORD(v74) = 50;
+      v69 = _os_log_send_and_compose_impl(v68, &v95, 0, 0, &_mh_execute_header, v66, 0, "%.*s: Summary: removed %u files (%llu MB) out of %u files (%llu MB) of cache", buf, v74, v75, v76, v77, v78);
+
+      if (v69)
+      {
+        fprintf(__stderrp, "%s\n", v69);
+        free(v69);
       }
     }
 
     else
     {
-      v51 = sub_1000E957C();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+      v70 = sub_1000E957C(v64, v65);
+      if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0x2504100602;
-        v77 = 2080;
-        v78 = "[DIIOCacheDelete eraseOldCacheFiles]";
-        v79 = 1024;
-        *v80 = v44;
-        *&v80[4] = 2048;
-        *&v80[6] = v42 >> 20;
-        *&v80[14] = 1024;
-        *&v80[16] = v43;
-        v81 = 2048;
-        v82 = v41;
-        _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "%.*s: Summary: removed %u files (%llu MB) out of %u files (%llu MB) of cache", buf, 0x32u);
+        v97 = 2080;
+        v98 = "[DIIOCacheDelete eraseOldCacheFiles]";
+        v99 = 1024;
+        *v100 = v56;
+        *&v100[4] = 2048;
+        *&v100[6] = v54 >> 20;
+        *&v100[14] = 1024;
+        *&v100[16] = v55;
+        v101 = 2048;
+        v102 = v53;
+        _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEFAULT, "%.*s: Summary: removed %u files (%llu MB) out of %u files (%llu MB) of cache", buf, 0x32u);
       }
     }
 
-    *__error() = v48;
+    *__error() = v63;
   }
 
   else
   {
-    v45 = *__error();
-    if (sub_1000E95F0())
+    v57 = *__error();
+    v58 = sub_1000E95F0();
+    if (v58)
     {
-      v75 = 0;
-      v46 = sub_1000E957C();
-      os_log_type_enabled(v46, OS_LOG_TYPE_ERROR);
+      v95 = 0;
+      v60 = sub_1000E957C(v58, v59);
+      if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+      {
+        v61 = 3;
+      }
+
+      else
+      {
+        v61 = 2;
+      }
+
       *buf = 68157954;
       *&buf[4] = 37;
-      v77 = 2080;
-      v78 = "[DIIOCacheDelete eraseOldCacheFiles]";
-      v47 = _os_log_send_and_compose_impl();
+      v97 = 2080;
+      v98 = "[DIIOCacheDelete eraseOldCacheFiles]";
+      LODWORD(v73) = 18;
+      v62 = _os_log_send_and_compose_impl(v61, &v95, 0, 0, &_mh_execute_header, v60, 16, "%.*s: Could not determine cache dir", buf, v73);
 
-      if (v47)
+      if (v62)
       {
-        fprintf(__stderrp, "%s\n", v47);
-        free(v47);
+        fprintf(__stderrp, "%s\n", v62);
+        free(v62);
       }
     }
 
     else
     {
-      v52 = sub_1000E957C();
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+      v71 = sub_1000E957C(v58, v59);
+      if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
       {
         *buf = 68157954;
         *&buf[4] = 37;
-        v77 = 2080;
-        v78 = "[DIIOCacheDelete eraseOldCacheFiles]";
-        _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "%.*s: Could not determine cache dir", buf, 0x12u);
+        v97 = 2080;
+        v98 = "[DIIOCacheDelete eraseOldCacheFiles]";
+        _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_ERROR, "%.*s: Could not determine cache dir", buf, 0x12u);
       }
     }
 
-    v42 = 0;
-    *__error() = v45;
+    v54 = 0;
+    *__error() = v57;
   }
 
-  return v42;
+  return v54;
 }
 
 - (id)onPeriodicWithInfo:(id)info urgency:(int)urgency
 {
   v6 = [info objectForKeyedSubscript:@"CACHE_DELETE_VOLUME"];
   v7 = *__error();
-  if (sub_1000E95F0())
+  v8 = sub_1000E95F0();
+  if (v8)
   {
-    v8 = sub_1000E957C();
-    os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v17 = 0;
+    v10 = sub_1000E957C(v8, v9);
     *buf = 68158467;
-    v17 = 46;
-    v18 = 2080;
-    v19 = "[DIIOCacheDelete onPeriodicWithInfo:urgency:]";
-    v20 = 1024;
-    urgencyCopy2 = urgency;
-    v22 = 2113;
-    v23 = v6;
-    v9 = _os_log_send_and_compose_impl();
-
-    if (v9)
+    v21 = 46;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(__stderrp, "%s\n", v9);
-      free(v9);
+      v11 = 3;
+    }
+
+    else
+    {
+      v11 = 2;
+    }
+
+    v22 = 2080;
+    v23 = "[DIIOCacheDelete onPeriodicWithInfo:urgency:]";
+    v24 = 1024;
+    urgencyCopy2 = urgency;
+    v26 = 2113;
+    v27 = v6;
+    v12 = _os_log_send_and_compose_impl(v11, &v17, 0, 0, &_mh_execute_header, v10, 0, "%.*s: Reached periodic cache delete with urgency %d, volume: %{private}@", buf, 34);
+
+    if (v12)
+    {
+      fprintf(__stderrp, "%s\n", v12);
+      free(v12);
     }
   }
 
   else
   {
-    v10 = sub_1000E957C();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_1000E957C(v8, v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68158467;
-      v17 = 46;
-      v18 = 2080;
-      v19 = "[DIIOCacheDelete onPeriodicWithInfo:urgency:]";
-      v20 = 1024;
+      v21 = 46;
+      v22 = 2080;
+      v23 = "[DIIOCacheDelete onPeriodicWithInfo:urgency:]";
+      v24 = 1024;
       urgencyCopy2 = urgency;
-      v22 = 2113;
-      v23 = v6;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%.*s: Reached periodic cache delete with urgency %d, volume: %{private}@", buf, 0x22u);
+      v26 = 2113;
+      v27 = v6;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%.*s: Reached periodic cache delete with urgency %d, volume: %{private}@", buf, 0x22u);
     }
   }
 
   *__error() = v7;
-  v11 = [NSNumber numberWithUnsignedLongLong:[(DIIOCacheDelete *)self eraseOldCacheFiles]];
+  v14 = [NSNumber numberWithUnsignedLongLong:[(DIIOCacheDelete *)self eraseOldCacheFiles]];
   [(DIIOCacheDelete *)self restartExitTimer];
-  v14[0] = @"CACHE_DELETE_VOLUME";
-  v14[1] = @"CACHE_DELETE_AMOUNT";
-  v15[0] = v6;
-  v15[1] = v11;
-  v12 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v18[0] = @"CACHE_DELETE_VOLUME";
+  v18[1] = @"CACHE_DELETE_AMOUNT";
+  v19[0] = v6;
+  v19[1] = v14;
+  v15 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:2];
 
-  return v12;
+  return v15;
 }
 
 - (BOOL)registerPeriodicCallback
 {
   objc_initWeak(&location, self);
-  v17 = &_CacheDeleteRegisterInfoCallbacks;
+  v26[1] = &_CacheDeleteRegisterInfoCallbacks;
   if (&_CacheDeleteRegisterInfoCallbacks)
   {
-    objc_copyWeak(&v15, &location);
+    objc_copyWeak(&v25, &location);
     v2 = CacheDeleteRegisterInfoCallbacks();
     v3 = v2 == 0;
     if (v2)
     {
       v4 = *__error();
-      if (!sub_1000E95F0())
+      v5 = sub_1000E95F0();
+      if (!v5)
       {
-        v11 = sub_1000E957C();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v20 = sub_1000E957C(v5, v6);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           *buf = 68157954;
-          v20 = 43;
-          v21 = 2080;
-          v22 = "[DIIOCacheDelete registerPeriodicCallback]";
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%.*s: CacheDelete registration failed", buf, 0x12u);
+          v29 = 43;
+          v30 = 2080;
+          v31 = "[DIIOCacheDelete registerPeriodicCallback]";
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "%.*s: CacheDelete registration failed", buf, 0x12u);
         }
 
-        goto LABEL_23;
+        goto LABEL_32;
       }
 
-      v16 = 0;
-      v5 = sub_1000E957C();
-      os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
-      *buf = 68157954;
-      v20 = 43;
-      v21 = 2080;
-      v22 = "[DIIOCacheDelete registerPeriodicCallback]";
-      v6 = _os_log_send_and_compose_impl();
-
-      if (v6)
+      v26[0] = 0;
+      v7 = sub_1000E957C(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_11;
+        v8 = 3;
+      }
+
+      else
+      {
+        v8 = 2;
+      }
+
+      *buf = 68157954;
+      v29 = 43;
+      v30 = 2080;
+      v31 = "[DIIOCacheDelete registerPeriodicCallback]";
+      LODWORD(v24) = 18;
+      v9 = _os_log_send_and_compose_impl(v8, v26, 0, 0, &_mh_execute_header, v7, 16, "%.*s: CacheDelete registration failed", buf, v24);
+
+      if (v9)
+      {
+        goto LABEL_20;
       }
     }
 
     else
     {
       v4 = *__error();
-      if (!sub_1000E95F0())
+      v16 = sub_1000E95F0();
+      if (!v16)
       {
-        v13 = sub_1000E957C();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v22 = sub_1000E957C(v16, v17);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 68157954;
-          v20 = 43;
-          v21 = 2080;
-          v22 = "[DIIOCacheDelete registerPeriodicCallback]";
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%.*s: Cache delete periodic registered", buf, 0x12u);
+          v29 = 43;
+          v30 = 2080;
+          v31 = "[DIIOCacheDelete registerPeriodicCallback]";
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%.*s: Cache delete periodic registered", buf, 0x12u);
         }
 
-        goto LABEL_23;
+        goto LABEL_32;
       }
 
-      v16 = 0;
-      v10 = sub_1000E957C();
-      os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
-      *buf = 68157954;
-      v20 = 43;
-      v21 = 2080;
-      v22 = "[DIIOCacheDelete registerPeriodicCallback]";
-      v6 = _os_log_send_and_compose_impl();
-
-      if (v6)
+      v26[0] = 0;
+      v18 = sub_1000E957C(v16, v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-LABEL_11:
-        fprintf(__stderrp, "%s\n", v6);
-        free(v6);
+        v19 = 3;
+      }
+
+      else
+      {
+        v19 = 2;
+      }
+
+      *buf = 68157954;
+      v29 = 43;
+      v30 = 2080;
+      v31 = "[DIIOCacheDelete registerPeriodicCallback]";
+      LODWORD(v24) = 18;
+      v9 = _os_log_send_and_compose_impl(v19, v26, 0, 0, &_mh_execute_header, v18, 0, "%.*s: Cache delete periodic registered", buf, v24);
+
+      if (v9)
+      {
+LABEL_20:
+        fprintf(__stderrp, "%s\n", v9);
+        free(v9);
       }
     }
 
-LABEL_23:
+LABEL_32:
     *__error() = v4;
-    objc_destroyWeak(&v15);
-    goto LABEL_24;
+    objc_destroyWeak(&v25);
+    goto LABEL_33;
   }
 
-  v7 = *__error();
-  if (sub_1000E95F0())
+  v10 = *__error();
+  v11 = sub_1000E95F0();
+  if (v11)
   {
-    v16 = 0;
-    v8 = sub_1000E957C();
-    os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-    *buf = 68157954;
-    v20 = 43;
-    v21 = 2080;
-    v22 = "[DIIOCacheDelete registerPeriodicCallback]";
-    v9 = _os_log_send_and_compose_impl();
-
-    if (v9)
+    v26[0] = 0;
+    v13 = sub_1000E957C(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      fprintf(__stderrp, "%s\n", v9);
-      free(v9);
+      v14 = 3;
+    }
+
+    else
+    {
+      v14 = 2;
+    }
+
+    *buf = 68157954;
+    v29 = 43;
+    v30 = 2080;
+    v31 = "[DIIOCacheDelete registerPeriodicCallback]";
+    LODWORD(v24) = 18;
+    v15 = _os_log_send_and_compose_impl(v14, v26, 0, 0, &_mh_execute_header, v13, 16, "%.*s: CacheDelete is not supported, daemon was launched unexpectedly without an instance ID", buf, v24);
+
+    if (v15)
+    {
+      fprintf(__stderrp, "%s\n", v15);
+      free(v15);
     }
   }
 
   else
   {
-    v12 = sub_1000E957C();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v21 = sub_1000E957C(v11, v12);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 68157954;
-      v20 = 43;
-      v21 = 2080;
-      v22 = "[DIIOCacheDelete registerPeriodicCallback]";
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%.*s: CacheDelete is not supported, daemon was launched unexpectedly without an instance ID", buf, 0x12u);
+      v29 = 43;
+      v30 = 2080;
+      v31 = "[DIIOCacheDelete registerPeriodicCallback]";
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "%.*s: CacheDelete is not supported, daemon was launched unexpectedly without an instance ID", buf, 0x12u);
     }
   }
 
   v3 = 0;
-  *__error() = v7;
-LABEL_24:
+  *__error() = v10;
+LABEL_33:
   objc_destroyWeak(&location);
   return v3;
 }
@@ -631,33 +750,45 @@ LABEL_24:
 {
   connectionCopy = connection;
   v4 = *__error();
-  if (sub_1000E95F0())
+  v5 = sub_1000E95F0();
+  if (v5)
   {
-    v5 = sub_1000E957C();
-    os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
-    *buf = 68157954;
-    v9 = 38;
-    v10 = 2080;
-    v11 = "[DIIOCacheDelete setupNewConnection:]";
-    v6 = _os_log_send_and_compose_impl();
-
-    if (v6)
+    v12 = 0;
+    v7 = sub_1000E957C(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      fprintf(__stderrp, "%s\n", v6);
-      free(v6);
+      v8 = 3;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+
+    *buf = 68157954;
+    v14 = 38;
+    v15 = 2080;
+    v16 = "[DIIOCacheDelete setupNewConnection:]";
+    LODWORD(v11) = 18;
+    v9 = _os_log_send_and_compose_impl(v8, &v12, 0, 0, &_mh_execute_header, v7, 16, "%.*s: Connection to cache delete instance is not allowed, quitting", buf, v11);
+
+    if (v9)
+    {
+      fprintf(__stderrp, "%s\n", v9);
+      free(v9);
     }
   }
 
   else
   {
-    v7 = sub_1000E957C();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v10 = sub_1000E957C(v5, v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 68157954;
-      v9 = 38;
-      v10 = 2080;
-      v11 = "[DIIOCacheDelete setupNewConnection:]";
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%.*s: Connection to cache delete instance is not allowed, quitting", buf, 0x12u);
+      v14 = 38;
+      v15 = 2080;
+      v16 = "[DIIOCacheDelete setupNewConnection:]";
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%.*s: Connection to cache delete instance is not allowed, quitting", buf, 0x12u);
     }
   }
 

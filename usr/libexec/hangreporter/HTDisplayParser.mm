@@ -13,70 +13,74 @@
 {
   infoCopy = info;
   v4 = objc_alloc_init(NSMutableArray);
-  if ([infoCopy count])
+  v5 = [infoCopy count];
+  if (v5)
   {
-    v6 = 0;
-    *&v5 = 134217984;
-    v13 = v5;
+    v7 = 0;
+    *&v6 = 134217984;
+    v14 = v6;
     do
     {
-      v7 = sub_100001684();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v8 = sub_100001684(v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        v9 = [infoCopy objectAtIndexedSubscript:v6];
-        unsignedLongLongValue = [v9 unsignedLongLongValue];
-        *buf = v13;
-        v15 = unsignedLongLongValue;
-        _os_log_debug_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "display event timestamp: %llu", buf, 0xCu);
+        v10 = [infoCopy objectAtIndexedSubscript:v7];
+        unsignedLongLongValue = [v10 unsignedLongLongValue];
+        *buf = v14;
+        v16 = unsignedLongLongValue;
+        _os_log_debug_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "display event timestamp: %llu", buf, 0xCu);
       }
 
-      v8 = [infoCopy objectAtIndexedSubscript:v6];
-      [v4 addObject:v8];
+      v9 = [infoCopy objectAtIndexedSubscript:v7];
+      [v4 addObject:v9];
 
-      v6 += 2;
+      v7 += 2;
+      v5 = [infoCopy count];
     }
 
-    while ([infoCopy count] > v6);
+    while (v5 > v7);
   }
 
-  v11 = [v4 copy];
+  v12 = [v4 copy];
 
-  return v11;
+  return v12;
 }
 
 + (id)displayEventStatesFromDisplayInfo:(id)info
 {
   infoCopy = info;
   v4 = objc_alloc_init(NSMutableArray);
-  if ([infoCopy count])
+  v5 = [infoCopy count];
+  if (v5)
   {
-    v6 = 1;
-    *&v5 = 134217984;
-    v13 = v5;
+    v7 = 1;
+    *&v6 = 134217984;
+    v14 = v6;
     do
     {
-      v7 = sub_100001684();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v8 = sub_100001684(v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        v9 = [infoCopy objectAtIndexedSubscript:v6];
-        unsignedLongLongValue = [v9 unsignedLongLongValue];
-        *buf = v13;
-        v15 = unsignedLongLongValue;
-        _os_log_debug_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "display event state: %llu", buf, 0xCu);
+        v10 = [infoCopy objectAtIndexedSubscript:v7];
+        unsignedLongLongValue = [v10 unsignedLongLongValue];
+        *buf = v14;
+        v16 = unsignedLongLongValue;
+        _os_log_debug_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "display event state: %llu", buf, 0xCu);
       }
 
-      v8 = [infoCopy objectAtIndexedSubscript:v6];
-      [v4 addObject:v8];
+      v9 = [infoCopy objectAtIndexedSubscript:v7];
+      [v4 addObject:v9];
 
-      v6 += 2;
+      v7 += 2;
+      v5 = [infoCopy count];
     }
 
-    while ([infoCopy count] >= v6);
+    while (v5 >= v7);
   }
 
-  v11 = [v4 copy];
+  v12 = [v4 copy];
 
-  return v11;
+  return v12;
 }
 
 + ($2825F4736939C4A6D3AD43837233062D)displayStateBeforeOrAtTime:(unint64_t)time timestamps:(id)timestamps states:(id)states
@@ -164,94 +168,95 @@
   timestampsCopy = timestamps;
   statesCopy = states;
   *state = [HTDisplayParser displayStateBeforeOrAtTime:timestamp timestamps:timestampsCopy states:statesCopy];
-  *endState = [HTDisplayParser displayStateBeforeOrAtTime:endTimestamp timestamps:timestampsCopy states:statesCopy];
-  v15 = sub_100001684();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
-  {
-    sub_10003F454(state);
-  }
-
-  v16 = sub_100001684();
+  v15 = [HTDisplayParser displayStateBeforeOrAtTime:endTimestamp timestamps:timestampsCopy states:statesCopy];
+  *endState = v15;
+  v16 = sub_100001684(*&v15);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    sub_10003F4CC(endState);
+    sub_10003F454();
+  }
+
+  v18 = sub_100001684(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  {
+    sub_10003F4CC();
   }
 
   if (state->var0 == -1)
   {
-    v17 = sub_100001684();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v20 = sub_100001684(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      sub_10003F544(v17);
+      sub_10003F544(v20);
     }
 
     state->var0 = 0;
   }
 
-  v35 = timestampsCopy;
-  v18 = [timestampsCopy mutableCopy];
-  v19 = [statesCopy mutableCopy];
-  v20 = [NSNumber numberWithUnsignedLongLong:timestamp];
-  [v18 setObject:v20 atIndexedSubscript:state->var0];
+  v38 = timestampsCopy;
+  v21 = [timestampsCopy mutableCopy];
+  v22 = [statesCopy mutableCopy];
+  v23 = [NSNumber numberWithUnsignedLongLong:timestamp];
+  [v21 setObject:v23 atIndexedSubscript:state->var0];
 
-  v21 = [NSNumber numberWithUnsignedLongLong:endTimestamp];
-  [v18 insertObject:v21 atIndex:endState->var0 + 1];
+  v24 = [NSNumber numberWithUnsignedLongLong:endTimestamp];
+  [v21 insertObject:v24 atIndex:endState->var0 + 1];
 
   var1 = endState->var1;
-  v23 = &off_10008AA50;
+  v26 = &off_10008AA50;
   if (!var1)
   {
-    v23 = &off_10008AA38;
+    v26 = &off_10008AA38;
   }
 
   if (var1 == 1)
   {
-    v24 = &off_10008AA20;
+    v27 = &off_10008AA20;
   }
 
   else
   {
-    v24 = v23;
+    v27 = v26;
   }
 
-  [v19 insertObject:v24 atIndex:endState->var0 + 1];
-  v25 = +[NSMutableArray array];
+  [v22 insertObject:v27 atIndex:endState->var0 + 1];
+  v28 = +[NSMutableArray array];
   var0 = state->var0;
   if (var0 <= endState->var0)
   {
     do
     {
-      v27 = [v19 objectAtIndexedSubscript:var0];
-      if ([v27 intValue] == 1)
+      v30 = [v22 objectAtIndexedSubscript:var0];
+      if ([v30 intValue] == 1)
       {
-        v28 = var0 + 1;
-        v29 = [v19 objectAtIndexedSubscript:var0 + 1];
-        intValue = [v29 intValue];
+        v31 = var0 + 1;
+        v32 = [v22 objectAtIndexedSubscript:var0 + 1];
+        intValue = [v32 intValue];
 
         if (!intValue)
         {
-          v31 = [v18 objectAtIndexedSubscript:var0];
-          [v25 addObject:v31];
+          v34 = [v21 objectAtIndexedSubscript:var0];
+          [v28 addObject:v34];
 
-          v32 = [v18 objectAtIndexedSubscript:var0 + 1];
-          [v25 addObject:v32];
+          v35 = [v21 objectAtIndexedSubscript:var0 + 1];
+          [v28 addObject:v35];
         }
       }
 
       else
       {
 
-        v28 = var0 + 1;
+        v31 = var0 + 1;
       }
 
-      v33 = var0 < endState->var0;
-      var0 = v28;
+      v36 = var0 < endState->var0;
+      var0 = v31;
     }
 
-    while (v33);
+    while (v36);
   }
 
-  return v25;
+  return v28;
 }
 
 + (id)displayInfoForSpindump:(id)spindump startAbsoluteTime:(unint64_t)time endAbsoluteTime:(unint64_t)absoluteTime
@@ -259,104 +264,106 @@
   v8 = [spindump objectForKeyedSubscript:@"DisplayData"];
   if ([v8 count])
   {
-    v42 = -1;
+    v49 = -1;
     *buf = -1;
     v9 = [self displayEventTimestampsFromDisplayInfo:v8];
     v10 = [self displayEventStatesFromDisplayInfo:v8];
     v11 = [HTDisplayParser displayStateBeforeHangStartTimestamp:time displayTimestamps:v9 displayStates:v10];
-    v12 = [HTDisplayParser displayOnIntervalsForDisplayTimestamps:v9 displayStates:v10 startTimestamp:time endTimestamp:absoluteTime startState:buf endState:&v42];
+    v12 = [HTDisplayParser displayOnIntervalsForDisplayTimestamps:v9 displayStates:v10 startTimestamp:time endTimestamp:absoluteTime startState:buf endState:&v49];
     v13 = [v12 mutableCopy];
-    v14 = sub_10000B548(time);
-    v15 = sub_10000B548(absoluteTime);
+    v15 = sub_10000B548(time, v14);
+    v17 = sub_10000B548(absoluteTime, v16);
     if ([v12 count])
     {
-      v16 = v15 - v14;
-      v17 = [v12 count];
-      v18 = 0.0;
-      if (v17 != 1)
+      v18 = v17 - v15;
+      v19 = [v12 count];
+      v20 = 0.0;
+      if (v19 != 1)
       {
-        v38 = v15 - v14;
-        v39 = v11;
-        v40 = v10;
-        v41 = v9;
-        v19 = 0;
-        v20 = 0;
-        v21 = v14;
+        v45 = v17 - v15;
+        v46 = v11;
+        v47 = v10;
+        v48 = v9;
+        v21 = 0;
+        v22 = 0;
+        v23 = v15;
         do
         {
-          v22 = [v13 objectAtIndexedSubscript:{v19, v18}];
-          v23 = (sub_10000B548([v22 unsignedLongLongValue]) - v21);
+          v24 = [v13 objectAtIndexedSubscript:{v21, v20}];
+          unsignedLongLongValue = [v24 unsignedLongLongValue];
+          v27 = (sub_10000B548(unsignedLongLongValue, v26) - v23);
 
-          v24 = [v13 objectAtIndexedSubscript:v19 + 1];
-          v25 = (sub_10000B548([v24 unsignedLongLongValue]) - v21);
+          v28 = [v13 objectAtIndexedSubscript:v21 + 1];
+          unsignedLongLongValue2 = [v28 unsignedLongLongValue];
+          v31 = (sub_10000B548(unsignedLongLongValue2, v30) - v23);
 
-          v26 = [NSNumber numberWithUnsignedLongLong:v23];
-          [v13 setObject:v26 atIndexedSubscript:v19];
+          v32 = [NSNumber numberWithUnsignedLongLong:v27];
+          [v13 setObject:v32 atIndexedSubscript:v21];
 
-          v27 = [NSNumber numberWithUnsignedLongLong:v25];
-          [v13 setObject:v27 atIndexedSubscript:v19 + 1];
+          v33 = [NSNumber numberWithUnsignedLongLong:v31];
+          [v13 setObject:v33 atIndexedSubscript:v21 + 1];
 
-          v20 = v20 - v23 + v25;
-          v19 += 2;
+          v22 = v22 - v27 + v31;
+          v21 += 2;
         }
 
-        while ([v12 count] - 1 > v19);
-        *&v18 = v20;
-        v10 = v40;
-        v9 = v41;
-        v16 = v38;
-        v11 = v39;
+        while ([v12 count] - 1 > v21);
+        *&v20 = v22;
+        v10 = v47;
+        v9 = v48;
+        v18 = v45;
+        v11 = v46;
       }
 
-      v28 = *&v18 / v16;
+      v34 = *&v20 / v18;
     }
 
     else
     {
-      v28 = 0.0;
+      v34 = 0.0;
     }
 
-    v31 = objc_alloc_init(NSMutableDictionary);
-    v32 = [NSNumber numberWithInt:*&buf[4]];
-    [v31 setObject:v32 forKeyedSubscript:@"startState"];
+    v37 = objc_alloc_init(NSMutableDictionary);
+    v38 = [NSNumber numberWithInt:*&buf[4]];
+    [v37 setObject:v38 forKeyedSubscript:@"startState"];
 
-    v33 = [NSNumber numberWithInt:HIDWORD(v42)];
-    [v31 setObject:v33 forKeyedSubscript:@"endState"];
+    v39 = [NSNumber numberWithInt:HIDWORD(v49)];
+    [v37 setObject:v39 forKeyedSubscript:@"endState"];
 
-    [v31 setObject:v13 forKeyedSubscript:@"displayOnIntervals"];
+    [v37 setObject:v13 forKeyedSubscript:@"displayOnIntervals"];
     if (v11)
     {
-      v34 = [NSNumber numberWithDouble:sub_10000B590(time - v11)];
-      [v31 setObject:v34 forKeyedSubscript:@"secondsSinceDisplayStateBeforeHangStart"];
+      v41 = [NSNumber numberWithDouble:sub_10000B590(time - v11, v40)];
+      [v37 setObject:v41 forKeyedSubscript:@"secondsSinceDisplayStateBeforeHangStart"];
     }
 
     else
     {
-      [v31 setObject:&off_10008AAA8 forKeyedSubscript:@"secondsSinceDisplayStateBeforeHangStart"];
+      [v37 setObject:&off_10008AAA8 forKeyedSubscript:@"secondsSinceDisplayStateBeforeHangStart"];
     }
 
-    *&v35 = v28;
-    v36 = [NSNumber numberWithFloat:v35];
-    [v31 setObject:v36 forKeyedSubscript:@"displayOnPercent"];
+    *&v42 = v34;
+    v43 = [NSNumber numberWithFloat:v42];
+    [v37 setObject:v43 forKeyedSubscript:@"displayOnPercent"];
 
-    v44 = @"displayData";
-    v45 = v31;
-    v30 = [NSDictionary dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+    v51 = @"displayData";
+    v52 = v37;
+    v36 = [NSDictionary dictionaryWithObjects:&v52 forKeys:&v51 count:1];
   }
 
   else
   {
-    v29 = sub_100001684();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+    v35 = sub_100001684(0);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "No display information has been logged. Are you sure you restarted after writing to defaults?", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_INFO, "No display information has been logged. Are you sure you restarted after writing to defaults?", buf, 2u);
     }
 
-    v30 = &__NSDictionary0__struct;
+    v36 = &__NSDictionary0__struct;
   }
 
-  return v30;
+  return v36;
 }
 
 @end

@@ -17,7 +17,7 @@
 
   [*(&selfCopy->super.isa + OBJC_IVAR____TtC12PhotosUICore35MacSyncedAlbumsAvailabilityObserver__refreshCoalescer) unregisterObserver_];
   v5.receiver = selfCopy;
-  v5.super_class = type metadata accessor for MacSyncedAlbumsAvailabilityObserver();
+  v5.super_class = type metadata accessor for MacSyncedAlbumsAvailabilityObserver(0);
   [(MacSyncedAlbumsAvailabilityObserver *)&v5 dealloc];
 }
 

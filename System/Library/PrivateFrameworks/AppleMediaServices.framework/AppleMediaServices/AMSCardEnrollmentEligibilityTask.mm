@@ -737,14 +737,14 @@ id __66__AMSCardEnrollmentEligibilityTask__checkForCombinediTunesAccount__block_
   return v8;
 }
 
-id __66__AMSCardEnrollmentEligibilityTask__checkForCombinediTunesAccount__block_invoke_57(uint64_t a1, void *a2, void *a3)
+id __66__AMSCardEnrollmentEligibilityTask__checkForCombinediTunesAccount__block_invoke_57(id *a1, void *a2, void *a3)
 {
   v34 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
   {
-    v7 = [*(a1 + 40) ams_DSID];
+    v7 = [a1[5] ams_DSID];
     if (v7)
     {
       v8 = v7;
@@ -752,13 +752,13 @@ id __66__AMSCardEnrollmentEligibilityTask__checkForCombinediTunesAccount__block_
       if (v9)
       {
         v10 = v9;
-        v11 = [*(a1 + 40) ams_DSID];
+        v11 = [a1[5] ams_DSID];
         v12 = [v5 ams_DSID];
         v13 = [v11 isEqual:v12];
 
         if (v13)
         {
-          v14 = [[AMSPair alloc] initWithFirst:*(a1 + 40) second:v5];
+          v14 = [[AMSPair alloc] initWithFirst:a1[5] second:v5];
           v15 = [AMSPromise promiseWithResult:v14];
 
           goto LABEL_28;
@@ -868,7 +868,7 @@ LABEL_28:
   return v6;
 }
 
-id __71__AMSCardEnrollmentEligibilityTask__checkThatSilentEnrollmentIsEnabled__block_invoke(uint64_t a1, void *a2, void *a3)
+id __71__AMSCardEnrollmentEligibilityTask__checkThatSilentEnrollmentIsEnabled__block_invoke(void *a1, void *a2, void *a3)
 {
   v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -1096,7 +1096,7 @@ id __106__AMSCardEnrollmentEligibilityTask__createEligibilityRequestWithBag_iTun
   return v18;
 }
 
-id __106__AMSCardEnrollmentEligibilityTask__createEligibilityRequestWithBag_iTunesAccount_iCloudAccount_cardType___block_invoke_75(uint64_t a1, void *a2)
+id __106__AMSCardEnrollmentEligibilityTask__createEligibilityRequestWithBag_iTunesAccount_iCloudAccount_cardType___block_invoke_75(void *a1, void *a2)
 {
   v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -1175,7 +1175,7 @@ id __106__AMSCardEnrollmentEligibilityTask__createEligibilityRequestWithBag_iTun
   return v16;
 }
 
-id __77__AMSCardEnrollmentEligibilityTask__performSilentEnrollmentCheckWithRequest___block_invoke(uint64_t a1, void *a2)
+id __77__AMSCardEnrollmentEligibilityTask__performSilentEnrollmentCheckWithRequest___block_invoke(void *a1, void *a2)
 {
   v29 = *MEMORY[0x1E69E9840];
   v3 = [a2 object];

@@ -180,7 +180,7 @@ LABEL_6:
   dispatch_async(stateQueue, v3);
 }
 
-uint64_t __36__VCTransportSessionMultiLink_start__block_invoke(uint64_t a1)
+void *__36__VCTransportSessionMultiLink_start__block_invoke(uint64_t a1)
 {
   v35 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
@@ -648,13 +648,14 @@ LABEL_25:
 - (int)updateTransportStreamRemoteSSRCList:(OpaqueVCTransportStream *)list shouldAddRemoteSSRC:(BOOL)c remoteEndpointSSRC:(int)rC
 {
   cCopy = c;
-  v39 = *MEMORY[0x1E69E9840];
-  v24 = 0;
-  CMBaseObject = VCPacketFilterGetCMBaseObject(list, a2);
-  v10 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (!v10)
+  v40 = *MEMORY[0x1E69E9840];
+  v25 = 0;
+  VCPacketFilterGetCMBaseObject();
+  v10 = v9;
+  v11 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (!v11)
   {
-    v11 = -12782;
+    v12 = -12782;
 LABEL_9:
     if (objc_opt_class() == self)
     {
@@ -663,38 +664,38 @@ LABEL_9:
         goto LABEL_18;
       }
 
-      v14 = VRTraceErrorLogLevelToCSTR();
-      v15 = *MEMORY[0x1E6986650];
+      v15 = VRTraceErrorLogLevelToCSTR();
+      v16 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
       {
         goto LABEL_18;
       }
 
       *buf = 136316162;
-      v26 = v14;
-      v27 = 2080;
-      v28 = "[VCTransportSessionMultiLink updateTransportStreamRemoteSSRCList:shouldAddRemoteSSRC:remoteEndpointSSRC:]";
-      v29 = 1024;
-      v30 = 234;
-      v31 = 2112;
-      v32 = @"UnderlyingVFD";
-      v33 = 2112;
+      v27 = v15;
+      v28 = 2080;
+      v29 = "[VCTransportSessionMultiLink updateTransportStreamRemoteSSRCList:shouldAddRemoteSSRC:remoteEndpointSSRC:]";
+      v30 = 1024;
+      v31 = 234;
+      v32 = 2112;
+      v33 = @"UnderlyingVFD";
+      v34 = 2112;
       selfCopy2 = list;
-      v16 = " [%s] %s:%d Could not get property '%@' for transport stream '%@'";
-      v17 = v15;
-      v18 = 48;
+      v17 = " [%s] %s:%d Could not get property '%@' for transport stream '%@'";
+      v18 = v16;
+      v19 = 48;
     }
 
     else
     {
       if (objc_opt_respondsToSelector())
       {
-        v13 = [(VCTransportSessionMultiLink *)self performSelector:sel_logPrefix];
+        v14 = [(VCTransportSessionMultiLink *)self performSelector:sel_logPrefix];
       }
 
       else
       {
-        v13 = &stru_1F570E008;
+        v14 = &stru_1F570E008;
       }
 
       if (VRTraceGetErrorLogLevelForModule() < 3)
@@ -702,53 +703,53 @@ LABEL_9:
         goto LABEL_18;
       }
 
-      v19 = VRTraceErrorLogLevelToCSTR();
-      v20 = *MEMORY[0x1E6986650];
+      v20 = VRTraceErrorLogLevelToCSTR();
+      v21 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
       {
         goto LABEL_18;
       }
 
       *buf = 136316674;
-      v26 = v19;
-      v27 = 2080;
-      v28 = "[VCTransportSessionMultiLink updateTransportStreamRemoteSSRCList:shouldAddRemoteSSRC:remoteEndpointSSRC:]";
-      v29 = 1024;
-      v30 = 234;
-      v31 = 2112;
-      v32 = v13;
-      v33 = 2048;
+      v27 = v20;
+      v28 = 2080;
+      v29 = "[VCTransportSessionMultiLink updateTransportStreamRemoteSSRCList:shouldAddRemoteSSRC:remoteEndpointSSRC:]";
+      v30 = 1024;
+      v31 = 234;
+      v32 = 2112;
+      v33 = v14;
+      v34 = 2048;
       selfCopy2 = self;
-      v35 = 2112;
-      v36 = @"UnderlyingVFD";
-      v37 = 2112;
+      v36 = 2112;
+      v37 = @"UnderlyingVFD";
+      v38 = 2112;
       listCopy2 = list;
-      v16 = " [%s] %s:%d %@(%p) Could not get property '%@' for transport stream '%@'";
-      v17 = v20;
-      v18 = 68;
+      v17 = " [%s] %s:%d %@(%p) Could not get property '%@' for transport stream '%@'";
+      v18 = v21;
+      v19 = 68;
     }
 
 LABEL_20:
-    _os_log_error_impl(&dword_1DB56E000, v17, OS_LOG_TYPE_ERROR, v16, buf, v18);
+    _os_log_error_impl(&dword_1DB56E000, v18, OS_LOG_TYPE_ERROR, v17, buf, v19);
     goto LABEL_18;
   }
 
-  v11 = v10(CMBaseObject, @"UnderlyingVFD", *MEMORY[0x1E695E480], &v24);
-  if ((v11 & 0x80000000) != 0)
+  v12 = v11(v10, @"UnderlyingVFD", *MEMORY[0x1E695E480], &v25);
+  if ((v12 & 0x80000000) != 0)
   {
     goto LABEL_9;
   }
 
-  if (!v24)
+  if (!v25)
   {
     [VCTransportSessionMultiLink updateTransportStreamRemoteSSRCList:shouldAddRemoteSSRC:remoteEndpointSSRC:];
-    v11 = *buf;
+    v12 = *buf;
     goto LABEL_18;
   }
 
-  if (!VTP_UpdateRemoteSSRCList([v24 intValue], rC, cCopy))
+  if (!VTP_UpdateRemoteSSRCList([v25 intValue], rC, cCopy))
   {
-    v11 = *__error() | 0xC02B0000;
+    v12 = *__error() | 0xC02B0000;
     if (objc_opt_class() == self)
     {
       if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -765,35 +766,35 @@ LABEL_20:
     {
       if (objc_opt_respondsToSelector())
       {
-        v12 = [(VCTransportSessionMultiLink *)self performSelector:sel_logPrefix];
+        v13 = [(VCTransportSessionMultiLink *)self performSelector:sel_logPrefix];
       }
 
       else
       {
-        v12 = &stru_1F570E008;
+        v13 = &stru_1F570E008;
       }
 
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
-        v22 = VRTraceErrorLogLevelToCSTR();
-        v23 = *MEMORY[0x1E6986650];
+        v23 = VRTraceErrorLogLevelToCSTR();
+        v24 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
         {
           *buf = 136316418;
-          v26 = v22;
-          v27 = 2080;
-          v28 = "[VCTransportSessionMultiLink updateTransportStreamRemoteSSRCList:shouldAddRemoteSSRC:remoteEndpointSSRC:]";
-          v29 = 1024;
-          v30 = 239;
-          v31 = 2112;
-          v32 = v12;
-          v33 = 2048;
+          v27 = v23;
+          v28 = 2080;
+          v29 = "[VCTransportSessionMultiLink updateTransportStreamRemoteSSRCList:shouldAddRemoteSSRC:remoteEndpointSSRC:]";
+          v30 = 1024;
+          v31 = 239;
+          v32 = 2112;
+          v33 = v13;
+          v34 = 2048;
           selfCopy2 = self;
-          v35 = 1024;
-          LODWORD(v36) = v11;
-          v16 = " [%s] %s:%d %@(%p) VTP_UpdateRemoteSSRCList failed %x";
-          v17 = v23;
-          v18 = 54;
+          v36 = 1024;
+          LODWORD(v37) = v12;
+          v17 = " [%s] %s:%d %@(%p) VTP_UpdateRemoteSSRCList failed %x";
+          v18 = v24;
+          v19 = 54;
           goto LABEL_20;
         }
       }
@@ -802,7 +803,7 @@ LABEL_20:
 
 LABEL_18:
 
-  return v11;
+  return v12;
 }
 
 - (int)updateTransportStream:(OpaqueVCTransportStream *)stream
@@ -810,7 +811,8 @@ LABEL_18:
   v38 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->super._stateQueue);
   v23 = 0;
-  CMBaseObject = VCPacketFilterGetCMBaseObject(stream, v5);
+  VCPacketFilterGetCMBaseObject();
+  v6 = v5;
   v7 = *(*(CMBaseObjectGetVTable() + 8) + 48);
   if (!v7)
   {
@@ -893,7 +895,7 @@ LABEL_18:
     goto LABEL_16;
   }
 
-  v8 = v7(CMBaseObject, @"UnderlyingVFD", *MEMORY[0x1E695E480], &v23);
+  v8 = v7(v6, @"UnderlyingVFD", *MEMORY[0x1E695E480], &v23);
   if ((v8 & 0x80000000) != 0)
   {
     goto LABEL_7;
@@ -1030,7 +1032,7 @@ LABEL_16:
   return v5;
 }
 
-uint64_t __56__VCTransportSessionMultiLink_setRemoteEndpoints_error___block_invoke(uint64_t a1)
+void *__56__VCTransportSessionMultiLink_setRemoteEndpoints_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dispatchedSetRemoteEndpoints:*(a1 + 40) error:*(a1 + 56)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -1398,9 +1400,10 @@ LABEL_15:
   {
     v11 = [(NSMutableArray *)self->super._streams objectAtIndexedSubscript:v8];
     v25 = 0;
-    CMBaseObject = VCPacketFilterGetCMBaseObject(v11, v12);
+    VCPacketFilterGetCMBaseObject();
+    v13 = v12;
     v14 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-    if (!v14 || (v14(CMBaseObject, @"TransportStreamIndex", v9, &v25) & 0x80000000) != 0)
+    if (!v14 || (v14(v13, @"TransportStreamIndex", v9, &v25) & 0x80000000) != 0)
     {
       break;
     }
@@ -1698,7 +1701,7 @@ LABEL_33:
     }
 
 LABEL_34:
-    [GKVoiceChatError getNSError:error code:32002 detailedCode:v10 filePath:0 description:@"Add remote endpoint failed" reason:@"Failed to schedule receives for NWConnection", *v32, *&v32[16], v33, selfCopy4, v35];
+    [GKVoiceChatError getNSError:error code:32002 detailedCode:v10 filePath:0 description:@"Add remote endpoint failed" reason:@"Failed to schedule receives for NWConnection", *v32, *&v32[8], v33, selfCopy4, v35];
     goto LABEL_20;
   }
 
@@ -1794,7 +1797,7 @@ LABEL_20:
   return v5;
 }
 
-uint64_t __58__VCTransportSessionMultiLink_removeRemoteEndpoint_error___block_invoke(uint64_t a1)
+void *__58__VCTransportSessionMultiLink_removeRemoteEndpoint_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dispatchedRemoveRemoteEndpoint:*(a1 + 40) error:*(a1 + 56)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -2425,7 +2428,7 @@ void __61__VCTransportSessionMultiLink_createNWParametersAndListener___block_inv
 
 - (int)updateLocalEndpoint
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   address = nw_endpoint_get_address(self->_localEndpoint);
   if (!address)
   {
@@ -2434,10 +2437,10 @@ void __61__VCTransportSessionMultiLink_createNWParametersAndListener___block_inv
       v9 = -2144665599;
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
-        VRTraceErrorLogLevelToCSTR();
+        v14 = VRTraceErrorLogLevelToCSTR();
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
         {
-          [VCTransportSessionMultiLink updateLocalEndpoint];
+          [(VCTransportSessionMultiLink *)v14 updateLocalEndpoint];
         }
       }
 
@@ -2460,28 +2463,28 @@ void __61__VCTransportSessionMultiLink_createNWParametersAndListener___block_inv
       goto LABEL_31;
     }
 
-    v14 = VRTraceErrorLogLevelToCSTR();
-    v15 = *MEMORY[0x1E6986650];
+    v15 = VRTraceErrorLogLevelToCSTR();
+    v16 = *MEMORY[0x1E6986650];
     if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
       goto LABEL_31;
     }
 
-    v23 = 136316418;
-    v24 = v14;
-    v25 = 2080;
-    v26 = "[VCTransportSessionMultiLink updateLocalEndpoint]";
-    v27 = 1024;
-    v28 = 546;
-    v29 = 2112;
-    v30 = v11;
-    v31 = 2048;
+    v24 = 136316418;
+    v25 = v15;
+    v26 = 2080;
+    v27 = "[VCTransportSessionMultiLink updateLocalEndpoint]";
+    v28 = 1024;
+    v29 = 546;
+    v30 = 2112;
+    v31 = v11;
+    v32 = 2048;
     selfCopy3 = self;
-    v33 = 2080;
+    v34 = 2080;
     description = nw_endpoint_get_description();
-    v16 = " [%s] %s:%d %@(%p) Endpoint=%s is not of type of nw_endpoint_type_address";
-    v17 = v15;
-    v18 = 58;
+    v17 = " [%s] %s:%d %@(%p) Endpoint=%s is not of type of nw_endpoint_type_address";
+    v18 = v16;
+    v19 = 58;
     goto LABEL_37;
   }
 
@@ -2515,28 +2518,28 @@ void __61__VCTransportSessionMultiLink_createNWParametersAndListener___block_inv
     }
 
     v9 = -2144665596;
-    if (VRTraceGetErrorLogLevelForModule() < 3 || (v19 = VRTraceErrorLogLevelToCSTR(), v20 = *MEMORY[0x1E6986650], !os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR)))
+    if (VRTraceGetErrorLogLevelForModule() < 3 || (v20 = VRTraceErrorLogLevelToCSTR(), v21 = *MEMORY[0x1E6986650], !os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR)))
     {
 LABEL_31:
       v6 = 0;
       goto LABEL_5;
     }
 
-    v23 = 136316162;
-    v24 = v19;
-    v25 = 2080;
-    v26 = "[VCTransportSessionMultiLink updateLocalEndpoint]";
-    v27 = 1024;
-    v28 = 548;
-    v29 = 2112;
-    v30 = v12;
-    v31 = 2048;
+    v24 = 136316162;
+    v25 = v20;
+    v26 = 2080;
+    v27 = "[VCTransportSessionMultiLink updateLocalEndpoint]";
+    v28 = 1024;
+    v29 = 548;
+    v30 = 2112;
+    v31 = v12;
+    v32 = 2048;
     selfCopy3 = self;
-    v16 = " [%s] %s:%d %@(%p) Failed to retrieve interface";
-    v17 = v20;
-    v18 = 48;
+    v17 = " [%s] %s:%d %@(%p) Failed to retrieve interface";
+    v18 = v21;
+    v19 = 48;
 LABEL_37:
-    _os_log_error_impl(&dword_1DB56E000, v17, OS_LOG_TYPE_ERROR, v16, &v23, v18);
+    _os_log_error_impl(&dword_1DB56E000, v18, OS_LOG_TYPE_ERROR, v17, &v24, v19);
     goto LABEL_31;
   }
 
@@ -2581,21 +2584,21 @@ LABEL_37:
     v9 = -2144665596;
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
-      v21 = VRTraceErrorLogLevelToCSTR();
-      v22 = *MEMORY[0x1E6986650];
+      v22 = VRTraceErrorLogLevelToCSTR();
+      v23 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
       {
-        v23 = 136316162;
-        v24 = v21;
-        v25 = 2080;
-        v26 = "[VCTransportSessionMultiLink updateLocalEndpoint]";
-        v27 = 1024;
-        v28 = 559;
-        v29 = 2112;
-        v30 = v13;
-        v31 = 2048;
+        v24 = 136316162;
+        v25 = v22;
+        v26 = 2080;
+        v27 = "[VCTransportSessionMultiLink updateLocalEndpoint]";
+        v28 = 1024;
+        v29 = 559;
+        v30 = 2112;
+        v31 = v13;
+        v32 = 2048;
         selfCopy3 = self;
-        _os_log_error_impl(&dword_1DB56E000, v22, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) Could not create updated local endpoint", &v23, 0x30u);
+        _os_log_error_impl(&dword_1DB56E000, v23, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) Could not create updated local endpoint", &v24, 0x30u);
       }
     }
   }
@@ -2608,7 +2611,7 @@ LABEL_5:
 
 - (int)createAndStartNWListener:(id)listener useBackingSocket:(BOOL)socket error:(id *)error
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   if (!listener)
   {
     if (objc_opt_class() == self)
@@ -2642,27 +2645,27 @@ LABEL_5:
       goto LABEL_61;
     }
 
-    v25 = VRTraceErrorLogLevelToCSTR();
-    v26 = *MEMORY[0x1E6986650];
+    v26 = VRTraceErrorLogLevelToCSTR();
+    v27 = *MEMORY[0x1E6986650];
     if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
       goto LABEL_61;
     }
 
     *buf = 136316162;
-    *&buf[4] = v25;
+    *&buf[4] = v26;
     *&buf[12] = 2080;
     *&buf[14] = "[VCTransportSessionMultiLink createAndStartNWListener:useBackingSocket:error:]";
     *&buf[22] = 1024;
-    LODWORD(v40) = 584;
-    WORD2(v40) = 2112;
-    *(&v40 + 6) = v18;
-    HIWORD(v40) = 2048;
+    LODWORD(v41) = 584;
+    WORD2(v41) = 2112;
+    *(&v41 + 6) = v18;
+    HIWORD(v41) = 2048;
     selfCopy7 = self;
-    v27 = " [%s] %s:%d %@(%p) Local NW Endpoint is nil";
+    v28 = " [%s] %s:%d %@(%p) Local NW Endpoint is nil";
 LABEL_84:
-    v30 = v26;
-    v31 = 48;
+    v31 = v27;
+    v32 = 48;
     goto LABEL_85;
   }
 
@@ -2675,10 +2678,10 @@ LABEL_84:
       v16 = -2144665599;
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
-        VRTraceErrorLogLevelToCSTR();
+        v25 = VRTraceErrorLogLevelToCSTR();
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
         {
-          [VCTransportSessionMultiLink createAndStartNWListener:useBackingSocket:error:];
+          [VCTransportSessionMultiLink createAndStartNWListener:v25 useBackingSocket:listener error:?];
         }
       }
 
@@ -2701,30 +2704,30 @@ LABEL_84:
       goto LABEL_61;
     }
 
-    v28 = VRTraceErrorLogLevelToCSTR();
-    v29 = *MEMORY[0x1E6986650];
+    v29 = VRTraceErrorLogLevelToCSTR();
+    v30 = *MEMORY[0x1E6986650];
     if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
       goto LABEL_61;
     }
 
     *buf = 136316418;
-    *&buf[4] = v28;
+    *&buf[4] = v29;
     *&buf[12] = 2080;
     *&buf[14] = "[VCTransportSessionMultiLink createAndStartNWListener:useBackingSocket:error:]";
     *&buf[22] = 1024;
-    LODWORD(v40) = 588;
-    WORD2(v40) = 2112;
-    *(&v40 + 6) = v19;
-    HIWORD(v40) = 2048;
+    LODWORD(v41) = 588;
+    WORD2(v41) = 2112;
+    *(&v41 + 6) = v19;
+    HIWORD(v41) = 2048;
     selfCopy7 = self;
-    LOWORD(v42) = 2080;
-    *(&v42 + 2) = nw_endpoint_get_description();
-    v27 = " [%s] %s:%d %@(%p) Client-provided endpoint=%s is not of type of nw_endpoint_type_address";
-    v30 = v29;
-    v31 = 58;
+    LOWORD(v43) = 2080;
+    *(&v43 + 2) = nw_endpoint_get_description();
+    v28 = " [%s] %s:%d %@(%p) Client-provided endpoint=%s is not of type of nw_endpoint_type_address";
+    v31 = v30;
+    v32 = 58;
 LABEL_85:
-    _os_log_error_impl(&dword_1DB56E000, v30, OS_LOG_TYPE_ERROR, v27, buf, v31);
+    _os_log_error_impl(&dword_1DB56E000, v31, OS_LOG_TYPE_ERROR, v28, buf, v32);
     goto LABEL_61;
   }
 
@@ -2759,7 +2762,7 @@ LABEL_85:
     }
 
     v16 = -2144665596;
-    if (VRTraceGetErrorLogLevelForModule() < 3 || (v32 = VRTraceErrorLogLevelToCSTR(), v26 = *MEMORY[0x1E6986650], !os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR)))
+    if (VRTraceGetErrorLogLevelForModule() < 3 || (v33 = VRTraceErrorLogLevelToCSTR(), v27 = *MEMORY[0x1E6986650], !os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR)))
     {
 LABEL_61:
       v13 = 0;
@@ -2767,16 +2770,16 @@ LABEL_61:
     }
 
     *buf = 136316162;
-    *&buf[4] = v32;
+    *&buf[4] = v33;
     *&buf[12] = 2080;
     *&buf[14] = "[VCTransportSessionMultiLink createAndStartNWListener:useBackingSocket:error:]";
     *&buf[22] = 1024;
-    LODWORD(v40) = 593;
-    WORD2(v40) = 2112;
-    *(&v40 + 6) = v20;
-    HIWORD(v40) = 2048;
+    LODWORD(v41) = 593;
+    WORD2(v41) = 2112;
+    *(&v41 + 6) = v20;
+    HIWORD(v41) = 2048;
     selfCopy7 = self;
-    v27 = " [%s] %s:%d %@(%p) Failed to retrieve client-provided interface";
+    v28 = " [%s] %s:%d %@(%p) Failed to retrieve client-provided interface";
     goto LABEL_84;
   }
 
@@ -2816,24 +2819,24 @@ LABEL_61:
       goto LABEL_62;
     }
 
-    v33 = VRTraceErrorLogLevelToCSTR();
-    v34 = *MEMORY[0x1E6986650];
+    v34 = VRTraceErrorLogLevelToCSTR();
+    v35 = *MEMORY[0x1E6986650];
     if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
       goto LABEL_62;
     }
 
     *buf = 136316162;
-    *&buf[4] = v33;
+    *&buf[4] = v34;
     *&buf[12] = 2080;
     *&buf[14] = "[VCTransportSessionMultiLink createAndStartNWListener:useBackingSocket:error:]";
     *&buf[22] = 1024;
-    LODWORD(v40) = 596;
-    WORD2(v40) = 2112;
-    *(&v40 + 6) = v21;
-    HIWORD(v40) = 2048;
+    LODWORD(v41) = 596;
+    WORD2(v41) = 2112;
+    *(&v41 + 6) = v21;
+    HIWORD(v41) = 2048;
     selfCopy7 = self;
-    v35 = " [%s] %s:%d %@(%p) Could not create local endpoint";
+    v36 = " [%s] %s:%d %@(%p) Could not create local endpoint";
     goto LABEL_82;
   }
 
@@ -2870,24 +2873,24 @@ LABEL_61:
       goto LABEL_62;
     }
 
-    v36 = VRTraceErrorLogLevelToCSTR();
-    v34 = *MEMORY[0x1E6986650];
+    v37 = VRTraceErrorLogLevelToCSTR();
+    v35 = *MEMORY[0x1E6986650];
     if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
       goto LABEL_62;
     }
 
     *buf = 136316162;
-    *&buf[4] = v36;
+    *&buf[4] = v37;
     *&buf[12] = 2080;
     *&buf[14] = "[VCTransportSessionMultiLink createAndStartNWListener:useBackingSocket:error:]";
     *&buf[22] = 1024;
-    LODWORD(v40) = 600;
-    WORD2(v40) = 2112;
-    *(&v40 + 6) = v22;
-    HIWORD(v40) = 2048;
+    LODWORD(v41) = 600;
+    WORD2(v41) = 2112;
+    *(&v41 + 6) = v22;
+    HIWORD(v41) = 2048;
     selfCopy7 = self;
-    v35 = " [%s] %s:%d %@(%p) Failed to create the NW Parameters and Listener";
+    v36 = " [%s] %s:%d %@(%p) Failed to create the NW Parameters and Listener";
     goto LABEL_82;
   }
 
@@ -2924,26 +2927,26 @@ LABEL_61:
       goto LABEL_62;
     }
 
-    v37 = VRTraceErrorLogLevelToCSTR();
-    v34 = *MEMORY[0x1E6986650];
+    v38 = VRTraceErrorLogLevelToCSTR();
+    v35 = *MEMORY[0x1E6986650];
     if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
       goto LABEL_62;
     }
 
     *buf = 136316162;
-    *&buf[4] = v37;
+    *&buf[4] = v38;
     *&buf[12] = 2080;
     *&buf[14] = "[VCTransportSessionMultiLink createAndStartNWListener:useBackingSocket:error:]";
     *&buf[22] = 1024;
-    LODWORD(v40) = 603;
-    WORD2(v40) = 2112;
-    *(&v40 + 6) = v23;
-    HIWORD(v40) = 2048;
+    LODWORD(v41) = 603;
+    WORD2(v41) = 2112;
+    *(&v41 + 6) = v23;
+    HIWORD(v41) = 2048;
     selfCopy7 = self;
-    v35 = " [%s] %s:%d %@(%p) Failed to resolve the local port";
+    v36 = " [%s] %s:%d %@(%p) Failed to resolve the local port";
 LABEL_82:
-    _os_log_error_impl(&dword_1DB56E000, v34, OS_LOG_TYPE_ERROR, v35, buf, 0x30u);
+    _os_log_error_impl(&dword_1DB56E000, v35, OS_LOG_TYPE_ERROR, v36, buf, 0x30u);
     goto LABEL_62;
   }
 
@@ -2979,27 +2982,27 @@ LABEL_82:
 
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
-        v38 = VRTraceErrorLogLevelToCSTR();
-        v34 = *MEMORY[0x1E6986650];
+        v39 = VRTraceErrorLogLevelToCSTR();
+        v35 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
         {
           *buf = 136316162;
-          *&buf[4] = v38;
+          *&buf[4] = v39;
           *&buf[12] = 2080;
           *&buf[14] = "[VCTransportSessionMultiLink createAndStartNWListener:useBackingSocket:error:]";
           *&buf[22] = 1024;
-          LODWORD(v40) = 610;
-          WORD2(v40) = 2112;
-          *(&v40 + 6) = v24;
-          HIWORD(v40) = 2048;
+          LODWORD(v41) = 610;
+          WORD2(v41) = 2112;
+          *(&v41 + 6) = v24;
+          HIWORD(v41) = 2048;
           selfCopy7 = self;
-          v35 = " [%s] %s:%d %@(%p) Failed to update local endpoint";
+          v36 = " [%s] %s:%d %@(%p) Failed to update local endpoint";
           goto LABEL_82;
         }
       }
 
 LABEL_62:
-      +[GKVoiceChatError getNSError:code:detailedCode:filePath:description:reason:](GKVoiceChatError, "getNSError:code:detailedCode:filePath:description:reason:", error, 32016, 120, [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCTransportSessionMultiLink.m", 624, *buf, *&buf[16], v40, selfCopy7, v42], @"Internal error", @"Internal error while creating NW Listener and reserving local port");
+      +[GKVoiceChatError getNSError:code:detailedCode:filePath:description:reason:](GKVoiceChatError, "getNSError:code:detailedCode:filePath:description:reason:", error, 32016, 120, [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d", "/Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCTransportSessionMultiLink.m", 624, *buf, *&buf[8], v41, selfCopy7, v43], @"Internal error", @"Internal error while creating NW Listener and reserving local port");
       goto LABEL_10;
     }
   }
@@ -3326,7 +3329,7 @@ LABEL_13:
   clientAuditToken = self->_clientAuditToken;
   if (clientAuditToken)
   {
-    [(AVCAuditToken *)clientAuditToken token];
+    objc_msgSend_token(clientAuditToken);
   }
 
   else
@@ -5012,7 +5015,7 @@ LABEL_9:
 {
   OUTLINED_FUNCTION_40_0();
   OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_25_12() == v0)
+  if (OUTLINED_FUNCTION_25_12(v1) == v0)
   {
     if (VRTraceGetErrorLogLevelForModule() < 3)
     {
@@ -5029,7 +5032,7 @@ LABEL_9:
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_11_1();
 LABEL_11:
-    _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+    _os_log_error_impl(v2, v3, v4, v5, v6, v7);
     goto LABEL_9;
   }
 
@@ -5060,7 +5063,7 @@ LABEL_9:
 {
   OUTLINED_FUNCTION_40_0();
   OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_25_12() == v0)
+  if (OUTLINED_FUNCTION_25_12(v1) == v0)
   {
     if (VRTraceGetErrorLogLevelForModule() < 3)
     {
@@ -5077,7 +5080,7 @@ LABEL_9:
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_11_1();
 LABEL_11:
-    _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+    _os_log_error_impl(v2, v3, v4, v5, v6, v7);
     goto LABEL_9;
   }
 
@@ -5108,7 +5111,7 @@ LABEL_9:
 {
   OUTLINED_FUNCTION_40_0();
   OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_25_12() == v0)
+  if (OUTLINED_FUNCTION_25_12(v1) == v0)
   {
     if (VRTraceGetErrorLogLevelForModule() < 3)
     {
@@ -5125,7 +5128,7 @@ LABEL_9:
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_11_1();
 LABEL_11:
-    _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+    _os_log_error_impl(v2, v3, v4, v5, v6, v7);
     goto LABEL_9;
   }
 
@@ -5271,7 +5274,7 @@ void __61__VCTransportSessionMultiLink_createNWParametersAndListener___block_inv
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_21();
   OUTLINED_FUNCTION_5_12();
-  _os_log_error_impl(v0, v1, v2, v3, v4, v5);
+  _os_log_error_impl(v2, v3, v4, v5, v6, v7);
 }
 
 - (void)createAndStartNWListener:useBackingSocket:error:.cold.1()
@@ -5314,14 +5317,14 @@ void __61__VCTransportSessionMultiLink_createNWParametersAndListener___block_inv
   _os_log_error_impl(v0, v1, v2, v3, v4, v5);
 }
 
-- (void)createAndStartNWListener:useBackingSocket:error:.cold.6()
+- (void)createAndStartNWListener:(uint64_t)a1 useBackingSocket:(uint64_t)a2 error:.cold.6(uint64_t a1, uint64_t a2)
 {
   nw_endpoint_get_description();
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_21();
   OUTLINED_FUNCTION_5_12();
-  _os_log_error_impl(v0, v1, v2, v3, v4, v5);
+  _os_log_error_impl(v2, v3, v4, v5, v6, v7);
 }
 
 - (void)createAndStartNWListener:useBackingSocket:error:.cold.7()
@@ -5361,7 +5364,7 @@ void __59__VCTransportSessionMultiLink_reserveLocalPortWithListener__block_invok
 {
   OUTLINED_FUNCTION_40_0();
   OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_25_12() == v0)
+  if (OUTLINED_FUNCTION_25_12(v1) == v0)
   {
     if (VRTraceGetErrorLogLevelForModule() < 3)
     {
@@ -5378,7 +5381,7 @@ void __59__VCTransportSessionMultiLink_reserveLocalPortWithListener__block_invok
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_11_1();
 LABEL_11:
-    _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+    _os_log_error_impl(v2, v3, v4, v5, v6, v7);
     goto LABEL_9;
   }
 
@@ -5409,7 +5412,7 @@ LABEL_9:
 {
   OUTLINED_FUNCTION_40_0();
   OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_25_12() == v0)
+  if (OUTLINED_FUNCTION_25_12(v1) == v0)
   {
     if (VRTraceGetErrorLogLevelForModule() < 3)
     {
@@ -5426,7 +5429,7 @@ LABEL_9:
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_11_1();
 LABEL_11:
-    _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+    _os_log_error_impl(v2, v3, v4, v5, v6, v7);
     goto LABEL_9;
   }
 
@@ -5515,7 +5518,7 @@ LABEL_11:
 {
   OUTLINED_FUNCTION_40_0();
   OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_25_12() == v0)
+  if (OUTLINED_FUNCTION_25_12(v1) == v0)
   {
     if (VRTraceGetErrorLogLevelForModule() < 3)
     {
@@ -5532,7 +5535,7 @@ LABEL_11:
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_11_1();
 LABEL_11:
-    _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+    _os_log_error_impl(v2, v3, v4, v5, v6, v7);
     goto LABEL_9;
   }
 
@@ -5705,7 +5708,7 @@ LABEL_10:
 {
   OUTLINED_FUNCTION_40_0();
   OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_25_12() == v0)
+  if (OUTLINED_FUNCTION_25_12(v1) == v0)
   {
     if (VRTraceGetErrorLogLevelForModule() < 3)
     {
@@ -5722,7 +5725,7 @@ LABEL_10:
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_11_1();
 LABEL_11:
-    _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+    _os_log_error_impl(v2, v3, v4, v5, v6, v7);
     goto LABEL_9;
   }
 
@@ -5753,7 +5756,7 @@ LABEL_9:
 {
   OUTLINED_FUNCTION_40_0();
   OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_25_12() == v0)
+  if (OUTLINED_FUNCTION_25_12(v1) == v0)
   {
     if (VRTraceGetErrorLogLevelForModule() < 3)
     {
@@ -5770,7 +5773,7 @@ LABEL_9:
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_11_1();
 LABEL_11:
-    _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+    _os_log_error_impl(v2, v3, v4, v5, v6, v7);
     goto LABEL_9;
   }
 
@@ -5801,7 +5804,7 @@ LABEL_9:
 {
   OUTLINED_FUNCTION_40_0();
   OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_25_12() == v0)
+  if (OUTLINED_FUNCTION_25_12(v1) == v0)
   {
     if (VRTraceGetErrorLogLevelForModule() < 3)
     {
@@ -5818,7 +5821,7 @@ LABEL_9:
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_11_1();
 LABEL_11:
-    _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+    _os_log_error_impl(v2, v3, v4, v5, v6, v7);
     goto LABEL_9;
   }
 
@@ -5849,7 +5852,7 @@ LABEL_9:
 {
   OUTLINED_FUNCTION_40_0();
   OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_25_12() == v0)
+  if (OUTLINED_FUNCTION_25_12(v1) == v0)
   {
     if (VRTraceGetErrorLogLevelForModule() < 3)
     {
@@ -5866,7 +5869,7 @@ LABEL_9:
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_11_1();
 LABEL_11:
-    _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+    _os_log_error_impl(v2, v3, v4, v5, v6, v7);
     goto LABEL_9;
   }
 
@@ -5897,7 +5900,7 @@ LABEL_9:
 {
   OUTLINED_FUNCTION_40_0();
   OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_25_12() == v0)
+  if (OUTLINED_FUNCTION_25_12(v1) == v0)
   {
     if (VRTraceGetErrorLogLevelForModule() < 3)
     {
@@ -5914,7 +5917,7 @@ LABEL_9:
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_11_1();
 LABEL_11:
-    _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+    _os_log_error_impl(v2, v3, v4, v5, v6, v7);
     goto LABEL_9;
   }
 
@@ -5945,7 +5948,7 @@ LABEL_9:
 {
   OUTLINED_FUNCTION_40_0();
   OUTLINED_FUNCTION_11_0();
-  if (OUTLINED_FUNCTION_25_12() == v0)
+  if (OUTLINED_FUNCTION_25_12(v1) == v0)
   {
     if (VRTraceGetErrorLogLevelForModule() < 3)
     {
@@ -5962,7 +5965,7 @@ LABEL_9:
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_11_1();
 LABEL_11:
-    _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+    _os_log_error_impl(v2, v3, v4, v5, v6, v7);
     goto LABEL_9;
   }
 

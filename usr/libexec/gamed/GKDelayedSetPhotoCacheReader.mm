@@ -41,20 +41,20 @@
 
 - (id)setPhotoDescriptorForExecutedStatement:(sqlite3_stmt *)statement
 {
-  statementCopy = statement;
-  v4 = sub_10010FDA4(&statementCopy);
+  v10[0] = statement;
+  v4 = sub_10010FDA4(v10);
   v5 = [NSDate _gkDateFromScalarServerTimestamp:sqlite3_column_int64(statement, 1)];
   v6 = [NSNumber numberWithDouble:sqlite3_column_double(statement, 3)];
-  v12[0] = @"image/png";
-  v11[0] = @"content-type";
-  v11[1] = @"timestamp";
+  v10[5] = @"image/png";
+  v10[1] = @"content-type";
+  v10[2] = @"timestamp";
   _gkServerTimestamp = [v5 _gkServerTimestamp];
-  v12[1] = _gkServerTimestamp;
-  v12[2] = v4;
-  v11[2] = @"image-data";
-  v11[3] = @"avatar-type";
-  v12[3] = v6;
-  v8 = [NSDictionary dictionaryWithObjects:v12 forKeys:v11 count:4];
+  v10[6] = _gkServerTimestamp;
+  v10[7] = v4;
+  v10[3] = @"image-data";
+  v10[4] = @"avatar-type";
+  v10[8] = v6;
+  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   return v8;
 }

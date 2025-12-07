@@ -240,7 +240,7 @@ void __50__NTKFaceCollection_enumerateFaceNamesUsingBlock___block_invoke(uint64_
     v11 = _NTKLoggingObjectForDomain(10, "NTKLoggingDomainCollection");
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [NTKFaceCollection setSelectedFaceIndex:? suppressingCallbackToObserver:?];
+      [NTKFaceCollection setSelectedFaceIndex:index suppressingCallbackToObserver:?];
     }
   }
 
@@ -595,7 +595,7 @@ void __50__NTKFaceCollection_enumerateFaceNamesUsingBlock___block_invoke(uint64_
     v13 = _NTKLoggingObjectForDomain(10, "NTKLoggingDomainCollection");
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [NTKFaceCollection _addFace:dCopy forUUID:? atIndex:? suppressingCallbackToObserver:?];
+      [NTKFaceCollection _addFace:dCopy forUUID:index atIndex:? suppressingCallbackToObserver:?];
     }
   }
 }
@@ -924,10 +924,23 @@ void __50__NTKFaceCollection_enumerateFaceNamesUsingBlock___block_invoke(uint64_
   self->_logIdentifier = v5;
 }
 
-- (void)_addFace:(void *)a1 forUUID:atIndex:suppressingCallbackToObserver:.cold.1(void *a1)
+- (void)setSelectedFaceIndex:(id *)a1 suppressingCallbackToObserver:(uint64_t)a2 .cold.1(id *a1, uint64_t a2)
 {
-  v1 = [a1 description];
-  OUTLINED_FUNCTION_0_10(&dword_22D9C5000, v2, v3, "Attempted to add a nil NTKFace with uuid %@ at index %lu", v4, v5, v6, v7, 2u);
+  *v8 = 134218240;
+  *&v8[4] = a2;
+  *&v8[12] = 2048;
+  *&v8[14] = [*a1 count];
+  OUTLINED_FUNCTION_0_10(&dword_22D9C5000, v2, v3, "Attempting to select face at index %lu is out of bounds [0...%lu).", v4, v5, v6, v7, *v8, *&v8[8], *&v8[16]);
+}
+
+- (void)_addFace:(void *)a1 forUUID:(uint64_t)a2 atIndex:suppressingCallbackToObserver:.cold.1(void *a1, uint64_t a2)
+{
+  v3 = [a1 description];
+  *v10 = 138412546;
+  *&v10[4] = v3;
+  *&v10[12] = 2048;
+  *&v10[14] = a2;
+  OUTLINED_FUNCTION_0_10(&dword_22D9C5000, v4, v5, "Attempted to add a nil NTKFace with uuid %@ at index %lu", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 @end

@@ -239,62 +239,62 @@
   }
 }
 
-void __55__ICNotePreviewController_scrollToSearchResultIfNeeded__block_invoke(uint64_t a1)
+void __55__ICNotePreviewController_scrollToSearchResultIfNeeded__block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = [*(a1 + 32) searchResult];
-  v3 = [v2 object];
-  v4 = ICDynamicCast();
+  v3 = [*(a1 + 32) searchResult];
+  v4 = [v3 object];
+  v5 = ICDynamicCast();
 
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3010000000;
-  v24 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3010000000;
   v25 = 0;
-  v23 = &unk_21552D17E;
-  if (v4)
+  v26 = 0;
+  v24 = &unk_21552D17E;
+  if (v5)
   {
-    v5 = [v4 note];
-    v6 = [v5 textStorage];
+    v6 = [v5 note];
+    v7 = [v6 textStorage];
 
-    v7 = [v6 length];
-    v8 = *MEMORY[0x277D74060];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __55__ICNotePreviewController_scrollToSearchResultIfNeeded__block_invoke_2;
-    v17[3] = &unk_2781AD9B0;
-    v18 = v4;
-    v19 = &v20;
-    [v6 enumerateAttribute:v8 inRange:0 options:v7 usingBlock:{0, v17}];
-    v9 = v18;
+    v8 = [v7 length];
+    v9 = *MEMORY[0x277D74060];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __55__ICNotePreviewController_scrollToSearchResultIfNeeded__block_invoke_2;
+    v18[3] = &unk_2781AD9B0;
+    v19 = v5;
+    v20 = &v21;
+    [v7 enumerateAttribute:v9 inRange:0 options:v8 usingBlock:{0, v18}];
+    v10 = v19;
   }
 
   else
   {
-    v6 = [*(a1 + 32) searchResult];
-    v9 = [v6 firstMatchingRangeInNote];
-    if (v9)
+    v7 = [*(a1 + 32) searchResult];
+    v10 = [v7 firstMatchingRangeInNote];
+    if (v10)
     {
-      v10 = [*(a1 + 32) searchResult];
-      v11 = [v10 firstMatchingRangeInNote];
-      v12 = [v11 rangeValue];
-      v13 = v21;
-      v21[4] = v12;
-      v13[5] = v14;
+      v11 = [*(a1 + 32) searchResult];
+      v12 = [v11 firstMatchingRangeInNote];
+      v13 = [v12 rangeValue];
+      v14 = v22;
+      v22[4] = v13;
+      v14[5] = v15;
     }
 
     else
     {
-      v15 = v21;
-      v21[4] = 0;
-      v15[5] = 0;
+      v16 = v22;
+      v22[4] = 0;
+      v16[5] = 0;
     }
   }
 
-  v16 = [*(a1 + 32) textView];
-  [v16 ic_scrollRangeToVisible:v21[4] consideringInsets:v21[5] animated:{1, 0}];
+  v17 = [*(a1 + 32) textView];
+  [v17 ic_scrollRangeToVisible:v22[4] consideringInsets:v22[5] animated:{1, 0}];
 
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v21, 8);
 }
 
 void __55__ICNotePreviewController_scrollToSearchResultIfNeeded__block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)

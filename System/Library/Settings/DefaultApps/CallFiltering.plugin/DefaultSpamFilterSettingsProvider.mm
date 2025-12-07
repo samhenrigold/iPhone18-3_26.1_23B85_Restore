@@ -7,7 +7,7 @@
 - (void)updateExtensions
 {
   swift_getKeyPath();
-  sub_35AC(&qword_10660, type metadata accessor for DefaultSpamFilterSettingsProvider);
+  sub_35AC(&qword_10660, type metadata accessor for DefaultSpamFilterSettingsProvider, &protocol conformance descriptor for DefaultSpamFilterSettingsProvider);
 
   sub_7DEC();
 

@@ -6,37 +6,31 @@
 
 - (void)submit
 {
-  if (self)
-  {
-    queryKeysStart = self->_queryKeysStart;
-    queryKeysEnd = self->_queryKeysEnd;
-  }
-
   NRDiffMachTimeInSeconds();
-  v6 = [NSNumber numberWithDouble:round(v5 * 1000.0) * 0.001];
+  v4 = [NSNumber numberWithDouble:round(v3 * 1000.0) * 0.001];
   if (self)
   {
-    [(NSMutableDictionary *)self->super._eventDictionary setObject:v6 forKeyedSubscript:@"queryKeysDurationInSec"];
+    [(NSMutableDictionary *)self->super._eventDictionary setObject:v4 forKeyedSubscript:@"queryKeysDurationInSec"];
 
     if (!self->_queryKeysSuccess)
     {
-      goto LABEL_7;
+      goto LABEL_5;
     }
 
-    v6 = [NSNumber numberWithBool:1];
+    v4 = [NSNumber numberWithBool:1];
     eventDictionary = self->super._eventDictionary;
-    v8 = @"queryKeysSuccess";
+    v6 = @"queryKeysSuccess";
   }
 
   else
   {
-    v8 = @"queryKeysDurationInSec";
+    v6 = @"queryKeysDurationInSec";
     eventDictionary = 0;
   }
 
-  [(NSMutableDictionary *)eventDictionary setObject:v6 forKeyedSubscript:v8];
+  [(NSMutableDictionary *)eventDictionary setObject:v4 forKeyedSubscript:v6];
 
-LABEL_7:
+LABEL_5:
 
   sub_1001557BC(self, @"com.apple.networkrelay.analytics.keyManager");
 }

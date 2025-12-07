@@ -29,9 +29,9 @@
 
 - (MFMutableData)init
 {
-  v6.receiver = self;
-  v6.super_class = MFMutableData;
-  v2 = [(MFMutableData *)&v6 init];
+  v5.receiver = self;
+  v5.super_class = MFMutableData;
+  v2 = [(MFMutableData *)&v5 init];
   v3 = v2;
   if (v2)
   {
@@ -39,7 +39,6 @@
     v2->_fd = -1;
     v2->_capacity = 8;
     v2->_bytes = malloc_type_malloc(8uLL, 0x4F86C423uLL);
-    capacity = v3->_capacity;
     __memset_chk();
     v3->_length = 0;
   }

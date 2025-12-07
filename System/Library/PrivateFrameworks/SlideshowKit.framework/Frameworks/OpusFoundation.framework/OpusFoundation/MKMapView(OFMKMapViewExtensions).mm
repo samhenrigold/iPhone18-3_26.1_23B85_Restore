@@ -1,8 +1,8 @@
 @interface MKMapView(OFMKMapViewExtensions)
 - (uint64_t)regionToFitAnnotations;
 - (uint64_t)regionToFitLocations:()OFMKMapViewExtensions;
-- (uint64_t)zoomToFitAnnotations;
-- (uint64_t)zoomToFitLocations:()OFMKMapViewExtensions animated:;
+- (void)zoomToFitAnnotations;
+- (void)zoomToFitLocations:()OFMKMapViewExtensions animated:;
 @end
 
 @implementation MKMapView(OFMKMapViewExtensions)
@@ -61,7 +61,7 @@
   return [self regionThatFits:{v6 - (v6 - v8) * 0.5, v7 + (v9 - v7) * 0.5, vabdd_f64(v6, v8) * 1.1, vabdd_f64(v9, v7) * 1.1}];
 }
 
-- (uint64_t)zoomToFitAnnotations
+- (void)zoomToFitAnnotations
 {
   result = [objc_msgSend(self "annotations")];
   if (result)
@@ -127,7 +127,7 @@
   return [self regionThatFits:{v8 - (v8 - v10) * 0.5, v9 + (v11 - v9) * 0.5, vabdd_f64(v8, v10) * 1.1, vabdd_f64(v11, v9) * 1.1}];
 }
 
-- (uint64_t)zoomToFitLocations:()OFMKMapViewExtensions animated:
+- (void)zoomToFitLocations:()OFMKMapViewExtensions animated:
 {
   result = [a3 count];
   if (result)

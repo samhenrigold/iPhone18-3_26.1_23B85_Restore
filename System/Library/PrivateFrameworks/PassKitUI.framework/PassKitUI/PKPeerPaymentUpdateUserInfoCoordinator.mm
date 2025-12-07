@@ -13,7 +13,7 @@
   if (v6)
   {
     v7 = swift_allocObject();
-    *(v7 + 16) = v6;
+    v7[2] = v6;
     v6 = sub_1BD988D1C;
   }
 
@@ -23,12 +23,12 @@
   }
 
   selfCopy = self;
-  sub_1BD0D44B8(v6);
+  sub_1BD0D44B8(v6, v7);
   controllerCopy = controller;
   sub_1BD987FC0(selfCopy, selfCopy, v6, v7, controllerCopy);
-  sub_1BD0D4744(v6);
+  sub_1BD0D4744(v6, v7, v9, v10, v11, v12, v13, v14);
 
-  sub_1BD0D4744(v6);
+  sub_1BD0D4744(v6, v7, v15, v16, v17, v18, v19, v20);
 }
 
 - (void)addressSearcherViewController:(id)controller selectedContact:(id)contact

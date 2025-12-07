@@ -25,79 +25,64 @@
     return 0;
   }
 
-  if ([(NSSQLIntermediate *)self isUpdateScoped])
+  if ([(NSSQLIntermediate *)self isUpdateScoped]|| (v5 = [(NSSQLIntermediate *)self fetchIntermediate]) == 0 || !v5[6])
   {
-    v5 = MEMORY[0x1E695DF30];
-    v6 = *MEMORY[0x1E695D940];
-    v7 = MEMORY[0x1E696AEC0];
-    v8 = @"Unsupported join (offsets not allowed in updates)";
-LABEL_12:
-    [context setObject:objc_msgSend(v5 forKey:{"exceptionWithName:reason:userInfo:", v6, objc_msgSend(v7, "stringWithFormat:", v8), 0), @"NSUnderlyingException"}];
+    [context setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0]), 0), @"NSUnderlyingException"}];
     return 0;
   }
 
-  fetchIntermediate = [(NSSQLIntermediate *)self fetchIntermediate];
-  if (!fetchIntermediate || !fetchIntermediate[6])
-  {
-    v5 = MEMORY[0x1E695DF30];
-    v6 = *MEMORY[0x1E695D940];
-    v7 = MEMORY[0x1E696AEC0];
-    v8 = @"Invalid SQL (must specify a limit with an offset)";
-    goto LABEL_12;
-  }
-
-  v10 = [context valueForKey:@"substitutionVariables"];
-  if (!v10)
+  v6 = objc_msgSend_valueForKey_(context);
+  if (!v6)
   {
     return [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@" OFFSET %lu", self->_offset];
   }
 
-  v11 = v10;
-  v12 = [v10 valueForKey:@"FETCH_REQUEST_OFFSET_SUBSTITUTION"];
-  if (!v12)
+  v7 = v6;
+  v8 = objc_msgSend_valueForKey_(v6);
+  if (!v8)
   {
     return [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@" OFFSET %lu", self->_offset];
   }
 
-  v13 = v12;
-  if ([v12 expressionType])
+  v9 = v8;
+  if ([v8 expressionType])
   {
-    v14 = MEMORY[0x1E695DF30];
-    v15 = *MEMORY[0x1E695D940];
-    v16 = @"Unable to generate SQL - non-constant expression for offset substitution.";
-LABEL_20:
-    [context setValue:objc_msgSend(v14 forKey:{"exceptionWithName:reason:userInfo:", v15, v16, v11), @"NSUnderlyingException"}];
+    v10 = MEMORY[0x1E695DF30];
+    v11 = *MEMORY[0x1E695D940];
+    v12 = @"Unable to generate SQL - non-constant expression for offset substitution.";
+LABEL_18:
+    [context setValue:objc_msgSend(v10 forKey:{"exceptionWithName:reason:userInfo:", v11, v12, v7), @"NSUnderlyingException"}];
     return 0;
   }
 
-  constantValue = [v13 constantValue];
+  constantValue = [v9 constantValue];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v14 = MEMORY[0x1E695DF30];
-    v15 = *MEMORY[0x1E695D940];
-    v16 = @"Unable to generate SQL - non-NSNumber value for offset substitution.";
-    goto LABEL_20;
+    v10 = MEMORY[0x1E695DF30];
+    v11 = *MEMORY[0x1E695D940];
+    v12 = @"Unable to generate SQL - non-NSNumber value for offset substitution.";
+    goto LABEL_18;
   }
 
-  v19 = [objc_msgSend(context valueForKey:{@"bindVars", "count"}];
-  v20 = [(NSSQLIntermediate *)self _generateSQLForConstantValue:constantValue inContext:context];
-  if ([objc_msgSend(context valueForKey:{@"bindVars", "count"}] - v19 >= 2)
+  v15 = [objc_msgSend_valueForKey_(context) count];
+  v16 = [(NSSQLIntermediate *)self _generateSQLForConstantValue:constantValue inContext:context];
+  if ([objc_msgSend_valueForKey_(context) count] - v15 >= 2)
   {
-    if (![context valueForKey:@"NSUnderlyingException"])
+    if (!objc_msgSend_valueForKey_(context))
     {
-      [context setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"Invalid variable substitution - multiple values not supported for limit %@", constantValue), 0), @"NSUnderlyingException"}];
+      [context setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], constantValue), 0), @"NSUnderlyingException"}];
     }
 
     return 0;
   }
 
-  v21 = [context valueForKey:@"subOrder"];
-  [v21 addObject:@"FETCH_REQUEST_OFFSET_SUBSTITUTION"];
-  [v21 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInteger:", v19)}];
-  v22 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@" OFFSET %@", v20];
+  v17 = objc_msgSend_valueForKey_(context);
+  [v17 addObject:@"FETCH_REQUEST_OFFSET_SUBSTITUTION"];
+  [v17 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInteger:", v15)}];
+  v18 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@" OFFSET %@", v16];
 
-  return v22;
+  return v18;
 }
 
 @end

@@ -124,24 +124,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_fieldName)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    order = self->_order;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_coordinate)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -211,7 +210,6 @@
     }
   }
 
-  v10 = *(equalCopy + 28);
   if (*&self->_has)
   {
     if ((*(equalCopy + 28) & 1) == 0 || self->_order != *(equalCopy + 6))
@@ -228,10 +226,10 @@ LABEL_11:
   }
 
   coordinate = self->_coordinate;
-  v12 = equalCopy[1];
-  if (coordinate | v12)
+  v11 = equalCopy[1];
+  if (coordinate | v11)
   {
-    isEqual = objc_msgSend_isEqual_(coordinate, v7, v12);
+    isEqual = objc_msgSend_isEqual_(coordinate, v7, v11);
   }
 
   else

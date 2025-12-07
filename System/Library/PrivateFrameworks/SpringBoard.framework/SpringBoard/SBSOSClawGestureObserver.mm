@@ -75,10 +75,10 @@
 
 - (void)noteButtonPress:(int64_t)press isDown:(BOOL)down
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   if ((press - 102) >= 3)
   {
-    activePressTypes = SBLogButtonsCombo();
+    activePressTypes = SBLogButtonsCombo(self);
     if (os_log_type_enabled(activePressTypes, OS_LOG_TYPE_ERROR))
     {
       [SBSOSClawGestureObserver noteButtonPress:press isDown:activePressTypes];
@@ -97,57 +97,61 @@
     v11 = [v10 componentsJoinedByString:{@", "}];
 
     _isClawGestureActive2 = [(SBSOSClawGestureObserver *)self _isClawGestureActive];
-    v13 = SBLogButtonsCombo();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v13 = _isClawGestureActive2;
+    v14 = SBLogButtonsCombo(_isClawGestureActive2);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
-      v16 = off_2783AF7A8[press - 102];
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
+      v17 = off_2783AF7A8[press - 102];
       *buf = 138544386;
-      v45 = v15;
-      v46 = 2114;
-      *v47 = v16;
-      *&v47[8] = 1024;
-      v48 = _isClawGestureActive2;
-      v49 = 1024;
-      v50 = downCopy;
-      v51 = 2114;
-      v52 = v11;
-      _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ - button press noted: %{public}@ down: %{BOOL}u active(%{BOOL}u): [%{public}@]", buf, 0x2Cu);
+      v49 = v16;
+      v50 = 2114;
+      *v51 = v17;
+      *&v51[8] = 1024;
+      v52 = v13;
+      v53 = 1024;
+      v54 = downCopy;
+      v55 = 2114;
+      v56 = v11;
+      _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ - button press noted: %{public}@ down: %{BOOL}u active(%{BOOL}u): [%{public}@]", buf, 0x2Cu);
     }
 
-    if ([(SBSOSClawGestureObserver *)self isSOSEnabled])
+    isSOSEnabled = [(SBSOSClawGestureObserver *)self isSOSEnabled];
+    if (isSOSEnabled)
     {
       delegate = [(SBSOSClawGestureObserver *)self delegate];
-      if (_isClawGestureActive2 || !_isClawGestureActive)
+      v20 = delegate;
+      if (v13 & 1 | !_isClawGestureActive)
       {
-        if (!_isClawGestureActive && _isClawGestureActive2)
+        if (!_isClawGestureActive && (v13 & 1) != 0)
         {
-          v18 = SBLogButtonsCombo();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v21 = SBLogButtonsCombo(delegate);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
-            v19 = objc_opt_class();
-            v20 = NSStringFromClass(v19);
-            v21 = off_2783AF7A8[press - 102];
+            v22 = objc_opt_class();
+            v23 = NSStringFromClass(v22);
+            v24 = off_2783AF7A8[press - 102];
             *buf = 138543618;
-            v45 = v20;
-            v46 = 2114;
-            *v47 = v21;
-            _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ - Claw activated with press %{public}@", buf, 0x16u);
+            v49 = v23;
+            v50 = 2114;
+            *v51 = v24;
+            _os_log_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@ - Claw activated with press %{public}@", buf, 0x16u);
           }
 
           if ([(SBSOSClawGestureObserver *)self _isSOSActivated])
           {
-            if ([(SBSOSClawGestureObserver *)self _isAutomaticCallCountdownEnabled]&& [(SBSOSClawGestureObserver *)self _wasSOSTriggeredByClaw])
+            _isAutomaticCallCountdownEnabled = [(SBSOSClawGestureObserver *)self _isAutomaticCallCountdownEnabled];
+            if (_isAutomaticCallCountdownEnabled && (_isAutomaticCallCountdownEnabled = [(SBSOSClawGestureObserver *)self _wasSOSTriggeredByClaw], _isAutomaticCallCountdownEnabled))
             {
-              v22 = SBLogButtonsCombo();
-              if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+              v26 = SBLogButtonsCombo(_isAutomaticCallCountdownEnabled);
+              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
               {
-                v23 = objc_opt_class();
-                v24 = NSStringFromClass(v23);
+                v27 = objc_opt_class();
+                v28 = NSStringFromClass(v27);
                 *buf = 138543362;
-                v45 = v24;
-                _os_log_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@ - Setting SOS current interactive state to Starting due to claw activation", buf, 0xCu);
+                v49 = v28;
+                _os_log_impl(&dword_21ED4E000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@ - Setting SOS current interactive state to Starting due to claw activation", buf, 0xCu);
               }
 
               sosManager = self->_sosManager;
@@ -155,25 +159,25 @@
               [(SOSManager *)sosManager setCurrentSOSButtonPressState:_currentSOSButtonPressState];
 
               [(SOSManager *)self->_sosManager setCurrentSOSInteractiveState:1];
-              [delegate sosClawAutoCallInteractiveStateChanged:self interacting:1];
+              [v20 sosClawAutoCallInteractiveStateChanged:self interacting:1];
             }
 
             else
             {
-              v35 = SBLogButtonsCombo();
-              if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+              v39 = SBLogButtonsCombo(_isAutomaticCallCountdownEnabled);
+              if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
               {
-                v36 = objc_opt_class();
-                v37 = NSStringFromClass(v36);
-                _isAutomaticCallCountdownEnabled = [(SBSOSClawGestureObserver *)self _isAutomaticCallCountdownEnabled];
+                v40 = objc_opt_class();
+                v41 = NSStringFromClass(v40);
+                _isAutomaticCallCountdownEnabled2 = [(SBSOSClawGestureObserver *)self _isAutomaticCallCountdownEnabled];
                 _wasSOSTriggeredByClaw = [(SBSOSClawGestureObserver *)self _wasSOSTriggeredByClaw];
                 *buf = 138543874;
-                v45 = v37;
-                v46 = 1024;
-                *v47 = _isAutomaticCallCountdownEnabled;
-                *&v47[4] = 1024;
-                *&v47[6] = _wasSOSTriggeredByClaw;
-                _os_log_impl(&dword_21ED4E000, v35, OS_LOG_TYPE_DEFAULT, "%{public}@ - Claw has been activated, but claw for automatic call down requires automatic call down enabled: %{BOOL}u and SOS was triggered by claw: %{BOOL}u", buf, 0x18u);
+                v49 = v41;
+                v50 = 1024;
+                *v51 = _isAutomaticCallCountdownEnabled2;
+                *&v51[4] = 1024;
+                *&v51[6] = _wasSOSTriggeredByClaw;
+                _os_log_impl(&dword_21ED4E000, v39, OS_LOG_TYPE_DEFAULT, "%{public}@ - Claw has been activated, but claw for automatic call down requires automatic call down enabled: %{BOOL}u and SOS was triggered by claw: %{BOOL}u", buf, 0x18u);
               }
             }
           }
@@ -182,41 +186,41 @@
           {
             objc_initWeak(buf, self);
             sosTriggerTimer = self->_sosTriggerTimer;
-            v34 = MEMORY[0x277D85CD0];
-            v42[0] = MEMORY[0x277D85DD0];
-            v42[1] = 3221225472;
-            v42[2] = __51__SBSOSClawGestureObserver_noteButtonPress_isDown___block_invoke_27;
-            v42[3] = &unk_2783A9918;
-            objc_copyWeak(&v43, buf);
-            [(BSAbsoluteMachTimer *)sosTriggerTimer scheduleWithFireInterval:MEMORY[0x277D85CD0] leewayInterval:v42 queue:1.1 handler:0.0];
+            v38 = MEMORY[0x277D85CD0];
+            v46[0] = MEMORY[0x277D85DD0];
+            v46[1] = 3221225472;
+            v46[2] = __51__SBSOSClawGestureObserver_noteButtonPress_isDown___block_invoke_27;
+            v46[3] = &unk_2783A9918;
+            objc_copyWeak(&v47, buf);
+            [(BSAbsoluteMachTimer *)sosTriggerTimer scheduleWithFireInterval:MEMORY[0x277D85CD0] leewayInterval:v46 queue:1.1 handler:0.0];
 
-            objc_destroyWeak(&v43);
+            objc_destroyWeak(&v47);
             objc_destroyWeak(buf);
           }
 
           volumeHardwareButton = [SBApp volumeHardwareButton];
           [volumeHardwareButton addVolumePressBandit:self];
 
-          v41 = +[SBUIController sharedInstanceIfExists];
-          [v41 cancelVolumeEvent];
+          v45 = +[SBUIController sharedInstanceIfExists];
+          [v45 cancelVolumeEvent];
 
-          [delegate sosClawDidBecomeActive:self];
+          [v20 sosClawDidBecomeActive:self];
         }
       }
 
       else
       {
-        v29 = SBLogButtonsCombo();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v33 = SBLogButtonsCombo(delegate);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
-          v30 = objc_opt_class();
-          v31 = NSStringFromClass(v30);
-          v32 = off_2783AF7A8[press - 102];
+          v34 = objc_opt_class();
+          v35 = NSStringFromClass(v34);
+          v36 = off_2783AF7A8[press - 102];
           *buf = 138543618;
-          v45 = v31;
-          v46 = 2114;
-          *v47 = v32;
-          _os_log_impl(&dword_21ED4E000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@ - Claw deactivated with press %{public}@", buf, 0x16u);
+          v49 = v35;
+          v50 = 2114;
+          *v51 = v36;
+          _os_log_impl(&dword_21ED4E000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@ - Claw deactivated with press %{public}@", buf, 0x16u);
         }
 
         [(SBSOSClawGestureObserver *)self _cancelSOSActivity];
@@ -225,14 +229,14 @@
 
     else
     {
-      delegate = SBLogButtonsCombo();
-      if (os_log_type_enabled(delegate, OS_LOG_TYPE_DEFAULT))
+      v20 = SBLogButtonsCombo(isSOSEnabled);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = objc_opt_class();
-        v28 = NSStringFromClass(v27);
+        v31 = objc_opt_class();
+        v32 = NSStringFromClass(v31);
         *buf = 138543362;
-        v45 = v28;
-        _os_log_impl(&dword_21ED4E000, delegate, OS_LOG_TYPE_DEFAULT, "%{public}@ - SOS is disabled so nothing left to do", buf, 0xCu);
+        v49 = v32;
+        _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@ - SOS is disabled so nothing left to do", buf, 0xCu);
       }
     }
   }
@@ -282,8 +286,7 @@ void __51__SBSOSClawGestureObserver_noteButtonPress_isDown___block_invoke_27(uin
   {
     enabledCopy = enabled;
     self->_sosEnabled = enabled;
-    [(NSMutableSet *)self->_activePressTypes removeAllObjects];
-    v5 = SBLogButtonsCombo();
+    v5 = SBLogButtonsCombo([(NSMutableSet *)self->_activePressTypes removeAllObjects]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = objc_opt_class();
@@ -340,11 +343,11 @@ void __51__SBSOSClawGestureObserver_noteButtonPress_isDown___block_invoke_27(uin
 - (id)_currentSOSButtonPressState
 {
   v3 = objc_alloc(MEMORY[0x277D49598]);
-  v4 = [(NSMutableSet *)self->_activePressTypes containsObject:&unk_283370490];
+  v4 = objc_msgSend_containsObject_(self->_activePressTypes);
   v5 = [(NSMutableDictionary *)self->_activePressTypeToDownTimestamp objectForKeyedSubscript:&unk_283370490];
   [v5 doubleValue];
   v7 = v6;
-  v8 = [(NSMutableSet *)self->_activePressTypes containsObject:&unk_2833704A8];
+  v8 = objc_msgSend_containsObject_(self->_activePressTypes);
   v9 = [(NSMutableDictionary *)self->_activePressTypeToDownTimestamp objectForKeyedSubscript:&unk_2833704A8];
   [v9 doubleValue];
   v11 = v10;
@@ -378,7 +381,7 @@ void __51__SBSOSClawGestureObserver_noteButtonPress_isDown___block_invoke_27(uin
 - (BOOL)_isClawGestureActive
 {
   activePressTypes = [(SBSOSClawGestureObserver *)self activePressTypes];
-  if ([activePressTypes containsObject:&unk_2833704C0])
+  if (objc_msgSend_containsObject_(activePressTypes))
   {
     v3 = [activePressTypes count] > 1;
   }
@@ -393,7 +396,7 @@ void __51__SBSOSClawGestureObserver_noteButtonPress_isDown___block_invoke_27(uin
 
 - (void)_cancelSOSActivity
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   delegate = [(SBSOSClawGestureObserver *)self delegate];
   sosTriggerTimer = [(SBSOSClawGestureObserver *)self sosTriggerTimer];
   if ([sosTriggerTimer isScheduled])
@@ -401,16 +404,17 @@ void __51__SBSOSClawGestureObserver_noteButtonPress_isDown___block_invoke_27(uin
     [sosTriggerTimer cancel];
   }
 
-  if ([(SOSManager *)self->_sosManager currentSOSInteractiveState])
+  currentSOSInteractiveState = [(SOSManager *)self->_sosManager currentSOSInteractiveState];
+  if (currentSOSInteractiveState)
   {
-    v5 = SBLogButtonsCombo();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogButtonsCombo(currentSOSInteractiveState);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = objc_opt_class();
-      v7 = NSStringFromClass(v6);
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ - Setting SOS current interactive state to Stopping due to claw release.", &v9, 0xCu);
+      v7 = objc_opt_class();
+      v8 = NSStringFromClass(v7);
+      v10 = 138543362;
+      v11 = v8;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ - Setting SOS current interactive state to Stopping due to claw release.", &v10, 0xCu);
     }
 
     [(SOSManager *)self->_sosManager setCurrentSOSInteractiveState:0];
@@ -449,7 +453,7 @@ void __48__SBSOSClawGestureObserver__presentSOSInterface__block_invoke(uint64_t 
 
   else
   {
-    v3 = SBLogButtonsCombo();
+    v3 = SBLogButtonsCombo(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __48__SBSOSClawGestureObserver__presentSOSInterface__block_invoke_cold_1(a1, v3);
@@ -457,7 +461,7 @@ void __48__SBSOSClawGestureObserver__presentSOSInterface__block_invoke(uint64_t 
   }
 }
 
-uint64_t __48__SBSOSClawGestureObserver__presentSOSInterface__block_invoke_2(uint64_t a1)
+void *__48__SBSOSClawGestureObserver__presentSOSInterface__block_invoke_2(uint64_t a1)
 {
   v11 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _setWasSOSTriggeredByClaw:1];
@@ -467,7 +471,7 @@ uint64_t __48__SBSOSClawGestureObserver__presentSOSInterface__block_invoke_2(uin
     result = [*(a1 + 32) _isAutomaticCallCountdownEnabled];
     if (result)
     {
-      v3 = SBLogButtonsCombo();
+      v3 = SBLogButtonsCombo(result);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         v4 = objc_opt_class();
@@ -500,7 +504,7 @@ uint64_t __48__SBSOSClawGestureObserver__presentSOSInterface__block_invoke_2(uin
 void __63__SBSOSClawGestureObserver_didUpdateCurrentSOSInitiationState___block_invoke(uint64_t a1)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v2 = SBLogButtonsCombo();
+  v2 = SBLogButtonsCombo(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = objc_opt_class();

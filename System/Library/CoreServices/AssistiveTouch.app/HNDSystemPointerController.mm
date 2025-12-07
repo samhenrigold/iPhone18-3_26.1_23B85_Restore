@@ -647,6 +647,7 @@ LABEL_35:
 
 - (void)_finishHandlingEventRepresentation:(id)representation forButtonsWithSenderID:(unint64_t)d lastButtonMask:(unsigned int)mask buttonMask:(unsigned int)buttonMask
 {
+  v6 = *&buttonMask;
   representationCopy = representation;
   v11 = objc_alloc_init(HNDEvent);
   [(HNDSystemPointerController *)self currentSystemPointerPoint];
@@ -654,8 +655,8 @@ LABEL_35:
   v12 = objc_autoreleasePoolPush();
   dCopy = d;
   v31 = -[HNDSystemPointerController customizableMouseForEventSenderID:serviceClient:](self, "customizableMouseForEventSenderID:serviceClient:", d, [representationCopy creatorHIDServiceClient]);
-  buttonMaskCopy = buttonMask;
-  v13 = sub_10004401C(mask, buttonMask);
+  v30 = v6;
+  v13 = sub_10004401C(mask, v6);
   upButton = [v13 upButton];
   downButton = [v13 downButton];
   v16 = downButton;
@@ -700,7 +701,7 @@ LABEL_6:
 
     if ((hitTestsViewAtSystemPointerPoint & 1) == 0)
     {
-      [(HNDSystemPointerController *)self _recordAndRepostEventRepresentation:representationCopy forButtonsWithSenderID:dCopy buttonMask:buttonMaskCopy];
+      [(HNDSystemPointerController *)self _recordAndRepostEventRepresentation:representationCopy forButtonsWithSenderID:dCopy buttonMask:v30];
     }
 
     v12 = v23;
@@ -715,7 +716,7 @@ LABEL_6:
     *buf = 134219010;
     v33 = dCopy;
     v34 = 1024;
-    v35 = buttonMaskCopy;
+    v35 = v30;
     v36 = 1024;
     maskCopy2 = mask;
     v38 = 2112;

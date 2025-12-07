@@ -147,7 +147,7 @@ LABEL_22:
     }
   }
 
-  WebKit::LegacyCustomProtocolManagerProxy::deref(v5);
+  WebKit::LegacyCustomProtocolManagerProxy::deref(v5, v10);
 }
 
 - (void)connection:(id)connection didReceiveResponse:(id)response
@@ -172,7 +172,7 @@ LABEL_22:
   }
 
   atomic_fetch_add((v6 + 16), 1u);
-  WebCore::ResourceResponse::ResourceResponse(v12, response);
+  WebCore::ResourceResponse::ResourceResponse(v13, response);
   m_identifier = self->_customProtocolID.m_value.m_identifier;
   if (!m_identifier)
   {
@@ -187,15 +187,15 @@ LABEL_13:
     LOBYTE(storagePolicy) = 2;
   }
 
-  WebKit::LegacyCustomProtocolManagerProxy::didReceiveResponse(v5, m_identifier, v12, storagePolicy);
-  v11 = v13;
-  v13 = 0;
+  WebKit::LegacyCustomProtocolManagerProxy::didReceiveResponse(v5, m_identifier, v13, storagePolicy);
+  v11 = v14;
+  v14 = 0;
   if (v11)
   {
   }
 
-  WebCore::ResourceResponseBase::~ResourceResponseBase(v12, v10);
-  WebKit::LegacyCustomProtocolManagerProxy::deref(v5);
+  WebCore::ResourceResponseBase::~ResourceResponseBase(v13, v10);
+  WebKit::LegacyCustomProtocolManagerProxy::deref(v5, v12);
 }
 
 - (void)connection:(id)connection didReceiveData:(id)data
@@ -227,7 +227,7 @@ LABEL_13:
 
       WebKit::LegacyCustomProtocolManagerProxy::didLoadData(v5, m_identifier, bytes, v10);
 
-      WebKit::LegacyCustomProtocolManagerProxy::deref(v5);
+      WebKit::LegacyCustomProtocolManagerProxy::deref(v5, v11);
     }
   }
 }
@@ -280,7 +280,7 @@ LABEL_12:
   }
 
 LABEL_9:
-  WebKit::LegacyCustomProtocolManagerProxy::deref(v6);
+  WebKit::LegacyCustomProtocolManagerProxy::deref(v6, a2);
   return requestCopy;
 }
 
@@ -317,7 +317,7 @@ LABEL_12:
 
       WebKit::LegacyCustomProtocolManagerProxy::stopLoading(v4, v8);
 
-      WebKit::LegacyCustomProtocolManagerProxy::deref(v4);
+      WebKit::LegacyCustomProtocolManagerProxy::deref(v4, v9);
     }
   }
 }

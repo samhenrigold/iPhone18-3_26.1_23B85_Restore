@@ -80,7 +80,7 @@
 
 - (uint64_t)parseUnsaltedBookmarkDataWithItemID:()BRCBookmarkAdditions mangledID:error:
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v9 = [self componentsSeparatedByString:@"/"];
   if ([v9 count] == 2)
   {
@@ -117,21 +117,21 @@
         v25 = brc_default_log();
         if (os_log_type_enabled(v25, 0x90u))
         {
-          v31 = "(passed to caller)";
-          v32 = 136315906;
-          v33 = "[NSString(BRCBookmarkAdditions) parseUnsaltedBookmarkDataWithItemID:mangledID:error:]";
-          v34 = 2080;
+          v30 = "(passed to caller)";
+          v31 = 136315906;
+          v32 = "[NSString(BRCBookmarkAdditions) parseUnsaltedBookmarkDataWithItemID:mangledID:error:]";
+          v33 = 2080;
           if (!a5)
           {
-            v31 = "(ignored by caller)";
+            v30 = "(ignored by caller)";
           }
 
-          v35 = v31;
-          v36 = 2112;
-          v37 = v23;
-          v38 = 2112;
-          v39 = v24;
-          _os_log_error_impl(&dword_223E7A000, v25, 0x90u, "[ERROR] %s: %s error: %@%@", &v32, 0x2Au);
+          v34 = v30;
+          v35 = 2112;
+          v36 = v23;
+          v37 = 2112;
+          v38 = v24;
+          _os_log_error_impl(&dword_223E7A000, v25, 0x90u, "[ERROR] %s: %s error: %@%@", &v31, 0x2Au);
         }
       }
 
@@ -151,21 +151,21 @@
         v21 = brc_default_log();
         if (os_log_type_enabled(v21, 0x90u))
         {
-          v30 = "(passed to caller)";
-          v32 = 136315906;
-          v33 = "[NSString(BRCBookmarkAdditions) parseUnsaltedBookmarkDataWithItemID:mangledID:error:]";
-          v34 = 2080;
+          v29 = "(passed to caller)";
+          v31 = 136315906;
+          v32 = "[NSString(BRCBookmarkAdditions) parseUnsaltedBookmarkDataWithItemID:mangledID:error:]";
+          v33 = 2080;
           if (!a5)
           {
-            v30 = "(ignored by caller)";
+            v29 = "(ignored by caller)";
           }
 
-          v35 = v30;
-          v36 = 2112;
-          v37 = v15;
-          v38 = 2112;
-          v39 = v20;
-          _os_log_error_impl(&dword_223E7A000, v21, 0x90u, "[ERROR] %s: %s error: %@%@", &v32, 0x2Au);
+          v34 = v29;
+          v35 = 2112;
+          v36 = v15;
+          v37 = 2112;
+          v38 = v20;
+          _os_log_error_impl(&dword_223E7A000, v21, 0x90u, "[ERROR] %s: %s error: %@%@", &v31, 0x2Au);
         }
       }
 
@@ -191,21 +191,21 @@ LABEL_27:
     v18 = brc_default_log();
     if (os_log_type_enabled(v18, 0x90u))
     {
-      v29 = "(passed to caller)";
-      v32 = 136315906;
-      v33 = "[NSString(BRCBookmarkAdditions) parseUnsaltedBookmarkDataWithItemID:mangledID:error:]";
-      v34 = 2080;
+      v28 = "(passed to caller)";
+      v31 = 136315906;
+      v32 = "[NSString(BRCBookmarkAdditions) parseUnsaltedBookmarkDataWithItemID:mangledID:error:]";
+      v33 = 2080;
       if (!a5)
       {
-        v29 = "(ignored by caller)";
+        v28 = "(ignored by caller)";
       }
 
-      v35 = v29;
-      v36 = 2112;
-      v37 = v12;
-      v38 = 2112;
-      v39 = v17;
-      _os_log_error_impl(&dword_223E7A000, v18, 0x90u, "[ERROR] %s: %s error: %@%@", &v32, 0x2Au);
+      v34 = v28;
+      v35 = 2112;
+      v36 = v12;
+      v37 = 2112;
+      v38 = v17;
+      _os_log_error_impl(&dword_223E7A000, v18, 0x90u, "[ERROR] %s: %s error: %@%@", &v31, 0x2Au);
     }
   }
 
@@ -223,35 +223,34 @@ LABEL_27:
 
 LABEL_28:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (uint64_t)parseBookmarkDataWithAccountSession:()BRCBookmarkAdditions docID:itemID:mangledID:unsaltedBookmarkData:error:
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   v14 = a3;
   v15 = [self componentsSeparatedByString:@"/"];
   if ([v15 count] == 3)
   {
-    v64 = a4;
-    v60 = a8;
+    v63 = a4;
+    v59 = a8;
     v16 = [v15 objectAtIndexedSubscript:0];
     v17 = [v15 objectAtIndexedSubscript:1];
-    v61 = v15;
+    v60 = v15;
     [v15 objectAtIndexedSubscript:2];
     v19 = v18 = v14;
     v20 = v16;
     v21 = [objc_alloc(MEMORY[0x277CFAE60]) initWithAliasTargetContainerString:v16];
-    v65 = v18;
+    v64 = v18;
     accountFacade = [v18 accountFacade];
     accountDSID = [accountFacade accountDSID];
 
     v24 = v17;
-    v63 = accountDSID;
+    v62 = accountDSID;
     v25 = [v17 brc_SHA1WithSalt:accountDSID];
-    v66 = v19;
-    v62 = v25;
+    v65 = v19;
+    v61 = v25;
     if (([v19 isEqualToString:v25] & 1) == 0 && (objc_msgSend(v19, "isEqualToString:", @"BRGetFileNameFromServerInfoBlob") & 1) == 0)
     {
       v42 = v17;
@@ -260,22 +259,22 @@ LABEL_28:
       if (os_log_type_enabled(v44, 0x90u))
       {
         *buf = 138413058;
-        v68 = v19;
-        v69 = 2112;
-        v70 = v25;
-        v71 = 2112;
+        v67 = v19;
+        v68 = 2112;
+        v69 = v25;
+        v70 = 2112;
         selfCopy = self;
-        v73 = 2112;
-        v74 = v43;
+        v72 = 2112;
+        v73 = v43;
         _os_log_error_impl(&dword_223E7A000, v44, 0x90u, "[ERROR] checksum from bookmark %@ is not equal to expected checksum %@ for %@%@", buf, 0x2Au);
       }
 
       v26 = v21;
       v27 = v20;
-      if (v60)
+      if (v59)
       {
         [MEMORY[0x277CCA9B8] brc_errorAccountMismatch];
-        *v60 = v40 = 0;
+        *v59 = v40 = 0;
       }
 
       else
@@ -289,24 +288,24 @@ LABEL_28:
 
     v26 = v21;
     v27 = v20;
-    if (!(v64 | a5))
+    if (!(v63 | a5))
     {
       goto LABEL_34;
     }
 
     v28 = [v17 componentsSeparatedByString:@":"];
-    v59 = v17;
+    v58 = v17;
     if ([v28 count] == 2 && objc_msgSend(v17, "hasPrefix:", @"docID:"))
     {
-      v29 = v60;
+      v29 = v59;
       if (a5)
       {
         v30 = *a5;
         *a5 = 0;
       }
 
-      v31 = v64;
-      if (!v64)
+      v31 = v63;
+      if (!v63)
       {
         goto LABEL_29;
       }
@@ -314,87 +313,87 @@ LABEL_28:
       v32 = MEMORY[0x277CCABB0];
       dbRowID2 = [v28 objectAtIndexedSubscript:1];
       v34 = [v32 numberWithInteger:{objc_msgSend(dbRowID2, "integerValue")}];
-      dbRowID = *v64;
-      *v64 = v34;
+      dbRowID = *v63;
+      *v63 = v34;
     }
 
     else
     {
-      v58 = v28;
+      v57 = v28;
       if ([v26 isShared])
       {
-        v41 = [v65 sharedClientZoneByMangledID:v26];
+        v41 = [v64 sharedClientZoneByMangledID:v26];
         dbRowID = [v41 dbRowID];
         dbRowID2 = 0;
       }
 
       else
       {
-        v41 = [v65 appLibraryByMangledID:v26];
+        v41 = [v64 appLibraryByMangledID:v26];
         dbRowID2 = [v41 dbRowID];
         dbRowID = 0;
       }
 
-      v31 = v64;
+      v31 = v63;
 
       if (a5)
       {
-        v45 = [[BRCItemID alloc] initWithString:v59 libraryRowID:dbRowID2 sharedZoneRowID:dbRowID];
+        v45 = [[BRCItemID alloc] initWithString:v58 libraryRowID:dbRowID2 sharedZoneRowID:dbRowID];
         v46 = *a5;
         *a5 = v45;
       }
 
-      v28 = v58;
-      if (v64)
+      v28 = v57;
+      if (v63)
       {
-        v47 = *v64;
-        *v64 = 0;
+        v47 = *v63;
+        *v63 = 0;
       }
     }
 
-    v29 = v60;
+    v29 = v59;
 LABEL_29:
     if (a5 && v31 && !*a5 && !*v31)
     {
-      v52 = [MEMORY[0x277CCA9B8] brc_errorInvalidParameter:@"bookmarkData" value:self];
-      if (v52)
+      v51 = [MEMORY[0x277CCA9B8] brc_errorInvalidParameter:@"bookmarkData" value:self];
+      if (v51)
       {
-        v53 = brc_bread_crumbs();
-        v54 = brc_default_log();
-        if (os_log_type_enabled(v54, 0x90u))
+        v52 = brc_bread_crumbs();
+        v53 = brc_default_log();
+        if (os_log_type_enabled(v53, 0x90u))
         {
-          v57 = "(passed to caller)";
+          v56 = "(passed to caller)";
           *buf = 136315906;
-          v68 = "[NSString(BRCBookmarkAdditions) parseBookmarkDataWithAccountSession:docID:itemID:mangledID:unsaltedBookmarkData:error:]";
-          v69 = 2080;
-          if (!v60)
+          v67 = "[NSString(BRCBookmarkAdditions) parseBookmarkDataWithAccountSession:docID:itemID:mangledID:unsaltedBookmarkData:error:]";
+          v68 = 2080;
+          if (!v59)
           {
-            v57 = "(ignored by caller)";
+            v56 = "(ignored by caller)";
           }
 
-          v70 = v57;
-          v71 = 2112;
-          selfCopy = v52;
-          v73 = 2112;
-          v74 = v53;
-          _os_log_error_impl(&dword_223E7A000, v54, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
+          v69 = v56;
+          v70 = 2112;
+          selfCopy = v51;
+          v72 = 2112;
+          v73 = v52;
+          _os_log_error_impl(&dword_223E7A000, v53, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
         }
 
-        v29 = v60;
+        v29 = v59;
       }
 
       if (v29)
       {
-        v55 = v52;
-        *v29 = v52;
+        v54 = v51;
+        *v29 = v51;
       }
 
       v40 = 0;
-      v24 = v59;
+      v24 = v58;
       goto LABEL_41;
     }
 
-    v24 = v59;
+    v24 = v58;
 LABEL_34:
     if (a6)
     {
@@ -411,8 +410,8 @@ LABEL_34:
     v40 = 1;
 LABEL_41:
 
-    v14 = v65;
-    v15 = v61;
+    v14 = v64;
+    v15 = v60;
     goto LABEL_42;
   }
 
@@ -424,20 +423,20 @@ LABEL_41:
     v38 = brc_default_log();
     if (os_log_type_enabled(v38, 0x90u))
     {
-      v56 = "(passed to caller)";
+      v55 = "(passed to caller)";
       *buf = 136315906;
-      v68 = "[NSString(BRCBookmarkAdditions) parseBookmarkDataWithAccountSession:docID:itemID:mangledID:unsaltedBookmarkData:error:]";
-      v69 = 2080;
+      v67 = "[NSString(BRCBookmarkAdditions) parseBookmarkDataWithAccountSession:docID:itemID:mangledID:unsaltedBookmarkData:error:]";
+      v68 = 2080;
       if (!v36)
       {
-        v56 = "(ignored by caller)";
+        v55 = "(ignored by caller)";
       }
 
-      v70 = v56;
-      v71 = 2112;
+      v69 = v55;
+      v70 = 2112;
       selfCopy = v27;
-      v73 = 2112;
-      v74 = v37;
+      v72 = 2112;
+      v73 = v37;
       _os_log_error_impl(&dword_223E7A000, v38, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
 
@@ -458,7 +457,6 @@ LABEL_41:
 
 LABEL_42:
 
-  v50 = *MEMORY[0x277D85DE8];
   return v40;
 }
 
@@ -495,11 +493,10 @@ LABEL_42:
 
 + (void)bookmarkDataWithItemResolutionString:()BRCBookmarkAdditions serverZoneMangledID:saltAccountDSID:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: should have an accountID to salt with%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: should have an accountID to salt with%@", &v2, 0xCu);
 }
 
 @end

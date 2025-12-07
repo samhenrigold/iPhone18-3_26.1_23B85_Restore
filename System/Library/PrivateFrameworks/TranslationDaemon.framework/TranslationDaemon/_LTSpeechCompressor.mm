@@ -85,8 +85,8 @@
 - (void)addAudioSampleData:(id)data
 {
   v3 = MEMORY[0x28223BE20](self, a2, data);
-  v21 = *MEMORY[0x277D85DE8];
-  v13 = v4;
+  v20 = *MEMORY[0x277D85DE8];
+  v12 = v4;
   [*(v3 + 24) appendData:?];
   objc_initWeak(&location, v3);
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -94,7 +94,7 @@
   while (1)
   {
     *(&outOutputData.mNumberBuffers + 1) = 0;
-    outOutputData.mBuffers[0].mData = &v20;
+    outOutputData.mBuffers[0].mData = &v19;
     *&outOutputData.mBuffers[0].mNumberChannels = 0x200000000001;
     ioOutputDataPacketSize = 10;
     outOutputData.mNumberBuffers = 1;
@@ -103,7 +103,7 @@
     inInputDataProcUserData[1] = 3221225472;
     inInputDataProcUserData[2] = __42___LTSpeechCompressor_addAudioSampleData___block_invoke;
     inInputDataProcUserData[3] = &unk_2789B7B40;
-    objc_copyWeak(&v15, &location);
+    objc_copyWeak(&v14, &location);
     if (AudioConverterFillComplexBuffer(v7, AudioConverterFillComplexBuffer_BlockInvoke, inInputDataProcUserData, &ioOutputDataPacketSize, &outOutputData, &outPacketDescription))
     {
       break;
@@ -126,17 +126,16 @@
       while (v8 < ioOutputDataPacketSize);
     }
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v14);
   }
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v14);
   [*(v3 + 24) replaceBytesInRange:0 withBytes:*(v3 + 40) length:{0, 0}];
   *(v3 + 40) = 0;
   WeakRetained = objc_loadWeakRetained((v3 + 8));
   [WeakRetained didCompressPackets:v5 totalPacketCount:*(v3 + 32)];
 
   objc_destroyWeak(&location);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

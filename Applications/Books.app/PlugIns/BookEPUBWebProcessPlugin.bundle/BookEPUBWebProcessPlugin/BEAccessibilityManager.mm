@@ -62,16 +62,17 @@
 
 - (void)loadAccessibilitySupport
 {
-  if (![(BEAccessibilityManager *)self isAccessibilitySupportLoaded])
+  isAccessibilitySupportLoaded = [(BEAccessibilityManager *)self isAccessibilitySupportLoaded];
+  if ((isAccessibilitySupportLoaded & 1) == 0)
   {
-    if (BAXShouldPerformValidationChecks())
+    if (BAXShouldPerformValidationChecks(isAccessibilitySupportLoaded, v4))
     {
       [(BEAccessibilityManager *)self performValidation];
     }
 
-    v3 = objc_opt_new();
-    [(BEAccessibilityManager *)self addSafeCategoryNamesToCollection:v3];
-    BAXInstallSafeCategories(v3);
+    v5 = objc_opt_new();
+    [(BEAccessibilityManager *)self addSafeCategoryNamesToCollection:v5];
+    BAXInstallSafeCategories(v5);
     [(BEAccessibilityManager *)self setIsAccessibilitySupportLoaded:1];
   }
 }

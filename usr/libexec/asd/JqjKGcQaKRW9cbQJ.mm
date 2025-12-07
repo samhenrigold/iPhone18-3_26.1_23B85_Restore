@@ -60,7 +60,7 @@
     v12 = dispatch_time(0, 1800000000);
     if (dispatch_group_wait(v11, v12))
     {
-      sub_1000313F4(-32002);
+      sub_1000313F4(4294935294);
     }
 
     v13 = SHIDWORD(v9);

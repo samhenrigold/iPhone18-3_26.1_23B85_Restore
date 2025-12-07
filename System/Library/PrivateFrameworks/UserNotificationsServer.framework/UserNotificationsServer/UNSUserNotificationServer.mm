@@ -23,6 +23,7 @@
 - (void)applicationsDidInstall:(id)install;
 - (void)applicationsDidUninstall:(id)uninstall;
 - (void)categoryRepositoryDidChangeCategoriesForBundleIdentifier:(id)identifier;
+- (void)contentProtectionStateChangedForFirstUnlock:(BOOL)unlock;
 - (void)didChangeNotificationSettings:(id)settings forBundleIdentifier:(id)identifier;
 - (void)didReceiveDeviceToken:(id)token forBundleIdentifier:(id)identifier;
 - (void)initialSystemNotificationSourcesDidInstall:(id)install applicationsDidInstall:(id)didInstall;
@@ -67,10 +68,10 @@ void __43__UNSUserNotificationServer_sharedInstance__block_invoke()
 
 - (UNSUserNotificationServer)init
 {
-  v153 = *MEMORY[0x277D85DE8];
-  v150.receiver = self;
-  v150.super_class = UNSUserNotificationServer;
-  val = [(UNSUserNotificationServer *)&v150 init];
+  v150 = *MEMORY[0x277D85DE8];
+  v147.receiver = self;
+  v147.super_class = UNSUserNotificationServer;
+  val = [(UNSUserNotificationServer *)&v147 init];
   if (val)
   {
     [(UNSUserNotificationServer *)val _registerLoggers];
@@ -210,153 +211,150 @@ void __43__UNSUserNotificationServer_sharedInstance__block_invoke()
     settingsGateway = val->_settingsGateway;
     val->_settingsGateway = v69;
 
-    v71 = [UNSDefaultDataProviderFactory alloc];
-    v72 = val->_summaryService;
-    v73 = [(UNSDefaultDataProviderFactory *)v71 initWithApplicationLauncher:val->_applicationLauncher daemonLauncher:val->_daemonLauncher categoryRepository:val->_categoryRepository notificationRepository:val->_notificationRepository attachmentsService:val->_attachmentsService topicRepository:val->_topicRepository localizationService:val->_localizationService summaryService:v72 settingsGateway:val->_settingsGateway];
+    v71 = [[UNSDefaultDataProviderFactory alloc] initWithApplicationLauncher:val->_applicationLauncher daemonLauncher:val->_daemonLauncher categoryRepository:val->_categoryRepository notificationRepository:val->_notificationRepository attachmentsService:val->_attachmentsService topicRepository:val->_topicRepository localizationService:val->_localizationService summaryService:val->_summaryService settingsGateway:val->_settingsGateway];
     dataProviderFactory = val->_dataProviderFactory;
-    val->_dataProviderFactory = v73;
+    val->_dataProviderFactory = v71;
 
-    v75 = [[UNSNotificationSettingsService alloc] initWithSettingsGateway:val->_settingsGateway];
+    v73 = [[UNSNotificationSettingsService alloc] initWithSettingsGateway:val->_settingsGateway];
     notificationSettingsService = val->_notificationSettingsService;
-    val->_notificationSettingsService = v75;
+    val->_notificationSettingsService = v73;
 
-    v77 = [[UNSNotificationAuthorizationService alloc] initWithDataProviderFactory:val->_dataProviderFactory settingsService:val->_notificationSettingsService localizationService:val->_localizationService];
+    v75 = [[UNSNotificationAuthorizationService alloc] initWithDataProviderFactory:val->_dataProviderFactory settingsService:val->_notificationSettingsService localizationService:val->_localizationService];
     notificationAuthorizationService = val->_notificationAuthorizationService;
-    val->_notificationAuthorizationService = v77;
+    val->_notificationAuthorizationService = v75;
 
-    v79 = [[UNSApplicationService alloc] initWithApplicationLauncher:val->_applicationLauncher categoryRepository:val->_categoryRepository localizationService:val->_localizationService];
+    v77 = [[UNSApplicationService alloc] initWithApplicationLauncher:val->_applicationLauncher categoryRepository:val->_categoryRepository localizationService:val->_localizationService];
     applicationService = val->_applicationService;
-    val->_applicationService = v79;
+    val->_applicationService = v77;
 
     if ((UNCDaemonEnabled() & 1) == 0)
     {
       [(UNCNotificationRepository *)val->_notificationRepository setSettingsProvider:val->_notificationSettingsService];
     }
 
-    v81 = objc_alloc(MEMORY[0x277D77CF8]);
-    v82 = val->_notificationRepository;
-    v83 = val->_attachmentsService;
-    v84 = val->_pushRegistrationRepository;
+    v79 = objc_alloc(MEMORY[0x277D77CF8]);
+    v80 = val->_notificationRepository;
+    v81 = val->_attachmentsService;
+    v82 = val->_pushRegistrationRepository;
     mEMORY[0x277CF0CA8] = [MEMORY[0x277CF0CA8] sharedInstance];
-    v86 = [v81 initWithNotificationRepository:v82 attachmentsService:v83 pushRegistrationRepository:v84 platform:mEMORY[0x277CF0CA8]];
+    v84 = [v79 initWithNotificationRepository:v80 attachmentsService:v81 pushRegistrationRepository:v82 platform:mEMORY[0x277CF0CA8]];
     remoteNotificationService = val->_remoteNotificationService;
-    val->_remoteNotificationService = v86;
+    val->_remoteNotificationService = v84;
 
-    v88 = [[UNSUserNotificationServerRemoteNotificationConnectionListener alloc] initWithRemoteNotificationService:val->_remoteNotificationService];
+    v86 = [[UNSUserNotificationServerRemoteNotificationConnectionListener alloc] initWithRemoteNotificationService:val->_remoteNotificationService];
     userNotificationServerRemoteNotificationConnectionListener = val->_userNotificationServerRemoteNotificationConnectionListener;
-    val->_userNotificationServerRemoteNotificationConnectionListener = v88;
+    val->_userNotificationServerRemoteNotificationConnectionListener = v86;
 
-    v90 = [[UNSUserNotificationServerConnectionListener alloc] initWithCategoryRepository:val->_categoryRepository notificationSchedulingService:val->_notificationSchedulingService notificationAuthorizationService:val->_notificationAuthorizationService notificationSettingsService:val->_notificationSettingsService notificationRepository:val->_notificationRepository remoteNotificationConnectionListener:val->_userNotificationServerRemoteNotificationConnectionListener remoteNotificationService:val->_remoteNotificationService applicationLauncher:val->_applicationLauncher attachmentsService:val->_attachmentsService locationMonitor:val->_locationMonitor topicRepository:val->_topicRepository localizationService:val->_localizationService communicationContextService:val->_communicationContextService];
+    v88 = [[UNSUserNotificationServerConnectionListener alloc] initWithCategoryRepository:val->_categoryRepository notificationSchedulingService:val->_notificationSchedulingService notificationAuthorizationService:val->_notificationAuthorizationService notificationSettingsService:val->_notificationSettingsService notificationRepository:val->_notificationRepository remoteNotificationConnectionListener:val->_userNotificationServerRemoteNotificationConnectionListener remoteNotificationService:val->_remoteNotificationService applicationLauncher:val->_applicationLauncher attachmentsService:val->_attachmentsService locationMonitor:val->_locationMonitor topicRepository:val->_topicRepository localizationService:val->_localizationService communicationContextService:val->_communicationContextService];
     userNotificationServerConnectionListener = val->_userNotificationServerConnectionListener;
-    val->_userNotificationServerConnectionListener = v90;
+    val->_userNotificationServerConnectionListener = v88;
 
-    v92 = [[UNSUserNotificationServerSettingsConnectionListener alloc] initWithNotificationSettingsService:val->_notificationSettingsService];
+    v90 = [[UNSUserNotificationServerSettingsConnectionListener alloc] initWithNotificationSettingsService:val->_notificationSettingsService];
     userNotificationServerSettingsConnectionListener = val->_userNotificationServerSettingsConnectionListener;
-    val->_userNotificationServerSettingsConnectionListener = v92;
+    val->_userNotificationServerSettingsConnectionListener = v90;
 
     if (UNCRemoteServicesNeeded())
     {
-      v94 = [objc_alloc(MEMORY[0x277D77CC0]) initWithDelegate:val];
+      v92 = [objc_alloc(MEMORY[0x277D77CC0]) initWithDelegate:val];
       systemServiceListener = val->_systemServiceListener;
-      val->_systemServiceListener = v94;
+      val->_systemServiceListener = v92;
 
       [(UNCNotificationSystemServiceListener *)val->_systemServiceListener activate];
     }
 
-    v96 = [MEMORY[0x277CBEB58] set];
-    v97 = [MEMORY[0x277CBEB58] set];
+    v94 = [MEMORY[0x277CBEB58] set];
+    v95 = [MEMORY[0x277CBEB58] set];
     [(UNSUserNotificationServer *)val _loadAllSystemNotificationSourceDescriptions];
-    v148 = 0u;
-    v149 = 0u;
+    v145 = 0u;
     v146 = 0u;
-    v98 = v147 = 0u;
-    v99 = [v98 countByEnumeratingWithState:&v146 objects:v152 count:16];
-    if (v99)
+    v143 = 0u;
+    v96 = v144 = 0u;
+    v97 = [v96 countByEnumeratingWithState:&v143 objects:v149 count:16];
+    if (v97)
     {
-      v100 = *v147;
+      v98 = *v144;
       do
       {
-        for (i = 0; i != v99; ++i)
+        for (i = 0; i != v97; ++i)
         {
-          if (*v147 != v100)
+          if (*v144 != v98)
           {
-            objc_enumerationMutation(v98);
+            objc_enumerationMutation(v96);
           }
 
-          bundleIdentifier = [*(*(&v146 + 1) + 8 * i) bundleIdentifier];
-          [v96 addObject:bundleIdentifier];
-          [v97 addObject:bundleIdentifier];
+          bundleIdentifier = [*(*(&v143 + 1) + 8 * i) bundleIdentifier];
+          [v94 addObject:bundleIdentifier];
+          [v95 addObject:bundleIdentifier];
         }
 
-        v99 = [v98 countByEnumeratingWithState:&v146 objects:v152 count:16];
+        v97 = [v96 countByEnumeratingWithState:&v143 objects:v149 count:16];
       }
 
-      while (v99);
+      while (v97);
     }
 
-    v103 = [v96 copy];
+    v101 = [v94 copy];
     systemSourceBundleIdentifiers = val->_systemSourceBundleIdentifiers;
-    val->_systemSourceBundleIdentifiers = v103;
+    val->_systemSourceBundleIdentifiers = v101;
 
-    v105 = val->_librarian;
-    v106 = [(NSString *)val->_libraryDirectory stringByAppendingPathComponent:@"UserNotificationsServer"];
-    [(UNCBundleLibrarian *)v105 migrateLibraryFromDirectory:v106 toDirectory:val->_directory];
+    v103 = val->_librarian;
+    v104 = [(NSString *)val->_libraryDirectory stringByAppendingPathComponent:@"UserNotificationsServer"];
+    [(UNCBundleLibrarian *)v103 migrateLibraryFromDirectory:v104 toDirectory:val->_directory];
 
     array = [MEMORY[0x277CBEB18] array];
-    v108 = MEMORY[0x277CC1E70];
-    v143[0] = MEMORY[0x277D85DD0];
-    v143[1] = 3221225472;
-    v143[2] = __33__UNSUserNotificationServer_init__block_invoke;
-    v143[3] = &unk_279E10778;
-    v130 = array;
-    v144 = v130;
-    v131 = v97;
-    v145 = v131;
-    [v108 unc_enumerateApplicationRecordsEligibleToDeliverNotifications:v143];
-    v109 = val->_librarian;
-    v110 = [v131 copy];
-    [(UNCBundleLibrarian *)v109 bootstrapLibraryForBundleIdentifiers:v110];
+    v106 = MEMORY[0x277CC1E70];
+    v140[0] = MEMORY[0x277D85DD0];
+    v140[1] = 3221225472;
+    v140[2] = __33__UNSUserNotificationServer_init__block_invoke;
+    v140[3] = &unk_279E10778;
+    v127 = array;
+    v141 = v127;
+    v128 = v95;
+    v142 = v128;
+    [v106 unc_enumerateApplicationRecordsEligibleToDeliverNotifications:v140];
+    v107 = val->_librarian;
+    v108 = [v128 copy];
+    [(UNCBundleLibrarian *)v107 bootstrapLibraryForBundleIdentifiers:v108];
 
     if (UNIsInternalInstall())
     {
-      v129 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.usernotifications"];
-      if (([v129 BOOLForKey:@"UNNotificationObliterateForRadar150366881"] & 1) == 0)
+      v126 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.usernotifications"];
+      if (([v126 BOOLForKey:@"UNNotificationObliterateForRadar150366881"] & 1) == 0)
       {
-        v141 = 0u;
-        v142 = 0u;
+        v138 = 0u;
         v139 = 0u;
-        v140 = 0u;
-        v111 = v131;
-        v112 = [v111 countByEnumeratingWithState:&v139 objects:v151 count:16];
-        if (v112)
+        v136 = 0u;
+        v137 = 0u;
+        v109 = v128;
+        v110 = [v109 countByEnumeratingWithState:&v136 objects:v148 count:16];
+        if (v110)
         {
-          v113 = *v140;
+          v111 = *v137;
           do
           {
-            for (j = 0; j != v112; ++j)
+            for (j = 0; j != v110; ++j)
             {
-              if (*v140 != v113)
+              if (*v137 != v111)
               {
-                objc_enumerationMutation(v111);
+                objc_enumerationMutation(v109);
               }
 
-              v115 = *(*(&v139 + 1) + 8 * j);
-              [(UNCNotificationRepository *)val->_notificationRepository removeStoreForBundleIdentifier:v115];
+              v113 = *(*(&v136 + 1) + 8 * j);
+              [(UNCNotificationRepository *)val->_notificationRepository removeStoreForBundleIdentifier:v113];
               objc_opt_class();
-              v116 = val->_notificationRepository;
-              v117 = UNSafeCast();
-              [v117 _removeStoreForBundleIdentifier:v115 overridePathExtension:@"uncplist"];
+              v114 = UNSafeCast();
+              [v114 _removeStoreForBundleIdentifier:v113 overridePathExtension:@"uncplist"];
 
-              [(UNCPendingNotificationRepository *)val->_pendingNotificationRepository removeStoreForBundleIdentifier:v115];
+              [(UNCPendingNotificationRepository *)val->_pendingNotificationRepository removeStoreForBundleIdentifier:v113];
             }
 
-            v112 = [v111 countByEnumeratingWithState:&v139 objects:v151 count:16];
+            v110 = [v109 countByEnumeratingWithState:&v136 objects:v148 count:16];
           }
 
-          while (v112);
+          while (v110);
         }
 
-        [v129 setBool:1 forKey:@"UNNotificationObliterateForRadar150366881"];
+        [v126 setBool:1 forKey:@"UNNotificationObliterateForRadar150366881"];
       }
     }
 
@@ -373,15 +371,15 @@ void __43__UNSUserNotificationServer_sharedInstance__block_invoke()
     }
 
     objc_initWeak(&location, val);
-    v118 = MEMORY[0x277D46F80];
-    v136[0] = MEMORY[0x277D85DD0];
-    v136[1] = 3221225472;
-    v136[2] = __33__UNSUserNotificationServer_init__block_invoke_2;
-    v136[3] = &unk_279E107C8;
-    objc_copyWeak(&v137, &location);
-    v119 = [v118 monitorWithConfiguration:v136];
+    v115 = MEMORY[0x277D46F80];
+    v133[0] = MEMORY[0x277D85DD0];
+    v133[1] = 3221225472;
+    v133[2] = __33__UNSUserNotificationServer_init__block_invoke_2;
+    v133[3] = &unk_279E107C8;
+    objc_copyWeak(&v134, &location);
+    v116 = [v115 monitorWithConfiguration:v133];
     processMonitor = val->_processMonitor;
-    val->_processMonitor = v119;
+    val->_processMonitor = v116;
 
     [(UNSUserNotificationServer *)val _addObserverForApplicationStateRestore];
     [(UNSUserNotificationServer *)val _addObserverForApplicationWorkspaceChanges];
@@ -391,45 +389,44 @@ void __43__UNSUserNotificationServer_sharedInstance__block_invoke()
     [(UNSUserNotificationServer *)val _addObserverForLocaleChanges];
     [(UNSUserNotificationServer *)val _addObserverForRemoteNotificationServiceChanges];
     [(UNSUserNotificationServer *)val _addObserverForSignificantTimeChanges];
-    [(UNSUserNotificationServer *)val initialSystemNotificationSourcesDidInstall:v98 applicationsDidInstall:v130];
+    [(UNSUserNotificationServer *)val initialSystemNotificationSourcesDidInstall:v96 applicationsDidInstall:v127];
     if ((UNCDaemonEnabled() & 1) == 0)
     {
       [(UNCNotificationRepository *)val->_notificationRepository setDelegate:?];
     }
 
-    v121 = dispatch_get_global_queue(0, 0);
+    v118 = dispatch_get_global_queue(0, 0);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __33__UNSUserNotificationServer_init__block_invoke_4;
     block[3] = &unk_279E104B8;
-    v122 = val;
-    v134 = v122;
-    v123 = v131;
-    v135 = v123;
-    dispatch_async(v121, block);
+    v119 = val;
+    v131 = v119;
+    v120 = v128;
+    v132 = v120;
+    dispatch_async(v118, block);
 
     if ([(UNSContentProtectionManager *)val->_contentProtectionManager deviceUnlockedSinceBoot])
     {
-      [v122 _ensureAttachmentsIntegrity];
+      [v119 _ensureAttachmentsIntegrity];
     }
 
     [(UNSUserNotificationServerConnectionListener *)val->_userNotificationServerConnectionListener resume];
     [(UNSUserNotificationServerRemoteNotificationConnectionListener *)val->_userNotificationServerRemoteNotificationConnectionListener resume];
     [(UNSUserNotificationServerSettingsConnectionListener *)val->_userNotificationServerSettingsConnectionListener resume];
-    v124 = objc_opt_new();
-    v125 = v122[35];
-    v122[35] = v124;
+    v121 = objc_opt_new();
+    v122 = v119[35];
+    v119[35] = v121;
 
-    [v122[35] setDelegate:v122];
+    [v119[35] setDelegate:v119];
     mEMORY[0x277D77CD8] = [MEMORY[0x277D77CD8] sharedInstance];
-    UNSExampleUserNotificationCenterRegister();
+    UNSExampleUserNotificationCenterRegister(mEMORY[0x277D77CD8], v124);
     [MEMORY[0x277D77E88] applyToSettingsIfNecessary];
 
-    objc_destroyWeak(&v137);
+    objc_destroyWeak(&v134);
     objc_destroyWeak(&location);
   }
 
-  v127 = *MEMORY[0x277D85DE8];
   return val;
 }
 
@@ -448,51 +445,49 @@ void __33__UNSUserNotificationServer_init__block_invoke(uint64_t a1, void *a2)
 
 void __33__UNSUserNotificationServer_init__block_invoke_2(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277D46FB0] descriptor];
   [v4 setValues:1];
   [v4 setEndowmentNamespaces:&unk_28809BCF8];
   [v3 setStateDescriptor:v4];
   v5 = [MEMORY[0x277D46FA0] predicateMatchingProcessTypeApplication];
-  v10[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   [v3 setPredicates:v6];
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __33__UNSUserNotificationServer_init__block_invoke_3;
-  v8[3] = &unk_279E107A0;
-  objc_copyWeak(&v9, (a1 + 32));
-  [v3 setUpdateHandler:v8];
-  objc_destroyWeak(&v9);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __33__UNSUserNotificationServer_init__block_invoke_3;
+  v7[3] = &unk_279E107A0;
+  objc_copyWeak(&v8, (a1 + 32));
+  [v3 setUpdateHandler:v7];
+  objc_destroyWeak(&v8);
 }
 
 void __33__UNSUserNotificationServer_init__block_invoke_4(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 144) notificationSourcesForBundleIdentifiers:*(a1 + 40)];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = [v7 sourceSettings];
         v9 = [v8 notificationSettings];
         if ([v9 hasEnabledSettings])
@@ -502,15 +497,13 @@ void __33__UNSUserNotificationServer_init__block_invoke_4(uint64_t a1)
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
 
   [*(*(a1 + 32) + 168) didCompleteInitialization];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_loadAllSystemNotificationSourceDescriptions
@@ -584,28 +577,28 @@ void __95__UNSUserNotificationServer_initialSystemNotificationSourcesDidInstall_
 
 void __58__UNSUserNotificationServer_applicationInstallsDidChange___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         v9 = [v8 correspondingApplicationRecord];
         v10 = v9;
         if (v9 && [v9 isWebApp])
@@ -614,7 +607,7 @@ void __58__UNSUserNotificationServer_applicationInstallsDidChange___block_invoke
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -624,8 +617,6 @@ void __58__UNSUserNotificationServer_applicationInstallsDidChange___block_invoke
   {
     [*(a1 + 40) _applicationsDidInstall:v2];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationsDidInstall:(id)install
@@ -803,11 +794,22 @@ LABEL_6:
   [(UNSUserNotificationServerRemoteNotificationConnectionListener *)self->_userNotificationServerRemoteNotificationConnectionListener didReceiveDeviceToken:tokenCopy forBundleIdentifier:identifierCopy];
 }
 
+- (void)contentProtectionStateChangedForFirstUnlock:(BOOL)unlock
+{
+  unlockCopy = unlock;
+  [(UNCNotificationRepository *)self->_notificationRepository contentProtectionStateChangedForFirstUnlock:?];
+  [(UNCPendingNotificationRepository *)self->_pendingNotificationRepository contentProtectionStateChangedForFirstUnlock:unlockCopy];
+  [(UNSNotificationCategoryRepository *)self->_categoryRepository contentProtectionStateChangedForFirstUnlock:unlockCopy];
+  [(UNCNotificationTopicRepository *)self->_topicRepository contentProtectionStateChangedForFirstUnlock:unlockCopy];
+  attachmentsService = self->_attachmentsService;
+
+  [(UNSAttachmentsService *)attachmentsService contentProtectionStateChangedForFirstUnlock:unlockCopy];
+}
+
 - (void)notificationRepositoryDidPerformUpdates:(id)updates forBundleIdentifier:(id)identifier
 {
   updatesCopy = updates;
   identifierCopy = identifier;
-  notificationRepository = self->_notificationRepository;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -818,7 +820,6 @@ LABEL_6:
 - (void)notificationRepositoryDidDiscoverContentOnFirstUnlockForBundleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  notificationRepository = self->_notificationRepository;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -829,7 +830,6 @@ LABEL_6:
 - (void)categoryRepositoryDidChangeCategoriesForBundleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  categoryRepository = self->_categoryRepository;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -857,7 +857,7 @@ LABEL_6:
 
 void __76__UNSUserNotificationServer__buildForegroundAction_queue_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v11 = a2;
   v12 = a3;
   v13 = a4;
@@ -870,11 +870,11 @@ void __76__UNSUserNotificationServer__buildForegroundAction_queue_completionHand
     block[1] = 3221225472;
     block[2] = __76__UNSUserNotificationServer__buildForegroundAction_queue_completionHandler___block_invoke_2;
     block[3] = &unk_279E10508;
-    v44 = *(a1 + 48);
-    v43 = v15;
+    v43 = *(a1 + 48);
+    v42 = v15;
     dispatch_async(v16, block);
 
-    v17 = v44;
+    v17 = v43;
   }
 
   else
@@ -884,13 +884,13 @@ void __76__UNSUserNotificationServer__buildForegroundAction_queue_completionHand
     if (os_log_type_enabled(*MEMORY[0x277CE2060], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138413058;
-      v46 = v11;
-      v47 = 2112;
-      v48 = v13;
-      v49 = 2112;
-      v50 = v12;
-      v51 = 2112;
-      v52 = v14;
+      v45 = v11;
+      v46 = 2112;
+      v47 = v13;
+      v48 = 2112;
+      v49 = v12;
+      v50 = 2112;
+      v51 = v14;
       _os_log_impl(&dword_270AA8000, v19, OS_LOG_TYPE_DEFAULT, "bundleID: %@ performAction: %@ forNotification: %@ withUserText: %@", buf, 0x2Au);
     }
 
@@ -898,52 +898,52 @@ void __76__UNSUserNotificationServer__buildForegroundAction_queue_completionHand
     if (v17)
     {
       v20 = [v13 isEqual:*MEMORY[0x277CE20E8]];
-      v34 = [*(a1 + 40) localActionForAction:v13 notification:v12 bundleID:v11];
-      if (([v34 options] & 4) != 0 || v20)
+      v33 = [*(a1 + 40) localActionForAction:v13 notification:v12 bundleID:v11];
+      if (([v33 options] & 4) != 0 || v20)
       {
         v25 = *v18;
         if (os_log_type_enabled(*v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412802;
-          v46 = v13;
-          v47 = 2112;
-          v48 = v12;
-          v49 = 2112;
-          v50 = v14;
+          v45 = v13;
+          v46 = 2112;
+          v47 = v12;
+          v48 = 2112;
+          v49 = v14;
           _os_log_impl(&dword_270AA8000, v25, OS_LOG_TYPE_DEFAULT, "FOREGROUND sendAction: %@ forNotification: %@ withUserText: %@", buf, 0x20u);
         }
 
         v26 = [v17 notification];
         v27 = [v26 request];
         v28 = [v27 content];
-        v33 = [v28 launchImageName];
+        v32 = [v28 launchImageName];
 
         v29 = *(a1 + 32);
         v30 = *(*(a1 + 40) + 16);
-        v37[0] = MEMORY[0x277D85DD0];
-        v37[1] = 3221225472;
-        v37[2] = __76__UNSUserNotificationServer__buildForegroundAction_queue_completionHandler___block_invoke_80;
-        v37[3] = &unk_279E10858;
+        v36[0] = MEMORY[0x277D85DD0];
+        v36[1] = 3221225472;
+        v36[2] = __76__UNSUserNotificationServer__buildForegroundAction_queue_completionHandler___block_invoke_80;
+        v36[3] = &unk_279E10858;
         v31 = *(a1 + 48);
-        v22 = v33;
-        v39 = v31;
-        v38 = v11;
-        [v30 foregroundLaunchOptionsForApplication:v38 withResponse:v17 launchImageName:v33 origin:0 queue:v29 completionHandler:v37];
+        v22 = v32;
+        v38 = v31;
+        v37 = v11;
+        [v30 foregroundLaunchOptionsForApplication:v37 withResponse:v17 launchImageName:v32 origin:0 queue:v29 completionHandler:v36];
       }
 
       else
       {
         v21 = *(a1 + 32);
-        v35[0] = MEMORY[0x277D85DD0];
-        v35[1] = 3221225472;
-        v35[2] = __76__UNSUserNotificationServer__buildForegroundAction_queue_completionHandler___block_invoke_2_82;
-        v35[3] = &unk_279E10610;
-        v36 = *(a1 + 48);
-        dispatch_async(v21, v35);
-        v22 = v36;
+        v34[0] = MEMORY[0x277D85DD0];
+        v34[1] = 3221225472;
+        v34[2] = __76__UNSUserNotificationServer__buildForegroundAction_queue_completionHandler___block_invoke_2_82;
+        v34[3] = &unk_279E10610;
+        v35 = *(a1 + 48);
+        dispatch_async(v21, v34);
+        v22 = v35;
       }
 
-      v24 = v34;
+      v24 = v33;
     }
 
     else
@@ -954,17 +954,15 @@ void __76__UNSUserNotificationServer__buildForegroundAction_queue_completionHand
       }
 
       v23 = *(a1 + 32);
-      v40[0] = MEMORY[0x277D85DD0];
-      v40[1] = 3221225472;
-      v40[2] = __76__UNSUserNotificationServer__buildForegroundAction_queue_completionHandler___block_invoke_78;
-      v40[3] = &unk_279E10610;
-      v41 = *(a1 + 48);
-      dispatch_async(v23, v40);
-      v24 = v41;
+      v39[0] = MEMORY[0x277D85DD0];
+      v39[1] = 3221225472;
+      v39[2] = __76__UNSUserNotificationServer__buildForegroundAction_queue_completionHandler___block_invoke_78;
+      v39[3] = &unk_279E10610;
+      v40 = *(a1 + 48);
+      dispatch_async(v23, v39);
+      v24 = v40;
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __76__UNSUserNotificationServer__buildForegroundAction_queue_completionHandler___block_invoke_78(uint64_t a1)
@@ -993,7 +991,7 @@ void __76__UNSUserNotificationServer__buildForegroundAction_queue_completionHand
 
 - (void)performAction:(id)action forNotification:(id)notification inApp:(id)app withUserText:(id)text
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   notificationCopy = notification;
   appCopy = app;
@@ -1003,13 +1001,13 @@ void __76__UNSUserNotificationServer__buildForegroundAction_queue_completionHand
   if (os_log_type_enabled(*MEMORY[0x277CE2060], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
-    v40 = appCopy;
-    v41 = 2112;
-    v42 = actionCopy;
-    v43 = 2112;
-    v44 = notificationCopy;
-    v45 = 2112;
-    v46 = textCopy;
+    v39 = appCopy;
+    v40 = 2112;
+    v41 = actionCopy;
+    v42 = 2112;
+    v43 = notificationCopy;
+    v44 = 2112;
+    v45 = textCopy;
     _os_log_impl(&dword_270AA8000, v15, OS_LOG_TYPE_DEFAULT, "bundleID: %@ performAction: %@ forNotification: %@ withUserText: %@", buf, 0x2Au);
   }
 
@@ -1022,15 +1020,15 @@ void __76__UNSUserNotificationServer__buildForegroundAction_queue_completionHand
     v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
     if ((options & 4) != 0)
     {
-      v28 = v17;
+      v27 = v17;
       if (v20)
       {
         *buf = 138412802;
-        v40 = actionCopy;
-        v41 = 2112;
-        v42 = notificationCopy;
-        v43 = 2112;
-        v44 = textCopy;
+        v39 = actionCopy;
+        v40 = 2112;
+        v41 = notificationCopy;
+        v42 = 2112;
+        v43 = textCopy;
         _os_log_impl(&dword_270AA8000, v19, OS_LOG_TYPE_DEFAULT, "FOREGROUND sendAction: %@ forNotification: %@ withUserText: %@", buf, 0x20u);
       }
 
@@ -1040,16 +1038,16 @@ void __76__UNSUserNotificationServer__buildForegroundAction_queue_completionHand
       launchImageName = [content launchImageName];
 
       applicationLauncher = self->_applicationLauncher;
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __78__UNSUserNotificationServer_performAction_forNotification_inApp_withUserText___block_invoke;
-      v35[3] = &unk_279E108A8;
-      v36 = actionCopy;
-      v37 = notificationCopy;
-      v38 = textCopy;
-      [(UNSApplicationLauncher *)applicationLauncher foregroundLaunchApplication:appCopy withResponse:v16 launchImageName:launchImageName origin:0 endpoint:0 completionHandler:v35];
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __78__UNSUserNotificationServer_performAction_forNotification_inApp_withUserText___block_invoke;
+      v34[3] = &unk_279E108A8;
+      v35 = actionCopy;
+      v36 = notificationCopy;
+      v37 = textCopy;
+      [(UNSApplicationLauncher *)applicationLauncher foregroundLaunchApplication:appCopy withResponse:v16 launchImageName:launchImageName origin:0 endpoint:0 completionHandler:v34];
 
-      v17 = v28;
+      v17 = v27;
     }
 
     else
@@ -1057,27 +1055,27 @@ void __76__UNSUserNotificationServer__buildForegroundAction_queue_completionHand
       if (v20)
       {
         *buf = 138412802;
-        v40 = actionCopy;
-        v41 = 2112;
-        v42 = notificationCopy;
-        v43 = 2112;
-        v44 = textCopy;
+        v39 = actionCopy;
+        v40 = 2112;
+        v41 = notificationCopy;
+        v42 = 2112;
+        v43 = textCopy;
         _os_log_impl(&dword_270AA8000, v19, OS_LOG_TYPE_DEFAULT, "BACKGROUND APPLICATION sendAction: %@ forNotification: %@ withUserText: %@", buf, 0x20u);
       }
 
       v21 = self->_applicationLauncher;
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __78__UNSUserNotificationServer_performAction_forNotification_inApp_withUserText___block_invoke_85;
-      v29[3] = &unk_279E108D0;
-      v30 = actionCopy;
-      v31 = notificationCopy;
-      v32 = textCopy;
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __78__UNSUserNotificationServer_performAction_forNotification_inApp_withUserText___block_invoke_85;
+      v28[3] = &unk_279E108D0;
+      v29 = actionCopy;
+      v30 = notificationCopy;
+      v31 = textCopy;
       selfCopy = self;
-      v34 = appCopy;
-      [(UNSApplicationLauncher *)v21 backgroundLaunchApplication:v34 withResponse:v16 completionHandler:v29];
+      v33 = appCopy;
+      [(UNSApplicationLauncher *)v21 backgroundLaunchApplication:v33 withResponse:v16 completionHandler:v28];
 
-      launchImageName = v30;
+      launchImageName = v29;
     }
   }
 
@@ -1085,13 +1083,11 @@ void __76__UNSUserNotificationServer__buildForegroundAction_queue_completionHand
   {
     __76__UNSUserNotificationServer__buildForegroundAction_queue_completionHandler___block_invoke_cold_1();
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __78__UNSUserNotificationServer_performAction_forNotification_inApp_withUserText___block_invoke(void *a1, char a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CE2060];
   v4 = *MEMORY[0x277CE2060];
   if (a2)
@@ -1101,27 +1097,25 @@ void __78__UNSUserNotificationServer_performAction_forNotification_inApp_withUse
       v5 = a1[4];
       v6 = a1[5];
       v7 = a1[6];
-      v9 = 138412802;
-      v10 = v5;
-      v11 = 2112;
-      v12 = v6;
-      v13 = 2112;
-      v14 = v7;
-      _os_log_impl(&dword_270AA8000, v3, OS_LOG_TYPE_DEFAULT, "FOREGROUND succeeded sendAction: %@ forNotification: %@ withUserText: %@", &v9, 0x20u);
+      v8 = 138412802;
+      v9 = v5;
+      v10 = 2112;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v7;
+      _os_log_impl(&dword_270AA8000, v3, OS_LOG_TYPE_DEFAULT, "FOREGROUND succeeded sendAction: %@ forNotification: %@ withUserText: %@", &v8, 0x20u);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __78__UNSUserNotificationServer_performAction_forNotification_inApp_withUserText___block_invoke_cold_1(a1);
+    __78__UNSUserNotificationServer_performAction_forNotification_inApp_withUserText___block_invoke_cold_1();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __78__UNSUserNotificationServer_performAction_forNotification_inApp_withUserText___block_invoke_85(uint64_t a1, char a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CE2060];
   v4 = *MEMORY[0x277CE2060];
   if (a2)
@@ -1132,11 +1126,11 @@ void __78__UNSUserNotificationServer_performAction_forNotification_inApp_withUse
       v6 = *(a1 + 40);
       v7 = *(a1 + 48);
       *buf = 138412802;
-      v13 = v5;
-      v14 = 2112;
-      v15 = v6;
-      v16 = 2112;
-      v17 = v7;
+      v12 = v5;
+      v13 = 2112;
+      v14 = v6;
+      v15 = 2112;
+      v16 = v7;
       _os_log_impl(&dword_270AA8000, v3, OS_LOG_TYPE_DEFAULT, "BACKGROUND APPLICATION succeeded sendAction: %@ forNotification: %@ withUserText: %@", buf, 0x20u);
     }
 
@@ -1145,33 +1139,29 @@ void __78__UNSUserNotificationServer_performAction_forNotification_inApp_withUse
     block[2] = __78__UNSUserNotificationServer_performAction_forNotification_inApp_withUserText___block_invoke_86;
     block[3] = &unk_279E10700;
     block[4] = *(a1 + 56);
-    v10 = *(a1 + 40);
-    v11 = *(a1 + 64);
+    v9 = *(a1 + 40);
+    v10 = *(a1 + 64);
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __78__UNSUserNotificationServer_performAction_forNotification_inApp_withUserText___block_invoke_85_cold_1(a1);
+    __78__UNSUserNotificationServer_performAction_forNotification_inApp_withUserText___block_invoke_85_cold_1();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __78__UNSUserNotificationServer_performAction_forNotification_inApp_withUserText___block_invoke_86(void *a1)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   v2 = a1[4];
-  v5[0] = a1[5];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
+  v4[0] = a1[5];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
   [v2 _removeNotificationRecordsForIdentifiers:v3 bundleIdentifier:a1[6]];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)localActionForAction:(id)action notification:(id)notification bundleID:(id)d
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   notificationCopy = notification;
   dCopy = d;
@@ -1195,34 +1185,34 @@ void __78__UNSUserNotificationServer_performAction_forNotification_inApp_withUse
         if (v19)
         {
           v20 = [v19 notificationCategoryForNotificationCategoryRecord:v16];
-          v39 = v20;
+          v38 = v20;
           if (v20)
           {
-            v35 = v19;
-            v36 = v16;
-            v37 = categoryIdentifier;
-            v38 = notificationCopy;
-            v42 = 0u;
-            v43 = 0u;
-            v40 = 0u;
+            v34 = v19;
+            v35 = v16;
+            v36 = categoryIdentifier;
+            v37 = notificationCopy;
             v41 = 0u;
+            v42 = 0u;
+            v39 = 0u;
+            v40 = 0u;
             actions = [v20 actions];
-            v22 = [actions countByEnumeratingWithState:&v40 objects:v44 count:16];
+            v22 = [actions countByEnumeratingWithState:&v39 objects:v43 count:16];
             if (v22)
             {
               v23 = v22;
-              v24 = *v41;
-              v34 = v14;
+              v24 = *v40;
+              v33 = v14;
               while (2)
               {
                 for (i = 0; i != v23; ++i)
                 {
-                  if (*v41 != v24)
+                  if (*v40 != v24)
                   {
                     objc_enumerationMutation(actions);
                   }
 
-                  v26 = *(*(&v40 + 1) + 8 * i);
+                  v26 = *(*(&v39 + 1) + 8 * i);
                   identifier = [v26 identifier];
                   v28 = [identifier isEqual:actionCopy];
 
@@ -1230,14 +1220,14 @@ void __78__UNSUserNotificationServer_performAction_forNotification_inApp_withUse
                   {
                     v29 = v26;
 
-                    notificationCopy = v38;
-                    v14 = v34;
+                    notificationCopy = v37;
+                    v14 = v33;
                     goto LABEL_30;
                   }
                 }
 
-                v23 = [actions countByEnumeratingWithState:&v40 objects:v44 count:16];
-                v14 = v34;
+                v23 = [actions countByEnumeratingWithState:&v39 objects:v43 count:16];
+                v14 = v33;
                 if (v23)
                 {
                   continue;
@@ -1253,11 +1243,11 @@ void __78__UNSUserNotificationServer_performAction_forNotification_inApp_withUse
             }
 
             v29 = 0;
-            notificationCopy = v38;
+            notificationCopy = v37;
 LABEL_30:
-            v16 = v36;
-            categoryIdentifier = v37;
-            v19 = v35;
+            v16 = v35;
+            categoryIdentifier = v36;
+            v19 = v34;
           }
 
           else
@@ -1266,11 +1256,11 @@ LABEL_30:
             if (os_log_type_enabled(*MEMORY[0x277CE2060], OS_LOG_TYPE_ERROR))
             {
               *buf = 138412802;
-              v46 = dCopy;
-              v47 = 2112;
-              v48 = v12;
-              v49 = 2112;
-              v50 = v16;
+              v45 = dCopy;
+              v46 = 2112;
+              v47 = v12;
+              v48 = 2112;
+              v49 = v16;
               _os_log_error_impl(&dword_270AA8000, v31, OS_LOG_TYPE_ERROR, "bundleID: %@ NO CATEGORY found provider: %@, categoryRecord: %@", buf, 0x20u);
             }
 
@@ -1307,11 +1297,11 @@ LABEL_30:
       if (os_log_type_enabled(*MEMORY[0x277CE2060], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v46 = dCopy;
-        v47 = 2112;
-        v48 = v12;
-        v49 = 2112;
-        v50 = notificationCopy;
+        v45 = dCopy;
+        v46 = 2112;
+        v47 = v12;
+        v48 = 2112;
+        v49 = notificationCopy;
         _os_log_error_impl(&dword_270AA8000, v30, OS_LOG_TYPE_ERROR, "bundleID: %@ NO NOTIFICATION RECORD found provider: %@, notification: %@", buf, 0x20u);
       }
 
@@ -1329,14 +1319,12 @@ LABEL_30:
     v29 = 0;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return v29;
 }
 
 - (id)localResponseForAction:(id)action notification:(id)notification bundleID:(id)d userText:(id)text
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   notificationCopy = notification;
   dCopy = d;
@@ -1375,13 +1363,13 @@ LABEL_30:
           v23 = *MEMORY[0x277CE2060];
           if (os_log_type_enabled(*MEMORY[0x277CE2060], OS_LOG_TYPE_ERROR))
           {
-            v26 = 138412802;
-            v27 = dCopy;
-            v28 = 2112;
-            v29 = v19;
-            v30 = 2112;
-            v31 = v16;
-            _os_log_error_impl(&dword_270AA8000, v23, OS_LOG_TYPE_ERROR, "bundleID: %@ NO NOTIFICATION found mapper: %@, record: %@", &v26, 0x20u);
+            v25 = 138412802;
+            v26 = dCopy;
+            v27 = 2112;
+            v28 = v19;
+            v29 = 2112;
+            v30 = v16;
+            _os_log_error_impl(&dword_270AA8000, v23, OS_LOG_TYPE_ERROR, "bundleID: %@ NO NOTIFICATION found mapper: %@, record: %@", &v25, 0x20u);
           }
 
           v21 = 0;
@@ -1404,13 +1392,13 @@ LABEL_30:
       v22 = *MEMORY[0x277CE2060];
       if (os_log_type_enabled(*MEMORY[0x277CE2060], OS_LOG_TYPE_ERROR))
       {
-        v26 = 138412802;
-        v27 = dCopy;
-        v28 = 2112;
-        v29 = v15;
-        v30 = 2112;
-        v31 = notificationCopy;
-        _os_log_error_impl(&dword_270AA8000, v22, OS_LOG_TYPE_ERROR, "bundleID: %@ NO NOTIFICATION RECORD found provider: %@, notification: %@", &v26, 0x20u);
+        v25 = 138412802;
+        v26 = dCopy;
+        v27 = 2112;
+        v28 = v15;
+        v29 = 2112;
+        v30 = notificationCopy;
+        _os_log_error_impl(&dword_270AA8000, v22, OS_LOG_TYPE_ERROR, "bundleID: %@ NO NOTIFICATION RECORD found provider: %@, notification: %@", &v25, 0x20u);
       }
 
       v21 = 0;
@@ -1427,36 +1415,32 @@ LABEL_30:
     v21 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
 - (void)_removePushStore
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [(NSString *)self->_libraryDirectory stringByAppendingPathComponent:@"SpringBoard"];
   v3 = [v2 stringByAppendingPathComponent:@"PushStore"];
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   if ([defaultManager fileExistsAtPath:v3])
   {
-    v9 = 0;
-    v5 = [defaultManager removeItemAtPath:v3 error:&v9];
-    v6 = v9;
+    v8 = 0;
+    v5 = [defaultManager removeItemAtPath:v3 error:&v8];
+    v6 = v8;
     if ((v5 & 1) == 0)
     {
       v7 = *MEMORY[0x277CE2098];
       if (os_log_type_enabled(*MEMORY[0x277CE2098], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v11 = v6;
+        v10 = v6;
         _os_log_impl(&dword_270AA8000, v7, OS_LOG_TYPE_DEFAULT, "Removing PushStore failed: %{public}@", buf, 0xCu);
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addObserverForLocaleChanges
@@ -1537,48 +1521,48 @@ void __56__UNSUserNotificationServer__ensureAttachmentsIntegrity__block_invoke()
 
 - (void)_removeNotificationSourceDirectories:(id)directories
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   directoriesCopy = directories;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = directoriesCopy;
-  v6 = [obj countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v6 = [obj countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v22;
+    v9 = *v21;
     *&v7 = 138543618;
-    v18 = v7;
+    v17 = v7;
     do
     {
       v10 = 0;
       do
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        bundleIdentifier = [*(*(&v21 + 1) + 8 * v10) bundleIdentifier];
+        bundleIdentifier = [*(*(&v20 + 1) + 8 * v10) bundleIdentifier];
         v12 = [(UNCBundleLibrarian *)self->_librarian uniqueIdentifierForBundleIdentifier:bundleIdentifier];
         v13 = [(NSString *)self->_directory stringByAppendingPathComponent:v12];
         if ([defaultManager fileExistsAtPath:v13])
         {
-          v20 = 0;
-          v14 = [defaultManager removeItemAtPath:v13 error:&v20];
-          v15 = v20;
+          v19 = 0;
+          v14 = [defaultManager removeItemAtPath:v13 error:&v19];
+          v15 = v19;
           if ((v14 & 1) == 0)
           {
             v16 = *MEMORY[0x277CE2098];
             if (os_log_type_enabled(*MEMORY[0x277CE2098], OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v18;
-              v26 = v13;
-              v27 = 2114;
-              v28 = v15;
+              *buf = v17;
+              v25 = v13;
+              v26 = 2114;
+              v27 = v15;
               _os_log_impl(&dword_270AA8000, v16, OS_LOG_TYPE_DEFAULT, "Removing bundle directory '%{public}@' failed: %{public}@", buf, 0x16u);
             }
           }
@@ -1588,126 +1572,76 @@ void __56__UNSUserNotificationServer__ensureAttachmentsIntegrity__block_invoke()
       }
 
       while (v8 != v10);
-      v8 = [obj countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v8 = [obj countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v8);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeBundleLibrarianMappingsForSourceDescriptions:(id)descriptions
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   descriptionsCopy = descriptions;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [descriptionsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [descriptionsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(descriptionsCopy);
         }
 
-        bundleIdentifier = [*(*(&v11 + 1) + 8 * v8) bundleIdentifier];
+        bundleIdentifier = [*(*(&v10 + 1) + 8 * v8) bundleIdentifier];
         [(UNCBundleLibrarian *)self->_librarian removeMappingForBundleIdentifier:bundleIdentifier];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [descriptionsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [descriptionsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __76__UNSUserNotificationServer__buildForegroundAction_queue_completionHandler___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __78__UNSUserNotificationServer_performAction_forNotification_inApp_withUserText___block_invoke_cold_1(void *a1)
+void __78__UNSUserNotificationServer_performAction_forNotification_inApp_withUserText___block_invoke_cold_1()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = a1[4];
-  v2 = a1[5];
-  v3 = a1[6];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __78__UNSUserNotificationServer_performAction_forNotification_inApp_withUserText___block_invoke_85_cold_1(void *a1)
+void __78__UNSUserNotificationServer_performAction_forNotification_inApp_withUserText___block_invoke_85_cold_1()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = a1[4];
-  v2 = a1[5];
-  v3 = a1[6];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-- (void)localActionForAction:notification:bundleID:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1(&dword_270AA8000, v0, v1, "bundleID: %@ NO ACTION found provider: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)localActionForAction:notification:bundleID:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1(&dword_270AA8000, v0, v1, "bundleID: %@ NO CATEGORY MAPPER found provider: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)localActionForAction:notification:bundleID:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1(&dword_270AA8000, v0, v1, "bundleID: %@ NO CATEGORY RECORD found for action %@");
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 - (void)localActionForAction:notification:bundleID:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)localResponseForAction:notification:bundleID:userText:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1(&dword_270AA8000, v0, v1, "bundleID: %@ NO NOTIFICATION MAPPER found provider: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

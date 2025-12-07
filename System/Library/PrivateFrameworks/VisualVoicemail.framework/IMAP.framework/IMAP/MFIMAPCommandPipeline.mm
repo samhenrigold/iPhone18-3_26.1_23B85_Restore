@@ -2,6 +2,7 @@
 - (MFIMAPCommandPipeline)initWithMambaID:(const char *)d;
 - (id)failureResponsesFromSendingCommandsWithConnection:(id)connection;
 - (void)_removeFetchUnitMatchingResponse:(id)response;
+- (void)addFetchCommandForUid:(unsigned int)uid fetchItem:(id)item expectedLength:(unint64_t)length bodyDataConsumer:(id)consumer consumerSection:(id)section;
 - (void)dealloc;
 @end
 
@@ -9,41 +10,96 @@
 
 - (MFIMAPCommandPipeline)initWithMambaID:(const char *)d
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v5.receiver = self;
-  v5.super_class = MFIMAPCommandPipeline;
-  if ([(MFIMAPCommandPipeline *)&v5 init])
+  v5 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = MFIMAPCommandPipeline;
+  if ([(MFIMAPCommandPipeline *)&v4 init])
   {
     operator new();
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (void)dealloc
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = ctu::OsLogLogger::getOsLogHandle(self->logger.__ptr_);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     mambaID = self->mambaID;
     *buf = 136315906;
-    v9 = mambaID;
-    v10 = 2080;
-    v11 = " ";
-    v12 = 2112;
-    v13 = objc_opt_class();
-    v14 = 2048;
+    v8 = mambaID;
+    v9 = 2080;
+    v10 = " ";
+    v11 = 2112;
+    v12 = objc_opt_class();
+    v13 = 2048;
     selfCopy = self;
-    v5 = v13;
+    v5 = v12;
     _os_log_impl(&dword_2720B1000, v3, OS_LOG_TYPE_DEFAULT, "#I %s%s%@ %p deleted", buf, 0x2Au);
   }
 
-  v7.receiver = self;
-  v7.super_class = MFIMAPCommandPipeline;
-  [(MFIMAPCommandPipeline *)&v7 dealloc];
-  v6 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = MFIMAPCommandPipeline;
+  [(MFIMAPCommandPipeline *)&v6 dealloc];
+}
+
+- (void)addFetchCommandForUid:(unsigned int)uid fetchItem:(id)item expectedLength:(unint64_t)length bodyDataConsumer:(id)consumer consumerSection:(id)section
+{
+  v10 = *&uid;
+  v35 = *MEMORY[0x277D85DE8];
+  itemCopy = item;
+  consumerCopy = consumer;
+  sectionCopy = section;
+  [(MFIMAPCommandPipeline *)self mf_lock];
+  v15 = ctu::OsLogLogger::getOsLogHandle(self->logger.__ptr_);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    mambaID = self->mambaID;
+    v23 = 136316418;
+    v24 = mambaID;
+    v25 = 2080;
+    v26 = " ";
+    v27 = 2048;
+    v28 = v10;
+    v29 = 2112;
+    v30 = itemCopy;
+    v31 = 2048;
+    lengthCopy = length;
+    v33 = 2112;
+    v34 = sectionCopy;
+    _os_log_impl(&dword_2720B1000, v15, OS_LOG_TYPE_DEFAULT, "#I %s%s[FetchActivity] Adding fetch command for uid %lu, item %@, length %lu, section %@", &v23, 0x3Eu);
+  }
+
+  if (!self->_fetchUnits)
+  {
+    v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    fetchUnits = self->_fetchUnits;
+    self->_fetchUnits = v17;
+  }
+
+  v19 = objc_alloc_init(_MFIMAPFetchUnit);
+  [(_MFIMAPFetchUnit *)v19 setUid:v10];
+  [(_MFIMAPFetchUnit *)v19 setFetchItem:itemCopy];
+  [(_MFIMAPFetchUnit *)v19 setBodyDataConsumer:consumerCopy];
+  [(_MFIMAPFetchUnit *)v19 setConsumerSection:sectionCopy];
+  [(NSMutableArray *)self->_fetchUnits addObject:v19];
+  chunkSize = self->_chunkSize;
+  v21 = self->_expectedSize + length;
+  self->_expectedSize = v21;
+  if (v21 < chunkSize)
+  {
+    v22 = *(self + 24) & 0xFE;
+  }
+
+  else
+  {
+    v22 = (*(self + 24) & 0xFE) + 1;
+  }
+
+  *(self + 24) = v22;
+  [(MFIMAPCommandPipeline *)self mf_unlock];
 }
 
 - (void)_removeFetchUnitMatchingResponse:(id)response
@@ -64,22 +120,22 @@
 
 - (id)failureResponsesFromSendingCommandsWithConnection:(id)connection
 {
-  v73[2] = *MEMORY[0x277D85DE8];
+  v72[2] = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
+  v68 = 0;
   v69 = 0;
   v70 = 0;
-  v71 = 0;
   [(MFIMAPCommandPipeline *)self mf_lock];
   v4 = [(NSMutableArray *)self->_fetchUnits count];
   if (v4)
   {
     for (i = 0; i < v4; ++i)
     {
-      v58 = [(NSMutableArray *)self->_fetchUnits objectAtIndex:i];
-      v6 = [v58 uid];
-      fetchItem = [v58 fetchItem];
-      bodyDataConsumer = [v58 bodyDataConsumer];
-      if (!bodyDataConsumer || ([v58 consumerSection], v8 = objc_claimAutoreleasedReturnValue(), v9 = v8 == 0, v8, bodyDataConsumer, v9))
+      v57 = [(NSMutableArray *)self->_fetchUnits objectAtIndex:i];
+      v6 = [v57 uid];
+      fetchItem = [v57 fetchItem];
+      bodyDataConsumer = [v57 bodyDataConsumer];
+      if (!bodyDataConsumer || ([v57 consumerSection], v8 = objc_claimAutoreleasedReturnValue(), v9 = v8 == 0, v8, bodyDataConsumer, v9))
       {
         v10 = 0;
       }
@@ -87,8 +143,8 @@
       else
       {
         v10 = objc_alloc_init(MFIMAPResponseConsumer);
-        bodyDataConsumer2 = [v58 bodyDataConsumer];
-        consumerSection = [v58 consumerSection];
+        bodyDataConsumer2 = [v57 bodyDataConsumer];
+        consumerSection = [v57 consumerSection];
         [(MFIMAPResponseConsumer *)v10 addConsumer:bodyDataConsumer2 forSection:consumerSection];
       }
 
@@ -172,42 +228,42 @@
         v28 = v14;
       }
 
-      v73[0] = v26;
-      v73[1] = v28;
-      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:2];
+      v72[0] = v26;
+      v72[1] = v28;
+      v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:2];
 
-      v68 = 0;
+      v67 = 0;
+      v64 = 0;
+      v65 = 0;
+      LODWORD(v63) = 21;
+      v30 = v29;
+      v64 = v30;
+      v31 = v65;
       v65 = 0;
       v66 = 0;
-      LODWORD(v64) = 21;
-      v30 = v29;
-      v65 = v30;
-      v31 = v66;
-      v66 = 0;
-      v67 = 0;
 
-      objc_storeStrong(&v68, v10);
-      v32 = v70;
-      if (v70 >= v71)
+      objc_storeStrong(&v67, v10);
+      v32 = v69;
+      if (v69 >= v70)
       {
-        v33 = std::vector<IMAPCommandParameters>::__emplace_back_slow_path<IMAPCommandParameters const&>(&v69, &v64);
+        v33 = std::vector<IMAPCommandParameters>::__emplace_back_slow_path<IMAPCommandParameters const&>(&v68, &v63);
       }
 
       else
       {
-        *v70 = v64;
-        v32[1] = v65;
-        v32[2] = v66;
-        v32[3] = v67;
-        v32[4] = v68;
+        *v69 = v63;
+        v32[1] = v64;
+        v32[2] = v65;
+        v32[3] = v66;
+        v32[4] = v67;
         v33 = (v32 + 5);
       }
 
-      v70 = v33;
+      v69 = v33;
     }
   }
 
-  if (v70 != v69)
+  if (v69 != v68)
   {
     *(self + 24) |= 2u;
     [connectionCopy mf_lock];
@@ -215,40 +271,40 @@
     v35 = [connectionCopy _responseFromSendingCommands:? count:?];
     [connectionCopy setReadBufferSizeFromElapsedTime:self->_expectedSize bytesRead:CFAbsoluteTimeGetCurrent() - Current];
     [connectionCopy mf_unlock];
-    v36 = v69;
-    v37 = v70;
+    v36 = v68;
+    v37 = v69;
     while (v36 != v37)
     {
-      LODWORD(v64) = *v36;
+      LODWORD(v63) = *v36;
       v38 = *(v36 + 8);
-      v65 = v38;
+      v64 = v38;
       v39 = *(v36 + 16);
       v40 = *(v36 + 24);
       v41 = *(v36 + 32);
-      v66 = v39;
-      v67 = v40;
+      v65 = v39;
+      v66 = v40;
       v42 = v41;
-      v68 = v42;
+      v67 = v42;
       v43 = v39;
+      v59 = 0u;
       v60 = 0u;
       v61 = 0u;
       v62 = 0u;
-      v63 = 0u;
       v44 = v43;
-      v45 = [v44 countByEnumeratingWithState:&v60 objects:v72 count:16];
+      v45 = [v44 countByEnumeratingWithState:&v59 objects:v71 count:16];
       if (v45)
       {
-        v46 = *v61;
+        v46 = *v60;
         do
         {
           for (j = 0; j != v45; ++j)
           {
-            if (*v61 != v46)
+            if (*v60 != v46)
             {
               objc_enumerationMutation(v44);
             }
 
-            v48 = *(*(&v60 + 1) + 8 * j);
+            v48 = *(*(&v59 + 1) + 8 * j);
             if ([v48 isUntagged])
             {
               if ([v48 responseType] == 17)
@@ -258,7 +314,7 @@
             }
           }
 
-          v45 = [v44 countByEnumeratingWithState:&v60 objects:v72 count:16];
+          v45 = [v44 countByEnumeratingWithState:&v59 objects:v71 count:16];
         }
 
         while (v45);
@@ -315,10 +371,8 @@
     v49 = 0;
   }
 
-  v64 = &v69;
-  std::vector<IMAPCommandParameters>::__destroy_vector::operator()[abi:ne200100](&v64);
-
-  v55 = *MEMORY[0x277D85DE8];
+  v63 = &v68;
+  std::vector<IMAPCommandParameters>::__destroy_vector::operator()[abi:ne200100](&v63);
 
   return v49;
 }

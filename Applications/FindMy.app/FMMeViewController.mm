@@ -57,8 +57,8 @@
 
 - (void)scrollViewDidScroll:(id)scroll
 {
-  v9 = &type metadata for SolariumFeatureFlag;
-  v10 = sub_10000BD04();
+  v8[3] = &type metadata for SolariumFeatureFlag;
+  v8[4] = sub_10000BD04();
   scrollCopy = scroll;
   selfCopy = self;
   v7 = isFeatureEnabled(_:)();

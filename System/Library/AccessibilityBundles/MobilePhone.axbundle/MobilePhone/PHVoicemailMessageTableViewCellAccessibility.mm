@@ -8,6 +8,7 @@
 - (id)accessibilityLabel;
 - (unint64_t)accessibilityTraits;
 - (void)loadExpandedViewsIfNecessary;
+- (void)setExpanded:(BOOL)expanded animated:(BOOL)animated;
 @end
 
 @implementation PHVoicemailMessageTableViewCellAccessibility
@@ -150,6 +151,27 @@ void __62__PHVoicemailMessageTableViewCellAccessibility__axShareAction__block_in
   v2.receiver = self;
   v2.super_class = PHVoicemailMessageTableViewCellAccessibility;
   [(PHVoicemailMessageTableViewCellAccessibility *)&v2 loadExpandedViewsIfNecessary];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
+}
+
+- (void)setExpanded:(BOOL)expanded animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  expandedCopy = expanded;
+  v7 = [NSClassFromString(&cfstr_Phaudiodevicec.isa) safeValueForKey:@"sharedAudioDeviceController"];
+  if (UIAccessibilityIsVoiceOverRunning() && [v7 safeBoolForKey:@"receiverRouteIsPicked"] && objc_msgSend(v7, "safeBoolForKey:", @"speakerRouteAvailable"))
+  {
+    v9 = MEMORY[0x29EDCA5F8];
+    v10 = 3221225472;
+    v11 = __69__PHVoicemailMessageTableViewCellAccessibility_setExpanded_animated___block_invoke;
+    v12 = &unk_29F2D5B40;
+    v13 = v7;
+    AXPerformSafeBlock();
+  }
+
+  v8.receiver = self;
+  v8.super_class = PHVoicemailMessageTableViewCellAccessibility;
+  [(PHVoicemailMessageTableViewCellAccessibility *)&v8 setExpanded:expandedCopy animated:animatedCopy];
   UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
 }
 

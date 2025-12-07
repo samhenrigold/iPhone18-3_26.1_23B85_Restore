@@ -75,7 +75,7 @@ void __82__CNContactStore_PhotoLibraryAdditions__contactsMatchingEmailAddress_ke
 
         v9 = *(a1 + 32);
         v10 = [*(*(&v11 + 1) + 8 * i) value];
-        LODWORD(v9) = [v9 isEqualToString:v10];
+        LODWORD(v9) = objc_msgSend_isEqualToString_(v9);
 
         if (v9)
         {

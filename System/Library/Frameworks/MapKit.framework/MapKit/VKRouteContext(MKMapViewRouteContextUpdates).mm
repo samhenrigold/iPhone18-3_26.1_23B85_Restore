@@ -196,7 +196,7 @@ LABEL_11:
 
 - (uint64_t)_setRouteContextInspectedSegmentIndex:()MKMapViewRouteContextUpdates inspectedStepIndex:
 {
-  [self setInspectedSegmentIndex:?];
+  [self setInspectedSegmentIndex:a3];
 
   return [self setInspectedStepIndex:a4];
 }

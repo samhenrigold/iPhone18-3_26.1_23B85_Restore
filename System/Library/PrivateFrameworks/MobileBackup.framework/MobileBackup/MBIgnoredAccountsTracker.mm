@@ -59,12 +59,10 @@
           *buf = 138543362;
           v13 = personaIdentifier;
           _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Failed to fetch the persona attributes for persona %{public}@", buf, 0xCu);
-          goto LABEL_19;
+          _MBLog(@"Df", "Failed to fetch the persona attributes for persona %{public}@", personaIdentifier);
         }
 
-LABEL_20:
-
-        goto LABEL_21;
+        goto LABEL_19;
       }
 
       if (v9)
@@ -74,7 +72,7 @@ LABEL_20:
         v14 = 2112;
         v15 = v7;
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Fetched the attributes for persona %{public}@: %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"Df", "Fetched the attributes for persona %{public}@: %@", personaIdentifier, v7);
       }
 
       userPersonaUniqueString = [v7 userPersonaUniqueString];
@@ -93,10 +91,10 @@ LABEL_20:
           v14 = 2112;
           v15 = v4;
           _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Found an enterprise persona (%@) for account %@", buf, 0x16u);
-LABEL_19:
-          _MBLog();
-          goto LABEL_20;
+          _MBLog(@"Df", "Found an enterprise persona (%@) for account %@", personaIdentifier, v4);
         }
+
+LABEL_19:
 
         goto LABEL_20;
       }
@@ -110,14 +108,14 @@ LABEL_19:
         *buf = 138412290;
         v13 = v4;
         _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "Found nil personaIdentifier for %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"Db", "Found nil personaIdentifier for %@", v4);
       }
     }
 
     v6 = 0;
-LABEL_21:
+LABEL_20:
 
-    goto LABEL_22;
+    goto LABEL_21;
   }
 
   personaIdentifier = MBGetDefaultLog();
@@ -126,11 +124,11 @@ LABEL_21:
     *buf = 138412290;
     v13 = v4;
     _os_log_impl(&_mh_execute_header, personaIdentifier, OS_LOG_TYPE_DEFAULT, "Account is marked as managed %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Account is marked as managed %@", v4);
   }
 
   v6 = 1;
-LABEL_22:
+LABEL_21:
 
   return v6;
 }
@@ -178,16 +176,13 @@ LABEL_22:
             v16 = "Found";
           }
 
-          v23 = v16;
-          v24 = 2112;
-          v25 = username;
-          v26 = 2112;
-          v27 = v5;
+          v20 = v16;
+          v21 = 2112;
+          v22 = username;
+          v23 = 2112;
+          v24 = v5;
           _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "%s account: %@/%@", buf, 0x20u);
-          v20 = username;
-          v21 = v5;
-          v19 = v16;
-          _MBLog();
+          _MBLog(@"Db", "%s account: %@/%@", v16, username, v5);
         }
 
         v17 = selfCopy;
@@ -214,17 +209,16 @@ LABEL_24:
         if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v23 = v5;
+          v20 = v5;
           _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "No account found for %@", buf, 0xCu);
-          v19 = v5;
-          _MBLog();
+          _MBLog(@"I ", "No account found for %@", v5);
         }
 
         objc_sync_enter(selfCopy);
         username = 0;
       }
 
-      [(NSMutableSet *)selfCopy->_allowedDSIDs addObject:v5, v19, v20, v21];
+      [(NSMutableSet *)selfCopy->_allowedDSIDs addObject:v5];
       if (username)
       {
         [(NSMutableSet *)selfCopy->_allowedAppleIDs addObject:username];

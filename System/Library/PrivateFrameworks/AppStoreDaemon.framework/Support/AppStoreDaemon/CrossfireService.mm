@@ -26,7 +26,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] flushMetricsWithCompletionBlock for client: %{public}@", &v10, 0x16u);
   }
 
-  v9 = sub_1001F26CC();
+  v9 = sub_1001F26CC(CrossfireManager);
   sub_1001F27A8(v9, @"User Request", blockCopy);
 }
 
@@ -46,7 +46,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] getAppEventsWithCompletionBlock for client: %{public}@", &v10, 0x16u);
   }
 
-  v9 = sub_1001F26CC();
+  v9 = sub_1001F26CC(CrossfireManager);
   sub_1001F2A74(v9, blockCopy);
 }
 
@@ -66,7 +66,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] recordLaunchesWithCompletionBlock for client: %{public}@", &v10, 0x16u);
   }
 
-  v9 = sub_1001F26CC();
+  v9 = sub_1001F26CC(CrossfireManager);
   sub_1001F2D28(v9, blockCopy);
 }
 
@@ -86,7 +86,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] recordMetricsWithCompletionBlock for client: %{public}@", &v10, 0x16u);
   }
 
-  v9 = sub_1001F26CC();
+  v9 = sub_1001F26CC(CrossfireManager);
   sub_1001F2FC4(v9, blockCopy);
 }
 
@@ -129,7 +129,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] resetMetricsWithCompletionBlock for client: %{public}@", &v10, 0x16u);
   }
 
-  v9 = sub_1001F26CC();
+  v9 = sub_1001F26CC(CrossfireManager);
   sub_1001F3218(v9, blockCopy);
 }
 
@@ -149,7 +149,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] sendMetricsWithCompletionBlock for client: %{public}@", &v10, 0x16u);
   }
 
-  v9 = sub_1001F26CC();
+  v9 = sub_1001F26CC(CrossfireManager);
   sub_1001F35DC(v9, blockCopy);
 }
 

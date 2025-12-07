@@ -33,7 +33,7 @@
   contextCopy = context;
   selfCopy = self;
   sub_10005F248(context, v6, v7);
-  sub_100060604(v6);
+  sub_100060604(v6, v7);
 }
 
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion
@@ -57,7 +57,7 @@
 {
   if (actions)
   {
-    sub_10006054C(0, &qword_1002235B0);
+    sub_10006054C(0, &qword_1002235B0, SBUIRemoteAlertButtonAction_ptr);
     sub_100060594();
     v4 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   }

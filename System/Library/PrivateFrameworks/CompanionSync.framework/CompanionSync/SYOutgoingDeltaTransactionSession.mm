@@ -5,6 +5,7 @@
 - (void)_messageExpiredWithSeqno:(unint64_t)seqno identifier:(id)identifier;
 - (void)_notifySessionComplete;
 - (void)_processNextState;
+- (void)_sendSyncBatch:(id)batch nextState:(unsigned int)state;
 - (void)_sentMessageWithIdentifier:(id)identifier userInfo:(id)info;
 - (void)_setMessageTimerForSeqno:(unint64_t)seqno;
 - (void)_setStateQuietly:(unsigned int)quietly;
@@ -78,10 +79,10 @@ void __53__SYOutgoingDeltaTransactionSession_initWithService___block_invoke(uint
 
 - (void)setState:(unsigned int)state
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v11.opaque[0] = 0;
-  v11.opaque[1] = 0;
-  os_activity_scope_enter(self->_sessionActivity, &v11);
+  v15 = *MEMORY[0x1E69E9840];
+  v10.opaque[0] = 0;
+  v10.opaque[1] = 0;
+  os_activity_scope_enter(self->_sessionActivity, &v10);
   if (_sync_log_facilities_pred != -1)
   {
     [SYIncomingSyncAllObjectsSession _continueProcessing];
@@ -93,8 +94,8 @@ void __53__SYOutgoingDeltaTransactionSession_initWithService___block_invoke(uint
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     *buf = 138543618;
-    v13 = v7;
-    v14 = 1024;
+    v12 = v7;
+    v13 = 1024;
     stateCopy = state;
     _os_log_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Setting state to %{companionsync:SYSessionState}d", buf, 0x12u);
   }
@@ -110,16 +111,15 @@ void __53__SYOutgoingDeltaTransactionSession_initWithService___block_invoke(uint
     dispatch_source_merge_data(stateUpdateSource, 1uLL);
   }
 
-  os_activity_scope_leave(&v11);
-  v10 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v10);
 }
 
 - (void)_setStateQuietly:(unsigned int)quietly
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v9.opaque[0] = 0;
-  v9.opaque[1] = 0;
-  os_activity_scope_enter(self->_sessionActivity, &v9);
+  v13 = *MEMORY[0x1E69E9840];
+  v8.opaque[0] = 0;
+  v8.opaque[1] = 0;
+  os_activity_scope_enter(self->_sessionActivity, &v8);
   if (_sync_log_facilities_pred != -1)
   {
     [SYIncomingSyncAllObjectsSession _continueProcessing];
@@ -131,15 +131,14 @@ void __53__SYOutgoingDeltaTransactionSession_initWithService___block_invoke(uint
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     *buf = 138543618;
-    v11 = v7;
-    v12 = 1024;
+    v10 = v7;
+    v11 = 1024;
     quietlyCopy = quietly;
     _os_log_impl(&dword_1DF835000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Setting state (quietly) to %{companionsync:SYSessionState}d", buf, 0x12u);
   }
 
   self->_state = quietly;
-  os_activity_scope_leave(&v9);
-  v8 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v8);
 }
 
 - (void)_setupChangeConcurrency
@@ -331,6 +330,47 @@ void __52__SYOutgoingDeltaTransactionSession__fetchNextBatch__block_invoke_8(uin
   }
 }
 
+- (void)_sendSyncBatch:(id)batch nextState:(unsigned int)state
+{
+  v4 = *&state;
+  batchCopy = batch;
+  queue = [(SYSession *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  if ([batchCopy count])
+  {
+    service = [(SYSession *)self service];
+    v9 = objc_opt_new();
+    _newMessageHeader = [service _newMessageHeader];
+    [v9 setHeader:_newMessageHeader];
+
+    [v9 setChanges:batchCopy];
+    [(SYOutgoingDeltaTransactionSession *)self setState:8];
+    header = [v9 header];
+    sequenceNumber = [header sequenceNumber];
+
+    [(SYOutgoingDeltaTransactionSession *)self _setMessageTimerForSeqno:sequenceNumber];
+    syncEngine = [service syncEngine];
+    priority = [(SYSession *)self priority];
+    v15 = [(SYSession *)self combinedEngineOptions:0];
+    wrappedUserContext = [(SYSession *)self wrappedUserContext];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __62__SYOutgoingDeltaTransactionSession__sendSyncBatch_nextState___block_invoke;
+    v17[3] = &unk_1E86CA2A8;
+    v17[4] = self;
+    v17[5] = sequenceNumber;
+    v18 = v4;
+    [syncEngine enqueueSyncRequest:v9 withMessageID:6 priority:priority options:v15 userContext:wrappedUserContext callback:v17];
+  }
+
+  else
+  {
+    [(_SYCountedSemaphore *)self->_changeConcurrencySemaphore signal];
+    [(SYOutgoingDeltaTransactionSession *)self setState:v4];
+  }
+}
+
 void __62__SYOutgoingDeltaTransactionSession__sendSyncBatch_nextState___block_invoke(uint64_t a1, int a2, void *a3, void *a4)
 {
   v7 = a3;
@@ -428,13 +468,13 @@ void __59__SYOutgoingDeltaTransactionSession__notifySessionComplete__block_invok
 
 - (void)_processNextState
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   queue = [(SYSession *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v10.opaque[0] = 0;
-  v10.opaque[1] = 0;
-  os_activity_scope_enter(self->_sessionActivity, &v10);
+  v9.opaque[0] = 0;
+  v9.opaque[1] = 0;
+  os_activity_scope_enter(self->_sessionActivity, &v9);
   selfCopy = self;
   objc_sync_enter(selfCopy);
   state = selfCopy->_state;
@@ -473,7 +513,7 @@ void __59__SYOutgoingDeltaTransactionSession__notifySessionComplete__block_invok
       {
         error = [(SYSession *)selfCopy error];
         *buf = 138412290;
-        v12 = error;
+        v11 = error;
         _os_log_impl(&dword_1DF835000, v7, OS_LOG_TYPE_DEFAULT, "SYSession entered error state. Error = %@", buf, 0xCu);
       }
     }
@@ -487,8 +527,7 @@ void __59__SYOutgoingDeltaTransactionSession__notifySessionComplete__block_invok
   }
 
 LABEL_17:
-  os_activity_scope_leave(&v10);
-  v9 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v9);
 }
 
 - (void)_setMessageTimerForSeqno:(unint64_t)seqno
@@ -537,7 +576,7 @@ void __58__SYOutgoingDeltaTransactionSession__installStateListener__block_invoke
 
 - (void)start:(id)start
 {
-  v43[1] = *MEMORY[0x1E69E9840];
+  v42[1] = *MEMORY[0x1E69E9840];
   startCopy = start;
   delegate = [(SYSession *)self delegate];
 
@@ -556,28 +595,28 @@ void __58__SYOutgoingDeltaTransactionSession__installStateListener__block_invoke
       if ((v13 & 1) == 0)
       {
         v19 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v40[0] = @"SYDelegateProtocolName";
+        v39[0] = @"SYDelegateProtocolName";
         v20 = NSStringFromProtocol(&unk_1F5AE3E50);
-        v40[1] = @"SYDelegateMethodNames";
-        v41[0] = v20;
+        v39[1] = @"SYDelegateMethodNames";
+        v40[0] = v20;
         v21 = NSStringFromSelector(sel_encodeSYChangeForBackwardCompatibility_protocolVersion_);
-        v39[0] = v21;
+        v38[0] = v21;
         v22 = NSStringFromSelector(sel_dataWithSYObject_);
-        v39[1] = v22;
-        v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
-        v41[1] = v23;
-        v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:2];
+        v38[1] = v22;
+        v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
+        v40[1] = v23;
+        v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:2];
         v25 = [v19 initWithSYError:2020 userInfo:v24];
 
         queue = [(SYSession *)self queue];
-        v31[0] = MEMORY[0x1E69E9820];
-        v31[1] = 3221225472;
-        v31[2] = __43__SYOutgoingDeltaTransactionSession_start___block_invoke_2;
-        v31[3] = &unk_1E86C9E90;
-        v31[4] = self;
-        v32 = v25;
+        v30[0] = MEMORY[0x1E69E9820];
+        v30[1] = 3221225472;
+        v30[2] = __43__SYOutgoingDeltaTransactionSession_start___block_invoke_2;
+        v30[3] = &unk_1E86C9E90;
+        v30[4] = self;
+        v31 = v25;
         v27 = v25;
-        dispatch_async(queue, v31);
+        dispatch_async(queue, v30);
 
         startCopy[2](startCopy, 0, v27);
         goto LABEL_12;
@@ -599,19 +638,19 @@ void __58__SYOutgoingDeltaTransactionSession__installStateListener__block_invoke
       v16 = NSStringFromClass(v15);
       identifier = [(SYSession *)self identifier];
       *buf = 138543618;
-      v36 = v16;
-      v37 = 2114;
-      v38 = identifier;
+      v35 = v16;
+      v36 = 2114;
+      v37 = identifier;
       _os_log_impl(&dword_1DF835000, v14, OS_LOG_TYPE_DEFAULT, "Starting %{public}@ with identifier %{public}@", buf, 0x16u);
     }
 
     queue2 = [(SYSession *)self queue];
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __43__SYOutgoingDeltaTransactionSession_start___block_invoke_82;
-    v29[3] = &unk_1E86C9FB0;
-    v29[4] = self;
-    dispatch_async(queue2, v29);
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __43__SYOutgoingDeltaTransactionSession_start___block_invoke_82;
+    v28[3] = &unk_1E86C9FB0;
+    v28[4] = self;
+    dispatch_async(queue2, v28);
 
     os_activity_scope_leave(&state);
   }
@@ -619,9 +658,9 @@ void __58__SYOutgoingDeltaTransactionSession__installStateListener__block_invoke
   else
   {
     v7 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v42 = *MEMORY[0x1E696A578];
-    v43[0] = @"You cannot start an SYSession without a delegate.";
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:&v42 count:1];
+    v41 = *MEMORY[0x1E696A578];
+    v42[0] = @"You cannot start an SYSession without a delegate.";
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:&v41 count:1];
     v9 = [v7 initWithSYError:2001 userInfo:v8];
 
     queue3 = [(SYSession *)self queue];
@@ -630,7 +669,7 @@ void __58__SYOutgoingDeltaTransactionSession__installStateListener__block_invoke
     block[2] = __43__SYOutgoingDeltaTransactionSession_start___block_invoke;
     block[3] = &unk_1E86C9E90;
     block[4] = self;
-    v34 = v9;
+    v33 = v9;
     v11 = v9;
     dispatch_async(queue3, block);
 
@@ -638,8 +677,6 @@ void __58__SYOutgoingDeltaTransactionSession__installStateListener__block_invoke
   }
 
 LABEL_12:
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __43__SYOutgoingDeltaTransactionSession_start___block_invoke(uint64_t a1)

@@ -38,9 +38,8 @@
   return v2;
 }
 
-uint64_t __26__FCContentManifest_empty__block_invoke(uint64_t a1)
+uint64_t __26__FCContentManifest_empty__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   v2 = [objc_alloc(objc_opt_class()) initWithAssetURLs:MEMORY[0x1E695E0F0] assetWrappingKeyIDs:MEMORY[0x1E695E0F0] recordIDs:MEMORY[0x1E695E0F0] avAssetIDs:MEMORY[0x1E695E0F0] avAssetKeyIDs:MEMORY[0x1E695E0F0]];
   v3 = _MergedGlobals_168;
   _MergedGlobals_168 = v2;
@@ -87,33 +86,33 @@ uint64_t __26__FCContentManifest_empty__block_invoke(uint64_t a1)
 - (FCContentManifest)initWithManifests:(id)manifests
 {
   selfCopy = self;
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   manifestsCopy = manifests;
   v4 = [MEMORY[0x1E695DFA8] set];
   v5 = [MEMORY[0x1E695DFA8] set];
   v6 = [MEMORY[0x1E695DFA8] set];
   v7 = [MEMORY[0x1E695DFA8] set];
   v8 = [MEMORY[0x1E695DFA8] set];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = manifestsCopy;
-  v9 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v9 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v30;
+    v11 = *v29;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v30 != v11)
+        if (*v29 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v29 + 1) + 8 * i);
+        v13 = *(*(&v28 + 1) + 8 * i);
         assetURLs = [v13 assetURLs];
         [v4 addObjectsFromArray:assetURLs];
 
@@ -130,7 +129,7 @@ uint64_t __26__FCContentManifest_empty__block_invoke(uint64_t a1)
         [v8 addObjectsFromArray:avAssetKeyIDs];
       }
 
-      v10 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v10 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v10);
@@ -141,10 +140,9 @@ uint64_t __26__FCContentManifest_empty__block_invoke(uint64_t a1)
   allObjects3 = [v6 allObjects];
   allObjects4 = [v7 allObjects];
   allObjects5 = [v8 allObjects];
-  v27 = [(FCContentManifest *)selfCopy initWithAssetURLs:allObjects assetWrappingKeyIDs:allObjects2 recordIDs:allObjects3 avAssetIDs:allObjects4 avAssetKeyIDs:allObjects5];
+  v26 = [(FCContentManifest *)selfCopy initWithAssetURLs:allObjects assetWrappingKeyIDs:allObjects2 recordIDs:allObjects3 avAssetIDs:allObjects4 avAssetKeyIDs:allObjects5];
 
-  v24 = *MEMORY[0x1E69E9840];
-  return v27;
+  return v26;
 }
 
 + (id)manifestByMergingManifest:(id)manifest withManifest:(id)withManifest
@@ -255,17 +253,17 @@ void __60__FCContentManifest_manifestByMergingManifest_withManifest___block_invo
   return v11;
 }
 
-uint64_t __35__FCContentManifest_initWithCoder___block_invoke()
+uint64_t __35__FCContentManifest_initWithCoder___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x1E695DFD8];
-  v1 = objc_opt_class();
-  v2 = objc_opt_class();
+  v2 = MEMORY[0x1E695DFD8];
   v3 = objc_opt_class();
-  v4 = [v0 setWithObjects:{v1, v2, v3, objc_opt_class(), 0}];
-  v5 = qword_1EDB274C8;
-  qword_1EDB274C8 = v4;
+  v4 = objc_opt_class();
+  v5 = objc_opt_class();
+  v6 = [v2 setWithObjects:{v3, v4, v5, objc_opt_class(), 0}];
+  v7 = qword_1EDB274C8;
+  qword_1EDB274C8 = v6;
 
-  return MEMORY[0x1EEE66BB8](v4, v5);
+  return MEMORY[0x1EEE66BB8](v6, v7);
 }
 
 - (void)encodeWithCoder:(id)coder

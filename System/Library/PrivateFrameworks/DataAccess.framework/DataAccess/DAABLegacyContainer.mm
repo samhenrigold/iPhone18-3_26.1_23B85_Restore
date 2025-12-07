@@ -1,8 +1,6 @@
 @interface DAABLegacyContainer
 - (BOOL)arePropertiesReadonly;
 - (BOOL)isContentReadonly;
-- (BOOL)isGuardianRestricted;
-- (BOOL)isGuardianStateDirty;
 - (BOOL)isLocal;
 - (DAABLegacyContainer)initWithABSource:(void *)source;
 - (id)accountIdentifier;
@@ -20,8 +18,10 @@
 - (void)markAsDefault;
 - (void)markForDeletion;
 - (void)setAccountIdentifier:(id)identifier;
+- (void)setArePropertiesReadonly:(BOOL)readonly;
 - (void)setCTag:(id)tag;
 - (void)setConstraintsPath:(id)path;
+- (void)setContentReadonly:(BOOL)readonly;
 - (void)setExternalIdentifier:(id)identifier;
 - (void)setGuardianRestricted:(BOOL)restricted;
 - (void)setGuardianStateDirty:(BOOL)dirty;
@@ -189,6 +189,14 @@
   return MEMORY[0x28213B548](source);
 }
 
+- (void)setContentReadonly:(BOOL)readonly
+{
+  readonlyCopy = readonly;
+  source = [(DAABLegacyContainer *)self source];
+
+  MEMORY[0x28213B550](source, readonlyCopy);
+}
+
 - (BOOL)arePropertiesReadonly
 {
   source = [(DAABLegacyContainer *)self source];
@@ -196,13 +204,20 @@
   return MEMORY[0x28213B538](source);
 }
 
+- (void)setArePropertiesReadonly:(BOOL)readonly
+{
+  readonlyCopy = readonly;
+  source = [(DAABLegacyContainer *)self source];
+
+  MEMORY[0x28213B558](source, readonlyCopy);
+}
+
 - (id)meContactIdentifier
 {
   v2 = MEMORY[0x277CCABB0];
   [(DAABLegacyContainer *)self source];
-  v3 = *MEMORY[0x277CE9AB8];
-  v4 = [v2 numberWithInt:ABRecordGetIntValue()];
-  stringValue = [v4 stringValue];
+  v3 = [v2 numberWithInt:ABRecordGetIntValue()];
+  stringValue = [v3 stringValue];
 
   return stringValue;
 }
@@ -224,9 +239,8 @@
 {
   v2 = MEMORY[0x277CCABB0];
   [(DAABLegacyContainer *)self source];
-  v3 = *MEMORY[0x277CE9A70];
-  v4 = [v2 numberWithInt:ABRecordGetIntValue()];
-  stringValue = [v4 stringValue];
+  v3 = [v2 numberWithInt:ABRecordGetIntValue()];
+  stringValue = [v3 stringValue];
 
   return stringValue;
 }
@@ -235,7 +249,6 @@
 {
   identifierCopy = identifier;
   [(DAABLegacyContainer *)self source];
-  v5 = *MEMORY[0x277CE9A70];
   [identifierCopy intValue];
 
   ABRecordSetIntValue();
@@ -259,34 +272,18 @@
   MEMORY[0x28213B358](AddressBook, source, 1);
 }
 
-- (BOOL)isGuardianRestricted
-{
-  [(DAABLegacyContainer *)self source];
-  v2 = *MEMORY[0x277CE9A78];
-  return (ABRecordGetIntValue() >> 2) & 1;
-}
-
 - (void)setGuardianRestricted:(BOOL)restricted
 {
   [(DAABLegacyContainer *)self source];
-  v4 = *MEMORY[0x277CE9A78];
   ABRecordGetIntValue();
   [(DAABLegacyContainer *)self source];
 
   ABRecordSetIntValue();
 }
 
-- (BOOL)isGuardianStateDirty
-{
-  [(DAABLegacyContainer *)self source];
-  v2 = *MEMORY[0x277CE9A78];
-  return (ABRecordGetIntValue() >> 3) & 1;
-}
-
 - (void)setGuardianStateDirty:(BOOL)dirty
 {
   [(DAABLegacyContainer *)self source];
-  v4 = *MEMORY[0x277CE9A78];
   ABRecordGetIntValue();
   [(DAABLegacyContainer *)self source];
 

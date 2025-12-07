@@ -13,6 +13,7 @@
 - (void)setConnectionState:(int64_t)state;
 - (void)setConnectionStateChangedHandler:(id)handler;
 - (void)setErrorHandler:(id)handler;
+- (void)setHasSeenPrivacyPrompt:(BOOL)prompt;
 - (void)setIsLegacyMode:(BOOL)mode;
 - (void)setNearbyDeviceCloseChangedHandler:(id)handler;
 - (void)setPendingOrActiveConnectionsChangedHandler:(id)handler;
@@ -84,7 +85,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1A967C46C(v7);
+  sub_1A967C46C(v7, v8);
 }
 
 - (void)setConnectionStateChangedHandler:(id)handler
@@ -109,7 +110,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1A967C46C(v7);
+  sub_1A967C46C(v7, v8);
 }
 
 - (void)setPendingOrActiveConnectionsChangedHandler:(id)handler
@@ -134,7 +135,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1A967C46C(v7);
+  sub_1A967C46C(v7, v8);
 }
 
 - (void)setNearbyDeviceCloseChangedHandler:(id)handler
@@ -159,7 +160,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1A967C46C(v7);
+  sub_1A967C46C(v7, v8);
 }
 
 - (id)errorHandler
@@ -208,7 +209,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1A967C46C(v7);
+  sub_1A967C46C(v7, v8);
 }
 
 - (BOOL)hasSeenPrivacyPrompt
@@ -228,15 +229,27 @@
   return bOOLForKey_;
 }
 
+- (void)setHasSeenPrivacyPrompt:(BOOL)prompt
+{
+  promptCopy = prompt;
+  v4 = objc_allocWithZone(MEMORY[0x1E695E000]);
+  v5 = sub_1A99767E0();
+  initWithSuiteName_ = [v4 initWithSuiteName_];
+
+  if (initWithSuiteName_)
+  {
+    v7 = sub_1A99767E0();
+    [initWithSuiteName_ setBool:promptCopy forKey:v7];
+  }
+}
+
 - (NSArray)connectedNearbyDeviceNames
 {
-  v3 = OBJC_IVAR____TtC7Sharing30AskToAirDropReceiverController_connectedNearbyDeviceNames;
   swift_beginAccess();
-  v4 = *(self + v3);
 
-  v5 = sub_1A9976AB0();
+  v2 = sub_1A9976AB0();
 
-  return v5;
+  return v2;
 }
 
 - (void)setConnectedNearbyDeviceNames:(id)names
@@ -244,7 +257,6 @@
   v4 = sub_1A9976AC0();
   v5 = OBJC_IVAR____TtC7Sharing30AskToAirDropReceiverController_connectedNearbyDeviceNames;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 

@@ -339,7 +339,7 @@
         if (v16)
         {
           v18 = v16;
-          v19 = BCReadingStatisticsLog();
+          v19 = BCReadingStatisticsLog(v16);
           if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             sub_1E4CF4();
@@ -460,13 +460,14 @@ LABEL_15:
   }
 
   headCFI = [iCopy headCFI];
-  v25 = 0;
-  v7 = -[BCReadingStatisticsController _textNodeCFIToCharacterLengthMapForOrdinal:error:](self, "_textNodeCFIToCharacterLengthMapForOrdinal:error:", [headCFI spineIndex], &v25);
-  v8 = v25;
+  v26 = 0;
+  v7 = -[BCReadingStatisticsController _textNodeCFIToCharacterLengthMapForOrdinal:error:](self, "_textNodeCFIToCharacterLengthMapForOrdinal:error:", [headCFI spineIndex], &v26);
+  v8 = v26;
+  v9 = v8;
   if (v8)
   {
-    v9 = BCReadingStatisticsLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = BCReadingStatisticsLog(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1E4E24();
     }
@@ -476,79 +477,79 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v28[0] = headCFI;
-  v10 = +[NSNull null];
-  v28[1] = v10;
-  v9 = [NSArray arrayWithObjects:v28 count:2];
+  v29[0] = headCFI;
+  v11 = +[NSNull null];
+  v29[1] = v11;
+  v10 = [NSArray arrayWithObjects:v29 count:2];
 
-  v11 = [v7 indexOfObject:v9 inSortedRange:0 options:objc_msgSend(v7 usingComparator:{"count"), 1024, &stru_2C8668}];
-  v12 = [v7 count];
-  if (v11 == 0x7FFFFFFFFFFFFFFFLL)
+  v12 = [v7 indexOfObject:v10 inSortedRange:0 options:objc_msgSend(v7 usingComparator:{"count"), 1024, &stru_2C8668}];
+  v13 = [v7 count];
+  if (v12 == 0x7FFFFFFFFFFFFFFFLL)
   {
     goto LABEL_10;
   }
 
-  v14 = v12;
-  v15 = v11 <= 1 ? 1 : v11;
-  if (v15 > v12)
+  v15 = v13;
+  v16 = v12 <= 1 ? 1 : v12;
+  if (v16 > v13)
   {
     goto LABEL_10;
   }
 
-  v24 = headCFI;
+  v25 = headCFI;
   characterCountIfComputable = 0;
-  v17 = v15 - 1;
-  *&v13 = 138412290;
-  v23 = v13;
+  v18 = v16 - 1;
+  *&v14 = 138412290;
+  v24 = v14;
   while (1)
   {
-    v18 = [v7 objectAtIndexedSubscript:{v17, v23}];
-    v19 = [v18 objectAtIndexedSubscript:0];
-    v20 = [iCopy intersectWithCFI:v19];
-    if (![v20 isRange])
+    v19 = [v7 objectAtIndexedSubscript:{v18, v24}];
+    v20 = [v19 objectAtIndexedSubscript:0];
+    v21 = [iCopy intersectWithCFI:v20];
+    if (![v21 isRange])
     {
       break;
     }
 
-    if ([v20 isEqual:v19])
+    if ([v21 isEqual:v20])
     {
-      v21 = [v18 objectAtIndexedSubscript:1];
-      characterCountIfComputable = &characterCountIfComputable[[v21 integerValue]];
+      v22 = [v19 objectAtIndexedSubscript:1];
+      characterCountIfComputable = &characterCountIfComputable[[v22 integerValue]];
     }
 
     else
     {
-      characterCountIfComputable2 = [v20 characterCountIfComputable];
+      characterCountIfComputable2 = [v21 characterCountIfComputable];
       if (characterCountIfComputable2 != 0x7FFFFFFFFFFFFFFFLL)
       {
         characterCountIfComputable = &characterCountIfComputable[characterCountIfComputable2];
         goto LABEL_24;
       }
 
-      v21 = BCReadingStatisticsLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v22 = BCReadingStatisticsLog(0x7FFFFFFFFFFFFFFFLL);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        *buf = v23;
-        v27 = v20;
-        _os_log_error_impl(&dword_0, v21, OS_LOG_TYPE_ERROR, "Unexpected failure to compute character count for CFI %@", buf, 0xCu);
+        *buf = v24;
+        v28 = v21;
+        _os_log_error_impl(&dword_0, v22, OS_LOG_TYPE_ERROR, "Unexpected failure to compute character count for CFI %@", buf, 0xCu);
       }
     }
 
 LABEL_24:
-    if (v14 == ++v17)
+    if (v15 == ++v18)
     {
       goto LABEL_25;
     }
   }
 
-  if ([iCopy compareTailToHead:v19] != -1)
+  if ([iCopy compareTailToHead:v20] != -1)
   {
     goto LABEL_24;
   }
 
 LABEL_25:
-  v8 = 0;
-  headCFI = v24;
+  v9 = 0;
+  headCFI = v25;
 LABEL_11:
 
 LABEL_12:
@@ -660,7 +661,7 @@ LABEL_12:
           }
 
           v18 = *(*(&v32 + 1) + 8 * v17);
-          v19 = BCReadingStatisticsLog();
+          v19 = BCReadingStatisticsLog(v14);
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
           {
             string = [v18 string];
@@ -671,15 +672,16 @@ LABEL_12:
             _os_log_debug_impl(&dword_0, v19, OS_LOG_TYPE_DEBUG, "Read %@ for %.1lf seconds", buf, 0x16u);
           }
 
-          [heatMap addCFI:v18 count:v9];
+          v14 = [heatMap addCFI:v18 count:v9];
           v17 = v17 + 1;
         }
 
         while (v15 != v17);
-        v15 = [allCFIs countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v14 = [allCFIs countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v15 = v14;
       }
 
-      while (v15);
+      while (v14);
     }
 
     allCFIs2 = [v27 allCFIs];

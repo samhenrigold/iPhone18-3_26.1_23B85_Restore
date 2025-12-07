@@ -34,14 +34,12 @@
 
 - (NSArray)locationPoints
 {
-  v3 = OBJC_IVAR___NLSessionActivityLocationPositionAccumulator_locationPoints;
   swift_beginAccess();
-  v4 = *(self + v3);
   _sSo10CLLocationCMaTm_0(0, &lazy cache variable for type metadata for CLLocation, 0x277CE41F8);
 
-  v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v5.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setLocationPoints:(id)points
@@ -50,15 +48,13 @@
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR___NLSessionActivityLocationPositionAccumulator_locationPoints;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
 - (void)accumulatorDidStartWithStartDate:(id)date handler:(id)handler
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
+  MEMORY[0x28223BE20](v7 - 8, v8);
   v10 = &v16 - v9;
   v11 = _Block_copy(handler);
   if (date)
@@ -88,7 +84,7 @@
 
   selfCopy = self;
   LocationPositionAccumulator.accumulatorDidStart(withStart:handler:)(v10, v11, v14);
-  _sSaySo12CLRoutePointCGIegg_SgWOe_0(v11);
+  _sSaySo12CLRoutePointCGIegg_SgWOe_0(v11, v14);
 
   outlined destroy of WorkoutPlan.Route?(v10, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
 }
@@ -103,13 +99,11 @@
 {
   v7 = type metadata accessor for UUID();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
+  MEMORY[0x28223BE20](v7, v9);
   v11 = &v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = type metadata accessor for Date();
   v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](v12);
+  MEMORY[0x28223BE20](v12, v14);
   v16 = &v19 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
@@ -141,13 +135,19 @@
   v8 = _Block_copy(completion);
   if (v8)
   {
-    *(swift_allocObject() + 16) = v8;
+    v9 = swift_allocObject();
+    *(v9 + 16) = v8;
     v8 = partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned NSArray) -> ();
+  }
+
+  else
+  {
+    v9 = 0;
   }
 
   selfCopy = self;
   LocationPositionAccumulator.queryForPoints(timestampAnchor:numberOfPoints:completion:)(points, v8, anchor);
-  _sSaySo12CLRoutePointCGIegg_SgWOe_0(v8);
+  _sSaySo12CLRoutePointCGIegg_SgWOe_0(v8, v9);
 }
 
 - (NSDictionary)metadata

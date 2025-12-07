@@ -704,7 +704,7 @@ LABEL_8:
 + (BOOL)_shouldUseConclave:(BOOL)conclave
 {
   conclaveCopy = conclave;
-  v4 = MABrainUtilityConclaveEnabled();
+  v4 = MABrainUtilityConclaveEnabled(self, a2);
   if (v4)
   {
     has_internal_content = os_variant_has_internal_content();
@@ -947,7 +947,7 @@ LABEL_16:
 
 - (BOOL)_shouldForcePersonalizationFailure
 {
-  if (!_MAPreferencesIsInternalAllowed())
+  if (!_MAPreferencesIsInternalAllowed(self, a2))
   {
     goto LABEL_25;
   }
@@ -3281,21 +3281,21 @@ LABEL_23:
   attachCopy = attach;
   outputStructCnt = 0;
   *connect = 0;
+  v53 = 0u;
+  v54 = 0u;
   v51 = 0u;
   v52 = 0u;
   v49 = 0u;
   v50 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
   v44 = 0u;
+  v45 = 0u;
   v42 = 0u;
   v43 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v38 = 0u;
-  v39 = 0u;
   inputStruct = 0u;
   LODWORD(v6) = -1;
   p_weak_ivar_lyt = (&MAAIRBMobileAssetOperationMetadata__metaData + 56);
@@ -3314,10 +3314,10 @@ LABEL_23:
         [v8 setObject:&__kCFBooleanTrue forKeyedSubscript:@"OSInternal"];
         [v8 setObject:&__kCFBooleanTrue forKeyedSubscript:@"write-protected"];
         [v8 setObject:&__kCFBooleanFalse forKeyedSubscript:@"autodiskmount"];
-        v32 = +[NSData dataWithBytes:length:](NSData, "dataWithBytes:length:", [attachCopy UTF8String], objc_msgSend(attachCopy, "length"));
-        if (v32)
+        v34 = +[NSData dataWithBytes:length:](NSData, "dataWithBytes:length:", [attachCopy UTF8String], objc_msgSend(attachCopy, "length"));
+        if (v34)
         {
-          [v8 setObject:v32 forKeyedSubscript:@"image-path"];
+          [v8 setObject:v34 forKeyedSubscript:@"image-path"];
           v6 = open([attachCopy fileSystemRepresentation], 0);
           if ((v6 & 0x80000000) != 0)
           {
@@ -3350,7 +3350,7 @@ LABEL_23:
                 {
                   *&inputStruct = 0x1BEEFFEEDLL;
                   *(&inputStruct + 1) = CFDataGetBytePtr(Data);
-                  *&v38 = CFDataGetLength(Data);
+                  *&v40 = CFDataGetLength(Data);
                   outputStructCnt = 4;
                   v15 = IOConnectCallStructMethod(connect[0], 0, &inputStruct, 0x100uLL, &outputStruct, &outputStructCnt);
                   if (!v15)
@@ -3395,7 +3395,7 @@ LABEL_23:
         {
           v14 = 0;
           Data = 0;
-          v32 = 0;
+          v34 = 0;
           0x3FFF = @"Failed to create data.";
         }
       }
@@ -3404,7 +3404,7 @@ LABEL_23:
       {
         v14 = 0;
         Data = 0;
-        v32 = 0;
+        v34 = 0;
         uUIDString = 0;
         0x3FFF = @"Failed to create UUID string.";
       }
@@ -3414,7 +3414,7 @@ LABEL_23:
     {
       v14 = 0;
       Data = 0;
-      v32 = 0;
+      v34 = 0;
       uUIDString = 0;
       0x3FFF = @"Failed to create dictionary.";
     }
@@ -3426,7 +3426,7 @@ LABEL_23:
   {
     v14 = 0;
     Data = 0;
-    v32 = 0;
+    v34 = 0;
     uUIDString = 0;
     v8 = 0;
     0x3FFF = @"Invalid input.";
@@ -3458,18 +3458,29 @@ LABEL_23:
 LABEL_26:
     if (close(v6) == -1)
     {
-      v59 = 0;
-      v57 = 0u;
+      v60 = 0;
       v58 = 0u;
-      v56 = 0u;
+      v59 = 0u;
+      v57 = 0u;
       memset(buf, 0, sizeof(buf));
-      os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-      v28 = *__error();
-      v53 = 67109120;
-      v54 = v28;
-      _os_log_send_and_compose_impl();
-      v29 = _os_crash_msg();
-      [SecureMobileAssetBundle attach:v29 error:?];
+      v28 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+      v29 = *__error();
+      if (v28)
+      {
+        v30 = 3;
+      }
+
+      else
+      {
+        v30 = 2;
+      }
+
+      v55[0] = 67109120;
+      v55[1] = v29;
+      LODWORD(v33) = 8;
+      _os_log_send_and_compose_impl(v30, &v60, buf, 80, &dword_0, &_os_log_default, 16, "assertion failure: close(fd) -> %{errno}d", v55, v33);
+      _os_crash_msg();
+      [SecureMobileAssetBundle attach:error:];
     }
   }
 
@@ -3479,17 +3490,27 @@ LABEL_26:
     if (v24)
     {
       *buf = 0;
+      v42 = 0u;
+      v43 = 0u;
       v40 = 0u;
       v41 = 0u;
-      v38 = 0u;
-      v39 = 0u;
       inputStruct = 0u;
-      os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-      LODWORD(v59) = 67109120;
-      HIDWORD(v59) = v24;
-      _os_log_send_and_compose_impl();
-      v30 = _os_crash_msg();
-      [SecureMobileAssetBundle attach:v30 error:?];
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        v31 = 3;
+      }
+
+      else
+      {
+        v31 = 2;
+      }
+
+      LODWORD(v60) = 67109120;
+      HIDWORD(v60) = v24;
+      LODWORD(v33) = 8;
+      _os_log_send_and_compose_impl(v31, buf, &inputStruct, 80, &dword_0, &_os_log_default, 16, "IOObjectRelease: %{mach.errno}d", &v60, v33);
+      _os_crash_msg();
+      [SecureMobileAssetBundle attach:error:];
     }
   }
 
@@ -3499,17 +3520,27 @@ LABEL_26:
     if (v25)
     {
       *buf = 0;
+      v42 = 0u;
+      v43 = 0u;
       v40 = 0u;
       v41 = 0u;
-      v38 = 0u;
-      v39 = 0u;
       inputStruct = 0u;
-      os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-      LODWORD(v59) = 67109120;
-      HIDWORD(v59) = v25;
-      _os_log_send_and_compose_impl();
-      v31 = _os_crash_msg();
-      [SecureMobileAssetBundle attach:v31 error:?];
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        v32 = 3;
+      }
+
+      else
+      {
+        v32 = 2;
+      }
+
+      LODWORD(v60) = 67109120;
+      HIDWORD(v60) = v25;
+      LODWORD(v33) = 8;
+      _os_log_send_and_compose_impl(v32, buf, &inputStruct, 80, &dword_0, &_os_log_default, 16, "IOObjectRetain: %{mach.errno}d", &v60, v33);
+      _os_crash_msg();
+      [SecureMobileAssetBundle attach:error:];
     }
   }
 
@@ -3693,17 +3724,26 @@ LABEL_34:
         if (v36)
         {
           v55 = 0;
-          v66 = 0u;
-          v64 = 0u;
           v65 = 0u;
-          *parent = 0u;
           v63 = 0u;
-          os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-          v60 = 67109120;
-          v61 = v36;
-          _os_log_send_and_compose_impl();
-          v42 = _os_crash_msg();
-          [SecureMobileAssetBundle attach:v42 error:?];
+          v64 = 0u;
+          *parent = 0u;
+          v62 = 0u;
+          if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+          {
+            v42 = 3;
+          }
+
+          else
+          {
+            v42 = 2;
+          }
+
+          v60[0] = 67109120;
+          v60[1] = v36;
+          _os_log_send_and_compose_impl(v42, &v55, parent, 80, &dword_0, &_os_log_default, 16, "IOObjectRetain: %{mach.errno}d", v60, 8);
+          _os_crash_msg();
+          [SecureMobileAssetBundle attach:error:];
         }
       }
 
@@ -4346,7 +4386,7 @@ LABEL_6:
 
   v12 = open([cryptexPath fileSystemRepresentation], 0);
   v13 = v12;
-  v32 = v12;
+  v33 = v12;
   if ((v12 & 0x80000000) == 0)
   {
     v14 = ffsctl(v12, 0x20004A85uLL, 0, 0);
@@ -4421,24 +4461,34 @@ LABEL_15:
 LABEL_17:
   if (close(v13) == -1)
   {
-    v33 = 0;
+    v34 = 0;
     memset(buf, 0, sizeof(buf));
-    os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-    v28 = *__error();
-    v34 = 67109120;
-    v35 = v28;
-    _os_log_send_and_compose_impl();
-    v29 = _os_crash_msg();
-    [SecureMobileAssetBundle attach:v29 error:?];
+    v28 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+    v29 = *__error();
+    if (v28)
+    {
+      v30 = 3;
+    }
+
+    else
+    {
+      v30 = 2;
+    }
+
+    v35[0] = 67109120;
+    v35[1] = v29;
+    _os_log_send_and_compose_impl(v30, &v34, buf, 80, &dword_0, &_os_log_default, 16, "assertion failure: close(fd) -> %{errno}d", v35, 8);
+    _os_crash_msg();
+    [SecureMobileAssetBundle attach:error:];
   }
 
   if ((v13 & 0x80000000) == 0)
   {
     if (v15)
     {
-      v31 = v10;
-      v23 = [(SecureMobileAssetBundle *)selfCopy graft:&v31];
-      v24 = v31;
+      v32 = v10;
+      v23 = [(SecureMobileAssetBundle *)selfCopy graft:&v32];
+      v24 = v32;
 
       v25 = 1;
 LABEL_22:
@@ -4447,9 +4497,9 @@ LABEL_22:
     }
 
 LABEL_21:
-    v30 = v10;
-    v23 = [(SecureMobileAssetBundle *)selfCopy mount:&v30];
-    v24 = v30;
+    v31 = v10;
+    v23 = [(SecureMobileAssetBundle *)selfCopy mount:&v31];
+    v24 = v31;
 
     v25 = 2;
     goto LABEL_22;
@@ -4559,9 +4609,9 @@ void __47__SecureMobileAssetBundle_getBootTaskPlistLock__block_invoke(id a1)
   if (v6)
   {
     v7 = +[NSMutableDictionary dictionary];
-    v69[0] = 0;
-    v8 = [SecureMobileAssetBundle readBootTaskPlist:v69];
-    v66 = v69[0];
+    v70 = 0;
+    v8 = [SecureMobileAssetBundle readBootTaskPlist:&v70];
+    v67 = v70;
     if (v8)
     {
       v9 = [v8 objectForKeyedSubscript:@"GraftOperations"];
@@ -4595,14 +4645,14 @@ void __47__SecureMobileAssetBundle_getBootTaskPlistLock__block_invoke(id a1)
 
     if (taskCopy)
     {
-      v72[0] = @"PerformGraft";
+      v74[0] = @"PerformGraft";
       v12 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", ([optionsCopy flags] & 2) == 0);
-      v72[1] = @"PathsToDeleteOnGraftFailure";
-      v73[0] = v12;
+      v74[1] = @"PathsToDeleteOnGraftFailure";
+      v75[0] = v12;
       pathsToPurgeOnGraftFailureInEarlyBootTask = [optionsCopy pathsToPurgeOnGraftFailureInEarlyBootTask];
       allObjects = [pathsToPurgeOnGraftFailureInEarlyBootTask allObjects];
-      v73[1] = allObjects;
-      assetBundlePath2 = [NSDictionary dictionaryWithObjects:v73 forKeys:v72 count:2];
+      v75[1] = allObjects;
+      assetBundlePath2 = [NSDictionary dictionaryWithObjects:v75 forKeys:v74 count:2];
 
       assetBundlePath = [(SecureMobileAssetBundle *)self assetBundlePath];
       [v7 setObject:assetBundlePath2 forKeyedSubscript:assetBundlePath];
@@ -4614,50 +4664,50 @@ void __47__SecureMobileAssetBundle_getBootTaskPlistLock__block_invoke(id a1)
       [v7 removeObjectForKey:assetBundlePath2];
     }
 
-    v68 = 0;
-    v17 = [NSPropertyListSerialization dataWithPropertyList:v8 format:200 options:0 error:&v68];
-    v63 = v68;
+    v69 = 0;
+    v17 = [NSPropertyListSerialization dataWithPropertyList:v8 format:200 options:0 error:&v69];
+    v64 = v69;
     if (v17)
     {
-      v71[0] = v6;
-      v71[1] = @"EarlyBootTaskInfo.plist";
-      v18 = [NSArray arrayWithObjects:v71 count:2];
-      v62 = [NSString pathWithComponents:v18];
+      v73[0] = v6;
+      v73[1] = @"EarlyBootTaskInfo.plist";
+      v18 = [NSArray arrayWithObjects:v73 count:2];
+      v63 = [NSString pathWithComponents:v18];
 
-      v70[0] = v6;
-      v70[1] = @"EarlyBootTaskInfo-Temp.plist";
-      v19 = [NSArray arrayWithObjects:v70 count:2];
+      v72[0] = v6;
+      v72[1] = @"EarlyBootTaskInfo-Temp.plist";
+      v19 = [NSArray arrayWithObjects:v72 count:2];
       v20 = [NSString pathWithComponents:v19];
 
       v21 = v20;
       v22 = open([v20 fileSystemRepresentation], 1538, 420);
       if (v22 == -1)
       {
-        v47 = _MADLog(@"SecureMA");
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+        v48 = _MADLog(@"SecureMA");
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
         {
           if (taskCopy)
           {
-            v48 = @"graft";
+            v49 = @"graft";
           }
 
           else
           {
-            v48 = @"ungraft";
+            v49 = @"ungraft";
           }
 
           assetType = [(SecureMobileAssetBundle *)self assetType];
-          v50 = __error();
-          v51 = strerror(*v50);
+          v51 = __error();
+          v52 = strerror(*v51);
           *buf = 138413058;
-          *&buf[4] = v48;
+          *&buf[4] = v49;
           *&buf[12] = 2112;
           *&buf[14] = assetType;
           *&buf[22] = 2112;
           *&buf[24] = v20;
           *&buf[32] = 2080;
-          *&buf[34] = v51;
-          _os_log_impl(&dword_0, v47, OS_LOG_TYPE_ERROR, "[SMA] [SecureMAHelper]: Failed to record %@ entry for asset of type %@. Opening %@ for writing failed. %s", buf, 0x2Au);
+          *&buf[34] = v52;
+          _os_log_impl(&dword_0, v48, OS_LOG_TYPE_ERROR, "[SMA] [SecureMAHelper]: Failed to record %@ entry for asset of type %@. Opening %@ for writing failed. %s", buf, 0x2Au);
         }
       }
 
@@ -4678,13 +4728,13 @@ void __47__SecureMobileAssetBundle_getBootTaskPlistLock__block_invoke(id a1)
               v40 = @"graft";
             }
 
-            v65 = v40;
+            v66 = v40;
             assetType2 = [(SecureMobileAssetBundle *)self assetType];
             v42 = [v17 length];
             v43 = __error();
             v44 = strerror(*v43);
             *buf = 138413314;
-            *&buf[4] = v65;
+            *&buf[4] = v66;
             *&buf[12] = 2112;
             *&buf[14] = assetType2;
             *&buf[22] = 2048;
@@ -4709,23 +4759,23 @@ void __47__SecureMobileAssetBundle_getBootTaskPlistLock__block_invoke(id a1)
               logb = v31;
               if (taskCopy)
               {
-                v52 = @"graft";
+                v53 = @"graft";
               }
 
               else
               {
-                v52 = @"ungraft";
+                v53 = @"ungraft";
               }
 
               assetType3 = [(SecureMobileAssetBundle *)self assetType];
-              v54 = __error();
-              v55 = strerror(*v54);
+              v55 = __error();
+              v56 = strerror(*v55);
               *buf = 138412802;
-              *&buf[4] = v52;
+              *&buf[4] = v53;
               *&buf[12] = 2112;
               *&buf[14] = assetType3;
               *&buf[22] = 2080;
-              *&buf[24] = v55;
+              *&buf[24] = v56;
               v31 = logb;
               _os_log_impl(&dword_0, logb, OS_LOG_TYPE_ERROR, "[SMA] [SecureMAHelper]: Failed to record %@ entry for asset of type %@. Taking a write barrier failed. %s", buf, 0x20u);
             }
@@ -4735,8 +4785,8 @@ void __47__SecureMobileAssetBundle_getBootTaskPlistLock__block_invoke(id a1)
           {
             v25 = v20;
             fileSystemRepresentation = [v20 fileSystemRepresentation];
-            v27 = v62;
-            fileSystemRepresentation2 = [v62 fileSystemRepresentation];
+            v27 = v63;
+            fileSystemRepresentation2 = [v63 fileSystemRepresentation];
             rename(fileSystemRepresentation, fileSystemRepresentation2, v29);
             if (v30)
             {
@@ -4765,7 +4815,7 @@ void __47__SecureMobileAssetBundle_getBootTaskPlistLock__block_invoke(id a1)
                 *&buf[24] = v20;
                 *&buf[32] = 2112;
                 v31 = log;
-                *&buf[34] = v62;
+                *&buf[34] = v63;
                 *&buf[42] = 2080;
                 *&buf[44] = v35;
                 _os_log_impl(&dword_0, log, OS_LOG_TYPE_ERROR, "[SMA] [SecureMAHelper]: Failed to record %@ entry for asset of type %@. Renaming file from (%@) -> (%@) failed. %s", buf, 0x34u);
@@ -4778,17 +4828,17 @@ void __47__SecureMobileAssetBundle_getBootTaskPlistLock__block_invoke(id a1)
               if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
               {
                 assetType5 = [(SecureMobileAssetBundle *)self assetType];
-                v57 = assetType5;
-                v58 = @"N";
+                v58 = assetType5;
+                v59 = @"N";
                 if (taskCopy)
                 {
-                  v58 = @"Y";
+                  v59 = @"Y";
                 }
 
                 *buf = 138412546;
                 *&buf[4] = assetType5;
                 *&buf[12] = 2112;
-                *&buf[14] = v58;
+                *&buf[14] = v59;
                 _os_log_impl(&dword_0, v31, OS_LOG_TYPE_DEFAULT, "[SMA] [SecureMAHelper]: Successfully recorded graft entry | assetType:%@ | grafted:%@", buf, 0x16u);
               }
             }
@@ -4797,20 +4847,30 @@ void __47__SecureMobileAssetBundle_getBootTaskPlistLock__block_invoke(id a1)
 
         if (close(v22) == -1)
         {
-          v69[1] = 0;
-          v77 = 0u;
+          v71 = 0;
+          v78 = 0u;
           memset(buf, 0, sizeof(buf));
-          os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-          v45 = *__error();
-          v74 = 67109120;
-          v75 = v45;
-          _os_log_send_and_compose_impl();
-          v46 = _os_crash_msg();
-          [SecureMobileAssetBundle attach:v46 error:?];
+          v45 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+          v46 = *__error();
+          if (v45)
+          {
+            v47 = 3;
+          }
+
+          else
+          {
+            v47 = 2;
+          }
+
+          v76[0] = 67109120;
+          v76[1] = v46;
+          _os_log_send_and_compose_impl(v47, &v71, buf, 80, &dword_0, &_os_log_default, 16, "assertion failure: close(fd) -> %{errno}d", v76, 8);
+          _os_crash_msg();
+          [SecureMobileAssetBundle attach:error:];
         }
       }
 
-      v36 = v62;
+      v36 = v63;
     }
 
     else
@@ -4831,7 +4891,7 @@ void __47__SecureMobileAssetBundle_getBootTaskPlistLock__block_invoke(id a1)
         *&buf[12] = 2112;
         *&buf[14] = assetType6;
         *&buf[22] = 2112;
-        *&buf[24] = v63;
+        *&buf[24] = v64;
         _os_log_impl(&dword_0, v36, OS_LOG_TYPE_ERROR, "[SMA] [SecureMAHelper]: Failed to record %@ entry for asset of type %@ into a property list. %@", buf, 0x20u);
       }
     }
@@ -4840,7 +4900,7 @@ void __47__SecureMobileAssetBundle_getBootTaskPlistLock__block_invoke(id a1)
   else
   {
     v10 = _MADLog(@"SecureMA");
-    v66 = v10;
+    v67 = v10;
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
@@ -5873,7 +5933,7 @@ LABEL_44:
 
 - (BOOL)isMappableToExclaves:(unsigned int *)exclaves
 {
-  if (MABrainUtilityDeviceSupportsExclaves())
+  if (MABrainUtilityDeviceSupportsExclaves(self, a2))
   {
     v15 = 0;
     assetType = [(SecureMobileAssetBundle *)self assetType];
@@ -6658,7 +6718,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2(a1, a2);
   os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_1();
+  OUTLINED_FUNCTION_0_1(v2, v3, v4, v5, &dword_0, v6, v7, "IOObjectRetain: %{mach.errno}d");
   _os_crash_msg();
   __break(1u);
 }

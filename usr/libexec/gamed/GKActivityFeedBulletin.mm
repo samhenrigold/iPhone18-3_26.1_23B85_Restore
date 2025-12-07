@@ -340,14 +340,12 @@ LABEL_16:
 - (void)handleAction:(id)action
 {
   actionCopy = action;
-  v43 = @"pageDetails";
-  v41 = @"activityFeedAction";
-  v5 = [NSNumber numberWithInteger:[(GKActivityFeedBulletin *)self activityFeedAction]];
-  v42 = v5;
-  v6 = [NSDictionary dictionaryWithObjects:&v42 forKeys:&v41 count:1];
-  v44 = v6;
-  v7 = [NSDictionary dictionaryWithObjects:&v44 forKeys:&v43 count:1];
-  v8 = [v7 mutableCopy];
+  v41 = @"pageDetails";
+  v39 = @"activityFeedAction";
+  v40 = [NSNumber numberWithInteger:[(GKActivityFeedBulletin *)self activityFeedAction]];
+  v42 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
+  v5 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
+  v6 = [v5 mutableCopy];
 
   if (([actionCopy isEqualToString:@"GKAccepted"] & 1) == 0 && !objc_msgSend(actionCopy, "isEqualToString:", @"GKDefault"))
   {
@@ -364,7 +362,7 @@ LABEL_16:
   if ([(GKActivityFeedBulletin *)self activityFeedAction])
   {
 LABEL_33:
-    [(GKActivityFeedBulletin *)self reportMetricsForActionID:actionCopy withAdditionalFields:v8];
+    [(GKActivityFeedBulletin *)self reportMetricsForActionID:actionCopy withAdditionalFields:v6];
     goto LABEL_34;
   }
 
@@ -373,30 +371,30 @@ LABEL_33:
     getRelationshipGameBundleId = [(GKActivityFeedBulletin *)self getRelationshipGameBundleId];
     getRelationshipLeaderboardIdentifier = [(GKActivityFeedBulletin *)self getRelationshipLeaderboardIdentifier];
     getRelationshipPlayerId = [(GKActivityFeedBulletin *)self getRelationshipPlayerId];
-    v12 = getRelationshipPlayerId;
+    v10 = getRelationshipPlayerId;
     if (getRelationshipGameBundleId && getRelationshipLeaderboardIdentifier && getRelationshipPlayerId)
     {
-      v13 = [NSString stringWithFormat:@"game-overlay-ui:///game/%@/leaderboard/%@?challengeSuggestionPlayerID=%@", getRelationshipGameBundleId, getRelationshipLeaderboardIdentifier, getRelationshipPlayerId];
-      v14 = [[NSURL alloc] initWithString:v13];
-      if (v14)
+      v11 = [NSString stringWithFormat:@"game-overlay-ui:///game/%@/leaderboard/%@?challengeSuggestionPlayerID=%@", getRelationshipGameBundleId, getRelationshipLeaderboardIdentifier, getRelationshipPlayerId];
+      v12 = [[NSURL alloc] initWithString:v11];
+      if (v12)
       {
-        v15 = +[GKApplicationWorkspace defaultWorkspace];
-        [v15 openURL:v14];
+        v13 = +[GKApplicationWorkspace defaultWorkspace];
+        [v13 openURL:v12];
       }
 
       else
       {
         if (!os_log_GKGeneral)
         {
-          v29 = GKOSLoggers();
+          v27 = GKOSLoggers();
         }
 
-        v30 = os_log_GKDaemon;
+        v28 = os_log_GKDaemon;
         if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v36 = v13;
-          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "GKActivityFeedBulletin handleAction, failed to construct deeplink url with string %@", buf, 0xCu);
+          v34 = v11;
+          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "GKActivityFeedBulletin handleAction, failed to construct deeplink url with string %@", buf, 0xCu);
         }
       }
     }
@@ -405,19 +403,19 @@ LABEL_33:
     {
       if (!os_log_GKGeneral)
       {
-        v24 = GKOSLoggers();
+        v22 = GKOSLoggers();
       }
 
-      v25 = os_log_GKDaemon;
+      v23 = os_log_GKDaemon;
       if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
       {
         *buf = 138412802;
-        v36 = getRelationshipGameBundleId;
+        v34 = getRelationshipGameBundleId;
+        v35 = 2112;
+        v36 = getRelationshipLeaderboardIdentifier;
         v37 = 2112;
-        v38 = getRelationshipLeaderboardIdentifier;
-        v39 = 2112;
-        v40 = v12;
-        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "GKActivityFeedBulletin handleAction, missing ids to construct deeplink. bundleID: %@, leaderboardID: %@, playerID: %@", buf, 0x20u);
+        v38 = v10;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "GKActivityFeedBulletin handleAction, missing ids to construct deeplink. bundleID: %@, leaderboardID: %@, playerID: %@", buf, 0x20u);
       }
     }
 
@@ -425,8 +423,8 @@ LABEL_32:
     goto LABEL_33;
   }
 
-  v16 = +[GKClientProxy gameCenterClient];
-  v17 = [(GKService *)GKUtilityServicePrivate serviceWithTransport:0 forClient:v16 localPlayer:0];
+  v14 = +[GKClientProxy gameCenterClient];
+  v15 = [(GKService *)GKUtilityServicePrivate serviceWithTransport:0 forClient:v14 localPlayer:0];
   getRelationshipGameBundleId2 = [(GKActivityFeedBulletin *)self getRelationshipGameBundleId];
   getRelationshipGameAdamId = [(GKActivityFeedBulletin *)self getRelationshipGameAdamId];
   stringValue = [getRelationshipGameAdamId stringValue];
@@ -435,37 +433,37 @@ LABEL_32:
   {
     if (!os_log_GKGeneral)
     {
-      v21 = GKOSLoggers();
+      v19 = GKOSLoggers();
     }
 
-    v22 = os_log_GKDaemon;
+    v20 = os_log_GKDaemon;
     if (os_log_type_enabled(os_log_GKDaemon, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "Launching News puzzles section in response to leaderboard notification action", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Launching News puzzles section in response to leaderboard notification action", buf, 2u);
     }
 
-    v23 = +[GKApplicationWorkspace defaultWorkspace];
-    [v23 openNewsApp];
+    v21 = +[GKApplicationWorkspace defaultWorkspace];
+    [v21 openNewsApp];
 
-    [v8 setObject:stringValue forKeyedSubscript:@"targetId"];
-    [(GKActivityFeedBulletin *)self reportMetricsForActionID:actionCopy withAdditionalFields:v8];
+    [v6 setObject:stringValue forKeyedSubscript:@"targetId"];
+    [(GKActivityFeedBulletin *)self reportMetricsForActionID:actionCopy withAdditionalFields:v6];
   }
 
   else
   {
-    v26 = +[NSBundle mainBundle];
-    bundleIdentifier = [v26 bundleIdentifier];
-    v28 = [ASCAppLaunchTrampolineURL URLWithAdamId:stringValue bundleId:getRelationshipGameBundleId2 localizedName:0 sourceApplication:bundleIdentifier topic:0];
+    v24 = +[NSBundle mainBundle];
+    bundleIdentifier = [v24 bundleIdentifier];
+    v26 = [ASCAppLaunchTrampolineURL URLWithAdamId:stringValue bundleId:getRelationshipGameBundleId2 localizedName:0 sourceApplication:bundleIdentifier topic:0];
 
-    v31[0] = _NSConcreteStackBlock;
-    v31[1] = 3221225472;
-    v31[2] = sub_10019C5C4;
-    v31[3] = &unk_10036A350;
-    v32 = v8;
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_10019C5C4;
+    v29[3] = &unk_10036A350;
+    v30 = v6;
     selfCopy = self;
-    v34 = actionCopy;
-    [v17 invokeASCAppLaunchTrampolineWithURL:v28 handler:v31];
+    v32 = actionCopy;
+    [v15 invokeASCAppLaunchTrampolineWithURL:v26 handler:v29];
   }
 
 LABEL_34:

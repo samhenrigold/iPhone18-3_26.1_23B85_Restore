@@ -11,6 +11,8 @@
 - (void)setAnnounceCalls:(unint64_t)calls;
 - (void)setConversationLinkBaseURL:(id)l;
 - (void)setConversationLinkBaseURLString:(id)string;
+- (void)setSimulateFatalPersistentStoreError:(BOOL)error;
+- (void)setSimulateInternationalCall:(BOOL)call;
 @end
 
 @implementation TUConfiguration
@@ -102,6 +104,17 @@
   return v3;
 }
 
+- (void)setSimulateFatalPersistentStoreError:(BOOL)error
+{
+  errorCopy = error;
+  if (_TUIsInternalInstall())
+  {
+    dataSource = [(TUConfiguration *)self dataSource];
+    v5 = [MEMORY[0x1E696AD98] numberWithBool:errorCopy];
+    [dataSource setObject:v5 forKey:@"simulateFatalPersistentStoreError"];
+  }
+}
+
 - (BOOL)simulateInternationalCall
 {
   v3 = _TUIsInternalInstall();
@@ -114,6 +127,17 @@
   }
 
   return v3;
+}
+
+- (void)setSimulateInternationalCall:(BOOL)call
+{
+  callCopy = call;
+  if (_TUIsInternalInstall())
+  {
+    dataSource = [(TUConfiguration *)self dataSource];
+    v5 = [MEMORY[0x1E696AD98] numberWithBool:callCopy];
+    [dataSource setObject:v5 forKey:@"simulateInternationalCall"];
+  }
 }
 
 - (id)numberForKey:(id)key

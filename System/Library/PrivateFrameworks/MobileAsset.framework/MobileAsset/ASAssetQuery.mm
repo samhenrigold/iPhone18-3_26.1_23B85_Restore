@@ -74,14 +74,14 @@ void __44__ASAssetQuery_queryPredicateForProperties___block_invoke(uint64_t a1, 
 
 - (id)runQueryForInfoReturnError:(id *)error
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy__2;
-  v46 = __Block_byref_object_dispose__2;
-  v47 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__2;
+  v45 = __Block_byref_object_dispose__2;
+  v46 = 0;
   if (!self->_queriesLocalAssetInformationOnly)
   {
     v4 = objc_opt_new();
@@ -89,14 +89,14 @@ void __44__ASAssetQuery_queryPredicateForProperties___block_invoke(uint64_t a1, 
     v5 = dispatch_group_create();
     dispatch_group_enter(v5);
     assetType = self->_assetType;
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __43__ASAssetQuery_runQueryForInfoReturnError___block_invoke;
-    v39[3] = &unk_1E74CA800;
-    v41 = &v42;
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __43__ASAssetQuery_runQueryForInfoReturnError___block_invoke;
+    v38[3] = &unk_1E74CA800;
+    v40 = &v41;
     v7 = v5;
-    v40 = v7;
-    [MAAsset startCatalogDownload:assetType options:v4 completionWithError:v39];
+    v39 = v7;
+    [MAAsset startCatalogDownload:assetType options:v4 completionWithError:v38];
     v8 = dispatch_time(0, (self->_networkTimeout * 1000000000.0));
     dispatch_group_wait(v7, v8);
   }
@@ -106,7 +106,7 @@ void __44__ASAssetQuery_queryPredicateForProperties___block_invoke(uint64_t a1, 
 
   if (MAIsQueryResultFailure(queryMetaDataSync))
   {
-    v11 = v43[5];
+    v11 = v42[5];
     v12 = errorStringForMAQueryResult(queryMetaDataSync);
     v17 = MAErrorWithUnderlying(@"com.apple.MobileAssetError.Query", queryMetaDataSync, v11, @"%@", v13, v14, v15, v16, v12);
     v18 = _ASErrorForMAError(v17);
@@ -129,25 +129,25 @@ void __44__ASAssetQuery_queryPredicateForProperties___block_invoke(uint64_t a1, 
   else
   {
     v22 = objc_opt_new();
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     results2 = [(MAAssetQuery *)self->maQuery results];
-    v24 = [results2 countByEnumeratingWithState:&v35 objects:v48 count:16];
+    v24 = [results2 countByEnumeratingWithState:&v34 objects:v47 count:16];
     if (v24)
     {
-      v25 = *v36;
+      v25 = *v35;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v36 != v25)
+          if (*v35 != v25)
           {
             objc_enumerationMutation(results2);
           }
 
-          v27 = *(*(&v35 + 1) + 8 * i);
+          v27 = *(*(&v34 + 1) + 8 * i);
           v28 = objc_autoreleasePoolPush();
           v29 = [objc_opt_new() initWithMAAsset:v27];
           [v22 addObject:v29];
@@ -155,7 +155,7 @@ void __44__ASAssetQuery_queryPredicateForProperties___block_invoke(uint64_t a1, 
           objc_autoreleasePoolPop(v28);
         }
 
-        v24 = [results2 countByEnumeratingWithState:&v35 objects:v48 count:16];
+        v24 = [results2 countByEnumeratingWithState:&v34 objects:v47 count:16];
       }
 
       while (v24);
@@ -180,9 +180,7 @@ void __44__ASAssetQuery_queryPredicateForProperties___block_invoke(uint64_t a1, 
     *error = v30;
   }
 
-  _Block_object_dispose(&v42, 8);
-
-  v31 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v41, 8);
 
   return dictionary;
 }

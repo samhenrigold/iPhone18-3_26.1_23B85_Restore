@@ -6,6 +6,7 @@
 - (NSUUID)identifier;
 - (_BYTE)shouldCloseWithVerdict:(_BYTE *)verdict;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (uint64_t)updateCurrentVerdictFromDataVerdict:(unint64_t)verdict direction:;
 - (void)encodeWithCoder:(id)coder;
 - (void)updateSourceAppInfoWithQueue:(void *)queue completionHandler:;
@@ -61,6 +62,65 @@
   }
 
   return result;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  identifier = [(NEFilterFlow *)self identifier];
+  [v7 appendPrettyObject:identifier withName:@"identifier" andIndent:v5 options:options];
+
+  v9 = [(NEFilterFlow *)self URL];
+  host = [v9 host];
+  [v7 appendPrettyObject:host withName:@"hostname" andIndent:v5 options:options | 1];
+
+  sourceAppIdentifier = [(NEFilterFlow *)self sourceAppIdentifier];
+  [v7 appendPrettyObject:sourceAppIdentifier withName:@"sourceAppIdentifier" andIndent:v5 options:options];
+
+  sourceAppVersion = [(NEFilterFlow *)self sourceAppVersion];
+  [v7 appendPrettyObject:sourceAppVersion withName:@"sourceAppVersion" andIndent:v5 options:options];
+
+  sourceAppUniqueIdentifier = [(NEFilterFlow *)self sourceAppUniqueIdentifier];
+  [v7 appendPrettyObject:sourceAppUniqueIdentifier withName:@"sourceAppUniqueIdentifier" andIndent:v5 options:options];
+
+  [v7 appendPrettyInt:-[NEFilterFlow pid](self withName:"pid") andIndent:@"procPID" options:{v5, options}];
+  [v7 appendPrettyInt:-[NEFilterFlow epid](self withName:"epid") andIndent:@"eprocPID" options:{v5, options}];
+  [v7 appendPrettyInt:-[NEFilterFlow rpid](self withName:"rpid") andIndent:@"rprocPID" options:{v5, options}];
+  if ([(NEFilterFlow *)self direction]== NETrafficDirectionInbound)
+  {
+    v14 = @"inbound";
+  }
+
+  else
+  {
+    if ([(NEFilterFlow *)self direction]!= NETrafficDirectionOutbound)
+    {
+      goto LABEL_6;
+    }
+
+    v14 = @"outbound";
+  }
+
+  [v7 appendPrettyObject:v14 withName:@"direction" andIndent:v5 options:options];
+LABEL_6:
+  if (self)
+  {
+    Property = objc_getProperty(self, v15, 112, 1);
+  }
+
+  else
+  {
+    Property = 0;
+  }
+
+  [v7 appendPrettyObject:Property withName:@"currentVerdict" andIndent:v5 options:options];
+  [v7 appendPrettyInt:-[NEFilterFlow inBytes](self withName:"inBytes") andIndent:@"inBytes" options:{v5, options}];
+  [v7 appendPrettyInt:-[NEFilterFlow outBytes](self withName:"outBytes") andIndent:@"outBytes" options:{v5, options}];
+  crypto_signature = [(NEFilterFlow *)self crypto_signature];
+  [v7 appendPrettyObject:crypto_signature withName:@"signature" andIndent:v5 options:options];
+
+  return v7;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -272,7 +332,7 @@ LABEL_7:
 
 - (uint64_t)updateCurrentVerdictFromDataVerdict:(unint64_t)verdict direction:
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = v5;
   v7 = 0;
@@ -315,11 +375,11 @@ LABEL_7:
           v21 = ne_log_obj();
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            v42 = 138412546;
-            v43 = v6;
-            v44 = 2112;
-            v45 = objc_getProperty(self, v22, 112, 1);
-            _os_log_error_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_ERROR, "Inbound data verdict %@ causes overflow in current verdict %@", &v42, 0x16u);
+            v41 = 138412546;
+            v42 = v6;
+            v43 = 2112;
+            v44 = objc_getProperty(self, v22, 112, 1);
+            _os_log_error_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_ERROR, "Inbound data verdict %@ causes overflow in current verdict %@", &v41, 0x16u);
           }
         }
 
@@ -343,12 +403,12 @@ LABEL_7:
         v34 = ne_log_obj();
         if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
         {
-          v41 = objc_getProperty(self, v35, 112, 1);
-          v42 = 138412546;
-          v43 = v6;
-          v44 = 2112;
-          v45 = v41;
-          _os_log_error_impl(&dword_1BA83C000, v34, OS_LOG_TYPE_ERROR, "Outbound data verdict %@ causes overflow in current verdict %@", &v42, 0x16u);
+          v40 = objc_getProperty(self, v35, 112, 1);
+          v41 = 138412546;
+          v42 = v6;
+          v43 = 2112;
+          v44 = v40;
+          _os_log_error_impl(&dword_1BA83C000, v34, OS_LOG_TYPE_ERROR, "Outbound data verdict %@ causes overflow in current verdict %@", &v41, 0x16u);
         }
 
         goto LABEL_27;
@@ -371,9 +431,9 @@ LABEL_27:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     identifierString = [self identifierString];
-    v42 = 138412290;
-    v43 = identifierString;
-    _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEFAULT, "Dropping flow %@", &v42, 0xCu);
+    v41 = 138412290;
+    v42 = identifierString;
+    _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEFAULT, "Dropping flow %@", &v41, 0xCu);
   }
 
   v7 = 1;
@@ -381,7 +441,6 @@ LABEL_27:
   [objc_getProperty(self v11];
 LABEL_28:
 
-  v39 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

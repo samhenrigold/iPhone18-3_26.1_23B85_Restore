@@ -145,7 +145,7 @@ LABEL_6:
   return v5;
 }
 
-uint64_t __39__TSSPropertySet_intersectsProperties___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__39__TSSPropertySet_intersectsProperties___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) containsProperty:a2];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -241,7 +241,7 @@ uint64_t __39__TSSPropertySet_intersectsProperties___block_invoke(uint64_t a1, u
   return [objc_alloc(objc_opt_class()) initWithIndexSet:indexSet];
 }
 
-uint64_t __59__TSSPropertySet_propertySetByIntersectingWithPropertySet___block_invoke(uint64_t a1, uint64_t a2)
+void *__59__TSSPropertySet_propertySetByIntersectingWithPropertySet___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) containsIndex:a2];
   if (result)

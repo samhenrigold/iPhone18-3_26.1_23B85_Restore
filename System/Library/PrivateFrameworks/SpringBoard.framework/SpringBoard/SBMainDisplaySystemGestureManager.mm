@@ -57,7 +57,7 @@
 
 - (BOOL)_isGestureWithTypeAllowed:(unint64_t)allowed
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   windowSceneManager = [SBApp windowSceneManager];
   v6 = [windowSceneManager windowSceneForDisplayIdentity:self->_displayIdentity];
 
@@ -68,78 +68,78 @@
 
   if ((isIconListViewTornDown & 1) != 0 || !isFolderScrolling)
   {
-    v32.receiver = self;
-    v32.super_class = SBMainDisplaySystemGestureManager;
-    v13 = [(SBSystemGestureManager *)&v32 _isGestureWithTypeAllowed:allowed];
-    v14 = +[SBSetupManager sharedInstance];
-    isInSetupMode = [v14 isInSetupMode];
+    v34.receiver = self;
+    v34.super_class = SBMainDisplaySystemGestureManager;
+    v14 = [(SBSystemGestureManager *)&v34 _isGestureWithTypeAllowed:allowed];
+    v15 = +[SBSetupManager sharedInstance];
+    isInSetupMode = [v15 isInSetupMode];
 
     if (isInSetupMode)
     {
-      v16 = +[SBSetupManager sharedInstance];
-      isInSetupModeReadyToExit = [v16 isInSetupModeReadyToExit];
+      v17 = +[SBSetupManager sharedInstance];
+      isInSetupModeReadyToExit = [v17 isInSetupModeReadyToExit];
 
-      v19 = allowed == 2 || allowed == 7;
+      v20 = allowed == 2 || allowed == 7;
       if (isInSetupModeReadyToExit)
       {
-        v22 = allowed == 42 || allowed == 12 || (allowed & 0xFFFFFFFFFFFFFFFBLL) == 35;
+        v23 = allowed == 42 || allowed == 12 || (allowed & 0xFFFFFFFFFFFFFFFBLL) == 35;
       }
 
       else
       {
-        v22 = 0;
+        v23 = 0;
       }
 
-      v13 = v19 || v22;
+      v14 = v20 || v23;
     }
 
     else
     {
-      v23 = +[SBSceneManagerCoordinator mainDisplaySceneManager];
-      policyAggregator = [v23 policyAggregator];
-      v31 = 0;
-      v25 = [policyAggregator allowsCapability:7 explanation:&v31];
-      v26 = v31;
+      v24 = +[SBSceneManagerCoordinator mainDisplaySceneManager];
+      policyAggregator = [v24 policyAggregator];
+      v33 = 0;
+      v26 = [policyAggregator allowsCapability:7 explanation:&v33];
+      v27 = v33;
 
-      if ((v25 & 1) == 0)
+      if ((v26 & 1) == 0)
       {
-        v27 = SBLogSystemGestureDetail();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+        v29 = SBLogSystemGestureDetail(v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
         {
           displayIdentity = self->_displayIdentity;
-          v29 = @"(unknown reason)";
-          if (v26)
+          v31 = @"(unknown reason)";
+          if (v27)
           {
-            v29 = v26;
+            v31 = v27;
           }
 
           *buf = 138543618;
-          v34 = displayIdentity;
-          v35 = 2112;
-          v36 = v29;
-          _os_log_impl(&dword_21ED4E000, v27, OS_LOG_TYPE_INFO, "(Display - %{public}@) Not allowing system gestures because: %@", buf, 0x16u);
+          v36 = displayIdentity;
+          v37 = 2112;
+          v38 = v31;
+          _os_log_impl(&dword_21ED4E000, v29, OS_LOG_TYPE_INFO, "(Display - %{public}@) Not allowing system gestures because: %@", buf, 0x16u);
         }
 
-        v13 = 0;
+        v14 = 0;
       }
     }
   }
 
   else
   {
-    v11 = SBLogSystemGestureDetail();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = SBLogSystemGestureDetail(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v12 = self->_displayIdentity;
+      v13 = self->_displayIdentity;
       *buf = 138543362;
-      v34 = v12;
-      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_INFO, "(Display - %{public}@) Not allowing system gestures because we are scrolling a folder", buf, 0xCu);
+      v36 = v13;
+      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_INFO, "(Display - %{public}@) Not allowing system gestures because we are scrolling a folder", buf, 0xCu);
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13;
+  return v14;
 }
 
 - (BOOL)_shouldEnableSystemGestureWithType:(unint64_t)type
@@ -321,39 +321,39 @@ LABEL_24:
   bCopy = b;
   y = location.y;
   x = location.x;
-  v41 = *MEMORY[0x277D85DE8];
-  v29.receiver = self;
-  v29.super_class = SBMainDisplaySystemGestureManager;
-  v7 = [(SBSystemGestureManager *)&v29 shouldSystemGestureReceiveTouchWithLocation:?];
-  v25 = 0u;
+  v42 = *MEMORY[0x277D85DE8];
+  v30.receiver = self;
+  v30.super_class = SBMainDisplaySystemGestureManager;
+  v7 = [(SBSystemGestureManager *)&v30 shouldSystemGestureReceiveTouchWithLocation:?];
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
   allVisiblePeripheralFrames = [MEMORY[0x277D75830] allVisiblePeripheralFrames];
-  v9 = [allVisiblePeripheralFrames countByEnumeratingWithState:&v25 objects:v40 count:16];
+  v9 = [allVisiblePeripheralFrames countByEnumeratingWithState:&v26 objects:v41 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v26;
+    v11 = *v27;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v26 != v11)
+        if (*v27 != v11)
         {
           objc_enumerationMutation(allVisiblePeripheralFrames);
         }
 
-        [*(*(&v25 + 1) + 8 * i) CGRectValue];
+        [*(*(&v26 + 1) + 8 * i) CGRectValue];
         if (v13 > 60.0)
         {
 
-          v14 = 0;
+          v15 = 0;
           goto LABEL_12;
         }
       }
 
-      v10 = [allVisiblePeripheralFrames countByEnumeratingWithState:&v25 objects:v40 count:16];
+      v10 = [allVisiblePeripheralFrames countByEnumeratingWithState:&v26 objects:v41 count:16];
       if (v10)
       {
         continue;
@@ -363,36 +363,25 @@ LABEL_24:
     }
   }
 
-  v14 = 1;
   v15 = 1;
+  v16 = 1;
   if (!bCopy)
   {
 LABEL_12:
-    v15 = [MEMORY[0x277D75830] pointIsWithinKeyboardContent:{x, y}] ^ 1;
+    v14 = [MEMORY[0x277D75830] pointIsWithinKeyboardContent:{x, y}];
+    v16 = v14 ^ 1;
   }
 
-  v16 = v7 & v15;
-  v17 = SBLogSystemGestureAppSwitcher();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v17 = v7 & v16;
+  v18 = SBLogSystemGestureAppSwitcher(v14);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v42.x = x;
-    v42.y = y;
-    v18 = NSStringFromPoint(v42);
-    v19 = v18;
-    v20 = @"NO";
-    if (v16)
-    {
-      v21 = @"YES";
-    }
-
-    else
-    {
-      v21 = @"NO";
-    }
-
-    *buf = 138413314;
-    v31 = v18;
-    if (bCopy)
+    v43.x = x;
+    v43.y = y;
+    v19 = NSStringFromPoint(v43);
+    v20 = v19;
+    v21 = @"NO";
+    if (v17)
     {
       v22 = @"YES";
     }
@@ -402,9 +391,9 @@ LABEL_12:
       v22 = @"NO";
     }
 
-    v33 = v21;
-    v32 = 2112;
-    if (v14)
+    *buf = 138413314;
+    v32 = v19;
+    if (bCopy)
     {
       v23 = @"YES";
     }
@@ -414,21 +403,33 @@ LABEL_12:
       v23 = @"NO";
     }
 
-    v34 = 2112;
-    v35 = v22;
-    if (!v15)
+    v34 = v22;
+    v33 = 2112;
+    if (v15)
     {
-      v20 = @"YES";
+      v24 = @"YES";
     }
 
-    v36 = 2112;
-    v37 = v23;
-    v38 = 2112;
-    v39 = v20;
-    _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "Should system gesture recieve touch with location:%@ <%@> ignoringUCB:%@ keyboardIsUCB:%@ touchIsInsideKeyboard:%@", buf, 0x34u);
+    else
+    {
+      v24 = @"NO";
+    }
+
+    v35 = 2112;
+    v36 = v23;
+    if (!v16)
+    {
+      v21 = @"YES";
+    }
+
+    v37 = 2112;
+    v38 = v24;
+    v39 = 2112;
+    v40 = v21;
+    _os_log_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEFAULT, "Should system gesture recieve touch with location:%@ <%@> ignoringUCB:%@ keyboardIsUCB:%@ touchIsInsideKeyboard:%@", buf, 0x34u);
   }
 
-  return v16;
+  return v17;
 }
 
 - (void)setSystemGesturesDisabledForAccessibility:(BOOL)accessibility

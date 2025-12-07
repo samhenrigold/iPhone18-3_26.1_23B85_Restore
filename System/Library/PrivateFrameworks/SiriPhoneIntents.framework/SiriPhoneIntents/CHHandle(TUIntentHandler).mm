@@ -74,7 +74,7 @@
 
 + (id)tu_normalizedCHHandlesFromTUHandle:()TUIntentHandler isoCountryCodes:
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a4;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -94,27 +94,27 @@
     case 2:
       if ([v6 count])
       {
-        v30 = 0u;
-        v31 = 0u;
-        v28 = 0u;
         v29 = 0u;
-        v27 = v6;
+        v30 = 0u;
+        v27 = 0u;
+        v28 = 0u;
+        v26 = v6;
         v9 = v6;
-        v10 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v29;
+          v12 = *v28;
           do
           {
             for (i = 0; i != v11; ++i)
             {
-              if (*v29 != v12)
+              if (*v28 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v14 = *(*(&v28 + 1) + 8 * i);
+              v14 = *(*(&v27 + 1) + 8 * i);
               v15 = MEMORY[0x277CF7D30];
               value2 = [v5 value];
               v17 = [v15 normalizedPhoneNumberHandleForValue:value2 isoCountryCode:v14];
@@ -125,13 +125,13 @@
               }
             }
 
-            v11 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
           }
 
           while (v11);
         }
 
-        v6 = v27;
+        v6 = v26;
         goto LABEL_21;
       }
 
@@ -152,8 +152,6 @@
 
 LABEL_21:
   v24 = [v7 copy];
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v24;
 }

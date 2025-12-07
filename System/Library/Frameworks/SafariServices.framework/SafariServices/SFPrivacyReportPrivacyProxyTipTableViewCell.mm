@@ -411,11 +411,11 @@ LABEL_13:
   [mEMORY[0x1E69C9808] setPrivacyProxyState:2 completionHandler:v5];
 }
 
-uint64_t __90__SFPrivacyReportPrivacyProxyTipTableViewCell__setPrivacyProxyStateToTrackersAndWebsites___block_invoke(uint64_t result, uint64_t a2)
+id *__90__SFPrivacyReportPrivacyProxyTipTableViewCell__setPrivacyProxyStateToTrackersAndWebsites___block_invoke(id *result, uint64_t a2)
 {
   if (!a2)
   {
-    return [*(result + 32) _notifyDelegateOfStateChange];
+    return [result[4] _notifyDelegateOfStateChange];
   }
 
   return result;
@@ -433,11 +433,11 @@ uint64_t __90__SFPrivacyReportPrivacyProxyTipTableViewCell__setPrivacyProxyState
   [mEMORY[0x1E69C9808] setPrivacyProxyState:1 completionHandler:v5];
 }
 
-uint64_t __79__SFPrivacyReportPrivacyProxyTipTableViewCell__setPrivacyProxyStateToTrackers___block_invoke(uint64_t result, uint64_t a2)
+id *__79__SFPrivacyReportPrivacyProxyTipTableViewCell__setPrivacyProxyStateToTrackers___block_invoke(id *result, uint64_t a2)
 {
   if (!a2)
   {
-    return [*(result + 32) _notifyDelegateOfStateChange];
+    return [result[4] _notifyDelegateOfStateChange];
   }
 
   return result;

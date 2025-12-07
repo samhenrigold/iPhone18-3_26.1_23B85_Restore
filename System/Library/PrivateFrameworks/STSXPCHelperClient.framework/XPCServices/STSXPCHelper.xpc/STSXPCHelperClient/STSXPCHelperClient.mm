@@ -145,87 +145,85 @@ void *sub_100002D90(void *a1, double a2)
   {
     v4 = a1;
     sub_10003B8EC(a2);
-    v5 = *(v3 + 1688);
-    if (objc_opt_class() && (sub_10003B8C8(v8), v9 = *(v2 + 1680), objc_opt_class()))
+    if (objc_opt_class() && (sub_10003B8C8(v7), objc_opt_class()))
     {
-      v10 = v4[5];
-      if (!v10)
+      v8 = v4[5];
+      if (!v8)
       {
-        v28 = *(v4 + 11);
-        sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSISO18013Handler idvSession]", 1017, v4, @"Creating presentment session, mode=%ld and isAcwg = %ld", v6, v7, v4[3]);
-        v13 = v4[3];
-        if (v13)
+        sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSISO18013Handler idvSession]", 1017, v4, @"Creating presentment session, mode=%ld and isAcwg = %ld", v5, v6, v4[3]);
+        v11 = v4[3];
+        if (v11)
         {
-          v14 = 0;
+          v12 = 0;
           if (*(v4 + 11))
           {
-            v15 = 3;
+            v13 = 3;
           }
 
           else
           {
-            v15 = 2;
+            v13 = 2;
           }
         }
 
         else
         {
-          v15 = *(v4 + 9) ^ 1;
-          v14 = 1;
+          v13 = *(v4 + 9) ^ 1;
+          v12 = 1;
         }
 
-        sub_10002483C(OS_LOG_TYPE_DEFAULT, 1, "[STSISO18013Handler idvSession]", 1037, v4, @"encMode=%lu, authPolicy=%lu", v11, v12, v15);
-        v16 = [objc_alloc(*(v3 + 1688)) initWithSessionEncryptionMode:v15 readerAuthenticationPolicy:v14];
-        v17 = v16;
-        if (!v13)
+        sub_10002483C(OS_LOG_TYPE_DEFAULT, 1, "[STSISO18013Handler idvSession]", 1037, v4, @"encMode=%lu, authPolicy=%lu", v9, v10, v13);
+        v14 = [objc_alloc(*(v3 + 1688)) initWithSessionEncryptionMode:v13 readerAuthenticationPolicy:v12];
+        v15 = v14;
+        if (!v11)
         {
-          [v16 setElementFallbackModes:2];
+          [v14 setElementFallbackModes:2];
         }
 
-        v18 = v4[3];
-        if (v18 == 1)
+        v16 = v4[3];
+        if (v16 == 1)
         {
           if (*(v4 + 11))
           {
-            v19 = 1;
+            v17 = 1;
           }
 
           else
           {
-            v19 = 2;
+            v17 = 2;
           }
 
-          [v17 setMessageEncodingFormat:v19];
-          v18 = v4[3];
+          [v15 setMessageEncodingFormat:v17];
+          v16 = v4[3];
         }
 
-        if (v18)
+        if (v16)
         {
-          v29 = @"ua";
-          v20 = &v29;
+          v26 = @"ua";
+          v18 = &v26;
         }
 
         else
         {
-          v30 = @"identity";
-          v20 = &v30;
+          v27 = @"identity";
+          v18 = &v27;
         }
 
-        v21 = [NSArray arrayWithObjects:v20 count:1];
-        sub_10002483C(OS_LOG_TYPE_DEFAULT, 1, "[STSISO18013Handler idvSession]", 1058, v4, @"partitionList=%@, dcOption=%@", v22, v23, v21);
-        v24 = [objc_alloc(*(v2 + 1680)) initWithPartitions:v21 presentmentType:0 options:v17];
-        v25 = v4[5];
-        v4[5] = v24;
+        v19 = [NSArray arrayWithObjects:v18 count:1];
+        sub_10002483C(OS_LOG_TYPE_DEFAULT, 1, "[STSISO18013Handler idvSession]", 1058, v4, @"partitionList=%@, dcOption=%@", v20, v21, v19);
+        v22 = [objc_alloc(*(v2 + 1680)) initWithPartitions:v19 presentmentType:0 options:v15];
+        v23 = v4[5];
+        v4[5] = v22;
 
-        v10 = v4[5];
+        v8 = v4[5];
       }
 
-      a1 = v10;
+      a1 = v8;
     }
 
     else
     {
-      sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler idvSession]", 1012, v4, @"not implemented", v6, v7, v27);
+      sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler idvSession]", 1012, v4, @"not implemented", v5, v6, v25);
       a1 = 0;
     }
   }
@@ -504,52 +502,51 @@ void sub_1000039D0(void *a1, void *a2, void *a3)
   v6 = a2;
   v7 = a3;
   sub_10003B880(v8);
-  v9 = *(v3 + 1664);
   if (objc_opt_class())
   {
-    v10 = [objc_alloc(*(v3 + 1664)) initWithSessionEstablishment:v6 sessionTranscript:a1[9]];
-    v12 = v10;
+    v9 = [objc_alloc(*(v3 + 1664)) initWithSessionEstablishment:v6 sessionTranscript:a1[9]];
+    v11 = v9;
     if (a1[3] == 1)
     {
-      [v10 setSessionEncryptionIntermediateKeyMaterial:a1[10]];
-      [v12 setRequiredPublicKeyIdentifier:a1[11]];
+      [v9 setSessionEncryptionIntermediateKeyMaterial:a1[10]];
+      [v11 setRequiredPublicKeyIdentifier:a1[11]];
     }
 
-    v13 = sub_100002D90(a1, v11);
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_100003C5C;
-    v15[3] = &unk_1000588D0;
-    v15[4] = a1;
-    v16 = v7;
-    [v13 interpretRequest:v12 completion:v15];
+    v12 = sub_100002D90(a1, v10);
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_100003C5C;
+    v14[3] = &unk_1000588D0;
+    v14[4] = a1;
+    v15 = v7;
+    [v12 interpretRequest:v11 completion:v14];
   }
 
   else
   {
-    v17 = NSLocalizedDescriptionKey;
-    v18 = off_100069A48;
-    v14 = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
-    v12 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:1 userInfo:v14];
+    v16 = NSLocalizedDescriptionKey;
+    v17 = off_100069A48;
+    v13 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+    v11 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:1 userInfo:v13];
 
-    (*(v7 + 2))(v7, 0, 0, v12, 1);
+    (*(v7 + 2))(v7, 0, 0, v11, 1);
   }
 }
 
-void sub_100003BB0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_100003BB0(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  if (a1)
+  if (result)
   {
     v8 = a2;
-    sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSISO18013Handler configureForACWGEngagement:]", 228, a1, @"isAcwg = %ld", a7, a8, a2);
-    if (*(a1 + 11) != v8)
+    sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSISO18013Handler configureForACWGEngagement:]", 228, result, @"isAcwg = %ld", a7, a8, a2);
+    if (*(result + 11) != v8)
     {
-      sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSISO18013Handler configureForACWGEngagement:]", 230, a1, @" isAcwg param does not match stored value.", v10, v11, v15);
-      v12 = *(a1 + 40);
-      *(a1 + 40) = 0;
+      sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSISO18013Handler configureForACWGEngagement:]", 230, result, @" isAcwg param does not match stored value.", v10, v11, v15);
+      v12 = result[5];
+      result[5] = 0;
 
-      *(a1 + 11) = v8;
-      v14 = sub_100002D90(a1, v13);
+      *(result + 11) = v8;
+      v14 = sub_100002D90(result, v13);
     }
   }
 }
@@ -720,17 +717,11 @@ LABEL_26:
 
 void sub_100004344(void *a1, void *a2, void *a3)
 {
-  v84 = a2;
-  v82 = a3;
+  v78 = a2;
+  v76 = a3;
   if (a1)
   {
-    sub_10002483C(OS_LOG_TYPE_INFO, 0, "[STSISO18013Handler interpretAndRespondToExchangeCommand:callback:]", 373, a1, @"encryptedRequestData = %@", v5, v6, v84);
-    v105 = 0;
-    v106 = &v105;
-    v107 = 0x3032000000;
-    v108 = sub_1000050D0;
-    v109 = sub_1000050E0;
-    v110 = 0;
+    sub_10002483C(OS_LOG_TYPE_INFO, 0, "[STSISO18013Handler interpretAndRespondToExchangeCommand:callback:]", 373, a1, @"encryptedRequestData = %@", v5, v6, v78);
     v99 = 0;
     v100 = &v99;
     v101 = 0x3032000000;
@@ -743,318 +734,323 @@ void sub_100004344(void *a1, void *a2, void *a3)
     v96 = sub_1000050D0;
     v97 = sub_1000050E0;
     v98 = 0;
+    v87 = 0;
+    v88 = &v87;
+    v89 = 0x3032000000;
+    v90 = sub_1000050D0;
+    v91 = sub_1000050E0;
+    v92 = 0;
     v7 = dispatch_semaphore_create(0);
     v9 = sub_100002D90(a1, v8);
-    v89[0] = _NSConcreteStackBlock;
-    v89[1] = 3221225472;
-    v89[2] = sub_1000050E8;
-    v89[3] = &unk_1000588F8;
-    v91 = &v105;
-    v92 = &v93;
+    v83[0] = _NSConcreteStackBlock;
+    v83[1] = 3221225472;
+    v83[2] = sub_1000050E8;
+    v83[3] = &unk_1000588F8;
+    v85 = &v99;
+    v86 = &v87;
     dsema = v7;
-    v90 = dsema;
-    [v9 interpretGenericDataRequest:v84 completion:v89];
+    v84 = dsema;
+    [v9 interpretGenericDataRequest:v78 completion:v83];
 
     v10 = dispatch_time(0, 5000000000);
     if (dispatch_semaphore_wait(dsema, v10))
     {
-      v126 = NSLocalizedDescriptionKey;
-      *v120 = off_100069A78;
-      v13 = [NSDictionary dictionaryWithObjects:v120 forKeys:&v126 count:1];
+      v120 = NSLocalizedDescriptionKey;
+      *v114 = off_100069A78;
+      v13 = [NSDictionary dictionaryWithObjects:v114 forKeys:&v120 count:1];
       v14 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:7 userInfo:v13];
 
-      v15 = v94[5];
-      v94[5] = v14;
+      v15 = v88[5];
+      v88[5] = v14;
     }
 
     else
     {
-      v18 = v94[5];
+      v18 = v88[5];
       if (!v18)
       {
 LABEL_5:
-        sub_10002483C(OS_LOG_TYPE_INFO, 0, "[STSISO18013Handler interpretAndRespondToExchangeCommand:callback:]", 400, a1, @"decryptedData %@", v11, v12, v106[5]);
-        if (v94[5])
+        sub_10002483C(OS_LOG_TYPE_INFO, 0, "[STSISO18013Handler interpretAndRespondToExchangeCommand:callback:]", 400, a1, @"decryptedData %@", v11, v12, v100[5]);
+        if (v88[5])
         {
-          sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler interpretAndRespondToExchangeCommand:callback:]", 403, a1, @"error=%@", v16, v17, v94[5]);
-          v82[2](v82, 0, v94[5]);
+          sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler interpretAndRespondToExchangeCommand:callback:]", 403, a1, @"error=%@", v16, v17, v88[5]);
+          v76[2](v76, 0, v88[5]);
 LABEL_53:
 
+          _Block_object_dispose(&v87, 8);
           _Block_object_dispose(&v93, 8);
-          _Block_object_dispose(&v99, 8);
 
-          _Block_object_dispose(&v105, 8);
+          _Block_object_dispose(&v99, 8);
           goto LABEL_54;
         }
 
-        v21 = v106[5];
+        v21 = v100[5];
         if (!v21)
         {
-          sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler interpretAndRespondToExchangeCommand:callback:]", 407, a1, @"Nothing decrypted", v16, v17, v78);
-          v126 = NSLocalizedDescriptionKey;
-          *v120 = off_100069A90;
-          v43 = [NSDictionary dictionaryWithObjects:v120 forKeys:&v126 count:1];
-          v44 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:10 userInfo:v43];
+          sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler interpretAndRespondToExchangeCommand:callback:]", 407, a1, @"Nothing decrypted", v16, v17, v72);
+          v120 = NSLocalizedDescriptionKey;
+          *v114 = off_100069A90;
+          v37 = [NSDictionary dictionaryWithObjects:v114 forKeys:&v120 count:1];
+          v38 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:10 userInfo:v37];
 
-          v82[2](v82, 0, v44);
+          v76[2](v76, 0, v38);
 LABEL_52:
 
           goto LABEL_53;
         }
 
-        v81 = v21;
+        v75 = v21;
         if (os_variant_has_internal_ui())
         {
-          v22 = [v81 length];
-          v23 = v81;
-          v24 = [v81 bytes];
-          [v81 length];
-          sub_100024A04(OS_LOG_TYPE_INFO, 0, "[STSISO18013Handler _extractContentFromTag97:]", 314, "%s %lu bytes", v25, v26, v27, "apduPayload=");
+          v22 = [v75 length];
+          v23 = v75;
+          v24 = [v75 bytes];
+          sub_100024A04(OS_LOG_TYPE_INFO, 0, "-[STSISO18013Handler _extractContentFromTag97:]", 314, "%s %lu bytes", "apduPayload=", [v75 length]);
           if (v22)
           {
-            v28 = 0;
+            v25 = 0;
             do
             {
-              v29 = 0;
-              v30 = &v120[__sprintf_chk(v120, 0, 0x30uLL, "%04lX: ", v28)];
+              v26 = 0;
+              v27 = &v114[__sprintf_chk(v114, 0, 0x30uLL, "%04lX: ", v25)];
               do
               {
-                v31 = __sprintf_chk(v30, 0, 0xFFFFFFFFFFFFFFFFLL, "0x%02X ", v24[v28++]);
-                if (v29 > 6)
+                v28 = __sprintf_chk(v27, 0, 0xFFFFFFFFFFFFFFFFLL, "0x%02X ", v24[v25++]);
+                if (v26 > 6)
                 {
                   break;
                 }
 
-                v30 += v31;
-                ++v29;
+                v27 += v28;
+                ++v26;
               }
 
-              while (v28 < v22);
-              sub_100024A04(OS_LOG_TYPE_INFO, 0, "[STSISO18013Handler _extractContentFromTag97:]", 314, "%s", v32, v33, v34, v120);
+              while (v25 < v22);
+              sub_100024A04(OS_LOG_TYPE_INFO, 0, "[STSISO18013Handler _extractContentFromTag97:]", 314, "%s", v114);
             }
 
-            while (v28 < v22);
+            while (v25 < v22);
           }
         }
 
-        v35 = v81;
-        v36 = [v81 bytes];
-        v37 = [v81 length];
-        if (v37 >= 2)
+        v29 = v75;
+        v30 = [v75 bytes];
+        v31 = [v75 length];
+        if (v31 >= 2)
         {
           while (1)
           {
-            v40 = v36[1];
-            v41 = v37 - 2;
-            v42 = v37 - 2 >= v40;
-            v37 = v37 - 2 - v40;
-            if (!v42)
+            v34 = v30[1];
+            v35 = v31 - 2;
+            v36 = v31 - 2 >= v34;
+            v31 = v31 - 2 - v34;
+            if (!v36)
             {
-              sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler _extractContentFromTag97:]", 330, a1, @"Not enough room for TLV: %ld expected %d", v38, v39, v41);
+              sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler _extractContentFromTag97:]", 330, a1, @"Not enough room for TLV: %ld expected %d", v32, v33, v35);
               goto LABEL_35;
             }
 
-            if (*v36 == 151)
+            if (*v30 == 151)
             {
               break;
             }
 
-            v36 += v40 + 2;
-            if (v37 <= 1)
+            v30 += v34 + 2;
+            if (v31 <= 1)
             {
               goto LABEL_35;
             }
           }
 
-          if (v40 == 2)
+          if (v34 == 2)
           {
-            v45 = v36[2];
-            v46 = v36[3];
-            sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSISO18013Handler _extractContentFromTag97:]", 353, a1, @"Byte1 :%d, Byte2 = %d", v38, v39, v45);
-            if (v45)
+            v39 = v30[2];
+            v40 = v30[3];
+            sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSISO18013Handler _extractContentFromTag97:]", 353, a1, @"Byte1 :%d, Byte2 = %d", v32, v33, v39);
+            if (v39)
             {
-              if (v45 == 1)
+              if (v39 == 1)
               {
-                if (v46 >= 6)
+                if (v40 >= 6)
                 {
-                  v49 = 6;
+                  v43 = 6;
                 }
 
                 else
                 {
-                  v49 = v46;
+                  v43 = v40;
                 }
 
-                v50 = off_100058890[v49];
+                v44 = off_100058890[v43];
               }
 
               else
               {
-                v50 = @"Invalid Error";
+                v44 = @"Invalid Error";
               }
 
-              sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSISO18013Handler _extractContentFromTag97:]", 359, a1, @"Success reported in Exchange status %d:%@", v47, v48, v46);
-              v52 = 0;
+              sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSISO18013Handler _extractContentFromTag97:]", 359, a1, @"Success reported in Exchange status %d:%@", v41, v42, v40);
+              v46 = 0;
             }
 
             else
             {
-              if (v46 >= 0xE)
+              if (v40 >= 0xE)
               {
-                v74 = 14;
+                v68 = 14;
               }
 
               else
               {
-                v74 = v46;
+                v68 = v40;
               }
 
-              v50 = off_100058818[v74];
-              sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSISO18013Handler _extractContentFromTag97:]", 356, a1, @"Error reported in Exchange status %d:%@", v75, v76, v46);
-              v126 = NSLocalizedDescriptionKey;
-              *v120 = off_100069AE8;
-              v77 = [NSDictionary dictionaryWithObjects:v120 forKeys:&v126 count:1];
-              v52 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:21 userInfo:v77];
+              v44 = off_100058818[v68];
+              sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSISO18013Handler _extractContentFromTag97:]", 356, a1, @"Error reported in Exchange status %d:%@", v69, v70, v40);
+              v120 = NSLocalizedDescriptionKey;
+              *v114 = off_100069AE8;
+              v71 = [NSDictionary dictionaryWithObjects:v114 forKeys:&v120 count:1];
+              v46 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:21 userInfo:v71];
             }
 
 LABEL_36:
-            v53 = v94[5];
-            v94[5] = v52;
+            v47 = v88[5];
+            v88[5] = v46;
 
-            if (v94[5])
+            if (v88[5])
             {
-              sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler interpretAndRespondToExchangeCommand:callback:]", 419, a1, @"Error extracting Tag97", v54, v55, v79);
-              v56 = &unk_100042914;
+              sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler interpretAndRespondToExchangeCommand:callback:]", 419, a1, @"Error extracting Tag97", v48, v49, v73);
+              v50 = &unk_100042914;
             }
 
             else
             {
-              v56 = &unk_100042910;
+              v50 = &unk_100042910;
             }
 
-            v44 = [NSData dataWithBytes:v56 length:4];
-            *v120 = 0;
-            v121 = v120;
-            v122 = 0x3032000000;
-            v123 = sub_1000050D0;
-            v124 = sub_1000050E0;
-            v125 = 0;
-            v58 = sub_100002D90(a1, v57);
-            v85[0] = _NSConcreteStackBlock;
-            v85[1] = 3221225472;
-            v85[2] = sub_100005184;
-            v85[3] = &unk_1000588F8;
-            v87 = &v99;
-            v88 = v120;
-            v59 = dsema;
-            v86 = v59;
-            [v58 buildGenericDataResponse:v44 completion:v85];
+            v38 = [NSData dataWithBytes:v50 length:4];
+            *v114 = 0;
+            v115 = v114;
+            v116 = 0x3032000000;
+            v117 = sub_1000050D0;
+            v118 = sub_1000050E0;
+            v119 = 0;
+            v52 = sub_100002D90(a1, v51);
+            v79[0] = _NSConcreteStackBlock;
+            v79[1] = 3221225472;
+            v79[2] = sub_100005184;
+            v79[3] = &unk_1000588F8;
+            v81 = &v93;
+            v82 = v114;
+            v53 = dsema;
+            v80 = v53;
+            [v52 buildGenericDataResponse:v38 completion:v79];
 
-            v60 = dispatch_time(0, 5000000000);
-            if (dispatch_semaphore_wait(v59, v60))
+            v54 = dispatch_time(0, 5000000000);
+            if (dispatch_semaphore_wait(v53, v54))
             {
-              v119 = NSLocalizedDescriptionKey;
-              v126 = off_100069A78;
-              v63 = [NSDictionary dictionaryWithObjects:&v126 forKeys:&v119 count:1];
-              v64 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:7 userInfo:v63];
+              v113 = NSLocalizedDescriptionKey;
+              v120 = off_100069A78;
+              v57 = [NSDictionary dictionaryWithObjects:&v120 forKeys:&v113 count:1];
+              v58 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:7 userInfo:v57];
 
-              v65 = *(v121 + 5);
-              *(v121 + 5) = v64;
+              v59 = *(v115 + 5);
+              *(v115 + 5) = v58;
             }
 
             else
             {
-              v68 = *(v121 + 5);
-              if (!v68)
+              v62 = *(v115 + 5);
+              if (!v62)
               {
                 goto LABEL_42;
               }
 
-              if ([v68 code] == -5005)
+              if ([v62 code] == -5005)
               {
-                v113 = NSUnderlyingErrorKey;
-                v114 = *(v121 + 5);
-                v65 = [NSDictionary dictionaryWithObjects:&v114 forKeys:&v113 count:1];
-                [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:19 userInfo:v65];
+                v107 = NSUnderlyingErrorKey;
+                v108 = *(v115 + 5);
+                v59 = [NSDictionary dictionaryWithObjects:&v108 forKeys:&v107 count:1];
+                [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:19 userInfo:v59];
               }
 
               else
               {
-                v111 = NSUnderlyingErrorKey;
-                v112 = *(v121 + 5);
-                v65 = [NSDictionary dictionaryWithObjects:&v112 forKeys:&v111 count:1];
-                [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:10 userInfo:v65];
+                v105 = NSUnderlyingErrorKey;
+                v106 = *(v115 + 5);
+                v59 = [NSDictionary dictionaryWithObjects:&v106 forKeys:&v105 count:1];
+                [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:10 userInfo:v59];
               }
-              v69 = ;
+              v63 = ;
 
-              v70 = *(v121 + 5);
-              *(v121 + 5) = v69;
+              v64 = *(v115 + 5);
+              *(v115 + 5) = v63;
             }
 
 LABEL_42:
-            sub_10002483C(OS_LOG_TYPE_INFO, 0, "[STSISO18013Handler interpretAndRespondToExchangeCommand:callback:]", 450, a1, @"encryptedResponse %@", v61, v62, v100[5]);
-            if (*(v121 + 5))
+            sub_10002483C(OS_LOG_TYPE_INFO, 0, "[STSISO18013Handler interpretAndRespondToExchangeCommand:callback:]", 450, a1, @"encryptedResponse %@", v55, v56, v94[5]);
+            if (*(v115 + 5))
             {
-              sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler interpretAndRespondToExchangeCommand:callback:]", 453, a1, @"error=%@", v66, v67, *(v121 + 5));
-              v82[2](v82, 0, v94[5]);
+              sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler interpretAndRespondToExchangeCommand:callback:]", 453, a1, @"error=%@", v60, v61, *(v115 + 5));
+              v76[2](v76, 0, v88[5]);
             }
 
             else
             {
-              v71 = v100[5];
-              if (v71)
+              v65 = v94[5];
+              if (v65)
               {
-                v82[2](v82, v71, v94[5]);
+                v76[2](v76, v65, v88[5]);
               }
 
               else
               {
-                sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler interpretAndRespondToExchangeCommand:callback:]", 457, a1, @"Nothing encrypted", v66, v67, v80);
-                v119 = NSLocalizedDescriptionKey;
-                v126 = off_100069A90;
-                v72 = [NSDictionary dictionaryWithObjects:&v126 forKeys:&v119 count:1];
-                v73 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:10 userInfo:v72];
+                sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler interpretAndRespondToExchangeCommand:callback:]", 457, a1, @"Nothing encrypted", v60, v61, v74);
+                v113 = NSLocalizedDescriptionKey;
+                v120 = off_100069A90;
+                v66 = [NSDictionary dictionaryWithObjects:&v120 forKeys:&v113 count:1];
+                v67 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:10 userInfo:v66];
 
-                v82[2](v82, 0, v73);
+                v76[2](v76, 0, v67);
               }
             }
 
-            _Block_object_dispose(v120, 8);
+            _Block_object_dispose(v114, 8);
             goto LABEL_52;
           }
 
-          sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler _extractContentFromTag97:]", 341, a1, @"Invalid address length : %d", v38, v39, v36[1]);
+          sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler _extractContentFromTag97:]", 341, a1, @"Invalid address length : %d", v32, v33, v30[1]);
         }
 
 LABEL_35:
-        sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler _extractContentFromTag97:]", 362, a1, @"Tag97 not found", v38, v39, v78);
-        v126 = NSLocalizedDescriptionKey;
-        *v120 = off_100069AE0;
-        v51 = [NSDictionary dictionaryWithObjects:v120 forKeys:&v126 count:1];
-        v52 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:20 userInfo:v51];
+        sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler _extractContentFromTag97:]", 362, a1, @"Tag97 not found", v32, v33, v72);
+        v120 = NSLocalizedDescriptionKey;
+        *v114 = off_100069AE0;
+        v45 = [NSDictionary dictionaryWithObjects:v114 forKeys:&v120 count:1];
+        v46 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:20 userInfo:v45];
 
         goto LABEL_36;
       }
 
       if ([v18 code] == -5005)
       {
-        v117 = NSUnderlyingErrorKey;
-        v118 = v94[5];
-        v15 = [NSDictionary dictionaryWithObjects:&v118 forKeys:&v117 count:1];
+        v111 = NSUnderlyingErrorKey;
+        v112 = v88[5];
+        v15 = [NSDictionary dictionaryWithObjects:&v112 forKeys:&v111 count:1];
         [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:19 userInfo:v15];
       }
 
       else
       {
-        v115 = NSUnderlyingErrorKey;
-        v116 = v94[5];
-        v15 = [NSDictionary dictionaryWithObjects:&v116 forKeys:&v115 count:1];
+        v109 = NSUnderlyingErrorKey;
+        v110 = v88[5];
+        v15 = [NSDictionary dictionaryWithObjects:&v110 forKeys:&v109 count:1];
         [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:10 userInfo:v15];
       }
       v19 = ;
 
-      v20 = v94[5];
-      v94[5] = v19;
+      v20 = v88[5];
+      v88[5] = v19;
     }
 
     goto LABEL_5;
@@ -1063,12 +1059,13 @@ LABEL_35:
 LABEL_54:
 }
 
-void sub_100005078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_100005078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
-  _Block_object_dispose((v41 - 168), 8);
+  va_start(va, a40);
+  _Block_object_dispose((v40 - 168), 8);
   _Block_object_dispose(&a29, 8);
   _Block_object_dispose(&a35, 8);
-  _Block_object_dispose(&a41, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1227,16 +1224,16 @@ LABEL_16:
   return v2;
 }
 
-void sub_10000569C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_10000569C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1265,62 +1262,61 @@ void sub_100005768(id *a1, void *a2, void *a3)
   v9 = a3;
   if (a1)
   {
-    sub_10002483C(OS_LOG_TYPE_DEFAULT, 1, "[STSISO18013Handler processCredentialSelect:callback:]", 520, a1, &stru_100059C08, v7, v8, v24[0]);
+    sub_10002483C(OS_LOG_TYPE_DEFAULT, 1, "[STSISO18013Handler processCredentialSelect:callback:]", 520, a1, &stru_100059C08, v7, v8, v23[0]);
     if (v6)
     {
       sub_10003B8A4(v10);
-      v11 = *(v3 + 1672);
       if (objc_opt_class())
       {
-        v12 = objc_alloc(*(v3 + 1672));
-        v13 = v6[1];
-        v14 = v6[2];
-        v15 = v6[3];
+        v11 = objc_alloc(*(v3 + 1672));
+        v12 = v6[1];
+        v13 = v6[2];
+        v14 = v6[3];
         WeakRetained = objc_loadWeakRetained(a1 + 2);
-        v17 = WeakRetained;
+        v16 = WeakRetained;
         if (WeakRetained)
         {
-          v18 = *(WeakRetained + 5);
+          v17 = *(WeakRetained + 5);
         }
 
         else
         {
-          v18 = 0;
+          v17 = 0;
         }
 
-        v19 = v18;
-        v20 = [v12 initWithCredentialIdentifier:v13 elementsToPresent:v14 authData:v15 seAccessEndpoint:v19];
+        v18 = v17;
+        v19 = [v11 initWithCredentialIdentifier:v12 elementsToPresent:v13 authData:v14 seAccessEndpoint:v18];
 
-        v22 = sub_100002D90(a1, v21);
-        v24[0] = _NSConcreteStackBlock;
-        v24[1] = 3221225472;
-        v24[2] = sub_100005B04;
-        v24[3] = &unk_100058970;
-        v24[4] = a1;
-        v25 = v9;
-        [v22 buildResponseForSelection:v20 completion:v24];
+        v21 = sub_100002D90(a1, v20);
+        v23[0] = _NSConcreteStackBlock;
+        v23[1] = 3221225472;
+        v23[2] = sub_100005B04;
+        v23[3] = &unk_100058970;
+        v23[4] = a1;
+        v24 = v9;
+        [v21 buildResponseForSelection:v19 completion:v23];
       }
 
       else
       {
-        v28 = NSLocalizedDescriptionKey;
-        v29 = off_100069A48;
-        v23 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-        v20 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:1 userInfo:v23];
+        v27 = NSLocalizedDescriptionKey;
+        v28 = off_100069A48;
+        v22 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+        v19 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:1 userInfo:v22];
 
-        (*(v9 + 2))(v9, 0, v20);
+        (*(v9 + 2))(v9, 0, v19);
       }
     }
 
     else
     {
-      v26[0] = _NSConcreteStackBlock;
-      v26[1] = 3221225472;
-      v26[2] = sub_100005A2C;
-      v26[3] = &unk_100058920;
-      v27 = v9;
-      sub_100005A40(a1, 20, v26);
-      v20 = v27;
+      v25[0] = _NSConcreteStackBlock;
+      v25[1] = 3221225472;
+      v25[2] = sub_100005A2C;
+      v25[3] = &unk_100058920;
+      v26 = v9;
+      sub_100005A40(a1, 20, v25);
+      v19 = v26;
     }
   }
 }
@@ -1377,47 +1373,46 @@ id sub_100005CBC(uint64_t a1, void *a2, double a3)
   if (a1)
   {
     sub_10003B838(a3);
-    v6 = *(v3 + 1696);
     if (objc_opt_class())
     {
-      v7 = [objc_alloc(*(v3 + 1696)) initWithRole:0 curve:0 variant:*(a1 + 24) != 0];
-      v8 = *(a1 + 32);
-      *(a1 + 32) = v7;
+      v6 = [objc_alloc(*(v3 + 1696)) initWithRole:0 curve:0 variant:*(a1 + 24) != 0];
+      v7 = *(a1 + 32);
+      *(a1 + 32) = v6;
 
-      v9 = [*(a1 + 32) publicKey];
-      v10 = [v9 length] >> 1;
+      v8 = [*(a1 + 32) publicKey];
+      v9 = [v8 length] >> 1;
 
-      v11 = [*(a1 + 32) publicKey];
-      v12 = [v11 subdataWithRange:{0, v10}];
+      v10 = [*(a1 + 32) publicKey];
+      v11 = [v10 subdataWithRange:{0, v9}];
 
-      v13 = [*(a1 + 32) publicKey];
-      v14 = [v13 subdataWithRange:{v10, v10}];
+      v12 = [*(a1 + 32) publicKey];
+      v13 = [v12 subdataWithRange:{v9, v9}];
 
-      v15 = [[COSEKey alloc] initEC2WithAlgorithm:0 curveIdentifier:1 x:v12 y:v14 d:0 keyOperations:0 keyIdentifier:0];
-      v16 = [NSData dataWithCOSEKey:v15];
-      v17 = sub_10000A080(v15);
-      sub_10002483C(OS_LOG_TYPE_DEFAULT, 1, "[STSISO18013Handler generateEphemeralReaderKey:]", 595, a1, @"EC2 type ReaderKey=%@", v18, v19, v17);
+      v14 = [[COSEKey alloc] initEC2WithAlgorithm:0 curveIdentifier:1 x:v11 y:v13 d:0 keyOperations:0 keyIdentifier:0];
+      v15 = [NSData dataWithCOSEKey:v14];
+      v16 = sub_10000A080(v14);
+      sub_10002483C(OS_LOG_TYPE_DEFAULT, 1, "[STSISO18013Handler generateEphemeralReaderKey:]", 595, a1, @"EC2 type ReaderKey=%@", v17, v18, v16);
     }
 
     else
     {
-      v24 = NSLocalizedDescriptionKey;
-      v25 = off_100069A48;
-      v20 = [NSDictionary dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-      v21 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:1 userInfo:v20];
+      v23 = NSLocalizedDescriptionKey;
+      v24 = off_100069A48;
+      v19 = [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+      v20 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:1 userInfo:v19];
 
-      v22 = v21;
-      v16 = 0;
-      *a2 = v21;
+      v21 = v20;
+      v15 = 0;
+      *a2 = v20;
     }
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  return v16;
+  return v15;
 }
 
 id sub_100005F08(uint64_t a1, void *a2, void *a3)
@@ -1430,19 +1425,18 @@ id sub_100005F08(uint64_t a1, void *a2, void *a3)
     sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSISO18013Handler generateEphemeralReaderKeyBasedOfDeviceCOSEKey:error:]", 608, a1, @"deviceCOSEKey=%@", v9, v10, v8);
 
     sub_10003B85C(v11);
-    v12 = *(v3 + 1696);
     if (objc_opt_class())
     {
       if ([v7 type] == 2)
       {
-        v13 = [v7 ecCurveIdentifier];
-        v14 = [v13 intValue];
+        v12 = [v7 ecCurveIdentifier];
+        v13 = [v12 intValue];
 
-        v15 = v14 - 1;
-        if (v15 >= 3)
+        v14 = v13 - 1;
+        if (v14 >= 3)
         {
-          v16 = [v7 ecCurveIdentifier];
-          sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler generateEphemeralReaderKeyBasedOfDeviceCOSEKey:error:]", 632, a1, @"Unsupported EC Curve Identifier %@. ", v17, v18, v16);
+          v15 = [v7 ecCurveIdentifier];
+          sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler generateEphemeralReaderKeyBasedOfDeviceCOSEKey:error:]", 632, a1, @"Unsupported EC Curve Identifier %@. ", v16, v17, v15);
 LABEL_19:
 
           goto LABEL_20;
@@ -1453,50 +1447,50 @@ LABEL_19:
 
       if ([v7 type] == 1)
       {
-        v19 = [v7 okpCurveIdentifier];
-        v20 = [v19 intValue];
+        v18 = [v7 okpCurveIdentifier];
+        v19 = [v18 intValue];
 
-        if (v20 == 4)
+        if (v19 == 4)
         {
-          v15 = 3;
+          v14 = 3;
         }
 
         else
         {
-          if (v20 != 5)
+          if (v19 != 5)
           {
-            v16 = [v7 okpCurveIdentifier];
-            sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler generateEphemeralReaderKeyBasedOfDeviceCOSEKey:error:]", 647, a1, @"Unsupported OKP Curve Identifier %@. ", v45, v46, v16);
+            v15 = [v7 okpCurveIdentifier];
+            sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler generateEphemeralReaderKeyBasedOfDeviceCOSEKey:error:]", 647, a1, @"Unsupported OKP Curve Identifier %@. ", v44, v45, v15);
             goto LABEL_19;
           }
 
-          v15 = 4;
+          v14 = 4;
         }
 
 LABEL_12:
-        v24 = [objc_alloc(*(v3 + 1696)) initWithRole:0 curve:v15 variant:*(a1 + 24) != 0];
-        v25 = *(a1 + 32);
-        *(a1 + 32) = v24;
+        v23 = [objc_alloc(*(v3 + 1696)) initWithRole:0 curve:v14 variant:*(a1 + 24) != 0];
+        v24 = *(a1 + 32);
+        *(a1 + 32) = v23;
 
         if ([v7 type] == 2)
         {
-          v26 = [*(a1 + 32) publicKey];
-          v27 = [v26 length] >> 1;
+          v25 = [*(a1 + 32) publicKey];
+          v26 = [v25 length] >> 1;
 
-          v28 = [*(a1 + 32) publicKey];
-          v29 = [v28 subdataWithRange:{0, v27}];
+          v27 = [*(a1 + 32) publicKey];
+          v28 = [v27 subdataWithRange:{0, v26}];
 
-          v30 = [*(a1 + 32) publicKey];
-          v31 = [v30 subdataWithRange:{v27, v27}];
+          v29 = [*(a1 + 32) publicKey];
+          v30 = [v29 subdataWithRange:{v26, v26}];
 
-          v32 = [COSEKey alloc];
-          v33 = [v7 ecCurveIdentifier];
-          v34 = [v32 initEC2WithAlgorithm:0 curveIdentifier:objc_msgSend(v33 x:"intValue") y:v29 d:v31 keyOperations:0 keyIdentifier:{0, 0}];
+          v31 = [COSEKey alloc];
+          v32 = [v7 ecCurveIdentifier];
+          v33 = [v31 initEC2WithAlgorithm:0 curveIdentifier:objc_msgSend(v32 x:"intValue") y:v28 d:v30 keyOperations:0 keyIdentifier:{0, 0}];
 
-          v35 = sub_10000A080(v34);
-          sub_10002483C(OS_LOG_TYPE_DEFAULT, 1, "[STSISO18013Handler generateEphemeralReaderKeyBasedOfDeviceCOSEKey:error:]", 675, a1, @"EC2 type ReaderKey=%@", v36, v37, v35);
+          v34 = sub_10000A080(v33);
+          sub_10002483C(OS_LOG_TYPE_DEFAULT, 1, "[STSISO18013Handler generateEphemeralReaderKeyBasedOfDeviceCOSEKey:error:]", 675, a1, @"EC2 type ReaderKey=%@", v35, v36, v34);
 
-          a1 = [NSData dataWithCOSEKey:v34];
+          a1 = [NSData dataWithCOSEKey:v33];
         }
 
         else
@@ -1507,34 +1501,34 @@ LABEL_12:
             goto LABEL_21;
           }
 
-          v38 = [COSEKey alloc];
-          v39 = [v7 okpCurveIdentifier];
-          v40 = [v39 intValue];
-          v41 = [*(a1 + 32) publicKey];
-          v29 = [v38 initOKPWithAlgorithm:0 curveIdentifier:v40 x:v41 d:0 keyOperations:0 keyIdentifier:0];
+          v37 = [COSEKey alloc];
+          v38 = [v7 okpCurveIdentifier];
+          v39 = [v38 intValue];
+          v40 = [*(a1 + 32) publicKey];
+          v28 = [v37 initOKPWithAlgorithm:0 curveIdentifier:v39 x:v40 d:0 keyOperations:0 keyIdentifier:0];
 
-          v42 = sub_10000A080(v29);
-          sub_10002483C(OS_LOG_TYPE_DEFAULT, 1, "[STSISO18013Handler generateEphemeralReaderKeyBasedOfDeviceCOSEKey:error:]", 684, a1, @"OKP type ReaderKey=%@", v43, v44, v42);
+          v41 = sub_10000A080(v28);
+          sub_10002483C(OS_LOG_TYPE_DEFAULT, 1, "[STSISO18013Handler generateEphemeralReaderKeyBasedOfDeviceCOSEKey:error:]", 684, a1, @"OKP type ReaderKey=%@", v42, v43, v41);
 
-          a1 = [NSData dataWithCOSEKey:v29];
+          a1 = [NSData dataWithCOSEKey:v28];
         }
 
         goto LABEL_21;
       }
 
-      v21 = [v7 type];
-      sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler generateEphemeralReaderKeyBasedOfDeviceCOSEKey:error:]", 652, a1, @"Unsupported Curve Identifier with type %d. ", v22, v23, v21);
+      v20 = [v7 type];
+      sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler generateEphemeralReaderKeyBasedOfDeviceCOSEKey:error:]", 652, a1, @"Unsupported Curve Identifier with type %d. ", v21, v22, v20);
     }
 
 LABEL_20:
-    v51 = NSLocalizedDescriptionKey;
-    v52 = off_100069A48;
-    v47 = [NSDictionary dictionaryWithObjects:&v52 forKeys:&v51 count:1];
-    v48 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:1 userInfo:v47];
+    v50 = NSLocalizedDescriptionKey;
+    v51 = off_100069A48;
+    v46 = [NSDictionary dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+    v47 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:1 userInfo:v46];
 
-    v49 = v48;
+    v48 = v47;
     a1 = 0;
-    *a3 = v48;
+    *a3 = v47;
   }
 
 LABEL_21:
@@ -2081,17 +2075,17 @@ void sub_100007610(uint64_t a1, void *a2, void *a3)
   [*(v17 + 32) setObject:v16 forKeyedSubscript:v18];
 }
 
-void sub_1000077E8(uint64_t a1, void *a2, uint64_t a3)
+void sub_1000077E8(void *a1, void *a2, uint64_t a3)
 {
   v9 = a2;
   if (a3)
   {
-    sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler generateSessionDataErrorResponse:completion:]_block_invoke", 1074, *(a1 + 32), @"Error in building DeviceResponse: %@", v5, v6, a3);
+    sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSISO18013Handler generateSessionDataErrorResponse:completion:]_block_invoke", 1074, a1[4], @"Error in building DeviceResponse: %@", v5, v6, a3);
   }
 
-  v7 = sub_10001C7DC([ISOSessionData alloc], v9, *(a1 + 48));
+  v7 = sub_10001C7DC([ISOSessionData alloc], v9, a1[6]);
   v8 = sub_10001CBFC(NSData, v7);
-  (*(*(a1 + 40) + 16))();
+  (*(a1[5] + 16))();
 }
 
 _BYTE *sub_100007948(_BYTE *result, char a2)
@@ -2122,47 +2116,47 @@ id sub_1000079A4(id result, uint64_t a2)
   return result;
 }
 
-void *sub_100008DD4()
+void *sub_100008DD4(uint64_t a1)
 {
   objc_opt_self();
-  v0 = [ISOKey alloc];
-  if (!v0)
+  v1 = [ISOKey alloc];
+  if (!v1)
   {
     goto LABEL_5;
   }
 
-  v10.receiver = v0;
-  v10.super_class = ISOKey;
-  v1 = objc_msgSendSuper2(&v10, "init");
-  if (!v1)
+  v11.receiver = v1;
+  v11.super_class = ISOKey;
+  v2 = objc_msgSendSuper2(&v11, "init");
+  if (!v2)
   {
     goto LABEL_7;
   }
 
   ccrng();
-  v2 = ccec_cp_256();
-  v3 = [[NSMutableData alloc] initWithLength:(32 * *v2) | 0x10];
-  v4 = [v3 mutableBytes];
-  v1[3] = v4;
-  *v4 = v2;
+  v3 = ccec_cp_256();
+  v4 = [[NSMutableData alloc] initWithLength:(32 * *v3) | 0x10];
+  v5 = [v4 mutableBytes];
+  v2[3] = v5;
+  *v5 = v3;
   key = ccec_generate_key();
   if (key)
   {
-    sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[ISOKey initWithRandomEC]", 72, v1, @"Random key generaiton error: %d", v6, v7, key);
+    sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[ISOKey initWithRandomEC]", 72, v2, @"Random key generaiton error: %d", v7, v8, key);
 
 LABEL_5:
-    v1 = 0;
+    v2 = 0;
     goto LABEL_7;
   }
 
-  v8 = v1[2];
-  v1[1] = 0;
-  v1[2] = v3;
+  v9 = v2[2];
+  v2[1] = 0;
+  v2[2] = v4;
 
-  *(v1 + 32) = 1;
+  *(v2 + 32) = 1;
 LABEL_7:
 
-  return v1;
+  return v2;
 }
 
 id sub_100008EF8(id a1, void *a2)
@@ -2228,67 +2222,51 @@ const __CFData *sub_1000090A0(uint64_t a1)
 {
   if (!a1)
   {
-    goto LABEL_6;
+    goto LABEL_5;
   }
 
   v2 = *(a1 + 8);
   if (v2 == 2)
   {
     error = 0;
-    v8 = SecKeyCopyExternalRepresentation(*(a1 + 16), &error);
-    v11 = v8;
+    v5 = SecKeyCopyExternalRepresentation(*(a1 + 16), &error);
+    v8 = v5;
     if (error)
     {
-      sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[ISOKey publicKey]", 335, a1, @"publicKey error: %@", v9, v10, error);
+      sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[ISOKey publicKey]", 335, a1, @"publicKey error: %@", v6, v7, error);
       CFRelease(error);
-      v7 = 0;
+      v4 = 0;
     }
 
     else
     {
-      v7 = v8;
+      v4 = v5;
     }
 
-    goto LABEL_14;
+    goto LABEL_12;
   }
 
   if (v2)
   {
-LABEL_6:
-    v7 = 0;
+LABEL_5:
+    v4 = 0;
   }
 
   else
   {
-    if (*(a1 + 32) == 1)
-    {
-      v3 = *(a1 + 24);
-      v4 = [NSMutableData alloc];
-      v5 = *v3;
-      v6 = [v4 initWithLength:((cczp_bitlen() + 7) >> 2) | 1];
-      v7 = v6;
-    }
-
-    else
-    {
-      v12 = [NSMutableData alloc];
-      v13 = **(a1 + 24);
-      v6 = [v12 initWithLength:((cczp_bitlen() + 7) >> 2) | 1];
-      v7 = v6;
-      v14 = *(a1 + 24);
-    }
-
-    [(__CFData *)v6 mutableBytes];
+    v3 = [[NSMutableData alloc] initWithLength:((cczp_bitlen() + 7) >> 2) | 1];
+    v4 = v3;
+    [(__CFData *)v3 mutableBytes];
     ccec_export_pub();
-    if (!v7)
+    if (!v4)
     {
-      sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[ISOKey publicKey]", 324, a1, @"Fail to get public key", v15, v16, v18);
+      sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[ISOKey publicKey]", 324, a1, @"Fail to get public key", v9, v10, v12);
     }
   }
 
-LABEL_14:
+LABEL_12:
 
-  return v7;
+  return v4;
 }
 
 id sub_10000921C(uint64_t a1, void *a2, uint64_t a3)
@@ -3133,85 +3111,14 @@ id *sub_10000B228(id *a1, void *a2, void *a3, void *a4)
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  if (!a1)
+  if (a1 && ((v25.receiver = a1, v25.super_class = STSXPClientNotification, v10 = objc_msgSendSuper2(&v25, "init"), (a1 = v10) == 0) || (objc_storeWeak(v10 + 3, v8), objc_storeStrong(a1 + 7, a4), *(a1 + 3) = 0, v11 = v7, sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "-[STSXPClientNotification setupConnectWithXPCServiceEndpoint:]", 337, a1, @"Connect to handover notification listener", v12, v13, v24), v14 = [[NSXPCConnection alloc] initWithListenerEndpoint:v11], v15 = a1[8], a1[8] = v14, v15, +[NSXPCInterface interfaceWithProtocol:](NSXPCInterface, "interfaceWithProtocol:", &OBJC_PROTOCOL___STSXPCClientNotificationListenerProtocol), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_opt_class(), +[NSSet setWithObjects:](NSSet, "setWithObjects:", v17, objc_opt_class(), 0), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "setClasses:forSelector:argumentIndex:ofReply:", v18, "processCredentialRequestList:readerAuthInfo:", 0, 0), v18, objc_msgSend(a1[8], "setRemoteObjectInterface:", v16), v16, +[NSXPCInterface interfaceWithProtocol:](NSXPCInterface, "interfaceWithProtocol:", &OBJC_PROTOCOL___STSXPCClientNotificationListenerCallbackProtocol), v19 = objc_claimAutoreleasedReturnValue(), +[NSSet setWithObjects:](NSSet, "setWithObjects:", objc_opt_class(), 0), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "setClasses:forSelector:argumentIndex:ofReply:", v20, "sendCredentialSelect:callback:", 0, 0), v20, objc_msgSend(a1[8], "setExportedInterface:", v19), v19, objc_msgSend(a1[8], "setExportedObject:", a1), objc_initWeak(location, a1), v33[0] = _NSConcreteStackBlock, v33[1] = 3221225472, v33[2] = sub_10000D244, v33[3] = &unk_100058B20, objc_copyWeak(&v34, location), objc_msgSend(a1[8], "setInvalidationHandler:", v33), v31[0] = _NSConcreteStackBlock, v31[1] = 3221225472, v31[2] = sub_10000D3E4, v31[3] = &unk_100058B20, objc_copyWeak(&v32, location), objc_msgSend(a1[8], "setInterruptionHandler:", v31), objc_msgSend(a1[8], "_setQueue:", a1[7]), objc_msgSend(a1[8], "resume"), v27 = 0, v28 = &v27, v29 = 0x2020000000, v30 = 1, v26[0] = _NSConcreteStackBlock, v26[1] = 3221225472, v26[2] = sub_10000D46C, v26[3] = &unk_100058A58, v26[4] = a1, v26[5] = &v27, sub_10000C0E0(a1, v26), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "dummyStart"), v21, LODWORD(v21) = *(v28 + 24), _Block_object_dispose(&v27, 8), objc_destroyWeak(&v32), objc_destroyWeak(&v34), objc_destroyWeak(location), v11, v21 == 1)))
   {
-    goto LABEL_5;
-  }
-
-  v25.receiver = a1;
-  v25.super_class = STSXPClientNotification;
-  v10 = objc_msgSendSuper2(&v25, "init");
-  a1 = v10;
-  if (!v10)
-  {
-    goto LABEL_4;
-  }
-
-  objc_storeWeak(v10 + 3, v8);
-  objc_storeStrong(a1 + 7, a4);
-  *(a1 + 3) = 0;
-  v11 = v7;
-  sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSXPClientNotification setupConnectWithXPCServiceEndpoint:]", 337, a1, @"Connect to handover notification listener", v12, v13, v24);
-  v14 = [[NSXPCConnection alloc] initWithListenerEndpoint:v11];
-  v15 = a1[8];
-  a1[8] = v14;
-
-  v16 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___STSXPCClientNotificationListenerProtocol];
-  v17 = objc_opt_class();
-  v18 = [NSSet setWithObjects:v17, objc_opt_class(), 0];
-  [v16 setClasses:v18 forSelector:"processCredentialRequestList:readerAuthInfo:" argumentIndex:0 ofReply:0];
-
-  [a1[8] setRemoteObjectInterface:v16];
-  v19 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___STSXPCClientNotificationListenerCallbackProtocol];
-  v20 = [NSSet setWithObjects:objc_opt_class(), 0];
-  [v19 setClasses:v20 forSelector:"sendCredentialSelect:callback:" argumentIndex:0 ofReply:0];
-
-  [a1[8] setExportedInterface:v19];
-  [a1[8] setExportedObject:a1];
-  objc_initWeak(location, a1);
-  v33[0] = _NSConcreteStackBlock;
-  v33[1] = 3221225472;
-  v33[2] = sub_10000D244;
-  v33[3] = &unk_100058B20;
-  objc_copyWeak(&v34, location);
-  [a1[8] setInvalidationHandler:v33];
-  v31[0] = _NSConcreteStackBlock;
-  v31[1] = 3221225472;
-  v31[2] = sub_10000D3E4;
-  v31[3] = &unk_100058B20;
-  objc_copyWeak(&v32, location);
-  [a1[8] setInterruptionHandler:v31];
-  [a1[8] _setQueue:a1[7]];
-  [a1[8] resume];
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
-  v30 = 1;
-  v26[0] = _NSConcreteStackBlock;
-  v26[1] = 3221225472;
-  v26[2] = sub_10000D46C;
-  v26[3] = &unk_100058A58;
-  v26[4] = a1;
-  v26[5] = &v27;
-  v21 = sub_10000C0E0(a1, v26);
-  [v21 dummyStart];
-
-  LODWORD(v21) = *(v28 + 24);
-  _Block_object_dispose(&v27, 8);
-  objc_destroyWeak(&v32);
-  objc_destroyWeak(&v34);
-  objc_destroyWeak(location);
-
-  if (v21 == 1)
-  {
-LABEL_4:
     a1 = a1;
     v22 = a1;
   }
 
   else
   {
-LABEL_5:
     v22 = 0;
   }
 
@@ -3427,9 +3334,9 @@ void sub_10000BDFC(void *a1, void *a2, uint64_t a3, void *a4)
   }
 }
 
-void sub_10000BFA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10000BFA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3533,9 +3440,9 @@ void sub_10000C2E0(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6
   }
 }
 
-void sub_10000C4A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10000C4A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3873,8 +3780,9 @@ id *sub_10000E574(id *a1, void *a2, void *a3, void *a4, void *a5)
   return a1;
 }
 
-id sub_10000E6A4(uint64_t a1, void *a2, void *a3, char a4, void *a5)
+id sub_10000E6A4(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
+  v6 = a4;
   v9 = a2;
   v51 = a3;
   v50 = a5;
@@ -3944,7 +3852,7 @@ id sub_10000E6A4(uint64_t a1, void *a2, void *a3, char a4, void *a5)
           v25 = [ReaderPeripheral alloc];
           v26 = *(a1 + 88);
           v27 = *(a1 + 32);
-          v28 = sub_100007948(v25, a4);
+          v28 = sub_100007948(v25, v6);
           objc_storeStrong((a1 + 56), v28);
 
           v29 = *(a1 + 56);
@@ -3989,7 +3897,7 @@ LABEL_14:
         v31 = [ISOPeripheral alloc];
         v32 = *(a1 + 88);
         v33 = *(a1 + 32);
-        v34 = sub_100017430(v31, a4);
+        v34 = sub_100017430(v31, v6);
         objc_storeStrong((a1 + 72), v34);
 
         v35 = *(a1 + 72);
@@ -4331,26 +4239,26 @@ void sub_10000F6AC(id *a1, uint64_t a2)
   }
 }
 
-uint64_t sub_10000F780()
+uint64_t sub_10000F780(uint64_t a1)
 {
   objc_opt_self();
-  v0 = [ISO18013_3_Central alloc];
-  v1 = dispatch_queue_create("LE queue", 0);
-  v2 = dispatch_get_global_queue(33, 0);
-  v3 = [(ISO18013_3_Central *)v0 initWithWorkQueue:v1 callbackQueue:v2];
+  v1 = [ISO18013_3_Central alloc];
+  v2 = dispatch_queue_create("LE queue", 0);
+  v3 = dispatch_get_global_queue(33, 0);
+  v4 = [(ISO18013_3_Central *)v1 initWithWorkQueue:v2 callbackQueue:v3];
 
-  v4 = [(ISO18013_3_Central *)v3 hardwareAvailable];
-  if (v4 == 1)
+  v5 = [(ISO18013_3_Central *)v4 hardwareAvailable];
+  if (v5 == 1)
   {
-    v5 = 1;
+    v6 = 1;
   }
 
   else
   {
-    v5 = 2 * (v4 == 2);
+    v6 = 2 * (v5 == 2);
   }
 
-  return v5;
+  return v6;
 }
 
 void sub_10000FE50(id a1)
@@ -4362,7 +4270,6 @@ void sub_10000FE50(id a1)
 
 id sub_100012840(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v11 = *(a1 + 40);
   sub_100024938(OS_LOG_TYPE_INFO, 0, "+[CALogger postCAEventFor:eventInput:]_block_invoke", 20, @"Posting for %@ = %@", a6, a7, a8, *(a1 + 32));
   v9 = *(a1 + 40);
 
@@ -4376,7 +4283,7 @@ void sub_1000128F8(id a1)
   _objc_release_x1();
 }
 
-id sub_100013C24(id a1, void *a2, void *a3)
+id *sub_100013C24(id *a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
@@ -4390,8 +4297,8 @@ id sub_100013C24(id a1, void *a2, void *a3)
       if (v6)
       {
         v7 = v6;
-        v8 = *(a1 + 11);
-        *(a1 + 11) = v7;
+        v8 = a1[11];
+        a1[11] = v7;
       }
 
       else
@@ -4399,8 +4306,8 @@ id sub_100013C24(id a1, void *a2, void *a3)
         v8 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
         v9 = dispatch_queue_attr_make_with_qos_class(v8, QOS_CLASS_USER_INITIATED, 0);
         v10 = dispatch_queue_create("WifiP2PController", v9);
-        v11 = *(a1 + 11);
-        *(a1 + 11) = v10;
+        v11 = a1[11];
+        a1[11] = v10;
       }
 
       objc_storeWeak(a1 + 2, v5);
@@ -4457,28 +4364,28 @@ id sub_100013E04(void *a1, uint64_t a2)
   return a1;
 }
 
-void sub_100013ECC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void sub_100013ECC(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v10 = *(a1 + 32);
+  v10 = *(result + 32);
   if (v10 && (*(v10 + 10) & 1) != 0)
   {
     return;
   }
 
-  if ([*(a1 + 40) furtherServiceDiscoveryRequired])
+  if ([*(result + 40) furtherServiceDiscoveryRequired])
   {
-    sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController _startDataSessionWithDiscoveryResult:]_block_invoke", 149, *(a1 + 32), @"Further discovery required", v11, v12, v53);
+    sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController _startDataSessionWithDiscoveryResult:]_block_invoke", 149, *(result + 32), @"Further discovery required", v11, v12, v53);
   }
 
-  if ([*(a1 + 40) datapathSupported])
+  if ([*(result + 40) datapathSupported])
   {
-    v15 = [*(a1 + 40) datapathSecurityRequired];
-    v18 = *(a1 + 32);
+    v15 = [*(result + 40) datapathSecurityRequired];
+    v18 = *(result + 32);
     if (!v15)
     {
       sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController _startDataSessionWithDiscoveryResult:]_block_invoke", 180, v18, @"Discovery datapath without security", v16, v17, v53);
-      v26 = [[WiFiAwareDataSession alloc] initWithDiscoveryResult:*(a1 + 40) serviceType:1 serviceSpecificInfo:0];
-      sub_100014234(*(a1 + 32), v26);
+      v26 = [[WiFiAwareDataSession alloc] initWithDiscoveryResult:*(result + 40) serviceType:1 serviceSpecificInfo:0];
+      sub_100014234(*(result + 32), v26);
       goto LABEL_16;
     }
 
@@ -4494,11 +4401,11 @@ void sub_100013ECC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
     v20 = [v19 passphrase];
 
-    v23 = *(a1 + 32);
+    v23 = *(result + 32);
     if (v20)
     {
       sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController _startDataSessionWithDiscoveryResult:]_block_invoke", 159, v23, @"Discovery datapath with passphrase", v21, v22, v53);
-      v24 = *(a1 + 32);
+      v24 = *(result + 32);
       if (v24)
       {
         v25 = *(v24 + 32);
@@ -4510,13 +4417,13 @@ void sub_100013ECC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
       }
 
       v26 = [v25 passphrase];
-      v27 = [[WiFiAwareDataSession alloc] initWithDiscoveryResult:*(a1 + 40) serviceType:1 serviceSpecificInfo:0 passphrase:v26];
-      sub_100014234(*(a1 + 32), v27);
+      v27 = [[WiFiAwareDataSession alloc] initWithDiscoveryResult:*(result + 40) serviceType:1 serviceSpecificInfo:0 passphrase:v26];
+      sub_100014234(*(result + 32), v27);
 LABEL_13:
 
 LABEL_16:
 LABEL_17:
-      v31 = *(a1 + 32);
+      v31 = *(result + 32);
       if (v31)
       {
         v32 = *(v31 + 72);
@@ -4528,7 +4435,7 @@ LABEL_17:
       }
 
       [v32 setDelegate:?];
-      v33 = *(a1 + 32);
+      v33 = *(result + 32);
       if (v33)
       {
         v34 = *(v33 + 72);
@@ -4540,7 +4447,7 @@ LABEL_17:
       }
 
       [v34 start];
-      v28 = *(a1 + 32);
+      v28 = *(result + 32);
       v29 = @"Subscriber started data session...";
       v30 = 189;
       goto LABEL_22;
@@ -4561,7 +4468,7 @@ LABEL_17:
     if (v37)
     {
       v38 = v37;
-      v39 = *(a1 + 32);
+      v39 = *(result + 32);
       if (v39)
       {
         v40 = *(v39 + 32);
@@ -4576,10 +4483,10 @@ LABEL_17:
 
       if (v41)
       {
-        sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController _startDataSessionWithDiscoveryResult:]_block_invoke", 167, *(a1 + 32), @"Discovery datapath with PMK", v42, v43, v53);
+        sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController _startDataSessionWithDiscoveryResult:]_block_invoke", 167, *(result + 32), @"Discovery datapath with PMK", v42, v43, v53);
         v44 = [WiFiAwareDataSession alloc];
-        v45 = *(a1 + 32);
-        v46 = *(a1 + 40);
+        v45 = *(result + 32);
+        v46 = *(result + 40);
         if (v45)
         {
           v45 = v45[4];
@@ -4587,7 +4494,7 @@ LABEL_17:
 
         v26 = v45;
         v27 = [v26 datapathPmk];
-        v47 = *(a1 + 32);
+        v47 = *(result + 32);
         if (v47)
         {
           v47 = v47[4];
@@ -4596,7 +4503,7 @@ LABEL_17:
         v48 = v47;
         v49 = [v48 datapathPmkID];
         v50 = [v44 initWithDiscoveryResult:v46 serviceType:1 serviceSpecificInfo:0 pmk:v27 pmkID:v49];
-        sub_100014234(*(a1 + 32), v50);
+        sub_100014234(*(result + 32), v50);
 
         goto LABEL_13;
       }
@@ -4606,8 +4513,8 @@ LABEL_17:
     {
     }
 
-    sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController _startDataSessionWithDiscoveryResult:]_block_invoke", 176, *(a1 + 32), @"Datapth required security but missing related configuration. Invalidating suscriber", v42, v43, v53);
-    v51 = *(a1 + 32);
+    sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController _startDataSessionWithDiscoveryResult:]_block_invoke", 176, *(result + 32), @"Datapth required security but missing related configuration. Invalidating suscriber", v42, v43, v53);
+    v51 = *(result + 32);
     if (v51)
     {
       v52 = *(v51 + 64);
@@ -4622,7 +4529,7 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v28 = *(a1 + 32);
+  v28 = *(result + 32);
   v29 = @"Endpoint does not support datapath";
   v30 = 153;
 LABEL_22:
@@ -4657,14 +4564,14 @@ void sub_100014244(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_10001430C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_10001430C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *(a1 + 32);
+  v9 = a1[4];
   if (!v9 || v9[8] != 1)
   {
-    sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController startPublisherWithConfiguration:completionHandler:]_block_invoke", 202, v9, @"config=%@", a7, a8, *(a1 + 40));
+    sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController startPublisherWithConfiguration:completionHandler:]_block_invoke", 202, v9, @"config=%@", a7, a8, a1[5]);
     v15 = [WiFiAwarePublishConfiguration alloc];
-    v16 = *(a1 + 40);
+    v16 = a1[5];
     if (v16)
     {
       v16 = v16[2];
@@ -4673,7 +4580,7 @@ void sub_10001430C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     v17 = v16;
     v14 = [v15 initWithServiceName:v17];
 
-    v18 = *(a1 + 40);
+    v18 = a1[5];
     if (v18)
     {
       v18 = v18[3];
@@ -4684,10 +4591,10 @@ void sub_10001430C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
     if (v20)
     {
-      sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController startPublisherWithConfiguration:completionHandler:]_block_invoke", 212, *(a1 + 32), @"Enabling passhprase security", v21, v22, v100);
+      sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController startPublisherWithConfiguration:completionHandler:]_block_invoke", 212, a1[4], @"Enabling passhprase security", v21, v22, v100);
       v23 = [WiFiAwarePublishDatapathSecurityConfiguration alloc];
       v24 = +[NSArray array];
-      v25 = *(a1 + 40);
+      v25 = a1[5];
       if (v25)
       {
         v25 = v25[3];
@@ -4704,14 +4611,14 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    v67 = *(a1 + 40);
+    v67 = a1[5];
     if (v67)
     {
       v68 = *(v67 + 48);
       if (v68)
       {
         v69 = v68;
-        v70 = *(a1 + 40);
+        v70 = a1[5];
         if (v70)
         {
           v70 = v70[5];
@@ -4721,25 +4628,25 @@ LABEL_12:
 
         if (v71)
         {
-          sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController startPublisherWithConfiguration:completionHandler:]_block_invoke", 217, *(a1 + 32), @"Enabling cipher suite security", v72, v73, v100);
-          v74 = *(a1 + 40);
+          sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController startPublisherWithConfiguration:completionHandler:]_block_invoke", 217, a1[4], @"Enabling cipher suite security", v72, v73, v100);
+          v74 = a1[5];
           if (v74)
           {
             v74 = v74[6];
           }
 
           v75 = v74;
-          sub_100014B64(*(a1 + 32), v75);
+          sub_100014B64(a1[4], v75);
 
-          v77 = *(a1 + 32);
-          v76 = *(a1 + 40);
+          v77 = a1[4];
+          v76 = a1[5];
           if (v76)
           {
             v76 = v76[5];
           }
 
           v78 = v76;
-          v79 = *(a1 + 32);
+          v79 = a1[4];
           if (v79)
           {
             v79 = v79[5];
@@ -4754,8 +4661,8 @@ LABEL_12:
 
           if (!v81)
           {
-            sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[WifiP2PController startPublisherWithConfiguration:completionHandler:]_block_invoke", 227, *(a1 + 32), @"Security info derivation failed", v82, v83, v100);
-            v85 = *(a1 + 48);
+            sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[WifiP2PController startPublisherWithConfiguration:completionHandler:]_block_invoke", 227, a1[4], @"Security info derivation failed", v82, v83, v100);
+            v85 = a1[6];
             v104[0] = NSLocalizedDescriptionKey;
             v105[0] = off_100069A88;
             v86 = [NSDictionary dictionaryWithObjects:v105 forKeys:v104 count:1];
@@ -4770,7 +4677,7 @@ LABEL_12:
           v30 = v84;
 LABEL_13:
           v31 = [[WiFiAwarePublishDatapathConfiguration alloc] initWithServiceType:1 securityConfiguration:v30];
-          v32 = *(a1 + 40);
+          v32 = a1[5];
           if (v32)
           {
             v32 = v32[8];
@@ -4786,7 +4693,7 @@ LABEL_13:
           }
 
           [v14 setDatapathConfiguration:v31];
-          v36 = *(a1 + 40);
+          v36 = a1[5];
           if (v36)
           {
             v36 = v36[7];
@@ -4798,7 +4705,7 @@ LABEL_13:
           if (v38)
           {
             v39 = objc_opt_new();
-            v40 = *(a1 + 40);
+            v40 = a1[5];
             if (v40)
             {
               v40 = v40[7];
@@ -4814,12 +4721,12 @@ LABEL_13:
           v42 = [[NSUserDefaults alloc] initWithSuiteName:@"com.apple.sts"];
           if ([v42 BOOLForKey:@"DisableWifiFastDiscovery"])
           {
-            sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController startPublisherWithConfiguration:completionHandler:]_block_invoke", 267, *(a1 + 32), @"Fast discovery disabled", v43, v44, v100);
+            sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController startPublisherWithConfiguration:completionHandler:]_block_invoke", 267, a1[4], @"Fast discovery disabled", v43, v44, v100);
           }
 
           else
           {
-            v45 = *(a1 + 40);
+            v45 = a1[5];
             if (v45)
             {
               v45 = v45[4];
@@ -4830,7 +4737,7 @@ LABEL_13:
             if (v46)
             {
               v47 = objc_alloc_init(WiFiAwareFastDiscoveryConfiguration);
-              v48 = *(a1 + 40);
+              v48 = a1[5];
               if (v48)
               {
                 v48 = v48[4];
@@ -4840,7 +4747,7 @@ LABEL_13:
               v50 = [v49 channelNumber];
               [v47 setInstantCommunicationChannel:v50];
 
-              v51 = *(a1 + 40);
+              v51 = a1[5];
               if (v51)
               {
                 v51 = v51[4];
@@ -4854,23 +4761,23 @@ LABEL_13:
             }
           }
 
-          v54 = *(a1 + 40);
+          v54 = a1[5];
           if (v54)
           {
             v54 = v54[2];
           }
 
           v55 = v54;
-          sub_100014EB4(*(a1 + 32), v55);
+          sub_100014EB4(a1[4], v55);
 
           v56 = [[WiFiAwarePublisher alloc] initWithConfiguration:v14];
-          v57 = *(a1 + 32);
+          v57 = a1[4];
           if (v57)
           {
             objc_storeStrong((v57 + 48), v56);
           }
 
-          v58 = *(a1 + 32);
+          v58 = a1[4];
           if (v58)
           {
             v59 = *(v58 + 48);
@@ -4882,8 +4789,8 @@ LABEL_13:
           }
 
           [v59 setDelegate:?];
-          sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController startPublisherWithConfiguration:completionHandler:]_block_invoke", 282, *(a1 + 32), @"Starting P2P publisher", v60, v61, v100);
-          v62 = *(a1 + 32);
+          sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController startPublisherWithConfiguration:completionHandler:]_block_invoke", 282, a1[4], @"Starting P2P publisher", v60, v61, v100);
+          v62 = a1[4];
           if (v62)
           {
             v63 = *(v62 + 48);
@@ -4895,13 +4802,13 @@ LABEL_13:
           }
 
           [v63 start];
-          v64 = *(a1 + 32);
+          v64 = a1[4];
           if (v64)
           {
             *(v64 + 8) = 1;
           }
 
-          v65 = *(a1 + 48);
+          v65 = a1[6];
           if (!v65)
           {
             goto LABEL_46;
@@ -4917,7 +4824,7 @@ LABEL_46:
       }
     }
 
-    v87 = *(a1 + 40);
+    v87 = a1[5];
     if (v87)
     {
       v87 = v87[3];
@@ -4927,7 +4834,7 @@ LABEL_46:
     v89 = [v88 datapathPmk];
     if ([v89 length])
     {
-      v90 = *(a1 + 40);
+      v90 = a1[5];
       if (v90)
       {
         v90 = v90[3];
@@ -4939,9 +4846,9 @@ LABEL_46:
 
       if (v93)
       {
-        sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController startPublisherWithConfiguration:completionHandler:]_block_invoke", 233, *(a1 + 32), @"Enabling explicit PMK", v94, v95, v100);
+        sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController startPublisherWithConfiguration:completionHandler:]_block_invoke", 233, a1[4], @"Enabling explicit PMK", v94, v95, v100);
         v96 = [WiFiAwarePublishDatapathSecurityConfiguration alloc];
-        v97 = *(a1 + 40);
+        v97 = a1[5];
         if (v97)
         {
           v97 = v97[3];
@@ -4949,7 +4856,7 @@ LABEL_46:
 
         v24 = v97;
         v26 = [v24 datapathPmk];
-        v98 = *(a1 + 40);
+        v98 = a1[5];
         if (v98)
         {
           v98 = v98[3];
@@ -4971,7 +4878,7 @@ LABEL_46:
   }
 
   sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController startPublisherWithConfiguration:completionHandler:]_block_invoke", 197, v9, @"Publisher has previously started", a7, a8, v99);
-  v10 = *(a1 + 48);
+  v10 = a1[6];
   v106 = NSLocalizedDescriptionKey;
   v107 = off_100069B08;
   v11 = [NSDictionary dictionaryWithObjects:&v107 forKeys:&v106 count:1];
@@ -5381,64 +5288,13 @@ void sub_1000154F4(uint64_t a1)
 void sub_100015570(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  if (!v2)
-  {
-    goto LABEL_20;
-  }
-
-  if (*(v2 + 8) == 1)
-  {
-    v3 = *(v2 + 56);
-    if (v3 && (v4 = *(v2 + 48), [v4 terminateDataSession:v3 completionHandler:0], v4, (v2 = *(a1 + 32)) == 0))
-    {
-      v5 = 0;
-    }
-
-    else
-    {
-      v5 = *(v2 + 48);
-    }
-
-    [v5 stop];
-    v6 = *(a1 + 32);
-    if (!v6)
-    {
-      goto LABEL_20;
-    }
-
-    *(v6 + 8) = 0;
-    v2 = *(a1 + 32);
-    if (!v2)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  if (*(v2 + 10) == 1)
-  {
-    [*(v2 + 72) stop];
-    v7 = *(a1 + 32);
-    if (!v7)
-    {
-      goto LABEL_20;
-    }
-
-    *(v7 + 10) = 0;
-    v2 = *(a1 + 32);
-    if (!v2)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  if (*(v2 + 9) != 1 || ([*(v2 + 64) stop], (v8 = *(a1 + 32)) != 0) && (*(v8 + 9) = 0, (v2 = *(a1 + 32)) != 0))
+  if (v2 && (*(v2 + 8) != 1 || ((v3 = *(v2 + 56)) != 0 && (v4 = *(v2 + 48), [v4 terminateDataSession:v3 completionHandler:0], v4, (v2 = *(a1 + 32)) == 0) ? (v5 = 0) : (v5 = *(v2 + 48)), (objc_msgSend(v5, "stop"), (v6 = *(a1 + 32)) != 0) && (*(v6 + 8) = 0, (v2 = *(a1 + 32)) != 0))) && (*(v2 + 10) != 1 || (objc_msgSend(*(v2 + 72), "stop"), (v7 = *(a1 + 32)) != 0) && (*(v7 + 10) = 0, (v2 = *(a1 + 32)) != 0)) && (*(v2 + 9) != 1 || (objc_msgSend(*(v2 + 64), "stop"), (v8 = *(a1 + 32)) != 0) && (*(v8 + 9) = 0, (v2 = *(a1 + 32)) != 0)))
   {
     WeakRetained = objc_loadWeakRetained((v2 + 16));
   }
 
   else
   {
-LABEL_20:
     WeakRetained = 0;
   }
 
@@ -5452,41 +5308,41 @@ LABEL_20:
   sub_100014B64(*(a1 + 32), 0);
 }
 
-WifiP2PControllerProperties *sub_1000156AC()
+WifiP2PControllerProperties *sub_1000156AC(uint64_t a1)
 {
   objc_opt_self();
-  v3 = +[WiFiAwareDeviceCapabilities currentDeviceCapabilities];
-  if (v3)
+  v4 = +[WiFiAwareDeviceCapabilities currentDeviceCapabilities];
+  if (v4)
   {
-    v4 = objc_alloc_init(WifiP2PControllerProperties);
-    v5 = [v3 operatingChannel];
-    v6 = v5;
-    if (v4)
+    v5 = objc_alloc_init(WifiP2PControllerProperties);
+    v6 = [v4 operatingChannel];
+    v7 = v6;
+    if (v5)
     {
-      objc_storeStrong(&v4->_operatingChannel, v5);
+      objc_storeStrong(&v5->_operatingChannel, v6);
 
-      v4->_supportedBandsBitmap = [v3 supportedBands];
-      v7 = [v3 supportedCipherSuites];
-      objc_storeStrong(&v4->_supportedCiphterSuites, v7);
+      v5->_supportedBandsBitmap = [v4 supportedBands];
+      v8 = [v4 supportedCipherSuites];
+      objc_storeStrong(&v5->_supportedCiphterSuites, v8);
 
-      v4->_operatingClass = 81;
+      v5->_operatingClass = 81;
     }
 
     else
     {
 
-      [v3 supportedBands];
-      [v3 supportedCipherSuites];
+      [v4 supportedBands];
+      [v4 supportedCipherSuites];
     }
   }
 
   else
   {
-    sub_100024938(OS_LOG_TYPE_DEFAULT, 0, "+[WifiP2PController hardwareProperties]", 378, @"Capabilities not available", v0, v1, v2, v9);
-    v4 = 0;
+    sub_100024938(OS_LOG_TYPE_DEFAULT, 0, "+[WifiP2PController hardwareProperties]", 378, @"Capabilities not available", v1, v2, v3, v10);
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 uint64_t sub_10001588C(uint64_t result)
@@ -5504,11 +5360,11 @@ void sub_100015A4C(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) ipv6LinkLocalAddress];
-  v26 = sub_100013D10(v2, v3);
+  v24 = sub_100013D10(v2, v3);
 
   v4 = sub_100013E04(*(a1 + 32), [*(a1 + 48) localInterfaceIndex]);
   v7 = v4;
-  if (v26)
+  if (v24)
   {
     v8 = v4 == 0;
   }
@@ -5520,7 +5376,7 @@ void sub_100015A4C(uint64_t a1)
 
   if (v8)
   {
-    sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[WifiP2PController dataSession:confirmedForPeerDataAddress:serviceSpecificInfo:]_block_invoke", 475, *(a1 + 32), @"Can't establish datapath, stopping data set session", v5, v6, v25);
+    sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[WifiP2PController dataSession:confirmedForPeerDataAddress:serviceSpecificInfo:]_block_invoke", 475, *(a1 + 32), @"Can't establish datapath, stopping data set session", v5, v6, v23);
     v9 = *(a1 + 32);
     if (v9)
     {
@@ -5537,7 +5393,7 @@ void sub_100015A4C(uint64_t a1)
 
   else
   {
-    v11 = [NSString stringWithFormat:@"%@%%%@", v26, v4];
+    v11 = [NSString stringWithFormat:@"%@%%%@", v24, v4];
     v13 = v11;
     v14 = *(a1 + 32);
     if (v14)
@@ -5567,25 +5423,19 @@ void sub_100015A4C(uint64_t a1)
       v20 = 0;
     }
 
+    sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController dataSession:confirmedForPeerDataAddress:serviceSpecificInfo:]_block_invoke", 487, *(a1 + 32), @"MAC=%@, interface=%@, IPv6 Addr=%@, port=%@", v15, v16, v24);
     v21 = *(a1 + 32);
     if (v21)
     {
-      v22 = v21[10];
-    }
-
-    sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController dataSession:confirmedForPeerDataAddress:serviceSpecificInfo:]_block_invoke", 487, v21, @"MAC=%@, interface=%@, IPv6 Addr=%@, port=%@", v15, v16, v26);
-    v23 = *(a1 + 32);
-    if (v23)
-    {
-      v24 = *(v23 + 80);
+      v22 = *(v21 + 80);
     }
 
     else
     {
-      v24 = 0;
+      v22 = 0;
     }
 
-    [WeakRetained wifiP2PController:v23 didConnectTo:v24 port:v20];
+    [WeakRetained wifiP2PController:v21 didConnectTo:v22 port:v20];
   }
 }
 
@@ -5709,11 +5559,11 @@ void sub_1000166E8(uint64_t a1)
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) initiatorDataAddress];
   v4 = [v3 ipv6LinkLocalAddress];
-  v27 = sub_100013D10(v2, v4);
+  v25 = sub_100013D10(v2, v4);
 
   v5 = sub_100013E04(*(a1 + 32), *(a1 + 56));
   v8 = v5;
-  if (v27)
+  if (v25)
   {
     v9 = v5 == 0;
   }
@@ -5725,7 +5575,7 @@ void sub_1000166E8(uint64_t a1)
 
   if (v9)
   {
-    sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[WifiP2PController publisher:dataConfirmedForHandle:localInterfaceIndex:serviceSpecificInfo:]_block_invoke", 585, *(a1 + 32), @"Can't establish datapath, force terminate", v6, v7, v26);
+    sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[WifiP2PController publisher:dataConfirmedForHandle:localInterfaceIndex:serviceSpecificInfo:]_block_invoke", 585, *(a1 + 32), @"Can't establish datapath, force terminate", v6, v7, v24);
     v10 = *(a1 + 32);
     if (v10)
     {
@@ -5742,7 +5592,7 @@ void sub_1000166E8(uint64_t a1)
 
   else
   {
-    v12 = [NSString stringWithFormat:@"%@%%%@", v27, v5];
+    v12 = [NSString stringWithFormat:@"%@%%%@", v25, v5];
     v14 = v12;
     v15 = *(a1 + 32);
     if (v15)
@@ -5772,25 +5622,19 @@ void sub_1000166E8(uint64_t a1)
       v21 = 0;
     }
 
+    sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController publisher:dataConfirmedForHandle:localInterfaceIndex:serviceSpecificInfo:]_block_invoke", 596, *(a1 + 32), @"MAC=%@, interface=%@, IPv6 Addr=%@, port=%@", v16, v17, v25);
     v22 = *(a1 + 32);
     if (v22)
     {
-      v23 = v22[10];
-    }
-
-    sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[WifiP2PController publisher:dataConfirmedForHandle:localInterfaceIndex:serviceSpecificInfo:]_block_invoke", 596, v22, @"MAC=%@, interface=%@, IPv6 Addr=%@, port=%@", v16, v17, v27);
-    v24 = *(a1 + 32);
-    if (v24)
-    {
-      v25 = *(v24 + 80);
+      v23 = *(v22 + 80);
     }
 
     else
     {
-      v25 = 0;
+      v23 = 0;
     }
 
-    [WeakRetained wifiP2PController:v24 didConnectTo:v25 port:v21];
+    [WeakRetained wifiP2PController:v22 didConnectTo:v23 port:v21];
   }
 }
 
@@ -5971,25 +5815,25 @@ HTTPServerProtocolH1 *sub_10001790C(uint64_t a1, void *a2, void *a3, void *a4)
   return v10;
 }
 
-void sub_100017A1C(void *a1)
+void sub_100017A1C(void *result)
 {
-  if (a1)
+  if (result)
   {
-    v2 = a1[6];
-    a1[6] = 0;
+    v2 = result[6];
+    result[6] = 0;
 
-    a1[7] = 0;
-    v3 = a1[3];
+    result[7] = 0;
+    v3 = result[3];
     if (v3 && dispatch_data_get_size(v3))
     {
 
-      sub_100017AB4(a1);
+      sub_100017AB4(result);
     }
 
     else
     {
 
-      sub_100017F98(a1);
+      sub_100017F98(result);
     }
   }
 }
@@ -6769,16 +6613,16 @@ LABEL_19:
   return v4 & 1;
 }
 
-void *sub_100019224(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+intptr_t sub_100019224(intptr_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (result)
   {
     v8 = result;
     sub_10002483C(OS_LOG_TYPE_INFO, 0, "[BLESender invalidate]", 101, result, &stru_100059C08, a7, a8, v10);
-    os_unfair_lock_lock(v8 + 3);
+    os_unfair_lock_lock((v8 + 12));
     *(v8 + 8) = 1;
-    os_unfair_lock_unlock(v8 + 3);
-    v9 = *(v8 + 4);
+    os_unfair_lock_unlock((v8 + 12));
+    v9 = *(v8 + 32);
 
     return dispatch_semaphore_signal(v9);
   }
@@ -7078,36 +6922,13 @@ UnifiedAccessReaderEngagement *sub_10001B0A0(uint64_t a1, void *a2)
     v18.super_class = UnifiedAccessReaderEngagement;
     v5 = objc_msgSendSuper2(&v18, "initWithData:type:", v4, 0);
     v6 = v5;
-    if (!v5)
-    {
-      goto LABEL_4;
-    }
-
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x2020000000;
-    v17 = 0;
-    v7 = [v5 cborObj];
-    v8 = [v7 dictionary];
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_10001AD74;
-    v11[3] = &unk_100058ED0;
-    v9 = v6;
-    v12 = v9;
-    v13 = &v14;
-    [v8 enumerateKeysAndObjectsUsingBlock:v11];
-
-    LOBYTE(v7) = *(v15 + 24);
-    _Block_object_dispose(&v14, 8);
-    if ((v7 & 1) == 0)
+    if (v5 && (v14 = 0, v15 = &v14, v16 = 0x2020000000, v17 = 0, [v5 cborObj], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "dictionary"), v8 = objc_claimAutoreleasedReturnValue(), v11[0] = _NSConcreteStackBlock, v11[1] = 3221225472, v11[2] = sub_10001AD74, v11[3] = &unk_100058ED0, v9 = v6, v12 = v9, v13 = &v14, objc_msgSend(v8, "enumerateKeysAndObjectsUsingBlock:", v11), v8, v7, LOBYTE(v7) = *(v15 + 24), v12, _Block_object_dispose(&v14, 8), (v7 & 1) == 0))
     {
       v3 = 0;
     }
 
     else
     {
-LABEL_4:
       v9 = v6;
       v3 = v9;
     }
@@ -7121,9 +6942,9 @@ LABEL_4:
   return v3;
 }
 
-void sub_10001B228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001B228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7527,7 +7348,7 @@ id sub_10001C53C(uint64_t a1, void *a2)
   return v3;
 }
 
-id *sub_10001C594(uint64_t a1, void *a2)
+ISOSessionData *sub_10001C594(uint64_t a1, void *a2)
 {
   v2 = a2;
   objc_opt_self();
@@ -7725,7 +7546,6 @@ void sub_10001F660(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v8 = *(a1 + 32);
   if (v8[9])
   {
-    v14 = *(a1 + 40);
     sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[ISO18013_3_Peripheral invalidateAndUpdateStateSignal:reason:]_block_invoke", 348, v8, @"updateStateSignal=%d, status=%lu", a7, a8, *(a1 + 48));
     if (*(a1 + 48) == 1)
     {
@@ -7756,13 +7576,14 @@ void sub_10001F660(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   }
 }
 
-void sub_10001FBD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_10001FBD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
+  va_start(va, a38);
   _Block_object_dispose(&a33, 8);
-  _Block_object_dispose(&a39, 8);
-  _Block_object_dispose((v39 - 224), 8);
-  _Block_object_dispose((v39 - 192), 8);
-  _Block_object_dispose((v39 - 144), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v38 - 224), 8);
+  _Block_object_dispose((v38 - 192), 8);
+  _Block_object_dispose((v38 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7898,9 +7719,9 @@ void sub_10001FF7C(uint64_t a1)
   *(v1 + 64) = 0;
 }
 
-void sub_100020094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100020094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7928,13 +7749,8 @@ void sub_1000200AC(uint64_t a1, void *a2, void *a3)
 
 uint64_t sub_1000206A4(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 128);
-  (*(*(v2 + 80) + 16))();
-  v4 = objc_alloc_init(NSMutableData);
-  v5 = *(a1 + 32);
-  v6 = *(v5 + 128);
-  *(v5 + 128) = v4;
+  (*(*(*(a1 + 32) + 80) + 16))();
+  *(*(a1 + 32) + 128) = objc_alloc_init(NSMutableData);
 
   return _objc_release_x1();
 }
@@ -8103,7 +7919,7 @@ uint64_t sub_1000213BC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return 0;
 }
 
-id **sub_100021538(id **a1)
+void *sub_100021538(void *a1)
 {
   if (a1)
   {
@@ -8114,54 +7930,54 @@ id **sub_100021538(id **a1)
   return a1;
 }
 
-uint64_t sub_10002156C()
+uint64_t sub_10002156C(uint64_t a1)
 {
   objc_opt_self();
-  v0 = sub_1000156AC();
+  v1 = sub_1000156AC(WifiP2PController);
 
-  if (v0)
+  if (v1)
   {
-    v1 = objc_opt_new();
-    [v1 activate];
-    v2 = [v1 powerOn];
-    [v1 invalidate];
-    sub_100024938(OS_LOG_TYPE_DEFAULT, 0, "+[STSWifiSession hardwareAvailable]", 114, @"wifiOn=%d", v3, v4, v5, v2);
-    if (v2)
+    v2 = objc_opt_new();
+    [v2 activate];
+    v3 = [v2 powerOn];
+    [v2 invalidate];
+    sub_100024938(OS_LOG_TYPE_DEFAULT, 0, "+[STSWifiSession hardwareAvailable]", 114, @"wifiOn=%d", v4, v5, v6, v3);
+    if (v3)
     {
-      v0 = 1;
+      v1 = 1;
     }
 
     else
     {
-      v0 = 2;
+      v1 = 2;
     }
   }
 
-  return v0;
+  return v1;
 }
 
-STSCHWiFiAwareDiscoveryChannelInfo *sub_100021610()
+STSCHWiFiAwareDiscoveryChannelInfo *sub_100021610(uint64_t a1)
 {
   objc_opt_self();
-  v0 = sub_1000156AC();
-  sub_100024938(OS_LOG_TYPE_INFO, 0, "+[STSWifiSession advertiseChannelInfo]", 121, @"%@", v1, v2, v3, v0);
-  if (v0)
+  v1 = sub_1000156AC(WifiP2PController);
+  sub_100024938(OS_LOG_TYPE_INFO, 0, "+[STSWifiSession advertiseChannelInfo]", 121, @"%@", v2, v3, v4, v1);
+  if (v1)
   {
-    v4 = [NSNumber numberWithUnsignedChar:*(v0 + 9)];
-    v5 = [NSNumber numberWithUnsignedChar:*(v0 + 8)];
-    v6 = *(v0 + 16);
+    v5 = [NSNumber numberWithUnsignedChar:*(v1 + 9)];
+    v6 = [NSNumber numberWithUnsignedChar:*(v1 + 8)];
+    v7 = *(v1 + 16);
   }
 
   else
   {
-    v6 = 0;
-    v4 = 0;
+    v7 = 0;
     v5 = 0;
+    v6 = 0;
   }
 
-  v7 = [[STSCHWiFiAwareDiscoveryChannelInfo alloc] initWithSupportedBands:v4 operatingClass:v5 channelNumber:v6];
+  v8 = [[STSCHWiFiAwareDiscoveryChannelInfo alloc] initWithSupportedBands:v5 operatingClass:v6 channelNumber:v7];
 
-  return v7;
+  return v8;
 }
 
 void sub_100021710(void *a1, void *a2)
@@ -8192,24 +8008,24 @@ void sub_1000217FC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_100021820(uint64_t a1, void *a2, uint64_t a3, void *a4)
+void sub_100021820(void **a1, void *a2, uint64_t a3, void *a4)
 {
   v14 = a2;
   v6 = a4;
-  WeakRetained = objc_loadWeakRetained((a1 + 48));
+  WeakRetained = objc_loadWeakRetained(a1 + 6);
   v10 = WeakRetained;
   if (v6 || !WeakRetained)
   {
-    sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSWifiSession _receiveRawData:]_block_invoke", 140, *(a1 + 32), @"Invalid state, error=%@", v8, v9, v6);
+    sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSWifiSession _receiveRawData:]_block_invoke", 140, a1[4], @"Invalid state, error=%@", v8, v9, v6);
   }
 
   else
   {
     dispatch_assert_queue_V2(WeakRetained[4]);
-    v11 = *(a1 + 32);
+    v11 = a1[4];
     if (v11)
     {
-      v12 = objc_loadWeakRetained((v11 + 24));
+      v12 = objc_loadWeakRetained(v11 + 3);
     }
 
     else
@@ -8224,7 +8040,7 @@ void sub_100021820(uint64_t a1, void *a2, uint64_t a3, void *a4)
     os_unfair_lock_unlock(v10 + 3);
     if (v13 == 1)
     {
-      sub_100021710(v10, *(a1 + 40));
+      sub_100021710(v10, a1[5]);
     }
   }
 }
@@ -8290,17 +8106,16 @@ void sub_1000226EC(uint64_t a1, uint64_t a2, void *a3)
   (*(*(a1 + 40) + 16))();
 }
 
-uint64_t sub_100022920(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_100022920(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  if (*(a1 + 32))
+  if (a1[4])
   {
-    sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSWifiSession altCarrierSendData:completion:]_block_invoke", 304, *(a1 + 40), @"error=%@", a7, a8, *(a1 + 32));
-    v9 = *(a1 + 32);
+    sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSWifiSession altCarrierSendData:completion:]_block_invoke", 304, a1[5], @"error=%@", a7, a8, a1[4]);
   }
 
-  v10 = *(*(a1 + 48) + 16);
+  v9 = *(a1[6] + 16);
 
-  return v10();
+  return v9();
 }
 
 void sub_1000229A0(uint64_t a1, void *a2)
@@ -8552,7 +8367,7 @@ id sub_100023B28(id a1, void *a2)
       *(a1 + 3) = [v3 processIdentifier];
       if (v3)
       {
-        [v3 auditToken];
+        objc_msgSend_auditToken(v3);
       }
 
       else
@@ -8672,8 +8487,9 @@ LABEL_5:
   }
 }
 
-void sub_100024A04(os_log_type_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void sub_100024A04(os_log_type_t a1, int a2, uint64_t a3, uint64_t a4, const char *a5, ...)
 {
+  va_start(va, a5);
   if (!a2)
   {
     goto LABEL_5;
@@ -8687,10 +8503,10 @@ void sub_100024A04(os_log_type_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t 
   if (byte_100069BE8 == 1)
   {
 LABEL_5:
-    v13 = [NSString stringWithCString:a5 encoding:4];
-    v14 = [NSString stringWithFormat:@"%s : %d : %@", a3, a4, v13];
+    v9 = [NSString stringWithCString:a5 encoding:4];
+    v10 = [NSString stringWithFormat:@"%s : %d : %@", a3, a4, v9];
 
-    sub_1000246E4(a1, v14, &a9);
+    sub_1000246E4(a1, v10, va);
   }
 }
 
@@ -9136,4 +8952,312 @@ void sub_100025DE4(uint64_t a1)
   v3 = [NSError errorWithDomain:@"STSXPCHelperErrorDomain" code:2 userInfo:v2];
 
   (*(v1 + 16))(v1, v3);
+}
+
+NSObject *sub_100025ECC(uint64_t a1)
+{
+  v2 = objc_retainBlock(_nw_parameters_configure_protocol_disable);
+  secure_tcp = nw_parameters_create_secure_tcp(v2, _nw_parameters_configure_protocol_default_configuration);
+  nw_parameters_set_include_peer_to_peer(secure_tcp, 1);
+  nw_parameters_set_service_class(secure_tcp, nw_service_class_responsive_data);
+  v4 = nw_parameters_copy_default_protocol_stack(secure_tcp);
+  v5 = nw_protocol_stack_copy_transport_protocol(v4);
+  nw_tcp_options_set_enable_keepalive(v5, 1);
+  v6 = *(a1 + 32);
+  if (v6)
+  {
+    v7 = *(v6 + 72);
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  nw_tcp_options_set_connection_timeout(v5, v7);
+
+  return secure_tcp;
+}
+
+void sub_100025F84(uint64_t a1, int a2, void *a3)
+{
+  v5 = a3;
+  v6 = v5;
+  if (v5)
+  {
+    error_code = nw_error_get_error_code(v5);
+  }
+
+  else
+  {
+    error_code = 0;
+  }
+
+  *__error() = error_code;
+  v10 = *(a1 + 32);
+  if (v10)
+  {
+    WeakRetained = objc_loadWeakRetained((v10 + 16));
+  }
+
+  else
+  {
+    WeakRetained = 0;
+  }
+
+  if (a2 > 3)
+  {
+    if (a2 == 4)
+    {
+      v25 = sub_100024AE0();
+      if (os_signpost_enabled(v25))
+      {
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v25, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "NetworkSocket_ConnectionFailed", &unk_10005485E, buf, 2u);
+      }
+
+      sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSWifiHandoverSession _start_connection:]_block_invoke", 296, *(a1 + 32), @"connection failed", v26, v27, v28[0]);
+      nw_connection_cancel(*(a1 + 40));
+    }
+
+    else if (a2 == 5)
+    {
+      v19 = sub_100024AE0();
+      if (os_signpost_enabled(v19))
+      {
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v19, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "NetworkSocket_ConnectionCancelled", &unk_10005485E, buf, 2u);
+      }
+
+      sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSWifiHandoverSession _start_connection:]_block_invoke", 324, *(a1 + 32), @"connection cancelled", v20, v21, v28[0]);
+      v22 = *(a1 + 32);
+      if (!v22 || (*(v22 + 8) & 1) == 0)
+      {
+        sub_100014234(v22, 0);
+        if (objc_opt_respondsToSelector())
+        {
+          v23 = *(a1 + 32);
+          if (v23)
+          {
+            v16 = *(v23 + 48);
+          }
+
+          else
+          {
+            v16 = 0;
+          }
+
+          v28[0] = _NSConcreteStackBlock;
+          v28[1] = 3221225472;
+          v28[2] = sub_1000262E4;
+          v28[3] = &unk_100058CB0;
+          v24 = *(a1 + 48);
+          v28[4] = WeakRetained;
+          v28[5] = v24;
+          v18 = v28;
+          goto LABEL_25;
+        }
+      }
+    }
+  }
+
+  else
+  {
+    if (a2 == 1)
+    {
+      sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSWifiHandoverSession _start_connection:]_block_invoke", 287, *(a1 + 32), @"connection waiting", v8, v9, v28[0]);
+      goto LABEL_30;
+    }
+
+    if (a2 == 3)
+    {
+      v12 = sub_100024AE0();
+      if (os_signpost_enabled(v12))
+      {
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "NetworkSocket_ConnectionReady", &unk_10005485E, buf, 2u);
+      }
+
+      sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSWifiHandoverSession _start_connection:]_block_invoke", 307, *(a1 + 32), @"connection ready", v13, v14, v28[0]);
+      if (objc_opt_respondsToSelector())
+      {
+        v15 = *(a1 + 32);
+        if (v15)
+        {
+          v16 = *(v15 + 48);
+        }
+
+        else
+        {
+          v16 = 0;
+        }
+
+        v29[0] = _NSConcreteStackBlock;
+        v29[1] = 3221225472;
+        v29[2] = sub_1000262D8;
+        v29[3] = &unk_100058CB0;
+        v17 = *(a1 + 48);
+        v29[4] = WeakRetained;
+        v29[5] = v17;
+        v18 = v29;
+LABEL_25:
+        dispatch_async(v16, v18);
+      }
+    }
+  }
+
+LABEL_30:
+}
+
+void sub_1000262F0(uint64_t a1, int a2, void *a3)
+{
+  v5 = a3;
+  v6 = v5;
+  if (v5)
+  {
+    error_code = nw_error_get_error_code(v5);
+  }
+
+  else
+  {
+    error_code = 0;
+  }
+
+  *__error() = error_code;
+  if (a2 > 2)
+  {
+    if (a2 == 3)
+    {
+      v34 = *(a1 + 32);
+      v35 = __error();
+      sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSWifiHandoverSession _create_and_start_listener:]_block_invoke", 380, v34, @"listener failed, errno=%d", v36, v37, *v35);
+      v38 = *(a1 + 32);
+      if (v38)
+      {
+        v39 = *(v38 + 64);
+        if (v39)
+        {
+          nw_listener_cancel(v39);
+        }
+      }
+    }
+
+    else if (a2 == 4)
+    {
+      v23 = *(a1 + 32);
+      v24 = __error();
+      sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSWifiHandoverSession _create_and_start_listener:]_block_invoke", 411, v23, @"listener cancelled, errno=%d", v25, v26, *v24);
+      v27 = *(a1 + 32);
+      if (v27)
+      {
+        objc_storeStrong((v27 + 64), 0);
+      }
+
+      v28 = sub_100024AE0();
+      if (os_signpost_enabled(v28))
+      {
+        LOWORD(block[0]) = 0;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v28, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "NetworkSocket_ConnectionListenerCancelled", &unk_10005485E, block, 2u);
+      }
+
+      v29 = *(a1 + 32);
+      if (v29)
+      {
+        WeakRetained = objc_loadWeakRetained((v29 + 16));
+      }
+
+      else
+      {
+        WeakRetained = 0;
+      }
+
+      v31 = objc_opt_respondsToSelector();
+
+      if (v31)
+      {
+        v32 = *(a1 + 32);
+        if (v32)
+        {
+          v33 = *(v32 + 48);
+        }
+
+        else
+        {
+          v33 = 0;
+        }
+
+        v42[0] = _NSConcreteStackBlock;
+        v42[1] = 3221225472;
+        v42[2] = sub_100026794;
+        v42[3] = &unk_100058A08;
+        v42[4] = v32;
+        dispatch_async(v33, v42);
+      }
+    }
+  }
+
+  else if (a2 == 1)
+  {
+    sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSWifiHandoverSession _create_and_start_listener:]_block_invoke", 371, *(a1 + 32), @"listener waiting", v8, v9, v41);
+  }
+
+  else if (a2 == 2)
+  {
+    v10 = *(a1 + 32);
+    if (v10)
+    {
+      v11 = *(v10 + 64);
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+
+    port = nw_listener_get_port(v11);
+    v15 = *(a1 + 32);
+    if (v15)
+    {
+      v16 = v15[8];
+    }
+
+    else
+    {
+      v16 = 0;
+    }
+
+    sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[STSWifiHandoverSession _create_and_start_listener:]_block_invoke", 389, v15, @"listener ready, listener=%@, activePort=%d", v12, v13, v16);
+    v17 = *(a1 + 32);
+    v43[0] = _NSConcreteStackBlock;
+    v43[1] = 3221225472;
+    v43[2] = sub_1000266C4;
+    v43[3] = &unk_1000592D8;
+    v43[4] = v17;
+    v44 = port;
+    v20 = v43;
+    if (v17)
+    {
+      if (*(v17 + 24))
+      {
+        sub_10002483C(OS_LOG_TYPE_ERROR, 0, "[STSWifiHandoverSession _startWifiAwarePublisherWithPort:completion:]", 194, v17, @"Unsupported type=%lu", v18, v19, *(v17 + 24));
+        v21 = *(v17 + 48);
+        block[0] = _NSConcreteStackBlock;
+        block[1] = 3221225472;
+        block[2] = sub_100025DE4;
+        block[3] = &unk_100059288;
+        v46 = v20;
+        dispatch_async(v21, block);
+        v22 = v46;
+      }
+
+      else
+      {
+        v22 = *(v17 + 32);
+        v40 = [NSNumber numberWithUnsignedShort:port];
+        sub_100002BE4(v22, v40);
+
+        sub_100014244(*(v17 + 40), v22, v20);
+      }
+    }
+  }
 }

@@ -14,6 +14,7 @@
 - (void)registerNowPlayingListener:(unsigned int)listener;
 - (void)registerPersonalizedVolumeListener:(unsigned int)listener deviceUID:(id)d;
 - (void)registerVolumeChangedListener:(unsigned int)listener;
+- (void)sendManualVolumeUpdate:(unsigned __int8)update;
 - (void)unRegisterNowPlayingListener:(unsigned int)listener;
 - (void)unRegisterPersonalizedVolumeListener:(unsigned int)listener deviceUID:(id)d;
 - (void)unregisterRouteChangeListener;
@@ -61,12 +62,10 @@
   if (self->_systemController)
   {
     CMSessionGetNotificationCenter();
-    systemController = self->_systemController;
     FigNotificationCenterRemoveWeakListener();
     if (_os_feature_enabled_impl())
     {
       CMSessionGetNotificationCenter();
-      v4 = self->_systemController;
       FigNotificationCenterRemoveWeakListener();
     }
 
@@ -75,16 +74,16 @@
     self->_systemController = 0;
   }
 
-  v5 = qword_C2308;
+  v3 = qword_C2308;
   if (os_log_type_enabled(qword_C2308, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "BTAudioAVNotificationMonitor: dealloc", buf, 2u);
+    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "BTAudioAVNotificationMonitor: dealloc", buf, 2u);
   }
 
-  v6.receiver = self;
-  v6.super_class = BTAudioAVNotificationMonitor;
-  [(BTAudioAVNotificationMonitor *)&v6 dealloc];
+  v4.receiver = self;
+  v4.super_class = BTAudioAVNotificationMonitor;
+  [(BTAudioAVNotificationMonitor *)&v4 dealloc];
 }
 
 - (void)registerVolumeChangedListener:(unsigned int)listener
@@ -200,6 +199,46 @@
   v4[4] = self;
   updatesCopy = updates;
   dispatch_async(mediaAVNotificationQueue, v4);
+}
+
+- (void)sendManualVolumeUpdate:(unsigned __int8)update
+{
+  isPersonalizedVolumeUpdate = self->_isPersonalizedVolumeUpdate;
+  currentDeviceUID = self->_currentDeviceUID;
+  currentActiveVolumeAudioCategory = self->_currentActiveVolumeAudioCategory;
+  v13[0] = @"CurrentAudioCategory";
+  v13[1] = @"IsPersonalizedVolumeUpdate";
+  v14[0] = currentActiveVolumeAudioCategory;
+  v14[1] = isPersonalizedVolumeUpdate;
+  v13[2] = @"ManualVolumeUpdate";
+  v14[2] = [NSNumber numberWithInt:update];
+  v14[3] = &off_B3710;
+  v13[3] = @"RampInProgress";
+  v13[4] = @"PersonalizedVolumeEnabled";
+  v7 = [NSNumber numberWithInt:self->_personalizedVolumeEnabled];
+  nowPlayingBundleID = self->_nowPlayingBundleID;
+  if (!nowPlayingBundleID)
+  {
+    nowPlayingBundleID = &stru_B24D0;
+  }
+
+  v14[4] = v7;
+  v14[5] = nowPlayingBundleID;
+  v13[5] = @"BundleID";
+  v13[6] = @"ReasonForManualUpdate";
+  v14[6] = self->_reasonForManualVolumeUpdate;
+  v9 = [NSDictionary dictionaryWithObjects:v14 forKeys:v13 count:7];
+  v10 = currentDeviceUID;
+  manualVolumeUpdatesQueue = self->_manualVolumeUpdatesQueue;
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_186D0;
+  block[3] = &unk_AE180;
+  block[4] = self;
+  block[5] = currentDeviceUID;
+  block[6] = v9;
+  block[7] = isPersonalizedVolumeUpdate;
+  dispatch_async(manualVolumeUpdatesQueue, block);
 }
 
 - (void)registerNowPlayingListener:(unsigned int)listener
@@ -368,15 +407,14 @@
 
 - (void)unregisterRouteChangeListener
 {
-  v3 = qword_C2308;
+  v2 = qword_C2308;
   if (os_log_type_enabled(qword_C2308, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "BTAudioAVNotificationMonitor: Unregister Route listner", v5, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "BTAudioAVNotificationMonitor: Unregister Route listner", v3, 2u);
   }
 
   CMSessionGetNotificationCenter();
-  systemController = self->_systemController;
   FigNotificationCenterRemoveWeakListener();
 }
 

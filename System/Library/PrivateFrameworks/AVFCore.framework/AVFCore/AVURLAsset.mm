@@ -641,17 +641,17 @@ void __79__AVURLAsset__avfValidationPlistWithPlaylistMIMETypesTreatedAsISOBMFFMI
   return _initializationOptionsClasses_sClassesSet;
 }
 
-id __43__AVURLAsset__initializationOptionsClasses__block_invoke()
+id __43__AVURLAsset__initializationOptionsClasses__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x1E695DFD8];
-  v1 = objc_opt_class();
-  v2 = objc_opt_class();
+  v2 = MEMORY[0x1E695DFD8];
   v3 = objc_opt_class();
   v4 = objc_opt_class();
   v5 = objc_opt_class();
   v6 = objc_opt_class();
   v7 = objc_opt_class();
-  result = [v0 setWithObjects:{v1, v2, v3, v4, v5, v6, v7, objc_opt_class(), 0}];
+  v8 = objc_opt_class();
+  v9 = objc_opt_class();
+  result = [v2 setWithObjects:{v3, v4, v5, v6, v7, v8, v9, objc_opt_class(), 0}];
   _initializationOptionsClasses_sClassesSet = result;
   return result;
 }
@@ -1037,7 +1037,7 @@ LABEL_198:
   if (v70)
   {
     memset(&v132[32], 0, 24);
-    [v70 CMTimeValue];
+    objc_msgSend_CMTimeValue(v70);
     *v132 = *&v132[32];
     [dictionary setObject:AVDictionaryWithTime(v132) forKey:*MEMORY[0x1E69710A0]];
   }
@@ -1678,9 +1678,9 @@ void __85__AVURLAsset_AVURLAssetURLHandlingInternal___resourceLoaderWithRemoteHa
   return sInstanceIdentfierMapTable;
 }
 
-uint64_t __76__AVURLAsset_AVURLAssetInstanceIdentiferMapping__instanceIdentifierMapTable__block_invoke()
+void *__76__AVURLAsset_AVURLAssetInstanceIdentiferMapping__instanceIdentifierMapTable__block_invoke(uint64_t a1, uint64_t a2)
 {
-  sInstanceIdentifierMapTableQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.avurlasset.instanceIdentifierMapping");
+  sInstanceIdentifierMapTableQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.avurlasset.instanceIdentifierMapping", a2);
   result = [objc_alloc(MEMORY[0x1E696AD18]) initWithKeyOptions:0x10000 valueOptions:5 capacity:0];
   sInstanceIdentfierMapTable = result;
   return result;
@@ -1701,7 +1701,7 @@ uint64_t __76__AVURLAsset_AVURLAssetInstanceIdentiferMapping__instanceIdentifier
   av_readwrite_dispatch_queue_write(sInstanceIdentifierMapTableQueue, v7);
 }
 
-uint64_t __69__AVURLAsset_AVURLAssetInstanceIdentiferMapping___setUserInfoObject___block_invoke(void *a1)
+void *__69__AVURLAsset_AVURLAssetInstanceIdentiferMapping___setUserInfoObject___block_invoke(void *a1)
 {
   v3 = a1[4];
   v2 = a1[5];
@@ -1755,7 +1755,7 @@ uint64_t __69__AVURLAsset_AVURLAssetInstanceIdentiferMapping___setUserInfoObject
   return v5;
 }
 
-uint64_t __94__AVURLAsset_AVURLAssetInstanceIdentiferMapping__userInfoObjectForURLAssetInstanceIdentifier___block_invoke(uint64_t a1)
+void *__94__AVURLAsset_AVURLAssetInstanceIdentiferMapping__userInfoObjectForURLAssetInstanceIdentifier___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) objectForKey:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 40) = result;
@@ -2042,9 +2042,9 @@ LABEL_13:
 
 - (int)_attachToContentKeySession:(id)session contentKeyBoss:(OpaqueFigContentKeyBoss *)boss failedSinceAlreadyAttachedToAnotherSession:(BOOL *)anotherSession
 {
-  v41 = *MEMORY[0x1E69E9840];
-  v38 = 0;
+  v42 = *MEMORY[0x1E69E9840];
   v39 = 0;
+  v40 = 0;
   _weakReference = [session _weakReference];
   if (!session || (v10 = 0, atomic_compare_exchange_strong(&self->_URLAsset->sessionReference, &v10, _weakReference), v10))
   {
@@ -2070,7 +2070,7 @@ LABEL_13:
   if (![(AVAsset *)self _figAsset])
   {
     fig_log_get_emitter();
-    v14 = FigSignalErrorAtGM();
+    v14 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v33, cf, v35);
     goto LABEL_40;
   }
 
@@ -2083,7 +2083,7 @@ LABEL_13:
   }
 
   v13 = *MEMORY[0x1E695E480];
-  v14 = v12(CMBaseObject, *MEMORY[0x1E69711D8], *MEMORY[0x1E695E480], &v38);
+  v14 = v12(CMBaseObject, *MEMORY[0x1E69711D8], *MEMORY[0x1E695E480], &v39);
   if (v14)
   {
 LABEL_40:
@@ -2091,10 +2091,10 @@ LABEL_40:
     goto LABEL_34;
   }
 
-  if (boss && v38)
+  if (boss && v39)
   {
     v15 = _os_feature_enabled_impl();
-    v16 = v38;
+    v16 = v39;
     v17 = *(CMBaseObjectGetVTable() + 16);
     if (v15)
     {
@@ -2135,33 +2135,33 @@ LABEL_19:
     goto LABEL_33;
   }
 
-  v14 = v22(v21, *MEMORY[0x1E6971208], v13, &v39);
+  v14 = v22(v21, *MEMORY[0x1E6971208], v13, &v40);
   if (v14)
   {
     goto LABEL_40;
   }
 
   _contentKeyGroups = [session _contentKeyGroups];
-  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v24 = [_contentKeyGroups countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v38 = 0u;
+  v24 = [_contentKeyGroups countByEnumeratingWithState:&v35 objects:v41 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v35;
+    v26 = *v36;
 LABEL_23:
     v27 = 0;
     while (1)
     {
-      if (*v35 != v26)
+      if (*v36 != v26)
       {
         objc_enumerationMutation(_contentKeyGroups);
       }
 
-      v28 = v39;
-      _figContentKeySession = [*(*(&v34 + 1) + 8 * v27) _figContentKeySession];
+      v28 = v40;
+      _figContentKeySession = [*(*(&v35 + 1) + 8 * v27) _figContentKeySession];
       v30 = *(*(CMBaseObjectGetVTable() + 16) + 8);
       if (!v30)
       {
@@ -2176,7 +2176,7 @@ LABEL_23:
 
       if (v25 == ++v27)
       {
-        v25 = [_contentKeyGroups countByEnumeratingWithState:&v34 objects:v40 count:16];
+        v25 = [_contentKeyGroups countByEnumeratingWithState:&v35 objects:v41 count:16];
         if (v25)
         {
           goto LABEL_23;
@@ -2200,14 +2200,14 @@ LABEL_23:
   }
 
 LABEL_34:
+  if (v40)
+  {
+    CFRelease(v40);
+  }
+
   if (v39)
   {
     CFRelease(v39);
-  }
-
-  if (v38)
-  {
-    CFRelease(v38);
   }
 
   return v20;
@@ -2236,7 +2236,7 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v7 = -12782;
+  v7 = 4294954514;
 LABEL_6:
   if (error && v7)
   {

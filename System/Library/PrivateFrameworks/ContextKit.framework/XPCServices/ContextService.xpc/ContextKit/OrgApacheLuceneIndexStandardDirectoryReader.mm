@@ -2,6 +2,7 @@
 - (BOOL)isCurrent;
 - (id)description;
 - (id)doOpenIfChangedWithOrgApacheLuceneIndexIndexCommit:(id)commit;
+- (id)doOpenIfChangedWithOrgApacheLuceneIndexIndexWriter:(id)writer withBoolean:(BOOL)boolean;
 - (id)doOpenIfChangedWithOrgApacheLuceneIndexSegmentInfos:(id)infos;
 - (id)getIndexCommit;
 - (int64_t)getVersion;
@@ -105,6 +106,27 @@ LABEL_17:
   }
 }
 
+- (id)doOpenIfChangedWithOrgApacheLuceneIndexIndexWriter:(id)writer withBoolean:(BOOL)boolean
+{
+  booleanCopy = boolean;
+  [(OrgApacheLuceneIndexIndexReader *)self ensureOpen];
+  if (self->writer_ == writer && self->applyAllDeletes_ == booleanCopy)
+  {
+
+    return sub_10010FF54(self, 0);
+  }
+
+  else
+  {
+    if (!writer)
+    {
+      JreThrowNullPointerException();
+    }
+
+    return [writer getReaderWithBoolean:booleanCopy];
+  }
+}
+
 - (id)doOpenIfChangedWithOrgApacheLuceneIndexSegmentInfos:(id)infos
 {
   directory = self->super.directory_;
@@ -151,28 +173,29 @@ LABEL_7:
     goto LABEL_46;
   }
 
-  v47 = +[IOSObjectArray arrayWithLength:type:](IOSObjectArray, "arrayWithLength:type:", [infos size], OrgApacheLuceneIndexSegmentReader_class_());
   v11 = [infos size];
-  v12 = v11 - 1;
-  if ((v11 - 1) >= 0)
+  v48 = [IOSObjectArray arrayWithLength:v11 type:OrgApacheLuceneIndexSegmentReader_class_(v11, v12)];
+  v13 = [infos size];
+  v14 = v13 - 1;
+  if ((v13 - 1) >= 0)
   {
     do
     {
-      v13 = [infos infoWithInt:v12];
-      if (!v13)
-      {
-        goto LABEL_46;
-      }
-
-      v14 = v13;
-      v15 = v13[1];
+      v15 = [infos infoWithInt:v14];
       if (!v15)
       {
         goto LABEL_46;
       }
 
-      v16 = [(JavaUtilHashMap *)v6 getWithId:v15[1]];
-      if (!v16)
+      v16 = v15;
+      v17 = v15[1];
+      if (!v17)
+      {
+        goto LABEL_46;
+      }
+
+      v18 = [(JavaUtilHashMap *)v6 getWithId:v17[1]];
+      if (!v18)
       {
         goto LABEL_17;
       }
@@ -182,9 +205,9 @@ LABEL_7:
         goto LABEL_46;
       }
 
-      v17 = [getSequentialSubReaders getWithInt:{objc_msgSend(v16, "intValue")}];
+      v19 = [getSequentialSubReaders getWithInt:{objc_msgSend(v18, "intValue")}];
       objc_opt_class();
-      if (!v17)
+      if (!v19)
       {
         goto LABEL_17;
       }
@@ -194,8 +217,8 @@ LABEL_7:
         goto LABEL_47;
       }
 
-      getUseCompoundFile = [v14[1] getUseCompoundFile];
-      getSegmentInfo = [v17 getSegmentInfo];
+      getUseCompoundFile = [v16[1] getUseCompoundFile];
+      getSegmentInfo = [v19 getSegmentInfo];
       if (!getSegmentInfo)
       {
 LABEL_48:
@@ -204,77 +227,76 @@ LABEL_48:
 
       if (getUseCompoundFile == [getSegmentInfo[1] getUseCompoundFile])
       {
-        getSegmentInfo2 = [v17 getSegmentInfo];
+        getSegmentInfo2 = [v19 getSegmentInfo];
         if (!getSegmentInfo2)
         {
           goto LABEL_48;
         }
 
         getDelGen = [getSegmentInfo2 getDelGen];
-        if (getDelGen != [v14 getDelGen])
+        if (getDelGen != [v16 getDelGen])
         {
           goto LABEL_28;
         }
 
-        getSegmentInfo3 = [v17 getSegmentInfo];
+        getSegmentInfo3 = [v19 getSegmentInfo];
         if (!getSegmentInfo3)
         {
           goto LABEL_48;
         }
 
         getFieldInfosGen = [getSegmentInfo3 getFieldInfosGen];
-        if (getFieldInfosGen == [v14 getFieldInfosGen])
+        if (getFieldInfosGen == [v16 getFieldInfosGen])
         {
-          [v17 incRef];
-          IOSObjectArray_Set(v47, v12, v17);
+          [v19 incRef];
+          IOSObjectArray_Set(v48, v14, v19);
         }
 
         else
         {
 LABEL_28:
-          maxDoc = [v14[1] maxDoc];
-          getSegmentInfo4 = [v17 getSegmentInfo];
+          maxDoc = [v16[1] maxDoc];
+          getSegmentInfo4 = [v19 getSegmentInfo];
           if (!getSegmentInfo4)
           {
             JreThrowNullPointerException();
           }
 
           maxDoc2 = [getSegmentInfo4[1] maxDoc];
-          if ([v14 hasDeletions])
+          if ([v16 hasDeletions])
           {
-            LOBYTE(v29) = 0;
+            LOBYTE(v31) = 0;
           }
 
           else
           {
-            v29 = [v14 hasFieldUpdates] ^ 1;
+            v31 = [v16 hasFieldUpdates] ^ 1;
           }
 
-          if ([v14 getDelGen] == -1)
+          if ([v16 getDelGen] == -1)
           {
-            getSegmentInfo5 = [v17 getSegmentInfo];
+            getSegmentInfo5 = [v19 getSegmentInfo];
             if (!getSegmentInfo5)
             {
               goto LABEL_49;
             }
 
-            v37 = [getSegmentInfo5 getDelGen] != -1;
+            v39 = [getSegmentInfo5 getDelGen] != -1;
           }
 
           else
           {
-            v37 = 0;
+            v39 = 0;
           }
 
-          if ((maxDoc != maxDoc2) | v29 & 1 || v37)
+          if ((maxDoc != maxDoc2) | v31 & 1 || v39)
           {
-            v46 = *(v14[1] + 1);
-            v44 = JreStrcat("$$$", v30, v31, v32, v33, v34, v35, v36, @"same segment ");
-            v45 = new_JavaLangIllegalStateException_initWithNSString_(v44);
-            objc_exception_throw(v45);
+            v46 = JreStrcat("$$$", v32, v33, v34, v35, v36, v37, v38, @"same segment ");
+            v47 = new_JavaLangIllegalStateException_initWithNSString_(v46);
+            objc_exception_throw(v47);
           }
 
-          getSegmentInfo6 = [v17 getSegmentInfo];
+          getSegmentInfo6 = [v19 getSegmentInfo];
           if (!getSegmentInfo6)
           {
 LABEL_49:
@@ -282,17 +304,17 @@ LABEL_49:
           }
 
           getDelGen2 = [getSegmentInfo6 getDelGen];
-          if (getDelGen2 == [v14 getDelGen])
+          if (getDelGen2 == [v16 getDelGen])
           {
-            v41 = new_OrgApacheLuceneIndexSegmentReader_initWithOrgApacheLuceneIndexSegmentCommitInfo_withOrgApacheLuceneIndexSegmentReader_withOrgApacheLuceneUtilBits_withInt_(v14, v17, [v17 getLiveDocs], objc_msgSend(v17, "numDocs"));
+            v43 = new_OrgApacheLuceneIndexSegmentReader_initWithOrgApacheLuceneIndexSegmentCommitInfo_withOrgApacheLuceneIndexSegmentReader_withOrgApacheLuceneUtilBits_withInt_(v16, v19, [v19 getLiveDocs], objc_msgSend(v19, "numDocs"));
           }
 
           else
           {
-            v41 = new_OrgApacheLuceneIndexSegmentReader_initWithOrgApacheLuceneIndexSegmentCommitInfo_withOrgApacheLuceneIndexSegmentReader_(v14, v17);
+            v43 = new_OrgApacheLuceneIndexSegmentReader_initWithOrgApacheLuceneIndexSegmentCommitInfo_withOrgApacheLuceneIndexSegmentReader_(v16, v19);
           }
 
-          IOSObjectArray_SetAndConsume(v47, v12, v41);
+          IOSObjectArray_SetAndConsume(v48, v14, v43);
         }
       }
 
@@ -304,18 +326,18 @@ LABEL_17:
           objc_opt_class();
         }
 
-        v20 = new_OrgApacheLuceneIndexSegmentReader_initWithOrgApacheLuceneIndexSegmentCommitInfo_withOrgApacheLuceneStoreIOContext_(v14, OrgApacheLuceneStoreIOContext_READ_);
-        IOSObjectArray_Set(v47, v12, v20);
+        v22 = new_OrgApacheLuceneIndexSegmentReader_initWithOrgApacheLuceneIndexSegmentCommitInfo_withOrgApacheLuceneStoreIOContext_(v16, OrgApacheLuceneStoreIOContext_READ_);
+        IOSObjectArray_Set(v48, v14, v22);
       }
     }
 
-    while (v12-- > 0);
+    while (v14-- > 0);
   }
 
-  v42 = [OrgApacheLuceneIndexStandardDirectoryReader alloc];
-  OrgApacheLuceneIndexStandardDirectoryReader_initWithOrgApacheLuceneStoreDirectory_withOrgApacheLuceneIndexLeafReaderArray_withOrgApacheLuceneIndexIndexWriter_withOrgApacheLuceneIndexSegmentInfos_withBoolean_(v42, directory, v47, 0, infos, 0);
+  v44 = [OrgApacheLuceneIndexStandardDirectoryReader alloc];
+  OrgApacheLuceneIndexStandardDirectoryReader_initWithOrgApacheLuceneStoreDirectory_withOrgApacheLuceneIndexLeafReaderArray_withOrgApacheLuceneIndexIndexWriter_withOrgApacheLuceneIndexSegmentInfos_withBoolean_(v44, directory, v48, 0, infos, 0);
 
-  return v42;
+  return v44;
 }
 
 - (int64_t)getVersion

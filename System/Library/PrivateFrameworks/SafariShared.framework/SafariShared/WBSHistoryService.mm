@@ -143,29 +143,30 @@ uint64_t __29__WBSHistoryService_shutdown__block_invoke(uint64_t a1)
 
 - (BOOL)_connectionIsEntitledToUseUserDatabase:(id)database
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   databaseCopy = database;
-  v4 = [databaseCopy valueForEntitlement:@"com.apple.private.Safari.History"];
-  if (!v4)
+  v5 = [databaseCopy valueForEntitlement:@"com.apple.private.Safari.History"];
+  if (!v5)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v9 = WBS_LOG_CHANNEL_PREFIXHistory(0, v4);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v8[0] = 67109120;
-      v8[1] = [databaseCopy processIdentifier];
-      _os_log_impl(&dword_1BB6F3000, v6, OS_LOG_TYPE_DEFAULT, "Process %d is missing history entitlement. Process will be restricted to private in-memory database", v8, 8u);
+      v11[0] = 67109120;
+      v11[1] = [databaseCopy processIdentifier];
+      _os_log_impl(&dword_1BB6F3000, v9, OS_LOG_TYPE_DEFAULT, "Process %d is missing history entitlement. Process will be restricted to private in-memory database", v11, 8u);
     }
 
     goto LABEL_8;
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXHistory(isKindOfClass, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      -[WBSHistoryService _connectionIsEntitledToUseUserDatabase:].cold.1(v8, [databaseCopy processIdentifier], v6);
+      -[WBSHistoryService _connectionIsEntitledToUseUserDatabase:].cold.1(v11, [databaseCopy processIdentifier], v9);
     }
 
 LABEL_8:
@@ -174,7 +175,7 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  bOOLValue = [v4 BOOLValue];
+  bOOLValue = [v5 BOOLValue];
 LABEL_9:
 
   return bOOLValue;
@@ -182,9 +183,9 @@ LABEL_9:
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
-  v6 = WBSHistoryConnectionInterface();
+  v6 = WBSHistoryConnectionInterface(connectionCopy);
   [connectionCopy setExportedInterface:v6];
 
   v7 = [[WBSHistoryConnection alloc] initWithHistoryService:self];
@@ -192,14 +193,14 @@ LABEL_9:
 
   [connectionCopy setInvalidationHandler:&__block_literal_global_63];
   [connectionCopy setInterruptionHandler:&__block_literal_global_13];
-  [connectionCopy resume];
+  resume = [connectionCopy resume];
   if (self->_initDate)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v10 = WBS_LOG_CHANNEL_PREFIXHistory(resume, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [(NSDate *)self->_initDate timeIntervalSinceNow];
-      [(WBSHistoryService *)v12 listener:v8 shouldAcceptNewConnection:v9];
+      [(WBSHistoryService *)v14 listener:v10 shouldAcceptNewConnection:v11];
     }
 
     initDate = self->_initDate;
@@ -209,19 +210,19 @@ LABEL_9:
   return 1;
 }
 
-void __56__WBSHistoryService_listener_shouldAcceptNewConnection___block_invoke()
+void __56__WBSHistoryService_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v2 = WBS_LOG_CHANNEL_PREFIXHistory(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __56__WBSHistoryService_listener_shouldAcceptNewConnection___block_invoke_cold_1();
   }
 }
 
-void __56__WBSHistoryService_listener_shouldAcceptNewConnection___block_invoke_11()
+void __56__WBSHistoryService_listener_shouldAcceptNewConnection___block_invoke_11(uint64_t a1, uint64_t a2)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v2 = WBS_LOG_CHANNEL_PREFIXHistory(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __56__WBSHistoryService_listener_shouldAcceptNewConnection___block_invoke_11_cold_1();
   }
@@ -342,7 +343,7 @@ void __73__WBSHistoryService_openDatabaseWithID_createIfNeeded_completionHandler
 
 - (id)_openOrReuseExistingDatabaseWithOptions:(id)options createIfNeeded:(BOOL)needed error:(id *)error
 {
-  v64[1] = *MEMORY[0x1E69E9840];
+  v73[1] = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   v7 = [optionsCopy safari_stringForKey:@"WBSHistoryConnectionOptionDatabaseID"];
   if (!v7)
@@ -350,33 +351,33 @@ void __73__WBSHistoryService_openDatabaseWithID_createIfNeeded_completionHandler
     v7 = *MEMORY[0x1E69C8B58];
   }
 
-  v56 = [optionsCopy safari_URLForKey:@"WBSHistoryConnectionOptionDatabaseURL"];
-  if (v56)
+  v65 = [optionsCopy safari_URLForKey:@"WBSHistoryConnectionOptionDatabaseURL"];
+  if (v65)
   {
 LABEL_10:
     v12 = [MEMORY[0x1E695DF70] arrayWithCapacity:2];
-    v13 = v12;
-    if (v56)
+    v14 = v12;
+    if (v65)
     {
       [v12 addObject:?];
       if (!needed)
       {
         defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-        path = [v56 path];
-        v16 = [defaultManager fileExistsAtPath:path];
+        path = [v65 path];
+        v17 = [defaultManager fileExistsAtPath:path];
 
-        if ((v16 & 1) == 0)
+        if ((v17 & 1) == 0)
         {
           if (error)
           {
-            v17 = MEMORY[0x1E696ABC0];
-            v63 = *MEMORY[0x1E696A998];
-            v64[0] = v56;
-            v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v64 forKeys:&v63 count:1];
-            *error = [v17 errorWithDomain:*MEMORY[0x1E696A798] code:2 userInfo:v18];
+            v18 = MEMORY[0x1E696ABC0];
+            v72 = *MEMORY[0x1E696A998];
+            v73[0] = v65;
+            v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v73 forKeys:&v72 count:1];
+            *error = [v18 errorWithDomain:*MEMORY[0x1E696A798] code:2 userInfo:v19];
           }
 
-          v19 = 0;
+          v20 = 0;
 LABEL_44:
 
           goto LABEL_45;
@@ -386,8 +387,8 @@ LABEL_44:
 
     else
     {
-      v20 = WBS_LOG_CHANNEL_PREFIXHistory();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = WBS_LOG_CHANNEL_PREFIXHistory(v12, v13);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [WBSHistoryService _openOrReuseExistingDatabaseWithOptions:createIfNeeded:error:];
       }
@@ -395,37 +396,38 @@ LABEL_44:
 
     if (([optionsCopy safari_BOOLForKey:@"WBSHistoryConnectionOptionNoMemoryFallback"] & 1) == 0)
     {
-      v21 = WBSHistoryInMemoryDatabaseURL();
-      [v13 addObject:v21];
+      v22 = WBSHistoryInMemoryDatabaseURL();
+      [v14 addObject:v22];
     }
 
     if ([optionsCopy safari_BOOLForKey:@"WBSHistoryConnectionOptionTruncate"])
     {
-      v22 = v56;
+      v23 = v65;
       defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-      absoluteString = [v22 absoluteString];
-      [defaultManager2 removeItemAtURL:v22 error:0];
-      v25 = MEMORY[0x1E695DFF8];
-      v26 = [absoluteString stringByAppendingString:@"-lock"];
-      v27 = [v25 URLWithString:v26];
-      [defaultManager2 removeItemAtURL:v27 error:0];
+      absoluteString = [v23 absoluteString];
+      [defaultManager2 removeItemAtURL:v23 error:0];
+      v26 = MEMORY[0x1E695DFF8];
+      v27 = [absoluteString stringByAppendingString:@"-lock"];
+      v28 = [v26 URLWithString:v27];
+      [defaultManager2 removeItemAtURL:v28 error:0];
 
-      v28 = MEMORY[0x1E695DFF8];
-      v29 = [absoluteString stringByAppendingString:@"-shm"];
-      v30 = [v28 URLWithString:v29];
-      [defaultManager2 removeItemAtURL:v30 error:0];
+      v29 = MEMORY[0x1E695DFF8];
+      v30 = [absoluteString stringByAppendingString:@"-shm"];
+      v31 = [v29 URLWithString:v30];
+      [defaultManager2 removeItemAtURL:v31 error:0];
 
-      v31 = MEMORY[0x1E695DFF8];
-      v32 = [absoluteString stringByAppendingString:@"-wal"];
-      v33 = [v31 URLWithString:v32];
-      [defaultManager2 removeItemAtURL:v33 error:0];
+      v32 = MEMORY[0x1E695DFF8];
+      v33 = [absoluteString stringByAppendingString:@"-wal"];
+      v34 = [v32 URLWithString:v33];
+      [defaultManager2 removeItemAtURL:v34 error:0];
     }
 
-    v19 = [(NSMapTable *)self->_databases objectForKey:v7];
-    if (v19)
+    v35 = [(NSMapTable *)self->_databases objectForKey:v7];
+    v20 = v35;
+    if (v35)
     {
-      v35 = WBS_LOG_CHANNEL_PREFIXHistory();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+      v38 = WBS_LOG_CHANNEL_PREFIXHistory(v35, v36);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
       {
         [WBSHistoryService _openOrReuseExistingDatabaseWithOptions:createIfNeeded:error:];
       }
@@ -433,51 +435,53 @@ LABEL_44:
 
     else
     {
-      v36 = 0;
-      *&v34 = 138478083;
-      v54 = v34;
+      v39 = 0;
+      *&v37 = 138478083;
+      v63 = v37;
       while (1)
       {
-        if (![v13 count])
+        if (![v14 count])
         {
           goto LABEL_40;
         }
 
-        firstObject = [v13 firstObject];
-        [v13 removeObjectAtIndex:0];
+        firstObject = [v14 firstObject];
+        [v14 removeObjectAtIndex:0];
         date = [MEMORY[0x1E695DF00] date];
-        v39 = [WBSHistoryServiceDatabase alloc];
+        v42 = [WBSHistoryServiceDatabase alloc];
         fileOperationGroup = self->_fileOperationGroup;
-        v58 = 0;
-        v19 = [(WBSHistoryServiceDatabase *)v39 initWithID:v7 url:firstObject options:optionsCopy fileOperationGroup:fileOperationGroup error:&v58];
-        v41 = v58;
-        if (v19)
+        v67 = 0;
+        v20 = [(WBSHistoryServiceDatabase *)v42 initWithID:v7 url:firstObject options:optionsCopy fileOperationGroup:fileOperationGroup error:&v67];
+        v44 = v67;
+        v46 = v44;
+        if (v20)
         {
           break;
         }
 
-        v42 = WBS_LOG_CHANNEL_PREFIXHistory();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+        v47 = WBS_LOG_CHANNEL_PREFIXHistory(v44, v45);
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
-          safari_privacyPreservingDescription = [v41 safari_privacyPreservingDescription];
-          *buf = v54;
-          v60 = firstObject;
-          v61 = 2114;
-          v62 = *&safari_privacyPreservingDescription;
-          _os_log_error_impl(&dword_1BB6F3000, v42, OS_LOG_TYPE_ERROR, "Failed to open database %{private}@: %{public}@", buf, 0x16u);
+          safari_privacyPreservingDescription = [v46 safari_privacyPreservingDescription];
+          *buf = v63;
+          v69 = firstObject;
+          v70 = 2114;
+          v71 = *&safari_privacyPreservingDescription;
+          _os_log_error_impl(&dword_1BB6F3000, v47, OS_LOG_TYPE_ERROR, "Failed to open database %{private}@: %{public}@", buf, 0x16u);
         }
 
-        if (v41)
+        if (v46)
         {
-          v43 = v41;
+          v48 = v46;
 
-          v36 = v43;
+          v39 = v48;
         }
 
-        if ([v41 safari_isSQLiteCorruptionError])
+        safari_isSQLiteCorruptionError = [v46 safari_isSQLiteCorruptionError];
+        if (safari_isSQLiteCorruptionError)
         {
-          v47 = WBS_LOG_CHANNEL_PREFIXHistory();
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+          v54 = WBS_LOG_CHANNEL_PREFIXHistory(safari_isSQLiteCorruptionError, v50);
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
           {
             [WBSHistoryService _openOrReuseExistingDatabaseWithOptions:createIfNeeded:error:];
           }
@@ -485,32 +489,32 @@ LABEL_44:
 LABEL_40:
           if (error)
           {
-            v48 = v36;
-            v19 = 0;
-            *error = v36;
+            v55 = v39;
+            v20 = 0;
+            *error = v39;
           }
 
           else
           {
-            v19 = 0;
+            v20 = 0;
           }
 
           goto LABEL_43;
         }
       }
 
-      v45 = WBS_LOG_CHANNEL_PREFIXHistory();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+      v52 = WBS_LOG_CHANNEL_PREFIXHistory(v44, v45);
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
       {
         [date timeIntervalSinceNow];
         *buf = 136446466;
-        v60 = "open_or_reuse_opening_database";
-        v61 = 2048;
-        v62 = -v46;
-        _os_log_impl(&dword_1BB6F3000, v45, OS_LOG_TYPE_INFO, "#perf - %{public}s: %f", buf, 0x16u);
+        v69 = "open_or_reuse_opening_database";
+        v70 = 2048;
+        v71 = -v53;
+        _os_log_impl(&dword_1BB6F3000, v52, OS_LOG_TYPE_INFO, "#perf - %{public}s: %f", buf, 0x16u);
       }
 
-      [(NSMapTable *)self->_databases setObject:v19 forKey:v7];
+      [(NSMapTable *)self->_databases setObject:v20 forKey:v7];
 LABEL_43:
     }
 
@@ -519,47 +523,48 @@ LABEL_43:
 
   if ([v7 isEqualToString:*MEMORY[0x1E69C8B58]])
   {
-    v56 = +[WBSHistory historyDatabaseURL];
+    v65 = +[WBSHistory historyDatabaseURL];
     goto LABEL_10;
   }
 
   if (([v7 hasPrefix:@"test"] & 1) != 0 || objc_msgSend(v7, "hasPrefix:", @"_test"))
   {
     v8 = MEMORY[0x1E695DFF8];
-    v56 = NSTemporaryDirectory();
+    v65 = NSTemporaryDirectory();
     v9 = [v7 stringByAppendingString:@".db"];
-    v10 = [v56 stringByAppendingPathComponent:v9];
+    v10 = [v65 stringByAppendingPathComponent:v9];
     v11 = [v8 fileURLWithPath:v10];
 
 LABEL_9:
-    v56 = v11;
+    v65 = v11;
     goto LABEL_10;
   }
 
-  v56 = [WBSHistory profileDirectoryURLForProfileID:v7];
-  if (v56)
+  v57 = [WBSHistory profileDirectoryURLForProfileID:v7];
+  v65 = v57;
+  if (v57)
   {
     defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
-    path2 = [v56 path];
-    v52 = [defaultManager3 fileExistsAtPath:path2];
+    path2 = [v65 path];
+    v61 = [defaultManager3 fileExistsAtPath:path2];
 
-    if (v52)
+    if (v61)
     {
-      v11 = [v56 URLByAppendingPathComponent:@"History.db"];
+      v11 = [v65 URLByAppendingPathComponent:@"History.db"];
       goto LABEL_9;
     }
   }
 
-  v53 = WBS_LOG_CHANNEL_PREFIXHistory();
-  if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+  v62 = WBS_LOG_CHANNEL_PREFIXHistory(v57, v58);
+  if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
   {
     [WBSHistoryService _openOrReuseExistingDatabaseWithOptions:createIfNeeded:error:];
   }
 
-  v19 = 0;
+  v20 = 0;
 LABEL_45:
 
-  return v19;
+  return v20;
 }
 
 - (void)connectWithOptions:(id)options connection:(id)connection completionHandler:(id)handler
@@ -619,13 +624,14 @@ void __69__WBSHistoryService_connectWithOptions_connection_completionHandler___b
 {
   v2 = a1[4];
   v3 = a1[5];
-  v7 = 0;
-  v4 = [v2 _openOrReuseExistingDatabaseWithOptions:v3 createIfNeeded:1 error:&v7];
-  v5 = v7;
+  v9 = 0;
+  v4 = [v2 _openOrReuseExistingDatabaseWithOptions:v3 createIfNeeded:1 error:&v9];
+  v5 = v9;
+  v7 = v5;
   if (!v4)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = WBS_LOG_CHANNEL_PREFIXHistory(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       __69__WBSHistoryService_connectWithOptions_connection_completionHandler___block_invoke_cold_1();
     }
@@ -667,84 +673,85 @@ void __69__WBSHistoryService_connectWithOptions_connection_completionHandler___b
 
 void __83__WBSHistoryService_copyAndRedactHistoryDatabasesForAllProfiles_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v5 = a2;
-  v23 = a3;
-  v24 = v5;
-  if (v23)
+  v6 = a3;
+  v29 = v6;
+  v30 = v5;
+  if (v6)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXHistory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXHistory(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __83__WBSHistoryService_copyAndRedactHistoryDatabasesForAllProfiles_completionHandler___block_invoke_cold_1();
     }
 
-    v7 = v23;
+    v9 = v29;
     (*(*(a1 + 48) + 16))();
   }
 
   else
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v8 = [v5 allKeys];
-    v9 = [v8 countByEnumeratingWithState:&v25 objects:v31 count:16];
-    if (v9)
+    v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v10 = [v5 allKeys];
+    v11 = [v10 countByEnumeratingWithState:&v31 objects:v37 count:16];
+    if (v11)
     {
-      v11 = *v26;
-      *&v10 = 138412290;
-      v22 = v10;
+      v13 = *v32;
+      *&v12 = 138412290;
+      v28 = v12;
       while (2)
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v26 != v11)
+          if (*v32 != v13)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v10);
           }
 
-          v13 = *(*(&v25 + 1) + 8 * i);
-          v14 = MEMORY[0x1E695DFF8];
-          v15 = [*(a1 + 32) objectForKeyedSubscript:{v13, v22}];
-          v16 = [v14 URLWithString:v15];
+          v15 = *(*(&v31 + 1) + 8 * i);
+          v16 = MEMORY[0x1E695DFF8];
+          v17 = [*(a1 + 32) objectForKeyedSubscript:{v15, v28}];
+          v18 = [v16 URLWithString:v17];
 
-          if (v16)
+          if (v18)
           {
-            v17 = *(a1 + 40);
-            v18 = [v24 objectForKeyedSubscript:v13];
-            v19 = [v17 _copyAndRedactHistoryDatabaseWithURL:v18 databaseDestinationFileURL:v16];
+            v21 = *(a1 + 40);
+            v22 = [v30 objectForKeyedSubscript:v15];
+            v23 = [v21 _copyAndRedactHistoryDatabaseWithURL:v22 databaseDestinationFileURL:v18];
 
-            if (v19)
+            if (v23)
             {
-              v21 = WBS_LOG_CHANNEL_PREFIXHistory();
-              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+              v27 = WBS_LOG_CHANNEL_PREFIXHistory(v24, v25);
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
               {
-                __83__WBSHistoryService_copyAndRedactHistoryDatabasesForAllProfiles_completionHandler___block_invoke_cold_2(v13, v19, v21);
+                __83__WBSHistoryService_copyAndRedactHistoryDatabasesForAllProfiles_completionHandler___block_invoke_cold_2(v15, v23, v27);
               }
 
               (*(*(a1 + 48) + 16))();
 
-              v7 = 0;
+              v9 = 0;
               goto LABEL_21;
             }
           }
 
           else
           {
-            v20 = WBS_LOG_CHANNEL_PREFIXHistory();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            v26 = WBS_LOG_CHANNEL_PREFIXHistory(v19, v20);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
             {
-              *buf = v22;
-              v30 = v13;
-              _os_log_error_impl(&dword_1BB6F3000, v20, OS_LOG_TYPE_ERROR, "History.db exists on disk for profile with identifier %@, but the diagnostic extension does not know about this profile", buf, 0xCu);
+              *buf = v28;
+              v36 = v15;
+              _os_log_error_impl(&dword_1BB6F3000, v26, OS_LOG_TYPE_ERROR, "History.db exists on disk for profile with identifier %@, but the diagnostic extension does not know about this profile", buf, 0xCu);
             }
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v25 objects:v31 count:16];
-        if (v9)
+        v11 = [v10 countByEnumeratingWithState:&v31 objects:v37 count:16];
+        if (v11)
         {
           continue;
         }
@@ -753,7 +760,7 @@ void __83__WBSHistoryService_copyAndRedactHistoryDatabasesForAllProfiles_complet
       }
     }
 
-    v7 = 0;
+    v9 = 0;
     (*(*(a1 + 48) + 16))();
   }
 

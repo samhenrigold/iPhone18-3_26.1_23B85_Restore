@@ -60,7 +60,7 @@
   return isSupported_isPictureInPictureSupported;
 }
 
-uint64_t __34__SBPIPPegasusAdapter_isSupported__block_invoke()
+void *__34__SBPIPPegasusAdapter_isSupported__block_invoke()
 {
   result = [MEMORY[0x277D38BE0] isPictureInPictureSupported];
   isSupported_isPictureInPictureSupported = result;
@@ -310,10 +310,45 @@ LABEL_5:
   }
 }
 
-void __129__SBPIPPegasusAdapter__bannerPresentableWillAnimateTransition_isPresentation_isDismissal_isFullScreen_withTransitionCoordinator___block_invoke(uint64_t a1)
+void __129__SBPIPPegasusAdapter__bannerPresentableWillAnimateTransition_isPresentation_isDismissal_isFullScreen_withTransitionCoordinator___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
+  {
+    goto LABEL_5;
+  }
+
+  v4 = SBLogCommon();
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+
+  if (v5)
+  {
+    NSLog(&cfstr_TriedToAddOrRe.isa);
+  }
+
+  v3 = *(a1 + 32);
+  if (v3)
+  {
+LABEL_5:
+    v6 = *(*(a1 + 40) + 16);
+    if (!v6)
+    {
+      v7 = [MEMORY[0x277CBEB58] set];
+      v8 = *(a1 + 40);
+      v9 = *(v8 + 16);
+      *(v8 + 16) = v7;
+
+      v3 = *(a1 + 32);
+      v6 = *(*(a1 + 40) + 16);
+    }
+
+    [v6 addObject:v3];
+  }
+}
+
+void __129__SBPIPPegasusAdapter__bannerPresentableWillAnimateTransition_isPresentation_isDismissal_isFullScreen_withTransitionCoordinator___block_invoke_2(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 32))
   {
     goto LABEL_5;
   }
@@ -326,50 +361,15 @@ void __129__SBPIPPegasusAdapter__bannerPresentableWillAnimateTransition_isPresen
     NSLog(&cfstr_TriedToAddOrRe.isa);
   }
 
-  v2 = *(a1 + 32);
-  if (v2)
-  {
-LABEL_5:
-    v5 = *(*(a1 + 40) + 16);
-    if (!v5)
-    {
-      v6 = [MEMORY[0x277CBEB58] set];
-      v7 = *(a1 + 40);
-      v8 = *(v7 + 16);
-      *(v7 + 16) = v6;
-
-      v2 = *(a1 + 32);
-      v5 = *(*(a1 + 40) + 16);
-    }
-
-    [v5 addObject:v2];
-  }
-}
-
-void __129__SBPIPPegasusAdapter__bannerPresentableWillAnimateTransition_isPresentation_isDismissal_isFullScreen_withTransitionCoordinator___block_invoke_2(uint64_t a1)
-{
-  if (*(a1 + 32))
-  {
-    goto LABEL_5;
-  }
-
-  v2 = SBLogCommon();
-  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG);
-
-  if (v3)
-  {
-    NSLog(&cfstr_TriedToAddOrRe.isa);
-  }
-
   if (*(a1 + 32))
   {
 LABEL_5:
     [*(*(a1 + 40) + 16) removeObject:?];
     if (![*(*(a1 + 40) + 16) count])
     {
-      v4 = *(a1 + 40);
-      v5 = *(v4 + 16);
-      *(v4 + 16) = 0;
+      v5 = *(a1 + 40);
+      v6 = *(v5 + 16);
+      *(v5 + 16) = 0;
     }
   }
 }
@@ -382,7 +382,7 @@ uint64_t __129__SBPIPPegasusAdapter__bannerPresentableWillAnimateTransition_isPr
   return [v2 _updateAppStatusBarSettingsAssertion];
 }
 
-uint64_t __129__SBPIPPegasusAdapter__bannerPresentableWillAnimateTransition_isPresentation_isDismissal_isFullScreen_withTransitionCoordinator___block_invoke_4(uint64_t a1, void *a2)
+void *__129__SBPIPPegasusAdapter__bannerPresentableWillAnimateTransition_isPresentation_isDismissal_isFullScreen_withTransitionCoordinator___block_invoke_4(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if (!result)
@@ -423,7 +423,7 @@ LABEL_8:
 
   if (v14)
   {
-    [v14 frame];
+    objc_msgSend_frame(v14);
     v17 = height == v16 && width == v15;
   }
 
@@ -1602,7 +1602,7 @@ void __159__SBPIPPegasusAdapter__postEnsuredInSwitcher_pictureInPictureControlle
   }
 }
 
-uint64_t __159__SBPIPPegasusAdapter__postEnsuredInSwitcher_pictureInPictureController_didRequestStopForPictureInPictureViewController_sourceSceneSessionIdentifier_animated___block_invoke_82(uint64_t result, char a2)
+id *__159__SBPIPPegasusAdapter__postEnsuredInSwitcher_pictureInPictureController_didRequestStopForPictureInPictureViewController_sourceSceneSessionIdentifier_animated___block_invoke_82(id *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
@@ -1613,8 +1613,8 @@ uint64_t __159__SBPIPPegasusAdapter__postEnsuredInSwitcher_pictureInPictureContr
       __159__SBPIPPegasusAdapter__postEnsuredInSwitcher_pictureInPictureController_didRequestStopForPictureInPictureViewController_sourceSceneSessionIdentifier_animated___block_invoke_82_cold_1(v2, v3);
     }
 
-    [*(*(v2 + 40) + 24) cancelPictureInPictureForApplication:*(v2 + 48) sceneSessionPersistentIdentifier:*(v2 + 32)];
-    return [*(v2 + 40) _enumerateContainerViewControllersForApplication:*(v2 + 48) scenePersistenceIdentifier:*(v2 + 32) usingBlock:&__block_literal_global_86_1];
+    [*(v2[5] + 3) cancelPictureInPictureForApplication:v2[6] sceneSessionPersistentIdentifier:v2[4]];
+    return [v2[5] _enumerateContainerViewControllersForApplication:v2[6] scenePersistenceIdentifier:v2[4] usingBlock:&__block_literal_global_86_1];
   }
 
   return result;

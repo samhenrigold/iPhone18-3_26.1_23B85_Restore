@@ -127,7 +127,7 @@
   }
 
   v20 = objc_opt_new();
-  if (MomentsLibraryCore() && [(NSArray *)self->_bundles count])
+  if (MomentsLibraryCore(0) && [(NSArray *)self->_bundles count])
   {
     v21 = _mo_log_facility_get_os_log(&MOLogFacilityDataExporter);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))

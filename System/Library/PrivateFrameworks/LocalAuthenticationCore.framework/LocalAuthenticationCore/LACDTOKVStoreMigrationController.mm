@@ -26,18 +26,18 @@
 
 void __60__LACDTOKVStoreMigrationController_performMigrationIfNeeded__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = v4;
   if (a2)
   {
-    v6 = LACLogDTOStorage();
+    v6 = LACLogDTOStorage(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = NSStringFromLACDTOKVStoreKey(0);
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_1B0233000, v6, OS_LOG_TYPE_DEFAULT, "Migration of key: %{public}@ did finish successfully", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_1B0233000, v6, OS_LOG_TYPE_DEFAULT, "Migration of key: %{public}@ did finish successfully", &v8, 0xCu);
     }
 
 LABEL_7:
@@ -47,7 +47,7 @@ LABEL_7:
 
   if (v4)
   {
-    v6 = LACLogDTOStorage();
+    v6 = LACLogDTOStorage(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __60__LACDTOKVStoreMigrationController_performMigrationIfNeeded__block_invoke_cold_1(v5, v6);
@@ -57,8 +57,6 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_migrateStrictModeKeyIfNeededWithCompletion:(id)completion
@@ -66,18 +64,19 @@ LABEL_8:
   v15 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   isDTOStrictModeEnabled = [(LACGlobalDomainDTO *)self->_defaults isDTOStrictModeEnabled];
+  v6 = isDTOStrictModeEnabled;
   if (isDTOStrictModeEnabled)
   {
-    v6 = LACLogDTOStorage();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = LACLogDTOStorage(isDTOStrictModeEnabled);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = NSStringFromLACDTOKVStoreKey(0);
+      v8 = NSStringFromLACDTOKVStoreKey(0);
       *buf = 138543362;
-      v14 = v7;
-      _os_log_impl(&dword_1B0233000, v6, OS_LOG_TYPE_DEFAULT, "Migration of key: '%{public}@' will start", buf, 0xCu);
+      v14 = v8;
+      _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, "Migration of key: '%{public}@' will start", buf, 0xCu);
     }
 
-    if ([isDTOStrictModeEnabled BOOLValue])
+    if ([v6 BOOLValue])
     {
       objc_initWeak(buf, self);
       store = self->_store;
@@ -104,8 +103,6 @@ LABEL_8:
   {
     (*(completionCopy + 2))(completionCopy, 0, 0);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __80__LACDTOKVStoreMigrationController__migrateStrictModeKeyIfNeededWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -180,15 +177,13 @@ void __80__LACDTOKVStoreMigrationController__migrateStrictModeKeyIfNeededWithCom
 
 void __60__LACDTOKVStoreMigrationController_performMigrationIfNeeded__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = NSStringFromLACDTOKVStoreKey(0);
-  v6 = 138543618;
-  v7 = v4;
-  v8 = 2114;
-  v9 = a1;
-  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Migration of key: %{public}@ did fail (error=%{public}@)", &v6, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543618;
+  v6 = v4;
+  v7 = 2114;
+  v8 = a1;
+  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "Migration of key: %{public}@ did fail (error=%{public}@)", &v5, 0x16u);
 }
 
 @end

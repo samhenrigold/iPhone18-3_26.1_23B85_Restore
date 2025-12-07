@@ -1,6 +1,8 @@
 @interface JavaNioChannelsSpiAbstractSelectableChannel
 - (BOOL)isBlocking;
 - (BOOL)isRegistered;
+- (id)configureBlockingWithBoolean:(BOOL)boolean;
+- (id)register__WithJavaNioChannelsSelector:(id)selector withInt:(int)int withId:(id)id;
 - (uint64_t)containsValidKeys;
 - (void)dealloc;
 - (void)deregisterWithJavaNioChannelsSelectionKey:(id)key;
@@ -21,6 +23,88 @@
   isEmpty = [v3 isEmpty];
   objc_sync_exit(self);
   return isEmpty ^ 1;
+}
+
+- (id)register__WithJavaNioChannelsSelector:(id)selector withInt:(int)int withId:(id)id
+{
+  v6 = *&int;
+  if (![(JavaNioChannelsSpiAbstractInterruptibleChannel *)self isOpen])
+  {
+    v21 = new_JavaNioChannelsClosedChannelException_init();
+    goto LABEL_18;
+  }
+
+  if ((v6 & ~[(JavaNioChannelsSelectableChannel *)self validOps]) != 0)
+  {
+    v22 = JreStrcat("$I", v9, v10, v11, v12, v13, v14, v15, @"no valid ops in interest set: ");
+    v21 = new_JavaLangIllegalArgumentException_initWithNSString_(v22);
+LABEL_18:
+    objc_exception_throw(v21);
+  }
+
+  v16 = *(&self->keyList_ + 7);
+  objc_sync_enter(v16);
+  if (self->isBlocking_)
+  {
+    v23 = new_JavaNioChannelsIllegalBlockingModeException_init();
+    goto LABEL_24;
+  }
+
+  if (!selector)
+  {
+    JreThrowNullPointerException();
+  }
+
+  if (([selector isOpen] & 1) == 0)
+  {
+    if (v6)
+    {
+      v23 = new_JavaLangNullPointerException_initWithNSString_(@"selector not open");
+    }
+
+    else
+    {
+      v23 = new_JavaNioChannelsIllegalSelectorException_init();
+    }
+
+LABEL_24:
+    objc_exception_throw(v23);
+  }
+
+  v17 = sub_100273800(self, selector);
+  v18 = v17;
+  if (v17)
+  {
+    if (([v17 isValid] & 1) == 0)
+    {
+      v24 = new_JavaNioChannelsCancelledKeyException_init();
+      objc_exception_throw(v24);
+    }
+
+    [v18 interestOpsWithInt:v6];
+    [v18 attachWithId:id];
+  }
+
+  else
+  {
+    objc_opt_class();
+    if ((objc_opt_isKindOfClass() & 1) == 0)
+    {
+      JreThrowClassCastException();
+    }
+
+    v18 = [selector register__WithJavaNioChannelsSpiAbstractSelectableChannel:self withInt:v6 withId:id];
+    v19 = *(&self->provider_ + 7);
+    if (!v19)
+    {
+      JreThrowNullPointerException();
+    }
+
+    [v19 addWithId:v18];
+  }
+
+  objc_sync_exit(v16);
+  return v18;
 }
 
 - (void)implCloseChannel
@@ -74,6 +158,33 @@
   LOBYTE(selfCopy) = selfCopy->isBlocking_;
   objc_sync_exit(v3);
   return selfCopy;
+}
+
+- (id)configureBlockingWithBoolean:(BOOL)boolean
+{
+  booleanCopy = boolean;
+  if (![(JavaNioChannelsSpiAbstractInterruptibleChannel *)self isOpen])
+  {
+    v7 = new_JavaNioChannelsClosedChannelException_init();
+    objc_exception_throw(v7);
+  }
+
+  v5 = *(&self->keyList_ + 7);
+  objc_sync_enter(v5);
+  if (self->isBlocking_ != booleanCopy)
+  {
+    if (booleanCopy && [JavaNioChannelsSpiAbstractSelectableChannel containsValidKeys]_0(self))
+    {
+      v8 = new_JavaNioChannelsIllegalBlockingModeException_init();
+      objc_exception_throw(v8);
+    }
+
+    [(JavaNioChannelsSpiAbstractSelectableChannel *)self implConfigureBlockingWithBoolean:booleanCopy];
+    self->isBlocking_ = booleanCopy;
+  }
+
+  objc_sync_exit(v5);
+  return self;
 }
 
 - (uint64_t)containsValidKeys

@@ -72,19 +72,19 @@
 {
   configurationCopy = configuration;
   rootCopy = root;
-  v18.receiver = self;
-  v18.super_class = _EARNgramLmModel;
-  v8 = [(_EARLmModel *)&v18 initWithConfiguration:configurationCopy root:rootCopy];
+  v19.receiver = self;
+  v19.super_class = _EARNgramLmModel;
+  v8 = [(_EARLmModel *)&v19 initWithConfiguration:configurationCopy root:rootCopy];
   v9 = v8;
   if (v8)
   {
-    [(_EARLmModel *)v8 buildConfig];
+    objc_msgSend_buildConfig(v8);
     v10 = lpsrc;
     {
-      v11 = v17;
-      if (v17)
+      v11 = v18;
+      if (v18)
       {
-        atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
       }
     }
 
@@ -99,7 +99,7 @@
     v10 = 0;
     v11 = 0;
     lpsrc = 0;
-    v17 = 0;
+    v18 = 0;
   }
 
   cntrl = v9->_ngramBuildConfig.__cntrl_;
@@ -110,47 +110,48 @@
     std::__shared_weak_count::__release_shared[abi:ne200100](cntrl);
   }
 
-  if (v17)
+  v13 = v18;
+  if (v18)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
   }
 
   if (v9->_ngramBuildConfig.__ptr_)
   {
-    v13 = v9;
+    v14 = v9;
   }
 
   else
   {
-    v14 = EarLmLogger();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = EarLmLogger(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(lpsrc) = 0;
-      _os_log_impl(&dword_1B501D000, v14, OS_LOG_TYPE_DEFAULT, "Cannot cast to NgramFstConfig", &lpsrc, 2u);
+      _os_log_impl(&dword_1B501D000, v15, OS_LOG_TYPE_DEFAULT, "Cannot cast to NgramFstConfig", &lpsrc, 2u);
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13;
+  return v14;
 }
 
 - (id)initFromDirectory:(id)directory
 {
   directoryCopy = directory;
-  v15.receiver = self;
-  v15.super_class = _EARNgramLmModel;
-  v5 = [(_EARLmModel *)&v15 initFromDirectory:directoryCopy];
+  v16.receiver = self;
+  v16.super_class = _EARNgramLmModel;
+  v5 = [(_EARLmModel *)&v16 initFromDirectory:directoryCopy];
   v6 = v5;
   if (v5)
   {
-    [v5 model];
+    objc_msgSend_model(v5);
     v7 = lpsrc;
     {
-      v8 = v14;
-      if (v14)
+      v8 = v15;
+      if (v15)
       {
-        atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
       }
     }
 
@@ -165,7 +166,7 @@
     v7 = 0;
     v8 = 0;
     lpsrc = 0;
-    v14 = 0;
+    v15 = 0;
   }
 
   v9 = v6[6];
@@ -176,42 +177,43 @@
     std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
 
-  if (v14)
+  v10 = v15;
+  if (v15)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
   }
 
   if (v6[5])
   {
-    v10 = v6;
+    v11 = v6;
   }
 
   else
   {
-    v11 = EarLmLogger();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = EarLmLogger(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(lpsrc) = 0;
-      _os_log_impl(&dword_1B501D000, v11, OS_LOG_TYPE_DEFAULT, "Cannot cast to NgramLmModel", &lpsrc, 2u);
+      _os_log_impl(&dword_1B501D000, v12, OS_LOG_TYPE_DEFAULT, "Cannot cast to NgramLmModel", &lpsrc, 2u);
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (BOOL)writeToDirectory:(id)directory
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
-  [(_EARLmModel *)self model];
+  objc_msgSend_model(self);
   v5 = lpsrc;
   {
-    v6 = v13;
-    if (v13)
+    v6 = v14;
+    if (v14)
     {
-      atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
     }
   }
 
@@ -229,9 +231,10 @@
     std::__shared_weak_count::__release_shared[abi:ne200100](cntrl);
   }
 
-  if (v13)
+  v9 = v14;
+  if (v14)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
   }
 
   ptr = p_ngramModel->__ptr_;
@@ -239,24 +242,24 @@
   {
     if (directoryCopy)
     {
-      [directoryCopy ear_toString];
+      objc_msgSend_ear_toString(directoryCopy);
     }
 
     else
     {
       lpsrc = 0;
-      v13 = 0;
       v14 = 0;
+      v15 = 0;
     }
 
     quasar::LmModel2::write(ptr + 656, &lpsrc);
   }
 
-  v10 = EarLmLogger();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = EarLmLogger(v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(lpsrc) = 0;
-    _os_log_impl(&dword_1B501D000, v10, OS_LOG_TYPE_DEFAULT, "Cannot cast to NgramLmModel", &lpsrc, 2u);
+    _os_log_impl(&dword_1B501D000, v11, OS_LOG_TYPE_DEFAULT, "Cannot cast to NgramLmModel", &lpsrc, 2u);
   }
 
   return 0;
@@ -275,7 +278,7 @@
 
   v10[0] = ptr;
   v10[1] = cntrl;
-  [countsCopy data];
+  objc_msgSend_data(countsCopy);
   quasar::generateNgramCountsStr(v10, v9, v7);
 }
 

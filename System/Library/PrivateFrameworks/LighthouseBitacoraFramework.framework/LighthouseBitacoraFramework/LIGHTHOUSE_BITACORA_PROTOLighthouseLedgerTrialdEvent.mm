@@ -48,46 +48,46 @@
 {
   if (string >= 4)
   {
-    v6 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"(unknown: %i)", v3, v4, string);
+    v5 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, v4, @"(unknown: %i)", string);
   }
 
   else
   {
-    v6 = off_279813C60[string];
+    v5 = off_279813C60[string];
   }
 
-  return v6;
+  return v5;
 }
 
 - (int)StringAsEventType:(id)type
 {
   typeCopy = type;
-  if (objc_msgSend_isEqualToString_(typeCopy, v4, @"Unknown", v5, v6))
+  if (objc_msgSend_isEqualToString_(typeCopy, v4, v5, @"Unknown"))
   {
-    v10 = 0;
+    v8 = 0;
   }
 
-  else if (objc_msgSend_isEqualToString_(typeCopy, v7, @"allocation", v8, v9))
+  else if (objc_msgSend_isEqualToString_(typeCopy, v6, v7, @"allocation"))
   {
-    v10 = 1;
+    v8 = 1;
   }
 
-  else if (objc_msgSend_isEqualToString_(typeCopy, v11, @"activation", v12, v13))
+  else if (objc_msgSend_isEqualToString_(typeCopy, v9, v10, @"activation"))
   {
-    v10 = 2;
+    v8 = 2;
   }
 
-  else if (objc_msgSend_isEqualToString_(typeCopy, v14, @"deactivation", v15, v16))
+  else if (objc_msgSend_isEqualToString_(typeCopy, v11, v12, @"deactivation"))
   {
-    v10 = 3;
+    v8 = 3;
   }
 
   else
   {
-    v10 = 0;
+    v8 = 0;
   }
 
-  return v10;
+  return v8;
 }
 
 - (void)setHasEventSucceeded:(BOOL)succeeded
@@ -108,36 +108,37 @@
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  v15.receiver = self;
-  v15.super_class = LIGHTHOUSE_BITACORA_PROTOLighthouseLedgerTrialdEvent;
-  v4 = [(LIGHTHOUSE_BITACORA_PROTOLighthouseLedgerTrialdEvent *)&v15 description];
-  v9 = objc_msgSend_dictionaryRepresentation(self, v5, v6, v7, v8);
-  v13 = objc_msgSend_stringWithFormat_(v3, v10, @"%@ %@", v11, v12, v4, v9);
+  v13.receiver = self;
+  v13.super_class = LIGHTHOUSE_BITACORA_PROTOLighthouseLedgerTrialdEvent;
+  v4 = [(LIGHTHOUSE_BITACORA_PROTOLighthouseLedgerTrialdEvent *)&v13 description];
+  v8 = objc_msgSend_dictionaryRepresentation(self, v5, v7, v6);
+  v11 = objc_msgSend_stringWithFormat_(v3, v9, v10, @"%@ %@", v4, v8);
 
-  return v13;
+  return v11;
 }
 
 - (id)dictionaryRepresentation
 {
-  v10 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v2, v3, v4);
+  v7 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v3, v2);
   trialIdentifiers = self->_trialIdentifiers;
   if (trialIdentifiers)
   {
-    v12 = objc_msgSend_dictionaryRepresentation(trialIdentifiers, v6, v7, v8, v9);
-    objc_msgSend_setObject_forKey_(v10, v13, v12, @"trialIdentifiers", v14);
+    v10 = objc_msgSend_dictionaryRepresentation(trialIdentifiers, v5, v8, v6);
+    objc_msgSend_setObject_forKey_(v7, v11, v12, v10, @"trialIdentifiers");
   }
 
   contextID = self->_contextID;
   if (contextID)
   {
-    objc_msgSend_setObject_forKey_(v10, v6, contextID, @"contextID", v9);
+    objc_msgSend_setObject_forKey_(v7, v5, v8, contextID, @"contextID");
   }
 
   has = self->_has;
   if (has)
   {
-    v21 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v6, contextID, v8, v9, self->_timestamp);
-    objc_msgSend_setObject_forKey_(v10, v22, v21, @"timestamp", v23);
+    v8.n128_u64[0] = *&self->_timestamp;
+    v19 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v5, v8, contextID);
+    objc_msgSend_setObject_forKey_(v7, v20, v21, v19, @"timestamp");
 
     has = self->_has;
     if ((has & 2) == 0)
@@ -160,15 +161,15 @@ LABEL_7:
   eventType = self->_eventType;
   if (eventType >= 4)
   {
-    v25 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v6, @"(unknown: %i)", v8, v9, self->_eventType);
+    v23 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v5, v8, @"(unknown: %i)", self->_eventType);
   }
 
   else
   {
-    v25 = off_279813C60[eventType];
+    v23 = off_279813C60[eventType];
   }
 
-  objc_msgSend_setObject_forKey_(v10, v6, v25, @"eventType", v9);
+  objc_msgSend_setObject_forKey_(v7, v5, v8, v23, @"eventType");
 
   if ((*&self->_has & 4) == 0)
   {
@@ -176,36 +177,35 @@ LABEL_7:
   }
 
 LABEL_8:
-  v17 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v6, self->_eventSucceeded, v8, v9);
-  objc_msgSend_setObject_forKey_(v10, v18, v17, @"eventSucceeded", v19);
+  v15 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v5, v8, self->_eventSucceeded);
+  objc_msgSend_setObject_forKey_(v7, v16, v17, v15, @"eventSucceeded");
 
 LABEL_9:
 
-  return v10;
+  return v7;
 }
 
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_trialIdentifiers)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_contextID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -224,15 +224,13 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  eventType = self->_eventType;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_8:
-    eventSucceeded = self->_eventSucceeded;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_9:
@@ -242,18 +240,18 @@ LABEL_9:
 {
   toCopy = to;
   trialIdentifiers = self->_trialIdentifiers;
-  v11 = toCopy;
+  v10 = toCopy;
   if (trialIdentifiers)
   {
-    objc_msgSend_setTrialIdentifiers_(toCopy, v5, trialIdentifiers, v6, v7);
-    toCopy = v11;
+    objc_msgSend_setTrialIdentifiers_(toCopy, v5, v6, trialIdentifiers);
+    toCopy = v10;
   }
 
   contextID = self->_contextID;
   if (contextID)
   {
-    objc_msgSend_setContextID_(v11, v5, contextID, v6, v7);
-    toCopy = v11;
+    objc_msgSend_setContextID_(v10, v5, v6, contextID);
+    toCopy = v10;
   }
 
   has = self->_has;
@@ -294,15 +292,15 @@ LABEL_9:
 - (id)copyWithZone:(_NSZone *)zone
 {
   v5 = objc_opt_class();
-  v9 = objc_msgSend_allocWithZone_(v5, v6, zone, v7, v8);
-  v14 = objc_msgSend_init(v9, v10, v11, v12, v13);
-  v18 = objc_msgSend_copyWithZone_(self->_trialIdentifiers, v15, zone, v16, v17);
-  v19 = *(v14 + 32);
-  *(v14 + 32) = v18;
+  v8 = objc_msgSend_allocWithZone_(v5, v6, v7, zone);
+  v12 = objc_msgSend_init(v8, v9, v11, v10);
+  v15 = objc_msgSend_copyWithZone_(self->_trialIdentifiers, v13, v14, zone);
+  v16 = *(v12 + 32);
+  *(v12 + 32) = v15;
 
-  v23 = objc_msgSend_copyWithZone_(self->_contextID, v20, zone, v21, v22);
-  v24 = *(v14 + 16);
-  *(v14 + 16) = v23;
+  v19 = objc_msgSend_copyWithZone_(self->_contextID, v17, v18, zone);
+  v20 = *(v12 + 16);
+  *(v12 + 16) = v19;
 
   has = self->_has;
   if ((has & 1) == 0)
@@ -313,18 +311,18 @@ LABEL_9:
     }
 
 LABEL_7:
-    *(v14 + 24) = self->_eventType;
-    *(v14 + 44) |= 2u;
+    *(v12 + 24) = self->_eventType;
+    *(v12 + 44) |= 2u;
     if ((*&self->_has & 4) == 0)
     {
-      return v14;
+      return v12;
     }
 
     goto LABEL_4;
   }
 
-  *(v14 + 8) = self->_timestamp;
-  *(v14 + 44) |= 1u;
+  *(v12 + 8) = self->_timestamp;
+  *(v12 + 44) |= 1u;
   has = self->_has;
   if ((has & 2) != 0)
   {
@@ -335,37 +333,37 @@ LABEL_3:
   if ((has & 4) != 0)
   {
 LABEL_4:
-    *(v14 + 40) = self->_eventSucceeded;
-    *(v14 + 44) |= 4u;
+    *(v12 + 40) = self->_eventSucceeded;
+    *(v12 + 44) |= 4u;
   }
 
-  return v14;
+  return v12;
 }
 
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
   v5 = objc_opt_class();
-  if (!objc_msgSend_isMemberOfClass_(equalCopy, v6, v5, v7, v8))
+  if (!objc_msgSend_isMemberOfClass_(equalCopy, v6, v7, v5))
   {
     goto LABEL_18;
   }
 
   trialIdentifiers = self->_trialIdentifiers;
-  v13 = equalCopy[4];
-  if (trialIdentifiers | v13)
+  v11 = equalCopy[4];
+  if (trialIdentifiers | v11)
   {
-    if (!objc_msgSend_isEqual_(trialIdentifiers, v9, v13, v10, v11))
+    if (!objc_msgSend_isEqual_(trialIdentifiers, v8, v9, v11))
     {
       goto LABEL_18;
     }
   }
 
   contextID = self->_contextID;
-  v15 = equalCopy[2];
-  if (contextID | v15)
+  v13 = equalCopy[2];
+  if (contextID | v13)
   {
-    if (!objc_msgSend_isEqual_(contextID, v9, v15, v10, v11))
+    if (!objc_msgSend_isEqual_(contextID, v8, v9, v13))
     {
       goto LABEL_18;
     }
@@ -397,13 +395,13 @@ LABEL_4:
     goto LABEL_18;
   }
 
-  v16 = (*(equalCopy + 44) & 4) == 0;
+  v14 = (*(equalCopy + 44) & 4) == 0;
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 44) & 4) == 0)
     {
 LABEL_18:
-      v16 = 0;
+      v14 = 0;
       goto LABEL_19;
     }
 
@@ -420,18 +418,18 @@ LABEL_18:
       goto LABEL_18;
     }
 
-    v16 = 1;
+    v14 = 1;
   }
 
 LABEL_19:
 
-  return v16;
+  return v14;
 }
 
 - (unint64_t)hash
 {
-  v6 = objc_msgSend_hash(self->_trialIdentifiers, a2, v2, v3, v4);
-  v11 = objc_msgSend_hash(self->_contextID, v7, v8, v9, v10);
+  v5 = objc_msgSend_hash(self->_trialIdentifiers, a2, v3, v2);
+  v9 = objc_msgSend_hash(self->_contextID, v6, v8, v7);
   if (*&self->_has)
   {
     timestamp = self->_timestamp;
@@ -440,100 +438,100 @@ LABEL_19:
       timestamp = -timestamp;
     }
 
-    *v12.i64 = floor(timestamp + 0.5);
-    v16 = (timestamp - *v12.i64) * 1.84467441e19;
-    *v13.i64 = *v12.i64 - trunc(*v12.i64 * 5.42101086e-20) * 1.84467441e19;
-    v17.f64[0] = NAN;
-    v17.f64[1] = NAN;
-    v14 = 2654435761u * *vbslq_s8(vnegq_f64(v17), v13, v12).i64;
-    if (v16 >= 0.0)
+    *v10.i64 = floor(timestamp + 0.5);
+    v14 = (timestamp - *v10.i64) * 1.84467441e19;
+    *v11.i64 = *v10.i64 - trunc(*v10.i64 * 5.42101086e-20) * 1.84467441e19;
+    v15.f64[0] = NAN;
+    v15.f64[1] = NAN;
+    v12 = 2654435761u * *vbslq_s8(vnegq_f64(v15), v11, v10).i64;
+    if (v14 >= 0.0)
     {
-      if (v16 > 0.0)
+      if (v14 > 0.0)
       {
-        v14 += v16;
+        v12 += v14;
       }
     }
 
     else
     {
-      v14 -= fabs(v16);
+      v12 -= fabs(v14);
     }
   }
 
   else
   {
-    v14 = 0;
+    v12 = 0;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    v18 = 2654435761 * self->_eventType;
+    v16 = 2654435761 * self->_eventType;
     if ((*&self->_has & 4) != 0)
     {
       goto LABEL_11;
     }
 
 LABEL_13:
-    v19 = 0;
-    return v11 ^ v6 ^ v14 ^ v18 ^ v19;
+    v17 = 0;
+    return v9 ^ v5 ^ v12 ^ v16 ^ v17;
   }
 
-  v18 = 0;
+  v16 = 0;
   if ((*&self->_has & 4) == 0)
   {
     goto LABEL_13;
   }
 
 LABEL_11:
-  v19 = 2654435761 * self->_eventSucceeded;
-  return v11 ^ v6 ^ v14 ^ v18 ^ v19;
+  v17 = 2654435761 * self->_eventSucceeded;
+  return v9 ^ v5 ^ v12 ^ v16 ^ v17;
 }
 
 - (void)mergeFrom:(id)from
 {
   fromCopy = from;
   trialIdentifiers = self->_trialIdentifiers;
-  v8 = *(fromCopy + 4);
-  v11 = fromCopy;
+  v7 = *(fromCopy + 4);
+  v10 = fromCopy;
   if (trialIdentifiers)
   {
-    if (!v8)
+    if (!v7)
     {
       goto LABEL_7;
     }
 
-    objc_msgSend_mergeFrom_(trialIdentifiers, fromCopy, v8, v5, v6);
+    objc_msgSend_mergeFrom_(trialIdentifiers, fromCopy, v5, v7);
   }
 
   else
   {
-    if (!v8)
+    if (!v7)
     {
       goto LABEL_7;
     }
 
-    objc_msgSend_setTrialIdentifiers_(self, fromCopy, v8, v5, v6);
+    objc_msgSend_setTrialIdentifiers_(self, fromCopy, v5, v7);
   }
 
-  fromCopy = v11;
+  fromCopy = v10;
 LABEL_7:
-  v9 = *(fromCopy + 2);
-  if (v9)
+  v8 = *(fromCopy + 2);
+  if (v8)
   {
-    objc_msgSend_setContextID_(self, fromCopy, v9, v5, v6);
-    fromCopy = v11;
+    objc_msgSend_setContextID_(self, fromCopy, v5, v8);
+    fromCopy = v10;
   }
 
-  v10 = *(fromCopy + 44);
-  if (v10)
+  v9 = *(fromCopy + 44);
+  if (v9)
   {
     self->_timestamp = *(fromCopy + 1);
     *&self->_has |= 1u;
-    v10 = *(fromCopy + 44);
-    if ((v10 & 2) == 0)
+    v9 = *(fromCopy + 44);
+    if ((v9 & 2) == 0)
     {
 LABEL_11:
-      if ((v10 & 4) == 0)
+      if ((v9 & 4) == 0)
       {
         goto LABEL_13;
       }

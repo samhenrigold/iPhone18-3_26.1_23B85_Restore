@@ -1,8 +1,11 @@
 @interface CPLOutput
+- (CPLOutput)initWithFileDescriptor:(int)descriptor;
+- (CPLOutput)initWithFileDescriptor:(int)descriptor isATTY:(BOOL)y supportsEscapeSequences:(BOOL)sequences usesColor:(BOOL)color supports24BitColor:(BOOL)bitColor;
 - (id)openOutputToPagerWithInterruptionHandler:(id)handler;
 - (int)remainingSpace;
 - (unint64_t)_startInCString:(char)string[256] fgColor:(int)color bgColor:(int)bgColor attr:(int)attr force:(BOOL)force;
 - (void)_putsAndCrop:(const char *)crop len:(unint64_t)len;
+- (void)_startFgColor:(int)color bgColor:(int)bgColor attr:(int)attr force:(BOOL)force;
 - (void)clearScreen;
 - (void)closeOutput;
 - (void)cursorDown:(unsigned int)down;
@@ -40,6 +43,73 @@
 @end
 
 @implementation CPLOutput
+
+- (CPLOutput)initWithFileDescriptor:(int)descriptor
+{
+  v3 = *&descriptor;
+  v5 = isatty(descriptor);
+  v6 = getenv("TERM");
+  if (v5)
+  {
+    v7 = v6 == 0;
+  }
+
+  else
+  {
+    v7 = 1;
+  }
+
+  v8 = !v7;
+  if (v7)
+  {
+    getenv("COLORTERM");
+    v10 = 0;
+  }
+
+  else
+  {
+    v9 = v6;
+    if (strcasestr(v6, "ansi"))
+    {
+      v10 = 1;
+    }
+
+    else
+    {
+      v10 = strstr(v9, "color") != 0;
+    }
+
+    v11 = getenv("COLORTERM");
+    if (v11)
+    {
+      v12 = strstr(v11, "truecolor") != 0;
+      goto LABEL_15;
+    }
+  }
+
+  v12 = 0;
+LABEL_15:
+
+  return [(CPLOutput *)self initWithFileDescriptor:v3 isATTY:v5 != 0 supportsEscapeSequences:v8 usesColor:v10 supports24BitColor:v12];
+}
+
+- (CPLOutput)initWithFileDescriptor:(int)descriptor isATTY:(BOOL)y supportsEscapeSequences:(BOOL)sequences usesColor:(BOOL)color supports24BitColor:(BOOL)bitColor
+{
+  v12.receiver = self;
+  v12.super_class = CPLOutput;
+  result = [(CPLOutput *)&v12 init:*&descriptor];
+  if (result)
+  {
+    result->_fd = descriptor;
+    result->_isATTY = y;
+    result->_supportsEscapeSequences = sequences;
+    result->_usesColor = sequences;
+    result->_supports24BitColor = bitColor;
+    *&result->_curFg = 0x900000009;
+  }
+
+  return result;
+}
 
 - (id)openOutputToPagerWithInterruptionHandler:(id)handler
 {
@@ -192,6 +262,72 @@ LABEL_20:
   [(CPLOutput *)self put:underlineCopy];
 
   [(CPLOutput *)self resetColorsAndAttributes];
+}
+
+- (void)_startFgColor:(int)color bgColor:(int)bgColor attr:(int)attr force:(BOOL)force
+{
+  if ((self->_fd & 0x80000000) == 0)
+  {
+    forceCopy = force;
+    v7 = *&attr;
+    v8 = *&bgColor;
+    v9 = *&color;
+    if ([(CPLOutput *)self usesColor])
+    {
+      v11 = [(CPLOutput *)self _startInCString:__buf fgColor:v9 bgColor:v8 attr:v7 force:forceCopy];
+      if (v11)
+      {
+        v12 = v11;
+        fd = self->_fd;
+        if (fd != -1)
+        {
+          p_printHeader = &self->_printHeader;
+          if (self->_printHeader)
+          {
+            if (self->_needsHeader)
+            {
+              v15 = 1;
+              while (v15)
+              {
+                v16 = write(fd, p_printHeader, v15);
+                p_printHeader += v16;
+                v15 -= v16;
+                if (v16 <= 0)
+                {
+                  if (v16 < 0)
+                  {
+                    [(CPLOutput *)self _fdIsInvalid];
+                  }
+
+                  break;
+                }
+              }
+
+              self->_needsHeader = 0;
+              fd = self->_fd;
+            }
+          }
+        }
+
+        v17 = __buf;
+        while (v12)
+        {
+          v18 = write(fd, v17, v12);
+          v17 += v18;
+          v12 -= v18;
+          if (v18 <= 0)
+          {
+            if (v18 < 0)
+            {
+              [(CPLOutput *)self _fdIsInvalid];
+            }
+
+            return;
+          }
+        }
+      }
+    }
+  }
 }
 
 - (void)clearScreen

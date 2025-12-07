@@ -758,8 +758,7 @@
             _os_log_error_impl(&dword_1DE8E5000, v25, v26, "Lux table is not monotonically increasing", v51, 2u);
           }
 
-          v65 = 0;
-          goto LABEL_102;
+          return 0;
         }
       }
 
@@ -802,8 +801,7 @@
                 _os_log_error_impl(&dword_1DE8E5000, v13, v14, "Nits table is not monotonically increasing", v41, 2u);
               }
 
-              v65 = 0;
-              goto LABEL_102;
+              return 0;
             }
           }
 
@@ -816,8 +814,7 @@
               {
                 if (k >= selfCopy->_strengthTableSizeOG)
                 {
-                  v65 = 1;
-                  goto LABEL_102;
+                  return 1;
                 }
 
                 if (selfCopy->_strengthTableOG[k] < 0.0 || selfCopy->_strengthTableOG[k] > 1.0)
@@ -852,7 +849,7 @@
                 _os_log_error_impl(&dword_1DE8E5000, v6, OS_LOG_TYPE_ERROR, "Strength table element #%lu with value %f is out of the valid [0, 1] range", v66, 0x16u);
               }
 
-              v65 = 0;
+              return 0;
             }
 
             else
@@ -883,7 +880,7 @@
                 _os_log_error_impl(&dword_1DE8E5000, v8, OS_LOG_TYPE_ERROR, "Strength table has wrong size %lu for lux table size %lu and nits table size %lu", v67, 0x20u);
               }
 
-              v65 = 0;
+              return 0;
             }
           }
 
@@ -919,7 +916,7 @@
               _os_log_error_impl(&dword_1DE8E5000, v9, v10, "Unable to load strength table", v38, 2u);
             }
 
-            v65 = 0;
+            return 0;
           }
         }
 
@@ -955,7 +952,7 @@
             _os_log_error_impl(&dword_1DE8E5000, v17, v18, "Nits table has less than one element", v45, 2u);
           }
 
-          v65 = 0;
+          return 0;
         }
       }
 
@@ -991,7 +988,7 @@
           _os_log_error_impl(&dword_1DE8E5000, v21, v22, "Unable to load nits table", v48, 2u);
         }
 
-        v65 = 0;
+        return 0;
       }
     }
 
@@ -1027,7 +1024,7 @@
         _os_log_error_impl(&dword_1DE8E5000, v29, v30, "Lux table has less than one element", v55, 2u);
       }
 
-      v65 = 0;
+      return 0;
     }
   }
 
@@ -1063,12 +1060,8 @@
       _os_log_error_impl(&dword_1DE8E5000, log, type, "Unable to load lux table", v58, 2u);
     }
 
-    v65 = 0;
+    return 0;
   }
-
-LABEL_102:
-  *MEMORY[0x1E69E9840];
-  return v65 & 1;
 }
 
 - (id)initFromParser:(id)parser withName:(id)name andPrefix:(id)prefix
@@ -1583,24 +1576,24 @@ LABEL_102:
 
             MEMORY[0x1E69E5920](v51);
             MEMORY[0x1E69E5920](v49);
-            v61 = 1;
+            return 1;
           }
 
           else
           {
-            v61 = 0;
+            return 0;
           }
         }
 
         else
         {
-          v61 = 0;
+          return 0;
         }
       }
 
       else
       {
-        v61 = 0;
+        return 0;
       }
     }
 
@@ -1632,7 +1625,7 @@ LABEL_102:
         _os_log_error_impl(&dword_1DE8E5000, v40, OS_LOG_TYPE_ERROR, "%@ is not supported", v76, 0xCu);
       }
 
-      v61 = 0;
+      return 0;
     }
   }
 
@@ -1668,11 +1661,8 @@ LABEL_102:
       _os_log_error_impl(&dword_1DE8E5000, log, v42, "Parser is null", v53, 2u);
     }
 
-    v61 = 0;
+    return 0;
   }
-
-  *MEMORY[0x1E69E9840];
-  return v61 & 1;
 }
 
 @end

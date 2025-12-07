@@ -144,7 +144,7 @@
   [variableUIDelegate showActionOutputPickerAllowingShortcutInput:inputCopy variableProvider:providerCopy completionHandler:v13];
 }
 
-uint64_t __109__WFModuleSummaryCoordinator_showActionOutputPickerAllowingShortcutInput_variableProvider_completionHandler___block_invoke(uint64_t a1)
+void *__109__WFModuleSummaryCoordinator_showActionOutputPickerAllowingShortcutInput_variableProvider_completionHandler___block_invoke(uint64_t a1)
 {
   result = (*(*(a1 + 40) + 16))();
   if ((*(a1 + 48) & 1) == 0)

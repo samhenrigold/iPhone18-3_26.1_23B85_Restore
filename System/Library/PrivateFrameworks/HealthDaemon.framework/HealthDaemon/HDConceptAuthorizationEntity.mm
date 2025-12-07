@@ -14,41 +14,41 @@
 
 + (BOOL)insertConceptAuthorizationRecords:(id)records transaction:(id)transaction profile:(id)profile error:(id *)error
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   transactionCopy = transaction;
   profileCopy = profile;
   currentSyncIdentityPersistentID = [profileCopy currentSyncIdentityPersistentID];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   obj = recordsCopy;
-  v46 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
-  if (v46)
+  v45 = [obj countByEnumeratingWithState:&v50 objects:v56 count:16];
+  if (v45)
   {
-    v45 = *v52;
+    v44 = *v51;
     *&v10 = 138543618;
-    v42 = v10;
+    v41 = v10;
     while (2)
     {
-      for (i = 0; i != v46; ++i)
+      for (i = 0; i != v45; ++i)
       {
-        if (*v52 != v45)
+        if (*v51 != v44)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v51 + 1) + 8 * i);
+        v12 = *(*(&v50 + 1) + 8 * i);
         v13 = transactionCopy;
         v14 = profileCopy;
-        v49 = objc_opt_self();
+        v48 = objc_opt_self();
         falsePredicate = [MEMORY[0x277D10B70] falsePredicate];
         v16 = MEMORY[0x277CCDB40];
         semanticIdentifierString = [v12 semanticIdentifierString];
         v18 = [v16 semanticIdentifierFromSemanticIdentifierString:semanticIdentifierString profile:v14];
 
-        v50 = v14;
+        v49 = v14;
         if (v18)
         {
           daemon = [v14 daemon];
@@ -65,9 +65,9 @@
         }
 
         protectedDatabase = [v13 protectedDatabase];
-        v55 = 0;
-        v27 = [(HDSQLiteEntity *)HDUserDomainConceptEntity anyInDatabase:protectedDatabase predicate:falsePredicate error:&v55];
-        v28 = v55;
+        v54 = 0;
+        v27 = [(HDSQLiteEntity *)HDUserDomainConceptEntity anyInDatabase:protectedDatabase predicate:falsePredicate error:&v54];
+        v28 = v54;
 
         if (!v27 && v28)
         {
@@ -75,13 +75,13 @@
           v37 = HKLogHealthOntology();
           if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
-            v41 = HKSensitiveLogItem();
+            v40 = HKSensitiveLogItem();
             *buf = 138543874;
-            *&buf[4] = v49;
+            *&buf[4] = v48;
             *&buf[12] = 2114;
-            *&buf[14] = v41;
+            *&buf[14] = v40;
             *&buf[22] = 2114;
-            v59 = v28;
+            v58 = v28;
             _os_log_error_impl(&dword_228986000, v37, OS_LOG_TYPE_ERROR, "%{public}@ Failed to look up exisitng user domain concept when trying to insert record %{public}@ Error: %{public}@", buf, 0x20u);
           }
 
@@ -108,20 +108,20 @@ LABEL_26:
           v31 = objc_opt_self();
           protectedDatabase2 = [v30 protectedDatabase];
 
-          v56[0] = MEMORY[0x277D85DD0];
-          v56[1] = 3221225472;
-          v56[2] = __112__HDConceptAuthorizationEntity__insertConceptAuthorizationRecord_syncProvenance_syncIdentity_transaction_error___block_invoke;
-          v56[3] = &__block_descriptor_40_e15___NSString_8__0l;
-          v56[4] = v31;
+          v55[0] = MEMORY[0x277D85DD0];
+          v55[1] = 3221225472;
+          v55[2] = __112__HDConceptAuthorizationEntity__insertConceptAuthorizationRecord_syncProvenance_syncIdentity_transaction_error___block_invoke;
+          v55[3] = &__block_descriptor_40_e15___NSString_8__0l;
+          v55[4] = v31;
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __112__HDConceptAuthorizationEntity__insertConceptAuthorizationRecord_syncProvenance_syncIdentity_transaction_error___block_invoke_2;
-          v59 = &unk_278619A20;
-          v60 = v29;
-          v61 = 0;
-          v62 = currentSyncIdentityPersistentID;
+          v58 = &unk_278619A20;
+          v59 = v29;
+          v60 = 0;
+          v61 = currentSyncIdentityPersistentID;
           v33 = v29;
-          LODWORD(v31) = [protectedDatabase2 executeCachedStatementForKey:&_insertConceptAuthorizationRecord_syncProvenance_syncIdentity_transaction_error__statementKey error:error SQLGenerator:v56 bindingHandler:buf enumerationHandler:0];
+          LODWORD(v31) = [protectedDatabase2 executeCachedStatementForKey:&_insertConceptAuthorizationRecord_syncProvenance_syncIdentity_transaction_error__statementKey error:error SQLGenerator:v55 bindingHandler:buf enumerationHandler:0];
 
           if (!v31)
           {
@@ -136,8 +136,8 @@ LABEL_26:
           if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
             v35 = HKSensitiveLogItem();
-            *buf = v42;
-            *&buf[4] = v49;
+            *buf = v41;
+            *&buf[4] = v48;
             *&buf[12] = 2114;
             *&buf[14] = v35;
             _os_log_error_impl(&dword_228986000, v34, OS_LOG_TYPE_ERROR, "%{public}@ Attempted to insert record without an existing UDC. Not returning an error. %{public}@", buf, 0x16u);
@@ -146,8 +146,8 @@ LABEL_26:
       }
 
       v36 = 1;
-      v46 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
-      if (v46)
+      v45 = [obj countByEnumeratingWithState:&v50 objects:v56 count:16];
+      if (v45)
       {
         continue;
       }
@@ -163,7 +163,6 @@ LABEL_26:
 
 LABEL_27:
 
-  v39 = *MEMORY[0x277D85DE8];
   return v36;
 }
 
@@ -275,25 +274,24 @@ BOOL __88__HDConceptAuthorizationEntity_resetConceptAuthorizationRecordsForSourc
 
 uint64_t __107__HDConceptAuthorizationEntity_authorizationRecordsForHealthConceptIdentifiers_sourceEntity_profile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 32);
   v6 = a2;
   v7 = HDConceptAuthorizationEntityPredicateForHealthConceptIdentifiers(v5);
   v8 = [MEMORY[0x277D10B18] predicateWithProperty:@"source_uuid" equalToValue:*(a1 + 40)];
   v9 = *(a1 + 56);
   v10 = MEMORY[0x277D10B20];
-  v18[0] = v7;
-  v18[1] = v8;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+  v17[0] = v7;
+  v17[1] = v8;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
   v12 = [v10 predicateMatchingAllPredicates:v11];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __107__HDConceptAuthorizationEntity_authorizationRecordsForHealthConceptIdentifiers_sourceEntity_profile_error___block_invoke_2;
-  v16[3] = &unk_27862D330;
-  v17 = *(a1 + 48);
-  v13 = [HDConceptAuthorizationEntity _enumerateConceptAuthorizationRecordsWithPredicate:v9 limit:v12 transaction:v6 error:a3 enumerationHandler:v16];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __107__HDConceptAuthorizationEntity_authorizationRecordsForHealthConceptIdentifiers_sourceEntity_profile_error___block_invoke_2;
+  v15[3] = &unk_27862D330;
+  v16 = *(a1 + 48);
+  v13 = [HDConceptAuthorizationEntity _enumerateConceptAuthorizationRecordsWithPredicate:v9 limit:v12 transaction:v6 error:a3 enumerationHandler:v15];
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -454,7 +452,7 @@ uint64_t __93__HDConceptAuthorizationEntity_authorizationRecordsForHealthConcept
 
   if (error)
   {
-    v17 = [v28[5] copy];
+    v17 = objc_msgSend_copy(v28[5], v19, v20, v21, v22, v23);
   }
 
   else
@@ -465,13 +463,6 @@ uint64_t __93__HDConceptAuthorizationEntity_authorizationRecordsForHealthConcept
   _Block_object_dispose(&v27, 8);
 
   return v17;
-}
-
-__CFString *__112__HDConceptAuthorizationEntity__insertConceptAuthorizationRecord_syncProvenance_syncIdentity_transaction_error___block_invoke(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  objc_opt_self();
-  return @"INSERT OR REPLACE INTO concept_authorizations (concept_identifier_domain, concept_identifier_underlying_identifier, semantic_identifier_string, source_uuid, status, modification_date, sync_provenance, sync_identity) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 }
 
 uint64_t __112__HDConceptAuthorizationEntity__insertConceptAuthorizationRecord_syncProvenance_syncIdentity_transaction_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
@@ -499,41 +490,40 @@ uint64_t __112__HDConceptAuthorizationEntity__insertConceptAuthorizationRecord_s
   return sqlite3_bind_int64(a2, 8, v11);
 }
 
-uint64_t __126__HDConceptAuthorizationEntity__enumerateConceptAuthorizationRecordsWithPredicate_limit_transaction_error_enumerationHandler___block_invoke(uint64_t a1)
+uint64_t __126__HDConceptAuthorizationEntity__enumerateConceptAuthorizationRecordsWithPredicate_limit_transaction_error_enumerationHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a1 + 40);
   objc_opt_self();
-  v3 = HDSQLiteColumnWithNameAsString();
-  v4 = HDSQLiteColumnWithNameAsString();
-  v5 = [objc_alloc(MEMORY[0x277CCD4B0]) initWithDomain:v3 underlyingIdentifier:v4];
+  v5 = HDSQLiteColumnWithNameAsString();
   v6 = HDSQLiteColumnWithNameAsString();
-  v7 = HDSQLiteColumnWithNameAsUUID();
-  v8 = HDSQLiteColumnWithNameAsInt64();
+  v7 = [objc_alloc(MEMORY[0x277CCD4B0]) initWithDomain:v5 underlyingIdentifier:v6];
+  v8 = HDSQLiteColumnWithNameAsString();
+  v9 = HDSQLiteColumnWithNameAsUUID();
+  v10 = HDSQLiteColumnWithNameAsInt64();
   HDSQLiteColumnWithNameAsDouble();
-  v10 = [objc_alloc(MEMORY[0x277CCD1C8]) initWithHealthConceptIdentifier:v5 semanticIdentifierString:v6 sourceUUID:v7 status:v8 modificationDate:v9];
+  v12 = [objc_alloc(MEMORY[0x277CCD1C8]) initWithHealthConceptIdentifier:v7 semanticIdentifierString:v8 sourceUUID:v9 status:v10 modificationDate:v11];
 
-  if (v10)
+  if (v12)
   {
-    v11 = (*(*(a1 + 32) + 16))();
+    v13 = (*(*(a1 + 32) + 16))();
   }
 
   else
   {
-    v11 = 0;
+    v13 = 0;
   }
 
-  return v11;
+  return v13;
 }
 
 uint64_t __138__HDConceptAuthorizationEntity__enumerateConceptAuthorizationRecordsAndSourcesWithPredicate_transaction_profile_error_enumerationHandler___block_invoke(void *a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a1[4];
   v7 = [v5 sourceUUID];
-  v17 = 0;
-  v8 = [v6 clientSourceForUUID:v7 error:&v17];
-  v9 = v17;
+  v16 = 0;
+  v8 = [v6 clientSourceForUUID:v7 error:&v16];
+  v9 = v16;
 
   if (v8)
   {
@@ -544,7 +534,7 @@ uint64_t __138__HDConceptAuthorizationEntity__enumerateConceptAuthorizationRecor
   {
     if (a3)
     {
-      v13 = v9;
+      v12 = v9;
       v10 = 0;
       *a3 = v9;
     }
@@ -559,22 +549,21 @@ uint64_t __138__HDConceptAuthorizationEntity__enumerateConceptAuthorizationRecor
   else
   {
     _HKInitializeLogging();
-    v14 = HKLogAuthorization();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v13 = HKLogAuthorization();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v15 = a1[6];
-      v16 = [v5 sourceUUID];
+      v14 = a1[6];
+      v15 = [v5 sourceUUID];
       *buf = 138412546;
-      v19 = v15;
-      v20 = 2114;
-      v21 = v16;
-      _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "[%@] Found an authorization record for a source that does not exist (%{public}@); ignoring this record", buf, 0x16u);
+      v18 = v14;
+      v19 = 2114;
+      v20 = v15;
+      _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "[%@] Found an authorization record for a source that does not exist (%{public}@); ignoring this record", buf, 0x16u);
     }
 
     v10 = 1;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

@@ -1,9909 +1,343 @@
-uint64_t CRStruct_1.copy(renamingReferences:)@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t CRStruct_6<>.encode(to:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v8 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v10 = *(AssociatedTypeWitness - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v13 = v24 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15.n128_f64[0] = MEMORY[0x1EEE9AC00](v14);
-  if (a1)
-  {
-    v16 = a1;
-  }
-
-  else
-  {
-    v16 = sub_1ADE51288(MEMORY[0x1E69E7CC0]);
-  }
-
-  v25 = v16;
-  (*(*(a2 - 8) + 16))(a4, v4, a2, v15);
-  v24[0] = a4;
-  v17 = *(v8 + 32);
-
-  v17(a2, v8);
-  v24[1] = v18;
-
-  swift_getAtKeyPath();
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(AssociatedConformanceWitness + 16) + 24))(&v25, AssociatedTypeWitness);
-  (*(v10 + 8))(v13, AssociatedTypeWitness);
-  swift_setAtWritableKeyPath();
-
-  v20 = *(v8 + 8);
-  v21 = (*(v20 + 24))(a2, v20);
-  v22 = sub_1AE156B60(v21, &v25);
-
-  (*(v20 + 32))(v22, a2, v20);
-}
-
-uint64_t CRStruct_1.merge(_:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, _WORD *a3@<X8>)
-{
-  v23 = a3;
-  v4 = *(a2 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v6 = *(AssociatedTypeWitness - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v10 = v22 - v9;
-  (*(v4 + 32))(a1, v4, v8);
-  v22[1] = v11;
-  if (qword_1ED9670C0 != -1)
-  {
-    swift_once();
-  }
-
-  *(&v26 + 3) = word_1ED96F220;
-  BYTE5(v26) = byte_1ED96F222;
-
-  swift_getAtKeyPath();
-  v12 = swift_modifyAtWritableKeyPath();
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(AssociatedConformanceWitness + 8) + 8))(&v26, v10, AssociatedTypeWitness);
-  (*(v6 + 8))(v10, AssociatedTypeWitness);
-  v12(&v24, 0);
-
-  v24 = v26;
-  v25 = BYTE2(v26);
-  v14 = &v24;
-  MergeResult.merge(_:)(v14);
-  v15 = *(v4 + 8);
-  v16 = (*(v15 + 24))(a1, v15);
-  v17 = (*(v15 + 40))(&v24, a1, v15);
-  sub_1AE21F75C(v16, &v26);
-
-  v17(&v24, 0);
-  v24 = v26;
-  v25 = BYTE2(v26);
-  v18 = &v24;
-  MergeResult.merge(_:)(v18);
-  (*(v15 + 64))(a1, v15);
-
-  v20 = BYTE5(v26);
-  v21 = v23;
-  *v23 = *(&v26 + 3);
-  *(v21 + 2) = v20;
-  return result;
-}
-
-uint64_t CRStruct_1.newRefs(from:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v24[0] = a1;
-  v4 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v6 = *(AssociatedTypeWitness - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v9 = v24 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = MEMORY[0x1EEE9AC00](v10);
-  v13 = v24 - v12;
-  (*(v4 + 32))(a2, v4, v11);
-  v24[2] = v14;
-  v25 = MEMORY[0x1E69E7CD0];
-
-  swift_getAtKeyPath();
-
-  swift_getAtKeyPath();
-
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v16 = (*(AssociatedConformanceWitness + 64))(v9, AssociatedTypeWitness, AssociatedConformanceWitness);
-  v17 = *(v6 + 8);
-  v17(v9, AssociatedTypeWitness);
-  v17(v13, AssociatedTypeWitness);
-  sub_1AE00F014(v16);
-  v18 = *(v4 + 8);
-  v19 = *(v18 + 24);
-  v20 = v19(a2, v18);
-  v21 = v19(a2, v18);
-  v22 = sub_1AE2200E4(v21, v20);
-
-  sub_1AE00F014(v22);
-
-  return v25;
-}
-
-uint64_t CRStruct_1.observableDifference(from:with:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  v52 = a1;
-  v53 = a2;
-  v56 = a5;
-  v6 = *(a4 + 8);
-  swift_getAssociatedTypeWitness();
-  v51 = *(swift_getAssociatedConformanceWitness() + 16);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v8 = *(*(TupleTypeMetadata2 - 8) + 64);
-  MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
-  v46 = &v44 - v9;
-  v10 = *(AssociatedTypeWitness - 8);
-  v49 = AssociatedTypeWitness;
-  v50 = v10;
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v45 = &v44 - v13;
-  v14 = swift_checkMetadataState();
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v18 = &v44 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v19);
-  v21 = &v44 - v20;
-  v22 = sub_1AE23D7CC();
-  v48 = *(v22 - 8);
-  v23 = *(v48 + 64);
-  MEMORY[0x1EEE9AC00](v22);
-  v25 = &v44 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v27 = MEMORY[0x1EEE9AC00](v26);
-  v29 = &v44 - v28;
-  v30 = *(v6 + 32);
-  v54 = v6;
-  v55 = a3;
-  v30(a3, v6, v27);
-
-  swift_getAtKeyPath();
-
-  swift_getAtKeyPath();
-
-  (*(v51 + 40))(v18, v53, v14);
-
-  v31 = *(v15 + 8);
-  v31(v18, v14);
-  v32 = v21;
-  v33 = v48;
-  v31(v32, v14);
-  v35 = v49;
-  v34 = v50;
-  (*(v33 + 32))(v25, v29, v22);
-  if ((*(v34 + 48))(v25, 1, v35) == 1)
-  {
-    (*(v33 + 8))(v25, v22);
-    v36 = *(*(*(v54 + 8) + 8) + 16);
-    v37 = swift_getAssociatedTypeWitness();
-    return (*(*(v37 - 8) + 56))(v56, 1, 1, v37);
-  }
-
-  else
-  {
-    v39 = *(v34 + 32);
-    v40 = v45;
-    v39(v45, v25, v35);
-    v39(v46, v40, v35);
-    v41 = *(*(*(v54 + 8) + 8) + 16);
-    v42 = swift_getAssociatedTypeWitness();
-    v43 = v56;
-    swift_dynamicCast();
-    return (*(*(v42 - 8) + 56))(v43, 0, 1, v42);
-  }
-}
-
-uint64_t CRStruct_1.hasDelta(from:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v8 = *(AssociatedTypeWitness - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v11 = &v26 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = MEMORY[0x1EEE9AC00](v12);
-  v15 = &v26 - v14;
-  (*(v6 + 32))(a2, v6, v13);
-  v29 = v16;
-
-  v27 = v3;
-  swift_getAtKeyPath();
-
-  v28 = a1;
-  swift_getAtKeyPath();
-
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v18 = (*(AssociatedConformanceWitness + 88))(v11, AssociatedTypeWitness, AssociatedConformanceWitness);
-  v19 = *(v8 + 8);
-  v19(v11, AssociatedTypeWitness);
-  v19(v15, AssociatedTypeWitness);
-  if (v18)
-  {
-    v20 = 1;
-  }
-
-  else
-  {
-    v21 = *(v6 + 8);
-    v22 = *(v21 + 24);
-    v23 = v22(a2, v21);
-    v24 = v22(a2, v21);
-    v20 = sub_1AE21FE14(v24, v23);
-  }
-
-  return v20 & 1;
-}
-
-uint64_t CRStruct_1.actionUndoingDifference(from:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v18[0] = a1;
-  v18[1] = a4;
-  v5 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v7 = *(AssociatedTypeWitness - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v10 = v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = MEMORY[0x1EEE9AC00](v11);
-  v14 = v18 - v13;
-  (*(v5 + 32))(a2, v5, v12);
-
-  swift_getAtKeyPath();
-
-  swift_getAtKeyPath();
-
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(AssociatedConformanceWitness + 72))(v10, AssociatedTypeWitness, AssociatedConformanceWitness);
-
-  v16 = *(v7 + 8);
-  v16(v10, AssociatedTypeWitness);
-  return (v16)(v14, AssociatedTypeWitness);
-}
-
-uint64_t CRStruct_1.apply(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  (*(*(a3 + 8) + 32))(a2, *(a3 + 8));
-
-  v4 = swift_modifyAtWritableKeyPath();
-  swift_getAssociatedTypeWitness();
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v6 = *(AssociatedConformanceWitness + 80);
-  v7 = swift_checkMetadataState();
-  v6(a1, v7, AssociatedConformanceWitness);
-  v4(&v9, 0);
-}
-
-uint64_t CRStruct_1.finalizeTimestamps(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  (*(*(a3 + 8) + 32))(a2, *(a3 + 8));
-
-  v4 = swift_modifyAtWritableKeyPath();
-  swift_getAssociatedTypeWitness();
-  v5 = *(swift_getAssociatedConformanceWitness() + 16);
-  v6 = *(v5 + 64);
-  v7 = swift_checkMetadataState();
-  v6(a1, v7, v5);
-  v4(&v9, 0);
-}
-
-uint64_t CRStruct_1.minEncodingVersion.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  v15 = a3;
-  v4 = *(a2 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v6 = *(AssociatedTypeWitness - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v10 = &v15 - v9;
-  (*(v4 + 32))(a1, v4, v8);
-  v11 = (*(*(v4 + 8) + 24))(a1);
-  sub_1AE21FFB0(v11, &v16 + 1);
-
-  v12 = BYTE1(v16);
-  if (BYTE1(v16) > 2u)
-  {
-  }
-
-  else
-  {
-    swift_getAtKeyPath();
-    AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-    (*(*(*(AssociatedConformanceWitness + 16) + 8) + 24))(&v16, AssociatedTypeWitness);
-
-    result = (*(v6 + 8))(v10, AssociatedTypeWitness);
-    if (v16 > v12)
-    {
-      LOBYTE(v12) = v16;
-    }
-  }
-
-  *v15 = v12;
-  return result;
-}
-
-uint64_t CRStruct_1<>.encode(to:)(void *a1, uint64_t a2, uint64_t a3, char *a4)
-{
-  v44 = a4;
-  v6 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v43 = *(AssociatedTypeWitness - 8);
-  v7 = *(v43 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v9 = &v38 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5BCF60, &unk_1AE252450);
-  v46 = *(v10 - 8);
-  v11 = *(v46 + 64);
-  v12 = MEMORY[0x1EEE9AC00](v10);
-  v14 = &v38 - v13;
-  v15 = *(v6 + 32);
-  v39 = v6;
-  v40 = a2;
-  v41 = v15(a2, v6, v12);
-  v17 = v16;
-  v19 = v18;
-  v20 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  sub_1AE048F10();
-  sub_1AE23E3CC();
-
-  swift_getAtKeyPath();
-
-  v47 = v41;
-  v48 = v17;
-  v21 = v14;
-  v22 = AssociatedTypeWitness;
-  v23 = v45;
-  sub_1AE23DD5C();
-  if (v23)
-  {
-
-    (*(v43 + 8))(v9, v22);
-    (*(v46 + 8))(v21, v10);
-  }
-
-  else
-  {
-    v41 = v19;
-    v44 = v21;
-    v45 = v10;
-    (*(v43 + 8))(v9, v22);
-    v43 = v17;
-
-    result = (*(*(v39 + 8) + 24))(v40);
-    v25 = result;
-    v26 = 0;
-    v27 = result + 64;
-    v28 = 1 << *(result + 32);
-    v29 = -1;
-    if (v28 < 64)
-    {
-      v29 = ~(-1 << v28);
-    }
-
-    v30 = v29 & *(result + 64);
-    v31 = (v28 + 63) >> 6;
-    for (i = v46; v30; i = v46)
-    {
-      v33 = v26;
-LABEL_10:
-      v34 = __clz(__rbit64(v30)) | (v33 << 6);
-      v35 = (*(v25 + 48) + 16 * v34);
-      v36 = *v35;
-      v37 = v35[1];
-      v49 = *(*(v25 + 56) + 8 * v34);
-      v47 = v36;
-      v48 = v37;
-      sub_1AE048F64();
-
-      sub_1AE23DD5C();
-      v30 &= v30 - 1;
-
-      v26 = v33;
-    }
-
-    while (1)
-    {
-      v33 = v26 + 1;
-      if (__OFADD__(v26, 1))
-      {
-        break;
-      }
-
-      if (v33 >= v31)
-      {
-
-        return (*(i + 8))(v44, v45);
-      }
-
-      v30 = *(v27 + 8 * v33);
-      ++v26;
-      if (v30)
-      {
-        goto LABEL_10;
-      }
-    }
-
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t CRStruct_2.copy(renamingReferences:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v34 = a1;
-  v30[1] = a4;
-  v7 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v9 = *(AssociatedTypeWitness - 8);
-  v38 = AssociatedTypeWitness;
-  v39 = v9;
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v33 = v30 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v36 = v30 - v13;
-  v14 = swift_getAssociatedTypeWitness();
-  v31 = *(v14 - 8);
-  v15 = *(v31 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v17 = v30 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = MEMORY[0x1EEE9AC00](v18);
-  (*(*(a2 - 8) + 16))(a4, v4, a2, v19);
-  (*(v7 + 48))(v40, a2, v7);
-  v20 = v40[2];
-  v37 = v40[1];
-  v35 = v40[4];
-
-  v30[0] = v4;
-  swift_getAtKeyPath();
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v22 = v34;
-  (*(*(AssociatedConformanceWitness + 16) + 24))(v34, v14);
-  (*(v31 + 8))(v17, v14);
-  v32 = v20;
-  swift_setAtWritableKeyPath();
-
-  v23 = v33;
-  swift_getAtKeyPath();
-  v24 = v38;
-  v25 = swift_getAssociatedConformanceWitness();
-  (*(*(v25 + 16) + 24))(v22, v24);
-  (*(v39 + 8))(v23, v24);
-  swift_setAtWritableKeyPath();
-
-  v26 = *(v7 + 8);
-  v27 = (*(v26 + 24))(a2, v26);
-  v28 = sub_1AE156B60(v27, v22);
-
-  (*(v26 + 32))(v28, a2, v26);
-}
-
-uint64_t CRStruct_2.copy(renamingReferences:)@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v5 = v4;
-  v9 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v37 = *(AssociatedTypeWitness - 8);
-  v38 = AssociatedTypeWitness;
-  v11 = *(v37 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v36 = &v31 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v35 = &v31 - v14;
-  v15 = swift_getAssociatedTypeWitness();
-  v32 = *(v15 - 8);
-  v16 = *(v32 + 64);
-  MEMORY[0x1EEE9AC00](v15);
-  v18 = &v31 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20.n128_f64[0] = MEMORY[0x1EEE9AC00](v19);
-  if (a1)
-  {
-    v21 = a1;
-  }
-
-  else
-  {
-    v21 = sub_1ADE51288(MEMORY[0x1E69E7CC0]);
-  }
-
-  v40 = v21;
-  (*(*(a2 - 8) + 16))(a4, v5, a2, v20);
-  v31 = a4;
-  v22 = *(v9 + 48);
-
-  v22(v39, a2, v9);
-  v33 = v39[4];
-  v34 = v39[1];
-
-  swift_getAtKeyPath();
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(AssociatedConformanceWitness + 16) + 24))(&v40, v15);
-  (*(v32 + 8))(v18, v15);
-  swift_setAtWritableKeyPath();
-
-  v24 = v36;
-  swift_getAtKeyPath();
-  v25 = v38;
-  v26 = swift_getAssociatedConformanceWitness();
-  (*(*(v26 + 16) + 24))(&v40, v25);
-  (*(v37 + 8))(v24, v25);
-  swift_setAtWritableKeyPath();
-
-  v27 = *(v9 + 8);
-  v28 = (*(v27 + 24))(a2, v27);
-  v29 = sub_1AE156B60(v28, &v40);
-
-  (*(v27 + 32))(v29, a2, v27);
-}
-
-uint64_t CRStruct_2.merge(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _WORD *a4@<X8>)
-{
-  v38 = a4;
-  v6 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v34 = *(AssociatedTypeWitness - 8);
-  v35 = AssociatedTypeWitness;
-  v8 = *(v34 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v33 = v32 - v9;
-  v10 = swift_getAssociatedTypeWitness();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  v13 = MEMORY[0x1EEE9AC00](v10);
-  v15 = v32 - v14;
-  (*(v6 + 48))(&v39 + 6, a2, v6, v13);
-  v16 = v42;
-  v36 = v43;
-  v37 = v41;
-  v32[2] = v44;
-  if (qword_1ED9670C0 != -1)
-  {
-    swift_once();
-  }
-
-  *(&v39 + 3) = word_1ED96F220;
-  BYTE5(v39) = byte_1ED96F222;
-
-  v32[0] = a1;
-  swift_getAtKeyPath();
-  v17 = swift_modifyAtWritableKeyPath();
-  v32[1] = v16;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(AssociatedConformanceWitness + 8) + 8))(&v39, v15, v10);
-  (*(v11 + 8))(v15, v10);
-  v17(&v39 + 6, 0);
-
-  HIWORD(v39) = v39;
-  v40 = BYTE2(v39);
-  v19 = &v39 + 6;
-  MergeResult.merge(_:)(v19);
-
-  v20 = v33;
-  swift_getAtKeyPath();
-  v21 = swift_modifyAtWritableKeyPath();
-  v22 = v35;
-  v23 = swift_getAssociatedConformanceWitness();
-  (*(*(v23 + 8) + 8))(&v39, v20, v22);
-  (*(v34 + 8))(v20, v22);
-  v21(&v39 + 6, 0);
-
-  HIWORD(v39) = v39;
-  v40 = BYTE2(v39);
-  v24 = &v39 + 6;
-  MergeResult.merge(_:)(v24);
-  v25 = *(v6 + 8);
-  v26 = (*(v25 + 24))(a2, v25);
-  v27 = (*(v25 + 40))(&v39 + 6, a2, v25);
-  sub_1AE21F75C(v26, &v39);
-
-  v27(&v39 + 6, 0);
-  HIWORD(v39) = v39;
-  v40 = BYTE2(v39);
-  v28 = &v39 + 6;
-  MergeResult.merge(_:)(v28);
-  (*(v25 + 64))(a2, v25);
-
-  v30 = BYTE5(v39);
-  v31 = v38;
-  *v38 = *(&v39 + 3);
-  *(v31 + 2) = v30;
-  return result;
-}
-
-uint64_t CRStruct_2.newRefs(from:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v45 = a1;
-  v4 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v44 = *(AssociatedTypeWitness - 8);
-  v5 = *(v44 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v40 = &v37 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
-  v39 = &v37 - v8;
-  v9 = swift_getAssociatedTypeWitness();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = &v37 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = MEMORY[0x1EEE9AC00](v14);
-  v17 = &v37 - v16;
-  v18 = *(v4 + 48);
-  v37 = a2;
-  v38 = v4;
-  v18(v46, a2, v4, v15);
-  v42 = v46[4];
-  v43 = v46[1];
-  v46[0] = MEMORY[0x1E69E7CD0];
-
-  swift_getAtKeyPath();
-
-  swift_getAtKeyPath();
-
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v20 = (*(AssociatedConformanceWitness + 64))(v13, v9, AssociatedConformanceWitness);
-  v21 = *(v10 + 8);
-  v21(v13, v9);
-  v21(v17, v9);
-  sub_1AE00F014(v20);
-
-  v22 = v39;
-  swift_getAtKeyPath();
-
-  v23 = v40;
-  swift_getAtKeyPath();
-
-  v25 = v37;
-  v24 = v38;
-  v26 = AssociatedTypeWitness;
-  v27 = swift_getAssociatedConformanceWitness();
-  v28 = v23;
-  v29 = (*(v27 + 64))(v23, v26, v27);
-  v30 = *(v44 + 8);
-  v30(v28, v26);
-  v30(v22, v26);
-  sub_1AE00F014(v29);
-  v31 = *(v24 + 8);
-  v32 = *(v31 + 24);
-  v33 = v32(v25, v31);
-  v34 = v32(v25, v31);
-  v35 = sub_1AE2200E4(v34, v33);
-
-  sub_1AE00F014(v35);
-
-  return v46[0];
-}
-
-uint64_t CRStruct_2.observableDifference(from:with:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  v66 = a1;
-  v67 = a2;
-  v74 = a5;
-  v6 = *(a4 + 8);
-  swift_getAssociatedTypeWitness();
-  v64 = *(swift_getAssociatedConformanceWitness() + 16);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v7 = sub_1AE23D7CC();
-  swift_getAssociatedTypeWitness();
-  v65 = *(swift_getAssociatedConformanceWitness() + 16);
-  v52 = swift_getAssociatedTypeWitness();
-  v8 = sub_1AE23D7CC();
-  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v9 = *(*(TupleTypeMetadata2 - 8) + 64);
-  MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
-  v53 = &v51 - v10;
-  v61 = swift_checkMetadataState();
-  v63 = *(v61 - 8);
-  v11 = *(v63 + 64);
-  MEMORY[0x1EEE9AC00](v61);
-  v60 = &v51 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v59 = &v51 - v14;
-  v71 = v8;
-  v69 = *(v8 - 8);
-  v15 = *(v69 + 64);
-  MEMORY[0x1EEE9AC00](v16);
-  v58 = &v51 - v17;
-  v18 = swift_checkMetadataState();
-  v19 = *(v18 - 8);
-  v20 = *(v19 + 64);
-  MEMORY[0x1EEE9AC00](v18);
-  v22 = &v51 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v23);
-  v25 = &v51 - v24;
-  v70 = v7;
-  v62 = *(v7 - 8);
-  v26 = *(v62 + 64);
-  v28 = MEMORY[0x1EEE9AC00](v27);
-  v55 = &v51 - v29;
-  v30 = *(v6 + 48);
-  v72 = v6;
-  v73 = a3;
-  v30(v75, a3, v6, v28);
-  v57 = v75[1];
-  v56 = v75[4];
-
-  swift_getAtKeyPath();
-
-  swift_getAtKeyPath();
-
-  v31 = v67;
-  (*(v64 + 40))(v22, v67, v18);
-  v32 = *(v19 + 8);
-  v32(v22, v18);
-  v32(v25, v18);
-  v33 = v58;
-
-  v34 = v59;
-  swift_getAtKeyPath();
-
-  v35 = v60;
-  swift_getAtKeyPath();
-
-  v36 = v34;
-  v37 = v61;
-  (*(v65 + 40))(v35, v31, v61);
-
-  v38 = *(v63 + 8);
-  v38(v35, v37);
-  v39 = v37;
-  v40 = v55;
-  v38(v36, v39);
-  if ((*(*(AssociatedTypeWitness - 8) + 48))(v40, 1) == 1 && (*(*(v52 - 8) + 48))(v33, 1) == 1)
-  {
-    (*(v62 + 8))(v40, v70);
-    v41 = *(*(*(v72 + 8) + 8) + 16);
-    v42 = swift_getAssociatedTypeWitness();
-    (*(*(v42 - 8) + 56))(v74, 1, 1, v42);
-    v43 = v71;
-    v44 = v69;
-  }
-
-  else
-  {
-    v45 = *(TupleTypeMetadata2 + 48);
-    v46 = v53;
-    (*(v62 + 32))(v53, v40, v70);
-    v44 = v69;
-    v43 = v71;
-    (*(v69 + 16))(&v46[v45], v33, v71);
-    v47 = *(*(*(v72 + 8) + 8) + 16);
-    v48 = swift_getAssociatedTypeWitness();
-    v49 = v74;
-    swift_dynamicCast();
-    (*(*(v48 - 8) + 56))(v49, 0, 1, v48);
-  }
-
-  return (*(v44 + 8))(v33, v43);
-}
-
-uint64_t CRStruct_2.hasDelta(from:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v40 = a1;
-  v4 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v36 = *(AssociatedTypeWitness - 8);
-  v37 = AssociatedTypeWitness;
-  v6 = *(v36 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v35 = &v34 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v34 = &v34 - v9;
-  v10 = swift_getAssociatedTypeWitness();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  MEMORY[0x1EEE9AC00](v10);
-  v14 = &v34 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = MEMORY[0x1EEE9AC00](v15);
-  v18 = &v34 - v17;
-  (*(v4 + 48))(v41, a2, v4, v16);
-  v38 = v41[1];
-  v39 = v41[4];
-
-  swift_getAtKeyPath();
-
-  swift_getAtKeyPath();
-
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v20 = (*(AssociatedConformanceWitness + 88))(v14, v10, AssociatedConformanceWitness);
-  v21 = *(v11 + 8);
-  v21(v14, v10);
-  v21(v18, v10);
-  if (v20)
-  {
-    goto LABEL_3;
-  }
-
-  v22 = v34;
-  swift_getAtKeyPath();
-
-  v23 = v35;
-  swift_getAtKeyPath();
-
-  v24 = v37;
-  v25 = swift_getAssociatedConformanceWitness();
-  v26 = (*(v25 + 88))(v23, v24, v25);
-  v27 = *(v36 + 8);
-  v27(v23, v24);
-  v27(v22, v24);
-  if (v26)
-  {
-LABEL_3:
-
-    v28 = 1;
-  }
-
-  else
-  {
-    v29 = *(v4 + 8);
-    v30 = *(v29 + 24);
-    v31 = v30(a2, v29);
-    v32 = v30(a2, v29);
-    v28 = sub_1AE21FE14(v32, v31);
-  }
-
-  return v28 & 1;
-}
-
-uint64_t CRStruct_2.actionUndoingDifference(from:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v49 = a1;
-  v55 = a4;
-  v5 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v52 = *(AssociatedTypeWitness - 8);
-  v6 = *(v52 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v51 = &v39 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v46 = &v39 - v9;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v39 = swift_getAssociatedTypeWitness();
-  v10 = sub_1AE23D7CC();
-  v53 = *(v10 - 8);
-  v54 = v10;
-  v11 = *(v53 + 64);
-  MEMORY[0x1EEE9AC00](v10);
-  v56 = &v39 - v12;
-  v13 = swift_getAssociatedTypeWitness();
-  v43 = *(v13 - 8);
-  v14 = *(v43 + 64);
-  MEMORY[0x1EEE9AC00](v13);
-  v16 = &v39 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v17);
-  v19 = &v39 - v18;
-  v20 = swift_getAssociatedConformanceWitness();
-  v44 = swift_getAssociatedTypeWitness();
-  v48 = sub_1AE23D7CC();
-  v45 = *(v48 - 8);
-  v21 = *(v45 + 64);
-  v22 = MEMORY[0x1EEE9AC00](v48);
-  v40 = &v39 - v23;
-  (*(v5 + 48))(v57, a2, v5, v22);
-  v42 = v57[1];
-  v41 = v57[4];
-
-  swift_getAtKeyPath();
-
-  swift_getAtKeyPath();
-
-  (*(v20 + 72))(v16, v13, v20);
-  v24 = *(v43 + 8);
-  v24(v16, v13);
-  v24(v19, v13);
-
-  v25 = v46;
-  swift_getAtKeyPath();
-
-  v26 = v51;
-  swift_getAtKeyPath();
-
-  v27 = AssociatedTypeWitness;
-  (*(AssociatedConformanceWitness + 72))(v26, AssociatedTypeWitness);
-
-  v28 = *(v52 + 8);
-  v28(v26, v27);
-  v29 = v25;
-  v30 = v40;
-  v28(v29, v27);
-  if ((*(*(v44 - 8) + 48))(v30, 1) == 1 && (*(*(v39 - 8) + 48))(v56, 1) == 1)
-  {
-    (*(v45 + 8))(v30, v48);
-    v31 = v54;
-    TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    (*(*(TupleTypeMetadata2 - 8) + 56))(v55, 1, 1, TupleTypeMetadata2);
-    v33 = v53;
-  }
-
-  else
-  {
-    v34 = v48;
-    v31 = v54;
-    v35 = swift_getTupleTypeMetadata2();
-    v36 = *(v35 + 48);
-    v37 = v55;
-    (*(v45 + 32))(v55, v30, v34);
-    v33 = v53;
-    (*(v53 + 16))(v37 + v36, v56, v31);
-    (*(*(v35 - 8) + 56))(v37, 0, 1, v35);
-  }
-
-  return (*(v33 + 8))(v56, v31);
-}
-
-uint64_t CRStruct_2.apply(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v69 = AssociatedTypeWitness;
-  v54 = swift_getAssociatedTypeWitness();
-  v7 = sub_1AE23D7CC();
-  v71 = *(v7 - 8);
-  v8 = *(v71 + 64);
-  MEMORY[0x1EEE9AC00](v7);
-  v66 = &v52 - v9;
-  v10 = swift_getAssociatedTypeWitness();
-  v59 = swift_getAssociatedConformanceWitness();
-  v60 = v10;
-  v52 = swift_getAssociatedTypeWitness();
-  v11 = sub_1AE23D7CC();
-  v12 = v7;
-  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v14 = sub_1AE23D7CC();
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v61 = &v52 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v20 = &v52 - v19;
-  v70 = *(v11 - 8);
-  v21 = *(v70 + 64);
-  v23 = MEMORY[0x1EEE9AC00](v22);
-  v25 = &v52 - v24;
-  (*(v5 + 48))(v72, a2, v5, v23);
-  v26 = v15;
-  v27 = TupleTypeMetadata2;
-  v28 = v72[2];
-  v63 = v72[4];
-  v64 = v72[1];
-  v62 = v72[5];
-  v29 = *(v26 + 16);
-  v65 = a1;
-  v58 = v29;
-  v29(v20, a1, v14);
-  v30 = *(v27 - 8);
-  v57 = *(v30 + 48);
-  v56 = v30 + 48;
-  v31 = v57(v20, 1, v27);
-  v67 = v12;
-  v53 = v26;
-  v55 = v27;
-  if (v31 == 1)
-  {
-    v32 = v11;
-    v33 = *(v26 + 8);
-
-    v33(v20, v14);
-    (*(*(v52 - 8) + 56))(v25, 1, 1);
-  }
-
-  else
-  {
-    v34 = *(v27 + 48);
-    (*(v70 + 32))(v25, v20, v11);
-    v32 = v11;
-    v35 = *(v71 + 8);
-
-    v35(&v20[v34], v12);
-  }
-
-  v36 = swift_modifyAtWritableKeyPath();
-  v37 = v59;
-  v38 = *(v59 + 80);
-  v39 = swift_checkMetadataState();
-  v38(v25, v39, v37);
-  v40 = *(v70 + 8);
-  v40(v25, v32);
-  v36(v72, 0);
-  v70 = v28;
-
-  v41 = v61;
-  v58(v61, v65, v14);
-  v42 = v55;
-  if (v57(v41, 1, v55) == 1)
-  {
-    v43 = *(v53 + 8);
-
-    v43(v41, v14);
-    v44 = v66;
-    (*(*(v54 - 8) + 56))(v66, 1, 1);
-    v45 = v67;
-    v46 = v71;
-  }
-
-  else
-  {
-    v46 = v71;
-    v44 = v66;
-    v45 = v67;
-    (*(v71 + 32))(v66, &v41[*(v42 + 48)], v67);
-
-    v40(v41, v32);
-  }
-
-  v47 = swift_modifyAtWritableKeyPath();
-  v48 = AssociatedConformanceWitness;
-  v49 = *(AssociatedConformanceWitness + 80);
-  v50 = swift_checkMetadataState();
-  v49(v44, v50, v48);
-  (*(v46 + 8))(v44, v45);
-  v47(v72, 0);
-}
-
-Swift::Bool __swiftcall CRStruct_2.needToFinalizeTimestamps()()
-{
-  v3 = v0;
-  v4 = *(v1 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v23 = *(AssociatedTypeWitness - 8);
-  v24 = AssociatedTypeWitness;
-  v6 = *(v23 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v21 = &v21 - v7;
-  v8 = swift_getAssociatedTypeWitness();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v13 = &v21 - v12;
-  (*(v4 + 48))(v27, v3, v4, v11);
-  v25 = v27[4];
-  v26 = v27[1];
-
-  v22 = v2;
-  swift_getAtKeyPath();
-
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v15 = (*(*(AssociatedConformanceWitness + 16) + 56))(v8);
-  (*(v9 + 8))(v13, v8);
-  if (v15)
-  {
-
-    v16 = 1;
-  }
-
-  else
-  {
-    v17 = v21;
-    swift_getAtKeyPath();
-    v18 = v24;
-    v19 = swift_getAssociatedConformanceWitness();
-    v16 = (*(*(v19 + 16) + 56))(v18);
-
-    (*(v23 + 8))(v17, v18);
-  }
-
-  return v16 & 1;
-}
-
-uint64_t CRStruct_2.finalizeTimestamps(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  (*(*(a3 + 8) + 48))(&v14, a2, *(a3 + 8));
-
-  v12 = swift_modifyAtWritableKeyPath();
-  swift_getAssociatedTypeWitness();
-  v4 = *(swift_getAssociatedConformanceWitness() + 16);
-  v5 = *(v4 + 64);
-  v6 = swift_checkMetadataState();
-  v5(a1, v6, v4);
-  v12(&v14, 0);
-
-  v7 = swift_modifyAtWritableKeyPath();
-  swift_getAssociatedTypeWitness();
-  v8 = *(swift_getAssociatedConformanceWitness() + 16);
-  v9 = *(v8 + 64);
-  v10 = swift_checkMetadataState();
-  v9(a1, v10, v8);
-  v7(&v14, 0);
-}
-
-uint64_t CRStruct_2.minEncodingVersion.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  v26 = a3;
-  v4 = *(a2 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v22 = *(AssociatedTypeWitness - 8);
-  v23 = AssociatedTypeWitness;
-  v6 = *(v22 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v21 = &v21 - v7;
-  v8 = swift_getAssociatedTypeWitness();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v13 = &v21 - v12;
-  (*(v4 + 48))(&v28[1], a1, v4, v11);
-  v27 = *&v28[17];
-  v24 = *&v28[33];
-  v25 = *&v28[9];
-  v14 = (*(*(v4 + 8) + 24))(a1);
-  sub_1AE21FFB0(v14, &v28[1]);
-
-  v15 = v28[1];
-  if (v28[1] > 2u)
-  {
-    goto LABEL_8;
-  }
-
-  swift_getAtKeyPath();
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(*(AssociatedConformanceWitness + 16) + 8) + 24))(v28, v8);
-  (*(v9 + 8))(v13, v8);
-  if (v28[0] > v15)
-  {
-    v15 = v28[0];
-  }
-
-  v28[1] = v15;
-  if (v28[0] > 2u)
-  {
-LABEL_8:
-  }
-
-  else
-  {
-    v17 = v21;
-    swift_getAtKeyPath();
-    v18 = v23;
-    v19 = swift_getAssociatedConformanceWitness();
-    (*(*(*(v19 + 16) + 8) + 24))(v28, v18);
-
-    result = (*(v22 + 8))(v17, v18);
-    if (v28[0] > v15)
-    {
-      LOBYTE(v15) = v28[0];
-    }
-  }
-
-  *v26 = v15;
-  return result;
-}
-
-uint64_t CRStruct_2<>.encode(to:)(void *a1, uint64_t a2, uint64_t a3, char *a4, uint64_t a5)
-{
-  v50 = a4;
-  v45 = a5;
-  v7 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v44 = *(AssociatedTypeWitness - 8);
-  v8 = *(v44 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v47 = &v41 - v9;
-  v48 = swift_getAssociatedTypeWitness();
-  v49 = *(v48 - 8);
-  v10 = *(v49 + 64);
-  MEMORY[0x1EEE9AC00](v48);
-  v12 = &v41 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5BCF60, &unk_1AE252450);
-  v52 = *(v13 - 8);
-  v14 = *(v52 + 64);
-  v15 = MEMORY[0x1EEE9AC00](v13);
-  v17 = &v41 - v16;
-  v18 = *(v7 + 48);
-  v41 = v7;
-  v42 = a2;
-  v18(&v55, a2, v7, v15);
-  v20 = v55;
-  v19 = v56;
-  v21 = v57;
-  v43 = v58;
-  v53 = v60;
-  v54 = v59;
-  v22 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  sub_1AE048F10();
-  sub_1AE23E3CC();
-
-  swift_getAtKeyPath();
-
-  v55 = v20;
-  v56 = v19;
-  v23 = v17;
-  v24 = v48;
-  v25 = v51;
-  sub_1AE23DD5C();
-  if (v25)
-  {
-
-    (*(v49 + 8))(v12, v24);
-    return (*(v52 + 8))(v23, v13);
-  }
-
-  else
-  {
-    (*(v49 + 8))(v12, v24);
-
-    swift_getAtKeyPath();
-
-    v55 = v43;
-    v56 = v54;
-
-    v26 = AssociatedTypeWitness;
-    sub_1AE23DD5C();
-    v48 = v21;
-    v49 = v19;
-    v50 = v23;
-    v51 = v13;
-
-    (*(v44 + 8))(v47, v26);
-    result = (*(*(v41 + 8) + 24))(v42);
-    v28 = result;
-    v29 = 0;
-    v30 = result + 64;
-    v31 = 1 << *(result + 32);
-    v32 = -1;
-    if (v31 < 64)
-    {
-      v32 = ~(-1 << v31);
-    }
-
-    v33 = v32 & *(result + 64);
-    for (i = (v31 + 63) >> 6; v33; v29 = v35)
-    {
-      v35 = v29;
-LABEL_11:
-      v37 = __clz(__rbit64(v33)) | (v35 << 6);
-      v38 = (*(v28 + 48) + 16 * v37);
-      v39 = *v38;
-      v40 = v38[1];
-      v61 = *(*(v28 + 56) + 8 * v37);
-      v55 = v39;
-      v56 = v40;
-      sub_1AE048F64();
-
-      sub_1AE23DD5C();
-      v33 &= v33 - 1;
-    }
-
-    v36 = v52;
-    while (1)
-    {
-      v35 = v29 + 1;
-      if (__OFADD__(v29, 1))
-      {
-        break;
-      }
-
-      if (v35 >= i)
-      {
-
-        return (*(v36 + 8))(v50, v51);
-      }
-
-      v33 = *(v30 + 8 * v35);
-      ++v29;
-      if (v33)
-      {
-        goto LABEL_11;
-      }
-    }
-
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t CRStruct_3.copy(renamingReferences:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v47 = a1;
-  v41[1] = a4;
-  v7 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v9 = *(AssociatedTypeWitness - 8);
-  v53 = AssociatedTypeWitness;
-  v54 = v9;
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v51 = v41 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v52 = v41 - v13;
-  v14 = swift_getAssociatedTypeWitness();
-  v15 = *(v14 - 8);
-  v45 = v14;
-  v46 = v15;
-  v16 = *(v15 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v42 = v41 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v43 = v41 - v19;
-  v20 = swift_getAssociatedTypeWitness();
-  v21 = *(v20 - 8);
-  v22 = *(v21 + 64);
-  MEMORY[0x1EEE9AC00](v20);
-  v24 = v41 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v26 = MEMORY[0x1EEE9AC00](v25);
-  v27 = *(*(a2 - 8) + 16);
-  v55 = v4;
-  v27(a4, v4, a2, v26);
-  (*(v7 + 64))(v56, a2, v7);
-  v28 = v56[2];
-  v49 = v56[4];
-  v50 = v56[1];
-  v48 = v56[7];
-  v41[2] = v56[8];
-
-  swift_getAtKeyPath();
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v30 = v47;
-  (*(*(AssociatedConformanceWitness + 16) + 24))(v47, v20);
-  (*(v21 + 8))(v24, v20);
-  v44 = v28;
-  swift_setAtWritableKeyPath();
-
-  v31 = v42;
-  swift_getAtKeyPath();
-  v32 = v45;
-  v33 = swift_getAssociatedConformanceWitness();
-  (*(*(v33 + 16) + 24))(v30, v32);
-  (*(v46 + 8))(v31, v32);
-  swift_setAtWritableKeyPath();
-
-  v34 = v51;
-  swift_getAtKeyPath();
-  v35 = v53;
-  v36 = swift_getAssociatedConformanceWitness();
-  (*(*(v36 + 16) + 24))(v30, v35);
-  (*(v54 + 8))(v34, v35);
-  swift_setAtWritableKeyPath();
-
-  v37 = *(v7 + 8);
-  v38 = (*(v37 + 24))(a2, v37);
-  v39 = sub_1AE156B60(v38, v30);
-
-  (*(v37 + 32))(v39, a2, v37);
-}
-
-uint64_t CRStruct_3.copy(renamingReferences:)@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v5 = v4;
-  v9 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v52 = *(AssociatedTypeWitness - 8);
-  v53 = AssociatedTypeWitness;
-  v11 = *(v52 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v51 = &v40 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v50 = &v40 - v14;
-  v48 = swift_getAssociatedTypeWitness();
-  v46 = *(v48 - 8);
-  v15 = *(v46 + 64);
-  MEMORY[0x1EEE9AC00](v48);
-  v44 = &v40 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v17);
-  v43 = &v40 - v18;
-  v19 = swift_getAssociatedTypeWitness();
-  v41 = *(v19 - 8);
-  v20 = *(v41 + 64);
-  MEMORY[0x1EEE9AC00](v19);
-  v22 = &v40 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v24.n128_f64[0] = MEMORY[0x1EEE9AC00](v23);
-  if (a1)
-  {
-    v25 = a1;
-  }
-
-  else
-  {
-    v25 = sub_1ADE51288(MEMORY[0x1E69E7CC0]);
-  }
-
-  v55[0] = v25;
-  (*(*(a2 - 8) + 16))(a4, v5, a2, v24);
-  v40 = a4;
-  v26 = *(v9 + 64);
-
-  v26(v54, a2, v9);
-  v27 = v54[2];
-  v49 = v54[1];
-  v47 = v54[4];
-  v45 = v54[7];
-
-  swift_getAtKeyPath();
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(AssociatedConformanceWitness + 16) + 24))(v55, v19);
-  (*(v41 + 8))(v22, v19);
-  v42 = v27;
-  swift_setAtWritableKeyPath();
-
-  v29 = v44;
-  swift_getAtKeyPath();
-  v30 = v9;
-  v31 = v48;
-  v32 = swift_getAssociatedConformanceWitness();
-  (*(*(v32 + 16) + 24))(v55, v31);
-  (*(v46 + 8))(v29, v31);
-  swift_setAtWritableKeyPath();
-
-  v33 = v51;
-  swift_getAtKeyPath();
-  v34 = v53;
-  v35 = swift_getAssociatedConformanceWitness();
-  (*(*(v35 + 16) + 24))(v55, v34);
-  (*(v52 + 8))(v33, v34);
-  swift_setAtWritableKeyPath();
-
-  v36 = *(v9 + 8);
-  v37 = (*(*(v30 + 8) + 24))(a2, *(v30 + 8));
-  v38 = sub_1AE156B60(v37, v55);
-
-  (*(v36 + 32))(v38, a2, v36);
-}
-
-uint64_t CRStruct_3.merge(_:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, _WORD *a3@<X8>)
-{
-  v50 = a3;
-  v5 = *(a2 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v47 = *(AssociatedTypeWitness - 8);
-  v6 = *(v47 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v45 = &v38 - v7;
-  v40 = swift_getAssociatedTypeWitness();
-  v39 = *(v40 - 8);
-  v8 = *(v39 + 64);
-  MEMORY[0x1EEE9AC00](v40);
-  v10 = &v38 - v9;
-  v11 = swift_getAssociatedTypeWitness();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  v14 = MEMORY[0x1EEE9AC00](v11);
-  v16 = &v38 - v15;
-  (*(v5 + 64))(&v51 + 6, a1, v5, v14);
-  v17 = v54;
-  v48 = v53;
-  v46 = v55;
-  v43 = v57;
-  v44 = v56;
-  v42 = v58;
-  if (qword_1ED9670C0 != -1)
-  {
-    swift_once();
-  }
-
-  *(&v51 + 3) = word_1ED96F220;
-  BYTE5(v51) = byte_1ED96F222;
-
-  swift_getAtKeyPath();
-  v18 = swift_modifyAtWritableKeyPath();
-  v38 = v3;
-  v19 = v18;
-  v41 = v17;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(AssociatedConformanceWitness + 8) + 8))(&v51, v16, v11);
-  (*(v12 + 8))(v16, v11);
-  v19(&v51 + 6, 0);
-
-  HIWORD(v51) = v51;
-  v52 = BYTE2(v51);
-  v21 = &v51 + 6;
-  MergeResult.merge(_:)(v21);
-
-  swift_getAtKeyPath();
-  v22 = swift_modifyAtWritableKeyPath();
-  v23 = v40;
-  v24 = swift_getAssociatedConformanceWitness();
-  (*(*(v24 + 8) + 8))(&v51, v10, v23);
-  (*(v39 + 8))(v10, v23);
-  v22(&v51 + 6, 0);
-
-  HIWORD(v51) = v51;
-  v52 = BYTE2(v51);
-  v25 = &v51 + 6;
-  MergeResult.merge(_:)(v25);
-
-  v26 = v45;
-  swift_getAtKeyPath();
-  v27 = swift_modifyAtWritableKeyPath();
-  v28 = AssociatedTypeWitness;
-  v29 = swift_getAssociatedConformanceWitness();
-  (*(*(v29 + 8) + 8))(&v51, v26, v28);
-  (*(v47 + 8))(v26, v28);
-  v27(&v51 + 6, 0);
-
-  HIWORD(v51) = v51;
-  v52 = BYTE2(v51);
-  v30 = &v51 + 6;
-  MergeResult.merge(_:)(v30);
-  v31 = *(v5 + 8);
-  v32 = (*(v31 + 24))(a1, v31);
-  v33 = (*(v31 + 40))(&v51 + 6, a1, v31);
-  sub_1AE21F75C(v32, &v51);
-
-  v33(&v51 + 6, 0);
-  HIWORD(v51) = v51;
-  v52 = BYTE2(v51);
-  v34 = &v51 + 6;
-  MergeResult.merge(_:)(v34);
-  (*(v31 + 64))(a1, v31);
-
-  v36 = BYTE5(v51);
-  v37 = v50;
-  *v50 = *(&v51 + 3);
-  *(v37 + 2) = v36;
-  return result;
-}
-
-uint64_t CRStruct_3.newRefs(from:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v67 = a1;
-  v4 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v6 = *(AssociatedTypeWitness - 8);
-  v65 = AssociatedTypeWitness;
-  v66 = v6;
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v62 = &v52 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v60 = &v52 - v10;
-  v11 = swift_getAssociatedTypeWitness();
-  v12 = *(v11 - 8);
-  v57 = v11;
-  v58 = v12;
-  v13 = *(v12 + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v56 = &v52 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v55 = &v52 - v16;
-  v17 = swift_getAssociatedTypeWitness();
-  v18 = *(v17 - 8);
-  v19 = *(v18 + 64);
-  MEMORY[0x1EEE9AC00](v17);
-  v21 = &v52 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v23 = MEMORY[0x1EEE9AC00](v22);
-  v25 = &v52 - v24;
-  v26 = *(v4 + 64);
-  v54 = v4;
-  v26(v69, a2, v4, v23);
-  v59 = v69[2];
-  v63 = v69[4];
-  v64 = v69[1];
-  v68 = v69[5];
-  v61 = v69[7];
-  v69[0] = MEMORY[0x1E69E7CD0];
-
-  swift_getAtKeyPath();
-
-  swift_getAtKeyPath();
-
-  v53 = a2;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v28 = (*(AssociatedConformanceWitness + 64))(v21, v17, AssociatedConformanceWitness);
-  v29 = *(v18 + 8);
-  v29(v21, v17);
-  v29(v25, v17);
-  sub_1AE00F014(v28);
-
-  v30 = v55;
-  swift_getAtKeyPath();
-
-  v31 = v56;
-  swift_getAtKeyPath();
-
-  v32 = v54;
-  v33 = v57;
-  v34 = swift_getAssociatedConformanceWitness();
-  v35 = v31;
-  v36 = (*(v34 + 64))(v31, v33, v34);
-  v37 = *(v58 + 8);
-  v37(v35, v33);
-  v37(v30, v33);
-  sub_1AE00F014(v36);
-
-  v38 = v60;
-  swift_getAtKeyPath();
-
-  v39 = v62;
-  swift_getAtKeyPath();
-
-  v40 = v32;
-  v41 = v53;
-  v42 = v65;
-  v43 = swift_getAssociatedConformanceWitness();
-  v44 = (*(v43 + 64))(v39, v42, v43);
-  v45 = *(v66 + 8);
-  v45(v39, v42);
-  v45(v38, v42);
-  sub_1AE00F014(v44);
-  v46 = *(v40 + 8);
-  v47 = *(v46 + 24);
-  v48 = v47(v41, v46);
-  v49 = v47(v41, v46);
-  v50 = sub_1AE2200E4(v49, v48);
-
-  sub_1AE00F014(v50);
-
-  return v69[0];
-}
-
-uint64_t CRStruct_3.observableDifference(from:with:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  v99 = a2;
-  v89 = a1;
+  v86 = a8;
+  v90 = a7;
+  v94 = a6;
   v98 = a5;
-  v6 = *(a4 + 8);
-  swift_getAssociatedTypeWitness();
-  v85 = *(swift_getAssociatedConformanceWitness() + 16);
+  v106 = a4;
+  v11 = *(a3 + 8);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v7 = sub_1AE23D7CC();
-  swift_getAssociatedTypeWitness();
-  v87 = *(swift_getAssociatedConformanceWitness() + 16);
-  v68 = swift_getAssociatedTypeWitness();
-  v8 = sub_1AE23D7CC();
-  swift_getAssociatedTypeWitness();
-  v88 = *(swift_getAssociatedConformanceWitness() + 16);
-  v67 = swift_getAssociatedTypeWitness();
-  v9 = sub_1AE23D7CC();
-  TupleTypeMetadata3 = swift_getTupleTypeMetadata3();
-  v10 = *(*(TupleTypeMetadata3 - 8) + 64);
-  MEMORY[0x1EEE9AC00](TupleTypeMetadata3);
-  v69 = &v67 - v11;
-  v84 = swift_checkMetadataState();
-  v86 = *(v84 - 8);
-  v12 = *(v86 + 64);
-  MEMORY[0x1EEE9AC00](v84);
-  v82 = &v67 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v81 = &v67 - v15;
-  v94 = v9;
-  v92 = *(v9 - 8);
-  v16 = *(v92 + 64);
-  MEMORY[0x1EEE9AC00](v17);
-  v77 = &v67 - v18;
-  v79 = swift_checkMetadataState();
-  v80 = *(v79 - 8);
-  v19 = *(v80 + 64);
-  MEMORY[0x1EEE9AC00](v79);
-  v76 = &v67 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v21);
-  v71 = &v67 - v22;
-  v95 = v8;
-  v90 = *(v8 - 8);
-  v23 = *(v90 + 64);
-  MEMORY[0x1EEE9AC00](v24);
-  v74 = &v67 - v25;
-  v26 = swift_checkMetadataState();
-  v27 = *(v26 - 8);
-  v28 = *(v27 + 64);
-  MEMORY[0x1EEE9AC00](v26);
-  v30 = &v67 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v31);
-  v33 = &v67 - v32;
-  v93 = v7;
-  v83 = *(v7 - 8);
-  v34 = *(v83 + 64);
-  v36 = MEMORY[0x1EEE9AC00](v35);
-  v72 = &v67 - v37;
-  v38 = *(v6 + 64);
-  v96 = v6;
-  v97 = a3;
-  v38(v100, a3, v6, v36);
-  v78 = v100[1];
-  v75 = v100[4];
-  v73 = v100[7];
-
-  swift_getAtKeyPath();
-
-  swift_getAtKeyPath();
-
-  v39 = v99;
-  (*(v85 + 40))(v30, v99, v26);
-  v40 = *(v27 + 8);
-  v40(v30, v26);
-  v40(v33, v26);
-
-  v41 = v71;
-  swift_getAtKeyPath();
-
-  v42 = v76;
-  swift_getAtKeyPath();
-
-  v43 = v74;
-  v44 = v39;
-  v45 = v41;
-  v46 = v79;
-  (*(v87 + 40))(v42, v44, v79);
-  v47 = *(v80 + 8);
-  v47(v42, v46);
-  v47(v45, v46);
-
-  v48 = v81;
-  swift_getAtKeyPath();
-
-  v49 = v82;
-  swift_getAtKeyPath();
-
-  v50 = v77;
-  v51 = v84;
-  (*(v88 + 40))(v49, v99, v84);
-
-  v52 = *(v86 + 8);
-  v52(v49, v51);
-  v52(v48, v51);
-  v53 = v72;
-  if ((*(*(AssociatedTypeWitness - 8) + 48))(v72, 1) == 1 && (*(*(v68 - 8) + 48))(v43, 1) == 1 && (*(*(v67 - 8) + 48))(v50, 1) == 1)
-  {
-    (*(v83 + 8))(v53, v93);
-    v54 = *(*(*(v96 + 8) + 8) + 16);
-    v55 = swift_getAssociatedTypeWitness();
-    (*(*(v55 - 8) + 56))(v98, 1, 1, v55);
-    v57 = v94;
-    v56 = v95;
-    v58 = v92;
-    v59 = v90;
-  }
-
-  else
-  {
-    v60 = *(TupleTypeMetadata3 + 48);
-    v61 = *(TupleTypeMetadata3 + 64);
-    v62 = v69;
-    (*(v83 + 32))(v69, v53, v93);
-    v59 = v90;
-    v56 = v95;
-    (*(v90 + 16))(&v62[v60], v43, v95);
-    v58 = v92;
-    v57 = v94;
-    (*(v92 + 16))(&v62[v61], v50, v94);
-    v63 = *(*(*(v96 + 8) + 8) + 16);
-    v64 = swift_getAssociatedTypeWitness();
-    v65 = v98;
-    swift_dynamicCast();
-    (*(*(v64 - 8) + 56))(v65, 0, 1, v64);
-  }
-
-  (*(v58 + 8))(v50, v57);
-  return (*(v59 + 8))(v43, v56);
-}
-
-uint64_t CRStruct_3.hasDelta(from:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v4 = v3;
-  v62 = a1;
-  v6 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v50 = *(AssociatedTypeWitness - 8);
-  v7 = *(v50 + 64);
+  v82 = *(AssociatedTypeWitness - 8);
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v49 = &v47 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v48 = &v47 - v10;
-  v11 = swift_getAssociatedTypeWitness();
-  v54 = *(v11 - 8);
-  v55 = v11;
-  v12 = *(v54 + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v53 = &v47 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v52 = &v47 - v15;
-  v16 = swift_getAssociatedTypeWitness();
-  v17 = *(v16 - 8);
-  v18 = *(v17 + 64);
-  MEMORY[0x1EEE9AC00](v16);
-  v20 = &v47 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = MEMORY[0x1EEE9AC00](v21);
-  v24 = &v47 - v23;
-  (*(v6 + 64))(v63, a2, v6, v22);
-  v25 = v63[5];
-  v58 = v63[1];
-  v59 = v63[7];
-  v60 = v63[4];
-  v61 = v63[8];
-
-  v56 = v4;
-  swift_getAtKeyPath();
-
-  swift_getAtKeyPath();
-
-  v57 = a2;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  LOBYTE(a2) = (*(AssociatedConformanceWitness + 88))(v20, v16, AssociatedConformanceWitness);
-  v27 = *(v17 + 8);
-  v27(v20, v16);
-  v27(v24, v16);
-  if (a2)
-  {
-    goto LABEL_3;
-  }
-
-  v28 = v52;
-  swift_getAtKeyPath();
-
-  v29 = v53;
-  swift_getAtKeyPath();
-
-  v30 = v55;
-  v31 = swift_getAssociatedConformanceWitness();
-  v32 = (*(v31 + 88))(v29, v30, v31);
-  v33 = *(v54 + 8);
-  v33(v29, v30);
-  v33(v28, v30);
-  if (v32)
-  {
-    goto LABEL_3;
-  }
-
-  v55 = v25;
-
-  v36 = v48;
-  swift_getAtKeyPath();
-
-  v37 = v49;
-  swift_getAtKeyPath();
-
-  v38 = AssociatedTypeWitness;
-  v39 = swift_getAssociatedConformanceWitness();
-  v40 = (*(v39 + 88))(v37, v38, v39);
-  v41 = *(v50 + 8);
-  v41(v37, v38);
-  v41(v36, v38);
-  if (v40)
-  {
-LABEL_3:
-
-    v34 = 1;
-  }
-
-  else
-  {
-    v42 = *(v6 + 8);
-    v43 = *(v42 + 24);
-    v44 = v57;
-    v45 = v43(v57, v42);
-    v46 = v43(v44, v42);
-    v34 = sub_1AE21FE14(v46, v45);
-  }
-
-  return v34 & 1;
-}
-
-uint64_t CRStruct_3.actionUndoingDifference(from:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v71 = a1;
-  v81 = a4;
-  v5 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v76 = *(AssociatedTypeWitness - 8);
-  v6 = *(v76 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v75 = &v54 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v72 = &v54 - v9;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v55 = swift_getAssociatedTypeWitness();
-  v10 = sub_1AE23D7CC();
-  v79 = *(v10 - 8);
-  v80 = v10;
-  v11 = *(v79 + 64);
-  MEMORY[0x1EEE9AC00](v10);
-  v67 = &v54 - v12;
-  v65 = swift_getAssociatedTypeWitness();
-  v68 = *(v65 - 8);
-  v13 = *(v68 + 64);
-  MEMORY[0x1EEE9AC00](v65);
-  v66 = &v54 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v62 = &v54 - v16;
-  v63 = swift_getAssociatedConformanceWitness();
-  v56 = swift_getAssociatedTypeWitness();
-  v17 = sub_1AE23D7CC();
-  v77 = *(v17 - 8);
-  v78 = v17;
-  v18 = *(v77 + 64);
-  MEMORY[0x1EEE9AC00](v17);
-  v82 = &v54 - v19;
-  v20 = swift_getAssociatedTypeWitness();
-  v57 = *(v20 - 8);
-  v21 = *(v57 + 64);
-  MEMORY[0x1EEE9AC00](v20);
-  v23 = &v54 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v24);
-  v26 = &v54 - v25;
-  v27 = swift_getAssociatedConformanceWitness();
-  v64 = swift_getAssociatedTypeWitness();
-  v70 = sub_1AE23D7CC();
-  v69 = *(v70 - 8);
-  v28 = *(v69 + 64);
-  v29 = MEMORY[0x1EEE9AC00](v70);
-  v58 = &v54 - v30;
-  (*(v5 + 64))(v83, a2, v5, v29);
-  v61 = v83[1];
-  v60 = v83[4];
-  v59 = v83[7];
-
-  swift_getAtKeyPath();
-
-  swift_getAtKeyPath();
-
-  (*(v27 + 72))(v23, v20, v27);
-  v31 = *(v57 + 8);
-  v31(v23, v20);
-  v31(v26, v20);
-
-  v32 = v62;
-  swift_getAtKeyPath();
-
-  v33 = v66;
-  swift_getAtKeyPath();
-
-  v34 = v65;
-  (*(v63 + 72))(v33, v65);
-  v35 = *(v68 + 8);
-  v35(v33, v34);
-  v35(v32, v34);
-
-  v36 = v72;
-  swift_getAtKeyPath();
-
-  v37 = v75;
-  swift_getAtKeyPath();
-
-  v38 = AssociatedTypeWitness;
-  v39 = v67;
-  (*(AssociatedConformanceWitness + 72))(v37, AssociatedTypeWitness);
-
-  v40 = *(v76 + 8);
-  v41 = v38;
-  v42 = v58;
-  v40(v37, v41);
-  v40(v36, v41);
-  if ((*(*(v64 - 8) + 48))(v42, 1) == 1 && (*(*(v56 - 8) + 48))(v82, 1) == 1 && (*(*(v55 - 8) + 48))(v39, 1) == 1)
-  {
-    (*(v69 + 8))(v42, v70);
-    v43 = v78;
-    v44 = v80;
-    TupleTypeMetadata3 = swift_getTupleTypeMetadata3();
-    (*(*(TupleTypeMetadata3 - 8) + 56))(v81, 1, 1, TupleTypeMetadata3);
-    v46 = v79;
-    v47 = v77;
-  }
-
-  else
-  {
-    v48 = v70;
-    v43 = v78;
-    v44 = v80;
-    v49 = swift_getTupleTypeMetadata3();
-    v50 = *(v49 + 48);
-    v51 = *(v49 + 64);
-    v52 = v81;
-    (*(v69 + 32))(v81, v42, v48);
-    v47 = v77;
-    (*(v77 + 16))(v52 + v50, v82, v43);
-    v46 = v79;
-    (*(v79 + 16))(v52 + v51, v39, v44);
-    (*(*(v49 - 8) + 56))(v52, 0, 1, v49);
-  }
-
-  (*(v46 + 8))(v39, v44);
-  return (*(v47 + 8))(v82, v43);
-}
-
-uint64_t CRStruct_3.apply(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v102 = AssociatedTypeWitness;
-  v86 = swift_getAssociatedTypeWitness();
-  v7 = sub_1AE23D7CC();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x1EEE9AC00](v7);
-  v100 = &v84 - v10;
-  v11 = swift_getAssociatedTypeWitness();
-  v98 = swift_getAssociatedConformanceWitness();
-  v99 = v11;
-  v85 = swift_getAssociatedTypeWitness();
-  v12 = sub_1AE23D7CC();
-  v103 = *(v12 - 8);
-  v13 = *(v103 + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v94 = &v84 - v14;
-  v15 = swift_getAssociatedTypeWitness();
-  v88 = swift_getAssociatedConformanceWitness();
-  v96 = v15;
-  v16 = swift_getAssociatedTypeWitness();
-  v17 = sub_1AE23D7CC();
-  v104 = v12;
-  v113 = v7;
-  TupleTypeMetadata3 = swift_getTupleTypeMetadata3();
-  v19 = sub_1AE23D7CC();
-  v20 = *(v19 - 8);
-  v21 = *(v20 + 64);
-  MEMORY[0x1EEE9AC00](v19);
-  v91 = &v84 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v23);
-  v89 = &v84 - v24;
-  MEMORY[0x1EEE9AC00](v25);
-  v27 = &v84 - v26;
-  v111 = v17;
-  v28 = *(v17 - 8);
-  v29 = *(v28 + 64);
-  v31 = MEMORY[0x1EEE9AC00](v30);
-  v33 = &v84 - v32;
-  v34 = *(v5 + 64);
-  v35 = v5;
-  v37 = v36;
-  v34(v115, a2, v35, v31);
-  v38 = v20;
-  v39 = v115[2];
-  v97 = v115[1];
-  v95 = v115[4];
-  v114 = v115[5];
-  v93 = v115[7];
-  v92 = v115[8];
-  v40 = *(v38 + 16);
-  v112 = a1;
-  v109 = v40;
-  v110 = v38 + 16;
-  v40(v27, a1, v37);
-  v41 = *(TupleTypeMetadata3 - 8);
-  v42 = *(v41 + 48);
-  v107 = v41 + 48;
-  v108 = v42;
-  v43 = v42(v27, 1, TupleTypeMetadata3);
-  v105 = v8;
-  v90 = v38;
-  v106 = v37;
-  if (v43 == 1)
-  {
-    v44 = *(v38 + 8);
-
-    v44(v27, v37);
-    (*(*(v16 - 8) + 56))(v33, 1, 1, v16);
-  }
-
-  else
-  {
-    v45 = *(TupleTypeMetadata3 + 48);
-    v46 = *(TupleTypeMetadata3 + 64);
-    (*(v28 + 32))(v33, v27, v111);
-    v47 = *(v8 + 8);
-
-    v47(&v27[v46], v113);
-    (*(v103 + 8))(&v27[v45], v104);
-  }
-
-  v48 = TupleTypeMetadata3;
-  v49 = swift_modifyAtWritableKeyPath();
-  v50 = v88;
-  v51 = *(v88 + 80);
-  v52 = swift_checkMetadataState();
-  v51(v33, v52, v50);
-  v53 = *(v28 + 8);
-  v54 = v111;
-  v53(v33, v111);
-  v49(v115, 0);
-  v96 = v39;
-
-  v55 = v89;
-  v109(v89, v112, v106);
-  v56 = v108(v55, 1, v48);
-  v88 = v28 + 8;
-  v84 = v53;
-  v87 = v48;
-  if (v56 == 1)
-  {
-    v57 = *(v90 + 8);
-
-    v58 = v106;
-    v57(v55, v106);
-    v59 = v58;
-    v60 = v94;
-    (*(*(v85 - 8) + 56))(v94, 1, 1);
-    v61 = v104;
-    v62 = v103;
-  }
-
-  else
-  {
-    v63 = *(v48 + 48);
-    v85 = *(v48 + 64);
-    v62 = v103;
-    v60 = v94;
-    v61 = v104;
-    (*(v103 + 32))(v94, &v55[v63], v104);
-    v64 = *(v105 + 8);
-
-    v64(&v55[v85], v113);
-    v53(v55, v54);
-    v59 = v106;
-  }
-
-  v65 = swift_modifyAtWritableKeyPath();
-  v66 = v98;
-  v67 = *(v98 + 80);
-  v68 = swift_checkMetadataState();
-  v67(v60, v68, v66);
-  v69 = *(v62 + 8);
-  v69(v60, v61);
-  v65(v115, 0);
-
-  v70 = v91;
-  v109(v91, v112, v59);
-  v71 = v87;
-  if (v108(v70, 1, v87) == 1)
-  {
-    v72 = *(v90 + 8);
-
-    v72(v70, v59);
-    v73 = v100;
-    (*(*(v86 - 8) + 56))(v100, 1, 1);
-    v74 = v105;
-    v75 = v113;
-  }
-
-  else
-  {
-    v76 = v61;
-    v77 = *(v71 + 48);
-    v78 = *(v71 + 64);
-    v74 = v105;
-    v73 = v100;
-    v75 = v113;
-    (*(v105 + 32))(v100, &v70[v78], v113);
-
-    v69(&v70[v77], v76);
-    v84(v70, v111);
-  }
-
-  v79 = swift_modifyAtWritableKeyPath();
-  v80 = AssociatedConformanceWitness;
-  v81 = *(AssociatedConformanceWitness + 80);
-  v82 = swift_checkMetadataState();
-  v81(v73, v82, v80);
-  (*(v74 + 8))(v73, v75);
-  v79(v115, 0);
-}
-
-uint64_t CRStruct_3.visitReferences(_:)(void *a1, uint64_t a2, uint64_t a3)
-{
-  v6 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v36 = *(AssociatedTypeWitness - 8);
-  v37 = AssociatedTypeWitness;
-  v8 = *(v36 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v35 = &v34 - v9;
-  v10 = swift_getAssociatedTypeWitness();
-  v39 = *(v10 - 8);
-  v40 = v10;
-  v11 = *(v39 + 64);
-  MEMORY[0x1EEE9AC00](v10);
-  v38 = &v34 - v12;
-  v13 = swift_getAssociatedTypeWitness();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  v16 = MEMORY[0x1EEE9AC00](v13);
-  v18 = &v34 - v17;
-  (*(v6 + 64))(v46, a2, v6, v16);
-  v45 = v46[4];
-  v43 = v46[1];
-  v44 = v46[7];
-  v42 = v46[8];
-
-  v41 = v3;
-  swift_getAtKeyPath();
-
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(AssociatedConformanceWitness + 16) + 48))(a1, v13);
-  (*(v14 + 8))(v18, v13);
-  v20 = a1[3];
-  v21 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, v20);
-  if ((*(v21 + 8))(v20, v21))
-  {
-    goto LABEL_3;
-  }
-
-  v22 = v38;
-  swift_getAtKeyPath();
-
-  v23 = v40;
-  v24 = swift_getAssociatedConformanceWitness();
-  (*(*(v24 + 16) + 48))(a1, v23);
-  (*(v39 + 8))(v22, v23);
-  v25 = a1[3];
-  v26 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, v25);
-  if ((*(v26 + 8))(v25, v26))
-  {
-    goto LABEL_3;
-  }
-
-  v28 = v35;
-  swift_getAtKeyPath();
-
-  v29 = v37;
-  v30 = swift_getAssociatedConformanceWitness();
-  (*(*(v30 + 16) + 48))(a1, v29);
-  (*(v36 + 8))(v28, v29);
-  v31 = a1[3];
-  v32 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, v31);
-  if ((*(v32 + 8))(v31, v32))
-  {
-LABEL_3:
-  }
-
-  else
-  {
-    v33 = (*(*(v6 + 8) + 24))(a2);
-    sub_1ADDDC764(a1, v33);
-  }
-}
-
-Swift::Bool __swiftcall CRStruct_3.needToFinalizeTimestamps()()
-{
-  v2 = v0;
-  v3 = *(v1 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v28 = *(AssociatedTypeWitness - 8);
-  v29 = AssociatedTypeWitness;
-  v5 = *(v28 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v27 = &v27 - v6;
-  v7 = swift_getAssociatedTypeWitness();
-  v30 = *(v7 - 8);
-  v31 = v7;
-  v8 = *(v30 + 64);
-  MEMORY[0x1EEE9AC00](v7);
-  v10 = &v27 - v9;
-  v11 = swift_getAssociatedTypeWitness();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  v14 = MEMORY[0x1EEE9AC00](v11);
-  v16 = &v27 - v15;
-  (*(v3 + 64))(v36, v2, v3, v14);
-  v34 = v36[1];
-  v35 = v36[4];
-  v32 = v36[8];
-  v33 = v36[7];
-
-  swift_getAtKeyPath();
-
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v18 = (*(*(AssociatedConformanceWitness + 16) + 56))(v11);
-  (*(v12 + 8))(v16, v11);
-  if (v18 & 1) != 0 || (swift_getAtKeyPath(), v19 = v31, v20 = swift_getAssociatedConformanceWitness(), v21 = (*(*(v20 + 16) + 56))(v19), (*(v30 + 8))(v10, v19), (v21))
-  {
-
-    v22 = 1;
-  }
-
-  else
-  {
-    v23 = v27;
-    swift_getAtKeyPath();
-    v24 = v29;
-    v25 = swift_getAssociatedConformanceWitness();
-    v22 = (*(*(v25 + 16) + 56))(v24);
-
-    (*(v28 + 8))(v23, v24);
-  }
-
-  return v22 & 1;
-}
-
-uint64_t CRStruct_3.finalizeTimestamps(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  (*(*(a3 + 8) + 64))(&v17, a2, *(a3 + 8));
-
-  v15 = swift_modifyAtWritableKeyPath();
-  swift_getAssociatedTypeWitness();
-  v4 = *(swift_getAssociatedConformanceWitness() + 16);
-  v5 = *(v4 + 64);
-  v6 = swift_checkMetadataState();
-  v5(a1, v6, v4);
-  v15(&v17, 0);
-
-  v16 = swift_modifyAtWritableKeyPath();
-  swift_getAssociatedTypeWitness();
-  v7 = *(swift_getAssociatedConformanceWitness() + 16);
-  v8 = *(v7 + 64);
-  v9 = swift_checkMetadataState();
-  v8(a1, v9, v7);
-  v16(&v17, 0);
-
-  v10 = swift_modifyAtWritableKeyPath();
-  swift_getAssociatedTypeWitness();
-  v11 = *(swift_getAssociatedConformanceWitness() + 16);
-  v12 = *(v11 + 64);
-  v13 = swift_checkMetadataState();
-  v12(a1, v13, v11);
-  v10(&v17, 0);
-}
-
-uint64_t CRStruct_3.minEncodingVersion.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  v38 = a3;
-  v5 = *(a2 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v30 = *(AssociatedTypeWitness - 8);
-  v31 = AssociatedTypeWitness;
-  v7 = *(v30 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v29 = &v28 - v8;
-  v9 = swift_getAssociatedTypeWitness();
-  v32 = *(v9 - 8);
-  v10 = *(v32 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = &v28 - v11;
-  v13 = swift_getAssociatedTypeWitness();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  v16 = MEMORY[0x1EEE9AC00](v13);
-  v18 = &v28 - v17;
-  (*(v5 + 64))(v41 + 1, a1, v5, v16);
-  v36 = *(&v41[4] + 1);
-  v37 = *(&v41[1] + 1);
-  v39 = *(&v41[5] + 1);
-  v40 = *(&v41[2] + 1);
-  v34 = *(&v41[8] + 1);
-  v35 = *(&v41[7] + 1);
-  v19 = *(*(v5 + 8) + 24);
-  v33 = v3;
-  v20 = v19(a1);
-  sub_1AE21FFB0(v20, v41 + 1);
-
-  v21 = BYTE1(v41[0]);
-  if (BYTE1(v41[0]) > 2u)
-  {
-    goto LABEL_11;
-  }
-
-  swift_getAtKeyPath();
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(*(AssociatedConformanceWitness + 16) + 8) + 24))(v41, v13);
-  (*(v14 + 8))(v18, v13);
-  if (LOBYTE(v41[0]) > v21)
-  {
-    v21 = LOBYTE(v41[0]);
-  }
-
-  BYTE1(v41[0]) = v21;
-  if (LOBYTE(v41[0]) > 2u)
-  {
-    goto LABEL_11;
-  }
-
-  swift_getAtKeyPath();
-  v23 = swift_getAssociatedConformanceWitness();
-  (*(*(*(v23 + 16) + 8) + 24))(v41, v9);
-  (*(v32 + 8))(v12, v9);
-  if (LOBYTE(v41[0]) > v21)
-  {
-    v21 = LOBYTE(v41[0]);
-  }
-
-  BYTE1(v41[0]) = v21;
-  if (v21 > 2)
-  {
-LABEL_11:
-  }
-
-  else
-  {
-    v24 = v29;
-    swift_getAtKeyPath();
-    v25 = v31;
-    v26 = swift_getAssociatedConformanceWitness();
-    (*(*(*(v26 + 16) + 8) + 24))(v41, v25);
-
-    result = (*(v30 + 8))(v24, v25);
-    if (LOBYTE(v41[0]) > v21)
-    {
-      LOBYTE(v21) = v41[0];
-    }
-  }
-
-  *v38 = v21;
-  return result;
-}
-
-uint64_t CRStruct_3<>.encode(to:)(void *a1, uint64_t a2, uint64_t a3, char *a4, uint64_t a5, uint64_t a6)
-{
-  v46 = a6;
-  v53 = a5;
-  v56 = a4;
-  v8 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v48 = *(AssociatedTypeWitness - 8);
-  v9 = *(v48 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v47 = &v44 - v10;
-  v54 = swift_getAssociatedTypeWitness();
-  v52 = *(v54 - 8);
-  v11 = *(v52 + 64);
-  MEMORY[0x1EEE9AC00](v54);
-  v51 = &v44 - v12;
-  v13 = swift_getAssociatedTypeWitness();
-  v55 = *(v13 - 8);
-  v14 = *(v55 + 64);
-  MEMORY[0x1EEE9AC00](v13);
-  v16 = &v44 - v15;
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5BCF60, &unk_1AE252450);
-  v58 = *(v17 - 8);
-  v18 = *(v58 + 64);
-  v19 = MEMORY[0x1EEE9AC00](v17);
-  v21 = &v44 - v20;
-  v22 = *(v8 + 64);
-  v44 = a2;
-  v22(&v66, a2, v8, v19);
-  v64 = v67;
-  v65 = v66;
-  v23 = v68;
-  v50 = v69;
-  v60 = v71;
-  v61 = v70;
-  v45 = v72;
-  v59 = v73;
-  v63 = v74;
-  v24 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  sub_1AE048F10();
-  sub_1AE23E3CC();
-
-  swift_getAtKeyPath();
-
-  v66 = v65;
-  v67 = v64;
-  v65 = v17;
-  v25 = v57;
-  sub_1AE23DD5C();
-  if (v25)
-  {
-
-    (*(v55 + 8))(v16, v13);
-    return (*(v58 + 8))(v21, v65);
-  }
-
-  else
-  {
-    v57 = v8;
-    (*(v55 + 8))(v16, v13);
-
-    v26 = v51;
-    swift_getAtKeyPath();
-
-    v66 = v50;
-    v67 = v61;
-
-    v27 = v54;
-    sub_1AE23DD5C();
-
-    (*(v52 + 8))(v26, v27);
-
-    v29 = v47;
-    swift_getAtKeyPath();
-
-    v66 = v45;
-    v67 = v59;
-
-    sub_1AE23DD5C();
-    v55 = v23;
-    v56 = v21;
-
-    (*(v48 + 8))(v29, AssociatedTypeWitness);
-    result = (*(*(v57 + 8) + 24))(v44);
-    v30 = result;
-    v31 = 0;
-    v32 = result + 64;
-    v33 = 1 << *(result + 32);
-    v34 = -1;
-    if (v33 < 64)
-    {
-      v34 = ~(-1 << v33);
-    }
-
-    v35 = v34 & *(result + 64);
-    v36 = (v33 + 63) >> 6;
-    while (1)
-    {
-      v62 = 0;
-      if (!v35)
-      {
-        break;
-      }
-
-      v37 = v31;
-LABEL_12:
-      v39 = __clz(__rbit64(v35)) | (v37 << 6);
-      v40 = (*(v30 + 48) + 16 * v39);
-      v41 = *v40;
-      v42 = v40[1];
-      v75 = *(*(v30 + 56) + 8 * v39);
-      v66 = v41;
-      v67 = v42;
-      sub_1AE048F64();
-
-      v43 = v62;
-      sub_1AE23DD5C();
-      if (v43)
-      {
-
-        (*(v58 + 8))(v56, v65);
-      }
-
-      v35 &= v35 - 1;
-
-      v31 = v37;
-    }
-
-    v38 = v58;
-    while (1)
-    {
-      v37 = v31 + 1;
-      if (__OFADD__(v31, 1))
-      {
-        break;
-      }
-
-      if (v37 >= v36)
-      {
-
-        return (*(v38 + 8))(v56, v65);
-      }
-
-      v35 = *(v32 + 8 * v37);
-      ++v31;
-      if (v35)
-      {
-        goto LABEL_12;
-      }
-    }
-
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t CRStruct_4.copy(renamingReferences:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v5 = v4;
-  v84 = a1;
-  v83 = a4;
-  v8 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v70 = *(AssociatedTypeWitness - 8);
-  v9 = *(v70 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v68 = &v54 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v69 = &v54 - v12;
-  v61 = swift_getAssociatedTypeWitness();
-  v67 = *(v61 - 8);
-  v13 = *(v67 + 64);
-  MEMORY[0x1EEE9AC00](v61);
-  v65 = &v54 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v66 = &v54 - v16;
-  v59 = swift_getAssociatedTypeWitness();
-  v63 = *(v59 - 8);
-  v17 = *(v63 + 64);
-  MEMORY[0x1EEE9AC00](v59);
-  v60 = &v54 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v19);
-  v62 = &v54 - v20;
-  v55 = swift_getAssociatedTypeWitness();
-  v58 = *(v55 - 8);
-  v21 = *(v58 + 64);
-  MEMORY[0x1EEE9AC00](v55);
-  v56 = &v54 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v24 = MEMORY[0x1EEE9AC00](v23);
-  v57 = &v54 - v25;
-  (*(*(a2 - 8) + 16))(a4, v5, a2, v24);
-  v82 = v8;
-  (*(v8 + 80))(v86, a2, v8);
-  v26 = v86[1];
-  v77 = v86[2];
-  v73 = v86[4];
-  v79 = v86[5];
-  v72 = v86[7];
-  v80 = v86[8];
-  v27 = v86[10];
-  v28 = v86[11];
-  sub_1AE23DB8C();
-  v85[0] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v85[1] = swift_getTupleTypeMetadata2();
-  v81 = a2;
-  sub_1AE23DB8C();
-  v85[2] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v85[3] = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v64 = *(TupleTypeMetadata - 8);
-  v30 = *(v64 + 16);
-  v75 = TupleTypeMetadata;
-  v30(v85, v86, TupleTypeMetadata);
-  v76 = v26;
-
-  v78 = v28;
-
-  v71 = v27;
-
-  v30(v85, v86, TupleTypeMetadata);
-
-  v31 = v56;
-  swift_getAtKeyPath();
-
-  v32 = v55;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(AssociatedConformanceWitness + 16) + 24))(v84, v32);
-  (*(v58 + 8))(v31, v32);
-  swift_setAtWritableKeyPath();
-
-  v34 = v75;
-  v30(v85, v86, v75);
-
-  v30(v85, v86, v34);
-
-  v35 = v60;
-  swift_getAtKeyPath();
-
-  v36 = v59;
-  v37 = swift_getAssociatedConformanceWitness();
-  (*(*(v37 + 16) + 24))(v84, v36);
-  (*(v63 + 8))(v35, v36);
-  swift_setAtWritableKeyPath();
-
-  v38 = v75;
-  v54 = v30;
-  v30(v85, v86, v75);
-
-  v30(v85, v86, v38);
-
-  v39 = v65;
-  swift_getAtKeyPath();
-
-  v40 = v61;
-  v41 = swift_getAssociatedConformanceWitness();
-  (*(*(v41 + 16) + 24))(v84, v40);
-  (*(v67 + 8))(v39, v40);
-  swift_setAtWritableKeyPath();
-
-  v42 = v75;
-  v43 = v54;
-  v54(v85, v86, v75);
-
-  v43(v85, v86, v42);
-
-  v44 = v68;
-  swift_getAtKeyPath();
-
-  v45 = v82;
-  v46 = v81;
-  v47 = AssociatedTypeWitness;
-  v48 = swift_getAssociatedConformanceWitness();
-  v49 = v84;
-  (*(*(v48 + 16) + 24))(v84, v47);
-  (*(v70 + 8))(v44, v47);
-  swift_setAtWritableKeyPath();
-
-  v50 = *(v45 + 8);
-  v51 = (*(v50 + 24))(v46, v50);
-  v52 = sub_1AE156B60(v51, v49);
-
-  (*(v50 + 32))(v52, v46, v50);
-  return (*(v64 + 8))(v86, v42);
-}
-
-uint64_t CRStruct_4.copy(renamingReferences:)@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v5 = v4;
-  v9 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v78 = *(AssociatedTypeWitness - 8);
-  v11 = *(v78 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v77 = &v61 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v76 = &v61 - v14;
-  v15 = swift_getAssociatedTypeWitness();
-  v75 = *(v15 - 8);
-  v16 = *(v75 + 64);
-  MEMORY[0x1EEE9AC00](v15);
-  v74 = &v61 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v73 = &v61 - v19;
-  v84 = swift_getAssociatedTypeWitness();
-  v71 = *(v84 - 8);
-  v20 = *(v71 + 64);
-  MEMORY[0x1EEE9AC00](v84);
-  v69 = &v61 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v22);
-  v68 = &v61 - v23;
-  v24 = swift_getAssociatedTypeWitness();
-  v66 = *(v24 - 8);
-  v25 = *(v66 + 64);
-  MEMORY[0x1EEE9AC00](v24);
-  v65 = &v61 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v28.n128_f64[0] = MEMORY[0x1EEE9AC00](v27);
-  v64 = &v61 - v29;
-  if (a1)
-  {
-    v30 = a1;
-  }
-
-  else
-  {
-    v30 = sub_1ADE51288(MEMORY[0x1E69E7CC0]);
-  }
-
-  v96 = v30;
-  (*(*(a2 - 8) + 16))(a4, v5, a2, v28);
-  v93 = a4;
-  v92 = v5;
-  v31 = *(v9 + 80);
-
-  v31(v95, a2, v9);
-  v89 = v95[1];
-  v85 = v95[2];
-  v88 = v95[4];
-  v83 = v95[5];
-  v86 = v95[7];
-  v91 = v9;
-  v32 = v95[10];
-  v33 = v95[11];
-  v34 = v95[8];
-  sub_1AE23DB8C();
-  v94[0] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v94[1] = swift_getTupleTypeMetadata2();
-  v90 = a2;
-  sub_1AE23DB8C();
-  v94[2] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v94[3] = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v67 = v15;
-  v36 = TupleTypeMetadata;
-  v72 = *(TupleTypeMetadata - 8);
-  v70 = AssociatedTypeWitness;
-  v37 = v72 + 16;
-  v38 = *(v72 + 16);
-  v80 = TupleTypeMetadata;
-  v38(v94, v95, TupleTypeMetadata);
-  v63 = v37;
-  v62 = v24;
-
-  v87 = v33;
-
-  v81 = v32;
-
-  v82 = v34;
-
-  v38(v94, v95, v36);
-
-  v39 = v65;
-  swift_getAtKeyPath();
-
-  v40 = v62;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(AssociatedConformanceWitness + 16) + 24))(&v96, v40);
-  (*(v66 + 8))(v39, v40);
-  swift_setAtWritableKeyPath();
-
-  v42 = v80;
-  v79 = v38;
-  v38(v94, v95, v80);
-
-  v38(v94, v95, v42);
-
-  v43 = v69;
-  swift_getAtKeyPath();
-
-  v44 = v84;
-  v45 = swift_getAssociatedConformanceWitness();
-  (*(*(v45 + 16) + 24))(&v96, v44);
-  (*(v71 + 8))(v43, v44);
-  swift_setAtWritableKeyPath();
-
-  v46 = v79;
-  v79(v94, v95, v42);
-
-  v46(v94, v95, v42);
-
-  v47 = v74;
-  swift_getAtKeyPath();
-
-  v48 = v67;
-  v49 = swift_getAssociatedConformanceWitness();
-  (*(*(v49 + 16) + 24))(&v96, v48);
-  (*(v75 + 8))(v47, v48);
-  swift_setAtWritableKeyPath();
-
-  v50 = v80;
-  v51 = v79;
-  v79(v94, v95, v80);
-
-  v51(v94, v95, v50);
-
-  v52 = v77;
-  swift_getAtKeyPath();
-
-  v53 = v91;
-  v54 = v90;
-  v55 = v70;
-  v56 = swift_getAssociatedConformanceWitness();
-  (*(*(v56 + 16) + 24))(&v96, v55);
-  (*(v78 + 8))(v52, v55);
-  swift_setAtWritableKeyPath();
-
-  v57 = *(v53 + 8);
-  v58 = (*(v57 + 24))(v54, v57);
-  v59 = sub_1AE156B60(v58, &v96);
-
-  (*(v57 + 32))(v59, v54, v57);
-  return (*(v72 + 8))(v95, v50);
-}
-
-uint64_t CRStruct_4.merge(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _WORD *a4@<X8>)
-{
-  v89 = a1;
-  v76 = a4;
-  v5 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v75 = *(AssociatedTypeWitness - 8);
-  v7 = *(v75 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v74 = &v61 - v8;
-  v9 = swift_getAssociatedTypeWitness();
-  v73 = *(v9 - 8);
-  v10 = *(v73 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v72 = &v61 - v11;
-  v78 = swift_getAssociatedTypeWitness();
-  v69 = *(v78 - 8);
-  v12 = *(v69 + 64);
-  MEMORY[0x1EEE9AC00](v78);
-  v68 = &v61 - v13;
-  v14 = swift_getAssociatedTypeWitness();
-  v66 = *(v14 - 8);
-  v15 = *(v66 + 64);
-  v16 = MEMORY[0x1EEE9AC00](v14);
-  v65 = &v61 - v17;
-  v18 = *(v5 + 80);
-  v88 = v5;
-  v18(&v91[3], a2, v5, v16);
-  v19 = *&v91[7];
-  v79 = *&v91[11];
-  v86 = *&v91[19];
-  v85 = *&v91[23];
-  v84 = *&v91[31];
-  v20 = *&v91[35];
-  v21 = *&v91[43];
-  v22 = *&v91[47];
-  if (qword_1ED9670C0 != -1)
-  {
-    swift_once();
-  }
-
-  *(&v91[1] + 1) = word_1ED96F220;
-  HIBYTE(v91[2]) = byte_1ED96F222;
-  sub_1AE23DB8C();
-  v90[0] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v90[1] = swift_getTupleTypeMetadata2();
-  v87 = a2;
-  sub_1AE23DB8C();
-  v90[2] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v90[3] = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v71 = *(TupleTypeMetadata - 8);
-  v67 = v9;
-  v70 = AssociatedTypeWitness;
-  v25 = v71 + 16;
-  v24 = *(v71 + 16);
-  v62 = v14;
-  v26 = TupleTypeMetadata;
-  v24(v90, &v91[3]);
-  v63 = v25;
-  v80 = v24;
-  v81 = v19;
-
-  v83 = v22;
-
-  v77 = v21;
-
-  (v24)(v90, &v91[3], v26);
-
-  v27 = v65;
-  swift_getAtKeyPath();
-
-  v28 = swift_modifyAtWritableKeyPath();
-  v29 = v62;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(AssociatedConformanceWitness + 8) + 8))(v91, v27, v29);
-  (*(v66 + 8))(v27, v29);
-  v28(v90, 0);
-
-  LOWORD(v90[0]) = v91[0];
-  BYTE2(v90[0]) = v91[1];
-  v31 = v90;
-  MergeResult.merge(_:)(v31);
-  v82 = v26;
-  v32 = v80;
-  v80(v90, &v91[3], v26);
-
-  v64 = v20;
-
-  v32(v90, &v91[3], v26);
-
-  v33 = v68;
-  swift_getAtKeyPath();
-
-  v34 = swift_modifyAtWritableKeyPath();
-  v35 = v78;
-  v36 = swift_getAssociatedConformanceWitness();
-  (*(*(v36 + 8) + 8))(v91, v33, v35);
-  (*(v69 + 8))(v33, v35);
-  v34(v90, 0);
-
-  LOWORD(v90[0]) = v91[0];
-  BYTE2(v90[0]) = v91[1];
-  v37 = v90;
-  MergeResult.merge(_:)(v37);
-  v38 = v82;
-  v39 = v80;
-  v80(v90, &v91[3], v82);
-
-  v39(v90, &v91[3], v38);
-
-  v40 = v72;
-  swift_getAtKeyPath();
-
-  v41 = swift_modifyAtWritableKeyPath();
-  v42 = v67;
-  v43 = swift_getAssociatedConformanceWitness();
-  (*(*(v43 + 8) + 8))(v91, v40, v42);
-  (*(v73 + 8))(v40, v42);
-  v41(v90, 0);
-
-  LOWORD(v90[0]) = v91[0];
-  BYTE2(v90[0]) = v91[1];
-  v44 = v90;
-  MergeResult.merge(_:)(v44);
-  v45 = v82;
-  v46 = v80;
-  v80(v90, &v91[3], v82);
-
-  v46(v90, &v91[3], v45);
-
-  v47 = v74;
-  swift_getAtKeyPath();
-
-  v48 = swift_modifyAtWritableKeyPath();
-  v49 = v88;
-  v50 = v87;
-  v51 = v70;
-  v52 = swift_getAssociatedConformanceWitness();
-  (*(*(v52 + 8) + 8))(v91, v47, v51);
-  (*(v75 + 8))(v47, v51);
-  v48(v90, 0);
-
-  LOWORD(v90[0]) = v91[0];
-  BYTE2(v90[0]) = v91[1];
-  v53 = v90;
-  MergeResult.merge(_:)(v53);
-  v54 = *(v49 + 8);
-  v55 = (*(v54 + 24))(v50, v54);
-  v56 = (*(v54 + 40))(v90, v50, v54);
-  sub_1AE21F75C(v55, v91);
-
-  v56(v90, 0);
-  LOWORD(v90[0]) = v91[0];
-  BYTE2(v90[0]) = v91[1];
-  v57 = v90;
-  MergeResult.merge(_:)(v57);
-  (*(v54 + 64))(v50, v54);
-  result = (*(v71 + 8))(&v91[3], v82);
-  v59 = HIBYTE(v91[2]);
-  v60 = v76;
-  *v76 = *(&v91[1] + 1);
-  *(v60 + 2) = v59;
-  return result;
-}
-
-uint64_t CRStruct_4.newRefs(from:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v95 = a1;
-  v4 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v79 = *(AssociatedTypeWitness - 8);
-  v5 = *(v79 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v78 = &v66 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
-  v77 = &v66 - v8;
-  v85 = swift_getAssociatedTypeWitness();
-  v76 = *(v85 - 8);
-  v9 = *(v76 + 64);
-  MEMORY[0x1EEE9AC00](v85);
-  v74 = &v66 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v73 = &v66 - v12;
-  v70 = swift_getAssociatedTypeWitness();
-  v72 = *(v70 - 8);
-  v13 = *(v72 + 64);
-  MEMORY[0x1EEE9AC00](v70);
-  v71 = &v66 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v83 = &v66 - v16;
-  v67 = swift_getAssociatedTypeWitness();
-  v69 = *(v67 - 8);
-  v17 = *(v69 + 64);
-  MEMORY[0x1EEE9AC00](v67);
-  v68 = &v66 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = MEMORY[0x1EEE9AC00](v19);
-  v82 = &v66 - v21;
-  v93 = v4;
-  (*(v4 + 80))(v99, a2, v4, v20);
-  v22 = v99[1];
-  v92 = v99[2];
-  v96 = v99[5];
-  v91 = v99[7];
-  v90 = v99[8];
-  v23 = v99[10];
-  v24 = v99[11];
-  v87 = v99[4];
-  v98 = MEMORY[0x1E69E7CD0];
-  sub_1AE23DB8C();
-  v97[0] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v97[1] = swift_getTupleTypeMetadata2();
-  v94 = a2;
-  sub_1AE23DB8C();
-  v97[2] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v97[3] = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v75 = *(TupleTypeMetadata - 8);
-  v26 = v75 + 16;
-  v27 = *(v75 + 16);
-  v27(v97, v99, TupleTypeMetadata);
-  v86 = v27;
-  v89 = v22;
-
-  v81 = v24;
-
-  v88 = v23;
-
-  swift_getAtKeyPath();
-
-  v27(v97, v99, TupleTypeMetadata);
-
-  v28 = v68;
-  swift_getAtKeyPath();
-
-  v29 = v67;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v31 = v82;
-  v32 = (*(AssociatedConformanceWitness + 64))(v28, v29, AssociatedConformanceWitness);
-  v33 = *(v69 + 8);
-  v33(v28, v29);
-  v33(v31, v29);
-  sub_1AE00F014(v32);
-  v80 = TupleTypeMetadata;
-  v34 = v86;
-  v66 = v26;
-  v86(v97, v99, TupleTypeMetadata);
-
-  swift_getAtKeyPath();
-
-  v34(v97, v99, TupleTypeMetadata);
-
-  v35 = v71;
-  swift_getAtKeyPath();
-
-  v36 = v70;
-  v37 = swift_getAssociatedConformanceWitness();
-  v38 = v83;
-  v39 = (*(v37 + 64))(v35, v36, v37);
-  v40 = *(v72 + 8);
-  v40(v35, v36);
-  v40(v38, v36);
-  sub_1AE00F014(v39);
-  v41 = v80;
-  v42 = v86;
-  v86(v97, v99, v80);
-
-  v43 = v73;
-  swift_getAtKeyPath();
-
-  v42(v97, v99, v41);
-
-  v44 = v74;
-  swift_getAtKeyPath();
-
-  v45 = v85;
-  v46 = swift_getAssociatedConformanceWitness();
-  v47 = (*(v46 + 64))(v44, v45, v46);
-  v48 = *(v76 + 8);
-  v48(v44, v45);
-  v48(v43, v45);
-  sub_1AE00F014(v47);
-  v49 = v80;
-  v50 = v86;
-  v86(v97, v99, v80);
-
-  v51 = v77;
-  swift_getAtKeyPath();
-
-  v50(v97, v99, v49);
-
-  v52 = v78;
-  swift_getAtKeyPath();
-
-  v53 = v93;
-  v54 = v94;
-  v55 = AssociatedTypeWitness;
-  v56 = swift_getAssociatedConformanceWitness();
-  v57 = v51;
-  v58 = (*(v56 + 64))(v52, v55, v56);
-  v59 = *(v79 + 8);
-  v59(v52, v55);
-  v59(v57, v55);
-  sub_1AE00F014(v58);
-  v60 = *(v53 + 8);
-  v61 = *(v60 + 24);
-  v62 = v61(v54, v60);
-  v63 = v61(v54, v60);
-  v64 = sub_1AE2200E4(v63, v62);
-
-  sub_1AE00F014(v64);
-  (*(v75 + 8))(v99, v49);
-  return v98;
-}
-
-uint64_t CRStruct_4.observableDifference(from:with:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  v151 = a2;
-  v150 = a1;
-  v131 = a5;
-  v6 = *(a4 + 8);
-  swift_getAssociatedTypeWitness();
-  v7 = *(swift_getAssociatedConformanceWitness() + 16);
-  swift_getAssociatedTypeWitness();
-  v153 = sub_1AE23D7CC();
-  swift_getAssociatedTypeWitness();
-  v8 = *(swift_getAssociatedConformanceWitness() + 16);
-  swift_getAssociatedTypeWitness();
-  v154 = sub_1AE23D7CC();
-  swift_getAssociatedTypeWitness();
-  v9 = *(swift_getAssociatedConformanceWitness() + 16);
-  swift_getAssociatedTypeWitness();
-  v155 = sub_1AE23D7CC();
-  swift_getAssociatedTypeWitness();
-  v10 = *(swift_getAssociatedConformanceWitness() + 16);
-  swift_getAssociatedTypeWitness();
-  v156 = sub_1AE23D7CC();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v11 = *(*(TupleTypeMetadata - 1) + 64);
-  MEMORY[0x1EEE9AC00](TupleTypeMetadata);
-  v100 = &v96 - v12;
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v124 = *(AssociatedTypeWitness - 8);
-  v13 = *(v124 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v121 = &v96 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v119 = &v96 - v16;
-  v120 = *(swift_getAssociatedConformanceWitness() + 16);
-  v97 = swift_getAssociatedTypeWitness();
-  v128 = sub_1AE23D7CC();
-  v127 = *(v128 - 8);
-  v17 = *(v127 + 64);
-  MEMORY[0x1EEE9AC00](v128);
-  v145 = &v96 - v18;
-  v137 = swift_getAssociatedTypeWitness();
-  v118 = *(v137 - 8);
-  v19 = *(v118 + 64);
-  MEMORY[0x1EEE9AC00](v137);
-  v115 = &v96 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v21);
-  v113 = &v96 - v22;
-  v114 = *(swift_getAssociatedConformanceWitness() + 16);
-  v98 = swift_getAssociatedTypeWitness();
-  v126 = sub_1AE23D7CC();
-  v125 = *(v126 - 8);
-  v23 = *(v125 + 64);
-  MEMORY[0x1EEE9AC00](v126);
-  v146 = &v96 - v24;
-  v25 = swift_getAssociatedTypeWitness();
-  v111 = *(v25 - 8);
-  v26 = *(v111 + 64);
-  MEMORY[0x1EEE9AC00](v25);
-  v110 = &v96 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v28);
-  v107 = &v96 - v29;
-  v109 = *(swift_getAssociatedConformanceWitness() + 16);
-  v105 = v25;
-  v99 = swift_getAssociatedTypeWitness();
-  v123 = sub_1AE23D7CC();
-  v122 = *(v123 - 8);
-  v30 = *(v122 + 64);
-  MEMORY[0x1EEE9AC00](v123);
-  v140 = &v96 - v31;
-  v32 = swift_getAssociatedTypeWitness();
-  v106 = *(v32 - 8);
-  v33 = *(v106 + 64);
-  MEMORY[0x1EEE9AC00](v32);
-  v104 = &v96 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v35);
-  v136 = &v96 - v36;
-  v103 = *(swift_getAssociatedConformanceWitness() + 16);
-  v102 = v32;
-  v112 = swift_getAssociatedTypeWitness();
-  v117 = sub_1AE23D7CC();
-  v116 = *(v117 - 8);
-  v37 = *(v116 + 64);
-  v38 = MEMORY[0x1EEE9AC00](v117);
-  v139 = &v96 - v39;
-  v40 = *(v6 + 80);
-  v129 = v6;
-  v40(&v153, a3, v6, v38);
-  v41 = v154;
-  v42 = v155;
-  v149 = v157;
-  v144 = v158;
-  v43 = v159;
-  v135 = v160;
-  v44 = v161;
-  v45 = v162;
-  sub_1AE23DB8C();
-  v152[0] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v152[1] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v152[2] = swift_getTupleTypeMetadata2();
-  v130 = a3;
-  sub_1AE23DB8C();
-  v152[3] = swift_getTupleTypeMetadata2();
-  v46 = swift_getTupleTypeMetadata();
-  v108 = *(v46 - 8);
-  v47 = *(v108 + 16);
-  v143 = v108 + 16;
-  v147 = v46;
-  v47(v152, &v153, v46);
-  v142 = v47;
-  v141 = v41;
-
-  v148 = v44;
-
-  v132 = v43;
-
-  swift_getAtKeyPath();
-
-  v47(v152, &v153, v46);
-
-  v48 = v104;
-  swift_getAtKeyPath();
-
-  v49 = v136;
-  v50 = v102;
-  (*(v103 + 40))(v48, v151, v102);
-  v51 = *(v106 + 8);
-  v51(v48, v50);
-  v51(v49, v50);
-  v52 = v147;
-  v142(v152, &v153, v147);
-
-  v133 = v42;
-
-  v134 = v45;
-
-  v53 = v107;
-  swift_getAtKeyPath();
-
-  v54 = v52;
-  v55 = v142;
-  v142(v152, &v153, v54);
-
-  v56 = v110;
-  swift_getAtKeyPath();
-
-  v57 = v56;
-  v58 = v105;
-  (*(v109 + 40))(v56, v151, v105);
-  v59 = *(v111 + 8);
-  v59(v57, v58);
-  v59(v53, v58);
-  v60 = v147;
-  v55(v152, &v153, v147);
-
-  v61 = v113;
-  swift_getAtKeyPath();
-
-  v55(v152, &v153, v60);
-
-  v62 = v115;
-  swift_getAtKeyPath();
-
-  v63 = v61;
-  v64 = v137;
-  (*(v114 + 40))(v62, v151, v137);
-  v65 = *(v118 + 8);
-  v65(v62, v64);
-  v65(v63, v64);
-  v66 = v147;
-  v67 = v142;
-  v142(v152, &v153, v147);
-
-  v68 = v119;
-  swift_getAtKeyPath();
-
-  v67(v152, &v153, v66);
-  v69 = v140;
-
-  v70 = v121;
-  v71 = v69;
-  swift_getAtKeyPath();
-
-  v72 = AssociatedTypeWitness;
-  (*(v120 + 40))(v70, v151, AssociatedTypeWitness);
-  (*(v108 + 8))(&v153, v147);
-  v73 = *(v124 + 8);
-  v73(v70, v72);
-  v74 = v68;
-  v75 = v139;
-  v73(v74, v72);
-  if ((*(*(v112 - 8) + 48))(v75, 1) == 1 && (*(*(v99 - 8) + 48))(v71, 1) == 1 && (*(*(v98 - 8) + 48))(v146, 1) == 1 && (*(*(v97 - 8) + 48))(v145, 1) == 1)
-  {
-    (*(v116 + 8))(v75, v117);
-    v76 = *(*(*(v129 + 8) + 8) + 16);
-    v77 = swift_getAssociatedTypeWitness();
-    (*(*(v77 - 8) + 56))(v131, 1, 1, v77);
-    v78 = v128;
-    v79 = v71;
-    v80 = v127;
-    v81 = v126;
-    v82 = v125;
-    v83 = v123;
-    v84 = v122;
-  }
-
-  else
-  {
-    v85 = TupleTypeMetadata[12];
-    v86 = TupleTypeMetadata[16];
-    v87 = TupleTypeMetadata[20];
-    v88 = v100;
-    (*(v116 + 32))(v100, v75, v117);
-    v84 = v122;
-    v83 = v123;
-    (*(v122 + 16))(&v88[v85], v71, v123);
-    v82 = v125;
-    v81 = v126;
-    (*(v125 + 16))(&v88[v86], v146, v126);
-    v80 = v127;
-    v89 = &v88[v87];
-    v78 = v128;
-    (*(v127 + 16))(v89, v145, v128);
-    v90 = *(*(*(v129 + 8) + 8) + 16);
-    v91 = swift_getAssociatedTypeWitness();
-    v92 = v131;
-    swift_dynamicCast();
-    v93 = *(*(v91 - 8) + 56);
-    v94 = v91;
-    v79 = v140;
-    v93(v92, 0, 1, v94);
-  }
-
-  (*(v80 + 8))(v145, v78);
-  (*(v82 + 8))(v146, v81);
-  return (*(v84 + 8))(v79, v83);
-}
-
-uint64_t CRStruct_4.hasDelta(from:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v95 = a1;
-  v4 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v68 = *(AssociatedTypeWitness - 8);
-  v6 = *(v68 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v67 = &v67 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v73 = &v67 - v9;
-  v10 = swift_getAssociatedTypeWitness();
-  v71 = *(v10 - 8);
-  v11 = *(v71 + 64);
-  MEMORY[0x1EEE9AC00](v10);
-  v70 = &v67 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v78 = &v67 - v14;
-  v15 = swift_getAssociatedTypeWitness();
-  v76 = *(v15 - 8);
-  v16 = *(v76 + 64);
-  MEMORY[0x1EEE9AC00](v15);
-  v75 = &v67 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v84 = &v67 - v19;
-  v81 = swift_getAssociatedTypeWitness();
-  v83 = *(v81 - 8);
-  v20 = *(v83 + 64);
-  MEMORY[0x1EEE9AC00](v81);
-  v82 = &v67 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v23 = MEMORY[0x1EEE9AC00](v22);
-  v80 = &v67 - v24;
-  v94 = v4;
-  (*(v4 + 80))(v98, a2, v4, v23);
-  v25 = v98[2];
-  v92 = v98[4];
-  v91 = v98[5];
-  v88 = v98[10];
-  v87 = v98[11];
-  v93 = v98[1];
-  v90 = v98[7];
-  v89 = v98[8];
-  sub_1AE23DB8C();
-  v97[0] = swift_getTupleTypeMetadata2();
-  v77 = v15;
-  sub_1AE23DB8C();
-  v97[1] = swift_getTupleTypeMetadata2();
-  v72 = v10;
-  sub_1AE23DB8C();
-  v97[2] = swift_getTupleTypeMetadata2();
-  v69 = AssociatedTypeWitness;
-  sub_1AE23DB8C();
-  v97[3] = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v86 = *(TupleTypeMetadata - 8);
-  v28 = v86 + 16;
-  v27 = *(v86 + 16);
-  v27(v97, v98, TupleTypeMetadata);
-
-  v29 = v80;
-  swift_getAtKeyPath();
-
-  v96 = TupleTypeMetadata;
-  v85 = v27;
-  v27(v97, v98, TupleTypeMetadata);
-  v30 = a2;
-
-  v31 = v82;
-  swift_getAtKeyPath();
-  v79 = v25;
-
-  v32 = v81;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v34 = v31;
-  LOBYTE(v31) = (*(AssociatedConformanceWitness + 88))(v31, v32, AssociatedConformanceWitness);
-  v35 = *(v83 + 8);
-  v35(v34, v32);
-  v35(v29, v32);
-  if (v31)
-  {
-    goto LABEL_3;
-  }
-
-  v83 = v28;
-  v36 = v96;
-  v37 = v85;
-  v85(v97, v98, v96);
-
-  v74 = v30;
-  swift_getAtKeyPath();
-
-  v37(v97, v98, v36);
-
-  v38 = v75;
-  swift_getAtKeyPath();
-
-  v39 = v77;
-  v40 = swift_getAssociatedConformanceWitness();
-  v41 = v84;
-  v42 = (*(v40 + 88))(v38, v39, v40);
-  v43 = *(v76 + 8);
-  v43(v38, v39);
-  v43(v41, v39);
-  if (v42)
-  {
-    goto LABEL_3;
-  }
-
-  v47 = v85;
-  v85(v97, v98, v96);
-
-  swift_getAtKeyPath();
-
-  v47(v97, v98, v96);
-
-  v48 = v70;
-  swift_getAtKeyPath();
-
-  v49 = v96;
-  v50 = v72;
-  v51 = swift_getAssociatedConformanceWitness();
-  v52 = v78;
-  v53 = (*(v51 + 88))(v48, v50, v51);
-  v54 = *(v71 + 8);
-  v54(v48, v50);
-  v54(v52, v50);
-  if (v53)
-  {
-    v44 = 1;
-    v45 = v49;
-    goto LABEL_5;
-  }
-
-  v85(v97, v98, v49);
-
-  swift_getAtKeyPath();
-
-  v85(v97, v98, v49);
-
-  v55 = v67;
-  swift_getAtKeyPath();
-
-  v56 = v94;
-  v57 = v74;
-  v58 = v69;
-  v59 = swift_getAssociatedConformanceWitness();
-  v60 = v73;
-  v61 = (*(v59 + 88))(v55, v58, v59);
-  v62 = *(v68 + 8);
-  v62(v55, v58);
-  v62(v60, v58);
-  if (v61)
-  {
-LABEL_3:
-    v44 = 1;
-  }
-
-  else
-  {
-    v63 = *(v56 + 8);
-    v64 = *(v63 + 24);
-    v65 = v64(v57, v63);
-    v66 = v64(v57, v63);
-    v44 = sub_1AE21FE14(v66, v65);
-  }
-
-  v45 = v96;
-LABEL_5:
-  (*(v86 + 8))(v98, v45);
-  return v44 & 1;
-}
-
-uint64_t CRStruct_4.actionUndoingDifference(from:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v128 = a1;
-  v110 = a4;
-  v5 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v105 = *(AssociatedTypeWitness - 8);
-  v6 = *(v105 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v102 = &v80 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v100 = &v80 - v9;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v80 = swift_getAssociatedTypeWitness();
-  v109 = sub_1AE23D7CC();
-  v108 = *(v109 - 8);
-  v10 = *(v108 + 64);
+  v81 = &v77 - v12;
+  v109 = swift_getAssociatedTypeWitness();
+  v85 = *(v109 - 8);
   MEMORY[0x1EEE9AC00](v109);
-  v122 = &v80 - v11;
-  v116 = swift_getAssociatedTypeWitness();
-  v97 = *(v116 - 8);
-  v12 = *(v97 + 64);
-  MEMORY[0x1EEE9AC00](v116);
-  v96 = &v80 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v94 = &v80 - v15;
-  v95 = swift_getAssociatedConformanceWitness();
-  v81 = swift_getAssociatedTypeWitness();
-  v107 = sub_1AE23D7CC();
-  v106 = *(v107 - 8);
-  v16 = *(v106 + 64);
-  MEMORY[0x1EEE9AC00](v107);
-  v123 = &v80 - v17;
-  v18 = swift_getAssociatedTypeWitness();
-  v92 = *(v18 - 8);
-  v19 = *(v92 + 64);
-  MEMORY[0x1EEE9AC00](v18);
-  v91 = &v80 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v21);
-  v88 = &v80 - v22;
-  v90 = swift_getAssociatedConformanceWitness();
-  v86 = v18;
-  v82 = swift_getAssociatedTypeWitness();
-  v104 = sub_1AE23D7CC();
-  v103 = *(v104 - 8);
-  v23 = *(v103 + 64);
-  MEMORY[0x1EEE9AC00](v104);
-  v119 = &v80 - v24;
-  v25 = swift_getAssociatedTypeWitness();
-  v87 = *(v25 - 8);
-  v26 = *(v87 + 64);
-  MEMORY[0x1EEE9AC00](v25);
-  v85 = &v80 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v28);
-  v115 = &v80 - v29;
-  v84 = swift_getAssociatedConformanceWitness();
-  v83 = v25;
-  v93 = swift_getAssociatedTypeWitness();
-  v99 = sub_1AE23D7CC();
-  v98 = *(v99 - 8);
-  v30 = *(v98 + 64);
-  v31 = MEMORY[0x1EEE9AC00](v99);
-  v117 = &v80 - v32;
-  (*(v5 + 80))(v134, a2, v5, v31);
-  v33 = v134[2];
-  v127 = v134[4];
-  v126 = v134[5];
-  v129 = v134[7];
-  v125 = v134[8];
-  v34 = v134[10];
-  v35 = v134[1];
-  v36 = v134[11];
+  v84 = &v77 - v13;
+  v110 = swift_getAssociatedTypeWitness();
+  v89 = *(v110 - 8);
+  MEMORY[0x1EEE9AC00](v110);
+  v88 = &v77 - v14;
+  v112 = swift_getAssociatedTypeWitness();
+  v93 = *(v112 - 8);
+  MEMORY[0x1EEE9AC00](v112);
+  v92 = &v77 - v15;
+  v16 = swift_getAssociatedTypeWitness();
+  v96 = *(v16 - 8);
+  MEMORY[0x1EEE9AC00](v16);
+  v111 = &v77 - v17;
+  v102 = swift_getAssociatedTypeWitness();
+  v105 = *(v102 - 8);
+  MEMORY[0x1EEE9AC00](v102);
+  v104 = &v77 - v18;
+  v115 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5BCF60, &unk_1AE252450);
+  v107 = *(v115 - 8);
+  v19 = MEMORY[0x1EEE9AC00](v115);
+  v114 = &v77 - v20;
+  v21 = *(v11 + 112);
+  v79 = v11;
+  v21(&TupleTypeMetadata2, a2, v11, v19);
+  v103 = TupleTypeMetadata2;
+  v128 = v130;
+  v113 = v131;
+  v119 = v136;
+  v120 = v133;
+  v116 = v139;
+  v124 = v134;
+  v125 = v142;
+  v123 = v143;
+  v121 = v137;
+  v122 = v145;
+  v126 = v140;
+  v127 = v146;
+  v147[0] = TupleTypeMetadata2;
+  v147[1] = v130;
+  v147[2] = v131;
+  v147[3] = v132;
+  v95 = v132;
+  v147[4] = v133;
+  v147[5] = v134;
+  v91 = v135;
+  v147[6] = v135;
+  v147[7] = v136;
+  v147[8] = v137;
+  v147[9] = v138;
+  v87 = v138;
+  v147[10] = v139;
+  v147[11] = v140;
+  v83 = v141;
+  v147[12] = v141;
+  v147[13] = v142;
+  v147[14] = v143;
+  v147[15] = v144;
+  v80 = v144;
+  v147[16] = v145;
+  v147[17] = v146;
+  v22 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  sub_1AE048F10(v22, v23, v24);
+  sub_1AE23E3CC();
   sub_1AE23DB8C();
   TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+  v97 = v16;
+  sub_1AE23DB8C();
+  v130 = swift_getTupleTypeMetadata2();
   sub_1AE23DB8C();
   v131 = swift_getTupleTypeMetadata2();
   sub_1AE23DB8C();
   v132 = swift_getTupleTypeMetadata2();
   sub_1AE23DB8C();
   v133 = swift_getTupleTypeMetadata2();
+  v78 = a2;
+  sub_1AE23DB8C();
+  v134 = swift_getTupleTypeMetadata2();
   TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v89 = *(TupleTypeMetadata - 8);
-  v38 = v89 + 16;
-  v37 = *(v89 + 16);
-  v37(&TupleTypeMetadata2, v134, TupleTypeMetadata);
-  v112 = v38;
-  v111 = v37;
-  v120 = v35;
+  v101 = *(TupleTypeMetadata - 8);
+  v27 = v101 + 16;
+  v26 = *(v101 + 16);
+  v26(&TupleTypeMetadata2, v147, TupleTypeMetadata);
 
-  v121 = v34;
+  v28 = v104;
+  swift_getAtKeyPath();
+
+  v117 = TupleTypeMetadata;
+  v99 = v27;
+  v100 = v26;
+  v26(&TupleTypeMetadata2, v147, TupleTypeMetadata);
+  v29 = v115;
+
+  v30 = v102;
+  v31 = v114;
+
+  TupleTypeMetadata2 = v103;
+  v130 = v128;
+  v32 = v118;
+  sub_1AE23DD5C();
+  v118 = v32;
+  if (v32)
+  {
+    (*(v101 + 8))(v147, v117);
+
+    (*(v105 + 8))(v28, v30);
+    return (*(v107 + 8))(v31, v29);
+  }
+
+  (*(v105 + 8))(v28, v30);
+  v100(&TupleTypeMetadata2, v147, v117);
 
   swift_getAtKeyPath();
 
-  v37(&TupleTypeMetadata2, v134, TupleTypeMetadata);
+  v100(&TupleTypeMetadata2, v147, v117);
 
-  v39 = v36;
+  TupleTypeMetadata2 = v95;
+  v130 = v120;
+  v35 = v114;
+  v34 = v115;
+  v36 = v97;
+  v37 = v118;
+  sub_1AE23DD5C();
+  v38 = v117;
+  v118 = v37;
+  if (v37)
+  {
+    (*(v101 + 8))(v147, v117);
 
-  v40 = v85;
+    (*(v96 + 8))(v111, v36);
+    return (*(v107 + 8))(v35, v34);
+  }
+
+  (*(v96 + 8))(v111, v36);
+  v39 = v100;
+  v100(&TupleTypeMetadata2, v147, v38);
+
+  v40 = v92;
   swift_getAtKeyPath();
+
+  v39(&TupleTypeMetadata2, v147, v38);
 
   v41 = v115;
-  v42 = v83;
-  (*(v84 + 72))(v40, v83);
-  v43 = *(v87 + 8);
-  v43(v40, v42);
-  v43(v41, v42);
-  v44 = TupleTypeMetadata;
-  v45 = v111;
-  v111(&TupleTypeMetadata2, v134, TupleTypeMetadata);
 
-  v113 = v33;
+  v42 = v114;
 
-  v114 = v39;
+  v43 = v118;
+  TupleTypeMetadata2 = v91;
+  v130 = v119;
+  v44 = v112;
+  sub_1AE23DD5C();
+  v118 = v43;
+  if (v43)
+  {
+    (*(v101 + 8))(v147, v117);
+
+    (*(v93 + 8))(v40, v44);
+    return (*(v107 + 8))(v42, v41);
+  }
+
+  (*(v93 + 8))(v40, v44);
+  v45 = v100;
+  v100(&TupleTypeMetadata2, v147, v117);
 
   v46 = v88;
   swift_getAtKeyPath();
 
-  v45(&TupleTypeMetadata2, v134, v44);
+  v45(&TupleTypeMetadata2, v147, v117);
 
-  v47 = v91;
-  swift_getAtKeyPath();
+  v41 = v115;
 
-  v48 = v47;
-  v49 = v86;
-  (*(v90 + 72))(v47, v86);
-  v50 = *(v92 + 8);
-  v50(v48, v49);
-  v50(v46, v49);
-  v51 = TupleTypeMetadata;
-  v52 = v111;
-  v111(&TupleTypeMetadata2, v134, TupleTypeMetadata);
+  v42 = v114;
 
-  v53 = v94;
-  swift_getAtKeyPath();
-
-  v52(&TupleTypeMetadata2, v134, v51);
-
-  v54 = v96;
-  swift_getAtKeyPath();
-
-  v55 = v53;
-  v56 = v116;
-  (*(v95 + 72))(v54, v116);
-  v57 = *(v97 + 8);
-  v57(v54, v56);
-  v57(v55, v56);
-  v58 = TupleTypeMetadata;
-  v52(&TupleTypeMetadata2, v134, TupleTypeMetadata);
-
-  v59 = v100;
-  swift_getAtKeyPath();
-
-  v52(&TupleTypeMetadata2, v134, v58);
-
-  v60 = v102;
-  swift_getAtKeyPath();
-
-  v61 = v60;
-  v62 = AssociatedTypeWitness;
-  (*(AssociatedConformanceWitness + 72))(v60, AssociatedTypeWitness);
-  (*(v89 + 8))(v134, v58);
-  v63 = *(v105 + 8);
-  v63(v61, v62);
-  v63(v59, v62);
-  v64 = v117;
-  if ((*(*(v93 - 8) + 48))() == 1 && (*(*(v82 - 8) + 48))(v119, 1) == 1 && (*(*(v81 - 8) + 48))(v123, 1) == 1 && (*(*(v80 - 8) + 48))(v122, 1) == 1)
+  TupleTypeMetadata2 = v87;
+  v130 = v116;
+  v47 = v110;
+  v48 = v118;
+  sub_1AE23DD5C();
+  v118 = v48;
+  if (v48)
   {
-    v65 = v99;
-    (*(v98 + 8))(v64, v99);
-    TupleTypeMetadata2 = v65;
-    v66 = v104;
-    v131 = v104;
-    v67 = v107;
-    v132 = v107;
-    v68 = v109;
-    v133 = v109;
-    v69 = swift_getTupleTypeMetadata();
-    (*(*(v69 - 8) + 56))(v110, 1, 1, v69);
-    v70 = v108;
-    v71 = v119;
-    v72 = v106;
-    v73 = v103;
+    (*(v101 + 8))(v147, v117);
+
+    (*(v89 + 8))(v46, v47);
+    return (*(v107 + 8))(v42, v41);
   }
 
-  else
-  {
-    v74 = v99;
-    TupleTypeMetadata2 = v99;
-    v66 = v104;
-    v131 = v104;
-    v71 = v119;
-    v67 = v107;
-    v132 = v107;
-    v68 = v109;
-    v133 = v109;
-    v75 = swift_getTupleTypeMetadata();
-    v76 = v75[12];
-    v77 = v75[16];
-    v129 = v75[20];
-    v78 = v110;
-    (*(v98 + 32))(v110, v64, v74);
-    v73 = v103;
-    (*(v103 + 16))(v78 + v76, v71, v66);
-    v72 = v106;
-    (*(v106 + 16))(v78 + v77, v123, v67);
-    v70 = v108;
-    (*(v108 + 16))(v78 + v129, v122, v68);
-    (*(*(v75 - 1) + 56))(v78, 0, 1, v75);
-  }
+  (*(v89 + 8))(v46, v47);
+  v49 = v117;
+  v50 = v100;
+  v100(&TupleTypeMetadata2, v147, v117);
 
-  (*(v70 + 8))(v122, v68);
-  (*(v72 + 8))(v123, v67);
-  return (*(v73 + 8))(v71, v66);
-}
+  v51 = v84;
+  swift_getAtKeyPath();
 
-uint64_t CRStruct_4.apply(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v132 = a1;
-  v4 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v111 = AssociatedTypeWitness;
-  v96 = swift_getAssociatedTypeWitness();
-  v6 = sub_1AE23D7CC();
-  v130 = *(v6 - 8);
-  v7 = *(v130 + 64);
-  MEMORY[0x1EEE9AC00](v6);
-  v109 = &v93 - v8;
-  v9 = swift_getAssociatedTypeWitness();
-  v107 = swift_getAssociatedConformanceWitness();
-  v108 = v9;
-  v95 = swift_getAssociatedTypeWitness();
-  v10 = sub_1AE23D7CC();
-  v116 = *(v10 - 8);
-  v11 = *(v116 + 64);
-  MEMORY[0x1EEE9AC00](v10);
-  v106 = &v93 - v12;
-  v13 = swift_getAssociatedTypeWitness();
-  v101 = swift_getAssociatedConformanceWitness();
-  v102 = v13;
-  v94 = swift_getAssociatedTypeWitness();
-  v14 = sub_1AE23D7CC();
-  v131 = v14;
-  v129 = *(v14 - 8);
-  v15 = *(v129 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v99 = &v93 - v16;
-  v17 = swift_getAssociatedTypeWitness();
-  v98 = swift_getAssociatedConformanceWitness();
-  v103 = v17;
-  v18 = swift_getAssociatedTypeWitness();
-  v133 = sub_1AE23D7CC();
-  v134 = v14;
-  v117 = v10;
-  v135 = v10;
-  v136 = v6;
-  v119 = v6;
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v20 = sub_1AE23D7CC();
-  v21 = *(v20 - 8);
-  v22 = *(v21 + 64);
-  MEMORY[0x1EEE9AC00](v20);
-  v105 = &v93 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v24);
-  v100 = &v93 - v25;
-  MEMORY[0x1EEE9AC00](v26);
-  v97 = &v93 - v27;
-  MEMORY[0x1EEE9AC00](v28);
-  v30 = &v93 - v29;
-  v118 = sub_1AE23D7CC();
-  v31 = *(v118 - 8);
-  v32 = *(v31 + 64);
-  v33 = MEMORY[0x1EEE9AC00](v118);
-  v35 = &v93 - v34;
-  v36 = *(v4 + 80);
-  v37 = v4;
-  v38 = v130;
-  v36(&v133, a2, v37, v33);
-  v40 = v134;
-  v39 = v135;
-  v125 = v138;
-  v126 = v137;
-  v115 = v139;
-  v124 = v140;
-  v104 = v141;
-  v114 = v142;
+  v50(&TupleTypeMetadata2, v147, v49);
 
-  v127 = v39;
+  v34 = v115;
 
-  v128 = v40;
-  v41 = v131;
+  v35 = v114;
 
-  v42 = *(v21 + 16);
-  v123 = v21 + 16;
-  v122 = v42;
-  v42(v30, v132, v20);
-  v43 = *(TupleTypeMetadata - 1);
-  v121 = *(v43 + 48);
-  v120 = v43 + 48;
-  v44 = v121(v30, 1, TupleTypeMetadata);
-  v112 = v21;
-  v113 = v20;
-  if (v44 == 1)
-  {
-    (*(v21 + 8))(v30, v20);
-    (*(*(v18 - 8) + 56))(v35, 1, 1, v18);
-  }
-
-  else
-  {
-    v45 = TupleTypeMetadata[12];
-    v46 = TupleTypeMetadata[16];
-    v47 = TupleTypeMetadata[20];
-    (*(v31 + 32))(v35, v30, v118);
-    (*(v38 + 8))(&v30[v47], v119);
-    (*(v116 + 8))(&v30[v46], v117);
-    (*(v129 + 8))(&v30[v45], v41);
-  }
-
-  v48 = swift_modifyAtWritableKeyPath();
-  v49 = v98;
-  v50 = *(v98 + 80);
-  v51 = swift_checkMetadataState();
-  v50(v35, v51, v49);
-  v52 = *(v31 + 8);
+  TupleTypeMetadata2 = v83;
+  v130 = v125;
+  v52 = v109;
   v53 = v118;
-  v52(v35, v118);
-  v48(&v133, 0);
-
-  v54 = v97;
-  v55 = v113;
-  v122(v97, v132, v113);
-  v56 = v121(v54, 1, TupleTypeMetadata);
-  v103 = v31 + 8;
-  v98 = v52;
-  if (v56 == 1)
-  {
-    (*(v112 + 8))(v54, v55);
-    v57 = v99;
-    (*(*(v94 - 8) + 56))(v99, 1, 1);
-    v58 = v129;
-  }
-
-  else
-  {
-    v59 = v53;
-    v60 = TupleTypeMetadata[16];
-    v61 = TupleTypeMetadata[20];
-    v58 = v129;
-    v57 = v99;
-    (*(v129 + 32))(v99, &v54[TupleTypeMetadata[12]], v131);
-    (*(v130 + 8))(&v54[v61], v119);
-    (*(v116 + 8))(&v54[v60], v117);
-    v52(v54, v59);
-  }
-
-  v62 = swift_modifyAtWritableKeyPath();
-  v63 = v101;
-  v64 = *(v101 + 80);
-  v65 = swift_checkMetadataState();
-  v64(v57, v65, v63);
-  v66 = *(v58 + 8);
-  v66(v57, v131);
-  v62(&v133, 0);
-
-  v67 = v100;
-  v122(v100, v132, v55);
-  v68 = v121(v67, 1, TupleTypeMetadata);
-  v129 = v58 + 8;
-  v102 = v66;
-  if (v68 == 1)
-  {
-    (*(v112 + 8))(v67, v55);
-    v69 = v106;
-    (*(*(v95 - 8) + 56))(v106, 1, 1);
-    v70 = v117;
-    v71 = v116;
-  }
-
-  else
-  {
-    v72 = TupleTypeMetadata[12];
-    v73 = TupleTypeMetadata[20];
-    v74 = v66;
-    v71 = v116;
-    v69 = v106;
-    v70 = v117;
-    (*(v116 + 32))(v106, &v67[TupleTypeMetadata[16]], v117);
-    (*(v130 + 8))(&v67[v73], v119);
-    v74(&v67[v72], v131);
-    (v98)(v67, v118);
-  }
-
-  v75 = swift_modifyAtWritableKeyPath();
-  v76 = v107;
-  v77 = *(v107 + 80);
-  v78 = swift_checkMetadataState();
-  v77(v69, v78, v76);
-  v79 = *(v71 + 8);
-  v79(v69, v70);
-  v75(&v133, 0);
-
-  v80 = v105;
-  v81 = v113;
-  v122(v105, v132, v113);
-  if (v121(v80, 1, TupleTypeMetadata) == 1)
-  {
-    (*(v112 + 8))(v80, v81);
-    v82 = v109;
-    (*(*(v96 - 8) + 56))(v109, 1, 1);
-    v83 = v119;
-    v84 = v130;
-  }
-
-  else
-  {
-    v85 = TupleTypeMetadata[12];
-    v86 = TupleTypeMetadata[16];
-    v84 = v130;
-    v87 = v109;
-    v83 = v119;
-    (*(v130 + 32))(v109, &v80[TupleTypeMetadata[20]], v119);
-    v79(&v80[v86], v70);
-    v102(&v80[v85], v131);
-    v82 = v87;
-    (v98)(v80, v118);
-  }
-
-  v88 = swift_modifyAtWritableKeyPath();
-  v89 = AssociatedConformanceWitness;
-  v90 = *(AssociatedConformanceWitness + 80);
-  v91 = swift_checkMetadataState();
-  v90(v82, v91, v89);
-  (*(v84 + 8))(v82, v83);
-  v88(&v133, 0);
-}
-
-Swift::Bool __swiftcall CRStruct_4.needToFinalizeTimestamps()()
-{
-  v2 = v0;
-  v3 = *(v1 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v36 = *(AssociatedTypeWitness - 8);
-  v4 = *(v36 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v35 = v34 - v5;
-  v40 = swift_getAssociatedTypeWitness();
-  v39 = *(v40 - 8);
-  v6 = *(v39 + 64);
-  MEMORY[0x1EEE9AC00](v40);
-  v38 = v34 - v7;
-  v8 = swift_getAssociatedTypeWitness();
-  v42 = *(v8 - 8);
-  v43 = v8;
-  v9 = *(v42 + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  v41 = v34 - v10;
-  v11 = swift_getAssociatedTypeWitness();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  v14 = MEMORY[0x1EEE9AC00](v11);
-  v16 = v34 - v15;
-  (*(v3 + 80))(v49, v2, v3, v14);
-  v18 = v49[1];
-  v17 = v49[2];
-  v46 = v49[7];
-  v47 = v49[8];
-  v48 = v49[5];
-  v44 = v49[4];
-  v45 = v49[10];
-
-  swift_getAtKeyPath();
-
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v20 = (*(*(AssociatedConformanceWitness + 16) + 56))(v11);
-  (*(v12 + 8))(v16, v11);
-  if (v20)
-  {
-    goto LABEL_5;
-  }
-
-  v34[0] = v17;
-  v34[1] = v18;
-  v21 = v41;
-  swift_getAtKeyPath();
-  v22 = v43;
-  v23 = swift_getAssociatedConformanceWitness();
-  v24 = (*(*(v23 + 16) + 56))(v22);
-  (*(v42 + 8))(v21, v22);
-  if (v24 & 1) != 0 || (v25 = v38, swift_getAtKeyPath(), v26 = v40, v27 = swift_getAssociatedConformanceWitness(), v28 = (*(*(v27 + 16) + 56))(v26), (*(v39 + 8))(v25, v26), (v28))
-  {
-LABEL_5:
-
-    v29 = 1;
-  }
-
-  else
-  {
-    v31 = v35;
-    swift_getAtKeyPath();
-    v32 = AssociatedTypeWitness;
-    v33 = swift_getAssociatedConformanceWitness();
-    v29 = (*(*(v33 + 16) + 56))(v32);
-
-    (*(v36 + 8))(v31, v32);
-  }
-
-  return v29 & 1;
-}
-
-uint64_t CRStruct_4.finalizeTimestamps(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  (*(*(a3 + 8) + 80))(&v22, a2, *(a3 + 8));
-
-  v4 = swift_modifyAtWritableKeyPath();
-  swift_getAssociatedTypeWitness();
-  v5 = *(swift_getAssociatedConformanceWitness() + 16);
-  v6 = *(v5 + 64);
-  v7 = swift_checkMetadataState();
-  v6(a1, v7, v5);
-  v4(&v22, 0);
-
-  v8 = swift_modifyAtWritableKeyPath();
-  swift_getAssociatedTypeWitness();
-  v9 = *(swift_getAssociatedConformanceWitness() + 16);
-  v10 = *(v9 + 64);
-  v11 = swift_checkMetadataState();
-  v10(a1, v11, v9);
-  v8(&v22, 0);
-
-  v20 = swift_modifyAtWritableKeyPath();
-  swift_getAssociatedTypeWitness();
-  v12 = *(swift_getAssociatedConformanceWitness() + 16);
-  v13 = *(v12 + 64);
-  v14 = swift_checkMetadataState();
-  v13(a1, v14, v12);
-  v20(&v22, 0);
-
-  v15 = swift_modifyAtWritableKeyPath();
-  swift_getAssociatedTypeWitness();
-  v16 = *(swift_getAssociatedConformanceWitness() + 16);
-  v17 = *(v16 + 64);
-  v18 = swift_checkMetadataState();
-  v17(a1, v18, v16);
-  v15(&v22, 0);
-}
-
-uint64_t CRStruct_4.minEncodingVersion.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  v46 = a3;
-  v5 = *(a2 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v34 = *(AssociatedTypeWitness - 8);
-  v6 = *(v34 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v33 = &v32 - v7;
-  v38 = swift_getAssociatedTypeWitness();
-  v37 = *(v38 - 8);
-  v8 = *(v37 + 64);
-  MEMORY[0x1EEE9AC00](v38);
-  v36 = &v32 - v9;
-  v10 = swift_getAssociatedTypeWitness();
-  v39 = *(v10 - 8);
-  v11 = *(v39 + 64);
-  MEMORY[0x1EEE9AC00](v10);
-  v13 = &v32 - v12;
-  v14 = swift_getAssociatedTypeWitness();
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  v17 = MEMORY[0x1EEE9AC00](v14);
-  v19 = &v32 - v18;
-  (*(v5 + 80))(v50 + 1, a1, v5, v17);
-  v44 = *(&v50[4] + 1);
-  v45 = *(&v50[1] + 1);
-  v48 = *(&v50[5] + 1);
-  v49 = *(&v50[2] + 1);
-  v47 = *(&v50[8] + 1);
-  v42 = *(&v50[10] + 1);
-  v43 = *(&v50[7] + 1);
-  v41 = *(&v50[11] + 1);
-  v20 = *(*(v5 + 8) + 24);
-  v40 = v3;
-  v21 = v20(a1);
-  sub_1AE21FFB0(v21, v50 + 1);
-
-  v22 = BYTE1(v50[0]);
-  if (BYTE1(v50[0]) > 2u)
-  {
-    goto LABEL_14;
-  }
-
-  swift_getAtKeyPath();
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(*(AssociatedConformanceWitness + 16) + 8) + 24))(v50, v14);
-  (*(v15 + 8))(v19, v14);
-  if (LOBYTE(v50[0]) > v22)
-  {
-    v22 = LOBYTE(v50[0]);
-  }
-
-  BYTE1(v50[0]) = v22;
-  if (LOBYTE(v50[0]) > 2u)
-  {
-    goto LABEL_14;
-  }
-
-  swift_getAtKeyPath();
-  v24 = swift_getAssociatedConformanceWitness();
-  (*(*(*(v24 + 16) + 8) + 24))(v50, v10);
-  (*(v39 + 8))(v13, v10);
-  if (LOBYTE(v50[0]) > v22)
-  {
-    v22 = LOBYTE(v50[0]);
-  }
-
-  BYTE1(v50[0]) = v22;
-  if (v22 > 2)
-  {
-    goto LABEL_14;
-  }
-
-  v25 = v36;
-  swift_getAtKeyPath();
-  v26 = v38;
-  v27 = swift_getAssociatedConformanceWitness();
-  (*(*(*(v27 + 16) + 8) + 24))(v50, v26);
-  (*(v37 + 8))(v25, v26);
-  if (LOBYTE(v50[0]) > v22)
-  {
-    v22 = LOBYTE(v50[0]);
-  }
-
-  BYTE1(v50[0]) = v22;
-  if (LOBYTE(v50[0]) > 2u)
-  {
-LABEL_14:
-  }
-
-  else
-  {
-    v28 = v33;
-    swift_getAtKeyPath();
-    v29 = AssociatedTypeWitness;
-    v30 = swift_getAssociatedConformanceWitness();
-    (*(*(*(v30 + 16) + 8) + 24))(v50, v29);
-
-    result = (*(v34 + 8))(v28, v29);
-    if (LOBYTE(v50[0]) > v22)
-    {
-      LOBYTE(v22) = v50[0];
-    }
-  }
-
-  *v46 = v22;
-  return result;
-}
-
-uint64_t CRStruct_4<>.encode(to:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  v60 = a7;
-  v65 = a6;
-  v69 = a5;
-  v75 = a4;
-  v9 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v61 = *(AssociatedTypeWitness - 8);
-  v10 = *(v61 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v59 = &v56 - v11;
-  v82 = swift_getAssociatedTypeWitness();
-  v64 = *(v82 - 8);
-  v12 = *(v64 + 64);
-  MEMORY[0x1EEE9AC00](v82);
-  v63 = &v56 - v13;
-  v14 = swift_getAssociatedTypeWitness();
-  v67 = *(v14 - 8);
-  v15 = *(v67 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v81 = &v56 - v16;
-  v91 = swift_getAssociatedTypeWitness();
-  v74 = *(v91 - 8);
-  v17 = *(v74 + 64);
-  MEMORY[0x1EEE9AC00](v91);
-  v73 = &v56 - v18;
-  v87 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5BCF60, &unk_1AE252450);
-  v78 = *(v87 - 8);
-  v19 = *(v78 + 64);
-  v20 = MEMORY[0x1EEE9AC00](v87);
-  v86 = &v56 - v21;
-  v22 = *(v9 + 80);
-  v57 = v9;
-  v22(&TupleTypeMetadata2, a2, v9, v20);
-  v72 = TupleTypeMetadata2;
-  v85 = v96;
-  v90 = v98;
-  v84 = v99;
-  v93 = v101;
-  v83 = v102;
-  v88 = v105;
-  v106[0] = TupleTypeMetadata2;
-  v106[1] = v95;
-  v92 = v95;
-  v106[2] = v96;
-  v106[3] = v97;
-  v66 = v97;
-  v106[4] = v98;
-  v106[5] = v99;
-  v62 = v100;
-  v106[6] = v100;
-  v106[7] = v101;
-  v106[8] = v102;
-  v106[9] = v103;
-  v58 = v103;
-  v106[10] = v104;
-  v106[11] = v105;
-  v89 = v104;
-  v23 = a1;
-  v25 = a1[3];
-  v24 = a1[4];
-  __swift_project_boxed_opaque_existential_1(v23, v25);
-  sub_1AE048F10();
-  sub_1AE23E3CC();
-  sub_1AE23DB8C();
-  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v68 = v14;
-  sub_1AE23DB8C();
-  v95 = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v96 = swift_getTupleTypeMetadata2();
-  v56 = a2;
-  sub_1AE23DB8C();
-  v97 = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v77 = *(TupleTypeMetadata - 8);
-  v28 = v77 + 16;
-  v27 = *(v77 + 16);
-  v27(&TupleTypeMetadata2, v106, TupleTypeMetadata);
-
-  v29 = v73;
-  swift_getAtKeyPath();
-
-  v79 = TupleTypeMetadata;
-  v71 = v27;
-  v70 = v28;
-  v27(&TupleTypeMetadata2, v106, TupleTypeMetadata);
-
-  v30 = v86;
-
-  v31 = v91;
-
-  TupleTypeMetadata2 = v72;
-  v32 = v87;
-  v95 = v92;
-  v33 = v76;
   sub_1AE23DD5C();
-  if (v33)
-  {
-    (*(v77 + 8))(v106, v79);
-
-    (*(v74 + 8))(v29, v31);
-    return (*(v78 + 8))(v30, v32);
-  }
-
-  else
-  {
-
-    (*(v74 + 8))(v29, v31);
-    v35 = v79;
-    v71(&TupleTypeMetadata2, v106, v79);
-
-    swift_getAtKeyPath();
-
-    v71(&TupleTypeMetadata2, v106, v35);
-
-    v36 = v90;
-
-    TupleTypeMetadata2 = v66;
-    v95 = v36;
-    v37 = v68;
-    sub_1AE23DD5C();
-
-    (*(v67 + 8))(v81, v37);
-    v38 = v71;
-    v71(&TupleTypeMetadata2, v106, v35);
-
-    v39 = v63;
-    swift_getAtKeyPath();
-
-    v38(&TupleTypeMetadata2, v106, v35);
-
-    TupleTypeMetadata2 = v62;
-    v95 = v93;
-    v40 = v82;
-    sub_1AE23DD5C();
-
-    (*(v64 + 8))(v39, v40);
-    v71(&TupleTypeMetadata2, v106, v35);
-
-    v41 = v59;
-    swift_getAtKeyPath();
-
-    v71(&TupleTypeMetadata2, v106, v35);
-
-    TupleTypeMetadata2 = v58;
-    v95 = v89;
-    v42 = AssociatedTypeWitness;
-    sub_1AE23DD5C();
-
-    (*(v61 + 8))(v41, v42);
-    result = (*(*(v57 + 8) + 24))(v56);
-    v43 = 0;
-    v45 = result + 64;
-    v44 = *(result + 64);
-    v93 = result;
-    v46 = 1 << *(result + 32);
-    v47 = -1;
-    if (v46 < 64)
-    {
-      v47 = ~(-1 << v46);
-    }
-
-    v48 = v47 & v44;
-    v49 = (v46 + 63) >> 6;
-    if ((v47 & v44) != 0)
-    {
-      do
-      {
-        v50 = v43;
-LABEL_11:
-        v52 = __clz(__rbit64(v48)) | (v50 << 6);
-        v53 = (*(v93 + 48) + 16 * v52);
-        v54 = *v53;
-        v55 = v53[1];
-        v106[14] = *(*(v93 + 56) + 8 * v52);
-        TupleTypeMetadata2 = v54;
-        v95 = v55;
-        sub_1AE048F64();
-
-        sub_1AE23DD5C();
-        v48 &= v48 - 1;
-
-        v43 = v50;
-      }
-
-      while (v48);
-    }
-
-    v51 = v78;
-    while (1)
-    {
-      v50 = v43 + 1;
-      if (__OFADD__(v43, 1))
-      {
-        break;
-      }
-
-      if (v50 >= v49)
-      {
-        (*(v77 + 8))(v106, v79);
-
-        return (*(v51 + 8))(v86, v87);
-      }
-
-      v48 = *(v45 + 8 * v50);
-      ++v43;
-      if (v48)
-      {
-        goto LABEL_11;
-      }
-    }
-
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t CRStruct_5.copy(renamingReferences:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v5 = v4;
-  v102 = a1;
-  v101 = a4;
-  v8 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v83 = *(AssociatedTypeWitness - 8);
-  v9 = *(v83 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v81 = &v64 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v82 = &v64 - v12;
-  v84 = swift_getAssociatedTypeWitness();
-  v80 = *(v84 - 8);
-  v13 = *(v80 + 64);
-  MEMORY[0x1EEE9AC00](v84);
-  v78 = &v64 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v79 = &v64 - v16;
-  v71 = swift_getAssociatedTypeWitness();
-  v76 = *(v71 - 8);
-  v17 = *(v76 + 64);
-  MEMORY[0x1EEE9AC00](v71);
-  v74 = &v64 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v19);
-  v75 = &v64 - v20;
-  v69 = swift_getAssociatedTypeWitness();
-  v73 = *(v69 - 8);
-  v21 = *(v73 + 64);
-  MEMORY[0x1EEE9AC00](v69);
-  v70 = &v64 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v23);
-  v72 = &v64 - v24;
-  v65 = swift_getAssociatedTypeWitness();
-  v68 = *(v65 - 8);
-  v25 = *(v68 + 64);
-  MEMORY[0x1EEE9AC00](v65);
-  v66 = &v64 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v28 = MEMORY[0x1EEE9AC00](v27);
-  v67 = &v64 - v29;
-  (*(*(a2 - 8) + 16))(a4, v5, a2, v28);
-  v100 = v8;
-  (*(v8 + 96))(v104, a2, v8);
-  v30 = v104[1];
-  v95 = v104[2];
-  v99 = v104[4];
-  v94 = v104[5];
-  v93 = v104[7];
-  v98 = v104[8];
-  v88 = v104[10];
-  v31 = v104[11];
-  v32 = v104[13];
-  v33 = v104[14];
-  sub_1AE23DB8C();
-  v103[0] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v103[1] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v103[2] = swift_getTupleTypeMetadata2();
-  v97 = a2;
-  sub_1AE23DB8C();
-  v103[3] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v103[4] = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v77 = *(TupleTypeMetadata - 8);
-  v34 = *(v77 + 16);
-  v90 = v77 + 16;
-  v34(v103, v104, TupleTypeMetadata);
-  v89 = v34;
-
-  v92 = v33;
-
-  v86 = v32;
-
-  v91 = v31;
-
-  v34(v103, v104, TupleTypeMetadata);
-
-  v35 = v66;
-  swift_getAtKeyPath();
-
-  v36 = v65;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(AssociatedConformanceWitness + 16) + 24))(v102, v36);
-  (*(v68 + 8))(v35, v36);
-  swift_setAtWritableKeyPath();
-
-  v38 = TupleTypeMetadata;
-  v39 = v89;
-  v89(v103, v104, TupleTypeMetadata);
-
-  v87 = v30;
-
-  v39(v103, v104, v38);
-
-  v40 = v70;
-  swift_getAtKeyPath();
-
-  v41 = v69;
-  v42 = swift_getAssociatedConformanceWitness();
-  (*(*(v42 + 16) + 24))(v102, v41);
-  (*(v73 + 8))(v40, v41);
-  swift_setAtWritableKeyPath();
-
-  v43 = v89;
-  v89(v103, v104, v38);
-
-  v43(v103, v104, TupleTypeMetadata);
-
-  v44 = v74;
-  swift_getAtKeyPath();
-
-  v45 = v71;
-  v46 = swift_getAssociatedConformanceWitness();
-  (*(*(v46 + 16) + 24))(v102, v45);
-  (*(v76 + 8))(v44, v45);
-  swift_setAtWritableKeyPath();
-
-  v47 = TupleTypeMetadata;
-  v48 = v89;
-  v89(v103, v104, TupleTypeMetadata);
-
-  v48(v103, v104, v47);
-
-  v49 = v78;
-  swift_getAtKeyPath();
-
-  v50 = v84;
-  v51 = swift_getAssociatedConformanceWitness();
-  (*(*(v51 + 16) + 24))(v102, v50);
-  (*(v80 + 8))(v49, v50);
-  swift_setAtWritableKeyPath();
-
-  v52 = TupleTypeMetadata;
-  v53 = v89;
-  v89(v103, v104, TupleTypeMetadata);
-
-  v53(v103, v104, v52);
-
-  v54 = v81;
-  swift_getAtKeyPath();
-
-  v55 = v100;
-  v56 = v97;
-  v57 = AssociatedTypeWitness;
-  v58 = swift_getAssociatedConformanceWitness();
-  v59 = v102;
-  (*(*(v58 + 16) + 24))(v102, v57);
-  (*(v83 + 8))(v54, v57);
-  swift_setAtWritableKeyPath();
-
-  v60 = *(v55 + 8);
-  v61 = (*(v60 + 24))(v56, v60);
-  v62 = sub_1AE156B60(v61, v59);
-
-  (*(v60 + 32))(v62, v56, v60);
-  return (*(v77 + 8))(v104, v52);
-}
-
-uint64_t CRStruct_5.copy(renamingReferences:)@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v5 = v4;
-  v9 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v85 = *(AssociatedTypeWitness - 8);
-  v10 = *(v85 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v84 = v67 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v83 = v67 - v13;
-  v86 = swift_getAssociatedTypeWitness();
-  v82 = *(v86 - 8);
-  v14 = *(v82 + 64);
-  MEMORY[0x1EEE9AC00](v86);
-  v81 = v67 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v16);
-  v80 = v67 - v17;
-  v87 = swift_getAssociatedTypeWitness();
-  v78 = *(v87 - 8);
-  v18 = *(v78 + 64);
-  MEMORY[0x1EEE9AC00](v87);
-  v77 = v67 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v20);
-  v76 = v67 - v21;
-  v22 = swift_getAssociatedTypeWitness();
-  v75 = *(v22 - 8);
-  v23 = *(v75 + 64);
-  MEMORY[0x1EEE9AC00](v22);
-  v74 = v67 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v73 = v67 - v26;
-  v27 = swift_getAssociatedTypeWitness();
-  v72 = *(v27 - 8);
-  v28 = *(v72 + 64);
-  MEMORY[0x1EEE9AC00](v27);
-  v71 = v67 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v31.n128_f64[0] = MEMORY[0x1EEE9AC00](v30);
-  v70 = v67 - v32;
-  if (a1)
-  {
-    v33 = a1;
-  }
-
-  else
-  {
-    v33 = sub_1ADE51288(MEMORY[0x1E69E7CC0]);
-  }
-
-  v107[0] = v33;
-  (*(*(a2 - 8) + 16))(a4, v5, a2, v31);
-  v101 = a4;
-  v102 = v5;
-  v34 = *(v9 + 96);
-
-  v34(v106, a2, v9);
-  v35 = v106[1];
-  v103 = v106[4];
-  v92 = v106[5];
-  v97 = v106[7];
-  v98 = v106[2];
-  v100 = v9;
-  v96 = v106[8];
-  v90 = v106[10];
-  v36 = v106[13];
-  v37 = v106[14];
-  v38 = v106[11];
-  v68 = v27;
-  sub_1AE23DB8C();
-  v105[0] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v105[1] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v105[2] = swift_getTupleTypeMetadata2();
-  v99 = a2;
-  sub_1AE23DB8C();
-  v105[3] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v105[4] = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v79 = *(TupleTypeMetadata - 8);
-  v93 = *(v79 + 16);
-  v94 = v79 + 16;
-  v104 = TupleTypeMetadata;
-  v93(v105, v106, TupleTypeMetadata);
-  v69 = v22;
-  v95 = v35;
-
-  v91 = v37;
-
-  v89 = v36;
-
-  v93(v105, v106, TupleTypeMetadata);
-
-  v40 = v71;
-  swift_getAtKeyPath();
-
-  v41 = v68;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(AssociatedConformanceWitness + 16) + 24))(v107, v41);
-  (*(v72 + 8))(v40, v41);
-  swift_setAtWritableKeyPath();
-
-  v43 = v93;
-  v93(v105, v106, v104);
-
-  v43(v105, v106, v104);
-
-  v44 = v74;
-  swift_getAtKeyPath();
-
-  v45 = v69;
-  v46 = swift_getAssociatedConformanceWitness();
-  (*(*(v46 + 16) + 24))(v107, v45);
-  (*(v75 + 8))(v44, v45);
-  swift_setAtWritableKeyPath();
-
-  v47 = v104;
-  v48 = v93;
-  v93(v105, v106, v104);
-
-  v67[1] = v38;
-
-  v48(v105, v106, v47);
-
-  v49 = v77;
-  swift_getAtKeyPath();
-
-  v50 = v87;
-  v51 = swift_getAssociatedConformanceWitness();
-  (*(*(v51 + 16) + 24))(v107, v50);
-  (*(v78 + 8))(v49, v50);
-  swift_setAtWritableKeyPath();
-
-  v52 = v93;
-  v93(v105, v106, v47);
-
-  v52(v105, v106, v104);
-
-  v53 = v81;
-  swift_getAtKeyPath();
-
-  v54 = v86;
-  v55 = swift_getAssociatedConformanceWitness();
-  (*(*(v55 + 16) + 24))(v107, v54);
-  (*(v82 + 8))(v53, v54);
-  swift_setAtWritableKeyPath();
-
-  v56 = v104;
-  v57 = v93;
-  v93(v105, v106, v104);
-
-  v57(v105, v106, v56);
-
-  v58 = v84;
-  swift_getAtKeyPath();
-
-  v60 = v99;
-  v59 = v100;
-  v61 = AssociatedTypeWitness;
-  v62 = swift_getAssociatedConformanceWitness();
-  (*(*(v62 + 16) + 24))(v107, v61);
-  (*(v85 + 8))(v58, v61);
-  swift_setAtWritableKeyPath();
-
-  v63 = *(v59 + 8);
-  v64 = (*(v63 + 24))(v60, v63);
-  v65 = sub_1AE156B60(v64, v107);
-
-  (*(v63 + 32))(v65, v60, v63);
-  return (*(v79 + 8))(v106, v104);
-}
-
-uint64_t static CRStruct_5.fieldKeys.getter(uint64_t a1, uint64_t a2)
-{
-  (*(*(a2 + 8) + 96))(v14);
-  v3 = v14[0];
-  v2 = v14[1];
-  v4 = v14[3];
-  v5 = v14[4];
-  v6 = v14[7];
-  v11 = v14[6];
-  v7 = v14[10];
-  v8 = v14[13];
-  v12 = v14[9];
-  v13 = v14[12];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5BA1F8, &qword_1AE242320);
-  v9 = swift_allocObject();
-  *(v9 + 16) = xmmword_1AE2427F0;
-
-  *(v9 + 32) = v3;
-  *(v9 + 40) = v2;
-
-  *(v9 + 48) = v4;
-  *(v9 + 56) = v5;
-
-  *(v9 + 64) = v11;
-  *(v9 + 72) = v6;
-
-  *(v9 + 80) = v12;
-  *(v9 + 88) = v7;
-
-  *(v9 + 96) = v13;
-  *(v9 + 104) = v8;
-
-  return v9;
-}
-
-uint64_t CRStruct_5.merge(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _BYTE *a4@<X8>)
-{
-  v102 = a1;
-  v85 = a4;
-  v5 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v84 = *(AssociatedTypeWitness - 8);
-  v7 = *(v84 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v83 = &v70 - v8;
-  v9 = swift_getAssociatedTypeWitness();
-  v82 = *(v9 - 8);
-  v10 = *(v82 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v81 = &v70 - v11;
-  v87 = swift_getAssociatedTypeWitness();
-  v78 = *(v87 - 8);
-  v12 = *(v78 + 64);
-  MEMORY[0x1EEE9AC00](v87);
-  v77 = &v70 - v13;
-  v14 = swift_getAssociatedTypeWitness();
-  v75 = *(v14 - 8);
-  v15 = *(v75 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v74 = &v70 - v16;
-  v17 = swift_getAssociatedTypeWitness();
-  v73 = *(v17 - 8);
-  v18 = *(v73 + 64);
-  v19 = MEMORY[0x1EEE9AC00](v17);
-  v72 = &v70 - v20;
-  v21 = *(v5 + 96);
-  v22 = a2;
-  v101 = v5;
-  v21(&v104[3], a2, v5, v19);
-  v23 = *&v104[7];
-  v100 = *&v104[11];
-  v99 = *&v104[19];
-  v90 = *&v104[23];
-  v96 = *&v104[31];
-  v89 = *&v104[35];
-  v95 = *&v104[43];
-  v24 = *&v104[47];
-  v25 = *&v104[55];
-  v26 = *&v104[59];
-  if (qword_1ED9670C0 != -1)
-  {
-    swift_once();
-  }
-
-  *(&v104[1] + 1) = word_1ED96F220;
-  HIBYTE(v104[2]) = byte_1ED96F222;
-  v70 = v17;
-  sub_1AE23DB8C();
-  v103[0] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v103[1] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v103[2] = swift_getTupleTypeMetadata2();
-  v98 = v22;
-  sub_1AE23DB8C();
-  v103[3] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v103[4] = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v80 = *(TupleTypeMetadata - 8);
-  v79 = AssociatedTypeWitness;
-  v76 = v9;
-  v28 = v80 + 16;
-  v27 = *(v80 + 16);
-  v71 = v14;
-  v27(v103, &v104[3], TupleTypeMetadata);
-  v91 = v28;
-  v93 = v23;
-
-  v94 = v26;
-
-  v97 = v24;
-
-  v27(v103, &v104[3], TupleTypeMetadata);
-  v29 = v27;
-
-  v30 = v70;
-
-  v31 = v72;
-  swift_getAtKeyPath();
-
-  v32 = swift_modifyAtWritableKeyPath();
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(AssociatedConformanceWitness + 8) + 8))(v104, v31, v30);
-  (*(v73 + 8))(v31, v30);
-  v32(v103, 0);
-
-  LOWORD(v103[0]) = v104[0];
-  BYTE2(v103[0]) = v104[1];
-  v34 = v103;
-  MergeResult.merge(_:)(v34);
-  v35 = TupleTypeMetadata;
-  v29(v103, &v104[3], TupleTypeMetadata);
-
-  v88 = v25;
-
-  v29(v103, &v104[3], v35);
-
-  v36 = v74;
-  swift_getAtKeyPath();
-
-  v37 = swift_modifyAtWritableKeyPath();
-  v38 = v71;
-  v39 = swift_getAssociatedConformanceWitness();
-  (*(*(v39 + 8) + 8))(v104, v36, v38);
-  (*(v75 + 8))(v36, v38);
-  v37(v103, 0);
-
-  LOWORD(v103[0]) = v104[0];
-  BYTE2(v103[0]) = v104[1];
-  v40 = v103;
-  MergeResult.merge(_:)(v40);
-  v41 = TupleTypeMetadata;
-  v86 = v29;
-  v29(v103, &v104[3], TupleTypeMetadata);
-
-  v29(v103, &v104[3], v41);
-
-  v42 = v77;
-  swift_getAtKeyPath();
-
-  v43 = swift_modifyAtWritableKeyPath();
-  v44 = v87;
-  v45 = swift_getAssociatedConformanceWitness();
-  (*(*(v45 + 8) + 8))(v104, v42, v44);
-  (*(v78 + 8))(v42, v44);
-  v43(v103, 0);
-
-  LOWORD(v103[0]) = v104[0];
-  BYTE2(v103[0]) = v104[1];
-  v46 = v103;
-  MergeResult.merge(_:)(v46);
-  v47 = v86;
-  v86(v103, &v104[3], v41);
-
-  v47(v103, &v104[3], v41);
-
-  v48 = v81;
-  swift_getAtKeyPath();
-
-  v49 = swift_modifyAtWritableKeyPath();
-  v50 = v76;
-  v51 = swift_getAssociatedConformanceWitness();
-  (*(*(v51 + 8) + 8))(v104, v48, v50);
-  (*(v82 + 8))(v48, v50);
-  v49(v103, 0);
-
-  LOWORD(v103[0]) = v104[0];
-  BYTE2(v103[0]) = v104[1];
-  v52 = v103;
-  MergeResult.merge(_:)(v52);
-  v53 = TupleTypeMetadata;
-  v54 = v86;
-  v86(v103, &v104[3], TupleTypeMetadata);
-
-  v54(v103, &v104[3], v53);
-
-  v55 = v83;
-  swift_getAtKeyPath();
-
-  v56 = swift_modifyAtWritableKeyPath();
-  v57 = v101;
-  v58 = v98;
-  v59 = v79;
-  v60 = swift_getAssociatedConformanceWitness();
-  (*(*(v60 + 8) + 8))(v104, v55, v59);
-  (*(v84 + 8))(v55, v59);
-  v56(v103, 0);
-
-  LOWORD(v103[0]) = v104[0];
-  BYTE2(v103[0]) = v104[1];
-  v61 = v103;
-  MergeResult.merge(_:)(v61);
-  v62 = *(v57 + 8);
-  v63 = (*(v62 + 24))(v58, v62);
-  v64 = (*(v62 + 40))(v103, v58, v62);
-  sub_1AE21F75C(v63, v104);
-
-  v64(v103, 0);
-  LOWORD(v103[0]) = v104[0];
-  BYTE2(v103[0]) = v104[1];
-  v65 = v103;
-  MergeResult.merge(_:)(v65);
-  (*(v62 + 64))(v58, v62);
-  result = (*(v80 + 8))(&v104[3], v53);
-  v67 = v104[2];
-  v68 = HIBYTE(v104[2]);
-  v69 = v85;
-  *v85 = HIBYTE(v104[1]);
-  v69[1] = v67;
-  v69[2] = v68;
-  return result;
-}
-
-uint64_t CRStruct_5.newRefs(from:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v108 = a1;
-  v4 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v88 = *(AssociatedTypeWitness - 8);
-  v5 = *(v88 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v87 = &v74 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
-  v94 = &v74 - v8;
-  v81 = swift_getAssociatedTypeWitness();
-  v86 = *(v81 - 8);
-  v9 = *(v86 + 64);
-  MEMORY[0x1EEE9AC00](v81);
-  v85 = &v74 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v92 = &v74 - v12;
-  v79 = swift_getAssociatedTypeWitness();
-  v83 = *(v79 - 8);
-  v13 = *(v83 + 64);
-  MEMORY[0x1EEE9AC00](v79);
-  v82 = &v74 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v91 = &v74 - v16;
-  v77 = swift_getAssociatedTypeWitness();
-  v80 = *(v77 - 8);
-  v17 = *(v80 + 64);
-  MEMORY[0x1EEE9AC00](v77);
-  v78 = &v74 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v19);
-  v90 = &v74 - v20;
-  v74 = swift_getAssociatedTypeWitness();
-  v76 = *(v74 - 8);
-  v21 = *(v76 + 64);
-  MEMORY[0x1EEE9AC00](v74);
-  v75 = &v74 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v24 = MEMORY[0x1EEE9AC00](v23);
-  v89 = &v74 - v25;
-  v107 = v4;
-  (*(v4 + 96))(v113, a2, v4, v24);
-  v110 = v113[2];
-  v97 = v113[4];
-  v105 = v113[5];
-  v96 = v113[7];
-  v101 = v113[8];
-  v103 = v113[10];
-  v98 = v113[11];
-  v26 = v113[13];
-  v27 = v113[1];
-  v104 = v113[14];
-  v112 = MEMORY[0x1E69E7CD0];
-  sub_1AE23DB8C();
-  v111[0] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v111[1] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v111[2] = swift_getTupleTypeMetadata2();
-  v100 = a2;
-  sub_1AE23DB8C();
-  v111[3] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v111[4] = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v84 = *(TupleTypeMetadata - 8);
-  v28 = v84 + 16;
-  v99 = *(v84 + 16);
-  v99(v111, v113, TupleTypeMetadata);
-  v106 = v28;
-  v95 = v27;
-
-  v102 = v26;
-
-  swift_getAtKeyPath();
-
-  v99(v111, v113, TupleTypeMetadata);
-
-  v29 = v75;
-  swift_getAtKeyPath();
-
-  v30 = v74;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v32 = v89;
-  v33 = (*(AssociatedConformanceWitness + 64))(v29, v30, AssociatedConformanceWitness);
-  v34 = *(v76 + 8);
-  v34(v29, v30);
-  v34(v32, v30);
-  sub_1AE00F014(v33);
-  v35 = TupleTypeMetadata;
-  v36 = v99;
-  v99(v111, v113, TupleTypeMetadata);
-
-  swift_getAtKeyPath();
-
-  v36(v111, v113, v35);
-
-  v37 = v78;
-  swift_getAtKeyPath();
-
-  v38 = v77;
-  v39 = swift_getAssociatedConformanceWitness();
-  v40 = v90;
-  v41 = (*(v39 + 64))(v37, v38, v39);
-  v42 = *(v80 + 8);
-  v42(v37, v38);
-  v42(v40, v38);
-  sub_1AE00F014(v41);
-  v43 = TupleTypeMetadata;
-  v44 = v99;
-  v99(v111, v113, TupleTypeMetadata);
-
-  swift_getAtKeyPath();
-
-  v44(v111, v113, v43);
-
-  v45 = v82;
-  swift_getAtKeyPath();
-
-  v46 = v79;
-  v47 = swift_getAssociatedConformanceWitness();
-  v48 = v91;
-  v49 = (*(v47 + 64))(v45, v46, v47);
-  v50 = *(v83 + 8);
-  v50(v45, v46);
-  v50(v48, v46);
-  sub_1AE00F014(v49);
-  v51 = v99;
-  v99(v111, v113, TupleTypeMetadata);
-
-  swift_getAtKeyPath();
-
-  v51(v111, v113, TupleTypeMetadata);
-
-  v52 = v85;
-  swift_getAtKeyPath();
-
-  v53 = v81;
-  v54 = swift_getAssociatedConformanceWitness();
-  v55 = v92;
-  v56 = (*(v54 + 64))(v52, v53, v54);
-  v57 = *(v86 + 8);
-  v57(v52, v53);
-  v57(v55, v53);
-  sub_1AE00F014(v56);
-  v58 = TupleTypeMetadata;
-  v59 = v99;
-  v99(v111, v113, TupleTypeMetadata);
-
-  swift_getAtKeyPath();
-
-  v59(v111, v113, v58);
-
-  v60 = v87;
-  swift_getAtKeyPath();
-
-  v61 = v107;
-  v62 = v100;
-  v63 = AssociatedTypeWitness;
-  v64 = swift_getAssociatedConformanceWitness();
-  v65 = v94;
-  v66 = (*(v64 + 64))(v60, v63, v64);
-  v67 = *(v88 + 8);
-  v67(v60, v63);
-  v67(v65, v63);
-  sub_1AE00F014(v66);
-  v68 = *(v61 + 8);
-  v69 = *(v68 + 24);
-  v70 = v69(v62, v68);
-  v71 = v69(v62, v68);
-  v72 = sub_1AE2200E4(v71, v70);
-
-  sub_1AE00F014(v72);
-  (*(v84 + 8))(v113, v58);
-  return v112;
-}
-
-uint64_t CRStruct_5.observableDifference(from:with:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  v178 = a2;
-  v179 = a1;
-  v154 = a5;
-  v6 = *(a4 + 8);
-  swift_getAssociatedTypeWitness();
-  v7 = *(swift_getAssociatedConformanceWitness() + 16);
-  swift_getAssociatedTypeWitness();
-  v183 = sub_1AE23D7CC();
-  swift_getAssociatedTypeWitness();
-  v8 = *(swift_getAssociatedConformanceWitness() + 16);
-  swift_getAssociatedTypeWitness();
-  v184 = sub_1AE23D7CC();
-  swift_getAssociatedTypeWitness();
-  v9 = *(swift_getAssociatedConformanceWitness() + 16);
-  swift_getAssociatedTypeWitness();
-  v185 = sub_1AE23D7CC();
-  swift_getAssociatedTypeWitness();
-  v10 = *(swift_getAssociatedConformanceWitness() + 16);
-  swift_getAssociatedTypeWitness();
-  v186 = sub_1AE23D7CC();
-  swift_getAssociatedTypeWitness();
-  v11 = *(swift_getAssociatedConformanceWitness() + 16);
-  swift_getAssociatedTypeWitness();
-  v187 = sub_1AE23D7CC();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v12 = *(*(TupleTypeMetadata - 1) + 64);
-  MEMORY[0x1EEE9AC00](TupleTypeMetadata);
-  v120 = &v116 - v13;
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v145 = *(AssociatedTypeWitness - 8);
-  v14 = *(v145 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v144 = &v116 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v16);
-  v142 = &v116 - v17;
-  v143 = *(swift_getAssociatedConformanceWitness() + 16);
-  v116 = swift_getAssociatedTypeWitness();
-  v151 = sub_1AE23D7CC();
-  v150 = *(v151 - 8);
-  v18 = *(v150 + 64);
-  MEMORY[0x1EEE9AC00](v151);
-  v168 = &v116 - v19;
-  v159 = swift_getAssociatedTypeWitness();
-  v141 = *(v159 - 8);
-  v20 = *(v141 + 64);
-  MEMORY[0x1EEE9AC00](v159);
-  v140 = &v116 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v22);
-  v162 = &v116 - v23;
-  v139 = *(swift_getAssociatedConformanceWitness() + 16);
-  v117 = swift_getAssociatedTypeWitness();
-  v149 = sub_1AE23D7CC();
-  v148 = *(v149 - 8);
-  v24 = *(v148 + 64);
-  MEMORY[0x1EEE9AC00](v149);
-  v165 = &v116 - v25;
-  v26 = swift_getAssociatedTypeWitness();
-  v135 = *(v26 - 8);
-  v27 = *(v135 + 64);
-  MEMORY[0x1EEE9AC00](v26);
-  v134 = &v116 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v29);
-  v132 = &v116 - v30;
-  v133 = *(swift_getAssociatedConformanceWitness() + 16);
-  v127 = v26;
-  v118 = swift_getAssociatedTypeWitness();
-  v147 = sub_1AE23D7CC();
-  v146 = *(v147 - 8);
-  v31 = *(v146 + 64);
-  MEMORY[0x1EEE9AC00](v147);
-  v164 = &v116 - v32;
-  v33 = swift_getAssociatedTypeWitness();
-  v130 = *(v33 - 8);
-  v34 = *(v130 + 64);
-  MEMORY[0x1EEE9AC00](v33);
-  v129 = &v116 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v36);
-  v158 = &v116 - v37;
-  v128 = *(swift_getAssociatedConformanceWitness() + 16);
-  v125 = v33;
-  v119 = swift_getAssociatedTypeWitness();
-  v156 = sub_1AE23D7CC();
-  v155 = *(v156 - 8);
-  v38 = *(v155 + 64);
-  MEMORY[0x1EEE9AC00](v156);
-  v163 = &v116 - v39;
-  v40 = swift_getAssociatedTypeWitness();
-  v126 = *(v40 - 8);
-  v41 = *(v126 + 64);
-  MEMORY[0x1EEE9AC00](v40);
-  v124 = &v116 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v43);
-  v157 = &v116 - v44;
-  v123 = *(swift_getAssociatedConformanceWitness() + 16);
-  v122 = v40;
-  v136 = swift_getAssociatedTypeWitness();
-  v138 = sub_1AE23D7CC();
-  v137 = *(v138 - 8);
-  v45 = *(v137 + 64);
-  v46 = MEMORY[0x1EEE9AC00](v138);
-  v160 = &v116 - v47;
-  v48 = *(v6 + 96);
-  v152 = v6;
-  v48(&v183, a3, v6, v46);
-  v49 = v184;
-  v177 = v185;
-  v176 = v187;
-  v180 = v188;
-  v175 = v189;
-  v174 = v190;
-  v173 = v191;
-  v50 = v192;
-  v169 = v193;
-  v51 = v194;
-  sub_1AE23DB8C();
-  v182[0] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v182[1] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v182[2] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v182[3] = swift_getTupleTypeMetadata2();
-  v153 = a3;
-  sub_1AE23DB8C();
-  v182[4] = swift_getTupleTypeMetadata2();
-  v172 = swift_getTupleTypeMetadata();
-  v131 = *(v172 - 8);
-  v52 = v131 + 16;
-  v181 = *(v131 + 16);
-  (v181)(v182, &v183, v172);
-  v171 = v49;
-
-  v166 = v51;
-
-  v170 = v50;
-
-  swift_getAtKeyPath();
-
-  (v181)(v182, &v183, v172);
-  v167 = v52;
-
-  v53 = v124;
-  swift_getAtKeyPath();
-
-  v54 = v157;
-  v55 = v122;
-  (*(v123 + 40))(v53, v178, v122);
-  v56 = *(v126 + 8);
-  v56(v53, v55);
-  v56(v54, v55);
-  v57 = v172;
-  v58 = v181;
-  (v181)(v182, &v183, v172);
-
-  swift_getAtKeyPath();
-
-  v58(v182, &v183, v57);
-
-  v59 = v129;
-  swift_getAtKeyPath();
-
-  v60 = v59;
-  v61 = v59;
-  v62 = v158;
-  v63 = v125;
-  (*(v128 + 40))(v60, v178, v125);
-  v64 = *(v130 + 8);
-  v64(v61, v63);
-  v64(v62, v63);
-  v65 = v172;
-  v66 = v181;
-  (v181)(v182, &v183, v172);
-
-  v67 = v132;
-  swift_getAtKeyPath();
-
-  v66(v182, &v183, v65);
-
-  v68 = v134;
-  swift_getAtKeyPath();
-
-  v69 = v67;
-  v70 = v127;
-  (*(v133 + 40))(v68, v178, v127);
-  v71 = *(v135 + 8);
-  v71(v68, v70);
-  v71(v69, v70);
-  v72 = v172;
-  (v181)(v182, &v183, v172);
-
-  swift_getAtKeyPath();
-
-  (v181)(v182, &v183, v72);
-
-  v73 = v140;
-  swift_getAtKeyPath();
-
-  v74 = v162;
-  v75 = v159;
-  (*(v139 + 40))(v73, v178, v159);
-  v76 = *(v141 + 8);
-  v76(v73, v75);
-  v76(v74, v75);
-  v77 = v172;
-  v78 = v181;
-  (v181)(v182, &v183, v172);
-
-  v79 = v142;
-  swift_getAtKeyPath();
-
-  v78(v182, &v183, v77);
-
-  v80 = v165;
-
-  v81 = v163;
-
-  v82 = v144;
-  swift_getAtKeyPath();
-  v83 = v164;
-
-  v84 = v79;
-  v85 = AssociatedTypeWitness;
-  (*(v143 + 40))(v82, v178, AssociatedTypeWitness);
-  (*(v131 + 8))(&v183, v77);
-  v86 = *(v145 + 8);
-  v87 = v82;
-  v88 = v160;
-  v86(v87, v85);
-  v86(v84, v85);
-  if ((*(*(v136 - 8) + 48))(v88, 1) == 1 && (*(*(v119 - 8) + 48))(v81, 1) == 1 && (*(*(v118 - 8) + 48))(v83, 1) == 1 && (*(*(v117 - 8) + 48))(v80, 1) == 1 && (*(*(v116 - 8) + 48))(v168, 1) == 1)
-  {
-    (*(v137 + 8))(v88, v138);
-    v89 = *(*(*(v152 + 8) + 8) + 16);
-    v90 = swift_getAssociatedTypeWitness();
-    (*(*(v90 - 8) + 56))(v154, 1, 1, v90);
-    v91 = v151;
-    v92 = v80;
-    v93 = v150;
-    v94 = v83;
-    v95 = v149;
-    v96 = v148;
-    v97 = v147;
-    v98 = v81;
-    v99 = v146;
-    v100 = v156;
-  }
-
-  else
-  {
-    v101 = TupleTypeMetadata[12];
-    v102 = TupleTypeMetadata[16];
-    v103 = TupleTypeMetadata[20];
-    v181 = TupleTypeMetadata[24];
-    v104 = v120;
-    (*(v137 + 32))(v120, v88, v138);
-    (*(v155 + 16))(&v104[v101], v81, v156);
-    v99 = v146;
-    v105 = v147;
-    (*(v146 + 16))(&v104[v102], v83, v147);
-    v106 = v80;
-    v96 = v148;
-    v95 = v149;
-    (*(v148 + 16))(&v104[v103], v106, v149);
-    v93 = v150;
-    v107 = v151;
-    (*(v150 + 16))(&v181[v104], v168, v151);
-    v108 = *(*(*(v152 + 8) + 8) + 16);
-    v109 = swift_getAssociatedTypeWitness();
-    v110 = v154;
-    v94 = v164;
-    v97 = v105;
-    v92 = v165;
-    swift_dynamicCast();
-    v111 = *(*(v109 - 8) + 56);
-    v112 = v110;
-    v98 = v163;
-    v113 = v109;
-    v100 = v156;
-    v111(v112, 0, 1, v113);
-    v91 = v107;
-  }
-
-  v114 = v155;
-  (*(v93 + 8))(v168, v91);
-  (*(v96 + 8))(v92, v95);
-  (*(v99 + 8))(v94, v97);
-  return (*(v114 + 8))(v98, v100);
-}
-
-uint64_t CRStruct_5.hasDelta(from:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v106 = a1;
-  v4 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v79 = *(AssociatedTypeWitness - 8);
-  v5 = *(v79 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v78 = &v77 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
-  v84 = &v77 - v8;
-  v9 = swift_getAssociatedTypeWitness();
-  v82 = *(v9 - 8);
-  v10 = *(v82 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v81 = &v77 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v80 = &v77 - v13;
-  v102 = swift_getAssociatedTypeWitness();
-  v86 = *(v102 - 8);
-  v14 = *(v86 + 64);
-  MEMORY[0x1EEE9AC00](v102);
-  v85 = &v77 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v16);
-  v91 = &v77 - v17;
-  v18 = swift_getAssociatedTypeWitness();
-  v89 = *(v18 - 8);
-  v19 = *(v89 + 64);
-  MEMORY[0x1EEE9AC00](v18);
-  v88 = &v77 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v21);
-  v97 = &v77 - v22;
-  v94 = swift_getAssociatedTypeWitness();
-  v96 = *(v94 - 8);
-  v23 = *(v96 + 64);
-  MEMORY[0x1EEE9AC00](v94);
-  v95 = &v77 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v26 = MEMORY[0x1EEE9AC00](v25);
-  v93 = &v77 - v27;
-  v107 = v4;
-  (*(v4 + 96))(v116, a2, v4, v26);
-  v28 = v116[1];
-  v110 = v116[2];
-  v111 = v116[4];
-  v114 = v116[5];
-  v113 = v116[7];
-  v112 = v116[11];
-  v29 = v116[14];
-  v109 = v116[8];
-  v105 = v116[10];
-  v108 = v116[13];
-  sub_1AE23DB8C();
-  v115[0] = swift_getTupleTypeMetadata2();
-  v90 = v18;
-  sub_1AE23DB8C();
-  v115[1] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v115[2] = swift_getTupleTypeMetadata2();
-  v83 = v9;
-  v30 = v28;
-  sub_1AE23DB8C();
-  v115[3] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v115[4] = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v98 = *(TupleTypeMetadata - 8);
-  v33 = v98 + 16;
-  v32 = *(v98 + 16);
-  v32(v115, v116, TupleTypeMetadata);
-
-  v34 = v93;
-  swift_getAtKeyPath();
-
-  v100 = TupleTypeMetadata;
-  v104 = v33;
-  v92 = v32;
-  v32(v115, v116, TupleTypeMetadata);
-  v99 = v30;
-
-  v103 = v29;
-  v35 = a2;
-
-  v36 = v95;
-  swift_getAtKeyPath();
-
-  v37 = v94;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  LOBYTE(a2) = (*(AssociatedConformanceWitness + 88))(v36, v37, AssociatedConformanceWitness);
-  v39 = *(v96 + 8);
-  v39(v36, v37);
-  v39(v34, v37);
-  if (a2)
-  {
-    goto LABEL_2;
-  }
-
-  v42 = v100;
-  v43 = v35;
-  v44 = v92;
-  v92(v115, v116, v100);
-
-  v87 = v43;
-
-  swift_getAtKeyPath();
-
-  v44(v115, v116, v42);
-
-  v45 = v88;
-  swift_getAtKeyPath();
-
-  v46 = v42;
-  v47 = v90;
-  v48 = swift_getAssociatedConformanceWitness();
-  v49 = v97;
-  LOBYTE(v43) = (*(v48 + 88))(v45, v47, v48);
-  v50 = *(v89 + 8);
-  v50(v45, v47);
-  v50(v49, v47);
-  if (v43)
-  {
-    v40 = 1;
-    v41 = v46;
-    goto LABEL_10;
-  }
-
-  v51 = v92;
-  v92(v115, v116, v46);
-
-  swift_getAtKeyPath();
-
-  v51(v115, v116, v46);
-
-  v52 = v85;
-  swift_getAtKeyPath();
-
-  v53 = v102;
-  v54 = swift_getAssociatedConformanceWitness();
-  v55 = v91;
-  v56 = (*(v54 + 88))(v52, v53, v54);
-  v57 = *(v86 + 8);
-  v57(v52, v53);
-  v57(v55, v53);
-  v41 = v46;
-  if (v56)
-  {
-    v40 = 1;
-    goto LABEL_10;
-  }
-
-  v58 = v92;
-  v92(v115, v116, v46);
-
-  v59 = v80;
-  swift_getAtKeyPath();
-
-  v58(v115, v116, v46);
-
-  v60 = v81;
-  swift_getAtKeyPath();
-
-  v61 = v83;
-  v62 = swift_getAssociatedConformanceWitness();
-  v63 = (*(v62 + 88))(v60, v61, v62);
-  v64 = *(v82 + 8);
-  v64(v60, v61);
-  v64(v59, v61);
-  if (v63)
-  {
-    v40 = 1;
-    v41 = v46;
-    goto LABEL_10;
-  }
-
-  v66 = v92;
-  v92(v115, v116, v46);
-
-  swift_getAtKeyPath();
-
-  v66(v115, v116, v46);
-
-  v67 = v78;
-  swift_getAtKeyPath();
-  v68 = v87;
-
-  v69 = AssociatedTypeWitness;
-  v70 = swift_getAssociatedConformanceWitness();
-  v71 = v84;
-  LOBYTE(v66) = (*(v70 + 88))(v67, v69, v70);
-  v72 = *(v79 + 8);
-  v72(v67, v69);
-  v72(v71, v69);
-  if (v66)
-  {
-LABEL_2:
-    v40 = 1;
-  }
-
-  else
-  {
-    v73 = *(v107 + 8);
-    v74 = *(v73 + 24);
-    v75 = v74(v68, v73);
-    v76 = v74(v68, v73);
-    v40 = sub_1AE21FE14(v76, v75);
-  }
-
-  v41 = v100;
-LABEL_10:
-  (*(v98 + 8))(v116, v41);
-  return v40 & 1;
-}
-
-uint64_t CRStruct_5.actionUndoingDifference(from:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v155 = a1;
-  v132 = a4;
-  v5 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v125 = *(AssociatedTypeWitness - 8);
-  v6 = *(v125 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v124 = &v96 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v121 = &v96 - v9;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v97 = swift_getAssociatedTypeWitness();
-  v131 = sub_1AE23D7CC();
-  v130 = *(v131 - 8);
-  v10 = *(v130 + 64);
-  MEMORY[0x1EEE9AC00](v131);
-  v143 = &v96 - v11;
-  v136 = swift_getAssociatedTypeWitness();
-  v120 = *(v136 - 8);
-  v12 = *(v120 + 64);
-  MEMORY[0x1EEE9AC00](v136);
-  v119 = &v96 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v137 = &v96 - v15;
-  v116 = swift_getAssociatedConformanceWitness();
-  v98 = swift_getAssociatedTypeWitness();
-  v129 = sub_1AE23D7CC();
-  v128 = *(v129 - 8);
-  v16 = *(v128 + 64);
-  MEMORY[0x1EEE9AC00](v129);
-  v144 = &v96 - v17;
-  v135 = swift_getAssociatedTypeWitness();
-  v114 = *(v135 - 8);
-  v18 = *(v114 + 64);
-  MEMORY[0x1EEE9AC00](v135);
-  v113 = &v96 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v20);
-  v111 = &v96 - v21;
-  v112 = swift_getAssociatedConformanceWitness();
-  v99 = swift_getAssociatedTypeWitness();
-  v127 = sub_1AE23D7CC();
-  v126 = *(v127 - 8);
-  v22 = *(v126 + 64);
-  MEMORY[0x1EEE9AC00](v127);
-  v139 = &v96 - v23;
-  v24 = swift_getAssociatedTypeWitness();
-  v109 = *(v24 - 8);
-  v25 = *(v109 + 64);
-  MEMORY[0x1EEE9AC00](v24);
-  v108 = &v96 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v27);
-  v106 = &v96 - v28;
-  v107 = swift_getAssociatedConformanceWitness();
-  v104 = v24;
-  v100 = swift_getAssociatedTypeWitness();
-  v133 = sub_1AE23D7CC();
-  v122 = *(v133 - 8);
-  v29 = *(v122 + 64);
-  MEMORY[0x1EEE9AC00](v133);
-  v140 = &v96 - v30;
-  v31 = swift_getAssociatedTypeWitness();
-  v105 = *(v31 - 8);
-  v32 = *(v105 + 64);
-  MEMORY[0x1EEE9AC00](v31);
-  v103 = &v96 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v34);
-  v134 = &v96 - v35;
-  v102 = swift_getAssociatedConformanceWitness();
-  v101 = v31;
-  v115 = swift_getAssociatedTypeWitness();
-  v118 = sub_1AE23D7CC();
-  v117 = *(v118 - 8);
-  v36 = *(v117 + 64);
-  v37 = MEMORY[0x1EEE9AC00](v118);
-  v142 = &v96 - v38;
-  (*(v5 + 96))(v163, a2, v5, v37);
-  v39 = v163[2];
-  v149 = v163[4];
-  v153 = v163[5];
-  v157 = v163[7];
-  v152 = v163[8];
-  v41 = v163[13];
-  v40 = v163[14];
-  v42 = v163[1];
-  v154 = v163[10];
-  v43 = v163[11];
-  sub_1AE23DB8C();
-  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v159 = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v160 = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v161 = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v162 = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v110 = *(TupleTypeMetadata - 8);
-  v44 = v110 + 16;
-  v151 = *(v110 + 16);
-  v151(&TupleTypeMetadata2, v163, TupleTypeMetadata);
-  v147 = v44;
-  v141 = v42;
-
-  v145 = v40;
-
-  v148 = v41;
-
-  v146 = v43;
-
-  v156 = v39;
-  swift_getAtKeyPath();
-
-  v151(&TupleTypeMetadata2, v163, TupleTypeMetadata);
-
-  v45 = v103;
-  swift_getAtKeyPath();
-
-  v46 = v134;
-  v47 = v101;
-  (*(v102 + 72))(v45, v101);
-  v48 = *(v105 + 8);
-  v48(v45, v47);
-  v48(v46, v47);
-  v49 = TupleTypeMetadata;
-  v50 = v151;
-  v151(&TupleTypeMetadata2, v163, TupleTypeMetadata);
-
-  v51 = v106;
-  swift_getAtKeyPath();
-
-  v50(&TupleTypeMetadata2, v163, v49);
-
-  v52 = v108;
-  swift_getAtKeyPath();
-
-  v53 = v104;
-  (*(v107 + 72))(v52, v104);
-  v54 = *(v109 + 8);
-  v54(v52, v53);
-  v54(v51, v53);
-  v55 = TupleTypeMetadata;
-  v56 = v151;
-  v151(&TupleTypeMetadata2, v163, TupleTypeMetadata);
-
-  v57 = v111;
-  swift_getAtKeyPath();
-
-  v56(&TupleTypeMetadata2, v163, v55);
-
-  v58 = v113;
-  swift_getAtKeyPath();
-
-  v59 = v135;
-  (*(v112 + 72))(v58, v135);
-  v60 = *(v114 + 8);
-  v60(v58, v59);
-  v60(v57, v59);
-  v61 = TupleTypeMetadata;
-  v56(&TupleTypeMetadata2, v163, TupleTypeMetadata);
-
-  swift_getAtKeyPath();
-
-  v151(&TupleTypeMetadata2, v163, v61);
-
-  v62 = v119;
-  swift_getAtKeyPath();
-
-  v63 = v137;
-  v64 = v136;
-  (*(v116 + 72))(v62, v136);
-  v65 = *(v120 + 8);
-  v65(v62, v64);
-  v65(v63, v64);
-  v66 = TupleTypeMetadata;
-  v67 = v151;
-  v151(&TupleTypeMetadata2, v163, TupleTypeMetadata);
-
-  v68 = v121;
-  swift_getAtKeyPath();
-
-  v67(&TupleTypeMetadata2, v163, v66);
-
-  v69 = v140;
-
-  v70 = v124;
-  swift_getAtKeyPath();
-
-  v71 = AssociatedTypeWitness;
-  (*(AssociatedConformanceWitness + 72))(v70, AssociatedTypeWitness);
-  (*(v110 + 8))(v163, v66);
-  v72 = *(v125 + 8);
-  v72(v70, v71);
-  v72(v68, v71);
-  if ((*(*(v115 - 8) + 48))(v142, 1) == 1 && (*(*(v100 - 8) + 48))(v69, 1) == 1 && (*(*(v99 - 8) + 48))(v139, 1) == 1 && (*(*(v98 - 8) + 48))(v144, 1) == 1 && (*(*(v97 - 8) + 48))(v143, 1) == 1)
-  {
-    v73 = v118;
-    (*(v117 + 8))(v142, v118);
-    TupleTypeMetadata2 = v73;
-    v74 = v133;
-    v159 = v133;
-    v75 = v127;
-    v160 = v127;
-    v76 = v129;
-    v161 = v129;
-    v77 = v131;
-    v162 = v131;
-    v78 = swift_getTupleTypeMetadata();
-    (*(*(v78 - 8) + 56))(v132, 1, 1, v78);
-    v79 = v130;
-    v80 = v128;
-    v81 = v69;
-    v82 = v126;
-    v83 = v139;
-    v84 = v122;
-  }
-
-  else
-  {
-    v85 = v118;
-    TupleTypeMetadata2 = v118;
-    v86 = v133;
-    v159 = v133;
-    v75 = v127;
-    v160 = v127;
-    v76 = v129;
-    v161 = v129;
-    v87 = v131;
-    v162 = v131;
-    v88 = swift_getTupleTypeMetadata();
-    v89 = v88[12];
-    v90 = v88[16];
-    v156 = v88[20];
-    v157 = v88[24];
-    v91 = v132;
-    (*(v117 + 32))(v132, v142, v85);
-    v84 = v122;
-    (*(v122 + 16))(v91 + v89, v69, v86);
-    v82 = v126;
-    v83 = v139;
-    (*(v126 + 16))(v91 + v90, v139, v75);
-    v80 = v128;
-    (*(v128 + 16))(v91 + v156, v144, v76);
-    v79 = v130;
-    (*(v130 + 16))(v91 + v157, v143, v87);
-    v92 = *(*(v88 - 1) + 56);
-    v93 = v91;
-    v81 = v140;
-    v94 = v88;
-    v77 = v87;
-    v74 = v133;
-    v92(v93, 0, 1, v94);
-  }
-
-  (*(v79 + 8))(v143, v77);
-  (*(v80 + 8))(v144, v76);
-  (*(v82 + 8))(v83, v75);
-  return (*(v84 + 8))(v81, v74);
-}
-
-uint64_t CRStruct_5.apply(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v171 = a1;
-  v4 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v144 = AssociatedTypeWitness;
-  v126 = swift_getAssociatedTypeWitness();
-  v6 = sub_1AE23D7CC();
-  v157 = *(v6 - 8);
-  v7 = *(v157 + 64);
-  MEMORY[0x1EEE9AC00](v6);
-  v142 = &v121 - v8;
-  v9 = swift_getAssociatedTypeWitness();
-  v140 = swift_getAssociatedConformanceWitness();
-  v141 = v9;
-  v125 = swift_getAssociatedTypeWitness();
-  v10 = sub_1AE23D7CC();
-  v161 = v10;
-  v150 = *(v10 - 8);
-  v11 = *(v150 + 64);
-  MEMORY[0x1EEE9AC00](v10);
-  v139 = &v121 - v12;
-  v13 = swift_getAssociatedTypeWitness();
-  v135 = swift_getAssociatedConformanceWitness();
-  v136 = v13;
-  v124 = swift_getAssociatedTypeWitness();
-  v14 = sub_1AE23D7CC();
-  v156 = v14;
-  v160 = *(v14 - 8);
-  v15 = *(v160 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v134 = &v121 - v16;
-  v17 = swift_getAssociatedTypeWitness();
-  v131 = swift_getAssociatedConformanceWitness();
-  v132 = v17;
-  v123 = swift_getAssociatedTypeWitness();
-  v18 = sub_1AE23D7CC();
-  v159 = *(v18 - 8);
-  v19 = *(v159 + 64);
-  MEMORY[0x1EEE9AC00](v18);
-  v129 = &v121 - v20;
-  v21 = swift_getAssociatedTypeWitness();
-  v128 = swift_getAssociatedConformanceWitness();
-  v145 = v21;
-  v22 = swift_getAssociatedTypeWitness();
-  v172 = sub_1AE23D7CC();
-  v173 = v18;
-  v174 = v14;
-  v175 = v10;
-  v158 = v6;
-  v176 = v6;
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v24 = sub_1AE23D7CC();
-  v25 = *(v24 - 8);
-  v26 = *(v25 + 64);
-  MEMORY[0x1EEE9AC00](v24);
-  v138 = &v121 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v28);
-  v133 = &v121 - v29;
-  MEMORY[0x1EEE9AC00](v30);
-  v130 = &v121 - v31;
-  MEMORY[0x1EEE9AC00](v32);
-  v34 = &v121 - v33;
-  MEMORY[0x1EEE9AC00](v35);
-  v37 = &v121 - v36;
-  v122 = v22;
-  v152 = sub_1AE23D7CC();
-  v166 = *(v152 - 8);
-  v38 = *(v166 + 64);
-  v39 = MEMORY[0x1EEE9AC00](v152);
-  v41 = &v121 - v40;
-  (*(v4 + 96))(&v172, a2, v4, v39);
-  v42 = v173;
-  v43 = v174;
-  v167 = v177;
-  v168 = v176;
-  v155 = v178;
-  v154 = v179;
-  v148 = v180;
-  v153 = v181;
-  v137 = v182;
-  v146 = v183;
-
-  v169 = v43;
-
-  v170 = v42;
-  v44 = v25;
-  v45 = v161;
-
-  v46 = *(v44 + 16);
-  v165 = v44 + 16;
-  v164 = v46;
-  v46(v37, v171, v24);
-  v47 = *(TupleTypeMetadata - 1);
-  v163 = *(v47 + 48);
-  v162 = v47 + 48;
-  v48 = v163(v37, 1, TupleTypeMetadata);
-  v49 = v156;
-  v149 = v18;
-  v147 = v44;
-  v151 = v24;
-  if (v48 == 1)
-  {
-    (*(v44 + 8))(v37, v24);
-    (*(*(v122 - 8) + 56))(v41, 1, 1);
-  }
-
-  else
-  {
-    v122 = TupleTypeMetadata[12];
-    v50 = TupleTypeMetadata[16];
-    v51 = TupleTypeMetadata[20];
-    v52 = TupleTypeMetadata[24];
-    (*(v166 + 32))(v41, v37, v152);
-    (*(v157 + 8))(&v37[v52], v158);
-    (*(v150 + 8))(&v37[v51], v45);
-    (*(v160 + 8))(&v37[v50], v49);
-    (*(v159 + 8))(&v37[v122], v18);
-  }
-
-  v53 = swift_modifyAtWritableKeyPath();
-  v54 = v128;
-  v55 = *(v128 + 80);
-  v56 = swift_checkMetadataState();
-  v55(v41, v56, v54);
-  v57 = v166 + 8;
-  v58 = *(v166 + 8);
-  v59 = v41;
-  v60 = v152;
-  v58(v59, v152);
-  v53(&v172, 0);
-
-  v61 = v151;
-  v164(v34, v171, v151);
-  v62 = v163(v34, 1, TupleTypeMetadata);
-  v166 = v57;
-  v145 = v58;
-  if (v62 == 1)
-  {
-    (*(v147 + 8))(v34, v61);
-    v63 = v129;
-    (*(*(v123 - 8) + 56))(v129, 1, 1);
-    v64 = v149;
-    v65 = v159;
-  }
-
-  else
-  {
-    v66 = TupleTypeMetadata[12];
-    v128 = TupleTypeMetadata[16];
-    v67 = TupleTypeMetadata[20];
-    v68 = TupleTypeMetadata[24];
-    v65 = v159;
-    v63 = v129;
-    v64 = v149;
-    (*(v159 + 32))(v129, &v34[v66], v149);
-    (*(v157 + 8))(&v34[v68], v158);
-    (*(v150 + 8))(&v34[v67], v161);
-    (*(v160 + 8))(&v34[v128], v156);
-    v58(v34, v60);
-  }
-
-  v69 = swift_modifyAtWritableKeyPath();
-  v70 = v131;
-  v71 = *(v131 + 80);
-  v72 = swift_checkMetadataState();
-  v71(v63, v72, v70);
-  v73 = v63;
-  v74 = *(v65 + 8);
-  v74(v73, v64);
-  v69(&v172, 0);
-
-  v75 = v130;
-  v76 = v151;
-  v164(v130, v171, v151);
-  v77 = v163(v75, 1, TupleTypeMetadata);
-  v159 = v65 + 8;
-  v127 = TupleTypeMetadata;
-  if (v77 == 1)
-  {
-    (*(v147 + 8))(v75, v76);
-    v78 = v134;
-    (*(*(v124 - 8) + 56))(v134, 1, 1);
-    v79 = v156;
-    v80 = v160;
-  }
-
-  else
-  {
-    v81 = TupleTypeMetadata[12];
-    v82 = TupleTypeMetadata[16];
-    v83 = TupleTypeMetadata[20];
-    v84 = TupleTypeMetadata[24];
-    v80 = v160;
-    v78 = v134;
-    v79 = v156;
-    (*(v160 + 32))(v134, &v75[v82]);
-    (*(v157 + 8))(&v75[v84], v158);
-    (*(v150 + 8))(&v75[v83], v161);
-    v74(&v75[v81], v64);
-    v145(v75, v152);
-  }
-
-  v134 = v74;
-  v85 = swift_modifyAtWritableKeyPath();
-  v86 = v135;
-  v87 = *(v135 + 80);
-  v88 = swift_checkMetadataState();
-  v87(v78, v88, v86);
-  v89 = v78;
-  v90 = v79;
-  v136 = *(v80 + 8);
-  v136(v89, v79);
-  v85(&v172, 0);
-
-  v91 = v133;
-  v92 = v151;
-  v164(v133, v171, v151);
-  v93 = v127;
-  v94 = v163(v91, 1, v127);
-  v160 = v80 + 8;
-  if (v94 == 1)
-  {
-    (*(v147 + 8))(v91, v92);
-    v95 = v139;
-    (*(*(v125 - 8) + 56))(v139, 1, 1);
-    v96 = v150;
-    v97 = v92;
-  }
-
-  else
-  {
-    v98 = v90;
-    v97 = v92;
-    v99 = v93[12];
-    v100 = v93[16];
-    v101 = v93[24];
-    v96 = v150;
-    v95 = v139;
-    (*(v150 + 32))(v139, &v91[v93[20]], v161);
-    (*(v157 + 8))(&v91[v101], v158);
-    v136(&v91[v100], v98);
-    (v134)(&v91[v99], v149);
-    v145(v91, v152);
-  }
-
-  v102 = swift_modifyAtWritableKeyPath();
-  v103 = v140;
-  v104 = *(v140 + 80);
-  v105 = swift_checkMetadataState();
-  v104(v95, v105, v103);
-  v106 = *(v96 + 8);
-  v107 = v95;
-  v108 = v161;
-  v106(v107, v161);
-  v102(&v172, 0);
-
-  v109 = v138;
-  v164(v138, v171, v97);
-  if (v163(v109, 1, v93) == 1)
-  {
-    (*(v147 + 8))(v109, v97);
-    v110 = v142;
-    (*(*(v126 - 8) + 56))(v142, 1, 1);
-    v111 = v158;
-    v112 = v157;
-  }
-
-  else
-  {
-    v171 = v93[12];
-    v113 = v93[16];
-    v114 = v93[20];
-    v112 = v157;
-    v115 = &v109[v93[24]];
-    v110 = v142;
-    v111 = v158;
-    (*(v157 + 32))(v142, v115, v158);
-    v106(&v109[v114], v108);
-    v136(&v109[v113], v156);
-    (v134)(&v109[v171], v149);
-    v145(v109, v152);
-  }
-
-  v116 = swift_modifyAtWritableKeyPath();
-  v117 = AssociatedConformanceWitness;
-  v118 = *(AssociatedConformanceWitness + 80);
-  v119 = swift_checkMetadataState();
-  v118(v110, v119, v117);
-  (*(v112 + 8))(v110, v111);
-  v116(&v172, 0);
-}
-
-uint64_t CRStruct_5.visitReferences(_:)(void *a1, uint64_t a2, uint64_t a3)
-{
-  v88 = a1;
-  v4 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v61 = *(AssociatedTypeWitness - 8);
-  v5 = *(v61 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v60 = &v59 - v6;
-  v82 = swift_getAssociatedTypeWitness();
-  v63 = *(v82 - 8);
-  v7 = *(v63 + 64);
-  MEMORY[0x1EEE9AC00](v82);
-  v62 = &v59 - v8;
-  v83 = swift_getAssociatedTypeWitness();
-  v65 = *(v83 - 8);
-  v9 = *(v65 + 64);
-  MEMORY[0x1EEE9AC00](v83);
-  v64 = &v59 - v10;
-  v11 = swift_getAssociatedTypeWitness();
-  v67 = *(v11 - 8);
-  v12 = *(v67 + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v66 = &v59 - v13;
-  v77 = swift_getAssociatedTypeWitness();
-  v79 = *(v77 - 8);
-  v14 = *(v79 + 64);
-  v15 = MEMORY[0x1EEE9AC00](v77);
-  v78 = &v59 - v16;
-  (*(v4 + 96))(v90, a2, v4, v15);
-  v17 = v90[1];
-  v76 = v90[2];
-  v87 = v90[4];
-  v86 = v90[5];
-  v85 = v90[7];
-  v84 = v90[8];
-  v18 = v90[10];
-  v19 = v90[11];
-  v21 = v90[13];
-  v20 = v90[14];
-  sub_1AE23DB8C();
-  v89[0] = swift_getTupleTypeMetadata2();
-  v68 = v11;
-  sub_1AE23DB8C();
-  v89[1] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v89[2] = swift_getTupleTypeMetadata2();
-  v22 = v88;
-  sub_1AE23DB8C();
-  v89[3] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v89[4] = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v80 = *(TupleTypeMetadata - 8);
-  v24 = *(v80 + 16);
-  v70 = v80 + 16;
-  v69 = v24;
-  v24(v89, v90, TupleTypeMetadata);
-  v75 = v17;
-
-  v74 = v20;
-
-  v71 = v21;
-
-  v72 = v19;
-
-  v73 = v18;
-
-  v25 = a2;
-
-  v26 = v78;
-  swift_getAtKeyPath();
-
-  v27 = v77;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(AssociatedConformanceWitness + 16) + 48))(v22, v27);
-  (*(v79 + 8))(v26, v27);
-  v29 = v22[3];
-  v30 = v22[4];
-  __swift_project_boxed_opaque_existential_1(v22, v29);
-  v31 = v29;
-  v32 = TupleTypeMetadata;
-  if (((*(v30 + 8))(v31, v30) & 1) == 0)
-  {
-    v69(v89, v90, TupleTypeMetadata);
-
-    v33 = v66;
-    swift_getAtKeyPath();
-
-    v34 = v68;
-    v35 = swift_getAssociatedConformanceWitness();
-    v36 = v88;
-    (*(*(v35 + 16) + 48))(v88, v34);
-    (*(v67 + 8))(v33, v34);
-    v37 = v36[3];
-    v38 = v36[4];
-    __swift_project_boxed_opaque_existential_1(v36, v37);
-    if (((*(v38 + 8))(v37, v38) & 1) == 0)
-    {
-      v69(v89, v90, v32);
-
-      v39 = v64;
-      swift_getAtKeyPath();
-
-      v40 = v83;
-      v41 = swift_getAssociatedConformanceWitness();
-      v42 = v88;
-      (*(*(v41 + 16) + 48))(v88, v40);
-      (*(v65 + 8))(v39, v40);
-      v43 = v42[3];
-      v44 = v42[4];
-      __swift_project_boxed_opaque_existential_1(v42, v43);
-      if (((*(v44 + 8))(v43, v44) & 1) == 0)
-      {
-        v69(v89, v90, v32);
-
-        v45 = v62;
-        swift_getAtKeyPath();
-
-        v46 = v82;
-        v47 = swift_getAssociatedConformanceWitness();
-        v48 = v88;
-        (*(*(v47 + 16) + 48))(v88, v46);
-        (*(v63 + 8))(v45, v46);
-        v49 = v48[3];
-        v50 = v48[4];
-        __swift_project_boxed_opaque_existential_1(v48, v49);
-        if (((*(v50 + 8))(v49, v50) & 1) == 0)
-        {
-          v69(v89, v90, v32);
-
-          v51 = v60;
-          swift_getAtKeyPath();
-
-          v52 = AssociatedTypeWitness;
-          v53 = swift_getAssociatedConformanceWitness();
-          v54 = v88;
-          (*(*(v53 + 16) + 48))(v88, v52);
-          (*(v61 + 8))(v51, v52);
-          v55 = v54[3];
-          v56 = v54[4];
-          __swift_project_boxed_opaque_existential_1(v54, v55);
-          if (((*(v56 + 8))(v55, v56) & 1) == 0)
-          {
-            v57 = (*(*(v4 + 8) + 24))(v25);
-            sub_1ADDDC764(v88, v57);
-          }
-        }
-      }
-    }
-  }
-
-  return (*(v80 + 8))(v90, v32);
-}
-
-Swift::Bool __swiftcall CRStruct_5.needToFinalizeTimestamps()()
-{
-  v2 = v0;
-  v3 = *(v1 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v41 = *(AssociatedTypeWitness - 8);
-  v4 = *(v41 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v40 = v39 - v5;
-  v45 = swift_getAssociatedTypeWitness();
-  v44 = *(v45 - 8);
-  v6 = *(v44 + 64);
-  MEMORY[0x1EEE9AC00](v45);
-  v43 = v39 - v7;
-  v48 = swift_getAssociatedTypeWitness();
-  v47 = *(v48 - 8);
-  v8 = *(v47 + 64);
-  MEMORY[0x1EEE9AC00](v48);
-  v46 = v39 - v9;
-  v51 = swift_getAssociatedTypeWitness();
-  v50 = *(v51 - 8);
-  v10 = *(v50 + 64);
-  MEMORY[0x1EEE9AC00](v51);
-  v49 = v39 - v11;
-  v12 = swift_getAssociatedTypeWitness();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  v15 = MEMORY[0x1EEE9AC00](v12);
-  v17 = v39 - v16;
-  (*(v3 + 96))(v59, v2, v3, v15);
-  v18 = v59[1];
-  v53 = v59[4];
-  v57 = v59[8];
-  v58 = v59[5];
-  v55 = v59[10];
-  v56 = v59[7];
-  v52 = v59[11];
-  v19 = v59[14];
-  v54 = v59[13];
-
-  swift_getAtKeyPath();
-
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v21 = (*(*(AssociatedConformanceWitness + 16) + 56))(v12);
-  (*(v13 + 8))(v17, v12);
-  if (v21)
-  {
-    goto LABEL_6;
-  }
-
-  v39[0] = v19;
-  v39[1] = v18;
-  v22 = v49;
-  swift_getAtKeyPath();
-  v23 = v51;
-  v24 = swift_getAssociatedConformanceWitness();
-  v25 = (*(*(v24 + 16) + 56))(v23);
-  (*(v50 + 8))(v22, v23);
-  if (v25)
-  {
-    goto LABEL_6;
-  }
-
-  v26 = v46;
-  swift_getAtKeyPath();
-  v27 = v48;
-  v28 = swift_getAssociatedConformanceWitness();
-  v29 = (*(*(v28 + 16) + 56))(v27);
-  (*(v47 + 8))(v26, v27);
-  if (v29 & 1) != 0 || (v30 = v43, swift_getAtKeyPath(), v31 = v45, v32 = swift_getAssociatedConformanceWitness(), v33 = (*(*(v32 + 16) + 56))(v31), (*(v44 + 8))(v30, v31), (v33))
-  {
-LABEL_6:
-
-    v34 = 1;
-  }
-
-  else
-  {
-    v36 = v40;
-    swift_getAtKeyPath();
-    v37 = AssociatedTypeWitness;
-    v38 = swift_getAssociatedConformanceWitness();
-    v34 = (*(*(v38 + 16) + 56))(v37);
-
-    (*(v41 + 8))(v36, v37);
-  }
-
-  return v34 & 1;
-}
-
-uint64_t CRStruct_5.finalizeTimestamps(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  (*(*(a3 + 8) + 96))(&v26, a2, *(a3 + 8));
-
-  v4 = swift_modifyAtWritableKeyPath();
-  swift_getAssociatedTypeWitness();
-  v5 = *(swift_getAssociatedConformanceWitness() + 16);
-  v6 = *(v5 + 64);
-  v7 = swift_checkMetadataState();
-  v6(a1, v7, v5);
-  v4(&v26, 0);
-
-  v8 = swift_modifyAtWritableKeyPath();
-  swift_getAssociatedTypeWitness();
-  v9 = *(swift_getAssociatedConformanceWitness() + 16);
-  v10 = *(v9 + 64);
-  v11 = swift_checkMetadataState();
-  v10(a1, v11, v9);
-  v8(&v26, 0);
-
-  v12 = swift_modifyAtWritableKeyPath();
-  swift_getAssociatedTypeWitness();
-  v13 = *(swift_getAssociatedConformanceWitness() + 16);
-  v14 = *(v13 + 64);
-  v15 = swift_checkMetadataState();
-  v14(a1, v15, v13);
-  v12(&v26, 0);
-
-  v24 = swift_modifyAtWritableKeyPath();
-  swift_getAssociatedTypeWitness();
-  v16 = *(swift_getAssociatedConformanceWitness() + 16);
-  v17 = *(v16 + 64);
-  v18 = swift_checkMetadataState();
-  v17(a1, v18, v16);
-  v24(&v26, 0);
-
-  v19 = swift_modifyAtWritableKeyPath();
-  swift_getAssociatedTypeWitness();
-  v20 = *(swift_getAssociatedConformanceWitness() + 16);
-  v21 = *(v20 + 64);
-  v22 = swift_checkMetadataState();
-  v21(a1, v22, v20);
-  v19(&v26, 0);
-}
-
-uint64_t CRStruct_5.minEncodingVersion.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  v55 = a3;
-  v5 = *(a2 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v39 = *(AssociatedTypeWitness - 8);
-  v6 = *(v39 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v38 = &v37 - v7;
-  v43 = swift_getAssociatedTypeWitness();
-  v42 = *(v43 - 8);
-  v8 = *(v42 + 64);
-  MEMORY[0x1EEE9AC00](v43);
-  v41 = &v37 - v9;
-  v46 = swift_getAssociatedTypeWitness();
-  v45 = *(v46 - 8);
-  v10 = *(v45 + 64);
-  MEMORY[0x1EEE9AC00](v46);
-  v44 = &v37 - v11;
-  v12 = swift_getAssociatedTypeWitness();
-  v47 = *(v12 - 8);
-  v13 = *(v47 + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v15 = &v37 - v14;
-  v16 = swift_getAssociatedTypeWitness();
-  v17 = *(v16 - 8);
-  v18 = *(v17 + 64);
-  v19 = MEMORY[0x1EEE9AC00](v16);
-  v21 = &v37 - v20;
-  (*(v5 + 96))(&v60[1], a1, v5, v19);
-  v54 = *&v60[9];
-  v59 = *&v60[17];
-  v53 = *&v60[33];
-  v58 = *&v60[41];
-  v52 = *&v60[57];
-  v57 = *&v60[65];
-  v51 = *&v60[81];
-  v56 = *&v60[89];
-  v50 = *&v60[105];
-  v49 = *&v60[113];
-  v22 = *(*(v5 + 8) + 24);
-  v48 = v3;
-  v23 = v22(a1);
-  sub_1AE21FFB0(v23, &v60[1]);
-
-  v24 = v60[1];
-  if (v60[1] > 2u)
-  {
-    goto LABEL_17;
-  }
-
-  swift_getAtKeyPath();
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(*(AssociatedConformanceWitness + 16) + 8) + 24))(v60, v16);
-  (*(v17 + 8))(v21, v16);
-  if (v60[0] > v24)
-  {
-    v24 = v60[0];
-  }
-
-  v60[1] = v24;
-  if (v60[0] > 2u)
-  {
-    goto LABEL_17;
-  }
-
-  swift_getAtKeyPath();
-  v26 = swift_getAssociatedConformanceWitness();
-  (*(*(*(v26 + 16) + 8) + 24))(v60, v12);
-  (*(v47 + 8))(v15, v12);
-  if (v60[0] > v24)
-  {
-    v24 = v60[0];
-  }
-
-  v60[1] = v24;
-  if (v24 > 2)
-  {
-    goto LABEL_17;
-  }
-
-  v27 = v44;
-  swift_getAtKeyPath();
-  v28 = v46;
-  v29 = swift_getAssociatedConformanceWitness();
-  (*(*(*(v29 + 16) + 8) + 24))(v60, v28);
-  (*(v45 + 8))(v27, v28);
-  if (v60[0] > v24)
-  {
-    v24 = v60[0];
-  }
-
-  v60[1] = v24;
-  if (v60[0] > 2u)
-  {
-    goto LABEL_17;
-  }
-
-  v30 = v41;
-  swift_getAtKeyPath();
-  v31 = v43;
-  v32 = swift_getAssociatedConformanceWitness();
-  (*(*(*(v32 + 16) + 8) + 24))(v60, v31);
-  (*(v42 + 8))(v30, v31);
-  if (v60[0] > v24)
-  {
-    v24 = v60[0];
-  }
-
-  v60[1] = v24;
-  if (v24 > 2)
-  {
-LABEL_17:
-  }
-
-  else
-  {
-    v33 = v38;
-    swift_getAtKeyPath();
-    v34 = AssociatedTypeWitness;
-    v35 = swift_getAssociatedConformanceWitness();
-    (*(*(*(v35 + 16) + 8) + 24))(v60, v34);
-
-    result = (*(v39 + 8))(v33, v34);
-    if (v60[0] > v24)
-    {
-      LOBYTE(v24) = v60[0];
-    }
-  }
-
-  *v55 = v24;
-  return result;
-}
-
-uint64_t CRStruct_5<>.encode(to:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v68 = a8;
-  v73 = a7;
-  v77 = a6;
-  v81 = a5;
-  v87 = a4;
-  v10 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v69 = *(AssociatedTypeWitness - 8);
-  v11 = *(v69 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v67 = &v63 - v12;
-  v93 = swift_getAssociatedTypeWitness();
-  v72 = *(v93 - 8);
-  v13 = *(v72 + 64);
-  MEMORY[0x1EEE9AC00](v93);
-  v71 = &v63 - v14;
-  v95 = swift_getAssociatedTypeWitness();
-  v76 = *(v95 - 8);
-  v15 = *(v76 + 64);
-  MEMORY[0x1EEE9AC00](v95);
-  v75 = &v63 - v16;
-  v17 = swift_getAssociatedTypeWitness();
-  v79 = *(v17 - 8);
-  v18 = *(v79 + 64);
-  MEMORY[0x1EEE9AC00](v17);
-  v94 = &v63 - v19;
-  v83 = swift_getAssociatedTypeWitness();
-  v86 = *(v83 - 8);
-  v20 = *(v86 + 64);
-  MEMORY[0x1EEE9AC00](v83);
-  v85 = &v63 - v21;
-  v97 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5BCF60, &unk_1AE252450);
-  v90 = *(v97 - 8);
-  v22 = *(v90 + 64);
-  v23 = MEMORY[0x1EEE9AC00](v97);
-  v96 = &v63 - v24;
-  v25 = *(v10 + 96);
-  v65 = v10;
-  v25(&TupleTypeMetadata2, a2, v10, v23);
-  v84 = TupleTypeMetadata2;
-  v108 = v110;
-  v99 = v111;
-  v105 = v113;
-  v107 = v114;
-  v102 = v116;
-  v98 = v117;
-  v101 = v119;
-  v106 = v120;
-  v124[0] = TupleTypeMetadata2;
-  v124[1] = v110;
-  v124[2] = v111;
-  v124[3] = v112;
-  v78 = v112;
-  v124[4] = v113;
-  v124[5] = v114;
-  v74 = v115;
-  v124[6] = v115;
-  v124[7] = v116;
-  v124[8] = v117;
-  v124[9] = v118;
-  v70 = v118;
-  v124[10] = v119;
-  v124[11] = v120;
-  v66 = v121;
-  v124[12] = v121;
-  v124[13] = v122;
-  v100 = v122;
-  v124[14] = v123;
-  v103 = v123;
-  v26 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  sub_1AE048F10();
-  sub_1AE23E3CC();
-  sub_1AE23DB8C();
-  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v80 = v17;
-  sub_1AE23DB8C();
-  v110 = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v111 = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v112 = swift_getTupleTypeMetadata2();
-  v64 = a2;
-  sub_1AE23DB8C();
-  v113 = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v89 = *(TupleTypeMetadata - 8);
-  v28 = v89 + 16;
-  v29 = *(v89 + 16);
-  v29(&TupleTypeMetadata2, v124, TupleTypeMetadata);
-
-  v30 = v85;
-  swift_getAtKeyPath();
-
-  v104 = TupleTypeMetadata;
-  v92 = v28;
-  v82 = v29;
-  v29(&TupleTypeMetadata2, v124, TupleTypeMetadata);
-  v31 = v96;
-
-  v32 = v30;
-
-  v33 = v83;
-  v34 = v108;
-
-  TupleTypeMetadata2 = v84;
-  v35 = v97;
-  v110 = v34;
-  v36 = v88;
-  sub_1AE23DD5C();
-  if (v36)
-  {
-    (*(v89 + 8))(v124, v104);
-
-    (*(v86 + 8))(v32, v33);
-    return (*(v90 + 8))(v31, v35);
-  }
-
-  else
-  {
-
-    (*(v86 + 8))(v32, v33);
-    v38 = v82;
-    v82(&TupleTypeMetadata2, v124, v104);
-
-    swift_getAtKeyPath();
-
-    v38(&TupleTypeMetadata2, v124, v104);
-
-    TupleTypeMetadata2 = v78;
-    v110 = v105;
-    v39 = v80;
-    sub_1AE23DD5C();
-    v40 = v104;
-
-    (*(v79 + 8))(v94, v39);
-    v41 = v82;
-    v82(&TupleTypeMetadata2, v124, v40);
-
-    v42 = v75;
-    swift_getAtKeyPath();
-
-    v41(&TupleTypeMetadata2, v124, v40);
-
-    TupleTypeMetadata2 = v74;
-    v110 = v102;
-    v43 = v95;
-    sub_1AE23DD5C();
-
-    (*(v76 + 8))(v42, v43);
-    v44 = v82;
-    v82(&TupleTypeMetadata2, v124, v104);
-
-    v45 = v71;
-    swift_getAtKeyPath();
-
-    v44(&TupleTypeMetadata2, v124, v104);
-
-    TupleTypeMetadata2 = v70;
-    v110 = v101;
-    v46 = v93;
-    sub_1AE23DD5C();
-
-    (*(v72 + 8))(v45, v46);
-    v47 = v82;
-    v82(&TupleTypeMetadata2, v124, v104);
-
-    v48 = v67;
-    swift_getAtKeyPath();
-
-    v47(&TupleTypeMetadata2, v124, v104);
-
-    TupleTypeMetadata2 = v66;
-    v110 = v100;
-    v49 = AssociatedTypeWitness;
-    sub_1AE23DD5C();
-
-    (*(v69 + 8))(v48, v49);
-    result = (*(*(v65 + 8) + 24))(v64);
-    v50 = 0;
-    v51 = result + 64;
-    v52 = result;
-    v53 = 1 << *(result + 32);
-    v54 = -1;
-    if (v53 < 64)
-    {
-      v54 = ~(-1 << v53);
-    }
-
-    v55 = v54 & *(result + 64);
-    v56 = (v53 + 63) >> 6;
-    while (v55)
-    {
-      v57 = v50;
-LABEL_12:
-      v59 = __clz(__rbit64(v55)) | (v57 << 6);
-      v60 = (*(v52 + 48) + 16 * v59);
-      v61 = *v60;
-      v62 = v60[1];
-      v124[17] = *(*(v52 + 56) + 8 * v59);
-      TupleTypeMetadata2 = v61;
-      v110 = v62;
-      sub_1AE048F64();
-
-      sub_1AE23DD5C();
-      v55 &= v55 - 1;
-
-      v50 = v57;
-    }
-
-    v58 = v90;
-    while (1)
-    {
-      v57 = v50 + 1;
-      if (__OFADD__(v50, 1))
-      {
-        break;
-      }
-
-      if (v57 >= v56)
-      {
-        (*(v89 + 8))(v124, v104);
-
-        return (*(v58 + 8))(v96, v97);
-      }
-
-      v55 = *(v51 + 8 * v57);
-      ++v50;
-      if (v55)
-      {
-        goto LABEL_12;
-      }
-    }
-
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t CRStruct_6.copy(renamingReferences:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v5 = v4;
-  v105 = a4;
-  v106 = a1;
-  v8 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v92 = *(AssociatedTypeWitness - 8);
-  v9 = *(v92 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v90 = &v70 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v91 = &v70 - v12;
-  v94 = swift_getAssociatedTypeWitness();
-  v89 = *(v94 - 8);
-  v13 = *(v89 + 64);
-  MEMORY[0x1EEE9AC00](v94);
-  v87 = &v70 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v88 = &v70 - v16;
-  v93 = swift_getAssociatedTypeWitness();
-  v85 = *(v93 - 8);
-  v17 = *(v85 + 64);
-  MEMORY[0x1EEE9AC00](v93);
-  v83 = &v70 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v19);
-  v84 = &v70 - v20;
-  v78 = swift_getAssociatedTypeWitness();
-  v82 = *(v78 - 8);
-  v21 = *(v82 + 64);
-  MEMORY[0x1EEE9AC00](v78);
-  v80 = &v70 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v23);
-  v81 = &v70 - v24;
-  v75 = swift_getAssociatedTypeWitness();
-  v79 = *(v75 - 8);
-  v25 = *(v79 + 64);
-  MEMORY[0x1EEE9AC00](v75);
-  v76 = &v70 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v27);
-  v77 = &v70 - v28;
-  v71 = swift_getAssociatedTypeWitness();
-  v74 = *(v71 - 8);
-  v29 = *(v74 + 64);
-  MEMORY[0x1EEE9AC00](v71);
-  v72 = &v70 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v32 = MEMORY[0x1EEE9AC00](v31);
-  v73 = &v70 - v33;
-  (*(*(a2 - 8) + 16))(a4, v5, a2, v32);
-  v103 = v8;
-  (*(v8 + 112))(v116, a2, v8);
-  v34 = v116[1];
-  v97 = v116[5];
-  v98 = v116[4];
-  v113 = v116[2];
-  v114 = v116[10];
-  v109 = v116[11];
-  v110 = v116[7];
-  v96 = v116[13];
-  v101 = v116[14];
-  v36 = v116[16];
-  v35 = v116[17];
-  v111 = v116[8];
-  sub_1AE23DB8C();
-  v115[0] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v115[1] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v115[2] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v115[3] = swift_getTupleTypeMetadata2();
-  v104 = a2;
-  sub_1AE23DB8C();
-  v115[4] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v115[5] = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v86 = *(TupleTypeMetadata - 8);
-  v107 = *(v86 + 16);
-  v108 = v86 + 16;
-  v107(v115, v116, TupleTypeMetadata);
-  v100 = v34;
-
-  v99 = v35;
-
-  v102 = v36;
-
-  v107(v115, v116, TupleTypeMetadata);
-
-  v37 = v72;
-  swift_getAtKeyPath();
-
-  v38 = v71;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(AssociatedConformanceWitness + 16) + 24))(v106, v38);
-  (*(v74 + 8))(v37, v38);
-  swift_setAtWritableKeyPath();
-
-  v40 = TupleTypeMetadata;
-  v41 = v107;
-  v107(v115, v116, TupleTypeMetadata);
-
-  v41(v115, v116, v40);
-
-  v42 = v76;
-  swift_getAtKeyPath();
-
-  v43 = v75;
-  v44 = swift_getAssociatedConformanceWitness();
-  (*(*(v44 + 16) + 24))(v106, v43);
-  (*(v79 + 8))(v42, v43);
-  swift_setAtWritableKeyPath();
-
-  v45 = TupleTypeMetadata;
-  v46 = v107;
-  v107(v115, v116, TupleTypeMetadata);
-
-  v46(v115, v116, v45);
-
-  v47 = v80;
-  swift_getAtKeyPath();
-
-  v48 = v78;
-  v49 = swift_getAssociatedConformanceWitness();
-  (*(*(v49 + 16) + 24))(v106, v48);
-  (*(v82 + 8))(v47, v48);
-  swift_setAtWritableKeyPath();
-
-  v50 = v107;
-  v107(v115, v116, TupleTypeMetadata);
-
-  v50(v115, v116, TupleTypeMetadata);
-
-  v51 = v83;
-  swift_getAtKeyPath();
-
-  v52 = v93;
-  v53 = swift_getAssociatedConformanceWitness();
-  (*(*(v53 + 16) + 24))(v106, v52);
-  (*(v85 + 8))(v51, v52);
-  swift_setAtWritableKeyPath();
-
-  v54 = TupleTypeMetadata;
-  v55 = v107;
-  v107(v115, v116, TupleTypeMetadata);
-
-  v55(v115, v116, v54);
-
-  v56 = v87;
-  swift_getAtKeyPath();
-
-  v57 = v94;
-  v58 = swift_getAssociatedConformanceWitness();
-  (*(*(v58 + 16) + 24))(v106, v57);
-  (*(v89 + 8))(v56, v57);
-  swift_setAtWritableKeyPath();
-
-  v59 = TupleTypeMetadata;
-  v107(v115, v116, TupleTypeMetadata);
-
-  v107(v115, v116, v59);
-
-  v60 = v90;
-  swift_getAtKeyPath();
-
-  v61 = v103;
-  v62 = v104;
-  v63 = AssociatedTypeWitness;
-  v64 = swift_getAssociatedConformanceWitness();
-  v65 = v106;
-  (*(*(v64 + 16) + 24))(v106, v63);
-  (*(v92 + 8))(v60, v63);
-  swift_setAtWritableKeyPath();
-
-  v66 = *(v61 + 8);
-  v67 = (*(v66 + 24))(v62, v66);
-  v68 = sub_1AE156B60(v67, v65);
-
-  (*(v66 + 32))(v68, v62, v66);
-  return (*(v86 + 8))(v116, TupleTypeMetadata);
-}
-
-uint64_t CRStruct_6.copy(renamingReferences:)@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v5 = v4;
-  v9 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v95 = *(AssociatedTypeWitness - 8);
-  v10 = *(v95 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v94 = &v74 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v93 = &v74 - v13;
-  v96 = swift_getAssociatedTypeWitness();
-  v92 = *(v96 - 8);
-  v14 = *(v92 + 64);
-  MEMORY[0x1EEE9AC00](v96);
-  v91 = &v74 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v16);
-  v90 = &v74 - v17;
-  v99 = swift_getAssociatedTypeWitness();
-  v89 = *(v99 - 8);
-  v18 = *(v89 + 64);
-  MEMORY[0x1EEE9AC00](v99);
-  v87 = &v74 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v20);
-  v86 = &v74 - v21;
-  v97 = swift_getAssociatedTypeWitness();
-  v85 = *(v97 - 8);
-  v22 = *(v85 + 64);
-  MEMORY[0x1EEE9AC00](v97);
-  v84 = &v74 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v24);
-  v83 = &v74 - v25;
-  v26 = swift_getAssociatedTypeWitness();
-  v82 = *(v26 - 8);
-  v27 = *(v82 + 64);
-  MEMORY[0x1EEE9AC00](v26);
-  v81 = &v74 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v29);
-  v80 = &v74 - v30;
-  v31 = swift_getAssociatedTypeWitness();
-  v78 = *(v31 - 8);
-  v32 = *(v78 + 64);
-  MEMORY[0x1EEE9AC00](v31);
-  v77 = &v74 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v35.n128_f64[0] = MEMORY[0x1EEE9AC00](v34);
-  v76 = &v74 - v36;
-  if (a1)
-  {
-    v37 = a1;
-  }
-
-  else
-  {
-    v37 = sub_1ADE51288(MEMORY[0x1E69E7CC0]);
-  }
-
-  v121[0] = v37;
-  (*(*(a2 - 8) + 16))(a4, v5, a2, v35);
-  v113 = a4;
-  v111 = v5;
-  v38 = *(v9 + 112);
-
-  v38(v120, a2, v9);
-  v115 = v120[5];
-  v116 = v120[4];
-  v108 = v120[7];
-  v109 = v120[2];
-  v114 = v9;
-  v117 = v120[8];
-  v100 = v120[10];
-  v104 = v120[13];
-  v39 = v120[16];
-  v40 = v120[17];
-  v41 = v120[1];
-  v101 = v120[11];
-  v106 = v120[14];
-  sub_1AE23DB8C();
-  v119[0] = swift_getTupleTypeMetadata2();
-  v79 = v26;
-  sub_1AE23DB8C();
-  v119[1] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v119[2] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v119[3] = swift_getTupleTypeMetadata2();
-  v112 = a2;
-  sub_1AE23DB8C();
-  v119[4] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v119[5] = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v88 = *(TupleTypeMetadata - 8);
-  v102 = *(v88 + 16);
-  v103 = v88 + 16;
-  v75 = v31;
-  v102(v119, v120, TupleTypeMetadata);
-  v110 = v41;
-
-  v105 = v39;
-
-  v102(v119, v120, TupleTypeMetadata);
-
-  v107 = v40;
-
-  v42 = v77;
-  swift_getAtKeyPath();
-
-  v43 = v75;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(AssociatedConformanceWitness + 16) + 24))(v121, v43);
-  (*(v78 + 8))(v42, v43);
-  swift_setAtWritableKeyPath();
-
-  v45 = v102;
-  v102(v119, v120, TupleTypeMetadata);
-
-  v45(v119, v120, TupleTypeMetadata);
-
-  v46 = v81;
-  swift_getAtKeyPath();
-
-  v47 = v79;
-  v48 = swift_getAssociatedConformanceWitness();
-  (*(*(v48 + 16) + 24))(v121, v47);
-  (*(v82 + 8))(v46, v47);
-  swift_setAtWritableKeyPath();
-
-  v49 = TupleTypeMetadata;
-  v102(v119, v120, TupleTypeMetadata);
-
-  v50 = v49;
-  v51 = v102;
-  v102(v119, v120, v50);
-
-  v52 = v84;
-  swift_getAtKeyPath();
-
-  v53 = v97;
-  v54 = swift_getAssociatedConformanceWitness();
-  (*(*(v54 + 16) + 24))(v121, v53);
-  (*(v85 + 8))(v52, v53);
-  swift_setAtWritableKeyPath();
-
-  v55 = TupleTypeMetadata;
-  v51(v119, v120, TupleTypeMetadata);
-
-  v51(v119, v120, v55);
-
-  v56 = v87;
-  swift_getAtKeyPath();
-
-  v57 = v99;
-  v58 = swift_getAssociatedConformanceWitness();
-  (*(*(v58 + 16) + 24))(v121, v57);
-  (*(v89 + 8))(v56, v57);
-  swift_setAtWritableKeyPath();
-
-  v59 = v102;
-  v102(v119, v120, TupleTypeMetadata);
-
-  v59(v119, v120, TupleTypeMetadata);
-
-  v60 = v91;
-  swift_getAtKeyPath();
-
-  v61 = v96;
-  v62 = swift_getAssociatedConformanceWitness();
-  (*(*(v62 + 16) + 24))(v121, v61);
-  (*(v92 + 8))(v60, v61);
-  swift_setAtWritableKeyPath();
-
-  v63 = TupleTypeMetadata;
-  v64 = v102;
-  v102(v119, v120, TupleTypeMetadata);
-
-  v64(v119, v120, v63);
-
-  v65 = v94;
-  swift_getAtKeyPath();
-
-  v66 = v114;
-  v67 = v112;
-  v68 = AssociatedTypeWitness;
-  v69 = swift_getAssociatedConformanceWitness();
-  (*(*(v69 + 16) + 24))(v121, v68);
-  (*(v95 + 8))(v65, v68);
-  swift_setAtWritableKeyPath();
-
-  v70 = *(v66 + 8);
-  v71 = (*(v70 + 24))(v67, v70);
-  v72 = sub_1AE156B60(v71, v121);
-
-  (*(v70 + 32))(v72, v67, v70);
-  return (*(v88 + 8))(v120, v63);
-}
-
-uint64_t CRStruct_6.merge(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _BYTE *a4@<X8>)
-{
-  v104 = a1;
-  v91 = a4;
-  v5 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v90 = *(AssociatedTypeWitness - 8);
-  v6 = *(v90 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v89 = &v74 - v7;
-  v93 = swift_getAssociatedTypeWitness();
-  v88 = *(v93 - 8);
-  v8 = *(v88 + 64);
-  MEMORY[0x1EEE9AC00](v93);
-  v87 = &v74 - v9;
-  v92 = swift_getAssociatedTypeWitness();
-  v85 = *(v92 - 8);
-  v10 = *(v85 + 64);
-  MEMORY[0x1EEE9AC00](v92);
-  v84 = &v74 - v11;
-  v12 = swift_getAssociatedTypeWitness();
-  v83 = *(v12 - 8);
-  v13 = *(v83 + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v82 = &v74 - v14;
-  v15 = swift_getAssociatedTypeWitness();
-  v81 = *(v15 - 8);
-  v16 = *(v81 + 64);
-  MEMORY[0x1EEE9AC00](v15);
-  v80 = &v74 - v17;
-  v18 = swift_getAssociatedTypeWitness();
-  v77 = *(v18 - 8);
-  v19 = *(v77 + 64);
-  v20 = MEMORY[0x1EEE9AC00](v18);
-  v76 = &v74 - v21;
-  v22 = *(v5 + 112);
-  v23 = a2;
-  v103 = v5;
-  v22((v114 + 6), a2, v5, v20);
-  v105 = *(&v114[1] + 6);
-  v106 = *(&v114[13] + 6);
-  v111 = *(&v114[11] + 6);
-  v112 = *(&v114[2] + 6);
-  v101 = *(&v114[10] + 6);
-  v102 = *(&v114[4] + 6);
-  v108 = *(&v114[7] + 6);
-  v109 = *(&v114[5] + 6);
-  v107 = *(&v114[8] + 6);
-  v100 = *(&v114[14] + 6);
-  v24 = *(&v114[16] + 6);
-  v25 = *(&v114[17] + 6);
-  if (qword_1ED9670C0 != -1)
-  {
-    swift_once();
-  }
-
-  *(v114 + 3) = word_1ED96F220;
-  BYTE5(v114[0]) = byte_1ED96F222;
-  v75 = v18;
-  sub_1AE23DB8C();
-  v113[0] = swift_getTupleTypeMetadata2();
-  v78 = v15;
-  sub_1AE23DB8C();
-  v113[1] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v113[2] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v113[3] = swift_getTupleTypeMetadata2();
-  v98 = v23;
-  sub_1AE23DB8C();
-  v113[4] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v113[5] = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v86 = *(TupleTypeMetadata - 8);
-  v26 = *(v86 + 16);
-  v97 = v86 + 16;
-  v79 = v12;
-  v26(v113, v114 + 6, TupleTypeMetadata);
-  v96 = v26;
-
-  v95 = v25;
-
-  v99 = v24;
-
-  v26(v113, v114 + 6, TupleTypeMetadata);
-
-  v27 = v76;
-  swift_getAtKeyPath();
-
-  v28 = swift_modifyAtWritableKeyPath();
-  v29 = v75;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(AssociatedConformanceWitness + 8) + 8))(v114, v27, v29);
-  (*(v77 + 8))(v27, v29);
-  v28(v113, 0);
-
-  LOWORD(v113[0]) = v114[0];
-  BYTE2(v113[0]) = BYTE2(v114[0]);
-  v31 = v113;
-  MergeResult.merge(_:)(v31);
-  v32 = TupleTypeMetadata;
-  v96(v113, v114 + 6, TupleTypeMetadata);
-
-  v96(v113, v114 + 6, v32);
-
-  v33 = v80;
-  swift_getAtKeyPath();
-
-  v34 = swift_modifyAtWritableKeyPath();
-  v35 = v78;
-  v36 = swift_getAssociatedConformanceWitness();
-  (*(*(v36 + 8) + 8))(v114, v33, v35);
-  (*(v81 + 8))(v33, v35);
-  v34(v113, 0);
-
-  LOWORD(v113[0]) = v114[0];
-  BYTE2(v113[0]) = BYTE2(v114[0]);
-  v37 = v113;
-  MergeResult.merge(_:)(v37);
-  v38 = TupleTypeMetadata;
-  v39 = v96;
-  v96(v113, v114 + 6, TupleTypeMetadata);
-
-  v39(v113, v114 + 6, v38);
-
-  v40 = v82;
-  swift_getAtKeyPath();
-
-  v41 = swift_modifyAtWritableKeyPath();
-  v42 = v79;
-  v43 = swift_getAssociatedConformanceWitness();
-  (*(*(v43 + 8) + 8))(v114, v40, v42);
-  (*(v83 + 8))(v40, v42);
-  v41(v113, 0);
-
-  LOWORD(v113[0]) = v114[0];
-  BYTE2(v113[0]) = BYTE2(v114[0]);
-  v44 = v113;
-  MergeResult.merge(_:)(v44);
-  v39(v113, v114 + 6, TupleTypeMetadata);
-
-  v96(v113, v114 + 6, TupleTypeMetadata);
-
-  v45 = v84;
-  swift_getAtKeyPath();
-
-  v46 = swift_modifyAtWritableKeyPath();
-  v47 = v92;
-  v48 = swift_getAssociatedConformanceWitness();
-  (*(*(v48 + 8) + 8))(v114, v45, v47);
-  (*(v85 + 8))(v45, v47);
-  v46(v113, 0);
-
-  LOWORD(v113[0]) = v114[0];
-  BYTE2(v113[0]) = BYTE2(v114[0]);
-  v49 = v113;
-  MergeResult.merge(_:)(v49);
-  v50 = TupleTypeMetadata;
-  v51 = v96;
-  v96(v113, v114 + 6, TupleTypeMetadata);
-
-  v51(v113, v114 + 6, v50);
-  v52 = v51;
-
-  v53 = v87;
-  swift_getAtKeyPath();
-
-  v54 = swift_modifyAtWritableKeyPath();
-  v55 = v93;
-  v56 = swift_getAssociatedConformanceWitness();
-  (*(*(v56 + 8) + 8))(v114, v53, v55);
-  (*(v88 + 8))(v53, v55);
-  v54(v113, 0);
-
-  LOWORD(v113[0]) = v114[0];
-  BYTE2(v113[0]) = BYTE2(v114[0]);
-  v57 = v113;
-  MergeResult.merge(_:)(v57);
-  v58 = TupleTypeMetadata;
-  v52(v113, v114 + 6, TupleTypeMetadata);
-
-  v96(v113, v114 + 6, v58);
-
-  v59 = v89;
-  swift_getAtKeyPath();
-
-  v60 = swift_modifyAtWritableKeyPath();
-  v61 = v103;
-  v62 = v98;
-  v63 = AssociatedTypeWitness;
-  v64 = swift_getAssociatedConformanceWitness();
-  (*(*(v64 + 8) + 8))(v114, v59, v63);
-  (*(v90 + 8))(v59, v63);
-  v60(v113, 0);
-
-  LOWORD(v113[0]) = v114[0];
-  BYTE2(v113[0]) = BYTE2(v114[0]);
-  v65 = v113;
-  MergeResult.merge(_:)(v65);
-  v66 = *(v61 + 8);
-  v67 = (*(v66 + 24))(v62, v66);
-  v68 = (*(v66 + 40))(v113, v62, v66);
-  sub_1AE21F75C(v67, v114);
-
-  v68(v113, 0);
-  LOWORD(v113[0]) = v114[0];
-  BYTE2(v113[0]) = BYTE2(v114[0]);
-  v69 = v113;
-  MergeResult.merge(_:)(v69);
-  (*(v66 + 64))(v62, v66);
-  result = (*(v86 + 8))(v114 + 6, TupleTypeMetadata);
-  v71 = BYTE4(v114[0]);
-  v72 = BYTE5(v114[0]);
-  v73 = v91;
-  *v91 = BYTE3(v114[0]);
-  v73[1] = v71;
-  v73[2] = v72;
-  return result;
-}
-
-uint64_t CRStruct_6.newRefs(from:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v115 = a1;
-  v4 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v98 = *(AssociatedTypeWitness - 8);
-  v5 = *(v98 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v97 = &v83 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
-  v107 = &v83 - v8;
-  v104 = swift_getAssociatedTypeWitness();
-  v96 = *(v104 - 8);
-  v9 = *(v96 + 64);
-  MEMORY[0x1EEE9AC00](v104);
-  v95 = &v83 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v105 = &v83 - v12;
-  v102 = swift_getAssociatedTypeWitness();
-  v93 = *(v102 - 8);
-  v13 = *(v93 + 64);
-  MEMORY[0x1EEE9AC00](v102);
-  v92 = &v83 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v103 = &v83 - v16;
-  v89 = swift_getAssociatedTypeWitness();
-  v91 = *(v89 - 8);
-  v17 = *(v91 + 64);
-  MEMORY[0x1EEE9AC00](v89);
-  v90 = &v83 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v19);
-  v101 = &v83 - v20;
-  v86 = swift_getAssociatedTypeWitness();
-  v88 = *(v86 - 8);
-  v21 = *(v88 + 64);
-  MEMORY[0x1EEE9AC00](v86);
-  v87 = &v83 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v23);
-  v100 = &v83 - v24;
-  v83 = swift_getAssociatedTypeWitness();
-  v85 = *(v83 - 8);
-  v25 = *(v85 + 64);
-  MEMORY[0x1EEE9AC00](v83);
-  v84 = &v83 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v28 = MEMORY[0x1EEE9AC00](v27);
-  v99 = &v83 - v29;
-  v113 = v4;
-  (*(v4 + 112))(v128, a2, v4, v28);
-  v118 = v128[1];
-  v119 = v128[4];
-  v124 = v128[7];
-  v110 = v128[8];
-  v111 = v128[2];
-  v117 = v128[10];
-  v108 = v128[11];
-  v120 = v128[5];
-  v121 = v128[14];
-  v109 = v128[13];
-  v30 = v128[16];
-  v31 = v128[17];
-  v127 = MEMORY[0x1E69E7CD0];
-  sub_1AE23DB8C();
-  v126[0] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v126[1] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v126[2] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v126[3] = swift_getTupleTypeMetadata2();
-  v114 = a2;
-  sub_1AE23DB8C();
-  v126[4] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v126[5] = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v94 = *(TupleTypeMetadata - 8);
-  v125 = *(v94 + 16);
-  v122 = TupleTypeMetadata;
-  v123 = v94 + 16;
-  v125(v126, v128, TupleTypeMetadata);
-
-  v112 = v31;
-
-  v116 = v30;
-
-  swift_getAtKeyPath();
-
-  v125(v126, v128, v122);
-
-  v33 = v84;
-  swift_getAtKeyPath();
-
-  v34 = v83;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v36 = v99;
-  v37 = (*(AssociatedConformanceWitness + 64))(v33, v34, AssociatedConformanceWitness);
-  v38 = *(v85 + 8);
-  v38(v33, v34);
-  v38(v36, v34);
-  sub_1AE00F014(v37);
-  v39 = v122;
-  v125(v126, v128, v122);
-
-  swift_getAtKeyPath();
-
-  v125(v126, v128, v39);
-
-  v40 = v87;
-  swift_getAtKeyPath();
-
-  v41 = v86;
-  v42 = swift_getAssociatedConformanceWitness();
-  v43 = v100;
-  v44 = (*(v42 + 64))(v40, v41, v42);
-  v45 = *(v88 + 8);
-  v45(v40, v41);
-  v45(v43, v41);
-  sub_1AE00F014(v44);
-  v125(v126, v128, v122);
-
-  swift_getAtKeyPath();
-
-  v125(v126, v128, v122);
-
-  v46 = v90;
-  swift_getAtKeyPath();
-
-  v47 = v89;
-  v48 = swift_getAssociatedConformanceWitness();
-  v49 = v46;
-  v50 = v101;
-  v51 = (*(v48 + 64))(v46, v47, v48);
-  v52 = *(v91 + 8);
-  v52(v49, v47);
-  v52(v50, v47);
-  sub_1AE00F014(v51);
-  v53 = v122;
-  v125(v126, v128, v122);
-
-  swift_getAtKeyPath();
-
-  v125(v126, v128, v53);
-
-  v54 = v92;
-  swift_getAtKeyPath();
-
-  v55 = v102;
-  v56 = swift_getAssociatedConformanceWitness();
-  v57 = v103;
-  v58 = (*(v56 + 64))(v54, v55, v56);
-  v59 = *(v93 + 8);
-  v59(v54, v55);
-  v59(v57, v55);
-  sub_1AE00F014(v58);
-  v60 = v122;
-  v61 = v125;
-  v125(v126, v128, v122);
-
-  swift_getAtKeyPath();
-
-  v61(v126, v128, v60);
-
-  v62 = v95;
-  swift_getAtKeyPath();
-
-  v63 = v104;
-  v64 = swift_getAssociatedConformanceWitness();
-  v65 = v105;
-  v66 = (*(v64 + 64))(v62, v63, v64);
-  v67 = *(v96 + 8);
-  v67(v62, v63);
-  v67(v65, v63);
-  sub_1AE00F014(v66);
-  v68 = v122;
-  v125(v126, v128, v122);
-
-  swift_getAtKeyPath();
-
-  v125(v126, v128, v68);
-
-  v69 = v97;
-  swift_getAtKeyPath();
-
-  v71 = v113;
-  v70 = v114;
-  v72 = AssociatedTypeWitness;
-  v73 = swift_getAssociatedConformanceWitness();
-  v74 = v107;
-  v75 = (*(v73 + 64))(v69, v72, v73);
-  v76 = *(v98 + 8);
-  v76(v69, v72);
-  v76(v74, v72);
-  sub_1AE00F014(v75);
-  v77 = *(v71 + 8);
-  v78 = *(v77 + 24);
-  v79 = v78(v70, v77);
-  v80 = v78(v70, v77);
-  v81 = sub_1AE2200E4(v80, v79);
-
-  sub_1AE00F014(v81);
-  (*(v94 + 8))(v128, v122);
-  return v127;
-}
-
-uint64_t CRStruct_6.observableDifference(from:with:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  v195 = a2;
-  v194 = a1;
-  v169 = a5;
-  v6 = *(a4 + 8);
-  swift_getAssociatedTypeWitness();
-  v7 = *(swift_getAssociatedConformanceWitness() + 16);
-  swift_getAssociatedTypeWitness();
-  v208 = sub_1AE23D7CC();
-  swift_getAssociatedTypeWitness();
-  v8 = *(swift_getAssociatedConformanceWitness() + 16);
-  swift_getAssociatedTypeWitness();
-  v209 = sub_1AE23D7CC();
-  swift_getAssociatedTypeWitness();
-  v9 = *(swift_getAssociatedConformanceWitness() + 16);
-  swift_getAssociatedTypeWitness();
-  v210 = sub_1AE23D7CC();
-  swift_getAssociatedTypeWitness();
-  v10 = *(swift_getAssociatedConformanceWitness() + 16);
-  swift_getAssociatedTypeWitness();
-  v211 = sub_1AE23D7CC();
-  swift_getAssociatedTypeWitness();
-  v11 = *(swift_getAssociatedConformanceWitness() + 16);
-  swift_getAssociatedTypeWitness();
-  v212 = sub_1AE23D7CC();
-  swift_getAssociatedTypeWitness();
-  v12 = *(swift_getAssociatedConformanceWitness() + 16);
-  swift_getAssociatedTypeWitness();
-  v213 = sub_1AE23D7CC();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v13 = *(*(TupleTypeMetadata - 1) + 64);
-  MEMORY[0x1EEE9AC00](TupleTypeMetadata);
-  v135 = &v129 - v14;
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v163 = *(AssociatedTypeWitness - 8);
-  v15 = *(v163 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v161 = &v129 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v17);
-  v159 = &v129 - v18;
-  v160 = *(swift_getAssociatedConformanceWitness() + 16);
-  v130 = swift_getAssociatedTypeWitness();
-  v19 = sub_1AE23D7CC();
-  v166 = *(v19 - 8);
-  v167 = v19;
-  v20 = *(v166 + 64);
-  MEMORY[0x1EEE9AC00](v19);
-  v187 = &v129 - v21;
-  v181 = swift_getAssociatedTypeWitness();
-  v158 = *(v181 - 8);
-  v22 = *(v158 + 64);
-  MEMORY[0x1EEE9AC00](v181);
-  v157 = &v129 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v24);
-  v184 = &v129 - v25;
-  v156 = *(swift_getAssociatedConformanceWitness() + 16);
-  v131 = swift_getAssociatedTypeWitness();
-  v174 = sub_1AE23D7CC();
-  v165 = *(v174 - 8);
-  v26 = *(v165 + 64);
-  MEMORY[0x1EEE9AC00](v174);
-  v188 = &v129 - v27;
-  v180 = swift_getAssociatedTypeWitness();
-  v153 = *(v180 - 8);
-  v28 = *(v153 + 64);
-  MEMORY[0x1EEE9AC00](v180);
-  v150 = &v129 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v30);
-  v182 = &v129 - v31;
-  v149 = *(swift_getAssociatedConformanceWitness() + 16);
-  v132 = swift_getAssociatedTypeWitness();
-  v173 = sub_1AE23D7CC();
-  v164 = *(v173 - 8);
-  v32 = *(v164 + 64);
-  MEMORY[0x1EEE9AC00](v173);
-  v189 = &v129 - v33;
-  v176 = swift_getAssociatedTypeWitness();
-  v147 = *(v176 - 8);
-  v34 = *(v147 + 64);
-  MEMORY[0x1EEE9AC00](v176);
-  v146 = &v129 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v36);
-  v178 = &v129 - v37;
-  v145 = *(swift_getAssociatedConformanceWitness() + 16);
-  v133 = swift_getAssociatedTypeWitness();
-  v162 = sub_1AE23D7CC();
-  v172 = *(v162 - 8);
-  v38 = *(v172 + 64);
-  MEMORY[0x1EEE9AC00](v162);
-  v186 = &v129 - v39;
-  v40 = swift_getAssociatedTypeWitness();
-  v144 = *(v40 - 8);
-  v41 = *(v144 + 64);
-  MEMORY[0x1EEE9AC00](v40);
-  v143 = &v129 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v43);
-  v177 = &v129 - v44;
-  v45 = *(swift_getAssociatedConformanceWitness() + 16);
-  v141 = v40;
-  v142 = v45;
-  v134 = swift_getAssociatedTypeWitness();
-  v46 = sub_1AE23D7CC();
-  v170 = *(v46 - 8);
-  v171 = v46;
-  v47 = *(v170 + 64);
-  MEMORY[0x1EEE9AC00](v46);
-  v185 = &v129 - v48;
-  v49 = swift_getAssociatedTypeWitness();
-  v140 = *(v49 - 8);
-  v50 = *(v140 + 64);
-  MEMORY[0x1EEE9AC00](v49);
-  v139 = &v129 - ((v51 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v52);
-  v175 = &v129 - v53;
-  v54 = *(swift_getAssociatedConformanceWitness() + 16);
-  v137 = v49;
-  v138 = v54;
-  v152 = swift_getAssociatedTypeWitness();
-  v55 = sub_1AE23D7CC();
-  v154 = *(v55 - 8);
-  v155 = v55;
-  v56 = *(v154 + 64);
-  v57 = MEMORY[0x1EEE9AC00](v55);
-  v179 = &v129 - v58;
-  v59 = *(v6 + 112);
-  v168 = v6;
-  v59(&v208, a3, v6, v57);
-  v60 = v209;
-  v200 = v210;
-  v199 = v212;
-  v198 = v213;
-  v192 = v214;
-  v193 = v215;
-  v205 = v217;
-  v197 = v218;
-  v202 = v219;
-  v61 = v220;
-  v204 = v216;
-  v196 = v221;
-  sub_1AE23DB8C();
-  v207[0] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v207[1] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v207[2] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v207[3] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v207[4] = swift_getTupleTypeMetadata2();
-  v151 = a3;
-  sub_1AE23DB8C();
-  v207[5] = swift_getTupleTypeMetadata2();
-  v206 = swift_getTupleTypeMetadata();
-  v148 = *(v206 - 8);
-  v62 = *(v148 + 16);
-  v203 = v148 + 16;
-  v191 = v62;
-  v62(v207, &v208, v206);
-  v190 = v60;
-
-  v201 = v61;
-
-  swift_getAtKeyPath();
-
-  v191(v207, &v208, v206);
-
-  v63 = v139;
-  swift_getAtKeyPath();
-
-  v64 = v137;
-  v65 = v175;
-  (*(v138 + 40))(v63, v195, v137);
-  v66 = *(v140 + 8);
-  v66(v63, v64);
-  v66(v65, v64);
-  v67 = v206;
-  v68 = v191;
-  v191(v207, &v208, v206);
-
-  swift_getAtKeyPath();
-
-  v68(v207, &v208, v67);
-
-  v69 = v143;
-  swift_getAtKeyPath();
-
-  v70 = v141;
-  v71 = v177;
-  (*(v142 + 40))(v69, v195, v141);
-  v72 = *(v144 + 8);
-  v72(v69, v70);
-  v72(v71, v70);
-  v73 = v191;
-  v191(v207, &v208, v206);
-
-  swift_getAtKeyPath();
-
-  v73(v207, &v208, v206);
-
-  v74 = v146;
-  swift_getAtKeyPath();
-
-  v75 = v74;
-  v76 = v178;
-  v77 = v176;
-  (*(v145 + 40))(v74, v195, v176);
-  v78 = *(v147 + 8);
-  v78(v75, v77);
-  v78(v76, v77);
-  v79 = v191;
-  v191(v207, &v208, v206);
-
-  swift_getAtKeyPath();
-
-  v79(v207, &v208, v206);
-  v80 = v79;
-
-  v81 = v150;
-  swift_getAtKeyPath();
-
-  v82 = v182;
-  v83 = v180;
-  (*(v149 + 40))(v81, v195, v180);
-  v84 = *(v153 + 8);
-  v84(v81, v83);
-  v84(v82, v83);
-  v85 = v206;
-  v80(v207, &v208, v206);
-
-  swift_getAtKeyPath();
-
-  v86 = v191;
-  v191(v207, &v208, v85);
-
-  v87 = v157;
-  swift_getAtKeyPath();
-
-  v88 = v87;
-  v89 = v184;
-  v90 = v181;
-  (*(v156 + 40))(v87, v195, v181);
-  v91 = *(v158 + 8);
-  v91(v88, v90);
-  v91(v89, v90);
-  v92 = v206;
-  v86(v207, &v208, v206);
-
-  v93 = v159;
-  swift_getAtKeyPath();
-
-  v191(v207, &v208, v92);
-  v94 = v185;
-
-  v95 = v161;
-  swift_getAtKeyPath();
-  v96 = v94;
-
-  v97 = v93;
-  v98 = AssociatedTypeWitness;
-  (*(v160 + 40))(v95, v195, AssociatedTypeWitness);
-  (*(v148 + 8))(&v208, v206);
-  v99 = *(v163 + 8);
-  v99(v95, v98);
-  v100 = v97;
-  v101 = v186;
-  v99(v100, v98);
-  v102 = v179;
-  if ((*(*(v152 - 8) + 48))() == 1 && (*(*(v134 - 8) + 48))(v96, 1) == 1 && (*(*(v133 - 8) + 48))(v101, 1) == 1 && (*(*(v132 - 8) + 48))(v189, 1) == 1 && (*(*(v131 - 8) + 48))(v188, 1) == 1 && (*(*(v130 - 8) + 48))(v187, 1) == 1)
-  {
-    (*(v154 + 8))(v102, v155);
-    v103 = *(*(*(v168 + 8) + 8) + 16);
-    v104 = swift_getAssociatedTypeWitness();
-    (*(*(v104 - 8) + 56))(v169, 1, 1, v104);
-    v106 = v166;
-    v105 = v167;
-    v107 = v96;
-    v108 = v101;
-    v110 = v164;
-    v109 = v165;
-    v111 = v162;
-    v112 = v171;
-    v113 = v172;
-    v114 = v170;
-  }
-
-  else
-  {
-    v115 = v135;
-    v116 = TupleTypeMetadata[12];
-    v117 = TupleTypeMetadata[16];
-    v118 = TupleTypeMetadata[20];
-    v119 = TupleTypeMetadata[24];
-    v206 = TupleTypeMetadata[28];
-    (*(v154 + 32))(v135, v102, v155);
-    (*(v170 + 16))(&v115[v116], v96, v171);
-    v120 = v162;
-    (*(v172 + 16))(&v115[v117], v101, v162);
-    v110 = v164;
-    (*(v164 + 16))(&v115[v118], v189, v173);
-    v109 = v165;
-    (*(v165 + 16))(&v115[v119], v188, v174);
-    v106 = v166;
-    v121 = v167;
-    (*(v166 + 16))(&v115[v206], v187, v167);
-    v122 = *(*(*(v168 + 8) + 8) + 16);
-    v123 = swift_getAssociatedTypeWitness();
-    v124 = v169;
-    v111 = v120;
-    v107 = v185;
-    v108 = v186;
-    swift_dynamicCast();
-    v125 = *(*(v123 - 8) + 56);
-    v126 = v124;
-    v127 = v123;
-    v114 = v170;
-    v112 = v171;
-    v125(v126, 0, 1, v127);
-    v105 = v121;
-    v113 = v172;
-  }
-
-  (*(v106 + 8))(v187, v105);
-  (*(v109 + 8))(v188, v174);
-  (*(v110 + 8))(v189, v173);
-  (*(v113 + 8))(v108, v111);
-  return (*(v114 + 8))(v107, v112);
-}
-
-uint64_t CRStruct_6.hasDelta(from:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v110 = a1;
-  v4 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v82 = *(AssociatedTypeWitness - 8);
-  v5 = *(v82 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v81 = &v80 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
-  v86 = &v80 - v8;
-  v105 = swift_getAssociatedTypeWitness();
-  v85 = *(v105 - 8);
-  v9 = *(v85 + 64);
-  MEMORY[0x1EEE9AC00](v105);
-  v84 = &v80 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v83 = &v80 - v12;
-  v106 = swift_getAssociatedTypeWitness();
-  v88 = *(v106 - 8);
-  v13 = *(v88 + 64);
-  MEMORY[0x1EEE9AC00](v106);
-  v87 = &v80 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v92 = &v80 - v16;
-  v17 = swift_getAssociatedTypeWitness();
-  v90 = *(v17 - 8);
-  v18 = *(v90 + 64);
-  MEMORY[0x1EEE9AC00](v17);
-  v89 = &v80 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v20);
-  v96 = &v80 - v21;
-  v22 = swift_getAssociatedTypeWitness();
-  v94 = *(v22 - 8);
-  v23 = *(v94 + 64);
-  MEMORY[0x1EEE9AC00](v22);
-  v93 = &v80 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v102 = &v80 - v26;
-  v99 = swift_getAssociatedTypeWitness();
-  v101 = *(v99 - 8);
-  v27 = *(v101 + 64);
-  MEMORY[0x1EEE9AC00](v99);
-  v100 = &v80 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v30 = MEMORY[0x1EEE9AC00](v29);
-  v112 = &v80 - v31;
-  v111 = v4;
-  (*(v4 + 112))(v125, a2, v4, v30);
-  v32 = v125[1];
-  v116 = v125[2];
-  v109 = v125[5];
-  v118 = v125[7];
-  v119 = v125[4];
-  v121 = v125[8];
-  v122 = v125[10];
-  v123 = v125[11];
-  v117 = v125[13];
-  v113 = v125[16];
-  v114 = v125[14];
-  v115 = v125[17];
-  sub_1AE23DB8C();
-  v124[0] = swift_getTupleTypeMetadata2();
-  v95 = v22;
-  sub_1AE23DB8C();
-  v124[1] = swift_getTupleTypeMetadata2();
-  v91 = v17;
-  sub_1AE23DB8C();
-  v124[2] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v124[3] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v124[4] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v124[5] = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v103 = *(TupleTypeMetadata - 8);
-  v35 = v103 + 16;
-  v34 = *(v103 + 16);
-  v34(v124, v125, TupleTypeMetadata);
-
-  swift_getAtKeyPath();
-
-  v120 = TupleTypeMetadata;
-  v108 = v35;
-  v97 = v34;
-  v34(v124, v125, TupleTypeMetadata);
-  v107 = v32;
-
-  v36 = v100;
-  swift_getAtKeyPath();
-
-  v98 = a2;
-  v37 = v99;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v39 = v112;
-  LOBYTE(a2) = (*(AssociatedConformanceWitness + 88))(v36, v37, AssociatedConformanceWitness);
-  v40 = *(v101 + 8);
-  v40(v36, v37);
-  v40(v39, v37);
-  if (a2)
-  {
-    goto LABEL_6;
-  }
-
-  v41 = v97;
-  v97(v124, v125, v120);
-
-  swift_getAtKeyPath();
-
-  v41(v124, v125, v120);
-
-  v42 = v93;
-  swift_getAtKeyPath();
-
-  v43 = v95;
-  v44 = swift_getAssociatedConformanceWitness();
-  v45 = v102;
-  LOBYTE(v41) = (*(v44 + 88))(v42, v43, v44);
-  v46 = *(v94 + 8);
-  v46(v42, v43);
-  v46(v45, v43);
-  if (v41)
-  {
-    goto LABEL_6;
-  }
-
-  v47 = v97;
-  v97(v124, v125, v120);
-
-  swift_getAtKeyPath();
-
-  v47(v124, v125, v120);
-
-  v48 = v89;
-  swift_getAtKeyPath();
-
-  v49 = v91;
-  v50 = swift_getAssociatedConformanceWitness();
-  v51 = v96;
-  LOBYTE(v47) = (*(v50 + 88))(v48, v49, v50);
-  v52 = *(v90 + 8);
-  v52(v48, v49);
-  v52(v51, v49);
-  if (v47)
-  {
-    goto LABEL_6;
-  }
-
-  v53 = v97;
-  v97(v124, v125, v120);
-
-  swift_getAtKeyPath();
-
-  v53(v124, v125, v120);
-
-  v54 = v87;
-  swift_getAtKeyPath();
-
-  v55 = v106;
-  v56 = swift_getAssociatedConformanceWitness();
-  v57 = v92;
-  LOBYTE(v53) = (*(v56 + 88))(v54, v55, v56);
-  v58 = *(v88 + 8);
-  v58(v54, v55);
-  v58(v57, v55);
+  v118 = v53;
   if (v53)
   {
-    goto LABEL_6;
+    (*(v101 + 8))(v147, v49);
+
+    (*(v85 + 8))(v51, v52);
+    return (*(v107 + 8))(v35, v34);
   }
 
-  v59 = v97;
-  v97(v124, v125, v120);
+  v112 = a9;
 
-  v60 = v83;
+  (*(v85 + 8))(v51, v52);
+  v54 = v100;
+  v100(&TupleTypeMetadata2, v147, v49);
+
+  v55 = v81;
   swift_getAtKeyPath();
 
-  v59(v124, v125, v120);
+  v54(&TupleTypeMetadata2, v147, v49);
 
-  v61 = v84;
-  swift_getAtKeyPath();
+  v56 = v115;
 
-  v62 = v105;
-  v63 = swift_getAssociatedConformanceWitness();
-  LOBYTE(v59) = (*(v63 + 88))(v61, v62, v63);
-  v64 = *(v85 + 8);
-  v64(v61, v62);
-  v64(v60, v62);
+  v57 = v114;
+
+  TupleTypeMetadata2 = v80;
+  v130 = v122;
+  v58 = AssociatedTypeWitness;
+  v59 = v118;
+  sub_1AE23DD5C();
+  v118 = v59;
   if (v59)
   {
-LABEL_6:
-    v65 = v120;
+    (*(v101 + 8))(v147, v117);
+
+    (*(v82 + 8))(v55, v58);
+    return (*(v107 + 8))(v57, v56);
   }
 
   else
   {
-    v68 = v120;
-    v69 = v97;
-    v97(v124, v125, v120);
 
-    swift_getAtKeyPath();
-
-    v65 = v68;
-    v69(v124, v125, v68);
-
-    v70 = v81;
-    swift_getAtKeyPath();
-
-    v71 = AssociatedTypeWitness;
-    v72 = swift_getAssociatedConformanceWitness();
-    v73 = v86;
-    LOBYTE(v68) = (*(v72 + 88))(v70, v71, v72);
-    v74 = *(v82 + 8);
-    v74(v70, v71);
-    v74(v73, v71);
-    if ((v68 & 1) == 0)
+    (*(v82 + 8))(v55, v58);
+    result = (*(*(v79 + 8) + 24))(v78);
+    v62 = 0;
+    v64 = result + 64;
+    v63 = *(result + 64);
+    v128 = result;
+    v65 = 1 << *(result + 32);
+    v66 = -1;
+    if (v65 < 64)
     {
-      v75 = *(v111 + 8);
-      v76 = *(v75 + 24);
-      v77 = v98;
-      v78 = v76(v98, v75);
-      v79 = v76(v77, v75);
-      v66 = sub_1AE21FE14(v79, v78);
-
-      goto LABEL_8;
+      v66 = ~(-1 << v65);
     }
-  }
 
-  v66 = 1;
-LABEL_8:
-  (*(v103 + 8))(v125, v65);
-  return v66 & 1;
-}
-
-uint64_t CRStruct_6.actionUndoingDifference(from:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v174 = a1;
-  v148 = a4;
-  v5 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v144 = *(AssociatedTypeWitness - 8);
-  v6 = *(v144 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v143 = &v113 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v140 = &v113 - v9;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v113 = swift_getAssociatedTypeWitness();
-  v164 = sub_1AE23D7CC();
-  v147 = *(v164 - 8);
-  v10 = *(v147 + 64);
-  MEMORY[0x1EEE9AC00](v164);
-  v166 = &v113 - v11;
-  v156 = swift_getAssociatedTypeWitness();
-  v138 = *(v156 - 8);
-  v12 = *(v138 + 64);
-  MEMORY[0x1EEE9AC00](v156);
-  v137 = &v113 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v158 = &v113 - v15;
-  v136 = swift_getAssociatedConformanceWitness();
-  v114 = swift_getAssociatedTypeWitness();
-  v161 = sub_1AE23D7CC();
-  v146 = *(v161 - 8);
-  v16 = *(v146 + 64);
-  MEMORY[0x1EEE9AC00](v161);
-  v162 = &v113 - v17;
-  v155 = swift_getAssociatedTypeWitness();
-  v132 = *(v155 - 8);
-  v18 = *(v132 + 64);
-  MEMORY[0x1EEE9AC00](v155);
-  v131 = &v113 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v20);
-  v157 = &v113 - v21;
-  v130 = swift_getAssociatedConformanceWitness();
-  v115 = swift_getAssociatedTypeWitness();
-  v160 = sub_1AE23D7CC();
-  v145 = *(v160 - 8);
-  v22 = *(v145 + 64);
-  MEMORY[0x1EEE9AC00](v160);
-  v167 = &v113 - v23;
-  v154 = swift_getAssociatedTypeWitness();
-  v128 = *(v154 - 8);
-  v24 = *(v128 + 64);
-  MEMORY[0x1EEE9AC00](v154);
-  v127 = &v113 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v26);
-  v153 = &v113 - v27;
-  v126 = swift_getAssociatedConformanceWitness();
-  v116 = swift_getAssociatedTypeWitness();
-  v150 = sub_1AE23D7CC();
-  v142 = *(v150 - 8);
-  v28 = *(v142 + 64);
-  MEMORY[0x1EEE9AC00](v150);
-  v168 = &v113 - v29;
-  v30 = swift_getAssociatedTypeWitness();
-  v125 = *(v30 - 8);
-  v31 = *(v125 + 64);
-  MEMORY[0x1EEE9AC00](v30);
-  v124 = &v113 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v33);
-  v152 = &v113 - v34;
-  v35 = swift_getAssociatedConformanceWitness();
-  v122 = v30;
-  v123 = v35;
-  v117 = swift_getAssociatedTypeWitness();
-  v149 = sub_1AE23D7CC();
-  v139 = *(v149 - 8);
-  v36 = *(v139 + 64);
-  MEMORY[0x1EEE9AC00](v149);
-  v163 = &v113 - v37;
-  v38 = swift_getAssociatedTypeWitness();
-  v121 = *(v38 - 8);
-  v39 = *(v121 + 64);
-  MEMORY[0x1EEE9AC00](v38);
-  v120 = &v113 - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v41);
-  v151 = &v113 - v42;
-  v43 = swift_getAssociatedConformanceWitness();
-  v118 = v38;
-  v119 = v43;
-  v133 = swift_getAssociatedTypeWitness();
-  v44 = sub_1AE23D7CC();
-  v134 = *(v44 - 8);
-  v135 = v44;
-  v45 = *(v134 + 64);
-  v46 = MEMORY[0x1EEE9AC00](v44);
-  v165 = &v113 - v47;
-  (*(v5 + 112))(v191, a2, v5, v46);
-  v48 = v191[1];
-  v180 = v191[2];
-  v183 = v191[4];
-  v179 = v191[5];
-  v184 = v191[10];
-  v172 = v191[11];
-  v175 = v191[13];
-  v176 = v191[8];
-  v49 = v191[14];
-  v50 = v191[16];
-  v51 = v191[17];
-  v182 = v191[7];
-  sub_1AE23DB8C();
-  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v186 = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v187 = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v188 = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v189 = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v190 = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v129 = *(TupleTypeMetadata - 8);
-  v52 = *(v129 + 16);
-  v178 = v129 + 16;
-  v181 = v52;
-  v52(&TupleTypeMetadata2, v191, TupleTypeMetadata);
-  v169 = v48;
-
-  v173 = v51;
-
-  v170 = v50;
-
-  v53 = v49;
-
-  swift_getAtKeyPath();
-
-  v181(&TupleTypeMetadata2, v191, TupleTypeMetadata);
-
-  v54 = v120;
-  swift_getAtKeyPath();
-
-  v55 = v118;
-  v56 = v151;
-  (*(v119 + 72))(v54, v118);
-  v57 = *(v121 + 8);
-  v57(v54, v55);
-  v57(v56, v55);
-  v58 = TupleTypeMetadata;
-  v59 = v181;
-  v181(&TupleTypeMetadata2, v191, TupleTypeMetadata);
-
-  v171 = v53;
-
-  swift_getAtKeyPath();
-
-  v59(&TupleTypeMetadata2, v191, v58);
-
-  v60 = v124;
-  swift_getAtKeyPath();
-
-  v61 = v122;
-  v62 = v60;
-  v63 = v152;
-  (*(v123 + 72))(v60, v122);
-  v64 = *(v125 + 8);
-  v64(v62, v61);
-  v64(v63, v61);
-  v65 = TupleTypeMetadata;
-  v181(&TupleTypeMetadata2, v191, TupleTypeMetadata);
-
-  swift_getAtKeyPath();
-
-  v181(&TupleTypeMetadata2, v191, v65);
-
-  v66 = v127;
-  swift_getAtKeyPath();
-
-  v68 = v153;
-  v67 = v154;
-  (*(v126 + 72))(v66, v154);
-  v69 = *(v128 + 8);
-  v69(v66, v67);
-  v69(v68, v67);
-  v70 = v181;
-  v181(&TupleTypeMetadata2, v191, TupleTypeMetadata);
-
-  swift_getAtKeyPath();
-
-  v70(&TupleTypeMetadata2, v191, TupleTypeMetadata);
-
-  v71 = v131;
-  swift_getAtKeyPath();
-
-  v72 = v157;
-  v73 = v155;
-  (*(v130 + 72))(v71, v155);
-  v74 = *(v132 + 8);
-  v74(v71, v73);
-  v74(v72, v73);
-  v75 = TupleTypeMetadata;
-  v181(&TupleTypeMetadata2, v191, TupleTypeMetadata);
-
-  swift_getAtKeyPath();
-
-  v76 = v181;
-  v181(&TupleTypeMetadata2, v191, v75);
-
-  v77 = v137;
-  swift_getAtKeyPath();
-
-  v78 = v158;
-  v79 = v156;
-  (*(v136 + 72))(v77, v156);
-  v80 = *(v138 + 8);
-  v80(v77, v79);
-  v80(v78, v79);
-  v81 = TupleTypeMetadata;
-  v76(&TupleTypeMetadata2, v191, TupleTypeMetadata);
-
-  v82 = v140;
-  swift_getAtKeyPath();
-
-  v181(&TupleTypeMetadata2, v191, v81);
-
-  v83 = v163;
-
-  v84 = v143;
-  swift_getAtKeyPath();
-
-  v85 = AssociatedTypeWitness;
-  (*(AssociatedConformanceWitness + 72))(v84, AssociatedTypeWitness);
-  (*(v129 + 8))(v191, v81);
-  v86 = *(v144 + 8);
-  v86(v84, v85);
-  v86(v82, v85);
-  if ((*(*(v133 - 8) + 48))(v165, 1) == 1 && (*(*(v117 - 8) + 48))(v83, 1) == 1 && (*(*(v116 - 8) + 48))(v168, 1) == 1 && (*(*(v115 - 8) + 48))(v167, 1) == 1 && (*(*(v114 - 8) + 48))(v162, 1) == 1 && (*(*(v113 - 8) + 48))(v166, 1) == 1)
-  {
-    v87 = v135;
-    (*(v134 + 8))(v165, v135);
-    TupleTypeMetadata2 = v87;
-    v89 = v149;
-    v88 = v150;
-    v186 = v149;
-    v187 = v150;
-    v188 = v160;
-    v189 = v161;
-    v190 = v164;
-    v90 = swift_getTupleTypeMetadata();
-    (*(*(v90 - 8) + 56))(v148, 1, 1, v90);
-    v92 = v146;
-    v91 = v147;
-    v93 = v162;
-    v94 = v145;
-    v95 = v83;
-    v96 = v142;
-    v97 = v139;
-  }
-
-  else
-  {
-    v98 = v83;
-    v99 = v135;
-    TupleTypeMetadata2 = v135;
-    v100 = v149;
-    v186 = v149;
-    v187 = v150;
-    v102 = v160;
-    v101 = v161;
-    v188 = v160;
-    v189 = v161;
-    v190 = v164;
-    v103 = swift_getTupleTypeMetadata();
-    v104 = v103[12];
-    v105 = v103[16];
-    v182 = v103[20];
-    v183 = v103[24];
-    v184 = v103[28];
-    v106 = v148;
-    (*(v134 + 32))(v148, v165, v99);
-    v97 = v139;
-    (*(v139 + 16))(v106 + v104, v98, v100);
-    v96 = v142;
-    v107 = v101;
-    v108 = v150;
-    (*(v142 + 16))(v106 + v105, v168, v150);
-    v94 = v145;
-    (*(v145 + 16))(v106 + v182, v167, v102);
-    v92 = v146;
-    v93 = v162;
-    (*(v146 + 16))(v106 + v183, v162, v107);
-    v91 = v147;
-    (*(v147 + 16))(v106 + v184, v166, v164);
-    v109 = *(*(v103 - 1) + 56);
-    v110 = v106;
-    v89 = v149;
-    v111 = v103;
-    v88 = v108;
-    v95 = v163;
-    v109(v110, 0, 1, v111);
-  }
-
-  (*(v91 + 8))(v166, v164);
-  (*(v92 + 8))(v93, v161);
-  (*(v94 + 8))(v167, v160);
-  (*(v96 + 8))(v168, v88);
-  return (*(v97 + 8))(v95, v89);
-}
-
-uint64_t CRStruct_6.apply(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v193 = a1;
-  v4 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v135 = swift_getAssociatedTypeWitness();
-  v188 = sub_1AE23D7CC();
-  v171 = *(v188 - 8);
-  v5 = *(v171 + 64);
-  MEMORY[0x1EEE9AC00](v188);
-  v151 = &v129 - v6;
-  v158 = swift_getAssociatedTypeWitness();
-  v150 = swift_getAssociatedConformanceWitness();
-  v134 = swift_getAssociatedTypeWitness();
-  v170 = sub_1AE23D7CC();
-  v161 = *(v170 - 8);
-  v7 = *(v161 + 64);
-  MEMORY[0x1EEE9AC00](v170);
-  v149 = &v129 - v8;
-  v157 = swift_getAssociatedTypeWitness();
-  v147 = swift_getAssociatedConformanceWitness();
-  v133 = swift_getAssociatedTypeWitness();
-  v9 = sub_1AE23D7CC();
-  v165 = *(v9 - 8);
-  v166 = v9;
-  v10 = *(v165 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v146 = &v129 - v11;
-  v156 = swift_getAssociatedTypeWitness();
-  v143 = swift_getAssociatedConformanceWitness();
-  v132 = swift_getAssociatedTypeWitness();
-  v12 = sub_1AE23D7CC();
-  v169 = v12;
-  v173 = *(v12 - 8);
-  v13 = *(v173 + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v142 = &v129 - v14;
-  v154 = swift_getAssociatedTypeWitness();
-  v140 = swift_getAssociatedConformanceWitness();
-  v131 = swift_getAssociatedTypeWitness();
-  v15 = sub_1AE23D7CC();
-  v168 = *(v15 - 8);
-  v16 = *(v168 + 64);
-  MEMORY[0x1EEE9AC00](v15);
-  v138 = &v129 - v17;
-  v18 = swift_getAssociatedTypeWitness();
-  v136 = swift_getAssociatedConformanceWitness();
-  v19 = swift_getAssociatedTypeWitness();
-  v196 = sub_1AE23D7CC();
-  v197 = v15;
-  v160 = v15;
-  v198 = v12;
-  v199 = v9;
-  v200 = v170;
-  v201 = v188;
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v172 = sub_1AE23D7CC();
-  v164 = *(v172 - 8);
-  v20 = *(v164 + 64);
-  MEMORY[0x1EEE9AC00](v172);
-  v148 = &v129 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v22);
-  v145 = &v129 - v23;
-  MEMORY[0x1EEE9AC00](v24);
-  v141 = &v129 - v25;
-  MEMORY[0x1EEE9AC00](v26);
-  v139 = &v129 - v27;
-  MEMORY[0x1EEE9AC00](v28);
-  v137 = &v129 - v29;
-  MEMORY[0x1EEE9AC00](v30);
-  v32 = &v129 - v31;
-  v130 = v19;
-  v163 = sub_1AE23D7CC();
-  v174 = *(v163 - 8);
-  v33 = *(v174 + 64);
-  v34 = MEMORY[0x1EEE9AC00](v163);
-  v153 = &v129 - v35;
-  (*(v4 + 112))(&v196, a2, v4, v34);
-  v36 = v197;
-  v191 = v202;
-  v192 = v200;
-  v183 = v203;
-  v184 = v201;
-  v190 = v204;
-  v182 = v205;
-  v37 = v206;
-  v38 = v207;
-  v39 = v208;
-  v40 = v209;
-  v185 = v198;
-  v155 = v18;
-  sub_1AE23DB8C();
-  v195[0] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v195[1] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v195[2] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v195[3] = swift_getTupleTypeMetadata2();
-  v41 = v164;
-  sub_1AE23DB8C();
-  v195[4] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v195[5] = swift_getTupleTypeMetadata2();
-  v42 = swift_getTupleTypeMetadata();
-  v144 = *(v42 - 8);
-  v43 = *(v144 + 16);
-  v189 = v42;
-  v178 = v43;
-  v179 = v144 + 16;
-  (v43)(v195, &v196);
-  v186 = v36;
-
-  v187 = v40;
-
-  v180 = v39;
-
-  v167 = v38;
-  v44 = v172;
-
-  v181 = v37;
-
-  v45 = v41 + 16;
-  v177 = *(v41 + 16);
-  v177(v32, v193, v44);
-  v46 = *(TupleTypeMetadata - 1);
-  v47 = *(v46 + 48);
-  v175 = v46 + 48;
-  v176 = v47;
-  v48 = (v47)(v32, 1);
-  v49 = v188;
-  v50 = v171;
-  v51 = v166;
-  v52 = v169;
-  if (v48 == 1)
-  {
-    (*(v41 + 8))(v32, v44);
-    (*(*(v130 - 8) + 56))(v153, 1, 1);
-    v53 = v160;
-  }
-
-  else
-  {
-    v54 = TupleTypeMetadata[12];
-    v55 = TupleTypeMetadata[16];
-    v129 = TupleTypeMetadata[20];
-    v130 = v55;
-    v56 = TupleTypeMetadata[24];
-    v57 = TupleTypeMetadata[28];
-    (*(v174 + 32))(v153, v32, v163);
-    (*(v50 + 8))(&v32[v57], v49);
-    (*(v161 + 8))(&v32[v56], v170);
-    (*(v165 + 8))(&v32[v129], v51);
-    (*(v173 + 8))(&v32[v130], v52);
-    v53 = v160;
-    (*(v168 + 8))(&v32[v54], v160);
-  }
-
-  v58 = swift_modifyAtWritableKeyPath();
-  v59 = v153;
-  (*(v136 + 80))(v153, v155);
-  v61 = v174 + 8;
-  v60 = *(v174 + 8);
-  v62 = v163;
-  v60(v59, v163);
-  v58(v195, 0);
-
-  v178(v195, &v196, v189);
-
-  v63 = v137;
-  v64 = v172;
-  v177(v137, v193, v172);
-  v65 = v176(v63, 1, TupleTypeMetadata);
-  v162 = v45;
-  v174 = v61;
-  v155 = v60;
-  if (v65 == 1)
-  {
-    (*(v164 + 8))(v63, v64);
-    v66 = v138;
-    (*(*(v131 - 8) + 56))(v138, 1, 1);
-    v67 = v168;
-  }
-
-  else
-  {
-    v68 = TupleTypeMetadata[12];
-    v153 = TupleTypeMetadata[16];
-    v136 = TupleTypeMetadata[20];
-    v131 = TupleTypeMetadata[24];
-    v69 = TupleTypeMetadata[28];
-    v67 = v168;
-    v70 = v138;
-    (*(v168 + 32))(v138, &v63[v68], v53);
-    v71 = &v63[v69];
-    v72 = v60;
-    v73 = v170;
-    (*(v171 + 8))(v71, v188);
-    (*(v161 + 8))(&v63[v131], v73);
-    (*(v165 + 8))(&v63[v136], v166);
-    (*(v173 + 8))(&v153[v63], v169);
-    v72(v63, v62);
-    v66 = v70;
-  }
-
-  v74 = swift_modifyAtWritableKeyPath();
-  (*(v140 + 80))(v66, v154);
-  v75 = *(v67 + 8);
-  v75(v66, v53);
-  v74(v195, 0);
-
-  v178(v195, &v196, v189);
-
-  v76 = v139;
-  v77 = v172;
-  v177(v139, v193, v172);
-  v78 = v176(v76, 1, TupleTypeMetadata);
-  v168 = v67 + 8;
-  v154 = v75;
-  if (v78 == 1)
-  {
-    (*(v164 + 8))(v76, v77);
-    v79 = v142;
-    (*(*(v132 - 8) + 56))(v142, 1, 1);
-    v80 = v77;
-    v81 = v165;
-    v82 = v169;
-    v83 = v173;
-  }
-
-  else
-  {
-    v84 = v53;
-    v153 = TupleTypeMetadata[12];
-    v85 = TupleTypeMetadata[16];
-    v140 = TupleTypeMetadata[20];
-    v86 = TupleTypeMetadata[24];
-    v87 = TupleTypeMetadata[28];
-    v83 = v173;
-    v79 = v142;
-    v88 = v169;
-    (*(v173 + 32))(v142, &v76[v85], v169);
-    (*(v171 + 8))(&v76[v87], v188);
-    (*(v161 + 8))(&v76[v86], v170);
-    v81 = v165;
-    (*(v165 + 8))(&v76[v140], v166);
-    v75(&v153[v76], v84);
-    v80 = v172;
-    v89 = v76;
-    v82 = v88;
-    v155(v89, v163);
-  }
-
-  v90 = swift_modifyAtWritableKeyPath();
-  (*(v143 + 80))(v79, v156);
-  v91 = *(v83 + 8);
-  v91(v79, v82);
-  v90(v195, 0);
-
-  v178(v195, &v196, v189);
-
-  v92 = v141;
-  v177(v141, v193, v80);
-  v93 = v176(v92, 1, TupleTypeMetadata);
-  v94 = v80;
-  v173 = v83 + 8;
-  v156 = v91;
-  if (v93 == 1)
-  {
-    (*(v164 + 8))(v92, v80);
-    v95 = v146;
-    (*(*(v133 - 8) + 56))(v146, 1, 1);
-    v96 = v80;
-    v97 = v166;
-  }
-
-  else
-  {
-    v98 = TupleTypeMetadata[12];
-    v165 = TupleTypeMetadata[16];
-    v99 = TupleTypeMetadata[24];
-    v100 = TupleTypeMetadata[28];
-    v95 = v146;
-    v97 = v166;
-    (*(v81 + 32))(v146, &v92[TupleTypeMetadata[20]], v166);
-    v101 = &v92[v100];
-    v96 = v94;
-    (*(v171 + 8))(v101, v188);
-    (*(v161 + 8))(&v92[v99], v170);
-    v91(&v92[v165], v169);
-    v154(&v92[v98], v160);
-    v155(v92, v163);
-  }
-
-  v102 = swift_modifyAtWritableKeyPath();
-  (*(v147 + 80))(v95, v157);
-  v103 = *(v81 + 8);
-  v103(v95, v97);
-  v102(v195, 0);
-
-  v178(v195, &v196, v189);
-
-  v104 = v145;
-  v177(v145, v193, v96);
-  v105 = v176(v104, 1, TupleTypeMetadata);
-  v165 = v81 + 8;
-  v157 = v103;
-  if (v105 == 1)
-  {
-    v106 = v164;
-    (*(v164 + 8))(v104, v96);
-    v107 = v149;
-    (*(*(v134 - 8) + 56))(v149, 1, 1);
-    v108 = v170;
-    v109 = v161;
-  }
-
-  else
-  {
-    v110 = v97;
-    v153 = TupleTypeMetadata[12];
-    v111 = TupleTypeMetadata[16];
-    v146 = TupleTypeMetadata[20];
-    v147 = v111;
-    v112 = TupleTypeMetadata[28];
-    v109 = v161;
-    v113 = v149;
-    v108 = v170;
-    (*(v161 + 32))(v149, &v104[TupleTypeMetadata[24]]);
-    (*(v171 + 8))(&v104[v112], v188);
-    v103(&v146[v104], v110);
-    v107 = v113;
-    v156(&v104[v147], v169);
-    v154(&v153[v104], v160);
-    v155(v104, v163);
-    v106 = v164;
-  }
-
-  v114 = swift_modifyAtWritableKeyPath();
-  (*(v150 + 80))(v107, v158);
-  v115 = *(v109 + 8);
-  v116 = v107;
-  v117 = v108;
-  v115(v116, v108);
-  v114(v195, 0);
-
-  v178(v195, &v196, v189);
-
-  v118 = v148;
-  v119 = v172;
-  v177(v148, v193, v172);
-  if (v176(v118, 1, TupleTypeMetadata) == 1)
-  {
-    (*(v106 + 8))(v118, v119);
-    v120 = v151;
-    (*(*(v135 - 8) + 56))(v151, 1, 1);
-    v121 = v171;
-    v122 = v188;
-  }
-
-  else
-  {
-    v193 = TupleTypeMetadata[12];
-    v123 = TupleTypeMetadata[16];
-    v124 = TupleTypeMetadata[20];
-    v125 = TupleTypeMetadata[24];
-    v121 = v171;
-    v126 = v151;
-    (*(v171 + 32))(v151, &v118[TupleTypeMetadata[28]], v188);
-    v115(&v118[v125], v117);
-    v122 = v188;
-    v157(&v118[v124], v166);
-    v156(&v118[v123], v169);
-    v120 = v126;
-    v154(&v118[v193], v160);
-    v155(v118, v163);
-  }
-
-  v127 = swift_modifyAtWritableKeyPath();
-  (*(AssociatedConformanceWitness + 80))(v120, AssociatedTypeWitness);
-  (*(v121 + 8))(v120, v122);
-  v127(v195, 0);
-  (*(v144 + 8))(&v196, v189);
-}
-
-uint64_t CRStruct_6.visitReferences(_:)(void *a1, uint64_t a2, uint64_t a3)
-{
-  v82 = a1;
-  v4 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v61 = *(AssociatedTypeWitness - 8);
-  v5 = *(v61 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v60 = &v59 - v6;
-  v85 = swift_getAssociatedTypeWitness();
-  v63 = *(v85 - 8);
-  v7 = *(v63 + 64);
-  MEMORY[0x1EEE9AC00](v85);
-  v62 = &v59 - v8;
-  v86 = swift_getAssociatedTypeWitness();
-  v65 = *(v86 - 8);
-  v9 = *(v65 + 64);
-  MEMORY[0x1EEE9AC00](v86);
-  v64 = &v59 - v10;
-  v11 = swift_getAssociatedTypeWitness();
-  v67 = *(v11 - 8);
-  v12 = *(v67 + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v66 = &v59 - v13;
-  v14 = swift_getAssociatedTypeWitness();
-  v70 = *(v14 - 8);
-  v15 = *(v70 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v69 = &v59 - v16;
-  v79 = swift_getAssociatedTypeWitness();
-  v81 = *(v79 - 8);
-  v17 = *(v81 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v79);
-  v80 = &v59 - v19;
-  (*(v4 + 112))(v96, a2, v4, v18);
-  v20 = v96[1];
-  v78 = v96[4];
-  v93 = v96[7];
-  v94 = v96[2];
-  v91 = v96[10];
-  v92 = v96[8];
-  v89 = v96[13];
-  v90 = v96[11];
-  v87 = v96[5];
-  v88 = v96[14];
-  v22 = v96[16];
-  v21 = v96[17];
-  sub_1AE23DB8C();
-  v95[0] = swift_getTupleTypeMetadata2();
-  v71 = v14;
-  sub_1AE23DB8C();
-  v95[1] = swift_getTupleTypeMetadata2();
-  v68 = v11;
-  sub_1AE23DB8C();
-  v95[2] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v95[3] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v95[4] = swift_getTupleTypeMetadata2();
-  v23 = v82;
-  sub_1AE23DB8C();
-  v95[5] = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v83 = *(TupleTypeMetadata - 8);
-  v72 = *(v83 + 16);
-  v73 = v83 + 16;
-  v72(v95, v96, TupleTypeMetadata);
-  v75 = v20;
-
-  v76 = v21;
-
-  v74 = v22;
-
-  v25 = a2;
-
-  v26 = v80;
-  swift_getAtKeyPath();
-
-  v77 = v4;
-  v27 = v79;
-  v28 = TupleTypeMetadata;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(AssociatedConformanceWitness + 16) + 48))(v23, v27);
-  (*(v81 + 8))(v26, v27);
-  v30 = v23[3];
-  v31 = v23[4];
-  __swift_project_boxed_opaque_existential_1(v23, v30);
-  if (((*(v31 + 8))(v30, v31) & 1) == 0)
-  {
-    v72(v95, v96, v28);
-
-    v32 = v69;
-    swift_getAtKeyPath();
-
-    v33 = v71;
-    v34 = swift_getAssociatedConformanceWitness();
-    (*(*(v34 + 16) + 48))(v23, v33);
-    (*(v70 + 8))(v32, v33);
-    v35 = v23[3];
-    v36 = v23[4];
-    __swift_project_boxed_opaque_existential_1(v23, v35);
-    if (((*(v36 + 8))(v35, v36) & 1) == 0)
-    {
-      v72(v95, v96, v28);
-
-      v37 = v66;
-      swift_getAtKeyPath();
-
-      v38 = v68;
-      v39 = swift_getAssociatedConformanceWitness();
-      (*(*(v39 + 16) + 48))(v23, v38);
-      (*(v67 + 8))(v37, v38);
-      v40 = v23[3];
-      v41 = v23[4];
-      __swift_project_boxed_opaque_existential_1(v23, v40);
-      if (((*(v41 + 8))(v40, v41) & 1) == 0)
-      {
-        v72(v95, v96, v28);
-
-        v42 = v64;
-        swift_getAtKeyPath();
-
-        v43 = v86;
-        v44 = swift_getAssociatedConformanceWitness();
-        (*(*(v44 + 16) + 48))(v23, v43);
-        (*(v65 + 8))(v42, v43);
-        v45 = v23[3];
-        v46 = v23[4];
-        __swift_project_boxed_opaque_existential_1(v23, v45);
-        if (((*(v46 + 8))(v45, v46) & 1) == 0)
-        {
-          v72(v95, v96, v28);
-
-          v47 = v62;
-          swift_getAtKeyPath();
-
-          v48 = v85;
-          v49 = swift_getAssociatedConformanceWitness();
-          (*(*(v49 + 16) + 48))(v23, v48);
-          (*(v63 + 8))(v47, v48);
-          v50 = v23[3];
-          v51 = v23[4];
-          __swift_project_boxed_opaque_existential_1(v23, v50);
-          if (((*(v51 + 8))(v50, v51) & 1) == 0)
-          {
-            v72(v95, v96, v28);
-
-            v52 = v60;
-            swift_getAtKeyPath();
-
-            v53 = AssociatedTypeWitness;
-            v54 = swift_getAssociatedConformanceWitness();
-            (*(*(v54 + 16) + 48))(v23, v53);
-            (*(v61 + 8))(v52, v53);
-            v55 = v23[3];
-            v56 = v23[4];
-            __swift_project_boxed_opaque_existential_1(v23, v55);
-            if (((*(v56 + 8))(v55, v56) & 1) == 0)
-            {
-              v57 = (*(*(v77 + 8) + 24))(v25);
-              sub_1ADDDC764(v23, v57);
-            }
-          }
-        }
-      }
-    }
-  }
-
-  return (*(v83 + 8))(v96, v28);
-}
-
-Swift::Bool __swiftcall CRStruct_6.needToFinalizeTimestamps()()
-{
-  v2 = v0;
-  v3 = *(v1 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v51 = *(AssociatedTypeWitness - 8);
-  v4 = *(v51 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v50 = &v49 - v5;
-  v74 = swift_getAssociatedTypeWitness();
-  v53 = *(v74 - 8);
-  v6 = *(v53 + 64);
-  MEMORY[0x1EEE9AC00](v74);
-  v52 = &v49 - v7;
-  v8 = swift_getAssociatedTypeWitness();
-  v55 = *(v8 - 8);
-  v9 = *(v55 + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  v54 = &v49 - v10;
-  v11 = swift_getAssociatedTypeWitness();
-  v58 = *(v11 - 8);
-  v12 = *(v58 + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v57 = &v49 - v13;
-  v14 = swift_getAssociatedTypeWitness();
-  v61 = *(v14 - 8);
-  v15 = *(v61 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v60 = &v49 - v16;
-  v17 = swift_getAssociatedTypeWitness();
-  v72 = *(v17 - 8);
-  v18 = *(v72 + 64);
-  v19 = MEMORY[0x1EEE9AC00](v17);
-  v71 = &v49 - v20;
-  (*(v3 + 112))(v78, v2, v3, v19);
-  v69 = v78[4];
-  v70 = v78[2];
-  v67 = v78[7];
-  v68 = v78[5];
-  v66 = v78[10];
-  v75 = v78[11];
-  v76 = v78[8];
-  v64 = v78[1];
-  v65 = v78[13];
-  v21 = v78[14];
-  v22 = v78[17];
-  v63 = v78[16];
-  sub_1AE23DB8C();
-  v77[0] = swift_getTupleTypeMetadata2();
-  v62 = v14;
-  sub_1AE23DB8C();
-  v77[1] = swift_getTupleTypeMetadata2();
-  v59 = v11;
-  sub_1AE23DB8C();
-  v77[2] = swift_getTupleTypeMetadata2();
-  v56 = v8;
-  sub_1AE23DB8C();
-  v77[3] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v77[4] = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v77[5] = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v24 = *(TupleTypeMetadata - 8);
-  (*(v24 + 16))(v77, v78, TupleTypeMetadata);
-
-  v49 = v22;
-
-  v64 = v21;
-  v25 = v3;
-
-  v26 = v71;
-  swift_getAtKeyPath();
-
-  v70 = v25;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  LOBYTE(v22) = (*(*(AssociatedConformanceWitness + 16) + 56))(v17);
-  (*(v72 + 8))(v26, v17);
-  if (v22)
-  {
-    goto LABEL_6;
-  }
-
-  v28 = v60;
-  swift_getAtKeyPath();
-  v29 = v62;
-  v30 = swift_getAssociatedConformanceWitness();
-  v31 = (*(*(v30 + 16) + 56))(v29);
-  (*(v61 + 8))(v28, v29);
-  if (v31)
-  {
-    goto LABEL_6;
-  }
-
-  v32 = v57;
-  swift_getAtKeyPath();
-  v33 = v59;
-  v34 = swift_getAssociatedConformanceWitness();
-  v35 = (*(*(v34 + 16) + 56))(v33);
-  (*(v58 + 8))(v32, v33);
-  if (v35)
-  {
-    goto LABEL_6;
-  }
-
-  v36 = v54;
-  swift_getAtKeyPath();
-  v37 = v56;
-  v38 = swift_getAssociatedConformanceWitness();
-  v39 = (*(*(v38 + 16) + 56))(v37);
-  (*(v55 + 8))(v36, v37);
-  if (v39 & 1) != 0 || (v40 = v52, swift_getAtKeyPath(), v41 = v74, v42 = swift_getAssociatedConformanceWitness(), v43 = (*(*(v42 + 16) + 56))(v41), (*(v53 + 8))(v40, v41), (v43))
-  {
-LABEL_6:
-    (*(v24 + 8))(v78, TupleTypeMetadata);
-    v44 = 1;
-  }
-
-  else
-  {
-    v46 = v50;
-    swift_getAtKeyPath();
-    v47 = AssociatedTypeWitness;
-    v48 = swift_getAssociatedConformanceWitness();
-    v44 = (*(*(v48 + 16) + 56))(v47);
-    (*(v24 + 8))(v78, TupleTypeMetadata);
-    (*(v51 + 8))(v46, v47);
-  }
-
-  return v44 & 1;
-}
-
-uint64_t CRStruct_6.finalizeTimestamps(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  (*(*(a3 + 8) + 112))(&v33, a2, *(a3 + 8));
-  swift_getAssociatedTypeWitness();
-  sub_1AE23DB8C();
-  v32[0] = swift_getTupleTypeMetadata2();
-  swift_getAssociatedTypeWitness();
-  sub_1AE23DB8C();
-  v32[1] = swift_getTupleTypeMetadata2();
-  swift_getAssociatedTypeWitness();
-  sub_1AE23DB8C();
-  v32[2] = swift_getTupleTypeMetadata2();
-  swift_getAssociatedTypeWitness();
-  sub_1AE23DB8C();
-  v32[3] = swift_getTupleTypeMetadata2();
-  swift_getAssociatedTypeWitness();
-  sub_1AE23DB8C();
-  v32[4] = swift_getTupleTypeMetadata2();
-  swift_getAssociatedTypeWitness();
-  sub_1AE23DB8C();
-  v32[5] = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v28 = *(TupleTypeMetadata - 8);
-  v29 = *(v28 + 16);
-  v29(v32, &v33, TupleTypeMetadata);
-
-  v3 = swift_modifyAtWritableKeyPath();
-  v4 = *(swift_getAssociatedConformanceWitness() + 16);
-  v5 = *(v4 + 64);
-  v6 = swift_checkMetadataState();
-  v5(a1, v6, v4);
-  v3(v32, 0);
-
-  v29(v32, &v33, TupleTypeMetadata);
-
-  v7 = swift_modifyAtWritableKeyPath();
-  v8 = *(swift_getAssociatedConformanceWitness() + 16);
-  v9 = *(v8 + 64);
-  v10 = swift_checkMetadataState();
-  v9(a1, v10, v8);
-  v7(v32, 0);
-
-  v29(v32, &v33, TupleTypeMetadata);
-
-  v11 = swift_modifyAtWritableKeyPath();
-  v12 = *(swift_getAssociatedConformanceWitness() + 16);
-  v13 = *(v12 + 64);
-  v14 = swift_checkMetadataState();
-  v13(a1, v14, v12);
-  v11(v32, 0);
-
-  v29(v32, &v33, TupleTypeMetadata);
-
-  v15 = swift_modifyAtWritableKeyPath();
-  v16 = *(swift_getAssociatedConformanceWitness() + 16);
-  v17 = *(v16 + 64);
-  v18 = swift_checkMetadataState();
-  v17(a1, v18, v16);
-  v15(v32, 0);
-
-  v29(v32, &v33, TupleTypeMetadata);
-
-  v19 = swift_modifyAtWritableKeyPath();
-  v20 = *(swift_getAssociatedConformanceWitness() + 16);
-  v21 = *(v20 + 64);
-  v22 = swift_checkMetadataState();
-  v21(a1, v22, v20);
-  v19(v32, 0);
-
-  v29(v32, &v33, TupleTypeMetadata);
-
-  v23 = swift_modifyAtWritableKeyPath();
-  v24 = *(swift_getAssociatedConformanceWitness() + 16);
-  v25 = *(v24 + 64);
-  v26 = swift_checkMetadataState();
-  v25(a1, v26, v24);
-  v23(v32, 0);
-
-  return (*(v28 + 8))(&v33, TupleTypeMetadata);
-}
-
-uint64_t CRStruct_6.minEncodingVersion.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  v57 = a3;
-  v4 = *(a2 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v44 = *(AssociatedTypeWitness - 8);
-  v5 = *(v44 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v43 = &v42 - v6;
-  v55 = swift_getAssociatedTypeWitness();
-  v47 = *(v55 - 8);
-  v7 = *(v47 + 64);
-  MEMORY[0x1EEE9AC00](v55);
-  v46 = &v42 - v8;
-  v58 = swift_getAssociatedTypeWitness();
-  v50 = *(v58 - 8);
-  v9 = *(v50 + 64);
-  MEMORY[0x1EEE9AC00](v58);
-  v49 = &v42 - v10;
-  v59 = swift_getAssociatedTypeWitness();
-  v53 = *(v59 - 8);
-  v11 = *(v53 + 64);
-  MEMORY[0x1EEE9AC00](v59);
-  v52 = &v42 - v12;
-  v60 = swift_getAssociatedTypeWitness();
-  v54 = *(v60 - 8);
-  v13 = *(v54 + 64);
-  MEMORY[0x1EEE9AC00](v60);
-  v15 = &v42 - v14;
-  v61 = swift_getAssociatedTypeWitness();
-  v16 = *(v61 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v61);
-  v20 = &v42 - v19;
-  (*(v4 + 112))(v70, a1, v4, v18);
-  v51 = v70[8];
-  v48 = v70[11];
-  v45 = v70[14];
-  v42 = v70[17];
-  v21 = (*(*(v4 + 8) + 24))(a1);
-  sub_1AE21FFB0(v21, &v69);
-
-  v22 = v69;
-  if (v69 > 2u)
-  {
-    goto LABEL_20;
-  }
-
-  swift_getAtKeyPath();
-  v23 = v61;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(*(AssociatedConformanceWitness + 16) + 8) + 24))(&TupleTypeMetadata2, v23);
-  (*(v16 + 8))(v20, v23);
-  if (TupleTypeMetadata2 > v22)
-  {
-    v22 = TupleTypeMetadata2;
-  }
-
-  v69 = v22;
-  if (TupleTypeMetadata2 > 2u)
-  {
-    goto LABEL_20;
-  }
-
-  swift_getAtKeyPath();
-  v25 = v60;
-  v26 = swift_getAssociatedConformanceWitness();
-  (*(*(*(v26 + 16) + 8) + 24))(&TupleTypeMetadata2, v25);
-  (*(v54 + 8))(v15, v25);
-  if (TupleTypeMetadata2 > v22)
-  {
-    v22 = TupleTypeMetadata2;
-  }
-
-  v69 = v22;
-  if (v22 > 2)
-  {
-    goto LABEL_20;
-  }
-
-  v27 = v52;
-  swift_getAtKeyPath();
-  v28 = v59;
-  v29 = swift_getAssociatedConformanceWitness();
-  (*(*(*(v29 + 16) + 8) + 24))(&TupleTypeMetadata2, v28);
-  (*(v53 + 8))(v27, v28);
-  if (TupleTypeMetadata2 > v22)
-  {
-    v22 = TupleTypeMetadata2;
-  }
-
-  v69 = v22;
-  if (TupleTypeMetadata2 > 2u)
-  {
-    goto LABEL_20;
-  }
-
-  v30 = v49;
-  swift_getAtKeyPath();
-  v31 = v58;
-  v32 = swift_getAssociatedConformanceWitness();
-  (*(*(*(v32 + 16) + 8) + 24))(&TupleTypeMetadata2, v31);
-  (*(v50 + 8))(v30, v31);
-  if (TupleTypeMetadata2 > v22)
-  {
-    v22 = TupleTypeMetadata2;
-  }
-
-  v69 = v22;
-  if (v22 >= 3)
-  {
-LABEL_20:
-    v69 = v22;
-LABEL_21:
-    sub_1AE23DB8C();
-    TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    sub_1AE23DB8C();
-    v64 = swift_getTupleTypeMetadata2();
-    sub_1AE23DB8C();
-    v65 = swift_getTupleTypeMetadata2();
-    sub_1AE23DB8C();
-    v66 = swift_getTupleTypeMetadata2();
-    sub_1AE23DB8C();
-    v67 = swift_getTupleTypeMetadata2();
-    sub_1AE23DB8C();
-    v68 = swift_getTupleTypeMetadata2();
-    TupleTypeMetadata = swift_getTupleTypeMetadata();
-    result = (*(*(TupleTypeMetadata - 8) + 8))(v70, TupleTypeMetadata);
-    goto LABEL_22;
-  }
-
-  v33 = v46;
-  swift_getAtKeyPath();
-  v34 = v55;
-  v35 = swift_getAssociatedConformanceWitness();
-  (*(*(*(v35 + 16) + 8) + 24))(&TupleTypeMetadata2, v34);
-  (*(v47 + 8))(v33, v34);
-  if (TupleTypeMetadata2 > v22)
-  {
-    v22 = TupleTypeMetadata2;
-  }
-
-  v69 = v22;
-  if (TupleTypeMetadata2 > 2u)
-  {
-    goto LABEL_21;
-  }
-
-  v36 = v43;
-  swift_getAtKeyPath();
-  v37 = AssociatedTypeWitness;
-  v38 = swift_getAssociatedConformanceWitness();
-  (*(*(*(v38 + 16) + 8) + 24))(&v62, v37);
-  sub_1AE23DB8C();
-  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v64 = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v65 = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v66 = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v67 = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v68 = swift_getTupleTypeMetadata2();
-  v39 = swift_getTupleTypeMetadata();
-  (*(*(v39 - 8) + 8))(v70, v39);
-  result = (*(v44 + 8))(v36, v37);
-  if (v62 > v22)
-  {
-    LOBYTE(v22) = v62;
-  }
-
-LABEL_22:
-  *v57 = v22;
-  return result;
-}
-
-uint64_t CRStruct_6<>.encode(to:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
-{
-  v91 = a8;
-  v95 = a7;
-  v99 = a6;
-  v103 = a5;
-  v111 = a4;
-  v11 = *(a3 + 8);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v87 = *(AssociatedTypeWitness - 8);
-  v12 = *(v87 + 64);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v86 = &v82 - v13;
-  v114 = swift_getAssociatedTypeWitness();
-  v90 = *(v114 - 8);
-  v14 = *(v90 + 64);
-  MEMORY[0x1EEE9AC00](v114);
-  v89 = &v82 - v15;
-  v115 = swift_getAssociatedTypeWitness();
-  v94 = *(v115 - 8);
-  v16 = *(v94 + 64);
-  MEMORY[0x1EEE9AC00](v115);
-  v93 = &v82 - v17;
-  v117 = swift_getAssociatedTypeWitness();
-  v98 = *(v117 - 8);
-  v18 = *(v98 + 64);
-  MEMORY[0x1EEE9AC00](v117);
-  v97 = &v82 - v19;
-  v20 = swift_getAssociatedTypeWitness();
-  v101 = *(v20 - 8);
-  v21 = *(v101 + 64);
-  MEMORY[0x1EEE9AC00](v20);
-  v116 = &v82 - v22;
-  v107 = swift_getAssociatedTypeWitness();
-  v110 = *(v107 - 8);
-  v23 = *(v110 + 64);
-  MEMORY[0x1EEE9AC00](v107);
-  v109 = &v82 - v24;
-  v120 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5BCF60, &unk_1AE252450);
-  v112 = *(v120 - 8);
-  v25 = *(v112 + 64);
-  v26 = MEMORY[0x1EEE9AC00](v120);
-  v119 = &v82 - v27;
-  v28 = *(v11 + 112);
-  v84 = v11;
-  v28(&TupleTypeMetadata2, a2, v11, v26);
-  v108 = TupleTypeMetadata2;
-  v133 = v135;
-  v118 = v136;
-  v124 = v141;
-  v125 = v138;
-  v121 = v144;
-  v129 = v139;
-  v130 = v147;
-  v128 = v148;
-  v126 = v142;
-  v127 = v150;
-  v131 = v145;
-  v132 = v151;
-  v152[0] = TupleTypeMetadata2;
-  v152[1] = v135;
-  v152[2] = v136;
-  v152[3] = v137;
-  v100 = v137;
-  v152[4] = v138;
-  v152[5] = v139;
-  v96 = v140;
-  v152[6] = v140;
-  v152[7] = v141;
-  v152[8] = v142;
-  v152[9] = v143;
-  v92 = v143;
-  v152[10] = v144;
-  v152[11] = v145;
-  v88 = v146;
-  v152[12] = v146;
-  v152[13] = v147;
-  v152[14] = v148;
-  v152[15] = v149;
-  v85 = v149;
-  v152[16] = v150;
-  v152[17] = v151;
-  v29 = a1;
-  v31 = a1[3];
-  v30 = a1[4];
-  __swift_project_boxed_opaque_existential_1(v29, v31);
-  sub_1AE048F10();
-  sub_1AE23E3CC();
-  sub_1AE23DB8C();
-  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v102 = v20;
-  sub_1AE23DB8C();
-  v135 = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v136 = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v137 = swift_getTupleTypeMetadata2();
-  sub_1AE23DB8C();
-  v138 = swift_getTupleTypeMetadata2();
-  v83 = a2;
-  sub_1AE23DB8C();
-  v139 = swift_getTupleTypeMetadata2();
-  TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v106 = *(TupleTypeMetadata - 8);
-  v34 = v106 + 16;
-  v33 = *(v106 + 16);
-  v33(&TupleTypeMetadata2, v152, TupleTypeMetadata);
-
-  v35 = v109;
-  swift_getAtKeyPath();
-
-  v122 = TupleTypeMetadata;
-  v104 = v34;
-  v105 = v33;
-  v33(&TupleTypeMetadata2, v152, TupleTypeMetadata);
-  v36 = v120;
-
-  v37 = v107;
-  v38 = v119;
-
-  TupleTypeMetadata2 = v108;
-  v135 = v133;
-  v39 = v123;
-  sub_1AE23DD5C();
-  v123 = v39;
-  if (v39)
-  {
-    (*(v106 + 8))(v152, v122);
-
-    (*(v110 + 8))(v35, v37);
-    return (*(v112 + 8))(v38, v36);
-  }
-
-  (*(v110 + 8))(v35, v37);
-  v105(&TupleTypeMetadata2, v152, v122);
-
-  swift_getAtKeyPath();
-
-  v105(&TupleTypeMetadata2, v152, v122);
-
-  TupleTypeMetadata2 = v100;
-  v135 = v125;
-  v42 = v119;
-  v41 = v120;
-  v43 = v102;
-  v44 = v123;
-  sub_1AE23DD5C();
-  v45 = v122;
-  v123 = v44;
-  if (v44)
-  {
-    (*(v106 + 8))(v152, v122);
-
-    (*(v101 + 8))(v116, v43);
-    return (*(v112 + 8))(v42, v41);
-  }
-
-  (*(v101 + 8))(v116, v43);
-  v46 = v105;
-  v105(&TupleTypeMetadata2, v152, v45);
-
-  v47 = v97;
-  swift_getAtKeyPath();
-
-  v46(&TupleTypeMetadata2, v152, v45);
-
-  v48 = v120;
-
-  v49 = v119;
-
-  v50 = v123;
-  TupleTypeMetadata2 = v96;
-  v135 = v124;
-  v51 = v117;
-  sub_1AE23DD5C();
-  v123 = v50;
-  if (v50)
-  {
-    (*(v106 + 8))(v152, v122);
-
-    (*(v98 + 8))(v47, v51);
-    return (*(v112 + 8))(v49, v48);
-  }
-
-  (*(v98 + 8))(v47, v51);
-  v52 = v105;
-  v105(&TupleTypeMetadata2, v152, v122);
-
-  v53 = v93;
-  swift_getAtKeyPath();
-
-  v52(&TupleTypeMetadata2, v152, v122);
-
-  v48 = v120;
-
-  v49 = v119;
-
-  TupleTypeMetadata2 = v92;
-  v135 = v121;
-  v54 = v115;
-  v55 = v123;
-  sub_1AE23DD5C();
-  v123 = v55;
-  if (v55)
-  {
-    (*(v106 + 8))(v152, v122);
-
-    (*(v94 + 8))(v53, v54);
-    return (*(v112 + 8))(v49, v48);
-  }
-
-  (*(v94 + 8))(v53, v54);
-  v56 = v122;
-  v57 = v105;
-  v105(&TupleTypeMetadata2, v152, v122);
-
-  v58 = v89;
-  swift_getAtKeyPath();
-
-  v57(&TupleTypeMetadata2, v152, v56);
-
-  v41 = v120;
-
-  v42 = v119;
-
-  TupleTypeMetadata2 = v88;
-  v135 = v130;
-  v59 = v114;
-  v60 = v123;
-  sub_1AE23DD5C();
-  v123 = v60;
-  if (v60)
-  {
-    (*(v106 + 8))(v152, v56);
-
-    (*(v90 + 8))(v58, v59);
-    return (*(v112 + 8))(v42, v41);
-  }
-
-  v117 = a9;
-
-  (*(v90 + 8))(v58, v59);
-  v61 = v105;
-  v105(&TupleTypeMetadata2, v152, v56);
-
-  v62 = v86;
-  swift_getAtKeyPath();
-
-  v61(&TupleTypeMetadata2, v152, v56);
-
-  v63 = v120;
-
-  v64 = v119;
-
-  TupleTypeMetadata2 = v85;
-  v135 = v127;
-  v65 = AssociatedTypeWitness;
-  v66 = v123;
-  sub_1AE23DD5C();
-  v123 = v66;
-  if (v66)
-  {
-    (*(v106 + 8))(v152, v122);
-
-    (*(v87 + 8))(v62, v65);
-    return (*(v112 + 8))(v64, v63);
-  }
-
-  else
-  {
-
-    (*(v87 + 8))(v62, v65);
-    result = (*(*(v84 + 8) + 24))(v83);
-    v67 = 0;
+    v67 = v66 & v63;
+    v68 = (v65 + 63) >> 6;
     v69 = result + 64;
-    v68 = *(result + 64);
-    v133 = result;
-    v70 = 1 << *(result + 32);
-    v71 = -1;
-    if (v70 < 64)
-    {
-      v71 = ~(-1 << v70);
-    }
-
-    v72 = v71 & v68;
-    v73 = (v70 + 63) >> 6;
-    v74 = result + 64;
-    v75 = v123;
-    if ((v71 & v68) != 0)
+    v70 = v118;
+    if ((v66 & v63) != 0)
     {
       while (1)
       {
-        v76 = v67;
+        v71 = v62;
 LABEL_23:
-        v78 = __clz(__rbit64(v72)) | (v76 << 6);
-        v79 = (*(v133 + 48) + 16 * v78);
-        v80 = *v79;
-        v81 = v79[1];
-        v152[20] = *(*(v133 + 56) + 8 * v78);
-        TupleTypeMetadata2 = v80;
-        v135 = v81;
-        sub_1AE048F64();
+        v73 = __clz(__rbit64(v67)) | (v71 << 6);
+        v74 = (*(v128 + 48) + 16 * v73);
+        v75 = *v74;
+        v76 = v74[1];
+        v147[20] = *(*(v128 + 56) + 8 * v73);
+        TupleTypeMetadata2 = v75;
+        v130 = v76;
+        sub_1AE048F64(result, v60, v61);
 
         sub_1AE23DD5C();
-        v123 = v75;
-        if (v75)
+        v118 = v70;
+        if (v70)
         {
           break;
         }
 
-        v72 &= v72 - 1;
+        v67 &= v67 - 1;
 
-        v67 = v76;
-        v69 = v74;
-        v75 = v123;
-        if (!v72)
+        v62 = v71;
+        v64 = v69;
+        v70 = v118;
+        if (!v67)
         {
           goto LABEL_19;
         }
       }
 
-      (*(v106 + 8))(v152, v122);
+      (*(v101 + 8))(v147, v117);
 
-      (*(v112 + 8))(v119, v120);
+      (*(v107 + 8))(v114, v115);
     }
 
     else
     {
 LABEL_19:
-      v77 = v112;
+      v72 = v107;
       while (1)
       {
-        v76 = v67 + 1;
-        if (__OFADD__(v67, 1))
+        v71 = v62 + 1;
+        if (__OFADD__(v62, 1))
         {
           break;
         }
 
-        if (v76 >= v73)
+        if (v71 >= v68)
         {
-          (*(v106 + 8))(v152, v122);
+          (*(v101 + 8))(v147, v117);
 
-          result = (*(v77 + 8))(v119, v120);
-          v123 = v75;
+          result = (*(v72 + 8))(v114, v115);
+          v118 = v70;
           return result;
         }
 
-        v72 = *(v69 + 8 * v76);
-        ++v67;
-        if (v72)
+        v67 = *(v64 + 8 * v71);
+        ++v62;
+        if (v67)
         {
           goto LABEL_23;
         }
@@ -9919,75 +353,277 @@ LABEL_19:
 uint64_t CRStruct_7.copy(renamingReferences:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v5 = v4;
-  v108 = a4;
-  v109 = a1;
+  v101 = a4;
+  v102 = a1;
   v8 = *(a3 + 8);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v100 = *(AssociatedTypeWitness - 8);
-  v9 = *(v100 + 64);
+  v93 = *(AssociatedTypeWitness - 8);
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v98 = &v74 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v99 = &v74 - v12;
-  v102 = swift_getAssociatedTypeWitness();
-  v97 = *(v102 - 8);
-  v13 = *(v97 + 64);
-  MEMORY[0x1EEE9AC00](v102);
-  v96 = &v74 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v15);
-  v95 = &v74 - v16;
-  v101 = swift_getAssociatedTypeWitness();
-  v93 = *(v101 - 8);
-  v17 = *(v93 + 64);
-  MEMORY[0x1EEE9AC00](v101);
-  v91 = &v74 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v91 = &v67 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v92 = &v67 - v11;
+  v95 = swift_getAssociatedTypeWitness();
+  v90 = *(v95 - 8);
+  MEMORY[0x1EEE9AC00](v95);
+  v89 = &v67 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13);
+  v88 = &v67 - v14;
+  v94 = swift_getAssociatedTypeWitness();
+  v86 = *(v94 - 8);
+  MEMORY[0x1EEE9AC00](v94);
+  v84 = &v67 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16);
+  v85 = &v67 - v17;
+  v77 = swift_getAssociatedTypeWitness();
+  v83 = *(v77 - 8);
+  MEMORY[0x1EEE9AC00](v77);
+  v81 = &v67 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v19);
-  v92 = &v74 - v20;
-  v84 = swift_getAssociatedTypeWitness();
-  v90 = *(v84 - 8);
-  v21 = *(v90 + 64);
-  MEMORY[0x1EEE9AC00](v84);
-  v88 = &v74 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v23);
-  v89 = &v74 - v24;
-  v82 = swift_getAssociatedTypeWitness();
-  v87 = *(v82 - 8);
-  v25 = *(v87 + 64);
-  MEMORY[0x1EEE9AC00](v82);
-  v85 = &v74 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v27);
-  v86 = &v74 - v28;
-  v79 = swift_getAssociatedTypeWitness();
-  v83 = *(v79 - 8);
-  v29 = *(v83 + 64);
-  MEMORY[0x1EEE9AC00](v79);
-  v80 = &v74 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v31);
-  v81 = &v74 - v32;
+  v82 = &v67 - v20;
   v75 = swift_getAssociatedTypeWitness();
-  v78 = *(v75 - 8);
-  v33 = *(v78 + 64);
+  v80 = *(v75 - 8);
   MEMORY[0x1EEE9AC00](v75);
-  v76 = &v74 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v36 = MEMORY[0x1EEE9AC00](v35);
-  v77 = &v74 - v37;
-  (*(*(a2 - 8) + 16))(a4, v5, a2, v36);
-  v106 = v8;
-  (*(v8 + 128))(v126, a2, v8);
-  v118 = v126[7];
-  v119 = v126[2];
-  v122 = v126[8];
+  v78 = &v67 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v22);
+  v79 = &v67 - v23;
+  v72 = swift_getAssociatedTypeWitness();
+  v76 = *(v72 - 8);
+  MEMORY[0x1EEE9AC00](v72);
+  v73 = &v67 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v25);
+  v74 = &v67 - v26;
+  v68 = swift_getAssociatedTypeWitness();
+  v71 = *(v68 - 8);
+  MEMORY[0x1EEE9AC00](v68);
+  v69 = &v67 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v29 = MEMORY[0x1EEE9AC00](v28);
+  v70 = &v67 - v30;
+  (*(*(a2 - 8) + 16))(a4, v5, a2, v29);
+  v99 = v8;
+  (*(v8 + 128))(v119, a2, v8);
+  v111 = v119[7];
+  v112 = v119[2];
+  v115 = v119[8];
+  v116 = v119[5];
+  v104 = v119[10];
+  v105 = v119[4];
+  v108 = v119[1];
+  v109 = v119[11];
+  v110 = v119[17];
+  v113 = v119[13];
+  v114 = v119[19];
+  v31 = v119[20];
+  v106 = v119[14];
+  v98 = v119[16];
+  sub_1AE23DB8C();
+  v118[0] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v118[1] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v118[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v118[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v118[4] = swift_getTupleTypeMetadata2();
+  v100 = a2;
+  sub_1AE23DB8C();
+  v118[5] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v118[6] = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v87 = *(TupleTypeMetadata - 8);
+  v32 = *(v87 + 16);
+  v103 = v87 + 16;
+  v107 = v32;
+  v32(v118, v119, TupleTypeMetadata);
+
+  v97 = v31;
+
+  v107(v118, v119, TupleTypeMetadata);
+
+  v33 = v69;
+  swift_getAtKeyPath();
+
+  v34 = v68;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  (*(*(AssociatedConformanceWitness + 16) + 24))(v102, v34);
+  (*(v71 + 8))(v33, v34);
+  swift_setAtWritableKeyPath();
+
+  v36 = v107;
+  v107(v118, v119, TupleTypeMetadata);
+
+  v36(v118, v119, TupleTypeMetadata);
+
+  v37 = v73;
+  swift_getAtKeyPath();
+
+  v38 = v72;
+  v39 = swift_getAssociatedConformanceWitness();
+  (*(*(v39 + 16) + 24))(v102, v38);
+  (*(v76 + 8))(v37, v38);
+  swift_setAtWritableKeyPath();
+
+  v40 = TupleTypeMetadata;
+  v107(v118, v119, TupleTypeMetadata);
+
+  v107(v118, v119, v40);
+
+  v41 = v78;
+  swift_getAtKeyPath();
+
+  v42 = v75;
+  v43 = swift_getAssociatedConformanceWitness();
+  (*(*(v43 + 16) + 24))(v102, v42);
+  (*(v80 + 8))(v41, v42);
+  swift_setAtWritableKeyPath();
+
+  v44 = v107;
+  v107(v118, v119, TupleTypeMetadata);
+
+  v44(v118, v119, TupleTypeMetadata);
+
+  v45 = v81;
+  swift_getAtKeyPath();
+
+  v46 = v77;
+  v47 = swift_getAssociatedConformanceWitness();
+  (*(*(v47 + 16) + 24))(v102, v46);
+  (*(v83 + 8))(v45, v46);
+  swift_setAtWritableKeyPath();
+
+  v48 = TupleTypeMetadata;
+  v44(v118, v119, TupleTypeMetadata);
+
+  v44(v118, v119, v48);
+
+  v49 = v84;
+  swift_getAtKeyPath();
+
+  v50 = v94;
+  v51 = swift_getAssociatedConformanceWitness();
+  (*(*(v51 + 16) + 24))(v102, v50);
+  (*(v86 + 8))(v49, v50);
+  swift_setAtWritableKeyPath();
+
+  v52 = v107;
+  v107(v118, v119, TupleTypeMetadata);
+
+  v52(v118, v119, TupleTypeMetadata);
+
+  v53 = v89;
+  swift_getAtKeyPath();
+
+  v54 = v95;
+  v55 = swift_getAssociatedConformanceWitness();
+  (*(*(v55 + 16) + 24))(v102, v54);
+  (*(v90 + 8))(v53, v54);
+  swift_setAtWritableKeyPath();
+
+  v56 = TupleTypeMetadata;
+  v107(v118, v119, TupleTypeMetadata);
+
+  v107(v118, v119, v56);
+
+  v57 = v91;
+  swift_getAtKeyPath();
+
+  v59 = v99;
+  v58 = v100;
+  v60 = AssociatedTypeWitness;
+  v61 = swift_getAssociatedConformanceWitness();
+  v62 = v102;
+  (*(*(v61 + 16) + 24))(v102, v60);
+  (*(v93 + 8))(v57, v60);
+  swift_setAtWritableKeyPath();
+
+  v63 = *(v59 + 8);
+  v64 = (*(v63 + 24))(v58, v63);
+  v65 = sub_1AE156B60(v64, v62);
+
+  (*(v63 + 32))(v65, v58, v63);
+  return (*(v87 + 8))(v119, TupleTypeMetadata);
+}
+
+uint64_t CRStruct_7.copy(renamingReferences:)@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v5 = v4;
+  v9 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v97 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v96 = &v74 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
+  v95 = &v74 - v12;
+  v103 = swift_getAssociatedTypeWitness();
+  v94 = *(v103 - 8);
+  MEMORY[0x1EEE9AC00](v103);
+  v93 = &v74 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v92 = &v74 - v15;
+  v101 = swift_getAssociatedTypeWitness();
+  v91 = *(v101 - 8);
+  MEMORY[0x1EEE9AC00](v101);
+  v90 = &v74 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v89 = &v74 - v18;
+  v100 = swift_getAssociatedTypeWitness();
+  v87 = *(v100 - 8);
+  MEMORY[0x1EEE9AC00](v100);
+  v86 = &v74 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v20);
+  v85 = &v74 - v21;
+  v99 = swift_getAssociatedTypeWitness();
+  v84 = *(v99 - 8);
+  MEMORY[0x1EEE9AC00](v99);
+  v83 = &v74 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v23);
+  v82 = &v74 - v24;
+  v98 = swift_getAssociatedTypeWitness();
+  v81 = *(v98 - 8);
+  MEMORY[0x1EEE9AC00](v98);
+  v80 = &v74 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v26);
+  v79 = &v74 - v27;
+  v28 = swift_getAssociatedTypeWitness();
+  v78 = *(v28 - 8);
+  MEMORY[0x1EEE9AC00](v28);
+  v77 = &v74 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v31.n128_f64[0] = MEMORY[0x1EEE9AC00](v30);
+  v76 = &v74 - v32;
+  if (a1)
+  {
+    v33 = a1;
+  }
+
+  else
+  {
+    v33 = sub_1ADE51288(MEMORY[0x1E69E7CC0]);
+  }
+
+  v127[0] = v33;
+  (*(*(a2 - 8) + 16))(a4, v5, a2, v31);
+  v115 = a4;
+  v113 = v5;
+  v34 = *(v9 + 128);
+
+  v34(v126, a2, v9);
+  v122 = v126[2];
   v123 = v126[5];
-  v111 = v126[10];
-  v112 = v126[4];
-  v115 = v126[1];
-  v116 = v126[11];
-  v117 = v126[17];
-  v120 = v126[13];
-  v121 = v126[19];
-  v38 = v126[20];
-  v113 = v126[14];
-  v105 = v126[16];
+  v110 = v126[7];
+  v114 = v9;
+  v119 = v126[8];
+  v116 = v126[4];
+  v117 = v126[11];
+  v104 = v126[10];
+  v105 = v126[14];
+  v124 = v126[16];
+  v35 = v126[19];
+  v36 = v126[1];
+  v108 = v126[13];
+  v37 = v126[17];
+  v106 = v126[20];
+  v75 = v28;
   sub_1AE23DB8C();
   v125[0] = swift_getTupleTypeMetadata2();
   sub_1AE23DB8C();
@@ -10004,116 +640,9550 @@ uint64_t CRStruct_7.copy(renamingReferences:)@<X0>(uint64_t a1@<X0>, uint64_t a2
   sub_1AE23DB8C();
   v125[6] = swift_getTupleTypeMetadata2();
   TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v94 = *(TupleTypeMetadata - 8);
-  v39 = *(v94 + 16);
-  v110 = v94 + 16;
-  v114 = v39;
-  v39(v125, v126, TupleTypeMetadata);
+  v88 = *(TupleTypeMetadata - 8);
+  v118 = *(v88 + 16);
+  v120 = TupleTypeMetadata;
+  v121 = v88 + 16;
+  v118(v125, v126, TupleTypeMetadata);
+  v109 = v36;
 
-  v104 = v38;
+  v111 = v35;
 
-  v114(v125, v126, TupleTypeMetadata);
+  v112 = v37;
 
-  v40 = v76;
+  v118(v125, v126, v120);
+
+  v39 = v77;
   swift_getAtKeyPath();
 
-  v41 = v75;
+  v40 = v75;
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(*(AssociatedConformanceWitness + 16) + 24))(v109, v41);
-  (*(v78 + 8))(v40, v41);
+  (*(*(AssociatedConformanceWitness + 16) + 24))(v127, v40);
+  (*(v78 + 8))(v39, v40);
   swift_setAtWritableKeyPath();
 
-  v43 = v114;
-  v114(v125, v126, TupleTypeMetadata);
+  v42 = v120;
+  v43 = v118;
+  v118(v125, v126, v120);
 
-  v43(v125, v126, TupleTypeMetadata);
+  v43(v125, v126, v42);
 
   v44 = v80;
   swift_getAtKeyPath();
 
-  v45 = v79;
+  v45 = v98;
   v46 = swift_getAssociatedConformanceWitness();
-  (*(*(v46 + 16) + 24))(v109, v45);
-  (*(v83 + 8))(v44, v45);
+  (*(*(v46 + 16) + 24))(v127, v45);
+  (*(v81 + 8))(v44, v45);
   swift_setAtWritableKeyPath();
 
-  v47 = TupleTypeMetadata;
-  v114(v125, v126, TupleTypeMetadata);
+  v47 = v118;
+  v118(v125, v126, v120);
 
-  v114(v125, v126, v47);
+  v47(v125, v126, v120);
 
-  v48 = v85;
+  v48 = v83;
   swift_getAtKeyPath();
 
-  v49 = v82;
+  v49 = v99;
   v50 = swift_getAssociatedConformanceWitness();
-  (*(*(v50 + 16) + 24))(v109, v49);
-  (*(v87 + 8))(v48, v49);
+  (*(*(v50 + 16) + 24))(v127, v49);
+  (*(v84 + 8))(v48, v49);
   swift_setAtWritableKeyPath();
 
-  v51 = v114;
-  v114(v125, v126, TupleTypeMetadata);
+  v51 = v120;
+  v52 = v118;
+  v118(v125, v126, v120);
 
-  v51(v125, v126, TupleTypeMetadata);
+  v52(v125, v126, v51);
 
-  v52 = v88;
+  v53 = v86;
   swift_getAtKeyPath();
 
-  v53 = v84;
-  v54 = swift_getAssociatedConformanceWitness();
-  (*(*(v54 + 16) + 24))(v109, v53);
-  (*(v90 + 8))(v52, v53);
+  v54 = v100;
+  v55 = swift_getAssociatedConformanceWitness();
+  (*(*(v55 + 16) + 24))(v127, v54);
+  (*(v87 + 8))(v53, v54);
   swift_setAtWritableKeyPath();
 
-  v55 = TupleTypeMetadata;
-  v51(v125, v126, TupleTypeMetadata);
+  v118(v125, v126, v120);
 
-  v51(v125, v126, v55);
+  v118(v125, v126, v120);
 
-  v56 = v91;
+  v56 = v90;
   swift_getAtKeyPath();
 
   v57 = v101;
   v58 = swift_getAssociatedConformanceWitness();
-  (*(*(v58 + 16) + 24))(v109, v57);
-  (*(v93 + 8))(v56, v57);
+  (*(*(v58 + 16) + 24))(v127, v57);
+  (*(v91 + 8))(v56, v57);
   swift_setAtWritableKeyPath();
 
-  v59 = v114;
-  v114(v125, v126, TupleTypeMetadata);
+  v59 = v120;
+  v60 = v118;
+  v118(v125, v126, v120);
 
-  v59(v125, v126, TupleTypeMetadata);
+  v60(v125, v126, v59);
 
-  v60 = v96;
+  v61 = v93;
   swift_getAtKeyPath();
 
-  v61 = v102;
-  v62 = swift_getAssociatedConformanceWitness();
-  (*(*(v62 + 16) + 24))(v109, v61);
-  (*(v97 + 8))(v60, v61);
+  v62 = v103;
+  v63 = swift_getAssociatedConformanceWitness();
+  (*(*(v63 + 16) + 24))(v127, v62);
+  (*(v94 + 8))(v61, v62);
   swift_setAtWritableKeyPath();
 
-  v63 = TupleTypeMetadata;
-  v114(v125, v126, TupleTypeMetadata);
+  v64 = v120;
+  v60(v125, v126, v120);
 
-  v114(v125, v126, v63);
+  v118(v125, v126, v64);
 
-  v64 = v98;
+  v65 = v96;
   swift_getAtKeyPath();
 
-  v66 = v106;
-  v65 = v107;
-  v67 = AssociatedTypeWitness;
-  v68 = swift_getAssociatedConformanceWitness();
-  v69 = v109;
-  (*(*(v68 + 16) + 24))(v109, v67);
-  (*(v100 + 8))(v64, v67);
+  v66 = v114;
+  v67 = v107;
+  v68 = AssociatedTypeWitness;
+  v69 = swift_getAssociatedConformanceWitness();
+  (*(*(v69 + 16) + 24))(v127, v68);
+  (*(v97 + 8))(v65, v68);
   swift_setAtWritableKeyPath();
 
   v70 = *(v66 + 8);
-  v71 = (*(v70 + 24))(v65, v70);
-  v72 = sub_1AE156B60(v71, v69);
+  v71 = (*(v70 + 24))(v67, v70);
+  v72 = sub_1AE156B60(v71, v127);
 
-  (*(v70 + 32))(v72, v65, v70);
-  return (*(v94 + 8))(v126, TupleTypeMetadata);
+  (*(v70 + 32))(v72, v67, v70);
+  return (*(v88 + 8))(v126, v64);
+}
+
+uint64_t CRStruct_7.merge(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _BYTE *a4@<X8>)
+{
+  v104 = a1;
+  v91 = a4;
+  v5 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v90 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v89 = &v74 - v6;
+  v95 = swift_getAssociatedTypeWitness();
+  v88 = *(v95 - 8);
+  MEMORY[0x1EEE9AC00](v95);
+  v87 = &v74 - v7;
+  v94 = swift_getAssociatedTypeWitness();
+  v85 = *(v94 - 8);
+  MEMORY[0x1EEE9AC00](v94);
+  v84 = &v74 - v8;
+  v93 = swift_getAssociatedTypeWitness();
+  v83 = *(v93 - 8);
+  MEMORY[0x1EEE9AC00](v93);
+  v82 = &v74 - v9;
+  v92 = swift_getAssociatedTypeWitness();
+  v81 = *(v92 - 8);
+  MEMORY[0x1EEE9AC00](v92);
+  v80 = &v74 - v10;
+  v11 = swift_getAssociatedTypeWitness();
+  v79 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v78 = &v74 - v12;
+  v13 = swift_getAssociatedTypeWitness();
+  v77 = *(v13 - 8);
+  v14 = MEMORY[0x1EEE9AC00](v13);
+  v76 = &v74 - v15;
+  v16 = *(v5 + 128);
+  v103 = v5;
+  v16((v118 + 6), a2, v5, v14);
+  v17 = *(&v118[19] + 6);
+  v114 = *(&v118[1] + 6);
+  v115 = *(&v118[7] + 6);
+  v111 = *(&v118[13] + 6);
+  v112 = *(&v118[2] + 6);
+  v116 = *(&v118[4] + 6);
+  v107 = *(&v118[10] + 6);
+  v108 = *(&v118[5] + 6);
+  v101 = *(&v118[11] + 6);
+  v102 = *(&v118[8] + 6);
+  v106 = *(&v118[14] + 6);
+  v109 = *(&v118[17] + 6);
+  v110 = *(&v118[16] + 6);
+  v18 = *(&v118[20] + 6);
+  if (qword_1ED9670C0 != -1)
+  {
+    swift_once();
+  }
+
+  *(v118 + 3) = word_1ED96F220;
+  BYTE5(v118[0]) = byte_1ED96F222;
+  sub_1AE23DB8C();
+  v117[0] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v117[1] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v117[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v117[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v117[4] = swift_getTupleTypeMetadata2();
+  v100 = a2;
+  sub_1AE23DB8C();
+  v117[5] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v117[6] = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v86 = *(TupleTypeMetadata - 8);
+  v19 = v86 + 16;
+  v20 = *(v86 + 16);
+  v20(v117, v118 + 6, TupleTypeMetadata);
+  v74 = v13;
+  v105 = v19;
+
+  v97 = v18;
+
+  v99 = v17;
+
+  v75 = v11;
+
+  v20(v117, v118 + 6, TupleTypeMetadata);
+  v98 = v20;
+
+  v21 = v76;
+  swift_getAtKeyPath();
+
+  v22 = swift_modifyAtWritableKeyPath();
+  v23 = v74;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  (*(*(AssociatedConformanceWitness + 8) + 8))(v118, v21, v23);
+  (*(v77 + 8))(v21, v23);
+  v22(v117, 0);
+
+  LOWORD(v117[0]) = v118[0];
+  BYTE2(v117[0]) = BYTE2(v118[0]);
+  v25 = v117;
+  MergeResult.merge(_:)(v25);
+  v26 = TupleTypeMetadata;
+  v20(v117, v118 + 6, TupleTypeMetadata);
+
+  v27 = v26;
+  v28 = v98;
+  v98(v117, v118 + 6, v27);
+
+  v29 = v78;
+  swift_getAtKeyPath();
+
+  v30 = swift_modifyAtWritableKeyPath();
+  v31 = v75;
+  v32 = swift_getAssociatedConformanceWitness();
+  (*(*(v32 + 8) + 8))(v118, v29, v31);
+  (*(v79 + 8))(v29, v31);
+  v30(v117, 0);
+
+  LOWORD(v117[0]) = v118[0];
+  BYTE2(v117[0]) = BYTE2(v118[0]);
+  v33 = v117;
+  MergeResult.merge(_:)(v33);
+  v28(v117, v118 + 6, TupleTypeMetadata);
+
+  v28(v117, v118 + 6, TupleTypeMetadata);
+
+  v34 = v80;
+  swift_getAtKeyPath();
+
+  v35 = swift_modifyAtWritableKeyPath();
+  v36 = v92;
+  v37 = swift_getAssociatedConformanceWitness();
+  (*(*(v37 + 8) + 8))(v118, v34, v36);
+  (*(v81 + 8))(v34, v36);
+  v35(v117, 0);
+
+  LOWORD(v117[0]) = v118[0];
+  BYTE2(v117[0]) = BYTE2(v118[0]);
+  v38 = v117;
+  MergeResult.merge(_:)(v38);
+  v39 = TupleTypeMetadata;
+  v40 = v98;
+  v98(v117, v118 + 6, TupleTypeMetadata);
+
+  v40(v117, v118 + 6, v39);
+
+  v41 = v82;
+  swift_getAtKeyPath();
+
+  v42 = swift_modifyAtWritableKeyPath();
+  v43 = v93;
+  v44 = swift_getAssociatedConformanceWitness();
+  (*(*(v44 + 8) + 8))(v118, v41, v43);
+  (*(v83 + 8))(v41, v43);
+  v42(v117, 0);
+
+  LOWORD(v117[0]) = v118[0];
+  BYTE2(v117[0]) = BYTE2(v118[0]);
+  v45 = v117;
+  MergeResult.merge(_:)(v45);
+  v98(v117, v118 + 6, TupleTypeMetadata);
+
+  v98(v117, v118 + 6, TupleTypeMetadata);
+
+  v46 = v84;
+  swift_getAtKeyPath();
+
+  v47 = swift_modifyAtWritableKeyPath();
+  v48 = v94;
+  v49 = swift_getAssociatedConformanceWitness();
+  (*(*(v49 + 8) + 8))(v118, v46, v48);
+  (*(v85 + 8))(v46, v48);
+  v47(v117, 0);
+
+  LOWORD(v117[0]) = v118[0];
+  BYTE2(v117[0]) = BYTE2(v118[0]);
+  v50 = v117;
+  MergeResult.merge(_:)(v50);
+  v51 = TupleTypeMetadata;
+  v52 = v98;
+  v98(v117, v118 + 6, TupleTypeMetadata);
+
+  v52(v117, v118 + 6, v51);
+
+  v53 = v87;
+  swift_getAtKeyPath();
+
+  v54 = swift_modifyAtWritableKeyPath();
+  v55 = v95;
+  v56 = swift_getAssociatedConformanceWitness();
+  (*(*(v56 + 8) + 8))(v118, v53, v55);
+  (*(v88 + 8))(v53, v55);
+  v54(v117, 0);
+
+  LOWORD(v117[0]) = v118[0];
+  BYTE2(v117[0]) = BYTE2(v118[0]);
+  v57 = v117;
+  MergeResult.merge(_:)(v57);
+  v58 = TupleTypeMetadata;
+  v98(v117, v118 + 6, TupleTypeMetadata);
+
+  v98(v117, v118 + 6, v58);
+
+  v59 = v89;
+  swift_getAtKeyPath();
+
+  v60 = swift_modifyAtWritableKeyPath();
+  v61 = v103;
+  v62 = v100;
+  v63 = AssociatedTypeWitness;
+  v64 = swift_getAssociatedConformanceWitness();
+  (*(*(v64 + 8) + 8))(v118, v59, v63);
+  (*(v90 + 8))(v59, v63);
+  v60(v117, 0);
+
+  LOWORD(v117[0]) = v118[0];
+  BYTE2(v117[0]) = BYTE2(v118[0]);
+  v65 = v117;
+  MergeResult.merge(_:)(v65);
+  v66 = *(v61 + 8);
+  v67 = (*(v66 + 24))(v62, v66);
+  v68 = (*(v66 + 40))(v117, v62, v66);
+  sub_1AE21F75C(v67, v118);
+
+  v68(v117, 0);
+  LOWORD(v117[0]) = v118[0];
+  BYTE2(v117[0]) = BYTE2(v118[0]);
+  v69 = v117;
+  MergeResult.merge(_:)(v69);
+  (*(v66 + 64))(v62, v66);
+  result = (*(v86 + 8))(v118 + 6, TupleTypeMetadata);
+  v71 = BYTE4(v118[0]);
+  v72 = BYTE5(v118[0]);
+  v73 = v91;
+  *v91 = BYTE3(v118[0]);
+  v73[1] = v71;
+  v73[2] = v72;
+  return result;
+}
+
+uint64_t CRStruct_7.newRefs(from:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v119 = a1;
+  v4 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v105 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v104 = &v87 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v115 = &v87 - v7;
+  v112 = swift_getAssociatedTypeWitness();
+  v103 = *(v112 - 8);
+  MEMORY[0x1EEE9AC00](v112);
+  v102 = &v87 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v113 = &v87 - v10;
+  v111 = swift_getAssociatedTypeWitness();
+  v100 = *(v111 - 8);
+  MEMORY[0x1EEE9AC00](v111);
+  v99 = &v87 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12);
+  v110 = &v87 - v13;
+  v95 = swift_getAssociatedTypeWitness();
+  v98 = *(v95 - 8);
+  MEMORY[0x1EEE9AC00](v95);
+  v97 = &v87 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15);
+  v109 = &v87 - v16;
+  v93 = swift_getAssociatedTypeWitness();
+  v96 = *(v93 - 8);
+  MEMORY[0x1EEE9AC00](v93);
+  v94 = &v87 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v18);
+  v108 = &v87 - v19;
+  v90 = swift_getAssociatedTypeWitness();
+  v92 = *(v90 - 8);
+  MEMORY[0x1EEE9AC00](v90);
+  v91 = &v87 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v21);
+  v107 = &v87 - v22;
+  v87 = swift_getAssociatedTypeWitness();
+  v89 = *(v87 - 8);
+  MEMORY[0x1EEE9AC00](v87);
+  v88 = &v87 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = MEMORY[0x1EEE9AC00](v24);
+  v106 = &v87 - v26;
+  v117 = v4;
+  (*(v4 + 128))(v138, a2, v4, v25);
+  v120 = v138[1];
+  v126 = v138[7];
+  v127 = v138[2];
+  v134 = v138[4];
+  v135 = v138[10];
+  v124 = v138[11];
+  v125 = v138[13];
+  v132 = v138[5];
+  v133 = v138[14];
+  v121 = v138[17];
+  v116 = v138[19];
+  v123 = v138[8];
+  v128 = v138[16];
+  v27 = v138[20];
+  v137 = MEMORY[0x1E69E7CD0];
+  sub_1AE23DB8C();
+  v136[0] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v136[1] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v136[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v136[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v136[4] = swift_getTupleTypeMetadata2();
+  v118 = a2;
+  sub_1AE23DB8C();
+  v136[5] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v136[6] = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v101 = *(TupleTypeMetadata - 8);
+  v131 = *(v101 + 16);
+  v129 = TupleTypeMetadata;
+  v130 = v101 + 16;
+  v131(v136, v138, TupleTypeMetadata);
+
+  v122 = v27;
+
+  swift_getAtKeyPath();
+
+  v131(v136, v138, v129);
+
+  v29 = v88;
+  swift_getAtKeyPath();
+
+  v30 = v87;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v32 = v106;
+  v33 = (*(AssociatedConformanceWitness + 64))(v29, v30, AssociatedConformanceWitness);
+  v34 = *(v89 + 8);
+  v34(v29, v30);
+  v34(v32, v30);
+  sub_1AE00F014(v33);
+  v35 = v129;
+  v131(v136, v138, v129);
+
+  swift_getAtKeyPath();
+
+  v131(v136, v138, v35);
+
+  v36 = v91;
+  swift_getAtKeyPath();
+
+  v37 = v90;
+  v38 = swift_getAssociatedConformanceWitness();
+  v39 = v107;
+  v40 = (*(v38 + 64))(v36, v37, v38);
+  v41 = *(v92 + 8);
+  v41(v36, v37);
+  v41(v39, v37);
+  sub_1AE00F014(v40);
+  v42 = v131;
+  v131(v136, v138, v129);
+
+  swift_getAtKeyPath();
+
+  v42(v136, v138, v129);
+
+  v43 = v94;
+  swift_getAtKeyPath();
+
+  v44 = v93;
+  v45 = swift_getAssociatedConformanceWitness();
+  v46 = v108;
+  v47 = (*(v45 + 64))(v43, v44, v45);
+  v48 = *(v96 + 8);
+  v48(v43, v44);
+  v48(v46, v44);
+  sub_1AE00F014(v47);
+  v49 = v129;
+  v131(v136, v138, v129);
+
+  swift_getAtKeyPath();
+
+  v131(v136, v138, v49);
+
+  v50 = v97;
+  swift_getAtKeyPath();
+
+  v51 = v95;
+  v52 = swift_getAssociatedConformanceWitness();
+  v53 = v109;
+  v54 = (*(v52 + 64))(v50, v51, v52);
+  v55 = *(v98 + 8);
+  v55(v50, v51);
+  v55(v53, v51);
+  sub_1AE00F014(v54);
+  v56 = v131;
+  v131(v136, v138, v129);
+
+  swift_getAtKeyPath();
+
+  v56(v136, v138, v129);
+
+  v57 = v99;
+  swift_getAtKeyPath();
+
+  v58 = v111;
+  v59 = swift_getAssociatedConformanceWitness();
+  v60 = v110;
+  v61 = (*(v59 + 64))(v57, v58, v59);
+  v62 = *(v100 + 8);
+  v62(v57, v58);
+  v62(v60, v58);
+  sub_1AE00F014(v61);
+  v63 = v129;
+  v64 = v131;
+  v131(v136, v138, v129);
+
+  swift_getAtKeyPath();
+
+  v64(v136, v138, v63);
+
+  v65 = v102;
+  swift_getAtKeyPath();
+
+  v66 = v112;
+  v67 = swift_getAssociatedConformanceWitness();
+  v68 = v113;
+  v69 = (*(v67 + 64))(v65, v66, v67);
+  v70 = *(v103 + 8);
+  v70(v65, v66);
+  v70(v68, v66);
+  sub_1AE00F014(v69);
+  v71 = v129;
+  v131(v136, v138, v129);
+
+  swift_getAtKeyPath();
+
+  v131(v136, v138, v71);
+
+  v72 = v104;
+  swift_getAtKeyPath();
+
+  v74 = v117;
+  v73 = v118;
+  v75 = AssociatedTypeWitness;
+  v76 = swift_getAssociatedConformanceWitness();
+  v77 = v115;
+  v78 = (*(v76 + 64))(v72, v75, v76);
+  v79 = *(v105 + 8);
+  v79(v72, v75);
+  v79(v77, v75);
+  sub_1AE00F014(v78);
+  v80 = *(v74 + 8);
+  v81 = *(v80 + 24);
+  v82 = v81(v73, v80);
+  v83 = v81(v73, v80);
+  sub_1AE2200E4(v83, v82);
+  v85 = v84;
+
+  sub_1AE00F014(v85);
+  (*(v101 + 8))(v138, v129);
+  return v137;
+}
+
+uint64_t CRStruct_7.observableDifference(from:with:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+{
+  v180 = a2;
+  v179 = a1;
+  v153 = a5;
+  v6 = *(a4 + 8);
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v198 = sub_1AE23D7CC();
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v199 = sub_1AE23D7CC();
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v200 = sub_1AE23D7CC();
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v201 = sub_1AE23D7CC();
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v202 = sub_1AE23D7CC();
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v203 = sub_1AE23D7CC();
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v204 = sub_1AE23D7CC();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  MEMORY[0x1EEE9AC00](TupleTypeMetadata);
+  v115 = &v109 - v7;
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v147 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v145 = &v109 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v143 = &v109 - v10;
+  v144 = *(swift_getAssociatedConformanceWitness() + 16);
+  v109 = swift_getAssociatedTypeWitness();
+  v11 = sub_1AE23D7CC();
+  v150 = *(v11 - 8);
+  v151 = v11;
+  MEMORY[0x1EEE9AC00](v11);
+  v174 = &v109 - v12;
+  v168 = swift_getAssociatedTypeWitness();
+  v142 = *(v168 - 8);
+  MEMORY[0x1EEE9AC00](v168);
+  v141 = &v109 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v171 = &v109 - v15;
+  v140 = *(swift_getAssociatedConformanceWitness() + 16);
+  v110 = swift_getAssociatedTypeWitness();
+  v160 = sub_1AE23D7CC();
+  v149 = *(v160 - 8);
+  MEMORY[0x1EEE9AC00](v160);
+  v175 = &v109 - v16;
+  v166 = swift_getAssociatedTypeWitness();
+  v137 = *(v166 - 8);
+  MEMORY[0x1EEE9AC00](v166);
+  v136 = &v109 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v18);
+  v169 = &v109 - v19;
+  v135 = *(swift_getAssociatedConformanceWitness() + 16);
+  v111 = swift_getAssociatedTypeWitness();
+  v159 = sub_1AE23D7CC();
+  v148 = *(v159 - 8);
+  MEMORY[0x1EEE9AC00](v159);
+  v176 = &v109 - v20;
+  v164 = swift_getAssociatedTypeWitness();
+  v132 = *(v164 - 8);
+  MEMORY[0x1EEE9AC00](v164);
+  v131 = &v109 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v22);
+  v165 = &v109 - v23;
+  v129 = *(swift_getAssociatedConformanceWitness() + 16);
+  v112 = swift_getAssociatedTypeWitness();
+  v158 = sub_1AE23D7CC();
+  v146 = *(v158 - 8);
+  MEMORY[0x1EEE9AC00](v158);
+  v173 = &v109 - v24;
+  v25 = swift_getAssociatedTypeWitness();
+  v128 = *(v25 - 8);
+  MEMORY[0x1EEE9AC00](v25);
+  v127 = &v109 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v27);
+  v163 = &v109 - v28;
+  v126 = *(swift_getAssociatedConformanceWitness() + 16);
+  v122 = v25;
+  v113 = swift_getAssociatedTypeWitness();
+  v29 = sub_1AE23D7CC();
+  v156 = *(v29 - 8);
+  v157 = v29;
+  MEMORY[0x1EEE9AC00](v29);
+  v172 = &v109 - v30;
+  v31 = swift_getAssociatedTypeWitness();
+  v125 = *(v31 - 8);
+  MEMORY[0x1EEE9AC00](v31);
+  v124 = &v109 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v33);
+  v162 = &v109 - v34;
+  v123 = *(swift_getAssociatedConformanceWitness() + 16);
+  v121 = v31;
+  v114 = swift_getAssociatedTypeWitness();
+  v35 = sub_1AE23D7CC();
+  v154 = *(v35 - 8);
+  v155 = v35;
+  MEMORY[0x1EEE9AC00](v35);
+  v177 = &v109 - v36;
+  v37 = swift_getAssociatedTypeWitness();
+  v120 = *(v37 - 8);
+  MEMORY[0x1EEE9AC00](v37);
+  v119 = &v109 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v39);
+  v161 = &v109 - v40;
+  v41 = *(swift_getAssociatedConformanceWitness() + 16);
+  v117 = v37;
+  v118 = v41;
+  v134 = swift_getAssociatedTypeWitness();
+  v42 = sub_1AE23D7CC();
+  v138 = *(v42 - 8);
+  v139 = v42;
+  v43 = MEMORY[0x1EEE9AC00](v42);
+  v167 = &v109 - v44;
+  v45 = *(v6 + 128);
+  v152 = v6;
+  v45(&v198, a3, v6, v43);
+  v192 = v199;
+  v191 = v200;
+  v196 = v202;
+  v185 = v203;
+  v184 = v205;
+  v189 = v206;
+  v194 = v207;
+  v188 = v209;
+  v183 = v211;
+  v182 = v212;
+  v193 = v208;
+  v181 = v210;
+  v46 = v213;
+  v47 = v214;
+  sub_1AE23DB8C();
+  v197[0] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v197[1] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v197[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v197[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v197[4] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v197[5] = swift_getTupleTypeMetadata2();
+  v133 = a3;
+  sub_1AE23DB8C();
+  v197[6] = swift_getTupleTypeMetadata2();
+  v195 = swift_getTupleTypeMetadata();
+  v130 = *(v195 - 8);
+  v48 = *(v130 + 16);
+  v187 = v130 + 16;
+  v190 = v48;
+  v48(v197, &v198, v195);
+
+  v178 = v47;
+
+  v186 = v46;
+
+  swift_getAtKeyPath();
+
+  v190(v197, &v198, v195);
+
+  v49 = v119;
+  swift_getAtKeyPath();
+
+  v50 = v117;
+  v51 = v161;
+  (*(v118 + 40))(v49, v180, v117);
+  v52 = *(v120 + 8);
+  v52(v49, v50);
+  v52(v51, v50);
+  v53 = v195;
+  v54 = v190;
+  v190(v197, &v198, v195);
+
+  swift_getAtKeyPath();
+
+  v54(v197, &v198, v53);
+
+  v55 = v124;
+  swift_getAtKeyPath();
+
+  v56 = v162;
+  v57 = v121;
+  (*(v123 + 40))(v55, v180, v121);
+  v58 = *(v125 + 8);
+  v58(v55, v57);
+  v58(v56, v57);
+  v59 = v190;
+  v190(v197, &v198, v195);
+
+  swift_getAtKeyPath();
+
+  v59(v197, &v198, v195);
+
+  v60 = v127;
+  swift_getAtKeyPath();
+
+  v61 = v163;
+  v62 = v122;
+  (*(v126 + 40))(v60, v180, v122);
+  v63 = *(v128 + 8);
+  v63(v60, v62);
+  v63(v61, v62);
+  v190(v197, &v198, v195);
+
+  swift_getAtKeyPath();
+
+  v190(v197, &v198, v195);
+
+  v64 = v131;
+  swift_getAtKeyPath();
+
+  v65 = v164;
+  v66 = v165;
+  (*(v129 + 40))(v64, v180, v164);
+  v67 = *(v132 + 8);
+  v67(v64, v65);
+  v67(v66, v65);
+  v68 = v190;
+  v190(v197, &v198, v195);
+
+  swift_getAtKeyPath();
+
+  v68(v197, &v198, v195);
+
+  v69 = v136;
+  swift_getAtKeyPath();
+
+  v70 = v169;
+  v71 = v166;
+  (*(v135 + 40))(v69, v180, v166);
+  v72 = *(v137 + 8);
+  v72(v69, v71);
+  v72(v70, v71);
+  v190(v197, &v198, v195);
+
+  swift_getAtKeyPath();
+
+  v190(v197, &v198, v195);
+
+  v73 = v141;
+  swift_getAtKeyPath();
+
+  v74 = v171;
+  v75 = v168;
+  (*(v140 + 40))(v73, v180, v168);
+  v76 = *(v142 + 8);
+  v76(v73, v75);
+  v76(v74, v75);
+  v77 = v195;
+  v78 = v190;
+  v190(v197, &v198, v195);
+
+  v79 = v143;
+  swift_getAtKeyPath();
+
+  v78(v197, &v198, v77);
+
+  v80 = v172;
+
+  v81 = v145;
+  swift_getAtKeyPath();
+
+  v82 = AssociatedTypeWitness;
+  (*(v144 + 40))(v81, v180, AssociatedTypeWitness);
+  (*(v130 + 8))(&v198, v77);
+  v83 = *(v147 + 8);
+  v83(v81, v82);
+  v84 = v79;
+  v85 = v173;
+  v83(v84, v82);
+  v86 = v167;
+  if ((*(*(v134 - 8) + 48))() == 1 && (*(*(v114 - 8) + 48))(v177, 1) == 1 && (*(*(v113 - 8) + 48))(v80, 1) == 1 && (*(*(v112 - 8) + 48))(v85, 1) == 1 && (*(*(v111 - 8) + 48))(v176, 1) == 1 && (*(*(v110 - 8) + 48))(v175, 1) == 1 && (*(*(v109 - 8) + 48))(v174, 1) == 1)
+  {
+    (*(v138 + 8))(v86, v139);
+    v87 = swift_getAssociatedTypeWitness();
+    (*(*(v87 - 8) + 56))(v153, 1, 1, v87);
+    v89 = v150;
+    v88 = v151;
+    v90 = v148;
+    v91 = v149;
+    v92 = v146;
+    v93 = v156;
+    v94 = v157;
+    v95 = v154;
+    v96 = v155;
+  }
+
+  else
+  {
+    v97 = v115;
+    v98 = TupleTypeMetadata[12];
+    v99 = TupleTypeMetadata[16];
+    v100 = TupleTypeMetadata[20];
+    v101 = TupleTypeMetadata[24];
+    v195 = TupleTypeMetadata[28];
+    v196 = TupleTypeMetadata[32];
+    (*(v138 + 32))(v115, v86, v139);
+    (*(v154 + 16))(&v97[v98], v177, v155);
+    (*(v156 + 16))(&v97[v99], v80, v157);
+    v92 = v146;
+    (*(v146 + 16))(&v97[v100], v85, v158);
+    v90 = v148;
+    (*(v148 + 16))(&v97[v101], v176, v159);
+    v91 = v149;
+    v102 = v174;
+    (*(v149 + 16))(&v97[v195], v175, v160);
+    v89 = v150;
+    v88 = v151;
+    (*(v150 + 16))(&v97[v196], v102, v151);
+    v103 = swift_getAssociatedTypeWitness();
+    v104 = v153;
+    v93 = v156;
+    v94 = v157;
+    swift_dynamicCast();
+    v105 = *(*(v103 - 8) + 56);
+    v106 = v104;
+    v107 = v103;
+    v95 = v154;
+    v96 = v155;
+    v105(v106, 0, 1, v107);
+  }
+
+  (*(v89 + 8))(v174, v88);
+  (*(v91 + 8))(v175, v160);
+  (*(v90 + 8))(v176, v159);
+  (*(v92 + 8))(v173, v158);
+  (*(v93 + 8))(v172, v94);
+  return (*(v95 + 8))(v177, v96);
+}
+
+uint64_t CRStruct_7.hasDelta(from:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v119 = a1;
+  v4 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v87 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v86 = &v85 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v90 = &v85 - v7;
+  v112 = swift_getAssociatedTypeWitness();
+  v89 = *(v112 - 8);
+  MEMORY[0x1EEE9AC00](v112);
+  v88 = &v85 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v93 = &v85 - v10;
+  v113 = swift_getAssociatedTypeWitness();
+  v92 = *(v113 - 8);
+  MEMORY[0x1EEE9AC00](v113);
+  v91 = &v85 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12);
+  v96 = &v85 - v13;
+  v114 = swift_getAssociatedTypeWitness();
+  v95 = *(v114 - 8);
+  MEMORY[0x1EEE9AC00](v114);
+  v94 = &v85 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15);
+  v100 = &v85 - v16;
+  v17 = swift_getAssociatedTypeWitness();
+  v98 = *(v17 - 8);
+  MEMORY[0x1EEE9AC00](v17);
+  v97 = &v85 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v19);
+  v104 = &v85 - v20;
+  v21 = swift_getAssociatedTypeWitness();
+  v102 = *(v21 - 8);
+  MEMORY[0x1EEE9AC00](v21);
+  v101 = &v85 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v23);
+  v109 = &v85 - v24;
+  v106 = swift_getAssociatedTypeWitness();
+  v108 = *(v106 - 8);
+  MEMORY[0x1EEE9AC00](v106);
+  v107 = &v85 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = MEMORY[0x1EEE9AC00](v26);
+  v121 = &v85 - v28;
+  v120 = v4;
+  (*(v4 + 128))(v136, a2, v4, v27);
+  v122 = v136[2];
+  v117 = v136[7];
+  v118 = v136[5];
+  v131 = v136[10];
+  v132 = v136[8];
+  v124 = v136[4];
+  v125 = v136[11];
+  v133 = v136[14];
+  v134 = v136[13];
+  v126 = v136[16];
+  v123 = v136[1];
+  v127 = v136[17];
+  v129 = v136[20];
+  v130 = v136[19];
+  sub_1AE23DB8C();
+  v135[0] = swift_getTupleTypeMetadata2();
+  v103 = v21;
+  sub_1AE23DB8C();
+  v135[1] = swift_getTupleTypeMetadata2();
+  v99 = v17;
+  sub_1AE23DB8C();
+  v135[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v135[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v135[4] = swift_getTupleTypeMetadata2();
+  v116 = a2;
+  sub_1AE23DB8C();
+  v135[5] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v135[6] = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v110 = *(TupleTypeMetadata - 8);
+  v30 = v110 + 16;
+  v31 = *(v110 + 16);
+  v31(v135, v136, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v128 = TupleTypeMetadata;
+  v115 = v30;
+  v105 = v31;
+  v31(v135, v136, TupleTypeMetadata);
+
+  v32 = v107;
+  swift_getAtKeyPath();
+
+  v33 = v106;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v35 = v121;
+  LOBYTE(v30) = (*(AssociatedConformanceWitness + 88))(v32, v33, AssociatedConformanceWitness);
+  v36 = *(v108 + 8);
+  v36(v32, v33);
+  v36(v35, v33);
+  if (v30)
+  {
+    goto LABEL_5;
+  }
+
+  v37 = v105;
+  v105(v135, v136, v128);
+
+  swift_getAtKeyPath();
+
+  v37(v135, v136, v128);
+
+  v38 = v101;
+  swift_getAtKeyPath();
+
+  v39 = v103;
+  v40 = swift_getAssociatedConformanceWitness();
+  v41 = v109;
+  LOBYTE(v37) = (*(v40 + 88))(v38, v39, v40);
+  v42 = *(v102 + 8);
+  v42(v38, v39);
+  v42(v41, v39);
+  if (v37)
+  {
+    goto LABEL_5;
+  }
+
+  v43 = v105;
+  v105(v135, v136, v128);
+
+  swift_getAtKeyPath();
+
+  v43(v135, v136, v128);
+
+  v44 = v97;
+  swift_getAtKeyPath();
+
+  v45 = v99;
+  v46 = swift_getAssociatedConformanceWitness();
+  v47 = v104;
+  LOBYTE(v43) = (*(v46 + 88))(v44, v45, v46);
+  v48 = *(v98 + 8);
+  v48(v44, v45);
+  v48(v47, v45);
+  if (v43)
+  {
+    goto LABEL_5;
+  }
+
+  v49 = v105;
+  v105(v135, v136, v128);
+
+  swift_getAtKeyPath();
+
+  v49(v135, v136, v128);
+
+  v50 = v94;
+  swift_getAtKeyPath();
+
+  v51 = v114;
+  v52 = swift_getAssociatedConformanceWitness();
+  v53 = v100;
+  LOBYTE(v49) = (*(v52 + 88))(v50, v51, v52);
+  v54 = *(v95 + 8);
+  v54(v50, v51);
+  v54(v53, v51);
+  if (v49)
+  {
+    goto LABEL_5;
+  }
+
+  v58 = v105;
+  v105(v135, v136, v128);
+
+  swift_getAtKeyPath();
+
+  v58(v135, v136, v128);
+
+  v59 = v91;
+  swift_getAtKeyPath();
+
+  v60 = v113;
+  v61 = swift_getAssociatedConformanceWitness();
+  v62 = v96;
+  v63 = (*(v61 + 88))(v59, v60, v61);
+  v64 = *(v92 + 8);
+  v64(v59, v60);
+  v64(v62, v60);
+  v56 = v128;
+  if (v63)
+  {
+    v55 = 1;
+    goto LABEL_7;
+  }
+
+  v65 = v128;
+  v66 = v105;
+  v105(v135, v136, v128);
+
+  swift_getAtKeyPath();
+
+  v66(v135, v136, v65);
+
+  v67 = v88;
+  swift_getAtKeyPath();
+
+  v68 = v112;
+  v69 = swift_getAssociatedConformanceWitness();
+  v70 = v93;
+  v71 = (*(v69 + 88))(v67, v68, v69);
+  v72 = *(v89 + 8);
+  v72(v67, v68);
+  v72(v70, v68);
+  if (v71 & 1) != 0 || (v73 = v105, v105(v135, v136, v128), , , , , , , , , , , , , , swift_getAtKeyPath(), , v73(v135, v136, v128), , , , , , , , , , , , v74 = v116, , , v75 = v86, swift_getAtKeyPath(), , v76 = AssociatedTypeWitness, v77 = swift_getAssociatedConformanceWitness(), v78 = v90, LOBYTE(v73) = (*(v77 + 88))(v75, v76, v77), v79 = *(v87 + 8), v79(v75, v76), v79(v78, v76), (v73))
+  {
+LABEL_5:
+    v55 = 1;
+  }
+
+  else
+  {
+    v80 = *(v120 + 8);
+    v81 = *(v80 + 24);
+    v82 = v81(v74, v80);
+    v83 = v81(v74, v80);
+    sub_1AE21FE14(v83, v82);
+    v55 = v84;
+  }
+
+  v56 = v128;
+LABEL_7:
+  (*(v110 + 8))(v136, v56);
+  return v55 & 1;
+}
+
+uint64_t CRStruct_7.actionUndoingDifference(from:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v175 = a1;
+  v147 = a4;
+  v5 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v143 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v141 = &v108 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v139 = &v108 - v8;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v109 = swift_getAssociatedTypeWitness();
+  v169 = sub_1AE23D7CC();
+  v146 = *(v169 - 8);
+  MEMORY[0x1EEE9AC00](v169);
+  v165 = &v108 - v9;
+  v160 = swift_getAssociatedTypeWitness();
+  v138 = *(v160 - 8);
+  MEMORY[0x1EEE9AC00](v160);
+  v137 = &v108 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
+  v161 = &v108 - v12;
+  v136 = swift_getAssociatedConformanceWitness();
+  v110 = swift_getAssociatedTypeWitness();
+  v164 = sub_1AE23D7CC();
+  v145 = *(v164 - 8);
+  MEMORY[0x1EEE9AC00](v164);
+  v166 = &v108 - v13;
+  v159 = swift_getAssociatedTypeWitness();
+  v133 = *(v159 - 8);
+  MEMORY[0x1EEE9AC00](v159);
+  v132 = &v108 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15);
+  v158 = &v108 - v16;
+  v131 = swift_getAssociatedConformanceWitness();
+  v111 = swift_getAssociatedTypeWitness();
+  v168 = sub_1AE23D7CC();
+  v144 = *(v168 - 8);
+  MEMORY[0x1EEE9AC00](v168);
+  v171 = &v108 - v17;
+  v157 = swift_getAssociatedTypeWitness();
+  v129 = *(v157 - 8);
+  MEMORY[0x1EEE9AC00](v157);
+  v128 = &v108 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v19);
+  v156 = &v108 - v20;
+  v126 = swift_getAssociatedConformanceWitness();
+  v112 = swift_getAssociatedTypeWitness();
+  v151 = sub_1AE23D7CC();
+  v142 = *(v151 - 8);
+  MEMORY[0x1EEE9AC00](v151);
+  v172 = &v108 - v21;
+  v155 = swift_getAssociatedTypeWitness();
+  v125 = *(v155 - 8);
+  MEMORY[0x1EEE9AC00](v155);
+  v124 = &v108 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v23);
+  v154 = &v108 - v24;
+  v123 = swift_getAssociatedConformanceWitness();
+  v113 = swift_getAssociatedTypeWitness();
+  v25 = sub_1AE23D7CC();
+  v149 = *(v25 - 8);
+  v150 = v25;
+  MEMORY[0x1EEE9AC00](v25);
+  v173 = &v108 - v26;
+  v27 = swift_getAssociatedTypeWitness();
+  v122 = *(v27 - 8);
+  MEMORY[0x1EEE9AC00](v27);
+  v121 = &v108 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v29);
+  v153 = &v108 - v30;
+  v31 = swift_getAssociatedConformanceWitness();
+  v119 = v27;
+  v120 = v31;
+  v114 = swift_getAssociatedTypeWitness();
+  v162 = sub_1AE23D7CC();
+  v148 = *(v162 - 8);
+  MEMORY[0x1EEE9AC00](v162);
+  v167 = &v108 - v32;
+  v33 = swift_getAssociatedTypeWitness();
+  v118 = *(v33 - 8);
+  MEMORY[0x1EEE9AC00](v33);
+  v117 = &v108 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v35);
+  v152 = &v108 - v36;
+  v37 = swift_getAssociatedConformanceWitness();
+  v115 = v33;
+  v116 = v37;
+  v130 = swift_getAssociatedTypeWitness();
+  v38 = sub_1AE23D7CC();
+  v134 = *(v38 - 8);
+  v135 = v38;
+  v39 = MEMORY[0x1EEE9AC00](v38);
+  v170 = &v108 - v40;
+  (*(v5 + 128))(v199, a2, v5, v39);
+  v41 = v199[1];
+  v179 = v199[2];
+  v191 = v199[4];
+  v177 = v199[5];
+  v190 = v199[7];
+  v176 = v199[8];
+  v189 = v199[10];
+  v187 = v199[11];
+  v184 = v199[13];
+  v180 = v199[14];
+  v183 = v199[19];
+  v186 = v199[16];
+  v182 = v199[17];
+  v42 = v199[20];
+  sub_1AE23DB8C();
+  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v193 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v194 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v195 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v196 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v197 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v198 = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v127 = *(TupleTypeMetadata - 8);
+  v43 = v127 + 16;
+  v188 = *(v127 + 16);
+  (v188)(&TupleTypeMetadata2, v199, TupleTypeMetadata);
+  v181 = v41;
+
+  v174 = v42;
+
+  swift_getAtKeyPath();
+
+  (v188)(&TupleTypeMetadata2, v199, TupleTypeMetadata);
+  v178 = v43;
+
+  v44 = v117;
+  swift_getAtKeyPath();
+
+  v45 = v115;
+  v46 = v152;
+  (*(v116 + 72))(v44, v115);
+  v47 = *(v118 + 8);
+  v47(v44, v45);
+  v47(v46, v45);
+  v48 = TupleTypeMetadata;
+  v49 = v188;
+  (v188)(&TupleTypeMetadata2, v199, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v49(&TupleTypeMetadata2, v199, v48);
+
+  v50 = v121;
+  swift_getAtKeyPath();
+
+  v51 = v119;
+  v52 = v153;
+  (*(v120 + 72))(v50, v119);
+  v53 = *(v122 + 8);
+  v53(v50, v51);
+  v53(v52, v51);
+  v54 = TupleTypeMetadata;
+  (v188)(&TupleTypeMetadata2, v199, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  (v188)(&TupleTypeMetadata2, v199, v54);
+
+  v55 = v124;
+  swift_getAtKeyPath();
+
+  v56 = v55;
+  v58 = v154;
+  v57 = v155;
+  (*(v123 + 72))(v55, v155);
+  v59 = *(v125 + 8);
+  v59(v56, v57);
+  v59(v58, v57);
+  v60 = TupleTypeMetadata;
+  v61 = v188;
+  (v188)(&TupleTypeMetadata2, v199, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v61(&TupleTypeMetadata2, v199, v60);
+
+  v62 = v128;
+  swift_getAtKeyPath();
+
+  v63 = v157;
+  v64 = v156;
+  (*(v126 + 72))(v62, v157);
+  v65 = *(v129 + 8);
+  v65(v62, v63);
+  v65(v64, v63);
+  (v188)(&TupleTypeMetadata2, v199, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  (v188)(&TupleTypeMetadata2, v199, TupleTypeMetadata);
+
+  v66 = v132;
+  swift_getAtKeyPath();
+
+  v68 = v158;
+  v67 = v159;
+  (*(v131 + 72))(v66, v159);
+  v69 = *(v133 + 8);
+  v69(v66, v67);
+  v69(v68, v67);
+  v70 = TupleTypeMetadata;
+  v71 = v188;
+  (v188)(&TupleTypeMetadata2, v199, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v71(&TupleTypeMetadata2, v199, v70);
+
+  v72 = v137;
+  swift_getAtKeyPath();
+
+  v73 = v160;
+  v74 = v161;
+  (*(v136 + 72))(v72, v160);
+  v75 = *(v138 + 8);
+  v75(v72, v73);
+  v75(v74, v73);
+  v76 = TupleTypeMetadata;
+  (v188)(&TupleTypeMetadata2, v199, TupleTypeMetadata);
+
+  v77 = v139;
+  swift_getAtKeyPath();
+
+  (v188)(&TupleTypeMetadata2, v199, v76);
+
+  v78 = v141;
+  swift_getAtKeyPath();
+
+  v79 = AssociatedTypeWitness;
+  (*(AssociatedConformanceWitness + 72))(v78, AssociatedTypeWitness);
+  (*(v127 + 8))(v199, TupleTypeMetadata);
+  v80 = *(v143 + 8);
+  v81 = v78;
+  v82 = v167;
+  v80(v81, v79);
+  v80(v77, v79);
+  if ((*(*(v130 - 8) + 48))(v170, 1) == 1 && (*(*(v114 - 8) + 48))(v82, 1) == 1 && (*(*(v113 - 8) + 48))(v173, 1) == 1 && (*(*(v112 - 8) + 48))(v172, 1) == 1 && (*(*(v111 - 8) + 48))(v171, 1) == 1 && (*(*(v110 - 8) + 48))(v166, 1) == 1 && (*(*(v109 - 8) + 48))(v165, 1) == 1)
+  {
+    v83 = v135;
+    (*(v134 + 8))(v170, v135);
+    TupleTypeMetadata2 = v83;
+    v193 = v162;
+    v85 = v150;
+    v84 = v151;
+    v194 = v150;
+    v195 = v151;
+    v196 = v168;
+    v197 = v164;
+    v198 = v169;
+    v86 = swift_getTupleTypeMetadata();
+    (*(*(v86 - 8) + 56))(v147, 1, 1, v86);
+    v88 = v145;
+    v87 = v146;
+    v89 = v165;
+    v90 = v166;
+    v91 = v144;
+    v92 = v142;
+  }
+
+  else
+  {
+    v93 = v135;
+    TupleTypeMetadata2 = v135;
+    v94 = v82;
+    v95 = v162;
+    v193 = v162;
+    v96 = v150;
+    v194 = v150;
+    v195 = v151;
+    v196 = v168;
+    v97 = v164;
+    v197 = v164;
+    v198 = v169;
+    v98 = swift_getTupleTypeMetadata();
+    v99 = v98[12];
+    v100 = v98[16];
+    v188 = v98[20];
+    v189 = v98[24];
+    v190 = v98[28];
+    v191 = v98[32];
+    v101 = v147;
+    (*(v134 + 32))(v147, v170, v93);
+    (*(v148 + 16))(v101 + v99, v94, v95);
+    (*(v149 + 16))(v101 + v100, v173, v96);
+    v92 = v142;
+    v102 = v97;
+    v103 = v151;
+    (*(v142 + 16))(&v188[v101], v172, v151);
+    v91 = v144;
+    (*(v144 + 16))(v101 + v189, v171, v168);
+    v88 = v145;
+    v90 = v166;
+    (*(v145 + 16))(v101 + v190, v166, v102);
+    v87 = v146;
+    v89 = v165;
+    (*(v146 + 16))(v101 + v191, v165, v169);
+    v104 = *(*(v98 - 1) + 56);
+    v105 = v101;
+    v85 = v150;
+    v106 = v98;
+    v84 = v103;
+    v82 = v167;
+    v104(v105, 0, 1, v106);
+  }
+
+  (*(v87 + 8))(v89, v169);
+  (*(v88 + 8))(v90, v164);
+  (*(v91 + 8))(v171, v168);
+  (*(v92 + 8))(v172, v84);
+  (*(v149 + 8))(v173, v85);
+  return (*(v148 + 8))(v82, v162);
+}
+
+double CRStruct_7.apply(_:)(void (*a1)(void, void), uint64_t a2, uint64_t a3)
+{
+  v204 = a1;
+  v4 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v143 = swift_getAssociatedTypeWitness();
+  v190 = sub_1AE23D7CC();
+  v177 = *(v190 - 8);
+  MEMORY[0x1EEE9AC00](v190);
+  v162 = &v135 - v5;
+  v169 = swift_getAssociatedTypeWitness();
+  v161 = swift_getAssociatedConformanceWitness();
+  v142 = swift_getAssociatedTypeWitness();
+  v189 = sub_1AE23D7CC();
+  v174 = *(v189 - 8);
+  MEMORY[0x1EEE9AC00](v189);
+  v160 = &v135 - v6;
+  v168 = swift_getAssociatedTypeWitness();
+  v158 = swift_getAssociatedConformanceWitness();
+  v141 = swift_getAssociatedTypeWitness();
+  v188 = sub_1AE23D7CC();
+  v183 = *(v188 - 8);
+  MEMORY[0x1EEE9AC00](v188);
+  v157 = &v135 - v7;
+  v167 = swift_getAssociatedTypeWitness();
+  v154 = swift_getAssociatedConformanceWitness();
+  v140 = swift_getAssociatedTypeWitness();
+  v8 = sub_1AE23D7CC();
+  v181 = *(v8 - 8);
+  v182 = v8;
+  MEMORY[0x1EEE9AC00](v8);
+  v153 = &v135 - v9;
+  v166 = swift_getAssociatedTypeWitness();
+  v151 = swift_getAssociatedConformanceWitness();
+  v139 = swift_getAssociatedTypeWitness();
+  v10 = sub_1AE23D7CC();
+  v180 = *(v10 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v150 = &v135 - v11;
+  v165 = swift_getAssociatedTypeWitness();
+  v147 = swift_getAssociatedConformanceWitness();
+  v138 = swift_getAssociatedTypeWitness();
+  v12 = sub_1AE23D7CC();
+  v179 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v146 = &v135 - v13;
+  v14 = swift_getAssociatedTypeWitness();
+  v144 = swift_getAssociatedConformanceWitness();
+  v15 = swift_getAssociatedTypeWitness();
+  v212 = sub_1AE23D7CC();
+  v213 = v12;
+  v172 = v12;
+  v173 = v10;
+  v214 = v10;
+  v215 = v8;
+  v216 = v188;
+  v217 = v189;
+  v218 = v190;
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v178 = sub_1AE23D7CC();
+  v176 = *(v178 - 8);
+  MEMORY[0x1EEE9AC00](v178);
+  v159 = &v135 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v156 = &v135 - v18;
+  MEMORY[0x1EEE9AC00](v19);
+  v152 = &v135 - v20;
+  MEMORY[0x1EEE9AC00](v21);
+  v149 = &v135 - v22;
+  MEMORY[0x1EEE9AC00](v23);
+  v148 = &v135 - v24;
+  MEMORY[0x1EEE9AC00](v25);
+  v145 = &v135 - v26;
+  MEMORY[0x1EEE9AC00](v27);
+  v29 = &v135 - v28;
+  v137 = v15;
+  v175 = sub_1AE23D7CC();
+  v187 = *(v175 - 8);
+  v30 = MEMORY[0x1EEE9AC00](v175);
+  v164 = &v135 - v31;
+  (*(v4 + 128))(&v212, a2, v4, v30);
+  v210 = v213;
+  v209 = v216;
+  v201 = v217;
+  v208 = v219;
+  v200 = v220;
+  v207 = v221;
+  v199 = v222;
+  v206 = v223;
+  v32 = v224;
+  v34 = v225;
+  v33 = v226;
+  v35 = v227;
+  v36 = v228;
+  v202 = v214;
+  v171 = v14;
+  sub_1AE23DB8C();
+  v211[0] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v211[1] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v211[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v211[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v211[4] = swift_getTupleTypeMetadata2();
+  v37 = v178;
+  sub_1AE23DB8C();
+  v211[5] = swift_getTupleTypeMetadata2();
+  v38 = v176;
+  sub_1AE23DB8C();
+  v211[6] = swift_getTupleTypeMetadata2();
+  v39 = swift_getTupleTypeMetadata();
+  v155 = *(v39 - 8);
+  v40 = *(v155 + 16);
+  v205 = v39;
+  v195 = v40;
+  v196 = v155 + 16;
+  (v40)(v211, &v212);
+
+  v203 = v36;
+
+  v197 = v35;
+  v41 = v190;
+
+  v185 = v33;
+
+  v198 = v34;
+
+  v186 = v32;
+
+  v193 = *(v38 + 16);
+  v194 = v38 + 16;
+  v193(v29, v204, v37);
+  v42 = *(TupleTypeMetadata - 1);
+  v43 = *(v42 + 48);
+  v191 = v42 + 48;
+  v192 = v43;
+  v44 = (v43)(v29, 1);
+  v46 = v188;
+  v45 = v189;
+  v47 = v182;
+  if (v44 == 1)
+  {
+    v48 = v179;
+    (*(v38 + 8))(v29, v37);
+    (*(*(v137 - 8) + 56))(v164, 1, 1);
+    v49 = v172;
+  }
+
+  else
+  {
+    v50 = TupleTypeMetadata[12];
+    v136 = TupleTypeMetadata[16];
+    v137 = v50;
+    v51 = TupleTypeMetadata[20];
+    v52 = TupleTypeMetadata[24];
+    v53 = TupleTypeMetadata[28];
+    v54 = TupleTypeMetadata[32];
+    (*(v187 + 32))(v164, v29, v175);
+    (*(v177 + 8))(&v29[v54], v41);
+    (*(v174 + 8))(&v29[v53], v45);
+    v55 = &v29[v52];
+    v37 = v178;
+    (*(v183 + 8))(v55, v46);
+    (*(v181 + 8))(&v29[v51], v47);
+    (*(v180 + 8))(&v29[v136], v173);
+    v48 = v179;
+    v56 = &v29[v137];
+    v49 = v172;
+    (*(v179 + 8))(v56, v172);
+  }
+
+  v57 = swift_modifyAtWritableKeyPath();
+  v58 = v164;
+  (*(v144 + 80))(v164, v171);
+  v59 = v187 + 8;
+  v60 = v175;
+  v171 = *(v187 + 8);
+  v171(v58, v175);
+  v57(v211, 0);
+
+  v195(v211, &v212, v205);
+
+  v61 = v145;
+  v193(v145, v204, v37);
+  v62 = v192(v61, 1, TupleTypeMetadata);
+  v187 = v59;
+  if (v62 == 1)
+  {
+    (*(v176 + 8))(v61, v37);
+    v63 = v146;
+    (*(*(v138 - 8) + 56))(v146, 1, 1);
+  }
+
+  else
+  {
+    v64 = TupleTypeMetadata[12];
+    v179 = TupleTypeMetadata[16];
+    v164 = TupleTypeMetadata[20];
+    v65 = TupleTypeMetadata[24];
+    v66 = TupleTypeMetadata[28];
+    v67 = TupleTypeMetadata[32];
+    v63 = v146;
+    (*(v48 + 32))(v146, &v61[v64], v49);
+    (*(v177 + 8))(&v61[v67], v190);
+    (*(v174 + 8))(&v61[v66], v189);
+    (*(v183 + 8))(&v61[v65], v188);
+    (*(v181 + 8))(&v164[v61], v182);
+    (*(v180 + 8))(&v61[v179], v173);
+    v171(v61, v60);
+  }
+
+  v68 = v148;
+  v69 = swift_modifyAtWritableKeyPath();
+  (*(v147 + 80))(v63, v165);
+  v70 = *(v48 + 8);
+  v70(v63, v49);
+  v69(v211, 0);
+
+  v195(v211, &v212, v205);
+
+  v71 = v178;
+  v193(v68, v204, v178);
+  v72 = TupleTypeMetadata;
+  v73 = v192(v68, 1, TupleTypeMetadata);
+  v179 = v48 + 8;
+  v165 = v70;
+  if (v73 == 1)
+  {
+    (*(v176 + 8))(v68, v71);
+    v74 = v150;
+    (*(*(v139 - 8) + 56))(v150, 1, 1);
+    v75 = v180;
+    v76 = v173;
+  }
+
+  else
+  {
+    v77 = v49;
+    v164 = v72[12];
+    v78 = v72[16];
+    v148 = v72[20];
+    v79 = v72[24];
+    v80 = v72[28];
+    v81 = v70;
+    v82 = v72[32];
+    v75 = v180;
+    v74 = v150;
+    v76 = v173;
+    (*(v180 + 32))(v150, &v68[v78]);
+    (*(v177 + 8))(&v68[v82], v190);
+    (*(v174 + 8))(&v68[v80], v189);
+    v83 = &v68[v79];
+    v71 = v178;
+    (*(v183 + 8))(v83, v188);
+    (*(v181 + 8))(&v148[v68], v182);
+    v81(&v164[v68], v77);
+    v171(v68, v175);
+  }
+
+  v84 = swift_modifyAtWritableKeyPath();
+  (*(v151 + 80))(v74, v166);
+  v85 = *(v75 + 8);
+  v85(v74, v76);
+  v84(v211, 0);
+
+  v195(v211, &v212, v205);
+
+  v86 = v149;
+  v193(v149, v204, v71);
+  v87 = TupleTypeMetadata;
+  v88 = v192(v86, 1, TupleTypeMetadata);
+  v89 = v71;
+  v90 = v87;
+  v180 = v75 + 8;
+  v166 = v85;
+  if (v88 == 1)
+  {
+    (*(v176 + 8))(v86, v71);
+    v91 = v153;
+    (*(*(v140 - 8) + 56))(v153, 1, 1);
+    v92 = v181;
+  }
+
+  else
+  {
+    v93 = v76;
+    v164 = v87[12];
+    v94 = v87[16];
+    v95 = v87[20];
+    v150 = v87[24];
+    v151 = v94;
+    v148 = v87[28];
+    v96 = v87[32];
+    v92 = v181;
+    v91 = v153;
+    (*(v181 + 32))(v153, &v86[v95], v182);
+    (*(v177 + 8))(&v86[v96], v190);
+    (*(v174 + 8))(&v148[v86], v189);
+    (*(v183 + 8))(&v150[v86], v188);
+    v85(&v86[v151], v93);
+    v165(&v164[v86], v172);
+    v171(v86, v175);
+  }
+
+  v97 = v89;
+  v98 = swift_modifyAtWritableKeyPath();
+  (*(v154 + 80))(v91, v167);
+  v99 = *(v92 + 8);
+  v100 = v182;
+  v99(v91, v182);
+  v98(v211, 0);
+
+  v195(v211, &v212, v205);
+
+  v101 = v152;
+  v193(v152, v204, v97);
+  v102 = v192(v101, 1, v90);
+  v181 = v92 + 8;
+  v167 = v99;
+  if (v102 == 1)
+  {
+    (*(v176 + 8))(v101, v97);
+    v103 = v157;
+    (*(*(v141 - 8) + 56))(v157, 1, 1);
+    v104 = v183;
+  }
+
+  else
+  {
+    v164 = v90[12];
+    v105 = v90[16];
+    v153 = v90[20];
+    v154 = v105;
+    v106 = v90[28];
+    v107 = v90[32];
+    v104 = v183;
+    v103 = v157;
+    (*(v183 + 32))(v157, &v101[v90[24]], v188);
+    v108 = &v101[v107];
+    v97 = v178;
+    (*(v177 + 8))(v108, v190);
+    (*(v174 + 8))(&v101[v106], v189);
+    v99(&v153[v101], v100);
+    v166(&v101[v154], v173);
+    v165(&v164[v101], v172);
+    v171(v101, v175);
+  }
+
+  v109 = swift_modifyAtWritableKeyPath();
+  (*(v158 + 80))(v103, v168);
+  v110 = *(v104 + 8);
+  v111 = v188;
+  v110(v103, v188);
+  v109(v211, 0);
+
+  v195(v211, &v212, v205);
+
+  v112 = v156;
+  v113 = v204;
+  v193(v156, v204, v97);
+  v114 = v192(v112, 1, v90);
+  v183 = v104 + 8;
+  v168 = v110;
+  if (v114 == 1)
+  {
+    (*(v176 + 8))(v112, v97);
+    v115 = v160;
+    (*(*(v142 - 8) + 56))(v160, 1, 1);
+    v116 = v174;
+    v117 = v189;
+  }
+
+  else
+  {
+    v164 = v90[12];
+    v118 = v90[16];
+    v157 = v90[20];
+    v158 = v118;
+    v119 = v90[24];
+    v120 = v90[32];
+    v116 = v174;
+    v115 = v160;
+    (*(v174 + 32))(v160, &v112[v90[28]], v189);
+    (*(v177 + 8))(&v112[v120], v190);
+    v117 = v189;
+    v110(&v112[v119], v111);
+    v113 = v204;
+    v167(&v157[v112], v182);
+    v166(&v112[v158], v173);
+    v165(&v164[v112], v172);
+    v171(v112, v175);
+  }
+
+  v121 = swift_modifyAtWritableKeyPath();
+  (*(v161 + 80))(v115, v169);
+  v204 = *(v116 + 8);
+  v204(v115, v117);
+  v121(v211, 0);
+
+  v195(v211, &v212, v205);
+
+  v122 = v159;
+  v123 = v178;
+  v193(v159, v113, v178);
+  if (v192(v122, 1, v90) == 1)
+  {
+    (*(v176 + 8))(v122, v123);
+    v124 = v162;
+    (*(*(v143 - 8) + 56))(v162, 1, 1);
+    v125 = v177;
+    v126 = v190;
+  }
+
+  else
+  {
+    v127 = v117;
+    v210 = v90[12];
+    v209 = v90[16];
+    v128 = v90[20];
+    v129 = v90[24];
+    v130 = v90[28];
+    v125 = v177;
+    v131 = &v122[v90[32]];
+    v132 = v162;
+    v126 = v190;
+    (*(v177 + 32))(v162, v131, v190);
+    v204(&v122[v130], v127);
+    v168(&v122[v129], v188);
+    v167(&v122[v128], v182);
+    v124 = v132;
+    v166(&v122[v209], v173);
+    v165(&v122[v210], v172);
+    v171(v122, v175);
+  }
+
+  v133 = swift_modifyAtWritableKeyPath();
+  (*(AssociatedConformanceWitness + 80))(v124, AssociatedTypeWitness);
+  (*(v125 + 8))(v124, v126);
+  v133(v211, 0);
+  (*(v155 + 8))(&v212, v205);
+
+  return result;
+}
+
+uint64_t CRStruct_7.visitReferences(_:)(void *a1, uint64_t a2, uint64_t a3)
+{
+  v81 = a1;
+  v4 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v59 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v58 = &v58 - v5;
+  v84 = swift_getAssociatedTypeWitness();
+  v61 = *(v84 - 8);
+  MEMORY[0x1EEE9AC00](v84);
+  v60 = &v58 - v6;
+  v85 = swift_getAssociatedTypeWitness();
+  v63 = *(v85 - 8);
+  MEMORY[0x1EEE9AC00](v85);
+  v62 = &v58 - v7;
+  v86 = swift_getAssociatedTypeWitness();
+  v65 = *(v86 - 8);
+  MEMORY[0x1EEE9AC00](v86);
+  v64 = &v58 - v8;
+  v9 = swift_getAssociatedTypeWitness();
+  v67 = *(v9 - 8);
+  MEMORY[0x1EEE9AC00](v9);
+  v66 = &v58 - v10;
+  v11 = swift_getAssociatedTypeWitness();
+  v70 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v69 = &v58 - v12;
+  v78 = swift_getAssociatedTypeWitness();
+  v80 = *(v78 - 8);
+  v13 = MEMORY[0x1EEE9AC00](v78);
+  v79 = &v58 - v14;
+  (*(v4 + 128))(v99, a2, v4, v13);
+  v15 = v99[1];
+  v96 = v99[4];
+  v97 = v99[2];
+  v94 = v99[7];
+  v95 = v99[5];
+  v92 = v99[10];
+  v93 = v99[8];
+  v90 = v99[13];
+  v91 = v99[11];
+  v88 = v99[16];
+  v89 = v99[14];
+  v87 = v99[17];
+  v16 = v99[19];
+  v17 = v99[20];
+  sub_1AE23DB8C();
+  v98[0] = swift_getTupleTypeMetadata2();
+  v71 = v11;
+  sub_1AE23DB8C();
+  v98[1] = swift_getTupleTypeMetadata2();
+  v68 = v9;
+  sub_1AE23DB8C();
+  v98[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v98[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v98[4] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v98[5] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v98[6] = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v82 = *(TupleTypeMetadata - 8);
+  v72 = *(v82 + 16);
+  v73 = v82 + 16;
+  v72(v98, v99, TupleTypeMetadata);
+  v74 = v15;
+
+  v76 = v17;
+
+  v75 = v16;
+
+  v19 = a2;
+
+  v20 = v79;
+  swift_getAtKeyPath();
+
+  v77 = v4;
+  v21 = v78;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v23 = v81;
+  (*(*(AssociatedConformanceWitness + 16) + 48))(v81, v21);
+  (*(v80 + 8))(v20, v21);
+  v24 = v23[3];
+  v25 = v23[4];
+  __swift_project_boxed_opaque_existential_1(v23, v24);
+  if (((*(v25 + 8))(v24, v25) & 1) == 0)
+  {
+    v72(v98, v99, TupleTypeMetadata);
+
+    v26 = v69;
+    swift_getAtKeyPath();
+
+    v27 = v71;
+    v28 = swift_getAssociatedConformanceWitness();
+    (*(*(v28 + 16) + 48))(v23, v27);
+    (*(v70 + 8))(v26, v27);
+    v29 = v23[3];
+    v30 = v23[4];
+    __swift_project_boxed_opaque_existential_1(v23, v29);
+    if (((*(v30 + 8))(v29, v30) & 1) == 0)
+    {
+      v72(v98, v99, TupleTypeMetadata);
+
+      v31 = v66;
+      swift_getAtKeyPath();
+
+      v32 = v68;
+      v33 = swift_getAssociatedConformanceWitness();
+      (*(*(v33 + 16) + 48))(v23, v32);
+      (*(v67 + 8))(v31, v32);
+      v34 = v23[3];
+      v35 = v23[4];
+      __swift_project_boxed_opaque_existential_1(v23, v34);
+      if (((*(v35 + 8))(v34, v35) & 1) == 0)
+      {
+        v72(v98, v99, TupleTypeMetadata);
+
+        v36 = v64;
+        swift_getAtKeyPath();
+
+        v37 = v86;
+        v38 = swift_getAssociatedConformanceWitness();
+        (*(*(v38 + 16) + 48))(v23, v37);
+        (*(v65 + 8))(v36, v37);
+        v39 = v23[3];
+        v40 = v23[4];
+        __swift_project_boxed_opaque_existential_1(v23, v39);
+        if (((*(v40 + 8))(v39, v40) & 1) == 0)
+        {
+          v72(v98, v99, TupleTypeMetadata);
+
+          v41 = v62;
+          swift_getAtKeyPath();
+
+          v42 = v85;
+          v43 = swift_getAssociatedConformanceWitness();
+          (*(*(v43 + 16) + 48))(v23, v42);
+          (*(v63 + 8))(v41, v42);
+          v44 = v23[3];
+          v45 = v23[4];
+          __swift_project_boxed_opaque_existential_1(v23, v44);
+          if (((*(v45 + 8))(v44, v45) & 1) == 0)
+          {
+            v72(v98, v99, TupleTypeMetadata);
+
+            v46 = v60;
+            swift_getAtKeyPath();
+
+            v47 = v84;
+            v48 = swift_getAssociatedConformanceWitness();
+            (*(*(v48 + 16) + 48))(v23, v47);
+            (*(v61 + 8))(v46, v47);
+            v49 = v23[3];
+            v50 = v23[4];
+            __swift_project_boxed_opaque_existential_1(v23, v49);
+            if (((*(v50 + 8))(v49, v50) & 1) == 0)
+            {
+              v72(v98, v99, TupleTypeMetadata);
+
+              v51 = v58;
+              swift_getAtKeyPath();
+
+              v52 = AssociatedTypeWitness;
+              v53 = swift_getAssociatedConformanceWitness();
+              (*(*(v53 + 16) + 48))(v23, v52);
+              (*(v59 + 8))(v51, v52);
+              v54 = v23[3];
+              v55 = v23[4];
+              __swift_project_boxed_opaque_existential_1(v23, v54);
+              if (((*(v55 + 8))(v54, v55) & 1) == 0)
+              {
+                v56 = (*(*(v77 + 8) + 24))(v19);
+                sub_1ADDDC764(v23, v56);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return (*(v82 + 8))(v99, TupleTypeMetadata);
+}
+
+Swift::Bool __swiftcall CRStruct_7.needToFinalizeTimestamps()()
+{
+  v2 = v0;
+  v3 = *(v1 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v50 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v49 = v48 - v4;
+  v75 = swift_getAssociatedTypeWitness();
+  v52 = *(v75 - 8);
+  MEMORY[0x1EEE9AC00](v75);
+  v51 = v48 - v5;
+  v77 = swift_getAssociatedTypeWitness();
+  v54 = *(v77 - 8);
+  MEMORY[0x1EEE9AC00](v77);
+  v53 = v48 - v6;
+  v79 = swift_getAssociatedTypeWitness();
+  v56 = *(v79 - 8);
+  MEMORY[0x1EEE9AC00](v79);
+  v55 = v48 - v7;
+  v8 = swift_getAssociatedTypeWitness();
+  v58 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v57 = v48 - v9;
+  v10 = swift_getAssociatedTypeWitness();
+  v61 = *(v10 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v60 = v48 - v11;
+  v12 = swift_getAssociatedTypeWitness();
+  v73 = *(v12 - 8);
+  v13 = MEMORY[0x1EEE9AC00](v12);
+  v72 = v48 - v14;
+  (*(v3 + 128))(v82, v2, v3, v13);
+  v64 = v82[1];
+  v70 = v82[4];
+  v71 = v82[2];
+  v68 = v82[7];
+  v69 = v82[5];
+  v80 = v82[8];
+  v78 = v82[11];
+  v66 = v82[13];
+  v67 = v82[10];
+  v76 = v82[14];
+  v15 = v82[17];
+  v65 = v82[16];
+  v63 = v82[19];
+  v16 = v82[20];
+  sub_1AE23DB8C();
+  v81[0] = swift_getTupleTypeMetadata2();
+  v62 = v10;
+  sub_1AE23DB8C();
+  v81[1] = swift_getTupleTypeMetadata2();
+  v59 = v8;
+  sub_1AE23DB8C();
+  v81[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v81[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v81[4] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v81[5] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v81[6] = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v18 = *(TupleTypeMetadata - 8);
+  (*(v18 + 16))(v81, v82, TupleTypeMetadata);
+
+  v48[1] = v16;
+
+  v64 = v15;
+
+  v19 = v72;
+  swift_getAtKeyPath();
+
+  v71 = v3;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v21 = v19;
+  LOBYTE(v19) = (*(*(AssociatedConformanceWitness + 16) + 56))(v12);
+  (*(v73 + 8))(v21, v12);
+  if (v19 & 1) != 0 || (v22 = v60, swift_getAtKeyPath(), v23 = v62, v24 = swift_getAssociatedConformanceWitness(), v25 = (*(*(v24 + 16) + 56))(v23), (*(v61 + 8))(v22, v23), (v25))
+  {
+    (*(v18 + 8))(v82, TupleTypeMetadata);
+  }
+
+  else
+  {
+    v26 = TupleTypeMetadata;
+    v27 = v57;
+    swift_getAtKeyPath();
+    v28 = v59;
+    v29 = swift_getAssociatedConformanceWitness();
+    v30 = (*(*(v29 + 16) + 56))(v28);
+    (*(v58 + 8))(v27, v28);
+    if ((v30 & 1) == 0)
+    {
+      v31 = v55;
+      swift_getAtKeyPath();
+      v32 = v79;
+      v33 = swift_getAssociatedConformanceWitness();
+      v34 = (*(*(v33 + 16) + 56))(v32);
+      (*(v56 + 8))(v31, v32);
+      if ((v34 & 1) == 0)
+      {
+        v35 = v53;
+        swift_getAtKeyPath();
+        v36 = v77;
+        v37 = swift_getAssociatedConformanceWitness();
+        v38 = (*(*(v37 + 16) + 56))(v36);
+        (*(v54 + 8))(v35, v36);
+        if ((v38 & 1) == 0)
+        {
+          v39 = v51;
+          swift_getAtKeyPath();
+          v40 = v75;
+          v41 = swift_getAssociatedConformanceWitness();
+          v42 = (*(*(v41 + 16) + 56))(v40);
+          (*(v52 + 8))(v39, v40);
+          if ((v42 & 1) == 0)
+          {
+            v45 = v49;
+            swift_getAtKeyPath();
+            v46 = AssociatedTypeWitness;
+            v47 = swift_getAssociatedConformanceWitness();
+            v43 = (*(*(v47 + 16) + 56))(v46);
+            (*(v18 + 8))(v82, v26);
+            (*(v50 + 8))(v45, v46);
+            return v43 & 1;
+          }
+        }
+      }
+    }
+
+    (*(v18 + 8))(v82, v26);
+  }
+
+  v43 = 1;
+  return v43 & 1;
+}
+
+uint64_t CRStruct_7.finalizeTimestamps(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  (*(*(a3 + 8) + 128))(&v37, a2, *(a3 + 8));
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v36[0] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v36[1] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v36[2] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v36[3] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v36[4] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v36[5] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v36[6] = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v32 = *(TupleTypeMetadata - 8);
+  v34 = *(v32 + 16);
+  v34(v36, &v37, TupleTypeMetadata);
+
+  v3 = swift_modifyAtWritableKeyPath();
+  v4 = *(swift_getAssociatedConformanceWitness() + 16);
+  v5 = *(v4 + 64);
+  v6 = swift_checkMetadataState();
+  v5(a1, v6, v4);
+  v3(v36, 0);
+
+  v34(v36, &v37, TupleTypeMetadata);
+
+  v7 = swift_modifyAtWritableKeyPath();
+  v8 = *(swift_getAssociatedConformanceWitness() + 16);
+  v9 = *(v8 + 64);
+  v10 = swift_checkMetadataState();
+  v9(a1, v10, v8);
+  v7(v36, 0);
+
+  v34(v36, &v37, TupleTypeMetadata);
+
+  v11 = swift_modifyAtWritableKeyPath();
+  v12 = *(swift_getAssociatedConformanceWitness() + 16);
+  v13 = *(v12 + 64);
+  v14 = swift_checkMetadataState();
+  v13(a1, v14, v12);
+  v11(v36, 0);
+
+  v34(v36, &v37, TupleTypeMetadata);
+
+  v15 = swift_modifyAtWritableKeyPath();
+  v16 = *(swift_getAssociatedConformanceWitness() + 16);
+  v17 = *(v16 + 64);
+  v18 = swift_checkMetadataState();
+  v17(a1, v18, v16);
+  v15(v36, 0);
+
+  v34(v36, &v37, TupleTypeMetadata);
+
+  v19 = swift_modifyAtWritableKeyPath();
+  v20 = *(swift_getAssociatedConformanceWitness() + 16);
+  v21 = *(v20 + 64);
+  v22 = swift_checkMetadataState();
+  v21(a1, v22, v20);
+  v19(v36, 0);
+
+  v34(v36, &v37, TupleTypeMetadata);
+
+  v23 = swift_modifyAtWritableKeyPath();
+  v24 = *(swift_getAssociatedConformanceWitness() + 16);
+  v25 = *(v24 + 64);
+  v26 = swift_checkMetadataState();
+  v25(a1, v26, v24);
+  v23(v36, 0);
+
+  v34(v36, &v37, TupleTypeMetadata);
+
+  v27 = swift_modifyAtWritableKeyPath();
+  v28 = *(swift_getAssociatedConformanceWitness() + 16);
+  v29 = *(v28 + 64);
+  v30 = swift_checkMetadataState();
+  v29(a1, v30, v28);
+  v27(v36, 0);
+
+  return (*(v32 + 8))(&v37, TupleTypeMetadata);
+}
+
+uint64_t CRStruct_7.minEncodingVersion.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+{
+  v58 = a3;
+  v4 = *(a2 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v42 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v41 = &v40 - v5;
+  v56 = swift_getAssociatedTypeWitness();
+  v45 = *(v56 - 8);
+  MEMORY[0x1EEE9AC00](v56);
+  v44 = &v40 - v6;
+  v59 = swift_getAssociatedTypeWitness();
+  v48 = *(v59 - 8);
+  MEMORY[0x1EEE9AC00](v59);
+  v47 = &v40 - v7;
+  v60 = swift_getAssociatedTypeWitness();
+  v51 = *(v60 - 8);
+  MEMORY[0x1EEE9AC00](v60);
+  v50 = &v40 - v8;
+  v61 = swift_getAssociatedTypeWitness();
+  v54 = *(v61 - 8);
+  MEMORY[0x1EEE9AC00](v61);
+  v53 = &v40 - v9;
+  v62 = swift_getAssociatedTypeWitness();
+  v55 = *(v62 - 8);
+  MEMORY[0x1EEE9AC00](v62);
+  v11 = &v40 - v10;
+  v63 = swift_getAssociatedTypeWitness();
+  v12 = *(v63 - 8);
+  v13 = MEMORY[0x1EEE9AC00](v63);
+  v15 = &v40 - v14;
+  (*(v4 + 128))(v73, a1, v4, v13);
+  v52 = v73[8];
+  v49 = v73[11];
+  v46 = v73[14];
+  v43 = v73[17];
+  v40 = v73[20];
+  v16 = (*(*(v4 + 8) + 24))(a1);
+  sub_1AE21FFB0(v16, &v72);
+
+  v17 = v72;
+  if (v72 > 2u)
+  {
+    goto LABEL_23;
+  }
+
+  swift_getAtKeyPath();
+  v18 = v63;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  (*(*(*(AssociatedConformanceWitness + 16) + 8) + 24))(&TupleTypeMetadata2, v18);
+  (*(v12 + 8))(v15, v18);
+  if (TupleTypeMetadata2 > v17)
+  {
+    v17 = TupleTypeMetadata2;
+  }
+
+  v72 = v17;
+  if (TupleTypeMetadata2 > 2u)
+  {
+    goto LABEL_23;
+  }
+
+  swift_getAtKeyPath();
+  v20 = v62;
+  v21 = swift_getAssociatedConformanceWitness();
+  (*(*(*(v21 + 16) + 8) + 24))(&TupleTypeMetadata2, v20);
+  (*(v55 + 8))(v11, v20);
+  if (TupleTypeMetadata2 > v17)
+  {
+    v17 = TupleTypeMetadata2;
+  }
+
+  v72 = v17;
+  if (v17 > 2)
+  {
+    goto LABEL_23;
+  }
+
+  v22 = v53;
+  swift_getAtKeyPath();
+  v23 = v61;
+  v24 = swift_getAssociatedConformanceWitness();
+  (*(*(*(v24 + 16) + 8) + 24))(&TupleTypeMetadata2, v23);
+  (*(v54 + 8))(v22, v23);
+  if (TupleTypeMetadata2 > v17)
+  {
+    v17 = TupleTypeMetadata2;
+  }
+
+  v72 = v17;
+  if (TupleTypeMetadata2 > 2u)
+  {
+    goto LABEL_23;
+  }
+
+  v25 = v50;
+  swift_getAtKeyPath();
+  v26 = v60;
+  v27 = swift_getAssociatedConformanceWitness();
+  (*(*(*(v27 + 16) + 8) + 24))(&TupleTypeMetadata2, v26);
+  (*(v51 + 8))(v25, v26);
+  if (TupleTypeMetadata2 > v17)
+  {
+    v17 = TupleTypeMetadata2;
+  }
+
+  v72 = v17;
+  if (v17 > 2)
+  {
+    goto LABEL_23;
+  }
+
+  v28 = v47;
+  swift_getAtKeyPath();
+  v29 = v59;
+  v30 = swift_getAssociatedConformanceWitness();
+  (*(*(*(v30 + 16) + 8) + 24))(&TupleTypeMetadata2, v29);
+  (*(v48 + 8))(v28, v29);
+  if (TupleTypeMetadata2 > v17)
+  {
+    v17 = TupleTypeMetadata2;
+  }
+
+  v72 = v17;
+  if (TupleTypeMetadata2 >= 3u)
+  {
+LABEL_23:
+    v72 = v17;
+LABEL_24:
+    sub_1AE23DB8C();
+    TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+    sub_1AE23DB8C();
+    v66 = swift_getTupleTypeMetadata2();
+    sub_1AE23DB8C();
+    v67 = swift_getTupleTypeMetadata2();
+    sub_1AE23DB8C();
+    v68 = swift_getTupleTypeMetadata2();
+    sub_1AE23DB8C();
+    v69 = swift_getTupleTypeMetadata2();
+    sub_1AE23DB8C();
+    v70 = swift_getTupleTypeMetadata2();
+    sub_1AE23DB8C();
+    v71 = swift_getTupleTypeMetadata2();
+    TupleTypeMetadata = swift_getTupleTypeMetadata();
+    result = (*(*(TupleTypeMetadata - 8) + 8))(v73, TupleTypeMetadata);
+    goto LABEL_25;
+  }
+
+  v31 = v44;
+  swift_getAtKeyPath();
+  v32 = v56;
+  v33 = swift_getAssociatedConformanceWitness();
+  (*(*(*(v33 + 16) + 8) + 24))(&TupleTypeMetadata2, v32);
+  (*(v45 + 8))(v31, v32);
+  if (TupleTypeMetadata2 > v17)
+  {
+    v17 = TupleTypeMetadata2;
+  }
+
+  v72 = v17;
+  if (v17 > 2)
+  {
+    goto LABEL_24;
+  }
+
+  v34 = v41;
+  swift_getAtKeyPath();
+  v35 = AssociatedTypeWitness;
+  v36 = swift_getAssociatedConformanceWitness();
+  (*(*(*(v36 + 16) + 8) + 24))(&v64, v35);
+  sub_1AE23DB8C();
+  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v66 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v67 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v68 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v69 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v70 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v71 = swift_getTupleTypeMetadata2();
+  v37 = swift_getTupleTypeMetadata();
+  (*(*(v37 - 8) + 8))(v73, v37);
+  result = (*(v42 + 8))(v34, v35);
+  if (v64 > v17)
+  {
+    LOBYTE(v17) = v64;
+  }
+
+LABEL_25:
+  *v58 = v17;
+  return result;
+}
+
+uint64_t CRStruct_7<>.encode(to:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  v100 = a8;
+  v104 = a7;
+  v108 = a6;
+  v112 = a5;
+  v118 = a4;
+  v12 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v93 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v92 = &v88 - v13;
+  v120 = swift_getAssociatedTypeWitness();
+  v96 = *(v120 - 8);
+  MEMORY[0x1EEE9AC00](v120);
+  v95 = &v88 - v14;
+  v122 = swift_getAssociatedTypeWitness();
+  v99 = *(v122 - 8);
+  MEMORY[0x1EEE9AC00](v122);
+  v98 = &v88 - v15;
+  v124 = swift_getAssociatedTypeWitness();
+  v103 = *(v124 - 8);
+  MEMORY[0x1EEE9AC00](v124);
+  v102 = &v88 - v16;
+  v126 = swift_getAssociatedTypeWitness();
+  v107 = *(v126 - 8);
+  MEMORY[0x1EEE9AC00](v126);
+  v106 = &v88 - v17;
+  v18 = swift_getAssociatedTypeWitness();
+  v110 = *(v18 - 8);
+  MEMORY[0x1EEE9AC00](v18);
+  v125 = &v88 - v19;
+  v114 = swift_getAssociatedTypeWitness();
+  v117 = *(v114 - 8);
+  MEMORY[0x1EEE9AC00](v114);
+  v115 = &v88 - v20;
+  v131 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5BCF60, &unk_1AE252450);
+  v123 = *(v131 - 8);
+  v21 = MEMORY[0x1EEE9AC00](v131);
+  v128 = &v88 - v22;
+  v23 = *(v12 + 128);
+  v90 = v12;
+  v23(&TupleTypeMetadata2, a2, v12, v21);
+  v116 = TupleTypeMetadata2;
+  v133 = v148;
+  v134 = v150;
+  v130 = v151;
+  v137 = v147;
+  v138 = v153;
+  v139 = v156;
+  v140 = v157;
+  v141 = v159;
+  v142 = v154;
+  v145 = v162;
+  v143 = v160;
+  v144 = v163;
+  v132 = v165;
+  v167[0] = TupleTypeMetadata2;
+  v167[1] = v147;
+  v167[2] = v148;
+  v167[3] = v149;
+  v109 = v149;
+  v167[4] = v150;
+  v167[5] = v151;
+  v105 = v152;
+  v167[6] = v152;
+  v167[7] = v153;
+  v167[8] = v154;
+  v167[9] = v155;
+  v101 = v155;
+  v167[10] = v156;
+  v167[11] = v157;
+  v97 = v158;
+  v167[12] = v158;
+  v167[13] = v159;
+  v167[14] = v160;
+  v167[15] = v161;
+  v94 = v161;
+  v167[16] = v162;
+  v167[17] = v163;
+  v91 = v164;
+  v167[18] = v164;
+  v167[19] = v165;
+  v167[20] = v166;
+  v135 = v166;
+  v24 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  sub_1AE048F10(v24, v25, v26);
+  sub_1AE23E3CC();
+  sub_1AE23DB8C();
+  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+  v111 = v18;
+  sub_1AE23DB8C();
+  v147 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v148 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v149 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v150 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v151 = swift_getTupleTypeMetadata2();
+  v89 = a2;
+  sub_1AE23DB8C();
+  v152 = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v121 = *(TupleTypeMetadata - 8);
+  v28 = v121 + 16;
+  v29 = *(v121 + 16);
+  v29(&TupleTypeMetadata2, v167, TupleTypeMetadata);
+
+  v30 = v115;
+  swift_getAtKeyPath();
+
+  v129 = TupleTypeMetadata;
+  v127 = v28;
+  v113 = v29;
+  v29(&TupleTypeMetadata2, v167, TupleTypeMetadata);
+
+  v31 = v114;
+  v32 = v128;
+
+  v33 = v131;
+  v34 = v137;
+
+  TupleTypeMetadata2 = v116;
+  v147 = v34;
+  v35 = v136;
+  sub_1AE23DD5C();
+  v136 = v35;
+  if (v35)
+  {
+    (*(v121 + 8))(v167, v129);
+
+    (*(v117 + 8))(v30, v31);
+    return (*(v123 + 8))(v32, v33);
+  }
+
+  (*(v117 + 8))(v30, v31);
+  v37 = v113;
+  v113(&TupleTypeMetadata2, v167, v129);
+
+  swift_getAtKeyPath();
+
+  v38 = v129;
+  v37(&TupleTypeMetadata2, v167, v129);
+
+  v39 = v134;
+
+  TupleTypeMetadata2 = v109;
+  v147 = v39;
+  v40 = v131;
+  v41 = v111;
+  v42 = v136;
+  sub_1AE23DD5C();
+  v43 = v38;
+  v136 = v42;
+  if (v42)
+  {
+    (*(v121 + 8))(v167, v38);
+
+    (*(v110 + 8))(v125, v41);
+    return (*(v123 + 8))(v32, v40);
+  }
+
+  (*(v110 + 8))(v125, v41);
+  v44 = v113;
+  v113(&TupleTypeMetadata2, v167, v38);
+
+  v45 = v106;
+  swift_getAtKeyPath();
+
+  v44(&TupleTypeMetadata2, v167, v38);
+
+  v46 = v128;
+  v47 = v131;
+
+  v48 = v45;
+
+  TupleTypeMetadata2 = v105;
+  v147 = v138;
+  v49 = v126;
+  v50 = v136;
+  sub_1AE23DD5C();
+  v51 = v123;
+  v136 = v50;
+  if (v50)
+  {
+    (*(v121 + 8))(v167, v43);
+
+    (*(v107 + 8))(v48, v49);
+    return (*(v51 + 8))(v46, v47);
+  }
+
+  (*(v107 + 8))(v48, v49);
+  v52 = v113;
+  v113(&TupleTypeMetadata2, v167, v43);
+
+  v53 = v102;
+  swift_getAtKeyPath();
+
+  v52(&TupleTypeMetadata2, v167, v43);
+
+  v54 = v128;
+  v55 = v131;
+
+  TupleTypeMetadata2 = v101;
+  v147 = v139;
+  v56 = v124;
+  v57 = v136;
+  sub_1AE23DD5C();
+  v136 = v57;
+  if (v57)
+  {
+    (*(v121 + 8))(v167, v129);
+
+    (*(v103 + 8))(v53, v56);
+    return (*(v123 + 8))(v54, v55);
+  }
+
+  (*(v103 + 8))(v53, v56);
+  v58 = v113;
+  v113(&TupleTypeMetadata2, v167, v129);
+
+  v59 = v98;
+  swift_getAtKeyPath();
+
+  v58(&TupleTypeMetadata2, v167, v129);
+
+  v32 = v128;
+  v40 = v131;
+
+  TupleTypeMetadata2 = v97;
+  v147 = v141;
+  v60 = v122;
+  v61 = v136;
+  sub_1AE23DD5C();
+  v136 = v61;
+  if (v61)
+  {
+    (*(v121 + 8))(v167, v129);
+
+    (*(v99 + 8))(v59, v60);
+    return (*(v123 + 8))(v32, v40);
+  }
+
+  v126 = a9;
+
+  (*(v99 + 8))(v59, v60);
+  v62 = v113;
+  v113(&TupleTypeMetadata2, v167, v129);
+
+  v63 = v95;
+  swift_getAtKeyPath();
+
+  v62(&TupleTypeMetadata2, v167, v129);
+
+  v54 = v128;
+  v55 = v131;
+
+  TupleTypeMetadata2 = v94;
+  v147 = v145;
+  v64 = v120;
+  v65 = v136;
+  sub_1AE23DD5C();
+  v136 = v65;
+  if (v65)
+  {
+    (*(v121 + 8))(v167, v129);
+
+    (*(v96 + 8))(v63, v64);
+    return (*(v123 + 8))(v54, v55);
+  }
+
+  v126 = a10;
+
+  (*(v96 + 8))(v63, v64);
+  v66 = v113;
+  v113(&TupleTypeMetadata2, v167, v129);
+
+  v67 = v92;
+  swift_getAtKeyPath();
+
+  v66(&TupleTypeMetadata2, v167, v129);
+  v68 = v67;
+
+  v69 = v128;
+  v70 = v131;
+
+  TupleTypeMetadata2 = v91;
+  v147 = v132;
+  v71 = AssociatedTypeWitness;
+  v72 = v136;
+  sub_1AE23DD5C();
+  v136 = v72;
+  if (v72)
+  {
+    (*(v121 + 8))(v167, v129);
+
+    (*(v93 + 8))(v68, v71);
+    return (*(v123 + 8))(v69, v70);
+  }
+
+  else
+  {
+
+    (*(v93 + 8))(v68, v71);
+    result = (*(*(v90 + 8) + 24))(v89);
+    v75 = 0;
+    v76 = result + 64;
+    v77 = result;
+    v78 = 1 << *(result + 32);
+    v79 = -1;
+    if (v78 < 64)
+    {
+      v79 = ~(-1 << v78);
+    }
+
+    v80 = v79 & *(result + 64);
+    v81 = (v78 + 63) >> 6;
+    if (v80)
+    {
+      while (1)
+      {
+        v82 = v75;
+LABEL_24:
+        v83 = __clz(__rbit64(v80)) | (v82 << 6);
+        v84 = (*(v77 + 48) + 16 * v83);
+        v85 = *v84;
+        v86 = v84[1];
+        v167[23] = *(*(v77 + 56) + 8 * v83);
+        TupleTypeMetadata2 = v85;
+        v147 = v86;
+        sub_1AE048F64(result, v73, v74);
+
+        v87 = v136;
+        sub_1AE23DD5C();
+        v136 = v87;
+        if (v87)
+        {
+          break;
+        }
+
+        v80 &= v80 - 1;
+
+        v75 = v82;
+        if (!v80)
+        {
+          goto LABEL_21;
+        }
+      }
+
+      (*(v121 + 8))(v167, v129);
+
+      (*(v123 + 8))(v128, v131);
+    }
+
+    else
+    {
+LABEL_21:
+      while (1)
+      {
+        v82 = v75 + 1;
+        if (__OFADD__(v75, 1))
+        {
+          break;
+        }
+
+        if (v82 >= v81)
+        {
+          (*(v121 + 8))(v167, v129);
+
+          return (*(v123 + 8))(v128, v131);
+        }
+
+        v80 = *(v76 + 8 * v82);
+        ++v75;
+        if (v80)
+        {
+          goto LABEL_24;
+        }
+      }
+
+      __break(1u);
+    }
+  }
+
+  return result;
+}
+
+uint64_t CRStruct_8.copy(renamingReferences:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v5 = v4;
+  v113 = a1;
+  v111 = a4;
+  v8 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v103 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v101 = &v75 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v102 = &v75 - v11;
+  v107 = swift_getAssociatedTypeWitness();
+  v100 = *(v107 - 8);
+  MEMORY[0x1EEE9AC00](v107);
+  v98 = &v75 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13);
+  v99 = &v75 - v14;
+  v106 = swift_getAssociatedTypeWitness();
+  v97 = *(v106 - 8);
+  MEMORY[0x1EEE9AC00](v106);
+  v94 = &v75 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16);
+  v95 = &v75 - v17;
+  v105 = swift_getAssociatedTypeWitness();
+  v93 = *(v105 - 8);
+  MEMORY[0x1EEE9AC00](v105);
+  v91 = &v75 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v19);
+  v92 = &v75 - v20;
+  v104 = swift_getAssociatedTypeWitness();
+  v90 = *(v104 - 8);
+  MEMORY[0x1EEE9AC00](v104);
+  v88 = &v75 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v22);
+  v89 = &v75 - v23;
+  v83 = swift_getAssociatedTypeWitness();
+  v87 = *(v83 - 8);
+  MEMORY[0x1EEE9AC00](v83);
+  v85 = &v75 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v25);
+  v86 = &v75 - v26;
+  v80 = swift_getAssociatedTypeWitness();
+  v84 = *(v80 - 8);
+  MEMORY[0x1EEE9AC00](v80);
+  v81 = &v75 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v28);
+  v82 = &v75 - v29;
+  v76 = swift_getAssociatedTypeWitness();
+  v79 = *(v76 - 8);
+  MEMORY[0x1EEE9AC00](v76);
+  v77 = &v75 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v32 = MEMORY[0x1EEE9AC00](v31);
+  v78 = &v75 - v33;
+  (*(*(a2 - 8) + 16))(a4, v5, a2, v32);
+  v112 = v8;
+  (*(v8 + 144))(v133, a2, v8);
+  v118 = v133[4];
+  v122 = v133[2];
+  v123 = v133[5];
+  v129 = v133[1];
+  v130 = v133[7];
+  v124 = v133[8];
+  v115 = v133[11];
+  v116 = v133[14];
+  v127 = v133[17];
+  v128 = v133[13];
+  v120 = v133[19];
+  v121 = v133[10];
+  v114 = v133[20];
+  v119 = v133[16];
+  v126 = v133[22];
+  v110 = v133[23];
+  sub_1AE23DB8C();
+  v132[0] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v132[1] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v132[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v132[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v132[4] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v132[5] = swift_getTupleTypeMetadata2();
+  v109 = a2;
+  sub_1AE23DB8C();
+  v132[6] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v132[7] = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v96 = *(TupleTypeMetadata - 8);
+  v125 = *(v96 + 16);
+  v131 = v96 + 16;
+  v125(v132, v133, TupleTypeMetadata);
+
+  v125(v132, v133, TupleTypeMetadata);
+
+  v34 = v77;
+  swift_getAtKeyPath();
+
+  v35 = v76;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  (*(*(AssociatedConformanceWitness + 16) + 24))(v113, v35);
+  (*(v79 + 8))(v34, v35);
+  swift_setAtWritableKeyPath();
+
+  v37 = TupleTypeMetadata;
+  v125(v132, v133, TupleTypeMetadata);
+
+  v125(v132, v133, v37);
+
+  v38 = v81;
+  swift_getAtKeyPath();
+
+  v39 = v80;
+  v40 = swift_getAssociatedConformanceWitness();
+  (*(*(v40 + 16) + 24))(v113, v39);
+  (*(v84 + 8))(v38, v39);
+  swift_setAtWritableKeyPath();
+
+  v41 = v125;
+  v125(v132, v133, TupleTypeMetadata);
+
+  v41(v132, v133, TupleTypeMetadata);
+
+  v42 = v85;
+  swift_getAtKeyPath();
+
+  v43 = v83;
+  v44 = swift_getAssociatedConformanceWitness();
+  (*(*(v44 + 16) + 24))(v113, v43);
+  (*(v87 + 8))(v42, v43);
+  swift_setAtWritableKeyPath();
+
+  v45 = TupleTypeMetadata;
+  v125(v132, v133, TupleTypeMetadata);
+
+  v125(v132, v133, v45);
+
+  v46 = v88;
+  swift_getAtKeyPath();
+
+  v47 = v104;
+  v48 = swift_getAssociatedConformanceWitness();
+  (*(*(v48 + 16) + 24))(v113, v47);
+  (*(v90 + 8))(v46, v47);
+  swift_setAtWritableKeyPath();
+
+  v49 = v45;
+  v50 = v125;
+  v125(v132, v133, v49);
+
+  v50(v132, v133, TupleTypeMetadata);
+
+  v51 = v91;
+  swift_getAtKeyPath();
+
+  v52 = v105;
+  v53 = swift_getAssociatedConformanceWitness();
+  (*(*(v53 + 16) + 24))(v113, v52);
+  (*(v93 + 8))(v51, v52);
+  swift_setAtWritableKeyPath();
+
+  v54 = TupleTypeMetadata;
+  v55 = v125;
+  v125(v132, v133, TupleTypeMetadata);
+
+  v55(v132, v133, v54);
+
+  v56 = v94;
+  swift_getAtKeyPath();
+
+  v57 = v106;
+  v58 = swift_getAssociatedConformanceWitness();
+  (*(*(v58 + 16) + 24))(v113, v57);
+  (*(v97 + 8))(v56, v57);
+  swift_setAtWritableKeyPath();
+
+  v59 = TupleTypeMetadata;
+  v60 = v125;
+  v125(v132, v133, TupleTypeMetadata);
+
+  v60(v132, v133, v59);
+
+  v61 = v98;
+  swift_getAtKeyPath();
+
+  v62 = v107;
+  v63 = swift_getAssociatedConformanceWitness();
+  (*(*(v63 + 16) + 24))(v113, v62);
+  (*(v100 + 8))(v61, v62);
+  swift_setAtWritableKeyPath();
+
+  v64 = TupleTypeMetadata;
+  v125(v132, v133, TupleTypeMetadata);
+
+  v125(v132, v133, v64);
+
+  v65 = v101;
+  swift_getAtKeyPath();
+
+  v66 = v112;
+  v67 = AssociatedTypeWitness;
+  v68 = v109;
+  v69 = swift_getAssociatedConformanceWitness();
+  v70 = v113;
+  (*(*(v69 + 16) + 24))(v113, v67);
+  (*(v103 + 8))(v65, v67);
+  swift_setAtWritableKeyPath();
+
+  v71 = *(v66 + 8);
+  v72 = (*(v71 + 24))(v68, v71);
+  v73 = sub_1AE156B60(v72, v70);
+
+  (*(v71 + 32))(v73, v68, v71);
+  return (*(v96 + 8))(v133, TupleTypeMetadata);
+}
+
+uint64_t CRStruct_8.copy(renamingReferences:)@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v5 = v4;
+  v9 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v105 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v104 = &v79 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
+  v103 = &v79 - v12;
+  v112 = swift_getAssociatedTypeWitness();
+  v102 = *(v112 - 8);
+  MEMORY[0x1EEE9AC00](v112);
+  v101 = &v79 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v100 = &v79 - v15;
+  v111 = swift_getAssociatedTypeWitness();
+  v99 = *(v111 - 8);
+  MEMORY[0x1EEE9AC00](v111);
+  v98 = &v79 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v97 = &v79 - v18;
+  v109 = swift_getAssociatedTypeWitness();
+  v95 = *(v109 - 8);
+  MEMORY[0x1EEE9AC00](v109);
+  v94 = &v79 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v20);
+  v93 = &v79 - v21;
+  v108 = swift_getAssociatedTypeWitness();
+  v92 = *(v108 - 8);
+  MEMORY[0x1EEE9AC00](v108);
+  v91 = &v79 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v23);
+  v90 = &v79 - v24;
+  v107 = swift_getAssociatedTypeWitness();
+  v89 = *(v107 - 8);
+  MEMORY[0x1EEE9AC00](v107);
+  v88 = &v79 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v26);
+  v87 = &v79 - v27;
+  v106 = swift_getAssociatedTypeWitness();
+  v86 = *(v106 - 8);
+  MEMORY[0x1EEE9AC00](v106);
+  v85 = &v79 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v29);
+  v84 = &v79 - v30;
+  v31 = swift_getAssociatedTypeWitness();
+  v83 = *(v31 - 8);
+  MEMORY[0x1EEE9AC00](v31);
+  v82 = &v79 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v34.n128_f64[0] = MEMORY[0x1EEE9AC00](v33);
+  v81 = &v79 - v35;
+  if (a1)
+  {
+    v36 = a1;
+  }
+
+  else
+  {
+    v36 = sub_1ADE51288(MEMORY[0x1E69E7CC0]);
+  }
+
+  v138[0] = v36;
+  (*(*(a2 - 8) + 16))(a4, v5, a2, v34);
+  v116 = a4;
+  v114 = v5;
+  v37 = *(v9 + 144);
+
+  v37(v137, a2, v9);
+  v125 = v137[1];
+  v126 = v137[2];
+  v130 = v137[4];
+  v122 = v137[7];
+  v124 = v137[8];
+  v132 = v137[10];
+  v133 = v137[5];
+  v127 = v137[13];
+  v117 = v9;
+  v134 = v137[16];
+  v135 = v137[14];
+  v131 = v137[19];
+  v113 = v137[20];
+  v128 = v137[11];
+  v119 = v137[17];
+  v123 = v137[22];
+  v38 = v137[23];
+  v80 = v31;
+  sub_1AE23DB8C();
+  v136[0] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v136[1] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v136[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v136[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v136[4] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v136[5] = swift_getTupleTypeMetadata2();
+  v115 = a2;
+  sub_1AE23DB8C();
+  v136[6] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v136[7] = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v96 = *(TupleTypeMetadata - 8);
+  v39 = *(v96 + 16);
+  v121 = v96 + 16;
+  v118 = v39;
+  v39(v136, v137, TupleTypeMetadata);
+
+  v120 = v38;
+
+  v118(v136, v137, TupleTypeMetadata);
+
+  v40 = v82;
+  swift_getAtKeyPath();
+
+  v41 = v80;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  (*(*(AssociatedConformanceWitness + 16) + 24))(v138, v41);
+  (*(v83 + 8))(v40, v41);
+  swift_setAtWritableKeyPath();
+
+  v43 = TupleTypeMetadata;
+  v44 = v118;
+  v118(v136, v137, TupleTypeMetadata);
+
+  v44(v136, v137, v43);
+
+  v45 = v85;
+  swift_getAtKeyPath();
+
+  v46 = v106;
+  v47 = swift_getAssociatedConformanceWitness();
+  (*(*(v47 + 16) + 24))(v138, v46);
+  (*(v86 + 8))(v45, v46);
+  swift_setAtWritableKeyPath();
+
+  v48 = v118;
+  v118(v136, v137, TupleTypeMetadata);
+
+  v48(v136, v137, TupleTypeMetadata);
+
+  v49 = v88;
+  swift_getAtKeyPath();
+
+  v50 = v107;
+  v51 = swift_getAssociatedConformanceWitness();
+  (*(*(v51 + 16) + 24))(v138, v50);
+  (*(v89 + 8))(v49, v50);
+  swift_setAtWritableKeyPath();
+
+  v52 = TupleTypeMetadata;
+  v53 = v118;
+  v118(v136, v137, TupleTypeMetadata);
+
+  v53(v136, v137, v52);
+
+  v54 = v91;
+  swift_getAtKeyPath();
+
+  v55 = v108;
+  v56 = swift_getAssociatedConformanceWitness();
+  (*(*(v56 + 16) + 24))(v138, v55);
+  (*(v92 + 8))(v54, v55);
+  swift_setAtWritableKeyPath();
+
+  v53(v136, v137, TupleTypeMetadata);
+
+  v118(v136, v137, TupleTypeMetadata);
+
+  v57 = v94;
+  swift_getAtKeyPath();
+
+  v58 = v109;
+  v59 = swift_getAssociatedConformanceWitness();
+  (*(*(v59 + 16) + 24))(v138, v58);
+  (*(v95 + 8))(v57, v58);
+  swift_setAtWritableKeyPath();
+
+  v60 = TupleTypeMetadata;
+  v61 = v118;
+  v118(v136, v137, TupleTypeMetadata);
+
+  v61(v136, v137, v60);
+
+  v62 = v98;
+  swift_getAtKeyPath();
+
+  v63 = v111;
+  v64 = swift_getAssociatedConformanceWitness();
+  (*(*(v64 + 16) + 24))(v138, v63);
+  (*(v99 + 8))(v62, v63);
+  swift_setAtWritableKeyPath();
+
+  v65 = TupleTypeMetadata;
+  v118(v136, v137, TupleTypeMetadata);
+
+  v118(v136, v137, v65);
+
+  v66 = v101;
+  swift_getAtKeyPath();
+
+  v67 = v112;
+  v68 = swift_getAssociatedConformanceWitness();
+  (*(*(v68 + 16) + 24))(v138, v67);
+  (*(v102 + 8))(v66, v67);
+  swift_setAtWritableKeyPath();
+
+  v69 = v118;
+  v118(v136, v137, v65);
+
+  v69(v136, v137, TupleTypeMetadata);
+
+  v70 = v104;
+  swift_getAtKeyPath();
+
+  v71 = v117;
+  v72 = v115;
+  v73 = AssociatedTypeWitness;
+  v74 = swift_getAssociatedConformanceWitness();
+  (*(*(v74 + 16) + 24))(v138, v73);
+  (*(v105 + 8))(v70, v73);
+  swift_setAtWritableKeyPath();
+
+  v75 = *(v71 + 8);
+  v76 = (*(v75 + 24))(v72, v75);
+  v77 = sub_1AE156B60(v76, v138);
+
+  (*(v75 + 32))(v77, v72, v75);
+  return (*(v96 + 8))(v137, TupleTypeMetadata);
+}
+
+uint64_t static CRStruct_8.fieldKeys.getter(uint64_t a1, uint64_t a2)
+{
+  (*(*(a2 + 8) + 144))(v24);
+  v3 = v24[0];
+  v4 = v24[3];
+  v21 = v24[1];
+  v5 = v24[6];
+  v22 = v24[4];
+  v19 = v24[10];
+  v20 = v24[7];
+  v7 = v24[9];
+  v8 = v24[12];
+  v16 = v24[16];
+  v9 = v24[15];
+  v10 = v24[18];
+  v13 = v24[19];
+  v11 = v24[21];
+  v15 = v24[13];
+  v18 = v24[22];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5BA1F8, &qword_1AE242320);
+  v12 = swift_allocObject();
+  *(v12 + 16) = xmmword_1AE2427B0;
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v23[0] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v23[1] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v23[2] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v23[3] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v23[4] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v23[5] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v23[6] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v23[7] = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v6 = *(TupleTypeMetadata - 8);
+  v17 = *(v6 + 16);
+  v17(v23, v24, TupleTypeMetadata);
+
+  *(v12 + 32) = v3;
+  *(v12 + 40) = v21;
+  v17(v23, v24, TupleTypeMetadata);
+
+  *(v12 + 48) = v4;
+  *(v12 + 56) = v22;
+  v17(v23, v24, TupleTypeMetadata);
+
+  *(v12 + 64) = v5;
+  *(v12 + 72) = v20;
+  v17(v23, v24, TupleTypeMetadata);
+
+  *(v12 + 80) = v7;
+  *(v12 + 88) = v19;
+  v17(v23, v24, TupleTypeMetadata);
+
+  *(v12 + 96) = v8;
+  *(v12 + 104) = v15;
+  v17(v23, v24, TupleTypeMetadata);
+
+  *(v12 + 112) = v9;
+  *(v12 + 120) = v16;
+  v17(v23, v24, TupleTypeMetadata);
+
+  *(v12 + 128) = v10;
+  *(v12 + 136) = v13;
+  v17(v23, v24, TupleTypeMetadata);
+
+  *(v12 + 144) = v11;
+  *(v12 + 152) = v18;
+  (*(v6 + 8))(v24, TupleTypeMetadata);
+  return v12;
+}
+
+uint64_t CRStruct_8.merge(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _BYTE *a4@<X8>)
+{
+  v109 = a1;
+  v99 = a4;
+  v5 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v98 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v97 = &v79 - v6;
+  v105 = swift_getAssociatedTypeWitness();
+  v96 = *(v105 - 8);
+  MEMORY[0x1EEE9AC00](v105);
+  v95 = &v79 - v7;
+  v103 = swift_getAssociatedTypeWitness();
+  v93 = *(v103 - 8);
+  MEMORY[0x1EEE9AC00](v103);
+  v92 = &v79 - v8;
+  v101 = swift_getAssociatedTypeWitness();
+  v91 = *(v101 - 8);
+  MEMORY[0x1EEE9AC00](v101);
+  v90 = &v79 - v9;
+  v102 = swift_getAssociatedTypeWitness();
+  v89 = *(v102 - 8);
+  MEMORY[0x1EEE9AC00](v102);
+  v88 = &v79 - v10;
+  v100 = swift_getAssociatedTypeWitness();
+  v87 = *(v100 - 8);
+  MEMORY[0x1EEE9AC00](v100);
+  v86 = &v79 - v11;
+  v12 = swift_getAssociatedTypeWitness();
+  v85 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v84 = &v79 - v13;
+  v14 = swift_getAssociatedTypeWitness();
+  v82 = *(v14 - 8);
+  v15 = MEMORY[0x1EEE9AC00](v14);
+  v81 = &v79 - v16;
+  v17 = *(v5 + 144);
+  v108 = v5;
+  v17((v129 + 6), a2, v5, v15);
+  v120 = *(&v129[1] + 6);
+  v114 = *(&v129[2] + 6);
+  v115 = *(&v129[11] + 6);
+  v123 = *(&v129[8] + 6);
+  v124 = *(&v129[4] + 6);
+  v117 = *(&v129[7] + 6);
+  v118 = *(&v129[5] + 6);
+  v116 = *(&v129[10] + 6);
+  v126 = *(&v129[19] + 6);
+  v127 = *(&v129[13] + 6);
+  v121 = *(&v129[16] + 6);
+  v122 = *(&v129[14] + 6);
+  v113 = *(&v129[17] + 6);
+  v111 = *(&v129[20] + 6);
+  v18 = *(&v129[22] + 6);
+  v19 = *(&v129[23] + 6);
+  if (qword_1ED9670C0 != -1)
+  {
+    swift_once();
+  }
+
+  *(v129 + 3) = word_1ED96F220;
+  BYTE5(v129[0]) = byte_1ED96F222;
+  sub_1AE23DB8C();
+  v128[0] = swift_getTupleTypeMetadata2();
+  v83 = v12;
+  sub_1AE23DB8C();
+  v128[1] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v128[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v128[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v128[4] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v128[5] = swift_getTupleTypeMetadata2();
+  v107 = a2;
+  sub_1AE23DB8C();
+  v128[6] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v128[7] = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v94 = *(TupleTypeMetadata - 8);
+  v21 = v94 + 16;
+  v22 = *(v94 + 16);
+  v80 = v14;
+  v23 = TupleTypeMetadata;
+  v125 = TupleTypeMetadata;
+  v22(v128, v129 + 6);
+  v119 = v21;
+
+  v110 = v19;
+
+  v106 = v18;
+
+  (v22)(v128, v129 + 6, v23);
+  v112 = v22;
+
+  v24 = v81;
+  swift_getAtKeyPath();
+
+  v25 = swift_modifyAtWritableKeyPath();
+  v26 = v80;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  (*(*(AssociatedConformanceWitness + 8) + 8))(v129, v24, v26);
+  (*(v82 + 8))(v24, v26);
+  v25(v128, 0);
+
+  LOWORD(v128[0]) = v129[0];
+  BYTE2(v128[0]) = BYTE2(v129[0]);
+  v28 = v128;
+  MergeResult.merge(_:)(v28);
+  (v22)(v128, v129 + 6, v125);
+
+  v112(v128, v129 + 6, v125);
+
+  v29 = v84;
+  swift_getAtKeyPath();
+
+  v30 = swift_modifyAtWritableKeyPath();
+  v31 = v83;
+  v32 = swift_getAssociatedConformanceWitness();
+  (*(*(v32 + 8) + 8))(v129, v29, v31);
+  (*(v85 + 8))(v29, v31);
+  v30(v128, 0);
+
+  LOWORD(v128[0]) = v129[0];
+  BYTE2(v128[0]) = BYTE2(v129[0]);
+  v33 = v128;
+  MergeResult.merge(_:)(v33);
+  v34 = v112;
+  v112(v128, v129 + 6, v125);
+
+  v34(v128, v129 + 6, v125);
+
+  v35 = v86;
+  swift_getAtKeyPath();
+
+  v36 = swift_modifyAtWritableKeyPath();
+  v37 = v100;
+  v38 = swift_getAssociatedConformanceWitness();
+  (*(*(v38 + 8) + 8))(v129, v35, v37);
+  (*(v87 + 8))(v35, v37);
+  v36(v128, 0);
+
+  LOWORD(v128[0]) = v129[0];
+  BYTE2(v128[0]) = BYTE2(v129[0]);
+  v39 = v128;
+  MergeResult.merge(_:)(v39);
+  v40 = v125;
+  v112(v128, v129 + 6, v125);
+
+  v112(v128, v129 + 6, v40);
+
+  v41 = v88;
+  swift_getAtKeyPath();
+
+  v42 = swift_modifyAtWritableKeyPath();
+  v43 = v102;
+  v44 = swift_getAssociatedConformanceWitness();
+  (*(*(v44 + 8) + 8))(v129, v41, v43);
+  (*(v89 + 8))(v41, v43);
+  v42(v128, 0);
+
+  LOWORD(v128[0]) = v129[0];
+  BYTE2(v128[0]) = BYTE2(v129[0]);
+  v45 = v128;
+  MergeResult.merge(_:)(v45);
+  v112(v128, v129 + 6, v125);
+
+  v112(v128, v129 + 6, v125);
+
+  v46 = v90;
+  swift_getAtKeyPath();
+
+  v47 = swift_modifyAtWritableKeyPath();
+  v48 = v101;
+  v49 = swift_getAssociatedConformanceWitness();
+  (*(*(v49 + 8) + 8))(v129, v46, v48);
+  (*(v91 + 8))(v46, v48);
+  v47(v128, 0);
+
+  LOWORD(v128[0]) = v129[0];
+  BYTE2(v128[0]) = BYTE2(v129[0]);
+  v50 = v128;
+  MergeResult.merge(_:)(v50);
+  v51 = v112;
+  v112(v128, v129 + 6, v125);
+
+  v51(v128, v129 + 6, v125);
+
+  v52 = v92;
+  swift_getAtKeyPath();
+
+  v53 = swift_modifyAtWritableKeyPath();
+  v54 = v103;
+  v55 = swift_getAssociatedConformanceWitness();
+  (*(*(v55 + 8) + 8))(v129, v52, v54);
+  (*(v93 + 8))(v52, v54);
+  v53(v128, 0);
+
+  LOWORD(v128[0]) = v129[0];
+  BYTE2(v128[0]) = BYTE2(v129[0]);
+  v56 = v128;
+  MergeResult.merge(_:)(v56);
+  v57 = v125;
+  v51(v128, v129 + 6, v125);
+
+  v51(v128, v129 + 6, v57);
+
+  v58 = v95;
+  swift_getAtKeyPath();
+
+  v59 = swift_modifyAtWritableKeyPath();
+  v60 = v105;
+  v61 = swift_getAssociatedConformanceWitness();
+  (*(*(v61 + 8) + 8))(v129, v58, v60);
+  (*(v96 + 8))(v58, v60);
+  v59(v128, 0);
+
+  LOWORD(v128[0]) = v129[0];
+  BYTE2(v128[0]) = BYTE2(v129[0]);
+  v62 = v128;
+  MergeResult.merge(_:)(v62);
+  v63 = v125;
+  v112(v128, v129 + 6, v125);
+
+  v112(v128, v129 + 6, v63);
+
+  v64 = v97;
+  swift_getAtKeyPath();
+
+  v65 = swift_modifyAtWritableKeyPath();
+  v66 = v108;
+  v67 = v107;
+  v68 = AssociatedTypeWitness;
+  v69 = swift_getAssociatedConformanceWitness();
+  (*(*(v69 + 8) + 8))(v129, v64, v68);
+  (*(v98 + 8))(v64, v68);
+  v65(v128, 0);
+
+  LOWORD(v128[0]) = v129[0];
+  BYTE2(v128[0]) = BYTE2(v129[0]);
+  v70 = v128;
+  MergeResult.merge(_:)(v70);
+  v71 = *(v66 + 8);
+  v72 = (*(v71 + 24))(v67, v71);
+  v73 = (*(v71 + 40))(v128, v67, v71);
+  sub_1AE21F75C(v72, v129);
+
+  v73(v128, 0);
+  LOWORD(v128[0]) = v129[0];
+  BYTE2(v128[0]) = BYTE2(v129[0]);
+  v74 = v128;
+  MergeResult.merge(_:)(v74);
+  (*(v71 + 64))(v67, v71);
+  result = (*(v94 + 8))(v129 + 6, v125);
+  v76 = BYTE4(v129[0]);
+  v77 = BYTE5(v129[0]);
+  v78 = v99;
+  *v99 = BYTE3(v129[0]);
+  v78[1] = v76;
+  v78[2] = v77;
+  return result;
+}
+
+uint64_t CRStruct_8.newRefs(from:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v133 = a1;
+  v4 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v118 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v117 = &v98 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v116 = &v98 - v7;
+  v128 = swift_getAssociatedTypeWitness();
+  v115 = *(v128 - 8);
+  MEMORY[0x1EEE9AC00](v128);
+  v114 = &v98 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v130 = &v98 - v10;
+  v127 = swift_getAssociatedTypeWitness();
+  v112 = *(v127 - 8);
+  MEMORY[0x1EEE9AC00](v127);
+  v111 = &v98 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12);
+  v126 = &v98 - v13;
+  v124 = swift_getAssociatedTypeWitness();
+  v110 = *(v124 - 8);
+  MEMORY[0x1EEE9AC00](v124);
+  v109 = &v98 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15);
+  v125 = &v98 - v16;
+  v122 = swift_getAssociatedTypeWitness();
+  v108 = *(v122 - 8);
+  MEMORY[0x1EEE9AC00](v122);
+  v107 = &v98 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v18);
+  v123 = &v98 - v19;
+  v104 = swift_getAssociatedTypeWitness();
+  v106 = *(v104 - 8);
+  MEMORY[0x1EEE9AC00](v104);
+  v105 = &v98 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v21);
+  v121 = &v98 - v22;
+  v101 = swift_getAssociatedTypeWitness();
+  v103 = *(v101 - 8);
+  MEMORY[0x1EEE9AC00](v101);
+  v102 = &v98 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v24);
+  v120 = &v98 - v25;
+  v98 = swift_getAssociatedTypeWitness();
+  v100 = *(v98 - 8);
+  MEMORY[0x1EEE9AC00](v98);
+  v99 = &v98 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v28 = MEMORY[0x1EEE9AC00](v27);
+  v119 = &v98 - v29;
+  v131 = v4;
+  (*(v4 + 144))(v155, a2, v4, v28);
+  v152 = v155[1];
+  v143 = v155[2];
+  v145 = v155[5];
+  v134 = v155[10];
+  v135 = v155[11];
+  v146 = v155[13];
+  v147 = v155[4];
+  v137 = v155[14];
+  v148 = v155[16];
+  v149 = v155[7];
+  v140 = v155[17];
+  v141 = v155[8];
+  v138 = v155[19];
+  v139 = v155[22];
+  v150 = v155[20];
+  v144 = v155[23];
+  v154 = MEMORY[0x1E69E7CD0];
+  sub_1AE23DB8C();
+  v153[0] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v153[1] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v153[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v153[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v153[4] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v153[5] = swift_getTupleTypeMetadata2();
+  v132 = a2;
+  sub_1AE23DB8C();
+  v153[6] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v153[7] = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v113 = *(TupleTypeMetadata - 8);
+  v142 = *(v113 + 16);
+  v136 = v113 + 16;
+  v142(v153, v155, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v142(v153, v155, TupleTypeMetadata);
+
+  v30 = v99;
+  swift_getAtKeyPath();
+
+  v31 = v98;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v33 = v119;
+  v34 = (*(AssociatedConformanceWitness + 64))(v30, v31, AssociatedConformanceWitness);
+  v35 = *(v100 + 8);
+  v35(v30, v31);
+  v35(v33, v31);
+  sub_1AE00F014(v34);
+  v36 = TupleTypeMetadata;
+  v37 = v142;
+  v142(v153, v155, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v37(v153, v155, v36);
+
+  v38 = v102;
+  swift_getAtKeyPath();
+
+  v39 = v101;
+  v40 = swift_getAssociatedConformanceWitness();
+  v41 = v120;
+  v42 = (*(v40 + 64))(v38, v39, v40);
+  v43 = *(v103 + 8);
+  v43(v38, v39);
+  v43(v41, v39);
+  sub_1AE00F014(v42);
+  v142(v153, v155, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v142(v153, v155, TupleTypeMetadata);
+
+  v44 = v105;
+  swift_getAtKeyPath();
+
+  v45 = v104;
+  v46 = swift_getAssociatedConformanceWitness();
+  v47 = v121;
+  v48 = (*(v46 + 64))(v44, v45, v46);
+  v49 = *(v106 + 8);
+  v49(v44, v45);
+  v49(v47, v45);
+  sub_1AE00F014(v48);
+  v142(v153, v155, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v142(v153, v155, TupleTypeMetadata);
+
+  v50 = v107;
+  swift_getAtKeyPath();
+
+  v51 = v122;
+  v52 = swift_getAssociatedConformanceWitness();
+  v53 = v50;
+  v54 = v123;
+  v55 = (*(v52 + 64))(v50, v51, v52);
+  v56 = *(v108 + 8);
+  v56(v53, v51);
+  v56(v54, v51);
+  sub_1AE00F014(v55);
+  v57 = TupleTypeMetadata;
+  v58 = v142;
+  v142(v153, v155, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v58(v153, v155, v57);
+
+  v59 = v109;
+  swift_getAtKeyPath();
+
+  v60 = v124;
+  v61 = swift_getAssociatedConformanceWitness();
+  v62 = v125;
+  v63 = (*(v61 + 64))(v59, v60, v61);
+  v64 = *(v110 + 8);
+  v64(v59, v60);
+  v64(v62, v60);
+  sub_1AE00F014(v63);
+  v65 = v142;
+  v142(v153, v155, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v65(v153, v155, TupleTypeMetadata);
+
+  v66 = v111;
+  swift_getAtKeyPath();
+
+  v67 = v127;
+  v68 = swift_getAssociatedConformanceWitness();
+  v69 = v126;
+  v70 = (*(v68 + 64))(v66, v67, v68);
+  v71 = *(v112 + 8);
+  v71(v66, v67);
+  v71(v69, v67);
+  sub_1AE00F014(v70);
+  v72 = TupleTypeMetadata;
+  v73 = v142;
+  v142(v153, v155, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v73(v153, v155, v72);
+
+  v74 = v114;
+  swift_getAtKeyPath();
+
+  v75 = v128;
+  v76 = swift_getAssociatedConformanceWitness();
+  v77 = v130;
+  v78 = (*(v76 + 64))(v74, v75, v76);
+  v79 = *(v115 + 8);
+  v79(v74, v75);
+  v79(v77, v75);
+  sub_1AE00F014(v78);
+  v80 = TupleTypeMetadata;
+  v142(v153, v155, TupleTypeMetadata);
+
+  v81 = v116;
+  swift_getAtKeyPath();
+
+  v142(v153, v155, v80);
+
+  v82 = v117;
+  swift_getAtKeyPath();
+
+  v84 = v131;
+  v83 = v132;
+  v85 = AssociatedTypeWitness;
+  v86 = swift_getAssociatedConformanceWitness();
+  v87 = v82;
+  v88 = v81;
+  v89 = (*(v86 + 64))(v82, v85, v86);
+  v90 = *(v118 + 8);
+  v90(v87, v85);
+  v90(v88, v85);
+  sub_1AE00F014(v89);
+  v91 = *(v84 + 8);
+  v92 = *(v91 + 24);
+  v93 = v92(v83, v91);
+  v94 = v92(v83, v91);
+  sub_1AE2200E4(v94, v93);
+  v96 = v95;
+
+  sub_1AE00F014(v96);
+  (*(v113 + 8))(v155, TupleTypeMetadata);
+  return v154;
+}
+
+uint64_t CRStruct_8.observableDifference(from:with:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+{
+  v199 = a2;
+  v198 = a1;
+  v166 = a5;
+  v6 = *(a4 + 8);
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v219 = sub_1AE23D7CC();
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v220 = sub_1AE23D7CC();
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v221 = sub_1AE23D7CC();
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v222 = sub_1AE23D7CC();
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v223 = sub_1AE23D7CC();
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v224 = sub_1AE23D7CC();
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v225 = sub_1AE23D7CC();
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v226 = sub_1AE23D7CC();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  MEMORY[0x1EEE9AC00](TupleTypeMetadata);
+  v126 = &v118 - v7;
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v158 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v157 = &v118 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v155 = &v118 - v10;
+  v156 = *(swift_getAssociatedConformanceWitness() + 16);
+  v119 = swift_getAssociatedTypeWitness();
+  v11 = sub_1AE23D7CC();
+  v162 = *(v11 - 8);
+  v163 = v11;
+  MEMORY[0x1EEE9AC00](v11);
+  v192 = &v118 - v12;
+  v186 = swift_getAssociatedTypeWitness();
+  v154 = *(v186 - 8);
+  MEMORY[0x1EEE9AC00](v186);
+  v153 = &v118 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v189 = &v118 - v15;
+  v152 = *(swift_getAssociatedConformanceWitness() + 16);
+  v120 = swift_getAssociatedTypeWitness();
+  v175 = sub_1AE23D7CC();
+  v161 = *(v175 - 8);
+  MEMORY[0x1EEE9AC00](v175);
+  v193 = &v118 - v16;
+  v185 = swift_getAssociatedTypeWitness();
+  v149 = *(v185 - 8);
+  MEMORY[0x1EEE9AC00](v185);
+  v148 = &v118 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v18);
+  v188 = &v118 - v19;
+  v147 = *(swift_getAssociatedConformanceWitness() + 16);
+  v121 = swift_getAssociatedTypeWitness();
+  v174 = sub_1AE23D7CC();
+  v160 = *(v174 - 8);
+  MEMORY[0x1EEE9AC00](v174);
+  v194 = &v118 - v20;
+  v181 = swift_getAssociatedTypeWitness();
+  v145 = *(v181 - 8);
+  MEMORY[0x1EEE9AC00](v181);
+  v144 = &v118 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v22);
+  v184 = &v118 - v23;
+  v143 = *(swift_getAssociatedConformanceWitness() + 16);
+  v122 = swift_getAssociatedTypeWitness();
+  v173 = sub_1AE23D7CC();
+  v159 = *(v173 - 8);
+  MEMORY[0x1EEE9AC00](v173);
+  v195 = &v118 - v24;
+  v179 = swift_getAssociatedTypeWitness();
+  v141 = *(v179 - 8);
+  MEMORY[0x1EEE9AC00](v179);
+  v140 = &v118 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v26);
+  v182 = &v118 - v27;
+  v139 = *(swift_getAssociatedConformanceWitness() + 16);
+  v123 = swift_getAssociatedTypeWitness();
+  v28 = sub_1AE23D7CC();
+  v171 = *(v28 - 8);
+  v172 = v28;
+  MEMORY[0x1EEE9AC00](v28);
+  v190 = &v118 - v29;
+  v178 = swift_getAssociatedTypeWitness();
+  v138 = *(v178 - 8);
+  MEMORY[0x1EEE9AC00](v178);
+  v137 = &v118 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v31);
+  v180 = &v118 - v32;
+  v136 = *(swift_getAssociatedConformanceWitness() + 16);
+  v124 = swift_getAssociatedTypeWitness();
+  v33 = sub_1AE23D7CC();
+  v169 = *(v33 - 8);
+  v170 = v33;
+  MEMORY[0x1EEE9AC00](v33);
+  v191 = &v118 - v34;
+  v35 = swift_getAssociatedTypeWitness();
+  v135 = *(v35 - 8);
+  MEMORY[0x1EEE9AC00](v35);
+  v134 = &v118 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v37);
+  v177 = &v118 - v38;
+  v39 = *(swift_getAssociatedConformanceWitness() + 16);
+  v132 = v35;
+  v133 = v39;
+  v125 = swift_getAssociatedTypeWitness();
+  v40 = sub_1AE23D7CC();
+  v167 = *(v40 - 8);
+  v168 = v40;
+  MEMORY[0x1EEE9AC00](v40);
+  v196 = &v118 - v41;
+  v42 = swift_getAssociatedTypeWitness();
+  v131 = *(v42 - 8);
+  MEMORY[0x1EEE9AC00](v42);
+  v130 = &v118 - ((v43 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v44);
+  v176 = &v118 - v45;
+  v46 = *(swift_getAssociatedConformanceWitness() + 16);
+  v128 = v42;
+  v129 = v46;
+  v146 = swift_getAssociatedTypeWitness();
+  v47 = sub_1AE23D7CC();
+  v150 = *(v47 - 8);
+  v151 = v47;
+  v48 = MEMORY[0x1EEE9AC00](v47);
+  v183 = &v118 - v49;
+  v50 = *(v6 + 144);
+  v165 = v6;
+  v50(&v219, a3, v6, v48);
+  v202 = v220;
+  v208 = v221;
+  v210 = v223;
+  v211 = v224;
+  v217 = v226;
+  v205 = v227;
+  v216 = v228;
+  v209 = v229;
+  v206 = v230;
+  v214 = v231;
+  v212 = v232;
+  v200 = v233;
+  v204 = v234;
+  v207 = v235;
+  v51 = v236;
+  v203 = v237;
+  sub_1AE23DB8C();
+  v218[0] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v218[1] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v218[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v218[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v218[4] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v218[5] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v218[6] = swift_getTupleTypeMetadata2();
+  v164 = a3;
+  sub_1AE23DB8C();
+  v218[7] = swift_getTupleTypeMetadata2();
+  v201 = swift_getTupleTypeMetadata();
+  v142 = *(v201 - 8);
+  v52 = *(v142 + 16);
+  v215 = v142 + 16;
+  v213 = v52;
+  v52(v218, &v219, v201);
+
+  v197 = v51;
+
+  swift_getAtKeyPath();
+
+  v213(v218, &v219, v201);
+
+  v53 = v130;
+  swift_getAtKeyPath();
+
+  v54 = v128;
+  v55 = v176;
+  (*(v129 + 40))(v53, v199, v128);
+  v56 = *(v131 + 8);
+  v56(v53, v54);
+  v56(v55, v54);
+  v57 = v201;
+  v213(v218, &v219, v201);
+
+  swift_getAtKeyPath();
+
+  v213(v218, &v219, v57);
+
+  v58 = v134;
+  swift_getAtKeyPath();
+
+  v59 = v132;
+  v60 = v177;
+  (*(v133 + 40))(v58, v199, v132);
+  v61 = *(v135 + 8);
+  v61(v58, v59);
+  v61(v60, v59);
+  v62 = v213;
+  v213(v218, &v219, v201);
+
+  swift_getAtKeyPath();
+
+  v62(v218, &v219, v201);
+
+  v63 = v137;
+  swift_getAtKeyPath();
+
+  v64 = v180;
+  v65 = v178;
+  (*(v136 + 40))(v63, v199, v178);
+  v66 = *(v138 + 8);
+  v66(v63, v65);
+  v66(v64, v65);
+  v67 = v201;
+  v213(v218, &v219, v201);
+
+  swift_getAtKeyPath();
+
+  v213(v218, &v219, v67);
+
+  v68 = v140;
+  swift_getAtKeyPath();
+
+  v69 = v182;
+  v70 = v179;
+  (*(v139 + 40))(v68, v199, v179);
+  v71 = *(v141 + 8);
+  v71(v68, v70);
+  v71(v69, v70);
+  v72 = v201;
+  v73 = v213;
+  v213(v218, &v219, v201);
+
+  swift_getAtKeyPath();
+
+  v73(v218, &v219, v72);
+
+  v74 = v144;
+  swift_getAtKeyPath();
+
+  v75 = v184;
+  v76 = v181;
+  (*(v143 + 40))(v74, v199, v181);
+  v77 = *(v145 + 8);
+  v77(v74, v76);
+  v77(v75, v76);
+  v213(v218, &v219, v201);
+
+  swift_getAtKeyPath();
+
+  v213(v218, &v219, v201);
+
+  v78 = v148;
+  swift_getAtKeyPath();
+
+  v79 = v188;
+  v80 = v185;
+  (*(v147 + 40))(v78, v199, v185);
+  v81 = *(v149 + 8);
+  v81(v78, v80);
+  v81(v79, v80);
+  v82 = v201;
+  v83 = v213;
+  v213(v218, &v219, v201);
+
+  swift_getAtKeyPath();
+
+  v83(v218, &v219, v82);
+
+  v84 = v153;
+  swift_getAtKeyPath();
+
+  v85 = v189;
+  v86 = v186;
+  (*(v152 + 40))(v84, v199, v186);
+  v87 = *(v154 + 8);
+  v87(v84, v86);
+  v87(v85, v86);
+  v88 = v201;
+  v213(v218, &v219, v201);
+
+  v89 = v155;
+  swift_getAtKeyPath();
+
+  v213(v218, &v219, v88);
+
+  v90 = v191;
+
+  v91 = v157;
+  swift_getAtKeyPath();
+
+  v92 = AssociatedTypeWitness;
+  (*(v156 + 40))(v91, v199, AssociatedTypeWitness);
+  (*(v142 + 8))(&v219, v88);
+  v93 = *(v158 + 8);
+  v93(v91, v92);
+  v93(v89, v92);
+  v94 = v190;
+  v95 = v183;
+  if ((*(*(v146 - 8) + 48))() == 1 && (*(*(v125 - 8) + 48))(v196, 1) == 1 && (*(*(v124 - 8) + 48))(v90, 1) == 1 && (*(*(v123 - 8) + 48))(v94, 1) == 1 && (*(*(v122 - 8) + 48))(v195, 1) == 1 && (*(*(v121 - 8) + 48))(v194, 1) == 1 && (*(*(v120 - 8) + 48))(v193, 1) == 1 && (*(*(v119 - 8) + 48))(v192, 1) == 1)
+  {
+    (*(v150 + 8))(v95, v151);
+    v96 = swift_getAssociatedTypeWitness();
+    (*(*(v96 - 8) + 56))(v166, 1, 1, v96);
+    v98 = v162;
+    v97 = v163;
+    v100 = v160;
+    v99 = v161;
+    v101 = v159;
+    v102 = v168;
+    v103 = v169;
+    v104 = v167;
+  }
+
+  else
+  {
+    v105 = v126;
+    v106 = TupleTypeMetadata[12];
+    v107 = TupleTypeMetadata[16];
+    v108 = v90;
+    v109 = TupleTypeMetadata[20];
+    v110 = TupleTypeMetadata[24];
+    v215 = TupleTypeMetadata[28];
+    v216 = TupleTypeMetadata[32];
+    v217 = TupleTypeMetadata[36];
+    (*(v150 + 32))(v126, v95, v151);
+    (*(v167 + 16))(&v105[v106], v196, v168);
+    (*(v169 + 16))(&v105[v107], v108, v170);
+    (*(v171 + 16))(&v105[v109], v94, v172);
+    v101 = v159;
+    v111 = v192;
+    (*(v159 + 16))(&v105[v110], v195, v173);
+    v100 = v160;
+    (*(v160 + 16))(&v105[v215], v194, v174);
+    v99 = v161;
+    (*(v161 + 16))(&v105[v216], v193, v175);
+    v98 = v162;
+    v97 = v163;
+    (*(v162 + 16))(&v105[v217], v111, v163);
+    v112 = swift_getAssociatedTypeWitness();
+    v113 = v166;
+    v102 = v168;
+    v103 = v169;
+    swift_dynamicCast();
+    v114 = *(*(v112 - 8) + 56);
+    v115 = v113;
+    v104 = v167;
+    v116 = v112;
+    v94 = v190;
+    v114(v115, 0, 1, v116);
+  }
+
+  (*(v98 + 8))(v192, v97);
+  (*(v99 + 8))(v193, v175);
+  (*(v100 + 8))(v194, v174);
+  (*(v101 + 8))(v195, v173);
+  (*(v171 + 8))(v94, v172);
+  (*(v103 + 8))(v191, v170);
+  return (*(v104 + 8))(v196, v102);
+}
+
+uint64_t CRStruct_8.hasDelta(from:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v129 = a1;
+  v4 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v96 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v95 = &v94 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v99 = &v94 - v7;
+  v124 = swift_getAssociatedTypeWitness();
+  v98 = *(v124 - 8);
+  MEMORY[0x1EEE9AC00](v124);
+  v97 = &v94 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v102 = &v94 - v10;
+  v125 = swift_getAssociatedTypeWitness();
+  v101 = *(v125 - 8);
+  MEMORY[0x1EEE9AC00](v125);
+  v100 = &v94 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12);
+  v105 = &v94 - v13;
+  v126 = swift_getAssociatedTypeWitness();
+  v104 = *(v126 - 8);
+  MEMORY[0x1EEE9AC00](v126);
+  v103 = &v94 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15);
+  v108 = &v94 - v16;
+  v127 = swift_getAssociatedTypeWitness();
+  v107 = *(v127 - 8);
+  MEMORY[0x1EEE9AC00](v127);
+  v106 = &v94 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v18);
+  v112 = &v94 - v19;
+  v20 = swift_getAssociatedTypeWitness();
+  v110 = *(v20 - 8);
+  MEMORY[0x1EEE9AC00](v20);
+  v109 = &v94 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v22);
+  v116 = &v94 - v23;
+  v24 = swift_getAssociatedTypeWitness();
+  v114 = *(v24 - 8);
+  MEMORY[0x1EEE9AC00](v24);
+  v113 = &v94 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v26);
+  v121 = &v94 - v27;
+  v118 = swift_getAssociatedTypeWitness();
+  v120 = *(v118 - 8);
+  MEMORY[0x1EEE9AC00](v118);
+  v119 = &v94 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v30 = MEMORY[0x1EEE9AC00](v29);
+  v134 = &v94 - v31;
+  v133 = v4;
+  (*(v4 + 144))(v151, a2, v4, v30);
+  v141 = v151[4];
+  v131 = v151[8];
+  v132 = v151[5];
+  v146 = v151[10];
+  v147 = v151[1];
+  v144 = v151[11];
+  v145 = v151[7];
+  v138 = v151[13];
+  v135 = v151[14];
+  v136 = v151[2];
+  v148 = v151[17];
+  v149 = v151[16];
+  v142 = v151[22];
+  v143 = v151[19];
+  v140 = v151[20];
+  v137 = v151[23];
+  sub_1AE23DB8C();
+  v150[0] = swift_getTupleTypeMetadata2();
+  v115 = v24;
+  sub_1AE23DB8C();
+  v150[1] = swift_getTupleTypeMetadata2();
+  v111 = v20;
+  sub_1AE23DB8C();
+  v150[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v150[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v150[4] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v150[5] = swift_getTupleTypeMetadata2();
+  v130 = a2;
+  sub_1AE23DB8C();
+  v150[6] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v150[7] = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v122 = *(TupleTypeMetadata - 8);
+  v34 = v122 + 16;
+  v33 = *(v122 + 16);
+  v33(v150, v151, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v139 = TupleTypeMetadata;
+  v128 = v34;
+  v117 = v33;
+  v33(v150, v151, TupleTypeMetadata);
+
+  v35 = v119;
+  swift_getAtKeyPath();
+
+  v36 = v118;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v38 = v134;
+  LOBYTE(TupleTypeMetadata) = (*(AssociatedConformanceWitness + 88))(v35, v36, AssociatedConformanceWitness);
+  v39 = *(v120 + 8);
+  v39(v35, v36);
+  v39(v38, v36);
+  if ((TupleTypeMetadata & 1) != 0
+    || (v40 = v117, v117(v150, v151, v139), , , , , , , , , , , , , , , , swift_getAtKeyPath(), , v40(v150, v151, v139), , , , , , , , , , , , , , , , v41 = v113, swift_getAtKeyPath(), , v42 = v115, v43 = swift_getAssociatedConformanceWitness(), v44 = v121, LOBYTE(v40) = (*(v43 + 88))(v41, v42, v43), v45 = *(v114 + 8), v45(v41, v42), v45(v44, v42), (v40 & 1) != 0)
+    || (v46 = v117, v117(v150, v151, v139), , , , , , , , , , , , , , , , swift_getAtKeyPath(), , v46(v150, v151, v139), , , , , , , , , , , , , , , , v47 = v109, swift_getAtKeyPath(), , v48 = v111, v49 = swift_getAssociatedConformanceWitness(), v50 = v116, LOBYTE(v46) = (*(v49 + 88))(v47, v48, v49), v51 = *(v110 + 8), v51(v47, v48), v51(v50, v48), (v46 & 1) != 0)
+    || (v52 = v117, v117(v150, v151, v139), , , , , , , , , , , , , , , , swift_getAtKeyPath(), , v52(v150, v151, v139), , , , , , , , , , , , , , , , v53 = v106, swift_getAtKeyPath(), , v54 = v127, v55 = swift_getAssociatedConformanceWitness(), v56 = v112, LOBYTE(v52) = (*(v55 + 88))(v53, v54, v55), v57 = *(v107 + 8), v57(v53, v54), v57(v56, v54), (v52 & 1) != 0)
+    || (v58 = v117, v117(v150, v151, v139), , , , , , , , , , , , , , , , swift_getAtKeyPath(), , v58(v150, v151, v139), , , , , , , , , , , , , , , , v59 = v103, swift_getAtKeyPath(), , v60 = v126, v61 = swift_getAssociatedConformanceWitness(), v62 = v108, LOBYTE(v58) = (*(v61 + 88))(v59, v60, v61), v63 = *(v104 + 8), v63(v59, v60), v63(v62, v60), (v58 & 1) != 0)
+    || (v64 = v117, v117(v150, v151, v139), , , , , , , , , , , , , , , , swift_getAtKeyPath(), , v64(v150, v151, v139), , , , , , , , , , , , , , , , v65 = v100, swift_getAtKeyPath(), , v66 = v125, v67 = swift_getAssociatedConformanceWitness(), v68 = v105, v69 = (*(v67 + 88))(v65, v66, v67), v70 = *(v101 + 8), v70(v65, v66), v70(v68, v66), (v69 & 1) != 0)
+    || (v71 = v117, v117(v150, v151, v139), , , , , , , , , , , , , , , , swift_getAtKeyPath(), , v71(v150, v151, v139), , , , , , , , , , , , , , , , v72 = v97, swift_getAtKeyPath(), , v73 = v124, v74 = swift_getAssociatedConformanceWitness(), v75 = v102, v76 = (*(v74 + 88))(v72, v73, v74), v77 = *(v98 + 8), v77(v72, v73), v77(v75, v73), (v76 & 1) != 0))
+  {
+    v78 = v139;
+  }
+
+  else
+  {
+    v81 = v139;
+    v82 = v117;
+    v117(v150, v151, v139);
+
+    swift_getAtKeyPath();
+
+    v78 = v81;
+    v82(v150, v151, v81);
+
+    v83 = v130;
+
+    v84 = v95;
+    swift_getAtKeyPath();
+
+    v85 = AssociatedTypeWitness;
+    v86 = swift_getAssociatedConformanceWitness();
+    v87 = v99;
+    LOBYTE(v81) = (*(v86 + 88))(v84, v85, v86);
+    v88 = *(v96 + 8);
+    v88(v84, v85);
+    v88(v87, v85);
+    if ((v81 & 1) == 0)
+    {
+      v89 = *(v133 + 8);
+      v90 = *(v89 + 24);
+      v91 = v90(v83, v89);
+      v92 = v90(v83, v89);
+      sub_1AE21FE14(v92, v91);
+      v79 = v93;
+
+      goto LABEL_10;
+    }
+  }
+
+  v79 = 1;
+LABEL_10:
+  (*(v122 + 8))(v151, v78);
+  return v79 & 1;
+}
+
+uint64_t CRStruct_8.actionUndoingDifference(from:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v188 = a1;
+  v157 = a4;
+  v5 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v152 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v151 = &v114 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v149 = &v114 - v8;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v114 = swift_getAssociatedTypeWitness();
+  v161 = sub_1AE23D7CC();
+  v156 = *(v161 - 8);
+  MEMORY[0x1EEE9AC00](v161);
+  v183 = &v114 - v9;
+  v172 = swift_getAssociatedTypeWitness();
+  v147 = *(v172 - 8);
+  MEMORY[0x1EEE9AC00](v172);
+  v146 = &v114 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
+  v173 = &v114 - v12;
+  v145 = swift_getAssociatedConformanceWitness();
+  v115 = swift_getAssociatedTypeWitness();
+  v180 = sub_1AE23D7CC();
+  v155 = *(v180 - 8);
+  MEMORY[0x1EEE9AC00](v180);
+  v177 = &v114 - v13;
+  v170 = swift_getAssociatedTypeWitness();
+  v142 = *(v170 - 8);
+  MEMORY[0x1EEE9AC00](v170);
+  v141 = &v114 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15);
+  v171 = &v114 - v16;
+  v140 = swift_getAssociatedConformanceWitness();
+  v116 = swift_getAssociatedTypeWitness();
+  v176 = sub_1AE23D7CC();
+  v154 = *(v176 - 8);
+  MEMORY[0x1EEE9AC00](v176);
+  v187 = &v114 - v17;
+  v169 = swift_getAssociatedTypeWitness();
+  v138 = *(v169 - 8);
+  MEMORY[0x1EEE9AC00](v169);
+  v137 = &v114 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v19);
+  v168 = &v114 - v20;
+  v136 = swift_getAssociatedConformanceWitness();
+  v117 = swift_getAssociatedTypeWitness();
+  v178 = sub_1AE23D7CC();
+  v153 = *(v178 - 8);
+  MEMORY[0x1EEE9AC00](v178);
+  v184 = &v114 - v21;
+  v166 = swift_getAssociatedTypeWitness();
+  v134 = *(v166 - 8);
+  MEMORY[0x1EEE9AC00](v166);
+  v133 = &v114 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v23);
+  v167 = &v114 - v24;
+  v132 = swift_getAssociatedConformanceWitness();
+  v118 = swift_getAssociatedTypeWitness();
+  v179 = sub_1AE23D7CC();
+  v160 = *(v179 - 8);
+  MEMORY[0x1EEE9AC00](v179);
+  v185 = &v114 - v25;
+  v165 = swift_getAssociatedTypeWitness();
+  v131 = *(v165 - 8);
+  MEMORY[0x1EEE9AC00](v165);
+  v130 = &v114 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v27);
+  v164 = &v114 - v28;
+  v129 = swift_getAssociatedConformanceWitness();
+  v119 = swift_getAssociatedTypeWitness();
+  v148 = sub_1AE23D7CC();
+  v159 = *(v148 - 8);
+  MEMORY[0x1EEE9AC00](v148);
+  v186 = &v114 - v29;
+  v30 = swift_getAssociatedTypeWitness();
+  v128 = *(v30 - 8);
+  MEMORY[0x1EEE9AC00](v30);
+  v127 = &v114 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v32);
+  v163 = &v114 - v33;
+  v34 = swift_getAssociatedConformanceWitness();
+  v125 = v30;
+  v126 = v34;
+  v120 = swift_getAssociatedTypeWitness();
+  v174 = sub_1AE23D7CC();
+  v158 = *(v174 - 8);
+  MEMORY[0x1EEE9AC00](v174);
+  v181 = &v114 - v35;
+  v36 = swift_getAssociatedTypeWitness();
+  v124 = *(v36 - 8);
+  MEMORY[0x1EEE9AC00](v36);
+  v123 = &v114 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v38);
+  v162 = &v114 - v39;
+  v40 = swift_getAssociatedConformanceWitness();
+  v121 = v36;
+  v122 = v40;
+  v139 = swift_getAssociatedTypeWitness();
+  v41 = sub_1AE23D7CC();
+  v143 = *(v41 - 8);
+  v144 = v41;
+  v42 = MEMORY[0x1EEE9AC00](v41);
+  v182 = &v114 - v43;
+  (*(v5 + 144))(v216, a2, v5, v42);
+  v190 = v216[1];
+  v205 = v216[2];
+  v194 = v216[4];
+  v189 = v216[5];
+  v197 = v216[7];
+  v195 = v216[8];
+  v207 = v216[10];
+  v202 = v216[11];
+  v200 = v216[13];
+  v206 = v216[14];
+  v192 = v216[17];
+  v203 = v216[23];
+  v201 = v216[16];
+  v193 = v216[19];
+  v191 = v216[20];
+  v196 = v216[22];
+  sub_1AE23DB8C();
+  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v209 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v210 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v211 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v212 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v213 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v214 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v215 = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v135 = *(TupleTypeMetadata - 8);
+  v44 = *(v135 + 16);
+  v199 = v135 + 16;
+  v204 = v44;
+  (v44)(&TupleTypeMetadata2, v216, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  (v204)(&TupleTypeMetadata2, v216, TupleTypeMetadata);
+
+  v45 = v123;
+  swift_getAtKeyPath();
+
+  v46 = v121;
+  v47 = v162;
+  (*(v122 + 72))(v45, v121);
+  v48 = *(v124 + 8);
+  v48(v45, v46);
+  v48(v47, v46);
+  (v204)(&TupleTypeMetadata2, v216, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  (v204)(&TupleTypeMetadata2, v216, TupleTypeMetadata);
+
+  v49 = v127;
+  swift_getAtKeyPath();
+
+  v50 = v125;
+  v51 = v163;
+  (*(v126 + 72))(v49, v125);
+  v52 = *(v128 + 8);
+  v52(v49, v50);
+  v52(v51, v50);
+  v53 = v204;
+  (v204)(&TupleTypeMetadata2, v216, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v53(&TupleTypeMetadata2, v216, TupleTypeMetadata);
+
+  v54 = v130;
+  swift_getAtKeyPath();
+
+  v56 = v164;
+  v55 = v165;
+  (*(v129 + 72))(v54, v165);
+  v57 = *(v131 + 8);
+  v57(v54, v55);
+  v57(v56, v55);
+  v58 = TupleTypeMetadata;
+  (v204)(&TupleTypeMetadata2, v216, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  (v204)(&TupleTypeMetadata2, v216, v58);
+
+  v59 = v133;
+  swift_getAtKeyPath();
+
+  v60 = v166;
+  v61 = v167;
+  (*(v132 + 72))(v59, v166);
+  v62 = *(v134 + 8);
+  v62(v59, v60);
+  v62(v61, v60);
+  v63 = TupleTypeMetadata;
+  v64 = v204;
+  (v204)(&TupleTypeMetadata2, v216, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v64(&TupleTypeMetadata2, v216, v63);
+
+  v65 = v137;
+  swift_getAtKeyPath();
+
+  v67 = v168;
+  v66 = v169;
+  (*(v136 + 72))(v65, v169);
+  v68 = *(v138 + 8);
+  v68(v65, v66);
+  v68(v67, v66);
+  (v204)(&TupleTypeMetadata2, v216, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  (v204)(&TupleTypeMetadata2, v216, TupleTypeMetadata);
+
+  v69 = v141;
+  swift_getAtKeyPath();
+
+  v71 = v170;
+  v70 = v171;
+  (*(v140 + 72))(v69, v170);
+  v72 = *(v142 + 8);
+  v72(v69, v71);
+  v72(v70, v71);
+  v73 = TupleTypeMetadata;
+  v74 = v204;
+  (v204)(&TupleTypeMetadata2, v216, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v74(&TupleTypeMetadata2, v216, v73);
+
+  v75 = v146;
+  swift_getAtKeyPath();
+
+  v77 = v172;
+  v76 = v173;
+  (*(v145 + 72))(v75, v172);
+  v78 = *(v147 + 8);
+  v78(v75, v77);
+  v78(v76, v77);
+  v79 = TupleTypeMetadata;
+  (v204)(&TupleTypeMetadata2, v216, TupleTypeMetadata);
+
+  v80 = v149;
+  swift_getAtKeyPath();
+
+  (v204)(&TupleTypeMetadata2, v216, v79);
+
+  v81 = v151;
+  swift_getAtKeyPath();
+
+  v82 = v80;
+  v83 = AssociatedTypeWitness;
+  (*(AssociatedConformanceWitness + 72))(v81, AssociatedTypeWitness);
+  (*(v135 + 8))(v216, v79);
+  v84 = *(v152 + 8);
+  v84(v81, v83);
+  v85 = v181;
+  v84(v82, v83);
+  v86 = v187;
+  if ((*(*(v139 - 8) + 48))(v182, 1) == 1 && (*(*(v120 - 8) + 48))(v85, 1) == 1 && (*(*(v119 - 8) + 48))(v186, 1) == 1 && (*(*(v118 - 8) + 48))(v185, 1) == 1 && (*(*(v117 - 8) + 48))(v184, 1) == 1 && (*(*(v116 - 8) + 48))(v86, 1) == 1 && (*(*(v115 - 8) + 48))(v177, 1) == 1 && (*(*(v114 - 8) + 48))(v183, 1) == 1)
+  {
+    v87 = v144;
+    (*(v143 + 8))(v182, v144);
+    TupleTypeMetadata2 = v87;
+    v209 = v174;
+    v88 = v148;
+    v210 = v148;
+    v211 = v179;
+    v89 = v178;
+    v212 = v178;
+    v213 = v176;
+    v214 = v180;
+    v90 = v161;
+    v215 = v161;
+    v91 = swift_getTupleTypeMetadata();
+    (*(*(v91 - 8) + 56))(v157, 1, 1, v91);
+    v93 = v155;
+    v92 = v156;
+    v94 = v177;
+    v96 = v153;
+    v95 = v154;
+    v97 = v186;
+  }
+
+  else
+  {
+    v98 = v144;
+    TupleTypeMetadata2 = v144;
+    v99 = v174;
+    v209 = v174;
+    v100 = v148;
+    v210 = v148;
+    v211 = v179;
+    v212 = v178;
+    v101 = v176;
+    v213 = v176;
+    v214 = v180;
+    v215 = v161;
+    v102 = swift_getTupleTypeMetadata();
+    v103 = v102[12];
+    v104 = v102[16];
+    v203 = v102[20];
+    v204 = v102[24];
+    v205 = v102[28];
+    v206 = v102[32];
+    v207 = v102[36];
+    v105 = v157;
+    (*(v143 + 32))(v157, v182, v98);
+    (*(v158 + 16))(v105 + v103, v85, v99);
+    v106 = v183;
+    v107 = v101;
+    v108 = v100;
+    (*(v159 + 16))(v105 + v104, v186, v100);
+    (*(v160 + 16))(v105 + v203, v185, v179);
+    v96 = v153;
+    (*(v153 + 16))(&v204[v105], v184, v178);
+    v95 = v154;
+    (*(v154 + 16))(v105 + v205, v187, v107);
+    v93 = v155;
+    v94 = v177;
+    (*(v155 + 16))(v105 + v206, v177, v180);
+    v92 = v156;
+    v109 = v106;
+    v90 = v161;
+    (*(v156 + 16))(v105 + v207, v109);
+    v110 = *(*(v102 - 1) + 56);
+    v111 = v105;
+    v88 = v108;
+    v112 = v102;
+    v89 = v178;
+    v97 = v186;
+    v110(v111, 0, 1, v112);
+  }
+
+  (*(v92 + 8))(v183, v90);
+  (*(v93 + 8))(v94, v180);
+  (*(v95 + 8))(v187, v176);
+  (*(v96 + 8))(v184, v89);
+  (*(v160 + 8))(v185, v179);
+  (*(v159 + 8))(v97, v88);
+  return (*(v158 + 8))(v181, v174);
+}
+
+double CRStruct_8.apply(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v234 = a1;
+  v4 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v165 = swift_getAssociatedTypeWitness();
+  v212 = sub_1AE23D7CC();
+  v204 = *(v212 - 8);
+  MEMORY[0x1EEE9AC00](v212);
+  v188 = &v154 - v5;
+  v196 = swift_getAssociatedTypeWitness();
+  v187 = swift_getAssociatedConformanceWitness();
+  v164 = swift_getAssociatedTypeWitness();
+  v218 = sub_1AE23D7CC();
+  v209 = *(v218 - 8);
+  MEMORY[0x1EEE9AC00](v218);
+  v186 = &v154 - v6;
+  v195 = swift_getAssociatedTypeWitness();
+  v185 = swift_getAssociatedConformanceWitness();
+  v163 = swift_getAssociatedTypeWitness();
+  v217 = sub_1AE23D7CC();
+  v208 = *(v217 - 8);
+  MEMORY[0x1EEE9AC00](v217);
+  v183 = &v154 - v7;
+  v194 = swift_getAssociatedTypeWitness();
+  v180 = swift_getAssociatedConformanceWitness();
+  v162 = swift_getAssociatedTypeWitness();
+  v211 = sub_1AE23D7CC();
+  v216 = *(v211 - 8);
+  MEMORY[0x1EEE9AC00](v211);
+  v179 = &v154 - v8;
+  v193 = swift_getAssociatedTypeWitness();
+  v177 = swift_getAssociatedConformanceWitness();
+  v161 = swift_getAssociatedTypeWitness();
+  v9 = sub_1AE23D7CC();
+  v206 = *(v9 - 8);
+  v207 = v9;
+  MEMORY[0x1EEE9AC00](v9);
+  v176 = &v154 - v10;
+  v192 = swift_getAssociatedTypeWitness();
+  v174 = swift_getAssociatedConformanceWitness();
+  v160 = swift_getAssociatedTypeWitness();
+  v11 = sub_1AE23D7CC();
+  v203 = v11;
+  v205 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v173 = &v154 - v12;
+  v198 = swift_getAssociatedTypeWitness();
+  v170 = swift_getAssociatedConformanceWitness();
+  v159 = swift_getAssociatedTypeWitness();
+  v13 = sub_1AE23D7CC();
+  v210 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v169 = &v154 - v14;
+  v15 = swift_getAssociatedTypeWitness();
+  v167 = swift_getAssociatedConformanceWitness();
+  v16 = swift_getAssociatedTypeWitness();
+  v243 = sub_1AE23D7CC();
+  v200 = v13;
+  v244 = v13;
+  v245 = v11;
+  v246 = v9;
+  v247 = v211;
+  v248 = v217;
+  v249 = v218;
+  v250 = v212;
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v235 = sub_1AE23D7CC();
+  v202 = *(v235 - 8);
+  MEMORY[0x1EEE9AC00](v235);
+  v184 = &v154 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v18);
+  v182 = &v154 - v19;
+  MEMORY[0x1EEE9AC00](v20);
+  v178 = &v154 - v21;
+  MEMORY[0x1EEE9AC00](v22);
+  v175 = &v154 - v23;
+  MEMORY[0x1EEE9AC00](v24);
+  v172 = &v154 - v25;
+  MEMORY[0x1EEE9AC00](v26);
+  v171 = &v154 - v27;
+  MEMORY[0x1EEE9AC00](v28);
+  v168 = &v154 - v29;
+  MEMORY[0x1EEE9AC00](v30);
+  v166 = &v154 - v31;
+  v158 = v16;
+  v201 = sub_1AE23D7CC();
+  v215 = *(v201 - 8);
+  v32 = MEMORY[0x1EEE9AC00](v201);
+  v191 = &v154 - v33;
+  (*(v4 + 144))(&v243, a2, v4, v32);
+  v34 = v244;
+  v241 = v247;
+  v230 = v248;
+  v240 = v250;
+  v229 = v251;
+  v239 = v252;
+  v228 = v253;
+  v238 = v254;
+  v227 = v255;
+  v237 = v256;
+  v35 = v257;
+  v36 = v258;
+  v37 = v259;
+  v38 = v260;
+  v39 = v261;
+  v231 = v245;
+  v199 = v15;
+  sub_1AE23DB8C();
+  v242[0] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v242[1] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v242[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v242[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v242[4] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v242[5] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v242[6] = swift_getTupleTypeMetadata2();
+  v40 = TupleTypeMetadata;
+  sub_1AE23DB8C();
+  v242[7] = swift_getTupleTypeMetadata2();
+  v41 = swift_getTupleTypeMetadata();
+  v181 = *(v41 - 8);
+  v42 = *(v181 + 16);
+  v236 = v41;
+  v224 = v181 + 16;
+  v223 = v42;
+  (v42)(v242, &v243);
+  v232 = v34;
+
+  v233 = v39;
+
+  v225 = v38;
+
+  v213 = v37;
+
+  v226 = v36;
+
+  v214 = v35;
+
+  v43 = v202;
+  v44 = *(v202 + 16);
+  v45 = v166;
+  v46 = v234;
+  v222 = v202 + 16;
+  v221 = v44;
+  v44(v166, v234, v235);
+  v47 = *(v40 - 1);
+  v48 = v45;
+  v220 = *(v47 + 48);
+  v219 = v47 + 48;
+  v49 = v220(v45, 1, v40);
+  v50 = v217;
+  v51 = v218;
+  v52 = v209;
+  v53 = v211;
+  v54 = v216;
+  if (v49 == 1)
+  {
+    v55 = v235;
+    (*(v43 + 8))(v48, v235);
+    (*(*(v158 - 8) + 56))(v191, 1, 1);
+  }
+
+  else
+  {
+    v56 = v40[12];
+    v57 = v40[16];
+    v157 = v40[20];
+    v158 = v57;
+    v58 = v40[24];
+    v155 = v40[28];
+    v156 = v58;
+    v59 = v40[32];
+    v60 = v40[36];
+    (*(v215 + 32))(v191, v48, v201);
+    (*(v204 + 8))(&v48[v60], v212);
+    (*(v52 + 8))(&v48[v59], v51);
+    v46 = v234;
+    (*(v208 + 8))(&v48[v155], v50);
+    (*(v54 + 8))(&v48[v156], v53);
+    (*(v206 + 8))(&v48[v157], v207);
+    (*(v205 + 8))(&v48[v158], v203);
+    (*(v210 + 8))(&v48[v56], v200);
+    v55 = v235;
+  }
+
+  v61 = swift_modifyAtWritableKeyPath();
+  v62 = v191;
+  (*(v167 + 80))(v191, v199);
+  v64 = v215 + 8;
+  v63 = *(v215 + 8);
+  v65 = v62;
+  v66 = v201;
+  v63(v65, v201);
+  v61(v242, 0);
+
+  v223(v242, &v243, v236);
+
+  v67 = v168;
+  v221(v168, v46, v55);
+  v68 = TupleTypeMetadata;
+  v69 = v220(v67, 1, TupleTypeMetadata);
+  v70 = v66;
+  v71 = v68;
+  v215 = v64;
+  v199 = v63;
+  if (v69 == 1)
+  {
+    (*(v202 + 8))(v67, v235);
+    v72 = v169;
+    (*(*(v159 - 8) + 56))(v169, 1, 1);
+    v73 = v210;
+    v74 = v200;
+  }
+
+  else
+  {
+    v75 = v68[12];
+    v191 = v68[16];
+    v76 = v68[20];
+    v166 = v68[24];
+    v167 = v76;
+    v77 = v68[28];
+    v78 = v68[32];
+    v79 = v68[36];
+    v73 = v210;
+    v72 = v169;
+    v74 = v200;
+    (*(v210 + 32))(v169, &v67[v75]);
+    (*(v204 + 8))(&v67[v79], v212);
+    (*(v209 + 8))(&v67[v78], v218);
+    (*(v208 + 8))(&v67[v77], v217);
+    (*(v216 + 8))(&v166[v67], v211);
+    (*(v206 + 8))(&v67[v167], v207);
+    (*(v205 + 8))(&v191[v67], v203);
+    v199(v67, v70);
+  }
+
+  v80 = swift_modifyAtWritableKeyPath();
+  (*(v170 + 80))(v72, v198);
+  v81 = *(v73 + 8);
+  v81(v72, v74);
+  v80(v242, 0);
+
+  v223(v242, &v243, v236);
+
+  v82 = v171;
+  v83 = v235;
+  v221(v171, v234, v235);
+  v84 = v220(v82, 1, v71);
+  v210 = v73 + 8;
+  v198 = v81;
+  if (v84 == 1)
+  {
+    (*(v202 + 8))(v82, v83);
+    v85 = v173;
+    (*(*(v160 - 8) + 56))(v173, 1, 1);
+    v86 = v203;
+    v87 = v205;
+  }
+
+  else
+  {
+    v88 = v74;
+    v191 = v71[12];
+    v89 = v71[16];
+    v90 = v71[20];
+    v169 = v71[24];
+    v170 = v90;
+    v168 = v71[28];
+    v91 = v71[32];
+    v92 = v71[36];
+    v87 = v205;
+    v85 = v173;
+    v86 = v203;
+    (*(v205 + 32))(v173, &v82[v89], v203);
+    (*(v204 + 8))(&v82[v92], v212);
+    v83 = v235;
+    (*(v209 + 8))(&v82[v91], v218);
+    (*(v208 + 8))(&v168[v82], v217);
+    (*(v216 + 8))(&v169[v82], v211);
+    (*(v206 + 8))(&v82[v170], v207);
+    v81(&v191[v82], v88);
+    v199(v82, v201);
+  }
+
+  v93 = swift_modifyAtWritableKeyPath();
+  (*(v174 + 80))(v85, v192);
+  v94 = *(v87 + 8);
+  v94(v85, v86);
+  v93(v242, 0);
+
+  v223(v242, &v243, v236);
+
+  v95 = v172;
+  v221(v172, v234, v83);
+  v96 = v220(v95, 1, v71);
+  v205 = v87 + 8;
+  v192 = v94;
+  if (v96 == 1)
+  {
+    (*(v202 + 8))(v95, v83);
+    v97 = v176;
+    (*(*(v161 - 8) + 56))(v176, 1, 1);
+    v98 = v206;
+  }
+
+  else
+  {
+    v99 = v71[12];
+    v191 = v71[16];
+    v100 = v71[20];
+    v101 = v71[24];
+    v173 = v71[28];
+    v174 = v101;
+    v102 = v71[32];
+    v103 = v71[36];
+    v98 = v206;
+    v97 = v176;
+    (*(v206 + 32))(v176, &v95[v100], v207);
+    (*(v204 + 8))(&v95[v103], v212);
+    (*(v209 + 8))(&v95[v102], v218);
+    (*(v208 + 8))(&v173[v95], v217);
+    (*(v216 + 8))(&v95[v174], v211);
+    v94(&v191[v95], v203);
+    v198(&v95[v99], v200);
+    v199(v95, v201);
+  }
+
+  v104 = swift_modifyAtWritableKeyPath();
+  (*(v177 + 80))(v97, v193);
+  v105 = *(v98 + 8);
+  v105(v97, v207);
+  v104(v242, 0);
+
+  v223(v242, &v243, v236);
+
+  v106 = v175;
+  v107 = v235;
+  v221(v175, v234, v235);
+  v108 = v220(v106, 1, v71);
+  v206 = v98 + 8;
+  v193 = v105;
+  if (v108 == 1)
+  {
+    (*(v202 + 8))(v106, v107);
+    v109 = v179;
+    (*(*(v162 - 8) + 56))(v179, 1, 1);
+    v110 = v216;
+    v111 = v211;
+  }
+
+  else
+  {
+    v191 = v71[12];
+    v112 = v71[16];
+    v176 = v71[20];
+    v177 = v112;
+    v113 = v71[24];
+    v174 = v71[28];
+    v114 = v71[32];
+    v115 = v71[36];
+    v109 = v179;
+    v111 = v211;
+    (*(v216 + 32))(v179, &v106[v113], v211);
+    (*(v204 + 8))(&v106[v115], v212);
+    v110 = v216;
+    (*(v209 + 8))(&v106[v114], v218);
+    v107 = v235;
+    (*(v208 + 8))(&v106[v174], v217);
+    v105(&v176[v106], v207);
+    v192(&v106[v177], v203);
+    v198(&v191[v106], v200);
+    v199(v106, v201);
+  }
+
+  v116 = swift_modifyAtWritableKeyPath();
+  (*(v180 + 80))(v109, v194);
+  v117 = v109;
+  v118 = *(v110 + 8);
+  v118(v117, v111);
+  v116(v242, 0);
+
+  v223(v242, &v243, v236);
+
+  v119 = v178;
+  v120 = v234;
+  (v221)(v178);
+  v121 = v220(v119, 1, v71);
+  v216 = v110 + 8;
+  v194 = v118;
+  if (v121 == 1)
+  {
+    (*(v202 + 8))(v119, v107);
+    v122 = v183;
+    (*(*(v163 - 8) + 56))(v183, 1, 1);
+    v123 = v208;
+    v124 = v120;
+  }
+
+  else
+  {
+    v125 = v111;
+    v191 = v71[12];
+    v126 = v71[16];
+    v179 = v71[20];
+    v180 = v126;
+    v177 = v71[24];
+    v127 = v71[32];
+    v128 = v71[36];
+    v123 = v208;
+    v122 = v183;
+    (*(v208 + 32))(v183, &v119[v71[28]], v217);
+    (*(v204 + 8))(&v119[v128], v212);
+    v129 = &v119[v127];
+    v124 = v234;
+    (*(v209 + 8))(v129, v218);
+    v118(&v119[v177], v125);
+    v193(&v179[v119], v207);
+    v192(&v119[v180], v203);
+    v198(&v191[v119], v200);
+    v199(v119, v201);
+  }
+
+  v130 = swift_modifyAtWritableKeyPath();
+  (*(v185 + 80))(v122, v195);
+  v131 = *(v123 + 8);
+  v132 = v122;
+  v133 = v217;
+  v131(v132, v217);
+  v130(v242, 0);
+
+  v223(v242, &v243, v236);
+
+  v134 = v182;
+  v221(v182, v124, v235);
+  v135 = v220(v134, 1, v71);
+  v208 = v123 + 8;
+  v195 = v131;
+  if (v135 == 1)
+  {
+    v136 = v235;
+    (*(v202 + 8))(v134, v235);
+    v137 = v186;
+    (*(*(v164 - 8) + 56))(v186, 1, 1);
+    v138 = v209;
+  }
+
+  else
+  {
+    v139 = v133;
+    v191 = v71[12];
+    v185 = v71[16];
+    v183 = v71[20];
+    v180 = v71[24];
+    v140 = v71[28];
+    v141 = v71[36];
+    v137 = v186;
+    (*(v209 + 32))(v186, &v134[v71[32]], v218);
+    (*(v204 + 8))(&v134[v141], v212);
+    v138 = v209;
+    v131(&v134[v140], v139);
+    v194(&v134[v180], v211);
+    v193(&v183[v134], v207);
+    v192(&v134[v185], v203);
+    v198(&v191[v134], v200);
+    v199(v134, v201);
+    v136 = v235;
+  }
+
+  v142 = swift_modifyAtWritableKeyPath();
+  (*(v187 + 80))(v137, v196);
+  v209 = *(v138 + 8);
+  (v209)(v137, v218);
+  v142(v242, 0);
+
+  v223(v242, &v243, v236);
+
+  v143 = v184;
+  v221(v184, v234, v136);
+  if (v220(v143, 1, v71) == 1)
+  {
+    (*(v202 + 8))(v143, v136);
+    v144 = v188;
+    (*(*(v165 - 8) + 56))(v188, 1, 1);
+    v145 = v212;
+    v146 = v204;
+  }
+
+  else
+  {
+    v147 = v71[12];
+    v148 = v71[16];
+    v241 = v71[20];
+    v240 = v71[24];
+    v149 = v71[28];
+    v150 = v71[32];
+    v146 = v204;
+    v151 = &v143[v71[36]];
+    v144 = v188;
+    v145 = v212;
+    (*(v204 + 32))(v188, v151, v212);
+    (v209)(&v143[v150], v218);
+    v195(&v143[v149], v217);
+    v194(&v143[v240], v211);
+    v193(&v143[v241], v207);
+    v192(&v143[v148], v203);
+    v198(&v143[v147], v200);
+    v199(v143, v201);
+  }
+
+  v152 = swift_modifyAtWritableKeyPath();
+  (*(AssociatedConformanceWitness + 80))(v144, AssociatedTypeWitness);
+  (*(v146 + 8))(v144, v145);
+  v152(v242, 0);
+  (*(v181 + 8))(&v243, v236);
+
+  return result;
+}
+
+uint64_t CRStruct_8.visitReferences(_:)(void *a1, uint64_t a2, uint64_t a3)
+{
+  v86 = a1;
+  v4 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v64 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v63 = &v62 - v5;
+  v89 = swift_getAssociatedTypeWitness();
+  v66 = *(v89 - 8);
+  MEMORY[0x1EEE9AC00](v89);
+  v65 = &v62 - v6;
+  v90 = swift_getAssociatedTypeWitness();
+  v68 = *(v90 - 8);
+  MEMORY[0x1EEE9AC00](v90);
+  v67 = &v62 - v7;
+  v91 = swift_getAssociatedTypeWitness();
+  v70 = *(v91 - 8);
+  MEMORY[0x1EEE9AC00](v91);
+  v69 = &v62 - v8;
+  v92 = swift_getAssociatedTypeWitness();
+  v72 = *(v92 - 8);
+  MEMORY[0x1EEE9AC00](v92);
+  v71 = &v62 - v9;
+  v93 = swift_getAssociatedTypeWitness();
+  v74 = *(v93 - 8);
+  MEMORY[0x1EEE9AC00](v93);
+  v73 = &v62 - v10;
+  v11 = swift_getAssociatedTypeWitness();
+  v76 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v75 = &v62 - v12;
+  v83 = swift_getAssociatedTypeWitness();
+  v85 = *(v83 - 8);
+  v13 = MEMORY[0x1EEE9AC00](v83);
+  v84 = &v62 - v14;
+  (*(v4 + 144))(v109, a2, v4, v13);
+  v94 = v109[1];
+  v106 = v109[4];
+  v107 = v109[2];
+  v104 = v109[7];
+  v105 = v109[5];
+  v102 = v109[10];
+  v103 = v109[8];
+  v100 = v109[13];
+  v101 = v109[11];
+  v98 = v109[16];
+  v99 = v109[14];
+  v96 = v109[19];
+  v97 = v109[17];
+  v95 = v109[20];
+  v15 = v109[23];
+  v16 = v109[22];
+  sub_1AE23DB8C();
+  v108[0] = swift_getTupleTypeMetadata2();
+  v77 = v11;
+  sub_1AE23DB8C();
+  v108[1] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v108[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v108[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v108[4] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v108[5] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v108[6] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v108[7] = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v87 = *(TupleTypeMetadata - 8);
+  v78 = *(v87 + 16);
+  v79 = v87 + 16;
+  v78(v108, v109, TupleTypeMetadata);
+
+  v81 = v15;
+  v18 = a2;
+
+  v80 = v16;
+
+  v19 = v84;
+  swift_getAtKeyPath();
+
+  v82 = v4;
+  v20 = v83;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v22 = v86;
+  (*(*(AssociatedConformanceWitness + 16) + 48))(v86, v20);
+  (*(v85 + 8))(v19, v20);
+  v23 = v22[3];
+  v24 = v22[4];
+  __swift_project_boxed_opaque_existential_1(v22, v23);
+  if (((*(v24 + 8))(v23, v24) & 1) == 0)
+  {
+    v78(v108, v109, TupleTypeMetadata);
+
+    v25 = v75;
+    swift_getAtKeyPath();
+
+    v26 = v77;
+    v27 = swift_getAssociatedConformanceWitness();
+    (*(*(v27 + 16) + 48))(v22, v26);
+    (*(v76 + 8))(v25, v26);
+    v28 = v22[3];
+    v29 = v22[4];
+    __swift_project_boxed_opaque_existential_1(v22, v28);
+    if (((*(v29 + 8))(v28, v29) & 1) == 0)
+    {
+      v78(v108, v109, TupleTypeMetadata);
+
+      v30 = v73;
+      swift_getAtKeyPath();
+
+      v31 = v93;
+      v32 = swift_getAssociatedConformanceWitness();
+      (*(*(v32 + 16) + 48))(v22, v31);
+      (*(v74 + 8))(v30, v31);
+      v33 = v22[3];
+      v34 = v22[4];
+      __swift_project_boxed_opaque_existential_1(v22, v33);
+      if (((*(v34 + 8))(v33, v34) & 1) == 0)
+      {
+        v78(v108, v109, TupleTypeMetadata);
+
+        v35 = v71;
+        swift_getAtKeyPath();
+
+        v36 = v92;
+        v37 = swift_getAssociatedConformanceWitness();
+        (*(*(v37 + 16) + 48))(v22, v36);
+        (*(v72 + 8))(v35, v36);
+        v38 = v22[3];
+        v39 = v22[4];
+        __swift_project_boxed_opaque_existential_1(v22, v38);
+        if (((*(v39 + 8))(v38, v39) & 1) == 0)
+        {
+          v78(v108, v109, TupleTypeMetadata);
+
+          v40 = v69;
+          swift_getAtKeyPath();
+
+          v41 = v91;
+          v42 = swift_getAssociatedConformanceWitness();
+          (*(*(v42 + 16) + 48))(v22, v41);
+          (*(v70 + 8))(v40, v41);
+          v43 = v22[3];
+          v44 = v22[4];
+          __swift_project_boxed_opaque_existential_1(v22, v43);
+          if (((*(v44 + 8))(v43, v44) & 1) == 0)
+          {
+            v78(v108, v109, TupleTypeMetadata);
+
+            v45 = v67;
+            swift_getAtKeyPath();
+
+            v46 = v90;
+            v47 = swift_getAssociatedConformanceWitness();
+            (*(*(v47 + 16) + 48))(v22, v46);
+            (*(v68 + 8))(v45, v46);
+            v48 = v22[3];
+            v49 = v22[4];
+            __swift_project_boxed_opaque_existential_1(v22, v48);
+            if (((*(v49 + 8))(v48, v49) & 1) == 0)
+            {
+              v78(v108, v109, TupleTypeMetadata);
+
+              v50 = v65;
+              swift_getAtKeyPath();
+
+              v51 = v89;
+              v52 = swift_getAssociatedConformanceWitness();
+              (*(*(v52 + 16) + 48))(v22, v51);
+              (*(v66 + 8))(v50, v51);
+              v53 = v22[3];
+              v54 = v22[4];
+              __swift_project_boxed_opaque_existential_1(v22, v53);
+              if (((*(v54 + 8))(v53, v54) & 1) == 0)
+              {
+                v78(v108, v109, TupleTypeMetadata);
+
+                v55 = v63;
+                swift_getAtKeyPath();
+
+                v56 = AssociatedTypeWitness;
+                v57 = swift_getAssociatedConformanceWitness();
+                (*(*(v57 + 16) + 48))(v22, v56);
+                (*(v64 + 8))(v55, v56);
+                v58 = v22[3];
+                v59 = v22[4];
+                __swift_project_boxed_opaque_existential_1(v22, v58);
+                if (((*(v59 + 8))(v58, v59) & 1) == 0)
+                {
+                  v60 = (*(*(v82 + 8) + 24))(v18);
+                  sub_1ADDDC764(v22, v60);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return (*(v87 + 8))(v109, TupleTypeMetadata);
+}
+
+Swift::Bool __swiftcall CRStruct_8.needToFinalizeTimestamps()()
+{
+  v2 = v0;
+  v3 = *(v1 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v52 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v51 = &v51 - v4;
+  v80 = swift_getAssociatedTypeWitness();
+  v54 = *(v80 - 8);
+  MEMORY[0x1EEE9AC00](v80);
+  v53 = &v51 - v5;
+  v82 = swift_getAssociatedTypeWitness();
+  v56 = *(v82 - 8);
+  MEMORY[0x1EEE9AC00](v82);
+  v55 = &v51 - v6;
+  v84 = swift_getAssociatedTypeWitness();
+  v58 = *(v84 - 8);
+  MEMORY[0x1EEE9AC00](v84);
+  v57 = &v51 - v7;
+  v86 = swift_getAssociatedTypeWitness();
+  v60 = *(v86 - 8);
+  MEMORY[0x1EEE9AC00](v86);
+  v59 = &v51 - v8;
+  v88 = swift_getAssociatedTypeWitness();
+  v62 = *(v88 - 8);
+  MEMORY[0x1EEE9AC00](v88);
+  v61 = &v51 - v9;
+  v10 = swift_getAssociatedTypeWitness();
+  v64 = *(v10 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v63 = &v51 - v11;
+  v70 = swift_getAssociatedTypeWitness();
+  v77 = *(v70 - 8);
+  v12 = MEMORY[0x1EEE9AC00](v70);
+  v76 = &v51 - v13;
+  (*(v3 + 144))(v90, v2, v3, v12);
+  v67 = v90[1];
+  v74 = v90[4];
+  v75 = v90[2];
+  v72 = v90[7];
+  v73 = v90[5];
+  v87 = v90[8];
+  v71 = v90[10];
+  v85 = v90[11];
+  v83 = v90[14];
+  v68 = v90[16];
+  v69 = v90[13];
+  v81 = v90[17];
+  v66 = v90[19];
+  v79 = v90[20];
+  v14 = v90[23];
+  sub_1AE23DB8C();
+  v89[0] = swift_getTupleTypeMetadata2();
+  v65 = v10;
+  sub_1AE23DB8C();
+  v89[1] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v89[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v89[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v89[4] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v89[5] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v89[6] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v89[7] = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v16 = *(TupleTypeMetadata - 8);
+  (*(v16 + 16))(v89, v90, TupleTypeMetadata);
+
+  v67 = v14;
+
+  v17 = v76;
+  swift_getAtKeyPath();
+
+  v75 = v3;
+  v18 = v70;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v20 = v17;
+  LOBYTE(v17) = (*(*(AssociatedConformanceWitness + 16) + 56))(v18);
+  (*(v77 + 8))(v20, v18);
+  if (v17 & 1) != 0 || (v21 = v63, swift_getAtKeyPath(), v22 = v65, v23 = swift_getAssociatedConformanceWitness(), v24 = (*(*(v23 + 16) + 56))(v22), (*(v64 + 8))(v21, v22), (v24))
+  {
+    (*(v16 + 8))(v90, TupleTypeMetadata);
+  }
+
+  else
+  {
+    v25 = TupleTypeMetadata;
+    v26 = v61;
+    swift_getAtKeyPath();
+    v27 = v88;
+    v28 = swift_getAssociatedConformanceWitness();
+    v29 = (*(*(v28 + 16) + 56))(v27);
+    (*(v62 + 8))(v26, v27);
+    if ((v29 & 1) == 0)
+    {
+      v30 = v59;
+      swift_getAtKeyPath();
+      v31 = v86;
+      v32 = swift_getAssociatedConformanceWitness();
+      v33 = (*(*(v32 + 16) + 56))(v31);
+      (*(v60 + 8))(v30, v31);
+      if ((v33 & 1) == 0)
+      {
+        v34 = v57;
+        swift_getAtKeyPath();
+        v35 = v84;
+        v36 = swift_getAssociatedConformanceWitness();
+        v37 = (*(*(v36 + 16) + 56))(v35);
+        (*(v58 + 8))(v34, v35);
+        if ((v37 & 1) == 0)
+        {
+          v38 = v55;
+          swift_getAtKeyPath();
+          v39 = v82;
+          v40 = swift_getAssociatedConformanceWitness();
+          v41 = (*(*(v40 + 16) + 56))(v39);
+          (*(v56 + 8))(v38, v39);
+          if ((v41 & 1) == 0)
+          {
+            v42 = v53;
+            swift_getAtKeyPath();
+            v43 = v80;
+            v44 = swift_getAssociatedConformanceWitness();
+            v45 = (*(*(v44 + 16) + 56))(v43);
+            (*(v54 + 8))(v42, v43);
+            if ((v45 & 1) == 0)
+            {
+              v48 = v51;
+              swift_getAtKeyPath();
+              v49 = AssociatedTypeWitness;
+              v50 = swift_getAssociatedConformanceWitness();
+              v46 = (*(*(v50 + 16) + 56))(v49);
+              (*(v16 + 8))(v90, v25);
+              (*(v52 + 8))(v48, v49);
+              return v46 & 1;
+            }
+          }
+        }
+      }
+    }
+
+    (*(v16 + 8))(v90, v25);
+  }
+
+  v46 = 1;
+  return v46 & 1;
+}
+
+uint64_t CRStruct_8.finalizeTimestamps(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  (*(*(a3 + 8) + 144))(&v41, a2);
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v40[0] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v40[1] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v40[2] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v40[3] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v40[4] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v40[5] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v40[6] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v40[7] = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v36 = *(TupleTypeMetadata - 8);
+  v37 = *(v36 + 16);
+  v37(v40, &v41, TupleTypeMetadata);
+
+  v3 = swift_modifyAtWritableKeyPath();
+  v4 = *(swift_getAssociatedConformanceWitness() + 16);
+  v5 = *(v4 + 64);
+  v6 = swift_checkMetadataState();
+  v5(a1, v6, v4);
+  v3(v40, 0);
+
+  v37(v40, &v41, TupleTypeMetadata);
+
+  v7 = swift_modifyAtWritableKeyPath();
+  v8 = *(swift_getAssociatedConformanceWitness() + 16);
+  v9 = *(v8 + 64);
+  v10 = swift_checkMetadataState();
+  v9(a1, v10, v8);
+  v7(v40, 0);
+
+  v37(v40, &v41, TupleTypeMetadata);
+
+  v11 = swift_modifyAtWritableKeyPath();
+  v12 = *(swift_getAssociatedConformanceWitness() + 16);
+  v13 = *(v12 + 64);
+  v14 = swift_checkMetadataState();
+  v13(a1, v14, v12);
+  v11(v40, 0);
+
+  v37(v40, &v41, TupleTypeMetadata);
+
+  v15 = swift_modifyAtWritableKeyPath();
+  v16 = *(swift_getAssociatedConformanceWitness() + 16);
+  v17 = *(v16 + 64);
+  v18 = swift_checkMetadataState();
+  v17(a1, v18, v16);
+  v15(v40, 0);
+
+  v37(v40, &v41, TupleTypeMetadata);
+
+  v19 = swift_modifyAtWritableKeyPath();
+  v20 = *(swift_getAssociatedConformanceWitness() + 16);
+  v21 = *(v20 + 64);
+  v22 = swift_checkMetadataState();
+  v21(a1, v22, v20);
+  v19(v40, 0);
+
+  v37(v40, &v41, TupleTypeMetadata);
+
+  v23 = swift_modifyAtWritableKeyPath();
+  v24 = *(swift_getAssociatedConformanceWitness() + 16);
+  v25 = *(v24 + 64);
+  v26 = swift_checkMetadataState();
+  v25(a1, v26, v24);
+  v23(v40, 0);
+
+  v37(v40, &v41, TupleTypeMetadata);
+
+  v27 = swift_modifyAtWritableKeyPath();
+  v28 = *(swift_getAssociatedConformanceWitness() + 16);
+  v29 = *(v28 + 64);
+  v30 = swift_checkMetadataState();
+  v29(a1, v30, v28);
+  v27(v40, 0);
+
+  v37(v40, &v41, TupleTypeMetadata);
+
+  v31 = swift_modifyAtWritableKeyPath();
+  v32 = *(swift_getAssociatedConformanceWitness() + 16);
+  v33 = *(v32 + 64);
+  v34 = swift_checkMetadataState();
+  v33(a1, v34, v32);
+  v31(v40, 0);
+
+  return (*(v36 + 8))(&v41, TupleTypeMetadata);
+}
+
+uint64_t CRStruct_8.minEncodingVersion.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+{
+  v71 = a3;
+  v4 = *(a2 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v49 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v48 = v47 - v5;
+  v69 = swift_getAssociatedTypeWitness();
+  v52 = *(v69 - 8);
+  MEMORY[0x1EEE9AC00](v69);
+  v51 = v47 - v6;
+  v72 = swift_getAssociatedTypeWitness();
+  v55 = *(v72 - 8);
+  MEMORY[0x1EEE9AC00](v72);
+  v54 = v47 - v7;
+  v73 = swift_getAssociatedTypeWitness();
+  v58 = *(v73 - 8);
+  MEMORY[0x1EEE9AC00](v73);
+  v57 = v47 - v8;
+  v74 = swift_getAssociatedTypeWitness();
+  v61 = *(v74 - 8);
+  MEMORY[0x1EEE9AC00](v74);
+  v60 = v47 - v9;
+  v75 = swift_getAssociatedTypeWitness();
+  v64 = *(v75 - 8);
+  MEMORY[0x1EEE9AC00](v75);
+  v63 = v47 - v10;
+  v76 = swift_getAssociatedTypeWitness();
+  v67 = *(v76 - 8);
+  MEMORY[0x1EEE9AC00](v76);
+  v66 = v47 - v11;
+  v77 = swift_getAssociatedTypeWitness();
+  v68 = *(v77 - 8);
+  v12 = MEMORY[0x1EEE9AC00](v77);
+  v14 = v47 - v13;
+  (*(v4 + 144))(v88, a1, v4, v12);
+  v65 = v88[5];
+  v62 = v88[8];
+  v59 = v88[11];
+  v56 = v88[14];
+  v53 = v88[17];
+  v50 = v88[20];
+  v47[1] = v88[23];
+  v15 = (*(*(v4 + 8) + 24))(a1);
+  sub_1AE21FFB0(v15, &v87);
+
+  v16 = v87;
+  if (v87 > 2u)
+  {
+    goto LABEL_28;
+  }
+
+  swift_getAtKeyPath();
+  v17 = v77;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  (*(*(*(AssociatedConformanceWitness + 16) + 8) + 24))(&TupleTypeMetadata2, v17);
+  (*(v68 + 8))(v14, v17);
+  if (TupleTypeMetadata2 > v16)
+  {
+    v16 = TupleTypeMetadata2;
+  }
+
+  v87 = v16;
+  if (TupleTypeMetadata2 > 2u)
+  {
+    goto LABEL_28;
+  }
+
+  v19 = v66;
+  swift_getAtKeyPath();
+  v20 = v76;
+  v21 = swift_getAssociatedConformanceWitness();
+  (*(*(*(v21 + 16) + 8) + 24))(&TupleTypeMetadata2, v20);
+  (*(v67 + 8))(v19, v20);
+  if (TupleTypeMetadata2 > v16)
+  {
+    v16 = TupleTypeMetadata2;
+  }
+
+  v87 = v16;
+  if (v16 > 2)
+  {
+    goto LABEL_28;
+  }
+
+  v22 = v63;
+  swift_getAtKeyPath();
+  v23 = v75;
+  v24 = swift_getAssociatedConformanceWitness();
+  (*(*(*(v24 + 16) + 8) + 24))(&TupleTypeMetadata2, v23);
+  (*(v64 + 8))(v22, v23);
+  if (TupleTypeMetadata2 > v16)
+  {
+    v16 = TupleTypeMetadata2;
+  }
+
+  v87 = v16;
+  if (TupleTypeMetadata2 > 2u)
+  {
+    goto LABEL_28;
+  }
+
+  v25 = v60;
+  swift_getAtKeyPath();
+  v26 = v74;
+  v27 = swift_getAssociatedConformanceWitness();
+  (*(*(*(v27 + 16) + 8) + 24))(&TupleTypeMetadata2, v26);
+  (*(v61 + 8))(v25, v26);
+  if (TupleTypeMetadata2 > v16)
+  {
+    v16 = TupleTypeMetadata2;
+  }
+
+  v87 = v16;
+  if (v16 > 2 || ((v28 = v57, swift_getAtKeyPath(), v29 = v16, v30 = v73, v31 = swift_getAssociatedConformanceWitness(), (*(*(*(v31 + 16) + 8) + 24))(&TupleTypeMetadata2, v30), (*(v58 + 8))(v28, v30), TupleTypeMetadata2 <= v29) ? (v16 = v29) : (v16 = TupleTypeMetadata2), (v87 = v16, TupleTypeMetadata2 > 2u) || ((v32 = v54, swift_getAtKeyPath(), v33 = v16, v34 = v72, v35 = swift_getAssociatedConformanceWitness(), (*(*(*(v35 + 16) + 8) + 24))(&TupleTypeMetadata2, v34), (*(v55 + 8))(v32, v34), TupleTypeMetadata2 <= v33) ? (v16 = v33) : (v16 = TupleTypeMetadata2), v87 = v16, v16 >= 3)))
+  {
+LABEL_28:
+    LOBYTE(v40) = v16;
+    v87 = v16;
+LABEL_29:
+    sub_1AE23DB8C();
+    TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+    sub_1AE23DB8C();
+    v80 = swift_getTupleTypeMetadata2();
+    sub_1AE23DB8C();
+    v81 = swift_getTupleTypeMetadata2();
+    sub_1AE23DB8C();
+    v82 = swift_getTupleTypeMetadata2();
+    sub_1AE23DB8C();
+    v83 = swift_getTupleTypeMetadata2();
+    sub_1AE23DB8C();
+    v84 = swift_getTupleTypeMetadata2();
+    sub_1AE23DB8C();
+    v85 = swift_getTupleTypeMetadata2();
+    sub_1AE23DB8C();
+    v86 = swift_getTupleTypeMetadata2();
+    TupleTypeMetadata = swift_getTupleTypeMetadata();
+    result = (*(*(TupleTypeMetadata - 8) + 8))(v88, TupleTypeMetadata);
+    goto LABEL_30;
+  }
+
+  v36 = v51;
+  swift_getAtKeyPath();
+  v37 = v16;
+  v38 = v69;
+  v39 = swift_getAssociatedConformanceWitness();
+  (*(*(*(v39 + 16) + 8) + 24))(&TupleTypeMetadata2, v38);
+  (*(v52 + 8))(v36, v38);
+  if (TupleTypeMetadata2 > v37)
+  {
+    v37 = TupleTypeMetadata2;
+  }
+
+  v40 = v37;
+  v87 = v37;
+  if (TupleTypeMetadata2 > 2u)
+  {
+    goto LABEL_29;
+  }
+
+  v41 = v48;
+  swift_getAtKeyPath();
+  v42 = AssociatedTypeWitness;
+  v43 = swift_getAssociatedConformanceWitness();
+  (*(*(*(v43 + 16) + 8) + 24))(&v78, v42);
+  sub_1AE23DB8C();
+  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v80 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v81 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v82 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v83 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v84 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v85 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v86 = swift_getTupleTypeMetadata2();
+  v44 = swift_getTupleTypeMetadata();
+  (*(*(v44 - 8) + 8))(v88, v44);
+  result = (*(v49 + 8))(v41, v42);
+  if (v78 > v40)
+  {
+    LOBYTE(v40) = v78;
+  }
+
+LABEL_30:
+  *v71 = v40;
+  return result;
+}
+
+uint64_t CRStruct_8<>.encode(to:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char *a9, char *a10, char *a11)
+{
+  v105 = a8;
+  v109 = a7;
+  v113 = a6;
+  v117 = a5;
+  v121 = a4;
+  v13 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v95 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v94 = &v90 - v14;
+  v123 = swift_getAssociatedTypeWitness();
+  v98 = *(v123 - 8);
+  MEMORY[0x1EEE9AC00](v123);
+  v97 = &v90 - v15;
+  v124 = swift_getAssociatedTypeWitness();
+  v101 = *(v124 - 8);
+  MEMORY[0x1EEE9AC00](v124);
+  v100 = &v90 - v16;
+  v126 = swift_getAssociatedTypeWitness();
+  v104 = *(v126 - 8);
+  MEMORY[0x1EEE9AC00](v126);
+  v103 = &v90 - v17;
+  v128 = swift_getAssociatedTypeWitness();
+  v108 = *(v128 - 8);
+  MEMORY[0x1EEE9AC00](v128);
+  v107 = &v90 - v18;
+  v130 = swift_getAssociatedTypeWitness();
+  v112 = *(v130 - 8);
+  MEMORY[0x1EEE9AC00](v130);
+  v111 = &v90 - v19;
+  v20 = swift_getAssociatedTypeWitness();
+  v115 = *(v20 - 8);
+  MEMORY[0x1EEE9AC00](v20);
+  v129 = &v90 - v21;
+  v140 = swift_getAssociatedTypeWitness();
+  v120 = *(v140 - 8);
+  MEMORY[0x1EEE9AC00](v140);
+  v141 = &v90 - v22;
+  v133 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5BCF60, &unk_1AE252450);
+  v127 = *(v133 - 8);
+  v23 = MEMORY[0x1EEE9AC00](v133);
+  v132 = &v90 - v24;
+  v25 = *(v13 + 144);
+  v92 = v13;
+  v25(&TupleTypeMetadata2, a2, v13, v23);
+  v119 = TupleTypeMetadata2;
+  v134 = v156;
+  v144 = v155;
+  v145 = v158;
+  v136 = v162;
+  v137 = v159;
+  v138 = v164;
+  v146 = v161;
+  v147 = v165;
+  v152 = v170;
+  v153 = v167;
+  v148 = v168;
+  v149 = v171;
+  v150 = v174;
+  v151 = v173;
+  v178[0] = TupleTypeMetadata2;
+  v178[1] = v155;
+  v178[2] = v156;
+  v114 = v157;
+  v178[3] = v157;
+  v178[4] = v158;
+  v178[5] = v159;
+  v110 = v160;
+  v178[6] = v160;
+  v178[7] = v161;
+  v178[8] = v162;
+  v106 = v163;
+  v178[9] = v163;
+  v178[10] = v164;
+  v178[11] = v165;
+  v102 = v166;
+  v178[12] = v166;
+  v178[13] = v167;
+  v178[14] = v168;
+  v99 = v169;
+  v178[15] = v169;
+  v178[16] = v170;
+  v178[17] = v171;
+  v96 = v172;
+  v178[18] = v172;
+  v178[19] = v173;
+  v178[20] = v174;
+  v93 = v175;
+  v178[21] = v175;
+  v178[22] = v176;
+  v135 = v176;
+  v178[23] = v177;
+  v142 = v177;
+  v26 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  sub_1AE048F10(v26, v27, v28);
+  sub_1AE23E3CC();
+  sub_1AE23DB8C();
+  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+  v116 = v20;
+  sub_1AE23DB8C();
+  v155 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v156 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v157 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v158 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v159 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v160 = swift_getTupleTypeMetadata2();
+  v91 = a2;
+  sub_1AE23DB8C();
+  v161 = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v125 = *(TupleTypeMetadata - 8);
+  v30 = v125 + 16;
+  v31 = *(v125 + 16);
+  v31(&TupleTypeMetadata2, v178, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v139 = TupleTypeMetadata;
+  v131 = v30;
+  v118 = v31;
+  v31(&TupleTypeMetadata2, v178, TupleTypeMetadata);
+  v32 = v140;
+  v33 = v132;
+
+  v34 = v133;
+
+  v35 = v144;
+
+  TupleTypeMetadata2 = v119;
+  v155 = v35;
+  v36 = v141;
+  v37 = v143;
+  sub_1AE23DD5C();
+  v143 = v37;
+  if (v37)
+  {
+    (*(v125 + 8))(v178, v139);
+
+    (*(v120 + 8))(v36, v32);
+    return (*(v127 + 8))(v33, v34);
+  }
+
+  (*(v120 + 8))(v36, v32);
+  v39 = v118;
+  v118(&TupleTypeMetadata2, v178, v139);
+
+  swift_getAtKeyPath();
+
+  v39(&TupleTypeMetadata2, v178, v139);
+
+  TupleTypeMetadata2 = v114;
+  v155 = v145;
+  v40 = v132;
+  v41 = v133;
+  v42 = v116;
+  v43 = v143;
+  sub_1AE23DD5C();
+  v44 = v139;
+  v143 = v43;
+  if (v43)
+  {
+    (*(v125 + 8))(v178, v139);
+
+    (*(v115 + 8))(v129, v42);
+    return (*(v127 + 8))(v40, v41);
+  }
+
+  (*(v115 + 8))(v129, v42);
+  v45 = v118;
+  v118(&TupleTypeMetadata2, v178, v44);
+
+  v46 = v111;
+  swift_getAtKeyPath();
+
+  v45(&TupleTypeMetadata2, v178, v44);
+
+  v47 = v132;
+  v48 = v133;
+
+  TupleTypeMetadata2 = v110;
+  v155 = v146;
+  v49 = v130;
+  v50 = v143;
+  sub_1AE23DD5C();
+  v51 = v127;
+  v143 = v50;
+  if (v50)
+  {
+    (*(v125 + 8))(v178, v44);
+
+    (*(v112 + 8))(v46, v49);
+    return (*(v51 + 8))(v47, v48);
+  }
+
+  (*(v112 + 8))(v46, v49);
+  v52 = v118;
+  v118(&TupleTypeMetadata2, v178, v44);
+
+  v53 = v107;
+  swift_getAtKeyPath();
+
+  v52(&TupleTypeMetadata2, v178, v44);
+
+  v54 = v132;
+  v55 = v133;
+
+  TupleTypeMetadata2 = v106;
+  v155 = v138;
+  v56 = v128;
+  v57 = v143;
+  sub_1AE23DD5C();
+  v143 = v57;
+  if (v57)
+  {
+    (*(v125 + 8))(v178, v139);
+
+    (*(v108 + 8))(v53, v56);
+    return (*(v127 + 8))(v54, v55);
+  }
+
+  (*(v108 + 8))(v53, v56);
+  v58 = v118;
+  v118(&TupleTypeMetadata2, v178, v139);
+
+  v59 = v103;
+  swift_getAtKeyPath();
+
+  v58(&TupleTypeMetadata2, v178, v139);
+
+  v60 = v132;
+  v61 = v133;
+
+  TupleTypeMetadata2 = v102;
+  v155 = v153;
+  v62 = v126;
+  v63 = v143;
+  sub_1AE23DD5C();
+  v143 = v63;
+  if (v63)
+  {
+    (*(v125 + 8))(v178, v139);
+
+    v64 = v104;
+LABEL_14:
+    (*(v64 + 8))(v59, v62);
+    return (*(v127 + 8))(v60, v61);
+  }
+
+  v141 = a9;
+
+  (*(v104 + 8))(v59, v62);
+  v65 = v118;
+  v118(&TupleTypeMetadata2, v178, v139);
+
+  v59 = v100;
+  swift_getAtKeyPath();
+
+  v65(&TupleTypeMetadata2, v178, v139);
+
+  v60 = v132;
+  v61 = v133;
+
+  TupleTypeMetadata2 = v99;
+  v155 = v152;
+  v62 = v124;
+  v66 = v143;
+  sub_1AE23DD5C();
+  v143 = v66;
+  if (v66)
+  {
+    (*(v125 + 8))(v178, v139);
+
+    v64 = v101;
+    goto LABEL_14;
+  }
+
+  v141 = a10;
+
+  (*(v101 + 8))(v59, v62);
+  v67 = v118;
+  v118(&TupleTypeMetadata2, v178, v139);
+
+  v68 = v97;
+  swift_getAtKeyPath();
+
+  v67(&TupleTypeMetadata2, v178, v139);
+
+  v54 = v132;
+  v55 = v133;
+
+  TupleTypeMetadata2 = v96;
+  v155 = v151;
+  v69 = v123;
+  v70 = v143;
+  sub_1AE23DD5C();
+  v143 = v70;
+  if (v70)
+  {
+    (*(v125 + 8))(v178, v139);
+
+    v71 = v98;
+LABEL_19:
+    (*(v71 + 8))(v68, v69);
+    return (*(v127 + 8))(v54, v55);
+  }
+
+  v141 = a11;
+
+  (*(v98 + 8))(v68, v69);
+  v72 = v118;
+  v118(&TupleTypeMetadata2, v178, v139);
+
+  v73 = v94;
+  swift_getAtKeyPath();
+
+  v72(&TupleTypeMetadata2, v178, v139);
+  v68 = v73;
+
+  v54 = v132;
+  v55 = v133;
+
+  TupleTypeMetadata2 = v93;
+  v155 = v135;
+  v69 = AssociatedTypeWitness;
+  v74 = v143;
+  sub_1AE23DD5C();
+  v143 = v74;
+  if (v74)
+  {
+    (*(v125 + 8))(v178, v139);
+
+    v71 = v95;
+    goto LABEL_19;
+  }
+
+  (*(v95 + 8))(v68, v69);
+  result = (*(*(v92 + 8) + 24))(v91);
+  v77 = result;
+  v78 = 0;
+  v79 = result + 64;
+  v80 = 1 << *(result + 32);
+  v81 = -1;
+  if (v80 < 64)
+  {
+    v81 = ~(-1 << v80);
+  }
+
+  v82 = v81 & *(result + 64);
+  v83 = (v80 + 63) >> 6;
+  if (v82)
+  {
+    while (1)
+    {
+      v84 = v78;
+LABEL_27:
+      v85 = __clz(__rbit64(v82)) | (v84 << 6);
+      v86 = (*(v77 + 48) + 16 * v85);
+      v87 = *v86;
+      v88 = v86[1];
+      v178[26] = *(*(v77 + 56) + 8 * v85);
+      TupleTypeMetadata2 = v87;
+      v155 = v88;
+      sub_1AE048F64(result, v75, v76);
+
+      v89 = v143;
+      sub_1AE23DD5C();
+      v143 = v89;
+      if (v89)
+      {
+        break;
+      }
+
+      v82 &= v82 - 1;
+
+      v78 = v84;
+      if (!v82)
+      {
+        goto LABEL_24;
+      }
+    }
+
+    (*(v125 + 8))(v178, v139);
+
+    (*(v127 + 8))(v132, v133);
+  }
+
+  else
+  {
+LABEL_24:
+    while (1)
+    {
+      v84 = v78 + 1;
+      if (__OFADD__(v78, 1))
+      {
+        break;
+      }
+
+      if (v84 >= v83)
+      {
+        (*(v125 + 8))(v178, v139);
+
+        return (*(v127 + 8))(v132, v133);
+      }
+
+      v82 = *(v79 + 8 * v84);
+      ++v78;
+      if (v82)
+      {
+        goto LABEL_27;
+      }
+    }
+
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t CRStruct_9.copy(renamingReferences:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v5 = v4;
+  v123 = a4;
+  v124 = a1;
+  v8 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v111 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v109 = &v83 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v110 = &v83 - v11;
+  v119 = swift_getAssociatedTypeWitness();
+  v108 = *(v119 - 8);
+  MEMORY[0x1EEE9AC00](v119);
+  v107 = &v83 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13);
+  v106 = &v83 - v14;
+  v118 = swift_getAssociatedTypeWitness();
+  v105 = *(v118 - 8);
+  MEMORY[0x1EEE9AC00](v118);
+  v103 = &v83 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16);
+  v104 = &v83 - v17;
+  v117 = swift_getAssociatedTypeWitness();
+  v101 = *(v117 - 8);
+  MEMORY[0x1EEE9AC00](v117);
+  v99 = &v83 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v19);
+  v100 = &v83 - v20;
+  v116 = swift_getAssociatedTypeWitness();
+  v98 = *(v116 - 8);
+  MEMORY[0x1EEE9AC00](v116);
+  v96 = &v83 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v22);
+  v97 = &v83 - v23;
+  v115 = swift_getAssociatedTypeWitness();
+  v95 = *(v115 - 8);
+  MEMORY[0x1EEE9AC00](v115);
+  v93 = &v83 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v25);
+  v94 = &v83 - v26;
+  v114 = swift_getAssociatedTypeWitness();
+  v92 = *(v114 - 8);
+  MEMORY[0x1EEE9AC00](v114);
+  v90 = &v83 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v28);
+  v91 = &v83 - v29;
+  v113 = swift_getAssociatedTypeWitness();
+  v89 = *(v113 - 8);
+  MEMORY[0x1EEE9AC00](v113);
+  v87 = &v83 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v31);
+  v88 = &v83 - v32;
+  v112 = swift_getAssociatedTypeWitness();
+  v86 = *(v112 - 8);
+  MEMORY[0x1EEE9AC00](v112);
+  v84 = &v83 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35 = MEMORY[0x1EEE9AC00](v34);
+  v85 = &v83 - v36;
+  (*(*(a2 - 8) + 16))(a4, v5, a2, v35);
+  v121 = v8;
+  (*(v8 + 160))(v147, a2, v8);
+  v136 = v147[5];
+  v137 = v147[2];
+  v134 = v147[4];
+  v135 = v147[8];
+  v143 = v147[7];
+  v144 = v147[10];
+  v140 = v147[16];
+  v141 = v147[13];
+  v129 = v147[19];
+  v130 = v147[14];
+  v131 = v147[20];
+  v132 = v147[11];
+  v37 = v147[1];
+  v38 = v147[17];
+  v39 = v147[22];
+  v127 = v147[23];
+  v139 = v147[25];
+  v125 = v147[26];
+  sub_1AE23DB8C();
+  v146[0] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v146[1] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v146[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v146[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v146[4] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v146[5] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v146[6] = swift_getTupleTypeMetadata2();
+  v122 = a2;
+  sub_1AE23DB8C();
+  v146[7] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v146[8] = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v102 = *(TupleTypeMetadata - 8);
+  v40 = *(v102 + 16);
+  v138 = v102 + 16;
+  v142 = v40;
+  v40(v146, v147, TupleTypeMetadata);
+  v128 = v37;
+
+  v133 = v38;
+
+  v142(v146, v147, TupleTypeMetadata);
+
+  v126 = v39;
+
+  v41 = v84;
+  swift_getAtKeyPath();
+
+  v42 = v112;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  (*(*(AssociatedConformanceWitness + 16) + 24))(v124, v42);
+  (*(v86 + 8))(v41, v42);
+  swift_setAtWritableKeyPath();
+
+  v44 = TupleTypeMetadata;
+  v142(v146, v147, TupleTypeMetadata);
+
+  v142(v146, v147, v44);
+
+  v45 = v87;
+  swift_getAtKeyPath();
+
+  v46 = v113;
+  v47 = swift_getAssociatedConformanceWitness();
+  (*(*(v47 + 16) + 24))(v124, v46);
+  (*(v89 + 8))(v45, v46);
+  swift_setAtWritableKeyPath();
+
+  v48 = v142;
+  v142(v146, v147, TupleTypeMetadata);
+
+  v48(v146, v147, TupleTypeMetadata);
+
+  v49 = v90;
+  swift_getAtKeyPath();
+
+  v50 = v114;
+  v51 = swift_getAssociatedConformanceWitness();
+  (*(*(v51 + 16) + 24))(v124, v50);
+  (*(v92 + 8))(v49, v50);
+  swift_setAtWritableKeyPath();
+
+  v142(v146, v147, TupleTypeMetadata);
+
+  v142(v146, v147, TupleTypeMetadata);
+
+  v52 = v93;
+  swift_getAtKeyPath();
+
+  v53 = v115;
+  v54 = swift_getAssociatedConformanceWitness();
+  (*(*(v54 + 16) + 24))(v124, v53);
+  (*(v95 + 8))(v52, v53);
+  swift_setAtWritableKeyPath();
+
+  v55 = TupleTypeMetadata;
+  v142(v146, v147, TupleTypeMetadata);
+
+  v142(v146, v147, v55);
+
+  v56 = v96;
+  swift_getAtKeyPath();
+
+  v57 = v116;
+  v58 = swift_getAssociatedConformanceWitness();
+  (*(*(v58 + 16) + 24))(v124, v57);
+  (*(v98 + 8))(v56, v57);
+  swift_setAtWritableKeyPath();
+
+  v59 = v142;
+  v142(v146, v147, TupleTypeMetadata);
+
+  v59(v146, v147, TupleTypeMetadata);
+
+  v60 = v99;
+  swift_getAtKeyPath();
+
+  v61 = v117;
+  v62 = swift_getAssociatedConformanceWitness();
+  (*(*(v62 + 16) + 24))(v124, v61);
+  (*(v101 + 8))(v60, v61);
+  swift_setAtWritableKeyPath();
+
+  v63 = TupleTypeMetadata;
+  v142(v146, v147, TupleTypeMetadata);
+
+  v142(v146, v147, v63);
+
+  v64 = v103;
+  swift_getAtKeyPath();
+
+  v65 = v118;
+  v66 = swift_getAssociatedConformanceWitness();
+  (*(*(v66 + 16) + 24))(v124, v65);
+  (*(v105 + 8))(v64, v65);
+  swift_setAtWritableKeyPath();
+
+  v67 = v142;
+  v142(v146, v147, TupleTypeMetadata);
+
+  v67(v146, v147, TupleTypeMetadata);
+
+  v68 = v107;
+  swift_getAtKeyPath();
+
+  v69 = v119;
+  v70 = swift_getAssociatedConformanceWitness();
+  (*(*(v70 + 16) + 24))(v124, v69);
+  (*(v108 + 8))(v68, v69);
+  swift_setAtWritableKeyPath();
+
+  v71 = TupleTypeMetadata;
+  v72 = v142;
+  v142(v146, v147, TupleTypeMetadata);
+
+  v72(v146, v147, v71);
+
+  v73 = v109;
+  swift_getAtKeyPath();
+
+  v75 = v121;
+  v74 = v122;
+  v76 = AssociatedTypeWitness;
+  v77 = swift_getAssociatedConformanceWitness();
+  v78 = v124;
+  (*(*(v77 + 16) + 24))(v124, v76);
+  (*(v111 + 8))(v73, v76);
+  swift_setAtWritableKeyPath();
+
+  v79 = *(v75 + 8);
+  v80 = (*(v79 + 24))(v74, v79);
+  v81 = sub_1AE156B60(v80, v78);
+
+  (*(v79 + 32))(v81, v74, v79);
+  return (*(v102 + 8))(v147, TupleTypeMetadata);
+}
+
+uint64_t CRStruct_9.copy(renamingReferences:)@<X0>(unint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v5 = v4;
+  v9 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v111 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v110 = v84 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
+  v109 = v84 - v12;
+  v119 = swift_getAssociatedTypeWitness();
+  v108 = *(v119 - 8);
+  MEMORY[0x1EEE9AC00](v119);
+  v107 = v84 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v106 = v84 - v15;
+  v118 = swift_getAssociatedTypeWitness();
+  v105 = *(v118 - 8);
+  MEMORY[0x1EEE9AC00](v118);
+  v104 = v84 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v103 = v84 - v18;
+  v117 = swift_getAssociatedTypeWitness();
+  v101 = *(v117 - 8);
+  MEMORY[0x1EEE9AC00](v117);
+  v100 = v84 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v20);
+  v99 = v84 - v21;
+  v116 = swift_getAssociatedTypeWitness();
+  v98 = *(v116 - 8);
+  MEMORY[0x1EEE9AC00](v116);
+  v97 = v84 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v23);
+  v96 = v84 - v24;
+  v115 = swift_getAssociatedTypeWitness();
+  v95 = *(v115 - 8);
+  MEMORY[0x1EEE9AC00](v115);
+  v94 = v84 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v26);
+  v93 = v84 - v27;
+  v113 = swift_getAssociatedTypeWitness();
+  v92 = *(v113 - 8);
+  MEMORY[0x1EEE9AC00](v113);
+  v91 = v84 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v29);
+  v90 = v84 - v30;
+  v114 = swift_getAssociatedTypeWitness();
+  v89 = *(v114 - 8);
+  MEMORY[0x1EEE9AC00](v114);
+  v88 = v84 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v32);
+  v87 = v84 - v33;
+  v112 = swift_getAssociatedTypeWitness();
+  v86 = *(v112 - 8);
+  MEMORY[0x1EEE9AC00](v112);
+  v85 = v84 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v36.n128_f64[0] = MEMORY[0x1EEE9AC00](v35);
+  v84[1] = v84 - v37;
+  if (a1)
+  {
+    v38 = a1;
+  }
+
+  else
+  {
+    v38 = sub_1ADE51288(MEMORY[0x1E69E7CC0]);
+  }
+
+  v148[0] = v38;
+  (*(*(a2 - 8) + 16))(a4, v5, a2, v36);
+  v123 = v5;
+  v124 = a4;
+  v39 = *(v9 + 160);
+
+  v39(v147, a2, v9);
+  v129 = v147[1];
+  v143 = v147[2];
+  v134 = v147[10];
+  v131 = v147[11];
+  v132 = v147[8];
+  v139 = v147[4];
+  v140 = v147[13];
+  v122 = v9;
+  v141 = v147[5];
+  v142 = v147[14];
+  v144 = v147[16];
+  v145 = v147[7];
+  v138 = v147[19];
+  v128 = v147[23];
+  v135 = v147[20];
+  v136 = v147[17];
+  v137 = v147[22];
+  v130 = v147[25];
+  v40 = v147[26];
+  sub_1AE23DB8C();
+  v146[0] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v146[1] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v146[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v146[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v146[4] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v146[5] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v146[6] = swift_getTupleTypeMetadata2();
+  v125 = a2;
+  sub_1AE23DB8C();
+  v146[7] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v146[8] = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v102 = *(TupleTypeMetadata - 8);
+  v121 = *(v102 + 16);
+  v126 = v102 + 16;
+  v121(v146, v147, TupleTypeMetadata);
+
+  v127 = v40;
+
+  v121(v146, v147, TupleTypeMetadata);
+
+  v41 = v85;
+  swift_getAtKeyPath();
+
+  v42 = v112;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  (*(*(AssociatedConformanceWitness + 16) + 24))(v148, v42);
+  (*(v86 + 8))(v41, v42);
+  swift_setAtWritableKeyPath();
+
+  v44 = TupleTypeMetadata;
+  v121(v146, v147, TupleTypeMetadata);
+
+  v45 = v44;
+  v46 = v121;
+  v121(v146, v147, v45);
+
+  v47 = v88;
+  swift_getAtKeyPath();
+
+  v48 = v114;
+  v49 = swift_getAssociatedConformanceWitness();
+  (*(*(v49 + 16) + 24))(v148, v48);
+  (*(v89 + 8))(v47, v48);
+  swift_setAtWritableKeyPath();
+
+  v46(v146, v147, TupleTypeMetadata);
+
+  v121(v146, v147, TupleTypeMetadata);
+
+  v50 = v91;
+  swift_getAtKeyPath();
+
+  v51 = v113;
+  v52 = swift_getAssociatedConformanceWitness();
+  (*(*(v52 + 16) + 24))(v148, v51);
+  (*(v92 + 8))(v50, v51);
+  swift_setAtWritableKeyPath();
+
+  v53 = TupleTypeMetadata;
+  v54 = v121;
+  v121(v146, v147, TupleTypeMetadata);
+
+  v54(v146, v147, v53);
+
+  v55 = v94;
+  swift_getAtKeyPath();
+
+  v56 = v115;
+  v57 = swift_getAssociatedConformanceWitness();
+  (*(*(v57 + 16) + 24))(v148, v56);
+  (*(v95 + 8))(v55, v56);
+  swift_setAtWritableKeyPath();
+
+  v54(v146, v147, TupleTypeMetadata);
+
+  v54(v146, v147, TupleTypeMetadata);
+
+  v58 = v97;
+  swift_getAtKeyPath();
+
+  v59 = v116;
+  v60 = swift_getAssociatedConformanceWitness();
+  (*(*(v60 + 16) + 24))(v148, v59);
+  (*(v98 + 8))(v58, v59);
+  swift_setAtWritableKeyPath();
+
+  v61 = TupleTypeMetadata;
+  v54(v146, v147, TupleTypeMetadata);
+
+  v54(v146, v147, v61);
+
+  v62 = v100;
+  swift_getAtKeyPath();
+
+  v63 = v117;
+  v64 = swift_getAssociatedConformanceWitness();
+  (*(*(v64 + 16) + 24))(v148, v63);
+  (*(v101 + 8))(v62, v63);
+  swift_setAtWritableKeyPath();
+
+  v54(v146, v147, TupleTypeMetadata);
+
+  v121(v146, v147, TupleTypeMetadata);
+
+  v65 = v104;
+  swift_getAtKeyPath();
+
+  v66 = v118;
+  v67 = swift_getAssociatedConformanceWitness();
+  (*(*(v67 + 16) + 24))(v148, v66);
+  (*(v105 + 8))(v65, v66);
+  swift_setAtWritableKeyPath();
+
+  v68 = TupleTypeMetadata;
+  v69 = v121;
+  v121(v146, v147, TupleTypeMetadata);
+
+  v69(v146, v147, v68);
+
+  v70 = v107;
+  swift_getAtKeyPath();
+
+  v71 = v119;
+  v72 = swift_getAssociatedConformanceWitness();
+  (*(*(v72 + 16) + 24))(v148, v71);
+  (*(v108 + 8))(v70, v71);
+  swift_setAtWritableKeyPath();
+
+  v73 = TupleTypeMetadata;
+  v74 = v121;
+  v121(v146, v147, TupleTypeMetadata);
+
+  v74(v146, v147, v73);
+
+  v75 = v110;
+  swift_getAtKeyPath();
+
+  v76 = v122;
+  v77 = v125;
+  v78 = AssociatedTypeWitness;
+  v79 = swift_getAssociatedConformanceWitness();
+  (*(*(v79 + 16) + 24))(v148, v78);
+  (*(v111 + 8))(v75, v78);
+  swift_setAtWritableKeyPath();
+
+  v80 = *(v76 + 8);
+  v81 = (*(v80 + 24))(v77, v80);
+  v82 = sub_1AE156B60(v81, v148);
+
+  (*(v80 + 32))(v82, v77, v80);
+  return (*(v102 + 8))(v147, v73);
+}
+
+uint64_t static CRStruct_9.fieldKeys.getter(uint64_t a1, uint64_t a2)
+{
+  (*(*(a2 + 8) + 160))(v27);
+  v4 = v27[0];
+  v5 = v27[3];
+  v25 = v27[4];
+  v18 = v27[7];
+  v19 = v27[1];
+  v6 = v27[6];
+  v7 = v27[9];
+  v23 = v27[10];
+  v22 = v27[13];
+  v9 = v27[12];
+  v10 = v27[15];
+  v24 = v27[16];
+  v11 = v27[18];
+  v12 = v27[21];
+  v17 = v27[22];
+  v13 = v27[24];
+  v15 = v27[25];
+  v16 = v27[19];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5BA1F8, &qword_1AE242320);
+  v14 = swift_allocObject();
+  *(v14 + 16) = xmmword_1AE2427D0;
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v26[0] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v26[1] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v26[2] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v26[3] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v26[4] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v26[5] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v26[6] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v26[7] = swift_getTupleTypeMetadata2();
+  swift_getAssociatedTypeWitness();
+  sub_1AE23DB8C();
+  v26[8] = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v8 = *(TupleTypeMetadata - 8);
+  v20 = *(v8 + 16);
+  v21 = TupleTypeMetadata;
+  v20(v26, v27, TupleTypeMetadata);
+
+  *(v14 + 32) = v4;
+  *(v14 + 40) = v19;
+  v20(v26, v27, v21);
+
+  *(v14 + 48) = v5;
+  *(v14 + 56) = v25;
+  v20(v26, v27, v21);
+
+  *(v14 + 64) = v6;
+  *(v14 + 72) = v18;
+  v20(v26, v27, v21);
+
+  *(v14 + 80) = v7;
+  *(v14 + 88) = v23;
+  v20(v26, v27, v21);
+
+  *(v14 + 96) = v9;
+  *(v14 + 104) = v22;
+  v20(v26, v27, v21);
+
+  *(v14 + 112) = v10;
+  *(v14 + 120) = v24;
+  v20(v26, v27, v21);
+
+  *(v14 + 128) = v11;
+  *(v14 + 136) = v16;
+  v20(v26, v27, v21);
+
+  *(v14 + 144) = v12;
+  *(v14 + 152) = v17;
+  v20(v26, v27, v21);
+
+  *(v14 + 160) = v13;
+  *(v14 + 168) = v15;
+  (*(v8 + 8))(v27, v21);
+  return v14;
+}
+
+uint64_t CRStruct_9.merge(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _BYTE *a4@<X8>)
+{
+  v116 = a1;
+  v104 = a4;
+  v5 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v103 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v102 = &v85 - v6;
+  v113 = swift_getAssociatedTypeWitness();
+  v101 = *(v113 - 8);
+  MEMORY[0x1EEE9AC00](v113);
+  v100 = &v85 - v7;
+  v111 = swift_getAssociatedTypeWitness();
+  v98 = *(v111 - 8);
+  MEMORY[0x1EEE9AC00](v111);
+  v97 = &v85 - v8;
+  v110 = swift_getAssociatedTypeWitness();
+  v96 = *(v110 - 8);
+  MEMORY[0x1EEE9AC00](v110);
+  v95 = &v85 - v9;
+  v109 = swift_getAssociatedTypeWitness();
+  v94 = *(v109 - 8);
+  MEMORY[0x1EEE9AC00](v109);
+  v93 = &v85 - v10;
+  v108 = swift_getAssociatedTypeWitness();
+  v92 = *(v108 - 8);
+  MEMORY[0x1EEE9AC00](v108);
+  v91 = &v85 - v11;
+  v107 = swift_getAssociatedTypeWitness();
+  v90 = *(v107 - 8);
+  MEMORY[0x1EEE9AC00](v107);
+  v89 = &v85 - v12;
+  v106 = swift_getAssociatedTypeWitness();
+  v88 = *(v106 - 8);
+  MEMORY[0x1EEE9AC00](v106);
+  v87 = &v85 - v13;
+  v105 = swift_getAssociatedTypeWitness();
+  v86 = *(v105 - 8);
+  v14 = MEMORY[0x1EEE9AC00](v105);
+  v85 = &v85 - v15;
+  v16 = *(v5 + 160);
+  v115 = v5;
+  v16((v139 + 6), a2, v5, v14);
+  v17 = *(&v139[25] + 6);
+  v136 = *(&v139[1] + 6);
+  v137 = *(&v139[7] + 6);
+  v130 = *(&v139[4] + 6);
+  v131 = *(&v139[2] + 6);
+  v121 = *(&v139[10] + 6);
+  v122 = *(&v139[5] + 6);
+  v128 = *(&v139[11] + 6);
+  v129 = *(&v139[8] + 6);
+  v133 = *(&v139[13] + 6);
+  v126 = *(&v139[16] + 6);
+  v127 = *(&v139[14] + 6);
+  v119 = *(&v139[20] + 6);
+  v120 = *(&v139[17] + 6);
+  v18 = *(&v139[19] + 6);
+  v19 = *(&v139[22] + 6);
+  v20 = *(&v139[23] + 6);
+  v132 = *(&v139[26] + 6);
+  if (qword_1ED9670C0 != -1)
+  {
+    swift_once();
+  }
+
+  *(v139 + 3) = word_1ED96F220;
+  BYTE5(v139[0]) = byte_1ED96F222;
+  sub_1AE23DB8C();
+  v138[0] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v138[1] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v138[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v138[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v138[4] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v138[5] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v138[6] = swift_getTupleTypeMetadata2();
+  v114 = a2;
+  sub_1AE23DB8C();
+  v138[7] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v138[8] = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v99 = *(TupleTypeMetadata - 8);
+  v22 = *(v99 + 16);
+  v134 = TupleTypeMetadata;
+  v135 = v99 + 16;
+  v22(v138, v139 + 6, TupleTypeMetadata);
+  v123 = v22;
+
+  v124 = v17;
+
+  v118 = v20;
+
+  v125 = v18;
+
+  v117 = v19;
+
+  v22(v138, v139 + 6, TupleTypeMetadata);
+
+  v23 = v85;
+  swift_getAtKeyPath();
+
+  v24 = swift_modifyAtWritableKeyPath();
+  v25 = v105;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  (*(*(AssociatedConformanceWitness + 8) + 8))(v139, v23, v25);
+  (*(v86 + 8))(v23, v25);
+  v24(v138, 0);
+
+  LOWORD(v138[0]) = v139[0];
+  BYTE2(v138[0]) = BYTE2(v139[0]);
+  v27 = v138;
+  MergeResult.merge(_:)(v27);
+  v123(v138, v139 + 6, v134);
+
+  v123(v138, v139 + 6, v134);
+
+  v28 = v87;
+  swift_getAtKeyPath();
+
+  v29 = swift_modifyAtWritableKeyPath();
+  v30 = v106;
+  v31 = swift_getAssociatedConformanceWitness();
+  (*(*(v31 + 8) + 8))(v139, v28, v30);
+  (*(v88 + 8))(v28, v30);
+  v29(v138, 0);
+
+  LOWORD(v138[0]) = v139[0];
+  BYTE2(v138[0]) = BYTE2(v139[0]);
+  v32 = v138;
+  MergeResult.merge(_:)(v32);
+  v123(v138, v139 + 6, v134);
+
+  v123(v138, v139 + 6, v134);
+
+  v33 = v89;
+  swift_getAtKeyPath();
+
+  v34 = swift_modifyAtWritableKeyPath();
+  v35 = v107;
+  v36 = swift_getAssociatedConformanceWitness();
+  (*(*(v36 + 8) + 8))(v139, v33, v35);
+  (*(v90 + 8))(v33, v35);
+  v34(v138, 0);
+
+  LOWORD(v138[0]) = v139[0];
+  BYTE2(v138[0]) = BYTE2(v139[0]);
+  v37 = v138;
+  MergeResult.merge(_:)(v37);
+  v38 = v134;
+  v39 = v123;
+  v123(v138, v139 + 6, v134);
+
+  v39(v138, v139 + 6, v38);
+  v40 = v39;
+
+  v41 = v91;
+  swift_getAtKeyPath();
+
+  v42 = swift_modifyAtWritableKeyPath();
+  v43 = v108;
+  v44 = swift_getAssociatedConformanceWitness();
+  (*(*(v44 + 8) + 8))(v139, v41, v43);
+  (*(v92 + 8))(v41, v43);
+  v42(v138, 0);
+
+  LOWORD(v138[0]) = v139[0];
+  BYTE2(v138[0]) = BYTE2(v139[0]);
+  v45 = v138;
+  MergeResult.merge(_:)(v45);
+  v40(v138, v139 + 6, v134);
+
+  v123(v138, v139 + 6, v134);
+
+  v46 = v93;
+  swift_getAtKeyPath();
+
+  v47 = swift_modifyAtWritableKeyPath();
+  v48 = v109;
+  v49 = swift_getAssociatedConformanceWitness();
+  (*(*(v49 + 8) + 8))(v139, v46, v48);
+  (*(v94 + 8))(v46, v48);
+  v47(v138, 0);
+
+  LOWORD(v138[0]) = v139[0];
+  BYTE2(v138[0]) = BYTE2(v139[0]);
+  v50 = v138;
+  MergeResult.merge(_:)(v50);
+  v123(v138, v139 + 6, v134);
+
+  v123(v138, v139 + 6, v134);
+
+  v51 = v95;
+  swift_getAtKeyPath();
+
+  v52 = swift_modifyAtWritableKeyPath();
+  v53 = v110;
+  v54 = swift_getAssociatedConformanceWitness();
+  (*(*(v54 + 8) + 8))(v139, v51, v53);
+  (*(v96 + 8))(v51, v53);
+  v52(v138, 0);
+
+  LOWORD(v138[0]) = v139[0];
+  BYTE2(v138[0]) = BYTE2(v139[0]);
+  v55 = v138;
+  MergeResult.merge(_:)(v55);
+  v56 = v134;
+  v57 = v123;
+  v123(v138, v139 + 6, v134);
+
+  v57(v138, v139 + 6, v56);
+
+  v58 = v97;
+  swift_getAtKeyPath();
+
+  v59 = swift_modifyAtWritableKeyPath();
+  v60 = v111;
+  v61 = swift_getAssociatedConformanceWitness();
+  (*(*(v61 + 8) + 8))(v139, v58, v60);
+  (*(v98 + 8))(v58, v60);
+  v59(v138, 0);
+
+  LOWORD(v138[0]) = v139[0];
+  BYTE2(v138[0]) = BYTE2(v139[0]);
+  v62 = v138;
+  MergeResult.merge(_:)(v62);
+  v63 = v123;
+  v123(v138, v139 + 6, v134);
+
+  v63(v138, v139 + 6, v134);
+
+  v64 = v100;
+  swift_getAtKeyPath();
+
+  v65 = swift_modifyAtWritableKeyPath();
+  v66 = v113;
+  v67 = swift_getAssociatedConformanceWitness();
+  (*(*(v67 + 8) + 8))(v139, v64, v66);
+  (*(v101 + 8))(v64, v66);
+  v65(v138, 0);
+
+  LOWORD(v138[0]) = v139[0];
+  BYTE2(v138[0]) = BYTE2(v139[0]);
+  v68 = v138;
+  MergeResult.merge(_:)(v68);
+  v69 = v134;
+  v123(v138, v139 + 6, v134);
+
+  v123(v138, v139 + 6, v69);
+
+  v70 = v102;
+  swift_getAtKeyPath();
+
+  v71 = swift_modifyAtWritableKeyPath();
+  v72 = v115;
+  v73 = v114;
+  v74 = AssociatedTypeWitness;
+  v75 = swift_getAssociatedConformanceWitness();
+  (*(*(v75 + 8) + 8))(v139, v70, v74);
+  (*(v103 + 8))(v70, v74);
+  v71(v138, 0);
+
+  LOWORD(v138[0]) = v139[0];
+  BYTE2(v138[0]) = BYTE2(v139[0]);
+  v76 = v138;
+  MergeResult.merge(_:)(v76);
+  v77 = *(v72 + 8);
+  v78 = (*(v77 + 24))(v73, v77);
+  v79 = (*(v77 + 40))(v138, v73, v77);
+  sub_1AE21F75C(v78, v139);
+
+  v79(v138, 0);
+  LOWORD(v138[0]) = v139[0];
+  BYTE2(v138[0]) = BYTE2(v139[0]);
+  v80 = v138;
+  MergeResult.merge(_:)(v80);
+  (*(v77 + 64))(v73, v77);
+  result = (*(v99 + 8))(v139 + 6, v134);
+  v82 = BYTE4(v139[0]);
+  v83 = BYTE5(v139[0]);
+  v84 = v104;
+  *v104 = BYTE3(v139[0]);
+  v84[1] = v82;
+  v84[2] = v83;
+  return result;
+}
+
+uint64_t CRStruct_9.newRefs(from:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v145 = a1;
+  v4 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v125 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v124 = &v106 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v142 = &v106 - v7;
+  v139 = swift_getAssociatedTypeWitness();
+  v123 = *(v139 - 8);
+  MEMORY[0x1EEE9AC00](v139);
+  v122 = &v106 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v141 = &v106 - v10;
+  v138 = swift_getAssociatedTypeWitness();
+  v121 = *(v138 - 8);
+  MEMORY[0x1EEE9AC00](v138);
+  v119 = &v106 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12);
+  v137 = &v106 - v13;
+  v136 = swift_getAssociatedTypeWitness();
+  v118 = *(v136 - 8);
+  MEMORY[0x1EEE9AC00](v136);
+  v117 = &v106 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15);
+  v135 = &v106 - v16;
+  v133 = swift_getAssociatedTypeWitness();
+  v116 = *(v133 - 8);
+  MEMORY[0x1EEE9AC00](v133);
+  v115 = &v106 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v18);
+  v134 = &v106 - v19;
+  v131 = swift_getAssociatedTypeWitness();
+  v114 = *(v131 - 8);
+  MEMORY[0x1EEE9AC00](v131);
+  v113 = &v106 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v21);
+  v132 = &v106 - v22;
+  v129 = swift_getAssociatedTypeWitness();
+  v112 = *(v129 - 8);
+  MEMORY[0x1EEE9AC00](v129);
+  v111 = &v106 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v24);
+  v130 = &v106 - v25;
+  v127 = swift_getAssociatedTypeWitness();
+  v110 = *(v127 - 8);
+  MEMORY[0x1EEE9AC00](v127);
+  v109 = &v106 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v27);
+  v128 = &v106 - v28;
+  v106 = swift_getAssociatedTypeWitness();
+  v108 = *(v106 - 8);
+  MEMORY[0x1EEE9AC00](v106);
+  v107 = &v106 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v31 = MEMORY[0x1EEE9AC00](v30);
+  v126 = &v106 - v32;
+  v143 = v4;
+  v144 = a2;
+  (*(v4 + 160))(v169, a2, v4, v31);
+  v152 = v169[1];
+  v149 = v169[5];
+  v157 = v169[7];
+  v165 = v169[8];
+  v166 = v169[4];
+  v146 = v169[11];
+  v162 = v169[2];
+  v163 = v169[13];
+  v160 = v169[19];
+  v161 = v169[22];
+  v153 = v169[25];
+  v154 = v169[10];
+  v33 = v169[14];
+  v155 = v169[16];
+  v147 = v169[23];
+  v148 = v169[17];
+  v150 = v169[20];
+  v158 = v169[26];
+  v168 = MEMORY[0x1E69E7CD0];
+  sub_1AE23DB8C();
+  v167[0] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v167[1] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v167[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v167[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v167[4] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v167[5] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v167[6] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v167[7] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v167[8] = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v120 = *(TupleTypeMetadata - 8);
+  v34 = *(v120 + 16);
+  v156 = v120 + 16;
+  v151 = v34;
+  v34(v167, v169, TupleTypeMetadata);
+
+  v159 = v33;
+
+  swift_getAtKeyPath();
+
+  v151(v167, v169, TupleTypeMetadata);
+
+  v35 = v107;
+  swift_getAtKeyPath();
+
+  v36 = v106;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v38 = v126;
+  v39 = (*(AssociatedConformanceWitness + 64))(v35, v36, AssociatedConformanceWitness);
+  v40 = *(v108 + 8);
+  v40(v35, v36);
+  v40(v38, v36);
+  sub_1AE00F014(v39);
+  v41 = v151;
+  v151(v167, v169, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v41(v167, v169, TupleTypeMetadata);
+
+  v42 = v109;
+  swift_getAtKeyPath();
+
+  v43 = v127;
+  v44 = swift_getAssociatedConformanceWitness();
+  v45 = v128;
+  v46 = (*(v44 + 64))(v42, v43, v44);
+  v47 = *(v110 + 8);
+  v47(v42, v43);
+  v47(v45, v43);
+  sub_1AE00F014(v46);
+  v151(v167, v169, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v151(v167, v169, TupleTypeMetadata);
+
+  v48 = v111;
+  swift_getAtKeyPath();
+
+  v49 = v129;
+  v50 = swift_getAssociatedConformanceWitness();
+  v51 = v130;
+  v52 = (*(v50 + 64))(v48, v49, v50);
+  v53 = *(v112 + 8);
+  v53(v48, v49);
+  v53(v51, v49);
+  sub_1AE00F014(v52);
+  v54 = TupleTypeMetadata;
+  v55 = v151;
+  v151(v167, v169, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v55(v167, v169, v54);
+
+  v56 = v113;
+  swift_getAtKeyPath();
+
+  v57 = v131;
+  v58 = swift_getAssociatedConformanceWitness();
+  v59 = v132;
+  v60 = (*(v58 + 64))(v56, v57, v58);
+  v61 = *(v114 + 8);
+  v61(v56, v57);
+  v61(v59, v57);
+  sub_1AE00F014(v60);
+  v151(v167, v169, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v151(v167, v169, TupleTypeMetadata);
+
+  v62 = v115;
+  swift_getAtKeyPath();
+
+  v63 = v133;
+  v64 = swift_getAssociatedConformanceWitness();
+  v65 = v134;
+  v66 = (*(v64 + 64))(v62, v63, v64);
+  v67 = *(v116 + 8);
+  v67(v62, v63);
+  v67(v65, v63);
+  sub_1AE00F014(v66);
+  v68 = TupleTypeMetadata;
+  v69 = v151;
+  v151(v167, v169, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v69(v167, v169, v68);
+
+  v70 = v117;
+  swift_getAtKeyPath();
+
+  v71 = v136;
+  v72 = swift_getAssociatedConformanceWitness();
+  v73 = v135;
+  v74 = (*(v72 + 64))(v70, v71, v72);
+  v75 = *(v118 + 8);
+  v75(v70, v71);
+  v75(v73, v71);
+  sub_1AE00F014(v74);
+  v151(v167, v169, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v151(v167, v169, TupleTypeMetadata);
+
+  v76 = v119;
+  swift_getAtKeyPath();
+
+  v77 = v138;
+  v78 = swift_getAssociatedConformanceWitness();
+  v79 = v137;
+  v80 = (*(v78 + 64))(v76, v77, v78);
+  v81 = *(v121 + 8);
+  v81(v76, v77);
+  v81(v79, v77);
+  sub_1AE00F014(v80);
+  v82 = TupleTypeMetadata;
+  v83 = v151;
+  v151(v167, v169, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v83(v167, v169, v82);
+
+  v84 = v122;
+  swift_getAtKeyPath();
+
+  v85 = v139;
+  v86 = swift_getAssociatedConformanceWitness();
+  v87 = v141;
+  v88 = (*(v86 + 64))(v84, v85, v86);
+  v89 = *(v123 + 8);
+  v89(v84, v85);
+  v89(v87, v85);
+  sub_1AE00F014(v88);
+  v90 = TupleTypeMetadata;
+  v151(v167, v169, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v151(v167, v169, v90);
+
+  v91 = v124;
+  swift_getAtKeyPath();
+
+  v93 = v143;
+  v92 = v144;
+  v94 = AssociatedTypeWitness;
+  v95 = swift_getAssociatedConformanceWitness();
+  v96 = v142;
+  v97 = (*(v95 + 64))(v91, v94, v95);
+  v98 = *(v125 + 8);
+  v98(v91, v94);
+  v98(v96, v94);
+  sub_1AE00F014(v97);
+  v99 = *(v93 + 8);
+  v100 = *(v99 + 24);
+  v101 = v100(v92, v99);
+  v102 = v100(v92, v99);
+  sub_1AE2200E4(v102, v101);
+  v104 = v103;
+
+  sub_1AE00F014(v104);
+  (*(v120 + 8))(v169, TupleTypeMetadata);
+  return v168;
+}
+
+uint64_t CRStruct_9.observableDifference(from:with:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+{
+  v218 = a2;
+  v217 = a1;
+  v177 = a5;
+  v6 = *(a4 + 8);
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v240 = sub_1AE23D7CC();
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v241 = sub_1AE23D7CC();
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v242 = sub_1AE23D7CC();
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v243 = sub_1AE23D7CC();
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v244 = sub_1AE23D7CC();
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v245 = sub_1AE23D7CC();
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v246 = sub_1AE23D7CC();
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v247 = sub_1AE23D7CC();
+  swift_getAssociatedTypeWitness();
+  swift_getAssociatedConformanceWitness();
+  swift_getAssociatedTypeWitness();
+  v248 = sub_1AE23D7CC();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  MEMORY[0x1EEE9AC00](TupleTypeMetadata);
+  v138 = &v129 - v7;
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v170 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v169 = &v129 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v167 = &v129 - v10;
+  v168 = *(swift_getAssociatedConformanceWitness() + 16);
+  v129 = swift_getAssociatedTypeWitness();
+  v11 = sub_1AE23D7CC();
+  v173 = *(v11 - 8);
+  v174 = v11;
+  MEMORY[0x1EEE9AC00](v11);
+  v207 = &v129 - v12;
+  v203 = swift_getAssociatedTypeWitness();
+  v166 = *(v203 - 8);
+  MEMORY[0x1EEE9AC00](v203);
+  v165 = &v129 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v206 = &v129 - v15;
+  v164 = *(swift_getAssociatedConformanceWitness() + 16);
+  v130 = swift_getAssociatedTypeWitness();
+  v189 = sub_1AE23D7CC();
+  v172 = *(v189 - 8);
+  MEMORY[0x1EEE9AC00](v189);
+  v209 = &v129 - v16;
+  v202 = swift_getAssociatedTypeWitness();
+  v161 = *(v202 - 8);
+  MEMORY[0x1EEE9AC00](v202);
+  v160 = &v129 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v18);
+  v204 = &v129 - v19;
+  v159 = *(swift_getAssociatedConformanceWitness() + 16);
+  v131 = swift_getAssociatedTypeWitness();
+  v188 = sub_1AE23D7CC();
+  v171 = *(v188 - 8);
+  MEMORY[0x1EEE9AC00](v188);
+  v210 = &v129 - v20;
+  v200 = swift_getAssociatedTypeWitness();
+  v157 = *(v200 - 8);
+  MEMORY[0x1EEE9AC00](v200);
+  v156 = &v129 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v22);
+  v201 = &v129 - v23;
+  v155 = *(swift_getAssociatedConformanceWitness() + 16);
+  v132 = swift_getAssociatedTypeWitness();
+  v24 = sub_1AE23D7CC();
+  v186 = *(v24 - 8);
+  v187 = v24;
+  MEMORY[0x1EEE9AC00](v24);
+  v211 = &v129 - v25;
+  v198 = swift_getAssociatedTypeWitness();
+  v153 = *(v198 - 8);
+  MEMORY[0x1EEE9AC00](v198);
+  v152 = &v129 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v27);
+  v199 = &v129 - v28;
+  v151 = *(swift_getAssociatedConformanceWitness() + 16);
+  v133 = swift_getAssociatedTypeWitness();
+  v29 = sub_1AE23D7CC();
+  v184 = *(v29 - 8);
+  v185 = v29;
+  MEMORY[0x1EEE9AC00](v29);
+  v212 = &v129 - v30;
+  v196 = swift_getAssociatedTypeWitness();
+  v150 = *(v196 - 8);
+  MEMORY[0x1EEE9AC00](v196);
+  v149 = &v129 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v32);
+  v197 = &v129 - v33;
+  v148 = *(swift_getAssociatedConformanceWitness() + 16);
+  v134 = swift_getAssociatedTypeWitness();
+  v34 = sub_1AE23D7CC();
+  v182 = *(v34 - 8);
+  v183 = v34;
+  MEMORY[0x1EEE9AC00](v34);
+  v213 = &v129 - v35;
+  v194 = swift_getAssociatedTypeWitness();
+  v147 = *(v194 - 8);
+  MEMORY[0x1EEE9AC00](v194);
+  v146 = &v129 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v37);
+  v195 = &v129 - v38;
+  v145 = *(swift_getAssociatedConformanceWitness() + 16);
+  v135 = swift_getAssociatedTypeWitness();
+  v39 = sub_1AE23D7CC();
+  v180 = *(v39 - 8);
+  v181 = v39;
+  MEMORY[0x1EEE9AC00](v39);
+  v214 = &v129 - v40;
+  v192 = swift_getAssociatedTypeWitness();
+  v144 = *(v192 - 8);
+  MEMORY[0x1EEE9AC00](v192);
+  v143 = &v129 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v42);
+  v193 = &v129 - v43;
+  v142 = *(swift_getAssociatedConformanceWitness() + 16);
+  v136 = swift_getAssociatedTypeWitness();
+  v44 = sub_1AE23D7CC();
+  v178 = *(v44 - 8);
+  v179 = v44;
+  MEMORY[0x1EEE9AC00](v44);
+  v215 = &v129 - v45;
+  v190 = swift_getAssociatedTypeWitness();
+  v141 = *(v190 - 8);
+  MEMORY[0x1EEE9AC00](v190);
+  v140 = &v129 - ((v46 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v47);
+  v191 = &v129 - v48;
+  v139 = *(swift_getAssociatedConformanceWitness() + 16);
+  v158 = swift_getAssociatedTypeWitness();
+  v49 = sub_1AE23D7CC();
+  v162 = *(v49 - 8);
+  v163 = v49;
+  v50 = MEMORY[0x1EEE9AC00](v49);
+  v208 = &v129 - v51;
+  v52 = *(v6 + 160);
+  v176 = v6;
+  v52(&v240, a3, v6, v50);
+  v216 = v241;
+  v224 = v242;
+  v233 = v244;
+  v234 = v245;
+  v231 = v247;
+  v238 = v248;
+  v237 = v249;
+  v223 = v250;
+  v235 = v251;
+  v227 = v252;
+  v230 = v253;
+  v229 = v254;
+  v225 = v255;
+  v219 = v257;
+  v53 = v258;
+  v220 = v256;
+  v232 = v259;
+  v54 = v260;
+  sub_1AE23DB8C();
+  v239[0] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v239[1] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v239[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v239[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v239[4] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v239[5] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v239[6] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v239[7] = swift_getTupleTypeMetadata2();
+  v175 = a3;
+  sub_1AE23DB8C();
+  v239[8] = swift_getTupleTypeMetadata2();
+  v221 = swift_getTupleTypeMetadata();
+  v154 = *(v221 - 8);
+  v55 = *(v154 + 16);
+  v236 = v154 + 16;
+  v226 = v55;
+  v55(v239, &v240, v221);
+
+  v222 = v54;
+
+  v228 = v53;
+
+  swift_getAtKeyPath();
+
+  v226(v239, &v240, v221);
+
+  v56 = v140;
+  swift_getAtKeyPath();
+
+  v57 = v190;
+  v58 = v191;
+  (*(v139 + 40))(v56, v218, v190);
+  v59 = *(v141 + 8);
+  v59(v56, v57);
+  v59(v58, v57);
+  v60 = v226;
+  v226(v239, &v240, v221);
+
+  swift_getAtKeyPath();
+
+  v60(v239, &v240, v221);
+
+  v61 = v143;
+  swift_getAtKeyPath();
+
+  v62 = v192;
+  v63 = v193;
+  (*(v142 + 40))(v61, v218, v192);
+  v64 = *(v144 + 8);
+  v64(v61, v62);
+  v64(v63, v62);
+  v65 = v221;
+  v226(v239, &v240, v221);
+
+  swift_getAtKeyPath();
+
+  v226(v239, &v240, v65);
+
+  v66 = v146;
+  swift_getAtKeyPath();
+
+  v67 = v195;
+  v68 = v194;
+  (*(v145 + 40))(v66, v218, v194);
+  v69 = *(v147 + 8);
+  v69(v66, v68);
+  v69(v67, v68);
+  v70 = v221;
+  v71 = v226;
+  v226(v239, &v240, v221);
+
+  swift_getAtKeyPath();
+
+  v71(v239, &v240, v70);
+
+  v72 = v149;
+  swift_getAtKeyPath();
+
+  v73 = v197;
+  v74 = v196;
+  (*(v148 + 40))(v72, v218, v196);
+  v75 = *(v150 + 8);
+  v75(v72, v74);
+  v75(v73, v74);
+  v76 = v221;
+  v226(v239, &v240, v221);
+
+  swift_getAtKeyPath();
+
+  v226(v239, &v240, v76);
+
+  v77 = v152;
+  swift_getAtKeyPath();
+
+  v78 = v199;
+  v79 = v198;
+  (*(v151 + 40))(v77, v218, v198);
+  v80 = *(v153 + 8);
+  v80(v77, v79);
+  v80(v78, v79);
+  v81 = v76;
+  v82 = v226;
+  v226(v239, &v240, v81);
+
+  swift_getAtKeyPath();
+
+  v82(v239, &v240, v221);
+
+  v83 = v156;
+  swift_getAtKeyPath();
+
+  v84 = v201;
+  v85 = v200;
+  (*(v155 + 40))(v83, v218, v200);
+  v86 = *(v157 + 8);
+  v86(v83, v85);
+  v86(v84, v85);
+  v226(v239, &v240, v221);
+
+  swift_getAtKeyPath();
+
+  v87 = v221;
+  v226(v239, &v240, v221);
+
+  v88 = v160;
+  swift_getAtKeyPath();
+
+  v89 = v204;
+  v90 = v202;
+  (*(v159 + 40))(v88, v218, v202);
+  v91 = *(v161 + 8);
+  v91(v88, v90);
+  v91(v89, v90);
+  v92 = v226;
+  v226(v239, &v240, v87);
+
+  swift_getAtKeyPath();
+
+  v92(v239, &v240, v221);
+
+  v93 = v165;
+  swift_getAtKeyPath();
+
+  v94 = v206;
+  v95 = v203;
+  (*(v164 + 40))(v93, v218, v203);
+  v96 = *(v166 + 8);
+  v96(v93, v95);
+  v96(v94, v95);
+  v97 = v221;
+  v226(v239, &v240, v221);
+
+  v98 = v167;
+  swift_getAtKeyPath();
+
+  v226(v239, &v240, v97);
+
+  v99 = v169;
+  swift_getAtKeyPath();
+
+  v100 = AssociatedTypeWitness;
+  (*(v168 + 40))(v99, v218, AssociatedTypeWitness);
+  (*(v154 + 8))(&v240, v97);
+  v101 = *(v170 + 8);
+  v101(v99, v100);
+  v101(v98, v100);
+  if ((*(*(v158 - 8) + 48))(v208, 1) == 1 && (*(*(v136 - 8) + 48))(v215, 1) == 1 && (*(*(v135 - 8) + 48))(v214, 1) == 1 && (*(*(v134 - 8) + 48))(v213, 1) == 1 && (*(*(v133 - 8) + 48))(v212, 1) == 1 && (*(*(v132 - 8) + 48))(v211, 1) == 1 && (*(*(v131 - 8) + 48))(v210, 1) == 1 && (*(*(v130 - 8) + 48))(v209, 1) == 1 && (*(*(v129 - 8) + 48))(v207, 1) == 1)
+  {
+    (*(v162 + 8))(v208, v163);
+    v102 = swift_getAssociatedTypeWitness();
+    (*(*(v102 - 8) + 56))(v177, 1, 1, v102);
+    v104 = v173;
+    v103 = v174;
+    v105 = v207;
+    v106 = v171;
+    v107 = v172;
+    v108 = v186;
+    v109 = v180;
+    v110 = v181;
+    v111 = v178;
+    v112 = v179;
+  }
+
+  else
+  {
+    v113 = v138;
+    v114 = TupleTypeMetadata[12];
+    v115 = TupleTypeMetadata[16];
+    v116 = TupleTypeMetadata[20];
+    v117 = TupleTypeMetadata[24];
+    v118 = TupleTypeMetadata[28];
+    v119 = TupleTypeMetadata[32];
+    v120 = TupleTypeMetadata[36];
+    v238 = TupleTypeMetadata[40];
+    (*(v162 + 32))(v138, v208, v163);
+    (*(v178 + 16))(&v113[v114], v215, v179);
+    (*(v180 + 16))(&v113[v115], v214, v181);
+    (*(v182 + 16))(&v113[v116], v213, v183);
+    (*(v184 + 16))(&v113[v117], v212, v185);
+    (*(v186 + 16))(&v113[v118], v211, v187);
+    v106 = v171;
+    (*(v171 + 16))(&v113[v119], v210, v188);
+    v107 = v172;
+    (*(v172 + 16))(&v113[v120], v209, v189);
+    v104 = v173;
+    v121 = v174;
+    v122 = v207;
+    (*(v173 + 16))(&v113[v238], v207, v174);
+    v123 = swift_getAssociatedTypeWitness();
+    v124 = v177;
+    v109 = v180;
+    v110 = v181;
+    swift_dynamicCast();
+    v125 = *(*(v123 - 8) + 56);
+    v126 = v124;
+    v127 = v123;
+    v111 = v178;
+    v112 = v179;
+    v125(v126, 0, 1, v127);
+    v105 = v122;
+    v108 = v186;
+    v103 = v121;
+  }
+
+  (*(v104 + 8))(v105, v103);
+  (*(v107 + 8))(v209, v189);
+  (*(v106 + 8))(v210, v188);
+  (*(v108 + 8))(v211, v187);
+  (*(v184 + 8))(v212, v185);
+  (*(v182 + 8))(v213, v183);
+  (*(v109 + 8))(v214, v110);
+  return (*(v111 + 8))(v215, v112);
+}
+
+uint64_t CRStruct_9.hasDelta(from:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v141 = a1;
+  v4 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v105 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v104 = &v103 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v108 = &v103 - v7;
+  v133 = swift_getAssociatedTypeWitness();
+  v107 = *(v133 - 8);
+  MEMORY[0x1EEE9AC00](v133);
+  v106 = &v103 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v111 = &v103 - v10;
+  v134 = swift_getAssociatedTypeWitness();
+  v110 = *(v134 - 8);
+  MEMORY[0x1EEE9AC00](v134);
+  v109 = &v103 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12);
+  v114 = &v103 - v13;
+  v135 = swift_getAssociatedTypeWitness();
+  v113 = *(v135 - 8);
+  MEMORY[0x1EEE9AC00](v135);
+  v112 = &v103 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15);
+  v117 = &v103 - v16;
+  v136 = swift_getAssociatedTypeWitness();
+  v116 = *(v136 - 8);
+  MEMORY[0x1EEE9AC00](v136);
+  v115 = &v103 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v18);
+  v120 = &v103 - v19;
+  v137 = swift_getAssociatedTypeWitness();
+  v119 = *(v137 - 8);
+  MEMORY[0x1EEE9AC00](v137);
+  v118 = &v103 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v21);
+  v123 = &v103 - v22;
+  v138 = swift_getAssociatedTypeWitness();
+  v122 = *(v138 - 8);
+  MEMORY[0x1EEE9AC00](v138);
+  v121 = &v103 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v24);
+  v126 = &v103 - v25;
+  v139 = swift_getAssociatedTypeWitness();
+  v125 = *(v139 - 8);
+  MEMORY[0x1EEE9AC00](v139);
+  v124 = &v103 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v27);
+  v130 = &v103 - v28;
+  v147 = swift_getAssociatedTypeWitness();
+  v129 = *(v147 - 8);
+  MEMORY[0x1EEE9AC00](v147);
+  v128 = &v103 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v31 = MEMORY[0x1EEE9AC00](v30);
+  v146 = &v103 - v32;
+  v145 = v4;
+  (*(v4 + 160))(v166, a2, v4, v31);
+  v149 = v166[2];
+  v150 = v166[1];
+  v155 = v166[4];
+  v143 = v166[5];
+  v144 = v166[7];
+  v148 = v166[10];
+  v158 = v166[11];
+  v159 = v166[8];
+  v160 = v166[14];
+  v161 = v166[13];
+  v162 = v166[17];
+  v163 = v166[19];
+  v164 = v166[16];
+  v151 = v166[26];
+  v152 = v166[20];
+  v156 = v166[25];
+  v157 = v166[22];
+  v154 = v166[23];
+  sub_1AE23DB8C();
+  v165[0] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v165[1] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v165[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v165[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v165[4] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v165[5] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v165[6] = swift_getTupleTypeMetadata2();
+  v142 = a2;
+  sub_1AE23DB8C();
+  v165[7] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v165[8] = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v131 = *(TupleTypeMetadata - 8);
+  v34 = v131 + 16;
+  v35 = *(v131 + 16);
+  v35(v165, v166, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v153 = TupleTypeMetadata;
+  v140 = v34;
+  v127 = v35;
+  v35(v165, v166, TupleTypeMetadata);
+
+  v36 = v128;
+  swift_getAtKeyPath();
+
+  v37 = v147;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v39 = v36;
+  v40 = v146;
+  LOBYTE(v36) = (*(AssociatedConformanceWitness + 88))(v36, v37, AssociatedConformanceWitness);
+  v41 = *(v129 + 8);
+  v41(v39, v37);
+  v41(v40, v37);
+  if ((v36 & 1) != 0
+    || (v42 = v127, v127(v165, v166, v153), , , , , , , , , , , , , , , , , , swift_getAtKeyPath(), , v42(v165, v166, v153), , , , , , , , , , , , , , , , , , v43 = v124, swift_getAtKeyPath(), , v44 = v139, v45 = swift_getAssociatedConformanceWitness(), v46 = v130, LOBYTE(v42) = (*(v45 + 88))(v43, v44, v45), v47 = *(v125 + 8), v47(v43, v44), v47(v46, v44), (v42 & 1) != 0)
+    || (v48 = v127, v127(v165, v166, v153), , , , , , , , , , , , , , , , , , swift_getAtKeyPath(), , v48(v165, v166, v153), , , , , , , , , , , , , , , , , , v49 = v121, swift_getAtKeyPath(), , v50 = v138, v51 = swift_getAssociatedConformanceWitness(), v52 = v126, LOBYTE(v48) = (*(v51 + 88))(v49, v50, v51), v53 = *(v122 + 8), v53(v49, v50), v53(v52, v50), (v48 & 1) != 0)
+    || (v54 = v127, v127(v165, v166, v153), , , , , , , , , , , , , , , , , , swift_getAtKeyPath(), , v54(v165, v166, v153), , , , , , , , , , , , , , , , , , v55 = v118, swift_getAtKeyPath(), , v56 = v137, v57 = swift_getAssociatedConformanceWitness(), v58 = v123, LOBYTE(v54) = (*(v57 + 88))(v55, v56, v57), v59 = *(v119 + 8), v59(v55, v56), v59(v58, v56), (v54 & 1) != 0)
+    || (v60 = v127, v127(v165, v166, v153), , , , , , , , , , , , , , , , , , swift_getAtKeyPath(), , v60(v165, v166, v153), , , , , , , , , , , , , , , , , , v61 = v115, swift_getAtKeyPath(), , v62 = v136, v63 = swift_getAssociatedConformanceWitness(), v64 = v120, LOBYTE(v60) = (*(v63 + 88))(v61, v62, v63), v65 = *(v116 + 8), v65(v61, v62), v65(v64, v62), (v60 & 1) != 0)
+    || (v66 = v127, v127(v165, v166, v153), , , , , , , , , , , , , , , , , , swift_getAtKeyPath(), , v66(v165, v166, v153), , , , , , , , , , , , , , , , , , v67 = v112, swift_getAtKeyPath(), , v68 = v135, v69 = swift_getAssociatedConformanceWitness(), v70 = v117, v71 = (*(v69 + 88))(v67, v68, v69), v72 = *(v113 + 8), v72(v67, v68), v72(v70, v68), (v71 & 1) != 0)
+    || (v73 = v127, v127(v165, v166, v153), , , , , , , , , , , , , , , , , , swift_getAtKeyPath(), , v73(v165, v166, v153), , , , , , , , , , , , , , , , , , v74 = v109, swift_getAtKeyPath(), , v75 = v134, v76 = swift_getAssociatedConformanceWitness(), v77 = v114, v78 = (*(v76 + 88))(v74, v75, v76), v79 = *(v110 + 8), v79(v74, v75), v79(v77, v75), (v78 & 1) != 0)
+    || (v80 = v127, v127(v165, v166, v153), , , , , , , , , , , , , , , , , , swift_getAtKeyPath(), , v80(v165, v166, v153), , , , , , , , , , , , , , , , , , v81 = v106, swift_getAtKeyPath(), , v82 = v133, v83 = swift_getAssociatedConformanceWitness(), v84 = v111, v85 = (*(v83 + 88))(v81, v82, v83), v86 = *(v107 + 8), v86(v81, v82), v86(v84, v82), (v85 & 1) != 0))
+  {
+    v87 = v153;
+  }
+
+  else
+  {
+    v90 = v153;
+    v91 = v127;
+    v127(v165, v166, v153);
+
+    swift_getAtKeyPath();
+
+    v87 = v90;
+    v91(v165, v166, v90);
+
+    v92 = v142;
+
+    v93 = v104;
+    swift_getAtKeyPath();
+
+    v94 = AssociatedTypeWitness;
+    v95 = swift_getAssociatedConformanceWitness();
+    v96 = v108;
+    LOBYTE(v90) = (*(v95 + 88))(v93, v94, v95);
+    v97 = *(v105 + 8);
+    v97(v93, v94);
+    v97(v96, v94);
+    if ((v90 & 1) == 0)
+    {
+      v98 = *(v145 + 8);
+      v99 = *(v98 + 24);
+      v100 = v99(v92, v98);
+      v101 = v99(v92, v98);
+      sub_1AE21FE14(v101, v100);
+      v88 = v102;
+
+      goto LABEL_11;
+    }
+  }
+
+  v88 = 1;
+LABEL_11:
+  (*(v131 + 8))(v166, v87);
+  return v88 & 1;
+}
+
+uint64_t CRStruct_9.actionUndoingDifference(from:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v206 = a1;
+  v167 = a4;
+  v5 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v162 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v161 = &v122 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v159 = &v122 - v8;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v123 = swift_getAssociatedTypeWitness();
+  v198 = sub_1AE23D7CC();
+  v166 = *(v198 - 8);
+  MEMORY[0x1EEE9AC00](v198);
+  v194 = &v122 - v9;
+  v188 = swift_getAssociatedTypeWitness();
+  v158 = *(v188 - 8);
+  MEMORY[0x1EEE9AC00](v188);
+  v157 = &v122 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
+  v187 = &v122 - v12;
+  v156 = swift_getAssociatedConformanceWitness();
+  v124 = swift_getAssociatedTypeWitness();
+  v193 = sub_1AE23D7CC();
+  v165 = *(v193 - 8);
+  MEMORY[0x1EEE9AC00](v193);
+  v195 = &v122 - v13;
+  v185 = swift_getAssociatedTypeWitness();
+  v153 = *(v185 - 8);
+  MEMORY[0x1EEE9AC00](v185);
+  v152 = &v122 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15);
+  v186 = &v122 - v16;
+  v151 = swift_getAssociatedConformanceWitness();
+  v125 = swift_getAssociatedTypeWitness();
+  v197 = sub_1AE23D7CC();
+  v164 = *(v197 - 8);
+  MEMORY[0x1EEE9AC00](v197);
+  v200 = &v122 - v17;
+  v184 = swift_getAssociatedTypeWitness();
+  v149 = *(v184 - 8);
+  MEMORY[0x1EEE9AC00](v184);
+  v148 = &v122 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v19);
+  v183 = &v122 - v20;
+  v147 = swift_getAssociatedConformanceWitness();
+  v126 = swift_getAssociatedTypeWitness();
+  v172 = sub_1AE23D7CC();
+  v163 = *(v172 - 8);
+  MEMORY[0x1EEE9AC00](v172);
+  v201 = &v122 - v21;
+  v182 = swift_getAssociatedTypeWitness();
+  v145 = *(v182 - 8);
+  MEMORY[0x1EEE9AC00](v182);
+  v144 = &v122 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v23);
+  v181 = &v122 - v24;
+  v143 = swift_getAssociatedConformanceWitness();
+  v127 = swift_getAssociatedTypeWitness();
+  v196 = sub_1AE23D7CC();
+  v171 = *(v196 - 8);
+  MEMORY[0x1EEE9AC00](v196);
+  v202 = &v122 - v25;
+  v179 = swift_getAssociatedTypeWitness();
+  v142 = *(v179 - 8);
+  MEMORY[0x1EEE9AC00](v179);
+  v141 = &v122 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v27);
+  v180 = &v122 - v28;
+  v140 = swift_getAssociatedConformanceWitness();
+  v128 = swift_getAssociatedTypeWitness();
+  v191 = sub_1AE23D7CC();
+  v170 = *(v191 - 8);
+  MEMORY[0x1EEE9AC00](v191);
+  v205 = &v122 - v29;
+  v177 = swift_getAssociatedTypeWitness();
+  v139 = *(v177 - 8);
+  MEMORY[0x1EEE9AC00](v177);
+  v138 = &v122 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v31);
+  v178 = &v122 - v32;
+  v137 = swift_getAssociatedConformanceWitness();
+  v129 = swift_getAssociatedTypeWitness();
+  v190 = sub_1AE23D7CC();
+  v169 = *(v190 - 8);
+  MEMORY[0x1EEE9AC00](v190);
+  v203 = &v122 - v33;
+  v175 = swift_getAssociatedTypeWitness();
+  v136 = *(v175 - 8);
+  MEMORY[0x1EEE9AC00](v175);
+  v135 = &v122 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v35);
+  v176 = &v122 - v36;
+  v134 = swift_getAssociatedConformanceWitness();
+  v130 = swift_getAssociatedTypeWitness();
+  v189 = sub_1AE23D7CC();
+  v168 = *(v189 - 8);
+  MEMORY[0x1EEE9AC00](v189);
+  v204 = &v122 - v37;
+  v173 = swift_getAssociatedTypeWitness();
+  v133 = *(v173 - 8);
+  MEMORY[0x1EEE9AC00](v173);
+  v132 = &v122 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v39);
+  v174 = &v122 - v40;
+  v131 = swift_getAssociatedConformanceWitness();
+  v150 = swift_getAssociatedTypeWitness();
+  v41 = sub_1AE23D7CC();
+  v154 = *(v41 - 8);
+  v155 = v41;
+  v42 = MEMORY[0x1EEE9AC00](v41);
+  v199 = &v122 - v43;
+  (*(v5 + 160))(v237, a2, v5, v42);
+  v212 = v237[1];
+  v220 = v237[4];
+  v217 = v237[5];
+  v226 = v237[7];
+  v211 = v237[8];
+  v219 = v237[10];
+  v227 = v237[11];
+  v221 = v237[13];
+  v214 = v237[14];
+  v218 = v237[16];
+  v222 = v237[19];
+  v44 = v237[20];
+  v45 = v237[2];
+  v215 = v237[17];
+  v216 = v237[22];
+  v213 = v237[23];
+  v46 = v237[25];
+  v209 = v237[26];
+  sub_1AE23DB8C();
+  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v229 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v230 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v231 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v232 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v233 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v234 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v235 = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v236 = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v146 = *(TupleTypeMetadata - 8);
+  v47 = *(v146 + 16);
+  v225 = v146 + 16;
+  v224 = v47;
+  (v47)(&TupleTypeMetadata2, v237, TupleTypeMetadata);
+
+  v210 = v46;
+
+  v207 = v44;
+
+  swift_getAtKeyPath();
+
+  (v224)(&TupleTypeMetadata2, v237, TupleTypeMetadata);
+
+  v48 = v132;
+  swift_getAtKeyPath();
+  v208 = v45;
+
+  v49 = v173;
+  v50 = v174;
+  (*(v131 + 72))(v48, v173);
+  v51 = *(v133 + 8);
+  v51(v48, v49);
+  v51(v50, v49);
+  v52 = TupleTypeMetadata;
+  (v224)(&TupleTypeMetadata2, v237, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  (v224)(&TupleTypeMetadata2, v237, v52);
+
+  v53 = v135;
+  swift_getAtKeyPath();
+
+  v54 = v53;
+  v55 = v53;
+  v56 = v175;
+  v57 = v176;
+  (*(v134 + 72))(v54, v175);
+  v58 = *(v136 + 8);
+  v58(v55, v56);
+  v58(v57, v56);
+  v59 = v224;
+  (v224)(&TupleTypeMetadata2, v237, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v59(&TupleTypeMetadata2, v237, TupleTypeMetadata);
+
+  v60 = v138;
+  swift_getAtKeyPath();
+
+  v61 = v177;
+  v62 = v178;
+  (*(v137 + 72))(v60, v177);
+  v63 = *(v139 + 8);
+  v63(v60, v61);
+  v63(v62, v61);
+  v64 = TupleTypeMetadata;
+  (v224)(&TupleTypeMetadata2, v237, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  (v224)(&TupleTypeMetadata2, v237, v64);
+
+  v65 = v141;
+  swift_getAtKeyPath();
+
+  v66 = v179;
+  v67 = v180;
+  (*(v140 + 72))(v65, v179);
+  v68 = *(v142 + 8);
+  v68(v65, v66);
+  v68(v67, v66);
+  (v224)(&TupleTypeMetadata2, v237, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  (v224)(&TupleTypeMetadata2, v237, TupleTypeMetadata);
+
+  v69 = v144;
+  swift_getAtKeyPath();
+
+  v70 = v69;
+  v72 = v181;
+  v71 = v182;
+  (*(v143 + 72))(v69, v182);
+  v73 = *(v145 + 8);
+  v73(v70, v71);
+  v73(v72, v71);
+  v74 = v224;
+  (v224)(&TupleTypeMetadata2, v237, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v74(&TupleTypeMetadata2, v237, TupleTypeMetadata);
+
+  v75 = v148;
+  swift_getAtKeyPath();
+
+  v76 = v75;
+  v78 = v183;
+  v77 = v184;
+  (*(v147 + 72))(v75, v184);
+  v79 = *(v149 + 8);
+  v79(v76, v77);
+  v79(v78, v77);
+  v80 = TupleTypeMetadata;
+  (v224)(&TupleTypeMetadata2, v237, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  (v224)(&TupleTypeMetadata2, v237, v80);
+
+  v81 = v152;
+  swift_getAtKeyPath();
+
+  v82 = v185;
+  v83 = v186;
+  (*(v151 + 72))(v81, v185);
+  v84 = *(v153 + 8);
+  v84(v81, v82);
+  v84(v83, v82);
+  v85 = v224;
+  (v224)(&TupleTypeMetadata2, v237, TupleTypeMetadata);
+
+  swift_getAtKeyPath();
+
+  v85(&TupleTypeMetadata2, v237, TupleTypeMetadata);
+
+  v86 = v157;
+  swift_getAtKeyPath();
+
+  v87 = v187;
+  v88 = v188;
+  (*(v156 + 72))(v86, v188);
+  v89 = *(v158 + 8);
+  v89(v86, v88);
+  v89(v87, v88);
+  v90 = TupleTypeMetadata;
+  (v224)(&TupleTypeMetadata2, v237, TupleTypeMetadata);
+
+  v91 = v159;
+  swift_getAtKeyPath();
+
+  (v224)(&TupleTypeMetadata2, v237, v90);
+
+  v92 = v161;
+  swift_getAtKeyPath();
+
+  v93 = AssociatedTypeWitness;
+  (*(AssociatedConformanceWitness + 72))(v92, AssociatedTypeWitness);
+  (*(v146 + 8))(v237, TupleTypeMetadata);
+  v94 = *(v162 + 8);
+  v94(v92, v93);
+  v94(v91, v93);
+  v95 = v205;
+  if ((*(*(v150 - 8) + 48))(v199, 1) == 1 && (*(*(v130 - 8) + 48))(v204, 1) == 1 && (*(*(v129 - 8) + 48))(v203, 1) == 1 && (*(*(v128 - 8) + 48))(v95, 1) == 1 && (*(*(v127 - 8) + 48))(v202, 1) == 1 && (*(*(v126 - 8) + 48))(v201, 1) == 1 && (*(*(v125 - 8) + 48))(v200, 1) == 1 && (*(*(v124 - 8) + 48))(v195, 1) == 1 && (*(*(v123 - 8) + 48))(v194, 1) == 1)
+  {
+    v96 = v155;
+    (*(v154 + 8))(v199, v155);
+    TupleTypeMetadata2 = v96;
+    v229 = v189;
+    v230 = v190;
+    v231 = v191;
+    v97 = v196;
+    v232 = v196;
+    v98 = v172;
+    v233 = v172;
+    v234 = v197;
+    v235 = v193;
+    v236 = v198;
+    v99 = swift_getTupleTypeMetadata();
+    (*(*(v99 - 8) + 56))(v167, 1, 1, v99);
+    v101 = v165;
+    v100 = v166;
+    v102 = v194;
+    v103 = v195;
+    v104 = v163;
+    v105 = v164;
+    v106 = v203;
+  }
+
+  else
+  {
+    v107 = v155;
+    TupleTypeMetadata2 = v155;
+    v108 = v189;
+    v229 = v189;
+    v109 = v190;
+    v230 = v190;
+    v110 = v191;
+    v231 = v191;
+    v232 = v196;
+    v233 = v172;
+    v234 = v197;
+    v111 = v193;
+    v235 = v193;
+    v236 = v198;
+    v112 = swift_getTupleTypeMetadata();
+    v113 = v112[12];
+    v114 = v112[16];
+    v222 = v112[20];
+    TupleTypeMetadata = v112[24];
+    v224 = v112[28];
+    v225 = v112[32];
+    v226 = v112[36];
+    v227 = v112[40];
+    v115 = v167;
+    (*(v154 + 32))(v167, v199, v107);
+    (*(v168 + 16))(v115 + v113, v204, v108);
+    (*(v169 + 16))(v115 + v114, v203, v109);
+    v116 = v111;
+    (*(v170 + 16))(v115 + v222, v205, v110);
+    (*(v171 + 16))(v115 + TupleTypeMetadata, v202, v196);
+    v104 = v163;
+    v117 = v172;
+    (*(v163 + 16))(&v224[v115], v201, v172);
+    v105 = v164;
+    (*(v164 + 16))(v115 + v225, v200, v197);
+    v101 = v165;
+    v103 = v195;
+    (*(v165 + 16))(v115 + v226, v195, v116);
+    v100 = v166;
+    v102 = v194;
+    (*(v166 + 16))(v115 + v227, v194, v198);
+    v118 = *(*(v112 - 1) + 56);
+    v119 = v115;
+    v97 = v196;
+    v120 = v112;
+    v98 = v117;
+    v106 = v203;
+    v118(v119, 0, 1, v120);
+  }
+
+  (*(v100 + 8))(v102, v198);
+  (*(v101 + 8))(v103, v193);
+  (*(v105 + 8))(v200, v197);
+  (*(v104 + 8))(v201, v98);
+  (*(v171 + 8))(v202, v97);
+  (*(v170 + 8))(v205, v191);
+  (*(v169 + 8))(v106, v190);
+  return (*(v168 + 8))(v204, v189);
+}
+
+double CRStruct_9.apply(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v281 = a1;
+  v4 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v198 = swift_getAssociatedTypeWitness();
+  v257 = sub_1AE23D7CC();
+  v249 = *(v257 - 8);
+  MEMORY[0x1EEE9AC00](v257);
+  v224 = &v185 - v5;
+  v231 = swift_getAssociatedTypeWitness();
+  v223 = swift_getAssociatedConformanceWitness();
+  v197 = swift_getAssociatedTypeWitness();
+  v254 = sub_1AE23D7CC();
+  v240 = *(v254 - 8);
+  MEMORY[0x1EEE9AC00](v254);
+  v222 = &v185 - v6;
+  v230 = swift_getAssociatedTypeWitness();
+  v221 = swift_getAssociatedConformanceWitness();
+  v196 = swift_getAssociatedTypeWitness();
+  v253 = sub_1AE23D7CC();
+  v248 = *(v253 - 8);
+  MEMORY[0x1EEE9AC00](v253);
+  v220 = &v185 - v7;
+  v229 = swift_getAssociatedTypeWitness();
+  v217 = swift_getAssociatedConformanceWitness();
+  v195 = swift_getAssociatedTypeWitness();
+  v252 = sub_1AE23D7CC();
+  v247 = *(v252 - 8);
+  MEMORY[0x1EEE9AC00](v252);
+  v216 = &v185 - v8;
+  v228 = swift_getAssociatedTypeWitness();
+  v213 = swift_getAssociatedConformanceWitness();
+  v194 = swift_getAssociatedTypeWitness();
+  v9 = sub_1AE23D7CC();
+  v246 = *(v9 - 8);
+  MEMORY[0x1EEE9AC00](v9);
+  v212 = &v185 - v10;
+  v227 = swift_getAssociatedTypeWitness();
+  v210 = swift_getAssociatedConformanceWitness();
+  v193 = swift_getAssociatedTypeWitness();
+  v11 = sub_1AE23D7CC();
+  v238 = v11;
+  v245 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v209 = &v185 - v12;
+  v233 = swift_getAssociatedTypeWitness();
+  v207 = swift_getAssociatedConformanceWitness();
+  v192 = swift_getAssociatedTypeWitness();
+  v13 = sub_1AE23D7CC();
+  v243 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v206 = &v185 - v14;
+  v234 = swift_getAssociatedTypeWitness();
+  v203 = swift_getAssociatedConformanceWitness();
+  v191 = swift_getAssociatedTypeWitness();
+  v15 = sub_1AE23D7CC();
+  v237 = v15;
+  v242 = *(v15 - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v202 = &v185 - v16;
+  v235 = swift_getAssociatedTypeWitness();
+  v200 = swift_getAssociatedConformanceWitness();
+  v17 = v13;
+  v244 = v13;
+  v239 = v9;
+  v18 = swift_getAssociatedTypeWitness();
+  v284 = sub_1AE23D7CC();
+  v285 = v15;
+  v286 = v17;
+  v287 = v11;
+  v288 = v9;
+  v289 = v252;
+  v290 = v253;
+  v291 = v254;
+  v292 = v257;
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v241 = sub_1AE23D7CC();
+  v236 = *(v241 - 8);
+  MEMORY[0x1EEE9AC00](v241);
+  v219 = &v185 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v20);
+  v218 = &v185 - v21;
+  MEMORY[0x1EEE9AC00](v22);
+  v214 = &v185 - v23;
+  MEMORY[0x1EEE9AC00](v24);
+  v211 = &v185 - v25;
+  MEMORY[0x1EEE9AC00](v26);
+  v208 = &v185 - v27;
+  MEMORY[0x1EEE9AC00](v28);
+  v205 = &v185 - v29;
+  MEMORY[0x1EEE9AC00](v30);
+  v204 = &v185 - v31;
+  MEMORY[0x1EEE9AC00](v32);
+  v201 = &v185 - v33;
+  MEMORY[0x1EEE9AC00](v34);
+  v199 = &v185 - v35;
+  v190 = v18;
+  v251 = sub_1AE23D7CC();
+  v250 = *(v251 - 8);
+  v36 = MEMORY[0x1EEE9AC00](v251);
+  v226 = &v185 - v37;
+  (*(v4 + 160))(&v284, a2, v4, v36);
+  v280 = v285;
+  v279 = v288;
+  v272 = v289;
+  v278 = v291;
+  v271 = v292;
+  v269 = v294;
+  v277 = v295;
+  v268 = v296;
+  v276 = v297;
+  v267 = v298;
+  v38 = v299;
+  v39 = v300;
+  v40 = v301;
+  v41 = v302;
+  v42 = v303;
+  v43 = v304;
+  v273 = v286;
+  v44 = v293;
+  sub_1AE23DB8C();
+  v283[0] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v283[1] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v283[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v283[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v283[4] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v283[5] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v283[6] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v283[7] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v283[8] = swift_getTupleTypeMetadata2();
+  v45 = swift_getTupleTypeMetadata();
+  v215 = *(v45 - 8);
+  v46 = *(v215 + 16);
+  v275 = v45;
+  v263 = v215 + 16;
+  v262 = v46;
+  (v46)(v283, &v284);
+
+  v274 = v43;
+
+  v264 = v42;
+
+  v255 = v41;
+
+  v265 = v40;
+
+  v256 = v39;
+
+  v266 = v38;
+
+  v270 = v44;
+
+  v47 = v236;
+  v48 = *(v236 + 16);
+  v49 = v199;
+  v50 = v241;
+  v261 = v236 + 16;
+  v260 = v48;
+  v48(v199, v281, v241);
+  v51 = *(TupleTypeMetadata - 1);
+  v259 = *(v51 + 48);
+  v258 = v51 + 48;
+  v52 = v259(v49, 1);
+  v53 = v257;
+  v54 = v249;
+  v55 = v254;
+  v56 = v240;
+  v57 = v252;
+  v58 = v50;
+  v59 = v251;
+  if (v52 == 1)
+  {
+    v60 = v58;
+    (*(v47 + 8))(v49, v58);
+    (*(*(v190 - 8) + 56))(v226, 1, 1);
+    v61 = v47;
+    v62 = v59;
+  }
+
+  else
+  {
+    v63 = TupleTypeMetadata[12];
+    v64 = TupleTypeMetadata[16];
+    v189 = TupleTypeMetadata[20];
+    v190 = v64;
+    v65 = TupleTypeMetadata[24];
+    v187 = TupleTypeMetadata[28];
+    v188 = v65;
+    v186 = TupleTypeMetadata[32];
+    v66 = TupleTypeMetadata[36];
+    v67 = TupleTypeMetadata[40];
+    (*(v250 + 32))(v226, v49, v251);
+    (*(v54 + 8))(&v49[v67], v53);
+    (*(v56 + 8))(&v49[v66], v55);
+    v68 = v236;
+    v60 = v241;
+    (*(v248 + 8))(&v49[v186], v253);
+    (*(v247 + 8))(&v49[v187], v57);
+    v62 = v251;
+    v69 = v244;
+    (*(v246 + 8))(&v49[v188], v239);
+    (*(v245 + 8))(&v49[v189], v238);
+    (*(v243 + 8))(&v49[v190], v69);
+    v70 = &v49[v63];
+    v61 = v68;
+    (*(v242 + 8))(v70, v237);
+  }
+
+  v71 = swift_modifyAtWritableKeyPath();
+  v72 = v226;
+  (*(v200 + 80))(v226, v235);
+  v74 = v250 + 8;
+  v73 = *(v250 + 8);
+  v73(v72, v62);
+  v71(v283, 0);
+
+  v262(v283, &v284, v275);
+
+  v75 = v201;
+  v260(v201, v281, v60);
+  v76 = (v259)(v75, 1, TupleTypeMetadata);
+  v250 = v74;
+  v235 = v73;
+  if (v76 == 1)
+  {
+    (*(v61 + 8))(v75, v60);
+    v77 = v202;
+    (*(*(v191 - 8) + 56))(v202, 1, 1);
+    v78 = v237;
+    v79 = v242;
+  }
+
+  else
+  {
+    v80 = TupleTypeMetadata[12];
+    v226 = TupleTypeMetadata[16];
+    v81 = TupleTypeMetadata[20];
+    v199 = TupleTypeMetadata[24];
+    v200 = v81;
+    v82 = v73;
+    v191 = TupleTypeMetadata[28];
+    v83 = TupleTypeMetadata[32];
+    v84 = TupleTypeMetadata[36];
+    v85 = TupleTypeMetadata[40];
+    v79 = v242;
+    v86 = v202;
+    v78 = v237;
+    (*(v242 + 32))(v202, &v75[v80], v237);
+    v87 = &v75[v85];
+    v60 = v241;
+    (*(v249 + 8))(v87, v257);
+    (*(v240 + 8))(&v75[v84], v254);
+    (*(v248 + 8))(&v75[v83], v253);
+    (*(v247 + 8))(&v75[v191], v252);
+    (*(v246 + 8))(&v199[v75], v239);
+    (*(v245 + 8))(&v75[v200], v238);
+    (*(v243 + 8))(&v226[v75], v244);
+    v82(v75, v251);
+    v77 = v86;
+  }
+
+  v88 = swift_modifyAtWritableKeyPath();
+  (*(v203 + 80))(v77, v234);
+  v89 = *(v79 + 8);
+  v89(v77, v78);
+  v88(v283, 0);
+
+  v262(v283, &v284, v275);
+
+  v90 = v204;
+  v260(v204, v281, v60);
+  v91 = (v259)(v90, 1, TupleTypeMetadata);
+  v242 = v79 + 8;
+  v234 = v89;
+  if (v91 == 1)
+  {
+    (*(v236 + 8))(v90, v60);
+    v92 = v206;
+    (*(*(v192 - 8) + 56))(v206, 1, 1);
+    v93 = v60;
+    v95 = v243;
+    v94 = v244;
+  }
+
+  else
+  {
+    v226 = TupleTypeMetadata[12];
+    v96 = TupleTypeMetadata[16];
+    v97 = TupleTypeMetadata[20];
+    v202 = TupleTypeMetadata[24];
+    v203 = v97;
+    v201 = TupleTypeMetadata[28];
+    v98 = TupleTypeMetadata[32];
+    v99 = TupleTypeMetadata[36];
+    v100 = TupleTypeMetadata[40];
+    v101 = v60;
+    v95 = v243;
+    v92 = v206;
+    (*(v243 + 32))(v206, &v90[v96], v244);
+    v102 = &v90[v100];
+    v93 = v101;
+    (*(v249 + 8))(v102, v257);
+    (*(v240 + 8))(&v90[v99], v254);
+    (*(v248 + 8))(&v90[v98], v253);
+    v94 = v244;
+    v103 = v239;
+    (*(v247 + 8))(&v201[v90], v252);
+    (*(v246 + 8))(&v202[v90], v103);
+    (*(v245 + 8))(&v90[v203], v238);
+    v89(&v226[v90], v237);
+    v235(v90, v251);
+  }
+
+  v104 = swift_modifyAtWritableKeyPath();
+  (*(v207 + 80))(v92, v233);
+  v105 = *(v95 + 8);
+  v105(v92, v94);
+  v104(v283, 0);
+
+  v262(v283, &v284, v275);
+
+  v106 = v205;
+  v260(v205, v281, v93);
+  v107 = (v259)(v106, 1, TupleTypeMetadata);
+  v243 = v95 + 8;
+  v233 = v105;
+  if (v107 == 1)
+  {
+    (*(v236 + 8))(v106, v93);
+    v108 = v93;
+    v109 = v209;
+    (*(*(v193 - 8) + 56))(v209, 1, 1);
+    v110 = v249;
+    v111 = v238;
+    v112 = v245;
+  }
+
+  else
+  {
+    v226 = TupleTypeMetadata[12];
+    v113 = TupleTypeMetadata[16];
+    v114 = TupleTypeMetadata[20];
+    v206 = TupleTypeMetadata[24];
+    v207 = v113;
+    v115 = TupleTypeMetadata[28];
+    v203 = TupleTypeMetadata[32];
+    v204 = v115;
+    v116 = v105;
+    v117 = TupleTypeMetadata[36];
+    v118 = TupleTypeMetadata[40];
+    v112 = v245;
+    v109 = v209;
+    v111 = v238;
+    (*(v245 + 32))(v209, &v106[v114], v238);
+    v110 = v249;
+    (*(v249 + 8))(&v106[v118], v257);
+    (*(v240 + 8))(&v106[v117], v254);
+    (*(v248 + 8))(&v106[v203], v253);
+    (*(v247 + 8))(&v204[v106], v252);
+    (*(v246 + 8))(&v206[v106], v239);
+    v116(&v106[v207], v244);
+    v234(&v226[v106], v237);
+    v235(v106, v251);
+    v108 = v241;
+  }
+
+  v119 = swift_modifyAtWritableKeyPath();
+  (*(v210 + 80))(v109, v227);
+  v120 = *(v112 + 8);
+  v120(v109, v111);
+  v119(v283, 0);
+
+  v262(v283, &v284, v275);
+
+  v121 = v208;
+  v260(v208, v281, v108);
+  v122 = (v259)(v121, 1, TupleTypeMetadata);
+  v245 = v112 + 8;
+  v227 = v120;
+  if (v122 == 1)
+  {
+    (*(v236 + 8))(v121, v108);
+    v123 = v212;
+    (*(*(v194 - 8) + 56))(v212, 1, 1);
+    v125 = v239;
+    v124 = v240;
+    v126 = v246;
+  }
+
+  else
+  {
+    v226 = TupleTypeMetadata[12];
+    v127 = TupleTypeMetadata[16];
+    v209 = TupleTypeMetadata[20];
+    v210 = v127;
+    v128 = TupleTypeMetadata[24];
+    v129 = TupleTypeMetadata[28];
+    v206 = TupleTypeMetadata[32];
+    v207 = v129;
+    v130 = TupleTypeMetadata[36];
+    v131 = TupleTypeMetadata[40];
+    v126 = v246;
+    v123 = v212;
+    (*(v246 + 32))(v212, &v121[v128], v239);
+    (*(v110 + 8))(&v121[v131], v257);
+    v124 = v240;
+    v132 = &v121[v130];
+    v108 = v241;
+    (*(v240 + 8))(v132, v254);
+    (*(v248 + 8))(&v206[v121], v253);
+    v125 = v239;
+    (*(v247 + 8))(&v121[v207], v252);
+    v120(&v209[v121], v238);
+    v233(&v121[v210], v244);
+    v234(&v226[v121], v237);
+    v235(v121, v251);
+  }
+
+  v133 = swift_modifyAtWritableKeyPath();
+  (*(v213 + 80))(v123, v228);
+  v134 = *(v126 + 8);
+  v134(v123, v125);
+  v133(v283, 0);
+
+  v262(v283, &v284, v275);
+
+  v135 = v211;
+  v260(v211, v281, v108);
+  v136 = (v259)(v135, 1, TupleTypeMetadata);
+  v246 = v126 + 8;
+  v228 = v134;
+  if (v136 == 1)
+  {
+    (*(v236 + 8))(v135, v108);
+    v137 = v216;
+    (*(*(v195 - 8) + 56))(v216, 1, 1);
+    v138 = v252;
+    v139 = v247;
+  }
+
+  else
+  {
+    v140 = v125;
+    v226 = TupleTypeMetadata[12];
+    v141 = TupleTypeMetadata[16];
+    v212 = TupleTypeMetadata[20];
+    v213 = v141;
+    v142 = TupleTypeMetadata[24];
+    v143 = TupleTypeMetadata[28];
+    v144 = v124;
+    v209 = TupleTypeMetadata[32];
+    v210 = v142;
+    v208 = TupleTypeMetadata[36];
+    v145 = TupleTypeMetadata[40];
+    v139 = v247;
+    v137 = v216;
+    v138 = v252;
+    (*(v247 + 32))(v216, &v135[v143], v252);
+    (*(v249 + 8))(&v135[v145], v257);
+    v146 = v144;
+    v108 = v241;
+    (*(v146 + 8))(&v208[v135], v254);
+    (*(v248 + 8))(&v209[v135], v253);
+    v134(&v135[v210], v140);
+    v227(&v212[v135], v238);
+    v233(&v135[v213], v244);
+    v234(&v226[v135], v237);
+    v235(v135, v251);
+  }
+
+  v147 = swift_modifyAtWritableKeyPath();
+  (*(v217 + 80))(v137, v229);
+  v148 = *(v139 + 8);
+  v148(v137, v138);
+  v147(v283, 0);
+
+  v262(v283, &v284, v275);
+
+  v149 = v214;
+  v260(v214, v281, v108);
+  v150 = (v259)(v149, 1, TupleTypeMetadata);
+  v247 = v139 + 8;
+  v229 = v148;
+  if (v150 == 1)
+  {
+    (*(v236 + 8))(v149, v108);
+    v151 = v220;
+    (*(*(v196 - 8) + 56))(v220, 1, 1);
+    v152 = v248;
+    v153 = v218;
+    v154 = v253;
+  }
+
+  else
+  {
+    v155 = TupleTypeMetadata[12];
+    v226 = TupleTypeMetadata[16];
+    v156 = TupleTypeMetadata[20];
+    v216 = TupleTypeMetadata[24];
+    v217 = v156;
+    v157 = TupleTypeMetadata[28];
+    v158 = TupleTypeMetadata[36];
+    v159 = TupleTypeMetadata[40];
+    v152 = v248;
+    v151 = v220;
+    (*(v248 + 32))(v220, &v149[TupleTypeMetadata[32]], v253);
+    v160 = &v149[v159];
+    v154 = v253;
+    (*(v249 + 8))(v160, v257);
+    (*(v240 + 8))(&v149[v158], v254);
+    v148(&v149[v157], v252);
+    v228(&v216[v149], v239);
+    v227(&v149[v217], v238);
+    v233(&v226[v149], v244);
+    v234(&v149[v155], v237);
+    v235(v149, v251);
+    v153 = v218;
+  }
+
+  v161 = swift_modifyAtWritableKeyPath();
+  (*(v221 + 80))(v151, v230);
+  v162 = *(v152 + 8);
+  v162(v151, v154);
+  v161(v283, 0);
+
+  v262(v283, &v284, v275);
+
+  v260(v153, v281, v241);
+  v163 = (v259)(v153, 1, TupleTypeMetadata);
+  v248 = v152 + 8;
+  if (v163 == 1)
+  {
+    v164 = v241;
+    (*(v236 + 8))(v153, v241);
+    v165 = v222;
+    (*(*(v197 - 8) + 56))(v222, 1, 1);
+    v166 = v240;
+    v167 = v254;
+  }
+
+  else
+  {
+    v230 = TupleTypeMetadata[12];
+    v226 = TupleTypeMetadata[16];
+    v221 = TupleTypeMetadata[20];
+    v168 = TupleTypeMetadata[24];
+    v169 = TupleTypeMetadata[28];
+    v170 = TupleTypeMetadata[32];
+    v171 = TupleTypeMetadata[40];
+    v166 = v240;
+    v165 = v222;
+    (*(v240 + 32))(v222, &v153[TupleTypeMetadata[36]], v254);
+    (*(v249 + 8))(&v153[v171], v257);
+    v172 = &v153[v170];
+    v164 = v241;
+    v162(v172, v253);
+    v173 = &v153[v169];
+    v167 = v254;
+    v229(v173, v252);
+    v228(&v153[v168], v239);
+    v227(&v153[v221], v238);
+    v233(&v226[v153], v244);
+    v234(&v153[v230], v237);
+    v235(v153, v251);
+  }
+
+  v174 = swift_modifyAtWritableKeyPath();
+  (*(v223 + 80))(v165, v231);
+  v240 = *(v166 + 8);
+  (v240)(v165, v167);
+  v174(v283, 0);
+
+  v262(v283, &v284, v275);
+
+  v175 = v219;
+  v260(v219, v281, v164);
+  if ((v259)(v175, 1, TupleTypeMetadata) == 1)
+  {
+    (*(v236 + 8))(v175, v164);
+    v176 = v224;
+    (*(*(v198 - 8) + 56))(v224, 1, 1);
+    v177 = v249;
+    v178 = v257;
+  }
+
+  else
+  {
+    v281 = TupleTypeMetadata[12];
+    v280 = TupleTypeMetadata[16];
+    v279 = TupleTypeMetadata[20];
+    v278 = TupleTypeMetadata[24];
+    v277 = TupleTypeMetadata[28];
+    v179 = TupleTypeMetadata[32];
+    v180 = TupleTypeMetadata[36];
+    v177 = v249;
+    v181 = v162;
+    v182 = v224;
+    (*(v249 + 32))(v224, &v175[TupleTypeMetadata[40]], v257);
+    v178 = v257;
+    (v240)(&v175[v180], v167);
+    v181(&v175[v179], v253);
+    v229(&v175[v277], v252);
+    v228(&v175[v278], v239);
+    v176 = v182;
+    v227(&v175[v279], v238);
+    v233(&v175[v280], v244);
+    v234(&v175[v281], v237);
+    v235(v175, v251);
+  }
+
+  v183 = swift_modifyAtWritableKeyPath();
+  (*(AssociatedConformanceWitness + 80))(v176, AssociatedTypeWitness);
+  (*(v177 + 8))(v176, v178);
+  v183(v283, 0);
+  (*(v215 + 8))(&v284, v275);
+
+  return result;
+}
+
+uint64_t CRStruct_9.visitReferences(_:)(void *a1, uint64_t a2, uint64_t a3)
+{
+  v90 = a1;
+  v4 = *(a3 + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v68 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v67 = &v67 - v5;
+  v93 = swift_getAssociatedTypeWitness();
+  v70 = *(v93 - 8);
+  MEMORY[0x1EEE9AC00](v93);
+  v69 = &v67 - v6;
+  v94 = swift_getAssociatedTypeWitness();
+  v72 = *(v94 - 8);
+  MEMORY[0x1EEE9AC00](v94);
+  v71 = &v67 - v7;
+  v95 = swift_getAssociatedTypeWitness();
+  v74 = *(v95 - 8);
+  MEMORY[0x1EEE9AC00](v95);
+  v73 = &v67 - v8;
+  v96 = swift_getAssociatedTypeWitness();
+  v76 = *(v96 - 8);
+  MEMORY[0x1EEE9AC00](v96);
+  v75 = &v67 - v9;
+  v97 = swift_getAssociatedTypeWitness();
+  v78 = *(v97 - 8);
+  MEMORY[0x1EEE9AC00](v97);
+  v77 = &v67 - v10;
+  v98 = swift_getAssociatedTypeWitness();
+  v80 = *(v98 - 8);
+  MEMORY[0x1EEE9AC00](v98);
+  v79 = &v67 - v11;
+  v99 = swift_getAssociatedTypeWitness();
+  v82 = *(v99 - 8);
+  MEMORY[0x1EEE9AC00](v99);
+  v81 = &v67 - v12;
+  v116 = swift_getAssociatedTypeWitness();
+  v89 = *(v116 - 8);
+  v13 = MEMORY[0x1EEE9AC00](v116);
+  v88 = &v67 - v14;
+  v115 = v4;
+  (*(v4 + 160))(v118, a2, v4, v13);
+  v100 = v118[1];
+  v113 = v118[4];
+  v114 = v118[2];
+  v111 = v118[7];
+  v112 = v118[5];
+  v109 = v118[10];
+  v110 = v118[8];
+  v107 = v118[13];
+  v108 = v118[11];
+  v105 = v118[16];
+  v106 = v118[14];
+  v103 = v118[20];
+  v104 = v118[17];
+  v101 = v118[23];
+  v102 = v118[22];
+  v15 = v118[19];
+  v16 = v118[25];
+  v17 = v118[26];
+  sub_1AE23DB8C();
+  v117[0] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v117[1] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v117[2] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v117[3] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v117[4] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v117[5] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v117[6] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v117[7] = swift_getTupleTypeMetadata2();
+  sub_1AE23DB8C();
+  v117[8] = swift_getTupleTypeMetadata2();
+  TupleTypeMetadata = swift_getTupleTypeMetadata();
+  v91 = *(TupleTypeMetadata - 8);
+  v84 = *(v91 + 16);
+  v85 = v91 + 16;
+  v84(v117, v118, TupleTypeMetadata);
+
+  v87 = v17;
+
+  v83 = v16;
+
+  v86 = v15;
+
+  v19 = v88;
+  swift_getAtKeyPath();
+
+  v20 = v116;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v22 = v90;
+  (*(*(AssociatedConformanceWitness + 16) + 48))(v90, v20);
+  (*(v89 + 8))(v19, v20);
+  v23 = v22[3];
+  v24 = v22[4];
+  __swift_project_boxed_opaque_existential_1(v22, v23);
+  if (((*(v24 + 8))(v23, v24) & 1) == 0)
+  {
+    v84(v117, v118, TupleTypeMetadata);
+
+    v25 = v81;
+    swift_getAtKeyPath();
+
+    v26 = v99;
+    v27 = swift_getAssociatedConformanceWitness();
+    (*(*(v27 + 16) + 48))(v22, v26);
+    (*(v82 + 8))(v25, v26);
+    v28 = v22[3];
+    v29 = v22[4];
+    __swift_project_boxed_opaque_existential_1(v22, v28);
+    if (((*(v29 + 8))(v28, v29) & 1) == 0)
+    {
+      v84(v117, v118, TupleTypeMetadata);
+
+      v30 = v79;
+      swift_getAtKeyPath();
+
+      v31 = v98;
+      v32 = swift_getAssociatedConformanceWitness();
+      (*(*(v32 + 16) + 48))(v22, v31);
+      (*(v80 + 8))(v30, v31);
+      v33 = v22[3];
+      v34 = v22[4];
+      __swift_project_boxed_opaque_existential_1(v22, v33);
+      if (((*(v34 + 8))(v33, v34) & 1) == 0)
+      {
+        v84(v117, v118, TupleTypeMetadata);
+
+        v35 = v77;
+        swift_getAtKeyPath();
+
+        v36 = v97;
+        v37 = swift_getAssociatedConformanceWitness();
+        (*(*(v37 + 16) + 48))(v22, v36);
+        (*(v78 + 8))(v35, v36);
+        v38 = v22[3];
+        v39 = v22[4];
+        __swift_project_boxed_opaque_existential_1(v22, v38);
+        if (((*(v39 + 8))(v38, v39) & 1) == 0)
+        {
+          v84(v117, v118, TupleTypeMetadata);
+
+          v40 = v75;
+          swift_getAtKeyPath();
+
+          v41 = v96;
+          v42 = swift_getAssociatedConformanceWitness();
+          (*(*(v42 + 16) + 48))(v22, v41);
+          (*(v76 + 8))(v40, v41);
+          v43 = v22[3];
+          v44 = v22[4];
+          __swift_project_boxed_opaque_existential_1(v22, v43);
+          if (((*(v44 + 8))(v43, v44) & 1) == 0)
+          {
+            v84(v117, v118, TupleTypeMetadata);
+
+            v45 = v73;
+            swift_getAtKeyPath();
+
+            v46 = v95;
+            v47 = swift_getAssociatedConformanceWitness();
+            (*(*(v47 + 16) + 48))(v22, v46);
+            (*(v74 + 8))(v45, v46);
+            v48 = v22[3];
+            v49 = v22[4];
+            __swift_project_boxed_opaque_existential_1(v22, v48);
+            if (((*(v49 + 8))(v48, v49) & 1) == 0)
+            {
+              v84(v117, v118, TupleTypeMetadata);
+
+              v50 = v71;
+              swift_getAtKeyPath();
+
+              v51 = v94;
+              v52 = swift_getAssociatedConformanceWitness();
+              (*(*(v52 + 16) + 48))(v22, v51);
+              (*(v72 + 8))(v50, v51);
+              v53 = v22[3];
+              v54 = v22[4];
+              __swift_project_boxed_opaque_existential_1(v22, v53);
+              if (((*(v54 + 8))(v53, v54) & 1) == 0)
+              {
+                v84(v117, v118, TupleTypeMetadata);
+
+                v55 = v69;
+                swift_getAtKeyPath();
+
+                v56 = v93;
+                v57 = swift_getAssociatedConformanceWitness();
+                (*(*(v57 + 16) + 48))(v22, v56);
+                (*(v70 + 8))(v55, v56);
+                v58 = v22[3];
+                v59 = v22[4];
+                __swift_project_boxed_opaque_existential_1(v22, v58);
+                if (((*(v59 + 8))(v58, v59) & 1) == 0)
+                {
+                  v84(v117, v118, TupleTypeMetadata);
+
+                  v60 = v67;
+                  swift_getAtKeyPath();
+
+                  v61 = AssociatedTypeWitness;
+                  v62 = swift_getAssociatedConformanceWitness();
+                  (*(*(v62 + 16) + 48))(v22, v61);
+                  (*(v68 + 8))(v60, v61);
+                  v63 = v22[3];
+                  v64 = v22[4];
+                  __swift_project_boxed_opaque_existential_1(v22, v63);
+                  if (((*(v64 + 8))(v63, v64) & 1) == 0)
+                  {
+                    v65 = (*(*(v115 + 8) + 24))(a2);
+                    sub_1ADDDC764(v22, v65);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return (*(v91 + 8))(v118, TupleTypeMetadata);
 }

@@ -4,19 +4,19 @@
 - (uint64_t)getNextPendingPushMessage:(const void *)message;
 - (uint64_t)getNextPendingPushMessage:(uint64_t)message;
 - (uint64_t)getNotifications:(const void *)notifications tag:completionHandler:;
-- (uint64_t)getNotifications:(uint64_t)notifications tag:(uint64_t)tag completionHandler:;
+- (uint64_t)getNotifications:(uint64_t)notifications tag:(unint64_t)tag completionHandler:;
 - (uint64_t)getNotifications:(uint64_t)notifications tag:completionHandler:;
 - (uint64_t)getPushPermissionStateForOrigin:(const void *)origin completionHandler:;
 - (uint64_t)getPushPermissionStateForOrigin:(uint64_t)origin completionHandler:;
 - (uint64_t)getSubscriptionForScope:(const void *)scope completionHandler:;
 - (uint64_t)getSubscriptionForScope:(uint64_t)scope completionHandler:;
-- (uint64_t)getSubscriptionForScope:(uint64_t)scope completionHandler:(uint64_t)handler;
+- (uint64_t)getSubscriptionForScope:(uint64_t)scope completionHandler:(char *)handler;
 - (uint64_t)requestPushPermissionForOrigin:(const void *)origin completionHandler:;
 - (uint64_t)requestPushPermissionForOrigin:(uint64_t)origin completionHandler:;
 - (uint64_t)showNotification:(const void *)notification completionHandler:;
 - (uint64_t)showNotification:(uint64_t)notification completionHandler:;
 - (uint64_t)subscribeToPushServiceForScope:(const void *)scope applicationServerKey:completionHandler:;
-- (uint64_t)subscribeToPushServiceForScope:(uint64_t)scope applicationServerKey:(uint64_t)key completionHandler:;
+- (uint64_t)subscribeToPushServiceForScope:(uint64_t)scope applicationServerKey:(char *)key completionHandler:;
 - (uint64_t)subscribeToPushServiceForScope:(uint64_t)scope applicationServerKey:completionHandler:;
 - (uint64_t)unsubscribeFromPushServiceForScope:(const void *)scope completionHandler:;
 - (uint64_t)unsubscribeFromPushServiceForScope:(uint64_t)scope completionHandler:;
@@ -97,43 +97,43 @@
 {
   if (self)
   {
-    [(_WKWebPushDaemonConnection *)self _protectedConnection];
-    v6 = v15;
+    objc_msgSend__protectedConnection(self, a2);
+    v6 = v16;
   }
 
   else
   {
     v6 = 0;
-    v15 = 0;
+    v16 = 0;
   }
 
-  MEMORY[0x19EB01DE0](v14, origin);
+  MEMORY[0x19EB01DE0](v15, origin);
   v7 = _Block_copy(handler);
-  v8 = WTF::fastMalloc(0x10);
-  *v8 = &unk_1F10FC3E0;
-  v8[1] = v7;
-  v13 = v8;
-  API::WebPushDaemonConnection::getPushPermissionState(v6, v14, &v13);
-  v9 = v13;
-  v13 = 0;
-  if (v9)
+  v9 = WTF::fastMalloc(v8, 0x10);
+  *v9 = &unk_1F10FC3E0;
+  v9[1] = v7;
+  v14 = v9;
+  API::WebPushDaemonConnection::getPushPermissionState(v6, v15, &v14);
+  v10 = v14;
+  v14 = 0;
+  if (v10)
   {
-    (*(*v9 + 8))(v9);
+    (*(*v10 + 8))(v10);
   }
 
   _Block_release(0);
-  v11 = v14[0];
-  v14[0] = 0;
-  if (v11 && atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v12 = v15[0];
+  v15[0] = 0;
+  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v11, v10);
+    WTF::StringImpl::destroy(v12, v11);
   }
 
-  v12 = v15;
-  v15 = 0;
-  if (v12)
+  v13 = v16;
+  v16 = 0;
+  if (v13)
   {
-    CFRelease(*(v12 + 8));
+    CFRelease(*(v13 + 8));
   }
 }
 
@@ -141,43 +141,43 @@
 {
   if (self)
   {
-    [(_WKWebPushDaemonConnection *)self _protectedConnection];
-    v6 = v15;
+    objc_msgSend__protectedConnection(self, a2);
+    v6 = v16;
   }
 
   else
   {
     v6 = 0;
-    v15 = 0;
+    v16 = 0;
   }
 
-  MEMORY[0x19EB01DE0](v14, origin);
+  MEMORY[0x19EB01DE0](v15, origin);
   v7 = _Block_copy(handler);
-  v8 = WTF::fastMalloc(0x10);
-  *v8 = &unk_1F10FC408;
-  v8[1] = v7;
-  v13 = v8;
-  API::WebPushDaemonConnection::requestPushPermission(v6, v14, &v13);
-  v9 = v13;
-  v13 = 0;
-  if (v9)
+  v9 = WTF::fastMalloc(v8, 0x10);
+  *v9 = &unk_1F10FC408;
+  v9[1] = v7;
+  v14 = v9;
+  API::WebPushDaemonConnection::requestPushPermission(v6, v15, &v14);
+  v10 = v14;
+  v14 = 0;
+  if (v10)
   {
-    (*(*v9 + 8))(v9);
+    (*(*v10 + 8))(v10);
   }
 
   _Block_release(0);
-  v11 = v14[0];
-  v14[0] = 0;
-  if (v11 && atomic_fetch_add_explicit(v11, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v12 = v15[0];
+  v15[0] = 0;
+  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v11, v10);
+    WTF::StringImpl::destroy(v12, v11);
   }
 
-  v12 = v15;
-  v15 = 0;
-  if (v12)
+  v13 = v16;
+  v16 = 0;
+  if (v13)
   {
-    CFRelease(*(v12 + 8));
+    CFRelease(*(v13 + 8));
   }
 }
 
@@ -186,7 +186,7 @@
   v6 = badge != 0;
   if (self)
   {
-    [(_WKWebPushDaemonConnection *)self _protectedConnection];
+    objc_msgSend__protectedConnection(self, a2);
     v7 = v12;
   }
 
@@ -220,9 +220,9 @@
     bytes = [key bytes];
     v10 = [key length];
     v11 = v10;
-    v25 = 0;
-    LODWORD(v26) = 0;
-    HIDWORD(v26) = v10;
+    v26 = 0;
+    LODWORD(v27) = 0;
+    HIDWORD(v27) = v10;
     if (v10)
     {
       if (HIDWORD(v10))
@@ -231,10 +231,10 @@
         return;
       }
 
-      v12 = WTF::fastMalloc(v10);
+      v12 = WTF::fastMalloc(0, v10);
       v13 = 0;
-      LODWORD(v26) = v11;
-      v25 = v12;
+      LODWORD(v27) = v11;
+      v26 = v12;
       do
       {
         *(v12 + v13) = *(bytes + v13);
@@ -247,59 +247,59 @@
 
   else
   {
-    v25 = 0;
     v26 = 0;
+    v27 = 0;
   }
 
   if (self)
   {
-    [(_WKWebPushDaemonConnection *)self _protectedConnection];
-    self = v24;
+    objc_msgSend__protectedConnection(self);
+    self = v25;
   }
 
   else
   {
-    v24 = 0;
+    v25 = 0;
   }
 
-  MEMORY[0x19EB01DE0](v23, scope);
+  MEMORY[0x19EB01DE0](v24, scope);
   v14 = _Block_copy(handler);
-  v15 = WTF::fastMalloc(0x10);
-  *v15 = &unk_1F10FC430;
-  v15[1] = v14;
-  v22 = v15;
-  v16 = *&self->_connection.m_storage.data[8];
-  v27[0] = v23;
-  v27[1] = &v25;
-  IPC::MessageSender::sendWithAsyncReplyWithoutUsingIPCConnection<Messages::PushClientConnection::SubscribeToPushService,WTF::CompletionHandler<void ()(std::experimental::fundamentals_v3::expected<WebCore::PushSubscriptionData,WebCore::ExceptionData> const&)>>(v16 + 40, v27, &v22);
-  v17 = v22;
-  v22 = 0;
-  if (v17)
+  v16 = WTF::fastMalloc(v15, 0x10);
+  *v16 = &unk_1F10FC430;
+  v16[1] = v14;
+  v23 = v16;
+  v17 = *&self->_connection.m_storage.data[8];
+  v28[0] = v24;
+  v28[1] = &v26;
+  IPC::MessageSender::sendWithAsyncReplyWithoutUsingIPCConnection<Messages::PushClientConnection::SubscribeToPushService,WTF::CompletionHandler<void ()(std::experimental::fundamentals_v3::expected<WebCore::PushSubscriptionData,WebCore::ExceptionData> const&)>>(v17 + 40, v28, &v23);
+  v18 = v23;
+  v23 = 0;
+  if (v18)
   {
-    (*(*v17 + 8))(v17);
+    (*(*v18 + 8))(v18);
   }
 
   _Block_release(0);
-  v19 = v23[0];
-  v23[0] = 0;
-  if (v19 && atomic_fetch_add_explicit(v19, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v20 = v24[0];
+  v24[0] = 0;
+  if (v20 && atomic_fetch_add_explicit(v20, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v19, v18);
-  }
-
-  v20 = v24;
-  v24 = 0;
-  if (v20)
-  {
-    CFRelease(*v20->_connection.m_storage.data);
+    WTF::StringImpl::destroy(v20, v19);
   }
 
   v21 = v25;
-  if (v25)
+  v25 = 0;
+  if (v21)
   {
-    v25 = 0;
-    LODWORD(v26) = 0;
-    WTF::fastFree(v21, v18);
+    CFRelease(*v21->_connection.m_storage.data);
+  }
+
+  v22 = v26;
+  if (v26)
+  {
+    v26 = 0;
+    LODWORD(v27) = 0;
+    WTF::fastFree(v22, v19);
   }
 }
 
@@ -307,48 +307,48 @@
 {
   if (self)
   {
-    [(_WKWebPushDaemonConnection *)self _protectedConnection];
-    v6 = v16;
+    objc_msgSend__protectedConnection(self, a2);
+    v6 = v17;
   }
 
   else
   {
     v6 = 0;
-    v16 = 0;
+    v17 = 0;
   }
 
-  MEMORY[0x19EB01DE0](v15, scope);
+  MEMORY[0x19EB01DE0](v16, scope);
   v7 = _Block_copy(handler);
-  v8 = WTF::fastMalloc(0x10);
-  *v8 = &unk_1F10FC480;
-  v8[1] = v7;
-  v14 = v8;
-  v9 = *(v6 + 16);
-  v17[0] = 0;
-  v17[8] = 0;
-  v18[0] = v15;
-  v18[1] = v17;
-  IPC::MessageSender::sendWithAsyncReplyWithoutUsingIPCConnection<Messages::PushClientConnection::UnsubscribeFromPushService,WTF::CompletionHandler<void ()(std::experimental::fundamentals_v3::expected<BOOL,WebCore::ExceptionData> const&)>>(v9 + 40, v18, &v14);
-  v10 = v14;
-  v14 = 0;
-  if (v10)
+  v9 = WTF::fastMalloc(v8, 0x10);
+  *v9 = &unk_1F10FC480;
+  v9[1] = v7;
+  v15 = v9;
+  v10 = *(v6 + 16);
+  v18[0] = 0;
+  v18[8] = 0;
+  v19[0] = v16;
+  v19[1] = v18;
+  IPC::MessageSender::sendWithAsyncReplyWithoutUsingIPCConnection<Messages::PushClientConnection::UnsubscribeFromPushService,WTF::CompletionHandler<void ()(std::experimental::fundamentals_v3::expected<BOOL,WebCore::ExceptionData> const&)>>(v10 + 40, v19, &v15);
+  v11 = v15;
+  v15 = 0;
+  if (v11)
   {
-    (*(*v10 + 8))(v10);
+    (*(*v11 + 8))(v11);
   }
 
   _Block_release(0);
-  v12 = v15[0];
-  v15[0] = 0;
-  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v13 = v16[0];
+  v16[0] = 0;
+  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v12, v11);
+    WTF::StringImpl::destroy(v13, v12);
   }
 
-  v13 = v16;
-  v16 = 0;
-  if (v13)
+  v14 = v17;
+  v17 = 0;
+  if (v14)
   {
-    CFRelease(*(v13 + 8));
+    CFRelease(*(v14 + 8));
   }
 }
 
@@ -356,45 +356,45 @@
 {
   if (self)
   {
-    [(_WKWebPushDaemonConnection *)self _protectedConnection];
-    v6 = v16;
+    objc_msgSend__protectedConnection(self, a2);
+    v6 = v17;
   }
 
   else
   {
     v6 = 0;
-    v16 = 0;
+    v17 = 0;
   }
 
-  MEMORY[0x19EB01DE0](v15, scope);
+  MEMORY[0x19EB01DE0](v16, scope);
   v7 = _Block_copy(handler);
-  v8 = WTF::fastMalloc(0x10);
-  *v8 = &unk_1F10FC4A8;
-  v8[1] = v7;
-  v14 = v8;
-  v9 = *(v6 + 16);
-  v17 = v15;
-  IPC::MessageSender::sendWithAsyncReplyWithoutUsingIPCConnection<Messages::PushClientConnection::GetPushSubscription,WTF::CompletionHandler<void ()(std::experimental::fundamentals_v3::expected<std::optional<WebCore::PushSubscriptionData>,WebCore::ExceptionData> const&)>>(v9 + 40, &v17, &v14);
-  v10 = v14;
-  v14 = 0;
-  if (v10)
+  v9 = WTF::fastMalloc(v8, 0x10);
+  *v9 = &unk_1F10FC4A8;
+  v9[1] = v7;
+  v15 = v9;
+  v10 = *(v6 + 16);
+  v18 = v16;
+  IPC::MessageSender::sendWithAsyncReplyWithoutUsingIPCConnection<Messages::PushClientConnection::GetPushSubscription,WTF::CompletionHandler<void ()(std::experimental::fundamentals_v3::expected<std::optional<WebCore::PushSubscriptionData>,WebCore::ExceptionData> const&)>>(v10 + 40, &v18, &v15);
+  v11 = v15;
+  v15 = 0;
+  if (v11)
   {
-    (*(*v10 + 8))(v10);
+    (*(*v11 + 8))(v11);
   }
 
   _Block_release(0);
-  v12 = v15[0];
-  v15[0] = 0;
-  if (v12 && atomic_fetch_add_explicit(v12, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v13 = v16[0];
+  v16[0] = 0;
+  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v12, v11);
+    WTF::StringImpl::destroy(v13, v12);
   }
 
-  v13 = v16;
-  v16 = 0;
-  if (v13)
+  v14 = v17;
+  v17 = 0;
+  if (v14)
   {
-    CFRelease(*(v13 + 8));
+    CFRelease(*(v14 + 8));
   }
 }
 
@@ -402,35 +402,35 @@
 {
   if (self)
   {
-    [(_WKWebPushDaemonConnection *)self _protectedConnection];
-    v4 = v10;
+    objc_msgSend__protectedConnection(self, a2);
+    v4 = v11;
   }
 
   else
   {
     v4 = 0;
-    v10 = 0;
+    v11 = 0;
   }
 
   v5 = _Block_copy(message);
-  v6 = WTF::fastMalloc(0x10);
-  *v6 = &unk_1F10FC4D0;
-  v6[1] = v5;
-  v9 = v6;
-  IPC::MessageSender::sendWithAsyncReplyWithoutUsingIPCConnection<Messages::PushClientConnection::GetPendingPushMessage,WTF::CompletionHandler<void ()(std::optional<WebKit::WebPushMessage> const&)>>(*(v4 + 16) + 40, &v11, &v9);
-  v7 = v9;
-  v9 = 0;
-  if (v7)
-  {
-    (*(*v7 + 8))(v7);
-  }
-
-  _Block_release(0);
+  v7 = WTF::fastMalloc(v6, 0x10);
+  *v7 = &unk_1F10FC4D0;
+  v7[1] = v5;
+  v10 = v7;
+  IPC::MessageSender::sendWithAsyncReplyWithoutUsingIPCConnection<Messages::PushClientConnection::GetPendingPushMessage,WTF::CompletionHandler<void ()(std::optional<WebKit::WebPushMessage> const&)>>(*(v4 + 16) + 40, &v12, &v10);
   v8 = v10;
   v10 = 0;
   if (v8)
   {
-    CFRelease(*(v8 + 8));
+    (*(*v8 + 8))(v8);
+  }
+
+  _Block_release(0);
+  v9 = v11;
+  v11 = 0;
+  if (v9)
+  {
+    CFRelease(*(v9 + 8));
   }
 }
 
@@ -438,36 +438,36 @@
 {
   if (self)
   {
-    [(_WKWebPushDaemonConnection *)self _protectedConnection];
-    v6 = v13;
+    objc_msgSend__protectedConnection(self, a2);
+    v6 = v14;
   }
 
   else
   {
     v6 = 0;
-    v13 = 0;
+    v14 = 0;
   }
 
   _getCoreData = [notification _getCoreData];
   v8 = _Block_copy(handler);
-  v9 = WTF::fastMalloc(0x10);
-  *v9 = &unk_1F10FC520;
-  v9[1] = v8;
-  v12 = v9;
-  API::WebPushDaemonConnection::showNotification(v6, _getCoreData, &v12);
-  v10 = v12;
-  v12 = 0;
-  if (v10)
-  {
-    (*(*v10 + 8))(v10);
-  }
-
-  _Block_release(0);
+  v10 = WTF::fastMalloc(v9, 0x10);
+  *v10 = &unk_1F10FC520;
+  v10[1] = v8;
+  v13 = v10;
+  API::WebPushDaemonConnection::showNotification(v6, _getCoreData, &v13);
   v11 = v13;
   v13 = 0;
   if (v11)
   {
-    CFRelease(*(v11 + 8));
+    (*(*v11 + 8))(v11);
+  }
+
+  _Block_release(0);
+  v12 = v14;
+  v14 = 0;
+  if (v12)
+  {
+    CFRelease(*(v12 + 8));
   }
 }
 
@@ -475,54 +475,54 @@
 {
   if (self)
   {
-    [(_WKWebPushDaemonConnection *)self _protectedConnection];
-    v8 = v20;
+    objc_msgSend__protectedConnection(self, a2);
+    v8 = v21;
   }
 
   else
   {
     v8 = 0;
-    v20 = 0;
+    v21 = 0;
   }
 
-  MEMORY[0x19EB01DE0](v19, notifications);
-  MEMORY[0x19EB02040](&v18, tag);
+  MEMORY[0x19EB01DE0](v20, notifications);
+  MEMORY[0x19EB02040](&v19, tag);
   v9 = _Block_copy(handler);
-  v10 = WTF::fastMalloc(0x10);
-  *v10 = &unk_1F10FC548;
-  v10[1] = v9;
-  v17 = v10;
-  v11 = *(v8 + 16);
-  v21[0] = v19;
-  v21[1] = &v18;
-  IPC::MessageSender::sendWithAsyncReplyWithoutUsingIPCConnection<Messages::PushClientConnection::GetNotifications,WTF::CompletionHandler<void ()(std::experimental::fundamentals_v3::expected<WTF::Vector<WebCore::NotificationData,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WebCore::ExceptionData> const&)>>(v11 + 40, v21, &v17);
-  v12 = v17;
-  v17 = 0;
-  if (v12)
+  v11 = WTF::fastMalloc(v10, 0x10);
+  *v11 = &unk_1F10FC548;
+  v11[1] = v9;
+  v18 = v11;
+  v12 = *(v8 + 16);
+  v22[0] = v20;
+  v22[1] = &v19;
+  IPC::MessageSender::sendWithAsyncReplyWithoutUsingIPCConnection<Messages::PushClientConnection::GetNotifications,WTF::CompletionHandler<void ()(std::experimental::fundamentals_v3::expected<WTF::Vector<WebCore::NotificationData,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,WebCore::ExceptionData> const&)>>(v12 + 40, v22, &v18);
+  v13 = v18;
+  v18 = 0;
+  if (v13)
   {
-    (*(*v12 + 8))(v12);
+    (*(*v13 + 8))(v13);
   }
 
   _Block_release(0);
-  v14 = v18;
-  v18 = 0;
-  if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v14, v13);
-  }
-
-  v15 = v19[0];
-  v19[0] = 0;
+  v15 = v19;
+  v19 = 0;
   if (v15 && atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v15, v13);
+    WTF::StringImpl::destroy(v15, v14);
   }
 
-  v16 = v20;
-  v20 = 0;
-  if (v16)
+  v16 = v20[0];
+  v20[0] = 0;
+  if (v16 && atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    CFRelease(*(v16 + 8));
+    WTF::StringImpl::destroy(v16, v14);
+  }
+
+  v17 = v21;
+  v21 = 0;
+  if (v17)
+  {
+    CFRelease(*(v17 + 8));
   }
 }
 
@@ -531,7 +531,7 @@
   v15 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    [(_WKWebPushDaemonConnection *)self _protectedConnection];
+    objc_msgSend__protectedConnection(self, a2);
     v6 = v12;
   }
 
@@ -618,14 +618,14 @@
   return WTF::fastFree(scope, v2);
 }
 
-- (uint64_t)subscribeToPushServiceForScope:(uint64_t)scope applicationServerKey:(uint64_t)key completionHandler:
+- (uint64_t)subscribeToPushServiceForScope:(uint64_t)scope applicationServerKey:(char *)key completionHandler:
 {
   v22[1] = *MEMORY[0x1E69E9840];
   v17[0] = 0;
   v19 = -1;
-  if (*(key + 80))
+  if (key[80])
   {
-    if (*(key + 80) == 255)
+    if (key[80] == 255)
     {
 LABEL_8:
       v5 = objc_alloc(MEMORY[0x1E696ABC0]);
@@ -670,7 +670,7 @@ LABEL_8:
     }
 
     v17[0] = *key;
-    v4 = *(key + 8);
+    v4 = *(key + 1);
     if (v4)
     {
       atomic_fetch_add_explicit(v4, 2u, memory_order_relaxed);
@@ -684,7 +684,7 @@ LABEL_8:
     WebCore::PushSubscriptionData::PushSubscriptionData(v17, key);
   }
 
-  v19 = *(key + 80);
+  v19 = key[80];
   if (v19)
   {
     goto LABEL_8;
@@ -825,14 +825,14 @@ LABEL_7:
   return WTF::fastFree(scope, v2);
 }
 
-- (uint64_t)getSubscriptionForScope:(uint64_t)scope completionHandler:(uint64_t)handler
+- (uint64_t)getSubscriptionForScope:(uint64_t)scope completionHandler:(char *)handler
 {
   v35[1] = *MEMORY[0x1E69E9840];
   v31[0] = 0;
   v33 = -1;
-  if (*(handler + 88))
+  if (handler[88])
   {
-    if (*(handler + 88) == 255)
+    if (handler[88] == 255)
     {
 LABEL_8:
       v5 = objc_alloc(MEMORY[0x1E696ABC0]);
@@ -877,7 +877,7 @@ LABEL_8:
     }
 
     v31[0] = *handler;
-    v4 = *(handler + 8);
+    v4 = *(handler + 1);
     if (v4)
     {
       atomic_fetch_add_explicit(v4, 2u, memory_order_relaxed);
@@ -891,7 +891,7 @@ LABEL_8:
     std::__optional_copy_base<WebCore::PushSubscriptionData,false>::__optional_copy_base[abi:sn200100](v31, handler);
   }
 
-  v33 = *(handler + 88);
+  v33 = handler[88];
   if (v33)
   {
     goto LABEL_8;
@@ -906,16 +906,16 @@ LABEL_8:
 
   API::WebPushSubscriptionData::create(&v21, &v22);
   v9 = v21;
-  v10 = *(v21 + 1);
-  if (!v10)
+  var1 = v21->var1;
+  if (!var1)
   {
 LABEL_16:
     (*(*(scope + 8) + 16))();
-    if (v10)
+    if (var1)
     {
     }
 
-    CFRelease(*(v9 + 1));
+    CFRelease(v9->var1);
     if (v30)
     {
       v13 = v28;
@@ -956,7 +956,7 @@ LABEL_16:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v11 = v10;
+    v11 = var1;
     goto LABEL_16;
   }
 
@@ -1011,11 +1011,11 @@ LABEL_16:
     std::__optional_move_base<WTF::Vector<WTF::KeyValuePair<WTF::String,WebCore::AuthenticationExtensionsClientInputs::PRFValues>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,false>::__optional_move_base[abi:sn200100](v7 + 16, v12);
     v8 = v13;
     v13 = 0;
-    *(v6 + 40) = v8;
-    WTF::URL::URL(v6 + 48, &v14);
-    std::__optional_move_base<WebCore::NotificationPayload,false>::__optional_move_base[abi:sn200100](v6 + 88, v17);
-    v9 = *(v6 + 8);
-    if (v9)
+    v6[2].var1 = v8;
+    WTF::URL::URL(&v6[3], &v14);
+    std::__optional_move_base<WebCore::NotificationPayload,false>::__optional_move_base[abi:sn200100](&v6[5].var1, v17);
+    var1 = v6->var1;
+    if (var1)
     {
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -1024,15 +1024,15 @@ LABEL_16:
         return;
       }
 
-      v10 = v9;
+      v10 = var1;
     }
 
     (*(*(message + 8) + 16))(*(message + 8));
-    if (v9)
+    if (var1)
     {
     }
 
-    CFRelease(*(v6 + 8));
+    CFRelease(v6->var1);
   }
 
   else
@@ -1076,7 +1076,7 @@ LABEL_16:
   return WTF::fastFree(notifications, v2);
 }
 
-- (uint64_t)getNotifications:(uint64_t)notifications tag:(uint64_t)tag completionHandler:
+- (uint64_t)getNotifications:(uint64_t)notifications tag:(unint64_t)tag completionHandler:
 {
   v22[1] = *MEMORY[0x1E69E9840];
   LOBYTE(v17) = 0;

@@ -1,9 +1,11 @@
 @interface Internal_ADS_Management_Kernel
 + (BOOL)IsDeviceWithAOIDConnected:(unsigned int)connected;
++ (__CFData)GetPropertyData:(unsigned int)data address:(AudioObjectPropertyAddress *)address error:(id *)error;
 + (unsigned)ConnectDevice:(id)device error:(id *)error;
 + (void)DisconnectAllDevices;
 + (void)DisconnectDeviceByAudioObjectID:(unsigned int)d error:(id *)error;
 + (void)DisconnectDeviceByUID:(id)d error:(id *)error;
++ (void)GetPropertyData_TypeRef:(unsigned int)ref address:(AudioObjectPropertyAddress *)address error:(id *)error;
 + (void)SetPropertyDataPrivileged:(unsigned int)privileged address:(AudioObjectPropertyAddress *)address dataSize:(unsigned int)size data:(const void *)data error:(id *)error;
 + (void)SetPropertyDataPrivileged_TypeRef:(unsigned int)ref address:(AudioObjectPropertyAddress *)address data:(void *)data error:(id *)error;
 @end
@@ -30,6 +32,28 @@
   {
     *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"InCider" code:v12 userInfo:0];
   }
+}
+
++ (void)GetPropertyData_TypeRef:(unsigned int)ref address:(AudioObjectPropertyAddress *)address error:(id *)error
+{
+  v7 = *&ref;
+  if (v9)
+  {
+    *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"InCider" code:? userInfo:?];
+  }
+
+  return v10;
+}
+
++ (__CFData)GetPropertyData:(unsigned int)data address:(AudioObjectPropertyAddress *)address error:(id *)error
+{
+  v7 = *&data;
+  if (v9)
+  {
+    *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"InCider" code:? userInfo:?];
+  }
+
+  return v10;
 }
 
 + (void)DisconnectDeviceByUID:(id)d error:(id *)error

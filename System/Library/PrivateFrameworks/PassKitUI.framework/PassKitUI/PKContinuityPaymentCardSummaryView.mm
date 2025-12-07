@@ -196,135 +196,136 @@
 {
   array = [MEMORY[0x1E695DF70] array];
   PKPassFrontFaceContentSize();
-  PKFloatRoundToPixel();
-  v4 = v3;
-  v5 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_thumbnailView attribute:5 relatedBy:0 toItem:self attribute:17 multiplier:1.0 constant:42.0];
-  [array addObject:v5];
+  v5.n128_f64[0] = v4.n128_f64[0] / v3 * 41.0;
+  PKFloatRoundToPixel(v5, v4);
+  v7 = v6;
+  v8 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_thumbnailView attribute:5 relatedBy:0 toItem:self attribute:17 multiplier:1.0 constant:42.0];
+  [array addObject:v8];
 
-  v6 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_thumbnailView attribute:8 relatedBy:0 toItem:0 attribute:0 multiplier:1.0 constant:v4];
-  [array addObject:v6];
+  v9 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_thumbnailView attribute:8 relatedBy:0 toItem:0 attribute:0 multiplier:1.0 constant:v7];
+  [array addObject:v9];
 
-  v7 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_thumbnailView attribute:7 relatedBy:0 toItem:0 attribute:0 multiplier:1.0 constant:41.0];
-  [array addObject:v7];
+  v10 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_thumbnailView attribute:7 relatedBy:0 toItem:0 attribute:0 multiplier:1.0 constant:41.0];
+  [array addObject:v10];
 
   centerYAnchor = [(UIImageView *)self->_thumbnailView centerYAnchor];
   centerYAnchor2 = [(PKContinuityPaymentCardSummaryView *)self centerYAnchor];
-  v10 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  [array addObject:v10];
+  v13 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+  [array addObject:v13];
 
   centerYAnchor3 = [(UIImageView *)self->_alertView centerYAnchor];
   centerYAnchor4 = [(PKContinuityPaymentCardSummaryView *)self centerYAnchor];
-  v13 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
-  [array addObject:v13];
+  v16 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
+  [array addObject:v16];
 
   trailingAnchor = [(UIImageView *)self->_alertView trailingAnchor];
   layoutMarginsGuide = [(PKContinuityPaymentCardSummaryView *)self layoutMarginsGuide];
   trailingAnchor2 = [layoutMarginsGuide trailingAnchor];
-  v17 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  [array addObject:v17];
+  v20 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  [array addObject:v20];
 
-  v18 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_descriptionView attribute:5 relatedBy:0 toItem:self attribute:17 multiplier:1.0 constant:100.0];
-  [array addObject:v18];
+  v21 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_descriptionView attribute:5 relatedBy:0 toItem:self attribute:17 multiplier:1.0 constant:100.0];
+  [array addObject:v21];
 
-  v19 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_descriptionView attribute:6 relatedBy:-1 toItem:self attribute:18 multiplier:1.0 constant:0.0];
+  v22 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_descriptionView attribute:6 relatedBy:-1 toItem:self attribute:18 multiplier:1.0 constant:0.0];
   textToTrailingConstraint = self->_textToTrailingConstraint;
-  self->_textToTrailingConstraint = v19;
+  self->_textToTrailingConstraint = v22;
 
-  v21 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_descriptionView attribute:6 relatedBy:-1 toItem:self->_alertView attribute:5 multiplier:1.0 constant:-12.0];
+  v24 = [MEMORY[0x1E696ACD8] constraintWithItem:self->_descriptionView attribute:6 relatedBy:-1 toItem:self->_alertView attribute:5 multiplier:1.0 constant:-12.0];
   textToAlertConstraint = self->_textToAlertConstraint;
-  self->_textToAlertConstraint = v21;
+  self->_textToAlertConstraint = v24;
 
   [array addObject:self->_textToTrailingConstraint];
-  v77 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD08], *MEMORY[0x1E69DDC30]);
-  [v77 _bodyLeading];
-  v24 = v23;
-  v25 = objc_alloc_init(MEMORY[0x1E69DCC20]);
-  v26 = objc_alloc_init(MEMORY[0x1E69DCC20]);
-  [(PKContinuityPaymentCardSummaryView *)self addLayoutGuide:v25];
-  [(PKContinuityPaymentCardSummaryView *)self addLayoutGuide:v26];
-  heightAnchor = [v25 heightAnchor];
-  heightAnchor2 = [v26 heightAnchor];
-  v29 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
-  [array addObject:v29];
-
-  topAnchor = [v25 topAnchor];
-  topAnchor2 = [(PKContinuityPaymentCardSummaryView *)self topAnchor];
-  v32 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v80 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD08], *MEMORY[0x1E69DDC30]);
+  [v80 _bodyLeading];
+  v27 = v26;
+  v28 = objc_alloc_init(MEMORY[0x1E69DCC20]);
+  v29 = objc_alloc_init(MEMORY[0x1E69DCC20]);
+  [(PKContinuityPaymentCardSummaryView *)self addLayoutGuide:v28];
+  [(PKContinuityPaymentCardSummaryView *)self addLayoutGuide:v29];
+  heightAnchor = [v28 heightAnchor];
+  heightAnchor2 = [v29 heightAnchor];
+  v32 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
   [array addObject:v32];
 
-  bottomAnchor = [v26 bottomAnchor];
-  bottomAnchor2 = [(PKContinuityPaymentCardSummaryView *)self bottomAnchor];
-  v35 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  topAnchor = [v28 topAnchor];
+  topAnchor2 = [(PKContinuityPaymentCardSummaryView *)self topAnchor];
+  v35 = [topAnchor constraintEqualToAnchor:topAnchor2];
   [array addObject:v35];
 
-  bottomAnchor3 = [v25 bottomAnchor];
-  firstBaselineAnchor = [(UILabel *)self->_descriptionView firstBaselineAnchor];
-  [v77 capHeight];
-  v39 = [bottomAnchor3 constraintEqualToAnchor:firstBaselineAnchor constant:-v38];
-  [array addObject:v39];
+  bottomAnchor = [v29 bottomAnchor];
+  bottomAnchor2 = [(PKContinuityPaymentCardSummaryView *)self bottomAnchor];
+  v38 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  [array addObject:v38];
 
-  heightAnchor3 = [v25 heightAnchor];
-  v41 = [heightAnchor3 constraintGreaterThanOrEqualToConstant:14.0];
-  [array addObject:v41];
+  bottomAnchor3 = [v28 bottomAnchor];
+  firstBaselineAnchor = [(UILabel *)self->_descriptionView firstBaselineAnchor];
+  [v80 capHeight];
+  v42 = [bottomAnchor3 constraintEqualToAnchor:firstBaselineAnchor constant:-v41];
+  [array addObject:v42];
+
+  heightAnchor3 = [v28 heightAnchor];
+  v44 = [heightAnchor3 constraintGreaterThanOrEqualToConstant:14.0];
+  [array addObject:v44];
 
   array2 = [MEMORY[0x1E695DF70] array];
   subtitleConstraints = self->_subtitleConstraints;
   self->_subtitleConstraints = array2;
 
-  v44 = self->_subtitleConstraints;
-  topAnchor3 = [v26 topAnchor];
+  v47 = self->_subtitleConstraints;
+  topAnchor3 = [v29 topAnchor];
   firstBaselineAnchor2 = [(UILabel *)self->_subtitleView firstBaselineAnchor];
-  v47 = [topAnchor3 constraintEqualToAnchor:firstBaselineAnchor2];
-  [(NSMutableArray *)v44 addObject:v47];
+  v50 = [topAnchor3 constraintEqualToAnchor:firstBaselineAnchor2];
+  [(NSMutableArray *)v47 addObject:v50];
 
-  v48 = self->_subtitleConstraints;
+  v51 = self->_subtitleConstraints;
   leadingAnchor = [(UILabel *)self->_subtitleView leadingAnchor];
   leadingAnchor2 = [(UILabel *)self->_descriptionView leadingAnchor];
-  v51 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  [(NSMutableArray *)v48 addObject:v51];
+  v54 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  [(NSMutableArray *)v51 addObject:v54];
 
-  v52 = self->_subtitleConstraints;
+  v55 = self->_subtitleConstraints;
   firstBaselineAnchor3 = [(UILabel *)self->_subtitleView firstBaselineAnchor];
   firstBaselineAnchor4 = [(UILabel *)self->_descriptionView firstBaselineAnchor];
-  v55 = [firstBaselineAnchor3 constraintEqualToAnchor:firstBaselineAnchor4 constant:v24];
-  [(NSMutableArray *)v52 addObject:v55];
+  v58 = [firstBaselineAnchor3 constraintEqualToAnchor:firstBaselineAnchor4 constant:v27];
+  [(NSMutableArray *)v55 addObject:v58];
 
-  v56 = self->_subtitleConstraints;
+  v59 = self->_subtitleConstraints;
   centerXAnchor = [(UILabel *)self->_subtitleView centerXAnchor];
   centerXAnchor2 = [(UILabel *)self->_descriptionView centerXAnchor];
-  v59 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  [(NSMutableArray *)v56 addObject:v59];
+  v62 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  [(NSMutableArray *)v59 addObject:v62];
 
-  v60 = self->_subtitleConstraints;
+  v63 = self->_subtitleConstraints;
   trailingAnchor3 = [(UILabel *)self->_subtitleView trailingAnchor];
   trailingAnchor4 = [(UILabel *)self->_descriptionView trailingAnchor];
-  v63 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-  [(NSMutableArray *)v60 addObject:v63];
+  v66 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
+  [(NSMutableArray *)v63 addObject:v66];
 
   array3 = [MEMORY[0x1E695DF70] array];
   singleLineConstraints = self->_singleLineConstraints;
   self->_singleLineConstraints = array3;
 
-  v66 = self->_singleLineConstraints;
+  v69 = self->_singleLineConstraints;
   centerYAnchor5 = [(UILabel *)self->_descriptionView centerYAnchor];
   centerYAnchor6 = [(PKContinuityPaymentCardSummaryView *)self centerYAnchor];
-  v69 = [centerYAnchor5 constraintEqualToAnchor:centerYAnchor6];
-  [(NSMutableArray *)v66 addObject:v69];
+  v72 = [centerYAnchor5 constraintEqualToAnchor:centerYAnchor6];
+  [(NSMutableArray *)v69 addObject:v72];
 
-  v70 = self->_singleLineConstraints;
-  topAnchor4 = [v26 topAnchor];
+  v73 = self->_singleLineConstraints;
+  topAnchor4 = [v29 topAnchor];
   firstBaselineAnchor5 = [(UILabel *)self->_descriptionView firstBaselineAnchor];
-  v73 = [topAnchor4 constraintEqualToAnchor:firstBaselineAnchor5];
-  [(NSMutableArray *)v70 addObject:v73];
+  v76 = [topAnchor4 constraintEqualToAnchor:firstBaselineAnchor5];
+  [(NSMutableArray *)v73 addObject:v76];
 
   [array addObjectsFromArray:self->_singleLineConstraints];
   [array addObjectsFromArray:self->_subtitleConstraints];
-  heightAnchor4 = [v26 heightAnchor];
-  v75 = [heightAnchor4 constraintEqualToConstant:1.0];
+  heightAnchor4 = [v29 heightAnchor];
+  v78 = [heightAnchor4 constraintEqualToConstant:1.0];
 
-  LODWORD(v76) = 1132068864;
-  [v75 setPriority:v76];
-  [array addObject:v75];
+  LODWORD(v79) = 1132068864;
+  [v78 setPriority:v79];
+  [array addObject:v78];
   [MEMORY[0x1E696ACD8] activateConstraints:array];
 }
 

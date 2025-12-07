@@ -1,4 +1,5 @@
 @interface TIKeyboardInputManager_ja_SegmentAdjust
+- (BOOL)_adjustPhraseBoundaryInForwardDirection:(BOOL)direction granularity:(int)granularity;
 - (TIKeyboardInputManager_ja_SegmentAdjust)initWithConfig:(id)config keyboardState:(id)state segments:(id)segments at:(unint64_t)at romajiEnabled:(BOOL)enabled wordSearch:(id)search;
 - (id)candidateResultSet;
 - (id)handleKeyboardInput:(id)input;
@@ -9,6 +10,7 @@
 - (void)composeTextWith:(id)with;
 - (void)generateNewSegments:(unint64_t)segments;
 - (void)openCandidateGenerationContextWithCandidateHandler:(id)handler;
+- (void)syncToKeyboardState:(id)state from:(id)from afterContextChange:(BOOL)change;
 - (void)updateInputString;
 @end
 
@@ -39,6 +41,15 @@
   v2 = objc_alloc_init(MEMORY[0x29EDC7040]);
 
   return v2;
+}
+
+- (void)syncToKeyboardState:(id)state from:(id)from afterContextChange:(BOOL)change
+{
+  changeCopy = change;
+  fromCopy = from;
+  stateCopy = state;
+  composingKeyboardInputManager = [(TIKeyboardInputManagerMecabra *)self composingKeyboardInputManager];
+  [composingKeyboardInputManager syncToKeyboardState:stateCopy from:fromCopy afterContextChange:changeCopy];
 }
 
 - (id)handleKeyboardInput:(id)input
@@ -200,7 +211,7 @@
 
 - (void)_notifyUpdateCandidates:(id)candidates forOperation:(id)operation
 {
-  v25[1] = *MEMORY[0x29EDCA608];
+  v24[1] = *MEMORY[0x29EDCA608];
   candidatesCopy = candidates;
   [(TIKeyboardInputManagerMecabra *)self setWordSearchCandidateResultSet:candidatesCopy];
   candidates = [candidatesCopy candidates];
@@ -218,8 +229,8 @@
   v12 = [(TIKeyboardInputManagerMecabra *)self segmentsFromCandidate:candidateAfterSegmentBreak phraseBoundary:1];
 
   contextSegments = [(TIKeyboardInputManager_ja_SegmentAdjust *)self contextSegments];
-  v25[0] = v8;
-  v14 = [MEMORY[0x29EDB8D80] arrayWithObjects:v25 count:1];
+  v24[0] = v8;
+  v14 = [MEMORY[0x29EDB8D80] arrayWithObjects:v24 count:1];
   v15 = [v14 arrayByAddingObjectsFromArray:v12];
   v16 = [contextSegments arrayByAddingObjectsFromArray:v15];
   segments = self->_segments;
@@ -232,8 +243,6 @@
   contextSegments2 = [(TIKeyboardInputManager_ja_SegmentAdjust *)self contextSegments];
   v23 = -[TIKeyboardInputManager_ja_SegmentPicker initWithConfig:keyboardState:segments:at:wordSearch:](v18, "initWithConfig:keyboardState:segments:at:wordSearch:", config, keyboardState, v21, [contextSegments2 count], self->_wordSearch);
   [(TIKeyboardInputManager_ja_SegmentAdjust *)self composeTextWith:v23];
-
-  v24 = *MEMORY[0x29EDCA608];
 }
 
 - (void)openCandidateGenerationContextWithCandidateHandler:(id)handler
@@ -280,6 +289,49 @@
     composingKeyboardInputManager3 = [(TIKeyboardInputManagerMecabra *)self composingKeyboardInputManager];
     candidateResultSet = [composingKeyboardInputManager3 candidateResultSet];
   }
+}
+
+- (BOOL)_adjustPhraseBoundaryInForwardDirection:(BOOL)direction granularity:(int)granularity
+{
+  v4 = *&granularity;
+  directionCopy = direction;
+  v18 = *MEMORY[0x29EDCA608];
+  if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315650;
+    v13 = "[TIKeyboardInputManager_ja_SegmentAdjust _adjustPhraseBoundaryInForwardDirection:granularity:]";
+    v14 = 1024;
+    v15 = directionCopy;
+    v16 = 1024;
+    v17 = v4;
+    _os_log_impl(&dword_29EA26000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "%s  adjust phrase: %d %d", buf, 0x18u);
+  }
+
+  v11.receiver = self;
+  v11.super_class = TIKeyboardInputManager_ja_SegmentAdjust;
+  if (![(TIKeyboardInputManagerMecabra *)&v11 _adjustPhraseBoundaryInForwardDirection:directionCopy granularity:v4])
+  {
+    segmentLength = [(TIKeyboardInputManager_ja_SegmentAdjust *)self segmentLength];
+    v8 = segmentLength - 1;
+    if (directionCopy)
+    {
+      v8 = segmentLength + 1;
+    }
+
+    if (v8 <= 1)
+    {
+      v9 = 1;
+    }
+
+    else
+    {
+      v9 = v8;
+    }
+
+    [(TIKeyboardInputManager_ja_SegmentAdjust *)self generateNewSegments:v9];
+  }
+
+  return 1;
 }
 
 - (void)commitComposition

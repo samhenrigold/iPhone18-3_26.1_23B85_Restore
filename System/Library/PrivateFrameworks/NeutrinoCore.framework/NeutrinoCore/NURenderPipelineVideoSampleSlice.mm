@@ -265,7 +265,7 @@
         v15 = v14;
         if (v14)
         {
-          [v14 frameTime];
+          objc_msgSend_frameTime(v14);
         }
 
         else
@@ -335,7 +335,7 @@ void __47__NURenderPipelineVideoSampleSlice_description__block_invoke_2(void *a1
 
   if (v8)
   {
-    [v8 frameTime];
+    objc_msgSend_frameTime(v8);
   }
 
   else

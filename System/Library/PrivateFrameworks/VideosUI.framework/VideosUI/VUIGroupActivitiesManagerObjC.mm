@@ -13,7 +13,7 @@
 
 + (void)handleSharedPlayable:(id)playable watchTogetherUrl:(id)url startupAction:(int64_t)action previewMetadata:(id)metadata completion:(id)completion
 {
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF363C0);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF363C0, &unk_1E42A9420);
   MEMORY[0x1EEE9AC00](v12 - 8);
   v14 = &v21 - v13;
   v15 = _Block_copy(completion);
@@ -37,7 +37,7 @@
   metadataCopy = metadata;
   static GroupActivitiesManagerProxy.handle(sharedPlayable:watchTogetherUrl:startupAction:previewMetadata:completion:)(playableCopy, v14, action, metadata, sub_1E38DA53C, v18);
 
-  sub_1E325F748(v14, &unk_1ECF363C0);
+  sub_1E325F748(v14, &unk_1ECF363C0, &unk_1E42A9420);
 }
 
 + (BOOL)handleCommerceSharedWatchUrl:(id)url

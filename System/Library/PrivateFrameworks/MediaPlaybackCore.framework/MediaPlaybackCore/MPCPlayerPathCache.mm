@@ -37,9 +37,11 @@ uint64_t __33__MPCPlayerPathCache_sharedCache__block_invoke(uint64_t a1)
   v5 = __mediaRemoteNotificationQueue;
   __mediaRemoteNotificationQueue = v4;
 
-  sharedCache___sharedCache = [objc_alloc(*(a1 + 32)) _init];
+  v6 = [objc_alloc(*(a1 + 32)) _init];
+  v7 = sharedCache___sharedCache;
+  sharedCache___sharedCache = v6;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v6, v7);
 }
 
 - (id)_init

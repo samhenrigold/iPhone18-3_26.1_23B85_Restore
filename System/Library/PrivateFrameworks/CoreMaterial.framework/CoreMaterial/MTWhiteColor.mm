@@ -8,7 +8,6 @@
 - (id)_rgbColor;
 - (id)colorBlendedWithColor:(id)color;
 - (id)colorDescription;
-- (id)description;
 @end
 
 @implementation MTWhiteColor
@@ -31,7 +30,6 @@
     self->super._cachedColor = result;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -39,7 +37,7 @@
 {
   white = self->_white;
   alpha = self->_alpha;
-  return MEMORY[0x1EEDD5DB0]();
+  return MEMORY[0x1EEDD5DB0](white, white, white, alpha);
 }
 
 - (MTWhiteColor)initWithWhite:(double)white alpha:(double)alpha
@@ -76,7 +74,7 @@
 
   ColorSpace = CGColorGetColorSpace(color);
   v6 = CGColorSpaceGetName(ColorSpace);
-  if (![v6 isEqualToString:*MEMORY[0x1E695F0E0]] || (Components = CGColorGetComponents(color), CGColorGetNumberOfComponents(color) != 2))
+  if (![v6 isEqualToString:?] || (CGColorGetComponents(color), CGColorGetNumberOfComponents(color) != 2))
   {
 
 LABEL_6:
@@ -84,15 +82,12 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v8 = *Components;
-  v9 = Components[1];
-
-  self = [(MTWhiteColor *)self initWithWhite:v8 alpha:v9];
+  self = [MTWhiteColor initWithWhite:"initWithWhite:alpha:" alpha:?];
   selfCopy = self;
 LABEL_7:
-  v11 = selfCopy;
+  v8 = selfCopy;
 
-  return v11;
+  return v8;
 }
 
 - (id)_initWithDescription:(id)description
@@ -103,45 +98,37 @@ LABEL_7:
     [MTWhiteColor _initWithDescription:];
   }
 
-  v5 = [descriptionCopy objectForKey:@"alpha"];
+  v5 = [descriptionCopy objectForKey:?];
   if (!v5)
   {
     [MTWhiteColor _initWithDescription:];
   }
 
-  v6 = [descriptionCopy objectForKey:@"white"];
+  v6 = [descriptionCopy objectForKey:?];
   if (!v6)
   {
     [MTWhiteColor _initWithDescription:];
   }
 
   [v6 floatValue];
-  v8 = v7;
   [v5 floatValue];
-  v10 = [(MTWhiteColor *)self initWithWhite:v8 alpha:v9];
+  v7 = [MTWhiteColor initWithWhite:"initWithWhite:alpha:" alpha:?];
 
-  return v10;
+  return v7;
 }
 
 - (id)colorDescription
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v8[0] = @"white";
-  v3 = [MEMORY[0x1E696AD98] numberWithDouble:self->_white];
-  v8[1] = @"alpha";
-  v9[0] = v3;
-  v4 = [MEMORY[0x1E696AD98] numberWithDouble:self->_alpha];
-  v9[1] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
+  v4 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+  v5 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
 
-  v6 = *MEMORY[0x1E69E9840];
-
-  return v5;
+  return v2;
 }
 
 - (MTWhiteColor)colorWithAlphaComponent:(double)component
 {
-  v3 = [objc_alloc(objc_opt_class()) initWithWhite:self->_white alpha:component];
+  v3 = [objc_alloc(objc_opt_class()) initWithWhite:? alpha:?];
 
   return v3;
 }
@@ -155,43 +142,26 @@ LABEL_7:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      alpha = selfCopy->_alpha;
-      v7 = colorCopy[3];
-      v8 = 1.0;
-      v9 = alpha + v7 * (1.0 - alpha);
-      if (v9 != 0.0)
-      {
-        v8 = (alpha * selfCopy->_white + v7 * colorCopy[2] * (1.0 - alpha)) / v9;
-      }
-
-      v10 = [MTColor colorWithWhite:v8 alpha:?];
+      v6 = [MTColor colorWithWhite:"colorWithWhite:alpha:" alpha:?];
     }
 
     else
     {
       _rgbColor = [(MTWhiteColor *)selfCopy _rgbColor];
-      v10 = [(MTWhiteColor *)_rgbColor colorBlendedWithColor:colorCopy];
+      v6 = [(MTWhiteColor *)_rgbColor colorBlendedWithColor:?];
 
       selfCopy = _rgbColor;
     }
 
-    selfCopy = v10;
+    selfCopy = v6;
   }
 
   return selfCopy;
 }
 
-- (id)description
-{
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = objc_opt_class();
-  white = self->_white;
-  return [v3 stringWithFormat:@"<%@: %p; white: %f; alpha: %f>", v4, self, *&white, *&self->_alpha];
-}
-
 - (id)_rgbColor
 {
-  v2 = [[MTRGBColor alloc] initWithRed:self->_white green:self->_white blue:self->_white alpha:self->_alpha];
+  v2 = [MTRGBColor initWithRed:"initWithRed:green:blue:alpha:" green:? blue:? alpha:?];
 
   return v2;
 }

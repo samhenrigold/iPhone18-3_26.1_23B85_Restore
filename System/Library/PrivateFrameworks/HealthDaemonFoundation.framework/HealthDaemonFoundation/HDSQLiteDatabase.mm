@@ -198,7 +198,7 @@ LABEL_15:
 
 - (uint64_t)_openForWriting:(int)writing additionalFlags:(void *)flags error:
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v5 = (self + 8);
@@ -320,18 +320,18 @@ LABEL_15:
               busy = 0;
 LABEL_35:
 
-              goto LABEL_36;
+              return busy;
             }
 
-            v31 = sqlite3_extended_errcode(*v5);
-            if (v31 <= 1)
+            v30 = sqlite3_extended_errcode(*v5);
+            if (v30 <= 1)
             {
               busy = 1;
             }
 
             else
             {
-              busy = v31;
+              busy = v30;
             }
 
             v19 = @"installing custom functions";
@@ -362,15 +362,15 @@ LABEL_28:
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         localizedDescription = [v20 localizedDescription];
-        v32 = 138544130;
-        v33 = v19;
-        v34 = 1024;
-        v35 = busy;
-        v36 = 2114;
-        v37 = path;
-        v38 = 2112;
-        v39 = localizedDescription;
-        _os_log_error_impl(&dword_25156C000, v24, OS_LOG_TYPE_ERROR, "Error %{public}@: [%d, %{public}@] (%@)", &v32, 0x26u);
+        v31 = 138544130;
+        v32 = v19;
+        v33 = 1024;
+        v34 = busy;
+        v35 = 2114;
+        v36 = path;
+        v37 = 2112;
+        v38 = localizedDescription;
+        _os_log_error_impl(&dword_25156C000, v24, OS_LOG_TYPE_ERROR, "Error %{public}@: [%d, %{public}@] (%@)", &v31, 0x26u);
       }
 
       [self close];
@@ -378,10 +378,7 @@ LABEL_28:
     }
   }
 
-  busy = 0;
-LABEL_36:
-  v25 = *MEMORY[0x277D85DE8];
-  return busy;
+  return 0;
 }
 
 - (void)dealloc
@@ -492,7 +489,7 @@ LABEL_36:
 
 - (uint64_t)_executeUncachedSQL:(void *)l error:(int)error retryIfBusy:(int)busy interruptible:
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v9 = a2;
   if (!self)
   {
@@ -526,24 +523,24 @@ LABEL_9:
     v10 = *(self + 8);
   }
 
-  v25 = 0;
+  v24 = 0;
   uTF8String = [v9 UTF8String];
   if (error)
   {
-    busy = sqlite3_exec_busy_retry(v10, uTF8String, 0, 0, &v25);
+    busy = sqlite3_exec_busy_retry(v10, uTF8String, 0, 0, &v24);
   }
 
   else
   {
-    busy = MEMORY[0x277D82C88](v10, uTF8String, 0, 0, &v25);
+    busy = MEMORY[0x277D82C88](v10, uTF8String, 0, 0, &v24);
   }
 
   busyCopy = busy;
   v12 = busy == 0;
   if (busy)
   {
-    v16 = v25;
-    if (!v25)
+    v16 = v24;
+    if (!v24)
     {
       v16 = sqlite3_errmsg(*(self + 8));
     }
@@ -553,11 +550,11 @@ LABEL_9:
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543874;
-      v27 = v9;
-      v28 = 1024;
-      v29 = busyCopy;
-      v30 = 2082;
-      v31 = v16;
+      v26 = v9;
+      v27 = 1024;
+      v28 = busyCopy;
+      v29 = 2082;
+      v30 = v16;
       _os_log_error_impl(&dword_25156C000, v17, OS_LOG_TYPE_ERROR, "Could not execute SQL: %{public}@: [%d, %{public}s]", buf, 0x1Cu);
     }
 
@@ -578,15 +575,14 @@ LABEL_9:
       }
     }
 
-    if (v25)
+    if (v24)
     {
-      sqlite3_free(v25);
+      sqlite3_free(v24);
     }
   }
 
 LABEL_25:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -671,7 +667,7 @@ LABEL_25:
 
 - (BOOL)performTransactionWithType:(int64_t)type error:(id *)error usingBlock:(id)block
 {
-  v95[1] = *MEMORY[0x277D85DE8];
+  v94[1] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if ([(HDSQLiteDatabase *)self isOpen])
   {
@@ -744,14 +740,14 @@ LABEL_25:
 
     if (self->_isInTransaction)
     {
-      v87 = 0;
-      v81 = MEMORY[0x277D85DD0];
-      v82 = 3221225472;
-      v83 = __64__HDSQLiteDatabase_performTransactionWithType_error_usingBlock___block_invoke;
-      v84 = &unk_2796BDEA8;
+      v86 = 0;
+      v80 = MEMORY[0x277D85DD0];
+      v81 = 3221225472;
+      v82 = __64__HDSQLiteDatabase_performTransactionWithType_error_usingBlock___block_invoke;
+      v83 = &unk_2796BDEA8;
       selfCopy = self;
-      v86 = blockCopy;
-      v58 = _statementCache;
+      v85 = blockCopy;
+      v57 = _statementCache;
       v12 = HKWithAutoreleasePool();
       v15 = 0;
       v16 = v15;
@@ -778,9 +774,9 @@ LABEL_25:
         }
 
         v18 = MEMORY[0x277CCA9B8];
-        v94 = *MEMORY[0x277CCA450];
-        v95[0] = @"Transaction block failed without an error.";
-        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v95 forKeys:&v94 count:1];
+        v93 = *MEMORY[0x277CCA450];
+        v94[0] = @"Transaction block failed without an error.";
+        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v94 forKeys:&v93 count:1];
         v20 = [v18 errorWithDomain:@"com.apple.healthd.SQLite" code:1 userInfo:v19];
 
         v16 = v20;
@@ -856,30 +852,30 @@ LABEL_30:
             beforeCommitBlocks = self->_beforeCommitBlocks;
             self->_beforeCommitBlocks = 0;
 
-            v79 = 0u;
-            v80 = 0u;
-            v77 = 0u;
             v78 = 0u;
+            v79 = 0u;
+            v76 = 0u;
+            v77 = 0u;
             v29 = v27;
-            v30 = [v29 countByEnumeratingWithState:&v77 objects:v93 count:16];
+            v30 = [v29 countByEnumeratingWithState:&v76 objects:v92 count:16];
             if (v30)
             {
-              v31 = *v78;
+              v31 = *v77;
               while (2)
               {
                 for (j = 0; j != v30; ++j)
                 {
-                  if (*v78 != v31)
+                  if (*v77 != v31)
                   {
                     objc_enumerationMutation(v29);
                   }
 
-                  v75 = *(*(&v77 + 1) + 8 * j);
-                  v76 = 0;
-                  v71 = MEMORY[0x277D85DD0];
-                  v72 = 3221225472;
-                  v73 = __64__HDSQLiteDatabase_performTransactionWithType_error_usingBlock___block_invoke_373;
-                  v74 = &unk_2796BDED8;
+                  v74 = *(*(&v76 + 1) + 8 * j);
+                  v75 = 0;
+                  v70 = MEMORY[0x277D85DD0];
+                  v71 = 3221225472;
+                  v72 = __64__HDSQLiteDatabase_performTransactionWithType_error_usingBlock___block_invoke_373;
+                  v73 = &unk_2796BDED8;
                   v33 = HKWithAutoreleasePool();
                   v34 = 0;
                   if ((v33 & 1) == 0)
@@ -904,7 +900,7 @@ LABEL_30:
                   }
                 }
 
-                v30 = [v29 countByEnumeratingWithState:&v77 objects:v93 count:16];
+                v30 = [v29 countByEnumeratingWithState:&v76 objects:v92 count:16];
                 if (v30)
                 {
                   continue;
@@ -920,8 +916,8 @@ LABEL_30:
           v29 = *MEMORY[0x277CCC2A0];
           if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
           {
-            v56 = objc_opt_class();
-            [HDSQLiteDatabase performTransactionWithType:v56 error:v92 usingBlock:?];
+            v55 = objc_opt_class();
+            [HDSQLiteDatabase performTransactionWithType:v55 error:v91 usingBlock:?];
           }
 
 LABEL_59:
@@ -935,7 +931,7 @@ LABEL_61:
         self->_isHandlingTransactionBeforeCommit = 0;
         if (cacheScope == 1)
         {
-          [v58 endTransaction];
+          [v57 endTransaction];
         }
 
         if (v38)
@@ -944,28 +940,28 @@ LABEL_61:
           self->_isHandlingTransactionEnd = 1;
           if (v40)
           {
-            v69 = 0u;
-            v70 = 0u;
-            v67 = 0u;
             v68 = 0u;
+            v69 = 0u;
+            v66 = 0u;
+            v67 = 0u;
             v41 = self->_onCommitBlocks;
-            v42 = [(NSMutableArray *)v41 countByEnumeratingWithState:&v67 objects:v91 count:16];
+            v42 = [(NSMutableArray *)v41 countByEnumeratingWithState:&v66 objects:v90 count:16];
             if (v42)
             {
-              v43 = *v68;
+              v43 = *v67;
               do
               {
                 for (k = 0; k != v42; ++k)
                 {
-                  if (*v68 != v43)
+                  if (*v67 != v43)
                   {
                     objc_enumerationMutation(v41);
                   }
 
-                  (*(*(*(&v67 + 1) + 8 * k) + 16))();
+                  (*(*(*(&v66 + 1) + 8 * k) + 16))();
                 }
 
-                v42 = [(NSMutableArray *)v41 countByEnumeratingWithState:&v67 objects:v91 count:16];
+                v42 = [(NSMutableArray *)v41 countByEnumeratingWithState:&v66 objects:v90 count:16];
               }
 
               while (v42);
@@ -982,7 +978,7 @@ LABEL_85:
 
             self->_isHandlingTransactionEnd = 0;
             *&self->_isInTransaction = 0;
-            _statementCache = v58;
+            _statementCache = v57;
             goto LABEL_86;
           }
         }
@@ -993,9 +989,9 @@ LABEL_85:
         }
 
         os_unfair_lock_lock(&self->_interruptionLock);
-        v66 = 0;
-        v45 = [(HDSQLiteDatabase *)self _executeUncachedSQL:&v66 error:1 retryIfBusy:0 interruptible:?];
-        v41 = v66;
+        v65 = 0;
+        v45 = [(HDSQLiteDatabase *)self _executeUncachedSQL:&v65 error:1 retryIfBusy:0 interruptible:?];
+        v41 = v65;
         v46 = MEMORY[0x277CCC2A0];
         if ((v45 & 1) == 0)
         {
@@ -1004,34 +1000,34 @@ LABEL_85:
           if (os_log_type_enabled(*v46, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v90 = v41;
+            v89 = v41;
             _os_log_impl(&dword_25156C000, v47, OS_LOG_TYPE_DEFAULT, "Failed to roll back transaction: %{public}@", buf, 0xCu);
           }
         }
 
         os_unfair_lock_unlock(&self->_interruptionLock);
-        v64 = 0u;
-        v65 = 0u;
-        v62 = 0u;
         v63 = 0u;
+        v64 = 0u;
+        v61 = 0u;
+        v62 = 0u;
         v48 = self->_onRollbackBlocks;
-        v49 = [(NSMutableArray *)v48 countByEnumeratingWithState:&v62 objects:v88 count:16];
+        v49 = [(NSMutableArray *)v48 countByEnumeratingWithState:&v61 objects:v87 count:16];
         if (v49)
         {
-          v50 = *v63;
+          v50 = *v62;
           do
           {
             for (m = 0; m != v49; ++m)
             {
-              if (*v63 != v50)
+              if (*v62 != v50)
               {
                 objc_enumerationMutation(v48);
               }
 
-              (*(*(*(&v62 + 1) + 8 * m) + 16))();
+              (*(*(*(&v61 + 1) + 8 * m) + 16))();
             }
 
-            v49 = [(NSMutableArray *)v48 countByEnumeratingWithState:&v62 objects:v88 count:16];
+            v49 = [(NSMutableArray *)v48 countByEnumeratingWithState:&v61 objects:v87 count:16];
           }
 
           while (v49);
@@ -1056,17 +1052,16 @@ LABEL_10:
   LOBYTE(v12) = 0;
 LABEL_87:
 
-  v54 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (BOOL)_executeStatementWithError:(id *)error statementProvider:(id)provider bindingHandler:(id)handler enumerationHandler:(id)enumerationHandler
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   handlerCopy = handler;
   enumerationHandlerCopy = enumerationHandler;
-  v40 = providerCopy;
+  v39 = providerCopy;
   if ([(HDSQLiteDatabase *)self isOpen])
   {
     if (!self)
@@ -1092,8 +1087,8 @@ LABEL_87:
     {
       [MEMORY[0x277CCA9B8] hk_assignError:error code:100 format:@"Attempt to execute SQL within a commit or rollback block."];
       _HKInitializeLogging();
-      v38 = *MEMORY[0x277CCC2A0];
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
+      v37 = *MEMORY[0x277CCC2A0];
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
       {
         v13 = objc_opt_class();
         [HDSQLiteDatabase _executeStatementWithError:v13 statementProvider:buf bindingHandler:? enumerationHandler:?];
@@ -1104,10 +1099,10 @@ LABEL_87:
     }
 
     [(HDSQLiteDatabase *)self _statementCache];
-    v38 = v46[0] = 0;
-    v15 = (*(providerCopy + 2))(providerCopy, v38, v46);
-    v16 = v46[0];
-    v17 = v46[0];
+    v37 = v45[0] = 0;
+    v15 = (*(providerCopy + 2))(providerCopy, v37, v45);
+    v16 = v45[0];
+    v17 = v45[0];
     v18 = v17;
     pStmt = v15;
     errorCopy = error;
@@ -1123,29 +1118,29 @@ LABEL_87:
         if (enumerationHandlerCopy)
         {
           *buf = &unk_286379B38;
-          v49 = 0;
+          v48 = 0;
           v19 = v15;
           v20 = 0;
-          v50 = sqlite3_column_count(v15);
-          memset(v51, 0, sizeof(v51));
-          v52 = 1065353216;
-          v48 = v15;
-          v45 = 0;
+          v49 = sqlite3_column_count(v15);
+          memset(v50, 0, sizeof(v50));
+          v51 = 1065353216;
+          v47 = v15;
+          v44 = 0;
           while (1)
           {
-            v44 = v18;
-            v21 = [(HDSQLiteDatabase *)self _stepStatement:v19 hasRow:&v45 error:&v44];
-            v22 = v44;
+            v43 = v18;
+            v21 = [(HDSQLiteDatabase *)self _stepStatement:v19 hasRow:&v44 error:&v43];
+            v22 = v43;
 
-            if (!v21 || v45 != 1)
+            if (!v21 || v44 != 1)
             {
               break;
             }
 
             v23 = objc_autoreleasePoolPush();
-            v43 = v20;
-            v24 = enumerationHandlerCopy[2](enumerationHandlerCopy, buf, &v43);
-            v25 = v43;
+            v42 = v20;
+            v24 = enumerationHandlerCopy[2](enumerationHandlerCopy, buf, &v42);
+            v25 = v42;
 
             objc_autoreleasePoolPop(v23);
             if (v24)
@@ -1153,7 +1148,7 @@ LABEL_87:
               v18 = v22;
               v20 = v25;
               v19 = pStmt;
-              if (v45)
+              if (v44)
               {
                 continue;
               }
@@ -1177,7 +1172,7 @@ LABEL_34:
           }
 
           *buf = &unk_286379B38;
-          std::__hash_table<std::__hash_value_type<char const*,int>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Hash,HDSQLiteRow::_Comparison,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Comparison,HDSQLiteRow::_Hash,true>,std::allocator<std::__hash_value_type<char const*,int>>>::~__hash_table(v51);
+          std::__hash_table<std::__hash_value_type<char const*,int>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Hash,HDSQLiteRow::_Comparison,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,int>,HDSQLiteRow::_Comparison,HDSQLiteRow::_Hash,true>,std::allocator<std::__hash_value_type<char const*,int>>>::~__hash_table(v50);
           if (v21)
           {
             v14 = 1;
@@ -1187,16 +1182,16 @@ LABEL_34:
 
         else
         {
-          v42 = v18;
-          v28 = [(HDSQLiteDatabase *)self _stepStatement:v15 hasRow:0 error:&v42];
-          v29 = v42;
+          v41 = v18;
+          v28 = [(HDSQLiteDatabase *)self _stepStatement:v15 hasRow:0 error:&v41];
+          v29 = v41;
 
           if (v28)
           {
             v14 = 1;
             v18 = v29;
 LABEL_48:
-            [v38 checkInStatement:pStmt];
+            [v37 checkInStatement:pStmt];
             goto LABEL_49;
           }
 
@@ -1224,11 +1219,11 @@ LABEL_48:
       }
 
       _HKInitializeLogging();
-      v34 = *MEMORY[0x277CCC2A0];
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+      v33 = *MEMORY[0x277CCC2A0];
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
       {
-        v35 = sqlite3_sql(pStmt);
-        [HDSQLiteDatabase _executeStatementWithError:v35 statementProvider:buf bindingHandler:v34 enumerationHandler:?];
+        v34 = sqlite3_sql(pStmt);
+        [HDSQLiteDatabase _executeStatementWithError:v34 statementProvider:buf bindingHandler:v33 enumerationHandler:?];
       }
 
       [MEMORY[0x277CCA9B8] hk_assignError:error code:131 format:{@"Unsafe statement in read-only transaction: %s", sqlite3_sql(pStmt)}];
@@ -1275,16 +1270,15 @@ LABEL_9:
   v14 = 0;
 LABEL_51:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v14 & 1;
 }
 
 - (uint64_t)_stepStatement:(_BYTE *)statement hasRow:(void *)row error:
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (!result)
   {
-    goto LABEL_38;
+    return result;
   }
 
   v7 = result;
@@ -1295,9 +1289,7 @@ LABEL_51:
 
   if (!a2)
   {
-LABEL_15:
-    result = 1;
-    goto LABEL_38;
+    return 1;
   }
 
   while (1)
@@ -1305,25 +1297,24 @@ LABEL_15:
     v8 = atomic_load((v7 + 32));
     if (v8)
     {
-      v14 = *MEMORY[0x277D85DE8];
-
-      return [(HDSQLiteDatabase *)v7 _handleInterruptionWithError:row];
+      break;
     }
 
     v9 = sqlite3_step(a2);
-    if (v9 == 9)
+    switch(v9)
     {
-      goto LABEL_33;
-    }
+      case 9u:
+        goto LABEL_33;
+      case 0x65u:
+        return 1;
+      case 0x64u:
+        result = 1;
+        if (statement)
+        {
+          *statement = 1;
+        }
 
-    if (v9 == 101)
-    {
-      goto LABEL_15;
-    }
-
-    if (v9 == 100)
-    {
-      break;
+        return result;
     }
 
     v10 = v9;
@@ -1333,37 +1324,37 @@ LABEL_15:
       {
         case 0x13u:
           _HKInitializeLogging();
-          v17 = *MEMORY[0x277CCC2A0];
+          v16 = *MEMORY[0x277CCC2A0];
           if (!os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEBUG))
           {
             goto LABEL_33;
           }
 
-          v16 = v17;
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+          v15 = v16;
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
-            v18 = sqlite3_db_handle(a2);
-            v19 = sqlite3_errmsg(v18);
-            v20 = sqlite3_sql(a2);
-            [(HDSQLiteDatabase *)v19 _stepStatement:v20 hasRow:&v27 error:v16];
+            v17 = sqlite3_db_handle(a2);
+            v18 = sqlite3_errmsg(v17);
+            v19 = sqlite3_sql(a2);
+            [(HDSQLiteDatabase *)v18 _stepStatement:v19 hasRow:&v25 error:v15];
           }
 
           break;
         case 0xDu:
           *(v7 + 70) = 1;
           _HKInitializeLogging();
-          v15 = *MEMORY[0x277CCC2A0];
+          v14 = *MEMORY[0x277CCC2A0];
           if (!os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_INFO))
           {
             goto LABEL_33;
           }
 
-          v16 = v15;
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+          v15 = v14;
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
           {
-            v27 = 136315138;
-            *v28 = sqlite3_sql(a2);
-            _os_log_impl(&dword_25156C000, v16, OS_LOG_TYPE_INFO, "Encountered device out of space during statement step: %s", &v27, 0xCu);
+            v25 = 136315138;
+            *v26 = sqlite3_sql(a2);
+            _os_log_impl(&dword_25156C000, v15, OS_LOG_TYPE_INFO, "Encountered device out of space during statement step: %s", &v25, 0xCu);
           }
 
           break;
@@ -1376,40 +1367,40 @@ LABEL_15:
           _HKInitializeLogging();
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
           {
-            [HDSQLiteDatabase _stepStatement:? hasRow:? error:?];
+            [HDSQLiteDatabase _stepStatement:hasRow:error:];
           }
 
           goto LABEL_33;
         default:
           _HKInitializeLogging();
-          v21 = *MEMORY[0x277CCC2A0];
+          v20 = *MEMORY[0x277CCC2A0];
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_INFO))
           {
-            v16 = v21;
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+            v15 = v20;
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
             {
-              v22 = sqlite3_db_handle(a2);
-              v27 = 67109634;
-              *v28 = v10;
-              *&v28[4] = 2080;
-              *&v28[6] = sqlite3_errmsg(v22);
-              v29 = 2080;
-              v30 = sqlite3_sql(a2);
-              _os_log_impl(&dword_25156C000, v16, OS_LOG_TYPE_INFO, "Step failed: [%d, %s]: %s", &v27, 0x1Cu);
+              v21 = sqlite3_db_handle(a2);
+              v25 = 67109634;
+              *v26 = v10;
+              *&v26[4] = 2080;
+              *&v26[6] = sqlite3_errmsg(v21);
+              v27 = 2080;
+              v28 = sqlite3_sql(a2);
+              _os_log_impl(&dword_25156C000, v15, OS_LOG_TYPE_INFO, "Step failed: [%d, %s]: %s", &v25, 0x1Cu);
             }
 
             break;
           }
 
 LABEL_33:
-          v23 = [v7 getLastErrorWithStatement:a2 context:0];
-          v24 = v23;
-          if (v23)
+          v22 = [v7 getLastErrorWithStatement:a2 context:0];
+          v23 = v22;
+          if (v22)
           {
             if (row)
             {
-              v25 = v23;
-              *row = v24;
+              v24 = v22;
+              *row = v23;
             }
 
             else
@@ -1418,23 +1409,14 @@ LABEL_33:
             }
           }
 
-          result = 0;
-          goto LABEL_38;
+          return 0;
       }
 
       goto LABEL_33;
     }
   }
 
-  result = 1;
-  if (statement)
-  {
-    *statement = 1;
-  }
-
-LABEL_38:
-  v26 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(HDSQLiteDatabase *)v7 _handleInterruptionWithError:row];
 }
 
 - (uint64_t)_executeSQL:(char)l cache:(uint64_t)cache error:(void *)error bindingHandler:(void *)handler enumerationHandler:
@@ -1463,33 +1445,33 @@ LABEL_38:
 
 - (BOOL)executeSQLStatements:(id)statements error:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   statementsCopy = statements;
-  v7 = [statementsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [statementsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(statementsCopy);
         }
 
-        if (![(HDSQLiteDatabase *)self executeUncachedSQL:*(*(&v13 + 1) + 8 * i) error:error bindingHandler:0 enumerationHandler:0, v13])
+        if (![(HDSQLiteDatabase *)self executeUncachedSQL:*(*(&v12 + 1) + 8 * i) error:error bindingHandler:0 enumerationHandler:0, v12])
         {
           v10 = 0;
           goto LABEL_11;
         }
       }
 
-      v7 = [statementsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [statementsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -1502,7 +1484,6 @@ LABEL_38:
   v10 = 1;
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1749,7 +1730,7 @@ uint64_t __68__HDSQLiteDatabase__integerValueForPragma_databaseName_value_error_
     _HKInitializeLogging();
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
-      [HDSQLiteDatabase validateForeignKeysForTable:error databaseName:? error:?];
+      [HDSQLiteDatabase validateForeignKeysForTable:databaseName:error:];
     }
 
     v14 = 2;
@@ -1761,7 +1742,7 @@ uint64_t __68__HDSQLiteDatabase__integerValueForPragma_databaseName_value_error_
   return v14;
 }
 
-uint64_t __67__HDSQLiteDatabase_validateForeignKeysForTable_databaseName_error___block_invoke(uint64_t a1, uint64_t a2)
+uint64_t __67__HDSQLiteDatabase_validateForeignKeysForTable_databaseName_error___block_invoke(uint64_t a1, HDSQLiteRow *a2)
 {
   *(*(*(a1 + 32) + 8) + 24) = 1;
   v4 = MEMORY[0x277CCACA8];
@@ -1799,7 +1780,7 @@ uint64_t __67__HDSQLiteDatabase_validateForeignKeysForTable_databaseName_error__
 
 - (HDSQLiteDatabaseTableSchema)_schemaForTableWithName:(void *)name database:(uint64_t)database error:
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   v6 = a2;
   nameCopy = name;
   v8 = nameCopy;
@@ -1807,7 +1788,7 @@ uint64_t __67__HDSQLiteDatabase_validateForeignKeysForTable_databaseName_error__
   {
     if (!nameCopy)
     {
-      v40 = v6;
+      v39 = v6;
       v9 = [v6 componentsSeparatedByString:@"."];
       if ([v9 count] < 2)
       {
@@ -1821,10 +1802,10 @@ uint64_t __67__HDSQLiteDatabase_validateForeignKeysForTable_databaseName_error__
       }
     }
 
-    v41 = v6;
-    v39 = objc_alloc_init(HDSQLiteDatabaseTableSchema);
-    [(HDSQLiteDatabaseTableSchema *)v39 setName:v6];
-    v37 = objc_opt_new();
+    v40 = v6;
+    v38 = objc_alloc_init(HDSQLiteDatabaseTableSchema);
+    [(HDSQLiteDatabaseTableSchema *)v38 setName:v6];
+    v36 = objc_opt_new();
     if (v8)
     {
       [MEMORY[0x277CCACA8] stringWithFormat:@"PRAGMA %@.table_info(%@);", v8, v6];
@@ -1835,15 +1816,15 @@ uint64_t __67__HDSQLiteDatabase_validateForeignKeysForTable_databaseName_error__
       [MEMORY[0x277CCACA8] stringWithFormat:@"PRAGMA table_info(%@);", v6];
     }
     v10 = ;
-    v62[0] = MEMORY[0x277D85DD0];
-    v62[1] = 3221225472;
-    v62[2] = __59__HDSQLiteDatabase__schemaForTableWithName_database_error___block_invoke;
-    v62[3] = &unk_2796BDFC8;
-    v38 = v37;
-    v63 = v38;
-    if (([(HDSQLiteDatabase *)self _executeSQL:v10 cache:0 error:database bindingHandler:0 enumerationHandler:v62]& 1) != 0)
+    v61[0] = MEMORY[0x277D85DD0];
+    v61[1] = 3221225472;
+    v61[2] = __59__HDSQLiteDatabase__schemaForTableWithName_database_error___block_invoke;
+    v61[3] = &unk_2796BDFC8;
+    v37 = v36;
+    v62 = v37;
+    if (([(HDSQLiteDatabase *)self _executeSQL:v10 cache:0 error:database bindingHandler:0 enumerationHandler:v61]& 1) != 0)
     {
-      [(HDSQLiteDatabaseTableSchema *)v39 setColumns:v38];
+      [(HDSQLiteDatabaseTableSchema *)v38 setColumns:v37];
       if (v8)
       {
         [MEMORY[0x277CCACA8] stringWithFormat:@"SELECT sql FROM %@.sqlite_master WHERE type='table' AND tbl_name='%@';", v8, v6];
@@ -1855,15 +1836,15 @@ uint64_t __67__HDSQLiteDatabase_validateForeignKeysForTable_databaseName_error__
       }
       v12 = ;
 
-      v60[0] = MEMORY[0x277D85DD0];
-      v60[1] = 3221225472;
-      v60[2] = __59__HDSQLiteDatabase__schemaForTableWithName_database_error___block_invoke_2;
-      v60[3] = &unk_2796BDFC8;
-      v13 = v39;
-      v61 = v13;
-      if (([(HDSQLiteDatabase *)self _executeSQL:v12 cache:0 error:database bindingHandler:0 enumerationHandler:v60]& 1) != 0)
+      v59[0] = MEMORY[0x277D85DD0];
+      v59[1] = 3221225472;
+      v59[2] = __59__HDSQLiteDatabase__schemaForTableWithName_database_error___block_invoke_2;
+      v59[3] = &unk_2796BDFC8;
+      v13 = v38;
+      v60 = v13;
+      if (([(HDSQLiteDatabase *)self _executeSQL:v12 cache:0 error:database bindingHandler:0 enumerationHandler:v59]& 1) != 0)
       {
-        v34 = v13;
+        v33 = v13;
         if (v8)
         {
           [MEMORY[0x277CCACA8] stringWithFormat:@"PRAGMA %@.index_list(%@)", v8, v6];
@@ -1876,36 +1857,36 @@ uint64_t __67__HDSQLiteDatabase_validateForeignKeysForTable_databaseName_error__
         v14 = ;
 
         v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
-        v58[0] = MEMORY[0x277D85DD0];
-        v58[1] = 3221225472;
-        v58[2] = __59__HDSQLiteDatabase__schemaForTableWithName_database_error___block_invoke_3;
-        v58[3] = &unk_2796BDFC8;
+        v57[0] = MEMORY[0x277D85DD0];
+        v57[1] = 3221225472;
+        v57[2] = __59__HDSQLiteDatabase__schemaForTableWithName_database_error___block_invoke_3;
+        v57[3] = &unk_2796BDFC8;
         v16 = v15;
-        v59 = v16;
-        v35 = v16;
-        if (([(HDSQLiteDatabase *)self _executeSQL:v14 cache:0 error:database bindingHandler:0 enumerationHandler:v58]& 1) != 0)
+        v58 = v16;
+        v34 = v16;
+        if (([(HDSQLiteDatabase *)self _executeSQL:v14 cache:0 error:database bindingHandler:0 enumerationHandler:v57]& 1) != 0)
         {
-          v56 = 0u;
-          v57 = 0u;
-          v54 = 0u;
           v55 = 0u;
+          v56 = 0u;
+          v53 = 0u;
+          v54 = 0u;
           obj = v16;
-          v17 = [obj countByEnumeratingWithState:&v54 objects:v64 count:16];
+          v17 = [obj countByEnumeratingWithState:&v53 objects:v63 count:16];
           if (v17)
           {
-            v18 = *v55;
+            v18 = *v54;
             while (2)
             {
               v19 = 0;
               v20 = v14;
               do
               {
-                if (*v55 != v18)
+                if (*v54 != v18)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v21 = *(*(&v54 + 1) + 8 * v19);
+                v21 = *(*(&v53 + 1) + 8 * v19);
                 v22 = MEMORY[0x277CCACA8];
                 name = [v21 name];
                 if (v8)
@@ -1920,13 +1901,13 @@ uint64_t __67__HDSQLiteDatabase_validateForeignKeysForTable_databaseName_error__
                 v14 = ;
 
                 v24 = objc_opt_new();
-                v52[0] = MEMORY[0x277D85DD0];
-                v52[1] = 3221225472;
-                v52[2] = __59__HDSQLiteDatabase__schemaForTableWithName_database_error___block_invoke_4;
-                v52[3] = &unk_2796BDFC8;
+                v51[0] = MEMORY[0x277D85DD0];
+                v51[1] = 3221225472;
+                v51[2] = __59__HDSQLiteDatabase__schemaForTableWithName_database_error___block_invoke_4;
+                v51[3] = &unk_2796BDFC8;
                 v25 = v24;
-                v53 = v25;
-                if (([(HDSQLiteDatabase *)self _executeSQL:v14 cache:0 error:database bindingHandler:0 enumerationHandler:v52]& 1) == 0)
+                v52 = v25;
+                if (([(HDSQLiteDatabase *)self _executeSQL:v14 cache:0 error:database bindingHandler:0 enumerationHandler:v51]& 1) == 0)
                 {
 
                   v11 = 0;
@@ -1940,7 +1921,7 @@ uint64_t __67__HDSQLiteDatabase_validateForeignKeysForTable_databaseName_error__
               }
 
               while (v17 != v19);
-              v17 = [obj countByEnumeratingWithState:&v54 objects:v64 count:16];
+              v17 = [obj countByEnumeratingWithState:&v53 objects:v63 count:16];
               if (v17)
               {
                 continue;
@@ -1951,7 +1932,7 @@ uint64_t __67__HDSQLiteDatabase_validateForeignKeysForTable_databaseName_error__
           }
 
           v26 = [MEMORY[0x277CBEB98] setWithArray:obj];
-          [(HDSQLiteDatabaseTableSchema *)v34 setIndices:v26];
+          [(HDSQLiteDatabaseTableSchema *)v33 setIndices:v26];
 
           if (v8)
           {
@@ -1964,23 +1945,23 @@ uint64_t __67__HDSQLiteDatabase_validateForeignKeysForTable_databaseName_error__
           }
 
           v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
-          v50[0] = MEMORY[0x277D85DD0];
-          v50[1] = 3221225472;
-          v50[2] = __59__HDSQLiteDatabase__schemaForTableWithName_database_error___block_invoke_5;
-          v50[3] = &unk_2796BDFF0;
-          v51 = v41;
-          v47[0] = MEMORY[0x277D85DD0];
-          v47[1] = 3221225472;
-          v47[2] = __59__HDSQLiteDatabase__schemaForTableWithName_database_error___block_invoke_6;
-          v47[3] = &unk_2796BE018;
-          v29 = v51;
-          v48 = v29;
+          v49[0] = MEMORY[0x277D85DD0];
+          v49[1] = 3221225472;
+          v49[2] = __59__HDSQLiteDatabase__schemaForTableWithName_database_error___block_invoke_5;
+          v49[3] = &unk_2796BDFF0;
+          v50 = v40;
+          v46[0] = MEMORY[0x277D85DD0];
+          v46[1] = 3221225472;
+          v46[2] = __59__HDSQLiteDatabase__schemaForTableWithName_database_error___block_invoke_6;
+          v46[3] = &unk_2796BE018;
+          v29 = v50;
+          v47 = v29;
           obj = v28;
-          v49 = obj;
-          if (([(HDSQLiteDatabase *)self _executeSQL:v27 cache:0 error:database bindingHandler:v50 enumerationHandler:v47]& 1) != 0)
+          v48 = obj;
+          if (([(HDSQLiteDatabase *)self _executeSQL:v27 cache:0 error:database bindingHandler:v49 enumerationHandler:v46]& 1) != 0)
           {
             v30 = [MEMORY[0x277CBEB98] setWithArray:obj];
-            [(HDSQLiteDatabaseTableSchema *)v34 setTriggers:v30];
+            [(HDSQLiteDatabaseTableSchema *)v33 setTriggers:v30];
 
             if (v8)
             {
@@ -1993,16 +1974,16 @@ uint64_t __67__HDSQLiteDatabase_validateForeignKeysForTable_databaseName_error__
             }
             v31 = ;
 
-            v43[0] = MEMORY[0x277D85DD0];
-            v43[1] = 3221225472;
-            v43[2] = __59__HDSQLiteDatabase__schemaForTableWithName_database_error___block_invoke_7;
-            v43[3] = &unk_2796BE040;
+            v42[0] = MEMORY[0x277D85DD0];
+            v42[1] = 3221225472;
+            v42[2] = __59__HDSQLiteDatabase__schemaForTableWithName_database_error___block_invoke_7;
+            v42[3] = &unk_2796BE040;
             selfCopy = self;
-            v46 = sel__schemaForTableWithName_database_error_;
-            v44 = v38;
-            if (([(HDSQLiteDatabase *)self _executeSQL:v31 cache:0 error:database bindingHandler:0 enumerationHandler:v43]& 1) != 0)
+            v45 = sel__schemaForTableWithName_database_error_;
+            v43 = v37;
+            if (([(HDSQLiteDatabase *)self _executeSQL:v31 cache:0 error:database bindingHandler:0 enumerationHandler:v42]& 1) != 0)
             {
-              v11 = v34;
+              v11 = v33;
             }
 
             else
@@ -2018,7 +1999,7 @@ uint64_t __67__HDSQLiteDatabase_validateForeignKeysForTable_databaseName_error__
             v11 = 0;
           }
 
-          v25 = v51;
+          v25 = v50;
           v14 = v27;
 LABEL_47:
         }
@@ -2047,11 +2028,9 @@ LABEL_47:
 
   else
   {
-    v41 = v6;
+    v40 = v6;
     v11 = 0;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -2091,7 +2070,7 @@ LABEL_47:
 
 - (id)typeOfColumn:(id)column inTable:(id)table error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   columnCopy = column;
   tableCopy = table;
   if (!error)
@@ -2120,11 +2099,11 @@ LABEL_47:
       {
         columns2 = [v12 columns];
         *buf = 138543874;
-        v22 = tableCopy;
-        v23 = 2114;
-        v24 = columnCopy;
-        v25 = 2114;
-        v26 = columns2;
+        v21 = tableCopy;
+        v22 = 2114;
+        v23 = columnCopy;
+        v24 = 2114;
+        v25 = columns2;
         _os_log_error_impl(&dword_25156C000, v16, OS_LOG_TYPE_ERROR, "Table '%{public}@' has no column %{public}@: %{public}@", buf, 0x20u);
       }
 
@@ -2137,20 +2116,18 @@ LABEL_47:
     _HKInitializeLogging();
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
-      [HDSQLiteDatabase typeOfColumn:tableCopy inTable:error error:?];
+      [HDSQLiteDatabase typeOfColumn:inTable:error:];
     }
 
     type = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return type;
 }
 
 - (BOOL)columnIsNullable:(id)nullable inTable:(id)table error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   nullableCopy = nullable;
   tableCopy = table;
   if (!error)
@@ -2179,11 +2156,11 @@ LABEL_47:
       {
         columns2 = [v12 columns];
         *buf = 138543874;
-        v22 = tableCopy;
-        v23 = 2114;
-        v24 = nullableCopy;
-        v25 = 2114;
-        v26 = columns2;
+        v21 = tableCopy;
+        v22 = 2114;
+        v23 = nullableCopy;
+        v24 = 2114;
+        v25 = columns2;
         _os_log_error_impl(&dword_25156C000, v16, OS_LOG_TYPE_ERROR, "Table '%{public}@' has no column %{public}@: %{public}@", buf, 0x20u);
       }
 
@@ -2196,13 +2173,12 @@ LABEL_47:
     _HKInitializeLogging();
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
-      [HDSQLiteDatabase typeOfColumn:tableCopy inTable:error error:?];
+      [HDSQLiteDatabase typeOfColumn:inTable:error:];
     }
 
     isNullable = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return isNullable;
 }
 
@@ -2365,7 +2341,7 @@ LABEL_6:
   return v11;
 }
 
-uint64_t __80__HDSQLiteDatabase_performIntegrityCheckOnDatabase_error_integrityErrorHandler___block_invoke(uint64_t a1, uint64_t a2)
+uint64_t __80__HDSQLiteDatabase_performIntegrityCheckOnDatabase_error_integrityErrorHandler___block_invoke(uint64_t a1, HDSQLiteRow *a2)
 {
   v3 = HDSQLiteColumnAsString(a2, 0);
   if ([v3 isEqualToString:@"ok"])
@@ -2505,34 +2481,34 @@ LABEL_12:
 
 - (HDSQLiteDatabaseSchema)_schemaForDatabaseWithName:(uint64_t)name error:
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (self)
   {
-    v16 = objc_alloc_init(HDSQLiteDatabaseSchema);
-    v17 = [(HDSQLiteDatabase *)self _tableNamesForDatabaseWithName:v5 error:name];
-    if (v17)
+    v15 = objc_alloc_init(HDSQLiteDatabaseSchema);
+    v16 = [(HDSQLiteDatabase *)self _tableNamesForDatabaseWithName:v5 error:name];
+    if (v16)
     {
       v6 = objc_opt_new();
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
-      v7 = v17;
-      v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
+      v7 = v16;
+      v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v8)
       {
-        v9 = *v19;
+        v9 = *v18;
         while (2)
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v19 != v9)
+            if (*v18 != v9)
             {
               objc_enumerationMutation(v7);
             }
 
-            v11 = *(*(&v18 + 1) + 8 * i);
+            v11 = *(*(&v17 + 1) + 8 * i);
             v12 = [(HDSQLiteDatabase *)self _schemaForTableWithName:v11 database:v5 error:name];
             if (!v12)
             {
@@ -2544,7 +2520,7 @@ LABEL_12:
             [v6 setObject:v12 forKeyedSubscript:v11];
           }
 
-          v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
           if (v8)
           {
             continue;
@@ -2554,8 +2530,8 @@ LABEL_12:
         }
       }
 
-      [(HDSQLiteDatabaseSchema *)v16 setTables:v6];
-      v13 = v16;
+      [(HDSQLiteDatabaseSchema *)v15 setTables:v6];
+      v13 = v15;
 LABEL_13:
     }
 
@@ -2569,8 +2545,6 @@ LABEL_13:
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -2607,7 +2581,7 @@ LABEL_13:
   return v9;
 }
 
-uint64_t __57__HDSQLiteDatabase__tableNamesForDatabaseWithName_error___block_invoke(uint64_t a1, uint64_t a2)
+uint64_t __57__HDSQLiteDatabase__tableNamesForDatabaseWithName_error___block_invoke(uint64_t a1, HDSQLiteRow *a2)
 {
   v2 = *(a1 + 32);
   v3 = HDSQLiteColumnAsString(a2, 0);
@@ -2618,36 +2592,36 @@ uint64_t __57__HDSQLiteDatabase__tableNamesForDatabaseWithName_error___block_inv
 
 - (id)dumpSchemaWithError:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_new();
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __40__HDSQLiteDatabase_dumpSchemaWithError___block_invoke;
-  v21[3] = &unk_2796BDFC8;
-  v16 = v5;
-  v22 = v16;
-  if (([(HDSQLiteDatabase *)self _executeSQL:0 cache:error error:0 bindingHandler:v21 enumerationHandler:?]& 1) != 0)
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __40__HDSQLiteDatabase_dumpSchemaWithError___block_invoke;
+  v20[3] = &unk_2796BDFC8;
+  v15 = v5;
+  v21 = v15;
+  if (([(HDSQLiteDatabase *)self _executeSQL:0 cache:error error:0 bindingHandler:v20 enumerationHandler:?]& 1) != 0)
   {
     v6 = objc_opt_new();
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
-    v7 = v16;
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v23 count:16];
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v7 = v15;
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v22 count:16];
     if (v8)
     {
-      v9 = *v18;
+      v9 = *v17;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * i);
+          v11 = *(*(&v16 + 1) + 8 * i);
           if (([v11 isEqualToString:@"temp"] & 1) == 0)
           {
             v12 = [(HDSQLiteDatabase *)self _schemaForDatabaseWithName:v11 error:error];
@@ -2662,7 +2636,7 @@ uint64_t __57__HDSQLiteDatabase__tableNamesForDatabaseWithName_error___block_inv
           }
         }
 
-        v8 = [v7 countByEnumeratingWithState:&v17 objects:v23 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v16 objects:v22 count:16];
         if (v8)
         {
           continue;
@@ -2680,8 +2654,6 @@ LABEL_15:
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -2702,22 +2674,6 @@ uint64_t __40__HDSQLiteDatabase_dumpSchemaWithError___block_invoke(uint64_t a1, 
   return WeakRetained;
 }
 
-+ (void)memoryDatabaseFromURL:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)memoryDatabaseFromURL:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_openForWriting:(uint8_t *)buf additionalFlags:(os_log_t)log error:.cold.1(uint64_t a1, uint64_t *a2, uint8_t *buf, os_log_t log)
 {
   v4 = *a2;
@@ -2730,12 +2686,11 @@ uint64_t __40__HDSQLiteDatabase_dumpSchemaWithError___block_invoke(uint64_t a1, 
 
 - (void)performTransactionWithType:error:usingBlock:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_3();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_fault_impl(&dword_25156C000, v1, OS_LOG_TYPE_FAULT, "Cannot perform %@ transaction inside an existing %@ transaction", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_fault_impl(&dword_25156C000, v1, OS_LOG_TYPE_FAULT, "Cannot perform %@ transaction inside an existing %@ transaction", v2, 0x16u);
 }
 
 - (void)performTransactionWithType:(void *)a1 error:(uint64_t)a2 usingBlock:.cold.3(void *a1, uint64_t a2)
@@ -2772,59 +2727,27 @@ uint64_t __40__HDSQLiteDatabase_dumpSchemaWithError___block_invoke(uint64_t a1, 
   _os_log_debug_impl(&dword_25156C000, log, OS_LOG_TYPE_DEBUG, "Constraint violation during statement step: [%d, %{public}s]  %s", buf, 0x1Cu);
 }
 
-- (void)_stepStatement:(uint64_t *)a1 hasRow:error:.cold.2(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_7();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)validateForeignKeysForTable:(uint64_t *)a1 databaseName:error:.cold.1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_7();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)typeOfColumn:(uint64_t)a1 inTable:(uint64_t *)a2 error:.cold.1(uint64_t a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_1_4(&dword_25156C000, v3, v4, "Failed to retrieve schema for '%{public}@': %{public}@");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)enableIncrementalAutovacuumForDatabaseWithName:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_3();
   OUTLINED_FUNCTION_0_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableIncrementalAutovacuumForDatabaseWithName:(NSObject *)a3 error:.cold.2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 134218242;
-  *&v4[4] = a2;
-  *&v4[12] = 2114;
-  *&v4[14] = a1;
-  OUTLINED_FUNCTION_1_4(&dword_25156C000, a2, a3, "Failed to set %lld for CACHE_SPILL when enabling incremental autovacuum: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 134218242;
+  *&v3[4] = a2;
+  *&v3[12] = 2114;
+  *&v3[14] = a1;
+  OUTLINED_FUNCTION_1_4(&dword_25156C000, a2, a3, "Failed to set %lld for CACHE_SPILL when enabling incremental autovacuum: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 - (void)enableIncrementalAutovacuumForDatabaseWithName:error:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_3();
   OUTLINED_FUNCTION_0_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -67,15 +67,15 @@
         newDiscovery = [managerCopy newDiscovery];
         [(FMDAccessoryPlaySoundAction *)self setEarlyDiscovery:newDiscovery];
 
-        v10 = sub_100002880();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v11 = sub_100002880(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           earlyDiscovery2 = [(FMDAccessoryPlaySoundAction *)self earlyDiscovery];
-          v14 = 134218242;
+          v15 = 134218242;
           selfCopy = self;
-          v16 = 2112;
-          v17 = earlyDiscovery2;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "FMDAccessoryPlaySoundAction(0x%lX) - earlyDiscovery %@", &v14, 0x16u);
+          v17 = 2112;
+          v18 = earlyDiscovery2;
+          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "FMDAccessoryPlaySoundAction(0x%lX) - earlyDiscovery %@", &v15, 0x16u);
         }
 
         earlyDiscovery3 = [(FMDAccessoryPlaySoundAction *)self earlyDiscovery];
@@ -89,7 +89,7 @@
 
 - (void)willCancelAction
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 134217984;
@@ -144,27 +144,27 @@
 
   if (v8 >= 0.0)
   {
-    objc_initWeak(&location, self);
-    v12 = sub_100002880();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    inited = objc_initWeak(&location, self);
+    v14 = sub_100002880(inited);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
       selfCopy3 = self;
-      v30 = 2048;
-      v31 = v8;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "FMDAccessoryPlaySoundAction (0x%lX) will timeout after %f", buf, 0x16u);
+      v33 = 2048;
+      v34 = v8;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "FMDAccessoryPlaySoundAction (0x%lX) will timeout after %f", buf, 0x16u);
     }
 
-    v13 = [FMDispatchTimer alloc];
-    v14 = &_dispatch_main_q;
-    v25[0] = _NSConcreteStackBlock;
-    v25[1] = 3221225472;
-    v25[2] = sub_10014C940;
-    v25[3] = &unk_1002CD288;
-    objc_copyWeak(&v26, &location);
-    v25[4] = self;
-    v15 = [v13 initWithQueue:&_dispatch_main_q timeout:v25 completion:v8];
-    [(FMDAccessoryPlaySoundAction *)self setTimeoutTimer:v15];
+    v15 = [FMDispatchTimer alloc];
+    v16 = &_dispatch_main_q;
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3221225472;
+    v28[2] = sub_10014C940;
+    v28[3] = &unk_1002CD288;
+    objc_copyWeak(&v29, &location);
+    v28[4] = self;
+    v17 = [v15 initWithQueue:&_dispatch_main_q timeout:v28 completion:v8];
+    [(FMDAccessoryPlaySoundAction *)self setTimeoutTimer:v17];
 
     timeoutTimer = [(FMDAccessoryPlaySoundAction *)self timeoutTimer];
     [timeoutTimer start];
@@ -183,42 +183,42 @@
 
     if (discovery)
     {
-      v22 = sub_100002880();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v25 = sub_100002880(v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         sub_10022767C();
       }
     }
 
-    v23 = sub_100002880();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v26 = sub_100002880(v24);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       discovery3 = [(FMDAccessoryPlaySoundAction *)self discovery];
       *buf = 134218242;
       selfCopy3 = self;
-      v30 = 2112;
-      v31 = *&discovery3;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "FMDAccessoryPlaySoundAction(0x%lX) - init newDiscovery %@", buf, 0x16u);
+      v33 = 2112;
+      v34 = *&discovery3;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "FMDAccessoryPlaySoundAction(0x%lX) - init newDiscovery %@", buf, 0x16u);
     }
 
     [(FMDAccessoryPlaySoundAction *)self discardEarlyDiscovery];
     [(FMDAccessoryPlaySoundAction *)self executePlaySound];
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v29);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v10 = sub_100002880();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100002880(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       selfCopy3 = self;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "FMDAccessoryPlaySoundAction (0x%lX) the given command expired before starting.", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "FMDAccessoryPlaySoundAction (0x%lX) the given command expired before starting.", buf, 0xCu);
     }
 
-    v11 = [NSNumber numberWithInteger:qword_100312B18];
-    [(FMDAccessoryPlaySoundAction *)self notifyCompletionWithStatus:v11];
+    v12 = [NSNumber numberWithInteger:qword_100312B18];
+    [(FMDAccessoryPlaySoundAction *)self notifyCompletionWithStatus:v12];
 
     [(FMDAccessoryPlaySoundAction *)self terminate];
   }
@@ -277,7 +277,7 @@
 
 - (void)_executePlaySoundUsingExtensions
 {
-  v3 = sub_10017DBC8();
+  v3 = sub_10017DBC8(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = +[NSDate date];
@@ -303,17 +303,18 @@
       accessoryType = [accessory accessoryType];
       v11 = [v9 configForAccessoryType:accessoryType];
 
-      v81 = [v11 flavorForFeature:@"sound"];
-      v75 = [v11 flavorForFeature:@"availability"];
+      v91 = [v11 flavorForFeature:@"sound"];
+      v85 = [v11 flavorForFeature:@"availability"];
       v12 = [v11 flavorForFeature:@"connection"];
       accessoryRegistry = [(FMDAccessoryPlaySoundAction *)self accessoryRegistry];
-      v78 = [v11 infoForFeature:@"sound"];
-      v76 = [v11 infoForFeature:@"availability"];
-      group = dispatch_group_create();
-      if (!v12 || !v81)
+      v88 = [v11 infoForFeature:@"sound"];
+      v86 = [v11 infoForFeature:@"availability"];
+      v13 = dispatch_group_create();
+      group = v13;
+      if (!v12 || !v91)
       {
-        v22 = sub_10017DBC8();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v23 = sub_10017DBC8(v13);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           sub_1002279E0();
         }
@@ -323,57 +324,56 @@
       }
 
       channels = [(FMDAccessoryPlaySoundAction *)self channels];
-      v14 = [channels count] == 0;
+      v15 = [channels count] == 0;
 
-      if (v14)
+      if (v15)
       {
-        [(FMDAccessoryPlaySoundAction *)self cancelTimer];
-        v23 = sub_10017DBC8();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v24 = sub_10017DBC8([(FMDAccessoryPlaySoundAction *)self cancelTimer]);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           name = [accessory name];
           *buf = 134218242;
           *&buf[4] = self;
           *&buf[12] = 2112;
           *&buf[14] = name;
-          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "PlaySoundAction (0x%lX) Stopping sound for accessory %@", buf, 0x16u);
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "PlaySoundAction (0x%lX) Stopping sound for accessory %@", buf, 0x16u);
         }
 
-        v25 = [FMDExtExtensionHelper getAccessoryControllerForFeature:@"sound" flavor:v81];
-        if (v25)
+        v26 = [FMDExtExtensionHelper getAccessoryControllerForFeature:@"sound" flavor:v91];
+        if (v26)
         {
           channels2 = [(FMDAccessoryPlaySoundAction *)self channels];
-          v105[0] = _NSConcreteStackBlock;
-          v105[1] = 3221225472;
-          v105[2] = sub_10014ECA8;
-          v105[3] = &unk_1002CD4C8;
-          v105[4] = self;
-          [accessoryRegistry updateAccessory:accessory playbackChannels:channels2 completion:v105];
+          v115[0] = _NSConcreteStackBlock;
+          v115[1] = 3221225472;
+          v115[2] = sub_10014ECA8;
+          v115[3] = &unk_1002CD4C8;
+          v115[4] = self;
+          [accessoryRegistry updateAccessory:accessory playbackChannels:channels2 completion:v115];
 
-          v27 = sub_10017DBC8();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+          v29 = sub_10017DBC8(v28);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            *&buf[4] = v25;
-            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "daemon stop sound controller = %@", buf, 0xCu);
+            *&buf[4] = v26;
+            _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "daemon stop sound controller = %@", buf, 0xCu);
           }
 
           rampDownDuration = [(FMDAccessoryPlaySoundAction *)self rampDownDuration];
           [rampDownDuration doubleValue];
-          v30 = v29;
-          v102[0] = _NSConcreteStackBlock;
-          v102[1] = 3221225472;
-          v102[2] = sub_10014ED10;
-          v102[3] = &unk_1002CE320;
-          v103 = accessory;
+          v32 = v31;
+          v112[0] = _NSConcreteStackBlock;
+          v112[1] = 3221225472;
+          v112[2] = sub_10014ED10;
+          v112[3] = &unk_1002CE320;
+          v113 = accessory;
           selfCopy = self;
-          [v25 stopSoundForAccessory:stringValue info:v78 rampDownDuration:v102 withCompletion:v30];
+          [v26 stopSoundForAccessory:stringValue info:v88 rampDownDuration:v112 withCompletion:v32];
         }
 
         else
         {
-          v31 = sub_10017DBC8();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          v33 = sub_10017DBC8(0);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
           {
             sub_1002279A4();
           }
@@ -384,44 +384,44 @@
         goto LABEL_74;
       }
 
-      v98 = 0;
-      v99 = &v98;
-      v100 = 0x2020000000;
-      v101 = [accessory connectionState] != 0;
-      if ((v99[3] & 1) == 0 && [(FMDAccessoryPlaySoundAction *)self forceConnection])
+      v108 = 0;
+      v109 = &v108;
+      v110 = 0x2020000000;
+      v111 = [accessory connectionState] != 0;
+      if ((v109[3] & 1) == 0 && [(FMDAccessoryPlaySoundAction *)self forceConnection])
       {
-        v15 = [FMDExtExtensionHelper getAccessoryControllerForFeature:@"connection" flavor:v12];
-        if (!v15)
+        v16 = [FMDExtExtensionHelper getAccessoryControllerForFeature:@"connection" flavor:v12];
+        if (!v16)
         {
-          v32 = sub_10017DBC8();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+          v34 = sub_10017DBC8(0);
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
             name2 = [accessory name];
-            sub_100227848(name2, buf, v32);
+            sub_100227848(name2, buf, v34);
           }
 
           [(FMDAccessoryPlaySoundAction *)self _playSoundEnd:@"Not able to get connectionController" withCode:qword_100312B30];
           goto LABEL_73;
         }
 
-        v16 = v15;
+        v17 = v16;
         dispatch_group_enter(group);
-        v17 = [v11 infoForFeature:@"connection"];
-        v95[0] = _NSConcreteStackBlock;
-        v95[1] = 3221225472;
-        v95[2] = sub_10014ED80;
-        v95[3] = &unk_1002CE348;
-        v97 = &v98;
-        v18 = group;
-        v96 = v18;
-        [v16 forceConnectToAccessory:stringValue info:v17 withCompletion:v95];
-        v74 = v16;
+        v18 = [v11 infoForFeature:@"connection"];
+        v105[0] = _NSConcreteStackBlock;
+        v105[1] = 3221225472;
+        v105[2] = sub_10014ED80;
+        v105[3] = &unk_1002CE348;
+        v107 = &v108;
+        v19 = group;
+        v106 = v19;
+        [v17 forceConnectToAccessory:stringValue info:v18 withCompletion:v105];
+        v84 = v17;
 
         timeoutDate2 = [(FMDAccessoryPlaySoundAction *)self timeoutDate];
         [timeoutDate2 timeIntervalSinceNow];
-        v21 = v20;
+        v22 = v21;
 
-        if (v21 < 0.0)
+        if (v22 < 0.0)
         {
           [(FMDAccessoryPlaySoundAction *)self _playSoundEnd:@"timeout occured before we can try to connect" withCode:qword_100312B18];
 
@@ -429,11 +429,12 @@ LABEL_72:
           goto LABEL_73;
         }
 
-        v34 = dispatch_time(0, (v21 * 1000000000.0));
-        if (dispatch_group_wait(v18, v34))
+        v36 = dispatch_time(0, (v22 * 1000000000.0));
+        v37 = dispatch_group_wait(v19, v36);
+        if (v37)
         {
-          v35 = sub_10017DBC8();
-          if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+          v38 = sub_10017DBC8(v37);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
           {
             sub_1002277D8();
           }
@@ -443,50 +444,51 @@ LABEL_72:
         }
       }
 
-      if ((v99[3] & 1) == 0)
+      if ((v109[3] & 1) == 0)
       {
         [(FMDAccessoryPlaySoundAction *)self _playSoundEnd:@"Unable to Connect" withCode:qword_100312B18];
 LABEL_73:
-        _Block_object_dispose(&v98, 8);
+        _Block_object_dispose(&v108, 8);
 LABEL_74:
 
         goto LABEL_75;
       }
 
-      v74 = [v11 flavorForFeature:@"safetyAlert"];
-      v91 = 0;
-      v92 = &v91;
-      v93 = 0x2020000000;
-      v94 = 0;
+      v84 = [v11 flavorForFeature:@"safetyAlert"];
+      v101 = 0;
+      v102 = &v101;
+      v103 = 0x2020000000;
+      v104 = 0;
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v111 = sub_10000A9F4;
-      v112 = sub_100002AC4;
-      v113 = 0;
-      if ([(FMDAccessoryPlaySoundAction *)self bypassInEarCheck])
+      v121 = sub_10000A9F4;
+      v122 = sub_100002AC4;
+      v123 = 0;
+      bypassInEarCheck = [(FMDAccessoryPlaySoundAction *)self bypassInEarCheck];
+      if (bypassInEarCheck)
       {
 LABEL_36:
-        *(v92 + 24) = 1;
-        v36 = sub_10017DBC8();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        *(v102 + 24) = 1;
+        v40 = sub_10017DBC8(bypassInEarCheck);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
-          *v106 = 0;
-          v37 = "warning safety alert disabled";
+          *v116 = 0;
+          v41 = "warning safety alert disabled";
 LABEL_38:
-          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, v37, v106, 2u);
+          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, v41, v116, 2u);
           goto LABEL_46;
         }
 
         goto LABEL_46;
       }
 
-      v38 = +[FMSystemInfo sharedInstance];
-      if ([v38 isInternalBuild])
+      v42 = +[FMSystemInfo sharedInstance];
+      if ([v42 isInternalBuild])
       {
-        v39 = [FMPreferencesUtil BOOLForKey:@"DisableInEarCheck" inDomain:kFMDNotBackedUpPrefDomain];
+        v43 = [FMPreferencesUtil BOOLForKey:@"DisableInEarCheck" inDomain:kFMDNotBackedUpPrefDomain];
 
-        if (v39)
+        if (v43)
         {
           goto LABEL_36;
         }
@@ -496,24 +498,25 @@ LABEL_38:
       {
       }
 
-      if ([v74 isEqualToString:@"ALWAYS"])
+      v44 = [v84 isEqualToString:@"ALWAYS"];
+      if (v44)
       {
-        *(v92 + 24) = 0;
-        v36 = *(*&buf[8] + 40);
+        *(v102 + 24) = 0;
+        v40 = *(*&buf[8] + 40);
         *(*&buf[8] + 40) = @"ALWAYS";
         goto LABEL_46;
       }
 
-      if (v74)
+      if (v84)
       {
-        v36 = [FMDExtExtensionHelper getAccessoryControllerForFeature:@"safetyAlert" flavor:?];
-        if (!v36)
+        v40 = [FMDExtExtensionHelper getAccessoryControllerForFeature:@"safetyAlert" flavor:?];
+        if (!v40)
         {
-          v69 = sub_10017DBC8();
-          if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+          v78 = sub_10017DBC8(0);
+          if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
           {
             name3 = [accessory name];
-            sub_100227910(name3, v106, v69);
+            sub_100227910(name3, v116, v78);
           }
 
           [(FMDAccessoryPlaySoundAction *)self _playSoundEnd:@"Not safe to play" withCode:qword_100312B30];
@@ -521,40 +524,41 @@ LABEL_38:
         }
 
         dispatch_group_enter(group);
-        v63 = [v11 infoForFeature:@"safetyAlert"];
-        v87[0] = _NSConcreteStackBlock;
-        v87[1] = 3221225472;
-        v87[2] = sub_10014EDF0;
-        v87[3] = &unk_1002CE370;
-        v89 = &v91;
-        v90 = buf;
-        v73 = group;
-        v88 = v73;
-        [v36 safetyAlertForAccessory:stringValue info:v63 withCompletion:v87];
+        v71 = [v11 infoForFeature:@"safetyAlert"];
+        v97[0] = _NSConcreteStackBlock;
+        v97[1] = 3221225472;
+        v97[2] = sub_10014EDF0;
+        v97[3] = &unk_1002CE370;
+        v99 = &v101;
+        v100 = buf;
+        v83 = group;
+        v98 = v83;
+        [v40 safetyAlertForAccessory:stringValue info:v71 withCompletion:v97];
 
         timeoutDate3 = [(FMDAccessoryPlaySoundAction *)self timeoutDate];
         [timeoutDate3 timeIntervalSinceNow];
-        v66 = v65;
+        v74 = v73;
 
-        v67 = sub_10017DBC8();
-        if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+        v76 = sub_10017DBC8(v75);
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
         {
-          *v106 = 134217984;
-          *v107 = v66;
-          _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEFAULT, "safety check timeout = %f", v106, 0xCu);
+          *v116 = 134217984;
+          *v117 = v74;
+          _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "safety check timeout = %f", v116, 0xCu);
         }
 
-        if (v66 >= 0.0)
+        if (v74 >= 0.0)
         {
-          v71 = dispatch_time(0, (v66 * 1000000000.0));
-          if (!dispatch_group_wait(v73, v71))
+          v80 = dispatch_time(0, (v74 * 1000000000.0));
+          v81 = dispatch_group_wait(v83, v80);
+          if (!v81)
           {
 
             goto LABEL_46;
           }
 
-          v72 = sub_10017DBC8();
-          if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+          v82 = sub_10017DBC8(v81);
+          if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
           {
             sub_1002278A0();
           }
@@ -567,36 +571,36 @@ LABEL_38:
           [(FMDAccessoryPlaySoundAction *)self _playSoundEnd:@"timeout occured before we can try to check safety status" withCode:qword_100312B18];
         }
 
-        channels3 = v88;
+        channels3 = v98;
         goto LABEL_57;
       }
 
-      *(v92 + 24) = 1;
-      v36 = sub_10017DBC8();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+      *(v102 + 24) = 1;
+      v40 = sub_10017DBC8(v44);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
-        *v106 = 0;
-        v37 = "warning safet alert feature not found";
+        *v116 = 0;
+        v41 = "warning safet alert feature not found";
         goto LABEL_38;
       }
 
 LABEL_46:
 
-      if ((v92[3] & 1) == 0)
+      if ((v102[3] & 1) == 0)
       {
-        v59 = sub_10017DBC8();
-        if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+        v67 = sub_10017DBC8(v45);
+        if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
         {
-          v60 = *(v99 + 24);
-          v61 = *(v92 + 24);
-          v62 = *(*&buf[8] + 40);
-          *v106 = 67109634;
-          *v107 = v60;
-          *&v107[4] = 1024;
-          *&v107[6] = v61;
-          v108 = 2112;
-          v109 = v62;
-          _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "returning playing sound connected = %d safe = %d safetyAlertType = %@", v106, 0x18u);
+          v68 = *(v109 + 24);
+          v69 = *(v102 + 24);
+          v70 = *(*&buf[8] + 40);
+          *v116 = 67109634;
+          *v117 = v68;
+          *&v117[4] = 1024;
+          *&v117[6] = v69;
+          v118 = 2112;
+          v119 = v70;
+          _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEFAULT, "returning playing sound connected = %d safe = %d safetyAlertType = %@", v116, 0x18u);
         }
 
         [(FMDAccessoryPlaySoundAction *)self setSafetyAlertType:*(*&buf[8] + 40)];
@@ -604,40 +608,40 @@ LABEL_46:
         goto LABEL_71;
       }
 
-      v40 = sub_10017DBC8();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+      v46 = sub_10017DBC8(v45);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
       {
-        v41 = *(v99 + 24);
-        v42 = *(v92 + 24);
-        v43 = *(*&buf[8] + 40);
-        *v106 = 67109634;
-        *v107 = v41;
-        *&v107[4] = 1024;
-        *&v107[6] = v42;
-        v108 = 2112;
-        v109 = v43;
-        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "playing sound with connected = %d safe = %d safetyAlertType = %@", v106, 0x18u);
+        v47 = *(v109 + 24);
+        v48 = *(v102 + 24);
+        v49 = *(*&buf[8] + 40);
+        *v116 = 67109634;
+        *v117 = v47;
+        *&v117[4] = 1024;
+        *&v117[6] = v48;
+        v118 = 2112;
+        v119 = v49;
+        _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "playing sound with connected = %d safe = %d safetyAlertType = %@", v116, 0x18u);
       }
 
-      v36 = [FMDExtExtensionHelper getAccessoryControllerForFeature:@"sound" flavor:v81];
+      v40 = [FMDExtExtensionHelper getAccessoryControllerForFeature:@"sound" flavor:v91];
       statusController = [(FMDAccessoryPlaySoundAction *)self statusController];
-      v45 = statusController == 0;
+      v51 = statusController == 0;
 
-      if (v45)
+      if (v51)
       {
-        v46 = [FMDExtExtensionHelper getAccessoryControllerForFeature:@"availability" flavor:v75 withDelegate:accessoryRegistry];
-        [(FMDAccessoryPlaySoundAction *)self setStatusController:v46];
+        v52 = [FMDExtExtensionHelper getAccessoryControllerForFeature:@"availability" flavor:v85 withDelegate:accessoryRegistry];
+        [(FMDAccessoryPlaySoundAction *)self setStatusController:v52];
       }
 
       statusController2 = [(FMDAccessoryPlaySoundAction *)self statusController];
       duration = [(FMDAccessoryPlaySoundAction *)self duration];
       [duration doubleValue];
-      [statusController2 startDiscoveryForAccessory:stringValue duration:v76 info:&stru_1002CE390 withCompletion:?];
+      [statusController2 startDiscoveryForAccessory:stringValue duration:v86 info:&stru_1002CE390 withCompletion:?];
 
-      if (!v36)
+      if (!v40)
       {
-        v68 = sub_10017DBC8();
-        if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+        v77 = sub_10017DBC8(v55);
+        if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
         {
           sub_100227968();
         }
@@ -647,42 +651,42 @@ LABEL_46:
       }
 
       channels3 = [(FMDAccessoryPlaySoundAction *)self channels];
-      v50 = sub_10017DBC8();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+      v57 = sub_10017DBC8(channels3);
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
       {
-        *v106 = 138412290;
-        *v107 = channels3;
-        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "channel Array = %@", v106, 0xCu);
+        *v116 = 138412290;
+        *v117 = channels3;
+        _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "channel Array = %@", v116, 0xCu);
       }
 
-      objc_initWeak(&location, self);
-      v51 = sub_10017DBC8();
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+      inited = objc_initWeak(&location, self);
+      v59 = sub_10017DBC8(inited);
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
       {
-        *v106 = 138412290;
-        *v107 = v36;
-        _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "daemon play sound controller = %@", v106, 0xCu);
+        *v116 = 138412290;
+        *v117 = v40;
+        _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "daemon play sound controller = %@", v116, 0xCu);
       }
 
       [(FMDAccessoryPlaySoundAction *)self setPlaySoundRetryCounter:[(FMDAccessoryPlaySoundAction *)self playSoundRetryCounter]+ 1];
       duration2 = [(FMDAccessoryPlaySoundAction *)self duration];
       [duration2 doubleValue];
-      v54 = v53;
+      v62 = v61;
       rampDownDuration2 = [(FMDAccessoryPlaySoundAction *)self rampDownDuration];
       [rampDownDuration2 doubleValue];
-      v57 = v56;
+      v65 = v64;
       channels4 = [(FMDAccessoryPlaySoundAction *)self channels];
-      v82[0] = _NSConcreteStackBlock;
-      v82[1] = 3221225472;
-      v82[2] = sub_10014EFB4;
-      v82[3] = &unk_1002CE3E0;
-      v82[4] = self;
-      objc_copyWeak(&v85, &location);
-      v83 = accessoryRegistry;
-      v84 = accessory;
-      [v36 playSoundForAccessory:stringValue info:v78 duration:channels4 rampUpDuration:v82 channels:v54 withCompletion:v57];
+      v92[0] = _NSConcreteStackBlock;
+      v92[1] = 3221225472;
+      v92[2] = sub_10014EFB4;
+      v92[3] = &unk_1002CE3E0;
+      v92[4] = self;
+      objc_copyWeak(&v95, &location);
+      v93 = accessoryRegistry;
+      v94 = accessory;
+      [v40 playSoundForAccessory:stringValue info:v88 duration:channels4 rampUpDuration:v92 channels:v62 withCompletion:v65];
 
-      objc_destroyWeak(&v85);
+      objc_destroyWeak(&v95);
       objc_destroyWeak(&location);
 LABEL_57:
 
@@ -690,7 +694,7 @@ LABEL_70:
 LABEL_71:
       _Block_object_dispose(buf, 8);
 
-      _Block_object_dispose(&v91, 8);
+      _Block_object_dispose(&v101, 8);
       goto LABEL_72;
     }
   }
@@ -701,7 +705,7 @@ LABEL_75:
 - (void)_playSoundEnd:(id)end withCode:(int64_t)code
 {
   endCopy = end;
-  v7 = sub_10017DBC8();
+  v7 = sub_10017DBC8(endCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     accessory = [(FMDAccessoryPlaySoundAction *)self accessory];
@@ -723,7 +727,7 @@ LABEL_75:
 - (void)notifyCompletionWithStatus:(id)status
 {
   statusCopy = status;
-  v5 = sub_100002880();
+  v5 = sub_100002880(statusCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
@@ -791,7 +795,7 @@ LABEL_75:
 
 - (void)terminate
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 134217984;
@@ -821,15 +825,15 @@ LABEL_75:
 
   if (earlyDiscovery)
   {
-    v4 = sub_100002880();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100002880(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       earlyDiscovery2 = [(FMDAccessoryPlaySoundAction *)self earlyDiscovery];
-      v7 = 134218242;
+      v8 = 134218242;
       selfCopy = self;
-      v9 = 2112;
-      v10 = earlyDiscovery2;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "FMDAccessoryPlaySoundAction(0x%lX) - discard earlyDiscovery %@", &v7, 0x16u);
+      v10 = 2112;
+      v11 = earlyDiscovery2;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "FMDAccessoryPlaySoundAction(0x%lX) - discard earlyDiscovery %@", &v8, 0x16u);
     }
 
     earlyDiscovery3 = [(FMDAccessoryPlaySoundAction *)self earlyDiscovery];
@@ -851,27 +855,27 @@ LABEL_75:
 - (void)_playSoundNow:(id)now
 {
   nowCopy = now;
-  if ([(FMDAccessoryPlaySoundAction *)self playingSound])
+  playingSound = [(FMDAccessoryPlaySoundAction *)self playingSound];
+  if (playingSound)
   {
-    v5 = sub_100002880();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100002880(playingSound);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       selfCopy2 = self;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "FMDAccessoryPlaySoundAction (0x%lX) already playing - ignoring.", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FMDAccessoryPlaySoundAction (0x%lX) already playing - ignoring.", buf, 0xCu);
     }
   }
 
   [(FMDAccessoryPlaySoundAction *)self setPlayingSound:1];
-  [(FMDAccessoryPlaySoundAction *)self cancelTimer];
-  v6 = sub_100002880();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100002880([(FMDAccessoryPlaySoundAction *)self cancelTimer]);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
     selfCopy2 = self;
-    v27 = 2112;
-    v28 = nowCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FMDAccessoryPlaySoundAction (0x%lX) Playing sound for accessory %@", buf, 0x16u);
+    v28 = 2112;
+    v29 = nowCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "FMDAccessoryPlaySoundAction (0x%lX) Playing sound for accessory %@", buf, 0x16u);
   }
 
   channels = [(FMDAccessoryPlaySoundAction *)self channels];
@@ -879,33 +883,33 @@ LABEL_75:
   rampUpDuration = [(FMDAccessoryPlaySoundAction *)self rampUpDuration];
   if ([FMPreferencesUtil BOOLForKey:@"CustomRampUpDurationEnabled" inDomain:kFMDPrefDomain])
   {
-    v10 = [NSNumber numberWithInteger:[FMPreferencesUtil integerForKey:@"CustomRampUpDuration" inDomain:kFMDPrefDomain]];
+    v11 = [NSNumber numberWithInteger:[FMPreferencesUtil integerForKey:@"CustomRampUpDuration" inDomain:kFMDPrefDomain]];
 
-    rampUpDuration = v10;
+    rampUpDuration = v11;
   }
 
   [(FMDAccessoryPlaySoundAction *)self setPlaySoundRetryCounter:[(FMDAccessoryPlaySoundAction *)self playSoundRetryCounter]+ 1];
   objc_initWeak(buf, self);
-  v11 = +[FMDFMIPManager sharedInstance];
+  v12 = +[FMDFMIPManager sharedInstance];
   [duration doubleValue];
-  v13 = v12;
+  v14 = v13;
   [rampUpDuration doubleValue];
-  v15 = v14;
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_100150040;
-  v19[3] = &unk_1002CE430;
-  objc_copyWeak(&v24, buf);
-  v16 = nowCopy;
-  v20 = v16;
+  v16 = v15;
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_100150040;
+  v20[3] = &unk_1002CE430;
+  objc_copyWeak(&v25, buf);
+  v17 = nowCopy;
+  v21 = v17;
   selfCopy3 = self;
-  v17 = channels;
-  v22 = v17;
-  v18 = duration;
+  v18 = channels;
   v23 = v18;
-  [v11 startPlayingSoundForAccessory:v16 duration:v17 rampUpDuration:v19 channels:v13 completion:v15];
+  v19 = duration;
+  v24 = v19;
+  [v12 startPlayingSoundForAccessory:v17 duration:v18 rampUpDuration:v20 channels:v14 completion:v16];
 
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v25);
   objc_destroyWeak(buf);
 }
 
@@ -929,8 +933,7 @@ LABEL_75:
 
   if (v8)
   {
-    [(FMDAccessoryPlaySoundAction *)self setAccessory:updateCopy];
-    v9 = sub_100002880();
+    v9 = sub_100002880([(FMDAccessoryPlaySoundAction *)self setAccessory:updateCopy]);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v11 = 134218498;
@@ -961,23 +964,24 @@ LABEL_75:
       if (v4)
       {
         accessory3 = [(FMDAccessoryPlaySoundAction *)self accessory];
-        if ([accessory3 shouldStopSoundNow])
+        shouldStopSoundNow = [accessory3 shouldStopSoundNow];
+        if (shouldStopSoundNow)
         {
-          v6 = sub_100002880();
-          if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+          v7 = sub_100002880(shouldStopSoundNow);
+          if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Stop sound from panning", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Stop sound from panning", buf, 2u);
           }
 
           [accessory3 updatePlaybackChannels:&__NSArray0__struct];
-          v7 = +[FMDFMIPManager sharedInstance];
-          v9[0] = _NSConcreteStackBlock;
-          v9[1] = 3221225472;
-          v9[2] = sub_100150C00;
-          v9[3] = &unk_1002CD868;
-          v9[4] = self;
-          [v7 stopPlayingSoundForAccessory:accessory3 rampDownDuration:v9 completion:1.0];
+          v8 = +[FMDFMIPManager sharedInstance];
+          v10[0] = _NSConcreteStackBlock;
+          v10[1] = 3221225472;
+          v10[2] = sub_100150C00;
+          v10[3] = &unk_1002CD868;
+          v10[4] = self;
+          [v8 stopPlayingSoundForAccessory:accessory3 rampDownDuration:v10 completion:1.0];
         }
       }
     }

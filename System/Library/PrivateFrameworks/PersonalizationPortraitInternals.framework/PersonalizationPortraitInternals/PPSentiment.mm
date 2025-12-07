@@ -90,10 +90,10 @@ void __37__PPSentiment_sentimentScoreForText___block_invoke_2(uint64_t a1, uint6
 
 - (PPSentiment)init
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v24.receiver = self;
-  v24.super_class = PPSentiment;
-  v2 = [(PPSentiment *)&v24 init];
+  v42 = *MEMORY[0x277D85DE8];
+  v23.receiver = self;
+  v23.super_class = PPSentiment;
+  v2 = [(PPSentiment *)&v23 init];
   if (!v2)
   {
     goto LABEL_21;
@@ -120,16 +120,16 @@ void __37__PPSentiment_sentimentScoreForText___block_invoke_2(uint64_t a1, uint6
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v41 = 0x2020000000;
-  v42 = 0;
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x2020000000;
-  v39 = 0;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
-  v35 = 1;
+  v40 = 0x2020000000;
+  v41 = 0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2020000000;
+  v38 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 1;
   v7 = objc_alloc(MEMORY[0x277D425F8]);
   v8 = objc_opt_new();
   v9 = [v7 initWithGuardedData:v8];
@@ -137,19 +137,19 @@ void __37__PPSentiment_sentimentScoreForText___block_invoke_2(uint64_t a1, uint6
   v2->_lock = v9;
 
   v11 = v2->_lock;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __29__PPSentiment__loadAssetData__block_invoke;
-  v26[3] = &unk_278974610;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __29__PPSentiment__loadAssetData__block_invoke;
+  v25[3] = &unk_278974610;
   v12 = v6;
-  v27 = v12;
+  v26 = v12;
   v13 = v4;
-  v28 = v13;
-  v29 = &v32;
+  v27 = v13;
+  v28 = &v31;
   p_buf = &buf;
-  v31 = &v36;
-  [(_PASLock *)v11 runWithLockAcquired:v26];
-  if ((v33[3] & 1) == 0)
+  v30 = &v35;
+  [(_PASLock *)v11 runWithLockAcquired:v25];
+  if ((v32[3] & 1) == 0)
   {
     goto LABEL_19;
   }
@@ -160,21 +160,21 @@ void __37__PPSentiment_sentimentScoreForText___block_invoke_2(uint64_t a1, uint6
     v20 = pp_default_log_handle();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      *v25 = 0;
-      _os_log_error_impl(&dword_23224A000, v20, OS_LOG_TYPE_ERROR, "PPSentiment: Token weight trie does not contain range key", v25, 2u);
+      *v24 = 0;
+      _os_log_error_impl(&dword_23224A000, v20, OS_LOG_TYPE_ERROR, "PPSentiment: Token weight trie does not contain range key", v24, 2u);
     }
 
     goto LABEL_18;
   }
 
-  v15 = *(v37 + 6);
+  v15 = *(v36 + 6);
   if (!v15)
   {
     v20 = pp_default_log_handle();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      *v25 = 0;
-      _os_log_error_impl(&dword_23224A000, v20, OS_LOG_TYPE_ERROR, "PPSentiment: Token weight trie does not contain intercept key", v25, 2u);
+      *v24 = 0;
+      _os_log_error_impl(&dword_23224A000, v20, OS_LOG_TYPE_ERROR, "PPSentiment: Token weight trie does not contain intercept key", v24, 2u);
     }
 
 LABEL_18:
@@ -200,8 +200,8 @@ LABEL_19:
   v18 = 1;
 LABEL_20:
 
-  _Block_object_dispose(&v32, 8);
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v35, 8);
   _Block_object_dispose(&buf, 8);
 
   if (!v18)
@@ -215,7 +215,6 @@ LABEL_21:
   v21 = v2;
 LABEL_23:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

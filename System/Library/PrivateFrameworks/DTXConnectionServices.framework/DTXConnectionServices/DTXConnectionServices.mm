@@ -104,9 +104,9 @@ void sub_247F3EB5C(void *a1)
   }
 }
 
-void sub_247F3ECA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_247F3ECA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -189,15 +189,15 @@ id sub_247F3F070(uint64_t a1, void *a2)
 
 void sub_247F3F880(uint64_t a1, void *a2)
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v8 = objc_msgSend_error(v3, v4, v5);
   if (kDTXInterruptionMessage == v3)
   {
     v9 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA450];
-    v19[0] = @"Channel disconnected";
-    v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v6, v19, &v18, 1);
+    v17 = *MEMORY[0x277CCA450];
+    v18[0] = @"Channel disconnected";
+    v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v6, v18, &v17, 1);
     v12 = objc_msgSend_errorWithDomain_code_userInfo_(v9, v11, @"DTXProxyChannel", 1, v10);
 
     v8 = v12;
@@ -207,7 +207,6 @@ void sub_247F3F880(uint64_t a1, void *a2)
   v15 = objc_msgSend_objectWithAllowedClasses_(v3, v14, v13);
 
   objc_msgSend_invokeCompletionWithReturnValue_error_(*(a1 + 40), v16, v15, v8);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void sub_247F3FE4C(uint64_t a1)
@@ -341,11 +340,7 @@ uint64_t sub_247F40C68(uint64_t result)
     v5 = *(v4 + 40);
     *(v4 + 40) = v3;
 
-    v6 = *(*(*(v2 + 40) + 8) + 40);
-    v7 = *(*(v2 + 32) + 52);
     xpc_dictionary_set_mach_send();
-    v8 = *(*(*(v2 + 40) + 8) + 40);
-    v9 = *(*(v2 + 32) + 48);
     result = xpc_dictionary_set_mach_recv();
     *(*(v2 + 32) + 48) = 0;
   }
@@ -396,9 +391,9 @@ void sub_247F410CC(uint64_t a1)
   }
 }
 
-void sub_247F415FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_247F415FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -495,14 +490,14 @@ uint64_t sub_247F41C04(mach_port_name_t a1, void *a2)
   return v12;
 }
 
-void sub_247F41DE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_247F41DE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_247F41DFC(uint64_t a1, int a2)
+uint64_t sub_247F41DFC(uint64_t a1, uint64_t a2)
 {
   result = sub_247F41E34(a2, 0);
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -511,104 +506,101 @@ uint64_t sub_247F41DFC(uint64_t a1, int a2)
 
 uint64_t sub_247F41E34(int a1, int a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v4 = pipe(v19);
+  v30 = *MEMORY[0x277D85DE8];
+  v4 = pipe(v18);
   result = 0xFFFFFFFFLL;
-  if (!v4 && (v19[0] & 0x80000000) == 0)
+  if (!v4 && (v18[0] & 0x80000000) == 0)
   {
-    if ((v19[1] & 0x80000000) == 0)
+    if (v18[1] < 0)
     {
-      if (fileport_makeport())
-      {
-        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          v6 = getprogname();
-          v7 = getpid();
-          v8 = __error();
-          v9 = strerror(*v8);
-          v10 = *__error();
-          *buf = 136315906;
-          *&buf[4] = v6;
-          LOWORD(v29) = 1024;
-          *(&v29 + 2) = v7;
-          WORD3(v29) = 2080;
-          *(&v29 + 1) = v9;
-          LOWORD(v30[0]) = 1024;
-          *(v30 + 2) = v10;
-          _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s(%d) [error]: '_send_fd' failed: %s (%d)\n", buf, 0x22u);
-        }
+      return 0xFFFFFFFFLL;
+    }
 
-        goto LABEL_12;
+    if (fileport_makeport())
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        v6 = getprogname();
+        v7 = getpid();
+        v8 = __error();
+        v9 = strerror(*v8);
+        v10 = *__error();
+        *buf = 136315906;
+        *&buf[4] = v6;
+        LOWORD(v28) = 1024;
+        *(&v28 + 2) = v7;
+        WORD3(v28) = 2080;
+        *(&v28 + 1) = v9;
+        LOWORD(v29[0]) = 1024;
+        *(v29 + 2) = v10;
+        _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s(%d) [error]: '_send_fd' failed: %s (%d)\n", buf, 0x22u);
       }
 
-      *(&v29 + 4) = 0;
-      HIDWORD(v29) = 1;
-      *&v30[1] = 0x13000000000000;
-      *&buf[8] = a1;
-      LODWORD(v29) = a2;
-      *buf = 0x2880001413;
-      v30[0] = 0;
-      v11 = mach_msg_send(buf);
-      if (v11)
-      {
-        v12 = v11;
-        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-        {
-          v13 = getprogname();
-          v14 = getpid();
-          v15 = mach_error_string(v12);
-          *v20 = 136315906;
-          v21 = v13;
-          v22 = 1024;
-          v23 = v14;
-          v24 = 2080;
-          v25 = v15;
-          v26 = 1024;
-          v27 = v12;
-          _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_msg_send' failed: %s (%d)\n", v20, 0x22u);
-        }
+      goto LABEL_12;
+    }
 
-        mach_port_deallocate(*MEMORY[0x277D85F48], 0);
-        goto LABEL_12;
+    *(&v28 + 4) = 0;
+    HIDWORD(v28) = 1;
+    *&v29[1] = 0x13000000000000;
+    *&buf[8] = a1;
+    LODWORD(v28) = a2;
+    *buf = 0x2880001413;
+    v29[0] = 0;
+    v11 = mach_msg_send(buf);
+    if (v11)
+    {
+      v12 = v11;
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        v13 = getprogname();
+        v14 = getpid();
+        v15 = mach_error_string(v12);
+        *v19 = 136315906;
+        v20 = v13;
+        v21 = 1024;
+        v22 = v14;
+        v23 = 2080;
+        v24 = v15;
+        v25 = 1024;
+        v26 = v12;
+        _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_msg_send' failed: %s (%d)\n", v19, 0x22u);
       }
 
       mach_port_deallocate(*MEMORY[0x277D85F48], 0);
-      v17 = v19[0];
-      if ((v19[0] & 0x80000000) == 0)
-      {
-        v18 = fcntl(v19[0], 3);
-        if ((v18 & 4) == 0)
-        {
-          fcntl(v17, 4, v18 | 4u);
-LABEL_19:
-          if ((v19[0] & 0x80000000) == 0 && fcntl(v19[0], 2, 1) != -1)
-          {
-            goto LABEL_13;
-          }
-
-          goto LABEL_12;
-        }
-
-        if (v18 != -1)
-        {
-          goto LABEL_19;
-        }
-      }
-
-LABEL_12:
-      close(v19[0]);
-      v19[0] = -1;
-LABEL_13:
-      close(v19[1]);
-      result = v19[0];
-      goto LABEL_14;
+      goto LABEL_12;
     }
 
-    result = 0xFFFFFFFFLL;
+    mach_port_deallocate(*MEMORY[0x277D85F48], 0);
+    v16 = v18[0];
+    if ((v18[0] & 0x80000000) == 0)
+    {
+      v17 = fcntl(v18[0], 3);
+      if ((v17 & 4) == 0)
+      {
+        fcntl(v16, 4, v17 | 4u);
+LABEL_19:
+        if ((v18[0] & 0x80000000) == 0 && fcntl(v18[0], 2, 1) != -1)
+        {
+          goto LABEL_13;
+        }
+
+        goto LABEL_12;
+      }
+
+      if (v17 != -1)
+      {
+        goto LABEL_19;
+      }
+    }
+
+LABEL_12:
+    close(v18[0]);
+    v18[0] = -1;
+LABEL_13:
+    close(v18[1]);
+    return v18[0];
   }
 
-LABEL_14:
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -620,9 +612,10 @@ uint64_t sub_247F420C4(uint64_t a1)
   return close(v2);
 }
 
-void sub_247F424C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_247F424C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
   _Block_object_dispose(&a15, 8);
   _Unwind_Resume(a1);
 }
@@ -680,10 +673,9 @@ uint64_t sub_247F426CC(uint64_t result, int a2, unsigned int *a3, _DWORD *a4)
     goto LABEL_13;
   }
 
-  v6 = fileport_makefd();
-  v7 = a3[1];
+  v5 = fileport_makefd();
   result = fileport_makefd();
-  if (v6 < 0)
+  if (v5 < 0)
   {
     if ((result & 0x80000000) != 0)
     {
@@ -695,13 +687,13 @@ uint64_t sub_247F426CC(uint64_t result, int a2, unsigned int *a3, _DWORD *a4)
   {
     if ((result & 0x80000000) == 0)
     {
-      v8 = *(v4 + 48);
-      **(v4 + 40) = v6;
-      *v8 = result;
+      v6 = *(v4 + 48);
+      **(v4 + 40) = v5;
+      *v6 = result;
       return result;
     }
 
-    LODWORD(result) = v6;
+    LODWORD(result) = v5;
   }
 
   result = close(result);
@@ -710,7 +702,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t sub_247F42778(uint64_t result, int a2, int a3)
+uint64_t sub_247F42778(uint64_t result, uint64_t a2, int a3)
 {
   if ((a2 + 1) >= 2 && a3 == 0)
   {
@@ -768,56 +760,54 @@ void sub_247F42878(uint64_t a1, uint64_t a2, void *a3)
 void sub_247F42940(uint64_t a1)
 {
   v1 = 0;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   atomic_compare_exchange_strong((*(*(a1 + 32) + 8) + 24), &v1, 1u);
   if (!v1)
   {
     v3 = *(a1 + 40);
     if (v3 + 1 >= 2)
     {
-      v5 = MEMORY[0x277D85F48];
-      v6 = mach_port_mod_refs(*MEMORY[0x277D85F48], v3, 1u, -1);
-      if (v6)
+      v4 = MEMORY[0x277D85F48];
+      v5 = mach_port_mod_refs(*MEMORY[0x277D85F48], v3, 1u, -1);
+      if (v5)
       {
-        v7 = v6;
+        v6 = v5;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v13 = 136315906;
-          v14 = getprogname();
-          v15 = 1024;
-          v16 = getpid();
-          v17 = 2080;
-          v18 = mach_error_string(v7);
-          v19 = 1024;
-          v20 = v7;
-          _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_port_mod_refs' failed: %s (%d)\n", &v13, 0x22u);
+          v12 = 136315906;
+          v13 = getprogname();
+          v14 = 1024;
+          v15 = getpid();
+          v16 = 2080;
+          v17 = mach_error_string(v6);
+          v18 = 1024;
+          v19 = v6;
+          _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_port_mod_refs' failed: %s (%d)\n", &v12, 0x22u);
         }
       }
 
-      v8 = mach_port_deallocate(*v5, *(a1 + 40));
-      if (v8)
+      v7 = mach_port_deallocate(*v4, *(a1 + 40));
+      if (v7)
       {
-        v9 = v8;
+        v8 = v7;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v10 = getprogname();
-          v11 = getpid();
-          v12 = mach_error_string(v9);
-          v13 = 136315906;
-          v14 = v10;
-          v15 = 1024;
-          v16 = v11;
-          v17 = 2080;
-          v18 = v12;
-          v19 = 1024;
-          v20 = v9;
-          _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_port_deallocate' failed: %s (%d)\n", &v13, 0x22u);
+          v9 = getprogname();
+          v10 = getpid();
+          v11 = mach_error_string(v8);
+          v12 = 136315906;
+          v13 = v9;
+          v14 = 1024;
+          v15 = v10;
+          v16 = 2080;
+          v17 = v11;
+          v18 = 1024;
+          v19 = v8;
+          _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_port_deallocate' failed: %s (%d)\n", &v12, 0x22u);
         }
       }
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void sub_247F42BE0(_DWORD *a1)
@@ -825,8 +815,8 @@ void sub_247F42BE0(_DWORD *a1)
   a1[10] = 2;
   v1 = a1;
   v2 = dispatch_queue_create("transport handler guard", 0);
-  v3 = v1[2];
-  v1[2] = v2;
+  v3 = *(v1 + 2);
+  *(v1 + 2) = v2;
 
   v4 = MEMORY[0x277CCACA8];
   v5 = objc_opt_class();
@@ -835,14 +825,14 @@ void sub_247F42BE0(_DWORD *a1)
   v10 = objc_msgSend_UTF8String(v18, v8, v9);
   v11 = dispatch_queue_create(v10, 0);
   dispatch_suspend(v11);
-  v12 = v1[1];
-  v1[1] = v11;
+  v12 = *(v1 + 1);
+  *(v1 + 1) = v11;
   v13 = v11;
 
   v14 = objc_opt_new();
   objc_msgSend_suspendLimits(v14, v15, v16);
-  v17 = v1[3];
-  v1[3] = v14;
+  v17 = *(v1 + 3);
+  *(v1 + 3) = v14;
 }
 
 void sub_247F42E04(uint64_t a1, const char *a2, uint64_t a3)
@@ -1079,7 +1069,7 @@ unint64_t *DTXPrimitiveArrayAppendValues(unint64_t *result, int a2, uint64_t a3,
   return result;
 }
 
-void *DTXPrimitiveArrayAppendBuffer(void *result, void *__src, size_t __n)
+unint64_t *DTXPrimitiveArrayAppendBuffer(unint64_t *result, void *__src, size_t __n)
 {
   if (result)
   {
@@ -1094,7 +1084,7 @@ void *DTXPrimitiveArrayAppendBuffer(void *result, void *__src, size_t __n)
   return result;
 }
 
-void *sub_247F43960(unint64_t *ptr, int a2, void *__src, size_t __n)
+unint64_t *sub_247F43960(unint64_t *ptr, int a2, void *__src, size_t __n)
 {
   v4 = __n;
   v7 = ptr;
@@ -1266,108 +1256,113 @@ uint64_t sub_247F43CC4(uint64_t a1)
 
 void sub_247F43D74(uint64_t a1, uint64_t a2)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  if (a1 && *(a1 + 8))
+  v14[1] = *MEMORY[0x277D85DE8];
+  if (a1)
   {
-    v4 = 0;
-    v5 = a1 + 16;
-    do
+    v2 = a1;
+    if (*(a1 + 8))
     {
-      v6 = *(v4 + v5);
-      v7 = v4 + 4;
-      if ((v6 - 1) > 1)
+      v4 = 0;
+      v5 = a1 + 16;
+      do
       {
-        if (v6 > 9 || ((1 << v6) & 0x340) == 0)
+        v6 = *(v4 + v5);
+        v7 = v4 + 4;
+        if ((v6 - 1) > 1)
         {
-          v8 = 4 * (v6 != 10);
-          if (a2)
+          if (v6 > 9 || ((1 << v6) & 0x340) == 0)
           {
-LABEL_6:
-            if (v8)
+            v8 = 4 * (v6 != 10);
+            if (a2)
             {
-              if (v6 != 1)
+LABEL_6:
+              if (v8)
               {
-                v9 = (v7 + v5);
-                if (((v7 + v5) & 7) != 0)
+                if (v6 != 1)
                 {
-                  if (v8 >= 0x101)
+                  v9 = (v7 + v5);
+                  if (((v7 + v5) & 7) != 0)
                   {
-                    v10 = v8;
-                    v11 = malloc_type_malloc(v8, 0xD30D2256uLL);
-                    goto LABEL_18;
-                  }
+                    if (v8 >= 0x101)
+                    {
+                      v10 = v8;
+                      v11 = malloc_type_malloc(v8, 0xD30D2256uLL);
+                      goto LABEL_18;
+                    }
 
 LABEL_17:
-                  v10 = v8;
-                  MEMORY[0x28223BE20]();
-                  v11 = v15 - ((v8 + 15) & 0x1FFFFFFF0);
-                  bzero(v11, v8);
+                    v10 = v8;
+                    MEMORY[0x28223BE20](a1);
+                    v11 = v14 - ((v8 + 15) & 0x1FFFFFFF0);
+                    bzero(v11, v8);
 LABEL_18:
-                  memcpy(v11, v9, v10);
+                    memcpy(v11, v9, v10);
 LABEL_20:
-                  if (v11)
-                  {
-                    v13 = v11;
-                  }
+                    if (v11)
+                    {
+                      v13 = v11;
+                    }
 
-                  else
-                  {
-                    v13 = (v7 + v5);
-                  }
+                    else
+                    {
+                      v13 = (v7 + v5);
+                    }
 
-                  (*(a2 + 16))(a2, v6, v13, v8);
-                  if (v8 >= 0x101 && v11)
-                  {
-                    free(v11);
-                  }
+                    a1 = (*(a2 + 16))(a2, v6, v13, v8);
+                    if (v8 >= 0x101)
+                    {
+                      if (v11)
+                      {
+                        free(v11);
+                      }
+                    }
 
-                  goto LABEL_28;
+                    goto LABEL_28;
+                  }
                 }
               }
-            }
 
 LABEL_19:
-            v11 = 0;
-            goto LABEL_20;
+              v11 = 0;
+              goto LABEL_20;
+            }
+          }
+
+          else
+          {
+            if (a2)
+            {
+              v9 = (v7 + v5);
+              v8 = 8;
+              if (((v7 + v5) & 7) != 0)
+              {
+                goto LABEL_17;
+              }
+
+              goto LABEL_19;
+            }
+
+            LODWORD(v8) = 8;
           }
         }
 
         else
         {
+          v8 = *(v7 + v5);
+          v7 = v4 + 8;
           if (a2)
           {
-            v9 = (v7 + v5);
-            v8 = 8;
-            if (((v7 + v5) & 7) != 0)
-            {
-              goto LABEL_17;
-            }
-
-            goto LABEL_19;
+            goto LABEL_6;
           }
-
-          LODWORD(v8) = 8;
         }
-      }
-
-      else
-      {
-        v8 = *(v7 + v5);
-        v7 = v4 + 8;
-        if (a2)
-        {
-          goto LABEL_6;
-        }
-      }
 
 LABEL_28:
-      v4 = v7 + v8;
+        v4 = v7 + v8;
+      }
+
+      while (v4 < *(v2 + 8));
     }
-
-    while (v4 < *(a1 + 8));
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 CFDataRef sub_247F43F44(uint64_t a1, int a2, char *cStr, CFIndex length)
@@ -1385,7 +1380,7 @@ CFDataRef sub_247F43F44(uint64_t a1, int a2, char *cStr, CFIndex length)
   return result;
 }
 
-CFDictionaryRef CFDictionaryCreateWithDTXPrimitiveDictionary(uint64_t a1)
+CFDictionaryRef CFDictionaryCreateWithDTXPrimitiveDictionary(const __CFDictionary *a1)
 {
   v1 = a1;
   v15 = *MEMORY[0x277D85DE8];
@@ -1399,7 +1394,7 @@ CFDictionaryRef CFDictionaryCreateWithDTXPrimitiveDictionary(uint64_t a1)
       v13 = 0x2000000000;
       v14 = 0;
       v3 = 8 * (v2 >> 1);
-      MEMORY[0x28223BE20]();
+      MEMORY[0x28223BE20](v2);
       v4 = (v3 + 15) & 0x7FFFFFFF0;
       if (v3 >= 0x200)
       {
@@ -1412,7 +1407,7 @@ CFDictionaryRef CFDictionaryCreateWithDTXPrimitiveDictionary(uint64_t a1)
       }
 
       bzero(v10 - v4, v5);
-      MEMORY[0x28223BE20]();
+      MEMORY[0x28223BE20](v6);
       bzero(v10 - v4, v5);
       v10[0] = MEMORY[0x277D85DD0];
       v10[1] = 0x40000000;
@@ -1422,12 +1417,12 @@ CFDictionaryRef CFDictionaryCreateWithDTXPrimitiveDictionary(uint64_t a1)
       v10[5] = v10 - v4;
       v10[6] = v10 - v4;
       _DTXPrimitiveDictionaryEnumerate(v1, v10);
-      v6 = *(v12 + 6);
-      v1 = CFDictionaryCreate(0, (v10 - v4), (v10 - v4), v6, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+      v7 = *(v12 + 6);
+      v1 = CFDictionaryCreate(0, (v10 - v4), (v10 - v4), v7, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
       *(v12 + 6) = 0;
-      if (v6)
+      if (v7)
       {
-        for (i = 0; i < v6; *(v12 + 6) = i)
+        for (i = 0; i < v7; *(v12 + 6) = i)
         {
           CFRelease(*(&v10[i] - v4));
           CFRelease(*(&v10[*(v12 + 6)] - v4));
@@ -1440,11 +1435,10 @@ CFDictionaryRef CFDictionaryCreateWithDTXPrimitiveDictionary(uint64_t a1)
 
     else
     {
-      v1 = 0;
+      return 0;
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
@@ -1585,9 +1579,7 @@ void *sub_247F4447C(void *result, int a2, uint64_t a3)
   v3 = result;
   if (*(*(result[5] + 8) + 24))
   {
-    v5 = result[4];
-    v6 = *(*(v3[6] + 8) + 24);
-    result = (*(v3[4] + 16))();
+    result = (*(result[4] + 16))();
   }
 
   else
@@ -1811,8 +1803,8 @@ void sub_247F45554()
 
 void sub_247F45920(char *a1, const char *a2, objc_class *a3, void *a4)
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v31 = a4;
+  v38 = *MEMORY[0x277D85DE8];
+  v30 = a4;
   v7 = sub_247F4D208(a1);
   outCount = 0;
   v8 = objc_copyClassNamesForImage(v7, &outCount);
@@ -1826,9 +1818,9 @@ void sub_247F45920(char *a1, const char *a2, objc_class *a3, void *a4)
     }
 
     *buf = 136315394;
-    v36 = v10;
-    v37 = 1024;
-    v38 = outCount;
+    v35 = v10;
+    v36 = 1024;
+    v37 = outCount;
     _os_log_impl(&dword_247F3D000, v9, OS_LOG_TYPE_DEBUG, "scanning image %s (%u classes)", buf, 0x12u);
   }
 
@@ -1837,7 +1829,7 @@ void sub_247F45920(char *a1, const char *a2, objc_class *a3, void *a4)
     v11 = 0;
     v12 = "<nil className>";
     v13 = "checking class %s";
-    v32 = a2;
+    v31 = a2;
     do
     {
       v14 = qword_2814DB5E8;
@@ -1850,7 +1842,7 @@ void sub_247F45920(char *a1, const char *a2, objc_class *a3, void *a4)
         }
 
         *buf = 136315138;
-        v36 = v15;
+        v35 = v15;
         _os_log_impl(&dword_247F3D000, v14, OS_LOG_TYPE_DEBUG, v13, buf, 0xCu);
       }
 
@@ -1908,11 +1900,11 @@ void sub_247F45920(char *a1, const char *a2, objc_class *a3, void *a4)
         v29 = qword_2814DB5E8;
         if (os_log_type_enabled(qword_2814DB5E8, OS_LOG_TYPE_DEBUG))
         {
-          *v33 = 0;
-          _os_log_impl(&dword_247F3D000, v29, OS_LOG_TYPE_DEBUG, "selector matched for class, calling block", v33, 2u);
+          *v32 = 0;
+          _os_log_impl(&dword_247F3D000, v29, OS_LOG_TYPE_DEBUG, "selector matched for class, calling block", v32, 2u);
         }
 
-        v31[2](v31, Class);
+        v30[2](v30, Class);
       }
 
       else if (!v25)
@@ -1925,7 +1917,7 @@ LABEL_28:
 LABEL_29:
       v12 = v23;
       v13 = v22;
-      a2 = v32;
+      a2 = v31;
 LABEL_30:
       ++v11;
     }
@@ -1937,13 +1929,11 @@ LABEL_30:
   {
     free(v8);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t sub_247F45BD8(uint64_t a1, void *a2, uint64_t a3)
+void *sub_247F45BD8(uint64_t a1, void *a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   result = objc_msgSend_automaticallyRegistersCapabilities(a2, a2, a3);
   if (result)
   {
@@ -1953,47 +1943,44 @@ uint64_t sub_247F45BD8(uint64_t a1, void *a2, uint64_t a3)
       v8 = v6;
       v9 = NSStringFromClass(a2);
       v10 = v9;
-      v14 = 136315138;
-      v15 = objc_msgSend_UTF8String(v10, v11, v12);
-      _os_log_impl(&dword_247F3D000, v8, OS_LOG_TYPE_INFO, "registering capabilities: %s", &v14, 0xCu);
+      v13 = 136315138;
+      v14 = objc_msgSend_UTF8String(v10, v11, v12);
+      _os_log_impl(&dword_247F3D000, v8, OS_LOG_TYPE_INFO, "registering capabilities: %s", &v13, 0xCu);
     }
 
-    result = objc_msgSend_registerCapabilities_(a2, v7, *(a1 + 32));
+    return objc_msgSend_registerCapabilities_(a2, v7, *(a1 + 32));
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t sub_247F45CC4(uint64_t a1, objc_class *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = qword_2814DB5E8;
   if (os_log_type_enabled(qword_2814DB5E8, OS_LOG_TYPE_INFO))
   {
     v6 = v4;
     v7 = NSStringFromClass(a2);
     v8 = v7;
-    v13 = 136315138;
-    v14 = objc_msgSend_UTF8String(v8, v9, v10);
-    _os_log_impl(&dword_247F3D000, v6, OS_LOG_TYPE_INFO, "registering capabilities: %s", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = objc_msgSend_UTF8String(v8, v9, v10);
+    _os_log_impl(&dword_247F3D000, v6, OS_LOG_TYPE_INFO, "registering capabilities: %s", &v12, 0xCu);
   }
 
-  result = objc_msgSend_registerCapabilities_(a2, v5, *(a1 + 32));
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return objc_msgSend_registerCapabilities_(a2, v5, *(a1 + 32));
 }
 
-void sub_247F46004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_247F46004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_247F468C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_247F468C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2045,16 +2032,16 @@ uint64_t sub_247F469CC(uint64_t a1, const char *a2, uint64_t a3)
   }
 }
 
-void sub_247F47150(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_247F47150(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_247F47170(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_dataReceivedHandler(*(*(a1 + 32) + 32), a2, a3);
 
   if (v4)
@@ -2064,6 +2051,21 @@ LABEL_3:
     v7 = *(*(a1 + 48) + 8);
     v8 = *(v7 + 40);
     *(v7 + 40) = v6;
+    goto LABEL_4;
+  }
+
+  v25 = *(a1 + 64);
+  if (v25 <= 0)
+  {
+    v6 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v5, @"Invalid version number for capability %@: %ld not in one-sided range [0, INT_MAX."), *(a1 + 40), v25);
+    goto LABEL_3;
+  }
+
+  v47 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 104), v5, *(a1 + 40));
+  v27 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 112), v26, *(a1 + 40));
+  v8 = v47;
+  if (!v47)
+  {
 LABEL_4:
 
     if (!*(*(*(a1 + 48) + 8) + 40))
@@ -2080,18 +2082,18 @@ LABEL_4:
         v18 = v17;
         v19 = @"none";
         *buf = 67109890;
-        v51 = v11;
+        v49 = v11;
         if (v17)
         {
           v19 = v17;
         }
 
-        v52 = 2114;
-        v53 = v15;
-        v54 = 1024;
-        v55 = v16;
-        v56 = 2114;
-        v57 = v19;
+        v50 = 2114;
+        v51 = v15;
+        v52 = 1024;
+        v53 = v16;
+        v54 = 2114;
+        v55 = v19;
         _os_log_impl(&dword_247F3D000, v12, OS_LOG_TYPE_INFO, "x%d %{public}@ v%u (%{public}@)", buf, 0x22u);
       }
 
@@ -2106,56 +2108,38 @@ LABEL_4:
       }
     }
 
-    v25 = *MEMORY[0x277D85DE8];
     return;
   }
 
-  v26 = *(a1 + 64);
-  if (v26 <= 0)
+  v29 = v27;
+  v30 = objc_msgSend_intValue(v47, v47, v28);
+  v33 = *(a1 + 64);
+  if (v30 != v33 && v29 == *(a1 + 56))
   {
-    v6 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v5, @"Invalid version number for capability %@: %ld not in one-sided range [0, INT_MAX."), *(a1 + 40), v26);
-    goto LABEL_3;
-  }
-
-  v49 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 104), v5, *(a1 + 40));
-  v28 = objc_msgSend_objectForKey_(*(*(a1 + 32) + 112), v27, *(a1 + 40));
-  v8 = v49;
-  if (!v49)
-  {
-    goto LABEL_4;
-  }
-
-  v30 = v28;
-  v31 = objc_msgSend_intValue(v49, v49, v29);
-  v34 = *(a1 + 64);
-  if (v31 != v34 && v30 == *(a1 + 56))
-  {
-    v41 = MEMORY[0x277CCACA8];
-    v42 = *(a1 + 40);
-    v48 = objc_msgSend_integerValue(v49, v32, v33);
-    objc_msgSend_stringWithFormat_(v41, v43, @"Version mismatch for capability %@ with service class %@: %ld vs. %ld.", v42, v30, v34, v48);
+    v40 = MEMORY[0x277CCACA8];
+    v41 = *(a1 + 40);
+    v46 = objc_msgSend_integerValue(v47, v31, v32);
+    objc_msgSend_stringWithFormat_(v40, v42, @"Version mismatch for capability %@ with service class %@: %ld vs. %ld.", v41, v29, v33, v46);
     goto LABEL_21;
   }
 
-  if (objc_msgSend_intValue(v49, v32, v33) == *(a1 + 64) && v30 != *(a1 + 56))
+  if (objc_msgSend_intValue(v47, v31, v32) == *(a1 + 64) && v29 != *(a1 + 56))
   {
-    v37 = MEMORY[0x277CCACA8];
-    v38 = *(a1 + 40);
-    v39 = objc_msgSend_integerValue(v49, v35, v36);
-    objc_msgSend_stringWithFormat_(v37, v40, @"Class mismatch for capability %@ with version %ld: %@ vs. %@.", v38, v39, v30, *(a1 + 56));
-    v44 = LABEL_21:;
-    v45 = *(*(a1 + 48) + 8);
-    v46 = *(v45 + 40);
-    *(v45 + 40) = v44;
+    v36 = MEMORY[0x277CCACA8];
+    v37 = *(a1 + 40);
+    v38 = objc_msgSend_integerValue(v47, v34, v35);
+    objc_msgSend_stringWithFormat_(v36, v39, @"Class mismatch for capability %@ with version %ld: %@ vs. %@.", v37, v38, v29, *(a1 + 56));
+    v43 = LABEL_21:;
+    v44 = *(*(a1 + 48) + 8);
+    v45 = *(v44 + 40);
+    *(v44 + 40) = v43;
   }
 
-  if (objc_msgSend_intValue(v49, v35, v36) <= *(a1 + 64))
+  if (objc_msgSend_intValue(v47, v34, v35) <= *(a1 + 64))
   {
-    v8 = v49;
+    v8 = v47;
     goto LABEL_4;
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 void sub_247F47574(uint64_t a1, const char *a2, uint64_t a3)
@@ -2166,9 +2150,9 @@ void sub_247F47574(uint64_t a1, const char *a2, uint64_t a3)
   *(v5 + 40) = v4;
 }
 
-void sub_247F476DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_247F476DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2212,9 +2196,9 @@ void sub_247F4784C(uint64_t a1, const char *a2, uint64_t a3)
   objc_msgSend_invokeCompletionWithReturnValue_error_(v3, v4, v5, 0);
 }
 
-void sub_247F479BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_247F479BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2228,32 +2212,32 @@ intptr_t sub_247F479D4(uint64_t a1, void *a2, uint64_t a3)
   return dispatch_semaphore_signal(v5);
 }
 
-void sub_247F47B04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_247F47B04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_247F47B1C(uint64_t result, const char *a2, uint64_t a3)
+void *sub_247F47B1C(void *result, const char *a2, uint64_t a3)
 {
   v3 = result;
-  v4 = *(result + 32);
+  v4 = result[4];
   if (!*(v4 + 120))
   {
     result = objc_msgSend_supportedDirections(*(v4 + 32), a2, a3);
     if (result == 2)
     {
       v7 = objc_msgSend_null(MEMORY[0x277CBEB68], v5, v6);
-      v8 = *(v3 + 32);
+      v8 = v3[4];
       v9 = *(v8 + 120);
       *(v8 + 120) = v7;
 
-      result = dispatch_semaphore_signal(*(*(v3 + 32) + 152));
+      result = dispatch_semaphore_signal(*(v3[4] + 152));
     }
   }
 
-  *(*(*(v3 + 40) + 8) + 24) = *(*(v3 + 32) + 120) == 0;
+  *(*(v3[5] + 8) + 24) = *(v3[4] + 120) == 0;
   return result;
 }
 
@@ -2340,7 +2324,7 @@ void sub_247F47FC4(uint64_t a1, const char *a2, uint64_t a3)
 
 void sub_247F48190(const char *a1, void *a2, void *a3, void *a4)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -2382,17 +2366,17 @@ void sub_247F48190(const char *a1, void *a2, void *a3, void *a4)
     v26 = v9;
     v27 = v23;
     *buf = 134219266;
-    v39 = v24;
-    v40 = 1024;
-    v41 = v18;
-    v42 = 2080;
-    v43 = a1;
-    v44 = 1024;
-    v45 = v17;
-    v46 = 2080;
-    v47 = v25;
-    v48 = 2080;
-    v49 = objc_msgSend_UTF8String(v9, v28, v29);
+    v38 = v24;
+    v39 = 1024;
+    v40 = v18;
+    v41 = 2080;
+    v42 = a1;
+    v43 = 1024;
+    v44 = v17;
+    v45 = 2080;
+    v46 = v25;
+    v47 = 2080;
+    v48 = objc_msgSend_UTF8String(v9, v28, v29);
     _os_log_impl(&dword_247F3D000, v27, OS_LOG_TYPE_INFO, "%3.6f x%d %8s [c%d%s]: %s\n", buf, 0x36u);
   }
 
@@ -2416,8 +2400,6 @@ void sub_247F48190(const char *a1, void *a2, void *a3, void *a4)
   }
 
   objc_autoreleasePoolPop(v12);
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 void sub_247F48464(uint64_t a1)
@@ -2751,7 +2733,7 @@ void sub_247F493E8(uint64_t a1, const char *a2)
   }
 }
 
-uint64_t sub_247F49540(uint64_t a1, const char *a2, unsigned int a3)
+void *sub_247F49540(uint64_t a1, const char *a2, unsigned int a3)
 {
   result = objc_msgSend_transmit_ofLength_(*(*(a1 + 32) + 32), a2, a2, a3);
   if (result != a3)
@@ -2799,16 +2781,16 @@ void sub_247F495A4(void *a1, void *a2)
   _Block_object_dispose(&v12, 8);
 }
 
-void sub_247F496F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_247F496F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_247F49888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_247F49888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2897,14 +2879,15 @@ void sub_247F4A150(uint64_t a1, void *a2, uint64_t a3)
   }
 }
 
-void sub_247F4A464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_247F4A464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 112), 8);
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_247F4A48C(uint64_t *a1, const char *a2)
+void sub_247F4A48C(void *a1, const char *a2)
 {
   v3 = a1[4];
   v4 = *(v3 + 64);
@@ -2920,9 +2903,9 @@ void sub_247F4A48C(uint64_t *a1, const char *a2)
   objc_msgSend_setObject_forKey_(*(a1[4] + 72), v10, *(*(a1[7] + 8) + 40), v11);
 }
 
-uint64_t sub_247F4A554(uint64_t a1, void *a2, uint64_t a3)
+void *sub_247F4A554(uint64_t a1, void *a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   result = objc_msgSend_errorStatus(a2, a2, a3);
   if (result)
   {
@@ -2936,17 +2919,16 @@ uint64_t sub_247F4A554(uint64_t a1, void *a2, uint64_t a3)
         v8 = *(a1 + 32);
       }
 
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v9;
-      _os_log_impl(&dword_247F3D000, v5, OS_LOG_TYPE_ERROR, "Connection peer refused channel request for %{public}@; channel canceled %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v9;
+      _os_log_impl(&dword_247F3D000, v5, OS_LOG_TYPE_ERROR, "Connection peer refused channel request for %{public}@; channel canceled %@", &v10, 0x16u);
     }
 
-    result = objc_msgSend_cancel(*(a1 + 40), v6, v7);
+    return objc_msgSend_cancel(*(a1 + 40), v6, v7);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3009,32 +2991,32 @@ void sub_247F4B1A4(void *a1, uint64_t a2)
   }
 }
 
-void sub_247F4B774(uint64_t *a1)
+void sub_247F4B774(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [DTXProxyRequestHandler alloc];
   v4 = objc_msgSend_initWithPublishedProtocol_publishedProtocolName_peerProtocol_peerProtocolName_handlerBlock_(v2, v3, a1[4], a1[5], a1[6], a1[7], a1[9]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = *(a1[8] + 96);
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v14, v18, 16);
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v13, v17, 16);
   if (v7)
   {
     v9 = v7;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v5);
         }
 
-        if (objc_msgSend_matchesPublishedProtocolName_peerProtocolName_(*(*(&v14 + 1) + 8 * v11), v8, a1[5], a1[7], v14))
+        if (objc_msgSend_matchesPublishedProtocolName_peerProtocolName_(*(*(&v13 + 1) + 8 * v11), v8, a1[5], a1[7], v13))
         {
           objc_msgSend_raise_format_(MEMORY[0x277CBEAD8], v8, @"DTXConnectionException", @"Proxy handler already exists for protocol pair specified.");
         }
@@ -3043,14 +3025,13 @@ void sub_247F4B774(uint64_t *a1)
       }
 
       while (v9 != v11);
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v8, &v14, v18, 16);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v8, &v13, v17, 16);
     }
 
     while (v9);
   }
 
   objc_msgSend_addObject_(*(a1[8] + 96), v12, v4);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t sub_247F4BF4C(uint64_t a1, const char *a2)
@@ -3064,32 +3045,32 @@ uint64_t sub_247F4BF4C(uint64_t a1, const char *a2)
 
 void sub_247F4BF9C(uint64_t a1)
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
+  v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v5 = *(a1 + 32);
-  if (v5 && (objc_msgSend__callbackSnapshot(v5, v2, v3), *(&v35 + 1)))
+  if (v5 && (objc_msgSend__callbackSnapshot(v5, v2, v3), *(&v34 + 1)))
   {
     v6 = pthread_getspecific(qword_2814DB5E0);
     pthread_setspecific(qword_2814DB5E0, *(a1 + 32));
-    v8 = v35;
-    if (v35)
+    v8 = v34;
+    if (v34)
     {
-      v28 = MEMORY[0x277D85DD0];
-      v29 = 3254779904;
-      v30 = sub_247F4C234;
-      v31 = &unk_285A122D0;
-      v32 = *(a1 + 40);
-      sub_247F4C254(v34, &v35);
-      v33 = *(a1 + 32);
-      dispatch_sync(v8, &v28);
-      sub_247F4C2B0(v34);
+      v27 = MEMORY[0x277D85DD0];
+      v28 = 3254779904;
+      v29 = sub_247F4C234;
+      v30 = &unk_285A122D0;
+      v31 = *(a1 + 40);
+      sub_247F4C254(v33, &v34);
+      v32 = *(a1 + 32);
+      dispatch_sync(v8, &v27);
+      sub_247F4C2B0(v33);
     }
 
     else
     {
-      objc_msgSend_invokeWithTarget_replyChannel_validator_(*(a1 + 40), v7, *(&v35 + 1), *(a1 + 32), *(&v36 + 1));
+      objc_msgSend_invokeWithTarget_replyChannel_validator_(*(a1 + 40), v7, *(&v34 + 1), *(a1 + 32), *(&v35 + 1));
     }
 
     pthread_setspecific(qword_2814DB5E0, v6);
@@ -3100,10 +3081,10 @@ void sub_247F4BF9C(uint64_t a1)
     v11 = objc_msgSend_exceptionWithName_reason_userInfo_(MEMORY[0x277CBEAD8], v9, @"DTXMissingDispatchTargetException", @"Unable to invoke message - channel has no dispatch target", 0);
     v12 = *(a1 + 40);
     v13 = MEMORY[0x277CCA9B8];
-    v37 = *MEMORY[0x277CCA450];
+    v36 = *MEMORY[0x277CCA450];
     v16 = objc_msgSend_description(v11, v14, v15);
-    v38[0] = v16;
-    v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v17, v38, &v37, 1);
+    v37[0] = v16;
+    v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v17, v37, &v36, 1);
     v20 = objc_msgSend_errorWithDomain_code_userInfo_(v13, v19, @"DTXConnection", 1, v18);
     v22 = objc_msgSend_newReplyWithError_(v12, v21, v20);
 
@@ -3111,16 +3092,15 @@ void sub_247F4BF9C(uint64_t a1)
   }
 
   v24 = *(a1 + 56);
-  v25 = objc_msgSend_cost(*(a1 + 40), v9, v10, v28, v29, v30, v31);
+  v25 = objc_msgSend_cost(*(a1 + 40), v9, v10, v27, v28, v29, v30);
   objc_msgSend_releaseSize_(v24, v26, v25);
-  sub_247F4C2B0(&v35);
+  sub_247F4C2B0(&v34);
   objc_autoreleasePoolPop(v4);
-  v27 = *MEMORY[0x277D85DE8];
 }
 
-void sub_247F4C20C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_247F4C20C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   sub_247F4C2B0(va);
   _Unwind_Resume(a1);
 }
@@ -3190,11 +3170,11 @@ LABEL_10:
   sub_247F4C2B0(&v21);
 }
 
-void sub_247F4C514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_247F4C514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  sub_247F4C2B0(v7 + 48);
+  sub_247F4C2B0(v13 + 48);
   _Unwind_Resume(a1);
 }
 
@@ -3238,9 +3218,9 @@ void sub_247F4C5F8(uint64_t a1, uint64_t a2)
   *(a1 + 24) = v6;
 }
 
-void sub_247F4C764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_247F4C764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3284,20 +3264,20 @@ void sub_247F4C77C(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_247F4C99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_247F4C99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_247F4C9B4(uint64_t a1, uint64_t a2, uint64_t a3)
+void sub_247F4C9B4(uint64_t a1, id *a2, uint64_t a3)
 {
   isCanceled = objc_msgSend_isCanceled(*(a1 + 32), a2, a3);
   v6 = isCanceled;
   if (isCanceled)
   {
-    v7 = *(a2 + 8);
+    v7 = a2[1];
 LABEL_4:
     objc_storeStrong((*(*(a1 + 56) + 8) + 40), v7);
     if (v6)
@@ -3310,11 +3290,11 @@ LABEL_4:
       v8 = *(a1 + 40);
     }
 
-    objc_storeStrong((a2 + 8), v8);
+    objc_storeStrong(a2 + 1, v8);
     goto LABEL_8;
   }
 
-  v7 = *(a2 + 8);
+  v7 = a2[1];
   if (*(a1 + 40) != v7)
   {
     goto LABEL_4;
@@ -3335,21 +3315,19 @@ void sub_247F4CAE4(uint64_t a1, uint64_t a2)
 
 void sub_247F4CCE8(uint64_t a1, const char *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = qword_2814DB5B8;
   if (os_log_type_enabled(qword_2814DB5B8, OS_LOG_TYPE_ERROR))
   {
     v4 = v3;
     v5 = objc_opt_class();
     v6 = NSStringFromClass(v5);
-    v8 = 138543618;
-    v9 = v6;
-    v10 = 2082;
+    v7 = 138543618;
+    v8 = v6;
+    v9 = 2082;
     Name = sel_getName(a2);
-    _os_log_impl(&dword_247F3D000, v4, OS_LOG_TYPE_ERROR, "Warning: called [%{public}@ %{public}s] with NULL replyHandler!\nThe caller will not block synchronously on this call as there is no handler to wait for.", &v8, 0x16u);
+    _os_log_impl(&dword_247F3D000, v4, OS_LOG_TYPE_ERROR, "Warning: called [%{public}@ %{public}s] with NULL replyHandler!\nThe caller will not block synchronously on this call as there is no handler to wait for.", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void sub_247F4CE00(void *a1, void *a2, void *a3, uint64_t a4, void *a5)
@@ -3366,30 +3344,30 @@ void sub_247F4CE00(void *a1, void *a2, void *a3, uint64_t a4, void *a5)
 
 void sub_247F4D04C(uint64_t a1, void *a2, uint64_t a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_schemes(a2, a2, a3);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v22, v32, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v21, v31, 16);
   if (v6)
   {
     v9 = v6;
-    v10 = *v23;
+    v10 = *v22;
     *&v8 = 138543874;
-    v21 = v8;
+    v20 = v8;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(v4);
         }
 
-        v12 = *(*(&v22 + 1) + 8 * i);
-        v13 = objc_msgSend_objectForKey_(qword_2814DB5B0, v7, v12, v21);
+        v12 = *(*(&v21 + 1) + 8 * i);
+        v13 = objc_msgSend_objectForKey_(qword_2814DB5B0, v7, v12, v20);
         if (v13)
         {
           v15 = v13;
@@ -3399,12 +3377,12 @@ void sub_247F4D04C(uint64_t a1, void *a2, uint64_t a3)
             v17 = v16;
             Name = class_getName(v15);
             v19 = class_getName(a2);
-            *buf = v21;
-            v27 = v12;
-            v28 = 2082;
-            v29 = Name;
-            v30 = 2082;
-            v31 = v19;
+            *buf = v20;
+            v26 = v12;
+            v27 = 2082;
+            v28 = Name;
+            v29 = 2082;
+            v30 = v19;
             _os_log_impl(&dword_247F3D000, v17, OS_LOG_TYPE_ERROR, "Warning: duplicate registration of scheme %{public}@ - claims made by both %{public}s and %{public}s transports.", buf, 0x20u);
           }
         }
@@ -3415,18 +3393,16 @@ void sub_247F4D04C(uint64_t a1, void *a2, uint64_t a3)
         }
       }
 
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v22, v32, 16);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v21, v31, 16);
     }
 
     while (v9);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 char *sub_247F4D208(char *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = strrchr(a1, 47);
   if (!v2)
   {
@@ -3465,15 +3441,14 @@ char *sub_247F4D208(char *a1)
 LABEL_7:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315138;
-      v12 = a1;
-      _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "couldn't find dyld's real path for loaded image %s", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = a1;
+      _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "couldn't find dyld's real path for loaded image %s", &v10, 0xCu);
     }
 
-    image_name = 0;
+    return 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return image_name;
 }
 
@@ -3542,18 +3517,18 @@ uint64_t sub_247F4D6FC(uint64_t a1)
 
 uint64_t sub_247F4D760(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  v11 = 0;
+  v15 = 0u;
   v12 = 0u;
-  v10 = 128;
-  v4 = accept(v2, &v11, &v10);
+  v13 = 0u;
+  v10 = 0;
+  v11 = 0u;
+  v9 = 128;
+  v4 = accept(v2, &v10, &v9);
   v5 = *(a1 + 32);
   if (v4 == -1)
   {
@@ -3565,9 +3540,7 @@ uint64_t sub_247F4D760(uint64_t a1)
     objc_msgSend__setupChannelWithConnectedSocket_assumingOwnership_orDisconnectBlock_(v5, v3, v4, 1, 0);
   }
 
-  result = objc_msgSend__signalSocketAccepted(*(a1 + 32), v6, v7);
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return objc_msgSend__signalSocketAccepted(*(a1 + 32), v6, v7);
 }
 
 void sub_247F4D960(uint64_t a1)
@@ -3831,9 +3804,9 @@ uint64_t sub_247F4E664(uint64_t a1, const void *a2, size_t size)
   return objc_msgSend_received_ofLength_destructor_(v7, v8, v6, v5, v10);
 }
 
-void sub_247F4F2B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_247F4F2B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3850,31 +3823,31 @@ uint64_t sub_247F4FD30(uint64_t result, void *a2)
 
 void sub_247F5007C(void *a1)
 {
-  v63 = *MEMORY[0x277D85DE8];
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x2020000000;
-  v57 = 0;
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = sub_247F505B8;
-  v53[3] = &unk_278EEEFF0;
+  v62 = *MEMORY[0x277D85DE8];
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x2020000000;
+  v56 = 0;
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = sub_247F505B8;
+  v52[3] = &unk_278EEEFF0;
   v3 = a1 + 5;
   v2 = a1[5];
-  v53[4] = a1[4];
-  v53[5] = &v54;
+  v52[4] = a1[4];
+  v52[5] = &v53;
   v4 = a1[6];
-  v53[6] = v2;
-  v53[7] = v4;
-  v46 = MEMORY[0x24C1C0D80](v53);
-  v5 = v55[3] >= *v3;
-  v6 = v46;
+  v52[6] = v2;
+  v52[7] = v4;
+  v45 = MEMORY[0x24C1C0D80](v52);
+  v5 = v54[3] >= *v3;
+  v6 = v45;
   if (!v5)
   {
     do
     {
-      v52 = 0;
-      v7 = (v6)[2](v6, 32, &v52);
+      v51 = 0;
+      v7 = (v6)[2](v6, 32, &v51);
       if (!v7 || (*(a1[4] + 48) & 1) != 0)
       {
         break;
@@ -3886,8 +3859,8 @@ void sub_247F5007C(void *a1)
       v12 = *(v7 + 10);
       v13 = *(v7 + 12);
       v14 = *(v7 + 16);
-      v50 = *(v7 + 20);
-      v51 = *(v7 + 28);
+      v49 = *(v7 + 20);
+      v50 = *(v7 + 28);
       if (v9 != 524114809)
       {
         v36 = MEMORY[0x277D86220];
@@ -3896,13 +3869,13 @@ void sub_247F5007C(void *a1)
         {
           v38 = getprogname();
           v39 = getpid();
-          v40 = a1[5] - v55[3] + 32;
+          v40 = a1[5] - v54[3] + 32;
           *buf = 136315650;
-          v59 = v38;
-          LOWORD(v60) = 1024;
-          *(&v60 + 2) = v39;
-          HIWORD(v60) = 2048;
-          v61 = v40;
+          v58 = v38;
+          LOWORD(v59) = 1024;
+          *(&v59 + 2) = v39;
+          HIWORD(v59) = 2048;
+          v60 = v40;
           _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%u]: [connection error] handling %llu bytes with unexpected protocol header; disconnecting.", buf, 0x1Cu);
         }
 
@@ -3919,13 +3892,13 @@ void sub_247F5007C(void *a1)
         *(*v41 + 32) = 0;
 LABEL_21:
 
-        v6 = v46;
+        v6 = v45;
         break;
       }
 
       if (v12 == 1)
       {
-        v15 = (v6)[2](v6, v13, &v52);
+        v15 = (v6)[2](v6, v13, &v51);
         if (!v15)
         {
           break;
@@ -3937,19 +3910,19 @@ LABEL_21:
           break;
         }
 
-        v49[0] = MEMORY[0x277D85DD0];
-        v49[1] = 3221225472;
-        v49[2] = sub_247F506BC;
-        v49[3] = &unk_278EEE728;
-        v49[4] = v15;
+        v48[0] = MEMORY[0x277D85DD0];
+        v48[1] = 3221225472;
+        v48[2] = sub_247F506BC;
+        v48[3] = &unk_278EEE728;
+        v48[4] = v15;
         *buf = 524114809;
-        LODWORD(v59) = v10;
-        WORD2(v59) = v11;
-        HIWORD(v59) = 1;
-        v60 = __PAIR64__(v14, v13);
+        LODWORD(v58) = v10;
+        WORD2(v58) = v11;
+        HIWORD(v58) = 1;
+        v59 = __PAIR64__(v14, v13);
+        v60 = v49;
         v61 = v50;
-        v62 = v51;
-        objc_msgSend__messageParsedWithHeader_bytes_length_destructor_(v17, v16, buf, v15 + 32, v13, v49);
+        objc_msgSend__messageParsedWithHeader_bytes_length_destructor_(v17, v16, buf, v15 + 32, v13, v48);
         *(a1[4] + 8) = 0;
         *(a1[4] + 16) = 0;
         *(a1[4] + 24) = 0;
@@ -3960,7 +3933,7 @@ LABEL_21:
         v18 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v8, v14);
         if (v11)
         {
-          v20 = (*(v46 + 16))(v46, v13, &v52);
+          v20 = (*(v45 + 16))(v45, v13, &v51);
           if (!v20)
           {
             goto LABEL_21;
@@ -3976,24 +3949,24 @@ LABEL_21:
           objc_msgSend_appendBytes_length_(v22, v23, v20 + 32, v13);
           if (v12 - 1 == v11)
           {
-            v45 = a1[4];
+            v44 = a1[4];
             v24 = v22;
             v27 = objc_msgSend_bytes(v22, v25, v26);
             v30 = objc_msgSend_length(v22, v28, v29);
-            v47[0] = MEMORY[0x277D85DD0];
-            v47[1] = 3221225472;
-            v47[2] = sub_247F506C4;
-            v47[3] = &unk_278EEE708;
+            v46[0] = MEMORY[0x277D85DD0];
+            v46[1] = 3221225472;
+            v46[2] = sub_247F506C4;
+            v46[3] = &unk_278EEE708;
             v22 = v22;
-            v48 = v22;
+            v47 = v22;
             *buf = 524114809;
-            LODWORD(v59) = v10;
-            WORD2(v59) = v11;
-            HIWORD(v59) = v12;
-            v60 = __PAIR64__(v14, v13);
+            LODWORD(v58) = v10;
+            WORD2(v58) = v11;
+            HIWORD(v58) = v12;
+            v59 = __PAIR64__(v14, v13);
+            v60 = v49;
             v61 = v50;
-            v62 = v51;
-            objc_msgSend__messageParsedWithHeader_bytes_length_destructor_(v45, v31, buf, v27, v30, v47);
+            objc_msgSend__messageParsedWithHeader_bytes_length_destructor_(v44, v31, buf, v27, v30, v46);
             objc_msgSend_removeObjectForKey_(*(a1[4] + 64), v32, v18);
           }
         }
@@ -4007,15 +3980,14 @@ LABEL_21:
 
         *(a1[4] + 16) = 0;
 
-        v6 = v46;
+        v6 = v45;
       }
     }
 
-    while (v55[3] < a1[5]);
+    while (v54[3] < a1[5]);
   }
 
-  _Block_object_dispose(&v54, 8);
-  v44 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v53, 8);
 }
 
 uint64_t sub_247F505B8(void *a1, unsigned int a2, unint64_t *a3)
@@ -4077,37 +4049,36 @@ void sub_247F507D8(uint64_t a1, const char *a2)
   if ((*(v3 + 48) & 1) == 0)
   {
     *(v3 + 48) = 1;
-    v4 = *(*(a1 + 32) + 40);
     (*(*(*(a1 + 32) + 40) + 16))();
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 40);
-    *(v5 + 40) = 0;
+    v4 = *(a1 + 32);
+    v5 = *(v4 + 40);
+    *(v4 + 40) = 0;
 
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 32);
-    *(v7 + 32) = 0;
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 32);
+    *(v6 + 32) = 0;
 
     v3 = *(a1 + 32);
   }
 
-  v9 = *(v3 + 8);
-  if (v9)
+  v8 = *(v3 + 8);
+  if (v8)
   {
-    v10 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], a2, v9, *(v3 + 16));
-    v11 = *(*(a1 + 40) + 8);
-    v12 = *(v11 + 40);
-    *(v11 + 40) = v10;
+    v9 = objc_msgSend_dataWithBytes_length_(MEMORY[0x277CBEA90], a2, v8, *(v3 + 16));
+    v10 = *(*(a1 + 40) + 8);
+    v11 = *(v10 + 40);
+    *(v10 + 40) = v9;
   }
 }
 
-void sub_247F50BAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_247F50BAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va1, a8);
-  va_start(va, a8);
-  v9 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a15);
+  va_start(va, a15);
+  v16 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4410,7 +4381,7 @@ uint64_t sub_247F51858(uint64_t result, const char *a2, uint64_t a3)
 
 id sub_247F51FEC(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v10 = MEMORY[0x277CCACA8];
   v11 = a2;
   v12 = [v10 alloc];
@@ -4425,12 +4396,10 @@ id sub_247F51FEC(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, u
   v16 = v15;
 
   v17 = MEMORY[0x277CCA9B8];
-  v24 = *MEMORY[0x277CCA450];
-  v25[0] = v16;
-  v19 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v18, v25, &v24, 1);
+  v23 = *MEMORY[0x277CCA450];
+  v24[0] = v16;
+  v19 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v18, v24, &v23, 1);
   v21 = objc_msgSend_errorWithDomain_code_userInfo_(v17, v20, @"DTXConnection", a1, v19);
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -4475,7 +4444,7 @@ void sub_247F522C0(void *a1, void *a2)
   objc_autoreleasePoolPop(v6);
 }
 
-uint64_t sub_247F52AC0(uint64_t a1, const char *a2, unsigned int a3)
+void *sub_247F52AC0(uint64_t a1, const char *a2, unsigned int a3)
 {
   result = objc_msgSend__setPayloadBuffer_length_shouldCopy_destructor_(*(a1 + 32), a2, a2, a3, 1, 0);
   *(*(a1 + 32) + 8) = 3;
@@ -4541,18 +4510,16 @@ LABEL_13:
 
 void sub_247F52F48()
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  v4[0] = objc_opt_class();
-  v5[0] = &unk_285A12360;
-  v4[1] = objc_opt_class();
-  v5[1] = &unk_285A12380;
-  v4[2] = objc_opt_class();
-  v5[2] = &unk_285A123A0;
-  v1 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v0, v5, v4, 3);
+  v4[3] = *MEMORY[0x277D85DE8];
+  v3[0] = objc_opt_class();
+  v4[0] = &unk_285A12360;
+  v3[1] = objc_opt_class();
+  v4[1] = &unk_285A12380;
+  v3[2] = objc_opt_class();
+  v4[2] = &unk_285A123A0;
+  v1 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v0, v4, v3, 3);
   v2 = qword_2814DB600;
   qword_2814DB600 = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 unint64_t *sub_247F53010(int a1, unint64_t *a2, id a3, void *a4)
@@ -4649,23 +4616,24 @@ uint64_t sub_247F53D64(uint64_t a1, void *a2)
   return v6;
 }
 
-void sub_247F5435C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_247F5435C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v33 - 192), 8);
-  _Block_object_dispose((v33 - 160), 8);
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 192), 8);
+  _Block_object_dispose((v32 - 160), 8);
   if (a2 == 1)
   {
-    v36 = objc_begin_catch(a1);
-    v37 = MEMORY[0x277CCA9B8];
-    *(v33 - 128) = *MEMORY[0x277CCA450];
-    v40 = objc_msgSend_description(v36, v38, v39);
-    *(v33 - 120) = v40;
-    v42 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v41, v33 - 120, v33 - 128, 1);
-    v44 = objc_msgSend_errorWithDomain_code_userInfo_(v37, v43, @"DTXMessage", 1, v42);
-    v46 = objc_msgSend_newReplyWithError_(v32, v45, v44);
+    v35 = objc_begin_catch(a1);
+    v36 = MEMORY[0x277CCA9B8];
+    *(v32 - 128) = *MEMORY[0x277CCA450];
+    v39 = objc_msgSend_description(v35, v37, v38);
+    *(v32 - 120) = v39;
+    v41 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v40, v32 - 120, v32 - 128, 1);
+    v43 = objc_msgSend_errorWithDomain_code_userInfo_(v36, v42, @"DTXMessage", 1, v41);
+    v45 = objc_msgSend_newReplyWithError_(v31, v44, v43);
 
-    objc_msgSend_sendControlAsync_replyHandler_(v31, v47, v46, 0);
+    objc_msgSend_sendControlAsync_replyHandler_(v30, v46, v45, 0);
     objc_end_catch();
     JUMPOUT(0x247F54310);
   }
@@ -4929,27 +4897,26 @@ void sub_247F55584(uint64_t a1, int a2, int a3, char *cStr, CFIndex length)
 
   else
   {
-    v6 = *(a1 + 32);
-    v7 = *(*(a1 + 32) + 16);
+    v6 = *(*(a1 + 32) + 16);
 
-    v7();
+    v6();
   }
 }
 
 void sub_247F5561C(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v10 = objc_autoreleasePoolPush();
   if (a2)
   {
     objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(MEMORY[0x277CBEA90], v9, a1, a2, 0);
-    v11 = v18[0] = 0;
+    v11 = v17[0] = 0;
     v12 = v7;
-    v14 = objc_msgSend_unarchivedObjectOfClasses_fromData_error_(MEMORY[0x277CCAAC8], v13, v12, v11, v18);
+    v14 = objc_msgSend_unarchivedObjectOfClasses_fromData_error_(MEMORY[0x277CCAAC8], v13, v12, v11, v17);
 
-    v15 = v18[0];
+    v15 = v17[0];
   }
 
   else
@@ -4971,7 +4938,6 @@ void sub_247F5561C(uint64_t a1, uint64_t a2, void *a3, void *a4)
   (v8)[2](v8, v16, v15);
 
   objc_autoreleasePoolPop(v10);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void sub_247F55828(uint64_t a1, void *a2, uint64_t a3)
@@ -5026,7 +4992,7 @@ uint64_t sub_247F559C4(uint64_t a1, uint64_t a2, void *a3)
 
 void sub_247F55A4C(uint64_t a1, void *a2, void *a3)
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   v9 = v7;
@@ -5035,11 +5001,11 @@ void sub_247F55A4C(uint64_t a1, void *a2, void *a3)
   {
     v11 = MEMORY[0x277CCA9B8];
     v12 = *MEMORY[0x277CCA7E8];
-    v19[0] = *MEMORY[0x277CCA450];
-    v19[1] = v12;
-    v20[0] = @"Failed to deserialize message";
-    v20[1] = v7;
-    v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, v20, v19, 2);
+    v18[0] = *MEMORY[0x277CCA450];
+    v18[1] = v12;
+    v19[0] = @"Failed to deserialize message";
+    v19[1] = v7;
+    v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, v19, v18, 2);
     v15 = objc_msgSend_errorWithDomain_code_userInfo_(v11, v14, @"DTXMessage", 2, v13);
     v16 = *(a1 + 32);
     v17 = *(v16 + 48);
@@ -5050,8 +5016,6 @@ void sub_247F55A4C(uint64_t a1, void *a2, void *a3)
   {
     objc_storeStrong((v10 + 48), a2);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void sub_247F55B74()
@@ -5067,77 +5031,76 @@ void sub_247F55B74()
 
 void sub_247F55BD0(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   Superclass = objc_opt_class();
-  v4 = NSStringFromSelector(*(a1 + 48));
-  v5 = NSStringFromClass(Superclass);
-  v8 = objc_msgSend_objectForKey_(qword_2814DB5A0, v6, v5);
-  if (!v8)
+  v3 = NSStringFromSelector(*(a1 + 48));
+  v4 = NSStringFromClass(Superclass);
+  v7 = objc_msgSend_objectForKey_(qword_2814DB5A0, v5, v4);
+  if (!v7)
   {
-    v20 = v4;
-    v9 = objc_opt_new();
-    v8 = v9;
+    v19 = v3;
+    v8 = objc_opt_new();
+    v7 = v8;
     if (Superclass)
     {
-      v21 = MEMORY[0x277D85DD0];
-      v22 = v9;
+      v20 = MEMORY[0x277D85DD0];
+      v21 = v8;
       while (1)
       {
-        v23[0] = v21;
-        v23[1] = 3221225472;
-        v24 = sub_247F55E04;
-        v25 = &unk_278EEF2F8;
-        v26 = v8;
-        v11 = v23;
+        v22[0] = v20;
+        v22[1] = 3221225472;
+        v23 = sub_247F55E04;
+        v24 = &unk_278EEF2F8;
+        v25 = v7;
+        v10 = v22;
         outCount = 0;
-        v12 = class_copyProtocolList(Superclass, &outCount);
+        v11 = class_copyProtocolList(Superclass, &outCount);
         if (outCount)
         {
           break;
         }
 
 LABEL_14:
-        if (v12)
+        if (v11)
         {
-          free(v12);
+          free(v11);
         }
 
         Superclass = class_getSuperclass(Superclass);
-        v8 = v22;
+        v7 = v21;
         if (!Superclass)
         {
           goto LABEL_17;
         }
       }
 
-      v13 = 0;
+      v12 = 0;
       while (1)
       {
-        v14 = v12[v13];
-        if (protocol_conformsToProtocol(v14, &unk_285A16C20))
+        v13 = v11[v12];
+        if (protocol_conformsToProtocol(v13, &unk_285A16C20))
         {
-          v27 = 0;
-          v15 = protocol_copyMethodDescriptionList(v14, 1, 1, &v27);
-          v16 = v15;
-          if (v27)
+          v26 = 0;
+          v14 = protocol_copyMethodDescriptionList(v13, 1, 1, &v26);
+          v15 = v14;
+          if (v26)
           {
-            v17 = 0;
-            v18 = v15;
+            v16 = 0;
+            v17 = v14;
             do
             {
-              name = v18->name;
-              ++v18;
-              v24(v11, name);
+              name = v17->name;
               ++v17;
+              v23(v10, name);
+              ++v16;
             }
 
-            while (v17 < v27);
+            while (v16 < v26);
 LABEL_12:
-            free(v16);
+            free(v15);
             goto LABEL_13;
           }
 
-          if (v15)
+          if (v14)
           {
             goto LABEL_12;
           }
@@ -5145,7 +5108,7 @@ LABEL_12:
 
 LABEL_13:
 
-        if (++v13 >= outCount)
+        if (++v12 >= outCount)
         {
           goto LABEL_14;
         }
@@ -5153,11 +5116,11 @@ LABEL_13:
     }
 
 LABEL_17:
-    objc_msgSend_setObject_forKey_(qword_2814DB5A0, v10, v8, v5, v5);
-    v4 = v20;
+    objc_msgSend_setObject_forKey_(qword_2814DB5A0, v9, v7, v4, v4);
+    v3 = v19;
   }
 
-  *(*(*(a1 + 40) + 8) + 24) = objc_msgSend_containsObject_(v8, v7, v4);
+  *(*(*(a1 + 40) + 8) + 24) = objc_msgSend_containsObject_(v7, v6, v3);
 }
 
 void sub_247F55E04(uint64_t a1, SEL aSelector)
@@ -5195,7 +5158,7 @@ void sub_247F55E5C(uint64_t a1, uint64_t a2, int a3, uint64_t a4, unsigned int a
 
 void sub_247F55F50(uint64_t a1, void *a2, void *a3)
 {
-  v10 = a2;
+  v9 = a2;
   v5 = a3;
   v8 = v5;
   if (v5 && objc_msgSend_code(v5, v6, v7) == 4865)
@@ -5204,13 +5167,12 @@ void sub_247F55F50(uint64_t a1, void *a2, void *a3)
     v8 = 0;
   }
 
-  v9 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
 }
 
 uint64_t DTXSpawnSubtaskWithError(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6)
 {
-  v140 = *MEMORY[0x277D85DE8];
+  v139 = *MEMORY[0x277D85DE8];
   v11 = a1;
   v12 = a2;
   v13 = a3;
@@ -5218,63 +5180,63 @@ uint64_t DTXSpawnSubtaskWithError(void *a1, void *a2, void *a3, void *a4, void *
   v17 = a6;
   if (v11 && objc_msgSend_length(v11, v15, v16))
   {
-    v130 = 0;
-    v131 = &v130;
-    v132 = 0x2020000000;
-    v133 = 0;
-    v126 = 0;
-    v127 = &v126;
-    v128 = 0x2020000000;
     v129 = 0;
-    v122 = 0;
-    v123 = &v122;
-    v124 = 0x2020000000;
-    v125 = posix_spawnattr_init(&v133);
-    if (*(v123 + 6))
+    v130 = &v129;
+    v131 = 0x2020000000;
+    v132 = 0;
+    v125 = 0;
+    v126 = &v125;
+    v127 = 0x2020000000;
+    v128 = 0;
+    v121 = 0;
+    v122 = &v121;
+    v123 = 0x2020000000;
+    v124 = posix_spawnattr_init(&v132);
+    if (*(v122 + 6))
     {
       v18 = 0xFFFFFFFFLL;
 LABEL_33:
-      _Block_object_dispose(&v122, 8);
-      _Block_object_dispose(&v126, 8);
-      _Block_object_dispose(&v130, 8);
+      _Block_object_dispose(&v121, 8);
+      _Block_object_dispose(&v125, 8);
+      _Block_object_dispose(&v129, 8);
       goto LABEL_34;
     }
 
-    v121 = 0;
-    v25 = posix_spawnattr_getflags(v131 + 3, &v121);
-    *(v123 + 6) |= v25;
-    v26 = posix_spawnattr_setpgroup(v131 + 3, 0);
-    *(v123 + 6) |= v26;
-    v121 |= 0x4002u;
+    v120 = 0;
+    v25 = posix_spawnattr_getflags(v130 + 3, &v120);
+    *(v122 + 6) |= v25;
+    v26 = posix_spawnattr_setpgroup(v130 + 3, 0);
+    *(v122 + 6) |= v26;
+    v120 |= 0x4002u;
     v28 = objc_msgSend_objectForKeyedSubscript_(v14, v27, @"__DTX_SpawnSuspended");
     v31 = objc_msgSend_BOOLValue(v28, v29, v30);
 
-    v32 = v121;
+    v32 = v120;
     if (v31)
     {
-      v32 = v121 | 0x80;
-      v121 |= 0x80u;
+      v32 = v120 | 0x80;
+      v120 |= 0x80u;
     }
 
-    v33 = posix_spawnattr_setflags(v131 + 3, v32);
-    *(v123 + 6) |= v33;
-    v97 = objc_msgSend_objectForKeyedSubscript_(v14, v34, @"cpu_type");
-    if (v97 && objc_msgSend_intValue(v97, v35, v36) != -1)
+    v33 = posix_spawnattr_setflags(v130 + 3, v32);
+    *(v122 + 6) |= v33;
+    v96 = objc_msgSend_objectForKeyedSubscript_(v14, v34, @"cpu_type");
+    if (v96 && objc_msgSend_intValue(v96, v35, v36) != -1)
     {
-      *buf = objc_msgSend_intValue(v97, v37, v38);
-      v39 = posix_spawnattr_setbinpref_np(v131 + 3, 1uLL, buf, 0);
-      *(v123 + 6) |= v39;
+      *buf = objc_msgSend_intValue(v96, v37, v38);
+      v39 = posix_spawnattr_setbinpref_np(v130 + 3, 1uLL, buf, 0);
+      *(v122 + 6) |= v39;
     }
 
-    v40 = posix_spawn_file_actions_init(v127 + 3);
-    v42 = *(v123 + 6) | v40;
-    *(v123 + 6) = v42;
+    v40 = posix_spawn_file_actions_init(v126 + 3);
+    v42 = *(v122 + 6) | v40;
+    *(v122 + 6) = v42;
     if (v42)
     {
-      posix_spawnattr_destroy(v131 + 3);
+      posix_spawnattr_destroy(v130 + 3);
       if (a5)
       {
-        v49 = sub_247F56868(-3, @"Failed to spawn subtask: failed to set posix spawn attributes", v43, v44, v45, v46, v47, v48, v94);
+        v49 = sub_247F56868(-3, @"Failed to spawn subtask: failed to set posix spawn attributes", v43, v44, v45, v46, v47, v48, v93);
 LABEL_30:
         *a5 = v49;
       }
@@ -5295,7 +5257,7 @@ LABEL_30:
         v54 = "/dev/null";
       }
 
-      v95 = v54;
+      v94 = v54;
 
       v56 = objc_msgSend_objectForKeyedSubscript_(v14, v55, @"stdout_path");
       v57 = v56;
@@ -5323,119 +5285,119 @@ LABEL_30:
         v66 = "/dev/null";
       }
 
-      v67 = posix_spawn_file_actions_addopen(v127 + 3, 0, v95, 0, 0);
-      *(v123 + 6) |= v67;
-      v68 = posix_spawn_file_actions_addopen(v127 + 3, 1, v60, 2, 0);
-      *(v123 + 6) |= v68;
-      v69 = posix_spawn_file_actions_addopen(v127 + 3, 2, v66, 2, 0);
-      v70 = *(v123 + 6) | v69;
-      *(v123 + 6) = v70;
+      v67 = posix_spawn_file_actions_addopen(v126 + 3, 0, v94, 0, 0);
+      *(v122 + 6) |= v67;
+      v68 = posix_spawn_file_actions_addopen(v126 + 3, 1, v60, 2, 0);
+      *(v122 + 6) |= v68;
+      v69 = posix_spawn_file_actions_addopen(v126 + 3, 2, v66, 2, 0);
+      v70 = *(v122 + 6) | v69;
+      *(v122 + 6) = v70;
       if (!v70)
       {
-        v117 = 0;
-        v118 = &v117;
-        v119 = 0x2020000000;
-        v120 = -1;
-        *buf = 0;
-        v112 = buf;
-        v113 = 0x3032000000;
-        v114 = sub_247F56970;
-        v115 = sub_247F56980;
         v116 = 0;
-        v98[0] = MEMORY[0x277D85DD0];
-        v98[1] = 3221225472;
-        v99 = sub_247F56988;
-        v100 = &unk_278EEF498;
-        v101 = v12;
-        v102 = v11;
-        v103 = v13;
-        v104 = v14;
-        v106 = &v122;
-        v107 = &v117;
-        v108 = &v126;
-        v109 = &v130;
-        v105 = v17;
-        v110 = buf;
-        v96 = v98;
+        v117 = &v116;
+        v118 = 0x2020000000;
+        v119 = -1;
+        *buf = 0;
+        v111 = buf;
+        v112 = 0x3032000000;
+        v113 = sub_247F56970;
+        v114 = sub_247F56980;
+        v115 = 0;
+        v97[0] = MEMORY[0x277D85DD0];
+        v97[1] = 3221225472;
+        v98 = sub_247F56988;
+        v99 = &unk_278EEF498;
+        v100 = v12;
+        v101 = v11;
+        v102 = v13;
+        v103 = v14;
+        v105 = &v121;
+        v106 = &v116;
+        v107 = &v125;
+        v108 = &v129;
+        v104 = v17;
+        v109 = buf;
+        v95 = v97;
         name[0] = 0;
-        v79 = MEMORY[0x277D85F48];
-        v80 = mach_port_allocate(*MEMORY[0x277D85F48], 1u, name);
-        if (v80)
+        v78 = MEMORY[0x277D85F48];
+        v79 = mach_port_allocate(*MEMORY[0x277D85F48], 1u, name);
+        if (v79)
         {
+          v80 = MEMORY[0x277D86220];
           v81 = MEMORY[0x277D86220];
-          v82 = MEMORY[0x277D86220];
-          if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
           {
-            v83 = getprogname();
-            v84 = getpid();
-            v85 = mach_error_string(v80);
-            *v138 = 136315906;
-            *&v138[4] = v83;
-            *&v138[12] = 1024;
-            *&v138[14] = v84;
-            *&v138[18] = 2080;
-            *&v138[20] = v85;
-            *&v138[28] = 1024;
-            *&v138[30] = v80;
-            _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_port_allocate' failed: %s (%d)\n", v138, 0x22u);
+            v82 = getprogname();
+            v83 = getpid();
+            v84 = mach_error_string(v79);
+            *v137 = 136315906;
+            *&v137[4] = v82;
+            *&v137[12] = 1024;
+            *&v137[14] = v83;
+            *&v137[18] = 2080;
+            *&v137[20] = v84;
+            *&v137[28] = 1024;
+            *&v137[30] = v79;
+            _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_port_allocate' failed: %s (%d)\n", v137, 0x22u);
           }
         }
 
-        inserted = mach_port_insert_right(*v79, name[0], name[0], 0x14u);
+        inserted = mach_port_insert_right(*v78, name[0], name[0], 0x14u);
         if (inserted)
         {
+          v86 = MEMORY[0x277D86220];
           v87 = MEMORY[0x277D86220];
-          v88 = MEMORY[0x277D86220];
-          if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
           {
-            v89 = getprogname();
-            v90 = getpid();
-            v91 = mach_error_string(inserted);
-            *v138 = 136315906;
-            *&v138[4] = v89;
-            *&v138[12] = 1024;
-            *&v138[14] = v90;
-            *&v138[18] = 2080;
-            *&v138[20] = v91;
-            *&v138[28] = 1024;
-            *&v138[30] = inserted;
-            _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_port_insert_right' failed: %s (%d)\n", v138, 0x22u);
+            v88 = getprogname();
+            v89 = getpid();
+            v90 = mach_error_string(inserted);
+            *v137 = 136315906;
+            *&v137[4] = v88;
+            *&v137[12] = 1024;
+            *&v137[14] = v89;
+            *&v137[18] = 2080;
+            *&v137[20] = v90;
+            *&v137[28] = 1024;
+            *&v137[30] = inserted;
+            _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_port_insert_right' failed: %s (%d)\n", v137, 0x22u);
           }
         }
 
-        v92 = name[0];
+        v91 = name[0];
         *name = 0;
-        v135 = name;
-        v136 = 0x2020000000;
-        v137 = 0;
-        *v138 = MEMORY[0x277D85DD0];
-        *&v138[8] = 3221225472;
-        *&v138[16] = sub_247F58488;
-        *&v138[24] = &unk_278EEE778;
-        *&v138[32] = name;
-        v139 = v92;
-        v93 = MEMORY[0x24C1C0D80](v138);
-        v99(v96, v92, v93);
-        v93[2](v93);
+        v134 = name;
+        v135 = 0x2020000000;
+        v136 = 0;
+        *v137 = MEMORY[0x277D85DD0];
+        *&v137[8] = 3221225472;
+        *&v137[16] = sub_247F58488;
+        *&v137[24] = &unk_278EEE778;
+        *&v137[32] = name;
+        v138 = v91;
+        v92 = MEMORY[0x24C1C0D80](v137);
+        v98(v95, v91, v92);
+        v92[2](v92);
 
         _Block_object_dispose(name, 8);
         if (a5)
         {
-          *a5 = *(v112 + 5);
+          *a5 = *(v111 + 5);
         }
 
-        v18 = *(v118 + 6);
+        v18 = *(v117 + 6);
 
         _Block_object_dispose(buf, 8);
-        _Block_object_dispose(&v117, 8);
+        _Block_object_dispose(&v116, 8);
         goto LABEL_32;
       }
 
-      posix_spawn_file_actions_destroy(v127 + 3);
-      posix_spawnattr_destroy(v131 + 3);
+      posix_spawn_file_actions_destroy(v126 + 3);
+      posix_spawnattr_destroy(v130 + 3);
       if (a5)
       {
-        v49 = sub_247F56868(-3, @"Failed to spawn subtask: failed to set standard streams attributes", v71, v72, v73, v74, v75, v76, v94);
+        v49 = sub_247F56868(-3, @"Failed to spawn subtask: failed to set standard streams attributes", v71, v72, v73, v74, v75, v76, v93);
         goto LABEL_30;
       }
     }
@@ -5454,42 +5416,40 @@ LABEL_32:
 
   if (a5)
   {
-    *a5 = sub_247F56868(-1, @"Failed to spawn subtask: empty executable path specified", v19, v20, v21, v22, v23, v24, v94);
+    *a5 = sub_247F56868(-1, @"Failed to spawn subtask: empty executable path specified", v19, v20, v21, v22, v23, v24, v93);
   }
 
   v18 = 0xFFFFFFFFLL;
 LABEL_34:
 
-  v77 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
-void sub_247F567E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43)
+void sub_247F567E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
 {
-  _Block_object_dispose((v43 - 208), 8);
+  va_start(va, a42);
+  _Block_object_dispose((v42 - 208), 8);
   _Block_object_dispose(&a27, 8);
   _Block_object_dispose(&a34, 8);
   _Block_object_dispose(&a39, 8);
-  _Block_object_dispose(&a43, 8);
-  _Block_object_dispose((v43 - 240), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v42 - 240), 8);
   _Unwind_Resume(a1);
 }
 
 id sub_247F56868(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v10 = MEMORY[0x277CCA9B8];
-  v22 = *MEMORY[0x277CCA450];
+  v21 = *MEMORY[0x277CCA450];
   v11 = MEMORY[0x277CCACA8];
   v12 = a2;
   v13 = [v11 alloc];
   v15 = objc_msgSend_initWithFormat_arguments_(v13, v14, v12, &a9);
 
-  v23[0] = v15;
-  v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v16, v23, &v22, 1);
+  v22[0] = v15;
+  v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v16, v22, &v21, 1);
   v19 = objc_msgSend_errorWithDomain_code_userInfo_(v10, v18, @"DTXSpawnSubtask", a1, v17);
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -5503,13 +5463,13 @@ uint64_t sub_247F56970(uint64_t result, uint64_t a2)
 
 void sub_247F56988(uint64_t a1, mach_port_t a2, void *a3)
 {
-  v141 = a2;
-  v187 = *MEMORY[0x277D85DE8];
-  v142 = a3;
+  v139 = a2;
+  v185 = *MEMORY[0x277D85DE8];
+  v140 = a3;
   v6 = objc_msgSend_count(*(a1 + 32), v4, v5);
-  v140 = &v140;
+  v138 = &v138;
   MEMORY[0x28223BE20](v6);
-  v9 = (&v140 - v8);
+  v9 = (&v138 - v8);
   if (v7 >= 0x200)
   {
     v10 = 512;
@@ -5520,21 +5480,21 @@ void sub_247F56988(uint64_t a1, mach_port_t a2, void *a3)
     v10 = v7;
   }
 
-  bzero(&v140 - v8, v10);
+  bzero(&v138 - v8, v10);
   v11 = *(a1 + 40);
   v14 = objc_msgSend_UTF8String(v11, v12, v13);
-  v148 = v9;
+  v146 = v9;
   *v9 = v14;
+  v175 = 0u;
+  v176 = 0u;
   v177 = 0u;
   v178 = 0u;
-  v179 = 0u;
-  v180 = 0u;
-  v144 = a1;
+  v142 = a1;
   v15 = *(a1 + 32);
-  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v16, &v177, v186, 16);
+  v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v16, &v175, v184, 16);
   if (v19)
   {
-    v20 = *v178;
+    v20 = *v176;
     v21 = 1;
     do
     {
@@ -5543,15 +5503,15 @@ void sub_247F56988(uint64_t a1, mach_port_t a2, void *a3)
       v21 = v21;
       do
       {
-        if (*v178 != v20)
+        if (*v176 != v20)
         {
           objc_enumerationMutation(v15);
         }
 
-        v24 = objc_msgSend_description(*(*(&v177 + 1) + 8 * v22), v17, v18);
+        v24 = objc_msgSend_description(*(*(&v175 + 1) + 8 * v22), v17, v18);
         v25 = v24;
         v28 = objc_msgSend_UTF8String(v24, v26, v27);
-        v148[v21] = v28;
+        v146[v21] = v28;
 
         ++v21;
         ++v22;
@@ -5559,7 +5519,7 @@ void sub_247F56988(uint64_t a1, mach_port_t a2, void *a3)
       }
 
       while (v19 != v22);
-      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v17, &v177, v186, 16);
+      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v17, &v175, v184, 16);
     }
 
     while (v19);
@@ -5571,31 +5531,31 @@ void sub_247F56988(uint64_t a1, mach_port_t a2, void *a3)
     v29 = 1;
   }
 
-  v148[v29] = 0;
-  v32 = *(v144 + 48);
+  v146[v29] = 0;
+  v32 = *(v142 + 48);
   if (v32)
   {
-    v147 = objc_msgSend_mutableCopy(v32, v30, v31);
+    v145 = objc_msgSend_mutableCopy(v32, v30, v31);
   }
 
   else
   {
     v33 = objc_msgSend_processInfo(MEMORY[0x277CCAC38], v30, v31);
     v36 = objc_msgSend_environment(v33, v34, v35);
-    v147 = objc_msgSend_mutableCopy(v36, v37, v38);
+    v145 = objc_msgSend_mutableCopy(v36, v37, v38);
   }
 
   v39 = getpid();
   v41 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v40, v39);
-  objc_msgSend_setObject_forKeyedSubscript_(v147, v42, v41, @"__DTX_SpawnParentPidKey");
+  objc_msgSend_setObject_forKeyedSubscript_(v145, v42, v41, @"__DTX_SpawnParentPidKey");
 
-  v143 = objc_msgSend_objectForKeyedSubscript_(*(v144 + 56), v43, @"__DTX_SpawnDYLDForcePlatformKey");
-  if (v143)
+  v141 = objc_msgSend_objectForKeyedSubscript_(*(v142 + 56), v43, @"__DTX_SpawnDYLDForcePlatformKey");
+  if (v141)
   {
-    objc_msgSend_setObject_forKeyedSubscript_(v147, v44, v143, @"DYLD_FORCE_PLATFORM");
+    objc_msgSend_setObject_forKeyedSubscript_(v145, v44, v141, @"DYLD_FORCE_PLATFORM");
   }
 
-  v46 = objc_msgSend_count(v147, v44, v45);
+  v46 = objc_msgSend_count(v145, v44, v45);
   MEMORY[0x28223BE20](v46);
   if (v47 >= 0x200)
   {
@@ -5607,18 +5567,18 @@ void sub_247F56988(uint64_t a1, mach_port_t a2, void *a3)
     v49 = v47;
   }
 
-  v146 = (&v140 - v48);
-  bzero(&v140 - v48, v49);
-  v175 = 0u;
-  v176 = 0u;
+  v144 = (&v138 - v48);
+  bzero(&v138 - v48, v49);
   v173 = 0u;
   v174 = 0u;
-  v145 = objc_msgSend_allKeys(v147, v50, v51);
-  v54 = objc_msgSend_countByEnumeratingWithState_objects_count_(v145, v52, &v173, v185, 16);
+  v171 = 0u;
+  v172 = 0u;
+  v143 = objc_msgSend_allKeys(v145, v50, v51);
+  v54 = objc_msgSend_countByEnumeratingWithState_objects_count_(v143, v52, &v171, v183, 16);
   if (v54)
   {
     v55 = 0;
-    v56 = *v174;
+    v56 = *v172;
     do
     {
       v57 = 0;
@@ -5626,18 +5586,18 @@ void sub_247F56988(uint64_t a1, mach_port_t a2, void *a3)
       v55 = v55;
       do
       {
-        if (*v174 != v56)
+        if (*v172 != v56)
         {
-          objc_enumerationMutation(v145);
+          objc_enumerationMutation(v143);
         }
 
-        v59 = *(*(&v173 + 1) + 8 * v57);
+        v59 = *(*(&v171 + 1) + 8 * v57);
         v60 = MEMORY[0x277CCACA8];
-        v61 = objc_msgSend_objectForKey_(v147, v53, v59);
+        v61 = objc_msgSend_objectForKey_(v145, v53, v59);
         v63 = objc_msgSend_stringWithFormat_(v60, v62, @"%@=%@", v59, v61);
         v64 = v63;
         v67 = objc_msgSend_UTF8String(v63, v65, v66);
-        v146[v55] = v67;
+        v144[v55] = v67;
 
         ++v55;
         ++v57;
@@ -5645,7 +5605,7 @@ void sub_247F56988(uint64_t a1, mach_port_t a2, void *a3)
       }
 
       while (v54 != v57);
-      v54 = objc_msgSend_countByEnumeratingWithState_objects_count_(v145, v53, &v173, v185, 16);
+      v54 = objc_msgSend_countByEnumeratingWithState_objects_count_(v143, v53, &v171, v183, 16);
     }
 
     while (v54);
@@ -5657,140 +5617,140 @@ void sub_247F56988(uint64_t a1, mach_port_t a2, void *a3)
     v68 = 0;
   }
 
-  v146[v68] = 0;
+  v144[v68] = 0;
   os_unfair_lock_lock(&stru_27EE80D58);
   v69 = MEMORY[0x277D85F48];
   v70 = *MEMORY[0x277D85F48];
-  v172 = v141;
-  v71 = mach_ports_register(v70, &v172, 1u);
+  v170 = v139;
+  v71 = mach_ports_register(v70, &v170, 1u);
   if (v71 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     v72 = getprogname();
     v73 = getpid();
     v74 = mach_error_string(v71);
-    LODWORD(v183[0]) = 136315906;
-    *(v183 + 4) = v72;
-    WORD2(v183[1]) = 1024;
-    *(&v183[1] + 6) = v73;
-    WORD1(v183[2]) = 2080;
-    *(&v183[2] + 4) = v74;
-    WORD2(v183[3]) = 1024;
-    *(&v183[3] + 6) = v71;
-    _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_ports_register' failed: %s (%d)\n", v183, 0x22u);
+    LODWORD(v181[0]) = 136315906;
+    *(v181 + 4) = v72;
+    WORD2(v181[1]) = 1024;
+    *(&v181[1] + 6) = v73;
+    WORD1(v181[2]) = 2080;
+    *(&v181[2] + 4) = v74;
+    WORD2(v181[3]) = 1024;
+    *(&v181[3] + 6) = v71;
+    _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_ports_register' failed: %s (%d)\n", v181, 0x22u);
   }
 
-  v75 = *(*(v144 + 80) + 8);
-  v76 = *(v144 + 40);
+  v75 = *(*(v142 + 80) + 8);
+  v76 = *(v142 + 40);
   v79 = objc_msgSend_UTF8String(v76, v77, v78);
-  v80 = posix_spawn((v75 + 24), v79, (*(*(v144 + 88) + 8) + 24), (*(*(v144 + 96) + 8) + 24), v148, v146);
-  *(*(*(v144 + 72) + 8) + 24) = v80;
-  v81 = mach_ports_register(*v69, &v181, 0);
+  v80 = posix_spawn((v75 + 24), v79, (*(*(v142 + 88) + 8) + 24), (*(*(v142 + 96) + 8) + 24), v146, v144);
+  *(*(*(v142 + 72) + 8) + 24) = v80;
+  v81 = mach_ports_register(*v69, &v179, 0);
   if (v81 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     v82 = getprogname();
     v83 = getpid();
     v84 = mach_error_string(v81);
-    LODWORD(v183[0]) = 136315906;
-    *(v183 + 4) = v82;
-    WORD2(v183[1]) = 1024;
-    *(&v183[1] + 6) = v83;
-    WORD1(v183[2]) = 2080;
-    *(&v183[2] + 4) = v84;
-    WORD2(v183[3]) = 1024;
-    *(&v183[3] + 6) = v81;
-    _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_ports_register' failed: %s (%d)\n", v183, 0x22u);
+    LODWORD(v181[0]) = 136315906;
+    *(v181 + 4) = v82;
+    WORD2(v181[1]) = 1024;
+    *(&v181[1] + 6) = v83;
+    WORD1(v181[2]) = 2080;
+    *(&v181[2] + 4) = v84;
+    WORD2(v181[3]) = 1024;
+    *(&v181[3] + 6) = v81;
+    _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_ports_register' failed: %s (%d)\n", v181, 0x22u);
   }
 
   os_unfair_lock_unlock(&stru_27EE80D58);
-  posix_spawn_file_actions_destroy((*(*(v144 + 88) + 8) + 24));
-  posix_spawnattr_destroy((*(*(v144 + 96) + 8) + 24));
-  v85 = v144;
-  if (*(*(*(v144 + 72) + 8) + 24))
+  posix_spawn_file_actions_destroy((*(*(v142 + 88) + 8) + 24));
+  posix_spawnattr_destroy((*(*(v142 + 96) + 8) + 24));
+  v85 = v142;
+  if (*(*(*(v142 + 72) + 8) + 24))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       v88 = *(v85 + 40);
       v91 = objc_msgSend_UTF8String(v88, v89, v90);
-      v92 = strerror(*(*(*(v144 + 72) + 8) + 24));
-      LODWORD(v183[0]) = 136315394;
-      *(v183 + 4) = v91;
-      WORD2(v183[1]) = 2080;
-      *(&v183[1] + 6) = v92;
-      _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed to posix spawn %s: %s", v183, 0x16u);
-      v85 = v144;
+      v92 = strerror(*(*(*(v142 + 72) + 8) + 24));
+      LODWORD(v181[0]) = 136315394;
+      *(v181 + 4) = v91;
+      WORD2(v181[1]) = 2080;
+      *(&v181[1] + 6) = v92;
+      _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed to posix spawn %s: %s", v181, 0x16u);
+      v85 = v142;
     }
 
     v93 = objc_msgSend_lastPathComponent(*(v85 + 40), v86, v87);
-    strerror(*(*(*(v144 + 72) + 8) + 24));
+    strerror(*(*(*(v142 + 72) + 8) + 24));
     v100 = sub_247F56868(-2, @"Failed to posix spawn %@: %s", v94, v95, v96, v97, v98, v99, v93);
-    v101 = *(*(v144 + 104) + 8);
+    v101 = *(*(v142 + 104) + 8);
     v102 = *(v101 + 40);
     *(v101 + 40) = v100;
 
-    *(*(*(v144 + 80) + 8) + 24) = -1;
+    *(*(*(v142 + 80) + 8) + 24) = -1;
   }
 
   else
   {
-    v148 = dispatch_get_global_queue(0, 0);
+    v146 = dispatch_get_global_queue(0, 0);
     v103 = dispatch_semaphore_create(0);
     v104 = dispatch_queue_create("helper process handshake queue", 0);
-    v183[0] = 0;
-    v183[1] = v183;
-    v183[2] = 0x3032000000;
-    v183[3] = sub_247F56970;
-    v183[4] = sub_247F56980;
-    v184 = 0;
-    v170[0] = 0;
-    v170[1] = v170;
-    v170[2] = 0x2020000000;
-    v171 = 0;
-    v163[0] = MEMORY[0x277D85DD0];
-    v163[1] = 3221225472;
-    v163[2] = sub_247F57594;
-    v163[3] = &unk_278EEF3D0;
-    v168 = v170;
-    v167 = *(v85 + 64);
-    v164 = *(v85 + 40);
-    v146 = v103;
-    v165 = v146;
-    v169 = v183;
+    v181[0] = 0;
+    v181[1] = v181;
+    v181[2] = 0x3032000000;
+    v181[3] = sub_247F56970;
+    v181[4] = sub_247F56980;
+    v182 = 0;
+    v168[0] = 0;
+    v168[1] = v168;
+    v168[2] = 0x2020000000;
+    v169 = 0;
+    v161[0] = MEMORY[0x277D85DD0];
+    v161[1] = 3221225472;
+    v161[2] = sub_247F57594;
+    v161[3] = &unk_278EEF3D0;
+    v166 = v168;
+    v165 = *(v85 + 64);
+    v162 = *(v85 + 40);
+    v144 = v103;
+    v163 = v144;
+    v167 = v181;
     v105 = v104;
-    v166 = v105;
-    v106 = MEMORY[0x24C1C0D80](v163);
-    v107 = v144;
-    v108 = dispatch_source_create(MEMORY[0x277D85D20], *(*(*(v144 + 80) + 8) + 24), 0x80000000uLL, v148);
+    v164 = v105;
+    v106 = MEMORY[0x24C1C0D80](v161);
+    v107 = v142;
+    v108 = dispatch_source_create(MEMORY[0x277D85D20], *(*(*(v142 + 80) + 8) + 24), 0x80000000uLL, v146);
     if (v108)
     {
-      v155[0] = MEMORY[0x277D85DD0];
-      v155[1] = 3221225472;
-      v155[2] = sub_247F57958;
-      v155[3] = &unk_278EEF3F8;
-      v160 = *(v107 + 80);
+      v153[0] = MEMORY[0x277D85DD0];
+      v153[1] = 3221225472;
+      v153[2] = sub_247F57958;
+      v153[3] = &unk_278EEF3F8;
+      v158 = *(v107 + 80);
       v109 = v105;
-      v156 = v109;
+      v154 = v109;
       v110 = v106;
-      v158 = v110;
-      v159 = v142;
+      v156 = v110;
+      v157 = v140;
       v111 = v108;
-      v157 = v111;
-      dispatch_source_set_event_handler(v111, v155);
+      v155 = v111;
+      dispatch_source_set_event_handler(v111, v153);
       dispatch_resume(v111);
       if (*(v107 + 64))
       {
         v113 = objc_msgSend_objectForKeyedSubscript_(*(v107 + 56), v112, @"SpawnTimeout");
         v116 = objc_msgSend_unsignedLongLongValue(v113, v114, v115);
 
-        v151[0] = MEMORY[0x277D85DD0];
-        v151[1] = 3221225472;
-        v151[2] = sub_247F57A34;
-        v151[3] = &unk_278EEF470;
-        v154 = v141;
+        v149[0] = MEMORY[0x277D85DD0];
+        v149[1] = 3221225472;
+        v149[2] = sub_247F57A34;
+        v149[3] = &unk_278EEF470;
+        v152 = v139;
         v117 = v109;
-        v152 = v117;
+        v150 = v117;
         v118 = v110;
-        v153 = v118;
-        dispatch_async(v148, v151);
+        v151 = v118;
+        dispatch_async(v146, v149);
         if (v116)
         {
           v119 = dispatch_time(0, 1000000 * v116);
@@ -5801,15 +5761,15 @@ void sub_247F56988(uint64_t a1, mach_port_t a2, void *a3)
           v119 = -1;
         }
 
-        v136 = v144;
-        if (dispatch_semaphore_wait(v146, v119))
+        v136 = v142;
+        if (dispatch_semaphore_wait(v144, v119))
         {
-          v149[0] = MEMORY[0x277D85DD0];
-          v149[1] = 3221225472;
-          v149[2] = sub_247F57CA4;
-          v149[3] = &unk_278EEEB88;
-          v150 = v118;
-          dispatch_sync(v117, v149);
+          v147[0] = MEMORY[0x277D85DD0];
+          v147[1] = 3221225472;
+          v147[2] = sub_247F57CA4;
+          v147[3] = &unk_278EEEB88;
+          v148 = v118;
+          dispatch_sync(v117, v147);
           v137 = *(*(*(v136 + 80) + 8) + 24);
           if (v137 >= 1)
           {
@@ -5818,7 +5778,7 @@ void sub_247F56988(uint64_t a1, mach_port_t a2, void *a3)
         }
       }
 
-      v135 = &v156;
+      v135 = &v154;
     }
 
     else
@@ -5826,38 +5786,35 @@ void sub_247F56988(uint64_t a1, mach_port_t a2, void *a3)
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         v122 = *(*(*(v107 + 80) + 8) + 24);
-        v182[0] = 67109120;
-        v182[1] = v122;
-        _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to start observing process with pid %i", v182, 8u);
+        v180[0] = 67109120;
+        v180[1] = v122;
+        _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to start observing process with pid %i", v180, 8u);
       }
 
       v123 = objc_msgSend_lastPathComponent(*(v107 + 40), v120, v121);
-      v139 = *(*(*(v107 + 80) + 8) + 24);
       v130 = sub_247F56868(-4, @"Failed to start observing %@ (pid: %i)", v124, v125, v126, v127, v128, v129, v123);
       v131 = *(*(v107 + 104) + 8);
       v132 = *(v131 + 40);
       *(v131 + 40) = v130;
 
-      v133 = v144;
-      v134 = *(*(*(v144 + 80) + 8) + 24);
-      v182[0] = 0;
-      waitpid(v134, v182, 1);
-      v161[0] = MEMORY[0x277D85DD0];
-      v161[1] = 3221225472;
-      v161[2] = sub_247F57940;
-      v161[3] = &unk_278EEEB88;
-      v162 = v106;
-      dispatch_async(v105, v161);
-      (*(v142 + 2))();
-      v135 = &v162;
+      v133 = v142;
+      v134 = *(*(*(v142 + 80) + 8) + 24);
+      v180[0] = 0;
+      waitpid(v134, v180, 1);
+      v159[0] = MEMORY[0x277D85DD0];
+      v159[1] = 3221225472;
+      v159[2] = sub_247F57940;
+      v159[3] = &unk_278EEEB88;
+      v160 = v106;
+      dispatch_async(v105, v159);
+      (*(v140 + 2))();
+      v135 = &v160;
       *(*(*(v133 + 80) + 8) + 24) = -1;
     }
 
-    _Block_object_dispose(v170, 8);
-    _Block_object_dispose(v183, 8);
+    _Block_object_dispose(v168, 8);
+    _Block_object_dispose(v181, 8);
   }
-
-  v138 = *MEMORY[0x277D85DE8];
 }
 
 void sub_247F57560(_Unwind_Exception *a1)
@@ -5869,7 +5826,7 @@ void sub_247F57560(_Unwind_Exception *a1)
 
 void sub_247F57594(uint64_t a1, mach_port_t a2, int a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = *(*(a1 + 64) + 8);
   if ((*(v3 + 24) & 1) == 0)
   {
@@ -5885,49 +5842,85 @@ void sub_247F57594(uint64_t a1, mach_port_t a2, int a3)
 
       else
       {
-        v9 = dispatch_source_create(MEMORY[0x277D85D10], a2, 1uLL, *(a1 + 48));
-        v10 = *(*(a1 + 72) + 8);
-        v11 = *(v10 + 40);
-        *(v10 + 40) = v9;
+        v8 = dispatch_source_create(MEMORY[0x277D85D10], a2, 1uLL, *(a1 + 48));
+        v9 = *(*(a1 + 72) + 8);
+        v10 = *(v9 + 40);
+        *(v9 + 40) = v8;
 
-        v12 = *(*(*(a1 + 72) + 8) + 40);
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = sub_247F578F8;
-        v18[3] = &unk_278EEEF38;
-        v19 = *(a1 + 40);
-        v20 = a2;
-        dispatch_source_set_event_handler(v12, v18);
+        v11 = *(*(*(a1 + 72) + 8) + 40);
+        v17[0] = MEMORY[0x277D85DD0];
+        v17[1] = 3221225472;
+        v17[2] = sub_247F578F8;
+        v17[3] = &unk_278EEEF38;
+        v18 = *(a1 + 40);
+        v19 = a2;
+        dispatch_source_set_event_handler(v11, v17);
         dispatch_activate(*(*(*(a1 + 72) + 8) + 40));
-        v13 = getpid();
-        v21.msgh_remote_port = a2;
-        v21.msgh_local_port = 0;
-        *&v21.msgh_bits = 0x2000000013;
-        *&v21.msgh_voucher_port = 0;
-        v22 = v13;
-        v14 = mach_msg_send(&v21);
-        if (v14 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        v12 = getpid();
+        v20.msgh_remote_port = a2;
+        v20.msgh_local_port = 0;
+        *&v20.msgh_bits = 0x2000000013;
+        *&v20.msgh_voucher_port = 0;
+        v21 = v12;
+        v13 = mach_msg_send(&v20);
+        if (v13)
         {
-          v15 = getprogname();
-          v16 = getpid();
-          v17 = mach_error_string(v14);
-          *buf = 136315906;
-          v24 = v15;
-          v25 = 1024;
-          v26 = v16;
-          v27 = 2080;
-          v28 = v17;
-          v29 = 1024;
-          v30 = v14;
-          _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_msg_send' failed: %s (%d)\n", buf, 0x22u);
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+          {
+            v14 = getprogname();
+            v15 = getpid();
+            v16 = mach_error_string(v13);
+            *buf = 136315906;
+            v23 = v14;
+            v24 = 1024;
+            v25 = v15;
+            v26 = 2080;
+            v27 = v16;
+            v28 = 1024;
+            v29 = v13;
+            _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_msg_send' failed: %s (%d)\n", buf, 0x22u);
+          }
         }
       }
 
       objc_autoreleasePoolPop(v7);
     }
   }
+}
 
-  v8 = *MEMORY[0x277D85DE8];
+void sub_247F577EC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, __int128 buf)
+{
+  if (a2)
+  {
+    if (a2 == 2)
+    {
+      v20 = objc_begin_catch(a1);
+      v21 = MEMORY[0x277D86220];
+      v22 = MEMORY[0x277D86220];
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      {
+        v23 = *(v19 + 32);
+        v26 = objc_msgSend_UTF8String(v23, v24, v25);
+        v29 = objc_msgSend_description(v20, v27, v28);
+        v30 = v29;
+        v33 = objc_msgSend_UTF8String(v30, v31, v32);
+        LODWORD(buf) = 136315394;
+        *(&buf + 4) = v26;
+        WORD6(buf) = 2080;
+        *(&buf + 14) = v33;
+        _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "DTXSpawnSubtask handshake block failed for %s: %s", &buf, 0x16u);
+      }
+
+      objc_end_catch();
+      JUMPOUT(0x247F57644);
+    }
+
+    objc_begin_catch(a1);
+    dispatch_semaphore_signal(*(v19 + 40));
+    objc_exception_rethrow();
+  }
+
+  _Unwind_Resume(a1);
 }
 
 uint64_t sub_247F578F8(uint64_t a1)
@@ -6021,7 +6014,7 @@ void sub_247F57BEC(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 
 void DTXSubtaskCheckin(void *a1)
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_autoreleasePoolPush();
   v5 = objc_msgSend_UTF8String(@"__DTX_SpawnParentPidKey", v3, v4);
@@ -6031,41 +6024,41 @@ void DTXSubtaskCheckin(void *a1)
     v7 = atoi(v6);
     if (v7 != getppid())
     {
-      v79 = 0u;
-      v80 = 0u;
-      v77 = 0u;
       v78 = 0u;
-      v75 = 0u;
+      v79 = 0u;
       v76 = 0u;
-      v73 = 0u;
+      v77 = 0u;
       v74 = 0u;
-      v71 = 0u;
+      v75 = 0u;
       v72 = 0u;
-      v69 = 0u;
+      v73 = 0u;
       v70 = 0u;
-      v67 = 0u;
+      v71 = 0u;
       v68 = 0u;
-      v65 = 0u;
+      v69 = 0u;
       v66 = 0u;
-      v63 = 0u;
+      v67 = 0u;
       v64 = 0u;
-      v61 = 0u;
+      v65 = 0u;
       v62 = 0u;
-      v59 = 0u;
+      v63 = 0u;
       v60 = 0u;
-      v57 = 0u;
+      v61 = 0u;
       v58 = 0u;
-      v55 = 0u;
+      v59 = 0u;
       v56 = 0u;
-      v53 = 0u;
+      v57 = 0u;
       v54 = 0u;
+      v55 = 0u;
       v52 = 0u;
+      v53 = 0u;
+      v51 = 0u;
       memset(buf, 0, sizeof(buf));
-      v42[0] = 648;
-      *v45 = 0xE00000001;
-      LODWORD(v46) = 1;
-      HIDWORD(v46) = getpid();
-      if (sysctl(v45, 4u, buf, v42, 0, 0) || !v42[0] || (*&buf[32] & 0x800) == 0)
+      v41[0] = 648;
+      *v44 = 0xE00000001;
+      LODWORD(v45) = 1;
+      HIDWORD(v45) = getpid();
+      if (sysctl(v44, 4u, buf, v41, 0, 0) || !v41[0] || (*&buf[32] & 0x800) == 0)
       {
         goto LABEL_23;
       }
@@ -6099,20 +6092,20 @@ void DTXSubtaskCheckin(void *a1)
   if (init_port_setCnt && (v14 = *init_port_set, *init_port_set + 1 >= 2))
   {
     mig_deallocate(init_port_set, 4 * init_port_setCnt);
-    v30 = mach_ports_register(*MEMORY[0x277D85F48], &v44, 0);
-    if (v30 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    v29 = mach_ports_register(*MEMORY[0x277D85F48], &v43, 0);
+    if (v29 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v31 = getprogname();
-      v32 = getpid();
-      v33 = mach_error_string(v30);
+      v30 = getprogname();
+      v31 = getpid();
+      v32 = mach_error_string(v29);
       *buf = 136315906;
-      *&buf[4] = v31;
+      *&buf[4] = v30;
       *&buf[12] = 1024;
-      *&buf[14] = v32;
+      *&buf[14] = v31;
       *&buf[18] = 2080;
-      *&buf[20] = v33;
+      *&buf[20] = v32;
       *&buf[28] = 1024;
-      *&buf[30] = v30;
+      *&buf[30] = v29;
       _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_ports_register' failed: %s (%d)\n", buf, 0x22u);
     }
   }
@@ -6128,23 +6121,23 @@ void DTXSubtaskCheckin(void *a1)
     v14 = 0;
   }
 
-  v34 = MEMORY[0x277D85DD0];
-  v35 = 3221225472;
-  v36 = sub_247F582D0;
-  v37 = &unk_278EEF4C0;
-  v39 = v14;
-  v38 = v1;
-  v15 = &v34;
-  *v45 = MEMORY[0x277D85DD0];
-  v46 = 3221225472;
-  v47 = sub_247F5865C;
-  v48 = &unk_278EEE818;
-  v50 = v14;
+  v33 = MEMORY[0x277D85DD0];
+  v34 = 3221225472;
+  v35 = sub_247F582D0;
+  v36 = &unk_278EEF4C0;
+  v38 = v14;
+  v37 = v1;
+  v15 = &v33;
+  *v44 = MEMORY[0x277D85DD0];
+  v45 = 3221225472;
+  v46 = sub_247F5865C;
+  v47 = &unk_278EEE818;
+  v49 = v14;
   v16 = v15;
-  v49 = v16;
-  v17 = v45;
-  LODWORD(v42[0]) = 0;
-  v18 = mach_port_allocate(*MEMORY[0x277D85F48], 1u, v42);
+  v48 = v16;
+  v17 = v44;
+  LODWORD(v41[0]) = 0;
+  v18 = mach_port_allocate(*MEMORY[0x277D85F48], 1u, v41);
   if (v18 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     v19 = getprogname();
@@ -6161,7 +6154,7 @@ void DTXSubtaskCheckin(void *a1)
     _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_port_allocate' failed: %s (%d)\n", buf, 0x22u);
   }
 
-  inserted = mach_port_insert_right(*MEMORY[0x277D85F48], v42[0], v42[0], 0x14u);
+  inserted = mach_port_insert_right(*MEMORY[0x277D85F48], v41[0], v41[0], 0x14u);
   if (inserted && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     v23 = getprogname();
@@ -6178,46 +6171,44 @@ void DTXSubtaskCheckin(void *a1)
     _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_port_insert_right' failed: %s (%d)\n", buf, 0x22u);
   }
 
-  v26 = LODWORD(v42[0]);
-  v42[0] = 0;
-  v42[1] = v42;
-  v42[2] = 0x2020000000;
-  v43 = 0;
+  v26 = LODWORD(v41[0]);
+  v41[0] = 0;
+  v41[1] = v41;
+  v41[2] = 0x2020000000;
+  v42 = 0;
   *buf = MEMORY[0x277D85DD0];
   *&buf[8] = 3221225472;
   *&buf[16] = sub_247F58488;
   *&buf[24] = &unk_278EEE778;
-  *&buf[32] = v42;
+  *&buf[32] = v41;
   *&buf[40] = v26;
   v27 = MEMORY[0x24C1C0D80](buf);
-  v47(v17, v26, v27);
+  v46(v17, v26, v27);
   v27[2](v27);
 
-  _Block_object_dispose(v42, 8);
+  _Block_object_dispose(v41, 8);
   mach_port_deallocate(*MEMORY[0x277D85F48], v14);
 
 LABEL_23:
-  v28 = objc_msgSend_UTF8String(@"__DTX_SpawnParentPidKey", v8, v9, v34, v35, v36, v37);
+  v28 = objc_msgSend_UTF8String(@"__DTX_SpawnParentPidKey", v8, v9, v33, v34, v35, v36);
   unsetenv(v28);
   objc_autoreleasePoolPop(v2);
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
-void sub_247F582B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_247F582B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_247F582D0(uint64_t a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 40);
-  *&v13 = 0;
-  *(&v13 + 1) = 1;
-  v14 = 0x13000000000000;
+  *&v12 = 0;
+  *(&v12 + 1) = 1;
+  v13 = 0x13000000000000;
   name[2] = v4;
   name[3] = a2;
   *name = 0x2880001413;
@@ -6231,13 +6222,13 @@ void sub_247F582D0(uint64_t a1, uint64_t a2)
       v8 = getpid();
       v9 = mach_error_string(v6);
       *buf = 136315906;
-      v16 = v7;
-      v17 = 1024;
-      v18 = v8;
-      v19 = 2080;
-      v20 = v9;
-      v21 = 1024;
-      v22 = v6;
+      v15 = v7;
+      v16 = 1024;
+      v17 = v8;
+      v18 = 2080;
+      v19 = v9;
+      v20 = 1024;
+      v21 = v6;
       _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_msg_send' failed: %s (%d)\n", buf, 0x22u);
     }
   }
@@ -6248,78 +6239,74 @@ void sub_247F582D0(uint64_t a1, uint64_t a2)
     (*(v10 + 16))(v10, *(a1 + 40), a2);
   }
 
-  v14 = 0;
+  v13 = 0;
   *name = 0u;
-  v13 = 0u;
-  if (!mach_msg(name, 2, 0, 0x28u, a2, 0, 0) && DWORD1(v13) != 70)
+  v12 = 0u;
+  if (!mach_msg(name, 2, 0, 0x28u, a2, 0, 0) && DWORD1(v12) != 70)
   {
     if ((name[0] & 0x80000000) != 0)
     {
       mach_msg_destroy(name);
     }
 
-    else if (HIDWORD(v14) + name[1] == 40)
+    else if (HIDWORD(v13) + name[1] == 40)
     {
       mach_port_deallocate(*MEMORY[0x277D85F48], name[2]);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void sub_247F58488(uint64_t a1)
 {
   v1 = 0;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   atomic_compare_exchange_strong((*(*(a1 + 32) + 8) + 24), &v1, 1u);
   if (!v1)
   {
     v3 = *(a1 + 40);
     if (v3 + 1 >= 2)
     {
-      v5 = MEMORY[0x277D85F48];
-      v6 = mach_port_mod_refs(*MEMORY[0x277D85F48], v3, 1u, -1);
-      if (v6)
+      v4 = MEMORY[0x277D85F48];
+      v5 = mach_port_mod_refs(*MEMORY[0x277D85F48], v3, 1u, -1);
+      if (v5)
       {
-        v7 = v6;
+        v6 = v5;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v13 = 136315906;
-          v14 = getprogname();
-          v15 = 1024;
-          v16 = getpid();
-          v17 = 2080;
-          v18 = mach_error_string(v7);
-          v19 = 1024;
-          v20 = v7;
-          _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_port_mod_refs' failed: %s (%d)\n", &v13, 0x22u);
+          v12 = 136315906;
+          v13 = getprogname();
+          v14 = 1024;
+          v15 = getpid();
+          v16 = 2080;
+          v17 = mach_error_string(v6);
+          v18 = 1024;
+          v19 = v6;
+          _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_port_mod_refs' failed: %s (%d)\n", &v12, 0x22u);
         }
       }
 
-      v8 = mach_port_deallocate(*v5, *(a1 + 40));
-      if (v8)
+      v7 = mach_port_deallocate(*v4, *(a1 + 40));
+      if (v7)
       {
-        v9 = v8;
+        v8 = v7;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v10 = getprogname();
-          v11 = getpid();
-          v12 = mach_error_string(v9);
-          v13 = 136315906;
-          v14 = v10;
-          v15 = 1024;
-          v16 = v11;
-          v17 = 2080;
-          v18 = v12;
-          v19 = 1024;
-          v20 = v9;
-          _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_port_deallocate' failed: %s (%d)\n", &v13, 0x22u);
+          v9 = getprogname();
+          v10 = getpid();
+          v11 = mach_error_string(v8);
+          v12 = 136315906;
+          v13 = v9;
+          v14 = 1024;
+          v15 = v10;
+          v16 = 2080;
+          v17 = v11;
+          v18 = 1024;
+          v19 = v8;
+          _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s[%d]: [error] 'mach_port_deallocate' failed: %s (%d)\n", &v12, 0x22u);
         }
       }
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void sub_247F5865C(uint64_t a1, uint64_t a2, void *a3)
@@ -6367,14 +6354,14 @@ uint64_t sub_247F589C0(void *a1, int a2, void *a3)
   {
     if (a3)
     {
-      v12 = *__error();
+      __error();
       *a3 = _NSErrorWithFilePathErrnoAndVariant();
     }
 
     else
     {
-      v13 = __error();
-      NSLog(&cfstr_ErrorOpeningPa.isa, v5, *v13);
+      v12 = __error();
+      NSLog(&cfstr_ErrorOpeningPa.isa, v5, *v12);
     }
   }
 
@@ -6779,4 +6766,12 @@ void sub_247F5A64C(uint64_t a1, const char *a2, uint64_t a3)
 {
   v6 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], a2, a3);
   objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v6, v5, a1, a2, @"DTXMessage.m", 564, @"Invalid parameter not satisfying: %@", @"selector");
+}
+
+objc_method_description protocol_getMethodDescription(Protocol *p, SEL aSel, BOOL isRequiredMethod, BOOL isInstanceMethod)
+{
+  v4 = MEMORY[0x2821F9A68](p, aSel, isRequiredMethod, isInstanceMethod);
+  result.types = v5;
+  result.name = v4;
+  return result;
 }

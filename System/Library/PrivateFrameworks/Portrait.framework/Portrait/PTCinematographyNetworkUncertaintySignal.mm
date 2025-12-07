@@ -27,7 +27,8 @@
 {
   payloadCopy = payload;
   streamCopy = stream;
-  if ([(PTCinematographyNetworkSignal *)self checkSignalForStream:streamCopy])
+  v8 = [(PTCinematographyNetworkSignal *)self checkSignalForStream:streamCopy];
+  if (v8)
   {
     [(PTCinematographyNetworkUncertaintySignal *)self _timerUncertaintyForPayload:payloadCopy];
     [streamCopy writeFloat:?];
@@ -35,10 +36,10 @@
 
   else
   {
-    v8 = _PTLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _PTLogSystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [PTCinematographyNetworkNamedSignal writePayload:v8 toStream:?];
+      [PTCinematographyNetworkNamedSignal writePayload:v9 toStream:?];
     }
   }
 }
@@ -50,7 +51,7 @@
   v6 = detection;
   if (detection)
   {
-    [detection time];
+    objc_msgSend_time(detection);
 
     v7 = 0.0;
     if ((BYTE4(v17) & 0x1D) == 1)
@@ -58,7 +59,7 @@
       memset(&v15, 0, sizeof(v15));
       if (payloadCopy)
       {
-        [payloadCopy time];
+        objc_msgSend_time(payloadCopy);
       }
 
       else
@@ -70,7 +71,7 @@
       v9 = detection2;
       if (detection2)
       {
-        [detection2 time];
+        objc_msgSend_time(detection2);
       }
 
       else

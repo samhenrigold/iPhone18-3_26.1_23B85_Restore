@@ -1,6 +1,6 @@
-void sub_100001E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100001E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -12,7 +12,6 @@ uint64_t sub_100001E68(uint64_t result)
     v1 = result;
     do
     {
-      v2 = *(v1 + 40);
       result = BKSWatchdogGetIsAlive();
       *(*(*(v1 + 32) + 8) + 24) = result;
     }
@@ -32,20 +31,14 @@ uint64_t sub_10000230C(uint64_t result, uint64_t a2)
 
 uint64_t sub_100002324(uint64_t a1)
 {
-  v2 = [UIApp _accessibilityAllWindowsOnlyVisibleWindows:1];
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 32) + 8) + 40) = [UIApp _accessibilityAllWindowsOnlyVisibleWindows:1];
 
   return _objc_release_x1();
 }
 
 uint64_t sub_10000237C(uint64_t a1)
 {
-  v2 = [UIWindow allWindowsIncludingInternalWindows:1 onlyVisibleWindows:1];
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 32) + 8) + 40) = [UIWindow allWindowsIncludingInternalWindows:1 onlyVisibleWindows:1];
 
   return _objc_release_x1();
 }
@@ -152,10 +145,11 @@ void sub_100003008(id a1, NSError *a2)
   }
 }
 
-void sub_10000309C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000309C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_100003580(uint64_t a1, void *a2)
@@ -221,12 +215,12 @@ uint64_t sub_100003AA0(uint64_t result, int a2, int a3)
   return result;
 }
 
-void sub_100003B18(uint64_t a1, unint64_t *a2)
+void sub_100003B18(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -258,32 +252,29 @@ uint64_t sub_100003C64@<X0>(void *a1@<X8>)
 
 uint64_t sub_100003CAC@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *v1;
   result = static String._unconditionallyBridgeFromObjectiveC(_:)();
   *a1 = result;
-  a1[1] = v5;
+  a1[1] = v3;
   return result;
 }
 
-uint64_t sub_100003CD8@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_100003CD8@<X0>(void *a2@<X8>)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = String._bridgeToObjectiveC()();
+  v3 = String._bridgeToObjectiveC()();
 
-  *a2 = v5;
+  *a2 = v3;
   return result;
 }
 
 uint64_t sub_100003D20(uint64_t a1)
 {
-  v2 = sub_100003E20(&qword_100016018);
-  v3 = sub_100003E20(&unk_100016020);
+  v2 = sub_100003E20(&qword_100016018, &unk_100009BE8);
+  v3 = sub_100003E20(&unk_100016020, &unk_100009B90);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()(a1, v2, v3, &protocol witness table for String);
 }
 
-uint64_t sub_100003E20(unint64_t *a1)
+uint64_t sub_100003E20(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -298,48 +289,43 @@ uint64_t sub_100003E20(unint64_t *a1)
 
 uint64_t sub_100003E64()
 {
-  v1 = *v0;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = String.hashValue.getter();
+  v0 = String.hashValue.getter();
 
-  return v2;
+  return v0;
 }
 
-uint64_t sub_100003EA0()
+uint64_t sub_100003EA0(uint64_t a1)
 {
-  v1 = *v0;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   String.hash(into:)();
 }
 
-Swift::Int sub_100003EF4()
+Swift::Int sub_100003EF4(uint64_t a1)
 {
-  v1 = *v0;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v2 = Hasher._finalize()();
+  v1 = Hasher._finalize()();
 
-  return v2;
+  return v1;
 }
 
-uint64_t sub_100003F68(uint64_t *a1, uint64_t *a2)
+uint64_t sub_100003F68(void *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v6 = v5;
-  if (v4 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v6 == v7)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
-    v9 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v9 & 1;
+  return v7 & 1;
 }
 
 void sub_100004048()
@@ -413,12 +399,11 @@ LABEL_8:
   UIApplicationMain(v11, v12, v14, delegateClassName);
 }
 
-uint64_t sub_100004268(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_100004268(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -427,49 +412,46 @@ uint64_t sub_100004268(uint64_t a1, unint64_t *a2, uint64_t *a3)
   return result;
 }
 
-uint64_t sub_1000042B0(uint64_t *a1)
+uint64_t sub_1000042B0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 void sub_1000045D0()
 {
   v1 = v0;
-  v2 = (*(*(sub_100005E78(&qword_100016238, &qword_100009D00) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
-  v4 = &v111 - v3;
+  v2 = sub_100005E78(&qword_100016238, &qword_100009D00);
+  __chkstk_darwin(v2 - 8);
+  v4 = &v107 - v3;
   v5 = type metadata accessor for AXUIActivity();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  __chkstk_darwin();
-  v9 = &v111 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for AXUISystemAperatureViewController();
-  v119.receiver = v0;
-  v119.super_class = v10;
-  objc_msgSendSuper2(&v119, "viewDidLoad");
+  __chkstk_darwin(v5);
+  v8 = &v107 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for AXUISystemAperatureViewController();
+  v115.receiver = v0;
+  v115.super_class = v9;
+  objc_msgSendSuper2(&v115, "viewDidLoad");
   type metadata accessor for AXUniversalDisplayManager();
-  v11 = static AXUniversalDisplayManager.shared.getter();
-  v12 = *&v0[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_persistentIdentifier + 8];
-  v117 = *&v0[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_persistentIdentifier];
-  v118 = v12;
-  v115 = 58;
-  v116 = 0xE100000000000000;
+  v10 = static AXUniversalDisplayManager.shared.getter();
+  v11 = *&v0[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_persistentIdentifier + 8];
+  v113 = *&v0[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_persistentIdentifier];
+  v114 = v11;
+  v111 = 58;
+  v112 = 0xE100000000000000;
   sub_100005EC0();
-  v13 = StringProtocol.components<A>(separatedBy:)();
-  if (v13[2] < 2uLL)
+  if (*(StringProtocol.components<A>(separatedBy:)() + 16) < 2uLL)
   {
     __break(1u);
     goto LABEL_57;
   }
-
-  v14 = v13[6];
-  v15 = v13[7];
 
   AXUniversalDisplayManager.activity(forActivityIdentifier:)();
 
@@ -479,83 +461,83 @@ void sub_1000045D0()
     return;
   }
 
-  v16 = *(v6 + 32);
-  v114 = v5;
-  v16(v9, v4, v5);
-  v117 = AXUIActivity.customView.getter();
-  v17 = sub_100005E78(&qword_100016248, &qword_100009D08);
-  v18 = objc_allocWithZone(v17);
-  v19 = UIHostingController.init(rootView:)();
-  v20 = OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureCustomViewViewController;
-  v21 = *&v1[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureCustomViewViewController];
-  *&v1[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureCustomViewViewController] = v19;
-  v22 = v19;
+  v12 = *(v6 + 32);
+  v110 = v5;
+  v12(v8, v4, v5);
+  v113 = AXUIActivity.customView.getter();
+  v13 = sub_100005E78(&qword_100016248, &qword_100009D08);
+  v14 = objc_allocWithZone(v13);
+  v15 = UIHostingController.init(rootView:)();
+  v16 = OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureCustomViewViewController;
+  v17 = *&v0[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureCustomViewViewController];
+  *&v0[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureCustomViewViewController] = v15;
+  v18 = v15;
 
-  v23 = [v22 view];
-  if (!v23)
+  v19 = [v18 view];
+  if (!v19)
   {
     goto LABEL_59;
   }
 
-  [v23 setTranslatesAutoresizingMaskIntoConstraints:0];
+  [v19 setTranslatesAutoresizingMaskIntoConstraints:0];
 
-  v24 = *&v1[v20];
-  if (v24)
+  v20 = *&v1[v16];
+  if (v20)
   {
-    v25 = [v24 view];
-    if (!v25)
+    v21 = [v20 view];
+    if (!v21)
     {
 LABEL_65:
       __break(1u);
       goto LABEL_66;
     }
 
-    v26 = v25;
-    v27 = [v1 view];
-    if (!v27)
+    v22 = v21;
+    v23 = [v1 view];
+    if (!v23)
     {
 LABEL_66:
       __break(1u);
       goto LABEL_67;
     }
 
+    v24 = v23;
+    [v23 bounds];
+    v26 = v25;
     v28 = v27;
-    [v27 bounds];
     v30 = v29;
     v32 = v31;
-    v34 = v33;
-    v36 = v35;
 
-    [v26 setFrame:{v30, v32, v34, v36}];
+    [v22 setFrame:{v26, v28, v30, v32}];
   }
 
-  v37 = [v1 view];
-  if (!v37)
+  v33 = [v1 view];
+  if (!v33)
   {
     goto LABEL_60;
   }
 
-  v38 = v37;
-  v39 = *&v1[v20];
-  if (!v39)
+  v34 = v33;
+  v35 = *&v1[v16];
+  if (!v35)
   {
 LABEL_61:
     __break(1u);
     goto LABEL_62;
   }
 
-  v40 = [v39 view];
-  if (!v40)
+  v36 = [v35 view];
+  if (!v36)
   {
 LABEL_62:
     __break(1u);
     goto LABEL_63;
   }
 
-  v41 = v40;
-  [v38 addSubview:v40];
+  v37 = v36;
+  [v34 addSubview:v36];
 
-  if (!*&v1[v20])
+  if (!*&v1[v16])
   {
 LABEL_63:
     __break(1u);
@@ -565,58 +547,58 @@ LABEL_64:
   }
 
   [v1 addChildViewController:?];
-  v113 = OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_leadingView;
-  v42 = *&v1[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_leadingView];
-  if (v42)
+  v109 = OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_leadingView;
+  v38 = *&v1[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_leadingView];
+  if (v38)
   {
-    v43 = v42;
-    v117 = AXUIActivity.leadingView.getter();
-    v44 = objc_allocWithZone(v17);
-    v45 = UIHostingController.init(rootView:)();
-    v46 = OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureLeadingViewController;
-    v47 = *&v1[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureLeadingViewController];
-    *&v1[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureLeadingViewController] = v45;
-    v48 = v45;
+    v39 = v38;
+    v113 = AXUIActivity.leadingView.getter();
+    v40 = objc_allocWithZone(v13);
+    v41 = UIHostingController.init(rootView:)();
+    v42 = OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureLeadingViewController;
+    v43 = *&v1[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureLeadingViewController];
+    *&v1[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureLeadingViewController] = v41;
+    v44 = v41;
 
-    v49 = [v48 view];
-    if (!v49)
+    v45 = [v44 view];
+    if (!v45)
     {
 LABEL_67:
       __break(1u);
       goto LABEL_68;
     }
 
-    [v49 setTranslatesAutoresizingMaskIntoConstraints:0];
+    [v45 setTranslatesAutoresizingMaskIntoConstraints:0];
 
-    v50 = *&v1[v46];
-    if (v50)
+    v46 = *&v1[v42];
+    if (v46)
     {
-      v51 = [v50 view];
-      if (!v51)
+      v47 = [v46 view];
+      if (!v47)
       {
 LABEL_68:
         __break(1u);
         goto LABEL_69;
       }
 
-      v52 = v51;
-      [v43 bounds];
-      [v52 setFrame:?];
+      v48 = v47;
+      [v39 bounds];
+      [v48 setFrame:?];
 
-      v53 = *&v1[v46];
-      if (v53)
+      v49 = *&v1[v42];
+      if (v49)
       {
-        v54 = v43;
-        v55 = [v53 view];
-        if (!v55)
+        v50 = v39;
+        v51 = [v49 view];
+        if (!v51)
         {
 LABEL_70:
           __break(1u);
           goto LABEL_71;
         }
 
-        v56 = v55;
-        [v54 addSubview:v55];
+        v52 = v51;
+        [v50 addSubview:v51];
 
         goto LABEL_20;
       }
@@ -634,182 +616,182 @@ LABEL_60:
   }
 
 LABEL_20:
-  v112 = OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_minimalView;
-  v57 = *&v1[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_minimalView];
-  v58 = &qword_100016000;
-  if (!v57)
+  v108 = OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_minimalView;
+  v53 = *&v1[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_minimalView];
+  v54 = &qword_100016000;
+  if (!v53)
   {
     goto LABEL_27;
   }
 
-  v59 = v57;
-  v117 = AXUIActivity.minimalView.getter();
-  v60 = objc_allocWithZone(v17);
-  v61 = UIHostingController.init(rootView:)();
-  v62 = OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureMinimalViewController;
-  v63 = *&v1[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureMinimalViewController];
-  *&v1[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureMinimalViewController] = v61;
-  v64 = v61;
+  v55 = v53;
+  v113 = AXUIActivity.minimalView.getter();
+  v56 = objc_allocWithZone(v13);
+  v57 = UIHostingController.init(rootView:)();
+  v58 = OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureMinimalViewController;
+  v59 = *&v1[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureMinimalViewController];
+  *&v1[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureMinimalViewController] = v57;
+  v60 = v57;
 
-  v65 = [v64 view];
-  if (!v65)
+  v61 = [v60 view];
+  if (!v61)
   {
 LABEL_69:
     __break(1u);
     goto LABEL_70;
   }
 
-  [v65 setTranslatesAutoresizingMaskIntoConstraints:0];
+  [v61 setTranslatesAutoresizingMaskIntoConstraints:0];
 
-  v66 = *&v1[v62];
-  if (!v66)
+  v62 = *&v1[v58];
+  if (!v62)
   {
     goto LABEL_58;
   }
 
-  v67 = [v66 view];
-  if (!v67)
+  v63 = [v62 view];
+  if (!v63)
   {
 LABEL_71:
     __break(1u);
     goto LABEL_72;
   }
 
-  v68 = v67;
-  [v59 bounds];
-  [v68 setFrame:?];
+  v64 = v63;
+  [v55 bounds];
+  [v64 setFrame:?];
 
-  v69 = *&v1[v62];
-  if (!v69)
+  v65 = *&v1[v58];
+  if (!v65)
   {
     goto LABEL_58;
   }
 
-  v70 = v59;
-  v71 = [v69 view];
-  if (!v71)
+  v66 = v55;
+  v67 = [v65 view];
+  if (!v67)
   {
 LABEL_72:
     __break(1u);
     goto LABEL_73;
   }
 
-  v72 = v71;
-  [v70 addSubview:v71];
+  v68 = v67;
+  [v66 addSubview:v67];
 
-  v58 = &qword_100016000;
+  v54 = &qword_100016000;
 LABEL_27:
-  v73 = OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_trailingView;
-  v74 = *&v1[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_trailingView];
-  v75 = &qword_100016000;
-  if (!v74)
+  v69 = OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_trailingView;
+  v70 = *&v1[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_trailingView];
+  v71 = &qword_100016000;
+  if (!v70)
   {
     goto LABEL_36;
   }
 
-  v76 = v74;
-  v77 = AXUIActivity.trailingView.getter();
-  if (!v77)
+  v72 = v70;
+  v73 = AXUIActivity.trailingView.getter();
+  if (!v73)
   {
 LABEL_35:
 
-    v58 = &qword_100016000;
-    v75 = &qword_100016000;
+    v54 = &qword_100016000;
+    v71 = &qword_100016000;
 LABEL_36:
-    v90 = *&v1[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureLeadingViewController];
-    if (v90)
+    v86 = *&v1[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureLeadingViewController];
+    if (v86)
     {
-      v91 = [v90 view];
-      if (v91)
+      v87 = [v86 view];
+      if (v87)
       {
-        v92 = v91;
-        v93 = *&v1[v113];
-        if (v93)
+        v88 = v87;
+        v89 = *&v1[v109];
+        if (v89)
         {
-          v94 = v93;
-          sub_100005F7C(v92, v94);
+          v90 = v89;
+          sub_100005F7C(v88, v90);
 
-          v92 = v94;
+          v88 = v90;
         }
       }
     }
 
-    v95 = *&v1[v75[31]];
-    if (v95)
+    v91 = *&v1[v71[31]];
+    if (v91)
     {
-      v96 = [v95 view];
-      if (v96)
+      v92 = [v91 view];
+      if (v92)
       {
-        v97 = v96;
-        v98 = *&v1[v73];
-        if (v98)
+        v93 = v92;
+        v94 = *&v1[v69];
+        if (v94)
         {
-          v99 = v98;
-          sub_100005F7C(v97, v99);
+          v95 = v94;
+          sub_100005F7C(v93, v95);
 
-          v97 = v99;
+          v93 = v95;
         }
       }
     }
 
-    v100 = *&v1[v58[32]];
-    if (v100)
+    v96 = *&v1[v54[32]];
+    if (v96)
     {
-      v101 = [v100 view];
-      if (v101)
+      v97 = [v96 view];
+      if (v97)
       {
-        v102 = v101;
-        v103 = *&v1[v112];
-        if (v103)
+        v98 = v97;
+        v99 = *&v1[v108];
+        if (v99)
         {
-          v104 = v103;
-          sub_100005F7C(v102, v104);
+          v100 = v99;
+          sub_100005F7C(v98, v100);
 
-          v102 = v104;
+          v98 = v100;
         }
       }
     }
 
-    v105 = *&v1[v20];
-    v106 = v114;
-    if (!v105)
+    v101 = *&v1[v16];
+    v102 = v110;
+    if (!v101)
     {
       goto LABEL_55;
     }
 
-    v107 = [v105 view];
-    if (!v107)
+    v103 = [v101 view];
+    if (!v103)
     {
       goto LABEL_55;
     }
 
-    v108 = v107;
-    v109 = [v1 view];
-    if (v109)
+    v104 = v103;
+    v105 = [v1 view];
+    if (v105)
     {
-      v110 = v109;
-      sub_100005F7C(v108, v109);
+      v106 = v105;
+      sub_100005F7C(v104, v105);
 
 LABEL_55:
-      (*(v6 + 8))(v9, v106);
+      (*(v6 + 8))(v8, v102);
       return;
     }
 
     goto LABEL_74;
   }
 
-  v111 = v6;
-  v117 = v77;
-  v78 = objc_allocWithZone(v17);
+  v107 = v6;
+  v113 = v73;
+  v74 = objc_allocWithZone(v13);
 
-  v79 = UIHostingController.init(rootView:)();
-  v80 = OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureTrailingViewController;
-  v81 = *&v1[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureTrailingViewController];
-  *&v1[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureTrailingViewController] = v79;
-  v82 = v79;
+  v75 = UIHostingController.init(rootView:)();
+  v76 = OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureTrailingViewController;
+  v77 = *&v1[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureTrailingViewController];
+  *&v1[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_systemApertureTrailingViewController] = v75;
+  v78 = v75;
 
-  v83 = [v82 view];
-  if (!v83)
+  v79 = [v78 view];
+  if (!v79)
   {
 LABEL_73:
     __break(1u);
@@ -818,40 +800,40 @@ LABEL_74:
     goto LABEL_75;
   }
 
-  [v83 setTranslatesAutoresizingMaskIntoConstraints:0];
+  [v79 setTranslatesAutoresizingMaskIntoConstraints:0];
 
-  v84 = *&v1[v80];
-  if (!v84)
+  v80 = *&v1[v76];
+  if (!v80)
   {
     goto LABEL_64;
   }
 
-  v85 = [v84 view];
-  if (!v85)
+  v81 = [v80 view];
+  if (!v81)
   {
 LABEL_75:
     __break(1u);
     goto LABEL_76;
   }
 
-  v86 = v85;
-  [v76 bounds];
-  [v86 setFrame:?];
+  v82 = v81;
+  [v72 bounds];
+  [v82 setFrame:?];
 
-  v87 = *&v1[v80];
-  if (!v87)
+  v83 = *&v1[v76];
+  if (!v83)
   {
     goto LABEL_64;
   }
 
-  v88 = v76;
-  v89 = [v87 view];
-  if (v89)
+  v84 = v72;
+  v85 = [v83 view];
+  if (v85)
   {
-    v76 = v89;
-    [v88 addSubview:v89];
+    v72 = v85;
+    [v84 addSubview:v85];
 
-    v6 = v111;
+    v6 = v107;
     goto LABEL_35;
   }
 
@@ -957,10 +939,9 @@ LABEL_31:
   }
 }
 
-uint64_t sub_1000050F0(uint64_t a1)
+uint64_t sub_1000050F0(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
 
   v3 = swift_unknownObjectRetain();
   v2(v3);
@@ -1052,10 +1033,10 @@ id sub_1000054A0(void *a1)
   return v12;
 }
 
-id sub_100005974(uint64_t a1, uint64_t (*a2)(void))
+id sub_100005974(uint64_t a1, uint64_t (*a2)(uint64_t))
 {
   v4.receiver = v2;
-  v4.super_class = a2();
+  v4.super_class = a2(a1);
   return objc_msgSendSuper2(&v4, "dealloc");
 }
 
@@ -1209,7 +1190,6 @@ uint64_t sub_100005E78(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -1289,7 +1269,6 @@ LABEL_3:
 
   else
   {
-    v11 = -1 << *(a1 + 32);
     v3 = _HashTable.startBucket.getter();
     v5 = *(a1 + 36);
     if (v3 == 1 << *(a1 + 32))
@@ -1299,16 +1278,16 @@ LABEL_3:
   }
 
   sub_1000065E8(v3, v5, v2 != 0, a1);
-  v13 = v12;
+  v12 = v11;
   sub_1000065DC(v3, v5, v2 != 0);
-  return v13;
+  return v12;
 }
 
-id sub_1000064DC()
+id sub_1000064DC(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = swift_getObjectType();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = swift_getObjectType();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 unint64_t sub_100006538()
@@ -1337,16 +1316,16 @@ unint64_t sub_100006584()
   return result;
 }
 
-uint64_t sub_1000065DC(uint64_t a1, uint64_t a2, char a3)
+uint64_t sub_1000065DC(uint64_t result, uint64_t a2, char a3)
 {
   if (a3)
   {
   }
 
-  return result;
+  return v3;
 }
 
-void sub_1000065E8(unint64_t a1, int a2, char a3, uint64_t a4)
+void sub_1000065E8(unint64_t a1, uint64_t a2, char a3, uint64_t a4)
 {
   if ((a4 & 0xC000000000000001) != 0)
   {
@@ -1507,16 +1486,15 @@ void sub_100006B00()
 uint64_t sub_100006B60(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v1(v3);
+  v1(v2);
 }
 
-id sub_100006C5C()
+id sub_100006C5C(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for AXUIServerGuestPassActionHandler();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for AXUIServerGuestPassActionHandler();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 unint64_t sub_100006CB4()
@@ -1545,9 +1523,9 @@ unint64_t sub_100006D00()
   return result;
 }
 
-void sub_100006D58(uint64_t a1)
+void sub_100006D58(uint64_t a1, uint64_t a2)
 {
-  v1 = a1;
+  v2 = a1;
   if ((a1 & 0xC000000000000001) != 0)
   {
     swift_unknownObjectRetain();
@@ -1555,41 +1533,41 @@ void sub_100006D58(uint64_t a1)
     sub_100006CB4();
     sub_100006D00();
     Set.Iterator.init(_cocoa:)();
-    v1 = aBlock[6];
-    v2 = aBlock[7];
-    v3 = aBlock[8];
-    v4 = aBlock[9];
-    v5 = aBlock[10];
+    v2 = aBlock[6];
+    v3 = aBlock[7];
+    v4 = aBlock[8];
+    v5 = aBlock[9];
+    v6 = aBlock[10];
   }
 
   else
   {
-    v6 = -1 << *(a1 + 32);
-    v2 = a1 + 56;
-    v3 = ~v6;
-    v7 = -v6;
-    if (v7 < 64)
+    v7 = -1 << *(a1 + 32);
+    v3 = a1 + 56;
+    v4 = ~v7;
+    v8 = -v7;
+    if (v8 < 64)
     {
-      v8 = ~(-1 << v7);
+      v9 = ~(-1 << v8);
     }
 
     else
     {
-      v8 = -1;
+      v9 = -1;
     }
 
-    v5 = v8 & *(a1 + 56);
+    v6 = v9 & *(a1 + 56);
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  v9 = (v3 + 64) >> 6;
-  while (v1 < 0)
+  v10 = (v4 + 64) >> 6;
+  while (v2 < 0)
   {
-    if (!__CocoaSet.Iterator.next()() || (sub_100006CB4(), swift_dynamicCast(), v14 = aBlock[0], v12 = v4, v13 = v5, !aBlock[0]))
+    if (!__CocoaSet.Iterator.next()() || (sub_100006CB4(), swift_dynamicCast(), v15 = aBlock[0], v13 = v5, v14 = v6, !aBlock[0]))
     {
 LABEL_20:
-      sub_100007008();
+      sub_100007008(v2);
       return;
     }
 
@@ -1597,11 +1575,11 @@ LABEL_18:
     type metadata accessor for AXGuestPassMonitorAcceptGestureAction();
     if (swift_dynamicCastClass())
     {
-      v15 = [objc_opt_self() sharedInstance];
-      [v15 acquireAssertionUIIfNeeded];
+      v16 = [objc_opt_self() sharedInstance];
+      [v16 acquireAssertionUIIfNeeded];
 
       type metadata accessor for AXGuestPassAssertionManager();
-      v16 = static AXGuestPassAssertionManager.shared.getter();
+      v17 = static AXGuestPassAssertionManager.shared.getter();
       dispatch thunk of AXGuestPassAssertionManager.receivedAction(action:invalidationHandler:)();
 
       aBlock[4] = sub_100006B00;
@@ -1610,24 +1588,24 @@ LABEL_18:
       aBlock[1] = 1107296256;
       aBlock[2] = sub_100006B60;
       aBlock[3] = &unk_100010A88;
-      v17 = _Block_copy(aBlock);
+      v18 = _Block_copy(aBlock);
       AXPerformBlockOnMainThread();
-      _Block_release(v17);
+      _Block_release(v18);
     }
 
-    v4 = v12;
     v5 = v13;
+    v6 = v14;
   }
 
-  v10 = v4;
   v11 = v5;
-  v12 = v4;
-  if (v5)
+  v12 = v6;
+  v13 = v5;
+  if (v6)
   {
 LABEL_14:
-    v13 = (v11 - 1) & v11;
-    v14 = *(*(v1 + 48) + ((v12 << 9) | (8 * __clz(__rbit64(v11)))));
-    if (!v14)
+    v14 = (v12 - 1) & v12;
+    v15 = *(*(v2 + 48) + ((v13 << 9) | (8 * __clz(__rbit64(v12)))));
+    if (!v15)
     {
       goto LABEL_20;
     }
@@ -1637,20 +1615,20 @@ LABEL_14:
 
   while (1)
   {
-    v12 = v10 + 1;
-    if (__OFADD__(v10, 1))
+    v13 = v11 + 1;
+    if (__OFADD__(v11, 1))
     {
       break;
     }
 
-    if (v12 >= v9)
+    if (v13 >= v10)
     {
       goto LABEL_20;
     }
 
-    v11 = *(v2 + 8 * v12);
-    ++v10;
-    if (v11)
+    v12 = *(v3 + 8 * v13);
+    ++v11;
+    if (v12)
     {
       goto LABEL_14;
     }
@@ -1666,7 +1644,7 @@ uint64_t sub_100007010(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t sub_100007160(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_100007160(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_10000722C(v11, 0, 0, 1, a1, a2);
@@ -1766,11 +1744,9 @@ LABEL_8:
 
 char *sub_100007338(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_100007384(a1, a2);
+  v3 = sub_100007384(a1, a2);
   sub_1000074B4(&off_100010928);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_100007384(uint64_t a1, unint64_t a2)
@@ -1870,7 +1846,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -1884,15 +1859,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_100007614(result, v12, 1, v3);
+  result = sub_100007614(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -1907,15 +1882,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -1924,12 +1899,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -2042,79 +2017,77 @@ void sub_100007708(void *a1, void *a2)
   v3 = v2;
   v6 = type metadata accessor for Logger();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = (__chkstk_darwin)();
-  v11 = &v45 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v9);
-  v13 = &v45 - v12;
+  v8 = __chkstk_darwin(v6);
+  v10 = &v43 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v8);
+  v12 = &v43 - v11;
   type metadata accessor for ActivityScene();
-  v14 = swift_dynamicCastClass();
-  if (v14)
+  v13 = swift_dynamicCastClass();
+  if (v13)
   {
-    v15 = v14;
-    v16 = a1;
+    v14 = v13;
+    v15 = a1;
     if (AXLogUI())
     {
       Logger.init(_:)();
-      v17 = v16;
-      v18 = Logger.logObject.getter();
-      v19 = static os_log_type_t.default.getter();
+      v16 = v15;
+      v17 = Logger.logObject.getter();
+      v18 = static os_log_type_t.default.getter();
 
-      if (os_log_type_enabled(v18, v19))
+      if (os_log_type_enabled(v17, v18))
       {
-        v20 = swift_slowAlloc();
-        v49 = v3;
-        v21 = v20;
-        v22 = swift_slowAlloc();
-        v48 = a2;
-        v23 = v22;
-        v50 = v22;
-        *v21 = 136315138;
-        v24 = [v15 description];
-        v46 = v6;
-        v25 = v24;
-        v26 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v47 = v15;
-        v27 = v26;
-        v29 = v28;
+        v19 = swift_slowAlloc();
+        v47 = v3;
+        v20 = v19;
+        v21 = swift_slowAlloc();
+        v46 = a2;
+        v22 = v21;
+        v48 = v21;
+        *v20 = 136315138;
+        v23 = [v14 description];
+        v44 = v6;
+        v24 = v23;
+        v25 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v45 = v14;
+        v26 = v25;
+        v28 = v27;
 
-        v30 = sub_100007160(v27, v29, &v50);
+        v29 = sub_100007160(v26, v28, &v48);
 
-        *(v21 + 4) = v30;
-        v15 = v47;
-        _os_log_impl(&_mh_execute_header, v18, v19, "AccessibilityUIServerActivitySceneDelegate: Connecting session scene: %s", v21, 0xCu);
-        sub_1000042B0(v23);
-        a2 = v48;
+        *(v20 + 4) = v29;
+        v14 = v45;
+        _os_log_impl(&_mh_execute_header, v17, v18, "AccessibilityUIServerActivitySceneDelegate: Connecting session scene: %s", v20, 0xCu);
+        sub_1000042B0(v22);
+        a2 = v46;
 
-        v3 = v49;
+        v3 = v47;
 
-        (*(v7 + 8))(v13, v46);
+        (*(v7 + 8))(v12, v44);
       }
 
       else
       {
 
-        (*(v7 + 8))(v13, v6);
+        (*(v7 + 8))(v12, v6);
       }
 
-      v34 = v17;
-      if ([v15 SBUI_isHostedBySystemAperture])
+      v33 = v16;
+      if ([v14 SBUI_isHostedBySystemAperture])
       {
-        v35 = OBJC_IVAR____TtC21AccessibilityUIServer42AccessibilityUIServerActivitySceneDelegate_systemApertureElementProvider;
-        v36 = *(v3 + OBJC_IVAR____TtC21AccessibilityUIServer42AccessibilityUIServerActivitySceneDelegate_systemApertureElementProvider);
-        v37 = v15;
-        v38 = [a2 persistentIdentifier];
-        v39 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v41 = v40;
+        v34 = OBJC_IVAR____TtC21AccessibilityUIServer42AccessibilityUIServerActivitySceneDelegate_systemApertureElementProvider;
+        v35 = *(v3 + OBJC_IVAR____TtC21AccessibilityUIServer42AccessibilityUIServerActivitySceneDelegate_systemApertureElementProvider);
+        v36 = v14;
+        v37 = [a2 persistentIdentifier];
+        v38 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v40 = v39;
 
-        v42 = &v36[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_persistentIdentifier];
-        v43 = *&v36[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_persistentIdentifier + 8];
-        *v42 = v39;
-        v42[1] = v41;
+        v41 = &v35[OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_persistentIdentifier];
+        *v41 = v38;
+        v41[1] = v40;
 
-        [*(v3 + v35) loadViewIfNeeded];
-        v44 = *(v3 + v35);
-        [v37 setSystemApertureElementViewControllerProvider:v44];
+        [*(v3 + v34) loadViewIfNeeded];
+        v42 = *(v3 + v34);
+        [v36 setSystemApertureElementViewControllerProvider:v42];
       }
 
       return;
@@ -2132,16 +2105,16 @@ LABEL_15:
   }
 
   Logger.init(_:)();
-  v31 = Logger.logObject.getter();
-  v32 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v31, v32))
+  v30 = Logger.logObject.getter();
+  v31 = static os_log_type_t.error.getter();
+  if (os_log_type_enabled(v30, v31))
   {
-    v33 = swift_slowAlloc();
-    *v33 = 0;
-    _os_log_impl(&_mh_execute_header, v31, v32, "AccessibilityUIServerActivitySceneDelegate: Received a UIScene that is not of type ActivityScene.", v33, 2u);
+    v32 = swift_slowAlloc();
+    *v32 = 0;
+    _os_log_impl(&_mh_execute_header, v30, v31, "AccessibilityUIServerActivitySceneDelegate: Received a UIScene that is not of type ActivityScene.", v32, 2u);
   }
 
-  (*(v7 + 8))(v11, v6);
+  (*(v7 + 8))(v10, v6);
 }
 
 uint64_t sub_100007AD8(uint64_t a1, uint64_t a2)

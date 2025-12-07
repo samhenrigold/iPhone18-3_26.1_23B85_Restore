@@ -12,9 +12,9 @@
   v6 = type metadata accessor for ContentAvailability();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v20 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v10);
-  v12 = &v19 - v11;
+  v12 = &v20 - v11;
   v13 = _Block_copy(handler);
   if (v13)
   {
@@ -41,10 +41,10 @@
   v17 = swift_allocObject();
   *(v17 + 16) = v13;
   *(v17 + 24) = v14;
-  sub_10000B210(v13);
+  sub_10000B210(v13, v14);
   NotificationConsentViewController.continueButtonHandler.setter();
-  sub_1000245E0(v13);
-  (*(v7 + 8))(v12, v6);
+  v18 = sub_1000245E0(v13, v14);
+  (*(v7 + 8))(v12, v6, v18);
 
   return v16;
 }

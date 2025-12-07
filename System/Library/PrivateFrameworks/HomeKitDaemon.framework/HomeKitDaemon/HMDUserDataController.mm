@@ -79,7 +79,7 @@
 
 void __38__HMDUserDataController_timerDidFire___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) sharedZoneFirstLoadTimer];
   LODWORD(v2) = [v2 isEqual:v3];
@@ -92,9 +92,9 @@ void __38__HMDUserDataController_timerDidFire___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = HMFGetLogIdentifier();
-      v19 = 138543362;
-      v20 = v7;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Attempting to recreate data in shared user data zone", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = v7;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Attempting to recreate data in shared user data zone", &v18, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -116,9 +116,9 @@ void __38__HMDUserDataController_timerDidFire___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         v15 = HMFGetLogIdentifier();
-        v19 = 138543362;
-        v20 = v15;
-        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Attempting to recreate data in private user data zone", &v19, 0xCu);
+        v18 = 138543362;
+        v19 = v15;
+        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Attempting to recreate data in private user data zone", &v18, 0xCu);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -131,23 +131,21 @@ void __38__HMDUserDataController_timerDidFire___block_invoke(uint64_t a1)
       {
         v16 = HMFGetLogIdentifier();
         v17 = *(a1 + 32);
-        v19 = 138543618;
-        v20 = v16;
-        v21 = 2112;
-        v22 = v17;
-        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Unexpected timer fired %@", &v19, 0x16u);
+        v18 = 138543618;
+        v19 = v16;
+        v20 = 2112;
+        v21 = v17;
+        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Unexpected timer fired %@", &v18, 0x16u);
       }
 
       objc_autoreleasePoolPop(v11);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userListeningHistoryUpdateControlModelRemoved:(id)removed
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   clientQueue = [(HMDUserDataController *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
@@ -158,21 +156,19 @@ void __38__HMDUserDataController_timerDidFire___block_invoke(uint64_t a1)
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@user update listening history access control was removed", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@user update listening history access control was removed", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
   v10 = [MEMORY[0x277CBEB58] set];
   [(HMDUserDataController *)selfCopy setUserListeningHistoryUpdateControlModelAccessories:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userListeningHistoryUpdateControlModelUpdated:(id)updated previousModel:(id)model
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   modelCopy = model;
   clientQueue = [(HMDUserDataController *)self clientQueue];
@@ -202,11 +198,11 @@ void __38__HMDUserDataController_timerDidFire___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       v17 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v17;
-      v22 = 2112;
-      v23 = v11;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Updating listening history update accessories to %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v17;
+      v21 = 2112;
+      v22 = v11;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Updating listening history update accessories to %@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
@@ -214,13 +210,11 @@ void __38__HMDUserDataController_timerDidFire___block_invoke(uint64_t a1)
     delegate = [(HMDUserDataController *)selfCopy delegate];
     [delegate userDataControllerDidUpdateUserListeningHistoryUpdateControl:selfCopy];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mediaContentProfileAccessControlModelRemoved:(id)removed
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   clientQueue = [(HMDUserDataController *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
@@ -231,21 +225,19 @@ void __38__HMDUserDataController_timerDidFire___block_invoke(uint64_t a1)
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Media content profile access control was removed", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Media content profile access control was removed", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
   v10 = [MEMORY[0x277CBEB58] set];
   [(HMDUserDataController *)selfCopy setMediaContentProfileAccessControlAccessories:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)mediaContentProfileAccessControlModelUpdated:(id)updated previousModel:(id)model
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   modelCopy = model;
   clientQueue = [(HMDUserDataController *)self clientQueue];
@@ -266,11 +258,11 @@ void __38__HMDUserDataController_timerDidFire___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       v17 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v17;
-      v22 = 2112;
-      v23 = v11;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Updating media content profile access control to %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v17;
+      v21 = 2112;
+      v22 = v11;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Updating media content profile access control to %@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
@@ -278,8 +270,6 @@ void __38__HMDUserDataController_timerDidFire___block_invoke(uint64_t a1)
     delegate = [(HMDUserDataController *)selfCopy delegate];
     [delegate userDataControllerDidUpdateMediaContentProfile:selfCopy];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)sharedUserSettingsLogEventBackingStoreControllerRunState
@@ -293,7 +283,7 @@ void __38__HMDUserDataController_timerDidFire___block_invoke(uint64_t a1)
 
 - (void)assistantAccessControlModelRemoved:(id)removed
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   clientQueue = [(HMDUserDataController *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
@@ -304,18 +294,17 @@ void __38__HMDUserDataController_timerDidFire___block_invoke(uint64_t a1)
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Assistant access control was removed", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Assistant access control was removed", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assistantAccessControlModelUpdated:(id)updated previousModel:(id)model
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   modelCopy = model;
   clientQueue = [(HMDUserDataController *)self clientQueue];
@@ -354,13 +343,13 @@ LABEL_7:
     {
       v20 = HMFGetLogIdentifier();
       requiresAuthenticationForSecureRequests2 = [updatedCopy requiresAuthenticationForSecureRequests];
-      v29 = 138543874;
-      v30 = v20;
-      v31 = 2112;
-      v32 = requiresAuthenticationForSecureRequests2;
-      v33 = 2112;
-      v34 = v13;
-      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Updating assistant access control on zone update to require auth: %@, accessories:%@", &v29, 0x20u);
+      v28 = 138543874;
+      v29 = v20;
+      v30 = 2112;
+      v31 = requiresAuthenticationForSecureRequests2;
+      v32 = 2112;
+      v33 = v13;
+      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Updating assistant access control on zone update to require auth: %@, accessories:%@", &v28, 0x20u);
     }
 
     objc_autoreleasePoolPop(v17);
@@ -380,28 +369,26 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v25 = objc_autoreleasePoolPush();
+  v24 = objc_autoreleasePoolPush();
   selfCopy2 = self;
-  v27 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+  v26 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
   {
-    v28 = HMFGetLogIdentifier();
-    v29 = 138543618;
-    v30 = v28;
-    v31 = 2112;
-    v32 = updatedCopy;
-    _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_INFO, "%{public}@Model in zone update has no changes %@", &v29, 0x16u);
+    v27 = HMFGetLogIdentifier();
+    v28 = 138543618;
+    v29 = v27;
+    v30 = 2112;
+    v31 = updatedCopy;
+    _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Model in zone update has no changes %@", &v28, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v25);
+  objc_autoreleasePoolPop(v24);
 LABEL_10:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sharedUserDataModelUpdated:(id)updated previousModel:(id)model
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   modelCopy = model;
   clientQueue = [(HMDUserDataController *)self clientQueue];
@@ -420,7 +407,7 @@ LABEL_10:
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v46 = v15;
+      v45 = v15;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@User Shared model changed, but no diff in ULH uuid", buf, 0xCu);
     }
 
@@ -441,11 +428,11 @@ LABEL_10:
       [updatedCopy userListeningHistoryUpdateControlModelUUID];
       v24 = v23 = modelCopy;
       *buf = 138543874;
-      v46 = v21;
-      v47 = 2112;
-      v48 = userListeningHistoryUpdateControlModelUUID3;
-      v49 = 2112;
-      v50 = v24;
+      v45 = v21;
+      v46 = 2112;
+      v47 = userListeningHistoryUpdateControlModelUUID3;
+      v48 = 2112;
+      v49 = v24;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Registering and Loading user listening history update since the UUID flipped from =%@, to =%@", buf, 0x20u);
 
       modelCopy = v23;
@@ -456,9 +443,9 @@ LABEL_10:
     [(HMDUserDataController *)selfCopy2 setUserListeningHistoryUpdateControlModelUUID:userListeningHistoryUpdateControlModelUUID4];
 
     userListeningHistoryUpdateControlModelUUID5 = [(HMDUserDataController *)selfCopy2 userListeningHistoryUpdateControlModelUUID];
-    v44 = 0;
-    v27 = [v17 loadUserListeningHistoryUpdateControlModelWithModelID:userListeningHistoryUpdateControlModelUUID5 error:&v44];
-    v28 = v44;
+    v43 = 0;
+    v27 = [v17 loadUserListeningHistoryUpdateControlModelWithModelID:userListeningHistoryUpdateControlModelUUID5 error:&v43];
+    v28 = v43;
 
     userListeningHistoryUpdateControlModelUUID6 = [(HMDUserDataController *)selfCopy2 userListeningHistoryUpdateControlModelUUID];
     [v17 registerForUserListeningHistoryUpdateControlModelUpdates:selfCopy2 modelID:userListeningHistoryUpdateControlModelUUID6];
@@ -472,19 +459,19 @@ LABEL_10:
       if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
       {
         HMFGetLogIdentifier();
-        v43 = delegate;
+        v42 = delegate;
         v34 = v28;
         v36 = v35 = modelCopy;
         accessories = [v27 accessories];
         *buf = 138543618;
-        v46 = v36;
-        v47 = 2112;
-        v48 = accessories;
+        v45 = v36;
+        v46 = 2112;
+        v47 = accessories;
         _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_INFO, "%{public}@Loaded user listening history update accessories %@", buf, 0x16u);
 
         modelCopy = v35;
         v28 = v34;
-        delegate = v43;
+        delegate = v42;
       }
 
       objc_autoreleasePoolPop(v30);
@@ -502,17 +489,15 @@ LABEL_10:
       {
         v41 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v46 = v41;
-        v47 = 2112;
-        v48 = v28;
+        v45 = v41;
+        v46 = 2112;
+        v47 = v28;
         _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@Unable to load update listening history accessories %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v30);
     }
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (id)updateListeningHistoryModelToReset
@@ -563,7 +548,7 @@ LABEL_10:
 
 - (void)enableUserListeningHistoryForAccessory:(id)accessory
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   userListeningHistoryUpdateControlModelAccessories = [(HMDUserDataController *)self userListeningHistoryUpdateControlModelAccessories];
   if ([userListeningHistoryUpdateControlModelAccessories containsObject:accessoryCopy])
@@ -575,9 +560,9 @@ LABEL_10:
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v17 = v9;
-      v18 = 2112;
-      v19 = accessoryCopy;
+      v16 = v9;
+      v17 = 2112;
+      v18 = accessoryCopy;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@ULH for accessory %@ is already enabled", buf, 0x16u);
     }
 
@@ -591,21 +576,19 @@ LABEL_10:
     allObjects = [userListeningHistoryUpdateControlModelAccessories allObjects];
     v12 = [v10 arrayWithObjects:{allObjects, 0}];
 
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __64__HMDUserDataController_enableUserListeningHistoryForAccessory___block_invoke;
-    v14[3] = &unk_27868A1D8;
-    v14[4] = self;
-    v15 = accessoryCopy;
-    [(HMDUserDataController *)self handleUserListeningHistoryUpdateControlUpdatedAccessoryUUIDs:v12 completion:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __64__HMDUserDataController_enableUserListeningHistoryForAccessory___block_invoke;
+    v13[3] = &unk_27868A1D8;
+    v13[4] = self;
+    v14 = accessoryCopy;
+    [(HMDUserDataController *)self handleUserListeningHistoryUpdateControlUpdatedAccessoryUUIDs:v12 completion:v13];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HMDUserDataController_enableUserListeningHistoryForAccessory___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -616,19 +599,17 @@ void __64__HMDUserDataController_enableUserListeningHistoryForAccessory___block_
     {
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
-      v10 = 138543874;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v3;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Enabling ULH for accessory %@ failed with %@", &v10, 0x20u);
+      v9 = 138543874;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v3;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Enabling ULH for accessory %@ failed with %@", &v9, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleUserListeningHistoryUpdateControlUpdatedAccessoryUUIDs:(id)ds completion:(id)completion
@@ -708,7 +689,7 @@ void __64__HMDUserDataController_enableUserListeningHistoryForAccessory___block_
 
 - (void)_startPrivateZoneFirstLoadTimer
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   clientQueue = [(HMDUserDataController *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
 
@@ -730,24 +711,22 @@ void __64__HMDUserDataController_enableUserListeningHistoryForAccessory___block_
     {
       v11 = HMFGetLogIdentifier();
       privateZoneFirstLoadTimer3 = [(HMDUserDataController *)selfCopy privateZoneFirstLoadTimer];
-      v15 = 138543618;
-      v16 = v11;
-      v17 = 2112;
-      v18 = privateZoneFirstLoadTimer3;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Starting timer to perform first run operations on shared zone. %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v11;
+      v16 = 2112;
+      v17 = privateZoneFirstLoadTimer3;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Starting timer to perform first run operations on shared zone. %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     privateZoneFirstLoadTimer4 = [(HMDUserDataController *)selfCopy privateZoneFirstLoadTimer];
     [privateZoneFirstLoadTimer4 resume];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performFirstRunOperationsOnPrivateZoneController:(id)controller
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   clientQueue = [(HMDUserDataController *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
@@ -758,13 +737,12 @@ void __64__HMDUserDataController_enableUserListeningHistoryForAccessory___block_
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@HMDUserDataController: Code disabled as we are running in HH2", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@HMDUserDataController: Code disabled as we are running in HH2", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidateSharedZoneFirstLoadTimer
@@ -777,7 +755,7 @@ void __64__HMDUserDataController_enableUserListeningHistoryForAccessory___block_
 
 - (void)_startSharedZoneFirstLoadTimer
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   clientQueue = [(HMDUserDataController *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
 
@@ -799,24 +777,22 @@ void __64__HMDUserDataController_enableUserListeningHistoryForAccessory___block_
     {
       v11 = HMFGetLogIdentifier();
       sharedZoneFirstLoadTimer3 = [(HMDUserDataController *)selfCopy sharedZoneFirstLoadTimer];
-      v15 = 138543618;
-      v16 = v11;
-      v17 = 2112;
-      v18 = sharedZoneFirstLoadTimer3;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Starting timer to perform first run operations on shared zone. %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v11;
+      v16 = 2112;
+      v17 = sharedZoneFirstLoadTimer3;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Starting timer to perform first run operations on shared zone. %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     sharedZoneFirstLoadTimer4 = [(HMDUserDataController *)selfCopy sharedZoneFirstLoadTimer];
     [sharedZoneFirstLoadTimer4 resume];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performFirstRunOperationsOnSharedZoneController:(id)controller
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -824,13 +800,12 @@ void __64__HMDUserDataController_enableUserListeningHistoryForAccessory___block_
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@In HH2: Not running performFirstRunOperationsOnSharedZoneController", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@In HH2: Not running performFirstRunOperationsOnSharedZoneController", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initializePrivateZoneController:(id)controller userDataModel:(id)model
@@ -846,7 +821,7 @@ void __64__HMDUserDataController_enableUserListeningHistoryForAccessory___block_
 
 - (void)initializeSharedZoneController:(id)controller userDataModel:(id)model
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   modelCopy = model;
   clientQueue = [(HMDUserDataController *)self clientQueue];
@@ -884,17 +859,17 @@ void __64__HMDUserDataController_enableUserListeningHistoryForAccessory___block_
     v20 = HMFGetLogIdentifier();
     assistantAccessControlModelUUID3 = [(HMDUserDataController *)selfCopy assistantAccessControlModelUUID];
     *buf = 138543618;
-    v84 = v20;
-    v85 = 2112;
-    v86 = assistantAccessControlModelUUID3;
+    v83 = v20;
+    v84 = 2112;
+    v85 = assistantAccessControlModelUUID3;
     _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Loading assistant access control model %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v17);
   assistantAccessControlModelUUID4 = [(HMDUserDataController *)selfCopy assistantAccessControlModelUUID];
-  v82 = 0;
-  v23 = [controllerCopy loadAssistantAccessControlModelWithModelID:assistantAccessControlModelUUID4 error:&v82];
-  v24 = v82;
+  v81 = 0;
+  v23 = [controllerCopy loadAssistantAccessControlModelWithModelID:assistantAccessControlModelUUID4 error:&v81];
+  v24 = v81;
 
   v25 = objc_autoreleasePoolPush();
   v26 = selfCopy;
@@ -907,25 +882,25 @@ void __64__HMDUserDataController_enableUserListeningHistoryForAccessory___block_
     {
       v30 = HMFGetLogIdentifier();
       [v23 requiresAuthenticationForSecureRequests];
-      v79 = controllerCopy;
+      v78 = controllerCopy;
       v31 = v24;
       v33 = v32 = modelCopy;
       activityNotificationsEnabledForPersonalRequests = [v23 activityNotificationsEnabledForPersonalRequests];
       accessoryUUIDs = [v23 accessoryUUIDs];
       *buf = 138544130;
-      v84 = v30;
-      v85 = 2112;
-      v86 = v33;
-      v87 = 2112;
-      v88 = activityNotificationsEnabledForPersonalRequests;
-      v89 = 2112;
-      v90 = accessoryUUIDs;
+      v83 = v30;
+      v84 = 2112;
+      v85 = v33;
+      v86 = 2112;
+      v87 = activityNotificationsEnabledForPersonalRequests;
+      v88 = 2112;
+      v89 = accessoryUUIDs;
       _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@Loaded assistant access control requires auth: %@, activity notifications enabled for personal requests: %@, accessories: %@", buf, 0x2Au);
 
       v29 = 0x277CBE000uLL;
       modelCopy = v32;
       v24 = v31;
-      controllerCopy = v79;
+      controllerCopy = v78;
     }
 
     objc_autoreleasePoolPop(v25);
@@ -958,9 +933,9 @@ void __64__HMDUserDataController_enableUserListeningHistoryForAccessory___block_
     {
       v41 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v84 = v41;
-      v85 = 2112;
-      v86 = v24;
+      v83 = v41;
+      v84 = 2112;
+      v85 = v24;
       _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Unable to load assistant access control %@", buf, 0x16u);
     }
 
@@ -975,17 +950,17 @@ void __64__HMDUserDataController_enableUserListeningHistoryForAccessory___block_
     v45 = HMFGetLogIdentifier();
     mediaContentProfileAccessControlModelUUID3 = [(HMDUserDataController *)v43 mediaContentProfileAccessControlModelUUID];
     *buf = 138543618;
-    v84 = v45;
-    v85 = 2112;
-    v86 = mediaContentProfileAccessControlModelUUID3;
+    v83 = v45;
+    v84 = 2112;
+    v85 = mediaContentProfileAccessControlModelUUID3;
     _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_INFO, "%{public}@Loading media content profile access control model %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v42);
   mediaContentProfileAccessControlModelUUID4 = [(HMDUserDataController *)v43 mediaContentProfileAccessControlModelUUID];
-  v81 = 0;
-  v48 = [controllerCopy loadMediaContentAccessControlModelWithModelID:mediaContentProfileAccessControlModelUUID4 error:&v81];
-  v49 = v81;
+  v80 = 0;
+  v48 = [controllerCopy loadMediaContentAccessControlModelWithModelID:mediaContentProfileAccessControlModelUUID4 error:&v80];
+  v49 = v80;
 
   v50 = objc_autoreleasePoolPush();
   v51 = v43;
@@ -998,9 +973,9 @@ void __64__HMDUserDataController_enableUserListeningHistoryForAccessory___block_
       v54 = HMFGetLogIdentifier();
       accessories = [v48 accessories];
       *buf = 138543618;
-      v84 = v54;
-      v85 = 2112;
-      v86 = accessories;
+      v83 = v54;
+      v84 = 2112;
+      v85 = accessories;
       _os_log_impl(&dword_229538000, v53, OS_LOG_TYPE_INFO, "%{public}@Loaded media content profile access control accessories %@", buf, 0x16u);
     }
 
@@ -1017,9 +992,9 @@ void __64__HMDUserDataController_enableUserListeningHistoryForAccessory___block_
     {
       v59 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v84 = v59;
-      v85 = 2112;
-      v86 = v49;
+      v83 = v59;
+      v84 = 2112;
+      v85 = v49;
       _os_log_impl(&dword_229538000, v53, OS_LOG_TYPE_ERROR, "%{public}@Unable to load media content profile accessories %@", buf, 0x16u);
     }
 
@@ -1034,17 +1009,17 @@ void __64__HMDUserDataController_enableUserListeningHistoryForAccessory___block_
     v63 = HMFGetLogIdentifier();
     userListeningHistoryUpdateControlModelUUID3 = [(HMDUserDataController *)v61 userListeningHistoryUpdateControlModelUUID];
     *buf = 138543618;
-    v84 = v63;
-    v85 = 2112;
-    v86 = userListeningHistoryUpdateControlModelUUID3;
+    v83 = v63;
+    v84 = 2112;
+    v85 = userListeningHistoryUpdateControlModelUUID3;
     _os_log_impl(&dword_229538000, v62, OS_LOG_TYPE_INFO, "%{public}@Loading user listening history update model %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v60);
   userListeningHistoryUpdateControlModelUUID4 = [(HMDUserDataController *)v61 userListeningHistoryUpdateControlModelUUID];
-  v80 = 0;
-  v66 = [controllerCopy loadUserListeningHistoryUpdateControlModelWithModelID:userListeningHistoryUpdateControlModelUUID4 error:&v80];
-  v67 = v80;
+  v79 = 0;
+  v66 = [controllerCopy loadUserListeningHistoryUpdateControlModelWithModelID:userListeningHistoryUpdateControlModelUUID4 error:&v79];
+  v67 = v79;
 
   v68 = objc_autoreleasePoolPush();
   v69 = v61;
@@ -1057,9 +1032,9 @@ void __64__HMDUserDataController_enableUserListeningHistoryForAccessory___block_
       v72 = HMFGetLogIdentifier();
       accessories3 = [v66 accessories];
       *buf = 138543618;
-      v84 = v72;
-      v85 = 2112;
-      v86 = accessories3;
+      v83 = v72;
+      v84 = 2112;
+      v85 = accessories3;
       _os_log_impl(&dword_229538000, v71, OS_LOG_TYPE_INFO, "%{public}@Loaded user listening history update accessories %@", buf, 0x16u);
     }
 
@@ -1076,21 +1051,19 @@ void __64__HMDUserDataController_enableUserListeningHistoryForAccessory___block_
     {
       v77 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v84 = v77;
-      v85 = 2112;
-      v86 = v67;
+      v83 = v77;
+      v84 = 2112;
+      v85 = v67;
       _os_log_impl(&dword_229538000, v71, OS_LOG_TYPE_ERROR, "%{public}@Unable to load update listening history accessories %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v68);
   }
-
-  v78 = *MEMORY[0x277D85DE8];
 }
 
 - (void)eventDidInitializeSharedZone
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   clientQueue = [(HMDUserDataController *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
 
@@ -1114,9 +1087,9 @@ void __64__HMDUserDataController_enableUserListeningHistoryForAccessory___block_
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       v19 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v19;
-      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Moving to initialized on initializing shared zone", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v19;
+      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Moving to initialized on initializing shared zone", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v16);
@@ -1135,9 +1108,9 @@ LABEL_16:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v13;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Moving to pending private on initializing shared zone", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v13;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Moving to pending private on initializing shared zone", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -1159,22 +1132,21 @@ LABEL_7:
   {
     v8 = HMFGetLogIdentifier();
     v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDUserDataController state](selfCopy3, "state")}];
-    v21 = 138543618;
-    v22 = v8;
-    v23 = 2112;
-    v24 = v9;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Unexpected from state on init shared zone event %@", &v21, 0x16u);
+    v20 = 138543618;
+    v21 = v8;
+    v22 = 2112;
+    v23 = v9;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Unexpected from state on init shared zone event %@", &v20, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
 LABEL_17:
   self->_isModifyingState = 0;
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)eventDidInitializePrivateZone
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   clientQueue = [(HMDUserDataController *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
 
@@ -1189,11 +1161,11 @@ LABEL_17:
     {
       v14 = HMFGetLogIdentifier();
       v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDUserDataController state](selfCopy, "state")}];
-      v21 = 138543618;
-      v22 = v14;
-      v23 = 2112;
-      v24 = v15;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unexpected from state on init private zone event %@", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v14;
+      v22 = 2112;
+      v23 = v15;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unexpected from state on init private zone event %@", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -1209,9 +1181,9 @@ LABEL_17:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         v19 = HMFGetLogIdentifier();
-        v21 = 138543362;
-        v22 = v19;
-        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Moving to initialized on initializing private zone", &v21, 0xCu);
+        v20 = 138543362;
+        v21 = v19;
+        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Moving to initialized on initializing private zone", &v20, 0xCu);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -1228,9 +1200,9 @@ LABEL_17:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = HMFGetLogIdentifier();
-        v21 = 138543362;
-        v22 = v8;
-        _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Moving to pending shared on initializing private zone", &v21, 0xCu);
+        v20 = 138543362;
+        v21 = v8;
+        _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Moving to pending shared on initializing private zone", &v20, 0xCu);
       }
 
       objc_autoreleasePoolPop(v5);
@@ -1242,43 +1214,41 @@ LABEL_13:
   }
 
   self->_isModifyingState = 0;
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setState:(unint64_t)state
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   clientQueue = [(HMDUserDataController *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
 
   os_unfair_lock_lock_with_options();
   if (self->_state == state)
   {
-    v6 = *MEMORY[0x277D85DE8];
 
     os_unfair_lock_unlock(&self->_lock);
   }
 
   else
   {
-    v7 = objc_autoreleasePoolPush();
+    v6 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v9 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v8 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v10 = HMFGetLogIdentifier();
-      v11 = HMDUserDataControllerStateAsString(self->_state);
-      v12 = HMDUserDataControllerStateAsString(state);
-      v15 = 138543874;
+      v9 = HMFGetLogIdentifier();
+      v10 = HMDUserDataControllerStateAsString(self->_state);
+      v11 = HMDUserDataControllerStateAsString(state);
+      v13 = 138543874;
+      v14 = v9;
+      v15 = 2112;
       v16 = v10;
       v17 = 2112;
       v18 = v11;
-      v19 = 2112;
-      v20 = v12;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Moving state from %@ to %@", &v15, 0x20u);
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Moving state from %@ to %@", &v13, 0x20u);
     }
 
-    objc_autoreleasePoolPop(v7);
+    objc_autoreleasePoolPop(v6);
     self->_state = state;
     os_unfair_lock_unlock(&self->_lock);
     if (state == 1)
@@ -1286,8 +1256,6 @@ LABEL_13:
       notificationCenter = [(HMDUserDataController *)selfCopy notificationCenter];
       [notificationCenter postNotificationName:@"HMDUserDataControllerInitializedNotificationKey" object:selfCopy];
     }
-
-    v14 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -1303,7 +1271,7 @@ LABEL_13:
 {
   userListeningHistoryUpdateControlModelAccessories = [(HMDUserDataController *)self userListeningHistoryUpdateControlModelAccessories];
   allObjects = [userListeningHistoryUpdateControlModelAccessories allObjects];
-  v4 = [allObjects copy];
+  v4 = objc_msgSend_copy(allObjects);
 
   return v4;
 }
@@ -1312,7 +1280,7 @@ LABEL_13:
 {
   mediaContentProfileAccessControlAccessories = [(HMDUserDataController *)self mediaContentProfileAccessControlAccessories];
   allObjects = [mediaContentProfileAccessControlAccessories allObjects];
-  v4 = [allObjects copy];
+  v4 = objc_msgSend_copy(allObjects);
 
   return v4;
 }
@@ -1323,7 +1291,7 @@ LABEL_13:
   {
     assistantAccessControlAccessoryUUIDs = [(HMDUserDataController *)self assistantAccessControlAccessoryUUIDs];
     allObjects = [assistantAccessControlAccessoryUUIDs allObjects];
-    v5 = [allObjects copy];
+    v5 = objc_msgSend_copy(allObjects);
   }
 
   else
@@ -1427,10 +1395,9 @@ void __34__HMDUserDataController_configure__block_invoke(uint64_t a1)
 
 void __36__HMDUserDataController_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v42;
-  logCategory__hmf_once_v42 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v42;
+  logCategory__hmf_once_v42 = v0;
 }
 
 @end

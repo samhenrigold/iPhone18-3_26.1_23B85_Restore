@@ -281,7 +281,7 @@ void __46__SBHIDEventDispatchController_sharedInstance__block_invoke()
   hardwareIdentifier = [displayCopy hardwareIdentifier];
   if (!hardwareIdentifier)
   {
-    [SBHIDEventDispatchController configureDispatchRootsForChamoisDisplay:a2];
+    [(SBHIDEventDispatchController *)a2 configureDispatchRootsForChamoisDisplay:?];
   }
 
   v7 = hardwareIdentifier;
@@ -341,7 +341,7 @@ void __72__SBHIDEventDispatchController_configureDispatchRootsForChamoisDisplay_
   hardwareIdentifier = [displayCopy hardwareIdentifier];
   if (!hardwareIdentifier)
   {
-    [SBHIDEventDispatchController configureDispatchRootsForContinuityDisplay:a2];
+    [(SBHIDEventDispatchController *)a2 configureDispatchRootsForContinuityDisplay:?];
   }
 
   v7 = hardwareIdentifier;
@@ -499,46 +499,46 @@ void __72__SBHIDEventDispatchController_configureDispatchRootsForChamoisDisplay_
   [v3 invalidate];
 }
 
-- (void)configureDispatchRootsForChamoisDisplay:(const char *)a1 .cold.1(const char *a1)
+- (void)configureDispatchRootsForChamoisDisplay:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"hardwareIdentifier"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"hardwareIdentifier"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v8 = @"SBHIDEventDispatchController.m";
-    v9 = 1024;
-    v10 = 370;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"SBHIDEventDispatchController.m";
+    v10 = 1024;
+    v11 = 370;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_21ED4E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)configureDispatchRootsForContinuityDisplay:(const char *)a1 .cold.1(const char *a1)
+- (void)configureDispatchRootsForContinuityDisplay:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"hardwareIdentifier"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"hardwareIdentifier"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v8 = @"SBHIDEventDispatchController.m";
-    v9 = 1024;
-    v10 = 401;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"SBHIDEventDispatchController.m";
+    v10 = 1024;
+    v11 = 401;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_21ED4E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

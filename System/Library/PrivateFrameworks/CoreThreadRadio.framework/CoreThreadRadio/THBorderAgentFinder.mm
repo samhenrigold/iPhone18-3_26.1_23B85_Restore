@@ -48,7 +48,7 @@
   NSLog(@"%s:%d: Stop Scan browser Tag : %@", a2, "[THBorderAgentFinder stop]", 42, self->_browser);
   browser = self->_browser;
 
-  [(NSNetServiceBrowser *)browser stop];
+  objc_msgSend_stop(browser);
 }
 
 - (id)getAgentDescription:(unint64_t)description

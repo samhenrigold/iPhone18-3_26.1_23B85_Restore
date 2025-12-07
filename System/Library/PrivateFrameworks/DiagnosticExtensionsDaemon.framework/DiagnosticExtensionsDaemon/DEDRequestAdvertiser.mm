@@ -77,11 +77,11 @@ uint64_t __38__DEDRequestAdvertiser_sharedInstance__block_invoke()
     advertiser = [(DEDRequestAdvertiser *)self advertiser];
     [advertiser startAdvertisingPeer];
 
-    v16 = Log_3();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v17 = Log_3(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      *v17 = 0;
-      _os_log_impl(&dword_248AD7000, v16, OS_LOG_TYPE_INFO, "Request advertiser started", v17, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_248AD7000, v17, OS_LOG_TYPE_INFO, "Request advertiser started", v18, 2u);
     }
   }
 }
@@ -103,11 +103,11 @@ uint64_t __38__DEDRequestAdvertiser_sharedInstance__block_invoke()
   session = self->_session;
   self->_session = 0;
 
-  v8 = Log_3();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = Log_3(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    *v9 = 0;
-    _os_log_impl(&dword_248AD7000, v8, OS_LOG_TYPE_INFO, "Request advertiser stopped", v9, 2u);
+    *v10 = 0;
+    _os_log_impl(&dword_248AD7000, v9, OS_LOG_TYPE_INFO, "Request advertiser stopped", v10, 2u);
   }
 }
 
@@ -122,14 +122,14 @@ uint64_t __38__DEDRequestAdvertiser_sharedInstance__block_invoke()
       session = [(DEDRequestAdvertiser *)self session];
       session2 = [(DEDRequestAdvertiser *)self session];
       connectedPeers = [session2 connectedPeers];
-      v11 = 0;
-      [session sendData:v5 toPeers:connectedPeers withMode:0 error:&v11];
-      v9 = v11;
+      v12 = 0;
+      [session sendData:v5 toPeers:connectedPeers withMode:0 error:&v12];
+      v9 = v12;
 
       if (v9)
       {
-        v10 = Log_3();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v11 = Log_3(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           [DEDRequestAdvertiser broadcastRecord:recordCopy];
         }
@@ -138,7 +138,7 @@ uint64_t __38__DEDRequestAdvertiser_sharedInstance__block_invoke()
 
     else
     {
-      v9 = Log_3();
+      v9 = Log_3(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [DEDRequestAdvertiser broadcastRecord:recordCopy];
@@ -166,8 +166,8 @@ uint64_t __38__DEDRequestAdvertiser_sharedInstance__block_invoke()
 
       if (v11)
       {
-        v12 = Log_3();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = Log_3(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           [DEDRequestAdvertiser sendRecord:recordCopy toPeer:peerCopy];
         }
@@ -176,15 +176,13 @@ uint64_t __38__DEDRequestAdvertiser_sharedInstance__block_invoke()
 
     else
     {
-      v11 = Log_3();
+      v11 = Log_3(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [DEDRequestAdvertiser sendRecord:recordCopy toPeer:?];
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)encodeRequestRecordAsJSON:(id)n
@@ -271,16 +269,15 @@ uint64_t __38__DEDRequestAdvertiser_sharedInstance__block_invoke()
   v28 = 0;
   v22 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v21 options:0 error:&v28];
   v23 = v28;
+  v24 = v23;
   if (v23)
   {
-    v24 = Log_3();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = Log_3(v23);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      [(DEDRequestAdvertiser *)nCopy encodeRequestRecordAsJSON:v23];
+      [(DEDRequestAdvertiser *)nCopy encodeRequestRecordAsJSON:v24];
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -317,16 +314,17 @@ uint64_t __50__DEDRequestAdvertiser_encodeRequestRecordAsJSON___block_invoke()
   peerCopy = peer;
   handlerCopy = handler;
   v10 = +[DEDUtils isDebugRequestsEnabled];
-  v11 = Log_3();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-  if (v10)
+  v11 = v10;
+  v12 = Log_3(v10);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  if (v11)
   {
-    if (v12)
+    if (v13)
     {
       displayName = [peerCopy displayName];
       v17 = 138412290;
       v18 = displayName;
-      _os_log_impl(&dword_248AD7000, v11, OS_LOG_TYPE_DEFAULT, "Connecting to Request Debugger: [%@]", &v17, 0xCu);
+      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "Connecting to Request Debugger: [%@]", &v17, 0xCu);
     }
 
     session = [(DEDRequestAdvertiser *)self session];
@@ -337,72 +335,55 @@ uint64_t __50__DEDRequestAdvertiser_encodeRequestRecordAsJSON___block_invoke()
 
   else
   {
-    if (v12)
+    if (v13)
     {
       displayName2 = [peerCopy displayName];
       v17 = 138412290;
       v18 = displayName2;
-      _os_log_impl(&dword_248AD7000, v11, OS_LOG_TYPE_DEFAULT, "Debug requests are disabled, but we got an invitation from [%@]", &v17, 0xCu);
+      _os_log_impl(&dword_248AD7000, v12, OS_LOG_TYPE_DEFAULT, "Debug requests are disabled, but we got an invitation from [%@]", &v17, 0xCu);
     }
 
     handlerCopy[2](handlerCopy, 0, 0);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)broadcastRecord:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 URL];
+  v6 = [a1 URL];
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)broadcastRecord:(void *)a1 .cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 URL];
+  v6 = [a1 URL];
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendRecord:(void *)a1 toPeer:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = [a1 URL];
   v4 = [a2 displayName];
   OUTLINED_FUNCTION_1_6();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendRecord:(void *)a1 toPeer:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [a1 URL];
+  v6 = [a1 URL];
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeRequestRecordAsJSON:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = [a1 URL];
   v4 = [a2 localizedDescription];
   OUTLINED_FUNCTION_1_6();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

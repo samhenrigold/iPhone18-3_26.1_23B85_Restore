@@ -3,7 +3,7 @@
 
 @implementation AXSSpeechSettingsDisabledByManagedConfiguration
 
-uint64_t ___AXSSpeechSettingsDisabledByManagedConfiguration_block_invoke()
+void *___AXSSpeechSettingsDisabledByManagedConfiguration_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

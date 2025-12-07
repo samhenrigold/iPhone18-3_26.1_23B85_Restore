@@ -949,7 +949,7 @@ void __69__SBFluidSwitcherViewController__updateCornerRadiiiAndMaximizedState__b
   v8 = [*(*(a1 + 32) + 1320) objectForKey:v5];
 
   v9 = [*(a1 + 32) maximizedCenteredAndUnoccludedDisplayItemsInAppLayout:v8 ignoreOcclusion:1 ignoreCentering:1];
-  [v14 setMaximized:{objc_msgSend(v9, "containsObject:", v7)}];
+  [v14 setMaximized:objc_msgSend_containsObject_(v9)];
   if (*(a1 + 40) == 1)
   {
     [*(a1 + 32) bestSupportedDefaultCornerRadiusForDisplayItem:v7];
@@ -996,7 +996,7 @@ void __72__SBFluidSwitcherViewController__updateOverlaysTopAffordanceContextMenu
     v11 = *(a1 + 32);
     if (v11[264])
     {
-      [v11[264] windowControlsLayoutForLeafAppLayout:v5];
+      objc_msgSend_windowControlsLayoutForLeafAppLayout_(v11[264]);
       v11 = *(a1 + 32);
       v12 = v16 == 1;
     }
@@ -1295,7 +1295,7 @@ void __72__SBFluidSwitcherViewController__updateOverlaysTopAffordanceContextMenu
         }
 
         v7 = *(*(&v124 + 1) + 8 * i);
-        if (([allObjects containsObject:v7] & 1) == 0)
+        if ((objc_msgSend_containsObject_(allObjects) & 1) == 0)
         {
           v123[0] = MEMORY[0x277D85DD0];
           v123[1] = 3221225472;
@@ -1346,7 +1346,7 @@ void __72__SBFluidSwitcherViewController__updateOverlaysTopAffordanceContextMenu
         }
 
         v17 = *(*(&v119 + 1) + 8 * j);
-        if (([v134[5] containsObject:v17] & 1) == 0)
+        if ((objc_msgSend_containsObject_(v134[5]) & 1) == 0)
         {
           v18 = v134[5];
           v118[0] = MEMORY[0x277D85DD0];
@@ -1388,7 +1388,7 @@ void __72__SBFluidSwitcherViewController__updateOverlaysTopAffordanceContextMenu
         }
 
         v25 = *(*(&v114 + 1) + 8 * k);
-        if (([v13 containsObject:v25] & 1) == 0)
+        if ((objc_msgSend_containsObject_(v13) & 1) == 0)
         {
           v113[0] = MEMORY[0x277D85DD0];
           v113[1] = 3221225472;
@@ -1722,49 +1722,50 @@ void __72__SBFluidSwitcherViewController__updateOverlaysTopAffordanceContextMenu
 
 void __70__SBFluidSwitcherViewController__updateVisibleOverlayAndUnderlayViews__block_invoke_7(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v14 = 0u;
+  v20 = *MEMORY[0x277D85DE8];
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v16;
     do
     {
       v6 = 0;
       do
       {
-        if (*v15 != v5)
+        if (*v16 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * v6);
+        v7 = *(*(&v15 + 1) + 8 * v6);
         v8 = *(a1 + 40);
-        v9 = SBLayoutRoleSetNone();
-        [v8 _layoutAppLayout:v7 roles:v9 completion:{0, v14}];
+        v9 = SBLayoutRoleSetNone(v3);
+        [v8 _layoutAppLayout:v7 roles:v9 completion:{0, v15}];
 
         v10 = *(a1 + 40);
-        v11 = SBLayoutRoleSetNone();
-        [v10 _applyStyleToAppLayout:v7 roles:v11 completion:0];
+        v12 = SBLayoutRoleSetNone(v11);
+        [v10 _applyStyleToAppLayout:v7 roles:v12 completion:0];
 
-        v12 = [*(*(a1 + 40) + 1976) objectForKey:v7];
-        v13 = [*(*(a1 + 40) + 1984) objectForKey:v7];
-        [v12 layoutIfNeeded];
+        v13 = [*(*(a1 + 40) + 1976) objectForKey:v7];
+        v14 = [*(*(a1 + 40) + 1984) objectForKey:v7];
         [v13 layoutIfNeeded];
+        [v14 layoutIfNeeded];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = v3;
     }
 
-    while (v4);
+    while (v3);
   }
 }
 
@@ -2101,7 +2102,7 @@ void __70__SBFluidSwitcherViewController__updateVisibleOverlayAndUnderlayViews__
         }
 
         v15 = *(*(&v61 + 1) + 8 * i);
-        if (([(NSCountedSet *)self->_requestedHiddenAppLayouts containsObject:v15]& 1) == 0)
+        if ((objc_msgSend_containsObject_(self->_requestedHiddenAppLayouts) & 1) == 0)
         {
           leafAppLayouts = [v15 leafAppLayouts];
           [v3 addObjectsFromArray:leafAppLayouts];
@@ -2152,7 +2153,7 @@ void __70__SBFluidSwitcherViewController__updateVisibleOverlayAndUnderlayViews__
         activeGesture = [(SBFluidSwitcherLayoutContext *)self->_layoutContext activeGesture];
         selectedAppLayout = [activeGesture selectedAppLayout];
 
-        if (!-[NSArray containsObject:](self->_cachedAdjustedLeafAppLayouts, "containsObject:", v25) && ([v20 containsObject:v25] & 1) == 0 && selectedAppLayout != v25)
+        if ((objc_msgSend_containsObject_(self->_cachedAdjustedLeafAppLayouts) & 1) == 0 && (objc_msgSend_containsObject_(v20) & 1) == 0 && selectedAppLayout != v25)
         {
           [v39 addObject:v25];
         }
@@ -2718,7 +2719,7 @@ LABEL_22:
   {
     scrollView = self->_scrollView;
     v13 = scrollViewAttributes;
-    [scrollViewAttributes frame];
+    objc_msgSend_frame(scrollViewAttributes);
     [(SBAppSwitcherScrollView *)scrollView setFrame:?];
     v6 = self->_scrollView;
     [v13 contentSize];
@@ -3272,7 +3273,7 @@ LABEL_46:
 
           else
           {
-            homeAffordanceSettings2 = SBLogAppSwitcher();
+            homeAffordanceSettings2 = SBLogAppSwitcher(0);
             if (os_log_type_enabled(homeAffordanceSettings2, OS_LOG_TYPE_ERROR))
             {
               debugName = self->_debugName;
@@ -3469,7 +3470,7 @@ BOOL __66__SBFluidSwitcherViewController__spacesWithVisibleHomeAffordances__bloc
             personality = self->_personality;
             if (personality)
             {
-              [(SBSwitcherPersonality *)personality presentationAttributesForShelf:v13];
+              objc_msgSend_presentationAttributesForShelf_(personality);
               v20 = v102;
             }
 
@@ -3523,7 +3524,7 @@ BOOL __66__SBFluidSwitcherViewController__spacesWithVisibleHomeAffordances__bloc
 
             view2 = [(SBSwitcherShelfViewController *)v15 view];
             v77 = view2;
-            if ([(NSMutableSet *)self->_visibleShelvesHostedInContentView containsObject:v13])
+            if (objc_msgSend_containsObject_(self->_visibleShelvesHostedInContentView))
             {
               [view2 removeFromSuperview];
               [v28 setShelfViewController:v15];
@@ -3564,7 +3565,7 @@ BOOL __66__SBFluidSwitcherViewController__spacesWithVisibleHomeAffordances__bloc
 
             view3 = [(SBSwitcherShelfViewController *)v31 view];
             v77 = view3;
-            if (([(NSMutableSet *)self->_visibleShelvesHostedInContentView containsObject:v13]& 1) == 0)
+            if ((objc_msgSend_containsObject_(self->_visibleShelvesHostedInContentView) & 1) == 0)
             {
               [v28 setShelfViewController:0];
               [(SBFluidSwitcherContentView *)self->_contentView addSubview:view3];
@@ -4743,7 +4744,7 @@ LABEL_10:
     [(SBFluidSwitcherViewController *)self _ensureSubviewOrdering];
     [(SBFluidSwitcherViewController *)self _layoutContinuousExposeStripTongueAnimated:0 completion:0];
     v19 = self->_continuousExposeStripTongue;
-    v20 = SBSwitcherContinuousExposeStripTongueAttributesMake(1, v6);
+    SBSwitcherContinuousExposeStripTongueAttributesMake();
     [(SBContinuousExposeStripTongueView *)v19 setAttributes:v20 animated:v21, 0];
     [(SBContinuousExposeStripTongueView *)self->_continuousExposeStripTongue setAttributes:2 animated:v6, 1];
     v22 = v25;
@@ -4872,7 +4873,7 @@ LABEL_10:
 void __52__SBFluidSwitcherViewController__updateVisibleItems__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (([*(a1 + 32) containsObject:v3] & 1) == 0)
+  if ((objc_msgSend_containsObject_(*(a1 + 32)) & 1) == 0)
   {
     v4 = *(a1 + 32);
     v15[0] = MEMORY[0x277D85DD0];
@@ -4997,7 +4998,7 @@ LABEL_6:
 
 - (void)_resetItemContainerShadowPathDisplayLink
 {
-  v3 = SBLogAppSwitcher();
+  v3 = SBLogAppSwitcher(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -5046,7 +5047,7 @@ void __66__SBFluidSwitcherViewController__ensureForegroundScenesAreVisible__bloc
   {
     v11 = *(a1 + 32);
     v12 = [v10 displayItemRepresentation];
-    v13 = [v11 containsObject:v12];
+    v13 = objc_msgSend_containsObject_(v11);
 
     v14 = [*(*(a1 + 40) + 1968) objectForKey:v5];
     v15 = [v14 layer];
@@ -5055,15 +5056,15 @@ void __66__SBFluidSwitcherViewController__ensureForegroundScenesAreVisible__bloc
 
     if (v17 < 0.5 && v13 != 0)
     {
-      v19 = SBLogAppSwitcher();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v20 = SBLogAppSwitcher(v18);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         __66__SBFluidSwitcherViewController__ensureForegroundScenesAreVisible__block_invoke_cold_1(v10);
       }
 
-      v20 = [v14 layer];
-      LODWORD(v21) = 1.0;
-      [v20 setOpacity:v21];
+      v21 = [v14 layer];
+      LODWORD(v22) = 1.0;
+      [v21 setOpacity:v22];
     }
   }
 }
@@ -5139,7 +5140,7 @@ void __66__SBFluidSwitcherViewController__ensureForegroundScenesAreVisible__bloc
   view = [(SBFluidSwitcherViewController *)self view];
   layer = [view layer];
   animationKeys = [layer animationKeys];
-  v5 = [animationKeys containsObject:@"MatchMoveToIconViewAnimation"];
+  v5 = objc_msgSend_containsObject_(animationKeys);
 
   return v5;
 }
@@ -5516,16 +5517,16 @@ id __113__SBFluidSwitcherViewController_initWithPersonality_liveContentOverlayCo
 
 - (void)dealloc
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_isInvalidated"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(self);
-    v4 = objc_opt_class();
-    v11 = NSStringFromClass(v4);
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_isInvalidated", v10, 2u);
+    v4 = NSStringFromSelector(self);
+    v5 = objc_opt_class();
+    v13 = NSStringFromClass(v5);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -6027,7 +6028,7 @@ id __71__SBFluidSwitcherViewController_descriptionBuilderWithMultilinePrefix___b
   v12[1] = *MEMORY[0x277D85DE8];
   layoutCopy = layout;
   appLayouts = [(SBFluidSwitcherViewController *)self appLayouts];
-  v6 = [appLayouts containsObject:layoutCopy];
+  v6 = objc_msgSend_containsObject_(appLayouts);
 
   if (v6)
   {
@@ -6158,7 +6159,7 @@ id __71__SBFluidSwitcherViewController_descriptionBuilderWithMultilinePrefix___b
   itemCopy = item;
   layoutCopy = layout;
   v8 = [(SBFluidSwitcherViewController *)self maximizedCenteredAndUnoccludedDisplayItemsInAppLayout:layoutCopy ignoreOcclusion:1 ignoreCentering:0];
-  v9 = [v8 containsObject:itemCopy];
+  v9 = objc_msgSend_containsObject_(v8);
 
   v10 = 0;
   if ((v9 & 1) == 0)
@@ -6469,7 +6470,7 @@ LABEL_8:
   return *&statusBarHeight___statusBarHeight;
 }
 
-uint64_t __48__SBFluidSwitcherViewController_statusBarHeight__block_invoke()
+void *__48__SBFluidSwitcherViewController_statusBarHeight__block_invoke()
 {
   result = [MEMORY[0x277D75A78] heightForStyle:0 orientation:1];
   statusBarHeight___statusBarHeight = v1;
@@ -6564,7 +6565,7 @@ uint64_t __48__SBFluidSwitcherViewController_statusBarHeight__block_invoke()
   if (firstObject && [firstObject presented])
   {
     view = [firstObject view];
-    [view frame];
+    objc_msgSend_frame(view);
     v8 = v7;
     [(SBFluidSwitcherViewController *)self floatingDockPresentedHeight];
     v5 = v8 - v9;
@@ -6626,7 +6627,7 @@ uint64_t __48__SBFluidSwitcherViewController_statusBarHeight__block_invoke()
     v10 = v9;
     v12 = v11;
     v14 = v13;
-    [v6 frame];
+    objc_msgSend_frame(v6);
     v22.origin.x = v15;
     v22.origin.y = v16;
     v22.size.width = v17;
@@ -7219,12 +7220,12 @@ uint64_t __87__SBFluidSwitcherViewController_anyHighlightedAppLayoutsForContinuo
   v8 = [_iconZoomContextProvider iconZoomingViewForAppLayout:v6];
 
   v9 = objc_opt_class();
-  v29 = v8;
+  v23 = v8;
   if (v9)
   {
     if (objc_opt_isKindOfClass())
     {
-      v10 = v29;
+      v10 = v23;
     }
 
     else
@@ -7258,18 +7259,15 @@ LABEL_14:
   }
 
   [v16 lightDirection];
-  v18 = v17;
-  v20 = v19;
-  v22 = v21;
   [v16 lightIntensity];
-  v24 = v23;
+  v18 = v17;
   if ([v14 isDark])
   {
-    v24 = v24 * 0.6;
+    v18 = v18 * 0.6;
   }
 
-  v25 = SBSwitcherGenieGlassHighlightDirectionMake(v18, v20, v22);
-  SBSwitcherGenieGlassHighlightMake(2, retstr, v25, v26, v27, v24);
+  SBSwitcherGenieGlassHighlightDirectionMake();
+  SBSwitcherGenieGlassHighlightMake(2, retstr, v19, v20, v21, v18);
 
 LABEL_15:
 
@@ -7622,7 +7620,7 @@ LABEL_14:
   {
     if (delegate)
     {
-      [delegate switcherContentController:self transformForCardUnderSheetForBoundsSize:{width, height}];
+      objc_msgSend_switcherContentController_transformForCardUnderSheetForBoundsSize_(delegate, width, height);
     }
 
     else
@@ -7851,7 +7849,7 @@ LABEL_14:
   if (v15)
   {
     v17 = v15;
-    [v15 windowControlsLayoutForApplicationFrame:0 screenBounds:v13 activationSettings:{v12, v11, v10, x, y, width, height}];
+    objc_msgSend_windowControlsLayoutForApplicationFrame_screenBounds_activationSettings_(v15, v13, v12, v11, v10, x, y, width, height);
     v15 = v17;
   }
 
@@ -8081,7 +8079,7 @@ void __83__SBFluidSwitcherViewController_handleFluidSwitcherGestureManager_didBe
   if (!v5)
   {
     _unadjustedAppLayouts = [(SBFluidSwitcherViewController *)self _unadjustedAppLayouts];
-    v7 = [_unadjustedAppLayouts containsObject:layoutCopy];
+    v7 = objc_msgSend_containsObject_(_unadjustedAppLayouts);
 
     if (v7)
     {
@@ -10045,14 +10043,14 @@ void __83__SBFluidSwitcherViewController_performKeyboardShortcutAction_withScene
         firstObject = [allItems firstObject];
 
         v10 = [(SBFluidSwitcherViewController *)self layoutAttributesForDisplayItem:firstObject inAppLayout:v7];
-        v24 = 0;
-        v22 = 0u;
+        v25 = 0;
         v23 = 0u;
+        v24 = 0u;
         [(SBDisplayItemLayoutAttributes *)v10 slideOverConfiguration];
-        v19 = v22;
         v20 = v23;
         v21 = v24;
-        if ((SBDisplayItemSlideOverConfigurationIsValid(&v19) & 1) == 0)
+        v22 = v25;
+        if ((SBDisplayItemSlideOverConfigurationIsValid(&v20) & 1) == 0)
         {
           displayItemInSlideOver = [(SBFluidSwitcherViewController *)self displayItemInSlideOver];
           if (displayItemInSlideOver)
@@ -10060,7 +10058,7 @@ void __83__SBFluidSwitcherViewController_performKeyboardShortcutAction_withScene
             displayItemInSlideOver2 = [(SBFluidSwitcherViewController *)self displayItemInSlideOver];
             v16 = [(SBFluidSwitcherViewController *)self layoutAttributesForDisplayItem:displayItemInSlideOver2 inAppLayout:v7];
             [(SBDisplayItemLayoutAttributes *)v16 slideOverConfiguration];
-            IsLeftSided = v18[33];
+            IsLeftSided = v19;
           }
 
           else
@@ -10077,19 +10075,19 @@ void __83__SBFluidSwitcherViewController_performKeyboardShortcutAction_withScene
         firstObject = [allItems2 firstObject];
 
         v10 = [(SBFluidSwitcherViewController *)self layoutAttributesForDisplayItem:firstObject inAppLayout:v7];
-        v24 = 0;
-        v22 = 0u;
+        v25 = 0;
         v23 = 0u;
+        v24 = 0u;
         [(SBDisplayItemLayoutAttributes *)v10 slideOverConfiguration];
-        v19 = v22;
         v20 = v23;
         v21 = v24;
-        if (SBDisplayItemSlideOverConfigurationIsValid(&v19))
+        v22 = v25;
+        if (SBDisplayItemSlideOverConfigurationIsValid(&v20))
         {
-          v19 = v22;
           v20 = v23;
           v21 = v24;
-          IsLeftSided = SBDisplayItemSlideOverIsLeftSided(&v19);
+          v22 = v25;
+          IsLeftSided = SBDisplayItemSlideOverIsLeftSided(&v20);
           goto LABEL_17;
         }
 
@@ -10101,19 +10099,19 @@ LABEL_11:
         firstObject = [allItems3 firstObject];
 
         v10 = [(SBFluidSwitcherViewController *)self layoutAttributesForDisplayItem:firstObject inAppLayout:v7];
-        v24 = 0;
-        v22 = 0u;
+        v25 = 0;
         v23 = 0u;
+        v24 = 0u;
         [(SBDisplayItemLayoutAttributes *)v10 slideOverConfiguration];
-        v19 = v22;
         v20 = v23;
         v21 = v24;
-        if (SBDisplayItemSlideOverConfigurationIsValid(&v19))
+        v22 = v25;
+        if (SBDisplayItemSlideOverConfigurationIsValid(&v20))
         {
-          v19 = v22;
           v20 = v23;
           v21 = v24;
-          IsLeftSided = !SBDisplayItemSlideOverIsLeftSided(&v19);
+          v22 = v25;
+          IsLeftSided = !SBDisplayItemSlideOverIsLeftSided(&v20);
 LABEL_17:
 
           goto LABEL_18;
@@ -10132,7 +10130,7 @@ LABEL_17:
 
 LABEL_18:
 
-  return IsLeftSided & 1;
+  return IsLeftSided;
 }
 
 - (void)performSwitcherShortcutAction:(int64_t)action forSceneIdentifier:(id)identifier
@@ -10766,7 +10764,7 @@ LABEL_9:
 
     v12 = animatedCopy & ~shouldRedactWindowContents;
     allValues = [(NSMutableDictionary *)self->_liveContentOverlays allValues];
-    v14 = [allValues containsObject:overlayCopy];
+    v14 = objc_msgSend_containsObject_(allValues);
 
     if (v14)
     {
@@ -10836,29 +10834,29 @@ LABEL_9:
 
 - (void)liveContentOverlayDidUpdateHomeAffordanceEdgeProtectOrAutoHide:(id)hide
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   hideCopy = hide;
-  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
   v5 = self->_liveContentOverlays;
-  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v21;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v20 != v8)
+      if (*v21 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = *(*(&v19 + 1) + 8 * v9);
-      v11 = [(NSMutableDictionary *)self->_liveContentOverlays objectForKey:v10, v19];
+      v10 = *(*(&v20 + 1) + 8 * v9);
+      v11 = [(NSMutableDictionary *)self->_liveContentOverlays objectForKey:v10, v20];
       v12 = [v11 isEqual:hideCopy];
 
       if (v12)
@@ -10868,7 +10866,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -10878,20 +10876,20 @@ LABEL_3:
       }
     }
 
-    v13 = v10;
+    v14 = v10;
 
-    if (!v13)
+    if (!v14)
     {
       goto LABEL_12;
     }
 
-    v14 = [(NSDictionary *)self->_leafAppLayoutsToAdjustedAppLayouts objectForKey:v13];
+    v15 = [(NSDictionary *)self->_leafAppLayoutsToAdjustedAppLayouts objectForKey:v14];
     [(SBFHomeGrabberSettings *)self->_homeGrabberSettings autoHideTimeOnAppRequest];
-    v16 = v15;
+    v17 = v16;
     [(SBFHomeGrabberSettings *)self->_homeGrabberSettings delayForUnhideOnAppRequest];
-    v18 = v17;
-    [(SBFluidSwitcherViewController *)self _updateEdgeProtectAndAutoHideForHomeAffordancesInAppLayout:v14 withResetDelay:v16 unhideDelay:v17];
-    [(SBFluidSwitcherViewController *)self _updateAutoHideForGrabberAffordancesInAppLayout:v14 withResetDelay:v16 unhideDelay:v18];
+    v19 = v18;
+    [(SBFluidSwitcherViewController *)self _updateEdgeProtectAndAutoHideForHomeAffordancesInAppLayout:v15 withResetDelay:v17 unhideDelay:v18];
+    [(SBFluidSwitcherViewController *)self _updateAutoHideForGrabberAffordancesInAppLayout:v15 withResetDelay:v17 unhideDelay:v19];
   }
 
   else
@@ -10899,8 +10897,8 @@ LABEL_3:
 LABEL_9:
 
 LABEL_12:
-    v13 = SBLogAppSwitcher();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = SBLogAppSwitcher(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [SBFluidSwitcherViewController liveContentOverlayDidUpdateHomeAffordanceEdgeProtectOrAutoHide:?];
     }
@@ -10951,7 +10949,7 @@ LABEL_12:
 
   v15 = 0u;
   v16 = 0u;
-  [(SBFluidSwitcherViewController *)self windowControlsLayoutForLiveContentOverlay:overlayCopy];
+  objc_msgSend_windowControlsLayoutForLiveContentOverlay_(self);
   v14[0] = v15;
   v14[1] = v16;
   [overlayCopy updateWindowControlsLayout:v14];
@@ -10976,7 +10974,7 @@ LABEL_12:
 
 - (void)_updateEdgeProtectAndAutoHideForHomeAffordancesInAppLayout:(id)layout withResetDelay:(double)delay unhideDelay:(double)unhideDelay
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   layoutCopy = layout;
   v9 = [(NSMutableDictionary *)self->_visibleOverlayAccessoryViews objectForKey:layoutCopy];
   homeGrabberView = [v9 homeGrabberView];
@@ -10984,43 +10982,43 @@ LABEL_12:
 
   if (grabberView)
   {
-    v24 = 0u;
     v25 = 0u;
-    v22 = 0u;
+    v26 = 0u;
     v23 = 0u;
-    v12 = [(SBFluidSwitcherViewController *)self _leafAppLayoutsInAppLayout:layoutCopy intersectingHomeGrabber:grabberView];
-    v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
-    if (v13)
+    v24 = 0u;
+    v13 = [(SBFluidSwitcherViewController *)self _leafAppLayoutsInAppLayout:layoutCopy intersectingHomeGrabber:grabberView];
+    v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    if (v14)
     {
-      v14 = v13;
-      v21 = grabberView;
-      v15 = 0;
+      v15 = v14;
+      v22 = grabberView;
       v16 = 0;
-      v17 = *v23;
+      v17 = 0;
+      v18 = *v24;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v23 != v17)
+          if (*v24 != v18)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v13);
           }
 
-          v19 = *(*(&v22 + 1) + 8 * i);
-          v16 |= [(SBSwitcherLiveContentOverlayCoordinating *)self->_liveContentOverlayCoordinator wantsEdgeProtectForHomeGestureForAppLayout:v19, v21];
-          v15 |= [(SBSwitcherLiveContentOverlayCoordinating *)self->_liveContentOverlayCoordinator wantsHomeAffordanceAutoHideForAppLayout:v19];
+          v20 = *(*(&v23 + 1) + 8 * i);
+          v17 |= [(SBSwitcherLiveContentOverlayCoordinating *)self->_liveContentOverlayCoordinator wantsEdgeProtectForHomeGestureForAppLayout:v20, v22];
+          v16 |= [(SBSwitcherLiveContentOverlayCoordinating *)self->_liveContentOverlayCoordinator wantsHomeAffordanceAutoHideForAppLayout:v20];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
-      while (v14);
+      while (v15);
 
-      grabberView = v21;
-      [v21 setEdgeProtectEnabled:v16 & 1];
-      if (!(v16 & 1 | ((v15 & 1) == 0)))
+      grabberView = v22;
+      [v22 setEdgeProtectEnabled:v17 & 1];
+      if (!(v17 & 1 | ((v16 & 1) == 0)))
       {
-        [v21 turnOnAutoHideWithInitialDelay:delay];
+        [v22 turnOnAutoHideWithInitialDelay:delay];
         goto LABEL_16;
       }
     }
@@ -11035,8 +11033,8 @@ LABEL_12:
     goto LABEL_16;
   }
 
-  v20 = SBLogAppSwitcher();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+  v21 = SBLogAppSwitcher(v12);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     [SBFluidSwitcherViewController _updateEdgeProtectAndAutoHideForHomeAffordancesInAppLayout:withResetDelay:unhideDelay:];
   }
@@ -11126,7 +11124,7 @@ LABEL_16:
   personality = self->_personality;
   if (personality)
   {
-    [(SBSwitcherPersonality *)personality windowControlsLayoutForLeafAppLayout:firstObject];
+    objc_msgSend_windowControlsLayoutForLeafAppLayout_(personality);
 LABEL_5:
     v7 = firstObject;
     goto LABEL_7;
@@ -11625,7 +11623,7 @@ uint64_t __63__SBFluidSwitcherViewController_liveOverlayForSceneIdentifier___blo
       do
       {
         v20 = [(NSPointerArray *)self->_outstandingAnimations pointerAtIndex:v19, v30];
-        v21 = SBLogAppSwitcher();
+        v21 = SBLogAppSwitcher(v20);
         if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           debugName = self->_debugName;
@@ -12160,7 +12158,7 @@ void __82__SBFluidSwitcherViewController_performTransitionWithContext_animated_c
   }
 
   appLayoutToScrollToBeforeTransitioning = [(SBSwitcherPersonality *)self->_personality appLayoutToScrollToBeforeTransitioning];
-  if (!appLayoutToScrollToBeforeTransitioning || (-[SBSwitcherPersonality visibleAppLayouts](self->_personality, "visibleAppLayouts"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [v10 containsObject:appLayoutToScrollToBeforeTransitioning], v10, v11))
+  if (!appLayoutToScrollToBeforeTransitioning || ([(SBSwitcherPersonality *)self->_personality visibleAppLayouts], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend_containsObject_(v10), v10, v11))
   {
 
 LABEL_6:
@@ -13365,7 +13363,7 @@ void __110__SBFluidSwitcherViewController__layoutSubviews_updateVisibleItemsAcce
   [MEMORY[0x277D65DA0] perform:v3 finalCompletion:completion options:0 delegate:?];
 }
 
-void __84__SBFluidSwitcherViewController__applyRootContentViewClippingAndBlurWithCompletion___block_invoke(uint64_t a1, void (**a2)(id, __CFString *))
+void __84__SBFluidSwitcherViewController__applyRootContentViewClippingAndBlurWithCompletion___block_invoke(uint64_t a1, uint64_t (**a2)(id, __CFString *))
 {
   v3 = *(a1 + 32);
   v5 = a2 + 2;
@@ -13442,7 +13440,7 @@ void __61__SBFluidSwitcherViewController__updateLayoutWithCompletion___block_inv
 
   if (*(v20 + 2104))
   {
-    [*(v20 + 2096) frame];
+    objc_msgSend_frame(*(v20 + 2096));
     v25 = v24;
     v27 = v26;
     v29 = v28;
@@ -13553,7 +13551,7 @@ void __67__SBFluidSwitcherViewController__layoutVisibleItemsWithCompletion___blo
 
         v8 = *(*(&v13 + 1) + 8 * v7);
         v9 = *(a1 + 32);
-        v10 = SBLayoutRoleSetAll();
+        v10 = SBLayoutRoleSetAll(v4);
         v11 = v3[2](v3, @"layout app layout");
         [v9 _layoutAppLayout:v8 roles:v10 completion:v11];
 
@@ -13561,10 +13559,11 @@ void __67__SBFluidSwitcherViewController__layoutVisibleItemsWithCompletion___blo
       }
 
       while (v5 != v7);
-      v5 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = v4;
     }
 
-    while (v5);
+    while (v4);
   }
 }
 
@@ -13704,7 +13703,7 @@ void __67__SBFluidSwitcherViewController__layoutVisibleItemsWithCompletion___blo
   }
 }
 
-void __71__SBFluidSwitcherViewController__layoutSlideoverTonguesWithCompletion___block_invoke(uint64_t a1, void (**a2)(id, __CFString *))
+void __71__SBFluidSwitcherViewController__layoutSlideoverTonguesWithCompletion___block_invoke(uint64_t a1, uint64_t (**a2)(id, __CFString *))
 {
   v3 = MEMORY[0x277D75D18];
   v4 = *(a1 + 64);
@@ -13824,7 +13823,7 @@ uint64_t __71__SBFluidSwitcherViewController__layoutSlideoverTonguesWithCompleti
       rootDestOutClippingView = self->_rootDestOutClippingView;
     }
 
-    [(UIView *)rootDestOutClippingView frame];
+    objc_msgSend_frame(rootDestOutClippingView);
     v29.origin.x = v6;
     v29.origin.y = v8;
     v29.size.width = v10;
@@ -14075,14 +14074,14 @@ void __79__SBFluidSwitcherViewController__applyRootContentViewBlurRadiusWithComp
   v12 = rolesCopy;
   if (!v12)
   {
-    [SBFluidSwitcherViewController _layoutAppLayout:a2 roles:? completion:?];
+    [SBFluidSwitcherViewController _layoutAppLayout:a2 roles:self completion:?];
   }
 
   v13 = v12;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [SBFluidSwitcherViewController _layoutAppLayout:v13 roles:a2 completion:?];
+    [SBFluidSwitcherViewController _layoutAppLayout:v13 roles:a2 completion:self];
   }
 
   v14 = MEMORY[0x277D65DA0];
@@ -14098,876 +14097,883 @@ void __79__SBFluidSwitcherViewController__applyRootContentViewBlurRadiusWithComp
   [v14 perform:v17 finalCompletion:completionCopy options:0 delegate:self];
 }
 
-void __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke()
+void __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x28223BE20]();
-  v825[16] = *MEMORY[0x277D85DE8];
-  v612 = v1;
-  v2 = [v0[4] appLayouts];
-  v3 = [v2 indexOfObject:v0[5]];
+  v1 = MEMORY[0x28223BE20](a1);
+  v833[16] = *MEMORY[0x277D85DE8];
+  v620 = v2;
+  v3 = [v1[4] appLayouts];
+  v4 = [v3 indexOfObject:v1[5]];
 
-  if (v3 != 0x7FFFFFFFFFFFFFFFLL)
+  if (v4 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    [*(v0[4] + 264) anchorPointForIndex:v3];
-    v542 = v4;
-    point = v5;
-    [*(v0[4] + 264) frameForIndex:v3];
-    v550 = v6;
-    v549 = v7;
-    v9 = v8;
-    v11 = v10;
-    [*(v0[4] + 264) scaleForIndex:v3];
-    v13 = v12;
-    [*(v0[4] + 264) rotationAngleForIndex:v3];
-    v536 = v14;
-    [*(v0[4] + 264) cornerRadiiForIndex:v3];
-    v537 = v15;
-    v17 = v16;
-    v539 = v18;
-    v535 = v19;
-    [*(v0[4] + 264) minimumTranslationToKillIndex:v3];
-    v531 = v20;
-    v540 = v13;
-    [*(v0[4] + 264) contentPageViewScaleForAppLayout:v0[5] withScale:v13];
-    v538 = v21;
-    v530 = [*(v0[4] + 264) shouldScaleOverlayToFillBoundsAtIndex:v3];
-    v523 = [*(v0[4] + 264) shouldScaleContentToFillBoundsAtIndex:v3];
-    v22 = *(v0[4] + 264);
-    rect = v11;
+    [*(v1[4] + 264) anchorPointForIndex:v4];
+    v550 = v5;
+    point = v6;
+    [*(v1[4] + 264) frameForIndex:v4];
+    v558 = v7;
+    v557 = v8;
+    v10 = v9;
+    v12 = v11;
+    [*(v1[4] + 264) scaleForIndex:v4];
+    v14 = v13;
+    [*(v1[4] + 264) rotationAngleForIndex:v4];
+    v544 = v15;
+    [*(v1[4] + 264) cornerRadiiForIndex:v4];
+    v545 = v16;
+    v18 = v17;
+    v547 = v19;
+    v543 = v20;
+    [*(v1[4] + 264) minimumTranslationToKillIndex:v4];
+    v539 = v21;
+    v548 = v14;
+    [*(v1[4] + 264) contentPageViewScaleForAppLayout:v1[5] withScale:v14];
+    v546 = v22;
+    v538 = [*(v1[4] + 264) shouldScaleOverlayToFillBoundsAtIndex:v4];
+    v531 = [*(v1[4] + 264) shouldScaleContentToFillBoundsAtIndex:v4];
+    v23 = *(v1[4] + 264);
+    rect = v12;
     SBRectWithSize();
-    [v22 clippingFrameForIndex:v3 withBounds:?];
-    v510 = v24;
-    v511 = v23;
-    v508 = v26;
-    v509 = v25;
-    v548 = [*(v0[4] + 264) clipsToBoundsAtIndex:v3];
-    v534 = [*(v0[4] + 264) maskedCornersForIndex:v3];
-    [*(v0[4] + 264) perspectiveAngleForIndex:v3];
-    v544 = v27;
-    v543 = v28;
-    v551 = [*(v0[4] + 264) meshTransformForIndex:v3];
-    v29 = [*(v0[4] + 264) genieAttributesForAppLayout:v0[5]];
-    v30 = [*(v0[4] + 264) wantsSpaceAccessoryViewGenieForAppLayout:v0[5]];
-    v31 = *(MEMORY[0x277CD9DE8] + 16);
-    *&v815.m11 = *MEMORY[0x277CD9DE8];
-    *&v815.m13 = v31;
-    v32 = *(MEMORY[0x277CD9DE8] + 48);
-    *&v815.m21 = *(MEMORY[0x277CD9DE8] + 32);
-    *&v815.m23 = v32;
-    v33 = *(MEMORY[0x277CD9DE8] + 96);
-    *&v815.m43 = *(MEMORY[0x277CD9DE8] + 112);
-    *&v815.m41 = v33;
-    v34 = *(MEMORY[0x277CD9DE8] + 64);
-    *&v815.m33 = *(MEMORY[0x277CD9DE8] + 80);
-    *&v815.m31 = v34;
-    v35 = [v0[4] _bestSupportedHomeAffordanceOrientationForOrientation:*(v0[4] + 242) inAppLayout:v0[5]];
-    v36 = v0[4];
-    if (v35 != *(v36 + 242))
+    [v23 clippingFrameForIndex:v4 withBounds:?];
+    v518 = v25;
+    v519 = v24;
+    v516 = v27;
+    v517 = v26;
+    v556 = [*(v1[4] + 264) clipsToBoundsAtIndex:v4];
+    v542 = [*(v1[4] + 264) maskedCornersForIndex:v4];
+    [*(v1[4] + 264) perspectiveAngleForIndex:v4];
+    v552 = v28;
+    v551 = v29;
+    v559 = [*(v1[4] + 264) meshTransformForIndex:v4];
+    v30 = [*(v1[4] + 264) genieAttributesForAppLayout:v1[5]];
+    v31 = [*(v1[4] + 264) wantsSpaceAccessoryViewGenieForAppLayout:v1[5]];
+    v32 = *(MEMORY[0x277CD9DE8] + 16);
+    *&v823.m11 = *MEMORY[0x277CD9DE8];
+    *&v823.m13 = v32;
+    v33 = *(MEMORY[0x277CD9DE8] + 48);
+    *&v823.m21 = *(MEMORY[0x277CD9DE8] + 32);
+    *&v823.m23 = v33;
+    v34 = *(MEMORY[0x277CD9DE8] + 96);
+    *&v823.m43 = *(MEMORY[0x277CD9DE8] + 112);
+    *&v823.m41 = v34;
+    v35 = *(MEMORY[0x277CD9DE8] + 64);
+    *&v823.m33 = *(MEMORY[0x277CD9DE8] + 80);
+    *&v823.m31 = v35;
+    v36 = [v1[4] _bestSupportedHomeAffordanceOrientationForOrientation:*(v1[4] + 242) inAppLayout:v1[5]];
+    v37 = v1[4];
+    if (v36 != *(v37 + 242))
     {
       SBFAngleForRotationFromInterfaceOrientationToInterfaceOrientation();
-      CATransform3DMakeRotation(&v815, v37, 0.0, 0.0, 1.0);
-      v36 = v0[4];
+      CATransform3DMakeRotation(&v823, v38, 0.0, 0.0, 1.0);
+      v37 = v1[4];
     }
 
-    v38 = [*(v36 + 264) resizeGrabberLayoutAttributesForAppLayout:v0[5]];
-    v39 = [v38 leafAppLayout];
-    v40 = [*(v0[4] + 165) objectForKey:v39];
-    v611 = v0;
-    v605 = v3;
-    if (v40)
+    v39 = [*(v37 + 264) resizeGrabberLayoutAttributesForAppLayout:v1[5]];
+    v40 = [v39 leafAppLayout];
+    v41 = [*(v1[4] + 165) objectForKey:v40];
+    v619 = v1;
+    v613 = v4;
+    if (v41)
     {
-      v41 = [v39 itemForLayoutRole:1];
-      v42 = [v40 layoutRoleForItem:v41];
+      v42 = [v40 itemForLayoutRole:1];
+      v43 = [v41 layoutRoleForItem:v42];
 
-      v43 = *(v611[4] + 264);
+      v44 = *(v619[4] + 264);
       SBRectWithSize();
-      v44 = v42;
-      v0 = v611;
-      [v43 frameForLayoutRole:v44 inAppLayout:v40 withBounds:?];
-      v46 = v45;
-      v48 = v47;
-      v50 = v49;
-      v52 = v51;
-      [v611[4] separatorViewWidth];
-      v54 = v53;
-      v55 = [v38 edge];
-      v56 = v46;
-      v57 = v48;
-      v58 = v50;
-      v59 = v52;
-      if (v55 == 2)
+      v45 = v43;
+      v1 = v619;
+      [v44 frameForLayoutRole:v45 inAppLayout:v41 withBounds:?];
+      v47 = v46;
+      v49 = v48;
+      v51 = v50;
+      v53 = v52;
+      [v619[4] separatorViewWidth];
+      v55 = v54;
+      v56 = [v39 edge];
+      v57 = v47;
+      v58 = v49;
+      v59 = v51;
+      v60 = v53;
+      if (v56 == 2)
       {
-        MaxX = CGRectGetMinX(*&v56) - v54;
+        MaxX = CGRectGetMinX(*&v57) - v55;
       }
 
       else
       {
-        MaxX = CGRectGetMaxX(*&v56);
+        MaxX = CGRectGetMaxX(*&v57);
       }
 
-      v507 = MaxX;
-      v829.origin.x = v46;
-      v829.origin.y = v48;
-      v829.size.width = v50;
-      v829.size.height = v52;
-      MinY = CGRectGetMinY(v829);
-      v830.origin.x = v46;
-      v830.origin.y = v48;
-      v830.size.width = v50;
-      v830.size.height = v52;
-      Height = CGRectGetHeight(v830);
-      v3 = v605;
+      v515 = MaxX;
+      v837.origin.x = v47;
+      v837.origin.y = v49;
+      v837.size.width = v51;
+      v837.size.height = v53;
+      MinY = CGRectGetMinY(v837);
+      v838.origin.x = v47;
+      v838.origin.y = v49;
+      v838.size.width = v51;
+      v838.size.height = v53;
+      Height = CGRectGetHeight(v838);
+      v4 = v613;
     }
 
     else
     {
       MinY = *(MEMORY[0x277CBF3A0] + 8);
-      v507 = *MEMORY[0x277CBF3A0];
-      v54 = *(MEMORY[0x277CBF3A0] + 16);
+      v515 = *MEMORY[0x277CBF3A0];
+      v55 = *(MEMORY[0x277CBF3A0] + 16);
       Height = *(MEMORY[0x277CBF3A0] + 24);
     }
 
-    v533 = [*(v0[4] + 264) footerViewIconAlignmentForAppLayout:v0[5]];
-    [*(v0[4] + 264) contentViewOffsetForAccessoriesOfAppLayout:v0[5]];
-    v502 = v62;
-    v503 = v61;
-    v518 = [*(v0[4] + 264) multipleWindowsIndicatorLayoutRolesForAppLayout:v0[5]];
-    v529 = [*(v0[4] + 264) shouldUseWallpaperGradientTreatment];
-    v63 = [v0[4] continuousExposeIdentifiersInStrip];
-    v64 = [v0[5] continuousExposeIdentifier];
-    v528 = [v63 containsObject:v64];
+    v541 = [*(v1[4] + 264) footerViewIconAlignmentForAppLayout:v1[5]];
+    [*(v1[4] + 264) contentViewOffsetForAccessoriesOfAppLayout:v1[5]];
+    v510 = v63;
+    v511 = v62;
+    v526 = [*(v1[4] + 264) multipleWindowsIndicatorLayoutRolesForAppLayout:v1[5]];
+    v537 = [*(v1[4] + 264) shouldUseWallpaperGradientTreatment];
+    v64 = [v1[4] continuousExposeIdentifiersInStrip];
+    v65 = [v1[5] continuousExposeIdentifier];
+    v536 = objc_msgSend_containsObject_(v64);
 
-    v604 = [*(v0[4] + 264) shouldPerformRotationAnimationForOrientationChange];
-    v532 = [*(v0[4] + 264) useItemContainerFooterViewsForAppLayout:v0[5]];
-    v524 = [*(v0[4] + 264) appLayoutToAttachSlideOverTongue];
-    v65 = [v524 allItems];
-    v66 = [v65 count];
+    v612 = [*(v1[4] + 264) shouldPerformRotationAnimationForOrientationChange];
+    v540 = [*(v1[4] + 264) useItemContainerFooterViewsForAppLayout:v1[5]];
+    v532 = [*(v1[4] + 264) appLayoutToAttachSlideOverTongue];
+    v66 = [v532 allItems];
+    v67 = [v66 count];
 
-    if (v66 >= 2)
+    if (v67 >= 2)
     {
-      v67 = [v0[4] displayItemInSlideOver];
-      if (v67)
+      v68 = [v1[4] displayItemInSlideOver];
+      if (v68)
       {
-        v68 = [v524 leafAppLayoutForItem:v67];
+        v69 = [v532 leafAppLayoutForItem:v68];
 
-        v524 = v68;
+        v532 = v69;
       }
     }
 
-    v69 = [*(v0[4] + 264) animationAttributesForLayoutElement:v0[5]];
-    v70 = [v69 updateMode];
-    v71 = [v69 layoutUpdateMode];
-    if (v71)
+    v70 = [*(v1[4] + 264) animationAttributesForLayoutElement:v1[5]];
+    v71 = [v70 updateMode];
+    v72 = [v70 layoutUpdateMode];
+    if (v72)
     {
-      v72 = v71;
+      v73 = v72;
     }
 
     else
     {
-      v72 = v70;
+      v73 = v71;
     }
 
-    v500 = v72;
-    v73 = [v69 positionUpdateMode];
-    if (v73)
+    v508 = v73;
+    v74 = [v70 positionUpdateMode];
+    if (v74)
     {
-      v74 = v73;
+      v75 = v74;
     }
 
     else
     {
-      v74 = v70;
+      v75 = v71;
     }
 
-    v512 = v74;
-    v75 = [v69 scaleUpdateMode];
-    if (v75)
+    v520 = v75;
+    v76 = [v70 scaleUpdateMode];
+    if (v76)
     {
-      v76 = v75;
+      v77 = v76;
     }
 
     else
     {
-      v76 = v70;
+      v77 = v71;
     }
 
-    v504 = v76;
-    v77 = [v69 cornerRadiusUpdateMode];
-    if (v77)
+    v512 = v77;
+    v78 = [v70 cornerRadiusUpdateMode];
+    if (v78)
     {
-      v78 = v77;
+      v79 = v78;
     }
 
     else
     {
-      v78 = v70;
+      v79 = v71;
     }
 
-    v499 = v78;
-    v79 = [v69 clippingUpdateMode];
-    if (v79)
+    v507 = v79;
+    v80 = [v70 clippingUpdateMode];
+    if (v80)
     {
-      v80 = v79;
+      v81 = v80;
     }
 
     else
     {
-      v80 = v70;
+      v81 = v71;
     }
 
-    v501 = v80;
-    v81 = [v69 layoutSettings];
-    v82 = [v69 positionSettings];
-    v83 = v82;
-    if (v82)
+    v509 = v81;
+    v82 = [v70 layoutSettings];
+    v83 = [v70 positionSettings];
+    v84 = v83;
+    if (v83)
     {
-      v84 = v82;
+      v85 = v83;
     }
 
     else
     {
-      v84 = v81;
+      v85 = v82;
     }
 
-    v516 = v84;
+    v524 = v85;
 
-    v85 = [v69 scaleSettings];
-    v86 = v85;
-    if (v85)
+    v86 = [v70 scaleSettings];
+    v87 = v86;
+    if (v86)
     {
-      v87 = v85;
+      v88 = v86;
     }
 
     else
     {
-      v87 = v81;
+      v88 = v82;
     }
 
-    v515 = v87;
+    v523 = v88;
 
-    v88 = [v69 cornerRadiusSettings];
-    v89 = v88;
-    if (v88)
+    v89 = [v70 cornerRadiusSettings];
+    v90 = v89;
+    if (v89)
     {
-      v90 = v88;
+      v91 = v89;
     }
 
     else
     {
-      v90 = v81;
+      v91 = v82;
     }
 
-    v514 = v90;
+    v522 = v91;
 
-    v583 = v69;
-    v91 = [v69 clippingSettings];
-    v92 = v91;
-    v517 = v81;
-    if (v91)
+    v591 = v70;
+    v92 = [v70 clippingSettings];
+    v93 = v92;
+    v525 = v82;
+    if (v92)
     {
-      v93 = v91;
+      v94 = v92;
     }
 
     else
     {
-      v93 = v81;
+      v94 = v82;
     }
 
-    v513 = v93;
+    v521 = v94;
 
     if (kKeyboardHeightIncludingAccessory_block_invoke_onceToken != -1)
     {
       __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_cold_1();
     }
 
-    v94 = +[SBPlatformController sharedInstance];
-    v95 = [v94 isInternalInstall];
+    v95 = +[SBPlatformController sharedInstance];
+    v96 = [v95 isInternalInstall];
 
-    if (v95)
+    if (v96)
     {
-      if (([v0[4] _isPointValid:{v542, point}] & 1) == 0)
+      v97 = [v1[4] _isPointValid:{v550, point}];
+      if ((v97 & 1) == 0)
       {
-        v96 = SBLogAppSwitcher();
-        if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
-        {
-          v827.x = v542;
-          v827.y = point;
-          v485 = NSStringFromCGPoint(v827);
-          v486 = v0[4];
-          v814[0] = MEMORY[0x277D85DD0];
-          v814[1] = 3221225472;
-          v814[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_3;
-          v814[3] = &unk_2783AE690;
-          v814[4] = v486;
-          v487 = [v486 _modifierViolatingTest:v814 forAnchorPointForIndex:v3];
-          v488 = [v0[5] succinctDescription];
-          *buf = 138544130;
-          *&buf[4] = v485;
-          *&buf[12] = 2114;
-          *&buf[14] = v487;
-          *&buf[22] = 2114;
-          *&buf[24] = v488;
-          LOWORD(v820[0]) = 2048;
-          *(v820 + 2) = v605;
-          _os_log_error_impl(&dword_21ED4E000, v96, OS_LOG_TYPE_ERROR, "Got an invalid anchorPointForIndex: %{public}@ from modifier: %{public}@ for appLayout: %{public}@ atIndex: %lu", buf, 0x2Au);
-
-          v3 = v605;
-        }
-      }
-
-      if (([v0[4] _isFrameValid:{v550, v549, v9, rect}] & 1) == 0)
-      {
-        v97 = SBLogAppSwitcher();
-        if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
-        {
-          v837.origin.x = v550;
-          v837.origin.y = v549;
-          v837.size.width = v9;
-          v837.size.height = rect;
-          v489 = NSStringFromCGRect(v837);
-          v490 = v0[4];
-          v813[0] = MEMORY[0x277D85DD0];
-          v813[1] = 3221225472;
-          v813[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_687;
-          v813[3] = &unk_2783AE6B8;
-          v813[4] = v490;
-          v491 = [v490 _modifierViolatingTest:v813 forFrameForIndex:v3];
-          v492 = [v0[5] succinctDescription];
-          *buf = 138544130;
-          *&buf[4] = v489;
-          *&buf[12] = 2114;
-          *&buf[14] = v491;
-          *&buf[22] = 2114;
-          *&buf[24] = v492;
-          LOWORD(v820[0]) = 2048;
-          *(v820 + 2) = v605;
-          _os_log_error_impl(&dword_21ED4E000, v97, OS_LOG_TYPE_ERROR, "Got an invalid frameForIndex: %{public}@ from modifier: %{public}@ for appLayout: %{public}@ atIndex: %lu", buf, 0x2Au);
-
-          v3 = v605;
-        }
-      }
-
-      if ((CGFloatIsValid() & 1) == 0)
-      {
-        v98 = SBLogAppSwitcher();
+        v98 = SBLogAppSwitcher(v97);
         if (os_log_type_enabled(v98, OS_LOG_TYPE_ERROR))
         {
-          v493 = [v0[4] _modifierViolatingValidFloatForScaleForIndex:v3];
-          v494 = [v0[5] succinctDescription];
-          *buf = 134218754;
-          *&buf[4] = v540;
+          v835.x = v550;
+          v835.y = point;
+          v493 = NSStringFromCGPoint(v835);
+          v494 = v1[4];
+          v822[0] = MEMORY[0x277D85DD0];
+          v822[1] = 3221225472;
+          v822[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_3;
+          v822[3] = &unk_2783AE690;
+          v822[4] = v494;
+          v495 = [v494 _modifierViolatingTest:v822 forAnchorPointForIndex:v4];
+          v496 = [v1[5] succinctDescription];
+          *buf = 138544130;
+          *&buf[4] = v493;
           *&buf[12] = 2114;
-          *&buf[14] = v493;
+          *&buf[14] = v495;
           *&buf[22] = 2114;
-          *&buf[24] = v494;
-          LOWORD(v820[0]) = 2048;
-          *(v820 + 2) = v3;
-          _os_log_error_impl(&dword_21ED4E000, v98, OS_LOG_TYPE_ERROR, "Got an invalid scaleForIndex: %f from modifier: %{public}@ for appLayout: %{public}@ atIndex: %lu", buf, 0x2Au);
+          *&buf[24] = v496;
+          LOWORD(v828[0]) = 2048;
+          *(v828 + 2) = v613;
+          _os_log_error_impl(&dword_21ED4E000, v98, OS_LOG_TYPE_ERROR, "Got an invalid anchorPointForIndex: %{public}@ from modifier: %{public}@ for appLayout: %{public}@ atIndex: %lu", buf, 0x2Au);
+
+          v4 = v613;
         }
       }
 
-      if (([v0[4] _isPointValid:{v544, v543}] & 1) == 0)
+      v99 = [v1[4] _isFrameValid:{v558, v557, v10, rect}];
+      if ((v99 & 1) == 0)
       {
-        v99 = SBLogAppSwitcher();
-        if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
+        v100 = SBLogAppSwitcher(v99);
+        if (os_log_type_enabled(v100, OS_LOG_TYPE_ERROR))
         {
-          v828.x = v544;
-          v828.y = v543;
-          v495 = NSStringFromCGPoint(v828);
-          v496 = v0[4];
-          v812[0] = MEMORY[0x277D85DD0];
-          v812[1] = 3221225472;
-          v812[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_689;
-          v812[3] = &unk_2783AE690;
-          v812[4] = v496;
-          v497 = [v496 _modifierViolatingTest:v812 forPerspectiveAngleForIndex:v3];
-          v498 = [v0[5] succinctDescription];
+          v845.origin.x = v558;
+          v845.origin.y = v557;
+          v845.size.width = v10;
+          v845.size.height = rect;
+          v497 = NSStringFromCGRect(v845);
+          v498 = v1[4];
+          v821[0] = MEMORY[0x277D85DD0];
+          v821[1] = 3221225472;
+          v821[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_687;
+          v821[3] = &unk_2783AE6B8;
+          v821[4] = v498;
+          v499 = [v498 _modifierViolatingTest:v821 forFrameForIndex:v4];
+          v500 = [v1[5] succinctDescription];
           *buf = 138544130;
-          *&buf[4] = v495;
+          *&buf[4] = v497;
           *&buf[12] = 2114;
-          *&buf[14] = v497;
+          *&buf[14] = v499;
           *&buf[22] = 2114;
-          *&buf[24] = v498;
-          LOWORD(v820[0]) = 2048;
-          *(v820 + 2) = v605;
-          _os_log_error_impl(&dword_21ED4E000, v99, OS_LOG_TYPE_ERROR, "Got an invalid perspectiveAngleForIndex: %{public}@ from modifier: %{public}@ for appLayout: %{public}@ atIndex: %lu", buf, 0x2Au);
+          *&buf[24] = v500;
+          LOWORD(v828[0]) = 2048;
+          *(v828 + 2) = v613;
+          _os_log_error_impl(&dword_21ED4E000, v100, OS_LOG_TYPE_ERROR, "Got an invalid frameForIndex: %{public}@ from modifier: %{public}@ for appLayout: %{public}@ atIndex: %lu", buf, 0x2Au);
 
-          v3 = v605;
+          v4 = v613;
+        }
+      }
+
+      IsValid = CGFloatIsValid();
+      if ((IsValid & 1) == 0)
+      {
+        v102 = SBLogAppSwitcher(IsValid);
+        if (os_log_type_enabled(v102, OS_LOG_TYPE_ERROR))
+        {
+          v501 = [v1[4] _modifierViolatingValidFloatForScaleForIndex:v4];
+          v502 = [v1[5] succinctDescription];
+          *buf = 134218754;
+          *&buf[4] = v548;
+          *&buf[12] = 2114;
+          *&buf[14] = v501;
+          *&buf[22] = 2114;
+          *&buf[24] = v502;
+          LOWORD(v828[0]) = 2048;
+          *(v828 + 2) = v4;
+          _os_log_error_impl(&dword_21ED4E000, v102, OS_LOG_TYPE_ERROR, "Got an invalid scaleForIndex: %f from modifier: %{public}@ for appLayout: %{public}@ atIndex: %lu", buf, 0x2Au);
+        }
+      }
+
+      v103 = [v1[4] _isPointValid:{v552, v551}];
+      if ((v103 & 1) == 0)
+      {
+        v104 = SBLogAppSwitcher(v103);
+        if (os_log_type_enabled(v104, OS_LOG_TYPE_ERROR))
+        {
+          v836.x = v552;
+          v836.y = v551;
+          v503 = NSStringFromCGPoint(v836);
+          v504 = v1[4];
+          v820[0] = MEMORY[0x277D85DD0];
+          v820[1] = 3221225472;
+          v820[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_689;
+          v820[3] = &unk_2783AE690;
+          v820[4] = v504;
+          v505 = [v504 _modifierViolatingTest:v820 forPerspectiveAngleForIndex:v4];
+          v506 = [v1[5] succinctDescription];
+          *buf = 138544130;
+          *&buf[4] = v503;
+          *&buf[12] = 2114;
+          *&buf[14] = v505;
+          *&buf[22] = 2114;
+          *&buf[24] = v506;
+          LOWORD(v828[0]) = 2048;
+          *(v828 + 2) = v613;
+          _os_log_error_impl(&dword_21ED4E000, v104, OS_LOG_TYPE_ERROR, "Got an invalid perspectiveAngleForIndex: %{public}@ from modifier: %{public}@ for appLayout: %{public}@ atIndex: %lu", buf, 0x2Au);
+
+          v4 = v613;
         }
       }
     }
 
-    [v0[5] leafAppLayouts];
-    v808 = 0u;
-    v809 = 0u;
-    v810 = 0u;
-    obj = v811 = 0u;
-    v545 = v17;
-    v520 = v54;
-    v595 = [obj countByEnumeratingWithState:&v808 objects:v825 count:16];
-    v519 = v29;
-    if (v595)
+    [v1[5] leafAppLayouts];
+    v816 = 0u;
+    v817 = 0u;
+    v818 = 0u;
+    obj = v819 = 0u;
+    v553 = v18;
+    v528 = v55;
+    v603 = [obj countByEnumeratingWithState:&v816 objects:v833 count:16];
+    v527 = v30;
+    if (v603)
     {
-      v594 = *v809;
-      v527 = v550 + (0.5 - v542) * v9;
-      if (v30)
+      v602 = *v817;
+      v535 = v558 + (0.5 - v550) * v10;
+      if (v31)
       {
-        v100 = 0;
+        v105 = 0;
       }
 
       else
       {
-        v100 = v29;
+        v105 = v30;
       }
 
-      v526 = v100;
-      v621 = (v612 + 16);
-      v522 = v9 * 0.5;
-      v584 = v9;
+      v534 = v105;
+      v629 = (v620 + 16);
+      v530 = v10 * 0.5;
+      v592 = v10;
       do
       {
-        for (i = 0; i != v595; i = v108 + 1)
+        for (i = 0; i != v603; i = v113 + 1)
         {
-          if (*v809 != v594)
+          if (*v817 != v602)
           {
             objc_enumerationMutation(obj);
           }
 
-          v629 = i;
-          v102 = *(*(&v808 + 1) + 8 * i);
-          v103 = v0[5];
-          v104 = [v102 allItems];
-          v105 = [v104 firstObject];
-          v106 = [v103 layoutRoleForItem:v105];
+          v637 = i;
+          v107 = *(*(&v816 + 1) + 8 * i);
+          v108 = v1[5];
+          v109 = [v107 allItems];
+          v110 = [v109 firstObject];
+          v111 = [v108 layoutRoleForItem:v110];
 
-          v107 = v106;
-          if (![v0[6] containsRole:v106])
+          v112 = v111;
+          if (![v1[6] containsRole:v111])
           {
-            v108 = v629;
+            v113 = v637;
             continue;
           }
 
-          v632 = [v0[4] _itemContainerForAppLayoutIfExists:v102];
-          if (v632)
+          v640 = [v1[4] _itemContainerForAppLayoutIfExists:v107];
+          if (v640)
           {
-            v606 = [*(v0[4] + 264) shouldPinLayoutRolesToSpace:v3];
-            if (v606)
+            v614 = [*(v1[4] + 264) shouldPinLayoutRolesToSpace:v4];
+            if (v614)
             {
-              v625 = [*(v0[4] + 264) shouldUseAnchorPointToPinLayoutRolesToSpace:v3];
+              v633 = [*(v1[4] + 264) shouldUseAnchorPointToPinLayoutRolesToSpace:v4];
             }
 
             else
             {
-              v625 = 0;
+              v633 = 0;
             }
 
-            v109 = [*(v0[4] + 264) animationAttributesForLayoutRole:v106 inAppLayout:v0[5] withAnimationAttributes:v583];
-            v110 = [v109 updateMode];
-            v111 = [v109 layoutUpdateMode];
-            if (v111)
+            v114 = [*(v1[4] + 264) animationAttributesForLayoutRole:v111 inAppLayout:v1[5] withAnimationAttributes:v591];
+            v115 = [v114 updateMode];
+            v116 = [v114 layoutUpdateMode];
+            if (v116)
             {
-              v112 = v111;
+              v117 = v116;
             }
 
             else
             {
-              v112 = v110;
+              v117 = v115;
             }
 
-            v592 = v112;
-            v113 = [v109 positionUpdateMode];
-            if (v113)
+            v600 = v117;
+            v118 = [v114 positionUpdateMode];
+            if (v118)
             {
-              v114 = v113;
+              v119 = v118;
             }
 
             else
             {
-              v114 = v110;
+              v119 = v115;
             }
 
-            v609 = v114;
-            v115 = [v109 scaleUpdateMode];
-            if (v115)
+            v617 = v119;
+            v120 = [v114 scaleUpdateMode];
+            if (v120)
             {
-              v116 = v115;
+              v121 = v120;
             }
 
             else
             {
-              v116 = v110;
+              v121 = v115;
             }
 
-            v575 = v116;
-            v117 = [v109 cornerRadiusUpdateMode];
-            if (v117)
+            v583 = v121;
+            v122 = [v114 cornerRadiusUpdateMode];
+            if (v122)
             {
-              v118 = v117;
+              v123 = v122;
             }
 
             else
             {
-              v118 = v110;
+              v123 = v115;
             }
 
-            v564 = v118;
-            v119 = [v109 clippingUpdateMode];
-            if (v119)
+            v572 = v123;
+            v124 = [v114 clippingUpdateMode];
+            if (v124)
             {
-              v120 = v119;
+              v125 = v124;
             }
 
             else
             {
-              v120 = v110;
+              v125 = v115;
             }
 
-            v547 = v120;
-            v121 = [v109 meshUpdateMode];
-            if (!v121)
+            v555 = v125;
+            v126 = [v114 meshUpdateMode];
+            if (!v126)
             {
-              v121 = [v109 updateMode];
+              v126 = [v114 updateMode];
             }
 
-            v546 = v121;
-            v122 = [v109 layoutSettings];
-            v123 = [v109 positionSettings];
-            v124 = v123;
-            if (v123)
+            v554 = v126;
+            v127 = [v114 layoutSettings];
+            v128 = [v114 positionSettings];
+            v129 = v128;
+            if (v128)
             {
-              v125 = v123;
+              v130 = v128;
             }
 
             else
             {
-              v125 = v122;
+              v130 = v127;
             }
 
-            v596 = v125;
+            v604 = v130;
 
-            v126 = [v109 scaleSettings];
-            v127 = v126;
-            if (v126)
+            v131 = [v114 scaleSettings];
+            v132 = v131;
+            if (v131)
             {
-              v128 = v126;
+              v133 = v131;
             }
 
             else
             {
-              v128 = v122;
+              v133 = v127;
             }
 
-            v572 = v128;
+            v580 = v133;
 
-            v129 = [v109 cornerRadiusSettings];
-            v130 = v129;
-            if (v129)
+            v134 = [v114 cornerRadiusSettings];
+            v135 = v134;
+            if (v134)
             {
-              v131 = v129;
+              v136 = v134;
             }
 
             else
             {
-              v131 = v122;
+              v136 = v127;
             }
 
-            v593 = v131;
+            v601 = v136;
 
-            v573 = v109;
-            v132 = [v109 clippingSettings];
-            v133 = v132;
-            v565 = v122;
-            if (v132)
-            {
-              v134 = v132;
-            }
-
-            else
-            {
-              v134 = v122;
-            }
-
-            v582 = v134;
-
-            v135 = v0[5];
-            v136 = *(v0[4] + 264);
-            SBRectWithSize();
-            [v136 frameForLayoutRole:v107 inAppLayout:v135 withBounds:?];
+            v581 = v114;
+            v137 = [v114 clippingSettings];
             v138 = v137;
-            v140 = v139;
-            v142 = v141;
-            v144 = v143;
-            [*(v0[4] + 264) scaleForLayoutRole:v107 inAppLayout:v0[5]];
-            v146 = v145;
-            v147 = v0[5];
-            v148 = *(v0[4] + 264);
-            SBRectWithSize();
-            [v148 clippingFrameForLayoutRole:v107 inAppLayout:v147 atIndex:v605 withBounds:?];
-            v569 = v149;
-            v568 = v150;
-            v567 = v151;
-            rect2 = v152;
-            [*(v0[4] + 264) perspectiveAngleForLayoutRole:v107 inAppLayout:v0[5] withPerspectiveAngle:{v544, v543}];
-            v154 = v153;
-            v156 = v155;
-            v157 = +[SBPlatformController sharedInstance];
-            LODWORD(v148) = [v157 isInternalInstall];
-
-            v622 = v107;
-            v576 = v140;
-            if (v148)
+            v573 = v127;
+            if (v137)
             {
-              if (([v0[4] _isFrameValid:{v138, v140, v142, v144}] & 1) == 0)
-              {
-                v158 = SBLogAppSwitcher();
-                if (os_log_type_enabled(v158, OS_LOG_TYPE_ERROR))
-                {
-                  v836.origin.x = v138;
-                  v836.origin.y = v140;
-                  v836.size.width = v142;
-                  v836.size.height = v144;
-                  v398 = NSStringFromCGRect(v836);
-                  v399 = v0[4];
-                  v400 = v0[5];
-                  v807[0] = MEMORY[0x277D85DD0];
-                  v807[1] = 3221225472;
-                  v807[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_690;
-                  v807[3] = &unk_2783AE6B8;
-                  v807[4] = v399;
-                  SBRectWithSize();
-                  v401 = [v399 _modifierViolatingTest:v807 forFrameForLayoutRole:v622 inAppLayout:v400 withBounds:?];
-                  v402 = [v0[5] succinctDescription];
-                  v403 = [v0[5] itemForLayoutRole:v622];
-                  *buf = 138544642;
-                  *&buf[4] = v398;
-                  *&buf[12] = 2114;
-                  *&buf[14] = v401;
-                  *&buf[22] = 2048;
-                  *&buf[24] = v622;
-                  LOWORD(v820[0]) = 2114;
-                  *(v820 + 2) = v402;
-                  WORD5(v820[0]) = 2048;
-                  *(v820 + 12) = v605;
-                  WORD2(v820[1]) = 2114;
-                  *(&v820[1] + 6) = v403;
-                  _os_log_error_impl(&dword_21ED4E000, v158, OS_LOG_TYPE_ERROR, "Got an invalid frameForLayoutRole: %{public}@ from modifier: %{public}@ for layoutRole: %lu in appLayout: %{public}@ atIndex: %lu item: %{public}@", buf, 0x3Eu);
-
-                  v107 = v622;
-                }
-              }
-
-              if ((CGFloatIsValid() & 1) == 0)
-              {
-                v159 = SBLogAppSwitcher();
-                if (os_log_type_enabled(v159, OS_LOG_TYPE_ERROR))
-                {
-                  v404 = [v0[4] _modifierViolatingValidFloatForScaleForLayoutRole:v107 inAppLayout:v0[5]];
-                  v405 = [v0[5] succinctDescription];
-                  v406 = [v0[5] itemForLayoutRole:v622];
-                  *buf = 134219010;
-                  *&buf[4] = v146;
-                  *&buf[12] = 2114;
-                  *&buf[14] = v404;
-                  *&buf[22] = 2048;
-                  *&buf[24] = v622;
-                  LOWORD(v820[0]) = 2114;
-                  *(v820 + 2) = v405;
-                  WORD5(v820[0]) = 2114;
-                  *(v820 + 12) = v406;
-                  _os_log_error_impl(&dword_21ED4E000, v159, OS_LOG_TYPE_ERROR, "Got an invalid scaleForLayoutRole: %f from modifier: %{public}@ for layoutRole: %lu in appLayout: %{public}@ item: %{public}@", buf, 0x34u);
-                }
-              }
-
-              if (([v0[4] _isPointValid:{v154, v156}] & 1) == 0)
-              {
-                v160 = SBLogAppSwitcher();
-                if (os_log_type_enabled(v160, OS_LOG_TYPE_ERROR))
-                {
-                  v826.x = v154;
-                  v826.y = v156;
-                  v407 = NSStringFromCGPoint(v826);
-                  v408 = v0[4];
-                  v409 = v0[5];
-                  v806[0] = MEMORY[0x277D85DD0];
-                  v806[1] = 3221225472;
-                  v806[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_691;
-                  v806[3] = &unk_2783AE690;
-                  v806[4] = v408;
-                  v410 = [v408 _modifierViolatingTest:v806 forPerspectiveAngleForLayoutRole:v622 inAppLayout:v409 withPerspectiveAngle:{v544, v543}];
-                  v411 = [v0[5] succinctDescription];
-                  v412 = [v0[5] itemForLayoutRole:v622];
-                  *buf = 138544642;
-                  *&buf[4] = v407;
-                  *&buf[12] = 2114;
-                  *&buf[14] = v410;
-                  *&buf[22] = 2048;
-                  *&buf[24] = v622;
-                  LOWORD(v820[0]) = 2114;
-                  *(v820 + 2) = v411;
-                  WORD5(v820[0]) = 2048;
-                  *(v820 + 12) = v605;
-                  WORD2(v820[1]) = 2114;
-                  *(&v820[1] + 6) = v412;
-                  _os_log_error_impl(&dword_21ED4E000, v160, OS_LOG_TYPE_ERROR, "Got an invalid perspectiveAngleForLayoutRole: %{public}@ from modifier: %{public}@ for layoutRole: %lu in appLayout: %{public}@ atIndex: %lu item: %{public}@", buf, 0x3Eu);
-                }
-              }
-            }
-
-            v161 = v146;
-            v617 = v144;
-            v619 = v142;
-            v570 = v156;
-            v571 = v154;
-            v162 = -(v138 - v584 * v542);
-            v163 = -(v140 - rect * point);
-            v164 = 0.5 - point;
-            v165 = 0.5 - v542;
-            v613 = point;
-            v615 = v542;
-            if (v625)
-            {
-              v615 = v162 / v619;
-              v165 = 0.5 - v162 / v619;
-              v613 = v163 / v144;
-              v164 = 0.5 - v163 / v144;
-            }
-
-            v601 = -(v140 - rect * point);
-            v587 = v138;
-            v525 = v549 + (0.5 - point) * rect;
-            v166 = v525 + v140 - v164 * v144;
-            v167 = [v0[4] windowManagementContext];
-            if ([v167 isAutomaticStageCreationEnabled])
-            {
-              v168 = v540;
-              v591 = v527 + v138 - v165 * v619 + (1.0 - v161) * (v619 * v165) * v540;
-              v586 = v166 + (1.0 - v161) * (v144 * v164) * v540;
-              v169 = v545;
+              v139 = v137;
             }
 
             else
             {
-              v591 = v527 + v138 - v165 * v619;
-              v586 = v525 + v140 - v164 * v144;
-              v169 = v545;
-              v168 = v540;
+              v139 = v127;
             }
 
-            v170 = v606 & (v625 ^ 1);
+            v590 = v139;
 
-            v581 = v168 * v161;
-            v171 = 0.0;
-            v172 = 0.0;
-            v173 = v619;
-            if (v170)
+            v140 = v1[5];
+            v141 = *(v1[4] + 264);
+            SBRectWithSize();
+            [v141 frameForLayoutRole:v112 inAppLayout:v140 withBounds:?];
+            v143 = v142;
+            v145 = v144;
+            v147 = v146;
+            v149 = v148;
+            [*(v1[4] + 264) scaleForLayoutRole:v112 inAppLayout:v1[5]];
+            v151 = v150;
+            v152 = v1[5];
+            v153 = *(v1[4] + 264);
+            SBRectWithSize();
+            [v153 clippingFrameForLayoutRole:v112 inAppLayout:v152 atIndex:v613 withBounds:?];
+            v577 = v154;
+            v576 = v155;
+            v575 = v156;
+            rect2 = v157;
+            [*(v1[4] + 264) perspectiveAngleForLayoutRole:v112 inAppLayout:v1[5] withPerspectiveAngle:{v552, v551}];
+            v159 = v158;
+            v161 = v160;
+            v162 = +[SBPlatformController sharedInstance];
+            LODWORD(v153) = [v162 isInternalInstall];
+
+            v630 = v112;
+            v584 = v145;
+            if (v153)
             {
-              v174 = [v0[4] windowManagementContext];
-              if ([v174 isChamoisOrFlexibleWindowing])
+              v163 = [v1[4] _isFrameValid:{v143, v145, v147, v149}];
+              if ((v163 & 1) == 0)
               {
-                v175 = v168;
+                v164 = SBLogAppSwitcher(v163);
+                if (os_log_type_enabled(v164, OS_LOG_TYPE_ERROR))
+                {
+                  v844.origin.x = v143;
+                  v844.origin.y = v145;
+                  v844.size.width = v147;
+                  v844.size.height = v149;
+                  v406 = NSStringFromCGRect(v844);
+                  v407 = v1[4];
+                  v408 = v1[5];
+                  v815[0] = MEMORY[0x277D85DD0];
+                  v815[1] = 3221225472;
+                  v815[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_690;
+                  v815[3] = &unk_2783AE6B8;
+                  v815[4] = v407;
+                  SBRectWithSize();
+                  v409 = [v407 _modifierViolatingTest:v815 forFrameForLayoutRole:v630 inAppLayout:v408 withBounds:?];
+                  v410 = [v1[5] succinctDescription];
+                  v411 = [v1[5] itemForLayoutRole:v630];
+                  *buf = 138544642;
+                  *&buf[4] = v406;
+                  *&buf[12] = 2114;
+                  *&buf[14] = v409;
+                  *&buf[22] = 2048;
+                  *&buf[24] = v630;
+                  LOWORD(v828[0]) = 2114;
+                  *(v828 + 2) = v410;
+                  WORD5(v828[0]) = 2048;
+                  *(v828 + 12) = v613;
+                  WORD2(v828[1]) = 2114;
+                  *(&v828[1] + 6) = v411;
+                  _os_log_error_impl(&dword_21ED4E000, v164, OS_LOG_TYPE_ERROR, "Got an invalid frameForLayoutRole: %{public}@ from modifier: %{public}@ for layoutRole: %lu in appLayout: %{public}@ atIndex: %lu item: %{public}@", buf, 0x3Eu);
+
+                  v112 = v630;
+                }
+              }
+
+              v165 = CGFloatIsValid();
+              if ((v165 & 1) == 0)
+              {
+                v166 = SBLogAppSwitcher(v165);
+                if (os_log_type_enabled(v166, OS_LOG_TYPE_ERROR))
+                {
+                  v412 = [v1[4] _modifierViolatingValidFloatForScaleForLayoutRole:v112 inAppLayout:v1[5]];
+                  v413 = [v1[5] succinctDescription];
+                  v414 = [v1[5] itemForLayoutRole:v630];
+                  *buf = 134219010;
+                  *&buf[4] = v151;
+                  *&buf[12] = 2114;
+                  *&buf[14] = v412;
+                  *&buf[22] = 2048;
+                  *&buf[24] = v630;
+                  LOWORD(v828[0]) = 2114;
+                  *(v828 + 2) = v413;
+                  WORD5(v828[0]) = 2114;
+                  *(v828 + 12) = v414;
+                  _os_log_error_impl(&dword_21ED4E000, v166, OS_LOG_TYPE_ERROR, "Got an invalid scaleForLayoutRole: %f from modifier: %{public}@ for layoutRole: %lu in appLayout: %{public}@ item: %{public}@", buf, 0x34u);
+                }
+              }
+
+              v167 = [v1[4] _isPointValid:{v159, v161}];
+              if ((v167 & 1) == 0)
+              {
+                v168 = SBLogAppSwitcher(v167);
+                if (os_log_type_enabled(v168, OS_LOG_TYPE_ERROR))
+                {
+                  v834.x = v159;
+                  v834.y = v161;
+                  v415 = NSStringFromCGPoint(v834);
+                  v416 = v1[4];
+                  v417 = v1[5];
+                  v814[0] = MEMORY[0x277D85DD0];
+                  v814[1] = 3221225472;
+                  v814[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_691;
+                  v814[3] = &unk_2783AE690;
+                  v814[4] = v416;
+                  v418 = [v416 _modifierViolatingTest:v814 forPerspectiveAngleForLayoutRole:v630 inAppLayout:v417 withPerspectiveAngle:{v552, v551}];
+                  v419 = [v1[5] succinctDescription];
+                  v420 = [v1[5] itemForLayoutRole:v630];
+                  *buf = 138544642;
+                  *&buf[4] = v415;
+                  *&buf[12] = 2114;
+                  *&buf[14] = v418;
+                  *&buf[22] = 2048;
+                  *&buf[24] = v630;
+                  LOWORD(v828[0]) = 2114;
+                  *(v828 + 2) = v419;
+                  WORD5(v828[0]) = 2048;
+                  *(v828 + 12) = v613;
+                  WORD2(v828[1]) = 2114;
+                  *(&v828[1] + 6) = v420;
+                  _os_log_error_impl(&dword_21ED4E000, v168, OS_LOG_TYPE_ERROR, "Got an invalid perspectiveAngleForLayoutRole: %{public}@ from modifier: %{public}@ for layoutRole: %lu in appLayout: %{public}@ atIndex: %lu item: %{public}@", buf, 0x3Eu);
+                }
+              }
+            }
+
+            v169 = v151;
+            v625 = v149;
+            v627 = v147;
+            v578 = v161;
+            v579 = v159;
+            v170 = -(v143 - v592 * v550);
+            v171 = -(v145 - rect * point);
+            v172 = 0.5 - point;
+            v173 = 0.5 - v550;
+            v621 = point;
+            v623 = v550;
+            if (v633)
+            {
+              v623 = v170 / v627;
+              v173 = 0.5 - v170 / v627;
+              v621 = v171 / v149;
+              v172 = 0.5 - v171 / v149;
+            }
+
+            v609 = -(v145 - rect * point);
+            v595 = v143;
+            v533 = v557 + (0.5 - point) * rect;
+            v174 = v533 + v145 - v172 * v149;
+            v175 = [v1[4] windowManagementContext];
+            if ([v175 isAutomaticStageCreationEnabled])
+            {
+              v176 = v548;
+              v599 = v535 + v143 - v173 * v627 + (1.0 - v169) * (v627 * v173) * v548;
+              v594 = v174 + (1.0 - v169) * (v149 * v172) * v548;
+              v177 = v553;
+            }
+
+            else
+            {
+              v599 = v535 + v143 - v173 * v627;
+              v594 = v533 + v145 - v172 * v149;
+              v177 = v553;
+              v176 = v548;
+            }
+
+            v178 = v614 & (v633 ^ 1);
+
+            v589 = v176 * v169;
+            v179 = 0.0;
+            v180 = 0.0;
+            v181 = v627;
+            if (v178)
+            {
+              v182 = [v1[4] windowManagementContext];
+              if ([v182 isChamoisOrFlexibleWindowing])
+              {
+                v183 = v176;
               }
 
               else
               {
-                v175 = v168 * v161;
+                v183 = v176 * v169;
               }
 
-              v172 = v619 * (-(v138 - v584 * v542) / v619 - v615) * (1.0 - v175);
-              v171 = v144 * (v601 / v144 - v613) * (1.0 - v175);
+              v180 = v627 * (-(v143 - v592 * v550) / v627 - v623) * (1.0 - v183);
+              v179 = v149 * (v609 / v149 - v621) * (1.0 - v183);
             }
 
-            v563 = v171;
-            v574 = v172;
-            v176 = [v632 layer];
-            [v176 anchorPoint];
-            v178 = v177;
-            v180 = v179;
+            v571 = v179;
+            v582 = v180;
+            v184 = [v640 layer];
+            [v184 anchorPoint];
+            v186 = v185;
+            v188 = v187;
 
-            v181 = v180 == v613 && v178 == v615;
-            v588 = v102;
-            if (v181)
+            v189 = v188 == v621 && v186 == v623;
+            v596 = v107;
+            if (v189)
             {
-              v182 = v586;
+              v190 = v594;
             }
 
             else
             {
-              v182 = v586;
-              if (v609 == 4)
+              v190 = v594;
+              if (v617 == 4)
               {
-                v183 = [v632 layer];
-                v184 = [v183 presentationModifiers];
+                v191 = [v640 layer];
+                v192 = [v191 presentationModifiers];
 
-                v185 = [v184 bs_containsObjectPassingTest:&__block_literal_global_694];
-                v186 = 4;
-                if (v185)
+                v193 = [v192 bs_containsObjectPassingTest:&__block_literal_global_694];
+                v194 = 4;
+                if (v193)
                 {
-                  v186 = 5;
+                  v194 = 5;
                 }
 
-                v609 = v186;
+                v617 = v194;
               }
             }
 
-            v187 = [v632 layer];
-            v188 = [v187 presentationModifiers];
+            v195 = [v640 layer];
+            v196 = [v195 presentationModifiers];
 
-            v189 = [v188 bs_containsObjectPassingTest:&__block_literal_global_700];
-            v823 = 0u;
-            v824 = 0u;
-            v821 = 0u;
-            v822 = 0u;
-            memset(v820, 0, sizeof(v820));
+            v197 = [v196 bs_containsObjectPassingTest:&__block_literal_global_700];
+            v831 = 0u;
+            v832 = 0u;
+            v829 = 0u;
+            v830 = 0u;
+            memset(v828, 0, sizeof(v828));
             memset(buf, 0, sizeof(buf));
-            v190 = [v632 layer];
-            v191 = v190;
-            if (v190)
+            v198 = [v640 layer];
+            v199 = v198;
+            if (v198)
             {
-              [v190 transform];
+              objc_msgSend_transform(v198);
             }
 
             else
             {
-              v823 = 0u;
-              v824 = 0u;
-              v821 = 0u;
-              v822 = 0u;
-              memset(v820, 0, sizeof(v820));
+              v831 = 0u;
+              v832 = 0u;
+              v829 = 0u;
+              v830 = 0u;
+              memset(v828, 0, sizeof(v828));
               memset(buf, 0, sizeof(buf));
             }
 
-            if (v189 & 1 | ((v170 & 1) == 0))
+            if (v197 & 1 | ((v178 & 1) == 0))
             {
-              v192 = v605;
+              v200 = v613;
             }
 
             else
             {
-              v192 = v605;
+              v200 = v613;
               if (BSFloatEqualToFloat() && BSFloatEqualToFloat())
               {
-                v193 = BSFloatEqualToFloat();
-                v194 = v575;
-                if (!v193)
+                v201 = BSFloatEqualToFloat();
+                v202 = v583;
+                if (!v201)
                 {
-                  v194 = v609;
+                  v202 = v617;
                 }
 
-                v575 = v194;
+                v583 = v202;
               }
             }
 
-            if ((v625 & 1) != 0 || v604)
+            if ((v633 & 1) != 0 || v612)
             {
-              v195 = [v632 layer];
-              [v195 anchorPoint];
+              v203 = [v640 layer];
+              [v203 anchorPoint];
               if (BSFloatEqualToFloat())
               {
-                v196 = [v632 layer];
-                [v196 anchorPoint];
-                v197 = BSFloatEqualToFloat();
+                v204 = [v640 layer];
+                [v204 anchorPoint];
+                v205 = BSFloatEqualToFloat();
 
-                if (v197)
+                if (v205)
                 {
                   goto LABEL_196;
                 }
@@ -14977,207 +14983,207 @@ void __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___blo
               {
               }
 
-              v198 = [v632 layer];
-              [v198 position];
-              v200 = v199;
-              v202 = v201;
-              [v198 bounds];
-              v204 = v203;
-              v206 = v205;
-              [v198 anchorPoint];
+              v206 = [v640 layer];
+              [v206 position];
               v208 = v207;
               v210 = v209;
-              v211 = 0uLL;
-              v823 = 0u;
-              v824 = 0u;
-              v821 = 0u;
-              v822 = 0u;
-              memset(v820, 0, sizeof(v820));
+              [v206 bounds];
+              v212 = v211;
+              v214 = v213;
+              [v206 anchorPoint];
+              v216 = v215;
+              v218 = v217;
+              v219 = 0uLL;
+              v831 = 0u;
+              v832 = 0u;
+              v829 = 0u;
+              v830 = 0u;
+              memset(v828, 0, sizeof(v828));
               memset(buf, 0, sizeof(buf));
-              if (v198)
+              if (v206)
               {
-                [v198 transform];
-                v211 = 0uLL;
+                objc_msgSend_transform(v206);
+                v219 = 0uLL;
               }
 
-              v805 = v211;
-              v804 = v211;
-              v803 = v211;
-              v802 = v211;
-              v602 = v198;
-              v212 = [v198 presentationModifiers];
-              v213 = [v212 countByEnumeratingWithState:&v802 objects:v818 count:16];
-              if (v213)
+              v813 = v219;
+              v812 = v219;
+              v811 = v219;
+              v810 = v219;
+              v610 = v206;
+              v220 = [v206 presentationModifiers];
+              v221 = [v220 countByEnumeratingWithState:&v810 objects:v826 count:16];
+              if (v221)
               {
-                v214 = v213;
-                v215 = *v803;
+                v222 = v221;
+                v223 = *v811;
                 do
                 {
-                  for (j = 0; j != v214; ++j)
+                  for (j = 0; j != v222; ++j)
                   {
-                    if (*v803 != v215)
+                    if (*v811 != v223)
                     {
-                      objc_enumerationMutation(v212);
+                      objc_enumerationMutation(v220);
                     }
 
-                    v217 = *(*(&v802 + 1) + 8 * j);
-                    v218 = [v217 keyPath];
-                    v219 = [v218 isEqual:@"position"];
+                    v225 = *(*(&v810 + 1) + 8 * j);
+                    v226 = [v225 keyPath];
+                    v227 = [v226 isEqual:@"position"];
 
-                    if (v219)
+                    if (v227)
                     {
-                      v220 = [v217 value];
-                      [v220 CGPointValue];
-                      v200 = v221;
-                      v202 = v222;
+                      v228 = [v225 value];
+                      [v228 CGPointValue];
+                      v208 = v229;
+                      v210 = v230;
                     }
 
                     else
                     {
-                      v223 = [v217 keyPath];
-                      v224 = [v223 isEqual:@"bounds"];
+                      v231 = [v225 keyPath];
+                      v232 = [v231 isEqual:@"bounds"];
 
-                      if (v224)
+                      if (v232)
                       {
-                        v220 = [v217 value];
-                        [v220 CGRectValue];
-                        v204 = v225;
-                        v206 = v226;
+                        v228 = [v225 value];
+                        [v228 CGRectValue];
+                        v212 = v233;
+                        v214 = v234;
                       }
 
                       else
                       {
-                        v227 = [v217 keyPath];
-                        v228 = [v227 isEqual:@"anchorPoint"];
+                        v235 = [v225 keyPath];
+                        v236 = [v235 isEqual:@"anchorPoint"];
 
-                        if (v228)
+                        if (v236)
                         {
-                          v220 = [v217 value];
-                          [v220 CGPointValue];
-                          v208 = v229;
-                          v210 = v230;
+                          v228 = [v225 value];
+                          [v228 CGPointValue];
+                          v216 = v237;
+                          v218 = v238;
                         }
 
                         else
                         {
-                          v231 = [v217 keyPath];
-                          v232 = [v231 isEqual:@"transform"];
+                          v239 = [v225 keyPath];
+                          v240 = [v239 isEqual:@"transform"];
 
-                          if (!v232)
+                          if (!v240)
                           {
                             continue;
                           }
 
-                          v233 = [v217 value];
-                          v220 = v233;
-                          if (v233)
+                          v241 = [v225 value];
+                          v228 = v241;
+                          if (v241)
                           {
-                            [v233 CATransform3DValue];
+                            objc_msgSend_CATransform3DValue(v241);
                           }
 
                           else
                           {
-                            v801 = 0u;
-                            v800 = 0u;
-                            v799 = 0u;
-                            v798 = 0u;
-                            v797 = 0u;
-                            v796 = 0u;
-                            v795 = 0u;
-                            v794 = 0u;
+                            v809 = 0u;
+                            v808 = 0u;
+                            v807 = 0u;
+                            v806 = 0u;
+                            v805 = 0u;
+                            v804 = 0u;
+                            v803 = 0u;
+                            v802 = 0u;
                           }
 
-                          v821 = v798;
-                          v822 = v799;
-                          v823 = v800;
-                          v824 = v801;
-                          *buf = v794;
-                          *&buf[16] = v795;
-                          v820[0] = v796;
-                          v820[1] = v797;
+                          v829 = v806;
+                          v830 = v807;
+                          v831 = v808;
+                          v832 = v809;
+                          *buf = v802;
+                          *&buf[16] = v803;
+                          v828[0] = v804;
+                          v828[1] = v805;
                         }
                       }
                     }
                   }
 
-                  v214 = [v212 countByEnumeratingWithState:&v802 objects:v818 count:16];
+                  v222 = [v220 countByEnumeratingWithState:&v810 objects:v826 count:16];
                 }
 
-                while (v214);
+                while (v222);
               }
 
-              v234 = *&v823;
-              v235 = *buf;
-              v236 = *(v820 + 1);
-              v237 = 0.0;
-              if ((v625 & 1) == 0)
+              v242 = *&v831;
+              v243 = *buf;
+              v244 = *(v828 + 1);
+              v245 = 0.0;
+              if ((v633 & 1) == 0)
               {
-                v237 = *&v823;
+                v245 = *&v831;
               }
 
-              v599 = v237;
-              if ((v609 - 3) > 0xFFFFFFFFFFFFFFFDLL)
+              v607 = v245;
+              if ((v617 - 3) > 0xFFFFFFFFFFFFFFFDLL)
               {
-                v249 = 2;
-                v0 = v611;
-                v250 = v602;
+                v257 = 2;
+                v1 = v619;
+                v258 = v610;
               }
 
               else
               {
-                v597 = *(v820 + 1);
-                v793 = 0u;
-                v792 = 0u;
-                v791 = 0u;
-                v790 = 0u;
-                v238 = [v602 presentationModifiers];
-                v239 = [v238 countByEnumeratingWithState:&v790 objects:v817 count:16];
-                v0 = v611;
-                if (v239)
+                v605 = *(v828 + 1);
+                v801 = 0u;
+                v800 = 0u;
+                v799 = 0u;
+                v798 = 0u;
+                v246 = [v610 presentationModifiers];
+                v247 = [v246 countByEnumeratingWithState:&v798 objects:v825 count:16];
+                v1 = v619;
+                if (v247)
                 {
-                  v240 = v239;
-                  v241 = *v791;
+                  v248 = v247;
+                  v249 = *v799;
                   while (2)
                   {
-                    for (k = 0; k != v240; ++k)
+                    for (k = 0; k != v248; ++k)
                     {
-                      if (*v791 != v241)
+                      if (*v799 != v249)
                       {
-                        objc_enumerationMutation(v238);
+                        objc_enumerationMutation(v246);
                       }
 
-                      v243 = *(*(&v790 + 1) + 8 * k);
-                      v244 = [v243 keyPath];
-                      if ([v244 isEqualToString:@"position"])
+                      v251 = *(*(&v798 + 1) + 8 * k);
+                      v252 = [v251 keyPath];
+                      if ([v252 isEqualToString:@"position"])
                       {
                         goto LABEL_189;
                       }
 
-                      v245 = [v243 keyPath];
-                      if ([v245 isEqualToString:@"bounds"])
+                      v253 = [v251 keyPath];
+                      if ([v253 isEqualToString:@"bounds"])
                       {
 
 LABEL_189:
-                        v248 = v609;
+                        v256 = v617;
                         goto LABEL_191;
                       }
 
-                      v246 = [v243 keyPath];
-                      v247 = [v246 isEqualToString:@"transform"];
+                      v254 = [v251 keyPath];
+                      v255 = [v254 isEqualToString:@"transform"];
 
-                      if (v247)
+                      if (v255)
                       {
-                        v248 = v609;
-                        v0 = v611;
+                        v256 = v617;
+                        v1 = v619;
                         goto LABEL_191;
                       }
 
-                      v0 = v611;
+                      v1 = v619;
                     }
 
-                    v240 = [v238 countByEnumeratingWithState:&v790 objects:v817 count:16];
-                    v248 = 2;
-                    if (v240)
+                    v248 = [v246 countByEnumeratingWithState:&v798 objects:v825 count:16];
+                    v256 = 2;
+                    if (v248)
                     {
                       continue;
                     }
@@ -15188,87 +15194,87 @@ LABEL_189:
 
                 else
                 {
-                  v248 = 2;
+                  v256 = 2;
                 }
 
 LABEL_191:
 
-                if (v606)
+                if (v614)
                 {
-                  v249 = v248;
+                  v257 = v256;
                 }
 
                 else
                 {
-                  v249 = v609;
+                  v257 = v617;
                 }
 
-                v250 = v602;
-                v236 = v597;
+                v258 = v610;
+                v244 = v605;
               }
 
-              v251 = v202 - v206 * v236 * v210 + v613 * (v206 * v236);
-              v252 = MEMORY[0x277D75D18];
-              v782[0] = MEMORY[0x277D85DD0];
-              v782[1] = 3221225472;
-              v782[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_3_710;
-              v782[3] = &unk_2783AE728;
-              v253 = v632;
-              v785 = v615;
-              v786 = v613;
-              v787 = v234 + v200 - v204 * v235 * v208 + v615 * (v204 * v235);
-              v788 = v251;
-              v789 = v599;
-              v254 = v0[4];
-              v783 = v253;
-              v784 = v254;
-              [v252 sb_animateWithSettings:v596 mode:v249 animations:v782 completion:0];
+              v259 = v210 - v214 * v244 * v218 + v621 * (v214 * v244);
+              v260 = MEMORY[0x277D75D18];
+              v790[0] = MEMORY[0x277D85DD0];
+              v790[1] = 3221225472;
+              v790[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_3_710;
+              v790[3] = &unk_2783AE728;
+              v261 = v640;
+              v793 = v623;
+              v794 = v621;
+              v795 = v242 + v208 - v212 * v243 * v216 + v623 * (v212 * v243);
+              v796 = v259;
+              v797 = v607;
+              v262 = v1[4];
+              v791 = v261;
+              v792 = v262;
+              [v260 sb_animateWithSettings:v604 mode:v257 animations:v790 completion:0];
 
-              v192 = v605;
-              v169 = v545;
-              v102 = v588;
-              v173 = v619;
-              v144 = v617;
-              v138 = v587;
-              v182 = v586;
+              v200 = v613;
+              v177 = v553;
+              v107 = v596;
+              v181 = v627;
+              v149 = v625;
+              v143 = v595;
+              v190 = v594;
             }
 
 LABEL_196:
-            v255 = v622;
-            [*(v0[4] + 264) cornerRadiiForLayoutRole:v622 inAppLayout:v0[5] withCornerRadii:{v537, v169, v539, v535}];
-            v580 = v256;
-            v579 = v257;
-            v578 = v258;
-            v577 = v259;
-            v555 = [*(v0[4] + 264) maskedCornersForLayoutRole:v622 inAppLayout:v0[5] withMaskedCorners:v534];
-            v260 = [*(v0[4] + 264) isLayoutRoleBlurred:v622 inAppLayout:v0[5]];
-            v261 = [*(v0[4] + 264) blurTargetPreferenceForLayoutRole:v622 inAppLayout:v0[5]];
-            v554 = [*(v0[4] + 264) canLayoutRoleParticipateInSwitcherDragAndDrop:v622 appLayout:v0[5]];
-            v553 = [*(v0[4] + 264) isLayoutRoleDraggable:v622 inAppLayout:v0[5]];
-            v561 = [*(v0[4] + 264) shouldUseNonuniformSnapshotScalingForLayoutRole:v622 inAppLayout:v0[5]];
+            v263 = v630;
+            [*(v1[4] + 264) cornerRadiiForLayoutRole:v630 inAppLayout:v1[5] withCornerRadii:{v545, v177, v547, v543}];
+            v588 = v264;
+            v587 = v265;
+            v586 = v266;
+            v585 = v267;
+            v563 = [*(v1[4] + 264) maskedCornersForLayoutRole:v630 inAppLayout:v1[5] withMaskedCorners:v542];
+            v268 = [*(v1[4] + 264) isLayoutRoleBlurred:v630 inAppLayout:v1[5]];
+            v269 = [*(v1[4] + 264) blurTargetPreferenceForLayoutRole:v630 inAppLayout:v1[5]];
+            v562 = [*(v1[4] + 264) canLayoutRoleParticipateInSwitcherDragAndDrop:v630 appLayout:v1[5]];
+            v561 = [*(v1[4] + 264) isLayoutRoleDraggable:v630 inAppLayout:v1[5]];
+            v569 = [*(v1[4] + 264) shouldUseNonuniformSnapshotScalingForLayoutRole:v630 inAppLayout:v1[5]];
             if (SBFIsFullScreenLetterboxingAvailable())
             {
-              v262 = __sb__runningInSpringBoard();
-              v263 = v262;
-              if (v262)
+              v270 = __sb__runningInSpringBoard();
+              v271 = v270;
+              if (v270)
               {
                 if (SBFEffectiveDeviceClass() != 2)
                 {
 LABEL_213:
-                  v255 = v622;
+                  v263 = v630;
                   goto LABEL_214;
                 }
 
 LABEL_201:
-                v264 = [v0[4] windowManagementContext];
-                v265 = [v264 isChamoisOrFlexibleWindowing];
+                v272 = [v1[4] windowManagementContext];
+                v273 = [v272 isChamoisOrFlexibleWindowing];
 
-                if (v263)
+                if (v271)
                 {
-                  if (!v265)
+                  if (!v273)
                   {
 LABEL_203:
-                    v192 = v605;
+                    v200 = v613;
                     goto LABEL_213;
                   }
                 }
@@ -15276,354 +15282,354 @@ LABEL_203:
                 else
                 {
 
-                  if ((v265 & 1) == 0)
+                  if ((v273 & 1) == 0)
                   {
                     goto LABEL_203;
                   }
                 }
 
-                v266 = [v0[5] itemForLayoutRole:v622];
-                v267 = +[SBApplicationController sharedInstance];
-                v268 = [v267 applicationForDisplayItem:v266];
+                v274 = [v1[5] itemForLayoutRole:v630];
+                v275 = +[SBApplicationController sharedInstance];
+                v276 = [v275 applicationForDisplayItem:v274];
 
-                if ([v268 classicAppFullScreen] && (objc_msgSend(v268, "classicAppPhoneAppRunningOnPad") & 1) == 0)
+                if ([v276 classicAppFullScreen] && (objc_msgSend(v276, "classicAppPhoneAppRunningOnPad") & 1) == 0)
                 {
-                  if ([v268 onlySupportsOneOrientation])
+                  if ([v276 onlySupportsOneOrientation])
                   {
-                    v561 = 0;
-                    v523 = 0;
+                    v569 = 0;
+                    v531 = 0;
                   }
 
                   else
                   {
-                    v269 = [v0[4] _sbWindowScene];
-                    v270 = [v269 isExtendedDisplayWindowScene] ^ 1;
+                    v277 = [v1[4] _sbWindowScene];
+                    v278 = [v277 isExtendedDisplayWindowScene] ^ 1;
 
-                    v561 = v270;
-                    v523 = v270;
+                    v569 = v278;
+                    v531 = v278;
                   }
                 }
 
-                v192 = v605;
+                v200 = v613;
               }
 
               else
               {
-                v521 = [MEMORY[0x277D75418] currentDevice];
-                if ([v521 userInterfaceIdiom] == 1)
+                v529 = [MEMORY[0x277D75418] currentDevice];
+                if ([v529 userInterfaceIdiom] == 1)
                 {
                   goto LABEL_201;
                 }
 
-                v266 = v521;
+                v274 = v529;
               }
 
               goto LABEL_213;
             }
 
 LABEL_214:
-            [*(v0[4] + 264) blurDelayForLayoutRole:v255 inAppLayout:v0[5]];
-            v272 = v271;
-            [*(v0[4] + 264) blurViewIconScaleForIndex:v192];
-            v598 = v273;
-            [*(v0[4] + 264) contentViewOffsetForLayoutRole:v255 inAppLayout:v0[5]];
-            v275 = v274;
-            v558 = v276;
-            [*(v0[4] + 264) contentPageViewScaleForLayoutRole:v255 inAppLayout:v0[5] withContentPageViewScale:v538];
-            v278 = v277;
-            v279 = [*(v0[4] + 264) shouldTetherItemsAndAccessoriesInAppLayout:v0[5]];
-            v280 = 0.5;
-            if (v279)
+            [*(v1[4] + 264) blurDelayForLayoutRole:v263 inAppLayout:v1[5]];
+            v280 = v279;
+            [*(v1[4] + 264) blurViewIconScaleForIndex:v200];
+            v606 = v281;
+            [*(v1[4] + 264) contentViewOffsetForLayoutRole:v263 inAppLayout:v1[5]];
+            v283 = v282;
+            v566 = v284;
+            [*(v1[4] + 264) contentPageViewScaleForLayoutRole:v263 inAppLayout:v1[5] withContentPageViewScale:v546];
+            v286 = v285;
+            v287 = [*(v1[4] + 264) shouldTetherItemsAndAccessoriesInAppLayout:v1[5]];
+            v288 = 0.5;
+            if (v287)
             {
-              v280 = (v522 - v138) / v173;
+              v288 = (v530 - v143) / v181;
             }
 
-            v557 = v280;
-            v781[0] = MEMORY[0x277D85DD0];
-            v781[1] = 3221225472;
-            v781[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_6;
-            v781[3] = &unk_2783A8C18;
-            v781[4] = v0[4];
-            v603 = MEMORY[0x223D6F7F0](v781);
-            v780[0] = MEMORY[0x277D85DD0];
-            v780[1] = 3221225472;
-            v780[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_7;
-            v780[3] = &unk_2783A8C18;
-            v780[4] = v0[4];
-            v600 = MEMORY[0x223D6F7F0](v780);
-            v590 = [*(v0[4] + 252) objectForKey:v102];
-            if (v261 == 1)
+            v565 = v288;
+            v789[0] = MEMORY[0x277D85DD0];
+            v789[1] = 3221225472;
+            v789[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_6;
+            v789[3] = &unk_2783A8C18;
+            v789[4] = v1[4];
+            v611 = MEMORY[0x223D6F7F0](v789);
+            v788[0] = MEMORY[0x277D85DD0];
+            v788[1] = 3221225472;
+            v788[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_7;
+            v788[3] = &unk_2783A8C18;
+            v788[4] = v1[4];
+            v608 = MEMORY[0x223D6F7F0](v788);
+            v598 = [*(v1[4] + 252) objectForKey:v107];
+            if (v269 == 1)
             {
-              v281 = 0;
-            }
-
-            else
-            {
-              v281 = v260 & (v590 != 0);
-            }
-
-            v282 = v632;
-            [v632 bounds];
-            v560 = v278;
-            v559 = v275;
-            if (v173 == v284 && v144 == v283)
-            {
-              v556 = 0;
-              v285 = v591;
+              v289 = 0;
             }
 
             else
             {
-              v286 = [*(v0[4] + 264) resizeProgressNotificationsForLayoutRole:v255 inAppLayout:v0[5]];
-              v285 = v591;
-              if ([v286 count])
+              v289 = v268 & (v598 != 0);
+            }
+
+            v290 = v640;
+            [v640 bounds];
+            v568 = v286;
+            v567 = v283;
+            if (v181 == v292 && v149 == v291)
+            {
+              v564 = 0;
+              v293 = v599;
+            }
+
+            else
+            {
+              v294 = [*(v1[4] + 264) resizeProgressNotificationsForLayoutRole:v263 inAppLayout:v1[5]];
+              v293 = v599;
+              if ([v294 count])
               {
-                v287 = v0[4];
-                v288 = objc_opt_self();
-                v556 = [v287 _animatablePropertyWithNotifications:v286 progressEventType:v288];
+                v295 = v1[4];
+                v296 = objc_opt_self();
+                v564 = [v295 _animatablePropertyWithNotifications:v294 progressEventType:v296];
 
-                v282 = v632;
+                v290 = v640;
               }
 
               else
               {
-                v556 = 0;
+                v564 = 0;
               }
 
-              v255 = v622;
+              v263 = v630;
             }
 
-            [v282 center];
-            v290 = v289;
-            v292 = v291;
+            [v290 center];
+            v298 = v297;
+            v300 = v299;
             UIRectGetCenter();
-            if (v290 == v294 && v292 == v293)
+            if (v298 == v302 && v300 == v301)
             {
-              v552 = 0;
+              v560 = 0;
             }
 
             else
             {
-              v295 = [*(v0[4] + 264) repositionProgressNotificationsForLayoutRole:v255 inAppLayout:v0[5]];
-              if ([v295 count])
+              v303 = [*(v1[4] + 264) repositionProgressNotificationsForLayoutRole:v263 inAppLayout:v1[5]];
+              if ([v303 count])
               {
-                v296 = v0[4];
-                v297 = objc_opt_self();
-                v552 = [v296 _animatablePropertyWithNotifications:v295 progressEventType:v297];
+                v304 = v1[4];
+                v305 = objc_opt_self();
+                v560 = [v304 _animatablePropertyWithNotifications:v303 progressEventType:v305];
 
-                v0 = v611;
+                v1 = v619;
               }
 
               else
               {
-                v552 = 0;
+                v560 = 0;
               }
 
-              v282 = v632;
+              v290 = v640;
             }
 
-            if (v604)
+            if (v612)
             {
-              v589 = [v0[4] _appLayoutRequiresLegacyRotationSupport:v0[5]];
-            }
-
-            else
-            {
-              v589 = 0;
-            }
-
-            v298 = (*(v612 + 2))(v612, @"genie attributes");
-            [v282 setGenieAttributes:v526 mode:v592 completion:v298];
-
-            if (*(v0[4] + 180) && [v524 isOrContainsAppLayout:v102])
-            {
-              v299 = *(v0[4] + 180);
+              v597 = [v1[4] _appLayoutRequiresLegacyRotationSupport:v1[5]];
             }
 
             else
             {
-              v299 = 0;
+              v597 = 0;
             }
 
-            [v282 setSlideOverTonguePortalSourceView:v299];
-            [v282 setShouldScaleOverlayToFillBounds:v530];
-            [v282 setPositionAnimationsBeginFromModelState:v604];
-            [v282 setTransformAnimationsAreLegacyCounterRotations:v589];
-            v300 = [v282 contentView];
+            v306 = (*(v620 + 2))(v620, @"genie attributes");
+            [v290 setGenieAttributes:v534 mode:v600 completion:v306];
+
+            if (*(v1[4] + 180) && [v532 isOrContainsAppLayout:v107])
+            {
+              v307 = *(v1[4] + 180);
+            }
+
+            else
+            {
+              v307 = 0;
+            }
+
+            [v290 setSlideOverTonguePortalSourceView:v307];
+            [v290 setShouldScaleOverlayToFillBounds:v538];
+            [v290 setPositionAnimationsBeginFromModelState:v612];
+            [v290 setTransformAnimationsAreLegacyCounterRotations:v597];
+            v308 = [v290 contentView];
             if (objc_opt_respondsToSelector())
             {
-              [v300 setShouldStretchToBounds:v523 & 1];
+              [v308 setShouldStretchToBounds:v531 & 1];
             }
 
             if (objc_opt_respondsToSelector())
             {
-              [v300 setUsesNonuniformScaling:v561];
+              [v308 setUsesNonuniformScaling:v569];
             }
 
-            v562 = v300;
-            v301 = v260 & (v281 ^ 1);
-            [v282 setDraggable:v553];
-            [v282 setSupportsSwitcherDragAndDrop:v554];
-            if (v590)
+            v570 = v308;
+            v309 = v268 & (v289 ^ 1);
+            [v290 setDraggable:v561];
+            [v290 setSupportsSwitcherDragAndDrop:v562];
+            if (v598)
             {
-              [v590 setLiveContentBlurEnabled:v281 duration:v603 blurDelay:v600 iconViewScale:0.25 began:v272 completion:v598];
-              v302 = [*(v0[4] + 245) activeTransitionContext];
-              if (v302)
+              [v598 setLiveContentBlurEnabled:v289 duration:v611 blurDelay:v608 iconViewScale:0.25 began:v280 completion:v606];
+              v310 = [*(v1[4] + 245) activeTransitionContext];
+              if (v310)
               {
-                v303 = 1;
+                v311 = 1;
               }
 
               else
               {
-                v304 = [*(v0[4] + 245) activeGesture];
-                v303 = v304 != 0;
+                v312 = [*(v1[4] + 245) activeGesture];
+                v311 = v312 != 0;
               }
 
-              [v0[4] _applyOcclusionStateToLiveContentOverlay:v590 forLayoutRole:v255 inAppLayout:v0[5] isTransitioning:v303];
-              v282 = v632;
+              [v1[4] _applyOcclusionStateToLiveContentOverlay:v598 forLayoutRole:v263 inAppLayout:v1[5] isTransitioning:v311];
+              v290 = v640;
             }
 
-            [v282 setBlurred:v301 duration:v603 blurDelay:v600 iconViewScale:0.25 began:v272 completion:v598];
-            v305 = [*(v0[4] + 264) shouldAllowGroupOpacityForAppLayout:v0[5]];
-            v306 = [v282 layer];
-            [v306 setAllowsGroupOpacity:v305];
+            [v290 setBlurred:v309 duration:v611 blurDelay:v608 iconViewScale:0.25 began:v280 completion:v606];
+            v313 = [*(v1[4] + 264) shouldAllowGroupOpacityForAppLayout:v1[5]];
+            v314 = [v290 layer];
+            [v314 setAllowsGroupOpacity:v313];
 
-            v307 = (*(v612 + 2))(v612, @"center");
-            v308 = v282;
-            v309 = MEMORY[0x277D75D18];
-            v769[0] = MEMORY[0x277D85DD0];
-            v769[1] = 3221225472;
-            v769[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_8;
-            v769[3] = &unk_2783AE750;
-            v778 = v625;
-            v779 = v604;
-            v310 = v308;
-            v770 = v310;
-            v772 = v615;
-            v773 = v613;
-            v774 = v285;
-            v775 = v182;
-            v776 = v173;
-            v777 = v144;
-            v771 = v552;
+            v315 = (*(v620 + 2))(v620, @"center");
+            v316 = v290;
+            v317 = MEMORY[0x277D75D18];
+            v777[0] = MEMORY[0x277D85DD0];
+            v777[1] = 3221225472;
+            v777[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_8;
+            v777[3] = &unk_2783AE750;
+            v786 = v633;
+            v787 = v612;
+            v318 = v316;
+            v778 = v318;
+            v780 = v623;
+            v781 = v621;
+            v782 = v293;
+            v783 = v190;
+            v784 = v181;
+            v785 = v149;
+            v779 = v560;
+            v774[0] = MEMORY[0x277D85DD0];
+            v774[1] = 3221225472;
+            v774[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_9;
+            v774[3] = &unk_2783AE668;
+            v634 = v779;
+            v775 = v634;
+            v624 = v315;
+            v776 = v624;
+            [v317 sb_animateWithSettings:v604 mode:v617 animations:v777 completion:v774];
+            [v318 setMaskedCorners:v563];
+            v319 = (*(v620 + 2))(v620, @"corner radius");
+            v320 = MEMORY[0x277D75D18];
+            v768[0] = MEMORY[0x277D85DD0];
+            v768[1] = 3221225472;
+            v768[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_10;
+            v768[3] = &unk_2783AC828;
+            v321 = v318;
+            v769 = v321;
+            v770 = v588;
+            v771 = v587;
+            v772 = v586;
+            v773 = v585;
             v766[0] = MEMORY[0x277D85DD0];
             v766[1] = 3221225472;
-            v766[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_9;
-            v766[3] = &unk_2783AE668;
-            v626 = v771;
-            v767 = v626;
-            v616 = v307;
-            v768 = v616;
-            [v309 sb_animateWithSettings:v596 mode:v609 animations:v769 completion:v766];
-            [v310 setMaskedCorners:v555];
-            v311 = (*(v612 + 2))(v612, @"corner radius");
-            v312 = MEMORY[0x277D75D18];
-            v760[0] = MEMORY[0x277D85DD0];
-            v760[1] = 3221225472;
-            v760[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_10;
-            v760[3] = &unk_2783AC828;
-            v313 = v310;
-            v761 = v313;
-            v762 = v580;
-            v763 = v579;
-            v764 = v578;
-            v765 = v577;
-            v758[0] = MEMORY[0x277D85DD0];
-            v758[1] = 3221225472;
-            v758[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_11;
-            v758[3] = &unk_2783AE778;
-            v614 = v311;
-            v759 = v614;
-            [v312 sb_animateWithSettings:v593 mode:v564 animations:v760 completion:v758];
-            [*(v0[4] + 264) wallpaperGradientAttributesForLayoutRole:v622 inAppLayout:v0[5]];
-            v315 = v314;
-            v317 = v316;
-            if ((([obj count] > 1) & v528) == 1)
-            {
-              v831.origin.x = v587;
-              v831.origin.y = v576;
-              v831.size.width = v173;
-              v831.size.height = v144;
-              v318 = (v315 - v317) * CGRectGetMinX(v831);
-              v832.origin.x = v550;
-              v832.origin.y = v549;
-              v832.size.width = v584;
-              v832.size.height = rect;
-              v319 = v317 + v318 / CGRectGetWidth(v832);
-              v833.origin.x = v587;
-              v182 = v586;
-              v833.origin.y = v576;
-              v833.size.width = v619;
-              v833.size.height = v617;
-              v320 = (v315 - v317) * CGRectGetMaxX(v833);
-              v834.origin.x = v550;
-              v834.origin.y = v549;
-              v834.size.width = v584;
-              v144 = v617;
-              v834.size.height = rect;
-              v315 = v317 + v320 / CGRectGetWidth(v834);
-              v317 = v319;
-              v173 = v619;
-            }
-
-            v321 = [v583 opacityUpdateMode];
-            if (!v321)
-            {
-              v321 = [v583 updateMode];
-            }
-
-            v322 = [v583 opacitySettings];
+            v766[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_11;
+            v766[3] = &unk_2783AE778;
+            v622 = v319;
+            v767 = v622;
+            [v320 sb_animateWithSettings:v601 mode:v572 animations:v768 completion:v766];
+            [*(v1[4] + 264) wallpaperGradientAttributesForLayoutRole:v630 inAppLayout:v1[5]];
             v323 = v322;
-            if (v322)
+            v325 = v324;
+            if ((([obj count] > 1) & v536) == 1)
             {
-              v324 = v322;
+              v839.origin.x = v595;
+              v839.origin.y = v584;
+              v839.size.width = v181;
+              v839.size.height = v149;
+              v326 = (v323 - v325) * CGRectGetMinX(v839);
+              v840.origin.x = v558;
+              v840.origin.y = v557;
+              v840.size.width = v592;
+              v840.size.height = rect;
+              v327 = v325 + v326 / CGRectGetWidth(v840);
+              v841.origin.x = v595;
+              v190 = v594;
+              v841.origin.y = v584;
+              v841.size.width = v627;
+              v841.size.height = v625;
+              v328 = (v323 - v325) * CGRectGetMaxX(v841);
+              v842.origin.x = v558;
+              v842.origin.y = v557;
+              v842.size.width = v592;
+              v149 = v625;
+              v842.size.height = rect;
+              v323 = v325 + v328 / CGRectGetWidth(v842);
+              v325 = v327;
+              v181 = v627;
+            }
+
+            v329 = [v591 opacityUpdateMode];
+            if (!v329)
+            {
+              v329 = [v591 updateMode];
+            }
+
+            v330 = [v591 opacitySettings];
+            v331 = v330;
+            if (v330)
+            {
+              v332 = v330;
             }
 
             else
             {
-              v324 = [v583 layoutSettings];
+              v332 = [v591 layoutSettings];
             }
 
-            v325 = MEMORY[0x277D75D18];
-            v753[0] = MEMORY[0x277D85DD0];
-            v753[1] = 3221225472;
-            v753[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_12;
-            v753[3] = &unk_2783AE7A0;
-            v326 = v313;
-            v754 = v326;
-            v757 = v529;
-            v755 = v315;
-            v756 = v317;
-            v327 = (*(v612 + 2))(v612, @"wallpaperGradientAttributes");
-            [v325 sb_animateWithSettings:v324 mode:v321 animations:v753 completion:v327];
+            v333 = MEMORY[0x277D75D18];
+            v761[0] = MEMORY[0x277D85DD0];
+            v761[1] = 3221225472;
+            v761[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_12;
+            v761[3] = &unk_2783AE7A0;
+            v334 = v321;
+            v762 = v334;
+            v765 = v537;
+            v763 = v323;
+            v764 = v325;
+            v335 = (*(v620 + 2))(v620, @"wallpaperGradientAttributes");
+            [v333 sb_animateWithSettings:v332 mode:v329 animations:v761 completion:v335];
 
-            v620 = v324;
-            if ([v0[4] isJindoEnabled])
+            v628 = v332;
+            if ([v1[4] isJindoEnabled])
             {
-              v328 = [v326 layer];
-              v329 = [v328 valueForKey:@"meshTransform"];
-              if (v329)
+              v336 = [v334 layer];
+              v337 = [v336 valueForKey:@"meshTransform"];
+              if (v337)
               {
-                v330 = 1;
+                v338 = 1;
               }
 
               else
               {
-                v330 = v551 == 0;
+                v338 = v559 == 0;
               }
 
-              v331 = !v330;
+              v339 = !v338;
 
-              v332 = [v326 layer];
-              v333 = [v332 presentationModifiers];
-              v334 = [v333 bs_containsObjectPassingTest:&__block_literal_global_738];
+              v340 = [v334 layer];
+              v341 = [v340 presentationModifiers];
+              v342 = [v341 bs_containsObjectPassingTest:&__block_literal_global_738];
 
-              v9 = v584;
-              v335 = v560;
-              if ((v331 & 1) != 0 || v334)
+              v10 = v592;
+              v343 = v568;
+              if ((v339 & 1) != 0 || v342)
               {
-                v336 = [*(v611[4] + 264) identityMeshTransformForIndex:v605];
-                if (!v331)
+                v344 = [*(v619[4] + 264) identityMeshTransformForIndex:v613];
+                if (!v339)
                 {
                   goto LABEL_266;
                 }
@@ -15631,192 +15637,192 @@ LABEL_214:
 
               else
               {
-                v336 = 0;
-                if (!v331)
+                v344 = 0;
+                if (!v339)
                 {
 LABEL_266:
-                  if (v551)
+                  if (v559)
                   {
-                    v337 = 0;
+                    v345 = 0;
                   }
 
                   else
                   {
-                    v337 = v334;
+                    v345 = v342;
                   }
 
-                  if (v337 == 1)
+                  if (v345 == 1)
                   {
-                    v551 = v336;
+                    v559 = v344;
                   }
 
 LABEL_274:
-                  v339 = [v583 meshSettings];
-                  v340 = v339;
-                  v0 = v611;
-                  if (v339)
+                  v347 = [v591 meshSettings];
+                  v348 = v347;
+                  v1 = v619;
+                  if (v347)
                   {
-                    v341 = v339;
+                    v349 = v347;
                   }
 
                   else
                   {
-                    v341 = [v583 layoutSettings];
+                    v349 = [v591 layoutSettings];
                   }
 
-                  v342 = MEMORY[0x277D75D18];
-                  v747[0] = MEMORY[0x277D85DD0];
-                  v747[1] = 3221225472;
-                  v747[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_15;
-                  v747[3] = &unk_2783A92D8;
-                  v748 = v326;
-                  v551 = v551;
-                  v749 = v551;
-                  v343 = (*(v612 + 2))(v612, @"mesh transform");
-                  [v342 sb_animateWithSettings:v341 mode:v546 animations:v747 completion:v343];
+                  v350 = MEMORY[0x277D75D18];
+                  v755[0] = MEMORY[0x277D85DD0];
+                  v755[1] = 3221225472;
+                  v755[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_15;
+                  v755[3] = &unk_2783A92D8;
+                  v756 = v334;
+                  v559 = v559;
+                  v757 = v559;
+                  v351 = (*(v620 + 2))(v620, @"mesh transform");
+                  [v350 sb_animateWithSettings:v349 mode:v554 animations:v755 completion:v351];
 
 LABEL_278:
-                  [*(v0[4] + 264) slideOverMarginForLayoutRole:v622 inAppLayout:v0[5]];
-                  v345 = v344;
-                  v727[0] = MEMORY[0x277D85DD0];
-                  v727[1] = 3221225472;
-                  v727[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_16;
-                  v727[3] = &unk_2783AE7F0;
-                  v346 = v612;
-                  v731 = v346;
-                  v623 = v565;
-                  v728 = v623;
-                  v732 = v592;
-                  v347 = v326;
-                  v729 = v347;
-                  v733 = v591;
-                  v734 = v182;
-                  v735 = v173;
-                  v736 = v144;
-                  v737 = v557;
-                  v738 = 0x3FE0000000000000;
-                  v739 = v559;
-                  v740 = v558;
-                  v741 = v550;
-                  v742 = v549;
-                  v743 = v9;
-                  v744 = rect;
-                  v745 = v531;
-                  v746 = v345;
-                  v618 = v556;
-                  v730 = v618;
-                  v348 = MEMORY[0x223D6F7F0](v727);
-                  v610 = v348;
-                  if (v589)
+                  [*(v1[4] + 264) slideOverMarginForLayoutRole:v630 inAppLayout:v1[5]];
+                  v353 = v352;
+                  v735[0] = MEMORY[0x277D85DD0];
+                  v735[1] = 3221225472;
+                  v735[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_16;
+                  v735[3] = &unk_2783AE7F0;
+                  v354 = v620;
+                  v739 = v354;
+                  v631 = v573;
+                  v736 = v631;
+                  v740 = v600;
+                  v355 = v334;
+                  v737 = v355;
+                  v741 = v599;
+                  v742 = v190;
+                  v743 = v181;
+                  v744 = v149;
+                  v745 = v565;
+                  v746 = 0x3FE0000000000000;
+                  v747 = v567;
+                  v748 = v566;
+                  v749 = v558;
+                  v750 = v557;
+                  v751 = v10;
+                  v752 = rect;
+                  v753 = v539;
+                  v754 = v353;
+                  v626 = v564;
+                  v738 = v626;
+                  v356 = MEMORY[0x223D6F7F0](v735);
+                  v618 = v356;
+                  if (v597)
                   {
-                    [MEMORY[0x277D75D18] performWithoutAnimation:v348];
+                    [MEMORY[0x277D75D18] performWithoutAnimation:v356];
                   }
 
                   else
                   {
-                    (*(v348 + 16))(v348);
+                    (*(v356 + 16))(v356);
                   }
 
-                  v349 = [v347 isContentClippingEnabled];
-                  if (v349)
+                  v357 = [v355 isContentClippingEnabled];
+                  if (v357)
                   {
-                    [v347 contentClippingFrame];
-                    v838.origin.x = v569;
-                    v838.origin.y = v568;
-                    v838.size.width = v567;
-                    v838.size.height = rect2;
-                    v350 = !CGRectEqualToRect(v835, v838);
+                    [v355 contentClippingFrame];
+                    v846.origin.x = v577;
+                    v846.origin.y = v576;
+                    v846.size.width = v575;
+                    v846.size.height = rect2;
+                    v358 = !CGRectEqualToRect(v843, v846);
                   }
 
                   else
                   {
-                    v350 = 0;
+                    v358 = 0;
                   }
 
-                  if ((v548 ^ v349 | v350))
+                  if ((v556 ^ v357 | v358))
                   {
-                    [v347 setContentClippingEnabled:v548];
-                    v351 = (*v621)(v346, @"clipping");
-                    v352 = MEMORY[0x277D75D18];
-                    v717[0] = MEMORY[0x277D85DD0];
-                    v717[1] = 3221225472;
-                    v717[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_19;
-                    v717[3] = &unk_2783AE818;
-                    v718 = v347;
-                    v719 = v569;
-                    v720 = v568;
-                    v721 = v567;
-                    v722 = rect2;
-                    v723 = v580;
-                    v724 = v579;
-                    v725 = v578;
-                    v726 = v577;
-                    v714[0] = MEMORY[0x277D85DD0];
-                    v714[1] = 3221225472;
-                    v714[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_20;
-                    v714[3] = &unk_2783A92B0;
-                    v714[4] = v0[4];
-                    v716 = v547;
-                    v353 = v351;
-                    v715 = v353;
-                    [v352 sb_animateWithSettings:v582 mode:v547 animations:v717 completion:v714];
+                    [v355 setContentClippingEnabled:v556];
+                    v359 = (*v629)(v354, @"clipping");
+                    v360 = MEMORY[0x277D75D18];
+                    v725[0] = MEMORY[0x277D85DD0];
+                    v725[1] = 3221225472;
+                    v725[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_19;
+                    v725[3] = &unk_2783AE818;
+                    v726 = v355;
+                    v727 = v577;
+                    v728 = v576;
+                    v729 = v575;
+                    v730 = rect2;
+                    v731 = v588;
+                    v732 = v587;
+                    v733 = v586;
+                    v734 = v585;
+                    v722[0] = MEMORY[0x277D85DD0];
+                    v722[1] = 3221225472;
+                    v722[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_20;
+                    v722[3] = &unk_2783A92B0;
+                    v722[4] = v1[4];
+                    v724 = v555;
+                    v361 = v359;
+                    v723 = v361;
+                    [v360 sb_animateWithSettings:v590 mode:v555 animations:v725 completion:v722];
                   }
 
-                  v354 = MEMORY[0x277D75D18];
-                  v699[0] = MEMORY[0x277D85DD0];
-                  v699[1] = 3221225472;
-                  v699[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_21;
-                  v699[3] = &unk_2783AE840;
-                  v355 = v347;
-                  v704 = v581;
-                  v705 = v574;
-                  v706 = v563;
-                  v707 = v571;
-                  v708 = v570;
-                  v709 = v536;
-                  v713 = v532;
-                  v710 = v533;
-                  v356 = v0[4];
-                  v357 = v0[5];
-                  v700 = v355;
-                  v701 = v356;
-                  v702 = v357;
-                  v711 = v335;
-                  v712 = v598;
-                  v607 = v590;
-                  v703 = v607;
-                  v358 = (*v621)(v346, @"transform and content page view scale");
-                  [v354 sb_animateWithSettings:v572 mode:v575 animations:v699 completion:v358];
+                  v362 = MEMORY[0x277D75D18];
+                  v707[0] = MEMORY[0x277D85DD0];
+                  v707[1] = 3221225472;
+                  v707[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_21;
+                  v707[3] = &unk_2783AE840;
+                  v363 = v355;
+                  v712 = v589;
+                  v713 = v582;
+                  v714 = v571;
+                  v715 = v579;
+                  v716 = v578;
+                  v717 = v544;
+                  v721 = v540;
+                  v718 = v541;
+                  v364 = v1[4];
+                  v365 = v1[5];
+                  v708 = v363;
+                  v709 = v364;
+                  v710 = v365;
+                  v719 = v343;
+                  v720 = v606;
+                  v615 = v598;
+                  v711 = v615;
+                  v366 = (*v629)(v354, @"transform and content page view scale");
+                  [v362 sb_animateWithSettings:v580 mode:v583 animations:v707 completion:v366];
 
-                  if ([*(v0[4] + 137) shouldRedactWindowContents])
+                  if ([*(v1[4] + 137) shouldRedactWindowContents])
                   {
-                    v359 = [v0[4] appLayoutContainingAppLayout:v588];
-                    v360 = [v588 allItems];
-                    v361 = [v360 firstObject];
-                    v362 = [v359 layoutRoleForItem:v361];
+                    v367 = [v1[4] appLayoutContainingAppLayout:v596];
+                    v368 = [v596 allItems];
+                    v369 = [v368 firstObject];
+                    v370 = [v367 layoutRoleForItem:v369];
 
-                    if (v362 == 1)
+                    if (v370 == 1)
                     {
-                      v363 = [MEMORY[0x277D75348] systemBlueColor];
-                      v364 = v611;
+                      v371 = [MEMORY[0x277D75348] systemBlueColor];
+                      v372 = v619;
                     }
 
                     else
                     {
-                      v364 = v611;
-                      if (v362 == 2)
+                      v372 = v619;
+                      if (v370 == 2)
                       {
-                        v375 = [MEMORY[0x277D75348] systemGreenColor];
+                        v383 = [MEMORY[0x277D75348] systemGreenColor];
                       }
 
-                      else if (v362 == 5)
+                      else if (v370 == 5)
                       {
-                        v375 = [MEMORY[0x277D75348] systemRedColor];
+                        v383 = [MEMORY[0x277D75348] systemRedColor];
                       }
 
                       else
                       {
-                        if (v362 == 6)
+                        if (v370 == 6)
                         {
                           [MEMORY[0x277D75348] systemPurpleColor];
                         }
@@ -15825,390 +15831,390 @@ LABEL_278:
                         {
                           [MEMORY[0x277D75348] blackColor];
                         }
-                        v375 = ;
+                        v383 = ;
                       }
 
-                      v363 = v375;
+                      v371 = v383;
                     }
 
-                    v376 = [v355 contentView];
-                    v377 = [v376 layer];
-                    [v377 setBorderColor:{objc_msgSend(v363, "CGColor")}];
+                    v384 = [v363 contentView];
+                    v385 = [v384 layer];
+                    [v385 setBorderColor:{objc_msgSend(v371, "CGColor")}];
 
-                    v378 = [v355 contentView];
-                    v379 = [v378 layer];
-                    v380 = [v364[4] view];
-                    [v380 bounds];
-                    v382 = v381;
+                    v386 = [v363 contentView];
+                    v387 = [v386 layer];
+                    v388 = [v372[4] view];
+                    [v388 bounds];
+                    v390 = v389;
 
-                    v383 = [v611[4] view];
-                    [v383 bounds];
-                    v385 = v384;
-
-                    v0 = v611;
-                    if (v382 >= v385)
-                    {
-                      v386 = v382;
-                    }
-
-                    else
-                    {
-                      v386 = v385;
-                    }
-
-                    [v379 setBorderWidth:v386];
-
-                    v387 = [v355 contentOverlay];
-                    [v387 bs_setHitTestingDisabled:1];
-
-                    v388 = [v355 contentOverlay];
-                    v389 = [v388 layer];
-                    [v389 setBorderColor:{objc_msgSend(v363, "CGColor")}];
-
-                    v374 = [v355 contentOverlay];
-                    v390 = [v374 layer];
-                    v391 = [v611[4] view];
+                    v391 = [v619[4] view];
                     [v391 bounds];
                     v393 = v392;
 
-                    v394 = [v611[4] view];
-                    [v394 bounds];
-                    v396 = v395;
-
-                    if (v393 >= v396)
+                    v1 = v619;
+                    if (v390 >= v393)
                     {
-                      v397 = v393;
+                      v394 = v390;
                     }
 
                     else
                     {
-                      v397 = v396;
+                      v394 = v393;
                     }
 
-                    [v390 setBorderWidth:v397];
+                    [v387 setBorderWidth:v394];
+
+                    v395 = [v363 contentOverlay];
+                    [v395 bs_setHitTestingDisabled:1];
+
+                    v396 = [v363 contentOverlay];
+                    v397 = [v396 layer];
+                    [v397 setBorderColor:{objc_msgSend(v371, "CGColor")}];
+
+                    v382 = [v363 contentOverlay];
+                    v398 = [v382 layer];
+                    v399 = [v619[4] view];
+                    [v399 bounds];
+                    v401 = v400;
+
+                    v402 = [v619[4] view];
+                    [v402 bounds];
+                    v404 = v403;
+
+                    if (v401 >= v404)
+                    {
+                      v405 = v401;
+                    }
+
+                    else
+                    {
+                      v405 = v404;
+                    }
+
+                    [v398 setBorderWidth:v405];
                   }
 
                   else
                   {
-                    v365 = [v355 contentView];
-                    v366 = [v365 layer];
-                    v367 = [MEMORY[0x277D75348] clearColor];
-                    [v366 setBorderColor:{objc_msgSend(v367, "CGColor")}];
+                    v373 = [v363 contentView];
+                    v374 = [v373 layer];
+                    v375 = [MEMORY[0x277D75348] clearColor];
+                    [v374 setBorderColor:{objc_msgSend(v375, "CGColor")}];
 
-                    v368 = [v355 contentView];
-                    v369 = [v368 layer];
-                    [v369 setBorderWidth:0.0];
+                    v376 = [v363 contentView];
+                    v377 = [v376 layer];
+                    [v377 setBorderWidth:0.0];
 
-                    v370 = [v355 contentOverlay];
-                    [v370 bs_setHitTestingDisabled:0];
+                    v378 = [v363 contentOverlay];
+                    [v378 bs_setHitTestingDisabled:0];
 
-                    v371 = [v355 contentOverlay];
-                    v372 = [v371 layer];
-                    v373 = [MEMORY[0x277D75348] clearColor];
-                    [v372 setBorderColor:{objc_msgSend(v373, "CGColor")}];
+                    v379 = [v363 contentOverlay];
+                    v380 = [v379 layer];
+                    v381 = [MEMORY[0x277D75348] clearColor];
+                    [v380 setBorderColor:{objc_msgSend(v381, "CGColor")}];
 
-                    v363 = [v355 contentOverlay];
-                    v374 = [v363 layer];
-                    [v374 setBorderWidth:0.0];
+                    v371 = [v363 contentOverlay];
+                    v382 = [v371 layer];
+                    [v382 setBorderWidth:0.0];
                   }
 
-                  v3 = v605;
+                  v4 = v613;
                   goto LABEL_307;
                 }
               }
 
-              v338 = MEMORY[0x277D75D18];
-              v750[0] = MEMORY[0x277D85DD0];
-              v750[1] = 3221225472;
-              v750[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_14;
-              v750[3] = &unk_2783A92D8;
-              v751 = v326;
-              v752 = v336;
-              [v338 performWithoutAnimation:v750];
+              v346 = MEMORY[0x277D75D18];
+              v758[0] = MEMORY[0x277D85DD0];
+              v758[1] = 3221225472;
+              v758[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_14;
+              v758[3] = &unk_2783A92D8;
+              v759 = v334;
+              v760 = v344;
+              [v346 performWithoutAnimation:v758];
 
               goto LABEL_274;
             }
 
-            v9 = v584;
-            v335 = v560;
+            v10 = v592;
+            v343 = v568;
             goto LABEL_278;
           }
 
 LABEL_307:
-          v108 = v629;
+          v113 = v637;
         }
 
-        v595 = [obj countByEnumeratingWithState:&v808 objects:v825 count:16];
+        v603 = [obj countByEnumeratingWithState:&v816 objects:v833 count:16];
       }
 
-      while (v595);
+      while (v603);
     }
 
-    v697 = 0u;
-    v698 = 0u;
-    v695 = 0u;
-    v696 = 0u;
-    v413 = [v0[5] allItems];
-    v414 = [v413 countByEnumeratingWithState:&v695 objects:v816 count:16];
-    if (v414)
+    v705 = 0u;
+    v706 = 0u;
+    v703 = 0u;
+    v704 = 0u;
+    v421 = [v1[5] allItems];
+    v422 = [v421 countByEnumeratingWithState:&v703 objects:v824 count:16];
+    if (v422)
     {
-      v415 = v414;
-      v416 = *v696;
-      LOBYTE(v417) = 1;
-      v418 = v29;
-      v419 = v30;
-      v420 = v512;
-      v421 = v540;
+      v423 = v422;
+      v424 = *v704;
+      LOBYTE(v425) = 1;
+      v426 = v30;
+      v427 = v31;
+      v428 = v520;
+      v429 = v548;
       do
       {
-        for (m = 0; m != v415; ++m)
+        for (m = 0; m != v423; ++m)
         {
-          if (*v696 != v416)
+          if (*v704 != v424)
           {
-            objc_enumerationMutation(v413);
+            objc_enumerationMutation(v421);
           }
 
-          v423 = [v0[5] layoutRoleForItem:*(*(&v695 + 1) + 8 * m)];
-          if (v417)
+          v431 = [v1[5] layoutRoleForItem:*(*(&v703 + 1) + 8 * m)];
+          if (v425)
           {
-            v417 = [v0[6] containsRole:v423];
+            v425 = [v1[6] containsRole:v431];
           }
 
           else
           {
-            v417 = 0;
+            v425 = 0;
           }
         }
 
-        v415 = [v413 countByEnumeratingWithState:&v695 objects:v816 count:16];
+        v423 = [v421 countByEnumeratingWithState:&v703 objects:v824 count:16];
       }
 
-      while (v415);
+      while (v423);
     }
 
     else
     {
-      v417 = 1;
-      v418 = v29;
-      v419 = v30;
-      v420 = v512;
-      v421 = v540;
+      v425 = 1;
+      v426 = v30;
+      v427 = v31;
+      v428 = v520;
+      v429 = v548;
     }
 
-    if (([v0[6] isEmpty] & 1) != 0 || v417)
+    if (([v1[6] isEmpty] & 1) != 0 || v425)
     {
-      v424 = [*(v0[4] + 247) objectForKey:v0[5]];
-      v425 = [*(v0[4] + 248) objectForKey:v0[5]];
-      v630 = [*(v0[4] + 129) objectForKey:v0[5]];
-      v426 = [v424 layer];
-      [v426 anchorPoint];
-      v428 = v427;
-      v430 = v429;
+      v432 = [*(v1[4] + 247) objectForKey:v1[5]];
+      v433 = [*(v1[4] + 248) objectForKey:v1[5]];
+      v638 = [*(v1[4] + 129) objectForKey:v1[5]];
+      v434 = [v432 layer];
+      [v434 anchorPoint];
+      v436 = v435;
+      v438 = v437;
 
-      if ((v430 != point || v428 != v542) && v420 == 4)
+      if ((v438 != point || v436 != v550) && v428 == 4)
       {
-        v433 = [v424 layer];
-        v434 = [v433 presentationModifiers];
+        v441 = [v432 layer];
+        v442 = [v441 presentationModifiers];
 
-        if ([v434 bs_containsObjectPassingTest:&__block_literal_global_764])
+        if ([v442 bs_containsObjectPassingTest:&__block_literal_global_764])
         {
-          v420 = 5;
+          v428 = 5;
         }
 
         else
         {
-          v420 = 4;
+          v428 = 4;
         }
 
-        v0 = v611;
+        v1 = v619;
       }
 
-      [*(v0[4] + 264) adjustedSpaceAccessoryViewFrame:v0[5] forAppLayout:{v550, v549, v9, rect}];
-      v436 = v435;
-      v624 = v437;
-      v439 = v438;
-      v441 = v440;
-      [*(v0[4] + 264) adjustedSpaceAccessoryViewAnchorPoint:v0[5] forAppLayout:{v542, point}];
-      v443 = v442;
-      v445 = v444;
-      [*(v0[4] + 264) adjustedSpaceAccessoryViewScale:v0[5] forAppLayout:v421];
+      [*(v1[4] + 264) adjustedSpaceAccessoryViewFrame:v1[5] forAppLayout:{v558, v557, v10, rect}];
+      v444 = v443;
+      v632 = v445;
       v447 = v446;
-      [*(v0[4] + 264) adjustedSpaceAccessoryViewPerspectiveAngle:v0[5] forAppLayout:{v544, v543}];
-      v628 = v448;
-      v627 = v449;
+      v449 = v448;
+      [*(v1[4] + 264) adjustedSpaceAccessoryViewAnchorPoint:v1[5] forAppLayout:{v550, point}];
+      v451 = v450;
+      v453 = v452;
+      [*(v1[4] + 264) adjustedSpaceAccessoryViewScale:v1[5] forAppLayout:v429];
+      v455 = v454;
+      [*(v1[4] + 264) adjustedSpaceAccessoryViewPerspectiveAngle:v1[5] forAppLayout:{v552, v551}];
+      v636 = v456;
+      v635 = v457;
       if ((BSFloatIsZero() & 1) == 0)
       {
-        v538 = v538 * (v447 / v421);
+        v546 = v546 * (v455 / v429);
       }
 
-      if (v419)
+      if (v427)
       {
-        v450 = v418;
+        v458 = v426;
       }
 
       else
       {
-        v450 = 0;
+        v458 = 0;
       }
 
-      v451 = (*(v612 + 2))(v612, @"accessory genie attributes");
-      [v424 setGenieAttributes:v450 mode:v500 completion:v451];
-
-      v452 = MEMORY[0x277D75D18];
-      v686[0] = MEMORY[0x277D85DD0];
-      v686[1] = 3221225472;
-      v686[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_23;
-      v686[3] = &unk_2783AE868;
-      v453 = v424;
-      v687 = v453;
-      v689 = v443;
-      v690 = v445;
-      v691 = v436;
-      v692 = v624;
-      v693 = v439;
-      v694 = v441;
-      v454 = v425;
-      v688 = v454;
-      v455 = (*(v612 + 2))(v612, @"accessory center");
-      [v452 sb_animateWithSettings:v516 mode:v420 animations:v686 completion:v455];
-
-      [v454 setMaskedCorners:v534];
-      [v453 setMaskedCorners:v534];
-      v456 = MEMORY[0x277D75D18];
-      v679[0] = MEMORY[0x277D85DD0];
-      v679[1] = 3221225472;
-      v679[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_24;
-      v679[3] = &unk_2783AAFD0;
-      v682 = v537;
-      v683 = v545;
-      v684 = v539;
-      v685 = v535;
-      v457 = v454;
-      v680 = v457;
-      v458 = v453;
-      v681 = v458;
-      v459 = (*(v612 + 2))(v612, @"accessory corner radius");
-      [v456 sb_animateWithSettings:v514 mode:v499 animations:v679 completion:v459];
+      v459 = (*(v620 + 2))(v620, @"accessory genie attributes");
+      [v432 setGenieAttributes:v458 mode:v508 completion:v459];
 
       v460 = MEMORY[0x277D75D18];
-      v664[0] = MEMORY[0x277D85DD0];
-      v664[1] = 3221225472;
-      v664[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_25;
-      v664[3] = &unk_2783AE890;
-      v631 = v630;
-      v665 = v631;
-      v666 = v518;
-      v461 = v458;
-      v667 = v461;
-      v669 = v436;
-      v670 = v624;
-      v671 = v439;
-      v672 = v441;
-      v673 = v503;
-      v674 = v502;
-      v462 = v457;
-      v668 = v462;
-      v675 = v507;
-      v676 = MinY;
-      v677 = v520;
-      v678 = Height;
-      v463 = (*(v612 + 2))(v612, @"accessory bounds");
-      [v460 sb_animateWithSettings:v517 mode:v500 animations:v664 completion:v463];
+      v694[0] = MEMORY[0x277D85DD0];
+      v694[1] = 3221225472;
+      v694[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_23;
+      v694[3] = &unk_2783AE868;
+      v461 = v432;
+      v695 = v461;
+      v697 = v451;
+      v698 = v453;
+      v699 = v444;
+      v700 = v632;
+      v701 = v447;
+      v702 = v449;
+      v462 = v433;
+      v696 = v462;
+      v463 = (*(v620 + 2))(v620, @"accessory center");
+      [v460 sb_animateWithSettings:v524 mode:v428 animations:v694 completion:v463];
 
-      [v461 setContentClippingEnabled:v548];
-      [v462 setContentClippingEnabled:v548];
+      [v462 setMaskedCorners:v542];
+      [v461 setMaskedCorners:v542];
       v464 = MEMORY[0x277D75D18];
-      v653[0] = MEMORY[0x277D85DD0];
-      v653[1] = 3221225472;
-      v653[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_26;
-      v653[3] = &unk_2783AE8B8;
-      v465 = v461;
-      v654 = v465;
-      v656 = v511;
-      v657 = v510;
-      v658 = v509;
-      v659 = v508;
-      v660 = v537;
-      v661 = v545;
-      v662 = v539;
-      v663 = v535;
-      v466 = v462;
-      v655 = v466;
-      v467 = (*(v612 + 2))(v612, @"accessory clipping");
-      [v464 sb_animateWithSettings:v513 mode:v501 animations:v653 completion:v467];
+      v687[0] = MEMORY[0x277D85DD0];
+      v687[1] = 3221225472;
+      v687[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_24;
+      v687[3] = &unk_2783AAFD0;
+      v690 = v545;
+      v691 = v553;
+      v692 = v547;
+      v693 = v543;
+      v465 = v462;
+      v688 = v465;
+      v466 = v461;
+      v689 = v466;
+      v467 = (*(v620 + 2))(v620, @"accessory corner radius");
+      [v464 sb_animateWithSettings:v522 mode:v507 animations:v687 completion:v467];
 
       v468 = MEMORY[0x277D75D18];
-      v636[0] = MEMORY[0x277D85DD0];
-      v636[1] = 3221225472;
-      v636[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_27;
-      v636[3] = &unk_2783AE8E0;
-      v469 = v465;
-      v641 = v447;
-      v642 = v536;
-      v643 = v628;
-      v644 = v627;
-      v652 = v532;
-      v645 = v533;
-      v470 = v611[4];
-      v471 = v611[5];
-      v637 = v469;
-      v638 = v470;
-      v639 = v471;
-      v646 = v815;
-      v647 = v436;
-      v648 = v624;
-      v649 = v439;
-      v650 = v441;
-      v651 = v538;
-      v472 = v466;
-      v640 = v472;
-      v473 = (*(v612 + 2))(v612, @"accessory transform and content page view scale");
-      [v468 sb_animateWithSettings:v515 mode:v504 animations:v636 completion:v473];
+      v672[0] = MEMORY[0x277D85DD0];
+      v672[1] = 3221225472;
+      v672[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_25;
+      v672[3] = &unk_2783AE890;
+      v639 = v638;
+      v673 = v639;
+      v674 = v526;
+      v469 = v466;
+      v675 = v469;
+      v677 = v444;
+      v678 = v632;
+      v679 = v447;
+      v680 = v449;
+      v681 = v511;
+      v682 = v510;
+      v470 = v465;
+      v676 = v470;
+      v683 = v515;
+      v684 = MinY;
+      v685 = v528;
+      v686 = Height;
+      v471 = (*(v620 + 2))(v620, @"accessory bounds");
+      [v468 sb_animateWithSettings:v525 mode:v508 animations:v672 completion:v471];
 
-      v474 = MEMORY[0x277D75D18];
-      v475 = kKeyboardHeightIncludingAccessory_block_invoke_keyboardHeightSettings;
-      v633[0] = MEMORY[0x277D85DD0];
-      v633[1] = 3221225472;
-      v633[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_28;
-      v633[3] = &unk_2783A92D8;
-      v476 = v472;
-      v477 = v611[4];
-      v634 = v476;
-      v635 = v477;
-      v478 = (*(v612 + 2))(v612, @"accessory keyboard height");
-      [v474 sb_animateWithSettings:v475 mode:3 animations:v633 completion:v478];
+      [v469 setContentClippingEnabled:v556];
+      [v470 setContentClippingEnabled:v556];
+      v472 = MEMORY[0x277D75D18];
+      v661[0] = MEMORY[0x277D85DD0];
+      v661[1] = 3221225472;
+      v661[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_26;
+      v661[3] = &unk_2783AE8B8;
+      v473 = v469;
+      v662 = v473;
+      v664 = v519;
+      v665 = v518;
+      v666 = v517;
+      v667 = v516;
+      v668 = v545;
+      v669 = v553;
+      v670 = v547;
+      v671 = v543;
+      v474 = v470;
+      v663 = v474;
+      v475 = (*(v620 + 2))(v620, @"accessory clipping");
+      [v472 sb_animateWithSettings:v521 mode:v509 animations:v661 completion:v475];
 
-      if ([v611[4] isDevicePad])
+      v476 = MEMORY[0x277D75D18];
+      v644[0] = MEMORY[0x277D85DD0];
+      v644[1] = 3221225472;
+      v644[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_27;
+      v644[3] = &unk_2783AE8E0;
+      v477 = v473;
+      v649 = v455;
+      v650 = v544;
+      v651 = v636;
+      v652 = v635;
+      v660 = v540;
+      v653 = v541;
+      v478 = v619[4];
+      v479 = v619[5];
+      v645 = v477;
+      v646 = v478;
+      v647 = v479;
+      v654 = v823;
+      v655 = v444;
+      v656 = v632;
+      v657 = v447;
+      v658 = v449;
+      v659 = v546;
+      v480 = v474;
+      v648 = v480;
+      v481 = (*(v620 + 2))(v620, @"accessory transform and content page view scale");
+      [v476 sb_animateWithSettings:v523 mode:v512 animations:v644 completion:v481];
+
+      v482 = MEMORY[0x277D75D18];
+      v483 = kKeyboardHeightIncludingAccessory_block_invoke_keyboardHeightSettings;
+      v641[0] = MEMORY[0x277D85DD0];
+      v641[1] = 3221225472;
+      v641[2] = __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion___block_invoke_28;
+      v641[3] = &unk_2783A92D8;
+      v484 = v480;
+      v485 = v619[4];
+      v642 = v484;
+      v643 = v485;
+      v486 = (*(v620 + 2))(v620, @"accessory keyboard height");
+      [v482 sb_animateWithSettings:v483 mode:3 animations:v641 completion:v486];
+
+      if ([v619[4] isDevicePad])
       {
-        v479 = v537;
-        *buf = v537;
-        *&buf[8] = v535;
-        v480 = 8;
-        *&buf[16] = v545;
-        *&buf[24] = v539;
+        v487 = v545;
+        *buf = v545;
+        *&buf[8] = v543;
+        v488 = 8;
+        *&buf[16] = v553;
+        *&buf[24] = v547;
         do
         {
-          if (v479 < *&buf[v480])
+          if (v487 < *&buf[v488])
           {
-            v479 = *&buf[v480];
+            v487 = *&buf[v488];
           }
 
-          v480 += 8;
+          v488 += 8;
         }
 
-        while (v480 != 32);
-        v481 = [v611[4] appLayouts];
-        v482 = [v481 indexOfObject:v611[5]];
+        while (v488 != 32);
+        v489 = [v619[4] appLayouts];
+        v490 = [v489 indexOfObject:v619[5]];
 
-        if (v482 != 0x7FFFFFFFFFFFFFFFLL)
+        if (v490 != 0x7FFFFFFFFFFFFFFFLL)
         {
-          v483 = v611[4];
-          v484 = (*(v612 + 2))(v612, @"item container backdrop");
-          [v483 _updateItemContainerBackdropPresenceForIndex:v605 scale:v583 rotation:v484 cornerRadius:v447 animationAttributes:v536 completion:v479];
+          v491 = v619[4];
+          v492 = (*(v620 + 2))(v620, @"item container backdrop");
+          [v491 _updateItemContainerBackdropPresenceForIndex:v613 scale:v591 rotation:v492 cornerRadius:v455 animationAttributes:v544 completion:v487];
         }
       }
 
-      v418 = v519;
+      v426 = v527;
     }
   }
 }
@@ -16751,7 +16757,7 @@ uint64_t __67__SBFluidSwitcherViewController__layoutAppLayout_roles_completion__
   selfCopy = self;
   [v9 _createTransformerWithInputAnimatableProperties:v10 presentationValueChangedCallback:v15];
 
-  if ([v11 containsObject:&unk_28336F220])
+  if (objc_msgSend_containsObject_(v11))
   {
     v12 = [[type alloc] initWithProgress:0.0];
     [(SBFluidSwitcherViewController *)self _dispatchEventAndHandleAction:v12];
@@ -16880,7 +16886,7 @@ void __88__SBFluidSwitcherViewController__animatablePropertyWithNotifications_pr
 
         v9 = *(*(&v23 + 1) + 8 * i);
         visibleShelves = [(SBSwitcherPersonality *)self->_personality visibleShelves];
-        if ([visibleShelves containsObject:v9])
+        if (objc_msgSend_containsObject_(visibleShelves))
         {
           v11 = [(NSMutableDictionary *)self->_visibleShelves objectForKey:v9];
           [(SBSwitcherPersonality *)self->_personality frameForShelf:v9];
@@ -17326,7 +17332,7 @@ void __83__SBFluidSwitcherViewController__updateItemContainerTitlePresenceForLea
   v5 = WeakRetained;
   if (WeakRetained)
   {
-    v6 = [WeakRetained[164] containsObject:*(a1 + 32)] & ~*(*(*(a1 + 40) + 8) + 24);
+    v6 = objc_msgSend_containsObject_(WeakRetained[164]) & ~*(*(*(a1 + 40) + 8) + 24);
     v7 = [v5[246] objectForKey:*(a1 + 32)];
     [v7 setTitleItems:v8 animated:v6 & 1];
   }
@@ -17501,18 +17507,18 @@ uint64_t __83__SBFluidSwitcherViewController__updateAccessoryTitlePresenceForAdj
 {
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v4 = SBLayoutRoleSetNone();
+  v4 = SBLayoutRoleSetNone(a1);
   [v2 _layoutAppLayout:v3 roles:v4 completion:0];
 
   v5 = *(a1 + 32);
   v6 = *(a1 + 40);
-  v7 = SBLayoutRoleSetNone();
-  [v5 _applyStyleToAppLayout:v6 roles:v7 completion:0];
+  v8 = SBLayoutRoleSetNone(v7);
+  [v5 _applyStyleToAppLayout:v6 roles:v8 completion:0];
 
   [*(a1 + 48) layoutIfNeeded];
-  v8 = *(a1 + 56);
+  v9 = *(a1 + 56);
 
-  return [v8 layoutIfNeeded];
+  return [v9 layoutIfNeeded];
 }
 
 void __83__SBFluidSwitcherViewController__updateAccessoryTitlePresenceForAdjustedAppLayout___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -17524,7 +17530,7 @@ void __83__SBFluidSwitcherViewController__updateAccessoryTitlePresenceForAdjuste
   {
     v6 = [WeakRetained[248] objectForKey:*(a1 + 32)];
     v7 = [v5[247] objectForKey:*(a1 + 32)];
-    v8 = (*(*(*(a1 + 40) + 8) + 24) ^ 1) & [v5[164] containsObject:*(a1 + 32)];
+    v8 = (*(*(*(a1 + 40) + 8) + 24) ^ 1) & objc_msgSend_containsObject_(v5[164]);
     if (v6)
     {
       [v6 setTitleItems:v9 animated:v8 & 1];
@@ -17584,7 +17590,7 @@ void __83__SBFluidSwitcherViewController__updateAccessoryTitlePresenceForAdjuste
     if (v9)
     {
       [v8 prepareForReuse];
-      if ([(NSMutableArray *)self->_hiddenRecycledItemContainers containsObject:v8])
+      if (objc_msgSend_containsObject_(self->_hiddenRecycledItemContainers))
       {
         [SBFluidSwitcherViewController _removeVisibleItemContainerForAppLayout:];
       }
@@ -17624,7 +17630,7 @@ LABEL_6:
     appLayout = [existsCopy appLayout];
     [(SBSwitcherLiveContentOverlayCoordinating *)liveContentOverlayCoordinator itemContainerForAppLayout:appLayout willBeReusedForAppLayout:layoutCopy];
 
-    if ([(NSMutableArray *)self->_hiddenRecycledItemContainers containsObject:existsCopy])
+    if (objc_msgSend_containsObject_(self->_hiddenRecycledItemContainers))
     {
       [(NSMutableArray *)self->_hiddenRecycledItemContainers removeObject:existsCopy];
     }
@@ -17772,11 +17778,11 @@ void __99__SBFluidSwitcherViewController__addVisibleItemContainerForAppLayout_re
 
   else
   {
-    SBLayoutRoleSetNone();
+    SBLayoutRoleSetNone(v6);
   }
-  v6 = ;
-  [*(a1 + 48) _layoutAppLayout:*(a1 + 32) roles:v6 completion:0];
-  [*(a1 + 48) _applyStyleToAppLayout:*(a1 + 32) roles:v6 completion:0];
+  v7 = ;
+  [*(a1 + 48) _layoutAppLayout:*(a1 + 32) roles:v7 completion:0];
+  [*(a1 + 48) _applyStyleToAppLayout:*(a1 + 32) roles:v7 completion:0];
 }
 
 - (void)noteDidEdgeProtectResizeGrabberForDisplayItem:(id)item inCorner:(unint64_t)corner
@@ -18035,7 +18041,7 @@ void __64__SBFluidSwitcherViewController_beginHidingAppLayout_forReason___block_
   return result;
 }
 
-uint64_t __70__SBFluidSwitcherViewController_completedTransitionFrameForAppLayout___block_invoke(void *a1)
+void *__70__SBFluidSwitcherViewController_completedTransitionFrameForAppLayout___block_invoke(void *a1)
 {
   result = [*(a1[4] + 2112) frameForIndex:a1[6]];
   v3 = *(a1[5] + 8);
@@ -18161,7 +18167,7 @@ uint64_t __70__SBFluidSwitcherViewController_completedTransitionFrameForAppLayou
   return v7;
 }
 
-uint64_t __51__SBFluidSwitcherViewController_scaleForAppLayout___block_invoke(void *a1)
+void *__51__SBFluidSwitcherViewController_scaleForAppLayout___block_invoke(void *a1)
 {
   result = [*(a1[4] + 2112) scaleForIndex:a1[6]];
   *(*(a1[5] + 8) + 24) = v3;
@@ -18269,7 +18275,7 @@ LABEL_12:
   return v7;
 }
 
-uint64_t __58__SBFluidSwitcherViewController_cornerRadiusForAppLayout___block_invoke(void *a1)
+void *__58__SBFluidSwitcherViewController_cornerRadiusForAppLayout___block_invoke(void *a1)
 {
   result = [*(a1[4] + 2112) cornerRadiiForIndex:a1[6]];
   *(*(a1[5] + 8) + 24) = v3;
@@ -18389,7 +18395,7 @@ uint64_t __58__SBFluidSwitcherViewController_cornerRadiusForAppLayout___block_in
 uint64_t __54__SBFluidSwitcherViewController__updateVisibleShelves__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if ([*(a1 + 32) containsObject:v3])
+  if (objc_msgSend_containsObject_(*(a1 + 32)))
   {
     v4 = 0;
   }
@@ -18593,7 +18599,7 @@ void __70__SBFluidSwitcherViewController__updateVisibleSplitViewHandleNubViews__
           }
 
           v8 = *(*(&v9 + 1) + 8 * i);
-          if ([WeakRetained[257] containsObject:{v8, v9}])
+          if (objc_msgSend_containsObject_(WeakRetained[257], v9))
           {
             [WeakRetained[257] removeObject:v8];
           }
@@ -18613,7 +18619,7 @@ void __70__SBFluidSwitcherViewController__updateVisibleSplitViewHandleNubViews__
 {
   v5 = a2;
   v6 = a3;
-  if ([*(*(a1 + 32) + 2056) containsObject:v5])
+  if (objc_msgSend_containsObject_(*(*(a1 + 32) + 2056)))
   {
     [v6 removeFromSuperview];
     [*(*(a1 + 32) + 2048) removeObjectForKey:v5];
@@ -18690,10 +18696,10 @@ void __70__SBFluidSwitcherViewController__updateVisibleSplitViewHandleNubViews__
 {
   v5 = a2;
   v6 = a3;
-  v7 = [*(a1 + 32) containsObject:v5];
+  v7 = objc_msgSend_containsObject_(*(a1 + 32));
   if (v7)
   {
-    v8 = [*(*(a1 + 40) + 2056) containsObject:v5] ^ 1;
+    v8 = objc_msgSend_containsObject_(*(*(a1 + 40) + 2056)) ^ 1;
   }
 
   else
@@ -18969,7 +18975,7 @@ void __74__SBFluidSwitcherViewController__updateVisibleSplitViewHandleDimmingVie
           }
 
           v8 = *(*(&v9 + 1) + 8 * i);
-          if ([WeakRetained[258] containsObject:{v8, v9}])
+          if (objc_msgSend_containsObject_(WeakRetained[258], v9))
           {
             [WeakRetained[258] removeObject:v8];
           }
@@ -18989,7 +18995,7 @@ void __74__SBFluidSwitcherViewController__updateVisibleSplitViewHandleDimmingVie
 {
   v5 = a2;
   v6 = a3;
-  if ([*(*(a1 + 32) + 2064) containsObject:v5])
+  if (objc_msgSend_containsObject_(*(*(a1 + 32) + 2064)))
   {
     [v6 removeFromSuperview];
     [*(*(a1 + 32) + 2072) removeObjectForKey:v5];
@@ -19064,10 +19070,10 @@ void __74__SBFluidSwitcherViewController__updateVisibleSplitViewHandleDimmingVie
 {
   v5 = a2;
   v6 = a3;
-  v7 = [*(a1 + 32) containsObject:v5];
+  v7 = objc_msgSend_containsObject_(*(a1 + 32));
   if (v7)
   {
-    v8 = [*(*(a1 + 40) + 2064) containsObject:v5] ^ 1;
+    v8 = objc_msgSend_containsObject_(*(*(a1 + 40) + 2064)) ^ 1;
   }
 
   else
@@ -19167,10 +19173,11 @@ uint64_t __74__SBFluidSwitcherViewController__updateVisibleSplitViewHandleDimmin
   v5 = elementCopy;
   if (elementCopy)
   {
-    if ([elementCopy switcherLayoutElementType])
+    switcherLayoutElementType = [elementCopy switcherLayoutElementType];
+    if (switcherLayoutElementType)
     {
-      v6 = SBLogAppSwitcher();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = SBLogAppSwitcher(switcherLayoutElementType);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         [(SBFluidSwitcherViewController *)self _appLayoutFromLayoutElement:v5];
       }
@@ -19179,24 +19186,25 @@ uint64_t __74__SBFluidSwitcherViewController__updateVisibleSplitViewHandleDimmin
     else
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v7 = v5;
+        v9 = v5;
         goto LABEL_12;
       }
 
-      v8 = SBLogAppSwitcher();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = SBLogAppSwitcher(isKindOfClass);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [SBFluidSwitcherViewController _appLayoutFromLayoutElement:];
       }
     }
   }
 
-  v7 = 0;
+  v9 = 0;
 LABEL_12:
 
-  return v7;
+  return v9;
 }
 
 - (int64_t)_bestSupportedHomeAffordanceOrientationForOrientation:(int64_t)orientation inAppLayout:(id)layout
@@ -19408,7 +19416,7 @@ LABEL_19:
           goto LABEL_9;
         }
 
-        [v21 frame];
+        objc_msgSend_frame(v21);
         v26 = v22;
         v27 = v23;
         v28 = v24;
@@ -19752,31 +19760,31 @@ LABEL_35:
 
 void __60__SBFluidSwitcherViewController__updateStyleWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v153 = *MEMORY[0x277D85DE8];
-  v136 = a2;
-  v137 = a1;
+  v152 = *MEMORY[0x277D85DE8];
+  v135 = a2;
+  v136 = a1;
   v3 = *(a1 + 32);
   a1 += 32;
   v4 = v3[264];
   v5 = [v3 genericSwitcherAccessoryLayoutElement];
-  v132 = [v4 animationAttributesForLayoutElement:v5];
+  v131 = [v4 animationAttributesForLayoutElement:v5];
 
-  v134 = [v132 updateMode];
+  v133 = [v131 updateMode];
   [*a1 _updateWallpaperStyle];
   [*a1 _updateHomeScreenContentRequirement];
   [*a1 _updateHomeScreenBackdropType];
   [*a1 _updateSwitcherBackdropType];
   v6 = *a1;
-  v7 = v136[2](v136, @"apply style to visible item containers");
+  v7 = v135[2](v135, @"apply style to visible item containers");
   [v6 _applyStyleToVisibleItemContainersWithCompletion:v7];
 
   v8 = *a1;
-  v9 = v136[2](v136, @"plusButtonAlpha");
-  [v8 _updatePlusButtonStyleWithMode:v134 completion:v9];
+  v9 = v135[2](v135, @"plusButtonAlpha");
+  [v8 _updatePlusButtonStyleWithMode:v133 completion:v9];
 
   v10 = *a1;
-  v11 = v136[2](v136, @"repenClosedWindowsButtonAlpha");
-  [v10 _updateReopenClosedWindowsButtonWithMode:v134 completion:v11];
+  v11 = v135[2](v135, @"repenClosedWindowsButtonAlpha");
+  [v10 _updateReopenClosedWindowsButtonWithMode:v133 completion:v11];
 
   [*a1 _updateContentViewPassesTouchesThrough];
   [*a1 _updateSystemApertureShadowAssertion];
@@ -19785,8 +19793,8 @@ void __60__SBFluidSwitcherViewController__updateStyleWithCompletion___block_invo
   {
     [v12[264] switcherDimmingAlpha];
     v14 = v13;
-    [*(*(v137 + 32) + 1416) bs_setHitTestingDisabled:BSFloatIsZero()];
-    v15 = *(v137 + 32);
+    [*(*(v136 + 32) + 1416) bs_setHitTestingDisabled:BSFloatIsZero()];
+    v15 = *(v136 + 32);
     v16 = v15[264];
     v17 = [v15 switcherDimmingViewLayoutElement];
     v18 = [v16 animationAttributesForLayoutElement:v17];
@@ -19801,320 +19809,319 @@ void __60__SBFluidSwitcherViewController__updateStyleWithCompletion___block_invo
 
     else
     {
-      v23 = [*(*(v137 + 32) + 1096) animationSettings];
+      v23 = [*(*(v136 + 32) + 1096) animationSettings];
       v22 = [v23 opacitySettings];
     }
 
     v24 = MEMORY[0x277D75D18];
-    v151[0] = MEMORY[0x277D85DD0];
-    v151[1] = 3221225472;
-    v151[2] = __60__SBFluidSwitcherViewController__updateStyleWithCompletion___block_invoke_2;
-    v151[3] = &unk_2783A8BC8;
-    v151[4] = *(v137 + 32);
-    v151[5] = v14;
-    v25 = v136[2](v136, @"switcherDimmingAlpha");
-    [v24 sb_animateWithSettings:v22 mode:v19 animations:v151 completion:v25];
+    v150[0] = MEMORY[0x277D85DD0];
+    v150[1] = 3221225472;
+    v150[2] = __60__SBFluidSwitcherViewController__updateStyleWithCompletion___block_invoke_2;
+    v150[3] = &unk_2783A8BC8;
+    v150[4] = *(v136 + 32);
+    v150[5] = v14;
+    v25 = v135[2](v135, @"switcherDimmingAlpha");
+    [v24 sb_animateWithSettings:v22 mode:v19 animations:v150 completion:v25];
 
-    v12 = *(v137 + 32);
+    v12 = *(v136 + 32);
   }
 
   if (v12[175])
   {
     [v12[264] switcherBackdropBlurProgress];
     v27 = v26;
-    [*(*(v137 + 32) + 1400) bs_setHitTestingDisabled:BSFloatIsZero()];
-    v28 = *(*(v137 + 32) + 2112);
-    v29 = [*(v137 + 32) switcherBackdropLayoutElement];
+    [*(*(v136 + 32) + 1400) bs_setHitTestingDisabled:BSFloatIsZero()];
+    v28 = *(*(v136 + 32) + 2112);
+    v29 = [*(v136 + 32) switcherBackdropLayoutElement];
     v30 = [v28 animationAttributesForLayoutElement:v29];
 
     v31 = [v30 updateMode];
-    v32 = *(*(v137 + 32) + 1400);
-    v33 = v136[2](v136, @"switcherBackdropBlurProgress");
+    v32 = *(*(v136 + 32) + 1400);
+    v33 = v135[2](v135, @"switcherBackdropBlurProgress");
     [v32 setBlurProgress:v31 behaviorMode:v33 completion:v27];
 
-    v12 = *(v137 + 32);
+    v12 = *(v136 + 32);
   }
 
-  v149 = 0u;
-  v150 = 0u;
-  v147 = 0u;
   v148 = 0u;
+  v149 = 0u;
+  v146 = 0u;
+  v147 = 0u;
   obj = [v12[254] allKeys];
-  v34 = [obj countByEnumeratingWithState:&v147 objects:v152 count:16];
+  v34 = [obj countByEnumeratingWithState:&v146 objects:v151 count:16];
   if (v34)
   {
-    v35 = *v148;
+    v35 = *v147;
     do
     {
       for (i = 0; i != v34; ++i)
       {
-        if (*v148 != v35)
+        if (*v147 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v37 = *(*(&v147 + 1) + 8 * i);
-        v38 = [*(*(v137 + 32) + 2032) objectForKey:v37];
-        v146 = 0;
+        v37 = [*(*(v136 + 32) + 2032) objectForKey:*(*(&v146 + 1) + 8 * i)];
+        v145 = 0;
+        v143 = 0u;
         v144 = 0u;
-        v145 = 0u;
         location = 0u;
-        v39 = *(v137 + 32);
-        v40 = *(v39 + 2112);
-        if (v40)
+        v38 = *(v136 + 32);
+        v39 = *(v38 + 2112);
+        if (v39)
         {
-          [v40 presentationAttributesForShelf:v37];
-          v41 = *(&location + 1);
-          v43 = *(&v144 + 1);
-          v44 = *&v144;
-          v42 = *&v145;
-          v39 = *(v137 + 32);
+          objc_msgSend_presentationAttributesForShelf_(v39);
+          v40 = *(&location + 1);
+          v42 = *(&v143 + 1);
+          v43 = *&v143;
+          v41 = *&v144;
+          v38 = *(v136 + 32);
         }
 
         else
         {
+          v41 = 0.0;
           v42 = 0.0;
           v43 = 0.0;
-          v44 = 0.0;
-          v41 = 0.0;
+          v40 = 0.0;
         }
 
-        v45 = *(v39 + 1952);
-        v46 = [v38 view];
-        [v45 convertRect:v46 toView:{v41, v44, v43, v42}];
-        v48 = v47;
-        v50 = v49;
-        v52 = v51;
-        v54 = v53;
+        v44 = *(v38 + 1952);
+        v45 = [v37 view];
+        [v44 convertRect:v45 toView:{v40, v43, v42, v41}];
+        v47 = v46;
+        v49 = v48;
+        v51 = v50;
+        v53 = v52;
 
-        v55 = v136[2](v136, @"shelf presentation");
-        [v38 setPresented:location & 1 withTargetFrame:*(&v145 + 1) style:v55 completion:{v48, v50, v52, v54}];
+        v54 = v135[2](v135, @"shelf presentation");
+        [v37 setPresented:location & 1 withTargetFrame:*(&v144 + 1) style:v54 completion:{v47, v49, v51, v53}];
       }
 
-      v34 = [obj countByEnumeratingWithState:&v147 objects:v152 count:16];
+      v34 = [obj countByEnumeratingWithState:&v146 objects:v151 count:16];
     }
 
     while (v34);
   }
 
-  [*(*(v137 + 32) + 2112) shelfBackgroundBlurOpacity];
-  v57 = v56;
-  [*(*(v137 + 32) + 2112) shelfBackgroundBlurFrame];
-  v59 = v58;
-  v61 = v60;
-  v63 = v62;
-  v65 = v64;
-  v66 = [*(*(v137 + 32) + 2112) animationAttributesForLayoutElement:*(*(v137 + 32) + 1432)];
-  v67 = BSFloatGreaterThanFloat();
-  v68 = *(v137 + 32);
-  if (v67 && !v68[185])
+  [*(*(v136 + 32) + 2112) shelfBackgroundBlurOpacity];
+  v56 = v55;
+  [*(*(v136 + 32) + 2112) shelfBackgroundBlurFrame];
+  v58 = v57;
+  v60 = v59;
+  v62 = v61;
+  v64 = v63;
+  v65 = [*(*(v136 + 32) + 2112) animationAttributesForLayoutElement:*(*(v136 + 32) + 1432)];
+  v66 = BSFloatGreaterThanFloat();
+  v67 = *(v136 + 32);
+  if (v66 && !v67[185])
   {
-    v69 = [[SBShelfBackgroundView alloc] initWithFrame:v59, v61, v63, v65];
-    v70 = *(v137 + 32);
-    v71 = *(v70 + 1480);
-    *(v70 + 1480) = v69;
+    v68 = [[SBShelfBackgroundView alloc] initWithFrame:v58, v60, v62, v64];
+    v69 = *(v136 + 32);
+    v70 = *(v69 + 1480);
+    *(v69 + 1480) = v68;
 
-    [*(*(v137 + 32) + 1480) setWeighting:0.0];
-    [*(*(v137 + 32) + 1952) addSubview:*(*(v137 + 32) + 1480)];
-    v68 = *(v137 + 32);
+    [*(*(v136 + 32) + 1480) setWeighting:0.0];
+    [*(*(v136 + 32) + 1952) addSubview:*(*(v136 + 32) + 1480)];
+    v67 = *(v136 + 32);
   }
 
-  if (v68[185])
+  if (v67[185])
   {
-    objc_initWeak(&location, v68);
-    v72 = [v66 layoutUpdateMode];
-    if (!v72)
+    objc_initWeak(&location, v67);
+    v71 = [v65 layoutUpdateMode];
+    if (!v71)
     {
-      v72 = [v66 updateMode];
+      v71 = [v65 updateMode];
     }
 
-    v73 = MEMORY[0x277D75D18];
-    v74 = [v66 layoutSettings];
-    v142[0] = MEMORY[0x277D85DD0];
-    v142[1] = 3221225472;
-    v142[2] = __60__SBFluidSwitcherViewController__updateStyleWithCompletion___block_invoke_3;
-    v142[3] = &unk_2783AC828;
-    *&v142[5] = v59;
-    *&v142[6] = v61;
-    *&v142[7] = v63;
-    *&v142[8] = v65;
-    v142[4] = *(v137 + 32);
-    v75 = v136[2](v136, @"shelfBackgroundFrame");
-    [v73 sb_animateWithSettings:v74 mode:v72 animations:v142 completion:v75];
+    v72 = MEMORY[0x277D75D18];
+    v73 = [v65 layoutSettings];
+    v141[0] = MEMORY[0x277D85DD0];
+    v141[1] = 3221225472;
+    v141[2] = __60__SBFluidSwitcherViewController__updateStyleWithCompletion___block_invoke_3;
+    v141[3] = &unk_2783AC828;
+    *&v141[5] = v58;
+    *&v141[6] = v60;
+    *&v141[7] = v62;
+    *&v141[8] = v64;
+    v141[4] = *(v136 + 32);
+    v74 = v135[2](v135, @"shelfBackgroundFrame");
+    [v72 sb_animateWithSettings:v73 mode:v71 animations:v141 completion:v74];
 
-    v76 = *(v137 + 32);
-    v77 = v76[185];
-    [v76 containerViewBounds];
-    [v77 convertRect:*(*(v137 + 32) + 1952) fromView:?];
-    [*(*(v137 + 32) + 1480) setExtendedBlurRect:?];
-    v78 = v136[2](v136, @"shelfBackgroundOpacity");
-    v79 = [v66 opacitySettings];
-    v80 = v79;
-    if (v79)
+    v75 = *(v136 + 32);
+    v76 = v75[185];
+    [v75 containerViewBounds];
+    [v76 convertRect:*(*(v136 + 32) + 1952) fromView:?];
+    [*(*(v136 + 32) + 1480) setExtendedBlurRect:?];
+    v77 = v135[2](v135, @"shelfBackgroundOpacity");
+    v78 = [v65 opacitySettings];
+    v79 = v78;
+    if (v78)
     {
-      v81 = v79;
+      v80 = v78;
     }
 
     else
     {
-      v81 = [v66 layoutSettings];
+      v80 = [v65 layoutSettings];
     }
 
-    v82 = v81;
+    v81 = v80;
 
-    v83 = [v66 opacityUpdateMode];
-    if (!v83)
+    v82 = [v65 opacityUpdateMode];
+    if (!v82)
     {
-      v83 = [v66 updateMode];
+      v82 = [v65 updateMode];
     }
 
-    v84 = MEMORY[0x277D75D18];
-    v141[0] = MEMORY[0x277D85DD0];
-    v141[1] = 3221225472;
-    v141[2] = __60__SBFluidSwitcherViewController__updateStyleWithCompletion___block_invoke_4;
-    v141[3] = &unk_2783A8BC8;
-    v141[4] = *(v137 + 32);
-    v141[5] = v57;
-    v138[0] = MEMORY[0x277D85DD0];
-    v138[1] = 3221225472;
-    v138[2] = __60__SBFluidSwitcherViewController__updateStyleWithCompletion___block_invoke_5;
-    v138[3] = &unk_2783AEC78;
-    objc_copyWeak(&v140, &location);
-    v85 = v78;
-    v139 = v85;
-    [v84 sb_animateWithSettings:v82 mode:v83 animations:v141 completion:v138];
+    v83 = MEMORY[0x277D75D18];
+    v140[0] = MEMORY[0x277D85DD0];
+    v140[1] = 3221225472;
+    v140[2] = __60__SBFluidSwitcherViewController__updateStyleWithCompletion___block_invoke_4;
+    v140[3] = &unk_2783A8BC8;
+    v140[4] = *(v136 + 32);
+    v140[5] = v56;
+    v137[0] = MEMORY[0x277D85DD0];
+    v137[1] = 3221225472;
+    v137[2] = __60__SBFluidSwitcherViewController__updateStyleWithCompletion___block_invoke_5;
+    v137[3] = &unk_2783AEC78;
+    objc_copyWeak(&v139, &location);
+    v84 = v77;
+    v138 = v84;
+    [v83 sb_animateWithSettings:v81 mode:v82 animations:v140 completion:v137];
 
-    objc_destroyWeak(&v140);
+    objc_destroyWeak(&v139);
     objc_destroyWeak(&location);
-    v68 = *(v137 + 32);
+    v67 = *(v136 + 32);
   }
 
-  v86 = [v68 delegate];
-  v87 = v86;
-  v88 = *(v137 + 32);
-  v89 = v88[124];
-  if ((v89 & 8) != 0)
+  v85 = [v67 delegate];
+  v86 = v85;
+  v87 = *(v136 + 32);
+  v88 = v87[124];
+  if ((v88 & 8) != 0)
   {
-    [v86 updateWindowVisibilityForSwitcherContentController:?];
-    v88 = *(v137 + 32);
-    v89 = v88[124];
+    [v85 updateWindowVisibilityForSwitcherContentController:?];
+    v87 = *(v136 + 32);
+    v88 = v87[124];
   }
 
-  if ((v89 & 4) != 0)
+  if ((v88 & 4) != 0)
   {
-    [v87 updateUserInteractionEnabledForSwitcherContentController:?];
-    v88 = *(v137 + 32);
+    [v86 updateUserInteractionEnabledForSwitcherContentController:?];
+    v87 = *(v136 + 32);
   }
 
-  if ([v88 _controlsHomeScreenContents])
+  if ([v87 _controlsHomeScreenContents])
   {
-    v90 = v137;
-    v91 = *(v137 + 32);
-    if ((*(v91 + 993) & 8) != 0)
+    v89 = v136;
+    v90 = *(v136 + 32);
+    if ((*(v90 + 993) & 8) != 0)
     {
-      v92 = ([*(v91 + 2112) transactionCompletionOptions] & 8) == 0;
-      v93 = *(v137 + 32);
-      [*(v93 + 2112) wallpaperScale];
-      v95 = v94;
-      if (v92)
+      v91 = ([*(v90 + 2112) transactionCompletionOptions] & 8) == 0;
+      v92 = *(v136 + 32);
+      [*(v92 + 2112) wallpaperScale];
+      v94 = v93;
+      if (v91)
       {
-        [v87 switcherContentController:v93 setWallpaperScale:v134 withAnimationMode:0 completion:v94];
+        [v86 switcherContentController:v92 setWallpaperScale:v133 withAnimationMode:0 completion:v93];
       }
 
       else
       {
-        v96 = v136[2](v136, @"wallpaperScale");
-        [v87 switcherContentController:v93 setWallpaperScale:v134 withAnimationMode:v96 completion:v95];
+        v95 = v135[2](v135, @"wallpaperScale");
+        [v86 switcherContentController:v92 setWallpaperScale:v133 withAnimationMode:v95 completion:v94];
       }
 
-      v90 = v137;
+      v89 = v136;
     }
 
-    v97 = *(v90 + 32);
-    v98 = *(v97 + 992);
-    if ((v98 & 0x10) != 0)
+    v96 = *(v89 + 32);
+    v97 = *(v96 + 992);
+    if ((v97 & 0x10) != 0)
     {
-      [*(v97 + 2112) homeScreenScale];
-      v100 = v99;
-      v101 = v136[2](v136, @"homeScreenScale");
-      [v87 switcherContentController:v97 setHomeScreenScale:v134 withAnimationMode:v101 completion:v100];
+      [*(v96 + 2112) homeScreenScale];
+      v99 = v98;
+      v100 = v135[2](v135, @"homeScreenScale");
+      [v86 switcherContentController:v96 setHomeScreenScale:v133 withAnimationMode:v100 completion:v99];
 
-      v90 = v137;
-      v97 = *(v137 + 32);
-      v98 = *(v97 + 992);
+      v89 = v136;
+      v96 = *(v136 + 32);
+      v97 = *(v96 + 992);
     }
 
-    if ((v98 & 0x20) != 0)
+    if ((v97 & 0x20) != 0)
     {
-      [*(v97 + 2112) homeScreenAlpha];
-      v103 = v102;
-      v104 = v136[2](v136, @"homeScreenAlpha");
-      [v87 switcherContentController:v97 setHomeScreenAlpha:v134 withAnimationMode:v104 completion:v103];
+      [*(v96 + 2112) homeScreenAlpha];
+      v102 = v101;
+      v103 = v135[2](v135, @"homeScreenAlpha");
+      [v86 switcherContentController:v96 setHomeScreenAlpha:v133 withAnimationMode:v103 completion:v102];
 
-      v90 = v137;
-      v97 = *(v137 + 32);
-      v98 = *(v97 + 992);
+      v89 = v136;
+      v96 = *(v136 + 32);
+      v97 = *(v96 + 992);
     }
 
-    if ((v98 & 0x40) != 0)
+    if ((v97 & 0x40) != 0)
     {
-      [*(v97 + 2112) homeScreenDimmingAlpha];
-      v106 = v105;
-      v107 = [*(v137 + 32) windowManagementContext];
-      v108 = [v107 isFlexibleWindowingEnabled];
+      [*(v96 + 2112) homeScreenDimmingAlpha];
+      v105 = v104;
+      v106 = [*(v136 + 32) windowManagementContext];
+      v107 = [v106 isFlexibleWindowingEnabled];
 
-      v109 = *(v137 + 32);
-      v110 = [v109 switcherSettings];
-      v111 = v110;
-      if (v108)
+      v108 = *(v136 + 32);
+      v109 = [v108 switcherSettings];
+      v110 = v109;
+      if (v107)
       {
-        v112 = [v110 windowingSettings];
+        v111 = [v109 windowingSettings];
 
-        v113 = [objc_alloc(MEMORY[0x277D65E60]) initWithDefaultValues];
-        [v113 setDampingRatio:1.0];
-        v114 = *(*(v137 + 32) + 1512);
-        [v112 maxHomeScreenDimmingAlphaResponse];
-        v116 = v115;
-        [v112 minHomeScreenDimmingAlphaResponse];
-        v118 = v117;
-        [v112 minHomeScreenDimmingAlphaResponse];
-        [v113 setResponse:v119 + (v106 - v114 + 1.0) * (v116 - v118) * 0.5];
-        *(*(v137 + 32) + 1512) = v106;
-        v120 = *(v137 + 32);
-        v121 = v136[2](v136, @"homeScreenDimmingAlpha");
-        [v87 switcherContentController:v120 setHomeScreenDimmingAlpha:v113 withSettings:3 animationMode:v121 completion:v106];
+        v112 = [objc_alloc(MEMORY[0x277D65E60]) initWithDefaultValues];
+        [v112 setDampingRatio:1.0];
+        v113 = *(*(v136 + 32) + 1512);
+        [v111 maxHomeScreenDimmingAlphaResponse];
+        v115 = v114;
+        [v111 minHomeScreenDimmingAlphaResponse];
+        v117 = v116;
+        [v111 minHomeScreenDimmingAlphaResponse];
+        [v112 setResponse:v118 + (v105 - v113 + 1.0) * (v115 - v117) * 0.5];
+        *(*(v136 + 32) + 1512) = v105;
+        v119 = *(v136 + 32);
+        v120 = v135[2](v135, @"homeScreenDimmingAlpha");
+        [v86 switcherContentController:v119 setHomeScreenDimmingAlpha:v112 withSettings:3 animationMode:v120 completion:v105];
       }
 
       else
       {
-        v113 = [v110 animationSettings];
-        v121 = [v113 opacitySettings];
-        v122 = v136[2](v136, @"homeScreenDimmingAlpha");
-        [v87 switcherContentController:v109 setHomeScreenDimmingAlpha:v121 withSettings:v134 animationMode:v122 completion:v106];
+        v112 = [v109 animationSettings];
+        v120 = [v112 opacitySettings];
+        v121 = v135[2](v135, @"homeScreenDimmingAlpha");
+        [v86 switcherContentController:v108 setHomeScreenDimmingAlpha:v120 withSettings:v133 animationMode:v121 completion:v105];
 
-        v112 = v111;
+        v111 = v110;
       }
 
-      v90 = v137;
+      v89 = v136;
     }
 
-    v123 = *(v90 + 32);
-    v124 = *(v123 + 992);
-    if ((v124 & 0x80) != 0)
+    v122 = *(v89 + 32);
+    v123 = *(v122 + 992);
+    if ((v123 & 0x80) != 0)
     {
-      [*(v123 + 2112) homeScreenBackdropBlurProgress];
-      v126 = v125;
-      v127 = v136[2](v136, @"homeScreenBackdropBlurProgress");
-      [v87 switcherContentController:v123 setHomeScreenBackdropBlurProgress:v134 withAnimationMode:v127 completion:v126];
+      [*(v122 + 2112) homeScreenBackdropBlurProgress];
+      v125 = v124;
+      v126 = v135[2](v135, @"homeScreenBackdropBlurProgress");
+      [v86 switcherContentController:v122 setHomeScreenBackdropBlurProgress:v133 withAnimationMode:v126 completion:v125];
 
-      v123 = *(v137 + 32);
-      v124 = *(v123 + 992);
+      v122 = *(v136 + 32);
+      v123 = *(v122 + 992);
     }
 
-    if ((v124 & 0x200) != 0)
+    if ((v123 & 0x200) != 0)
     {
-      v128 = [v123 windowManagementContext];
-      if ([v128 isChamoisOrFlexibleWindowing])
+      v127 = [v122 windowManagementContext];
+      if ([v127 isChamoisOrFlexibleWindowing])
       {
         SBContinuousExposeHomeScreenBackdropMaterialRecipeName();
       }
@@ -20123,11 +20130,11 @@ void __60__SBFluidSwitcherViewController__updateStyleWithCompletion___block_invo
       {
         SBHomeScreenBackdropMaterialRecipeName();
       }
-      v129 = ;
+      v128 = ;
 
-      v130 = *(v137 + 32);
-      v131 = v136[2](v136, @"homeScreenBackdropBlurMaterialRecipeName");
-      [v87 switcherContentController:v130 setHomeScreenBackdropBlurMaterialRecipeName:v129 withAnimationMode:v134 completion:v131];
+      v129 = *(v136 + 32);
+      v130 = v135[2](v135, @"homeScreenBackdropBlurMaterialRecipeName");
+      [v86 switcherContentController:v129 setHomeScreenBackdropBlurMaterialRecipeName:v128 withAnimationMode:v133 completion:v130];
     }
   }
 }
@@ -20211,24 +20218,29 @@ void __82__SBFluidSwitcherViewController__applyStyleToVisibleItemContainersWithC
     v6 = *v41;
     do
     {
-      for (i = 0; i != v5; ++i)
+      v7 = 0;
+      do
       {
         if (*v41 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v40 + 1) + 8 * i);
+        v8 = *(*(&v40 + 1) + 8 * v7);
         v9 = *(a1 + 32);
-        v10 = SBLayoutRoleSetAll();
+        v10 = SBLayoutRoleSetAll(v4);
         v11 = v32[2](v32, @"style app layout");
         [v9 _applyStyleToAppLayout:v8 roles:v10 completion:v11];
+
+        ++v7;
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v40 objects:v45 count:16];
+      while (v5 != v7);
+      v4 = [v3 countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v5 = v4;
     }
 
-    while (v5);
+    while (v4);
   }
 
   v38 = 0u;
@@ -20246,14 +20258,14 @@ void __82__SBFluidSwitcherViewController__applyStyleToVisibleItemContainersWithC
     v15 = &OBJC_IVAR___SBHomeGestureDismissableCoverSheetViewController__wantsHomeGestureOwnership;
     do
     {
-      for (j = 0; j != v13; ++j)
+      for (i = 0; i != v13; ++i)
       {
         if (*v37 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v36 + 1) + 8 * j);
+        v17 = *(*(&v36 + 1) + 8 * i);
         v18 = [*(*(a1 + 32) + v15[772]) objectForKey:{v17, v27, v28}];
         if (!v18)
         {
@@ -20296,14 +20308,14 @@ void __82__SBFluidSwitcherViewController__applyStyleToVisibleItemContainersWithC
   v12 = rolesCopy;
   if (!v12)
   {
-    [SBFluidSwitcherViewController _applyStyleToAppLayout:a2 roles:? completion:?];
+    [SBFluidSwitcherViewController _applyStyleToAppLayout:a2 roles:self completion:?];
   }
 
   v13 = v12;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [SBFluidSwitcherViewController _applyStyleToAppLayout:v13 roles:a2 completion:?];
+    [SBFluidSwitcherViewController _applyStyleToAppLayout:v13 roles:a2 completion:self];
   }
 
   v14 = MEMORY[0x277D65DA0];
@@ -21510,7 +21522,7 @@ id __92__SBFluidSwitcherViewController__orderedViewsForLayoutElement_excludeSwit
   v8 = v7;
   v10 = v9;
 
-  [(SBAppSwitcherScrollView *)self->_scrollView frame];
+  objc_msgSend_frame(self->_scrollView);
   v15 = v8;
   v16 = v10;
 
@@ -21687,7 +21699,7 @@ id __92__SBFluidSwitcherViewController__orderedViewsForLayoutElement_excludeSwit
   return result;
 }
 
-uint64_t __107__SBFluidSwitcherViewController_snapshotSizeForItemWithRole_inAppLayout_interfaceOrientation_inImageCache___block_invoke(uint64_t a1)
+void *__107__SBFluidSwitcherViewController_snapshotSizeForItemWithRole_inAppLayout_interfaceOrientation_inImageCache___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) appLayouts];
   v3 = [v2 indexOfObject:*(a1 + 40)];
@@ -21887,8 +21899,8 @@ void __78__SBFluidSwitcherViewController_underlayAccessoryView_didSelectHeaderFo
 
   else
   {
-    v9 = SBLogAppSwitcher();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = SBLogAppSwitcher(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [SBFluidSwitcherViewController overlayAccessoryView:viewCopy didSelectHeaderForRole:?];
     }
@@ -21898,7 +21910,7 @@ void __78__SBFluidSwitcherViewController_underlayAccessoryView_didSelectHeaderFo
 - (CGRect)overlayAccessoryViewFrameForIconOverlayView:(id)view fullPresented:(BOOL)presented
 {
   presentedCopy = presented;
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   v7 = viewCopy;
   if (presentedCopy)
@@ -21910,55 +21922,55 @@ void __78__SBFluidSwitcherViewController_underlayAccessoryView_didSelectHeaderFo
     anyLeafAppLayout = [firstObject anyLeafAppLayout];
     v12 = [(NSDictionary *)leafAppLayoutsToAdjustedAppLayouts objectForKey:anyLeafAppLayout];
 
-    [(SBFluidSwitcherViewController *)self containerViewBounds];
+    containerViewBounds = [(SBFluidSwitcherViewController *)self containerViewBounds];
     if (v12)
     {
       appLayouts = [(SBFluidSwitcherViewController *)self appLayouts];
-      v14 = [appLayouts indexOfObject:v12];
+      v15 = [appLayouts indexOfObject:v12];
 
-      [(SBSwitcherPersonality *)self->_personality frameForIndex:v14];
-      [(SBSwitcherPersonality *)self->_personality fullyPresentedFrameForIndex:v14 frame:?];
+      [(SBSwitcherPersonality *)self->_personality frameForIndex:v15];
+      [(SBSwitcherPersonality *)self->_personality fullyPresentedFrameForIndex:v15 frame:?];
     }
 
     else
     {
-      v23 = SBLogAppSwitcher();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v24 = SBLogAppSwitcher(containerViewBounds);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = [v7 debugDescription];
-        v25 = [firstObject debugDescription];
-        v34 = 138412546;
-        v35 = v24;
-        v36 = 2112;
-        v37 = v25;
-        _os_log_impl(&dword_21ED4E000, v23, OS_LOG_TYPE_DEFAULT, "adjustedAppLayout is null for overlay accessory view:%@ for appLayout:%@", &v34, 0x16u);
+        v25 = [v7 debugDescription];
+        v26 = [firstObject debugDescription];
+        v35 = 138412546;
+        v36 = v25;
+        v37 = 2112;
+        v38 = v26;
+        _os_log_impl(&dword_21ED4E000, v24, OS_LOG_TYPE_DEFAULT, "adjustedAppLayout is null for overlay accessory view:%@ for appLayout:%@", &v35, 0x16u);
       }
     }
 
     SBRectWithSize();
-    v16 = v26;
-    v18 = v27;
-    v20 = v28;
-    v22 = v29;
+    v17 = v27;
+    v19 = v28;
+    v21 = v29;
+    v23 = v30;
   }
 
   else
   {
     [viewCopy bounds];
-    v16 = v15;
-    v18 = v17;
-    v20 = v19;
-    v22 = v21;
+    v17 = v16;
+    v19 = v18;
+    v21 = v20;
+    v23 = v22;
   }
 
-  v30 = v16;
-  v31 = v18;
-  v32 = v20;
-  v33 = v22;
-  result.size.height = v33;
-  result.size.width = v32;
-  result.origin.y = v31;
-  result.origin.x = v30;
+  v31 = v17;
+  v32 = v19;
+  v33 = v21;
+  v34 = v23;
+  result.size.height = v34;
+  result.size.width = v33;
+  result.origin.y = v32;
+  result.origin.x = v31;
   return result;
 }
 
@@ -22081,7 +22093,7 @@ uint64_t __74__SBFluidSwitcherViewController_appLayoutsForSwitcherShelfViewContr
   v3 = a2;
   if ([v3 containsItemWithBundleIdentifier:*(a1 + 32)])
   {
-    v4 = [*(a1 + 40) containsObject:v3] ^ 1;
+    v4 = objc_msgSend_containsObject_(*(a1 + 40)) ^ 1;
   }
 
   else
@@ -22436,8 +22448,8 @@ LABEL_10:
 
   else
   {
-    v9 = SBLogAppSwitcher();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = SBLogAppSwitcher(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [SBFluidSwitcherViewController itemContainer:containerCopy didSelectTitleForRole:?];
     }
@@ -22449,7 +22461,7 @@ LABEL_10:
   presentedCopy = presented;
   containerCopy = container;
   allValues = [(NSMutableDictionary *)self->_visibleItemContainers allValues];
-  v8 = [allValues containsObject:containerCopy];
+  v8 = objc_msgSend_containsObject_(allValues);
 
   if (presentedCopy && v8)
   {
@@ -23265,7 +23277,7 @@ void __76__SBFluidSwitcherViewController__configureTransitionRequestForGestureBe
               [(SBFluidSwitcherContentView *)selfCopy->_contentView convertPoint:v19 toView:x, y];
               if ([v19 pointInside:0 withEvent:?])
               {
-                if ([v28 containsObject:v23])
+                if (objc_msgSend_containsObject_(v28))
                 {
                   goto LABEL_22;
                 }
@@ -23273,7 +23285,7 @@ void __76__SBFluidSwitcherViewController__configureTransitionRequestForGestureBe
                 windowManagementContext = [(SBFluidSwitcherViewController *)selfCopy windowManagementContext];
                 if ([windowManagementContext isChamoisOrFlexibleWindowing])
                 {
-                  v25 = [(NSArray *)selfCopy->_cachedAdjustedLeafAppLayouts containsObject:v23];
+                  v25 = objc_msgSend_containsObject_(selfCopy->_cachedAdjustedLeafAppLayouts);
 
                   if (v25)
                   {
@@ -23365,39 +23377,39 @@ uint64_t __112__SBFluidSwitcherViewController__itemContainerNearestLocation_envi
 {
   v5 = a3;
   v6 = a2;
-  [v6 frame];
+  objc_msgSend_frame(v6);
   v8 = v7;
-  [v6 frame];
+  objc_msgSend_frame(v6);
   hypot(v8 - *(a1 + 32), v9 + v10 - *(a1 + 40));
-  [v6 frame];
+  objc_msgSend_frame(v6);
   v13 = v11 + v12;
-  [v6 frame];
+  objc_msgSend_frame(v6);
   hypot(v13 - *(a1 + 32), v14 + v15 - *(a1 + 40));
-  [v6 frame];
+  objc_msgSend_frame(v6);
   v17 = v16;
-  [v6 frame];
+  objc_msgSend_frame(v6);
   hypot(v17 - *(a1 + 32), v18 - *(a1 + 40));
-  [v6 frame];
+  objc_msgSend_frame(v6);
   v21 = v19 + v20;
-  [v6 frame];
+  objc_msgSend_frame(v6);
   v23 = v22;
 
   hypot(v21 - *(a1 + 32), v23 - *(a1 + 40));
-  [v5 frame];
+  objc_msgSend_frame(v5);
   v25 = v24;
-  [v5 frame];
+  objc_msgSend_frame(v5);
   hypot(v25 - *(a1 + 32), v26 + v27 - *(a1 + 40));
-  [v5 frame];
+  objc_msgSend_frame(v5);
   v30 = v28 + v29;
-  [v5 frame];
+  objc_msgSend_frame(v5);
   hypot(v30 - *(a1 + 32), v31 + v32 - *(a1 + 40));
-  [v5 frame];
+  objc_msgSend_frame(v5);
   v34 = v33;
-  [v5 frame];
+  objc_msgSend_frame(v5);
   hypot(v34 - *(a1 + 32), v35 - *(a1 + 40));
-  [v5 frame];
+  objc_msgSend_frame(v5);
   v38 = v36 + v37;
-  [v5 frame];
+  objc_msgSend_frame(v5);
   v40 = v39;
 
   hypot(v38 - *(a1 + 32), v40 - *(a1 + 40));
@@ -23755,7 +23767,7 @@ void __60__SBFluidSwitcherViewController__updateAnimatableProperties__block_invo
       }
 
       layoutCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %p", v11, layoutCopy];
-      v13 = SBLogAppSwitcher();
+      v13 = SBLogAppSwitcher(layoutCopy);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
@@ -23801,7 +23813,7 @@ void __60__SBFluidSwitcherViewController__updateAnimatableProperties__block_invo
       }
 
       layoutCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %p", v11, layoutCopy];
-      v13 = SBLogAppSwitcher();
+      v13 = SBLogAppSwitcher(layoutCopy);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
@@ -23817,58 +23829,59 @@ void __60__SBFluidSwitcherViewController__updateAnimatableProperties__block_invo
 
 - (void)_updateShadowPathDisplayLink
 {
-  v19 = *MEMORY[0x277D85DE8];
-  if ([(NSCountedSet *)self->_shadowPathDisplayLinkRequiringReasons count]&& !self->_shadowPathDisplayLink)
+  v20 = *MEMORY[0x277D85DE8];
+  v3 = [(NSCountedSet *)self->_shadowPathDisplayLinkRequiringReasons count];
+  if (v3 && !self->_shadowPathDisplayLink)
   {
-    v11 = SBLogAppSwitcher();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = SBLogAppSwitcher(v3);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Creating shadow path display link", buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEFAULT, "Creating shadow path display link", buf, 2u);
     }
 
-    v12 = [MEMORY[0x277CD9E48] displayLinkWithTarget:self selector:sel__shadowPathDisplayLinkDidUpdate_];
+    v13 = [MEMORY[0x277CD9E48] displayLinkWithTarget:self selector:sel__shadowPathDisplayLinkDidUpdate_];
     shadowPathDisplayLink = self->_shadowPathDisplayLink;
-    self->_shadowPathDisplayLink = v12;
+    self->_shadowPathDisplayLink = v13;
     goto LABEL_18;
   }
 
   if (![(NSCountedSet *)self->_shadowPathDisplayLinkRequiringReasons count]&& self->_shadowPathDisplayLink)
   {
     [(SBFluidSwitcherViewController *)self _resetItemContainerShadowPathDisplayLink];
-    v15 = 0u;
     v16 = 0u;
-    v13 = 0u;
+    v17 = 0u;
     v14 = 0u;
+    v15 = 0u;
     shadowPathDisplayLink = [(NSMutableDictionary *)self->_visibleUnderlayAccessoryViews allKeys];
-    v4 = [shadowPathDisplayLink countByEnumeratingWithState:&v13 objects:v18 count:16];
-    if (v4)
+    v5 = [shadowPathDisplayLink countByEnumeratingWithState:&v14 objects:v19 count:16];
+    if (v5)
     {
-      v5 = v4;
-      v6 = *v14;
+      v6 = v5;
+      v7 = *v15;
       do
       {
-        for (i = 0; i != v5; ++i)
+        for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v6)
+          if (*v15 != v7)
           {
             objc_enumerationMutation(shadowPathDisplayLink);
           }
 
-          v8 = *(*(&v13 + 1) + 8 * i);
+          v9 = *(*(&v14 + 1) + 8 * i);
           appLayouts = [(SBFluidSwitcherViewController *)self appLayouts];
-          v10 = [appLayouts indexOfObject:v8];
+          v11 = [appLayouts indexOfObject:v9];
 
-          if (v10 != 0x7FFFFFFFFFFFFFFFLL)
+          if (v11 != 0x7FFFFFFFFFFFFFFFLL)
           {
-            [(SBFluidSwitcherViewController *)self _updateShadowPathForIndex:v10];
+            [(SBFluidSwitcherViewController *)self _updateShadowPathForIndex:v11];
           }
         }
 
-        v5 = [shadowPathDisplayLink countByEnumeratingWithState:&v13 objects:v18 count:16];
+        v6 = [shadowPathDisplayLink countByEnumeratingWithState:&v14 objects:v19 count:16];
       }
 
-      while (v5);
+      while (v6);
     }
 
 LABEL_18:
@@ -24194,7 +24207,7 @@ LABEL_13:
 
   layoutSettings = [attributesCopy layoutSettings];
   positionSettings = [attributesCopy positionSettings];
-  if ((v22 & 1) != 0 || [(NSMutableSet *)self->_focusedItemBackdropsBeingRemoved containsObject:v81[5]])
+  if ((v22 & 1) != 0 || objc_msgSend_containsObject_(self->_focusedItemBackdropsBeingRemoved))
   {
     positionUpdateMode = 1;
   }
@@ -24325,7 +24338,7 @@ LABEL_35:
 uint64_t __137__SBFluidSwitcherViewController__updateItemContainerBackdropPresenceForIndex_scale_rotation_cornerRadius_animationAttributes_completion___block_invoke(uint64_t a1)
 {
   v2 = *(*(*(a1 + 40) + 8) + 40);
-  [*(a1 + 32) frame];
+  objc_msgSend_frame(*(a1 + 32));
   UIRectGetCenter();
   [v2 setCenter:?];
   v3 = *(*(*(a1 + 40) + 8) + 40);
@@ -24364,7 +24377,7 @@ uint64_t __137__SBFluidSwitcherViewController__updateItemContainerBackdropPresen
 uint64_t __137__SBFluidSwitcherViewController__updateItemContainerBackdropPresenceForIndex_scale_rotation_cornerRadius_animationAttributes_completion___block_invoke_4(uint64_t a1)
 {
   v1 = *(*(*(a1 + 40) + 8) + 40);
-  [*(a1 + 32) frame];
+  objc_msgSend_frame(*(a1 + 32));
   UIRectGetCenter();
 
   return [v1 setCenter:?];
@@ -25569,7 +25582,7 @@ LABEL_31:
   v6 = v5;
   if (v5)
   {
-    v7 = SBLogAppSwitcher();
+    v7 = SBLogAppSwitcher(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       debugName = self->_debugName;
@@ -25597,104 +25610,105 @@ LABEL_31:
 - (void)_handleModifierResponse:(id)response fromEvent:(id)event log:(BOOL)log
 {
   logCopy = log;
-  v29 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   eventCopy = event;
+  v10 = eventCopy;
   if (responseCopy && logCopy)
   {
-    v10 = SBLogAppSwitcher();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = SBLogAppSwitcher(eventCopy);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       debugName = self->_debugName;
       *buf = 138543618;
       *&buf[4] = debugName;
       *&buf[12] = 2114;
       *&buf[14] = responseCopy;
-      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] handle response:\n%{public}@", buf, 0x16u);
+      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] handle response:\n%{public}@", buf, 0x16u);
     }
   }
 
-  v12 = objc_opt_class();
-  v13 = eventCopy;
-  if (v12)
+  v13 = objc_opt_class();
+  v14 = v10;
+  if (v13)
   {
     if (objc_opt_isKindOfClass())
     {
-      v14 = v13;
+      v15 = v14;
     }
 
     else
     {
-      v14 = 0;
+      v15 = 0;
     }
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  v15 = v14;
+  v16 = v15;
 
-  zoomFromHardwareButtonPreludeTokenWrapper = [v15 zoomFromHardwareButtonPreludeTokenWrapper];
+  zoomFromHardwareButtonPreludeTokenWrapper = [v16 zoomFromHardwareButtonPreludeTokenWrapper];
 
-  LODWORD(v15) = [zoomFromHardwareButtonPreludeTokenWrapper isTokenAvailable];
-  if (v15)
+  LODWORD(v16) = [zoomFromHardwareButtonPreludeTokenWrapper isTokenAvailable];
+  if (v16)
   {
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
+    v30 = 0;
     v28 = 0;
-    v26 = 0;
     if (!responseCopy)
     {
       goto LABEL_16;
     }
 
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __71__SBFluidSwitcherViewController__handleModifierResponse_fromEvent_log___block_invoke;
-    v25[3] = &unk_2783AF028;
-    v25[4] = buf;
-    v17 = MEMORY[0x223D6F7F0](v25);
-    (v17)[2](v17, responseCopy, &v26);
-    if ((v26 & 1) == 0)
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __71__SBFluidSwitcherViewController__handleModifierResponse_fromEvent_log___block_invoke;
+    v27[3] = &unk_2783AF028;
+    v27[4] = buf;
+    v19 = MEMORY[0x223D6F7F0](v27);
+    (v19)[2](v19, responseCopy, &v28);
+    if ((v28 & 1) == 0)
     {
-      [responseCopy enumerateResponseTreeUsingBlock:v17];
+      [responseCopy enumerateResponseTreeUsingBlock:v19];
     }
 
     if ((*(*&buf[8] + 24) & 1) == 0)
     {
 LABEL_16:
-      v18 = SBLogCameraCaptureLaunchAnimation();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v20 = SBLogCameraCaptureLaunchAnimation(v18);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        [SBFluidSwitcherViewController _handleModifierResponse:v18 fromEvent:? log:?];
+        [SBFluidSwitcherViewController _handleModifierResponse:v20 fromEvent:? log:?];
       }
 
-      v19 = objc_opt_class();
-      v20 = v13;
-      if (v19)
+      v21 = objc_opt_class();
+      v22 = v14;
+      if (v21)
       {
         if (objc_opt_isKindOfClass())
         {
-          v21 = v20;
+          v23 = v22;
         }
 
         else
         {
-          v21 = 0;
+          v23 = 0;
         }
       }
 
       else
       {
-        v21 = 0;
+        v23 = 0;
       }
 
-      v22 = v21;
+      v24 = v23;
 
-      zoomFromHardwareButtonPreludeTokenWrapper2 = [v22 zoomFromHardwareButtonPreludeTokenWrapper];
+      zoomFromHardwareButtonPreludeTokenWrapper2 = [v24 zoomFromHardwareButtonPreludeTokenWrapper];
       consumeToken = [zoomFromHardwareButtonPreludeTokenWrapper2 consumeToken];
 
       [consumeToken cancel];
@@ -25827,14 +25841,15 @@ void __73__SBFluidSwitcherViewController__updateImplicitpersonalityInvalidatable
 
 - (void)_handleEventResponse:(id)response
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   if (!responseCopy)
   {
     [SBFluidSwitcherViewController _handleEventResponse:];
   }
 
-  if ([responseCopy isValid])
+  isValid = [responseCopy isValid];
+  if (isValid)
   {
     [responseCopy delay];
     if (BSFloatIsZero())
@@ -25845,56 +25860,57 @@ void __73__SBFluidSwitcherViewController__updateImplicitpersonalityInvalidatable
     else
     {
       [responseCopy delay];
-      v9 = dispatch_time(0, (v8 * 1000000000.0));
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __54__SBFluidSwitcherViewController__handleEventResponse___block_invoke;
-      v10[3] = &unk_2783A92D8;
-      v11 = responseCopy;
+      v10 = dispatch_time(0, (v9 * 1000000000.0));
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __54__SBFluidSwitcherViewController__handleEventResponse___block_invoke;
+      v11[3] = &unk_2783A92D8;
+      v12 = responseCopy;
       selfCopy = self;
-      dispatch_after(v9, MEMORY[0x277D85CD0], v10);
+      dispatch_after(v10, MEMORY[0x277D85CD0], v11);
     }
   }
 
   else
   {
-    v5 = SBLogAppSwitcher();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = SBLogAppSwitcher(isValid);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       debugName = self->_debugName;
-      v7 = [responseCopy description];
+      v8 = [responseCopy description];
       *buf = 138412546;
-      v14 = debugName;
-      v15 = 2112;
-      v16 = v7;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, "[Fluid Switcher - %@] Skipping the following action because it's no longer valid: %@", buf, 0x16u);
+      v15 = debugName;
+      v16 = 2112;
+      v17 = v8;
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_INFO, "[Fluid Switcher - %@] Skipping the following action because it's no longer valid: %@", buf, 0x16u);
     }
   }
 }
 
 void __54__SBFluidSwitcherViewController__handleEventResponse___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  if ([*(a1 + 32) isValid])
+  v12 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) isValid];
+  if (v2)
   {
-    v3 = *(a1 + 32);
-    v2 = *(a1 + 40);
+    v4 = *(a1 + 32);
+    v3 = *(a1 + 40);
 
-    [v2 _performEventResponse:v3];
+    [v3 _performEventResponse:v4];
   }
 
   else
   {
-    v4 = SBLogAppSwitcher();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = SBLogAppSwitcher(v2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v5 = *(*(a1 + 40) + 1344);
-      v6 = [*(a1 + 32) description];
-      v7 = 138412546;
-      v8 = v5;
-      v9 = 2112;
-      v10 = v6;
-      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_INFO, "[Fluid Switcher - %@] Skipping the following action because it's no longer valid: %@", &v7, 0x16u);
+      v6 = *(*(a1 + 40) + 1344);
+      v7 = [*(a1 + 32) description];
+      v8 = 138412546;
+      v9 = v6;
+      v10 = 2112;
+      v11 = v7;
+      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, "[Fluid Switcher - %@] Skipping the following action because it's no longer valid: %@", &v8, 0x16u);
     }
   }
 }
@@ -26100,7 +26116,7 @@ LABEL_42:
   if (activeGesture)
   {
     delegate = [(SBFluidSwitcherViewController *)self delegate];
-    v7 = delegate;
+    v8 = delegate;
     if ((*(&self->_delegateRespondsTo + 3) & 2) != 0)
     {
       [delegate cancelActiveGestureForSwitcherContentController:self];
@@ -26109,11 +26125,11 @@ LABEL_42:
 
   else
   {
-    v8 = SBLogAppSwitcher();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = SBLogAppSwitcher(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "SBSwitcherModifierEventResponseTypeRequestCompletion response ignored. Can only be performed when there is an active gesture!", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "SBSwitcherModifierEventResponseTypeRequestCompletion response ignored. Can only be performed when there is an active gesture!", v10, 2u);
     }
   }
 }
@@ -26121,30 +26137,30 @@ LABEL_42:
 - (void)_performModifierReachabilityResponse:(id)response
 {
   responseCopy = response;
-  v4 = responseCopy;
-  v13 = 0;
-  v11 = 0u;
+  v5 = responseCopy;
+  v14 = 0;
   v12 = 0u;
-  v9 = 0u;
+  v13 = 0u;
   v10 = 0u;
-  v8 = 0u;
+  v11 = 0u;
+  v9 = 0u;
   if (responseCopy)
   {
-    [responseCopy reachabilityActivationContext];
+    objc_msgSend_reachabilityActivationContext(responseCopy);
   }
 
-  v6[2] = v10;
-  v6[3] = v11;
-  v6[4] = v12;
-  v7 = v13;
-  v6[0] = v8;
-  v6[1] = v9;
-  if (SBReachabilityGestureShouldActivate(v6))
+  v7[2] = v11;
+  v7[3] = v12;
+  v7[4] = v13;
+  v8 = v14;
+  v7[0] = v9;
+  v7[1] = v10;
+  if (SBReachabilityGestureShouldActivate(v7, v4))
   {
-    v5 = +[SBReachabilityManager sharedInstance];
-    if (([v5 reachabilityModeActive] & 1) == 0)
+    v6 = +[SBReachabilityManager sharedInstance];
+    if (([v6 reachabilityModeActive] & 1) == 0)
     {
-      [v5 toggleReachability];
+      [v6 toggleReachability];
     }
   }
 }
@@ -26223,7 +26239,7 @@ LABEL_14:
   }
 
   hidEventSenderID = [responseCopy hidEventSenderID];
-  v14 = SBLogAppSwitcher();
+  v14 = SBLogAppSwitcher(hidEventSenderID);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
@@ -26509,7 +26525,7 @@ void __70__SBFluidSwitcherViewController__performModifierUpdateLayoutResponse___
 
             v9 = *(*(&v39 + 1) + 8 * v8);
             v10 = *(a1 + 32);
-            v11 = SBLayoutRoleSetAll();
+            v11 = SBLayoutRoleSetAll(v5);
             v12 = *(a1 + 48);
             if (v12)
             {
@@ -26526,10 +26542,11 @@ void __70__SBFluidSwitcherViewController__performModifierUpdateLayoutResponse___
           }
 
           while (v6 != v8);
-          v6 = [v4 countByEnumeratingWithState:&v39 objects:v44 count:16];
+          v5 = [v4 countByEnumeratingWithState:&v39 objects:v44 count:16];
+          v6 = v5;
         }
 
-        while (v6);
+        while (v5);
       }
 
       v3 = *(a1 + 56);
@@ -26559,7 +26576,7 @@ void __70__SBFluidSwitcherViewController__performModifierUpdateLayoutResponse___
 
             v19 = *(*(&v35 + 1) + 8 * v18);
             v20 = *(a1 + 32);
-            v21 = SBLayoutRoleSetAll();
+            v21 = SBLayoutRoleSetAll(v15);
             v22 = *(a1 + 48);
             if (v22)
             {
@@ -26576,10 +26593,11 @@ void __70__SBFluidSwitcherViewController__performModifierUpdateLayoutResponse___
           }
 
           while (v16 != v18);
-          v16 = [v14 countByEnumeratingWithState:&v35 objects:v43 count:16];
+          v15 = [v14 countByEnumeratingWithState:&v35 objects:v43 count:16];
+          v16 = v15;
         }
 
-        while (v16);
+        while (v15);
       }
     }
   }
@@ -27538,7 +27556,7 @@ void __74__SBFluidSwitcherViewController__performBlurthroughItemContainerRespons
   [a1[4] layoutIfNeeded];
   v2 = a1[5];
   v3 = [a1[6] superview];
-  [a1[6] frame];
+  objc_msgSend_frame(a1[6]);
   v5 = v4;
   v7 = v6;
   v9 = v8;
@@ -28172,8 +28190,7 @@ uint64_t __70__SBFluidSwitcherViewController__performSystemApertureBounceRespons
   {
     if (preludeToken)
     {
-      [preludeToken cancel];
-      v18 = SBLogCameraCaptureLaunchAnimation();
+      v18 = SBLogCameraCaptureLaunchAnimation([preludeToken cancel]);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         v20 = 138412290;
@@ -28366,10 +28383,11 @@ LABEL_9:
 void __68__SBFluidSwitcherViewController__performDestroyDisplayItemResponse___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = a3;
+  v4 = v3;
   if (v3)
   {
-    v4 = SBLogAppSwitcher();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SBLogAppSwitcher(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __68__SBFluidSwitcherViewController__performDestroyDisplayItemResponse___block_invoke_2_cold_1();
     }
@@ -28856,7 +28874,7 @@ void __71__SBFluidSwitcherViewController__updateChamoisDefaultsObserverIfNeeded_
       v12 = v10 == 0;
       if (v10 && (isKindOfClass & 1) == 0)
       {
-        v17 = SBLogAppSwitcher();
+        v17 = SBLogAppSwitcher(isKindOfClass);
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           debugName = self->_debugName;
@@ -29398,7 +29416,7 @@ LABEL_17:
         superview = [v8 superview];
         layer = [v8 layer];
         presentationLayer = [layer presentationLayer];
-        [presentationLayer frame];
+        objc_msgSend_frame(presentationLayer);
         [superview convertRect:window toCoordinateSpace:?];
         [window2 _convertRectToSceneReferenceSpace:?];
         v23 = v22;
@@ -29470,14 +29488,14 @@ LABEL_17:
 {
   viewCopy = view;
   allValues = [(NSMutableDictionary *)self->_hiddenIconViews allValues];
-  if ([allValues containsObject:viewCopy])
+  if (objc_msgSend_containsObject_(allValues))
   {
   }
 
   else
   {
     allValues2 = [(NSMutableDictionary *)self->_hiddenIconViewContainers allValues];
-    v6 = [allValues2 containsObject:viewCopy];
+    v6 = objc_msgSend_containsObject_(allValues2);
 
     if (!v6)
     {
@@ -29614,7 +29632,7 @@ void __66__SBFluidSwitcherViewController_sourceLeafAppLayoutForCenterItem___bloc
 {
   blockCopy = block;
   nextQueryModifier = [modifier nextQueryModifier];
-  v14 = 0;
+  v15 = 0;
   if (!nextQueryModifier)
   {
     goto LABEL_13;
@@ -29625,22 +29643,23 @@ void __66__SBFluidSwitcherViewController_sourceLeafAppLayoutForCenterItem___bloc
   while (1)
   {
     v9 = nextQueryModifier2;
-    blockCopy[2](blockCopy, nextQueryModifier2, v8, &v14);
+    blockCopy[2](blockCopy, nextQueryModifier2, v8, &v15);
     nextQueryModifier2 = [nextQueryModifier2 nextQueryModifier];
 
-    v10 = v14;
-    if (v14)
+    v10 = v15;
+    if (v15)
     {
       goto LABEL_6;
     }
 
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       break;
     }
 
-    v10 = v14;
+    v10 = v15;
 LABEL_6:
     if (nextQueryModifier2)
     {
@@ -29654,10 +29673,10 @@ LABEL_6:
     goto LABEL_12;
   }
 
-  v11 = SBLogAppSwitcher();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = SBLogAppSwitcher(isKindOfClass);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    [(SBFluidSwitcherViewController *)&v12 _forLoggingOnly_enumerateQueryResponderChainStartingAtModifier:v13 usingBlock:v11];
+    [(SBFluidSwitcherViewController *)&v13 _forLoggingOnly_enumerateQueryResponderChainStartingAtModifier:v14 usingBlock:v12];
   }
 
 LABEL_12:
@@ -30684,7 +30703,7 @@ LABEL_25:
     memset(&v28[1], 0, sizeof(CGAffineTransform));
     if (homeScreenScalingView)
     {
-      [homeScreenScalingView transform];
+      objc_msgSend_transform(homeScreenScalingView);
     }
 
     v9 = *(MEMORY[0x277CBF2C0] + 16);
@@ -30882,56 +30901,56 @@ LABEL_25:
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
-- (void)_layoutAppLayout:(void *)a1 roles:(const char *)a2 completion:.cold.1(void *a1, const char *a2)
+- (void)_layoutAppLayout:(void *)a1 roles:(const char *)a2 completion:(uint64_t)a3 .cold.1(void *a1, const char *a2, uint64_t a3)
 {
-  v3 = MEMORY[0x277CCACA8];
-  v4 = [a1 classForCoder];
-  if (!v4)
+  v4 = MEMORY[0x277CCACA8];
+  v5 = [a1 classForCoder];
+  if (!v5)
   {
-    v4 = objc_opt_class();
+    v5 = objc_opt_class();
   }
 
-  v5 = NSStringFromClass(v4);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"roles", v5, v7];
+  v6 = NSStringFromClass(v5);
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  v9 = [v4 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"roles", v6, v8];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = NSStringFromSelector(a2);
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
+    v10 = NSStringFromSelector(a2);
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
     OUTLINED_FUNCTION_9_0();
-    v14 = @"SBFluidSwitcherViewController.m";
-    v15 = 1024;
-    v16 = 4994;
-    v17 = v12;
-    v18 = v8;
+    v15 = @"SBFluidSwitcherViewController.m";
+    v16 = 1024;
+    v17 = 4994;
+    v18 = v13;
+    v19 = v9;
     _os_log_error_impl(&dword_21ED4E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v8 UTF8String];
+  [v9 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)_layoutAppLayout:(const char *)a1 roles:completion:.cold.2(const char *a1)
+- (void)_layoutAppLayout:(const char *)a1 roles:(uint64_t)a2 completion:.cold.2(const char *a1, uint64_t a2)
 {
-  v2 = MEMORY[0x277CCACA8];
-  v3 = objc_opt_class();
-  v13 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v3 = MEMORY[0x277CCACA8];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = [v3 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"roles", v5];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v5 = NSStringFromSelector(a1);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
+    v7 = NSStringFromSelector(a1);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, @"roles", v13, v14);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, v15, v16);
   }
 
-  [v4 UTF8String];
+  [v6 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -30951,56 +30970,56 @@ LABEL_25:
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
-- (void)_applyStyleToAppLayout:(void *)a1 roles:(const char *)a2 completion:.cold.1(void *a1, const char *a2)
+- (void)_applyStyleToAppLayout:(void *)a1 roles:(const char *)a2 completion:(uint64_t)a3 .cold.1(void *a1, const char *a2, uint64_t a3)
 {
-  v3 = MEMORY[0x277CCACA8];
-  v4 = [a1 classForCoder];
-  if (!v4)
+  v4 = MEMORY[0x277CCACA8];
+  v5 = [a1 classForCoder];
+  if (!v5)
   {
-    v4 = objc_opt_class();
+    v5 = objc_opt_class();
   }
 
-  v5 = NSStringFromClass(v4);
-  v6 = objc_opt_class();
-  v7 = NSStringFromClass(v6);
-  v8 = [v3 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"roles", v5, v7];
+  v6 = NSStringFromClass(v5);
+  v7 = objc_opt_class();
+  v8 = NSStringFromClass(v7);
+  v9 = [v4 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"roles", v6, v8];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v9 = NSStringFromSelector(a2);
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
+    v10 = NSStringFromSelector(a2);
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
     OUTLINED_FUNCTION_9_0();
-    v14 = @"SBFluidSwitcherViewController.m";
-    v15 = 1024;
-    v16 = 7775;
-    v17 = v12;
-    v18 = v8;
+    v15 = @"SBFluidSwitcherViewController.m";
+    v16 = 1024;
+    v17 = 7775;
+    v18 = v13;
+    v19 = v9;
     _os_log_error_impl(&dword_21ED4E000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v8 UTF8String];
+  [v9 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)_applyStyleToAppLayout:(const char *)a1 roles:completion:.cold.2(const char *a1)
+- (void)_applyStyleToAppLayout:(const char *)a1 roles:(uint64_t)a2 completion:.cold.2(const char *a1, uint64_t a2)
 {
-  v2 = MEMORY[0x277CCACA8];
-  v3 = objc_opt_class();
-  v13 = NSStringFromClass(v3);
-  v4 = [v2 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@."];
+  v3 = MEMORY[0x277CCACA8];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
+  v6 = [v3 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"roles", v5];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v5 = NSStringFromSelector(a1);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
+    v7 = NSStringFromSelector(a1);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
     OUTLINED_FUNCTION_8_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, @"roles", v13, v14);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, v15, v16);
   }
 
-  [v4 UTF8String];
+  [v6 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

@@ -108,72 +108,69 @@
 
 void __39__REUpNextSiriServer__accessObservers___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
   v2 = *(*(a1 + 32) + 8);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
         (*(*(a1 + 40) + 16))(*(a1 + 40));
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   listenerCopy = listener;
   connectionCopy = connection;
-  v8 = REUpNextSiriClientInterface();
+  v8 = REUpNextSiriClientInterface(connectionCopy);
   [connectionCopy setRemoteObjectInterface:v8];
 
-  v9 = REUpNextSiriServerInterface();
-  [connectionCopy setExportedInterface:v9];
+  v10 = REUpNextSiriServerInterface(v9);
+  [connectionCopy setExportedInterface:v10];
 
   [connectionCopy setExportedObject:self];
   objc_initWeak(&location, connectionCopy);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __57__REUpNextSiriServer_listener_shouldAcceptNewConnection___block_invoke;
-  v14[3] = &unk_2785FA2E0;
-  v14[4] = self;
-  objc_copyWeak(&v15, &location);
-  [connectionCopy setInvalidationHandler:v14];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __57__REUpNextSiriServer_listener_shouldAcceptNewConnection___block_invoke_2;
-  v12[3] = &unk_2785F9AE0;
-  v12[4] = self;
-  v10 = connectionCopy;
-  v13 = v10;
-  [(REUpNextSiriServer *)self _onqueue_async:v12];
-  [v10 resume];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __57__REUpNextSiriServer_listener_shouldAcceptNewConnection___block_invoke;
+  v15[3] = &unk_2785FA2E0;
+  v15[4] = self;
+  objc_copyWeak(&v16, &location);
+  [connectionCopy setInvalidationHandler:v15];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __57__REUpNextSiriServer_listener_shouldAcceptNewConnection___block_invoke_2;
+  v13[3] = &unk_2785F9AE0;
+  v13[4] = self;
+  v11 = connectionCopy;
+  v14 = v11;
+  [(REUpNextSiriServer *)self _onqueue_async:v13];
+  [v11 resume];
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(&location);
 
   return 1;
@@ -217,42 +214,40 @@ void __57__REUpNextSiriServer_listener_shouldAcceptNewConnection___block_invoke(
 
 void __43__REUpNextSiriServer__accessRemoteClients___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
+  v14 = *MEMORY[0x277D85DE8];
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v2 = *(*(a1 + 32) + 16);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
         v7 = *(a1 + 40);
-        v8 = [*(*(&v10 + 1) + 8 * v6) remoteObjectProxyWithErrorHandler:{&__block_literal_global_11, v10}];
+        v8 = [*(*(&v9 + 1) + 8 * v6) remoteObjectProxyWithErrorHandler:{&__block_literal_global_11, v9}];
         (*(v7 + 16))(v7, v8);
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __43__REUpNextSiriServer__accessRemoteClients___block_invoke_2(uint64_t a1, void *a2)
@@ -267,11 +262,10 @@ void __43__REUpNextSiriServer__accessRemoteClients___block_invoke_2(uint64_t a1,
 
 void __43__REUpNextSiriServer__accessRemoteClients___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "XPC Siri Server connection error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "XPC Siri Server connection error: %@", &v2, 0xCu);
 }
 
 @end

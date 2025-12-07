@@ -172,7 +172,7 @@ LABEL_3:
 
 + (PGSuggestionOptions)suggestionOptionsWithDictionary:(id)dictionary subtypes:(id)subtypes
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   subtypesCopy = subtypes;
   if (dictionaryCopy)
@@ -189,29 +189,29 @@ LABEL_3:
   [(PGSuggestionOptions *)v7 setDefaultStartAndEndDatesIfNeeded];
   [(PGSuggestionOptions *)v8 setIgnoreCollisionsWithExistingSuggestions:1];
   v9 = objc_alloc_init(MEMORY[0x277CCAB58]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v10 = subtypesCopy;
-  v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v24;
+    v13 = *v23;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v24 != v13)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [v9 addIndex:{objc_msgSend(*(*(&v23 + 1) + 8 * i), "unsignedIntValue")}];
+        [v9 addIndex:{objc_msgSend(*(*(&v22 + 1) + 8 * i), "unsignedIntValue")}];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v12);
@@ -222,12 +222,12 @@ LABEL_3:
   {
     v16 = suggestionSubtypeWhitelist;
     suggestionSubtypeWhitelist2 = [(PGSuggestionOptions *)v8 suggestionSubtypeWhitelist];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __64__PGSuggestionOptions_suggestionOptionsWithDictionary_subtypes___block_invoke;
-    v21[3] = &unk_278885578;
-    v22 = v9;
-    v18 = [suggestionSubtypeWhitelist2 indexesPassingTest:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __64__PGSuggestionOptions_suggestionOptionsWithDictionary_subtypes___block_invoke;
+    v20[3] = &unk_278885578;
+    v21 = v9;
+    v18 = [suggestionSubtypeWhitelist2 indexesPassingTest:v20];
     [(PGSuggestionOptions *)v8 setSuggestionSubtypeWhitelist:v18];
   }
 
@@ -235,8 +235,6 @@ LABEL_3:
   {
     [(PGSuggestionOptions *)v8 setSuggestionSubtypeWhitelist:v9];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

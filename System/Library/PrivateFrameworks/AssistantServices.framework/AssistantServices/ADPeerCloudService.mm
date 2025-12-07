@@ -116,14 +116,14 @@
     v27 = AFSiriLogContextIDS;
     if (os_log_type_enabled(AFSiriLogContextIDS, OS_LOG_TYPE_ERROR))
     {
-      v40 = v27;
-      v41 = 136315650;
-      v42 = "[ADPeerCloudService _handleMessageResponse:ofType:orError:fromID:handler:]";
-      v43 = 1024;
-      *v44 = [handlerCopy responseType];
-      *&v44[4] = 1024;
-      *&v44[6] = typeCopy;
-      _os_log_error_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "%s Response class is %d doesn't match %d", &v41, 0x18u);
+      v41 = v27;
+      v42 = 136315650;
+      v43 = "[ADPeerCloudService _handleMessageResponse:ofType:orError:fromID:handler:]";
+      v44 = 1024;
+      *v45 = [handlerCopy responseType];
+      *&v45[4] = 1024;
+      *&v45[6] = typeCopy;
+      _os_log_error_impl(&_mh_execute_header, v41, OS_LOG_TYPE_ERROR, "%s Response class is %d doesn't match %d", &v42, 0x18u);
     }
 
     v16 = +[ADPeerCloudService _unexpectedMessageError];
@@ -136,9 +136,9 @@ LABEL_4:
       v18 = AFSiriLogContextIDS;
       if (os_log_type_enabled(AFSiriLogContextIDS, OS_LOG_TYPE_INFO))
       {
-        v41 = 136315138;
-        v42 = "[ADPeerCloudService _handleMessageResponse:ofType:orError:fromID:handler:]";
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "%s Completing request", &v41, 0xCu);
+        v42 = 136315138;
+        v43 = "[ADPeerCloudService _handleMessageResponse:ofType:orError:fromID:handler:]";
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "%s Completing request", &v42, 0xCu);
       }
 
       v19 = [NSSet alloc];
@@ -163,23 +163,23 @@ LABEL_4:
   v28 = AFSiriLogContextIDS;
   if (os_log_type_enabled(AFSiriLogContextIDS, OS_LOG_TYPE_INFO))
   {
-    v41 = 136315394;
-    v42 = "[ADPeerCloudService _handleMessageResponse:ofType:orError:fromID:handler:]";
-    v43 = 1024;
-    *v44 = typeCopy;
-    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "%s Handling response of type %d", &v41, 0x12u);
+    v42 = 136315394;
+    v43 = "[ADPeerCloudService _handleMessageResponse:ofType:orError:fromID:handler:]";
+    v44 = 1024;
+    *v45 = typeCopy;
+    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "%s Handling response of type %d", &v42, 0x12u);
   }
 
   v29 = objc_alloc_init(ADPeerResponse);
   v30 = [[ADPeerInfo alloc] initWithIDSIdentifer:dCopy];
   [(ADPeerResponse *)v29 setPeer:v30];
-  v31 = objc_alloc(sub_1001949F0(typeCopy));
+  v32 = objc_alloc(sub_1001949F0(typeCopy, v31));
   data = [responseCopy data];
-  v33 = [v31 initWithData:data];
+  v34 = [v32 initWithData:data];
 
-  [(ADPeerResponse *)v29 setProto:v33];
+  [(ADPeerResponse *)v29 setProto:v34];
   responses2 = [handlerCopy responses];
-  v35 = responses2;
+  v36 = responses2;
   if (dCopy)
   {
     [responses2 setObject:v29 forKey:dCopy];
@@ -187,8 +187,8 @@ LABEL_4:
 
   else
   {
-    v36 = +[NSNull null];
-    [v35 setObject:v29 forKey:v36];
+    v37 = +[NSNull null];
+    [v36 setObject:v29 forKey:v37];
   }
 
   [handlerCopy setOutstandingResponses:{objc_msgSend(handlerCopy, "outstandingResponses") - 1}];
@@ -199,15 +199,15 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v38 = outstandingResponses;
-  v39 = AFSiriLogContextIDS;
+  v39 = outstandingResponses;
+  v40 = AFSiriLogContextIDS;
   if (os_log_type_enabled(AFSiriLogContextIDS, OS_LOG_TYPE_INFO))
   {
-    v41 = 136315394;
-    v42 = "[ADPeerCloudService _handleMessageResponse:ofType:orError:fromID:handler:]";
-    v43 = 2048;
-    *v44 = v38;
-    _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_INFO, "%s %ld responses remaining", &v41, 0x16u);
+    v42 = 136315394;
+    v43 = "[ADPeerCloudService _handleMessageResponse:ofType:orError:fromID:handler:]";
+    v44 = 2048;
+    *v45 = v39;
+    _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_INFO, "%s %ld responses remaining", &v42, 0x16u);
   }
 
 LABEL_7:
@@ -230,7 +230,7 @@ LABEL_7:
 
   if (!success)
   {
-    v20 = [(NSMutableDictionary *)self->_completions objectForKey:identifierCopy];
+    v20 = objc_msgSend_objectForKey_(self->_completions);
     if (v20)
     {
       [(ADPeerCloudService *)self _handleMessageResponse:0 ofType:0xFFFFLL orError:errorCopy fromID:0 handler:v20];
@@ -249,7 +249,7 @@ LABEL_7:
   if (os_log_type_enabled(AFSiriLogContextIDS, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v49 = "[ADPeerCloudService service:account:incomingUnhandledProtobuf:fromID:context:]";
+    v50 = "[ADPeerCloudService service:account:incomingUnhandledProtobuf:fromID:context:]";
     _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -262,7 +262,7 @@ LABEL_7:
     if (os_log_type_enabled(AFSiriLogContextIDS, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v49 = "[ADPeerCloudService service:account:incomingUnhandledProtobuf:fromID:context:]";
+      v50 = "[ADPeerCloudService service:account:incomingUnhandledProtobuf:fromID:context:]";
       _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "%s Dropping incoming message because Lost Mode is active", buf, 0xCu);
     }
   }
@@ -282,22 +282,22 @@ LABEL_7:
       if (os_log_type_enabled(AFSiriLogContextIDS, OS_LOG_TYPE_INFO))
       {
         *buf = 136316418;
-        v49 = "[ADPeerCloudService service:account:incomingUnhandledProtobuf:fromID:context:]";
-        v50 = 1024;
-        v51 = type;
-        v52 = 2112;
-        v53 = dCopy;
-        v54 = 2112;
-        v55 = incomingResponseIdentifier;
-        v56 = 2112;
-        v57 = outgoingResponseIdentifier;
-        v58 = 1024;
-        v59 = expectsPeerResponse;
+        v50 = "[ADPeerCloudService service:account:incomingUnhandledProtobuf:fromID:context:]";
+        v51 = 1024;
+        v52 = type;
+        v53 = 2112;
+        v54 = dCopy;
+        v55 = 2112;
+        v56 = incomingResponseIdentifier;
+        v57 = 2112;
+        v58 = outgoingResponseIdentifier;
+        v59 = 1024;
+        v60 = expectsPeerResponse;
         _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "%s Type %d from %@. Incoming %@ Outgoing %@ Expects Response %d", buf, 0x36u);
       }
 
-      v43 = incomingResponseIdentifier;
-      v25 = [(NSMutableDictionary *)self->_completions objectForKey:incomingResponseIdentifier];
+      v44 = incomingResponseIdentifier;
+      v25 = objc_msgSend_objectForKey_(self->_completions);
       if (v25)
       {
         [(ADPeerCloudService *)self _handleMessageResponse:protobufCopy ofType:type orError:0 fromID:dCopy handler:v25];
@@ -305,46 +305,46 @@ LABEL_7:
 
       else
       {
-        v39 = accountCopy;
-        v40 = serviceCopy;
-        v38 = [ADPeerInfo alloc];
-        v37 = IDSCopyIDForDevice();
+        v40 = accountCopy;
+        v41 = serviceCopy;
+        v39 = [ADPeerInfo alloc];
+        v38 = IDSCopyIDForDevice();
         modelIdentifier = [v22 modelIdentifier];
         productBuildVersion = [v22 productBuildVersion];
         name = [v22 name];
-        v30 = [(ADPeerInfo *)v38 initWithIDSIdentifer:v37 productType:modelIdentifier buildVersion:productBuildVersion name:name];
+        v30 = [(ADPeerInfo *)v39 initWithIDSIdentifer:v38 productType:modelIdentifier buildVersion:productBuildVersion name:name];
 
-        v46[0] = _NSConcreteStackBlock;
-        v46[1] = 3221225472;
-        v46[2] = sub_10019504C;
-        v46[3] = &unk_100514740;
-        v47 = expectsPeerResponse;
-        v46[4] = self;
-        v46[5] = outgoingResponseIdentifier;
-        v42 = v30;
-        v46[6] = v30;
-        v31 = objc_retainBlock(v46);
-        v32 = sub_1001949F0(type);
-        if (v32)
+        v47[0] = _NSConcreteStackBlock;
+        v47[1] = 3221225472;
+        v47[2] = sub_10019504C;
+        v47[3] = &unk_100514740;
+        v48 = expectsPeerResponse;
+        v47[4] = self;
+        v47[5] = outgoingResponseIdentifier;
+        v43 = v30;
+        v47[6] = v30;
+        v31 = objc_retainBlock(v47);
+        v33 = sub_1001949F0(type, v32);
+        if (v33)
         {
-          v33 = [v32 alloc];
+          v34 = [v33 alloc];
           data = [protobufCopy data];
-          v35 = [v33 initWithData:data];
+          v36 = [v34 initWithData:data];
 
-          v36 = v42;
-          [v35 _ad_performWithCloudService:self fromPeer:v42 completion:v31];
-          accountCopy = v39;
+          v37 = v43;
+          [v36 _ad_performWithCloudService:self fromPeer:v43 completion:v31];
+          accountCopy = v40;
         }
 
         else
         {
-          v35 = +[ADPeerCloudService _unexpectedMessageError];
-          (v31[2])(v31, 0, 0xFFFFLL, v35);
-          accountCopy = v39;
-          v36 = v42;
+          v36 = +[ADPeerCloudService _unexpectedMessageError];
+          (v31[2])(v31, 0, 0xFFFFLL, v36);
+          accountCopy = v40;
+          v37 = v43;
         }
 
-        serviceCopy = v40;
+        serviceCopy = v41;
       }
     }
 
@@ -354,7 +354,7 @@ LABEL_7:
       if (os_log_type_enabled(AFSiriLogContextIDS, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v49 = "[ADPeerCloudService service:account:incomingUnhandledProtobuf:fromID:context:]";
+        v50 = "[ADPeerCloudService service:account:incomingUnhandledProtobuf:fromID:context:]";
         _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "%s Dropping incoming message with unknown sender", buf, 0xCu);
       }
     }
@@ -1102,7 +1102,7 @@ LABEL_11:
   dispatch_assert_queue_V2(self->_queue);
   if (idCopy)
   {
-    v5 = [(NSMutableDictionary *)self->_peerSharedData objectForKey:idCopy];
+    v5 = objc_msgSend_objectForKey_(self->_peerSharedData);
   }
 
   else

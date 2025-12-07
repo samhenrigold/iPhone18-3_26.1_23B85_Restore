@@ -66,7 +66,7 @@ LABEL_6:
 
 void __33__LSSXPCClient_initWithDelegate___block_invoke(uint64_t a1, void *a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (v3 == MEMORY[0x277D863F0])
@@ -145,7 +145,7 @@ LABEL_26:
     data = xpc_dictionary_get_data(v4, "s", &length);
     if (length == 96)
     {
-      __33__LSSXPCClient_initWithDelegate___block_invoke_cold_5(v40, data, a1);
+      __33__LSSXPCClient_initWithDelegate___block_invoke_cold_5(v39, data, a1);
       goto LABEL_18;
     }
 
@@ -192,8 +192,6 @@ LABEL_6:
   }
 
 LABEL_18:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -213,7 +211,7 @@ LABEL_18:
 
 - (void)setOptions:(uint64_t)options
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (options)
   {
     if (*(options + 16) != a2)
@@ -229,9 +227,9 @@ LABEL_18:
         v4 = _MergedGlobals_13;
         if (os_log_type_enabled(_MergedGlobals_13, OS_LOG_TYPE_DEFAULT))
         {
-          v7[0] = 67109120;
-          v7[1] = a2;
-          _os_log_impl(&dword_255E8B000, v4, OS_LOG_TYPE_DEFAULT, "update options: %u", v7, 8u);
+          v6[0] = 67109120;
+          v6[1] = a2;
+          _os_log_impl(&dword_255E8B000, v4, OS_LOG_TYPE_DEFAULT, "update options: %u", v6, 8u);
         }
 
         empty = xpc_dictionary_create_empty();
@@ -240,8 +238,6 @@ LABEL_18:
       }
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)setDelegate:(id *)result
@@ -256,22 +252,21 @@ LABEL_18:
 
 void __33__LSSXPCClient_initWithDelegate___block_invoke_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5(&dword_255E8B000, a2, a3, "unknown message: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_5(&dword_255E8B000, a2, a3, "unknown message: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __33__LSSXPCClient_initWithDelegate___block_invoke_cold_4(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_5(&dword_255E8B000, a2, a3, "unexpected light state size: %lu", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_5(&dword_255E8B000, a2, a3, "unexpected light state size: %lu", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __33__LSSXPCClient_initWithDelegate___block_invoke_cold_5(void *a1, const void *a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   memcpy(a1, a2, 0x60uLL);
   WeakRetained = objc_loadWeakRetained((a3 + 32));
   v6 = WeakRetained;
@@ -285,24 +280,22 @@ void __33__LSSXPCClient_initWithDelegate___block_invoke_cold_5(void *a1, const v
     v7 = 0;
   }
 
-  memcpy(v9, a1, 0x60uLL);
-  [v7 client:v6 recievedUpdate:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  memcpy(v8, a1, 0x60uLL);
+  [v7 client:v6 recievedUpdate:v8];
 }
 
 void __33__LSSXPCClient_initWithDelegate___block_invoke_cold_7(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5(&dword_255E8B000, a1, a3, "The connection invalidated: %@.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = MEMORY[0x277D863F8];
+  OUTLINED_FUNCTION_0_5(&dword_255E8B000, a1, a3, "The connection invalidated: %@.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __33__LSSXPCClient_initWithDelegate___block_invoke_cold_9(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_5(&dword_255E8B000, a1, a3, "Connection interrupted: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = MEMORY[0x277D863F0];
+  OUTLINED_FUNCTION_0_5(&dword_255E8B000, a1, a3, "Connection interrupted: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -18,16 +18,16 @@
 
 - (NTItemsSectionFetchDescriptor)initWithItemsConfiguration:(id)configuration
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   if (!configurationCopy && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     [NTItemsSectionFetchDescriptor initWithItemsConfiguration:];
   }
 
-  v24.receiver = self;
-  v24.super_class = NTItemsSectionFetchDescriptor;
-  v5 = [(NTItemsSectionFetchDescriptor *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = NTItemsSectionFetchDescriptor;
+  v5 = [(NTItemsSectionFetchDescriptor *)&v23 init];
   if (v5)
   {
     v6 = [configurationCopy copy];
@@ -36,25 +36,25 @@
 
     array = [MEMORY[0x277CBEB18] array];
     items = [configurationCopy items];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v10 = [items countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v10 = [items countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v21;
+      v12 = *v20;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(items);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * i);
+          v14 = *(*(&v19 + 1) + 8 * i);
           if (![v14 itemType])
           {
             article = [v14 article];
@@ -62,7 +62,7 @@
           }
         }
 
-        v11 = [items countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v11 = [items countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v11);
@@ -73,7 +73,6 @@
     v5->_itemsArticlesRequest = v16;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -161,17 +160,15 @@ uint64_t __69__NTItemsSectionFetchDescriptor_assembleResultsWithCatchUpOperation
 
 - (void)initWithItemsConfiguration:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "itemsConfiguration"];
   *buf = 136315906;
-  v3 = "[NTItemsSectionFetchDescriptor initWithItemsConfiguration:]";
-  v4 = 2080;
-  v5 = "NTItemsSectionFetchDescriptor.m";
-  v6 = 1024;
+  v2 = "[NTItemsSectionFetchDescriptor initWithItemsConfiguration:]";
+  v3 = 2080;
+  v4 = "NTItemsSectionFetchDescriptor.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(&dword_25BF21000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 @end

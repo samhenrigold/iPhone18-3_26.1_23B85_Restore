@@ -30,22 +30,20 @@
 
 - (id)firstViewController
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   v3 = [[TSSinglePlanTransferViewController alloc] initWithLocalPhysical:self->_phoneNumber carrierName:self->_carrierName];
-  [(TSSinglePlanTransferViewController *)v3 setDelegate:self];
-  v4 = _TSLogDomain();
+  v4 = _TSLogDomain([(TSSinglePlanTransferViewController *)v3 setDelegate:self]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
-    v8 = objc_opt_class();
-    v9 = 2080;
-    v10 = "[TSOnDeviceConversionFlow firstViewController]";
-    _os_log_impl(&dword_262AA8000, v4, OS_LOG_TYPE_DEFAULT, "first view: %@ @%s", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = objc_opt_class();
+    v8 = 2080;
+    v9 = "[TSOnDeviceConversionFlow firstViewController]";
+    _os_log_impl(&dword_262AA8000, v4, OS_LOG_TYPE_DEFAULT, "first view: %@ @%s", &v6, 0x16u);
   }
 
   [(TSSIMSetupFlow *)self setTopViewController:v3];
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -62,7 +60,7 @@
 
 - (id)nextViewControllerFrom:(id)from
 {
-  v13[4] = *MEMORY[0x277D85DE8];
+  v12[4] = *MEMORY[0x277D85DE8];
   fromCopy = from;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -70,15 +68,15 @@
   if (isKindOfClass)
   {
     v6 = [TSSubFlowViewController alloc];
-    v12[0] = @"FlowTypeKey";
-    v12[1] = @"SkipActivatingPane";
-    v13[0] = &unk_287583E68;
-    v13[1] = MEMORY[0x277CBEC38];
-    v12[2] = @"DelayStartActivatingTimer";
-    v12[3] = @"LocalConversionOngoing";
-    v13[2] = &unk_287583E80;
-    v13[3] = MEMORY[0x277CBEC38];
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
+    v11[0] = @"FlowTypeKey";
+    v11[1] = @"SkipActivatingPane";
+    v12[0] = &unk_287583E68;
+    v12[1] = MEMORY[0x277CBEC38];
+    v11[2] = @"DelayStartActivatingTimer";
+    v11[3] = @"LocalConversionOngoing";
+    v12[2] = &unk_287583E80;
+    v12[3] = MEMORY[0x277CBEC38];
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:4];
     navigationController = [(TSSIMSetupFlow *)self navigationController];
     v9 = [(TSSubFlowViewController *)v6 initWithOptions:v7 navigationController:navigationController delegate:self];
   }
@@ -87,8 +85,6 @@
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

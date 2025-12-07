@@ -50,7 +50,7 @@ uint64_t CMMsl::VIOEstimation::VIOEstimation(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-CMMsl *CMMsl::VIOEstimation::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::VIOEstimation::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -2377,21 +2377,21 @@ uint64_t CMMsl::VIOEstimation::hash_value(CMMsl::VIOEstimation *this)
 {
   if ((*(this + 340) & 0x40) == 0)
   {
-    v51 = 0;
+    v27 = 0;
     if ((*(this + 340) & 4) != 0)
     {
       goto LABEL_3;
     }
 
 LABEL_16:
-    v50 = 0.0;
+    v26 = 0.0;
     if (*(this + 340))
     {
       goto LABEL_6;
     }
 
 LABEL_17:
-    v49 = 0.0;
+    v25 = 0.0;
     if ((*(this + 340) & 8) != 0)
     {
       goto LABEL_9;
@@ -2400,7 +2400,7 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v51 = *(this + 84);
+  v27 = *(this + 84);
   if ((*(this + 340) & 4) == 0)
   {
     goto LABEL_16;
@@ -2413,7 +2413,7 @@ LABEL_3:
     v2 = 0.0;
   }
 
-  v50 = v2;
+  v26 = v2;
   if ((*(this + 340) & 1) == 0)
   {
     goto LABEL_17;
@@ -2426,7 +2426,7 @@ LABEL_6:
     v3 = 0.0;
   }
 
-  v49 = v3;
+  v25 = v3;
   if ((*(this + 340) & 8) != 0)
   {
 LABEL_9:
@@ -2436,19 +2436,19 @@ LABEL_9:
       v4 = 0.0;
     }
 
-    v48 = v4;
+    v24 = v4;
     if ((*(this + 340) & 2) != 0)
     {
       goto LABEL_12;
     }
 
 LABEL_19:
-    v47 = 0.0;
+    v23 = 0.0;
     goto LABEL_20;
   }
 
 LABEL_18:
-  v48 = 0.0;
+  v24 = 0.0;
   if ((*(this + 340) & 2) == 0)
   {
     goto LABEL_19;
@@ -2461,51 +2461,27 @@ LABEL_12:
     v5 = 0.0;
   }
 
-  v47 = v5;
+  v23 = v5;
 LABEL_20:
-  v6 = *(this + 22);
-  v7 = *(this + 23);
-  v46 = PBHashBytes();
-  v8 = *(this + 13);
-  v9 = *(this + 14);
-  v45 = PBHashBytes();
-  v10 = *(this + 34);
-  v11 = *(this + 35);
-  v12 = PBHashBytes();
-  v13 = *(this + 1);
-  v14 = *(this + 2);
-  v15 = PBHashBytes();
-  v16 = *(this + 28);
-  v17 = *(this + 29);
-  v18 = PBHashBytes();
-  v19 = *(this + 19);
-  v20 = *(this + 20);
+  v22 = PBHashBytes();
   v21 = PBHashBytes();
-  v22 = *(this + 16);
-  v23 = *(this + 17);
-  v24 = PBHashBytes();
-  v25 = *(this + 31);
-  v26 = *(this + 32);
-  v27 = PBHashBytes();
-  v28 = *(this + 4);
-  v29 = *(this + 5);
-  v30 = PBHashBytes();
-  v31 = *(this + 25);
-  v32 = *(this + 26);
-  v33 = PBHashBytes();
-  v34 = *(this + 10);
-  v35 = *(this + 11);
-  v36 = PBHashBytes();
-  v37 = *(this + 7);
-  v38 = *(this + 8);
-  v39 = PBHashBytes();
+  v6 = PBHashBytes();
+  v7 = PBHashBytes();
+  v8 = PBHashBytes();
+  v9 = PBHashBytes();
+  v10 = PBHashBytes();
+  v11 = PBHashBytes();
+  v12 = PBHashBytes();
+  v13 = PBHashBytes();
+  v14 = PBHashBytes();
+  v15 = PBHashBytes();
   if ((*(this + 340) & 0x20) != 0)
   {
-    v43 = *(this + 83);
-    v40 = LODWORD(v43);
-    if (v43 == 0.0)
+    v19 = *(this + 83);
+    v16 = LODWORD(v19);
+    if (v19 == 0.0)
     {
-      v40 = 0;
+      v16 = 0;
     }
 
     if ((*(this + 340) & 0x10) != 0)
@@ -2514,25 +2490,25 @@ LABEL_20:
     }
 
 LABEL_28:
-    v42 = 0;
-    return *&v50 ^ v51 ^ *&v49 ^ *&v48 ^ *&v47 ^ v46 ^ v45 ^ v12 ^ v15 ^ v18 ^ v21 ^ v24 ^ v27 ^ v30 ^ v33 ^ v36 ^ v39 ^ v40 ^ v42;
+    v18 = 0;
+    return *&v26 ^ v27 ^ *&v25 ^ *&v24 ^ *&v23 ^ v22 ^ v21 ^ v6 ^ v7 ^ v8 ^ v9 ^ v10 ^ v11 ^ v12 ^ v13 ^ v14 ^ v15 ^ v16 ^ v18;
   }
 
-  v40 = 0;
+  v16 = 0;
   if ((*(this + 340) & 0x10) == 0)
   {
     goto LABEL_28;
   }
 
 LABEL_22:
-  v41 = *(this + 82);
-  v42 = LODWORD(v41);
-  if (v41 == 0.0)
+  v17 = *(this + 82);
+  v18 = LODWORD(v17);
+  if (v17 == 0.0)
   {
-    v42 = 0;
+    v18 = 0;
   }
 
-  return *&v50 ^ v51 ^ *&v49 ^ *&v48 ^ *&v47 ^ v46 ^ v45 ^ v12 ^ v15 ^ v18 ^ v21 ^ v24 ^ v27 ^ v30 ^ v33 ^ v36 ^ v39 ^ v40 ^ v42;
+  return *&v26 ^ v27 ^ *&v25 ^ *&v24 ^ *&v23 ^ v22 ^ v21 ^ v6 ^ v7 ^ v8 ^ v9 ^ v10 ^ v11 ^ v12 ^ v13 ^ v14 ^ v15 ^ v16 ^ v18;
 }
 
 void CMMsl::VIOPose::~VIOPose(CMMsl::VIOPose *this)
@@ -2785,7 +2761,7 @@ uint64_t CMMsl::VIOPose::VIOPose(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-CMMsl *CMMsl::VIOPose::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::VIOPose::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -3547,41 +3523,39 @@ LABEL_7:
   }
 
 LABEL_16:
-  v6 = *(this + 1);
-  v7 = *(this + 2);
-  v8 = PBHashBytes();
-  v9 = *(this + 56);
-  if ((v9 & 8) == 0)
+  v6 = PBHashBytes();
+  v7 = *(this + 56);
+  if ((v7 & 8) == 0)
   {
-    v10 = 0.0;
-    if ((v9 & 0x10) != 0)
+    v8 = 0.0;
+    if ((v7 & 0x10) != 0)
     {
       goto LABEL_18;
     }
 
 LABEL_39:
-    v11 = 0.0;
-    if ((v9 & 0x20) != 0)
+    v9 = 0.0;
+    if ((v7 & 0x20) != 0)
     {
       goto LABEL_21;
     }
 
 LABEL_40:
-    v12 = 0.0;
-    if ((v9 & 4) != 0)
+    v10 = 0.0;
+    if ((v7 & 4) != 0)
     {
       goto LABEL_24;
     }
 
 LABEL_41:
-    v13 = 0.0;
-    if ((v9 & 0x80) != 0)
+    v11 = 0.0;
+    if ((v7 & 0x80) != 0)
     {
       goto LABEL_27;
     }
 
 LABEL_42:
-    v14 = 0.0;
+    v12 = 0.0;
     if ((*(this + 56) & 0x100) != 0)
     {
       goto LABEL_30;
@@ -3590,94 +3564,94 @@ LABEL_42:
     goto LABEL_43;
   }
 
-  v10 = *(this + 7);
-  if (v10 == 0.0)
+  v8 = *(this + 7);
+  if (v8 == 0.0)
   {
-    v10 = 0.0;
+    v8 = 0.0;
   }
 
-  if ((v9 & 0x10) == 0)
+  if ((v7 & 0x10) == 0)
   {
     goto LABEL_39;
   }
 
 LABEL_18:
-  v11 = *(this + 8);
-  if (v11 == 0.0)
+  v9 = *(this + 8);
+  if (v9 == 0.0)
   {
-    v11 = 0.0;
+    v9 = 0.0;
   }
 
-  if ((v9 & 0x20) == 0)
+  if ((v7 & 0x20) == 0)
   {
     goto LABEL_40;
   }
 
 LABEL_21:
-  v12 = *(this + 9);
-  if (v12 == 0.0)
+  v10 = *(this + 9);
+  if (v10 == 0.0)
   {
-    v12 = 0.0;
+    v10 = 0.0;
   }
 
-  if ((v9 & 4) == 0)
+  if ((v7 & 4) == 0)
   {
     goto LABEL_41;
   }
 
 LABEL_24:
-  v13 = *(this + 6);
-  if (v13 == 0.0)
+  v11 = *(this + 6);
+  if (v11 == 0.0)
   {
-    v13 = 0.0;
+    v11 = 0.0;
   }
 
-  if ((v9 & 0x80) == 0)
+  if ((v7 & 0x80) == 0)
   {
     goto LABEL_42;
   }
 
 LABEL_27:
-  v14 = *(this + 11);
-  if (v14 == 0.0)
+  v12 = *(this + 11);
+  if (v12 == 0.0)
   {
-    v14 = 0.0;
+    v12 = 0.0;
   }
 
   if ((*(this + 56) & 0x100) != 0)
   {
 LABEL_30:
-    v15 = *(this + 12);
-    if (v15 == 0.0)
+    v13 = *(this + 12);
+    if (v13 == 0.0)
     {
-      v15 = 0.0;
+      v13 = 0.0;
     }
 
-    if ((v9 & 0x40) != 0)
+    if ((v7 & 0x40) != 0)
     {
       goto LABEL_33;
     }
 
 LABEL_44:
-    v16 = 0.0;
-    return v4 ^ v3 ^ v5 ^ *&v10 ^ *&v11 ^ *&v12 ^ *&v13 ^ v8 ^ *&v14 ^ *&v15 ^ *&v16;
+    v14 = 0.0;
+    return v4 ^ v3 ^ v5 ^ *&v8 ^ *&v9 ^ *&v10 ^ *&v11 ^ v6 ^ *&v12 ^ *&v13 ^ *&v14;
   }
 
 LABEL_43:
-  v15 = 0.0;
-  if ((v9 & 0x40) == 0)
+  v13 = 0.0;
+  if ((v7 & 0x40) == 0)
   {
     goto LABEL_44;
   }
 
 LABEL_33:
-  v16 = *(this + 10);
-  if (v16 == 0.0)
+  v14 = *(this + 10);
+  if (v14 == 0.0)
   {
-    v16 = 0.0;
+    v14 = 0.0;
   }
 
-  return v4 ^ v3 ^ v5 ^ *&v10 ^ *&v11 ^ *&v12 ^ *&v13 ^ v8 ^ *&v14 ^ *&v15 ^ *&v16;
+  return v4 ^ v3 ^ v5 ^ *&v8 ^ *&v9 ^ *&v10 ^ *&v11 ^ v6 ^ *&v12 ^ *&v13 ^ *&v14;
 }
 
 void CMMsl::VIOReplayPose::~VIOReplayPose(CMMsl::VIOReplayPose *this)
@@ -4322,26 +4296,22 @@ uint64_t CMMsl::VIOReplayPose::hash_value(CMMsl::VIOReplayPose *this)
   {
     if (*(this + 7) == 0.0)
     {
-      v2 = 0;
+      v1 = 0;
     }
 
     else
     {
-      v2 = *(this + 7);
+      v1 = *(this + 7);
     }
   }
 
   else
   {
-    v2 = 0;
+    v1 = 0;
   }
 
-  v3 = *(this + 1);
-  v4 = *(this + 2);
-  v5 = PBHashBytes() ^ v2;
-  v6 = *(this + 4);
-  v7 = *(this + 5);
-  return v5 ^ PBHashBytes();
+  v2 = PBHashBytes() ^ v1;
+  return v2 ^ PBHashBytes();
 }
 
 void CMMsl::VO2MaxInput::~VO2MaxInput(CMMsl::VO2MaxInput *this)
@@ -4661,7 +4631,7 @@ double CMMsl::VO2MaxInput::VO2MaxInput(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::VO2MaxInput::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::VO2MaxInput::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -8390,7 +8360,7 @@ double CMMsl::VelocityEstimatorFusionState::VelocityEstimatorFusionState(uint64_
   return result;
 }
 
-CMMsl *CMMsl::VelocityEstimatorFusionState::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::VelocityEstimatorFusionState::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {

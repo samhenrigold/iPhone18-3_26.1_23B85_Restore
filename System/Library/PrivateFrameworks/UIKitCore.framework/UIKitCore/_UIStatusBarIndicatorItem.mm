@@ -159,9 +159,9 @@
     goto LABEL_12;
   }
 
-  v18 = [(NSArray *)v15 isEqual:v16];
+  isEqual = objc_msgSend_isEqual_(v15);
 
-  if ((v18 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_12:
     [(_UIStatusBarIndicatorItem *)self setCurrentImageNamePrefixes:identifier];

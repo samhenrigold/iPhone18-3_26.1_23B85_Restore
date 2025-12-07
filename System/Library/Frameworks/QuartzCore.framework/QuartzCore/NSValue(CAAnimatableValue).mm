@@ -1,9 +1,9 @@
 @interface NSValue(CAAnimatableValue)
 - (float64_t)CA_distanceToValue:()CAAnimatableValue;
 - (id)CA_roundToIntegerFromValue:()CAAnimatableValue;
-- (uint64_t)CA_addValue:()CAAnimatableValue multipliedBy:;
-- (uint64_t)CA_interpolateValue:()CAAnimatableValue byFraction:;
-- (uint64_t)CA_interpolateValues:()CAAnimatableValue ::interpolator:;
+- (void)CA_addValue:()CAAnimatableValue multipliedBy:;
+- (void)CA_interpolateValue:()CAAnimatableValue byFraction:;
+- (void)CA_interpolateValues:()CAAnimatableValue ::interpolator:;
 @end
 
 @implementation NSValue(CAAnimatableValue)
@@ -42,7 +42,7 @@
 
 - (id)CA_roundToIntegerFromValue:()CAAnimatableValue
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   objCType = [(NSValue *)self objCType];
   if (objCType && !strcmp(objCType, "{CATransform3D=dddddddddddddddd}"))
   {
@@ -53,18 +53,21 @@
 
   else
   {
-    memset(&v12, 0, 64);
+    v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     memset(v11, 0, sizeof(v11));
     v10 = 8;
     getValues(self, v12.f64, &v10);
-    getValues(a3, v11, &v10);
+    getValues(a3, v11[0].f64, &v10);
     v6 = v10;
     if (v10)
     {
       v7 = 0;
       do
       {
-        v12.f64[v7] = round(v12.f64[v7] - *(v11 + v7)) + *(v11 + v7);
+        v12.f64[v7] = round(v12.f64[v7] - v11[0].f64[v7]) + v11[0].f64[v7];
         ++v7;
       }
 
@@ -80,7 +83,7 @@
   }
 }
 
-- (uint64_t)CA_interpolateValues:()CAAnimatableValue ::interpolator:
+- (void)CA_interpolateValues:()CAAnimatableValue ::interpolator:
 {
   v58 = *MEMORY[0x1E69E9840];
   memset(v57, 0, sizeof(v57));
@@ -99,7 +102,7 @@
     v33 = 0u;
     if (self)
     {
-      [(NSValue *)self CATransform3DValue];
+      objc_msgSend_CATransform3DValue(self);
     }
 
     else
@@ -124,7 +127,7 @@
     v51 = v43;
     if (a4)
     {
-      [(NSValue *)a4 CATransform3DValue];
+      objc_msgSend_CATransform3DValue(a4);
     }
 
     else
@@ -209,7 +212,7 @@ LABEL_13:
 
     if (self)
     {
-      [(NSValue *)self CAColorMatrixValue];
+      objc_msgSend_CAColorMatrixValue(self);
     }
 
     else
@@ -228,7 +231,7 @@ LABEL_13:
     v49 = v41;
     if (a4)
     {
-      [(NSValue *)a4 CAColorMatrixValue];
+      objc_msgSend_CAColorMatrixValue(a4);
     }
 
     else
@@ -267,7 +270,7 @@ LABEL_13:
   }
 }
 
-- (uint64_t)CA_interpolateValue:()CAAnimatableValue byFraction:
+- (void)CA_interpolateValue:()CAAnimatableValue byFraction:
 {
   v50 = *MEMORY[0x1E69E9840];
   objCType = [(NSValue *)self objCType];
@@ -286,7 +289,7 @@ LABEL_13:
       v27 = 0u;
       if (self)
       {
-        [(NSValue *)self CATransform3DValue];
+        objc_msgSend_CATransform3DValue(self);
       }
 
       else
@@ -311,7 +314,7 @@ LABEL_13:
       v45 = v37;
       if (a4)
       {
-        [(NSValue *)a4 CATransform3DValue];
+        objc_msgSend_CATransform3DValue(a4);
       }
 
       else
@@ -353,7 +356,7 @@ LABEL_13:
       v26 = 0u;
       if (self)
       {
-        [(NSValue *)self CA_CGAffineTransformValue];
+        objc_msgSend_CA_CGAffineTransformValue(self);
       }
 
       else
@@ -368,7 +371,7 @@ LABEL_13:
       v44 = v36;
       if (a4)
       {
-        [(NSValue *)a4 CA_CGAffineTransformValue];
+        objc_msgSend_CA_CGAffineTransformValue(a4);
       }
 
       else
@@ -389,7 +392,7 @@ LABEL_13:
   {
     if (self)
     {
-      [(NSValue *)self CAColorMatrixValue];
+      objc_msgSend_CAColorMatrixValue(self);
     }
 
     else
@@ -408,7 +411,7 @@ LABEL_13:
     v43 = v35;
     if (a4)
     {
-      [(NSValue *)a4 CAColorMatrixValue];
+      objc_msgSend_CAColorMatrixValue(a4);
     }
 
     else
@@ -487,7 +490,7 @@ LABEL_13:
   }
 }
 
-- (uint64_t)CA_addValue:()CAAnimatableValue multipliedBy:
+- (void)CA_addValue:()CAAnimatableValue multipliedBy:
 {
   v53 = *MEMORY[0x1E69E9840];
   objCType = [(NSValue *)self objCType];
@@ -499,7 +502,7 @@ LABEL_4:
     {
       if (self)
       {
-        [(NSValue *)self CAColorMatrixValue];
+        objc_msgSend_CAColorMatrixValue(self);
       }
 
       else
@@ -517,7 +520,7 @@ LABEL_4:
       v46 = v38[1];
       if (a3)
       {
-        [(NSValue *)a3 CAColorMatrixValue];
+        objc_msgSend_CAColorMatrixValue(a3);
       }
 
       else
@@ -595,7 +598,7 @@ LABEL_4:
   {
     if (self)
     {
-      [(NSValue *)self CATransform3DValue];
+      objc_msgSend_CATransform3DValue(self);
     }
 
     else
@@ -619,7 +622,7 @@ LABEL_4:
     v48 = v40;
     if (a3)
     {
-      [(NSValue *)a3 CATransform3DValue];
+      objc_msgSend_CATransform3DValue(a3);
     }
 
     else
@@ -670,7 +673,7 @@ LABEL_4:
 
     if (self)
     {
-      [(NSValue *)self CA_CGAffineTransformValue];
+      objc_msgSend_CA_CGAffineTransformValue(self);
     }
 
     else
@@ -684,7 +687,7 @@ LABEL_4:
     v47 = v39;
     if (a3)
     {
-      [(NSValue *)a3 CA_CGAffineTransformValue];
+      objc_msgSend_CA_CGAffineTransformValue(a3);
     }
 
     else

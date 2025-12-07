@@ -2,6 +2,7 @@
 + (id)sharedCompanionLinkClient;
 + (id)sharedIDSCompanionLinkClient;
 + (void)rapportCompanionLinkClient:(id)client;
+- (MRCompanionLinkClient)initWithOptions:(int)options;
 - (NSArray)companionLinkDevices;
 - (id)_resolveEventID:(id)d;
 - (id)deviceUIDForRapportUID:(id)d;
@@ -136,9 +137,28 @@ void __52__MRCompanionLinkClient_rapportCompanionLinkClient___block_invoke_101(i
   dispatch_async(MEMORY[0x1E69E96A0], v6);
 }
 
+- (MRCompanionLinkClient)initWithOptions:(int)options
+{
+  v8.receiver = self;
+  v8.super_class = MRCompanionLinkClient;
+  v3 = [(MRCompanionLinkClient *)&v8 init];
+  v4 = v3;
+  if (v3)
+  {
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __41__MRCompanionLinkClient_initWithOptions___block_invoke;
+    v6[3] = &unk_1E769B8C0;
+    v7 = v3;
+    [MRCompanionLinkClient rapportCompanionLinkClient:v6];
+  }
+
+  return v4;
+}
+
 - (void)setConnection:(id)connection
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -146,60 +166,60 @@ void __52__MRCompanionLinkClient_rapportCompanionLinkClient___block_invoke_101(i
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v62 = connectionCopy;
+    v61 = connectionCopy;
     _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "[CompanionLinkClient] Setting Connection %@", buf, 0xCu);
   }
 
   objc_storeStrong(&selfCopy->_connection, connection);
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   v7 = selfCopy->_pendingRegisteredEvents;
-  v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v53 objects:v60 count:16];
+  v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v52 objects:v59 count:16];
   if (v8)
   {
-    v9 = *v54;
+    v9 = *v53;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v54 != v9)
+        if (*v53 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(MRCompanionLinkClient *)selfCopy _registerEvent:*(*(&v53 + 1) + 8 * i), connectionCopy];
+        [(MRCompanionLinkClient *)selfCopy _registerEvent:*(*(&v52 + 1) + 8 * i), connectionCopy];
       }
 
-      v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v53 objects:v60 count:16];
+      v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v52 objects:v59 count:16];
     }
 
     while (v8);
   }
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v11 = selfCopy->_pendingRegisteredRequests;
-  v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v49 objects:v59 count:16];
+  v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v48 objects:v58 count:16];
   if (v12)
   {
-    v13 = *v50;
+    v13 = *v49;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v50 != v13)
+        if (*v49 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(MRCompanionLinkClient *)selfCopy _registerRequest:*(*(&v49 + 1) + 8 * j), connectionCopy];
+        [(MRCompanionLinkClient *)selfCopy _registerRequest:*(*(&v48 + 1) + 8 * j), connectionCopy];
       }
 
-      v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v49 objects:v59 count:16];
+      v12 = [(NSMutableSet *)v11 countByEnumeratingWithState:&v48 objects:v58 count:16];
     }
 
     while (v12);
@@ -211,25 +231,25 @@ void __52__MRCompanionLinkClient_rapportCompanionLinkClient___block_invoke_101(i
   pendingRegisteredRequests = selfCopy->_pendingRegisteredRequests;
   selfCopy->_pendingRegisteredRequests = 0;
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   v17 = selfCopy->_pendingEvents;
-  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v45 objects:v58 count:16];
+  v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v44 objects:v57 count:16];
   if (v18)
   {
-    v19 = *v46;
+    v19 = *v45;
     do
     {
       for (k = 0; k != v18; ++k)
       {
-        if (*v46 != v19)
+        if (*v45 != v19)
         {
           objc_enumerationMutation(v17);
         }
 
-        v21 = *(*(&v45 + 1) + 8 * k);
+        v21 = *(*(&v44 + 1) + 8 * k);
         eventID = [v21 eventID];
         userInfo = [v21 userInfo];
         destination = [v21 destination];
@@ -237,31 +257,31 @@ void __52__MRCompanionLinkClient_rapportCompanionLinkClient___block_invoke_101(i
         [(MRCompanionLinkClient *)selfCopy _sendEvent:eventID userInfo:userInfo destination:destination uid:v25];
       }
 
-      v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v45 objects:v58 count:16];
+      v18 = [(NSMutableArray *)v17 countByEnumeratingWithState:&v44 objects:v57 count:16];
     }
 
     while (v18);
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   obj = selfCopy->_pendingRequests;
-  v26 = [(NSMutableArray *)obj countByEnumeratingWithState:&v41 objects:v57 count:16];
+  v26 = [(NSMutableArray *)obj countByEnumeratingWithState:&v40 objects:v56 count:16];
   if (v26)
   {
-    v27 = *v42;
+    v27 = *v41;
     do
     {
       for (m = 0; m != v26; ++m)
       {
-        if (*v42 != v27)
+        if (*v41 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = *(*(&v41 + 1) + 8 * m);
+        v29 = *(*(&v40 + 1) + 8 * m);
         eventID2 = [v29 eventID];
         userInfo2 = [v29 userInfo];
         destination2 = [v29 destination];
@@ -271,7 +291,7 @@ void __52__MRCompanionLinkClient_rapportCompanionLinkClient___block_invoke_101(i
         [(MRCompanionLinkClient *)selfCopy _sendRequest:eventID2 userInfo:userInfo2 destination:destination2 uid:v33 date:date response:callback];
       }
 
-      v26 = [(NSMutableArray *)obj countByEnumeratingWithState:&v41 objects:v57 count:16];
+      v26 = [(NSMutableArray *)obj countByEnumeratingWithState:&v40 objects:v56 count:16];
     }
 
     while (v26);
@@ -284,42 +304,41 @@ void __52__MRCompanionLinkClient_rapportCompanionLinkClient___block_invoke_101(i
   selfCopy->_pendingRequests = 0;
 
   objc_sync_exit(selfCopy);
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (id)deviceUIDForRapportUID:(id)d
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   dCopy = d;
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   activeDevices = [(RPCompanionLinkClient *)selfCopy->_connection activeDevices];
-  v7 = [activeDevices countByEnumeratingWithState:&v27 objects:v37 count:16];
+  v7 = [activeDevices countByEnumeratingWithState:&v26 objects:v36 count:16];
   if (!v7)
   {
     mediaRouteIdentifier = 0;
     goto LABEL_23;
   }
 
-  v8 = *v28;
+  v8 = *v27;
   while (2)
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v28 != v8)
+      if (*v27 != v8)
       {
         objc_enumerationMutation(activeDevices);
       }
 
-      v10 = *(*(&v27 + 1) + 8 * i);
+      v10 = *(*(&v26 + 1) + 8 * i);
       effectiveIdentifier = [v10 effectiveIdentifier];
-      v12 = [effectiveIdentifier isEqualToString:dCopy];
+      isEqualToString = objc_msgSend_isEqualToString_(effectiveIdentifier);
 
-      if (v12)
+      if (isEqualToString)
       {
         mediaRouteIdentifier = [v10 mediaRouteIdentifier];
         v20 = _MRLogForCategory(7uLL);
@@ -327,11 +346,11 @@ void __52__MRCompanionLinkClient_rapportCompanionLinkClient___block_invoke_101(i
         {
           name = [v10 name];
           *buf = 138543874;
-          v32 = dCopy;
-          v33 = 2114;
-          v34 = mediaRouteIdentifier;
-          v35 = 2114;
-          v36 = name;
+          v31 = dCopy;
+          v32 = 2114;
+          v33 = mediaRouteIdentifier;
+          v34 = 2114;
+          v35 = name;
           _os_log_debug_impl(&dword_1A2860000, v20, OS_LOG_TYPE_DEBUG, "[CompanionLinkClient] Mapped inputUID <%{public}@> to effectiveIdentifier <%{public}@> <(%{public}@)>", buf, 0x20u);
         }
 
@@ -339,7 +358,7 @@ void __52__MRCompanionLinkClient_rapportCompanionLinkClient___block_invoke_101(i
       }
 
       identifier = [v10 identifier];
-      v14 = [identifier isEqualToString:dCopy];
+      v14 = objc_msgSend_isEqualToString_(identifier);
 
       if (v14)
       {
@@ -349,11 +368,11 @@ void __52__MRCompanionLinkClient_rapportCompanionLinkClient___block_invoke_101(i
         {
           name2 = [v10 name];
           *buf = 138543874;
-          v32 = dCopy;
-          v33 = 2114;
-          v34 = mediaRouteIdentifier;
-          v35 = 2114;
-          v36 = name2;
+          v31 = dCopy;
+          v32 = 2114;
+          v33 = mediaRouteIdentifier;
+          v34 = 2114;
+          v35 = name2;
           _os_log_debug_impl(&dword_1A2860000, v20, OS_LOG_TYPE_DEBUG, "[CompanionLinkClient] Mapped inputUID <%{public}@> to identifier <%{public}@> <(%{public}@)>", buf, 0x20u);
         }
 
@@ -361,7 +380,7 @@ void __52__MRCompanionLinkClient_rapportCompanionLinkClient___block_invoke_101(i
       }
 
       mediaRouteIdentifier2 = [v10 mediaRouteIdentifier];
-      v16 = [mediaRouteIdentifier2 isEqualToString:dCopy];
+      v16 = objc_msgSend_isEqualToString_(mediaRouteIdentifier2);
 
       if (v16)
       {
@@ -371,11 +390,11 @@ void __52__MRCompanionLinkClient_rapportCompanionLinkClient___block_invoke_101(i
         {
           name3 = [v10 name];
           *buf = 138543874;
-          v32 = dCopy;
-          v33 = 2114;
-          v34 = mediaRouteIdentifier;
-          v35 = 2114;
-          v36 = name3;
+          v31 = dCopy;
+          v32 = 2114;
+          v33 = mediaRouteIdentifier;
+          v34 = 2114;
+          v35 = name3;
           _os_log_debug_impl(&dword_1A2860000, v20, OS_LOG_TYPE_DEBUG, "[CompanionLinkClient] Mapped inputUID <%{public}@> to mediaRouteIdentifier <%{public}@> <(%{public}@)>", buf, 0x20u);
         }
 
@@ -383,7 +402,7 @@ void __52__MRCompanionLinkClient_rapportCompanionLinkClient___block_invoke_101(i
       }
 
       mediaRemoteIdentifier = [v10 mediaRemoteIdentifier];
-      v18 = [mediaRemoteIdentifier isEqualToString:dCopy];
+      v18 = objc_msgSend_isEqualToString_(mediaRemoteIdentifier);
 
       if (v18)
       {
@@ -393,11 +412,11 @@ void __52__MRCompanionLinkClient_rapportCompanionLinkClient___block_invoke_101(i
         {
           name4 = [v10 name];
           *buf = 138543874;
-          v32 = dCopy;
-          v33 = 2114;
-          v34 = mediaRouteIdentifier;
-          v35 = 2114;
-          v36 = name4;
+          v31 = dCopy;
+          v32 = 2114;
+          v33 = mediaRouteIdentifier;
+          v34 = 2114;
+          v35 = name4;
           _os_log_debug_impl(&dword_1A2860000, v20, OS_LOG_TYPE_DEBUG, "[CompanionLinkClient] Mapped inputUID <%{public}@> to mediaRemoteIdentifier <%{public}@> <(%{public}@)>", buf, 0x20u);
         }
 
@@ -407,7 +426,7 @@ LABEL_22:
       }
     }
 
-    v7 = [activeDevices countByEnumeratingWithState:&v27 objects:v37 count:16];
+    v7 = [activeDevices countByEnumeratingWithState:&v26 objects:v36 count:16];
     mediaRouteIdentifier = 0;
     if (v7)
     {
@@ -420,44 +439,43 @@ LABEL_22:
 LABEL_23:
 
   objc_sync_exit(selfCopy);
-  v24 = *MEMORY[0x1E69E9840];
 
   return mediaRouteIdentifier;
 }
 
 - (id)rapportUIDForDeviceUID:(id)d
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   dCopy = d;
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   activeDevices = [(RPCompanionLinkClient *)selfCopy->_connection activeDevices];
-  v7 = [activeDevices countByEnumeratingWithState:&v27 objects:v37 count:16];
+  v7 = [activeDevices countByEnumeratingWithState:&v26 objects:v36 count:16];
   if (!v7)
   {
     effectiveIdentifier = 0;
     goto LABEL_23;
   }
 
-  v8 = *v28;
+  v8 = *v27;
   while (2)
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v28 != v8)
+      if (*v27 != v8)
       {
         objc_enumerationMutation(activeDevices);
       }
 
-      v10 = *(*(&v27 + 1) + 8 * i);
+      v10 = *(*(&v26 + 1) + 8 * i);
       mediaRouteIdentifier = [v10 mediaRouteIdentifier];
-      v12 = [mediaRouteIdentifier isEqualToString:dCopy];
+      isEqualToString = objc_msgSend_isEqualToString_(mediaRouteIdentifier);
 
-      if (v12)
+      if (isEqualToString)
       {
         effectiveIdentifier = [v10 effectiveIdentifier];
         v20 = _MRLogForCategory(7uLL);
@@ -465,11 +483,11 @@ LABEL_23:
         {
           name = [v10 name];
           *buf = 138543874;
-          v32 = dCopy;
-          v33 = 2114;
-          v34 = effectiveIdentifier;
-          v35 = 2114;
-          v36 = name;
+          v31 = dCopy;
+          v32 = 2114;
+          v33 = effectiveIdentifier;
+          v34 = 2114;
+          v35 = name;
           _os_log_debug_impl(&dword_1A2860000, v20, OS_LOG_TYPE_DEBUG, "[CompanionLinkClient] Mapped deviceUID <%{public}@> to rapportUID <%{public}@> <(%{public}@)>", buf, 0x20u);
         }
 
@@ -477,7 +495,7 @@ LABEL_23:
       }
 
       effectiveIdentifier2 = [v10 effectiveIdentifier];
-      v14 = [effectiveIdentifier2 isEqualToString:dCopy];
+      v14 = objc_msgSend_isEqualToString_(effectiveIdentifier2);
 
       if (v14)
       {
@@ -487,11 +505,11 @@ LABEL_23:
         {
           name2 = [v10 name];
           *buf = 138543874;
-          v32 = dCopy;
-          v33 = 2114;
-          v34 = effectiveIdentifier;
-          v35 = 2114;
-          v36 = name2;
+          v31 = dCopy;
+          v32 = 2114;
+          v33 = effectiveIdentifier;
+          v34 = 2114;
+          v35 = name2;
           _os_log_debug_impl(&dword_1A2860000, v20, OS_LOG_TYPE_DEBUG, "[CompanionLinkClient] Mapped effectiveIdentifier <%{public}@> to rapportUID <%{public}@> <(%{public}@)>", buf, 0x20u);
         }
 
@@ -499,7 +517,7 @@ LABEL_23:
       }
 
       identifier = [v10 identifier];
-      v16 = [identifier isEqualToString:dCopy];
+      v16 = objc_msgSend_isEqualToString_(identifier);
 
       if (v16)
       {
@@ -509,11 +527,11 @@ LABEL_23:
         {
           name3 = [v10 name];
           *buf = 138543874;
-          v32 = dCopy;
-          v33 = 2114;
-          v34 = effectiveIdentifier;
-          v35 = 2114;
-          v36 = name3;
+          v31 = dCopy;
+          v32 = 2114;
+          v33 = effectiveIdentifier;
+          v34 = 2114;
+          v35 = name3;
           _os_log_debug_impl(&dword_1A2860000, v20, OS_LOG_TYPE_DEBUG, "[CompanionLinkClient] Mapped identifier <%{public}@> to rapportUID <%{public}@> <(%{public}@)>", buf, 0x20u);
         }
 
@@ -521,7 +539,7 @@ LABEL_23:
       }
 
       mediaRemoteIdentifier = [v10 mediaRemoteIdentifier];
-      v18 = [mediaRemoteIdentifier isEqualToString:dCopy];
+      v18 = objc_msgSend_isEqualToString_(mediaRemoteIdentifier);
 
       if (v18)
       {
@@ -531,11 +549,11 @@ LABEL_23:
         {
           name4 = [v10 name];
           *buf = 138543874;
-          v32 = dCopy;
-          v33 = 2114;
-          v34 = effectiveIdentifier;
-          v35 = 2114;
-          v36 = name4;
+          v31 = dCopy;
+          v32 = 2114;
+          v33 = effectiveIdentifier;
+          v34 = 2114;
+          v35 = name4;
           _os_log_debug_impl(&dword_1A2860000, v20, OS_LOG_TYPE_DEBUG, "[CompanionLinkClient] Mapped mediaRemoteIdentifier <%{public}@> to rapportUID <%{public}@> <(%{public}@)>", buf, 0x20u);
         }
 
@@ -545,7 +563,7 @@ LABEL_22:
       }
     }
 
-    v7 = [activeDevices countByEnumeratingWithState:&v27 objects:v37 count:16];
+    v7 = [activeDevices countByEnumeratingWithState:&v26 objects:v36 count:16];
     effectiveIdentifier = 0;
     if (v7)
     {
@@ -558,72 +576,66 @@ LABEL_22:
 LABEL_23:
 
   objc_sync_exit(selfCopy);
-  v24 = *MEMORY[0x1E69E9840];
 
   return effectiveIdentifier;
 }
 
 - (id)nameForUID:(id)d
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dCopy = d;
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   activeDevices = [(RPCompanionLinkClient *)selfCopy->_connection activeDevices];
-  v7 = [activeDevices countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [activeDevices countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
-    v8 = *v23;
+    v8 = *v22;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(activeDevices);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         mediaRouteIdentifier = [v10 mediaRouteIdentifier];
-        v12 = [mediaRouteIdentifier isEqualToString:dCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(mediaRouteIdentifier);
 
-        if (v12)
+        if (!isEqualToString)
         {
-          goto LABEL_13;
-        }
+          effectiveIdentifier = [v10 effectiveIdentifier];
+          v14 = objc_msgSend_isEqualToString_(effectiveIdentifier);
 
-        effectiveIdentifier = [v10 effectiveIdentifier];
-        v14 = [effectiveIdentifier isEqualToString:dCopy];
-
-        if (v14)
-        {
-          goto LABEL_13;
-        }
-
-        identifier = [v10 identifier];
-        v16 = [identifier isEqualToString:dCopy];
-
-        if ((v16 & 1) == 0)
-        {
-          mediaRemoteIdentifier = [v10 mediaRemoteIdentifier];
-          v18 = [mediaRemoteIdentifier isEqualToString:dCopy];
-
-          if ((v18 & 1) == 0)
+          if ((v14 & 1) == 0)
           {
-            continue;
+            identifier = [v10 identifier];
+            v16 = objc_msgSend_isEqualToString_(identifier);
+
+            if ((v16 & 1) == 0)
+            {
+              mediaRemoteIdentifier = [v10 mediaRemoteIdentifier];
+              v18 = objc_msgSend_isEqualToString_(mediaRemoteIdentifier);
+
+              if ((v18 & 1) == 0)
+              {
+                continue;
+              }
+            }
           }
         }
 
-LABEL_13:
         name = [v10 name];
         goto LABEL_15;
       }
 
-      v7 = [activeDevices countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [activeDevices countByEnumeratingWithState:&v21 objects:v25 count:16];
       name = 0;
       if (v7)
       {
@@ -642,7 +654,6 @@ LABEL_13:
 LABEL_15:
 
   objc_sync_exit(selfCopy);
-  v20 = *MEMORY[0x1E69E9840];
 
   return name;
 }
@@ -764,30 +775,30 @@ LABEL_8:
 
 - (void)removeCallback:(id)callback
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   callbackCopy = callback;
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   allValues = [(NSMutableDictionary *)selfCopy->_eventCallbacks allValues];
-  v7 = [allValues countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v7)
   {
-    v8 = *v28;
+    v8 = *v27;
     do
     {
       v9 = 0;
       do
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * v9);
+        v10 = *(*(&v26 + 1) + 8 * v9);
         v11 = MEMORY[0x1A58E3570](callbackCopy);
         [v10 removeObject:v11];
 
@@ -795,36 +806,34 @@ LABEL_8:
       }
 
       while (v7 != v9);
-      v7 = [allValues countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v7);
   }
 
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__4;
-  v25 = __Block_byref_object_dispose__4;
-  v26 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__4;
+  v24 = __Block_byref_object_dispose__4;
+  v25 = 0;
   requestCallbacks = selfCopy->_requestCallbacks;
-  v15 = MEMORY[0x1E69E9820];
-  v16 = 3221225472;
-  v17 = __40__MRCompanionLinkClient_removeCallback___block_invoke;
-  v18 = &unk_1E769B8E8;
+  v14 = MEMORY[0x1E69E9820];
+  v15 = 3221225472;
+  v16 = __40__MRCompanionLinkClient_removeCallback___block_invoke;
+  v17 = &unk_1E769B8E8;
   v13 = callbackCopy;
-  v19 = v13;
-  v20 = &v21;
-  [(NSMutableDictionary *)requestCallbacks enumerateKeysAndObjectsUsingBlock:&v15];
-  if (v22[5])
+  v18 = v13;
+  v19 = &v20;
+  [(NSMutableDictionary *)requestCallbacks enumerateKeysAndObjectsUsingBlock:&v14];
+  if (v21[5])
   {
-    [(NSMutableDictionary *)selfCopy->_requestCallbacks removeObjectForKey:v15, v16, v17, v18];
+    [(NSMutableDictionary *)selfCopy->_requestCallbacks removeObjectForKey:v14, v15, v16, v17];
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v20, 8);
   objc_sync_exit(selfCopy);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __40__MRCompanionLinkClient_removeCallback___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -943,54 +952,54 @@ void __42__MRCompanionLinkClient__registerRequest___block_invoke(uint64_t a1, vo
 
 - (void)sendEvent:(id)event toDevicesOfHomeUser:(id)user userInfo:(id)info
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   userCopy = user;
   selfCopy = self;
   infoCopy = info;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = [(RPCompanionLinkClient *)self->_connection activeDevices];
-  v9 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v9 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v9)
   {
     v10 = v9;
-    v26 = *v32;
+    v25 = *v31;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v32 != v26)
+        if (*v31 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v31 + 1) + 8 * i);
+        v12 = *(*(&v30 + 1) + 8 * i);
+        v26 = 0u;
         v27 = 0u;
         v28 = 0u;
         v29 = 0u;
-        v30 = 0u;
         homeKitUserIdentifiers = [v12 homeKitUserIdentifiers];
-        v14 = [homeKitUserIdentifiers countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v14 = [homeKitUserIdentifiers countByEnumeratingWithState:&v26 objects:v34 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v28;
+          v16 = *v27;
           while (2)
           {
             for (j = 0; j != v15; ++j)
             {
-              if (*v28 != v16)
+              if (*v27 != v16)
               {
                 objc_enumerationMutation(homeKitUserIdentifiers);
               }
 
-              uUIDString = [*(*(&v27 + 1) + 8 * j) UUIDString];
-              v19 = [uUIDString isEqualToString:userCopy];
+              uUIDString = [*(*(&v26 + 1) + 8 * j) UUIDString];
+              isEqualToString = objc_msgSend_isEqualToString_(uUIDString);
 
-              if (v19)
+              if (isEqualToString)
               {
                 effectiveIdentifier = [v12 effectiveIdentifier];
                 [(MRCompanionLinkClient *)selfCopy sendEvent:eventCopy destination:effectiveIdentifier userInfo:infoCopy];
@@ -999,7 +1008,7 @@ void __42__MRCompanionLinkClient__registerRequest___block_invoke(uint64_t a1, vo
               }
             }
 
-            v15 = [homeKitUserIdentifiers countByEnumeratingWithState:&v27 objects:v35 count:16];
+            v15 = [homeKitUserIdentifiers countByEnumeratingWithState:&v26 objects:v34 count:16];
             if (v15)
             {
               continue;
@@ -1012,13 +1021,11 @@ void __42__MRCompanionLinkClient__registerRequest___block_invoke(uint64_t a1, vo
 LABEL_16:
       }
 
-      v10 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v10 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v10);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendEvent:(id)event destination:(id)destination userInfo:(id)info
@@ -1047,7 +1054,7 @@ LABEL_16:
 
 - (void)sendRequest:(id)request destination:(id)destination userInfo:(id)info timeout:(double)timeout response:(id)response
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   destinationCopy = destination;
   infoCopy = info;
@@ -1059,43 +1066,43 @@ LABEL_16:
   date = [MEMORY[0x1E695DF00] date];
   v19 = [MRBlockGuard alloc];
   v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@<%@>", requestCopy, uUIDString];
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __75__MRCompanionLinkClient_sendRequest_destination_userInfo_timeout_response___block_invoke;
-  v39[3] = &unk_1E769AD80;
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __75__MRCompanionLinkClient_sendRequest_destination_userInfo_timeout_response___block_invoke;
+  v38[3] = &unk_1E769AD80;
   v21 = responseCopy;
-  v40 = v21;
-  v22 = [(MRBlockGuard *)v19 initWithTimeout:v20 reason:v39 handler:timeout];
+  v39 = v21;
+  v22 = [(MRBlockGuard *)v19 initWithTimeout:v20 reason:v38 handler:timeout];
 
   v23 = _MRLogForCategory(7uLL);
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138544130;
-    v42 = requestCopy;
-    v43 = 2114;
-    v44 = uUIDString;
-    v45 = 2112;
-    v46 = destinationCopy;
-    v47 = 2112;
-    v48 = infoCopy;
+    v41 = requestCopy;
+    v42 = 2114;
+    v43 = uUIDString;
+    v44 = 2112;
+    v45 = destinationCopy;
+    v46 = 2112;
+    v47 = infoCopy;
     _os_log_impl(&dword_1A2860000, v23, OS_LOG_TYPE_DEFAULT, "[CompanionLinkClient] Request: %{public}@<%{public}@> to destination <%@> with userInfo %@", buf, 0x2Au);
   }
 
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __75__MRCompanionLinkClient_sendRequest_destination_userInfo_timeout_response___block_invoke_125;
-  v33[3] = &unk_1E769B988;
+  v32[0] = MEMORY[0x1E69E9820];
+  v32[1] = 3221225472;
+  v32[2] = __75__MRCompanionLinkClient_sendRequest_destination_userInfo_timeout_response___block_invoke_125;
+  v32[3] = &unk_1E769B988;
   v24 = v22;
-  v34 = v24;
+  v33 = v24;
   v25 = date;
-  v35 = v25;
+  v34 = v25;
   v26 = requestCopy;
-  v36 = v26;
+  v35 = v26;
   v27 = uUIDString;
-  v37 = v27;
+  v36 = v27;
   v28 = v21;
-  v38 = v28;
-  v29 = MEMORY[0x1A58E3570](v33);
+  v37 = v28;
+  v29 = MEMORY[0x1A58E3570](v32);
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (selfCopy->_connection)
@@ -1109,8 +1116,6 @@ LABEL_16:
   }
 
   objc_sync_exit(selfCopy);
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __75__MRCompanionLinkClient_sendRequest_destination_userInfo_timeout_response___block_invoke(uint64_t a1, uint64_t a2)
@@ -1126,7 +1131,7 @@ uint64_t __75__MRCompanionLinkClient_sendRequest_destination_userInfo_timeout_re
 
 void __75__MRCompanionLinkClient_sendRequest_destination_userInfo_timeout_response___block_invoke_125(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([*(a1 + 32) disarm])
@@ -1143,15 +1148,15 @@ void __75__MRCompanionLinkClient_sendRequest_destination_userInfo_timeout_respon
       {
         v12 = *(a1 + 48);
         v13 = *(a1 + 56);
-        v18 = 138544130;
-        v19 = v12;
-        v20 = 2114;
-        v21 = v13;
-        v22 = 2114;
-        v23 = v6;
-        v24 = 2048;
-        v25 = v9;
-        _os_log_error_impl(&dword_1A2860000, v11, OS_LOG_TYPE_ERROR, "[CompanionLinkClient] Response: %{public}@<%{public}@> returned error <%{public}@> in <%lf> seconds", &v18, 0x2Au);
+        v17 = 138544130;
+        v18 = v12;
+        v19 = 2114;
+        v20 = v13;
+        v21 = 2114;
+        v22 = v6;
+        v23 = 2048;
+        v24 = v9;
+        _os_log_error_impl(&dword_1A2860000, v11, OS_LOG_TYPE_ERROR, "[CompanionLinkClient] Response: %{public}@<%{public}@> returned error <%{public}@> in <%lf> seconds", &v17, 0x2Au);
       }
     }
 
@@ -1159,15 +1164,15 @@ void __75__MRCompanionLinkClient_sendRequest_destination_userInfo_timeout_respon
     {
       v14 = *(a1 + 48);
       v15 = *(a1 + 56);
-      v18 = 138544130;
-      v19 = v14;
-      v20 = 2114;
-      v21 = v15;
-      v22 = 2048;
-      v23 = v9;
-      v24 = 2114;
-      v25 = v5;
-      _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "[CompanionLinkClient] Response: %{public}@<%{public}@> returned in <%lf> seconds with %{public}@@", &v18, 0x2Au);
+      v17 = 138544130;
+      v18 = v14;
+      v19 = 2114;
+      v20 = v15;
+      v21 = 2048;
+      v22 = v9;
+      v23 = 2114;
+      v24 = v5;
+      _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "[CompanionLinkClient] Response: %{public}@<%{public}@> returned in <%lf> seconds with %{public}@@", &v17, 0x2Au);
     }
 
     v16 = *(a1 + 64);
@@ -1176,13 +1181,11 @@ void __75__MRCompanionLinkClient_sendRequest_destination_userInfo_timeout_respon
       (*(v16 + 16))(v16, v5, v6);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendEvent:(id)event userInfo:(id)info destination:(id)destination uid:(id)uid
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   infoCopy = info;
   destinationCopy = destination;
@@ -1205,49 +1208,47 @@ void __75__MRCompanionLinkClient_sendRequest_destination_userInfo_timeout_respon
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138544130;
-    v31 = eventCopy;
-    v32 = 2114;
-    v33 = uidCopy;
-    v34 = 2112;
-    v35 = destinationCopy;
-    v36 = 2112;
-    v37 = infoCopy;
+    v30 = eventCopy;
+    v31 = 2114;
+    v32 = uidCopy;
+    v33 = 2112;
+    v34 = destinationCopy;
+    v35 = 2112;
+    v36 = infoCopy;
     _os_log_impl(&dword_1A2860000, v19, OS_LOG_TYPE_DEFAULT, "[CompanionLinkClient] Sending event %{public}@<%{public}@> to destination <%@> with userInfo %@", buf, 0x2Au);
   }
 
   connection = self->_connection;
   v21 = [(MRCompanionLinkClient *)self _resolveEventID:eventCopy];
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __61__MRCompanionLinkClient__sendEvent_userInfo_destination_uid___block_invoke;
-  v26[3] = &unk_1E769B9B0;
-  v27 = eventCopy;
-  v28 = uidCopy;
-  v29 = destinationCopy;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __61__MRCompanionLinkClient__sendEvent_userInfo_destination_uid___block_invoke;
+  v25[3] = &unk_1E769B9B0;
+  v26 = eventCopy;
+  v27 = uidCopy;
+  v28 = destinationCopy;
   v22 = destinationCopy;
   v23 = uidCopy;
   v24 = eventCopy;
-  [(RPCompanionLinkClient *)connection sendEventID:v21 event:v14 destinationID:v22 options:0 completion:v26];
-
-  v25 = *MEMORY[0x1E69E9840];
+  [(RPCompanionLinkClient *)connection sendEventID:v21 event:v14 destinationID:v22 options:0 completion:v25];
 }
 
-void __61__MRCompanionLinkClient__sendEvent_userInfo_destination_uid___block_invoke(void *a1, void *a2)
+void __61__MRCompanionLinkClient__sendEvent_userInfo_destination_uid___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (v3)
+  v2 = a2;
+  if (v2)
   {
-    v4 = _MRLogForCategory(7uLL);
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = _MRLogForCategory(7uLL);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __61__MRCompanionLinkClient__sendEvent_userInfo_destination_uid___block_invoke_cold_1(a1);
+      __61__MRCompanionLinkClient__sendEvent_userInfo_destination_uid___block_invoke_cold_1();
     }
   }
 }
 
 - (void)_enqueueEvent:(id)event userInfo:(id)info destination:(id)destination uid:(id)uid
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   infoCopy = info;
   destinationCopy = destination;
@@ -1255,15 +1256,15 @@ void __61__MRCompanionLinkClient__sendEvent_userInfo_destination_uid___block_inv
   v14 = _MRLogForCategory(7uLL);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138544130;
-    v20 = eventCopy;
-    v21 = 2114;
-    v22 = uidCopy;
-    v23 = 2112;
-    v24 = destinationCopy;
-    v25 = 2112;
-    v26 = infoCopy;
-    _os_log_impl(&dword_1A2860000, v14, OS_LOG_TYPE_DEFAULT, "[CompanionLinkClient] Enqueing event %{public}@<%{public}@> to destination <%@> with userInfo %@", &v19, 0x2Au);
+    v18 = 138544130;
+    v19 = eventCopy;
+    v20 = 2114;
+    v21 = uidCopy;
+    v22 = 2112;
+    v23 = destinationCopy;
+    v24 = 2112;
+    v25 = infoCopy;
+    _os_log_impl(&dword_1A2860000, v14, OS_LOG_TYPE_DEFAULT, "[CompanionLinkClient] Enqueing event %{public}@<%{public}@> to destination <%@> with userInfo %@", &v18, 0x2Au);
   }
 
   if (!self->_pendingEvents)
@@ -1279,13 +1280,11 @@ void __61__MRCompanionLinkClient__sendEvent_userInfo_destination_uid___block_inv
   [(MRCompanionLinkClientEvent *)v17 setDestination:destinationCopy];
   [(MRCompanionLinkClientEvent *)v17 setUid:uidCopy];
   [(NSMutableArray *)self->_pendingEvents addObject:v17];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendRequest:(id)request userInfo:(id)info destination:(id)destination uid:(id)uid date:(id)date response:(id)response
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   infoCopy = info;
   destinationCopy = destination;
@@ -1309,27 +1308,25 @@ void __61__MRCompanionLinkClient__sendEvent_userInfo_destination_uid___block_inv
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138544130;
-    v31 = requestCopy;
-    v32 = 2114;
-    v33 = uidCopy;
-    v34 = 2112;
-    v35 = destinationCopy;
-    v36 = 2112;
-    v37 = infoCopy;
+    v30 = requestCopy;
+    v31 = 2114;
+    v32 = uidCopy;
+    v33 = 2112;
+    v34 = destinationCopy;
+    v35 = 2112;
+    v36 = infoCopy;
     _os_log_impl(&dword_1A2860000, v23, OS_LOG_TYPE_DEFAULT, "[CompanionLinkClient] Sending request %{public}@<%{public}@> to destination <%@> with userInfo %@", buf, 0x2Au);
   }
 
   connection = self->_connection;
   v25 = [(MRCompanionLinkClient *)self _resolveEventID:requestCopy];
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __77__MRCompanionLinkClient__sendRequest_userInfo_destination_uid_date_response___block_invoke;
-  v28[3] = &unk_1E769B9D8;
-  v29 = responseCopy;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __77__MRCompanionLinkClient__sendRequest_userInfo_destination_uid_date_response___block_invoke;
+  v27[3] = &unk_1E769B9D8;
+  v28 = responseCopy;
   v26 = responseCopy;
-  [(RPCompanionLinkClient *)connection sendRequestID:v25 request:v18 destinationID:destinationCopy options:0 responseHandler:v28];
-
-  v27 = *MEMORY[0x1E69E9840];
+  [(RPCompanionLinkClient *)connection sendRequestID:v25 request:v18 destinationID:destinationCopy options:0 responseHandler:v27];
 }
 
 void __77__MRCompanionLinkClient__sendRequest_userInfo_destination_uid_date_response___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -1342,7 +1339,7 @@ void __77__MRCompanionLinkClient__sendRequest_userInfo_destination_uid_date_resp
 
 - (void)_enqueueRequest:(id)request userInfo:(id)info destination:(id)destination uid:(id)uid date:(id)date response:(id)response
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   infoCopy = info;
   destinationCopy = destination;
@@ -1352,15 +1349,15 @@ void __77__MRCompanionLinkClient__sendRequest_userInfo_destination_uid_date_resp
   v20 = _MRLogForCategory(7uLL);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 138544130;
-    v26 = requestCopy;
-    v27 = 2114;
-    v28 = uidCopy;
-    v29 = 2112;
-    v30 = destinationCopy;
-    v31 = 2112;
-    v32 = infoCopy;
-    _os_log_impl(&dword_1A2860000, v20, OS_LOG_TYPE_DEFAULT, "[CompanionLinkClient] Enqueing request %{public}@<%{public}@> to destination <%@> with userInfo %@", &v25, 0x2Au);
+    v24 = 138544130;
+    v25 = requestCopy;
+    v26 = 2114;
+    v27 = uidCopy;
+    v28 = 2112;
+    v29 = destinationCopy;
+    v30 = 2112;
+    v31 = infoCopy;
+    _os_log_impl(&dword_1A2860000, v20, OS_LOG_TYPE_DEFAULT, "[CompanionLinkClient] Enqueing request %{public}@<%{public}@> to destination <%@> with userInfo %@", &v24, 0x2Au);
   }
 
   if (!self->_pendingRequests)
@@ -1379,79 +1376,77 @@ void __77__MRCompanionLinkClient__sendRequest_userInfo_destination_uid_date_resp
 
   [(MRCompanionLinkClientRequest *)v23 setCallback:responseCopy];
   [(NSMutableArray *)self->_pendingRequests addObject:v23];
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleEventID:(id)d event:(id)event options:(id)options
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   dCopy = d;
   eventCopy = event;
   optionsCopy = options;
-  v31 = *MEMORY[0x1E69C6BE8];
-  v32 = optionsCopy;
+  v30 = *MEMORY[0x1E69C6BE8];
+  v31 = optionsCopy;
   v9 = [optionsCopy objectForKeyedSubscript:?];
   v10 = [MRDeviceInfo alloc];
   v11 = [eventCopy objectForKeyedSubscript:@"deviceInfoData"];
   v12 = [(MRDeviceInfo *)v10 initWithData:v11];
 
   v13 = [eventCopy objectForKeyedSubscript:@"userInfoData"];
-  v37 = MRCreateDecodedUserInfo(v13);
+  v36 = MRCreateDecodedUserInfo(v13);
 
-  v34 = [eventCopy objectForKeyedSubscript:@"uid"];
+  v33 = [eventCopy objectForKeyedSubscript:@"uid"];
   deviceUID = [(MRDeviceInfo *)v12 deviceUID];
   name = [(MRDeviceInfo *)v12 name];
   v14 = _MRLogForCategory(7uLL);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138544898;
-    v49 = dCopy;
-    v50 = 2114;
-    v51 = v34;
-    v52 = 2114;
-    v53 = deviceUID;
-    v54 = 2114;
-    v55 = name;
-    v56 = 2112;
-    v57 = v31;
-    v58 = 2114;
-    v59 = v9;
-    v60 = 2112;
-    v61 = v37;
+    v48 = dCopy;
+    v49 = 2114;
+    v50 = v33;
+    v51 = 2114;
+    v52 = deviceUID;
+    v53 = 2114;
+    v54 = name;
+    v55 = 2112;
+    v56 = v30;
+    v57 = 2114;
+    v58 = v9;
+    v59 = 2112;
+    v60 = v36;
     _os_log_impl(&dword_1A2860000, v14, OS_LOG_TYPE_DEFAULT, "[CompanionLinkClient] Received event %{public}@<%{public}@> from <%{public}@> (%{public}@) with %@ <%{public}@> userInfo %@", buf, 0x48u);
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   activeDevices = [(RPCompanionLinkClient *)self->_connection activeDevices];
-  v16 = [activeDevices countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v16 = [activeDevices countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (v16)
   {
-    v17 = *v44;
+    v17 = *v43;
 LABEL_5:
     v18 = 0;
     while (1)
     {
-      if (*v44 != v17)
+      if (*v43 != v17)
       {
         objc_enumerationMutation(activeDevices);
       }
 
-      v19 = *(*(&v43 + 1) + 8 * v18);
+      v19 = *(*(&v42 + 1) + 8 * v18);
       effectiveIdentifier = [v19 effectiveIdentifier];
-      v21 = [effectiveIdentifier isEqualToString:v9];
+      isEqualToString = objc_msgSend_isEqualToString_(effectiveIdentifier);
 
-      if (v21)
+      if (isEqualToString)
       {
         break;
       }
 
       if (v16 == ++v18)
       {
-        v16 = [activeDevices countByEnumeratingWithState:&v43 objects:v47 count:16];
+        v16 = [activeDevices countByEnumeratingWithState:&v42 objects:v46 count:16];
         if (v16)
         {
           goto LABEL_5;
@@ -1474,9 +1469,9 @@ LABEL_5:
     v25 = [v24 copy];
 
     objc_sync_exit(selfCopy);
-    if (v37)
+    if (v36)
     {
-      v26 = [v37 mutableCopy];
+      v26 = [v36 mutableCopy];
     }
 
     else
@@ -1485,14 +1480,14 @@ LABEL_5:
     }
 
     v27 = v26;
-    [v26 setObject:v9 forKeyedSubscript:v31];
+    [v26 setObject:v9 forKeyedSubscript:v30];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __54__MRCompanionLinkClient__handleEventID_event_options___block_invoke;
     block[3] = &unk_1E769BA00;
-    v40 = v25;
-    v41 = v12;
-    v42 = v27;
+    v39 = v25;
+    v40 = v12;
+    v41 = v27;
     v28 = v27;
     v29 = v25;
     dispatch_async(MEMORY[0x1E69E96A0], block);
@@ -1507,131 +1502,125 @@ LABEL_15:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 138544386;
-      v49 = dCopy;
-      v50 = 2114;
-      v51 = deviceUID;
-      v52 = 2114;
-      v53 = name;
-      v54 = 2112;
-      v55 = v31;
-      v56 = 2112;
-      v57 = v9;
+      v48 = dCopy;
+      v49 = 2114;
+      v50 = deviceUID;
+      v51 = 2114;
+      v52 = name;
+      v53 = 2112;
+      v54 = v30;
+      v55 = 2112;
+      v56 = v9;
       _os_log_error_impl(&dword_1A2860000, v22, OS_LOG_TYPE_ERROR, "[CompanionLinkClient] Received event <%{public}@> from <%{public}@> (%{public}@) with <%@> <%@> but could not find device", buf, 0x34u);
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __54__MRCompanionLinkClient__handleEventID_event_options___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v3)
+  v11 = *MEMORY[0x1E69E9840];
+  v6 = 0u;
+  v7 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v1 = *(a1 + 32);
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
+  if (v2)
   {
-    v4 = v3;
-    v5 = *v11;
+    v3 = v2;
+    v4 = *v7;
     do
     {
-      v6 = 0;
+      v5 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v7 != v4)
         {
-          objc_enumerationMutation(v2);
+          objc_enumerationMutation(v1);
         }
 
-        v7 = *(a1 + 40);
-        v8 = *(a1 + 48);
-        (*(*(*(&v10 + 1) + 8 * v6) + 16))(*(*(&v10 + 1) + 8 * v6));
-        ++v6;
+        (*(*(*(&v6 + 1) + 8 * v5) + 16))(*(*(&v6 + 1) + 8 * v5));
+        ++v5;
       }
 
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      while (v3 != v5);
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
-    while (v4);
+    while (v3);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleRequestID:(id)d request:(id)request options:(id)options response:(id)response
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   dCopy = d;
   requestCopy = request;
   optionsCopy = options;
   responseCopy = response;
-  v35 = *MEMORY[0x1E69C6BE8];
-  v36 = optionsCopy;
+  v34 = *MEMORY[0x1E69C6BE8];
+  v35 = optionsCopy;
   v11 = [optionsCopy objectForKeyedSubscript:?];
   v12 = [MRDeviceInfo alloc];
   v13 = [requestCopy objectForKeyedSubscript:@"deviceInfoData"];
-  v42 = [(MRDeviceInfo *)v12 initWithData:v13];
+  v41 = [(MRDeviceInfo *)v12 initWithData:v13];
 
   v14 = [requestCopy objectForKeyedSubscript:@"userInfoData"];
-  v41 = MRCreateDecodedUserInfo(v14);
+  v40 = MRCreateDecodedUserInfo(v14);
 
   v15 = [requestCopy objectForKeyedSubscript:@"uid"];
-  deviceUID = [(MRDeviceInfo *)v42 deviceUID];
-  name = [(MRDeviceInfo *)v42 name];
+  deviceUID = [(MRDeviceInfo *)v41 deviceUID];
+  name = [(MRDeviceInfo *)v41 name];
   v16 = _MRLogForCategory(7uLL);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138544898;
-    v59 = dCopy;
-    v60 = 2114;
-    v61 = v15;
-    v62 = 2114;
-    v63 = deviceUID;
-    v64 = 2114;
-    v65 = name;
-    v66 = 2112;
-    v67 = v35;
-    v68 = 2114;
-    v69 = v11;
-    v70 = 2112;
-    v71 = v41;
+    v58 = dCopy;
+    v59 = 2114;
+    v60 = v15;
+    v61 = 2114;
+    v62 = deviceUID;
+    v63 = 2114;
+    v64 = name;
+    v65 = 2112;
+    v66 = v34;
+    v67 = 2114;
+    v68 = v11;
+    v69 = 2112;
+    v70 = v40;
     _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, "[CompanionLinkClient] Received request %{public}@<%{public}@> from <%{public}@> (%{public}@) with %@ <%{public}@> userInfo %@", buf, 0x48u);
   }
 
-  v55 = 0u;
-  v56 = 0u;
   v54 = 0u;
+  v55 = 0u;
   v53 = 0u;
+  v52 = 0u;
   activeDevices = [(RPCompanionLinkClient *)self->_connection activeDevices];
-  v18 = [activeDevices countByEnumeratingWithState:&v53 objects:v57 count:16];
+  v18 = [activeDevices countByEnumeratingWithState:&v52 objects:v56 count:16];
   if (v18)
   {
-    v19 = *v54;
+    v19 = *v53;
     while (2)
     {
       for (i = 0; i != v18; i = i + 1)
       {
-        if (*v54 != v19)
+        if (*v53 != v19)
         {
           objc_enumerationMutation(activeDevices);
         }
 
-        v21 = *(*(&v53 + 1) + 8 * i);
+        v21 = *(*(&v52 + 1) + 8 * i);
         effectiveIdentifier = [v21 effectiveIdentifier];
-        v23 = [effectiveIdentifier isEqualToString:v11];
+        isEqualToString = objc_msgSend_isEqualToString_(effectiveIdentifier);
 
-        if (v23)
+        if (isEqualToString)
         {
           v18 = v21;
           goto LABEL_13;
         }
       }
 
-      v18 = [activeDevices countByEnumeratingWithState:&v53 objects:v57 count:16];
+      v18 = [activeDevices countByEnumeratingWithState:&v52 objects:v56 count:16];
       if (v18)
       {
         continue;
@@ -1643,17 +1632,17 @@ void __54__MRCompanionLinkClient__handleEventID_event_options___block_invoke(uin
 
 LABEL_13:
 
-  v49[0] = MEMORY[0x1E69E9820];
-  v49[1] = 3221225472;
-  v49[2] = __67__MRCompanionLinkClient__handleRequestID_request_options_response___block_invoke;
-  v49[3] = &unk_1E769BA28;
+  v48[0] = MEMORY[0x1E69E9820];
+  v48[1] = 3221225472;
+  v48[2] = __67__MRCompanionLinkClient__handleRequestID_request_options_response___block_invoke;
+  v48[3] = &unk_1E769BA28;
   v24 = dCopy;
-  v50 = v24;
+  v49 = v24;
   v25 = v15;
-  v51 = v25;
+  v50 = v25;
   v26 = responseCopy;
-  v52 = v26;
-  v27 = MEMORY[0x1A58E3570](v49);
+  v51 = v26;
+  v27 = MEMORY[0x1A58E3570](v48);
   if (v18)
   {
     selfCopy = self;
@@ -1664,9 +1653,9 @@ LABEL_13:
     objc_sync_exit(selfCopy);
     if (v30)
     {
-      if (v41)
+      if (v40)
       {
-        v31 = [v41 mutableCopy];
+        v31 = [v40 mutableCopy];
       }
 
       else
@@ -1675,15 +1664,15 @@ LABEL_13:
       }
 
       v33 = v31;
-      [v31 setObject:v11 forKeyedSubscript:v35];
+      [v31 setObject:v11 forKeyedSubscript:v34];
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __67__MRCompanionLinkClient__handleRequestID_request_options_response___block_invoke_132;
       block[3] = &unk_1E769BA50;
-      v47 = v30;
-      v45 = v42;
-      v46 = v33;
-      v48 = v27;
+      v46 = v30;
+      v44 = v41;
+      v45 = v33;
+      v47 = v27;
       Error = v33;
       dispatch_async(MEMORY[0x1E69E96A0], block);
     }
@@ -1700,13 +1689,11 @@ LABEL_13:
     v30 = MRMediaRemoteCreateError(4);
     (v27)[2](v27, 0, v30);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 void __67__MRCompanionLinkClient__handleRequestID_request_options_response___block_invoke(void *a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = _MRLogForCategory(7uLL);
@@ -1715,7 +1702,7 @@ void __67__MRCompanionLinkClient__handleRequestID_request_options_response___blo
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __67__MRCompanionLinkClient__handleRequestID_request_options_response___block_invoke_cold_1(a1);
+      __67__MRCompanionLinkClient__handleRequestID_request_options_response___block_invoke_cold_1();
     }
   }
 
@@ -1723,20 +1710,18 @@ void __67__MRCompanionLinkClient__handleRequestID_request_options_response___blo
   {
     v9 = a1[4];
     v10 = a1[5];
-    v14 = 138543874;
-    v15 = v9;
-    v16 = 2114;
-    v17 = v10;
-    v18 = 2114;
-    v19 = v5;
-    _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[CompanionLinkClient] Responding to request %{public}@<%{public}@> with <%{public}@>", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v9;
+    v15 = 2114;
+    v16 = v10;
+    v17 = 2114;
+    v18 = v5;
+    _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[CompanionLinkClient] Responding to request %{public}@<%{public}@> with <%{public}@>", &v13, 0x20u);
   }
 
   v11 = a1[6];
   v12 = MRCreateEncodedUserInfo(v5);
   (*(v11 + 16))(v11, v12, v6);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_resolveEventID:(id)d
@@ -1756,47 +1741,24 @@ void __67__MRCompanionLinkClient__handleRequestID_request_options_response___blo
   return activeDevices;
 }
 
-void __52__MRCompanionLinkClient_rapportCompanionLinkClient___block_invoke_97_cold_1()
+void __61__MRCompanionLinkClient__sendEvent_userInfo_destination_uid___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __52__MRCompanionLinkClient_rapportCompanionLinkClient___block_invoke_101_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __61__MRCompanionLinkClient__sendEvent_userInfo_destination_uid___block_invoke_cold_1(void *a1)
-{
-  v14 = *MEMORY[0x1E69E9840];
-  v1 = a1[4];
-  v2 = a1[5];
-  v3 = a1[6];
+  v9 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
-  v10 = 2112;
-  v11 = v4;
-  v12 = v5;
-  v13 = v6;
-  _os_log_error_impl(&dword_1A2860000, v7, OS_LOG_TYPE_ERROR, "[CompanionLinkClient] Error sending <%{public}@> <%{public}@> event to <%@> <%{public}@>", v9, 0x2Au);
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = 2112;
+  v6 = v0;
+  v7 = v1;
+  v8 = v2;
+  _os_log_error_impl(&dword_1A2860000, v3, OS_LOG_TYPE_ERROR, "[CompanionLinkClient] Error sending <%{public}@> <%{public}@> event to <%@> <%{public}@>", v4, 0x2Au);
 }
 
-void __67__MRCompanionLinkClient__handleRequestID_request_options_response___block_invoke_cold_1(uint64_t a1)
+void __67__MRCompanionLinkClient__handleRequestID_request_options_response___block_invoke_cold_1()
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  OUTLINED_FUNCTION_4_0();
-  v8 = v3;
-  v9 = v4;
-  _os_log_error_impl(&dword_1A2860000, v5, OS_LOG_TYPE_ERROR, "[CompanionLinkClient] Responding to request %{public}@<%{public}@> with error <%{public}@>", v7, 0x20u);
   v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_0();
+  v4 = v0;
+  v5 = v1;
+  _os_log_error_impl(&dword_1A2860000, v2, OS_LOG_TYPE_ERROR, "[CompanionLinkClient] Responding to request %{public}@<%{public}@> with error <%{public}@>", v3, 0x20u);
 }
 
 @end

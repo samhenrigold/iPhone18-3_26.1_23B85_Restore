@@ -305,7 +305,9 @@ uint64_t __40__ACCFeaturePluginManager_sharedManager__block_invoke(uint64_t a1)
   a2->receiver = self;
   a2->super_class = ACCFeaturePluginManager;
   pluginBundles = [(objc_super *)a2 pluginBundles];
-  OUTLINED_FUNCTION_6_8(&_mh_execute_header, v3, v4, "ACCFeaturePluginManager.pluginBundles: %@", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = pluginBundles;
+  OUTLINED_FUNCTION_6_8(&_mh_execute_header, v3, v4, "ACCFeaturePluginManager.pluginBundles: %@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 - (void)initAllPlugIns
@@ -313,7 +315,9 @@ uint64_t __40__ACCFeaturePluginManager_sharedManager__block_invoke(uint64_t a1)
   a2->receiver = self;
   a2->super_class = ACCFeaturePluginManager;
   pluginInstances = [(objc_super *)a2 pluginInstances];
-  OUTLINED_FUNCTION_6_8(&_mh_execute_header, v3, v4, "ACCFeaturePluginManager.pluginInstances: %@", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = pluginInstances;
+  OUTLINED_FUNCTION_6_8(&_mh_execute_header, v3, v4, "ACCFeaturePluginManager.pluginInstances: %@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 @end

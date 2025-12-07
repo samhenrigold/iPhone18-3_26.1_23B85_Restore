@@ -2,6 +2,7 @@
 - (ASXExtractor)init;
 - (id)_sigx;
 - (id)currentSignature;
+- (void)appendAcousticData:(id)data sampleCount:(int)count;
 - (void)reset;
 - (void)setSampleRate:(int)rate;
 @end
@@ -72,6 +73,26 @@
   }
 
   return v4;
+}
+
+- (void)appendAcousticData:(id)data sampleCount:(int)count
+{
+  v4 = *&count;
+  dataCopy = data;
+  _sigx = [(ASXExtractor *)self _sigx];
+  if (_sigx)
+  {
+    v10 = 0;
+    [_sigx flowIntSamples:objc_msgSend(dataCopy sampleCount:"bytes") error:{v4, &v10}];
+    v8 = v10;
+    if (v8 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      code = [v8 code];
+      *buf = 134217984;
+      v12 = code;
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Error appending acoustic data %ld", buf, 0xCu);
+    }
+  }
 }
 
 - (void)setSampleRate:(int)rate

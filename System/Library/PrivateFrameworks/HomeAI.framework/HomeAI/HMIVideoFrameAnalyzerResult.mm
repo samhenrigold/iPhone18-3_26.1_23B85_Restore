@@ -42,13 +42,12 @@
 - (NSString)description
 {
   events = [(HMIVideoFrameAnalyzerResult *)self events];
-  v4 = [events na_map:&__block_literal_global_13];
+  v4 = [events na_map:?];
 
   frame = [(HMIVideoFrameAnalyzerResult *)self frame];
-  v6 = frame;
   if (frame)
   {
-    [frame presentationTimeStamp];
+    [&time presentationTimeStamp];
   }
 
   else
@@ -56,17 +55,17 @@
     memset(&time, 0, sizeof(time));
   }
 
-  v7 = CMTimeCopyDescription(0, &time);
+  v6 = CMTimeCopyDescription(0, &time);
 
-  v8 = MEMORY[0x277CCACA8];
-  v9 = objc_opt_class();
+  v7 = MEMORY[0x277CCACA8];
+  v8 = objc_opt_class();
   allObjects = [v4 allObjects];
-  v11 = [allObjects componentsJoinedByString:{@", "}];
+  v10 = [allObjects componentsJoinedByString:?];
   [(HMIVideoFrameAnalyzerResult *)self regionOfInterest];
-  v16 = HMICGRectDescription(v12, v13, v14, v15);
-  v17 = [v8 stringWithFormat:@"<%@: %p> timeStamp: %@, detections: [%@], regionOfInterest: %@", v9, self, v7, v11, v16];
+  v15 = HMICGRectDescription(v11, v12, v13, v14);
+  v16 = [v7 stringWithFormat:v8, self, v6, v10, v15];
 
-  return v17;
+  return v16;
 }
 
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)time
@@ -74,7 +73,7 @@
   result = self->_frame;
   if (result)
   {
-    return [($3CC8671D27C23BF42ADDB32F2B5E48AE *)result presentationTimeStamp];
+    return [($3CC8671D27C23BF42ADDB32F2B5E48AE *)retstr presentationTimeStamp];
   }
 
   retstr->var0 = 0;

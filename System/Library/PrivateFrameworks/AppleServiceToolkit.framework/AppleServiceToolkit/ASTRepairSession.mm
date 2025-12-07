@@ -53,31 +53,30 @@
 
 - (BOOL)sendTestResult:(id)result error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   v6 = ASTLogHandleForCategory(0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[ASTRepairSession sendTestResult:error:]";
+    v17 = "[ASTRepairSession sendTestResult:error:]";
     _os_log_impl(&dword_240F3C000, v6, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s", buf, 0xCu);
   }
 
   v7 = dispatch_semaphore_create(0);
   v8 = provider;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __41__ASTRepairSession_sendTestResult_error___block_invoke;
-  v14[3] = &unk_278CBD540;
-  v15 = v7;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __41__ASTRepairSession_sendTestResult_error___block_invoke;
+  v13[3] = &unk_278CBD540;
+  v14 = v7;
   errorCopy = error;
   v9 = v7;
-  [v8 sendTestResult:resultCopy withCompletion:v14];
+  [v8 sendTestResult:resultCopy withCompletion:v13];
 
   v10 = dispatch_time(0, 5000000000);
   v11 = dispatch_semaphore_wait(v9, v10) == 0;
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -194,35 +193,33 @@ void __63__ASTRepairSession_downloadAsset_fileHandle_completionHandler___block_i
 
 - (void)requestSuiteSummary:(id)summary completionHandler:(id)handler
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   summaryCopy = summary;
   v7 = ASTLogHandleForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315138;
-    v10 = "[ASTRepairSession requestSuiteSummary:completionHandler:]";
-    _os_log_impl(&dword_240F3C000, v7, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "[ASTRepairSession requestSuiteSummary:completionHandler:]";
+    _os_log_impl(&dword_240F3C000, v7, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s", &v8, 0xCu);
   }
 
   [provider requestSuiteResult:summaryCopy withCompletion:handlerCopy];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestSuitesAvailableWithCompletionHandler:(id)handler
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v4 = ASTLogHandleForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[ASTRepairSession requestSuitesAvailableWithCompletionHandler:]";
-    _os_log_impl(&dword_240F3C000, v4, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[ASTRepairSession requestSuitesAvailableWithCompletionHandler:]";
+    _os_log_impl(&dword_240F3C000, v4, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s", &v5, 0xCu);
   }
 
   [provider requestSuitesAvailableWithCompletionHandler:handlerCopy];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
@@ -244,7 +241,7 @@ void __63__ASTRepairSession_downloadAsset_fileHandle_completionHandler___block_i
 
 void __25__ASTRepairSession_start__block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -252,7 +249,7 @@ void __25__ASTRepairSession_start__block_invoke(uint64_t a1, void *a2)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v9 = v3;
+      v8 = v3;
       _os_log_impl(&dword_240F3C000, v4, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] Unable to establish the connection: %@", buf, 0xCu);
     }
 
@@ -262,29 +259,27 @@ void __25__ASTRepairSession_start__block_invoke(uint64_t a1, void *a2)
 
   else
   {
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __25__ASTRepairSession_start__block_invoke_19;
-    v7[3] = &unk_278CBD590;
-    v7[4] = *(a1 + 32);
-    [provider startWithCompletionHandler:v7];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __25__ASTRepairSession_start__block_invoke_19;
+    v6[3] = &unk_278CBD590;
+    v6[4] = *(a1 + 32);
+    [provider startWithCompletionHandler:v6];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __25__ASTRepairSession_start__block_invoke_19(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = ASTLogHandleForCategory(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_impl(&dword_240F3C000, v4, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] Unable to start the connection: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_impl(&dword_240F3C000, v4, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] Unable to start the connection: %@", &v6, 0xCu);
     }
 
     v5 = [*(a1 + 32) delegate];
@@ -296,28 +291,25 @@ void __25__ASTRepairSession_start__block_invoke_19(uint64_t a1, void *a2)
     v5 = [*(a1 + 32) delegate];
     [v5 sessionDidStart:*(a1 + 32)];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)end
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = ASTLogHandleForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v7 = "[ASTRepairSession end]";
+    v6 = "[ASTRepairSession end]";
     _os_log_impl(&dword_240F3C000, v3, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s", buf, 0xCu);
   }
 
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __23__ASTRepairSession_end__block_invoke;
-  v5[3] = &unk_278CBD590;
-  v5[4] = self;
-  [provider endWithCompletionHandler:v5];
-  v4 = *MEMORY[0x277D85DE8];
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __23__ASTRepairSession_end__block_invoke;
+  v4[3] = &unk_278CBD590;
+  v4[4] = self;
+  [provider endWithCompletionHandler:v4];
 }
 
 void __23__ASTRepairSession_end__block_invoke(uint64_t a1, void *a2)
@@ -330,19 +322,18 @@ void __23__ASTRepairSession_end__block_invoke(uint64_t a1, void *a2)
 
 - (void)requestSuiteStart:(id)start completionHandler:(id)handler
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   startCopy = start;
   v7 = ASTLogHandleForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315138;
-    v10 = "[ASTRepairSession requestSuiteStart:completionHandler:]";
-    _os_log_impl(&dword_240F3C000, v7, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "[ASTRepairSession requestSuiteStart:completionHandler:]";
+    _os_log_impl(&dword_240F3C000, v7, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s", &v8, 0xCu);
   }
 
   [provider requestSuiteStart:startCopy withCompletionHandler:handlerCopy];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -358,13 +349,13 @@ void __23__ASTRepairSession_end__block_invoke(uint64_t a1, void *a2)
 
 - (void)cancelSuite
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = ASTLogHandleForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[ASTRepairSession cancelSuite]";
-    _os_log_impl(&dword_240F3C000, v3, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[ASTRepairSession cancelSuite]";
+    _os_log_impl(&dword_240F3C000, v3, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s", &v7, 0xCu);
   }
 
   delegate = [(ASTSession *)self delegate];
@@ -375,25 +366,23 @@ void __23__ASTRepairSession_end__block_invoke(uint64_t a1, void *a2)
     delegate2 = [(ASTSession *)self delegate];
     [delegate2 sessionDidCancelSuite:self];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startTest:(id)test parameters:(id)parameters
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   testCopy = test;
   parametersCopy = parameters;
   v8 = ASTLogHandleForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315650;
-    v15 = "[ASTRepairSession startTest:parameters:]";
-    v16 = 2112;
-    v17 = testCopy;
-    v18 = 2112;
-    v19 = parametersCopy;
-    _os_log_impl(&dword_240F3C000, v8, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s, testId: %@, parameters: %@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "[ASTRepairSession startTest:parameters:]";
+    v15 = 2112;
+    v16 = testCopy;
+    v17 = 2112;
+    v18 = parametersCopy;
+    _os_log_impl(&dword_240F3C000, v8, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s, testId: %@, parameters: %@", &v13, 0x20u);
   }
 
   delegate = [(ASTSession *)self delegate];
@@ -405,23 +394,21 @@ void __23__ASTRepairSession_end__block_invoke(uint64_t a1, void *a2)
     delegate2 = [(ASTSession *)self delegate];
     [delegate2 session:self startTest:testCopy parameters:parametersCopy testResult:v11];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)progressForTest:(id)test completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   testCopy = test;
   completionCopy = completion;
   v8 = ASTLogHandleForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315394;
-    v15 = "[ASTRepairSession progressForTest:completion:]";
-    v16 = 2112;
-    v17 = testCopy;
-    _os_log_impl(&dword_240F3C000, v8, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s, testId: %@", &v14, 0x16u);
+    v13 = 136315394;
+    v14 = "[ASTRepairSession progressForTest:completion:]";
+    v15 = 2112;
+    v16 = testCopy;
+    _os_log_impl(&dword_240F3C000, v8, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s, testId: %@", &v13, 0x16u);
   }
 
   delegate = [(ASTSession *)self delegate];
@@ -435,23 +422,21 @@ void __23__ASTRepairSession_end__block_invoke(uint64_t a1, void *a2)
   }
 
   completionCopy[2](completionCopy, 0);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)estimatedTimeRemainingForTest:(id)test completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   testCopy = test;
   completionCopy = completion;
   v8 = ASTLogHandleForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315394;
-    v15 = "[ASTRepairSession estimatedTimeRemainingForTest:completion:]";
-    v16 = 2112;
-    v17 = testCopy;
-    _os_log_impl(&dword_240F3C000, v8, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s, testId: %@", &v14, 0x16u);
+    v13 = 136315394;
+    v14 = "[ASTRepairSession estimatedTimeRemainingForTest:completion:]";
+    v15 = 2112;
+    v16 = testCopy;
+    _os_log_impl(&dword_240F3C000, v8, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s, testId: %@", &v13, 0x16u);
   }
 
   delegate = [(ASTSession *)self delegate];
@@ -465,22 +450,20 @@ void __23__ASTRepairSession_end__block_invoke(uint64_t a1, void *a2)
   }
 
   completionCopy[2](completionCopy, 0);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateTestSuiteProgress:(id)progress
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   progressCopy = progress;
   v5 = ASTLogHandleForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315394;
-    v11 = "[ASTRepairSession updateTestSuiteProgress:]";
-    v12 = 2112;
-    v13 = progressCopy;
-    _os_log_impl(&dword_240F3C000, v5, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s, progress: %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[ASTRepairSession updateTestSuiteProgress:]";
+    v11 = 2112;
+    v12 = progressCopy;
+    _os_log_impl(&dword_240F3C000, v5, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s, progress: %@", &v9, 0x16u);
   }
 
   delegate = [(ASTSession *)self delegate];
@@ -491,23 +474,21 @@ void __23__ASTRepairSession_end__block_invoke(uint64_t a1, void *a2)
     delegate2 = [(ASTSession *)self delegate];
     [delegate2 session:self didUpdateTestSuiteProgress:progressCopy];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)completeTestSuite:(id)suite description:(id)description
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   suiteCopy = suite;
   descriptionCopy = description;
   v8 = ASTLogHandleForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315394;
-    v14 = "[ASTRepairSession completeTestSuite:description:]";
-    v15 = 2112;
-    v16 = suiteCopy;
-    _os_log_impl(&dword_240F3C000, v8, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s, suiteName: %@", &v13, 0x16u);
+    v12 = 136315394;
+    v13 = "[ASTRepairSession completeTestSuite:description:]";
+    v14 = 2112;
+    v15 = suiteCopy;
+    _os_log_impl(&dword_240F3C000, v8, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s, suiteName: %@", &v12, 0x16u);
   }
 
   delegate = [(ASTSession *)self delegate];
@@ -518,20 +499,18 @@ void __23__ASTRepairSession_end__block_invoke(uint64_t a1, void *a2)
     delegate2 = [(ASTSession *)self delegate];
     [delegate2 session:self didCompleteTestSuite:suiteCopy description:descriptionCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateTestSuiteImage:(id)image
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   imageCopy = image;
   v5 = ASTLogHandleForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315138;
-    v11 = "[ASTRepairSession updateTestSuiteImage:]";
-    _os_log_impl(&dword_240F3C000, v5, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[ASTRepairSession updateTestSuiteImage:]";
+    _os_log_impl(&dword_240F3C000, v5, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s", &v9, 0xCu);
   }
 
   delegate = [(ASTSession *)self delegate];
@@ -542,21 +521,19 @@ void __23__ASTRepairSession_end__block_invoke(uint64_t a1, void *a2)
     delegate2 = [(ASTSession *)self delegate];
     [delegate2 session:self didUpdateTestSuiteImage:imageCopy];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showInstructionalPrompt:(id)prompt withConfirmation:(id)confirmation
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   promptCopy = prompt;
   confirmationCopy = confirmation;
   v8 = ASTLogHandleForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[ASTRepairSession showInstructionalPrompt:withConfirmation:]";
-    _os_log_impl(&dword_240F3C000, v8, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[ASTRepairSession showInstructionalPrompt:withConfirmation:]";
+    _os_log_impl(&dword_240F3C000, v8, OS_LOG_TYPE_DEFAULT, "[ASTRepairSession] %s", &v12, 0xCu);
   }
 
   delegate = [(ASTSession *)self delegate];
@@ -567,37 +544,31 @@ void __23__ASTRepairSession_end__block_invoke(uint64_t a1, void *a2)
     delegate2 = [(ASTSession *)self delegate];
     [delegate2 session:self didRequestInstructionalPrompt:promptCopy withConfirmation:confirmationCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (void)downloadAsset:(void *)a1 fileHandle:(NSObject *)a2 completionHandler:.cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 debugDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_240F3C000, a2, OS_LOG_TYPE_ERROR, "Error occurred trying to truncate file: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_240F3C000, a2, OS_LOG_TYPE_ERROR, "Error occurred trying to truncate file: %@", &v4, 0xCu);
 }
 
 void __63__ASTRepairSession_downloadAsset_fileHandle_completionHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_240F3C000, a2, OS_LOG_TYPE_ERROR, "[ASTRepairSession] Unable to retrieve the asset: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_240F3C000, a2, OS_LOG_TYPE_ERROR, "[ASTRepairSession] Unable to retrieve the asset: %@", &v2, 0xCu);
 }
 
 void __63__ASTRepairSession_downloadAsset_fileHandle_completionHandler___block_invoke_cold_2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = 0;
-  _os_log_error_impl(&dword_240F3C000, log, OS_LOG_TYPE_ERROR, "[ASTRepairSession] Unable to write data: %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = 0;
+  _os_log_error_impl(&dword_240F3C000, log, OS_LOG_TYPE_ERROR, "[ASTRepairSession] Unable to write data: %@", &v1, 0xCu);
 }
 
 @end

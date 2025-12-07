@@ -254,7 +254,7 @@
   return globalCoordinator;
 }
 
-uint64_t __67__SBWindowScenePIPManager_isPointWithinAnyPictureInPictureContent___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__67__SBWindowScenePIPManager_isPointWithinAnyPictureInPictureContent___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 _isPointInsidePictureInPictureContent:*(a1 + 32) onWindowScene:{*(a1 + 48), *(a1 + 56)}];
   if (result)

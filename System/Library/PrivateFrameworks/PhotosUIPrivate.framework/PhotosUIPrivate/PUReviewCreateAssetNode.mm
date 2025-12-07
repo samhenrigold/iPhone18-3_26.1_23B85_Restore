@@ -35,20 +35,20 @@ LABEL_16:
         v27 = v11;
         v28 = v12;
 LABEL_20:
-        v33 = videoAsset;
-        if (v33)
+        v32 = videoAsset;
+        if (v32)
         {
           goto LABEL_30;
         }
 
-        v32 = providedVideoURL;
+        v33 = providedVideoURL;
         if (!providedVideoURL)
         {
           goto LABEL_30;
         }
 
 LABEL_29:
-        v33 = [MEMORY[0x1E6987E28] assetWithURL:v32];
+        v32 = [MEMORY[0x1E6987E28] assetWithURL:v33];
         goto LABEL_30;
       }
 
@@ -113,7 +113,7 @@ LABEL_26:
         v25 = v24;
         v62 = 0u;
         v63 = 0u;
-        [firstObject preferredTransform];
+        objc_msgSend_preferredTransform(firstObject);
         v26 = v25 * 0.0 + 0.0 * v23;
         v11 = fabs(v26);
         v12 = v11;
@@ -140,10 +140,10 @@ LABEL_26:
   }
 
 LABEL_27:
-  v33 = videoAsset2;
-  if (!v33)
+  v32 = videoAsset2;
+  if (!v32)
   {
-    v32 = videoURL;
+    v33 = videoURL;
     if (videoURL)
     {
       goto LABEL_29;
@@ -153,7 +153,7 @@ LABEL_27:
 LABEL_30:
   v61 = 0uLL;
   *&v62 = 0;
-  if (v33 && ([v33 duration], (BYTE12(v61) & 0x1D) == 1))
+  if (v32 && (objc_msgSend_duration(v32), (BYTE12(v61) & 0x1D) == 1))
   {
     *&time.value = v61;
     time.epoch = v62;
@@ -162,7 +162,7 @@ LABEL_30:
 
   else
   {
-    [inputAsset duration];
+    objc_msgSend_duration(inputAsset);
   }
 
   v36 = Seconds;
@@ -176,7 +176,7 @@ LABEL_30:
     v39 = [objc_alloc(MEMORY[0x1E69C0660]) initWithURL:adjustmentURL];
     v40 = inputAsset;
     providedPreviewImage = [v40 providedPreviewImage];
-    [v40 duration];
+    objc_msgSend_duration(v40);
     v43 = playbackStyle != 4 || v36 == v42;
     if (!v43 || playbackStyle == 5)
     {

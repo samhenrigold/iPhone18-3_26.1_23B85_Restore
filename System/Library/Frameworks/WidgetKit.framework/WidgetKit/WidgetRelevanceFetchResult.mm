@@ -16,9 +16,10 @@
 - (_TtC9WidgetKit26WidgetRelevanceFetchResult)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v4 = sub_19218C080(coderCopy);
+  sub_19218C080(coderCopy);
+  v5 = v4;
 
-  return v4;
+  return v5;
 }
 
 - (void)encodeWithCoder:(id)coder

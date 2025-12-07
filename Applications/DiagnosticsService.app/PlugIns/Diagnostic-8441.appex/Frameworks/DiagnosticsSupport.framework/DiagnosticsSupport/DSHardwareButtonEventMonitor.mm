@@ -88,34 +88,29 @@ void __61__DSHardwareButtonEventMonitor_startWithPriority_completion___block_inv
     v3[6] = v5;
 
     v3[1] = IOHIDEventSystemClientCreateWithType();
-    v19[0] = @"PrimaryUsagePage";
-    v19[1] = @"PrimaryUsage";
-    v20[0] = &off_1EE00;
-    v20[1] = &off_1EE18;
-    v7 = [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:2];
-    v17[0] = @"PrimaryUsagePage";
-    v17[1] = @"PrimaryUsage";
-    v18[0] = &off_1EE30;
-    v18[1] = &off_1EE48;
-    v8 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:2];
-    v9 = v3[1];
-    v16[0] = v7;
-    v16[1] = v8;
-    v10 = [NSArray arrayWithObjects:v16 count:2];
+    v14[0] = @"PrimaryUsagePage";
+    v14[1] = @"PrimaryUsage";
+    v15[0] = &off_1EE00;
+    v15[1] = &off_1EE18;
+    v7 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:2];
+    v12[0] = @"PrimaryUsagePage";
+    v12[1] = @"PrimaryUsage";
+    v13[0] = &off_1EE30;
+    v13[1] = &off_1EE48;
+    v8 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v11[0] = v7;
+    v11[1] = v8;
+    v9 = [NSArray arrayWithObjects:v11 count:2];
     IOHIDEventSystemClientSetMatchingMultiple();
 
-    v11 = v3[1];
-    v12 = v3[6];
     IOHIDEventSystemClientScheduleWithDispatchQueue();
-    v13 = v3[1];
-    v14 = *(a1 + 48);
     IOHIDEventSystemClientRegisterEventFilterCallbackWithPriority();
   }
 
-  v15 = *(a1 + 32);
-  if (v15)
+  v10 = *(a1 + 32);
+  if (v10)
   {
-    (*(v15 + 16))();
+    (*(v10 + 16))();
   }
 }
 
@@ -168,13 +163,11 @@ uint64_t __51__DSHardwareButtonEventMonitor_stopWithCompletion___block_invoke_2(
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained && WeakRetained[1])
   {
-    v2 = WeakRetained[6];
-    v5 = WeakRetained;
+    v3 = WeakRetained;
     IOHIDEventSystemClientUnscheduleFromDispatchQueue();
-    v3 = v5[1];
     IOHIDEventSystemClientUnregisterEventFilterCallback();
-    CFRelease(v5[1]);
-    v5[1] = 0;
+    CFRelease(v3[1]);
+    v3[1] = 0;
   }
 
   return _objc_release_x2();

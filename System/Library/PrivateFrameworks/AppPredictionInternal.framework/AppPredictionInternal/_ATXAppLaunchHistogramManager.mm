@@ -6,6 +6,7 @@
 + (void)resetDataForHistograms;
 + (void)resetSharedInstance;
 + (void)useTemporarySharedInstance:(id)instance;
+- (id)_categoricalHistogramForLaunchType:(int64_t)type maxCategoryCount:(unsigned __int16)count pruningMethod:(int64_t)method;
 - (id)categoricalHistogramForLaunchType:(int64_t)type;
 - (id)histogramForLaunchType:(int64_t)type;
 - (id)initAndPersist:(BOOL)persist;
@@ -50,7 +51,7 @@
 
   else
   {
-    v8 = __atxlog_handle_default();
+    v8 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(_ATXAppLaunchHistogramManager *)assetCopy getHistogramPruningMethodFromAsset:v8];
@@ -74,7 +75,7 @@
 
   else
   {
-    v8 = __atxlog_handle_default();
+    v8 = __atxlog_handle_default(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(_ATXAppLaunchHistogramManager *)assetCopy getHistogramPruningMethodFromAsset:v8];
@@ -89,9 +90,9 @@
 - (id)initAndPersist:(BOOL)persist
 {
   persistCopy = persist;
-  v19.receiver = self;
-  v19.super_class = _ATXAppLaunchHistogramManager;
-  v4 = [(_ATXAppLaunchHistogramManager *)&v19 init];
+  v20.receiver = self;
+  v20.super_class = _ATXAppLaunchHistogramManager;
+  v4 = [(_ATXAppLaunchHistogramManager *)&v20 init];
   if (v4)
   {
     v5 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -129,9 +130,10 @@
     v4->_maxAppJointContextKeyCount = [(_ATXAppLaunchHistogramManager *)v4 getHistogramMaxCategoryCountFromAsset:@"AppJointContextMaxKeyCount"];
     v4->_maxAppSpecificLocationMaxKeyCount = [(_ATXAppLaunchHistogramManager *)v4 getHistogramMaxCategoryCountFromAsset:@"AppCoarseLocationMaxKeyCount"];
     v4->_maxAppCoarseLocationMaxKeyCount = [(_ATXAppLaunchHistogramManager *)v4 getHistogramMaxCategoryCountFromAsset:@"AppSpecificLocationMaxKeyCount"];
-    v4->_maxAppZoom7GeoHashMaxKeyCount = [(_ATXAppLaunchHistogramManager *)v4 getHistogramMaxCategoryCountFromAsset:@"AppZoom7GeoHashMaxKeyCount"];
-    v17 = __atxlog_handle_default();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v17 = [(_ATXAppLaunchHistogramManager *)v4 getHistogramMaxCategoryCountFromAsset:@"AppZoom7GeoHashMaxKeyCount"];
+    v4->_maxAppZoom7GeoHashMaxKeyCount = v17;
+    v18 = __atxlog_handle_default(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       [_ATXAppLaunchHistogramManager initAndPersist:];
     }
@@ -300,7 +302,7 @@ LABEL_8:
     case 10:
     case 12:
     case 13:
-      v8 = __atxlog_handle_default();
+      v8 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [_ATXAppLaunchHistogramManager categoricalHistogramForLaunchType:];
@@ -311,7 +313,7 @@ LABEL_8:
       v11 = @"Deprecated histogram type.";
       goto LABEL_11;
     case 8:
-      v13 = __atxlog_handle_default();
+      v13 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [_ATXAppLaunchHistogramManager categoricalHistogramForLaunchType:];
@@ -322,7 +324,7 @@ LABEL_8:
       v11 = @"_APRHistogramTypeAppIntentDonation is deprecated.";
       goto LABEL_11;
     case 15:
-      v16 = __atxlog_handle_default();
+      v16 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [_ATXAppLaunchHistogramManager categoricalHistogramForLaunchType:];
@@ -333,7 +335,7 @@ LABEL_8:
       v11 = @"_ATXHistogramTypeIntentForAllAppsLaunch is deprecated.";
       goto LABEL_11;
     case 18:
-      v18 = __atxlog_handle_default();
+      v18 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [_ATXAppLaunchHistogramManager categoricalHistogramForLaunchType:];
@@ -344,7 +346,7 @@ LABEL_8:
       v11 = @"_ATXHistogramTypeIntentForAllAppsDayOfWeek is deprecated.";
       goto LABEL_11;
     case 21:
-      v12 = __atxlog_handle_default();
+      v12 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [_ATXAppLaunchHistogramManager categoricalHistogramForLaunchType:];
@@ -355,7 +357,7 @@ LABEL_8:
       v11 = @"_ATXHistogramTypeIntentForAllAppsTrendingLaunch is deprecated.";
       goto LABEL_11;
     case 24:
-      v14 = __atxlog_handle_default();
+      v14 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [_ATXAppLaunchHistogramManager categoricalHistogramForLaunchType:];
@@ -366,7 +368,7 @@ LABEL_8:
       v11 = @"_ATXHistogramTypeIntentForAllAppsUnlockTime is deprecated.";
       goto LABEL_11;
     case 27:
-      v17 = __atxlog_handle_default();
+      v17 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [_ATXAppLaunchHistogramManager categoricalHistogramForLaunchType:];
@@ -377,7 +379,7 @@ LABEL_8:
       v11 = @"_ATXHistogramTypeIntentForAllAppsAirplaneModeLaunch is deprecated.";
       goto LABEL_11;
     case 30:
-      v19 = __atxlog_handle_default();
+      v19 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [_ATXAppLaunchHistogramManager categoricalHistogramForLaunchType:];
@@ -502,7 +504,7 @@ LABEL_7:
       SSIDPruningMethod = 2;
       goto LABEL_55;
     case 114:
-      v15 = __atxlog_handle_default();
+      v15 = __atxlog_handle_default(self);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [_ATXAppLaunchHistogramManager categoricalHistogramForLaunchType:];
@@ -534,6 +536,38 @@ LABEL_56:
 
       return v5;
   }
+}
+
+- (id)_categoricalHistogramForLaunchType:(int64_t)type maxCategoryCount:(unsigned __int16)count pruningMethod:(int64_t)method
+{
+  countCopy = count;
+  v9 = self->_categoricalHistograms;
+  objc_sync_enter(v9);
+  categoricalHistograms = self->_categoricalHistograms;
+  v11 = [MEMORY[0x277CCABB0] numberWithInteger:type];
+  v12 = [(NSMutableDictionary *)categoricalHistograms objectForKeyedSubscript:v11];
+
+  if (!v12)
+  {
+    if (self->_persistentStore)
+    {
+      v13 = [[_ATXAppLaunchCategoricalHistogramWithPersistentBackup alloc] initWithDataStore:self->_datastore histogramType:type saveOnBackgroundQueue:self->_backgroundSaverQueue maxCategoryCount:countCopy pruningMethod:method];
+    }
+
+    else
+    {
+      v13 = [[_ATXAppLaunchCategoricalHistogram alloc] initWithType:type maxCategoryCount:countCopy pruningMethod:method];
+    }
+
+    v12 = v13;
+    v14 = self->_categoricalHistograms;
+    v15 = [MEMORY[0x277CCABB0] numberWithInteger:type];
+    [(NSMutableDictionary *)v14 setObject:v12 forKeyedSubscript:v15];
+  }
+
+  objc_sync_exit(v9);
+
+  return v12;
 }
 
 - (void)purgeHistogramForLaunchType:(int64_t)type
@@ -643,11 +677,10 @@ LABEL_56:
 
 - (void)getHistogramPruningMethodFromAsset:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "No value found in asset for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "No value found in asset for %@", &v2, 0xCu);
 }
 
 @end

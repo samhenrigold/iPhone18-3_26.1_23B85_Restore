@@ -18,28 +18,27 @@ void __85___AuthorizationRemoteViewControllerHost_requestViewControllerWithConne
   v5 = *(a1 + 32);
   v6 = a3;
   v7 = a2;
-  [v5 timeIntervalSinceNow];
-  v9 = v8;
-  v10 = LA_LOG_0();
-  if (v9 >= -1.0)
+  v8 = [v5 timeIntervalSinceNow];
+  v10 = v9;
+  v11 = LA_LOG_0(v8);
+  if (v10 >= -1.0)
   {
-    v11 = OS_LOG_TYPE_DEFAULT;
+    v12 = OS_LOG_TYPE_DEFAULT;
   }
 
   else
   {
-    v11 = LALogTypeForInternalError();
+    v12 = LALogTypeForInternalError();
   }
 
-  if (os_log_type_enabled(v10, v11))
+  if (os_log_type_enabled(v11, v12))
   {
     v13 = 134217984;
-    v14 = -v9;
-    _os_log_impl(&dword_238BCD000, v10, v11, "RemoteUI call took %.2f secs", &v13, 0xCu);
+    v14 = -v10;
+    _os_log_impl(&dword_238BCD000, v11, v12, "RemoteUI call took %.2f secs", &v13, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __59___AuthorizationRemoteViewControllerHost_exportedInterface__block_invoke()
@@ -62,36 +61,34 @@ uint64_t __72___AuthorizationRemoteViewControllerHost_serviceViewControllerInter
 
 void __71___AuthorizationRemoteViewControllerHost_startWithConfiguration_reply___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = LA_LOG_0();
+  v4 = LA_LOG_0(v3);
   v5 = LALogTypeForInternalError();
   if (os_log_type_enabled(v4, v5))
   {
-    v7 = 138543362;
-    v8 = v3;
-    _os_log_impl(&dword_238BCD000, v4, v5, "Could not obtain service proxy for starting (%{public}@).", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v3;
+    _os_log_impl(&dword_238BCD000, v4, v5, "Could not obtain service proxy for starting (%{public}@).", &v6, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __56___AuthorizationRemoteViewControllerHost_stopWithReply___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = LA_LOG_0();
+  v4 = LA_LOG_0(v3);
   v5 = LALogTypeForInternalError();
   if (os_log_type_enabled(v4, v5))
   {
-    v7 = 138543362;
-    v8 = v3;
-    _os_log_impl(&dword_238BCD000, v4, v5, "Could not obtain service proxy for stoping (%{public}@).", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v3;
+    _os_log_impl(&dword_238BCD000, v4, v5, "Could not obtain service proxy for stoping (%{public}@).", &v6, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

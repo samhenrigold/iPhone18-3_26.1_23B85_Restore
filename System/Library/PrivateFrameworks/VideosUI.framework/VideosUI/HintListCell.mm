@@ -23,9 +23,10 @@
 
 - (CGSize)vui_layoutSubviews:(CGSize)subviews computationOnly:(BOOL)only
 {
+  onlyCopy = only;
   selfCopy = self;
   OUTLINED_FUNCTION_6_12();
-  sub_1E3F85F10(only);
+  sub_1E3F85F10(onlyCopy);
   v7 = v6;
   v9 = v8;
 
@@ -39,13 +40,14 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_1E3F85FCC();
+  sub_1E3F85FCC(selfCopy);
 }
 
 - (void)vui_setHighlighted:(BOOL)highlighted
 {
+  highlightedCopy = highlighted;
   selfCopy = self;
-  sub_1E3F8609C(highlighted);
+  sub_1E3F8609C(highlightedCopy);
 }
 
 @end

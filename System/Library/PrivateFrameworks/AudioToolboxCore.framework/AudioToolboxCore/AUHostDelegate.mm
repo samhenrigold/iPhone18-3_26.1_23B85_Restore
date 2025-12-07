@@ -1,6 +1,7 @@
 @interface AUHostDelegate
 - (AUAudioUnit)audioUnit;
 - (AUHostDelegate)init;
+- (void)MIDICIProfileChanged:(unsigned __int8)changed channel:(unsigned __int8)channel profile:(id)profile enabled:(BOOL)enabled;
 - (void)propertiesChanged:(id)changed;
 - (void)speechSynthesisMetadataAvailable:(id)available speechRequest:(id)request;
 - (void)syncParameter:(unint64_t)parameter value:(float)value extOriginator:(unint64_t)originator hostTime:(unint64_t)time eventType:(unsigned int)type;
@@ -56,9 +57,26 @@ void __71__AUHostDelegate_syncParameter_value_extOriginator_hostTime_eventType__
   }
 }
 
+- (void)MIDICIProfileChanged:(unsigned __int8)changed channel:(unsigned __int8)channel profile:(id)profile enabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  channelCopy = channel;
+  changedCopy = changed;
+  profileCopy = profile;
+  WeakRetained = objc_loadWeakRetained(&self->_audioUnit);
+  profileChangedBlock = [WeakRetained profileChangedBlock];
+
+  if (profileChangedBlock)
+  {
+    v12 = objc_loadWeakRetained(&self->_audioUnit);
+    profileChangedBlock2 = [v12 profileChangedBlock];
+    (profileChangedBlock2)[2](profileChangedBlock2, changedCopy, channelCopy, profileCopy, enabledCopy);
+  }
+}
+
 - (void)propertiesChanged:(id)changed
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
   WeakRetained = objc_loadWeakRetained(&self->_audioUnit);
   objc_opt_class();
@@ -72,28 +90,28 @@ void __71__AUHostDelegate_syncParameter_value_extOriginator_hostTime_eventType__
 
   else
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v8 = changedCopy;
-    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         v11 = 0;
         do
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v16 + 1) + 8 * v11);
+          v12 = *(*(&v15 + 1) + 8 * v11);
           v13 = objc_loadWeakRetained(&self->_audioUnit);
-          [v13 willChangeValueForKey:{*(v12 + 8), v16}];
+          [v13 willChangeValueForKey:{*(v12 + 8), v15}];
 
           v14 = objc_loadWeakRetained(&self->_audioUnit);
           [v14 didChangeValueForKey:*(v12 + 8)];
@@ -102,14 +120,12 @@ void __71__AUHostDelegate_syncParameter_value_extOriginator_hostTime_eventType__
         }
 
         while (v9 != v11);
-        v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (AUHostDelegate)init

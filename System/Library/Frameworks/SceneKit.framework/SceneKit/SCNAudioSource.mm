@@ -89,10 +89,10 @@ LABEL_11:
     v12 = [bundleCopy2 URLForResource:stringByDeletingPathExtension withExtension:v11];
     if (!v12)
     {
-      v13 = scn_default_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = scn_default_log(0, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [(SCNAudioSource *)p_audioName _loadURLWithBundle:v13];
+        [(SCNAudioSource *)p_audioName _loadURLWithBundle:v14];
       }
 
       v12 = 0;
@@ -301,7 +301,7 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v8 = scn_default_log();
+  v8 = scn_default_log(self, a2);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [SCNAudioSource _customEncodingOfSCNAudioSource:v8];

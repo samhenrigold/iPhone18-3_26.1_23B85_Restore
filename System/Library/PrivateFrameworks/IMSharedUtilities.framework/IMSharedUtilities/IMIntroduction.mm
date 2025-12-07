@@ -34,7 +34,7 @@
 
 - (id)convertToCoreRecentsEvent
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   handle = [(IMIntroduction *)self handle];
   v4 = MEMORY[0x1AC570A50]();
 
@@ -43,10 +43,10 @@
 
   if (v4)
   {
-    v7 = sub_1A867EC8C();
+    v8 = sub_1A867EC8C(v7);
     handle3 = [(IMIntroduction *)self handle];
     suggestedName = [(IMIntroduction *)self suggestedName];
-    v10 = [v7 recentEventForPhoneNumber:handle3 displayName:suggestedName metadata:0];
+    v11 = [v8 recentEventForPhoneNumber:handle3 displayName:suggestedName metadata:0];
   }
 
   else
@@ -56,28 +56,28 @@
       goto LABEL_10;
     }
 
-    v11 = sub_1A867EC8C();
+    v12 = sub_1A867EC8C(v7);
     handle3 = [(IMIntroduction *)self handle];
     suggestedName = [(IMIntroduction *)self suggestedName];
-    v10 = [v11 recentEventForEmailAddress:handle3 displayName:suggestedName metadata:0];
+    v11 = [v12 recentEventForEmailAddress:handle3 displayName:suggestedName metadata:0];
   }
 
-  v12 = v10;
+  v13 = v11;
 
-  if (v12)
+  if (v13)
   {
     if (IMOSLoggingEnabled())
     {
-      v13 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v14 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         handle4 = [(IMIntroduction *)self handle];
         suggestedName2 = [(IMIntroduction *)self suggestedName];
-        v18 = 138412546;
-        v19 = handle4;
-        v20 = 2112;
-        v21 = suggestedName2;
-        _os_log_impl(&dword_1A85E5000, v13, OS_LOG_TYPE_INFO, "Created CRRecentEvent for handle: %@ suggestedName: %@", &v18, 0x16u);
+        v19 = 138412546;
+        v20 = handle4;
+        v21 = 2112;
+        v22 = suggestedName2;
+        _os_log_impl(&dword_1A85E5000, v14, OS_LOG_TYPE_INFO, "Created CRRecentEvent for handle: %@ suggestedName: %@", &v19, 0x16u);
       }
     }
 
@@ -85,16 +85,16 @@
   }
 
 LABEL_10:
-  v16 = IMLogHandleForCategory("IMIntroduction");
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v17 = IMLogHandleForCategory("IMIntroduction");
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    sub_1A88C264C(self, v16);
+    sub_1A88C264C(self, v17);
   }
 
-  v12 = 0;
+  v13 = 0;
 LABEL_13:
 
-  return v12;
+  return v13;
 }
 
 @end

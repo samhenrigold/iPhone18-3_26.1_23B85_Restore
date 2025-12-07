@@ -54,7 +54,7 @@
 
 - (void)finishRunningSSHScriptWithError:(id)error
 {
-  v29[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   domain = [errorCopy domain];
   if ([domain isEqualToString:@"libssh2"])
@@ -64,10 +64,10 @@
     if (!code)
     {
       v7 = MEMORY[0x277CCA9B8];
-      v28[0] = *MEMORY[0x277CCA450];
+      v27[0] = *MEMORY[0x277CCA450];
       v8 = WFLocalizedString(@"Run Script Over SSH could not connect to the SSH server.");
-      v29[0] = v8;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:1];
+      v28[0] = v8;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:1];
       v10 = [v7 errorWithDomain:@"libssh2" code:0 userInfo:v9];
 
       goto LABEL_11;
@@ -83,13 +83,13 @@
 
   if (v12)
   {
-    v28[0] = &unk_28509B0A8;
+    v27[0] = &unk_28509B0A8;
     v13 = WFLocalizedString(@"Connection timed out");
-    v28[1] = &unk_28509B0C0;
-    v29[0] = v13;
+    v27[1] = &unk_28509B0C0;
+    v28[0] = v13;
     v14 = WFLocalizedString(@"Channel allocation error");
-    v29[1] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
+    v28[1] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
 
     code2 = [errorCopy code];
     v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:code2];
@@ -100,11 +100,11 @@
       v19 = MEMORY[0x277CCA9B8];
       domain3 = [errorCopy domain];
       code3 = [errorCopy code];
-      v26 = *MEMORY[0x277CCA450];
+      v25 = *MEMORY[0x277CCA450];
       v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:code2];
       v23 = [v15 objectForKey:v22];
-      v27 = v23;
-      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+      v26 = v23;
+      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
       v10 = [v19 errorWithDomain:domain3 code:code3 userInfo:v24];
     }
 
@@ -122,12 +122,11 @@
 LABEL_11:
 
   [(WFRunSSHScriptAction *)self finishRunningWithError:v10];
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)authenticateAndRunAsynchronouslyWithInput:(id)input session:(id)session
 {
-  v60[2] = *MEMORY[0x277D85DE8];
+  v59[2] = *MEMORY[0x277D85DE8];
   inputCopy = input;
   sessionCopy = session;
   v7 = [(WFRunSSHScriptAction *)self parameterValueForKey:@"WFSSHAuthenticationType" ofClass:objc_opt_class()];
@@ -147,34 +146,34 @@ LABEL_11:
   {
     if (([sessionCopy authenticateByPassword:v8] & 1) == 0)
     {
-      v53[0] = MEMORY[0x277D85DD0];
-      v53[1] = 3221225472;
-      v53[2] = __74__WFRunSSHScriptAction_authenticateAndRunAsynchronouslyWithInput_session___block_invoke;
-      v53[3] = &unk_278C1A248;
-      v54 = v8;
-      [sessionCopy authenticateByKeyboardInteractiveUsingBlock:v53];
+      v52[0] = MEMORY[0x277D85DD0];
+      v52[1] = 3221225472;
+      v52[2] = __74__WFRunSSHScriptAction_authenticateAndRunAsynchronouslyWithInput_session___block_invoke;
+      v52[3] = &unk_278C1A248;
+      v53 = v8;
+      [sessionCopy authenticateByKeyboardInteractiveUsingBlock:v52];
     }
 
     if (([sessionCopy isAuthorized] & 1) == 0)
     {
       lastError = [sessionCopy lastError];
-      v45 = MEMORY[0x277CCA9B8];
+      v44 = MEMORY[0x277CCA9B8];
       domain = [lastError domain];
       code = [lastError code];
-      v59[0] = *MEMORY[0x277CCA470];
-      v43 = WFLocalizedString(@"SSH Password Authentication Failed");
-      v60[0] = v43;
-      v59[1] = *MEMORY[0x277CCA450];
+      v58[0] = *MEMORY[0x277CCA470];
+      v42 = WFLocalizedString(@"SSH Password Authentication Failed");
+      v59[0] = v42;
+      v58[1] = *MEMORY[0x277CCA450];
       v17 = WFLocalizedString(@"Please check your credentials in the Run SSH Script action and try again.");
-      v60[1] = v17;
-      [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:v59 count:2];
+      v59[1] = v17;
+      [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:2];
       selfCopy = self;
       v18 = sessionCopy;
       v19 = v13;
       v20 = v9;
       v21 = v7;
       v23 = v22 = v8;
-      v24 = [v45 errorWithDomain:domain code:code userInfo:v23];
+      v24 = [v44 errorWithDomain:domain code:code userInfo:v23];
 
       v8 = v22;
       v7 = v21;
@@ -196,17 +195,17 @@ LABEL_14:
     if (!v9)
     {
       v29 = MEMORY[0x277CCA9B8];
-      v46 = *MEMORY[0x277D7CB30];
-      v57[0] = *MEMORY[0x277CCA470];
+      v45 = *MEMORY[0x277D7CB30];
+      v56[0] = *MEMORY[0x277CCA470];
       v30 = WFLocalizedString(@"SSH Key Authentication Failed");
-      v58[0] = v30;
-      v57[1] = *MEMORY[0x277CCA450];
+      v57[0] = v30;
+      v56[1] = *MEMORY[0x277CCA450];
       WFLocalizedString(@"No SSH key was found on this device.");
       v32 = v31 = v8;
-      v58[1] = v32;
-      [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:2];
+      v57[1] = v32;
+      [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:2];
       v34 = v33 = v13;
-      lastError = [v29 errorWithDomain:v46 code:1 userInfo:v34];
+      lastError = [v29 errorWithDomain:v45 code:1 userInfo:v34];
 
       v13 = v33;
       v8 = v31;
@@ -223,24 +222,24 @@ LABEL_14:
     if ((v28 & 1) == 0)
     {
       lastError = [sessionCopy lastError];
-      v44 = MEMORY[0x277CCA9B8];
+      v43 = MEMORY[0x277CCA9B8];
       domain2 = [lastError domain];
       code2 = [lastError code];
-      v55[0] = *MEMORY[0x277CCA470];
+      v54[0] = *MEMORY[0x277CCA470];
       selfCopy = WFLocalizedString(@"SSH Key Authentication Failed");
-      v56[0] = selfCopy;
-      v55[1] = *MEMORY[0x277CCA450];
+      v55[0] = selfCopy;
+      v54[1] = *MEMORY[0x277CCA450];
       WFLocalizedString(@"Make sure the SSH server has this device's public key in its list of authorized keys.");
-      v47 = v13;
+      v46 = v13;
       v38 = v37 = v8;
-      v56[1] = v38;
-      [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:2];
+      v55[1] = v38;
+      [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:2];
       v40 = v39 = v9;
-      v24 = [v44 errorWithDomain:domain2 code:code2 userInfo:v40];
+      v24 = [v43 errorWithDomain:domain2 code:code2 userInfo:v40];
 
       v9 = v39;
       v8 = v37;
-      v13 = v47;
+      v13 = v46;
 
       [sessionCopy disconnect];
       selfCopy2 = self;
@@ -248,19 +247,17 @@ LABEL_14:
     }
   }
 
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __74__WFRunSSHScriptAction_authenticateAndRunAsynchronouslyWithInput_session___block_invoke_2;
-  v49[3] = &unk_278C1A298;
-  v50 = sessionCopy;
-  v51 = v13;
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = __74__WFRunSSHScriptAction_authenticateAndRunAsynchronouslyWithInput_session___block_invoke_2;
+  v48[3] = &unk_278C1A298;
+  v49 = sessionCopy;
+  v50 = v13;
   selfCopy3 = self;
-  [inputCopy getFileRepresentation:v49 forType:0];
+  [inputCopy getFileRepresentation:v48 forType:0];
 
-  lastError = v50;
+  lastError = v49;
 LABEL_15:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 void __74__WFRunSSHScriptAction_authenticateAndRunAsynchronouslyWithInput_session___block_invoke_2(uint64_t a1, void *a2)
@@ -358,7 +355,7 @@ LABEL_15:
 
 - (void)runAsynchronouslyWithInput:(id)input
 {
-  v83[1] = *MEMORY[0x277D85DE8];
+  v82[1] = *MEMORY[0x277D85DE8];
   inputCopy = input;
   if (WFRunOpenSSLCpuidSetupIfNeeded_onceToken != -1)
   {
@@ -386,15 +383,15 @@ LABEL_15:
     v13 = +[WFSSHKeyPair knownHostFileURL];
     path = [v13 path];
 
-    v83[0] = path;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:1];
+    v82[0] = path;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:1];
     v16 = [v12 knownHostStatusInFiles:v15];
 
     if (v16)
     {
       if (v16 == 1)
       {
-        v59 = path;
+        v58 = path;
         workflow = [(WFRunSSHScriptAction *)self workflow];
         environment = [workflow environment];
 
@@ -402,65 +399,65 @@ LABEL_15:
         {
           v19 = MEMORY[0x277CCA9B8];
           v20 = *MEMORY[0x277D7CB30];
-          v81[0] = *MEMORY[0x277CCA470];
+          v80[0] = *MEMORY[0x277CCA470];
           v21 = WFLocalizedString(@"SSH Authentication Failed");
-          v82[0] = v21;
-          v81[1] = *MEMORY[0x277CCA450];
+          v81[0] = v21;
+          v80[1] = *MEMORY[0x277CCA450];
           v22 = WFLocalizedString(@"The SSH server has a fingerprint that is different from the fingerprint that was saved when the SSH action was last run.");
-          v82[1] = v22;
-          v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:v81 count:2];
+          v81[1] = v22;
+          v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:v80 count:2];
           v24 = [v19 errorWithDomain:v20 code:1 userInfo:v23];
 
           [v12 disconnect];
           [(WFRunSSHScriptAction *)self finishRunningWithError:v24];
 
-          path = v59;
+          path = v58;
 LABEL_17:
 
           goto LABEL_18;
         }
 
-        v55 = [v12 fingerprint:0];
-        v57 = [MEMORY[0x277CFC218] alertWithPreferredStyle:0];
+        v54 = [v12 fingerprint:0];
+        v56 = [MEMORY[0x277CFC218] alertWithPreferredStyle:0];
         v28 = WFLocalizedString(@"Remote Host Identification Has Changed");
-        [v57 setTitle:v28];
+        [v56 setTitle:v28];
 
         v29 = MEMORY[0x277CCACA8];
         v30 = WFLocalizedString(@"IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!\n\nThis could indicate a man-in-the-middle attack, or it is possible that the host has changed.\n\nThe host key's fingerprint is %@.\n\nAre you sure you want to continue connecting?");
-        v31 = [v29 stringWithFormat:v30, v55];
-        [v57 setMessage:v31];
+        v31 = [v29 stringWithFormat:v30, v54];
+        [v56 setMessage:v31];
 
         v32 = MEMORY[0x277CFC220];
-        v78[0] = MEMORY[0x277D85DD0];
-        v78[1] = 3221225472;
-        v78[2] = __51__WFRunSSHScriptAction_runAsynchronouslyWithInput___block_invoke;
-        v78[3] = &unk_278C21508;
+        v77[0] = MEMORY[0x277D85DD0];
+        v77[1] = 3221225472;
+        v77[2] = __51__WFRunSSHScriptAction_runAsynchronouslyWithInput___block_invoke;
+        v77[3] = &unk_278C21508;
         v33 = v12;
-        v79 = v33;
+        v78 = v33;
         selfCopy = self;
-        v34 = [v32 cancelButtonWithHandler:v78];
-        [v57 addButton:v34];
+        v34 = [v32 cancelButtonWithHandler:v77];
+        [v56 addButton:v34];
 
         v35 = MEMORY[0x277CFC220];
         v36 = WFLocalizedString(@"Continue Anyway");
-        v71[0] = MEMORY[0x277D85DD0];
-        v71[1] = 3221225472;
-        v71[2] = __51__WFRunSSHScriptAction_runAsynchronouslyWithInput___block_invoke_2;
-        v71[3] = &unk_278C1B140;
-        v72 = v33;
-        v73 = v5;
-        v77 = integerValue;
-        v74 = v59;
+        v70[0] = MEMORY[0x277D85DD0];
+        v70[1] = 3221225472;
+        v70[2] = __51__WFRunSSHScriptAction_runAsynchronouslyWithInput___block_invoke_2;
+        v70[3] = &unk_278C1B140;
+        v71 = v33;
+        v72 = v5;
+        v76 = integerValue;
+        v73 = v58;
         selfCopy2 = self;
-        v76 = inputCopy;
-        v37 = [v35 buttonWithTitle:v36 style:2 handler:v71];
-        [v57 addButton:v37];
+        v75 = inputCopy;
+        v37 = [v35 buttonWithTitle:v36 style:2 handler:v70];
+        [v56 addButton:v37];
 
-        path = v59;
+        path = v58;
         userInterface = [(WFRunSSHScriptAction *)self userInterface];
-        [userInterface presentAlert:v57];
+        [userInterface presentAlert:v56];
 
-        v39 = v55;
+        v39 = v54;
 LABEL_16:
 
         goto LABEL_17;
@@ -471,52 +468,52 @@ LABEL_16:
 
       if (environment2 != 1)
       {
-        v58 = [v12 fingerprint:0];
+        v57 = [v12 fingerprint:0];
         v40 = [MEMORY[0x277CFC218] alertWithPreferredStyle:0];
         WFLocalizedString(@"Unknown Host");
-        v41 = v60 = path;
-        v56 = inputCopy;
+        v41 = v59 = path;
+        v55 = inputCopy;
         v42 = v40;
         [v40 setTitle:v41];
 
         v43 = MEMORY[0x277CCACA8];
         v44 = WFLocalizedString(@"The authenticity of host '%@' can't be established because it has not been seen before by this device.\n\nThe host's key fingerprint is %@.\n\nAre you sure you want to continue connecting?");
-        v45 = [v43 stringWithFormat:v44, v5, v58];
+        v45 = [v43 stringWithFormat:v44, v5, v57];
         v46 = v42;
         [v42 setMessage:v45];
 
         v47 = MEMORY[0x277CFC220];
-        v68[0] = MEMORY[0x277D85DD0];
-        v68[1] = 3221225472;
-        v68[2] = __51__WFRunSSHScriptAction_runAsynchronouslyWithInput___block_invoke_3;
-        v68[3] = &unk_278C21508;
+        v67[0] = MEMORY[0x277D85DD0];
+        v67[1] = 3221225472;
+        v67[2] = __51__WFRunSSHScriptAction_runAsynchronouslyWithInput___block_invoke_3;
+        v67[3] = &unk_278C21508;
         v48 = v12;
-        v69 = v48;
+        v68 = v48;
         selfCopy3 = self;
-        v49 = [v47 cancelButtonWithHandler:v68];
+        v49 = [v47 cancelButtonWithHandler:v67];
         [v42 addButton:v49];
 
         v50 = MEMORY[0x277CFC220];
-        inputCopy = v56;
+        inputCopy = v55;
         v51 = WFLocalizedString(@"Connect");
-        v61[0] = MEMORY[0x277D85DD0];
-        v61[1] = 3221225472;
-        v61[2] = __51__WFRunSSHScriptAction_runAsynchronouslyWithInput___block_invoke_4;
-        v61[3] = &unk_278C1B140;
-        v62 = v48;
-        v63 = v5;
-        v67 = integerValue;
-        v64 = v60;
+        v60[0] = MEMORY[0x277D85DD0];
+        v60[1] = 3221225472;
+        v60[2] = __51__WFRunSSHScriptAction_runAsynchronouslyWithInput___block_invoke_4;
+        v60[3] = &unk_278C1B140;
+        v61 = v48;
+        v62 = v5;
+        v66 = integerValue;
+        v63 = v59;
         selfCopy4 = self;
-        v66 = v56;
-        v52 = [v50 buttonWithTitle:v51 style:0 preferred:1 handler:v61];
+        v65 = v55;
+        v52 = [v50 buttonWithTitle:v51 style:0 preferred:1 handler:v60];
         [v46 addButton:v52];
 
-        path = v60;
+        path = v59;
         userInterface2 = [(WFRunSSHScriptAction *)self userInterface];
         [userInterface2 presentAlert:v46];
 
-        v39 = v58;
+        v39 = v57;
         goto LABEL_16;
       }
 
@@ -531,7 +528,6 @@ LABEL_16:
   [(WFRunSSHScriptAction *)self finishRunningSSHScriptWithError:lastError];
 
 LABEL_18:
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 void __51__WFRunSSHScriptAction_runAsynchronouslyWithInput___block_invoke(uint64_t a1)

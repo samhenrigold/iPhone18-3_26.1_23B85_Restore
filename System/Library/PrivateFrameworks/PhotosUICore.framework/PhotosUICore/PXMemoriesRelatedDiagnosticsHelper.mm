@@ -972,7 +972,7 @@ void __112__PXMemoriesRelatedDiagnosticsHelper__sanitizedGraphDataDictionaryForA
       [dictionary setObject:v42 forKey:@"pixelHeight"];
 
       v43 = MEMORY[0x1E696AD98];
-      [itemCopy duration];
+      objc_msgSend_duration(itemCopy);
       v44 = [v43 numberWithDouble:?];
       [dictionary setObject:v44 forKey:@"duration"];
 

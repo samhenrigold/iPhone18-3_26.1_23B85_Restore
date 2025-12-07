@@ -928,7 +928,7 @@ void __65__CNPhotoPickerAnimojiProviderItem_renderAvatarWithPoseWithSize___block
     v14 = 0u;
     v15 = 0u;
     v13 = 0u;
-    [(CNPhotoPickerAnimojiProviderItem *)self transformForMemojiMetadata];
+    objc_msgSend_transformForMemojiMetadata(self);
     v6 = MEMORY[0x1E695CF08];
     avatarRecord = [(CNPhotoPickerAnimojiProviderItem *)self avatarRecord];
     poseConfiguration = [(CNPhotoPickerAnimojiProviderItem *)self poseConfiguration];

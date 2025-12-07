@@ -8,18 +8,16 @@
 
 + (id)requiredDAGServices
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v11[0] = v4;
+  v10[0] = v4;
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v11[1] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v10[1] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
   v8 = [v2 setWithArray:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -81,48 +79,44 @@
 
 void __39__CDMHelloWorldServiceGraph_buildGraph__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(*(*(a1 + 32) + 8) + 40);
-    v5 = 136315394;
-    v6 = "[CDMHelloWorldServiceGraph buildGraph]_block_invoke";
-    v7 = 2112;
-    v8 = v3;
-    _os_log_impl(&dword_1DC287000, v2, OS_LOG_TYPE_INFO, "%s Dummy tokenize step as an example, utterance=%@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[CDMHelloWorldServiceGraph buildGraph]_block_invoke";
+    v6 = 2112;
+    v7 = v3;
+    _os_log_impl(&dword_1DC287000, v2, OS_LOG_TYPE_INFO, "%s Dummy tokenize step as an example, utterance=%@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __39__CDMHelloWorldServiceGraph_buildGraph__block_invoke_590(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   if ([@"hello world: COVID happened 😢" isEqualToString:*(*(*(a1 + 32) + 8) + 40)])
   {
     v2 = MEMORY[0x1E696ABC0];
-    v7 = *MEMORY[0x1E696A578];
-    v8[0] = @"Testing that CDMHelloWorldServiceGraph produced error";
-    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v6 = *MEMORY[0x1E696A578];
+    v7[0] = @"Testing that CDMHelloWorldServiceGraph produced error";
+    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
     v4 = [v2 errorWithDomain:@"mock error domain" code:23 userInfo:v3];
 
     WeakRetained = objc_loadWeakRetained((a1 + 40));
     [WeakRetained setError:v4];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __39__CDMHelloWorldServiceGraph_buildGraph__block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v9 = 136315138;
-    v10 = "[CDMHelloWorldServiceGraph buildGraph]_block_invoke_2";
-    _os_log_impl(&dword_1DC287000, v2, OS_LOG_TYPE_INFO, "%s Dummy postProcess step which creates a dummy SIRINLUEXTERNALCDMNluResponse", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = "[CDMHelloWorldServiceGraph buildGraph]_block_invoke_2";
+    _os_log_impl(&dword_1DC287000, v2, OS_LOG_TYPE_INFO, "%s Dummy postProcess step which creates a dummy SIRINLUEXTERNALCDMNluResponse", &v8, 0xCu);
   }
 
   v3 = objc_alloc_init(MEMORY[0x1E69D11C0]);
@@ -135,8 +129,6 @@ void __39__CDMHelloWorldServiceGraph_buildGraph__block_invoke_2(uint64_t a1)
   v6 = [[CDMAssistantNLUResponse alloc] initWithNLUResponse:v5 requestId:@"✋ Welcome to this dummy Hello World service graph. Have a nice day! ✅"];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained setGraphOutput:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

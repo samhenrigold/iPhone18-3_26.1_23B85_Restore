@@ -27,7 +27,7 @@
   v11 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMMLogEvent durationMilliseconds](self, "durationMilliseconds")}];
   [dictionary setObject:v11 forKeyedSubscript:@"durationInMS"];
 
-  v12 = [dictionary copy];
+  v12 = objc_msgSend_copy(dictionary);
 
   return v12;
 }
@@ -40,7 +40,7 @@
   v5 = [(HMMLogEvent *)&v9 init];
   if (v5)
   {
-    v6 = [identifierCopy copy];
+    v6 = objc_msgSend_copy(identifierCopy);
     accessoryIdentifier = v5->_accessoryIdentifier;
     v5->_accessoryIdentifier = v6;
   }

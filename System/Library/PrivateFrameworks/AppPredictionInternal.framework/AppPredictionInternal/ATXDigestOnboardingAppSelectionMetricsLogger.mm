@@ -82,26 +82,24 @@
 
 void __102__ATXDigestOnboardingAppSelectionMetricsLogger_logDigestOnboardingAppSelectionMetricsWithXPCActivity___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v5 = v4;
   if (*(*(*(a1 + 48) + 8) + 24) == 1)
   {
-    v5 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = __atxlog_handle_metrics(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v6 = *(a1 + 32);
       v7 = objc_opt_class();
       v8 = NSStringFromClass(v7);
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_INFO, "%@ - XPC Activity deferred, terminating.", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_INFO, "%@ - XPC Activity deferred, terminating.", &v9, 0xCu);
     }
   }
 
-  [*(a1 + 40) setBookmark:v4];
+  [*(a1 + 40) setBookmark:v5];
   [*(a1 + 32) writeBookmarkToFile:*(a1 + 40)];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __102__ATXDigestOnboardingAppSelectionMetricsLogger_logDigestOnboardingAppSelectionMetricsWithXPCActivity___block_invoke_26(uint64_t a1, void *a2)
@@ -133,31 +131,30 @@ uint64_t __102__ATXDigestOnboardingAppSelectionMetricsLogger_logDigestOnboarding
 
 - (void)writeBookmarkToFile:(id)file
 {
-  v6 = 0;
-  [file saveBookmarkWithError:&v6];
-  v4 = v6;
+  v7 = 0;
+  [file saveBookmarkWithError:&v7];
+  v4 = v7;
+  v5 = v4;
   if (v4)
   {
-    v5 = __atxlog_handle_metrics();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_metrics(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [(ATXDigestOnboardingAppSelectionMetricsLogger *)self writeBookmarkToFile:v4, v5];
+      [(ATXDigestOnboardingAppSelectionMetricsLogger *)self writeBookmarkToFile:v5, v6];
     }
   }
 }
 
 - (void)writeBookmarkToFile:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v8 = 138412546;
-  v9 = v6;
-  v10 = 2112;
-  v11 = a2;
-  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "%@ - Unable to save bookmark due to : %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v6;
+  v9 = 2112;
+  v10 = a2;
+  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "%@ - Unable to save bookmark due to : %@", &v7, 0x16u);
 }
 
 @end

@@ -79,7 +79,7 @@ uint64_t __49__REFeatureValue_NullValue__nullValueForFeature___block_invoke()
 
 + (REFeatureValue)featureValueWithDictionary:(id)dictionary
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v4 = [dictionaryCopy objectForKeyedSubscript:@"value_type"];
   integerValue = [v4 integerValue];
@@ -120,30 +120,30 @@ LABEL_19:
       goto LABEL_19;
     case 4:
       v9 = [MEMORY[0x277CBEB58] set];
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
       v10 = v7;
-      v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v20;
+        v13 = *v19;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v20 != v13)
+            if (*v19 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = [REFeatureValue featureValueWithDictionary:*(*(&v19 + 1) + 8 * i), v19];
+            v15 = [REFeatureValue featureValueWithDictionary:*(*(&v18 + 1) + 8 * i), v18];
             [v9 addObject:v15];
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
         }
 
         while (v12);
@@ -156,14 +156,12 @@ LABEL_19:
 
 LABEL_20:
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)dictionaryEncoding
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   type = [(REFeatureValue *)self type];
   v4 = &unk_283BBD920;
   if (type <= 1)
@@ -200,30 +198,30 @@ LABEL_19:
       goto LABEL_19;
     case 4:
       array = [MEMORY[0x277CBEB18] array];
+      v17 = 0u;
       v18 = 0u;
       v19 = 0u;
       v20 = 0u;
-      v21 = 0u;
       setValue = [(REFeatureValue *)self setValue];
-      v7 = [setValue countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v7 = [setValue countByEnumeratingWithState:&v17 objects:v23 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v19;
+        v9 = *v18;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v19 != v9)
+            if (*v18 != v9)
             {
               objc_enumerationMutation(setValue);
             }
 
-            dictionaryEncoding = [*(*(&v18 + 1) + 8 * i) dictionaryEncoding];
+            dictionaryEncoding = [*(*(&v17 + 1) + 8 * i) dictionaryEncoding];
             [array addObject:dictionaryEncoding];
           }
 
-          v8 = [setValue countByEnumeratingWithState:&v18 objects:v24 count:16];
+          v8 = [setValue countByEnumeratingWithState:&v17 objects:v23 count:16];
         }
 
         while (v8);
@@ -234,14 +232,12 @@ LABEL_19:
   }
 
 LABEL_20:
-  v22[0] = @"value_type";
+  v21[0] = @"value_type";
   v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[REFeatureValue type](self, "type")}];
-  v22[1] = @"value_value";
-  v23[0] = v14;
-  v23[1] = v4;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v21[1] = @"value_value";
+  v22[0] = v14;
+  v22[1] = v4;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
 
   return v15;
 }

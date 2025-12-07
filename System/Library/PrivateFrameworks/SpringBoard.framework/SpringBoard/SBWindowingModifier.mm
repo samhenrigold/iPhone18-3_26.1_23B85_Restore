@@ -88,7 +88,7 @@
   appLayouts = [(SBWindowingModifier *)self appLayouts];
   v6 = [appLayouts objectAtIndex:index];
 
-  [(SBWindowingModifier *)self frameForItem:v6];
+  objc_msgSend_frameForItem_(self);
   v7 = v9;
   v8 = v10;
   result.y = v8;
@@ -101,7 +101,7 @@
   appLayouts = [(SBWindowingModifier *)self appLayouts];
   v6 = [appLayouts objectAtIndex:index];
 
-  [(SBWindowingModifier *)self frameForItem:v6, 0, 0];
+  objc_msgSend_frameForItem_(self, 0, 0);
   v7 = 0.0 - 0.0 * 0.5;
   v8 = v7;
   v9 = 0.0;
@@ -118,7 +118,7 @@
   appLayouts = [(SBWindowingModifier *)self appLayouts];
   v6 = [appLayouts objectAtIndex:index];
 
-  [(SBWindowingModifier *)self frameForItem:v6];
+  objc_msgSend_frameForItem_(self);
   return v8;
 }
 
@@ -127,7 +127,7 @@
   appLayouts = [(SBWindowingModifier *)self appLayouts];
   v6 = [appLayouts objectAtIndex:index];
 
-  [(SBWindowingModifier *)self cornersForItem:v6];
+  objc_msgSend_cornersForItem_(self);
   v7 = v11;
   v8 = v12;
   v9 = v13;
@@ -144,7 +144,7 @@
   appLayouts = [(SBWindowingModifier *)self appLayouts];
   v6 = [appLayouts objectAtIndex:index];
 
-  [(SBWindowingModifier *)self cornersForItem:v6];
+  objc_msgSend_cornersForItem_(self);
   v7 = v9;
 
   return v7;
@@ -236,7 +236,7 @@
   appLayouts = [(SBWindowingModifier *)self appLayouts];
   v6 = [appLayouts objectAtIndex:index];
 
-  [(SBWindowingModifier *)self titleStyleForItem:v6];
+  objc_msgSend_titleStyleForItem_(self);
   v7 = v9;
 
   return v7;
@@ -247,7 +247,7 @@
   appLayouts = [(SBWindowingModifier *)self appLayouts];
   v6 = [appLayouts objectAtIndex:index];
 
-  [(SBWindowingModifier *)self titleStyleForItem:v6];
+  objc_msgSend_titleStyleForItem_(self);
   return v8;
 }
 
@@ -256,7 +256,7 @@
   appLayouts = [(SBWindowingModifier *)self appLayouts];
   v6 = [appLayouts objectAtIndex:index];
 
-  [(SBWindowingModifier *)self titleStyleForItem:v6];
+  objc_msgSend_titleStyleForItem_(self);
   return v8;
 }
 
@@ -265,7 +265,7 @@
   appLayouts = [(SBWindowingModifier *)self appLayouts];
   v6 = [appLayouts objectAtIndex:index];
 
-  [(SBWindowingModifier *)self titleStyleForItem:v6];
+  objc_msgSend_titleStyleForItem_(self);
   return v8;
 }
 
@@ -287,7 +287,7 @@
 
   if (v18)
   {
-    [v18 frame];
+    objc_msgSend_frame(v18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, v27.receiver, v27.super_class);
     UIRectGetCenter();
     UIRectCenteredAboutPoint();
     v11 = v19;
@@ -316,7 +316,7 @@
   v9 = v8;
   if (v8)
   {
-    [v8 frame];
+    objc_msgSend_frame(v8);
     v10 = v17;
     v11 = v18;
   }
@@ -344,7 +344,7 @@
   v8 = v7;
   if (v7)
   {
-    [v7 frame];
+    objc_msgSend_frame(v7);
     v9 = v13;
   }
 
@@ -573,7 +573,7 @@
   v7 = v6;
   if (v6)
   {
-    [v6 frame];
+    objc_msgSend_frame(v6);
   }
 
   else
@@ -593,7 +593,7 @@
   v7 = v6;
   if (v6)
   {
-    [v6 corners];
+    objc_msgSend_corners(v6);
   }
 
   else
@@ -640,7 +640,7 @@
   v7 = v6;
   if (v6)
   {
-    [v6 titleStyle];
+    objc_msgSend_titleStyle(v6);
   }
 
   else
@@ -1242,10 +1242,10 @@ void __29__SBWindowingModifier_update__block_invoke_3(uint64_t a1, void *a2)
     currentResponses = self->_currentResponses;
   }
 
-  [(NSMutableArray *)currentResponses addObject:v9];
+  responseCopy = [(NSMutableArray *)currentResponses addObject:v9];
 LABEL_6:
 
-  MEMORY[0x2821F9730]();
+  MEMORY[0x2821F9730](responseCopy);
 }
 
 - (void)appendResponses:(id)responses

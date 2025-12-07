@@ -7,7 +7,7 @@
 
 - (id)textureSource
 {
-  v3 = sub_1AF0D5194();
+  v3 = sub_1AF0D5194(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_1AFDF3CE8(a2);

@@ -12,7 +12,7 @@
 - (id)retrieveAndClearLatestResponses
 {
   latestResponses = [(HMDPendingResponse *)self latestResponses];
-  v4 = [latestResponses copy];
+  v4 = objc_msgSend_copy(latestResponses);
 
   latestResponses2 = [(HMDPendingResponse *)self latestResponses];
   [latestResponses2 removeAllObjects];
@@ -23,7 +23,7 @@
 - (id)retrieveAndClearAllResponses
 {
   allResponses = [(HMDPendingResponse *)self allResponses];
-  v4 = [allResponses copy];
+  v4 = objc_msgSend_copy(allResponses);
 
   allResponses2 = [(HMDPendingResponse *)self allResponses];
   [allResponses2 removeAllObjects];

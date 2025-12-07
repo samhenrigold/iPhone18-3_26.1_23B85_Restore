@@ -2,12 +2,12 @@
 - (BOOL)isEmpty;
 - (NSCountableTextLocation)_createLocationFromOffset:(uint64_t)offset;
 - (NSCountableTextLocation)_locationFromLocation:(uint64_t)location withOffset:;
+- (NSCountableTextRange)_createTextRangeFromRange:(char *)range;
 - (NSTextRange)contentRange;
 - (_NSTextRunStorage)initWithDataSource:(id)source;
 - (id)description;
 - (id)enumerateObjectsFromLocation:(id)location options:(int64_t)options usingBlock:(id)block;
 - (int64_t)baseIndex;
-- (uint64_t)_createTextRangeFromRange:(uint64_t)range;
 - (uint64_t)_indexFromTextLocation:(uint64_t)result;
 - (uint64_t)_rangeFromTextRange:(uint64_t)range;
 - (void)_performCountableRunStorageOperation:(uint64_t)operation;
@@ -337,7 +337,7 @@
   objc_sync_exit(self);
 }
 
-- (uint64_t)_createTextRangeFromRange:(uint64_t)range
+- (NSCountableTextRange)_createTextRangeFromRange:(char *)range
 {
   if (!self)
   {
@@ -352,7 +352,7 @@
       v10 = [*(self + 8) locationFromLocation:objc_msgSend(self withOffset:{"baseLocation"), a2}];
       if (range)
       {
-        range = [*(self + 8) locationFromLocation:objc_msgSend(self withOffset:{"baseLocation"), a2 + range}];
+        range = [*(self + 8) locationFromLocation:objc_msgSend(self withOffset:{"baseLocation"), &range[a2]}];
       }
 
       v11 = [NSTextRange alloc];

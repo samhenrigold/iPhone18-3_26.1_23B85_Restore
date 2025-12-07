@@ -8,13 +8,13 @@
 
 + (uint64_t)skui_alertControllerForRequiredAuthorizationIfNeccesaryForBundle:()SensorKitUI authGroup:destructiveHandler:
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   localizedDisplayName = [a4 localizedDisplayName];
   sk_appName = [a3 sk_appName];
   v11 = [a3 srui_localizedStudyDataAlertTitleWithAuthGroupName:localizedDisplayName];
   localizedRequiredAuthAlertDetail = [a4 localizedRequiredAuthAlertDetail];
-  v18 = 0;
-  v13 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:localizedRequiredAuthAlertDetail validFormatSpecifiers:@"%@%@" error:&v18, sk_appName, localizedDisplayName];
+  v17 = 0;
+  v13 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:localizedRequiredAuthAlertDetail validFormatSpecifiers:@"%@%@" error:&v17, sk_appName, localizedDisplayName];
   if (!v13)
   {
     if (_MergedGlobals_10 != -1)
@@ -26,15 +26,13 @@
     if (os_log_type_enabled(qword_28001A318, OS_LOG_TYPE_FAULT))
     {
       *buf = 138543362;
-      v20 = v18;
+      v19 = v17;
       _os_log_fault_impl(&dword_265602000, v14, OS_LOG_TYPE_FAULT, "Failed to localize string because %{public}@", buf, 0xCu);
     }
   }
 
   v15 = [MEMORY[0x277CCACA8] srui_localizedStringForCode:39];
-  result = [self skui_requiredAuthorizationAlertIfNeccesaryForBundle:a3 authGroup:a4 title:v11 message:v13 destructiveButtonTitle:v15 destructiveHandler:a5 cancelButtonTitle:objc_msgSend(MEMORY[0x277CCACA8] cancelHandler:{"srui_localizedStringForCode:", 40), 0}];
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+  return [self skui_requiredAuthorizationAlertIfNeccesaryForBundle:a3 authGroup:a4 title:v11 message:v13 destructiveButtonTitle:v15 destructiveHandler:a5 cancelButtonTitle:objc_msgSend(MEMORY[0x277CCACA8] cancelHandler:{"srui_localizedStringForCode:", 40), 0}];
 }
 
 + (void)skui_requiredAuthorizationAlertIfNeccesaryForBundle:()SensorKitUI authGroup:title:message:destructiveButtonTitle:destructiveHandler:cancelButtonTitle:cancelHandler:
@@ -54,12 +52,12 @@
 
 + (uint64_t)skui_alertControllerForRequiredAuthorizationIfNeccesaryForBundle:()SensorKitUI authGroup:tableView:indexPath:destructiveHandler:
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   localizedDisplayName = [a4 localizedDisplayName];
   v14 = [a3 srui_localizedStudyDataAlertTitleWithAuthGroupName:localizedDisplayName];
   localizedRevokeRequiredAuthAlertDetail = [a4 localizedRevokeRequiredAuthAlertDetail];
-  v23 = 0;
-  v16 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:localizedRevokeRequiredAuthAlertDetail validFormatSpecifiers:@"%@" error:&v23, localizedDisplayName];
+  v22 = 0;
+  v16 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:localizedRevokeRequiredAuthAlertDetail validFormatSpecifiers:@"%@" error:&v22, localizedDisplayName];
   if (!v16)
   {
     if (_MergedGlobals_10 != -1)
@@ -71,22 +69,20 @@
     if (os_log_type_enabled(qword_28001A318, OS_LOG_TYPE_FAULT))
     {
       *buf = 138543362;
-      v25 = v23;
+      v24 = v22;
       _os_log_fault_impl(&dword_265602000, v17, OS_LOG_TYPE_FAULT, "Failed to localize string because %{public}@", buf, 0xCu);
     }
   }
 
   v18 = [MEMORY[0x277CCACA8] srui_localizedStringForCode:41];
   v19 = [MEMORY[0x277CCACA8] srui_localizedStringForCode:26];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __148__UIAlertController_SensorKitUI__skui_alertControllerForRequiredAuthorizationIfNeccesaryForBundle_authGroup_tableView_indexPath_destructiveHandler___block_invoke;
-  v22[3] = &unk_279B984D8;
-  v22[4] = a5;
-  v22[5] = a6;
-  result = [self skui_requiredAuthorizationAlertIfNeccesaryForBundle:a3 authGroup:a4 title:v14 message:v16 destructiveButtonTitle:v18 destructiveHandler:a7 cancelButtonTitle:v19 cancelHandler:v22];
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __148__UIAlertController_SensorKitUI__skui_alertControllerForRequiredAuthorizationIfNeccesaryForBundle_authGroup_tableView_indexPath_destructiveHandler___block_invoke;
+  v21[3] = &unk_279B984D8;
+  v21[4] = a5;
+  v21[5] = a6;
+  return [self skui_requiredAuthorizationAlertIfNeccesaryForBundle:a3 authGroup:a4 title:v14 message:v16 destructiveButtonTitle:v18 destructiveHandler:a7 cancelButtonTitle:v19 cancelHandler:v21];
 }
 
 @end

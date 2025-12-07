@@ -16,7 +16,7 @@
     v5 = objc_alloc(MEMORY[0x1E69DCFD0]);
     v6 = [v5 initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
     textLabel = [(CKTranscriptDNDCell *)v4 textLabel];
-    v8 = CKFrameworkBundle();
+    v8 = CKFrameworkBundle(textLabel);
     v9 = [v8 localizedStringForKey:@"DETAILS_VIEW_HIDE_ALERTS_TOGGLE_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
     [textLabel setText:v9];
 

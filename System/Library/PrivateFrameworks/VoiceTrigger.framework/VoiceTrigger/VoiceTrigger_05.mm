@@ -1,3 +1,101 @@
+void NBNNSIRDistribution::resetState(NBNNSIRDistribution *this, void *a2)
+{
+  if (a2)
+  {
+    v3 = *(this + 50);
+    if (v3)
+    {
+      v5 = 0;
+      v6 = 0;
+      v7 = 4 * v3;
+      do
+      {
+        v8 = *(*(this + 27) + v6);
+        if (v8)
+        {
+          bzero(*(a2[1] + v5), v8);
+        }
+
+        v6 += 4;
+        v5 += 16;
+      }
+
+      while (v7 != v6);
+    }
+  }
+}
+
+uint64_t NBNNSIRDistribution::deallocateState(uint64_t this, void *a2)
+{
+  if (a2)
+  {
+    v3 = *(this + 200);
+    if (v3)
+    {
+      v4 = 0;
+      v5 = 0;
+      do
+      {
+        if (!*(*(this + 216) + v5))
+        {
+          *(a2[1] + v4) = 0;
+        }
+
+        v5 += 4;
+        v4 += 16;
+      }
+
+      while (4 * v3 != v5);
+    }
+
+    *(a2[1] + 16 * *(this + 172)) = 0;
+    *(a2[1] + 16 * *(this + 176)) = 0;
+    if (v3)
+    {
+      v6 = 0;
+      v7 = a2[1];
+      v8 = 16 * v3;
+      do
+      {
+        v9 = *(v7 + v6);
+        if (v9)
+        {
+          MEMORY[0x223DF1D20](v9, 0x1000C4077774924);
+          v7 = a2[1];
+        }
+
+        *(v7 + v6) = 0;
+        v7 = a2[1];
+        *(v7 + v6 + 8) = 0;
+        v6 += 16;
+      }
+
+      while (v8 != v6);
+    }
+
+    v10 = *(*a2 + 8);
+
+    return v10(a2);
+  }
+
+  return this;
+}
+
+uint64_t NBNNSIRDistribution::allocateStateP(NBNNSIRDistribution *this, const char *a2)
+{
+  if (!*(this + 39))
+  {
+    Error::chuck("NBNNSIRDistribution::scoreAll() - BNNSIR not loaded", a2);
+  }
+
+  if (*(this + 50) >= 3u)
+  {
+    operator new();
+  }
+
+  return 0;
+}
+
 uint64_t NArray<bnns_graph_argument_t>::resize(uint64_t result, _DWORD *a2)
 {
   if (*(result + 16) != *a2)
@@ -9,7 +107,7 @@ uint64_t NArray<bnns_graph_argument_t>::resize(uint64_t result, _DWORD *a2)
   return result;
 }
 
-__n128 NArray<bnns_graph_argument_t>::fromArray(uint64_t a1, uint64_t a2, int *a3)
+__n128 NArray<bnns_graph_argument_t>::fromArray(uint64_t a1, uint64_t a2, unsigned int *a3)
 {
   v4 = *(a1 + 16);
   v5 = *a3;
@@ -158,20 +256,20 @@ void NBNNSIRDistribution::scoreAll(uint64_t a1, uint64_t a2, uint64_t a3, uint64
       Error::chuck("NBNNSIRDistribution::scoreAll() - output (dist) vector has wrong size (%d, should be %d)", a2, *(a3 + 16), v6);
     }
 
-    Error::chuck("NBNNSIRDistribution::scoreAll() - input vector has wrong size (%d, should be %d)", a2, *(a2 + 16), v4);
+    Error::chuck("NBNNSIRDistribution::scoreAll() - input vector has wrong size (%d, should be %d)", a2, a3, a4, *(a2 + 16), v4);
   }
 
-  Error::chuck("NBNNSIRDistribution::scoreAll() - BNNSIR not loaded", a2);
+  Error::chuck("NBNNSIRDistribution::scoreAll() - BNNSIR not loaded", a2, a3, a4);
 }
 
-void sub_223ADEAAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
+void sub_223ADEAAC(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
 {
   if (!a15)
   {
     _Unwind_Resume(exception_object);
   }
 
-  MEMORY[0x223DF1D00](a15, v15);
+  MEMORY[0x223DF1D00](a15, v15, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(exception_object);
 }
 
@@ -224,7 +322,7 @@ void NBNNSIRDistribution::read(NBNNSIRDistribution *this, const NString *a2)
   Error::chuck("NBNNSIRDistribution::read() - missing cookie in %s", v5, *(a2 + 2));
 }
 
-void NBNNSIRDistribution::determineStateWiring(NBNNSIRDistribution *this, const void *a2, const char *a3, const NString *a4)
+void NBNNSIRDistribution::determineStateWiring(NBNNSIRDistribution *this, void *a2, const char *a3, const NString *a4)
 {
   v34 = *MEMORY[0x277D85DE8];
   v32 = a2;
@@ -374,7 +472,7 @@ void sub_223ADFF20(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t NArray<unsigned long>::resize(uint64_t result, _DWORD *a2)
+uint64_t NArray<unsigned long>::resize(uint64_t result, unsigned int *a2)
 {
   if (*(result + 16) != *a2)
   {
@@ -385,7 +483,7 @@ uint64_t NArray<unsigned long>::resize(uint64_t result, _DWORD *a2)
   return result;
 }
 
-uint64_t NArray<unsigned long>::fromArray(uint64_t result, uint64_t a2, int *a3)
+uint64_t NArray<unsigned long>::fromArray(uint64_t result, uint64_t a2, unsigned int *a3)
 {
   v3 = result;
   v4 = *(result + 16);
@@ -790,9 +888,9 @@ uint64_t NBNNSIRDistribution::flipStateOutputsToInputs(uint64_t this, void *a2)
   return this;
 }
 
-void sub_223AE2C68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_223AE2C68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
@@ -1970,20 +2068,20 @@ BOOL sanity_check_hmms(uint64_t a1, unsigned int *a2, unsigned int a3)
     return 0;
   }
 
-  v6 = (a2 + 1);
+  v6 = a2 + 1;
   v5 = *a2;
   result = *a2 == 0;
   if (*a2)
   {
     v7 = (8 * v3) | 4;
-    v8 = a2 + a3;
-    if (&v6[v7] <= v8)
+    v8 = (a2 + a3);
+    if ((v6 + v7) <= v8)
     {
-      v9 = 8 * v3;
+      v9 = 2 * v3;
       v10 = 1;
       while (1)
       {
-        v6 += 8 * *&v6[v9] + v9 + 4;
+        v6 = (v6 + 8 * v6[v9] + v9 * 4 + 4);
         if (v6 > v8)
         {
           break;
@@ -1993,7 +2091,7 @@ BOOL sanity_check_hmms(uint64_t a1, unsigned int *a2, unsigned int a3)
         if (v10 < v5)
         {
           ++v10;
-          if (&v6[v7] <= v8)
+          if ((v6 + v7) <= v8)
           {
             continue;
           }
@@ -2009,7 +2107,7 @@ BOOL sanity_check_hmms(uint64_t a1, unsigned int *a2, unsigned int a3)
   return result;
 }
 
-uint64_t nde_process(uint64_t a1, const char *a2, signed int a3, char *a4, uint64_t a5)
+uint64_t nde_process(int32x2_t *a1, const char *a2, uint64_t a3, char *a4, uint64_t a5)
 {
   if (!a4)
   {
@@ -2083,7 +2181,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t nde_process_v2(uint64_t a1, const char *a2, signed int a3, int *a4, uint64_t a5)
+uint64_t nde_process_v2(int32x2_t *a1, const char *a2, uint64_t a3, int *a4, uint64_t a5)
 {
   if (gHasValidModel != 1)
   {
@@ -2124,7 +2222,7 @@ uint64_t nde_process_v2(uint64_t a1, const char *a2, signed int a3, int *a4, uin
   return v9;
 }
 
-uint64_t nde_processframe(uint64_t a1, float32x4_t *a2, unsigned int a3, _BYTE *a4, uint64_t a5)
+uint64_t nde_processframe(uint64_t a1, float32x4_t *a2, uint64_t a3, _BYTE *a4, uint64_t a5)
 {
   if (!a4)
   {
@@ -2172,7 +2270,7 @@ uint64_t nde_processframe(uint64_t a1, float32x4_t *a2, unsigned int a3, _BYTE *
   return v8;
 }
 
-uint64_t nde_processframe_v2(uint64_t a1, float32x4_t *a2, unsigned int a3, int *a4, uint64_t a5)
+uint64_t nde_processframe_v2(uint64_t a1, float32x4_t *a2, uint64_t a3, int *a4, uint64_t a5)
 {
   v5 = 0;
   v11 = 0;
@@ -2369,10 +2467,10 @@ LABEL_13:
   return 1;
 }
 
-void sub_223AF3360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_223AF3360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  MEMORY[0x223DF1C40](va);
+  va_start(va, a5);
+  MEMORY[0x223DF1C40](va, a2, a3);
   _Unwind_Resume(a1);
 }
 
@@ -2403,20 +2501,20 @@ void NFile::readString(NFile *this)
         operator new[]();
       }
 
-      Error::chuck("NFile::readString() - failed to read length for embedded binary string in %s", v3, *(this + 3));
+      Error::chuck("NFile::readString() - failed to read length for embedded binary string in %s", v4, *(this + 3));
     }
 
-    Error::chuck("NFile::readString() - cannot read, file %s not opened in read mode", v2, *(this + 3));
+    Error::chuck("NFile::readString() - cannot read, file %s not opened in read mode", v3, *(this + 3));
   }
 
-  Error::chuck("NFile::readString() - cannot read, file %s is not open", v2, *(this + 3));
+  Error::chuck("NFile::readString() - cannot read, file %s is not open", v3, *(this + 3));
 }
 
-void sub_223AF3624(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+void sub_223AF3624(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
   if (a13)
   {
-    MEMORY[0x223DF1D00](a13, v13);
+    MEMORY[0x223DF1D00](a13, v13, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -2461,41 +2559,41 @@ uint64_t NFile::read(NFile *this, const unsigned int *a2, NString *a3)
   return *(a3 + 2);
 }
 
-void sub_223AF381C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+void sub_223AF381C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   if (a14)
   {
-    MEMORY[0x223DF1D00](a14, v14);
+    MEMORY[0x223DF1D00](a14, v14, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void NFile::read(NFile *this, const unsigned int *a2)
+void NFile::read(NFile *this, unsigned int *a3)
 {
   if ((*(*this + 32))(this))
   {
     if (!*(this + 156))
     {
-      if (*a2 != -1)
+      if (*a3 != -1)
       {
         operator new[]();
       }
 
-      Error::chuck("NFile::read() - attempting impossibly long read in file %s", v4, *(this + 3));
+      Error::chuck("NFile::read() - attempting impossibly long read in file %s", v5, *(this + 3));
     }
 
-    Error::chuck("NFile::read() - cannot read, file %s not opened in read mode", v4, *(this + 3));
+    Error::chuck("NFile::read() - cannot read, file %s not opened in read mode", v5, *(this + 3));
   }
 
-  Error::chuck("NFile::read() - cannot read, file %s is not open", v4, *(this + 3));
+  Error::chuck("NFile::read() - cannot read, file %s is not open", v5, *(this + 3));
 }
 
-void sub_223AF3A7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+void sub_223AF3A7C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   if (a14)
   {
-    MEMORY[0x223DF1D00](a14, v14);
+    MEMORY[0x223DF1D00](a14, v14, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -2604,7 +2702,7 @@ void NDEFrameProc::NDEFrameProc(NDEFrameProc *this)
   *(this + 36) = 0;
 }
 
-float NDEFrameProc::init(NDEFrameProc *this, const unsigned int *a2, float *a3, float *a4, const BOOL *a5)
+float NDEFrameProc::init(NDEFrameProc *this, unsigned int *a2, float *a3, float *a4, const BOOL *a5)
 {
   if (*(this + 4) != *a2)
   {
@@ -2740,8 +2838,7 @@ LABEL_7:
   v30 = v8;
   do
   {
-    v31 = *v28;
-    v28 += 4;
+    v31 = *v28++;
     v50 = vaddq_f32(v31, v46);
     v47 = logf(v50.f32[1]);
     *&v32 = logf(v50.f32[0]);
@@ -2771,29 +2868,29 @@ LABEL_7:
 void softLink_AnalyticsSendEventLazy(void *a1)
 {
   v1 = a1;
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v2 = getAnalyticsSendEventLazySymbolLoc_ptr;
-  v8 = getAnalyticsSendEventLazySymbolLoc_ptr;
+  v9 = getAnalyticsSendEventLazySymbolLoc_ptr;
   if (!getAnalyticsSendEventLazySymbolLoc_ptr)
   {
-    v4[0] = MEMORY[0x277D85DD0];
-    v4[1] = 3221225472;
-    v4[2] = __getAnalyticsSendEventLazySymbolLoc_block_invoke;
-    v4[3] = &unk_2784ED270;
-    v4[4] = &v5;
-    __getAnalyticsSendEventLazySymbolLoc_block_invoke(v4);
-    v2 = v6[3];
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __getAnalyticsSendEventLazySymbolLoc_block_invoke;
+    v5[3] = &unk_2784ED270;
+    v5[4] = &v6;
+    __getAnalyticsSendEventLazySymbolLoc_block_invoke(v5);
+    v2 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v2)
   {
-    dlerror();
-    v3 = abort_report_np();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v3);
+    v3 = dlerror();
+    v4 = abort_report_np("%s", v3);
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v4);
   }
 
   v2(@"com.apple.voicetrigger", v1);
@@ -2825,7 +2922,7 @@ void *__getAnalyticsSendEventLazySymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v6[0]);
     }
 
     v5 = v2;
@@ -2842,7 +2939,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t __CoreAnalyticsLibraryCore_block_invoke()
+uint64_t __CoreAnalyticsLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   CoreAnalyticsLibraryCore_frameworkLibrary = result;
@@ -2940,11 +3037,11 @@ uint64_t NOffsetFile::open(NOffsetFile *this, const NString *a2, const NString *
   return result;
 }
 
-void sub_223AF840C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+void sub_223AF840C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   if (a14)
   {
-    MEMORY[0x223DF1D00](a14, v14);
+    MEMORY[0x223DF1D00](a14, v14, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -3043,19 +3140,19 @@ uint64_t NOffsetFile::read(NOffsetFile *this, unsigned int *a2, NString *a3)
 
 void NOffsetFile::read(NOffsetFile *this, unsigned int *a2)
 {
-  v2 = *(this + 159);
-  v3 = *(this + 158) - v2;
-  if (*a2 < v3)
+  v3 = *(this + 159);
+  v4 = *(this + 158) - v3;
+  if (*a2 < v4)
   {
-    v3 = *a2;
+    v4 = *a2;
   }
 
-  v4 = v3;
-  *(this + 159) = v3 + v2;
-  NFile::read(this, &v4);
+  v5 = v4;
+  *(this + 159) = v4 + v3;
+  NFile::read(this, &v5);
 }
 
-void NOffsetFile::read(NOffsetFile *this@<X0>, uint64_t a2@<X8>)
+void NOffsetFile::read(NOffsetFile *this@<X0>, uint64_t *a2@<X8>)
 {
   v4 = *(this + 158);
   if (v4 != -1)
@@ -3069,7 +3166,7 @@ void NOffsetFile::read(NOffsetFile *this@<X0>, uint64_t a2@<X8>)
 
   *(this + 159) = -1;
 
-  NFile::read(this, a2);
+  NFile::read(a2, this);
 }
 
 void NOffsetFile::~NOffsetFile(NOffsetFile *this)
@@ -3137,10 +3234,10 @@ uint64_t NScrambler::keystream(NScrambler *this)
   return v1;
 }
 
-void NScrambler::convert(const NString *a1@<X1>, uint64_t a2@<X8>)
+void NScrambler::convert(const NString *a2@<X1>, uint64_t a3@<X8>)
 {
-  *a2 = &unk_28370A720;
-  *(a2 + 8) = *(a1 + 2);
+  *a3 = &unk_28370A720;
+  *(a3 + 8) = *(a2 + 2);
   operator new[]();
 }
 
@@ -3151,11 +3248,11 @@ void NScrambler::scramble(NScrambler *this, const NString *a2)
   operator new[]();
 }
 
-void sub_223AF9D00(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_223AF9D00(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, v12);
+    MEMORY[0x223DF1D00](a12, v12, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -3163,22 +3260,22 @@ void sub_223AF9D00(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void base64_encode(const NString *a1)
 {
-  v1 = *(a1 + 2);
-  v2[0] = (v1 * 1.6);
-  v4 = vcvtd_n_f64_u32(v1, 1uLL);
-  NAutoString::NAutoString(&v3, v2, &v4);
+  v2 = *(a1 + 2);
+  v3[0] = (v2 * 1.6);
+  v5 = vcvtd_n_f64_u32(v2, 1uLL);
+  NAutoString::NAutoString(&v4, v3, &v5);
 }
 
-void sub_223AFA220(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+void sub_223AFA220(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, v16);
+    MEMORY[0x223DF1D00](a12, v16, a3, a4, a5, a6, a7, a8);
   }
 
   if (a16)
   {
-    MEMORY[0x223DF1D00](a16, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a16, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -3197,11 +3294,11 @@ NString *NString::replace(NString *this, const NString *a2, const NString *a3)
   return this;
 }
 
-void sub_223AFB488(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_223AFB488(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a12, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -3215,11 +3312,11 @@ void NString::vprintf(NString *this, const char *a2, va_list a3)
   operator new[]();
 }
 
-void sub_223AFB688(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+void sub_223AFB688(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
   if (a13)
   {
-    MEMORY[0x223DF1D00](a13, v13);
+    MEMORY[0x223DF1D00](a13, v13, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -3526,50 +3623,50 @@ void NString::head(NString *this@<X0>, const char *a2@<X1>, uint64_t a3@<X8>)
   Error::chuck("Index %d outside of range [0,%d]", a2, *a2, v5);
 }
 
-void NString::tail(NString *this@<X0>, const char *a2@<X1>, uint64_t a3@<X8>)
+void NString::tail(uint64_t *__return_ptr a1@<X8>, NString *this@<X0>, const char *a3@<X1>)
 {
-  v4 = *a2;
+  v4 = *a3;
   v5 = *(this + 2);
-  if (v5 >= *a2)
+  if (v5 >= *a3)
   {
     v6 = *(this + 2);
-    *a3 = &unk_28370A720;
+    *a1 = &unk_28370A720;
     if (v6)
     {
-      *(a3 + 8) = v5 - v4;
+      *(a1 + 2) = v5 - v4;
       operator new[]();
     }
 
-    Error::chuck("Null pointer passed to string constructor", a2);
+    Error::chuck("Null pointer passed to string constructor", a3);
   }
 
-  Error::chuck("Index %d outside of range [0,%d]", a2, *a2, v5);
+  Error::chuck("Index %d outside of range [0,%d]", a3, *a3, v5);
 }
 
-void NString::cuttail(NString *this@<X0>, const char *a2@<X1>, uint64_t a3@<X8>)
+void NString::cuttail(uint64_t *__return_ptr a1@<X8>, NString *this@<X0>, const char *a3@<X1>)
 {
   v4 = *(this + 2);
-  v5 = v4 - *a2;
-  if (v4 >= *a2)
+  v5 = v4 - *a3;
+  if (v4 >= *a3)
   {
     v6 = *(this + 2);
-    *a3 = &unk_28370A720;
+    *a1 = &unk_28370A720;
     if (v6)
     {
-      *(a3 + 8) = v5;
+      *(a1 + 2) = v5;
       operator new[]();
     }
 
-    Error::chuck("Null pointer passed to string constructor", a2);
+    Error::chuck("Null pointer passed to string constructor", a3);
   }
 
-  Error::chuck("Index %d outside of range [0,%d]", a2, (v4 - *a2), v4);
+  Error::chuck("Index %d outside of range [0,%d]", a3, (v4 - *a3), v4);
 }
 
-void NString::uppercase(uint64_t a1@<X8>)
+void NString::uppercase(uint64_t a2@<X8>)
 {
-  *a1 = &unk_28370A720;
-  *(a1 + 8) = 0;
+  *a2 = &unk_28370A720;
+  *(a2 + 8) = 0;
   operator new[]();
 }
 
@@ -3585,10 +3682,10 @@ void sub_223AFC92C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void NString::lowercase(uint64_t a1@<X8>)
+void NString::lowercase(uint64_t a2@<X8>)
 {
-  *a1 = &unk_28370A720;
-  *(a1 + 8) = 0;
+  *a2 = &unk_28370A720;
+  *(a2 + 8) = 0;
   operator new[]();
 }
 
@@ -3943,19 +4040,19 @@ void NString::hexdecoded(NString *this@<X0>, const char *a2@<X1>, uint64_t a3@<X
   Error::chuck("NString::hexdecoded() - string is odd number of chars", a2);
 }
 
-void sub_223AFD654(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
+void sub_223AFD654(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   *v21 = v22;
   v24 = v21[2];
   if (v24)
   {
-    MEMORY[0x223DF1D00](v24, v20);
+    MEMORY[0x223DF1D00](v24, v20, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void NString::strip(NString *this@<X0>, const NString *a2@<X1>, uint64_t a3@<X8>)
+void NString::strip(NString *this@<X0>, const NString *a2@<X1>, uint64_t *a3@<X8>)
 {
   v5 = *(this + 2);
   v6 = *(a2 + 2);
@@ -4006,10 +4103,10 @@ LABEL_8:
   LODWORD(v5) = v11;
 LABEL_13:
   v12 = v5;
-  NString::slice(this, &v13, &v12, a3);
+  NString::slice(a3, this, &v13, &v12);
 }
 
-void NString::dirname(NString *this@<X0>, uint64_t a2@<X8>)
+void NString::dirname(uint64_t *__return_ptr a1@<X8>, NString *this@<X0>)
 {
   v4 = *(this + 2);
   v5 = strrchr(v4, 47);
@@ -4021,10 +4118,10 @@ void NString::dirname(NString *this@<X0>, uint64_t a2@<X8>)
       v8 = *(this + 2);
       if (v8 >= v7)
       {
-        *a2 = &unk_28370A720;
+        *a1 = &unk_28370A720;
         if (v4)
         {
-          *(a2 + 8) = v7;
+          *(a1 + 2) = v7;
           operator new[]();
         }
 
@@ -4034,13 +4131,13 @@ void NString::dirname(NString *this@<X0>, uint64_t a2@<X8>)
       Error::chuck("Index %d outside of range [0,%d]", v6, v5 - v4, v8);
     }
 
-    *a2 = &unk_28370A720;
-    *(a2 + 8) = 1;
+    *a1 = &unk_28370A720;
+    *(a1 + 2) = 1;
     operator new[]();
   }
 
-  *a2 = &unk_28370A720;
-  *(a2 + 8) = 1;
+  *a1 = &unk_28370A720;
+  *(a1 + 2) = 1;
   operator new[]();
 }
 
@@ -4087,26 +4184,26 @@ void NString::basename(char **this@<X0>, uint64_t a2@<X8>)
   operator new[]();
 }
 
-void NString::basename(char **this, const NString *a2)
+void NString::basename(char **this)
 {
-  v3 = strrchr(this[2], 47);
-  if (v3)
+  v4 = strrchr(this[2], 47);
+  if (v4)
   {
-    v4 = &unk_28370A720;
-    v5 = strlen(v3 + 1);
+    v5 = &unk_28370A720;
+    v6 = strlen(v4 + 1);
     operator new[]();
   }
 
-  v4 = &unk_28370A720;
-  v5 = *(this + 2);
+  v5 = &unk_28370A720;
+  v6 = *(this + 2);
   operator new[]();
 }
 
-void sub_223AFDD7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_223AFDD7C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a12)
   {
-    MEMORY[0x223DF1D00](a12, v12);
+    MEMORY[0x223DF1D00](a12, v12, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4177,22 +4274,22 @@ uint64_t operator<<(uint64_t a1, _DWORD *a2)
   return a1;
 }
 
-void sub_223AFDF48(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+void sub_223AFDF48(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
   if (a13)
   {
-    MEMORY[0x223DF1D00](a13, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a13, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_223AFE0D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+void sub_223AFE0D4(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
   if (a13)
   {
-    MEMORY[0x223DF1D00](a13, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a13, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
@@ -4222,11 +4319,11 @@ uint64_t operator<<(uint64_t a1, float *a2)
   return a1;
 }
 
-void sub_223AFE264(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+void sub_223AFE264(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
   if (a13)
   {
-    MEMORY[0x223DF1D00](a13, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a13, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
@@ -4255,11 +4352,11 @@ uint64_t operator<<(uint64_t a1, double *a2)
   return a1;
 }
 
-void sub_223AFE3F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+void sub_223AFE3F0(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
   if (a13)
   {
-    MEMORY[0x223DF1D00](a13, 0x1000C8077774924);
+    MEMORY[0x223DF1D00](a13, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
     _Unwind_Resume(exception_object);
   }
 
@@ -4423,9 +4520,9 @@ void NVersion::versionMessage(uint64_t a1@<X8>)
   operator new[]();
 }
 
-void sub_223B032A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_223B032A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4442,10 +4539,11 @@ void ndapilog_callback(uint64_t a1)
   }
 }
 
-void sub_223B096FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_223B096FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  _Block_object_dispose((v29 - 144), 8);
-  _Block_object_dispose(&a29, 8);
+  va_start(va, a28);
+  _Block_object_dispose((v28 - 144), 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4470,34 +4568,34 @@ id VTBuildVersion()
   return v0;
 }
 
-id _baseDir()
+id _baseDir(uint64_t a1, uint64_t a2)
 {
-  v0 = CPSharedResourcesDirectory();
-  if ([(__CFString *)v0 rangeOfString:@"root"]!= 0x7FFFFFFFFFFFFFFFLL)
+  v2 = CPSharedResourcesDirectory();
+  if ([(__CFString *)v2 rangeOfString:@"root"]!= 0x7FFFFFFFFFFFFFFFLL)
   {
 
-    v0 = @"/var/mobile";
+    v2 = @"/var/mobile";
   }
 
-  v1 = [(__CFString *)v0 stringByAppendingPathComponent:@"Library"];
+  v3 = [(__CFString *)v2 stringByAppendingPathComponent:@"Library"];
 
-  return v1;
+  return v3;
 }
 
-void *VTLogDirectory()
+void *VTLogDirectory(uint64_t a1, uint64_t a2)
 {
-  v0 = CPSharedResourcesDirectory();
-  if ([(__CFString *)v0 rangeOfString:@"root"]!= 0x7FFFFFFFFFFFFFFFLL)
+  v2 = CPSharedResourcesDirectory();
+  if ([(__CFString *)v2 rangeOfString:@"root"]!= 0x7FFFFFFFFFFFFFFFLL)
   {
 
-    v0 = @"/var/mobile";
+    v2 = @"/var/mobile";
   }
 
-  v1 = [(__CFString *)v0 stringByAppendingPathComponent:@"Library"];
+  v3 = [(__CFString *)v2 stringByAppendingPathComponent:@"Library"];
 
-  v2 = [v1 stringByAppendingPathComponent:@"Logs/CrashReporter/VoiceTrigger/"];
+  v4 = [v3 stringByAppendingPathComponent:@"Logs/CrashReporter/VoiceTrigger/"];
 
-  return v2;
+  return v4;
 }
 
 id VTAudioLogDirectory()
@@ -4512,20 +4610,20 @@ id VTAudioLogDirectory()
   return v1;
 }
 
-void __VTAudioLogDirectory_block_invoke()
+void __VTAudioLogDirectory_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = CPSharedResourcesDirectory();
-  if ([(__CFString *)v0 rangeOfString:@"root"]!= 0x7FFFFFFFFFFFFFFFLL)
+  v2 = CPSharedResourcesDirectory();
+  if ([(__CFString *)v2 rangeOfString:@"root"]!= 0x7FFFFFFFFFFFFFFFLL)
   {
 
-    v0 = @"/var/mobile";
+    v2 = @"/var/mobile";
   }
 
-  v3 = [(__CFString *)v0 stringByAppendingPathComponent:@"Library"];
+  v5 = [(__CFString *)v2 stringByAppendingPathComponent:@"Library"];
 
-  v1 = [v3 stringByAppendingPathComponent:@"Logs/CrashReporter/VoiceTrigger/audio/"];
-  v2 = VTAudioLogDirectory_logPath;
-  VTAudioLogDirectory_logPath = v1;
+  v3 = [v5 stringByAppendingPathComponent:@"Logs/CrashReporter/VoiceTrigger/audio/"];
+  v4 = VTAudioLogDirectory_logPath;
+  VTAudioLogDirectory_logPath = v3;
 }
 
 id VTMakeTimestampedAudioLogFilenameWithPrefixAndSuffix(void *a1, void *a2)
@@ -4958,11 +5056,11 @@ LABEL_11:
   return result;
 }
 
-void sub_223B0CDF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+void sub_223B0CDF0(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
 {
   if (a17)
   {
-    MEMORY[0x223DF1D00](a17, v17);
+    MEMORY[0x223DF1D00](a17, v17, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5003,9 +5101,9 @@ uint64_t NLoadedMemory::mapFile(NLoadedMemory *this, const char **a2)
   return result;
 }
 
-void sub_223B0D820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_223B0D820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5035,7 +5133,7 @@ Class __getBKDeviceClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -5046,14 +5144,14 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "BKDevice");
   }
 
   getBKDeviceClass_softClass = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-uint64_t __BiometricKitLibraryCore_block_invoke()
+uint64_t __BiometricKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   BiometricKitLibraryCore_frameworkLibrary = result;
@@ -5085,7 +5183,7 @@ Class __getBKDeviceManagerClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -5096,7 +5194,7 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "BKDeviceManager");
   }
 
   getBKDeviceManagerClass_softClass = *(*(*(a1 + 32) + 8) + 24);

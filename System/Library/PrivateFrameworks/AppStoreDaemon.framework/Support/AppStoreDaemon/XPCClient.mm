@@ -71,7 +71,7 @@ LABEL_16:
     objc_opt_self();
     v19[1] = 0u;
     *pid = 0u;
-    [(NSString *)clientVersion auditToken];
+    objc_msgSend_auditToken(clientVersion);
     v8 = proc_pidpath(pid[1], buffer, 0x1000u);
     if (v8 <= 0)
     {

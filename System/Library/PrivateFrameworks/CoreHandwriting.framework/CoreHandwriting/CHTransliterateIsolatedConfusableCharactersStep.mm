@@ -8,11 +8,16 @@
 
 - (CHTransliterateIsolatedConfusableCharactersStep)init
 {
-  v3.receiver = self;
-  v3.super_class = CHTransliterateIsolatedConfusableCharactersStep;
-  if ([(CHTransliterateIsolatedConfusableCharactersStep *)&v3 init])
+  v8.receiver = self;
+  v8.super_class = CHTransliterateIsolatedConfusableCharactersStep;
+  v2 = [(CHTransliterateIsolatedConfusableCharactersStep *)&v8 init];
+  if (v2)
   {
-    sub_1839B5580();
+    v6 = 2;
+    __p = -16446;
+    __p_2 = 0;
+    v7 = 0x3FEE666666666666;
+    sub_1839B5580(v2 + 1, "j", &__p);
   }
 
   return 0;

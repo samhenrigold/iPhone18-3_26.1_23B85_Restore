@@ -127,7 +127,7 @@
   width = apertureSize.width;
   aCopy = a;
   transformCopy = transform;
-  v67[4] = *MEMORY[0x1E69E9840];
+  v73[4] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   pixelTransferSessionOut = 0;
   pixelBuffer = 0;
@@ -139,8 +139,8 @@
 
   if (width == *MEMORY[0x1E695F060] && height == *(MEMORY[0x1E695F060] + 8))
   {
-    v24 = [self _decodeOptionsWithMaxPixelSize:size applyTransform:transformCopy useBGRA:aCopy];
-    v21 = OUTLINED_FUNCTION_0_2(v24, v25, v26, v27);
+    v27 = [self _decodeOptionsWithMaxPixelSize:size applyTransform:transformCopy useBGRA:aCopy];
+    v24 = OUTLINED_FUNCTION_0_2(v27, v28, v29, v30, v31, v32, v33);
   }
 
   else
@@ -156,78 +156,78 @@
     }
 
     v17 = [self _decodeOptionsWithMaxPixelSize:0 applyTransform:transformCopy useBGRA:0];
-    v21 = OUTLINED_FUNCTION_0_2(v17, v18, v19, v20);
-    if (!v21)
+    v24 = OUTLINED_FUNCTION_0_2(v17, v18, v19, v20, v21, v22, v23);
+    if (!v24)
     {
       if (size < 1)
       {
-        v23 = 1.0;
+        v26 = 1.0;
       }
 
       else
       {
         if (width <= height)
         {
-          v22 = height;
+          v25 = height;
         }
 
         else
         {
-          v22 = width;
+          v25 = width;
         }
 
-        v23 = fmin(size / v22, 1.0);
+        v26 = fmin(size / v25, 1.0);
       }
 
-      v29 = width * v23;
-      v30 = vcvtas_u32_f32(v29);
-      v31 = height * v23;
-      v32 = vcvtas_u32_f32(v31);
-      v33 = CVPixelBufferGetWidth(pixelBuffer);
-      v34 = CVPixelBufferGetHeight(pixelBuffer);
-      if (transformCopy && vabdd_f64(width / height, v34 / v33) < 0.01)
+      v35 = width * v26;
+      v36 = vcvtas_u32_f32(v35);
+      v37 = height * v26;
+      v38 = vcvtas_u32_f32(v37);
+      v39 = CVPixelBufferGetWidth(pixelBuffer);
+      v40 = CVPixelBufferGetHeight(pixelBuffer);
+      if (transformCopy && vabdd_f64(width / height, v40 / v39) < 0.01)
       {
-        v35 = v30;
-        v36 = height;
+        v41 = v36;
+        v42 = height;
       }
 
       else
       {
-        v35 = v32;
-        v32 = v30;
-        v36 = width;
+        v41 = v38;
+        v38 = v36;
+        v42 = width;
         width = height;
       }
 
-      v66[0] = *MEMORY[0x1E6965D80];
-      v37 = [MEMORY[0x1E696AD98] numberWithDouble:v36];
-      v67[0] = v37;
-      v66[1] = *MEMORY[0x1E6965D60];
-      v38 = [MEMORY[0x1E696AD98] numberWithDouble:width];
-      v39 = *MEMORY[0x1E6965D68];
-      v67[1] = v38;
-      v67[2] = &unk_1F16C79A0;
-      v40 = *MEMORY[0x1E6965D78];
-      v66[2] = v39;
-      v66[3] = v40;
-      v67[3] = &unk_1F16C79A0;
-      v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v67 forKeys:v66 count:4];
+      v72[0] = *MEMORY[0x1E6965D80];
+      v43 = [MEMORY[0x1E696AD98] numberWithDouble:v42];
+      v73[0] = v43;
+      v72[1] = *MEMORY[0x1E6965D60];
+      v44 = [MEMORY[0x1E696AD98] numberWithDouble:width];
+      v45 = *MEMORY[0x1E6965D68];
+      v73[1] = v44;
+      v73[2] = &unk_1F16C79A0;
+      v46 = *MEMORY[0x1E6965D78];
+      v72[2] = v45;
+      v72[3] = v46;
+      v73[3] = &unk_1F16C79A0;
+      v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v73 forKeys:v72 count:4];
 
-      CVBufferSetAttachment(pixelBuffer, *MEMORY[0x1E6965D70], v41, kCVAttachmentMode_ShouldNotPropagate);
-      v64 = *MEMORY[0x1E69660D8];
-      v65 = MEMORY[0x1E695E0F8];
-      v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
-      v43 = *MEMORY[0x1E695E480];
-      v44 = CVPixelBufferCreate(*MEMORY[0x1E695E480], v32, v35, v16, v42, &pixelBufferOut);
-      if (v44 || (v44 = VTPixelTransferSessionCreate(v43, &pixelTransferSessionOut)) != 0 || (VTSessionSetProperty(pixelTransferSessionOut, *MEMORY[0x1E6983DF8], *MEMORY[0x1E695E4D0]), (v44 = VTSessionSetProperty(pixelTransferSessionOut, *MEMORY[0x1E6983E30], *MEMORY[0x1E69840E0])) != 0))
+      CVBufferSetAttachment(pixelBuffer, *MEMORY[0x1E6965D70], v47, kCVAttachmentMode_ShouldNotPropagate);
+      v70 = *MEMORY[0x1E69660D8];
+      v71 = MEMORY[0x1E695E0F8];
+      v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+      v49 = *MEMORY[0x1E695E480];
+      v50 = CVPixelBufferCreate(*MEMORY[0x1E695E480], v38, v41, v16, v48, &pixelBufferOut);
+      if (v50 || (v50 = VTPixelTransferSessionCreate(v49, &pixelTransferSessionOut)) != 0 || (VTSessionSetProperty(pixelTransferSessionOut, *MEMORY[0x1E6983DF8], *MEMORY[0x1E695E4D0]), (v50 = VTSessionSetProperty(pixelTransferSessionOut, *MEMORY[0x1E6983E30], *MEMORY[0x1E69840E0])) != 0))
       {
-        v28 = v44;
+        v34 = v50;
       }
 
       else
       {
-        v28 = VTPixelTransferSessionTransferImage(pixelTransferSessionOut, pixelBuffer, pixelBufferOut);
-        if (!v28)
+        v34 = VTPixelTransferSessionTransferImage(pixelTransferSessionOut, pixelBuffer, pixelBufferOut);
+        if (!v34)
         {
           CFRelease(pixelBuffer);
           pixelBuffer = pixelBufferOut;
@@ -241,12 +241,12 @@
       }
 
       height = width;
-      width = v36;
+      width = v42;
       goto LABEL_30;
     }
   }
 
-  v28 = v21;
+  v34 = v24;
 
 LABEL_30:
   if (pixelBufferOut)
@@ -254,31 +254,31 @@ LABEL_30:
     CFRelease(pixelBufferOut);
   }
 
-  if (!v28)
+  if (!v34)
   {
-    v46 = pixelBuffer;
+    v52 = pixelBuffer;
     goto LABEL_39;
   }
 
-  v45 = os_log_create("com.apple.camera", "Nebula");
-  if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+  v51 = os_log_create("com.apple.camera", "Nebula");
+  if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
   {
-    v48 = NSStringFromSelector(a2);
-    v49 = [dataCopy length];
-    v68.width = width;
-    v68.height = height;
-    v50 = NSStringFromCGSize(v68);
+    v54 = NSStringFromSelector(a2);
+    v55 = [dataCopy length];
+    v74.width = width;
+    v74.height = height;
+    v56 = NSStringFromCGSize(v74);
     *buf = 138544386;
-    v55 = v48;
-    v56 = 2048;
-    v57 = v28;
-    v58 = 1024;
-    v59 = v28;
-    v60 = 2048;
-    v61 = v49;
-    v62 = 2114;
-    v63 = v50;
-    _os_log_error_impl(&dword_1A3640000, v45, OS_LOG_TYPE_ERROR, "Error decoding JPEG to PixelBuffer from %{public}@, err %ld (0x%x), JPEG size %lu, clapSize %{public}@", buf, 0x30u);
+    v61 = v54;
+    v62 = 2048;
+    v63 = v34;
+    v64 = 1024;
+    v65 = v34;
+    v66 = 2048;
+    v67 = v55;
+    v68 = 2114;
+    v69 = v56;
+    _os_log_error_impl(&dword_1A3640000, v51, OS_LOG_TYPE_ERROR, "Error decoding JPEG to PixelBuffer from %{public}@, err %ld (0x%x), JPEG size %lu, clapSize %{public}@", buf, 0x30u);
   }
 
   if (pixelBuffer)
@@ -287,10 +287,10 @@ LABEL_30:
   }
 
 LABEL_37:
-  v46 = 0;
+  v52 = 0;
 LABEL_39:
 
-  return v46;
+  return v52;
 }
 
 + (void)newDataFromFilePath:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)

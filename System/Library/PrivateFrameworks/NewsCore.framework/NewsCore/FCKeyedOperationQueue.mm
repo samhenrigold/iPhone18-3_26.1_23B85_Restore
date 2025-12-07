@@ -13,15 +13,29 @@
 
 - (void)_enqueueOperationIfNeeded
 {
-  v45 = *MEMORY[0x1E69E9840];
-  if (!self)
+  v44 = *MEMORY[0x1E69E9840];
+  if (self)
   {
-    goto LABEL_43;
-  }
+    [MEMORY[0x1E696AF00] isMainThread];
+    if ([self isSuspended])
+    {
+      v2 = [self log];
 
-  [MEMORY[0x1E696AF00] isMainThread];
-  if (![self isSuspended])
-  {
+      if (!v2)
+      {
+        return;
+      }
+
+      v3 = [self log];
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_1B63EF000, v3, OS_LOG_TYPE_DEFAULT, "KOQ will not revisit queue because it's currently suspended", buf, 2u);
+      }
+
+      goto LABEL_42;
+    }
+
     v3 = *(self + 48);
     v4 = *(self + 40);
     v5 = *(self + 56);
@@ -33,7 +47,7 @@
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v44 = v3;
+        v43 = v3;
         _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "KOQ will revisit queue, executing=%{public}@", buf, 0xCu);
       }
     }
@@ -58,14 +72,14 @@
 LABEL_41:
 
 LABEL_42:
-        goto LABEL_43;
+        return;
       }
 
       v17 = [self log];
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v44 = v5;
+        v43 = v5;
         _os_log_impl(&dword_1B63EF000, v17, OS_LOG_TYPE_DEFAULT, "KOQ is already executing as many operations as it can, max=%lu", buf, 0xCu);
       }
 
@@ -74,13 +88,13 @@ LABEL_40:
       goto LABEL_41;
     }
 
-    v41[0] = MEMORY[0x1E69E9820];
-    v41[1] = 3221225472;
-    v41[2] = __50__FCKeyedOperationQueue__enqueueOperationIfNeeded__block_invoke;
-    v41[3] = &unk_1E7C46410;
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = __50__FCKeyedOperationQueue__enqueueOperationIfNeeded__block_invoke;
+    v40[3] = &unk_1E7C46410;
     v10 = v3;
-    v42 = v10;
-    v11 = [v4 indexOfObjectPassingTest:v41];
+    v41 = v10;
+    v11 = [v4 indexOfObjectPassingTest:v40];
     if (v11 == 0x7FFFFFFFFFFFFFFFLL)
     {
       WeakRetained = objc_loadWeakRetained((self + 16));
@@ -104,22 +118,22 @@ LABEL_40:
           objc_storeStrong(&v20->_log, v21);
         }
 
-        v30 = MEMORY[0x1E69E9820];
-        v31 = 3221225472;
-        v32 = __50__FCKeyedOperationQueue__enqueueOperationIfNeeded__block_invoke_2;
-        v33 = &unk_1E7C37E08;
-        v34 = v20;
+        v29 = MEMORY[0x1E69E9820];
+        v30 = 3221225472;
+        v31 = __50__FCKeyedOperationQueue__enqueueOperationIfNeeded__block_invoke_2;
+        v32 = &unk_1E7C37E08;
+        v33 = v20;
         selfCopy = self;
         WeakRetained = WeakRetained;
-        v36 = WeakRetained;
+        v35 = WeakRetained;
         v13 = v13;
-        v37 = v13;
-        v38 = v4;
-        v39 = v10;
+        v36 = v13;
+        v37 = v4;
+        v38 = v10;
         v15 = v19;
-        v40 = v15;
+        v39 = v15;
         v22 = v20;
-        v23 = _Block_copy(&v30);
+        v23 = _Block_copy(&v29);
         executionQueue = [self executionQueue];
 
         v25 = [self log];
@@ -132,7 +146,7 @@ LABEL_40:
             if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v44 = v13;
+              v43 = v13;
               _os_log_impl(&dword_1B63EF000, v26, OS_LOG_TYPE_DEFAULT, "KOQ will execute next operation on execution queue, key=%{public}@", buf, 0xCu);
             }
           }
@@ -149,7 +163,7 @@ LABEL_40:
             if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543362;
-              v44 = v13;
+              v43 = v13;
               _os_log_impl(&dword_1B63EF000, v28, OS_LOG_TYPE_DEFAULT, "KOQ will execute next operation, key=%{public}@", buf, 0xCu);
             }
           }
@@ -170,7 +184,7 @@ LABEL_40:
     {
 LABEL_39:
 
-      v17 = v42;
+      v17 = v41;
       goto LABEL_40;
     }
 
@@ -185,23 +199,6 @@ LABEL_38:
 
     goto LABEL_39;
   }
-
-  v2 = [self log];
-
-  if (v2)
-  {
-    v3 = [self log];
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_1B63EF000, v3, OS_LOG_TYPE_DEFAULT, "KOQ will not revisit queue because it's currently suspended", buf, 2u);
-    }
-
-    goto LABEL_42;
-  }
-
-LABEL_43:
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (FCKeyedOperationQueue)init
@@ -232,25 +229,25 @@ LABEL_43:
 
 - (FCKeyedOperationQueue)initWithDelegate:(id)delegate maxConcurrentOperationCount:(int64_t)count
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   if (!delegateCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "delegate"];
+    v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "delegate"];
     *buf = 136315906;
-    v22 = "[FCKeyedOperationQueue initWithDelegate:maxConcurrentOperationCount:]";
-    v23 = 2080;
-    v24 = "FCKeyedOperationQueue.m";
-    v25 = 1024;
-    v26 = 45;
-    v27 = 2114;
-    v28 = v19;
+    v21 = "[FCKeyedOperationQueue initWithDelegate:maxConcurrentOperationCount:]";
+    v22 = 2080;
+    v23 = "FCKeyedOperationQueue.m";
+    v24 = 1024;
+    v25 = 45;
+    v26 = 2114;
+    v27 = v18;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v20.receiver = self;
-  v20.super_class = FCKeyedOperationQueue;
-  v7 = [(FCKeyedOperationQueue *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = FCKeyedOperationQueue;
+  v7 = [(FCKeyedOperationQueue *)&v19 init];
   v8 = v7;
   if (v7)
   {
@@ -273,13 +270,12 @@ LABEL_43:
     v8->_operationExecutionGroup = v15;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (void)setKeyQueue:(id)queue
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696AF00];
   queueCopy = queue;
   [v4 isMainThread];
@@ -293,26 +289,26 @@ LABEL_43:
     [MEMORY[0x1E696AF00] isMainThread];
     v8 = self->_mutableKeyQueue;
     v9 = self->_cancelHandlersByKey;
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v10 = [(NSMutableSet *)self->_keysForExecutingOperations copy];
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v20 + 1) + 8 * i);
+          v15 = *(*(&v19 + 1) + 8 * i);
           if (([(NSMutableOrderedSet *)v8 containsObject:v15]& 1) == 0)
           {
             v16 = [(NSMutableDictionary *)v9 objectForKeyedSubscript:v15];
@@ -324,7 +320,7 @@ LABEL_43:
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v12);
@@ -338,8 +334,6 @@ LABEL_43:
 
     [0 addObjectsFromArray:array2];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   [(FCKeyedOperationQueue *)self _enqueueOperationIfNeeded];
 }
@@ -381,15 +375,15 @@ LABEL_43:
 
 void __50__FCKeyedOperationQueue__enqueueOperationIfNeeded__block_invoke_2(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
   v5 = *(a1 + 48);
   v4 = *(a1 + 56);
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __50__FCKeyedOperationQueue__enqueueOperationIfNeeded__block_invoke_3;
-  v20[3] = &unk_1E7C46438;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __50__FCKeyedOperationQueue__enqueueOperationIfNeeded__block_invoke_3;
+  v19[3] = &unk_1E7C46438;
   v6 = *(a1 + 64);
   v7 = *(a1 + 56);
   v8 = *(a1 + 72);
@@ -398,13 +392,13 @@ void __50__FCKeyedOperationQueue__enqueueOperationIfNeeded__block_invoke_2(uint6
   *(&v10 + 1) = v9;
   *&v11 = v6;
   *(&v11 + 1) = v7;
-  v21 = v11;
-  v22 = v10;
-  v23 = *(a1 + 40);
+  v20 = v11;
+  v21 = v10;
+  v22 = *(a1 + 40);
   v12 = v3;
   v13 = v5;
   v14 = v4;
-  v15 = v20;
+  v15 = v19;
   if (v2)
   {
     if (*(v2 + 8))
@@ -423,16 +417,14 @@ void __50__FCKeyedOperationQueue__enqueueOperationIfNeeded__block_invoke_2(uint6
       v17 = [v13 keyedOperationQueue:v12 performAsyncOperationForKey:v14 completion:v15];
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v25 = __60__FCKeyedOperation_executeForQueue_delegate_key_completion___block_invoke;
-      v26 = &unk_1E7C36C58;
-      v27 = v2;
-      v28 = v17;
+      v24 = __60__FCKeyedOperation_executeForQueue_delegate_key_completion___block_invoke;
+      v25 = &unk_1E7C36C58;
+      v26 = v2;
+      v27 = v17;
       v18 = v17;
       FCPerformBlockOnMainThread(&buf);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __50__FCKeyedOperationQueue__enqueueOperationIfNeeded__block_invoke_3(uint64_t a1, char a2)

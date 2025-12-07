@@ -51,7 +51,7 @@
   v13 = &v16 - v12;
   *(&v16 - v12) = 0x4024000000000000;
   (*(v5 + 104))(&v16 - v12, *MEMORY[0x277D74A68], v4, v11);
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIPointerStyle);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIPointerStyle, 0x277D75890);
   (*(v5 + 16))(v8, v13, v4);
   v14 = UIPointerStyle.init(shape:constrainedAxes:)();
   (*(v5 + 8))(v13, v4);

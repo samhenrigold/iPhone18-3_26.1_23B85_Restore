@@ -1,7 +1,9 @@
 @interface TSSPropertyCommandObjectRegistry
 + (TSSPropertyCommandObjectRegistry)sharedRegistry;
 + (void)setIntializationHandler:(id)handler;
+- (Class)classForIndex:(int)index;
 - (TSSPropertyCommandObjectRegistry)init;
+- (const)nameForIndex:(int)index;
 - (id).cxx_construct;
 - (int)indexForClass:(Class)class;
 - (void)registerClass:(Class)class withField:(id)field;
@@ -58,7 +60,7 @@
 
 - (void)registerClass:(Class)class withField:(id)field
 {
-  v49[0] = class;
+  classCopy = class;
   fieldCopy = field;
   v8 = objc_msgSend_conformsToProtocol_(class, v7, &unk_288613CE8);
   if (!v8)
@@ -182,10 +184,10 @@ LABEL_33:
     }
   }
 
-  sub_276CBE350(v42, v49, v44);
+  sub_276CBE350(v42, &classCopy, v44);
   v41 = *(FieldByName + 68);
-  v49[2] = &v41;
-  v31 = sub_276CBE1C8(&p_end_node[-1], &v41);
+  v50 = &v41;
+  v31 = sub_276CBE1C8(&p_end_node[-1], &v41, &unk_276CEC13C, &v50);
   v32 = &v25[-1];
   sub_276CBDCDC((v31 + 5), v42);
   if (v43 < 0)
@@ -194,8 +196,8 @@ LABEL_33:
   }
 
   v33 = *(FieldByName + 68);
-  v42[0] = v49;
-  *(sub_276CBE468(v32, v49) + 10) = v33;
+  v42[0] = &classCopy;
+  *(sub_276CBE468(v32, &classCopy, &unk_276CEC13C, v42) + 10) = v33;
   if (v45 < 0)
   {
     operator delete(v44[0]);
@@ -208,6 +210,91 @@ LABEL_33:
 
   TSS::CommandPropertyEntryArchive::~CommandPropertyEntryArchive(v48);
 LABEL_39:
+}
+
+- (Class)classForIndex:(int)index
+{
+  v3 = *&index;
+  left = self->_indexToClass.__tree_.__end_node_.__left_;
+  p_end_node = &self->_indexToClass.__tree_.__end_node_;
+  v5 = left;
+  if (!left)
+  {
+    goto LABEL_8;
+  }
+
+  v7 = p_end_node;
+  do
+  {
+    if (SLODWORD(v5[4].__left_) >= index)
+    {
+      v7 = v5;
+    }
+
+    v5 = v5[SLODWORD(v5[4].__left_) < index].__left_;
+  }
+
+  while (v5);
+  if (v7 != p_end_node && SLODWORD(v7[4].__left_) <= index)
+  {
+    v15 = v7[5].__left_;
+  }
+
+  else
+  {
+LABEL_8:
+    v8 = MEMORY[0x277D81150];
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSSPropertyCommandObjectRegistry classForIndex:]");
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/styles/TSSPropertyCommandObjectRegistry.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v12, v9, v11, 129, 0, "TSSPropertyCommandObjectRegistry does not have a index %d.", v3);
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14);
+    v15 = 0;
+  }
+
+  return v15;
+}
+
+- (const)nameForIndex:(int)index
+{
+  v3 = *&index;
+  if ((atomic_load_explicit(&qword_280A54BD0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280A54BD0))
+  {
+    sub_276CA3CD4(qword_280A54BB8, "");
+    __cxa_atexit(MEMORY[0x277D82640], qword_280A54BB8, &dword_276C9A000);
+    __cxa_guard_release(&qword_280A54BD0);
+  }
+
+  left = self->_indexToClass.__tree_.__end_node_.__left_;
+  p_end_node = &self->_indexToClass.__tree_.__end_node_;
+  v5 = left;
+  if (left)
+  {
+    v8 = p_end_node;
+    do
+    {
+      if (SLODWORD(v5[4].__left_) >= v3)
+      {
+        v8 = v5;
+      }
+
+      v5 = v5[SLODWORD(v5[4].__left_) < v3].__left_;
+    }
+
+    while (v5);
+    if (v8 != p_end_node && SLODWORD(v8[4].__left_) <= v3)
+    {
+      return &v8[6];
+    }
+  }
+
+  v9 = MEMORY[0x277D81150];
+  v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSSPropertyCommandObjectRegistry nameForIndex:]");
+  v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/styles/TSSPropertyCommandObjectRegistry.mm");
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v13, v10, v12, 146, 0, "TSSPropertyCommandObjectRegistry does not have a index %d.", v3);
+
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15);
+  return qword_280A54BB8;
 }
 
 - (int)indexForClass:(Class)class

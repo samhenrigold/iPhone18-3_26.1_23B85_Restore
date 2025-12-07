@@ -53,17 +53,10 @@
 
 - (void)runDiagnostic
 {
-  if (([(TouchIDSensorSPIBusIntegrityTestController *)self isCancelled]& 1) != 0)
+  if ((-[TouchIDSensorSPIBusIntegrityTestController isCancelled](self, "isCancelled") & 1) != 0 || (-[TouchIDSensorSPIBusIntegrityTestController runTimer](self, "runTimer"), (v3 = objc_claimAutoreleasedReturnValue()) == 0) || (v4 = v3, v5 = -[TouchIDSensorSPIBusIntegrityTestController runCount](self, "runCount"), -[TouchIDSensorSPIBusIntegrityTestController inputs](self, "inputs"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 numberOfRuns], v6, v4, v5 >= v7))
   {
-    goto LABEL_5;
-  }
-
-  runTimer = [(TouchIDSensorSPIBusIntegrityTestController *)self runTimer];
-  if (!runTimer || (v4 = runTimer, v5 = -[TouchIDSensorSPIBusIntegrityTestController runCount](self, "runCount"), -[TouchIDSensorSPIBusIntegrityTestController inputs](self, "inputs"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 numberOfRuns], v6, v4, v5 >= v7))
-  {
-LABEL_5:
-    runTimer2 = [(TouchIDSensorSPIBusIntegrityTestController *)self runTimer];
-    [runTimer2 invalidate];
+    runTimer = [(TouchIDSensorSPIBusIntegrityTestController *)self runTimer];
+    [runTimer invalidate];
   }
 
   else

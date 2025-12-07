@@ -109,23 +109,13 @@
   bOOLValue = [v8 BOOLValue];
 
   v10 = [[_DASPolicyResponseRationale alloc] initWithPolicyName:@"Carplay Connected Policy"];
-  if (!bOOLValue)
-  {
-    goto LABEL_5;
-  }
-
-  v11 = [NSNumber numberWithBool:1];
-  v12 = [NSPredicate predicateWithFormat:@"carplayConnected = %@", v11];
-  [(_DASPolicyResponseRationale *)v10 addRationaleWithCondition:v12];
-
-  if (([activityCopy requiresDeviceInactivity] & 1) != 0 || (+[_DASThermalPolicy policyInstance](_DASThermalPolicy, "policyInstance"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "thermalPressureWithState:", stateCopy), v13, v14 >= 0x14))
+  if (bOOLValue && ((+[NSNumber numberWithBool:](NSNumber, "numberWithBool:", 1), v11 = objc_claimAutoreleasedReturnValue(), +[NSPredicate predicateWithFormat:](NSPredicate, "predicateWithFormat:", @"carplayConnected = %@", v11), v12 = objc_claimAutoreleasedReturnValue(), -[_DASPolicyResponseRationale addRationaleWithCondition:](v10, "addRationaleWithCondition:", v12), v12, v11, ([activityCopy requiresDeviceInactivity] & 1) != 0) || (+[_DASThermalPolicy policyInstance](_DASThermalPolicy, "policyInstance"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "thermalPressureWithState:", stateCopy), v13, v14 >= 0x14)))
   {
     v15 = 33;
   }
 
   else
   {
-LABEL_5:
     v15 = 0;
   }
 

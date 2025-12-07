@@ -12,7 +12,7 @@
 
 - (NSArray)entries
 {
-  type metadata accessor for BackgroundFetchJournalEntry();
+  type metadata accessor for BackgroundFetchJournalEntry(0);
   v2 = sub_1BF17A4CC();
 
   return v2;

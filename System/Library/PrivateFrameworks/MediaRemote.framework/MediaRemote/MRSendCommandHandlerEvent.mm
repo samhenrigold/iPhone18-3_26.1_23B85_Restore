@@ -1,4 +1,5 @@
 @interface MRSendCommandHandlerEvent
++ (id)eventWithCommand:(unsigned int)command options:(id)options;
 - (MRSendCommandHandlerEvent)initWithCommand:(unsigned int)command options:(id)options;
 - (MRSendCommandHandlerEvent)initWithProtobuf:(id)protobuf;
 - (NSString)commandDescription;
@@ -8,6 +9,15 @@
 @end
 
 @implementation MRSendCommandHandlerEvent
+
++ (id)eventWithCommand:(unsigned int)command options:(id)options
+{
+  v4 = *&command;
+  optionsCopy = options;
+  v7 = [[self alloc] initWithCommand:v4 options:optionsCopy];
+
+  return v7;
+}
 
 - (MRSendCommandHandlerEvent)initWithCommand:(unsigned int)command options:(id)options
 {

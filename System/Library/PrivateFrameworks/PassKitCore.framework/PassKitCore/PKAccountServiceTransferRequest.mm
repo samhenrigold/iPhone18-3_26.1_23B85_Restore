@@ -525,19 +525,19 @@ uint64_t __156__PKAccountServiceTransferRequest_initWithAccount_peerPaymentAccou
   v7 = v6;
   if (v5 == v6)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
     if (v5 && v6)
     {
-      v8 = [v5 isEqualToString:v6];
+      isEqualToString = objc_msgSend_isEqualToString_(v5);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 BOOL __156__PKAccountServiceTransferRequest_initWithAccount_peerPaymentAccount_peerPaymentPass_transferType_fundingSources_currencyAmount_paymentDate_objectSettings___block_invoke_2(uint64_t a1, void *a2)
@@ -562,9 +562,9 @@ LABEL_9:
       goto LABEL_10;
     }
 
-    v9 = [v6 isEqualToString:v7];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (!v9)
+    if (!isEqualToString)
     {
       goto LABEL_9;
     }
@@ -782,9 +782,9 @@ LABEL_19:
     goto LABEL_33;
   }
 
-  v21.receiver = self;
-  v21.super_class = PKAccountServiceTransferRequest;
-  if (![(PKPaymentRequest *)&v21 isEqual:requestCopy])
+  v20.receiver = self;
+  v20.super_class = PKAccountServiceTransferRequest;
+  if (![(PKPaymentRequest *)&v20 isEqual:requestCopy])
   {
     goto LABEL_33;
   }
@@ -815,9 +815,9 @@ LABEL_19:
       goto LABEL_33;
     }
 
-    v10 = [(NSString *)v6 isEqualToString:v7];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_33;
     }
@@ -843,18 +843,14 @@ LABEL_19:
     }
   }
 
-  else
+  else if (([(NSURL *)accountBaseURL isEqual:?]& 1) == 0)
   {
-    v14 = [(NSURL *)accountBaseURL isEqual:?];
-    if ((v14 & 1) == 0)
-    {
-      goto LABEL_33;
-    }
+    goto LABEL_33;
   }
 
   defaultBankAccount = self->_defaultBankAccount;
-  v16 = requestCopy[76];
-  if (defaultBankAccount && v16)
+  v15 = requestCopy[76];
+  if (defaultBankAccount && v15)
   {
     if (([(PKBankAccountInformation *)defaultBankAccount isEqual:?]& 1) == 0)
     {
@@ -862,22 +858,22 @@ LABEL_19:
     }
   }
 
-  else if (defaultBankAccount != v16)
+  else if (defaultBankAccount != v15)
   {
     goto LABEL_33;
   }
 
   account = self->_account;
-  v18 = requestCopy[77];
-  if (!account || !v18)
+  v17 = requestCopy[77];
+  if (!account || !v17)
   {
-    if (account == v18)
+    if (account == v17)
     {
       goto LABEL_30;
     }
 
 LABEL_33:
-    v19 = 0;
+    v18 = 0;
     goto LABEL_34;
   }
 
@@ -892,10 +888,10 @@ LABEL_30:
     goto LABEL_33;
   }
 
-  v19 = self->_userWasShownAPCTransferSpeed == *(requestCopy + 584);
+  v18 = self->_userWasShownAPCTransferSpeed == *(requestCopy + 584);
 LABEL_34:
 
-  return v19;
+  return v18;
 }
 
 - (unint64_t)hash

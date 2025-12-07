@@ -44,7 +44,7 @@
 {
   v19[1] = *MEMORY[0x1E69E9840];
   v18 = @"UseShortREDWithACC24";
-  v19[0] = [MEMORY[0x1E696AD98] numberWithBool:VCFeatureFlagManager_UseShortREDWithACC24()];
+  v19[0] = [MEMORY[0x1E696AD98] numberWithBool:{VCFeatureFlagManager_UseShortREDWithACC24(self, a2)}];
   v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
   self->_plistFeatureFlagToEnablementMapping = v3;
   if (!v3)
@@ -2549,14 +2549,14 @@ LABEL_24:
   return v9;
 }
 
-uint64_t __58__VCAudioTierPicker_chooseMultiwayAudioTierForRedPayload___block_invoke(void *a1, void *a2, void *a3)
+char *__58__VCAudioTierPicker_chooseMultiwayAudioTierForRedPayload___block_invoke(void *a1, void *a2, void *a3)
 {
   if (*(*(a1[5] + 8) + 40))
   {
     v6 = a1 + 6;
     v7 = *(*(a1[6] + 8) + 24) - a1[7];
     result = [a2 unsignedIntegerValue];
-    if (v7 <= result - a1[7])
+    if (v7 <= &result[-a1[7]])
     {
       return result;
     }
@@ -3418,42 +3418,42 @@ LABEL_32:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate plistFeatureFlagToEnablementMapping", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate plistFeatureFlagToEnablementMapping", v2, v3, v4, v5);
 }
 
 - (void)setupTierPickerForConfig:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCAudioTierPicker failed to generate tiers", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCAudioTierPicker failed to generate tiers", v2, v3, v4, v5);
 }
 
 - (void)setupTierPickerForConfig:.cold.2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Error allocating _bitrateLimits", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Error allocating _bitrateLimits", v2, v3, v4, v5);
 }
 
 - (void)setupTierPickerForConfig:.cold.3()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Error allocating _tierTabledForRedNumPayloads", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Error allocating _tierTabledForRedNumPayloads", v2, v3, v4, v5);
 }
 
 - (void)setupTierPickerForConfig:.cold.4()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Cannot setup audio tier picker, invalid mode", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Cannot setup audio tier picker, invalid mode", v2, v3, v4, v5);
 }
 
 - (void)setupAlwaysOnRedTiersForSupportedRed:usingCellular:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Unable to setup always on red tiers, as supportedRedNumPayloads is nil", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Unable to setup always on red tiers, as supportedRedNumPayloads is nil", v2, v3, v4, v5);
 }
 
 - (void)generateAudioTiersDictFromPlistForBitrateLimits:tierPickerConfig:redNumPayloads:.cold.1()
@@ -3608,7 +3608,7 @@ LABEL_32:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Multiway doesn't use legacy duplication. Tier not found!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Multiway doesn't use legacy duplication. Tier not found!", v2, v3, v4, v5);
 }
 
 - (void)tierForNetworkBitrate:(uint64_t)a1 withLegacyDuplication:.cold.2(uint64_t a1)

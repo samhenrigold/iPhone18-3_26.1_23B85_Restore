@@ -25,7 +25,7 @@
 
 - (void)onboardingSignInController:(id)controller didCompleteWithOperationsResults:(id)results
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   resultsCopy = results;
   v8 = *MEMORY[0x1E698C218];
@@ -33,25 +33,25 @@
 
   if (v9)
   {
-    v10 = _AAUILogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _AAUILogSystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [resultsCopy objectForKey:v8];
-      v31 = 138412290;
-      v32 = v11;
-      _os_log_impl(&dword_1C5355000, v10, OS_LOG_TYPE_DEFAULT, "Split onboarding sign in for service cloud returned %@", &v31, 0xCu);
+      v12 = [resultsCopy objectForKey:v8];
+      v33 = 138412290;
+      v34 = v12;
+      _os_log_impl(&dword_1C5355000, v11, OS_LOG_TYPE_DEFAULT, "Split onboarding sign in for service cloud returned %@", &v33, 0xCu);
     }
 
-    v12 = [resultsCopy objectForKey:v8];
-    error = [v12 error];
+    v13 = [resultsCopy objectForKey:v8];
+    error = [v13 error];
 
     if (!error)
     {
       objc_storeStrong(&self->_semiFinalResults, results);
-      v14 = [[AAUIAppleIDSignInConfigSplitAccountStore alloc] initWithNavController:controllerCopy];
-      v15 = [[AAUIOnboardingSignInController alloc] initWithSetupSignInConfig:v14];
+      v15 = [[AAUIAppleIDSignInConfigSplitAccountStore alloc] initWithNavController:controllerCopy];
+      v16 = [[AAUIOnboardingSignInController alloc] initWithSetupSignInConfig:v15];
       storeSignInController = self->_storeSignInController;
-      self->_storeSignInController = v15;
+      self->_storeSignInController = v16;
 
       [(AAUIOnboardingSignInController *)self->_storeSignInController setDelegate:self];
       authenticationController = [(AAUIServiceSignInController *)self->_originatingServiceSignInController authenticationController];
@@ -74,32 +74,32 @@ LABEL_8:
     goto LABEL_13;
   }
 
-  v22 = *MEMORY[0x1E698C238];
-  v23 = [resultsCopy objectForKey:*MEMORY[0x1E698C238]];
+  v23 = *MEMORY[0x1E698C238];
+  v24 = [resultsCopy objectForKey:*MEMORY[0x1E698C238]];
 
-  if (v23)
+  if (v24)
   {
-    v24 = [resultsCopy objectForKey:v22];
-    error2 = [v24 error];
+    v25 = [resultsCopy objectForKey:v23];
+    error2 = [v25 error];
 
     if (!error2)
     {
-      v26 = _AAUILogSystem();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v28 = _AAUILogSystem(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = [resultsCopy objectForKey:v8];
-        v31 = 138412290;
-        v32 = v27;
-        _os_log_impl(&dword_1C5355000, v26, OS_LOG_TYPE_DEFAULT, "Split onboarding sign in for service store returned %@", &v31, 0xCu);
+        v29 = [resultsCopy objectForKey:v8];
+        v33 = 138412290;
+        v34 = v29;
+        _os_log_impl(&dword_1C5355000, v28, OS_LOG_TYPE_DEFAULT, "Split onboarding sign in for service store returned %@", &v33, 0xCu);
       }
 
-      v14 = [(NSDictionary *)self->_semiFinalResults mutableCopy];
-      v28 = [resultsCopy objectForKey:v22];
-      [(AAUIAppleIDSignInConfigSplitAccountStore *)v14 setObject:v28 forKey:v22];
+      v15 = [(NSDictionary *)self->_semiFinalResults mutableCopy];
+      v30 = [resultsCopy objectForKey:v23];
+      [(AAUIAppleIDSignInConfigSplitAccountStore *)v15 setObject:v30 forKey:v23];
 
       originatingServiceSignInController = self->_originatingServiceSignInController;
-      v30 = [(AAUIAppleIDSignInConfigSplitAccountStore *)v14 copy];
-      [(AAUIServiceSignInController *)originatingServiceSignInController controllerFinishedWithAIDAResults:v30];
+      v32 = [(AAUIAppleIDSignInConfigSplitAccountStore *)v15 copy];
+      [(AAUIServiceSignInController *)originatingServiceSignInController controllerFinishedWithAIDAResults:v32];
 
       goto LABEL_12;
     }
@@ -136,7 +136,7 @@ LABEL_13:
 - (void)onboardingSignInController:(id)controller didSkipWithReason:(int64_t)reason
 {
   v16 = *MEMORY[0x1E69E9840];
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 134217984;

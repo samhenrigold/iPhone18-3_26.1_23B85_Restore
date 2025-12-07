@@ -92,7 +92,7 @@
   return v3;
 }
 
-uint64_t __28__TSUZipWriter_entriesCount__block_invoke(uint64_t a1)
+void *__28__TSUZipWriter_entriesCount__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) entriesCountImpl];
   *(*(*(a1 + 40) + 8) + 24) = result;

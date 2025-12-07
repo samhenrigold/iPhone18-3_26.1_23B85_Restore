@@ -31,7 +31,7 @@
   [annotationCopy rotationAngle];
   v26 = v25;
 
-  [AKGeometryHelper rotationTransformForRect:v18 withAngle:v20, v22, v24, v26];
+  objc_msgSend_rotationTransformForRect_withAngle_(AKGeometryHelper, v18, v20, v22, v24, v26);
   geometryHelper = [alignmentCopy geometryHelper];
 
   [geometryHelper screenPixelAlignedPointForPoint:{vaddq_f64(0, vmlaq_n_f64(vmulq_n_f64(0, v36), 0, v37))}];

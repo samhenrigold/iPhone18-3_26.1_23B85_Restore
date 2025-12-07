@@ -29,6 +29,7 @@
 - (id)userAgent;
 - (int64_t)port;
 - (uint64_t)_makeStateTransition;
+- (void)_cancelTasksWithReason:(int)reason;
 - (void)_clearUserInitiatedSyncTimer;
 - (void)_endXpcTransaction;
 - (void)_logSyncEnd;
@@ -37,6 +38,7 @@
 - (void)_populateVersionDescriptions;
 - (void)_reactivateHeldTasks;
 - (void)_releasePowerAssertionForTask:(id)task;
+- (void)_requestCancelTasksWithReason:(int)reason;
 - (void)_retainPowerAssertionForTask:(id)task;
 - (void)_scheduleSelector:(SEL)selector withArgument:(id)argument;
 - (void)_scheduleStartModal:(id)modal;
@@ -58,7 +60,7 @@
 
 - (NSArray)allTasks
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -78,82 +80,82 @@
     [v3 addObject:activeExclusiveTask2];
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   independentTasks = [(DATaskManager *)selfCopy independentTasks];
-  v10 = [independentTasks countByEnumeratingWithState:&v37 objects:v43 count:16];
+  v10 = [independentTasks countByEnumeratingWithState:&v36 objects:v42 count:16];
   if (v10)
   {
-    v11 = *v38;
+    v11 = *v37;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v38 != v11)
+        if (*v37 != v11)
         {
           objc_enumerationMutation(independentTasks);
         }
 
-        [v3 addObject:*(*(&v37 + 1) + 8 * i)];
+        [v3 addObject:*(*(&v36 + 1) + 8 * i)];
       }
 
-      v10 = [independentTasks countByEnumeratingWithState:&v37 objects:v43 count:16];
+      v10 = [independentTasks countByEnumeratingWithState:&v36 objects:v42 count:16];
     }
 
     while (v10);
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v13 = selfCopy->_heldIndependentTasks;
-  v14 = [(NSMutableSet *)v13 countByEnumeratingWithState:&v33 objects:v42 count:16];
+  v14 = [(NSMutableSet *)v13 countByEnumeratingWithState:&v32 objects:v41 count:16];
   if (v14)
   {
-    v15 = *v34;
+    v15 = *v33;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v34 != v15)
+        if (*v33 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        [v3 addObject:*(*(&v33 + 1) + 8 * j)];
+        [v3 addObject:*(*(&v32 + 1) + 8 * j)];
       }
 
-      v14 = [(NSMutableSet *)v13 countByEnumeratingWithState:&v33 objects:v42 count:16];
+      v14 = [(NSMutableSet *)v13 countByEnumeratingWithState:&v32 objects:v41 count:16];
     }
 
     while (v14);
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v17 = selfCopy->_modalHeldIndependentTasks;
-  v18 = [(NSMutableSet *)v17 countByEnumeratingWithState:&v29 objects:v41 count:16];
+  v18 = [(NSMutableSet *)v17 countByEnumeratingWithState:&v28 objects:v40 count:16];
   if (v18)
   {
-    v19 = *v30;
+    v19 = *v29;
     do
     {
       for (k = 0; k != v18; ++k)
       {
-        if (*v30 != v19)
+        if (*v29 != v19)
         {
           objc_enumerationMutation(v17);
         }
 
-        [v3 addObject:{*(*(&v29 + 1) + 8 * k), v29}];
+        [v3 addObject:{*(*(&v28 + 1) + 8 * k), v28}];
       }
 
-      v18 = [(NSMutableSet *)v17 countByEnumeratingWithState:&v29 objects:v41 count:16];
+      v18 = [(NSMutableSet *)v17 countByEnumeratingWithState:&v28 objects:v40 count:16];
     }
 
     while (v18);
@@ -185,8 +187,6 @@
 
   objc_sync_exit(selfCopy);
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
@@ -211,7 +211,7 @@
 
 - (void)dealloc
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if ([(NSMutableArray *)selfCopy->_queuedExclusiveTasks count])
@@ -273,7 +273,7 @@
     if (os_log_type_enabled(v5, v6))
     {
       *buf = 138412290;
-      v22 = selfCopy;
+      v21 = selfCopy;
       _os_log_impl(&dword_24244C000, v5, v6, "DATaskManager: Task manager %@ is being deallocated. Ending XPC transaction", buf, 0xCu);
     }
 
@@ -288,7 +288,7 @@
     if (os_log_type_enabled(v8, v9))
     {
       *buf = 138412290;
-      v22 = selfCopy;
+      v21 = selfCopy;
       _os_log_impl(&dword_24244C000, v8, v9, "DATaskManager: Task manager %@ is being deallocated. Ending XPC activity", buf, 0xCu);
     }
 
@@ -299,10 +299,9 @@
   [(NSTimer *)selfCopy->_powerLogIdleTimer invalidate];
   objc_sync_exit(selfCopy);
 
-  v20.receiver = selfCopy;
-  v20.super_class = DATaskManager;
-  [(DATaskManager *)&v20 dealloc];
-  v11 = *MEMORY[0x277D85DE8];
+  v19.receiver = selfCopy;
+  v19.super_class = DATaskManager;
+  [(DATaskManager *)&v19 dealloc];
 }
 
 - (void)_populateVersionDescriptions
@@ -353,7 +352,7 @@
 void __26__DATaskManager_userAgent__block_invoke(uint64_t a1)
 {
   v2 = MEMORY[0x277CCACA8];
-  v6 = DAModelString();
+  v6 = DAModelString(a1);
   v3 = [*(a1 + 32) _version];
   v4 = [v2 stringWithFormat:@"Apple-%@/%@", v6, v3];
   v5 = userAgent_sUserAgentString;
@@ -469,18 +468,18 @@ LABEL_7:
 - (void)submitExclusiveTask:(id)task toFrontOfQueue:(BOOL)queue
 {
   queueCopy = queue;
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   v8 = DALoggingwithCategory();
   v9 = MEMORY[0x277CF3AF0];
   v10 = *(MEMORY[0x277CF3AF0] + 7);
   if (os_log_type_enabled(v8, v10))
   {
-    v38 = 138412546;
-    v39 = taskCopy;
-    v40 = 1024;
-    v41 = queueCopy;
-    _os_log_impl(&dword_24244C000, v8, v10, "Exclusive task %@ submitted, to front: %d", &v38, 0x12u);
+    v37 = 138412546;
+    v38 = taskCopy;
+    v39 = 1024;
+    v40 = queueCopy;
+    _os_log_impl(&dword_24244C000, v8, v10, "Exclusive task %@ submitted, to front: %d", &v37, 0x12u);
   }
 
   selfCopy = self;
@@ -514,8 +513,8 @@ LABEL_7:
     v15 = *(v9 + 5);
     if (os_log_type_enabled(v14, v15))
     {
-      LOWORD(v38) = 0;
-      _os_log_impl(&dword_24244C000, v14, v15, "DATaskManager: Begin an xpc transaction due to exclusive task", &v38, 2u);
+      LOWORD(v37) = 0;
+      _os_log_impl(&dword_24244C000, v14, v15, "DATaskManager: Begin an xpc transaction due to exclusive task", &v37, 2u);
     }
 
     v16 = objc_opt_new();
@@ -526,9 +525,9 @@ LABEL_7:
     if (os_log_type_enabled(v18, v15))
     {
       transactionId = [(DATransaction *)selfCopy->_transaction transactionId];
-      v38 = 138412290;
-      v39 = transactionId;
-      _os_log_impl(&dword_24244C000, v18, v15, "DATaskManager: DATransaction starting, ID: %@", &v38, 0xCu);
+      v37 = 138412290;
+      v38 = transactionId;
+      _os_log_impl(&dword_24244C000, v18, v15, "DATaskManager: DATransaction starting, ID: %@", &v37, 0xCu);
     }
   }
 
@@ -545,9 +544,9 @@ LABEL_7:
       {
         account2 = [(DATaskManager *)selfCopy account];
         accountID = [account2 accountID];
-        v38 = 138412290;
-        v39 = accountID;
-        _os_log_impl(&dword_24244C000, v22, v23, "DATaskManager: Retain an xpc activity due to exclusive task for account %@", &v38, 0xCu);
+        v37 = 138412290;
+        v38 = accountID;
+        _os_log_impl(&dword_24244C000, v22, v23, "DATaskManager: Retain an xpc activity due to exclusive task for account %@", &v37, 0xCu);
       }
 
       v26 = [DAActivity alloc];
@@ -624,22 +623,20 @@ LABEL_32:
 
   [(DATaskManager *)selfCopy taskManagerDidAddTask:taskCopy];
 LABEL_35:
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitIndependentTask:(id)task
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   v6 = DALoggingwithCategory();
   v7 = MEMORY[0x277CF3AF0];
   v8 = *(MEMORY[0x277CF3AF0] + 7);
   if (os_log_type_enabled(v6, v8))
   {
-    v32 = 138412290;
-    v33 = taskCopy;
-    _os_log_impl(&dword_24244C000, v6, v8, "Independent task %@ submitted", &v32, 0xCu);
+    v31 = 138412290;
+    v32 = taskCopy;
+    _os_log_impl(&dword_24244C000, v6, v8, "Independent task %@ submitted", &v31, 0xCu);
   }
 
   selfCopy = self;
@@ -667,8 +664,8 @@ LABEL_35:
       v13 = *(v7 + 5);
       if (os_log_type_enabled(v12, v13))
       {
-        LOWORD(v32) = 0;
-        _os_log_impl(&dword_24244C000, v12, v13, "DATaskManager: Begin an xpc transaction due to independent task", &v32, 2u);
+        LOWORD(v31) = 0;
+        _os_log_impl(&dword_24244C000, v12, v13, "DATaskManager: Begin an xpc transaction due to independent task", &v31, 2u);
       }
 
       v14 = objc_opt_new();
@@ -679,9 +676,9 @@ LABEL_35:
       if (os_log_type_enabled(v16, v13))
       {
         transactionId = [(DATransaction *)selfCopy->_transaction transactionId];
-        v32 = 138412290;
-        v33 = transactionId;
-        _os_log_impl(&dword_24244C000, v16, v13, "DATaskManager: DATransaction starting, ID: %@", &v32, 0xCu);
+        v31 = 138412290;
+        v32 = transactionId;
+        _os_log_impl(&dword_24244C000, v16, v13, "DATaskManager: DATransaction starting, ID: %@", &v31, 0xCu);
       }
     }
 
@@ -698,9 +695,9 @@ LABEL_35:
         {
           account2 = [(DATaskManager *)selfCopy account];
           accountID = [account2 accountID];
-          v32 = 138412290;
-          v33 = accountID;
-          _os_log_impl(&dword_24244C000, v20, v21, "DATaskManager: Retain an xpc activity due to independent task for account %@", &v32, 0xCu);
+          v31 = 138412290;
+          v32 = accountID;
+          _os_log_impl(&dword_24244C000, v20, v21, "DATaskManager: Retain an xpc activity due to independent task for account %@", &v31, 0xCu);
         }
 
         v24 = [DAActivity alloc];
@@ -744,21 +741,20 @@ LABEL_26:
   objc_sync_exit(selfCopy);
 
 LABEL_27:
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitQueuedTask:(id)task
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   v6 = DALoggingwithCategory();
   v7 = MEMORY[0x277CF3AF0];
   v8 = *(MEMORY[0x277CF3AF0] + 7);
   if (os_log_type_enabled(v6, v8))
   {
-    v33 = 138412290;
-    v34 = taskCopy;
-    _os_log_impl(&dword_24244C000, v6, v8, "Queued task %@ submitted", &v33, 0xCu);
+    v32 = 138412290;
+    v33 = taskCopy;
+    _os_log_impl(&dword_24244C000, v6, v8, "Queued task %@ submitted", &v32, 0xCu);
   }
 
   selfCopy = self;
@@ -786,8 +782,8 @@ LABEL_27:
       v13 = *(v7 + 5);
       if (os_log_type_enabled(v12, v13))
       {
-        LOWORD(v33) = 0;
-        _os_log_impl(&dword_24244C000, v12, v13, "DATaskManager: Begin an xpc transaction due to queued task", &v33, 2u);
+        LOWORD(v32) = 0;
+        _os_log_impl(&dword_24244C000, v12, v13, "DATaskManager: Begin an xpc transaction due to queued task", &v32, 2u);
       }
 
       v14 = objc_opt_new();
@@ -798,9 +794,9 @@ LABEL_27:
       if (os_log_type_enabled(v16, v13))
       {
         transactionId = [(DATransaction *)selfCopy->_transaction transactionId];
-        v33 = 138412290;
-        v34 = transactionId;
-        _os_log_impl(&dword_24244C000, v16, v13, "DATaskManager: DATransaction starting, ID: %@", &v33, 0xCu);
+        v32 = 138412290;
+        v33 = transactionId;
+        _os_log_impl(&dword_24244C000, v16, v13, "DATaskManager: DATransaction starting, ID: %@", &v32, 0xCu);
       }
     }
 
@@ -817,9 +813,9 @@ LABEL_27:
         {
           account2 = [(DATaskManager *)selfCopy account];
           accountID = [account2 accountID];
-          v33 = 138412290;
-          v34 = accountID;
-          _os_log_impl(&dword_24244C000, v20, v21, "DATaskManager: Retain an xpc activity due to queued task for account %@", &v33, 0xCu);
+          v32 = 138412290;
+          v33 = accountID;
+          _os_log_impl(&dword_24244C000, v20, v21, "DATaskManager: Retain an xpc activity due to queued task for account %@", &v32, 0xCu);
         }
 
         v24 = [DAActivity alloc];
@@ -866,77 +862,73 @@ LABEL_27:
   objc_sync_exit(selfCopy);
 
 LABEL_28:
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelTask:(id)task withUnderlyingError:(id)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   errorCopy = error;
   v7 = DALoggingwithCategory();
   v8 = *(MEMORY[0x277CF3AF0] + 7);
   if (os_log_type_enabled(v7, v8))
   {
-    v10 = 138412290;
-    v11 = taskCopy;
-    _os_log_impl(&dword_24244C000, v7, v8, "Task %@ aborted", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = taskCopy;
+    _os_log_impl(&dword_24244C000, v7, v8, "Task %@ aborted", &v9, 0xCu);
   }
 
   [taskCopy cancelTaskWithReason:0 underlyingError:errorCopy];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelAllTasks
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   allTasks = [(DATaskManager *)self allTasks];
-  v4 = [allTasks countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [allTasks countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(allTasks);
         }
 
-        [(DATaskManager *)self cancelTask:*(*(&v9 + 1) + 8 * v7++)];
+        [(DATaskManager *)self cancelTask:*(*(&v8 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [allTasks countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [allTasks countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)shutdown
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = DALoggingwithCategory();
   v4 = MEMORY[0x277CF3AF0];
   v5 = *(MEMORY[0x277CF3AF0] + 7);
   if (os_log_type_enabled(v3, v5))
   {
     account = [(DATaskManager *)self account];
-    v25 = 134218240;
+    v24 = 134218240;
     selfCopy2 = self;
-    v27 = 2048;
-    v28 = account;
-    _os_log_impl(&dword_24244C000, v3, v5, "Task Manager %p shutting down with account at %p", &v25, 0x16u);
+    v26 = 2048;
+    v27 = account;
+    _os_log_impl(&dword_24244C000, v3, v5, "Task Manager %p shutting down with account at %p", &v24, 0x16u);
   }
 
   [(DATaskManager *)self setAccount:0];
@@ -944,11 +936,11 @@ LABEL_28:
   if (os_log_type_enabled(v7, v5))
   {
     stateString = [(DATaskManager *)self stateString];
-    v25 = 134218242;
+    v24 = 134218242;
     selfCopy2 = self;
-    v27 = 2112;
-    v28 = stateString;
-    _os_log_impl(&dword_24244C000, v7, v5, "Task Manager %p shutting down with state %@", &v25, 0x16u);
+    v26 = 2112;
+    v27 = stateString;
+    _os_log_impl(&dword_24244C000, v7, v5, "Task Manager %p shutting down with state %@", &v24, 0x16u);
   }
 
   if ([(DATaskManager *)self state]!= 5)
@@ -992,9 +984,9 @@ LABEL_28:
       v17 = *(v4 + 5);
       if (os_log_type_enabled(v16, v17))
       {
-        v25 = 138412290;
+        v24 = 138412290;
         selfCopy2 = selfCopy3;
-        _os_log_impl(&dword_24244C000, v16, v17, "DATaskManager: Task manager %@ is being shut down. Ending XPC transaction", &v25, 0xCu);
+        _os_log_impl(&dword_24244C000, v16, v17, "DATaskManager: Task manager %@ is being shut down. Ending XPC transaction", &v24, 0xCu);
       }
 
       transaction = selfCopy3->_transaction;
@@ -1007,9 +999,9 @@ LABEL_28:
       v20 = *(v4 + 5);
       if (os_log_type_enabled(v19, v20))
       {
-        v25 = 138412290;
+        v24 = 138412290;
         selfCopy2 = selfCopy3;
-        _os_log_impl(&dword_24244C000, v19, v20, "DATaskManager: Task manager %@ is being shut down. Releasing XPC activity", &v25, 0xCu);
+        _os_log_impl(&dword_24244C000, v19, v20, "DATaskManager: Task manager %@ is being shut down. Releasing XPC activity", &v24, 0xCu);
       }
 
       daActivity = selfCopy3->_daActivity;
@@ -1030,8 +1022,6 @@ LABEL_28:
 
     [(DATaskManager *)selfCopy3 _cancelTasksWithReason:1];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)stateString
@@ -1059,23 +1049,21 @@ LABEL_28:
 
 - (void)_useOpportunisticSocketsAgain
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if ([(DATaskManager *)self state]!= 5)
   {
     v3 = DALoggingwithCategory();
     v4 = *(MEMORY[0x277CF3AF0] + 6);
     if (os_log_type_enabled(v3, v4))
     {
-      v7 = 138412290;
+      v6 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_24244C000, v3, v4, "Task manager %@ has finally drained its queue. Turning opportunistic socket support back on", &v7, 0xCu);
+      _os_log_impl(&dword_24244C000, v3, v4, "Task manager %@ has finally drained its queue. Turning opportunistic socket support back on", &v6, 0xCu);
     }
 
     account = [(DATaskManager *)self account];
     [account setShouldUseOpportunisticSockets:1];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_powerLogInfoDictionary
@@ -1117,39 +1105,37 @@ LABEL_28:
 
 - (void)_clearUserInitiatedSyncTimer
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if ([(DATaskManager *)self state]!= 5)
   {
     v3 = DALoggingwithCategory();
     v4 = *(MEMORY[0x277CF3AF0] + 6);
     if (os_log_type_enabled(v3, v4))
     {
-      v7 = 138412290;
+      v6 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_24244C000, v3, v4, "Task manager %@ has finally drained its queue. Clearing its user initiated sync state", &v7, 0xCu);
+      _os_log_impl(&dword_24244C000, v3, v4, "Task manager %@ has finally drained its queue. Clearing its user initiated sync state", &v6, 0xCu);
     }
 
     account = [(DATaskManager *)self account];
     [account setWasUserInitiated:0];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_endXpcTransaction
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = DALoggingwithCategory();
   v4 = MEMORY[0x277CF3AF0];
   v5 = *(MEMORY[0x277CF3AF0] + 5);
   if (os_log_type_enabled(v3, v5))
   {
     transactionId = [(DATransaction *)self->_transaction transactionId];
-    v15 = 138412546;
+    v14 = 138412546;
     selfCopy3 = self;
-    v17 = 2112;
-    v18 = transactionId;
-    _os_log_impl(&dword_24244C000, v3, v5, "DATaskManager: Task manager %@ has finally drained its queue. Ending XPC transaction %@", &v15, 0x16u);
+    v16 = 2112;
+    v17 = transactionId;
+    _os_log_impl(&dword_24244C000, v3, v5, "DATaskManager: Task manager %@ has finally drained its queue. Ending XPC transaction %@", &v14, 0x16u);
   }
 
   transaction = self->_transaction;
@@ -1159,11 +1145,11 @@ LABEL_28:
   if (os_log_type_enabled(v8, v5))
   {
     daActivity = self->_daActivity;
-    v15 = 138412546;
+    v14 = 138412546;
     selfCopy3 = self;
-    v17 = 2112;
-    v18 = daActivity;
-    _os_log_impl(&dword_24244C000, v8, v5, "DATaskManager: Task manager %@ has finally drained its queue. Releasing XPC activity %@", &v15, 0x16u);
+    v16 = 2112;
+    v17 = daActivity;
+    _os_log_impl(&dword_24244C000, v8, v5, "DATaskManager: Task manager %@ has finally drained its queue. Releasing XPC activity %@", &v14, 0x16u);
   }
 
   v10 = self->_daActivity;
@@ -1173,28 +1159,25 @@ LABEL_28:
   v12 = *(v4 + 6);
   if (os_log_type_enabled(v11, v12))
   {
-    v15 = 138412290;
+    v14 = 138412290;
     selfCopy3 = self;
-    _os_log_impl(&dword_24244C000, v11, v12, "Task manager %@ has finally drained its queue. Reset automatic fetching state", &v15, 0xCu);
+    _os_log_impl(&dword_24244C000, v11, v12, "Task manager %@ has finally drained its queue. Reset automatic fetching state", &v14, 0xCu);
   }
 
   account = [(DATaskManager *)self account];
   [account saveFetchingAutomaticallyState:0];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_logSyncEnd
 {
-  v4[3] = *MEMORY[0x277D85DE8];
+  v3[3] = *MEMORY[0x277D85DE8];
   [(DATaskManager *)self _powerLogInfoDictionary];
-  v4[0] = @"AccountName";
-  v4[1] = @"AccountClass";
-  v4[2] = @"AccountID";
-  [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
+  v3[0] = @"AccountName";
+  v3[1] = @"AccountClass";
+  v3[2] = @"AccountID";
+  [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:3];
   PLLogRegisteredEvent();
   self->_didLogSyncStart = 0;
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_taskForcesNetworking:(id)networking
@@ -1223,34 +1206,34 @@ LABEL_28:
 
 - (BOOL)_taskInQueueForcesNetworkConnection:(id)connection
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   connectionCopy = connection;
-  v5 = [connectionCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [connectionCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(connectionCopy);
         }
 
-        if ([(DATaskManager *)self _taskForcesNetworking:*(*(&v12 + 1) + 8 * i), v12])
+        if ([(DATaskManager *)self _taskForcesNetworking:*(*(&v11 + 1) + 8 * i), v11])
         {
           v9 = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [connectionCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [connectionCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -1263,7 +1246,6 @@ LABEL_28:
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -1360,7 +1342,7 @@ LABEL_11:
 
 - (void)taskDidFinish:(id)finish
 {
-  v151 = *MEMORY[0x277D85DE8];
+  v150 = *MEMORY[0x277D85DE8];
   finishCopy = finish;
   v6 = DALoggingwithCategory();
   v7 = MEMORY[0x277CF3AF0];
@@ -1368,7 +1350,7 @@ LABEL_11:
   if (os_log_type_enabled(v6, type))
   {
     *buf = 138412290;
-    v150 = finishCopy;
+    v149 = finishCopy;
     _os_log_impl(&dword_24244C000, v6, type, "Task %@ finished.", buf, 0xCu);
   }
 
@@ -1455,30 +1437,30 @@ LABEL_11:
                   if (!v24)
                   {
                     activeModalTask = [(DATaskManager *)selfCopy activeModalTask];
-                    v122 = activeModalTask == finishCopy;
+                    v121 = activeModalTask == finishCopy;
 
-                    if (v122)
+                    if (v121)
                     {
                       currentHandler = [MEMORY[0x277CCA890] currentHandler];
                       [currentHandler handleFailureInMethod:a2 object:selfCopy file:@"DATaskManager.m" lineNumber:676 description:{@"Finished task is not being managed, so cannot be active modal task."}];
                     }
 
                     queuedModalTasks = [(DATaskManager *)selfCopy queuedModalTasks];
-                    v124 = [queuedModalTasks containsObject:finishCopy];
+                    v123 = [queuedModalTasks containsObject:finishCopy];
 
-                    if (v124)
+                    if (v123)
                     {
                       currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
                       [currentHandler2 handleFailureInMethod:a2 object:selfCopy file:@"DATaskManager.m" lineNumber:678 description:{@"Finished task is not being managed, so cannot be in modal queue."}];
                     }
 
                     v112 = DALoggingwithCategory();
-                    v125 = *(v7 + 6);
-                    if (os_log_type_enabled(v112, v125))
+                    v124 = *(v7 + 6);
+                    if (os_log_type_enabled(v112, v124))
                     {
                       *buf = 138412290;
-                      v150 = finishCopy;
-                      _os_log_impl(&dword_24244C000, v112, v125, "Early return because task %@ isn't in our collection", buf, 0xCu);
+                      v149 = finishCopy;
+                      _os_log_impl(&dword_24244C000, v112, v124, "Early return because task %@ isn't in our collection", buf, 0xCu);
                     }
 
                     goto LABEL_116;
@@ -1659,31 +1641,31 @@ LABEL_65:
         v72 = [v70 initWithFireDate:v71 interval:selfCopy target:sel__useOpportunisticSocketsAgain selector:0 userInfo:0 repeats:0.0];
         [(DATaskManager *)selfCopy setManagerIdleTimer:v72];
 
-        v143 = 0u;
-        v144 = 0u;
-        v141 = 0u;
         v142 = 0u;
+        v143 = 0u;
+        v140 = 0u;
+        v141 = 0u;
         account = runLoopModesToPerformDelayedSelectorsIn();
-        v73 = [account countByEnumeratingWithState:&v141 objects:v148 count:16];
+        v73 = [account countByEnumeratingWithState:&v140 objects:v147 count:16];
         if (v73)
         {
-          v74 = *v142;
+          v74 = *v141;
           do
           {
             for (i = 0; i != v73; ++i)
             {
-              if (*v142 != v74)
+              if (*v141 != v74)
               {
                 objc_enumerationMutation(account);
               }
 
-              v76 = *(*(&v141 + 1) + 8 * i);
+              v76 = *(*(&v140 + 1) + 8 * i);
               currentRunLoop = [MEMORY[0x277CBEB88] currentRunLoop];
               managerIdleTimer3 = [(DATaskManager *)selfCopy managerIdleTimer];
               [currentRunLoop addTimer:managerIdleTimer3 forMode:v76];
             }
 
-            v73 = [account countByEnumeratingWithState:&v141 objects:v148 count:16];
+            v73 = [account countByEnumeratingWithState:&v140 objects:v147 count:16];
           }
 
           while (v73);
@@ -1727,7 +1709,7 @@ LABEL_89:
               account3 = [(DATaskManager *)selfCopy account];
               accountDescription = [account3 accountDescription];
               *buf = 138412290;
-              v150 = accountDescription;
+              v149 = accountDescription;
               _os_log_impl(&dword_24244C000, v94, type, "Pending tasks are finished for account %@", buf, 0xCu);
             }
 
@@ -1736,31 +1718,31 @@ LABEL_89:
             v99 = [v97 initWithFireDate:v98 interval:selfCopy target:sel__endXpcTransaction selector:0 userInfo:0 repeats:0.0];
             [(DATaskManager *)selfCopy setXpcTransactionTimer:v99];
 
-            v135 = 0u;
-            v136 = 0u;
-            v133 = 0u;
             v134 = 0u;
+            v135 = 0u;
+            v132 = 0u;
+            v133 = 0u;
             v100 = runLoopModesToPerformDelayedSelectorsIn();
-            v101 = [v100 countByEnumeratingWithState:&v133 objects:v146 count:16];
+            v101 = [v100 countByEnumeratingWithState:&v132 objects:v145 count:16];
             if (v101)
             {
-              v102 = *v134;
+              v102 = *v133;
               do
               {
                 for (j = 0; j != v101; ++j)
                 {
-                  if (*v134 != v102)
+                  if (*v133 != v102)
                   {
                     objc_enumerationMutation(v100);
                   }
 
-                  v104 = *(*(&v133 + 1) + 8 * j);
+                  v104 = *(*(&v132 + 1) + 8 * j);
                   currentRunLoop2 = [MEMORY[0x277CBEB88] currentRunLoop];
                   xpcTransactionTimer3 = [(DATaskManager *)selfCopy xpcTransactionTimer];
                   [currentRunLoop2 addTimer:xpcTransactionTimer3 forMode:v104];
                 }
 
-                v101 = [v100 countByEnumeratingWithState:&v133 objects:v146 count:16];
+                v101 = [v100 countByEnumeratingWithState:&v132 objects:v145 count:16];
               }
 
               while (v101);
@@ -1787,25 +1769,25 @@ LABEL_89:
           v111 = [v109 initWithFireDate:v110 interval:selfCopy target:sel__logSyncEnd selector:0 userInfo:0 repeats:0.0];
           [(DATaskManager *)selfCopy setPowerLogIdleTimer:v111];
 
-          v131 = 0u;
-          v132 = 0u;
-          v129 = 0u;
           v130 = 0u;
+          v131 = 0u;
+          v128 = 0u;
+          v129 = 0u;
           v112 = runLoopModesToPerformDelayedSelectorsIn();
-          v113 = [v112 countByEnumeratingWithState:&v129 objects:v145 count:16];
+          v113 = [v112 countByEnumeratingWithState:&v128 objects:v144 count:16];
           if (v113)
           {
-            v114 = *v130;
+            v114 = *v129;
             do
             {
               for (k = 0; k != v113; ++k)
               {
-                if (*v130 != v114)
+                if (*v129 != v114)
                 {
                   objc_enumerationMutation(v112);
                 }
 
-                v116 = *(*(&v129 + 1) + 8 * k);
+                v116 = *(*(&v128 + 1) + 8 * k);
                 powerLogIdleTimer3 = [(DATaskManager *)selfCopy powerLogIdleTimer];
 
                 if (powerLogIdleTimer3)
@@ -1816,7 +1798,7 @@ LABEL_89:
                 }
               }
 
-              v113 = [v112 countByEnumeratingWithState:&v129 objects:v145 count:16];
+              v113 = [v112 countByEnumeratingWithState:&v128 objects:v144 count:16];
             }
 
             while (v113);
@@ -1835,31 +1817,31 @@ LABEL_117:
         v85 = [v83 initWithFireDate:v84 interval:selfCopy target:sel__clearUserInitiatedSyncTimer selector:0 userInfo:0 repeats:0.0];
         [(DATaskManager *)selfCopy setUserInitiatedSyncTimer:v85];
 
-        v139 = 0u;
-        v140 = 0u;
-        v137 = 0u;
         v138 = 0u;
+        v139 = 0u;
+        v136 = 0u;
+        v137 = 0u;
         account2 = runLoopModesToPerformDelayedSelectorsIn();
-        v86 = [account2 countByEnumeratingWithState:&v137 objects:v147 count:16];
+        v86 = [account2 countByEnumeratingWithState:&v136 objects:v146 count:16];
         if (v86)
         {
-          v87 = *v138;
+          v87 = *v137;
           do
           {
             for (m = 0; m != v86; ++m)
             {
-              if (*v138 != v87)
+              if (*v137 != v87)
               {
                 objc_enumerationMutation(account2);
               }
 
-              v89 = *(*(&v137 + 1) + 8 * m);
+              v89 = *(*(&v136 + 1) + 8 * m);
               currentRunLoop4 = [MEMORY[0x277CBEB88] currentRunLoop];
               userInitiatedSyncTimer3 = [(DATaskManager *)selfCopy userInitiatedSyncTimer];
               [currentRunLoop4 addTimer:userInitiatedSyncTimer3 forMode:v89];
             }
 
-            v86 = [account2 countByEnumeratingWithState:&v137 objects:v147 count:16];
+            v86 = [account2 countByEnumeratingWithState:&v136 objects:v146 count:16];
           }
 
           while (v86);
@@ -1956,13 +1938,11 @@ LABEL_64:
   [(DATaskManager *)self taskManagerWillRemoveTask:finishCopy];
   [(DATaskManager *)self _releasePowerAssertionForTask:finishCopy];
 LABEL_118:
-
-  v120 = *MEMORY[0x277D85DE8];
 }
 
 - (void)taskRequestModal:(id)modal
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   modalCopy = modal;
   if (!modalCopy)
   {
@@ -1973,9 +1953,9 @@ LABEL_118:
   v7 = *(MEMORY[0x277CF3AF0] + 7);
   if (os_log_type_enabled(v6, v7))
   {
-    v40 = 138412290;
-    v41 = modalCopy;
-    _os_log_impl(&dword_24244C000, v6, v7, "Task %@ requesting modal", &v40, 0xCu);
+    v39 = 138412290;
+    v40 = modalCopy;
+    _os_log_impl(&dword_24244C000, v6, v7, "Task %@ requesting modal", &v39, 0xCu);
   }
 
   if ([(DATaskManager *)self state]== 5)
@@ -2115,13 +2095,13 @@ LABEL_27:
     }
 
     activeQueuedTask5 = [(DATaskManager *)selfCopy activeQueuedTask];
-    v36 = activeQueuedTask5 == 0;
+    v35 = activeQueuedTask5 == 0;
 
-    if (v36)
+    if (v35)
     {
       queuedModalTasks2 = [(DATaskManager *)selfCopy queuedModalTasks];
-      v38 = [queuedModalTasks2 objectAtIndexedSubscript:0];
-      [(DATaskManager *)selfCopy setActiveModalTask:v38];
+      v37 = [queuedModalTasks2 objectAtIndexedSubscript:0];
+      [(DATaskManager *)selfCopy setActiveModalTask:v37];
 
       queuedModalTasks3 = [(DATaskManager *)selfCopy queuedModalTasks];
       [queuedModalTasks3 removeObjectAtIndex:0];
@@ -2147,20 +2127,18 @@ LABEL_35:
   }
 
 LABEL_39:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)taskEndModal:(id)modal
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   modalCopy = modal;
   v6 = DALoggingwithCategory();
   v7 = *(MEMORY[0x277CF3AF0] + 7);
   if (os_log_type_enabled(v6, v7))
   {
     *buf = 138412290;
-    v19 = modalCopy;
+    v18 = modalCopy;
     _os_log_impl(&dword_24244C000, v6, v7, "Task %@ ending modal", buf, 0xCu);
   }
 
@@ -2209,8 +2187,6 @@ LABEL_39:
       [(DATaskManager *)selfCopy handleFailureInMethod:a2 object:self file:@"DATaskManager.m" lineNumber:918 description:@"taskEndModal can only be called in Run Modal state, not %d", [(DATaskManager *)self state]];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)taskIsModal:(id)modal
@@ -2253,7 +2229,7 @@ LABEL_39:
 
 - (void)_performTask:(id)task
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   if ([(DATaskManager *)self isShutdown])
   {
@@ -2264,9 +2240,9 @@ LABEL_39:
       v7 = objc_opt_class();
       v8 = NSStringFromClass(v7);
       *buf = 138543618;
-      v19 = v8;
-      v20 = 2112;
-      v21 = taskCopy;
+      v18 = v8;
+      v19 = 2112;
+      v20 = taskCopy;
       _os_log_impl(&dword_24244C000, v5, v6, "The _performTask is invoked after taskManager has been shutdown. Canceling %{public}@ %@", buf, 0x16u);
     }
 
@@ -2286,9 +2262,9 @@ LABEL_39:
         v13 = objc_opt_class();
         v14 = NSStringFromClass(v13);
         *buf = 138543618;
-        v19 = v14;
-        v20 = 2112;
-        v21 = taskCopy;
+        v18 = v14;
+        v19 = 2112;
+        v20 = taskCopy;
         _os_log_impl(&dword_24244C000, v11, v12, "The device is in on-power fetch mode, but is no longer on power or on wifi. Canceling %{public}@ %@", buf, 0x16u);
       }
 
@@ -2302,17 +2278,17 @@ LABEL_39:
       if (os_log_type_enabled(v10, *(MEMORY[0x277CF3AF0] + 7)))
       {
         *buf = 138412290;
-        v19 = taskCopy;
+        v18 = taskCopy;
         _os_log_impl(&dword_24244C000, v11, v15, "performTask called on task %@", buf, 0xCu);
       }
 
       if (PLShouldLogRegisteredEvent() && !self->_didLogSyncStart && [(DATaskManager *)self _hasTasksIndicatingARunningSync])
       {
         [(DATaskManager *)self _powerLogInfoDictionary];
-        v17[0] = @"AccountName";
-        v17[1] = @"AccountClass";
-        v17[2] = @"AccountID";
-        [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
+        v16[0] = @"AccountName";
+        v16[1] = @"AccountClass";
+        v16[2] = @"AccountID";
+        [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
         PLLogRegisteredEvent();
         self->_didLogSyncStart = 1;
       }
@@ -2321,13 +2297,60 @@ LABEL_39:
       [taskCopy performTask];
     }
   }
+}
 
-  v16 = *MEMORY[0x277D85DE8];
+- (void)_requestCancelTasksWithReason:(int)reason
+{
+  v3 = *&reason;
+  v21 = *MEMORY[0x277D85DE8];
+  independentTasks = [(DATaskManager *)self independentTasks];
+  v6 = [independentTasks copy];
+
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v7 = v6;
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v17;
+    do
+    {
+      for (i = 0; i != v9; ++i)
+      {
+        if (*v17 != v10)
+        {
+          objc_enumerationMutation(v7);
+        }
+
+        v12 = *(*(&v16 + 1) + 8 * i);
+        if (objc_opt_respondsToSelector())
+        {
+          [v12 requestCancelTaskWithReason:{v3, v16}];
+        }
+      }
+
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    }
+
+    while (v9);
+  }
+
+  activeQueuedTask = [(DATaskManager *)self activeQueuedTask];
+  v14 = objc_opt_respondsToSelector();
+
+  if (v14)
+  {
+    activeQueuedTask2 = [(DATaskManager *)self activeQueuedTask];
+    [activeQueuedTask2 requestCancelTaskWithReason:v3];
+  }
 }
 
 - (void)_startModal:(id)modal
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   modalCopy = modal;
   if ([(DATaskManager *)self isShutdown])
   {
@@ -2337,11 +2360,11 @@ LABEL_39:
     {
       v7 = objc_opt_class();
       v8 = NSStringFromClass(v7);
-      v12 = 138543618;
-      v13 = v8;
-      v14 = 2112;
-      v15 = modalCopy;
-      _os_log_impl(&dword_24244C000, v5, v6, "The _startModal is invoked after taskManager has been shutdown. Canceling %{public}@ %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v8;
+      v13 = 2112;
+      v14 = modalCopy;
+      _os_log_impl(&dword_24244C000, v5, v6, "The _startModal is invoked after taskManager has been shutdown. Canceling %{public}@ %@", &v11, 0x16u);
     }
 
     [modalCopy cancelTaskWithReason:1 underlyingError:0];
@@ -2358,41 +2381,39 @@ LABEL_39:
     v10 = *(MEMORY[0x277CF3AF0] + 7);
     if (os_log_type_enabled(v9, v10))
     {
-      v12 = 138412290;
-      v13 = modalCopy;
-      _os_log_impl(&dword_24244C000, v9, v10, "startModal called on task %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = modalCopy;
+      _os_log_impl(&dword_24244C000, v9, v10, "startModal called on task %@", &v11, 0xCu);
     }
 
     [modalCopy startModal];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reactivateHeldTasks
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   heldIndependentTasks = [(DATaskManager *)self heldIndependentTasks];
-  v4 = [heldIndependentTasks countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v4 = [heldIndependentTasks countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v32;
+    v6 = *v31;
     do
     {
       v7 = 0;
       do
       {
-        if (*v32 != v6)
+        if (*v31 != v6)
         {
           objc_enumerationMutation(heldIndependentTasks);
         }
 
-        v8 = *(*(&v31 + 1) + 8 * v7);
+        v8 = *(*(&v30 + 1) + 8 * v7);
         independentTasks = [(DATaskManager *)self independentTasks];
         [independentTasks addObject:v8];
 
@@ -2401,7 +2422,7 @@ LABEL_39:
       }
 
       while (v5 != v7);
-      v5 = [heldIndependentTasks countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v5 = [heldIndependentTasks countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v5);
@@ -2410,27 +2431,27 @@ LABEL_39:
   heldIndependentTasks2 = [(DATaskManager *)self heldIndependentTasks];
   [heldIndependentTasks2 removeAllObjects];
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   modalHeldIndependentTasks = [(DATaskManager *)self modalHeldIndependentTasks];
-  v12 = [modalHeldIndependentTasks countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v12 = [modalHeldIndependentTasks countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v28;
+    v14 = *v27;
     do
     {
       v15 = 0;
       do
       {
-        if (*v28 != v14)
+        if (*v27 != v14)
         {
           objc_enumerationMutation(modalHeldIndependentTasks);
         }
 
-        v16 = *(*(&v27 + 1) + 8 * v15);
+        v16 = *(*(&v26 + 1) + 8 * v15);
         independentTasks2 = [(DATaskManager *)self independentTasks];
         [independentTasks2 addObject:v16];
 
@@ -2438,7 +2459,7 @@ LABEL_39:
       }
 
       while (v13 != v15);
-      v13 = [modalHeldIndependentTasks countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v13 = [modalHeldIndependentTasks countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v13);
@@ -2473,8 +2494,6 @@ LABEL_39:
       [(DATaskManager *)self _schedulePerformTask:activeQueuedTask];
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_makeStateTransition
@@ -2487,7 +2506,7 @@ LABEL_39:
 
 - (void)_scheduleSelector:(SEL)selector withArgument:(id)argument
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   argumentCopy = argument;
   v7 = runLoopModesToPerformDelayedSelectorsIn();
   v8 = DALoggingwithCategory();
@@ -2502,37 +2521,104 @@ LABEL_39:
       lastObject = [v7 lastObject];
     }
 
-    v14 = 136315650;
-    v15 = Name;
-    v16 = 2112;
-    v17 = argumentCopy;
-    v18 = 2112;
-    v19 = lastObject;
-    _os_log_impl(&dword_24244C000, v8, v9, "Scheduling selector: %s with argument: %@ in modes %@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = Name;
+    v15 = 2112;
+    v16 = argumentCopy;
+    v17 = 2112;
+    v18 = lastObject;
+    _os_log_impl(&dword_24244C000, v8, v9, "Scheduling selector: %s with argument: %@ in modes %@", &v13, 0x20u);
     if (v11 == 1)
     {
     }
   }
 
   [(DATaskManager *)self performSelector:selector withObject:argumentCopy afterDelay:v7 inModes:0.0];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleStartModal:(id)modal
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   modalCopy = modal;
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277CF3AF0] + 7);
   if (os_log_type_enabled(v5, v6))
   {
-    v8 = 138412290;
-    v9 = modalCopy;
-    _os_log_impl(&dword_24244C000, v5, v6, "Scheduling modal task: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = modalCopy;
+    _os_log_impl(&dword_24244C000, v5, v6, "Scheduling modal task: %@", &v7, 0xCu);
   }
 
   [(DATaskManager *)self _scheduleSelector:sel__startModal_ withArgument:modalCopy];
-  v7 = *MEMORY[0x277D85DE8];
+}
+
+- (void)_cancelTasksWithReason:(int)reason
+{
+  v3 = *&reason;
+  v28 = *MEMORY[0x277D85DE8];
+  [(DATaskManager *)self allTasks];
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v4 = v22 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v20;
+    v8 = *(MEMORY[0x277CF3AF0] + 7);
+    do
+    {
+      for (i = 0; i != v6; ++i)
+      {
+        if (*v20 != v7)
+        {
+          objc_enumerationMutation(v4);
+        }
+
+        v10 = *(*(&v19 + 1) + 8 * i);
+        v11 = DALoggingwithCategory();
+        if (os_log_type_enabled(v11, v8))
+        {
+          *buf = 138412546;
+          v24 = v10;
+          v25 = 1024;
+          v26 = v3;
+          _os_log_impl(&dword_24244C000, v11, v8, "Cancelling task %@ with reason %d", buf, 0x12u);
+        }
+
+        [v10 cancelTaskWithReason:v3 underlyingError:0];
+      }
+
+      v6 = [v4 countByEnumeratingWithState:&v19 objects:v27 count:16];
+    }
+
+    while (v6);
+  }
+
+  [MEMORY[0x277D82BB8] cancelPreviousPerformRequestsWithTarget:self];
+  queuedExclusiveTasks = [(DATaskManager *)self queuedExclusiveTasks];
+  [queuedExclusiveTasks removeAllObjects];
+
+  [(DATaskManager *)self setActiveExclusiveTask:0];
+  independentTasks = [(DATaskManager *)self independentTasks];
+  [independentTasks removeAllObjects];
+
+  heldIndependentTasks = [(DATaskManager *)self heldIndependentTasks];
+  [heldIndependentTasks removeAllObjects];
+
+  modalHeldIndependentTasks = [(DATaskManager *)self modalHeldIndependentTasks];
+  [modalHeldIndependentTasks removeAllObjects];
+
+  mQueuedTasks = [(DATaskManager *)self mQueuedTasks];
+  [mQueuedTasks removeAllObjects];
+
+  [(DATaskManager *)self setActiveQueuedTask:0];
+  [(DATaskManager *)self setModalHeldActiveQueuedTask:0];
+  queuedModalTasks = [(DATaskManager *)self queuedModalTasks];
+  [queuedModalTasks removeAllObjects];
+
+  [(DATaskManager *)self setActiveModalTask:0];
 }
 
 - (void)_retainPowerAssertionForTask:(id)task

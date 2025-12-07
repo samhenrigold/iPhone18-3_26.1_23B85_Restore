@@ -9,9 +9,11 @@
 - (void)activateWithCompletion:(id)completion;
 - (void)encodeWithCoder:(id)coder;
 - (void)invalidate;
+- (void)remoteDisplayHidePasswordWithFlags:(unsigned int)flags;
 - (void)remoteDisplayReceivedEventID:(id)d event:(id)event options:(id)options sessionID:(id)iD;
 - (void)remoteDisplayReceivedRequestID:(id)d request:(id)request options:(id)options responseHandler:(id)handler sessionID:(id)iD;
 - (void)remoteDisplaySessionEndedWithID:(id)d;
+- (void)remoteDisplayShowPassword:(id)password flags:(unsigned int)flags;
 - (void)remoteDisplayStartServerSessionID:(id)d device:(id)device linkType:(id)type completion:(id)completion;
 - (void)startPairingServerWithCompletion:(id)completion;
 - (void)stopPairingServer;
@@ -96,18 +98,19 @@
 
 - (id)description
 {
-  NSAppendPrintF();
-  v3 = 0;
+  v10 = 0;
+  NSAppendPrintF(&v10, "RPRemoteDisplayServer %{ptr}", self);
+  v3 = v10;
   v4 = v3;
   serviceType = self->_serviceType;
   if (serviceType)
   {
     v9 = v3;
-    v8 = serviceType;
-    NSAppendPrintF();
-    v6 = v9;
+    v6 = serviceType;
+    NSAppendPrintF(&v9, ", Srv %@", v6);
+    v7 = v9;
 
-    v4 = v6;
+    v4 = v7;
   }
 
   return v4;
@@ -135,14 +138,16 @@
   {
     if (gLogCategory_RPRemoteDisplayServer <= 30 && (gLogCategory_RPRemoteDisplayServer != -1 || _LogCategory_Initialize()))
     {
-LABEL_18:
-      [RPRemoteDisplayServer _activateWithCompletion:reactivate:];
+      v9 = "Re-activate\n";
+LABEL_19:
+      [(RPRemoteDisplayServer *)v9 _activateWithCompletion:v6 reactivate:v7];
     }
   }
 
   else if (gLogCategory_RPRemoteDisplayServer <= 30 && (gLogCategory_RPRemoteDisplayServer != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_18;
+    v9 = "Activate\n";
+    goto LABEL_19;
   }
 
   if (self->_authCompletionHandler)
@@ -167,89 +172,84 @@ LABEL_18:
 
   [(RPRemoteDisplayServer *)self _ensureXPCStarted];
   xpcCnx = self->_xpcCnx;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __60__RPRemoteDisplayServer__activateWithCompletion_reactivate___block_invoke;
+  v17[3] = &unk_1E7C92F88;
+  v19 = reactivateCopy;
+  v11 = completionCopy;
+  v18 = v11;
+  v12 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v17];
   v14[0] = MEMORY[0x1E69E9820];
   v14[1] = 3221225472;
-  v14[2] = __60__RPRemoteDisplayServer__activateWithCompletion_reactivate___block_invoke;
+  v14[2] = __60__RPRemoteDisplayServer__activateWithCompletion_reactivate___block_invoke_2;
   v14[3] = &unk_1E7C92F88;
   v16 = reactivateCopy;
-  v8 = completionCopy;
-  v15 = v8;
-  v9 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v14];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __60__RPRemoteDisplayServer__activateWithCompletion_reactivate___block_invoke_2;
-  v11[3] = &unk_1E7C92F88;
-  v13 = reactivateCopy;
-  v12 = v8;
-  v10 = v8;
-  [v9 remoteDisplayActivateServer:self completion:v11];
+  v15 = v11;
+  v13 = v11;
+  [v12 remoteDisplayActivateServer:self completion:v14];
 }
 
 void __60__RPRemoteDisplayServer__activateWithCompletion_reactivate___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v7 = v3;
+  v8 = v3;
   if (*(a1 + 40) == 1)
   {
     if (gLogCategory_RPRemoteDisplayServer <= 90)
     {
-      if (gLogCategory_RPRemoteDisplayServer != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
+      if (gLogCategory_RPRemoteDisplayServer != -1 || (v4 = _LogCategory_Initialize(), v3 = v8, v4))
       {
-LABEL_14:
-        __60__RPRemoteDisplayServer__activateWithCompletion_reactivate___block_invoke_cold_1();
-        v3 = v7;
+        v5 = "### Re-activate XPC error: %{error}\n";
+LABEL_15:
+        __60__RPRemoteDisplayServer__activateWithCompletion_reactivate___block_invoke_cold_1(v5, v8);
+        v3 = v8;
       }
     }
   }
 
   else if (gLogCategory_RPRemoteDisplayServer <= 90)
   {
-    if (gLogCategory_RPRemoteDisplayServer != -1)
+    if (gLogCategory_RPRemoteDisplayServer != -1 || (v6 = _LogCategory_Initialize(), v3 = v8, v6))
     {
-      goto LABEL_14;
-    }
-
-    v5 = _LogCategory_Initialize();
-    v3 = v7;
-    if (v5)
-    {
-      goto LABEL_14;
+      v5 = "### Activate XPC error: %{error}\n";
+      goto LABEL_15;
     }
   }
 
-  v6 = *(a1 + 32);
-  if (v6)
+  v7 = *(a1 + 32);
+  if (v7)
   {
-    (*(v6 + 16))(v6, v7);
-    v3 = v7;
+    (*(v7 + 16))(v7, v8);
+    v3 = v8;
   }
 }
 
 void __60__RPRemoteDisplayServer__activateWithCompletion_reactivate___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 40);
-  v10 = v3;
+  v5 = v3;
+  v9 = v3;
   if (v3)
   {
     if (*(a1 + 40))
     {
       if (gLogCategory_RPRemoteDisplayServer <= 90)
       {
-        if (gLogCategory_RPRemoteDisplayServer != -1 || (v5 = _LogCategory_Initialize(), v3 = v10, v5))
+        if (gLogCategory_RPRemoteDisplayServer != -1 || (v6 = _LogCategory_Initialize(), v5 = v9, v6))
         {
-          __60__RPRemoteDisplayServer__activateWithCompletion_reactivate___block_invoke_2_cold_2();
+          __60__RPRemoteDisplayServer__activateWithCompletion_reactivate___block_invoke_2_cold_2(v5);
 LABEL_20:
-          v3 = v10;
+          v5 = v9;
         }
       }
     }
 
     else if (gLogCategory_RPRemoteDisplayServer <= 90)
     {
-      if (gLogCategory_RPRemoteDisplayServer != -1 || (v7 = _LogCategory_Initialize(), v3 = v10, v7))
+      if (gLogCategory_RPRemoteDisplayServer != -1 || (v7 = _LogCategory_Initialize(), v5 = v9, v7))
       {
-        __60__RPRemoteDisplayServer__activateWithCompletion_reactivate___block_invoke_2_cold_1();
+        __60__RPRemoteDisplayServer__activateWithCompletion_reactivate___block_invoke_2_cold_1(v5);
         goto LABEL_20;
       }
     }
@@ -259,9 +259,9 @@ LABEL_20:
   {
     if (gLogCategory_RPRemoteDisplayServer <= 30)
     {
-      if (gLogCategory_RPRemoteDisplayServer != -1 || (v6 = _LogCategory_Initialize(), v3 = 0, v6))
+      if (gLogCategory_RPRemoteDisplayServer != -1 || (v3 = _LogCategory_Initialize(), v5 = 0, v3))
       {
-        __60__RPRemoteDisplayServer__activateWithCompletion_reactivate___block_invoke_2_cold_4();
+        __60__RPRemoteDisplayServer__activateWithCompletion_reactivate___block_invoke_2_cold_4(v3, v5, v4);
         goto LABEL_20;
       }
     }
@@ -269,18 +269,18 @@ LABEL_20:
 
   else if (gLogCategory_RPRemoteDisplayServer <= 30)
   {
-    if (gLogCategory_RPRemoteDisplayServer != -1 || (v8 = _LogCategory_Initialize(), v3 = 0, v8))
+    if (gLogCategory_RPRemoteDisplayServer != -1 || (v3 = _LogCategory_Initialize(), v5 = 0, v3))
     {
-      __60__RPRemoteDisplayServer__activateWithCompletion_reactivate___block_invoke_2_cold_3();
+      __60__RPRemoteDisplayServer__activateWithCompletion_reactivate___block_invoke_2_cold_3(v3, v5, v4);
       goto LABEL_20;
     }
   }
 
-  v9 = *(a1 + 32);
-  if (v9)
+  v8 = *(a1 + 32);
+  if (v8)
   {
-    (*(v9 + 16))(v9, v10);
-    v3 = v10;
+    (*(v8 + 16))(v8, v9);
+    v5 = v9;
   }
 }
 
@@ -368,31 +368,34 @@ uint64_t __42__RPRemoteDisplayServer__ensureXPCStarted__block_invoke_2(uint64_t 
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __35__RPRemoteDisplayServer_invalidate__block_invoke(uint64_t result)
+void *__35__RPRemoteDisplayServer_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3)
 {
-  v5 = *(result + 32);
-  if ((*(v5 + 9) & 1) == 0)
+  v7 = result[4];
+  if ((*(v7 + 9) & 1) == 0)
   {
-    v9 = v1;
-    v6 = result;
-    *(v5 + 9) = 1;
-    if (gLogCategory_RPRemoteDisplayServer <= 30 && (gLogCategory_RPRemoteDisplayServer != -1 || _LogCategory_Initialize()))
+    v11 = v3;
+    v8 = result;
+    *(v7 + 9) = 1;
+    if (gLogCategory_RPRemoteDisplayServer <= 30)
     {
-      __35__RPRemoteDisplayServer_invalidate__block_invoke_cold_1();
+      if (gLogCategory_RPRemoteDisplayServer != -1 || (result = _LogCategory_Initialize(), result))
+      {
+        __35__RPRemoteDisplayServer_invalidate__block_invoke_cold_1(result, a2, a3);
+      }
     }
 
-    v7 = *(v6 + 32);
-    if (*(v7 + 11) == 1)
+    v9 = v8[4];
+    if (*(v9 + 11) == 1)
     {
-      [v7 stopPairingServer];
-      v7 = *(v6 + 32);
+      [v9 stopPairingServer];
+      v9 = v8[4];
     }
 
-    [*(v7 + 16) enumerateKeysAndObjectsUsingBlock:{&__block_literal_global_15, v2, v9, v3}];
-    [*(*(v6 + 32) + 24) invalidate];
-    v8 = *(v6 + 32);
+    [*(v9 + 16) enumerateKeysAndObjectsUsingBlock:{&__block_literal_global_15, v4, v11, v5}];
+    [*(v8[4] + 24) invalidate];
+    v10 = v8[4];
 
-    return [v8 _invalidated];
+    return [v10 _invalidated];
   }
 
   return result;
@@ -433,9 +436,12 @@ uint64_t __35__RPRemoteDisplayServer_invalidate__block_invoke(uint64_t result)
     self->_sessionEndedHandler = 0;
 
     self->_invalidateDone = 1;
-    if (gLogCategory_RPRemoteDisplayServer <= 30 && (gLogCategory_RPRemoteDisplayServer != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_RPRemoteDisplayServer <= 30)
     {
-      [RPRemoteDisplayServer _invalidated];
+      if (gLogCategory_RPRemoteDisplayServer != -1 || (v12 = _LogCategory_Initialize(), v12))
+      {
+        [(RPRemoteDisplayServer *)v12 _invalidated];
+      }
     }
   }
 }
@@ -443,14 +449,14 @@ uint64_t __35__RPRemoteDisplayServer_invalidate__block_invoke(uint64_t result)
 - (void)tryPassword:(id)password
 {
   passwordCopy = password;
-  v4 = passwordCopy;
+  v5 = passwordCopy;
   if (gLogCategory_RPRemoteDisplayServer <= 90)
   {
     v6 = passwordCopy;
-    if (gLogCategory_RPRemoteDisplayServer != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
+    if (gLogCategory_RPRemoteDisplayServer != -1 || (passwordCopy = _LogCategory_Initialize(), v5 = v6, passwordCopy))
     {
-      [RPRemoteDisplayServer tryPassword:];
-      v4 = v6;
+      [(RPRemoteDisplayServer *)passwordCopy tryPassword:v5, v4];
+      v5 = v6;
     }
   }
 }
@@ -482,14 +488,18 @@ uint64_t __35__RPRemoteDisplayServer_invalidate__block_invoke(uint64_t result)
 
 void __58__RPRemoteDisplayServer_startPairingServerWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v5 = a2;
+  v8 = a2;
   v4 = a3;
-  if (gLogCategory_RPRemoteDisplayServer <= 30 && (gLogCategory_RPRemoteDisplayServer != -1 || _LogCategory_Initialize()))
+  v7 = v4;
+  if (gLogCategory_RPRemoteDisplayServer <= 30)
   {
-    __58__RPRemoteDisplayServer_startPairingServerWithCompletion___block_invoke_cold_1();
+    if (gLogCategory_RPRemoteDisplayServer != -1 || (v4 = _LogCategory_Initialize(), v4))
+    {
+      __58__RPRemoteDisplayServer_startPairingServerWithCompletion___block_invoke_cold_1(v4, v5, v6);
+    }
   }
 
-  v4[2](v4, 0);
+  v7[2](v7, 0);
 }
 
 uint64_t __58__RPRemoteDisplayServer_startPairingServerWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -577,7 +587,7 @@ void *__58__RPRemoteDisplayServer_startPairingServerWithCompletion___block_invok
 
   [(NSMutableDictionary *)sessions setObject:v14 forKeyedSubscript:dCopy];
   v19 = _Block_copy(self->_sessionStartHandler);
-  v20 = v19;
+  v26 = v19;
   if (v19)
   {
     (*(v19 + 2))(v19, v14, completionCopy);
@@ -585,8 +595,8 @@ void *__58__RPRemoteDisplayServer_startPairingServerWithCompletion___block_invok
 
   else
   {
-    v21 = RPErrorF();
-    completionCopy[2](completionCopy, v21);
+    v27 = RPErrorF(4294960582, "No session start handler", v20, v21, v22, v23, v24, v25, v28);
+    completionCopy[2](completionCopy, v27);
   }
 }
 
@@ -639,6 +649,63 @@ void *__58__RPRemoteDisplayServer_startPairingServerWithCompletion___block_invok
   {
     [v17 remoteDisplayReceivedRequestID:dCopy request:requestCopy options:optionsCopy responseHandler:handlerCopy];
   }
+}
+
+- (void)remoteDisplayShowPassword:(id)password flags:(unsigned int)flags
+{
+  v4 = *&flags;
+  passwordCopy = password;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  if (!self->_invalidateCalled)
+  {
+    v6 = _Block_copy(self->_showPasswordHandler);
+    v9 = v6;
+    if (v6)
+    {
+      (*(v6 + 16))(v6, v4, passwordCopy);
+    }
+
+    else if (gLogCategory_RPRemoteDisplayServer <= 90)
+    {
+      if (gLogCategory_RPRemoteDisplayServer != -1 || (v6 = _LogCategory_Initialize(), v6))
+      {
+        [(RPRemoteDisplayServer *)v6 remoteDisplayShowPassword:v7 flags:v8];
+      }
+    }
+  }
+}
+
+- (void)remoteDisplayHidePasswordWithFlags:(unsigned int)flags
+{
+  v3 = *&flags;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  if (self->_invalidateCalled)
+  {
+    return;
+  }
+
+  v5 = _Block_copy(self->_hidePasswordHandler);
+  v7 = v5;
+  if (v5)
+  {
+    v8 = v5;
+    (*(v5 + 16))(v5, v3);
+LABEL_4:
+    v7 = v8;
+    goto LABEL_8;
+  }
+
+  if (gLogCategory_RPRemoteDisplayServer <= 90)
+  {
+    v8 = 0;
+    if (gLogCategory_RPRemoteDisplayServer != -1 || (v5 = _LogCategory_Initialize(), v7 = 0, v5))
+    {
+      [(RPRemoteDisplayServer *)v5 remoteDisplayHidePasswordWithFlags:v7, v6];
+      goto LABEL_4;
+    }
+  }
+
+LABEL_8:
 }
 
 @end

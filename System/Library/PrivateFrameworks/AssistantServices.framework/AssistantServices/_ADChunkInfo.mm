@@ -70,7 +70,7 @@
     {
       objc_opt_class();
       v6 = SASyncAnchorGenerationPListKey;
-      v7 = [dictionaryCopy objectForKey:SASyncAnchorGenerationPListKey];
+      v7 = objc_msgSend_objectForKey_(dictionaryCopy);
       if (objc_opt_isKindOfClass())
       {
         [(_ADChunkInfo *)v5 setPostGen:v7];
@@ -89,7 +89,7 @@
         }
       }
 
-      v10 = [dictionaryCopy objectForKey:SASyncAnchorValidityPListKey];
+      v10 = objc_msgSend_objectForKey_(dictionaryCopy);
 
       if (objc_opt_isKindOfClass())
       {

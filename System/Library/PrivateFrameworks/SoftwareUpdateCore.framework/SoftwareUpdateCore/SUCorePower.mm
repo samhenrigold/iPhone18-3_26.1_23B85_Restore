@@ -30,10 +30,10 @@ uint64_t __33__SUCorePower_sharedPowerManager__block_invoke()
 
 - (SUCorePower)init
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = SUCorePower;
-  v2 = [(SUCorePower *)&v18 init];
+  v20 = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = SUCorePower;
+  v2 = [(SUCorePower *)&v17 init];
   if (v2)
   {
     v3 = objc_alloc(MEMORY[0x277CCACA8]);
@@ -55,7 +55,7 @@ uint64_t __33__SUCorePower_sharedPowerManager__block_invoke()
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v20 = v6;
+        v19 = v6;
         _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "[POWER_ASSERTION] DISPATCH: created dispatch queue domain(%{public}@)", buf, 0xCu);
       }
     }
@@ -72,7 +72,6 @@ uint64_t __33__SUCorePower_sharedPowerManager__block_invoke()
     v2->_activePowerAssertions = v14;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -185,7 +184,7 @@ void __57__SUCorePower_getPowerAssertionCountForIdentifierDomain___block_invoke(
 
 + (void)_enablePowerAssertion:(id)assertion forAppendedDomain:(id)domain
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
   domainCopy = domain;
   assertionQueue = [assertionCopy assertionQueue];
@@ -234,8 +233,8 @@ void __57__SUCorePower_getPowerAssertionCountForIdentifierDomain___block_invoke(
     activeAssertionCount = [mEMORY[0x277D64428] activeAssertionCount];
     *buf = 67109378;
     activeAssertionCount2 = activeAssertionCount;
-    v24 = 2114;
-    v25 = domainCopy;
+    v23 = 2114;
+    v24 = domainCopy;
     v12 = "[POWER_ASSERTION] ENABLED(count=%d) for domain(%{public}@)";
     goto LABEL_4;
   }
@@ -248,21 +247,19 @@ void __57__SUCorePower_getPowerAssertionCountForIdentifierDomain___block_invoke(
   {
     *buf = 67109378;
     activeAssertionCount2 = [mEMORY[0x277D64428] activeAssertionCount];
-    v24 = 2114;
-    v25 = domainCopy;
+    v23 = 2114;
+    v24 = domainCopy;
     v12 = "[POWER_ASSERTION] INCREASED(count=%d) for domain(%{public}@)";
 LABEL_4:
     _os_log_impl(&dword_23193C000, domainCopy, OS_LOG_TYPE_DEFAULT, v12, buf, 0x12u);
   }
 
 LABEL_11:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_disablePowerAssertion:(id)assertion forAppendedDomain:(id)domain
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
   domainCopy = domain;
   assertionQueue = [assertionCopy assertionQueue];
@@ -283,13 +280,13 @@ LABEL_11:
   [v9 setActiveAssertionCount:{objc_msgSend(v9, "activeAssertionCount") - 1}];
   if ([v9 activeAssertionCount] <= 0)
   {
-    v15 = IOPMAssertionRelease([v9 assertionID]);
-    if (v15)
+    v14 = IOPMAssertionRelease([v9 assertionID]);
+    if (v14)
     {
-      v16 = v15;
+      v15 = v14;
       mEMORY[0x277D64428]2 = [MEMORY[0x277D64428] sharedDiag];
       domainCopy2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"unable to release IOKit Power Assertion for domain(%@)", domainCopy];
-      [mEMORY[0x277D64428]2 trackError:@"[POWER_ASSERTION]" forReason:domainCopy2 withResult:v16 withError:0];
+      [mEMORY[0x277D64428]2 trackError:@"[POWER_ASSERTION]" forReason:domainCopy2 withResult:v15 withError:0];
 
       goto LABEL_8;
     }
@@ -304,8 +301,8 @@ LABEL_11:
     {
       *buf = 67109378;
       activeAssertionCount = [v9 activeAssertionCount];
-      v23 = 2114;
-      v24 = domainCopy;
+      v22 = 2114;
+      v23 = domainCopy;
       v12 = "[POWER_ASSERTION] DISABLED(count=%d) for domain(%{public}@)";
       goto LABEL_5;
     }
@@ -320,8 +317,8 @@ LABEL_11:
     {
       *buf = 67109378;
       activeAssertionCount = [v9 activeAssertionCount];
-      v23 = 2114;
-      v24 = domainCopy;
+      v22 = 2114;
+      v23 = domainCopy;
       v12 = "[POWER_ASSERTION] DECREASED(count=%d) for domain(%{public}@)";
 LABEL_5:
       _os_log_impl(&dword_23193C000, mEMORY[0x277D64428], OS_LOG_TYPE_DEFAULT, v12, buf, 0x12u);
@@ -331,7 +328,6 @@ LABEL_5:
 LABEL_7:
 
 LABEL_8:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

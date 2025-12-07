@@ -80,37 +80,41 @@
   shouldLog = [v2 shouldLog];
   if ([v2 shouldLogToDisk])
   {
-    v4 = shouldLog | 2;
+    LODWORD(v4) = shouldLog | 2;
   }
 
   else
   {
-    v4 = shouldLog;
+    LODWORD(v4) = shouldLog;
   }
 
   oSLogObject = [v2 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = v4;
+  }
+
+  else
   {
     v4 &= 2u;
   }
 
   if (!v4)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  LODWORD(v9) = 138543362;
-  *(&v9 + 4) = objc_opt_class();
-  v6 = *(&v9 + 4);
-  LODWORD(v8) = 12;
-  v7 = _os_log_send_and_compose_impl();
+  v8 = 138543362;
+  v9 = objc_opt_class();
+  v6 = v9;
+  v7 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Clearing biometric account identifier", &v8, 12);
 
   if (v7)
   {
-    oSLogObject = [NSString stringWithCString:v7 encoding:4, &v9, v8, v9];
+    oSLogObject = [NSString stringWithCString:v7 encoding:4];
     free(v7);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   CFPreferencesSetAppValue(@"BiometricAccountID", 0, kSSUserDefaultsIdentifier);
@@ -135,9 +139,9 @@ LABEL_11:
 - (BOOL)isIdentityMapValidForAccountIdentifier:(id)identifier
 {
   v3 = +[AMSBiometricsSecurityService isIdentityMapValid];
-  v15 = 0;
-  v4 = [v3 resultWithError:&v15];
-  v5 = v15;
+  v14 = 0;
+  v4 = [v3 resultWithError:&v14];
+  v5 = v14;
 
   if (v5)
   {
@@ -150,16 +154,21 @@ LABEL_11:
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
     oSLogObject = [v6 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
@@ -167,30 +176,29 @@ LABEL_11:
     if (v8)
     {
       v10 = objc_opt_class();
-      v16 = 138543618;
-      v17 = v10;
-      v18 = 2114;
-      v19 = v5;
+      v15 = 138543618;
+      v16 = v10;
+      v17 = 2114;
+      v18 = v5;
       v11 = v10;
-      LODWORD(v14) = 22;
-      v12 = _os_log_send_and_compose_impl();
+      v12 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: AMS Identity map lookup failed with error: %{public}@", &v15, 22);
 
       if (!v12)
       {
-LABEL_13:
+LABEL_14:
 
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [NSString stringWithCString:v12 encoding:4, &v16, v14];
+      oSLogObject = [NSString stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
 
   return v4;
 }
@@ -214,16 +222,21 @@ LABEL_14:
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
     oSLogObject = [v7 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
@@ -236,27 +249,25 @@ LABEL_14:
       v33 = 2114;
       v34 = v6;
       v12 = v11;
-      LODWORD(v28) = 22;
-      v27 = &v31;
-      v13 = _os_log_send_and_compose_impl();
+      v13 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Failed to query public key for purchase with error: %{public}@", &v31, 22);
 
       if (!v13)
       {
-LABEL_13:
+LABEL_14:
 
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [NSString stringWithCString:v13 encoding:4, &v31, v28];
+      oSLogObject = [NSString stringWithCString:v13 encoding:4];
       free(v13);
       v27 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
   v14 = +[DaemonBiometricKeychain sharedInstance];
   v29 = v6;
   v15 = [v14 publicKeyDataForAccountIdentifier_:identifierCopy purpose:1 regenerateKeys:0 error:&v29];
@@ -264,7 +275,7 @@ LABEL_14:
 
   if (!v16)
   {
-    goto LABEL_27;
+    goto LABEL_29;
   }
 
   v17 = +[SSLogConfig sharedDaemonConfig];
@@ -276,23 +287,28 @@ LABEL_14:
   shouldLog2 = [v17 shouldLog];
   if ([v17 shouldLogToDisk])
   {
-    v19 = shouldLog2 | 2;
+    LODWORD(v19) = shouldLog2 | 2;
   }
 
   else
   {
-    v19 = shouldLog2;
+    LODWORD(v19) = shouldLog2;
   }
 
   oSLogObject2 = [v17 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_ERROR))
+  {
+    v19 = v19;
+  }
+
+  else
   {
     v19 &= 2u;
   }
 
   if (!v19)
   {
-    goto LABEL_25;
+    goto LABEL_27;
   }
 
   v21 = objc_opt_class();
@@ -302,17 +318,17 @@ LABEL_14:
   v34 = v16;
   v22 = v21;
   LODWORD(v28) = 22;
-  v23 = _os_log_send_and_compose_impl();
+  v23 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &_mh_execute_header, oSLogObject2, 16, "%{public}@: Failed to query public key for extended actions with error: %{public}@", &v31, v28);
 
   if (v23)
   {
-    oSLogObject2 = [NSString stringWithCString:v23 encoding:4, &v31, v28];
+    oSLogObject2 = [NSString stringWithCString:v23 encoding:4];
     free(v23);
     SSFileLog();
-LABEL_25:
+LABEL_27:
   }
 
-LABEL_27:
+LABEL_29:
   v24 = 1;
   if (v5)
   {
@@ -345,7 +361,7 @@ LABEL_27:
   if (!identifierCopy)
   {
     v17 = 4;
-    goto LABEL_22;
+    goto LABEL_23;
   }
 
   v5 = +[MCProfileConnection sharedConnection];
@@ -354,13 +370,13 @@ LABEL_27:
   if (!isPasscodeSet || (-[DaemonBiometricStore identityMap](self, "identityMap"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 count], v7, !v8))
   {
     v17 = 3;
-    goto LABEL_22;
+    goto LABEL_23;
   }
 
   if (![(DaemonBiometricStore *)self isIdentityMapValidForAccountIdentifier:identifierCopy])
   {
     v17 = 2;
-    goto LABEL_22;
+    goto LABEL_23;
   }
 
   lastRegisteredAccountIdentifier = [(DaemonBiometricStore *)self lastRegisteredAccountIdentifier];
@@ -377,46 +393,50 @@ LABEL_27:
     shouldLog = [v11 shouldLog];
     if ([v11 shouldLogToDisk])
     {
-      v13 = shouldLog | 2;
+      LODWORD(v13) = shouldLog | 2;
     }
 
     else
     {
-      v13 = shouldLog;
+      LODWORD(v13) = shouldLog;
     }
 
     oSLogObject = [v11 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = v13;
+    }
+
+    else
     {
       v13 &= 2u;
     }
 
     if (v13)
     {
-      LODWORD(v20) = 138543362;
-      *(&v20 + 4) = objc_opt_class();
-      v15 = *(&v20 + 4);
-      LODWORD(v19) = 12;
-      v16 = _os_log_send_and_compose_impl();
+      v19 = 138543362;
+      v20 = objc_opt_class();
+      v15 = v20;
+      v16 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Invalid account state detected, but will continue with biometric authorization.", &v19, 12);
 
       if (!v16)
       {
-LABEL_17:
+LABEL_18:
 
-        goto LABEL_18;
+        goto LABEL_19;
       }
 
-      oSLogObject = [NSString stringWithCString:v16 encoding:4, &v20, v19, v20];
+      oSLogObject = [NSString stringWithCString:v16 encoding:4];
       free(v16);
       SSFileLog();
     }
 
-    goto LABEL_17;
+    goto LABEL_18;
   }
 
-LABEL_18:
+LABEL_19:
   v17 = 0;
-LABEL_22:
+LABEL_23:
 
   return v17;
 }
@@ -433,39 +453,43 @@ LABEL_22:
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  *v12 = 138543618;
-  *&v12[4] = objc_opt_class();
-  *&v12[12] = 2112;
-  *&v12[14] = identifierCopy;
-  v9 = *&v12[4];
-  LODWORD(v11) = 22;
-  v10 = _os_log_send_and_compose_impl();
+  v11 = 138543618;
+  v12 = objc_opt_class();
+  v13 = 2112;
+  v14 = identifierCopy;
+  v9 = v12;
+  v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Resetting biometrics for DSID: %@", &v11, 22);
 
   if (v10)
   {
-    oSLogObject = [NSString stringWithCString:v10 encoding:4, v12, v11, *v12, *&v12[16]];
+    oSLogObject = [NSString stringWithCString:v10 encoding:4];
     free(v10);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   [(DaemonBiometricStore *)self setBiometricState:0];
@@ -483,39 +507,43 @@ LABEL_11:
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
   oSLogObject = [v4 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (!v6)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  *v12 = 138543618;
-  *&v12[4] = objc_opt_class();
-  *&v12[12] = 2114;
-  *&v12[14] = identifierCopy;
-  v8 = *&v12[4];
-  LODWORD(v11) = 22;
-  v9 = _os_log_send_and_compose_impl();
+  v11 = 138543618;
+  v12 = objc_opt_class();
+  v13 = 2114;
+  v14 = identifierCopy;
+  v8 = v12;
+  v9 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Registering biometric account identifier for DSID: %{public}@", &v11, 22);
 
   if (v9)
   {
-    oSLogObject = [NSString stringWithCString:v9 encoding:4, v12, v11, *v12, *&v12[16]];
+    oSLogObject = [NSString stringWithCString:v9 encoding:4];
     free(v9);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   v10 = kSSUserDefaultsIdentifier;
@@ -881,9 +909,9 @@ LABEL_16:
 {
   identifierCopy = identifier;
   v4 = +[DaemonBiometricKeychain sharedInstance];
-  v15 = 0;
-  v5 = [v4 deleteKeychainTokensForAccountIdentifier_:identifierCopy error:&v15];
-  v6 = v15;
+  v14 = 0;
+  v5 = [v4 deleteKeychainTokensForAccountIdentifier_:identifierCopy error:&v14];
+  v6 = v14;
 
   if ((v5 & 1) == 0)
   {
@@ -896,16 +924,21 @@ LABEL_16:
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
     oSLogObject = [v7 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
@@ -913,32 +946,31 @@ LABEL_16:
     if (v9)
     {
       v11 = objc_opt_class();
-      v16 = 138543874;
-      v17 = v11;
-      v18 = 2112;
-      v19 = identifierCopy;
-      v20 = 2114;
-      v21 = v6;
+      v15 = 138543874;
+      v16 = v11;
+      v17 = 2112;
+      v18 = identifierCopy;
+      v19 = 2114;
+      v20 = v6;
       v12 = v11;
-      LODWORD(v14) = 32;
-      v13 = _os_log_send_and_compose_impl();
+      v13 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Reset keychain tokens failed while disabling biometric state for DSID: %@, error: %{public}@", &v15, 32);
 
       if (!v13)
       {
-LABEL_13:
+LABEL_14:
 
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [NSString stringWithCString:v13 encoding:4, &v16, v14];
+      oSLogObject = [NSString stringWithCString:v13 encoding:4];
       free(v13);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
+LABEL_15:
 }
 
 + (void)_resetAccount:(id)account withConnection:(id)connection
@@ -949,41 +981,45 @@ LABEL_14:
   shouldLog = [v7 shouldLog];
   if ([v7 shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
   oSLogObject = [v7 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
 
   if (!v9)
   {
-    goto LABEL_9;
+    goto LABEL_10;
   }
 
-  *v15 = 138543874;
-  *&v15[4] = objc_opt_class();
-  *&v15[12] = 2112;
-  *&v15[14] = accountCopy;
-  *&v15[22] = 2114;
-  v16 = v6;
-  v11 = *&v15[4];
-  LODWORD(v14) = 32;
-  v12 = _os_log_send_and_compose_impl();
+  v14 = 138543874;
+  v15 = objc_opt_class();
+  v16 = 2112;
+  v17 = accountCopy;
+  v18 = 2114;
+  v19 = v6;
+  v11 = v15;
+  v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Resetting biometrics for account %@, client = %{public}@", &v14, 32);
 
   if (v12)
   {
-    oSLogObject = [NSString stringWithCString:v12 encoding:4, v15, v14, *v15, *&v15[16], v16];
+    oSLogObject = [NSString stringWithCString:v12 encoding:4];
     free(v12);
     SSFileLog();
-LABEL_9:
+LABEL_10:
   }
 
   v13 = objc_alloc_init(self);

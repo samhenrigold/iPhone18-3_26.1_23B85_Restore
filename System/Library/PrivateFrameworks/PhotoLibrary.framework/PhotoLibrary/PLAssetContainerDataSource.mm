@@ -768,18 +768,19 @@ LABEL_15:
 
 - (id)assetWithObjectID:(id)d
 {
+  selfCopy = self;
   v7[1] = *MEMORY[0x277D85DE8];
   if (self->_cachedValuesNeedUpdate)
   {
-    [(PLAssetContainerDataSource *)self _updateCachedValues];
+    self = [(PLAssetContainerDataSource *)self _updateCachedValues];
   }
 
   v7[0] = d;
-  result = [objc_msgSend(pl_appPhotoLibrary() fetchPHObjectsForOIDs:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v7, 1)), "lastObject"}];
+  result = [objc_msgSend(pl_appPhotoLibrary(self a2)];
   if (result)
   {
     v6 = result;
-    if ([(PLAssetContainerDataSource *)self assetContainerForAsset:result])
+    if ([(PLAssetContainerDataSource *)selfCopy assetContainerForAsset:result])
     {
       return v6;
     }

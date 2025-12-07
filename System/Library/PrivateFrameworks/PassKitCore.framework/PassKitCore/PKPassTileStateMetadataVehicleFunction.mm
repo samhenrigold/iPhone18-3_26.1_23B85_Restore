@@ -50,7 +50,7 @@
   return v5;
 }
 
-void __63__PKPassTileStateMetadataVehicleFunction__setUpWithDictionary___block_invoke(uint64_t a1, void *a2, void *a3)
+void __63__PKPassTileStateMetadataVehicleFunction__setUpWithDictionary___block_invoke(void *a1, void *a2, void *a3)
 {
   v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -101,7 +101,7 @@ void __63__PKPassTileStateMetadataVehicleFunction__setUpWithDictionary___block_i
     v12 = [objc_alloc(MEMORY[0x1E696AE88]) initWithString:v5];
     if ([v12 scanHexInt:&v15] && objc_msgSend(v12, "isAtEnd"))
     {
-      v13 = *(a1 + 32);
+      v13 = a1[4];
       v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v15];
       [v13 setObject:v7 forKeyedSubscript:v14];
     }

@@ -18,39 +18,39 @@
 
 - (id)_init:(id)_init
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   _initCopy = _init;
-  v20.receiver = self;
-  v20.super_class = FHDatabaseInsertOrUpdateFromBuilder;
-  v5 = [(FHDatabaseInsertOrUpdateFromBuilder *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = FHDatabaseInsertOrUpdateFromBuilder;
+  v5 = [(FHDatabaseInsertOrUpdateFromBuilder *)&v19 init];
   if (v5)
   {
     v6 = objc_opt_new();
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     dynamicFieldValuePairList = [_initCopy dynamicFieldValuePairList];
-    v8 = [dynamicFieldValuePairList countByEnumeratingWithState:&v16 objects:v21 count:16];
+    v8 = [dynamicFieldValuePairList countByEnumeratingWithState:&v15 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         v11 = 0;
         do
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(dynamicFieldValuePairList);
           }
 
-          [v6 addObject:*(*(&v16 + 1) + 8 * v11++)];
+          [v6 addObject:*(*(&v15 + 1) + 8 * v11++)];
         }
 
         while (v9 != v11);
-        v9 = [dynamicFieldValuePairList countByEnumeratingWithState:&v16 objects:v21 count:16];
+        v9 = [dynamicFieldValuePairList countByEnumeratingWithState:&v15 objects:v20 count:16];
       }
 
       while (v9);
@@ -61,7 +61,6 @@
     v5->_fieldValuePairList = v12;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

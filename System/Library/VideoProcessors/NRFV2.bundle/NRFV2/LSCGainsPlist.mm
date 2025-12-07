@@ -10,63 +10,63 @@
 {
   dictionaryCopy = dictionary;
   metalCopy = metal;
-  v87.receiver = self;
-  v87.super_class = LSCGainsPlist;
-  v7 = [(LSCGainsPlist *)&v87 init];
-  if (!v7)
+  v91.receiver = self;
+  v91.super_class = LSCGainsPlist;
+  v8 = [(LSCGainsPlist *)&v91 init];
+  if (!v8)
   {
     goto LABEL_14;
   }
 
-  v8 = objc_alloc(MEMORY[0x29EDB8E00]);
-  v12 = objc_msgSend_count(dictionaryCopy, v9, v10, v11);
-  v15 = objc_msgSend_initWithCapacity_(v8, v13, v12, v14);
-  lscGainsByPortType = v7->_lscGainsByPortType;
-  v7->_lscGainsByPortType = v15;
+  v9 = objc_alloc(MEMORY[0x29EDB8E00]);
+  v13 = objc_msgSend_count(dictionaryCopy, v10, v11, v12);
+  v16 = objc_msgSend_initWithCapacity_(v9, v14, v13, v15);
+  lscGainsByPortType = v8->_lscGainsByPortType;
+  v8->_lscGainsByPortType = v16;
 
-  v85 = 0u;
-  v86 = 0u;
-  v83 = 0u;
-  v84 = 0u;
-  v73 = dictionaryCopy;
-  v17 = dictionaryCopy;
-  v77 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v83, v82, 16);
-  if (!v77)
+  v89 = 0u;
+  v90 = 0u;
+  v87 = 0u;
+  v88 = 0u;
+  v76 = dictionaryCopy;
+  v18 = dictionaryCopy;
+  v81 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v87, v86, 16);
+  if (!v81)
   {
 LABEL_13:
 
-    dictionaryCopy = v73;
+    dictionaryCopy = v76;
 LABEL_14:
-    v70 = v7;
+    v72 = v8;
     goto LABEL_15;
   }
 
-  v76 = *v84;
-  v75 = *MEMORY[0x29EDBFF10];
+  v80 = *v88;
+  v79 = *MEMORY[0x29EDBFF10];
 LABEL_4:
-  v21 = 0;
+  v22 = 0;
   while (1)
   {
-    if (*v84 != v76)
+    if (*v88 != v80)
     {
-      objc_enumerationMutation(v17);
+      objc_enumerationMutation(v18);
     }
 
-    v22 = *(*(&v83 + 1) + 8 * v21);
-    v23 = objc_msgSend_objectForKeyedSubscript_(v17, v19, v22, v20);
-    v26 = objc_msgSend_objectForKeyedSubscript_(v23, v24, v75, v25);
+    v23 = *(*(&v87 + 1) + 8 * v22);
+    v24 = objc_msgSend_objectForKeyedSubscript_(v18, v20, v23, v21);
+    v27 = objc_msgSend_objectForKeyedSubscript_(v24, v25, v79, v26);
 
-    if (v26)
+    if (v27)
     {
       break;
     }
 
 LABEL_11:
 
-    if (v77 == ++v21)
+    if (v81 == ++v22)
     {
-      v77 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v19, &v83, v82, 16);
-      if (v77)
+      v81 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v20, &v87, v86, 16);
+      if (v81)
       {
         goto LABEL_4;
       }
@@ -75,60 +75,62 @@ LABEL_11:
     }
   }
 
-  v27 = v26;
-  v31 = objc_msgSend_bytes(v27, v28, v29, v30);
-  v33 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x29EDBB670], v32, 115, *(v31 + 20), *(v31 + 24), 0);
-  v37 = objc_msgSend_device(metalCopy, v34, v35, v36);
-  v40 = objc_msgSend_newTextureWithDescriptor_(v37, v38, v33, v39);
+  v28 = v27;
+  v32 = objc_msgSend_bytes(v28, v29, v30, v31);
+  v34 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x29EDBB670], v33, 115, *(v32 + 20), *(v32 + 24), 0);
+  v38 = objc_msgSend_device(metalCopy, v35, v36, v37);
+  v41 = objc_msgSend_newTextureWithDescriptor_(v38, v39, v34, v40);
 
-  if (v40)
+  if (v41)
   {
-    if (objc_msgSend_fillLSCGainsTextureFrom_tex_maxValuesRGBA_(v7, v41, v31, v40, v81))
+    v43 = objc_msgSend_fillLSCGainsTextureFrom_tex_maxValuesRGBA_(v8, v42, v32, v41, v85);
+    if (v43)
     {
-      FigDebugAssert3();
+      LODWORD(v75) = v43;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v75, v4, v4, v76, metalCopy, v79, v80, v81);
 
-      v70 = 0;
-      dictionaryCopy = v73;
+      v72 = 0;
+      dictionaryCopy = v77;
       goto LABEL_15;
     }
 
-    objc_msgSend_setObject_forKeyedSubscript_(v7->_lscGainsByPortType, v42, v40, v22);
-    v78 = objc_msgSend_stringWithFormat_(MEMORY[0x29EDBA0F8], v43, @"%@#max", v44, v22);
-    v79 = v26;
-    LODWORD(v45) = v81[0];
-    v49 = objc_msgSend_numberWithFloat_(MEMORY[0x29EDBA070], v46, v47, v48, v45);
-    v80[0] = v49;
-    LODWORD(v50) = v81[1];
-    v54 = objc_msgSend_numberWithFloat_(MEMORY[0x29EDBA070], v51, v52, v53, v50);
-    v80[1] = v54;
-    LODWORD(v55) = v81[2];
-    v59 = objc_msgSend_numberWithFloat_(MEMORY[0x29EDBA070], v56, v57, v58, v55);
-    v80[2] = v59;
-    LODWORD(v60) = v81[3];
-    v64 = objc_msgSend_numberWithFloat_(MEMORY[0x29EDBA070], v61, v62, v63, v60);
-    v80[3] = v64;
-    objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v65, v80, 4);
-    v66 = v33;
-    v68 = v67 = v17;
+    objc_msgSend_setObject_forKeyedSubscript_(v8->_lscGainsByPortType, v44, v41, v23);
+    v82 = objc_msgSend_stringWithFormat_(MEMORY[0x29EDBA0F8], v45, @"%@#max", v46, v23);
+    v83 = v27;
+    LODWORD(v47) = v85[0];
+    v51 = objc_msgSend_numberWithFloat_(MEMORY[0x29EDBA070], v48, v49, v50, v47);
+    v84[0] = v51;
+    LODWORD(v52) = v85[1];
+    v56 = objc_msgSend_numberWithFloat_(MEMORY[0x29EDBA070], v53, v54, v55, v52);
+    v84[1] = v56;
+    LODWORD(v57) = v85[2];
+    v61 = objc_msgSend_numberWithFloat_(MEMORY[0x29EDBA070], v58, v59, v60, v57);
+    v84[2] = v61;
+    LODWORD(v62) = v85[3];
+    v66 = objc_msgSend_numberWithFloat_(MEMORY[0x29EDBA070], v63, v64, v65, v62);
+    v84[3] = v66;
+    objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v67, v84, 4);
+    v68 = v34;
+    v70 = v69 = v18;
 
-    v26 = v79;
-    objc_msgSend_setObject_forKeyedSubscript_(v7->_lscGainsByPortType, v69, v68, v78);
+    v27 = v83;
+    objc_msgSend_setObject_forKeyedSubscript_(v8->_lscGainsByPortType, v71, v70, v82);
 
-    v17 = v67;
+    v18 = v69;
     goto LABEL_11;
   }
 
-  dictionaryCopy = v73;
-  if (sub_29589D4CC(v33, v26, v17))
+  dictionaryCopy = v76;
+  if (sub_29589D4CC(v34, v27, v18))
   {
     goto LABEL_14;
   }
 
-  v70 = 0;
+  v72 = 0;
 LABEL_15:
-  v71 = v70;
+  v73 = v72;
 
-  return v71;
+  return v73;
 }
 
 - (int)fillLSCGainsTextureFrom:(id *)from tex:(id)tex maxValuesRGBA:(float *)a

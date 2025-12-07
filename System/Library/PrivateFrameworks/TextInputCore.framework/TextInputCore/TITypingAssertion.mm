@@ -1,6 +1,7 @@
 @interface TITypingAssertion
 + (id)sharedTypingAssertion;
 - (TITypingAssertion)init;
+- (void)_sbsSetTypingActive:(BOOL)active;
 - (void)dealloc;
 - (void)restResetTouches;
 - (void)restTouchEndWithPathIndex:(int64_t)index;
@@ -72,6 +73,39 @@
   [timer invalidate];
 
   [(TITypingAssertion *)self setTimer:0];
+}
+
+- (void)_sbsSetTypingActive:(BOOL)active
+{
+  activeCopy = active;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
+  v4 = getSBSSetTypingActiveSymbolLoc_ptr;
+  v11 = getSBSSetTypingActiveSymbolLoc_ptr;
+  if (!getSBSSetTypingActiveSymbolLoc_ptr)
+  {
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __getSBSSetTypingActiveSymbolLoc_block_invoke;
+    v7[3] = &unk_278733760;
+    v7[4] = &v8;
+    __getSBSSetTypingActiveSymbolLoc_block_invoke(v7);
+    v4 = v9[3];
+  }
+
+  _Block_object_dispose(&v8, 8);
+  if (v4)
+  {
+    v4(activeCopy);
+  }
+
+  else
+  {
+    v5 = dlerror();
+    v6 = abort_report_np("%s", v5);
+    __getSBSSetTypingActiveSymbolLoc_block_invoke(v6);
+  }
 }
 
 - (void)restTouchEndWithPathIndex:(int64_t)index

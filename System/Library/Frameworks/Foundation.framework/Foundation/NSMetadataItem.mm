@@ -34,13 +34,13 @@
   v9 = *MEMORY[0x1E69E9840];
   if (key)
   {
-    if ([key isEqualToString:@"attributes"])
+    if (objc_msgSend_isEqualToString_(key, a2, @"attributes"))
     {
 
       return [(NSMetadataItem *)self attributes];
     }
 
-    else if ([@"kMDItemPath" isEqualToString:key] || (v6 = *(self->_reserved + 1), objc_msgSend(v6, "_isMDQuery")) && (objc_msgSend(objc_msgSend(v6, "_allAttributes"), "containsObject:", key) & 1) != 0 || -[NSArray containsObject:](-[NSMetadataItem attributes](self, "attributes"), "containsObject:", key))
+    else if (objc_msgSend_isEqualToString_(@"kMDItemPath") || (v6 = *(self->_reserved + 1), [v6 _isMDQuery]) && (objc_msgSend(objc_msgSend(v6, "_allAttributes"), "containsObject:", key) & 1) != 0 || -[NSArray containsObject:](-[NSMetadataItem attributes](self, "attributes"), "containsObject:", key))
     {
 
       return [(NSMetadataItem *)self valueForAttribute:key];

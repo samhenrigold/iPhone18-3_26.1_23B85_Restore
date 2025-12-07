@@ -27,42 +27,40 @@
     cf = 0;
     discoverer = self->_discoverer;
     v4 = *MEMORY[0x1E695E480];
-    VTable = CMBaseObjectGetVTable();
-    v6 = *(*(VTable + 8) + 48);
-    if (!v6 || (v7 = *(VTable + 8) + 48, !v6(discoverer, *MEMORY[0x1E69AF310], v4, &cf) ? (v8 = cf == 0) : (v8 = 1), v8))
+    v5 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (!v5 || (!v5(discoverer, *MEMORY[0x1E69AF310], v4, &cf) ? (v6 = cf == 0) : (v6 = 1), v6))
     {
       cf = CFArrayCreate(v4, 0, 0, MEMORY[0x1E695E9C0]);
     }
 
-    v9 = [AVFigRouteDescriptorOutputDeviceDiscoverySessionAvailableOutputDevicesImpl alloc];
-    v10 = [(AVFigRouteDescriptorOutputDeviceDiscoverySessionAvailableOutputDevicesImpl *)v9 initWithRouteDescriptors:cf routeDiscoverer:self->_discoverer];
+    v7 = [AVFigRouteDescriptorOutputDeviceDiscoverySessionAvailableOutputDevicesImpl alloc];
+    v8 = [(AVFigRouteDescriptorOutputDeviceDiscoverySessionAvailableOutputDevicesImpl *)v7 initWithRouteDescriptors:cf routeDiscoverer:self->_discoverer];
   }
 
   else
   {
     cf = 0;
-    v11 = self->_discoverer;
-    v12 = *MEMORY[0x1E695E480];
-    v13 = CMBaseObjectGetVTable();
-    v14 = *(*(v13 + 8) + 48);
-    if (!v14 || (v15 = *(v13 + 8) + 48, !v14(v11, *MEMORY[0x1E69AF318], v12, &cf) ? (v16 = cf == 0) : (v16 = 1), v16))
+    v9 = self->_discoverer;
+    v10 = *MEMORY[0x1E695E480];
+    v11 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+    if (!v11 || (!v11(v9, *MEMORY[0x1E69AF318], v10, &cf) ? (v12 = cf == 0) : (v12 = 1), v12))
     {
-      cf = CFArrayCreate(v12, 0, 0, MEMORY[0x1E695E9C0]);
+      cf = CFArrayCreate(v10, 0, 0, MEMORY[0x1E695E9C0]);
     }
 
-    v17 = [AVFigEndpointOutputDeviceDiscoverySessionAvailableOutputDevicesImpl alloc];
-    v10 = [(AVFigEndpointOutputDeviceDiscoverySessionAvailableOutputDevicesImpl *)v17 initWithAvailableFigEndpoints:cf];
+    v13 = [AVFigEndpointOutputDeviceDiscoverySessionAvailableOutputDevicesImpl alloc];
+    v8 = [(AVFigEndpointOutputDeviceDiscoverySessionAvailableOutputDevicesImpl *)v13 initWithAvailableFigEndpoints:cf];
   }
 
-  v18 = v10;
+  v14 = v8;
   if (cf)
   {
     CFRelease(cf);
   }
 
-  v19 = [[AVOutputDeviceDiscoverySessionAvailableOutputDevices alloc] initWithOutputDeviceDiscoverySessionAvailableOutputDevicesImpl:v18];
+  v15 = [[AVOutputDeviceDiscoverySessionAvailableOutputDevices alloc] initWithOutputDeviceDiscoverySessionAvailableOutputDevicesImpl:v14];
 
-  return v19;
+  return v15;
 }
 
 - (void)dealloc
@@ -76,24 +74,22 @@
     [v4 removeListenerWithWeakReference:self->_weakObserver callback:AVFigRouteDiscovererRouteServerDied_0 name:*MEMORY[0x1E69AF300] object:self->_discoverer];
     [v4 removeListenerWithWeakReference:self->_weakObserver callback:AVFigRouteDiscovererEndpointDescriptorChanged_0 name:*MEMORY[0x1E69AF2F0] object:self->_discoverer];
     discoverer = self->_discoverer;
-    VTable = CMBaseObjectGetVTable();
-    v7 = *(*(VTable + 8) + 56);
-    if (v7)
+    v6 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+    if (v6)
     {
-      v8 = *(VTable + 8) + 56;
-      v7(discoverer, *MEMORY[0x1E69AF328], *MEMORY[0x1E69AF2D8]);
+      v6(discoverer, *MEMORY[0x1E69AF328], *MEMORY[0x1E69AF2D8]);
     }
 
-    v9 = self->_discoverer;
-    if (v9)
+    v7 = self->_discoverer;
+    if (v7)
     {
-      CFRelease(v9);
+      CFRelease(v7);
     }
   }
 
-  v10.receiver = self;
-  v10.super_class = AVFigRouteDiscovererOutputDeviceDiscoverySessionImpl;
-  [(AVFigRouteDiscovererOutputDeviceDiscoverySessionImpl *)&v10 dealloc];
+  v8.receiver = self;
+  v8.super_class = AVFigRouteDiscovererOutputDeviceDiscoverySessionImpl;
+  [(AVFigRouteDiscovererOutputDeviceDiscoverySessionImpl *)&v8 dealloc];
 }
 
 - (void)_availableRoutesChanged
@@ -126,15 +122,12 @@
     [session opaqueSessionID];
   }
 
-  v4 = *MEMORY[0x1E695E480];
   SInt32 = FigCFNumberCreateSInt32();
   discoverer = self->_discoverer;
-  VTable = CMBaseObjectGetVTable();
-  v8 = *(*(VTable + 8) + 56);
-  if (v8)
+  v6 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+  if (v6)
   {
-    v9 = *(VTable + 8) + 56;
-    v8(discoverer, *MEMORY[0x1E69AF308], SInt32);
+    v6(discoverer, *MEMORY[0x1E69AF308], SInt32);
   }
 
   if (SInt32)
@@ -208,7 +201,7 @@ LABEL_4:
 
 - (void)outputDeviceDiscoverySessionBluetoothOnlyDiscoveryDidChange:(id)change
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   onlyDiscoversBluetoothDevices = [change onlyDiscoversBluetoothDevices];
   if (dword_1ED6F6BC8)
   {
@@ -233,13 +226,11 @@ LABEL_4:
   {
     v8(discoverer, *MEMORY[0x1E69AF320], *v7);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)outputDeviceDiscoverySessionCachedDiscoveryDidChange:(id)change
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   cachedDiscoveryEnabled = [change cachedDiscoveryEnabled];
   if (dword_1ED6F6BC8)
   {
@@ -264,13 +255,11 @@ LABEL_4:
   {
     v8(discoverer, @"CachedDiscovery", *v7);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)outputDeviceDiscoverySessionFastDiscoveryDidChange:(id)change
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   fastDiscoveryEnabled = [change fastDiscoveryEnabled];
   if (dword_1ED6F6BC8)
   {
@@ -295,13 +284,11 @@ LABEL_4:
   {
     v8(discoverer, @"FastDiscoveryEnabled", *v7);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)outputDeviceDiscoverySessionDidChangeDiscoveryMode:(id)mode forClientIdentifiers:(id)identifiers
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   discoveryMode = [mode discoveryMode];
   v7 = 0;
   if (discoveryMode > 1)
@@ -341,7 +328,7 @@ LABEL_4:
 LABEL_11:
   if (dword_1ED6F6BC8)
   {
-    v25 = 0;
+    v24 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -356,28 +343,28 @@ LABEL_11:
   }
 
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E528], MEMORY[0x1E695E9E8]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v13 = [identifiers countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v13 = [identifiers countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v21;
+    v15 = *v20;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v21 != v15)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(identifiers);
         }
 
-        CFDictionarySetValue(Mutable, *(*(&v20 + 1) + 8 * i), v7);
+        CFDictionarySetValue(Mutable, *(*(&v19 + 1) + 8 * i), v7);
       }
 
-      v14 = [identifiers countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v14 = [identifiers countByEnumeratingWithState:&v19 objects:v25 count:16];
     }
 
     while (v14);
@@ -394,8 +381,6 @@ LABEL_11:
   {
     CFRelease(Mutable);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (AVFigRouteDiscovererOutputDeviceDiscoverySessionImpl)initWithFigRouteDiscovererCreator:(id)creator
@@ -489,12 +474,10 @@ LABEL_6:
 
 - (uint64_t)_serverDied
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
   os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-  result = fig_log_call_emit_and_clean_up_after_send_and_compose();
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return fig_log_call_emit_and_clean_up_after_send_and_compose();
 }
 
 @end

@@ -346,123 +346,117 @@ LABEL_6:
 
 - (void)_handleClientConnectionInterrupted:(id)interrupted
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   interruptedCopy = interrupted;
   v4 = *MEMORY[0x277CE2078];
   if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = interruptedCopy;
-    _os_log_impl(&dword_270AA8000, v4, OS_LOG_TYPE_DEFAULT, "Client XPC connection was interrupted: connection=%{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = interruptedCopy;
+    _os_log_impl(&dword_270AA8000, v4, OS_LOG_TYPE_DEFAULT, "Client XPC connection was interrupted: connection=%{public}@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleClientConnectionInvalidated:(id)invalidated
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   invalidatedCopy = invalidated;
   v5 = *MEMORY[0x277CE2078];
   if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = invalidatedCopy;
-    _os_log_impl(&dword_270AA8000, v5, OS_LOG_TYPE_DEFAULT, "Client XPC connection was invalidated: connection=%{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = invalidatedCopy;
+    _os_log_impl(&dword_270AA8000, v5, OS_LOG_TYPE_DEFAULT, "Client XPC connection was invalidated: connection=%{public}@", &v7, 0xCu);
   }
 
   v6 = self->_connections;
   objc_sync_enter(v6);
   [(NSMutableArray *)self->_connections removeObject:invalidatedCopy];
   objc_sync_exit(v6);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)settingsService:(id)service didUpdateNotificationSourcesForBundleIdentifiers:(id)identifiers
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   identifiersCopy = identifiers;
   v8 = self->_connections;
   objc_sync_enter(v8);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v9 = self->_connections;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       v12 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        remoteObjectProxy = [*(*(&v15 + 1) + 8 * v12) remoteObjectProxy];
+        remoteObjectProxy = [*(*(&v14 + 1) + 8 * v12) remoteObjectProxy];
         [remoteObjectProxy updateNotificationSourcesWithBundleIdentifiers:identifiersCopy];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
 
   objc_sync_exit(v8);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)settingsService:(id)service didUpdateNotificationSystemSettings:(id)settings
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   settingsCopy = settings;
   v8 = self->_connections;
   objc_sync_enter(v8);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v9 = self->_connections;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       v12 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        remoteObjectProxy = [*(*(&v15 + 1) + 8 * v12) remoteObjectProxy];
+        remoteObjectProxy = [*(*(&v14 + 1) + 8 * v12) remoteObjectProxy];
         [remoteObjectProxy updateNotificationSystemSettings:settingsCopy];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
 
   objc_sync_exit(v8);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

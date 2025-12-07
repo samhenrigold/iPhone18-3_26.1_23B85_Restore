@@ -172,7 +172,7 @@ LABEL_6:
   v5 = MEMORY[0x1E695D560];
   contextCopy = context;
   v7 = [v5 alloc];
-  v8 = +[PLMediaAnalysisAssetAttributes entity];
+  v8 = objc_msgSend_entity(PLMediaAnalysisAssetAttributes);
   v9 = [v7 initWithEntity:v8];
 
   v10 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K != %d", @"syndicationProcessingVersion", 0];
@@ -227,7 +227,7 @@ LABEL_6:
   v5 = MEMORY[0x1E695D560];
   contextCopy = context;
   v7 = [v5 alloc];
-  v8 = +[PLManagedAsset entity];
+  v8 = objc_msgSend_entity(PLManagedAsset);
   v9 = [v7 initWithEntity:v8];
 
   v10 = [MEMORY[0x1E69BF328] predicateForIncludeMask:objc_msgSend(MEMORY[0x1E69BF328] useIndex:{"maskForGuestAsset"), 1}];
@@ -778,7 +778,7 @@ LABEL_13:
         }
 
         v27 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        if ([v24 count])
+        if (objc_msgSend_count(v24))
         {
           v36 = v13;
           v37 = v11;

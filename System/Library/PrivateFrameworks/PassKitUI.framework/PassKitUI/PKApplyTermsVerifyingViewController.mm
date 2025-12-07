@@ -358,23 +358,23 @@ LABEL_12:
   }
 }
 
-uint64_t __52__PKApplyTermsVerifyingViewController__processTerms__block_invoke_2(uint64_t result, char a2)
+void *__52__PKApplyTermsVerifyingViewController__processTerms__block_invoke_2(void *result, char a2)
 {
-  *(*(result + 32) + 1104) = 0;
+  *(*(result + 4) + 1104) = 0;
   if ((a2 & 1) == 0)
   {
-    return [*(result + 32) _terminateSetupFlow];
+    return [*(result + 4) _terminateSetupFlow];
   }
 
   return result;
 }
 
-uint64_t __52__PKApplyTermsVerifyingViewController__processTerms__block_invoke_3(uint64_t result, char a2)
+void *__52__PKApplyTermsVerifyingViewController__processTerms__block_invoke_3(void *result, char a2)
 {
-  *(*(result + 32) + 1104) = 0;
+  *(*(result + 4) + 1104) = 0;
   if ((a2 & 1) == 0)
   {
-    return [*(result + 32) _terminateSetupFlow];
+    return [*(result + 4) _terminateSetupFlow];
   }
 
   return result;

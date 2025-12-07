@@ -77,7 +77,7 @@
   completionCopy = completion;
   if (gLogCategory_ENCloudServerChannel <= 30 && (gLogCategory_ENCloudServerChannel != -1 || _LogCategory_Initialize()))
   {
-    [ENCloudServerChannel enqueueRequest:withCompletion:];
+    [ENCloudServerChannel enqueueRequest:requestCopy withCompletion:?];
   }
 
   v8 = requestCopy;
@@ -115,16 +115,16 @@ void __54__ENCloudServerChannel_enqueueRequest_withCompletion___block_invoke(id 
 
   objc_initWeak(&location, a1[5]);
   v8 = [a1[5] session];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __54__ENCloudServerChannel_enqueueRequest_withCompletion___block_invoke_2;
-  v14[3] = &unk_278FD1058;
-  objc_copyWeak(&v17, &location);
-  v14[4] = a1[4];
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __54__ENCloudServerChannel_enqueueRequest_withCompletion___block_invoke_2;
+  v17 = &unk_278FD1058;
+  objc_copyWeak(&v21, &location);
+  v18 = a1[4];
   v9 = v4;
-  v15 = v9;
-  v16 = a1[6];
-  v10 = [v8 dataTaskWithRequest:v9 completionHandler:v14];
+  v19 = v9;
+  v20 = a1[6];
+  v10 = [v8 dataTaskWithRequest:v9 completionHandler:&v14];
 
   v11 = [a1[5] requests];
   v12 = [a1[4] requestID];
@@ -134,48 +134,48 @@ void __54__ENCloudServerChannel_enqueueRequest_withCompletion___block_invoke(id 
   if (gLogCategory_ENCloudServerChannel <= 30 && (gLogCategory_ENCloudServerChannel != -1 || _LogCategory_Initialize()))
   {
     v13 = [a1[5] requests];
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_ENCloudServerChannel, "[ENCloudServerChannel enqueueRequest:withCompletion:]_block_invoke", 30, "Network Tasks: %@", v13, v14, v15, v16, v17, v18, v19);
   }
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(&location);
 }
 
 void __54__ENCloudServerChannel_enqueueRequest_withCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v26 = a2;
+  v41 = *MEMORY[0x277D85DE8];
+  v25 = a2;
   v7 = a3;
-  v27 = a4;
+  v26 = a4;
   val = objc_loadWeakRetained((a1 + 56));
-  v25 = v7;
+  v24 = v7;
   v8 = [v7 copy];
   if (gLogCategory_ENCloudServerChannel <= 10 && (gLogCategory_ENCloudServerChannel != -1 || _LogCategory_Initialize()))
   {
     __54__ENCloudServerChannel_enqueueRequest_withCompletion___block_invoke_2_cold_1(a1);
   }
 
-  v38 = 0u;
-  v39 = 0u;
   v37 = 0u;
+  v38 = 0u;
   v36 = 0u;
+  v35 = 0u;
   v9 = [*(a1 + 40) allHTTPHeaderFields];
-  v10 = [v9 countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
   if (v10)
   {
-    v11 = *v37;
+    v11 = *v36;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v37 != v11)
+        if (*v36 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
         if (gLogCategory_ENCloudServerChannel <= 30)
         {
-          v13 = *(*(&v36 + 1) + 8 * i);
+          v13 = *(*(&v35 + 1) + 8 * i);
           if (gLogCategory_ENCloudServerChannel != -1 || _LogCategory_Initialize())
           {
             __54__ENCloudServerChannel_enqueueRequest_withCompletion___block_invoke_2_cold_2((a1 + 40), v13);
@@ -183,7 +183,7 @@ void __54__ENCloudServerChannel_enqueueRequest_withCompletion___block_invoke_2(u
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
     while (v10);
@@ -194,27 +194,27 @@ void __54__ENCloudServerChannel_enqueueRequest_withCompletion___block_invoke_2(u
     __54__ENCloudServerChannel_enqueueRequest_withCompletion___block_invoke_2_cold_3(v8);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v14 = [v8 allHeaderFields];
-  v15 = [v14 countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v15)
   {
-    v16 = *v33;
+    v16 = *v32;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v33 != v16)
+        if (*v32 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
         if (gLogCategory_ENCloudServerChannel <= 30)
         {
-          v18 = *(*(&v32 + 1) + 8 * j);
+          v18 = *(*(&v31 + 1) + 8 * j);
           if (gLogCategory_ENCloudServerChannel != -1 || _LogCategory_Initialize())
           {
             __54__ENCloudServerChannel_enqueueRequest_withCompletion___block_invoke_2_cold_4(v8, v18);
@@ -222,7 +222,7 @@ void __54__ENCloudServerChannel_enqueueRequest_withCompletion___block_invoke_2(u
         }
       }
 
-      v15 = [v14 countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
     while (v15);
@@ -234,7 +234,7 @@ void __54__ENCloudServerChannel_enqueueRequest_withCompletion___block_invoke_2(u
   block[1] = 3221225472;
   block[2] = __54__ENCloudServerChannel_enqueueRequest_withCompletion___block_invoke_3;
   block[3] = &unk_278FD1030;
-  objc_copyWeak(&v30, &location);
+  objc_copyWeak(&v29, &location);
   block[4] = *(a1 + 32);
   dispatch_async(v19, block);
 
@@ -243,14 +243,12 @@ void __54__ENCloudServerChannel_enqueueRequest_withCompletion___block_invoke_2(u
   {
     v21 = [v8 statusCode];
     v22 = [v8 allHeaderFields];
-    v23 = [v26 copy];
-    (*(v20 + 16))(v20, v21, v22, v23, v27);
+    v23 = [v25 copy];
+    (*(v20 + 16))(v20, v21, v22, v23, v26);
   }
 
-  objc_destroyWeak(&v30);
+  objc_destroyWeak(&v29);
   objc_destroyWeak(&location);
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __54__ENCloudServerChannel_enqueueRequest_withCompletion___block_invoke_3(uint64_t a1)
@@ -276,10 +274,9 @@ void __54__ENCloudServerChannel_enqueueRequest_withCompletion___block_invoke_3(u
     v10 = CFURLCreateFromFileSystemRepresentation(*MEMORY[0x277CBECE0], uTF8String, v9, 1u);
     v11 = CFHTTPCookieStorageCreateFromFile();
     CFRunLoopGetMain();
-    v12 = *MEMORY[0x277CBF050];
     CFHTTPCookieStorageScheduleWithRunLoop();
-    v13 = [objc_alloc(MEMORY[0x277CBAB40]) _initWithCFHTTPCookieStorage:v11];
-    [(ENCloudServerChannel *)self setCookieStorage:v13];
+    v12 = [objc_alloc(MEMORY[0x277CBAB40]) _initWithCFHTTPCookieStorage:v11];
+    [(ENCloudServerChannel *)self setCookieStorage:v12];
 
     if (v10)
     {
@@ -300,29 +297,29 @@ void __54__ENCloudServerChannel_enqueueRequest_withCompletion___block_invoke_3(u
 void __54__ENCloudServerChannel_enqueueRequest_withCompletion___block_invoke_2_cold_1(uint64_t a1)
 {
   v1 = [*(a1 + 32) url];
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENCloudServerChannel, "[ENCloudServerChannel enqueueRequest:withCompletion:]_block_invoke_2", 10, "Network Task Request: %@", v1);
 }
 
 void __54__ENCloudServerChannel_enqueueRequest_withCompletion___block_invoke_2_cold_2(id *a1, uint64_t a2)
 {
   v3 = [*a1 allHTTPHeaderFields];
   v4 = [v3 objectForKeyedSubscript:a2];
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENCloudServerChannel, "[ENCloudServerChannel enqueueRequest:withCompletion:]_block_invoke_2", 30, "[NT-RQ]: %@: %@", a2, v4);
 }
 
 void __54__ENCloudServerChannel_enqueueRequest_withCompletion___block_invoke_2_cold_3(void *a1)
 {
-  [a1 statusCode];
-  v2 = [a1 allHeaderFields];
-  v3 = [v2 objectForKeyedSubscript:@"x-apple-request-uuid"];
-  LogPrintF_safe();
+  v2 = [a1 statusCode];
+  v3 = [a1 allHeaderFields];
+  v4 = [v3 objectForKeyedSubscript:@"x-apple-request-uuid"];
+  LogPrintF_safe(&gLogCategory__ENCloudServerChannel, "[ENCloudServerChannel enqueueRequest:withCompletion:]_block_invoke_2", 30, "[NT-RS] Response statusCode: %lu with requestID - %@", v2, v4);
 }
 
 void __54__ENCloudServerChannel_enqueueRequest_withCompletion___block_invoke_2_cold_4(void *a1, uint64_t a2)
 {
   v3 = [a1 allHeaderFields];
   v4 = [v3 objectForKeyedSubscript:a2];
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENCloudServerChannel, "[ENCloudServerChannel enqueueRequest:withCompletion:]_block_invoke_2", 30, "[NT-RS] %@: %@", a2, v4);
 }
 
 @end

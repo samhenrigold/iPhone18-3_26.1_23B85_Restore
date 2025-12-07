@@ -50,7 +50,7 @@
 
 - (void)setMergeTargetPersonScopedIdentifier:(id)identifier
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   scopeIdentifier = [identifierCopy scopeIdentifier];
   scopedIdentifier = [(CPLRecordChange *)self scopedIdentifier];
@@ -82,11 +82,11 @@ LABEL_4:
           scopeIdentifier3 = [scopedIdentifier2 scopeIdentifier];
           scopeIdentifier4 = [identifierCopy scopeIdentifier];
           *buf = 138412802;
-          v24 = v10;
-          v25 = 2112;
-          v26 = scopeIdentifier3;
-          v27 = 2112;
-          v28 = scopeIdentifier4;
+          v23 = v10;
+          v24 = 2112;
+          v25 = scopeIdentifier3;
+          v26 = 2112;
+          v27 = scopeIdentifier4;
           _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Invalid call to %@ with mismatched scope: %@ vs. %@", buf, 0x20u);
         }
       }
@@ -105,8 +105,6 @@ LABEL_4:
 
   identifier = [identifierCopy identifier];
   [(CPLPersonChange *)self setMergeTargetPersonIdentifier:identifier];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)mergeTargetPersonScopedIdentifier
@@ -129,31 +127,28 @@ LABEL_4:
 
 - (void)setContactMatchingDictionary:(id)dictionary
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (dictionary)
   {
-    v9 = 0;
-    v4 = [MEMORY[0x1E696AE40] dataWithPropertyList:dictionary format:200 options:0 error:&v9];
-    v5 = v9;
+    v7 = 0;
+    v4 = [MEMORY[0x1E696AE40] dataWithPropertyList:dictionary format:200 options:0 error:&v7];
+    v5 = v7;
     if (!v4 && (_CPLSilentLogging & 1) == 0)
     {
       v6 = __CPLGenericOSLogDomain();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v11 = v5;
+        v9 = v5;
         _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_ERROR, "Failed to encode contactMatchingDictionary as a plist: %@", buf, 0xCu);
       }
     }
 
     [(CPLPersonChange *)self setContactDescriptor:v4];
-
-    v7 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v8 = *MEMORY[0x1E69E9840];
 
     [(CPLPersonChange *)self setContactDescriptor:0];
   }
@@ -161,20 +156,20 @@ LABEL_4:
 
 - (NSDictionary)contactMatchingDictionary
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   contactDescriptor = [(CPLPersonChange *)self contactDescriptor];
   if (contactDescriptor)
   {
-    v8 = 0;
-    v3 = [MEMORY[0x1E696AE40] propertyListWithData:contactDescriptor options:0 format:0 error:&v8];
-    v4 = v8;
+    v7 = 0;
+    v3 = [MEMORY[0x1E696AE40] propertyListWithData:contactDescriptor options:0 format:0 error:&v7];
+    v4 = v7;
     if (!v3 && (_CPLSilentLogging & 1) == 0)
     {
       v5 = __CPLGenericOSLogDomain();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v10 = v4;
+        v9 = v4;
         _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Failed to decode contactDescriptor as a plist: %@", buf, 0xCu);
       }
     }
@@ -184,8 +179,6 @@ LABEL_4:
   {
     v3 = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

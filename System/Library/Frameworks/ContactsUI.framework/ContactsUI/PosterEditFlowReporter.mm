@@ -26,7 +26,7 @@
   selfCopy = self;
   sub_199B1422C();
   v3.receiver = selfCopy;
-  v3.super_class = type metadata accessor for PosterEditFlowReporter();
+  v3.super_class = type metadata accessor for PosterEditFlowReporter(0);
   [(PosterEditFlowReporter *)&v3 dealloc];
 }
 

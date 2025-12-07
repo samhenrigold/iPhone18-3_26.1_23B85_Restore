@@ -26,7 +26,7 @@ uint64_t anonymous namespace::itanium_demangle::PointerToMemberType::hasRHSCompo
   }
 }
 
-void *anonymous namespace::itanium_demangle::PointerToMemberType::printLeft(uint64_t a1, void *a2)
+void **anonymous namespace::itanium_demangle::PointerToMemberType::printLeft(uint64_t a1, void **a2)
 {
   (*(**(a1 + 24) + 32))(*(a1 + 24));
   v4 = *(a1 + 24);
@@ -58,15 +58,16 @@ void *anonymous namespace::itanium_demangle::PointerToMemberType::printLeft(uint
 LABEL_8:
   v8 = 40;
 LABEL_10:
-  *(*a2 + a2[1]++) = v8;
-  v10 = *a2 + a2[1];
-  *(v10 + 2) = 42;
+  *(a2[1] + *a2) = v8;
+  a2[1] = a2[1] + 1;
+  v10 = a2[1] + *a2;
+  v10[2] = 42;
   *v10 = 14906;
-  a2[1] += 3;
+  a2[1] = a2[1] + 3;
   return result;
 }
 
-uint64_t anonymous namespace::itanium_demangle::PointerToMemberType::printRight(uint64_t a1, _anonymous_namespace_::itanium_demangle::OutputBuffer *this)
+uint64_t anonymous namespace::itanium_demangle::PointerToMemberType::printRight(uint64_t a1, void **this)
 {
   v4 = *(a1 + 24);
   v5 = *(v4 + 9);
@@ -81,7 +82,8 @@ uint64_t anonymous namespace::itanium_demangle::PointerToMemberType::printRight(
     if ((*(*v4 + 8))(v4, this))
     {
 LABEL_8:
-      *(*this + (*(this + 1))++) = 41;
+      *(this[1] + *this) = 41;
+      this[1] = this[1] + 1;
       goto LABEL_9;
     }
 
@@ -101,20 +103,20 @@ LABEL_9:
   return v8();
 }
 
-uint64_t anonymous namespace::itanium_demangle::ElaboratedTypeSpefType::printLeft(void *a1, _anonymous_namespace_::itanium_demangle::OutputBuffer *this)
+uint64_t anonymous namespace::itanium_demangle::ElaboratedTypeSpefType::printLeft(void *a1, void **this)
 {
   v4 = a1[3];
   if (v4)
   {
     v5 = a1[2];
-    memcpy((*this + *(this + 1)), v5, v4);
-    *(this + 1) += v4;
+    memcpy(this[1] + *this, v5, v4);
+    this[1] = this[1] + v4;
   }
 
   v6 = *this;
-  v7 = *(this + 1);
-  *(this + 1) = v7 + 1;
-  *(v6 + v7) = 32;
+  v7 = this[1];
+  this[1] = v7 + 1;
+  v7[v6] = 32;
   v8 = a1[4];
 }
 
@@ -133,7 +135,7 @@ uint64_t anonymous namespace::itanium_demangle::PointerType::hasRHSComponentSlow
   }
 }
 
-void *anonymous namespace::itanium_demangle::PointerType::printLeft(uint64_t a1, void *a2)
+void **anonymous namespace::itanium_demangle::PointerType::printLeft(uint64_t a1, void **a2)
 {
   v4 = *(a1 + 16);
   {
@@ -141,7 +143,8 @@ void *anonymous namespace::itanium_demangle::PointerType::printLeft(uint64_t a1,
     v10 = *(a1 + 16);
     if ((v10[10] & 3) == 0 || (v10[10] & 3) == 2 && (*(*v10 + 8))(v10, a2))
     {
-      *(*a2 + a2[1]++) = 32;
+      *(a2[1] + *a2) = 32;
+      a2[1] = a2[1] + 1;
     }
 
     v11 = *(a1 + 16);
@@ -170,31 +173,33 @@ LABEL_14:
     }
 
 LABEL_17:
-    *(*a2 + a2[1]++) = 40;
+    *(a2[1] + *a2) = 40;
+    a2[1] = a2[1] + 1;
 LABEL_18:
     v9 = 42;
     goto LABEL_19;
   }
 
-  v5 = *a2 + a2[1];
-  *(v5 + 2) = 60;
+  v5 = a2[1] + *a2;
+  v5[2] = 60;
   *v5 = 25705;
-  a2[1] += 3;
+  a2[1] = a2[1] + 3;
   v6 = *(v4 + 32);
   if (v6)
   {
     v7 = *(v4 + 24);
-    memcpy((*a2 + a2[1]), v7, v6);
-    a2[1] += v6;
+    memcpy(a2[1] + *a2, v7, v6);
+    a2[1] = a2[1] + v6;
   }
 
   v9 = 62;
 LABEL_19:
-  *(*a2 + a2[1]++) = v9;
+  *(a2[1] + *a2) = v9;
+  a2[1] = a2[1] + 1;
   return result;
 }
 
-uint64_t anonymous namespace::itanium_demangle::PointerType::printRight(uint64_t a1, _anonymous_namespace_::itanium_demangle::OutputBuffer *this)
+uint64_t anonymous namespace::itanium_demangle::PointerType::printRight(uint64_t a1, void **this)
 {
   v4 = *(a1 + 16);
   if (*(v4 + 8) == 11)
@@ -217,7 +222,8 @@ uint64_t anonymous namespace::itanium_demangle::PointerType::printRight(uint64_t
     if ((*(*v4 + 8))(v4, this))
     {
 LABEL_10:
-      *(*this + (*(this + 1))++) = 41;
+      *(this[1] + *this) = 41;
+      this[1] = this[1] + 1;
       goto LABEL_11;
     }
 
@@ -266,18 +272,18 @@ uint64_t anonymous namespace::itanium_demangle::ReferenceType::hasRHSComponentSl
   }
 }
 
-uint64_t anonymous namespace::itanium_demangle::ReferenceType::printLeft(uint64_t result, void *a2)
+_BYTE *anonymous namespace::itanium_demangle::ReferenceType::printLeft(_BYTE *result, void **a2)
 {
-  v2 = *(result + 28);
+  v2 = result[28];
   if ((v2 & 1) == 0)
   {
     v4 = result;
-    *(result + 28) = 1;
+    result[28] = 1;
     v6 = v5;
     if (!v5)
     {
 LABEL_22:
-      *(v4 + 28) = v2;
+      v4[28] = v2;
       return result;
     }
 
@@ -285,7 +291,8 @@ LABEL_22:
     (*(*v5 + 32))(v5, a2);
     if ((*(v6 + 10) & 3) == 0 || (*(v6 + 10) & 3) == 2 && (*(*v6 + 8))(v6, a2))
     {
-      *(*a2 + a2[1]++) = 32;
+      *(a2[1] + *a2) = 32;
+      a2[1] = a2[1] + 1;
     }
 
     v8 = *(v6 + 9);
@@ -330,20 +337,21 @@ LABEL_15:
         v13 = "&";
       }
 
-      result = memcpy((*a2 + a2[1]), v13, v12);
-      a2[1] += v12;
+      result = memcpy(a2[1] + *a2, v13, v12);
+      a2[1] = a2[1] + v12;
       goto LABEL_22;
     }
 
 LABEL_14:
-    *(*a2 + a2[1]++) = 40;
+    *(a2[1] + *a2) = 40;
+    a2[1] = a2[1] + 1;
     goto LABEL_15;
   }
 
   return result;
 }
 
-uint64_t anonymous namespace::itanium_demangle::ReferenceType::printRight(uint64_t result, void *a2)
+uint64_t anonymous namespace::itanium_demangle::ReferenceType::printRight(uint64_t result, void **a2)
 {
   v2 = *(result + 28);
   if ((v2 & 1) == 0)
@@ -382,7 +390,8 @@ LABEL_7:
     }
 
 LABEL_10:
-    *(*a2 + a2[1]++) = 41;
+    *(a2[1] + *a2) = 41;
+    a2[1] = a2[1] + 1;
 LABEL_11:
     result = (*(*v6 + 40))(v6, a2);
     goto LABEL_12;
@@ -395,10 +404,10 @@ uint64_t anonymous namespace::itanium_demangle::ReferenceType::collapse(uint64_t
 {
   v3 = *(a1 + 24);
   v4 = *(a1 + 16);
-  ptr = v23;
-  v21 = v23;
-  v22 = &v24;
-  memset(v23, 0, sizeof(v23));
+  ptr = v16;
+  v14 = v16;
+  v15 = &v17;
+  memset(v16, 0, sizeof(v16));
   while (1)
   {
     v5 = (*(*v4 + 24))(v4, a2);
@@ -413,67 +422,65 @@ uint64_t anonymous namespace::itanium_demangle::ReferenceType::collapse(uint64_t
       v3 = *(v5 + 24);
     }
 
-    v13 = v21;
-    if (v21 == v22)
+    v6 = v14;
+    if (v14 == v15)
     {
-      v14 = v21 - ptr;
-      if (ptr == v23)
+      v7 = v14 - ptr;
+      if (ptr == v16)
       {
-        v16 = malloc_type_malloc(2 * (v21 - ptr), 0x6004044C4A2DFuLL);
-        v15 = v16;
-        if (!v16)
+        v9 = malloc_type_malloc(2 * (v14 - ptr), 0x6004044C4A2DFuLL);
+        v8 = v9;
+        if (!v9)
         {
 LABEL_23:
           abort();
         }
 
-        v6 = ptr;
-        v7 = v21 - ptr;
-        if (v21 != ptr)
+        if (v14 != ptr)
         {
-          memmove(v16, ptr, v7);
+          memmove(v9, ptr, v14 - ptr);
         }
 
-        ptr = v15;
+        ptr = v8;
       }
 
       else
       {
-        v15 = malloc_type_realloc(ptr, 2 * (v21 - ptr), 0x6004044C4A2DFuLL);
-        ptr = v15;
-        if (!v15)
+        v8 = malloc_type_realloc(ptr, 2 * (v14 - ptr), 0x6004044C4A2DFuLL);
+        ptr = v8;
+        if (!v8)
         {
           goto LABEL_23;
         }
       }
 
-      v13 = &v15[v14];
-      v22 = &v15[8 * (v14 >> 2)];
+      v6 = &v8[v7];
+      v15 = &v8[8 * (v7 >> 2)];
     }
 
-    v21 = v13 + 8;
-    *v13 = v4;
-    v17 = ptr;
-    v18 = (v13 + 8 - ptr) >> 3;
-    if (v18 >= 2)
+    v14 = v6 + 8;
+    *v6 = v4;
+    v10 = ptr;
+    v11 = (v6 + 8 - ptr) >> 3;
+    if (v11 >= 2)
     {
-      if (v18 <= (v18 - 1) >> 1)
+      if (v11 <= (v11 - 1) >> 1)
       {
-        __abort_message("%s:%d: %s", v6, v7, v8, v9, v10, v11, v12, "/Library/Caches/com.apple.xbs/Sources/libcxx_os/libcxxabi/src/demangle/ItaniumDemangle.h");
+        __abort_message("%s:%d: %s", "/Library/Caches/com.apple.xbs/Sources/libcxx_os/libcxxabi/src/demangle/ItaniumDemangle.h", 148, "Invalid access!");
       }
 
-      if (v4 == *&ptr[8 * ((v18 - 1) >> 1)])
+      if (v4 == *&ptr[8 * ((v11 - 1) >> 1)])
       {
         goto LABEL_19;
       }
     }
   }
 
-  v17 = ptr;
+  v10 = ptr;
 LABEL_19:
-  if (v17 != v23)
+  if (v10 != v16)
   {
-    free(v17);
+    free(v10);
   }
 
   return v3;
@@ -489,11 +496,11 @@ void sub_1801C6A40(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *__cxxabiv1::anonymous namespace::InitByteGlobalMutex<__cxxabiv1::anonymous namespace::LibcppMutex,__cxxabiv1::anonymous namespace::LibcppCondVar,__cxxabiv1::anonymous namespace::GlobalStatic<__cxxabiv1::anonymous namespace::LibcppMutex>::instance,__cxxabiv1::anonymous namespace::GlobalStatic<__cxxabiv1::anonymous namespace::LibcppCondVar>::instance,&__cxxabiv1::anonymous namespace::PlatformThreadID>::LockGuard::~LockGuard(void *a1)
+const char **__cxxabiv1::anonymous namespace::InitByteGlobalMutex<__cxxabiv1::anonymous namespace::LibcppMutex,__cxxabiv1::anonymous namespace::LibcppCondVar,__cxxabiv1::anonymous namespace::GlobalStatic<__cxxabiv1::anonymous namespace::LibcppMutex>::instance,__cxxabiv1::anonymous namespace::GlobalStatic<__cxxabiv1::anonymous namespace::LibcppCondVar>::instance,&__cxxabiv1::anonymous namespace::PlatformThreadID>::LockGuard::~LockGuard(const char **a1)
 {
   if (pthread_mutex_unlock(&stru_1ED404068))
   {
-    __abort_message("%s failed to release mutex", v2, v3, v4, v5, v6, v7, v8, *a1);
+    __abort_message("%s failed to release mutex", *a1);
   }
 
   return a1;
@@ -750,7 +757,7 @@ void std::logic_error::~logic_error(std::logic_error *this)
 {
   this->__vftable = off_1EEEA8658;
   imp = this->__imp_.__imp_;
-  if ((atomic_load_explicit(&qword_1ED4040F0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED4040F0, memory_order_acquire) & 1) == 0)
   {
     v4 = imp;
     std::logic_error::~logic_error();
@@ -779,7 +786,7 @@ void std::runtime_error::~runtime_error(std::runtime_error *this)
 {
   this->__vftable = off_1EEEA8680;
   imp = this->__imp_.__imp_;
-  if ((atomic_load_explicit(&qword_1ED4040F0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED4040F0, memory_order_acquire) & 1) == 0)
   {
     v4 = imp;
     std::logic_error::~logic_error();
@@ -909,16 +916,17 @@ void std::bad_typeid::~bad_typeid(std::bad_typeid *this)
   JUMPOUT(0x1865C8EF0);
 }
 
-void __abort_message(const char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void __abort_message(const char *a1, ...)
 {
-  v10 = MEMORY[0x1E69E9848];
+  va_start(va, a1);
+  v2 = MEMORY[0x1E69E9848];
   fwrite("libc++abi: ", 0xBuLL, 1uLL, *MEMORY[0x1E69E9848]);
-  v11 = &a9;
-  vfprintf(*v10, a1, &a9);
-  fputc(10, *v10);
-  v11 = 0;
-  vasprintf(&v11, a1, &a9);
-  qword_1EA79D8E0 = v11;
+  va_copy(v3, va);
+  vfprintf(*v2, a1, va);
+  fputc(10, *v2);
+  v3 = 0;
+  vasprintf(&v3, a1, va);
+  qword_1EA79D8E0 = v3;
   abort();
 }
 
@@ -957,78 +965,78 @@ int *anonymous namespace::fallback_malloc(_anonymous_namespace_ *this)
   {
     {
 LABEL_12:
-      v13 = 0;
+      v6 = 0;
       goto LABEL_19;
     }
   }
 
   else
   {
-    v9 = &dword_1EA79DA4C;
+    v2 = &dword_1EA79DA4C;
     dword_1EA79DA4C = 8192128;
   }
 
-  v10 = 0;
-  v11 = (this + 3) >> 2;
-  v12 = v11 + 1;
+  v3 = 0;
+  v4 = (this + 3) >> 2;
+  v5 = v4 + 1;
   while (1)
   {
-    v13 = v9 + 1;
-    if (((v9 + 1) & 0xF) != 0)
+    v6 = v2 + 1;
+    if (((v2 + 1) & 0xF) != 0)
     {
-      __abort_message("%s:%d: %s", v2, v3, v4, v5, v6, v7, v8, "/Library/Caches/com.apple.xbs/Sources/libcxx_os/libcxxabi/src/fallback_malloc.cpp");
+      __abort_message("%s:%d: %s", "/Library/Caches/com.apple.xbs/Sources/libcxx_os/libcxxabi/src/fallback_malloc.cpp", 146, &unk_1801CBF82);
     }
 
-    v14 = v9;
-    v15 = *(v9 + 1);
-    v16 = (v15 - v12) & 3;
-    if (v12 >= v15)
+    v7 = v2;
+    v8 = *(v2 + 1);
+    v9 = (v8 - v5) & 3;
+    if (v5 >= v8)
     {
-      v16 = 0;
+      v9 = 0;
     }
 
-    v17 = v16 + v12;
-    if (v17 < v15)
+    v10 = v9 + v5;
+    if (v10 < v8)
     {
       break;
     }
 
-    if (v11 < v15)
+    if (v4 < v8)
     {
-      v20 = *v14;
-      if (v10)
+      v13 = *v7;
+      if (v3)
       {
-        *v10 = v20;
+        *v3 = v13;
       }
 
       else
       {
       }
 
-      *v14 = 0;
+      *v7 = 0;
       goto LABEL_19;
     }
 
-    v18 = *v14;
-    v10 = v14;
-    if (v18 == 128)
+    v11 = *v7;
+    v3 = v7;
+    if (v11 == 128)
     {
       goto LABEL_12;
     }
   }
 
-  *(v14 + 1) = v15 - v17;
-  v19 = &v14[(v15 - v17)];
-  *v19 = 0;
-  v19[1] = v17;
-  v13 = (v19 + 2);
-  if (((v19 + 2) & 0xF) != 0)
+  *(v7 + 1) = v8 - v10;
+  v12 = &v7[(v8 - v10)];
+  *v12 = 0;
+  v12[1] = v10;
+  v6 = (v12 + 2);
+  if (((v12 + 2) & 0xF) != 0)
   {
-    __abort_message("%s:%d: %s", v2, v3, v4, v5, v6, v7, v8, "/Library/Caches/com.apple.xbs/Sources/libcxx_os/libcxxabi/src/fallback_malloc.cpp");
+    __abort_message("%s:%d: %s", "/Library/Caches/com.apple.xbs/Sources/libcxx_os/libcxxabi/src/fallback_malloc.cpp", 167, &unk_1801CBF82);
   }
 
 LABEL_19:
-  return v13;
+  return v6;
 }
 
 void *__cxxabiv1::__calloc_with_fallback(size_t a1, size_t a2)
@@ -1182,7 +1190,7 @@ void __cxxabiv1::__pointer_to_member_type_info::~__pointer_to_member_type_info(s
   JUMPOUT(0x1865C8EF0);
 }
 
-BOOL is_equal(const std::type_info *a1, const std::type_info *a2, char a3)
+BOOL is_equal(std::type_info *a1, const std::type_info *a2, void **a3)
 {
   if (a3)
   {
@@ -1203,48 +1211,48 @@ const __cxxabiv1::__shim_type_info *__cxxabiv1::__class_type_info::can_catch(__c
     return 1;
   }
 
-  result = __cxxabiv1::is_class_type(a2);
+  result = __cxxabiv1::is_class_type(a2, v6, v7);
   if (result)
   {
-    v13 = *a3;
+    v9 = *a3;
     if (!*a3)
     {
-      __abort_message("%s:%d: %s", v7, 0, v8, v9, v10, v11, v12, "/Library/Caches/com.apple.xbs/Sources/libcxx_os/libcxxabi/src/private_typeinfo.cpp");
+      __abort_message("%s:%d: %s", "/Library/Caches/com.apple.xbs/Sources/libcxx_os/libcxxabi/src/private_typeinfo.cpp", 516, "catching a class without an object?");
     }
 
-    v14[0] = result;
-    v14[1] = 0;
-    v14[2] = this;
-    v14[3] = -1;
-    v15 = 0u;
-    memset(v16, 0, sizeof(v16));
-    v17 = 1;
-    v18 = 0;
-    *&v16[24] = 1;
-    (*(*result + 56))(result, v14, v13, 1);
-    result = (*v16 == 1);
-    if (*v16 == 1)
+    v10[0] = result;
+    v10[1] = 0;
+    v10[2] = this;
+    v10[3] = -1;
+    v11 = 0u;
+    memset(v12, 0, sizeof(v12));
+    v13 = 1;
+    v14 = 0;
+    *&v12[24] = 1;
+    (*(*result + 56))(result, v10, v9, 1);
+    result = (*v12 == 1);
+    if (*v12 == 1)
     {
-      *a3 = v15;
+      *a3 = v11;
     }
   }
 
   return result;
 }
 
-const __cxxabiv1::__shim_type_info *__cxxabiv1::is_class_type(const __cxxabiv1::__shim_type_info *a1)
+const __cxxabiv1::__shim_type_info *__cxxabiv1::is_class_type(const __cxxabiv1::__shim_type_info *a1, uint64_t a2, void **a3)
 {
   if (!a1)
   {
     __cxa_bad_typeid();
   }
 
-  v1 = a1;
+  v3 = a1;
   {
     return 0;
   }
 
-  return v1;
+  return v3;
 }
 
 void __cxxabiv1::__class_type_info::process_found_base_class(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
@@ -1278,7 +1286,7 @@ void __cxxabiv1::__class_type_info::process_found_base_class(uint64_t a1, uint64
   }
 }
 
-void __cxxabiv1::__class_type_info::has_unambiguous_public_base(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+void __cxxabiv1::__class_type_info::has_unambiguous_public_base(__cxxabiv1::__fundamental_type_info *a1, uint64_t a2, void **a3, int a4)
 {
   v7 = std::type_info::operator==[abi:ne200100](a1, *(a2 + 16));
   if (v7)
@@ -1288,7 +1296,7 @@ void __cxxabiv1::__class_type_info::has_unambiguous_public_base(uint64_t a1, uin
   }
 }
 
-void __cxxabiv1::__si_class_type_info::has_unambiguous_public_base(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+void __cxxabiv1::__si_class_type_info::has_unambiguous_public_base(__cxxabiv1::__fundamental_type_info *a1, uint64_t a2, void **a3, int a4)
 {
   v8 = std::type_info::operator==[abi:ne200100](a1, *(a2 + 16));
   if (v8)
@@ -1299,24 +1307,15 @@ void __cxxabiv1::__si_class_type_info::has_unambiguous_public_base(uint64_t a1, 
 
   else
   {
-    v9 = *(**(a1 + 16) + 56);
+    v9 = *(**(a1 + 2) + 56);
 
     v9();
   }
 }
 
-uint64_t __cxxabiv1::__base_class_type_info::has_unambiguous_public_base(void *a1, uint64_t a2, void *a3)
+uint64_t __cxxabiv1::__base_class_type_info::has_unambiguous_public_base(void *a1, uint64_t a2)
 {
-  v3 = a1[1];
-  if (*(a2 + 79) == 1)
-  {
-    if (v3)
-    {
-      v4 = *(*a3 + (v3 >> 8));
-    }
-  }
-
-  else if (v3)
+  if (*(a2 + 79) != 1 && (a1[1] & 1) != 0)
   {
     *(a2 + 80) = *(*a1 + 8) & 0x7FFFFFFFFFFFFFFFLL;
   }
@@ -1324,7 +1323,7 @@ uint64_t __cxxabiv1::__base_class_type_info::has_unambiguous_public_base(void *a
   return (*(**a1 + 56))(*a1);
 }
 
-void __cxxabiv1::__vmi_class_type_info::has_unambiguous_public_base(uint64_t a1, uint64_t a2, void *a3, int a4)
+void __cxxabiv1::__vmi_class_type_info::has_unambiguous_public_base(uint64_t a1, uint64_t a2, void **a3, int a4)
 {
   v8 = std::type_info::operator==[abi:ne200100](a1, *(a2 + 16));
   if (v8)
@@ -1336,14 +1335,14 @@ void __cxxabiv1::__vmi_class_type_info::has_unambiguous_public_base(uint64_t a1,
   else
   {
     v9 = *(a1 + 20);
-    __cxxabiv1::__base_class_type_info::has_unambiguous_public_base((a1 + 24), a2, a3);
+    __cxxabiv1::__base_class_type_info::has_unambiguous_public_base((a1 + 24), a2);
     if (v9 >= 2)
     {
       v10 = a1 + 24 + 16 * v9;
       v11 = a1 + 56;
       do
       {
-        __cxxabiv1::__base_class_type_info::has_unambiguous_public_base((v11 - 16), a2, a3);
+        __cxxabiv1::__base_class_type_info::has_unambiguous_public_base((v11 - 16), a2);
         if (*(a2 + 78))
         {
           break;
@@ -1358,11 +1357,11 @@ void __cxxabiv1::__vmi_class_type_info::has_unambiguous_public_base(uint64_t a1,
   }
 }
 
-uint64_t __cxxabiv1::__pbase_type_info::can_catch(char **this, char **lpsrc, void **a3)
+uint64_t __cxxabiv1::__pbase_type_info::can_catch(__cxxabiv1::__pbase_type_info *this, const __cxxabiv1::__shim_type_info *lpsrc, void **a3)
 {
-  if ((this[2] & 0x18) != 0)
+  if ((*(this + 16) & 0x18) != 0)
   {
-    return this == lpsrc || strcmp((this[1] & 0x7FFFFFFFFFFFFFFFLL), (lpsrc[1] & 0x7FFFFFFFFFFFFFFFLL)) == 0;
+    return this == lpsrc || strcmp((*(this + 1) & 0x7FFFFFFFFFFFFFFFLL), (*(lpsrc + 1) & 0x7FFFFFFFFFFFFFFFLL)) == 0;
   }
 
   if (!lpsrc)
@@ -1370,7 +1369,6 @@ uint64_t __cxxabiv1::__pbase_type_info::can_catch(char **this, char **lpsrc, voi
     return 0;
   }
 
-  v6 = **lpsrc;
   if (!result)
   {
     return result;
@@ -1378,7 +1376,7 @@ uint64_t __cxxabiv1::__pbase_type_info::can_catch(char **this, char **lpsrc, voi
 
   if ((*(result + 16) & 0x18) != 0)
   {
-    return this == lpsrc || strcmp((this[1] & 0x7FFFFFFFFFFFFFFFLL), (lpsrc[1] & 0x7FFFFFFFFFFFFFFFLL)) == 0;
+    return this == lpsrc || strcmp((*(this + 1) & 0x7FFFFFFFFFFFFFFFLL), (*(lpsrc + 1) & 0x7FFFFFFFFFFFFFFFLL)) == 0;
   }
 
   else
@@ -1409,7 +1407,7 @@ void *__dynamic_cast(const void *lpsrc, const struct __class_type_info *lpstype,
   return result;
 }
 
-uint64_t __cxxabiv1::__pointer_type_info::can_catch(__cxxabiv1::__pointer_type_info *this, const __cxxabiv1::__shim_type_info *a2, void ***a3)
+uint64_t __cxxabiv1::__pointer_type_info::can_catch(__cxxabiv1::__fundamental_type_info **this, const __cxxabiv1::__shim_type_info **a2, void ***a3)
 {
   {
     *a3 = 0;
@@ -1445,62 +1443,58 @@ uint64_t __cxxabiv1::__pointer_type_info::can_catch(__cxxabiv1::__pointer_type_i
       return 0;
     }
 
-    if (std::type_info::operator==[abi:ne200100](*(this + 3), *(a2 + 3)))
+    if (std::type_info::operator==[abi:ne200100](this[3], a2[3]))
     {
       return 1;
     }
 
     {
-      v10 = *(a2 + 3);
-      if (v10)
+      v12 = a2[3];
+      if (v12)
       {
-        v11 = **v10;
       }
 
       return 1;
     }
 
-    v12 = *(this + 3);
-    if (!v12)
+    v13 = this[3];
+    if (!v13)
     {
       goto LABEL_30;
     }
 
-    v13 = *v12;
-    v14 = **v12;
-    if (v15)
+    if (v14)
     {
-      if (*(this + 16))
+      if (this[2])
       {
-        v16 = *(a2 + 3);
+        v15 = a2[3];
 
-        return __cxxabiv1::__pointer_type_info::can_catch_nested(v15, v16);
+        return __cxxabiv1::__pointer_type_info::can_catch_nested(v14, v15);
       }
 
       return 0;
     }
 
-    v17 = *v13;
-    if (v18)
+    if (v16)
     {
-      if ((*(this + 16) & 1) == 0)
+      if ((this[2] & 1) == 0)
       {
         return 0;
       }
 
-      v19 = *(a2 + 3);
+      v17 = a2[3];
 
-      return __cxxabiv1::__pointer_to_member_type_info::can_catch_nested(v18, v19);
+      return __cxxabiv1::__pointer_to_member_type_info::can_catch_nested(v16, v17);
     }
 
     else
     {
 LABEL_30:
-      result = __cxxabiv1::is_class_type(v12);
+      result = __cxxabiv1::is_class_type(v13, v10, v11);
       if (result)
       {
         v20 = result;
-        result = __cxxabiv1::is_class_type(*(a2 + 3));
+        result = __cxxabiv1::is_class_type(a2[3], v18, v19);
         if (result)
         {
           v21 = *a3;
@@ -1534,7 +1528,7 @@ LABEL_30:
   return result;
 }
 
-uint64_t __cxxabiv1::__pointer_type_info::can_catch_nested(__cxxabiv1::__pointer_type_info *this, char **lpsrc)
+uint64_t __cxxabiv1::__pointer_type_info::can_catch_nested(__cxxabiv1::__pointer_type_info *this, const __cxxabiv1::__shim_type_info *lpsrc)
 {
   if (!lpsrc)
   {
@@ -1543,13 +1537,12 @@ uint64_t __cxxabiv1::__pointer_type_info::can_catch_nested(__cxxabiv1::__pointer
 
   while (1)
   {
-    v3 = **lpsrc;
     if (!result)
     {
       break;
     }
 
-    v5 = result;
+    v4 = result;
     if ((*(result + 16) & ~*(this + 4)) != 0)
     {
       return 0;
@@ -1565,29 +1558,26 @@ uint64_t __cxxabiv1::__pointer_type_info::can_catch_nested(__cxxabiv1::__pointer
       return 0;
     }
 
-    v6 = *(this + 3);
-    if (!v6)
+    v5 = *(this + 3);
+    if (!v5)
     {
       return 0;
     }
 
-    v7 = *v6;
-    v8 = **v6;
-    if (!v9)
+    if (!v6)
     {
-      v10 = *v7;
       if (result)
       {
-        v11 = *(v5 + 24);
+        v7 = *(v4 + 24);
 
-        return __cxxabiv1::__pointer_to_member_type_info::can_catch_nested(result, v11);
+        return __cxxabiv1::__pointer_to_member_type_info::can_catch_nested(result, v7);
       }
 
       return result;
     }
 
-    this = v9;
-    lpsrc = *(v5 + 24);
+    this = v6;
+    lpsrc = *(v4 + 24);
     if (!lpsrc)
     {
       return 0;
@@ -1597,45 +1587,44 @@ uint64_t __cxxabiv1::__pointer_type_info::can_catch_nested(__cxxabiv1::__pointer
   return result;
 }
 
-BOOL __cxxabiv1::__pointer_to_member_type_info::can_catch_nested(__cxxabiv1::__pointer_to_member_type_info *this, char **lpsrc)
+BOOL __cxxabiv1::__pointer_to_member_type_info::can_catch_nested(__cxxabiv1::__pointer_to_member_type_info *this, const __cxxabiv1::__shim_type_info *lpsrc)
 {
   if (!lpsrc)
   {
     return 0;
   }
 
-  v3 = **lpsrc;
-  if (!v4)
+  if (!v3)
   {
     return 0;
   }
 
-  v5 = v4;
-  if ((v4[2] & ~*(this + 4)) != 0 || !std::type_info::operator==[abi:ne200100](*(this + 3), v4[3]))
+  v4 = v3;
+  if ((v3[2] & ~*(this + 4)) != 0 || !std::type_info::operator==[abi:ne200100](*(this + 3), v3[3]))
   {
     return 0;
   }
 
-  v6 = *(this + 4);
-  v7 = v5[4];
+  v5 = *(this + 4);
+  v6 = v4[4];
 
-  return std::type_info::operator==[abi:ne200100](v6, v7);
+  return std::type_info::operator==[abi:ne200100](v5, v6);
 }
 
-uint64_t __cxxabiv1::__pointer_to_member_type_info::can_catch(__cxxabiv1::__pointer_to_member_type_info *this, char **a2, void **a3)
+uint64_t __cxxabiv1::__pointer_to_member_type_info::can_catch(__cxxabiv1::__pointer_to_member_type_info *this, const __cxxabiv1::__shim_type_info *a2, void **a3)
 {
   {
     v7 = *(this + 3);
     {
-      v9 = &__cxxabiv1::__pointer_to_member_type_info::can_catch(__cxxabiv1::__shim_type_info const*,void *&)const::null_ptr_rep;
+      v8 = &__cxxabiv1::__pointer_to_member_type_info::can_catch(__cxxabiv1::__shim_type_info const*,void *&)const::null_ptr_rep;
     }
 
     else
     {
-      v9 = &__cxxabiv1::__pointer_to_member_type_info::can_catch(__cxxabiv1::__shim_type_info const*,void *&)const::null_ptr_rep;
+      v8 = &__cxxabiv1::__pointer_to_member_type_info::can_catch(__cxxabiv1::__shim_type_info const*,void *&)const::null_ptr_rep;
     }
 
-    *a3 = v9;
+    *a3 = v8;
     return 1;
   }
 
@@ -1649,16 +1638,15 @@ uint64_t __cxxabiv1::__pointer_to_member_type_info::can_catch(__cxxabiv1::__poin
     return 0;
   }
 
-  v10 = **a2;
   if (!result)
   {
     return result;
   }
 
-  v12 = result;
-  v13 = *(result + 16);
-  v14 = *(this + 4);
-  if ((v13 & ~v14 & 7) != 0 || (v14 & ~v13 & 0x60) != 0)
+  v10 = result;
+  v11 = *(result + 16);
+  v12 = *(this + 4);
+  if ((v11 & ~v12 & 7) != 0 || (v12 & ~v11 & 0x60) != 0)
   {
     return 0;
   }
@@ -1666,10 +1654,10 @@ uint64_t __cxxabiv1::__pointer_to_member_type_info::can_catch(__cxxabiv1::__poin
   result = std::type_info::operator==[abi:ne200100](*(this + 3), *(result + 24));
   if (result)
   {
-    v15 = *(this + 4);
-    v16 = *(v12 + 32);
+    v13 = *(this + 4);
+    v14 = *(v10 + 32);
 
-    return std::type_info::operator==[abi:ne200100](v15, v16);
+    return std::type_info::operator==[abi:ne200100](v13, v14);
   }
 
   return result;
@@ -1898,7 +1886,7 @@ void __cxxabiv1::__class_type_info::process_static_type_below_dst(uint64_t a1, u
   }
 }
 
-uint64_t __cxxabiv1::__vmi_class_type_info::search_below_dst(uint64_t result, uint64_t a2, char *a3, uint64_t a4, char a5)
+uint64_t __cxxabiv1::__vmi_class_type_info::search_below_dst(uint64_t result, uint64_t a2, void **a3, uint64_t a4, uint64_t a5)
 {
   v8 = result;
   v9 = *(a2 + 16);
@@ -2145,7 +2133,7 @@ uint64_t __cxxabiv1::__base_class_type_info::search_below_dst(uint64_t *a1, uint
   return (*(*v6 + 48))(v6, a2, &a3[v5], a4);
 }
 
-uint64_t __cxxabiv1::__si_class_type_info::search_below_dst(uint64_t result, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
+uint64_t __cxxabiv1::__si_class_type_info::search_below_dst(uint64_t result, uint64_t a2, void **a3, int a4, uint64_t a5)
 {
   v9 = result;
   v10 = *(a2 + 16);
@@ -2238,7 +2226,7 @@ LABEL_14:
   return result;
 }
 
-uint64_t __cxxabiv1::__class_type_info::search_below_dst(uint64_t result, uint64_t *a2, uint64_t a3, int a4, char a5)
+uint64_t __cxxabiv1::__class_type_info::search_below_dst(uint64_t result, uint64_t *a2, void **a3, int a4, char a5)
 {
   v8 = result;
   v9 = a2[2];
@@ -2310,7 +2298,7 @@ LABEL_12:
   return result;
 }
 
-void __cxxabiv1::__vmi_class_type_info::search_above_dst(uint64_t a1, uint64_t a2, uint64_t a3, char *a4, uint64_t a5, char a6)
+void __cxxabiv1::__vmi_class_type_info::search_above_dst(uint64_t a1, uint64_t a2, void **a3, char *a4, uint64_t a5, char a6)
 {
   v10 = a1;
   v11 = *(a2 + 16);
@@ -2384,7 +2372,7 @@ LABEL_4:
   *(a2 + 77) = v17 & 1;
 }
 
-void __cxxabiv1::__si_class_type_info::search_above_dst(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, char a6)
+void __cxxabiv1::__si_class_type_info::search_above_dst(uint64_t a1, uint64_t a2, void **a3, uint64_t a4, int a5, char a6)
 {
   v10 = a1;
   v11 = *(a2 + 16);
@@ -2416,7 +2404,7 @@ LABEL_4:
   __cxxabiv1::__class_type_info::process_static_type_above_dst(a1, a2, a3, a4, a5);
 }
 
-void __cxxabiv1::__class_type_info::search_above_dst(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, char a6)
+void __cxxabiv1::__class_type_info::search_above_dst(uint64_t a1, uint64_t a2, void **a3, uint64_t a4, int a5, char a6)
 {
   v10 = *(a2 + 16);
   if (a6)
@@ -2480,38 +2468,38 @@ void operator delete[](void *__p, size_t __sz, std::align_val_t a3)
   }
 }
 
-void operator new(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void operator new()
 {
-  __vtable(a1, a2, __vtable, a4, a5, a6, a7, a8);
+  __vtable();
 }
 
 {
-  __vtable(a1, a2, a3, a4, a5, a6, a7, a8);
+  __vtable();
 }
 
 {
-  __vtable(a1, a2, a3, __vtable, a5, a6, a7, a8);
+  __vtable();
 }
 
 {
-  __vtable(a1, a2, a3, a4, a5, a6, a7, a8);
+  __vtable();
 }
 
-void operator new[](uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void operator new[]()
 {
-  __vtable(a1, a2, __vtable, a4, a5, a6, a7, a8);
-}
-
-{
-  __vtable(a1, a2, a3, a4, a5, a6, a7, a8);
+  __vtable();
 }
 
 {
-  __vtable(a1, a2, a3, __vtable, a5, a6, a7, a8);
+  __vtable();
 }
 
 {
-  __vtable(a1, a2, a3, a4, a5, a6, a7, a8);
+  __vtable();
+}
+
+{
+  __vtable();
 }
 
 void operator delete()
@@ -2690,7 +2678,7 @@ void (*$_0::operator()(void)const::{lambda(unsigned long,std::__type_descriptor_
   return result;
 }
 
-void *(*_GLOBAL__sub_I_stdlib_new_delete_cpp())(size_t a1, int a2, std::nothrow_t *a3)
+void (*_GLOBAL__sub_I_stdlib_new_delete_cpp())()
 {
   v0 = operator new < operator new || operator new > _Unwind_DeleteException;
   v1 = v0;
@@ -3015,7 +3003,6 @@ void __cxa_decrement_exception_refcount(void *primary_exception)
     v3 = *(primary_exception - 13);
     if (v3)
     {
-      v4 = *(primary_exception - 13);
       v3(primary_exception);
     }
 
@@ -3199,28 +3186,12 @@ uint64_t __gxx_personality_v0(int a1, int a2, uint64_t a3, _Unwind_Exception *a4
   if (a2 == 6 && v10 == 0x434C4E47432B2B00)
   {
     exception_class = a4[-1].exception_class;
-    *&v86 = SHIDWORD(a4[-2].private_2);
-    *(&v86 + 1) = exception_class;
-    if (a4[-1].exception_cleanup)
-    {
-      exception_cleanup = a4[-1].exception_cleanup;
-    }
-
-    *&v87 = a4[-1].exception_cleanup;
-    if (a4[-1].private_1)
-    {
-      private_1 = a4[-1].private_1;
-    }
-
-    *(&v87 + 1) = a4[-1].private_1;
-    if (a4[-1].private_2)
-    {
-      private_2 = a4[-1].private_2;
-    }
-
-    v88 = a4[-1].private_2;
-    __cxxabiv1::set_registers(a4, context, &v86);
-    if ((v86 & 0x8000000000000000) != 0)
+    *&v83 = SHIDWORD(a4[-2].private_2);
+    *(&v83 + 1) = exception_class;
+    v84 = *&a4[-1].exception_cleanup;
+    private_2 = a4[-1].private_2;
+    __cxxabiv1::set_registers(a4, context, &v83);
+    if ((v83 & 0x8000000000000000) != 0)
     {
       a4[-1].private_1 = 0;
     }
@@ -3228,11 +3199,11 @@ uint64_t __gxx_personality_v0(int a1, int a2, uint64_t a3, _Unwind_Exception *a4
     return 7;
   }
 
-  v88 = 0;
-  v86 = 0u;
-  v87 = 0u;
-  v89 = 3;
-  v15 = (a2 & 1) == 0;
+  private_2 = 0;
+  v83 = 0u;
+  v84 = 0u;
+  v86 = 3;
+  v12 = (a2 & 1) == 0;
   if (a2)
   {
     if ((a2 & 0xE) != 0)
@@ -3250,8 +3221,8 @@ uint64_t __gxx_personality_v0(int a1, int a2, uint64_t a3, _Unwind_Exception *a4
 
     if ((~a2 & 0xC) == 0)
     {
-      v89 = 2;
-      goto LABEL_18;
+      v86 = 2;
+      goto LABEL_12;
     }
   }
 
@@ -3261,202 +3232,202 @@ uint64_t __gxx_personality_v0(int a1, int a2, uint64_t a3, _Unwind_Exception *a4
     return 8;
   }
 
-  v17 = LanguageSpecificData;
-  *&v87 = LanguageSpecificData;
+  v14 = LanguageSpecificData;
+  *&v84 = LanguageSpecificData;
   IP = _Unwind_GetIP(context);
   RegionStart = _Unwind_GetRegionStart(context);
-  v20 = RegionStart;
-  v23 = *v17;
-  v22 = v17 + 1;
-  v21 = v23;
-  v93 = v22;
-  if (v23 == 255)
+  v17 = RegionStart;
+  v20 = *v14;
+  v19 = v14 + 1;
+  v18 = v20;
+  v90 = v19;
+  if (v20 == 255)
   {
     EncodedPointer = RegionStart;
   }
 
   else
   {
-    EncodedPointer = __cxxabiv1::readEncodedPointer(&v93, v21, 0);
-    v22 = v93;
+    EncodedPointer = __cxxabiv1::readEncodedPointer(&v90, v18, 0);
+    v19 = v90;
   }
 
-  v25 = *v22;
-  v24 = v22 + 1;
-  v93 = v24;
-  v85 = v25;
-  v80 = v15;
-  if (v25 == 255)
+  v22 = *v19;
+  v21 = v19 + 1;
+  v90 = v21;
+  v82 = v22;
+  v77 = v12;
+  if (v22 == 255)
   {
-    v84 = 0;
+    v81 = 0;
   }
 
   else
   {
-    v26 = 0;
-    v27 = 0;
+    v23 = 0;
+    v24 = 0;
     do
     {
-      v28 = *v24++;
-      v26 |= (v28 & 0x7F) << v27;
-      v27 += 7;
+      v25 = *v21++;
+      v23 |= (v25 & 0x7F) << v24;
+      v24 += 7;
     }
 
-    while (v28 < 0);
-    v84 = &v24[v26];
+    while (v25 < 0);
+    v81 = &v21[v23];
   }
 
-  v82 = v10;
-  v29 = 0;
-  v30 = 0;
-  v31 = IP + ~v20;
-  v32 = v24 + 1;
-  v93 = v24 + 1;
-  v33 = *v24;
+  v79 = v10;
+  v26 = 0;
+  v27 = 0;
+  v28 = IP + ~v17;
+  v29 = v21 + 1;
+  v90 = v21 + 1;
+  v30 = *v21;
   do
   {
-    v34 = *v32++;
-    v29 |= (v34 & 0x7F) << v30;
-    v30 += 7;
+    v31 = *v29++;
+    v26 |= (v31 & 0x7F) << v27;
+    v27 += 7;
   }
 
-  while (v34 < 0);
-  v92 = v32;
-  v93 = v32;
-  v79 = v29;
-  if (!v29)
+  while (v31 < 0);
+  v89 = v29;
+  v90 = v29;
+  v76 = v26;
+  if (!v26)
   {
-LABEL_44:
-    v44 = v82 == 0x434C4E47432B2B00;
-    goto LABEL_45;
+LABEL_38:
+    v41 = v79 == 0x434C4E47432B2B00;
+    goto LABEL_39;
   }
 
-  v35 = &v32[v29];
+  v32 = &v29[v26];
   while (1)
   {
-    v36 = __cxxabiv1::readEncodedPointer(&v92, v33, 0);
-    v37 = __cxxabiv1::readEncodedPointer(&v92, v33, 0);
-    v38 = __cxxabiv1::readEncodedPointer(&v92, v33, 0);
-    v39 = v38 ? v38 : 0;
-    v40 = 0;
-    v41 = 0;
-    v91 = v39;
-    v42 = v92;
+    v33 = __cxxabiv1::readEncodedPointer(&v89, v30, 0);
+    v34 = __cxxabiv1::readEncodedPointer(&v89, v30, 0);
+    v35 = __cxxabiv1::readEncodedPointer(&v89, v30, 0);
+    v36 = v35 ? v35 : 0;
+    v37 = 0;
+    v38 = 0;
+    v88 = v36;
+    v39 = v89;
     do
     {
-      v43 = *v42++;
-      v40 |= (v43 & 0x7F) << v41;
-      v41 += 7;
+      v40 = *v39++;
+      v37 |= (v40 & 0x7F) << v38;
+      v38 += 7;
     }
 
-    while (v43 < 0);
-    v92 = v42;
-    if (v36 <= v31 && v31 < v37 + v36)
+    while (v40 < 0);
+    v89 = v39;
+    if (v33 <= v28 && v28 < v34 + v33)
     {
       break;
     }
 
-    if (v31 < v36 || v42 >= v35)
+    if (v28 < v33 || v39 >= v32)
     {
-      goto LABEL_44;
+      goto LABEL_38;
     }
   }
 
-  if (!v39)
+  if (!v36)
   {
     return 8;
   }
 
-  if (v39 + EncodedPointer)
+  if (v36 + EncodedPointer)
   {
-    v91 = v39 + EncodedPointer;
-    v45 = v82;
-    v46 = v39 + EncodedPointer;
+    v88 = v36 + EncodedPointer;
+    v42 = v79;
+    v43 = v36 + EncodedPointer;
   }
 
   else
   {
-    v46 = 0;
-    v91 = 0;
-    v45 = v82;
+    v43 = 0;
+    v88 = 0;
+    v42 = v79;
   }
 
-  *(&v87 + 1) = v46;
-  if (v40)
+  *(&v84 + 1) = v43;
+  if (v37)
   {
-    v47 = 0;
-    v48 = &v32[v79 - 1 + v40];
-    v83 = &a4[1];
+    v44 = 0;
+    v45 = &v29[v76 - 1 + v37];
+    exception_cleanup = &a4[1];
     while (1)
     {
-      v49 = 0;
-      v50 = 0;
-      v51 = v48;
+      v46 = 0;
+      v47 = 0;
+      v48 = v45;
       do
       {
-        v53 = *v51++;
-        v52 = v53;
-        v49 |= (v53 & 0x7F) << v50;
-        v50 += 7;
+        v50 = *v48++;
+        v49 = v50;
+        v46 |= (v50 & 0x7F) << v47;
+        v47 += 7;
       }
 
-      while ((v53 & 0x80) != 0);
-      v54 = v50 < 0x40 && v52 > 0x3F;
-      v55 = -1 << v50;
-      if (!v54)
+      while ((v50 & 0x80) != 0);
+      v51 = v47 < 0x40 && v49 > 0x3F;
+      v52 = -1 << v47;
+      if (!v51)
       {
-        v55 = 0;
+        v52 = 0;
       }
 
-      v56 = v49 | v55;
-      if ((v49 | v55) < 1)
+      v53 = v46 | v52;
+      if ((v46 | v52) < 1)
       {
-        v62 = (v56 == 0) | v47;
-        if ((v9 & 8) == 0 && v56)
+        v59 = (v53 == 0) | v44;
+        if ((v9 & 8) == 0 && v53)
         {
-          if (v45 != 0x434C4E47432B2B00)
+          if (v42 != 0x434C4E47432B2B00)
           {
-LABEL_93:
-            *&v86 = v56;
-            if (v48)
+LABEL_87:
+            *&v83 = v53;
+            if (v45)
             {
-              v74 = v48;
+              v71 = v45;
             }
 
             else
             {
-              v74 = 0;
+              v71 = 0;
             }
 
-            *(&v86 + 1) = v74;
+            *(&v83 + 1) = v71;
             if (__cxxabiv1::__getExceptionClass(a4) == 0x434C4E47432B2B01)
             {
-              v83 = a4[-3].exception_cleanup;
+              exception_cleanup = a4[-3].exception_cleanup;
             }
 
-            v75 = v83;
-LABEL_105:
-            v88 = v75;
-LABEL_106:
-            v89 = 6;
-LABEL_107:
+            v72 = exception_cleanup;
+LABEL_99:
+            private_2 = v72;
+LABEL_100:
+            v86 = 6;
+LABEL_101:
             if (v9)
             {
-              if (v45 == 0x434C4E47432B2B00)
+              if (v42 == 0x434C4E47432B2B00)
               {
-                v78 = *(&v86 + 1);
-                HIDWORD(a4[-2].private_2) = v86;
-                a4[-1].exception_class = v78;
-                *&a4[-1].exception_cleanup = v87;
-                a4[-1].private_2 = v88;
+                v75 = *(&v83 + 1);
+                HIDWORD(a4[-2].private_2) = v83;
+                a4[-1].exception_class = v75;
+                *&a4[-1].exception_cleanup = v84;
+                a4[-1].private_2 = private_2;
               }
 
               return 6;
             }
 
-LABEL_18:
-            __cxxabiv1::set_registers(a4, context, &v86);
-            if ((v86 & 0x8000000000000000) != 0)
+LABEL_12:
+            __cxxabiv1::set_registers(a4, context, &v83);
+            if ((v83 & 0x8000000000000000) != 0)
             {
               a4[-1].private_1 = 0;
             }
@@ -3464,126 +3435,126 @@ LABEL_18:
             return 7;
           }
 
-          v63 = &a4[1];
+          v60 = &a4[1];
           if (__cxxabiv1::__getExceptionClass(a4) == 0x434C4E47432B2B01)
           {
-            v63 = a4[-3].exception_cleanup;
+            v60 = a4[-3].exception_cleanup;
           }
 
-          if (!v63 || (v64 = a4[-3].private_1) == 0)
+          if (!v60 || (private_1 = a4[-3].private_1) == 0)
           {
-LABEL_113:
-            v44 = 1;
-LABEL_45:
-            __cxxabiv1::call_terminate(v44, a4);
+LABEL_107:
+            v41 = 1;
+LABEL_39:
+            __cxxabiv1::call_terminate(v41, a4);
           }
 
-          can_catch = __cxxabiv1::exception_spec_can_catch(v56, v84, v85, v64, v63, a4, 0);
-          v62 = v47;
+          can_catch = __cxxabiv1::exception_spec_can_catch(v53, v81, v82, private_1, v60, a4, 0);
+          v59 = v44;
           if (can_catch)
           {
-            *&v86 = v56;
-            if (v48)
+            *&v83 = v53;
+            if (v45)
             {
-              v77 = v48;
+              v74 = v45;
             }
 
             else
             {
-              v77 = 0;
+              v74 = 0;
             }
 
-            *(&v86 + 1) = v77;
-            v88 = v63;
-            goto LABEL_106;
+            *(&v83 + 1) = v74;
+            private_2 = v60;
+            goto LABEL_100;
           }
         }
       }
 
       else
       {
-        shim_type_info = __cxxabiv1::get_shim_type_info(v49 | v55, v84, v85, v45 == 0x434C4E47432B2B00, a4, 0);
+        shim_type_info = __cxxabiv1::get_shim_type_info(v46 | v52, v81, v82, v42 == 0x434C4E47432B2B00, a4, 0);
         if (!shim_type_info)
         {
-          goto LABEL_93;
+          goto LABEL_87;
         }
 
-        if (v45 == 0x434C4E47432B2B00)
+        if (v42 == 0x434C4E47432B2B00)
         {
-          v58 = shim_type_info;
+          v55 = shim_type_info;
           ExceptionClass = __cxxabiv1::__getExceptionClass(a4);
-          v60 = &a4[1];
+          v57 = &a4[1];
           if (ExceptionClass == 0x434C4E47432B2B01)
           {
-            v60 = a4[-3].exception_cleanup;
+            v57 = a4[-3].exception_cleanup;
           }
 
-          v90 = v60;
-          if (!v60)
+          v87 = v57;
+          if (!v57)
           {
-            goto LABEL_113;
+            goto LABEL_107;
           }
 
-          v61 = a4[-3].private_1;
-          if (!v61)
+          v58 = a4[-3].private_1;
+          if (!v58)
           {
-            goto LABEL_113;
+            goto LABEL_107;
           }
 
-          if ((*(*v58 + 32))(v58, v61, &v90))
+          if ((*(*v55 + 32))(v55, v58, &v87))
           {
-            *&v86 = v56;
-            if (v48)
+            *&v83 = v53;
+            if (v45)
             {
-              v76 = v48;
+              v73 = v45;
             }
 
             else
             {
-              v76 = 0;
+              v73 = 0;
             }
 
-            v75 = v90;
-            *(&v86 + 1) = v76;
-            goto LABEL_105;
+            v72 = v87;
+            *(&v83 + 1) = v73;
+            goto LABEL_99;
           }
         }
 
-        v62 = v47;
+        v59 = v44;
       }
 
-      v66 = 0;
-      v67 = 0;
-      v68 = v51;
+      v63 = 0;
+      v64 = 0;
+      v65 = v48;
       do
       {
-        v70 = *v68++;
-        v69 = v70;
-        v66 |= (v70 & 0x7F) << v67;
-        v67 += 7;
+        v67 = *v65++;
+        v66 = v67;
+        v63 |= (v67 & 0x7F) << v64;
+        v64 += 7;
       }
 
-      while ((v70 & 0x80) != 0);
-      v71 = v67 < 0x40 && v69 > 0x3F;
-      v72 = -1 << v67;
-      if (!v71)
+      while ((v67 & 0x80) != 0);
+      v68 = v64 < 0x40 && v66 > 0x3F;
+      v69 = -1 << v64;
+      if (!v68)
       {
-        v72 = 0;
+        v69 = 0;
       }
 
-      v73 = v66 | v72;
-      if (!v73)
+      v70 = v63 | v69;
+      if (!v70)
       {
-        v80 = v62 & ((v9 & 2) >> 1);
+        v77 = v59 & ((v9 & 2) >> 1);
         break;
       }
 
-      v48 = &v51[v73];
-      v47 = v62;
+      v45 = &v48[v70];
+      v44 = v59;
     }
   }
 
-  if (v80)
+  if (v77)
   {
     result = 6;
   }
@@ -3593,10 +3564,10 @@ LABEL_45:
     result = 8;
   }
 
-  v89 = result;
-  if (v80)
+  v86 = result;
+  if (v77)
   {
-    goto LABEL_107;
+    goto LABEL_101;
   }
 
   return result;
@@ -3623,11 +3594,6 @@ void __cxa_call_unexpected(void *a1)
   __cxa_begin_catch(a1);
   if (__cxxabiv1::__isOurExceptionClass(a1))
   {
-    if (*(a1 - 7))
-    {
-      v3 = *(a1 - 7);
-    }
-
     if (*(a1 - 8))
     {
       unexpected = *(a1 - 8);
@@ -3636,18 +3602,6 @@ void __cxa_call_unexpected(void *a1)
     else
     {
       unexpected = 0;
-    }
-
-    v4 = *(a1 - 9);
-    if (*(a1 - 3))
-    {
-      v5 = *(a1 - 3);
-    }
-
-    v7 = *(a1 - 3);
-    if (*(a1 - 2))
-    {
-      v6 = *(a1 - 2);
     }
   }
 
@@ -3899,105 +3853,105 @@ int __cxa_guard_acquire(__guard *a1)
   }
 
   v4 = "__cxa_guard_acquire";
-  v26 = "__cxa_guard_acquire";
+  v11 = "__cxa_guard_acquire";
   if (pthread_mutex_lock(&stru_1ED404068))
   {
-    __abort_message("%s failed to acquire mutex", v5, v6, v7, v8, v9, v10, v11, "__cxa_guard_acquire");
+    __abort_message("%s failed to acquire mutex", "__cxa_guard_acquire");
   }
 
-  v12 = *(a1 + 1);
-  if ((v12 & 2) != 0)
+  v5 = *(a1 + 1);
+  if ((v5 & 2) != 0)
   {
-    v13 = *(a1 + 1);
-    v14 = pthread_self();
-    LODWORD(v4) = pthread_mach_thread_np(v14);
-    if (v13 == v4)
+    v6 = *(a1 + 1);
+    v7 = pthread_self();
+    LODWORD(v4) = pthread_mach_thread_np(v7);
+    if (v6 == v4)
     {
-      __abort_message("__cxa_guard_acquire detected recursive initialization: do you have a function-local static variable whose initialization depends on that function?", v15, v16, v17, v18, v19, v20, v21, v25);
+      __abort_message("__cxa_guard_acquire detected recursive initialization: do you have a function-local static variable whose initialization depends on that function?");
     }
   }
 
   while (1)
   {
-    v22 = *(a1 + 1);
-    if ((v22 & 2) == 0)
+    v8 = *(a1 + 1);
+    if ((v8 & 2) == 0)
     {
       break;
     }
 
-    *(a1 + 1) = v22 | 4;
+    *(a1 + 1) = v8 | 4;
     pthread_cond_wait(&_MergedGlobals, &stru_1ED404068);
   }
 
-  if (v22 != 1)
+  if (v8 != 1)
   {
-    if ((v12 & 2) == 0)
+    if ((v5 & 2) == 0)
     {
-      v23 = pthread_self();
-      LODWORD(v4) = pthread_mach_thread_np(v23);
+      v9 = pthread_self();
+      LODWORD(v4) = pthread_mach_thread_np(v9);
     }
 
     *(a1 + 1) = v4;
     *(a1 + 1) = 2;
   }
 
-  v2 = v22 != 1;
+  v2 = v8 != 1;
   return v2;
 }
 
-void sub_1801CB7EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1801CB7EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _Unwind_Resume(a1);
 }
 
 void __cxa_guard_release(__guard *a1)
 {
   atomic_store(1u, a1);
-  v17 = "__cxa_guard_release";
+  v3 = "__cxa_guard_release";
   if (pthread_mutex_lock(&stru_1ED404068))
   {
-    __abort_message("%s failed to acquire mutex", v2, v3, v4, v5, v6, v7, v8, "__cxa_guard_release");
+    __abort_message("%s failed to acquire mutex", "__cxa_guard_release");
   }
 
-  v9 = *(a1 + 1);
+  v2 = *(a1 + 1);
   *(a1 + 1) = 1;
-  if ((v9 & 4) != 0)
+  if ((v2 & 4) != 0)
   {
     if (pthread_cond_broadcast(&_MergedGlobals))
     {
-      __abort_message("%s failed to broadcast", v10, v11, v12, v13, v14, v15, v16, "__cxa_guard_release");
+      __abort_message("%s failed to broadcast", "__cxa_guard_release");
     }
   }
 }
 
 void __cxa_guard_abort(__guard *a1)
 {
-  v17 = "__cxa_guard_abort";
+  v3 = "__cxa_guard_abort";
   if (pthread_mutex_lock(&stru_1ED404068))
   {
-    __abort_message("%s failed to acquire mutex", v2, v3, v4, v5, v6, v7, v8, "__cxa_guard_abort");
+    __abort_message("%s failed to acquire mutex", "__cxa_guard_abort");
   }
 
   *(a1 + 1) = 0;
-  v9 = *(a1 + 1);
+  v2 = *(a1 + 1);
   *(a1 + 1) = 0;
-  if ((v9 & 4) != 0)
+  if ((v2 & 4) != 0)
   {
     if (pthread_cond_broadcast(&_MergedGlobals))
     {
-      __abort_message("%s failed to broadcast", v10, v11, v12, v13, v14, v15, v16, "__cxa_guard_abort");
+      __abort_message("%s failed to broadcast", "__cxa_guard_abort");
     }
   }
 }
 
 void std::logic_error::~logic_error()
 {
-  v0 = __cxa_guard_acquire(&qword_1ED4040F0);
+  v0 = __cxa_guard_acquire(byte_1ED4040F0);
   if (v0)
   {
 
-    __cxa_guard_release(&qword_1ED4040F0);
+    __cxa_guard_release(byte_1ED4040F0);
   }
 }
 

@@ -164,7 +164,7 @@ void __42__MNNavigationStateGuidance_preEnterState__block_invoke_2(uint64_t a1)
 
 - (id)clParameters
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MNLocationProviderCLParameters);
   [(MNLocationProviderCLParameters *)v3 setDistanceFilter:*MEMORY[0x1E6985C70]];
   [(MNLocationProviderCLParameters *)v3 setDesiredAccuracy:*MEMORY[0x1E6985C80]];
@@ -207,20 +207,19 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v12 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v11 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    v13 = 136315650;
-    v14 = "[MNNavigationStateGuidance clParameters]";
-    v15 = 2080;
-    v16 = "/Library/Caches/com.apple.xbs/Sources/Navigation/NavigationState/MNNavigationStateGuidance.m";
-    v17 = 1024;
-    v18 = 119;
-    _os_log_impl(&dword_1D311E000, v12, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v13, 0x1Cu);
+    v12 = 136315650;
+    v13 = "[MNNavigationStateGuidance clParameters]";
+    v14 = 2080;
+    v15 = "/Library/Caches/com.apple.xbs/Sources/Navigation/NavigationState/MNNavigationStateGuidance.m";
+    v16 = 1024;
+    v17 = 119;
+    _os_log_impl(&dword_1D311E000, v11, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v12, 0x1Cu);
   }
 
 LABEL_8:
-  v10 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -258,7 +257,7 @@ LABEL_8:
 
 + (id)guidanceStateForStartDetails:(id)details stateManager:(id)manager navigationSessionManager:(id)sessionManager
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   detailsCopy = details;
   managerCopy = manager;
   sessionManagerCopy = sessionManager;
@@ -297,22 +296,20 @@ LABEL_5:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     *buf = 136316162;
-    v18 = "+[MNNavigationStateGuidance guidanceStateForStartDetails:stateManager:navigationSessionManager:]";
-    v19 = 2080;
-    v20 = "/Library/Caches/com.apple.xbs/Sources/Navigation/NavigationState/MNNavigationStateGuidance.m";
-    v21 = 1024;
-    v22 = 64;
-    v23 = 2080;
-    v24 = "NO";
-    v25 = 2112;
-    v26 = v13;
+    v17 = "+[MNNavigationStateGuidance guidanceStateForStartDetails:stateManager:navigationSessionManager:]";
+    v18 = 2080;
+    v19 = "/Library/Caches/com.apple.xbs/Sources/Navigation/NavigationState/MNNavigationStateGuidance.m";
+    v20 = 1024;
+    v21 = 64;
+    v22 = 2080;
+    v23 = "NO";
+    v24 = 2112;
+    v25 = v13;
     _os_log_impl(&dword_1D311E000, v14, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", buf, 0x30u);
   }
 
   v12 = 0;
 LABEL_11:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

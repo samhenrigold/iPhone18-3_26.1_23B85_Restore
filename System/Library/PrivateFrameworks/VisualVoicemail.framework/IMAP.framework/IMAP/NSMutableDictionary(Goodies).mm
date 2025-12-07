@@ -31,7 +31,7 @@
 
 - (void)mf_addObject:()Goodies forKey:
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = v7;
@@ -45,18 +45,16 @@
 
   else
   {
-    v10 = vm_imap_log();
+    v10 = vm_imap_log(v7);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412546;
-      v13 = v6;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_impl(&dword_2720B1000, v10, OS_LOG_TYPE_DEFAULT, "Bad arguments to %@, %@", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = v6;
+      v13 = 2112;
+      v14 = v8;
+      _os_log_impl(&dword_2720B1000, v10, OS_LOG_TYPE_DEFAULT, "Bad arguments to %@, %@", &v11, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

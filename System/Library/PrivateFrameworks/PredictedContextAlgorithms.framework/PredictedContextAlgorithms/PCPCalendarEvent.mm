@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)statusAsString:(int)string;
 - (int)StringAsStatus:(id)status;
 - (int)status;
 - (unint64_t)hash;
@@ -56,6 +57,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)statusAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E83B8558[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsStatus:(id)status
@@ -209,37 +225,36 @@ LABEL_19:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_calendarId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_titleOfEvent)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_eventId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_locationTitle)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    startTimeCFAbsolute = self->_startTimeCFAbsolute;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -258,22 +273,20 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  endTimeCFAbsolute = self->_endTimeCFAbsolute;
   PBDataWriterWriteDoubleField();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_12:
-    status = self->_status;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_13:
   if (self->_location)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -451,7 +464,6 @@ LABEL_5:
     }
   }
 
-  v9 = *(equalCopy + 72);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 72) & 2) == 0 || self->_startTimeCFAbsolute != *(equalCopy + 2))
@@ -463,7 +475,7 @@ LABEL_5:
   else if ((*(equalCopy + 72) & 2) != 0)
   {
 LABEL_27:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_28;
   }
 
@@ -496,17 +508,17 @@ LABEL_27:
   location = self->_location;
   if (location | *(equalCopy + 5))
   {
-    v11 = [(PCPLocation *)location isEqual:?];
+    v10 = [(PCPLocation *)location isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v10 = 1;
   }
 
 LABEL_28:
 
-  return v11;
+  return v10;
 }
 
 - (unint64_t)hash

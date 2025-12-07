@@ -64,25 +64,7 @@
     v7 = [v6 stringByAppendingPathComponent:@"Temp"];
     v8 = [v7 stringByAppendingPathComponent:suffixCopy];
 
-    if (!v8)
-    {
-      goto LABEL_6;
-    }
-
-    defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v10 = [defaultManager fileExistsAtPath:v8];
-
-    if (v10)
-    {
-      goto LABEL_6;
-    }
-
-    defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-    v17 = 0;
-    v12 = [defaultManager2 createDirectoryAtPath:v8 withIntermediateDirectories:1 attributes:0 error:&v17];
-    v13 = v17;
-
-    if (!v12 || v13)
+    if (v8 && ([MEMORY[0x277CCAA00] defaultManager], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "fileExistsAtPath:", v8), v9, (v10 & 1) == 0) && ((objc_msgSend(MEMORY[0x277CCAA00], "defaultManager"), v11 = objc_claimAutoreleasedReturnValue(), v17 = 0, v12 = objc_msgSend(v11, "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", v8, 1, 0, &v17), v13 = v17, v11, !v12) || v13))
     {
       v16 = _mo_log_facility_get_os_log(MOLogFacilityPersistenceManager);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
@@ -95,7 +77,6 @@
 
     else
     {
-LABEL_6:
       v14 = v8;
     }
   }
@@ -235,34 +216,34 @@ LABEL_13:
 
 + (BOOL)validateCompoundPredicate:(id)predicate
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   subpredicates = [predicate subpredicates];
-  v5 = [subpredicates countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [subpredicates countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(subpredicates);
         }
 
-        if (![self isValidPredicate:*(*(&v12 + 1) + 8 * i)])
+        if (![self isValidPredicate:*(*(&v11 + 1) + 8 * i)])
         {
           v9 = 0;
           goto LABEL_11;
         }
       }
 
-      v6 = [subpredicates countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [subpredicates countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -275,7 +256,6 @@ LABEL_13:
   v9 = 1;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -291,19 +271,17 @@ LABEL_11:
 
 + (void)userCacheDirectoryPath
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_22D8C5000, a2, OS_LOG_TYPE_DEBUG, "cache directory path, %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_22D8C5000, a2, OS_LOG_TYPE_DEBUG, "cache directory path, %@", &v2, 0xCu);
 }
 
 + (void)userDataDumpDirectoryPathWithSuffix:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_22D8C5000, v0, OS_LOG_TYPE_ERROR, "failed to create %@, error, %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_22D8C5000, v0, OS_LOG_TYPE_ERROR, "failed to create %@, error, %@", v1, 0x16u);
 }
 
 @end

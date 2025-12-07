@@ -5,21 +5,21 @@ uint64_t ApplePhotonDetectorServicesGetLuxAsync()
   v6 = v2;
   v7 = v1;
   v8 = v0;
-  v71 = *MEMORY[0x277D85DE8];
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x2000000000;
-  v55 = 0;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2000000000;
+  v70 = *MEMORY[0x277D85DE8];
   v51 = 0;
+  v52 = &v51;
+  v53 = 0x2000000000;
+  v54 = 0;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2000000000;
+  v50 = 0;
   if (v0 && v1 && v2 && v3)
   {
-    v44 = 0;
-    v45 = &v44;
-    v46 = 0x2000000000;
-    v47 = v0;
+    v43 = 0;
+    v44 = &v43;
+    v45 = 0x2000000000;
+    v46 = v0;
     if (v0->isa)
     {
       if (*(v2 + 36))
@@ -29,95 +29,95 @@ uint64_t ApplePhotonDetectorServicesGetLuxAsync()
         {
           v10 = v4;
           dispatch_retain(v1);
-          v42[0] = 0;
-          v42[1] = v42;
-          v42[2] = 0x2000000000;
-          v43 = 0;
+          v41[0] = 0;
+          v41[1] = v41;
+          v41[2] = 0x2000000000;
+          v42 = 0;
           bzero(buf, 0xE60uLL);
           v11 = xpc_dictionary_create(0, 0, 0);
           if (v11)
           {
-            v12 = *v45[3];
+            v12 = *v44[3];
             block[0] = MEMORY[0x277D85DD0];
             block[1] = 0x40000000;
             block[2] = __ApplePhotonDetectorServicesGetLuxAsync_block_invoke;
             block[3] = &unk_278CBC568;
-            block[4] = &v44;
-            block[5] = &v48;
-            block[6] = &v52;
+            block[4] = &v43;
+            block[5] = &v47;
+            block[6] = &v51;
             dispatch_sync(v12, block);
-            if (!*(v53 + 6))
+            if (!*(v52 + 6))
             {
-              if ((v49[3] & 1) == 0)
+              if ((v48[3] & 1) == 0)
               {
-                xpc_connection_set_event_handler(*(v45[3] + 8), &__block_literal_global_0);
+                xpc_connection_set_event_handler(*(v44[3] + 8), &__block_literal_global_0);
               }
 
-              xpc_connection_activate(*(v45[3] + 8));
-              if (isCameraStreaming(v45[3] + 8) && *(v6 + 36) <= 4u)
+              xpc_connection_activate(*(v44[3] + 8));
+              if (isCameraStreaming(v44[3] + 8) && *(v6 + 36) <= 4u)
               {
                 *buf = 104;
-                xpc_dictionary_set_uint64(v11, *(v45[3] + 32), 2uLL);
-                xpc_dictionary_set_data(v11, *(v45[3] + 40), buf, 0xE60uLL);
-                v26 = v45[3];
-                v27 = *(v26 + 8);
-                v28 = *(v26 + 16);
+                xpc_dictionary_set_uint64(v11, *(v44[3] + 32), 2uLL);
+                xpc_dictionary_set_data(v11, *(v44[3] + 40), buf, 0xE60uLL);
+                v25 = v44[3];
+                v26 = *(v25 + 8);
+                v27 = *(v25 + 16);
                 handler[0] = MEMORY[0x277D85DD0];
                 handler[1] = 0x40000000;
                 handler[2] = __ApplePhotonDetectorServicesGetLuxAsync_block_invoke_22;
                 handler[3] = &unk_278CBC5D0;
-                handler[4] = &v44;
-                handler[5] = v42;
+                handler[4] = &v43;
+                handler[5] = v41;
                 handler[6] = v6;
                 handler[7] = v5;
                 handler[8] = v7;
                 handler[9] = v10;
-                xpc_connection_send_message_with_reply(v27, v11, v28, handler);
+                xpc_connection_send_message_with_reply(v26, v11, v27, handler);
               }
 
               else
               {
-                *&v58 = 0;
-                *(&v58 + 1) = &v58;
-                v59 = 0x2000000000;
-                v60 = 0;
-                v36 = 0;
-                v37 = &v36;
-                v38 = 0x2000000000;
-                v39 = malloc_type_calloc(1uLL, 4uLL, 0x100004052888210uLL);
-                v29 = v37[3];
-                if (v29)
+                *&v57 = 0;
+                *(&v57 + 1) = &v57;
+                v58 = 0x2000000000;
+                v59 = 0;
+                v35 = 0;
+                v36 = &v35;
+                v37 = 0x2000000000;
+                v38 = malloc_type_calloc(1uLL, 4uLL, 0x100004052888210uLL);
+                v28 = v36[3];
+                if (v28)
                 {
-                  v30 = *(v6 + 36);
-                  *v29 = v30;
-                  if (v30)
+                  v29 = *(v6 + 36);
+                  *v28 = v29;
+                  if (v29)
                   {
-                    v31 = 0;
+                    v30 = 0;
                     do
                     {
                       *buf = 100;
-                      xpc_dictionary_set_uint64(v11, *(v45[3] + 32), 2uLL);
-                      xpc_dictionary_set_data(v11, *(v45[3] + 40), buf, 0xE60uLL);
-                      v32 = v45[3];
-                      v33 = *(v32 + 8);
-                      v34 = *(v32 + 16);
-                      v35[0] = MEMORY[0x277D85DD0];
-                      v35[1] = 0x40000000;
-                      v35[2] = __ApplePhotonDetectorServicesGetLuxAsync_block_invoke_26;
-                      v35[3] = &unk_278CBC618;
-                      v35[4] = &v44;
-                      v35[5] = v42;
-                      v35[6] = &v58;
-                      v35[7] = &v36;
-                      v35[8] = v6;
-                      v35[9] = v5;
-                      v35[10] = v7;
-                      v35[11] = v10;
-                      xpc_connection_send_message_with_reply(v33, v11, v34, v35);
-                      ++v31;
+                      xpc_dictionary_set_uint64(v11, *(v44[3] + 32), 2uLL);
+                      xpc_dictionary_set_data(v11, *(v44[3] + 40), buf, 0xE60uLL);
+                      v31 = v44[3];
+                      v32 = *(v31 + 8);
+                      v33 = *(v31 + 16);
+                      v34[0] = MEMORY[0x277D85DD0];
+                      v34[1] = 0x40000000;
+                      v34[2] = __ApplePhotonDetectorServicesGetLuxAsync_block_invoke_26;
+                      v34[3] = &unk_278CBC618;
+                      v34[4] = &v43;
+                      v34[5] = v41;
+                      v34[6] = &v57;
+                      v34[7] = &v35;
+                      v34[8] = v6;
+                      v34[9] = v5;
+                      v34[10] = v7;
+                      v34[11] = v10;
+                      xpc_connection_send_message_with_reply(v32, v11, v33, v34);
+                      ++v30;
                     }
 
-                    while (v31 < *(v6 + 36));
+                    while (v30 < *(v6 + 36));
                   }
                 }
 
@@ -125,16 +125,16 @@ uint64_t ApplePhotonDetectorServicesGetLuxAsync()
                 {
                   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                   {
-                    *v56 = 136315138;
-                    v57 = "ApplePhotonDetectorServicesGetLuxAsync";
-                    _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Could not allocate memory for counter \n", v56, 0xCu);
+                    *v55 = 136315138;
+                    v56 = "ApplePhotonDetectorServicesGetLuxAsync";
+                    _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Could not allocate memory for counter \n", v55, 0xCu);
                   }
 
-                  disconnectFromDaemon(v45[3]);
+                  disconnectFromDaemon(v44[3]);
                 }
 
-                _Block_object_dispose(&v36, 8);
-                _Block_object_dispose(&v58, 8);
+                _Block_object_dispose(&v35, 8);
+                _Block_object_dispose(&v57, 8);
               }
 
               goto LABEL_48;
@@ -143,8 +143,8 @@ uint64_t ApplePhotonDetectorServicesGetLuxAsync()
             if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
 LABEL_48:
-              _Block_object_dispose(v42, 8);
-              _Block_object_dispose(&v44, 8);
+              _Block_object_dispose(v41, 8);
+              _Block_object_dispose(&v43, 8);
               if (v11)
               {
                 xpc_release(v11);
@@ -153,8 +153,8 @@ LABEL_48:
               goto LABEL_30;
             }
 
-            LODWORD(v58) = 136315138;
-            *(&v58 + 4) = "ApplePhotonDetectorServicesGetLuxAsync";
+            LODWORD(v57) = 136315138;
+            *(&v57 + 4) = "ApplePhotonDetectorServicesGetLuxAsync";
             v13 = MEMORY[0x277D86220];
             v14 = "%s: Could not establish a connection with the daemon, exiting\n";
           }
@@ -166,13 +166,13 @@ LABEL_48:
               goto LABEL_48;
             }
 
-            LODWORD(v58) = 136315138;
-            *(&v58 + 4) = "ApplePhotonDetectorServicesGetLuxAsync";
+            LODWORD(v57) = 136315138;
+            *(&v57 + 4) = "ApplePhotonDetectorServicesGetLuxAsync";
             v13 = MEMORY[0x277D86220];
             v14 = "%s: Could not create dictionary, exiting\n";
           }
 
-          _os_log_impl(&dword_240F08000, v13, OS_LOG_TYPE_DEFAULT, v14, &v58, 0xCu);
+          _os_log_impl(&dword_240F08000, v13, OS_LOG_TYPE_DEFAULT, v14, &v57, 0xCu);
           goto LABEL_48;
         }
 
@@ -183,15 +183,15 @@ LABEL_48:
           v20 = v6[2];
           v22 = v6[3];
           *buf = 136316162;
-          v62 = "ApplePhotonDetectorServicesGetLuxAsync";
-          v63 = 2048;
-          v64 = v9;
-          v65 = 2048;
-          v66 = v20;
-          v67 = 2048;
-          v68 = v21;
-          v69 = 2048;
-          v70 = v22;
+          v61 = "ApplePhotonDetectorServicesGetLuxAsync";
+          v62 = 2048;
+          v63 = v9;
+          v64 = 2048;
+          v65 = v20;
+          v66 = 2048;
+          v67 = v21;
+          v68 = 2048;
+          v69 = v22;
           v17 = MEMORY[0x277D86220];
           v18 = "%s: Error! Client has not allocated the required memory: lux samples = %p, abs time = %p, gains = %p, coex = %p\n";
           v19 = 52;
@@ -204,7 +204,7 @@ LABEL_48:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v62 = "ApplePhotonDetectorServicesGetLuxAsync";
+          v61 = "ApplePhotonDetectorServicesGetLuxAsync";
           _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Error! Client requested 0 samples\n", buf, 0xCu);
           v16 = -536870911;
           goto LABEL_26;
@@ -220,57 +220,57 @@ LABEL_48:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v62 = "ApplePhotonDetectorServicesGetLuxAsync";
+        v61 = "ApplePhotonDetectorServicesGetLuxAsync";
         v17 = MEMORY[0x277D86220];
         v18 = "%s: APDS dispatch queue is unavailable. Was it not allocated ?\n";
         v19 = 12;
 LABEL_23:
         _os_log_impl(&dword_240F08000, v17, OS_LOG_TYPE_DEFAULT, v18, buf, v19);
 LABEL_26:
-        v23 = v53;
+        v23 = v52;
 LABEL_29:
         *(v23 + 6) = v16;
-        _Block_object_dispose(&v44, 8);
+        _Block_object_dispose(&v43, 8);
         goto LABEL_30;
       }
     }
 
-    v23 = &v52;
+    v23 = &v51;
     goto LABEL_29;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136316162;
-    v62 = "ApplePhotonDetectorServicesGetLuxAsync";
-    v63 = 2048;
-    v64 = v7;
-    v65 = 2048;
-    v66 = v6;
-    v67 = 2048;
-    v68 = v5;
-    v69 = 2048;
-    v70 = v8;
+    v61 = "ApplePhotonDetectorServicesGetLuxAsync";
+    v62 = 2048;
+    v63 = v7;
+    v64 = 2048;
+    v65 = v6;
+    v66 = 2048;
+    v67 = v5;
+    v68 = 2048;
+    v69 = v8;
     _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Invalid arguments, replyQueue = 0x%p, info = 0x%p, UserCallback = 0x%p, handle = %p exiting\n", buf, 0x34u);
-    v15 = v53;
+    v15 = v52;
   }
 
   else
   {
-    v15 = &v52;
+    v15 = &v51;
   }
 
   *(v15 + 6) = -536870911;
 LABEL_30:
-  _Block_object_dispose(&v48, 8);
-  _Block_object_dispose(&v52, 8);
-  v24 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v51, 8);
   return 0;
 }
 
-void sub_240F08F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61)
+void sub_240F08F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, ...)
 {
-  _Block_object_dispose(&a61, 8);
+  va_start(va, a60);
+  _Block_object_dispose(va, 8);
   _Block_object_dispose(&a43, 8);
   _Block_object_dispose(&a47, 8);
   _Block_object_dispose(&a51, 8);
@@ -305,13 +305,12 @@ uint64_t __ApplePhotonDetectorServicesGetLuxAsync_block_invoke(uint64_t result)
 
 uint64_t connect(uint64_t a1, const char *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   valuePtr = 0;
   existing = 0;
   if (!a1)
   {
-    v8 = 3758096385;
-    goto LABEL_40;
+    return 3758096385;
   }
 
   v4 = 0;
@@ -327,8 +326,7 @@ uint64_t connect(uint64_t a1, const char *a2)
 
     if (++v4 == 3)
     {
-      v8 = 3758097086;
-      goto LABEL_40;
+      return 3758097086;
     }
   }
 
@@ -461,7 +459,7 @@ LABEL_27:
     }
 
     *buf = 136315138;
-    v37 = "connect";
+    v36 = "connect";
     v30 = MEMORY[0x277D86220];
     v31 = "%s: Could not establish a connection\n";
     goto LABEL_33;
@@ -471,7 +469,7 @@ LABEL_27:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v37 = "connect";
+    v36 = "connect";
     v30 = MEMORY[0x277D86220];
     v31 = "%s: Could not create a serial dispatch queue, exiting\n";
 LABEL_33:
@@ -495,8 +493,6 @@ LABEL_34:
     CFRelease(v13);
   }
 
-LABEL_40:
-  v32 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -537,12 +533,12 @@ void ___ZL20disconnectFromDaemonP27ApplePhotonDetectorServices_block_invoke(uint
   }
 }
 
-uint64_t isCameraStreaming(uint64_t result)
+BOOL isCameraStreaming(_BOOL8 result)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (!result)
   {
-    goto LABEL_19;
+    return result;
   }
 
   v1 = *(result + 16);
@@ -551,20 +547,19 @@ uint64_t isCameraStreaming(uint64_t result)
     result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
     if (!result)
     {
-      goto LABEL_19;
+      return result;
     }
 
     valuePtr = 136315394;
-    v20 = "isCameraStreaming";
-    v21 = 1024;
-    LODWORD(v22) = v1;
+    v19 = "isCameraStreaming";
+    v20 = 1024;
+    LODWORD(v21) = v1;
     v13 = MEMORY[0x277D86220];
     v14 = "%s: Could not get a matching driver name, driver version = %d\n";
     v15 = 18;
 LABEL_16:
     _os_log_impl(&dword_240F08000, v13, OS_LOG_TYPE_DEFAULT, v14, &valuePtr, v15);
-    result = 0;
-    goto LABEL_19;
+    return 0;
   }
 
   v2 = (&off_278CBC6E0)[v1];
@@ -576,13 +571,13 @@ LABEL_16:
     result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
     if (!result)
     {
-      goto LABEL_19;
+      return result;
     }
 
     valuePtr = 136315394;
-    v20 = "isCameraStreaming";
-    v21 = 2080;
-    v22 = v2;
+    v19 = "isCameraStreaming";
+    v20 = 2080;
+    v21 = v2;
     v13 = MEMORY[0x277D86220];
     v14 = "%s: Could not match to the driver %s\n";
     v15 = 22;
@@ -591,8 +586,8 @@ LABEL_16:
 
   v6 = MatchingService;
   valuePtr = 0;
-  v18 = 0;
   v17 = 0;
+  v16 = 0;
   v7 = *MEMORY[0x277CBECE8];
   v8 = IORegistryEntrySearchCFProperty(MatchingService, "IOService", @"FrontCameraStreaming", *MEMORY[0x277CBECE8], 3u);
   v9 = IORegistryEntrySearchCFProperty(v6, "IOService", @"BackCameraStreaming", v7, 3u);
@@ -605,18 +600,18 @@ LABEL_16:
 
   if (v9)
   {
-    CFNumberGetValue(v9, kCFNumberSInt32Type, &v18 + 4);
+    CFNumberGetValue(v9, kCFNumberSInt32Type, &v17 + 4);
   }
 
   if (v10)
   {
-    CFNumberGetValue(v10, kCFNumberSInt32Type, &v18);
+    CFNumberGetValue(v10, kCFNumberSInt32Type, &v17);
   }
 
   if (v11)
   {
-    CFNumberGetValue(v11, kCFNumberSInt32Type, &v17);
-    v12 = v17;
+    CFNumberGetValue(v11, kCFNumberSInt32Type, &v16);
+    v12 = v16;
   }
 
   else
@@ -624,10 +619,7 @@ LABEL_16:
     v12 = 0;
   }
 
-  result = (HIDWORD(v18) | valuePtr | v18 | v12) != 0;
-LABEL_19:
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return (HIDWORD(v17) | valuePtr | v17 | v12) != 0;
 }
 
 void disconnect(xpc_connection_t *a1)
@@ -644,7 +636,7 @@ void disconnect(xpc_connection_t *a1)
 
 void __ApplePhotonDetectorServicesGetLuxAsync_block_invoke_26(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (MEMORY[0x245CD4080](a2) == MEMORY[0x277D86468])
   {
     length = 0;
@@ -668,11 +660,11 @@ LABEL_14:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v30 = "ApplePhotonDetectorServicesGetLuxAsync_block_invoke";
-        v31 = 2048;
-        *v32 = v9;
-        *&v32[8] = 2048;
-        v33 = 3680;
+        v29 = "ApplePhotonDetectorServicesGetLuxAsync_block_invoke";
+        v30 = 2048;
+        *v31 = v9;
+        *&v31[8] = 2048;
+        v32 = 3680;
         v11 = MEMORY[0x277D86220];
         v12 = "%s: Received reply with unexpected length %lu. Expected %lu\n";
         v13 = 32;
@@ -686,7 +678,7 @@ LABEL_14:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v30 = "ApplePhotonDetectorServicesGetLuxAsync_block_invoke";
+        v29 = "ApplePhotonDetectorServicesGetLuxAsync_block_invoke";
         v11 = MEMORY[0x277D86220];
         v12 = "%s: Could not get the required data\n";
         v13 = 12;
@@ -705,7 +697,7 @@ LABEL_12:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v30 = "ApplePhotonDetectorServicesGetLuxAsync_block_invoke";
+    v29 = "ApplePhotonDetectorServicesGetLuxAsync_block_invoke";
     _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Received a response of an unknown type\n", buf, 0xCu);
   }
 
@@ -774,11 +766,11 @@ LABEL_15:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v30 = "UpdateLuxInfo";
-      v31 = 1024;
-      *v32 = v17;
-      *&v32[4] = 1024;
-      *&v32[6] = v18;
+      v29 = "UpdateLuxInfo";
+      v30 = 1024;
+      *v31 = v17;
+      *&v31[4] = 1024;
+      *&v31[6] = v18;
       _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: currentCount is greater than the number of samples requested, currentCount = %d, numSamples = %d\n", buf, 0x18u);
     }
 
@@ -794,30 +786,28 @@ LABEL_33:
     v23 = *(a1 + 72);
     if (v23)
     {
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 0x40000000;
-      v27[2] = __ApplePhotonDetectorServicesGetLuxAsync_block_invoke_27;
-      v27[3] = &__block_descriptor_tmp_28;
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 0x40000000;
+      v26[2] = __ApplePhotonDetectorServicesGetLuxAsync_block_invoke_27;
+      v26[3] = &__block_descriptor_tmp_28;
       v24 = *(a1 + 64);
-      v27[4] = v23;
-      v27[5] = v24;
+      v26[4] = v23;
+      v26[5] = v24;
       v25 = *(a1 + 80);
-      v27[6] = *(a1 + 88);
-      dispatch_async(v25, v27);
+      v26[6] = *(a1 + 88);
+      dispatch_async(v25, v26);
       dispatch_release(*(a1 + 80));
     }
 
     disconnectFromDaemon(*(*(*(a1 + 32) + 8) + 24));
     free(*(*(*(a1 + 56) + 8) + 24));
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 xpc_object_t sendSynchronousXpcMsgWithReply()
 {
   v0 = MEMORY[0x28223BE20]();
-  *&v29[3329] = *MEMORY[0x277D85DE8];
+  *&v28[3329] = *MEMORY[0x277D85DE8];
   if (*v0)
   {
     v4 = v3;
@@ -835,7 +825,7 @@ xpc_object_t sendSynchronousXpcMsgWithReply()
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             bytes = 136315138;
-            *v29 = "sendSynchronousXpcMsgWithReply";
+            *v28 = "sendSynchronousXpcMsgWithReply";
             _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Unexpected property type, returning\n", &bytes, 0xCu);
           }
 
@@ -851,7 +841,7 @@ LABEL_40:
         v12 = xpc_connection_send_message_with_reply_sync(*v7, v9);
 LABEL_41:
         xpc_release(v9);
-        goto LABEL_42;
+        return v12;
       }
 
       v13 = 13320;
@@ -886,12 +876,12 @@ LABEL_41:
           {
             v23 = *(v4 + 24);
             v22 = (v4 + 24);
-            *&v29[1] = *(v22 - 1);
-            *&v29[5] = v23;
+            *&v28[1] = *(v22 - 1);
+            *&v28[5] = v23;
             xpc_dictionary_set_uint64(v9, v7[3], 1uLL);
             xpc_dictionary_set_data(v9, v7[4], &bytes, v13);
-            xpc_dictionary_set_string(v9, v7[8], *&v29[1]);
-            xpc_dictionary_set_data(v9, v7[9], *&v29[3], *v22);
+            xpc_dictionary_set_string(v9, v7[8], *&v28[1]);
+            xpc_dictionary_set_data(v9, v7[9], *&v28[3], *v22);
             goto LABEL_40;
           }
 
@@ -900,8 +890,8 @@ LABEL_41:
             goto LABEL_40;
           }
 
-          v26 = 136315138;
-          v27 = "sendSynchronousXpcMsgWithReply";
+          v25 = 136315138;
+          v26 = "sendSynchronousXpcMsgWithReply";
           v18 = MEMORY[0x277D86220];
           v19 = "%s: Missing property information to set, returning\n";
           goto LABEL_39;
@@ -917,7 +907,7 @@ LABEL_41:
       {
         if (v6 == 105)
         {
-          v29[1] = *(v4 + 8);
+          v28[1] = *(v4 + 8);
           xpc_dictionary_set_uint64(v9, v7[3], 1uLL);
           xpc_dictionary_set_data(v9, v7[4], &bytes, v13);
           goto LABEL_40;
@@ -931,12 +921,12 @@ LABEL_21:
             goto LABEL_40;
           }
 
-          v26 = 136315138;
-          v27 = "sendSynchronousXpcMsgWithReply";
+          v25 = 136315138;
+          v26 = "sendSynchronousXpcMsgWithReply";
           v18 = MEMORY[0x277D86220];
           v19 = "%s: Unhandled property\n";
 LABEL_39:
-          _os_log_impl(&dword_240F08000, v18, OS_LOG_TYPE_DEFAULT, v19, &v26, 0xCu);
+          _os_log_impl(&dword_240F08000, v18, OS_LOG_TYPE_DEFAULT, v19, &v25, 0xCu);
           goto LABEL_40;
         }
       }
@@ -945,12 +935,12 @@ LABEL_39:
       {
         v21 = *(v4 + 16);
         v20 = (v4 + 16);
-        *&v29[1] = *(v20 - 1);
-        *&v29[3] = v21;
+        *&v28[1] = *(v20 - 1);
+        *&v28[3] = v21;
         xpc_dictionary_set_uint64(v9, v7[3], 1uLL);
         xpc_dictionary_set_data(v9, v7[4], &bytes, v13);
-        xpc_dictionary_set_data(v9, v7[6], *&v29[1], *v20);
-        xpc_dictionary_set_uint64(v9, v7[7], *&v29[3]);
+        xpc_dictionary_set_data(v9, v7[6], *&v28[1], *v20);
+        xpc_dictionary_set_uint64(v9, v7[7], *&v28[3]);
         goto LABEL_40;
       }
 
@@ -959,8 +949,8 @@ LABEL_39:
         goto LABEL_40;
       }
 
-      v26 = 136315138;
-      v27 = "sendSynchronousXpcMsgWithReply";
+      v25 = 136315138;
+      v26 = "sendSynchronousXpcMsgWithReply";
       v18 = MEMORY[0x277D86220];
       v19 = "%s: Missing property information to set, returning\n";
       goto LABEL_39;
@@ -969,7 +959,7 @@ LABEL_39:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       bytes = 136315138;
-      *v29 = "sendSynchronousXpcMsgWithReply";
+      *v28 = "sendSynchronousXpcMsgWithReply";
       v10 = MEMORY[0x277D86220];
       v11 = "%s: Could not create dictionary, exiting\n";
       goto LABEL_10;
@@ -979,44 +969,41 @@ LABEL_39:
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     bytes = 136315138;
-    *v29 = "sendSynchronousXpcMsgWithReply";
+    *v28 = "sendSynchronousXpcMsgWithReply";
     v10 = MEMORY[0x277D86220];
     v11 = "%s: Connection is invalid, exiting \n";
 LABEL_10:
     _os_log_impl(&dword_240F08000, v10, OS_LOG_TYPE_DEFAULT, v11, &bytes, 0xCu);
   }
 
-  v12 = 0;
-LABEL_42:
-  v24 = *MEMORY[0x277D85DE8];
-  return v12;
+  return 0;
 }
 
 uint64_t ApplePhotonDetectorServicesGetGlobalCorrectionFactor(void *a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x7802000000;
-  v20 = __Block_byref_object_copy_;
-  v21 = __Block_byref_object_dispose_;
-  memset(v22, 0, sizeof(v22));
+  v28 = *MEMORY[0x277D85DE8];
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x7802000000;
+  v19 = __Block_byref_object_copy_;
+  v20 = __Block_byref_object_dispose_;
+  memset(v21, 0, sizeof(v21));
   if (a1)
   {
-    v2 = connect(v22, "com.apple.applephotondetectorservicesqueue");
+    v2 = connect(v21, "com.apple.applephotondetectorservicesqueue");
     if (v2)
     {
       goto LABEL_18;
     }
 
-    v3 = v18[5];
+    v3 = v17[5];
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 0x40000000;
     handler[2] = __ApplePhotonDetectorServicesGetGlobalCorrectionFactor_block_invoke;
     handler[3] = &unk_278CBC470;
-    handler[4] = &v17;
+    handler[4] = &v16;
     xpc_connection_set_event_handler(v3, handler);
-    xpc_connection_activate(v18[5]);
+    xpc_connection_activate(v17[5]);
     v4 = sendSynchronousXpcMsgWithReply();
     v5 = v4;
     if (v4)
@@ -1024,7 +1011,7 @@ uint64_t ApplePhotonDetectorServicesGetGlobalCorrectionFactor(void *a1)
       if (MEMORY[0x245CD4080](v4) == MEMORY[0x277D86468])
       {
         length = 0;
-        data = xpc_dictionary_get_data(v5, v18[9], &length);
+        data = xpc_dictionary_get_data(v5, v17[9], &length);
         v10 = length;
         if (length == 3680)
         {
@@ -1038,11 +1025,11 @@ uint64_t ApplePhotonDetectorServicesGetGlobalCorrectionFactor(void *a1)
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
-            v24 = "ApplePhotonDetectorServicesGetGlobalCorrectionFactor";
-            v25 = 2048;
-            v26 = v10;
-            v27 = 2048;
-            v28 = 3680;
+            v23 = "ApplePhotonDetectorServicesGetGlobalCorrectionFactor";
+            v24 = 2048;
+            v25 = v10;
+            v26 = 2048;
+            v27 = 3680;
             v6 = MEMORY[0x277D86220];
             v7 = "%s: Received reply with unexpected length %lu. Expected %lu\n";
             v8 = 32;
@@ -1057,7 +1044,7 @@ uint64_t ApplePhotonDetectorServicesGetGlobalCorrectionFactor(void *a1)
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v24 = "ApplePhotonDetectorServicesGetGlobalCorrectionFactor";
+          v23 = "ApplePhotonDetectorServicesGetGlobalCorrectionFactor";
           v6 = MEMORY[0x277D86220];
           v7 = "%s: Received an unexpected event\n";
           v8 = 12;
@@ -1074,7 +1061,7 @@ LABEL_16:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v24 = "ApplePhotonDetectorServicesGetGlobalCorrectionFactor";
+      v23 = "ApplePhotonDetectorServicesGetGlobalCorrectionFactor";
       _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Did not receive a reply from daemon\n", buf, 0xCu);
     }
   }
@@ -1084,7 +1071,7 @@ LABEL_16:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v24 = "ApplePhotonDetectorServicesGetGlobalCorrectionFactor";
+      v23 = "ApplePhotonDetectorServicesGetGlobalCorrectionFactor";
       _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Invalid arguments, exiting\n", buf, 0xCu);
     }
 
@@ -1092,27 +1079,26 @@ LABEL_16:
   }
 
 LABEL_18:
-  v11 = v18[6];
+  v11 = v17[6];
   if (v11)
   {
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 0x40000000;
-    v14[2] = __ApplePhotonDetectorServicesGetGlobalCorrectionFactor_block_invoke_2;
-    v14[3] = &unk_278CBC498;
-    v14[4] = &v17;
-    dispatch_sync(v11, v14);
-    dispatch_release(v18[6]);
-    v18[6] = 0;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 0x40000000;
+    v13[2] = __ApplePhotonDetectorServicesGetGlobalCorrectionFactor_block_invoke_2;
+    v13[3] = &unk_278CBC498;
+    v13[4] = &v16;
+    dispatch_sync(v11, v13);
+    dispatch_release(v17[6]);
+    v17[6] = 0;
   }
 
-  _Block_object_dispose(&v17, 8);
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v16, 8);
   return v2;
 }
 
-void sub_240F0A418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_240F0A418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1132,19 +1118,19 @@ __n128 __Block_byref_object_copy_(uint64_t a1, uint64_t a2)
 
 void __ApplePhotonDetectorServicesGetGlobalCorrectionFactor_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (MEMORY[0x245CD4080](a2) == MEMORY[0x277D86480])
   {
     if (a2 == MEMORY[0x277D863F8])
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v7 = 136315138;
-        v8 = "ApplePhotonDetectorServicesGetGlobalCorrectionFactor_block_invoke";
+        v6 = 136315138;
+        v7 = "ApplePhotonDetectorServicesGetGlobalCorrectionFactor_block_invoke";
         v4 = MEMORY[0x277D86220];
         v5 = "%s: Received error XPC_ERROR_CONNECTION_INVALID\n";
 LABEL_11:
-        _os_log_impl(&dword_240F08000, v4, OS_LOG_TYPE_DEFAULT, v5, &v7, 0xCu);
+        _os_log_impl(&dword_240F08000, v4, OS_LOG_TYPE_DEFAULT, v5, &v6, 0xCu);
       }
     }
 
@@ -1157,8 +1143,8 @@ LABEL_11:
           goto LABEL_12;
         }
 
-        v7 = 136315138;
-        v8 = "ApplePhotonDetectorServicesGetGlobalCorrectionFactor_block_invoke";
+        v6 = 136315138;
+        v7 = "ApplePhotonDetectorServicesGetGlobalCorrectionFactor_block_invoke";
         v4 = MEMORY[0x277D86220];
         v5 = "%s: Received error XPC_ERROR_TERMINATION_IMMINENT\n";
         goto LABEL_11;
@@ -1166,8 +1152,8 @@ LABEL_11:
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v7 = 136315138;
-        v8 = "ApplePhotonDetectorServicesGetGlobalCorrectionFactor_block_invoke";
+        v6 = 136315138;
+        v7 = "ApplePhotonDetectorServicesGetGlobalCorrectionFactor_block_invoke";
         v4 = MEMORY[0x277D86220];
         v5 = "%s: Received error XPC_ERROR_CONNECTION_INTERRUPTED\n";
         goto LABEL_11;
@@ -1177,41 +1163,39 @@ LABEL_11:
 LABEL_12:
     disconnect((*(*(a1 + 32) + 8) + 40));
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void ApplePhotonDetectorServicesGetLux(dispatch_object_t object, uint64_t *a2)
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   if (!object || !a2)
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_46;
+      return;
     }
 
     LODWORD(buf[0]) = 136315138;
     *(buf + 4) = "ApplePhotonDetectorServicesGetLux";
     v20 = MEMORY[0x277D86220];
     v21 = "%s: Invalid arguments, exiting\n";
-LABEL_25:
-    _os_log_impl(&dword_240F08000, v20, OS_LOG_TYPE_DEFAULT, v21, buf, 0xCu);
-    goto LABEL_46;
+    goto LABEL_25;
   }
 
   if (!*(a2 + 36))
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_46;
+      return;
     }
 
     LODWORD(buf[0]) = 136315138;
     *(buf + 4) = "ApplePhotonDetectorServicesGetLux";
     v20 = MEMORY[0x277D86220];
     v21 = "%s: Error! Client requested 0 samples. Exiting\n";
-    goto LABEL_25;
+LABEL_25:
+    _os_log_impl(&dword_240F08000, v20, OS_LOG_TYPE_DEFAULT, v21, buf, 0xCu);
+    return;
   }
 
   v4 = *a2;
@@ -1242,13 +1226,13 @@ LABEL_25:
   v8 = malloc_type_calloc(*(a2 + 36), 4uLL, 0x100004052888210uLL);
   v9 = malloc_type_calloc(*(a2 + 36), 8uLL, 0x100004000313F17uLL);
   v10 = malloc_type_calloc(*(a2 + 36), 1uLL, 0x100004077774924uLL);
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x7802000000;
-  v49 = __Block_byref_object_copy_;
-  v50 = __Block_byref_object_dispose_;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x7802000000;
+  v48 = __Block_byref_object_copy_;
+  v49 = __Block_byref_object_dispose_;
   bzero(buf, 0xE60uLL);
-  memset(v51, 0, sizeof(v51));
+  memset(v50, 0, sizeof(v50));
   if (!v7 || !v9 || !v8)
   {
     v11 = -536870211;
@@ -1257,12 +1241,12 @@ LABEL_25:
       goto LABEL_31;
     }
 
-    *v54 = 136315138;
-    v55 = "ApplePhotonDetectorServicesGetLux";
+    *v53 = 136315138;
+    v54 = "ApplePhotonDetectorServicesGetLux";
     v22 = MEMORY[0x277D86220];
     v23 = "%s: Could not allocate memory to store lux information\n";
 LABEL_30:
-    _os_log_impl(&dword_240F08000, v22, OS_LOG_TYPE_DEFAULT, v23, v54, 0xCu);
+    _os_log_impl(&dword_240F08000, v22, OS_LOG_TYPE_DEFAULT, v23, v53, 0xCu);
     goto LABEL_31;
   }
 
@@ -1274,36 +1258,36 @@ LABEL_30:
       goto LABEL_31;
     }
 
-    *v54 = 136315138;
-    v55 = "ApplePhotonDetectorServicesGetLux";
+    *v53 = 136315138;
+    v54 = "ApplePhotonDetectorServicesGetLux";
     v22 = MEMORY[0x277D86220];
     v23 = "%s: Could not allocate memory to store coex flags information\n";
     goto LABEL_30;
   }
 
-  v11 = connect(v51, "com.apple.applephotondetectorservicesqueue");
+  v11 = connect(v50, "com.apple.applephotondetectorservicesqueue");
   if (!v11)
   {
-    v12 = v47[5];
+    v12 = v46[5];
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 0x40000000;
     handler[2] = __ApplePhotonDetectorServicesGetLux_block_invoke;
     handler[3] = &unk_278CBC4E0;
-    handler[4] = &v46;
+    handler[4] = &v45;
     handler[5] = object;
     handler[6] = a2;
     xpc_connection_set_event_handler(v12, handler);
-    xpc_connection_activate(v47[5]);
-    v13 = v47;
+    xpc_connection_activate(v46[5]);
+    v13 = v46;
     v14 = sendSynchronousXpcMsgWithReply();
     v15 = v14;
     if (!v14)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        *v54 = 136315138;
-        v55 = "isIspPowered";
-        _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Did not receive a reply from daemon\n", v54, 0xCu);
+        *v53 = 136315138;
+        v54 = "isIspPowered";
+        _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Did not receive a reply from daemon\n", v53, 0xCu);
       }
 
       goto LABEL_59;
@@ -1313,7 +1297,7 @@ LABEL_30:
     {
       length = 0;
       data = xpc_dictionary_get_data(v15, v13[9], &length);
-      v29 = length;
+      v28 = length;
       if (length == 3680)
       {
         v16 = data[8];
@@ -1329,12 +1313,12 @@ LABEL_54:
         {
           if (*(a2 + 36) <= 4u)
           {
-            v30 = sendSynchronousXpcMsgWithReply();
-            v25 = v30;
+            v29 = sendSynchronousXpcMsgWithReply();
+            v25 = v29;
             v11 = -536870209;
-            if (v30)
+            if (v29)
             {
-              if (MEMORY[0x245CD4080](v30) != MEMORY[0x277D86468])
+              if (MEMORY[0x245CD4080](v29) != MEMORY[0x277D86468])
               {
 LABEL_58:
                 LOBYTE(v24) = 0;
@@ -1344,25 +1328,25 @@ LABEL_67:
               }
 
               length = 0;
-              v34 = xpc_dictionary_get_data(v25, v47[9], &length);
-              v35 = length;
+              v33 = xpc_dictionary_get_data(v25, v46[9], &length);
+              v34 = length;
               if (length == 3680)
               {
-                memcpy(buf, v34, sizeof(buf));
+                memcpy(buf, v33, sizeof(buf));
                 if ((buf[13] & 0x100000000) != 0)
                 {
                   if (*(a2 + 36))
                   {
                     v24 = 0;
-                    v36 = buf[13];
+                    v35 = buf[13];
                     do
                     {
-                      v37 = &buf[3 * v36 + 1];
-                      v7[v24] = *v37;
-                      v9[v24] = v37[1];
-                      v8[v24] = *(v37 + 1);
-                      v10[v24] = *(v37 + 16);
-                      v36 = (v36 + 1) & 3;
+                      v36 = &buf[3 * v35 + 1];
+                      v7[v24] = *v36;
+                      v9[v24] = v36[1];
+                      v8[v24] = *(v36 + 1);
+                      v10[v24] = *(v36 + 16);
+                      v35 = (v35 + 1) & 3;
                       ++v24;
                     }
 
@@ -1377,28 +1361,28 @@ LABEL_67:
                 v11 = -536870184;
                 if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                 {
-                  *v54 = 136315138;
-                  v55 = "ApplePhotonDetectorServicesGetLux";
-                  v38 = MEMORY[0x277D86220];
-                  v39 = "%s: lux cache is not ready with valid data\n";
-                  v40 = 12;
+                  *v53 = 136315138;
+                  v54 = "ApplePhotonDetectorServicesGetLux";
+                  v37 = MEMORY[0x277D86220];
+                  v38 = "%s: lux cache is not ready with valid data\n";
+                  v39 = 12;
                   goto LABEL_85;
                 }
               }
 
               else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
               {
-                *v54 = 136315650;
-                v55 = "ApplePhotonDetectorServicesGetLux";
-                v56 = 2048;
-                v57 = v35;
-                v58 = 2048;
-                v59 = 3680;
-                v38 = MEMORY[0x277D86220];
-                v39 = "%s: Received reply with unexpected length %lu. Expected %lu\n";
-                v40 = 32;
+                *v53 = 136315650;
+                v54 = "ApplePhotonDetectorServicesGetLux";
+                v55 = 2048;
+                v56 = v34;
+                v57 = 2048;
+                v58 = 3680;
+                v37 = MEMORY[0x277D86220];
+                v38 = "%s: Received reply with unexpected length %lu. Expected %lu\n";
+                v39 = 32;
 LABEL_85:
-                _os_log_impl(&dword_240F08000, v38, OS_LOG_TYPE_DEFAULT, v39, v54, v40);
+                _os_log_impl(&dword_240F08000, v37, OS_LOG_TYPE_DEFAULT, v38, v53, v39);
               }
             }
 
@@ -1421,47 +1405,47 @@ LABEL_60:
         v24 = 0;
         while (1)
         {
-          v31 = sendSynchronousXpcMsgWithReply();
-          v25 = v31;
-          if (!v31)
+          v30 = sendSynchronousXpcMsgWithReply();
+          v25 = v30;
+          if (!v30)
           {
             break;
           }
 
-          if (MEMORY[0x245CD4080](v31) != MEMORY[0x277D86468])
+          if (MEMORY[0x245CD4080](v30) != MEMORY[0x277D86468])
           {
             v11 = -536870199;
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
-              *v54 = 136315138;
-              v55 = "ApplePhotonDetectorServicesGetLux";
-              _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Received an unexpected event\n", v54, 0xCu);
+              *v53 = 136315138;
+              v54 = "ApplePhotonDetectorServicesGetLux";
+              _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Received an unexpected event\n", v53, 0xCu);
             }
 
             goto LABEL_33;
           }
 
           length = 0;
-          v32 = xpc_dictionary_get_data(v25, v47[9], &length);
-          v33 = length;
+          v31 = xpc_dictionary_get_data(v25, v46[9], &length);
+          v32 = length;
           if (length != 3680)
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
-              *v54 = 136315650;
-              v55 = "ApplePhotonDetectorServicesGetLux";
-              v56 = 2048;
-              v57 = v33;
-              v58 = 2048;
-              v59 = 3680;
-              _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Received reply with unexpected length %lu. Expected %lu\n", v54, 0x20u);
+              *v53 = 136315650;
+              v54 = "ApplePhotonDetectorServicesGetLux";
+              v55 = 2048;
+              v56 = v32;
+              v57 = 2048;
+              v58 = 3680;
+              _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Received reply with unexpected length %lu. Expected %lu\n", v53, 0x20u);
             }
 
             v11 = -536870209;
             goto LABEL_33;
           }
 
-          memcpy(buf, v32, sizeof(buf));
+          memcpy(buf, v31, sizeof(buf));
           v7[v24] = buf[1];
           v9[v24] = buf[2];
           v8[v24] = HIDWORD(buf[1]);
@@ -1477,20 +1461,20 @@ LABEL_60:
         v11 = -536870209;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          *v54 = 136315138;
-          v55 = "ApplePhotonDetectorServicesGetLux";
-          _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Did not receive a reply from daemon\n", v54, 0xCu);
+          *v53 = 136315138;
+          v54 = "ApplePhotonDetectorServicesGetLux";
+          _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Did not receive a reply from daemon\n", v53, 0xCu);
         }
 
         goto LABEL_32;
       }
 
-      *v54 = 136315650;
-      v55 = "isIspPowered";
-      v56 = 2048;
-      v57 = v29;
-      v58 = 2048;
-      v59 = 3680;
+      *v53 = 136315650;
+      v54 = "isIspPowered";
+      v55 = 2048;
+      v56 = v28;
+      v57 = 2048;
+      v58 = 3680;
       v17 = MEMORY[0x277D86220];
       v18 = "%s: Received reply with unexpected length %lu. Expected %lu\n";
       v19 = 32;
@@ -1504,14 +1488,14 @@ LABEL_60:
         goto LABEL_54;
       }
 
-      *v54 = 136315138;
-      v55 = "isIspPowered";
+      *v53 = 136315138;
+      v54 = "isIspPowered";
       v17 = MEMORY[0x277D86220];
       v18 = "%s: Received an unexpected event\n";
       v19 = 12;
     }
 
-    _os_log_impl(&dword_240F08000, v17, OS_LOG_TYPE_DEFAULT, v18, v54, v19);
+    _os_log_impl(&dword_240F08000, v17, OS_LOG_TYPE_DEFAULT, v18, v53, v19);
     v16 = 0;
     goto LABEL_54;
   }
@@ -1525,30 +1509,30 @@ LABEL_33:
   block[1] = 0x40000000;
   block[2] = __ApplePhotonDetectorServicesGetLux_block_invoke_8;
   block[3] = &__block_descriptor_tmp_9;
-  v44 = v24;
+  v43 = v24;
   block[4] = a2;
   block[5] = v7;
   block[6] = v8;
   block[7] = v9;
   block[8] = v10;
-  v43 = v11;
+  v42 = v11;
   dispatch_sync(object, block);
   if (v25)
   {
     xpc_release(v25);
   }
 
-  v26 = v47[6];
+  v26 = v46[6];
   if (v26)
   {
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 0x40000000;
-    v41[2] = __ApplePhotonDetectorServicesGetLux_block_invoke_2;
-    v41[3] = &unk_278CBC528;
-    v41[4] = &v46;
-    dispatch_sync(v26, v41);
-    dispatch_release(v47[6]);
-    v47[6] = 0;
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 0x40000000;
+    v40[2] = __ApplePhotonDetectorServicesGetLux_block_invoke_2;
+    v40[3] = &unk_278CBC528;
+    v40[4] = &v45;
+    dispatch_sync(v26, v40);
+    dispatch_release(v46[6]);
+    v46[6] = 0;
   }
 
   dispatch_release(object);
@@ -1572,14 +1556,19 @@ LABEL_33:
     free(v10);
   }
 
-  _Block_object_dispose(&v46, 8);
-LABEL_46:
-  v27 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v45, 8);
+}
+
+void sub_240F0B0EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void __ApplePhotonDetectorServicesGetLux_block_invoke(void *a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (MEMORY[0x245CD4080](a2) == MEMORY[0x277D86480])
   {
     if (a2 == MEMORY[0x277D863F8])
@@ -1587,7 +1576,7 @@ void __ApplePhotonDetectorServicesGetLux_block_invoke(void *a1, uint64_t a2)
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v10 = "ApplePhotonDetectorServicesGetLux_block_invoke";
+        v9 = "ApplePhotonDetectorServicesGetLux_block_invoke";
         v4 = MEMORY[0x277D86220];
         v5 = "%s: Received error XPC_ERROR_CONNECTION_INVALID\n";
 LABEL_11:
@@ -1605,7 +1594,7 @@ LABEL_11:
         }
 
         *buf = 136315138;
-        v10 = "ApplePhotonDetectorServicesGetLux_block_invoke";
+        v9 = "ApplePhotonDetectorServicesGetLux_block_invoke";
         v4 = MEMORY[0x277D86220];
         v5 = "%s: Received error XPC_ERROR_TERMINATION_IMMINENT\n";
         goto LABEL_11;
@@ -1614,7 +1603,7 @@ LABEL_11:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v10 = "ApplePhotonDetectorServicesGetLux_block_invoke";
+        v9 = "ApplePhotonDetectorServicesGetLux_block_invoke";
         v4 = MEMORY[0x277D86220];
         v5 = "%s: Received error XPC_ERROR_CONNECTION_INTERRUPTED\n";
         goto LABEL_11;
@@ -1631,8 +1620,6 @@ LABEL_12:
     block[4] = a1[6];
     dispatch_sync(v6, block);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ApplePhotonDetectorServicesGetCoex(io_iterator_t *a1)
@@ -1728,23 +1715,21 @@ LABEL_13:
 
 void __ApplePhotonDetectorServicesGetLuxAsync_block_invoke_20(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (MEMORY[0x245CD4080](a2) == MEMORY[0x277D86480] && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     string = xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
-    v5 = 136315394;
-    v6 = "ApplePhotonDetectorServicesGetLuxAsync_block_invoke";
-    v7 = 2080;
-    v8 = string;
-    _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Received error %s\n", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "ApplePhotonDetectorServicesGetLuxAsync_block_invoke";
+    v6 = 2080;
+    v7 = string;
+    _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Received error %s\n", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __ApplePhotonDetectorServicesGetLuxAsync_block_invoke_22(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x245CD4080](a2);
   bzero(__dst, 0xE60uLL);
   if (v4 == MEMORY[0x277D86468])
@@ -1769,7 +1754,7 @@ void __ApplePhotonDetectorServicesGetLuxAsync_block_invoke_22(uint64_t a1, void 
         }
 
         *buf = 136315138;
-        v23 = "ApplePhotonDetectorServicesGetLuxAsync_block_invoke";
+        v22 = "ApplePhotonDetectorServicesGetLuxAsync_block_invoke";
         v8 = MEMORY[0x277D86220];
         v9 = "%s: lux cache is not ready with valid data\n";
         goto LABEL_12;
@@ -1779,11 +1764,11 @@ void __ApplePhotonDetectorServicesGetLuxAsync_block_invoke_22(uint64_t a1, void 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v23 = "ApplePhotonDetectorServicesGetLuxAsync_block_invoke";
-        v24 = 2048;
-        v25 = v6;
-        v26 = 2048;
-        v27 = 3680;
+        v22 = "ApplePhotonDetectorServicesGetLuxAsync_block_invoke";
+        v23 = 2048;
+        v24 = v6;
+        v25 = 2048;
+        v26 = 3680;
         v8 = MEMORY[0x277D86220];
         v9 = "%s: Received reply with unexpected length %lu. Expected %lu\n";
         v10 = 32;
@@ -1797,7 +1782,7 @@ void __ApplePhotonDetectorServicesGetLuxAsync_block_invoke_22(uint64_t a1, void 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v23 = "ApplePhotonDetectorServicesGetLuxAsync_block_invoke";
+        v22 = "ApplePhotonDetectorServicesGetLuxAsync_block_invoke";
         v8 = MEMORY[0x277D86220];
         v9 = "%s: Could not get the required data\n";
 LABEL_12:
@@ -1815,7 +1800,7 @@ LABEL_16:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v23 = "ApplePhotonDetectorServicesGetLuxAsync_block_invoke";
+    v22 = "ApplePhotonDetectorServicesGetLuxAsync_block_invoke";
     _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Received a response of an unknown type\n", buf, 0xCu);
   }
 
@@ -1855,25 +1840,24 @@ LABEL_17:
   v16 = *(a1 + 56);
   if (v16)
   {
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 0x40000000;
-    v19[2] = __ApplePhotonDetectorServicesGetLuxAsync_block_invoke_23;
-    v19[3] = &__block_descriptor_tmp_24;
-    v19[4] = v16;
-    v19[5] = v11;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 0x40000000;
+    v18[2] = __ApplePhotonDetectorServicesGetLuxAsync_block_invoke_23;
+    v18[3] = &__block_descriptor_tmp_24;
+    v18[4] = v16;
+    v18[5] = v11;
     v17 = *(a1 + 64);
-    v19[6] = *(a1 + 72);
-    dispatch_async(v17, v19);
+    v18[6] = *(a1 + 72);
+    dispatch_async(v17, v18);
     dispatch_release(*(a1 + 64));
   }
 
   disconnectFromDaemon(*(*(*(a1 + 32) + 8) + 24));
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ApplePhotonDetectorServicesOpen(dispatch_object_t **a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = malloc_type_calloc(1uLL, 0x60uLL, 0x1070040F3C029C4uLL);
   if (!v2)
   {
@@ -1882,14 +1866,14 @@ uint64_t ApplePhotonDetectorServicesOpen(dispatch_object_t **a1)
       goto LABEL_9;
     }
 
-    v8 = 136315394;
-    v9 = "ApplePhotonDetectorServicesOpen";
-    v10 = 1024;
-    v11 = 894;
+    v7 = 136315394;
+    v8 = "ApplePhotonDetectorServicesOpen";
+    v9 = 1024;
+    v10 = 894;
     v5 = MEMORY[0x277D86220];
     v6 = "%s: %d: Could not open an interface to APDS\n";
 LABEL_8:
-    _os_log_impl(&dword_240F08000, v5, OS_LOG_TYPE_DEFAULT, v6, &v8, 0x12u);
+    _os_log_impl(&dword_240F08000, v5, OS_LOG_TYPE_DEFAULT, v6, &v7, 0x12u);
 LABEL_9:
     if (*v2)
     {
@@ -1912,10 +1896,10 @@ LABEL_11:
       goto LABEL_12;
     }
 
-    v8 = 136315394;
-    v9 = "ApplePhotonDetectorServicesOpen";
-    v10 = 1024;
-    v11 = 902;
+    v7 = 136315394;
+    v8 = "ApplePhotonDetectorServicesOpen";
+    v9 = 1024;
+    v10 = 902;
     v5 = MEMORY[0x277D86220];
     v6 = "%s: %d: Could not create a serial queue\n";
     goto LABEL_8;
@@ -1924,13 +1908,12 @@ LABEL_11:
   result = 0;
 LABEL_12:
   *a1 = v2;
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t ApplePhotonDetectorServicesClose(NSObject **a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v2 = *a1;
@@ -1940,46 +1923,43 @@ uint64_t ApplePhotonDetectorServicesClose(NSObject **a1)
     }
 
     free(a1);
-    result = 0;
+    return 0;
   }
 
   else
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 136315650;
-      v6 = "ApplePhotonDetectorServicesClose";
-      v7 = 1024;
-      v8 = 937;
-      v9 = 2048;
-      v10 = 0;
-      _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: %d: Invalid handle provided %p\n", &v5, 0x1Cu);
+      v4 = 136315650;
+      v5 = "ApplePhotonDetectorServicesClose";
+      v6 = 1024;
+      v7 = 937;
+      v8 = 2048;
+      v9 = 0;
+      _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: %d: Invalid handle provided %p\n", &v4, 0x1Cu);
     }
 
-    result = 3758096385;
+    return 3758096385;
   }
-
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t ApplePhotonDetectorServicesSetCILDutyCycle()
 {
   v0 = MEMORY[0x28223BE20]();
-  v17 = *MEMORY[0x277D85DE8];
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x7802000000;
-  v10 = __Block_byref_object_copy_;
-  v11 = __Block_byref_object_dispose_;
-  bzero(v15, 0x3408uLL);
-  memset(v12, 0, sizeof(v12));
-  v1 = connect(v12, "com.apple.applephotondetectorservicesqueue");
+  v16 = *MEMORY[0x277D85DE8];
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x7802000000;
+  v9 = __Block_byref_object_copy_;
+  v10 = __Block_byref_object_dispose_;
+  bzero(v14, 0x3408uLL);
+  memset(v11, 0, sizeof(v11));
+  v1 = connect(v11, "com.apple.applephotondetectorservicesqueue");
   if (!v1)
   {
-    xpc_connection_set_event_handler(v8[5], &__block_literal_global_33);
-    xpc_connection_activate(v8[5]);
-    v16 = v0;
+    xpc_connection_set_event_handler(v7[5], &__block_literal_global_33);
+    xpc_connection_activate(v7[5]);
+    v15 = v0;
     v2 = sendSynchronousXpcMsgWithReply();
     if (v2)
     {
@@ -1993,51 +1973,48 @@ uint64_t ApplePhotonDetectorServicesSetCILDutyCycle()
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v14 = "ApplePhotonDetectorServicesSetCILDutyCycle";
+        v13 = "ApplePhotonDetectorServicesSetCILDutyCycle";
         _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Did not receive a reply from daemon\n", buf, 0xCu);
       }
     }
   }
 
-  v3 = v8[6];
+  v3 = v7[6];
   if (v3)
   {
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 0x40000000;
-    v6[2] = __ApplePhotonDetectorServicesSetCILDutyCycle_block_invoke_34;
-    v6[3] = &unk_278CBC660;
-    v6[4] = &v7;
-    dispatch_sync(v3, v6);
-    dispatch_release(v8[6]);
-    v8[6] = 0;
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 0x40000000;
+    v5[2] = __ApplePhotonDetectorServicesSetCILDutyCycle_block_invoke_34;
+    v5[3] = &unk_278CBC660;
+    v5[4] = &v6;
+    dispatch_sync(v3, v5);
+    dispatch_release(v7[6]);
+    v7[6] = 0;
   }
 
-  _Block_object_dispose(&v7, 8);
-  v4 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v6, 8);
   return v1;
 }
 
-void sub_240F0BE74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_240F0BE74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void __ApplePhotonDetectorServicesSetCILDutyCycle_block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (MEMORY[0x245CD4080](a2) == MEMORY[0x277D86480] && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     string = xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
-    v5 = 136315394;
-    v6 = "ApplePhotonDetectorServicesSetCILDutyCycle_block_invoke";
-    v7 = 2080;
-    v8 = string;
-    _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Received error %s\n", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "ApplePhotonDetectorServicesSetCILDutyCycle_block_invoke";
+    v6 = 2080;
+    v7 = string;
+    _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Received error %s\n", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ApplePhotonDetectorServicesConfigureCILDutyCycle()
@@ -2045,11 +2022,11 @@ uint64_t ApplePhotonDetectorServicesConfigureCILDutyCycle()
   v0 = MEMORY[0x28223BE20]();
   v2 = v1;
   v3 = v0;
-  v13 = *MEMORY[0x277D85DE8];
-  bzero(v11, 0x3408uLL);
+  v12 = *MEMORY[0x277D85DE8];
+  bzero(v10, 0x3408uLL);
   if (v3)
   {
-    v12 = v2;
+    v11 = v2;
     v4 = sendSynchronousXpcMsgWithReply();
     if (v4)
     {
@@ -2064,9 +2041,9 @@ uint64_t ApplePhotonDetectorServicesConfigureCILDutyCycle()
         v6 = 3758097097;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v9 = 136315138;
-          v10 = "ApplePhotonDetectorServicesConfigureCILDutyCycle";
-          _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Received an unexpected event\n", &v9, 0xCu);
+          v8 = 136315138;
+          v9 = "ApplePhotonDetectorServicesConfigureCILDutyCycle";
+          _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Received an unexpected event\n", &v8, 0xCu);
         }
       }
 
@@ -2078,9 +2055,9 @@ uint64_t ApplePhotonDetectorServicesConfigureCILDutyCycle()
       v6 = 3758097087;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 136315138;
-        v10 = "ApplePhotonDetectorServicesConfigureCILDutyCycle";
-        _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Did not receive a reply from daemon\n", &v9, 0xCu);
+        v8 = 136315138;
+        v9 = "ApplePhotonDetectorServicesConfigureCILDutyCycle";
+        _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Did not receive a reply from daemon\n", &v8, 0xCu);
       }
     }
   }
@@ -2089,15 +2066,14 @@ uint64_t ApplePhotonDetectorServicesConfigureCILDutyCycle()
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315138;
-      v10 = "ApplePhotonDetectorServicesConfigureCILDutyCycle";
-      _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Invalid pointer to the connection object\n", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "ApplePhotonDetectorServicesConfigureCILDutyCycle";
+      _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Invalid pointer to the connection object\n", &v8, 0xCu);
     }
 
-    v6 = 3758096385;
+    return 3758096385;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -2106,7 +2082,7 @@ uint64_t ApplePhotonDetectorServicesConfigureCILDutyCycleAsync()
   v0 = MEMORY[0x28223BE20]();
   v2 = v1;
   v3 = v0;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   bzero(bytes, 0x3408uLL);
   if (v3)
   {
@@ -2120,7 +2096,7 @@ uint64_t ApplePhotonDetectorServicesConfigureCILDutyCycleAsync()
       xpc_dictionary_set_data(v5, *(v3 + 32), bytes, 0x3408uLL);
       xpc_connection_send_message(*v3, v5);
       xpc_release(v5);
-      v6 = 0;
+      return 0;
     }
 
     else
@@ -2128,9 +2104,9 @@ uint64_t ApplePhotonDetectorServicesConfigureCILDutyCycleAsync()
       v6 = 3758097085;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 136315138;
-        v10 = "ApplePhotonDetectorServicesConfigureCILDutyCycleAsync";
-        _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Could not create dictionary, exiting\n", &v9, 0xCu);
+        v8 = 136315138;
+        v9 = "ApplePhotonDetectorServicesConfigureCILDutyCycleAsync";
+        _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Could not create dictionary, exiting\n", &v8, 0xCu);
       }
     }
   }
@@ -2139,21 +2115,20 @@ uint64_t ApplePhotonDetectorServicesConfigureCILDutyCycleAsync()
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315138;
-      v10 = "ApplePhotonDetectorServicesConfigureCILDutyCycleAsync";
-      _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Invalid pointer to the connection object\n", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "ApplePhotonDetectorServicesConfigureCILDutyCycleAsync";
+      _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Invalid pointer to the connection object\n", &v8, 0xCu);
     }
 
-    v6 = 3758096385;
+    return 3758096385;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 int64_t ApplePhotonDetectorServicesGetCILDutyCycleRange(uint64_t a1, _DWORD *a2, _DWORD *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   bzero(__dst, 0xE60uLL);
   if (a1)
   {
@@ -2173,11 +2148,11 @@ int64_t ApplePhotonDetectorServicesGetCILDutyCycleRange(uint64_t a1, _DWORD *a2,
           if (!int64)
           {
             memcpy(__dst, v14, length);
+            v16 = v20;
+            *a2 = v20;
             v17 = v21;
-            *a2 = v21;
-            v18 = v22;
-            *a3 = v22;
-            if (v17 < v18)
+            *a3 = v21;
+            if (v16 < v17)
             {
               int64 = 0;
               goto LABEL_18;
@@ -2190,11 +2165,11 @@ int64_t ApplePhotonDetectorServicesGetCILDutyCycleRange(uint64_t a1, _DWORD *a2,
             }
 
             *buf = 136315650;
-            v24 = "ApplePhotonDetectorServicesGetCILDutyCycleRange";
-            v25 = 1024;
-            *v26 = v17;
-            *&v26[4] = 1024;
-            *&v26[6] = v18;
+            v23 = "ApplePhotonDetectorServicesGetCILDutyCycleRange";
+            v24 = 1024;
+            *v25 = v16;
+            *&v25[4] = 1024;
+            *&v25[6] = v17;
             v9 = MEMORY[0x277D86220];
             v10 = "%s: Error: Received incorrect duty cycle ranges min (%u), max (%u)\n";
             v11 = 24;
@@ -2204,9 +2179,9 @@ int64_t ApplePhotonDetectorServicesGetCILDutyCycleRange(uint64_t a1, _DWORD *a2,
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315394;
-            v24 = "ApplePhotonDetectorServicesGetCILDutyCycleRange";
-            v25 = 1024;
-            *v26 = int64;
+            v23 = "ApplePhotonDetectorServicesGetCILDutyCycleRange";
+            v24 = 1024;
+            *v25 = int64;
             v9 = MEMORY[0x277D86220];
             v10 = "%s: Received return code 0x%x\n";
             v11 = 18;
@@ -2220,11 +2195,11 @@ int64_t ApplePhotonDetectorServicesGetCILDutyCycleRange(uint64_t a1, _DWORD *a2,
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
-            v24 = "ApplePhotonDetectorServicesGetCILDutyCycleRange";
-            v25 = 2048;
-            *v26 = v13;
-            *&v26[8] = 2048;
-            v27 = 3680;
+            v23 = "ApplePhotonDetectorServicesGetCILDutyCycleRange";
+            v24 = 2048;
+            *v25 = v13;
+            *&v25[8] = 2048;
+            v26 = 3680;
             v9 = MEMORY[0x277D86220];
             v10 = "%s: Received reply with unexpected length %lu. Expected %lu\n";
             v11 = 32;
@@ -2239,7 +2214,7 @@ int64_t ApplePhotonDetectorServicesGetCILDutyCycleRange(uint64_t a1, _DWORD *a2,
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v24 = "ApplePhotonDetectorServicesGetCILDutyCycleRange";
+          v23 = "ApplePhotonDetectorServicesGetCILDutyCycleRange";
           v9 = MEMORY[0x277D86220];
           v10 = "%s: Received an unexpected event\n";
           v11 = 12;
@@ -2250,14 +2225,14 @@ LABEL_17:
 
 LABEL_18:
       xpc_release(v7);
-      goto LABEL_19;
+      return int64;
     }
 
     int64 = 3758097087;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v24 = "ApplePhotonDetectorServicesGetCILDutyCycleRange";
+      v23 = "ApplePhotonDetectorServicesGetCILDutyCycleRange";
       _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Did not receive a reply from the daemon\n", buf, 0xCu);
     }
   }
@@ -2267,21 +2242,19 @@ LABEL_18:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v24 = "ApplePhotonDetectorServicesGetCILDutyCycleRange";
+      v23 = "ApplePhotonDetectorServicesGetCILDutyCycleRange";
       _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Invalid pointer to the connection object\n", buf, 0xCu);
     }
 
-    int64 = 3758096385;
+    return 3758096385;
   }
 
-LABEL_19:
-  v15 = *MEMORY[0x277D85DE8];
   return int64;
 }
 
 uint64_t ApplePhotonDetectorServicesSetupConnection(xpc_connection_t **a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = malloc_type_calloc(1uLL, 0x50uLL, 0x1070040327A9AA5uLL);
   if (v2)
   {
@@ -2292,20 +2265,20 @@ uint64_t ApplePhotonDetectorServicesSetupConnection(xpc_connection_t **a1)
       xpc_connection_set_event_handler(*v3, &__block_literal_global_39);
       xpc_connection_activate(*v3);
       *a1 = v3;
-      goto LABEL_9;
+      return v4;
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315394;
-      v11 = "ApplePhotonDetectorServicesSetupConnection";
-      v12 = 1024;
-      v13 = v4;
+      v9 = 136315394;
+      v10 = "ApplePhotonDetectorServicesSetupConnection";
+      v11 = 1024;
+      v12 = v4;
       v5 = MEMORY[0x277D86220];
       v6 = "%s: Could not connect to the daemon, ret = 0x%x\n";
       v7 = 18;
 LABEL_7:
-      _os_log_impl(&dword_240F08000, v5, OS_LOG_TYPE_DEFAULT, v6, &v10, v7);
+      _os_log_impl(&dword_240F08000, v5, OS_LOG_TYPE_DEFAULT, v6, &v9, v7);
     }
   }
 
@@ -2314,8 +2287,8 @@ LABEL_7:
     v4 = 3758097085;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "ApplePhotonDetectorServicesSetupConnection";
+      v9 = 136315138;
+      v10 = "ApplePhotonDetectorServicesSetupConnection";
       v5 = MEMORY[0x277D86220];
       v6 = "%s: Could not create an xpc connection object\n";
       v7 = 12;
@@ -2323,30 +2296,26 @@ LABEL_7:
     }
   }
 
-LABEL_9:
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 void __ApplePhotonDetectorServicesSetupConnection_block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (MEMORY[0x245CD4080](a2) == MEMORY[0x277D86480] && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     string = xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
-    v5 = 136315394;
-    v6 = "ApplePhotonDetectorServicesSetupConnection_block_invoke";
-    v7 = 2080;
-    v8 = string;
-    _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Received error %s\n", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "ApplePhotonDetectorServicesSetupConnection_block_invoke";
+    v6 = 2080;
+    v7 = string;
+    _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Received error %s\n", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ApplePhotonDetectorServicesTearDownConnection(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v2 = *(a1 + 1);
@@ -2362,7 +2331,7 @@ uint64_t ApplePhotonDetectorServicesTearDownConnection(void *a1)
     }
 
     free(a1);
-    result = 0;
+    return 0;
   }
 
   else
@@ -2370,13 +2339,10 @@ uint64_t ApplePhotonDetectorServicesTearDownConnection(void *a1)
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v7 = "ApplePhotonDetectorServicesTearDownConnection";
+      v6 = "ApplePhotonDetectorServicesTearDownConnection";
       _os_log_impl(&dword_240F08000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Invalid pointer to the connection object\n", buf, 0xCu);
     }
 
-    result = 3758096385;
+    return 3758096385;
   }
-
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
 }

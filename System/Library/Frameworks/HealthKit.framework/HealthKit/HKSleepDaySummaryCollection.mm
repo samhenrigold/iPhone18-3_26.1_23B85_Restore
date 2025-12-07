@@ -10,12 +10,11 @@
 
 - (NSArray)sleepDaySummaries
 {
-  v2 = *(self + OBJC_IVAR___HKSleepDaySummaryCollection_sleepDaySummaries);
   sub_191BFAE6C(0, &qword_1EADCC4C0, off_1E7375508);
 
-  v3 = sub_191CC68D8();
+  v2 = sub_191CC68D8();
 
-  return v3;
+  return v2;
 }
 
 - (HKSleepDaySummaryCollection)initWithSleepDaySummaries:(id)summaries

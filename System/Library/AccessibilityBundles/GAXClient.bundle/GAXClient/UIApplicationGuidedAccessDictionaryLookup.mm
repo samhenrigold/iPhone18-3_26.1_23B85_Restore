@@ -2,6 +2,7 @@
 - (BOOL)_guidedAccessDictionaryLookupAllowed;
 - (id)guidedAccessRestrictionIdentifiers;
 - (id)textForGuidedAccessRestrictionWithIdentifier:(id)identifier;
+- (void)_guidedAccessSetDictionaryLookupAllowed:(BOOL)allowed;
 - (void)guidedAccessRestrictionWithIdentifier:(id)identifier didChangeState:(int64_t)state;
 @end
 
@@ -21,6 +22,12 @@
   }
 
   return bOOLValue;
+}
+
+- (void)_guidedAccessSetDictionaryLookupAllowed:(BOOL)allowed
+{
+  v4 = [NSNumber numberWithBool:allowed];
+  objc_setAssociatedObject(self, &unk_1BCD8, v4, &dword_0 + 1);
 }
 
 - (id)guidedAccessRestrictionIdentifiers

@@ -25,48 +25,46 @@
 
 - (NSArray)distributionSampleValues
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (!self->_unitType)
   {
     [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
   }
 
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSMutableArray count](self->_mutableSampleValues, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   mutableSampleValues = self->_mutableSampleValues;
-  v5 = [(NSMutableArray *)mutableSampleValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSMutableArray *)mutableSampleValues countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(mutableSampleValues);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         v10 = objc_alloc(MEMORY[0x1E696AD28]);
         [v9 doubleValue];
         v11 = [v10 initWithDoubleValue:self->_unitType unit:?];
         [v3 addObject:v11];
       }
 
-      v6 = [(NSMutableArray *)mutableSampleValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableArray *)mutableSampleValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
-  result = [MEMORY[0x1E695DEC8] arrayWithArray:v3];
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return [MEMORY[0x1E695DEC8] arrayWithArray:v3];
 }
 
 - (void)dealloc
@@ -131,14 +129,12 @@
 
 - (id)sr_dictionaryRepresentation
 {
-  v6[2] = *MEMORY[0x1E69E9840];
-  v5[0] = @"Values";
-  v5[1] = @"Units";
-  v6[0] = [(SRKeyboardProbabilityMetric *)self mutableSampleValues];
-  v6[1] = [(NSUnit *)[(SRKeyboardProbabilityMetric *)self unitType] symbol];
-  result = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v5[2] = *MEMORY[0x1E69E9840];
+  v4[0] = @"Values";
+  v4[1] = @"Units";
+  v5[0] = [(SRKeyboardProbabilityMetric *)self mutableSampleValues];
+  v5[1] = [(NSUnit *)[(SRKeyboardProbabilityMetric *)self unitType] symbol];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2];
 }
 
 @end

@@ -1450,7 +1450,7 @@ LABEL_10:
   v15 = layer;
   if (layer)
   {
-    [layer transform];
+    objc_msgSend_transform(layer);
   }
 
   else
@@ -1636,7 +1636,7 @@ LABEL_6:
   *&v93.m13 = v39;
   if (layer)
   {
-    [layer transform];
+    objc_msgSend_transform(layer, v81);
   }
 
   else
@@ -2191,7 +2191,7 @@ LABEL_10:
         v9 = contentClipperView2;
         if (contentClipperView2)
         {
-          [contentClipperView2 transform];
+          objc_msgSend_transform(contentClipperView2);
         }
 
         else
@@ -2269,17 +2269,17 @@ LABEL_10:
   self->_suppressingScrollViewDidScroll = 1;
   v11 = v6;
   [(UIScrollView *)self->_scrollView frame];
-  v249.origin.x = v12;
-  v249.origin.y = v13;
-  v249.size.width = v14;
-  v249.size.height = v15;
-  v241.origin.x = v8;
-  v241.origin.y = v9;
-  v180 = v11;
-  v241.size.width = v11;
-  v192 = v10;
-  v241.size.height = v10;
-  if (!CGRectEqualToRect(v241, v249))
+  v251.origin.x = v12;
+  v251.origin.y = v13;
+  v251.size.width = v14;
+  v251.size.height = v15;
+  v243.origin.x = v8;
+  v243.origin.y = v9;
+  v182 = v11;
+  v243.size.width = v11;
+  v194 = v10;
+  v243.size.height = v10;
+  if (!CGRectEqualToRect(v243, v251))
   {
     [(UIScrollView *)self->_scrollView setFrame:v8, v9, v11, v10];
   }
@@ -2288,11 +2288,11 @@ LABEL_10:
   [(UIScrollView *)self->_scrollView contentOffset];
   v18 = v17;
   scrollView = self->_scrollView;
-  v179 = _numberOfItems;
+  v181 = _numberOfItems;
   [(MFTiltedTabView *)self _contentSizeForItemCount:?];
   [(UIScrollView *)scrollView setContentSize:?];
   [(UIScrollView *)self->_scrollView contentOffset];
-  v196 = v20;
+  v198 = v20;
   [(UIScrollView *)self->_scrollView setScrollEnabled:self->_presented];
   self->_suppressingScrollViewDidScroll = 0;
   if (self->_selectedItem)
@@ -2305,62 +2305,62 @@ LABEL_10:
     v21 = 1;
   }
 
-  v191 = v21;
+  v193 = v21;
+  v240 = 0u;
+  v239 = 0u;
   v238 = 0u;
   v237 = 0u;
-  v236 = 0u;
-  v235 = 0u;
   obj = self->_itemsInvolvedInAnimation;
-  v22 = [(NSArray *)obj countByEnumeratingWithState:&v235 objects:v240 count:16];
+  v22 = [(NSArray *)obj countByEnumeratingWithState:&v237 objects:v242 count:16];
   if (v22)
   {
-    v199 = 0;
-    v195 = v196 - v18;
-    v190 = *v236;
+    v201 = 0;
+    v197 = v198 - v18;
+    v192 = *v238;
     left = UIEdgeInsetsZero.left;
     right = UIEdgeInsetsZero.right;
     bottom = UIEdgeInsetsZero.bottom;
     y = CGPointZero.y;
-    v194 = fmax(-v196, 0.0);
-    v182 = v10 + v196;
-    v186 = CGRectNull.origin.y;
+    v196 = fmax(-v198, 0.0);
+    v184 = v10 + v198;
+    v188 = CGRectNull.origin.y;
     height = CGRectNull.size.height;
     width = CGRectNull.size.width;
-    v183 = CGRectZero.origin.y;
+    v185 = CGRectZero.origin.y;
     do
     {
-      v193 = v22;
-      for (i = 0; i != v193; i = i + 1)
+      v195 = v22;
+      for (i = 0; i != v195; i = i + 1)
       {
-        if (*v236 != v190)
+        if (*v238 != v192)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = *(*(&v235 + 1) + 8 * i);
+        v24 = *(*(&v237 + 1) + 8 * i);
         self->_applyVelocityOnlyToHorizontalPosition = v24 == self->_onlyHorizontalVelocityItem;
-        v212 = ![(_MFTiltedTabItemView *)v24 isClosing]&& [(MFTiltedTabView *)self _indexOfVisibleItem:v24]== 0x7FFFFFFFFFFFFFFFLL;
+        v214 = ![(_MFTiltedTabItemView *)v24 isClosing]&& [(MFTiltedTabView *)self _indexOfVisibleItem:v24]== 0x7FFFFFFFFFFFFFFFLL;
         v25 = [(MFTiltedTabView *)self _indexOfVisibleItem:v24];
-        v234 = 0xAAAAAAAAAAAAAAAALL;
-        v233 = NAN;
-        [(MFTiltedTabView *)self _baseOffsetForItem:v24 index:&v234 count:&v233];
+        v236 = 0xAAAAAAAAAAAAAAAALL;
+        v235 = NAN;
+        [(MFTiltedTabView *)self _baseOffsetForItem:v24 index:&v236 count:&v235];
         v27 = v26;
-        v208 = *&CATransform3DIdentity.m33;
-        v209 = *&CATransform3DIdentity.m31;
-        *&v232.m31 = v209;
-        *&v232.m33 = v208;
-        v206 = *&CATransform3DIdentity.m43;
-        v207 = *&CATransform3DIdentity.m41;
-        *&v232.m41 = v207;
-        *&v232.m43 = v206;
-        v204 = *&CATransform3DIdentity.m13;
-        v205 = *&CATransform3DIdentity.m11;
-        *&v232.m11 = *&CATransform3DIdentity.m11;
-        *&v232.m13 = v204;
-        v202 = *&CATransform3DIdentity.m23;
-        v203 = *&CATransform3DIdentity.m21;
-        *&v232.m21 = v203;
-        *&v232.m23 = v202;
+        v210 = *&CATransform3DIdentity.m33;
+        v211 = *&CATransform3DIdentity.m31;
+        *&v234.m31 = v211;
+        *&v234.m33 = v210;
+        v208 = *&CATransform3DIdentity.m43;
+        v209 = *&CATransform3DIdentity.m41;
+        *&v234.m41 = v209;
+        *&v234.m43 = v208;
+        v206 = *&CATransform3DIdentity.m13;
+        v207 = *&CATransform3DIdentity.m11;
+        *&v234.m11 = *&CATransform3DIdentity.m11;
+        *&v234.m13 = v206;
+        v204 = *&CATransform3DIdentity.m23;
+        v205 = *&CATransform3DIdentity.m21;
+        *&v234.m21 = v205;
+        *&v234.m23 = v204;
         WeakRetained = objc_loadWeakRetained(&self->_delegate);
         v29 = left;
         top = UIEdgeInsetsZero.top;
@@ -2375,29 +2375,29 @@ LABEL_10:
           v31 = v35;
           if (WeakRetained)
           {
-            [WeakRetained tiltedTabView:self expanded:self->_presented layerTransformForItemAtIndex:v25];
+            objc_msgSend_tiltedTabView_expanded_layerTransformForItemAtIndex_(WeakRetained);
           }
 
           else
           {
-            memset(&v239, 0, sizeof(v239));
+            memset(&v241, 0, sizeof(v241));
           }
 
-          v232 = v239;
+          v234 = v241;
         }
 
         [(_MFTiltedTabItemView *)v24 setContentClippingInsets:top, v29, v30, v31];
-        v200 = 0.0;
-        if (!v212 && self->_presented)
+        v202 = 0.0;
+        if (!v214 && self->_presented)
         {
-          [(MFTiltedTabView *)self _scrollingEffectFactorForTabsWithCount:v233];
-          v200 = v36;
+          [(MFTiltedTabView *)self _scrollingEffectFactorForTabsWithCount:v235];
+          v202 = v36;
         }
 
         if ([(_MFTiltedTabItemView *)v24 isClosing])
         {
           [(_MFTiltedTabItemView *)v24 bounds];
-          v216 = v37;
+          v218 = v37;
           rect = v38;
           v40 = v39;
           v42 = v41;
@@ -2413,7 +2413,7 @@ LABEL_10:
           v51 = v50;
           superview2 = [(MFTiltedTabView *)self superview];
           [superview convertRect:superview2 fromView:{v45, v47, v49, v51}];
-          v216 = v53;
+          v218 = v53;
           rect = v54;
           v40 = v55;
           v42 = v56;
@@ -2425,8 +2425,8 @@ LABEL_10:
           _currentOrientation = [(MFTiltedTabView *)self _currentOrientation];
           LOBYTE(v60) = 0;
           v61 = 0;
-          *&v239.m11 = xmmword_1004FC5E0;
-          *&v239.m13 = xmmword_1004FC5F0;
+          *&v241.m11 = xmmword_1004FC5E0;
+          *&v241.m13 = xmmword_1004FC5F0;
           v62 = 0.0;
           for (j = 1; ; j = capturedInterfaceOrientation)
           {
@@ -2434,10 +2434,10 @@ LABEL_10:
             {
               v60 = (v60 + 1) & 3;
               v62 = v62 + -1.57079633;
-              j = *(&v239.m11 + v60);
+              j = *(&v241.m11 + v60);
             }
 
-            if (*(&v239.m11 + v61) == _currentOrientation)
+            if (*(&v241.m11 + v61) == _currentOrientation)
             {
               break;
             }
@@ -2448,31 +2448,31 @@ LABEL_10:
 
           *&v64 = -1;
           *(&v64 + 1) = -1;
-          *&v239.m43 = v64;
-          *&v239.m41 = v64;
-          *&v239.m33 = v64;
-          *&v239.m31 = v64;
-          *&v239.m23 = v64;
-          *&v239.m21 = v64;
-          *&v239.m13 = v64;
-          *&v239.m11 = v64;
-          CATransform3DMakeRotation(&v239, v62, 0.0, 0.0, 1.0);
-          v231 = v239;
-          [(_MFTiltedTabItemView *)v24 setContentTransform:&v231];
-          v231 = v239;
-          CATransform3DGetAffineTransform(&v230, &v231);
-          v242.origin.x = v40;
-          v242.origin.y = v42;
-          v242.size.width = v216;
-          v242.size.height = rect;
-          *&v57 = CGRectApplyAffineTransform(v242, &v230);
+          *&v241.m43 = v64;
+          *&v241.m41 = v64;
+          *&v241.m33 = v64;
+          *&v241.m31 = v64;
+          *&v241.m23 = v64;
+          *&v241.m21 = v64;
+          *&v241.m13 = v64;
+          *&v241.m11 = v64;
+          CATransform3DMakeRotation(&v241, v62, 0.0, 0.0, 1.0);
+          v233 = v241;
+          [(_MFTiltedTabItemView *)v24 setContentTransform:&v233];
+          v233 = v241;
+          CATransform3DGetAffineTransform(&v232, &v233);
+          v244.origin.x = v40;
+          v244.origin.y = v42;
+          v244.size.width = v218;
+          v244.size.height = rect;
+          *&v57 = CGRectApplyAffineTransform(v244, &v232);
           v42 = v65;
-          v216 = v66;
+          v218 = v66;
           rect = v67;
         }
 
         [(MFTiltedTabView *)self bounds];
-        v211 = (v68 - v216) * 0.5;
+        v213 = (v68 - v218) * 0.5;
         if (self->_presented)
         {
           v69 = v27;
@@ -2483,7 +2483,7 @@ LABEL_10:
           [(_MFTiltedTabItemView *)v24 contentClippingInsets];
           v71 = v70;
           [(_MFTiltedTabItemView *)v24 contentClippingInsets];
-          v211 = v211 + v71;
+          v213 = v213 + v71;
           v69 = v27 + v72;
         }
 
@@ -2492,10 +2492,10 @@ LABEL_10:
 
         borrowedContentView2 = [(_MFTiltedTabItemView *)v24 borrowedContentView];
         [borrowedContentView2 bounds];
-        MidX = CGRectGetMidX(v243);
+        MidX = CGRectGetMidX(v245);
         borrowedContentView3 = [(_MFTiltedTabItemView *)v24 borrowedContentView];
         [borrowedContentView3 bounds];
-        MidY = CGRectGetMidY(v244);
+        MidY = CGRectGetMidY(v246);
 
         [(_MFTiltedTabItemView *)v24 contentClippingInsets];
         v80 = v79;
@@ -2537,45 +2537,45 @@ LABEL_10:
         {
           v101 = [(MFTiltedTabView *)self _indexOfVisibleItem:v24];
           v102 = 0.0;
-          if (v101 < v234)
+          if (v101 < v236)
           {
             v102 = -1.0;
           }
 
-          if (v101 > v234)
+          if (v101 > v236)
           {
             v102 = 1.0;
           }
 
-          [(MFTiltedTabView *)self _updateReorderAnimationsForItem:v24 withTimeAdjustment:animatedCopy tabCount:1.0 - (self->_interactiveReorderOffset - v69) * v102 / *&qword_1006D5250 createIfNecessary:v233];
-          v199 = 1;
+          [(MFTiltedTabView *)self _updateReorderAnimationsForItem:v24 withTimeAdjustment:animatedCopy tabCount:1.0 - (self->_interactiveReorderOffset - v69) * v102 / *&qword_1006D5250 createIfNecessary:v235];
+          v201 = 1;
         }
 
         else
         {
-          v199 |= v24 == self->_interactivelyReorderingItem;
+          v201 |= v24 == self->_interactivelyReorderingItem;
         }
 
-        if (self->_presented || (v103 = v196, [(_MFTiltedTabItemView *)v24 isClosing]))
+        if (self->_presented || (v103 = v198, [(_MFTiltedTabItemView *)v24 isClosing]))
         {
-          v104 = v182;
-          if (!v212)
+          v104 = v184;
+          if (!v214)
           {
-            [(MFTiltedTabView *)self _topAreaHeightForTabsWithCount:v233];
+            [(MFTiltedTabView *)self _topAreaHeightForTabsWithCount:v235];
             v104 = v69 + v105;
           }
 
-          v103 = v104 * (v194 * *&qword_1006D52B8 + 1.0);
+          v103 = v104 * (v196 * *&qword_1006D52B8 + 1.0);
         }
 
-        if (v212)
+        if (v214)
         {
           v106 = *&qword_1006D52B0;
         }
 
         else
         {
-          v106 = sub_10020B914(v233);
+          v106 = sub_10020B914(v235);
         }
 
         v107 = *&qword_1006D5240;
@@ -2584,17 +2584,17 @@ LABEL_10:
           v107 = 0.0;
         }
 
-        v213 = v107;
+        v215 = v107;
         if (v24 == self->_pressedItem || v24 == self->_interactivelyClosingItem || v24 == self->_interactivelyReorderingItem || [(_MFTiltedTabItemView *)v24 isClosing])
         {
           v106 = v106 + -2.0;
           v103 = v103 + -10.0;
         }
 
-        v108 = (v27 - v196) / v192;
+        v108 = (v27 - v198) / v194;
         if (self->_presented)
         {
-          v213 = v213 + v200 * 0.2 * sub_10020BAAC((v27 - v196) / v192, v192);
+          v215 = v215 + v202 * 0.2 * sub_10020BAAC((v27 - v198) / v194, v194);
         }
 
         if ([(_MFTiltedTabItemView *)v24 isClosing])
@@ -2602,17 +2602,17 @@ LABEL_10:
           [(MFTiltedTabView *)self _tabCloseAnimationSlideDistance];
           v110 = v109;
           [(_MFTiltedTabItemView *)v24 verticalScrollAdjustment];
-          v112 = v195 + v111;
-          [(_MFTiltedTabItemView *)v24 setVerticalScrollAdjustment:v195 + v111];
+          v112 = v197 + v111;
+          [(_MFTiltedTabItemView *)v24 setVerticalScrollAdjustment:v197 + v111];
           [(NSMutableSet *)self->_itemsCurrentlyClosing addObject:v24];
-          v211 = -(v216 + v110);
+          v213 = -(v218 + v110);
           v103 = v103 + v112;
         }
 
         else if (v24 == self->_interactivelyClosingItem)
         {
           [(MFTiltedTabView *)self _tabCloseAnimationSlideDistance];
-          v211 = -(v113 * self->_interactiveCloseProgress);
+          v213 = -(v113 * self->_interactiveCloseProgress);
         }
 
         presented = self->_presented;
@@ -2626,35 +2626,35 @@ LABEL_10:
           v115 = v42;
         }
 
-        v197 = v115;
-        v239 = v232;
+        v199 = v115;
+        v241 = v234;
         if (presented)
         {
-          v116 = v200 * sub_10020BA5C(v108) + (v106 + v194 * *&qword_1006D52C0) * -3.14159265 / 180.0;
+          v116 = v202 * sub_10020BA5C(v108) + (v106 + v196 * *&qword_1006D52C0) * -3.14159265 / 180.0;
           if (v116 != 0.00000011920929)
           {
             *&v117 = -1;
             *(&v117 + 1) = -1;
-            *&v231.m43 = v117;
-            *&v231.m41 = v117;
-            *&v231.m33 = v117;
-            *&v231.m31 = v117;
-            *&v231.m23 = v117;
-            *&v231.m21 = v117;
-            *&v231.m13 = v117;
-            *&v231.m11 = v117;
-            CATransform3DMakeRotation(&v231, v116, 1.0, 0.0, 0.0);
-            a = v232;
-            b = v231;
-            CATransform3DConcat(&v230, &a, &b);
-            v239 = v230;
+            *&v233.m43 = v117;
+            *&v233.m41 = v117;
+            *&v233.m33 = v117;
+            *&v233.m31 = v117;
+            *&v233.m23 = v117;
+            *&v233.m21 = v117;
+            *&v233.m13 = v117;
+            *&v233.m11 = v117;
+            CATransform3DMakeRotation(&v233, v116, 1.0, 0.0, 0.0);
+            a = v234;
+            b = v233;
+            CATransform3DConcat(&v232, &a, &b);
+            v241 = v232;
           }
         }
 
         selectedItem = self->_selectedItem;
-        if (selectedItem != 0 && v191)
+        if (selectedItem != 0 && v193)
         {
-          if (v234)
+          if (v236)
           {
             v119 = v24 == selectedItem;
           }
@@ -2664,10 +2664,10 @@ LABEL_10:
             v119 = 1;
           }
 
-          v120 = v213 + -20.0;
+          v120 = v215 + -20.0;
           if (v119)
           {
-            v120 = v213;
+            v120 = v215;
           }
 
           if (v24 == selectedItem)
@@ -2675,8 +2675,8 @@ LABEL_10:
             v120 = 1.0;
           }
 
-          v213 = v120;
-          v199 = 1;
+          v215 = v120;
+          v201 = 1;
         }
 
         if (self->_presented)
@@ -2691,67 +2691,67 @@ LABEL_10:
           v132 = v131;
           v134 = v133;
           v136 = v135;
-          v245.origin.x = v122;
-          v245.origin.y = v124;
-          v245.size.width = v126;
-          v245.size.height = v128;
-          v201 = CGRectGetWidth(v245);
-          v246.origin.x = v122 + v132;
-          v246.origin.y = v124 + v130;
-          v246.size.width = v126 - (v132 + v136);
-          v246.size.height = v128 - (v130 + v134);
-          v137 = CGRectGetWidth(v246);
+          v247.origin.x = v122;
+          v247.origin.y = v124;
+          v247.size.width = v126;
+          v247.size.height = v128;
+          v203 = CGRectGetWidth(v247);
+          v248.origin.x = v122 + v132;
+          v248.origin.y = v124 + v130;
+          v248.size.width = v126 - (v132 + v136);
+          v248.size.height = v128 - (v130 + v134);
+          v137 = CGRectGetWidth(v248);
           layer3 = [(UIScrollView *)self->_scrollView layer];
           v139 = layer3;
           if (layer3)
           {
-            [layer3 sublayerTransform];
-            v140 = *(&v225 + 1);
+            objc_msgSend_sublayerTransform(layer3);
+            v140 = *(&v227 + 1);
           }
 
           else
           {
+            v228 = 0u;
+            v229 = 0u;
             v226 = 0u;
             v227 = 0u;
             v224 = 0u;
             v225 = 0u;
+            v140 = 0.0;
             v222 = 0u;
             v223 = 0u;
-            v140 = 0.0;
-            v220 = 0u;
-            v221 = 0u;
           }
 
-          v141 = v213 + -1.0 / v140 - v201 * (-1.0 / v140) / v137;
+          v141 = v215 + -1.0 / v140 - v203 * (-1.0 / v140) / v137;
         }
 
         else
         {
-          v141 = v213;
+          v141 = v215;
         }
 
         if (v141 != 0.0)
         {
           *&v142 = -1;
           *(&v142 + 1) = -1;
-          *&v231.m43 = v142;
-          *&v231.m41 = v142;
-          *&v231.m33 = v142;
-          *&v231.m31 = v142;
-          *&v231.m23 = v142;
-          *&v231.m21 = v142;
-          *&v231.m13 = v142;
-          *&v231.m11 = v142;
-          CATransform3DMakeTranslation(&v231, 0.0, 0.0, v141);
-          a = v239;
-          b = v231;
-          CATransform3DConcat(&v230, &a, &b);
-          v239 = v230;
+          *&v233.m43 = v142;
+          *&v233.m41 = v142;
+          *&v233.m33 = v142;
+          *&v233.m31 = v142;
+          *&v233.m23 = v142;
+          *&v233.m21 = v142;
+          *&v233.m13 = v142;
+          *&v233.m11 = v142;
+          CATransform3DMakeTranslation(&v233, 0.0, 0.0, v141);
+          a = v241;
+          b = v233;
+          CATransform3DConcat(&v232, &a, &b);
+          v241 = v232;
         }
 
-        v231 = v239;
-        v230 = v232;
-        [(MFTiltedTabView *)self _updateSpringAnimationForView:v24 withFrame:&v231 transform:&v230 userTransform:animatedCopy opacity:v211 verticalScrollAdjustment:v197 animated:v216, rect, 1.0, v195];
+        v233 = v241;
+        v232 = v234;
+        [(MFTiltedTabView *)self _updateSpringAnimationForView:v24 withFrame:&v233 transform:&v232 userTransform:animatedCopy opacity:v213 verticalScrollAdjustment:v199 animated:v218, rect, 1.0, v197];
         [(_MFTiltedTabItemView *)v24 layoutSubviews];
         [WeakRetained tiltedTabView:self headerHeightForItemAtIndex:v25];
         v144 = v143;
@@ -2775,16 +2775,16 @@ LABEL_10:
           v151 = v144 / 1.6 + v149 * -0.5;
         }
 
-        CATransform3DMakeScale(&v231, 1.0, v150, 1.0);
-        *&v230.m31 = v209;
-        *&v230.m33 = v208;
-        *&v230.m41 = v207;
-        *&v230.m43 = v206;
-        *&v230.m11 = v205;
-        *&v230.m13 = v204;
-        *&v230.m21 = v203;
-        *&v230.m23 = v202;
-        [(MFTiltedTabView *)self _updateSpringAnimationForView:closeButtonWrapperView withFrame:&v231 transform:&v230 userTransform:animatedCopy opacity:0.0 verticalScrollAdjustment:v151 animated:v148, v149, 1.0, 0.0];
+        CATransform3DMakeScale(&v233, 1.0, v150, 1.0);
+        *&v232.m31 = v211;
+        *&v232.m33 = v210;
+        *&v232.m41 = v209;
+        *&v232.m43 = v208;
+        *&v232.m11 = v207;
+        *&v232.m13 = v206;
+        *&v232.m21 = v205;
+        *&v232.m23 = v204;
+        [(MFTiltedTabView *)self _updateSpringAnimationForView:closeButtonWrapperView withFrame:&v233 transform:&v232 userTransform:animatedCopy opacity:0.0 verticalScrollAdjustment:v151 animated:v148, v149, 1.0, 0.0];
         if (self->_presented)
         {
           v152 = [WeakRetained tiltedTabView:self canCloseItemAtIndex:v25];
@@ -2798,7 +2798,7 @@ LABEL_10:
         [(_MFTiltedTabItemView *)v24 layoutHeaderViewAnimated:animatedCopy closeButton:v152];
         v154 = height;
         v153 = width;
-        v156 = v186;
+        v156 = v188;
         x = CGRectNull.origin.x;
         if (v152)
         {
@@ -2827,30 +2827,31 @@ LABEL_10:
         [(_MFTiltedTabItemView *)v24 contentClippingInsets];
         v163 = v162;
         contentShadowView = [(_MFTiltedTabItemView *)v24 contentShadowView];
-        v165 = 0.0;
+        v166 = contentShadowView;
+        v167 = 0.0;
         if (self->_presented)
         {
-          sub_10020B9F4();
-          v165 = v166;
+          sub_10020B9F4(contentShadowView, v165);
+          v167 = v168;
         }
 
-        *&v231.m31 = v209;
-        *&v231.m33 = v208;
-        *&v231.m41 = v207;
-        *&v231.m43 = v206;
-        *&v231.m11 = v205;
-        *&v231.m13 = v204;
-        *&v231.m21 = v203;
-        *&v231.m23 = v202;
-        *&v230.m31 = v209;
-        *&v230.m33 = v208;
-        *&v230.m41 = v207;
-        *&v230.m43 = v206;
-        *&v230.m11 = v205;
-        *&v230.m13 = v204;
-        *&v230.m21 = v203;
-        *&v230.m23 = v202;
-        [(MFTiltedTabView *)self _updateSpringAnimationForView:contentShadowView withFrame:&v231 transform:&v230 userTransform:animatedCopy opacity:CGRectZero.origin.x verticalScrollAdjustment:v183 animated:v216, rect - v163, v165, 0.0];
+        *&v233.m31 = v211;
+        *&v233.m33 = v210;
+        *&v233.m41 = v209;
+        *&v233.m43 = v208;
+        *&v233.m11 = v207;
+        *&v233.m13 = v206;
+        *&v233.m21 = v205;
+        *&v233.m23 = v204;
+        *&v232.m31 = v211;
+        *&v232.m33 = v210;
+        *&v232.m41 = v209;
+        *&v232.m43 = v208;
+        *&v232.m11 = v207;
+        *&v232.m13 = v206;
+        *&v232.m21 = v205;
+        *&v232.m23 = v204;
+        [(MFTiltedTabView *)self _updateSpringAnimationForView:v166 withFrame:&v233 transform:&v232 userTransform:animatedCopy opacity:CGRectZero.origin.x verticalScrollAdjustment:v185 animated:v218, rect - v163, v167, 0.0];
         if (v25)
         {
           headerView = [(DockedPlaceholderView *)v24 headerView];
@@ -2859,27 +2860,27 @@ LABEL_10:
           closeButtonWrapperView2 = [(_MFTiltedTabItemView *)v24 closeButtonWrapperView];
           [(_MFTiltedTabItemView *)v24 bringSubviewToFront:closeButtonWrapperView2];
 
-          v219[0] = _NSConcreteStackBlock;
-          v219[1] = 3221225472;
-          v219[2] = sub_100225414;
-          v219[3] = &unk_10064C660;
-          v219[4] = self;
-          v219[5] = v24;
-          v169 = objc_retainBlock(v219);
-          v170 = v169;
+          v221[0] = _NSConcreteStackBlock;
+          v221[1] = 3221225472;
+          v221[2] = sub_100225414;
+          v221[3] = &unk_10064C660;
+          v221[4] = self;
+          v221[5] = v24;
+          v171 = objc_retainBlock(v221);
+          v172 = v171;
           if (animatedCopy)
           {
-            [UIView animateWithDuration:327680 delay:v169 options:0 animations:0.22 completion:0.0];
+            [UIView animateWithDuration:327680 delay:v171 options:0 animations:0.22 completion:0.0];
           }
 
           else
           {
-            (v169[2])(v169);
+            (v171[2])(v171);
           }
         }
       }
 
-      v22 = [(NSArray *)obj countByEnumeratingWithState:&v235 objects:v240 count:16];
+      v22 = [(NSArray *)obj countByEnumeratingWithState:&v237 objects:v242 count:16];
     }
 
     while (v22);
@@ -2887,48 +2888,48 @@ LABEL_10:
 
   else
   {
-    v199 = 0;
+    v201 = 0;
   }
 
   self->_applyVelocityOnlyToHorizontalPosition = 0;
-  v171 = 0.0;
+  v173 = 0.0;
   if (self->_presented)
   {
-    [(MFTiltedTabView *)self _topAreaHeightForTabsWithCount:v179];
-    v171 = *&qword_1006D5290 * fmax(fmin(v196 / v172, 1.0), 0.0);
+    [(MFTiltedTabView *)self _topAreaHeightForTabsWithCount:v181];
+    v173 = *&qword_1006D5290 * fmax(fmin(v198 / v174, 1.0), 0.0);
   }
 
-  v218[0] = _NSConcreteStackBlock;
-  v218[1] = 3221225472;
-  v218[2] = sub_1002254C8;
-  v218[3] = &unk_10064DE08;
-  v218[4] = self;
-  *&v218[5] = v171;
-  v173 = objc_retainBlock(v218);
-  v174 = v173;
+  v220[0] = _NSConcreteStackBlock;
+  v220[1] = 3221225472;
+  v220[2] = sub_1002254C8;
+  v220[3] = &unk_10064DE08;
+  v220[4] = self;
+  *&v220[5] = v173;
+  v175 = objc_retainBlock(v220);
+  v176 = v175;
   if (animatedCopy)
   {
-    [UIView animateWithDuration:v173 animations:0.25];
+    [UIView animateWithDuration:v175 animations:0.25];
   }
 
   else
   {
-    (v173[2])(v173);
+    (v175[2])(v175);
   }
 
   [(MFTiltedTabView *)self _statusBarHeight];
-  v247.size.height = v192;
-  v247.origin.y = -(v192 + v175 - *&qword_1006D5298);
-  v247.size.width = v180;
-  v247.origin.x = 0.0;
-  v248 = CGRectInset(v247, -v180, 0.0);
-  v176 = v248.size.height;
-  [(_TabGradientView *)self->_statusBarGradient setFrame:v248.origin.x, v248.origin.y, v248.size.width];
+  v249.size.height = v194;
+  v249.origin.y = -(v194 + v177 - *&qword_1006D5298);
+  v249.size.width = v182;
+  v249.origin.x = 0.0;
+  v250 = CGRectInset(v249, -v182, 0.0);
+  v178 = v250.size.height;
+  [(_TabGradientView *)self->_statusBarGradient setFrame:v250.origin.x, v250.origin.y, v250.size.width];
   gradientLayer = [(_TabGradientView *)self->_statusBarGradient gradientLayer];
-  [gradientLayer setStartPoint:{0.5, 1.0 - *&qword_1006D5298 / v176}];
+  [gradientLayer setStartPoint:{0.5, 1.0 - *&qword_1006D5298 / v178}];
   [gradientLayer setEndPoint:{0.5, 1.0}];
   layer4 = [(UIScrollView *)self->_scrollView layer];
-  [layer4 setSortsSublayers:v199 & 1];
+  [layer4 setSortsSublayers:v201 & 1];
 
   sub_1002254E4(self);
 }

@@ -19,7 +19,6 @@
 {
   obj = self;
   objc_sync_enter(obj);
-  cleanupQueue = obj->_cleanupQueue;
   CUISetThemeCleanupQueue();
   if (!obj->_listener)
   {
@@ -27,18 +26,18 @@
 
     if (serviceName)
     {
-      v4 = [NSXPCListener alloc];
+      v3 = [NSXPCListener alloc];
       serviceName2 = [(IconCacheService *)obj serviceName];
-      v6 = [v4 initWithMachServiceName:serviceName2];
+      v5 = [v3 initWithMachServiceName:serviceName2];
       listener = obj->_listener;
-      obj->_listener = v6;
+      obj->_listener = v5;
     }
 
     else
     {
-      v8 = +[NSXPCListener anonymousListener];
+      v7 = +[NSXPCListener anonymousListener];
       serviceName2 = obj->_listener;
-      obj->_listener = v8;
+      obj->_listener = v7;
     }
 
     [(NSXPCListener *)obj->_listener setDelegate:?];
@@ -194,7 +193,7 @@
   v8 = v7;
   if (v7)
   {
-    [v7 auditToken];
+    objc_msgSend_auditToken(v7);
   }
 
   else
@@ -418,7 +417,7 @@ LABEL_23:
   v12 = v11;
   if (v11)
   {
-    [v11 auditToken];
+    objc_msgSend_auditToken(v11);
   }
 
   else

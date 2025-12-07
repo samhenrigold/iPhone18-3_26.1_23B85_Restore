@@ -946,7 +946,7 @@ uint64_t __75__PXVisualIntelligenceManager_preheatResourcesForSubjectExtractionO
   return supportedAnalysisTypes_supportedAnalysisTypes;
 }
 
-uint64_t __53__PXVisualIntelligenceManager_supportedAnalysisTypes__block_invoke()
+void *__53__PXVisualIntelligenceManager_supportedAnalysisTypes__block_invoke()
 {
   result = [MEMORY[0x1E69DF9F0] supportedAnalysisTypes];
   supportedAnalysisTypes_supportedAnalysisTypes = result;

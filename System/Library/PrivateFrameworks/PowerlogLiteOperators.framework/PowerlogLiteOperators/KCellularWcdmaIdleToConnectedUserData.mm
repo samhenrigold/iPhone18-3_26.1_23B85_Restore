@@ -94,14 +94,12 @@
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    isUplink = self->_isUplink;
     PBDataWriterWriteBOOLField();
   }
 
@@ -112,7 +110,6 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -209,7 +206,6 @@
       goto LABEL_17;
     }
 
-    v10 = *(equalCopy + 32);
     if (self->_isUplink)
     {
       if ((*(equalCopy + 32) & 1) == 0)

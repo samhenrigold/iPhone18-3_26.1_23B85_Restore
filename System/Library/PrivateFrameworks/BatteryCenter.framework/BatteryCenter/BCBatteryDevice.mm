@@ -12,7 +12,7 @@
 
 - (id)description
 {
-  v41 = MEMORY[0x277CCACA8];
+  v34 = MEMORY[0x277CCACA8];
   v3 = objc_opt_class();
   fake = self->_fake;
   vendor = self->_vendor;
@@ -34,67 +34,60 @@
   }
 
   productIdentifier = self->_productIdentifier;
-  v40 = v3;
+  v33 = v3;
   parts = self->_parts;
   v9 = v7;
-  v42 = BCStringFromParts(parts);
+  v35 = BCStringFromParts(parts);
   identifier = self->_identifier;
   name = self->_name;
   matchIdentifier = self->_matchIdentifier;
   percentCharge = self->_percentCharge;
   groupName = self->_groupName;
-  lowBattery = self->_lowBattery;
+  v10 = NSStringFromBOOL();
   v11 = NSStringFromBOOL();
-  lowPowerModeActive = self->_lowPowerModeActive;
+  v12 = NSStringFromBOOL();
   v13 = NSStringFromBOOL();
-  connected = self->_connected;
+  v14 = NSStringFromBOOL();
   v15 = NSStringFromBOOL();
-  charging = self->_charging;
-  v17 = NSStringFromBOOL();
-  paused = self->_paused;
-  v19 = NSStringFromBOOL();
-  internal = self->_internal;
-  v21 = NSStringFromBOOL();
-  powerSource = self->_powerSource;
-  v23 = NSStringFromBOOL();
-  v24 = v23;
-  v25 = self->_powerSourceState - 1;
-  if (v25 <= 2)
+  v16 = NSStringFromBOOL();
+  v17 = v16;
+  v18 = self->_powerSourceState - 1;
+  if (v18 <= 2)
   {
-    v5 = off_278D05D40[v25];
+    v5 = off_278D05D40[v18];
   }
 
-  v26 = self->_transportType - 1;
-  if (v26 > 3)
+  v19 = self->_transportType - 1;
+  if (v19 > 3)
   {
-    v27 = @"Unknown";
+    v20 = @"Unknown";
   }
 
   else
   {
-    v27 = off_278D05D58[v26];
+    v20 = off_278D05D58[v19];
   }
 
-  v28 = self->_accessoryCategory - 1;
-  if (v28 > 8)
+  v21 = self->_accessoryCategory - 1;
+  if (v21 > 8)
   {
-    v29 = @"Unknown";
+    v22 = @"Unknown";
   }
 
   else
   {
-    v29 = off_278D05D78[v28];
+    v22 = off_278D05D78[v21];
   }
 
-  v30 = @"**FAKE DEVICE**";
+  v23 = @"**FAKE DEVICE**";
   if (!fake)
   {
-    v30 = &stru_2853B08A0;
+    v23 = &stru_2853B08A0;
   }
 
-  v31 = [v41 stringWithFormat:@"<%@: %p%@ vendor = %@; productIdentifier = %ld; parts = %@; identifier = %@; matchIdentifier = %@; name = %@; groupName =%@; percentCharge = %ld; lowBattery = %@; lowPowerModeActive = %@; connected = %@; charging = %@; paused = %@; internal = %@; powerSource = %@; poweredSoureState = %@; transportType = %@; accessoryIdentifier = %@; accessoryCategory = %@; modelNumber = %@; %@%@>", v40, self, v30, v9, productIdentifier, v42, identifier, matchIdentifier, name, groupName, percentCharge, v11, v13, v15, v17, v19, v21, v23, v5, v27, self->_accessoryIdentifier, v29, self->_modelNumber, &stru_2853B08A0, &stru_2853B08A0];;
+  v24 = [v34 stringWithFormat:@"<%@: %p%@ vendor = %@; productIdentifier = %ld; parts = %@; identifier = %@; matchIdentifier = %@; name = %@; groupName =%@; percentCharge = %ld; lowBattery = %@; lowPowerModeActive = %@; connected = %@; charging = %@; paused = %@; internal = %@; powerSource = %@; poweredSoureState = %@; transportType = %@; accessoryIdentifier = %@; accessoryCategory = %@; modelNumber = %@; %@%@>", v33, self, v23, v9, productIdentifier, v35, identifier, matchIdentifier, name, groupName, percentCharge, v10, v11, v12, v13, v14, v15, v16, v5, v20, self->_accessoryIdentifier, v22, self->_modelNumber, &stru_2853B08A0, &stru_2853B08A0];;
 
-  return v31;
+  return v24;
 }
 
 + (id)batteryDeviceWithIdentifier:(id)identifier vendor:(int64_t)vendor productIdentifier:(int64_t)productIdentifier parts:(unint64_t)parts matchIdentifier:(id)matchIdentifier

@@ -292,12 +292,11 @@ LABEL_20:
     v17 = identity2;
     if (identity2)
     {
-      [identity2 auditToken];
+      objc_msgSend_auditToken(identity2);
     }
 
-    privacyClientIdentity = self->_privacyClientIdentity;
-    v19 = PAAuthenticatedClientIdentity();
-    [(CADDatabaseInitializationOptions *)v5 setPrivacyClientIdentity:v19];
+    v18 = PAAuthenticatedClientIdentity();
+    [(CADDatabaseInitializationOptions *)v5 setPrivacyClientIdentity:v18];
   }
 
   return v5;

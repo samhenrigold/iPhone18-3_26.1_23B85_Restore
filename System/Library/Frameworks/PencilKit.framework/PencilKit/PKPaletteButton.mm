@@ -44,7 +44,7 @@
 + (id)undoButton
 {
   v2 = [PKPaletteButton alloc];
-  v3 = +[UIImage _pk_undoButtonImage];
+  v3 = +[(UIImage *)MEMORY[0x1E69DCAB8]];
   v4 = [(PKPaletteButton *)v2 initWithImage:v3];
 
   [(PKPaletteButton *)v4 setAccessibilityIdentifier:@"Undo-Button"];
@@ -55,7 +55,7 @@
 + (id)redoButton
 {
   v2 = [PKPaletteButton alloc];
-  v3 = +[UIImage _pk_redoButtonImage];
+  v3 = +[(UIImage *)MEMORY[0x1E69DCAB8]];
   v4 = [(PKPaletteButton *)v2 initWithImage:v3];
 
   [(PKPaletteButton *)v4 setAccessibilityIdentifier:@"Redo-Button"];
@@ -66,7 +66,7 @@
 + (id)ellipsisButton
 {
   v2 = [PKPaletteButton alloc];
-  v3 = +[UIImage _pk_ellipsisButtonImage];
+  v3 = +[(UIImage *)MEMORY[0x1E69DCAB8]];
   v4 = [(PKPaletteButton *)v2 initWithImage:v3];
 
   [(PKPaletteButton *)v4 setAccessibilityIdentifier:@"More-Button"];
@@ -77,7 +77,7 @@
 + (id)plusButton
 {
   v2 = [PKPaletteButton alloc];
-  v3 = +[UIImage _pk_plusButtonImage];
+  v3 = +[(UIImage *)MEMORY[0x1E69DCAB8]];
   v4 = [(PKPaletteButton *)v2 initWithImage:v3];
 
   [(PKPaletteButton *)v4 setAccessibilityIdentifier:@"Plus-Button"];
@@ -88,7 +88,7 @@
 + (id)UCBButton
 {
   v2 = [PKPaletteButton alloc];
-  v3 = +[UIImage _pk_UCBButtonImage];
+  v3 = +[(UIImage *)MEMORY[0x1E69DCAB8]];
   v4 = [(PKPaletteButton *)v2 initWithImage:v3];
 
   [(PKPaletteButton *)v4 setAccessibilityIdentifier:@"Scribble-Compact-Button"];
@@ -99,7 +99,7 @@
 + (id)keyboardButton
 {
   v2 = [PKPaletteKeyboardButton alloc];
-  v3 = +[UIImage _pk_keyboardButtonImage];
+  v3 = +[(UIImage *)MEMORY[0x1E69DCAB8]];
   v4 = [(PKPaletteKeyboardButton *)v2 initWithImage:v3];
 
   [(PKPaletteKeyboardButton *)v4 setAccessibilityIdentifier:@"Scribble-Keyboard-Button"];
@@ -110,7 +110,7 @@
 + (id)emojiKeyboardButton
 {
   v2 = [PKPaletteButton alloc];
-  v3 = +[UIImage _pk_emojiButtonImage];
+  v3 = +[(UIImage *)MEMORY[0x1E69DCAB8]];
   v4 = [(PKPaletteButton *)v2 initWithImage:v3];
 
   [(PKPaletteButton *)v4 setAccessibilityIdentifier:@"Scribble-Emoji-Button"];
@@ -121,7 +121,7 @@
 + (id)returnKeyButton
 {
   v2 = [PKPaletteButton alloc];
-  v3 = +[UIImage _pk_returnKeyButtonImage];
+  v3 = +[(UIImage *)MEMORY[0x1E69DCAB8]];
   v4 = [(PKPaletteButton *)v2 initWithImage:v3];
 
   [(PKPaletteButton *)v4 setAccessibilityIdentifier:@"Scribble-Small-Return-Button"];
@@ -132,7 +132,7 @@
 + (id)textButton
 {
   v2 = [PKPaletteButton alloc];
-  v3 = +[UIImage _pk_textButtonImage];
+  v3 = +[(UIImage *)MEMORY[0x1E69DCAB8]];
   v4 = [(PKPaletteButton *)v2 initWithImage:v3];
 
   return v4;
@@ -141,7 +141,7 @@
 + (id)shapeButton
 {
   v2 = [PKPaletteButton alloc];
-  v3 = +[UIImage _pk_shapeButtonImage];
+  v3 = +[(UIImage *)MEMORY[0x1E69DCAB8]];
   v4 = [(PKPaletteButton *)v2 initWithImage:v3];
 
   return v4;
@@ -150,7 +150,7 @@
 + (id)closeButton
 {
   v2 = [PKPaletteButton alloc];
-  v3 = +[UIImage _pk_closeButtonImage];
+  v3 = +[(UIImage *)MEMORY[0x1E69DCAB8]];
   v4 = [(PKPaletteButton *)v2 initWithImage:v3];
 
   return v4;
@@ -530,7 +530,7 @@ LABEL_13:
     button3 = [(PKPaletteButton *)self button];
     [button3 setHighlighted:isHighlighted];
 
-    [(PKPaletteButton *)self _buttonTransform];
+    objc_msgSend__buttonTransform(self);
     button4 = [(PKPaletteButton *)self button];
     v12[0] = v12[3];
     v12[1] = v12[4];

@@ -338,10 +338,10 @@ LABEL_49:
   }
 
   v9 = sub_10002E0E4();
-  v41 = objc_opt_new();
-  v50 = 0;
-  v10 = [NSDictionary dictionaryWithContentsOfURL:v9 error:&v50];
-  v11 = v50;
+  v42 = objc_opt_new();
+  v51 = 0;
+  v10 = [NSDictionary dictionaryWithContentsOfURL:v9 error:&v51];
+  v11 = v51;
   if (!v10)
   {
 LABEL_10:
@@ -352,74 +352,74 @@ LABEL_10:
 
     if ([(MIContainerLinkManager *)self domain]== 3)
     {
-      v49 = v11;
-      v18 = &v49;
-      v19 = &v49;
-      v20 = 14;
+      v50 = v11;
+      v19 = &v50;
+      v20 = &v50;
+      v21 = 14;
     }
 
     else
     {
-      v48 = v11;
-      v18 = &v48;
-      v19 = &v48;
-      v20 = 1;
+      v49 = v11;
+      v19 = &v49;
+      v20 = &v49;
+      v21 = 1;
     }
 
-    v17 = [MIBundleContainer containersWithClass:v20 error:v19];
-    v21 = *v18;
+    v18 = [MIBundleContainer containersWithClass:v21 error:v20];
+    v22 = *v19;
 
-    if (v17)
+    if (v18)
     {
-      v38 = v10;
+      v39 = v10;
       dsCopy = ds;
-      v40 = v9;
-      v46 = 0u;
+      v41 = v9;
       v47 = 0u;
-      v44 = 0u;
+      v48 = 0u;
       v45 = 0u;
-      v37 = v17;
-      v22 = v17;
-      v23 = [v22 countByEnumeratingWithState:&v44 objects:v51 count:16];
-      if (v23)
+      v46 = 0u;
+      v38 = v18;
+      v23 = v18;
+      v24 = [v23 countByEnumeratingWithState:&v45 objects:v52 count:16];
+      if (v24)
       {
-        v24 = v23;
-        v25 = *v45;
+        v25 = v24;
+        v26 = *v46;
 LABEL_18:
-        v26 = 0;
-        v27 = v21;
+        v27 = 0;
+        v28 = v22;
         while (1)
         {
-          if (*v45 != v25)
+          if (*v46 != v26)
           {
-            objc_enumerationMutation(v22);
+            objc_enumerationMutation(v23);
           }
 
-          v28 = *(*(&v44 + 1) + 8 * v26);
-          v29 = objc_autoreleasePoolPush();
-          identifier = [v28 identifier];
-          v43 = v27;
-          v31 = [v28 bundleMetadataWithError:&v43];
-          v21 = v43;
+          v29 = *(*(&v45 + 1) + 8 * v27);
+          v30 = objc_autoreleasePoolPush();
+          identifier = [v29 identifier];
+          v44 = v28;
+          v32 = [v29 bundleMetadataWithError:&v44];
+          v22 = v44;
 
-          if (!v31)
+          if (!v32)
           {
             break;
           }
 
-          linkedParentBundleID = [v31 linkedParentBundleID];
+          linkedParentBundleID = [v32 linkedParentBundleID];
           if (linkedParentBundleID)
           {
-            [v41 addObject:linkedParentBundleID];
+            [v42 addObject:linkedParentBundleID];
           }
 
-          objc_autoreleasePoolPop(v29);
-          v26 = v26 + 1;
-          v27 = v21;
-          if (v24 == v26)
+          objc_autoreleasePoolPop(v30);
+          v27 = v27 + 1;
+          v28 = v22;
+          if (v25 == v27)
           {
-            v24 = [v22 countByEnumeratingWithState:&v44 objects:v51 count:16];
-            if (v24)
+            v25 = [v23 countByEnumeratingWithState:&v45 objects:v52 count:16];
+            if (v25)
             {
               goto LABEL_18;
             }
@@ -428,17 +428,17 @@ LABEL_18:
           }
         }
 
-        v17 = v37;
+        v18 = v38;
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_FAULT))
         {
           sub_100058A9C();
         }
 
-        objc_autoreleasePoolPop(v29);
-        v33 = 0;
-        v9 = v40;
+        objc_autoreleasePoolPop(v30);
+        v34 = 0;
+        v9 = v41;
         v7 = 0;
-        v10 = v38;
+        v10 = v39;
         ds = dsCopy;
         if (dsCopy)
         {
@@ -450,20 +450,20 @@ LABEL_18:
 
 LABEL_26:
 
-      v42 = v21;
-      v33 = [(MIContainerLinkManager *)self _onQueue_setLinkedParentBundleIDList:v41 error:&v42];
-      v34 = v42;
+      v43 = v22;
+      v34 = [(MIContainerLinkManager *)self _onQueue_setLinkedParentBundleIDList:v42 error:&v43];
+      v35 = v43;
 
-      v21 = v34;
-      v9 = v40;
+      v22 = v35;
+      v9 = v41;
       v7 = 0;
-      v10 = v38;
+      v10 = v39;
       ds = dsCopy;
-      v17 = v37;
+      v18 = v38;
       if (!dsCopy)
       {
 LABEL_37:
-        v11 = v21;
+        v11 = v22;
         goto LABEL_38;
       }
     }
@@ -475,7 +475,7 @@ LABEL_37:
         sub_100058B24();
       }
 
-      v33 = 0;
+      v34 = 0;
       if (!ds)
       {
         goto LABEL_37;
@@ -483,10 +483,10 @@ LABEL_37:
     }
 
 LABEL_35:
-    if ((v33 & 1) == 0)
+    if ((v34 & 1) == 0)
     {
-      v35 = v21;
-      *ds = v21;
+      v36 = v22;
+      *ds = v22;
     }
 
     goto LABEL_37;
@@ -507,19 +507,19 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  objc_opt_class();
-  v14 = sub_100010AB8(v13);
+  v14 = objc_opt_class();
+  v15 = sub_100010AB8(v13, v14);
 
-  if ((v14 & 1) == 0)
+  if ((v15 & 1) == 0)
   {
     goto LABEL_9;
   }
 
-  v15 = [NSSet setWithArray:v13];
+  v16 = [NSSet setWithArray:v13];
   linkedParentBundleIDs = self->_linkedParentBundleIDs;
-  self->_linkedParentBundleIDs = v15;
+  self->_linkedParentBundleIDs = v16;
 
-  v17 = 0;
+  v18 = 0;
 LABEL_38:
   v8 = self->_linkedParentBundleIDs;
 

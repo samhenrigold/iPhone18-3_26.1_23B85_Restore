@@ -18,18 +18,18 @@
 
 - (MTTimeListener)initWithCallbackScheduler:(id)scheduler
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   schedulerCopy = scheduler;
-  v13.receiver = self;
-  v13.super_class = MTTimeListener;
-  v5 = [(MTTimeListener *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = MTTimeListener;
+  v5 = [(MTTimeListener *)&v12 init];
   if (v5)
   {
     v6 = MTLogForCategory(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v15 = v5;
+      v14 = v5;
       _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "Initializing %{public}@", buf, 0xCu);
     }
 
@@ -42,7 +42,6 @@
     v5->_observers = v9;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -60,7 +59,7 @@
 
 - (void)handleNotification:(id)notification ofType:(int64_t)type completion:(id)completion
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v7 = MTLogForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -77,32 +76,30 @@
     systemTimeZone = [MEMORY[0x1E695DFE8] systemTimeZone];
     *buf = 138543618;
     selfCopy2 = self;
-    v23 = 2114;
-    v24 = systemTimeZone;
+    v22 = 2114;
+    v23 = systemTimeZone;
     _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ timeZone: %{public}@", buf, 0x16u);
   }
 
   v10 = dispatch_group_create();
   observers = [(MTTimeListener *)self observers];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __55__MTTimeListener_handleNotification_ofType_completion___block_invoke;
-  v18[3] = &unk_1E7B0EDB8;
-  v19 = v10;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __55__MTTimeListener_handleNotification_ofType_completion___block_invoke;
+  v17[3] = &unk_1E7B0EDB8;
+  v18 = v10;
   selfCopy3 = self;
   v12 = v10;
-  [observers enumerateObserversWithBlock:v18];
+  [observers enumerateObserversWithBlock:v17];
 
   queue = self->_queue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __55__MTTimeListener_handleNotification_ofType_completion___block_invoke_3;
   block[3] = &unk_1E7B0D6F0;
-  v17 = completionCopy;
+  v16 = completionCopy;
   v14 = completionCopy;
   dispatch_group_notify(v12, queue, block);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __55__MTTimeListener_handleNotification_ofType_completion___block_invoke(uint64_t a1, void *a2)

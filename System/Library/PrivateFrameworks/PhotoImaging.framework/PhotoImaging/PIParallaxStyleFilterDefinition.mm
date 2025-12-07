@@ -169,7 +169,7 @@ LABEL_54:
       if (v21)
       {
         inputImage = [v13 inputImage];
-        [inputImage extent];
+        objc_msgSend_extent(inputImage);
         v27 = [outputImage imageByCroppingToRect:?];
 
         outputImage = v27;
@@ -206,7 +206,7 @@ LABEL_54:
     {
       v39 = MEMORY[0x1E695F688];
       inputImage3 = [v13 inputImage];
-      [inputImage3 extent];
+      objc_msgSend_extent(inputImage3);
       v41 = [v39 vectorWithCGRect:?];
       [v12 setValue:v41 forKey:v37];
     }
@@ -253,7 +253,7 @@ LABEL_54:
     parameters2 = outputImage2;
     if (outputImage2)
     {
-      [outputImage2 extent];
+      objc_msgSend_extent(outputImage2);
       if (!CGRectIsEmpty(v97))
       {
         if (v21)

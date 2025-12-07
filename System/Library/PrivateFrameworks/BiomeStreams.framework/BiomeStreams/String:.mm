@@ -11,10 +11,10 @@
   if (!lazy cache variable for type metadata for [String : SQLDataType])
   {
     type metadata accessor for SQLDataType();
-    v0 = type metadata accessor for Dictionary();
-    if (!v1)
+    v1 = type metadata accessor for Dictionary();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [String : SQLDataType]);
+      atomic_store(v1, &lazy cache variable for type metadata for [String : SQLDataType]);
     }
   }
 }

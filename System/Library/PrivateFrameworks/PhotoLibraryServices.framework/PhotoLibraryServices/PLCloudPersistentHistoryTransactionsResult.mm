@@ -63,7 +63,7 @@ void __90__PLCloudPersistentHistoryTransactionsResult__nextLocalEventUpToNonCoal
   v15 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   blockCopy = block;
-  if ([eventCopy count])
+  if (objc_msgSend_count(eventCopy))
   {
     v12 = 0;
     if ((*MEMORY[0x1E6994D48] & 1) == 0)
@@ -110,7 +110,7 @@ void __90__PLCloudPersistentHistoryTransactionsResult__nextLocalEventUpToNonCoal
   }
 
   _nextLocalEventUpToNonCoalescableTransaction = [(PLCloudPersistentHistoryTransactionsResult *)self _nextLocalEventUpToNonCoalescableTransaction];
-  if ([_nextLocalEventUpToNonCoalescableTransaction count])
+  if (objc_msgSend_count(_nextLocalEventUpToNonCoalescableTransaction))
   {
     while (1)
     {
@@ -124,7 +124,7 @@ void __90__PLCloudPersistentHistoryTransactionsResult__nextLocalEventUpToNonCoal
 
       objc_autoreleasePoolPop(v6);
       _nextLocalEventUpToNonCoalescableTransaction = _nextLocalEventUpToNonCoalescableTransaction2;
-      if (![_nextLocalEventUpToNonCoalescableTransaction2 count])
+      if (!objc_msgSend_count(_nextLocalEventUpToNonCoalescableTransaction2))
       {
         goto LABEL_9;
       }
@@ -325,14 +325,14 @@ uint64_t __66__PLCloudPersistentHistoryTransactionsResult__coalescingLimitTest__
       v29 = 2048;
       v30 = v7;
       v31 = 2048;
-      v32 = [v8 count];
+      v32 = objc_msgSend_count(v8);
       _os_log_impl(&dword_19BF1F000, v5, OS_LOG_TYPE_DEBUG, "Checking coalescing limit: transaction count = %zd + 1, change count = %zd + %zd", &v27, 0x20u);
     }
   }
 
   ++*(*(*(a1 + 40) + 8) + 24);
   v9 = [v3 changes];
-  *(*(*(a1 + 48) + 8) + 24) += [v9 count];
+  *(*(*(a1 + 48) + 8) + 24) += objc_msgSend_count(v9);
 
   v10 = *(*(*(a1 + 40) + 8) + 24);
   if (v10 >= +[PLCloudPersistentHistoryTransactionsResult _transactionCoalescingLimit])
@@ -515,7 +515,7 @@ LABEL_22:
     v9 = __CPLAssetsdOSLogDomain();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v10 = [v7 count];
+      v10 = objc_msgSend_count(v7);
       *buf = 134217984;
       v19 = v10;
       _os_log_impl(&dword_19BF1F000, v9, OS_LOG_TYPE_DEBUG, "Sending back PLCloudChangeEventsResultSuccess with %lu transactions in an iterator", buf, 0xCu);

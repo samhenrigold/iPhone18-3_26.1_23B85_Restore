@@ -47,9 +47,12 @@ void CLProfilingIdentifySiloInvocation(uint64_t a1, void *a2)
 
   if (byte_1ED5FAE38 == 1)
   {
-    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"[%@ %@]", a1, NSStringFromSelector(objc_msgSend(a2, "selector"))];
-    v4 = [v5 UTF8String];
-    off_1EED20BE8(v4);
+    v4 = objc_alloc(MEMORY[0x1E696AEC0]);
+    v7 = objc_msgSend_selector(a2, v5, v6);
+    v8 = NSStringFromSelector(v7);
+    v13 = objc_msgSend_initWithFormat_(v4, v9, @"[%@ %@]", a1, v8);
+    v12 = objc_msgSend_UTF8String(v13, v10, v11);
+    off_1EED20BE8(v12);
   }
 }
 
@@ -105,45 +108,37 @@ void *sub_1DF7FF5D0(uint64_t a1, unint64_t a2, unint64_t a3)
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == a3)
       {
-        if (result[2] == a3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= a2)
         {
-          return result;
+          v10 %= a2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= a2)
-          {
-            v10 %= a2;
-          }
-        }
-
-        else
-        {
-          v10 &= a2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= a2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -152,29 +147,29 @@ void *sub_1DF7FF5D0(uint64_t a1, unint64_t a2, unint64_t a3)
 __CFString *sub_1DF7FF70C(void *a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = [a1 objectForKey:v5];
-  if (!v6)
+  v7 = objc_msgSend_objectForKey_(a1, v6, v5);
+  if (!v7)
   {
     if (a2)
     {
       if (a2 == 1)
       {
-        v6 = @"_CLUnSupportedService";
+        v7 = @"_CLUnSupportedService";
       }
 
       else
       {
-        v6 = 0;
+        v7 = 0;
       }
     }
 
     else
     {
-      v6 = v5;
+      v7 = v5;
     }
   }
 
-  return v6;
+  return v7;
 }
 
 void CLProfilingIdentify(uint64_t a1)
@@ -224,15 +219,15 @@ void sub_1DF7FFED0(std::__shared_weak_count *a1)
   }
 }
 
-uint64_t sub_1DF7FFFD4(uint64_t a1)
+uint64_t sub_1DF7FFFD4(uint64_t a1, const char *a2)
 {
-  v3[0] = MEMORY[0x1E69E9820];
-  v3[1] = 3221225472;
-  v3[2] = sub_1DF800130;
-  v3[3] = &unk_1E86C83E0;
-  v1 = *(a1 + 32);
-  v3[4] = *(a1 + 40);
-  return [v1 async:v3];
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = sub_1DF800130;
+  v4[3] = &unk_1E86C83E0;
+  v2 = *(a1 + 32);
+  v4[4] = *(a1 + 40);
+  return objc_msgSend_async_(v2, a2, v4);
 }
 
 void sub_1DF800048(uint64_t a1)
@@ -249,18 +244,18 @@ void sub_1DF800058(uint64_t a1)
   v2 = *(a1 + 40);
   v3 = *(a1 + 24);
   v4 = *(a1 + 32);
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = sub_1DF7FFFD4;
-  v8[3] = &unk_1E86C85E8;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = sub_1DF7FFFD4;
+  v9[3] = &unk_1E86C85E8;
   v5 = v3;
-  v9 = v5;
-  v10 = v2;
-  [v4 async:v8];
-  v6 = *(a1 + 24);
+  v10 = v5;
+  v11 = v2;
+  objc_msgSend_async_(v4, v6, v9);
+  v7 = *(a1 + 24);
   *(a1 + 24) = 0;
 
-  v7 = *(a1 + 32);
+  v8 = *(a1 + 32);
   *(a1 + 32) = 0;
 }
 
@@ -272,7 +267,7 @@ uint64_t CLConnection::getRemotePid(dispatch_queue_t *this)
   return xpc_connection_get_pid(v2);
 }
 
-void CLConnection::getName(CLConnection *this@<X0>, uint64_t a2@<X8>)
+void CLConnection::getName(CLConnection *this@<X0>, void *a2@<X8>)
 {
   v4 = *(this + 119);
   if (v4 < 0)
@@ -289,16 +284,15 @@ void CLConnection::getName(CLConnection *this@<X0>, uint64_t a2@<X8>)
   if (!v5)
   {
     dispatch_assert_queue_V2(*(this + 1));
-    v7 = *this;
     xpc_connection_get_audit_token();
-    sub_1DF806E1C(&v11);
+    sub_1DF806E1C(&v10);
     if (*(this + 119) < 0)
     {
       operator delete(*v6);
     }
 
-    *v6 = *&v11.__r_.__value_.__l.__data_;
-    *(this + 14) = *(&v11.__r_.__value_.__l + 2);
+    *v6 = *&v10.__r_.__value_.__l.__data_;
+    *(this + 14) = *(&v10.__r_.__value_.__l + 2);
     v4 = *(this + 119);
     if ((v4 & 0x8000000000000000) == 0)
     {
@@ -313,26 +307,26 @@ LABEL_12:
         dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
       }
 
-      v8 = qword_1ED5FAD60;
+      v7 = qword_1ED5FAD60;
       if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_DEFAULT))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_1DF7FE000, v8, OS_LOG_TYPE_DEFAULT, "#Warning The client name could not be determined.", v10, 2u);
+        *v9 = 0;
+        _os_log_impl(&dword_1DF7FE000, v7, OS_LOG_TYPE_DEFAULT, "#Warning The client name could not be determined.", v9, 2u);
       }
 
       if (*(this + 119) < 0)
       {
         *(this + 13) = 15;
-        v9 = *(this + 12);
+        v8 = *(this + 12);
       }
 
       else
       {
         *(this + 119) = 15;
-        v9 = this + 96;
+        v8 = this + 96;
       }
 
-      strcpy(v9, "<Indeterminate>");
+      strcpy(v8, "<Indeterminate>");
       if ((*(this + 119) & 0x80) == 0)
       {
         goto LABEL_10;
@@ -352,7 +346,7 @@ LABEL_9:
   {
 LABEL_10:
     *a2 = *v6;
-    *(a2 + 16) = *(this + 14);
+    a2[2] = *(this + 14);
     return;
   }
 
@@ -360,7 +354,7 @@ LABEL_20:
   sub_1DF802ED0(a2, *(this + 12), *(this + 13));
 }
 
-void sub_1DF800460(void *a1, uint64_t a2)
+void sub_1DF800460(void *a1, void *a2)
 {
   v4 = objc_autoreleasePoolPush();
   if (*(*(a1[7] + 8) + 24) != 1)
@@ -576,15 +570,15 @@ LABEL_6:
   return __dst;
 }
 
-void sub_1DF800A34(uint64_t a1, uint64_t a2)
+void sub_1DF800A34(uint64_t a1, const char **a2)
 {
   v2 = *(a1 + 32);
-  v3 = *(a2 + 8);
+  v3 = a2[1];
   v4[0] = *a2;
   v4[1] = v3;
   if (v3)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v3 + 1, 1uLL, memory_order_relaxed);
   }
 
   CLConnection::handleMessage(v2, v4);
@@ -607,62 +601,62 @@ void sub_1DF800AA4(_Unwind_Exception *exception_object)
 
 void CLConnection::handleMessage(uint64_t a1, const char **a2)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(*(a1 + 8));
-  v4 = *a2;
-  if ((*a2)[32] == 1 && *(v4 + 3))
+  v5 = *a2;
+  if ((*a2)[32] == 1 && *(v5 + 24))
   {
-    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*(v4 + 3)];
-    v6 = [*(a1 + 24) objectForKeyedSubscript:v5];
-    if (v6)
+    v6 = objc_msgSend_numberWithUnsignedLongLong_(MEMORY[0x1E696AD98], v4, *(v5 + 24));
+    v8 = objc_msgSend_objectForKeyedSubscript_(*(a1 + 24), v7, v6);
+    if (v8)
     {
-      v7 = v6;
-      v8 = _os_activity_create(&dword_1DF7FE000, "CL: Invoking reply-handler", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-      os_activity_scope_enter(v8, &state);
+      v9 = v8;
+      v10 = _os_activity_create(&dword_1DF7FE000, "CL: Invoking reply-handler", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+      os_activity_scope_enter(v10, &state);
 
       if (qword_1ED5FAD68 != -1)
       {
         dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
       }
 
-      v9 = qword_1ED5FAD60;
+      v11 = qword_1ED5FAD60;
       if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_DEBUG))
       {
-        v10 = *a2;
+        v14 = *a2;
         if ((*a2)[23] < 0)
         {
-          v10 = *v10;
+          v14 = *v14;
         }
 
-        v11 = [v5 intValue];
+        v15 = objc_msgSend_intValue(v6, v12, v13);
         *buf = 68289794;
-        *v30 = 0;
-        *&v30[4] = 2082;
-        *&v30[6] = &unk_1DF8255EF;
-        v31 = 2082;
-        v32 = "activity";
-        v33 = 2082;
-        v34 = v10;
-        v35 = 1026;
-        v36 = v11;
-        _os_log_impl(&dword_1DF7FE000, v9, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Invoking reply-handler, event:%{public, location:escape_only}s, MessageName:%{public, location:escape_only}s, ReplyHandlerIdentifier:%{public}u}", buf, 0x2Cu);
+        *v41 = 0;
+        *&v41[4] = 2082;
+        *&v41[6] = &unk_1DF8255EF;
+        v42 = 2082;
+        v43 = "activity";
+        v44 = 2082;
+        v45 = v14;
+        v46 = 1026;
+        v47 = v15;
+        _os_log_impl(&dword_1DF7FE000, v11, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Invoking reply-handler, event:%{public, location:escape_only}s, MessageName:%{public, location:escape_only}s, ReplyHandlerIdentifier:%{public}u}", buf, 0x2Cu);
       }
 
-      v12 = a2[1];
-      v26 = *a2;
-      v27 = v12;
-      if (v12)
+      v16 = a2[1];
+      v37 = *a2;
+      v38 = v16;
+      if (v16)
       {
-        atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      (*(v7 + 16))(v7, &v26);
-      if (v27)
+      (*(v9 + 16))(v9, &v37);
+      if (v38)
       {
-        sub_1DF7FFED0(v27);
+        sub_1DF7FFED0(v38);
       }
 
-      [*(a1 + 24) removeObjectForKey:v5];
+      objc_msgSend_removeObjectForKey_(*(a1 + 24), v17, v6);
       os_activity_scope_leave(&state);
     }
 
@@ -673,81 +667,83 @@ void CLConnection::handleMessage(uint64_t a1, const char **a2)
         dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
       }
 
-      v18 = qword_1ED5FAD60;
+      v26 = qword_1ED5FAD60;
       if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_FAULT))
       {
-        v19 = *a2;
+        v29 = *a2;
         if ((*a2)[23] < 0)
         {
-          v19 = *v19;
+          v29 = *v29;
         }
 
         *buf = 68289538;
-        *v30 = 0;
-        *&v30[4] = 2082;
-        *&v30[6] = &unk_1DF8255EF;
-        v31 = 2082;
-        v32 = v19;
-        v33 = 1026;
-        LODWORD(v34) = [v5 intValue];
-        _os_log_impl(&dword_1DF7FE000, v18, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:No ReplyHandler found, Message Name:%{public, location:escape_only}s, ReplyHandlerIdentifier:%{public}u}", buf, 0x22u);
+        *v41 = 0;
+        *&v41[4] = 2082;
+        *&v41[6] = &unk_1DF8255EF;
+        v42 = 2082;
+        v43 = v29;
+        v44 = 1026;
+        LODWORD(v45) = objc_msgSend_intValue(v6, v27, v28);
+        _os_log_impl(&dword_1DF7FE000, v26, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:No ReplyHandler found, Message Name:%{public, location:escape_only}s, ReplyHandlerIdentifier:%{public}u}", buf, 0x22u);
         if (qword_1ED5FAD68 != -1)
         {
           dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
         }
       }
 
-      v20 = qword_1ED5FAD60;
+      v30 = qword_1ED5FAD60;
       if (os_signpost_enabled(qword_1ED5FAD60))
       {
-        v21 = *a2;
-        if (v21[23] < 0)
+        v33 = *a2;
+        if (*(v33 + 23) < 0)
         {
-          v21 = *v21;
+          v33 = *v33;
         }
 
-        v22 = [v5 intValue];
+        v34 = objc_msgSend_intValue(v6, v31, v32);
         *buf = 68289538;
-        *v30 = 0;
-        *&v30[4] = 2082;
-        *&v30[6] = &unk_1DF8255EF;
-        v31 = 2082;
-        v32 = v21;
-        v33 = 1026;
-        LODWORD(v34) = v22;
-        _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v20, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "No ReplyHandler found", "{msg%{public}.0s:No ReplyHandler found, Message Name:%{public, location:escape_only}s, ReplyHandlerIdentifier:%{public}u}", buf, 0x22u);
+        *v41 = 0;
+        *&v41[4] = 2082;
+        *&v41[6] = &unk_1DF8255EF;
+        v42 = 2082;
+        v43 = v33;
+        v44 = 1026;
+        LODWORD(v45) = v34;
+        _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v30, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "No ReplyHandler found", "{msg%{public}.0s:No ReplyHandler found, Message Name:%{public, location:escape_only}s, ReplyHandlerIdentifier:%{public}u}", buf, 0x22u);
       }
     }
   }
 
   else
   {
-    v13 = *(a1 + 56);
-    if (v4[23] < 0)
+    v18 = *(a1 + 56);
+    v19 = *(a1 + 16);
+    if (*(v5 + 23) < 0)
     {
-      v4 = *v4;
+      v5 = *v5;
     }
 
-    v14 = [*(a1 + 16) objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithUTF8String:", v4)}];
-    if (!v14)
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v4, v5);
+    v22 = objc_msgSend_objectForKeyedSubscript_(v19, v21, v20);
+    if (!v22)
     {
-      v14 = v13;
+      v22 = v18;
     }
 
-    if (v14)
+    if (v22)
     {
-      v15 = a2[1];
-      v24 = *a2;
-      v25 = v15;
-      if (v15)
+      v23 = a2[1];
+      v35 = *a2;
+      v36 = v23;
+      if (v23)
       {
-        atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      (*(v14 + 16))(v14, &v24);
-      if (v25)
+      (*(v22 + 16))(v22, &v35);
+      if (v36)
       {
-        sub_1DF7FFED0(v25);
+        sub_1DF7FFED0(v36);
       }
     }
 
@@ -758,23 +754,21 @@ void CLConnection::handleMessage(uint64_t a1, const char **a2)
         dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
       }
 
-      v16 = qword_1ED5FAD60;
+      v24 = qword_1ED5FAD60;
       if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = *a2;
+        v25 = *a2;
         if ((*a2)[23] < 0)
         {
-          v17 = *v17;
+          v25 = *v25;
         }
 
         *buf = 136315138;
-        *v30 = v17;
-        _os_log_impl(&dword_1DF7FE000, v16, OS_LOG_TYPE_DEFAULT, "#Warning Unhandled message %s", buf, 0xCu);
+        *v41 = v25;
+        _os_log_impl(&dword_1DF7FE000, v24, OS_LOG_TYPE_DEFAULT, "#Warning Unhandled message %s", buf, 0xCu);
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DF800F60(uint64_t a1, uint64_t *a2)
@@ -851,52 +845,49 @@ uint64_t CLConnectionMessage::getDictionaryOfClasses(CLConnectionMessage *this, 
     dispatch_once(&qword_1ED5FAE78, &unk_1F5AC6548);
   }
 
-  v4 = [qword_1ED5FAE70 setByAddingObjectsFromSet:a2];
+  v4 = objc_msgSend_setByAddingObjectsFromSet_(qword_1ED5FAE70, a2, a2);
 
   return CLConnectionMessage::getObjectOfClasses(this, v4);
 }
 
 uint64_t CLConnectionMessage::getObjectOfClasses(CLConnectionMessage *this, NSSet *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = *(this + 7);
-  if (v3)
+  if (!v3)
   {
-    bytes_ptr = xpc_data_get_bytes_ptr(v3);
-    length = xpc_data_get_length(*(this + 7));
-    if (bytes_ptr)
+    return 0;
+  }
+
+  bytes_ptr = xpc_data_get_bytes_ptr(v3);
+  length = xpc_data_get_length(*(this + 7));
+  if (bytes_ptr)
+  {
+    bytes_ptr = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v7, bytes_ptr, length);
+  }
+
+  v8 = objc_alloc(MEMORY[0x1E696ACD0]);
+  v10 = objc_msgSend_initForReadingFromData_error_(v8, v9, bytes_ptr, 0);
+  v15 = 0;
+  v12 = objc_msgSend_decodeTopLevelObjectOfClasses_forKey_error_(v10, v11, a2, *MEMORY[0x1E696A508], &v15);
+
+  if (v15)
+  {
+    if (qword_1ED5FAD68 != -1)
     {
-      bytes_ptr = [MEMORY[0x1E695DEF0] dataWithBytes:bytes_ptr length:length];
+      dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
     }
 
-    v7 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:bytes_ptr error:0];
-    v12 = 0;
-    v8 = [v7 decodeTopLevelObjectOfClasses:a2 forKey:*MEMORY[0x1E696A508] error:&v12];
-
-    if (v12)
+    v13 = qword_1ED5FAD60;
+    if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_FAULT))
     {
-      if (qword_1ED5FAD68 != -1)
-      {
-        dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
-      }
-
-      v9 = qword_1ED5FAD60;
-      if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_FAULT))
-      {
-        *buf = 138477827;
-        v14 = v12;
-        _os_log_impl(&dword_1DF7FE000, v9, OS_LOG_TYPE_FAULT, "The received data object is invalid: %{private}@", buf, 0xCu);
-      }
+      *buf = 138477827;
+      v17 = v15;
+      _os_log_impl(&dword_1DF7FE000, v13, OS_LOG_TYPE_FAULT, "The received data object is invalid: %{private}@", buf, 0xCu);
     }
   }
 
-  else
-  {
-    v8 = 0;
-  }
-
-  v10 = *MEMORY[0x1E69E9840];
-  return v8;
+  return v12;
 }
 
 void sub_1DF801280(char *a1)
@@ -916,42 +907,44 @@ void sub_1DF801280(char *a1)
 
 BOOL CLConnection::sendMessage(uint64_t a1, const char **a2, void *a3)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(*(a1 + 8));
   if (a3)
   {
-    v6 = *(a1 + 32) + 1;
-    *(a1 + 32) = v6;
-    v7 = [a3 copy];
-    [*(a1 + 24) setObject:v7 forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedLongLong:", v6)}];
-    v8 = _os_activity_create(&dword_1DF7FE000, "CL: ReplyHandler cached", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-    os_activity_scope_enter(v8, &state);
+    v8 = *(a1 + 32) + 1;
+    *(a1 + 32) = v8;
+    v9 = objc_msgSend_copy(a3, v6, v7);
+    v10 = *(a1 + 24);
+    v12 = objc_msgSend_numberWithUnsignedLongLong_(MEMORY[0x1E696AD98], v11, v8);
+    objc_msgSend_setObject_forKeyedSubscript_(v10, v13, v9, v12);
+    v14 = _os_activity_create(&dword_1DF7FE000, "CL: ReplyHandler cached", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+    os_activity_scope_enter(v14, &state);
 
     if (qword_1ED5FAD68 != -1)
     {
       dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
     }
 
-    v9 = qword_1ED5FAD60;
+    v15 = qword_1ED5FAD60;
     if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_DEBUG))
     {
-      v10 = *a2;
+      v16 = *a2;
       if ((*a2)[23] < 0)
       {
-        v10 = *v10;
+        v16 = *v16;
       }
 
       *buf = 68289794;
-      v31 = 0;
-      v32 = 2082;
-      v33 = &unk_1DF8255EF;
-      v34 = 2082;
-      v35 = "activity";
+      v35 = 0;
       v36 = 2082;
-      v37 = v10;
-      v38 = 1026;
-      v39 = v6;
-      _os_log_impl(&dword_1DF7FE000, v9, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:ReplyHandler cached, event:%{public, location:escape_only}s, MessageName:%{public, location:escape_only}s, ReplyHandlerIdentifier:%{public}u}", buf, 0x2Cu);
+      v37 = &unk_1DF8255EF;
+      v38 = 2082;
+      v39 = "activity";
+      v40 = 2082;
+      v41 = v16;
+      v42 = 1026;
+      v43 = v8;
+      _os_log_impl(&dword_1DF7FE000, v15, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:ReplyHandler cached, event:%{public, location:escape_only}s, MessageName:%{public, location:escape_only}s, ReplyHandlerIdentifier:%{public}u}", buf, 0x2Cu);
     }
 
     os_activity_scope_leave(&state);
@@ -959,35 +952,35 @@ BOOL CLConnection::sendMessage(uint64_t a1, const char **a2, void *a3)
 
   else
   {
-    v6 = 0;
+    v8 = 0;
   }
 
-  v11 = *a2;
+  v17 = *a2;
   if ((*a2)[23] < 0)
   {
-    sub_1DF802ED0(__p, *v11, *(v11 + 1));
-    v11 = *a2;
+    sub_1DF802ED0(__p, *v17, *(v17 + 1));
+    v17 = *a2;
   }
 
   else
   {
-    v12 = *v11;
-    v28 = *(v11 + 2);
-    *__p = v12;
+    v18 = *v17;
+    v32 = *(v17 + 2);
+    *__p = v18;
   }
 
-  v13 = sub_1DF80191C(__p, *(v11 + 7), *(v11 + 8), v6, 0);
-  v14 = v13;
-  if (SHIBYTE(v28) < 0)
+  v19 = sub_1DF80191C(__p, *(v17 + 7), *(v17 + 8), v8, 0);
+  v20 = v19;
+  if (SHIBYTE(v32) < 0)
   {
     operator delete(__p[0]);
-    if (v14)
+    if (v20)
     {
       goto LABEL_15;
     }
   }
 
-  else if (v13)
+  else if (v19)
   {
 LABEL_15:
     if (*(a1 + 73) == 1)
@@ -997,64 +990,63 @@ LABEL_15:
         dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
       }
 
-      v15 = qword_1ED5FAD60;
+      v21 = qword_1ED5FAD60;
       if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_DEBUG))
       {
-        v16 = *a2;
+        v22 = *a2;
         if ((*a2)[23] < 0)
         {
-          v16 = *v16;
+          v22 = *v22;
         }
 
         *buf = 68289282;
-        v31 = 0;
-        v32 = 2082;
-        v33 = &unk_1DF8255EF;
-        v34 = 2082;
-        v35 = v16;
-        _os_log_impl(&dword_1DF7FE000, v15, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:CLConnection::sendMessage, name:%{public, location:escape_only}s}", buf, 0x1Cu);
+        v35 = 0;
+        v36 = 2082;
+        v37 = &unk_1DF8255EF;
+        v38 = 2082;
+        v39 = v22;
+        _os_log_impl(&dword_1DF7FE000, v21, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:CLConnection::sendMessage, name:%{public, location:escape_only}s}", buf, 0x1Cu);
       }
 
-      v17 = *a1;
       xpc_connection_send_notification();
     }
 
     else
     {
-      v22 = _os_activity_create(&dword_1DF7FE000, "CL: CLConnection::sendMessage", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-      os_activity_scope_enter(v22, &state);
+      v27 = _os_activity_create(&dword_1DF7FE000, "CL: CLConnection::sendMessage", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+      os_activity_scope_enter(v27, &state);
 
       if (qword_1ED5FAD68 != -1)
       {
         dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
       }
 
-      v23 = qword_1ED5FAD60;
+      v28 = qword_1ED5FAD60;
       if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_DEBUG))
       {
-        v24 = *a2;
+        v29 = *a2;
         if ((*a2)[23] < 0)
         {
-          v24 = *v24;
+          v29 = *v29;
         }
 
         *buf = 68289538;
-        v31 = 0;
-        v32 = 2082;
-        v33 = &unk_1DF8255EF;
-        v34 = 2082;
-        v35 = "activity";
+        v35 = 0;
         v36 = 2082;
-        v37 = v24;
-        _os_log_impl(&dword_1DF7FE000, v23, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:CLConnection::sendMessage, event:%{public, location:escape_only}s, name:%{public, location:escape_only}s}", buf, 0x26u);
+        v37 = &unk_1DF8255EF;
+        v38 = 2082;
+        v39 = "activity";
+        v40 = 2082;
+        v41 = v29;
+        _os_log_impl(&dword_1DF7FE000, v28, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:CLConnection::sendMessage, event:%{public, location:escape_only}s, name:%{public, location:escape_only}s}", buf, 0x26u);
       }
 
-      xpc_connection_send_message(*a1, v14);
+      xpc_connection_send_message(*a1, v20);
       os_activity_scope_leave(&state);
     }
 
-    xpc_release(v14);
-    goto LABEL_43;
+    xpc_release(v20);
+    return v20 != 0;
   }
 
   if (qword_1ED5FAD68 != -1)
@@ -1062,50 +1054,47 @@ LABEL_15:
     dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
   }
 
-  v18 = qword_1ED5FAD60;
+  v23 = qword_1ED5FAD60;
   if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_FAULT))
   {
-    v19 = *a2;
+    v24 = *a2;
     if ((*a2)[23] < 0)
     {
-      v19 = *v19;
+      v24 = *v24;
     }
 
     *buf = 68289282;
-    v31 = 0;
-    v32 = 2082;
-    v33 = &unk_1DF8255EF;
-    v34 = 2082;
-    v35 = v19;
-    _os_log_impl(&dword_1DF7FE000, v18, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Couldn't create XPC message, name:%{public, location:escape_only}s}", buf, 0x1Cu);
+    v35 = 0;
+    v36 = 2082;
+    v37 = &unk_1DF8255EF;
+    v38 = 2082;
+    v39 = v24;
+    _os_log_impl(&dword_1DF7FE000, v23, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Couldn't create XPC message, name:%{public, location:escape_only}s}", buf, 0x1Cu);
     if (qword_1ED5FAD68 != -1)
     {
       dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
     }
   }
 
-  v20 = qword_1ED5FAD60;
+  v25 = qword_1ED5FAD60;
   if (os_signpost_enabled(qword_1ED5FAD60))
   {
-    v21 = *a2;
+    v26 = *a2;
     if ((*a2)[23] < 0)
     {
-      v21 = *v21;
+      v26 = *v26;
     }
 
     *buf = 68289282;
-    v31 = 0;
-    v32 = 2082;
-    v33 = &unk_1DF8255EF;
-    v34 = 2082;
-    v35 = v21;
-    _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v20, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Couldn't create XPC message", "{msg%{public}.0s:Couldn't create XPC message, name:%{public, location:escape_only}s}", buf, 0x1Cu);
+    v35 = 0;
+    v36 = 2082;
+    v37 = &unk_1DF8255EF;
+    v38 = 2082;
+    v39 = v26;
+    _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v25, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Couldn't create XPC message", "{msg%{public}.0s:Couldn't create XPC message, name:%{public, location:escape_only}s}", buf, 0x1Cu);
   }
 
-LABEL_43:
-  result = v14 != 0;
-  v26 = *MEMORY[0x1E69E9840];
-  return result;
+  return v20 != 0;
 }
 
 void CLConnectionMessage::~CLConnectionMessage(CLConnectionMessage *this)
@@ -1165,7 +1154,7 @@ void sub_1DF801904(_Unwind_Exception *exception_object)
 
 void *sub_1DF80191C(const char *a1, void *a2, void *a3, int64_t a4, BOOL a5)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (a1[23] < 0)
   {
     a1 = *a1;
@@ -1173,9 +1162,9 @@ void *sub_1DF80191C(const char *a1, void *a2, void *a3, int64_t a4, BOOL a5)
 
   v9 = xpc_string_create(a1);
   *keys = xmmword_1E86C8470;
-  v14[0] = v9;
-  v14[1] = a2;
-  v10 = xpc_dictionary_create(keys, v14, 2uLL);
+  v13[0] = v9;
+  v13[1] = a2;
+  v10 = xpc_dictionary_create(keys, v13, 2uLL);
   v11 = v10;
   if (a3)
   {
@@ -1193,7 +1182,6 @@ void *sub_1DF80191C(const char *a1, void *a2, void *a3, int64_t a4, BOOL a5)
     xpc_release(v9);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -1210,20 +1198,20 @@ uint64_t sub_1DF801A20(uint64_t result, uint64_t a2)
   return result;
 }
 
-void CLConnectionClient::setHandlerForMessage(uint64_t a1, uint64_t *a2, uint64_t a3)
+void CLConnectionClient::setHandlerForMessage(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
-  if (*(a2 + 23) >= 0)
+  v26 = *MEMORY[0x1E69E9840];
+  if (a2[23] >= 0)
   {
-    v5 = a2;
+    v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], a2, a2);
   }
 
   else
   {
-    v5 = *a2;
+    v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], a2, *a2);
   }
 
-  v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v5];
+  v6 = v5;
   v8 = *(a1 + 32);
   v7 = *(a1 + 40);
   if (v7)
@@ -1251,66 +1239,66 @@ void CLConnectionClient::setHandlerForMessage(uint64_t a1, uint64_t *a2, uint64_
     if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v24 = [v6 UTF8String];
+      v25 = objc_msgSend_UTF8String(v6, v12, v13);
       _os_log_impl(&dword_1DF7FE000, v11, OS_LOG_TYPE_DEBUG, "Setting handler for message %s", buf, 0xCu);
     }
 
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3321888768;
-    v19[2] = sub_1DF8075E0;
-    v19[3] = &unk_1F5AC6698;
-    v21 = v10;
-    v22 = v9;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3321888768;
+    v20[2] = sub_1DF8075E0;
+    v20[3] = &unk_1F5AC6698;
+    v22 = v10;
+    v23 = v9;
     if (v9)
     {
       atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-      v20 = a3;
+      v21 = a3;
       std::__shared_weak_count::__release_weak(v9);
     }
 
     else
     {
-      v20 = a3;
+      v21 = a3;
     }
 
-    v12 = v19;
+    v14 = v20;
   }
 
   else
   {
-    v12 = 0;
+    v14 = 0;
   }
 
-  v13 = *a1;
+  v15 = *a1;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3321888768;
   block[2] = sub_1DF80354C;
   block[3] = &unk_1F5AC6708;
   block[6] = v10;
-  v16 = v9;
+  v17 = v9;
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v17 = v8;
-  v18 = v7;
+  v18 = v8;
+  v19 = v7;
   if (v7)
   {
     atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   block[4] = v6;
-  block[5] = v12;
-  dispatch_async(v13, block);
-  if (v18)
+  block[5] = v14;
+  dispatch_async(v15, block);
+  if (v19)
   {
-    sub_1DF7FFED0(v18);
+    sub_1DF7FFED0(v19);
   }
 
-  if (v16)
+  if (v17)
   {
-    std::__shared_weak_count::__release_weak(v16);
+    std::__shared_weak_count::__release_weak(v17);
   }
 
   if (v9)
@@ -1322,8 +1310,6 @@ void CLConnectionClient::setHandlerForMessage(uint64_t a1, uint64_t *a2, uint64_
   {
     sub_1DF7FFED0(v7);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DF801CAC(_Unwind_Exception *exception_object)
@@ -1569,11 +1555,10 @@ void sub_1DF8020A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-os_unfair_lock_s *sub_1DF8020C0(os_unfair_lock_s *result)
+void sub_1DF8020C0(os_unfair_lock_s *a1)
 {
-  if (!*&result->_os_unfair_lock_opaque)
+  if (!*&a1->_os_unfair_lock_opaque)
   {
-    v1 = result;
     if (qword_1ED5FAD68 != -1)
     {
       dispatch_once(&qword_1ED5FAD68, &unk_1F5AC68B0);
@@ -1586,16 +1571,14 @@ os_unfair_lock_s *sub_1DF8020C0(os_unfair_lock_s *result)
       _os_log_impl(&dword_1DF7FE000, v2, OS_LOG_TYPE_DEBUG, "Creating connection", buf, 2u);
     }
 
-    os_unfair_lock_lock(v1 + 25);
+    os_unfair_lock_lock(a1 + 25);
     operator new();
   }
-
-  return result;
 }
 
 void CLConnection::initializeConnection_nl(dispatch_queue_t *this)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(this[1]);
   v2 = this[1];
   if (v2)
@@ -1603,21 +1586,21 @@ void CLConnection::initializeConnection_nl(dispatch_queue_t *this)
     dispatch_retain(v2);
     xpc_connection_set_context(*this, this);
     xpc_connection_set_finalizer_f(*this, CLConnection::connectionFinalizer);
-    v11[4] = this;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = sub_1DF800A34;
-    v12[3] = &unk_1E86C8428;
-    v12[4] = this;
     v10[4] = this;
     v11[0] = MEMORY[0x1E69E9820];
     v11[1] = 3221225472;
-    v11[2] = sub_1DF80A26C;
-    v11[3] = &unk_1E86C83E0;
+    v11[2] = sub_1DF800A34;
+    v11[3] = &unk_1E86C8428;
+    v11[4] = this;
+    v9[4] = this;
     v10[0] = MEMORY[0x1E69E9820];
     v10[1] = 3221225472;
-    v10[2] = sub_1DF8051A4;
+    v10[2] = sub_1DF80A26C;
     v10[3] = &unk_1E86C83E0;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = sub_1DF8051A4;
+    v9[3] = &unk_1E86C83E0;
     v3 = *this;
     v4 = this[10];
     v5 = this[11];
@@ -1626,45 +1609,44 @@ void CLConnection::initializeConnection_nl(dispatch_queue_t *this)
       atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v14[0] = 0;
-    v14[1] = v14;
-    v14[2] = 0x2020000000;
-    v15 = 1;
+    v13[0] = 0;
+    v13[1] = v13;
+    v13[2] = 0x2020000000;
+    v14 = 1;
     handler = MEMORY[0x1E69E9820];
     *handler_8 = 3321888768;
     *&handler_8[8] = sub_1DF800460;
     *&handler_8[16] = &unk_1F5AC64C8;
-    *&handler_8[24] = v11;
-    v18 = v10;
-    v20 = v14;
-    v21 = v4;
-    v22 = v5;
+    *&handler_8[24] = v10;
+    v17 = v9;
+    v19 = v13;
+    v20 = v4;
+    v21 = v5;
     if (v5)
     {
       atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v19 = v12;
+    v18 = v11;
     xpc_connection_set_event_handler(v3, &handler);
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = sub_1DF813B94;
     aBlock[3] = &unk_1E86C8450;
-    aBlock[4] = v14;
+    aBlock[4] = v13;
     this[8] = _Block_copy(aBlock);
-    if (v22)
+    if (v21)
     {
-      sub_1DF7FFED0(v22);
+      sub_1DF7FFED0(v21);
     }
 
-    _Block_object_dispose(v14, 8);
+    _Block_object_dispose(v13, 8);
     if (v5)
     {
       sub_1DF7FFED0(v5);
     }
 
     dispatch_assert_queue_V2(this[1]);
-    v6 = *this;
     xpc_connection_get_audit_token();
     operator new();
   }
@@ -1674,7 +1656,7 @@ void CLConnection::initializeConnection_nl(dispatch_queue_t *this)
     dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
   }
 
-  v7 = qword_1ED5FAD60;
+  v6 = qword_1ED5FAD60;
   if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_FAULT))
   {
     handler = 68289539;
@@ -1684,14 +1666,14 @@ void CLConnection::initializeConnection_nl(dispatch_queue_t *this)
     *&handler_8[12] = "assert";
     *&handler_8[20] = 2081;
     *&handler_8[22] = "fEventQueue";
-    _os_log_impl(&dword_1DF7FE000, v7, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:CLConnections must always have event queues, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &handler, 0x26u);
+    _os_log_impl(&dword_1DF7FE000, v6, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:CLConnections must always have event queues, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &handler, 0x26u);
     if (qword_1ED5FAD68 != -1)
     {
       dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
     }
   }
 
-  v8 = qword_1ED5FAD60;
+  v7 = qword_1ED5FAD60;
   if (os_signpost_enabled(qword_1ED5FAD60))
   {
     handler = 68289539;
@@ -1701,14 +1683,14 @@ void CLConnection::initializeConnection_nl(dispatch_queue_t *this)
     *&handler_8[12] = "assert";
     *&handler_8[20] = 2081;
     *&handler_8[22] = "fEventQueue";
-    _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CLConnections must always have event queues", "{msg%{public}.0s:CLConnections must always have event queues, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &handler, 0x26u);
+    _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CLConnections must always have event queues", "{msg%{public}.0s:CLConnections must always have event queues, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &handler, 0x26u);
     if (qword_1ED5FAD68 != -1)
     {
       dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
     }
   }
 
-  v9 = qword_1ED5FAD60;
+  v8 = qword_1ED5FAD60;
   if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_INFO))
   {
     handler = 68289539;
@@ -1718,25 +1700,26 @@ void CLConnection::initializeConnection_nl(dispatch_queue_t *this)
     *&handler_8[12] = "assert";
     *&handler_8[20] = 2081;
     *&handler_8[22] = "fEventQueue";
-    _os_log_impl(&dword_1DF7FE000, v9, OS_LOG_TYPE_INFO, "{msg%{public}.0s:CLConnections must always have event queues, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &handler, 0x26u);
+    _os_log_impl(&dword_1DF7FE000, v8, OS_LOG_TYPE_INFO, "{msg%{public}.0s:CLConnections must always have event queues, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &handler, 0x26u);
   }
 
-  abort_report_np();
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/IPC/CLConnection.mm", 358, "initializeConnection_nl");
   __break(1u);
 }
 
-void sub_1DF8027FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_1DF8027FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  v36 = *(v34 - 120);
-  if (v36)
+  va_start(va, a32);
+  v35 = *(v33 - 120);
+  if (v35)
   {
-    sub_1DF7FFED0(v36);
+    sub_1DF7FFED0(v35);
   }
 
-  _Block_object_dispose(&a33, 8);
-  if (v33)
+  _Block_object_dispose(va, 8);
+  if (v32)
   {
-    sub_1DF7FFED0(v33);
+    sub_1DF7FFED0(v32);
   }
 
   _Unwind_Resume(a1);
@@ -1795,7 +1778,7 @@ uint64_t sub_1DF8028F4(uint64_t result, uint64_t a2)
 
 void sub_1DF802910(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = _os_activity_create(&dword_1DF7FE000, "CL: Sending cached messages to daemon", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   os_activity_scope_enter(v2, &state);
 
@@ -1808,10 +1791,10 @@ void sub_1DF802910(uint64_t a1)
   if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_DEFAULT))
   {
     buf = 68289282;
-    *v17 = 2082;
-    *&v17[2] = &unk_1DF8255EF;
-    *&v17[10] = 2082;
-    *&v17[12] = "activity";
+    *v16 = 2082;
+    *&v16[2] = &unk_1DF8255EF;
+    *&v16[10] = 2082;
+    *&v16[12] = "activity";
     _os_log_impl(&dword_1DF7FE000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Sending cached messages to daemon, event:%{public, location:escape_only}s}", &buf, 0x1Cu);
   }
 
@@ -1820,37 +1803,37 @@ void sub_1DF802910(uint64_t a1)
   for (i = *(a1 + 56); v4 != i; v4 += 24)
   {
     sub_1DF80A3B0(&buf, v4);
-    sub_1DF80A3B0(&v10, &buf);
+    sub_1DF80A3B0(&v9, &buf);
     dispatch_assert_queue_V2(*(a1 + 8));
     v6 = *a1;
     if (*a1)
     {
-      v7 = v12;
-      if (v12)
+      v7 = v11;
+      if (v11)
       {
+        v13 = v9;
         v14 = v10;
-        v15 = v11;
-        if (v11)
+        if (v10)
         {
-          atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-          v7 = v12;
+          atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+          v7 = v11;
         }
 
-        CLConnection::sendMessage(v6, &v14, v7);
-        v8 = v15;
+        CLConnection::sendMessage(v6, &v13, v7);
+        v8 = v14;
       }
 
       else
       {
-        v8 = v11;
+        v8 = v10;
+        v13 = v9;
         v14 = v10;
-        v15 = v11;
-        if (v11)
+        if (v10)
         {
-          atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        CLConnection::sendMessage(v6, &v14);
+        CLConnection::sendMessage(v6, &v13);
       }
 
       if (v8)
@@ -1859,29 +1842,28 @@ void sub_1DF802910(uint64_t a1)
       }
     }
 
-    if (v11)
+    if (v10)
     {
-      sub_1DF7FFED0(v11);
+      sub_1DF7FFED0(v10);
     }
 
-    if (*v17)
+    if (*v16)
     {
-      sub_1DF7FFED0(*v17);
+      sub_1DF7FFED0(*v16);
     }
   }
 
   os_activity_scope_leave(&state);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void CLConnectionClient::CLConnectionClient(void *a1, uint64_t a2, uint64_t a3)
+void CLConnectionClient::CLConnectionClient(void *a1, void **a2, NSObject *a3)
 {
   *a1 = a3;
   a1[1] = &unk_1F5AC62A8;
   operator new();
 }
 
-void sub_1DF802E58(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
+void sub_1DF802E58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
 {
   sub_1DF807D4C(&a15);
   if (a14 < 0)
@@ -2037,11 +2019,13 @@ xpc_object_t CLConnectionMessage::createXPCObject(void *a1)
   if (a1)
   {
     v2 = objc_autoreleasePoolPush();
-    v3 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v1 requiringSecureCoding:1 error:0];
-    v1 = v3;
-    if (v3)
+    v4 = objc_msgSend_archivedDataWithRootObject_requiringSecureCoding_error_(MEMORY[0x1E696ACC8], v3, v1, 1, 0);
+    v1 = v4;
+    if (v4)
     {
-      v1 = xpc_data_create([v3 bytes], objc_msgSend(v3, "length"));
+      v7 = objc_msgSend_bytes(v4, v5, v6);
+      v10 = objc_msgSend_length(v1, v8, v9);
+      v1 = xpc_data_create(v7, v10);
     }
 
     objc_autoreleasePoolPop(v2);
@@ -2209,7 +2193,7 @@ void sub_1DF80354C(uint64_t a1)
   v2 = *(a1 + 56);
   if (v2 && *(v2 + 8) != -1)
   {
-    v4(v3);
+    (v4)(v3);
   }
 
   if (v8)
@@ -2383,27 +2367,28 @@ void *sub_1DF8038EC(uint64_t a1)
   return result;
 }
 
-uint64_t sub_1DF80395C(uint64_t a1)
+void *sub_1DF80395C(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v1 = *(a1 + 40);
-  v2 = *(a1 + 48);
-  v3 = *(a1 + 32);
-  if (v1)
+  v3 = *(a1 + 40);
+  v4 = *(a1 + 48);
+  v5 = *(a1 + 32);
+  if (v3)
   {
-    [*(v2 + 16) setObject:objc_msgSend(*(a1 + 40) forKeyedSubscript:{"copy"), v3}];
-    result = *v2;
-    if (*v2)
+    v6 = objc_msgSend_copy(*(a1 + 40), a2, a3);
+    objc_msgSend_setObject_forKeyedSubscript_(v4[2], v7, v6, v5);
+    result = *v4;
+    if (*v4)
     {
 
-      return CLConnection::setHandlerForMessage(result, v3, v1);
+      return CLConnection::setHandlerForMessage(result, v5, v3);
     }
   }
 
   else
   {
-    v5 = *(v2 + 16);
+    v9 = v4[2];
 
-    return [v5 removeObjectForKey:v3];
+    return objc_msgSend_removeObjectForKey_(v9, a2, v5);
   }
 
   return result;
@@ -2445,16 +2430,16 @@ void sub_1DF803AAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CLConnection::setHandlerForMessage(uint64_t a1, uint64_t a2, void *a3)
+void *CLConnection::setHandlerForMessage(uint64_t a1, uint64_t a2, void *a3)
 {
   dispatch_assert_queue_V2(*(a1 + 8));
-  result = [*(a1 + 16) removeObjectForKey:a2];
+  result = objc_msgSend_removeObjectForKey_(*(a1 + 16), v6, a2);
   if (a3)
   {
-    v7 = [a3 copy];
-    v8 = *(a1 + 16);
+    v11 = objc_msgSend_copy(a3, v8, v9);
+    v12 = *(a1 + 16);
 
-    return [v8 setObject:v7 forKeyedSubscript:a2];
+    return objc_msgSend_setObject_forKeyedSubscript_(v12, v10, v11, a2);
   }
 
   return result;
@@ -2478,13 +2463,82 @@ void sub_1DF803B44(uint64_t a1)
 
 void CLConnection::start(dispatch_queue_t *this)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(this[1]);
   if ((this[9] & 1) == 0)
   {
     if (qword_1ED5FAD68 != -1)
     {
       dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
+    }
+
+    v2 = qword_1ED5FAD60;
+    if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 68289539;
+      v6 = 0;
+      v7 = 2082;
+      v8 = &unk_1DF8255EF;
+      v9 = 2082;
+      v10 = "assert";
+      v11 = 2081;
+      v12 = "fPaused";
+      _os_log_impl(&dword_1DF7FE000, v2, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Cannot call start() on an unpaused CLConnection., event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      if (qword_1ED5FAD68 != -1)
+      {
+        dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
+      }
+    }
+
+    v3 = qword_1ED5FAD60;
+    if (os_signpost_enabled(qword_1ED5FAD60))
+    {
+      *buf = 68289539;
+      v6 = 0;
+      v7 = 2082;
+      v8 = &unk_1DF8255EF;
+      v9 = 2082;
+      v10 = "assert";
+      v11 = 2081;
+      v12 = "fPaused";
+      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v3, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Cannot call start() on an unpaused CLConnection.", "{msg%{public}.0s:Cannot call start() on an unpaused CLConnection., event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      if (qword_1ED5FAD68 != -1)
+      {
+        dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
+      }
+    }
+
+    v4 = qword_1ED5FAD60;
+    if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_INFO))
+    {
+      *buf = 68289539;
+      v6 = 0;
+      v7 = 2082;
+      v8 = &unk_1DF8255EF;
+      v9 = 2082;
+      v10 = "assert";
+      v11 = 2081;
+      v12 = "fPaused";
+      _os_log_impl(&dword_1DF7FE000, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Cannot call start() on an unpaused CLConnection., event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    }
+
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/IPC/CLConnection.mm", 653, "start");
+  }
+
+  xpc_connection_resume(*this);
+  *(this + 72) = 0;
+}
+
+void sub_1DF803E10(uint64_t a1)
+{
+  v14 = *MEMORY[0x1E69E9840];
+  v1 = *(a1 + 32);
+  dispatch_assert_queue_V2(*(v1 + 8));
+  if ((*(v1 + 97) & 1) == 0)
+  {
+    if (qword_1ED5FAD68 != -1)
+    {
+      dispatch_once(&qword_1ED5FAD68, &unk_1F5AC68B0);
     }
 
     v3 = qword_1ED5FAD60;
@@ -2498,10 +2552,10 @@ void CLConnection::start(dispatch_queue_t *this)
       v11 = "assert";
       v12 = 2081;
       v13 = "fPaused";
-      _os_log_impl(&dword_1DF7FE000, v3, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Cannot call start() on an unpaused CLConnection., event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      _os_log_impl(&dword_1DF7FE000, v3, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Cannot call start() on an unpaused CLConnectionClient, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED5FAD68 != -1)
       {
-        dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
+        dispatch_once(&qword_1ED5FAD68, &unk_1F5AC68B0);
       }
     }
 
@@ -2516,10 +2570,10 @@ void CLConnection::start(dispatch_queue_t *this)
       v11 = "assert";
       v12 = 2081;
       v13 = "fPaused";
-      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Cannot call start() on an unpaused CLConnection.", "{msg%{public}.0s:Cannot call start() on an unpaused CLConnection., event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Cannot call start() on an unpaused CLConnectionClient", "{msg%{public}.0s:Cannot call start() on an unpaused CLConnectionClient, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED5FAD68 != -1)
       {
-        dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
+        dispatch_once(&qword_1ED5FAD68, &unk_1F5AC68B0);
       }
     }
 
@@ -2534,94 +2588,18 @@ void CLConnection::start(dispatch_queue_t *this)
       v11 = "assert";
       v12 = 2081;
       v13 = "fPaused";
-      _os_log_impl(&dword_1DF7FE000, v5, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Cannot call start() on an unpaused CLConnection., event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      _os_log_impl(&dword_1DF7FE000, v5, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Cannot call start() on an unpaused CLConnectionClient, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
-  }
-
-  xpc_connection_resume(*this);
-  *(this + 72) = 0;
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void sub_1DF803E10(uint64_t a1)
-{
-  v16 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  dispatch_assert_queue_V2(*(v1 + 8));
-  if ((*(v1 + 97) & 1) == 0)
-  {
-    if (qword_1ED5FAD68 != -1)
-    {
-      dispatch_once(&qword_1ED5FAD68, &unk_1F5AC68B0);
-    }
-
-    v5 = qword_1ED5FAD60;
-    if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_FAULT))
-    {
-      *buf = 68289539;
-      v9 = 0;
-      v10 = 2082;
-      v11 = &unk_1DF8255EF;
-      v12 = 2082;
-      v13 = "assert";
-      v14 = 2081;
-      v15 = "fPaused";
-      _os_log_impl(&dword_1DF7FE000, v5, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Cannot call start() on an unpaused CLConnectionClient, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-      if (qword_1ED5FAD68 != -1)
-      {
-        dispatch_once(&qword_1ED5FAD68, &unk_1F5AC68B0);
-      }
-    }
-
-    v6 = qword_1ED5FAD60;
-    if (os_signpost_enabled(qword_1ED5FAD60))
-    {
-      *buf = 68289539;
-      v9 = 0;
-      v10 = 2082;
-      v11 = &unk_1DF8255EF;
-      v12 = 2082;
-      v13 = "assert";
-      v14 = 2081;
-      v15 = "fPaused";
-      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Cannot call start() on an unpaused CLConnectionClient", "{msg%{public}.0s:Cannot call start() on an unpaused CLConnectionClient, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-      if (qword_1ED5FAD68 != -1)
-      {
-        dispatch_once(&qword_1ED5FAD68, &unk_1F5AC68B0);
-      }
-    }
-
-    v7 = qword_1ED5FAD60;
-    if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_INFO))
-    {
-      *buf = 68289539;
-      v9 = 0;
-      v10 = 2082;
-      v11 = &unk_1DF8255EF;
-      v12 = 2082;
-      v13 = "assert";
-      v14 = 2081;
-      v15 = "fPaused";
-      _os_log_impl(&dword_1DF7FE000, v7, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Cannot call start() on an unpaused CLConnectionClient, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-    }
-
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/IPC/CLConnectionClient.mm", 84, "start");
   }
 
   *(v1 + 97) = 0;
   v2 = *v1;
   if (*v1)
   {
-    v3 = *MEMORY[0x1E69E9840];
 
     CLConnection::start(v2);
-  }
-
-  else
-  {
-    v4 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -2643,7 +2621,7 @@ void sub_1DF8040D0(uint64_t a1)
   }
 
   v8[0] = v3;
-  v8[1] = v2;
+  v8[1] = &v2->__vftable;
   sub_1DF80443C(v1, v8, v4 & 1, 0);
   if (v2)
   {
@@ -2696,7 +2674,7 @@ void sub_1DF8041AC(_Unwind_Exception *exception_object)
 
 void CLConnectionClient::sendMessage(uint64_t a1, uint64_t *a2, char a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v6 = _os_activity_create(&dword_1DF7FE000, "CL: CLConnectionClient::sendMessage(cache)", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   os_activity_scope_enter(v6, &state);
 
@@ -2709,11 +2687,11 @@ void CLConnectionClient::sendMessage(uint64_t a1, uint64_t *a2, char a3)
   if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_DEBUG))
   {
     *buf = 68289282;
-    v21 = 0;
-    v22 = 2082;
-    v23 = &unk_1DF8255EF;
-    v24 = 2082;
-    v25 = "activity";
+    v20 = 0;
+    v21 = 2082;
+    v22 = &unk_1DF8255EF;
+    v23 = 2082;
+    v24 = "activity";
     _os_log_impl(&dword_1DF7FE000, v7, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:CLConnectionClient::sendMessage(cache), event:%{public, location:escape_only}s}", buf, 0x1Cu);
   }
 
@@ -2738,30 +2716,30 @@ void CLConnectionClient::sendMessage(uint64_t a1, uint64_t *a2, char a3)
   block[2] = sub_1DF8040D0;
   block[3] = &unk_1F5AC67A8;
   block[4] = v9;
-  v15 = v8;
+  v14 = v8;
   if (v8)
   {
     atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   v12 = a2[1];
-  v16 = *a2;
-  v17 = v12;
+  v15 = *a2;
+  v16 = v12;
   if (v12)
   {
     atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v18 = a3;
+  v17 = a3;
   dispatch_async(v11, block);
-  if (v17)
+  if (v16)
   {
-    sub_1DF7FFED0(v17);
+    sub_1DF7FFED0(v16);
   }
 
-  if (v15)
+  if (v14)
   {
-    sub_1DF7FFED0(v15);
+    sub_1DF7FFED0(v14);
   }
 
   if (v10)
@@ -2775,7 +2753,6 @@ void CLConnectionClient::sendMessage(uint64_t a1, uint64_t *a2, char a3)
   }
 
   os_activity_scope_leave(&state);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void *sub_1DF804408(void *result, void *a2)
@@ -2799,102 +2776,101 @@ void *sub_1DF804408(void *result, void *a2)
   return result;
 }
 
-void sub_1DF80443C(uint64_t a1, uint64_t **a2, int a3, void *a4)
+void sub_1DF80443C(uint64_t a1, void **a2, int a3, void *a4)
 {
   v40 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(*(a1 + 8));
   if (*a1)
   {
-    v9 = *(a1 + 48);
-    v8 = *(a1 + 56);
-    if (v9 == v8)
+    v11 = *(a1 + 48);
+    v10 = *(a1 + 56);
+    if (v11 == v10)
     {
 LABEL_17:
       if (!a3)
       {
-        goto LABEL_62;
+        return;
       }
 
       goto LABEL_34;
     }
 
-    v10 = *a2;
-    v11 = *(*a2 + 23);
-    if (v11 >= 0)
+    v12 = *a2;
+    v13 = *(*a2 + 23);
+    if (v13 >= 0)
     {
-      v12 = *(*a2 + 23);
+      v14 = *(*a2 + 23);
     }
 
     else
     {
-      v12 = (*a2)[1];
+      v14 = (*a2)[1];
     }
 
     while (1)
     {
-      v13 = *(*v9 + 23);
-      v14 = v13;
-      if ((v13 & 0x80u) != 0)
+      v15 = *(*v11 + 23);
+      v16 = v15;
+      if ((v15 & 0x80u) != 0)
       {
-        v13 = *(*v9 + 8);
+        v15 = *(*v11 + 8);
       }
 
-      if (v13 == v12)
+      if (v15 == v14)
       {
-        v15 = v14 >= 0 ? *v9 : **v9;
-        v16 = *v10;
-        v17 = v11 >= 0 ? v10 : *v10;
-        if (!memcmp(v15, v17, v12))
+        v17 = v16 >= 0 ? *v11 : **v11;
+        v18 = v13 >= 0 ? v12 : *v12;
+        if (!memcmp(v17, v18, v14))
         {
           break;
         }
       }
 
-      v9 += 24;
-      if (v9 == v8)
+      v11 += 24;
+      if (v11 == v10)
       {
         goto LABEL_17;
       }
     }
 
-    v23 = (v9 + 24);
-    if (v9 + 24 != v8)
+    v24 = (v11 + 24);
+    if (v11 + 24 != v10)
     {
       do
       {
-        v24 = *v23;
-        *v23 = 0;
-        *(v23 + 1) = 0;
-        v25 = *(v23 - 2);
-        *(v23 - 24) = v24;
-        if (v25)
+        v25 = *v24;
+        *v24 = 0;
+        *(v24 + 1) = 0;
+        v26 = *(v24 - 2);
+        *(v24 - 24) = v25;
+        if (v26)
         {
-          sub_1DF7FFED0(v25);
+          sub_1DF7FFED0(v26);
         }
 
-        v26 = *(v23 - 1);
-        *(v23 - 1) = *(v23 + 2);
-        *(v23 + 2) = 0;
+        v27 = *(v24 - 1);
+        *(v24 - 1) = *(v24 + 2);
+        *(v24 + 2) = 0;
 
-        v23 = (v23 + 24);
+        v24 = (v24 + 24);
       }
 
-      while (v23 != v8);
-      v8 = *(a1 + 56);
-      v9 = v23 - 24;
+      while (v24 != v10);
+      v10 = *(a1 + 56);
+      v11 = v24 - 24;
     }
 
-    while (v8 != v9)
+    while (v10 != v11)
     {
-      v8 -= 24;
-      sub_1DF804D4C(v8);
+      v10 -= 24;
+      sub_1DF804D4C(v10);
     }
 
-    *(a1 + 56) = v9;
+    *(a1 + 56) = v11;
     if (a3)
     {
 LABEL_34:
-      v27 = *a2;
+      v28 = *a2;
       if ((*a2)[6])
       {
         if (qword_1ED5FAD68 != -1)
@@ -2902,58 +2878,58 @@ LABEL_34:
           dispatch_once(&qword_1ED5FAD68, &unk_1F5AC68B0);
         }
 
-        v28 = qword_1ED5FAD60;
+        v29 = qword_1ED5FAD60;
         if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_FAULT))
         {
-          v29 = *a2;
+          v30 = *a2;
           if (*(*a2 + 23) < 0)
           {
-            v29 = **a2;
+            v30 = **a2;
           }
 
           *v39 = 68289282;
           *&v39[8] = 2082;
           *&v39[10] = &unk_1DF8255EF;
           *&v39[18] = 2082;
-          *&v39[20] = v29;
-          _os_log_impl(&dword_1DF7FE000, v28, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Trying to cache a reply message, messageName:%{public, location:escape_only}s}", v39, 0x1Cu);
+          *&v39[20] = v30;
+          _os_log_impl(&dword_1DF7FE000, v29, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Trying to cache a reply message, messageName:%{public, location:escape_only}s}", v39, 0x1Cu);
           if (qword_1ED5FAD68 != -1)
           {
             dispatch_once(&qword_1ED5FAD68, &unk_1F5AC68B0);
           }
         }
 
-        v30 = qword_1ED5FAD60;
+        v31 = qword_1ED5FAD60;
         if (os_signpost_enabled(qword_1ED5FAD60))
         {
-          v31 = *a2;
+          v32 = *a2;
           if (*(*a2 + 23) < 0)
           {
-            v31 = **a2;
+            v32 = **a2;
           }
 
           *v39 = 68289282;
           *&v39[8] = 2082;
           *&v39[10] = &unk_1DF8255EF;
           *&v39[18] = 2082;
-          *&v39[20] = v31;
-          _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v30, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Trying to cache a reply message", "{msg%{public}.0s:Trying to cache a reply message, messageName:%{public, location:escape_only}s}", v39, 0x1Cu);
+          *&v39[20] = v32;
+          _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v31, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Trying to cache a reply message", "{msg%{public}.0s:Trying to cache a reply message, messageName:%{public, location:escape_only}s}", v39, 0x1Cu);
         }
       }
 
       else if (a4)
       {
-        v32 = [a4 copy];
-        v33 = v32;
-        v34 = a2[1];
+        v33 = objc_msgSend_copy(a4, v8, v9);
+        v34 = v33;
+        v35 = a2[1];
         *v39 = *a2;
-        *&v39[8] = v34;
-        if (v34)
+        *&v39[8] = v35;
+        if (v35)
         {
-          atomic_fetch_add_explicit(v34 + 1, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(v35 + 1, 1uLL, memory_order_relaxed);
         }
 
-        *&v39[16] = v32;
+        *&v39[16] = v33;
         sub_1DF804950((a1 + 48), v39);
 
         if (*&v39[8])
@@ -2964,14 +2940,14 @@ LABEL_34:
 
       else
       {
-        v37 = a2[1];
-        if (v37)
+        v38 = a2[1];
+        if (v38)
         {
-          atomic_fetch_add_explicit(v37 + 1, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(v38 + 1, 1uLL, memory_order_relaxed);
         }
 
-        *v39 = v27;
-        *&v39[8] = v37;
+        *v39 = v28;
+        *&v39[8] = v38;
         *&v39[16] = 0;
         sub_1DF804950((a1 + 48), v39);
 
@@ -2981,7 +2957,7 @@ LABEL_34:
         }
       }
 
-      goto LABEL_62;
+      return;
     }
 
     if (qword_1ED5FAD68 != -1)
@@ -2989,22 +2965,22 @@ LABEL_34:
       dispatch_once(&qword_1ED5FAD68, &unk_1F5AC68B0);
     }
 
-    v35 = qword_1ED5FAD60;
+    v36 = qword_1ED5FAD60;
     if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_DEFAULT))
     {
-      v36 = *a2;
+      v37 = *a2;
       if (*(*a2 + 23) < 0)
       {
-        v36 = **a2;
+        v37 = **a2;
       }
 
       *v39 = 136446210;
-      *&v39[4] = v36;
-      v20 = "#Warning Sending an un-cached message '%{public}s' without first clearing the previously cached value";
-      v21 = v35;
-      v22 = 12;
+      *&v39[4] = v37;
+      v21 = "#Warning Sending an un-cached message '%{public}s' without first clearing the previously cached value";
+      v22 = v36;
+      v23 = 12;
 LABEL_25:
-      _os_log_impl(&dword_1DF7FE000, v21, OS_LOG_TYPE_DEFAULT, v20, v39, v22);
+      _os_log_impl(&dword_1DF7FE000, v22, OS_LOG_TYPE_DEFAULT, v21, v39, v23);
     }
   }
 
@@ -3015,29 +2991,26 @@ LABEL_25:
       dispatch_once(&qword_1ED5FAD68, &unk_1F5AC68B0);
     }
 
-    v18 = qword_1ED5FAD60;
+    v19 = qword_1ED5FAD60;
     if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = *a2;
+      v20 = *a2;
       if (*(*a2 + 23) < 0)
       {
-        v19 = **a2;
+        v20 = **a2;
       }
 
       *v39 = 68289282;
       *&v39[8] = 2082;
       *&v39[10] = &unk_1DF8255EF;
       *&v39[18] = 2082;
-      *&v39[20] = v19;
-      v20 = "{msg%{public}.0s:No connection fConnection, messageName:%{public, location:escape_only}s}";
-      v21 = v18;
-      v22 = 28;
+      *&v39[20] = v20;
+      v21 = "{msg%{public}.0s:No connection fConnection, messageName:%{public, location:escape_only}s}";
+      v22 = v19;
+      v23 = 28;
       goto LABEL_25;
     }
   }
-
-LABEL_62:
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DF8048D4(_Unwind_Exception *exception_object, int a2)
@@ -3093,8 +3066,7 @@ uint64_t *sub_1DF804950(uint64_t *result, __int128 *a2)
 
     v10 = *a2;
     v11 = 24 * v6;
-    *a2 = 0;
-    *(a2 + 1) = 0;
+    *a2 = 0uLL;
     v12 = *result;
     v13 = result[1];
     v14 = v13 - *result;
@@ -3157,8 +3129,7 @@ uint64_t *sub_1DF804950(uint64_t *result, __int128 *a2)
   else
   {
     *v3 = *a2;
-    *a2 = 0;
-    *(a2 + 1) = 0;
+    *a2 = 0uLL;
     *(v3 + 16) = 0;
     *(v3 + 16) = *(a2 + 2);
     *(a2 + 2) = 0;
@@ -3202,13 +3173,13 @@ void sub_1DF804DC4()
   v1 = qword_1ED5FADA0;
   qword_1ED5FADA0 = v0;
 
-  v2 = [MEMORY[0x1E695DF90] dictionary];
-  v3 = qword_1ED5FADA8;
-  qword_1ED5FADA8 = v2;
+  v4 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], v2, v3);
+  v5 = qword_1ED5FADA8;
+  qword_1ED5FADA8 = v4;
 
-  v4 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, qword_1ED5FADA0);
-  v5 = qword_1ED5FADB0;
-  qword_1ED5FADB0 = v4;
+  v6 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, qword_1ED5FADA0);
+  v7 = qword_1ED5FADB0;
+  qword_1ED5FADB0 = v6;
 
   dispatch_source_set_timer(qword_1ED5FADB0, 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0);
   dispatch_source_set_event_handler(qword_1ED5FADB0, &unk_1F5AC6B28);
@@ -3217,9 +3188,9 @@ void sub_1DF804DC4()
     dispatch_resume(qword_1ED5FADB0);
   }
 
-  v6 = objc_opt_class();
+  v8 = objc_opt_class();
 
-  sub_1DF804EAC(v6, @"_CLMainService");
+  sub_1DF804EAC(v8, @"_CLMainService");
 }
 
 void sub_1DF804EAC(uint64_t a1, void *a2)
@@ -3262,30 +3233,30 @@ void sub_1DF804F84(uint64_t a1)
 uint64_t CLConnection::resetAllHandlers(dispatch_queue_t *this)
 {
   dispatch_assert_queue_V2(this[1]);
-  v2 = this[5];
-  if (v2)
-  {
-    _Block_release(v2);
-    this[5] = 0;
-  }
-
-  v3 = this[6];
-  if (v3)
-  {
-    _Block_release(v3);
-    this[6] = 0;
-  }
-
-  v4 = this[7];
+  v4 = this[5];
   if (v4)
   {
     _Block_release(v4);
+    this[5] = 0;
+  }
+
+  v5 = this[6];
+  if (v5)
+  {
+    _Block_release(v5);
+    this[6] = 0;
+  }
+
+  v6 = this[7];
+  if (v6)
+  {
+    _Block_release(v6);
     this[7] = 0;
   }
 
-  v5 = this[2];
+  v7 = this[2];
 
-  return [v5 removeAllObjects];
+  return objc_msgSend_removeAllObjects(v7, v2, v3);
 }
 
 void CLConnection::handleDisconnection(dispatch_queue_t *this)
@@ -3312,57 +3283,54 @@ void CLConnection::handleDisconnection(dispatch_queue_t *this)
     _os_log_impl(&dword_1DF7FE000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLConnection::handleDisconnection, event:%{public, location:escape_only}s}", buf, 0x1Cu);
   }
 
-  CLConnection::resetReplyHandlers(this);
-  v4 = this[5];
-  if (v4)
+  CLConnection::resetReplyHandlers(this, v4);
+  v5 = this[5];
+  if (v5)
   {
-    (v4[2].isa)();
+    (v5[2].isa)();
   }
 
   os_activity_scope_leave(&v6);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t CLConnection::resetReplyHandlers(CLConnection *this)
+uint64_t CLConnection::resetReplyHandlers(CLConnection *this, const char *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v11 = 0u;
-  v12 = 0u;
+  v18 = *MEMORY[0x1E69E9840];
   v13 = 0u;
   v14 = 0u;
-  v2 = *(this + 3);
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v3)
+  v15 = 0u;
+  v16 = 0u;
+  v3 = *(this + 3);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, a2, &v13, v17, 16);
+  if (v6)
   {
-    v4 = *v12;
+    v7 = *v14;
     do
     {
-      for (i = 0; i != v3; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v4)
+        if (*v14 != v7)
         {
-          objc_enumerationMutation(v2);
+          objc_enumerationMutation(v3);
         }
 
-        v6 = [*(this + 3) objectForKeyedSubscript:*(*(&v11 + 1) + 8 * i)];
-        v9 = 0;
-        v10 = 0;
-        (*(v6 + 16))(v6, &v9);
-        if (v10)
+        v9 = objc_msgSend_objectForKeyedSubscript_(*(this + 3), v4, *(*(&v13 + 1) + 8 * i));
+        v11 = 0;
+        v12 = 0;
+        (*(v9 + 16))(v9, &v11);
+        if (v12)
         {
-          sub_1DF7FFED0(v10);
+          sub_1DF7FFED0(v12);
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v13, v17, 16);
     }
 
-    while (v3);
+    while (v6);
   }
 
-  result = [*(this + 3) removeAllObjects];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return objc_msgSend_removeAllObjects(*(this + 3), v4, v5);
 }
 
 void sub_1DF8052C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -3456,7 +3424,7 @@ void CLConnection::~CLConnection(CLConnection *this)
       dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
     }
 
-    v5 = qword_1ED5FAD60;
+    v4 = qword_1ED5FAD60;
     if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
@@ -3467,14 +3435,14 @@ void CLConnection::~CLConnection(CLConnection *this)
       v17 = "assert";
       v18 = 2081;
       v19 = "__null == fConnection";
-      _os_log_impl(&dword_1DF7FE000, v5, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:deferredDelete() should have nulled out connection, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      _os_log_impl(&dword_1DF7FE000, v4, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:deferredDelete() should have nulled out connection, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED5FAD68 != -1)
       {
         dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
       }
     }
 
-    v6 = qword_1ED5FAD60;
+    v5 = qword_1ED5FAD60;
     if (os_signpost_enabled(qword_1ED5FAD60))
     {
       *buf = 68289539;
@@ -3485,14 +3453,14 @@ void CLConnection::~CLConnection(CLConnection *this)
       v17 = "assert";
       v18 = 2081;
       v19 = "__null == fConnection";
-      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "deferredDelete() should have nulled out connection", "{msg%{public}.0s:deferredDelete() should have nulled out connection, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "deferredDelete() should have nulled out connection", "{msg%{public}.0s:deferredDelete() should have nulled out connection, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED5FAD68 != -1)
       {
         dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
       }
     }
 
-    v7 = qword_1ED5FAD60;
+    v6 = qword_1ED5FAD60;
     if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
@@ -3503,11 +3471,12 @@ void CLConnection::~CLConnection(CLConnection *this)
       v17 = "assert";
       v18 = 2081;
       v19 = "__null == fConnection";
-      _os_log_impl(&dword_1DF7FE000, v7, OS_LOG_TYPE_INFO, "{msg%{public}.0s:deferredDelete() should have nulled out connection, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      _os_log_impl(&dword_1DF7FE000, v6, OS_LOG_TYPE_INFO, "{msg%{public}.0s:deferredDelete() should have nulled out connection, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-LABEL_29:
-    abort_report_np();
+    v7 = 335;
+LABEL_30:
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/IPC/CLConnection.mm", v7, "~CLConnection");
     __break(1u);
   }
 
@@ -3568,7 +3537,8 @@ LABEL_29:
       _os_log_impl(&dword_1DF7FE000, v10, OS_LOG_TYPE_INFO, "{msg%{public}.0s:deferredDelete() should have nulled out handler, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    goto LABEL_29;
+    v7 = 336;
+    goto LABEL_30;
   }
 
   v2 = *(this + 1);
@@ -3591,8 +3561,6 @@ LABEL_29:
   {
     sub_1DF7FFED0(v3);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DF8059BC(_Unwind_Exception *a1, int a2)
@@ -3629,19 +3597,18 @@ void sub_1DF805A10(uint64_t a1, void *a2)
   objc_autoreleasePoolPop(v4);
 }
 
-void CLConnectionServer::handleEvent(uint64_t a1, void *a2)
+void CLConnectionServer::handleEvent(void *a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v3 = MEMORY[0x1E12E05B0](a2);
-  if (v3 == MEMORY[0x1E69E9E68])
+  v14 = *MEMORY[0x1E69E9840];
+  v4 = MEMORY[0x1E12E05B0](a2);
+  if (v4 == MEMORY[0x1E69E9E68])
   {
-    v7 = *MEMORY[0x1E69E9840];
 
-    CLConnectionServer::handleConnection();
+    CLConnectionServer::handleConnection(a1, a2);
   }
 
-  v4 = v3;
-  if (v3 == MEMORY[0x1E69E9E98])
+  v5 = v4;
+  if (v4 == MEMORY[0x1E69E9E98])
   {
     string = xpc_dictionary_get_string(a2, *MEMORY[0x1E69E9E28]);
     if (qword_1ED5FAD68 != -1)
@@ -3652,12 +3619,12 @@ void CLConnectionServer::handleEvent(uint64_t a1, void *a2)
     v9 = qword_1ED5FAD60;
     if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_FAULT))
     {
-      v13 = 136446210;
-      v14 = string;
+      v12 = 136446210;
+      v13 = string;
       v10 = "Got error: %{public}s";
       v11 = v9;
 LABEL_41:
-      _os_log_impl(&dword_1DF7FE000, v11, OS_LOG_TYPE_FAULT, v10, &v13, 0xCu);
+      _os_log_impl(&dword_1DF7FE000, v11, OS_LOG_TYPE_FAULT, v10, &v12, 0xCu);
     }
   }
 
@@ -3668,88 +3635,86 @@ LABEL_41:
       dispatch_once(&qword_1ED5FAD68, &unk_1F5AC6320);
     }
 
-    v5 = qword_1ED5FAD60;
+    v6 = qword_1ED5FAD60;
     if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_FAULT))
     {
-      if (v4 == MEMORY[0x1E69E9ED0])
+      if (v5 == MEMORY[0x1E69E9ED0])
       {
-        v6 = "XPC_TYPE_NULL";
+        v7 = "XPC_TYPE_NULL";
       }
 
-      else if (v4 == MEMORY[0x1E69E9E58])
+      else if (v5 == MEMORY[0x1E69E9E58])
       {
-        v6 = "XPC_TYPE_BOOL";
+        v7 = "XPC_TYPE_BOOL";
       }
 
-      else if (v4 == MEMORY[0x1E69E9EB0])
+      else if (v5 == MEMORY[0x1E69E9EB0])
       {
-        v6 = "XPC_TYPE_INT64";
+        v7 = "XPC_TYPE_INT64";
       }
 
-      else if (v4 == MEMORY[0x1E69E9F18])
+      else if (v5 == MEMORY[0x1E69E9F18])
       {
-        v6 = "XPC_TYPE_UINT64";
+        v7 = "XPC_TYPE_UINT64";
       }
 
-      else if (v4 == MEMORY[0x1E69E9E88])
+      else if (v5 == MEMORY[0x1E69E9E88])
       {
-        v6 = "XPC_TYPE_DOUBLE";
+        v7 = "XPC_TYPE_DOUBLE";
       }
 
-      else if (v4 == MEMORY[0x1E69E9E78])
+      else if (v5 == MEMORY[0x1E69E9E78])
       {
-        v6 = "XPC_TYPE_DATE";
+        v7 = "XPC_TYPE_DATE";
       }
 
-      else if (v4 == MEMORY[0x1E69E9E70])
+      else if (v5 == MEMORY[0x1E69E9E70])
       {
-        v6 = "XPC_TYPE_DATA";
+        v7 = "XPC_TYPE_DATA";
       }
 
-      else if (v4 == MEMORY[0x1E69E9F10])
+      else if (v5 == MEMORY[0x1E69E9F10])
       {
-        v6 = "XPC_TYPE_STRING";
+        v7 = "XPC_TYPE_STRING";
       }
 
-      else if (v4 == MEMORY[0x1E69E9F20])
+      else if (v5 == MEMORY[0x1E69E9F20])
       {
-        v6 = "XPC_TYPE_UUID";
+        v7 = "XPC_TYPE_UUID";
       }
 
-      else if (v4 == MEMORY[0x1E69E9EA0])
+      else if (v5 == MEMORY[0x1E69E9EA0])
       {
-        v6 = "XPC_TYPE_FD";
+        v7 = "XPC_TYPE_FD";
       }
 
-      else if (v4 == MEMORY[0x1E69E9F08])
+      else if (v5 == MEMORY[0x1E69E9F08])
       {
-        v6 = "XPC_TYPE_SHMEM";
+        v7 = "XPC_TYPE_SHMEM";
       }
 
-      else if (v4 == MEMORY[0x1E69E9E50])
+      else if (v5 == MEMORY[0x1E69E9E50])
       {
-        v6 = "XPC_TYPE_ARRAY";
+        v7 = "XPC_TYPE_ARRAY";
       }
 
-      else if (v4 == MEMORY[0x1E69E9E80])
+      else if (v5 == MEMORY[0x1E69E9E80])
       {
-        v6 = "XPC_TYPE_DICTIONARY";
+        v7 = "XPC_TYPE_DICTIONARY";
       }
 
       else
       {
-        v6 = "Unknown type";
+        v7 = "Unknown type";
       }
 
-      v13 = 136446210;
-      v14 = v6;
+      v12 = 136446210;
+      v13 = v7;
       v10 = "Unexpected event type %{public}s";
-      v11 = v5;
+      v11 = v6;
       goto LABEL_41;
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DF805F10(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15)
@@ -3801,7 +3766,7 @@ void sub_1DF805FC4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_1DF805FEC()
+void *sub_1DF805FEC()
 {
   v0 = objc_alloc(MEMORY[0x1E695DFD8]);
   v1 = objc_opt_class();
@@ -3809,7 +3774,8 @@ uint64_t sub_1DF805FEC()
   v3 = objc_opt_class();
   v4 = objc_opt_class();
   v5 = objc_opt_class();
-  result = [v0 initWithObjects:{v1, v2, v3, v4, v5, objc_opt_class(), 0}];
+  v6 = objc_opt_class();
+  result = objc_msgSend_initWithObjects_(v0, v7, v1, v2, v3, v4, v5, v6, 0);
   qword_1ED5FAE70 = result;
   return result;
 }
@@ -3915,12 +3881,12 @@ void CLConnectionServer::handleMessage(uint64_t a1, dispatch_queue_t *this, uint
   }
 }
 
-void sub_1DF8062AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, ...)
+void sub_1DF8062AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, std::__shared_weak_count *a7, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a7);
+  if (a7)
   {
-    sub_1DF7FFED0(a4);
+    sub_1DF7FFED0(a7);
   }
 
   sub_1DF80AFD0(va);
@@ -3941,7 +3907,7 @@ uint64_t CLConnectionMessage::getDictionary(CLConnectionMessage *this)
 
 void CLConnection::pause(dispatch_queue_t *this)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(this[1]);
   if (*(this + 72) == 1)
   {
@@ -3950,18 +3916,36 @@ void CLConnection::pause(dispatch_queue_t *this)
       dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
     }
 
-    v3 = qword_1ED5FAD60;
+    v2 = qword_1ED5FAD60;
     if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v7 = 0;
-      v8 = 2082;
-      v9 = &unk_1DF8255EF;
-      v10 = 2082;
-      v11 = "assert";
-      v12 = 2081;
-      v13 = "!fPaused";
-      _os_log_impl(&dword_1DF7FE000, v3, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Cannot call pause() on a paused CLConnection., event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v6 = 0;
+      v7 = 2082;
+      v8 = &unk_1DF8255EF;
+      v9 = 2082;
+      v10 = "assert";
+      v11 = 2081;
+      v12 = "!fPaused";
+      _os_log_impl(&dword_1DF7FE000, v2, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Cannot call pause() on a paused CLConnection., event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      if (qword_1ED5FAD68 != -1)
+      {
+        dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
+      }
+    }
+
+    v3 = qword_1ED5FAD60;
+    if (os_signpost_enabled(qword_1ED5FAD60))
+    {
+      *buf = 68289539;
+      v6 = 0;
+      v7 = 2082;
+      v8 = &unk_1DF8255EF;
+      v9 = 2082;
+      v10 = "assert";
+      v11 = 2081;
+      v12 = "!fPaused";
+      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v3, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Cannot call pause() on a paused CLConnection.", "{msg%{public}.0s:Cannot call pause() on a paused CLConnection., event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED5FAD68 != -1)
       {
         dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
@@ -3969,43 +3953,24 @@ void CLConnection::pause(dispatch_queue_t *this)
     }
 
     v4 = qword_1ED5FAD60;
-    if (os_signpost_enabled(qword_1ED5FAD60))
-    {
-      *buf = 68289539;
-      v7 = 0;
-      v8 = 2082;
-      v9 = &unk_1DF8255EF;
-      v10 = 2082;
-      v11 = "assert";
-      v12 = 2081;
-      v13 = "!fPaused";
-      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Cannot call pause() on a paused CLConnection.", "{msg%{public}.0s:Cannot call pause() on a paused CLConnection., event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-      if (qword_1ED5FAD68 != -1)
-      {
-        dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
-      }
-    }
-
-    v5 = qword_1ED5FAD60;
     if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v7 = 0;
-      v8 = 2082;
-      v9 = &unk_1DF8255EF;
-      v10 = 2082;
-      v11 = "assert";
-      v12 = 2081;
-      v13 = "!fPaused";
-      _os_log_impl(&dword_1DF7FE000, v5, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Cannot call pause() on a paused CLConnection., event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v6 = 0;
+      v7 = 2082;
+      v8 = &unk_1DF8255EF;
+      v9 = 2082;
+      v10 = "assert";
+      v11 = 2081;
+      v12 = "!fPaused";
+      _os_log_impl(&dword_1DF7FE000, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Cannot call pause() on a paused CLConnection., event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/IPC/CLConnection.mm", 660, "pause");
   }
 
   xpc_connection_suspend(*this);
   *(this + 72) = 1;
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DF8065B4(uint64_t a1)
@@ -4020,62 +3985,61 @@ void sub_1DF8065B4(uint64_t a1)
 uint64_t CLConnection::getAuditToken(dispatch_queue_t *this)
 {
   dispatch_assert_queue_V2(this[1]);
-  v2 = *this;
 
   return xpc_connection_get_audit_token();
 }
 
-uint64_t CLConnectionEntitlementCache::isEntitled(uint64_t a1, uint64_t *a2)
+uint64_t CLConnectionEntitlementCache::isEntitled(uint64_t **a1, void **a2)
 {
   v38 = *MEMORY[0x1E69E9840];
-  os_unfair_lock_lock((a1 + 56));
-  v5 = (a1 + 8);
-  v4 = *(a1 + 8);
-  if (!v4)
+  os_unfair_lock_lock(a1 + 14);
+  v6 = a1 + 1;
+  v5 = a1[1];
+  if (!v5)
   {
     goto LABEL_9;
   }
 
-  v6 = a1 + 8;
+  v7 = a1 + 1;
   do
   {
-    v7 = sub_1DF806D9C((v4 + 32), a2);
-    if ((v7 & 0x80u) == 0)
+    v8 = sub_1DF806D9C(v5 + 4, a2);
+    if ((v8 & 0x80u) == 0)
     {
-      v6 = v4;
+      v7 = v5;
     }
 
-    v4 = *(v4 + ((v7 >> 4) & 8));
+    v5 = *(v5 + ((v8 >> 4) & 8));
   }
 
-  while (v4);
-  if (v6 == v5 || (sub_1DF806D9C(a2, (v6 + 32)) & 0x80) != 0)
+  while (v5);
+  if (v7 == v6 || (sub_1DF806D9C(a2, v7 + 4) & 0x80) != 0)
   {
 LABEL_9:
     if (*(a2 + 23) >= 0)
     {
-      v9 = a2;
+      v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v4, a2);
     }
 
     else
     {
-      v9 = *a2;
+      v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v4, *a2);
     }
 
-    v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v9];
+    v11 = v10;
     if (v10)
     {
       error = 0;
-      v11 = *MEMORY[0x1E695E480];
-      v12 = *(a1 + 40);
-      *token.val = *(a1 + 24);
-      *&token.val[4] = v12;
-      v13 = SecTaskCreateWithAuditToken(v11, &token);
-      v14 = v13;
-      if (v13)
+      v12 = *MEMORY[0x1E695E480];
+      v13 = *(a1 + 5);
+      *token.val = *(a1 + 3);
+      *&token.val[4] = v13;
+      v14 = SecTaskCreateWithAuditToken(v12, &token);
+      v15 = v14;
+      if (v14)
       {
-        v15 = SecTaskCopyValueForEntitlement(v13, v10, &error);
-        v16 = error;
+        v16 = SecTaskCopyValueForEntitlement(v14, v11, &error);
+        v17 = error;
         if (error)
         {
           if (qword_1ED5FAD68 != -1)
@@ -4083,20 +4047,20 @@ LABEL_9:
             dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
           }
 
-          v17 = qword_1ED5FAD60;
+          v18 = qword_1ED5FAD60;
           if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_DEFAULT))
           {
-            sub_1DF81265C(&__p, a1 + 24);
-            v18 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
+            sub_1DF81265C(&__p, (a1 + 3));
+            v19 = (__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &__p : __p.__r_.__value_.__r.__words[0];
             Domain = CFErrorGetDomain(error);
             Code = CFErrorGetCode(error);
             token.val[0] = 136315650;
-            *&token.val[1] = v18;
+            *&token.val[1] = v19;
             LOWORD(token.val[3]) = 2112;
             *(&token.val[3] + 2) = Domain;
             HIWORD(token.val[5]) = 2048;
             *&token.val[6] = Code;
-            _os_log_impl(&dword_1DF7FE000, v17, OS_LOG_TYPE_DEFAULT, "#Warning SecTaskCopyValueForEntitlement failed for token '%s' with error '%@' (%ld)", &token, 0x20u);
+            _os_log_impl(&dword_1DF7FE000, v18, OS_LOG_TYPE_DEFAULT, "#Warning SecTaskCopyValueForEntitlement failed for token '%s' with error '%@' (%ld)", &token, 0x20u);
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__p.__r_.__value_.__l.__data_);
@@ -4106,40 +4070,40 @@ LABEL_9:
           CFRelease(error);
         }
 
-        if (v15)
+        if (v16)
         {
-          v21 = CFGetTypeID(v15);
-          v8 = v21 == CFBooleanGetTypeID() && CFBooleanGetValue(v15) != 0;
-          CFRelease(v15);
+          v22 = CFGetTypeID(v16);
+          v9 = v22 == CFBooleanGetTypeID() && CFBooleanGetValue(v16) != 0;
+          CFRelease(v16);
         }
 
         else
         {
-          v8 = 0;
+          v9 = 0;
         }
 
-        if (v16)
+        if (v17)
         {
           if (qword_1ED5FAD68 != -1)
           {
             dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
           }
 
-          v25 = qword_1ED5FAD60;
+          v26 = qword_1ED5FAD60;
           if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_DEFAULT))
           {
-            v26 = *(a2 + 23);
-            v27 = *a2;
-            v28 = *(a1 + 44);
+            v27 = *(a2 + 23);
+            v28 = *a2;
+            v29 = *(a1 + 11);
             sub_1DF806E1C(&__p);
-            if (v26 >= 0)
+            if (v27 >= 0)
             {
-              v29 = a2;
+              v30 = a2;
             }
 
             else
             {
-              v29 = v27;
+              v30 = v28;
             }
 
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -4153,12 +4117,12 @@ LABEL_9:
             }
 
             token.val[0] = 136315650;
-            *&token.val[1] = v29;
+            *&token.val[1] = v30;
             LOWORD(token.val[3]) = 1024;
-            *(&token.val[3] + 2) = v28;
+            *(&token.val[3] + 2) = v29;
             HIWORD(token.val[4]) = 2080;
             *&token.val[5] = p_p;
-            _os_log_impl(&dword_1DF7FE000, v25, OS_LOG_TYPE_DEFAULT, "#Warning Issue retrieving entitlement, '%s', pid, %d, executable or bundle, '%s'", &token, 0x1Cu);
+            _os_log_impl(&dword_1DF7FE000, v26, OS_LOG_TYPE_DEFAULT, "#Warning Issue retrieving entitlement, '%s', pid, %d, executable or bundle, '%s'", &token, 0x1Cu);
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__p.__r_.__value_.__l.__data_);
@@ -4166,7 +4130,7 @@ LABEL_9:
           }
         }
 
-        CFRelease(v14);
+        CFRelease(v15);
       }
 
       else
@@ -4176,11 +4140,11 @@ LABEL_9:
           dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
         }
 
-        v23 = qword_1ED5FAD60;
-        v8 = 0;
+        v24 = qword_1ED5FAD60;
+        v9 = 0;
         if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_DEFAULT))
         {
-          sub_1DF81265C(&token, a1 + 24);
+          sub_1DF81265C(&token, (a1 + 3));
           if ((token.val[5] & 0x80000000) == 0)
           {
             p_token = &token;
@@ -4193,18 +4157,18 @@ LABEL_9:
 
           LODWORD(__p.__r_.__value_.__l.__data_) = 136315138;
           *(__p.__r_.__value_.__r.__words + 4) = p_token;
-          _os_log_impl(&dword_1DF7FE000, v23, OS_LOG_TYPE_DEFAULT, "#Warning SecTaskCreateWithAuditToken failed for token '%s'", &__p, 0xCu);
+          _os_log_impl(&dword_1DF7FE000, v24, OS_LOG_TYPE_DEFAULT, "#Warning SecTaskCreateWithAuditToken failed for token '%s'", &__p, 0xCu);
           if (SHIBYTE(token.val[5]) < 0)
           {
             operator delete(*token.val);
           }
 
-          v8 = 0;
+          v9 = 0;
         }
       }
 
-      v31 = *v5;
-      if (!*v5)
+      v32 = *v6;
+      if (!*v6)
       {
 LABEL_65:
         operator new();
@@ -4214,32 +4178,32 @@ LABEL_65:
       {
         while (1)
         {
-          v32 = v31;
-          if ((sub_1DF806D9C(a2, v31 + 4) & 0x80) == 0)
+          v33 = v32;
+          if ((sub_1DF806D9C(a2, v32 + 4) & 0x80) == 0)
           {
             break;
           }
 
-          v31 = *v32;
-          if (!*v32)
+          v32 = *v33;
+          if (!*v33)
           {
             goto LABEL_65;
           }
         }
 
-        if ((sub_1DF806D9C(v32 + 4, a2) & 0x80) == 0)
+        if ((sub_1DF806D9C(v33 + 4, a2) & 0x80) == 0)
         {
           break;
         }
 
-        v31 = v32[1];
-        if (!v31)
+        v32 = v33[1];
+        if (!v32)
         {
           goto LABEL_65;
         }
       }
 
-      *(v32 + 56) = v8;
+      *(v33 + 56) = v9;
     }
 
     else
@@ -4249,25 +4213,24 @@ LABEL_65:
         dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
       }
 
-      v22 = qword_1ED5FAD60;
+      v23 = qword_1ED5FAD60;
       if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_FAULT))
       {
         LOWORD(token.val[0]) = 0;
-        _os_log_impl(&dword_1DF7FE000, v22, OS_LOG_TYPE_FAULT, "Couldn't get CFString for entitlement", &token, 2u);
+        _os_log_impl(&dword_1DF7FE000, v23, OS_LOG_TYPE_FAULT, "Couldn't get CFString for entitlement", &token, 2u);
       }
 
-      v8 = 0;
+      v9 = 0;
     }
   }
 
   else
   {
-    v8 = *(v6 + 56);
+    v9 = *(v7 + 56);
   }
 
-  os_unfair_lock_unlock((a1 + 56));
-  v33 = *MEMORY[0x1E69E9840];
-  return v8 & 1;
+  os_unfair_lock_unlock(a1 + 14);
+  return v9 & 1;
 }
 
 uint64_t CLConnection::getUniqueRemotePid(dispatch_queue_t *this)
@@ -4276,7 +4239,6 @@ uint64_t CLConnection::getUniqueRemotePid(dispatch_queue_t *this)
   if (MEMORY[0x1EEE83EC8])
   {
     dispatch_assert_queue_V2(this[1]);
-    v2 = *this;
     xpc_connection_get_audit_token();
     return BSVersionedPIDForAuditToken();
   }
@@ -4351,10 +4313,10 @@ uint64_t sub_1DF806D9C(void *a1, void *a2)
 
 void sub_1DF806E1C(std::string *a1)
 {
-  memset(&v11, 0, sizeof(v11));
+  memset(&v14, 0, sizeof(v14));
   sub_1DF806FBC();
   v2 = *MEMORY[0x1E695E480];
-  if (v13 >= 0)
+  if (v16 >= 0)
   {
     p_p = &__p;
   }
@@ -4380,7 +4342,8 @@ void sub_1DF806E1C(std::string *a1)
           Identifier = CFBundleGetIdentifier(v7);
           if (Identifier)
           {
-            sub_1DF800930(&v11, [(__CFString *)Identifier UTF8String]);
+            v12 = objc_msgSend_UTF8String(Identifier, v10, v11);
+            sub_1DF800930(&v14, v12);
           }
 
           CFRelease(v8);
@@ -4395,28 +4358,28 @@ void sub_1DF806E1C(std::string *a1)
     CFRelease(v4);
   }
 
-  if (v13 < 0)
+  if (v16 < 0)
   {
     operator delete(__p);
   }
 
-  size = HIBYTE(v11.__r_.__value_.__r.__words[2]);
-  if ((v11.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  size = HIBYTE(v14.__r_.__value_.__r.__words[2]);
+  if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    size = v11.__r_.__value_.__l.__size_;
+    size = v14.__r_.__value_.__l.__size_;
   }
 
   if (size)
   {
-    *a1 = v11;
+    *a1 = v14;
   }
 
   else
   {
     sub_1DF806FBC();
-    if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v11.__r_.__value_.__l.__data_);
+      operator delete(v14.__r_.__value_.__l.__data_);
     }
   }
 }
@@ -4434,17 +4397,16 @@ void sub_1DF806F74(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 std::string *sub_1DF806FBC()
 {
   v0 = MEMORY[0x1EEE9AC00]();
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v0->__r_.__value_.__r.__words[0] = 0;
   v0->__r_.__value_.__l.__size_ = 0;
   v0->__r_.__value_.__r.__words[2] = 0;
   result = proc_pidpath_audittoken(v1, buffer, 0x1000u);
   if (result >= 1)
   {
-    result = sub_1DF800930(v0, buffer);
+    return sub_1DF800930(v0, buffer);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4458,64 +4420,64 @@ void sub_1DF807064(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_1DF807138()
+uint64_t sub_1DF807138(uint64_t a1, const char *a2, uint64_t a3)
 {
-  qword_1ED5FADB8 = +[CLSilo main];
+  qword_1ED5FADB8 = objc_msgSend_main(CLSilo, a2, a3);
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 uint64_t sub_1DF807178()
 {
-  qword_1ED5FADE0 = [[CLDispatchSilo alloc] initMain];
+  v0 = [CLDispatchSilo alloc];
+  qword_1ED5FADE0 = objc_msgSend_initMain(v0, v1, v2);
 
   return MEMORY[0x1EEE66BB8]();
 }
 
-void sub_1DF8072CC(uint64_t a1)
+void sub_1DF8072CC(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v2 = qword_1ED5FADA8;
-  v3 = [*(a1 + 40) getSilo];
-  v4 = [v2 objectForKey:v3];
+  v32 = *MEMORY[0x1E69E9840];
+  v4 = qword_1ED5FADA8;
+  v5 = objc_msgSend_getSilo(*(a1 + 40), a2, a3);
+  v7 = objc_msgSend_objectForKey_(v4, v6, v5);
 
-  if (v4)
+  if (v7)
   {
-    [v4 setResidentCount:{objc_msgSend(v4, "residentCount") + 1}];
+    v10 = objc_msgSend_residentCount(v7, v8, v9);
+    objc_msgSend_setResidentCount_(v7, v11, (v10 + 1));
   }
 
   else
   {
-    v5 = [CLSiloHeartbeatRecord alloc];
-    v6 = [(CLSiloHeartbeatRecord *)v5 initTrackingServiceClass:*(a1 + 40) name:*(a1 + 32)];
+    v12 = [CLSiloHeartbeatRecord alloc];
+    inited = objc_msgSend_initTrackingServiceClass_name_(v12, v13, *(a1 + 40), *(a1 + 32));
 
-    v7 = qword_1ED5FADA8;
-    v8 = [v6 silo];
-    [v7 setObject:v6 forKey:v8];
+    v15 = qword_1ED5FADA8;
+    v18 = objc_msgSend_silo(inited, v16, v17);
+    objc_msgSend_setObject_forKey_(v15, v19, inited, v18);
 
     if (qword_1ED5FAD40 != -1)
     {
       dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
     }
 
-    v9 = qword_1ED5FAD48;
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v20 = qword_1ED5FAD48;
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      v10 = [v6 silo];
-      v11 = [v10 identifier];
-      v13[0] = 68289282;
-      v13[1] = 0;
-      v14 = 2082;
-      v15 = &unk_1DF8255EF;
-      v16 = 2114;
-      v17 = v11;
-      _os_log_impl(&dword_1DF7FE000, v9, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Heartbeat tracking commenced, silo:%{public, location:escape_only}@}", v13, 0x1Cu);
+      v23 = objc_msgSend_silo(inited, v21, v22);
+      v26 = objc_msgSend_identifier(v23, v24, v25);
+      v27[0] = 68289282;
+      v27[1] = 0;
+      v28 = 2082;
+      v29 = &unk_1DF8255EF;
+      v30 = 2114;
+      v31 = v26;
+      _os_log_impl(&dword_1DF7FE000, v20, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Heartbeat tracking commenced, silo:%{public, location:escape_only}@}", v27, 0x1Cu);
     }
 
-    v4 = v6;
+    v7 = inited;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t sub_1DF8074DC()
@@ -4613,7 +4575,7 @@ void sub_1DF80770C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void CLConnectionClient::~CLConnectionClient(const void **this)
+void CLConnectionClient::~CLConnectionClient(NSObject **this)
 {
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterRemoveEveryObserver(DarwinNotifyCenter, this[6]);
@@ -4684,7 +4646,7 @@ uint64_t sub_1DF807A74(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t CLConnectionMessage::isEntitled(uint64_t a1, uint64_t *a2)
+uint64_t **CLConnectionMessage::isEntitled(uint64_t a1, void **a2)
 {
   result = *(a1 + 72);
   if (result)
@@ -4807,20 +4769,24 @@ void sub_1DF807D4C(void ***a1)
   }
 }
 
-BOOL sub_1DF807DE4(id *a1, void *a2, void *a3)
+BOOL sub_1DF807DE4(Class *a1, void *a2, void *a3)
 {
-  v5 = a3;
+  v7 = a3;
   *a1 = 0;
   *a2 = 0;
   Class = *a1;
   if (!*a1)
   {
-    Class = objc_getClass([v5 UTF8String]);
+    v9 = v7;
+    v12 = objc_msgSend_UTF8String(v9, v10, v11);
+    Class = objc_getClass(v12);
     *a1 = Class;
     if (!Class)
     {
-      v7 = [v5 stringByAppendingString:@"Adapter"];
-      *a1 = objc_getClass([v7 UTF8String]);
+      v13 = objc_msgSend_stringByAppendingString_(v7, v5, @"Adapter");
+      v14 = v13;
+      v17 = objc_msgSend_UTF8String(v14, v15, v16);
+      *a1 = objc_getClass(v17);
 
       Class = *a1;
       if (!*a1)
@@ -4830,23 +4796,23 @@ BOOL sub_1DF807DE4(id *a1, void *a2, void *a3)
     }
   }
 
-  if ([(objc_class *)Class isSupported])
+  if (objc_msgSend_isSupported(Class, v5, v6))
   {
-    *a2 = [*a1 getSilo];
+    *a2 = objc_msgSend_getSilo(*a1, v18, v19);
   }
 
   if (*a1)
   {
-    v8 = *a2 != 0;
+    v20 = *a2 != 0;
   }
 
   else
   {
 LABEL_8:
-    v8 = 0;
+    v20 = 0;
   }
 
-  return v8;
+  return v20;
 }
 
 uint64_t sub_1DF807EDC()
@@ -4858,37 +4824,37 @@ uint64_t sub_1DF807EDC()
 
 uint64_t sub_1DF807F18(void *a1, void *a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = a1;
-  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
   v4 = a2;
-  v5 = [v4 countByEnumeratingWithState:&v21 objects:v30 count:16];
-  if (v5)
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v22, v31, 16);
+  if (v6)
   {
-    v6 = *v22;
+    v7 = *v23;
     while (2)
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v6)
+        if (*v23 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        if (protocol_isEqual(v3, *(*(&v21 + 1) + 8 * i)))
+        if (protocol_isEqual(v3, *(*(&v22 + 1) + 8 * i)))
         {
 
 LABEL_21:
-          v13 = 1;
+          v15 = 1;
           goto LABEL_24;
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v21 objects:v30 count:16];
-      if (v5)
+      v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v9, &v22, v31, 16);
+      if (v6)
       {
         continue;
       }
@@ -4904,61 +4870,60 @@ LABEL_21:
     dispatch_once(&qword_1ED5FAE08, &unk_1F5AC6380);
   }
 
-  v9 = qword_1ED5FAE10;
+  v11 = qword_1ED5FAE10;
   if (os_log_type_enabled(qword_1ED5FAE10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 68289282;
-    v26 = 2082;
-    v27 = &unk_1DF8255EF;
-    v28 = 2082;
-    v29 = Name;
-    _os_log_impl(&dword_1DF7FE000, v9, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#registerSelectorInfosAndValidateProtocolRecursively , protocolName:%{public, location:escape_only}s}", buf, 0x1Cu);
+    v27 = 2082;
+    v28 = &unk_1DF8255EF;
+    v29 = 2082;
+    v30 = Name;
+    _os_log_impl(&dword_1DF7FE000, v11, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#registerSelectorInfosAndValidateProtocolRecursively , protocolName:%{public, location:escape_only}s}", buf, 0x1Cu);
   }
 
-  v10 = protocol_copyMethodDescriptionList(v3, 0, 1, &outCount);
-  v11 = sub_1DF80821C(v10, outCount, Name);
-  free(v10);
-  if (!v11)
+  v12 = protocol_copyMethodDescriptionList(v3, 0, 1, &outCount);
+  v13 = sub_1DF80821C(v12, outCount, Name);
+  free(v12);
+  if (!v13)
   {
     goto LABEL_23;
   }
 
-  v12 = protocol_copyMethodDescriptionList(v3, 1, 1, &outCount);
-  v13 = sub_1DF80821C(v12, outCount, Name);
-  free(v12);
-  if (v13)
+  v14 = protocol_copyMethodDescriptionList(v3, 1, 1, &outCount);
+  v15 = sub_1DF80821C(v14, outCount, Name);
+  free(v14);
+  if (v15)
   {
-    v14 = protocol_copyProtocolList(v3, &outCount);
+    v16 = protocol_copyProtocolList(v3, &outCount);
     if (outCount)
     {
-      v15 = v14;
-      v16 = 0;
+      v17 = v16;
+      v18 = 0;
       while (1)
       {
-        v17 = v15[v16];
-        if ((sub_1DF807F18() & 1) == 0)
+        v19 = v17[v18];
+        if ((sub_1DF807F18(v19, v4) & 1) == 0)
         {
           break;
         }
 
-        if (++v16 >= outCount)
+        if (++v18 >= outCount)
         {
-          free(v15);
+          free(v17);
           goto LABEL_21;
         }
       }
 
-      free(v15);
+      free(v17);
     }
 
 LABEL_23:
-    v13 = 0;
+    v15 = 0;
   }
 
 LABEL_24:
 
-  v18 = *MEMORY[0x1E69E9840];
-  return v13;
+  return v15;
 }
 
 uint64_t sub_1DF8081D8()
@@ -4970,85 +4935,83 @@ uint64_t sub_1DF8081D8()
 
 uint64_t sub_1DF80821C(uint64_t a1, unsigned int a2, uint64_t a3)
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   if (!a2)
   {
-LABEL_44:
-    result = 1;
-    goto LABEL_47;
+    return 1;
   }
 
   v3 = 0;
-  v41 = a2;
+  v50 = a2;
   while (1)
   {
     v4 = (a1 + 16 * v3);
     v5 = MEMORY[0x1E696AEC0];
     v6 = NSStringFromSelector(*v4);
-    v7 = [v5 stringWithFormat:@"%s::%@", a3, v6];
+    v8 = objc_msgSend_stringWithFormat_(v5, v7, @"%s::%@", a3, v6);
 
-    v8 = v4[1];
-    v9 = strlen(v8);
-    v47 = v7;
-    if (v9 >= 0x7FFFFFFFFFFFFFF8)
+    v9 = v4[1];
+    v10 = strlen(v9);
+    v56 = v8;
+    if (v10 >= 0x7FFFFFFFFFFFFFF8)
     {
       sub_1DF80C81C();
     }
 
-    v10 = v9;
-    v45 = v3;
-    v46 = (a1 + 16 * v3);
-    if (v9 >= 0x17)
+    v11 = v10;
+    v54 = v3;
+    v55 = (a1 + 16 * v3);
+    if (v10 >= 0x17)
     {
       operator new();
     }
 
-    BYTE3(v59) = v9;
-    if (v9)
+    BYTE3(v68) = v10;
+    if (v10)
     {
-      memcpy(&__dst, v8, v9);
+      memcpy(&__dst, v9, v10);
     }
 
-    v11 = 0;
-    v57[v10 - 8] = 0;
-    v12 = SBYTE3(v59);
+    v12 = 0;
+    v66[v11 - 8] = 0;
+    v13 = SBYTE3(v68);
     __p = __dst;
-    v13 = (v59 & 0x80000000) == 0 ? &__dst : __dst;
-    v14 = (v59 & 0x80000000) == 0 ? BYTE3(v59) : *v57;
-    v15 = v13 + v14;
+    v14 = (v68 & 0x80000000) == 0 ? &__dst : __dst;
+    v15 = (v68 & 0x80000000) == 0 ? BYTE3(v68) : *v66;
+    v16 = v14 + v15;
     while (1)
     {
-      v16 = aBasicString_0[v11 + 23];
-      v17 = v16 >= 0 ? &aBasicString_0[v11] : *&aBasicString_0[v11];
-      v18 = v16 >= 0 ? aBasicString_0[v11 + 23] : *&aBasicString_0[v11 + 8];
-      if (!v18)
+      v17 = aBasicString_0[v12 + 23];
+      v18 = v17 >= 0 ? &aBasicString_0[v12] : *&aBasicString_0[v12];
+      v19 = v17 >= 0 ? aBasicString_0[v12 + 23] : *&aBasicString_0[v12 + 8];
+      if (!v19)
       {
         break;
       }
 
-      if (v14 >= v18)
+      if (v15 >= v19)
       {
-        v19 = *v17;
-        v20 = v14;
-        v21 = v13;
+        v20 = *v18;
+        v21 = v15;
+        v22 = v14;
         do
         {
-          v22 = v20 - v18;
-          if (v22 == -1)
+          v23 = v21 - v19;
+          if (v23 == -1)
           {
             break;
           }
 
-          v23 = memchr(v21, v19, v22 + 1);
-          if (!v23)
+          v24 = memchr(v22, v20, v23 + 1);
+          if (!v24)
           {
             break;
           }
 
-          v24 = v23;
-          if (!memcmp(v23, v17, v18))
+          v25 = v24;
+          if (!memcmp(v24, v18, v19))
           {
-            if (v24 == v15 || v24 - v13 == -1)
+            if (v25 == v16 || v25 - v14 == -1)
             {
               break;
             }
@@ -5056,149 +5019,148 @@ LABEL_44:
             goto LABEL_34;
           }
 
-          v21 = (v24 + 1);
-          v20 = v15 - (v24 + 1);
+          v22 = (v25 + 1);
+          v21 = v16 - (v25 + 1);
         }
 
-        while (v20 >= v18);
+        while (v21 >= v19);
       }
 
-      v11 += 24;
-      if (v11 == 120)
+      v12 += 24;
+      if (v12 == 120)
       {
-        v25 = 0;
+        v26 = 0;
         goto LABEL_35;
       }
     }
 
 LABEL_34:
-    v25 = 1;
+    v26 = 1;
 LABEL_35:
-    if (v12 < 0)
+    if (v13 < 0)
     {
       operator delete(__p);
     }
 
-    if (v25)
+    if (v26)
     {
-      v32 = sub_1DF80C018();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
-      {
-        v33 = v47;
-        v34 = [v47 UTF8String];
-        __dst = 68289795;
-        *v57 = 2082;
-        *&v57[2] = &unk_1DF8255EF;
-        v58 = 2082;
-        v59 = v34;
-        v60 = 2082;
-        v61 = "assert";
-        v62 = 2081;
-        v63 = "!containsCppTypesToAvoid(pDesc->types)";
-        _os_log_impl(&dword_1DF7FE000, v32, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Method potentially contains a non POD or non Obj-C type in its arguments, methodName:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__dst, 0x30u);
-      }
-
       v35 = sub_1DF80C018();
-      if (os_signpost_enabled(v35))
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
       {
-        v36 = v47;
-        v37 = [v47 UTF8String];
+        v36 = v56;
+        v39 = objc_msgSend_UTF8String(v56, v37, v38);
         __dst = 68289795;
-        *v57 = 2082;
-        *&v57[2] = &unk_1DF8255EF;
-        v58 = 2082;
-        v59 = v37;
-        v60 = 2082;
-        v61 = "assert";
-        v62 = 2081;
-        v63 = "!containsCppTypesToAvoid(pDesc->types)";
-        _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v35, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Method potentially contains a non POD or non Obj-C type in its arguments", "{msg%{public}.0s:Method potentially contains a non POD or non Obj-C type in its arguments, methodName:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__dst, 0x30u);
+        *v66 = 2082;
+        *&v66[2] = &unk_1DF8255EF;
+        v67 = 2082;
+        v68 = v39;
+        v69 = 2082;
+        v70 = "assert";
+        v71 = 2081;
+        v72 = "!containsCppTypesToAvoid(pDesc->types)";
+        _os_log_impl(&dword_1DF7FE000, v35, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Method potentially contains a non POD or non Obj-C type in its arguments, methodName:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__dst, 0x30u);
       }
 
-      v38 = sub_1DF80C018();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+      v40 = sub_1DF80C018();
+      if (os_signpost_enabled(v40))
       {
-        v39 = v47;
-        v40 = [v47 UTF8String];
+        v41 = v56;
+        v44 = objc_msgSend_UTF8String(v56, v42, v43);
         __dst = 68289795;
-        *v57 = 2082;
-        *&v57[2] = &unk_1DF8255EF;
-        v58 = 2082;
-        v59 = v40;
-        v60 = 2082;
-        v61 = "assert";
-        v62 = 2081;
-        v63 = "!containsCppTypesToAvoid(pDesc->types)";
-        _os_log_impl(&dword_1DF7FE000, v38, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Method potentially contains a non POD or non Obj-C type in its arguments, methodName:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__dst, 0x30u);
+        *v66 = 2082;
+        *&v66[2] = &unk_1DF8255EF;
+        v67 = 2082;
+        v68 = v44;
+        v69 = 2082;
+        v70 = "assert";
+        v71 = 2081;
+        v72 = "!containsCppTypesToAvoid(pDesc->types)";
+        _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v40, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Method potentially contains a non POD or non Obj-C type in its arguments", "{msg%{public}.0s:Method potentially contains a non POD or non Obj-C type in its arguments, methodName:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__dst, 0x30u);
       }
 
-      abort_report_np();
+      v45 = sub_1DF80C018();
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+      {
+        v46 = v56;
+        v49 = objc_msgSend_UTF8String(v56, v47, v48);
+        __dst = 68289795;
+        *v66 = 2082;
+        *&v66[2] = &unk_1DF8255EF;
+        v67 = 2082;
+        v68 = v49;
+        v69 = 2082;
+        v70 = "assert";
+        v71 = 2081;
+        v72 = "!containsCppTypesToAvoid(pDesc->types)";
+        _os_log_impl(&dword_1DF7FE000, v45, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Method potentially contains a non POD or non Obj-C type in its arguments, methodName:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__dst, 0x30u);
+      }
+
+      abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLIntersiloInterface.mm", 207, "registerSelectorInfosForMethodDescriptionList");
       __break(1u);
     }
 
-    v52 = 0;
-    v53 = &v52;
-    v54 = 0x2020000000;
-    v55 = 0;
-    v51[0] = MEMORY[0x1E69E9820];
-    v51[1] = 3221225472;
-    v51[2] = sub_1DF808AB4;
-    v51[3] = &unk_1E86C82A8;
-    v51[4] = &v52;
-    v51[5] = v46;
-    sub_1DF7FF4D8(v51);
-    if (*(v53 + 24) != 1)
+    v61 = 0;
+    v62 = &v61;
+    v63 = 0x2020000000;
+    v64 = 0;
+    v60[0] = MEMORY[0x1E69E9820];
+    v60[1] = 3221225472;
+    v60[2] = sub_1DF808AB4;
+    v60[3] = &unk_1E86C82A8;
+    v60[4] = &v61;
+    v60[5] = v55;
+    sub_1DF7FF4D8(v60);
+    if (*(v62 + 24) != 1)
     {
       break;
     }
 
-    _Block_object_dispose(&v52, 8);
-    v26 = v45;
+    _Block_object_dispose(&v61, 8);
+    v28 = v54;
 LABEL_43:
 
-    v3 = v26 + 1;
-    if (v3 == v41)
+    v3 = v28 + 1;
+    if (v3 == v50)
     {
-      goto LABEL_44;
+      return 1;
     }
   }
 
-  v27 = [MEMORY[0x1E695DF68] signatureWithObjCTypes:v46[1]];
-  if (!v27)
+  v29 = objc_msgSend_signatureWithObjCTypes_(MEMORY[0x1E695DF68], v27, v55[1]);
+  if (!v29)
   {
     goto LABEL_46;
   }
 
-  v28 = [[CLIntersiloInterfaceSelectorInfo alloc] initWithSelector:*v46 andMethodSignature:v27];
-  if (v28)
+  v30 = [CLIntersiloInterfaceSelectorInfo alloc];
+  v32 = objc_msgSend_initWithSelector_andMethodSignature_(v30, v31, *v55, v29);
+  if (v32)
   {
-    v48[0] = MEMORY[0x1E69E9820];
-    v48[1] = 3221225472;
-    v48[2] = sub_1DF808BF8;
-    v48[3] = &unk_1E86C82D0;
-    v50 = v46;
-    v29 = v28;
-    v49 = v29;
-    sub_1DF7FF4D8(v48);
+    v57[0] = MEMORY[0x1E69E9820];
+    v57[1] = 3221225472;
+    v57[2] = sub_1DF808BF8;
+    v57[3] = &unk_1E86C82D0;
+    v59 = v55;
+    v33 = v32;
+    v58 = v33;
+    sub_1DF7FF4D8(v57);
 
-    v26 = v45;
-    _Block_object_dispose(&v52, 8);
+    v28 = v54;
+    _Block_object_dispose(&v61, 8);
     goto LABEL_43;
   }
 
 LABEL_46:
-  _Block_object_dispose(&v52, 8);
+  _Block_object_dispose(&v61, 8);
 
-  result = 0;
-LABEL_47:
-  v31 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
-void sub_1DF80880C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_1DF80880C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  _Block_object_dispose(&a33, 8);
+  va_start(va, a32);
 
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -5213,13 +5175,13 @@ void *sub_1DF808AB4(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_1DF808BF8(uint64_t a1, void *a2)
+void sub_1DF808BF8(uint64_t a1, float *a2)
 {
   v2 = **(a1 + 40);
   v3 = 0x9DDFEA08EB382D69 * ((8 * (v2 & 0x1FFFFFFF) + 8) ^ HIDWORD(v2));
   v4 = 0x9DDFEA08EB382D69 * (HIDWORD(v2) ^ (v3 >> 47) ^ v3);
   v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
-  v6 = a2[1];
+  v6 = *(a2 + 2);
   if (!*&v6)
   {
     goto LABEL_18;
@@ -5290,9 +5252,9 @@ LABEL_17:
   objc_storeStrong(v10 + 3, *(a1 + 32));
 }
 
-void sub_1DF80905C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DF80905C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1DF809070(va);
   _Unwind_Resume(a1);
 }
@@ -5341,13 +5303,13 @@ uint64_t sub_1DF8090EC(uint64_t result, uint64_t a2)
   return result;
 }
 
-void CLConnection::sendMessageSync(uint64_t a1@<X0>, CLConnectionMessage **a2@<X1>, int a3@<W2>, void *a4@<X8>)
+void CLConnection::sendMessageSync(uint64_t a1@<X0>, CLConnectionMessage **a2@<X1>, int a3@<W2>, std::__shared_weak_count **a4@<X8>)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   XPCMessage = CLConnectionMessage::createXPCMessage(*a2);
   *a4 = 0;
   a4[1] = 0;
-  v21 = a4;
+  v20 = a4;
   if (a3)
   {
     v8 = 3;
@@ -5384,8 +5346,8 @@ void CLConnection::sendMessageSync(uint64_t a1@<X0>, CLConnectionMessage **a2@<X
 
         buf[0] = 136446466;
         *&buf[1] = v16;
-        v27 = 2082;
-        v28 = string;
+        v26 = 2082;
+        v27 = string;
         _os_log_impl(&dword_1DF7FE000, v15, OS_LOG_TYPE_ERROR, "Error on message reply (sync) for %{public}s (%{public}s)", buf, 0x16u);
       }
 
@@ -5398,12 +5360,12 @@ void CLConnection::sendMessageSync(uint64_t a1@<X0>, CLConnectionMessage **a2@<X
         }
 
         v17 = *(a1 + 8);
-        v25[0] = MEMORY[0x1E69E9820];
-        v25[1] = 3221225472;
-        v25[2] = sub_1DF812F4C;
-        v25[3] = &unk_1E86C83E0;
-        v25[4] = a1;
-        v18 = v25;
+        v24[0] = MEMORY[0x1E69E9820];
+        v24[1] = 3221225472;
+        v24[2] = sub_1DF812F4C;
+        v24[3] = &unk_1E86C83E0;
+        v24[4] = a1;
+        v18 = v24;
       }
 
       else
@@ -5453,10 +5415,9 @@ LABEL_24:
   }
 
   while (v19);
-  *v21 = 0;
-  v21[1] = 0;
+  *v20 = 0;
+  v20[1] = 0;
   xpc_release(XPCMessage);
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DF809598(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
@@ -5556,32 +5517,34 @@ void sub_1DF809740(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1DF809764()
+void sub_1DF809764(uint64_t a1, const char *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x3032000000;
-  v9 = sub_1DF8090EC;
-  v10 = sub_1DF809114;
-  v11 = 0;
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = sub_1DF8099D8;
-  v5[3] = &unk_1E86C8660;
-  v5[4] = &v6;
-  [qword_1ED5FADA8 enumerateKeysAndObjectsUsingBlock:v5];
-  v0 = v7[5];
-  if (v0)
+  v24 = *MEMORY[0x1E69E9840];
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = sub_1DF8090EC;
+  v17 = sub_1DF809114;
+  v18 = 0;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = sub_1DF8099D8;
+  v12[3] = &unk_1E86C8660;
+  v12[4] = &v13;
+  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(qword_1ED5FADA8, a2, v12);
+  v3 = v14[5];
+  if (v3)
   {
     if (byte_1ED5FAD50 == 1)
     {
       CLWriteStackshot("locationd: Heartbeat underflow", 0);
-      v0 = v7[5];
+      v3 = v14[5];
     }
 
-    [v0 sortUsingComparator:&unk_1F5AC6AE8];
-    [v7[5] addObject:objc_opt_class()];
+    objc_msgSend_sortUsingComparator_(v3, v2, &unk_1F5AC6AE8);
+    v4 = v14[5];
+    v5 = objc_opt_class();
+    objc_msgSend_addObject_(v4, v6, v5);
     if (byte_1ED5FAD99 == 1)
     {
       if (qword_1ED5FAD40 != -1)
@@ -5589,33 +5552,31 @@ void sub_1DF809764()
         dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
       }
 
-      v1 = qword_1ED5FAD48;
+      v8 = qword_1ED5FAD48;
       if (os_log_type_enabled(qword_1ED5FAD48, OS_LOG_TYPE_DEFAULT))
       {
-        v2 = v7[5];
+        v9 = v14[5];
         buf = 68289282;
-        v13 = 2082;
-        v14 = &unk_1DF8255EF;
-        v15 = 2114;
-        v16 = v2;
-        _os_log_impl(&dword_1DF7FE000, v1, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:locationd remains non-fatally blocked because internal install, ImplicatedServicesCurrently:%{public, location:escape_only}@}", &buf, 0x1Cu);
+        v20 = 2082;
+        v21 = &unk_1DF8255EF;
+        v22 = 2114;
+        v23 = v9;
+        _os_log_impl(&dword_1DF7FE000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:locationd remains non-fatally blocked because internal install, ImplicatedServicesCurrently:%{public, location:escape_only}@}", &buf, 0x1Cu);
       }
     }
 
     else
     {
       byte_1ED5FAD99 = 1;
-      v3 = [v7[5] objectAtIndexedSubscript:0];
-      [v3 becameFatallyBlocked:v7[5] index:0];
+      v10 = objc_msgSend_objectAtIndexedSubscript_(v14[5], v7, 0);
+      objc_msgSend_becameFatallyBlocked_index_(v10, v11, v14[5], 0);
     }
   }
 
-  _Block_object_dispose(&v6, 8);
-
-  v4 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v13, 8);
 }
 
-void sub_1DF8099A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1DF8099A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   v21 = v20;
 
@@ -5625,149 +5586,148 @@ void sub_1DF8099A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void sub_1DF8099D8(uint64_t a1, void *a2, void *a3)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = [v6 synCount];
-  v8 = v7 - [v6 ackCount];
-  if (v8 < 0)
+  v9 = objc_msgSend_synCount(v6, v7, v8);
+  v14 = v9 - objc_msgSend_ackCount(v6, v10, v11);
+  if (v14 < 0)
   {
-    v20 = sub_1DF81E1BC();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+    v43 = sub_1DF81E1BC();
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v30 = 0;
-      v31 = 2082;
-      v32 = &unk_1DF8255EF;
-      v33 = 2082;
-      v34 = "assert";
-      v35 = 2081;
-      v36 = "0 <= dewrappedDeficit";
-      _os_log_impl(&dword_1DF7FE000, v20, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Deltafied deficit should be non-negative, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v50 = 0;
+      v51 = 2082;
+      v52 = &unk_1DF8255EF;
+      v53 = 2082;
+      v54 = "assert";
+      v55 = 2081;
+      v56 = "0 <= dewrappedDeficit";
+      _os_log_impl(&dword_1DF7FE000, v43, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Deltafied deficit should be non-negative, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v21 = sub_1DF81E1BC();
-    if (os_signpost_enabled(v21))
+    v44 = sub_1DF81E1BC();
+    if (os_signpost_enabled(v44))
     {
       *buf = 68289539;
-      v30 = 0;
-      v31 = 2082;
-      v32 = &unk_1DF8255EF;
-      v33 = 2082;
-      v34 = "assert";
-      v35 = 2081;
-      v36 = "0 <= dewrappedDeficit";
-      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v21, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Deltafied deficit should be non-negative", "{msg%{public}.0s:Deltafied deficit should be non-negative, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v50 = 0;
+      v51 = 2082;
+      v52 = &unk_1DF8255EF;
+      v53 = 2082;
+      v54 = "assert";
+      v55 = 2081;
+      v56 = "0 <= dewrappedDeficit";
+      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v44, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Deltafied deficit should be non-negative", "{msg%{public}.0s:Deltafied deficit should be non-negative, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v22 = sub_1DF81E1BC();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    v45 = sub_1DF81E1BC();
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v30 = 0;
-      v31 = 2082;
-      v32 = &unk_1DF8255EF;
-      v33 = 2082;
-      v34 = "assert";
-      v35 = 2081;
-      v36 = "0 <= dewrappedDeficit";
-      _os_log_impl(&dword_1DF7FE000, v22, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Deltafied deficit should be non-negative, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v50 = 0;
+      v51 = 2082;
+      v52 = &unk_1DF8255EF;
+      v53 = 2082;
+      v54 = "assert";
+      v55 = 2081;
+      v56 = "0 <= dewrappedDeficit";
+      _os_log_impl(&dword_1DF7FE000, v45, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Deltafied deficit should be non-negative, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v23 = 192;
+    v46 = 192;
 LABEL_33:
 
-    v27 = v23;
-    v28 = "validateTrackedSilos_block_invoke";
-    v26 = "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLServiceVendor.mm";
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLServiceVendor.mm", v46, "validateTrackedSilos_block_invoke");
     __break(1u);
 LABEL_34:
     dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
     goto LABEL_13;
   }
 
-  if (v8 >= 3)
+  if (v14 >= 3)
   {
     if (qword_1ED5FAD40 != -1)
     {
       dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
     }
 
-    v9 = qword_1ED5FAD48;
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v15 = qword_1ED5FAD48;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [v5 identifier];
+      v18 = objc_msgSend_identifier(v5, v16, v17);
       *buf = 68289282;
-      v30 = 0;
-      v31 = 2082;
-      v32 = &unk_1DF8255EF;
-      v33 = 2114;
-      v34 = v10;
-      _os_log_impl(&dword_1DF7FE000, v9, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Warning Heartbeat underflow; going to crash now!, silo:%{public, location:escape_only}@}", buf, 0x1Cu);
+      v50 = 0;
+      v51 = 2082;
+      v52 = &unk_1DF8255EF;
+      v53 = 2114;
+      v54 = v18;
+      _os_log_impl(&dword_1DF7FE000, v15, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Warning Heartbeat underflow; going to crash now!, silo:%{public, location:escape_only}@}", buf, 0x1Cu);
     }
 
     if (!*(*(*(a1 + 32) + 8) + 40))
     {
-      v11 = [MEMORY[0x1E695DF70] array];
-      v12 = *(*(a1 + 32) + 8);
-      v13 = *(v12 + 40);
-      *(v12 + 40) = v11;
+      v21 = objc_msgSend_array(MEMORY[0x1E695DF70], v19, v20);
+      v22 = *(*(a1 + 32) + 8);
+      v23 = *(v22 + 40);
+      *(v22 + 40) = v21;
     }
 
-    if ([v6 svcClass])
+    if (objc_msgSend_svcClass(v6, v19, v20))
     {
-      [*(*(*(a1 + 32) + 8) + 40) addObject:{objc_msgSend(v6, "svcClass")}];
+      v26 = *(*(*(a1 + 32) + 8) + 40);
+      v27 = objc_msgSend_svcClass(v6, v24, v25);
+      objc_msgSend_addObject_(v26, v28, v27);
       goto LABEL_16;
     }
 
-    v24 = sub_1DF81E1BC();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v47 = sub_1DF81E1BC();
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v30 = 0;
-      v31 = 2082;
-      v32 = &unk_1DF8255EF;
-      v33 = 2082;
-      v34 = "assert";
-      v35 = 2081;
-      v36 = "record.svcClass";
-      _os_log_impl(&dword_1DF7FE000, v24, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Only living, non-nil services should be heart-beaten, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v50 = 0;
+      v51 = 2082;
+      v52 = &unk_1DF8255EF;
+      v53 = 2082;
+      v54 = "assert";
+      v55 = 2081;
+      v56 = "record.svcClass";
+      _os_log_impl(&dword_1DF7FE000, v47, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Only living, non-nil services should be heart-beaten, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v25 = sub_1DF81E1BC();
-    if (os_signpost_enabled(v25))
+    v48 = sub_1DF81E1BC();
+    if (os_signpost_enabled(v48))
     {
       *buf = 68289539;
-      v30 = 0;
-      v31 = 2082;
-      v32 = &unk_1DF8255EF;
-      v33 = 2082;
-      v34 = "assert";
-      v35 = 2081;
-      v36 = "record.svcClass";
-      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v25, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Only living, non-nil services should be heart-beaten", "{msg%{public}.0s:Only living, non-nil services should be heart-beaten, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v50 = 0;
+      v51 = 2082;
+      v52 = &unk_1DF8255EF;
+      v53 = 2082;
+      v54 = "assert";
+      v55 = 2081;
+      v56 = "record.svcClass";
+      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v48, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Only living, non-nil services should be heart-beaten", "{msg%{public}.0s:Only living, non-nil services should be heart-beaten, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v22 = sub_1DF81E1BC();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    v45 = sub_1DF81E1BC();
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v30 = 0;
-      v31 = 2082;
-      v32 = &unk_1DF8255EF;
-      v33 = 2082;
-      v34 = "assert";
-      v35 = 2081;
-      v36 = "record.svcClass";
-      _os_log_impl(&dword_1DF7FE000, v22, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Only living, non-nil services should be heart-beaten, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v50 = 0;
+      v51 = 2082;
+      v52 = &unk_1DF8255EF;
+      v53 = 2082;
+      v54 = "assert";
+      v55 = 2081;
+      v56 = "record.svcClass";
+      _os_log_impl(&dword_1DF7FE000, v45, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Only living, non-nil services should be heart-beaten, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v23 = 208;
+    v46 = 208;
     goto LABEL_33;
   }
 
-  if (v8 != 2)
+  if (v14 != 2)
   {
     goto LABEL_16;
   }
@@ -5778,33 +5738,31 @@ LABEL_34:
   }
 
 LABEL_13:
-  v14 = qword_1ED5FAD48;
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v29 = qword_1ED5FAD48;
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = [v5 identifier];
+    v32 = objc_msgSend_identifier(v5, v30, v31);
     *buf = 68289538;
-    v30 = 0;
-    v31 = 2082;
-    v32 = &unk_1DF8255EF;
-    v33 = 2114;
-    v34 = v15;
-    v35 = 1026;
-    LODWORD(v36) = 2;
-    _os_log_impl(&dword_1DF7FE000, v14, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Warning Heartbeat underflow, silo:%{public, location:escape_only}@, deficit:%{public}d}", buf, 0x22u);
+    v50 = 0;
+    v51 = 2082;
+    v52 = &unk_1DF8255EF;
+    v53 = 2114;
+    v54 = v32;
+    v55 = 1026;
+    LODWORD(v56) = 2;
+    _os_log_impl(&dword_1DF7FE000, v29, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Warning Heartbeat underflow, silo:%{public, location:escape_only}@, deficit:%{public}d}", buf, 0x22u);
   }
 
 LABEL_16:
-  v16 = [v6 silo];
-  v17 = [v16 isSuspended];
+  v33 = objc_msgSend_silo(v6, v12, v13);
+  isSuspended = objc_msgSend_isSuspended(v33, v34, v35);
 
-  if ((v17 & 1) == 0)
+  if ((isSuspended & 1) == 0)
   {
-    [v6 syn];
-    v18 = [v6 silo];
-    [v18 heartBeat:v6];
+    objc_msgSend_syn(v6, v37, v38);
+    v41 = objc_msgSend_silo(v6, v39, v40);
+    objc_msgSend_heartBeat_(v41, v42, v6);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void CLConnection::handleInterruption(dispatch_queue_t *this)
@@ -5831,15 +5789,14 @@ void CLConnection::handleInterruption(dispatch_queue_t *this)
     _os_log_impl(&dword_1DF7FE000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLConnection::handleInterruption, event:%{public, location:escape_only}s}", buf, 0x1Cu);
   }
 
-  CLConnection::resetReplyHandlers(this);
-  v4 = this[6];
-  if (v4)
+  CLConnection::resetReplyHandlers(this, v4);
+  v5 = this[6];
+  if (v5)
   {
-    (v4[2].isa)();
+    (v5[2].isa)();
   }
 
   os_activity_scope_leave(&v6);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t sub_1DF80A274(uint64_t a1)
@@ -5927,13 +5884,13 @@ void sub_1DF80A3FC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void CLConnectionServer::CLConnectionServer(void *a1, void *a2, void *a3, const void *a4)
+void CLConnectionServer::CLConnectionServer(CLConnectionServer *a1, void *a2, void *a3, const void *a4)
 {
   v7 = *MEMORY[0x1E69E9840];
   *a1 = a3;
-  a1[1] = a2;
-  a1[2] = _Block_copy(a4);
-  a1[3] = &unk_1F5AC62A8;
+  *(a1 + 1) = a2;
+  *(a1 + 2) = _Block_copy(a4);
+  *(a1 + 3) = &unk_1F5AC62A8;
   operator new();
 }
 
@@ -5949,11 +5906,11 @@ void CLConnectionServer::initializeService(CLConnectionServer *this)
   xpc_connection_resume(*(this + 1));
 }
 
-void CLConnectionServer::CLConnectionServer(void *a1, uint64_t a2, void *a3, const void *a4)
+void CLConnectionServer::CLConnectionServer(CLConnectionServer *a1, const char *a2, NSObject *a3, const void *a4)
 {
   *a1 = a3;
-  a1[2] = _Block_copy(a4);
-  a1[3] = &unk_1F5AC62A8;
+  *(a1 + 2) = _Block_copy(a4);
+  *(a1 + 3) = &unk_1F5AC62A8;
   operator new();
 }
 
@@ -6026,7 +5983,7 @@ id sub_1DF80C018()
   return v1;
 }
 
-void sub_1DF80C488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1DF80C488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -6035,60 +5992,59 @@ void sub_1DF80C488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void sub_1DF80C4A8(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = sub_1DF7FF5D0(*a2, *(a2 + 8), *(a1 + 40));
   if (!v3)
   {
-    v5 = sub_1DF80C018();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v4 = sub_1DF80C018();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v9 = 0;
-      v10 = 2082;
-      v11 = &unk_1DF8255EF;
-      v12 = 2082;
-      v13 = "assert";
-      v14 = 2081;
-      v15 = "iter != selectorMap.end()";
-      _os_log_impl(&dword_1DF7FE000, v5, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:getInfoForSelector called on a missing selector, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v8 = 0;
+      v9 = 2082;
+      v10 = &unk_1DF8255EF;
+      v11 = 2082;
+      v12 = "assert";
+      v13 = 2081;
+      v14 = "iter != selectorMap.end()";
+      _os_log_impl(&dword_1DF7FE000, v4, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:getInfoForSelector called on a missing selector, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+    }
+
+    v5 = sub_1DF80C018();
+    if (os_signpost_enabled(v5))
+    {
+      *buf = 68289539;
+      v8 = 0;
+      v9 = 2082;
+      v10 = &unk_1DF8255EF;
+      v11 = 2082;
+      v12 = "assert";
+      v13 = 2081;
+      v14 = "iter != selectorMap.end()";
+      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "getInfoForSelector called on a missing selector", "{msg%{public}.0s:getInfoForSelector called on a missing selector, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
     v6 = sub_1DF80C018();
-    if (os_signpost_enabled(v6))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v9 = 0;
-      v10 = 2082;
-      v11 = &unk_1DF8255EF;
-      v12 = 2082;
-      v13 = "assert";
-      v14 = 2081;
-      v15 = "iter != selectorMap.end()";
-      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "getInfoForSelector called on a missing selector", "{msg%{public}.0s:getInfoForSelector called on a missing selector, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v8 = 0;
+      v9 = 2082;
+      v10 = &unk_1DF8255EF;
+      v11 = 2082;
+      v12 = "assert";
+      v13 = 2081;
+      v14 = "iter != selectorMap.end()";
+      _os_log_impl(&dword_1DF7FE000, v6, OS_LOG_TYPE_INFO, "{msg%{public}.0s:getInfoForSelector called on a missing selector, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v7 = sub_1DF80C018();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-    {
-      *buf = 68289539;
-      v9 = 0;
-      v10 = 2082;
-      v11 = &unk_1DF8255EF;
-      v12 = 2082;
-      v13 = "assert";
-      v14 = 2081;
-      v15 = "iter != selectorMap.end()";
-      _os_log_impl(&dword_1DF7FE000, v7, OS_LOG_TYPE_INFO, "{msg%{public}.0s:getInfoForSelector called on a missing selector, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-    }
-
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLIntersiloInterface.mm", 339, "[CLIntersiloInterface getInfoForSelector:]_block_invoke");
   }
 
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), v3[3]);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1DF80C7A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1DF80C7A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -6152,7 +6108,7 @@ uint64_t sub_1DF80F28C(uint64_t a1)
   v2 = dlsym(qword_1ED5FAE48, "cprofile_set_current_identifier");
   off_1EED20BE8 = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
 void *sub_1DF80F308()
@@ -6171,7 +6127,8 @@ char *sub_1DF80F334()
 
 CLDispatchSilo *sub_1DF80F418()
 {
-  result = [[CLDispatchSilo alloc] initWithIdentifier:@"CLSettingsManagerInternalSilo"];
+  v0 = [CLDispatchSilo alloc];
+  result = objc_msgSend_initWithIdentifier_(v0, v1, @"CLSettingsManagerInternalSilo");
   qword_1ED5FAD88 = result;
   return result;
 }
@@ -6179,16 +6136,16 @@ CLDispatchSilo *sub_1DF80F418()
 void sub_1DF80F910(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained prepareAndRunBlock:0];
+  objc_msgSend_prepareAndRunBlock_(WeakRetained, v3, 0);
 
-  v4 = objc_loadWeakRetained((a1 + 40));
-  v3 = [v4 timer];
-  [v3 shouldFire];
+  v9 = objc_loadWeakRetained((a1 + 40));
+  v6 = objc_msgSend_timer(v9, v4, v5);
+  objc_msgSend_shouldFire(v6, v7, v8);
 }
 
-void sub_1DF80FD3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1DF80FD3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6196,10 +6153,10 @@ void sub_1DF80FD3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_1DF80FD54(uint64_t a1)
 {
   *(*(a1 + 32) + 8) = pthread_self();
-  v2 = [MEMORY[0x1E695DFD0] currentRunLoop];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 16);
-  *(v3 + 16) = v2;
+  v4 = objc_msgSend_currentRunLoop(MEMORY[0x1E695DFD0], v2, v3);
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 16);
+  *(v5 + 16) = v4;
 
   dispatch_semaphore_signal(*(*(*(a1 + 40) + 8) + 40));
 
@@ -6218,9 +6175,9 @@ id sub_1DF80FDC0()
   return v1;
 }
 
-void sub_1DF80FFE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1DF80FFE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6228,39 +6185,39 @@ void sub_1DF80FFE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 intptr_t sub_1DF810000(uint64_t a1)
 {
   *(*(a1 + 32) + 8) = pthread_self();
-  v2 = [MEMORY[0x1E696AF00] currentThread];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 24);
-  *(v3 + 24) = v2;
+  v4 = objc_msgSend_currentThread(MEMORY[0x1E696AF00], v2, v3);
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 24);
+  *(v5 + 24) = v4;
 
-  v5 = [MEMORY[0x1E695DFD0] currentRunLoop];
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 16);
-  *(v6 + 16) = v5;
+  v9 = objc_msgSend_currentRunLoop(MEMORY[0x1E695DFD0], v7, v8);
+  v10 = *(a1 + 32);
+  v11 = *(v10 + 16);
+  *(v10 + 16) = v9;
 
-  v8 = *(*(*(a1 + 40) + 8) + 40);
+  v12 = *(*(*(a1 + 40) + 8) + 40);
 
-  return dispatch_semaphore_signal(v8);
+  return dispatch_semaphore_signal(v12);
 }
 
 void sub_1DF810454(uint64_t a1, void *a2)
 {
-  v9 = a2;
-  v3 = [v9 objectForKeyedSubscript:*(a1 + 40)];
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 56);
-  *(v4 + 56) = v3;
+  v11 = a2;
+  v4 = objc_msgSend_objectForKeyedSubscript_(v11, v3, *(a1 + 40));
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 56);
+  *(v5 + 56) = v4;
 
   if (!*(*(a1 + 32) + 56))
   {
-    v6 = objc_alloc_init(CLRunLoopSiloThread);
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 56);
-    *(v7 + 56) = v6;
+    v7 = objc_alloc_init(CLRunLoopSiloThread);
+    v8 = *(a1 + 32);
+    v9 = *(v8 + 56);
+    *(v8 + 56) = v7;
 
-    if (v6)
+    if (v7)
     {
-      [v9 setObject:*(*(a1 + 32) + 56) forKeyedSubscript:*(a1 + 40)];
+      objc_msgSend_setObject_forKeyedSubscript_(v11, v10, *(*(a1 + 32) + 56), *(a1 + 40));
     }
   }
 }
@@ -6273,14 +6230,14 @@ uint64_t sub_1DF8112A0(uint64_t a1)
   return MEMORY[0x1EEE74158](v2, 0);
 }
 
-_BYTE *sub_1DF8114C8(uint64_t a1)
+_BYTE *sub_1DF8114C8(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  [*(a1 + 32) ack];
+  v13 = *MEMORY[0x1E69E9840];
+  objc_msgSend_ack(*(a1 + 32), a2, a3);
   result = *(a1 + 40);
   if ((result[16] & 1) == 0)
   {
-    result = [result shouldBeIdled];
+    result = objc_msgSend_shouldBeIdled(result, v4, v5);
     if (result)
     {
       *(*(a1 + 40) + 16) = 1;
@@ -6289,20 +6246,19 @@ _BYTE *sub_1DF8114C8(uint64_t a1)
         dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6440);
       }
 
-      v3 = qword_1ED5FAD48;
+      v7 = qword_1ED5FAD48;
       if (os_log_type_enabled(qword_1ED5FAD48, OS_LOG_TYPE_DEFAULT))
       {
-        v4 = *(*(a1 + 40) + 8);
-        v6 = 138412290;
-        v7 = v4;
-        _os_log_impl(&dword_1DF7FE000, v3, OS_LOG_TYPE_DEFAULT, "#Idleness: Silo is being idled: %@", &v6, 0xCu);
+        v10 = *(*(a1 + 40) + 8);
+        v11 = 138412290;
+        v12 = v10;
+        _os_log_impl(&dword_1DF7FE000, v7, OS_LOG_TYPE_DEFAULT, "#Idleness: Silo is being idled: %@", &v11, 0xCu);
       }
 
-      result = [*(a1 + 40) runIdleHandlers];
+      return objc_msgSend_runIdleHandlers(*(a1 + 40), v8, v9);
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6313,9 +6269,9 @@ uint64_t sub_1DF8115C8()
   return MEMORY[0x1EEE66BB8]();
 }
 
-uint64_t sub_1DF81160C()
+uint64_t sub_1DF81160C(uint64_t a1, const char *a2, uint64_t a3)
 {
-  qword_1ED5FAE60 = [MEMORY[0x1E695DF90] dictionary];
+  qword_1ED5FAE60 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], a2, a3);
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -6351,7 +6307,7 @@ void CLConnectionUsernameCache::CLConnectionUsernameCache(CLConnectionUsernameCa
 
 void CLConnectionUsernameCache::storeUsernameForToken(os_unfair_lock_s *this, const unsigned int *a2, NSString *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(this + 10);
   v6 = mach_absolute_time();
   if (!a3)
@@ -6363,94 +6319,95 @@ void CLConnectionUsernameCache::storeUsernameForToken(os_unfair_lock_s *this, co
 
     while (1)
     {
-      v18 = qword_1ED5FAD60;
+      v20 = qword_1ED5FAD60;
       if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_FAULT))
       {
         __p = 68289539;
-        *v23 = 2082;
-        *&v23[2] = &unk_1DF8255EF;
-        *&v23[10] = 2082;
-        *&v23[12] = "assert";
-        v24 = 2081;
-        v25 = "username != nullptr";
-        _os_log_impl(&dword_1DF7FE000, v18, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Attempting to store a nil username in our cache, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
+        *v25 = 2082;
+        *&v25[2] = &unk_1DF8255EF;
+        *&v25[10] = 2082;
+        *&v25[12] = "assert";
+        v26 = 2081;
+        v27 = "username != nullptr";
+        _os_log_impl(&dword_1DF7FE000, v20, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Attempting to store a nil username in our cache, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
         if (qword_1ED5FAD68 != -1)
         {
           dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
         }
       }
 
-      v19 = qword_1ED5FAD60;
+      v21 = qword_1ED5FAD60;
       if (os_signpost_enabled(qword_1ED5FAD60))
       {
         __p = 68289539;
-        *v23 = 2082;
-        *&v23[2] = &unk_1DF8255EF;
-        *&v23[10] = 2082;
-        *&v23[12] = "assert";
-        v24 = 2081;
-        v25 = "username != nullptr";
-        _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v19, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Attempting to store a nil username in our cache", "{msg%{public}.0s:Attempting to store a nil username in our cache, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
+        *v25 = 2082;
+        *&v25[2] = &unk_1DF8255EF;
+        *&v25[10] = 2082;
+        *&v25[12] = "assert";
+        v26 = 2081;
+        v27 = "username != nullptr";
+        _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v21, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Attempting to store a nil username in our cache", "{msg%{public}.0s:Attempting to store a nil username in our cache, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
         if (qword_1ED5FAD68 != -1)
         {
           dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
         }
       }
 
-      v20 = qword_1ED5FAD60;
+      v22 = qword_1ED5FAD60;
       if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_INFO))
       {
         __p = 68289539;
-        *v23 = 2082;
-        *&v23[2] = &unk_1DF8255EF;
-        *&v23[10] = 2082;
-        *&v23[12] = "assert";
-        v24 = 2081;
-        v25 = "username != nullptr";
-        _os_log_impl(&dword_1DF7FE000, v20, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Attempting to store a nil username in our cache, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
+        *v25 = 2082;
+        *&v25[2] = &unk_1DF8255EF;
+        *&v25[10] = 2082;
+        *&v25[12] = "assert";
+        v26 = 2081;
+        v27 = "username != nullptr";
+        _os_log_impl(&dword_1DF7FE000, v22, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Attempting to store a nil username in our cache, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &__p, 0x26u);
       }
 
-      abort_report_np();
+      abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/IPC/CLConnection.mm", 69, "storeUsernameForToken");
       __break(1u);
 LABEL_35:
       dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
     }
   }
 
-  v7 = v6;
-  sub_1DF812360(&__p, [(NSString *)a3 UTF8String]);
-  v8 = __p;
-  *v21 = *v23;
-  *&v21[7] = *&v23[7];
-  v9 = v23[15];
-  *v23 = 0;
-  *&v23[8] = 0;
+  v9 = v6;
+  v10 = objc_msgSend_UTF8String(a3, v7, v8);
+  sub_1DF812360(&__p, v10);
+  v11 = __p;
+  *v23 = *v25;
+  *&v23[7] = *&v25[7];
+  v12 = v25[15];
+  *v25 = 0;
+  *&v25[8] = 0;
   __p = 0;
-  v10 = *a2;
-  v11 = *&this[2]._os_unfair_lock_opaque;
-  if (!*&v11)
+  v13 = *a2;
+  v14 = *&this[2]._os_unfair_lock_opaque;
+  if (!*&v14)
   {
     goto LABEL_19;
   }
 
-  v12 = vcnt_s8(v11);
-  v12.i16[0] = vaddlv_u8(v12);
-  if (v12.u32[0] > 1uLL)
+  v15 = vcnt_s8(v14);
+  v15.i16[0] = vaddlv_u8(v15);
+  if (v15.u32[0] > 1uLL)
   {
-    v13 = *a2;
-    if (*&v11 <= v10)
+    v16 = *a2;
+    if (*&v14 <= v13)
     {
-      v13 = v10 % v11.i32[0];
+      v16 = v13 % v14.i32[0];
     }
   }
 
   else
   {
-    v13 = (v11.i32[0] - 1) & v10;
+    v16 = (v14.i32[0] - 1) & v13;
   }
 
-  v14 = *(*&this->_os_unfair_lock_opaque + 8 * v13);
-  if (!v14 || (v15 = *v14) == 0)
+  v17 = *(*&this->_os_unfair_lock_opaque + 8 * v16);
+  if (!v17 || (v18 = *v17) == 0)
   {
 LABEL_19:
     operator new();
@@ -6458,60 +6415,59 @@ LABEL_19:
 
   while (1)
   {
-    v16 = v15[1];
-    if (v16 == v10)
+    v19 = v18[1];
+    if (v19 == v13)
     {
       break;
     }
 
-    if (v12.u32[0] > 1uLL)
+    if (v15.u32[0] > 1uLL)
     {
-      if (v16 >= *&v11)
+      if (v19 >= *&v14)
       {
-        v16 %= *&v11;
+        v19 %= *&v14;
       }
     }
 
     else
     {
-      v16 &= *&v11 - 1;
+      v19 &= *&v14 - 1;
     }
 
-    if (v16 != v13)
+    if (v19 != v16)
     {
       goto LABEL_19;
     }
 
 LABEL_18:
-    v15 = *v15;
-    if (!v15)
+    v18 = *v18;
+    if (!v18)
     {
       goto LABEL_19;
     }
   }
 
-  if (*(v15 + 4) != v10)
+  if (*(v18 + 4) != v13)
   {
     goto LABEL_18;
   }
 
-  if (*(v15 + 47) < 0)
+  if (*(v18 + 47) < 0)
   {
-    operator delete(v15[3]);
+    operator delete(v18[3]);
   }
 
-  v15[3] = v8;
-  v15[4] = *v21;
-  *(v15 + 39) = *&v21[7];
-  *(v15 + 47) = v9;
-  v15[6] = v7;
-  if ((v23[15] & 0x80000000) != 0)
+  v18[3] = v11;
+  v18[4] = *v23;
+  *(v18 + 39) = *&v23[7];
+  *(v18 + 47) = v12;
+  v18[6] = v9;
+  if ((v25[15] & 0x80000000) != 0)
   {
     operator delete(__p);
   }
 
   os_unfair_lock_unlock(this + 10);
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DF812310(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
@@ -6531,7 +6487,7 @@ void sub_1DF812310(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *sub_1DF812360(_BYTE *a1, char *__s)
+void *sub_1DF812360(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -6545,13 +6501,13 @@ _BYTE *sub_1DF812360(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -6585,67 +6541,60 @@ void *CLConnectionUsernameCache::operator[](uint64_t a1, unsigned int *a2)
   if (!v8)
   {
 LABEL_20:
-    v9 = 0;
+    i = 0;
     goto LABEL_21;
   }
 
-  v9 = *v8;
-  if (*v8)
+  for (i = *v8; i; i = *i)
   {
-    do
+    v10 = *(i + 8);
+    if (v10 == v5)
     {
-      v10 = v9[1];
-      if (v10 == v5)
+      if (*(i + 16) == v5)
       {
-        if (*(v9 + 4) == v5)
+        v11 = mach_absolute_time();
+        if ((v11 - *(i + 48)) * *(a1 + 44) / *(a1 + 48) > *(a1 + 56))
         {
-          if ((mach_absolute_time() - v9[6]) * *(a1 + 44) / *(a1 + 48) > *(a1 + 56))
-          {
-            sub_1DF813E30(a1, v9);
-            goto LABEL_20;
-          }
+          sub_1DF813E30(a1, i);
+          goto LABEL_20;
+        }
 
-          v12 = v9 + 3;
-          if (*(v9 + 47) < 0)
-          {
-            v12 = *v12;
-          }
+        v14 = (i + 24);
+        if (*(i + 47) < 0)
+        {
+          v14 = *v14;
+        }
 
-          v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v12];
-          break;
+        i = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v12, v14);
+        break;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v4)
+        {
+          v10 %= *&v4;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v4)
-          {
-            v10 %= *&v4;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v4 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          goto LABEL_20;
-        }
+        v10 &= *&v4 - 1;
       }
 
-      v9 = *v9;
+      if (v10 != v7)
+      {
+        goto LABEL_20;
+      }
     }
-
-    while (v9);
   }
 
 LABEL_21:
   os_unfair_lock_unlock((a1 + 40));
-  return v9;
+  return i;
 }
 
 void CLConnectionUsernameCache::purgeExpired(os_unfair_lock_s *this)
@@ -6913,7 +6862,7 @@ LABEL_47:
   return MEMORY[0x1E12DFAA0](v46);
 }
 
-void sub_1DF812E50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32)
+void sub_1DF812E50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32)
 {
   __cxa_end_catch();
   sub_1DF813C18(&a16);
@@ -6921,53 +6870,24 @@ void sub_1DF812E50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t CLConnection::setHandlerForMessage(uint64_t a1, uint64_t *a2, void *a3)
+void *CLConnection::setHandlerForMessage(uint64_t a1, const char *a2, void *a3)
 {
-  if (*(a2 + 23) < 0)
+  if (a2[23] < 0)
   {
     a2 = *a2;
   }
 
-  v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a2];
+  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], a2, a2);
 
   return CLConnection::setHandlerForMessage(a1, v5, a3);
 }
 
 void sub_1DF812F4C(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = _os_activity_create(&dword_1DF7FE000, "CL: CLConnection calling interruption handler in sendMessageSync", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  os_activity_scope_enter(v2, &v5);
-
-  if (qword_1ED5FAD68 != -1)
-  {
-    dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
-  }
-
-  v3 = qword_1ED5FAD60;
-  if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 68289282;
-    v7 = 0;
-    v8 = 2082;
-    v9 = &unk_1DF8255EF;
-    v10 = 2082;
-    v11 = "activity";
-    _os_log_impl(&dword_1DF7FE000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLConnection calling interruption handler in sendMessageSync, event:%{public, location:escape_only}s}", buf, 0x1Cu);
-  }
-
-  CLConnection::handleInterruption(v1);
-  os_activity_scope_leave(&v5);
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void sub_1DF81308C(uint64_t a1)
-{
   v11 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
-  v2 = _os_activity_create(&dword_1DF7FE000, "CL: CLConnection calling disconnection handler in sendMessageSync", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  os_activity_scope_enter(v2, &v5);
+  v2 = _os_activity_create(&dword_1DF7FE000, "CL: CLConnection calling interruption handler in sendMessageSync", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  os_activity_scope_enter(v2, &v4);
 
   if (qword_1ED5FAD68 != -1)
   {
@@ -6978,24 +6898,51 @@ void sub_1DF81308C(uint64_t a1)
   if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 68289282;
+    v6 = 0;
     v7 = 2082;
     v8 = &unk_1DF8255EF;
     v9 = 2082;
     v10 = "activity";
+    _os_log_impl(&dword_1DF7FE000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLConnection calling interruption handler in sendMessageSync, event:%{public, location:escape_only}s}", buf, 0x1Cu);
+  }
+
+  CLConnection::handleInterruption(v1);
+  os_activity_scope_leave(&v4);
+}
+
+void sub_1DF81308C(uint64_t a1)
+{
+  v10 = *MEMORY[0x1E69E9840];
+  v1 = *(a1 + 32);
+  v2 = _os_activity_create(&dword_1DF7FE000, "CL: CLConnection calling disconnection handler in sendMessageSync", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+  os_activity_scope_enter(v2, &v4);
+
+  if (qword_1ED5FAD68 != -1)
+  {
+    dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
+  }
+
+  v3 = qword_1ED5FAD60;
+  if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 68289282;
+    v6 = 2082;
+    v7 = &unk_1DF8255EF;
+    v8 = 2082;
+    v9 = "activity";
     _os_log_impl(&dword_1DF7FE000, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLConnection calling disconnection handler in sendMessageSync, event:%{public, location:escape_only}s}", buf, 0x1Cu);
   }
 
   CLConnection::handleDisconnection(v1);
-  os_activity_scope_leave(&v5);
-  v4 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v4);
 }
 
-void CLConnection::getUserName(dispatch_queue_t *this@<X0>, _BYTE *a2@<X8>)
+void CLConnection::getUserName(dispatch_queue_t *this@<X0>, void *a2@<X8>)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(this[1]);
   v4 = _os_activity_create(&dword_1DF7FE000, "CL: #MultiUser CLConnection::getUserName", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  os_activity_scope_enter(v4, &v8);
+  os_activity_scope_enter(v4, &v6);
 
   if (qword_1ED5FAD68 != -1)
   {
@@ -7006,19 +6953,17 @@ void CLConnection::getUserName(dispatch_queue_t *this@<X0>, _BYTE *a2@<X8>)
   if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_DEBUG))
   {
     *buf = 68289282;
+    v8 = 2082;
+    v9 = &unk_1DF8255EF;
     v10 = 2082;
-    v11 = &unk_1DF8255EF;
-    v12 = 2082;
-    v13 = "activity";
+    v11 = "activity";
     _os_log_impl(&dword_1DF7FE000, v5, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#MultiUser CLConnection::getUserName, event:%{public, location:escape_only}s}", buf, 0x1Cu);
   }
 
   dispatch_assert_queue_V2(this[1]);
-  v6 = *this;
   xpc_connection_get_audit_token();
   sub_1DF812360(a2, "mobile");
-  os_activity_scope_leave(&v8);
-  v7 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v6);
 }
 
 uint64_t CLConnectionMessage::CLConnectionMessage(uint64_t a1, void *a2)
@@ -7058,7 +7003,7 @@ char *CLConnectionMessage::CLConnectionMessage(char *__dst, __int128 *a2)
 
 uint64_t CLConnectionMessage::getObjectOfClass(CLConnectionMessage *this, objc_class *a2)
 {
-  v3 = [MEMORY[0x1E695DFD8] setWithObject:a2];
+  v3 = objc_msgSend_setWithObject_(MEMORY[0x1E695DFD8], a2, a2);
 
   return CLConnectionMessage::getObjectOfClasses(this, v3);
 }
@@ -7098,10 +7043,10 @@ uint64_t CLConnectionMessage::copyFileDescriptor(CLConnectionMessage *this, size
 
 BOOL CLConnectionMessage::sendReply(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (a3)
   {
-    v5 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:a3 requiringSecureCoding:1 error:0];
+    v5 = objc_msgSend_archivedDataWithRootObject_requiringSecureCoding_error_(MEMORY[0x1E696ACC8], a2, a3, 1, 0);
   }
 
   else
@@ -7113,7 +7058,9 @@ BOOL CLConnectionMessage::sendReply(uint64_t a1, uint64_t a2, uint64_t a3)
   {
     if (v5)
     {
-      v6 = xpc_data_create([v5 bytes], objc_msgSend(v5, "length"));
+      v6 = objc_msgSend_bytes(v5, a2, a3);
+      v9 = objc_msgSend_length(v5, v7, v8);
+      v10 = xpc_data_create(v6, v9);
     }
 
     else
@@ -7123,33 +7070,33 @@ BOOL CLConnectionMessage::sendReply(uint64_t a1, uint64_t a2, uint64_t a3)
         dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
       }
 
-      v7 = qword_1ED5FAD60;
+      v11 = qword_1ED5FAD60;
       if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_FAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1DF7FE000, v7, OS_LOG_TYPE_FAULT, "Attempting to send nil/null data. An error should be sent instead.", buf, 2u);
+        _os_log_impl(&dword_1DF7FE000, v11, OS_LOG_TYPE_FAULT, "Attempting to send nil/null data. An error should be sent instead.", buf, 2u);
       }
 
-      v6 = xpc_data_create(0, 0);
+      v10 = xpc_data_create(0, 0);
     }
 
-    v8 = v6;
-    v9 = *(a1 + 48);
-    v10 = *(a2 + 23);
-    if (v9)
+    v12 = v10;
+    v13 = *(a1 + 48);
+    v14 = *(a2 + 23);
+    if (v13)
     {
-      if (v10 >= 0)
+      if (v14 >= 0)
       {
-        v11 = a2;
+        v15 = a2;
       }
 
       else
       {
-        v11 = *a2;
+        v15 = *a2;
       }
 
-      xpc_dictionary_set_string(v9, "kCLConnectionMessageNameKey", v11);
-      xpc_dictionary_set_value(*(a1 + 48), "kCLConnectionMessageInfoKey", v8);
+      xpc_dictionary_set_string(v13, "kCLConnectionMessageNameKey", v15);
+      xpc_dictionary_set_value(*(a1 + 48), "kCLConnectionMessageInfoKey", v12);
       xpc_dictionary_set_BOOL(*(a1 + 48), "kCLConnectionMessageIsReplyingKey", 1);
       xpc_connection_send_message(*(a1 + 40), *(a1 + 48));
       xpc_release(*(a1 + 48));
@@ -7158,7 +7105,7 @@ BOOL CLConnectionMessage::sendReply(uint64_t a1, uint64_t a2, uint64_t a3)
 
     else
     {
-      if (v10 < 0)
+      if (v14 < 0)
       {
         sub_1DF802ED0(__p, *a2, *(a2 + 8));
       }
@@ -7166,25 +7113,25 @@ BOOL CLConnectionMessage::sendReply(uint64_t a1, uint64_t a2, uint64_t a3)
       else
       {
         *__p = *a2;
-        v22 = *(a2 + 16);
+        v25 = *(a2 + 16);
       }
 
-      v19 = sub_1DF80191C(__p, v8, *(a1 + 64), *(a1 + 24), 1);
-      if (SHIBYTE(v22) < 0)
+      v23 = sub_1DF80191C(__p, v12, *(a1 + 64), *(a1 + 24), 1);
+      if (SHIBYTE(v25) < 0)
       {
         operator delete(__p[0]);
       }
 
-      xpc_connection_send_message(*(a1 + 40), v19);
-      xpc_release(v19);
+      xpc_connection_send_message(*(a1 + 40), v23);
+      xpc_release(v23);
     }
 
-    if (v8)
+    if (v12)
     {
-      xpc_release(v8);
+      xpc_release(v12);
     }
 
-    result = 1;
+    return 1;
   }
 
   else
@@ -7194,55 +7141,54 @@ BOOL CLConnectionMessage::sendReply(uint64_t a1, uint64_t a2, uint64_t a3)
       dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
     }
 
-    v12 = qword_1ED5FAD60;
+    v16 = qword_1ED5FAD60;
     if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_FAULT))
     {
-      v13 = *(a2 + 23) >= 0 ? a2 : *a2;
-      v14 = *(a1 + 24);
+      v17 = *(a2 + 23) >= 0 ? a2 : *a2;
+      v18 = *(a1 + 24);
       *buf = 68289538;
-      v24 = 0;
-      v25 = 2082;
-      v26 = &unk_1DF8255EF;
-      v27 = 2082;
-      v28 = v13;
-      v29 = 2050;
-      v30 = v14;
-      _os_log_impl(&dword_1DF7FE000, v12, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Unable to send reply message, MessageName:%{public, location:escape_only}s, ReplyHanlderIdentifier:%{public}ld}", buf, 0x26u);
+      v27 = 0;
+      v28 = 2082;
+      v29 = &unk_1DF8255EF;
+      v30 = 2082;
+      v31 = v17;
+      v32 = 2050;
+      v33 = v18;
+      _os_log_impl(&dword_1DF7FE000, v16, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Unable to send reply message, MessageName:%{public, location:escape_only}s, ReplyHanlderIdentifier:%{public}ld}", buf, 0x26u);
       if (qword_1ED5FAD68 != -1)
       {
         dispatch_once(&qword_1ED5FAD68, &unk_1F5AC64A0);
       }
     }
 
-    v15 = qword_1ED5FAD60;
+    v19 = qword_1ED5FAD60;
     result = os_signpost_enabled(qword_1ED5FAD60);
     if (result)
     {
       if (*(a2 + 23) >= 0)
       {
-        v17 = a2;
+        v21 = a2;
       }
 
       else
       {
-        v17 = *a2;
+        v21 = *a2;
       }
 
-      v18 = *(a1 + 24);
+      v22 = *(a1 + 24);
       *buf = 68289538;
-      v24 = 0;
-      v25 = 2082;
-      v26 = &unk_1DF8255EF;
-      v27 = 2082;
-      v28 = v17;
-      v29 = 2050;
-      v30 = v18;
-      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Unable to send reply message", "{msg%{public}.0s:Unable to send reply message, MessageName:%{public, location:escape_only}s, ReplyHanlderIdentifier:%{public}ld}", buf, 0x26u);
-      result = 0;
+      v27 = 0;
+      v28 = 2082;
+      v29 = &unk_1DF8255EF;
+      v30 = 2082;
+      v31 = v21;
+      v32 = 2050;
+      v33 = v22;
+      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v19, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Unable to send reply message", "{msg%{public}.0s:Unable to send reply message, MessageName:%{public, location:escape_only}s, ReplyHanlderIdentifier:%{public}ld}", buf, 0x26u);
+      return 0;
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7258,7 +7204,7 @@ void sub_1DF813884(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t CLConnectionMessage::sendReply(uint64_t a1, uint64_t a2, void *a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 48);
   if (v6)
   {
@@ -7295,18 +7241,18 @@ uint64_t CLConnectionMessage::sendReply(uint64_t a1, uint64_t a2, void *a3)
       else
       {
         *__p = *a2;
-        v20 = *(a2 + 16);
+        v19 = *(a2 + 16);
       }
 
       v16 = sub_1DF80191C(__p, a3, *(a1 + 64), v9, 1);
-      if (SHIBYTE(v20) < 0)
+      if (SHIBYTE(v19) < 0)
       {
         operator delete(__p[0]);
       }
 
       xpc_connection_send_message(*(a1 + 40), v16);
       xpc_release(v16);
-      v8 = 1;
+      return 1;
     }
 
     else
@@ -7322,13 +7268,13 @@ uint64_t CLConnectionMessage::sendReply(uint64_t a1, uint64_t a2, void *a3)
         v11 = *(a2 + 23) >= 0 ? a2 : *a2;
         v12 = *(a1 + 24);
         *buf = 68289538;
-        v22 = 0;
-        v23 = 2082;
-        v24 = &unk_1DF8255EF;
-        v25 = 2082;
-        v26 = v11;
-        v27 = 2050;
-        v28 = v12;
+        v21 = 0;
+        v22 = 2082;
+        v23 = &unk_1DF8255EF;
+        v24 = 2082;
+        v25 = v11;
+        v26 = 2050;
+        v27 = v12;
         _os_log_impl(&dword_1DF7FE000, v10, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Unable to send reply message with raw data, MessageName:%{public, location:escape_only}s, ReplyHanlderIdentifier:%{public}ld}", buf, 0x26u);
         if (qword_1ED5FAD68 != -1)
         {
@@ -7351,21 +7297,20 @@ uint64_t CLConnectionMessage::sendReply(uint64_t a1, uint64_t a2, void *a3)
 
         v15 = *(a1 + 24);
         *buf = 68289538;
-        v22 = 0;
-        v23 = 2082;
-        v24 = &unk_1DF8255EF;
-        v25 = 2082;
-        v26 = v14;
-        v27 = 2050;
-        v28 = v15;
+        v21 = 0;
+        v22 = 2082;
+        v23 = &unk_1DF8255EF;
+        v24 = 2082;
+        v25 = v14;
+        v26 = 2050;
+        v27 = v15;
         _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Unable to send reply message with raw data", "{msg%{public}.0s:Unable to send reply message with raw data, MessageName:%{public, location:escape_only}s, ReplyHanlderIdentifier:%{public}ld}", buf, 0x26u);
       }
 
-      v8 = 0;
+      return 0;
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -7606,11 +7551,11 @@ uint64_t sub_1DF815F74(uint64_t a1)
   v2 = qword_1ECE5D400;
   if (os_log_type_enabled(qword_1ECE5D400, OS_LOG_TYPE_DEBUG))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1DF7FE000, v2, OS_LOG_TYPE_DEBUG, "#SettingsMirror Received NSUserDefaultsDidChangeNotification", v4, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_1DF7FE000, v2, OS_LOG_TYPE_DEBUG, "#SettingsMirror Received NSUserDefaultsDidChangeNotification", v6, 2u);
   }
 
-  return [*(a1 + 32) refresh];
+  return objc_msgSend_refresh(*(a1 + 32), v3, v4);
 }
 
 os_log_t sub_1DF816184()
@@ -7622,7 +7567,7 @@ os_log_t sub_1DF816184()
 
 void sub_1DF8161B4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (qword_1ED5FAD68 != -1)
   {
     dispatch_once(&qword_1ED5FAD68, &unk_1F5AC68B0);
@@ -7632,7 +7577,7 @@ void sub_1DF8161B4(uint64_t a1, uint64_t a2, uint64_t a3)
   if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v17 = a3;
+    v16 = a3;
     _os_log_impl(&dword_1DF7FE000, v5, OS_LOG_TYPE_DEBUG, "received daemon start notification for service %@", buf, 0xCu);
   }
 
@@ -7651,33 +7596,33 @@ void sub_1DF8161B4(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   v10 = *a2;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3321888768;
-  v12[2] = sub_1DF817410;
-  v12[3] = &unk_1F5AC6628;
-  v12[4] = v8;
-  v13 = v9;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3321888768;
+  v11[2] = sub_1DF817410;
+  v11[3] = &unk_1F5AC6628;
+  v11[4] = v8;
+  v12 = v9;
   if (v9)
   {
     atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v14 = v6;
-  v15 = v7;
+  v13 = v6;
+  v14 = v7;
   if (v7)
   {
     atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  dispatch_async(v10, v12);
-  if (v15)
+  dispatch_async(v10, v11);
+  if (v14)
   {
-    sub_1DF7FFED0(v15);
+    sub_1DF7FFED0(v14);
   }
 
-  if (v13)
+  if (v12)
   {
-    std::__shared_weak_count::__release_weak(v13);
+    std::__shared_weak_count::__release_weak(v12);
   }
 
   if (v9)
@@ -7689,8 +7634,6 @@ void sub_1DF8161B4(uint64_t a1, uint64_t a2, uint64_t a3)
   {
     sub_1DF7FFED0(v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void CLConnectionClient::pause(CLConnectionClient *this)
@@ -7790,7 +7733,7 @@ void sub_1DF81651C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_1DF816534(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   dispatch_assert_queue_V2(*(v1 + 8));
   if ((*(v1 + 97) & 1) == 0)
@@ -7800,71 +7743,65 @@ void sub_1DF816534(uint64_t a1)
       dispatch_once(&qword_1ED5FAD68, &unk_1F5AC68B0);
     }
 
-    v5 = qword_1ED5FAD60;
+    v3 = qword_1ED5FAD60;
     if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v9 = 0;
+      v7 = 0;
+      v8 = 2082;
+      v9 = &unk_1DF8255EF;
       v10 = 2082;
-      v11 = &unk_1DF8255EF;
-      v12 = 2082;
-      v13 = "assert";
-      v14 = 2081;
-      v15 = "fPaused";
-      _os_log_impl(&dword_1DF7FE000, v5, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Cannot call pause() on a paused CLConnectionClient, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v11 = "assert";
+      v12 = 2081;
+      v13 = "fPaused";
+      _os_log_impl(&dword_1DF7FE000, v3, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Cannot call pause() on a paused CLConnectionClient, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED5FAD68 != -1)
       {
         dispatch_once(&qword_1ED5FAD68, &unk_1F5AC68B0);
       }
     }
 
-    v6 = qword_1ED5FAD60;
+    v4 = qword_1ED5FAD60;
     if (os_signpost_enabled(qword_1ED5FAD60))
     {
       *buf = 68289539;
-      v9 = 0;
+      v7 = 0;
+      v8 = 2082;
+      v9 = &unk_1DF8255EF;
       v10 = 2082;
-      v11 = &unk_1DF8255EF;
-      v12 = 2082;
-      v13 = "assert";
-      v14 = 2081;
-      v15 = "fPaused";
-      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Cannot call pause() on a paused CLConnectionClient", "{msg%{public}.0s:Cannot call pause() on a paused CLConnectionClient, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v11 = "assert";
+      v12 = 2081;
+      v13 = "fPaused";
+      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Cannot call pause() on a paused CLConnectionClient", "{msg%{public}.0s:Cannot call pause() on a paused CLConnectionClient, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED5FAD68 != -1)
       {
         dispatch_once(&qword_1ED5FAD68, &unk_1F5AC68B0);
       }
     }
 
-    v7 = qword_1ED5FAD60;
+    v5 = qword_1ED5FAD60;
     if (os_log_type_enabled(qword_1ED5FAD60, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v9 = 0;
+      v7 = 0;
+      v8 = 2082;
+      v9 = &unk_1DF8255EF;
       v10 = 2082;
-      v11 = &unk_1DF8255EF;
-      v12 = 2082;
-      v13 = "assert";
-      v14 = 2081;
-      v15 = "fPaused";
-      _os_log_impl(&dword_1DF7FE000, v7, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Cannot call pause() on a paused CLConnectionClient, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v11 = "assert";
+      v12 = 2081;
+      v13 = "fPaused";
+      _os_log_impl(&dword_1DF7FE000, v5, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Cannot call pause() on a paused CLConnectionClient, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/IPC/CLConnectionClient.mm", 93, "pause");
   }
 
   *(v1 + 97) = 1;
   v2 = *v1;
   if (*v1)
   {
-    v3 = *MEMORY[0x1E69E9840];
 
     CLConnection::pause(v2);
-  }
-
-  else
-  {
-    v4 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -8337,18 +8274,18 @@ void sub_1DF816FBC(uint64_t a1)
   }
 }
 
-void sub_1DF816FCC(uint64_t a1)
+void sub_1DF816FCC(void *a1)
 {
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 64);
-  v4[0] = *(a1 + 56);
+  v2 = a1[5];
+  v3 = a1[8];
+  v4[0] = a1[7];
   v4[1] = v3;
   if (v3)
   {
     atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  sub_1DF817060(v2, v4, 1, *(a1 + 32));
+  sub_1DF817060(v2, v4, 1, a1[4]);
   if (v3)
   {
 
@@ -8370,7 +8307,7 @@ void sub_1DF817060(uint64_t *a1, uint64_t a2, int a3, void (**a4)(void, void))
 {
   v7 = *(a2 + 8);
   v15[0] = *a2;
-  v15[1] = v7;
+  v15[1] = &v7->__vftable;
   if (v7)
   {
     atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -8589,15 +8526,13 @@ void sub_1DF8174BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-os_unfair_lock_s *sub_1DF8174D4(uint64_t a1)
+void sub_1DF8174D4(uint64_t a1)
 {
-  result = *(a1 + 32);
-  if (!*&result->_os_unfair_lock_opaque)
+  v1 = *(a1 + 32);
+  if (!*&v1->_os_unfair_lock_opaque)
   {
-    return sub_1DF8020C0(result);
+    sub_1DF8020C0(v1);
   }
-
-  return result;
 }
 
 uint64_t sub_1DF8174E8(uint64_t a1)
@@ -8621,22 +8556,22 @@ void sub_1DF817568(std::__shared_weak_count *a1)
 
 uint64_t CLWriteStackshot(uint64_t a1, int a2)
 {
-  v4 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  v5 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   if (qword_1ED5FAE90)
   {
     goto LABEL_2;
   }
 
-  v13 = dlopen("/System/Library/PrivateFrameworks/CrashReporterSupport.framework/CrashReporterSupport", 1);
-  qword_1ED5FAE90 = v13;
-  if (v13)
+  v16 = dlopen("/System/Library/PrivateFrameworks/CrashReporterSupport.framework/CrashReporterSupport", 1);
+  qword_1ED5FAE90 = v16;
+  if (v16)
   {
-    off_1ED5FAE88 = dlsym(v13, "WriteStackshotReport");
-    v14 = dlsym(qword_1ED5FAE90, "SimulateCrash");
-    off_1ED5FAE80 = v14;
+    off_1ED5FAE88 = dlsym(v16, "WriteStackshotReport");
+    v17 = dlsym(qword_1ED5FAE90, "SimulateCrash");
+    off_1ED5FAE80 = v17;
     if (off_1ED5FAE88)
     {
-      if (v14)
+      if (v17)
       {
         goto LABEL_2;
       }
@@ -8649,11 +8584,11 @@ uint64_t CLWriteStackshot(uint64_t a1, int a2)
         dispatch_once(&qword_1ECE5D3E8, &unk_1F5AC6920);
       }
 
-      v20 = qword_1ECE5D3F8;
+      v23 = qword_1ECE5D3F8;
       if (os_log_type_enabled(qword_1ECE5D3F8, OS_LOG_TYPE_FAULT))
       {
-        *v21 = 0;
-        _os_log_impl(&dword_1DF7FE000, v20, OS_LOG_TYPE_FAULT, "CLWriteStackshotReport is NULL", v21, 2u);
+        *v24 = 0;
+        _os_log_impl(&dword_1DF7FE000, v23, OS_LOG_TYPE_FAULT, "CLWriteStackshotReport is NULL", v24, 2u);
       }
 
       if (off_1ED5FAE80)
@@ -8667,11 +8602,11 @@ uint64_t CLWriteStackshot(uint64_t a1, int a2)
       dispatch_once(&qword_1ECE5D3E8, &unk_1F5AC6920);
     }
 
-    v18 = qword_1ECE5D3F8;
+    v21 = qword_1ECE5D3F8;
     if (os_log_type_enabled(qword_1ECE5D3F8, OS_LOG_TYPE_FAULT))
     {
-      *v21 = 0;
-      v19 = "CLSimulateCrash is NULL";
+      *v24 = 0;
+      v22 = "CLSimulateCrash is NULL";
       goto LABEL_53;
     }
   }
@@ -8683,46 +8618,46 @@ uint64_t CLWriteStackshot(uint64_t a1, int a2)
       dispatch_once(&qword_1ECE5D3E8, &unk_1F5AC6920);
     }
 
-    v18 = qword_1ECE5D3F8;
+    v21 = qword_1ECE5D3F8;
     if (os_log_type_enabled(qword_1ECE5D3F8, OS_LOG_TYPE_FAULT))
     {
-      *v21 = 0;
-      v19 = "Unable to load CrashReporterSupport framework.";
+      *v24 = 0;
+      v22 = "Unable to load CrashReporterSupport framework.";
 LABEL_53:
-      _os_log_impl(&dword_1DF7FE000, v18, OS_LOG_TYPE_FAULT, v19, v21, 2u);
+      _os_log_impl(&dword_1DF7FE000, v21, OS_LOG_TYPE_FAULT, v22, v24, 2u);
     }
   }
 
 LABEL_2:
-  v5 = [MEMORY[0x1E696AEC0] stringWithCString:a1 encoding:{4, *v21}];
-  v6 = v5;
+  v6 = objc_msgSend_stringWithCString_encoding_(MEMORY[0x1E696AEC0], v4, a1, 4, *v24);
+  v7 = v6;
   if (a2)
   {
-    v7 = off_1ED5FAE80;
+    v8 = off_1ED5FAE80;
     if (off_1ED5FAE80)
     {
-      v8 = getpid();
-      if (v7(v8, 3511749773, v6))
+      v9 = getpid();
+      if (v8(v9, 3511749773, v7))
       {
         if (qword_1ECE5D3E8 != -1)
         {
           dispatch_once(&qword_1ECE5D3E8, &unk_1F5AC6920);
         }
 
-        v9 = qword_1ECE5D3F8;
+        v10 = qword_1ECE5D3F8;
         if (os_log_type_enabled(qword_1ECE5D3F8, OS_LOG_TYPE_DEBUG))
         {
-          *v21 = 0;
-          v10 = "Simulated a crash";
+          *v24 = 0;
+          v13 = "Simulated a crash";
 LABEL_15:
-          v11 = v9;
-          v12 = OS_LOG_TYPE_DEBUG;
+          v14 = v10;
+          v15 = OS_LOG_TYPE_DEBUG;
 LABEL_38:
-          _os_log_impl(&dword_1DF7FE000, v11, v12, v10, v21, 2u);
-          return [v4 drain];
+          _os_log_impl(&dword_1DF7FE000, v14, v15, v13, v24, 2u);
+          return objc_msgSend_drain(v5, v11, v12, *v24);
         }
 
-        return [v4 drain];
+        return objc_msgSend_drain(v5, v11, v12, *v24);
       }
 
       if (qword_1ECE5D3E8 != -1)
@@ -8730,17 +8665,17 @@ LABEL_38:
         dispatch_once(&qword_1ECE5D3E8, &unk_1F5AC6920);
       }
 
-      v16 = qword_1ECE5D3F8;
+      v19 = qword_1ECE5D3F8;
       if (!os_log_type_enabled(qword_1ECE5D3F8, OS_LOG_TYPE_DEFAULT))
       {
-        return [v4 drain];
+        return objc_msgSend_drain(v5, v11, v12, *v24);
       }
 
-      *v21 = 0;
-      v10 = "#Warning Failed to simulate a crash";
+      *v24 = 0;
+      v13 = "#Warning Failed to simulate a crash";
 LABEL_37:
-      v11 = v16;
-      v12 = OS_LOG_TYPE_DEFAULT;
+      v14 = v19;
+      v15 = OS_LOG_TYPE_DEFAULT;
       goto LABEL_38;
     }
 
@@ -8749,17 +8684,17 @@ LABEL_37:
       dispatch_once(&qword_1ECE5D3E8, &unk_1F5AC6920);
     }
 
-    v15 = qword_1ECE5D3F8;
+    v18 = qword_1ECE5D3F8;
     if (!os_log_type_enabled(qword_1ECE5D3F8, OS_LOG_TYPE_FAULT))
     {
-      return [v4 drain];
+      return objc_msgSend_drain(v5, v11, v12, *v24);
     }
 
-    *v21 = 0;
-    v10 = "CLSimulateCrash is NULL";
+    *v24 = 0;
+    v13 = "CLSimulateCrash is NULL";
 LABEL_28:
-    v11 = v15;
-    v12 = OS_LOG_TYPE_FAULT;
+    v14 = v18;
+    v15 = OS_LOG_TYPE_FAULT;
     goto LABEL_38;
   }
 
@@ -8770,32 +8705,32 @@ LABEL_28:
       dispatch_once(&qword_1ECE5D3E8, &unk_1F5AC6920);
     }
 
-    v15 = qword_1ECE5D3F8;
+    v18 = qword_1ECE5D3F8;
     if (!os_log_type_enabled(qword_1ECE5D3F8, OS_LOG_TYPE_FAULT))
     {
-      return [v4 drain];
+      return objc_msgSend_drain(v5, v11, v12, *v24);
     }
 
-    *v21 = 0;
-    v10 = "CLWriteStackshotReport is NULL";
+    *v24 = 0;
+    v13 = "CLWriteStackshotReport is NULL";
     goto LABEL_28;
   }
 
-  if (!off_1ED5FAE88(v5, 3511749773))
+  if (!off_1ED5FAE88(v6, 3511749773))
   {
     if (qword_1ECE5D3E8 != -1)
     {
       dispatch_once(&qword_1ECE5D3E8, &unk_1F5AC6920);
     }
 
-    v16 = qword_1ECE5D3F8;
+    v19 = qword_1ECE5D3F8;
     if (!os_log_type_enabled(qword_1ECE5D3F8, OS_LOG_TYPE_DEFAULT))
     {
-      return [v4 drain];
+      return objc_msgSend_drain(v5, v11, v12, *v24);
     }
 
-    *v21 = 0;
-    v10 = "#Warning Failed to write a stackshot";
+    *v24 = 0;
+    v13 = "#Warning Failed to write a stackshot";
     goto LABEL_37;
   }
 
@@ -8804,15 +8739,15 @@ LABEL_28:
     dispatch_once(&qword_1ECE5D3E8, &unk_1F5AC6920);
   }
 
-  v9 = qword_1ECE5D3F8;
+  v10 = qword_1ECE5D3F8;
   if (os_log_type_enabled(qword_1ECE5D3F8, OS_LOG_TYPE_DEBUG))
   {
-    *v21 = 0;
-    v10 = "Wrote a stackshot";
+    *v24 = 0;
+    v13 = "Wrote a stackshot";
     goto LABEL_15;
   }
 
-  return [v4 drain];
+  return objc_msgSend_drain(v5, v11, v12, *v24);
 }
 
 os_log_t sub_1DF817A20()
@@ -8856,53 +8791,60 @@ _BYTE *placeActivityModelingToken(const char *a1, char a2)
 
 uint64_t sub_1DF8186C4(uint64_t a1)
 {
-  v1 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithString:{objc_msgSend(*(a1 + 32), "stringByAppendingPathComponent:", @"syncget_addenda"}];
-  qword_1ECE5D908 = v1;
+  v2 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v4 = objc_msgSend_stringByAppendingPathComponent_(*(a1 + 32), v3, @"syncget_addenda");
+  v7 = objc_msgSend_initWithString_(v2, v5, v4);
+  qword_1ECE5D908 = v7;
 
-  return [CLAutoCohortUtilities createDirectoryAtPath:v1];
+  return objc_msgSend_createDirectoryAtPath_(CLAutoCohortUtilities, v6, v7);
 }
 
-uint64_t sub_1DF8199E0()
+void *sub_1DF8199E0(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v0 = [MEMORY[0x1E695DF90] dictionary];
-  v1 = +[CLAutoCohortUtilities getUnsafeEdges];
-  v9 = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (v2)
+  v35 = *MEMORY[0x1E69E9840];
+  v3 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], a2, a3);
+  UnsafeEdges = objc_msgSend_getUnsafeEdges(CLAutoCohortUtilities, v4, v5);
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(UnsafeEdges, v7, &v30, v34, 16);
+  if (v8)
   {
-    v3 = v2;
-    v4 = *v10;
+    v11 = v8;
+    v12 = *v31;
     do
     {
-      for (i = 0; i != v3; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v10 != v4)
+        if (*v31 != v12)
         {
-          objc_enumerationMutation(v1);
+          objc_enumerationMutation(UnsafeEdges);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
-        if (![v0 objectForKeyedSubscript:{objc_msgSend(v6, "objectAtIndexedSubscript:", 0)}])
+        v14 = *(*(&v30 + 1) + 8 * i);
+        v15 = objc_msgSend_objectAtIndexedSubscript_(v14, v9, 0);
+        if (!objc_msgSend_objectForKeyedSubscript_(v3, v16, v15))
         {
-          [v0 setObject:objc_msgSend(MEMORY[0x1E695DFA8] forKeyedSubscript:{"set"), objc_msgSend(v6, "objectAtIndexedSubscript:", 0)}];
+          v19 = objc_msgSend_set(MEMORY[0x1E695DFA8], v17, v18);
+          v21 = objc_msgSend_objectAtIndexedSubscript_(v14, v20, 0);
+          objc_msgSend_setObject_forKeyedSubscript_(v3, v22, v19, v21);
         }
 
-        [objc_msgSend(v0 objectForKeyedSubscript:{objc_msgSend(v6, "objectAtIndexedSubscript:", 0)), "addObject:", objc_msgSend(v6, "objectAtIndexedSubscript:", 1)}];
+        v23 = objc_msgSend_objectAtIndexedSubscript_(v14, v17, 0);
+        v25 = objc_msgSend_objectForKeyedSubscript_(v3, v24, v23);
+        v27 = objc_msgSend_objectAtIndexedSubscript_(v14, v26, 1);
+        objc_msgSend_addObject_(v25, v28, v27);
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(UnsafeEdges, v9, &v30, v34, 16);
     }
 
-    while (v3);
+    while (v11);
   }
 
-  result = [v0 copy];
+  result = objc_msgSend_copy(v3, v9, v10);
   qword_1ED5FAEA8 = result;
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8918,35 +8860,37 @@ void sub_1DF81A310(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void sub_1DF81A33C(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained prepareAndRunBlock:0];
+  objc_msgSend_prepareAndRunBlock_(WeakRetained, v3, 0);
 
-  v4 = objc_loadWeakRetained((a1 + 40));
-  v3 = [v4 timer];
-  [v3 shouldFire];
+  v9 = objc_loadWeakRetained((a1 + 40));
+  v6 = objc_msgSend_timer(v9, v4, v5);
+  objc_msgSend_shouldFire(v6, v7, v8);
 }
 
-void sub_1DF81A8DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1DF81A8DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_1DF81A900(uint64_t a1, void *a2)
 {
-  v7 = a2;
-  v3 = [v7 objectForKeyedSubscript:*(a1 + 32)];
-  if (!v3)
+  v14 = a2;
+  v5 = objc_msgSend_objectForKeyedSubscript_(v14, v3, *(a1 + 32));
+  if (!v5)
   {
-    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cohort:%@", *(a1 + 32)];
-    v3 = dispatch_queue_create_with_target_V2([v4 UTF8String], 0, *(*(*(a1 + 40) + 8) + 40));
+    v6 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v4, @"Cohort:%@", *(a1 + 32));
+    v7 = v6;
+    v10 = objc_msgSend_UTF8String(v7, v8, v9);
+    v5 = dispatch_queue_create_with_target_V2(v10, 0, *(*(*(a1 + 40) + 8) + 40));
 
-    [v7 setObject:v3 forKeyedSubscript:*(a1 + 32)];
+    objc_msgSend_setObject_forKeyedSubscript_(v14, v11, v5, *(a1 + 32));
   }
 
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v3;
+  v12 = *(*(a1 + 40) + 8);
+  v13 = *(v12 + 40);
+  *(v12 + 40) = v5;
 }
 
 id sub_1DF81A9CC()
@@ -8961,14 +8905,14 @@ id sub_1DF81A9CC()
   return v1;
 }
 
-_BYTE *sub_1DF81B328(uint64_t a1)
+_BYTE *sub_1DF81B328(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  [*(a1 + 32) ack];
+  v13 = *MEMORY[0x1E69E9840];
+  objc_msgSend_ack(*(a1 + 32), a2, a3);
   result = *(a1 + 40);
   if ((result[16] & 1) == 0)
   {
-    result = [result shouldBeIdled];
+    result = objc_msgSend_shouldBeIdled(result, v4, v5);
     if (result)
     {
       *(*(a1 + 40) + 16) = 1;
@@ -8977,68 +8921,67 @@ _BYTE *sub_1DF81B328(uint64_t a1)
         dispatch_once(&qword_1ED5FAD40, &unk_1F5AC69E0);
       }
 
-      v3 = qword_1ED5FAD48;
+      v7 = qword_1ED5FAD48;
       if (os_log_type_enabled(qword_1ED5FAD48, OS_LOG_TYPE_DEFAULT))
       {
-        v4 = *(*(a1 + 40) + 8);
-        v6 = 138412290;
-        v7 = v4;
-        _os_log_impl(&dword_1DF7FE000, v3, OS_LOG_TYPE_DEFAULT, "#Idleness, Silo is being idled: %@", &v6, 0xCu);
+        v10 = *(*(a1 + 40) + 8);
+        v11 = 138412290;
+        v12 = v10;
+        _os_log_impl(&dword_1DF7FE000, v7, OS_LOG_TYPE_DEFAULT, "#Idleness, Silo is being idled: %@", &v11, 0xCu);
       }
 
-      result = [*(a1 + 40) runIdleHandlers];
+      return objc_msgSend_runIdleHandlers(*(a1 + 40), v8, v9);
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-BOOL sub_1DF81B878(uint64_t a1, void *a2)
+BOOL sub_1DF81B878(uint64_t a1, void *a2, uint64_t a3)
 {
-  v3 = [a2 timer];
-  [v3 nextFireDelayRaw];
-  if (v3)
+  v4 = objc_msgSend_timer(a2, a2, a3);
+  objc_msgSend_nextFireDelayRaw(v4, v5, v6);
+  if (v4)
   {
-    v5 = v4;
-    if (v4 != 1.79769313e308)
+    v10 = v9;
+    if (v9 != 1.79769313e308)
     {
-      v6 = *(a1 + 40);
-      if (v6 >= v5)
+      v11 = *(a1 + 40);
+      if (v11 >= v10)
       {
-        [v3 fireInterval];
-        v8 = v7;
-        v9 = 1.79769313e308;
-        if (v8 != 1.79769313e308)
+        objc_msgSend_fireInterval(v4, v7, v8);
+        v15 = v14;
+        v16 = 1.79769313e308;
+        if (v15 != 1.79769313e308)
         {
-          v9 = v8 - fmod(*(a1 + 40) - v5, v8);
+          v16 = v15 - fmod(*(a1 + 40) - v10, v15);
         }
 
-        [v3 setNextFireDelay:v9];
-        [*(a1 + 32) addObject:v3];
+        objc_msgSend_setNextFireDelay_(v4, v12, v13, v16);
+        objc_msgSend_addObject_(*(a1 + 32), v17, v4);
       }
 
       else
       {
-        [v3 setNextFireDelay:v5 - v6];
+        objc_msgSend_setNextFireDelay_(v4, v7, v8, v10 - v11);
       }
     }
   }
 
-  return v3 != 0;
+  return v4 != 0;
 }
 
 uint64_t sub_1DF81BA20(uint64_t a1)
 {
   (*(*(a1 + 40) + 16))();
-  v2 = *(a1 + 32);
+  v3 = *(a1 + 32);
 
-  return [v2 setHandler:0];
+  return objc_msgSend_setHandler_(v3, v2, 0);
 }
 
-uint64_t sub_1DF81BBBC()
+uint64_t sub_1DF81BBBC(uint64_t a1, const char *a2, uint64_t a3)
 {
-  qword_1ED5FADF0 = [MEMORY[0x1E695DF90] dictionary];
+  qword_1ED5FADF0 = objc_msgSend_dictionary(MEMORY[0x1E695DF90], a2, a3);
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -9066,49 +9009,49 @@ void sub_1DF81D77C(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = _Block_copy(*(a1 + 48));
-  [v3 setTarget:v4];
+  objc_msgSend_setTarget_(v3, v5, v4);
 
-  [v3 retainArguments];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = sub_1DF81D888;
-  v7[3] = &unk_1E86C8598;
-  v5 = *(a1 + 32);
-  v8 = *(a1 + 40);
-  v6 = v3;
-  v9 = v6;
-  [v5 async:v7];
+  objc_msgSend_retainArguments(v3, v6, v7);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = sub_1DF81D888;
+  v11[3] = &unk_1E86C8598;
+  v8 = *(a1 + 32);
+  v12 = *(a1 + 40);
+  v9 = v3;
+  v13 = v9;
+  objc_msgSend_async_(v8, v10, v11);
 }
 
-uint64_t sub_1DF81D888(uint64_t a1)
+void *sub_1DF81D888(uint64_t a1, const char *a2, uint64_t a3)
 {
-  result = [*(a1 + 32) valid];
+  result = objc_msgSend_valid(*(a1 + 32), a2, a3);
   if (result)
   {
-    v3 = *(a1 + 40);
+    v6 = *(a1 + 40);
 
-    return MEMORY[0x1EEE66B58](v3, sel_invoke);
+    return MEMORY[0x1EEE66B58](v6, sel_invoke, v5);
   }
 
   return result;
 }
 
-uint64_t sub_1DF81D8D4(uint64_t a1)
+void *sub_1DF81D8D4(uint64_t a1, const char *a2, uint64_t a3)
 {
-  result = [*(a1 + 32) valid];
+  result = objc_msgSend_valid(*(a1 + 32), a2, a3);
   if (result)
   {
-    result = [*(a1 + 40) offsiloHandleInvocation:*(a1 + 48) selectorInfo:*(a1 + 56) peer:*(a1 + 64)];
+    result = objc_msgSend_offsiloHandleInvocation_selectorInfo_peer_(*(a1 + 40), v5, *(a1 + 48), *(a1 + 56), *(a1 + 64));
     if (result)
     {
-      v3 = [*(a1 + 64) delegateSilo];
-      v4 = [v3 identifier];
-      CLProfilingIdentifySiloInvocation(v4, *(a1 + 48));
+      v8 = objc_msgSend_delegateSilo(*(a1 + 64), v6, v7);
+      v11 = objc_msgSend_identifier(v8, v9, v10);
+      CLProfilingIdentifySiloInvocation(v11, *(a1 + 48));
 
-      v5 = *(a1 + 48);
-      v6 = *(a1 + 32);
+      v12 = *(a1 + 48);
+      v13 = *(a1 + 32);
 
-      return MEMORY[0x1EEE66B58](v5, sel_invokeWithTarget_);
+      return MEMORY[0x1EEE66B58](v12, sel_invokeWithTarget_, v13);
     }
   }
 
@@ -9135,50 +9078,48 @@ id sub_1DF81E1BC()
   return v1;
 }
 
-void sub_1DF81E634(uint64_t a1)
+void sub_1DF81E634(uint64_t a1, const char *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = [qword_1ED5FADA8 objectForKey:*(a1 + 32)];
-  v3 = v2;
-  if (v2)
+  v19 = *MEMORY[0x1E69E9840];
+  v3 = objc_msgSend_objectForKey_(qword_1ED5FADA8, a2, *(a1 + 32));
+  v6 = v3;
+  if (v3)
   {
-    v4 = [v2 residentCount] - 1;
-    [v3 setResidentCount:v4];
-    if (!v4)
+    v7 = objc_msgSend_residentCount(v3, v4, v5) - 1;
+    objc_msgSend_setResidentCount_(v6, v8, v7);
+    if (!v7)
     {
       if (qword_1ED5FAD40 != -1)
       {
         dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
       }
 
-      v5 = qword_1ED5FAD48;
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v9 = qword_1ED5FAD48;
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v6 = [*(a1 + 32) identifier];
-        v8[0] = 68289282;
-        v8[1] = 0;
-        v9 = 2082;
-        v10 = &unk_1DF8255EF;
-        v11 = 2114;
-        v12 = v6;
-        _os_log_impl(&dword_1DF7FE000, v5, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Heartbeat tracking terminated, silo:%{public, location:escape_only}@}", v8, 0x1Cu);
+        v12 = objc_msgSend_identifier(*(a1 + 32), v10, v11);
+        v14[0] = 68289282;
+        v14[1] = 0;
+        v15 = 2082;
+        v16 = &unk_1DF8255EF;
+        v17 = 2114;
+        v18 = v12;
+        _os_log_impl(&dword_1DF7FE000, v9, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Heartbeat tracking terminated, silo:%{public, location:escape_only}@}", v14, 0x1Cu);
       }
 
-      [qword_1ED5FADA8 removeObjectForKey:*(a1 + 32)];
+      objc_msgSend_removeObjectForKey_(qword_1ED5FADA8, v13, *(a1 + 32));
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t sub_1DF81E7B4(uint64_t a1, void *a2, void *a3)
 {
   v4 = a3;
-  v5 = [a2 description];
-  v6 = [v4 description];
-  v7 = [v5 compare:v6];
+  v7 = objc_msgSend_description(a2, v5, v6);
+  v10 = objc_msgSend_description(v4, v8, v9);
+  v12 = objc_msgSend_compare_(v7, v11, v10);
 
-  return v7;
+  return v12;
 }
 
 void sub_1DF81E824(_Unwind_Exception *a1)
@@ -9190,7 +9131,7 @@ void sub_1DF81E824(_Unwind_Exception *a1)
 
 void sub_1DF81E998(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v1 = *&qword_1ED5FAD58;
   byte_1ED5FAD50 = *(a1 + 40);
   v2 = *(a1 + 32);
@@ -9214,13 +9155,13 @@ void sub_1DF81E998(uint64_t a1)
         v12 = qword_1ED5FAD48;
         if (os_log_type_enabled(qword_1ED5FAD48, OS_LOG_TYPE_DEBUG))
         {
-          v14 = 68289282;
-          v15 = 0;
-          v16 = 2082;
-          v17 = &unk_1DF8255EF;
-          v18 = 2050;
-          v19 = qword_1ED5FAD58;
-          _os_log_impl(&dword_1DF7FE000, v12, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Heartbeat tracking resumed, interval:%{public}f}", &v14, 0x1Cu);
+          v13 = 68289282;
+          v14 = 0;
+          v15 = 2082;
+          v16 = &unk_1DF8255EF;
+          v17 = 2050;
+          v18 = qword_1ED5FAD58;
+          _os_log_impl(&dword_1DF7FE000, v12, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Heartbeat tracking resumed, interval:%{public}f}", &v13, 0x1Cu);
         }
 
         dispatch_resume(qword_1ED5FADB0);
@@ -9236,22 +9177,22 @@ void sub_1DF81E998(uint64_t a1)
         v6 = qword_1ED5FAD48;
         if (os_log_type_enabled(qword_1ED5FAD48, OS_LOG_TYPE_DEBUG))
         {
-          v14 = 68289282;
-          v15 = 0;
-          v16 = 2082;
-          v17 = &unk_1DF8255EF;
-          v18 = 2050;
-          v19 = qword_1ED5FAD58;
+          v13 = 68289282;
+          v14 = 0;
+          v15 = 2082;
+          v16 = &unk_1DF8255EF;
+          v17 = 2050;
+          v18 = qword_1ED5FAD58;
           v7 = "{msg%{public}.0s:Heartbeat tracking already enabled, interval:%{public}f}";
           v8 = v6;
           v9 = 28;
 LABEL_19:
-          _os_log_impl(&dword_1DF7FE000, v8, OS_LOG_TYPE_DEBUG, v7, &v14, v9);
-          goto LABEL_25;
+          _os_log_impl(&dword_1DF7FE000, v8, OS_LOG_TYPE_DEBUG, v7, &v13, v9);
+          return;
         }
       }
 
-      goto LABEL_25;
+      return;
     }
   }
 
@@ -9270,10 +9211,10 @@ LABEL_19:
     v11 = qword_1ED5FAD48;
     if (os_log_type_enabled(qword_1ED5FAD48, OS_LOG_TYPE_DEBUG))
     {
-      v14 = 68289026;
-      v15 = 0;
-      v16 = 2082;
-      v17 = &unk_1DF8255EF;
+      v13 = 68289026;
+      v14 = 0;
+      v15 = 2082;
+      v16 = &unk_1DF8255EF;
       v7 = "{msg%{public}.0s:Heartbeat tracking already disabled}";
       v8 = v11;
       v9 = 18;
@@ -9291,288 +9232,141 @@ LABEL_19:
     v10 = qword_1ED5FAD48;
     if (os_log_type_enabled(qword_1ED5FAD48, OS_LOG_TYPE_DEBUG))
     {
-      v14 = 68289026;
-      v15 = 0;
-      v16 = 2082;
-      v17 = &unk_1DF8255EF;
-      _os_log_impl(&dword_1DF7FE000, v10, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Heartbeat tracking suspended}", &v14, 0x12u);
+      v13 = 68289026;
+      v14 = 0;
+      v15 = 2082;
+      v16 = &unk_1DF8255EF;
+      _os_log_impl(&dword_1DF7FE000, v10, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Heartbeat tracking suspended}", &v13, 0x12u);
     }
 
     dispatch_suspend(qword_1ED5FADB0);
   }
-
-LABEL_25:
-  v13 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1DF81F47C(void *a1)
+void sub_1DF81F47C(void *a1, const char *a2, uint64_t a3)
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   if (!a1[4])
   {
-    v43 = sub_1DF81E1BC();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
+    v65 = sub_1DF81E1BC();
+    if (os_log_type_enabled(v65, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v55 = 0;
-      v56 = 2082;
-      v57 = &unk_1DF8255EF;
-      v58 = 2082;
-      v59 = "assert";
-      v60 = 2081;
-      v61 = "remapping";
-      _os_log_impl(&dword_1DF7FE000, v43, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Service replacement map must be non-nil if set, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v74 = 0;
+      v75 = 2082;
+      v76 = &unk_1DF8255EF;
+      v77 = 2082;
+      v78 = "assert";
+      v79 = 2081;
+      v80 = "remapping";
+      _os_log_impl(&dword_1DF7FE000, v65, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Service replacement map must be non-nil if set, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v44 = sub_1DF81E1BC();
-    if (os_signpost_enabled(v44))
+    v66 = sub_1DF81E1BC();
+    if (os_signpost_enabled(v66))
     {
       *buf = 68289539;
-      v55 = 0;
-      v56 = 2082;
-      v57 = &unk_1DF8255EF;
-      v58 = 2082;
-      v59 = "assert";
-      v60 = 2081;
-      v61 = "remapping";
-      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v44, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Service replacement map must be non-nil if set", "{msg%{public}.0s:Service replacement map must be non-nil if set, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v74 = 0;
+      v75 = 2082;
+      v76 = &unk_1DF8255EF;
+      v77 = 2082;
+      v78 = "assert";
+      v79 = 2081;
+      v80 = "remapping";
+      _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v66, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Service replacement map must be non-nil if set", "{msg%{public}.0s:Service replacement map must be non-nil if set, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v45 = sub_1DF81E1BC();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+    v67 = sub_1DF81E1BC();
+    if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v55 = 0;
-      v56 = 2082;
-      v57 = &unk_1DF8255EF;
-      v58 = 2082;
-      v59 = "assert";
-      v60 = 2081;
-      v61 = "remapping";
-      _os_log_impl(&dword_1DF7FE000, v45, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Service replacement map must be non-nil if set, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v74 = 0;
+      v75 = 2082;
+      v76 = &unk_1DF8255EF;
+      v77 = 2082;
+      v78 = "assert";
+      v79 = 2081;
+      v80 = "remapping";
+      _os_log_impl(&dword_1DF7FE000, v67, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Service replacement map must be non-nil if set, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v47 = 451;
-    v48 = "[CLServiceVendor setServiceReplacementMap:missBehavior:]_block_invoke";
-    v46 = "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLServiceVendor.mm";
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLServiceVendor.mm", 451, "[CLServiceVendor setServiceReplacementMap:missBehavior:]_block_invoke");
     goto LABEL_67;
   }
 
-  v1 = a1;
-  v2 = MEMORY[0x1E695DFA8];
-  v3 = [*(a1[5] + 8) allKeys];
-  v4 = [v2 setWithArray:v3];
+  v3 = a1;
+  v4 = MEMORY[0x1E695DFA8];
+  v5 = objc_msgSend_allKeys(*(a1[5] + 8), a2, a3);
+  v7 = objc_msgSend_setWithArray_(v4, v6, v5);
 
-  [v4 unionSet:*(*(v1 + 5) + 24)];
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  obj = v4;
-  v5 = [obj countByEnumeratingWithState:&v50 objects:v66 count:16];
-  if (!v5)
+  objc_msgSend_unionSet_(v7, v8, *(v3[5] + 24));
+  v71 = 0u;
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
+  obj = v7;
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v69, v85, 16);
+  if (!v10)
   {
     goto LABEL_16;
   }
 
-  v6 = *v51;
+  v11 = *v70;
   while (2)
   {
-    v7 = 0;
+    v12 = 0;
     do
     {
-      if (*v51 != v6)
+      if (*v70 != v11)
       {
         objc_enumerationMutation(obj);
       }
 
-      v8 = *(*(&v50 + 1) + 8 * v7);
+      v13 = *(*(&v69 + 1) + 8 * v12);
       if (qword_1ED5FAD40 != -1)
       {
         dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
       }
 
-      v9 = qword_1ED5FAD48;
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v14 = qword_1ED5FAD48;
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v10 = v8;
-        v11 = [v8 UTF8String];
-        v12 = *(v1 + 12);
+        v15 = v13;
+        v18 = objc_msgSend_UTF8String(v13, v16, v17);
+        v19 = *(v3 + 12);
         *buf = 68289538;
-        v55 = 0;
-        v56 = 2082;
-        v57 = &unk_1DF8255EF;
-        v58 = 2082;
-        v59 = v11;
-        v60 = 1026;
-        LODWORD(v61) = v12;
-        _os_log_impl(&dword_1DF7FE000, v9, OS_LOG_TYPE_INFO, "{msg%{public}.0s:service replacement mapping, literalSvcName:%{public, location:escape_only}s, MissBehavior:%{public}d}", buf, 0x22u);
+        v74 = 0;
+        v75 = 2082;
+        v76 = &unk_1DF8255EF;
+        v77 = 2082;
+        v78 = v18;
+        v79 = 1026;
+        LODWORD(v80) = v19;
+        _os_log_impl(&dword_1DF7FE000, v14, OS_LOG_TYPE_INFO, "{msg%{public}.0s:service replacement mapping, literalSvcName:%{public, location:escape_only}s, MissBehavior:%{public}d}", buf, 0x22u);
       }
 
-      v13 = sub_1DF7FF70C(*(v1 + 4), *(v1 + 12), v8);
-      v14 = sub_1DF7FF70C(*(*(v1 + 5) + 16), *(*(v1 + 5) + 40), v8);
-      v15 = v14;
-      if (!v13)
+      v20 = sub_1DF7FF70C(v3[4], *(v3 + 12), v13);
+      v21 = sub_1DF7FF70C(*(v3[5] + 16), *(v3[5] + 40), v13);
+      v23 = v21;
+      if (!v20)
       {
         if (qword_1ED5FAD40 != -1)
         {
           dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
         }
 
-        v23 = qword_1ED5FAD48;
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+        v33 = qword_1ED5FAD48;
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
         {
           *buf = 68289539;
-          v55 = 0;
-          v56 = 2082;
-          v57 = &unk_1DF8255EF;
-          v58 = 2082;
-          v59 = "assert";
-          v60 = 2081;
-          v61 = "newEffectiveSvcName";
-          _os_log_impl(&dword_1DF7FE000, v23, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Existing services must not fail to map under new mapping and behavior, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-        }
-
-        if (qword_1ED5FAD40 != -1)
-        {
-          dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
-        }
-
-        v24 = qword_1ED5FAD48;
-        if (os_signpost_enabled(v24))
-        {
-          *buf = 68289539;
-          v55 = 0;
-          v56 = 2082;
-          v57 = &unk_1DF8255EF;
-          v58 = 2082;
-          v59 = "assert";
-          v60 = 2081;
-          v61 = "newEffectiveSvcName";
-          _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v24, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Existing services must not fail to map under new mapping and behavior", "{msg%{public}.0s:Existing services must not fail to map under new mapping and behavior, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-        }
-
-        if (qword_1ED5FAD40 != -1)
-        {
-          dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
-        }
-
-        v1 = qword_1ED5FAD48;
-        if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
-        {
-          *buf = 68289539;
-          v55 = 0;
-          v56 = 2082;
-          v57 = &unk_1DF8255EF;
-          v58 = 2082;
-          v59 = "assert";
-          v60 = 2081;
-          v61 = "newEffectiveSvcName";
-          _os_log_impl(&dword_1DF7FE000, v1, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Existing services must not fail to map under new mapping and behavior, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-        }
-
-        v25 = 464;
-        goto LABEL_33;
-      }
-
-      if (!v14)
-      {
-        if (qword_1ED5FAD40 != -1)
-        {
-          dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
-        }
-
-        v26 = qword_1ED5FAD48;
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
-        {
-          *buf = 68289539;
-          v55 = 0;
-          v56 = 2082;
-          v57 = &unk_1DF8255EF;
-          v58 = 2082;
-          v59 = "assert";
-          v60 = 2081;
-          v61 = "oldEffectiveSvcName";
-          _os_log_impl(&dword_1DF7FE000, v26, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Should be impossible for an existing service to fail to map under existing mapping and behavior, and must be non-nil for next test, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-        }
-
-        if (qword_1ED5FAD40 != -1)
-        {
-          dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
-        }
-
-        v27 = qword_1ED5FAD48;
-        if (os_signpost_enabled(v27))
-        {
-          *buf = 68289539;
-          v55 = 0;
-          v56 = 2082;
-          v57 = &unk_1DF8255EF;
-          v58 = 2082;
-          v59 = "assert";
-          v60 = 2081;
-          v61 = "oldEffectiveSvcName";
-          _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v27, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Should be impossible for an existing service to fail to map under existing mapping and behavior, and must be non-nil for next test", "{msg%{public}.0s:Should be impossible for an existing service to fail to map under existing mapping and behavior, and must be non-nil for next test, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-        }
-
-        if (qword_1ED5FAD40 != -1)
-        {
-          dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
-        }
-
-        v28 = qword_1ED5FAD48;
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
-        {
-          *buf = 68289539;
-          v55 = 0;
-          v56 = 2082;
-          v57 = &unk_1DF8255EF;
-          v58 = 2082;
-          v59 = "assert";
-          v60 = 2081;
-          v61 = "oldEffectiveSvcName";
-          _os_log_impl(&dword_1DF7FE000, v28, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Should be impossible for an existing service to fail to map under existing mapping and behavior, and must be non-nil for next test, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
-        }
-
-        v47 = 465;
-        v48 = "[CLServiceVendor setServiceReplacementMap:missBehavior:]_block_invoke";
-        v46 = "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLServiceVendor.mm";
-        abort_report_np();
-LABEL_67:
-        __break(1u);
-LABEL_68:
-        dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
-        goto LABEL_17;
-      }
-
-      if (([v14 isEqual:v13] & 1) == 0)
-      {
-        if (qword_1ED5FAD40 != -1)
-        {
-          dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
-        }
-
-        v29 = qword_1ED5FAD48;
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
-        {
-          v30 = v15;
-          v31 = [v15 UTF8String];
-          v32 = v13;
-          v33 = [v13 UTF8String];
-          *buf = 68290051;
-          v55 = 0;
-          v56 = 2082;
-          v57 = &unk_1DF8255EF;
-          v58 = 2082;
-          v59 = v31;
-          v60 = 2082;
-          v61 = v33;
-          v62 = 2082;
-          v63 = "assert";
-          v64 = 2081;
-          v65 = "[oldEffectiveSvcName isEqual:newEffectiveSvcName]";
-          _os_log_impl(&dword_1DF7FE000, v29, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Old and new mappings and behaviors must agree about any service which has started, oldEffectiveSvcName:%{public, location:escape_only}s, newEffectiveSvcName:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
+          v74 = 0;
+          v75 = 2082;
+          v76 = &unk_1DF8255EF;
+          v77 = 2082;
+          v78 = "assert";
+          v79 = 2081;
+          v80 = "newEffectiveSvcName";
+          _os_log_impl(&dword_1DF7FE000, v33, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Existing services must not fail to map under new mapping and behavior, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
         }
 
         if (qword_1ED5FAD40 != -1)
@@ -9583,23 +9377,15 @@ LABEL_68:
         v34 = qword_1ED5FAD48;
         if (os_signpost_enabled(v34))
         {
-          v35 = v15;
-          v36 = [v15 UTF8String];
-          v37 = v13;
-          v38 = [v13 UTF8String];
-          *buf = 68290051;
-          v55 = 0;
-          v56 = 2082;
-          v57 = &unk_1DF8255EF;
-          v58 = 2082;
-          v59 = v36;
-          v60 = 2082;
-          v61 = v38;
-          v62 = 2082;
-          v63 = "assert";
-          v64 = 2081;
-          v65 = "[oldEffectiveSvcName isEqual:newEffectiveSvcName]";
-          _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v34, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Old and new mappings and behaviors must agree about any service which has started", "{msg%{public}.0s:Old and new mappings and behaviors must agree about any service which has started, oldEffectiveSvcName:%{public, location:escape_only}s, newEffectiveSvcName:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
+          *buf = 68289539;
+          v74 = 0;
+          v75 = 2082;
+          v76 = &unk_1DF8255EF;
+          v77 = 2082;
+          v78 = "assert";
+          v79 = 2081;
+          v80 = "newEffectiveSvcName";
+          _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v34, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Existing services must not fail to map under new mapping and behavior", "{msg%{public}.0s:Existing services must not fail to map under new mapping and behavior, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
         }
 
         if (qword_1ED5FAD40 != -1)
@@ -9607,44 +9393,187 @@ LABEL_68:
           dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
         }
 
-        v1 = qword_1ED5FAD48;
-        if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
+        v3 = qword_1ED5FAD48;
+        if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
         {
-          v39 = v15;
-          v40 = [v15 UTF8String];
-          v41 = v13;
-          v42 = [v13 UTF8String];
-          *buf = 68290051;
-          v55 = 0;
-          v56 = 2082;
-          v57 = &unk_1DF8255EF;
-          v58 = 2082;
-          v59 = v40;
-          v60 = 2082;
-          v61 = v42;
-          v62 = 2082;
-          v63 = "assert";
-          v64 = 2081;
-          v65 = "[oldEffectiveSvcName isEqual:newEffectiveSvcName]";
-          _os_log_impl(&dword_1DF7FE000, v1, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Old and new mappings and behaviors must agree about any service which has started, oldEffectiveSvcName:%{public, location:escape_only}s, newEffectiveSvcName:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
+          *buf = 68289539;
+          v74 = 0;
+          v75 = 2082;
+          v76 = &unk_1DF8255EF;
+          v77 = 2082;
+          v78 = "assert";
+          v79 = 2081;
+          v80 = "newEffectiveSvcName";
+          _os_log_impl(&dword_1DF7FE000, v3, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Existing services must not fail to map under new mapping and behavior, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
         }
 
-        v25 = 466;
+        v35 = 464;
+        goto LABEL_33;
+      }
+
+      if (!v21)
+      {
+        if (qword_1ED5FAD40 != -1)
+        {
+          dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
+        }
+
+        v36 = qword_1ED5FAD48;
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
+        {
+          *buf = 68289539;
+          v74 = 0;
+          v75 = 2082;
+          v76 = &unk_1DF8255EF;
+          v77 = 2082;
+          v78 = "assert";
+          v79 = 2081;
+          v80 = "oldEffectiveSvcName";
+          _os_log_impl(&dword_1DF7FE000, v36, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Should be impossible for an existing service to fail to map under existing mapping and behavior, and must be non-nil for next test, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+        }
+
+        if (qword_1ED5FAD40 != -1)
+        {
+          dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
+        }
+
+        v37 = qword_1ED5FAD48;
+        if (os_signpost_enabled(v37))
+        {
+          *buf = 68289539;
+          v74 = 0;
+          v75 = 2082;
+          v76 = &unk_1DF8255EF;
+          v77 = 2082;
+          v78 = "assert";
+          v79 = 2081;
+          v80 = "oldEffectiveSvcName";
+          _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v37, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Should be impossible for an existing service to fail to map under existing mapping and behavior, and must be non-nil for next test", "{msg%{public}.0s:Should be impossible for an existing service to fail to map under existing mapping and behavior, and must be non-nil for next test, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+        }
+
+        if (qword_1ED5FAD40 != -1)
+        {
+          dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
+        }
+
+        v38 = qword_1ED5FAD48;
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+        {
+          *buf = 68289539;
+          v74 = 0;
+          v75 = 2082;
+          v76 = &unk_1DF8255EF;
+          v77 = 2082;
+          v78 = "assert";
+          v79 = 2081;
+          v80 = "oldEffectiveSvcName";
+          _os_log_impl(&dword_1DF7FE000, v38, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Should be impossible for an existing service to fail to map under existing mapping and behavior, and must be non-nil for next test, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+        }
+
+        abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLServiceVendor.mm", 465, "[CLServiceVendor setServiceReplacementMap:missBehavior:]_block_invoke");
+LABEL_67:
+        __break(1u);
+LABEL_68:
+        dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
+        goto LABEL_17;
+      }
+
+      if ((objc_msgSend_isEqual_(v21, v22, v20) & 1) == 0)
+      {
+        if (qword_1ED5FAD40 != -1)
+        {
+          dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
+        }
+
+        v39 = qword_1ED5FAD48;
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
+        {
+          v40 = v23;
+          v43 = objc_msgSend_UTF8String(v23, v41, v42);
+          v44 = v20;
+          v47 = objc_msgSend_UTF8String(v20, v45, v46);
+          *buf = 68290051;
+          v74 = 0;
+          v75 = 2082;
+          v76 = &unk_1DF8255EF;
+          v77 = 2082;
+          v78 = v43;
+          v79 = 2082;
+          v80 = v47;
+          v81 = 2082;
+          v82 = "assert";
+          v83 = 2081;
+          v84 = "[oldEffectiveSvcName isEqual:newEffectiveSvcName]";
+          _os_log_impl(&dword_1DF7FE000, v39, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Old and new mappings and behaviors must agree about any service which has started, oldEffectiveSvcName:%{public, location:escape_only}s, newEffectiveSvcName:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
+        }
+
+        if (qword_1ED5FAD40 != -1)
+        {
+          dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
+        }
+
+        v48 = qword_1ED5FAD48;
+        if (os_signpost_enabled(v48))
+        {
+          v49 = v23;
+          v52 = objc_msgSend_UTF8String(v23, v50, v51);
+          v53 = v20;
+          v56 = objc_msgSend_UTF8String(v20, v54, v55);
+          *buf = 68290051;
+          v74 = 0;
+          v75 = 2082;
+          v76 = &unk_1DF8255EF;
+          v77 = 2082;
+          v78 = v52;
+          v79 = 2082;
+          v80 = v56;
+          v81 = 2082;
+          v82 = "assert";
+          v83 = 2081;
+          v84 = "[oldEffectiveSvcName isEqual:newEffectiveSvcName]";
+          _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v48, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Old and new mappings and behaviors must agree about any service which has started", "{msg%{public}.0s:Old and new mappings and behaviors must agree about any service which has started, oldEffectiveSvcName:%{public, location:escape_only}s, newEffectiveSvcName:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
+        }
+
+        if (qword_1ED5FAD40 != -1)
+        {
+          dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
+        }
+
+        v3 = qword_1ED5FAD48;
+        if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+        {
+          v57 = v23;
+          v60 = objc_msgSend_UTF8String(v23, v58, v59);
+          v61 = v20;
+          v64 = objc_msgSend_UTF8String(v20, v62, v63);
+          *buf = 68290051;
+          v74 = 0;
+          v75 = 2082;
+          v76 = &unk_1DF8255EF;
+          v77 = 2082;
+          v78 = v60;
+          v79 = 2082;
+          v80 = v64;
+          v81 = 2082;
+          v82 = "assert";
+          v83 = 2081;
+          v84 = "[oldEffectiveSvcName isEqual:newEffectiveSvcName]";
+          _os_log_impl(&dword_1DF7FE000, v3, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Old and new mappings and behaviors must agree about any service which has started, oldEffectiveSvcName:%{public, location:escape_only}s, newEffectiveSvcName:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x3Au);
+        }
+
+        v35 = 466;
 LABEL_33:
 
-        v47 = v25;
-        v48 = "[CLServiceVendor setServiceReplacementMap:missBehavior:]_block_invoke";
-        v46 = "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLServiceVendor.mm";
-        abort_report_np();
+        abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLServiceVendor.mm", v35, "[CLServiceVendor setServiceReplacementMap:missBehavior:]_block_invoke");
         goto LABEL_67;
       }
 
-      ++v7;
+      ++v12;
     }
 
-    while (v5 != v7);
-    v5 = [obj countByEnumeratingWithState:&v50 objects:v66 count:16];
-    if (v5)
+    while (v10 != v12);
+    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v24, &v69, v85, 16);
+    if (v10)
     {
       continue;
     }
@@ -9660,32 +9589,31 @@ LABEL_16:
   }
 
 LABEL_17:
-  v16 = qword_1ED5FAD48;
+  v25 = qword_1ED5FAD48;
   if (os_log_type_enabled(qword_1ED5FAD48, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = *(v1 + 4);
-    v18 = *(v1 + 12);
+    v28 = v3[4];
+    v29 = *(v3 + 12);
     *buf = 68289538;
-    v55 = 0;
-    v56 = 2082;
-    v57 = &unk_1DF8255EF;
-    v58 = 2114;
-    v59 = v17;
-    v60 = 1026;
-    LODWORD(v61) = v18;
-    _os_log_impl(&dword_1DF7FE000, v16, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Configuring service replacement map, ReplacementMap:%{public, location:escape_only}@, MissBehavior:%{public}d}", buf, 0x22u);
+    v74 = 0;
+    v75 = 2082;
+    v76 = &unk_1DF8255EF;
+    v77 = 2114;
+    v78 = v28;
+    v79 = 1026;
+    LODWORD(v80) = v29;
+    _os_log_impl(&dword_1DF7FE000, v25, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:Configuring service replacement map, ReplacementMap:%{public, location:escape_only}@, MissBehavior:%{public}d}", buf, 0x22u);
   }
 
-  v19 = [*(v1 + 4) copy];
-  v20 = *(v1 + 5);
-  v21 = *(v20 + 16);
-  *(v20 + 16) = v19;
+  v30 = objc_msgSend_copy(v3[4], v26, v27);
+  v31 = v3[5];
+  v32 = *(v31 + 16);
+  *(v31 + 16) = v30;
 
-  *(*(v1 + 5) + 40) = *(v1 + 12);
-  v22 = *MEMORY[0x1E69E9840];
+  *(v3[5] + 40) = *(v3 + 12);
 }
 
-void sub_1DF820918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, id a42)
+void sub_1DF820918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, id a42)
 {
   _Block_object_dispose(&a31, 8);
 
@@ -9695,145 +9623,148 @@ void sub_1DF820918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1DF82097C(uint64_t a1)
+void sub_1DF82097C(void *a1, const char *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
-  if ([*(*(a1 + 32) + 24) containsObject:*(a1 + 40)])
+  v21 = *MEMORY[0x1E69E9840];
+  if (objc_msgSend_containsObject_(*(a1[4] + 24), a2, a1[5]))
   {
     if (qword_1ED5FAD40 != -1)
     {
       dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
     }
 
-    v2 = qword_1ED5FAD48;
+    v4 = qword_1ED5FAD48;
     if (os_log_type_enabled(qword_1ED5FAD48, OS_LOG_TYPE_DEBUG))
     {
-      v3 = *(a1 + 40);
-      v17[0] = 68289282;
-      v17[1] = 0;
-      v18 = 2082;
-      v19 = &unk_1DF8255EF;
-      v20 = 2114;
-      v21 = v3;
-      _os_log_impl(&dword_1DF7FE000, v2, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Unavailable service requested, RequestedServiceName:%{public, location:escape_only}@}", v17, 0x1Cu);
+      v5 = a1[5];
+      v16[0] = 68289282;
+      v16[1] = 0;
+      v17 = 2082;
+      v18 = &unk_1DF8255EF;
+      v19 = 2114;
+      v20 = v5;
+      _os_log_impl(&dword_1DF7FE000, v4, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Unavailable service requested, RequestedServiceName:%{public, location:escape_only}@}", v16, 0x1Cu);
     }
-
-    goto LABEL_8;
   }
 
-  v4 = [*(*(a1 + 32) + 8) objectForKey:*(a1 + 40)];
-  v5 = *(*(a1 + 48) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
-
-  v7 = *(a1 + 32);
-  v8 = *(v7 + 16);
-  if (!v8 || (sub_1DF7FF70C(v8, *(v7 + 40), *(a1 + 40)), v9 = objc_claimAutoreleasedReturnValue(), v10 = *(*(a1 + 56) + 8), v11 = *(v10 + 40), *(v10 + 40) = v9, v11, *(*(*(a1 + 56) + 8) + 40)))
+  else
   {
-LABEL_8:
-    v12 = *MEMORY[0x1E69E9840];
-    return;
+    v6 = objc_msgSend_objectForKey_(*(a1[4] + 8), v3, a1[5]);
+    v7 = *(a1[6] + 8);
+    v8 = *(v7 + 40);
+    *(v7 + 40) = v6;
+
+    v9 = a1[4];
+    v10 = *(v9 + 16);
+    if (v10)
+    {
+      v11 = sub_1DF7FF70C(v10, *(v9 + 40), a1[5]);
+      v12 = *(a1[7] + 8);
+      v13 = *(v12 + 40);
+      *(v12 + 40) = v11;
+
+      if (!*(*(a1[7] + 8) + 40))
+      {
+        *(*(a1[8] + 8) + 40) = objc_msgSend_copy(*(a1[4] + 16), v14, v15);
+
+        MEMORY[0x1EEE66BB8]();
+      }
+    }
   }
-
-  v13 = [*(*(a1 + 32) + 16) copy];
-  v14 = *(*(a1 + 64) + 8);
-  v15 = *(v14 + 40);
-  *(v14 + 40) = v13;
-  v16 = *MEMORY[0x1E69E9840];
-
-  MEMORY[0x1EEE66BB8]();
 }
 
-void sub_1DF820B34(uint64_t a1)
+void sub_1DF820B34(uint64_t a1, const char *a2)
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   if (*(a1 + 80))
   {
-    if ([*(*(a1 + 40) + 24) containsObject:*(a1 + 32)])
+    if (objc_msgSend_containsObject_(*(*(a1 + 40) + 24), a2, *(a1 + 32)))
     {
       if (qword_1ED5FAD40 != -1)
       {
         dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
       }
 
-      v2 = qword_1ED5FAD48;
+      v4 = qword_1ED5FAD48;
       if (os_log_type_enabled(qword_1ED5FAD48, OS_LOG_TYPE_DEBUG))
       {
-        v3 = *(a1 + 32);
-        v4 = *(*(a1 + 40) + 24);
+        v5 = *(a1 + 32);
+        v6 = *(*(a1 + 40) + 24);
         *buf = 68289538;
-        v52 = 0;
-        v53 = 2082;
-        v54 = &unk_1DF8255EF;
-        v55 = 2114;
-        v56 = v3;
-        v57 = 2114;
-        v58 = v4;
-        _os_log_impl(&dword_1DF7FE000, v2, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Trying to start an unavailable service, RequestedServiceName:%{public, location:escape_only}@, UnavailableServices:%{public, location:escape_only}@}", buf, 0x26u);
+        v67 = 0;
+        v68 = 2082;
+        v69 = &unk_1DF8255EF;
+        v70 = 2114;
+        v71 = v5;
+        v72 = 2114;
+        v73 = v6;
+        _os_log_impl(&dword_1DF7FE000, v4, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Trying to start an unavailable service, RequestedServiceName:%{public, location:escape_only}@, UnavailableServices:%{public, location:escape_only}@}", buf, 0x26u);
       }
     }
 
     else
     {
-      v8 = [*(*(a1 + 40) + 8) objectForKey:*(a1 + 32)];
-      v9 = *(*(a1 + 64) + 8);
-      v10 = *(v9 + 40);
-      *(v9 + 40) = v8;
+      v11 = objc_msgSend_objectForKey_(*(*(a1 + 40) + 8), v3, *(a1 + 32));
+      v12 = *(*(a1 + 64) + 8);
+      v13 = *(v12 + 40);
+      *(v12 + 40) = v11;
 
       if (!*(*(*(a1 + 64) + 8) + 40))
       {
-        v49 = 0u;
-        v50 = 0u;
-        v47 = 0u;
-        v48 = 0u;
-        v11 = *(*(a1 + 40) + 8);
-        v12 = [v11 countByEnumeratingWithState:&v47 objects:v61 count:16];
-        if (v12)
+        v64 = 0u;
+        v65 = 0u;
+        v62 = 0u;
+        v63 = 0u;
+        v14 = *(*(a1 + 40) + 8);
+        v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v62, v76, 16);
+        if (v17)
         {
-          v13 = *v48;
+          v18 = *v63;
           while (2)
           {
-            for (i = 0; i != v12; ++i)
+            for (i = 0; i != v17; ++i)
             {
-              if (*v48 != v13)
+              if (*v63 != v18)
               {
-                objc_enumerationMutation(v11);
+                objc_enumerationMutation(v14);
               }
 
-              v15 = *(*(&v47 + 1) + 8 * i);
-              v16 = [*(*(a1 + 40) + 8) objectForKey:v15];
-              if ([*(a1 + 72) isEqual:objc_opt_class()])
+              v20 = *(*(&v62 + 1) + 8 * i);
+              v21 = objc_msgSend_objectForKey_(*(*(a1 + 40) + 8), v16, v20);
+              v22 = *(a1 + 72);
+              v23 = objc_opt_class();
+              if (objc_msgSend_isEqual_(v22, v24, v23))
               {
-                objc_storeStrong((*(*(a1 + 64) + 8) + 40), v16);
+                objc_storeStrong((*(*(a1 + 64) + 8) + 40), v21);
                 if (qword_1ED5FAD40 != -1)
                 {
                   dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
                 }
 
-                v17 = qword_1ED5FAD48;
+                v25 = qword_1ED5FAD48;
                 if (os_log_type_enabled(qword_1ED5FAD48, OS_LOG_TYPE_DEBUG))
                 {
-                  v18 = *(a1 + 32);
-                  v19 = *(*(*(a1 + 56) + 8) + 40);
+                  v26 = *(a1 + 32);
+                  v27 = *(*(*(a1 + 56) + 8) + 40);
                   *buf = 68289794;
-                  v52 = 0;
-                  v53 = 2082;
-                  v54 = &unk_1DF8255EF;
-                  v55 = 2114;
-                  v56 = v18;
-                  v57 = 2114;
-                  v58 = v19;
-                  v59 = 2114;
-                  v60 = v15;
-                  _os_log_impl(&dword_1DF7FE000, v17, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Reusing replacement service under new name, RequestedServiceName:%{public, location:escape_only}@, EffectiveServiceName:%{public, location:escape_only}@, ReusedFromServiceName:%{public, location:escape_only}@}", buf, 0x30u);
+                  v67 = 0;
+                  v68 = 2082;
+                  v69 = &unk_1DF8255EF;
+                  v70 = 2114;
+                  v71 = v26;
+                  v72 = 2114;
+                  v73 = v27;
+                  v74 = 2114;
+                  v75 = v20;
+                  _os_log_impl(&dword_1DF7FE000, v25, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Reusing replacement service under new name, RequestedServiceName:%{public, location:escape_only}@, EffectiveServiceName:%{public, location:escape_only}@, ReusedFromServiceName:%{public, location:escape_only}@}", buf, 0x30u);
                 }
 
                 goto LABEL_27;
               }
             }
 
-            v12 = [v11 countByEnumeratingWithState:&v47 objects:v61 count:16];
-            if (v12)
+            v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v16, &v62, v76, 16);
+            if (v17)
             {
               continue;
             }
@@ -9844,110 +9775,109 @@ void sub_1DF820B34(uint64_t a1)
 
 LABEL_27:
 
-        v20 = *(*(*(a1 + 64) + 8) + 40);
-        if (v20)
+        v29 = *(*(*(a1 + 64) + 8) + 40);
+        if (v29)
         {
-          [*(*(a1 + 40) + 8) setObject:v20 forKey:*(a1 + 32)];
+          objc_msgSend_setObject_forKey_(*(*(a1 + 40) + 8), v28, v29, *(a1 + 32));
         }
 
         else
         {
-          v21 = _os_activity_create(&dword_1DF7FE000, "CL: #Manufacturing service", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-          os_activity_scope_enter(v21, &state);
+          v30 = _os_activity_create(&dword_1DF7FE000, "CL: #Manufacturing service", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+          os_activity_scope_enter(v30, &state);
           if (qword_1ED5FAD40 != -1)
           {
             dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
           }
 
-          v22 = qword_1ED5FAD48;
+          v31 = qword_1ED5FAD48;
           if (os_log_type_enabled(qword_1ED5FAD48, OS_LOG_TYPE_DEFAULT))
           {
-            v23 = *(a1 + 32);
-            v24 = *(*(*(a1 + 56) + 8) + 40);
+            v32 = *(a1 + 32);
+            v33 = *(*(*(a1 + 56) + 8) + 40);
             *buf = 68289794;
-            v52 = 0;
-            v53 = 2082;
-            v54 = &unk_1DF8255EF;
-            v55 = 2082;
-            v56 = "activity";
-            v57 = 2114;
-            v58 = v23;
-            v59 = 2114;
-            v60 = v24;
-            _os_log_impl(&dword_1DF7FE000, v22, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Manufacturing service, event:%{public, location:escape_only}s, RequestedServiceName:%{public, location:escape_only}@, EffectiveServiceName:%{public, location:escape_only}@}", buf, 0x30u);
+            v67 = 0;
+            v68 = 2082;
+            v69 = &unk_1DF8255EF;
+            v70 = 2082;
+            v71 = "activity";
+            v72 = 2114;
+            v73 = v32;
+            v74 = 2114;
+            v75 = v33;
+            _os_log_impl(&dword_1DF7FE000, v31, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Manufacturing service, event:%{public, location:escape_only}s, RequestedServiceName:%{public, location:escape_only}@, EffectiveServiceName:%{public, location:escape_only}@}", buf, 0x30u);
           }
 
-          v25 = *(a1 + 48);
+          v36 = *(a1 + 48);
           if (*(*(a1 + 40) + 32))
           {
-            v26 = [*(a1 + 48) getTimeCoercibleVariantInstance];
+            v37 = objc_msgSend_getTimeCoercibleVariantInstance(*(a1 + 48), v34, v35);
 
-            v43[0] = MEMORY[0x1E69E9820];
-            v43[1] = 3221225472;
-            v43[2] = sub_1DF821300;
-            v43[3] = &unk_1E86C8598;
-            v25 = v26;
-            v27 = *(a1 + 40);
-            v44 = v25;
-            v45 = v27;
-            [v25 async:v43];
-            [*(*(a1 + 40) + 32) addObject:v25];
+            v58[0] = MEMORY[0x1E69E9820];
+            v58[1] = 3221225472;
+            v58[2] = sub_1DF821300;
+            v58[3] = &unk_1E86C8598;
+            v36 = v37;
+            v38 = *(a1 + 40);
+            v59 = v36;
+            v60 = v38;
+            objc_msgSend_async_(v36, v39, v58);
+            objc_msgSend_addObject_(*(*(a1 + 40) + 32), v40, v36);
           }
 
-          v28 = objc_alloc_init(*(a1 + 72));
-          v29 = *(*(a1 + 64) + 8);
-          v30 = *(v29 + 40);
-          *(v29 + 40) = v28;
+          v41 = objc_alloc_init(*(a1 + 72));
+          v42 = *(*(a1 + 64) + 8);
+          v43 = *(v42 + 40);
+          *(v42 + 40) = v41;
 
-          v31 = *(*(*(a1 + 64) + 8) + 40);
-          if (v31)
+          v45 = *(*(*(a1 + 64) + 8) + 40);
+          if (v45)
           {
-            [v31 setSilo:v25];
-            [*(*(*(a1 + 64) + 8) + 40) setVendor:*(a1 + 40)];
-            v41[0] = MEMORY[0x1E69E9820];
-            v41[1] = 3221225472;
-            v41[2] = sub_1DF821310;
-            v41[3] = &unk_1E86C8718;
-            v42 = vextq_s8(*(a1 + 56), *(a1 + 56), 8uLL);
-            [v25 async:v41];
-            [*(*(a1 + 40) + 8) setObject:*(*(*(a1 + 64) + 8) + 40) forKey:*(a1 + 32)];
-            v32 = *(*(*(a1 + 64) + 8) + 40);
-            v33 = objc_opt_class();
-            sub_1DF804EAC(v33, *(a1 + 32));
+            objc_msgSend_setSilo_(v45, v44, v36);
+            objc_msgSend_setVendor_(*(*(*(a1 + 64) + 8) + 40), v46, *(a1 + 40));
+            v56[0] = MEMORY[0x1E69E9820];
+            v56[1] = 3221225472;
+            v56[2] = sub_1DF821310;
+            v56[3] = &unk_1E86C8718;
+            v57 = vextq_s8(*(a1 + 56), *(a1 + 56), 8uLL);
+            objc_msgSend_async_(v36, v47, v56);
+            objc_msgSend_setObject_forKey_(*(*(a1 + 40) + 8), v48, *(*(*(a1 + 64) + 8) + 40), *(a1 + 32));
+            v49 = objc_opt_class();
+            sub_1DF804EAC(v49, *(a1 + 32));
           }
 
           else
           {
-            v34 = sub_1DF81E1BC();
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
+            v50 = sub_1DF81E1BC();
+            if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
             {
-              v35 = *(a1 + 32);
-              v36 = *(*(*(a1 + 56) + 8) + 40);
+              v51 = *(a1 + 32);
+              v52 = *(*(*(a1 + 56) + 8) + 40);
               *buf = 68289538;
-              v52 = 0;
-              v53 = 2082;
-              v54 = &unk_1DF8255EF;
-              v55 = 2114;
-              v56 = v35;
-              v57 = 2114;
-              v58 = v36;
-              _os_log_impl(&dword_1DF7FE000, v34, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Failed to alloc and init key class for service, RequestedServiceName:%{public, location:escape_only}@, EffectiveServiceName:%{public, location:escape_only}@}", buf, 0x26u);
+              v67 = 0;
+              v68 = 2082;
+              v69 = &unk_1DF8255EF;
+              v70 = 2114;
+              v71 = v51;
+              v72 = 2114;
+              v73 = v52;
+              _os_log_impl(&dword_1DF7FE000, v50, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Failed to alloc and init key class for service, RequestedServiceName:%{public, location:escape_only}@, EffectiveServiceName:%{public, location:escape_only}@}", buf, 0x26u);
             }
 
-            v37 = sub_1DF81E1BC();
-            if (os_signpost_enabled(v37))
+            v53 = sub_1DF81E1BC();
+            if (os_signpost_enabled(v53))
             {
-              v38 = *(a1 + 32);
-              v39 = *(*(*(a1 + 56) + 8) + 40);
+              v54 = *(a1 + 32);
+              v55 = *(*(*(a1 + 56) + 8) + 40);
               *buf = 68289538;
-              v52 = 0;
-              v53 = 2082;
-              v54 = &unk_1DF8255EF;
-              v55 = 2114;
-              v56 = v38;
-              v57 = 2114;
-              v58 = v39;
-              _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v37, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Failed to alloc and init key class for service", "{msg%{public}.0s:Failed to alloc and init key class for service, RequestedServiceName:%{public, location:escape_only}@, EffectiveServiceName:%{public, location:escape_only}@}", buf, 0x26u);
+              v67 = 0;
+              v68 = 2082;
+              v69 = &unk_1DF8255EF;
+              v70 = 2114;
+              v71 = v54;
+              v72 = 2114;
+              v73 = v55;
+              _os_signpost_emit_with_name_impl(&dword_1DF7FE000, v53, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Failed to alloc and init key class for service", "{msg%{public}.0s:Failed to alloc and init key class for service, RequestedServiceName:%{public, location:escape_only}@, EffectiveServiceName:%{public, location:escape_only}@}", buf, 0x26u);
             }
           }
 
@@ -9964,26 +9894,24 @@ LABEL_27:
       dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
     }
 
-    v5 = qword_1ED5FAD48;
+    v7 = qword_1ED5FAD48;
     if (os_log_type_enabled(qword_1ED5FAD48, OS_LOG_TYPE_DEBUG))
     {
-      v6 = *(a1 + 32);
-      v7 = *(*(*(a1 + 56) + 8) + 40);
+      v9 = *(a1 + 32);
+      v10 = *(*(*(a1 + 56) + 8) + 40);
       *buf = 68289538;
-      v52 = 0;
-      v53 = 2082;
-      v54 = &unk_1DF8255EF;
-      v55 = 2114;
-      v56 = v6;
-      v57 = 2114;
-      v58 = v7;
-      _os_log_impl(&dword_1DF7FE000, v5, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Requested service not isSupported, RequestedServiceName:%{public, location:escape_only}@, EffectiveServiceName:%{public, location:escape_only}@}", buf, 0x26u);
+      v67 = 0;
+      v68 = 2082;
+      v69 = &unk_1DF8255EF;
+      v70 = 2114;
+      v71 = v9;
+      v72 = 2114;
+      v73 = v10;
+      _os_log_impl(&dword_1DF7FE000, v7, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:Requested service not isSupported, RequestedServiceName:%{public, location:escape_only}@, EffectiveServiceName:%{public, location:escape_only}@}", buf, 0x26u);
     }
 
-    [*(*(a1 + 40) + 24) addObject:*(a1 + 32)];
+    objc_msgSend_addObject_(*(*(a1 + 40) + 24), v8, *(a1 + 32));
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DF82129C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, os_activity_scope_state_s state)
@@ -9993,33 +9921,31 @@ void sub_1DF82129C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1DF821310(uint64_t a1)
+void sub_1DF821310(uint64_t a1, const char *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  [*(*(*(a1 + 32) + 8) + 40) setValid:1];
-  [*(*(*(a1 + 32) + 8) + 40) beginService];
+  v12 = *MEMORY[0x1E69E9840];
+  objc_msgSend_setValid_(*(*(*(a1 + 32) + 8) + 40), a2, 1);
+  objc_msgSend_beginService(*(*(*(a1 + 32) + 8) + 40), v3, v4);
   if (qword_1ED5FAD40 != -1)
   {
     dispatch_once(&qword_1ED5FAD40, &unk_1F5AC6B68);
   }
 
-  v2 = qword_1ED5FAD48;
+  v5 = qword_1ED5FAD48;
   if (os_log_type_enabled(qword_1ED5FAD48, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(*(*(a1 + 40) + 8) + 40);
-    v5[0] = 68289282;
-    v5[1] = 0;
-    v6 = 2082;
-    v7 = &unk_1DF8255EF;
-    v8 = 2114;
-    v9 = v3;
-    _os_log_impl(&dword_1DF7FE000, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Manufacturing service complete, EffectiveServiceName:%{public, location:escape_only}@}", v5, 0x1Cu);
+    v6 = *(*(*(a1 + 40) + 8) + 40);
+    v7[0] = 68289282;
+    v7[1] = 0;
+    v8 = 2082;
+    v9 = &unk_1DF8255EF;
+    v10 = 2114;
+    v11 = v6;
+    _os_log_impl(&dword_1DF7FE000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Manufacturing service complete, EffectiveServiceName:%{public, location:escape_only}@}", v7, 0x1Cu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1DF821654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+void sub_1DF821654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
 {
   v28 = v27;
 
@@ -10027,44 +9953,43 @@ void sub_1DF821654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1DF821698(void *a1)
+uint64_t sub_1DF821698(void *a1, const char *a2)
 {
-  v2 = [*(a1[4] + 8) objectForKey:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v3 = objc_msgSend_objectForKey_(*(a1[4] + 8), a2, a1[5]);
+  v4 = *(a1[6] + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
-  v5 = *(*(a1[6] + 8) + 40);
   v6 = objc_opt_class();
   if (v6)
   {
-    v7 = [v6 getSilo];
-    v8 = qword_1ED5FADA0;
+    v9 = objc_msgSend_getSilo(v6, v7, v8);
+    v10 = qword_1ED5FADA0;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = sub_1DF81E634;
     block[3] = &unk_1E86C8638;
-    v14 = v7;
-    v9 = v7;
-    dispatch_barrier_async(v8, block);
+    v17 = v9;
+    v11 = v9;
+    dispatch_barrier_async(v10, block);
   }
 
-  [*(a1[4] + 8) removeObjectForKey:a1[5]];
-  v10 = a1[5];
-  v11 = *(a1[4] + 24);
+  objc_msgSend_removeObjectForKey_(*(a1[4] + 8), v7, a1[5]);
+  v13 = a1[5];
+  v14 = *(a1[4] + 24);
 
-  return [v11 addObject:v10];
+  return objc_msgSend_addObject_(v14, v12, v13);
 }
 
-uint64_t sub_1DF82179C(uint64_t a1)
+uint64_t sub_1DF82179C(uint64_t a1, const char *a2, uint64_t a3)
 {
-  [*(*(*(a1 + 32) + 8) + 40) endService];
-  v2 = *(*(*(a1 + 32) + 8) + 40);
+  objc_msgSend_endService(*(*(*(a1 + 32) + 8) + 40), a2, a3);
+  v5 = *(*(*(a1 + 32) + 8) + 40);
 
-  return [v2 setValid:0];
+  return objc_msgSend_setValid_(v5, v4, 0);
 }
 
-void sub_1DF821918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_1DF821918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -10073,18 +9998,15 @@ void sub_1DF821918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t sub_1DF821944(uint64_t a1)
 {
-  v2 = sub_1DF7FF70C(*(*(a1 + 32) + 16), *(*(a1 + 32) + 40), *(a1 + 40));
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = sub_1DF7FF70C(*(*(a1 + 32) + 16), *(*(a1 + 32) + 40), *(a1 + 40));
 
   return MEMORY[0x1EEE66BB8]();
 }
 
-void sub_1DF821A68(void *a1)
+void sub_1DF821A68(void *a1, const char *a2)
 {
-  v2 = [*(a1[4] + 8) objectForKey:a1[5]];
-  *(*(a1[6] + 8) + 24) = v2 != 0;
+  v3 = objc_msgSend_objectForKey_(*(a1[4] + 8), a2, a1[5]);
+  *(*(a1[6] + 8) + 24) = v3 != 0;
 }
 
 void sub_1DF821C90(_Unwind_Exception *a1)

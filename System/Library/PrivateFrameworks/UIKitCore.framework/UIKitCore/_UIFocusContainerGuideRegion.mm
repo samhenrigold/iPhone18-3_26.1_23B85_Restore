@@ -53,9 +53,9 @@
         goto LABEL_17;
       }
 
-      v11 = [(_UIFocusRegionContainer *)v7 isEqual:v8];
+      isEqual = objc_msgSend_isEqual_(v7);
 
-      if (!v11)
+      if (!isEqual)
       {
         v12 = 0;
 LABEL_20:
@@ -87,7 +87,7 @@ LABEL_20:
 
     if (!v16)
     {
-      v12 = [(_UIFocusRegionContainer *)v7 isEqual:v15];
+      v12 = objc_msgSend_isEqual_(v7);
 LABEL_19:
 
       goto LABEL_20;

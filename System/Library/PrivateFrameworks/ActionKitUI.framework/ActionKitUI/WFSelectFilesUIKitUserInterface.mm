@@ -83,21 +83,20 @@ uint64_t __75__WFSelectFilesUIKitUserInterface_cancelPresentationWithCompletionH
 
 - (id)supportedPickerContentTypesWithOptions:(unint64_t)options
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   if ((options & 8) != 0)
   {
-    v8[0] = *MEMORY[0x277CE1D80];
-    v3 = v8;
+    v7[0] = *MEMORY[0x277CE1D80];
+    v3 = v7;
   }
 
   else
   {
-    v7 = *MEMORY[0x277CE1DB8];
-    v3 = &v7;
+    v6 = *MEMORY[0x277CE1DB8];
+    v3 = &v6;
   }
 
   v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

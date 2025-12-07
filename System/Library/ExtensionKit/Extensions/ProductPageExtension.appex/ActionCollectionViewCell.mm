@@ -34,12 +34,13 @@
   v3 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension24ActionCollectionViewCell_accessoryAction);
   if (v3)
   {
+    v5 = *&self->textLabel[OBJC_IVAR____TtC20ProductPageExtension24ActionCollectionViewCell_accessoryAction];
     senderCopy = sender;
     selfCopy = self;
-    sub_10001CE50(v3);
+    sub_10001CE50(v3, v5);
     v3(senderCopy);
 
-    sub_1000167E0(v3);
+    sub_1000167E0(v3, v5);
   }
 }
 

@@ -17,7 +17,7 @@
   if (result)
   {
 
-    return MEMORY[0x1EEDF1420]();
+    return MEMORY[0x1EEDF1420](v1);
   }
 
   return result;

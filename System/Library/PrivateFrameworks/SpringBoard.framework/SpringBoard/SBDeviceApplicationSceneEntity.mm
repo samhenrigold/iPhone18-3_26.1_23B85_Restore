@@ -41,9 +41,10 @@
 
 - (id)supportedLayoutRoles
 {
-  if ([(SBDeviceApplicationSceneEntity *)self supportsPresentationAtAnySize])
+  supportsPresentationAtAnySize = [(SBDeviceApplicationSceneEntity *)self supportsPresentationAtAnySize];
+  if (supportsPresentationAtAnySize)
   {
-    supportedLayoutRoles = SBLayoutRoleSetAppAndFloatingLayout();
+    supportedLayoutRoles = SBLayoutRoleSetAppAndFloatingLayout(supportsPresentationAtAnySize);
   }
 
   else if ([(SBDeviceApplicationSceneEntity *)self supportsSplitView])
@@ -53,9 +54,9 @@
 
   else
   {
-    v5.receiver = self;
-    v5.super_class = SBDeviceApplicationSceneEntity;
-    supportedLayoutRoles = [(SBApplicationSceneEntity *)&v5 supportedLayoutRoles];
+    v6.receiver = self;
+    v6.super_class = SBDeviceApplicationSceneEntity;
+    supportedLayoutRoles = [(SBApplicationSceneEntity *)&v6 supportedLayoutRoles];
   }
 
   return supportedLayoutRoles;

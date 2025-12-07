@@ -185,9 +185,9 @@ LABEL_11:
 
 + (void)imageDescriptionFromSource:.cold.1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  [PPKPDFThumbnailsCollectionViewBase configureCell:v0 withPage:v1 indexPath:?];
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  [PPKPDFThumbnailsCollectionViewBase configureCell:v1 withPage:v2 indexPath:?];
 }
 
 @end

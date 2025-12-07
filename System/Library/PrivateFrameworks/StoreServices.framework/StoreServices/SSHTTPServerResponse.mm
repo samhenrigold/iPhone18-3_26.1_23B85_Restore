@@ -22,91 +22,96 @@
 
 - (void)setBodyWithBag:(id)bag
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   bagCopy = bag;
   body = self->_body;
   self->_body = 0;
 
   if (bagCopy)
   {
-    if ([MEMORY[0x1E696AE40] propertyList:bagCopy isValidForFormat:100])
+    v6 = [MEMORY[0x1E696AE40] propertyList:bagCopy isValidForFormat:100];
+    if (v6)
     {
-      v6 = SSViTunesStoreFramework();
-      v7 = SSVWeakLinkedSymbolForString("ISCopyGzippedDataForData", v6);
-      v26 = 0;
-      v8 = [MEMORY[0x1E696AE40] dataWithPropertyList:bagCopy format:100 options:0 error:&v26];
-      v9 = v26;
-      v10 = v7(v8);
-      v11 = self->_body;
-      self->_body = v10;
+      v8 = SSViTunesStoreFramework(v6, v7);
+      v9 = SSVWeakLinkedSymbolForString("ISCopyGzippedDataForData", v8);
+      v27 = 0;
+      v10 = [MEMORY[0x1E696AE40] dataWithPropertyList:bagCopy format:100 options:0 error:&v27];
+      v11 = v27;
+      v12 = v9(v10);
+      v13 = self->_body;
+      self->_body = v12;
 
-      if (v9)
+      if (v11)
       {
 LABEL_6:
-        v12 = +[SSLogConfig sharedStoreServicesConfig];
-        if (!v12)
+        v14 = +[SSLogConfig sharedStoreServicesConfig];
+        if (!v14)
         {
-          v12 = +[SSLogConfig sharedConfig];
+          v14 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog = [v12 shouldLog];
-        if ([v12 shouldLogToDisk])
+        shouldLog = [v14 shouldLog];
+        if ([v14 shouldLogToDisk])
         {
-          v14 = shouldLog | 2;
+          LODWORD(v16) = shouldLog | 2;
         }
 
         else
         {
-          v14 = shouldLog;
+          LODWORD(v16) = shouldLog;
         }
 
-        oSLogObject = [v12 OSLogObject];
-        if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+        oSLogObject = [v14 OSLogObject];
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
         {
-          v14 &= 2u;
+          v16 = v16;
         }
 
-        if (v14)
+        else
         {
-          v16 = objc_opt_class();
-          v27 = 138543618;
-          v28 = v16;
-          v29 = 2112;
-          v30 = v9;
-          v17 = v16;
-          LODWORD(v25) = 22;
-          v18 = _os_log_send_and_compose_impl();
+          v16 &= 2u;
+        }
 
-          if (!v18)
+        if (v16)
+        {
+          v18 = objc_opt_class();
+          v28 = 138543618;
+          v29 = v18;
+          v30 = 2112;
+          v31 = v11;
+          v19 = v18;
+          v20 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "[%{public}@] Fialed to serialize XML object into body data. Error = %@", &v28, 22);
+
+          if (!v20)
           {
-LABEL_17:
+LABEL_18:
 
-            goto LABEL_18;
+            goto LABEL_19;
           }
 
-          oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:{4, &v27, v25}];
-          free(v18);
-          SSFileLog(v12, @"%@", v19, v20, v21, v22, v23, v24, oSLogObject);
+          oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:4];
+          free(v20);
+          SSFileLog(v14, @"%@", v21, v22, v23, v24, v25, v26, oSLogObject);
         }
 
-        goto LABEL_17;
+        goto LABEL_18;
       }
     }
   }
 
   if (!self->_body)
   {
-    v9 = 0;
+    v11 = 0;
     goto LABEL_6;
   }
 
-LABEL_18:
+LABEL_19:
 }
 
 - (id)bagFromBody
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v3 = SSViTunesStoreFramework();
+  v28 = *MEMORY[0x1E69E9840];
+  v3 = SSViTunesStoreFramework(self, a2);
   v4 = SSVWeakLinkedSymbolForString("ISCopyDecompressedGZipDataForData", v3);
   v5 = v4(self->_body);
   if (v5)
@@ -119,14 +124,14 @@ LABEL_18:
   if (v6)
   {
 LABEL_4:
-    v24 = 0;
-    v7 = [MEMORY[0x1E696AE40] propertyListWithData:v6 options:0 format:0 error:&v24];
-    v8 = v24;
+    v23 = 0;
+    v7 = [MEMORY[0x1E696AE40] propertyListWithData:v6 options:0 format:0 error:&v23];
+    v8 = v23;
     if (!v8)
     {
-LABEL_17:
+LABEL_18:
 
-      goto LABEL_18;
+      goto LABEL_19;
     }
 
     v9 = +[SSLogConfig sharedStoreServicesConfig];
@@ -138,16 +143,21 @@ LABEL_17:
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
     oSLogObject = [v9 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
@@ -155,31 +165,30 @@ LABEL_17:
     if (v11)
     {
       v13 = objc_opt_class();
-      v25 = 138543618;
-      v26 = v13;
-      v27 = 2112;
-      v28 = v8;
+      v24 = 138543618;
+      v25 = v13;
+      v26 = 2112;
+      v27 = v8;
       v14 = v13;
-      LODWORD(v23) = 22;
-      v15 = _os_log_send_and_compose_impl();
+      v15 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "[%{public}@] Error reading body data into XML object. Error = %@", &v24, 22);
 
       if (!v15)
       {
-LABEL_16:
+LABEL_17:
 
-        goto LABEL_17;
+        goto LABEL_18;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:{4, &v25, v23}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
       free(v15);
       SSFileLog(v9, @"%@", v16, v17, v18, v19, v20, v21, oSLogObject);
     }
 
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
   v7 = 0;
-LABEL_18:
+LABEL_19:
 
   return v7;
 }

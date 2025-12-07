@@ -134,7 +134,6 @@ LABEL_6:
   has = self->_has;
   if (has)
   {
-    rsrp = self->_rsrp;
     PBDataWriterWriteSint32Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -154,7 +153,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  rsrq = self->_rsrq;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -169,12 +167,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  snr = self->_snr;
   PBDataWriterWriteSint32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_5:
-    sinr = self->_sinr;
     PBDataWriterWriteSint32Field();
   }
 

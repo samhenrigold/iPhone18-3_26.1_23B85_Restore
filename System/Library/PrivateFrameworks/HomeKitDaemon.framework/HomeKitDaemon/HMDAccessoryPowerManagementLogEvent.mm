@@ -40,7 +40,7 @@
   v13 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[HMDAccessoryPowerManagementLogEvent wolanVersion](self, "wolanVersion")}];
   [dictionary setObject:v13 forKeyedSubscript:@"wolanVersion"];
 
-  v14 = [dictionary copy];
+  v14 = objc_msgSend_copy(dictionary);
 
   return v14;
 }

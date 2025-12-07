@@ -18,8 +18,7 @@
     tapRecognizer = self->_tapRecognizer;
     self->_tapRecognizer = v5;
 
-    [(APUIAppSuggestionView *)self addGestureRecognizer:self->_tapRecognizer];
-    v7 = __atxlog_handle_ui();
+    v7 = __atxlog_handle_ui([(APUIAppSuggestionView *)self addGestureRecognizer:self->_tapRecognizer]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = self->_tapRecognizer;
@@ -36,21 +35,21 @@
 
     if (v13)
     {
-      v14 = objc_alloc(MEMORY[0x277CCACA8]);
+      v15 = objc_alloc(MEMORY[0x277CCACA8]);
       executableSpecification2 = [suggestionCopy executableSpecification];
       executable = [executableSpecification2 executable];
-      v17 = [v14 initWithData:executable encoding:4];
+      v18 = [v15 initWithData:executable encoding:4];
 
       uiSpecification = [suggestionCopy uiSpecification];
       reason = [uiSpecification reason];
 
-      [(APUIAppSuggestionView *)self _setAppWithBundleId:v17 reason:reason];
+      [(APUIAppSuggestionView *)self _setAppWithBundleId:v18 reason:reason];
     }
 
     else
     {
-      v17 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = __atxlog_handle_ui(v14);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [APUIAppSuggestionView layoutSuggestion:];
       }
@@ -61,14 +60,12 @@
 
   else
   {
-    v20 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = __atxlog_handle_ui(0);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [APUIAppSuggestionView layoutSuggestion:];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setAppWithBundleId:(id)id reason:(id)reason
@@ -90,7 +87,7 @@
 
   if (![reasonCopy length])
   {
-    v16 = __atxlog_handle_ui();
+    v16 = __atxlog_handle_ui(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       [(APUIAppSuggestionView *)idCopy _setAppWithBundleId:reasonCopy reason:v16];
@@ -103,59 +100,59 @@
 
 - (void)_tapRecognized:(id)recognized
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   recognizedCopy = recognized;
-  if ([(APUISuggestionView *)self canEngageSuggestion])
+  canEngageSuggestion = [(APUISuggestionView *)self canEngageSuggestion];
+  if (canEngageSuggestion)
   {
     [(APUISuggestionView *)self setCanEngageSuggestion:0];
-    if ([recognizedCopy state] == 3)
+    state = [recognizedCopy state];
+    if (state == 3)
     {
       suggestion = [(APUISuggestionView *)self suggestion];
-      v6 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = __atxlog_handle_ui(suggestion);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         appBundleId = self->_appBundleId;
         *buf = 138412290;
-        state = appBundleId;
-        _os_log_impl(&dword_240036000, v6, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: APUIAppSuggestionView: gesture recognizer ended; attempting to launch app: %@...", buf, 0xCu);
+        state2 = appBundleId;
+        _os_log_impl(&dword_240036000, v8, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: APUIAppSuggestionView: gesture recognizer ended; attempting to launch app: %@...", buf, 0xCu);
       }
 
       delegate = [(APUISuggestionView *)self delegate];
       [delegate view:self didTapSuggestion:suggestion];
 
-      v9 = self->_appBundleId;
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 3221225472;
-      v12[2] = __40__APUIAppSuggestionView__tapRecognized___block_invoke;
-      v12[3] = &unk_278C90DB0;
-      v12[4] = self;
-      v13 = suggestion;
-      v10 = suggestion;
-      [APUIAppIconDataSource openApplication:v9 completion:v12];
+      v11 = self->_appBundleId;
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __40__APUIAppSuggestionView__tapRecognized___block_invoke;
+      v13[3] = &unk_278C90DB0;
+      v13[4] = self;
+      v14 = suggestion;
+      v12 = suggestion;
+      [APUIAppIconDataSource openApplication:v11 completion:v13];
     }
 
     else
     {
-      v10 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = __atxlog_handle_ui(state);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        state = [recognizedCopy state];
-        _os_log_impl(&dword_240036000, v10, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: APUIAppSuggestionView: gesture recognizer state: %ld", buf, 0xCu);
+        state2 = [recognizedCopy state];
+        _os_log_impl(&dword_240036000, v12, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: APUIAppSuggestionView: gesture recognizer state: %ld", buf, 0xCu);
       }
     }
   }
 
   else
   {
-    v10 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_ui(canEngageSuggestion);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [APUIAppSuggestionView _tapRecognized:];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __40__APUIAppSuggestionView__tapRecognized___block_invoke(uint64_t a1, int a2)
@@ -198,41 +195,37 @@ void __40__APUIAppSuggestionView__tapRecognized___block_invoke_3(uint64_t a1)
 
 - (void)layoutSuggestion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_240036000, v1, OS_LOG_TYPE_ERROR, "e:%ld * SuggestionsWidget: APUIAppSuggestionView: suggestion executable is not a string: %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_240036000, v1, OS_LOG_TYPE_ERROR, "e:%ld * SuggestionsWidget: APUIAppSuggestionView: suggestion executable is not a string: %@", v2, 0x16u);
 }
 
 - (void)layoutSuggestion:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_240036000, v0, OS_LOG_TYPE_ERROR, "e:%ld * SuggestionsWidget: APUIAppSuggestionView: No suggestions provided", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_240036000, v0, OS_LOG_TYPE_ERROR, "e:%ld * SuggestionsWidget: APUIAppSuggestionView: No suggestions provided", v1, 0xCu);
 }
 
 - (void)_setAppWithBundleId:(os_log_t)log reason:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 136446722;
-  v5 = "[APUIAppSuggestionView _setAppWithBundleId:reason:]";
-  v6 = 2112;
-  v7 = a1;
-  v8 = 2112;
-  v9 = a2;
-  _os_log_fault_impl(&dword_240036000, log, OS_LOG_TYPE_FAULT, "e:fault SuggestionsWidget: %{public}s:%@ reason:%@", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 136446722;
+  v4 = "[APUIAppSuggestionView _setAppWithBundleId:reason:]";
+  v5 = 2112;
+  v6 = a1;
+  v7 = 2112;
+  v8 = a2;
+  _os_log_fault_impl(&dword_240036000, log, OS_LOG_TYPE_FAULT, "e:fault SuggestionsWidget: %{public}s:%@ reason:%@", &v3, 0x20u);
 }
 
 - (void)_tapRecognized:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_240036000, v0, OS_LOG_TYPE_ERROR, "e:%ld * SuggestionsWidget: APUIAppSuggestionView: tried to tap a suggestion before the last execution ended", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_240036000, v0, OS_LOG_TYPE_ERROR, "e:%ld * SuggestionsWidget: APUIAppSuggestionView: tried to tap a suggestion before the last execution ended", v1, 0xCu);
 }
 
 @end

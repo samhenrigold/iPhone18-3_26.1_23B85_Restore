@@ -103,26 +103,27 @@
 
 void __46__AAUIGrandSlamRemoteUIPresenter_loadRequest___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = _AAUILogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _AAUILogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [*(a1 + 32) URL];
-      v9 = 138412290;
-      v10 = v7;
-      _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "RemoteUI request load success for %@", &v9, 0xCu);
+      v8 = [*(a1 + 32) URL];
+      v10 = 138412290;
+      v11 = v8;
+      _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "RemoteUI request load success for %@", &v10, 0xCu);
     }
   }
 
-  if (v5)
+  if (v6)
   {
-    v8 = _AAUILogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _AAUILogSystem(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __46__AAUIGrandSlamRemoteUIPresenter_loadRequest___block_invoke_cold_1(a1, v5, v8);
+      __46__AAUIGrandSlamRemoteUIPresenter_loadRequest___block_invoke_cold_1(a1, v6, v9);
     }
   }
 }
@@ -136,7 +137,7 @@ void __46__AAUIGrandSlamRemoteUIPresenter_loadRequest___block_invoke(uint64_t a1
   {
     objc_storeStrong(&self->_currentRequest, request);
     WeakRetained = objc_loadWeakRetained(&self->_presenter);
-    v10 = _AAUILogSystem();
+    v10 = _AAUILogSystem(WeakRetained);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v13 = 138412546;
@@ -192,7 +193,7 @@ void __46__AAUIGrandSlamRemoteUIPresenter_loadRequest___block_invoke(uint64_t a1
     grandSlamAccount = self->_grandSlamAccount;
     if (!grandSlamAccount)
     {
-      v9 = _AAUILogSystem();
+      v9 = _AAUILogSystem(0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *v11 = 0;
@@ -248,7 +249,7 @@ void __46__AAUIGrandSlamRemoteUIPresenter_loadRequest___block_invoke(uint64_t a1
 
 void __58__AAUIGrandSlamRemoteUIPresenter__addRemoteUIEventHandler__block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a4;
   v8 = [v7 objectForKeyedSubscript:*MEMORY[0x1E698DB08]];
@@ -264,17 +265,17 @@ void __58__AAUIGrandSlamRemoteUIPresenter__addRemoteUIEventHandler__block_invoke
 
   if (v12)
   {
-    v13 = _AAUILogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = _AAUILogSystem(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = [WeakRetained delegate];
-      v16 = 138412290;
-      v17 = v14;
-      _os_log_impl(&dword_1C5355000, v13, OS_LOG_TYPE_DEFAULT, "Calling remoteUIDidHandleButton for delegate %@", &v16, 0xCu);
+      v15 = [WeakRetained delegate];
+      v17 = 138412290;
+      v18 = v15;
+      _os_log_impl(&dword_1C5355000, v14, OS_LOG_TYPE_DEFAULT, "Calling remoteUIDidHandleButton for delegate %@", &v17, 0xCu);
     }
 
-    v15 = [WeakRetained delegate];
-    [v15 remoteUIDidHandleButton:v7];
+    v16 = [WeakRetained delegate];
+    [v16 remoteUIDidHandleButton:v7];
   }
 }
 
@@ -365,25 +366,26 @@ void __73__AAUIGrandSlamRemoteUIPresenter__getServerUILoadDelegateWithCompletion
 {
   v6 = a2;
   v7 = a3;
+  v8 = v7;
   if (v7)
   {
-    v8 = _AAUILogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _AAUILogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __73__AAUIGrandSlamRemoteUIPresenter__getServerUILoadDelegateWithCompletion___block_invoke_cold_1(v7, v8);
+      __73__AAUIGrandSlamRemoteUIPresenter__getServerUILoadDelegateWithCompletion___block_invoke_cold_1(v8, v9);
     }
 
-    v9 = *(*(a1 + 40) + 16);
+    v10 = *(*(a1 + 40) + 16);
   }
 
   else
   {
     [v6 setShouldSendSigningHeaders:1];
     objc_storeStrong((*(a1 + 32) + 32), a2);
-    v9 = *(*(a1 + 40) + 16);
+    v10 = *(*(a1 + 40) + 16);
   }
 
-  v9();
+  v10();
 }
 
 - (BOOL)_isAuthError:(id)error
@@ -473,7 +475,7 @@ LABEL_12:
   v34 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   responseCopy = response;
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(responseCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
@@ -491,7 +493,7 @@ LABEL_12:
   v9 = self->_currentRequest;
   if ([responseCopy statusCode] == 401)
   {
-    v10 = _AAUILogSystem();
+    v10 = _AAUILogSystem(401);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = [responseCopy URL];
@@ -540,7 +542,7 @@ void __76__AAUIGrandSlamRemoteUIPresenter_remoteUIController_didReceiveHTTPRespo
 {
   v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [*(a1 + 32) URL];
@@ -601,7 +603,7 @@ void __76__AAUIGrandSlamRemoteUIPresenter_remoteUIController_didReceiveHTTPRespo
 {
   v11 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = @"NO";
@@ -623,7 +625,7 @@ void __76__AAUIGrandSlamRemoteUIPresenter_remoteUIController_didReceiveHTTPRespo
   v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   requestCopy = request;
-  v9 = _AAUILogSystem();
+  v9 = _AAUILogSystem(requestCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = [requestCopy URL];
@@ -696,7 +698,7 @@ void __83__AAUIGrandSlamRemoteUIPresenter_remoteUIController_createPageWithName_
 
 - (void)remoteUIController:(id)controller didReceiveObjectModel:(id)model actionSignal:(unint64_t *)signal
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   modelCopy = model;
   v10 = modelCopy;
@@ -707,12 +709,12 @@ LABEL_4:
     if (v11 == 1 && self->_isEndOfFlow)
     {
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
-      v15 = objc_opt_respondsToSelector();
+      v16 = objc_opt_respondsToSelector();
 
-      if (v15)
+      if (v16)
       {
-        v16 = objc_loadWeakRetained(&self->_delegate);
-        [v16 remoteUIDidEndFlow:controllerCopy];
+        v17 = objc_loadWeakRetained(&self->_delegate);
+        [v17 remoteUIDidEndFlow:controllerCopy];
       }
     }
 
@@ -728,12 +730,12 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v17 = _AAUILogSystem();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = _AAUILogSystem(v14);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 138412290;
+    v19 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1C5355000, v17, OS_LOG_TYPE_DEFAULT, "%@: Undefined action signal and no page, not displaying modally", &v18, 0xCu);
+    _os_log_impl(&dword_1C5355000, v18, OS_LOG_TYPE_DEFAULT, "%@: Undefined action signal and no page, not displaying modally", &v19, 0xCu);
   }
 
   [(RUIServerHookHandler *)self->_serverUIHookHandler processObjectModel:v10 isModal:0];
@@ -746,7 +748,7 @@ LABEL_11:
   v23 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   modelCopy = model;
-  v10 = _AAUILogSystem();
+  v10 = _AAUILogSystem(modelCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = @"NO";
@@ -782,7 +784,7 @@ LABEL_11:
   v23 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   modelCopy = model;
-  v10 = _AAUILogSystem();
+  v10 = _AAUILogSystem(modelCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = @"NO";
@@ -818,7 +820,7 @@ LABEL_11:
   v15 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   modelCopy = model;
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(modelCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412802;
@@ -835,50 +837,50 @@ LABEL_11:
 
 - (void)remoteUIController:(id)controller didDismissModalNavigationWithObjectModels:(id)models
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   v7 = objc_opt_respondsToSelector();
 
   if (v7)
   {
-    v8 = _AAUILogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _AAUILogSystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = objc_loadWeakRetained(&self->_delegate);
-      v13 = 138412290;
-      v14 = v9;
-      _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "Dismissing modal for delegate %@", &v13, 0xCu);
+      v10 = objc_loadWeakRetained(&self->_delegate);
+      v14 = 138412290;
+      v15 = v10;
+      _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "Dismissing modal for delegate %@", &v14, 0xCu);
     }
 
-    v10 = objc_loadWeakRetained(&self->_delegate);
-    [v10 remoteUIDidDismiss:controllerCopy];
+    v11 = objc_loadWeakRetained(&self->_delegate);
+    [v11 remoteUIDidDismiss:controllerCopy];
   }
 
-  v11 = _AAUILogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _AAUILogSystem(v8);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     serverUIHookHandler = self->_serverUIHookHandler;
-    v13 = 138412546;
-    v14 = controllerCopy;
-    v15 = 2112;
-    v16 = serverUIHookHandler;
-    _os_log_impl(&dword_1C5355000, v11, OS_LOG_TYPE_DEFAULT, "Dismissing modal for controller: %@, serverHookHandler: %@", &v13, 0x16u);
+    v14 = 138412546;
+    v15 = controllerCopy;
+    v16 = 2112;
+    v17 = serverUIHookHandler;
+    _os_log_impl(&dword_1C5355000, v12, OS_LOG_TYPE_DEFAULT, "Dismissing modal for controller: %@, serverHookHandler: %@", &v14, 0x16u);
   }
 }
 
 - (void)remoteUIControllerDidDismiss:(id)dismiss
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   dismissCopy = dismiss;
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(dismissCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
+    v12 = 138412546;
     selfCopy = self;
-    v13 = 2112;
-    v14 = dismissCopy;
-    _os_log_impl(&dword_1C5355000, v5, OS_LOG_TYPE_DEFAULT, "%@: Did dismiss controller (%@)", &v11, 0x16u);
+    v14 = 2112;
+    v15 = dismissCopy;
+    _os_log_impl(&dword_1C5355000, v5, OS_LOG_TYPE_DEFAULT, "%@: Did dismiss controller (%@)", &v12, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -886,17 +888,17 @@ LABEL_11:
 
   if (v7)
   {
-    v8 = _AAUILogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _AAUILogSystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = objc_loadWeakRetained(&self->_delegate);
-      v11 = 138412290;
-      selfCopy = v9;
-      _os_log_impl(&dword_1C5355000, v8, OS_LOG_TYPE_DEFAULT, "Dismissing controller for delegate %@", &v11, 0xCu);
+      v10 = objc_loadWeakRetained(&self->_delegate);
+      v12 = 138412290;
+      selfCopy = v10;
+      _os_log_impl(&dword_1C5355000, v9, OS_LOG_TYPE_DEFAULT, "Dismissing controller for delegate %@", &v12, 0xCu);
     }
 
-    v10 = objc_loadWeakRetained(&self->_delegate);
-    [v10 remoteUIDidDismiss:dismissCopy];
+    v11 = objc_loadWeakRetained(&self->_delegate);
+    [v11 remoteUIDidDismiss:dismissCopy];
   }
 }
 
@@ -905,7 +907,7 @@ LABEL_11:
   v18 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   navigationControllerCopy = navigationController;
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(navigationControllerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     serverUIHookHandler = self->_serverUIHookHandler;

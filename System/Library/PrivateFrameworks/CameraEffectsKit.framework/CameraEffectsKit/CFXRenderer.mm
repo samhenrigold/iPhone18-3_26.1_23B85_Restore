@@ -313,7 +313,7 @@ LABEL_12:
           v64 = 0;
           if (frameCopy)
           {
-            [frameCopy timestamp];
+            objc_msgSend_timestamp(frameCopy);
           }
 
           v23 = [CFXFrame alloc];
@@ -350,7 +350,7 @@ LABEL_36:
         v64 = 0;
         if (frameCopy)
         {
-          [frameCopy timestamp];
+          objc_msgSend_timestamp(frameCopy);
         }
 
         if ([v16 count])
@@ -481,7 +481,7 @@ LABEL_37:
   v7 = v6;
   if (v6)
   {
-    [v6 presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(v6);
     *time = v45;
     *&time[16] = v46;
     CMTimeGetSeconds(time);
@@ -549,18 +549,18 @@ LABEL_37:
       }
     }
 
-    [v7 presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(v7);
     *time = v45;
     *&time[16] = v46;
     CMTimeGetSeconds(time);
     kdebug_trace();
-    [v7 presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(v7);
     *time = v45;
     *&time[16] = v46;
     CMTimeGetSeconds(time);
     kdebug_trace();
     memset(time, 0, 24);
-    [v7 presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(v7);
     delegate = [(CFXRenderer *)self delegate];
     v45 = *time;
     v46 = *&time[16];
@@ -583,7 +583,7 @@ LABEL_37:
   v11 = userContext;
   if (userContext)
   {
-    [userContext presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(userContext);
   }
 
   else
@@ -603,7 +603,7 @@ LABEL_37:
 
   if (v11)
   {
-    [v11 presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(v11);
   }
 
   else
@@ -634,7 +634,7 @@ LABEL_37:
       v18 = [CFXFrame alloc];
       if (v11)
       {
-        [v11 presentationTimeStamp];
+        objc_msgSend_presentationTimeStamp(v11);
       }
 
       else
@@ -663,7 +663,7 @@ LABEL_18:
   v25 = [CFXFrame alloc];
   if (v11)
   {
-    [v11 presentationTimeStamp];
+    objc_msgSend_presentationTimeStamp(v11);
   }
 
   else
@@ -674,7 +674,7 @@ LABEL_18:
   v26 = [(CFXFrame *)v25 initWithPixelBuffer:cvPixelBuffer2 timestamp:&time];
   if (completeCopy)
   {
-    [completeCopy time];
+    objc_msgSend_time(completeCopy);
   }
 
   else
@@ -719,7 +719,7 @@ LABEL_26:
     v17 = 0;
     if (frameCopy)
     {
-      [frameCopy timestamp];
+      objc_msgSend_timestamp(frameCopy);
     }
 
     memset(&v15, 0, sizeof(v15));
@@ -766,7 +766,7 @@ void __67__CFXRenderer_CFX_JTEffectsFromCFXEffectComposition_forRenderTime___blo
     v5 = v4;
     if (v4)
     {
-      [v4 effectRange];
+      objc_msgSend_effectRange(v4);
     }
 
     else

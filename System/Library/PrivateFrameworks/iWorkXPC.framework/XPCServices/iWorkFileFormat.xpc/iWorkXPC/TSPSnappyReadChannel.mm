@@ -109,27 +109,27 @@
       sub_10015047C();
     }
 
-    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Should have data by now", v22, v23, v24, v25, v26, v27, v28, "[TSPSnappyReadChannel processData:isDone:handler:]");
-    v29 = [NSString stringWithUTF8String:"[TSPSnappyReadChannel processData:isDone:handler:]"];
-    v30 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPSnappyReadChannel.mm"];
-    [TSUAssertionHandler handleFailureInFunction:v29 file:v30 lineNumber:67 isFatal:1 description:"Should have data by now"];
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Should have data by now", "[TSPSnappyReadChannel processData:isDone:handler:]", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPSnappyReadChannel.mm", 67);
+    v22 = [NSString stringWithUTF8String:"[TSPSnappyReadChannel processData:isDone:handler:]"];
+    v23 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPSnappyReadChannel.mm"];
+    [TSUAssertionHandler handleFailureInFunction:v22 file:v23 lineNumber:67 isFatal:1 description:"Should have data by now"];
 
     TSUCrashBreakpoint();
     abort();
   }
 
   size = dispatch_data_get_size(*data);
-  TSP::SnappySource::SnappySource(v36, v9);
+  TSP::SnappySource::SnappySource(v29, v9);
   dataCopy = data;
   v11 = 0;
   if (size)
   {
-    while (TSP::SnappySource::Available(v36) > 3)
+    while (TSP::SnappySource::Available(v29) > 3)
     {
       for (i = 0; i < 4; i += v14)
       {
         *buf = 0;
-        v13 = TSP::SnappySource::Peek(v36, buf);
+        v13 = TSP::SnappySource::Peek(v29, buf);
         if (4 - i >= *buf)
         {
           v14 = *buf;
@@ -140,11 +140,11 @@
           v14 = 4 - i;
         }
 
-        memcpy(&v33 + i, v13, v14);
-        TSP::SnappySource::Skip(v36, v14);
+        memcpy(&v26 + i, v13, v14);
+        TSP::SnappySource::Skip(v29, v14);
       }
 
-      if (v33)
+      if (v26)
       {
         if (TSUDefaultCat_init_token != -1)
         {
@@ -160,8 +160,8 @@
         goto LABEL_36;
       }
 
-      v15 = (v34 | (v35 << 16)) & 0xFFFFFFLL;
-      if (TSP::SnappySource::Available(v36) < v15)
+      v15 = (v27 | (v28 << 16)) & 0xFFFFFFLL;
+      if (TSP::SnappySource::Available(v29) < v15)
       {
         if (!doneCopy)
         {
@@ -181,17 +181,17 @@
         goto LABEL_36;
       }
 
-      v11 = TSP::SnappySource::Offset(v36) + v15;
-      TSP::SnappySource::SetMaxOffset(v36, v11);
-      v16 = [(TSPSnappyReadChannel *)self uncompressDataFromSource:v36];
+      v11 = TSP::SnappySource::Offset(v29) + v15;
+      TSP::SnappySource::SetMaxOffset(v29, v11);
+      v16 = [(TSPSnappyReadChannel *)self uncompressDataFromSource:v29];
       if (v16)
       {
         v17 = v11 == size && doneCopy;
         handlerCopy[2](handlerCopy, v17, v16, 0);
       }
 
-      TSP::SnappySource::SetMaxOffset(v36, size);
-      TSP::SnappySource::SetOffset(v36, v11);
+      TSP::SnappySource::SetMaxOffset(v29, size);
+      TSP::SnappySource::SetOffset(v29, v11);
 
       if (!v16 || v11 >= size)
       {
@@ -243,7 +243,7 @@ LABEL_37:
     }
   }
 
-  TSP::SnappySource::~SnappySource(v36);
+  TSP::SnappySource::~SnappySource(v29);
 
   return v20;
 }

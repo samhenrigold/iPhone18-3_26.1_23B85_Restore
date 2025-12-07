@@ -111,7 +111,7 @@ LABEL_9:
 
 - (double)_unclampedTouchForceForTouches:(id)touches
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   touchesCopy = touches;
   if (![touchesCopy count])
   {
@@ -119,42 +119,42 @@ LABEL_9:
     [currentHandler handleFailureInMethod:a2 object:self file:@"_UITouchForceObservable.m" lineNumber:87 description:{@"Invalid parameter not satisfying: %@", @"[touches count] > 0"}];
   }
 
-  v17 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
+  v17 = 0u;
   v6 = touchesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
-    v8 = v7;
-    v9 = *v16;
-    v10 = 0.0;
+    v9 = v7;
+    v10 = *v17;
+    v11 = 0.0;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v9)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = v10 + [(UITouch *)*(*(&v15 + 1) + 8 * i) _unclampedForce];
+        v11 = v11 + [(UITouch *)*(*(&v16 + 1) + 8 * i) _unclampedForce];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 
   else
   {
-    v10 = 0.0;
+    v11 = 0.0;
   }
 
-  v12 = [v6 count];
-  return v10 / v12;
+  v13 = [v6 count];
+  return v11 / v13;
 }
 
 - (double)_timestampForTouches:(id)touches

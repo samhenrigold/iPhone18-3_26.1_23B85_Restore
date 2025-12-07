@@ -15,7 +15,7 @@
 
 + (void)resetAnnotationForView:(id)view
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA3978);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBA3978, &qword_1DA2754B8);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v9 - v5;
   v7 = sub_1DA25DB84();

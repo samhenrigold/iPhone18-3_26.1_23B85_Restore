@@ -14,13 +14,6 @@
 - (__CVBuffer)mcamLeftColorRGBChromaticAdaptationReverted;
 - (__CVBuffer)mcamLeftColorYuvChromaticAdaptationReverted;
 - (__CVBuffer)rgbRectified;
-- (__n128)cameraToDeviceTransform;
-- (__n128)chromaticAdaptationMatrix;
-- (__n128)depthIntrinsics;
-- (__n128)mcamLeftChromaticAdaptationMatrix;
-- (__n128)mcamLeftColorIntrinsics;
-- (__n128)mcamLeftDepthIntrinsics;
-- (__n128)mcamLeftToDeviceTransform;
 - (__n128)setCameraToDeviceTransform:(__n128)transform;
 - (__n128)setChromaticAdaptationMatrix:(__n128)matrix;
 - (__n128)setDepthIntrinsics:(__n128)intrinsics;
@@ -29,7 +22,6 @@
 - (__n128)setMcamLeftDepthIntrinsics:(__n128)intrinsics;
 - (__n128)setMcamLeftToDeviceTransform:(__n128)transform;
 - (__n128)setVideoIntrinsics:(__n128)intrinsics;
-- (__n128)videoIntrinsics;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)getFaceCaptureData;
 - (void)dealloc;
@@ -48,8 +40,8 @@
 
 + (__CVBuffer)_createColorFromYCbCr:(__CVBuffer *)cr
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v4 = VGLogVGCaptureData();
+  v43 = *MEMORY[0x277D85DE8];
+  v4 = VGLogVGCaptureData(self);
   if (os_signpost_enabled(v4))
   {
     *buf.opaque = 0;
@@ -57,12 +49,12 @@
   }
 
   CVPixelBufferLockBaseAddress(cr, 1uLL);
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __39__VGCaptureData__createColorFromYCbCr___block_invoke_2;
-  v38[3] = &__block_descriptor_40_e5_v8__0l;
-  v38[4] = cr;
-  v5 = MEMORY[0x2743B9AA0](v38);
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __39__VGCaptureData__createColorFromYCbCr___block_invoke_2;
+  v39[3] = &__block_descriptor_40_e5_v8__0l;
+  v39[4] = cr;
+  v5 = MEMORY[0x2743B9AA0](v39);
   BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(cr, 0);
   WidthOfPlane = CVPixelBufferGetWidthOfPlane(cr, 0);
   srcYp.data = BaseAddressOfPlane;
@@ -78,12 +70,12 @@
   dest.data = malloc_type_malloc(4 * srcYp.width * srcYp.height, 0x1C5BF92uLL);
   *&dest.height = *&srcYp.height;
   dest.rowBytes = 4 * srcYp.width;
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __39__VGCaptureData__createColorFromYCbCr___block_invoke_2;
-  v33[3] = &__block_descriptor_64_e5_v8__0l;
-  v34 = dest;
-  v10 = MEMORY[0x2743B9AA0](v33);
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __39__VGCaptureData__createColorFromYCbCr___block_invoke_2;
+  v34[3] = &__block_descriptor_64_e5_v8__0l;
+  v35 = dest;
+  v10 = MEMORY[0x2743B9AA0](v34);
   PixelFormatType = CVPixelBufferGetPixelFormatType(cr);
   v12.i32[0] = 875704422;
   v13.i32[0] = PixelFormatType;
@@ -113,50 +105,50 @@
   else
   {
     v19 = objc_alloc(MEMORY[0x277CD2930]);
-    v39[0] = *MEMORY[0x277CD2928];
+    v40[0] = *MEMORY[0x277CD2928];
     v20 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:dest.width];
-    v40[0] = v20;
-    v39[1] = *MEMORY[0x277CD28D0];
+    v41[0] = v20;
+    v40[1] = *MEMORY[0x277CD28D0];
     v21 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:dest.height];
     v22 = *MEMORY[0x277CD28B0];
-    v40[1] = v21;
-    v40[2] = &unk_2880F5F98;
+    v41[1] = v21;
+    v41[2] = &unk_2880F5F98;
     v23 = *MEMORY[0x277CD28B8];
-    v39[2] = v22;
-    v39[3] = v23;
+    v40[2] = v22;
+    v40[3] = v23;
     v24 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:dest.rowBytes];
-    v39[4] = *MEMORY[0x277CD28D8];
-    v40[3] = v24;
-    v40[4] = &unk_2880F5FB0;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:5];
+    v40[4] = *MEMORY[0x277CD28D8];
+    v41[3] = v24;
+    v41[4] = &unk_2880F5FB0;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:5];
     v26 = [v19 initWithProperties:v25];
 
     if (v26)
     {
       [v26 lockWithOptions:0 seed:0];
-      v27 = v26;
+      v28 = v26;
       baseAddress = [v26 baseAddress];
       memcpy(baseAddress, dest.data, dest.height * dest.rowBytes);
       [v26 unlockWithOptions:0 seed:0];
-      v30 = 0;
-      if (CVPixelBufferCreateWithIOSurface(0, v26, 0, &v30))
+      v31 = 0;
+      if (CVPixelBufferCreateWithIOSurface(0, v26, 0, &v31))
       {
         v16 = 0;
       }
 
       else
       {
-        v16 = v30;
+        v16 = v31;
       }
     }
 
     else
     {
-      v29 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v30 = __VGLogSharedInstance(v27);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v30) = 0;
-        _os_log_impl(&dword_270F06000, v29, OS_LOG_TYPE_ERROR, " Failed to create IOSurface ", &v30, 2u);
+        LOWORD(v31) = 0;
+        _os_log_impl(&dword_270F06000, v30, OS_LOG_TYPE_ERROR, " Failed to create IOSurface ", &v31, 2u);
       }
 
       v16 = 0;
@@ -166,18 +158,17 @@
   v10[2](v10);
 
   v5[2](v5);
-  __39__VGCaptureData__createColorFromYCbCr___block_invoke();
-  v17 = *MEMORY[0x277D85DE8];
+  __39__VGCaptureData__createColorFromYCbCr___block_invoke(v17);
   return v16;
 }
 
-void __39__VGCaptureData__createColorFromYCbCr___block_invoke()
+void __39__VGCaptureData__createColorFromYCbCr___block_invoke(uint64_t a1)
 {
-  v0 = VGLogVGCaptureData();
-  if (os_signpost_enabled(v0))
+  v1 = VGLogVGCaptureData(a1);
+  if (os_signpost_enabled(v1))
   {
-    *v1 = 0;
-    _os_signpost_emit_with_name_impl(&dword_270F06000, v0, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "CreateColorFromYCbCr", &unk_270FBF062, v1, 2u);
+    *v2 = 0;
+    _os_signpost_emit_with_name_impl(&dword_270F06000, v1, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "CreateColorFromYCbCr", &unk_270FBF062, v2, 2u);
   }
 }
 
@@ -185,7 +176,7 @@ void __39__VGCaptureData__createColorFromYCbCr___block_invoke()
 {
   v41[4] = *MEMORY[0x277D85DE8];
   revertedCopy = reverted;
-  v6 = VGLogVGCaptureData();
+  v6 = VGLogVGCaptureData(revertedCopy);
   if (os_signpost_enabled(v6))
   {
     *buf = 0;
@@ -194,37 +185,37 @@ void __39__VGCaptureData__createColorFromYCbCr___block_invoke()
 
   if (revertedCopy)
   {
-    v7 = vandq_s8(vandq_s8(vceqq_f32(*(matrix + 1), *(MEMORY[0x277D860B0] + 16)), vceqq_f32(*matrix, *MEMORY[0x277D860B0])), vceqq_f32(*(matrix + 2), *(MEMORY[0x277D860B0] + 32)));
-    v7.i32[3] = v7.i32[2];
-    if ((vminvq_u32(v7) & 0x80000000) != 0)
+    v8 = vandq_s8(vandq_s8(vceqq_f32(*(matrix + 1), *(MEMORY[0x277D860B0] + 16)), vceqq_f32(*matrix, *MEMORY[0x277D860B0])), vceqq_f32(*(matrix + 2), *(MEMORY[0x277D860B0] + 32)));
+    v8.i32[3] = v8.i32[2];
+    if ((vminvq_u32(v8) & 0x80000000) != 0)
     {
-      v24 = revertedCopy;
+      v7 = revertedCopy;
+      v25 = v7;
     }
 
     else
     {
-      v8 = objc_alloc(MEMORY[0x277CD2930]);
+      v9 = objc_alloc(MEMORY[0x277CD2930]);
       v40[0] = *MEMORY[0x277CD2928];
-      v9 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(revertedCopy, "width")}];
-      v41[0] = v9;
+      v10 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(revertedCopy, "width")}];
+      v41[0] = v10;
       v40[1] = *MEMORY[0x277CD28D0];
-      v10 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(revertedCopy, "height")}];
-      v11 = *MEMORY[0x277CD28B0];
-      v41[1] = v10;
+      v11 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(revertedCopy, "height")}];
+      v12 = *MEMORY[0x277CD28B0];
+      v41[1] = v11;
       v41[2] = &unk_2880F5F98;
-      v12 = *MEMORY[0x277CD28D8];
-      v40[2] = v11;
-      v40[3] = v12;
+      v13 = *MEMORY[0x277CD28D8];
+      v40[2] = v12;
+      v40[3] = v13;
       v41[3] = &unk_2880F5FB0;
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:4];
-      v14 = [v8 initWithProperties:v13];
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:4];
+      v15 = [v9 initWithProperties:v14];
 
-      [revertedCopy vg_convert420Yp8_CbCr8ToARGB8888:v14];
-      v15 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v16 = __VGLogSharedInstance([revertedCopy vg_convert420Yp8_CbCr8ToARGB8888:v15]);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_270F06000, v15, OS_LOG_TYPE_INFO, " Inverting MCAM chromatic adaptation ", buf, 2u);
+        _os_log_impl(&dword_270F06000, v16, OS_LOG_TYPE_INFO, " Inverting MCAM chromatic adaptation ", buf, 2u);
       }
 
       v43 = __invert_f3(*_PromotedConst);
@@ -236,78 +227,76 @@ void __39__VGCaptureData__createColorFromYCbCr___block_invoke()
       v31 = 0;
       v43.columns[1] = *(matrix + 1);
       v43.columns[2] = *(matrix + 2);
-      v16 = vzip1q_s32(*matrix, v43.columns[2]);
-      v43.columns[0] = vzip1q_s32(v16, v43.columns[1]);
+      v17 = vzip1q_s32(*matrix, v43.columns[2]);
+      v43.columns[0] = vzip1q_s32(v17, v43.columns[1]);
       v43.columns[2] = vzip1q_s32(vzip2q_s32(*matrix, v43.columns[2]), vdupq_laneq_s32(v43.columns[1], 2));
-      v43.columns[1] = vzip2q_s32(v16, vdupq_lane_s32(*v43.columns[1].f32, 1));
+      v43.columns[1] = vzip2q_s32(v17, vdupq_lane_s32(*v43.columns[1].f32, 1));
       v44 = __invert_f3(v43);
-      v18 = 0;
+      v19 = 0;
       v34 = xmmword_270FA6A80;
       v35 = xmmword_270FA6A90;
       v36 = xmmword_270FA6AA0;
       do
       {
-        *&buf[v18] = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v44.columns[0], COERCE_FLOAT(*(&v34 + v18))), v44.columns[1], *(&v34 + v18), 1), v44.columns[2], *(&v34 + v18), 2);
-        v18 += 16;
+        *&buf[v19] = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v44.columns[0], COERCE_FLOAT(*(&v34 + v19))), v44.columns[1], *(&v34 + v19), 1), v44.columns[2], *(&v34 + v19), 2);
+        v19 += 16;
       }
 
-      while (v18 != 48);
-      v19 = 0;
+      while (v19 != 48);
+      v20 = 0;
       v34 = *buf;
       v35 = v38;
       v36 = v39;
       do
       {
-        *&buf[v19] = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30, COERCE_FLOAT(*(&v34 + v19))), v29, *(&v34 + v19), 1), v28, *(&v34 + v19), 2);
-        v19 += 16;
+        *&buf[v20] = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v30, COERCE_FLOAT(*(&v34 + v20))), v29, *(&v34 + v20), 1), v28, *(&v34 + v20), 2);
+        v20 += 16;
       }
 
-      while (v19 != 48);
+      while (v20 != 48);
       LODWORD(v31._impl) = *&buf[8];
       DWORD2(v32) = DWORD2(v38);
       v31.super.isa = *buf;
       *&v32 = v38;
       DWORD2(v33) = DWORD2(v39);
       *&v33 = v39;
-      v20 = vg::createSurfaceFromSurfaceWithTransform(v14, &v31, v17);
-      v21 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      v21 = vg::createSurfaceFromSurfaceWithTransform(v15, &v31, v18);
+      v22 = __VGLogSharedInstance(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_270F06000, v21, OS_LOG_TYPE_INFO, " Finished inverting MCAM chromatic adaptation ", buf, 2u);
+        _os_log_impl(&dword_270F06000, v22, OS_LOG_TYPE_INFO, " Finished inverting MCAM chromatic adaptation ", buf, 2u);
       }
 
       allAttachments = [revertedCopy allAttachments];
-      v23 = [allAttachments objectForKeyedSubscript:@"CreationProperties"];
+      v24 = [allAttachments objectForKeyedSubscript:@"CreationProperties"];
 
-      v24 = [objc_alloc(MEMORY[0x277CD2930]) initWithProperties:v23];
-      if (v24)
+      v25 = [objc_alloc(MEMORY[0x277CD2930]) initWithProperties:v24];
+      if (v25)
       {
-        [v20 vg_convertARGB8888To420Yp8_CbCr8:v24];
-        v25 = v24;
+        [v21 vg_convertARGB8888To420Yp8_CbCr8:v25];
+        v26 = v25;
       }
     }
   }
 
   else
   {
-    v24 = 0;
+    v25 = 0;
   }
 
-  __88__VGCaptureData_computeYuvHighResChromaticAdaptationReverted_chromaticAdaptationMatrix___block_invoke();
+  __88__VGCaptureData_computeYuvHighResChromaticAdaptationReverted_chromaticAdaptationMatrix___block_invoke(v7);
 
-  v26 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v25;
 }
 
-void __88__VGCaptureData_computeYuvHighResChromaticAdaptationReverted_chromaticAdaptationMatrix___block_invoke()
+void __88__VGCaptureData_computeYuvHighResChromaticAdaptationReverted_chromaticAdaptationMatrix___block_invoke(uint64_t a1)
 {
-  v0 = VGLogVGCaptureData();
-  if (os_signpost_enabled(v0))
+  v1 = VGLogVGCaptureData(a1);
+  if (os_signpost_enabled(v1))
   {
-    *v1 = 0;
-    _os_signpost_emit_with_name_impl(&dword_270F06000, v0, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "computeYuvHighResChromaticAdaptationReverted", &unk_270FBF062, v1, 2u);
+    *v2 = 0;
+    _os_signpost_emit_with_name_impl(&dword_270F06000, v1, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "computeYuvHighResChromaticAdaptationReverted", &unk_270FBF062, v2, 2u);
   }
 }
 
@@ -328,7 +317,7 @@ void __88__VGCaptureData_computeYuvHighResChromaticAdaptationReverted_chromaticA
   allFaces = [(VGCaptureData *)self allFaces];
   [(VGFaceCaptureData *)v3 setAllFaces:allFaces];
 
-  [(VGCaptureData *)self timestamp];
+  objc_msgSend_timestamp(self);
   v7 = v9;
   v8 = v10;
   [(VGFaceCaptureData *)v3 setTimestamp:&v7];
@@ -548,7 +537,7 @@ void __88__VGCaptureData_computeYuvHighResChromaticAdaptationReverted_chromaticA
   v15 = 0;
   [v8 writePNGRepresentationOfImage:v6 toURL:v5 format:v10 colorSpace:colorSpace options:MEMORY[0x277CBEC10] error:&v15];
   v11 = v15;
-  v12 = __VGLogSharedInstance();
+  v12 = __VGLogSharedInstance(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
@@ -558,16 +547,14 @@ void __88__VGCaptureData_computeYuvHighResChromaticAdaptationReverted_chromaticA
 
   if (v11)
   {
-    v13 = __VGLogSharedInstance();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __VGLogSharedInstance(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
       v17 = v11;
-      _os_log_impl(&dword_270F06000, v13, OS_LOG_TYPE_ERROR, " write error %@ ", buf, 0xCu);
+      _os_log_impl(&dword_270F06000, v14, OS_LOG_TYPE_ERROR, " write error %@ ", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (IOSurface)yuvHighResChromaticAdaptationReverted
@@ -691,11 +678,11 @@ void __88__VGCaptureData_computeYuvHighResChromaticAdaptationReverted_chromaticA
 
 - (__CVBuffer)rgbRectified
 {
-  v3 = VGLogVGCaptureData();
+  v3 = VGLogVGCaptureData(self);
   if (os_signpost_enabled(v3))
   {
-    *v6 = 0;
-    _os_signpost_emit_with_name_impl(&dword_270F06000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "RgbRectified", &unk_270FBF062, v6, 2u);
+    *v7 = 0;
+    _os_signpost_emit_with_name_impl(&dword_270F06000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "RgbRectified", &unk_270FBF062, v7, 2u);
   }
 
   rgbRectified = self->_rgbRectified;
@@ -703,8 +690,9 @@ void __88__VGCaptureData_computeYuvHighResChromaticAdaptationReverted_chromaticA
   {
     if (self->_yuvRectified)
     {
-      rgbRectified = [VGCaptureData _createColorFromYCbCr:?];
-      self->_rgbRectified = rgbRectified;
+      v4 = [VGCaptureData _createColorFromYCbCr:?];
+      rgbRectified = v4;
+      self->_rgbRectified = v4;
     }
 
     else
@@ -713,17 +701,17 @@ void __88__VGCaptureData_computeYuvHighResChromaticAdaptationReverted_chromaticA
     }
   }
 
-  __29__VGCaptureData_rgbRectified__block_invoke();
+  __29__VGCaptureData_rgbRectified__block_invoke(v4);
   return rgbRectified;
 }
 
-void __29__VGCaptureData_rgbRectified__block_invoke()
+void __29__VGCaptureData_rgbRectified__block_invoke(uint64_t a1)
 {
-  v0 = VGLogVGCaptureData();
-  if (os_signpost_enabled(v0))
+  v1 = VGLogVGCaptureData(a1);
+  if (os_signpost_enabled(v1))
   {
-    *v1 = 0;
-    _os_signpost_emit_with_name_impl(&dword_270F06000, v0, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "RgbRectified", &unk_270FBF062, v1, 2u);
+    *v2 = 0;
+    _os_signpost_emit_with_name_impl(&dword_270F06000, v1, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "RgbRectified", &unk_270FBF062, v2, 2u);
   }
 }
 
@@ -777,11 +765,11 @@ void __29__VGCaptureData_rgbRectified__block_invoke()
 
 - (__CVBuffer)mcamLeftColorRGB
 {
-  v3 = VGLogVGCaptureData();
+  v3 = VGLogVGCaptureData(self);
   if (os_signpost_enabled(v3))
   {
-    *v6 = 0;
-    _os_signpost_emit_with_name_impl(&dword_270F06000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "mcamLeftColorRGB", &unk_270FBF062, v6, 2u);
+    *v7 = 0;
+    _os_signpost_emit_with_name_impl(&dword_270F06000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "mcamLeftColorRGB", &unk_270FBF062, v7, 2u);
   }
 
   mcamLeftColorRGB = self->_mcamLeftColorRGB;
@@ -789,8 +777,9 @@ void __29__VGCaptureData_rgbRectified__block_invoke()
   {
     if (self->_mcamLeftColorYuv)
     {
-      mcamLeftColorRGB = [VGCaptureData _createColorFromYCbCr:?];
-      self->_mcamLeftColorRGB = mcamLeftColorRGB;
+      v4 = [VGCaptureData _createColorFromYCbCr:?];
+      mcamLeftColorRGB = v4;
+      self->_mcamLeftColorRGB = v4;
     }
 
     else
@@ -799,17 +788,17 @@ void __29__VGCaptureData_rgbRectified__block_invoke()
     }
   }
 
-  __33__VGCaptureData_mcamLeftColorRGB__block_invoke();
+  __33__VGCaptureData_mcamLeftColorRGB__block_invoke(v4);
   return mcamLeftColorRGB;
 }
 
-void __33__VGCaptureData_mcamLeftColorRGB__block_invoke()
+void __33__VGCaptureData_mcamLeftColorRGB__block_invoke(uint64_t a1)
 {
-  v0 = VGLogVGCaptureData();
-  if (os_signpost_enabled(v0))
+  v1 = VGLogVGCaptureData(a1);
+  if (os_signpost_enabled(v1))
   {
-    *v1 = 0;
-    _os_signpost_emit_with_name_impl(&dword_270F06000, v0, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "mcamLeftColorRGB", &unk_270FBF062, v1, 2u);
+    *v2 = 0;
+    _os_signpost_emit_with_name_impl(&dword_270F06000, v1, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "mcamLeftColorRGB", &unk_270FBF062, v2, 2u);
   }
 }
 
@@ -831,7 +820,7 @@ void __33__VGCaptureData_mcamLeftColorRGB__block_invoke()
 
 - (__CVBuffer)mcamLeftColorYuvChromaticAdaptationReverted
 {
-  v3 = VGLogVGCaptureData();
+  v3 = VGLogVGCaptureData(self);
   if (os_signpost_enabled(v3))
   {
     *v9 = 0;
@@ -857,36 +846,38 @@ void __33__VGCaptureData_mcamLeftColorRGB__block_invoke()
     }
   }
 
-  __60__VGCaptureData_mcamLeftColorYuvChromaticAdaptationReverted__block_invoke();
+  __60__VGCaptureData_mcamLeftColorYuvChromaticAdaptationReverted__block_invoke(mcamLeftColorYuv);
   return mcamLeftColorYuvChromaticAdaptationReverted;
 }
 
-void __60__VGCaptureData_mcamLeftColorYuvChromaticAdaptationReverted__block_invoke()
+void __60__VGCaptureData_mcamLeftColorYuvChromaticAdaptationReverted__block_invoke(uint64_t a1)
 {
-  v0 = VGLogVGCaptureData();
-  if (os_signpost_enabled(v0))
+  v1 = VGLogVGCaptureData(a1);
+  if (os_signpost_enabled(v1))
   {
-    *v1 = 0;
-    _os_signpost_emit_with_name_impl(&dword_270F06000, v0, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "mcamLeftColorYuvChromaticAdaptationReverted", &unk_270FBF062, v1, 2u);
+    *v2 = 0;
+    _os_signpost_emit_with_name_impl(&dword_270F06000, v1, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "mcamLeftColorYuvChromaticAdaptationReverted", &unk_270FBF062, v2, 2u);
   }
 }
 
 - (__CVBuffer)mcamLeftColorRGBChromaticAdaptationReverted
 {
-  v3 = VGLogVGCaptureData();
+  v3 = VGLogVGCaptureData(self);
   if (os_signpost_enabled(v3))
   {
-    *v7 = 0;
-    _os_signpost_emit_with_name_impl(&dword_270F06000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "mcamLeftColorRGBChromaticAdaptationReverted", &unk_270FBF062, v7, 2u);
+    *v8 = 0;
+    _os_signpost_emit_with_name_impl(&dword_270F06000, v3, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "mcamLeftColorRGBChromaticAdaptationReverted", &unk_270FBF062, v8, 2u);
   }
 
   mcamLeftColorRGBChromaticAdaptationReverted = self->_mcamLeftColorRGBChromaticAdaptationReverted;
   if (!mcamLeftColorRGBChromaticAdaptationReverted)
   {
-    if ([(VGCaptureData *)self mcamLeftColorYuvChromaticAdaptationReverted])
+    ARGBFromYCbCr = [(VGCaptureData *)self mcamLeftColorYuvChromaticAdaptationReverted];
+    if (ARGBFromYCbCr)
     {
-      mcamLeftColorRGBChromaticAdaptationReverted = vg::createARGBFromYCbCr(self->_mcamLeftColorYuvChromaticAdaptationReverted, v5);
-      self->_mcamLeftColorRGBChromaticAdaptationReverted = mcamLeftColorRGBChromaticAdaptationReverted;
+      ARGBFromYCbCr = vg::createARGBFromYCbCr(self->_mcamLeftColorYuvChromaticAdaptationReverted, v6);
+      mcamLeftColorRGBChromaticAdaptationReverted = ARGBFromYCbCr;
+      self->_mcamLeftColorRGBChromaticAdaptationReverted = ARGBFromYCbCr;
     }
 
     else
@@ -895,17 +886,17 @@ void __60__VGCaptureData_mcamLeftColorYuvChromaticAdaptationReverted__block_invo
     }
   }
 
-  __60__VGCaptureData_mcamLeftColorRGBChromaticAdaptationReverted__block_invoke();
+  __60__VGCaptureData_mcamLeftColorRGBChromaticAdaptationReverted__block_invoke(ARGBFromYCbCr);
   return mcamLeftColorRGBChromaticAdaptationReverted;
 }
 
-void __60__VGCaptureData_mcamLeftColorRGBChromaticAdaptationReverted__block_invoke()
+void __60__VGCaptureData_mcamLeftColorRGBChromaticAdaptationReverted__block_invoke(uint64_t a1)
 {
-  v0 = VGLogVGCaptureData();
-  if (os_signpost_enabled(v0))
+  v1 = VGLogVGCaptureData(a1);
+  if (os_signpost_enabled(v1))
   {
-    *v1 = 0;
-    _os_signpost_emit_with_name_impl(&dword_270F06000, v0, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "mcamLeftColorRGBChromaticAdaptationReverted", &unk_270FBF062, v1, 2u);
+    *v2 = 0;
+    _os_signpost_emit_with_name_impl(&dword_270F06000, v1, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "mcamLeftColorRGBChromaticAdaptationReverted", &unk_270FBF062, v2, 2u);
   }
 }
 
@@ -1049,11 +1040,11 @@ void __60__VGCaptureData_mcamLeftColorRGBChromaticAdaptationReverted__block_invo
 
 - (VGCaptureData)initWithCoder:(id)coder
 {
-  v110[2] = *MEMORY[0x277D85DE8];
+  v119[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v108.receiver = self;
-  v108.super_class = VGCaptureData;
-  v5 = [(VGCaptureData *)&v108 init];
+  v117.receiver = self;
+  v117.super_class = VGCaptureData;
+  v5 = [(VGCaptureData *)&v117 init];
   if (v5)
   {
     v5->_yuvRectified = [VGCoderUtilities decodePixelBufferForKey:@"yuvRectified" decoder:coderCopy];
@@ -1069,9 +1060,9 @@ void __60__VGCaptureData_mcamLeftColorRGBChromaticAdaptationReverted__block_invo
 
     v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"videoIntrinsics"];
     v11 = v10;
-    if (!v10 || [v10 length] <= 0x23)
+    if (!v10 || (v10 = [v10 length], v10 <= 0x23))
     {
-      v12 = __VGLogSharedInstance();
+      v12 = __VGLogSharedInstance(v10);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
@@ -1091,9 +1082,9 @@ void __60__VGCaptureData_mcamLeftColorRGBChromaticAdaptationReverted__block_invo
     *&v5->_anon_d0[32] = v19;
     v20 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"depthIntrinsics"];
     v12 = v20;
-    if (!v20 || [v20 length]<= 0x23)
+    if (!v20 || (v20 = [v20 length], v20 <= 0x23))
     {
-      v21 = __VGLogSharedInstance();
+      v21 = __VGLogSharedInstance(v20);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
@@ -1111,10 +1102,10 @@ void __60__VGCaptureData_mcamLeftColorRGBChromaticAdaptationReverted__block_invo
     *&v5->_anon_100[16] = v25;
     *&v5->_anon_100[40] = v26;
     *&v5->_anon_100[32] = v27;
-    v106 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"chromaticAdaptationMatrix"];
-    if (v106 && [v106 length]>= 0x24)
+    v115 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"chromaticAdaptationMatrix"];
+    if (v115 && [v115 length]>= 0x24)
     {
-      [VGCaptureData _dataToMatrix33:v106];
+      [VGCaptureData _dataToMatrix33:v115];
       *&v5->_anon_130[8] = v28;
       *&v5->_anon_130[24] = v29;
       *v5->_anon_130 = v30;
@@ -1139,9 +1130,9 @@ void __60__VGCaptureData_mcamLeftColorRGBChromaticAdaptationReverted__block_invo
     if ([coderCopy containsValueForKey:@"allFaces"])
     {
       v38 = MEMORY[0x277CBEB98];
-      v110[0] = objc_opt_class();
-      v110[1] = objc_opt_class();
-      v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v110 count:2];
+      v119[0] = objc_opt_class();
+      v119[1] = objc_opt_class();
+      v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v119 count:2];
       v40 = [v38 setWithArray:v39];
       v41 = [coderCopy decodeObjectOfClasses:v40 forKey:@"allFaces"];
       allFaces = v5->_allFaces;
@@ -1149,13 +1140,13 @@ void __60__VGCaptureData_mcamLeftColorRGBChromaticAdaptationReverted__block_invo
     }
 
     v43 = MEMORY[0x277CBEB98];
-    v109[0] = objc_opt_class();
-    v109[1] = objc_opt_class();
-    v109[2] = objc_opt_class();
-    v109[3] = objc_opt_class();
-    v109[4] = objc_opt_class();
-    v109[5] = objc_opt_class();
-    v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v109 count:6];
+    v118[0] = objc_opt_class();
+    v118[1] = objc_opt_class();
+    v118[2] = objc_opt_class();
+    v118[3] = objc_opt_class();
+    v118[4] = objc_opt_class();
+    v118[5] = objc_opt_class();
+    v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v118 count:6];
     v45 = [v43 setWithArray:v44];
     v46 = [coderCopy decodeObjectOfClasses:v45 forKey:@"faceTrackingResult"];
     faceTrackingResult = v5->_faceTrackingResult;
@@ -1172,44 +1163,45 @@ void __60__VGCaptureData_mcamLeftColorRGBChromaticAdaptationReverted__block_invo
     v52 = v50[3];
     *&v5->_anon_1f0[32] = v50[2];
     *&v5->_anon_1f0[48] = v52;
-    if ([coderCopy containsValueForKey:@"cameraToDeviceTransform"])
+    v53 = [coderCopy containsValueForKey:@"cameraToDeviceTransform"];
+    if (v53)
     {
-      v53 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"cameraToDeviceTransform"];
-      v54 = v53;
-      if (!v53 || [v53 length]<= 0x3F)
+      v54 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"cameraToDeviceTransform"];
+      v55 = v54;
+      if (!v54 || (v54 = [v54 length], v54 <= 0x3F))
       {
-        v55 = __VGLogSharedInstance();
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+        v56 = __VGLogSharedInstance(v54);
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_270F06000, v55, OS_LOG_TYPE_ERROR, " Unable to deserialize cameraToDeviceTransform ", buf, 2u);
+          _os_log_impl(&dword_270F06000, v56, OS_LOG_TYPE_ERROR, " Unable to deserialize cameraToDeviceTransform ", buf, 2u);
         }
 
 LABEL_78:
 
         v13 = 0;
 LABEL_79:
-        v21 = v106;
+        v21 = v115;
 LABEL_80:
 
 LABEL_81:
         goto LABEL_82;
       }
 
-      [VGCaptureData _dataToMatrix44:v54];
-      *v5->_anon_1f0 = v56;
-      *&v5->_anon_1f0[16] = v57;
-      *&v5->_anon_1f0[32] = v58;
-      *&v5->_anon_1f0[48] = v59;
+      [VGCaptureData _dataToMatrix44:v55];
+      *v5->_anon_1f0 = v57;
+      *&v5->_anon_1f0[16] = v58;
+      *&v5->_anon_1f0[32] = v59;
+      *&v5->_anon_1f0[48] = v60;
     }
 
     else
     {
-      v54 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
+      v55 = __VGLogSharedInstance(v53);
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_270F06000, v54, OS_LOG_TYPE_INFO, " VGCaptureData doesn't have cameraToDeviceTransform. Set to identity. ", buf, 2u);
+        _os_log_impl(&dword_270F06000, v55, OS_LOG_TYPE_INFO, " VGCaptureData doesn't have cameraToDeviceTransform. Set to identity. ", buf, 2u);
       }
     }
 
@@ -1217,236 +1209,243 @@ LABEL_81:
     v5->_timestamp.epoch = [coderCopy decodeInt64ForKey:@"timestampEpoch"];
     v5->_timestamp.timescale = [coderCopy decodeInt32ForKey:@"timestampTimeScale"];
     v5->_timestamp.flags = [coderCopy decodeInt64ForKey:@"timestampFlags"];
-    if ([VGCoderUtilities hasPixelBufferForKey:@"mcamLeftColorYuv" decoder:coderCopy])
+    v61 = [VGCoderUtilities hasPixelBufferForKey:@"mcamLeftColorYuv" decoder:coderCopy];
+    if (v61)
     {
       v5->_mcamLeftColorYuv = [VGCoderUtilities decodePixelBufferForKey:@"mcamLeftColorYuv" decoder:coderCopy];
     }
 
     else
     {
-      v60 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
+      v62 = __VGLogSharedInstance(v61);
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_270F06000, v60, OS_LOG_TYPE_INFO, " VGCaptureData doesn't have mcamLeftColorYuv. Set to nil. ", buf, 2u);
+        _os_log_impl(&dword_270F06000, v62, OS_LOG_TYPE_INFO, " VGCaptureData doesn't have mcamLeftColorYuv. Set to nil. ", buf, 2u);
       }
     }
 
-    if ([VGCoderUtilities hasPixelBufferForKey:@"mcamLeftDepth" decoder:coderCopy, v5->_anon_100])
+    v63 = [VGCoderUtilities hasPixelBufferForKey:@"mcamLeftDepth" decoder:coderCopy, v5->_anon_100];
+    if (v63)
     {
       v5->_mcamLeftDepth = [VGCoderUtilities decodePixelBufferForKey:@"mcamLeftDepth" decoder:coderCopy];
     }
 
     else
     {
-      v61 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_270F06000, v61, OS_LOG_TYPE_INFO, " VGCaptureData doesn't have mcamLeftDepth. Set to nil. ", buf, 2u);
-      }
-    }
-
-    v62 = [coderCopy vg_decodeSurfaceForKey:@"mcamLeftYuvHighRes"];
-    mcamLeftYuvHighRes = v5->_mcamLeftYuvHighRes;
-    v5->_mcamLeftYuvHighRes = v62;
-
-    if (!v5->_mcamLeftYuvHighRes)
-    {
-      v64 = __VGLogSharedInstance();
+      v64 = __VGLogSharedInstance(v63);
       if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_270F06000, v64, OS_LOG_TYPE_INFO, " VGCaptureData doesn't have mcamLeftYuvHighRes. Set to nil. ", buf, 2u);
+        _os_log_impl(&dword_270F06000, v64, OS_LOG_TYPE_INFO, " VGCaptureData doesn't have mcamLeftDepth. Set to nil. ", buf, 2u);
       }
     }
 
-    v65 = [coderCopy vg_decodeSurfaceForKey:@"mcamLeftYuvHighResUndistortionLut"];
+    v65 = [coderCopy vg_decodeSurfaceForKey:@"mcamLeftYuvHighRes"];
+    mcamLeftYuvHighRes = v5->_mcamLeftYuvHighRes;
+    v5->_mcamLeftYuvHighRes = v65;
+
+    if (!v5->_mcamLeftYuvHighRes)
+    {
+      v68 = __VGLogSharedInstance(v67);
+      if (os_log_type_enabled(v68, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_270F06000, v68, OS_LOG_TYPE_INFO, " VGCaptureData doesn't have mcamLeftYuvHighRes. Set to nil. ", buf, 2u);
+      }
+    }
+
+    v69 = [coderCopy vg_decodeSurfaceForKey:@"mcamLeftYuvHighResUndistortionLut"];
     mcamLeftYuvHighResUndistortionLut = v5->_mcamLeftYuvHighResUndistortionLut;
-    v5->_mcamLeftYuvHighResUndistortionLut = v65;
+    v5->_mcamLeftYuvHighResUndistortionLut = v69;
 
     if (!v5->_mcamLeftYuvHighResUndistortionLut)
     {
-      v67 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
+      v72 = __VGLogSharedInstance(v71);
+      if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_270F06000, v67, OS_LOG_TYPE_INFO, " VGCaptureData doesn't have mcamLeftYuvHighResUndistortionLut. Set to nil. ", buf, 2u);
+        _os_log_impl(&dword_270F06000, v72, OS_LOG_TYPE_INFO, " VGCaptureData doesn't have mcamLeftYuvHighResUndistortionLut. Set to nil. ", buf, 2u);
       }
     }
 
-    if ([coderCopy containsValueForKey:@"mcamLeftColorIntrinsics"])
+    v73 = [coderCopy containsValueForKey:@"mcamLeftColorIntrinsics"];
+    if (v73)
     {
-      v68 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"mcamLeftColorIntrinsics"];
-      v54 = v68;
-      if (!v68 || [v68 length]<= 0x23)
+      v74 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"mcamLeftColorIntrinsics"];
+      v55 = v74;
+      if (!v74 || (v74 = [v74 length], v74 <= 0x23))
       {
-        v55 = __VGLogSharedInstance();
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+        v56 = __VGLogSharedInstance(v74);
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_270F06000, v55, OS_LOG_TYPE_ERROR, " Unable to deserialize mcamLeftColorIntrinsics ", buf, 2u);
+          _os_log_impl(&dword_270F06000, v56, OS_LOG_TYPE_ERROR, " Unable to deserialize mcamLeftColorIntrinsics ", buf, 2u);
         }
 
         goto LABEL_78;
       }
 
-      [VGCaptureData _dataToMatrix33:v54];
-      *(v105 + 104) = v71;
-      *(v105 + 120) = v72;
-      *(v105 + 96) = v73;
-      *(v105 + 112) = v74;
-      *(v105 + 136) = v75;
-      *(v105 + 128) = v76;
+      [VGCaptureData _dataToMatrix33:v55];
+      *(v114 + 104) = v77;
+      *(v114 + 120) = v78;
+      *(v114 + 96) = v79;
+      *(v114 + 112) = v80;
+      *(v114 + 136) = v81;
+      *(v114 + 128) = v82;
     }
 
     else
     {
-      v69 = MEMORY[0x277D860B0];
-      v70 = *(MEMORY[0x277D860B0] + 16);
+      v75 = MEMORY[0x277D860B0];
+      v76 = *(MEMORY[0x277D860B0] + 16);
       *v5->_anon_160 = *MEMORY[0x277D860B0];
-      *&v5->_anon_160[16] = v70;
-      *&v5->_anon_160[32] = *(v69 + 32);
-      v54 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
+      *&v5->_anon_160[16] = v76;
+      *&v5->_anon_160[32] = *(v75 + 32);
+      v55 = __VGLogSharedInstance(v73);
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_270F06000, v54, OS_LOG_TYPE_INFO, " VGCaptureData doesn't have mcamLeftColorIntrinsics. Set to identity. ", buf, 2u);
+        _os_log_impl(&dword_270F06000, v55, OS_LOG_TYPE_INFO, " VGCaptureData doesn't have mcamLeftColorIntrinsics. Set to identity. ", buf, 2u);
       }
     }
 
-    if ([coderCopy containsValueForKey:@"mcamLeftDepthIntrinsics"])
+    v83 = [coderCopy containsValueForKey:@"mcamLeftDepthIntrinsics"];
+    if (v83)
     {
-      v77 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"mcamLeftDepthIntrinsics"];
-      v54 = v77;
-      if (!v77 || [v77 length]<= 0x23)
+      v84 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"mcamLeftDepthIntrinsics"];
+      v55 = v84;
+      if (!v84 || (v84 = [v84 length], v84 <= 0x23))
       {
-        v55 = __VGLogSharedInstance();
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+        v56 = __VGLogSharedInstance(v84);
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_270F06000, v55, OS_LOG_TYPE_ERROR, " Unable to deserialize mcamLeftDepthIntrinsics ", buf, 2u);
+          _os_log_impl(&dword_270F06000, v56, OS_LOG_TYPE_ERROR, " Unable to deserialize mcamLeftDepthIntrinsics ", buf, 2u);
         }
 
         goto LABEL_78;
       }
 
-      [VGCaptureData _dataToMatrix33:v54];
-      *(v105 + 152) = v80;
-      *(v105 + 168) = v81;
-      *(v105 + 144) = v82;
-      *(v105 + 160) = v83;
-      *(v105 + 184) = v84;
-      *(v105 + 176) = v85;
+      [VGCaptureData _dataToMatrix33:v55];
+      *(v114 + 152) = v87;
+      *(v114 + 168) = v88;
+      *(v114 + 144) = v89;
+      *(v114 + 160) = v90;
+      *(v114 + 184) = v91;
+      *(v114 + 176) = v92;
     }
 
     else
     {
-      v78 = MEMORY[0x277D860B0];
-      v79 = *(MEMORY[0x277D860B0] + 16);
+      v85 = MEMORY[0x277D860B0];
+      v86 = *(MEMORY[0x277D860B0] + 16);
       *v5->_anon_190 = *MEMORY[0x277D860B0];
-      *&v5->_anon_190[16] = v79;
-      *&v5->_anon_190[32] = *(v78 + 32);
-      v54 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
+      *&v5->_anon_190[16] = v86;
+      *&v5->_anon_190[32] = *(v85 + 32);
+      v55 = __VGLogSharedInstance(v83);
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_270F06000, v54, OS_LOG_TYPE_INFO, " VGCaptureData doesn't have mcamLeftDepthIntrinsics. Set to identity. ", buf, 2u);
+        _os_log_impl(&dword_270F06000, v55, OS_LOG_TYPE_INFO, " VGCaptureData doesn't have mcamLeftDepthIntrinsics. Set to identity. ", buf, 2u);
       }
     }
 
-    if ([coderCopy containsValueForKey:@"mcamLeftChromaticAdaptationMatrix"])
+    v93 = [coderCopy containsValueForKey:@"mcamLeftChromaticAdaptationMatrix"];
+    if (v93)
     {
-      v86 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"mcamLeftChromaticAdaptationMatrix"];
-      v54 = v86;
-      if (!v86 || [v86 length]<= 0x23)
+      v94 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"mcamLeftChromaticAdaptationMatrix"];
+      v55 = v94;
+      if (!v94 || (v94 = [v94 length], v94 <= 0x23))
       {
-        v55 = __VGLogSharedInstance();
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+        v56 = __VGLogSharedInstance(v94);
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_270F06000, v55, OS_LOG_TYPE_ERROR, " Unable to deserialize mcamLeftChromaticAdaptationMatrix ", buf, 2u);
+          _os_log_impl(&dword_270F06000, v56, OS_LOG_TYPE_ERROR, " Unable to deserialize mcamLeftChromaticAdaptationMatrix ", buf, 2u);
         }
 
         goto LABEL_78;
       }
 
-      [VGCaptureData _dataToMatrix33:v54];
-      *(v105 + 200) = v89;
-      *(v105 + 216) = v90;
-      *(v105 + 192) = v91;
-      *(v105 + 208) = v92;
-      *(v105 + 232) = v93;
-      *(v105 + 224) = v94;
+      [VGCaptureData _dataToMatrix33:v55];
+      *(v114 + 200) = v97;
+      *(v114 + 216) = v98;
+      *(v114 + 192) = v99;
+      *(v114 + 208) = v100;
+      *(v114 + 232) = v101;
+      *(v114 + 224) = v102;
     }
 
     else
     {
-      v87 = MEMORY[0x277D860B0];
-      v88 = *(MEMORY[0x277D860B0] + 16);
+      v95 = MEMORY[0x277D860B0];
+      v96 = *(MEMORY[0x277D860B0] + 16);
       *v5->_anon_1c0 = *MEMORY[0x277D860B0];
-      *&v5->_anon_1c0[16] = v88;
-      *&v5->_anon_1c0[32] = *(v87 + 32);
-      v54 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
+      *&v5->_anon_1c0[16] = v96;
+      *&v5->_anon_1c0[32] = *(v95 + 32);
+      v55 = __VGLogSharedInstance(v93);
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_270F06000, v54, OS_LOG_TYPE_INFO, " VGCaptureData doesn't have mcamLeftChromaticAdaptationMatrix. Set to identity. ", buf, 2u);
+        _os_log_impl(&dword_270F06000, v55, OS_LOG_TYPE_INFO, " VGCaptureData doesn't have mcamLeftChromaticAdaptationMatrix. Set to identity. ", buf, 2u);
       }
     }
 
-    v95 = v50[1];
+    v103 = v50[1];
     *&v5[1].super.isa = *v50;
-    *&v5[1]._rgbRectified = v95;
-    v96 = v50[3];
+    *&v5[1]._rgbRectified = v103;
+    v104 = v50[3];
     *&v5[1]._mcamLeftColorYuvChromaticAdaptationReverted = v50[2];
-    *&v5[1]._yuvHighResChromaticAdaptationReverted = v96;
-    if ([coderCopy containsValueForKey:@"mcamLeftToDeviceTransform"])
+    *&v5[1]._yuvHighResChromaticAdaptationReverted = v104;
+    v105 = [coderCopy containsValueForKey:@"mcamLeftToDeviceTransform"];
+    if (v105)
     {
-      v97 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"mcamLeftToDeviceTransform"];
-      v54 = v97;
-      if (!v97 || [v97 length]<= 0x3F)
+      v106 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"mcamLeftToDeviceTransform"];
+      v55 = v106;
+      if (!v106 || (v106 = [v106 length], v106 <= 0x3F))
       {
-        v55 = __VGLogSharedInstance();
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+        v56 = __VGLogSharedInstance(v106);
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_270F06000, v55, OS_LOG_TYPE_ERROR, " Unable to deserialize mcamLeftToDeviceTransform ", buf, 2u);
+          _os_log_impl(&dword_270F06000, v56, OS_LOG_TYPE_ERROR, " Unable to deserialize mcamLeftToDeviceTransform ", buf, 2u);
         }
 
         goto LABEL_78;
       }
 
-      [VGCaptureData _dataToMatrix44:v54];
-      *&v5[1].super.isa = v100;
-      *&v5[1]._rgbRectified = v101;
-      *&v5[1]._mcamLeftColorYuvChromaticAdaptationReverted = v102;
-      *&v5[1]._yuvHighResChromaticAdaptationReverted = v103;
+      [VGCaptureData _dataToMatrix44:v55];
+      *&v5[1].super.isa = v108;
+      *&v5[1]._rgbRectified = v109;
+      *&v5[1]._mcamLeftColorYuvChromaticAdaptationReverted = v110;
+      *&v5[1]._yuvHighResChromaticAdaptationReverted = v111;
     }
 
     else
     {
-      v54 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
+      v55 = __VGLogSharedInstance(v105);
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_270F06000, v54, OS_LOG_TYPE_INFO, " VGCaptureData doesn't have mcamLeftToDeviceTransform. Set to identity. ", buf, 2u);
+        _os_log_impl(&dword_270F06000, v55, OS_LOG_TYPE_INFO, " VGCaptureData doesn't have mcamLeftToDeviceTransform. Set to identity. ", buf, 2u);
       }
     }
 
     v5->_enrollmentPhase = 0;
-    if ([coderCopy containsValueForKey:@"enrollmentPhase"])
+    v112 = [coderCopy containsValueForKey:@"enrollmentPhase"];
+    if (v112)
     {
       v5->_enrollmentPhase = [coderCopy decodeIntegerForKey:@"enrollmentPhase"];
     }
 
     else
     {
-      v104 = __VGLogSharedInstance();
-      if (os_log_type_enabled(v104, OS_LOG_TYPE_INFO))
+      v113 = __VGLogSharedInstance(v112);
+      if (os_log_type_enabled(v113, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_270F06000, v104, OS_LOG_TYPE_INFO, " VGCaptureData doesn't have enrollmentPhase. Set to VGEnrollmentPhaseNone ", buf, 2u);
+        _os_log_impl(&dword_270F06000, v113, OS_LOG_TYPE_INFO, " VGCaptureData doesn't have enrollmentPhase. Set to VGEnrollmentPhaseNone ", buf, 2u);
       }
     }
 
@@ -1457,7 +1456,6 @@ LABEL_81:
   v13 = 0;
 LABEL_82:
 
-  v98 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -1468,95 +1466,7 @@ LABEL_82:
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    if (!checkEqualPixelBuffers(self->_yuvRectified, *(v5 + 9)))
-    {
-      goto LABEL_10;
-    }
-
-    if (!checkEqualPixelBuffers(self->_depth, *(v5 + 10)))
-    {
-      goto LABEL_10;
-    }
-
-    if (self->_mirrored != v5[8])
-    {
-      goto LABEL_10;
-    }
-
-    if (!checkEqualSurfaces(self->_yuvHighRes, *(v5 + 11)))
-    {
-      goto LABEL_10;
-    }
-
-    if (!checkEqualSurfaces(self->_yuvHighResUndistortionLut, *(v5 + 12)))
-    {
-      goto LABEL_10;
-    }
-
-    v6 = vandq_s8(vandq_s8(vceqq_f32(*&self->_anon_d0[16], *(v5 + 14)), vceqq_f32(*self->_anon_d0, *(v5 + 13))), vceqq_f32(*&self->_anon_d0[32], *(v5 + 15)));
-    v6.i32[3] = v6.i32[2];
-    if ((vminvq_u32(v6) & 0x80000000) == 0)
-    {
-      goto LABEL_10;
-    }
-
-    v7 = vandq_s8(vandq_s8(vceqq_f32(*&self->_anon_100[16], *(v5 + 17)), vceqq_f32(*self->_anon_100, *(v5 + 16))), vceqq_f32(*&self->_anon_100[32], *(v5 + 18)));
-    v7.i32[3] = v7.i32[2];
-    if ((vminvq_u32(v7) & 0x80000000) == 0)
-    {
-      goto LABEL_10;
-    }
-
-    v8 = vandq_s8(vandq_s8(vceqq_f32(*&self->_anon_130[16], *(v5 + 20)), vceqq_f32(*self->_anon_130, *(v5 + 19))), vceqq_f32(*&self->_anon_130[32], *(v5 + 21)));
-    v8.i32[3] = v8.i32[2];
-    if ((vminvq_u32(v8) & 0x80000000) == 0)
-    {
-      goto LABEL_10;
-    }
-
-    face = self->_face;
-    if (face | *(v5 + 13))
-    {
-      if (![(VGFaceMetadata *)face isEqual:?])
-      {
-        goto LABEL_10;
-      }
-    }
-
-    allFaces = self->_allFaces;
-    if (allFaces | *(v5 + 14) && ![(NSArray *)allFaces isEqualToArray:?])
-    {
-      goto LABEL_10;
-    }
-
-    skeleton = self->_skeleton;
-    if (skeleton | *(v5 + 16) && ![(VGSkeleton *)skeleton isEqual:?])
-    {
-      goto LABEL_10;
-    }
-
-    if ((vminvq_u32(vandq_s8(vandq_s8(vceqq_f32(*&self->_anon_1f0[16], *(v5 + 32)), vceqq_f32(*self->_anon_1f0, *(v5 + 31))), vandq_s8(vceqq_f32(*&self->_anon_1f0[32], *(v5 + 33)), vceqq_f32(*&self->_anon_1f0[48], *(v5 + 34))))) & 0x80000000) == 0)
-    {
-      goto LABEL_10;
-    }
-
-    time1 = self->_timestamp;
-    v17 = *(v5 + 176);
-    if (CMTimeCompare(&time1, &v17))
-    {
-      goto LABEL_10;
-    }
-
-    if (checkEqualPixelBuffers(self->_mcamLeftColorYuv, *(v5 + 17)) && checkEqualPixelBuffers(self->_mcamLeftDepth, *(v5 + 18)) && checkEqualSurfaces(self->_mcamLeftYuvHighRes, *(v5 + 19)) && checkEqualSurfaces(self->_mcamLeftYuvHighResUndistortionLut, *(v5 + 20)) && (v14 = vandq_s8(vandq_s8(vceqq_f32(*&self->_anon_160[16], *(v5 + 23)), vceqq_f32(*self->_anon_160, *(v5 + 22))), vceqq_f32(*&self->_anon_160[32], *(v5 + 24))), v14.i32[3] = v14.i32[2], (vminvq_u32(v14) & 0x80000000) != 0) && (v15 = vandq_s8(vandq_s8(vceqq_f32(*&self->_anon_190[16], *(v5 + 26)), vceqq_f32(*self->_anon_190, *(v5 + 25))), vceqq_f32(*&self->_anon_190[32], *(v5 + 27))), v15.i32[3] = v15.i32[2], (vminvq_u32(v15) & 0x80000000) != 0) && (v16 = vandq_s8(vandq_s8(vceqq_f32(*&self->_anon_1c0[16], *(v5 + 29)), vceqq_f32(*self->_anon_1c0, *(v5 + 28))), vceqq_f32(*&self->_anon_1c0[32], *(v5 + 30))), v16.i32[3] = v16.i32[2], (vminvq_u32(v16) & 0x80000000) != 0) && (vminvq_u32(vandq_s8(vandq_s8(vceqq_f32(*&self[1]._rgbRectified, *(v5 + 36)), vceqq_f32(*&self[1].super.isa, *(v5 + 35))), vandq_s8(vceqq_f32(*&self[1]._mcamLeftColorYuvChromaticAdaptationReverted, *(v5 + 37)), vceqq_f32(*&self[1]._yuvHighResChromaticAdaptationReverted, *(v5 + 38))))) & 0x80000000) != 0)
-    {
-      v9 = self->_enrollmentPhase == *(v5 + 21);
-    }
-
-    else
-    {
-LABEL_10:
-      v9 = 0;
-    }
+    v9 = checkEqualPixelBuffers(self->_yuvRectified, *(v5 + 9)) && checkEqualPixelBuffers(self->_depth, *(v5 + 10)) && self->_mirrored == v5[8] && checkEqualSurfaces(self->_yuvHighRes, *(v5 + 11)) && checkEqualSurfaces(self->_yuvHighResUndistortionLut, *(v5 + 12)) && (v6 = vandq_s8(vandq_s8(vceqq_f32(*&self->_anon_d0[16], *(v5 + 14)), vceqq_f32(*self->_anon_d0, *(v5 + 13))), vceqq_f32(*&self->_anon_d0[32], *(v5 + 15))), v6.i32[3] = v6.i32[2], (vminvq_u32(v6) & 0x80000000) != 0) && (v7 = vandq_s8(vandq_s8(vceqq_f32(*&self->_anon_100[16], *(v5 + 17)), vceqq_f32(*self->_anon_100, *(v5 + 16))), vceqq_f32(*&self->_anon_100[32], *(v5 + 18))), v7.i32[3] = v7.i32[2], (vminvq_u32(v7) & 0x80000000) != 0) && (v8 = vandq_s8(vandq_s8(vceqq_f32(*&self->_anon_130[16], *(v5 + 20)), vceqq_f32(*self->_anon_130, *(v5 + 19))), vceqq_f32(*&self->_anon_130[32], *(v5 + 21))), v8.i32[3] = v8.i32[2], (vminvq_u32(v8) & 0x80000000) != 0) && ((face = self->_face, !(face | *(v5 + 13))) || [(VGFaceMetadata *)face isEqual:?]) && ((allFaces = self->_allFaces, !(allFaces | *(v5 + 14))) || [(NSArray *)allFaces isEqualToArray:?]) && ((skeleton = self->_skeleton, !(skeleton | *(v5 + 16))) || [(VGSkeleton *)skeleton isEqual:?]) && (vminvq_u32(vandq_s8(vandq_s8(vceqq_f32(*&self->_anon_1f0[16], *(v5 + 32)), vceqq_f32(*self->_anon_1f0, *(v5 + 31))), vandq_s8(vceqq_f32(*&self->_anon_1f0[32], *(v5 + 33)), vceqq_f32(*&self->_anon_1f0[48], *(v5 + 34))))) & 0x80000000) != 0 && (time1 = self->_timestamp, v17 = *(v5 + 176), !CMTimeCompare(&time1, &v17)) && checkEqualPixelBuffers(self->_mcamLeftColorYuv, *(v5 + 17)) && checkEqualPixelBuffers(self->_mcamLeftDepth, *(v5 + 18)) && checkEqualSurfaces(self->_mcamLeftYuvHighRes, *(v5 + 19)) && checkEqualSurfaces(self->_mcamLeftYuvHighResUndistortionLut, *(v5 + 20)) && (v14 = vandq_s8(vandq_s8(vceqq_f32(*&self->_anon_160[16], *(v5 + 23)), vceqq_f32(*self->_anon_160, *(v5 + 22))), vceqq_f32(*&self->_anon_160[32], *(v5 + 24))), v14.i32[3] = v14.i32[2], (vminvq_u32(v14) & 0x80000000) != 0) && (v15 = vandq_s8(vandq_s8(vceqq_f32(*&self->_anon_190[16], *(v5 + 26)), vceqq_f32(*self->_anon_190, *(v5 + 25))), vceqq_f32(*&self->_anon_190[32], *(v5 + 27))), v15.i32[3] = v15.i32[2], (vminvq_u32(v15) & 0x80000000) != 0) && (v16 = vandq_s8(vandq_s8(vceqq_f32(*&self->_anon_1c0[16], *(v5 + 29)), vceqq_f32(*self->_anon_1c0, *(v5 + 28))), vceqq_f32(*&self->_anon_1c0[32], *(v5 + 30))), v16.i32[3] = v16.i32[2], (vminvq_u32(v16) & 0x80000000) != 0) && (vminvq_u32(vandq_s8(vandq_s8(vceqq_f32(*&self[1]._rgbRectified, *(v5 + 36)), vceqq_f32(*&self[1].super.isa, *(v5 + 35))), vandq_s8(vceqq_f32(*&self[1]._mcamLeftColorYuvChromaticAdaptationReverted, *(v5 + 37)), vceqq_f32(*&self[1]._yuvHighResChromaticAdaptationReverted, *(v5 + 38))))) & 0x80000000) != 0 && self->_enrollmentPhase == *(v5 + 21);
   }
 
   else
@@ -1567,27 +1477,11 @@ LABEL_10:
   return v9;
 }
 
-- (__n128)videoIntrinsics
-{
-  result = *(self + 208);
-  v2 = *(self + 224);
-  v3 = *(self + 240);
-  return result;
-}
-
 - (__n128)setVideoIntrinsics:(__n128)intrinsics
 {
   result[13] = a2;
   result[14] = intrinsics;
   result[15] = a4;
-  return result;
-}
-
-- (__n128)depthIntrinsics
-{
-  result = *(self + 256);
-  v2 = *(self + 272);
-  v3 = *(self + 288);
   return result;
 }
 
@@ -1599,28 +1493,11 @@ LABEL_10:
   return result;
 }
 
-- (__n128)chromaticAdaptationMatrix
-{
-  result = *(self + 304);
-  v2 = *(self + 320);
-  v3 = *(self + 336);
-  return result;
-}
-
 - (__n128)setChromaticAdaptationMatrix:(__n128)matrix
 {
   result[19] = a2;
   result[20] = matrix;
   result[21] = a4;
-  return result;
-}
-
-- (__n128)cameraToDeviceTransform
-{
-  result = *(self + 496);
-  v2 = *(self + 512);
-  v3 = *(self + 528);
-  v4 = *(self + 544);
   return result;
 }
 
@@ -1640,27 +1517,11 @@ LABEL_10:
   *&self->_timestamp.value = v3;
 }
 
-- (__n128)mcamLeftColorIntrinsics
-{
-  result = *(self + 352);
-  v2 = *(self + 368);
-  v3 = *(self + 384);
-  return result;
-}
-
 - (__n128)setMcamLeftColorIntrinsics:(__n128)intrinsics
 {
   result[22] = a2;
   result[23] = intrinsics;
   result[24] = a4;
-  return result;
-}
-
-- (__n128)mcamLeftDepthIntrinsics
-{
-  result = *(self + 400);
-  v2 = *(self + 416);
-  v3 = *(self + 432);
   return result;
 }
 
@@ -1672,28 +1533,11 @@ LABEL_10:
   return result;
 }
 
-- (__n128)mcamLeftChromaticAdaptationMatrix
-{
-  result = *(self + 448);
-  v2 = *(self + 464);
-  v3 = *(self + 480);
-  return result;
-}
-
 - (__n128)setMcamLeftChromaticAdaptationMatrix:(__n128)matrix
 {
   result[28] = a2;
   result[29] = matrix;
   result[30] = a4;
-  return result;
-}
-
-- (__n128)mcamLeftToDeviceTransform
-{
-  result = *(self + 560);
-  v2 = *(self + 576);
-  v3 = *(self + 592);
-  v4 = *(self + 608);
   return result;
 }
 

@@ -8,6 +8,7 @@
 - (BOOL)_validateCardForMiFare:(id)fare;
 - (BOOL)reconnectTag;
 - (BOOL)startNewSession;
+- (NFRemoteAdminReaderSession)initWithState:(id)state oneTimeConnection:(BOOL)connection secureElementManagerSession:(id)session;
 - (id)_gatherCardStateInfo;
 - (id)_getRequireServiceV1List;
 - (id)_getSessionSystemCode;
@@ -34,6 +35,39 @@
 @end
 
 @implementation NFRemoteAdminReaderSession
+
+- (NFRemoteAdminReaderSession)initWithState:(id)state oneTimeConnection:(BOOL)connection secureElementManagerSession:(id)session
+{
+  v16.receiver = self;
+  v16.super_class = NFRemoteAdminReaderSession;
+  v5 = [(NFRemoteAdminRedirectSession *)&v16 initWithState:state oneTimeConnection:connection secureElementManagerSession:session];
+  if (v5)
+  {
+    v6 = dispatch_semaphore_create(0);
+    tagSem = v5->_tagSem;
+    v5->_tagSem = v6;
+
+    v8 = dispatch_semaphore_create(0);
+    sessionStartSem = v5->_sessionStartSem;
+    v5->_sessionStartSem = v8;
+
+    v10 = objc_opt_new();
+    cardContents = v5->_cardContents;
+    v5->_cardContents = v10;
+
+    v5->_cardValidationStatus = 7;
+    v12 = +[NFCALogger sharedCALogger];
+    generateUUID = [v12 generateUUID];
+    sessionUUID = v5->_sessionUUID;
+    v5->_sessionUUID = generateUUID;
+
+    v5->_cathayIngestionSessionInProgress = 0;
+    v5->_mercuryIngestionSessionInProgress = 0;
+    v5->_cardIngestionStatus = -1;
+  }
+
+  return v5;
+}
 
 - (id)sessionCardServiceInfo
 {
@@ -2457,36 +2491,34 @@ LABEL_6:
   if (v4 || ([sessionCardServiceInfo NF_arrayForKey:@"areaCodeList"], (v4 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v5 = v4;
-    v46 = sessionCardServiceInfo;
-    v48 = objc_opt_new();
+    v43 = sessionCardServiceInfo;
+    v45 = objc_opt_new();
+    v46 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     v49 = 0u;
-    v50 = 0u;
-    v51 = 0u;
-    v52 = 0u;
     v6 = v5;
-    v7 = [v6 countByEnumeratingWithState:&v49 objects:v63 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v46 objects:v60 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
-      v10 = &GetElapsedTimeInMillisecondsFromMachTime_ptr;
-      v11 = *v50;
-      for (i = *v50; ; i = *v50)
+      v10 = *v47;
+      for (i = *v47; ; i = *v47)
       {
-        if (i != v11)
+        if (i != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v49 + 1) + 8 * v9);
-        v14 = v10[175];
+        v12 = *(*(&v46 + 1) + 8 * v9);
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) != 0 && [v13 length] == 4)
+        if ((objc_opt_isKindOfClass() & 1) != 0 && [v12 length] == 4)
         {
-          v15 = [NSData NF_dataWithHexString:v13];
-          if (v15)
+          v13 = [NSData NF_dataWithHexString:v12];
+          if (v13)
           {
-            [v48 addObject:v15];
+            [v45 addObject:v13];
           }
 
           else
@@ -2495,47 +2527,46 @@ LABEL_6:
             Logger = NFLogGetLogger();
             if (Logger)
             {
-              v31 = Logger;
+              v29 = Logger;
               Class = object_getClass(self);
               isMetaClass = class_isMetaClass(Class);
               ClassName = object_getClassName(self);
               Name = sel_getName(a2);
-              v35 = 45;
+              v33 = 45;
               if (isMetaClass)
               {
-                v35 = 43;
+                v33 = 43;
               }
 
-              v31(4, "%c[%{public}s %{public}s]:%i Node data is null", v35, ClassName, Name, 597);
+              v29(4, "%c[%{public}s %{public}s]:%i Node data is null", v33, ClassName, Name, 597);
             }
 
             dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-            v36 = NFSharedLogGetLogger();
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+            v34 = NFSharedLogGetLogger();
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
             {
-              v37 = object_getClass(self);
-              if (class_isMetaClass(v37))
+              v35 = object_getClass(self);
+              if (class_isMetaClass(v35))
               {
-                v38 = 43;
+                v36 = 43;
               }
 
               else
               {
-                v38 = 45;
+                v36 = 45;
               }
 
-              v39 = object_getClassName(self);
-              v40 = sel_getName(a2);
+              v37 = object_getClassName(self);
+              v38 = sel_getName(a2);
               *buf = 67109890;
-              v54 = v38;
-              v10 = &GetElapsedTimeInMillisecondsFromMachTime_ptr;
-              v55 = 2082;
-              v56 = v39;
-              v57 = 2082;
-              v58 = v40;
-              v59 = 1024;
-              v60 = 597;
-              _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Node data is null", buf, 0x22u);
+              v51 = v36;
+              v52 = 2082;
+              v53 = v37;
+              v54 = 2082;
+              v55 = v38;
+              v56 = 1024;
+              v57 = 597;
+              _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Node data is null", buf, 0x22u);
             }
           }
         }
@@ -2545,92 +2576,89 @@ LABEL_6:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            *buf = __rev16([v13 unsignedShortValue]);
-            v16 = [[NSData alloc] initWithBytes:buf length:2];
-            [v48 addObject:v16];
+            *buf = __rev16([v12 unsignedShortValue]);
+            v14 = [[NSData alloc] initWithBytes:buf length:2];
+            [v45 addObject:v14];
           }
 
           else
           {
             dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-            v17 = NFLogGetLogger();
-            if (v17)
+            v15 = NFLogGetLogger();
+            if (v15)
             {
-              v18 = v17;
-              v19 = object_getClass(self);
-              v20 = class_isMetaClass(v19);
-              v21 = object_getClassName(self);
-              v22 = sel_getName(a2);
-              v45 = object_getClass(v13);
-              v43 = v22;
-              v10 = &GetElapsedTimeInMillisecondsFromMachTime_ptr;
-              v23 = 45;
-              if (v20)
+              v16 = v15;
+              v17 = object_getClass(self);
+              v18 = class_isMetaClass(v17);
+              v19 = object_getClassName(self);
+              v20 = sel_getName(a2);
+              v42 = object_getClass(v12);
+              v21 = 45;
+              if (v18)
+              {
+                v21 = 43;
+              }
+
+              v16(3, "%c[%{public}s %{public}s]:%i Unexpected type, %{public}@", v21, v19, v20, 603, v42);
+            }
+
+            dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+            v14 = NFSharedLogGetLogger();
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+            {
+              v22 = object_getClass(self);
+              if (class_isMetaClass(v22))
               {
                 v23 = 43;
               }
 
-              v18(3, "%c[%{public}s %{public}s]:%i Unexpected type, %{public}@", v23, v21, v43, 603, v45);
-            }
-
-            dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-            v16 = NFSharedLogGetLogger();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-            {
-              v24 = object_getClass(self);
-              if (class_isMetaClass(v24))
-              {
-                v25 = 43;
-              }
-
               else
               {
-                v25 = 45;
+                v23 = 45;
               }
 
-              v26 = object_getClassName(self);
-              v27 = sel_getName(a2);
-              v28 = object_getClass(v13);
+              v24 = object_getClassName(self);
+              v25 = sel_getName(a2);
+              v26 = object_getClass(v12);
               *buf = 67110146;
-              v54 = v25;
-              v55 = 2082;
-              v56 = v26;
-              v57 = 2082;
-              v58 = v27;
-              v10 = &GetElapsedTimeInMillisecondsFromMachTime_ptr;
-              v59 = 1024;
-              v60 = 603;
-              v61 = 2114;
-              v62 = v28;
-              v29 = v28;
-              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Unexpected type, %{public}@", buf, 0x2Cu);
+              v51 = v23;
+              v52 = 2082;
+              v53 = v24;
+              v54 = 2082;
+              v55 = v25;
+              v56 = 1024;
+              v57 = 603;
+              v58 = 2114;
+              v59 = v26;
+              v27 = v26;
+              _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Unexpected type, %{public}@", buf, 0x2Cu);
             }
           }
         }
 
         if (++v9 >= v8)
         {
-          v41 = [v6 countByEnumeratingWithState:&v49 objects:v63 count:16];
-          if (!v41)
+          v39 = [v6 countByEnumeratingWithState:&v46 objects:v60 count:16];
+          if (!v39)
           {
             break;
           }
 
-          v8 = v41;
+          v8 = v39;
           v9 = 0;
         }
       }
     }
 
-    sessionCardServiceInfo = v46;
+    sessionCardServiceInfo = v43;
   }
 
   else
   {
-    v48 = objc_opt_new();
+    v45 = objc_opt_new();
   }
 
-  return v48;
+  return v45;
 }
 
 - (id)_getSessionSystemCode
@@ -2772,55 +2800,45 @@ LABEL_18:
 
 - (void)_fireCardIngestionStatus:(unint64_t)status
 {
-  if (self)
-  {
-    delegate = self->_delegate;
-  }
-
   if (objc_opt_respondsToSelector())
-  {
-    if (self)
-    {
-      v6 = self->_delegate;
-    }
-
-    else
-    {
-      v6 = 0;
-    }
-
-    [(NFRemoteAdminSessionDelegate *)v6 handleCardIngestionStatus:status];
-  }
-}
-
-- (void)processNotification:(id)notification
-{
-  v22.receiver = self;
-  v22.super_class = NFRemoteAdminReaderSession;
-  notificationCopy = notification;
-  [(NFRemoteAdminRedirectSession *)&v22 processNotification:notificationCopy];
-  v6 = [notificationCopy NF_stringForKey:@"tokenValue"];
-
-  if ([v6 length])
   {
     if (self)
     {
       delegate = self->_delegate;
     }
 
+    else
+    {
+      delegate = 0;
+    }
+
+    [(NFRemoteAdminSessionDelegate *)delegate handleCardIngestionStatus:status];
+  }
+}
+
+- (void)processNotification:(id)notification
+{
+  v21.receiver = self;
+  v21.super_class = NFRemoteAdminReaderSession;
+  notificationCopy = notification;
+  [(NFRemoteAdminRedirectSession *)&v21 processNotification:notificationCopy];
+  v6 = [notificationCopy NF_stringForKey:@"tokenValue"];
+
+  if ([v6 length])
+  {
     if (objc_opt_respondsToSelector())
     {
       if (self)
       {
-        v8 = self->_delegate;
+        delegate = self->_delegate;
       }
 
       else
       {
-        v8 = 0;
+        delegate = 0;
       }
 
-      [(NFRemoteAdminSessionDelegate *)v8 handleCardSessionToken:v6];
+      [(NFRemoteAdminSessionDelegate *)delegate handleCardSessionToken:v6];
     }
   }
 
@@ -2830,48 +2848,48 @@ LABEL_18:
     Logger = NFLogGetLogger();
     if (Logger)
     {
-      v10 = Logger;
+      v9 = Logger;
       Class = object_getClass(self);
       isMetaClass = class_isMetaClass(Class);
       ClassName = object_getClassName(self);
       Name = sel_getName(a2);
-      v13 = 45;
+      v12 = 45;
       if (isMetaClass)
       {
-        v13 = 43;
+        v12 = 43;
       }
 
-      v10(3, "%c[%{public}s %{public}s]:%i Invalid token, %{public}@", v13, ClassName, Name, 683, v6);
+      v9(3, "%c[%{public}s %{public}s]:%i Invalid token, %{public}@", v12, ClassName, Name, 683, v6);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v14 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v13 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v15 = object_getClass(self);
-      if (class_isMetaClass(v15))
+      v14 = object_getClass(self);
+      if (class_isMetaClass(v14))
       {
-        v16 = 43;
+        v15 = 43;
       }
 
       else
       {
-        v16 = 45;
+        v15 = 45;
       }
 
-      v17 = object_getClassName(self);
-      v18 = sel_getName(a2);
+      v16 = object_getClassName(self);
+      v17 = sel_getName(a2);
       *buf = 67110146;
-      v24 = v16;
-      v25 = 2082;
-      v26 = v17;
-      v27 = 2082;
-      v28 = v18;
-      v29 = 1024;
-      v30 = 683;
-      v31 = 2114;
-      v32 = v6;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid token, %{public}@", buf, 0x2Cu);
+      v23 = v15;
+      v24 = 2082;
+      v25 = v16;
+      v26 = 2082;
+      v27 = v17;
+      v28 = 1024;
+      v29 = 683;
+      v30 = 2114;
+      v31 = v6;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid token, %{public}@", buf, 0x2Cu);
     }
   }
 

@@ -16,7 +16,7 @@
   v6 = v5;
   if (v5)
   {
-    [v5 currentState];
+    objc_msgSend_currentState(v5);
   }
 
   else
@@ -35,7 +35,7 @@
   v6 = v5;
   if (v5)
   {
-    [v5 currentState];
+    objc_msgSend_currentState(v5);
   }
 
   else
@@ -70,7 +70,7 @@
   v6 = v5;
   if (v5)
   {
-    [v5 currentState];
+    objc_msgSend_currentState(v5);
   }
 
   else

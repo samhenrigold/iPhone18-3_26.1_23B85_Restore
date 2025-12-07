@@ -217,9 +217,10 @@ LABEL_8:
 
 - (id)toArray
 {
-  v3 = [IOSObjectArray arrayWithLength:[(JavaUtilAbstractCollection *)self size] type:NSObject_class_()];
+  v3 = [(JavaUtilAbstractCollection *)self size];
+  v5 = [IOSObjectArray arrayWithLength:v3 type:NSObject_class_(v3, v4)];
 
-  return [(JavaUtilAbstractCollection *)self toArrayWithNSObjectArray:v3];
+  return [(JavaUtilAbstractCollection *)self toArrayWithNSObjectArray:v5];
 }
 
 - (id)toArrayWithNSObjectArray:(id)array

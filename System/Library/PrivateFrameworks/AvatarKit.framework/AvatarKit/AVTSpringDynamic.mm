@@ -12,7 +12,7 @@
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   name = [(VFXNode *)self->_dynamicNode name];
-  v6 = [v3 stringWithFormat:@"<%@ %p | Spring %@>", v4, self, name];
+  v6 = [v3 stringWithFormat:v4, self, name];
 
   return v6;
 }
@@ -25,35 +25,32 @@
   avatarNode = [hierarchyCopy avatarNode];
   specializationSettings = [hierarchyCopy specializationSettings];
 
-  v9 = [specializationSettings objectForKeyedSubscript:@"dynamics"];
-  v10 = [v9 objectForKeyedSubscript:@"dynamic nodes"];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __70__AVTSpringDynamic_enumerateDynamicsInHierarchy_forAvatar_usingBlock___block_invoke;
-  v13[3] = &unk_1E7F47E08;
+  v9 = [specializationSettings objectForKeyedSubscript:?];
+  v10 = [v9 objectForKeyedSubscript:?];
+  v13 = MEMORY[0x1E69E9820];
   v14 = avatarNode;
   v15 = avatarCopy;
   v11 = avatarCopy;
   v12 = avatarNode;
-  [v10 enumerateKeysAndObjectsUsingBlock:v13];
+  [v10 enumerateKeysAndObjectsUsingBlock:{v13, 3221225472, __70__AVTSpringDynamic_enumerateDynamicsInHierarchy_forAvatar_usingBlock___block_invoke, &unk_1E7F47E08}];
 }
 
 void __70__AVTSpringDynamic_enumerateDynamicsInHierarchy_forAvatar_usingBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v5 = a2;
-  v6 = [a3 objectForKeyedSubscript:@"spring"];
+  v6 = [a3 objectForKeyedSubscript:?];
   if (v6)
   {
-    v7 = [*(a1 + 32) childNodeWithName:v5 recursively:1];
+    v7 = [*(a1 + 32) childNodeWithName:? recursively:?];
     if (v7)
     {
-      v8 = [v6 objectForKeyedSubscript:@"target"];
-      v9 = [*(a1 + 32) childNodeWithName:v8 recursively:1];
+      v8 = [v6 objectForKeyedSubscript:?];
+      v9 = [*(a1 + 32) childNodeWithName:? recursively:?];
       if (v9)
       {
-        v10 = [v6 objectForKeyedSubscript:@"duration"];
-        v11 = [v6 objectForKeyedSubscript:@"bounce"];
+        v10 = [v6 objectForKeyedSubscript:?];
+        v11 = [v6 objectForKeyedSubscript:?];
         if (v10)
         {
           [v10 floatValue];
@@ -65,7 +62,7 @@ void __70__AVTSpringDynamic_enumerateDynamicsInHierarchy_forAvatar_usingBlock___
           v13 = 0.5;
         }
 
-        v40 = v11;
+        v39 = v11;
         if (v11)
         {
           [v11 floatValue];
@@ -97,27 +94,27 @@ void __70__AVTSpringDynamic_enumerateDynamicsInHierarchy_forAvatar_usingBlock___
         v26 = *(v17 + 64);
         *(v17 + 64) = v25;
 
-        v27 = [v6 objectForKeyedSubscript:@"XYZ max offsets"];
+        v27 = [v6 objectForKeyedSubscript:?];
         if ([v27 count] == 3)
         {
           *(v17 + 40) = 1;
-          [v27 objectAtIndexedSubscript:0];
-          v28 = v39 = v9;
+          [v27 objectAtIndexedSubscript:?];
+          v28 = v38 = v9;
           [v28 floatValue];
-          v37 = v29;
-          [v27 objectAtIndexedSubscript:1];
-          v30 = v38 = v10;
+          v36 = v29;
+          [v27 objectAtIndexedSubscript:?];
+          v30 = v37 = v10;
           [v30 floatValue];
-          v36 = v31;
-          v32 = [v27 objectAtIndexedSubscript:2];
+          v35 = v31;
+          v32 = [v27 objectAtIndexedSubscript:?];
           [v32 floatValue];
-          v33 = v37;
-          DWORD1(v33) = v36;
+          v33 = v36;
+          DWORD1(v33) = v35;
           DWORD2(v33) = v34;
           *(v17 + 48) = v33;
 
-          v10 = v38;
-          v9 = v39;
+          v10 = v37;
+          v9 = v38;
         }
 
         (*(*(a1 + 40) + 16))();
@@ -125,11 +122,11 @@ void __70__AVTSpringDynamic_enumerateDynamicsInHierarchy_forAvatar_usingBlock___
 
       else
       {
-        v14 = avt_default_log();
+        v14 = avt_default_log(0);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v42 = v8;
+          v41 = v8;
           _os_log_impl(&dword_1BB472000, v14, OS_LOG_TYPE_DEFAULT, "Failed to find spring target named '%@'", buf, 0xCu);
         }
       }
@@ -137,17 +134,15 @@ void __70__AVTSpringDynamic_enumerateDynamicsInHierarchy_forAvatar_usingBlock___
 
     else
     {
-      v8 = avt_default_log();
+      v8 = avt_default_log(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v42 = v5;
+        v41 = v5;
         _os_log_impl(&dword_1BB472000, v8, OS_LOG_TYPE_DEFAULT, "Failed to find spring node named '%@'", buf, 0xCu);
       }
     }
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)evaluateAtTime:(double)time physicsController:(id)controller
@@ -169,36 +164,33 @@ void __70__AVTSpringDynamic_enumerateDynamicsInHierarchy_forAvatar_usingBlock___
     v8.i32[3] = v8.i32[2];
     if ((vmaxvq_u32(v8) & 0x80000000) != 0)
     {
-      v23 = v6;
+      v20 = v6;
       [(AVTMassSpringDamperSystem *)self->_system float3VelocityAtTime:*self->_beginWorldPosition initialValue:*self->_beginVelocity initialVelocity:v7 targetValue:?];
       v11 = v12;
       v10 = *self->_lastWorldPosition;
       if (self->_hasMaxOffsets)
       {
-        v21 = *self->_lastWorldPosition;
-        v22 = v12;
-        [(VFXNode *)self->_dynamicPresentationNode convertVector:0 fromNode:*vsubq_f32(v10, v23).i64];
-        v13 = *&self->_maxOffsets[7];
-        v15 = vdivq_f32(v14, v13);
-        v16 = vmulq_f32(v15, v15);
-        v17 = v16.f32[2] + vaddv_f32(*v16.f32);
-        v10 = v21;
-        v11 = v22;
-        v7 = v23;
-        if (v17 > 1.0)
+        v18 = *self->_lastWorldPosition;
+        v19 = v12;
+        [VFXNode convertVector:"convertVector:fromNode:" fromNode:?];
+        v14 = vdivq_f32(v13, *&self->_maxOffsets[7]);
+        v15 = vmulq_f32(v14, v14);
+        v16 = v15.f32[2] + vaddv_f32(*v15.f32);
+        v10 = v18;
+        v11 = v19;
+        v7 = v20;
+        if (v16 > 1.0)
         {
-          v18 = vrsqrte_f32(LODWORD(v17));
-          v19 = vmul_f32(v18, vrsqrts_f32(LODWORD(v17), vmul_f32(v18, v18)));
-          [(VFXNode *)self->_dynamicPresentationNode convertVector:0 toNode:*vmulq_f32(v13, vmulq_n_f32(v15, vmul_f32(v19, vrsqrts_f32(LODWORD(v17), vmul_f32(v19, v19))).f32[0])).i64, *v21.i64];
-          v11 = v22;
-          v7 = v23;
-          v10 = vaddq_f32(v23, v20);
+          [VFXNode convertVector:"convertVector:toNode:" toNode:?];
+          v11 = v19;
+          v7 = v20;
+          v10 = vaddq_f32(v20, v17);
         }
       }
 
       else
       {
-        v7 = v23;
+        v7 = v20;
       }
 
       lastEvaluationTime = self->_lastEvaluationTime;
@@ -219,7 +211,7 @@ void __70__AVTSpringDynamic_enumerateDynamicsInHierarchy_forAvatar_usingBlock___
   }
 
   *self->_lastWorldPosition = v6;
-  [(VFXNode *)self->_dynamicParentPresentationNode convertPosition:0 fromNode:?];
+  [VFXNode convertPosition:"convertPosition:fromNode:" fromNode:?];
   [(VFXNode *)self->_dynamicNode setPosition:?];
   self->_lastEvaluationTime = time;
 }
@@ -228,7 +220,7 @@ void __70__AVTSpringDynamic_enumerateDynamicsInHierarchy_forAvatar_usingBlock___
 {
   dynamicParentPresentationNode = self->_dynamicParentPresentationNode;
   [(VFXNode *)self->_targetPresentationNode worldPosition];
-  [(VFXNode *)dynamicParentPresentationNode convertPosition:0 fromNode:?];
+  [VFXNode convertPosition:"convertPosition:fromNode:" fromNode:?];
   dynamicNode = self->_dynamicNode;
 
   [(VFXNode *)dynamicNode setPosition:?];

@@ -37,30 +37,30 @@
 
 - (FCFileCoordinatedTodayDropbox)initWithFileURL:(id)l
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   lCopy = l;
   if (!lCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "fileURL"];
+    v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "fileURL"];
     *buf = 136315906;
-    v25 = "[FCFileCoordinatedTodayDropbox initWithFileURL:]";
-    v26 = 2080;
-    v27 = "FCFileCoordinatedTodayDropbox.m";
-    v28 = 1024;
-    v29 = 50;
-    v30 = 2114;
-    v31 = v19;
+    v24 = "[FCFileCoordinatedTodayDropbox initWithFileURL:]";
+    v25 = 2080;
+    v26 = "FCFileCoordinatedTodayDropbox.m";
+    v27 = 1024;
+    v28 = 50;
+    v29 = 2114;
+    v30 = v18;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v23.receiver = self;
-  v23.super_class = FCFileCoordinatedTodayDropbox;
-  v5 = [(FCFileCoordinatedTodayDropbox *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = FCFileCoordinatedTodayDropbox;
+  v5 = [(FCFileCoordinatedTodayDropbox *)&v22 init];
   if (v5)
   {
-    v22 = MEMORY[0x1E695DFD8];
-    v21 = objc_opt_class();
+    v21 = MEMORY[0x1E695DFD8];
     v20 = objc_opt_class();
+    v19 = objc_opt_class();
     v6 = objc_opt_class();
     v7 = objc_opt_class();
     v8 = objc_opt_class();
@@ -69,44 +69,42 @@
     v11 = objc_opt_class();
     v12 = objc_opt_class();
     v13 = objc_opt_class();
-    v14 = [v22 setWithObjects:{v21, v20, v6, v7, v8, v9, v10, v11, v12, v13, objc_opt_class(), 0}];
+    v14 = [v21 setWithObjects:{v20, v19, v6, v7, v8, v9, v10, v11, v12, v13, objc_opt_class(), 0}];
     v15 = [[FCFileCoordinatedDictionary alloc] initWithFileURL:lCopy allowedClasses:v14 qualityOfService:25];
     fileCoordinatedDictionary = v5->_fileCoordinatedDictionary;
     v5->_fileCoordinatedDictionary = v15;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)peekSyncWithAccessor:(id)accessor
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   accessorCopy = accessor;
   if (!accessorCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "accessor"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "accessor"];
     *buf = 136315906;
-    v14 = "[FCFileCoordinatedTodayDropbox peekSyncWithAccessor:]";
-    v15 = 2080;
-    v16 = "FCFileCoordinatedTodayDropbox.m";
-    v17 = 1024;
-    v18 = 80;
-    v19 = 2114;
-    v20 = v10;
+    v13 = "[FCFileCoordinatedTodayDropbox peekSyncWithAccessor:]";
+    v14 = 2080;
+    v15 = "FCFileCoordinatedTodayDropbox.m";
+    v16 = 1024;
+    v17 = 80;
+    v18 = 2114;
+    v19 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   fileCoordinatedDictionary = [(FCFileCoordinatedTodayDropbox *)self fileCoordinatedDictionary];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __54__FCFileCoordinatedTodayDropbox_peekSyncWithAccessor___block_invoke;
-  v11[3] = &unk_1E7C38D88;
-  v12 = accessorCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __54__FCFileCoordinatedTodayDropbox_peekSyncWithAccessor___block_invoke;
+  v10[3] = &unk_1E7C38D88;
+  v11 = accessorCopy;
   v6 = accessorCopy;
-  v7 = [fileCoordinatedDictionary readSyncWithAccessor:v11];
+  v7 = [fileCoordinatedDictionary readSyncWithAccessor:v10];
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -131,32 +129,30 @@ void __54__FCFileCoordinatedTodayDropbox_peekSyncWithAccessor___block_invoke(uin
 
 - (void)peekWithAccessor:(id)accessor
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   accessorCopy = accessor;
   if (!accessorCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "accessor"];
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "accessor"];
     *buf = 136315906;
-    v12 = "[FCFileCoordinatedTodayDropbox peekWithAccessor:]";
-    v13 = 2080;
-    v14 = "FCFileCoordinatedTodayDropbox.m";
-    v15 = 1024;
-    v16 = 90;
-    v17 = 2114;
-    v18 = v8;
+    v11 = "[FCFileCoordinatedTodayDropbox peekWithAccessor:]";
+    v12 = 2080;
+    v13 = "FCFileCoordinatedTodayDropbox.m";
+    v14 = 1024;
+    v15 = 90;
+    v16 = 2114;
+    v17 = v7;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   fileCoordinatedDictionary = [(FCFileCoordinatedTodayDropbox *)self fileCoordinatedDictionary];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __50__FCFileCoordinatedTodayDropbox_peekWithAccessor___block_invoke;
-  v9[3] = &unk_1E7C38D88;
-  v10 = accessorCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __50__FCFileCoordinatedTodayDropbox_peekWithAccessor___block_invoke;
+  v8[3] = &unk_1E7C38D88;
+  v9 = accessorCopy;
   v6 = accessorCopy;
-  [fileCoordinatedDictionary readWithAccessor:v9];
-
-  v7 = *MEMORY[0x1E69E9840];
+  [fileCoordinatedDictionary readWithAccessor:v8];
 }
 
 void __50__FCFileCoordinatedTodayDropbox_peekWithAccessor___block_invoke(uint64_t a1, void *a2)
@@ -180,32 +176,31 @@ void __50__FCFileCoordinatedTodayDropbox_peekWithAccessor___block_invoke(uint64_
 
 - (BOOL)depositSyncWithAccessor:(id)accessor
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   accessorCopy = accessor;
   if (!accessorCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "accessor"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "accessor"];
     *buf = 136315906;
-    v14 = "[FCFileCoordinatedTodayDropbox depositSyncWithAccessor:]";
-    v15 = 2080;
-    v16 = "FCFileCoordinatedTodayDropbox.m";
-    v17 = 1024;
-    v18 = 100;
-    v19 = 2114;
-    v20 = v10;
+    v13 = "[FCFileCoordinatedTodayDropbox depositSyncWithAccessor:]";
+    v14 = 2080;
+    v15 = "FCFileCoordinatedTodayDropbox.m";
+    v16 = 1024;
+    v17 = 100;
+    v18 = 2114;
+    v19 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   fileCoordinatedDictionary = [(FCFileCoordinatedTodayDropbox *)self fileCoordinatedDictionary];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __57__FCFileCoordinatedTodayDropbox_depositSyncWithAccessor___block_invoke;
-  v11[3] = &unk_1E7C38DB0;
-  v12 = accessorCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __57__FCFileCoordinatedTodayDropbox_depositSyncWithAccessor___block_invoke;
+  v10[3] = &unk_1E7C38DB0;
+  v11 = accessorCopy;
   v6 = accessorCopy;
-  v7 = [fileCoordinatedDictionary writeSyncWithAccessor:v11];
+  v7 = [fileCoordinatedDictionary writeSyncWithAccessor:v10];
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -220,33 +215,31 @@ void __57__FCFileCoordinatedTodayDropbox_depositSyncWithAccessor___block_invoke(
 
 - (void)depositWithAccessor:(id)accessor completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   accessorCopy = accessor;
   completionCopy = completion;
   if (!accessorCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "accessor"];
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "accessor"];
     *buf = 136315906;
-    v15 = "[FCFileCoordinatedTodayDropbox depositWithAccessor:completion:]";
-    v16 = 2080;
-    v17 = "FCFileCoordinatedTodayDropbox.m";
-    v18 = 1024;
-    v19 = 110;
-    v20 = 2114;
-    v21 = v11;
+    v14 = "[FCFileCoordinatedTodayDropbox depositWithAccessor:completion:]";
+    v15 = 2080;
+    v16 = "FCFileCoordinatedTodayDropbox.m";
+    v17 = 1024;
+    v18 = 110;
+    v19 = 2114;
+    v20 = v10;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   fileCoordinatedDictionary = [(FCFileCoordinatedTodayDropbox *)self fileCoordinatedDictionary];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __64__FCFileCoordinatedTodayDropbox_depositWithAccessor_completion___block_invoke;
-  v12[3] = &unk_1E7C38DB0;
-  v13 = accessorCopy;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __64__FCFileCoordinatedTodayDropbox_depositWithAccessor_completion___block_invoke;
+  v11[3] = &unk_1E7C38DB0;
+  v12 = accessorCopy;
   v9 = accessorCopy;
-  [fileCoordinatedDictionary writeWithAccessor:v12 completion:completionCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
+  [fileCoordinatedDictionary writeWithAccessor:v11 completion:completionCopy];
 }
 
 void __64__FCFileCoordinatedTodayDropbox_depositWithAccessor_completion___block_invoke(uint64_t a1, void *a2)

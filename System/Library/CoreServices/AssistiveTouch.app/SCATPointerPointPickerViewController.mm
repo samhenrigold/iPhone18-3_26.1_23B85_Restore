@@ -18,50 +18,50 @@
 
 - (void)viewDidLoad
 {
-  v20.receiver = self;
-  v20.super_class = SCATPointerPointPickerViewController;
-  [(SCATElementManagerViewController *)&v20 viewDidLoad];
+  v22.receiver = self;
+  v22.super_class = SCATPointerPointPickerViewController;
+  [(SCATElementManagerViewController *)&v22 viewDidLoad];
   v3 = objc_alloc_init(AXPIFingerController);
   [(SCATPointerPointPickerViewController *)self setFingerController:v3];
 
-  if (sub_100042C64())
+  if (sub_100042C64(v4, v5))
   {
-    v4 = objc_alloc_init(AXPISystemPointerLargeAppearance);
-    [(SCATPointerPointPickerViewController *)self setMousePointerAppearance:v4];
+    v6 = objc_alloc_init(AXPISystemPointerLargeAppearance);
+    [(SCATPointerPointPickerViewController *)self setMousePointerAppearance:v6];
 
-    v5 = [[AXDispatchTimer alloc] initWithTargetSerialQueue:&_dispatch_main_q];
-    [(SCATPointerPointPickerViewController *)self setSystemPointerSettingsChangedDebouncer:v5];
+    v7 = [[AXDispatchTimer alloc] initWithTargetSerialQueue:&_dispatch_main_q];
+    [(SCATPointerPointPickerViewController *)self setSystemPointerSettingsChangedDebouncer:v7];
 
     LocalCenter = CFNotificationCenterGetLocalCenter();
     CFNotificationCenterAddObserver(LocalCenter, self, sub_1000B0248, kAXSPointerIncreasedContrastPreferenceDidChangeNotification, 0, CFNotificationSuspensionBehaviorDeliverImmediately);
-    v7 = CFNotificationCenterGetLocalCenter();
-    CFNotificationCenterAddObserver(v7, self, sub_1000B0248, kAXSPointerSizeMultiplierPreferenceDidChangeNotification, 0, CFNotificationSuspensionBehaviorDeliverImmediately);
-    v8 = CFNotificationCenterGetLocalCenter();
-    CFNotificationCenterAddObserver(v8, self, sub_1000B0248, kAXSPointerStrokeColorPreferenceDidChangeNotification, 0, CFNotificationSuspensionBehaviorDeliverImmediately);
+    v9 = CFNotificationCenterGetLocalCenter();
+    CFNotificationCenterAddObserver(v9, self, sub_1000B0248, kAXSPointerSizeMultiplierPreferenceDidChangeNotification, 0, CFNotificationSuspensionBehaviorDeliverImmediately);
+    v10 = CFNotificationCenterGetLocalCenter();
+    CFNotificationCenterAddObserver(v10, self, sub_1000B0248, kAXSPointerStrokeColorPreferenceDidChangeNotification, 0, CFNotificationSuspensionBehaviorDeliverImmediately);
   }
 
   mousePointerAppearance = [(SCATPointerPointPickerViewController *)self mousePointerAppearance];
 
   if (!mousePointerAppearance)
   {
-    v10 = objc_alloc_init(HNDMousePointerAppearance);
-    [(SCATPointerPointPickerViewController *)self setMousePointerAppearance:v10];
+    v12 = objc_alloc_init(HNDMousePointerAppearance);
+    [(SCATPointerPointPickerViewController *)self setMousePointerAppearance:v12];
 
-    v11 = +[AXSettings sharedInstance];
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_1000B0250;
-    v19[3] = &unk_1001D3488;
-    v19[4] = self;
-    [v11 registerUpdateBlock:v19 forRetrieveSelector:"assistiveTouchScannerCursorHighVisibilityEnabled" withListener:self];
+    v13 = +[AXSettings sharedInstance];
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = sub_1000B0250;
+    v21[3] = &unk_1001D3488;
+    v21[4] = self;
+    [v13 registerUpdateBlock:v21 forRetrieveSelector:"assistiveTouchScannerCursorHighVisibilityEnabled" withListener:self];
 
-    v12 = +[AXSettings sharedInstance];
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_1000B028C;
-    v18[3] = &unk_1001D3488;
-    v18[4] = self;
-    [v12 registerUpdateBlock:v18 forRetrieveSelector:"assistiveTouchCursorColor" withListener:self];
+    v14 = +[AXSettings sharedInstance];
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_1000B028C;
+    v20[3] = &unk_1001D3488;
+    v20[4] = self;
+    [v14 registerUpdateBlock:v20 forRetrieveSelector:"assistiveTouchCursorColor" withListener:self];
   }
 
   mousePointerAppearance2 = [(SCATPointerPointPickerViewController *)self mousePointerAppearance];
@@ -78,7 +78,7 @@
 
 - (void)dealloc
 {
-  if (sub_100042C64())
+  if (sub_100042C64(self, a2))
   {
     systemPointerSettingsChangedDebouncer = [(SCATPointerPointPickerViewController *)self systemPointerSettingsChangedDebouncer];
     [systemPointerSettingsChangedDebouncer cancel];

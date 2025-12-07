@@ -158,7 +158,7 @@
 
 - (BOOL)shouldRemainActiveWhileFlashlightIsOff
 {
-  v3 = SBLogFlashlightHUD();
+  v3 = SBLogFlashlightHUD(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(SBDynamicFlashlightActivityElement *)self shouldRemainActiveWhileFlashlightIsOff];
@@ -608,7 +608,7 @@ void __70__SBDynamicFlashlightActivityElement_takeAlertingAssertionWithReason___
 
 - (void)dynamicFlashlightViewControllerShouldDismiss
 {
-  v3 = SBLogFlashlightHUD();
+  v3 = SBLogFlashlightHUD(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(SBDynamicFlashlightActivityElement *)v3 dynamicFlashlightViewControllerShouldDismiss];

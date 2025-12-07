@@ -199,15 +199,15 @@ LABEL_9:
 
 - (void)requestQueue:(id)queue processedRequest:(id)request withResponse:(id)response
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   responseCopy = response;
   v9 = pds_defaultLog();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 138412290;
-    v27 = responseCopy;
-    _os_log_impl(&dword_25DED8000, v9, OS_LOG_TYPE_DEFAULT, "Received PDS registration response: %@", &v26, 0xCu);
+    v25 = 138412290;
+    v26 = responseCopy;
+    _os_log_impl(&dword_25DED8000, v9, OS_LOG_TYPE_DEFAULT, "Received PDS registration response: %@", &v25, 0xCu);
   }
 
   if ([responseCopy status])
@@ -216,9 +216,9 @@ LABEL_9:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       status = [responseCopy status];
-      v26 = 134217984;
-      v27 = status;
-      _os_log_impl(&dword_25DED8000, v10, OS_LOG_TYPE_DEFAULT, "Bad response status: %ld", &v26, 0xCu);
+      v25 = 134217984;
+      v26 = status;
+      _os_log_impl(&dword_25DED8000, v10, OS_LOG_TYPE_DEFAULT, "Bad response status: %ld", &v25, 0xCu);
     }
 
     status2 = [responseCopy status];
@@ -230,7 +230,7 @@ LABEL_9:
       {
         if (v14)
         {
-          LOWORD(v26) = 0;
+          LOWORD(v25) = 0;
           v15 = "FTResponseActionDoNotRetry: Not retrying request";
           goto LABEL_27;
         }
@@ -244,7 +244,7 @@ LABEL_29:
       {
         if (v14)
         {
-          LOWORD(v26) = 0;
+          LOWORD(v25) = 0;
           v15 = "FTResponseActionRetryWithDelay";
 LABEL_27:
           v23 = v13;
@@ -259,13 +259,13 @@ LABEL_21:
       if (v14)
       {
         status3 = [responseCopy status];
-        v26 = 134217984;
-        v27 = status3;
+        v25 = 134217984;
+        v26 = status3;
         v15 = "Unhandled response status: %ld";
         v23 = v13;
         v24 = 12;
 LABEL_28:
-        _os_log_impl(&dword_25DED8000, v23, OS_LOG_TYPE_DEFAULT, v15, &v26, v24);
+        _os_log_impl(&dword_25DED8000, v23, OS_LOG_TYPE_DEFAULT, v15, &v25, v24);
         goto LABEL_29;
       }
 
@@ -276,7 +276,7 @@ LABEL_28:
     {
       if (v14)
       {
-        LOWORD(v26) = 0;
+        LOWORD(v25) = 0;
         v15 = "FTResponseActionRefreshCredentials";
         goto LABEL_27;
       }
@@ -291,8 +291,8 @@ LABEL_28:
 
     if (v14)
     {
-      LOWORD(v26) = 0;
-      _os_log_impl(&dword_25DED8000, v13, OS_LOG_TYPE_DEFAULT, "FTResponseActionPermanentFailure: Permanently disabling", &v26, 2u);
+      LOWORD(v25) = 0;
+      _os_log_impl(&dword_25DED8000, v13, OS_LOG_TYPE_DEFAULT, "FTResponseActionPermanentFailure: Permanently disabling", &v25, 2u);
     }
 
     self->_disabled = 1;
@@ -322,8 +322,6 @@ LABEL_28:
   }
 
 LABEL_30:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)ttlForRequest:(id)request
@@ -336,7 +334,7 @@ LABEL_30:
 
 - (void)_processEntryStore
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   pendingRequestDate = self->_pendingRequestDate;
   self->_pendingRequestDate = 0;
 
@@ -391,9 +389,9 @@ LABEL_31:
     }
 
     *buf = 138412546;
-    v72 = v13;
-    v73 = 2112;
-    v74 = v12;
+    v71 = v13;
+    v72 = 2112;
+    v73 = v12;
     _os_log_impl(&dword_25DED8000, v11, OS_LOG_TYPE_DEFAULT, "processEntryStore: shouldRegister %@ shouldHeartbeat %@", buf, 0x16u);
   }
 
@@ -557,11 +555,11 @@ LABEL_28:
         heartbeatTracker5 = [(PDSCoordinator *)self heartbeatTracker];
         trackedHeartbeatDate3 = [heartbeatTracker5 trackedHeartbeatDate];
         *buf = 138412290;
-        v72 = trackedHeartbeatDate3;
+        v71 = trackedHeartbeatDate3;
         _os_log_impl(&dword_25DED8000, v43, OS_LOG_TYPE_DEFAULT, "Next Checkpoint Time: %@", buf, 0xCu);
       }
 
-      v65 = v5;
+      v64 = v5;
 
       v46 = pds_defaultLog();
       if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
@@ -570,50 +568,50 @@ LABEL_28:
         serverBag4 = [(PDSCoordinator *)self serverBag];
         v49 = [v47 numberWithInteger:{objc_msgSend(serverBag4, "ttlWindowFromBag")}];
         *buf = 138412290;
-        v72 = v49;
+        v71 = v49;
         _os_log_impl(&dword_25DED8000, v46, OS_LOG_TYPE_DEFAULT, "TTL Window: %@", buf, 0xCu);
       }
 
-      v68 = 0u;
-      v69 = 0u;
-      v66 = 0u;
       v67 = 0u;
+      v68 = 0u;
+      v65 = 0u;
+      v66 = 0u;
       v41 = entries;
-      v50 = [v41 countByEnumeratingWithState:&v66 objects:v70 count:16];
+      v50 = [v41 countByEnumeratingWithState:&v65 objects:v69 count:16];
       if (v50)
       {
         v51 = v50;
-        v62 = v39;
-        v63 = v38;
-        v64 = v31;
-        v52 = *v67;
+        v61 = v39;
+        v62 = v38;
+        v63 = v31;
+        v52 = *v66;
         do
         {
           for (i = 0; i != v51; ++i)
           {
-            if (*v67 != v52)
+            if (*v66 != v52)
             {
               objc_enumerationMutation(v41);
             }
 
-            v54 = *(*(&v66 + 1) + 8 * i);
+            v54 = *(*(&v65 + 1) + 8 * i);
             v55 = pds_defaultLog();
             if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v72 = v54;
+              v71 = v54;
               _os_log_impl(&dword_25DED8000, v55, OS_LOG_TYPE_DEFAULT, "Entry-: %@", buf, 0xCu);
             }
           }
 
-          v51 = [v41 countByEnumeratingWithState:&v66 objects:v70 count:16];
+          v51 = [v41 countByEnumeratingWithState:&v65 objects:v69 count:16];
         }
 
         while (v51);
-        v5 = v65;
-        v38 = v63;
-        v31 = v64;
-        v39 = v62;
+        v5 = v64;
+        v38 = v62;
+        v31 = v63;
+        v39 = v61;
       }
     }
 
@@ -635,12 +633,11 @@ LABEL_28:
   }
 
 LABEL_71:
-  v61 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateEntriesForResponse:(id)response fromRequest:(id)request
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   requestCopy = request;
   entryStoreBlock = [(PDSCoordinator *)self entryStoreBlock];
@@ -648,30 +645,30 @@ LABEL_71:
 
   if (v9)
   {
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     entries = [requestCopy entries];
-    v11 = [entries countByEnumeratingWithState:&v34 objects:v43 count:16];
+    v11 = [entries countByEnumeratingWithState:&v33 objects:v42 count:16];
     if (v11)
     {
       v12 = v11;
-      v31 = requestCopy;
-      v13 = *v35;
-      v32 = responseCopy;
+      v30 = requestCopy;
+      v13 = *v34;
+      v31 = responseCopy;
       obj = entries;
       while (1)
       {
         v14 = 0;
         do
         {
-          if (*v35 != v13)
+          if (*v34 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v34 + 1) + 8 * v14);
+          v15 = *(*(&v33 + 1) + 8 * v14);
           user = [v15 user];
           statusByUser = [responseCopy statusByUser];
           v18 = [statusByUser objectForKey:user];
@@ -682,7 +679,7 @@ LABEL_71:
             if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v40 = user;
+              v39 = user;
               v22 = v21;
               v23 = "User status not included in response: user: %@";
               v24 = 12;
@@ -703,9 +700,9 @@ LABEL_14:
             if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v40 = user;
-              v41 = 2048;
-              v42 = v20;
+              v39 = user;
+              v40 = 2048;
+              v41 = v20;
               v22 = v21;
               v23 = "Bad user status: user: %@ status: %ld";
               v24 = 22;
@@ -726,17 +723,17 @@ LABEL_14:
             if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v40 = v15;
+              v39 = v15;
               _os_log_impl(&dword_25DED8000, v25, OS_LOG_TYPE_DEFAULT, "State has changed mid-update for entry: %@", buf, 0xCu);
             }
 
             registration = [v15 registration];
             topicString = [registration topicString];
-            v38 = topicString;
-            v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+            v37 = topicString;
+            v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
             [(PDSCoordinator *)self entryStore:v9 didUpdatePendingTopics:v28 forceImmediateUpdate:1];
 
-            responseCopy = v32;
+            responseCopy = v31;
           }
 
 LABEL_15:
@@ -746,11 +743,11 @@ LABEL_15:
 
         while (v12 != v14);
         entries = obj;
-        v29 = [obj countByEnumeratingWithState:&v34 objects:v43 count:16];
+        v29 = [obj countByEnumeratingWithState:&v33 objects:v42 count:16];
         v12 = v29;
         if (!v29)
         {
-          requestCopy = v31;
+          requestCopy = v30;
           break;
         }
       }
@@ -766,13 +763,11 @@ LABEL_15:
       _os_log_impl(&dword_25DED8000, entries, OS_LOG_TYPE_DEFAULT, "EntryStore is nil! aborting", buf, 2u);
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateOrDeleteEntry:(id)entry inStore:(id)store
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   entryCopy = entry;
   storeCopy = store;
   clientID = [entryCopy clientID];
@@ -780,16 +775,16 @@ LABEL_15:
   user = [entryCopy user];
   if (state == 2)
   {
-    v15 = 0;
-    v13 = [storeCopy deleteEntry:entryCopy withError:&v15];
-    v11 = v15;
+    v14 = 0;
+    v13 = [storeCopy deleteEntry:entryCopy withError:&v14];
+    v11 = v14;
     if ((v13 & 1) == 0)
     {
       v12 = pds_defaultLog();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v18 = v11;
+        v17 = v11;
         goto LABEL_9;
       }
 
@@ -803,16 +798,16 @@ LABEL_11:
 
   if (state == 1)
   {
-    v16 = 0;
-    v10 = [storeCopy updateEntryState:3 forUser:user clientID:clientID withError:&v16];
-    v11 = v16;
+    v15 = 0;
+    v10 = [storeCopy updateEntryState:3 forUser:user clientID:clientID withError:&v15];
+    v11 = v15;
     if ((v10 & 1) == 0)
     {
       v12 = pds_defaultLog();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v18 = v11;
+        v17 = v11;
 LABEL_9:
         _os_log_impl(&dword_25DED8000, v12, OS_LOG_TYPE_DEFAULT, "Error updating entry: %@", buf, 0xCu);
         goto LABEL_10;
@@ -825,41 +820,39 @@ LABEL_9:
   }
 
 LABEL_12:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_entries:(id)_entries includeState:(unsigned __int8)state
 {
   stateCopy = state;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   _entriesCopy = _entries;
-  v6 = [_entriesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [_entriesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(_entriesCopy);
         }
 
-        if ([*(*(&v13 + 1) + 8 * i) state] == stateCopy)
+        if ([*(*(&v12 + 1) + 8 * i) state] == stateCopy)
         {
           v10 = 1;
           goto LABEL_11;
         }
       }
 
-      v7 = [_entriesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [_entriesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -872,7 +865,6 @@ LABEL_12:
   v10 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -902,37 +894,37 @@ LABEL_11:
 
 - (BOOL)_matchingEntryExistsFor:(id)for inStore:(id)store
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   forCopy = for;
   storeCopy = store;
   user = [forCopy user];
   clientID = [forCopy clientID];
   [storeCopy entriesForUser:user withClientID:clientID];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v9 = v18 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = v17 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
-    v11 = *v16;
+    v11 = *v15;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        if ([forCopy isEqualToEntry:{*(*(&v15 + 1) + 8 * i), v15}])
+        if ([forCopy isEqualToEntry:{*(*(&v14 + 1) + 8 * i), v14}])
         {
           LOBYTE(v10) = 1;
           goto LABEL_11;
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v10)
       {
         continue;
@@ -944,39 +936,38 @@ LABEL_11:
 
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (double)_timeToDelayRequestForTopics:(id)topics
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   topicsCopy = topics;
   serverBag = [(PDSCoordinator *)self serverBag];
   [serverBag coalesceDelayFromBag];
   v7 = v6;
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v8 = topicsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v27;
+    v11 = *v26;
     while (2)
     {
       v12 = 0;
       do
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v26 + 1) + 8 * v12);
+        v13 = *(*(&v25 + 1) + 8 * v12);
         serverBag2 = [(PDSCoordinator *)self serverBag];
         LOBYTE(v13) = [serverBag2 topicAvoidsCoalescing:v13];
 
@@ -991,7 +982,7 @@ LABEL_11:
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v25 objects:v31 count:16];
       if (v10)
       {
         continue;
@@ -1036,13 +1027,12 @@ LABEL_11:
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v31 = v7;
+    v30 = v7;
     _os_log_impl(&dword_25DED8000, v21, OS_LOG_TYPE_DEFAULT, "Delay register by: %f for coalescing", buf, 0xCu);
   }
 
 LABEL_18:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1084,16 +1074,16 @@ LABEL_18:
 
 - (BOOL)_disabledForAnyReason
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (self->_disabled)
   {
     v2 = pds_defaultLog();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17) = 0;
+      LOWORD(v16) = 0;
       v3 = "PDS has been disabled by a PermanentFailure server response";
 LABEL_7:
-      _os_log_impl(&dword_25DED8000, v2, OS_LOG_TYPE_DEFAULT, v3, &v17, 2u);
+      _os_log_impl(&dword_25DED8000, v2, OS_LOG_TYPE_DEFAULT, v3, &v16, 2u);
     }
   }
 
@@ -1107,7 +1097,7 @@ LABEL_7:
       v2 = pds_defaultLog();
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v17) = 0;
+        LOWORD(v16) = 0;
         v3 = "PDS has been disabled by the kill switch";
         goto LABEL_7;
       }
@@ -1115,37 +1105,33 @@ LABEL_7:
 
     else
     {
-      v9 = PDSProtocolVersionNumber();
-      longLongValue = [v9 longLongValue];
+      v8 = PDSProtocolVersionNumber();
+      longLongValue = [v8 longLongValue];
       serverBag2 = [(PDSCoordinator *)self serverBag];
       minEnabledVersion = [serverBag2 minEnabledVersion];
       longLongValue2 = [minEnabledVersion longLongValue];
 
       if (longLongValue >= longLongValue2)
       {
-        result = 0;
-        goto LABEL_9;
+        return 0;
       }
 
       v2 = pds_defaultLog();
       if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = PDSProtocolVersionNumber();
+        v13 = PDSProtocolVersionNumber();
         serverBag3 = [(PDSCoordinator *)self serverBag];
         minEnabledVersion2 = [serverBag3 minEnabledVersion];
-        v17 = 138412546;
-        v18 = v14;
-        v19 = 2112;
-        v20 = minEnabledVersion2;
-        _os_log_impl(&dword_25DED8000, v2, OS_LOG_TYPE_DEFAULT, "PDS has been disabled because the protocol version %@ is lower than the min enabled version %@", &v17, 0x16u);
+        v16 = 138412546;
+        v17 = v13;
+        v18 = 2112;
+        v19 = minEnabledVersion2;
+        _os_log_impl(&dword_25DED8000, v2, OS_LOG_TYPE_DEFAULT, "PDS has been disabled because the protocol version %@ is lower than the min enabled version %@", &v16, 0x16u);
       }
     }
   }
 
-  result = 1;
-LABEL_9:
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (void)handler:(id)handler pushTokenChanged:(id)changed
@@ -1165,7 +1151,7 @@ LABEL_9:
 
 - (void)_comparePushTokensWithEntryStore:(id)store
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   pushTokenBlock = [(PDSCoordinator *)self pushTokenBlock];
   v6 = pushTokenBlock[2](pushTokenBlock, *MEMORY[0x277CEE9F0]);
@@ -1185,13 +1171,13 @@ LABEL_9:
       {
         v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"Production push token has changed!"];
         v13 = MEMORY[0x277D18988];
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __51__PDSCoordinator__comparePushTokensWithEntryStore___block_invoke;
-        v21[3] = &unk_2799F8318;
-        v22 = v12;
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __51__PDSCoordinator__comparePushTokensWithEntryStore___block_invoke;
+        v20[3] = &unk_2799F8318;
+        v21 = v12;
         v14 = v12;
-        [v13 triggerCaptureWithEvent:206 context:v14 completion:v21];
+        [v13 triggerCaptureWithEvent:206 context:v14 completion:v20];
       }
 
       v15 = pds_defaultLog();
@@ -1199,7 +1185,7 @@ LABEL_9:
       {
         v16 = [v6 debugDescription];
         *buf = 138412290;
-        v24 = v16;
+        v23 = v16;
         _os_log_impl(&dword_25DED8000, v15, OS_LOG_TYPE_DEFAULT, "Production push token has changed! New token: %@", buf, 0xCu);
       }
 
@@ -1215,7 +1201,7 @@ LABEL_9:
       {
         v18 = [v8 debugDescription];
         *buf = 138412290;
-        v24 = v18;
+        v23 = v18;
         _os_log_impl(&dword_25DED8000, v17, OS_LOG_TYPE_DEFAULT, "Sandbox push token has changed! New token: %@", buf, 0xCu);
       }
 
@@ -1234,34 +1220,30 @@ LABEL_9:
       _os_log_impl(&dword_25DED8000, v19, OS_LOG_TYPE_DEFAULT, "Missing push token! aborting", buf, 2u);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __51__PDSCoordinator__comparePushTokensWithEntryStore___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = pds_defaultLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
-    v10 = 138412802;
-    v11 = v8;
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    _os_log_impl(&dword_25DED8000, v7, OS_LOG_TYPE_DEFAULT, "Finished capturing AutoBugCapture diagnostics for push token change { context: %@, sessionID: %@, error: %@ }", &v10, 0x20u);
+    v9 = 138412802;
+    v10 = v8;
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    _os_log_impl(&dword_25DED8000, v7, OS_LOG_TYPE_DEFAULT, "Finished capturing AutoBugCapture diagnostics for push token change { context: %@, sessionID: %@, error: %@ }", &v9, 0x20u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_lastPushTokenDiffersFrom:(id)from
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   kvStoreBlock = [(PDSCoordinator *)self kvStoreBlock];
   v6 = kvStoreBlock[2]();
@@ -1271,19 +1253,18 @@ void __51__PDSCoordinator__comparePushTokensWithEntryStore___block_invoke(uint64
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [v7 debugDescription];
-    v13 = 138412290;
-    v14 = v9;
-    _os_log_impl(&dword_25DED8000, v8, OS_LOG_TYPE_DEFAULT, "Last push token: %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v9;
+    _os_log_impl(&dword_25DED8000, v8, OS_LOG_TYPE_DEFAULT, "Last push token: %@", &v12, 0xCu);
   }
 
   v10 = [v7 isEqualToData:fromCopy];
-  v11 = *MEMORY[0x277D85DE8];
   return v10 ^ 1;
 }
 
 - (BOOL)_lastSandboxPushTokenDiffersFrom:(id)from
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   kvStoreBlock = [(PDSCoordinator *)self kvStoreBlock];
   v6 = kvStoreBlock[2]();
@@ -1293,9 +1274,9 @@ void __51__PDSCoordinator__comparePushTokensWithEntryStore___block_invoke(uint64
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [v7 debugDescription];
-    v13 = 138412290;
-    v14 = v9;
-    _os_log_impl(&dword_25DED8000, v8, OS_LOG_TYPE_DEFAULT, "Last sandbox push token: %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v9;
+    _os_log_impl(&dword_25DED8000, v8, OS_LOG_TYPE_DEFAULT, "Last sandbox push token: %@", &v12, 0xCu);
   }
 
   if (fromCopy | v7)
@@ -1308,7 +1289,6 @@ void __51__PDSCoordinator__comparePushTokensWithEntryStore___block_invoke(uint64
     LOBYTE(v10) = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1420,16 +1400,14 @@ void __51__PDSCoordinator__comparePushTokensWithEntryStore___block_invoke(uint64
 
 - (void)requestQueue:(void *)a1 processedRequest:(void *)a2 withResponse:(NSObject *)a3 .cold.1(void *a1, void *a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = [a1 ttl];
   v6 = [a2 serverBag];
-  v8 = 134218240;
-  v9 = v5;
-  v10 = 2048;
-  v11 = [v6 ttlFromBag];
-  _os_log_error_impl(&dword_25DED8000, a3, OS_LOG_TYPE_ERROR, "PDS TTL response exceeded bag value (%ld > %ld). Using Bag value as TTL", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 134218240;
+  v8 = v5;
+  v9 = 2048;
+  v10 = [v6 ttlFromBag];
+  _os_log_error_impl(&dword_25DED8000, a3, OS_LOG_TYPE_ERROR, "PDS TTL response exceeded bag value (%ld > %ld). Using Bag value as TTL", &v7, 0x16u);
 }
 
 @end

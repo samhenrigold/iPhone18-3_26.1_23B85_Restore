@@ -119,7 +119,7 @@
   return v4;
 }
 
-uint64_t __72__CMCaptureFrameSenderEndpoints_initWithXPCArrayOfFrameSenderEndpoints___block_invoke(int a1, int a2, xpc_object_t xdict)
+uint64_t __72__CMCaptureFrameSenderEndpoints_initWithXPCArrayOfFrameSenderEndpoints___block_invoke(uint64_t a1, int a2, xpc_object_t xdict)
 {
   xpc_dictionary_get_value(xdict, "endpoint");
   FigXPCMessageCopyCFString();
@@ -178,7 +178,7 @@ LABEL_5:
         objc_enumerationMutation(array);
       }
 
-      if ([objc_msgSend(*(*(&v27 + 1) + 8 * v20) objectForKeyedSubscript:{@"endpoint-uid", "isEqualToString:", d}])
+      if (objc_msgSend_isEqualToString_([*(*(&v27 + 1) + 8 * v20) objectForKeyedSubscript:@"endpoint-uid"]))
       {
         break;
       }
@@ -332,64 +332,64 @@ LABEL_11:
 
 - (BOOL)removeEndpointWithUniqueID:(id)d
 {
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   allKeys = [(NSMutableDictionary *)self->_frameSenderEndpoints allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v21 objects:v20 count:16];
-  if (v6)
+  v5 = [allKeys countByEnumeratingWithState:&v20 objects:v19 count:16];
+  if (v5)
   {
-    v7 = v6;
-    v8 = *v22;
+    v6 = v5;
+    v7 = *v21;
     while (2)
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * i);
-        v11 = [(NSMutableDictionary *)self->_frameSenderEndpoints objectForKeyedSubscript:v10];
-        if ([v11 count])
+        v9 = *(*(&v20 + 1) + 8 * i);
+        v10 = [(NSMutableDictionary *)self->_frameSenderEndpoints objectForKeyedSubscript:v9];
+        if ([v10 count])
         {
-          v12 = 0;
-          while (![objc_msgSend(objc_msgSend(v11 objectAtIndexedSubscript:{v12), "objectForKeyedSubscript:", @"endpoint-uid", "isEqualToString:", d}])
+          v11 = 0;
+          while (!objc_msgSend_isEqualToString_([objc_msgSend(v10 objectAtIndexedSubscript:{v11), "objectForKeyedSubscript:", @"endpoint-uid"}]))
           {
-            if (++v12 >= [v11 count])
+            if (++v11 >= [v10 count])
             {
               goto LABEL_10;
             }
           }
 
-          [v11 removeObjectAtIndex:v12];
+          [v10 removeObjectAtIndex:v11];
           if (dword_1ED8441D0)
           {
-            v19 = 0;
+            v18 = 0;
             type = OS_LOG_TYPE_DEFAULT;
             os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
             os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
             fig_log_call_emit_and_clean_up_after_send_and_compose();
           }
 
-          if (![v11 count])
+          if (![v10 count])
           {
-            [(NSMutableDictionary *)self->_frameSenderEndpoints setObject:0 forKeyedSubscript:v10];
+            [(NSMutableDictionary *)self->_frameSenderEndpoints setObject:0 forKeyedSubscript:v9];
           }
 
-          v13 = 1;
-          return v13 | [(CMCaptureFrameSenderEndpoints *)self _pruneStalePIDsFromDictionary];
+          v12 = 1;
+          return v12 | [(CMCaptureFrameSenderEndpoints *)self _pruneStalePIDsFromDictionary];
         }
 
 LABEL_10:
         ;
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v21 objects:v20 count:16];
-      v13 = 0;
-      if (v7)
+      v6 = [allKeys countByEnumeratingWithState:&v20 objects:v19 count:16];
+      v12 = 0;
+      if (v6)
       {
         continue;
       }
@@ -400,10 +400,10 @@ LABEL_10:
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  return v13 | [(CMCaptureFrameSenderEndpoints *)self _pruneStalePIDsFromDictionary];
+  return v12 | [(CMCaptureFrameSenderEndpoints *)self _pruneStalePIDsFromDictionary];
 }
 
 - (id)createXPCArrayOfFrameSenderEndpoints

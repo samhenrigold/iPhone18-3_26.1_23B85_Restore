@@ -8,19 +8,17 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"isSuccess";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"isSuccess";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDCameraRecordingFragmentAnalyzedEvent isSuccess](self, "isSuccess")}];
-  v10[0] = v3;
-  v9[1] = @"recordingReason";
+  v9[0] = v3;
+  v8[1] = @"recordingReason";
   v4 = [MEMORY[0x277CCABB0] numberWithInt:{-[HMDCameraRecordingFragmentAnalyzedEvent recordingReason](self, "recordingReason")}];
-  v10[1] = v4;
-  v9[2] = @"motionActive";
+  v9[1] = v4;
+  v8[2] = @"motionActive";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDCameraRecordingFragmentAnalyzedEvent isMotionActive](self, "isMotionActive")}];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }

@@ -1040,7 +1040,7 @@ void __70__PKPaymentRemoteAlertViewController_configureWithContext_completion___
       v15 = 2;
     }
 
-    [v5 _transitionToViewStateScreen:v15 animated:{v5[1136], *v18}];
+    [v5 _transitionToViewStateScreen:v15 animated:{v5[1136], *v18, *&v18[8]}];
     [v5 _acquireStaticResources];
     [v5 _startBackgroundContactlessInterfaceSessionIfNeeded];
     v16 = *(a1 + 40);
@@ -1509,16 +1509,16 @@ void __90__PKPaymentRemoteAlertViewController__presentPassAnimated_externalizedC
   }
 }
 
-void __90__PKPaymentRemoteAlertViewController__presentPassAnimated_externalizedContext_completion___block_invoke_109(uint64_t a1)
+void __90__PKPaymentRemoteAlertViewController__presentPassAnimated_externalizedContext_completion___block_invoke_109(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = 134217984;
-    v5 = v3;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "PKPaymentRemoteAlertViewController (%p): backup presentation failed", &v4, 0xCu);
+    v4 = *(a1 + 32);
+    v5 = 134217984;
+    v6 = v4;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "PKPaymentRemoteAlertViewController (%p): backup presentation failed", &v5, 0xCu);
   }
 }
 
@@ -2111,17 +2111,17 @@ void __67__PKPaymentRemoteAlertViewController__dismissForSource_completion___blo
   }
 }
 
-uint64_t __67__PKPaymentRemoteAlertViewController__dismissForSource_completion___block_invoke_2(uint64_t result)
+void *__67__PKPaymentRemoteAlertViewController__dismissForSource_completion___block_invoke_2(void *result)
 {
-  v2 = *(*(result + 40) + 8);
+  v2 = *(*(result + 5) + 8);
   if ((*(v2 + 24) & 1) == 0)
   {
     v3 = result;
     *(v2 + 24) = 1;
-    WeakRetained = objc_loadWeakRetained((result + 48));
+    WeakRetained = objc_loadWeakRetained(result + 6);
     [WeakRetained _invalidate];
 
-    v5 = *(v3 + 32);
+    v5 = v3[4];
 
     return [v5 invalidate];
   }
@@ -2305,20 +2305,20 @@ LABEL_7:
   }
 }
 
-void __89__PKPaymentRemoteAlertViewController__startBackgroundContactlessInterfaceSessionIfNeeded__block_invoke(uint64_t a1)
+void __89__PKPaymentRemoteAlertViewController__startBackgroundContactlessInterfaceSessionIfNeeded__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "PKPaymentRemoteAlertViewController: Relinquishing background contactless interface session", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "PKPaymentRemoteAlertViewController: Relinquishing background contactless interface session", v7, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = WeakRetained;
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = *(WeakRetained + 145);
+    v6 = *(WeakRetained + 145);
     *(WeakRetained + 145) = 0;
   }
 }

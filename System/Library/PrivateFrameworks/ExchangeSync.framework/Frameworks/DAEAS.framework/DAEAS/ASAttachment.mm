@@ -245,7 +245,7 @@
 
 - (void)appendActiveSyncDataForTask:(id)task toData:(id)data
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   clientId = [(ASAttachment *)self clientId];
   [dataCopy appendTag:30 withStringContent:clientId];
@@ -261,7 +261,7 @@
     {
       clientId2 = [(ASAttachment *)self clientId];
       *buf = 138412290;
-      v22 = clientId2;
+      v21 = clientId2;
       _os_log_impl(&dword_24A0AC000, v10, v16, "Local URL not found for attachment client Id %@", buf, 0xCu);
     }
 
@@ -271,9 +271,9 @@
 
   v8 = MEMORY[0x277CBEA90];
   localPath2 = [(ASAttachment *)self localPath];
-  v20 = 0;
-  v10 = [v8 dataWithContentsOfURL:localPath2 options:0 error:&v20];
-  v11 = v20;
+  v19 = 0;
+  v10 = [v8 dataWithContentsOfURL:localPath2 options:0 error:&v19];
+  v11 = v19;
 
   if (v10)
   {
@@ -290,8 +290,6 @@ LABEL_7:
 
   displayName = [(ASAttachment *)self displayName];
   [dataCopy appendTag:16 withStringContent:displayName];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

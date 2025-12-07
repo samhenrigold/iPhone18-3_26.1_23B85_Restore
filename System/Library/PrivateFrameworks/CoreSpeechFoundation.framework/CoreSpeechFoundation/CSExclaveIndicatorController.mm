@@ -1,7 +1,6 @@
 @interface CSExclaveIndicatorController
 - (CSExclaveIndicatorController)init;
 - (unint64_t)_getCSFSensorStatusWithExclaveSensorStatus:(unsigned int)status;
-- (unint64_t)fetchCurrentSensorStatus;
 - (unint64_t)sensorStart;
 - (unint64_t)sensorStop;
 - (void)copyBufferWithSize:(unsigned int)size;
@@ -23,13 +22,6 @@
   }
 }
 
-- (unint64_t)fetchCurrentSensorStatus
-{
-  sensor_port = self->_sensor_port;
-  exclaves_sensor_status();
-  return [(CSExclaveIndicatorController *)self _getCSFSensorStatusWithExclaveSensorStatus:0];
-}
-
 - (void)dealloc
 {
   [(CSExclaveIndicatorController *)self sensorStop];
@@ -47,116 +39,97 @@
 
 - (unint64_t)sensorStop
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (self->_hasStarted)
   {
-    sensor_port = self->_sensor_port;
     if (!exclaves_sensor_stop())
     {
       self->_hasStarted = 0;
     }
 
-    v4 = CSLogContextFacilityCoreSpeech;
+    v3 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v9 = "[CSExclaveIndicatorController sensorStop]";
-      v10 = 1024;
-      v11 = 0;
-      _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s After Sensor Stop Sensor Status : %d", buf, 0x12u);
+      v7 = "[CSExclaveIndicatorController sensorStop]";
+      v8 = 1024;
+      v9 = 0;
+      _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s After Sensor Stop Sensor Status : %d", buf, 0x12u);
     }
 
-    result = [(CSExclaveIndicatorController *)self _getCSFSensorStatusWithExclaveSensorStatus:0];
+    return [(CSExclaveIndicatorController *)self _getCSFSensorStatusWithExclaveSensorStatus:0];
   }
 
   else
   {
-    v6 = CSLogContextFacilityCoreSpeech;
+    v5 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v9 = "[CSExclaveIndicatorController sensorStop]";
-      _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s Sensor stop before start", buf, 0xCu);
+      v7 = "[CSExclaveIndicatorController sensorStop]";
+      _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s Sensor stop before start", buf, 0xCu);
     }
 
-    result = 4;
+    return 4;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (unint64_t)sensorStart
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (self->_hasStarted)
   {
-    result = 5;
+    return 5;
   }
 
-  else
+  v4 = exclaves_sensor_start();
+  v5 = CSLogContextFacilityCoreSpeech;
+  if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    sensor_port = self->_sensor_port;
-    v5 = exclaves_sensor_start();
-    v6 = CSLogContextFacilityCoreSpeech;
-    if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 136315394;
-      v9 = "[CSExclaveIndicatorController sensorStart]";
-      v10 = 1024;
-      v11 = 0;
-      _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s After Sensor Start Sensor Status : %d", buf, 0x12u);
-    }
-
-    if (!v5)
-    {
-      self->_hasStarted = 1;
-    }
-
-    result = [(CSExclaveIndicatorController *)self _getCSFSensorStatusWithExclaveSensorStatus:0];
+    *buf = 136315394;
+    v7 = "[CSExclaveIndicatorController sensorStart]";
+    v8 = 1024;
+    v9 = 0;
+    _os_log_impl(&dword_1DDA4B000, v5, OS_LOG_TYPE_DEFAULT, "%s After Sensor Start Sensor Status : %d", buf, 0x12u);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  if (!v4)
+  {
+    self->_hasStarted = 1;
+  }
+
+  return [(CSExclaveIndicatorController *)self _getCSFSensorStatusWithExclaveSensorStatus:0];
 }
 
 - (void)copyBufferWithSize:(unsigned int)size
 {
-  v15 = *MEMORY[0x1E69E9840];
-  buffer_port = self->_buffer_port;
-  mem = self->_mem;
-  v6 = exclaves_audio_buffer_copyout();
-  if (v6)
+  v12 = *MEMORY[0x1E69E9840];
+  v4 = exclaves_audio_buffer_copyout();
+  if (!v4)
   {
-    v7 = v6;
-    v8 = CSLogContextFacilityCoreSpeech;
-    if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
-    {
-      v11 = 136315394;
-      v12 = "[CSExclaveIndicatorController copyBufferWithSize:]";
-      v13 = 1024;
-      v14 = v7;
-      _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s Failed EIC buffer copy : %d", &v11, 0x12u);
-    }
-
-    result = 0;
+    return self->_mem;
   }
 
-  else
+  v5 = v4;
+  v6 = CSLogContextFacilityCoreSpeech;
+  if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    result = self->_mem;
+    v8 = 136315394;
+    v9 = "[CSExclaveIndicatorController copyBufferWithSize:]";
+    v10 = 1024;
+    v11 = v5;
+    _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s Failed EIC buffer copy : %d", &v8, 0x12u);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (CSExclaveIndicatorController)init
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = CSExclaveIndicatorController;
-  v2 = [(CSExclaveIndicatorController *)&v13 init];
+  v16 = *MEMORY[0x1E69E9840];
+  v11.receiver = self;
+  v11.super_class = CSExclaveIndicatorController;
+  v2 = [(CSExclaveIndicatorController *)&v11 init];
   if (!v2)
   {
     goto LABEL_15;
@@ -166,7 +139,7 @@
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v15 = "[CSExclaveIndicatorController init]";
+    v13 = "[CSExclaveIndicatorController init]";
     _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Creating EIC Sensor?", buf, 0xCu);
   }
 
@@ -178,9 +151,9 @@
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v15 = "[CSExclaveIndicatorController init]";
-      v16 = 1024;
-      v17 = v5;
+      v13 = "[CSExclaveIndicatorController init]";
+      v14 = 1024;
+      v15 = v5;
       _os_log_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_DEFAULT, "%s Failed EIC sensor creation : %d", buf, 0x12u);
     }
 
@@ -188,16 +161,15 @@
     goto LABEL_16;
   }
 
-  sensor_port = v2->_sensor_port;
   exclaves_sensor_status();
-  v9 = CSLogContextFacilityCoreSpeech;
+  v8 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v15 = "[CSExclaveIndicatorController init]";
-    v16 = 1024;
-    v17 = 0;
-    _os_log_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_DEFAULT, "%s After Sensor Creation Sensor Status : %d", buf, 0x12u);
+    v13 = "[CSExclaveIndicatorController init]";
+    v14 = 1024;
+    v15 = 0;
+    _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s After Sensor Creation Sensor Status : %d", buf, 0x12u);
   }
 
   v2->_mem = malloc_type_calloc(1uLL, 0x10000uLL, 0xC775CD87uLL);
@@ -209,12 +181,12 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v10 = CSLogContextFacilityCoreSpeech;
+  v9 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v15 = "[CSExclaveIndicatorController init]";
-    _os_log_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_DEFAULT, "%s Failed EIC audio buffer creation", buf, 0xCu);
+    v13 = "[CSExclaveIndicatorController init]";
+    _os_log_impl(&dword_1DDA4B000, v9, OS_LOG_TYPE_DEFAULT, "%s Failed EIC audio buffer creation", buf, 0xCu);
   }
 
   free(v2->_mem);
@@ -222,7 +194,6 @@ LABEL_15:
   v2->_mem = 0;
 LABEL_16:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

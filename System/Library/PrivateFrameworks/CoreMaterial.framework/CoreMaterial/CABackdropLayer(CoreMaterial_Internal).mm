@@ -9,7 +9,7 @@
 + (id)mt_keyPathForColorMatrixDrivenOpacity
 {
   v0 = MTFilterKeyPathForFilter(@"opacityColorMatrix");
-  v1 = [v0 stringByAppendingFormat:@".%@", @"inputColorMatrix"];
+  v1 = [v0 stringByAppendingFormat:@"inputColorMatrix"];
 
   return v1;
 }
@@ -17,7 +17,7 @@
 + (id)mt_keyPathForColorMatrixDrivenInoperativeOpacity
 {
   v0 = MTFilterKeyPathForFilter(@"inoperativeColorMatrix");
-  v1 = [v0 stringByAppendingFormat:@".%@", @"inputColorMatrix"];
+  v1 = [v0 stringByAppendingFormat:@"inputColorMatrix"];
 
   return v1;
 }

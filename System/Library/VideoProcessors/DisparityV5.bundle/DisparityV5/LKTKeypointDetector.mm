@@ -2,6 +2,7 @@
 + (void)_computeScalingFactor:(id)factor dst_tex:(SEL)dst_tex scale_xy_inv:(id)scale_xy_inv coeff:(id)coeff;
 - (CGSize)aux_size;
 - (CGSize)ref_size;
+- (LKTKeypointDetector)initWithMetalContext:(id)context width:(int)width height:(int)height nscales:(int)nscales lastScale:(int)scale;
 - (int)_computeFeaturesDerivativesWithCommandBuffer:(id)buffer in_tex:(id)in_tex out_tex:(id)out_tex;
 - (int)_computeFeaturesWithCommandBuffer:(id)buffer in_tex:(id)in_tex out_tex:(id)out_tex;
 - (int)_computeOpticalFlowBidirectional;
@@ -21,6 +22,39 @@
 @end
 
 @implementation LKTKeypointDetector
+
+- (LKTKeypointDetector)initWithMetalContext:(id)context width:(int)width height:(int)height nscales:(int)nscales lastScale:(int)scale
+{
+  v7 = *&scale;
+  v8 = *&nscales;
+  v9 = *&height;
+  v10 = *&width;
+  contextCopy = context;
+  v61.receiver = self;
+  v61.super_class = LKTKeypointDetector;
+  v14 = [(LKTKeypointDetector *)&v61 init];
+  v20 = v14;
+  if (v14)
+  {
+    if ((v9 | v10))
+    {
+      v60 = objc_msgSend_exceptionWithName_reason_userInfo_(MEMORY[0x29EDB8DD0], v15, @"Invalid parameter", @"Odd image dimensions are not supported", 0, v16, v17, v18, v19);
+      objc_exception_throw(v60);
+    }
+
+    objc_storeStrong(&v14->_mtlContext, context);
+    v29 = objc_msgSend_commandQueue(contextCopy, v21, v22, v23, v24, v25, v26, v27, v28);
+    commandQueue = v20->_commandQueue;
+    v20->_commandQueue = v29;
+
+    objc_msgSend__setDefaultParameters(v20, v31, v32, v33, v34, v35, v36, v37, v38);
+    objc_msgSend__initMemory_height_nscales_lastScale_(v20, v39, v10, v9, v8, v7, v40, v41, v42);
+    objc_msgSend__setupPipelines(v20, v43, v44, v45, v46, v47, v48, v49, v50);
+    objc_msgSend__setupBuffer(v20, v51, v52, v53, v54, v55, v56, v57, v58);
+  }
+
+  return v20;
+}
 
 - (void)dealloc
 {
@@ -659,17 +693,17 @@ LABEL_5:
             {
               v67 = 0;
               v68 = (width + maxThreadExecutionWidth - 1) / maxThreadExecutionWidth * maxThreadExecutionWidth * height;
-              v477 = 8 * v68;
+              v461 = 8 * v68;
               Adiagb_buf = self->_Adiagb_buf;
-              v472 = v68;
-              v474 = 2 * v68;
+              v456 = v68;
+              v458 = 2 * v68;
               Ixy_buf = self->_Ixy_buf;
               v71 = 1;
               while (1)
               {
                 v72 = v71;
                 v73 = objc_msgSend_device(self->_mtlContext, v59, v60, v61, v62, v63, v64, v65, v66);
-                v80 = objc_msgSend_newBufferWithLength_options_(v73, v74, v477, 0, v75, v76, v77, v78, v79);
+                v80 = objc_msgSend_newBufferWithLength_options_(v73, v74, v461, 0, v75, v76, v77, v78, v79);
                 v81 = Adiagb_buf[v67];
                 Adiagb_buf[v67] = v80;
 
@@ -679,7 +713,7 @@ LABEL_5:
                 }
 
                 v90 = objc_msgSend_device(self->_mtlContext, v82, v83, v84, v85, v86, v87, v88, v89);
-                v97 = objc_msgSend_newBufferWithLength_options_(v90, v91, v474, 0, v92, v93, v94, v95, v96);
+                v97 = objc_msgSend_newBufferWithLength_options_(v90, v91, v458, 0, v92, v93, v94, v95, v96);
                 v98 = Ixy_buf[v67];
                 Ixy_buf[v67] = v97;
 
@@ -709,7 +743,7 @@ LABEL_5:
                 if ((v72 & 1) == 0)
                 {
                   v119 = objc_msgSend_device(self->_mtlContext, v59, v60, v61, v62, v63, v64, v65, v66);
-                  v126 = objc_msgSend_newBufferWithLength_options_(v119, v120, 4 * v472, 0, v121, v122, v123, v124, v125);
+                  v126 = objc_msgSend_newBufferWithLength_options_(v119, v120, 4 * v456, 0, v121, v122, v123, v124, v125);
                   idt_buf = self->_idt_buf;
                   self->_idt_buf = v126;
 
@@ -721,46 +755,46 @@ LABEL_5:
                   if (self->_nscales < 1)
                   {
 LABEL_27:
-                    v307 = objc_msgSend_device(self->_mtlContext, v128, v129, v130, v131, v132, v133, v134, *v135.i32, v469);
-                    v314 = objc_msgSend_newBufferWithLength_options_(v307, v308, 0x40000, 0, v309, v310, v311, v312, v313);
+                    v291 = objc_msgSend_device(self->_mtlContext, v128, v129, v130, v131, v132, v133, v134, *v135.i32, v453);
+                    v298 = objc_msgSend_newBufferWithLength_options_(v291, v292, 0x40000, 0, v293, v294, v295, v296, v297);
                     kpt_buf = self->_kpt_buf;
-                    self->_kpt_buf = v314;
+                    self->_kpt_buf = v298;
 
-                    v324 = objc_msgSend_device(self->_mtlContext, v316, v317, v318, v319, v320, v321, v322, v323);
-                    v331 = objc_msgSend_newBufferWithLength_options_(v324, v325, 0x40000, 0, v326, v327, v328, v329, v330);
+                    v308 = objc_msgSend_device(self->_mtlContext, v300, v301, v302, v303, v304, v305, v306, v307);
+                    v315 = objc_msgSend_newBufferWithLength_options_(v308, v309, 0x40000, 0, v310, v311, v312, v313, v314);
                     kpt_confidence = self->_kpt_confidence;
-                    self->_kpt_confidence = v331;
+                    self->_kpt_confidence = v315;
 
-                    v333 = MEMORY[0x29EDBB670];
-                    v334 = self->_I_tex[0][self->_lastScale];
-                    v343 = objc_msgSend_width(v334, v335, v336, v337, v338, v339, v340, v341, v342);
-                    v352 = objc_msgSend_height(v334, v344, v345, v346, v347, v348, v349, v350, v351);
-                    v357 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(v333, v353, 65, v343, v352, 0, v354, v355, v356);
-                    objc_msgSend_setUsage_(v357, v358, 19, v359, v360, v361, v362, v363, v364);
-                    v373 = objc_msgSend_device(self->_mtlContext, v365, v366, v367, v368, v369, v370, v371, v372);
-                    v381 = objc_msgSend_newTextureWithDescriptor_(v373, v374, v357, v375, v376, v377, v378, v379, v380);
+                    v317 = MEMORY[0x29EDBB670];
+                    v318 = self->_I_tex[0][self->_lastScale];
+                    v327 = objc_msgSend_width(v318, v319, v320, v321, v322, v323, v324, v325, v326);
+                    v336 = objc_msgSend_height(v318, v328, v329, v330, v331, v332, v333, v334, v335);
+                    v341 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(v317, v337, 65, v327, v336, 0, v338, v339, v340);
+                    objc_msgSend_setUsage_(v341, v342, 19, v343, v344, v345, v346, v347, v348);
+                    v357 = objc_msgSend_device(self->_mtlContext, v349, v350, v351, v352, v353, v354, v355, v356);
+                    v365 = objc_msgSend_newTextureWithDescriptor_(v357, v358, v341, v359, v360, v361, v362, v363, v364);
                     uv_fwd_tex_user_ref = self->_uv_fwd_tex_user_ref;
-                    self->_uv_fwd_tex_user_ref = v381;
+                    self->_uv_fwd_tex_user_ref = v365;
 
-                    v391 = objc_msgSend_device(self->_mtlContext, v383, v384, v385, v386, v387, v388, v389, v390);
-                    v399 = objc_msgSend_newTextureWithDescriptor_(v391, v392, v357, v393, v394, v395, v396, v397, v398);
+                    v375 = objc_msgSend_device(self->_mtlContext, v367, v368, v369, v370, v371, v372, v373, v374);
+                    v383 = objc_msgSend_newTextureWithDescriptor_(v375, v376, v341, v377, v378, v379, v380, v381, v382);
                     uv_bwd_tex_user_ref = self->_uv_bwd_tex_user_ref;
-                    self->_uv_bwd_tex_user_ref = v399;
+                    self->_uv_bwd_tex_user_ref = v383;
 
-                    v401 = MEMORY[0x29EDBB670];
-                    v410 = objc_msgSend_width(v334, v402, v403, v404, v405, v406, v407, v408, v409);
-                    v419 = objc_msgSend_height(v334, v411, v412, v413, v414, v415, v416, v417, v418);
-                    v424 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(v401, v420, 25, v410, v419, 0, v421, v422, v423);
-                    objc_msgSend_setUsage_(v424, v425, 19, v426, v427, v428, v429, v430, v431);
-                    v440 = objc_msgSend_device(self->_mtlContext, v432, v433, v434, v435, v436, v437, v438, v439);
-                    v448 = objc_msgSend_newTextureWithDescriptor_(v440, v441, v424, v442, v443, v444, v445, v446, v447);
+                    v385 = MEMORY[0x29EDBB670];
+                    v394 = objc_msgSend_width(v318, v386, v387, v388, v389, v390, v391, v392, v393);
+                    v403 = objc_msgSend_height(v318, v395, v396, v397, v398, v399, v400, v401, v402);
+                    v408 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(v385, v404, 25, v394, v403, 0, v405, v406, v407);
+                    objc_msgSend_setUsage_(v408, v409, 19, v410, v411, v412, v413, v414, v415);
+                    v424 = objc_msgSend_device(self->_mtlContext, v416, v417, v418, v419, v420, v421, v422, v423);
+                    v432 = objc_msgSend_newTextureWithDescriptor_(v424, v425, v408, v426, v427, v428, v429, v430, v431);
                     conf_fwd_tex_user_ref = self->_conf_fwd_tex_user_ref;
-                    self->_conf_fwd_tex_user_ref = v448;
+                    self->_conf_fwd_tex_user_ref = v432;
 
-                    v458 = objc_msgSend_device(self->_mtlContext, v450, v451, v452, v453, v454, v455, v456, v457);
-                    v466 = objc_msgSend_newTextureWithDescriptor_(v458, v459, v424, v460, v461, v462, v463, v464, v465);
+                    v442 = objc_msgSend_device(self->_mtlContext, v434, v435, v436, v437, v438, v439, v440, v441);
+                    v450 = objc_msgSend_newTextureWithDescriptor_(v442, v443, v408, v444, v445, v446, v447, v448, v449);
                     conf_bwd_tex_user_ref = self->_conf_bwd_tex_user_ref;
-                    self->_conf_bwd_tex_user_ref = v466;
+                    self->_conf_bwd_tex_user_ref = v450;
 
                     return 0;
                   }
@@ -770,10 +804,10 @@ LABEL_27:
                   G0_tex = self->_G0_tex;
                   C0_tex = self->_C0_tex;
                   v135 = vmovn_s64(vcvtq_s64_f64(self->_ref_size));
-                  v469 = self->_I_tex[1];
+                  v453 = self->_I_tex[1];
                   I_tex = self->_I_tex;
 LABEL_16:
-                  v478 = v135.i32[0];
+                  v462 = v135.i32[0];
                   v139 = v135.i32[1];
                   v140 = v137.i32[0];
                   v141 = v137.i32[1];
@@ -783,104 +817,88 @@ LABEL_16:
                   v143 = &self->_aux_pyr_size[v136];
                   v143->width = v137.i32[0];
                   v143->height = v137.i32[1];
-                  mtlContext = self->_mtlContext;
-                  G0_pxbuf = self->_G0_pxbuf;
-                  v146 = sub_29575F6B4();
-                  v155 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v147, v148, v149, v150, v151, v152, v153, v154, *&v146);
-                  v156 = G0_tex[v136];
-                  G0_tex[v136] = v155;
+                  v144 = sub_29575F6B4();
+                  v153 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v145, v146, v147, v148, v149, v150, v151, v152, *&v144);
+                  v154 = G0_tex[v136];
+                  G0_tex[v136] = v153;
 
                   if (G0_tex[v136])
                   {
-                    v475 = v140;
-                    v157 = self->_mtlContext;
-                    G1_pxbuf = self->_G1_pxbuf;
-                    v159 = sub_29575F740();
-                    v168 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v160, v161, v162, v163, v164, v165, v166, v167, *&v159);
-                    sub_29575F728(v168);
+                    v459 = v140;
+                    v155 = sub_29575F740();
+                    v164 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v156, v157, v158, v159, v160, v161, v162, v163, *&v155);
+                    sub_29575F728(v164);
                     if (self->_G1_tex[v136])
                     {
-                      v169 = self->_mtlContext;
-                      C0_pxbuf = self->_C0_pxbuf;
-                      v171 = sub_29575F6B4();
-                      v180 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v172, v173, v174, v175, v176, v177, v178, v179, *&v171);
-                      v181 = C0_tex[v136];
-                      C0_tex[v136] = v180;
+                      v165 = sub_29575F6B4();
+                      v174 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v166, v167, v168, v169, v170, v171, v172, v173, *&v165);
+                      v175 = C0_tex[v136];
+                      C0_tex[v136] = v174;
 
                       if (G0_tex[v136])
                       {
-                        v182 = self->_mtlContext;
-                        C1_pxbuf = self->_C1_pxbuf;
-                        v184 = sub_29575F740();
-                        v193 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v185, v186, v187, v188, v189, v190, v191, v192, *&v184);
-                        sub_29575F728(v193);
+                        v176 = sub_29575F740();
+                        v185 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v177, v178, v179, v180, v181, v182, v183, v184, *&v176);
+                        sub_29575F728(v185);
                         if (self->_C1_tex[v136])
                         {
-                          v194 = self->_mtlContext;
-                          conf_fwd_pxbuf = self->_conf_fwd_pxbuf;
-                          v196 = sub_29575F6B4();
-                          v205 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v197, v198, v199, v200, v201, v202, v203, v204, *&v196);
-                          sub_29575F728(v205);
+                          v186 = sub_29575F6B4();
+                          v195 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v187, v188, v189, v190, v191, v192, v193, v194, *&v186);
+                          sub_29575F728(v195);
                           if (self->_conf_fwd_tex[v136])
                           {
-                            v206 = self->_mtlContext;
-                            conf_bwd_pxbuf = self->_conf_bwd_pxbuf;
-                            v208 = sub_29575F6B4();
-                            v217 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v209, v210, v211, v212, v213, v214, v215, v216, *&v208);
-                            sub_29575F728(v217);
+                            v196 = sub_29575F6B4();
+                            v205 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v197, v198, v199, v200, v201, v202, v203, v204, *&v196);
+                            sub_29575F728(v205);
                             if (self->_conf_bwd_tex[v136])
                             {
-                              v473 = v141;
-                              v218 = 0;
-                              v219 = 1;
+                              v457 = v141;
+                              v206 = 0;
+                              v207 = 1;
                               while (1)
                               {
-                                v220 = v219;
-                                v221 = self->_mtlContext;
-                                v222 = self->_uv_fwd_pxbuf[v218];
-                                v223 = sub_29575F6B4();
-                                v232 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v224, v225, v226, v227, v228, v229, v230, v231, *&v223);
-                                v233 = self->_uv_fwd_tex[v218];
-                                v234 = v233[v136];
-                                v233[v136] = v232;
+                                v208 = v207;
+                                v209 = sub_29575F6B4();
+                                v218 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v210, v211, v212, v213, v214, v215, v216, v217, *&v209);
+                                v219 = self->_uv_fwd_tex[v206];
+                                v220 = v219[v136];
+                                v219[v136] = v218;
 
-                                if (!v233[v136])
+                                if (!v219[v136])
                                 {
                                   break;
                                 }
 
-                                v235 = self->_mtlContext;
-                                v236 = self->_uv_bwd_pxbuf[v218];
-                                v237 = sub_29575F6B4();
-                                v246 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v238, v239, v240, v241, v242, v243, v244, v245, *&v237);
-                                sub_29575F728(v246);
-                                if (!self->_uv_bwd_tex[v218][v136])
+                                v221 = sub_29575F6B4();
+                                v230 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(v222, v223, v224, v225, v226, v227, v228, v229, *&v221);
+                                sub_29575F728(v230);
+                                if (!self->_uv_bwd_tex[v206][v136])
                                 {
                                   break;
                                 }
 
-                                v219 = 0;
-                                v218 = 1;
-                                if ((v220 & 1) == 0)
+                                v207 = 0;
+                                v206 = 1;
+                                if ((v208 & 1) == 0)
                                 {
-                                  v251 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x29EDBB670], v247, 10, v478, v139, 0, v248, v249, v250);
-                                  objc_msgSend_setUsage_(v251, v252, 19, v253, v254, v255, v256, v257, v258);
-                                  v267 = objc_msgSend_device(self->_mtlContext, v259, v260, v261, v262, v263, v264, v265, v266);
-                                  v275 = objc_msgSend_newTextureWithDescriptor_(v267, v268, v251, v269, v270, v271, v272, v273, v274);
-                                  v276 = (*I_tex)[v136];
-                                  (*I_tex)[v136] = v275;
+                                  v235 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x29EDBB670], v231, 10, v462, v139, 0, v232, v233, v234);
+                                  objc_msgSend_setUsage_(v235, v236, 19, v237, v238, v239, v240, v241, v242);
+                                  v251 = objc_msgSend_device(self->_mtlContext, v243, v244, v245, v246, v247, v248, v249, v250);
+                                  v259 = objc_msgSend_newTextureWithDescriptor_(v251, v252, v235, v253, v254, v255, v256, v257, v258);
+                                  v260 = (*I_tex)[v136];
+                                  (*I_tex)[v136] = v259;
 
-                                  v479 = sub_29575F6F8(v478 % 2 + v478).n64_u64[0];
-                                  v281 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x29EDBB670], v277, 10, v475, v473, 0, v278, v279, v280);
-                                  objc_msgSend_setUsage_(v281, v282, 19, v283, v284, v285, v286, v287, v288);
-                                  v297 = objc_msgSend_device(self->_mtlContext, v289, v290, v291, v292, v293, v294, v295, v296);
-                                  v305 = objc_msgSend_newTextureWithDescriptor_(v297, v298, v281, v299, v300, v301, v302, v303, v304);
-                                  v306 = v469[v136];
-                                  v469[v136] = v305;
+                                  v463 = sub_29575F6F8(v462 % 2 + v462).n64_u64[0];
+                                  v265 = objc_msgSend_texture2DDescriptorWithPixelFormat_width_height_mipmapped_(MEMORY[0x29EDBB670], v261, 10, v459, v457, 0, v262, v263, v264);
+                                  objc_msgSend_setUsage_(v265, v266, 19, v267, v268, v269, v270, v271, v272);
+                                  v281 = objc_msgSend_device(self->_mtlContext, v273, v274, v275, v276, v277, v278, v279, v280);
+                                  v289 = objc_msgSend_newTextureWithDescriptor_(v281, v282, v265, v283, v284, v285, v286, v287, v288);
+                                  v290 = v453[v136];
+                                  v453[v136] = v289;
 
-                                  v476 = sub_29575F6F8(v475 % 2 + v475).n64_u64[0];
-                                  v137 = v476;
-                                  v135 = v479;
+                                  v460 = sub_29575F6F8(v459 % 2 + v459).n64_u64[0];
+                                  v137 = v460;
+                                  v135 = v463;
                                   ++v136;
                                   G0_tex = self->_G0_tex;
                                   if (v136 < self->_nscales)
@@ -1108,22 +1126,22 @@ LABEL_16:
   out_kpt_confCopy = out_kpt_conf;
   bufferCopy = buffer;
   v33 = objc_msgSend_width(in_uv_fwd_texCopy, v25, v26, v27, v28, v29, v30, v31, v32) / block_size;
-  v150 = 0;
+  v152 = 0;
   block_sizeCopy = block_size;
-  v145 = v33;
+  v147 = v33;
   v42 = objc_msgSend_height(in_uv_fwd_texCopy, v34, v35, v36, v37, v38, v39, v40, v41) / block_size;
-  v146 = v42;
+  v148 = v42;
   bidirectional_errorCopy = bidirectional_error;
   confidence_radial_weightCopy = confidence_radial_weight;
-  v149 = LODWORD(confidence_minimum);
+  v151 = LODWORD(confidence_minimum);
   v51 = objc_msgSend_computeCommandEncoder(bufferCopy, v43, v44, v45, v46, v47, v48, v49, v50);
 
   if (!v51)
   {
     sub_29574C6A0();
-    FigDebugAssert3();
+    FigDebugAssert3(v137, 0);
     sub_29575F6C8();
-    v135 = FigSignalErrorAtGM();
+    v135 = FigSignalErrorAtGM(v138);
 LABEL_7:
     v78 = in_conf_bwd_texCopy;
     v65 = in_uv_bwd_texCopy;
@@ -1154,13 +1172,13 @@ LABEL_7:
   objc_msgSend_setBytes_length_atIndex_(v51, v98, &block_sizeCopy, 32, 2, v99, v100, v101, v102);
   v111 = objc_msgSend_threadExecutionWidth(self->_computePipelines[8], v103, v104, v105, v106, v107, v108, v109, v110);
   v120 = objc_msgSend_maxTotalThreadsPerThreadgroup(self->_computePipelines[8], v112, v113, v114, v115, v116, v117, v118, v119);
-  v143[0] = v33;
-  v143[1] = v42;
-  v143[2] = 1;
-  v142[0] = v111;
-  v142[1] = v120 / v111;
-  v142[2] = 1;
-  objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v51, v121, v143, v142, v122, v123, v124, v125, v126);
+  v145[0] = v33;
+  v145[1] = v42;
+  v145[2] = 1;
+  v144[0] = v111;
+  v144[1] = v120 / v111;
+  v144[2] = 1;
+  objc_msgSend_dispatchThreads_threadsPerThreadgroup_(v51, v121, v145, v144, v122, v123, v124, v125, v126);
   objc_msgSend_endEncoding(v51, v127, v128, v129, v130, v131, v132, v133, v134);
   v135 = 0;
   *out_num_keypoints = v42 * v33;

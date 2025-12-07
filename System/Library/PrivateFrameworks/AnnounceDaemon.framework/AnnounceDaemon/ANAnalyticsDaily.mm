@@ -63,15 +63,15 @@
   defaults = [(ANAnalyticsDaily *)self defaults];
   v4 = [defaults BOOLForDefault:*MEMORY[0x277CEA818]];
 
-  v5 = ANLogHandleAnalyticsDaily();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  v6 = ANLogHandleAnalyticsDaily(v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (v4)
   {
-    if (v6)
+    if (v7)
     {
       *buf = 138412290;
       v12 = &stru_2851BDB18;
-      _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily starting.", buf, 0xCu);
+      _os_log_impl(&dword_23F525000, v6, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily starting.", buf, 0xCu);
     }
 
     [(ANAnalyticsDaily *)self _registerRapportDailyRequest];
@@ -90,26 +90,24 @@
 
   else
   {
-    if (v6)
+    if (v7)
     {
       *buf = 138412290;
       v12 = &stru_2851BDB18;
-      _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily events disabled.", buf, 0xCu);
+      _os_log_impl(&dword_23F525000, v6, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily events disabled.", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __25__ANAnalyticsDaily_start__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = ANLogHandleAnalyticsDaily();
+  v4 = ANLogHandleAnalyticsDaily(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = &stru_2851BDB18;
+    v11 = &stru_2851BDB18;
     _os_log_impl(&dword_23F525000, v4, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily executing.", buf, 0xCu);
   }
 
@@ -117,15 +115,13 @@ void __25__ANAnalyticsDaily_start__block_invoke(uint64_t a1, void *a2)
   [WeakRetained _recordExecutionTime];
 
   v6 = objc_loadWeakRetained((a1 + 32));
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __25__ANAnalyticsDaily_start__block_invoke_5;
-  v9[3] = &unk_278C86F00;
-  v10 = v3;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __25__ANAnalyticsDaily_start__block_invoke_5;
+  v8[3] = &unk_278C86F00;
+  v9 = v3;
   v7 = v3;
-  [v6 _executeBackgroundActivity:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v6 _executeBackgroundActivity:v8];
 }
 
 - (void)recordReachableHomes:(id)homes
@@ -151,73 +147,69 @@ void __25__ANAnalyticsDaily_start__block_invoke(uint64_t a1, void *a2)
   v10 = v9;
   [v5 doubleValue];
   v12 = v10 - v11;
-  [v5 doubleValue];
-  v14 = v13;
-  v15 = ANLogHandleAnalyticsDaily();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-  if (v14 == 0.0)
+  doubleValue = [v5 doubleValue];
+  v15 = v14;
+  v16 = ANLogHandleAnalyticsDaily(doubleValue);
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+  if (v15 == 0.0)
   {
-    if (v16)
+    if (v17)
     {
       v20 = 138412546;
       v21 = &stru_2851BDB18;
       v22 = 2048;
       v23 = v12;
-      v17 = "%@AnalyticsDaily first scheduled background activity at: %f";
+      v18 = "%@AnalyticsDaily first scheduled background activity at: %f";
 LABEL_6:
-      _os_log_impl(&dword_23F525000, v15, OS_LOG_TYPE_DEFAULT, v17, &v20, 0x16u);
+      _os_log_impl(&dword_23F525000, v16, OS_LOG_TYPE_DEFAULT, v18, &v20, 0x16u);
     }
   }
 
-  else if (v16)
+  else if (v17)
   {
     v20 = 138412546;
     v21 = &stru_2851BDB18;
     v22 = 2048;
     v23 = v12;
-    v17 = "%@AnalyticsDaily time since last scheduled background activity: %f";
+    v18 = "%@AnalyticsDaily time since last scheduled background activity: %f";
     goto LABEL_6;
   }
 
   defaults2 = [(ANAnalyticsDaily *)self defaults];
   [defaults2 setNumber:v8 forDefault:v4];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_executeBackgroundActivity:(id)activity
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
-  v5 = ANLogHandleAnalyticsDaily();
+  v5 = ANLogHandleAnalyticsDaily(activityCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = &stru_2851BDB18;
+    v11 = &stru_2851BDB18;
     _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily collecting.", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __47__ANAnalyticsDaily__executeBackgroundActivity___block_invoke;
-  v8[3] = &unk_278C86F50;
-  objc_copyWeak(&v10, buf);
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __47__ANAnalyticsDaily__executeBackgroundActivity___block_invoke;
+  v7[3] = &unk_278C86F50;
+  objc_copyWeak(&v9, buf);
   v6 = activityCopy;
-  v9 = v6;
-  [(ANAnalyticsDaily *)self _collectPayload:v8];
+  v8 = v6;
+  [(ANAnalyticsDaily *)self _collectPayload:v7];
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(buf);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__ANAnalyticsDaily__executeBackgroundActivity___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v8 = a2;
-  v9 = ANLogHandleAnalyticsDaily();
+  v9 = ANLogHandleAnalyticsDaily(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = v9;
@@ -237,9 +229,9 @@ uint64_t __47__ANAnalyticsDaily__executeBackgroundActivity___block_invoke(uint64
       }
 
       *buf = 138412546;
-      v23 = &stru_2851BDB18;
-      v24 = 2112;
-      v25 = v12;
+      v22 = &stru_2851BDB18;
+      v23 = 2112;
+      v24 = v12;
       _os_log_impl(&dword_23F525000, v10, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily %@.", buf, 0x16u);
       if (a4)
       {
@@ -264,9 +256,7 @@ uint64_t __47__ANAnalyticsDaily__executeBackgroundActivity___block_invoke(uint64
   v19 = objc_loadWeakRetained((a1 + 40));
   [v19 _cleanup];
 
-  result = (*(*(a1 + 32) + 16))();
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 - (void)_collectPayload:(id)payload
@@ -332,10 +322,9 @@ uint64_t __36__ANAnalyticsDaily__collectPayload___block_invoke(uint64_t a1)
   v3 = [WeakRetained backgroundActivity];
   [v3 shouldDefer];
 
-  v4 = *(a1 + 32);
-  v5 = *(*(a1 + 40) + 16);
+  v4 = *(*(a1 + 40) + 16);
 
-  return v5();
+  return v4();
 }
 
 - (id)_stringForDeferredResult:(int64_t)result
@@ -353,71 +342,71 @@ uint64_t __36__ANAnalyticsDaily__collectPayload___block_invoke(uint64_t a1)
 
 - (void)_reportEventStorage
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   eventStorage = [(ANAnalyticsDaily *)self eventStorage];
   eventsToReport = [eventStorage eventsToReport];
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   obj = [eventsToReport allKeys];
-  v5 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v5 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v30;
-    v21 = *v30;
-    v22 = eventsToReport;
+    v7 = *v29;
+    v20 = *v29;
+    v21 = eventsToReport;
     do
     {
       v8 = 0;
-      v23 = v6;
+      v22 = v6;
       do
       {
-        if (*v30 != v7)
+        if (*v29 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v29 + 1) + 8 * v8);
-        if ([v9 isEqualToString:{@"reachableHome", v21, v22}])
+        v9 = *(*(&v28 + 1) + 8 * v8);
+        if ([v9 isEqualToString:{@"reachableHome", v20, v21}])
         {
           v10 = [ANAnalyticsCounter alloc];
           v11 = [eventsToReport objectForKeyedSubscript:v9];
           delegate2 = -[ANAnalyticsCounter initWithHexCount:](v10, "initWithHexCount:", [v11 unsignedLongLongValue]);
 
           v13 = [(ANAnalyticsCounter *)delegate2 payload:@"home" keyTwo:@"rooms"];
+          v24 = 0u;
           v25 = 0u;
           v26 = 0u;
           v27 = 0u;
-          v28 = 0u;
-          v14 = [v13 countByEnumeratingWithState:&v25 objects:v33 count:16];
+          v14 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v26;
+            v16 = *v25;
             do
             {
               for (i = 0; i != v15; ++i)
               {
-                if (*v26 != v16)
+                if (*v25 != v16)
                 {
                   objc_enumerationMutation(v13);
                 }
 
-                v18 = *(*(&v25 + 1) + 8 * i);
+                v18 = *(*(&v24 + 1) + 8 * i);
                 delegate = [(ANAnalyticsDaily *)self delegate];
                 [delegate dailyReport:v9 withPayload:v18];
               }
 
-              v15 = [v13 countByEnumeratingWithState:&v25 objects:v33 count:16];
+              v15 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
             }
 
             while (v15);
-            v7 = v21;
-            eventsToReport = v22;
-            v6 = v23;
+            v7 = v20;
+            eventsToReport = v21;
+            v6 = v22;
           }
         }
 
@@ -432,13 +421,11 @@ uint64_t __36__ANAnalyticsDaily__collectPayload___block_invoke(uint64_t a1)
       }
 
       while (v8 != v6);
-      v6 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v6 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v6);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanup
@@ -458,34 +445,34 @@ uint64_t __36__ANAnalyticsDaily__collectPayload___block_invoke(uint64_t a1)
 
 - (void)_collectForHome:(id)home homes:(id)homes
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   homeCopy = home;
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   obj = homes;
-  v34 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
-  if (v34)
+  v33 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+  if (v33)
   {
-    v30 = 0;
-    v31 = 0;
     v29 = 0;
+    v30 = 0;
+    v28 = 0;
     v5 = 0;
     v6 = 0;
     v7 = 0;
     v8 = 0;
-    v33 = *v38;
+    v32 = *v37;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v38 != v33)
+      if (*v37 != v32)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v37 + 1) + 8 * v9);
+      v10 = *(*(&v36 + 1) + 8 * v9);
       backgroundActivity = [(ANAnalyticsDaily *)self backgroundActivity];
       shouldDefer = [backgroundActivity shouldDefer];
 
@@ -494,7 +481,7 @@ LABEL_3:
         break;
       }
 
-      v36 = v6;
+      v35 = v6;
       hmu_isCurrentUserAdministrator = [v10 hmu_isCurrentUserAdministrator];
       hmu_isCurrentUserOwner = [v10 hmu_isCurrentUserOwner];
       hmu_isRemoteAccessAllowedForCurrentUser = [v10 hmu_isRemoteAccessAllowedForCurrentUser];
@@ -505,13 +492,13 @@ LABEL_3:
       switch(deviceNotificationMode)
       {
         case 1:
-          ++v30;
+          ++v29;
           break;
         case 2:
-          ++v31;
+          ++v30;
           break;
         case 3:
-          ++v29;
+          ++v28;
           break;
       }
 
@@ -519,11 +506,11 @@ LABEL_3:
       v7 += hmu_isCurrentUserOwner;
       v5 += hmu_isCurrentUserAdministrator ^ 1;
       ++v9;
-      v6 = v36 + hmu_isRemoteAccessAllowedForCurrentUser;
-      if (v34 == v9)
+      v6 = v35 + hmu_isRemoteAccessAllowedForCurrentUser;
+      if (v33 == v9)
       {
-        v34 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
-        if (v34)
+        v33 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
+        if (v33)
         {
           goto LABEL_3;
         }
@@ -535,9 +522,9 @@ LABEL_3:
 
   else
   {
-    v30 = 0;
-    v31 = 0;
     v29 = 0;
+    v30 = 0;
+    v28 = 0;
     v5 = 0;
     v6 = 0;
     v7 = 0;
@@ -559,33 +546,32 @@ LABEL_3:
   v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v6];
   [homeCopy setObject:v23 forKeyedSubscript:@"homesWithRemoteAccess"];
 
-  v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v29];
+  v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v28];
   [homeCopy setObject:v24 forKeyedSubscript:@"deliveriesSetToAnywhere"];
 
-  v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v30];
+  v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v29];
   [homeCopy setObject:v25 forKeyedSubscript:@"deliveriesSetToNever"];
 
-  v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v31];
+  v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v30];
   [homeCopy setObject:v26 forKeyedSubscript:@"deliveriesSetToWhenHome"];
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_collectForAnnouncementsInHome:(id)home completion:(id)completion
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   completionCopy = completion;
-  if (![(ANAnalyticsDaily *)self _isCoordinationDevice])
+  _isCoordinationDevice = [(ANAnalyticsDaily *)self _isCoordinationDevice];
+  if ((_isCoordinationDevice & 1) == 0)
   {
-    v10 = ANLogHandleAnalyticsDaily();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = ANLogHandleAnalyticsDaily(_isCoordinationDevice);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v62 = &stru_2851BDB18;
-      v33 = "%@AnalyticsDaily ignoring collection for announcements in home. This device is not included in daily events coordination.";
+      v64 = &stru_2851BDB18;
+      v36 = "%@AnalyticsDaily ignoring collection for announcements in home. This device is not included in daily events coordination.";
 LABEL_18:
-      _os_log_impl(&dword_23F525000, v10, OS_LOG_TYPE_DEFAULT, v33, buf, 0xCu);
+      _os_log_impl(&dword_23F525000, v12, OS_LOG_TYPE_DEFAULT, v36, buf, 0xCu);
     }
 
 LABEL_19:
@@ -597,139 +583,139 @@ LABEL_19:
   messagingConnection = [(ANAnalyticsDaily *)self messagingConnection];
   isDeviceAnalyticsCoordinator = [messagingConnection isDeviceAnalyticsCoordinator];
 
-  v10 = ANLogHandleAnalyticsDaily();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  v12 = ANLogHandleAnalyticsDaily(v11);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
   if ((isDeviceAnalyticsCoordinator & 1) == 0)
   {
-    if (v11)
+    if (v13)
     {
       *buf = 138412290;
-      v62 = &stru_2851BDB18;
-      v33 = "%@AnalyticsDaily ignoring collection for announcements in home. This HomePod was not elected.";
+      v64 = &stru_2851BDB18;
+      v36 = "%@AnalyticsDaily ignoring collection for announcements in home. This HomePod was not elected.";
       goto LABEL_18;
     }
 
     goto LABEL_19;
   }
 
-  if (v11)
+  if (v13)
   {
     *buf = 138412290;
-    v62 = &stru_2851BDB18;
-    _os_log_impl(&dword_23F525000, v10, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily this HomePod was elected.", buf, 0xCu);
+    v64 = &stru_2851BDB18;
+    _os_log_impl(&dword_23F525000, v12, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily this HomePod was elected.", buf, 0xCu);
   }
 
-  v12 = dispatch_group_create();
-  v40 = objc_opt_new();
+  v14 = dispatch_group_create();
+  v42 = objc_opt_new();
   defaults = [(ANAnalyticsDaily *)self defaults];
-  v14 = [defaults objectForDefault:*MEMORY[0x277CEA8A8]];
+  v16 = [defaults objectForDefault:*MEMORY[0x277CEA8A8]];
 
-  v15 = [[ANAnalyticsDailyAnnouncements alloc] initWithDictionary:v14];
-  if ([(ANAnalyticsDailyAnnouncements *)v15 shouldReport])
+  v17 = [[ANAnalyticsDailyAnnouncements alloc] initWithDictionary:v16];
+  shouldReport = [(ANAnalyticsDailyAnnouncements *)v17 shouldReport];
+  if (shouldReport)
   {
-    v37 = v14;
-    v38 = completionCopy;
-    v39 = homeCopy;
+    v39 = v16;
+    v40 = completionCopy;
+    v41 = homeCopy;
     selfCopy = self;
     messagingConnection2 = [(ANAnalyticsDaily *)self messagingConnection];
     devicesCountingAnnouncements = [messagingConnection2 devicesCountingAnnouncements];
 
+    v60 = 0u;
+    v61 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v56 = 0u;
-    v57 = 0u;
-    v19 = devicesCountingAnnouncements;
-    v20 = [v19 countByEnumeratingWithState:&v56 objects:v60 count:16];
-    if (v20)
+    v22 = devicesCountingAnnouncements;
+    v23 = [v22 countByEnumeratingWithState:&v58 objects:v62 count:16];
+    if (v23)
     {
-      v21 = v20;
-      v22 = *v57;
+      v24 = v23;
+      v25 = *v59;
       do
       {
-        for (i = 0; i != v21; ++i)
+        for (i = 0; i != v24; ++i)
         {
-          if (*v57 != v22)
+          if (*v59 != v25)
           {
-            objc_enumerationMutation(v19);
+            objc_enumerationMutation(v22);
           }
 
-          v24 = *(*(&v56 + 1) + 8 * i);
-          dispatch_group_enter(v12);
+          v27 = *(*(&v58 + 1) + 8 * i);
+          dispatch_group_enter(v14);
           messagingConnection3 = [(ANAnalyticsDaily *)selfCopy messagingConnection];
-          v26 = [v19 objectForKeyedSubscript:v24];
-          v52[0] = MEMORY[0x277D85DD0];
-          v52[1] = 3221225472;
-          v52[2] = __62__ANAnalyticsDaily__collectForAnnouncementsInHome_completion___block_invoke;
-          v52[3] = &unk_278C86FA0;
-          v53 = v40;
-          v54 = v15;
-          v55 = v12;
-          [messagingConnection3 sendDailyRequest:v26 handler:v52];
+          v29 = [v22 objectForKeyedSubscript:v27];
+          v54[0] = MEMORY[0x277D85DD0];
+          v54[1] = 3221225472;
+          v54[2] = __62__ANAnalyticsDaily__collectForAnnouncementsInHome_completion___block_invoke;
+          v54[3] = &unk_278C86FA0;
+          v55 = v42;
+          v56 = v17;
+          v57 = v14;
+          [messagingConnection3 sendDailyRequest:v29 handler:v54];
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v56 objects:v60 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v58 objects:v62 count:16];
       }
 
-      while (v21);
+      while (v24);
     }
 
     objc_initWeak(buf, selfCopy);
-    v36 = dispatch_get_global_queue(9, 0);
-    v27 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, v36);
+    v38 = dispatch_get_global_queue(9, 0);
+    v30 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, v38);
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __62__ANAnalyticsDaily__collectForAnnouncementsInHome_completion___block_invoke_2;
     aBlock[3] = &unk_278C86EB8;
-    v48 = v27;
-    homeCopy = v39;
-    v49 = v39;
-    v50 = v15;
-    v51 = v38;
-    v28 = v27;
-    v29 = _Block_copy(aBlock);
+    v50 = v30;
+    homeCopy = v41;
+    v51 = v41;
+    v52 = v17;
+    v53 = v40;
+    v31 = v30;
+    v32 = _Block_copy(aBlock);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __62__ANAnalyticsDaily__collectForAnnouncementsInHome_completion___block_invoke_3;
     block[3] = &unk_278C86868;
-    objc_copyWeak(&v46, buf);
-    v30 = v29;
-    v45 = v30;
-    dispatch_group_notify(v12, v36, block);
+    objc_copyWeak(&v48, buf);
+    v33 = v32;
+    v47 = v33;
+    dispatch_group_notify(v14, v38, block);
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = __62__ANAnalyticsDaily__collectForAnnouncementsInHome_completion___block_invoke_88;
     handler[3] = &unk_278C86868;
-    objc_copyWeak(&v43, buf);
-    v42 = v30;
-    v31 = v30;
-    dispatch_source_set_event_handler(v28, handler);
-    v32 = dispatch_time(0, 2000000000);
-    dispatch_source_set_timer(v28, v32, 0x77359400uLL, 0);
-    dispatch_resume(v28);
+    objc_copyWeak(&v45, buf);
+    v44 = v33;
+    v34 = v33;
+    dispatch_source_set_event_handler(v31, handler);
+    v35 = dispatch_time(0, 2000000000);
+    dispatch_source_set_timer(v31, v35, 0x77359400uLL, 0);
+    dispatch_resume(v31);
 
-    objc_destroyWeak(&v43);
-    completionCopy = v38;
-    objc_destroyWeak(&v46);
+    objc_destroyWeak(&v45);
+    completionCopy = v40;
+    objc_destroyWeak(&v48);
 
     objc_destroyWeak(buf);
-    v14 = v37;
+    v16 = v39;
   }
 
   else
   {
-    v34 = ANLogHandleAnalyticsDaily();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v37 = ANLogHandleAnalyticsDaily(shouldReport);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v62 = &stru_2851BDB18;
-      _os_log_impl(&dword_23F525000, v34, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily not reporting for announcements in home since last report was too recent.", buf, 0xCu);
+      v64 = &stru_2851BDB18;
+      _os_log_impl(&dword_23F525000, v37, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily not reporting for announcements in home since last report was too recent.", buf, 0xCu);
     }
 
     completionCopy[2](completionCopy);
   }
 
 LABEL_24:
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __62__ANAnalyticsDaily__collectForAnnouncementsInHome_completion___block_invoke(uint64_t a1, void *a2)
@@ -770,17 +756,15 @@ uint64_t __62__ANAnalyticsDaily__collectForAnnouncementsInHome_completion___bloc
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained _resetDailyAnnouncements];
 
-  v3 = ANLogHandleAnalyticsDaily();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = ANLogHandleAnalyticsDaily(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
     v7 = &stru_2851BDB18;
-    _os_log_impl(&dword_23F525000, v3, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily completed collecting announcements made in home.", &v6, 0xCu);
+    _os_log_impl(&dword_23F525000, v4, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily completed collecting announcements made in home.", &v6, 0xCu);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 void __62__ANAnalyticsDaily__collectForAnnouncementsInHome_completion___block_invoke_88(uint64_t a1)
@@ -792,18 +776,16 @@ void __62__ANAnalyticsDaily__collectForAnnouncementsInHome_completion___block_in
 
   if (v4)
   {
-    v5 = ANLogHandleAnalyticsDaily();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = ANLogHandleAnalyticsDaily(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138412290;
       v8 = &stru_2851BDB18;
-      _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily should defer while collecting announcements in home.", &v7, 0xCu);
+      _os_log_impl(&dword_23F525000, v6, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily should defer while collecting announcements in home.", &v7, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)announcementSent:(id)sent inHome:(id)home
@@ -811,39 +793,39 @@ void __62__ANAnalyticsDaily__collectForAnnouncementsInHome_completion___block_in
   v19 = *MEMORY[0x277D85DE8];
   sentCopy = sent;
   homeCopy = home;
-  if ([(ANAnalyticsDaily *)self _isCoordinationDevice])
+  _isCoordinationDevice = [(ANAnalyticsDaily *)self _isCoordinationDevice];
+  if (_isCoordinationDevice)
   {
     defaults = [(ANAnalyticsDaily *)self defaults];
-    v9 = *MEMORY[0x277CEA8A8];
-    v10 = [defaults objectForDefault:*MEMORY[0x277CEA8A8]];
+    v10 = *MEMORY[0x277CEA8A8];
+    v11 = [defaults objectForDefault:*MEMORY[0x277CEA8A8]];
 
-    v11 = [[ANAnalyticsDailyAnnouncements alloc] initWithDictionary:v10];
+    v12 = [[ANAnalyticsDailyAnnouncements alloc] initWithDictionary:v11];
     groupID = [sentCopy groupID];
-    [(ANAnalyticsDailyAnnouncements *)v11 incrementCountInHome:homeCopy group:groupID];
+    [(ANAnalyticsDailyAnnouncements *)v12 incrementCountInHome:homeCopy group:groupID];
 
     defaults2 = [(ANAnalyticsDaily *)self defaults];
-    dictionary = [(ANAnalyticsDailyAnnouncements *)v11 dictionary];
-    [defaults2 setObject:dictionary forDefault:v9];
+    dictionary = [(ANAnalyticsDailyAnnouncements *)v12 dictionary];
+    [defaults2 setObject:dictionary forDefault:v10];
   }
 
   else
   {
-    v15 = ANLogHandleAnalyticsDaily();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = ANLogHandleAnalyticsDaily(_isCoordinationDevice);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v17 = 138412290;
       v18 = &stru_2851BDB18;
-      _os_log_impl(&dword_23F525000, v15, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily ignoring tracking of announcements sent. This device is not included in daily events coordination.", &v17, 0xCu);
+      _os_log_impl(&dword_23F525000, v16, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily ignoring tracking of announcements sent. This device is not included in daily events coordination.", &v17, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerRapportDailyRequest
 {
   location[3] = *MEMORY[0x277D85DE8];
-  if ([(ANAnalyticsDaily *)self _isCoordinationDevice])
+  _isCoordinationDevice = [(ANAnalyticsDaily *)self _isCoordinationDevice];
+  if (_isCoordinationDevice)
   {
     objc_initWeak(location, self);
     messagingConnection = [(ANAnalyticsDaily *)self messagingConnection];
@@ -860,16 +842,14 @@ void __62__ANAnalyticsDaily__collectForAnnouncementsInHome_completion___block_in
 
   else
   {
-    v4 = ANLogHandleAnalyticsDaily();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = ANLogHandleAnalyticsDaily(_isCoordinationDevice);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(location[0]) = 138412290;
       *(location + 4) = &stru_2851BDB18;
-      _os_log_impl(&dword_23F525000, v4, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily ignoring registration for rapport activation. This device is not included in daily events coordination.", location, 0xCu);
+      _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily ignoring registration for rapport activation. This device is not included in daily events coordination.", location, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 id __48__ANAnalyticsDaily__registerRapportDailyRequest__block_invoke(uint64_t a1)
@@ -879,26 +859,24 @@ id __48__ANAnalyticsDaily__registerRapportDailyRequest__block_invoke(uint64_t a1
 
   if (WeakRetained)
   {
-    v3 = objc_loadWeakRetained((a1 + 32));
-    v4 = [v3 _dailyResponse];
+    v4 = objc_loadWeakRetained((a1 + 32));
+    v5 = [v4 _dailyResponse];
   }
 
   else
   {
-    v5 = ANLogHandleAnalyticsDaily();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = ANLogHandleAnalyticsDaily(v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138412290;
       v9 = &stru_2851BDB18;
-      _os_log_impl(&dword_23F525000, v5, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily lost reference count for self on daily request registration.", &v8, 0xCu);
+      _os_log_impl(&dword_23F525000, v6, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily lost reference count for self on daily request registration.", &v8, 0xCu);
     }
 
-    v4 = MEMORY[0x277CBEC10];
+    v5 = MEMORY[0x277CBEC10];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-
-  return v4;
+  return v5;
 }
 
 - (id)_dailyResponse

@@ -13,7 +13,7 @@ const char *__46___SYSharedServiceDB_UnitTestHelpers___dbPath__block_invoke(uint
     v6 = *(v5 + 40);
     *(v5 + 40) = v4;
 
-    return MEMORY[0x1EEE66BB8]();
+    return MEMORY[0x1EEE66BB8](v4, v6);
   }
 
   return result;

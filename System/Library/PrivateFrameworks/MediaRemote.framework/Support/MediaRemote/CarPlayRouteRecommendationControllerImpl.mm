@@ -31,19 +31,18 @@
 - (void)mediaApplicationsInFocus:(id)focus
 {
   v4 = sub_1001BC5A8(&qword_100521B60, &qword_10044F1A0);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v12 - v6;
-  v8 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
-  v9 = type metadata accessor for TaskPriority();
-  (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
-  v10 = swift_allocObject();
-  v10[2] = 0;
-  v10[3] = 0;
-  v10[4] = self;
-  v10[5] = v8;
+  v6 = &v11 - v5;
+  v7 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = type metadata accessor for TaskPriority();
+  (*(*(v8 - 8) + 56))(v6, 1, 1, v8);
+  v9 = swift_allocObject();
+  v9[2] = 0;
+  v9[3] = 0;
+  v9[4] = self;
+  v9[5] = v7;
   selfCopy = self;
-  sub_1001CB290(0, 0, v7, &unk_100450540, v10);
+  sub_1001CB290(0, 0, v6, &unk_100450540, v9);
 }
 
 @end

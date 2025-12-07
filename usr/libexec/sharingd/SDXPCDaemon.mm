@@ -43,7 +43,7 @@
 {
   if ([(NSSet *)self->_activeConnections count])
   {
-    v4 = sub_10027D5C4();
+    sub_10027D5C4();
     [(SDXPCDaemon *)v4 setDispatchQueue:v5, v6];
   }
 
@@ -68,7 +68,7 @@
   objc_sync_enter(obj);
   if (obj->_activateCalled)
   {
-    FatalErrorF();
+    FatalErrorF("Attempt to set dispatch queue after activate has been called");
     __break(1u);
   }
 
